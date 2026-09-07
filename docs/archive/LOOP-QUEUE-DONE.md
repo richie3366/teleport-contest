@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-07
 
-- [x] `uhitm.c` passive — blocks 3/553 corpus sessions (first at step 121): C draws `rn2(3)=1` in passive, JS `d(1,6)=5` from damageum(uhitm.js:1285). Probe: `node scripts/hidden-proxy.mjs verify passive` (scen-poly-Healer-92107, scen-poly-Rogue-92026, scen-wish-Wizard-92153). **Addressed:** D-2052
+- [x] `spell.c` study_book — blocks 2/553 corpus sessions (first at step 83): C draws `rnd(25)=6` in study_book, JS `rn2(70)=50` from maybe_generate_rnd_mon(allmain.js:349). Probe: `node scripts/hidden-proxy.mjs verify study_book` (scen-wish-Healer-92029, scen-wish-Healer-92066). **Addressed:** D-2053
+
+
+- [x] `uhitm.c` passive — blocks 3/553 corpus sessions (first at step 121): C draws `rn2(3)=1` in passive, JS `d(1,6)=5` from damageum(uhitm.js:1285). Probe: `node scripts/hidden-proxy.mjs verify passive` (scen-poly-Healer-92107, scen-poly-Rogue-92026, scen-wish-Wizard-92153). **Addressed:** D-2052 `0e04e7bc`
 
 
 - [x] `hack.c` losehp — blocks 4/553 corpus sessions (first at step 23): C «You die...--More--» vs JS «The bow named the Longbow of Diana evades your grasp!--More-». Probe: `node scripts/hidden-proxy.mjs verify losehp` (scen-genesis-Archeologist-91132, scen-genesis-Ranger-92126, scen-wish-Tourist-92081). **Addressed:** D-2051 `d1f26ab3`

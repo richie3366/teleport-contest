@@ -108,7 +108,7 @@
 // same wand-duplicate group; callee zap.c `:521–544`).
 // SPE_DRAIN_LIFE self-dir zapyourself !Drain_resistance + losexp
 // (D-1446; callee zap.c `:2817–2823` / exper.c losexp).
-// Named omissions: dull sleep; confused_book body;
+// Named omissions: confused_book body;
 // learn lenses-speed / deadbook / faded-blank polish / check_unpaid;
 // swap/sort; other spelleffects otyps (remaining peffects
 // mix/potionhit/potionbreathe);
@@ -138,12 +138,14 @@ import { make_blinded } from './do.js';
 import { aggravate } from './wizard.js';
 import { make_confused, make_stunned, healup, make_slimed, peffects } from './potion.js';
 import { trycall, hcolor, hliquid, Hallucination, mon_nam, Monnam } from './do_name.js';
-import { an } from './objnam.js';
-import { is_whirly, is_animal } from './monsters.js';
-import { nomul, losehp, maybe_half_phys } from './hack.js';
+import { an, makeplural } from './objnam.js';
+import { is_whirly, is_animal, eyecount } from './monsters.js';
+import { nomul, losehp, maybe_half_phys, fall_asleep } from './hack.js';
 import { uhim } from './roles.js';
 import { erode_obj } from './trap.js';
 import { set_occupation } from './engrave.js';
+import { objdescr_is } from './apply.js';
+import { body_part } from './polyself.js';
 import { rndcurse, take_gold } from './sit.js';
 import { explode } from './explode.js';
 import { getdir } from './lock.js';
@@ -210,6 +212,7 @@ import {
     XKILL_GIVEMSG,
     HI_ZAP,
     HEAD,
+    EYE,
     CLAIRVOYANT,
     ACH_NOVL,
     LL_CONDUCT,
@@ -773,12 +776,12 @@ async function learn() {
 
 /**
  * C ref: spell.c study_book()
- * Branch envelope: blank paper; SPE_NOVEL read_tribute (D-1633);
- * already-known refresh yn (KEEN/10);
+ * Branch envelope: dull-book sleep (rnd(25)/resume rnd(oc_level)); blank paper;
+ * SPE_NOVEL read_tribute (D-1633); already-known refresh yn (KEEN/10);
  * delay by oc_level; uncursed rnd(20) fail gate; too_hard → cursed_book
  * + nomul + !rn2(3) crumble; begin-memorize + set_occupation(learn)
  * (D-0907); interrupted continue same-book skips fail gate.
- * Named omissions: dull-book sleep; confused_book body.
+ * Named omissions: confused_book body.
  * @returns {Promise<number>} 1 = took time, 0 = cancel / no time
  */
 export async function study_book(spellbook) {
@@ -786,10 +789,31 @@ export async function study_book(spellbook) {
     const booktype = spellbook.otyp | 0;
     const confused = !!(game.u?.Confusion);
 
-    // dull descr sleep deferred (objdescr_is "dull")
-
     if (!game.context) game.context = {};
     if (!game.context.spbook) game.context.spbook = {};
+
+    // C ref: spell.c study_book :472-495 — dull-book sleep. The rnd(25)
+    // (and resume rnd(oc_level)) draws happen even when the hero stays
+    // awake, so this arm must run before the interrupted-continue arm.
+    {
+        const uu = game.u || {};
+        const sleepRes = !!((uu.HSleep_resistance | 0)
+            || (uu.ESleep_resistance | 0) || uu.Sleep_resistance);
+        if (!confused && !sleepRes && objdescr_is(spellbook, 'dull')) {
+            const ocLevel = game.objects?.[booktype]?.oc_level | 0;
+            let dullbook = rnd(25) - acurr(A_WIS);
+            if (game.context.spbook.delay && game.context.spbook.book === spellbook)
+                dullbook -= rnd(ocLevel);
+            if (dullbook > 0) {
+                let eyes = body_part(EYE);
+                if (eyecount(game.youmonst?.data) > 1) eyes = makeplural(eyes);
+                await pline(`This book is so dull that you can't keep your ${eyes} open.`);
+                dullbook += rnd(2 * ocLevel);
+                fall_asleep(-dullbook, true);
+                return 1;
+            }
+        }
+    }
 
     // C: continue interrupted study of the same book — skip fail gate
     if (game.context.spbook.delay && !confused

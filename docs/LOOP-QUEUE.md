@@ -59,7 +59,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `spell.c` study_book — blocks 2/553 corpus sessions (first at step 83): C draws `rnd(25)=6` in study_book, JS `rn2(70)=50` from maybe_generate_rnd_mon(allmain.js:349). Probe: `node scripts/hidden-proxy.mjs verify study_book` (scen-wish-Healer-92029, scen-wish-Healer-92066).
 - [ ] `teleport.c` level_tele — blocks 3/553 corpus sessions (first at step 51): C «You materialize on a different level!--More--» vs JS «You materialize on a different level!». Probe: `node scripts/hidden-proxy.mjs verify level_tele` (scen-tour-Barbarian-92129, scen-tour-Samurai-92161, tour-Samurai-70015-d5-8-15-17-22).
 - [ ] `objnam.c` readobjnam — blocks 3/553 corpus sessions (first at step 59): C draws `rn2(2)=1` in readobjnam, JS `rn2(100)=29` from makewish(zap.js:6638). Probe: `node scripts/hidden-proxy.mjs verify readobjnam` (scen-wish-Caveman-92148, scen-wish-Priest-92136, scen-wish-Rogue-91119).
 - [ ] `dothrow.c` dofire — blocks 3/553 corpus sessions (first at step 38): C «You ready: b - a +0 short sword.--More--» vs JS «In what direction?». Probe: `node scripts/hidden-proxy.mjs verify dofire` (scen-normal-Barbarian-92036, scen-normal-Valkyrie-92237, scen-tour-Rogue-92030).

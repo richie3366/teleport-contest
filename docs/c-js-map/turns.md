@@ -2750,12 +2750,12 @@ JS: `js/spell.js` — partial
 **wizard `dospellmenu` turns / `spellknow(i)`** (D-0586); 
 **`dospellmenu` dismiss via `dismiss_nhw_menu`** (corner gbuf-flush ≠ docrt; D-0857); 
 **`skill_based_spellbook_id`** (D-0132); **`Z`/`docast`/`getspell` CAST + `spelleffects_check` + 
-SPE_HEALING self-zap** (D-0135); **`study_book` blank + known-refresh yn + delay/too_hard + 
-begin-memorize** (D-0136); **`cursed_book` `rn2(oc_level)` + `aggravate` + 
-too_hard nomul/`!rn2(3)` crumble** (D-0681); 
+SPE_HEALING self-zap** (D-0135); **`study_book` blank + known-refresh yn + delay/too_hard +
+begin-memorize** (D-0136); **`study_book` dull-book sleep `rnd(25)`/resume `rnd(oc_level)` + `fall_asleep`** (D-2053); **`cursed_book` `rn2(oc_level)` + `aggravate` +
+too_hard nomul/`!rn2(3)` crumble** (D-0681);
 **`set_occupation(learn)` + `learn` finish `makeknown` credit_hero** (D-0907); 
 **`cursed_book` default → `rndcurse`** (D-0969; 
-lenses-speed / confused_book / deadbook / novel / dull sleep / `In_W_tower` / check_unpaid / 
+lenses-speed / confused_book / deadbook / novel / `In_W_tower` / check_unpaid /
 shieldeff still deferred); **`tport_spell` hide/add/unhide/remove SPE_TELEPORT_AWAY (D-1209)**; 
 **`known_spell` + `dotele` energy/spellcast + `spelleffects` SPE_TELEPORT_AWAY atme + 
 `spelleffects_check` `check_capacity` (D-1225)**; 

@@ -88,10 +88,11 @@ Pop `LOOP-QUEUE.md` Must-fix (3 rows — review 1006) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `uhitm.c` passive — blocks 3/553 corpus sessions (first at step 121): C draws `rn2(3)=1` in passive, JS `d(1,6)=5` from damageum(uhitm.js:1285). Probe: `node scripts/hidden-proxy.mjs verify passive` (scen-poly-Healer-92107, scen-poly-Rogue-92026, scen-wish-Wizard-92153).
+**Next cluster:** `spell.c` study_book — blocks 2/553 corpus sessions (first at step 83): C draws `rnd(25)=6` in study_book, JS `rn2(70)=50` from maybe_generate_rnd_mon(allmain.js:349). Probe: `node scripts/hidden-proxy.mjs verify study_book` (scen-wish-Healer-92029, scen-wish-Healer-92066).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2052 (index).**
+**Keep D-0845…D-2053 (index).**
 <!-- recent:begin -->
+**D-2053** `spell.c study_book :468–496` (dull arm; `rnd(25)` at :478): `if (!confused && !Sleep_resi — `js/spell.js` — port the dull arm in exact C order (before the interrupted-continue arm, after context creation): `!confused && !sleepRes && objdescr_is(spellbook,'dull')` with `sleepRes = H||E||flat` (C H||E plus the JS
 **D-2052** (a) `uhitm.c find_roll_to_hit :375–380` (`+ maybe_polyd(youmonst.data->mlevel, u.ulevel)`) — `js/uhitm.js` — `find_roll_to_hit` adds `Upolyd(u) ? youmonst.data.mlevel : u.ulevel`; `abon` early-returns `adj_lev(youmonst.data)-3` when poly'd (`adj_lev` joins the existing `makemon.js` import — no new edge); all fiv
 **D-2051** `hack.c losehp :4256–4292` (fatal arm: killer-name copy, `urgent_pline("You die...")`, `do — `js/artifact.js` — after the blast-arm losehp, `await finish_maybe_wail()` (no-op unless the low-HP flag was set; C runs maybe_wail inside losehp before returning) then `if (game._losehp_needs_done) { await finish_losehp
 **D-2050** `polyself.c polymon :735–902` (entry `was_blind = !!Blind` :739, before `u.umonnum=mntmp;  — `js/polyself.js` — capture `wasBlind` at polymon entry with the C `Blind` predicate (same inline shape as `polyman`, incl.
@@ -99,11 +100,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2048** `invent.c addinv_core0 :1055–1148` (full body read from the brief): the `other_obj` reinse — `js/u_init.js` — deleted the merge-survivor fill hunk; left a two-line C comment (`merge paths goto added, bypassing :1128–1140 — no setuqwep here`).
 **D-2047** `monmove.c m_search_items :1329–1450` (full body read from the brief) + caller `monmove.c: — `js/monmove.js` — `const shopSkip = in_rooms(omx, omy, SHOPBASE) && (rn2(25) || mtmp.isshk)` with C short-circuit order (rn2 draws only in shop) gating the whole scan as C's `goto finish_search` (falls through to the tai
 **D-2046** `music.c do_play_instrument :759–899` (read whole body + apply.c:4383 caller) + `include/h — `js/music.js` — both `yn_function` defaults `'y'`→`'q'` with hack.h:1330 citation; `if/else-if` gate mirroring C `:763–773` (`can_blow(game.youmonst)` — same call shape as the sibling apply.js whistle arms D-1007; `thesi
-**D-2045** `pager.c do_screen_description` check_monsters (looked: `sym == gs.showsyms[i + SYM_OFF_M] — `js/pager.js` — monster arm now: prefix `mon_glyph(mtmp).ch` (shown char, C encglyph; same source `look_all` uses); body `an(mlet_class_explain(mlet))` + ` (look)` with `first = look` unstripped (C didlook; empty-look gu
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2052; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2053; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
