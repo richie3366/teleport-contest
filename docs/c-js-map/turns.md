@@ -1865,10 +1865,10 @@ flash mimic/gremlin deferred); **`apply_ok` SUGGEST tools/wands/spbooks +
 weapon/oil/food/graystone ranks** (D-0157); **`getobj_apply` prompt `compactify` when suggested>5; 
 `?` keeps raw lets** (D-0466); **getobj `?`/`*` → `display_pickinv_reply`; 
 sack/bag → `use_container` take-out** (D-0375) + **put-in coins MENU_FULL** (D-0376) + 
-**locked Hmmm pline** (D-0381) + **`in_or_out_menu` prompt ATR_INVERSE + SELECTED `*`** (D-0382) + 
+**locked `Tobjnam-are` pline** (D-0381 Hmmm corrected D-2028: Hmmm/`lknown` is `do_loot_cont` floor-#loot only; `use_container` held path is `Tobjnam(obj,"are")` + held put-down, no `lknown` touch) + **`in_or_out_menu` prompt ATR_INVERSE + SELECTED `*`** (D-0382; Look/stash rows use the discovery-aware `thesimpleoname` export D-2028 — known sack → "the sack") + 
 **`use_container` outmaybe/`yname` + MENU_FULL `query_category` put-in** (D-0394) + 
 **`used`→`cknown=1` containerdone** (D-0395) + 
-**`use_container` emptymsg `Ysimple_name2`** (D-0417; 
+**`use_container` emptymsg `Ysimple_name2`** (D-0417; D-2028: emptymsg + both loot-out fallbacks use the export; 
 **quantum `"now "` D-1535**; cursed-mbag `"now "` + full `minimal_xname` deferred); 
 **`do_play_instrument`/`do_improvisation` LEATHER_DRUM + `improvised_notes` + 
 `awaken_monsters`/`awaken_scare` TOOL `resist` alev=10 + auditory `onscary(0,0)`→`monflee` + 

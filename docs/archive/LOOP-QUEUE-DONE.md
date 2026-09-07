@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-07
 
-- [x] `wizard.c` pick_nasty juvenile alt gate **Addressed:** D-2027 — blocks 1/553 corpus sessions: scen-genesis-Caveman-92118 step 97/167 C «A green dragon appears next to you.» vs JS «A baby green dragon appears next to you.» (ROLL_FROM matches on GREEN_DRAGON; C `big_to_little` juvenile name-string gate keeps the adult, JS `pick_nasty` doc-named omission always accepts the non-geno baby alt; `newmonhp` is now verbatim so only the mndx input differs — see latest D-log entry). Probe: `node scripts/hidden-proxy.mjs show scen-genesis-Caveman-92118` (replay in output; `verify pick_nasty` is vacuous until rescore re-attributes it from `newmonhp`).
+- [x] `pickup.c` use_container — blocks 4/553 corpus sessions (first at step 84): C «Your sack is empty. Do what with it?» vs JS «Your sack is empty. Do what with it?». Probe: `node scripts/hidden-proxy.mjs verify use_container` (scen-intrinsic-Rogue-92089, scen-kit-Rogue-92225, scen-normal-Rogue-92160). **Addressed:** D-2028
+
+
+- [x] `wizard.c` pick_nasty juvenile alt gate **Addressed:** D-2027 `3dee5419` — blocks 1/553 corpus sessions: scen-genesis-Caveman-92118 step 97/167 C «A green dragon appears next to you.» vs JS «A baby green dragon appears next to you.» (ROLL_FROM matches on GREEN_DRAGON; C `big_to_little` juvenile name-string gate keeps the adult, JS `pick_nasty` doc-named omission always accepts the non-geno baby alt; `newmonhp` is now verbatim so only the mndx input differs — see latest D-log entry). Probe: `node scripts/hidden-proxy.mjs show scen-genesis-Caveman-92118` (replay in output; `verify pick_nasty` is vacuous until rescore re-attributes it from `newmonhp`).
 
 
 - [x] `eat.c` lesshungry — blocks 5/553 corpus sessions (first at step 7): C «You're finally finished.» vs JS «You finish eating the food ration.». Probe: `node scripts/hidden-proxy.mjs verify lesshungry` (scen-kit-Archeologist-92190, scen-kit-Monk-92139, scen-kit-Valkyrie-91116). **Addressed:** D-2026 `d4d3c77f`
