@@ -1000,3 +1000,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [987-e6c464a4-newmonhp-rider-elemental.md](./987-e6c464a4-newmonhp-rider-elemental.md) | `e6c464a4` | D-2017 newmonhp rider + home-elemental | **ACCEPT** |
 | [988-1453da16-tipcontainer-gettarget.md](./988-1453da16-tipcontainer-gettarget.md) | `1453da16` | D-2018 tipcontainer_gettarget menu-first | **ACCEPT** |
 | [989-2ae51922-get-count-custompline.md](./989-2ae51922-get-count-custompline.md) | `2ae51922` | D-2019 get_count echo custompline | **ACCEPT** |
+| [990-923fadb9-pager-found-count.md](./990-923fadb9-pager-found-count.md) | `923fadb9` | D-2020 describe_looked found-count 1→2 | **ACCEPT** |
+| [991-8f9bd758-readobjnam-zero-draw.md](./991-8f9bd758-readobjnam-zero-draw.md) | `8f9bd758` | D-2021 readobjnam zero-draw exact paths | **ACCEPT-WITH-DEBT** |
+| [992-d7b4d542-mitem-arrow-trap.md](./992-d7b4d542-mitem-arrow-trap.md) | `d7b4d542` | D-2022 mitem SPE_DIG + arrow-trap | **ACCEPT** |
+| [993-b18a67bd-slimed-to-death.md](./993-b18a67bd-slimed-to-death.md) | `b18a67bd` | D-2023 slimed_to_death | **ACCEPT** |
+| [994-b488e0f5-polymon-golemhp.md](./994-b488e0f5-polymon-golemhp.md) | `b488e0f5` | D-2024 polymon golemhp + home-elemental | **ACCEPT** |
+| [995-ecb05e6d-enlightenment-spfx.md](./995-ecb05e6d-enlightenment-spfx.md) | `ecb05e6d` | D-2025 enlightenment arms + abil_to_spfx | **ACCEPT** |
+| [996-d4d3c77f-done-eating.md](./996-d4d3c77f-done-eating.md) | `d4d3c77f` | D-2026 done_eating nomovemsg + consuming | **ACCEPT** |
+| [997-3dee5419-pick-nasty-juvenile.md](./997-3dee5419-pick-nasty-juvenile.md) | `3dee5419` | D-2027 pick_nasty juvenile gate | **ACCEPT** |

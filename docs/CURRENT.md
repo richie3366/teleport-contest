@@ -20,10 +20,10 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-07** — full `sessions` at **D-2019**
-(audit **982–989**, `2ae51922`+review). Fortress **44/44** (no throws).
+Score last measured: **2026-09-07** — full `sessions` at **D-2027**
+(audit **990–997**, `3dee5419`+review). Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`75+0.47/turn` (R² 0.78).
+`71+0.44/turn` (R² 0.78).
 
 ## Score
 
@@ -32,7 +32,7 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `75+0.47/turn` (R² 0.78) |
+| Speed label | `71+0.44/turn` (R² 0.78) |
 | Role-init throws | **0 / 44** |
 
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-06
@@ -46,7 +46,7 @@ the C recorder by `scripts/scenario-gen.mjs`) pass **7 / 275**, RNG
 they no longer pick work. Top owners: `welcome`→`calendar.c getlt` ×51,
 `do_statusline2` ×11, `break_armor` ×9, `exercise` ×8, `enlightenment`
 ×7, `wiz_intrinsic` ×7, 4 `ReferenceError` throws ×8 (Must-fix).
-Reviews 982–989: 7 ACCEPT, 1 QUALITY-RISK (983 pager found-count → Must-fix, first in queue).
+Reviews 990–997: 7 ACCEPT, 1 ACCEPT-WITH-DEBT (991 readobjnam grey-spell/armour fixups → map-name debt, no Must-fix).
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score --jobs 8`
 (≈200 s); when every family is ≥ 85 % PASS, grow it first:
 `node scripts/scenario-gen.mjs --n 120 --seed <iter×100>`.
@@ -85,7 +85,7 @@ Pop `LOOP-QUEUE.md` Must-fix (4 `ReferenceError` imports kill 8
 sessions) then Open in order; every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster (Must-fix first):** `- [ ] wizard.c pick_nasty juvenile alt gate — blocks 1/553 corpus sessions: scen-genesis-Caveman-92118 step 97/167 C «A green dragon appears next to you.» vs JS «A baby green dragon appears next to you.» Probe: node scripts/hidden-proxy.mjs show scen-genesis-Caveman-92118`.
+**Next cluster (Must-fix first):** `- [ ] pickup.c use_container — blocks 4/553 corpus sessions (first at step 84). Probe: node scripts/hidden-proxy.mjs verify use_container` (stale pick_nasty pointer retired by audit 990–997: D-2027 shipped it, Caveman-92118 → mhitm_mgc_atk_negated@127).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2027 (index).**
 <!-- recent:begin -->

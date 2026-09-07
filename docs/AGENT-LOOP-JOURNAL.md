@@ -8,6 +8,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-07 — Audit D-2020…D-2027 against pinned C (reviews 990–997) + cadence score 44/44
+
+7 ACCEPT, 1 ACCEPT-WITH-DEBT (991: readobjnam `:4469–4477` grey-spell/armour bp fixups unported+unnamed → map-name debt, no Must-fix). Every D-log corpus claim re-measured via `hidden-proxy verify <fn> --base <sha>~1`: 990 vacuous-confirm; 991/992/993/995/996/997 reproduce exactly (0 worse throughout); 994 reproduces incl. the wish-Tourist-91125 same-step flag (rebase drift, recipe never polyselfs — attribution accepted). Rule #2 clean, full `sessions` 44/44 (Scr 11405/11405, RNG 792838/792838). Retired stale Next-cluster pick_nasty pointer → queue head use_container. Must-fix stays empty; Open 11 in band 8–12, no refill.
 ## 2026-09-07 — D-2027 wizard.c pick_nasty: juvenile name-string gate on big_to_little alt (genesis-symptom writer, 1 moved)
 
 **C locus:** `wizard.c:537–581` `pick_nasty` — `:560–566` geno/difcap/hell demotion `alt = big_to_little(res)`; `:567–579` accept arm with the juvenile name-string gate: `mnam = mons[alt].pmnames[NEUTRAL]`, `lastspace = strrchr(mnam, ' ')`, `res = alt` only if `strncmp(mnam, "baby ", 5)` and `lastspace` is null or not ` hatchling`/` pup`/` cub` (`/* only non-juveniles can become alternate choice */`). ROLL_FROM hit adult GREEN_DRAGON (a NASTIES entry), demotion produced the baby alt, C kept the adult.
