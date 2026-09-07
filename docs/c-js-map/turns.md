@@ -3184,12 +3184,16 @@ JS: `js/uhitm.js`, `js/mhitm.js`, `js/explode.js` — partial
 **`find_mac` minvent worn ARM_BONUS/guarding + AC_MAX (D-1042; re-export from `worn.js`)**; 
 **`do_attack` `gu.unweapon` begin-bashing pline** (D-0892; 
 twoweapon/untwoweapon before it deferred; egg-useup re-arm still thin); 
-**`hmon_hitmon_weapon` ranged/melee dispatch + `hmon_hitmon_weapon_ranged` D-2036** 
+**`hmon_hitmon_weapon` ranged/melee dispatch + `hmon_hitmon_weapon_ranged` D-2036/D-2040** 
 (launcher / missile-or-ammo in hand / short unmounted non-Snickersnee pole / 
 ammo without its launcher → `ranged`: shade-without-glare 0 else `rnd(2)`, 
-silver-vs-hater `rnd(dmg?20:10)`, `use/train_weapon_skill` stay FALSE so the 
+silver-vs-hater `rnd(dmg?20:10)`, wielded-boomerang splinter tail D-2040 
+(`!thrown && obj==uwep && BOOMERANG && rnl(4)==3` → pline + uwepgone/useup + 
+hittxt + non-shade dmg++; C's `obj=0` is helper-local so JS keeps obj; yname 
+via the pre-existing local clone), `use/train_weapon_skill` stay FALSE so the 
 recalc adds udaminc + strength only; silver-sear *message* named — hmon has no 
-`msg_silver` plumbing on any weapon path); **`check_caitiff`/`find_roll_to_hit` 
+`msg_silver` plumbing on any weapon path; silver `is_vampshifter` disjunct open — 
+JS tests `hates_silver(data)`, live `mon_hates_silver(mon)` not yet wired); **`check_caitiff`/`find_roll_to_hit` 
 awaited D-2036** (C prints giri/chivalry synchronously before the attack roll; 
 un-awaited pline reordered the Samurai topline; `hitum`×2 + `hmonas`×3 + 
 `dokick` + `use_pole`/`use_grapple`×2 callers all await); **`u_init` 

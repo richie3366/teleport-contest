@@ -119,7 +119,7 @@ bundling is what let gaps 1–3 slip past the
 - Green 2/2 + strict ×2, cohort 7/7, full 44/44
   per D-log (owed for shared uhitm/wield, claimed).
 
-## Actionable C-wrongs
+## Actionable C-wrongs (**Addressed:** D-2040 covers item 1; items 2–3 stay queued)
 
 1. Port the boomerang tail (`uhitm.c:901–917`):
    `rnl(4)` splinter arm with uwepgone/useup +

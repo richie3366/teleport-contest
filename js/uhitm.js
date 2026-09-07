@@ -5,7 +5,7 @@
 //         hack.c overexertion; mon.c killed / xkilled / corpse_chance.
 
 import { game } from './gstate.js';
-import { rn2, rnd, d, rn1 } from './rng.js';
+import { rn2, rnd, d, rn1, rnl } from './rng.js';
 import {
     IS_OBSTRUCTED, IS_TREE, IS_DOOR, IRONBARS, D_CLOSED, D_LOCKED,
     HMON_MELEE, HMON_THROWN, HMON_KICKED, HMON_APPLIED, STRAT_WAITMASK,
@@ -41,8 +41,9 @@ import {
 } from './weapon.js';
 import {
     ammo_and_launcher, is_weptool, is_launcher, is_ammo, is_missile,
-    is_pole, drop_uswapwep,
+    is_pole, drop_uswapwep, uwepgone,
 } from './wield.js';
+import { useup } from './invent.js';
 import { PM_BARBARIAN, PM_MONK, PM_KNIGHT, PM_SAMURAI, PM_ARCHEOLOGIST, PM_WIZARD, PM_HUMAN } from './generated/monsters_data.js';
 import {
     find_mac, get_mattk, make_corpse, monstone, mhitm_knockback, monkilled,
@@ -155,6 +156,7 @@ const HEAVY_IRON_BALL = objectNames.indexOf('HEAVY_IRON_BALL');
 const TOWEL = objectNames.indexOf('TOWEL');
 const CREAM_PIE = objectNames.indexOf('CREAM_PIE');
 const BLINDING_VENOM = objectNames.indexOf('BLINDING_VENOM');
+const BOOMERANG = objectNames.indexOf('BOOMERANG');
 const WAN_LIGHT = objectNames.indexOf('WAN_LIGHT');
 const LOADSTONE = objectNames.indexOf('LOADSTONE');
 // C objclass.h ARM_SHIELD — armor oc_skill / oc_armcat
@@ -922,11 +924,12 @@ async function hmon(mon, obj, thrown, _dieroll) {
                 && !is_art(obj, ART_SNICKERSNEE))
             || (is_ammo(obj) && (thrown !== HMON_THROWN
                 || !ammo_and_launcher(obj, uW.uwep)))) {
-            // C uhitm.c hmon_hitmon_weapon_ranged :885–900. Silver sear
+            // C uhitm.c hmon_hitmon_weapon_ranged :885–917. Silver sear
             // message named (hmon has no msg_silver plumbing); shade with
-            // no glare takes 0. use/train_weapon_skill stay false (C init
-            // FALSE; the ranged arm sets neither), so the recalc below
-            // adds udaminc + strength only.
+            // no glare takes 0; wielded-boomerang splinter tail below.
+            // use/train_weapon_skill stay false (C init FALSE; the ranged
+            // arm sets neither), so the recalc below adds udaminc +
+            // strength only.
             if ((mon.data?.mndx | 0) === PM_SHADE && !shade_glare(obj)) {
                 dmg = 0;
             } else {
@@ -935,6 +938,21 @@ async function hmon(mon, obj, thrown, _dieroll) {
             if ((game.objects?.[obj.otyp]?.oc_material | 0) === SILVER
                 && hates_silver(mon.data)) {
                 dmg += rnd(dmg ? 20 : 10);
+            }
+            // C uhitm.c hmon_hitmon_weapon_ranged :901–917 — wielded
+            // boomerang may splinter: !thrown && obj==uwep && BOOMERANG
+            // && rnl(4)==3 → splinter pline + uwepgone/useup + hittxt
+            // + dmg++ (non-shade). C's obj=0 is local to the ranged
+            // helper (caller keeps obj), so no nulling here. yname is
+            // the pre-existing local clone below (wielded ⇒ "your X").
+            if (!thrown && obj === game.u?.uwep && obj.otyp === BOOMERANG
+                && rnl(4) === 3) {
+                const more_than_1 = (obj.quan | 0) > 1;
+                await pline(`As you hit ${mon_nam(mon)}, ${more_than_1 ? 'one of ' : ''}${yname(obj)} breaks into splinters.`);
+                if (!more_than_1) await uwepgone();
+                useup(obj);
+                hittxt = true;
+                if ((mon.data?.mndx | 0) !== PM_SHADE) dmg++;
             }
         } else {
             dmg = dmgval(obj, mon);

@@ -87,10 +87,11 @@ Pop `LOOP-QUEUE.md` Must-fix (3 rows — review 1006) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** Must-fix `uhitm.c` hmon_hitmon_weapon_ranged boomerang tail `:901–917` (review 1006 C-wrong 1; then the silver-predicate swap and dokick caitiff await).
+**Next cluster:** Must-fix `uhitm.c` ranged silver predicate (review 1006 C-wrong 2; then the dokick caitiff await).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2039 (index).**
+**Keep D-0845…D-2040 (index).**
 <!-- recent:begin -->
+**D-2040** `nethack-c/upstream/src/uhitm.c` `hmon_hitmon_weapon_ranged :884–917`: shade-glare/`rnd(2) — `js/uhitm.js` ranged branch — C-order boomerang tail after silver: `!thrown && obj===game.u?.uwep && obj.otyp===BOOMERANG && rnl(4)===3` (short-circuit order preserved; `!thrown` = HMON_MELEE per the existing dispatch at
 **D-2039** `dungeon.c` `prev_level :1518–1545`: `if (at_stairs && stway && stway->tolev.dnum != u.uz. — `js/do.js` `prev_level` — C-order branch arm: Dlvl1 (`!(uz.dnum) && uz.dlevel===1`) without the Amulet → dynamic `import('./end.js')` + `await done(ESCAPED)` + return (same noreturn-stop pattern as `goto_level`'s ledger≤
 **D-2038** `display.c` `seenv_matrix :3358–3362` (center `[1][1]` is SVALL — `js/vision.js` — center constant `0`→SVALL + comment citing `display.c:3358–3362`.
 **D-2037** `detect.c` `find_trap :1936–1962` (`tseen`, `exercise(A_WIS)`, `feel_newsym`, then `if (Ha — `js/detect.js` — `find_trap` now in C order: `feel_newsym`; `Hallucination() || glyph_at(tx,ty) !== trap_to_glyph(trap)` (tty-cell→id normalization per the `foundone` precedent) → `await cls(); map_trap(trap, 1); display
@@ -98,11 +99,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2035** `timeout.c` `case STRANGLED :890–900` (killer.format=KILLED_BY, name buried?`suffocation`: — `js/timeout.js` — new `!(next & TIMEOUT) && p === STRANGLED` arm after SLIMED in C order (killer init mirrors the STONED arm; `done_timeout(DIED, STRANGLED)` + `gameover` early-return; amulet arm via `u.uamul` + `objectN
 **D-2034** `bones.c` `give_to_nearby_mon :226–255` (static; sole caller `drop_upon_death :297` `!rn2( — `js/end.js` — new `give_to_nearby_mon` verbatim from C (loop/guard order, `!rn2(nmon)` reservoir, `can_carry`→`add_to_minv` else `place_object`; the else arm keeps this file's pre-existing RNG-free `stackobj` floor conve
 **D-2033** `uhitm.c` `mhitm_ad_famn :3777–3805` (dead uhitm arm `:3780–3783`, mhitu `:3784–3796`, mhitm `:3797–3804` — `js/mhitu.js` — new `mhitm_ad_famn_u` (`pline_mon` reach-out, `exercise(A_CON)`, `morehungry(rn1(40,40))` unless fainted, leftover `d()` kept); `js/mhitm.js` — non-eater zero + `mdamagem` dispatch; Tourist-92067 RNG past the arm to `mhitm_ad_stun`, screen `--More--` residual.
-**D-2032** `read.c` `seffect_fire :1850–1916` (bcsign dam `:1864`, useup+learnscrolltyp `:1865–1868`, — `js/read.js` — new `seffect_fire` in C order (already_known before useup; dam `Math.trunc((2*(rn1(3,3)+2*cval)+1)/3)`; useup + `learnscrolltyp(SCR_FIRE)` up front, returns null on every arm since C does `*sobjp = 0`; con
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2039; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2040; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
