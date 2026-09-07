@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-07 — D-2016 do.c doup ledger-1 escape yn: ask 'Beware, there will be no return!' instead of refusing the stairs
+
+**C locus:** `do.c:1298–1344` `doup()` — `:1330–1335` ledger arm: `if (ledger_no(&u.uz) == 1) { if (iflags.debug_fuzzer) return ECMD_OK; if (y_n("Beware, there will be no return!  Still climb?") != 'y') return ECMD_OK; }`, then `next_to_u`, `at_ladder`, `prev_level(TRUE)` → `goto_level` ledger<=0 → `done(ESCAPED)` (`:1517–1519`).
+**JS:** 1 file (`do.js`, +8/−6), under the 600/10 caps. No DIAG/FORCE/seed gates (Rule #2 clean). No hand probes — corpus sessions reach the changed arm (4 sessions).
+**Change:** `js/do.js` — ledger arm now C-verbatim: `game.iflags?.debug_fuzzer` early `ECMD_OK`, else `await y_n('Beware, there will be no return! Still climb?')` with `!== 'y'` → `ECMD_OK`; `'y'` falls through to `next_to_u`/`prev_level`, whose `goto_level` ledger<=0 → `done(ESCAPED)` arm is already live (D-1764). `y_n` added to the pre-existing static `./getline.js` import (same pattern as steed.js D-2000; hoisted function, no new module edge, no TDZ).
+**Verify:** `node scripts/verify.mjs --fn doup` → `PASS syntax 1 changed js file(s): js/do.js` · `PASS rule2 no fs/path/url/node: imports, no DIAG/FORCE/seed gates` · `PASS hidden verify doup: 0 PASS, 4 moved past, 0 unchanged, 0 worse → PROGRESS` (Barbarian-92208 →disclose@10 was 9; Healer-92227 →disclose@13 was 12; Rogue-92160 →use_container@88 was 5; Valkyrie-92237 →dofire@88 was 11) · `PASS green 2/2` + strict ×2 · `PASS cohort 7/7` · `PASS full 44/44 passing (auto: shared file changed)` · `VERIFY: PASS`. Final verify ran after the last edit (no D-1831 gap).
+**Named:** rooted, `stucksteed`, `u_stuck_cannot_go`, encumbrance load gate (all pre-existing; `stucksteed`/`u_stuck_cannot_go` have no JS export, `u_rooted`/`set_move_cmd` only local clones in cmd.js — kept in the `doup` doc comment, untouched).
+**Next:** the four later owners are future rows for their owners (disclose ×2 — D-2015's arm now reached from these stair paths; use_container@88; dofire@88).
 ## 2026-09-07 — D-2015 end.c disclose conduct prompt: " and achievements" suffix via live count_achievements
 
 **C locus:** `end.c:664–680` conduct arm — single `should_query_disclose_option('c', &defquery)`, then `int acnt = count_achievements()` (`insight.c:2493–2501`, counts `u.uachieved[]` to the zero terminator), `Sprintf(qbuf, "Do you want to see your conduct%s?", (acnt > 0) ? " and achievements" : "")`; `yn_function` asked only when `ask`, else `c = defquery`; `show_conduct((how >= PANICKED) ? 1 : 2)` on `'y'`.

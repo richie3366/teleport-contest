@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2016 — do.c doup ledger-1 escape yn: ask 'Beware, there will be no return!' instead of refusing the stairs
+
+- **Status:** fixed (Open queue row `do.c` doup — cited 3/553, 4 on the working board; `verify --fn doup` re-ran the 4 blocked: 0 PASS, 4 moved past to strictly later steps/different owners, 0 unchanged, 0 worse; row cites no review so no review stamp owed)
+- **Symptom:** scen-normal-Barbarian-92208 step 9/20, scen-normal-Healer-92227 step 12/21, scen-normal-Rogue-92160 step 5/103, scen-normal-Valkyrie-92237 step 11/164: C `Beware, there will be no return!  Still climb? [yn] (n)` (`do.c:1333`) vs JS `You can't go up here.`
+- **C locus:** `do.c:1298–1344` `doup()` — `:1330–1335` ledger arm: `if (ledger_no(&u.uz) == 1) { if (iflags.debug_fuzzer) return ECMD_OK; if (y_n("Beware, there will be no return!  Still climb?") != 'y') return ECMD_OK; }`, then `next_to_u`, `at_ladder`, `prev_level(TRUE)` → `goto_level` ledger<=0 → `done(ESCAPED)` (`:1517–1519`).
+- **JS was:** `js/do.js` `doup()` treated ledger 1 as no-stairs (`pline("You can't go up here.")`, `ECMD_OK`) behind a "surface escape deferred" comment — the C yn prompt was never asked.
+- **Fix:** `js/do.js` — ledger arm now C-verbatim: `game.iflags?.debug_fuzzer` early `ECMD_OK`, else `await y_n('Beware, there will be no return!  Still climb?')` with `!== 'y'` → `ECMD_OK`; `'y'` falls through to `next_to_u`/`prev_level`, whose `goto_level` ledger<=0 → `done(ESCAPED)` arm is already live (D-1764). `y_n` added to the pre-existing static `./getline.js` import (same pattern as steed.js D-2000; hoisted function, no new module edge, no TDZ). `set_move_cmd` order kept via the existing direct `u.dz/dx/dy` assignment.
+- **JS:** 1 file (`do.js`, +8/−6), under the 600/10 caps. No DIAG/FORCE/seed gates (Rule #2 clean). No hand probes — corpus sessions reach the changed arm (4 sessions).
+- **Verify:** `node scripts/verify.mjs --fn doup` → `PASS syntax 1 changed js file(s): js/do.js` · `PASS rule2 no fs/path/url/node: imports, no DIAG/FORCE/seed gates` · `PASS hidden verify doup: 0 PASS, 4 moved past, 0 unchanged, 0 worse → PROGRESS` (Barbarian-92208 →disclose@10 was 9; Healer-92227 →disclose@13 was 12; Rogue-92160 →use_container@88 was 5; Valkyrie-92237 →dofire@88 was 11) · `PASS green 2/2` + strict ×2 · `PASS cohort 7/7` · `PASS full 44/44 passing (auto: shared file changed)` · `VERIFY: PASS`. Final verify ran after the last edit (no D-1831 gap).
+- **Named omissions:** rooted, `stucksteed`, `u_stuck_cannot_go`, encumbrance load gate (all pre-existing; `stucksteed`/`u_stuck_cannot_go` have no JS export, `u_rooted`/`set_move_cmd` only local clones in cmd.js — kept in the `doup` doc comment, untouched).
+- **Next:** the four later owners are future rows for their owners (disclose ×2 — D-2015's arm now reached from these stair paths; use_container@88; dofire@88).
+- **Cited falsifier grade:** measured (machine-recorded C-vs-JS rows + `hidden-proxy verify` movement on 4/4 with exact step/owner pairs; C `do.c:1298–1344,1517–1519` read from pinned upstream; no JS FORCE/DIAG used).
+
 ## D-2015 — end.c disclose conduct prompt: " and achievements" suffix via live count_achievements
 
 - **Status:** fixed (Open queue row `end.c` disclose — cited 5/553; `verify --fn disclose` re-ran the 7 blocked at the HEAD scoreboard: 2 PASS, 3 moved past to strictly later steps/different owners, 2 unchanged same owner same step (different mechanism, see Next) — 0 worse; row cites no review so no review stamp owed)

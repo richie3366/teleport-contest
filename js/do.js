@@ -60,7 +60,7 @@ import {
     You_feel, canseemon, canspotmon, impossible, describe_level,
     see_monsters,
 } from './display.js';
-import { yn_function, paranoid_ynq } from './getline.js';
+import { yn_function, paranoid_ynq, y_n } from './getline.js';
 import { vision_recalc, vision_reset, recalc_block_point, cansee, couldsee } from './vision.js';
 import { clear_regions, in_out_region } from './region.js';
 import {
@@ -2686,7 +2686,7 @@ export async function dodown() {
  * C ref: do.c doup — '<' go up staircase (ordinary stairs path).
  *
  * Omits: rooted, stucksteed, u_stuck_cannot_go, encumbrance
- * load gate, ledger 1 escape yn.
+ * load gate (ledger 1 escape yn live).
  */
 export async function doup() {
     const u = game.u;
@@ -2708,11 +2708,12 @@ export async function doup() {
         return ECMD_OK;
     }
 
-    // C: ledger_no(&u.uz) == 1 → escape yn — not taken when climbing to Dlvl1
-    // from below; surface escape deferred.
+    // C do.c :1330–1335 — ledger 1: no return; 'y' climbs out (prev_level
+    // escapes via goto_level ledger<=0 → done(ESCAPED)), else stay.
     if (ledger_no(u.uz) === 1) {
-        await pline("You can't go up here.");
-        return ECMD_OK;
+        if (game.iflags?.debug_fuzzer) return ECMD_OK;
+        if ((await y_n('Beware, there will be no return!  Still climb?')) !== 'y')
+            return ECMD_OK;
     }
 
     // C: next_to_u — leashed pet may hold hero back (D-1005)

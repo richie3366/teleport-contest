@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-07
 
-- [x] `end.c` disclose — blocks 5/553 corpus sessions (first at step 73): C «Do you want to see your conduct and achievements? [ynq] (n)» vs JS «Do you want to see your conduct? [ynq] (n)». Probe: `node scripts/hidden-proxy.mjs verify disclose` (scen-genesis-Caveman-91109, scen-genesis-Priest-92082, scen-genesis-Valkyrie-92074). **Addressed:** D-2015
+- [x] `end.c` disclose — blocks 5/553 corpus sessions (first at step 73): C «Do you want to see your conduct and achievements? [ynq] (n)» vs JS «Do you want to see your conduct? [ynq] (n)». Probe: `node scripts/hidden-proxy.mjs verify disclose` (scen-genesis-Caveman-91109, scen-genesis-Priest-92082, scen-genesis-Valkyrie-92074). **Addressed:** D-2015 `e495002e`
 
 
 - [x] `engrave.c` engrave — blocks 5/553 corpus sessions (first at step 88): C «You finish writing in the dust.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify engrave` (scen-intrinsic-Samurai-92043, scen-kit-Priest-92085, scen-normal-Caveman-92006). **Addressed:** D-2014 `a1c71d43`
