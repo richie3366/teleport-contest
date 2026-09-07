@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-07
 
-- [x] `do_wear.c` Blindf_off — blocks 2/553 corpus sessions (first at step 211): C «You turn into a ghoul! You can see again.» vs JS «You turn into a ghoul!». Probe: `node scripts/hidden-proxy.mjs verify Blindf_off` (scen-poly-Ranger-92090, scen-poly-Ranger-92133). **Addressed:** D-2050
+- [x] `hack.c` losehp — blocks 4/553 corpus sessions (first at step 23): C «You die...--More--» vs JS «The bow named the Longbow of Diana evades your grasp!--More-». Probe: `node scripts/hidden-proxy.mjs verify losehp` (scen-genesis-Archeologist-91132, scen-genesis-Ranger-92126, scen-wish-Tourist-92081). **Addressed:** D-2051
+
+
+- [x] `do_wear.c` Blindf_off — blocks 2/553 corpus sessions (first at step 211): C «You turn into a ghoul! You can see again.» vs JS «You turn into a ghoul!». Probe: `node scripts/hidden-proxy.mjs verify Blindf_off` (scen-poly-Ranger-92090, scen-poly-Ranger-92133). **Addressed:** D-2050 `b11c9f44`
 
 
 - [x] `uhitm.c` mhitm_ad_were — blocks 2/553 corpus sessions (first at step 41): C draws `rn2(4)=1` in mhitm_ad_were, JS `rn2(3)=2` from mhitm_knockback(mhitm.js:2015). Probe: `node scripts/hidden-proxy.mjs verify mhitm_ad_were` (scen-genesis-Knight-92149, scen-wish-Rogue-92184). **Addressed:** D-2049 `59751376`

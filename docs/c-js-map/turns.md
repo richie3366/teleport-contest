@@ -1407,7 +1407,7 @@ displacer/`bump_mon`/mundetected Wait!/Blind_telepat/Protection_from_shape amule
 **`domove` `u.utrap`→`trapmove` before test_move** (D-0401; BEARTRAP Norep+`rn2(5)`/diagonal; 
 WEB/PIT/LAVA/INFLOOR partial; steed/Sting/`climb_pit`/buried-ball deferred); 
 **`losehp` !Upolyd / Upolyd mh subtract** (D-0035); 
-**fatal `losehp` → `_losehp_needs_done` + noreturn contract via `finish_losehp_done`** (D-0255); 
+**fatal `losehp` → `_losehp_needs_done` + noreturn contract via `finish_losehp_done`** (D-0255); **touch_artifact blast (artifact.c:958) + poisoned HP arm (attrib.c:391) drain fatal losehp inline** (D-2051; wail-then-`finish_losehp_done` + return before evade pline / trailing done); 
 **fatal `losehp` leaves negative `uhp` (no clamp); `done` zeros after `bot`** (D-0320); 
 **`nomul`/`unmul` + afternmv** (D-0066) + **`nomul`/`unmul` `usleep=0` + nomul `uinvulnerable=FALSE`** (D-1797;
 C `hack.c:4166–4167` / `:4197`; `fall_asleep` restamps after `nomul`; named: Upolyd `"You survived that "` form `:4192–4194`) + **`nomul` clears `_cmdq_canned`** (D-0710; 

@@ -434,6 +434,17 @@ export async function poisoned(reason, typ, pkiller, fatal, thrown_weapon) {
         let loss = thrown_weapon ? rnd(6) : rn1(10, 6);
         // Half_gas_damage (worn towel) for blast/cloud deferred
         losehp(loss, killer, kprefix);
+        /* C attrib.c:391 losehp is noreturn when fatal (done(DIED) inside);
+           drain the deferred death here so the trailing done() below —
+           unreachable in C on this path — never reports death without
+           "You die..." first (artifact.js touch_artifact idiom). */
+        const { finish_maybe_wail } = await import('./hack.js');
+        await finish_maybe_wail();
+        if (game._losehp_needs_done) {
+            const { finish_losehp_done } = await import('./end.js');
+            await finish_losehp_done();
+            return;
+        }
     } else {
         // attribute loss; STR drop to 3 may reduce HP later via adjattrib path
         const loss = (thrown_weapon || !fatal) ? 1 : d(2, 2);
