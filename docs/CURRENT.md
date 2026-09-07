@@ -20,10 +20,10 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-07** — full `sessions` at **D-2027**
-(audit **990–997**, `3dee5419`+review). Fortress **44/44** (no throws).
+Score last measured: **2026-09-07** — full `sessions` at **D-2033**
+(audit **998–1003**, `7d22c4f3`+review). Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`71+0.44/turn` (R² 0.78).
+`55+0.44/turn` (R² 0.84).
 
 ## Score
 
@@ -47,6 +47,7 @@ they no longer pick work. Top owners: `welcome`→`calendar.c getlt` ×51,
 `do_statusline2` ×11, `break_armor` ×9, `exercise` ×8, `enlightenment`
 ×7, `wiz_intrinsic` ×7, 4 `ReferenceError` throws ×8 (Must-fix).
 Reviews 990–997: 7 ACCEPT, 1 ACCEPT-WITH-DEBT (991 readobjnam grey-spell/armour fixups → map-name debt, no Must-fix).
+Reviews 998–1003: 5 ACCEPT, 1 ACCEPT-WITH-DEBT (998 use_container lknown pre-branch `:2985–2989` state debt, no Must-fix; 1000 notes D-2030 "nothing imports wizard.js" slip, harmless).
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score --jobs 8`
 (≈200 s); when every family is ≥ 85 % PASS, grow it first:
 `node scripts/scenario-gen.mjs --n 120 --seed <iter×100>`.

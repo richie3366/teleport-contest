@@ -1008,3 +1008,9 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [995-ecb05e6d-enlightenment-spfx.md](./995-ecb05e6d-enlightenment-spfx.md) | `ecb05e6d` | D-2025 enlightenment arms + abil_to_spfx | **ACCEPT** |
 | [996-d4d3c77f-done-eating.md](./996-d4d3c77f-done-eating.md) | `d4d3c77f` | D-2026 done_eating nomovemsg + consuming | **ACCEPT** |
 | [997-3dee5419-pick-nasty-juvenile.md](./997-3dee5419-pick-nasty-juvenile.md) | `3dee5419` | D-2027 pick_nasty juvenile gate | **ACCEPT** |
+| [998-92eedfe1-use-container-locked.md](./998-92eedfe1-use-container-locked.md) | `92eedfe1` | D-2028 use_container sack-name + locked Tobjnam | **ACCEPT-WITH-DEBT** |
+| [999-4bda180d-stoned-expiry.md](./999-4bda180d-stoned-expiry.md) | `4bda180d` | D-2029 STONED expiry killer + done_timeout | **ACCEPT** |
+| [1000-525cbba9-covetous-tactics.md](./1000-525cbba9-covetous-tactics.md) | `525cbba9` | D-2030 tactics/target_on/strategy + mnearto | **ACCEPT** |
+| [1001-ee5d6d71-dodrink-occupant.md](./1001-ee5d6d71-dodrink-occupant.md) | `ee5d6d71` | D-2031 dodrink Strangled/underwater/occupant | **ACCEPT** |
+| [1002-40b275ef-seffect-fire.md](./1002-40b275ef-seffect-fire.md) | `40b275ef` | D-2032 seffect_fire scroll-of-fire | **ACCEPT** |
+| [1003-7d22c4f3-mhitm-ad-famn.md](./1003-7d22c4f3-mhitm-ad-famn.md) | `7d22c4f3` | D-2033 mhitm_ad_famn mhitu+mhitm arms | **ACCEPT** |
