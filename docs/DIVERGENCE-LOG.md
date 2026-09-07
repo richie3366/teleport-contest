@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-1993 — mhitu.c gulpmu wires the DGST/PHYS/ACID exercise(A_STR,FALSE) arms
+
+- **Status:** fixed (Open queue row `attrib.c` exercise — 9 blocked at HEAD baseline; corpus-queued, no review stamp owed)
+- **Symptom:** C draws `rn2(2)` in `exercise :509` inside `gulpmu` where JS draws on without it: AD_DGST `"digests you!"` (scen-genesis-Samurai-92110 step 61, `rn2(20)@gulpmu:1385` then the draw) and AD_PHYS `"pummeled with debris"` (scen-genesis-Samurai-92083 step 49 — two `d(1,10)@gulpmu:1292` engulf hits, each followed by the draw).
+- **C locus:** `mhitu.c:1421–1469` `gulpmu` switch — DGST else `:1434`, PHYS else `:1452`, ACID else `:1467`, each `exercise(A_STR, FALSE)` immediately after its pline.
+- **JS was:** `js/mhitu.js` `gulpmu` printed all three messages but called `exercise` in none of the three arms, so every engulf-damage turn was short one `rn2(2)` vs C.
+- **Fix:** three one-line `exercise(A_STR, false)` insertions with C `:line` comments, each directly after its C pline. `exercise`/`A_STR` already imported and used in-file (same module, live callee, no new edge). No DIAG/FORCE/seed gates; Rule #2 clean.
+- **JS:** `js/mhitu.js` (+6/−0), 1 file, under the 600 cap (C is three one-line arms; density floor waived).
+- **Verify:** `node scripts/verify.mjs --fn exercise` → `PASS syntax 1 changed js file(s)` · `PASS rule2` · `PASS hidden verify exercise: 1 PASS, 1 moved past, 7 unchanged, 0 worse → PROGRESS` (Samurai-92083 PASS, was exercise@49; Samurai-92110 → `one_characteristic`@68, was exercise@61) · `PASS green 2/2` + strict ×2 · `PASS cohort 7/7` · `skip full (no shared file changed)`.
+- **Named omissions:** none new — DGST `Slow_digestion` early-out (`:1422–1425`) and total-digest `Half_physical_damage tmp *= 2` (`:1428–1430`) stay named in the `gulpmu` doc comment (`js/mhitu.js:1523–1525`, damage-only, no corpus session blocked on them).
+- **Next:** residual `attrib.c` exercise row (7 sessions, non-gulpmu mechanisms — exerper-tick/moves-drift class plus read/wish/inc-arm callers); 92110's new owner feeds the queued `enlightenment` row.
+
 ## D-1992 — polyself.c drop_weapon full port: live weapon_descr/is_sword names, gone-function drops, could_twoweap arm
 
 - **Status:** fixed (Open queue row `polyself.c` drop_weapon — row cites 4/553; 9 `scen-poly-*` sessions name drop_weapon at HEAD `ab0522c0`, a superset including all 3 named probes; corpus-queued, no review stamp owed)

@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-07 — D-1993 mhitu.c gulpmu wires the DGST/PHYS/ACID exercise(A_STR,FALSE) arms
+
+**C locus:** `mhitu.c:1421–1469` `gulpmu` switch — DGST else `:1434`, PHYS else `:1452`, ACID else `:1467`, each `exercise(A_STR, FALSE)` immediately after its pline.
+**JS:** `js/mhitu.js` (+6/−0), 1 file, under the 600 cap (C is three one-line arms; density floor waived).
+**Change:** three one-line `exercise(A_STR, false)` insertions with C `:line` comments, each directly after its C pline. `exercise`/`A_STR` already imported and used in-file (same module, live callee, no new edge). No DIAG/FORCE/seed gates; Rule #2 clean.
+**Verify:** `node scripts/verify.mjs --fn exercise` → `PASS syntax 1 changed js file(s)` · `PASS rule2` · `PASS hidden verify exercise: 1 PASS, 1 moved past, 7 unchanged, 0 worse → PROGRESS` (Samurai-92083 PASS, was exercise@49; Samurai-92110 → `one_characteristic`@68, was exercise@61) · `PASS green 2/2` + strict ×2 · `PASS cohort 7/7` · `skip full (no shared file changed)`.
+**Named:** none new — DGST `Slow_digestion` early-out (`:1422–1425`) and total-digest `Half_physical_damage tmp *= 2` (`:1428–1430`) stay named in the `gulpmu` doc comment (`js/mhitu.js:1523–1525`, damage-only, no corpus session blocked on them).
+**Next:** residual `attrib.c` exercise row (7 sessions, non-gulpmu mechanisms — exerper-tick/moves-drift class plus read/wish/inc-arm callers); 92110's new owner feeds the queued `enlightenment` row.
 ## 2026-09-06 — D-1992 polyself.c drop_weapon full port: live weapon_descr/is_sword names, gone-function drops, could_twoweap arm
 
 **C locus:** `polyself.c:1305–1362` `drop_weapon` — `:1313` !alone||cantwield gate; `:1316–1317` canletgo pair (`do.c:664–711`); `:1320–1332` alone message (`obj.h:223–226` is_sword → "sword" else `weapon.c:87–142` weapon_descr, twoweap whichtoo `strcmp`, quan/twoweap `makeplural`, `the_your` corpse gate); `:1334–1353` swap-then-main `uswapwepgone`/`uwepgone` (`wield.c:872–894`) + `in_use` defer (`updateinv`) + `update_inventory`; `:1354–1356` `!could_twoweap` (`mondata.h:129–132`) → `untwoweapon` (`wield.c:905–914`).

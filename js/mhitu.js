@@ -1615,6 +1615,8 @@ async function gulpmu(mtmp, mattk) {
             const adv = (u.uswldtim === 2) ? ' thoroughly'
                 : (u.uswldtim === 1) ? ' utterly' : '';
             await pline(`${Monnam(mtmp)}${adv} digests you!`);
+            // C mhitu.c:1434 — exercise(A_STR, FALSE) after the digest pline
+            exercise(A_STR, false);
         }
         break;
     case AD_PHYS:
@@ -1623,6 +1625,8 @@ async function gulpmu(mtmp, mattk) {
             await pline('You are laden with moisture and can barely breathe!');
         } else {
             await pline(`You are ${enfolds(mtmp.data) ? 'being squashed' : 'pummeled with debris'}!`);
+            // C mhitu.c:1452 — exercise(A_STR, FALSE) after the pummel pline
+            exercise(A_STR, false);
         }
         break;
     case AD_ACID:
@@ -1631,6 +1635,8 @@ async function gulpmu(mtmp, mattk) {
             tmp = 0;
         } else {
             await pline('You are covered in slime!  It burns!');
+            // C mhitu.c:1467 — exercise(A_STR, FALSE) after the slime pline
+            exercise(A_STR, false);
         }
         break;
     case AD_BLND:

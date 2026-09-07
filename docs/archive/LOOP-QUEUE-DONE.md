@@ -3,9 +3,14 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-09-07
+
+- [x] `attrib.c` exercise — blocks 8/553 (first at step 48): C draws `rn2(19)` in `exercise :509` (the `attrib.c` exercise/exerchk gate after dressing / fighting) where JS is already in `mcalcmove`. Read `exercise`, `exerper`, `exerchk` and their callers (`do_wear.c` `Armor_on`, `uhitm.c`, `allmain.c`). Probe: `node scripts/hidden-proxy.mjs verify exercise` (scen-genesis-Archeologist-92084, scen-genesis-Samurai-92083, scen-genesis-Samurai-92110). **Addressed:** D-1993 (gulpmu arms; 1 PASS + 1 moved, 7 remain — see residual row below).
+- [x] `attrib.c` exercise residual (post-D-1993 gulpmu) — blocks 7/553: D-1993 shipped the `gulpmu` DGST/PHYS/ACID arms (Samurai-92083 PASS, Samurai-92110 → one_characteristic@68). Remaining first-divergences still owned by `exercise`: exerper-tick/moves-drift class (scen-genesis-Archeologist-92084 step 48 turn-1 wear tick; scen-intrinsic-Healer-92124 step 48 jackal-bite INC; scen-intrinsic-Rogue-92158 step 42; scen-kit-Monk-92139 step 27 Monk-satiated double-dec) + read/wish/inc-arm callers (scen-wish-Archeologist-92216 step 79 decipher; scen-wish-Valkyrie-92206 step 118 amulet ID; scen-kit-Monk-92007 step 37 glow+INC). Probe: `node scripts/hidden-proxy.mjs verify exercise` (scen-genesis-Archeologist-92084, scen-intrinsic-Healer-92124, scen-kit-Monk-92139). **Addressed:** D-1993
+
 ## 2026-09-06
 
-- [x] `polyself.c` drop_weapon — blocks 4/553 (first at step 93, 12.5k RNG): C `You find you must drop your dagger!` names the weapon (`:1331` `yname`/`aobjnam` arm, `alone` flag, twoweapon and `nohands` cases); JS says `your weapon`. Ship after `break_armor` (same file, shared falsifier `scen-poly-*`). Probe: `node scripts/hidden-proxy.mjs verify drop_weapon` (scen-poly-Ranger-91131, scen-poly-Ranger-92090, scen-poly-Valkyrie-92195). **Addressed:** D-1992
+- [x] `polyself.c` drop_weapon — blocks 4/553 (first at step 93, 12.5k RNG): C `You find you must drop your dagger!` names the weapon (`:1331` `yname`/`aobjnam` arm, `alone` flag, twoweapon and `nohands` cases); JS says `your weapon`. Ship after `break_armor` (same file, shared falsifier `scen-poly-*`). Probe: `node scripts/hidden-proxy.mjs verify drop_weapon` (scen-poly-Ranger-91131, scen-poly-Ranger-92090, scen-poly-Valkyrie-92195). **Addressed:** D-1992 `c0801fb9`
 
 
 - [x] `polyself.c` break_armor — blocks 9/553 (first at step 54): `You turn into a gelatinous cube!  You break out of your armor!` — C `break_armor :1171` message/RNG order per armor slot (cloak vs body armor first, `Your cloak tears apart`, shield/helmet/gloves/boots drop arms, `polyself.c:1189` clasp arm). Probe: `node scripts/hidden-proxy.mjs verify break_armor` (scen-poly-Knight-92220, scen-poly-Monk-92005, scen-poly-Priest-91137). **Addressed:** D-1991 `ab0522c0`
