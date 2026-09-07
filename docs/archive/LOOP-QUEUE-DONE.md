@@ -5,7 +5,13 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-07
 
-- [x] `artifact.c` touch_artifact — blocks 7/553 corpus sessions (first at step 22): C draws `d(4,10)=28` in touch_artifact, JS `rn2(100)=7` from makewish(zap.js:6638). Probe: `node scripts/hidden-proxy.mjs verify touch_artifact` (scen-genesis-Archeologist-91132, scen-genesis-Archeologist-91135, scen-genesis-Priest-91110). **Addressed:** D-2010
+- [x] `detect.c` dosearch0 counted-search multi lifecycle — blocks 1/553 corpus sessions: scen-death-Monk-92191 step 30/70 still C «Searching doesn't feel like a good idea right now.» vs JS «» after D-2011 (gate now faithful; C's second `20s` multi-search ends within step 29 with no `You stop searching` print while JS burns ~16 STRANGLED turns across steps 24–29, so the step-30 `s` never reaches the gate in JS). Probe: `node scripts/hidden-proxy.mjs verify cmd_safety_prevention` then prefix-replay steps 29–30. Falsifier needed: C moveloop multi/occupation trace at steps 29–30 (silent `nomul(0)`-on-find vs occupation stop). **Addressed:** D-2011
+
+
+- [x] `do.c` cmd_safety_prevention — blocks 7/553 corpus sessions (first at step 19): C «Searching doesn't feel like a good idea right now.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify cmd_safety_prevention` (scen-death-Caveman-92159, scen-death-Monk-92121, scen-death-Monk-92191). **Addressed:** D-2011
+
+
+- [x] `artifact.c` touch_artifact — blocks 7/553 corpus sessions (first at step 22): C draws `d(4,10)=28` in touch_artifact, JS `rn2(100)=7` from makewish(zap.js:6638). Probe: `node scripts/hidden-proxy.mjs verify touch_artifact` (scen-genesis-Archeologist-91132, scen-genesis-Archeologist-91135, scen-genesis-Priest-91110). **Addressed:** D-2010 dad22c02
 
 
 - [x] `allmain.c` moveloop / `cmd.c` multi-turn count accounting — blocks 1/553: scen-intrinsic-Caveman-92150 step 92 `^X` shows C `You entered the dungeon 62 turns ago.` vs JS 61 with identical RNG/screens before it (D-1997 residual, not page order). Recipe forensics: `#levelchange` is XP-set (not a level jump), `^W` is wizard-wish, `20s` blocks are count-20 `dosearch` repetitions — exactly one zero-RNG turn among steps 44–91 counted by C, not JS (suspect: multi-turn `dosearch` count/interrupt edge). Falsifier first: JS-side per-step moves trace vs C RNG log to name the turn, then port the `context.move`/`multi` gate owner. Do NOT `+1` the disclosure line. Probe: `node scripts/hidden-proxy.mjs verify enlightenment` (scen-intrinsic-Caveman-92150). **Addressed:** D-2009 `d7411fbf`

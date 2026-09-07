@@ -183,6 +183,7 @@ oldglyph trap/object restore still deferred);
 partial `reveal_terrain`/`browse_map`** (D-0128); **DEL `\177` binds `doterrain`** (D-0341); 
 **`reveal_terrain_getglyph`/`show_glyph` TER_MAP strip mon/obj** (D-0342); 
 **`dosearch`→`cmd_safety_prevention`** (D-0228); 
+**`danger_uprops` checks flat `|0` OR `uprops[PROP].intrinsic` for STONED/SLIMED/STRANGLED/SICK** (D-2011; C `do.c:2318–2322` is intrinsic-only — `incr_prop_timeout` STRANGLED lands in uprops only); 
 **SCORR/SDOOR uncover → `recalc_block_point` not `vision_recalc(1)`** (D-0269); 
 **`reveal_terrain_getglyph` TER_MAP trap strip + keep_traps trap_to_glyph** (D-0465; 
 `display.js` kind=trap / `glyph_is_trap_at`); 
