@@ -3154,6 +3154,10 @@ omit `update_mon_extrinsics`,
 Punished/ustuck float_down arms, teleds_simple subset (ball/chain,
 utrap clear, swallow/hideunder/drag), artifact saddle `untouchable`,
 uhitm DISMOUNT_KNOCKED `u.dx`/`u.dy` caller;
+**`doride` wizard force yn D-2000**
+(`:185`; `wizard && y_n("Force the mount to succeed?")` short-circuit
+before `mount_steed(m_at, forcemount)`; static `y_n` from getline.js,
+hoisted cycle-safe);
 tutorial/disclosure done D-0215/16
 
 ### `src/uhitm.c`, `src/mhitm.c`, `src/explode.c`

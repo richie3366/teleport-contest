@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-2000 — steed.c doride wizard "Force the mount to succeed?" yn arm
+
+- **Status:** fixed (Open queue row `steed.c` doride/mount_steed — row cited 6/553; verify re-ran 7 blocked incl. the working-board union, 3 PASS + 4 moved past, 0 unchanged/worse; no review stamp owed — review 79 names `use_saddle`, not this arm)
+- **Symptom:** wizard-mode `#ride` toward an adjacent monster: C `Force the mount to succeed? [yn] (n)` (`steed.c:185`) vs JS `I see nobody there.` (the `mount_steed` null/unseen arm, reached because JS skipped the prompt).
+- **C locus:** `steed.c:177–193` `doride` — `:185` `if (wizard && y_n("Force the mount to succeed?") == 'y') forcemount = TRUE;` with `wizard ≡ flags.debug` (`flag.h:30`), then `mount_steed(m_at(u.ux + u.dx, u.uy + u.dy), forcemount)`.
+- **JS was:** `js/steed.js` `doride` carried `// wizard force yn deferred` and always passed `false`; `mount_steed` already honors `force` through every arm (Hallu, encumbrance, Blind/mtmp, slip, success), so only the prompt was missing.
+- **Fix:** `js/steed.js` — static `import { y_n } from './getline.js'` (hoisted function, cycle-safe per `imports.mjs --can`; `mhitu.js` precedent) + `let forcemount` set by `(game.flags?.debug || game.flags?.wizard) && (await y_n('Force the mount to succeed?')) === 'y'`, preserving the C short-circuit (no prompt in normal mode), wired into `mount_steed(mtmp, forcemount)`.
+- **JS:** 1 file (`steed.js` +6/−2), under the 600/10 caps.
+- **Verify:** `node scripts/verify.mjs --fn doride` → `PASS syntax 1 changed js file(s): js/steed.js` · `PASS rule2 no fs/path/url/node: imports, no DIAG/FORCE/seed gates` · `PASS hidden verify doride: 3 PASS, 4 moved past, 0 unchanged, 0 worse → PROGRESS` (scen-intrinsic-Ranger-92193 PASS; scen-kit-Valkyrie-92131 PASS; scen-normal-Healer-92231 PASS — all three named probes; scen-normal-Priest-92020 → monster_detect@58 was 39; scen-normal-Valkyrie-92200 → doquiver_core@46 was 35; scen-tour-Barbarian-92079 → attributes_enlightenment@57 was 47; scen-wish-Barbarian-92054 → yn_function@111 was 27) · `PASS green 2/2` + strict ×2 · `PASS cohort 7/7` · `skip full (no shared file changed)` · `VERIFY: PASS`.
+- **Named omissions:** none new — `doride` is now complete vs C; `mount_steed`'s remaining deferred arms keep their existing envelope comment.
+- **Next:** the 4 later owners are each their own future row (nearest: `monster_detect`, `doquiver_core`, `attributes_enlightenment`, `yn_function`); pop the next Open row (`makemon.c` next_ident order + monster gender).
+
 ## D-1999 — monmove.c set_apparxy: makemon byyou call + live Invis macro
 
 - **Status:** fixed (Open queue row `monmove.c` set_apparxy — row cited 6/553; verify re-ran the 8 blocked at HEAD baseline, all moved, 0 unchanged/worse; no review stamp owed)

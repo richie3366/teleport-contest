@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-07
 
-- [x] `monmove.c` set_apparxy — blocks 6/553 (first at step 7): C draws `rn2(4)` in `set_apparxy :2280` (displacement / `mtmp->mux` notseen gate) where JS is in `m_initinv`; a freshly created (`^G`) monster's first move. Probe: `node scripts/hidden-proxy.mjs verify set_apparxy` (scen-genesis-Ranger-92126, scen-genesis-Ranger-92151, scen-wish-Healer-92147). **Addressed:** D-1999
+- [x] `steed.c` doride / mount_steed — blocks 6/553 (first at step 51): C `Force the mount to succeed? [yn] (n)` (wizard-mode arm of `mount_steed`, `steed.c:185`) vs JS `I see nobody there.`; saddle / `#ride` toward an adjacent monster. Probe: `node scripts/hidden-proxy.mjs verify doride` (scen-intrinsic-Ranger-92193, scen-kit-Valkyrie-92131, scen-normal-Healer-92231). **Addressed:** D-2000
+
+
+- [x] `monmove.c` set_apparxy — blocks 6/553 (first at step 7): C draws `rn2(4)` in `set_apparxy :2280` (displacement / `mtmp->mux` notseen gate) where JS is in `m_initinv`; a freshly created (`^G`) monster's first move. Probe: `node scripts/hidden-proxy.mjs verify set_apparxy` (scen-genesis-Ranger-92126, scen-genesis-Ranger-92151, scen-wish-Healer-92147). **Addressed:** D-1999 `d8b4a676`
 
 
 - [x] `wizcmds.c` wiz_intrinsic — blocks 7/553 (first at step 16): C `You feel deathly sick.--More--` then `Timeout for fatally sick set to 30.`; JS prints the timeout line first and draws `rn2(12)` from `mcalcmove` where C draws `rn2(2)` in `wiz_intrinsic :1036` (the `make_sick`/`set_itimeout` + `incr` arms). Probe: `node scripts/hidden-proxy.mjs verify wiz_intrinsic` (scen-death-Archeologist-92015, scen-death-Knight-92203, scen-intrinsic-Barbarian-92008). **Addressed:** D-1998 `878f1d22`
