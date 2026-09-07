@@ -85,10 +85,11 @@ Pop `LOOP-QUEUE.md` Must-fix (4 `ReferenceError` imports kill 8
 sessions) then Open in order; every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `do.c` cmd_safety_prevention — blocks 7/553 corpus sessions (first at step 19): C «Searching doesn't feel like a good idea right now.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify cmd_safety_prevention` (scen-death-Caveman-92159, scen-death-Monk-92121, scen-death-Monk-92191).
+**Next cluster:** `allmain.c` regen_hp — blocks 6/553 corpus sessions (first at step 42): C «You are in full health.--More--» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify regen_hp` (scen-death-Ranger-92234, scen-genesis-Archeologist-92084, scen-intrinsic-Barbarian-92008).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2011 (index).**
+**Keep D-0845…D-2012 (index).**
 <!-- recent:begin -->
+**D-2012** `allmain.c:975–983` `interrupt_multi(const char *msg)` (`if (gm.multi > 0 && !travel && !r — `js/allmain.js` — `interrupt_multi(msg)` is now `async`: live `nomul(0)` (`./hack.js`, pre-existing import edge extended — hoisted function declaration, no new module, no TDZ) then `if (msg && game.flags?.verbose !== fal
 **D-2011** `do.c:2318–2322` `danger_uprops` (`Stoned || Slimed || Strangled || Sick`, i.e. `u.uprops[ — `js/do.js` — `danger_uprops` checks flat `|0` OR `u.uprops[PROP].intrinsic` for STONED/SLIMED/STRANGLED/SICK (C `:2318–2322` cite; no H/E extrinsic — C checks intrinsic only); `STONED, SLIMED, STRANGLED, SICK` added to t
 **D-2010** `artifact.c:907–974` `touch_artifact` (touch_blasted reset, NONART gate, yours/self_willed — `js/artifact.js` — full hero `touch_artifact` in exact C order (now `async`; `Role_if`/`Race_if` badclass; bane via same-file `spec_applies`; single-`if` blast gate preserving `||`/`&&` short-circuit so `rn2(4)` draws on
 **D-2009** `lock.c` `doclose` (`/* when choosing a direction is impaired, use a turn regardless of wh — `js/lock.js` `doclose` — caller-local `confdir(false)` after successful `getdir` when `!u.dz` (covers self `.` too, as C does; `</>` skip via `dz`), then `if (HConfusion/Confusion/HStun/Stunned) res = true` in exact C po
@@ -96,11 +97,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2007** `polyself.c:1030–1070` (`flags.verbose` block: `use_thec`/`monsterc` statics, `might_hide` — `js/polyself.js` — full tip block in exact C branch order (incl. hide+web combined arm, `u.umonnum == PM_GREMLIN`, `msound == MS_SHRIEK`, `is_vampshifter(game.youmonst)` on the monst struct per `apply.js` precedent, eel 
 **D-2006** `dat/themerms.lua` themeroom_fills `Massacre` `:173–190`, `Statuary` `:192–200`, `Buried t — `js/mklev.js` — `themeroom_fill_massacre` (27-name pool in C order, initial `lua_random2(1,27)`, count as five `lua_random2(1,5)` per nhlib `d` not rnd.c `d()`, per-corpse `percent(10)` re-pick, corpses via live `l_creat
 **D-2005** `uhitm.c:75–99` gate itself (already ported, D-0198/D-1405); the missing part was four mhi — `js/mhitu.js` — `mhitm_ad_fire_u` / `mhitm_ad_tlpt_u` / `mhitm_ad_stck_u` / `mhitm_ad_plys_u` in exact C branch order (incl. stck gate-first, plys rn2-before-gate, fire `(void)` destroy_items per `zap.c:5962`, tlpt `Math
-**D-2004** `read.c:3260–3274` (`firstchoice = d->which`, then `cant_revive(&d->which, FALSE, NULL)` r — `js/read.js` — `firstchoice = d.which`, `{ mtype }` box through live `cant_revive` (`./zap.js`, same edge as `resist`) with the C `firstchoice !== PM_LONG_WORM_TAIL` prompt exemption (local `monsterNames.indexOf` const, 
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2011; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2012; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

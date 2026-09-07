@@ -67,7 +67,7 @@ getenv/HOME/`wish_history`/`config_error`/`option_help` WIZKIT still named;
 `reset_glyphmap` / vision_recalc caller / mapping / wizcmds / save / `spot_monsters` wiring still 
 named)); **`mvitals.mvflags = geno & G_NOCORPSE` at newgame** (D-0057); 
 **`maybe_generate_rnd_mon` → real `makemon(NULL,0,0)`** (D-0034) + 
-**udemigod/stronghold depth rate 25/50/70** (D-0753); **`regen_hp` + once-per-turn call** (D-0035); 
+**udemigod/stronghold depth rate 25/50/70** (D-0753); **`regen_hp` + once-per-turn call** (D-0035); **`interrupt_multi` `nomul(0)` + verbose-gated `Norep`** (D-2012; `regen_hp`/`regen_pw` async, awaited at both moveloop EOT sites); 
 **Searching EOT → `dosearch0(1)`** (D-0062); 
 **`multi < 0` occupation + `unmul`/`afternmv` + 
 `unmul`→`deferred_goto` when utotype** (D-0066/D-0719); 
