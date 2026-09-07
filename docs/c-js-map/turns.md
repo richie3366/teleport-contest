@@ -856,6 +856,7 @@ object loop + didlook `:1607–1640` supplement, driven off the shown glyph
 via `glyph_to_obj` + `game.objects` oc_class + `def_oc_syms` explain;
 boulder split; `look_at_object` buried/stone/wall/door/pool/lava suffixes
 `:388–399`; statue monster-prefix, venom `'.'`-row, tree dangling named)
+then **monster-glyph `an(class-explain) (lookat)` D-2045** (`pager.c` check_monsters + didlook `:1607–1640`: shown-char prefix via `mon_glyph`, `mlet_class_explain` from `drawing.c def_monsyms[].explain` (`js/mondata.js` export), first=look_buf with tame/peaceful, `[seen:]` kept; DEF_INVISIBLE `'I'` arm `:1406–1417` with EDetect-I_SPECIAL/Blind select, no didlook; `do_look` checkfile gate `!= LOOK_QUICK`; furniture-mimic dispatch still named)
 then **history/descr arms D-1903** (`pager.c:82–106` `append_str`
 strstri dup-gate + BUFSZ-1 `" or "` cap; `:1133–1245` `add_cmap_descr`
 NO_GLYPH water arm + levl-typ/`EHalluc_resistance` save-restore around

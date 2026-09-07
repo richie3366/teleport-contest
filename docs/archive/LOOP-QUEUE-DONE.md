@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-07
 
-- [x] `wield.c` doquiver_core — blocks 3/553 corpus sessions (first at step 18): C «Your alternate weapon is 6 orcish daggers. Ready 5 of them? » vs JS «Your alternate weapon is 6 orcish dagger. Ready 5 of them? [». Probe: `node scripts/hidden-proxy.mjs verify doquiver_core` (scen-normal-Rogue-92115, scen-normal-Valkyrie-92200, scen-tour-Rogue-92030). **Addressed:** D-2044
+- [x] `mondata.c` name_to_monclass — blocks 3/553 corpus sessions (first at step 59): C «fa cat or other feline (tame kitten)» vs JS «ka kitten». Probe: `node scripts/hidden-proxy.mjs verify name_to_monclass` (scen-genesis-Wizard-92223, scen-kit-Monk-92007, scen-normal-Knight-91100). **Addressed:** D-2045
+
+
+- [x] `wield.c` doquiver_core — blocks 3/553 corpus sessions (first at step 18): C «Your alternate weapon is 6 orcish daggers. Ready 5 of them? » vs JS «Your alternate weapon is 6 orcish dagger. Ready 5 of them? [». Probe: `node scripts/hidden-proxy.mjs verify doquiver_core` (scen-normal-Rogue-92115, scen-normal-Valkyrie-92200, scen-tour-Rogue-92030). **Addressed:** D-2044 `a101cf0e`
 
 
 - [x] `uhitm.c` mhitm_knockback — blocks 3/553 corpus sessions (first at step 77): C draws `rn2(3)=2` in mhitm_knockback, JS `d(3,4)=10` from hitmu(mhitu.js:2431). Probe: `node scripts/hidden-proxy.mjs verify mhitm_knockback` (scen-tour-Wizard-92219, scen-wish-Valkyrie-92142, scen-wish-Valkyrie-92206). **Addressed:** D-2035 `0a7a7fc4` (stale: all 3 moved at 0a7a7fc4 per committed scoreboards — 92142 PASS, 92219 → obj_resists@115, 92206 RNG→screen use_lamp@220; `verify --fn mhitm_knockback --base ee5d6d71` PROGRESS, 0 blocked at HEAD; no js/ — body full since D-1932, hitmu order verified C-exact mhitu.c:1187–1194)

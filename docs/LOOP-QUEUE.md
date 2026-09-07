@@ -59,7 +59,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `mondata.c` name_to_monclass — blocks 3/553 corpus sessions (first at step 59): C «fa cat or other feline (tame kitten)» vs JS «ka kitten». Probe: `node scripts/hidden-proxy.mjs verify name_to_monclass` (scen-genesis-Wizard-92223, scen-kit-Monk-92007, scen-normal-Knight-91100).
 - [ ] `music.c` do_play_instrument — blocks 3/553 corpus sessions (first at step 63): C «Improvise? [ynq] (q)» vs JS «Improvise? [ynq] (y)». Probe: `node scripts/hidden-proxy.mjs verify do_play_instrument` (scen-intrinsic-Healer-92168, scen-wish-Caveman-92174, scen-wish-Ranger-92156).
 - [ ] `monmove.c` m_search_items — blocks 2/553 corpus sessions (first at step 59): C draws `rn2(25)=12` in m_search_items, JS `rn2(1)=0` from m_move(monmove.js:1813). Probe: `node scripts/hidden-proxy.mjs verify m_search_items` (scen-tour-Samurai-92032, scen-tour-Tourist-92100).
 - [ ] `uhitm.c` mhitm_ad_were — blocks 2/553 corpus sessions (first at step 41): C draws `rn2(4)=1` in mhitm_ad_were, JS `rn2(3)=2` from mhitm_knockback(mhitm.js:2015). Probe: `node scripts/hidden-proxy.mjs verify mhitm_ad_were` (scen-genesis-Knight-92149, scen-wish-Rogue-92184).
@@ -67,6 +66,11 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 - [ ] `hack.c` losehp — blocks 4/553 corpus sessions (first at step 23): C «You die...--More--» vs JS «The bow named the Longbow of Diana evades your grasp!--More-». Probe: `node scripts/hidden-proxy.mjs verify losehp` (scen-genesis-Archeologist-91132, scen-genesis-Ranger-92126, scen-wish-Tourist-92081).
 - [ ] `uhitm.c` passive — blocks 3/553 corpus sessions (first at step 121): C draws `rn2(3)=1` in passive, JS `d(1,6)=5` from damageum(uhitm.js:1285). Probe: `node scripts/hidden-proxy.mjs verify passive` (scen-poly-Healer-92107, scen-poly-Rogue-92026, scen-wish-Wizard-92153).
 - [ ] `spell.c` study_book — blocks 2/553 corpus sessions (first at step 83): C draws `rnd(25)=6` in study_book, JS `rn2(70)=50` from maybe_generate_rnd_mon(allmain.js:349). Probe: `node scripts/hidden-proxy.mjs verify study_book` (scen-wish-Healer-92029, scen-wish-Healer-92066).
+- [ ] `teleport.c` level_tele — blocks 3/553 corpus sessions (first at step 51): C «You materialize on a different level!--More--» vs JS «You materialize on a different level!». Probe: `node scripts/hidden-proxy.mjs verify level_tele` (scen-tour-Barbarian-92129, scen-tour-Samurai-92161, tour-Samurai-70015-d5-8-15-17-22).
+- [ ] `objnam.c` readobjnam — blocks 3/553 corpus sessions (first at step 59): C draws `rn2(2)=1` in readobjnam, JS `rn2(100)=29` from makewish(zap.js:6638). Probe: `node scripts/hidden-proxy.mjs verify readobjnam` (scen-wish-Caveman-92148, scen-wish-Priest-92136, scen-wish-Rogue-91119).
+- [ ] `dothrow.c` dofire — blocks 3/553 corpus sessions (first at step 38): C «You ready: b - a +0 short sword.--More--» vs JS «In what direction?». Probe: `node scripts/hidden-proxy.mjs verify dofire` (scen-normal-Barbarian-92036, scen-normal-Valkyrie-92237, scen-tour-Rogue-92030).
+- [ ] `botl.c` do_statusline1 — blocks 3/553 corpus sessions (first at step 119): C «You were wearing an uncursed +2 ring of gain strength (on ri» vs JS «You were wearing an uncursed +2 ring of gain strength (on ri». Probe: `node scripts/hidden-proxy.mjs verify do_statusline1` (scen-normal-Wizard-91114, scen-poly-Priest-92097, scen-wish-Archeologist-92038).
+- [ ] `drawing.c` def_char_is_furniture — blocks 3/553 corpus sessions (first at step 49): C «branch staircase up» vs JS «unexplored area». Probe: `node scripts/hidden-proxy.mjs verify def_char_is_furniture` (scen-kit-Archeologist-92170, scen-normal-Knight-91100, scen-normal-Rogue-92209).
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 
