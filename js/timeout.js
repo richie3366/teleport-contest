@@ -15,7 +15,7 @@ import {
     MAGICAL_BREATHING, WWALKING, FIRE_RES, COLD_RES, SLEEP_RES,
     ACCESSIBLE, Is_waterlevel, SICK_NONVOMITABLE, M_AP_MONSTER,
     COLNO, ROWNO, CLOUD,
-    KILLED_BY_AN, KILLED_BY, NO_KILLER_PREFIX, TURNED_SLIME, GENOCIDED, STONING,
+    KILLED_BY_AN, KILLED_BY, NO_KILLER_PREFIX, TURNED_SLIME, GENOCIDED, STONING, DIED,
     DISINT_RES, SHOCK_RES, POISON_RES, DRAIN_RES, SICK_RES, ANTIMAGIC,
     BLND_RES, HUNGER, TELEPAT, WARNING, WARN_OF_MON, WARN_UNDEAD,
     SEARCHING, INFRAVISION, ADORNED, STEALTH, AGGRAVATE_MONSTER,
@@ -44,7 +44,7 @@ import { make_confused, make_deaf, make_slimed, make_stoned, make_stunned, make_
 import { make_blinded } from './do.js';
 import { Fumbling, Fast, Very_fast, exercise, stone_luck, A_STR, A_DEX, A_CON } from './attrib.js';
 import { pline, You_feel, newsym, canseemon, verbalize, Norep, see_monsters, impossible, urgent_pline, Hallucination } from './display.js';
-import { inv_weight, update_inventory, useupall } from './invent.js';
+import { inv_weight, update_inventory, useup, useupall } from './invent.js';
 import { doname, makeplural, xname, an, The, vtense } from './objnam.js';
 import { rn2, rnd, rn1, d } from './rng.js';
 import { objectNames } from './objects.js';
@@ -110,6 +110,7 @@ const TIMEOUT_FLAT = {
 /** C ref: weight.h WT_NOISY_INV — inv_weight() threshold for noisy fumbling. */
 const WT_NOISY_INV = 500;
 const ROCK = objectNames.indexOf('ROCK');
+const AMULET_OF_STRANGULATION = objectNames.indexOf('AMULET_OF_STRANGULATION');
 const LUCKSTONE = objectNames.indexOf('LUCKSTONE');
 const FEDORA = objectNames.indexOf('FEDORA');
 const PM_GREEN_SLIME = monsterNames.indexOf('PM_GREEN_SLIME');
@@ -994,7 +995,8 @@ export async function nh_timeout() {
         // except STONED → stoning death (C `:674–685`),
         // DETECT_MONSTERS → see_monsters (D-1418), LEVITATION
         // → float_down (D-1419), INVIS → newsym + You (D-1421),
-        // and SLIMED → slimed_to_death (C `:686–688`).
+        // SLIMED → slimed_to_death (C `:686–688`), and STRANGLED →
+        // done_timeout(DIED, …) + amulet-vanishes (C `:890–900`).
         if (!(next & TIMEOUT) && p === DETECT_MONSTERS) {
             see_monsters();
         }
@@ -1059,6 +1061,24 @@ export async function nh_timeout() {
             // C timeout.c :686–688 — slimed_to_death(kptr)
             // (done_timeout(TURNED_SLIME, SLIMED) inside).
             await slimed_to_death(find_delayed_killer(SLIMED));
+        }
+        if (!(next & TIMEOUT) && p === STRANGLED) {
+            // C timeout.c :890–900 — strangulation runs out: killer
+            // KILLED_BY "suffocation" when buried else "strangulation";
+            // done_timeout(DIED, STRANGLED) (noreturn unless life-saved
+            // or wizard/explore Die? declined); then a worn amulet of
+            // strangulation vanishes like a prayer cure.
+            if (!game.killer) game.killer = { name: '', format: 0, next: null };
+            game.killer.format = KILLED_BY;
+            game.killer.name = u.uburied ? 'suffocation' : 'strangulation';
+            await done_timeout(DIED, STRANGLED);
+            // C: done() does not return unless life-saved.
+            if (game.program_state?.gameover) return;
+            const amulet = u.uamul;
+            if (amulet && (amulet.otyp | 0) === AMULET_OF_STRANGULATION) {
+                await pline('Your amulet vanishes!');
+                useup(amulet);
+            }
         }
     }
 

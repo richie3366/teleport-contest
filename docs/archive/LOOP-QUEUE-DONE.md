@@ -5,7 +5,13 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-07
 
-- [x] `bones.c` give_to_nearby_mon — blocks 5/553 corpus sessions (first at step 81): C draws `rn2(1)=0` in give_to_nearby_mon, JS `rn2(5)=1` from drop_upon_death(end.js:1162). Probe: `node scripts/hidden-proxy.mjs verify give_to_nearby_mon` (scen-genesis-Barbarian-92201, scen-genesis-Caveman-91109, scen-genesis-Ranger-91139). **Addressed:** D-2034
+- [x] `detect.c` dosearch residual (post-D-2035: strangulation pair PASS) — blocks 3/553 corpus sessions: grid-bug `x` at different map cells with matched RNG (scen-normal-Archeologist-92012 step 10; scen-normal-Wizard-92127 step 31: C `·········│` vs JS `x········│` row 7 col 57) + gremlin round one attack short in JS (scen-tour-Archeologist-92023 step 65: C «The gremlin bites!--More--» vs JS «The gremlin bites!»; suspect `mattacku` attack count — own brief, not this row). Probe: `node scripts/hidden-proxy.mjs verify dosearch` (scen-normal-Archeologist-92012, scen-normal-Wizard-92127, scen-tour-Archeologist-92023). **Addressed:** D-2035
+
+
+- [x] `detect.c` dosearch — blocks 5/553 corpus sessions (first at step 40): C «You suffocate. You stop searching.--More--» vs JS «You suffocate. You stop searching.». Probe: `node scripts/hidden-proxy.mjs verify dosearch` (scen-death-Monk-92121, scen-death-Monk-92191, scen-normal-Archeologist-92012). **Addressed:** D-2035
+
+
+- [x] `bones.c` give_to_nearby_mon — blocks 5/553 corpus sessions (first at step 81): C draws `rn2(1)=0` in give_to_nearby_mon, JS `rn2(5)=1` from drop_upon_death(end.js:1162). Probe: `node scripts/hidden-proxy.mjs verify give_to_nearby_mon` (scen-genesis-Barbarian-92201, scen-genesis-Caveman-91109, scen-genesis-Ranger-91139). **Addressed:** D-2034 `b87c6332`
 
 
 - [x] `uhitm.c` mhitm_ad_famn — blocks 1/553 corpus sessions: scen-wish-Tourist-92067 step 140/234 C `d(8,8)@hitmu` + `rn2(2)@exercise` (`:3793` mhitu arm) + `rn2(40)@mhitm_ad_famn(:3795)` «Famine reaches out, and your body shrivels.» vs JS «You hit Famine.» (no AD_FAMN dispatch in `mhitu.js`; `verify mhitm_ad_famn` is vacuous until rescore re-attributes it from `exercise`). **Addressed:** D-2033 `7d22c4f3`

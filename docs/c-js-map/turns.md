@@ -42,7 +42,7 @@ talk D-1817**; C `timeout.c:752` / `wizcmds.c:1029`); **FAST TIMEOUT → Very_fa
 **LEVITATION TIMEOUT → `float_down(I_SPECIAL|TIMEOUT)` (D-1419)**; 
 **BLINDED TIMEOUT → make_blinded(0)+learn_unseen_invent** (D-0928 #1098); 
 **remaining `u.uprops` TIMEOUT generic `--` (INVULNERABLE etc.; 
-dedicated arms skipped)** (D-0928 #1168; expiry switch HALLUC/… still silent, STONED → stoning death live D-2029, SLIMED → `slimed_to_death` live D-2023); 
+dedicated arms skipped)** (D-0928 #1168; expiry switch HALLUC/… still silent, STONED → stoning death live D-2029, SLIMED → `slimed_to_death` live D-2023, STRANGLED → `done_timeout(DIED, …)` + amulet-vanishes live D-2035); 
 **`u.uinvulnerable` early-return freezes all TIMEOUT** (D-0928 #1171); 
 **`#wizintrinsic` BLINDED → `make_blinded(newtimeout)` + HBlinded↔uprops sync** (D-0928 #1171); 
 STUNNED/HALLUC/… expiry msgs / `region_dialogue` / `sleep_dialogue`
