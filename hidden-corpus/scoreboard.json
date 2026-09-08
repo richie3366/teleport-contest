@@ -1,6 +1,6 @@
 {
- "commit": "186429d7",
- "at": "2026-09-08T13:58:02.088Z",
+ "commit": "7fca2bb6",
+ "at": "2026-09-08T14:06:11.952Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6913,18 +6913,18 @@
   "scen-poly-Rogue-92026": {
    "src": "corpus",
    "passed": false,
-   "rngM": 2524,
+   "rngM": 3094,
    "rngT": 3094,
-   "scrM": 163,
+   "scrM": 242,
    "scrT": 266,
-   "kind": "rng",
-   "step": 163,
+   "kind": "screen",
+   "step": 196,
    "steps": 266,
-   "owner": "mattacku",
-   "loc": "mhitu.c:912",
-   "jsOwner": "mswings_verb(mhitu.js:321)",
-   "cTopline": "You feel an unseen monster! It hits! You stop searching.",
-   "jsTopline": "You feel an unseen monster! It thrusts its knife. It hits!--More--",
+   "owner": "do_statusline2",
+   "loc": "botl.c:130",
+   "jsOwner": null,
+   "cTopline": "The guard swings her knife. The guard hits! You stop searching.",
+   "jsTopline": "The guard swings her knife. The guard hits! You stop searching.",
    "error": null
   },
   "scen-poly-Samurai-91106": {

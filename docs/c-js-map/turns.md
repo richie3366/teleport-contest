@@ -3041,7 +3041,7 @@ SEDUCE=0 `c_sa_no` subst, steal.c monkey_business `unresponsive` site));
 **`missmu` nearmiss `"just "` + unseen `map_invisible`** (D-0301; 
 seduce/`stop_occupation` deferred) + **`hitmsg` consecutive `" again"`** (D-0840) + **`pline_mon` + 
 AT_TENT/`s_suffix` + AT_EXPL/BOOM + thick_skinned kick punct D-1261**; **missmu pline_mon D-1286**; 
-**wildmiss set_msg_xy then pline D-1291**; **mswings pline_mon D-1305**; 
+**wildmiss set_msg_xy then pline D-1291**; **mswings pline_mon D-1305**; **`mswings` `!Blind` prop gate D-2130** (youprop.h `(H||E)&&!B`, not sticky `u.Blind` flats; eyeless-poly FROMFORM); 
 **mattacku AT_TENT melee D-1309** (HTH with claw/kick/bite; 
 `!MON_WEP\|\|mconf\|\|Conflict\|\|!touch_petrifies` + unsolid `failed_grab` + 
 thick-skinned kick skip `hitmu`); **`mattacku` explmu D-1326** (`mcan` miss before `d()`; 

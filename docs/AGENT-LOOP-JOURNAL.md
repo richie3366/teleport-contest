@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-08 — D-2130 `mhitu.c` mswings `!Blind` gate read stale flats: eyeless-poly hero (HBlinded=FROMFORM) is Blind in C, JS printed the swing and drew `rn2(2)` where C draws `rnd(20)` (queue row `mhitu.c` mattacku, 1 session)
+
+**C locus:** `mhitu.c:128–141` `mswings` gate `:135` (`if (flags.verbose && !Blind && mon_visible(mtmp))`), with `Blind ≡ (HBlinded||EBlinded) && !BBlinded` (`youprop.h:103`) and `polyself.c:107` `PROPSET(BLINDED, !haseyes(mdat))` conferring FROMFORM (`prop.h:0x10000000`) for eyeless forms. A mixed-strike weapon then draws `rn2(2)` inside `mswings_verb :115–116`; the C silence means no verb draw, so the next draw is the to-hit `rnd(20+i)` at `:912`.
+**JS:** 1 file (`js/mhitu.js` +7/−3 — a 1-line gate plus C-cite comment; C `mswings` is 14 lines so the small diff is the whole envelope), under the 600/10 caps.
+**Change:** `js/mhitu.js` only — `mswings` now gates on the same-module live `Blind()` (`youprop.h` `(H||E)&&!B` + roleplay/ublind mirrors, D-0716 convention; no new import, hoisted function declaration so no TDZ risk) with C cites (`:135`, `youprop.h:103`, `polyself.c:107`). JS `cansee` already uses the prop formula (it returned false at the divergent call), so no display change. No DIAG/FORCE/seed gates; Rule #2 clean.
+**Verify:** `node scripts/verify.mjs --fn mattacku` → PASS syntax (1 changed js file(s): js/mhitu.js) · PASS rule2 (no fs/path/url/node: imports, no DIAG/FORCE/seed gates) · PASS hidden (verify mattacku: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS: scen-poly-Rogue-92026 moved → do_statusline2 at step 196, was mattacku at 163) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) · VERIFY: PASS. Preflight `verify.mjs --no-cohort` was green before edits.
+**Named:** none new. `mon_visible` flat `See_invisible` reader (`display.js:922`) untouched — See props were 0 on both sides here; `mhitm.js` mon-vs-mon `Blind_slee` gate untouched (no corpus session reaches it this iter).
+**Next:** Rogue-92026 now diverges at step 196 under `do_statusline2` — leave to the corpus queue; do not re-pop `mattacku` for it.
 ## 2026-09-08 — D-2129 `pray.c` prayer_done Inhell Gehennom gate: JS skipped `rnl(record)` + `angrygods` where C draws `rnl(10)=4` (queue row `pray.c` prayer_done, 1 session)
 
 **C locus:** `pray.c:2276–2343` `prayer_done`, Inhell arm `:2307–2313` (`pline("Since you are in Gehennom, %s can't help you.", align_gname)` → `if (u.ualign.record <= 0 || rnl(u.ualign.record)) angrygods(u.ualign.type)` → `return 0`; «haltingly aligned is least likely to anger»).
