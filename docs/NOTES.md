@@ -6,6 +6,7 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Scenario corpus = work picker:** `hidden-proxy queue`; singletons Deferred; themed-room step-0 → `geom-probe`.
+- **break_armor park (2026-09-09, no js/):** Tourist-92171 step-88 More-transient — identical «You drop your gloves!» toplines, C `+@d` vs JS `+qd`, RNG 3637/3637, screens 144/145 (converges step 89). First JS q via C-faithful gloves dropp newsym; capture-timing, not logic (cf. hmonas/mdrop_obj parks). Falsifier + probe: LOOP-QUEUE Parked. Do not re-pop.
 - **Fortress guards.** Do not reopen display_inventory dismiss / gameover heading / keep_status, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue `S_ndoor`, bigrm-2, getpos, summonmu, lookat, `do_statusline1`, snapshot, fakewiz, Ice/Boulder, `roles[]`, pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
 - **Luck runs when invulnerable; dialogues do not** (`timeout.c:623`); STONED/SLIMED expiry silent.
 - **next_ident = symptom owner:** fix the WRITER, not the table reader.
