@@ -59,7 +59,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `potion.c` peffect_sickness — blocks 2/553 corpus sessions (first at step 47): C «(But in fact it was biologically contaminated slime mold jui» vs JS «(But in fact it was biologically contaminated slime mold jui». Probe: `node scripts/hidden-proxy.mjs verify peffect_sickness` (scen-kit-Rogue-92225, scen-normal-Rogue-92209).
 - [ ] `objnam.c` rnd_otyp_by_namedesc — blocks 2/553 corpus sessions (first at step 92): C draws `rn2(26)=7` in rnd_otyp_by_namedesc, JS `rn2(5)=4` from distfleeck(monmove.js:808). Probe: `node scripts/hidden-proxy.mjs verify rnd_otyp_by_namedesc` (scen-intrinsic-Samurai-92239, scen-wish-Priest-92179).
 - [ ] `mon.c` mpickstuff — blocks 1/553 corpus sessions (first at step 100): C draws `rn2(25)=2` in mpickstuff, JS `rn2(5)=2` from distfleeck(monmove.js:826). Probe: `node scripts/hidden-proxy.mjs verify mpickstuff` (scen-tour-Tourist-92100).
 - [ ] `muse.c` rnd_misc_item — blocks 1/553 corpus sessions (first at step 70): C draws `rn2(6)=2` in rnd_misc_item, JS `rn2(100)=94` from makemon(makemon.js:3065). Probe: `node scripts/hidden-proxy.mjs verify rnd_misc_item` (scen-tour-Ranger-92033).

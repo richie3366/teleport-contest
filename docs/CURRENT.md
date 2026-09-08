@@ -88,10 +88,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `pickup.c` tipcontainer_gettarget — blocks 2/553 corpus sessions (first at step 130): C «Where to tip the contents of a locked chest» vs JS «Where to tip the contents of a chest». Probe: `node scripts/hidden-proxy.mjs verify tipcontainer_gettarget` (scen-wish-Healer-92092, scen-wish-Knight-92045).
+**Next cluster:** `potion.c` peffect_sickness — blocks 2/553 corpus sessions (first at step 47): C «(But in fact it was biologically contaminated slime mold jui» vs JS «(But in fact it was biologically contaminated slime mold jui». Probe: `node scripts/hidden-proxy.mjs verify peffect_sickness` (scen-kit-Rogue-92225, scen-normal-Rogue-92209).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2082 (index).**
+**Keep D-0845…D-2083 (index).**
 <!-- recent:begin -->
+**D-2083** `potion.c:964–1011` `peffect_sickness` — `js/potion.js` — both calls gated on the local `Fixed_abil()` (`potion.js:1786`, C `youprop.h:385` cite) in verbatim C order (poisontell, then adjattrib); `poisontell` joins the pre-existing `./attrib.js` import (`import
 **D-2082** `pickup.c:2972–3226` `use_container` — `js/pickup.js` — restored the 5-line C arm verbatim (`if (!obj.lknown) { obj.lknown = 1; if (held) update_inventory(); }`) ahead of the olocked check and corrected the comment to cite `:2992–2999` (Hmmm stays floor-only)
 **D-2081** `detect.c:842` `You("sense the presence of monsters.")`, then the one-shot else-arm `brows — `js/detect.js` — deleted the `flush_topl_more()` call and its import (no other user in this function); replaced the stale comment with the C cite (`detect.c:842` → `getpos.c:843–846`, two-space join at `js/display.js:738
 **D-2080** `read.c:329–647` `doread` — `js/read.js` — `scroll.pickup_prev = 0` (eat.js/apply.js idiom, C `:359`); Blind gate ports C branch order verbatim (`Zblind` uses the same `u.Blind || u.ublind` idiom as the disappear block below; Dead exempt; novel/wor
@@ -99,11 +100,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2078** `spell.c:1219–1380` `spelleffects_check` — `js/spell.js` — amulet arm ports C branch order verbatim (`(game.u?.uhave?.amulet || game.u?.uhave_amulet) && uen >= energy` — the eat.js/teleport.js dual-field idiom — → `You_feel` (already imported) + `rnd(2 * energy)`
 **D-2077** `do_wear.c:1920–2008` `armoroff` — `js/do_wear.js` — `armor_doff_simple_name` now dispatches exactly the C arms: suit→`suit_simple_name`, shield→`shield_simple_name` (local, silver/smooth), helm→`hard_helmet(otmp) ? 'helm' : 'hat'` (same idiom as `armor_s
 **D-2076** `wield.c:760–804` `can_twoweapon` — `js/wield.js` — both arms now print `${Yname2(otmp)}` (`Yname2` joins the existing `./objnam.js` import — same module edge as `xname`, no new cycle, no TDZ); suitability arm uses `is_plural(otmp)` for aren't/isn't-a whil
-**D-2075** `uhitm.c:4388–4422` `mhitm_ad_stun` — `js/mhitu.js` — new `mhitm_ad_stun_u` (`hitmsg` always; `!(mtmp.mcan|0) && !rn2(4)` → `make_stunned(((game.u?.HStun|0) & TIMEOUT) + (mhm.damage|0), true)` (the :3264 gaze-arm idiom) + `mhm.damage = Math.trunc((mhm.damage
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2082; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2083; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

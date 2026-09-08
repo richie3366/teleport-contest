@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `pickup.c` tipcontainer_gettarget — blocks 2/553 corpus sessions (first at step 130): C «Where to tip the contents of a locked chest» vs JS «Where to tip the contents of a chest». Probe: `node scripts/hidden-proxy.mjs verify tipcontainer_gettarget` (scen-wish-Healer-92092, scen-wish-Knight-92045). **Addressed:** D-2082
+- [x] `potion.c` peffect_sickness — blocks 2/553 corpus sessions (first at step 47): C «(But in fact it was biologically contaminated slime mold jui» vs JS «(But in fact it was biologically contaminated slime mold jui». Probe: `node scripts/hidden-proxy.mjs verify peffect_sickness` (scen-kit-Rogue-92225, scen-normal-Rogue-92209). **Addressed:** D-2083
+
+
+- [x] `pickup.c` tipcontainer_gettarget — blocks 2/553 corpus sessions (first at step 130): C «Where to tip the contents of a locked chest» vs JS «Where to tip the contents of a chest». Probe: `node scripts/hidden-proxy.mjs verify tipcontainer_gettarget` (scen-wish-Healer-92092, scen-wish-Knight-92045). **Addressed:** D-2082 `4d63176a`
 
 
 - [x] `detect.c` monster_detect — blocks 2/553 corpus sessions (first at step 51): C «You sense the presence of monsters. (For instructions type a» vs JS «You sense the presence of monsters.--More--». Probe: `node scripts/hidden-proxy.mjs verify monster_detect` (scen-normal-Priest-91108, scen-normal-Priest-92020). **Addressed:** D-2081 `e55af311`
