@@ -10,7 +10,7 @@ import {
     is_vampshifter, is_watch, is_mind_flayer, is_covetous,
     is_floater, is_flyer, amorphous, nolimbs, M1_SLITHY, MZ_SMALL,
     grounded, telepathic, mons, metallivorous, humanoid, is_neuter, G_UNIQ,
-    corpse_eater, is_demon,
+    corpse_eater, is_demon, touch_petrifies, acidic,
 } from './monsters.js';
 import { gettrack } from './track.js';
 import { wipe_engr_at } from './engrave.js';
@@ -79,7 +79,7 @@ import {
 } from './display.js';
 import { dog_move, finish_meating } from './dogmove.js';
 import { worm_move, worm_nomove, see_wsegs, worm_known, wormhitu } from './worm.js';
-import { shk_move, gd_move, pri_move, costly_spot } from './shk.js';
+import { shk_move, gd_move, pri_move, costly_spot, inhishop } from './shk.js';
 import { tactics } from './wizard.js';
 import { Invis } from './timeout.js';
 import { rn2, rnd, d } from './rng.js';
@@ -121,6 +121,7 @@ const PM_HEZROU = monsterNames.indexOf('PM_HEZROU');
 const PM_STEAM_VORTEX = monsterNames.indexOf('PM_STEAM_VORTEX');
 const PM_KILLER_BEE = monsterNames.indexOf('PM_KILLER_BEE');
 const PM_QUEEN_BEE = monsterNames.indexOf('PM_QUEEN_BEE');
+const PM_LIZARD = monsterNames.indexOf('PM_LIZARD');
 const LUMP_OF_ROYAL_JELLY = objectNames.indexOf('LUMP_OF_ROYAL_JELLY');
 /** C ref: monattk.h AD_DRIN — mind_blast monkilled how. */
 const AD_DRIN = 32;
@@ -346,20 +347,29 @@ function could_reach_item(mon, nx, ny) {
 }
 
 /**
- * C ref: mon.c mpickstuff — pick one wanted floor object underfoot.
- * Named omissions: shopkeeper inhishop; in_rooms shop rn2(25);
- * prize helpers unwired (D-1257 gelcube uses them); nymph/corpse specials.
+ * C ref: mon.c:1847-1910 mpickstuff — pick one wanted floor object underfoot.
+ * Shopkeeper inhishop gate, non-tame in_rooms shop rn2(25) gate, prize
+ * skip, and nymph/corpse specials all live (D-2085).
  */
 async function mpickstuff(mtmp) {
-    if (mtmp.isshk) return false;
-    // shop in_rooms + rn2(25) deferred (no shop rooms on Mines path)
+    /* prevent shopkeepers from leaving the door of their shop */
+    if (mtmp.isshk && inhishop(mtmp)) return false;
+    /* non-tame monsters normally don't go shopping */
+    if (!mtmp.mtame && in_rooms(mtmp.mx, mtmp.my, SHOPBASE) && rn2(25)) return false;
+    /* item in a pool, but monster can't swim */
     if (!could_reach_item(mtmp, mtmp.mx, mtmp.my)) return false;
 
     for (let otmp = objects_at(mtmp.mx, mtmp.my); otmp; otmp = otmp.nexthere) {
-        // prize helpers unwired (D-1257 gelcube)
+        /* avoid special items; once hero picks them up, they'll cease
+           being special, becoming eligible for normal pickup */
+        if (is_mines_prize(otmp) || is_soko_prize(otmp)) continue;
+        /* Nymphs take everything.  Most monsters don't pick up corpses. */
         if (!mon_would_take_item(mtmp, otmp)) continue;
-        if (otmp.otyp === CORPSE && mtmp.data?.mlet !== 'S_NYMPH') {
-            // touch_petrifies / lizard / acidic corpse exceptions deferred
+        if (otmp.otyp === CORPSE && mtmp.data?.mlet !== 'S_NYMPH'
+            /* let a handful of corpse types thru to can_carry() */
+            && !touch_petrifies(mons(otmp.corpsenm))
+            && otmp.corpsenm !== PM_LIZARD
+            && !acidic(mons(otmp.corpsenm))) {
             continue;
         }
         if (!can_touch_safely(mtmp, otmp)) continue;

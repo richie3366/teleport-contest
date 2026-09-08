@@ -59,7 +59,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `mon.c` mpickstuff — blocks 1/553 corpus sessions (first at step 100): C draws `rn2(25)=2` in mpickstuff, JS `rn2(5)=2` from distfleeck(monmove.js:826). Probe: `node scripts/hidden-proxy.mjs verify mpickstuff` (scen-tour-Tourist-92100).
 - [ ] `muse.c` rnd_misc_item — blocks 1/553 corpus sessions (first at step 70): C draws `rn2(6)=2` in rnd_misc_item, JS `rn2(100)=94` from makemon(makemon.js:3065). Probe: `node scripts/hidden-proxy.mjs verify rnd_misc_item` (scen-tour-Ranger-92033).
 - [ ] `trap.c` burnarmor — blocks 1/553 corpus sessions (first at step 72): C draws `rn2(5)=2` in burnarmor, JS `rn2(6)=0` from trapeffect_fire_trap(trap.js:4042). Probe: `node scripts/hidden-proxy.mjs verify burnarmor` (scen-tour-Wizard-91112).
 - [ ] `do_name.c` roguename — blocks 1/553 corpus sessions (first at step 89): C «Michael Toy's ghost wakes up! You stop searching.--More--» vs JS «You stop searching. Michael Toy's ghost touches you!». Probe: `node scripts/hidden-proxy.mjs verify roguename` (scen-tour-Tourist-91101).

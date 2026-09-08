@@ -88,10 +88,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `objnam.c` rnd_otyp_by_namedesc — blocks 2/553 corpus sessions (first at step 92): C draws `rn2(26)=7` in rnd_otyp_by_namedesc, JS `rn2(5)=4` from distfleeck(monmove.js:808). Probe: `node scripts/hidden-proxy.mjs verify rnd_otyp_by_namedesc` (scen-intrinsic-Samurai-92239, scen-wish-Priest-92179).
+**Next cluster:** `mon.c` mpickstuff — blocks 1/553 corpus sessions (first at step 100): C draws `rn2(25)=2` in mpickstuff, JS `rn2(5)=2` from distfleeck(monmove.js:826). Probe: `node scripts/hidden-proxy.mjs verify mpickstuff` (scen-tour-Tourist-92100).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2084 (index).**
+**Keep D-0845…D-2085 (index).**
 <!-- recent:begin -->
+**D-2085** `mon.c:1847–1910` `mpickstuff` — `js/monmove.js` — ported the missing C guards verbatim in C order (isshk+inhishop, then !mtame → in_rooms(SHOPBASE) → rn2(25), so the draw stays shop-gated by short-circuit; empty-string in_rooms is falsy like C `*p == 0
 **D-2084** `objnam.c:4371–4397` `readobjnam_postparse1` corpse-type block — `js/readobjnam.js` — ported the full conditional verbatim in C position (ahead of the no-`of` scan; glob intercept above it stays map-named): guards via live `strstri`, `tin of` → spinach exact / `tin_variety_txt` offset
 **D-2083** `potion.c:964–1011` `peffect_sickness` — `js/potion.js` — both calls gated on the local `Fixed_abil()` (`potion.js:1786`, C `youprop.h:385` cite) in verbatim C order (poisontell, then adjattrib); `poisontell` joins the pre-existing `./attrib.js` import (`import
 **D-2082** `pickup.c:2972–3226` `use_container` — `js/pickup.js` — restored the 5-line C arm verbatim (`if (!obj.lknown) { obj.lknown = 1; if (held) update_inventory(); }`) ahead of the olocked check and corrected the comment to cite `:2992–2999` (Hmmm stays floor-only)
@@ -99,11 +100,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2080** `read.c:329–647` `doread` — `js/read.js` — `scroll.pickup_prev = 0` (eat.js/apply.js idiom, C `:359`); Blind gate ports C branch order verbatim (`Zblind` uses the same `u.Blind || u.ublind` idiom as the disappear block below; Dead exempt; novel/wor
 **D-2079** `you.h:554` `#define Upolyd (u.umonnum != u.umonster)`; `polyself.c:200–268` `polyman` `:2 — `js/const.js` — `Upolyd(player)` is now `((player.umonnum | 0) !== (player.umonster | 0))` with the `you.h:554` cite (plus why-mtimedone-fails note).
 **D-2078** `spell.c:1219–1380` `spelleffects_check` — `js/spell.js` — amulet arm ports C branch order verbatim (`(game.u?.uhave?.amulet || game.u?.uhave_amulet) && uen >= energy` — the eat.js/teleport.js dual-field idiom — → `You_feel` (already imported) + `rnd(2 * energy)`
-**D-2077** `do_wear.c:1920–2008` `armoroff` — `js/do_wear.js` — `armor_doff_simple_name` now dispatches exactly the C arms: suit→`suit_simple_name`, shield→`shield_simple_name` (local, silver/smooth), helm→`hard_helmet(otmp) ? 'helm' : 'hat'` (same idiom as `armor_s
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2084; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2085; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

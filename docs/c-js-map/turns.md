@@ -2663,7 +2663,8 @@ full `gd_move` / `dmonsfree` deferred); **`m_move` Invis `should_see&&rn2(11)` +
 stalker/bat/light rn2(3) + leppie_avoidance** (D-0268; shortsighted after track still deferred); 
 **`m_search_items`/`mon_would_take_item` getitems loot gg** (D-0182); 
 **postmov `mpickstuff` MOVED|DONE** (D-0185) + **`distant_name(otmp,doname)`** (D-0840; 
-was plain doname → long ID names / early More); 
+was plain doname → long ID names / early More) + **shop `inhishop`/`in_rooms`+`rn2(25)` gate, 
+prize skip, corpse petrify/lizard/acidic thru-arms** (D-2085); 
 **`can_carry` quan>1 → 1 only for `M1_NOHANDS` non-glomper** (D-0186); 
 **underfoot MMOVE_DONE + peaceful `can_carry`** (D-0183/D-0223; 
 underfoot `return TRUE`→`postmov`→`mpickstuff` restored; 
