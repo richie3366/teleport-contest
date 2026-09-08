@@ -21,6 +21,7 @@ Objective/score live in `CURRENT.md`.
 - **spoteffects park:** Samurai-92161 step 35 topline-literal misattribution; writer is `mthrowu.c` flight/catch (forcehit + catch-inventory). Falsifier in Parked row; do not re-pop.
 - **mon_adjust_speed park:** topline-literal misattribution; writer is summon glyph paint, not the speed printer (detail + falsifier: Parked row; do not re-pop).
 - **zapyourself park:** scen-tour-Priest-92235 step 60 is a monster-zap dobuzz hero hit misattributed via the «sleep ray hits you!» literal tie-break; zapyourself never runs on that path (detail + falsifier: Parked row; do not re-pop).
+- **doname_base park:** scen-wish-Rogue-92037 step 54 is a wield `prinv`+shine More-timing diff misattributed via the «(weapon in right hand)» literal tie-break to the `objnam.c:1590` comment line; doname text matches both sides, step dice are `touch_artifact rn2(4)=1` only, step-55 C topline is the shine pline, JS defers shine (`wield.js:432`, `:314-315` named). Falsifier in Parked row (ready_weapon shine moving `verify doname_base`); do not re-pop.
 
 ## Don't re-check (≤15)
 

@@ -88,7 +88,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `trap.c` burnarmor — blocks 1/553 corpus sessions (first at step 73): C draws `rn2(5)=3` in burnarmor, JS `rn2(6)=5` from xkilled(uhitm.js:694). Probe: `node scripts/hidden-proxy.mjs verify burnarmor` (scen-wish-Ranger-92212).
+**Next cluster:** `objnam.c` doname_base — blocks 1/553 corpus sessions (first at step 54): C «k - a long sword named Sunsword (weapon in right hand).--Mor» vs JS «k - a long sword named Sunsword (weapon in right hand).». Probe: `node scripts/hidden-proxy.mjs verify doname_base` (scen-wish-Rogue-92037).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2135 (index).**
 <!-- recent:begin -->
