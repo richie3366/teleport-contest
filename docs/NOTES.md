@@ -12,6 +12,7 @@ Objective/score live in `CURRENT.md`.
 - **Luck runs when invulnerable; dialogues do not** (`timeout.c:623`); STONED/SLIMED expiry silent.
 - **`sit.js` lay-egg `morehungry` unawaited; `losedogs` rebuilds `migrating_mons`.** Clone drift: zap useupf; detect/potion/read/spell `useup`; Elbereth; teleport `accessible`; helm_simple_name; pickup `ysimple_name`; getobj_* clones.
 - **next_ident = symptom owner:** fix the WRITER, not the table reader.
+- **obj_resists park (2026-09-08):** 3-writer symptom (detail: LOOP-QUEUE Parked). S1 ship-ready: savebones remove_mon_from_bones+LEAVESTATUE (queued). S2: C fire-trap burn vs JS silent skip. S3: cube paradox (OOO-without-D fits no path; JS cube turn-less, moved draw-free).
 
 ## Don't re-check (≤15)
 
