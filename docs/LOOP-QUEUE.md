@@ -59,7 +59,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `bones.c` drop_upon_death — blocks 3/553 corpus sessions (first at step 95): C draws `rn2(5)=1` in drop_upon_death, JS `rn2(1000)=746` from start_corpse_timeout(mkobj.js:1395). Probe: `node scripts/hidden-proxy.mjs verify drop_upon_death` (scen-death-Knight-92203, scen-intrinsic-Caveman-92070, scen-intrinsic-Healer-91105).
 - [ ] `end.c` really_done — blocks 3/553 corpus sessions (first at step 23): C «Do not pass Go. Do not collect 200 zorkmids.--More--» vs JS «Do you want your possessions identified? [ynq] (n)». Probe: `node scripts/hidden-proxy.mjs verify really_done` (scen-death-Ranger-92114, scen-genesis-Archeologist-91132, scen-wish-Monk-91136).
 - [ ] `insight.c` one_characteristic — blocks 3/553 corpus sessions (first at step 14): C «Your constitution was 18 (limit:18).» vs JS «Your constitution was 18 (limit:18).». Probe: `node scripts/hidden-proxy.mjs verify one_characteristic` (scen-normal-Barbarian-92208, scen-normal-Caveman-92006, scen-normal-Tourist-91122).
 - [ ] `monmove.c` distfleeck — blocks 3/553 corpus sessions (first at step 43): C draws `rn2(5)=1` in distfleeck, JS `rn2(7)=5` from do_attack(uhitm.js:2942). Probe: `node scripts/hidden-proxy.mjs verify distfleeck` (scen-normal-Healer-92218, scen-normal-Tourist-92061, scen-tour-Rogue-92030).

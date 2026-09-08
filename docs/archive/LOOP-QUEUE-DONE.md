@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `apply.c` use_pole — blocks 3/553 corpus sessions (first at step 62): C «You miss Pestilence.--More--» vs JS «You miss Pestilence.». Probe: `node scripts/hidden-proxy.mjs verify use_pole` (scen-genesis-Archeologist-91127, scen-genesis-Barbarian-91118, scen-wish-Rogue-91138). **Addressed:** D-2059
+- [x] `bones.c` drop_upon_death — blocks 3/553 corpus sessions (first at step 95): C draws `rn2(5)=1` in drop_upon_death, JS `rn2(1000)=746` from start_corpse_timeout(mkobj.js:1395). Probe: `node scripts/hidden-proxy.mjs verify drop_upon_death` (scen-death-Knight-92203, scen-intrinsic-Caveman-92070, scen-intrinsic-Healer-91105). **Addressed:** D-2060
+
+
+- [x] `apply.c` use_pole — blocks 3/553 corpus sessions (first at step 62): C «You miss Pestilence.--More--» vs JS «You miss Pestilence.». Probe: `node scripts/hidden-proxy.mjs verify use_pole` (scen-genesis-Archeologist-91127, scen-genesis-Barbarian-91118, scen-wish-Rogue-91138). **Addressed:** D-2059 `0a8386e7`
 
 
 - [x] `drawing.c` def_char_is_furniture — blocks 3/553 corpus sessions (first at step 49): C «branch staircase up» vs JS «unexplored area». Probe: `node scripts/hidden-proxy.mjs verify def_char_is_furniture` (scen-kit-Archeologist-92170, scen-normal-Knight-91100, scen-normal-Rogue-92209). **Addressed:** D-2058 `61843507`

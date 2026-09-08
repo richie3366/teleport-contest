@@ -20,7 +20,8 @@ import {
 import { arti_cost, artiname } from './artifact.js';
 import {
     DIED, GENOCIDED, STONING, QUIT, ESCAPED, ASCENDED, STARVING, BURNING,
-    CHOKING, NON_PM, CORPSTAT_INIT, CORPSTAT_NONE,
+    CHOKING, NON_PM, LEAVESTATUE, DISSOLVED, TURNED_SLIME, G_GENOD,
+    CORPSTAT_INIT, CORPSTAT_NONE,
     OBJ_FREE, Upolyd, MM_NONAME, isok, u_at, ACCESSIBLE, MAGIC_PORTAL,
     ECMD_OK, KILLED_BY_AN, KILLED_BY, NO_KILLER_PREFIX, PANICKED,
     DISCLOSE_YES_WITHOUT_PROMPT, DISCLOSE_NO_WITHOUT_PROMPT,
@@ -36,7 +37,7 @@ import { G_NOCORPSE, mons, likes_gold, likes_gems, likes_objs, likes_magic } fro
 import { m_at } from './mon.js';
 import { can_carry } from './monmove.js';
 import { oname, christen_monst, free_oname, mon_nam } from './do_name.js';
-import { mkcorpstat, curse, place_object, stackobj, mksobj, add_to_minv } from './mkobj.js';
+import { mkcorpstat, curse, place_object, stackobj, mksobj, add_to_minv, add_to_container, weight } from './mkobj.js';
 import { make_grave } from './engrave.js';
 import { makemon, adj_lev } from './makemon.js';
 import {
@@ -66,6 +67,7 @@ import { setworn } from './do_wear.js';
 import { night, midnight, getnow, yyyymmddhhmmss } from './calendar.js';
 
 const CORPSE = objectNames.indexOf('CORPSE');
+const PM_GREEN_SLIME = monsterNames.indexOf('PM_GREEN_SLIME');
 const STATUE = objectNames.indexOf('STATUE');
 const TIN = objectNames.indexOf('TIN');
 const SLIME_MOLD = objectNames.indexOf('SLIME_MOLD');
@@ -964,6 +966,16 @@ async function really_done(how) {
     }
 
     const u = game.u || {};
+    // C end.c:1206–1219 — maintain ugrave_arise even for !bones_ok: no
+    // corpse or grave for PANICKED, none for BURNING/DISSOLVED, a statue
+    // for STONING, slime-arise unless green slimes are genocided. The
+    // killer-based arise (wraith/mummy/zombie/vampire/ghoul, end.c:326–340)
+    // stays a named omission — no blocked session reaches it.
+    if (how === PANICKED) u.ugrave_arise = NON_PM - 3;
+    else if (how === BURNING || how === DISSOLVED) u.ugrave_arise = NON_PM - 2;
+    else if (how === STONING) u.ugrave_arise = LEAVESTATUE;
+    else if (how === TURNED_SLIME
+        && !(((game.mvitals?.[PM_GREEN_SLIME]?.mvflags) | 0) & G_GENOD)) u.ugrave_arise = PM_GREEN_SLIME;
     // C end.c really_done: QUIT → NO_KILLER_PREFIX; low HP → Charon's boat
     if (how === QUIT) {
         if (!game.killer) game.killer = { name: '', format: 0 };
@@ -1185,9 +1197,10 @@ function give_to_nearby_mon(otmp, x, y) {
 }
 
 /**
- * C ref: bones.c drop_upon_death — curse invent; place (or nearby gate).
- * Named omissions: artifact_light/end_burn;
- * add_to_minv / statue container arms (mtmp-or-cont live arm still places).
+ * C ref: bones.c drop_upon_death `:259–303` — curse invent; mtmp /
+ * cont / nearby-gate placement; cont owt refresh.
+ * Named omissions: obj_no_longer_held (no JS equivalent); lamp
+ * artifact_light/end_burn arm; mtmp add_to_minv arm (still places).
  */
 function drop_upon_death(mtmp, cont, x, y) {
     const u = game.u || {};
@@ -1203,9 +1216,12 @@ function drop_upon_death(mtmp, cont, x, y) {
         if ((otmp.otyp | 0) === SLIME_MOLD) goodfruit(otmp.spe);
 
         if (rn2(5)) curse(otmp);
-        if (mtmp || cont) {
+        if (mtmp) {
             place_object(otmp, x, y);
             stackobj(otmp);
+        } else if (cont) {
+            // C `:294–295` — into the statue, with no rn2(8) nearby gate
+            void add_to_container(cont, otmp);
         } else if (!rn2(8)) {
             give_to_nearby_mon(otmp, x, y);
         } else {
@@ -1213,6 +1229,8 @@ function drop_upon_death(mtmp, cont, x, y) {
             stackobj(otmp);
         }
     }
+    // C `:301–302` — reweigh the statue after the drop loop
+    if (cont) cont.owt = weight(cont);
 }
 
 /**
@@ -1222,7 +1240,8 @@ function drop_upon_death(mtmp, cont, x, y) {
  * Named omissions: file compress; unleash_all/unpunish/dismount;
  * remove_mon_from_bones/dmonsfree/forget_engravings;
  * set_ghostly_objlist / resetobjs known-strip; map memory clear
- * (ux/uy zero); arise/statue arms; ebones; m_dowear; obj_attach_mid;
+ * (ux/uy zero); undead-arise mtmp arm (makemon + add_to_minv +
+ * m_dowear); ebones; obj_attach_mid;
  * binary savelev (overview lists who/how, not when[]).
  */
 async function savebones(how, when, corpse) {
@@ -1257,18 +1276,30 @@ async function savebones(how, when, corpse) {
         drop_upon_death(null, null, u.ux, u.uy);
         return;
     }
-    drop_upon_death(null, null, u.ux, u.uy);
-    const prev = game.in_mklev;
-    game.in_mklev = true;
-    let mtmp = makemon(mons(PM_GHOST), u.ux | 0, u.uy | 0, MM_NONAME);
-    game.in_mklev = prev;
-    if (!mtmp) return;
-    mtmp = christen_monst(mtmp, game.plname || 'ghost');
-    mtmp.m_lev = (u.ulevel | 0) || 1;
-    mtmp.mhp = mtmp.mhpmax = u.uhpmax | 0;
-    mtmp.female = game.flags?.female ? 1 : 0;
-    mtmp.msleeping = 1;
-    void corpse;
+    // C bones.c:480–489 LEAVESTATUE arm — statue instead of corpse; the
+    // drop loop containers inventory in the statue (no rn2(8) gate), then
+    // the shared bones tail below with no ghost (mtmp NULL in C).
+    if ((arise | 0) === LEAVESTATUE) {
+        const statue = mk_named_object(
+            STATUE, mons((u.umonnum | 0)), u.ux | 0, u.uy | 0,
+            game.plname || 'Player',
+        );
+        drop_upon_death(null, statue, u.ux | 0, u.uy | 0);
+        if (!statue) return;
+    } else {
+        drop_upon_death(null, null, u.ux, u.uy);
+        const prev = game.in_mklev;
+        game.in_mklev = true;
+        let mtmp = makemon(mons(PM_GHOST), u.ux | 0, u.uy | 0, MM_NONAME);
+        game.in_mklev = prev;
+        if (!mtmp) return;
+        mtmp = christen_monst(mtmp, game.plname || 'ghost');
+        mtmp.m_lev = (u.ulevel | 0) || 1;
+        mtmp.mhp = mtmp.mhpmax = u.uhpmax | 0;
+        mtmp.female = game.flags?.female ? 1 : 0;
+        mtmp.msleeping = 1;
+        void corpse;
+    }
 
     // C: bones.c savebones — attach cemetery before create_bonesfile
     // who = plname-ROL-RAC-GEN-ALI (playmode:debug → plname "wizard")
