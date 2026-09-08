@@ -18,6 +18,7 @@ Objective/score live in `CURRENT.md`.
 - **m_move symptom-owner park:** loop body faithful; D-2069 shipped; Caveman-92202 cnt-j off-by-one (detail + falsifier: Parked; do not re-pop).
 - **rloc park:** body faithful (D-0686); writer is a draw-free migration creator (detail + falsifier: Parked; do not re-pop).
 - **lightdamage park:** `mzapwand` MORE-transient misattributed to zap.c (D-1366 faithful); capture artifact, not state (detail + falsifier: Parked; do not re-pop).
+- **mattackm park:** writer can_carry; blocked by #2 @3037 + move-99 spin (Parked).
 
 ## Don't re-check (≤15)
 
