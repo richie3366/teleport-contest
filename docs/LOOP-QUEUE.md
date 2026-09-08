@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `cmd.c` yn_function — blocks 1/553 corpus sessions (first at step 111): C «Die? [yn] (n)» vs JS «You die...--More--». Probe: `node scripts/hidden-proxy.mjs verify yn_function` (scen-wish-Barbarian-92054).
 - [ ] `dig.c` use_pick_axe — blocks 1/553 corpus sessions (first at step 11): C «In what direction do you want to dig? [yku>]» vs JS «In what direction do you want to dig? [kyu>]». Probe: `node scripts/hidden-proxy.mjs verify use_pick_axe` (scen-kit-Archeologist-92022).
 - [ ] `attrib.c` adjattrib — blocks 1/553 corpus sessions (first at step 16): C «By that time, Narahara had already slipped his arm from the» vs JS «More info about "human samurai"? [yn] (n)». Probe: `node scripts/hidden-proxy.mjs verify adjattrib` (scen-normal-Samurai-92071).
 - [ ] `polyself.c` newman — blocks 1/553 corpus sessions (first at step 127): C draws `rn2(5)=0` in newman, JS draws nothing. Probe: `node scripts/hidden-proxy.mjs verify newman` (scen-poly-Samurai-91106).

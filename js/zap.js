@@ -272,7 +272,7 @@ import {
     disguised_as_mon, disguised_as_non_mon,
 } from './uhitm.js';
 import { mon_nam, Monnam, noit_Monnam, christen_monst, hliquid, Hallucination, rndmonnam } from './do_name.js';
-import { finish_losehp_done } from './end.js';
+import { finish_losehp_done, done } from './end.js';
 import {
     burnarmor, t_at, maketrap, delfloortrap, dotrap, mintrap, deltrap,
     NO_TRAP_FLAGS, ignite_items, openholdingtrap, closeholdingtrap,
@@ -1908,11 +1908,14 @@ export async function zhitm(mon, type, nd, ootmp) {
  * Envelope: ZT_MAGIC_MISSILE..ZT_LIGHTNING damage + ZT_FIRE burnarmor/
  * destroy_items/ignite gate + ZT_COLD/ELEC destroy_items + losehp;
  * ZT_ACID Acid_resistance + hliquid + d(nd,6) (D-1127).
+ * ZT_DEATH non-breath arm: no "You die..." pline — killer = beam text,
+ * ugrave_arise = NON_PM, monstunseesu(M_SEEN_MAGR), done(DIED)
+ * (C zap.c:4502–4509).
  * Named omissions: shieldeff (FIRE/COLD resist arms), monstseesu/
  * monstunseesu (FIRE/COLD arms), ugolemeffects; MM-Antimagic shieldeff +
  * monstseesu and MM-hit monstunseesu live (C zap.c:4410–4419).
- * death/disintegrate arms; poison; acid_damage/erode_armor bodies;
- * killer buzzer verb polish.
+ * ZT_DEATH disintegration-breath arm (C zap.c:4465–4490); poison;
+ * acid_damage/erode_armor bodies; killer buzzer verb polish.
  */
 async function zhitu(type, nd, fltxt, sx, sy) {
     let dam = 0;
@@ -1976,7 +1979,9 @@ async function zhitu(type, nd, fltxt, sx, sy) {
         }
         break;
     case ZT_DEATH:
-        // breath/disintegrate + nonliving/Antimagic arms deferred
+        // Disintegration-breath arm (C zap.c:4465–4490: Disint_resistance,
+        // inventory_resistance_check, uarms/uarm destroy) deferred — named
+        // omission (see header); breath never reaches this arm today.
         if (nonliving(game.youmonst?.data) || is_demon(game.youmonst?.data)) {
             await pline('You seem unaffected.');
             break;
@@ -1986,15 +1991,16 @@ async function zhitu(type, nd, fltxt, sx, sy) {
             break;
         }
         {
+            // C zap.c:4502–4509 — death ray on the hero prints no
+            // "You die..."; killer is the beam text, arise resets to
+            // NON_PM, then done(DIED) (returns only when lifesaved).
+            monstunseesu(M_SEEN_MAGR);
             if (!game.killer) game.killer = { name: '', format: 0 };
             game.killer.format = KILLED_BY_AN;
             game.killer.name = fltxt || '';
-            // C: done(DIED) noreturn from zhitu death arm
-            losehp((game.u?.uhp | 0) + 1, fltxt || 'death ray', KILLED_BY_AN);
-            if (game._losehp_needs_done || game.program_state?.gameover) {
-                await finish_losehp_done();
-            }
-            return;
+            (game.u || (game.u = {})).ugrave_arise = NON_PM;
+            await done(DIED);
+            return; // lifesaved
         }
     case ZT_LIGHTNING:
         orig_dam = d(nd, 6);

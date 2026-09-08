@@ -95,8 +95,9 @@ divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
 **Next cluster:** `cmd.c` yn_function — blocks 1/553 corpus sessions (first at step 111): C «Die? [yn] (n)» vs JS «You die...--More--». Probe: `node scripts/hidden-proxy.mjs verify yn_function` (scen-wish-Barbarian-92054).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2164 (index).**
+**Keep D-0845…D-2165 (index).**
 <!-- recent:begin -->
+**D-2165** `zap.c:4502–4509` (`zhitu` ZT_DEATH non-breath arm: `monstunseesu(M_SEEN_MAGR)`, killer `K — port the C arm in exact order — `monstunseesu(M_SEEN_MAGR)` (live import), killer format/name, `ugrave_arise = NON_PM`, `await done(DIED)`, `return` (lifesaved resumes `dobuzz`; `done` added to the existing static `end.j
 **D-2164** `invent.c:1321–1333` (`useup`: `if (obj->quan > 1L) { obj->in_use = FALSE; /* no longer in — one line per clone — `otmp/obj.in_use = false; /* C invent.c:1326 — no longer in use */` as the first statement of the quan>1 branch.
 **D-2163** `sp_lev.c` lspo_finalize_level/load_lua epilogue (`link_doors_rooms()` before `map_cleanup — `link_doors_rooms(); remove_boundary_syms();` before `map_cleanup()` in `load_wizard3`, C order + house comment (remove_boundary is a no-op here — no CROSSWALL in wizard3's map — kept for epilogue fidelity).
 **D-2162** `attrib.c:1225–1227` (acurr A_CON arm: `if (u_wield_art(ART_OGRESMASHER)) result = 25`) +  — `if (u_wield_art(ART_OGRESMASHER)) result = 25;` in acurr; `if (u_wield_art(ART_OGRESMASHER)) lolimit = hilimit;` in extremeattr, in exact C branch position.
@@ -104,11 +105,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2160** `timeout.c:692–724` (nh_timeout uprops-expiry `case SICK`), NOT `sickness_dialogue` (`:322 — new `p === SICK` arm in exact C order and short-circuit: `find_delayed_killer(SICK)`; food poisoning (`!(usick_type&SICK_NONVOMITABLE)`, short-circuits before the draw) with `rn2(100) < acurr(A_CON)` → «You have recovere
 **D-2159** `eat.c:2099–2217` (`fprefx`, static), called from ordinary-food `doeat` `:3038` when eatin — full C port in exact branch order and short-circuit (JS `feedback` flag for C `goto give_feedback`; garlic FALLTHROUGH preserved).
 **D-2158** `hack.c:2639–2692` (`escape_from_sticky_mon`, static), called from `domove_core` `:2760` a — new exported async `escape_from_sticky_mon(x, y)` in `js/hack.js` (C-faithful home) in exact C order and short-circuit; `m_next2u` inlined as `dx*dx+dy*dy > 2` per `you.h:560` (macro, not a clone); `You(…)` via house `aw
-**D-2157** `light.c:213–250` (`do_light_sources`), reached via `apply.c` use_lamp `:1683` pline → `be — exact C ring — `limits = circle_ptr(range)`, `offset = limits[|y − ls.y|]`; `circle_ptr` exported from `js/vision.js` (was module-private; the table itself is already a verbatim C copy; `imports.mjs --can`: ALREADY, same
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2164; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2165; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

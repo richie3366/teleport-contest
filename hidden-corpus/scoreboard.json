@@ -1,6 +1,6 @@
 {
- "commit": "b128b07a",
- "at": "2026-09-08T23:18:38.144Z",
+ "commit": "3b27be21",
+ "at": "2026-09-08T23:23:14.235Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -7626,19 +7626,19 @@
   },
   "scen-wish-Barbarian-92054": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 2535,
+   "passed": true,
+   "rngM": 2640,
    "rngT": 2640,
-   "scrM": 111,
+   "scrM": 127,
    "scrT": 127,
-   "kind": "screen",
-   "step": 111,
+   "kind": null,
+   "step": null,
    "steps": 127,
-   "owner": "yn_function",
-   "loc": "cmd.c:5569",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "Die? [yn] (n)",
-   "jsTopline": "You die...--More--",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-wish-Barbarian-92102": {

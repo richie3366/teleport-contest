@@ -554,10 +554,11 @@ damagetypes + cold `destroy_items`/`resist`/`Reflecting` shield)** (D-0450/D-068
 **`dobuzz` `tmp_at(DISP_BEAM)` + `zapdir_to_glyph` + `DISP_CHANGE`/`DISP_END`** (D-0468); 
 **`zhitu` non-sleep FIRE/COLD/MISSILE/LIGHTNING + hero `destroy_items` AD_FIRE** (D-0734);
 **`dobuzz` hero-hit arm: reflect `monstseesu`+`shieldeff` (`:4972`/`:4975`), non-reflect `monstunseesu` (`:4981`), blind-miss tingles (`:4985–4986`), lightning `flashburn(d(nd,50))` (`:4988–4989`), `stop_occupation` (`:4990`); `zhitu` MM-Antimagic `shieldeff`+`monstseesu` (`:4412`/:4414) + MM-hit `monstunseesu` (`:4418)** (D-2133; usteed `rn2(3)`+`mon_reflects` redirect stays named — `mon_reflects` has no export); 
+**`zhitu` ZT_DEATH non-breath arm: no "You die..." pline — killer = beam text, `ugrave_arise = NON_PM`, `monstunseesu(M_SEEN_MAGR)`, `done(DIED)` (C zap.c:4502–4509)** (D-2165; disintegration-breath arm `:4465–4490` stays named); 
 **`burnarmor` worn erode + `maybe_destroy_item` pline/`potionbreathe` + 
 fatal mid-destroy `finish_losehp_done`** (D-0741; 
 **ignite_items/`burn_away_slime`/`begin_burn`** (D-0978); 
-death-disintegrate / poison·acid / ugolemeffects / inventory_resistance deferred; 
+death-breath disintegrate / poison·acid / ugolemeffects / inventory_resistance deferred; 
 **`maybe_destroy_item` AD_ELEC D-1368 / Shock uprops D-1371**); 
 **fatal `zhitu`→`losehp` awaits `finish_losehp_done` + `weffects` skips `learnwand` (D-0737; 
 ≡C noreturn / thitu D-0255)**; **IMMEDIATE `weffects` → `bhit(rn1(8,6))` + 

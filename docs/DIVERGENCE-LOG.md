@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-2165 — `zap.c` zhitu ZT_DEATH: bounced death ray printed a spurious "You die..." before the wizard "Die?" prompt (1 session PASS)
+
+- **Status:** fixed (Open queue row `cmd.c` yn_function — cited 1/553; `node scripts/verify.mjs --fn yn_function`: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS. No review cited by the row, so no stamp owed.)
+- **Symptom:** scen-wish-Barbarian-92054 step 111/127, screen-first at cmd.c:5569: C «Die? [yn] (n)» vs JS «You die...--More--». C-step trace: step 110 «The death ray bounces! The death ray hits you!--More--» (`rn2(20)=5 @ zap_hit`), step 111 «Die? [yn] (n)» (0 dice), step 112 «OK, so you don't die. The death ray hits the skeleton.--More--» (key `n`). Owner yn_function is the notice point (symptom owner, same class as parked spoteffects/doname_base): the true writer is the differing screen, JS's extra «You die...» pline.
+- **C locus:** `zap.c:4502–4509` (`zhitu` ZT_DEATH non-breath arm: `monstunseesu(M_SEEN_MAGR)`, killer `KILLED_BY_AN` + beam text, `ugrave_arise = NON_PM`, `done(DIED)` — no "You die..." pline; that pline lives only in `done_in_by` monster-kill and `zapyourself` self-zap `urgent_pline` paths), NOT `cmd.c yn_function` (`:5470–5583`, already faithful per D-1805 — JS reaches the same «Die? [yn] (n)» once the extra screen is gone).
+- **JS was:** `js/zap.js:1978–1998` routed the death arm through `losehp(uhp+1)` + `finish_losehp_done()`, whose contract (`js/end.js:1499–1504`) is `pline('You die...')` + `done(DIED)` — one screen more than C, shifting every later step (16 blocked screens). It also zeroed HP via overkill before `done()`'s `bot()`, where C `bot()`s at full HP then zeroes (`end.c`).
+- **Fix:** port the C arm in exact order — `monstunseesu(M_SEEN_MAGR)` (live import), killer format/name, `ugrave_arise = NON_PM`, `await done(DIED)`, `return` (lifesaved resumes `dobuzz`; `done` added to the existing static `end.js` import — edge already present, no new module, no TDZ: call-time use only).
+- **JS:** `js/zap.js` zhitu ZT_DEATH arm + header comment (`done` import; `losehp`/`finish_losehp_done` imports kept — other arms still use them).
+- **Verify:** `node scripts/verify.mjs --fn yn_function` → PASS syntax (1 changed js file: js/zap.js) · PASS rule2 (no fs/path/url/node: imports, no DIAG/FORCE/seed gates) · PASS hidden (scen-wish-Barbarian-92054: PASS) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · full skipped (no shared file changed). VERIFY: PASS. /tmp probes stay out of the repo per runbook.
+- **Named omissions:** ZT_DEATH disintegration-breath arm (C zap.c:4465–4490: Disint_resistance, inventory_resistance_check, uarms/uarm destroy — no live JS imports; map-named in `turns.md` zap section).
+- **Next:** `dig.c` use_pick_axe (next Open row); queue 11→10, no refill owed (8–12 band).
+
 ## D-2164 — `invent.c` useup: local clones omitted the `in_use = FALSE` clear, freezing victims out of `destroy_items` (1 session PASS)
 
 - **Status:** fixed (Open queue row `zap.c` maybe_destroy_item — cited 1/553; `node scripts/verify.mjs --fn maybe_destroy_item`: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS. No review cited by the row, so no stamp owed.)
