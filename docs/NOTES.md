@@ -20,6 +20,7 @@ Objective/score live in `CURRENT.md`.
 - **lightdamage park:** `mzapwand` MORE-transient misattributed to zap.c (D-1366 faithful); capture artifact, not state (detail + falsifier: Parked; do not re-pop).
 - **mattackm/can_carry park:** writer can_carry; import alone ETIMEDOUT — trio only, do not pop.
 - **spoteffects park:** Samurai-92161 step 35 topline-literal misattribution; writer is `mthrowu.c` flight/catch (forcehit + catch-inventory). Full measurement + falsifier in LOOP-QUEUE Parked row; do not re-pop.
+- **mon_adjust_speed park:** Barbarian-92079 step 62 topline-literal misattribution (3 cMsgOwners, identical toplines); faster text is step-61 potion-quaff effect via MORE queue, map diff is 4 summon-adjacent glyph cells with full RNG sync — writer is summon glyph visibility/paint, not the speed printer. Full measurement + falsifier in LOOP-QUEUE Parked row; do not re-pop.
 
 ## Don't re-check (≤15)
 

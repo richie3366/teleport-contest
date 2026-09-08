@@ -87,7 +87,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `uhitm.c` mhitm_ad_plys — blocks 1/553 corpus sessions (first at step 78): C draws `rn2(3)=0` in mhitm_ad_plys, JS `d(3,6)=3` from passive(uhitm.js:1451). Probe: `node scripts/hidden-proxy.mjs verify mhitm_ad_plys` (scen-poly-Monk-92005).
+**Next cluster:** `pray.c` prayer_done — blocks 1/553 corpus sessions (first at step 105): C draws `rnl(10)=4` in prayer_done, JS `rn2(5)=4` from distfleeck(monmove.js:840). Probe: `node scripts/hidden-proxy.mjs verify prayer_done` (scen-tour-Healer-92198).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2128 (index).**
 <!-- recent:begin -->
