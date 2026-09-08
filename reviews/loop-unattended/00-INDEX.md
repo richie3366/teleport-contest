@@ -1118,3 +1118,10 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1105-eb7ec1cb-throw-obj-quivered-gold.md](./1105-eb7ec1cb-throw-obj-quivered-gold.md) | `eb7ec1cb` | D-2139 throw_obj quivered-gold arm | **ACCEPT** |
 | [1106-e13647e8-castmu-fire-cold-magm.md](./1106-e13647e8-castmu-fire-cold-magm.md) | `e13647e8` | D-2140 castmu FIRE/COLD/MAGM switch | **ACCEPT** |
 | [1107-79844c1c-hold-another-object-dropy.md](./1107-79844c1c-hold-another-object-dropy.md) | `79844c1c` | D-2141 hold_another_object refuse dropy | **ACCEPT** |
+| [1108-d850333f-find-roll-to-hit-encumbrance.md](./1108-d850333f-find-roll-to-hit-encumbrance.md) | `d850333f` | D-2142 find_roll_to_hit encumbrance/utrap | **ACCEPT** |
+| [1109-fc5f4794-runmode-delay-output.md](./1109-fc5f4794-runmode-delay-output.md) | `fc5f4794` | D-2143 runmode_delay_output movement-delay frames | **ACCEPT** |
+| [1110-bb24a32f-artifact-hit-spfx-behead.md](./1110-bb24a32f-artifact-hit-spfx-behead.md) | `bb24a32f` | D-2144 artifact_hit SPFX_BEHEAD | **ACCEPT** |
+| [1111-0bed4afc-done-in-by-killer-name.md](./1111-0bed4afc-done-in-by-killer-name.md) | `0bed4afc` | D-2145 done_in_by killer-name arms | **ACCEPT** |
+| [1112-bda8c297-mb-hit-magicbane.md](./1112-bda8c297-mb-hit-magicbane.md) | `bda8c297` | D-2146 Mb_hit Magicbane specials | **ACCEPT** |
+| [1113-5cd14621-mondead-kops-respawn.md](./1113-5cd14621-mondead-kops-respawn.md) | `5cd14621` | D-2147 mondead Kops respawn + clone unification | **ACCEPT** |
+| [1114-04072151-set-uasmon-regeneration.md](./1114-04072151-set-uasmon-regeneration.md) | `04072151` | D-2148 set_uasmon REGENERATION PROPSET | **ACCEPT** |
