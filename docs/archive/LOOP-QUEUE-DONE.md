@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `polyself.c` dohide — moves 1/2 m_move-blocked sessions (scen-poly-Wizard-92076 step 94): C «You are now hiding on the ceiling.» (dohide sets u.uundetected=1 + insight.c:2022 youhiding(FALSE,0)) vs JS «Any special ability you may have is purely reflexive.» (named omission js/polyself.js:1527/1562; D-1898 shipped the other five #monster arms, dohide never ported). uundetected forces m_move appr=0 draw-free (C chcnt ladder vs JS track checks). Split from parked `monmove.c` m_move 2026-09-08 (see Parked). Probe: port dohide + youhiding + `node scripts/hidden-proxy.mjs verify m_move` (Wizard-92076 must PASS or move to a later owner; Caveman-92202 stays — parked cnt/mtrack writer). **Addressed:** D-2069
+- [x] `objnam.c` xname_flags — blocks 2/553 corpus sessions (first at step 38): C «Hachi drops a scroll labeled XIXAXA XOXAXA XUXAXA. You yawn.» vs JS «Hachi drops a scroll labeled XIXAXA XOXAXA XUXAXA.--More--». Probe: `node scripts/hidden-proxy.mjs verify xname_flags` (scen-intrinsic-Samurai-92017, scen-wish-Priest-92035). **Addressed:** D-2070
+
+
+- [x] `polyself.c` dohide — moves 1/2 m_move-blocked sessions (scen-poly-Wizard-92076 step 94): C «You are now hiding on the ceiling.» (dohide sets u.uundetected=1 + insight.c:2022 youhiding(FALSE,0)) vs JS «Any special ability you may have is purely reflexive.» (named omission js/polyself.js:1527/1562; D-1898 shipped the other five #monster arms, dohide never ported). uundetected forces m_move appr=0 draw-free (C chcnt ladder vs JS track checks). Split from parked `monmove.c` m_move 2026-09-08 (see Parked). Probe: port dohide + youhiding + `node scripts/hidden-proxy.mjs verify m_move` (Wizard-92076 must PASS or move to a later owner; Caveman-92202 stays — parked cnt/mtrack writer). **Addressed:** D-2069 `fd96761c`
 
 
 - [x] `bones.c` savebones remove_mon_from_bones + LEAVESTATUE statue arm — blocks 1/553 corpus sessions: C 2× `rn2(100)`@obj_resists (mongone Medusa via mdrop_special_objs) + statue (`next_ident`+`rndmonst_adj`+`rn2(2)`) where JS skips both (named omissions js/end.js:1222-1226). Probe: `node scripts/hidden-proxy.mjs verify obj_resists` (scen-genesis-Valkyrie-92074 step 75). Split from parked `zap.c obj_resists` 2026-09-08 (see Parked). **Addressed:** D-2068 `37fe9ecd`

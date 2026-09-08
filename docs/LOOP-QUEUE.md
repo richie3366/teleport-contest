@@ -59,7 +59,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `objnam.c` xname_flags — blocks 2/553 corpus sessions (first at step 38): C «Hachi drops a scroll labeled XIXAXA XOXAXA XUXAXA. You yawn.» vs JS «Hachi drops a scroll labeled XIXAXA XOXAXA XUXAXA.--More--». Probe: `node scripts/hidden-proxy.mjs verify xname_flags` (scen-intrinsic-Samurai-92017, scen-wish-Priest-92035).
 - [ ] `uhitm.c` erode_armor — blocks 2/553 corpus sessions (first at step 74): C draws `rn2(5)=1` in erode_armor, JS `rn2(3)=1` from mhitm_knockback(mhitm.js:2015). Probe: `node scripts/hidden-proxy.mjs verify erode_armor` (scen-genesis-Knight-92185, scen-genesis-Tourist-92044).
 - [ ] `muse.c` use_misc — blocks 2/553 corpus sessions (first at step 77): C «The pit fiend drinks a dark green potion! The pit fiend look» vs JS «The pit fiend drinks a dark green potion! The pit fiend look». Probe: `node scripts/hidden-proxy.mjs verify use_misc` (scen-wish-Healer-92125, scen-wish-Healer-92173).
 - [ ] `engrave.c` doengrave — blocks 2/553 corpus sessions (first at step 51): C «Do you want to add to the current engraving? [ynq] (y)» vs JS «You add to the writing in the dust with your fingertip.--Mor». Probe: `node scripts/hidden-proxy.mjs verify doengrave` (scen-kit-Valkyrie-91116, scen-normal-Samurai-92078).

@@ -132,7 +132,10 @@ function t_at_local(x, y) {
 }
 
 /**
- * C ref: pline.c You_hear `:436–452` — (Deaf && !Unaware) gate; Unaware
+ * C ref: pline.c You_hear `:436–452` — (Deaf && !Unaware) gate, where C
+ * Deaf is youprop.h:123–125 (HDeaf || EDeaf || uroleplay.deaf), not a
+ * single sticky field (scen-wish-Priest-92035 step 179: HDeaf-only hero
+ * must not hear the scare-monster laugh). Unaware
  * (youprop.h:399: multi < 0 && (unconscious() [trap.c:6776] ||
  * is_fainted() [eat.c:3347])) → "You dream that you hear ". The longer
  * dream prefix is what pushes a sleep-turn dosounds fountain past the
@@ -143,7 +146,8 @@ function t_at_local(x, y) {
 export async function You_hear(line) {
     const u = game.u || {};
     const unaware = (game.multi | 0) < 0 && (unconscious() || is_fainted());
-    if ((u.Deaf && !unaware) || game.flags?.acoustics === false) return;
+    const deaf = !!((u.HDeaf | 0) || (u.EDeaf | 0) || u.uroleplay?.deaf || u.Deaf);
+    if ((deaf && !unaware) || game.flags?.acoustics === false) return;
     if (unaware) await pline(`You dream that you hear ${line}`);
     else await pline(`You hear ${line}`);
 }

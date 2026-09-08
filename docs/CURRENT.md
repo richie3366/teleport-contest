@@ -46,8 +46,7 @@ the C recorder by `scripts/scenario-gen.mjs`) pass **7 / 275**, RNG
 they no longer pick work. Top owners: `welcome`→`calendar.c getlt` ×51,
 `do_statusline2` ×11, `break_armor` ×9, `exercise` ×8, `enlightenment`
 ×7, `wiz_intrinsic` ×7, 4 `ReferenceError` throws ×8 (Must-fix).
-Reviews 990–1017: 24 ACCEPT, 2 ACCEPT-WITH-DEBT (991/998 map/state debts named, 1000 D-2030 slip harmless), 2 QUALITY-RISK (1006/1014 Must-fix all shipped).
-Reviews 1018–1026: 8 ACCEPT, 1 ACCEPT-WITH-DEBT (1025 readobjnam deny-check debt, map-named, no Must-fix).
+Reviews 990–1026: 32 ACCEPT, 3 ACCEPT-WITH-DEBT (debts map-named), 2 QUALITY-RISK Must-fix all shipped (full record: reviews/ + DIVERGENCE-INDEX).
 Reviews 1027–1033: 7 ACCEPT, 0 Must-fix.
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score --jobs 8`
 (≈200 s); when every family is ≥ 85 % PASS, grow it first:
@@ -89,8 +88,9 @@ divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
 **Next cluster:** `objnam.c` xname_flags — blocks 2/553 corpus sessions (first at step 38): C «Hachi drops a scroll labeled XIXAXA XOXAXA XUXAXA. You yawn.» vs JS «Hachi drops a scroll labeled XIXAXA XOXAXA XUXAXA.--More--». Probe: `node scripts/hidden-proxy.mjs verify xname_flags` (scen-intrinsic-Samurai-92017, scen-wish-Priest-92035).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2069 (index).**
+**Keep D-0845…D-2070 (index).**
 <!-- recent:begin -->
+**D-2070** `timeout.c:267–274` `sleep_dialogue` (`i = HSleepy & TIMEOUT; i == 4 → You("yawn.")`) call — `js/wizcmds.js` — `PROP_FLAT += [SLEEPY]: 'HSleepy'` (youprop.h:141 cite); `js/timeout.js` — `TIMEOUT_FLAT += [SLEEPY]: 'HSleepy'` so the generic `--` keeps the flat synced, file-local `sleep_dialogue()` plus the `:639–6
 **D-2069** `polyself.c:1777–1874` `dohide` (ustuck/utrap refuse + reveal; eel-out-of-water; hides_und — `js/polyself.js` — exported async `dohide()` (full C branch order incl. nested You_cant reason ternary; You_cant/There/pline_The composed via `pline` per the zap.js `You` idiom; floor pile via `objects_at` nexthere + `mo
 **D-2068** `bones.c:388–399` `remove_mon_from_bones` (iswiz / Medusa / MS_NEMESIS / MS_LEADER / `is_V — `js/end.js` — file-local `fixuporacle` (Oracle-level gate, `mpeaceful=1`, DELPHI `roomno-ROOMOFFSET` keep, else centre `enexto`+`await rloc_to` and restore `rtype`, C `:307–363`) + file-local `remove_mon_from_bones` (exa
 **D-2067** `youprop.h:195–198` — `js/mhitu.js` — file-local `BInvis` + `Invis` now mirror the potion.js/zap.js idiom (`H = HInvis||intrinsic`, `E = EInvis||extrinsic`, mummy-wrapping `uarmc` stand-in for setworn `w_blocks`); `INVIS` joins the existing `
@@ -98,11 +98,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2065** `pline.c` `You_hear` `:436–452` — `js/hack.js` — `You_hear` ports the Unaware arm verbatim via `youprop.h:399` (`(game.multi|0)<0 && (unconscious() || is_fainted())`, importing `teleport.js` `unconscious` — hoisted-function, cycle-safe per `imports.mjs -
 **D-2064** the queue owner names where C printed; the writer is the caller — `js/zap.js` — after the self-zap `losehp`, mirror the `backfire` arm: `if (game._losehp_needs_done || game.program_state?.gameover) { await finish_losehp_done(); if (game.program_state?.gameover) return 1; }`.
 **D-2063** `polyself.c` polyself `:596–615` (!polyok message arm: `pmname(flags.female)` then `the_un — `js/polyself.js` — article arm verbatim (`the_unique_pm`/`the`/`type_is_pname` + your_race/G_UNIQ guard); `controllable_poly` const (Stunned shape mirrors `hack.js` Stunned_prop `(u.HStun|0) || u.Stunned`); `vampyr_goto`
-**D-2062** the queue owner is a literal-match misattribution — `js/invent.js` — (a) ulycn were-form arm (`an(pmname(mons(ulycn), female?FEMALE:MALE))` + « in beast form» + wizard `mtimedone` iff `umonnum==ulycn`) and `Hate_silver` arm (`ismnum(ulycn) || hates_silver(youmonst.data)`)
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2069; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2070; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

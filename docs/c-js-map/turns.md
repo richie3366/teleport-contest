@@ -31,7 +31,7 @@ still runs when `uinvulnerable`); Stoned/Slimed/Vomiting/Strangled/Sick/
 HLevitation/HPasses_walls dialogues before uprops `--` (D-1792; callees
 `stoned_dialogue` `:136`, `slime_dialogue` `:388`, `vomiting_dialogue` `:196`,
 `choke_dialogue` `:294`, `sickness_dialogue` `:322`, `levitation_dialogue`
-`:352`, `phaze_dialogue` `:533`, `eat.c` `Popeye` `:3915`); 
+`:352`, `phaze_dialogue` `:533`, `sleep_dialogue` `:267` (D-2070; yawn at HSleepy&TIMEOUT==4, `:639–640` call site; HSleepy≡uprops[SLEEPY] mirror in TIMEOUT_FLAT + wizcmds PROP_FLAT), `eat.c` `Popeye` `:3915`); 
 WOUNDED_LEGS → `heal_legs(0)` + 
 CONFUSION → `make_confused(0,TRUE)` + FUMBLING → `slip_or_trip`/`rn2(4)`/`incr_itimeout(rnd(20))` + 
 `run_timers`** (D-0403/D-0405/D-0441/D-0692; **`slip_or_trip` keeps `objects_at` import** (D-0980; 
@@ -45,7 +45,7 @@ talk D-1817**; C `timeout.c:752` / `wizcmds.c:1029`); **FAST TIMEOUT → Very_fa
 dedicated arms skipped)** (D-0928 #1168; expiry switch HALLUC/… still silent, STONED → stoning death live D-2029, SLIMED → `slimed_to_death` live D-2023, STRANGLED → `done_timeout(DIED, …)` + amulet-vanishes live D-2035); 
 **`u.uinvulnerable` early-return freezes all TIMEOUT** (D-0928 #1171); 
 **`#wizintrinsic` BLINDED → `make_blinded(newtimeout)` + HBlinded↔uprops sync** (D-0928 #1171); 
-STUNNED/HALLUC/… expiry msgs / `region_dialogue` / `sleep_dialogue`
+STUNNED/HALLUC/… expiry msgs / `region_dialogue` / SLEEPY-expiry fall_asleep+incr (JS generic arm silently clears; D-2070 named)
 (SLIMED `slimed_to_death` live D-2023; STONED stoning death live D-2029) / Glib / run_regions inside_f D-1146 / hero_inside bit D-1169 / expire 
 dissipation D-1155 / surface() Underwater bottom named; 
 ice hurtle/mount dismount / REVIVE/ZOMBIFY/burn deferred); 
