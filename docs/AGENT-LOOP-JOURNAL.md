@@ -8,6 +8,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-08 — Audit 756b0fe9..344fe348 (reviews 1123–1126: 4 ACCEPT, 0 Must-fix) + cadence 44/44
+
+Review iter over the 4 JS-touching SHAs since bfebf129 (5 park/audit commits docs-only, skipped per method). Each verify claim re-measured with `hidden-proxy verify <fn> --base <sha>~1`: use_lamp 0 PASS/1 moved (PROGRESS), escape_from_sticky_mon 1 PASS, fprefx 0 PASS/1 moved (PROGRESS), sickness_dialogue 1 PASS — all match the D-logs, no vacuous checks, no regressions. No C-wrongs, no Must-fix, no queue/CURRENT-Next change (Open stays 8, in band). Cadence: full `sessions` 44/44, Scr 11,405/11,405, RNG 792,838/792,838, speed 55+0.35/turn (R² 0.79).
 ## 2026-09-08 — D-2160 `timeout.c` SICK expiry: missing "die from your illness" death arm (1 session PASS)
 
 **C locus:** `timeout.c:692–724` (nh_timeout uprops-expiry `case SICK`), NOT `sickness_dialogue` (`:322–345`, already faithful arm-for-arm). The owner string is a topline-literal tie-break across sickness_dialogue:334/trapmove:1572/wiz_intrinsic:953 — same misattribution class as parked doname_base/zapyourself/spoteffects. More mechanism (measured, not theorized): the count-run turns j=7,5 append «feels worse.»+«severe.» (49 chars, fits), j=3 «door.» (24) doesn't fit (25+49+3≥72) → more() → step-64 capture; after space, «You die from your illness.» refuses the append path via C `notdied=strncmp(bp,"You die",7)` (topl.c:261–265: "messages like 'You die...' deserve their own line") → else-branch → NEED_MORE → more() on the «door.» line → step-65 capture. JS `pline_after_consume` already mirrors that veto — but JS never printed the death line at all.

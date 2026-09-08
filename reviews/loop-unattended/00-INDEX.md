@@ -1133,3 +1133,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1120-717dca72-list-vanquished-pmnames.md](./1120-717dca72-list-vanquished-pmnames.md) | `717dca72` | D-2154 list_vanquished pmnames | **ACCEPT** |
 | [1121-017f6ec2-damageum-ad-cold.md](./1121-017f6ec2-damageum-ad-cold.md) | `017f6ec2` | D-2155 damageum_ad_cold | **ACCEPT** |
 | [1122-bfebf129-makewish-verb-oops.md](./1122-bfebf129-makewish-verb-oops.md) | `bfebf129` | D-2156 makewish verb/oops | **ACCEPT** |
+| [1123-756b0fe9-do-light-sources-circle-ring.md](./1123-756b0fe9-do-light-sources-circle-ring.md) | `756b0fe9` | D-2157 do_light_sources circle ring | **ACCEPT** |
+| [1124-cb8412fa-escape-from-sticky-mon.md](./1124-cb8412fa-escape-from-sticky-mon.md) | `cb8412fa` | D-2158 escape_from_sticky_mon | **ACCEPT** |
+| [1125-43f6a519-fprefx-full-port.md](./1125-43f6a519-fprefx-full-port.md) | `43f6a519` | D-2159 fprefx full port | **ACCEPT** |
+| [1126-344fe348-sick-expiry-death-arm.md](./1126-344fe348-sick-expiry-death-arm.md) | `344fe348` | D-2160 SICK expiry death arm | **ACCEPT** |
