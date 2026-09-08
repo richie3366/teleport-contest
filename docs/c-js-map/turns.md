@@ -431,7 +431,7 @@ JS: `js/potion.js` — partial
 other getobj callers / shared getobj still may omit); 
 **`peffect_see_invisible`/`POT_FRUIT_JUICE` + `dopotion` trycall/`docall`** (D-0430; 
 `make_blinded`/See_invisible props deferred; fruit `newuhs` field via D-0438); 
-**`peffect_paralysis` `rn1(10,25-12*bcsign)`** (D-0430; Levitation/steed/`surface` deferred); 
+**`peffect_paralysis` `rn1(10,25-12*bcsign)`** (D-0430; full C branches D-2153 — `Free_action()` resist, Levitation/air/water suspended, usteed frozen-in-place, feet + shared `surface` via sit.js; `FOOT`/`Is_airlevel`/`Is_waterlevel` on existing edges); 
 **`peffect_confusion` + `make_confused`/`itimeout_incr` `rn1(7,16-8*bcsign)` + talk `You_feel` + 
 `nh_timeout` CONFUSION expiry** (D-0436/D-0441; 
 **`potionbreathe` POT_INVIS flash + await pline** (D-0741; remaining otyps D-1477)); 

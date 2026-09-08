@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-08 — D-2153 `potion.c` peffect_paralysis: Levitation/air/water/steed/surface branches (1 session moved past)
+
+**C locus:** `potion.c:881–898` (`peffect_paralysis`: `Free_action` → `You("stiffen momentarily.")`; else `Levitation || Is_airlevel || Is_waterlevel` → `You("are motionlessly suspended.")`, `u.usteed` → `You("are frozen in place!")`, else `Your("%s are frozen to the %s!", makeplural(body_part(FOOT)), surface(u.ux, u.uy))`; then `nomul(-(rn1(10, 25 - 12 * bcsign(otmp))))`, `multi_reason`, `nomovemsg = You_can_move_again`, `exercise(A_DEX, FALSE)`); caller `dopotion :1361` `POT_PARALYSIS`.
+**JS:** `js/potion.js` only (`peffect_paralysis` + 3 import names; no new file).
+**Change:** port the C branch order and short-circuit exactly: `Free_action()` resist arm; else Levitation (house reader, D-1419) / `Is_airlevel` / `Is_waterlevel` (const.js) → suspended, `u.usteed` → frozen in place, else feet + `surface(u.ux, u.uy)` via the shared `sit.js` export (`imports.mjs --can`: SAFE, hoisted function; no new cycle edge — sit.js never imports potion.js); `FOOT` joins the const.js edge; message tail (`nomul`, `multi_reason`, `nomovemsg`, `exercise`) unchanged and inside the else arm per C.
+**Verify:** `node scripts/verify.mjs --fn peffect_paralysis` → PASS syntax (1 changed file) · PASS rule2 · PASS hidden (scen-wish-Valkyrie-92091 moved → `do_statusline2` at step 109, was 26) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · full skipped (no shared file changed). VERIFY: PASS.
+**Named:** none in this function — every C branch is live. House mirrors stand: `Free_action()` flat/extrinsic reader (shared with `peffect_sleeping`), `Levitation()` (H||E)&&!B reader (D-1419), `You_can_move_again` as the `'You can move again.'` literal (hack.js:1114 house pattern).
+**Next:** `insight.c` list_vanquished (next Open row).
 ## 2026-09-08 — D-2152 `uhitm.c` hmon_hitmon_weapon_melee: Healer anatomy + Rogue backstab + shatter + artifact doreturn (1 session PASS)
 
 **C locus:** `uhitm.c:933–1067` (`hmon_hitmon_weapon_melee`: `:944–945` dmgval + train gate, `:947–951` Healer anatomy `min(3, died/6)`, `:953–963` Rogue backstab `You("strike %s from behind!")` + `rnd(u.ulevel)` + hittxt, `:964–1013` dieroll-2 two-handed shatter with `obj_resists` erosion gate + `m_useupall` + `rn2(4)` flee, `:1015–1034` artifact_hit doreturn killed→FALSE / dmg-0→TRUE); `hmon_hitmon :1797` doreturn early-return.

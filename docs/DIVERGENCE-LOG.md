@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-2153 — `potion.c` peffect_paralysis: Levitation/air/water/steed/surface branches (1 session moved past)
+
+- **Status:** fixed (Open queue row ``potion.c`` peffect_paralysis — cited 1/553; `node scripts/verify.mjs --fn peffect_paralysis`: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS. No review cited by the row, so no stamp owed.)
+- **Symptom:** scen-wish-Valkyrie-92091 step 26/114, screen-first at potion.c:891: C «Your feet are frozen to the stairs! The little dog misses the kobold.--More--» vs JS «Your feet are frozen to the floor! The little dog misses the kobold.--More--». Hero quaffed paralysis while standing on stairs; JS hardcoded the floor message.
+- **C locus:** `potion.c:881–898` (`peffect_paralysis`: `Free_action` → `You("stiffen momentarily.")`; else `Levitation || Is_airlevel || Is_waterlevel` → `You("are motionlessly suspended.")`, `u.usteed` → `You("are frozen in place!")`, else `Your("%s are frozen to the %s!", makeplural(body_part(FOOT)), surface(u.ux, u.uy))`; then `nomul(-(rn1(10, 25 - 12 * bcsign(otmp))))`, `multi_reason`, `nomovemsg = You_can_move_again`, `exercise(A_DEX, FALSE)`); caller `dopotion :1361` `POT_PARALYSIS`.
+- **JS was:** `js/potion.js` `peffect_paralysis` deferred all four message branches (map turns.md:434 named Levitation/steed/`surface` deferred) and always printed 'Your feet are frozen to the floor!', with an inline `Free_action` flat check instead of the house `Free_action()` reader.
+- **Fix:** port the C branch order and short-circuit exactly: `Free_action()` resist arm; else Levitation (house reader, D-1419) / `Is_airlevel` / `Is_waterlevel` (const.js) → suspended, `u.usteed` → frozen in place, else feet + `surface(u.ux, u.uy)` via the shared `sit.js` export (`imports.mjs --can`: SAFE, hoisted function; no new cycle edge — sit.js never imports potion.js); `FOOT` joins the const.js edge; message tail (`nomul`, `multi_reason`, `nomovemsg`, `exercise`) unchanged and inside the else arm per C.
+- **JS:** `js/potion.js` only (`peffect_paralysis` + 3 import names; no new file).
+- **Verify:** `node scripts/verify.mjs --fn peffect_paralysis` → PASS syntax (1 changed file) · PASS rule2 · PASS hidden (scen-wish-Valkyrie-92091 moved → `do_statusline2` at step 109, was 26) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · full skipped (no shared file changed). VERIFY: PASS.
+- **Named omissions:** none in this function — every C branch is live. House mirrors stand: `Free_action()` flat/extrinsic reader (shared with `peffect_sleeping`), `Levitation()` (H||E)&&!B reader (D-1419), `You_can_move_again` as the `'You can move again.'` literal (hack.js:1114 house pattern).
+- **Next:** `insight.c` list_vanquished (next Open row).
+
 ## D-2152 — `uhitm.c` hmon_hitmon_weapon_melee: Healer anatomy + Rogue backstab + shatter + artifact doreturn (1 session PASS)
 
 - **Status:** fixed (Open queue row `uhitm.c` hmon_hitmon_weapon_melee — cited 1/553; `node scripts/verify.mjs --fn hmon_hitmon_weapon_melee`: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS. Row cites review 1085 only as the session's prior-owner history — that review is ACCEPT with no Actionable C-wrongs, so no stamp owed.)

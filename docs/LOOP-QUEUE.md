@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `potion.c` peffect_paralysis — blocks 1/553 corpus sessions (first at step 26): C «Your feet are frozen to the stairs! The little dog misses th» vs JS «Your feet are frozen to the floor! The little dog misses the». Probe: `node scripts/hidden-proxy.mjs verify peffect_paralysis` (scen-wish-Valkyrie-92091).
 - [ ] `insight.c` list_vanquished — blocks 2/553 corpus sessions (first at step 73): C «Vanquished creatures:» vs JS «Vanquished creatures:». Probe: `node scripts/hidden-proxy.mjs verify list_vanquished` (scen-genesis-Archeologist-92157, scen-genesis-Barbarian-92111).
 - [ ] `uhitm.c` mhitm_mgc_atk_negated — blocks 2/553 corpus sessions (first at step 84): C draws `rn2(10)=5` in mhitm_mgc_atk_negated, JS `rn2(6)=3` from xkilled(uhitm.js:683). Probe: `node scripts/hidden-proxy.mjs verify mhitm_mgc_atk_negated` (scen-poly-Monk-92164, scen-wish-Monk-92013).
 - [ ] `mkobj.c` hornoplenty — blocks 2/553 corpus sessions (first at step 146): C «Oops! The boulder drops to the floor!» vs JS «Oops! The a boulder drops to the floor!». Probe: `node scripts/hidden-proxy.mjs verify hornoplenty` (scen-wish-Ranger-92212, scen-wish-Samurai-91102).

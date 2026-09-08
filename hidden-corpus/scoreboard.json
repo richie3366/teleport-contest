@@ -1,6 +1,6 @@
 {
- "commit": "13a2969a",
- "at": "2026-09-08T20:45:42.324Z",
+ "commit": "a56c8567",
+ "at": "2026-09-08T20:48:32.621Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -8619,18 +8619,18 @@
   "scen-wish-Valkyrie-92091": {
    "src": "corpus",
    "passed": false,
-   "rngM": 4632,
+   "rngM": 4864,
    "rngT": 4864,
-   "scrM": 54,
+   "scrM": 109,
    "scrT": 114,
    "kind": "screen",
-   "step": 26,
+   "step": 109,
    "steps": 114,
-   "owner": "peffect_paralysis",
-   "loc": "potion.c:891",
+   "owner": "do_statusline2",
+   "loc": "botl.c:130",
    "jsOwner": null,
-   "cTopline": "Your feet are frozen to the stairs! The little dog misses the kobold.--More--",
-   "jsTopline": "Your feet are frozen to the floor! The little dog misses the kobold.--More--",
+   "cTopline": "You feel deathly sick.--More--",
+   "jsTopline": "You feel deathly sick.--More--",
    "error": null
   },
   "scen-wish-Valkyrie-92142": {
