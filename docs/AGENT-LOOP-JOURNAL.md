@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-08 — D-2094 trap.c float_down come-down used a floor/ground stand-in, printing «to the floor» on stairs (queue owner float_down, 1 session)
+
+**C locus:** `trap.c:4144` `You("float gently to the %s.", surface(u.ux, u.uy))` — the shared `dungeon.c:1750–1788` `surface()` (D-2008), whose stairs arm (`On_stairs` → 'stairs', ahead of the `IS_ROOM` → 'floor' arm) fires because STAIRS >= ROOM.
+**JS:** 1 file (trap.js +9/−3), under the 600/10 caps.
+**Change:** `js/trap.js` `float_down` only — the come-down arm now `await import('./sit.js')` for `surface` (the dynamic-import idiom this file already uses for `./sit.js` `split_mon`; sit.js statically imports trap.js, so a static edge would add a trap↔sit cycle — imports.mjs verdict for the static shape was SAFE/hoisted, but the dynamic call-time import avoids the question entirely, no TDZ) and prints `surface(u.ux | 0, u.uy | 0)`. Doc comment drops `surface() exact` from Named omissions. No DIAG/FORCE/seed gates; no frozen files.
+**Verify:** `node scripts/verify.mjs --fn float_down` → PASS syntax (1 changed file: js/trap.js) · PASS rule2 · PASS hidden `0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS` (scen-intrinsic-Samurai-92017 step 43 → `dosearch` at step 54, strictly later step and owner) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) · VERIFY: PASS. Preflight `verify --no-cohort` green on a clean tree; final verify after the last js/ edit (map/docs/queue edits only after; no D-1831 gap).
+**Named:** file-local `surface_fd` stays for the `fall_through` `The … opens up` pline (`js/trap.js:3598`, different C function); other `float_down` omissions stand (Punished ball drag, ustuck release wording, selftouch/dismount Sokoban fell, underwater vision, assign_level trapdoor skip).
+**Next:** do not re-pop `float_down` (0 blocked). scen-intrinsic-Samurai-92017's `dosearch`@54 flows through the normal queue.
 ## 2026-09-08 — D-2093 mon.c unstuck never ran on hero kill: lichen-holder death skipped `rnd(2)` mspec_used, xkilled treasure drew one slot early (queue owner unstuck, 1 session)
 
 **C locus:** (1) `mon.c:3438–3467` `unstuck` — `u.ustuck==mtmp`, `!mspec_used`, holder gate `dmgtype(AD_STCK)||AT_ENGL||AT_HUGS` → `mspec_used=rnd(2)`. Lichen qualifies (`monsters.h:1614` `ATTK(AT_TUCH,AD_STCK,0,0)`). (2) `mon.c:2696–2703` `mon_leaving_level` — `mtrapped=0` + `unstuck(mon)` on every death/migration. (3) `mon.c:3175` `m_detach` → `mon_leaving_level`, called from `mondead :3175`, called from `xkilled :3535` *before* the `!rn2(6)` treasure drop `:3595`. So a stuck-holder kill draws `rnd(2)` then `rn2(6)`.

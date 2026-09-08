@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2094 — trap.c float_down come-down used a floor/ground stand-in, printing «to the floor» on stairs (queue owner float_down, 1 session)
+
+- **Status:** fixed (Open queue row `trap.c` float_down — cited 1/553; `node scripts/verify.mjs --fn float_down` → 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS; row cites no review, no stamp owed)
+- **Symptom:** scen-intrinsic-Samurai-92017 step 43/143, kind=screen at trap.c:4144: C «You float gently to the stairs.» vs JS «You float gently to the floor.».
+- **C locus:** `trap.c:4144` `You("float gently to the %s.", surface(u.ux, u.uy))` — the shared `dungeon.c:1750–1788` `surface()` (D-2008), whose stairs arm (`On_stairs` → 'stairs', ahead of the `IS_ROOM` → 'floor' arm) fires because STAIRS >= ROOM.
+- **JS was:** `js/trap.js` `float_down` called the file-local `surface_fd` stub (floor when `IS_ROOM`, else ground), a named omission in the function's doc comment. On a stairs tile `IS_ROOM` is true, so it printed 'floor'. The C-faithful `surface()` already lives in `js/sit.js` (D-2008, incl. the `On_stairs` arm and the STAIRS>=ROOM note).
+- **Fix:** `js/trap.js` `float_down` only — the come-down arm now `await import('./sit.js')` for `surface` (the dynamic-import idiom this file already uses for `./sit.js` `split_mon`; sit.js statically imports trap.js, so a static edge would add a trap↔sit cycle — imports.mjs verdict for the static shape was SAFE/hoisted, but the dynamic call-time import avoids the question entirely, no TDZ) and prints `surface(u.ux | 0, u.uy | 0)`. Doc comment drops `surface() exact` from Named omissions. No DIAG/FORCE/seed gates; no frozen files.
+- **JS:** 1 file (trap.js +9/−3), under the 600/10 caps.
+- **Verify:** `node scripts/verify.mjs --fn float_down` → PASS syntax (1 changed file: js/trap.js) · PASS rule2 · PASS hidden `0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS` (scen-intrinsic-Samurai-92017 step 43 → `dosearch` at step 54, strictly later step and owner) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) · VERIFY: PASS. Preflight `verify --no-cohort` green on a clean tree; final verify after the last js/ edit (map/docs/queue edits only after; no D-1831 gap).
+- **Named omissions:** file-local `surface_fd` stays for the `fall_through` `The … opens up` pline (`js/trap.js:3598`, different C function); other `float_down` omissions stand (Punished ball drag, ustuck release wording, selftouch/dismount Sokoban fell, underwater vision, assign_level trapdoor skip).
+- **Next:** do not re-pop `float_down` (0 blocked). scen-intrinsic-Samurai-92017's `dosearch`@54 flows through the normal queue.
+- **Cited falsifier grade:** measured (pinned trap.c float_down + dungeon.c surface read via brief; recorded C-vs-JS toplines/step/owner/replay from brief; post-port `verify --fn float_down` + green + strict + cohort; no JS FORCE/DIAG/seed reads used).
+
 ## D-2093 — mon.c unstuck never ran on hero kill: lichen-holder death skipped `rnd(2)` mspec_used, xkilled treasure drew one slot early (queue owner unstuck, 1 session)
 
 - **Status:** fixed (Open queue row `mon.c` unstuck — cited 1/553; `node scripts/verify.mjs --fn unstuck` → 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS; row cites no review, no stamp owed)

@@ -1,6 +1,6 @@
 {
- "commit": "48742ea2",
- "at": "2026-09-08T06:15:03.285Z",
+ "commit": "08eb8798",
+ "at": "2026-09-08T06:17:29.104Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -5515,16 +5515,16 @@
    "passed": false,
    "rngM": 5111,
    "rngT": 7803,
-   "scrM": 53,
+   "scrM": 54,
    "scrT": 143,
    "kind": "screen",
-   "step": 43,
+   "step": 54,
    "steps": 143,
-   "owner": "float_down",
-   "loc": "trap.c:4144",
+   "owner": "dosearch",
+   "loc": "detect.c:2099",
    "jsOwner": null,
-   "cTopline": "You float gently to the stairs.",
-   "jsTopline": "You float gently to the floor.",
+   "cTopline": "You are hit by an orcish dagger. You stop searching.",
+   "jsTopline": "You are hit by an orcish dagger. Hachi bites the goblin.--More--",
    "error": null
   },
   "scen-intrinsic-Samurai-92043": {

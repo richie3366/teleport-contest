@@ -1063,6 +1063,13 @@ not called by C here). **`Wwalking` live re-read** (D-1918): post-boots
 `if (Wwalking)` / sink `else if (!Wwalking…)` / countermeasure `if (!Wwalking)`
 re-read the macro via `liveWwalking()` (boots burst clears the slot through
 `Boots_off`); entry snapshot kept for entry `usurvive` + the flag loop.
+**`float_down` come-down `surface()`** (D-2094; C `trap.c:4144`
+`surface(u.ux, u.uy)` via the shared `dungeon.c` surface `js/sit.js`
+(D-2008) — dynamic import, the `./sit.js` `split_mon` idiom already in
+this file; retires the file-local `surface_fd` floor/ground stand-in on
+this arm, which misread STAIRS (STAIRS >= ROOM, `IS_ROOM` true) as
+'floor'; `surface_fd` stays for the `fall_through` `The … opens up`
+pline at `js/trap.js:3598`, a different C function).
 
 ### `src/dog.c` `tamedog` / `initedog`
 
