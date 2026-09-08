@@ -89,10 +89,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `uhitm.c` mhitm_knockback — blocks 2/553 corpus sessions (first at step 236): C draws `rn2(3)=2` in mhitm_knockback, JS `rn2(6)=5` from mhitm_knockback(mhitm.js:2027). Probe: `node scripts/hidden-proxy.mjs verify mhitm_knockback` (scen-poly-Ranger-92090, scen-poly-Wizard-92076).
+**Next cluster:** `do_name.c` x_monnam — blocks 2/553 corpus sessions (first at step 36): C «@a human or elf or you (orcish barbarian called wizard)--Mor» vs JS «@a human or elf or you (orcish barbarian called wizard)». Probe: `node scripts/hidden-proxy.mjs verify x_monnam` (scen-tour-Barbarian-92024, scen-wish-Knight-91128).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2091 (index).**
+**Keep D-0845…D-2092 (index).**
 <!-- recent:begin -->
+**D-2092** (1) `pager.c:1346–1353` check_monsters "or you" tack-on (`found += append_str` → 1→2) + di — `js/pager.js` only — (1) u_at arm returns `found: 1` with didlook cite; (2) `checkfile(first, ans === LOOK_VERBOSE ?
 **D-2091** (1) `uhitm.c:2450–2477` `mhitm_ad_drli` uhitm arm — `js/uhitm.js` — new `damageum_ad_drli` (C order verbatim: `!rn2(3)`, `resists_drli`, mgc_negated(TRUE); drain math with `|0` ints; `Monnam` «becomes weaker!»; mhpmax floor; mhp; level-0 `xkilled(XKILL_NOMSG)` with nonliv
 **D-2090** (1) `monmove.c` dochug tail — `js/monmove.js` — `cuss` joins the pre-existing `./wizard.js` import (imports.mjs ALREADY, no new edge; call-time use only, no TDZ); local `MS_CUSS = 34` beside `MS_BRIBE` (monflag.h); gate in verbatim C order/position a
 **D-2089** `objnam.c` `readobjnam_postparse1` — `js/readobjnam.js` — gold condition is now `if (!d.typ && isGold && GOLD_PIECE >= 0)` with a C cite (`return 2` skips this block); corrected the stale postparse1 comment that claimed every later block was already guarded
@@ -100,11 +101,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2087** `monst.h:270` `mon_resistancebits(mon)` = `data->mresists | mextrinsics | mintrinsics` + ` — `js/trap.js` `resists_elem` now ORs `mtmp.data.mresists` for monsters only — `is_youmonst` gate preserves hero behavior (C ignores species bits for the hero; hero resists ride intrinsics/extrinsics).
 **D-2086** `muse.c:2654–2686` `rnd_misc_item` — `js/makemon.js` — file-local `See_invisible_misc()` (`youprop.h:152` cite; H||E+sticky flat, the muse.js:2147/trap.js/mhitm.js file idiom; `game` already imported, no new module edge, no TDZ risk) and case 1 is now `if (
 **D-2085** `mon.c:1847–1910` `mpickstuff` — `js/monmove.js` — ported the missing C guards verbatim in C order (isshk+inhishop, then !mtame → in_rooms(SHOPBASE) → rn2(25), so the draw stays shop-gated by short-circuit; empty-string in_rooms is falsy like C `*p == 0
-**D-2084** `objnam.c:4371–4397` `readobjnam_postparse1` corpse-type block — `js/readobjnam.js` — ported the full conditional verbatim in C position (ahead of the no-`of` scan; glob intercept above it stays map-named): guards via live `strstri`, `tin of` → spinach exact / `tin_variety_txt` offset
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2091; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2092; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

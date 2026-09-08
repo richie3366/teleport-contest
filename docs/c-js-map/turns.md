@@ -786,7 +786,7 @@ JS: `js/pager.js`, `js/getpos.js`, `js/dokeylist.js`, `js/generated/dat_text.js`
 **`brief_at`/`describe_looked` blank S_stone before typ CORR** (D-0928 #1188; 
 full do_screen_description cmap scan deferred); 
 **`checkfile` NHW_MENU `process_text_window` + tabexpand/CR** (D-0085); 
-**checkfile data-base key match via C `pmatch` D-1954** (`strutil.c:144–148` case-sensitive over `lcase(dbase_str)` `pager.c:866`; live `js/cmd.js` export + `js/pager.js` `lookup_data_base` positive/`~`-exclusion passes, RegExp clones retired, keys keep file case — measured single uppercase key `A.S*`; `sk` skip-set + pass-1 `alt` + `#ifdef DEBUG` debugcore named omitted); 
+**checkfile data-base key match via C `pmatch` D-1954** (`strutil.c:144–148` case-sensitive over `lcase(dbase_str)` `pager.c:866`; live `js/cmd.js` export + `js/pager.js` `lookup_data_base` positive/`~`-exclusion passes, RegExp clones retired, keys keep file case — measured single uppercase key `A.S*`; `sk` skip-set + `#ifdef DEBUG` debugcore + makesingular/fruit `alt` (`:990–996`) + pm-derived dbase (`:862–864`) + supplemental_name (`:956–958`) still named; pass-1 named/called `alt` two-pass + same-entry skip live (D-2092); 
 **`look_all`/`look_engrs` NHW_TEXT more@23 + MAP coords/glyph + `look_shown_at` + 
 statue/engr** (D-0087); **`doextversion` OPTIONS_AT_RUNTIME options/windowing/soundlib/Lua 
 license** (D-0088); **NHW_TEXT `dmore` quitchars** (D-0089); 
@@ -802,8 +802,7 @@ ECMD_OK no turn; ALTMETA ESC-double + introff/intron named);
 **help `g` → `option_help`** (D-0091); **`dokeylist`/`domenucontrols`/`docontact` + 
 default !num_pad binds** (D-0131); **`display_file` keeps intentional trailing blank** (D-0131); 
 **`;` → `doquickwhatis`/`do_look(1)` + `look_at_monster` distant_monnam/asleep + 
-putmixed no forced more** (D-0330); **`checkfile` ask via `yn_function` (NEED_MORE→more) + 
-lookat parenthetical forces `found=1`** (D-0334); 
+putmixed no forced more** (D-0330); **`checkfile` ask via `yn_function` (NEED_MORE→more)** (D-0334; D-2092: VERBOSE→`chkfilDontAsk` `:1944–1948` no-ask + user-typed displays without asking `:1056–1072`) + **lookat parenthetical forces `found=1`** (D-0334; D-2092: self-branch `orYou` 1→2 is pre-didlook, didlook `:1591–1616` resets 1) + **NHW_MENU text display flushes NEED_MORE first** (D-2092; `wintty.c` menu-display rule via pre-existing `flush_topl_more`); 
 **`brief_at`/`describe_looked` tseen trap → `trapname`** (D-0424) + **trap-glyph `a trap (lookat)`** (D-1874; `do_screen_description` `:1220` first-match + didlook `:1611–1614` parenthetical; vibrating-square `an(x_str)` arm still deferred); 
 **`describe_looked` DECgraphics wall ↔ swallow mid + Unicode │** (D-0425; 
 trapped_chest/door + Hallucination + full showsyms cmap scan + SDOOR deferred); 
@@ -812,7 +811,7 @@ look_traps format; invis/warning glyphs; custom BIND=/number_pad;
 selectable `process_menu_window` path; **`self_lookat` → `pmname(umonnum,Ugender)` not male 
 `urole.name.m`** (D-0664) + **Punished `, chained to ` + `ansimpleoname(uball)`** (D-0928 #1149; 
 steed/utrap deferred) + **`brief_at` CLOUD fog/vapor** (D-0811) + 
-**`room_cmap_explanation` S_darkroom** (D-0812) + **blocked staircase down qstart** (D-0814) + **`describe_looked` self "or you"** (D-2013; `pager.c:1346–1353` '@'-as-you tack-on when race ∉ {human, elf} && !Upolyd — `u_at` is the branch, '@' its prefix; the `wishymatch` queue owner was a literal-heuristic misfire on `"dwarven "` at `objnam.c:3280`, wishymatch arms stay named in the wish-subset row) + **self found-count** (D-2020; `found += append_str(out_str, "you")` returns 1 so C found 1→2 and `do_look :1941` (`found == 1`) skips `checkfile` — `found: orYou ? 2 : 1`); 
+**`room_cmap_explanation` S_darkroom** (D-0812) + **blocked staircase down qstart** (D-0814) + **`describe_looked` self "or you"** (D-2013; `pager.c:1346–1353` '@'-as-you tack-on when race ∉ {human, elf} && !Upolyd — `u_at` is the branch, '@' its prefix; the `wishymatch` queue owner was a literal-heuristic misfire on `"dwarven "` at `objnam.c:3280`, wishymatch arms stay named in the wish-subset row) + **self found-count** (D-2020 corrected by D-2092: the 1→2 is pre-didlook; didlook `:1591–1616` appends the self_lookat parenthetical and resets `found = 1`, so `do_look :1941` runs `checkfile` — `found: 1`); 
 look_at_monster hallu/health/stuck/leashed/trapped; **howmonseen D-1562**; 
 **`object_from_map` / `look_at_object` D-1524** (`pager.c:284–399`; fake SLIME_MOLD 
 `spe = current_fruit` then mimic `MCORPSENM`; glyphotyp not integer glyph; 

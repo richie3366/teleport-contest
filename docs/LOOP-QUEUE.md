@@ -59,7 +59,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `do_name.c` x_monnam — blocks 2/553 corpus sessions (first at step 36): C «@a human or elf or you (orcish barbarian called wizard)--Mor» vs JS «@a human or elf or you (orcish barbarian called wizard)». Probe: `node scripts/hidden-proxy.mjs verify x_monnam` (scen-tour-Barbarian-92024, scen-wish-Knight-91128).
 - [ ] `mon.c` unstuck — blocks 1/553 corpus sessions (first at step 120): C draws `rnd(2)=1` in unstuck, JS `rn2(6)=2` from xkilled(uhitm.js:686). Probe: `node scripts/hidden-proxy.mjs verify unstuck` (scen-wish-Rogue-92210).
 - [ ] `trap.c` float_down — blocks 1/553 corpus sessions (first at step 43): C «You float gently to the stairs.» vs JS «You float gently to the floor.». Probe: `node scripts/hidden-proxy.mjs verify float_down` (scen-intrinsic-Samurai-92017).
 - [ ] `selvar.c` selection_rndcoord — blocks 1/553 corpus sessions (first at step 70): C draws `rn2(670)=351` in selection_rndcoord, JS `rn2(2)=1` from flip_level_rnd(mklev.js:16741). Probe: `node scripts/hidden-proxy.mjs verify selection_rndcoord` (scen-tour-Ranger-92033).
@@ -67,6 +66,11 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 - [ ] `potion.c` peffect_sleeping — blocks 1/553 corpus sessions (first at step 62): C «You yawn.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify peffect_sleeping` (scen-intrinsic-Rogue-92172).
 - [ ] `wield.c` dowield — blocks 1/553 corpus sessions (first at step 8): C «You have 40 darts readied. Wield one? [ynq] (q)» vs JS «You have 40 dart readied. Wield one? [ynq] (q)». Probe: `node scripts/hidden-proxy.mjs verify dowield` (scen-kit-Tourist-91126).
 - [ ] `detect.c` find_trap — blocks 1/553 corpus sessions (first at step 81): C «You find a small mimic.» vs JS «You already found a monster. Use 'm' prefix to force another». Probe: `node scripts/hidden-proxy.mjs verify find_trap` (scen-genesis-Wizard-92223).
+- [ ] `pager.c` checkfile — blocks 3/553 corpus sessions (first at step 92): C «f - a figurine of a newt.» vs JS «f - a figurine.». Probe: `node scripts/hidden-proxy.mjs verify checkfile` (scen-intrinsic-Samurai-92239, scen-wish-Priest-92179, scen-wish-Priest-92180).
+- [ ] `end.c` done_in_by — blocks 2/553 corpus sessions (first at step 47): C «The vampire bat bites! You stop searching.--More--» vs JS «You stop searching. The vampire bat bites!--More--». Probe: `node scripts/hidden-proxy.mjs verify done_in_by` (scen-tour-Barbarian-92024, scen-tour-Ranger-92177).
+- [ ] `objnam.c` wishymatch — blocks 1/553 corpus sessions (first at step 70): C «@a human or elf or you (dwarven valkyrie called wizard)--Mor» vs JS «@a human or elf or you (dwarven valkyrie called wizard)». Probe: `node scripts/hidden-proxy.mjs verify wishymatch` (scen-tour-Valkyrie-92040).
+- [ ] `insight.c` enlightenment — blocks 4/553 corpus sessions (first at step 67): C «Wizard the Monk's attributes:» vs JS «Wizard the Monk's attributes:». Probe: `node scripts/hidden-proxy.mjs verify enlightenment` (scen-death-Monk-92000, scen-death-Wizard-92120, scen-wish-Healer-92147).
+- [ ] `end.c` disclose — blocks 3/553 corpus sessions (first at step 110): C «Do you want to see your conduct and achievements? [ynq] (n)» vs JS «Do you want to see your conduct? [ynq] (n)». Probe: `node scripts/hidden-proxy.mjs verify disclose` (scen-genesis-Barbarian-91118, scen-wish-Monk-92031, scen-wish-Priest-92098).
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 
