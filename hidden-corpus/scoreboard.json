@@ -1,6 +1,6 @@
 {
- "commit": "9151bc52",
- "at": "2026-09-08T01:31:55.970Z",
+ "commit": "bf8d5e01",
+ "at": "2026-09-08T01:46:48.298Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6142,7 +6142,7 @@
   "scen-normal-Healer-92218": {
    "src": "corpus",
    "passed": false,
-   "rngM": 3042,
+   "rngM": 2945,
    "rngT": 4157,
    "scrM": 45,
    "scrT": 169,
@@ -6151,7 +6151,7 @@
    "steps": 169,
    "owner": "distfleeck",
    "loc": "monmove.c:549",
-   "jsOwner": "do_attack(uhitm.js:2942)",
+   "jsOwner": "do_attack(uhitm.js:3074)",
    "cTopline": "Pardon me, little dog.",
    "jsTopline": "You swap places with your little dog.",
    "error": null
@@ -6603,16 +6603,16 @@
    "passed": false,
    "rngM": 37111,
    "rngT": 37410,
-   "scrM": 89,
+   "scrM": 90,
    "scrT": 128,
    "kind": "screen",
-   "step": 63,
+   "step": 90,
    "steps": 128,
-   "owner": "polyself",
-   "loc": "polyself.c:613",
+   "owner": "rehumanize",
+   "loc": "polyself.c:1395",
    "jsOwner": null,
-   "cTopline": "You can't polymorph into Croesus.--More--",
-   "jsTopline": "You can't polymorph into a Croesus.--More--",
+   "cTopline": "You hear some noises. You return to human form! You can see again.--More--",
+   "jsTopline": "You hear some noises. You return to human form!--More--",
    "error": null
   },
   "scen-poly-Archeologist-92226": {
@@ -6635,18 +6635,18 @@
   "scen-poly-Caveman-91133": {
    "src": "corpus",
    "passed": false,
-   "rngM": 3251,
+   "rngM": 7276,
    "rngT": 7361,
-   "scrM": 67,
+   "scrM": 115,
    "scrT": 121,
-   "kind": "rng",
-   "step": 67,
+   "kind": "screen",
+   "step": 115,
    "steps": 121,
-   "owner": "polyself",
-   "loc": "polyself.c:675",
-   "jsOwner": "polyself(polyself.js:1228)",
-   "cTopline": "Become a vampire bat? [yn] (n)",
-   "jsTopline": "You feel like a new gnome! You transform into a cavewoman.--More--",
+   "owner": "dog_invent",
+   "loc": "dogmove.c:460",
+   "jsOwner": null,
+   "cTopline": "Slasher picks up a gold piece. Slasher drops a gold piece.--More--",
+   "jsTopline": "Slasher picks up a gold piece. Slasher drops a gold piece.--More--",
    "error": null
   },
   "scen-poly-Caveman-92050": {

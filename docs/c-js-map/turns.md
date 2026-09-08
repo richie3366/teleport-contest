@@ -341,9 +341,11 @@ cloak 3-way (wrapping tears/smock knot/clasp) via `cloak_simple_name` +
 `Cloak_off`, sliparm `racial_exception` gate, horns flimsy-pierce vs
 `helm_simple_name`+`surface()` fall (D-2008: stairs arm live via `sit.js` full-`surface` in C order — SURFACE_AT/`db_under_typ`, air-bubble, pool, ice, lava, bridge, SDOOR, earthlevel gate; swallow maw/husk named; per-context clones in dig/dokick/engrave stay), `helm_simple_name`/`has_horns`/`num_horns`/
 `WrappingAllowed` one-word exports (mhitu/worn) + `Blindf_off` Null `nooffmsg`
-(do_wear.c:1498), `ublindf` eyewear arm; donning/`cancel_don` still deferred); **`polyself(POLY_NOFLAGS)` system-shock `rn2(20)` + 
-random `rn1(SPECIAL_PM)`** (D-0928 #1103; **POLY_LOW_CTRL forcecontrol downgrade D-1428**; 
-were/vamp/dragon-merge/controllable_poly getlin/light-src deferred); **polymon mhmax block** (D-2024; C `polyself.c:859–872` dragon/`golemhp(mntmp)`/`d(mlvl,8)`+home-elemental-x3 verbatim — `golemhp` exported from `makemon.js`, no clone #2; golem `d()` + elemental-x3 defers retired); **polymon eyeless→seeing `was_blind&&!Blind` arm** (D-2050; C `polyself.c:739` entry capture + `:899–902` `set_itimeout(HBlinded,1)` + `make_blinded(0,TRUE)` in the live `polyman` shape, after `break_armor`/`drop_weapon` per C `:888`-before-`:899` order; no new imports); 
+(do_wear.c:1498), `ublindf` eyewear arm; donning/`cancel_don` still deferred); **`polyself(POLY_NOFLAGS)` system-shock `rn2(20)` +
+random `rn1(SPECIAL_PM)`** (D-0928 #1103; **POLY_LOW_CTRL forcecontrol downgrade D-1428**;
+**controllable_poly gate + !polyok the()/bare/an() article + POLY_MONSTER isvamp do_vampyr D-2063**;
+were/dragon-merge/POLY_REVERT + placeholder substitutes + mkclass_poly + non-force
+controllable getlin + post-loop isvamp/draconian goto + wizard rehumanize + light-src deferred); **polymon mhmax block** (D-2024; C `polyself.c:859–872` dragon/`golemhp(mntmp)`/`d(mlvl,8)`+home-elemental-x3 verbatim — `golemhp` exported from `makemon.js`, no clone #2; golem `d()` + elemental-x3 defers retired); **polymon eyeless→seeing `was_blind&&!Blind` arm** (D-2050; C `polyself.c:739` entry capture + `:899–902` `set_itimeout(HBlinded,1)` + `make_blinded(0,TRUE)` in the live `polyman` shape, after `break_armor`/`drop_weapon` per C `:888`-before-`:899` order; no new imports); 
 **`set_mon_data` hero umov prorate** (D-0717))/`#invoke`/`doinvoke`/`arti_invoke` 
 !inv_prop→nothing_happens+ECMD_TIME (D-0715) + 
 **BLINDING_RAY `invoke_blinding_ray` D-1377** (crystal-ball/`inv_prop` other specials + 

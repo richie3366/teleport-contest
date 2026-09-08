@@ -7,12 +7,13 @@ import { dist2 } from './hacklib.js';
 import {
     pline, urgent_pline, newsym, see_monsters, impossible,
 } from './display.js';
-import { getlin, yn_function } from './getline.js';
+import { getlin, yn_function, y_n } from './getline.js';
 import { getdir } from './lock.js';
-import { an, set_body_part, yname, vtense, simpleonames, makeplural } from './objnam.js';
+import { an, the, the_unique_pm, set_body_part, yname, vtense, simpleonames, makeplural } from './objnam.js';
 import {
-    pmname, mon_nam, s_suffix, Ugender,
+    pmname, type_is_pname, mon_nam, s_suffix, Ugender,
 } from './do_name.js';
+import { Unaware } from './eat.js';
 import { attacktype_fordmg, killed } from './uhitm.js';
 import {
     AT_SPIT, AT_GAZE, AD_BLND, AD_DRST, AD_ACID,
@@ -74,6 +75,8 @@ import {
     is_floater,
     is_vampire,
     is_vampshifter,
+    your_race,
+    G_UNIQ,
     is_were,
     webmaker,
     is_hider,
@@ -109,6 +112,7 @@ import {
     ECMD_TIME,
     MALE,
     FEMALE,
+    NEUTRAL,
     G_GENOD,
     W_ARM,
     W_ARMC,
@@ -186,6 +190,10 @@ const PM_MARILITH = monsterNames.indexOf('PM_MARILITH');
 const PM_WINGED_GARGOYLE = monsterNames.indexOf('PM_WINGED_GARGOYLE');
 const PM_STONE_GOLEM = monsterNames.indexOf('PM_STONE_GOLEM');
 const PM_AMOROUS_DEMON = monsterNames.indexOf('PM_AMOROUS_DEMON');
+const PM_VAMPIRE_LEADER = monsterNames.indexOf('PM_VAMPIRE_LEADER');
+const PM_WOLF = monsterNames.indexOf('PM_WOLF');
+const PM_FOG_CLOUD = monsterNames.indexOf('PM_FOG_CLOUD');
+const PM_VAMPIRE_BAT = monsterNames.indexOf('PM_VAMPIRE_BAT');
 const PM_RAVEN = monsterNames.indexOf('PM_RAVEN');
 const PM_KI_RIN = monsterNames.indexOf('PM_KI_RIN');
 const PM_ROTHE = monsterNames.indexOf('PM_ROTHE');
@@ -1186,10 +1194,13 @@ export async function polymon(mntmp) {
 /**
  * C ref: polyself.c polyself — system-shock, POLY_CONTROLLED getlin,
  * random ordinary pick, then polymon/newman.
- * Named omissions: were/vamp/dragon-merge/POLY_MONSTER/POLY_REVERT;
- * placeholder orc/elf/giant substitutes; mkclass_poly; controllable_poly
- * getlin (non-force); wizard rehumanize own-role; light-source bookkeeping.
- * POLY_LOW_CTRL forcecontrol downgrade is live (D-1428).
+ * Live: POLY_LOW_CTRL forcecontrol downgrade (D-1428); controllable_poly
+ * gate; !polyok the()/bare/an() article (D-2063); POLY_MONSTER isvamp
+ * do_vampyr shape change (D-2063).
+ * Named omissions: were/dragon-merge/POLY_REVERT; placeholder orc/elf/giant
+ * substitutes; mkclass_poly; controllable_poly getlin (non-force);
+ * post-loop isvamp/draconian goto (tryct<=0 random-name funnel);
+ * wizard rehumanize own-role; light-source bookkeeping.
  * @param {number} [psflags=POLY_NOFLAGS]
  */
 export async function polyself(psflags = 0) {
@@ -1210,6 +1221,9 @@ export async function polyself(psflags = 0) {
     const iswere = ismnum(u.ulycn);
     const youdata = game.youmonst?.data;
     const isvamp = !!(is_vampire(youdata) || is_vampshifter(game.youmonst));
+    // C polyself.c:480 — controllable_poly = Polymorph_control && !(Stunned || Unaware);
+    // Stunned shape mirrors hack.js Stunned_prop ((u.HStun|0) || u.Stunned).
+    const controllable_poly = Polymorph_control(u) && !((u.HStun | 0) || u.Stunned) && !Unaware();
     if (!Polymorph_control(u) && !forcecontrol && !draconian && !iswere
         && !isvamp) {
         // C: if (rn2(20) > ACURR(A_CON)) system shock
@@ -1232,7 +1246,10 @@ export async function polyself(psflags = 0) {
     }
 
     let mntmp = NON_PM;
-    if (forcecontrol) {
+    // C polyself.c:511 — `if (monsterpoly && isvamp) goto do_vampyr`: a #monster
+    // shape change as a vampire skips the getlin block entirely.
+    const vampyr_goto = monsterpoly && isvamp;
+    if (forcecontrol && !vampyr_goto) {
         let tryct = 5;
         do {
             mntmp = NON_PM;
@@ -1255,9 +1272,18 @@ export async function polyself(psflags = 0) {
                 await pline(`You can't polymorph into ${an(pmname(mntmp, FEMALE))}.`);
                 mntmp = NON_PM;
             } else if (!polyok(mons(mntmp))
+                // C polyself.c:596–601 — own race (non-unique) and own role
+                // force newman() instead of this message.
                 && !(mntmp === PM_HUMAN
+                    || (your_race(mons(mntmp)) && ((mons(mntmp)?.geno | 0) & G_UNIQ) === 0)
                     || mntmp === (game.urole?.mnum | 0))) {
-                await pline(`You can't polymorph into ${an(pmname(mntmp, game.flags?.female ? FEMALE : MALE))}.`);
+                // C polyself.c:610–615 — unique → the(), proper name → bare,
+                // otherwise an().
+                const mptr = mons(mntmp);
+                let pm_name = pmname(mntmp, game.flags?.female ? FEMALE : MALE);
+                if (the_unique_pm(mptr)) pm_name = the(pm_name);
+                else if (!type_is_pname(mptr)) pm_name = an(pm_name);
+                await pline(`You can't polymorph into ${pm_name}.`);
                 mntmp = NON_PM;
             } else {
                 break;
@@ -1268,6 +1294,32 @@ export async function polyself(psflags = 0) {
             await pline("That's enough tries!");
             return;
         }
+    }
+
+    // C polyself.c do_vampyr — vampire shape change skips the polyok gate:
+    // re-pick wolf/fog/bat (cham override), y_n prompt when controlled,
+    // then polymon/newman directly (no sex_change_ok wrap; goto made_change,
+    // whose light-source bookkeeping stays deferred like the random path).
+    // Second disjunct is C's `else if (draconian || iswere || isvamp)` taken
+    // when NOT (controllable || forcecontrol); dragon/were arms stay deferred.
+    if (vampyr_goto || (!forcecontrol && !controllable_poly && isvamp && !draconian && !iswere)) {
+        // C re-pick guard `mntmp < LOW_PM || geno & G_UNIQ`; RNG short-circuit
+        // order kept: leader rn2(10) first, else rn2(4), then cham rn2(2).
+        if (mntmp < LOW_PM || ((mons(mntmp)?.geno | 0) & G_UNIQ)) {
+            const isLeader = (youdata?.mndx ?? -1) === PM_VAMPIRE_LEADER;
+            if (isLeader && !rn2(10)) mntmp = PM_WOLF;
+            else if (!rn2(4)) mntmp = PM_FOG_CLOUD;
+            else mntmp = PM_VAMPIRE_BAT;
+            const cham = game.youmonst?.cham;
+            if (ismnum(cham) && !is_vampire(youdata) && !rn2(2)) mntmp = cham;
+        }
+        if (controllable_poly) {
+            // C gvariant is NEUTRAL here — no getlin ran on this path.
+            if ((await y_n(`Become ${an(pmname(mntmp, NEUTRAL))}?`)) !== 'y') return;
+        }
+        if (mntmp === PM_HUMAN) await newman();
+        else await polymon(mntmp);
+        return;
     }
 
     // C: mntmp < LOW_PM → tryct=200; rn1(SPECIAL_PM-LOW_PM, LOW_PM)

@@ -59,7 +59,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `polyself.c` polyself — blocks 2/553 corpus sessions (first at step 63): C «You can't polymorph into Croesus.--More--» vs JS «You can't polymorph into a Croesus.--More--». Probe: `node scripts/hidden-proxy.mjs verify polyself` (scen-poly-Archeologist-92119, scen-poly-Caveman-91133).
 - [ ] `zap.c` zapyourself — blocks 2/553 corpus sessions (first at step 17): C «You've set yourself afire! Your gloves smoulder!--More--» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify zapyourself` (scen-death-Knight-92188, scen-wish-Rogue-92210).
 - [ ] `mon.c` mcalcmove — blocks 2/553 corpus sessions (first at step 180): C draws `rn2(12)=0` in mcalcmove, JS `rn2(5)=1` from u_maybe_impaired(hack.js:1794). Probe: `node scripts/hidden-proxy.mjs verify mcalcmove` (scen-wish-Archeologist-92216, scen-wish-Rogue-92137).
 - [ ] `mhitu.c` wildmiss — blocks 2/553 corpus sessions (first at step 186): C draws `rn2(3)=1` in wildmiss, JS `rn2(5)=4` from distfleeck(monmove.js:808). Probe: `node scripts/hidden-proxy.mjs verify wildmiss` (scen-wish-Healer-92147, scen-wish-Ranger-92155).

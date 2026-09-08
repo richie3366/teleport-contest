@@ -88,8 +88,9 @@ divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
 **Next cluster:** `polyself.c` polyself — blocks 2/553 corpus sessions (first at step 63): C «You can't polymorph into Croesus.--More--» vs JS «You can't polymorph into a Croesus.--More--». Probe: `node scripts/hidden-proxy.mjs verify polyself` (scen-poly-Archeologist-92119, scen-poly-Caveman-91133). (distfleeck parked 2026-09-08 as symptom owner — see LOOP-QUEUE Parked, no D-log.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2062 (index).**
+**Keep D-0845…D-2063 (index).**
 <!-- recent:begin -->
+**D-2063** `polyself.c` polyself `:596–615` (!polyok message arm: `pmname(flags.female)` then `the_un — `js/polyself.js` — article arm verbatim (`the_unique_pm`/`the`/`type_is_pname` + your_race/G_UNIQ guard); `controllable_poly` const (Stunned shape mirrors `hack.js` Stunned_prop `(u.HStun|0) || u.Stunned`); `vampyr_goto`
 **D-2062** the queue owner is a literal-match misattribution — `js/invent.js` — (a) ulycn were-form arm (`an(pmname(mons(ulycn), female?FEMALE:MALE))` + « in beast form» + wizard `mtimedone` iff `umonnum==ulycn`) and `Hate_silver` arm (`ismnum(ulycn) || hates_silver(youmonst.data)`)
 **D-2061** `end.c` really_done `:1186–1187` — `js/end.js` — after `at_midnight`, `if (((game.moves | 0) <= 1) && how < PANICKED && !(game.program_state?.done_stopprint | 0)) await pline(\`Do not pass Go.
 **D-2060** `end.c` really_done `:1206–1219` (maintain `ugrave_arise` even for `!bones_ok`: PANICKED → — `js/end.js` — (1) `really_done` maintains `ugrave_arise` per C `:1206–1219` (PANICKED/BURNING+DISSOLVED/STONING/TURNED_SLIME+`G_GENOD` check via `game.mvitals`, `PM_GREEN_SLIME` via `monsterNames.indexOf` like D-2057; ki
@@ -97,11 +98,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2058** the queue owner is a literal-match misattribution — `js/display.js` — thread the C int id through every `reveal_terrain_getglyph` arm so gbuf matches C: `full` arm attaches `back_to_glyph(x,y)` inside the seenv-temp window; `levl_glyph` attaches the remembered int (`mem.g
 **D-2057** symptom owner `botl.c` `do_statusline1` `:47–98` (`:85` `St:%s…Ch:%-1d` via `get_strength_ — `js/attrib.js` — CHA arm now `if (tmp < 18 && (game.youmonst?.data?.mlet === 'S_NYMPH' || (u.umonnum|0) === PM_AMOROUS_DEMON)) result = 18` (C `:1214–1216`; `PM_AMOROUS_DEMON` via `monsterNames.indexOf`, same idiom as `j
 **D-2056** `dothrow.c` `dofire` `:543–554` — `js/dothrow.js` — deleted the post-doquiver `mark_topline_seen()` with a C citation comment (no skip in C; `tty_yn_function` flushes).
-**D-2055** (1–2) `objnam.c readobjnam :5143–5165` STATUE/FIGURINE/CORPSE spe arm — `js/readobjnam.js` — full C spe switch in exact C order before the recharged hunk (TIN 0 + EMPTY/SPINACH contents arms; TOWEL wetness; SLIME_MOLD `ftype` deferred with comment; KEY/CHEST/BOX/BALL/CHAIN retain; STATUE/FIG
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2062; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2063; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
