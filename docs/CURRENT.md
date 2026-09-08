@@ -87,7 +87,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `mon.c` mcalcmove — blocks 2/553 corpus sessions (first at step 180): C draws `rn2(12)=0` in mcalcmove, JS `rn2(5)=1` from u_maybe_impaired(hack.js:1794). Probe: `node scripts/hidden-proxy.mjs verify mcalcmove` (scen-wish-Archeologist-92216, scen-wish-Rogue-92137).
+**Next cluster:** `const.js` M_AP_TYPE mask — unmasked F_DKNOWN flips rest-safety (scen-wish-Archeologist-92216 step 180, split from parked symptom-owner `mon.c` mcalcmove). Probe: port the mask + `node scripts/hidden-proxy.mjs verify mcalcmove` (Archeologist must PASS or move; Rogue/Knight stay — parked slime writer).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2065 (index).**
 <!-- recent:begin -->
