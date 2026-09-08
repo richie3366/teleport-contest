@@ -2489,9 +2489,10 @@ export async function dofire() {
         res = await doquiver_core('fire');
         if (res !== ECMD_OK && res !== ECMD_TIME) return ecmd_took_time(res);
         obj = u.uquiver || null;
-        // C: ready pline may leave NEED_MORE; getdir yn_function would
-        // more() next. D-0485 keeps the letter/dir key for public traces.
-        if (obj) mark_topline_seen();
+        // C has no topline skip here: dofire falls through to throw_obj's
+        // getdir, whose yn_function flushes a pending NEED_MORE first
+        // (tty_yn_function). Skipping it (ex-D-0485) showed
+        // "In what direction?" where C pauses at "You ready: ...--More--".
     }
 
     if (u.uquiver && is_ammo(u.uquiver) && fireassist && !skip_fireassist) {

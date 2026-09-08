@@ -893,7 +893,9 @@ export async function doquiver_core(verb) {
         setuqwep(newquiver);
         await pline(xprname(newquiver, undefined, true));
     } else {
-        await pline(`You ready: ${xprname(newquiver, undefined, false)}`);
+        // C wield.c doquiver_core fire arm: prinv("You ready:", q, 0L) →
+        // xprname(..., obj_to_let, dot=!total_of=TRUE) — trailing period.
+        await pline(`You ready: ${xprname(newquiver, undefined, true)}`);
         setuqwep(newquiver);
     }
 

@@ -951,7 +951,7 @@ JS: `js/wield.js` — partial
 **`rhack` `'x'` → `doswapweapon`** + **`setuwep`/`setuswapwep` clear `twoweap` ≡ `setworn`** + 
 **`ready_weapon` are/can_no_longer pline** (D-0913; 
 cantwield ridiculous / full setworn / `#swap` deferred); 
-**`Q`/`dowieldquiver`/`doquiver_core`/`setuqwep` + uswapwep/uwep ynq** (D-0152); 
+**`Q`/`dowieldquiver`/`doquiver_core`/`setuqwep` + uswapwep/uwep ynq** (D-0152); `doquiver_core` fire arm `You ready:` xprname dot=TRUE trailing period (D-2056); 
 **`empty_handed` gloves/humanoid** (D-0194); 
 **`#twoweapon`/`dotwoweapon`/`can_twoweapon`/`set_twoweap`/`untwoweapon`** (D-0344; 
 Yname2/body_part/Glib drop polish deferred); 
@@ -2537,7 +2537,7 @@ not snuff_lit; mthrowu `:942` D-1334); litter named); **volley pline `xname`/`si
 **`dofire` continue after doquiver** (D-0484); 
 **`dofire` empty-quiver `You()` leaves NEED_MORE; `getobj_ready` `flush_topl_more` waits like C getobj** (D-1851; D-0484 skip reverted); 
 **`dofire` autoquiver / find_launcher / throw-and-return / pole / whip / fireassist canned wield** (D-1851); 
-**`dofire` mark_topline_seen after ready + `dir_from_key` MV_ANY capitals/Ctrl-rush** (D-0485); 
+**`dofire` NO mark_topline_seen after doquiver ready — getdir yn_function flushes NEED_MORE like C** (D-2056; D-0485 skip reverted); `dir_from_key` MV_ANY capitals/Ctrl-rush retained (D-0485); 
 **`getobj` `*`/`?`→`display_pickinv_reply` + ALLOWCNT count prefix D-1530** (throw-one / gold count / split_otmp; pickinv `&ctmp` named) + **`throwit` mon-hit food/`befriend_with_obj`→`tamedog`** (D-0415); 
 **`thitmonst` EGG/CREAM_PIE/VENOM `ACURR(A_DEX)>rnd(25)` → `hmon` cream-pie/`rn1(25,21)` blind** 
 (D-0693); **`tmiss` + food-fail `tmiss(FALSE)` + else `tmiss(TRUE)` `!rn2(3)` wakeup** (D-0867; 
