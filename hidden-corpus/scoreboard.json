@@ -1,6 +1,6 @@
 {
- "commit": "d484a5f8",
- "at": "2026-09-08T13:02:08.576Z",
+ "commit": "9023582a",
+ "at": "2026-09-08T13:21:24.113Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -7015,18 +7015,18 @@
   "scen-poly-Wizard-92169": {
    "src": "corpus",
    "passed": false,
-   "rngM": 3123,
+   "rngM": 6234,
    "rngT": 8804,
-   "scrM": 124,
+   "scrM": 164,
    "scrT": 280,
-   "kind": "screen",
-   "step": 61,
+   "kind": "rng",
+   "step": 164,
    "steps": 280,
-   "owner": "getobj",
-   "loc": "invent.c:1919",
-   "jsOwner": null,
-   "cTopline": "What do you want to wear? [*]",
-   "jsTopline": "What do you want to wear? [q or ?*]",
+   "owner": "collect_coords",
+   "loc": "teleport.c:700",
+   "jsOwner": "xkilled(uhitm.js:694)",
+   "cTopline": "It misses! It bites! It is suddenly very cold!--More--",
+   "jsTopline": "It misses! It bites! It is suddenly very cold! It dies! It bites!--More--",
    "error": null
   },
   "scen-tour-Archeologist-92023": {

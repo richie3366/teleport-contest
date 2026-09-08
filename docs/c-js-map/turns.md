@@ -1033,8 +1033,8 @@ skin `W_ARM|I_SPECIAL`, nudist, tux_penalty, botl, `update_inventory`;
 **`dragon_armor_handling` + `Armor_on`/`Armor_off` + 
 FAST `EFast` mirror / `Very_fast` uprops** (D-0636; 
 gold `make_hallucinated`, red `see_monsters`, yellow `wielding_corpse`, arti_light burn deferred); 
-omit amulet change/strangle/flying/breathing, ring Glib/cursed-gloves/weld, magic helms beyond 
-fedora, weld/trap gates; **`doddoremarm`/`A` empty-worn You are not wearing anything (D-1185)**; 
+omit amulet change/strangle/flying/breathing, ring Glib/cursed-gloves/weld, magic helms beyond
+fedora (canwearobj polyform/weld/trap gates live D-2123 — verysmall/nohands, cantweararm cloak-exception+racial via `worn.js` export, welded-bimanual, helm horns, shield bimanual/twoweap, boots slithy/centaur/4-trap, gloves welded/Glib; retires the getobj-catalogue `canwearobj` polyform named); **`doddoremarm`/`A` empty-worn You are not wearing anything (D-1185)**; 
 **ggetobj takeoff D-1602** (`doddoremarm` TRADITIONAL `select_off` + `askchain`) + 
 **`take_off` occupation D-1619** (`do_takeoff` + `takeoff_order` + `oc_delay`; 
 cloak/suit extra; `Amulet_off` ESP/`RESTFUL_SLEEP`/`GUARDING`; drown/strangle/fly named) +

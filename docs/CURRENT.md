@@ -21,7 +21,7 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-08** — full `sessions` on the working tree
-(audit **1083–1088**: 26431cce…10ea68f1, D-2117…D-2122).
+(audit **1083–1088**: 26431cce…10ea68f1, D-2117…D-2123).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 `67+0.40/turn` (R² 0.79).
@@ -87,10 +87,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `hack.c` spoteffects — blocks 1/553 corpus sessions (first at step 35): C «You are hit by a shuriken! You are hit by a shuriken!--More-» vs JS «You are hit by a shuriken! You are hit by a shuriken!--More-». Probe: `node scripts/hidden-proxy.mjs verify spoteffects` (scen-tour-Samurai-92161).
+**Next cluster:** `invent.c` getobj — blocks 1/553 corpus sessions (first at step 61): C «What do you want to wear? [*]» vs JS «What do you want to wear? [q or ?*]». Probe: `node scripts/hidden-proxy.mjs verify getobj` (scen-poly-Wizard-92169).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2122 (index).**
+**Keep D-0845…D-2123 (index).**
 <!-- recent:begin -->
+**D-2123** `do_wear.c:2029–2206` `canwearobj` (verysmall/nohands `:2036–2042`, cantweararm cloak-exce — `js/worn.js` — `cantweararm` exported (import-the-export, no second copy; `breakarm`/`sliparm` stay private).
 **D-2122** `end.c:326–340` killer-based `ugrave_arise` in `done_in_by` (wraith/mummy/zombie/vampire/g — `js/end.js` — `done_in_by` ports the full `:326–340` chain in C order (`mlet` on `mtmp.data`, `zombie_maker` live import, `Race_if(PM_HUMAN)` as `urace.mnum`, ghoul by `mndx`, genod reset via live `mvitals`); `really_don
 **D-2121** `objnam.c:660–664` `xname_flags` (`find_artifact` on real `dknown`, then `if (obj_is_pname — `js/objnam.js` only — `xname` returns bare `ONAME` (`The` downcase + strip leading `the `) when `obj_is_pname(obj) && has_oname(obj)`; `doname` uses the same bare `ONAME` as `base` for `isPname`, skips the `poisoned ` st
 **D-2120** `insight.c:1758–1765` (Swimming+Underwater guard `:1758–1759`, Breathless `:1760–1761`, Am — `js/dbridge.js` exports the four D-1967 predicates (import-the-export, no second macro implementation); `js/invent.js` extends the same-edge static `./const.js` import (SWIMMING/MAGICAL_BREATHING/PASSES_WALLS) and ports 
@@ -98,11 +99,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2118** `dungeon.c:1941–1945` `In_hell` (`svd.dungeons[lev->dnum].flags.hellish`) via `dungeon.h:1 — `js/pray.js` only — `Inhell()` now the dungeon `hellish` flag; `GEHENNOM` import dropped.
 **D-2117** `polyself.c:1420–1447` `dobreathe` (writer behind the `getdir` screen literal): Strangled  — full C-order port in `js/polyself.js` (energy cost lands before the prompt, so a cancelled breath still costs 15 — dosummon botl idiom); `BZ_U_BREATH` added to `js/const.js` (`hack.h:1484` mirror beside `BZ_OFS_AD`/`BZ_M
 **D-2116** `zap.c:6100–6158` `resist` — `js/zap.js` — canonical `resist` gains the Conflict early pass + mplayer dlev (needs `is_mplayer`, same-module import extension, no new edge); ZT_SLEEP arm draws `amt=d(nd,25)` first (C arg order) then `if (!resists_slee
-**D-2115** `dig.c:1583–1612` — `js/dig.js` only, exact C order and guards (`On_stairs` called twice as in C): `Is_airlevel`/`Is_waterlevel` (pre-existing `const.js` edge) + `!(u.uinwater | 0)` (C `Underwater`; matches the `zap.c:3311` striking twin's 
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2122; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2123; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

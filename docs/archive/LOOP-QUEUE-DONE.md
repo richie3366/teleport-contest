@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
+- [x] `invent.c` getobj — blocks 1/553 corpus sessions (first at step 61): C «What do you want to wear? [*]» vs JS «What do you want to wear? [q or ?*]». Probe: `node scripts/hidden-proxy.mjs verify getobj` (scen-poly-Wizard-92169). **Addressed:** D-2123
+
+
 - [x] `end.c` really_done — blocks 2/553 corpus sessions (first at step 19): C «» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify really_done` (scen-normal-Barbarian-92208, scen-tour-Wizard-92103). **Addressed:** D-2122 `10ea68f1`
 
 
