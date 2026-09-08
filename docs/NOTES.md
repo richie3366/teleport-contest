@@ -22,6 +22,7 @@ Objective/score live in `CURRENT.md`.
 - **zapyourself park:** monster-zap dobuzz misattribution (detail: Parked; do not re-pop).
 - **doname_base park:** wield `prinv`+shine More-timing misattribution (detail: Parked; do not re-pop).
 - **Healer-92107 residual (D-2137 Next):** C HP:7 vs JS HP:2 = destroy double-count; suspect `mhitu.js:901` `+=` vs C `(void)` (`uhitm.c:2660`); audit fire/elec arms.
+- **hmonas park:** wish-Priest-92163 step-193 More-transient misattribution — owner `uhitm.c:5544` is a comment, stepFns runs `hitum` not `hmonas`, RNG 13/13 matched, C194 == JS193 on all 4 cells (detail: Parked; do not re-pop).
 
 ## Don't re-check (≤15)
 
