@@ -1,6 +1,6 @@
 {
- "commit": "c8488149",
- "at": "2026-09-08T09:26:05.974Z",
+ "commit": "9ee606c1",
+ "at": "2026-09-08T09:40:36.424Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -7349,18 +7349,18 @@
   "scen-tour-Samurai-92161": {
    "src": "corpus",
    "passed": false,
-   "rngM": 4079,
+   "rngM": 4320,
    "rngT": 19192,
    "scrM": 37,
    "scrT": 88,
-   "kind": "rng",
-   "step": 34,
+   "kind": "screen",
+   "step": 35,
    "steps": 88,
-   "owner": "next_ident",
-   "loc": "mkobj.c:521",
-   "jsOwner": "monmulti(weapon.js:1460)",
-   "cTopline": "You materialize in the same location! You are hit by a shuriken.--More--",
-   "jsTopline": "You materialize in the same location! You are hit by a shuriken.--More--",
+   "owner": "spoteffects",
+   "loc": "hack.c:3434",
+   "jsOwner": null,
+   "cTopline": "You are hit by a shuriken! You are hit by a shuriken!--More--",
+   "jsTopline": "You are hit by a shuriken! You are hit by a shuriken!--More--",
    "error": null
   },
   "scen-tour-Tourist-91101": {
@@ -7630,7 +7630,7 @@
    "steps": 214,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "rnd_otyp_by_namedesc(readobjnam.js:245)",
+   "jsOwner": "rnd_otyp_by_namedesc(readobjnam.js:277)",
    "cTopline": "i - 3 slime molds.",
    "jsTopline": "i - 3 slime molds.",
    "error": null
@@ -7942,7 +7942,7 @@
    "steps": 205,
    "owner": "next_ident",
    "loc": "mkobj.c:521",
-   "jsOwner": "rnd_otyp_by_namedesc(readobjnam.js:245)",
+   "jsOwner": "rnd_otyp_by_namedesc(readobjnam.js:277)",
    "cTopline": "j - 2 slime molds.",
    "jsTopline": "j - a slime mold.",
    "error": null

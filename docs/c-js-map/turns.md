@@ -2523,7 +2523,7 @@ canletgo/Mjollnir/too-heavy/welded/wet-towel / petrify `:139–148`; dig is D-13
 endmultishot/drag_ball/drown/trap pass-over/check_special_room/steed 
 `u_on_newpos`/petrify/`place_monster` vs rloc deferred)**; 
 **`help_dir` More = `xwaitforspace(quitchars)` only** (D-0451; non-quitchar `tty_nhbell` D-1631); 
-**`throw_obj` multishot + `multishot_class_bonus` + `rnd(multishot)`** (D-0093); 
+**`throw_obj` multishot + `multishot_class_bonus` + `rnd(multishot)`** (D-0093; **PM_NINJA shuriken/dart + SAMURAI fallthrough D-2111**; named: `monmulti` mplayer +1 `mthrowu.c:220`, racial elf/orc/gnome bow bonus); 
 **`throwit`→`stackobj`** (D-0094); **`throwit` land `cansee`→`newsym`** (D-0427; 
 **`flooreffects` pool/lava/pit/shaft + Splash/Plop** D-0987; 
 **`fire_damage`/altar/hot potion** D-0992; **`hits_bars`/`hit_bars`** D-0990; 
