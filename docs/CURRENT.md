@@ -21,7 +21,7 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-08** — full `sessions` on the working tree
-(audit **1074–1082**: 20e09ee9…12ef27f6, D-2108…D-2119).
+(audit **1074–1082**: 20e09ee9…12ef27f6, D-2108…D-2120).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 `75+0.49/turn` (R² 0.80).
@@ -93,10 +93,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `dogmove.c` dog_move — blocks 1/553 corpus sessions (first at step 48): C draws `rn2(1)=0` in dog_move, JS `rn2(5)=1` from distfleeck(monmove.js:808). Probe: `node scripts/hidden-proxy.mjs verify dog_move` (scen-normal-Rogue-92146).
+**Next cluster:** `invent.c` inuse_classify — blocks 2/553 corpus sessions (first at step 84): C «Weapons» vs JS «Weapons». Probe: `node scripts/hidden-proxy.mjs verify inuse_classify` (scen-genesis-Knight-92068, scen-wish-Caveman-92148).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2119 (index).**
+**Keep D-0845…D-2120 (index).**
 <!-- recent:begin -->
+**D-2120** `insight.c:1758–1765` (Swimming+Underwater guard `:1758–1759`, Breathless `:1760–1761`, Am — `js/dbridge.js` exports the four D-1967 predicates (import-the-export, no second macro implementation); `js/invent.js` extends the same-edge static `./const.js` import (SWIMMING/MAGICAL_BREATHING/PASSES_WALLS) and ports 
 **D-2119** `hack.c:2693–2709` `domove()` (writer behind the `dog_move` symptom): `gk.kickedloc.x = 0, — `js/cmd.js` only, exact C shape — `game.kickedloc = { x: 0, y: 0 }` unconditional in `domove()`'s `finally` beside `game.domove_attempting = 0` (C `:2708` position); removed the `did_step`-gated clear and the three now-r
 **D-2118** `dungeon.c:1941–1945` `In_hell` (`svd.dungeons[lev->dnum].flags.hellish`) via `dungeon.h:1 — `js/pray.js` only — `Inhell()` now the dungeon `hellish` flag; `GEHENNOM` import dropped.
 **D-2117** `polyself.c:1420–1447` `dobreathe` (writer behind the `getdir` screen literal): Strangled  — full C-order port in `js/polyself.js` (energy cost lands before the prompt, so a cancelled breath still costs 15 — dosummon botl idiom); `BZ_U_BREATH` added to `js/const.js` (`hack.h:1484` mirror beside `BZ_OFS_AD`/`BZ_M
@@ -104,11 +105,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2115** `dig.c:1583–1612` — `js/dig.js` only, exact C order and guards (`On_stairs` called twice as in C): `Is_airlevel`/`Is_waterlevel` (pre-existing `const.js` edge) + `!(u.uinwater | 0)` (C `Underwater`; matches the `zap.c:3311` striking twin's 
 **D-2114** `quest.c:451–470` prisoner_speaks + `quest_talk :495–511` MS_DJINNI arm — `js/quest.js` only — `prisoner_speaks` in exact C order: `mndx` compare for the `data` identity (JS `mtmp.data` is a value, not a pointer — `sounds.js:1132` pattern), `canseemon` (extends the existing `display.js` edge),
 **D-2113** `were.c:18–38` — `js/were.js` only — `were_change` is now `async` and awaits `new_were` (C is fully sequential; the armor tail must settle before the `canseemon` read), then runs the howl block in exact C order: local `Deaf()` (youprop.h
-**D-2112** `insight.c:1070–1071` — `js/invent.js` only — `const noeyes = !haseyes(game.youmonst?.data)` in exact C position.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2119; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2120; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

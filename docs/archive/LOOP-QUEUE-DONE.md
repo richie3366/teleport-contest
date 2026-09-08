@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `dogmove.c` dog_move — blocks 1/553 corpus sessions (first at step 48): C draws `rn2(1)=0` in dog_move, JS `rn2(5)=1` from distfleeck(monmove.js:808). Probe: `node scripts/hidden-proxy.mjs verify dog_move` (scen-normal-Rogue-92146). **Addressed:** D-2119
+- [x] `insight.c` attributes_enlightenment — blocks 2/553 corpus sessions (first at step 50): C «You were petrification resistant from your creature form.» vs JS «You were petrification resistant from your creature form.». Probe: `node scripts/hidden-proxy.mjs verify attributes_enlightenment` (scen-death-Wizard-92120, scen-tour-Barbarian-92079). **Addressed:** D-2120
+
+
+- [x] `dogmove.c` dog_move — blocks 1/553 corpus sessions (first at step 48): C draws `rn2(1)=0` in dog_move, JS `rn2(5)=1` from distfleeck(monmove.js:808). Probe: `node scripts/hidden-proxy.mjs verify dog_move` (scen-normal-Rogue-92146). **Addressed:** D-2119 `8985b7aa`
 
 
 - [x] `eat.c` gethungry — blocks 1/553 corpus sessions (first at step 104): C draws `rn2(20)=16` in gethungry, JS `rn2(73)=69` from moveloop_core(allmain.js:1069). Probe: `node scripts/hidden-proxy.mjs verify gethungry` (scen-tour-Healer-92198). **Addressed:** D-2118 `fcc6e805`
