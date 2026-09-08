@@ -88,7 +88,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `zap.c` dobuzz — blocks 2/553 corpus sessions (first at step 65): C draws `d(6,50)=119` in dobuzz, JS `rn2(19)=8` from exercise(attrib.js:196). Probe: `node scripts/hidden-proxy.mjs verify dobuzz` (scen-wish-Samurai-92087, scen-wish-Wizard-92048).
+**Next cluster:** `zap.c` zapyourself — blocks 1/553 corpus sessions (first at step 60): C «The sleep ray hits the little dog. The sleep ray hits you!--» vs JS «The sleep ray hits the little dog. The sleep ray hits you!--». Probe: `node scripts/hidden-proxy.mjs verify zapyourself` (scen-tour-Priest-92235). → **Parked** this iter (misattributed owner; true writer is dobuzz beam display — see LOOP-QUEUE Parked; no js/, no D-log).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2133 (index).**
 <!-- recent:begin -->

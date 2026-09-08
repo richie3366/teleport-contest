@@ -22,6 +22,7 @@ Objective/score live in `CURRENT.md`.
 - **mattackm/can_carry park:** writer can_carry; import alone ETIMEDOUT — trio only, do not pop.
 - **spoteffects park:** Samurai-92161 step 35 topline-literal misattribution; writer is `mthrowu.c` flight/catch (forcehit + catch-inventory). Falsifier in Parked row; do not re-pop.
 - **mon_adjust_speed park:** topline-literal misattribution; writer is summon glyph paint, not the speed printer (detail + falsifier: Parked row; do not re-pop).
+- **zapyourself park:** scen-tour-Priest-92235 step 60 is a monster-zap dobuzz hero hit misattributed via the «sleep ray hits you!» literal tie-break; zapyourself never runs on that path (detail + falsifier: Parked row; do not re-pop).
 
 ## Don't re-check (≤15)
 
