@@ -28,16 +28,24 @@ import {
     FOOD_CLASS,
     is_poisonable,
 } from './objects.js';
-import { mksobj, mkobj, weight, curse, oc_merge_of, spot_stop_timers } from './mkobj.js';
+import { mksobj, mkobj, weight, curse, oc_merge_of, spot_stop_timers, set_corpsenm } from './mkobj.js';
 import { artifact_name, nartifact_exist, permapoisoned } from './artifact.js';
 import { oname, lookup_novel } from './do_name.js';
 import { name_to_monplus } from './mondata.js';
 import { makesingular, An, an } from './objnam.js';
 import { is_weptool, is_ammo, is_missile } from './wield.js';
 import { Is_candle } from './timeout.js';
-import { NON_PM, LOW_PM, monsterNames } from './monsters.js';
+import { genus, dead_species, can_be_hatched } from './mon.js';
+import { counter_were } from './were.js';
+import {
+    NON_PM, LOW_PM, monsterNames, mons, G_UNIQ, G_NOCORPSE,
+    is_male, is_female, is_neuter, is_human, is_were,
+} from './monsters.js';
 import {
     ONAME_WISH, SPE_LIM,
+    MALE, FEMALE,
+    CORPSTAT_RANDOM, CORPSTAT_NEUTER, CORPSTAT_FEMALE, CORPSTAT_MALE,
+    CORPSTAT_HISTORIC,
     FOUNTAIN, THRONE, SINK, ALTAR, TREE, IRONBARS, CLOUD,
     POOL, MOAT, WATER, LAVAPOOL, LAVAWALL, ICE, ROOM,
     DRAWBRIDGE_UP, DRAWBRIDGE_DOWN, STAIRS, LADDER, SDOOR, DOOR,
@@ -66,6 +74,29 @@ const GOLD_PIECE = objectNames.indexOf('GOLD_PIECE');
 const AMULET_OF_YENDOR = objectNames.indexOf('AMULET_OF_YENDOR');
 const FAKE_AMULET_OF_YENDOR = objectNames.indexOf('FAKE_AMULET_OF_YENDOR');
 const TIN = objectNames.indexOf('TIN');
+const TOWEL = objectNames.indexOf('TOWEL');
+const SLIME_MOLD = objectNames.indexOf('SLIME_MOLD');
+const SKELETON_KEY = objectNames.indexOf('SKELETON_KEY');
+const CHEST = objectNames.indexOf('CHEST');
+const LARGE_BOX = objectNames.indexOf('LARGE_BOX');
+const HEAVY_IRON_BALL = objectNames.indexOf('HEAVY_IRON_BALL');
+const IRON_CHAIN = objectNames.indexOf('IRON_CHAIN');
+const STATUE = objectNames.indexOf('STATUE');
+const FIGURINE = objectNames.indexOf('FIGURINE');
+const CORPSE = objectNames.indexOf('CORPSE');
+const EGG = objectNames.indexOf('EGG');
+const SCR_MAIL = objectNames.indexOf('SCR_MAIL');
+const ACID_VENOM = objectNames.indexOf('ACID_VENOM');
+const BLINDING_VENOM = objectNames.indexOf('BLINDING_VENOM');
+const PM_LONG_WORM_TAIL = monsterNames.indexOf('PM_LONG_WORM_TAIL');
+const PM_LONG_WORM = monsterNames.indexOf('PM_LONG_WORM');
+const PM_MAIL_DAEMON = monsterNames.indexOf('PM_MAIL_DAEMON');
+// C ref: objnam.c readobjnam_init `:3928–3930` — file-local tin-content tags.
+const TIN_UNDEFINED = 0;
+const TIN_EMPTY = 1;
+const TIN_SPINACH = 2;
+// C ref: monst.h MS_GUARDIAN (corpse `genus()` remap below).
+const MS_GUARDIAN = 38;
 // C ref: objnam.c spellings[] via scripts/extract-alt-spellings.py —
 // resolve C ob names to object indices once (all 46 resolve; C order kept).
 const ALT_SPELLINGS_RESOLVED = ALT_SPELLINGS.map(([sp, ob]) => [sp, objectNames.indexOf(ob)]);
@@ -1006,7 +1037,131 @@ export function readobjnam(bp, no_wish, missOut) {
     if (d.spesgn === -1) d.spe = -d.spe;
     if (d.spe > SPE_LIM) d.spe = SPE_LIM;
     if (d.spe < -SPE_LIM) d.spe = -SPE_LIM;
-    d.otmp.spe = d.spe;
+    /* C ref: objnam.c readobjnam — set otmp->spe; may or may not use d.spe.
+       d.contents/d.wetness/d.mgend/d.ishistoric are never parsed by the JS
+       preparse above, so they read as C defaults (TIN_UNDEFINED/0/-1/0);
+       d.ftype (C default: current_fruit) is likewise unparsed — slime-mold
+       fruit-variety wishes stay a named omission (retain mksobj spe). */
+    switch (d.typ) {
+    case TIN:
+        d.otmp.spe = 0; /* default: not spinach */
+        if (d.contents === TIN_EMPTY) {
+            d.otmp.corpsenm = NON_PM;
+        } else if (d.contents === TIN_SPINACH) {
+            d.otmp.corpsenm = NON_PM;
+            d.otmp.spe = 1; /* spinach after all */
+        }
+        break;
+    case TOWEL:
+        if (d.wetness)
+            d.otmp.spe = d.wetness;
+        break;
+    case SLIME_MOLD:
+        /* C: d.otmp->spe = d.ftype (default current_fruit) — deferred, see above. */
+        break;
+    case SKELETON_KEY:
+    case CHEST:
+    case LARGE_BOX:
+    case HEAVY_IRON_BALL:
+    case IRON_CHAIN:
+        break;
+    case STATUE: /* otmp->cobj already done in mksobj() */
+    case FIGURINE:
+    case CORPSE: {
+        /* C ismnum (monst.h:285): LOW_PM..NUMMONS; mons() bounds-checks too. */
+        const P = (d.mntmp >= LOW_PM) ? mons(d.mntmp) : null;
+        d.otmp.spe = !P ? CORPSTAT_RANDOM
+            /* if neuter, force neuter regardless of wish request */
+            : is_neuter(P) ? CORPSTAT_NEUTER
+                /* not neuter, honor wish unless it conflicts */
+                : (d.mgend === FEMALE && !is_male(P)) ? CORPSTAT_FEMALE
+                    : (d.mgend === MALE && !is_female(P)) ? CORPSTAT_MALE
+                        /* unspecified (C default -1) or wish conflicts */
+                        : CORPSTAT_RANDOM;
+        if (P && d.otmp.spe === CORPSTAT_RANDOM)
+            d.otmp.spe = is_male(P) ? CORPSTAT_MALE
+                : is_female(P) ? CORPSTAT_FEMALE
+                    : rn2(2) ? CORPSTAT_MALE : CORPSTAT_FEMALE;
+        /* C: d.ishistoric ("historic" wish prefix) — parsing deferred, always
+           C-default 0 here, so the HISTORIC bit never sets from wishes yet. */
+        if (d.ishistoric && d.typ === STATUE)
+            d.otmp.spe |= CORPSTAT_HISTORIC;
+        break;
+    }
+    case SCR_MAIL: /* MAIL_STRUCTURES is on (global.h:430) */
+        d.otmp.spe = 1;
+        break;
+    /* splash of venom: 0: normal, and transitory; 1: wishing */
+    case ACID_VENOM:
+    case BLINDING_VENOM:
+        d.otmp.spe = 1;
+        break;
+    case WAN_WISHING:
+        if (!wizardMode()) {
+            d.otmp.spe = (rn2(10) ? -1 : 0);
+            break;
+        }
+        /* FALLTHROUGH — wizard: no restrictions except SPE_LIM */
+        /*FALLTHRU*/
+    default:
+        d.otmp.spe = d.spe;
+    }
+
+    /* C ref: objnam.c readobjnam — set otmp->corpsenm or dragon scale [mail].
+       SCALE_MAIL lives below (pre-existing dragon-mail hunk, same remap). */
+    if (d.mntmp >= LOW_PM) {
+        let mntmp = d.mntmp | 0;
+        if (mntmp === PM_LONG_WORM_TAIL)
+            mntmp = PM_LONG_WORM;
+        /* werecreatures in beast form are all flagged no-corpse so for
+           corpses and tins, switch to their corresponding human form;
+           for figurines, override the can't-be-human restriction instead */
+        if (d.typ !== FIGURINE && is_were(mons(mntmp))
+            && (((game.mvitals?.[mntmp]?.mvflags ?? 0) & G_NOCORPSE) !== 0)) {
+            const humanwere = counter_were(mntmp);
+            if (humanwere !== NON_PM)
+                mntmp = humanwere;
+        }
+        const P = mons(mntmp);
+        const geno = P ? (P.geno | 0) : 0;
+        const novitals = (((game.mvitals?.[mntmp]?.mvflags ?? 0) & G_NOCORPSE) !== 0);
+        switch (d.typ) {
+        case TIN:
+            if (dead_species(mntmp, false)) {
+                d.otmp.corpsenm = NON_PM; /* it's empty */
+            } else if ((!(geno & G_UNIQ) || wizardMode())
+                       && !novitals
+                       && P && (P.cnutrit | 0) !== 0) {
+                d.otmp.corpsenm = mntmp;
+            }
+            break;
+        case CORPSE:
+            if ((!(geno & G_UNIQ) || wizardMode()) && !novitals) {
+                if (P && (P.msound | 0) === MS_GUARDIAN)
+                    mntmp = genus(mntmp, 1);
+                set_corpsenm(d.otmp, mntmp);
+            }
+            /* C zombify hatch timer (start_timer/rn1/obj_to_any) — deferred:
+               d.zombify is never parsed (always C-default FALSE) and JS has
+               no obj_to_any; named in c-js-map. */
+            break;
+        case EGG:
+            mntmp = can_be_hatched(mntmp);
+            /* this also sets hatch timer if appropriate (via set_corpsenm) */
+            set_corpsenm(d.otmp, mntmp);
+            break;
+        case FIGURINE:
+            if (!(geno & G_UNIQ)
+                && (!is_human(P) || is_were(P))
+                && mntmp !== PM_MAIL_DAEMON)
+                d.otmp.corpsenm = mntmp;
+            break;
+        case STATUE:
+            d.otmp.corpsenm = mntmp;
+            /* C verysmall-spellbook delete_contents — deferred, named. */
+            break;
+        }
+    }
 
     // C: set otmp->recharged for WAND_CLASS
     if (d.oclass === WAND_CLASS) {

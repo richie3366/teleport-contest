@@ -1161,6 +1161,27 @@ not `cxname`). Named: xname article arms; `armor_simple_name` for called
 `hawaiian_design` / doread shirt-apron-hawaiian; `obj_is_pname` goto nameit +
 **`mshot_xname` (D-1931; `objnam.c:1090–1102`** `xname` + `m_shot.n > 1 && o == otyp` → `"the Nth "` via canonical `hacklib.js ordin` export; wired `dothrow tmiss`, `uhitm` thrown hit, `mthrowu thitu` single path with C quan branch; named: sink/miss end-of-path `mthrowu.c:801–813`, stone-missile no-harm `uhitm.c:1402`, destroyed+multishot gate, monster-side `m_shot`, `thitu` quan>1 `doname`)
 
+**`readobjnam` post-mksobj `spe` switch + `corpsenm` writer** (D-2055;
+`objnam.c:5119–5370`: TIN spe=0 (+EMPTY/SPINACH contents arms, contents
+never parsed); TOWEL wetness (never parsed, C-default 0); SLIME_MOLD
+`spe=ftype` deferred — no current_fruit plumbing, retains mksobj spe;
+KEY/CHEST/BOX/BALL/CHAIN retain; STATUE/FIGURINE/CORPSE gender
+(`is_neuter`→NEUTER else mgend-honor else RANDOM→`is_male`/`is_female`/
+`rn2(2)`; `ishistoric` never parsed); SCR_MAIL spe=1 (MAIL on);
+venoms spe=1; WAN_WISHING non-wizard `rn2(10)` else `d.spe`;
+LONG_WORM_TAIL remap + were→human `counter_were` + TIN
+(`dead_species`/uniq/nocorpse/cnutrit) + CORPSE (`set_corpsenm`,
+guardian `genus`) + EGG (`can_be_hatched`) + FIGURINE
+(uniq/human/were/MAIL_DAEMON) + STATUE direct corpsenm; dragon-scale
+stays in its hunk); **do_name `oname` `PL_PSIZ` 63** (was a local 32
+shadowing `const.js` — truncated 37-char artifact wishes so
+`artifact_exists` never matched; C `global.h:404`). Named: `tin of`/
+`of`-split + `mgend`/`ishistoric`/`wetness`/`ftype`/`contents`/
+`zombify` wish-prefix parsing; CORPSE zombify `start_timer`
+(`obj_to_any` missing); STATUE verysmall `delete_contents`;
+`is_quest_artifact` short-circuit in the deny check (same draws in
+wizard mode; non-wizard quest-artifact extra `rn2` — own future row).
+
 ### `src/invent.c` `hold_another_object` / `prinv` / `count_contents` / `assigninvlet`
 
 JS: `js/invent.js`, `js/objnam.js`, `js/u_init.js` `assigninvlet`/`addinv` — partial

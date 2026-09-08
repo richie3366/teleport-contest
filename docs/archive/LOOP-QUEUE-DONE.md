@@ -3,9 +3,13 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-09-08
+
+- [x] `objnam.c` readobjnam — blocks 3/553 corpus sessions (first at step 59): C draws `rn2(2)=1` in readobjnam, JS `rn2(100)=29` from makewish(zap.js:6638). Probe: `node scripts/hidden-proxy.mjs verify readobjnam` (scen-wish-Caveman-92148, scen-wish-Priest-92136, scen-wish-Rogue-91119). **Addressed:** D-2055
+
 ## 2026-09-07
 
-- [x] `teleport.c` level_tele — blocks 3/553 corpus sessions (first at step 51): C «You materialize on a different level!--More--» vs JS «You materialize on a different level!». Probe: `node scripts/hidden-proxy.mjs verify level_tele` (scen-tour-Barbarian-92129, scen-tour-Samurai-92161, tour-Samurai-70015-d5-8-15-17-22). **Addressed:** D-2054
+- [x] `teleport.c` level_tele — blocks 3/553 corpus sessions (first at step 51): C «You materialize on a different level!--More--» vs JS «You materialize on a different level!». Probe: `node scripts/hidden-proxy.mjs verify level_tele` (scen-tour-Barbarian-92129, scen-tour-Samurai-92161, tour-Samurai-70015-d5-8-15-17-22). **Addressed:** D-2054 `48101789`
 
 
 - [x] `spell.c` study_book — blocks 2/553 corpus sessions (first at step 83): C draws `rnd(25)=6` in study_book, JS `rn2(70)=50` from maybe_generate_rnd_mon(allmain.js:349). Probe: `node scripts/hidden-proxy.mjs verify study_book` (scen-wish-Healer-92029, scen-wish-Healer-92066). **Addressed:** D-2053 `ac555b16`
