@@ -1,6 +1,6 @@
 {
- "commit": "b46928ff",
- "at": "2026-09-08T22:24:08.762Z",
+ "commit": "f5d7adfc",
+ "at": "2026-09-08T22:33:17.155Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -5394,18 +5394,18 @@
   "scen-intrinsic-Priest-92096": {
    "src": "corpus",
    "passed": false,
-   "rngM": 3245,
+   "rngM": 3243,
    "rngT": 3282,
-   "scrM": 150,
+   "scrM": 149,
    "scrT": 172,
    "kind": "screen",
-   "step": 149,
+   "step": 75,
    "steps": 172,
-   "owner": "doturn",
-   "loc": "pray.c:2434",
+   "owner": "find_trap",
+   "loc": "detect.c:1956",
    "jsOwner": null,
-   "cTopline": "You are not able to call upon Raijin to turn aside evilness.--More--",
-   "jsTopline": "You are not able to call upon Raijin to turn aside evilness.",
+   "cTopline": "You find an anti-magic field.--More--",
+   "jsTopline": "You find an anti-magic field.--More--",
    "error": null
   },
   "scen-intrinsic-Ranger-92193": {

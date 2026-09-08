@@ -14,6 +14,7 @@ Objective/score live in `CURRENT.md`.
 - **STALE parks — do not re-pop (full falsifiers: LOOP-QUEUE Parked):** lesshungry · minliquid_core · rndcurse · mhitm_ad_famn · regen_hp · barehands · do_mapping (Priest-91120 past @95; now distfleeck@108).
 - **slimed park:** comment-line owner; dual writer (T26 landing gate + Sick single-store). Falsifier + probe: LOOP-QUEUE Parked.
 - **vomiting_dialogue park (2026-09-09, no js/):** scen-wish-Rogue-92221 step-57 «stairs vs floor» is a topline-literal tie-break (`timeout.c:249` comment «You can move again»); true printer `potion.c peffect_paralysis` via `dungeon.c surface` stairs arm (D-2008). HEAD live: screens 107/107, RNG 3308/3349, owner touch_artifact@92. Probe: `node scripts/hidden-proxy.mjs verify vomiting_dialogue --base 109f4444`. Do not re-pop; residual is touch_artifact blast RNG.
+- **doturn park (2026-09-09, no js/):** scen-intrinsic-Priest-92096 STALE OWNER — HEAD diverges step 76 (`s` search): identical toplines, map rows 2–7 blank in JS except `@^` (owner `find_trap` is a topline-literal tie-break over a map-cell diff). Reproduces on pure-b46928ff js/ — scoreboard doturn@149 row came from a dirty rescore (D-1831 class). Genuine NaN-gnostic ECMD_OK C-wrong + house-idiom fix + replay proof all in LOOP-QUEUE Parked entry for re-application. Falsifier: session reaching step 149 with map intact at step 76. Do not re-pop.
 
 ## Don't re-check (≤15)
 

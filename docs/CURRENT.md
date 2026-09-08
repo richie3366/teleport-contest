@@ -93,7 +93,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** - [ ] `timeout.c` vomiting_dialogue — blocks 1/553 corpus sessions (first at step 57): C «Your feet are frozen to the stairs! You can move again.» vs JS «Your feet are frozen to the floor! You can move again.». Probe: `node scripts/hidden-proxy.mjs verify vomiting_dialogue` (scen-wish-Rogue-92221).
+**Next cluster:** doturn parked this iter (STALE OWNER — Priest-92096 blocked at step-76 map blank, see LOOP-QUEUE Parked + NOTES Active; genuine gnostic fix documented there for re-application). Pop the next Open row next iter.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2161 (index).**
 <!-- recent:begin -->
