@@ -1,6 +1,6 @@
 {
- "commit": "c8d25c72",
- "at": "2026-09-08T07:56:46.603Z",
+ "commit": "5ca3ad86",
+ "at": "2026-09-08T07:59:54.433Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -7434,18 +7434,18 @@
   "scen-tour-Valkyrie-92040": {
    "src": "corpus",
    "passed": false,
-   "rngM": 30339,
+   "rngM": 30346,
    "rngT": 37526,
-   "scrM": 116,
+   "scrM": 120,
    "scrT": 148,
-   "kind": "screen",
-   "step": 70,
+   "kind": "rng",
+   "step": 113,
    "steps": 148,
-   "owner": "wishymatch",
-   "loc": "objnam.c:3280",
-   "jsOwner": null,
-   "cTopline": "@a human or elf or you (dwarven valkyrie called wizard)--More--",
-   "jsTopline": "@a human or elf or you (dwarven valkyrie called wizard)",
+   "owner": "m_move",
+   "loc": "monmove.c:2003",
+   "jsOwner": "m_move(monmove.js:1830)",
+   "cTopline": "You're having a hard time getting all of it down.--More--",
+   "jsTopline": "You're having a hard time getting all of it down.--More--",
    "error": null
   },
   "scen-tour-Valkyrie-92162": {

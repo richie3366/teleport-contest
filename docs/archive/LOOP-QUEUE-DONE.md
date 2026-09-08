@@ -5,15 +5,18 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `end.c` done_in_by — blocks 2/553 corpus sessions (first at step 47): C «The vampire bat bites! You stop searching.--More--» vs JS «You stop searching. The vampire bat bites!--More--». Probe: `node scripts/hidden-proxy.mjs verify done_in_by` (scen-tour-Barbarian-92024, scen-tour-Ranger-92177). **Addressed:** D-2102
+- [x] `objnam.c` wishymatch — blocks 1/553 corpus sessions (first at step 70): C «@a human or elf or you (dwarven valkyrie called wizard)--Mor» vs JS «@a human or elf or you (dwarven valkyrie called wizard)». Probe: `node scripts/hidden-proxy.mjs verify wishymatch` (scen-tour-Valkyrie-92040). **Addressed:** D-2103
+
+
+- [x] `end.c` done_in_by — blocks 2/553 corpus sessions (first at step 47): C «The vampire bat bites! You stop searching.--More--» vs JS «You stop searching. The vampire bat bites!--More--». Probe: `node scripts/hidden-proxy.mjs verify done_in_by` (scen-tour-Barbarian-92024, scen-tour-Ranger-92177). **Addressed:** D-2102 `5ca3ad86`.
 
 
 - [x] `sp_lev.c` ensure_way_out rescan order — `js/mklev.js` `ensure_way_out` uses an inner `break` (exits y-loop only, x-scan continues) where C `sp_lev.c:5241–5251` uses `goto outhere` (exits both loops, do-while rescans from x=1): with ≥2 disjoint inaccessible regions stacked in one column plus a further-right region, JS joins R3a→R5→R3b where C joins R3a→R3b→R5, shifting the `selection_rndcoord` drain dice. Latent on minetn-6's observed layout (671 drain draws still match) but the D-log "verbatim" claim is false. Fix: labeled `break outer` + re-verify `selection_rndcoord`. Source: reviews/loop-unattended/1065-65152c55-ensure-way-out.md (Actionable 1). **Addressed:** D-2101 `c8d25c72`
 
 
-- [x] `detect.c` find_trap — blocks 1/553 corpus sessions (first at step 81): C «You find a small mimic.» vs JS «You already found a monster. Use 'm' prefix to force another». Probe: `node scripts/hidden-proxy.mjs verify find_trap` (scen-genesis-Wizard-92223). **Addressed:** D-2100
-- [x] `wield.c` dowield — blocks 1/553 corpus sessions (first at step 8): C «You have 40 darts readied. Wield one? [ynq] (q)» vs JS «You have 40 dart readied. Wield one? [ynq] (q)». Probe: `node scripts/hidden-proxy.mjs verify dowield` (scen-kit-Tourist-91126). **Addressed:** D-2099
-- [x] `pager.c` checkfile — blocks 3/553 corpus sessions (first at step 92): C «f - a figurine of a newt.» vs JS «f - a figurine.». Probe: `node scripts/hidden-proxy.mjs verify checkfile` (scen-intrinsic-Samurai-92239, scen-wish-Priest-92179, scen-wish-Priest-92180). **Addressed:** D-2098
+- [x] `detect.c` find_trap — blocks 1/553 corpus sessions (first at step 81): C «You find a small mimic.» vs JS «You already found a monster. Use 'm' prefix to force another». Probe: `node scripts/hidden-proxy.mjs verify find_trap` (scen-genesis-Wizard-92223). **Addressed:** D-2100 `3516098b`.
+- [x] `wield.c` dowield — blocks 1/553 corpus sessions (first at step 8): C «You have 40 darts readied. Wield one? [ynq] (q)» vs JS «You have 40 dart readied. Wield one? [ynq] (q)». Probe: `node scripts/hidden-proxy.mjs verify dowield` (scen-kit-Tourist-91126). **Addressed:** D-2099 `3516098b`.
+- [x] `pager.c` checkfile — blocks 3/553 corpus sessions (first at step 92): C «f - a figurine of a newt.» vs JS «f - a figurine.». Probe: `node scripts/hidden-proxy.mjs verify checkfile` (scen-intrinsic-Samurai-92239, scen-wish-Priest-92179, scen-wish-Priest-92180). **Addressed:** D-2098 `3516098b`.
 - [x] `potion.c` peffect_sleeping — blocks 1/553 corpus sessions (first at step 62): C «You yawn.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify peffect_sleeping` (scen-intrinsic-Rogue-92172). **Addressed:** D-2097 `8fffc930`
 
 

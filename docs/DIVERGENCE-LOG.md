@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2103 — `objnam.c` wishymatch queue row stale: step-70 `--More--` no longer reproduces at HEAD (session to m_move@113); no js/
+
+- **Status:** stale-row retired, no js/ changes (Open queue row `objnam.c` wishymatch — cited 1/553; row cites no review, no stamp owed)
+- **Symptom:** queue row: scen-tour-Valkyrie-92040 step 70/148, kind=screen: C «@a human or elf or you (dwarven valkyrie called wizard)--More--» vs JS «@a human or elf or you (dwarven valkyrie called wizard)» — row 0 col 63, topline region, identical text except C's trailing `--More--`. Both sides already carry D-2013's `or you` tack-on, so this is the residual after that fix, not a new wishymatch fact.
+- **C locus:** none ported. Recorded owner `wishymatch(objnam.c:3280)` is the literal-heuristic misattribution D-2013 already diagnosed (the `"dwarven "` special-case literal at :3280; `wishymatch` prints nothing and plays no role in farlook output). True writer of the step-70 text is `pager.c` `do_screen_description` '@'-as-you arm (`:1346–1353`, shipped D-2013); the residual `--More--` was the didlook found-count path (found 1→2 fires `:1595–1624`), later covered by D-2092's checkfile u_at arm (inferred credit, not bisected).
+- **JS was:** unchanged — `js/pager.js` `describe_looked` self branch (D-2013 `or you` gate + D-2092 u_at/checkfile envelope) already produces the C text at HEAD; `js/readobjnam.js` `wishymatch` subset untouched.
+- **Fix:** none — the tree is already past the recorded divergence with zero edits this iteration (`git status --short` clean before and after diagnosis).
+- **JS:** no js/ files changed (0 insertions; 600/10 caps untouched). No DIAG/FORCE/seed gates (Rule #2 clean). No hand probes — the corpus session reaches the arm.
+- **Verify:** `node scripts/hidden-proxy.mjs verify wishymatch` → baseline HEAD (scoreboard at c8d25c72): 1 session blocked (92040@70); fresh re-run: `scen-tour-Valkyrie-92040: moved → m_move at step 113 (was 70)`; `0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS`. Direct replay confirms: `FAIL: scen-tour-Valkyrie-92040.session.json (RNG 30346/37526, Screen 120/148)` — first divergence strictly past step 70. Preflight `node scripts/verify.mjs --no-cohort` was green before any change (syntax/rule2/green 2/2/strict ×2 PASS); final state equals preflight state (no code edits after), so no D-1831 gap.
+- **Named omissions:** `wishymatch` special-case arms (dwarvish/dwarven, elven/elvish/elfin, helmet→helm, gloves→gauntlets, detect↔detection, ability/abilities, aluminum/aluminium) stay map-named (wish-subset row `turns.md:1054`, via D-2013); no corpus session is blocked on them — porting now would be a vacuous verify (D-1831 false-PASS territory) plus wish-path regression risk for zero recorded gain.
+- **Next:** do not re-queue `wishymatch` for 92040 (0 blocked). 92040 now rests at m_move@113 — `m_move` is a Parked symptom owner (do not re-pop), so no new Open row; queue stays at 9 Open (≥8, no refill).
+- **Cited falsifier grade:** measured (machine-recorded `hidden-proxy verify` movement on a clean tree with exact step/owner pair + independent direct replay quoting RNG 30346/37526 Screen 120/148; pinned C `pager.c:1346–1353`/`:1595–1624` + `objnam.c:3280` literal read from upstream; no JS FORCE/DIAG used).
+
 ## D-2102 — `monmove.c` dochugw threat check read the door-feedback visibility stub, stopping the search before the bat's bite (queue row `end.c` done_in_by)
 
 - **Status:** fixed (Open queue row `end.c` done_in_by — cited 2/553; row cites no review, no stamp owed)

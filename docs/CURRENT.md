@@ -91,10 +91,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `end.c` done_in_by — blocks 2/553 corpus sessions (first at step 47): C «The vampire bat bites! You stop searching.--More--» vs JS «You stop searching. The vampire bat bites!--More--». Probe: `node scripts/hidden-proxy.mjs verify done_in_by` (scen-tour-Barbarian-92024, scen-tour-Ranger-92177).
+**Next cluster:** `objnam.c` wishymatch — blocks 1/553 corpus sessions (first at step 70): C «@a human or elf or you (dwarven valkyrie called wizard)--Mor» vs JS «@a human or elf or you (dwarven valkyrie called wizard)». Probe: `node scripts/hidden-proxy.mjs verify wishymatch` (scen-tour-Valkyrie-92040).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2102 (index).**
+**Keep D-0845…D-2103 (index).**
 <!-- recent:begin -->
+**D-2103** none ported. Recorded owner `wishymatch(objnam.c:3280)` is the literal-heuristic misattrib — none — the tree is already past the recorded divergence with zero edits this iteration (`git status --short` clean before and after diagnosis).
 **D-2102** `monmove.c` dochugw threat check + `display.h` `_canseemon` (`:117-120`: `cansee||see_with — `js/monmove.js` dochugw only — both visibility reads now use the pre-existing `./display.js` `canspotmon` import (`display_canspotmon`; call-time use, no new edge, no TDZ); doc comment updated to cite the stub-vs-macro d
 **D-2101** `sp_lev.c:5241-5251` `ensure_way_out` driver: the match arm ends with `goto outhere` whose — `js/mklev.js` only — outer x-loop labeled (`outer:`) with `break outer` in the match arm (exact C both-loops exit + rescan-from-x=1 via the existing do-while); doc comment corrected to cite `sp_lev.c:5241-5251` (exits bo
 **D-2100** find_trap row stale (no js/) — step-81 mimic text matches at HEAD; session to dolook@108; inferred credit D-2092.
@@ -102,11 +103,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2098** (3) objnam.c xname FIGURINE of-arm — js/objnam.js only — append just_an+obj_pmname suffix (STATUE-guard shape); retires D-0418 figurine half.
 **D-2097** the yawn is `timeout.c:267–274` `sleep_dialogue` (`i == 4 → You("yawn.")`) under `nh_timeo — none — no js/ changes (tree clean apart from docs).
 **D-2096** (1) `teleport.c:256–268` `enexto_core` — `js/teleport.js` `enexto_core` only — `candy.length = 0` before the second collect (exact C buffer-reuse semantics: same indices, shuffle slices and draws) with a C cite; temp probe fully reverted in the same edit.
-**D-2095** `sp_lev.c:6467–6469` `load_special` — `js/mklev.js` + one-word `export` on `js/trap.js` `undestroyable_trap` — new `floodfillchk_match_accessible` (`ACCESSIBLE||SDOOR||SCORR`, sp_lev.c:4600–4605), `selection_floodfill_accessible` (selvar.c:395–452 stack shap
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2102; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2103; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
