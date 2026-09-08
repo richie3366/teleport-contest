@@ -19,7 +19,7 @@ Objective/score live in `CURRENT.md`.
 - **rloc park:** body faithful (D-0686); writer is a draw-free migration creator (detail + falsifier: Parked; do not re-pop).
 - **lightdamage park:** `mzapwand` MORE-transient misattributed to zap.c (D-1366 faithful); capture artifact, not state (detail + falsifier: Parked; do not re-pop).
 - **mattackm/can_carry park:** writer can_carry; import alone ETIMEDOUT — trio only, do not pop.
-- **spoteffects park:** Samurai-92161 step 35 is a topline-literal misattribution (`hidden-worker.mjs:182-183` picks `cMsgOwners[0]`=piercer `hack.c:3434` though true printer is `thitu(mthrowu.c:121)`; toplines identical, diff is map cell (53,8) `)` vs `·`). Measured (recorded C screens+RNG + JS replay): step-35 C draws contain zero spoteffects dice; JS RNG positional match through step (first mismatch idx 4084); JS-34 matched incl. `)`, JS-35 drops it, C keeps to 36 (catch → inventory `g - a shuriken`); JS-36 shows no catch + dog on (53,8). Writer: `mthrowu.c` flight/catch — `forcehit` discarded (`mthrowu.js:1070-1071`) and catch without `hold_another_object` (`mthrowu.js:1036-1039`, also `nohands(mons(PM_HUMAN))` should be `youmonst.data`). Falsifier in Parked row; do not re-pop.
+- **spoteffects park:** Samurai-92161 step 35 topline-literal misattribution; writer is `mthrowu.c` flight/catch (forcehit + catch-inventory). Full measurement + falsifier in LOOP-QUEUE Parked row; do not re-pop.
 
 ## Don't re-check (≤15)
 

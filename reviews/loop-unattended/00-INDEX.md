@@ -1093,3 +1093,9 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1080-229b25e1-prisoner-speaks-djinni.md](./1080-229b25e1-prisoner-speaks-djinni.md) | `229b25e1` | D-2114 prisoner_speaks + MS_DJINNI arm | **ACCEPT** |
 | [1081-590e414f-zap-dig-udz-arm.md](./1081-590e414f-zap-dig-udz-arm.md) | `590e414f` | D-2115 zap_dig u.dz stair-bounce + rock | **ACCEPT** |
 | [1082-12ef27f6-resist-sleep-gate.md](./1082-12ef27f6-resist-sleep-gate.md) | `12ef27f6` | D-2116 resist + zhitm sleep gate + explode alev | **ACCEPT-WITH-DEBT** |
+| [1083-26431cce-dobreathe-breath-dispatch.md](./1083-26431cce-dobreathe-breath-dispatch.md) | `26431cce` | D-2117 dobreathe uen drain + getdir + breath dispatch | **ACCEPT** |
+| [1084-fcc6e805-inhell-hellish-flag.md](./1084-fcc6e805-inhell-hellish-flag.md) | `fcc6e805` | D-2118 Inhell hellish flag, not dnum | **ACCEPT** |
+| [1085-8985b7aa-kickedloc-unconditional-clear.md](./1085-8985b7aa-kickedloc-unconditional-clear.md) | `8985b7aa` | D-2119 kickedloc clears unconditionally at domove() end | **ACCEPT** |
+| [1086-6a8cb884-enlightenment-swim-air-walls.md](./1086-6a8cb884-enlightenment-swim-air-walls.md) | `6a8cb884` | D-2120 enlightenment Swimming/Breathless/Passes_walls | **ACCEPT** |
+| [1087-d484a5f8-xname-pname-bare-oname.md](./1087-d484a5f8-xname-pname-bare-oname.md) | `d484a5f8` | D-2121 xname/doname obj_is_pname bare-ONAME | **ACCEPT** |
+| [1088-10ea68f1-death-disclosure-tail.md](./1088-10ea68f1-death-disclosure-tail.md) | `10ea68f1` | D-2122 done_in_by killer-arise + arise pline + summary + outentry | **ACCEPT** |

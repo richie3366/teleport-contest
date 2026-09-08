@@ -21,10 +21,10 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-08** — full `sessions` on the working tree
-(audit **1074–1082**: 20e09ee9…12ef27f6, D-2108…D-2122).
+(audit **1083–1088**: 26431cce…10ea68f1, D-2117…D-2122).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`75+0.49/turn` (R² 0.80).
+`67+0.40/turn` (R² 0.79).
 
 ## Score
 
@@ -33,7 +33,7 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `83+0.49/turn` (R² 0.79) |
+| Speed label | `67+0.40/turn` (R² 0.79) |
 | Role-init throws | **0 / 44** |
 
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-06
