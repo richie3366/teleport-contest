@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-08 — D-2102 `monmove.c` dochugw threat check read the door-feedback visibility stub, stopping the search before the bat's bite (queue row `end.c` done_in_by)
+
+**C locus:** `monmove.c` dochugw threat check + `display.h` `_canseemon` (`:117-120`: `cansee||see_with_infrared` + `mon_visible`) via `canspotmon`. The biting bat starts at (64,10), d2=10 from the searching hero: `cansee` false but `see_with_infrared` true (orc infravision vs infravisible bat) with `couldsee` true, so C `already_saw_mon` is true and the `!already_saw` disjunct is false — no early stop. The bat's approach move returns `rd=0` without attacking (melee has no post-move attack arm), then its next move bites via `mattacku`→`hitmu` (`hitmsg` bite, then `hitmu`'s `stop_occupation`): bite-then-stop.
+**JS:** 1 file (monmove.js +8/-4 incl. comments), under the 600/10 caps. Open row stays one item, alone.
+**Change:** `js/monmove.js` dochugw only — both visibility reads now use the pre-existing `./display.js` `canspotmon` import (`display_canspotmon`; call-time use, no new edge, no TDZ); doc comment updated to cite the stub-vs-macro distinction and this D. No other stub callers touched.
+**Verify:** `node scripts/verify.mjs --fn done_in_by` → PASS syntax (1 changed js file: js/monmove.js) · PASS rule2 · PASS hidden `0 PASS, 2 moved past, 0 unchanged, 0 worse → PROGRESS` (Barbarian-92024 step 47 → step 97; Ranger-92177 step 81 → `were_change` step 108, both strictly later) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS, final verify after the last js/ edit (map/docs/queue edits only after).
+**Named:** none new. `onscary` stays stubbed-false as map-named (`turns.md:2623`); the remaining local-stub readers (flee flinch, web spin, door open/smash) stay as-is under the D-1548-adjacent clone debt (`data.md:574-578`).
+**Next:** do not re-pop `done_in_by` for these two sessions (0 blocked). Barbarian-92024 now diverges at step 97 (verify worker labels it `js-throw`; `show` reads a map/menu row-11 `R`-glyph diff with no error — re-measure next iter; a confirmed `js-throw` is Must-fix per §10.14). Ranger-92177 sits at `were_change`@108 for the normal queue.
 ## 2026-09-08 — D-2101 `sp_lev.c:5241-5251` `ensure_way_out` rescan order: inner `break` (x-scan continues) must be both-loops exit per C `goto outhere` (review 1065 Must-fix)
 
 **C locus:** `sp_lev.c:5241-5251` `ensure_way_out` driver: the match arm ends with `goto outhere` whose label sits outside both loops — one join exits the x-scan entirely and the do-while rescans from `x = 1` (`sp_lev.c:5217-5255` body read in `brief ensure_way_out`).

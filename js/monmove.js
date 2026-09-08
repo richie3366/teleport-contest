@@ -2406,15 +2406,19 @@ export async function dochug(mtmp) {
 
 /**
  * C ref: monmove.c dochugw — move mon; stop occupation if newly spotted threat.
- * rloc_to_core calls this with chug FALSE (teleport.c:1762, D-1170): no
- * dochug, only the threat check. onscary stubbed false (Elbereth /
- * sanctuary deferred). makemon occupation still named.
+ * Visibility is display.h canspotmon (display.js live macro), not the
+ * door-feedback stub below (D-2102: the stub drops infrared, so an
+ * infravision-seen bat at 3 squares read as unseen and stopped the search
+ * before its bite). rloc_to_core calls this with chug FALSE
+ * (teleport.c:1762, D-1170): no dochug, only the threat check. onscary
+ * stubbed false (Elbereth / sanctuary deferred). makemon occupation
+ * still named.
  */
 export async function dochugw(mtmp, chug) {
     const x = mtmp.mx;
     const y = mtmp.my;
     // C: skip canspotmon if occupation is Null
-    const already_saw_mon = (chug && game.occupation) ? canspotmon(mtmp) : false;
+    const already_saw_mon = (chug && game.occupation) ? display_canspotmon(mtmp) : false;
     const rd = chug ? await dochug(mtmp) : 0;
 
     if (
@@ -2423,7 +2427,7 @@ export async function dochugw(mtmp, chug) {
         && mdistu(mtmp) <= (BOLT_LIM + 1) * (BOLT_LIM + 1)
         && (!already_saw_mon || !couldsee(x, y)
             || dist2(x, y, game.u.ux, game.u.uy) > (BOLT_LIM + 1) * (BOLT_LIM + 1))
-        && canspotmon(mtmp) && couldsee(mtmp.mx, mtmp.my)
+        && display_canspotmon(mtmp) && couldsee(mtmp.mx, mtmp.my)
         && mtmp.mcanmove
         // onscary(u.ux, u.uy, mtmp) deferred → treat as not scary
     ) {

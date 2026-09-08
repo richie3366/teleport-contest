@@ -2620,7 +2620,7 @@ flee/dig/tele/create invent + blindness healing deferred);
 `wake_msg` live D-2088); **`dochug` `wipe_engr_at(mx,my,1)` before apparxy/fleeck** (D-0369; 
 mconf/mstun/flee-teleport/**m_respond D-1314**/courage between wipe and apparxy (gazemu named); 
 **`dochug` STRAT_ARRIVE `m_arrival` + MS_BRIBE mux-mismatch D-1798** (`demon_talk` paid-off still named / `cuss` `!rn2(5)` live D-2090)); 
-**`dochugw` occupation threat → `stop_occupation`** (D-0392; `onscary` stub); 
+**`dochugw` occupation threat → `stop_occupation`** (D-0392; `onscary` stub; **visibility is the display `canspotmon` macro D-2102** — the door-feedback stub misread infravision-seen bats); 
 **hostile `m_move`→`postmov` + `mfndpos` known-trap skip** (D-0151); 
 **`set_apparxy` Displacement/Invis/Underwater** (D-0154; cloak otyp for EDisplaced; 
 **`can_fog` vampshifter** D-0799; omit `oc_oprop`/DRAWBRIDGE 

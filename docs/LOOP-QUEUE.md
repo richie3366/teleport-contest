@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `end.c` done_in_by — blocks 2/553 corpus sessions (first at step 47): C «The vampire bat bites! You stop searching.--More--» vs JS «You stop searching. The vampire bat bites!--More--». Probe: `node scripts/hidden-proxy.mjs verify done_in_by` (scen-tour-Barbarian-92024, scen-tour-Ranger-92177).
 - [ ] `objnam.c` wishymatch — blocks 1/553 corpus sessions (first at step 70): C «@a human or elf or you (dwarven valkyrie called wizard)--Mor» vs JS «@a human or elf or you (dwarven valkyrie called wizard)». Probe: `node scripts/hidden-proxy.mjs verify wishymatch` (scen-tour-Valkyrie-92040).
 - [ ] `insight.c` enlightenment — blocks 4/553 corpus sessions (first at step 67): C «Wizard the Monk's attributes:» vs JS «Wizard the Monk's attributes:». Probe: `node scripts/hidden-proxy.mjs verify enlightenment` (scen-death-Monk-92000, scen-death-Wizard-92120, scen-wish-Healer-92147).
 - [ ] `end.c` disclose — blocks 3/553 corpus sessions (first at step 110): C «Do you want to see your conduct and achievements? [ynq] (n)» vs JS «Do you want to see your conduct? [ynq] (n)». Probe: `node scripts/hidden-proxy.mjs verify disclose` (scen-genesis-Barbarian-91118, scen-wish-Monk-92031, scen-wish-Priest-92098).
