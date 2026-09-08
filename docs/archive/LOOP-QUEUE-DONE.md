@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `invent.c` getobj — blocks 1/553 corpus sessions (first at step 61): C «What do you want to wear? [*]» vs JS «What do you want to wear? [q or ?*]». Probe: `node scripts/hidden-proxy.mjs verify getobj` (scen-poly-Wizard-92169). **Addressed:** D-2123
+- [x] `uhitm.c` missum — blocks 1/553 corpus sessions (first at step 118): C «You miss it. It screams! It kicks! It kicks again!--More--» vs JS «You miss it. It kicks! It kicks again! It is frozen by you.». Probe: `node scripts/hidden-proxy.mjs verify missum` (scen-poly-Knight-92220). **Addressed:** D-2124
+
+
+- [x] `invent.c` getobj — blocks 1/553 corpus sessions (first at step 61): C «What do you want to wear? [*]» vs JS «What do you want to wear? [q or ?*]». Probe: `node scripts/hidden-proxy.mjs verify getobj` (scen-poly-Wizard-92169). **Addressed:** D-2123 `d43bbc14`
 
 
 - [x] `end.c` really_done — blocks 2/553 corpus sessions (first at step 19): C «» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify really_done` (scen-normal-Barbarian-92208, scen-tour-Wizard-92103). **Addressed:** D-2122 `10ea68f1`

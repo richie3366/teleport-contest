@@ -1,6 +1,6 @@
 {
- "commit": "9023582a",
- "at": "2026-09-08T13:21:24.113Z",
+ "commit": "d43bbc14",
+ "at": "2026-09-08T13:25:54.970Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6709,18 +6709,18 @@
   "scen-poly-Knight-92220": {
    "src": "corpus",
    "passed": false,
-   "rngM": 6179,
+   "rngM": 6847,
    "rngT": 6857,
-   "scrM": 198,
+   "scrM": 203,
    "scrT": 206,
    "kind": "screen",
-   "step": 118,
+   "step": 136,
    "steps": 206,
-   "owner": "missum",
-   "loc": "uhitm.c:5211",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "You miss it. It screams! It kicks! It kicks again!--More--",
-   "jsTopline": "You miss it. It kicks! It kicks again! It is frozen by you.",
+   "cTopline": "The ki-rin kicks! The ki-rin kicks again! The ki-rin butts!--More--",
+   "jsTopline": "The ki-rin kicks! The ki-rin kicks again! The ki-rin butts!",
    "error": null
   },
   "scen-poly-Monk-92005": {
