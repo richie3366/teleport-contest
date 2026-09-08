@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `wield.c` chwepon — blocks 2/553 corpus sessions (first at step 68): C «Your dexterity was 9.» vs JS «Your dexterity was 9.». Probe: `node scripts/hidden-proxy.mjs verify chwepon` (scen-death-Monk-92000, scen-death-Wizard-92120). **Addressed:** D-2112
+- [x] `were.c` were_change — blocks 2/553 corpus sessions (first at step 69): C «The jackal bites!» vs JS «The jackal bites!». Probe: `node scripts/hidden-proxy.mjs verify were_change` (scen-intrinsic-Healer-92124, scen-tour-Ranger-92177). **Addressed:** D-2113
+
+
+- [x] `wield.c` chwepon — blocks 2/553 corpus sessions (first at step 68): C «Your dexterity was 9.» vs JS «Your dexterity was 9.». Probe: `node scripts/hidden-proxy.mjs verify chwepon` (scen-death-Monk-92000, scen-death-Wizard-92120). **Addressed:** D-2112 `6d4e021f`
 
 
 - [x] `objnam.c` readobjnam — blocks 2/553 corpus sessions: C resolves slime-mold wishes with zero draws, JS draws `rn2(76)` @ rnd_otyp_by_namedesc(readobjnam.js:245). Probe: `node scripts/hidden-proxy.mjs verify readobjnam` (scen-wish-Archeologist-92238 step 42 "3 slime mold", scen-wish-Knight-92130 step 90 "cursed slime mold"→2). Falsifier: C-recorder wish experiment (D-2021/D-2022/D-2111 — documented paths exhausted, do not re-read). **Addressed:** D-2111 `cc3dcaae`

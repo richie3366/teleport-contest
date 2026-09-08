@@ -21,7 +21,7 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-08** — full `sessions` on the working tree
-(audit **1067–1073** over 3516098b…67985652, D-2098…D-2112 ports).
+(audit **1067–1073** over 3516098b…67985652, D-2098…D-2113 ports).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 `60+0.48/turn` (R² 0.87).
@@ -94,8 +94,9 @@ divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
 **Next cluster:** `were.c` were_change — blocks 2/553 corpus sessions (first at step 69): C «The jackal bites!» vs JS «The jackal bites!». Probe: `node scripts/hidden-proxy.mjs verify were_change` (scen-intrinsic-Healer-92124, scen-tour-Ranger-92177).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2112 (index).**
+**Keep D-0845…D-2113 (index).**
 <!-- recent:begin -->
+**D-2113** `were.c:18–38` — `js/were.js` only — `were_change` is now `async` and awaits `new_were` (C is fully sequential; the armor tail must settle before the `canseemon` read), then runs the howl block in exact C order: local `Deaf()` (youprop.h
 **D-2112** `insight.c:1070–1071` — `js/invent.js` only — `const noeyes = !haseyes(game.youmonst?.data)` in exact C position.
 **D-2111** `dothrow.c:68–71` `multishot_class_bonus` PM_NINJA arm — `js/weapon.js` only — `const PM_NINJA = monsterNames.indexOf('PM_NINJA')` beside the existing PM_PONY/SHADE/BALROG locals (pre-existing `monsters_data.js` edge, no new module, no TDZ) + the NINJA case in exact C position
 **D-2110** `mhitu.c` `gulpmu` AD_BLND `:1471–1484` (`can_blnd(mtmp, &youmonst, mattk->aatyp, NULL)` → — `js/mhitu.js` only, no new imports (all helpers pre-existing or same-module locals — no new edge, no TDZ).
@@ -103,11 +104,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2108** `pager.c` `look_at_monster` `:422–444` (`"tame "` + `distant_monnam(mtmp, ARTICLE_NONE, mo — `js/do_name.js` only — `distant_monnam_none` keeps the null→`it` guard and the astral conceal first (C order), then delegates to the live `x_monnam(mtmp, ARTICLE_NONE, null, 0, true)` (same module, no new edge, no TDZ).
 **D-2107** `makemon.c:1283–1294` (birth knowledge: `In_sokoban && !mindless` → `mon_learns_traps(PIT) — `js/makemon.js` only — birth-knowledge block in exact C order between `female` and `mpeaceful` (C order is female → traps → mwandexp → place_monster → mpeaceful; the JS `place_monster`/fmon-link shape is untouched).
 **D-2106** `hack.c` `domove_fight_empty` `:2258–2267` (`boulder = sobj_at(BOULDER, x, y)`; `if (glyph — `js/cmd.js` only, exact C order: full-pile `sobj_at(BOULDER)` scan first, then `glyph_to_obj_at(x, y) === STATUE_OTYP` (pre-existing `display.js` gbuf export joining the existing display edge — no new module, no TDZ, cal
-**D-2105** `invent.c` `addinv_core1` `:960–1004` (uhave/ACH arms). The disclose suffix itself (`end.c — `js/u_init.js` — new sync `addinv_core1(obj)` in exact C order, called once before the merge loop (C `addinv_core0` `:1082`): COIN → disp.botl (`flags.botl`+`disp.botl`); AMULET_OF_YENDOR → `uhave.amulet=1`+ACH_AMUL; CAN
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2112; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2113; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

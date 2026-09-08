@@ -1,6 +1,6 @@
 {
- "commit": "cc3dcaae",
- "at": "2026-09-08T09:46:35.858Z",
+ "commit": "6d4e021f",
+ "at": "2026-09-08T09:50:33.464Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -7263,18 +7263,18 @@
   },
   "scen-tour-Ranger-92177": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 30739,
    "rngT": 30739,
-   "scrM": 134,
+   "scrM": 135,
    "scrT": 135,
-   "kind": "screen",
-   "step": 108,
+   "kind": null,
+   "step": null,
    "steps": 135,
-   "owner": "were_change",
-   "loc": "were.c:36",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "You hear a jackal howling at the moon.",
+   "cTopline": "",
    "jsTopline": "",
    "error": null
   },
