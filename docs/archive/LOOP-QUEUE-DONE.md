@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `dogmove.c` dog_goal — blocks 1/553 corpus sessions (first at step 168): C draws `rn2(4)=3` in dog_goal, JS `rn2(3)=0` from dog_move(dogmove.js:978) (empty toplines both sides; step-168 follow-player `!rn2(4)` gate). Re-queued from the addressed dog_goal@136 row (the refuse-arm dropy fix moved it past step 136). Probe: `node scripts/hidden-proxy.mjs verify dog_goal` (scen-wish-Priest-92136). **Addressed:** D-2149
+- [x] `read.c` do_class_genocide — blocks 1/553 corpus sessions (first at step 78): C «What class of monsters do you want to genocide? [enter the s» vs JS «What class of monsters do you want to genocide? [enter '?' t». Probe: `node scripts/hidden-proxy.mjs verify do_class_genocide` (scen-wish-Tourist-92230). **Addressed:** D-2150
+
+
+- [x] `dogmove.c` dog_goal — blocks 1/553 corpus sessions (first at step 168): C draws `rn2(4)=3` in dog_goal, JS `rn2(3)=0` from dog_move(dogmove.js:978) (empty toplines both sides; step-168 follow-player `!rn2(4)` gate). Re-queued from the addressed dog_goal@136 row (the refuse-arm dropy fix moved it past step 136). Probe: `node scripts/hidden-proxy.mjs verify dog_goal` (scen-wish-Priest-92136). **Addressed:** D-2149 `3c229022`
 
 
 - [x] `botl.c` do_statusline2 — blocks 9/553 corpus sessions (first at step 46): C «Your shirt rips to shreds!--More--» vs JS «Your shirt rips to shreds!--More--». Probe: `node scripts/hidden-proxy.mjs verify do_statusline2` (scen-death-Tourist-92095, scen-genesis-Tourist-92044, scen-intrinsic-Caveman-92138). (Re-queued post-D-2148: Priest-91137 + Rogue-92026 PASS; per-session writers in D-2148 Next.) **Addressed:** D-2148 `04072151`

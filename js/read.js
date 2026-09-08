@@ -89,7 +89,7 @@
 // from angrygods.
 
 import { game } from './gstate.js';
-import { pline, urgent_pline, newsym, You_feel, verbalize, canspotmon, tmp_at, cmap_to_glyph, map_invisible, shieldeff } from './display.js';
+import { pline, urgent_pline, newsym, You_feel, verbalize, canspotmon, tmp_at, cmap_to_glyph, map_invisible, shieldeff, monsym } from './display.js';
 import { xname, makeplural, an, vtense, otense, otyp_is_charged, Yname2, Yobjnam2, doname } from './objnam.js';
 import {
     SCROLL_CLASS, SPBOOK_CLASS, COIN_CLASS, WEAPON_CLASS, GEM_CLASS,
@@ -99,7 +99,7 @@ import {
 import { weight, uncurse, curse, bless, blessorcurse, mkobj, mksobj, place_object, stackobj, delobj, oc_merge_of } from './mkobj.js';
 import { A_WIS, A_STR, A_CON, exercise, adjalign } from './attrib.js';
 import {
-    makeknown, getobj, identify_pack, near_capacity,
+    makeknown, getobj, identify_pack, near_capacity, update_inventory,
 } from './invent.js';
 import { more_experienced } from './exper.js';
 import {
@@ -119,7 +119,7 @@ import {
     W_BALL, W_CHAIN, W_ART, W_ARTI, W_SADDLE, W_ARM, W_ARMH, P_SLING, SPE_LIM, MM_NOEXCLAM,
     MM_MALE, MM_FEMALE,
     NO_MM_FLAGS, NO_NC_FLAGS, WT_IRON_BALL_INCR, thats_enough_tries, EXT_ENCUMBER,
-    GENOCIDED, KILLED_BY, KILLED_BY_AN, NO_MINVENT, MM_NOMSG, Upolyd,
+    GENOCIDED, KILLED_BY, KILLED_BY_AN, LL_CONDUCT, LL_GENOCIDE, NO_MINVENT, MM_NOMSG, Upolyd,
     nothing_happens, G_GENOD, G_EXTINCT, UNCHANGING,
     GETOBJ_EXCLUDE, GETOBJ_DOWNPLAY, GETOBJ_SUGGEST, GETOBJ_PROMPT,
     GETOBJ_EXCLUDE_SELECTABLE, GETOBJ_ALLOWCNT,
@@ -156,6 +156,8 @@ import { killed } from './uhitm.js';
 import { mondied } from './mhitm.js';
 import { losehp } from './hack.js';
 import { done } from './end.js';
+import { livelog_printf } from './pline.js';
+import { uhis } from './roles.js';
 import { ART_SUNSWORD } from './generated/artifacts_data.js';
 import { readmail } from './mail.js';
 import { has_ceiling, avoid_ceiling } from './dungeon.js';
@@ -2187,11 +2189,13 @@ const PM_SAMURAI = monsterNames.indexOf('PM_SAMURAI');
 
 /**
  * C ref: read.c do_class_genocide — blessed SCR_GENOCIDE class wipe.
- * Named omissions: livelog; vampshifted POLY_REVERT; update_inventory.
+ * Named omissions: vampshifted POLY_REVERT (JS polyself voids POLY_REVERT,
+ * so wiring the call would run an interactive poly — stays deferred).
  */
 async function do_class_genocide() {
     const u = game.u || (game.u = {});
     let feel_dead = 0;
+    let ll_done = 0; // C read.c:2641 — first-genocide livelog once per call
     let gameover = false;
 
     for (let j = 0; ; j++) {
@@ -2201,7 +2205,9 @@ async function do_class_genocide() {
         }
         let promptbuf = 'What class of monsters do you want to genocide?';
         if (j > 0) {
-            promptbuf += game.iflags?.cmdassist
+            // C read.c:2653-2657 — iflags.cmdassist default On (optlist.h
+            // NHOPTB cmdassist initval On); an unset JS bag reads as On.
+            promptbuf += game.iflags?.cmdassist !== false
                 ? " [enter the symbol or name representing a class, or '?']"
                 : " [enter '?' to see previous genocides]";
         }
@@ -2216,6 +2222,8 @@ async function do_class_genocide() {
         }
         if (buf === '\x1b' || strcmpi_eq(buf, 'none')
             || strcmpi_eq(buf, "'none'") || strcmpi_eq(buf, 'nothing')) {
+            livelog_printf(LL_GENOCIDE, // C read.c:2673 declined class genocide
+                'declined to perform class genocide');
             return;
         }
         if (buf === '?' || buf === "'?'") {
@@ -2272,11 +2280,24 @@ async function do_class_genocide() {
             const mv = (game.mvitals?.[i]?.mvflags ?? 0);
             if (Your_Own_Role(i) || Your_Own_Race(i)
                 || (((mons(i).geno | 0) & G_GENO) && !(mv & G_GENOD))) {
+                // C read.c:2738-2745 — conduct+genocide livelog once per
+                // call; first wipe is "first genocide" iff none recorded.
+                // C %c class sym ≡ the 1-char sym (livelog takes %s here).
+                if (!ll_done++) {
+                    const { num_genocides } = await import('./insight.js');
+                    const classSym = monsym({ mlet: monclass });
+                    if (!num_genocides())
+                        livelog_printf(LL_CONDUCT | LL_GENOCIDE,
+                            'performed %s first genocide (class %s)', uhis(), classSym);
+                    else
+                        livelog_printf(LL_GENOCIDE, 'genocided class %s', classSym);
+                }
                 ensure_mvitals(i).mvflags =
                     (ensure_mvitals(i).mvflags | 0) | G_GENOD | G_NOCORPSE;
                 kill_genocided_monsters();
+                update_inventory(); // C read.c:2750 — eggs & tins
                 await pline(`Wiped out all ${nam}.`);
-                // vampshifted POLY_REVERT deferred
+                // vampshifted POLY_REVERT deferred (JS polyself voids POLY_REVERT)
                 if (Upolyd(u) && i === (u.umonnum | 0)) {
                     u.mh = -1;
                     if (Unchanging()) {
@@ -2357,7 +2378,8 @@ export async function do_genocide(how) {
             }
             let promptbuf = 'What type of monster do you want to genocide?';
             if (i > 0) {
-                promptbuf += game.iflags?.cmdassist
+                // C read.c:2857-2861 — same cmdassist default-On as :2653.
+                promptbuf += game.iflags?.cmdassist !== false
                     ? " [enter the name of a type of monster, or '?']"
                     : " [enter '?' to see previous genocides]";
             }

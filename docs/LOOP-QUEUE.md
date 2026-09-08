@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `read.c` do_class_genocide — blocks 1/553 corpus sessions (first at step 78): C «What class of monsters do you want to genocide? [enter the s» vs JS «What class of monsters do you want to genocide? [enter '?' t». Probe: `node scripts/hidden-proxy.mjs verify do_class_genocide` (scen-wish-Tourist-92230).
 - [ ] `sit.c` rndcurse — blocks 1/553 corpus sessions (first at step 22): C «You feel a malignant aura surround you. Demogorgon stings!--» vs JS «You feel a malignant aura surround you. Demogorgon stings!». Probe: `node scripts/hidden-proxy.mjs verify rndcurse` (scen-death-Valkyrie-92229).
 - [ ] `uhitm.c` hmon_hitmon_weapon_melee — blocks 1/553 corpus sessions (first at step 122): C draws `rnd(1)=1` in hmon_hitmon_weapon_melee, JS `rn2(8)=3` from abuse_dog(dog.js:1220). Probe: `node scripts/hidden-proxy.mjs verify hmon_hitmon_weapon_melee` (scen-normal-Rogue-92146).
 - [ ] `potion.c` peffect_paralysis — blocks 1/553 corpus sessions (first at step 26): C «Your feet are frozen to the stairs! The little dog misses th» vs JS «Your feet are frozen to the floor! The little dog misses the». Probe: `node scripts/hidden-proxy.mjs verify peffect_paralysis` (scen-wish-Valkyrie-92091).

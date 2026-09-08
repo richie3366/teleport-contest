@@ -172,7 +172,7 @@ function you_have_X(final, something) {
 }
 
 /** C ref: insight.c num_genocides */
-function num_genocides() {
+export function num_genocides() {
     const mv = game.mvitals || [];
     let n = 0;
     for (let i = LOW_PM; i < NUMMONS; i++) {

@@ -704,7 +704,8 @@ confused p_glow2, cursed vibrate/disintegrate_arm, blessed choice/disintegrate_c
 **`punish` Blind `set_bc(1)` D-1769** (C `read.c` `:3059` / `ball.c` `:379–424`;
 live `js/ball.js`; Blind `move_bc` / `unplacebc` restore is **D-1777**) + 
 **SCR_GENOCIDE → `seffect_genocide`/`do_class_genocide` + `name_to_monclass`** (D-1098; 
-livelog / Hallu names / vampshifted POLY_REVERT / cham `newcham` / `update_inventory` still named; 
+D-2150: `do_class_genocide` cmdassist default-On prompt + declined/first-genocide livelog + `update_inventory` live; 
+vampshifted POLY_REVERT still named (polyself voids it); do_genocide livelog / Hallu names / cham `newcham` / `update_inventory` still named; 
 `create_particular` class-letter still named) + 
 **`domove` Punished `drag_ball`/`move_bc`/`cause_delay`→`nomul(-2)`** (D-0909; 
 Blind move_bc felt/glyph is **D-1777**, `ballfall` is **D-1778**; jerked-back hmon/miss, 

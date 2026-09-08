@@ -1,6 +1,6 @@
 {
- "commit": "94e4d03f",
- "at": "2026-09-08T20:14:09.570Z",
+ "commit": "3c229022",
+ "at": "2026-09-08T20:27:57.927Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -8567,19 +8567,19 @@
   },
   "scen-wish-Tourist-92230": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 2273,
+   "passed": true,
+   "rngM": 2542,
    "rngT": 2542,
-   "scrM": 109,
+   "scrM": 164,
    "scrT": 164,
-   "kind": "screen",
-   "step": 78,
+   "kind": null,
+   "step": null,
    "steps": 164,
-   "owner": "do_class_genocide",
-   "loc": "read.c:2651",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "What class of monsters do you want to genocide? [enter the symbol or name repre",
-   "jsTopline": "What class of monsters do you want to genocide? [enter '?' to see previous geno",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-wish-Valkyrie-92014": {

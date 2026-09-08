@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2150 — `read.c` do_class_genocide `iflags.cmdassist` default-On prompt + livelog/update_inventory arms (1 session PASS)
+
+- **Status:** fixed (Open queue row `read.c` do_class_genocide — cited 1/553; `node scripts/verify.mjs --fn do_class_genocide`: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS. Row cites no review so no stamp owed.)
+- **Symptom:** scen-wish-Tourist-92230 step 78/164, screen-first at read.c:2651: C «What class of monsters do you want to genocide? [enter the symbol or name repre» vs JS «What class of monsters do you want to genocide? [enter '?' to see previous geno». Second-iteration (j>0) prompt suffix differs.
+- **C locus:** `read.c:2651–2658` (`Snprintf(" [enter %s]", iflags.cmdassist ? "the symbol or name representing a class, or '?'" : "'?' to see previous genocides")`); `iflags.cmdassist` default On (`optlist.h:233–234` NHOPTB cmdassist initval On; `dat/opthelp` `[True]`). Same pattern at `read.c:2857–2861` (do_genocide). Wipe-arm livelog `read.c:2673` (declined), `:2738–2745` (ll_done once-per-call first/genocided-class), `update_inventory` `:2750` (eggs & tins), `ll_done` decl `:2641`.
+- **JS was:** `js/read.js` tested truthy `game.iflags?.cmdassist`, so an unset bag (undefined — JS never runs allopt init) took the Off branch while C defaults On. The wipe arm also lacked `ll_done`, both `livelog_printf` arms, and `update_inventory()` (named omissions since D-1098).
+- **Fix:** Both genocide prompts use `!== false` default-On (house pattern from pickup.js/lock.js), C-cited. `do_class_genocide` gains `ll_done`, the declined-class livelog, the once-per-call first/genocided-class livelog (`num_genocides` exported from `insight.js`, read via dynamic import matching the existing `list_genocided` pattern in this function; `uhis` static from `roles.js` — SAFE, no cycle; class sym via `monsym({mlet})` on the existing display edge for `def_monsyms[class].sym`; C `%c` ≡ 1-char `%s` since livelog handles %s/%d), and `update_inventory()` on the existing invent edge in C order. No DIAG/FORCE/seed gates; Rule #2 clean.
+- **JS:** 2 files (`js/read.js` +29/−7, `js/insight.js` +1/−1), under the 600/10 caps. Small-C-end density: the row's complete C delta, corpus-verified.
+- **Verify:** `node scripts/verify.mjs --fn do_class_genocide` → PASS syntax (2 changed js files) · PASS rule2 · PASS hidden (1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS: scen-wish-Tourist-92230 PASS) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · VERIFY: PASS (full skipped: no shared file changed). No probes left in the tree.
+- **Named omissions:** vampshifted `POLY_REVERT` stays named (map `turns.md:706`; JS `polyself` voids `POLY_REVERT` at polyself.js:1265, so wiring the call would run an interactive poly — measured, not assumed). `do_genocide` livelog/Hallucination/cham/newcham/update_inventory untouched (map `turns.md:706`).
+- **Next:** `js/zap.js:6636` wish path reads `game.flags?.cmdassist` (wrong bag — C is `iflags.cmdassist`; cf. do.js:1162 note) — candidate follow-up row, not this fix.
+- **Cited falsifier grade:** recorded (hidden-proxy baseline + working both named the session at step 78 with both toplines; post-fix `verify --fn` tail pasted above; no JS FORCE/DIAG/seed/coordinate reads).
+
 ## D-2149 — `dogmove.c` dog_goal APPORT `can_carry` vs blast artifacts: local clone skipped `can_touch_safely`, pet apport-took the PYEC (1 session PASS)
 
 - **Status:** fixed (Open queue row `dogmove.c` dog_goal — cited 1/553; `node scripts/verify.mjs --fn dog_goal`: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS. Row cites no review so no stamp owed.)
