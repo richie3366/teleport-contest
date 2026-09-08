@@ -89,7 +89,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `makemon.c` makemon (scen-normal-Healer-91123; step-4 screen misattributed, true writer `dothrow.c` throw_obj — shipped D-2139). Probe: `node scripts/hidden-proxy.mjs verify makemon`.
+**Next cluster:** `mcastu.c` cursetxt (dmgval fired, see Parked). Probe: `node scripts/hidden-proxy.mjs verify cursetxt`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2139 (index).**
 <!-- recent:begin -->

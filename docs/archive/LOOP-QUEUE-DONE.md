@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `makemon.c` makemon — blocks 1/553 corpus sessions (first at step 4): C «You ready: $ - 1093 gold pieces.--More--» vs JS «In what direction?». Probe: `node scripts/hidden-proxy.mjs verify makemon` (scen-normal-Healer-91123). **Addressed:** D-2139
+- [x] `makemon.c` makemon — blocks 1/553 corpus sessions (first at step 4): C «You ready: $ - 1093 gold pieces.--More--» vs JS «In what direction?». Probe: `node scripts/hidden-proxy.mjs verify makemon` (scen-normal-Healer-91123). **Addressed:** D-2139 `eb7ec1cb`
 
 
 - [x] `allmain.c` moveloop_core — blocks 1/553 corpus sessions (first at step 88): C draws `rn2(85)=24` in moveloop_core, JS `rn2(20)=14` from gethungry(eat.js:698). Probe: `node scripts/hidden-proxy.mjs verify moveloop_core` (scen-poly-Archeologist-92226). **Addressed:** D-2138 1602fc13
