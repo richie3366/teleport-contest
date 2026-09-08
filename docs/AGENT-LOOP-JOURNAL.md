@@ -8,6 +8,27 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-08 — Audit D-2048…D-2056 against pinned C (reviews 1018–1026) + cadence score 44/44
+
+Review iteration (no js/ edits): 9 JS-touching SHAs since review 1017
+(f5587f13, 59751376, b11c9f44, d1f26ab3, 0e04e7bc, ac555b16, 48101789,
+df50c05e, 72cf8c52), one SHA at a time, file written at the end of each
+SHA. Every `hidden-proxy verify <fn> --base HASH~1` re-measured in this
+iteration: 8 match the D-log owner-for-owner/step-for-step; 1019 matches
+in counts (1/1/0/0); 1020 moves 92133 one owner further downstream
+(peffect_polymorph@175 vs damageum@150 — six intervening ports, same
+PROGRESS direction, 0 worse). Scoreboard spot-check on 1024's
+"js-throw" token: `error:null`, RNG 38280/38280, step-177 glyph diff —
+the proxy's null-owner fallback label, as the D-log preempted.
+**Verdicts: 8 ACCEPT, 1 ACCEPT-WITH-DEBT** (1025: deny-check
+`is_quest_artifact` short-circuit is map-named debt, not Must-fix; same
+row should also fold the unported deny pline/bookkeeping, absent since
+D-0064). No Must-fix prepended; Next cluster unchanged (Open
+`dothrow.c` dofire row already shipped as D-2056 — next port pops
+`botl.c` do_statusline1 per D-2056-Next).
+**Cadence:** full `sessions` 44/44, Scr 11,405/11,405, RNG
+792,838/792,838, speed `61+0.39/turn` (R² 0.79). `check-hot-docs
+--review 1018…1026`: all ok, no cap edits.
 ## 2026-09-08 — D-2056 dofire ready More + doquiver fire-arm period (queue owner dofire)
 
 **C locus:** `dothrow.c` `dofire` `:543–554` — after `doquiver_core("fire")` there is no topline skip: C falls through to `throw_obj` → `getdir` → `yn_function`, whose tty arm flushes a pending NEED_MORE first (`topl.c tty_yn_function` / `getline.c hooked_tty_getlin`). `wield.c` `doquiver_core` fire arm (`quivering:`) — `prinv("You ready:", newquiver, 0L)` *before* `setuqwep`, and `prinv` → `xprname(obj, NULL, obj_to_let(obj), !total_of, 0L, quan)` with `quan=0` so `dot=!total_of=TRUE` → trailing period.

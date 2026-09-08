@@ -1028,3 +1028,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1015-29aff746-monster-arm.md](./1015-29aff746-monster-arm.md) | `29aff746` | D-2045 do_screen_description monster arm | **ACCEPT** |
 | [1016-376d29e8-play-instrument.md](./1016-376d29e8-play-instrument.md) | `376d29e8` | D-2046 do_play_instrument ynq + gates | **ACCEPT** |
 | [1017-d0c254aa-m-search-items.md](./1017-d0c254aa-m-search-items.md) | `d0c254aa` | D-2047 m_search_items shop gate + scan | **ACCEPT** |
+| [1018-f5587f13-quiver-fill-merge.md](./1018-f5587f13-quiver-fill-merge.md) | `f5587f13` | D-2048 addinv_core0 quiver fill on merge | **ACCEPT** |
+| [1019-59751376-mhitm-ad-were.md](./1019-59751376-mhitm-ad-were.md) | `59751376` | D-2049 mhitm_ad_were mhitu arm | **ACCEPT** |
+| [1020-b11c9f44-polymon-see-again.md](./1020-b11c9f44-polymon-see-again.md) | `b11c9f44` | D-2050 polymon eyeless see-again | **ACCEPT** |
+| [1021-d1f26ab3-losehp-noreturn-drain.md](./1021-d1f26ab3-losehp-noreturn-drain.md) | `d1f26ab3` | D-2051 losehp noreturn drain | **ACCEPT** |
+| [1022-0e04e7bc-passive-true-owners.md](./1022-0e04e7bc-passive-true-owners.md) | `0e04e7bc` | D-2052 passive proxy true owners | **ACCEPT** |
+| [1023-ac555b16-study-book-dull.md](./1023-ac555b16-study-book-dull.md) | `ac555b16` | D-2053 study_book dull sleep | **ACCEPT** |
+| [1024-48101789-arrival-messages.md](./1024-48101789-arrival-messages.md) | `48101789` | D-2054 DELPHI/COURT/Sam arrival | **ACCEPT** |
+| [1025-df50c05e-readobjnam-spe-corpsenm.md](./1025-df50c05e-readobjnam-spe-corpsenm.md) | `df50c05e` | D-2055 readobjnam spe/corpsenm | **ACCEPT-WITH-DEBT** |
+| [1026-72cf8c52-dofire-more-period.md](./1026-72cf8c52-dofire-more-period.md) | `72cf8c52` | D-2056 dofire More + period | **ACCEPT** |

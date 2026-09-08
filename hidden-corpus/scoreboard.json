@@ -1,6 +1,6 @@
 {
- "commit": "df50c05e",
- "at": "2026-09-08T00:03:58.851Z",
+ "commit": "72cf8c52",
+ "at": "2026-09-08T00:11:42.276Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6890,18 +6890,18 @@
   "scen-poly-Ranger-92133": {
    "src": "corpus",
    "passed": false,
-   "rngM": 2960,
+   "rngM": 3023,
    "rngT": 3051,
-   "scrM": 173,
+   "scrM": 175,
    "scrT": 194,
-   "kind": "rng",
-   "step": 150,
+   "kind": "screen",
+   "step": 175,
    "steps": 194,
-   "owner": "damageum",
-   "loc": "uhitm.c:4842",
-   "jsOwner": "passive(uhitm.js:1657)",
-   "cTopline": "Your tentacles suck the goblin. You eat the goblin's brain!--More--",
-   "jsTopline": "You miss the goblin. Your tentacles suck the goblin.--More--",
+   "owner": "peffect_polymorph",
+   "loc": "potion.c:1320",
+   "jsOwner": null,
+   "cTopline": "You feel a little strange.--More--",
+   "jsTopline": "You feel a little strange. You turn into a plains centaur!",
    "error": null
   },
   "scen-poly-Ranger-92217": {

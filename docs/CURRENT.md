@@ -20,10 +20,10 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-07** — full `sessions` at **D-2047**
-(audit **1010–1017**, `d0c254aa`+review). Fortress **44/44** (no throws).
+Score last measured: **2026-09-08** — full `sessions` at **D-2056**
+(audit **1018–1026**, `72cf8c52`+review). Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`89+0.60/turn` (R² 0.78).
+`61+0.39/turn` (R² 0.79).
 
 ## Score
 
@@ -50,6 +50,7 @@ Reviews 990–997: 7 ACCEPT, 1 ACCEPT-WITH-DEBT (991 readobjnam grey-spell/armou
 Reviews 998–1003: 5 ACCEPT, 1 ACCEPT-WITH-DEBT (998 use_container lknown pre-branch `:2985–2989` state debt, no Must-fix; 1000 notes D-2030 "nothing imports wizard.js" slip, harmless).
 Reviews 1004–1009: 5 ACCEPT, 1 QUALITY-RISK (1006 → 3 Must-fix).
 Reviews 1010–1017: 7 ACCEPT, 1 QUALITY-RISK (1014 → 1 Must-fix).
+Reviews 1018–1026: 8 ACCEPT, 1 ACCEPT-WITH-DEBT (1025 readobjnam deny-check debt, map-named, no Must-fix).
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score --jobs 8`
 (≈200 s); when every family is ≥ 85 % PASS, grow it first:
 `node scripts/scenario-gen.mjs --n 120 --seed <iter×100>`.
@@ -88,7 +89,7 @@ Pop `LOOP-QUEUE.md` Must-fix (3 rows — review 1006) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `dothrow.c` dofire — blocks 3/553 corpus sessions (first at step 38): C «You ready: b - a +0 short sword.--More--» vs JS «In what direction?». Probe: `node scripts/hidden-proxy.mjs verify dofire` (scen-normal-Barbarian-92036, scen-normal-Valkyrie-92237, scen-tour-Rogue-92030).
+**Next cluster:** `botl.c` do_statusline1 — blocks 3/553 corpus sessions (first at step 119): C «You were wearing an uncursed +2 ring of gain strength (on ri» vs JS «You were wearing an uncursed +2 ring of gain strength (on ri». Probe: `node scripts/hidden-proxy.mjs verify do_statusline1` (scen-normal-Wizard-91114, scen-poly-Priest-92097, scen-wish-Archeologist-92038). (D-2056 shipped the dofire row; rotated by audit 1018–1026.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2056 (index).**
 <!-- recent:begin -->
