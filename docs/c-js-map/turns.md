@@ -1428,7 +1428,8 @@ air-level exempt) (D-0928 #1117); **`domove` `u_maybe_impaired`/`impaired_moveme
 **`domove_fight_empty` always `unmap_object` + optional boulder/statue `map_object` + 
 `newsym`** (D-0928 #1166; was I-glyph-only; **fight_empty explum(null) D-1265**; 
 **fight_empty `glyph_at` + `unmap_invisible` after empty D-1774**; 
-dig-with-pick/Underwater/Hallu statue/ansimpleoname deferred); 
+**statue arm via live gbuf D-2106** (`sobj_at(BOULDER)` then `glyph_to_obj_at==STATUE` → full-pile `sobj_at(STATUE)` overwrite + `a statue` target; was remembered-`` ` ``-ch + top-only); 
+dig-with-pick/Underwater/Hallu-monster-as-statue/full-ansimpleoname deferred); 
 **`domove` run-into-visible non-safemon stop** (`context.run` + 
 `mon_visible`/`sensemon`/`M_AP_*` → `nomul`+`move=0` before attack) (D-0440; 
 displacer/`bump_mon`/mundetected Wait!/Blind_telepat/Protection_from_shape amulet deferred); 

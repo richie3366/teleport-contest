@@ -1,6 +1,6 @@
 {
- "commit": "f297d61d",
- "at": "2026-09-08T08:14:42.054Z",
+ "commit": "9d4b5834",
+ "at": "2026-09-08T08:52:39.140Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -4663,18 +4663,18 @@
   "scen-genesis-Caveman-92199": {
    "src": "corpus",
    "passed": false,
-   "rngM": 3031,
+   "rngM": 3041,
    "rngT": 3041,
-   "scrM": 94,
+   "scrM": 97,
    "scrT": 104,
    "kind": "screen",
-   "step": 16,
+   "step": 54,
    "steps": 104,
-   "owner": "ghitm",
-   "loc": "dokick.c:305",
+   "owner": "use_pole",
+   "loc": "apply.c:3531",
    "jsOwner": null,
-   "cTopline": "You harmlessly attack a statue.",
-   "jsTopline": "You attack thin air.",
+   "cTopline": "You miss the kobold shaman.--More--",
+   "jsTopline": "You miss the kobold shaman.",
    "error": null
   },
   "scen-genesis-Healer-92189": {
@@ -6875,16 +6875,16 @@
    "passed": false,
    "rngM": 6147,
    "rngT": 6147,
-   "scrM": 317,
+   "scrM": 320,
    "scrT": 321,
    "kind": "screen",
-   "step": 238,
+   "step": 273,
    "steps": 321,
-   "owner": "ghitm",
-   "loc": "dokick.c:305",
+   "owner": "do_statusline2",
+   "loc": "botl.c:130",
    "jsOwner": null,
-   "cTopline": "You harmlessly attack a statue. The rabid rat bites!--More--",
-   "jsTopline": "You attack thin air. The rabid rat bites! The rabid rat bites!--More--",
+   "cTopline": "You turn into a violet fungus!--More--",
+   "jsTopline": "You turn into a violet fungus!--More--",
    "error": null
   },
   "scen-poly-Ranger-92133": {
