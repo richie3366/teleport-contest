@@ -15,6 +15,7 @@ Objective/score live in `CURRENT.md`.
 - **`sit.js` lay-egg `morehungry` unawaited; `losedogs` rebuilds `migrating_mons`.** Clone drift: zap useupf; detect/potion/read/spell `useup`; Elbereth; teleport `accessible`; helm_simple_name; pickup `ysimple_name`; getobj_* clones.
 - **next_ident = symptom owner:** fix the WRITER, not the table reader.
 - **obj_resists park (2026-09-08):** 3-writer symptom (detail: Parked). S1 savebones queued Open; S2 fire-trap burn vs silent skip; S3 cube paradox (turn-less, moved draw-free).
+- **m_move symptom-owner park (2026-09-08):** loop body faithful; Wizard-92076 = dohide writer (split Open head row; falsifier verify m_move); Caveman-92202 = cnt-j off-by-one, D-1868 arms already live — needs C per-turn cnt/mtrack dump (detail: Parked; do not re-pop).
 
 ## Don't re-check (≤15)
 

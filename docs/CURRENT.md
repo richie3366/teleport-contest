@@ -87,7 +87,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `bones.c` savebones remove_mon_from_bones + LEAVESTATUE statue arm — blocks 1/553 corpus sessions: C 2× `rn2(100)`@obj_resists (mongone Medusa via mdrop_special_objs) + statue (`next_ident`+`rndmonst_adj`+`rn2(2)`) where JS skips both (named omissions js/end.js:1222-1226). Probe: `node scripts/hidden-proxy.mjs verify obj_resists` (scen-genesis-Valkyrie-92074 step 75).
+**Next cluster:** `polyself.c` dohide — moves 1/2 m_move-blocked sessions (scen-poly-Wizard-92076 step 94): C «You are now hiding on the ceiling.» (uundetected=1 + youhiding) vs JS «Any special ability...» (named omission js/polyself.js:1562). Split from parked `monmove.c` m_move 2026-09-08 (see LOOP-QUEUE Parked). Probe: port dohide + youhiding + `node scripts/hidden-proxy.mjs verify m_move` (Wizard-92076 must PASS or move later).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2068 (index).**
 <!-- recent:begin -->
