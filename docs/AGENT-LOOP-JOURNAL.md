@@ -8,6 +8,17 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-08 — Audit b46928ff..fae41579 (reviews 1127–1132: 6 ACCEPT, 0 Must-fix) + cadence 44/44
+
+Each of the 6 JS-touching SHAs (D-2161..D-2166) audited against pinned
+C with csym ranges, sym resolution, imports rulecheck/cycle checks,
+and hidden-proxy re-verify at --base HASH~1: all 6 D-log Verify claims
+confirm PROGRESS (gulpmu moved, do_statusline1 moved, newmonhp moved,
+maybe_destroy_item PASS, yn_function PASS, use_pick_axe moved 11→68;
+the step-68 "js-throw" label is the owner-null fallback — show reports
+kind=screen, error null). No C-wrongs, no hallucinations. Cadence: full
+sessions 44/44 (Scr 11405/11405, RNG 792838/792838). Rule #2 clean.
+Open queue at 9 rows, no refill owed.
 ## 2026-09-08 — D-2166 `dig.c` use_pick_axe: direction prompt listed `[kyu>]` instead of C `[yku>]` (1 session moved past)
 
 **C locus:** 

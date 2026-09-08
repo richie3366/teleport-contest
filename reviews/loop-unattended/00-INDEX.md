@@ -1137,3 +1137,9 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1124-cb8412fa-escape-from-sticky-mon.md](./1124-cb8412fa-escape-from-sticky-mon.md) | `cb8412fa` | D-2158 escape_from_sticky_mon | **ACCEPT** |
 | [1125-43f6a519-fprefx-full-port.md](./1125-43f6a519-fprefx-full-port.md) | `43f6a519` | D-2159 fprefx full port | **ACCEPT** |
 | [1126-344fe348-sick-expiry-death-arm.md](./1126-344fe348-sick-expiry-death-arm.md) | `344fe348` | D-2160 SICK expiry death arm | **ACCEPT** |
+| [1127-b46928ff-gulpmu-addren-drain-en.md](./1127-b46928ff-gulpmu-addren-drain-en.md) | `b46928ff` | D-2161 gulpmu AD_DREN + drain_en | **ACCEPT** |
+| [1128-242a4641-acurr-ogresmasher-con.md](./1128-242a4641-acurr-ogresmasher-con.md) | `242a4641` | D-2162 acurr Ogresmasher CON | **ACCEPT** |
+| [1129-b128b07a-link-doors-rooms-wizard3.md](./1129-b128b07a-link-doors-rooms-wizard3.md) | `b128b07a` | D-2163 link_doors_rooms wizard3 | **ACCEPT** |
+| [1130-3b27be21-useup-in-use-clear.md](./1130-3b27be21-useup-in-use-clear.md) | `3b27be21` | D-2164 useup in_use clear | **ACCEPT** |
+| [1131-f567ecfb-zhitu-zt-death-arm.md](./1131-f567ecfb-zhitu-zt-death-arm.md) | `f567ecfb` | D-2165 zhitu ZT_DEATH arm | **ACCEPT** |
+| [1132-fae41579-use-pick-axe-dir-loop.md](./1132-fae41579-use-pick-axe-dir-loop.md) | `fae41579` | D-2166 use_pick_axe dir loop | **ACCEPT** |
