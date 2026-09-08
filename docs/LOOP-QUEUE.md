@@ -59,7 +59,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `mon.c` unstuck — blocks 1/553 corpus sessions (first at step 120): C draws `rnd(2)=1` in unstuck, JS `rn2(6)=2` from xkilled(uhitm.js:686). Probe: `node scripts/hidden-proxy.mjs verify unstuck` (scen-wish-Rogue-92210).
 - [ ] `trap.c` float_down — blocks 1/553 corpus sessions (first at step 43): C «You float gently to the stairs.» vs JS «You float gently to the floor.». Probe: `node scripts/hidden-proxy.mjs verify float_down` (scen-intrinsic-Samurai-92017).
 - [ ] `selvar.c` selection_rndcoord — blocks 1/553 corpus sessions (first at step 70): C draws `rn2(670)=351` in selection_rndcoord, JS `rn2(2)=1` from flip_level_rnd(mklev.js:16741). Probe: `node scripts/hidden-proxy.mjs verify selection_rndcoord` (scen-tour-Ranger-92033).
 - [ ] `teleport.c` goodpos — blocks 1/553 corpus sessions (first at step 67): C draws `rn2(13)=11` in goodpos, JS `rnd(2)=1` from next_ident(makemon.js:429). Probe: `node scripts/hidden-proxy.mjs verify goodpos` (scen-wish-Rogue-91119).

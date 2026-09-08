@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `do_name.c` x_monnam — blocks 2/553 corpus sessions (first at step 36): C «@a human or elf or you (orcish barbarian called wizard)--Mor» vs JS «@a human or elf or you (orcish barbarian called wizard)». Probe: `node scripts/hidden-proxy.mjs verify x_monnam` (scen-tour-Barbarian-92024, scen-wish-Knight-91128). **Addressed:** D-2092
+- [x] `mon.c` unstuck — blocks 1/553 corpus sessions (first at step 120): C draws `rnd(2)=1` in unstuck, JS `rn2(6)=2` from xkilled(uhitm.js:686). Probe: `node scripts/hidden-proxy.mjs verify unstuck` (scen-wish-Rogue-92210). **Addressed:** D-2093
+
+
+- [x] `do_name.c` x_monnam — blocks 2/553 corpus sessions (first at step 36): C «@a human or elf or you (orcish barbarian called wizard)--Mor» vs JS «@a human or elf or you (orcish barbarian called wizard)». Probe: `node scripts/hidden-proxy.mjs verify x_monnam` (scen-tour-Barbarian-92024, scen-wish-Knight-91128). **Addressed:** D-2092 `48742ea2`
 
 
 - [x] `uhitm.c` mhitm_knockback — blocks 2/553 corpus sessions (first at step 236): C draws `rn2(3)=2` in mhitm_knockback, JS `rn2(6)=5` from mhitm_knockback(mhitm.js:2027). Probe: `node scripts/hidden-proxy.mjs verify mhitm_knockback` (scen-poly-Ranger-92090, scen-poly-Wizard-92076). **Addressed:** D-2091 `c5939ae8`

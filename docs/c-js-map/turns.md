@@ -2922,7 +2922,7 @@ Eyes `vision_clears` / full `can_blnd` ublindf·visor / uhitm·mhitm AD_BLND arm
 **`mattacku` AC_VALUE** live (`hack.h` neg→`-rnd(-AC)`); 
 **`getmattk` mspec_used→AT_TUCH/CLAW** + **`mhitm_ad_cold` hero + `destroy_items`** (D-0837; 
 SSEX named (SEDUCE=0 `c_sa_no`); D-1795 shipped DISE/DREN/WEAP/lich/home-elem; AD_FIRE hero D-2005); 
-**`unstuck`→`docrt` on swallow exit** (D-0838; Punished placebc deferred); 
+**`unstuck`→`docrt` on swallow exit** (D-0838; Punished placebc deferred); **`xkilled` death `mon_leaving_level` unstuck+mtrapped** (D-2093; `js/uhitm.js` hero-kill only; mhitm/trap `mondead` + full take-off-map still named); 
 **`initedog` `set_malign`** (D-0839; seed0383 RNG FULL); 
 **`mpickstuff` `distant_name` + `hitmsg` consecutive `" again"`** (D-0840; Scr 146→148); 
 **gulpmu `flush_topl_more`+Hallu `vision_off` together** (D-0852 #996 Scr196→201; 

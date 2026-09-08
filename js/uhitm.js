@@ -677,6 +677,12 @@ export async function xkilled(mtmp, xkill_flags = XKILL_GIVEMSG) {
         if (game.context) game.context.stoned = false;
         return; // lifesaved
     }
+    // C mon.c mon_leaving_level :2702-2703 via m_detach :2760 / mondead :3175 /
+    // xkilled :3535 — death releases a holder before the rn2(6) treasure draw;
+    // JS mondead covers only relobj/unmap/newsym, so wire unstuck here.
+    // Dynamic import: uhitm<->mhitu cycle idiom (mon.js:1714); call-time use only.
+    mtmp.mtrapped = 0;
+    await (await import('./mhitu.js')).unstuck(mtmp);
     const mdat = mtmp.data;
     const mndx = mtmp.mnum ?? mdat?.mndx;
     // C: if (gs.stoned) { gs.stoned = FALSE; goto cleanup; }

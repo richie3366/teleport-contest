@@ -1,6 +1,6 @@
 {
- "commit": "c5939ae8",
- "at": "2026-09-08T06:07:37.128Z",
+ "commit": "48742ea2",
+ "at": "2026-09-08T06:15:03.285Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -8426,18 +8426,18 @@
   "scen-wish-Rogue-92210": {
    "src": "corpus",
    "passed": false,
-   "rngM": 5402,
+   "rngM": 7502,
    "rngT": 8457,
-   "scrM": 143,
+   "scrM": 147,
    "scrT": 241,
-   "kind": "rng",
-   "step": 120,
+   "kind": "screen",
+   "step": 146,
    "steps": 241,
-   "owner": "unstuck",
-   "loc": "mon.c:3465",
-   "jsOwner": "xkilled(uhitm.js:686)",
-   "cTopline": "You kill the lichen!",
-   "jsTopline": "You kill the lichen!",
+   "owner": "prisoner_speaks",
+   "loc": "quest.c:459",
+   "jsOwner": null,
+   "cTopline": "The prisoner speaks: \"I'm finally free!\"",
+   "jsTopline": "",
    "error": null
   },
   "scen-wish-Rogue-92221": {
