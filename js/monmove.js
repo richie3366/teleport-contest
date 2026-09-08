@@ -94,6 +94,7 @@ import {
     m_avoid_kicked_loc,
     mnexto,
     wakeup,
+    wake_msg,
     m_consume_obj,
     meatmetal,
     meatobj,
@@ -644,10 +645,10 @@ function mdistu(mtmp) {
 
 /**
  * C ref: monmove.c disturb — possibly awaken a sleeping monster.
- * Named omissions: wake_msg (canseemon sleep pline); Hallucination newsym
- * already gated at dochug caller.
+ * C: wake_msg(mtmp, !mpeaceful) before clearing msleeping (mon.c:4321);
+ * Hallucination newsym already gated at dochug caller.
  */
-function disturb(mtmp) {
+async function disturb(mtmp) {
     const mdat = mtmp.data;
     const mndx = mdat?.mndx ?? -1;
     const mlet = mdat?.mlet;
@@ -662,7 +663,8 @@ function disturb(mtmp) {
             || (mlet === 'S_DOG' || mlet === 'S_HUMAN')
             || (!rn2(7) && M_AP_TYPE(mtmp) !== M_AP_FURNITURE
                 && M_AP_TYPE(mtmp) !== M_AP_OBJECT))) {
-        // wake_msg deferred
+        // C monmove.c:355: wake_msg(mtmp, !mpeaceful) while still asleep
+        await wake_msg(mtmp, !mtmp.mpeaceful);
         mtmp.msleeping = 0;
         return 1;
     }
@@ -2162,7 +2164,7 @@ export async function dochug(mtmp) {
     }
 
     // C: there is a chance we will wake it
-    if (mtmp.msleeping && !disturb(mtmp)) {
+    if (mtmp.msleeping && !(await disturb(mtmp))) {
         if (game.u?.Hallucination) newsym(mtmp.mx, mtmp.my);
         return 0;
     }

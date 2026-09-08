@@ -2082,7 +2082,8 @@ feel_location); **`update_lastseentyp` on cansee/`magic_map_background`** (D-012
 **`cls`→`clear_glyph_buffer` blanks `disp_*`** (D-0389; detect More map); 
 **botl `Dlvl` via `depth()` + Mines `wall_glyph` CLR_BROWN** (D-0283) + 
 **Gehennom `wall_glyph` CLR_RED** (D-0801; knox deferred); 
-**`assign_graphics` ROGUESET → ASCII floors + botl `*:` gold + Rogue nocolor strip** (D-0805; 
+**`assign_graphics` ROGUESET → ASCII floors + botl `*:` gold + Rogue nocolor strip** (D-0805;
+D-2088 rogue obj symbols armor `]`/amulet `,`/food `:` via `oc_display_sym` on `currentgraphics` (gold `*` already `_goldsym`);
 RogueIBM/`load_symset` / full showsyms deferred); 
 **`tmp_at` DISP_FLASH/END + `nh_delay_output`** (D-0284); 
 **`tmp_at` DISP_BEAM/CHANGE + `zapdir_to_glyph` (DEC h/vbeam)** (D-0468; 
@@ -2593,7 +2594,7 @@ D-0886) + **`m_respond` D-1314** + courage `rn2(25)`** (D-0442; gazemu D-1328;
 fleeck→monflee — no core `rnd` between fleecks); 
 **`dochug` covetous `tactics` before fleeck** (D-0928 #1120; STRAT_NONE harass rn2/mnexto; 
 STRAT_HEAL mavenge-only — choose_stairs/rloc/healmon/FALLTHROUGH + `target_on` pursuit deferred); 
-**`disturb` `wake_msg` still deferred**; **D-0779 #893–#895:** siege quasit silent `m_move`→CLOUD 
+**`disturb` `wake_msg` live** (D-2088; mon.js `wake_msg` awaited pre-clear with `!mpeaceful`); **D-0779 #893–#895:** siege quasit silent `m_move`→CLOUD 
 then 2nd fleeck site-shifts bat `!rn2(3)` — C moves then skips 2nd fleeck (DIED/`mon_offmap`); 
 D-0781 gates live, CLOUD setter still open; 
 **`dochug` undirected `castmu` before `m_move`** (D-0641; 
@@ -2616,8 +2617,8 @@ PHASE FOUR `resist_conflict` for peaceful under Conflict** (D-0413);
 `m_seenres` gate in ranged_attk still deferred; **MOVED unstuck/`helpless` + `wormhitu` D-1798**); 
 **`m_move` cnt==0 `find_defensive(TRUE)`+healing `use_defensive`/`precheck`** (D-0610; 
 flee/dig/tele/create invent + blindness healing deferred); 
-**`dochug`→`disturb` sleeping wake (`rn2(7)` / Stealth/ettin/nymph|jabber|lep)** (D-0278; 
-`wake_msg` still deferred); **`dochug` `wipe_engr_at(mx,my,1)` before apparxy/fleeck** (D-0369; 
+**`dochug`→`disturb` sleeping wake (`rn2(7)` / Stealth/ettin/nymph|jabber|lep)** (D-0278;
+`wake_msg` live D-2088); **`dochug` `wipe_engr_at(mx,my,1)` before apparxy/fleeck** (D-0369; 
 mconf/mstun/flee-teleport/**m_respond D-1314**/courage between wipe and apparxy (gazemu named); 
 **`dochug` STRAT_ARRIVE `m_arrival` + MS_BRIBE mux-mismatch D-1798** (`demon_talk` paid-off / `cuss` `!rn2(5)` named)); 
 **`dochugw` occupation threat → `stop_occupation`** (D-0392; `onscary` stub); 
