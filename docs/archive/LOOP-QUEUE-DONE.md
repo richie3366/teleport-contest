@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `mkobj.c` hornoplenty — blocks 2/553 corpus sessions (first at step 146): C «Oops! The boulder drops to the floor!» vs JS «Oops! The a boulder drops to the floor!». Probe: `node scripts/hidden-proxy.mjs verify hornoplenty` (scen-wish-Ranger-92212, scen-wish-Samurai-91102). **Addressed:** D-2156
+- [x] `mkobj.c` hornoplenty — blocks 2/553 corpus sessions (first at step 146): C «Oops! The boulder drops to the floor!» vs JS «Oops! The a boulder drops to the floor!». Probe: `node scripts/hidden-proxy.mjs verify hornoplenty` (scen-wish-Ranger-92212, scen-wish-Samurai-91102). **Addressed:** D-2156 `bfebf129`
 
 
 - [x] `uhitm.c` mhitm_mgc_atk_negated — blocks 2/553 corpus sessions (first at step 84): C draws `rn2(10)=5` in mhitm_mgc_atk_negated, JS `rn2(6)=3` from xkilled(uhitm.js:683). Probe: `node scripts/hidden-proxy.mjs verify mhitm_mgc_atk_negated` (scen-poly-Monk-92164, scen-wish-Monk-92013). **Addressed:** D-2155 `017f6ec2`
@@ -734,7 +734,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 - [x] `mhitm.c` mattackm remaining arms — monster-vs-monster attack dispatch (TOP30 honourable mention, 297/175; never queued). **Addressed:** D-1919 `55ee2d4d`
 
 
-- [x] `trap.c` lava_effects post-boots-burn Wwalking re-read **Addressed:** D-1918 — `heroWwalking` snapshotted at entry (`js/trap.js:5047`); C re-reads the `Wwalking` macro (`youprop.h:260`) after the boots-burst, so WW-via-burnable-boots flips true→false mid-function. C falls+burns (likely death) / sinks (Fire case); JS burns-you+walks-on / skips sink. Fix in lava_effects alone (slot clears synchronously via deconfer; flats never written): live re-read at the three post-boots points. Falsifier: WW boots, no Fire, lava step → fall path. Source: reviews/loop-unattended/883-05c03076-lava-effects-wwalking.md
+- [x] `trap.c` lava_effects post-boots-burn Wwalking re-read **Addressed:** D-1918 `4a49397f` — `heroWwalking` snapshotted at entry (`js/trap.js:5047`); C re-reads the `Wwalking` macro (`youprop.h:260`) after the boots-burst, so WW-via-burnable-boots flips true→false mid-function. C falls+burns (likely death) / sinks (Fire case); JS burns-you+walks-on / skips sink. Fix in lava_effects alone (slot clears synchronously via deconfer; flats never written): live re-read at the three post-boots points. Falsifier: WW boots, no Fire, lava step → fall path. Source: reviews/loop-unattended/883-05c03076-lava-effects-wwalking.md
 
 
 - [x] `worn.c` mon_break_armor — absent, 23 messages (TOP30 honourable mention; no archive row). **Addressed:** D-1917 `29b2c5c5`

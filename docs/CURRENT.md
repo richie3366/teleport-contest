@@ -92,7 +92,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** - [ ] `mkobj.c` hornoplenty — blocks 2/553 corpus sessions (first at step 146): C «Oops! The boulder drops to the floor!» vs JS «Oops! The a boulder drops to the floor!». Probe: `node scripts/hidden-proxy.mjs verify hornoplenty` (scen-wish-Ranger-92212, scen-wish-Samurai-91102).
+**Next cluster:** - [ ] `uhitm.c` mhitm_ad_famn — blocks 1/553 corpus sessions (first at step 140): C «You hit Famine. Famine reaches out, and your body shrivels.-» vs JS «You hit Famine. Famine reaches out, and your body shrivels.». Probe: `node scripts/hidden-proxy.mjs verify mhitm_ad_famn` (scen-wish-Tourist-92067).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2156 (index).**
 <!-- recent:begin -->
