@@ -18,7 +18,7 @@ import {
     M_SEEN_SLEEP, STUNNED, TELEPORT_CONTROL,
     REFLECTING, A_CHAOTIC, LARGEST_INT,
     M_AP_NOTHING, M_AP_OBJECT, WORN_HELMET, TELEDS_ALLOW_DRAG,
-    something, Something, u_at, ERODE_RUST,
+    something, Something, u_at, ERODE_RUST, ERODE_CORRODE,
     SICK_ALL, SICK_NONVOMITABLE, SICK_RES,
 } from './const.js';
 import { thrwmu, spitmu, breamu } from './mthrowu.js';
@@ -117,6 +117,7 @@ const AD_PEST = 38; /* for Pestilence only — monattk.h */
 const AD_WERE = 29; /* confers lycanthropy — monattk.h */
 const AD_ENCH = 41;
 const AD_RUST = 24; /* rusts armour (Rust Monster) — monattk.h */
+const AD_CORR = 42; /* corrode armor (black pudding) — monattk.h */
 
 const LOW_BOOTS = objectNames.indexOf('LOW_BOOTS');
 const IRON_SHOES = objectNames.indexOf('IRON_SHOES');
@@ -2277,7 +2278,7 @@ async function mhitm_ad_drli_u(mtmp, mattk, mhm) {
  * `:2299–2316`. hitmsg always; cancelled → return; iron-golem hero
  * (completelyrusts, mondata.h:227) "rust!" + rehumanize; else
  * erode_armor(youmonst, ERODE_RUST). Base hitmu d() is kept (unlike
- * default zero). CORR/DCAY mhitu arms still deferred.
+ * default zero). DCAY mhitu arm still deferred.
  */
 async function mhitm_ad_rust_u(mtmp, mattk, mhm) {
     void mhm;
@@ -2293,6 +2294,22 @@ async function mhitm_ad_rust_u(mtmp, mattk, mhm) {
         return;
     }
     await erode_armor(game.youmonst, ERODE_RUST);
+}
+
+/**
+ * C ref: uhitm.c mhitm_ad_corr `:2338–2360` — mhitu (monster→you) arm
+ * `:2346–2351`. hitmsg always; cancelled → return; else
+ * erode_armor(youmonst, ERODE_CORRODE). Base hitmu d() is kept (unlike
+ * the default zero). The uhitm/mhitm arms (`:2342–2345`/`:2352–2359`)
+ * and the DCAY mhitu arm stay named in the map.
+ */
+async function mhitm_ad_corr_u(mtmp, mattk, mhm) {
+    void mhm;
+    await hitmsg(mtmp, mattk);
+    if (mtmp.mcan) {
+        return;
+    }
+    await erode_armor(game.youmonst, ERODE_CORRODE);
 }
 
 /**
@@ -2523,7 +2540,7 @@ async function mhitm_ad_were_u(mtmp, mattk, mhm) {
  * C ref: uhitm.c mhitm_adtyping — mhitu (monster→you) subset.
  * PHYS + ELEC + COLD + FIRE + TLPT + DRST/DRDX/DRCO + SITM/SEDU + SSEX (D-1750)
  * + BLND + STON + LEGS + POLY (D-1004) + DRIN (D-1329) + WRAP (D-1331) + SLEE
- * + DRLI + RUST + STCK + PLYS + FAMN + SLOW + WERE + HEAL + PEST;
+ * + DRLI + RUST + CORR + STCK + PLYS + FAMN + SLOW + WERE + HEAL + PEST;
  * other adtyps zero damage.
  */
 async function mhitm_adtyping_u(mtmp, mattk, mhm) {
@@ -2581,6 +2598,9 @@ async function mhitm_adtyping_u(mtmp, mattk, mhm) {
         break;
     case AD_RUST:
         await mhitm_ad_rust_u(mtmp, mattk, mhm);
+        break;
+    case AD_CORR:
+        await mhitm_ad_corr_u(mtmp, mattk, mhm);
         break;
     case AD_STCK:
         await mhitm_ad_stck_u(mtmp, mattk, mhm);

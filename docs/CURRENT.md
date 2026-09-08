@@ -87,10 +87,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `objnam.c` xname_flags — blocks 2/553 corpus sessions (first at step 38): C «Hachi drops a scroll labeled XIXAXA XOXAXA XUXAXA. You yawn.» vs JS «Hachi drops a scroll labeled XIXAXA XOXAXA XUXAXA.--More--». Probe: `node scripts/hidden-proxy.mjs verify xname_flags` (scen-intrinsic-Samurai-92017, scen-wish-Priest-92035).
+**Next cluster:** `uhitm.c` erode_armor — blocks 2/553 corpus sessions (first at step 74): C draws `rn2(5)=1` in erode_armor, JS `rn2(3)=1` from mhitm_knockback(mhitm.js:2015). Probe: `node scripts/hidden-proxy.mjs verify erode_armor` (scen-genesis-Knight-92185, scen-genesis-Tourist-92044).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2070 (index).**
+**Keep D-0845…D-2071 (index).**
 <!-- recent:begin -->
+**D-2071** `uhitm.c:2338–2360` `mhitm_ad_corr`, mhitu arm `:2346–2351` (`hitmsg`; `magr->mcan → retur — `js/mhitu.js` — file-local `const AD_CORR = 42` (the file's local-AD_* idiom, cf `AD_RUST`); `ERODE_CORRODE` joins the existing `./const.js` import (no new module edge); new `mhitm_ad_corr_u` mirroring `mhitm_ad_rust_u` 
 **D-2070** `timeout.c:267–274` `sleep_dialogue` (`i = HSleepy & TIMEOUT; i == 4 → You("yawn.")`) call — `js/wizcmds.js` — `PROP_FLAT += [SLEEPY]: 'HSleepy'` (youprop.h:141 cite); `js/timeout.js` — `TIMEOUT_FLAT += [SLEEPY]: 'HSleepy'` so the generic `--` keeps the flat synced, file-local `sleep_dialogue()` plus the `:639–6
 **D-2069** `polyself.c:1777–1874` `dohide` (ustuck/utrap refuse + reveal; eel-out-of-water; hides_und — `js/polyself.js` — exported async `dohide()` (full C branch order incl. nested You_cant reason ternary; You_cant/There/pline_The composed via `pline` per the zap.js `You` idiom; floor pile via `objects_at` nexthere + `mo
 **D-2068** `bones.c:388–399` `remove_mon_from_bones` (iswiz / Medusa / MS_NEMESIS / MS_LEADER / `is_V — `js/end.js` — file-local `fixuporacle` (Oracle-level gate, `mpeaceful=1`, DELPHI `roomno-ROOMOFFSET` keep, else centre `enexto`+`await rloc_to` and restore `rtype`, C `:307–363`) + file-local `remove_mon_from_bones` (exa
@@ -98,11 +99,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2066** `monst.h:69–73` — `js/const.js` — `M_AP_TYPE` returns `((mon?.m_ap_type ?? 0) & M_AP_TYPMASK)` with the monst.h:73 citation; `M_AP_TYPMASK` is already exported from the same file (call-time reference, no TDZ, no new import/edge).
 **D-2065** `pline.c` `You_hear` `:436–452` — `js/hack.js` — `You_hear` ports the Unaware arm verbatim via `youprop.h:399` (`(game.multi|0)<0 && (unconscious() || is_fainted())`, importing `teleport.js` `unconscious` — hoisted-function, cycle-safe per `imports.mjs -
 **D-2064** the queue owner names where C printed; the writer is the caller — `js/zap.js` — after the self-zap `losehp`, mirror the `backfire` arm: `if (game._losehp_needs_done || game.program_state?.gameover) { await finish_losehp_done(); if (game.program_state?.gameover) return 1; }`.
-**D-2063** `polyself.c` polyself `:596–615` (!polyok message arm: `pmname(flags.female)` then `the_un — `js/polyself.js` — article arm verbatim (`the_unique_pm`/`the`/`type_is_pname` + your_race/G_UNIQ guard); `controllable_poly` const (Stunned shape mirrors `hack.js` Stunned_prop `(u.HStun|0) || u.Stunned`); `vampyr_goto`
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2070; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2071; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

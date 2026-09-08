@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `objnam.c` xname_flags — blocks 2/553 corpus sessions (first at step 38): C «Hachi drops a scroll labeled XIXAXA XOXAXA XUXAXA. You yawn.» vs JS «Hachi drops a scroll labeled XIXAXA XOXAXA XUXAXA.--More--». Probe: `node scripts/hidden-proxy.mjs verify xname_flags` (scen-intrinsic-Samurai-92017, scen-wish-Priest-92035). **Addressed:** D-2070
+- [x] `uhitm.c` erode_armor — blocks 2/553 corpus sessions (first at step 74): C draws `rn2(5)=1` in erode_armor, JS `rn2(3)=1` from mhitm_knockback(mhitm.js:2015). Probe: `node scripts/hidden-proxy.mjs verify erode_armor` (scen-genesis-Knight-92185, scen-genesis-Tourist-92044). **Addressed:** D-2071
+
+
+- [x] `objnam.c` xname_flags — blocks 2/553 corpus sessions (first at step 38): C «Hachi drops a scroll labeled XIXAXA XOXAXA XUXAXA. You yawn.» vs JS «Hachi drops a scroll labeled XIXAXA XOXAXA XUXAXA.--More--». Probe: `node scripts/hidden-proxy.mjs verify xname_flags` (scen-intrinsic-Samurai-92017, scen-wish-Priest-92035). **Addressed:** D-2070 `55a129a8`
 
 
 - [x] `polyself.c` dohide — moves 1/2 m_move-blocked sessions (scen-poly-Wizard-92076 step 94): C «You are now hiding on the ceiling.» (dohide sets u.uundetected=1 + insight.c:2022 youhiding(FALSE,0)) vs JS «Any special ability you may have is purely reflexive.» (named omission js/polyself.js:1527/1562; D-1898 shipped the other five #monster arms, dohide never ported). uundetected forces m_move appr=0 draw-free (C chcnt ladder vs JS track checks). Split from parked `monmove.c` m_move 2026-09-08 (see Parked). Probe: port dohide + youhiding + `node scripts/hidden-proxy.mjs verify m_move` (Wizard-92076 must PASS or move to a later owner; Caveman-92202 stays — parked cnt/mtrack writer). **Addressed:** D-2069 `fd96761c`
