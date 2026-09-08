@@ -94,7 +94,7 @@ import {
     test_move_run_blocked_by_boulder, test_move_boulder_is_blocking,
     test_move_hero_passes_bars, test_move_hero_chews_bars, still_chewing,
     could_move_onto_boulder, Passes_walls_prop,
-    end_running, carrying,
+    end_running, carrying, runmode_delay_output,
     water_turbulence, move_out_of_bounds, avoid_running_into_trap_or_liquid,
     domove_fight_ironbars, domove_fight_web,
 } from './hack.js';
@@ -1680,6 +1680,8 @@ export async function continue_run() {
         return false;
     }
     lookaround();
+    // C allmain.c:517 — delay output before testing lookaround's clear
+    await runmode_delay_output();
     if (!(game.multi > 0) || !game.context.run) {
         game.context.move = 0;
         return false;
@@ -3524,6 +3526,9 @@ async function domove(dx, dy) {
         game.multi_reason = 'dragging an iron ball';
         game.nomovemsg = '';
     }
+
+    // C hack.c:2990 — domove's last statement
+    await runmode_delay_output();
     } finally {
         // C ref: hack.c domove — smudge only when RUSH|WALK succeeded this step;
         // continue_run steps have attempting cleared → no rnd(5) (D-0359)

@@ -1444,6 +1444,11 @@ WEB/PIT/LAVA/INFLOOR partial; steed/Sting/`climb_pit`/buried-ball deferred);
 **`domove` clears `kickedloc` unconditionally at end** (D-2119; C `hack.c:2708` — 
 was `did_step`-gated + fight_empty-arm clears, so a bumped step left the kicked 
 square stale and pets kept avoiding it past the kick turn); 
+**`runmode_delay_output` movement-delay frames** (D-2143; C `hack.c:2995–3018` — 
+`(context.run||multi) && runmode!=RUN_TPORT` gate, leap every 7th `moves`, 
+`time_botl` re-arm, `curs_on_u` + `nh_delay_output` (+4 crawl); live in 
+`js/hack.js`, wired at all 4 C sites: `domove` end `js/cmd.js`, moveloop 
+`multi<0` + post-occupation `js/allmain.js`, `continue_run` `js/cmd.js`); 
 **`losehp` !Upolyd / Upolyd mh subtract** (D-0035); 
 **fatal `losehp` → `_losehp_needs_done` + noreturn contract via `finish_losehp_done`** (D-0255); **touch_artifact blast (artifact.c:958) + poisoned HP arm (attrib.c:391) drain fatal losehp inline** (D-2051; wail-then-`finish_losehp_done` + return before evade pline / trailing done); 
 **fatal `losehp` leaves negative `uhp` (no clamp); `done` zeros after `bot`** (D-0320); 

@@ -32,11 +32,12 @@ import {
     LEVITATION, FLYING, BLINDED, FOOT, SWIMMING, VIBRATING_SQUARE,
     BRK_BY_HERO, BRK_FROM_INV, BRK_MELEE, BRK_KNOWN2BREAK, BRK_KNOWN2NOTBREAK,
     ARTICLE_NONE, ARTICLE_A, ARTICLE_THE, ARTICLE_YOUR, SUPPRESS_SADDLE,
-    has_mgivenname,
+    has_mgivenname, RUN_TPORT, RUN_LEAP, RUN_STEP, RUN_CRAWL,
 } from './const.js';
 import {
     pline, Norep, newsym, canspotmon, canseemon, map_invisible, You_feel,
-    set_msg_xy, feel_location, map_object, verbalize,
+    set_msg_xy, feel_location, map_object, verbalize, curs_on_u,
+    nh_delay_output,
 } from './display.js';
 import { gethungry, morehungry, is_fainted } from './eat.js';
 import { unconscious } from './teleport.js';
@@ -1042,6 +1043,40 @@ export async function stop_occupation() {
     game._repeat_search = false;
     // C: cmdq_clear(CQ_CANNED) — avoid importing cmd.js
     if (game._cmdq_canned) game._cmdq_canned = [];
+}
+
+// src/hack.c:2995 runmode_delay_output()
+export async function runmode_delay_output() {
+    // C: gate on (context.run || multi) && runmode != RUN_TPORT.
+    // game.flags.runmode is never populated by an option setter; the raw
+    // string ('run' default, js/options.js) is normalized here with C's
+    // prefix table (options.c optfn_runmode: op is a prefix of the name).
+    const raw = String(game.flags?.runmode ?? 'run').toLowerCase();
+    const runmode = !raw ? RUN_LEAP
+        : 'teleport'.startsWith(raw) ? RUN_TPORT
+        : 'run'.startsWith(raw) ? RUN_LEAP
+        : 'walk'.startsWith(raw) ? RUN_STEP
+        : 'crawl'.startsWith(raw) ? RUN_CRAWL
+        : RUN_LEAP;
+    if (!(game.context?.run || (game.multi | 0)) || runmode === RUN_TPORT) return;
+    // C: leap (RUN_LEAP) updates every 7th turn-counter step ("ought to be
+    // to start of running" — port the turn-counter version verbatim);
+    // walk and crawl update after every step.
+    if (runmode !== RUN_LEAP || !((game.moves | 0) % 7)) {
+        // C: moveloop() suppresses time_botl when running — re-arm it.
+        if (game.flags?.time) {
+            game.flags.time_botl = true;
+            if (game.disp) game.disp.time_botl = true;
+        }
+        await curs_on_u();
+        await nh_delay_output();
+        if (runmode === RUN_CRAWL) {
+            await nh_delay_output();
+            await nh_delay_output();
+            await nh_delay_output();
+            await nh_delay_output();
+        }
+    }
 }
 
 /**
