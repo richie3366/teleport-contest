@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `wield.c` can_twoweapon — blocks 2/553 corpus sessions (first at step 43): C «Your battle-axe isn't one-handed.» vs JS «battle-axe isn't one-handed.». Probe: `node scripts/hidden-proxy.mjs verify can_twoweapon` (scen-kit-Barbarian-92001, scen-kit-Samurai-92145). **Addressed:** D-2076
+- [x] `do_wear.c` armoroff — blocks 2/553 corpus sessions (first at step 49): C «You finish taking off your helm.» vs JS «You finish taking off your helmet.». Probe: `node scripts/hidden-proxy.mjs verify armoroff` (scen-kit-Knight-92106, scen-normal-Knight-92215). **Addressed:** D-2077
+
+
+- [x] `wield.c` can_twoweapon — blocks 2/553 corpus sessions (first at step 43): C «Your battle-axe isn't one-handed.» vs JS «battle-axe isn't one-handed.». Probe: `node scripts/hidden-proxy.mjs verify can_twoweapon` (scen-kit-Barbarian-92001, scen-kit-Samurai-92145). **Addressed:** D-2076 `3a388782`
 
 
 - [x] `uhitm.c` mhitm_ad_stun — blocks 2/553 corpus sessions (first at step 67): C draws `rn2(4)=2` in mhitm_ad_stun, JS `rn2(3)=2` from mhitm_knockback(mhitm.js:2014). Probe: `node scripts/hidden-proxy.mjs verify mhitm_ad_stun` (scen-genesis-Archeologist-91127, scen-genesis-Barbarian-91118). **Addressed:** D-2075 `4e4cce99`

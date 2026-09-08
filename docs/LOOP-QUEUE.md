@@ -59,7 +59,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `do_wear.c` armoroff — blocks 2/553 corpus sessions (first at step 49): C «You finish taking off your helm.» vs JS «You finish taking off your helmet.». Probe: `node scripts/hidden-proxy.mjs verify armoroff` (scen-kit-Knight-92106, scen-normal-Knight-92215).
 - [ ] `spell.c` spelleffects_check — blocks 2/553 corpus sessions (first at step 22): C «You don't have enough energy to cast that spell yet.» vs JS «You don't have enough energy to cast that spell.». Probe: `node scripts/hidden-proxy.mjs verify spelleffects_check` (scen-kit-Priest-92122, scen-normal-Priest-92113).
 - [ ] `polyself.c` rehumanize — blocks 2/553 corpus sessions (first at step 90): C «You hear some noises. You return to human form! You can see » vs JS «You hear some noises. You return to human form!--More--». Probe: `node scripts/hidden-proxy.mjs verify rehumanize` (scen-poly-Archeologist-92119, scen-poly-Wizard-92076).
 - [ ] `read.c` doread — blocks 2/553 corpus sessions (first at step 27): C «As you read the scroll, it disappears. Nothing interesting h» vs JS «That scroll is not implemented yet.». Probe: `node scripts/hidden-proxy.mjs verify doread` (scen-wish-Knight-92105, scen-wish-Rogue-92019).

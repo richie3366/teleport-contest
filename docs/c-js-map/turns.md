@@ -1006,7 +1006,7 @@ amulet/eyewear put-on; GUARDING `makeknown`+`find_ac`** (D-0067/D-0810) +
 **`choose_ring_hand` → `yn_function(…, rightleftchars, '\0')` `[rl]`** (D-0421) + 
 **`accessory_or_armor_on` ring `nolimbs`→cannot-stick ECMD_OK** (D-0928 #1104; 
 poly/`body_part` wording; **query_menu `rightleftchars` D-1728**) + 
-**`armoroff` `oc_delay`/`nomul`/`afternmv`/`suit_simple_name` mail** (D-0259) + 
+**`armoroff` `oc_delay`/`nomul`/`afternmv`/`suit_simple_name` mail** (D-0259) + **delay-arm `what` per-category simple names — shield silver/smooth, helm hard→helm/hat, gloves gauntlets, boots shoes, cloak robe/wrapping/smock, suit dragon mail/scales** (D-2077; default unknown-armcat 'armor' pre-existing) + 
 **delay-0 no `find_ac` (≡C; stale botl until allmain — D-0883)**; 
 **`destroy_arm`/`some_armor`/`obj_erode_type`** (D-0491); 
 **`find_ac` in `u_init.js` — ARM_BONUS erosion + 
@@ -1044,7 +1044,7 @@ cloak/suit extra; `Amulet_off` ESP/`RESTFUL_SLEEP`/`GUARDING`; drown/strangle/fl
 `query_category(WORN|ALL|UNPAID|BUCX)` then `query_objlist(SIGNAL_NOMENU|USE_INVLET|INVORDER_SORT)` 
 PICK_ANY `is_worn`/`is_worn_by_type`; COMBINATION `ggetobj` combo; TRADITIONAL `'m'` retry -2/-3; 
 callees `js/pickup.js`; `obj_to_glyph` display RNG / INCLUDE_HERO / ParanoidAutoAll named); 
-full cloak/helm simple-name variants; **other `*_on` still call `find_ac` (C often does not — 
+full cloak/helm simple-name variants now live in the armoroff delay arm (D-2077; `armor_simple_name` already had them); **other `*_on` still call `find_ac` (C often does not —
 named)** + **`Armor_gone` takeoff.mask clear + `setnotworn` + cancelled_don reset + gold-DSM arti_light `end_burn`/`"stop shining"` + `dragon_armor_handling(otmp,FALSE,FALSE)`** (D-1942; `Tobjnam`/`setnotworn` on existing edges, `artifact_light`/`end_burn` from `timeout.js` imports-SAFE) + **`any_worn_armor_ok`/`count_worn_armor` blessed-destroy-armor getobj pair** (D-1942; polyself `break_armor` suit arms + read.c gets_choice arm stay named-unwired)
 
 ### `src/objnam.c` `readobjnam`

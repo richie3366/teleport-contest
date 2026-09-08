@@ -87,10 +87,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `wield.c` can_twoweapon — blocks 2/553 corpus sessions (first at step 43): C «Your battle-axe isn't one-handed.» vs JS «battle-axe isn't one-handed.». Probe: `node scripts/hidden-proxy.mjs verify can_twoweapon` (scen-kit-Barbarian-92001, scen-kit-Samurai-92145).
+**Next cluster:** `do_wear.c` armoroff — blocks 2/553 corpus sessions (first at step 49): C «You finish taking off your helm.» vs JS «You finish taking off your helmet.». Probe: `node scripts/hidden-proxy.mjs verify armoroff` (scen-kit-Knight-92106, scen-normal-Knight-92215).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2076 (index).**
+**Keep D-0845…D-2077 (index).**
 <!-- recent:begin -->
+**D-2077** `do_wear.c:1920–2008` `armoroff` — `js/do_wear.js` — `armor_doff_simple_name` now dispatches exactly the C arms: suit→`suit_simple_name`, shield→`shield_simple_name` (local, silver/smooth), helm→`hard_helmet(otmp) ? 'helm' : 'hat'` (same idiom as `armor_s
 **D-2076** `wield.c:760–804` `can_twoweapon` — `js/wield.js` — both arms now print `${Yname2(otmp)}` (`Yname2` joins the existing `./objnam.js` import — same module edge as `xname`, no new cycle, no TDZ); suitability arm uses `is_plural(otmp)` for aren't/isn't-a whil
 **D-2075** `uhitm.c:4388–4422` `mhitm_ad_stun` — `js/mhitu.js` — new `mhitm_ad_stun_u` (`hitmsg` always; `!(mtmp.mcan|0) && !rn2(4)` → `make_stunned(((game.u?.HStun|0) & TIMEOUT) + (mhm.damage|0), true)` (the :3264 gaze-arm idiom) + `mhm.damage = Math.trunc((mhm.damage
 **D-2074** `uhitm.c:4570–4589` `mhitm_ad_samu` — `js/mhitm.js` — file-local `const AD_SAMU = 252` (monattk.h cite, file idiom) + export-list row; sync `mhitm_ad_samu` (mhitm arm: zero damage, no message); `mdamagem` `AD_SAMU` case (ad func → `mhitm_knockback` → `return
@@ -98,11 +99,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2072** `muse.c:2402` (`mquaffmsg` at `:292–302` uses `pline_mon`, not `pline`) + gain-level arm:  — `js/muse.js` — `mquaffmsg` vismon arm → `pline_mon` (C :297); rise arm → `pline_mon` + `ceiling(mtmp.mx,mtmp.my)` + `await trycall(otmp)`; skipmsg → `pline_mon` + `await trycall(otmp)`; uncursed → `pline_mon` + `if (!(aw
 **D-2071** `uhitm.c:2338–2360` `mhitm_ad_corr`, mhitu arm `:2346–2351` (`hitmsg`; `magr->mcan → retur — `js/mhitu.js` — file-local `const AD_CORR = 42` (the file's local-AD_* idiom, cf `AD_RUST`); `ERODE_CORRODE` joins the existing `./const.js` import (no new module edge); new `mhitm_ad_corr_u` mirroring `mhitm_ad_rust_u` 
 **D-2070** `timeout.c:267–274` `sleep_dialogue` (`i = HSleepy & TIMEOUT; i == 4 → You("yawn.")`) call — `js/wizcmds.js` — `PROP_FLAT += [SLEEPY]: 'HSleepy'` (youprop.h:141 cite); `js/timeout.js` — `TIMEOUT_FLAT += [SLEEPY]: 'HSleepy'` so the generic `--` keeps the flat synced, file-local `sleep_dialogue()` plus the `:639–6
-**D-2069** `polyself.c:1777–1874` `dohide` (ustuck/utrap refuse + reveal; eel-out-of-water; hides_und — `js/polyself.js` — exported async `dohide()` (full C branch order incl. nested You_cant reason ternary; You_cant/There/pline_The composed via `pline` per the zap.js `You` idiom; floor pile via `objects_at` nexthere + `mo
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2076; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2077; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
