@@ -15,6 +15,7 @@ Objective/score live in `CURRENT.md`.
 - **minliquid_core park (no js/):** Priest-91110@130 lifesave OK, rat-bite pair only then stop; eel unmoved, HP 68v69. Eel arm faithful; rat-bite arm is the writer.
 - **rndcurse STALE (parked 2026-09-08):** Valkyrie-92229 passes step 22; D-2151 moved it diseasemu@23 → slimed_to_death@37. JS rndcurse faithful (D-1087/1089). Do not re-pop; falsifier in Parked.
 - **mhitm_ad_famn STALE (parked 2026-09-08):** Tourist-92067 never blocks at @140 on a clean tree (live: do_statusline2@196 Hallu/Stun cond-order; both Famine arms live per D-2033, review 1003 ACCEPT). Do not re-pop; falsifier in Parked.
+- **regen_hp STALE (parked 2026-09-08):** Archeologist-92084 fully PASS at HEAD (3227/3227 RNG, 103/103 screens); symptom owner — true writer was the nurse mattacku/hitmu counterattack, already landed. JS regen_hp faithful (D-0035/D-1003). Do not re-pop; falsifier in Parked.
 
 ## Don't re-check (≤15)
 
