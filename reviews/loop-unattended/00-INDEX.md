@@ -1113,3 +1113,8 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1100-1bb96408-hold-another-object-refuse-arm.md](./1100-1bb96408-hold-another-object-refuse-arm.md) | `1bb96408` | D-2134 hold_another_object refuse arm silent | **ACCEPT** |
 | [1101-55848b87-permonst-mr-extractor.md](./1101-55848b87-permonst-mr-extractor.md) | `55848b87` | D-2135 LVL permonst.mr extractor + mons() | **ACCEPT** |
 | [1102-51283e0c-hellfill-border-origin-shift.md](./1102-51283e0c-hellfill-border-origin-shift.md) | `51283e0c` | D-2136 hellfill hells[7] border origin shift | **ACCEPT** |
+| [1103-b9b2fdef-cursetxt-frustrated-cast.md](./1103-b9b2fdef-cursetxt-frustrated-cast.md) | `b9b2fdef` | D-2137 cursetxt frustrated-cast feedback | **ACCEPT** |
+| [1104-1602fc13-set-uasmon-teleport-fromform.md](./1104-1602fc13-set-uasmon-teleport-fromform.md) | `1602fc13` | D-2138 set_uasmon TELEPORT FROMFORM | **ACCEPT** |
+| [1105-eb7ec1cb-throw-obj-quivered-gold.md](./1105-eb7ec1cb-throw-obj-quivered-gold.md) | `eb7ec1cb` | D-2139 throw_obj quivered-gold arm | **ACCEPT** |
+| [1106-e13647e8-castmu-fire-cold-magm.md](./1106-e13647e8-castmu-fire-cold-magm.md) | `e13647e8` | D-2140 castmu FIRE/COLD/MAGM switch | **ACCEPT** |
+| [1107-79844c1c-hold-another-object-dropy.md](./1107-79844c1c-hold-another-object-dropy.md) | `79844c1c` | D-2141 hold_another_object refuse dropy | **ACCEPT** |
