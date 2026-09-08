@@ -1,6 +1,6 @@
 {
- "commit": "18ebc0a6",
- "at": "2026-09-08T17:50:07.644Z",
+ "commit": "fc5f4794",
+ "at": "2026-09-08T18:14:00.272Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -4985,19 +4985,19 @@
   },
   "scen-genesis-Rogue-92214": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 2479,
+   "passed": true,
+   "rngM": 2492,
    "rngT": 2492,
-   "scrM": 104,
+   "scrM": 105,
    "scrT": 105,
-   "kind": "rng",
-   "step": 104,
+   "kind": null,
+   "step": null,
    "steps": 105,
-   "owner": "artifact_hit",
-   "loc": "artifact.c:1618",
-   "jsOwner": "mhitm_knockback(mhitm.js:2015)",
-   "cTopline": "Vorpal Blade beheads the marilith! You kill the marilith!",
-   "jsTopline": "You hit the marilith! The marilith hits! The marilith hits again!--More--",
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-genesis-Samurai-92080": {

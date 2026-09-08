@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] NEXT (owner-scheduled 2026-09-08) `hack.c` runmode_delay_output — SUPPLEMENTAL Anim only, blocks 0 sessions: all callees live, zero RNG/state surface, feeds the parked botl-gate measurement. Port the C movement-delay display (`hack.c:2995`) + hook into domove/moveloop/continue_run at the 4 C call sites. Full spec: `docs/proposals/2026-09-08-runmode-animation-frames.md`. Baseline 123/1483; bellwether seed0014-dequa-fountain-explore 3/995. Verify: runner animFrames totals rise with no session falling, 44/44 + 11,405 screens + RNG unchanged. **Addressed:** D-2143
+- [x] `artifact.c` artifact_hit — blocks 1/553 corpus sessions (first at step 104): C draws `rn2(2)=0` in artifact_hit, JS `rn2(3)=2` from mhitm_knockback(mhitm.js:2015). Probe: `node scripts/hidden-proxy.mjs verify artifact_hit` (scen-genesis-Rogue-92214). **Addressed:** D-2144
+
+
+- [x] NEXT (owner-scheduled 2026-09-08) `hack.c` runmode_delay_output — SUPPLEMENTAL Anim only, blocks 0 sessions: all callees live, zero RNG/state surface, feeds the parked botl-gate measurement. Port the C movement-delay display (`hack.c:2995`) + hook into domove/moveloop/continue_run at the 4 C call sites. Full spec: `docs/proposals/2026-09-08-runmode-animation-frames.md`. Baseline 123/1483; bellwether seed0014-dequa-fountain-explore 3/995. Verify: runner animFrames totals rise with no session falling, 44/44 + 11,405 screens + RNG unchanged. **Addressed:** D-2143 `fc5f4794`
 
 
 - [x] `uhitm.c` passive — blocks 1/553 corpus sessions (first at step 107): C draws `rn2(3)=1` in passive, JS `d(1,7)=5` from damageum(uhitm.js:1467). Probe: `node scripts/hidden-proxy.mjs verify passive` (scen-poly-Archeologist-92226). **Addressed:** D-2142 `d850333f`

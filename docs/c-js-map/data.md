@@ -107,8 +107,12 @@ Fire/Cold/Elec/Drst/Drli/Ston resists (D-1862; hero props + mon `resists_*`;
 **`spec_dbon`/`artifact_hit`/`attacks`/`is_art`** (D-0613;
 Grayswandir `max(tmp,1)` double + FIRE/COLD/ELEC `rn2` gates;
 D-1873 preamble + FIRE/COLD/ELEC/MAGM realizes_damage plines + ELEC
-wake_nearto + Slimed burn_away, async callers; destroy/ignite bodies,
-Mb_hit, SPFX_BEHEAD/DRLI still deferred); 
+wake_nearto + Slimed burn_away, async callers; **SPFX_BEHEAD Tsurugi+Vorpal
+both defend arms** (D-2144; ROLL_FROM `rn2(2)` always drawn, FATAL 200,
+`observe_object`; `Monnam`/`observe_object`/`bigmonst`/`has_head`/
+`noncorporeal`/`amorphous` existing edges, `mbodypart`/`body_part`
+`polyself.js` edge, `NECK` const edge); destroy/ignite bodies,
+Mb_hit, SPFX_DRLI still deferred); 
 **`artiname` / `discover_artifact` / `artidisco[]`** (D-1107; save/rest artidisco named); 
 **`init_artifacts`/`hack_artifacts`** (D-1201; C `artifact.c:109–116`/`85–106`; 
 `allmain.c:792` after `init_dungeons` before `u_init_misc`; 
@@ -159,7 +163,7 @@ callees `read.c` `seffect_taming`/`charge_ok`/`recharge`, `mon.c` `migrate_mon`,
 **canned CMDQ_INT D-1551** (C `invent.c` `getobj` need_more_cq `:1778–1830` + `cmd.c` `cmdq_add_int`; live `js/invent.js` `getobj_from_cmdq`/`cmdq_add_int`; ALLOWCNT clones + apply/grease/jelly/rub KEY; INT then KEY splits, !ALLOWCNT/second INT clears canned; eat/read/zap/tin NOFLAGS clones + pickinv `&ctmp` named);
 UNTRAP callee door force D-1495 (floor disarm_*/box named); 
 other wield intrinsics (**`touch_artifact` hero blast + `bane_applies` D-2010**); `defended`; DFLAG1; 
-hero/mon elemental resists; destroy_items/ignite; Mb_hit; SPFX_BEHEAD/DRLI; wake_nearto; 
+hero/mon elemental resists; destroy_items/ignite; Mb_hit; SPFX_DRLI (SPFX_BEHEAD live D-2144); wake_nearto; 
 **`found_artifact`/`find_artifact` D-1935** (C `artifact.c:409–417` / `:422–459`; 
 `if (a && !found)` → `found_artifact` + where ternary (FLOOR→`inside_shop` shop/floor, 
 CONTAINED, MINVENT, catchall "") + `livelog_printf(LL_ARTIFACT, "found %s%s")`; live 
@@ -173,7 +177,7 @@ identity gate + spfx bit in C short-circuit order; live `js/artifact.js`;
 `confers_luck` SPFX_LUCK + `sit.c` `rndcurse` SPFX_INTEL + `detect.c`
 `dosearch0` SPFX_SEARCH fund routed here; SPFX_SPEAK/SEEK/DEFN/DRLI/BEHEAD/
 PROTECT header bits completed from `artifact.h:14–43`; `artifact_hit`
-BEHEAD/DRLI arms still deferred there)
+DRLI arm still deferred there (BEHEAD live D-2144)
 
 ### `src/mondata.c` `name_to_monplus` / `monstseesu`
 

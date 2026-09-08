@@ -10,7 +10,7 @@ import {
 } from './generated/artifacts_data.js';
 import { objectNames, NUM_OBJECTS, objectDescrs, objects } from './objects.js';
 import { obj_shuffle_range } from './o_init.js';
-import { monsterNames, NON_PM, M2_UNDEAD, is_demon, is_dprince, is_dlord, resists_ston, hates_silver } from './monsters.js';
+import { monsterNames, NON_PM, M2_UNDEAD, is_demon, is_dprince, is_dlord, resists_ston, hates_silver, bigmonst, has_head, noncorporeal, amorphous } from './monsters.js';
 import { Fire_resistance, Cold_resistance, Shock_resistance, Drain_resistance, resists_fire, resists_cold, resists_elec, resists_poison, resists_drli } from './zap.js';
 import {
     A_NONE,
@@ -85,6 +85,7 @@ import {
     LL_ARTIFACT,
     KILLED_BY,
     LOW_PM,
+    NECK,
 } from './const.js';
 import { rn2, rnd, d, rnz } from './rng.js';
 import { nhgetch } from './input.js';
@@ -93,10 +94,10 @@ import {
     set_sting_effects, glyph_at, glyph_is_trap,
 } from './display.js';
 import { cansee } from './vision.js';
-import { mon_nam, s_suffix } from './do_name.js';
+import { mon_nam, s_suffix, Monnam } from './do_name.js';
 import { wake_nearto } from './mon.js';
 import { burn_away_slime } from './timeout.js';
-import { compactify_invlets, update_inventory, getobj_take_count, getobj_apply_count, getobj_from_cmdq, getobj_display_pickinv, getobj } from './invent.js';
+import { compactify_invlets, update_inventory, getobj_take_count, getobj_apply_count, getobj_from_cmdq, getobj_display_pickinv, getobj, observe_object } from './invent.js';
 import { xname, the, vtense, cxname, otense, set_undiscovered_artifact, set_find_artifact, simple_typename, Tobjnam } from './objnam.js';
 import { recalc_telepat_range } from './do_wear.js';
 import { t_at } from './trap.js';
@@ -117,6 +118,10 @@ const SCR_TAMING = objectNames.indexOf('SCR_TAMING');
 const MS_NEMESIS = 37;
 /** C monsters.h PM_WATER_ELEMENTAL — mdef->data identity for the FIRE vaporize arm. */
 const PM_WATER_ELEMENTAL = monsterNames.indexOf('PM_WATER_ELEMENTAL');
+/** C artifact.c:1596 — mdef->data identity for the Vorpal Jabberwock arm. */
+const PM_JABBERWOCK = monsterNames.indexOf('PM_JABBERWOCK');
+/** C artifact.c:63 — overkill damage forcing death through negative AC. */
+const FATAL_DAMAGE_MODIFIER = 200;
 
 export { NROFARTIFACTS };
 import {
@@ -127,9 +132,12 @@ import {
     ART_STING,
     ART_GRAYSWANDIR,
     ART_MASTER_KEY_OF_THIEVERY,
+    ART_VORPAL_BLADE,
+    ART_TSURUGI_OF_MURAMASA,
 } from './generated/artifacts_data.js';
 import { PM_KNIGHT, PM_ROGUE } from './generated/monsters_data.js';
 import { aligns, align_str } from './roles.js';
+import { mbodypart, body_part } from './polyself.js';
 import { ATR_INVERSE } from './terminal.js';
 export { ART_NONARTIFACT, ART_EXCALIBUR, ART_GRIMTOOTH, ART_ORCRIST, ART_STING, ART_GRAYSWANDIR };
 
@@ -576,7 +584,7 @@ const LUCKSTONE_OTYP = objectNames.indexOf('LUCKSTONE');
  * (`arti != &artilist[ART_NONARTIFACT]`, C short-circuit order) plus the
  * spfx bit test. Live callers routed here: confers_luck SPFX_LUCK;
  * sit.c rndcurse SPFX_INTEL; detect.c dosearch0 SPFX_SEARCH.
- * artifact_hit SPFX_BEHEAD/SPFX_DRLI arms stay deferred (named there).
+ * artifact_hit SPFX_DRLI arm stays deferred (named there).
  * @param {object} otmp
  * @param {number} abil SPFX_* bit mask
  * @returns {boolean}
@@ -2178,12 +2186,12 @@ export function spec_dbon(otmp, mon, tmp) {
 
 /**
  * C ref: artifact.c artifact_hit :1447–1721 — preamble + four basic
- * attacks (FIRE/COLD/ELEC/MAGM) with realizes_damage plines.
+ * attacks (FIRE/COLD/ELEC/MAGM) with realizes_damage plines + SPFX_BEHEAD.
  * Ported: spec_dbon add; youattack/youdefend/vis/realizes_damage/hittee;
  * impossible self-attack; elemental plines in C order; ELEC wake_nearto
  * when spec_dbon_applies; rn2(4)/rn2(5) gates burned; Slimed burn_away.
  * Named omissions: destroy_items/ignite_items bodies (gates still burned);
- * Mb_hit; SPFX_BEHEAD; SPFX_DRLI.
+ * Mb_hit; SPFX_DRLI.
  * @param {object} dmgBox mutable `{ dmg }` (C int *dmgptr)
  * @returns {boolean} whether caller should suppress ordinary hit pline
  */
@@ -2275,7 +2283,98 @@ export async function artifact_hit(magr, mdef, otmp, dmgBox, dieroll) {
         return false;
     }
     if (!spec_dbon_applies) return false;
-    // SPFX_BEHEAD / SPFX_DRLI deferred
+    // C :1550–1644 — SPFX_BEHEAD (Tsurugi of Muramasa + Vorpal Blade).
+    if (spec_ability(otmp, SPFX_BEHEAD)) {
+        const u = game.u || {};
+        if (is_art(otmp, ART_TSURUGI_OF_MURAMASA) && (dieroll | 0) === 1) {
+            const sharpdesc = 'The razor-sharp blade';
+            /* not really beheading, but so close, why add another SPFX */
+            if (youattack && engulfing_u(mdef)) {
+                await pline(`You slice ${mon_nam(mdef)} wide open!`);
+                dmgBox.dmg = 2 * (mdef?.mhp | 0) + FATAL_DAMAGE_MODIFIER;
+                return true;
+            }
+            if (!youdefend) {
+                /* allow normal cutworm() call to add extra damage */
+                if (game.notonhead) return false;
+                if (bigmonst(mdef?.data)) {
+                    if (youattack) {
+                        await pline(`You slice deeply into ${mon_nam(mdef)}!`);
+                    } else if (vis) {
+                        await pline(`${Monnam(magr)} cuts deeply into ${hittee}!`);
+                    }
+                    dmgBox.dmg = (dmgBox.dmg | 0) * 2;
+                    return true;
+                }
+                dmgBox.dmg = 2 * (mdef?.mhp | 0) + FATAL_DAMAGE_MODIFIER;
+                await pline(`${sharpdesc} cuts ${mon_nam(mdef)} in half!`);
+                observe_object(otmp);
+                return true;
+            }
+            if (bigmonst(game.youmonst?.data)) {
+                await pline(`${magr ? Monnam(magr) : sharpdesc} cuts deeply into you!`);
+                dmgBox.dmg = (dmgBox.dmg | 0) * 2;
+                return true;
+            }
+            /* Players with negative AC's take less damage instead
+             * of just not getting hit.  We must add a large enough
+             * value to the damage so that this reduction in
+             * damage does not prevent death.
+             */
+            dmgBox.dmg = 2 * (Upolyd(u) ? (u.mh | 0) : (u.uhp | 0))
+                + FATAL_DAMAGE_MODIFIER;
+            await pline(`${sharpdesc} cuts you in half!`);
+            observe_object(otmp);
+            return true;
+        }
+        if (is_art(otmp, ART_VORPAL_BLADE)
+            && ((dieroll | 0) === 1 || (mdef?.data?.mndx | 0) === PM_JABBERWOCK)) {
+            // C hack.h ROLL_FROM — behead_msg[rn2(2)]; the draw always fires.
+            if (youattack && engulfing_u(mdef)) return false;
+            const wepdesc = get_artifact(otmp)?.name || 'Vorpal Blade';
+            if (!youdefend) {
+                if (!has_head(mdef?.data) || game.notonhead || u.uswallow) {
+                    if (youattack) {
+                        await pline(`Somehow, you miss ${mon_nam(mdef)} wildly.`);
+                    } else if (vis) {
+                        await pline(`Somehow, ${mon_nam(magr)} misses wildly.`);
+                    }
+                    dmgBox.dmg = 0;
+                    return !!(youattack || vis);
+                }
+                if (noncorporeal(mdef?.data) || amorphous(mdef?.data)) {
+                    await pline(`${wepdesc} slices through ${s_suffix(mon_nam(mdef))} ${mbodypart(mdef, NECK)}.`);
+                    return true;
+                }
+                dmgBox.dmg = 2 * (mdef?.mhp | 0) + FATAL_DAMAGE_MODIFIER;
+                const beheadverb = ['beheads', 'decapitates'][rn2(2)];
+                await pline(`${wepdesc} ${beheadverb} ${mon_nam(mdef)}!`);
+                if (Hallucination() && !game.flags?.female) {
+                    await pline("Good job Henry, but that wasn't Anne.");
+                }
+                observe_object(otmp);
+                return true;
+            }
+            if (!has_head(game.youmonst?.data)) {
+                await pline(`Somehow, ${magr ? mon_nam(magr) : wepdesc} misses you wildly.`);
+                dmgBox.dmg = 0;
+                return true;
+            }
+            if (noncorporeal(game.youmonst?.data)
+                || amorphous(game.youmonst?.data)) {
+                await pline(`${wepdesc} slices through your ${body_part(NECK)}.`);
+                return true;
+            }
+            dmgBox.dmg = 2 * (Upolyd(u) ? (u.mh | 0) : (u.uhp | 0))
+                + FATAL_DAMAGE_MODIFIER;
+            const beheadverb = ['beheads', 'decapitates'][rn2(2)];
+            await pline(`${wepdesc} ${beheadverb} you!`);
+            observe_object(otmp);
+            /* Should amulets fall off? */
+            return true;
+        }
+    }
+    // SPFX_DRLI deferred
     return false;
 }
 
