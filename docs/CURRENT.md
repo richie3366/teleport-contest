@@ -89,7 +89,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** D-2140 shipped (`mcastu.c` castmu → ready_weapon@145); pop the next Open row.
+**Next cluster:** `dogmove.c` dog_goal — blocks 1/553 corpus sessions (first at step 136): C draws `rn2(8)=4` in dog_goal, JS `rn2(1)=0` from dog_move(dogmove.js:976). Probe: `node scripts/hidden-proxy.mjs verify dog_goal` (scen-wish-Priest-92136). (magic_whistled row fired — misattributed + already moved @78→minliquid_core@130 by D-2096, see Parked; moved-to owner re-queued as Open minliquid_core.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2140 (index).**
 <!-- recent:begin -->

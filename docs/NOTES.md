@@ -21,6 +21,7 @@ Objective/score live in `CURRENT.md`.
 - **Healer-92107 residual (D-2137 Next):** destroy double-count (`mhitu.js:901` `+=` vs C `(void)`); audit fire/elec arms.
 - **hmonas park:** Priest-92163 step-193 More-transient — owner `uhitm.c:5544` is a comment, stepFns runs `hitum`, RNG 13/13 matched, C194==JS193 (detail: Parked; do not re-pop).
 - **Fired rows (archived, do not re-pop):** cursetxt (D-2137), dmgval (D-2139).
+- **magic_whistled fired (no js/, no D-log):** Priest-91110 @78→minliquid_core@130 by committed D-2096 tree (misattributed `sizeof "appears"` literal; true printer makemon appear Norep, positions identical at HEAD); re-queued as Open minliquid_core. See Parked. Do not re-pop.
 
 ## Don't re-check (≤15)
 

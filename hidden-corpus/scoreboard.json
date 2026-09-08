@@ -1,6 +1,6 @@
 {
- "commit": "b567c868",
- "at": "2026-09-08T16:43:09.087Z",
+ "commit": "e13647e8",
+ "at": "2026-09-08T16:52:01.469Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -4869,16 +4869,16 @@
    "passed": false,
    "rngM": 3236,
    "rngT": 3557,
-   "scrM": 127,
+   "scrM": 130,
    "scrT": 151,
-   "kind": "screen",
-   "step": 78,
+   "kind": "rng",
+   "step": 130,
    "steps": 151,
-   "owner": "magic_whistled",
-   "loc": "apply.c:523",
-   "jsOwner": null,
-   "cTopline": "A piranha appears close by.",
-   "jsTopline": "A piranha appears next to you.",
+   "owner": "minliquid_core",
+   "loc": "mon.c:1116",
+   "jsOwner": "(no JS draw; last matched was mhitm_knockback)",
+   "cTopline": "OK, so you don't die. You survived that attempt on your life.",
+   "jsTopline": "",
    "error": null
   },
   "scen-genesis-Priest-92082": {
