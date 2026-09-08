@@ -1107,3 +1107,9 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1094-a7ae28e5-mhitm-ad-plys-mon-arm.md](./1094-a7ae28e5-mhitm-ad-plys-mon-arm.md) | `a7ae28e5` | D-2128 mhitm_ad_plys mon→mon arm (stale row, probe-verified) | **ACCEPT** |
 | [1095-7fca2bb6-prayer-done-inhell-gate.md](./1095-7fca2bb6-prayer-done-inhell-gate.md) | `7fca2bb6` | D-2129 prayer_done Inhell angrygods gate | **ACCEPT** |
 | [1096-8c0e9448-mswings-blind-gate.md](./1096-8c0e9448-mswings-blind-gate.md) | `8c0e9448` | D-2130 mswings !Blind prop gate | **ACCEPT** |
+| [1097-98e0bb9e-uunstick-polyman-sticking.md](./1097-98e0bb9e-uunstick-polyman-sticking.md) | `98e0bb9e` | D-2131 uunstick export + polyman sticking arm | **ACCEPT** |
+| [1098-4d859c92-make-stunned-stagger-verb.md](./1098-4d859c92-make-stunned-stagger-verb.md) | `4d859c92` | D-2132 make_stunned stagger_poly clone | **ACCEPT** |
+| [1099-33a49868-dobuzz-hero-arm-zhitu-mm.md](./1099-33a49868-dobuzz-hero-arm-zhitu-mm.md) | `33a49868` | D-2133 dobuzz hero arm + zhitu MM-Antimagic | **ACCEPT** |
+| [1100-1bb96408-hold-another-object-refuse-arm.md](./1100-1bb96408-hold-another-object-refuse-arm.md) | `1bb96408` | D-2134 hold_another_object refuse arm silent | **ACCEPT** |
+| [1101-55848b87-permonst-mr-extractor.md](./1101-55848b87-permonst-mr-extractor.md) | `55848b87` | D-2135 LVL permonst.mr extractor + mons() | **ACCEPT** |
+| [1102-51283e0c-hellfill-border-origin-shift.md](./1102-51283e0c-hellfill-border-origin-shift.md) | `51283e0c` | D-2136 hellfill hells[7] border origin shift | **ACCEPT** |
