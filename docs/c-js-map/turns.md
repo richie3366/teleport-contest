@@ -961,7 +961,7 @@ cantwield ridiculous / full setworn / `#swap` deferred);
 **`Q`/`dowieldquiver`/`doquiver_core`/`setuqwep` + uswapwep/uwep ynq** (D-0152); `doquiver_core` fire arm `You ready:` xprname dot=TRUE trailing period (D-2056); 
 **`empty_handed` gloves/humanoid** (D-0194); 
 **`#twoweapon`/`dotwoweapon`/`can_twoweapon`/`set_twoweap`/`untwoweapon`** (D-0344; 
-Yname2/body_part/Glib drop polish deferred); 
+`can_twoweapon` TWOWEAPOK/bimanual arms use live `Yname2`+`is_plural`; artifact-resist xname/`cant_wield_corpse`/body_part polish deferred); 
 **`chwepon` glow/spe + strange_feeling + worm-tooth/crysknife** (D-0435) +
 **artifact `restrict_name` faint-glow + Magicbane clue + unpaid `alter_cost` +
 `costly_alteration` COST_DEGRD/DECHNT + weld `update_inventory`** (D-1692;

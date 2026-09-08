@@ -59,7 +59,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `wield.c` can_twoweapon — blocks 2/553 corpus sessions (first at step 43): C «Your battle-axe isn't one-handed.» vs JS «battle-axe isn't one-handed.». Probe: `node scripts/hidden-proxy.mjs verify can_twoweapon` (scen-kit-Barbarian-92001, scen-kit-Samurai-92145).
 - [ ] `do_wear.c` armoroff — blocks 2/553 corpus sessions (first at step 49): C «You finish taking off your helm.» vs JS «You finish taking off your helmet.». Probe: `node scripts/hidden-proxy.mjs verify armoroff` (scen-kit-Knight-92106, scen-normal-Knight-92215).
 - [ ] `spell.c` spelleffects_check — blocks 2/553 corpus sessions (first at step 22): C «You don't have enough energy to cast that spell yet.» vs JS «You don't have enough energy to cast that spell.». Probe: `node scripts/hidden-proxy.mjs verify spelleffects_check` (scen-kit-Priest-92122, scen-normal-Priest-92113).
 - [ ] `polyself.c` rehumanize — blocks 2/553 corpus sessions (first at step 90): C «You hear some noises. You return to human form! You can see » vs JS «You hear some noises. You return to human form!--More--». Probe: `node scripts/hidden-proxy.mjs verify rehumanize` (scen-poly-Archeologist-92119, scen-poly-Wizard-92076).
@@ -67,6 +66,11 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 - [ ] `detect.c` monster_detect — blocks 2/553 corpus sessions (first at step 51): C «You sense the presence of monsters. (For instructions type a» vs JS «You sense the presence of monsters.--More--». Probe: `node scripts/hidden-proxy.mjs verify monster_detect` (scen-normal-Priest-91108, scen-normal-Priest-92020).
 - [ ] `pickup.c` tipcontainer_gettarget — blocks 2/553 corpus sessions (first at step 130): C «Where to tip the contents of a locked chest» vs JS «Where to tip the contents of a chest». Probe: `node scripts/hidden-proxy.mjs verify tipcontainer_gettarget` (scen-wish-Healer-92092, scen-wish-Knight-92045).
 - [ ] `potion.c` peffect_sickness — blocks 2/553 corpus sessions (first at step 47): C «(But in fact it was biologically contaminated slime mold jui» vs JS «(But in fact it was biologically contaminated slime mold jui». Probe: `node scripts/hidden-proxy.mjs verify peffect_sickness` (scen-kit-Rogue-92225, scen-normal-Rogue-92209).
+- [ ] `objnam.c` rnd_otyp_by_namedesc — blocks 2/553 corpus sessions (first at step 92): C draws `rn2(26)=7` in rnd_otyp_by_namedesc, JS `rn2(5)=4` from distfleeck(monmove.js:808). Probe: `node scripts/hidden-proxy.mjs verify rnd_otyp_by_namedesc` (scen-intrinsic-Samurai-92239, scen-wish-Priest-92179).
+- [ ] `mon.c` mpickstuff — blocks 1/553 corpus sessions (first at step 100): C draws `rn2(25)=2` in mpickstuff, JS `rn2(5)=2` from distfleeck(monmove.js:826). Probe: `node scripts/hidden-proxy.mjs verify mpickstuff` (scen-tour-Tourist-92100).
+- [ ] `muse.c` rnd_misc_item — blocks 1/553 corpus sessions (first at step 70): C draws `rn2(6)=2` in rnd_misc_item, JS `rn2(100)=94` from makemon(makemon.js:3065). Probe: `node scripts/hidden-proxy.mjs verify rnd_misc_item` (scen-tour-Ranger-92033).
+- [ ] `trap.c` burnarmor — blocks 1/553 corpus sessions (first at step 72): C draws `rn2(5)=2` in burnarmor, JS `rn2(6)=0` from trapeffect_fire_trap(trap.js:4042). Probe: `node scripts/hidden-proxy.mjs verify burnarmor` (scen-tour-Wizard-91112).
+- [ ] `do_name.c` roguename — blocks 1/553 corpus sessions (first at step 89): C «Michael Toy's ghost wakes up! You stop searching.--More--» vs JS «You stop searching. Michael Toy's ghost touches you!». Probe: `node scripts/hidden-proxy.mjs verify roguename` (scen-tour-Tourist-91101).
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 
