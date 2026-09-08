@@ -6,34 +6,35 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Scenario corpus = work picker:** queue from `hidden-proxy queue`; singletons Deferred; themed-room step-0 → `geom-probe` (scores live in CURRENT.md).
-- **distfleeck park (2026-09-08):** body port proven no-movement; writers Healer-92218 `domove_bump_mon` / Tourist-92061 interleave / Rogue-92030 m_move (see Parked).
-- **mcalcmove park (2026-09-08):** Archeologist shipped D-2066; Rogue-92137/Knight-92188 = slime-lifesave writer (see Parked).
+- **distfleeck park:** body port proven no-movement; 4th session Caveman-92053@32 via the D-2108 look fix; per-session writers in the Parked row.
+- **mcalcmove park:** D-2066 shipped; Rogue-92137/Knight-92188 = slime-lifesave writer (see Parked).
 
-- **Parks (Parked rows; do not pop):** show_conduct, ready_weapon Knight-92204, mdrop_obj/dopush, dosearch grid-bug, save_dungeon, do_statusline2 lembas pair (falsifiers in Parked rows).
+- **Parks (do not pop):** show_conduct, ready_weapon, mdrop_obj/dopush, dosearch, save_dungeon, do_statusline2 (falsifiers in Parked rows).
 - **Fortress guards.** Do not reopen display_inventory dismiss / gameover heading / keep_status, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue `S_ndoor`, bigrm-2, getpos, summonmu, lookat, `do_statusline1`, snapshot, fakewiz, Ice/Boulder, `roles[]`, pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
 - **Luck runs when invulnerable; dialogues do not** (`timeout.c:623`); STONED/SLIMED expiry silent.
 - **`sit.js` lay-egg `morehungry` unawaited; `losedogs` rebuilds `migrating_mons`.** Clone drift: zap useupf; detect/potion/read/spell `useup`; Elbereth; teleport `accessible`; helm_simple_name; pickup `ysimple_name`; getobj_* clones.
 - **next_ident = symptom owner:** fix the WRITER, not the table reader.
-- **obj_resists park (2026-09-08):** 3-writer symptom (detail: Parked). S1 shipped D-2068; S2 fire-trap skip; S3 cube paradox.
-- **m_move symptom-owner park (2026-09-08):** loop body faithful; Wizard-92076 shipped D-2069; Caveman-92202 cnt-j off-by-one (D-1868 arms live) — needs C per-turn cnt/mtrack dump (detail: Parked; do not re-pop).
+- **obj_resists park:** 3-writer symptom (detail: Parked). D-2068 shipped; S2 fire-trap skip; S3 cube paradox.
+- **m_move symptom-owner park:** loop body faithful; D-2069 shipped; Caveman-92202 cnt-j off-by-one (detail + falsifier: Parked; do not re-pop).
 - **rloc park:** body faithful (D-0686); writer is a draw-free migration creator (detail + falsifier: Parked; do not re-pop).
 - **lightdamage park:** `mzapwand` MORE-transient misattributed to zap.c (D-1366 faithful); capture artifact, not state (detail + falsifier: Parked; do not re-pop).
 
 ## Don't re-check (≤15)
 
-- D-1790…D-2107 ports stand (range-covered). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`/`free_mgivenname`/`is_axe`/`carrying`/`end_running`.
+- D-1790…D-2108 ports stand (range-covered). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`/`free_mgivenname`/`is_axe`/`carrying`/`end_running`.
 - D-1795 `mattacku`/`getmattk` and D-1816 NATTK abort stand (range-covered). Scars: keep sleep `rn2(10)`; no second `m_monnam`/`simple_typename`; seed4500 `[2]` (D-1817): keep `flush_screen(1)`, never hide `[2]`.
 - No `stay` rebuild; no `u.Punished`; no `rn2(20)` on ordinary pit farlook.
 - seed0014 I-glyph is D-1774; findone tail D-1775. Do not revert D-0078 H2344 / offx 72 (D-1185). `g` is not Unknown (D-1186). PREFIXCMD D-1582.
   ParanoidTrap / `domagicportal` / `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 are D-1187/1188. No rhack raw-ETX (D-1189). Never FORCE the falsified mineralize TRC (76,14)/(77,14) (D-1849).
 - `Val-*`/`Sam-*` loaders shipped D-1852/D-1858 — check `load_val_*`/`load_sam_*` before refilling.
 - Don't re-apply D-0480 glyph `tty_map_color` (D-0483). Don't skip painting spaces or emit mid-row space runs >4 (D-0931). Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092). Do not blanket-restore overlay `_pending_message` (D-0929). Do not HEAVY_IRON_BALL `owt!=0` (#1194). Judge does **not** elide RC (D-0933); do not extend §1.2. Do not chase public LB in-loop.
-- Do not memcpy gi worn/ball (D-1035) / `setnotworn` from `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) / skip `tutorial()` (D-1066). Do not skip D-1067…D-2107.
-- Do not import `monmove.js` `sticks` for sit / rewrite `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) / bones→options fruitadd (D-1541). No `reset_glyphmap` / `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`. No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`. Do not re-port D-1682…D-2107.
+- Do not memcpy gi worn/ball (D-1035) / `setnotworn` from `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) / skip `tutorial()` (D-1066). Do not skip D-1067…D-2108.
+- Do not import `monmove.js` `sticks` for sit / rewrite `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) / bones→options fruitadd (D-1541). No `reset_glyphmap` / `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`. No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`. Do not re-port D-1682…D-2108.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2108: `js/do_name.js` only — `distant_monnam_none` keeps the null→`it` guard and the astral conceal first (C order), then delegates to the live `x_monnam(mt Named: `look_at_monster` health/stuck/leashed/trapped/hallu suffixes stay deferred as mapped (tur
 - D-2107: `js/makemon.js` only — birth-knowledge block in exact C order between `female` and `mpeaceful` (C order is female → traps → mwandexp → place_monster → Named: `mpeaceful` `MM_ANGRY` force-hostile arm (`makemon.c:1297`, adjacent line, different theor
 - D-2106: `js/cmd.js` only, exact C order: full-pile `sobj_at(BOULDER)` scan first, then `glyph_to_obj_at(x, y) === STATUE_OTYP` (pre-existing `display.js` gbuf Named: forcefight dig-with-pick arm (`use_pick_axe2`, `:2270–2279`), `Underwater` gate + underwat
 - D-2105: `js/u_init.js` — new sync `addinv_core1(obj)` in exact C order, called once before the merge loop (C `addinv_core0` `:1082`): COIN → disp.botl (`flags Named: `addinv_core1` questart/`artitouch` arm (no live `artitouch`/`is_quest_artifact` export — 
@@ -48,5 +49,4 @@ Objective/score live in `CURRENT.md`.
 - D-2096: `js/teleport.js` `enexto_core` only — `candy.length = 0` before the second collect (exact C buffer-reuse semantics: same indices, shuffle slices and d Named: `collect_coords` callers at teleport.js:1304/1666 pass fresh arrays (unaffected; no helper
 - D-2095: `js/mklev.js` + one-word `export` on `js/trap.js` `undestroyable_trap` — new `floodfillchk_match_accessible` (`ACCESSIBLE||SDOOR||SCORR`, sp_lev.c:460 Named: `map_cleanup` + `count_level_features` + `link_doors_rooms` extras stay named on `load_min
 - D-2094: `js/trap.js` `float_down` only — the come-down arm now `await import('./sit.js')` for `surface` (the dynamic-import idiom this file already uses for ` Named: file-local `surface_fd` stays for the `fall_through` `The … opens up` pline (`js/trap.js:3
-- D-2093: `js/uhitm.js` `xkilled` only — after the lifesaved early-return (matching C `mondead` lifesave-before-`m_detach`), `mtmp.mtrapped = 0` + `await (await Named: `mhitm.js`/`trap.js` `mondead` still skip `mon_leaving_level` unstuck (same one-line gap o
 <!-- landmarks:end -->

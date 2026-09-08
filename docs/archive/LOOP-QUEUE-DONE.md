@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `zap.c` zap_hit — blocks 1/553 corpus sessions (first at step 59): C draws `rn2(20)=1` in zap_hit, JS `rn2(5)=1` from distfleeck(monmove.js:840). Probe: `node scripts/hidden-proxy.mjs verify zap_hit` (scen-tour-Priest-92235). **Addressed:** D-2107
+- [x] `dog.c` makedog — blocks 1/553 corpus sessions (first at step 31): C «tame little dog called Slasher» vs JS «tame Slasher». Probe: `node scripts/hidden-proxy.mjs verify makedog` (scen-normal-Caveman-92053). **Addressed:** D-2108
+
+
+- [x] `zap.c` zap_hit — blocks 1/553 corpus sessions (first at step 59): C draws `rn2(20)=1` in zap_hit, JS `rn2(5)=1` from distfleeck(monmove.js:840). Probe: `node scripts/hidden-proxy.mjs verify zap_hit` (scen-tour-Priest-92235). **Addressed:** D-2107 `67985652`
 
 
 - [x] `dokick.c` ghitm — blocks 2/553 corpus sessions (first at step 16): C «You harmlessly attack a statue.» vs JS «You attack thin air.». Probe: `node scripts/hidden-proxy.mjs verify ghitm` (scen-genesis-Caveman-92199, scen-poly-Ranger-92090). **Addressed:** D-2106 `7b29e91a`

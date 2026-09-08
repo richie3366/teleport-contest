@@ -1348,7 +1348,10 @@ infravision ("… too far away to see **itself** in the dark.") and
 `:1178–1182`; `!Hallucination && Is_astralevel && !m_next2u`;
 ARTICLE_THE `"the "` else bare; `female` priestess; pager
 `look_at_monster` ARTICLE_NONE via `distant_monnam_none`; `mons()` is
-a fresh object so `data.mndx`); **`lookup_novel` D-1651**
+a fresh object so `data.mndx`); **`distant_monnam_none` → `x_monnam`
+ARTICLE_NONE called=TRUE D-2108** (C `do_name.c` `:1183–1186` else-arm;
+the old hand subset returned the bare MGIVENNAME, dropping the
+`pm_name called name` construction + invis/hallu/mappear/priest/`it` arms); **`lookup_novel` D-1651**
 (C `do_name.c` `:1626–1661` aliases then table/`The` walk then IndexOk
 miss; `SIR_TERRY_NOVELS` export from mkobj `noveltitle` home; callers
 `readobjnam` SPE_NOVEL before `oname` ONAME_WISH + `create_object`

@@ -1,6 +1,6 @@
 {
- "commit": "7b29e91a",
- "at": "2026-09-08T08:57:33.181Z",
+ "commit": "a31403a9",
+ "at": "2026-09-08T09:10:31.928Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6042,16 +6042,16 @@
    "passed": false,
    "rngM": 2346,
    "rngT": 3787,
-   "scrM": 31,
+   "scrM": 32,
    "scrT": 105,
-   "kind": "screen",
-   "step": 31,
+   "kind": "rng",
+   "step": 32,
    "steps": 105,
-   "owner": "makedog",
-   "loc": "dog.c:241",
-   "jsOwner": null,
-   "cTopline": "tame little dog called Slasher",
-   "jsTopline": "tame Slasher",
+   "owner": "distfleeck",
+   "loc": "monmove.c:549",
+   "jsOwner": "do_attack(uhitm.js:3142)",
+   "cTopline": "Pardon me, Slasher.",
+   "jsTopline": "You swap places with Slasher.",
    "error": null
   },
   "scen-normal-Caveman-92059": {

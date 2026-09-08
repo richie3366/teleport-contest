@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `dog.c` makedog — blocks 1/553 corpus sessions (first at step 31): C «tame little dog called Slasher» vs JS «tame Slasher». Probe: `node scripts/hidden-proxy.mjs verify makedog` (scen-normal-Caveman-92053).
 - [ ] `insight.c` one_characteristic — blocks 1/553 corpus sessions (first at step 168): C « You were wielding a mattock.» vs JS « You were wielding a pick-axe.». Probe: `node scripts/hidden-proxy.mjs verify one_characteristic` (scen-wish-Priest-92180).
 - [ ] `invent.c` dolook — blocks 1/553 corpus sessions (first at step 108): C «You can't see in here!» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify dolook` (scen-genesis-Wizard-92223).
 - [ ] `mkobj.c` next_ident — blocks 3/553 corpus sessions (first at step 34): C draws `rnd(2)=2` in next_ident, JS `rnd(1)=1` from monmulti(weapon.js:1460). Probe: `node scripts/hidden-proxy.mjs verify next_ident` (scen-tour-Samurai-92161, scen-wish-Archeologist-92238, scen-wish-Knight-92130).
@@ -68,6 +67,11 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 - [ ] `were.c` were_change — blocks 2/553 corpus sessions (first at step 69): C «The jackal bites!» vs JS «The jackal bites!». Probe: `node scripts/hidden-proxy.mjs verify were_change` (scen-intrinsic-Healer-92124, scen-tour-Ranger-92177).
 - [ ] `quest.c` prisoner_speaks — blocks 1/553 corpus sessions (first at step 146): C «The prisoner speaks: "I'm finally free!"» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify prisoner_speaks` (scen-wish-Rogue-92210).
 - [ ] `dig.c` zap_dig — blocks 1/553 corpus sessions (first at step 20): C «The beam bounces off the stairs and hits the ceiling.--More-» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify zap_dig` (scen-death-Wizard-92187).
+- [ ] `zap.c` resist — blocks 2/553 corpus sessions (first at step 59): C draws `rn2(119)=42` in resist, JS `rn2(20)=16` from zap_hit(zap.js:1335). Probe: `node scripts/hidden-proxy.mjs verify resist` (scen-tour-Priest-92235, scen-wish-Ranger-92212).
+- [ ] `mhitm.c` mattackm — blocks 1/553 corpus sessions (first at step 13): C draws `rnd(20)=6` in mattackm, JS `rn2(1)=0` from dog_move(dogmove.js:976). Probe: `node scripts/hidden-proxy.mjs verify mattackm` (scen-normal-Knight-92182).
+- [ ] `cmd.c` getdir — blocks 1/553 corpus sessions (first at step 115): C «In what direction?» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify getdir` (scen-poly-Healer-92109).
+- [ ] `eat.c` gethungry — blocks 1/553 corpus sessions (first at step 104): C draws `rn2(20)=16` in gethungry, JS `rn2(73)=69` from moveloop_core(allmain.js:1069). Probe: `node scripts/hidden-proxy.mjs verify gethungry` (scen-tour-Healer-92198).
+- [ ] `dogmove.c` dog_move — blocks 1/553 corpus sessions (first at step 48): C draws `rn2(1)=0` in dog_move, JS `rn2(5)=1` from distfleeck(monmove.js:808). Probe: `node scripts/hidden-proxy.mjs verify dog_move` (scen-normal-Rogue-92146).
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 
