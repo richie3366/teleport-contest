@@ -8,6 +8,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-08 — Audit 3516098b…67985652 (reviews 1067–1073) + cadence 44/44
+
+6 ACCEPT, 1 ACCEPT-WITH-DEBT (1070 XP-delta `final||wizard` gate debt pointer), 0 Must-fix — no LOOP-QUEUE prepend, Next cluster unchanged. Every D-log corpus claim re-measured with `--base <sha>~1`, all matched exactly (checkfile 0/3 moved, done_in_by 0/2, enlightenment 2/2+2, disclose 1/2+1unchanged, ghitm 0/2, zap_hit 0/1 re-attributed same-step); 1065 Must-fix confirmed closed by D-2101 (`goto outhere` exits both loops, `sp_lev.c:5241–5251` read verbatim). Extra probes: Barbarian-92024 step-97 `js-throw` worker label refuted by `show` (`error: null`, screen diff) — no §10.14 row owed; D-2102 stub→import re-point verified via aliased pre-existing edge (monmove.js:78); D-2104 Invisible trio checked against youprop.h:198–199 + potion.js co-write proof. Cadence: fortress 44/44, Scr 11,405/11,405, RNG 792,838/792,838, speed `60+0.48/turn` (R² 0.87).
 ## 2026-09-08 — D-2107 `makemon.c` birth knowledge: wand experience + trap learning (queue row `zap.c` zap_hit, 1 session)
 
 **C locus:** `makemon.c:1283–1294` (birth knowledge: `In_sokoban && !mindless` → `mon_learns_traps(PIT)` + `(HOLE)`; `Is_stronghold && !mindless` → `(TRAPDOOR)`; `MS_LEADER/MS_NEMESIS` → `(ALL_TRAPS)`; `Is_stronghold||Is_knox||In_endgame||In_hell||In_V_tower||In_quest` → `mwandexp=TRUE`) + `muse.c:1834` (`mwandexp ? buzz : buzz_force_miss` — first wand always misses) + `dungeon.c:1942` (`In_hell` = `dungeons[dnum].flags.hellish`) + `mondata.h:64` (`mindless` = `M1_MINDLESS`).

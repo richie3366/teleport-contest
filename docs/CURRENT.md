@@ -21,10 +21,10 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-08** — full `sessions` on the working tree
-(audit **1059–1066** over fd3f5f38…213658d3 + **D-2098** figurine port).
+(audit **1067–1073** over 3516098b…67985652, D-2098…D-2107 ports).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`83+0.49/turn` (R² 0.79).
+`60+0.48/turn` (R² 0.87).
 
 ## Score
 
@@ -53,6 +53,7 @@ Reviews 1034–1040: 7 ACCEPT, 0 Must-fix.
 Reviews 1041–1049: 9 ACCEPT, 0 Must-fix.
 Reviews 1050–1058: 8 ACCEPT, 1 QUALITY-RISK (1054 gold-block fall-through → Must-fix prepended, Next cluster set).
 Reviews 1059–1066: 6 ACCEPT, 1 ACCEPT-WITH-DEBT (1066 demonpet appear-msg debt pointer), 1 QUALITY-RISK (1065 ensure_way_out rescan → Must-fix prepended, Next cluster set).
+Reviews 1067–1073: 6 ACCEPT, 1 ACCEPT-WITH-DEBT (1070 XP-delta `(final||wizard)` gate debt pointer), 0 Must-fix.
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score --jobs 8`
 (≈200 s); when every family is ≥ 85 % PASS, grow it first:
 `node scripts/scenario-gen.mjs --n 120 --seed <iter×100>`.

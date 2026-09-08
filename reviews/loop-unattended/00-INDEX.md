@@ -1077,3 +1077,10 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1064-670a1b21-float-down-surface.md](./1064-670a1b21-float-down-surface.md) | `670a1b21` | D-2094 float_down surface call-site | **ACCEPT** |
 | [1065-65152c55-ensure-way-out.md](./1065-65152c55-ensure-way-out.md) | `65152c55` | D-2095 ensure_way_out rescan order | **QUALITY-RISK** |
 | [1066-213658d3-enexto-appear-msg.md](./1066-213658d3-enexto-appear-msg.md) | `213658d3` | D-2096 enexto overwrite + appear coords | **ACCEPT-WITH-DEBT** |
+| [1067-3516098b-xname-figurine-of-suffix.md](./1067-3516098b-xname-figurine-of-suffix.md) | `3516098b` | D-2098 xname FIGURINE of-suffix | **ACCEPT** |
+| [1068-c8d25c72-ensure-way-out-rescan.md](./1068-c8d25c72-ensure-way-out-rescan.md) | `c8d25c72` | D-2101 ensure_way_out rescan order | **ACCEPT** |
+| [1069-5ca3ad86-dochugw-canspotmon.md](./1069-5ca3ad86-dochugw-canspotmon.md) | `5ca3ad86` | D-2102 dochugw live canspotmon | **ACCEPT** |
+| [1070-f297d61d-enlightenment-family.md](./1070-f297d61d-enlightenment-family.md) | `f297d61d` | D-2104 enlightenment final-disclosure family | **ACCEPT-WITH-DEBT** |
+| [1071-aa1e6c57-addinv-core1-uhave-ach.md](./1071-aa1e6c57-addinv-core1-uhave-ach.md) | `aa1e6c57` | D-2105 addinv_core1 uhave/ACH | **ACCEPT** |
+| [1072-7b29e91a-fight-empty-statue-arm.md](./1072-7b29e91a-fight-empty-statue-arm.md) | `7b29e91a` | D-2106 fight_empty statue arm | **ACCEPT** |
+| [1073-67985652-makemon-birth-knowledge.md](./1073-67985652-makemon-birth-knowledge.md) | `67985652` | D-2107 birth knowledge traps/mwandexp | **ACCEPT** |
