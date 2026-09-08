@@ -9,7 +9,8 @@ Objective/score live in `CURRENT.md`.
 - **distfleeck park:** body port proven no-movement; 4th session via D-2108; writers in the Parked row.
 - **mcalcmove park:** D-2066 shipped; Rogue-92137/Knight-92188 = slime-lifesave writer (see Parked).
 
-- **Parks (do not pop):** show_conduct, ready_weapon, mdrop_obj/dopush, dosearch, save_dungeon, do_statusline2, spoteffects (falsifiers in Parked rows).
+- **Parks (do not pop):** show_conduct, ready_weapon, mdrop_obj/dopush, dosearch, save_dungeon, do_statusline2, spoteffects, dump_artifact_info (falsifiers in Parked rows).
+- **dump_artifact_info park:** scen-wish-Priest-92136 step 126 identical toplines + row-1 `--More--` diff; owner is comment-literal tie-break (3 cMsgOwners), true printer touch_artifact:966 live in JS; dump wizard-only via o_init.c:1066, zero step draws; baseline verify NO MOVEMENT (0/0/1).
 - **Fortress guards.** Do not reopen display_inventory dismiss / gameover heading / keep_status, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue `S_ndoor`, bigrm-2, getpos, summonmu, lookat, `do_statusline1`, snapshot, fakewiz, Ice/Boulder, `roles[]`, pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
 - **Luck runs when invulnerable; dialogues do not** (`timeout.c:623`); STONED/SLIMED expiry silent.
 - **`sit.js` lay-egg `morehungry` unawaited; `losedogs` rebuilds `migrating_mons`.** Clone drift: zap useupf; detect/potion/read/spell `useup`; Elbereth; teleport `accessible`; helm_simple_name; pickup `ysimple_name`; getobj_* clones.

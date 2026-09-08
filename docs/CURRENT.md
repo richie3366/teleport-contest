@@ -88,7 +88,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `mhitu.c` mattacku — blocks 1/553 corpus sessions (first at step 163): C draws `rnd(20)=9` in mattacku, JS `rn2(2)=0` from mswings_verb(mhitu.js:321). Probe: `node scripts/hidden-proxy.mjs verify mattacku` (scen-poly-Rogue-92026).
+**Next cluster:** `artifact.c` dump_artifact_info — blocks 1/553 corpus sessions (first at step 126): C «The credit card named the Platinum Yendorian Express Card ev» vs JS «The credit card named the Platinum Yendorian Express Card ev». Probe: `node scripts/hidden-proxy.mjs verify dump_artifact_info` (scen-wish-Priest-92136). PARKED misattributed (no js/) — see LOOP-QUEUE Parked.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2130 (index).**
 <!-- recent:begin -->
