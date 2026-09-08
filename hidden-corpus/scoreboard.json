@@ -1,6 +1,6 @@
 {
- "commit": "3c229022",
- "at": "2026-09-08T20:27:57.927Z",
+ "commit": "144563ef",
+ "at": "2026-09-08T20:30:13.409Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -4374,18 +4374,18 @@
   "scen-death-Valkyrie-92229": {
    "src": "corpus",
    "passed": false,
-   "rngM": 2826,
+   "rngM": 2832,
    "rngT": 3094,
-   "scrM": 22,
+   "scrM": 23,
    "scrT": 63,
-   "kind": "screen",
-   "step": 22,
+   "kind": "rng",
+   "step": 23,
    "steps": 63,
-   "owner": "rndcurse",
-   "loc": "sit.c:574",
-   "jsOwner": null,
-   "cTopline": "You feel a malignant aura surround you. Demogorgon stings!--More--",
-   "jsTopline": "You feel a malignant aura surround you. Demogorgon stings!",
+   "owner": "diseasemu",
+   "loc": "mhitu.c:1039",
+   "jsOwner": "mhitm_knockback(mhitm.js:2060)",
+   "cTopline": "Demogorgon hits! You feel deathly sick. Demogorgon hits!",
+   "jsTopline": "Demogorgon hits!",
    "error": null
   },
   "scen-death-Wizard-92120": {

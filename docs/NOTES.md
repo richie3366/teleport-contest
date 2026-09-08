@@ -13,6 +13,7 @@ Objective/score live in `CURRENT.md`.
 - **Healer-92107 residual (D-2137 Next):** destroy double-count (`mhitu.js:901` `+=` vs C `(void)` — still live 2026-09-08); audit fire/elec arms.
 - **lesshungry STALE (parked 2026-09-08):** Tourist-91125 never reaches @162 (live: do_statusline2@82; D-2146 refresh reconfirms 2745/83). Do not re-pop; falsifier in Parked.
 - **minliquid_core park (no js/):** Priest-91110@130 lifesave OK, rat-bite pair only then stop; eel unmoved, HP 68v69. Eel arm faithful; rat-bite arm is the writer.
+- **rndcurse STALE (parked 2026-09-08):** Valkyrie-92229 passes step 22 at HEAD (23/63 screens, RNG 2832/3094), now blocked diseasemu@23 RNG (C rn2(16)=6 vs JS knockback rn2(3)=2). JS rndcurse faithful (D-1087/1089); no js/sit.js delta since the scoreboard stamp. Do not re-pop; falsifier in Parked.
 
 ## Don't re-check (≤15)
 

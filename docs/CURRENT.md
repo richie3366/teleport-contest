@@ -91,7 +91,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** - [ ] `read.c` do_class_genocide — blocks 1/553 (first at step 78, scen-wish-Tourist-92230; full row text in LOOP-QUEUE Open). Probe: `node scripts/hidden-proxy.mjs verify do_class_genocide`.
+**Next cluster:** - [ ] `mhitu.c` diseasemu — blocks 1/553 corpus sessions (first at step 23): C «Demogorgon hits! You feel deathly sick. Demogorgon hits!» vs JS «Demogorgon hits!» (C `rn2(16)=6 @ diseasemu(mhitu.c:1039)` vs JS `rn2(3)=2 @ mhitm_knockback(mhitm.js:2060)`). Probe: `node scripts/hidden-proxy.mjs verify diseasemu` (scen-death-Valkyrie-92229).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2150 (index).**
 <!-- recent:begin -->
