@@ -1,6 +1,6 @@
 {
- "commit": "590e414f",
- "at": "2026-09-08T10:59:17.090Z",
+ "commit": "da6fa87b",
+ "at": "2026-09-08T12:11:13.019Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6210,19 +6210,8 @@
   "scen-normal-Knight-92182": {
    "src": "corpus",
    "passed": false,
-   "rngM": 2706,
-   "rngT": 6974,
-   "scrM": 15,
-   "scrT": 177,
-   "kind": "rng",
-   "step": 13,
-   "steps": 177,
-   "owner": "mattackm",
-   "loc": "mhitm.c:441",
-   "jsOwner": "dog_move(dogmove.js:976)",
-   "cTopline": "The sewer rat misses the saddled pony. You stop searching.--More--",
-   "jsTopline": "The sewer rat misses the saddled pony. You stop searching.--More--",
-   "error": null
+   "loc": null,
+   "error": "worker: "
   },
   "scen-normal-Knight-92215": {
    "src": "corpus",
@@ -6703,18 +6692,18 @@
   "scen-poly-Healer-92109": {
    "src": "corpus",
    "passed": false,
-   "rngM": 2636,
+   "rngM": 4358,
    "rngT": 4358,
-   "scrM": 115,
+   "scrM": 301,
    "scrT": 321,
    "kind": "screen",
-   "step": 115,
+   "step": 208,
    "steps": 321,
-   "owner": "getdir",
-   "loc": "cmd.c:3988",
+   "owner": "stairs_description",
+   "loc": "stairs.c:219",
    "jsOwner": null,
-   "cTopline": "In what direction?",
-   "jsTopline": "",
+   "cTopline": "There is a staircase up out of the dungeon here.",
+   "jsTopline": "The fire vortex engulfs you!--More--",
    "error": null
   },
   "scen-poly-Knight-92220": {

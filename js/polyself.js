@@ -20,6 +20,7 @@ import {
 } from './mhitm.js';
 import { mksobj, objects_at } from './mkobj.js';
 import { throwit } from './dothrow.js';
+import { ubuzz, ubreatheu } from './zap.js';
 import { were_summon } from './were.js';
 import { unpunish } from './read.js';
 import { surface, split_mon } from './sit.js';
@@ -143,6 +144,8 @@ import {
     DRAIN_RES,
     KILLED_BY_AN,
     BOLT_LIM,
+    BZ_OFS_AD,
+    BZ_U_BREATH,
     ECMD_CANCEL,
     IS_FOUNTAIN,
     hidespinchars,
@@ -1379,9 +1382,10 @@ export async function wiz_polyself() {
 }
 
 /**
- * C ref: polyself.c dobreathe — hero breath weapon while poly'd.
- * Envelope: Strangled refuse; u.uen < 15 energy pline.
- * Named omissions: uen drain + getdir; ubreatheu / ubuzz BZ_U_BREATH.
+ * C ref: polyself.c dobreathe `:1420–1447` — hero breath weapon while poly'd.
+ * Envelope: Strangled refuse; u.uen < 15 refuse; u.uen -= 15 + botl;
+ * getdir (ECMD_CANCEL on quit); attacktype_fordmg AT_BREA AD_ANY;
+ * self-directed → ubreatheu, else ubuzz(BZ_U_BREATH(BZ_OFS_AD(adtyp)), damn).
  * @returns {Promise<number>} ECMD_OK | ECMD_CANCEL | ECMD_TIME
  */
 export async function dobreathe() {
@@ -1394,9 +1398,24 @@ export async function dobreathe() {
         await pline("You don't have enough energy to breathe!");
         return ECMD_OK;
     }
-    // C: u.uen -= 15; botl; getdir; attacktype_fordmg AT_BREA;
-    // ubreatheu / ubuzz(BZ_U_BREATH) — deferred (seed0108 hits uen < 15).
-    return ECMD_OK;
+    // C `:1433–1434` — energy cost lands before the direction prompt,
+    // so a cancelled breath still costs 15 (dosummon botl pattern).
+    u.uen = (u.uen | 0) - 15;
+    if (!game.flags) game.flags = {};
+    game.flags.botl = true;
+    if (game.disp) game.disp.botl = true;
+    // C `:1436–1437` — live getdir (lock.js); 'b'-style dirsym consumed here.
+    if (!(await getdir(null))) return ECMD_CANCEL;
+    // C `:1439–1445` — AD_ANY is -1 (monattk.h; dospit pattern).
+    const mattk = attacktype_fordmg(game.youmonst?.data, AT_BREA, -1);
+    if (!mattk) {
+        await impossible('bad breath attack?');
+    } else if (!(u.dx | 0) && !(u.dy | 0) && !(u.dz | 0)) {
+        await ubreatheu(mattk);
+    } else {
+        await ubuzz(BZ_U_BREATH(BZ_OFS_AD(mattk.adtyp | 0)), mattk.damn | 0);
+    }
+    return ECMD_TIME;
 }
 
 /**

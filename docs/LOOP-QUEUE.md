@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `cmd.c` getdir — blocks 1/553 corpus sessions (first at step 115): C «In what direction?» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify getdir` (scen-poly-Healer-92109).
 - [ ] `eat.c` gethungry — blocks 1/553 corpus sessions (first at step 104): C draws `rn2(20)=16` in gethungry, JS `rn2(73)=69` from moveloop_core(allmain.js:1069). Probe: `node scripts/hidden-proxy.mjs verify gethungry` (scen-tour-Healer-92198).
 - [ ] `dogmove.c` dog_move — blocks 1/553 corpus sessions (first at step 48): C draws `rn2(1)=0` in dog_move, JS `rn2(5)=1` from distfleeck(monmove.js:808). Probe: `node scripts/hidden-proxy.mjs verify dog_move` (scen-normal-Rogue-92146).
 - [ ] `insight.c` attributes_enlightenment — blocks 2/553 corpus sessions (first at step 50): C «You were petrification resistant from your creature form.» vs JS «You were petrification resistant from your creature form.». Probe: `node scripts/hidden-proxy.mjs verify attributes_enlightenment` (scen-death-Wizard-92120, scen-tour-Barbarian-92079).
@@ -68,6 +67,11 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 - [ ] `end.c` really_done — blocks 2/553 corpus sessions (first at step 19): C «» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify really_done` (scen-normal-Barbarian-92208, scen-tour-Wizard-92103).
 - [ ] `hack.c` spoteffects — blocks 1/553 corpus sessions (first at step 35): C «You are hit by a shuriken! You are hit by a shuriken!--More-» vs JS «You are hit by a shuriken! You are hit by a shuriken!--More-». Probe: `node scripts/hidden-proxy.mjs verify spoteffects` (scen-tour-Samurai-92161).
 - [ ] `invent.c` getobj — blocks 1/553 corpus sessions (first at step 61): C «What do you want to wear? [*]» vs JS «What do you want to wear? [q or ?*]». Probe: `node scripts/hidden-proxy.mjs verify getobj` (scen-poly-Wizard-92169).
+- [ ] `uhitm.c` missum — blocks 1/553 corpus sessions (first at step 118): C «You miss it. It screams! It kicks! It kicks again!--More--» vs JS «You miss it. It kicks! It kicks again! It is frozen by you.». Probe: `node scripts/hidden-proxy.mjs verify missum` (scen-poly-Knight-92220).
+- [ ] `light.c` arti_light_description — blocks 1/553 corpus sessions (first at step 161): C «The long sword named Sunsword shines brilliantly in the Arch» vs JS «The Archon swings his long sword named Sunsword. The Archon ». Probe: `node scripts/hidden-proxy.mjs verify arti_light_description` (scen-poly-Tourist-92047).
+- [ ] `potion.c` self_invis_message — blocks 1/553 corpus sessions (first at step 62): C «Gee! All of a sudden, you can't see yourself.--More--» vs JS «Gee! All of a sudden, you can't see yourself.--More--». Probe: `node scripts/hidden-proxy.mjs verify self_invis_message` (scen-wish-Healer-92010).
+- [ ] `zap.c` zhitm — blocks 1/553 corpus sessions (first at step 64): C draws `rnd(50)=37` in zhitm, JS `rn2(3)=2` from zhitm(zap.js:1841). Probe: `node scripts/hidden-proxy.mjs verify zhitm` (scen-wish-Samurai-92087).
+- [ ] `uhitm.c` mhitm_ad_plys — blocks 1/553 corpus sessions (first at step 78): C draws `rn2(3)=0` in mhitm_ad_plys, JS `d(3,6)=3` from passive(uhitm.js:1451). Probe: `node scripts/hidden-proxy.mjs verify mhitm_ad_plys` (scen-poly-Monk-92005).
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 

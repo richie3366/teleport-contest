@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-08 — D-2117 `polyself.c` dobreathe: uen drain + getdir + breath dispatch (queue row `cmd.c` getdir, 1 session)
+
+**C locus:** `polyself.c:1420–1447` `dobreathe` (writer behind the `getdir` screen literal): Strangled / `u.uen < 15` refuses; `u.uen -= 15` + `disp.botl = TRUE`; `getdir(0)` (ECMD_CANCEL on quit); `attacktype_fordmg(youmonst.data, AT_BREA, AD_ANY)`; self-directed → `ubreatheu`, else `ubuzz(BZ_U_BREATH(BZ_OFS_AD(adtyp)), damn)`. `cmd.c:3958–4119` `getdir` itself is already faithful (D-1729/D-1806/D-1815) — the session never reached it.
+**JS:** 2 files (`js/const.js` +2; `js/polyself.js` 31 changed lines), under the 600/10 caps. Rule #2 clean; no DIAG/FORCE/seed gates. No hand probes — the corpus session reaches the changed arm.
+**Change:** full C-order port in `js/polyself.js` (energy cost lands before the prompt, so a cancelled breath still costs 15 — dosummon botl idiom); `BZ_U_BREATH` added to `js/const.js` (`hack.h:1484` mirror beside `BZ_OFS_AD`/`BZ_M_BREATH`); `BZ_OFS_AD` + `BZ_U_BREATH` extend the existing `const.js` edge, `ubuzz` + `ubreatheu` imported from `./zap.js` (`imports.mjs --can`: both hoisted functions, cycle-safe; call-time use only, no top-level reads).
+**Verify:** `node scripts/verify.mjs --fn getdir` → PASS syntax (2 changed js files) · PASS rule2 · PASS hidden (0 PASS, 1 moved past → PROGRESS: Healer-92109 moved → `stairs_description` at step 208, was 115) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (tool: no shared file changed per runner). Preflight `verify.mjs --no-cohort` was green before edits; final verify ran after the last js/ edit (map/D-log/queue edits only after).
+**Named:** none new in `dobreathe` (fully ported; the seed0108 `uen<15` refuse path is unchanged and still covered). Map `turns.md:287` updated (getdir/ubuzz deferred → live D-2117).
+**Next:** Healer-92109 now diverges at `stairs_description` step 208 (later owner, no row added — the corpus queue will surface it); do not re-pop `getdir` for it. Refilled Open 7→12 (missum, arti_light_description, self_invis_message, zhitm, mhitm_ad_plys). Observed but not queued: `js js-throw` (Knight-92182 is the parked mattackm/can_carry hang; 92034 undiagnosed) and `burnarmor` Ranger-92212 (D-2116 Next anticipated it, but a burnarmor row is already archived — left for a future queue pass rather than duplicating archive).
 ## 2026-09-08 — Audit 20e09ee9..12ef27f6 (reviews 1074-1082: 7 ACCEPT, 1076 + 1082 debt, 0 Must-fix) + cadence 44/44.
 
 Every D-log corpus claim re-measured with `--base <sha>~1`, all matched:

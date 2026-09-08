@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2117 — `polyself.c` dobreathe: uen drain + getdir + breath dispatch (queue row `cmd.c` getdir, 1 session)
+
+- **Status:** partial-fix (Open queue row `cmd.c` getdir — cited 1/553; `verify --fn getdir`: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS. Row cites no review so no stamp owed.)
+- **Symptom:** scen-poly-Healer-92109 step 115/321, screen-first at `cmd.c:3988`: C «In what direction?» vs JS «». Recipe: `#polyself` into red dragon, `#monster`, answer `b` — the hero breath weapon needs a direction.
+- **C locus:** `polyself.c:1420–1447` `dobreathe` (writer behind the `getdir` screen literal): Strangled / `u.uen < 15` refuses; `u.uen -= 15` + `disp.botl = TRUE`; `getdir(0)` (ECMD_CANCEL on quit); `attacktype_fordmg(youmonst.data, AT_BREA, AD_ANY)`; self-directed → `ubreatheu`, else `ubuzz(BZ_U_BREATH(BZ_OFS_AD(adtyp)), damn)`. `cmd.c:3958–4119` `getdir` itself is already faithful (D-1729/D-1806/D-1815) — the session never reached it.
+- **JS was:** `js/polyself.js:1387` `dobreathe` returned ECMD_OK right after the energy check («uen drain + getdir; ubreatheu / ubuzz deferred» named omission): no prompt, no energy cost, no attack — so the `b` direction key fell through as a command and the topline stayed empty.
+- **Fix:** full C-order port in `js/polyself.js` (energy cost lands before the prompt, so a cancelled breath still costs 15 — dosummon botl idiom); `BZ_U_BREATH` added to `js/const.js` (`hack.h:1484` mirror beside `BZ_OFS_AD`/`BZ_M_BREATH`); `BZ_OFS_AD` + `BZ_U_BREATH` extend the existing `const.js` edge, `ubuzz` + `ubreatheu` imported from `./zap.js` (`imports.mjs --can`: both hoisted functions, cycle-safe; call-time use only, no top-level reads).
+- **JS:** 2 files (`js/const.js` +2; `js/polyself.js` 31 changed lines), under the 600/10 caps. Rule #2 clean; no DIAG/FORCE/seed gates. No hand probes — the corpus session reaches the changed arm.
+- **Verify:** `node scripts/verify.mjs --fn getdir` → PASS syntax (2 changed js files) · PASS rule2 · PASS hidden (0 PASS, 1 moved past → PROGRESS: Healer-92109 moved → `stairs_description` at step 208, was 115) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (tool: no shared file changed per runner). Preflight `verify.mjs --no-cohort` was green before edits; final verify ran after the last js/ edit (map/D-log/queue edits only after).
+- **Named omissions:** none new in `dobreathe` (fully ported; the seed0108 `uen<15` refuse path is unchanged and still covered). Map `turns.md:287` updated (getdir/ubuzz deferred → live D-2117).
+- **Next:** Healer-92109 now diverges at `stairs_description` step 208 (later owner, no row added — the corpus queue will surface it); do not re-pop `getdir` for it. Refilled Open 7→12 (missum, arti_light_description, self_invis_message, zhitm, mhitm_ad_plys). Observed but not queued: `js js-throw` (Knight-92182 is the parked mattackm/can_carry hang; 92034 undiagnosed) and `burnarmor` Ranger-92212 (D-2116 Next anticipated it, but a burnarmor row is already archived — left for a future queue pass rather than duplicating archive).
+- **Cited falsifier grade:** measured (machine-recorded C-vs-JS screen row + `hidden-proxy verify getdir` baseline→post diff 115→208; pinned C `polyself.c:1420–1447` body read; `imports.mjs --can` SAFE on both new edges; no JS FORCE/DIAG/seed reads used).
+
 ## D-2116 — `zap.c` resist: mplayer arms + `zhitm` ZT_SLEEP `resist(how)` gate + explode.js `olet` alev table (queue row `zap.c` resist, 2 sessions)
 
 - **Status:** partial-fix (Open queue row `zap.c` resist — cited 2/553; `verify --fn resist`: 0 PASS, 2 moved past, 0 unchanged, 0 worse → PROGRESS. Row cites no review so no stamp owed.)
