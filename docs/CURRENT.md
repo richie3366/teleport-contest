@@ -21,10 +21,10 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-08** — full `sessions` on the working tree
-(audit **1083–1088**: 26431cce…10ea68f1, D-2117…D-2130).
+(audit **1089–1096**: d43bbc14…8c0e9448, D-2123…D-2130).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`67+0.40/turn` (R² 0.79).
+`86+0.55/turn` (R² 0.81).
 
 ## Score
 
@@ -49,6 +49,7 @@ they no longer pick work. Top owners: `welcome`→`calendar.c getlt` ×51,
 ×7, `wiz_intrinsic` ×7, 4 `ReferenceError` throws ×8 (Must-fix).
 Reviews 990–1073: 75 ACCEPT, 5 ACCEPT-WITH-DEBT (debts map-named), 4 QUALITY-RISK Must-fix all shipped/prepended (full record: reviews/ + DIVERGENCE-INDEX).
 Reviews 1074–1082: 7 ACCEPT, 2 ACCEPT-WITH-DEBT (debts map-pointed), 0 Must-fix.
+Reviews 1089–1096: 8 ACCEPT, 0 Must-fix.
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score --jobs 8`
 (≈200 s); when every family is ≥ 85 % PASS, grow it first:
 `node scripts/scenario-gen.mjs --n 120 --seed <iter×100>`.

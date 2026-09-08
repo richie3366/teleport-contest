@@ -1099,3 +1099,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1086-6a8cb884-enlightenment-swim-air-walls.md](./1086-6a8cb884-enlightenment-swim-air-walls.md) | `6a8cb884` | D-2120 enlightenment Swimming/Breathless/Passes_walls | **ACCEPT** |
 | [1087-d484a5f8-xname-pname-bare-oname.md](./1087-d484a5f8-xname-pname-bare-oname.md) | `d484a5f8` | D-2121 xname/doname obj_is_pname bare-ONAME | **ACCEPT** |
 | [1088-10ea68f1-death-disclosure-tail.md](./1088-10ea68f1-death-disclosure-tail.md) | `10ea68f1` | D-2122 done_in_by killer-arise + arise pline + summary + outentry | **ACCEPT** |
+| [1089-d43bbc14-canwearobj-polyform-gates.md](./1089-d43bbc14-canwearobj-polyform-gates.md) | `d43bbc14` | D-2123 canwearobj polyform/weld/trap gates | **ACCEPT** |
+| [1090-05fba4ac-setmangry-growl-else-arm.md](./1090-05fba4ac-setmangry-growl-else-arm.md) | `05fba4ac` | D-2124 setmangry victim growl else-arm | **ACCEPT** |
+| [1091-137e650f-mon-wield-artifact-light.md](./1091-137e650f-mon-wield-artifact-light.md) | `137e650f` | D-2125 mon_wield_item artifact_light arm | **ACCEPT** |
+| [1092-c0bd7edc-invis-uprops-fallback.md](./1092-c0bd7edc-invis-uprops-fallback.md) | `c0bd7edc` | D-2126 Invis/See_invisible uprops fallback | **ACCEPT** |
+| [1093-86cd47fa-zhitm-lightning-blind.md](./1093-86cd47fa-zhitm-lightning-blind.md) | `86cd47fa` | D-2127 zhitm ZT_LIGHTNING blind arm | **ACCEPT** |
+| [1094-a7ae28e5-mhitm-ad-plys-mon-arm.md](./1094-a7ae28e5-mhitm-ad-plys-mon-arm.md) | `a7ae28e5` | D-2128 mhitm_ad_plys mon→mon arm (stale row, probe-verified) | **ACCEPT** |
+| [1095-7fca2bb6-prayer-done-inhell-gate.md](./1095-7fca2bb6-prayer-done-inhell-gate.md) | `7fca2bb6` | D-2129 prayer_done Inhell angrygods gate | **ACCEPT** |
+| [1096-8c0e9448-mswings-blind-gate.md](./1096-8c0e9448-mswings-blind-gate.md) | `8c0e9448` | D-2130 mswings !Blind prop gate | **ACCEPT** |

@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `mhitu.c` mattacku — blocks 1/553 corpus sessions (first at step 163): C draws `rnd(20)=9` in mattacku, JS `rn2(2)=0` from mswings_verb(mhitu.js:321). Probe: `node scripts/hidden-proxy.mjs verify mattacku` (scen-poly-Rogue-92026). **Addressed:** D-2130
+- [x] `mhitu.c` mattacku — blocks 1/553 corpus sessions (first at step 163): C draws `rnd(20)=9` in mattacku, JS `rn2(2)=0` from mswings_verb(mhitu.js:321). Probe: `node scripts/hidden-proxy.mjs verify mattacku` (scen-poly-Rogue-92026). **Addressed:** D-2130 `8c0e9448`
 
 
 - [x] `pray.c` prayer_done — blocks 1/553 corpus sessions (first at step 105): C draws `rnl(10)=4` in prayer_done, JS `rn2(5)=4` from distfleeck(monmove.js:840). Probe: `node scripts/hidden-proxy.mjs verify prayer_done` (scen-tour-Healer-92198). **Addressed:** D-2129 `7fca2bb6`
