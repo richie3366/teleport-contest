@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `mkobj.c` start_corpse_timeout — blocks 1/553 corpus sessions (first at step 39): C draws `rn2(1000)=899` in start_corpse_timeout, JS `rn2(100)=99` from makewish(zap.js:6638). Probe: `node scripts/hidden-proxy.mjs verify start_corpse_timeout` (scen-wish-Barbarian-92102). **Addressed:** D-2145
+- [x] `mkobj.c` start_corpse_timeout — blocks 1/553 corpus sessions (first at step 39): C draws `rn2(1000)=899` in start_corpse_timeout, JS `rn2(100)=99` from makewish(zap.js:6638). Probe: `node scripts/hidden-proxy.mjs verify start_corpse_timeout` (scen-wish-Barbarian-92102). **Addressed:** D-2145 `0bed4afc`
 
 
 - [x] `artifact.c` artifact_hit — blocks 1/553 corpus sessions (first at step 104): C draws `rn2(2)=0` in artifact_hit, JS `rn2(3)=2` from mhitm_knockback(mhitm.js:2015). Probe: `node scripts/hidden-proxy.mjs verify artifact_hit` (scen-genesis-Rogue-92214). **Addressed:** D-2144 `bb24a32f`

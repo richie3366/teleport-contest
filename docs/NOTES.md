@@ -20,6 +20,7 @@ Objective/score live in `CURRENT.md`.
 - **doname_base park:** wield `prinv`+shine More-timing misattribution (detail: Parked; do not re-pop).
 - **Healer-92107 residual (D-2137 Next):** destroy double-count (`mhitu.js:901` `+=` vs C `(void)`); audit fire/elec arms.
 - **hmonas park:** see LOOP-QUEUE Parked (More-transient misattribution). Do not re-pop.
+- **lesshungry queue row STALE (parked 2026-09-08):** Tourist-91125 @162 scoreboard row never reproduces on the committed tree (live: do_statusline2@82, the parked lembas pair). 18:37 rescore ran on a working tree that never became bb24a32f (D-1831 class; js/ clock-free, C recording unchanged, 3/3 live replays RNG 2745/Screen 83). Do not re-pop; falsifier in Parked.
 
 ## Don't re-check (≤15)
 
