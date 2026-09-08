@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `makemon.c` newmonhp — blocks 1/553 corpus sessions (first at step 47): C draws `d(13,8)=55` in newmonhp, JS `d(1,8)=2` from newmonhp(makemon.js:931). Probe: `node scripts/hidden-proxy.mjs verify newmonhp` (scen-tour-Tourist-92134).
 - [ ] `zap.c` maybe_destroy_item — blocks 1/553 corpus sessions (first at step 164): C draws `rnd(4)=2` in maybe_destroy_item, JS `rn2(3)=1` from mhitm_knockback(mhitm.js:2029). Probe: `node scripts/hidden-proxy.mjs verify maybe_destroy_item` (scen-tour-Tourist-91101).
 - [ ] `cmd.c` yn_function — blocks 1/553 corpus sessions (first at step 111): C «Die? [yn] (n)» vs JS «You die...--More--». Probe: `node scripts/hidden-proxy.mjs verify yn_function` (scen-wish-Barbarian-92054).
 - [ ] `dig.c` use_pick_axe — blocks 1/553 corpus sessions (first at step 11): C «In what direction do you want to dig? [yku>]» vs JS «In what direction do you want to dig? [kyu>]». Probe: `node scripts/hidden-proxy.mjs verify use_pick_axe` (scen-kit-Archeologist-92022).
@@ -68,6 +67,11 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 - [ ] `polyself.c` newman — blocks 1/553 corpus sessions (first at step 127): C draws `rn2(5)=0` in newman, JS draws nothing. Probe: `node scripts/hidden-proxy.mjs verify newman` (scen-poly-Samurai-91106).
 - [ ] `do.c` u_stuck_cannot_go — blocks 1/553 corpus sessions (first at step 172): C «You release the iron golem. The iron golem hits!--More--» vs JS «The iron golem hits! The iron golem hits!». Probe: `node scripts/hidden-proxy.mjs verify u_stuck_cannot_go` (scen-poly-Valkyrie-92195).
 - [ ] `mondata.c` name_to_monplus — blocks 1/553 corpus sessions (first at step 81): C «» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify name_to_monplus` (scen-genesis-Archeologist-92175).
+- [ ] `monmove.c` distfleeck — blocks 7/553 corpus sessions (first at step 103): C draws `rn2(5)=2` in distfleeck, JS `rn2(1)=0` from rnd_otyp_by_namedesc(readobjnam.js:277). Probe: `node scripts/hidden-proxy.mjs verify distfleeck` (scen-intrinsic-Rogue-92172, scen-intrinsic-Samurai-92239, scen-normal-Caveman-92053).
+- [ ] `attrib.c` exercise — blocks 2/553 corpus sessions (first at step 48): C draws `rn2(2)=1` in exercise, JS `rn2(100)=7` from makewish(zap.js:6638). Probe: `node scripts/hidden-proxy.mjs verify exercise` (scen-wish-Valkyrie-92014, scen-wish-Valkyrie-92206).
+- [ ] `teleport.c` goodpos — blocks 1/553 corpus sessions (first at step 131): C draws `rn2(13)=5` in goodpos, JS `rn2(3)=0` from movebubbles(mklev.js:16122). Probe: `node scripts/hidden-proxy.mjs verify goodpos` (scen-tour-Tourist-92100).
+- [ ] `artifact.c` touch_artifact — blocks 1/553 corpus sessions (first at step 92): C draws `d(4,10)=22` in touch_artifact, JS `rn2(1)=0` from readobjnam(readobjnam.js:1280). Probe: `node scripts/hidden-proxy.mjs verify touch_artifact` (scen-wish-Rogue-92221).
+- [ ] `mcastu.c` mcast_death_touch — blocks 1/553 corpus sessions (first at step 71): C «Oh no, he's using the touch of death! You feel drained...--More--» vs JS «Oh no, she's using the touch of death! You feel drained...--More--». Probe: `node scripts/hidden-proxy.mjs verify mcast_death_touch` (scen-tour-Tourist-92134).
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 

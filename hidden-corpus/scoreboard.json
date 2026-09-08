@@ -1,6 +1,6 @@
 {
- "commit": "0fbb789b",
- "at": "2026-09-08T22:35:58.904Z",
+ "commit": "8e6c6c50",
+ "at": "2026-09-08T23:04:40.480Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6964,9 +6964,9 @@
   "scen-poly-Tourist-92171": {
    "src": "corpus",
    "passed": false,
-   "rngM": 3476,
+   "rngM": 3637,
    "rngT": 3637,
-   "scrM": 117,
+   "scrM": 144,
    "scrT": 145,
    "kind": "screen",
    "step": 88,
@@ -7406,18 +7406,18 @@
   "scen-tour-Tourist-92134": {
    "src": "corpus",
    "passed": false,
-   "rngM": 16769,
+   "rngM": 17006,
    "rngT": 17006,
-   "scrM": 47,
+   "scrM": 80,
    "scrT": 84,
-   "kind": "rng",
-   "step": 47,
+   "kind": "screen",
+   "step": 71,
    "steps": 84,
-   "owner": "newmonhp",
-   "loc": "makemon.c:1042",
-   "jsOwner": "newmonhp(makemon.js:931)",
-   "cTopline": "You materialize on a different level! It is hot here.--More--",
-   "jsTopline": "You materialize on a different level! It is hot here.--More--",
+   "owner": "mcast_death_touch",
+   "loc": "mcastu.c:391",
+   "jsOwner": null,
+   "cTopline": "Oh no, he's using the touch of death! You feel drained...--More--",
+   "jsTopline": "Oh no, she's using the touch of death! You feel drained...--More--",
    "error": null
   },
   "scen-tour-Valkyrie-92040": {

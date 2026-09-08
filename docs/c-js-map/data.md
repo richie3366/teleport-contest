@@ -872,7 +872,10 @@ shops/morgue; `stock_room` Orcus invent+detach; prefix **76622→82982**);
 **D-0768 wizard1** (mazegrid + center map + east mazewalk + morgue secret door + ladder + 
 hell_tweaks; prefix **82982→86029**) + **D-0771 wizard2** (mazegrid + center map + 
 zoo FILL_NORMAL + east mazewalk + ladders + hell_tweaks; 
-prefix **86170→98492**) + **D-0776 `Wiz-strt`** (cloud replace + Neferet invent + siege; 
+prefix **86170→98492**) + **D-2163 wizard3** (mazegrid + center map + east mazewalk + 
+morgue/beehive/arrival des.regions + portal + `link_doors_rooms`/`remove_boundary_syms` 
+epilogue (sp_lev.c lspo_finalize_level order; was missing → arrival west secret door 
+unlinked from beehive, fdoor=north, queen 8th not 4th)) + **D-0776 `Wiz-strt`** (cloud replace + Neferet invent + siege; 
 prefix **98505→100104**; Scr **292**) + **D-0777 `maketrap` AIR/CLOUD + 
 `splev_create_trap` stairs/`get_location_coord`** (prefix **100104→100397**) + 
 **D-0800 `Wiz-loca`/`Wiz-fila`/`Wiz-filb`** (seed0360 RNG **FULL**; Scr **561**;

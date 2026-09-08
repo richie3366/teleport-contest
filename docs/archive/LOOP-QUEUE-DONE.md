@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
+- [x] `makemon.c` newmonhp — blocks 1/553 corpus sessions (first at step 47): C draws `d(13,8)=55` in newmonhp, JS `d(1,8)=2` from newmonhp(makemon.js:931). Probe: `node scripts/hidden-proxy.mjs verify newmonhp` (scen-tour-Tourist-92134). **Addressed:** D-2163
+
+
 - [x] `botl.c` do_statusline1 — blocks 1/553 corpus sessions (first at step 253): C «i - a war hammer named Ogresmasher (weapon in right hand).» vs JS «i - a war hammer named Ogresmasher (weapon in right hand).». Probe: `node scripts/hidden-proxy.mjs verify do_statusline1` (scen-wish-Valkyrie-92206). **Addressed:** D-2162 `242a4641`
 
 

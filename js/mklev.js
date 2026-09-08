@@ -22393,7 +22393,10 @@ function load_wizard3() {
     const protectedSel = selection_or(selection_not(bounds2), wiz3);
     hell_tweaks(protectedSel);
 
-    // C load_special: map_cleanup → wallify → flip → lregions → fixup
+    // C load_special: link_doors → remove_boundary → map_cleanup →
+    // wallify → flip → fixup (lregions remapped by flip)
+    link_doors_rooms();
+    remove_boundary_syms();
     map_cleanup();
     if (!g.level.flags.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);
