@@ -55,7 +55,7 @@ import {
     clear_committed_status,
     docorner,
 } from './display.js';
-import { xprname, an, vtense, doname, distant_name, Japanese_item_name, xname, cxname_singular, set_xname_observe, set_distant_cansee, ansimpleoname, simpleonames, set_not_fully_identified, makeplural, body_part_latebound, corpse_xname, killer_xname } from './objnam.js';
+import { xprname, an, just_an, vtense, doname, distant_name, Japanese_item_name, xname, cxname_singular, set_xname_observe, set_distant_cansee, ansimpleoname, simpleonames, set_not_fully_identified, makeplural, body_part_latebound, corpse_xname, killer_xname } from './objnam.js';
 import { yn_function, getlin, mungspaces } from './getline.js';
 import { get_count, pmatchi, cmdq_pop, cmdq_clear } from './cmd.js';
 import { mergable, is_damageable, stop_timer, splitobj, unsplitobj, clear_splitobjs, unknwn_contnr_contents, weight, delobj } from './mkobj.js';
@@ -162,6 +162,7 @@ import {
     TOCORE_PROHIBITED,
     TOCORE_TOO_EARLY,
     HAND,
+    HANDED,
     FINGER,
     FINGERTIP,
     GETOBJ_EXCLUDE,
@@ -274,17 +275,19 @@ import {
     LEFT_SIDE,
     RIGHT_SIDE,
     BOTH_SIDES,
+    TELEPORT,
     TELEPORT_CONTROL,
     POLYMORPH_CONTROL,
     REGENERATION,
     JUMPING,
     HALLUC_RES, SEARCHING, REFLECTING, LIFESAVED,
     FIRE_RES, SHOCK_RES, TELEPAT, WARNING,
-    DISPLACED, ANTIMAGIC,
+    DISPLACED, ANTIMAGIC, INVIS,
+    G_GENOD,
     LOOKHERE_NOFLAGS,
     MSGTYP_MASK_REP_SHOW,
 } from './const.js';
-import { align_str, align_gname, u_gname, rank_of } from './roles.js';
+import { align_str, align_gname, u_gname, rank_of, genders } from './roles.js';
 import {
     UNENCUMBERED, SLT_ENCUMBER, MOD_ENCUMBER, HVY_ENCUMBER, EXT_ENCUMBER,
     OVERLOADED, WT_WEIGHTCAP_STRCON, WT_WEIGHTCAP_SPARE, MAX_CARR_CAP,
@@ -296,7 +299,7 @@ import { objects_at } from './mkobj.js';
 import { t_at, trapname } from './trap.js';
 import { visible_region_at, reg_damg } from './region.js';
 import { PM_SAMURAI, PM_MONK, PM_CLERIC } from './generated/monsters_data.js';
-import { humanoid, strongmonst, mons, touch_petrifies, poly_when_stoned, hides_under, haseyes, dmgtype, hates_silver } from './monsters.js';
+import { humanoid, strongmonst, mons, touch_petrifies, poly_when_stoned, hides_under, haseyes, dmgtype, hates_silver, is_male, is_female, is_neuter, vampshifted, nonliving, weirdnonliving } from './monsters.js';
 import { hideunder } from './mon.js';
 import { set_artifact_intrinsic, undiscovered_artifact, discover_artifact } from './artifact.js';
 import {
@@ -4926,6 +4929,19 @@ function status_core_lines(final = 0, opts = {}) {
     // C insight.c:940+ — youprop bits: flat timeout/mirror OR uprops intrinsic.
     const enl_bits = (p, flat) => ((u[flat] | 0) || (u.uprops?.[p]?.intrinsic | 0));
     const out = [];
+    // C insight.c:964-973 — Upolyd transformed before Riding/Levitation.
+    if (Upolyd(u)) {
+        let tbuf = 'transformed';
+        const geno = ((game.mvitals?.[game.urole?.mnum]?.mvflags | 0) & G_GENOD)
+            || ((game.mvitals?.[game.urace?.mnum]?.mvflags | 0) & G_GENOD);
+        if (geno) {
+            const udata = game.youmonst?.data;
+            const inside = !nonliving(udata) ? 'dead'
+                : !weirdnonliving(udata) ? 'condemned' : 'empty';
+            tbuf += ` and ${final ? 'felt' : 'feel'} ${inside} inside`;
+        }
+        out.push(wrap(tbuf));
+    }
     // C insight.c:1006-1011 — Stoned before Slimed, prayer order.
     const stoned = enl_bits(STONED, 'Stoned');
     if (stoned) {
@@ -5077,9 +5093,12 @@ function status_core_lines(final = 0, opts = {}) {
 /**
  * C ref: insight.c enlightenment — BASIC|MAGIC; final → putstr NHW_MENU
  * (--More-- pages), not ^X menu "(k of n)".
- * Named omissions: poly/vamp; night/midnight; SCORE_ON_BOTL; most
- * status troubles beyond Deaf/Sleepy; vision beyond
- * Searching/Infravision/Stealth (See_invisible/telepathic/warned live);
+ * Named omissions: night/midnight; SCORE_ON_BOTL; most
+ * status troubles beyond Deaf/Sleepy/transformed; vision beyond
+ * Searching/Infravision/Stealth (See_invisible/telepathic/warned/Invisible
+ * live); background Upolyd form + actually + handed normally + Basics
+ * hit dice + wallet hidden_gold + Jumping/Teleportation/Teleport_control
+ * live;
  * from_what suffixes; blocked-Stealth / other appearance props
  * (Displaced + Polymorph_control live, D-2025);
  * Teleportation/Aggravate/Conflict/Jumping-Teleport arms; Regen/digestion/
@@ -5142,9 +5161,27 @@ export async function enlightenment(mode, final = 0) {
 
     if (mode & BASICENLIGHTENMENT) {
         lines.push('Background:');
+        // C insight.c:491-511 — Upolyd current shape before underlying role.
+        if (Upolyd(u)) {
+            const uasmon = game.youmonst?.data || mons(u.umonnum);
+            const altphrasing = vampshifted(game.youmonst);
+            let ptmp = '';
+            if (!is_male(uasmon) && !is_female(uasmon) && !is_neuter(uasmon)) {
+                ptmp += `${genders[female ? 1 : 0].adj} `;
+            }
+            if (altphrasing) {
+                const chamPm = mons(game.youmonst?.cham);
+                ptmp += `${pmname(chamPm, female ? FEMALE : MALE)} in `;
+            }
+            const prefix = final ? '' : 'currently ';
+            const article = altphrasing ? just_an(ptmp) : 'in ';
+            const formBuf = `${prefix}${article}${ptmp}${pmname(uasmon, female ? FEMALE : MALE)} form`;
+            lines.push(you_are(formBuf));
+        }
         // C: !strcmpi(rank, role) → noun + omit role (D-0928 #1194)
+        // C insight.c:529 — Upolyd role line carries "actually " prefix.
         lines.push(you_are(
-            background_role_level_clause(
+            (Upolyd(u) ? 'actually ' : '') + background_role_level_clause(
                 rank, role, u.ulevel || 1, genderPart, game.urace,
             ),
         ));
@@ -5165,7 +5202,14 @@ export async function enlightenment(mode, final = 0) {
         }
         opposed += '.';
         lines.push(opposed);
-        lines.push(you_are(`${hand}-handed`));
+        // C insight.c:565-569 — "normally " when poly form lacks hands.
+        // Non-poly keeps "" even under the objnam fallback ('body part').
+        {
+            const handedPrefix = !Upolyd(u)
+                ? ''
+                : (body_part_latebound(HANDED) === 'handed' ? '' : 'normally ');
+            lines.push(you_are(`${handedPrefix}${hand}-handed`));
+        }
 
         // C ref: insight.c background_enlightenment — In_endgame /
         // Is_knox / quest dunlev / rogue annotation
@@ -5200,17 +5244,20 @@ export async function enlightenment(mode, final = 0) {
             );
         }
 
-        const uexp = u.uexp | 0;
-        const ulvl = u.ulevel | 0;
-        let xpbuf = `${uexp} experience point${uexp === 1 ? '' : 's'}`;
-        if (ulvl < 30) {
-            const nxtlvl = newuexp(ulvl);
-            const delta = nxtlvl - uexp;
-            xpbuf += `, ${delta} ${uexp > 0 ? 'more ' : ''}`;
-            if (final) xpbuf += (delta === 1) ? 'was ' : 'were ';
-            xpbuf += `${ulvl < 18 ? 'needed to attain' : 'needed for'} level ${ulvl + 1}`;
+        // C insight.c:687-709 — experience line suppressed while poly'd.
+        if (!Upolyd(u)) {
+            const uexp = u.uexp | 0;
+            const ulvl = u.ulevel | 0;
+            let xpbuf = `${uexp} experience point${uexp === 1 ? '' : 's'}`;
+            if (ulvl < 30) {
+                const nxtlvl = newuexp(ulvl);
+                const delta = nxtlvl - uexp;
+                xpbuf += `, ${delta} ${uexp > 0 ? 'more ' : ''}`;
+                if (final) xpbuf += (delta === 1) ? 'was ' : 'were ';
+                xpbuf += `${ulvl < 18 ? 'needed to attain' : 'needed for'} level ${ulvl + 1}`;
+            }
+            lines.push(you_have(xpbuf));
         }
-        lines.push(you_have(xpbuf));
 
         lines.push('');
         lines.push('Basics:');
@@ -5233,20 +5280,39 @@ export async function enlightenment(mode, final = 0) {
             pwLine = `${pw} out of ${pwmax} ${Power}`;
         }
         lines.push(you_have(pwLine));
+        // C insight.c:753-766 — Upolyd hit dice between energy and AC.
+        if (Upolyd(u)) {
+            const mlev = mons(u.umonnum)?.mlevel | 0;
+            let hdBuf;
+            if (mlev === 0) hdBuf = '0 hit dice (actually 1/2)';
+            else if (mlev === 1) hdBuf = '1 hit die';
+            else hdBuf = `${mlev} hit dice`;
+            lines.push(you_have(hdBuf));
+        }
         lines.push(enlght_line_txt(
             'Your armor class ',
             final ? 'was ' : 'is ',
             String(u.uac ?? 10),
             '',
         ));
+        // C insight.c:787-808 — wallet + hidden_gold(final) continuation.
         const umoney = money_cnt_local();
-        if (!umoney) {
-            lines.push(` Your wallet ${final ? 'was' : 'is'} empty.`);
-        } else {
-            // C insight.c `:787–788` currency(umoney)
-            lines.push(
-                ` Your wallet contain${final ? 'ed' : 's'} ${umoney} ${currency(umoney)}.`,
-            );
+        const hmoney = hidden_gold(!!final);
+        {
+            let wbuf;
+            if (!umoney) {
+                wbuf = ` Your wallet ${final ? 'was' : 'is'} empty`;
+            } else {
+                wbuf = ` Your wallet contain${final ? 'ed' : 's'} ${umoney} ${currency(umoney)}`;
+            }
+            wbuf += !hmoney ? '.' : !umoney ? ', but' : ', and';
+            lines.push(wbuf);
+            if (hmoney) {
+                const stash = `${hmoney} ${umoney ? 'more' : currency(hmoney)} stashed away in your pack`;
+                lines.push(enlght_line_txt(
+                    'you ', final ? 'had ' : 'have ', stash, '',
+                ));
+            }
         }
         lines.push(autopickup_enlightenment_line_final(!!final));
 
@@ -5429,10 +5495,45 @@ export async function enlightenment(mode, final = 0) {
             if (racePm != null) hasInfra = infraFn(monsFn(racePm));
         }
         if (hasInfra) lines.push(you_have('infravision', from_what(INFRAVISION)));
+        // C insight.c:1628-1636 — Invisible trio before Displaced
+        // (Adornment deferred above).
+        {
+            const hInv = ((u.HInvis | 0) || (u.uprops?.[INVIS]?.intrinsic | 0));
+            const eInv = ((u.EInvis | 0) || (u.uprops?.[INVIS]?.extrinsic | 0));
+            const bInv = ((u.BInvis | 0) || (u.uprops?.[INVIS]?.blocked | 0));
+            const isInvis = !!((hInv || eInv) && !bInv);
+            const seeInvis = !!((u.HSee_invisible | 0) || (u.ESee_invisible | 0));
+            if (isInvis && !seeInvis) {
+                lines.push(you_are('invisible', from_what(INVIS)));
+            } else if (isInvis) {
+                lines.push(you_are('invisible to others', from_what(INVIS)));
+            } else if ((hInv || eInv) && bInv) {
+                lines.push(you_are('visible', from_what(-INVIS)));
+            }
+        }
         // C insight.c:1667-1670 — Displaced before Stealth (blocked-Stealth
         // "would be stealthy" arm deferred).
         if (hero_Displaced(u)) lines.push(you_are('displaced', from_what(DISPLACED)));
         if (hero_Stealth(u)) lines.push(you_are('stealthy', from_what(STEALTH)));
+        // C insight.c:1675-1685 — Jumping / Teleportation / Teleport_control
+        // before magic_negation (Aggravate/Conflict/lev-fly-blocked deferred).
+        if ((u.HJumping | 0) || (u.EJumping | 0)
+            || (u.uprops?.[JUMPING]?.intrinsic | 0)
+            || (u.uprops?.[JUMPING]?.extrinsic | 0)) {
+            lines.push(enlght_line_txt(
+                You_, final ? 'could ' : 'can ', 'jump', from_what(JUMPING),
+            ));
+        }
+        if ((u.HTeleportation | 0) || (u.ETeleportation | 0) || u.Teleportation
+            || (u.uprops?.[TELEPORT]?.intrinsic | 0)
+            || (u.uprops?.[TELEPORT]?.extrinsic | 0)) {
+            lines.push(enlght_line_txt(
+                You_, final ? 'could ' : 'can ', 'teleport', from_what(TELEPORT),
+            ));
+        }
+        if (hero_Teleport_control(u)) {
+            lines.push(you_have('teleport control', from_what(TELEPORT_CONTROL)));
+        }
         // C insight.c:1768-1769 — Regeneration before magic_negation
         // (Slow_digestion / combat-inc / defense deferred).
         if (hero_Regeneration(u)) {
@@ -5658,6 +5759,17 @@ function autopickup_enlightenment_line_final(final) {
 function one_characteristic_line_final(attrindx, final) {
     const u = game.u || {};
     const acurrent = acurr(attrindx);
+    // C insight.c:854-862 — poly'd hero can't track base/peak: plain value.
+    // (Fixed_abil/stuck-ring/cursed-item hide arms deferred; MAGIC-mode
+    // clearing only matters with those arms since hide starts FALSE here.)
+    if (Upolyd(u)) {
+        return enlght_line_txt(
+            `Your ${ATTR_NAMES[attrindx]} `,
+            final ? 'was ' : 'is ',
+            attrval(attrindx, acurrent),
+            '',
+        );
+    }
     let valubuf = attrval(attrindx, acurrent);
     const abase = u.acurr?.a?.[attrindx] ?? acurrent;
     const apeak = u.amax?.a?.[attrindx] ?? abase;
@@ -6121,6 +6233,28 @@ export async function doattributes(enl_mode = null) {
             lines.push(o(enlght_line_txt(
                 'You ', 'have ', 'infravision', from_what(INFRAVISION),
             )));
+        }
+        // C insight.c:1628-1636 — Invisible trio before Displaced
+        // (Adornment deferred above).
+        {
+            const hInv = ((u.HInvis | 0) || (u.uprops?.[INVIS]?.intrinsic | 0));
+            const eInv = ((u.EInvis | 0) || (u.uprops?.[INVIS]?.extrinsic | 0));
+            const bInv = ((u.BInvis | 0) || (u.uprops?.[INVIS]?.blocked | 0));
+            const isInvis = !!((hInv || eInv) && !bInv);
+            const seeInvis = !!((u.HSee_invisible | 0) || (u.ESee_invisible | 0));
+            if (isInvis && !seeInvis) {
+                lines.push(o(enlght_line_txt(
+                    'You ', 'are ', 'invisible', from_what(INVIS),
+                )));
+            } else if (isInvis) {
+                lines.push(o(enlght_line_txt(
+                    'You ', 'are ', 'invisible to others', from_what(INVIS),
+                )));
+            } else if ((hInv || eInv) && bInv) {
+                lines.push(o(enlght_line_txt(
+                    'You ', 'are ', 'visible', from_what(-INVIS),
+                )));
+            }
         }
         // Appearance — Displaced before Stealth (insight.c); Aggravate/
         // Conflict deferred. Blocked-Stealth arm deferred.

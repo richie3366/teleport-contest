@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `insight.c` enlightenment — blocks 4/553 corpus sessions (first at step 67): C «Wizard the Monk's attributes:» vs JS «Wizard the Monk's attributes:». Probe: `node scripts/hidden-proxy.mjs verify enlightenment` (scen-death-Monk-92000, scen-death-Wizard-92120, scen-wish-Healer-92147).
 - [ ] `end.c` disclose — blocks 3/553 corpus sessions (first at step 110): C «Do you want to see your conduct and achievements? [ynq] (n)» vs JS «Do you want to see your conduct? [ynq] (n)». Probe: `node scripts/hidden-proxy.mjs verify disclose` (scen-genesis-Barbarian-91118, scen-wish-Monk-92031, scen-wish-Priest-92098).
 - [ ] `teleport.c` rloc — blocks 2/553 corpus sessions (first at step 73): C draws `rnd(79)=69` in rloc, JS `rn2(12)=4` from mcalcmove(mon.js:740). Probe: `node scripts/hidden-proxy.mjs verify rloc` (scen-tour-Healer-92042, scen-tour-Ranger-92033).
 - [ ] `zap.c` lightdamage — blocks 2/553 corpus sessions (first at step 123): C «The mind flayer zaps himself with a maple wand!--More--» vs JS «The mind flayer zaps himself with a maple wand!--More--». Probe: `node scripts/hidden-proxy.mjs verify lightdamage` (scen-genesis-Barbarian-92062, scen-tour-Wizard-91112).
