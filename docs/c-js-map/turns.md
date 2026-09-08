@@ -1196,12 +1196,12 @@ JS: `js/invent.js`, `js/objnam.js`, `js/u_init.js` `assigninvlet`/`addinv` — p
 
 **`assigninvlet` preserves free a-z/A-Z invlet** (steal→`freeinv`→later `addinv` same obj; D-0688; 
 `display_used_invlets` D-1591; pack-full NOINVSYM polish deferred); 
-**artifact touch + addinv + prinv** (D-0064); **artifact-refuse arm prints nothing** (D-2134; C `:1227–1231`, no `drop_fmt` — was JS oops `--More--`); 
+**artifact touch + addinv + prinv** (D-0064); **artifact-refuse arm prints nothing + `dropy` back to floor** (D-2134 refuse shape; D-2141 C `:1227–1231` `dropy` — the deferred re-drop ate refused wish-artifacts out of every chain, starving `dog_goal`); 
 **`hold_another_object` stay-in-invent → `encumber_msg`** (D-0863; 
 flushes prinv `--More--` before makewish `ublesscnt`) + 
 **drop_it Fumbling / `inv_cnt(FALSE)>invlet_basic` / encumbrance>`pickup_burden` → `dropx` or 
 `hitfloor(FALSE)`** (D-1272; autoquiver on stay; cursed LOADSTONE skips burden drop; 
-fatal wished corpse / artifact `dropy`+wasUpolyd+crysknife / perm_invent WIN_INVEN still named); 
+fatal wished corpse / wasUpolyd+crysknife arms (refuse-arm `dropy` live D-2141) / perm_invent WIN_INVEN still named); 
 **prinv `xprname(..., dot)`** (D-0070); **`observe_object` in invent_lines** (D-0079); 
 **`observe_object` FIRST_OBJECT skip** (D-1713; C `o_init.c:441–451`;
 generic/STRANGE_OBJECT `otyp < FIRST_OBJECT`; Hallu `youprop.h` not sticky

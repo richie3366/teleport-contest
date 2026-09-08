@@ -19,25 +19,24 @@ Objective/score live in `CURRENT.md`.
 - **zapyourself park:** monster-zap dobuzz misattribution (detail: Parked; do not re-pop).
 - **doname_base park:** wield `prinv`+shine More-timing misattribution (detail: Parked; do not re-pop).
 - **Healer-92107 residual (D-2137 Next):** destroy double-count (`mhitu.js:901` `+=` vs C `(void)`); audit fire/elec arms.
-- **hmonas park:** Priest-92163 step-193 More-transient — owner `uhitm.c:5544` is a comment, stepFns runs `hitum`, RNG 13/13 matched, C194==JS193 (detail: Parked; do not re-pop).
-- **Fired rows (archived, do not re-pop):** cursetxt (D-2137), dmgval (D-2139).
-- **magic_whistled fired (no js/, no D-log):** Priest-91110 @78→minliquid_core@130 by committed D-2096 tree (misattributed `sizeof "appears"` literal; true printer makemon appear Norep, positions identical at HEAD); re-queued as Open minliquid_core. See Parked. Do not re-pop.
+- **hmonas park:** see LOOP-QUEUE Parked (More-transient misattribution). Do not re-pop.
 
 ## Don't re-check (≤15)
 
-- D-1790…D-2140 ports stand (range-covered). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`/`free_mgivenname`/`is_axe`/`carrying`/`end_running`.
+- D-1790…D-2141 ports stand (range-covered). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`/`free_mgivenname`/`is_axe`/`carrying`/`end_running`.
 - D-1795 `mattacku`/`getmattk` and D-1816 NATTK abort stand (range-covered). Scars: keep sleep `rn2(10)`; no second `m_monnam`/`simple_typename`; seed4500 `[2]` (D-1817): keep `flush_screen(1)`, never hide `[2]`.
 - No `stay` rebuild; no `u.Punished`; no `rn2(20)` on ordinary pit farlook.
 - seed0014 I-glyph is D-1774; findone tail D-1775. Do not revert D-0078 H2344 / offx 72 (D-1185). `g` is not Unknown (D-1186). PREFIXCMD D-1582.
   ParanoidTrap / `domagicportal` / `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 are D-1187/1188. No rhack raw-ETX (D-1189). Never FORCE the falsified mineralize TRC (76,14)/(77,14) (D-1849).
 - `Val-*`/`Sam-*` loaders shipped D-1852/D-1858 — check `load_val_*`/`load_sam_*` before refilling.
 - Don't re-apply D-0480 glyph `tty_map_color` (D-0483). Don't skip painting spaces or emit mid-row space runs >4 (D-0931). Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092). Do not blanket-restore overlay `_pending_message` (D-0929). Do not HEAVY_IRON_BALL `owt!=0` (#1194). Judge does **not** elide RC (D-0933); do not extend §1.2. Do not chase public LB in-loop.
-- Do not memcpy gi worn/ball (D-1035) / `setnotworn` from `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) / skip `tutorial()` (D-1066). Do not skip D-1067…D-2140.
-- Do not import `monmove.js` `sticks` for sit / rewrite `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) / bones→options fruitadd (D-1541). No `reset_glyphmap` / `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`. No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`. Do not re-port D-1682…D-2140.
+- Do not memcpy gi worn/ball (D-1035) / `setnotworn` from `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) / skip `tutorial()` (D-1066). Do not skip D-1067…D-2141.
+- Do not import `monmove.js` `sticks` for sit / rewrite `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) / bones→options fruitadd (D-1541). No `reset_glyphmap` / `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`. No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`. Do not re-port D-1682…D-2141.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2141: `js/invent.js` only — `await dropy(obj)` after `obj_extract_self(obj)` in the refuse arm (C `:1229`), with C cite. Named: `hold_another_object` wasUpolyd revert-grip arm + crysknife restore + fatal-wished-corpse 
 - D-2140: `js/mcastu.js` only — full C switch in C order and short-circuit: FIRE (`pline("You're enveloped in flames.")`, `Fire_resistance()` → `shieldeff` + re Named: `mcast_spell` FIRE_PILLAR/LIGHTNING/GEYSER `mon_spell_hits_spot` arms stay named (file-loc
 - D-2139: `js/dothrow.js` only — (1) coin gate is now `if COIN_CLASS && obj !== uquiver → throw_gold`; quivered coins fall through to the live m_shot loop (spli Named: map `turns.md:2543` paren retires «quivered gold» (live this entry); unsplitobj D-0720 / d
 - D-2138: `js/polyself.js` only — `can_teleport`/`control_teleport` added to the existing `monsters.js` edge (the edge `eat.js`/`dokick.js` already use; hoisted Named: remaining `set_uasmon` PROPSETs (ANTIMAGIC/SICK_RES/STUNNED/SEE_INVIS/TELEPAT/INFRAVISION/
@@ -52,5 +51,4 @@ Objective/score live in `CURRENT.md`.
 - D-2129: `js/pray.js` only, exact C order + short-circuit — `if (((u.ualign?.record | 0) <= 0) || rnl(u.ualign?.record | 0)) await angrygods(u.ualign?.type ??  Named: none new. p_type −2/−1/1/2 outcome bodies + `pray_revive` stay named (`pray.js` header; no
 - D-2128: `js/mhitm.js` only — new exported `mhitm_ad_plys(magr, mattk, mdef, mhm)` in exact C short-circuit order (`mcanmove`, `!rn2(3)`, mgc-negated(TRUE) via Named: mhitu you-as-def arm stays named → open D-2005 (`hitmsg` + `nomul` + `dynamic_multi_reason
 - D-2127: `js/zap.js` only, exact C order — `if (spellcaster) tmp = spell_damage_bonus(tmp)` (same-module live helper), shield + `tmp = 0`, the blind gate with  Named: none new.
-- D-2126: `js/display.js` only — `hero_Invis()` now ORs flats + `uprops[INVIS]` intrinsic/extrinsic/blocked, `hero_See_invisible()` ORs flats + sticky + `uprops Named: none new.
 <!-- landmarks:end -->
