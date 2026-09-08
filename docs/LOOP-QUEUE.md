@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `eat.c` fprefx — blocks 1/553 corpus sessions (first at step 99): C draws `rn2(2)=0` in fprefx, JS `rn2(70)=2` from maybe_generate_rnd_mon(allmain.js:349). Probe: `node scripts/hidden-proxy.mjs verify fprefx` (scen-wish-Knight-92105).
 - [ ] `timeout.c` slimed_to_death — blocks 1/553 corpus sessions (first at step 37): C «OK, so you don't die. Demogorgon hits! You feel even worse.-» vs JS «OK, so you don't die. Demogorgon hits! You feel much worse.-». Probe: `node scripts/hidden-proxy.mjs verify slimed_to_death` (scen-death-Valkyrie-92229).
 - [ ] `timeout.c` sickness_dialogue — blocks 1/553 corpus sessions (first at step 65): C «You are at Death's door.--More--» vs JS «You are at Death's door.». Probe: `node scripts/hidden-proxy.mjs verify sickness_dialogue` (scen-intrinsic-Rogue-91111).
 - [ ] `detect.c` do_mapping — blocks 1/553 corpus sessions (first at step 95): C «Move cursor to anything of interest:» vs JS «Move cursor to anything of interest:». Probe: `node scripts/hidden-proxy.mjs verify do_mapping` (scen-normal-Priest-91120).

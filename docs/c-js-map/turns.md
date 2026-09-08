@@ -1774,8 +1774,7 @@ JS: `js/eat.js` — partial
 Cookie + **reqtime-1 food** (`touchfood`/`splitobj`/`fprefx`/`lesshungry`) (D-0155); 
 **`doeat` `check_capacity` / EXT_ENCUMBER before `is_edible`** (D-0928 #1185; 
 Strangled / uedibility / hands_obj / worn-armor eat / metallic rust-monster / RIN_SLOW_DIGESTION / 
-doeat_nonfood still deferred); **`fprefx` CLOVE_OF_GARLIC → 
-`garlic_breath`/`olfaction`/`monflee(0)`** (D-0635; undead `make_vomiting` deferred); 
+doeat_nonfood still deferred); **`fprefx` full C port** (D-2159; C `eat.c:2099–2217`: EGG pyrolisk/stale arms, FOOD_RATION hallu, TRIPE 3-branch + `rn2(2)` vomit gate, LEMBAS orc/elf, MEATBALL group, garlic undead vomit + FALLTHROUGH, SLIME_MOLD current_fruit, cursed-apple sleep gate, hallu core-dump `rnd(100)`, give_feedback grody/bland/gnarly; garlic `garlic_breath`/`olfaction`/`monflee(0)` D-0635 retained); 
 **`gethungry` accessorytime `rn2(20)`** (D-0107); 
 **Unaware metabolic `rn2(10)` before accessorytime** (D-0156;
 `is_fainted` / Unaware `talk=FALSE` D-1768; **D-1791** `newuhs` sets
@@ -1806,7 +1805,7 @@ real `losehp`/`make_sick` deferred); **`floorfood` feeding yn +
 `:4762–4783` split+`delobj`+`hideunder`; live `js/invent.js` export;
 eat.js hybrid retired; apply/engrave/fountain/pray/zap import the
 C-locus; named: shop addtobill/stolen_value, `mon_moving`, zap.js
-useupf clone, detect/potion/read/spell useup clones, fprefx pyrolisk); 
+useupf clone, detect/potion/read/spell useup clones; fprefx pyrolisk retired D-2159); 
 **`vomit` `nomul(-2)` + You_can_move_again** (D-0371) + 
 **cantvomit/Sick/FAINTING/acid poly** (D-1127; `mondata.c` `cantvomit`; 
 `zap.c` `ubreatheu`/`zhitu` ZT_ACID resist+hliquid+d(nd,6)+rn2 gates; altar_wrath; 

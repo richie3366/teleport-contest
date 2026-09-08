@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-08 — D-2159 `eat.c` fprefx: full C port incl. tripe `rn2(2)` vomit gate (1 session moved past)
+
+**C locus:** `eat.c:2099–2217` (`fprefx`, static), called from ordinary-food `doeat` `:3038` when eating starts (`!already_partly_eaten`). TRIPE_RATION else-arm `:2138–2146`: «Yak - dog food!» + `more_experienced(1,0)` + `newexplevel()` + `if (rn2(2) && !CANNIBAL_ALLOWED()) make_vomiting(rn1(reqtime,14),FALSE)` (CANNIBAL_ALLOWED ≡ Cave Dweller || orc, eat.c:51; stale_egg ≡ moves-age > 2*MAX_EGG_HATCH_TIME, obj.h:316; maybe_polyd ≡ Upolyd ? if_so : if_not, youprop.h:22).
+**JS:** `js/eat.js` only (4 import lines + 7 consts + `Race_if` + ~100-line `fprefx` rewrite); no new file. Insertions ≈110, under the 600 cap.
+**Change:** full C port in exact branch order and short-circuit (JS `feedback` flag for C `goto give_feedback`; garlic FALLTHROUGH preserved). `Race_if` local (house pattern, cf. makemon.js:655); `stale_egg` inlined from the macro; `Upolyd(u)` + `hero_form_data()` for `gy.youmonst.data`; sleep gate mirrors the house `HSleep_resistance||ESleep_resistance||Sleep_resistance` read. Imports: `humanoid`/`is_orc`/`is_elf` (monsters.js) + `more_experienced`/`newexplevel` (exper.js) + `EXPL_FIERY` (const.js) all ALREADY edges; `explode` (explode.js) `imports.mjs --can` SAFE (hoisted function, same SCC).
+**Verify:** `node scripts/verify.mjs --fn fprefx` → PASS syntax (1 changed file: js/eat.js) · PASS rule2 (no fs/path/url/node:, no DIAG/FORCE/seed gates) · PASS hidden (scen-wish-Knight-92105 moved fprefx@99 → next_ident@151, +52 steps, later owner) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 (full `sessions` skipped: no shared file changed). VERIFY: PASS.
+**Named:** none in this function — every C branch is live (`fpostfx` feedback deferral needs no call; the APPLE-cursed arm is correctly silent).
+**Next:** `timeout.c` slimed_to_death (next Open row); queue stays ≥8 Open, no refill owed.
 ## 2026-09-08 — D-2158 `hack.c` escape_from_sticky_mon: sticky-holder escape roll was a named omission in `domove` (1 session PASS)
 
 **C locus:** `hack.c:2639–2692` (`escape_from_sticky_mon`, static), called from `domove_core` `:2760` after `avoid_running_into_trap_or_liquid`, before `m_at`/attack. Guard `u.ustuck && (x != mx || y != my)`; fled-holder `!m_next2u` → silent release; hero-polymorphed `sticks(youmonst.data)` → «You release …»; else `switch (rn2(!mcanmove ? 8 : 40))` with case-3 waking a helpless holder then falling through to the cannot-escape arm (`Conflict || mconf || !mtame` → «You cannot escape from …!» + `nomul(0)` + TRUE), rolls 0–2 (or tame, no conflict) pulling free.

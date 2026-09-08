@@ -57,7 +57,7 @@ import {
 import {
     mons, acidic, poisonous, carnivorous, herbivorous, metallivorous,
     vegan, vegetarian, nohands, verysmall,
-    is_rider, is_undead, olfaction, is_giant, mindless, noncorporeal,
+    is_rider, is_undead, humanoid, is_orc, is_elf, olfaction, is_giant, mindless, noncorporeal,
     can_teleport, control_teleport, telepathic,
     flesh_petrifies, slimeproof, your_race, poly_when_stoned,
     is_clinger, breathless, is_flyer,
@@ -91,7 +91,7 @@ import {
     SEE_INVIS, INVIS, PROT_FROM_SHAPE_CHANGERS, LEVITATION, SLEEPY,
     M_AP_NOTHING, M_AP_OBJECT, DISMOUNT_FELL,
     WWALKING, MAGICAL_BREATHING, FLYING, GD_EATGOLD, Is_waterlevel,
-    Is_astralevel,
+    Is_astralevel, EXPL_FIERY,
     CHOKING, STARVING, STARVED, A_LAWFUL, STRANGLED, PARANOID_EATING,
     DEAF,
     GETOBJ_EXCLUDE, GETOBJ_SUGGEST, GETOBJ_EXCLUDE_SELECTABLE,
@@ -121,12 +121,13 @@ import {
     selftouch,
 } from './trap.js';
 import { done, delayed_killer } from './end.js';
+import { explode } from './explode.js';
 import { polymon, polyself, rehumanize, change_sex, body_part } from './polyself.js';
 import { costly_alteration, costly_spot } from './shk.js';
 import {
     wield_tool, uwepgone, uswapwepgone, uqwepgone,
 } from './wield.js';
-import { pluslvl } from './exper.js';
+import { pluslvl, more_experienced, newexplevel } from './exper.js';
 import { toggle_displacement, setworn, Ring_gone } from './do_wear.js';
 import { attrcurse } from './sit.js';
 import { dismount_steed } from './steed.js';
@@ -263,7 +264,12 @@ const PM_DISENCHANTER = monsterNames.indexOf('PM_DISENCHANTER');
 const PM_MIND_FLAYER = monsterNames.indexOf('PM_MIND_FLAYER');
 const PM_MASTER_MIND_FLAYER = monsterNames.indexOf('PM_MASTER_MIND_FLAYER');
 const PM_VIOLET_FUNGUS = monsterNames.indexOf('PM_VIOLET_FUNGUS');
+const PM_PYROLISK = monsterNames.indexOf('PM_PYROLISK');
 const EGG = objectNames.indexOf('EGG');
+const MEATBALL = objectNames.indexOf('MEATBALL');
+const MEAT_STICK = objectNames.indexOf('MEAT_STICK');
+const ENORMOUS_MEATBALL = objectNames.indexOf('ENORMOUS_MEATBALL');
+const SLIME_MOLD = objectNames.indexOf('SLIME_MOLD');
 /* C monattk.h — stun / hallucination damage types for cpostfx hallu. */
 const AD_STUN = 12;
 const AD_HALU = 36;
@@ -273,6 +279,11 @@ function CANNIBAL_ALLOWED() {
     const role = game.urole?.mnum | 0;
     const race = game.urace?.mnum | 0;
     return role === PM_CAVE_DWELLER || race === PM_ORC;
+}
+
+/** C ref: you.h Race_if — gu.urace.mnum == X (local; house pattern, cf. makemon.js). */
+function Race_if(pm) {
+    return (game.urace?.mnum | 0) === (pm | 0);
 }
 
 /** C objclass.h material enum indices used by foodword / doeat_nonfood. */
@@ -1326,51 +1337,108 @@ async function garlic_breath(mtmp) {
 }
 
 /**
- * C ref: eat.c fprefx — first-bite messages for non-rotten non-tin food.
+ * C ref: eat.c:2099–2217 fprefx — first-bite feedback for food.
  * Contest recorder is MACOS → APPLE "Macintosh!"; UNIX Core dumped deferred.
- * Returns false if eating should abort (egg explode etc. deferred → true).
+ * Returns false if eating should abort (pyrolisk egg explode).
  */
 async function fprefx(otmp) {
-    if (otmp.otyp === FOOD_RATION) {
-        const hung = game.u?.uhunger ?? 900;
-        if (hung <= 200) {
-            await pline('This food really hits the spot!');
-        } else if (hung < 700) {
-            await pline('This satiates your stomach!');
+    const u = game.u || {};
+    const form = hero_form_data();
+    // C goto give_feedback — JS has no goto; arms set this instead.
+    let feedback = false;
+    if (otmp.otyp === EGG) {
+        if ((otmp.corpsenm | 0) === PM_PYROLISK) {
+            if (carried(otmp)) useup(otmp);
+            else useupf(otmp, 1);
+            await explode(u.ux | 0, u.uy | 0, -11, d(3, 6), 0, EXPL_FIERY);
+            return false;
+        } else if ((((game.moves | 0) - (otmp.age | 0)) | 0) > 2 * 400) {
+            // C stale_egg (obj.h:316): moves-age > 2*MAX_EGG_HATCH_TIME
+            await pline('Ugh.  Rotten egg.');
+            await make_vomiting((((u.Vomiting | 0) & TIMEOUT) + d(10, 4)) | 0, true);
+        } else {
+            feedback = true;
         }
-        return true;
-    }
-    if (otmp.otyp === TRIPE_RATION) {
-        await pline('Yak - dog food!');
-        return true;
-    }
-    // C: CLOVE_OF_GARLIC — undead vomit; else scare nearby then fall through
-    if (otmp.otyp === CLOVE_OF_GARLIC) {
-        if (is_undead(hero_form_data())) {
-            // make_vomiting(rn1(reqtime,5)) deferred for undead poly hero
-            return true;
+    } else if (otmp.otyp === FOOD_RATION) {
+        if ((u.uhunger | 0) <= 200) {
+            await pline(Hallucination()
+                ? 'Oh wow, like, superior, man!'
+                : 'This food really hits the spot!');
+        } else if ((u.uhunger | 0) < 700) {
+            await pline(`This satiates your ${body_part(STOMACH)}!`);
         }
-        for (const mtmp of game.fmon || []) {
-            await garlic_breath(mtmp);
+    } else if (otmp.otyp === TRIPE_RATION) {
+        if (carnivorous(form) && !humanoid(form)) {
+            await pline('This tripe ration is surprisingly good!');
+        } else if (Upolyd(u) ? is_orc(form) : Race_if(PM_ORC)) {
+            await pline(Hallucination()
+                ? 'Tastes great!  Less filling!'
+                : 'Mmm, tripe... not bad!');
+        } else {
+            await pline('Yak - dog food!');
+            more_experienced(1, 0);
+            await newexplevel();
+            if (rn2(2) && !CANNIBAL_ALLOWED()) {
+                await make_vomiting(
+                    rn1(game.context.victual.reqtime | 0, 14), false);
+            }
         }
-        // FALLTHROUGH to default delicious feedback
+    } else if (otmp.otyp === LEMBAS_WAFER) {
+        if (Upolyd(u) ? is_orc(form) : Race_if(PM_ORC)) {
+            await pline('!#?&* elf kibble!');
+        } else if (Upolyd(u) ? is_elf(form) : Race_if(PM_ELF)) {
+            await pline('A little goes a long way.');
+        } else {
+            feedback = true;
+        }
+    } else if (otmp.otyp === MEATBALL || otmp.otyp === MEAT_STICK
+            || otmp.otyp === ENORMOUS_MEATBALL || otmp.otyp === MEAT_RING) {
+        feedback = true;
+    } else if (otmp.otyp === CLOVE_OF_GARLIC) {
+        if (is_undead(form)) {
+            await make_vomiting(
+                rn1(game.context.victual.reqtime | 0, 5), false);
+        } else {
+            for (const mtmp of game.fmon || []) {
+                await garlic_breath(mtmp);
+            }
+            // FALLTHROUGH to default
+            feedback = true;
+        }
+    } else if (otmp.otyp === SLIME_MOLD && !otmp.cursed
+            && (otmp.spe | 0) === (game.context.current_fruit | 0)) {
+        await pline(`My, this is a ${Hallucination() ? 'primo' : 'yummy'} ${singular(otmp, xname)}!`);
+    } else if (otmp.otyp === APPLE && otmp.cursed
+            && !((u.HSleep_resistance | 0) || (u.ESleep_resistance | 0)
+                || u.Sleep_resistance)) {
+        ; // skip core joke; feedback deferred til fpostfx()
+    } else if (otmp.otyp === APPLE || otmp.otyp === PEAR) {
+        // Contest C build defines MACOS (recorder on macOS).
+        if (otmp.otyp === APPLE) {
+            await pline('Delicious!  Must be a Macintosh!');
+        } else if (!Hallucination()) {
+            await pline('Core dumped.');
+        } else {
+            // based on an old Usenet joke, a fake a.out manual page
+            const x = rnd(100);
+            await pline(`${x <= 75 ? 'Segmentation fault'
+                : x <= 99 ? 'Bus error' : "Yo' mama"} -- core dumped.`);
+        }
+    } else {
+        feedback = true;
     }
-    // Contest C build defines MACOS (recorder on macOS).
-    if (otmp.otyp === APPLE && !otmp.cursed) {
-        await pline('Delicious!  Must be a Macintosh!');
-        return true;
+    if (feedback) {
+        // C give_feedback label
+        const cursed = !!otmp.cursed;
+        const bland = otmp.otyp === CRAM_RATION
+            || otmp.otyp === K_RATION
+            || otmp.otyp === C_RATION;
+        const hallu = Hallucination();
+        const adj = cursed ? (hallu ? 'grody!' : 'terrible!')
+            : bland ? 'bland.'
+            : hallu ? 'gnarly!' : 'delicious!';
+        await pline(`This ${singular(otmp, xname)} is ${adj}`);
     }
-    if (otmp.otyp === PEAR && !otmp.cursed) {
-        await pline('Core dumped.');
-        return true;
-    }
-    // default give_feedback
-    const cursed = !!otmp.cursed;
-    const bland = otmp.otyp === CRAM_RATION
-        || otmp.otyp === K_RATION
-        || otmp.otyp === C_RATION;
-    const adj = cursed ? 'terrible!' : bland ? 'bland.' : 'delicious!';
-    await pline(`This ${singular(otmp, xname)} is ${adj}`);
     return true;
 }
 
