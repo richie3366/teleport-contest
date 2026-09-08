@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `do_wear.c` armoroff — blocks 2/553 corpus sessions (first at step 49): C «You finish taking off your helm.» vs JS «You finish taking off your helmet.». Probe: `node scripts/hidden-proxy.mjs verify armoroff` (scen-kit-Knight-92106, scen-normal-Knight-92215). **Addressed:** D-2077
+- [x] `spell.c` spelleffects_check — blocks 2/553 corpus sessions (first at step 22): C «You don't have enough energy to cast that spell yet.» vs JS «You don't have enough energy to cast that spell.». Probe: `node scripts/hidden-proxy.mjs verify spelleffects_check` (scen-kit-Priest-92122, scen-normal-Priest-92113). **Addressed:** D-2078
+
+
+- [x] `do_wear.c` armoroff — blocks 2/553 corpus sessions (first at step 49): C «You finish taking off your helm.» vs JS «You finish taking off your helmet.». Probe: `node scripts/hidden-proxy.mjs verify armoroff` (scen-kit-Knight-92106, scen-normal-Knight-92215). **Addressed:** D-2077 `6a12bc6f`
 
 
 - [x] `wield.c` can_twoweapon — blocks 2/553 corpus sessions (first at step 43): C «Your battle-axe isn't one-handed.» vs JS «battle-axe isn't one-handed.». Probe: `node scripts/hidden-proxy.mjs verify can_twoweapon` (scen-kit-Barbarian-92001, scen-kit-Samurai-92145). **Addressed:** D-2076 `3a388782`

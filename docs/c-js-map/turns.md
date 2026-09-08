@@ -2777,7 +2777,7 @@ JS: `js/spell.js` — partial
 **wizard `dospellmenu` turns / `spellknow(i)`** (D-0586); 
 **`dospellmenu` dismiss via `dismiss_nhw_menu`** (corner gbuf-flush ≠ docrt; D-0857); 
 **`skill_based_spellbook_id`** (D-0132); **`Z`/`docast`/`getspell` CAST + `spelleffects_check` + 
-SPE_HEALING self-zap** (D-0135); **`study_book` blank + known-refresh yn + delay/too_hard +
+SPE_HEALING self-zap** (D-0135; amulet drain + energy yet/anymore D-2078); **`study_book` blank + known-refresh yn + delay/too_hard +
 begin-memorize** (D-0136); **`study_book` dull-book sleep `rnd(25)`/resume `rnd(oc_level)` + `fall_asleep`** (D-2053); **`cursed_book` `rn2(oc_level)` + `aggravate` +
 too_hard nomul/`!rn2(3)` crumble** (D-0681);
 **`set_occupation(learn)` + `learn` finish `makeknown` credit_hero** (D-0907); 

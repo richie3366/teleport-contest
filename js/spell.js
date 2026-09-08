@@ -113,7 +113,8 @@
 // swap/sort; other spelleffects otyps (remaining peffects
 // mix/potionhit/potionbreathe);
 // #jump known_spell fallback;
-// amulet drain; CQ_REPEAT; cursed_book shieldeff polish;
+// spelleffects_check amulet drain + energy yet/anymore suffix (D-2078);
+// CQ_REPEAT; cursed_book shieldeff polish;
 // In_W_tower in aggravate. #teleport doextcmd D-1230.
 // Wizard turns column in dospellmenu ported (D-0586).
 
@@ -1402,10 +1403,32 @@ async function spelleffects_check(spell) {
         return { abort: true, res: ECMD_TIME, energy };
     }
 
-    // Amulet of Yendor drain deferred
+    // C spell.c:1296–1312 — Amulet of Yendor drains energy before the
+    // insufficient-energy check; the drain consumes a turn even when the
+    // spell then fails for lack of energy.
+    if (
+        (game.u?.uhave?.amulet || game.u?.uhave_amulet) &&
+        (game.u.uen ?? 0) >= energy
+    ) {
+        await You_feel('the amulet draining your energy away.');
+        game.u.uen = Math.max(0, (game.u.uen ?? 0) - rnd(2 * energy));
+        if (game.flags) game.flags.botl = true;
+        res = ECMD_TIME; /* time is used even if spell doesn't get cast */
+    }
 
     if (energy > (game.u.uen ?? 0)) {
-        await pline("You don't have enough energy to cast that spell.");
+        // C spell.c:1314–1330 — augment the message when current energy
+        // is at maximum: "yet" for level 1 characters who know a spell
+        // but never had enough energy, "anymore" for lost maximum.
+        const suffix =
+            (game.u.uen ?? 0) < (game.u.uenmax ?? 0)
+                ? ''
+                : energy > (game.u.uenpeak ?? 0)
+                  ? ' yet'
+                  : ' anymore';
+        await pline(
+            `You don't have enough energy to cast that spell${suffix}.`,
+        );
         return { abort: true, res, energy };
     }
 

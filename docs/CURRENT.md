@@ -87,10 +87,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `do_wear.c` armoroff — blocks 2/553 corpus sessions (first at step 49): C «You finish taking off your helm.» vs JS «You finish taking off your helmet.». Probe: `node scripts/hidden-proxy.mjs verify armoroff` (scen-kit-Knight-92106, scen-normal-Knight-92215).
+**Next cluster:** `spell.c` spelleffects_check — blocks 2/553 corpus sessions (first at step 22): C «You don't have enough energy to cast that spell yet.» vs JS «You don't have enough energy to cast that spell.». Probe: `node scripts/hidden-proxy.mjs verify spelleffects_check` (scen-kit-Priest-92122, scen-normal-Priest-92113).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2077 (index).**
+**Keep D-0845…D-2078 (index).**
 <!-- recent:begin -->
+**D-2078** `spell.c:1219–1380` `spelleffects_check` — `js/spell.js` — amulet arm ports C branch order verbatim (`(game.u?.uhave?.amulet || game.u?.uhave_amulet) && uen >= energy` — the eat.js/teleport.js dual-field idiom — → `You_feel` (already imported) + `rnd(2 * energy)`
 **D-2077** `do_wear.c:1920–2008` `armoroff` — `js/do_wear.js` — `armor_doff_simple_name` now dispatches exactly the C arms: suit→`suit_simple_name`, shield→`shield_simple_name` (local, silver/smooth), helm→`hard_helmet(otmp) ? 'helm' : 'hat'` (same idiom as `armor_s
 **D-2076** `wield.c:760–804` `can_twoweapon` — `js/wield.js` — both arms now print `${Yname2(otmp)}` (`Yname2` joins the existing `./objnam.js` import — same module edge as `xname`, no new cycle, no TDZ); suitability arm uses `is_plural(otmp)` for aren't/isn't-a whil
 **D-2075** `uhitm.c:4388–4422` `mhitm_ad_stun` — `js/mhitu.js` — new `mhitm_ad_stun_u` (`hitmsg` always; `!(mtmp.mcan|0) && !rn2(4)` → `make_stunned(((game.u?.HStun|0) & TIMEOUT) + (mhm.damage|0), true)` (the :3264 gaze-arm idiom) + `mhm.damage = Math.trunc((mhm.damage
@@ -98,11 +99,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2073** `engrave.c:1113–1167` — `js/engrave.js` — same `if (de.oep)` envelope now ports C branch order: HEADSTONE → `c = 'y'`; same-type → `c = await yn_function('Do you want to add to the current engraving?', 'ynq', 'y')` (default-true matches C TRUE;
 **D-2072** `muse.c:2402` (`mquaffmsg` at `:292–302` uses `pline_mon`, not `pline`) + gain-level arm:  — `js/muse.js` — `mquaffmsg` vismon arm → `pline_mon` (C :297); rise arm → `pline_mon` + `ceiling(mtmp.mx,mtmp.my)` + `await trycall(otmp)`; skipmsg → `pline_mon` + `await trycall(otmp)`; uncursed → `pline_mon` + `if (!(aw
 **D-2071** `uhitm.c:2338–2360` `mhitm_ad_corr`, mhitu arm `:2346–2351` (`hitmsg`; `magr->mcan → retur — `js/mhitu.js` — file-local `const AD_CORR = 42` (the file's local-AD_* idiom, cf `AD_RUST`); `ERODE_CORRODE` joins the existing `./const.js` import (no new module edge); new `mhitm_ad_corr_u` mirroring `mhitm_ad_rust_u` 
-**D-2070** `timeout.c:267–274` `sleep_dialogue` (`i = HSleepy & TIMEOUT; i == 4 → You("yawn.")`) call — `js/wizcmds.js` — `PROP_FLAT += [SLEEPY]: 'HSleepy'` (youprop.h:141 cite); `js/timeout.js` — `TIMEOUT_FLAT += [SLEEPY]: 'HSleepy'` so the generic `--` keeps the flat synced, file-local `sleep_dialogue()` plus the `:639–6
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2077; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2078; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
