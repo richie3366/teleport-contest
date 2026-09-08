@@ -88,10 +88,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `polyself.c` rehumanize — blocks 2/553 corpus sessions (first at step 90): C «You hear some noises. You return to human form! You can see » vs JS «You hear some noises. You return to human form!--More--». Probe: `node scripts/hidden-proxy.mjs verify rehumanize` (scen-poly-Archeologist-92119, scen-poly-Wizard-92076).
+**Next cluster:** `read.c` doread — blocks 2/553 corpus sessions (first at step 27): C «As you read the scroll, it disappears. Nothing interesting h» vs JS «That scroll is not implemented yet.». Probe: `node scripts/hidden-proxy.mjs verify doread` (scen-wish-Knight-92105, scen-wish-Rogue-92019).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2079 (index).**
+**Keep D-0845…D-2080 (index).**
 <!-- recent:begin -->
+**D-2080** `read.c:329–647` `doread` — `js/read.js` — `scroll.pickup_prev = 0` (eat.js/apply.js idiom, C `:359`); Blind gate ports C branch order verbatim (`Zblind` uses the same `u.Blind || u.ublind` idiom as the disappear block below; Dead exempt; novel/wor
 **D-2079** `you.h:554` `#define Upolyd (u.umonnum != u.umonster)`; `polyself.c:200–268` `polyman` `:2 — `js/const.js` — `Upolyd(player)` is now `((player.umonnum | 0) !== (player.umonster | 0))` with the `you.h:554` cite (plus why-mtimedone-fails note).
 **D-2078** `spell.c:1219–1380` `spelleffects_check` — `js/spell.js` — amulet arm ports C branch order verbatim (`(game.u?.uhave?.amulet || game.u?.uhave_amulet) && uen >= energy` — the eat.js/teleport.js dual-field idiom — → `You_feel` (already imported) + `rnd(2 * energy)`
 **D-2077** `do_wear.c:1920–2008` `armoroff` — `js/do_wear.js` — `armor_doff_simple_name` now dispatches exactly the C arms: suit→`suit_simple_name`, shield→`shield_simple_name` (local, silver/smooth), helm→`hard_helmet(otmp) ? 'helm' : 'hat'` (same idiom as `armor_s
@@ -99,11 +100,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2075** `uhitm.c:4388–4422` `mhitm_ad_stun` — `js/mhitu.js` — new `mhitm_ad_stun_u` (`hitmsg` always; `!(mtmp.mcan|0) && !rn2(4)` → `make_stunned(((game.u?.HStun|0) & TIMEOUT) + (mhm.damage|0), true)` (the :3264 gaze-arm idiom) + `mhm.damage = Math.trunc((mhm.damage
 **D-2074** `uhitm.c:4570–4589` `mhitm_ad_samu` — `js/mhitm.js` — file-local `const AD_SAMU = 252` (monattk.h cite, file idiom) + export-list row; sync `mhitm_ad_samu` (mhitm arm: zero damage, no message); `mdamagem` `AD_SAMU` case (ad func → `mhitm_knockback` → `return
 **D-2073** `engrave.c:1113–1167` — `js/engrave.js` — same `if (de.oep)` envelope now ports C branch order: HEADSTONE → `c = 'y'`; same-type → `c = await yn_function('Do you want to add to the current engraving?', 'ynq', 'y')` (default-true matches C TRUE;
-**D-2072** `muse.c:2402` (`mquaffmsg` at `:292–302` uses `pline_mon`, not `pline`) + gain-level arm:  — `js/muse.js` — `mquaffmsg` vismon arm → `pline_mon` (C :297); rise arm → `pline_mon` + `ceiling(mtmp.mx,mtmp.my)` + `await trycall(otmp)`; skipmsg → `pline_mon` + `await trycall(otmp)`; uncursed → `pline_mon` + `if (!(aw
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2079; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2080; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

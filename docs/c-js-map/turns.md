@@ -725,8 +725,9 @@ SCR_STINKING_CLOUD `seffect_stinking_cloud` (`do_stinking_cloud`, `can_center_cl
 `display_stinking_cloud_positions`, `p_glow3`) (D-1896; seffects dispatch + doread gate; 
 enchant-armor `adj_abon`/`maybe_adjust_light` named; mail `readmail` live `js/mail.js` (D-1958; MAILREADER spawn + `getmailstatus` stat named)**; 
 omit other `seffect_*` (punishment done D-0908; create is D-1401; 
-mapping is D-1407; fire is D-2032 (confused/underwater/blessed-getpos + tower/burn_away_slime + explode; doread allowlist + nodisappear); blank-paper still deferred), fortune/shirt/credit/marker/coin/orb/candy-read, Blind Braille, Rogue 
+mapping is D-1407; fire is D-2032 (confused/underwater/blessed-getpos + tower/burn_away_slime + explode; doread allowlist + nodisappear); blank-paper still deferred), fortune/shirt/credit/marker/coin/orb/candy-read, their Braille arms, Rogue 
 `unblock_point` on blessed SDOOR, `can_chant` poly silent/headless/buzz/burble; 
+**`doread` Blind formula/book gate (`:561–576`) + mail illiterate-conduct/confused envelope (`:579–597`) + `pickup_prev` (`:359`) + SCR_TAMING allowlist** (D-2080; taming dispatch + `maybe_tame` were D-1502; mail `readmail` D-1958); 
 **`doread` `check_capacity` EXT_ENCUMBER→ECMD_OK** (D-0928 #1104)
 
 ### `src/engrave.c` `doengrave`/`make_engr_at`/`read_engr_at`/`wipeout_text`/`random_engraving`/`

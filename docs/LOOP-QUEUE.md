@@ -59,7 +59,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `read.c` doread — blocks 2/553 corpus sessions (first at step 27): C «As you read the scroll, it disappears. Nothing interesting h» vs JS «That scroll is not implemented yet.». Probe: `node scripts/hidden-proxy.mjs verify doread` (scen-wish-Knight-92105, scen-wish-Rogue-92019).
 - [ ] `detect.c` monster_detect — blocks 2/553 corpus sessions (first at step 51): C «You sense the presence of monsters. (For instructions type a» vs JS «You sense the presence of monsters.--More--». Probe: `node scripts/hidden-proxy.mjs verify monster_detect` (scen-normal-Priest-91108, scen-normal-Priest-92020).
 - [ ] `pickup.c` tipcontainer_gettarget — blocks 2/553 corpus sessions (first at step 130): C «Where to tip the contents of a locked chest» vs JS «Where to tip the contents of a chest». Probe: `node scripts/hidden-proxy.mjs verify tipcontainer_gettarget` (scen-wish-Healer-92092, scen-wish-Knight-92045).
 - [ ] `potion.c` peffect_sickness — blocks 2/553 corpus sessions (first at step 47): C «(But in fact it was biologically contaminated slime mold jui» vs JS «(But in fact it was biologically contaminated slime mold jui». Probe: `node scripts/hidden-proxy.mjs verify peffect_sickness` (scen-kit-Rogue-92225, scen-normal-Rogue-92209).
