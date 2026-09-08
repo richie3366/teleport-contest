@@ -579,7 +579,7 @@ map_invisible/unmap during buzz; setworn `EReflecting` bits (worn `SHIELD_OF_REF
 in); **`ureflects` W_WEP D-1342**; **`ureflects` W_AMUL/W_ARM/dragon D-1353**; 
 mcastu `ureflects` named; **`zapyourself` WAN/SPE_POLYMORPH → `polyself(POLY_NOFLAGS)` + 
 `dozap` `nohands` before getobj** (D-0928 #1103); 
-**`dozap` self-zap `losehp` `killer_xname`+`uhim()` D-1345**; 
+**`dozap` self-zap `losehp` `killer_xname`+`uhim()` D-1345**; **`dozap` self-zap fatal-`losehp` `finish_losehp_done` D-2064** (C `losehp` kills inline; JS defers — mirror the `backfire` arm; `spe<0` dust/`update_inventory`/`check_capacity`/`check_unpaid` stay deferred); 
 **`zapyourself` WAN_LIGHTNING + `flashburn` D-1355**; 
 **`zapyourself` WAN/SPE_MAGIC_MISSILE D-1364 / Antimagic uprops D-1367**; 
 **`zapyourself` SPE_FIREBALL D-1365**; **`lightdamage` + zapnodir WAN/SPE_LIGHT + 

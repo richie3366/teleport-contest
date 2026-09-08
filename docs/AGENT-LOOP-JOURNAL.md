@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-08 — D-2064 dozap self-zap fatal losehp never killed (queue owner zapyourself, writer dozap)
+
+**C locus:** the queue owner names where C printed; the writer is the caller — `zap.c` dozap `:2658–2666` (`else if (need_dir && !u.dx && !u.dy && !u.dz) { if ((damage = zapyourself(obj, TRUE)) != 0) { ... losehp(Maybe_Half_Phys(damage), buf, NO_KILLER_PREFIX); } }`). C needs no death check there because `losehp()` ends the game inline (`done(DIED)`, noreturn); the `--More--`-pending «You die...» then surfaces after dismissal (step 18).
+**JS:** 1 file (`zap.js` +8/−1) — under the 600/10 caps. Small because the C locus is that small (the omission is the missing death-processing, not a missing arm). Rule #2 clean; no DIAG/FORCE/seed gates; no committed probes (temporary `console.log` traces in `lock.js`/`zap.js` used to localize the stall were fully reverted; diagnosis from recorded session steps/keys/screens/RNG + replay probes only).
+**Change:** `js/zap.js` — after the self-zap `losehp`, mirror the `backfire` arm: `if (game._losehp_needs_done || game.program_state?.gameover) { await finish_losehp_done(); if (game.program_state?.gameover) return 1; }`. No new import (`finish_losehp_done` already top-level from `./end.js`); no new module edge.
+**Verify:** `node scripts/verify.mjs --fn zapyourself` → `PASS syntax 1 changed js file(s): js/zap.js` · `PASS rule2` · `PASS hidden verify zapyourself: 0 PASS, 1 moved past, 1 unchanged, 0 worse → PROGRESS` (scen-death-Knight-92188 moved 17→mcalcmove@20 — fire/smoulder/death screens now match; scen-wish-Rogue-92210 still zapyourself@110) · `PASS green 2/2` · `PASS strict` ×2 · `PASS cohort 7/7` · `skip full (no shared file changed)` · `VERIFY: PASS`, final verify after the last edit (no D-1831 gap). Preflight `verify --no-cohort` was green before any edit. `hidden-corpus/scoreboard.json` dirt from probe `hidden-proxy` runs reverted before handoff (not committed).
+**Named:** `dozap` `spe<0` turn-to-dust/`useupall`, `update_inventory`, `check_capacity`, `check_unpaid` (pre-existing defers, header + `c-js-map/turns.md` updated); Rogue sleep/dream path untouched (see Next).
+**Next:** scen-wish-Rogue-92210 still blocked on zapyourself@110 — needs its own Open row for `sounds.c` dosounds: the fountain arm prints the awake `You_hear` while asleep (C dreams it: «You dream that you hear water falling on coins.») and concatenates behind the sleep ray instead of paging behind its `--More--`. Knight now feeds the existing `monmove.c` mcalcmove row (moved 17→20).
 ## 2026-09-08 — Audit reviews 1027–1033 (D-2057…D-2063) + cadence score
 
 **Scope:** 7 JS-touching SHAs since audit 744aa202 (`a223472a`,
