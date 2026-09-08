@@ -3181,7 +3181,11 @@ export function Waterproof_container(obj) {
     // OILSKIN_SACK=218, ICE_BOX=216 (objects.h order LARGE_BOX..BAG_OF_TRICKS)
     return t === 218 || t === 216 || Is_box(obj);
 }
-export function M_AP_TYPE(mon) { return mon?.m_ap_type ?? 0; }
+// C ref: monst.h:73 — #define M_AP_TYPE(m) ((m)->m_ap_type & M_AP_TYPMASK).
+// The F_DKNOWN bit (0x8) rides in m_ap_type; every C comparison (e.g.
+// hack.c monster_nearby skipping M_AP_FURNITURE/M_AP_OBJECT) sees the
+// masked type, so JS must mask too — raw 10 (OBJECT|F_DKNOWN) !== 2.
+export function M_AP_TYPE(mon) { return ((mon?.m_ap_type ?? 0) & M_AP_TYPMASK); }
 export function engulfing_u(mon) { const g = (typeof game !== 'undefined' ? game : null); return g?.u?.uswallow && g?.u?.ustuck === mon; }
 // C ref: permonst.h — ismnum(x) means x is a valid monster index.
 // JS call sites pass integer indices (for example u.ulycn, corpsenm, cham).

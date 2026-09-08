@@ -1442,7 +1442,7 @@ C `hack.c:4166–4167` / `:4197`; `fall_asleep` restamps after `nomul`; named: U
 fumbling `timeout.c`); **`fall_asleep`/`usleep`/`nomovemsg`** (D-0156); 
 **`overexertion`→`gethungry`+`overexert_hp`** (D-0107/D-1003); 
 **`monster_nearby`/`noattacks`** (D-0228; **`canspotmon` not `cansee`** D-0928 #1097; 
-onscary deferred); **`domove`→`spoteffects`→`pickup`/`check_here` when `!flags.pickup`** (D-0095); 
+onscary deferred; **`M_AP_TYPE` masks `M_AP_TYPMASK`** D-2066 — `monst.h:73`, raw `m_ap_type=10` (OBJECT|F_DKNOWN) skips like OBJECT; inline `& M_AP_TYPMASK` readers (hack/display/do_name/pager/uhitm) now consistent; raw readers objnam:3350/sounds:1445/music:230,305/mhitu:3506,3525/eat:1628 + `M_AP_FLAG`/`U_AP_*` still inline, named); **`domove`→`spoteffects`→`pickup`/`check_here` when `!flags.pickup`** (D-0095); 
 **`check_special_room`/`move_update`/`in_rooms` + shop enter** (D-0307) + 
 **special-room enter plines ZOO/SWAMP/COURT(+throne)/MORGUE/… + DELPHI oracle + rtype→OROOM wake `rn2(3)`** (D-0660; D-2054 COURT `furniture_present(THRONE)` suffix via mklev `inside_room` export + DELPHI `monstinroom(PM_ORACLE)` verbalize/room_discovered; 
 BARRACKS monstinroom / wake_msg text still deferred); **`,` → `dopickup`/`pickup_checks`/`pickup_object`/`pick_obj` one-object AUTOSELECT** 
