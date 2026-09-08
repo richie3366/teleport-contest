@@ -1,6 +1,6 @@
 {
- "commit": "d2ce6b76",
- "at": "2026-09-08T18:53:31.375Z",
+ "commit": "bda8c297",
+ "at": "2026-09-08T19:03:17.976Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -4595,18 +4595,18 @@
   "scen-genesis-Barbarian-92111": {
    "src": "corpus",
    "passed": false,
-   "rngM": 3285,
+   "rngM": 3479,
    "rngT": 3479,
-   "scrM": 81,
+   "scrM": 104,
    "scrT": 105,
-   "kind": "rng",
-   "step": 81,
+   "kind": "screen",
+   "step": 96,
    "steps": 105,
-   "owner": "mondead",
-   "loc": "mon.c:3151",
-   "jsOwner": "xkilled(uhitm.js:669)",
-   "cTopline": "You kill the Keystone Kop! The Aleax swings her long sword.--More--",
-   "jsTopline": "You kill the Keystone Kop! The Aleax swings her long sword.--More--",
+   "owner": "list_vanquished",
+   "loc": "insight.c:2863",
+   "jsOwner": null,
+   "cTopline": "Vanquished creatures:",
+   "jsTopline": "Vanquished creatures:",
    "error": null
   },
   "scen-genesis-Barbarian-92201": {

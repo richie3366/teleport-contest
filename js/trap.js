@@ -25,7 +25,7 @@ import {
     objects_at, splitobj, nxtobj, add_to_migration,
     obj_ice_effects, spot_stop_timers, stop_timer,
 } from './mkobj.js';
-import { find_mac, make_corpse, mon_to_stone, vamp_stone, monstone } from './mhitm.js';
+import { find_mac, make_corpse, mon_to_stone, vamp_stone, monstone, mondead } from './mhitm.js';
 import { mon_explodes, scatter } from './explode.js';
 import {
     newsym, pline, pline_mon, pline_xy, urgent_pline, mon_visible, see_with_infrared,
@@ -1113,29 +1113,7 @@ async function corpse_chance(mon) {
     return !rn2(tmp);
 }
 
-// C ref: mon.c mondead → m_detach(due_to_death) → relobj
-function mondead(mtmp) {
-    mtmp.mhp = 0;
-    const mx = mtmp.mx, my = mtmp.my;
-    // C m_detach `:2741–2742` — m_unleash(mtmp, FALSE)
-    if (mtmp.mleashed) m_unleash(mtmp, false);
-    const mndx = mtmp.mnum ?? mtmp.data?.mndx;
-    if (mndx != null && mndx >= LOW_PM) {
-        if (!game.mvitals) game.mvitals = [];
-        const slot = game.mvitals[mndx] || (game.mvitals[mndx] = {
-            mvflags: 0, born: 0, died: 0,
-        });
-        if ((slot.died | 0) < 255) slot.died = (slot.died | 0) + 1;
-    }
-    // C: m_detach — stay on fmon until dmonsfree
-    mtmp.mstate = (mtmp.mstate | 0) | MON_DETACH;
-    relobj_on_death(mtmp);
-    // C mon.c mondead: glyph_is_invisible → unmap_object
-    if (mx > 0 && glyph_is_invisible(game.level?.at?.(mx, my))) {
-        unmap_object(mx, my);
-    }
-    if (mx > 0) newsym(mx, my);
-}
+// mon.c mondead lives in mhitm.js — imported above (D-2147; no third clone).
 
 // C ref: mon.c mondied → mondead + maybe make_corpse
 async function mondied(mdef) {

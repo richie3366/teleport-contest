@@ -352,7 +352,9 @@ clears `artiexist`; `corpse_chance` clones duplicate the macro as C does;
 omit cham/were restore before monsndx (`mondead`, not `make_corpse`), 
 flooreffects non-floor arms, floor-boulder `sobj_at` nocorpse, MAIL_DAEMON, 
 wasinside `spoteffects`, Blind_telepat `see_monsters`, quest adjalign arms, genus/other 
-mon.c helpers
+mon.c helpers; 
+**`mondead`** (D-2147; `js/mhitm.js` export, `uhitm.js`/`trap.js` clones removed): be_sad clear, cham/were restore, mvitals, quest-leader mark, mail-daemon `G_GENOD`, S_KOP `rnd(5)`+`makemon` in C order; 
+omit `lifesaved_monster`/`DEADMONSTER` return, `vamprises`, be_sad pline, vortex gas cloud (`rn2(10)` draw), `grddead`, `logdeadmon`, full `m_detach`
 
 ### `src/mondata.c` growth
 

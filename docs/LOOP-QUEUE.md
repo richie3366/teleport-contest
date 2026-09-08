@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `mon.c` mondead — blocks 1/553 corpus sessions (first at step 81): C draws `rnd(5)=1` in mondead, JS `rn2(6)=2` from xkilled(uhitm.js:669). Probe: `node scripts/hidden-proxy.mjs verify mondead` (scen-genesis-Barbarian-92111).
 - [ ] `botl.c` do_statusline2 — blocks 1/553 corpus sessions (first at step 214): C `HP:44(50)` vs JS `HP:43(50)` on the status line (otherwise identical; step-214 damage path drew matched RNG — symptom owner). Re-queued from fired `weapon.c` dmgval row (D-2139 tree moved it past step 123; cf. archived D-2024 row for an earlier step). Probe: `node scripts/hidden-proxy.mjs verify do_statusline2` (scen-poly-Priest-91137).
 - [ ] `mon.c` minliquid_core — blocks 1/553 corpus sessions (first at step 130): C draws `rn2(15)=2` in minliquid_core, JS draws nothing after `rn2(6)=0 @ mhitm_knockback` (C topline lifesave «OK, so you don't die. You survived that attempt on your life.» vs JS empty). Re-queued from fired `apply.c` magic_whistled row (D-2096 tree moved it past step 78). Probe: `node scripts/hidden-proxy.mjs verify minliquid_core` (scen-genesis-Priest-91110).
 - [ ] `dogmove.c` dog_goal — blocks 1/553 corpus sessions (first at step 168): C draws `rn2(4)=3` in dog_goal, JS `rn2(3)=0` from dog_move(dogmove.js:978) (empty toplines both sides; step-168 follow-player `!rn2(4)` gate). Re-queued from the addressed dog_goal@136 row (the refuse-arm dropy fix moved it past step 136). Probe: `node scripts/hidden-proxy.mjs verify dog_goal` (scen-wish-Priest-92136).
@@ -68,6 +67,7 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 - [ ] `sit.c` rndcurse — blocks 1/553 corpus sessions (first at step 22): C «You feel a malignant aura surround you. Demogorgon stings!--» vs JS «You feel a malignant aura surround you. Demogorgon stings!». Probe: `node scripts/hidden-proxy.mjs verify rndcurse` (scen-death-Valkyrie-92229).
 - [ ] `uhitm.c` hmon_hitmon_weapon_melee — blocks 1/553 corpus sessions (first at step 122): C draws `rnd(1)=1` in hmon_hitmon_weapon_melee, JS `rn2(8)=3` from abuse_dog(dog.js:1220). Probe: `node scripts/hidden-proxy.mjs verify hmon_hitmon_weapon_melee` (scen-normal-Rogue-92146).
 - [ ] `potion.c` peffect_paralysis — blocks 1/553 corpus sessions (first at step 26): C «Your feet are frozen to the stairs! The little dog misses th» vs JS «Your feet are frozen to the floor! The little dog misses the». Probe: `node scripts/hidden-proxy.mjs verify peffect_paralysis` (scen-wish-Valkyrie-92091).
+- [ ] `insight.c` list_vanquished — blocks 2/553 corpus sessions (first at step 73): C «Vanquished creatures:» vs JS «Vanquished creatures:». Probe: `node scripts/hidden-proxy.mjs verify list_vanquished` (scen-genesis-Archeologist-92157, scen-genesis-Barbarian-92111).
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 

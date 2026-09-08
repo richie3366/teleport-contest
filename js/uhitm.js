@@ -46,7 +46,7 @@ import {
 import { near_capacity, useup } from './invent.js';
 import { PM_BARBARIAN, PM_MONK, PM_KNIGHT, PM_SAMURAI, PM_ARCHEOLOGIST, PM_WIZARD, PM_HUMAN } from './generated/monsters_data.js';
 import {
-    find_mac, get_mattk, make_corpse, monstone, mhitm_knockback, monkilled,
+    find_mac, get_mattk, make_corpse, monstone, mhitm_knockback, monkilled, mondead,
     troll_baned, mhitm_ad_poly, mhitm_ad_slee, could_seduce, failed_grab, shade_miss,
     paralyze_monst,
     mhitm_mgc_atk_negated, resists_poison_mm,
@@ -550,24 +550,7 @@ async function corpse_chance(mon, magr = null, was_swallowed = false) {
     return !rn2(tmp);
 }
 
-// C ref: mon.c mondead → m_detach(due_to_death) → relobj(mtmp, 1, FALSE)
-// Dead mons stay on fmon until dmonsfree (mon.c) — do not splice here.
-function mondead(mtmp) {
-    mtmp.mhp = 0;
-    const mx = mtmp.mx, my = mtmp.my;
-    // C m_detach `:2741–2742` — m_unleash(mtmp, FALSE)
-    if (mtmp.mleashed) m_unleash(mtmp, false);
-    // C: after cham/were restore — mvitals[monsndx].died++
-    record_mvitals_died(mtmp.mnum ?? mtmp.data?.mndx);
-    mtmp.mstate = (mtmp.mstate | 0) | MON_DETACH;
-    // Keep mx/my for drop coords (C mon_leaving_level).
-    relobj_on_death(mtmp);
-    // C mon.c mondead `:3170` — glyph_is_invisible(levl.glyph)
-    if (mx > 0 && memory_glyph_is_invisible(game.level?.at?.(mx, my))) {
-        unmap_object(mx, my);
-    }
-    if (mx > 0) newsym(mx, my);
-}
+// mon.c mondead lives in mhitm.js — imported above (D-2147; no second clone).
 
 /**
  * C ref: uhitm.c first_weapon_hit — livelog before kill so order is hit then kill.

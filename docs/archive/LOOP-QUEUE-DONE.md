@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `artifact.c` Mb_hit — blocks 1/553 corpus sessions (first at step 110): C draws `rn2(11)=5` in Mb_hit, JS `rn2(3)=0` from mhitm_knockback(mhitm.js:2015). Probe: `node scripts/hidden-proxy.mjs verify Mb_hit` (scen-wish-Archeologist-91134). **Addressed:** D-2146
+- [x] `mon.c` mondead — blocks 1/553 corpus sessions (first at step 81): C draws `rnd(5)=1` in mondead, JS `rn2(6)=2` from xkilled(uhitm.js:669). Probe: `node scripts/hidden-proxy.mjs verify mondead` (scen-genesis-Barbarian-92111). **Addressed:** D-2147
+
+
+- [x] `artifact.c` Mb_hit — blocks 1/553 corpus sessions (first at step 110): C draws `rn2(11)=5` in Mb_hit, JS `rn2(3)=0` from mhitm_knockback(mhitm.js:2015). Probe: `node scripts/hidden-proxy.mjs verify Mb_hit` (scen-wish-Archeologist-91134). **Addressed:** D-2146 `bda8c297`
 
 
 - [x] `mkobj.c` start_corpse_timeout — blocks 1/553 corpus sessions (first at step 39): C draws `rn2(1000)=899` in start_corpse_timeout, JS `rn2(100)=99` from makewish(zap.js:6638). Probe: `node scripts/hidden-proxy.mjs verify start_corpse_timeout` (scen-wish-Barbarian-92102). **Addressed:** D-2145 `0bed4afc`
