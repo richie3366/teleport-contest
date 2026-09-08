@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `apply.c` use_lamp — blocks 1/553 corpus sessions (first at step 220): C «Your lamp is now on. The guardian naga bites!--More--» vs JS «Your lamp is now on. The guardian naga bites!--More--». Probe: `node scripts/hidden-proxy.mjs verify use_lamp` (scen-wish-Valkyrie-92206).
 - [ ] `uhitm.c` hmon_hitmon_barehands — blocks 1/553 corpus sessions (first at step 87): C draws `rnd(4)=2` in hmon_hitmon_barehands, JS `rn2(3)=2` from mhitm_knockback(mhitm.js:2015). Probe: `node scripts/hidden-proxy.mjs verify hmon_hitmon_barehands` (scen-poly-Monk-92213).
 - [ ] `hack.c` escape_from_sticky_mon — blocks 1/553 corpus sessions (first at step 247): C draws `rn2(40)=4` in escape_from_sticky_mon, JS `rn2(20)=4` from gethungry(eat.js:698). Probe: `node scripts/hidden-proxy.mjs verify escape_from_sticky_mon` (scen-wish-Caveman-92183).
 - [ ] `eat.c` fprefx — blocks 1/553 corpus sessions (first at step 99): C draws `rn2(2)=0` in fprefx, JS `rn2(70)=2` from maybe_generate_rnd_mon(allmain.js:349). Probe: `node scripts/hidden-proxy.mjs verify fprefx` (scen-wish-Knight-92105).
