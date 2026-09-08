@@ -91,7 +91,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `end.c` disclose — blocks 3/553 corpus sessions (first at step 110): C «Do you want to see your conduct and achievements? [ynq] (n)» vs JS «Do you want to see your conduct? [ynq] (n)». Probe: `node scripts/hidden-proxy.mjs verify disclose` (scen-genesis-Barbarian-91118, scen-wish-Monk-92031, scen-wish-Priest-92098).
+**Next cluster:** `zap.c` lightdamage — blocks 2/553 corpus sessions (first at step 123): C «The mind flayer zaps himself with a maple wand!--More--» vs JS «The mind flayer zaps himself with a maple wand!--More--». Probe: `node scripts/hidden-proxy.mjs verify lightdamage` (scen-genesis-Barbarian-92062, scen-tour-Wizard-91112).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2105 (index).**
 <!-- recent:begin -->
