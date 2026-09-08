@@ -20,10 +20,10 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-08** — full `sessions` at **D-2079**
-(audit **1041–1049**, `2d94d42e`+review). Fortress **44/44** (no throws).
+Score last measured: **2026-09-08** — full `sessions` at **D-2088**
+(audit **1050–1058**, `444f29eb`+review). Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`65+0.38/turn` (R² 0.80).
+`64+0.38/turn` (R² 0.80).
 
 ## Score
 
@@ -50,6 +50,7 @@ Reviews 990–1026: 32 ACCEPT, 3 ACCEPT-WITH-DEBT (debts map-named), 2 QUALITY-R
 Reviews 1027–1033: 7 ACCEPT, 0 Must-fix.
 Reviews 1034–1040: 7 ACCEPT, 0 Must-fix.
 Reviews 1041–1049: 9 ACCEPT, 0 Must-fix.
+Reviews 1050–1058: 8 ACCEPT, 1 QUALITY-RISK (1054 gold-block fall-through → Must-fix prepended, Next cluster set).
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score --jobs 8`
 (≈200 s); when every family is ≥ 85 % PASS, grow it first:
 `node scripts/scenario-gen.mjs --n 120 --seed <iter×100>`.
@@ -88,7 +89,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `monmove.c` dochug — blocks 2/553 corpus sessions (first at step 59): C draws `rn2(5)=1` in dochug, JS `rn2(40)=11` from dochug(monmove.js:2154). Probe: `node scripts/hidden-proxy.mjs verify dochug` (scen-tour-Priest-92235, scen-tour-Wizard-92103).
+**Next cluster:** Must-fix `objnam.c` readobjnam gold-block `!d.typ` guard (review 1054 C-wrong 1) — then `monmove.c` dochug, blocks 2/553 corpus sessions (first at step 59): C draws `rn2(5)=1` in dochug, JS `rn2(40)=11` from dochug(monmove.js:2154). Probe: `node scripts/hidden-proxy.mjs verify dochug` (scen-tour-Priest-92235, scen-tour-Wizard-92103).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2088 (index).**
 <!-- recent:begin -->

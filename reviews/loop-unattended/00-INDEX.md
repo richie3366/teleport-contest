@@ -1060,3 +1060,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1047-6a12bc6f-armoroff-nouns.md](./1047-6a12bc6f-armoroff-nouns.md) | `6a12bc6f` | D-2077 armoroff per-category nouns | **ACCEPT** |
 | [1048-620d57b0-spelleffects-amulet.md](./1048-620d57b0-spelleffects-amulet.md) | `620d57b0` | D-2078 spelleffects amulet + suffix | **ACCEPT** |
 | [1049-2d94d42e-upolyd-predicate.md](./1049-2d94d42e-upolyd-predicate.md) | `2d94d42e` | D-2079 Upolyd umonnum predicate | **ACCEPT** |
+| [1050-3580bf12-doread.md](./1050-3580bf12-doread.md) | `3580bf12` | D-2080 doread Blind/mail/TAMING | **ACCEPT** |
+| [1051-e55af311-monster-detect-more.md](./1051-e55af311-monster-detect-more.md) | `e55af311` | D-2081 monster_detect --More-- | **ACCEPT** |
+| [1052-4d63176a-use-container-lknown.md](./1052-4d63176a-use-container-lknown.md) | `4d63176a` | D-2082 use_container lknown | **ACCEPT** |
+| [1053-23e6ac54-peffect-sickness.md](./1053-23e6ac54-peffect-sickness.md) | `23e6ac54` | D-2083 peffect_sickness poisontell | **ACCEPT** |
+| [1054-4d3d5dd3-postparse1-of-arm.md](./1054-4d3d5dd3-postparse1-of-arm.md) | `4d3d5dd3` | D-2084 postparse1 of-arm | **QUALITY-RISK** |
+| [1055-f042b695-mpickstuff-shop.md](./1055-f042b695-mpickstuff-shop.md) | `f042b695` | D-2085 mpickstuff shop gates | **ACCEPT** |
+| [1056-ab5c291b-rnd-misc-item.md](./1056-ab5c291b-rnd-misc-item.md) | `ab5c291b` | D-2086 rnd_misc_item See_invisible | **ACCEPT** |
+| [1057-25328721-resists-elem-mresists.md](./1057-25328721-resists-elem-mresists.md) | `25328721` | D-2087 resists_elem mresists | **ACCEPT** |
+| [1058-444f29eb-disturb-rogue-glyphs.md](./1058-444f29eb-disturb-rogue-glyphs.md) | `444f29eb` | D-2088 disturb wake_msg + rogue glyphs | **ACCEPT** |
