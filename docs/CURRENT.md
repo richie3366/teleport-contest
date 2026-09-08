@@ -90,7 +90,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** - [ ] `mon.c` minliquid_core — blocks 1/553 (first at step 130, scen-genesis-Priest-91110; full row text in LOOP-QUEUE Open). Probe: `node scripts/hidden-proxy.mjs verify minliquid_core`.
+**Next cluster:** - [ ] `dogmove.c` dog_goal — blocks 1/553 (first at step 168, scen-wish-Priest-92136; full row text in LOOP-QUEUE Open). Probe: `node scripts/hidden-proxy.mjs verify dog_goal`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2148 (index).**
 <!-- recent:begin -->
