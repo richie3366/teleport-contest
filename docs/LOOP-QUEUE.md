@@ -59,7 +59,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `zap.c` zapyourself — blocks 2/553 corpus sessions (first at step 17): C «You've set yourself afire! Your gloves smoulder!--More--» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify zapyourself` (scen-death-Knight-92188, scen-wish-Rogue-92210).
 - [ ] `mon.c` mcalcmove — blocks 2/553 corpus sessions (first at step 180): C draws `rn2(12)=0` in mcalcmove, JS `rn2(5)=1` from u_maybe_impaired(hack.js:1794). Probe: `node scripts/hidden-proxy.mjs verify mcalcmove` (scen-wish-Archeologist-92216, scen-wish-Rogue-92137).
 - [ ] `mhitu.c` wildmiss — blocks 2/553 corpus sessions (first at step 186): C draws `rn2(3)=1` in wildmiss, JS `rn2(5)=4` from distfleeck(monmove.js:808). Probe: `node scripts/hidden-proxy.mjs verify wildmiss` (scen-wish-Healer-92147, scen-wish-Ranger-92155).
 - [ ] `bones.c` savebones remove_mon_from_bones + LEAVESTATUE statue arm — blocks 1/553 corpus sessions: C 2× `rn2(100)`@obj_resists (mongone Medusa via mdrop_special_objs) + statue (`next_ident`+`rndmonst_adj`+`rn2(2)`) where JS skips both (named omissions js/end.js:1222-1226). Probe: `node scripts/hidden-proxy.mjs verify obj_resists` (scen-genesis-Valkyrie-92074 step 75). Split from parked `zap.c obj_resists` 2026-09-08 (see Parked).

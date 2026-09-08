@@ -87,10 +87,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `zap.c` zapyourself — blocks 2/553 corpus sessions (first at step 17): C «You've set yourself afire! Your gloves smoulder!--More--» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify zapyourself` (scen-death-Knight-92188, scen-wish-Rogue-92210).
+**Next cluster:** `mon.c` mcalcmove — blocks 2/553 corpus sessions (first at step 180): C draws `rn2(12)=0` in mcalcmove, JS `rn2(5)=1` from u_maybe_impaired(hack.js:1794). Probe: `node scripts/hidden-proxy.mjs verify mcalcmove` (scen-wish-Archeologist-92216, scen-wish-Rogue-92137).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2064 (index).**
+**Keep D-0845…D-2065 (index).**
 <!-- recent:begin -->
+**D-2065** `pline.c` `You_hear` `:436–452` — `js/hack.js` — `You_hear` ports the Unaware arm verbatim via `youprop.h:399` (`(game.multi|0)<0 && (unconscious() || is_fainted())`, importing `teleport.js` `unconscious` — hoisted-function, cycle-safe per `imports.mjs -
 **D-2064** the queue owner names where C printed; the writer is the caller — `js/zap.js` — after the self-zap `losehp`, mirror the `backfire` arm: `if (game._losehp_needs_done || game.program_state?.gameover) { await finish_losehp_done(); if (game.program_state?.gameover) return 1; }`.
 **D-2063** `polyself.c` polyself `:596–615` (!polyok message arm: `pmname(flags.female)` then `the_un — `js/polyself.js` — article arm verbatim (`the_unique_pm`/`the`/`type_is_pname` + your_race/G_UNIQ guard); `controllable_poly` const (Stunned shape mirrors `hack.js` Stunned_prop `(u.HStun|0) || u.Stunned`); `vampyr_goto`
 **D-2062** the queue owner is a literal-match misattribution — `js/invent.js` — (a) ulycn were-form arm (`an(pmname(mons(ulycn), female?FEMALE:MALE))` + « in beast form» + wizard `mtimedone` iff `umonnum==ulycn`) and `Hate_silver` arm (`ismnum(ulycn) || hates_silver(youmonst.data)`)
@@ -98,11 +99,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2060** `end.c` really_done `:1206–1219` (maintain `ugrave_arise` even for `!bones_ok`: PANICKED → — `js/end.js` — (1) `really_done` maintains `ugrave_arise` per C `:1206–1219` (PANICKED/BURNING+DISSOLVED/STONING/TURNED_SLIME+`G_GENOD` check via `game.mvitals`, `PM_GREEN_SLIME` via `monsterNames.indexOf` like D-2057; ki
 **D-2059** the queue owner is a literal-match misattribution — `js/mhitu.js` — file-local `diseasemu` + `mhitm_ad_pest_u` + `mhitm_ad_heal_u` in the `mhitm_ad_famn_u` shape, wired into `mhitm_adtyping_u` in exact C order.
 **D-2058** the queue owner is a literal-match misattribution — `js/display.js` — thread the C int id through every `reveal_terrain_getglyph` arm so gbuf matches C: `full` arm attaches `back_to_glyph(x,y)` inside the seenv-temp window; `levl_glyph` attaches the remembered int (`mem.g
-**D-2057** symptom owner `botl.c` `do_statusline1` `:47–98` (`:85` `St:%s…Ch:%-1d` via `get_strength_ — `js/attrib.js` — CHA arm now `if (tmp < 18 && (game.youmonst?.data?.mlet === 'S_NYMPH' || (u.umonnum|0) === PM_AMOROUS_DEMON)) result = 18` (C `:1214–1216`; `PM_AMOROUS_DEMON` via `monsterNames.indexOf`, same idiom as `j
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2064; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2065; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

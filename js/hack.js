@@ -38,7 +38,8 @@ import {
     pline, Norep, newsym, canspotmon, canseemon, map_invisible, You_feel,
     set_msg_xy, feel_location, map_object, verbalize,
 } from './display.js';
-import { gethungry, morehungry } from './eat.js';
+import { gethungry, morehungry, is_fainted } from './eat.js';
+import { unconscious } from './teleport.js';
 import { m_at, hideunder, seemimic, bad_rock } from './mon.js';
 import { recalc_block_point } from './vision.js';
 import { is_hider, hides_under, throws_rocks, noncorporeal, metallivorous, mons, is_flyer, is_swimmer, verysmall, bigmonst, passes_bars, dmgtype } from './monsters.js';
@@ -130,11 +131,21 @@ function t_at_local(x, y) {
     return null;
 }
 
-/** C ref: pline.c You_hear — acoustics/Deaf; Unaware/Underwater deferred. */
+/**
+ * C ref: pline.c You_hear `:436–452` — (Deaf && !Unaware) gate; Unaware
+ * (youprop.h:399: multi < 0 && (unconscious() [trap.c:6776] ||
+ * is_fainted() [eat.c:3347])) → "You dream that you hear ". The longer
+ * dream prefix is what pushes a sleep-turn dosounds fountain past the
+ * CO-8 append gate, so C mores the pending line first instead of
+ * appending (scen-wish-Rogue-92210 step 110: dobuzz sleep ray + fountain).
+ * Underwater "barely hear" stays deferred (pre-existing map omit).
+ */
 export async function You_hear(line) {
     const u = game.u || {};
-    if (u.Deaf || game.flags?.acoustics === false) return;
-    await pline(`You hear ${line}`);
+    const unaware = (game.multi | 0) < 0 && (unconscious() || is_fainted());
+    if ((u.Deaf && !unaware) || game.flags?.acoustics === false) return;
+    if (unaware) await pline(`You dream that you hear ${line}`);
+    else await pline(`You hear ${line}`);
 }
 
 /**

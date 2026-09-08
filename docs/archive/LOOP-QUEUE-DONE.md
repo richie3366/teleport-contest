@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
+- [x] `zap.c` zapyourself — blocks 2/553 corpus sessions (first at step 17): C «You've set yourself afire! Your gloves smoulder!--More--» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify zapyourself` (scen-death-Knight-92188, scen-wish-Rogue-92210). **Addressed:** D-2065
+
+
 - [x] `polyself.c` polyself — blocks 2/553 corpus sessions (first at step 63): C «You can't polymorph into Croesus.--More--» vs JS «You can't polymorph into a Croesus.--More--». Probe: `node scripts/hidden-proxy.mjs verify polyself` (scen-poly-Archeologist-92119, scen-poly-Caveman-91133). **Addressed:** D-2063 `84dc0e34`
 
 

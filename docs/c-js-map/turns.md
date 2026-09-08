@@ -2352,7 +2352,7 @@ eyeless FROMFORM Blind clears stale IN_SIGHT;
 was_blind restore / other PROPSET / BLND_RES / polysense deferred); 
 **`dropz`→`encumber_msg`** (D-0928 #1177; mid-`break_armor` load More before gloves); 
 **`polymon` verbose `#monster` breath tip + `dobreathe` energy** (D-0725); 
-**`verbalize`/`You_feel`** (D-0116); **`gamelog_add`/`livelog_printf` chronicle list** (D-0124); 
+**`verbalize`/`You_feel`** (D-0116); **`You_hear` Unaware «dream that you hear» + `(Deaf && !Unaware)` gate** (D-2065; C `pline.c:436–452` + `youprop.h:399` via `teleport.js` `unconscious` / `eat.js` `is_fainted` imports, no new edges; `sounds.js` local clone deleted, imports the `hack.js` export; still named: Underwater «barely hear», `You_feel`/`You_see` dream arms, file-local `You_hear` clones in dbridge/do/dokick/dothrow/fountain/lock/mhitm/mhitu/mthrowu/music/trap/zap (+apply/meat/yell variants)); **`gamelog_add`/`livelog_printf` chronicle list** (D-0124); 
 **`mark_topline_seen` NEED_MORE→NON_EMPTY** (D-0195); 
 **`update_topl` space→`\n` while len≥CO + `redotoplin` more when wrapped** (D-0282); 
 **`getlin`/`get_ext_cmd` echo `topl_putsym` wrap at CO-1 + `buf < COLNO`** (D-0331); 
