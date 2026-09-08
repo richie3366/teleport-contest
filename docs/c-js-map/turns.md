@@ -277,7 +277,7 @@ Eyes/Hallu talk deferred; **Unaware talk=FALSE is D-1768**; **Punished `set_bc` 
 **`set_uasmon` resist_from_form MR_* FIRE…STONE + FLYING/BLINDED** D-0928 #1121; 
 ANTIMAGIC/SICK_RES/STUNNED (DRAIN_RES via resists_drli_you is D-2062; defended(AD_DRLI) still omitted)/…/BLND_RES/`#monster`/`dobreathe` deferred; **PROPSET(TELEPORT/TELEPORT_CONTROL) FROMFORM live D-2138** (`can_teleport`/`control_teleport` via the existing `monsters.js` edge; tengu form gates moveloop `rn2(85)` `allmain.c:308`); **PROPSET(REGENERATION) FROMFORM live D-2148** (`regenerates` via the existing `monsters.js` edge; M1_REGEN vampire/troll forms heal +1/turn in `regen_hp`); 
 **`newman`/`polyman`/`redist_attr`/`rndexp`** (D-0718; **`Upolyd` ≡ `umonnum!=umonster` D-2079** — `you.h:554`, never `mtimedone`; timeout-expiry rehumanize restores race umonnum so eyeless FROMFORM clears and `make_blinded(0,TRUE)` prints "You can see again."; **`polyself.c uunstick` export + `polyman` sticking arm D-2131** — `sticks(youmonst.data)&&ustuck&&!uswallow` at entry, `if (sticking) uunstick()` before `find_ac` per `:200–221`, uhitm.js clone rewired to the export; polymon `:952` + vampire-rise `:2930` uunstick arms stay named) + 
-**`urace.individual.m/f` → "new man"** (D-0726; Sick/Stoned/Slimed/livelog/retouch deferred); 
+**`urace.individual.m/f` → "new man"** (D-0726; D-2168 retires the dead-arm lifesave omit — urgent_pline + done(DIED) + newuhs live; Sick/Stoned/Slimed/livelog/retouch still deferred); 
 **`polymon`→`encumber_msg` + `setworn` skip_find_ac** (D-0722); 
 **`#monster`/`domonability` reflexive** (D-0723; 
 spit/gaze/were/hide/web/… deferred) + **`domonability` C-order dispatch** (D-1898;

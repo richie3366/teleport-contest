@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-2168 | fixed |  — `polyself.c` newman dead arm: urgent_pline + done(DIED) lifesave (row named newman; 1 session moved past) |  |
 | D-2167 | fixed |  — `lock.c` doopen_indir !IS_DOOR envelope: Blind feel/see + mapseen/newsym + drawbridge/container (row named  |  |
 | D-2166 | fixed |  — `dig.c` use_pick_axe: direction prompt listed `[kyu>]` instead of C `[yku>]` (1 session moved past) |  |
 | D-2165 | open | zap.c:4502–4509 — `zap.c` zhitu ZT_DEATH: bounced death ray printed a spurious "You die..." before the wizard  | scen-wish-Barbarian-92054 step 111/127, screen-first at cmd.c:5569: C «Die? [yn] (n)» vs JS «You die...--More--». C-step trace: step 110 «The death ray bounces!; fix: port the C arm in exact order — `monstunseesu(M_SEEN_MAGR)` (live import), killer format/name, `ugrave_arise = NON_PM`, `await done(DIED)`, `return` (lifesaved resumes `dobuzz`; `done` added to the existing static `end.js` import — edge already present, no new module, no TDZ: call-time use only).; verify: `node scripts/verify.mjs --fn yn_function` → PASS syntax (1 changed js file: js/zap.js) · PASS rule2 (no fs/path/url/node: imports, no DIAG/FORCE/seed gates) · PASS hidden (scen-wish-Barbarian-92054: PASS) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · full skipped (no shared file changed).; named: ZT_DEATH disintegration-breath arm (C zap.c:4465–4490: Disint_resistance, inventory_resistance_check, uarms/uarm destro |

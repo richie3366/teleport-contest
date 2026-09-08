@@ -13,7 +13,7 @@ import { an, the, the_unique_pm, set_body_part, yname, vtense, simpleonames, mak
 import {
     pmname, type_is_pname, mon_nam, Monnam, s_suffix, Ugender, hliquid,
 } from './do_name.js';
-import { Unaware } from './eat.js';
+import { Unaware, newuhs } from './eat.js';
 import { attacktype_fordmg, killed } from './uhitm.js';
 import {
     AT_SPIT, AT_GAZE, AD_BLND, AD_DRST, AD_ACID,
@@ -725,8 +725,9 @@ async function polyman(fmt, arg) {
  * C ref: polyself.c newman — fail-to-poly / force-human: level±2, sex
  * rn2(10), rndexp, redist_attr, HP/EN rebuild, hunger rn1(500,500),
  * then polyman.
- * Named omissions: Sick/Stoned clear; Slimed residual; death/lifesave;
+ * Named omissions: Sick/Stoned clear; Slimed residual;
  * livelog; retouch_equipment/selftouch; Polymorph_control uhp clamp.
+ * (dead-arm lifesave via done(DIED) is live.)
  */
 async function newman() {
     const u = game.u || (game.u = {});
@@ -734,9 +735,18 @@ async function newman() {
     const oldlvl = u.ulevel | 0;
     let newlvl = oldlvl + rn1(5, -2); // rn2(5)+(-2)
     if (newlvl > 127 || newlvl < 1) {
-        // dead: unsuccessful polymorph — deferred; keep old level
-        await pline("Your new form doesn't seem healthy enough to survive.");
-        return;
+        // C polyself.c:426-439 dead arm — old level intact (u.ulevel is
+        // still oldlvl here); urgent_pline blocks (--More--), then
+        // lifesave via done(DIED); lifesaved resumes with newuhs.
+        await urgent_pline("Your new form doesn't seem healthy enough to survive.");
+        if (!game.killer) game.killer = { name: '', format: 0 };
+        game.killer.format = KILLED_BY_AN;
+        game.killer.name = 'unsuccessful polymorph';
+        await done(DIED);
+        /* must have been life-saved to get here */
+        await newuhs(false);
+        await encumber_msg();
+        return; /* lifesaved */
     }
     if (newlvl > MAXULEV) newlvl = MAXULEV;
     if (newlvl < oldlvl) u.ulevelmax = (u.ulevelmax | 0) - (oldlvl - newlvl);

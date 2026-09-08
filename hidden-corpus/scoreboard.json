@@ -1,6 +1,6 @@
 {
- "commit": "6ef8cd42",
- "at": "2026-09-08T23:44:22.961Z",
+ "commit": "4508ab31",
+ "at": "2026-09-08T23:49:05.463Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6930,18 +6930,18 @@
   "scen-poly-Samurai-91106": {
    "src": "corpus",
    "passed": false,
-   "rngM": 3589,
+   "rngM": 3608,
    "rngT": 3608,
-   "scrM": 127,
+   "scrM": 140,
    "scrT": 142,
-   "kind": "rng",
-   "step": 127,
+   "kind": "screen",
+   "step": 133,
    "steps": 142,
-   "owner": "newman",
-   "loc": "polyself.c:342",
-   "jsOwner": "(no JS draw; last matched was distfleeck)",
-   "cTopline": "Your new form doesn't seem healthy enough to survive.--More--",
-   "jsTopline": "You can't polymorph into a doppelganger.--More--",
+   "owner": "chwepon",
+   "loc": "wield.c:940",
+   "jsOwner": null,
+   "cTopline": "Your dexterity was 13.",
+   "jsTopline": "Your dexterity was 13.",
    "error": null
   },
   "scen-poly-Tourist-92047": {

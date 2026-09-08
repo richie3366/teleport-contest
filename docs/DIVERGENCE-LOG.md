@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2168 — `polyself.c` newman dead arm: urgent_pline + done(DIED) lifesave (row named newman; 1 session moved past)
+
+- Status: fixed (Open queue row `polyself.c` newman — cited 1/553; `node scripts/verify.mjs --fn newman`: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS. No review cited by the row, so no stamp owed.)
+- Symptom: scen-poly-Samurai-91106 step 127/142. The queue text (rng-first `rn2(5)=0 @ newman :342`, JS «You can't polymorph into a doppelganger.») is stale: the `!polyok`/your_race gate already ships (D-2063) and both the committed-scoreboard baseline and a clean-tree live replay reach newman — screen-first at polyself.c:426 with identical toplines C «Your new form doesn't seem healthy enough to survive.--More--» vs JS «...survive.» (no More). stepFns [newman]; owner :426 is the true printer on this path (dead-branch `urgent_pline`, not a comment literal).
+- C locus: `polyself.c:426–439` (newman `dead:` — old level intact since the goto precedes the `u.ulevel` assignment; `urgent_pline`, killer `KILLED_BY_AN` "unsuccessful polymorph", `done(DIED)`, lifesaved resumes with `newuhs(FALSE)` + `encumber_msg()` + return).
+- JS was: `js/polyself.js` newman dead arm used plain `pline` (no --More--) and returned with no killer, no `done`, no `newuhs`/`encumber_msg` — lifesave never consumed, post-step-127 state diverged.
+- Fix: ported the C arm in exact order — `urgent_pline` (already imported), killer via the `game.killer` idiom (rehumanize precedent), `await done(DIED)` (already imported; returns on lifesave like rehumanize, never returns on death), then `newuhs(false)` + `encumber_msg()` + return. `newuhs` joins the existing `eat.js` edge (`Unaware` already imported; hoisted export, no new module edge, no TDZ).
+- JS: `js/polyself.js` newman dead arm + docstring (death/lifesave omission retired for this arm).
+- Verify: `node scripts/verify.mjs --fn newman` → PASS syntax (1 changed js file: js/polyself.js) · PASS rule2 (no fs/path/url/node: imports, no DIAG/FORCE/seed gates) · PASS hidden (scen-poly-Samurai-91106 moved newman@127 → chwepon@133, later owner and later step; residual is screen-first with full positional RNG 3608/3608 — enlightenment-menu line «polymorphed into a yeti» vs «fast innately», a different subsystem) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · full skipped (no shared file changed). VERIFY: PASS.
+- Named omissions: unchanged — Sick/Stoned clear, Slimed residual, livelog/livelog_newform, retouch_equipment/selftouch, Polymorph_control uhp clamp (non-dead uhp<=0 arm). Only the dead arm ships; later newman arms no corpus session reaches stay named.
+- Next: scen-poly-Samurai-91106 residual chwepon@133 (wield.c:940 menu line) is the next owner's row, not this function's; next Open row per queue refill state.
+- Density note: ~15 insertions; the dead arm is 13 lines of C and the function bulk predates (D-0718/D-0726/D-2063/D-2079/D-2131).
+
 ## D-2167 — `lock.c` doopen_indir !IS_DOOR envelope: Blind feel/see + mapseen/newsym + drawbridge/container (row named pick_lock; true writer measured, 1 session moved past)
 
 - Status: fixed (Open queue row `lock.c` pick_lock feel/see no-door arm — cited 1/553; `node scripts/verify.mjs --fn pick_lock`: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS. No review cited by the row, so no stamp owed.)
