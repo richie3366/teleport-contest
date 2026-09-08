@@ -10,7 +10,8 @@ import {
     is_vampshifter, is_watch, is_mind_flayer, is_covetous,
     is_floater, is_flyer, amorphous, nolimbs, M1_SLITHY, MZ_SMALL,
     grounded, telepathic, mons, metallivorous, humanoid, is_neuter, G_UNIQ,
-    corpse_eater, is_demon, touch_petrifies, acidic,
+    corpse_eater, is_demon, touch_petrifies, acidic, mon_hates_silver,
+    resists_ston, is_rider,
 } from './monsters.js';
 import { gettrack } from './track.js';
 import { wipe_engr_at } from './engrave.js';
@@ -37,7 +38,7 @@ import {
     D_BROKEN, D_TRAPPED, D_WARNED, u_at, DISPLACED, Is_rogue_level, NOTONL,
     ALLOW_U, ALLOW_M, ALLOW_MDISP, ALLOW_ROCK,
     NEED_PICK_AXE, NEED_AXE, NEED_PICK_OR_AXE, NEED_WEAPON, NEED_HTH_WEAPON,
-    P_AXE, P_PICK_AXE, W_WEP, SQSRCHRADIUS, COLNO, ROWNO, NATTK,
+    P_AXE, P_PICK_AXE, W_WEP, W_ARMG, SQSRCHRADIUS, COLNO, ROWNO, NATTK,
     MON_POLE_DIST, AKLYS_LIM, engulfing_u, M_AP_TYPE, M_AP_OBJECT,
     M_AP_FURNITURE, M_AP_NOTHING, M_AP_MONSTER, KILLED_BY_AN,
     STRAT_WAITFORU, STRAT_WAITMASK, STRAT_CLOSE, STRAT_ARRIVE,
@@ -52,7 +53,7 @@ import {
     CLOAK_OF_DISPLACEMENT, COIN_CLASS, WEAPON_CLASS, ARMOR_CLASS,
     GEM_CLASS, FOOD_CLASS, AMULET_CLASS, POTION_CLASS, SCROLL_CLASS,
     WAND_CLASS, RING_CLASS, SPBOOK_CLASS, ROCK_CLASS, BALL_CLASS,
-    objectNames, is_axe,
+    objectNames, is_axe, SILVER,
 } from './objects.js';
 import {
     Monnam, y_monnam, Adjmonnam, mon_nam, Amonnam, Hallucination,
@@ -67,6 +68,7 @@ import { is_pole } from './wield.js';
 import { acurrstr } from './attrib.js';
 import { m_canseeu } from './mondata.js';
 import { rloc, tele_restrict, noteleport_level } from './teleport.js';
+import { touch_artifact_mon } from './artifact.js';
 import { quest_talk, quest_stat_check } from './quest.js';
 import { stairway_at, u_on_newpos } from './mklev.js';
 import { create_gas_cloud, visible_region_at, m_in_out_region } from './region.js';
@@ -111,6 +113,7 @@ const STRANGE_OBJECT = objectNames.indexOf('STRANGE_OBJECT');
 const ROCK = objectNames.indexOf('ROCK');
 const BOULDER = objectNames.indexOf('BOULDER');
 const CORPSE = objectNames.indexOf('CORPSE');
+const BELL_OF_OPENING = objectNames.indexOf('BELL_OF_OPENING');
 const AKLYS = objectNames.indexOf('AKLYS');
 const PM_STALKER = monsterNames.indexOf('PM_STALKER');
 const PM_TENGU = monsterNames.indexOf('PM_TENGU');
@@ -230,12 +233,30 @@ function max_mon_load(mtmp) {
 }
 
 /**
- * C ref: mon.c can_touch_safely — corpse petrify/rider + silver/artifact
- * deferred as always-safe except rider/petrify corpse stubs.
+ * C ref: mon.c can_touch_safely — cockatrice-corpse petrify gate, rider-corpse
+ * gate, silver-hate gate, then the artifact touch gate (touch_artifact_mon:
+ * sync monster decision shared with async touch_artifact). Returns whether
+ * the monster may safely handle the object.
  */
-function can_touch_safely(_mtmp, otmp) {
+function can_touch_safely(mtmp, otmp) {
     if (!otmp) return false;
-    // touch_petrifies / is_rider / silver / touch_artifact named omissions
+    const otyp = otmp.otyp | 0;
+    const mdat = mtmp?.data;
+    // C: cockatrice corpse petrifies bare hands (gloved or stone-resistant
+    // hands exempt); rider corpses revive and are never safe to handle.
+    if (otyp === CORPSE) {
+        const fptr = mons(otmp.corpsenm);
+        if (touch_petrifies(fptr)
+            && !((mtmp?.misc_worn_check | 0) & W_ARMG)
+            && !resists_ston(mtmp)) return false;
+        if (is_rider(fptr)) return false;
+    }
+    // C: silver-haters refuse silver (covetous bell-ringers exempt).
+    if ((game.objects?.[otyp]?.oc_material | 0) === SILVER
+        && mon_hates_silver(mtmp)
+        && (otyp !== BELL_OF_OPENING || !is_covetous(mdat))) return false;
+    // C: self-willed/misaligned artifacts blast monsters (silent refuse).
+    if (!touch_artifact_mon(otmp, mtmp)) return false;
     return true;
 }
 

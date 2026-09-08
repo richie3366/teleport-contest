@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `dogmove.c` dog_goal — blocks 1/553 corpus sessions (first at step 168): C draws `rn2(4)=3` in dog_goal, JS `rn2(3)=0` from dog_move(dogmove.js:978) (empty toplines both sides; step-168 follow-player `!rn2(4)` gate). Re-queued from the addressed dog_goal@136 row (the refuse-arm dropy fix moved it past step 136). Probe: `node scripts/hidden-proxy.mjs verify dog_goal` (scen-wish-Priest-92136).
 - [ ] `read.c` do_class_genocide — blocks 1/553 corpus sessions (first at step 78): C «What class of monsters do you want to genocide? [enter the s» vs JS «What class of monsters do you want to genocide? [enter '?' t». Probe: `node scripts/hidden-proxy.mjs verify do_class_genocide` (scen-wish-Tourist-92230).
 - [ ] `sit.c` rndcurse — blocks 1/553 corpus sessions (first at step 22): C «You feel a malignant aura surround you. Demogorgon stings!--» vs JS «You feel a malignant aura surround you. Demogorgon stings!». Probe: `node scripts/hidden-proxy.mjs verify rndcurse` (scen-death-Valkyrie-92229).
 - [ ] `uhitm.c` hmon_hitmon_weapon_melee — blocks 1/553 corpus sessions (first at step 122): C draws `rnd(1)=1` in hmon_hitmon_weapon_melee, JS `rn2(8)=3` from abuse_dog(dog.js:1220). Probe: `node scripts/hidden-proxy.mjs verify hmon_hitmon_weapon_melee` (scen-normal-Rogue-92146).

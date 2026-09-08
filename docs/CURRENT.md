@@ -91,10 +91,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** - [ ] `dogmove.c` dog_goal — blocks 1/553 (first at step 168, scen-wish-Priest-92136; full row text in LOOP-QUEUE Open). Probe: `node scripts/hidden-proxy.mjs verify dog_goal`.
+**Next cluster:** - [ ] `read.c` do_class_genocide — blocks 1/553 (first at step 78, scen-wish-Tourist-92230; full row text in LOOP-QUEUE Open). Probe: `node scripts/hidden-proxy.mjs verify do_class_genocide`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2148 (index).**
+**Keep D-0845…D-2149 (index).**
 <!-- recent:begin -->
+**D-2149** `dogmove.c` APPORT `can_carry` gate; `mon.c`/`artifact.c` monster touch arms — Port C monster touch refusal; port `can_touch_safely`; `dog_goal` uses the `can_carry` export.
 **D-2148** `polyself.c:105` `PROPSET(REGENERATION, regenerates(mdat))` inside `set_uasmon` (`:38–112` — `js/polyself.js` only — import `regenerates` on the existing `monsters.js` edge + `REGENERATION` on the existing `const.js` edge (`imports.mjs --can`: ALREADY, no new edge); `set_uasmon` gains `propset_fromform(REGENERAT
 **D-2147** `mon.c:3081–3177` (`mondead`: be_sad flag `:3089–3101`, `lifesaved_monster`, vampshifter r — `js/mhitm.js` export now ports the sync-safe prefix in exact C order and short-circuit (be_sad read+clear; cham/were restore via live `set_mon_data`/`ismnum`/`mons`/`NON_PM` + `monsterNames.indexOf` PM consts per file id
 **D-2146** `artifact.c:1248–1434` (`Mb_hit`: `scare_dieroll` spe damping, `!spec_dbon_applies→dieroll — `js/artifact.js` only — exported async `Mb_hit` in exact C order and short-circuit (tier cascade, `dr<=scare/2` cancel floor via `Math.trunc`, hit pline before effects, CANCEL `cancel_monst` + rehumanize `dmg=0` + uenmax
@@ -102,11 +103,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2144** `artifact.c:1550–1644` (SPFX_BEHEAD: Tsurugi `dieroll==1` engulf-slice / `notonhead→FALSE` — `js/artifact.js` only — full BEHEAD arm in C order and short-circuit (Tsurugi `ART_TSURUGI_OF_MURAMASA` + Vorpal `ART_VORPAL_BLADE` from `generated/artifacts_data.js`; `PM_JABBERWOCK` via the existing `monsterNames.index
 **D-2143** `hack.c:2995–3018` (`runmode_delay_output`: `(svc.context.run || gm.multi) && flags.runmod — new exported async `runmode_delay_output()` in `js/hack.js` (C-faithful home, `// src/hack.c:2995` cite): raw-string normalization with C's prefix table in C order (`teleport→TPORT, run→LEAP, walk→STEP, crawl→CRAWL`, cas
 **D-2142** `uhitm.c:375–415` (`find_roll_to_hit`: `tmp = 1 + abon() + find_mac(mtmp) + u.uhitinc + sg — `js/uhitm.js` only — `near_capacity` joins the existing static `invent.js` edge (`imports.mjs --can`: already imported, no new edge); `find_roll_to_hit` applies `if (cap) tmp -= cap*2-1; if (u.utrap) tmp -= 3;` in C orde
-**D-2141** `invent.c:1227–1231` (`hold_another_object` artifact-refuse arm: `obj_extract_self(obj)` t — `js/invent.js` only — `await dropy(obj)` after `obj_extract_self(obj)` in the refuse arm (C `:1229`), with C cite.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2148; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2149; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

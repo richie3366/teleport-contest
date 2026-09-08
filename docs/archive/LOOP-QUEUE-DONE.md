@@ -5,10 +5,13 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `botl.c` do_statusline2 — blocks 9/553 corpus sessions (first at step 46): C «Your shirt rips to shreds!--More--» vs JS «Your shirt rips to shreds!--More--». Probe: `node scripts/hidden-proxy.mjs verify do_statusline2` (scen-death-Tourist-92095, scen-genesis-Tourist-92044, scen-intrinsic-Caveman-92138). (Re-queued post-D-2148: Priest-91137 + Rogue-92026 PASS; per-session writers in D-2148 Next.) **Addressed:** D-2148
+- [x] `dogmove.c` dog_goal — blocks 1/553 corpus sessions (first at step 168): C draws `rn2(4)=3` in dog_goal, JS `rn2(3)=0` from dog_move(dogmove.js:978) (empty toplines both sides; step-168 follow-player `!rn2(4)` gate). Re-queued from the addressed dog_goal@136 row (the refuse-arm dropy fix moved it past step 136). Probe: `node scripts/hidden-proxy.mjs verify dog_goal` (scen-wish-Priest-92136). **Addressed:** D-2149
 
 
-- [x] `botl.c` do_statusline2 — blocks 1/553 corpus sessions (first at step 214): C `HP:44(50)` vs JS `HP:43(50)` on the status line (otherwise identical; step-214 damage path drew matched RNG — symptom owner). Re-queued from fired `weapon.c` dmgval row (D-2139 tree moved it past step 123; cf. archived D-2024 row for an earlier step). Probe: `node scripts/hidden-proxy.mjs verify do_statusline2` (scen-poly-Priest-91137). **Addressed:** D-2148
+- [x] `botl.c` do_statusline2 — blocks 9/553 corpus sessions (first at step 46): C «Your shirt rips to shreds!--More--» vs JS «Your shirt rips to shreds!--More--». Probe: `node scripts/hidden-proxy.mjs verify do_statusline2` (scen-death-Tourist-92095, scen-genesis-Tourist-92044, scen-intrinsic-Caveman-92138). (Re-queued post-D-2148: Priest-91137 + Rogue-92026 PASS; per-session writers in D-2148 Next.) **Addressed:** D-2148 `04072151`
+
+
+- [x] `botl.c` do_statusline2 — blocks 1/553 corpus sessions (first at step 214): C `HP:44(50)` vs JS `HP:43(50)` on the status line (otherwise identical; step-214 damage path drew matched RNG — symptom owner). Re-queued from fired `weapon.c` dmgval row (D-2139 tree moved it past step 123; cf. archived D-2024 row for an earlier step). Probe: `node scripts/hidden-proxy.mjs verify do_statusline2` (scen-poly-Priest-91137). **Addressed:** D-2148 `04072151`
 
 
 - [x] `mon.c` mondead — blocks 1/553 corpus sessions (first at step 81): C draws `rnd(5)=1` in mondead, JS `rn2(6)=2` from xkilled(uhitm.js:669). Probe: `node scripts/hidden-proxy.mjs verify mondead` (scen-genesis-Barbarian-92111). **Addressed:** D-2147 `5cd14621`.

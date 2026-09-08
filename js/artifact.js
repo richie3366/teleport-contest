@@ -10,7 +10,7 @@ import {
 } from './generated/artifacts_data.js';
 import { objectNames, NUM_OBJECTS, objectDescrs, objects, WEAPON_CLASS } from './objects.js';
 import { obj_shuffle_range } from './o_init.js';
-import { monsterNames, NON_PM, M2_UNDEAD, is_demon, is_dprince, is_dlord, resists_ston, hates_silver, bigmonst, has_head, noncorporeal, amorphous } from './monsters.js';
+import { monsterNames, NON_PM, M2_UNDEAD, is_demon, is_dprince, is_dlord, resists_ston, hates_silver, bigmonst, has_head, noncorporeal, amorphous, is_covetous, is_mplayer } from './monsters.js';
 import { Fire_resistance, Cold_resistance, Shock_resistance, Drain_resistance, resists_fire, resists_cold, resists_elec, resists_poison, resists_drli, cancel_monst, resist, probe_monster } from './zap.js';
 import {
     A_NONE,
@@ -95,7 +95,7 @@ import {
     set_sting_effects, glyph_at, glyph_is_trap, canspotmon, map_invisible, shieldeff,
 } from './display.js';
 import { cansee } from './vision.js';
-import { mon_nam, s_suffix, Monnam } from './do_name.js';
+import { mon_nam, s_suffix, Monnam, mon_aligntyp_nam } from './do_name.js';
 import { wake_nearto } from './mon.js';
 import { burn_away_slime } from './timeout.js';
 import { compactify_invlets, update_inventory, getobj_take_count, getobj_apply_count, getobj_from_cmdq, getobj_display_pickinv, getobj, observe_object } from './invent.js';
@@ -1114,11 +1114,48 @@ function bane_applies(oart, mon) {
 }
 
 /**
+ * C ref: artifact.c touch_artifact `:908–974` — monster-only touch decision
+ * (sync). NONART gate, non-covetous role/align arms (`self_willed &&
+ * role != NON_PM` save Excalibur; RESTR align vs mon_aligntyp), covetous /
+ * fake-player pass-through, bane, and the silent monster refuse (`return 0`:
+ * no pline, and no RNG — C's `badalign && (!yours || !rn2(4))` short-circuits
+ * on `!yours`). Async touch_artifact reuses this for monsters; sync
+ * can_touch_safely (mon.c) calls it directly. Returns 1 (may touch) / 0.
+ */
+export function touch_artifact_mon(obj, mon) {
+    const oart = get_artifact(obj);
+    const list = artilist();
+    if (oart === list[0]) return 1;
+    const mdat = mon?.data;
+    const self_willed = (oart.spfx & SPFX_INTEL) !== 0;
+    let badclass = false;
+    let badalign = false;
+    // C: `else if (!is_covetous(mon->data) && !is_mplayer(mon->data))`
+    if (!is_covetous(mdat) && !is_mplayer(mdat)) {
+        badclass = !!self_willed && oart.role !== NON_PM
+            && oart !== list[ART_EXCALIBUR];
+        badalign = ((oart.spfx & SPFX_RESTR) !== 0)
+            && oart.alignment !== A_NONE
+            && oart.alignment !== mon_aligntyp_nam(mon);
+    } else {
+        // C: covetous monsters and fake players touch anything except
+        // spec_applies artifacts — badclass/badalign stay FALSE.
+    }
+    // C: bane applies even when alignment otherwise matches.
+    if (!badalign) badalign = bane_applies(oart, mon);
+    // C blast gate for monsters: `((badclass||badalign) && self_willed) ||
+    // (badalign && !yours)` refuses; the evade gate below it needs badalign
+    // too, so anything refused here returns 0 and the rest returns 1.
+    if (((badclass || badalign) && self_willed) || badalign) return 0;
+    return 1;
+}
+
+/**
  * C ref: artifact.c touch_artifact `:907–974` — hero blast + refuse arms
  * in exact C order (touch_blasted reset, NONART gate, yours/self_willed,
- * badclass/badalign, bane, blast gate, evade/control). Monster
- * covetous/mplayer role/align arms stay deferred (named below).
- * Returns 1 if held, 0 if refused.
+ * badclass/badalign, bane, blast gate, evade/control). Monster role/align
+ * arms run through sync touch_artifact_mon (same file, shared with
+ * can_touch_safely). Returns 1 if held, 0 if refused.
  */
 export async function touch_artifact(obj, mon) {
     const oart = get_artifact(obj);
@@ -1142,9 +1179,11 @@ export async function touch_artifact(obj, mon) {
         badalign = ((oart.spfx & SPFX_RESTR) !== 0
             && oart.alignment !== A_NONE
             && (oart.alignment !== atype || arec < 0));
+    } else {
+        // C monster role/align arms + silent refuse — sync helper shared
+        // with can_touch_safely (mon.c); returns here for monsters.
+        return touch_artifact_mon(obj, mon);
     }
-    /* C covetous/mplayer role/align arms deferred → monster badclass/
-       badalign stay false; bane below still applies to monsters. */
     if (!badalign) badalign = bane_applies(oart, mon);
 
     if (((badclass || badalign) && self_willed)

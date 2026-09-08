@@ -2690,7 +2690,7 @@ underfoot `return TRUE`→`postmov`→`mpickstuff` restored;
 omit `searches_for_item` (D-0598 potion/wand/scroll/amulet/tool subset; 
 **Is_container/Is_mbag/!olocked** D-0861; 
 FOOD corpse/tin/egg + `can_blow` polish deferred)/`mon_would_consume_item` body + 
-`can_touch_safely` silver/artifact/petrify arms in `m_search_items` 
+outer `can_touch_safely` call in `m_search_items` (arms live D-2149) 
 (shop `in_rooms`+`rn2(25)`+`isshk` gate, `hides_under`+`cansee`, `onscary`, 
 `costly_spot`+merchandise, prizes, outer `can_touch_safely` live D-2047); 
 **`m_move` Tengu nature teleport `!rn2(5)`→rloc/mnexto + uswallow early-out** (D-0778; 
@@ -3073,7 +3073,7 @@ deferred); **MUSE_CAMERA** find+use `lightdamage` D-1376 (C `:1566–1574`/`:193
 flash/`make_blinded`/`spe--`/return 1; callee D-1366); ray-wand/horn/SCR_EARTH D-1810; 
 mon-target `potionhit` crash/saddle/POT_WATER D-1297 (other otyps named); 
 **`hitval` blessed/spear/trident/pick D-1929** (artifact `spec_abon` D-0611; no silver arm in C hitval);
-**`select_hwep` HTH arms D-1930** (`oselect` CORPSE/EGG cockatrice skip live; Balrog bullwhip on `game.u.uwep`; CORPSE `resists_ston` gate; artifact `touch_artifact` call in C order; `is_giant` clone deleted for the canonical export; `oc_big` kept per `objclass.h:65` alias; named: `can_touch_safely` inside `oselect`, `touch_artifact` monster covetous/mplayer role/align arms (bane live D-2010));
+**`select_hwep` HTH arms D-1930** (`oselect` CORPSE/EGG cockatrice skip live; Balrog bullwhip on `game.u.uwep`; CORPSE `resists_ston` gate; artifact `touch_artifact` call in C order; `is_giant` clone deleted for the canonical export; `oc_big` kept per `objclass.h:65` alias; named: `can_touch_safely` inside `oselect`; `touch_artifact` monster role/align arms live D-2149);
 polearm/breath/gulp/AT_MAGC, catch `hold_another_object`, racial multishot,
 weld/artifact_light wield msgs, knockback hurtle; `mshot_xname` Nth; `obj_is_pname`/`the()`;
 enhance `add_weapon_skill`/`lose_weapon_skill`/`use_skill` may-advance;
@@ -3189,6 +3189,8 @@ seed1500 RNG complete (D-0021); **`dog_goal` gettrack/ogoal** (D-0099);
 **`dog_goal` wantdoor via off-hero `do_clear_area`/`view_from` vis_func** (D-0211); 
 **`dog_goal` invent `dogfood` when `udist<=1` skips `!rn2(4)`** (D-0429/D-0735); 
 **`dog_goal` udist after door-step `dog_move`** (D-0451 open); 
+**`dog_goal` APPORT `can_carry` is the `monmove.js` export** (D-2149; local `max_mon_load`/`can_carry` clones deleted — they skipped `notake`/`can_touch_safely`, so pets apport-took blast artifacts like the PYEC); 
+**`can_touch_safely` live** (D-2149; petrify/rider/silver gates + `touch_artifact_mon` artifact gate shared with async `touch_artifact`, whose monster covetous/mplayer role/align arms are live too); 
 seed0017 RNG **full** after `#pray` (D-0101); seed0106 @2993 post-kill `dog_goal` next; 
 seed0012 @6952 **`dog_goal` gg/wantdoor** (D-0367); 
 **seed0004 Conflict after D-0405 timers/sortloot (D-0406); teleport scroll D-0407**; 

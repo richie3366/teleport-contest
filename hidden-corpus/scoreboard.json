@@ -1,6 +1,6 @@
 {
- "commit": "5cd14621",
- "at": "2026-09-08T19:21:55.603Z",
+ "commit": "94e4d03f",
+ "at": "2026-09-08T20:14:09.570Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -8159,17 +8159,17 @@
   },
   "scen-wish-Priest-92136": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 2654,
+   "passed": true,
+   "rngM": 2703,
    "rngT": 2703,
-   "scrM": 168,
+   "scrM": 170,
    "scrT": 170,
-   "kind": "rng",
-   "step": 168,
+   "kind": null,
+   "step": null,
    "steps": 170,
-   "owner": "dog_goal",
-   "loc": "dogmove.c:575",
-   "jsOwner": "dog_move(dogmove.js:978)",
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",
    "error": null
