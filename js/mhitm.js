@@ -870,8 +870,8 @@ function stagger(ptr, def) {
  * Cancelled returns keeping leftover d() (no stun, no phys).
  * Else canseemon pline + mstun=1 even if already stunned (no
  * spec-used / wait-for-hero unlike CONF) then mhitm_ad_phys.
- * Named omit: uhitm you-as-agr (!Blind stagger + phys);
- * mhitu you-as-def (hitmsg + !mcan && !rn2(4) make_stunned + dmg/2).
+ * Named omit: uhitm you-as-agr (!Blind stagger + phys).
+ * mhitu you-as-def lives in mhitu.js as mhitm_ad_stun_u.
  * mhitm_ad_fire leftover is D-1405.
  */
 async function mhitm_ad_stun(magr, mattk, mdef, mhm) {

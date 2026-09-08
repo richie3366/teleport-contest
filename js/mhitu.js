@@ -2555,11 +2555,31 @@ async function mhitm_ad_were_u(mtmp, mattk, mhm) {
 }
 
 /**
+ * C ref: uhitm.c mhitm_ad_stun `:4403–4409` — mhitu (monster→you) arm.
+ * hitmsg always (no mcan gate, unlike the mhitm arm); then
+ * `!mcan && !rn2(4)` → make_stunned((HStun & TIMEOUT) + leftover
+ * damage) + damage halved (C `/= 2` truncates; Math.trunc same).
+ * Leftover hitmu d() is kept when the stun misses or the attacker is
+ * cancelled (unlike the default zero). Reached with AD_STUN swapped
+ * in by getmattk for a second consecutive DISE/PEST/FAMN hit
+ * (mhitu.c:337–347, live in mhitm.js get_mattk). The uhitm arm
+ * (`:4394–4402`, !Blind stagger + phys) stays named; the mhitm arm
+ * lives in mhitm.js (D-1396).
+ */
+async function mhitm_ad_stun_u(mtmp, mattk, mhm) {
+    await hitmsg(mtmp, mattk);
+    if (!(mtmp.mcan | 0) && !rn2(4)) {
+        await make_stunned(((game.u?.HStun | 0) & TIMEOUT) + (mhm.damage | 0), true);
+        mhm.damage = Math.trunc((mhm.damage | 0) / 2);
+    }
+}
+
+/**
  * C ref: uhitm.c mhitm_adtyping — mhitu (monster→you) subset.
  * PHYS + ELEC + COLD + FIRE + TLPT + DRST/DRDX/DRCO + SITM/SEDU + SSEX (D-1750)
  * + BLND + STON + LEGS + POLY (D-1004) + DRIN (D-1329) + WRAP (D-1331) + SLEE
  * + DRLI + RUST + CORR + STCK + PLYS + FAMN + SLOW + WERE + HEAL + PEST
- * + SAMU; other adtyps zero damage.
+ * + SAMU + STUN; other adtyps zero damage.
  */
 async function mhitm_adtyping_u(mtmp, mattk, mhm) {
     switch (mattk.adtyp | 0) {
@@ -2643,6 +2663,9 @@ async function mhitm_adtyping_u(mtmp, mattk, mhm) {
         break;
     case AD_PEST:
         await mhitm_ad_pest_u(mtmp, mattk, mhm);
+        break;
+    case AD_STUN:
+        await mhitm_ad_stun_u(mtmp, mattk, mhm);
         break;
     default:
         mhm.damage = 0;

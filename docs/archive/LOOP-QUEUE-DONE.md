@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `uhitm.c` mhitm_ad_samu — blocks 2/553 corpus sessions (first at step 53): C draws `rn2(20)=6` in mhitm_ad_samu, JS `rn2(3)=0` from mhitm_knockback(mhitm.js:2015). Probe: `node scripts/hidden-proxy.mjs verify mhitm_ad_samu` (scen-tour-Samurai-91113, scen-tour-Wizard-92103). **Addressed:** D-2074
+- [x] `uhitm.c` mhitm_ad_stun — blocks 2/553 corpus sessions (first at step 67): C draws `rn2(4)=2` in mhitm_ad_stun, JS `rn2(3)=2` from mhitm_knockback(mhitm.js:2014). Probe: `node scripts/hidden-proxy.mjs verify mhitm_ad_stun` (scen-genesis-Archeologist-91127, scen-genesis-Barbarian-91118). **Addressed:** D-2075
+
+
+- [x] `uhitm.c` mhitm_ad_samu — blocks 2/553 corpus sessions (first at step 53): C draws `rn2(20)=6` in mhitm_ad_samu, JS `rn2(3)=0` from mhitm_knockback(mhitm.js:2015). Probe: `node scripts/hidden-proxy.mjs verify mhitm_ad_samu` (scen-tour-Samurai-91113, scen-tour-Wizard-92103). **Addressed:** D-2074 `8598abcf`
 
 
 - [x] `engrave.c` doengrave — blocks 2/553 corpus sessions (first at step 51): C «Do you want to add to the current engraving? [ynq] (y)» vs JS «You add to the writing in the dust with your fingertip.--Mor». Probe: `node scripts/hidden-proxy.mjs verify doengrave` (scen-kit-Valkyrie-91116, scen-normal-Samurai-92078). **Addressed:** D-2073 `2831f984`
