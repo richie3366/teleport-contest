@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-2154 — `insight.c` list_vanquished: `pmnames[NEUTRAL]` display names (2 sessions PASS)
+
+- **Status:** fixed (Open queue row `insight.c` list_vanquished — cited 2/553; `node scripts/verify.mjs --fn list_vanquished`: 2 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS. Row cites review 1113 only as the session's prior-owner history — that review is ACCEPT with no Actionable C-wrongs, so no stamp owed.)
+- **Symptom:** scen-genesis-Archeologist-92157 step 73/81 + scen-genesis-Barbarian-92111 step 96/105, both screen-first at insight.c:2863 with identical toplines («Vanquished creatures:» both sides): row 2 C «an Uruk-hai» vs JS «an uruk hai»; row 3 C «a Keystone Kop» vs JS «a keystone kop».
+- **C locus:** `insight.c:2784–2949` (`list_vanquished`: per-type line from `mons[i].pmnames[NEUTRAL]` — `an()` for nkilled==1 else `%3d makeplural()`, `N_times` for uniques; `vanqsort_cmp` alpha arms compare the same names). Callers `end.c:607/660` (`'d'`/disclose) and `insight.c:2771` (`dovanquished` `'A'`/`'y'`).
+- **JS was:** `js/insight.js` `pmname_neutral` derived the display name from the `PM_*` enum label (`monsterNames[mndx]` → strip `PM_`, `_`→space, lowercase), so every multi-word/capitalized/hyphenated monster diverged (`uruk hai`, `keystone kop`, `orc-captain`, `Mordor orc`, …); only single lowercase words matched. The generated `pmnames` table (checked-in `scripts/extract-monsters.py`, `js/generated/monsters_data.js:55`) already held the exact C strings — the helper just never read it. House precedent: `js/do_name.js:614–620` reads gender-aware `pmnames[]` with the same C cite.
+- **Fix:** `pmname_neutral` now returns `pmnames[mndx]?.[NEUTRAL] ?? 'monster'` with the C cite (`mons[i].pmnames[NEUTRAL]`); `pmnames, NEUTRAL` join the existing `monsters.js` edge (`imports.mjs --can`: ALREADY, no new edge). Display (`an`/`makeplural`/`N_times`) and default `VANQ_MLVL_MNDX` sort order are untouched — `just_an` already yields «an Uruk-hai» / «a Keystone Kop» on the C-cased inputs.
+- **JS:** `js/insight.js` only (1 import line + helper body; no new file).
+- **Verify:** `node scripts/verify.mjs --fn list_vanquished` → PASS syntax (1 changed file) · PASS rule2 · PASS hidden (scen-genesis-Archeologist-92157 PASS, scen-genesis-Barbarian-92111 PASS) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · full skipped (no shared file changed). VERIFY: PASS. (Standalone `node -e` probe of `an()`/`makeplural()` was abandoned — `js/objnam.js` has a module-order TDZ when loaded outside the game bootstrap; pre-existing, unrelated to this change. The corpus screens are the probe.)
+- **Named omissions:** unchanged from D-0126 and still named in `js/insight.js` header + map: `set_vanq_order` force_sort/`'a'`-sort menu, disclose `ask` yn path, `VANQ_MCLS_*` class-header modes (+`Rider`/`special_hdr`), dumplog `'d'`, Hallucination footer.
+- **Next:** `uhitm.c` mhitm_mgc_atk_negated (next Open row).
+
 ## D-2153 — `potion.c` peffect_paralysis: Levitation/air/water/steed/surface branches (1 session moved past)
 
 - **Status:** fixed (Open queue row ``potion.c`` peffect_paralysis — cited 1/553; `node scripts/verify.mjs --fn peffect_paralysis`: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS. No review cited by the row, so no stamp owed.)

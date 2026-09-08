@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `potion.c` peffect_paralysis — blocks 1/553 corpus sessions (first at step 26): C «Your feet are frozen to the stairs! The little dog misses th» vs JS «Your feet are frozen to the floor! The little dog misses the». Probe: `node scripts/hidden-proxy.mjs verify peffect_paralysis` (scen-wish-Valkyrie-92091). **Addressed:** D-2153
+- [x] `insight.c` list_vanquished — blocks 2/553 corpus sessions (first at step 73): C «Vanquished creatures:» vs JS «Vanquished creatures:». Probe: `node scripts/hidden-proxy.mjs verify list_vanquished` (scen-genesis-Archeologist-92157, scen-genesis-Barbarian-92111). **Addressed:** D-2154
+
+
+- [x] `potion.c` peffect_paralysis — blocks 1/553 corpus sessions (first at step 26): C «Your feet are frozen to the stairs! The little dog misses th» vs JS «Your feet are frozen to the floor! The little dog misses the». Probe: `node scripts/hidden-proxy.mjs verify peffect_paralysis` (scen-wish-Valkyrie-92091). **Addressed:** D-2153 `34b6810b`
 
 
 - [x] `uhitm.c` hmon_hitmon_weapon_melee — blocks 1/553 corpus sessions (first at step 122): C draws `rnd(1)=1` in hmon_hitmon_weapon_melee, JS `rn2(8)=3` from abuse_dog(dog.js:1220). Probe: `node scripts/hidden-proxy.mjs verify hmon_hitmon_weapon_melee` (scen-normal-Rogue-92146). **Addressed:** D-2152 `a56c8567`

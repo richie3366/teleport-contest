@@ -91,10 +91,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** - [ ] `potion.c` peffect_paralysis — blocks 1/553 (first at step 26, scen-wish-Valkyrie-92091; full row text in LOOP-QUEUE Open). Probe: `node scripts/hidden-proxy.mjs verify peffect_paralysis`.
+**Next cluster:** - [ ] `uhitm.c` mhitm_mgc_atk_negated — blocks 2/553 corpus sessions (first at step 84): C draws `rn2(10)=5` in mhitm_mgc_atk_negated, JS `rn2(6)=3` from xkilled(uhitm.js:683). Probe: `node scripts/hidden-proxy.mjs verify mhitm_mgc_atk_negated` (scen-poly-Monk-92164, scen-wish-Monk-92013).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2153 (index).**
+**Keep D-0845…D-2154 (index).**
 <!-- recent:begin -->
+**D-2154** `insight.c:2784–2949` (`list_vanquished`: per-type line from `mons[i].pmnames[NEUTRAL]` — `pmname_neutral` now returns `pmnames[mndx]?.[NEUTRAL] ?? 'monster'` with the C cite (`mons[i].pmnames[NEUTRAL]`); `pmnames, NEUTRAL` join the existing `monsters.js` edge (`imports.mjs --can`: ALREADY, no new edge).
 **D-2153** `potion.c:881–898` (`peffect_paralysis`: `Free_action` → `You("stiffen momentarily.")`; el — port the C branch order and short-circuit exactly: `Free_action()` resist arm; else Levitation (house reader, D-1419) / `Is_airlevel` / `Is_waterlevel` (const.js) → suspended, `u.usteed` → frozen in place, else feet + `s
 **D-2152** `uhitm.c:933–1067` (`hmon_hitmon_weapon_melee`: `:944–945` dmgval + train gate, `:947–951` — New async `hmon_hitmon_weapon_melee(mon, obj, ctx)` in `js/uhitm.js` in exact C order and short-circuit (Healer `P_KNIFE` + `mvitals.died` bonus; `!train || ustuck || twoweap || Cleaver` no-bonus gate; Rogue `backstabbab
 **D-2151** `uhitm.c:4593–4619` (`mhitm_ad_dise`; mhitu arm `:4604–4608`: `hitmsg(magr, mattk); if (!d — New `mhitm_ad_dise_u` in `js/mhitu.js` in exact C order and short-circuit (`await hitmsg`; `if (!(await diseasemu(mtmp?.data))) mhm.damage = 0` — sickness keeps leftover hitmu d(), resistance zeroes it), wired as `case A
@@ -102,11 +103,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2149** `dogmove.c` APPORT `can_carry` gate; `mon.c`/`artifact.c` monster touch arms — Port C monster touch refusal; port `can_touch_safely`; `dog_goal` uses the `can_carry` export.
 **D-2148** `polyself.c:105` `PROPSET(REGENERATION, regenerates(mdat))` inside `set_uasmon` (`:38–112` — `js/polyself.js` only — import `regenerates` on the existing `monsters.js` edge + `REGENERATION` on the existing `const.js` edge (`imports.mjs --can`: ALREADY, no new edge); `set_uasmon` gains `propset_fromform(REGENERAT
 **D-2147** `mon.c:3081–3177` (`mondead`: be_sad flag `:3089–3101`, `lifesaved_monster`, vampshifter r — `js/mhitm.js` export now ports the sync-safe prefix in exact C order and short-circuit (be_sad read+clear; cham/were restore via live `set_mon_data`/`ismnum`/`mons`/`NON_PM` + `monsterNames.indexOf` PM consts per file id
-**D-2146** `artifact.c:1248–1434` (`Mb_hit`: `scare_dieroll` spe damping, `!spec_dbon_applies→dieroll — `js/artifact.js` only — exported async `Mb_hit` in exact C order and short-circuit (tier cascade, `dr<=scare/2` cancel floor via `Math.trunc`, hit pline before effects, CANCEL `cancel_monst` + rehumanize `dmg=0` + uenmax
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2153; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2154; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-08 — D-2154 `insight.c` list_vanquished: `pmnames[NEUTRAL]` display names (2 sessions PASS)
+
+**C locus:** `insight.c:2784–2949` (`list_vanquished`: per-type line from `mons[i].pmnames[NEUTRAL]` — `an()` for nkilled==1 else `%3d makeplural()`, `N_times` for uniques; `vanqsort_cmp` alpha arms compare the same names). Callers `end.c:607/660` (`'d'`/disclose) and `insight.c:2771` (`dovanquished` `'A'`/`'y'`).
+**JS:** `js/insight.js` only (1 import line + helper body; no new file).
+**Change:** `pmname_neutral` now returns `pmnames[mndx]?.[NEUTRAL] ?? 'monster'` with the C cite (`mons[i].pmnames[NEUTRAL]`); `pmnames, NEUTRAL` join the existing `monsters.js` edge (`imports.mjs --can`: ALREADY, no new edge). Display (`an`/`makeplural`/`N_times`) and default `VANQ_MLVL_MNDX` sort order are untouched — `just_an` already yields «an Uruk-hai» / «a Keystone Kop» on the C-cased inputs.
+**Verify:** `node scripts/verify.mjs --fn list_vanquished` → PASS syntax (1 changed file) · PASS rule2 · PASS hidden (scen-genesis-Archeologist-92157 PASS, scen-genesis-Barbarian-92111 PASS) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · full skipped (no shared file changed). VERIFY: PASS. (Standalone `node -e` probe of `an()`/`makeplural()` was abandoned — `js/objnam.js` has a module-order TDZ when loaded outside the game bootstrap; pre-existing, unrelated to this change. The corpus screens are the probe.)
+**Named:** unchanged from D-0126 and still named in `js/insight.js` header + map: `set_vanq_order` force_sort/`'a'`-sort menu, disclose `ask` yn path, `VANQ_MCLS_*` class-header modes (+`Rider`/`special_hdr`), dumplog `'d'`, Hallucination footer.
+**Next:** `uhitm.c` mhitm_mgc_atk_negated (next Open row).
 ## 2026-09-08 — D-2153 `potion.c` peffect_paralysis: Levitation/air/water/steed/surface branches (1 session moved past)
 
 **C locus:** `potion.c:881–898` (`peffect_paralysis`: `Free_action` → `You("stiffen momentarily.")`; else `Levitation || Is_airlevel || Is_waterlevel` → `You("are motionlessly suspended.")`, `u.usteed` → `You("are frozen in place!")`, else `Your("%s are frozen to the %s!", makeplural(body_part(FOOT)), surface(u.ux, u.uy))`; then `nomul(-(rn1(10, 25 - 12 * bcsign(otmp))))`, `multi_reason`, `nomovemsg = You_can_move_again`, `exercise(A_DEX, FALSE)`); caller `dopotion :1361` `POT_PARALYSIS`.
