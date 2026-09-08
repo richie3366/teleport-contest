@@ -6,7 +6,7 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Scenario corpus = work picker:** queue from `hidden-proxy queue`; singletons Deferred; themed-room step-0 → `geom-probe` (scores live in CURRENT.md).
-- **distfleeck park:** body port proven no-movement; 4th session Caveman-92053@32 via the D-2108 look fix; per-session writers in the Parked row.
+- **distfleeck park:** body port proven no-movement; 4th session via D-2108; writers in the Parked row.
 - **mcalcmove park:** D-2066 shipped; Rogue-92137/Knight-92188 = slime-lifesave writer (see Parked).
 
 - **Parks (do not pop):** show_conduct, ready_weapon, mdrop_obj/dopush, dosearch, save_dungeon, do_statusline2 (falsifiers in Parked rows).
@@ -18,7 +18,7 @@ Objective/score live in `CURRENT.md`.
 - **m_move symptom-owner park:** loop body faithful; D-2069 shipped; Caveman-92202 cnt-j off-by-one (detail + falsifier: Parked; do not re-pop).
 - **rloc park:** body faithful (D-0686); writer is a draw-free migration creator (detail + falsifier: Parked; do not re-pop).
 - **lightdamage park:** `mzapwand` MORE-transient misattributed to zap.c (D-1366 faithful); capture artifact, not state (detail + falsifier: Parked; do not re-pop).
-- **mattackm park:** writer can_carry; blocked by #2 @3037 + move-99 spin (Parked).
+- **mattackm/can_carry park:** writer can_carry; import alone re-measured ETIMEDOUT — trio (#2 @3037 + move-99 spin) only, do not pop.
 
 ## Don't re-check (≤15)
 

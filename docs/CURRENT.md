@@ -93,7 +93,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `mon.c` can_carry — writer for the parked mattackm row (Knight-92182 step 13). Probe: `node scripts/hidden-proxy.mjs verify mattackm`.
+**Next cluster:** `cmd.c` getdir — 1/553 at step 115: C «In what direction?» vs JS «». Probe `verify getdir` (scen-poly-Healer-92109).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2116 (index).**
 <!-- recent:begin -->
