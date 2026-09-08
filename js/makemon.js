@@ -3093,8 +3093,9 @@ export function makemon(mdat, x, y, mmflags = 0) {
 
 /**
  * C ref: makemon.c makemon post-place appear Norep (!in_mklev, !MM_NOMSG).
- * Uses requested (x,y) for next2u/distu — wizgenesis passes u.ux,u.uy so
- * distance 0 → always " next to you" when visible.
+ * Callers pass the FINAL placement (mtmp.mx,mtmp.my) for next2u/distu —
+ * C computes the message from post-enexto x,y (makemon.c:1491-1499), so
+ * requested u.ux,u.uy would wrongly force " next to you" (D-2096).
  * Mimic furniture/object: mhidden_description + upstart (D-1554).
  * Named omit: set_msg_xy; occupation dochugw.
  */

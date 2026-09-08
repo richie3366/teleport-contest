@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `selvar.c` selection_rndcoord — blocks 1/553 corpus sessions (first at step 70): C draws `rn2(670)=351` in selection_rndcoord, JS `rn2(2)=1` from flip_level_rnd(mklev.js:16741). Probe: `node scripts/hidden-proxy.mjs verify selection_rndcoord` (scen-tour-Ranger-92033). **Addressed:** D-2095
+- [x] `teleport.c` goodpos — blocks 1/553 corpus sessions (first at step 67): C draws `rn2(13)=11` in goodpos, JS `rnd(2)=1` from next_ident(makemon.js:429). Probe: `node scripts/hidden-proxy.mjs verify goodpos` (scen-wish-Rogue-91119). **Addressed:** D-2096
+
+
+- [x] `selvar.c` selection_rndcoord — blocks 1/553 corpus sessions (first at step 70): C draws `rn2(670)=351` in selection_rndcoord, JS `rn2(2)=1` from flip_level_rnd(mklev.js:16741). Probe: `node scripts/hidden-proxy.mjs verify selection_rndcoord` (scen-tour-Ranger-92033). **Addressed:** D-2095 `65152c55`
 
 
 - [x] `trap.c` float_down — blocks 1/553 corpus sessions (first at step 43): C «You float gently to the stairs.» vs JS «You float gently to the floor.». Probe: `node scripts/hidden-proxy.mjs verify float_down` (scen-intrinsic-Samurai-92017). **Addressed:** D-2094 `670a1b21`

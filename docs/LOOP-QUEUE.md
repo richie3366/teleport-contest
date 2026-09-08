@@ -59,7 +59,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `teleport.c` goodpos — blocks 1/553 corpus sessions (first at step 67): C draws `rn2(13)=11` in goodpos, JS `rnd(2)=1` from next_ident(makemon.js:429). Probe: `node scripts/hidden-proxy.mjs verify goodpos` (scen-wish-Rogue-91119).
 - [ ] `potion.c` peffect_sleeping — blocks 1/553 corpus sessions (first at step 62): C «You yawn.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify peffect_sleeping` (scen-intrinsic-Rogue-92172).
 - [ ] `wield.c` dowield — blocks 1/553 corpus sessions (first at step 8): C «You have 40 darts readied. Wield one? [ynq] (q)» vs JS «You have 40 dart readied. Wield one? [ynq] (q)». Probe: `node scripts/hidden-proxy.mjs verify dowield` (scen-kit-Tourist-91126).
 - [ ] `detect.c` find_trap — blocks 1/553 corpus sessions (first at step 81): C «You find a small mimic.» vs JS «You already found a monster. Use 'm' prefix to force another». Probe: `node scripts/hidden-proxy.mjs verify find_trap` (scen-genesis-Wizard-92223).

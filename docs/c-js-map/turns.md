@@ -3439,6 +3439,10 @@ delivered dest msg (D-1195; C 1727–1731; Null/other otyp skip)**;
 **`rloc_to_core` dest-msg `set_msg_xy` (D-1196; C 1708; a11y.msg_loc dest before dest plines; 
 `vpline` consume D-1207)**; **`goodpos` `accessible`/closed-door + 
 occupied/`boulder`/amorph door** (D-0246); 
+**`enexto_core` far-loop buffer reuse** (D-2096; C `teleport.c:256–268` second
+collect overwrites the same candy buffer — truncate before re-collect so the
+per-ring shuffle slice and `[nearcandyct,allcandyct)` match C; append+offset
+read evaluated a shifted slice with mis-chunked shuffles); 
 **`teleport_pet` / `mlevel_tele_trap` hole path / `migrate_to_level`** (D-0250); 
 **`vault_tele`/`teleds`/`tele_trap` + mon `mtele_trap`/`mvault_tele`/`rloc` subset** (D-0373; 
 once TELEP→VAULT somexyspace); **`rloc` 50× `rnd(COLNO-1)`/`rn2(ROWNO)` + 

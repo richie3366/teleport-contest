@@ -1,6 +1,6 @@
 {
- "commit": "670a1b21",
- "at": "2026-09-08T06:26:09.830Z",
+ "commit": "65152c55",
+ "at": "2026-09-08T06:40:49.728Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -8324,18 +8324,18 @@
   "scen-wish-Rogue-91119": {
    "src": "corpus",
    "passed": false,
-   "rngM": 4233,
+   "rngM": 6704,
    "rngT": 6704,
-   "scrM": 67,
+   "scrM": 273,
    "scrT": 275,
-   "kind": "rng",
-   "step": 67,
+   "kind": "screen",
+   "step": 70,
    "steps": 275,
-   "owner": "goodpos",
-   "loc": "teleport.c:148",
-   "jsOwner": "next_ident(makemon.js:429)",
-   "cTopline": "A kraken appears close by.",
-   "jsTopline": "A kraken appears next to you.",
+   "owner": "givit",
+   "loc": "eat.c:1093",
+   "jsOwner": null,
+   "cTopline": "You feel less concerned about becoming petrified. The grid bug bites!--More--",
+   "jsTopline": "You feel less concerned about becoming petrified The grid bug bites!--More--",
    "error": null
   },
   "scen-wish-Rogue-91138": {
