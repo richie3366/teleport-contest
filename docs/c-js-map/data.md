@@ -1193,7 +1193,7 @@ JS: `js/detect.js` — partial
 
 **`monster_detect` live-fmon + cls + map_monst + sense + 
 browse_map(TER_DETECT\|TER_MON)** (D-0370); empty strange_feeling D-1418;
-**detect_wsegs D-1545**; **long-worm mndx/mnum D-1549**; omit cursed wake; blessed WIN_MAP; 
+**detect_wsegs D-1545**; **long-worm mndx/mnum D-1549**; sense→getpos verbose tip shares one topline, no more() between (D-2081); omit cursed wake; blessed WIN_MAP; 
 unconstrain; pet/detected glyphs; TER_DETECT autodescribe text
 
 ### `src/sit.c`

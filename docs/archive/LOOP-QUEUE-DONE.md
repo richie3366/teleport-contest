@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `read.c` doread — blocks 2/553 corpus sessions (first at step 27): C «As you read the scroll, it disappears. Nothing interesting h» vs JS «That scroll is not implemented yet.». Probe: `node scripts/hidden-proxy.mjs verify doread` (scen-wish-Knight-92105, scen-wish-Rogue-92019). **Addressed:** D-2080
+- [x] `detect.c` monster_detect — blocks 2/553 corpus sessions (first at step 51): C «You sense the presence of monsters. (For instructions type a» vs JS «You sense the presence of monsters.--More--». Probe: `node scripts/hidden-proxy.mjs verify monster_detect` (scen-normal-Priest-91108, scen-normal-Priest-92020). **Addressed:** D-2081
+
+
+- [x] `read.c` doread — blocks 2/553 corpus sessions (first at step 27): C «As you read the scroll, it disappears. Nothing interesting h» vs JS «That scroll is not implemented yet.». Probe: `node scripts/hidden-proxy.mjs verify doread` (scen-wish-Knight-92105, scen-wish-Rogue-92019). **Addressed:** D-2080 `3580bf12`
 
 
 - [x] `polyself.c` rehumanize — blocks 2/553 corpus sessions (first at step 90): C «You hear some noises. You return to human form! You can see » vs JS «You hear some noises. You return to human form!--More--». Probe: `node scripts/hidden-proxy.mjs verify rehumanize` (scen-poly-Archeologist-92119, scen-poly-Wizard-92076). **Addressed:** D-2079 `2d94d42e`
