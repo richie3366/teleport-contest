@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `uhitm.c` erode_armor — blocks 2/553 corpus sessions (first at step 74): C draws `rn2(5)=1` in erode_armor, JS `rn2(3)=1` from mhitm_knockback(mhitm.js:2015). Probe: `node scripts/hidden-proxy.mjs verify erode_armor` (scen-genesis-Knight-92185, scen-genesis-Tourist-92044). **Addressed:** D-2071
+- [x] `muse.c` use_misc — blocks 2/553 corpus sessions (first at step 77): C «The pit fiend drinks a dark green potion! The pit fiend look» vs JS «The pit fiend drinks a dark green potion! The pit fiend look». Probe: `node scripts/hidden-proxy.mjs verify use_misc` (scen-wish-Healer-92125, scen-wish-Healer-92173). **Addressed:** D-2072
+
+
+- [x] `uhitm.c` erode_armor — blocks 2/553 corpus sessions (first at step 74): C draws `rn2(5)=1` in erode_armor, JS `rn2(3)=1` from mhitm_knockback(mhitm.js:2015). Probe: `node scripts/hidden-proxy.mjs verify erode_armor` (scen-genesis-Knight-92185, scen-genesis-Tourist-92044). **Addressed:** D-2071 `357757d9`
 
 
 - [x] `objnam.c` xname_flags — blocks 2/553 corpus sessions (first at step 38): C «Hachi drops a scroll labeled XIXAXA XOXAXA XUXAXA. You yawn.» vs JS «Hachi drops a scroll labeled XIXAXA XOXAXA XUXAXA.--More--». Probe: `node scripts/hidden-proxy.mjs verify xname_flags` (scen-intrinsic-Samurai-92017, scen-wish-Priest-92035). **Addressed:** D-2070 `55a129a8`

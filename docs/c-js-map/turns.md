@@ -2984,7 +2984,17 @@ gain-level/invis/bullwhip `rn2(5)`/`rn2(4)` yank +
 (C `use_misc` `:2382` / `find_misc` `:2094` / `muse_newcham_mon` `:2248` /
 `mloot_container` `:2263` / `you_aggravate` `:2630`; JS default-0 plus
 `!m.misc` early-out skipped POLY_TRAP; now those arms; named: cursed
-mbag FIXME, CLIPPING `cliparound`)); 
+mbag FIXME, CLIPPING `cliparound`));
+**`MUSE_POT_GAIN_LEVEL` `trycall` + live `grow_up` D-2072** (C `muse.c`
+`:2408`/`mquaffmsg` `:297` + rise `:2414–2416` + skipmsg `:2424–2426` +
+uncursed `:2432–2437` + `do.c` `trycall` `:395–400` + `makemon.c`
+`grow_up` `:2051`; `mquaffmsg`/all three gain-level plines are
+`pline_mon`, rise arm uses `ceiling()` + `trycall`, skipmsg adds
+`trycall`, uncursed calls live `mhitm.js` `grow_up(mtmp,null)` —
+retires the `grow_up_potion` stub so `little_to_big`/geno-death run;
+named: `Can_rise_up` Is_wiz1/In_W_tower/entry-lev special-stair,
+`m_useup` local weight/extrinsics drift (the `mthrowu.js` export doc
+notes the muse/zap locals predate it));
 **await `mzapwand`/`mbhit`/`mbhitm`/hurl plines + await `use_misc`** (D-0261; 
 unawaited wand `--More--` raced input); **`dmgval` via extracted `oc_wsdam`/`oc_wldam` + 
 small-monster otyp switch** (D-0189); **`dmgval` shade/`shade_glare` D-1354**; 
