@@ -93,10 +93,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `zap.c` maybe_destroy_item — blocks 1/553 corpus sessions (first at step 164): C draws `rnd(4)=2` in maybe_destroy_item, JS `rn2(3)=1` from mhitm_knockback(mhitm.js:2029). Probe: `node scripts/hidden-proxy.mjs verify maybe_destroy_item` (scen-tour-Tourist-91101).
+**Next cluster:** `cmd.c` yn_function — blocks 1/553 corpus sessions (first at step 111): C «Die? [yn] (n)» vs JS «You die...--More--». Probe: `node scripts/hidden-proxy.mjs verify yn_function` (scen-wish-Barbarian-92054).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2163 (index).**
+**Keep D-0845…D-2164 (index).**
 <!-- recent:begin -->
+**D-2164** `invent.c:1321–1333` (`useup`: `if (obj->quan > 1L) { obj->in_use = FALSE; /* no longer in — one line per clone — `otmp/obj.in_use = false; /* C invent.c:1326 — no longer in use */` as the first statement of the quan>1 branch.
 **D-2163** `sp_lev.c` lspo_finalize_level/load_lua epilogue (`link_doors_rooms()` before `map_cleanup — `link_doors_rooms(); remove_boundary_syms();` before `map_cleanup()` in `load_wizard3`, C order + house comment (remove_boundary is a no-op here — no CROSSWALL in wizard3's map — kept for epilogue fidelity).
 **D-2162** `attrib.c:1225–1227` (acurr A_CON arm: `if (u_wield_art(ART_OGRESMASHER)) result = 25`) +  — `if (u_wield_art(ART_OGRESMASHER)) result = 25;` in acurr; `if (u_wield_art(ART_OGRESMASHER)) lolimit = hilimit;` in extremeattr, in exact C branch position.
 **D-2161** `mhitu.c:1537–1542` (gulpmu `case AD_DREN`: «AC magic cancellation doesn't help when engul — new exported async `drain_en(n, max_already_drained)` in `js/trap.js` (C-faithful home; `rnd`/`You_feel`/`game.disp.botl` already live there) in exact C order and short-circuit (`|0` int reads, `Math.trunc` for the C `/3
@@ -104,11 +105,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2159** `eat.c:2099–2217` (`fprefx`, static), called from ordinary-food `doeat` `:3038` when eatin — full C port in exact branch order and short-circuit (JS `feedback` flag for C `goto give_feedback`; garlic FALLTHROUGH preserved).
 **D-2158** `hack.c:2639–2692` (`escape_from_sticky_mon`, static), called from `domove_core` `:2760` a — new exported async `escape_from_sticky_mon(x, y)` in `js/hack.js` (C-faithful home) in exact C order and short-circuit; `m_next2u` inlined as `dx*dx+dy*dy > 2` per `you.h:560` (macro, not a clone); `You(…)` via house `aw
 **D-2157** `light.c:213–250` (`do_light_sources`), reached via `apply.c` use_lamp `:1683` pline → `be — exact C ring — `limits = circle_ptr(range)`, `offset = limits[|y − ls.y|]`; `circle_ptr` exported from `js/vision.js` (was module-private; the table itself is already a verbatim C copy; `imports.mjs --can`: ALREADY, same
-**D-2156** `zap.c:6401–6420` (`makewish` tail), not `mkobj.c hornoplenty`. The owner string is a topl — port the C block in exact branch order and short-circuit: fatal-corpse `wishedfor=1` via live `u_safe_from_fatal_corpse`/`st_all` (dynamic `pickup.js` import; `imports.mjs --can`: SAFE, hoisted function, same 90-module S
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2163; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2164; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

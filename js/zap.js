@@ -1467,6 +1467,7 @@ function m_useup(mon, obj) {
 function useup_invent(obj) {
     if (!obj) return;
     if ((obj.quan | 0) > 1) {
+        obj.in_use = false; /* C invent.c:1326 — no longer in use */
         obj.quan = (obj.quan | 0) - 1;
         if (typeof weight === 'function') obj.owt = weight(obj);
         return;

@@ -1,6 +1,6 @@
 {
- "commit": "8e6c6c50",
- "at": "2026-09-08T23:04:40.480Z",
+ "commit": "b128b07a",
+ "at": "2026-09-08T23:18:38.144Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -7354,19 +7354,19 @@
   },
   "scen-tour-Tourist-91101": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 19968,
+   "passed": true,
+   "rngM": 20004,
    "rngT": 20004,
-   "scrM": 166,
+   "scrM": 169,
    "scrT": 169,
-   "kind": "rng",
-   "step": 164,
+   "kind": null,
+   "step": null,
    "steps": 169,
-   "owner": "maybe_destroy_item",
-   "loc": "zap.c:5823",
-   "jsOwner": "mhitm_knockback(mhitm.js:2029)",
-   "cTopline": "The master lich touches you! You're covered in frost!--More--",
-   "jsTopline": "The master lich touches you! You're covered in frost!--More--",
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-tour-Tourist-92075": {

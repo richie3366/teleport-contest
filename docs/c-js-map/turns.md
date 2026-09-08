@@ -1225,7 +1225,9 @@ C `mkobj.c` `:2744–2811` / `dealloc_obj_real` `:2814–2827` /
 mklev ROCK/book/mktrap_victim discards; **`delobj`/`delobj_core` D-1756**
 C `invent.c` `:1429–1462` + `extract_nobj`/`container_weight` +
 revive `delobj_core(,TRUE)`; **zap `delete_contents` D-1770**;
-named: detect/potion/read/spell local useup clones, zap.js useupf
+named: detect/potion/read/spell local useup clones (D-2164: C
+`invent.c:1326` `in_use=FALSE` clear now live in all four + zap.js
+`useup_invent`; rest of clone gap stays), zap.js useupf
 clone, shop addtobill/stolen_value, trap.js `delete_contents_chest` /
 mklev.js `create_object_delete_contents`, nhl_gamestate leftover,
 wizard `makemap_prepost` dobjsfree, invent Array vs nobj); 
