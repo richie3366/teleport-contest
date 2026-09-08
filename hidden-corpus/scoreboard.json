@@ -1,6 +1,6 @@
 {
- "commit": "19f52d95",
- "at": "2026-09-08T22:09:47.243Z",
+ "commit": "344fe348",
+ "at": "2026-09-08T22:11:47.462Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6269,16 +6269,16 @@
    "passed": false,
    "rngM": 2840,
    "rngT": 2900,
-   "scrM": 107,
+   "scrM": 108,
    "scrT": 154,
-   "kind": "screen",
-   "step": 95,
+   "kind": "rng",
+   "step": 108,
    "steps": 154,
-   "owner": "do_mapping",
-   "loc": "detect.c:1436",
-   "jsOwner": null,
-   "cTopline": "Move cursor to anything of interest:",
-   "jsTopline": "Move cursor to anything of interest:",
+   "owner": "distfleeck",
+   "loc": "monmove.c:549",
+   "jsOwner": "gethungry(eat.js:709)",
+   "cTopline": "The jackal bites!",
+   "jsTopline": "You kill the jackal!",
    "error": null
   },
   "scen-normal-Priest-92020": {

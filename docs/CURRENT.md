@@ -92,7 +92,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** - [ ] `timeout.c` sickness_dialogue — blocks 1/553 corpus sessions (first at step 65): C «You are at Death's door.--More--» vs JS «You are at Death's door.». Probe: `node scripts/hidden-proxy.mjs verify sickness_dialogue` (scen-intrinsic-Rogue-91111).
+**Next cluster:** - [ ] `detect.c` do_mapping — blocks 1/553 corpus sessions (first at step 95): C «Move cursor to anything of interest:» vs JS «Move cursor to anything of interest:». Probe: `node scripts/hidden-proxy.mjs verify do_mapping` (scen-normal-Priest-91120).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2160 (index).**
 <!-- recent:begin -->
