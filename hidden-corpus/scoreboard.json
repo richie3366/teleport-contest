@@ -1,6 +1,6 @@
 {
- "commit": "20e09ee9",
- "at": "2026-09-08T09:20:54.697Z",
+ "commit": "c8488149",
+ "at": "2026-09-08T09:26:05.974Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -5173,18 +5173,18 @@
   "scen-genesis-Wizard-92223": {
    "src": "corpus",
    "passed": false,
-   "rngM": 4112,
+   "rngM": 4392,
    "rngT": 4392,
-   "scrM": 108,
+   "scrM": 128,
    "scrT": 131,
    "kind": "screen",
-   "step": 108,
+   "step": 121,
    "steps": 131,
-   "owner": "dolook",
-   "loc": "invent.c:4324",
+   "owner": "look_here",
+   "loc": "invent.c:4207",
    "jsOwner": null,
-   "cTopline": "You can't see in here!",
-   "jsTopline": "",
+   "cTopline": "You try to feel what is lying here on the floor.--More--",
+   "jsTopline": "It hits!",
    "error": null
   },
   "scen-intrinsic-Archeologist-92178": {
@@ -8078,7 +8078,7 @@
    "steps": 135,
    "owner": "gulpmu",
    "loc": "mhitu.c:1539",
-   "jsOwner": "distfleeck(monmove.js:808)",
+   "jsOwner": "distfleeck(monmove.js:840)",
    "cTopline": "You feel your magical energy drain away.--More--",
    "jsTopline": "",
    "error": null

@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `invent.c` dolook — blocks 1/553 corpus sessions (first at step 108): C «You can't see in here!» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify dolook` (scen-genesis-Wizard-92223).
 - [ ] `mkobj.c` next_ident — blocks 3/553 corpus sessions (first at step 34): C draws `rnd(2)=2` in next_ident, JS `rnd(1)=1` from monmulti(weapon.js:1460). Probe: `node scripts/hidden-proxy.mjs verify next_ident` (scen-tour-Samurai-92161, scen-wish-Archeologist-92238, scen-wish-Knight-92130).
 - [ ] `wield.c` chwepon — blocks 2/553 corpus sessions (first at step 68): C «Your dexterity was 9.» vs JS «Your dexterity was 9.». Probe: `node scripts/hidden-proxy.mjs verify chwepon` (scen-death-Monk-92000, scen-death-Wizard-92120).
 - [ ] `were.c` were_change — blocks 2/553 corpus sessions (first at step 69): C «The jackal bites!» vs JS «The jackal bites!». Probe: `node scripts/hidden-proxy.mjs verify were_change` (scen-intrinsic-Healer-92124, scen-tour-Ranger-92177).

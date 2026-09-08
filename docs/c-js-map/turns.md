@@ -2934,7 +2934,7 @@ SSEX named (SEDUCE=0 `c_sa_no`); D-1795 shipped DISE/DREN/WEAP/lich/home-elem; A
 **gulpmu `flush_topl_more`+Hallu `vision_off` together** (D-0852 #996 Scr196→201; 
 alone falsified D-0841/#993/#994); **DECgfx swallow** (D-0842) + **HI_METAL mcolors** (D-0843); 
 **`mattacku` uswallow only-`ustuck` early-out** (D-0827; Underwater non-swimmer live D-1795); 
-**`mattacku` AT_ENGL + `gulpmu` first-swallow / AD_COLD·FIRE·ELEC·PHYS·DGST** (D-0825; D-1993: DGST `:1434` / PHYS `:1452` / ACID `:1467` `exercise(A_STR,FALSE)` live (same-module `exercise`, no new edge); named: DGST `Slow_digestion` early-out, total-digest `Half_physical tmp *= 2` (doc comment, damage-only);
+**`mattacku` AT_ENGL + `gulpmu` first-swallow / AD_COLD·FIRE·ELEC·PHYS·DGST·BLND** (D-0825; D-1993: DGST `:1434` / PHYS `:1452` / ACID `:1467` `exercise(A_STR,FALSE)` live (same-module `exercise`, no new edge); D-2110: BLND `:1471–1484` live via `gulpmu_can_blnd` (mondata.c can_blnd AT_ENGL arm in C order, no new imports; "can't see" + make_blinded + vision_clears / HBlinded incr); named: DGST `Slow_digestion` early-out, total-digest `Half_physical tmp *= 2` (doc comment, damage-only); BLND worn visored-helmet check; AD_DISE/AD_DREN (`diseasemu`/`drain_en`);
 snuff_lit / steed dismount deferred; **`postmov` engulfer `u_on_newpos` (D-0826)** — `swallowed(1)` 
 on first engulf via D-0838); **`dochug` MMOVE_MOVED `engulfing_u`→`mattacku`** (D-0825); 
 **`mattacku` AT_WEAP ranged `thrwmu` + melee HTH/`hitmu`/`hitmsg`/`mdamageu`** (D-0105/D-0106); 
