@@ -11,7 +11,8 @@ Objective/score live in `CURRENT.md`.
 - **next_ident = symptom owner:** fix the WRITER, not the table reader.
 - **Symptom-owner parks — do not re-pop (writers + falsifiers: LOOP-QUEUE Parked):** obj_resists (3 writers) · m_move (loop faithful D-2069; Caveman-92202 cnt-j off-by-one) · rloc (D-0686; draw-free migration creator) · lightdamage (D-1366; `mzapwand` MORE-transient) · mattackm/can_carry (writer can_carry; trio only) · spoteffects (writer `mthrowu.c` flight/catch) · mon_adjust_speed (writer summon glyph paint) · zapyourself (writer dobuzz) · doname_base (writer ready_weapon shine) · hmonas (More-transient) · minliquid_core (rat-bite writer).
 - **Healer-92107 residual (D-2137 Next):** destroy double-count (`mhitu.js:901` `+=` vs C `(void)` — still live 2026-09-08); audit fire/elec arms.
-- **STALE parks — do not re-pop (full falsifiers: LOOP-QUEUE Parked):** lesshungry (Tourist-91125 never reaches @162) · minliquid_core (Priest-91110 rat-bite writer; eel arm faithful) · rndcurse (Valkyrie-92229 passes 22; JS faithful D-1087/1089) · mhitm_ad_famn (Tourist-92067 never blocks @140) · regen_hp (Archeologist-92084 fully PASS; writer was landed nurse counterattack).
+- **hmon_hitmon_barehands STALE (parked 2026-09-08):** Monk-92213 past @87 at HEAD (RNG 3318/3318, screens 116/119; now enlightenment@108 male-vs-female Monk screen). JS barehands core live (`uhitm.js:1008-1017`); omitted `special_dmgval` tail draws nothing here. Do not re-pop; falsifier in Parked.
+- **STALE parks — do not re-pop (full falsifiers: LOOP-QUEUE Parked):** lesshungry (Tourist-91125 never reaches @162) · minliquid_core (Priest-91110 rat-bite writer; eel arm faithful) · rndcurse (Valkyrie-92229 passes 22; JS faithful D-1087/1089) · mhitm_ad_famn (Tourist-92067 never blocks @140) · regen_hp (Archeologist-92084 fully PASS; writer was landed nurse counterattack) · barehands (Monk-92213 past @87; now enlightenment@108 gender screen).
 
 ## Don't re-check (≤15)
 

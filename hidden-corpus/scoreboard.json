@@ -1,6 +1,6 @@
 {
- "commit": "173d06a4",
- "at": "2026-09-08T21:23:42.908Z",
+ "commit": "756b0fe9",
+ "at": "2026-09-08T21:27:56.826Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6760,18 +6760,18 @@
   "scen-poly-Monk-92213": {
    "src": "corpus",
    "passed": false,
-   "rngM": 3181,
+   "rngM": 3318,
    "rngT": 3318,
-   "scrM": 91,
+   "scrM": 116,
    "scrT": 119,
-   "kind": "rng",
-   "step": 87,
+   "kind": "screen",
+   "step": 108,
    "steps": 119,
-   "owner": "hmon_hitmon_barehands",
-   "loc": "uhitm.c:847",
-   "jsOwner": "mhitm_knockback(mhitm.js:2015)",
-   "cTopline": "You hit the master mind flayer! You hit the master mind flayer!--More--",
-   "jsTopline": "You miss the master mind flayer. You miss the master mind flayer.--More--",
+   "owner": "enlightenment",
+   "loc": "insight.c:398",
+   "jsOwner": null,
+   "cTopline": "Wizard the Monk's attributes:",
+   "jsTopline": "Wizard the Monk's attributes:",
    "error": null
   },
   "scen-poly-Priest-91137": {

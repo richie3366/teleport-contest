@@ -92,7 +92,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** - [ ] `apply.c` use_lamp — blocks 1/553 corpus sessions (first at step 220): C «Your lamp is now on. The guardian naga bites!--More--» vs JS «Your lamp is now on. The guardian naga bites!--More--». Probe: `node scripts/hidden-proxy.mjs verify use_lamp` (scen-wish-Valkyrie-92206).
+**Next cluster:** - [ ] `uhitm.c` hmon_hitmon_barehands — blocks 1/553 corpus sessions (first at step 87): C draws `rnd(4)=2` in hmon_hitmon_barehands, JS `rn2(3)=2` from mhitm_knockback(mhitm.js:2015). Probe: `node scripts/hidden-proxy.mjs verify hmon_hitmon_barehands` (scen-poly-Monk-92213).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2157 (index).**
 <!-- recent:begin -->

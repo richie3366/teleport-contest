@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `apply.c` use_lamp — blocks 1/553 corpus sessions (first at step 220): C «Your lamp is now on. The guardian naga bites!--More--» vs JS «Your lamp is now on. The guardian naga bites!--More--». Probe: `node scripts/hidden-proxy.mjs verify use_lamp` (scen-wish-Valkyrie-92206). **Addressed:** D-2157
+- [x] `apply.c` use_lamp — blocks 1/553 corpus sessions (first at step 220): C «Your lamp is now on. The guardian naga bites!--More--» vs JS «Your lamp is now on. The guardian naga bites!--More--». Probe: `node scripts/hidden-proxy.mjs verify use_lamp` (scen-wish-Valkyrie-92206). **Addressed:** D-2157 `756b0fe9`
 
 
 - [x] `mkobj.c` hornoplenty — blocks 2/553 corpus sessions (first at step 146): C «Oops! The boulder drops to the floor!» vs JS «Oops! The a boulder drops to the floor!». Probe: `node scripts/hidden-proxy.mjs verify hornoplenty` (scen-wish-Ranger-92212, scen-wish-Samurai-91102). **Addressed:** D-2156 `bfebf129`
