@@ -1,6 +1,6 @@
 {
- "commit": "cb8412fa",
- "at": "2026-09-08T21:40:33.741Z",
+ "commit": "19f52d95",
+ "at": "2026-09-08T22:09:47.243Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -5427,19 +5427,19 @@
   },
   "scen-intrinsic-Rogue-91111": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 3405,
+   "passed": true,
+   "rngM": 3495,
    "rngT": 3495,
-   "scrM": 129,
+   "scrM": 134,
    "scrT": 134,
-   "kind": "screen",
-   "step": 65,
+   "kind": null,
+   "step": null,
    "steps": 134,
-   "owner": "sickness_dialogue",
-   "loc": "timeout.c:334",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "You are at Death's door.--More--",
-   "jsTopline": "You are at Death's door.",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-intrinsic-Rogue-92065": {

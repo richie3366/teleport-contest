@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `eat.c` fprefx — blocks 1/553 corpus sessions (first at step 99): C draws `rn2(2)=0` in fprefx, JS `rn2(70)=2` from maybe_generate_rnd_mon(allmain.js:349). Probe: `node scripts/hidden-proxy.mjs verify fprefx` (scen-wish-Knight-92105). **Addressed:** D-2159
+- [x] `timeout.c` sickness_dialogue — blocks 1/553 corpus sessions (first at step 65): C «You are at Death's door.--More--» vs JS «You are at Death's door.». Probe: `node scripts/hidden-proxy.mjs verify sickness_dialogue` (scen-intrinsic-Rogue-91111). **Addressed:** D-2160
+
+
+- [x] `eat.c` fprefx — blocks 1/553 corpus sessions (first at step 99): C draws `rn2(2)=0` in fprefx, JS `rn2(70)=2` from maybe_generate_rnd_mon(allmain.js:349). Probe: `node scripts/hidden-proxy.mjs verify fprefx` (scen-wish-Knight-92105). **Addressed:** D-2159 `43f6a519`
 
 
 - [x] `hack.c` escape_from_sticky_mon — blocks 1/553 corpus sessions (first at step 247): C draws `rn2(40)=4` in escape_from_sticky_mon, JS `rn2(20)=4` from gethungry(eat.js:698). Probe: `node scripts/hidden-proxy.mjs verify escape_from_sticky_mon` (scen-wish-Caveman-92183). **Addressed:** D-2158 `cb8412fa`

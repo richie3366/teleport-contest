@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `timeout.c` sickness_dialogue — blocks 1/553 corpus sessions (first at step 65): C «You are at Death's door.--More--» vs JS «You are at Death's door.». Probe: `node scripts/hidden-proxy.mjs verify sickness_dialogue` (scen-intrinsic-Rogue-91111).
 - [ ] `detect.c` do_mapping — blocks 1/553 corpus sessions (first at step 95): C «Move cursor to anything of interest:» vs JS «Move cursor to anything of interest:». Probe: `node scripts/hidden-proxy.mjs verify do_mapping` (scen-normal-Priest-91120).
 - [ ] `mhitu.c` gulpmu — blocks 1/553 corpus sessions (first at step 87): C draws `rn2(4)=3` in gulpmu, JS `rn2(5)=4` from distfleeck(monmove.js:840). Probe: `node scripts/hidden-proxy.mjs verify gulpmu` (scen-wish-Monk-92194).
 - [ ] `timeout.c` vomiting_dialogue — blocks 1/553 corpus sessions (first at step 57): C «Your feet are frozen to the stairs! You can move again.» vs JS «Your feet are frozen to the floor! You can move again.». Probe: `node scripts/hidden-proxy.mjs verify vomiting_dialogue` (scen-wish-Rogue-92221).

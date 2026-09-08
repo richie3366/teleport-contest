@@ -94,8 +94,9 @@ divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
 **Next cluster:** - [ ] `timeout.c` sickness_dialogue — blocks 1/553 corpus sessions (first at step 65): C «You are at Death's door.--More--» vs JS «You are at Death's door.». Probe: `node scripts/hidden-proxy.mjs verify sickness_dialogue` (scen-intrinsic-Rogue-91111).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2159 (index).**
+**Keep D-0845…D-2160 (index).**
 <!-- recent:begin -->
+**D-2160** `timeout.c:692–724` (nh_timeout uprops-expiry `case SICK`), NOT `sickness_dialogue` (`:322 — new `p === SICK` arm in exact C order and short-circuit: `find_delayed_killer(SICK)`; food poisoning (`!(usick_type&SICK_NONVOMITABLE)`, short-circuits before the draw) with `rn2(100) < acurr(A_CON)` → «You have recovere
 **D-2159** `eat.c:2099–2217` (`fprefx`, static), called from ordinary-food `doeat` `:3038` when eatin — full C port in exact branch order and short-circuit (JS `feedback` flag for C `goto give_feedback`; garlic FALLTHROUGH preserved).
 **D-2158** `hack.c:2639–2692` (`escape_from_sticky_mon`, static), called from `domove_core` `:2760` a — new exported async `escape_from_sticky_mon(x, y)` in `js/hack.js` (C-faithful home) in exact C order and short-circuit; `m_next2u` inlined as `dx*dx+dy*dy > 2` per `you.h:560` (macro, not a clone); `You(…)` via house `aw
 **D-2157** `light.c:213–250` (`do_light_sources`), reached via `apply.c` use_lamp `:1683` pline → `be — exact C ring — `limits = circle_ptr(range)`, `offset = limits[|y − ls.y|]`; `circle_ptr` exported from `js/vision.js` (was module-private; the table itself is already a verbatim C copy; `imports.mjs --can`: ALREADY, same
@@ -103,11 +104,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2155** `uhitm.c:2626–2652` (`mhitm_ad_cold` uhitm arm: `mhitm_mgc_atk_negated(magr, mdef, TRUE)`  — new `damageum_ad_cold(mdef, mhm)` in `js/uhitm.js` in exact C order and short-circuit (negate-TRUE first; Blind-gated frost pline via house `Blind_that()`; resists_cold + shieldeff + chill pline then zero; `destroy_items
 **D-2154** `insight.c:2784–2949` (`list_vanquished`: per-type line from `mons[i].pmnames[NEUTRAL]` — `pmname_neutral` now returns `pmnames[mndx]?.[NEUTRAL] ?? 'monster'` with the C cite (`mons[i].pmnames[NEUTRAL]`); `pmnames, NEUTRAL` join the existing `monsters.js` edge (`imports.mjs --can`: ALREADY, no new edge).
 **D-2153** `potion.c:881–898` (`peffect_paralysis`: `Free_action` → `You("stiffen momentarily.")`; el — port the C branch order and short-circuit exactly: `Free_action()` resist arm; else Levitation (house reader, D-1419) / `Is_airlevel` / `Is_waterlevel` (const.js) → suspended, `u.usteed` → frozen in place, else feet + `s
-**D-2152** `uhitm.c:933–1067` (`hmon_hitmon_weapon_melee`: `:944–945` dmgval + train gate, `:947–951` — New async `hmon_hitmon_weapon_melee(mon, obj, ctx)` in `js/uhitm.js` in exact C order and short-circuit (Healer `P_KNIFE` + `mvitals.died` bonus; `!train || ustuck || twoweap || Cleaver` no-bonus gate; Rogue `backstabbab
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2159; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2160; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
