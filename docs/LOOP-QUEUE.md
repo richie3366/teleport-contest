@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `invent.c` inuse_classify — blocks 2/553 corpus sessions (first at step 84): C «Weapons» vs JS «Weapons». Probe: `node scripts/hidden-proxy.mjs verify inuse_classify` (scen-genesis-Knight-92068, scen-wish-Caveman-92148).
 - [ ] `end.c` really_done — blocks 2/553 corpus sessions (first at step 19): C «» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify really_done` (scen-normal-Barbarian-92208, scen-tour-Wizard-92103).
 - [ ] `hack.c` spoteffects — blocks 1/553 corpus sessions (first at step 35): C «You are hit by a shuriken! You are hit by a shuriken!--More-» vs JS «You are hit by a shuriken! You are hit by a shuriken!--More-». Probe: `node scripts/hidden-proxy.mjs verify spoteffects` (scen-tour-Samurai-92161).
 - [ ] `invent.c` getobj — blocks 1/553 corpus sessions (first at step 61): C «What do you want to wear? [*]» vs JS «What do you want to wear? [q or ?*]». Probe: `node scripts/hidden-proxy.mjs verify getobj` (scen-poly-Wizard-92169).

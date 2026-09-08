@@ -1110,7 +1110,7 @@ CORPSE article skip D-1255; slime-mold fake_arti D-1521); **cleric skip `"uncurs
 **`Japanese_item_name` table** for Samurai discovery (D-0045); 
 **Japanese display in doname/`obj_typename`/`disco_typename` + ya plural + quiver + 
 rustproof** (D-0079); doname `named`; **`xname` `has_oname&&dknown` → ` named ONAME`** (D-0727; 
-`obj_is_pname` bare-ONAME arm deferred); **`xprname` `dot` for prinv** (D-0070); 
+`obj_is_pname` bare-ONAME arm live D-2121); **`xprname` `dot` for prinv** (D-0070); 
 **xname SCR/SPE/RIN/WAN `… of <actualn>` + bimanual `(weapon in hands)`** (D-0086); 
 **xname POTION dknown+!nn → `<descr> potion` via `oc_descr_idx`** (D-0285); 
 **xname AMULET dknown+!nn → `<descr> amulet` + Yendor/fake known arm** (D-0292); 

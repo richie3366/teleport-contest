@@ -1,6 +1,6 @@
 {
- "commit": "8985b7aa",
- "at": "2026-09-08T12:44:04.494Z",
+ "commit": "6a8cb884",
+ "at": "2026-09-08T12:52:39.569Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -4733,16 +4733,16 @@
    "passed": false,
    "rngM": 3862,
    "rngT": 3873,
-   "scrM": 95,
+   "scrM": 97,
    "scrT": 99,
    "kind": "screen",
-   "step": 84,
+   "step": 94,
    "steps": 99,
-   "owner": "inuse_classify",
-   "loc": "invent.c:116",
+   "owner": "really_done",
+   "loc": "end.c:1357",
    "jsOwner": null,
-   "cTopline": "Weapons",
-   "jsTopline": "Weapons",
+   "cTopline": "Your body rises from the dead as a human zombie...--More--",
+   "jsTopline": "Save bones? [yn] (n)",
    "error": null
   },
   "scen-genesis-Knight-92112": {
@@ -7661,18 +7661,18 @@
   "scen-wish-Caveman-92148": {
    "src": "corpus",
    "passed": false,
-   "rngM": 3865,
+   "rngM": 3874,
    "rngT": 3874,
-   "scrM": 244,
+   "scrM": 245,
    "scrT": 257,
    "kind": "screen",
-   "step": 241,
+   "step": 245,
    "steps": 257,
-   "owner": "inuse_classify",
-   "loc": "invent.c:116",
+   "owner": "one_characteristic",
+   "loc": "insight.c:926",
    "jsOwner": null,
-   "cTopline": "Weapons",
-   "jsTopline": "Weapons",
+   "cTopline": "Your wisdom was 8 (limit:18).",
+   "jsTopline": "Your wisdom was 8 (limit:18).",
    "error": null
   },
   "scen-wish-Caveman-92174": {
