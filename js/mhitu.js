@@ -44,7 +44,7 @@ import { is_pole, welded, is_weptool } from './wield.js';
 import { xname, doname, an, yname, the, simpleonames, safe_qbuf, mimic_obj_name, makeplural } from './objnam.js';
 import { objectNames, ARMOR_CLASS, COIN_CLASS, SILVER, WEAPON_CLASS } from './objects.js';
 import { objects_at } from './mkobj.js';
-import { steal, unresponsive, remove_worn_item } from './steal.js';
+import { steal, stealamulet, unresponsive, remove_worn_item } from './steal.js';
 import { cloneu } from './sit.js';
 import {
     stop_donning, setworn, Ring_on, Ring_gone, suit_simple_name, hard_helmet,
@@ -94,6 +94,7 @@ import {
     AT_HUGS,
     AD_PHYS, AD_FIRE, AD_COLD, AD_ELEC, AD_DRST, AD_DRDX, AD_DRCO, AD_ACID,
     AD_SITM, AD_SEDU, AD_SSEX, AD_POLY, AD_DRIN, AD_SLEE, AD_TLPT, AD_FAMN,
+    AD_SAMU,
 } from './mhitm.js';
 import { morehungry, is_fainted } from './eat.js';
 import { castmu, buzzmu } from './mcastu.js';
@@ -2377,6 +2378,23 @@ async function mhitm_ad_famn_u(mtmp, mattk, mhm) {
 }
 
 /**
+ * C ref: uhitm.c mhitm_ad_samu `:4570–4589` — mhitu (monster→you) arm
+ * (`:4577–4586`). hitmsg always; then, when the Wizard or a quest
+ * nemesis hits, a 1/20 `stealamulet(mtmp)` (any role's quest artifact,
+ * the Amulet, or an invocation tool). Leftover hitmu d() is kept
+ * (unlike the default zero). The uhitm/mhitm arms (`:4573–4576` /
+ * `:4587–4588`) zero damage (uhitm.js `damageum_adtyping`, mhitm.js
+ * `mhitm_ad_samu` + `mdamagem` dispatch).
+ */
+async function mhitm_ad_samu_u(mtmp, mattk, mhm) {
+    void mhm; /* leftover d() stays */
+    await hitmsg(mtmp, mattk);
+    /* C: 1/20 chance to steal a quest artifact (any, not just the one
+       for the hero's own role) or the Amulet or an invocation tool */
+    if (!rn2(20)) await stealamulet(mtmp);
+}
+
+/**
  * C ref: mhitu.c diseasemu `:1032–1043` — Sick_resistance (H||E flat +
  * uprops[SICK_RES], invent.js hero_Sick_resistance idiom) → "a slight
  * illness", FALSE; else make_sick(Sick ? Sick/3+1 : rn1(ACURR(A_CON),20),
@@ -2540,8 +2558,8 @@ async function mhitm_ad_were_u(mtmp, mattk, mhm) {
  * C ref: uhitm.c mhitm_adtyping — mhitu (monster→you) subset.
  * PHYS + ELEC + COLD + FIRE + TLPT + DRST/DRDX/DRCO + SITM/SEDU + SSEX (D-1750)
  * + BLND + STON + LEGS + POLY (D-1004) + DRIN (D-1329) + WRAP (D-1331) + SLEE
- * + DRLI + RUST + CORR + STCK + PLYS + FAMN + SLOW + WERE + HEAL + PEST;
- * other adtyps zero damage.
+ * + DRLI + RUST + CORR + STCK + PLYS + FAMN + SLOW + WERE + HEAL + PEST
+ * + SAMU; other adtyps zero damage.
  */
 async function mhitm_adtyping_u(mtmp, mattk, mhm) {
     switch (mattk.adtyp | 0) {
@@ -2610,6 +2628,9 @@ async function mhitm_adtyping_u(mtmp, mattk, mhm) {
         break;
     case AD_FAMN:
         await mhitm_ad_famn_u(mtmp, mattk, mhm);
+        break;
+    case AD_SAMU:
+        await mhitm_ad_samu_u(mtmp, mattk, mhm);
         break;
     case AD_SLOW:
         await mhitm_ad_slow_u(mtmp, mattk, mhm);

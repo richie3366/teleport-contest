@@ -267,6 +267,7 @@ const AD_SGLD = 20; /* steals gold (leprechaun) — monattk.h */
 const AD_TLPT = 23; /* teleports victim (quantum mechanic) — monattk.h */
 const AD_WERE = 29; /* confers lycanthropy — monattk.h */
 const AD_SLIM = 40; /* turns victim into green slime — monattk.h */
+const AD_SAMU = 252; /* steals quest artifact/Amulet (Wizard/nemesis) — monattk.h */
 const MR_FIRE = 0x01;
 const MR_COLD = 0x02;
 const MR_SLEEP = 0x04;
@@ -679,7 +680,7 @@ export {
     AT_WEAP, AT_MAGC, AD_PHYS, AD_FIRE, AD_COLD, AD_ELEC, AD_DRST, AD_ACID,
     AD_BLND, AD_DRDX, AD_DRCO, AD_DRIN, AD_SITM, AD_SEDU, AD_SSEX, AD_POLY,
     AD_STON, AD_CONF, AD_STUN, AD_WRAP, AD_SLEE,
-    AD_SGLD, AD_TLPT, AD_WERE, AD_SLIM, AD_FAMN,
+    AD_SGLD, AD_TLPT, AD_WERE, AD_SLIM, AD_FAMN, AD_SAMU,
     could_seduce, failed_grab,
 };
 
@@ -821,6 +822,20 @@ async function mhitm_ad_famn(magr, mattk, mdef, mhm) {
     if (!(carnivorous(pd) || herbivorous(pd) || metallivorous(pd))) {
         mhm.damage = 0;
     }
+}
+
+/**
+ * C ref: uhitm.c mhitm_ad_samu `:4570–4589` — mhitm (mon→mon) arm only
+ * (`:4587–4588`): no message, the leftover d() is zeroed.
+ * The uhitm arm (`:4573–4576`, hero as attacker) likewise zeroes
+ * (`damageum_adtyping` in uhitm.js); the mhitu arm (`:4577–4586`) is
+ * mhitm_ad_samu_u in mhitu.js.
+ */
+function mhitm_ad_samu(magr, mattk, mdef, mhm) {
+    void magr;
+    void mattk;
+    void mdef;
+    mhm.damage = 0;
 }
 
 /**
@@ -3482,6 +3497,25 @@ async function mdamagem(magr, mdef, mattk, mwep, dieroll) {
             return M_ATTK_DEF_DIED | (grew ? 0 : M_ATTK_AGR_DIED);
         }
         return (hitflags === M_ATTK_AGR_DIED) ? M_ATTK_AGR_DIED : M_ATTK_HIT;
+    }
+
+    // C: mhitm_adtyping → mhitm_ad_samu for AD_SAMU (uhitm.c:4570–4589
+    // mhitm arm). No message; leftover d() is zeroed, so C's mdamagem
+    // always returns hitflags after knockback (the !damage arm). uhitm
+    // arm zeroes in damageum_adtyping; mhitu arm is mhitm_ad_samu_u.
+    if ((mattk.adtyp | 0) === AD_SAMU) {
+        const mhm = {
+            damage,
+            hitflags: M_ATTK_MISS,
+            done: false,
+        };
+        mhitm_ad_samu(magr, mattk, mdef, mhm);
+        // C mhitm.c:1061-1065 — knockback still runs (rn2(3) first);
+        // the HIT/DEF_DIED preempt is dead here (hitflags stays MISS),
+        // then C returns hitflags via the !damage arm, like the
+        // AD_PHYS zero-damage path below.
+        await mhitm_knockback(magr, mdef, mattk, mhm, !!mwep);
+        return mhm.hitflags;
     }
 
     // C: mhitm_adtyping → mhitm_ad_phys for AD_PHYS (D-1394 shade;

@@ -52,7 +52,7 @@ import {
     AT_NONE, AT_WEAP, AT_KICK, AT_CLAW, AT_SPIT, AT_HUGS,
     AT_TUCH, AT_BITE, AT_BUTT, AT_STNG, AT_MAGC, AT_TENT,
     AT_EXPL, AT_ENGL, AT_BREA, AT_GAZE, AD_PHYS, AD_POLY, AD_DRIN, AD_SLEE,
-    AD_DRST,
+    AD_DRST, AD_SAMU,
 } from './mhitm.js';
 import {
     verysmall, nohands, G_FREQ, G_NOCORPSE, M2_COLLECT, MZ_MEDIUM, MZ_HUGE,
@@ -1300,7 +1300,7 @@ export async function mhitm_ad_wrap(magr, mattk, mdef, mhm) {
 
 /**
  * C ref: uhitm.c mhitm_adtyping youmonst subset for damageum.
- * AD_PHYS + AD_POLY + AD_DRIN skipdrin + AD_WRAP (D-1348) + AD_SLEE + AD_DRST live;
+ * AD_PHYS + AD_POLY + AD_DRIN skipdrin + AD_WRAP (D-1348) + AD_SLEE + AD_DRST + AD_SAMU live;
  * remaining mhitm_ad_* named. mhitm wrap brush is D-1406.
  */
 
@@ -1366,6 +1366,11 @@ async function damageum_adtyping(mattk, mdef, mhm) {
         await mhitm_ad_slee(game.youmonst, mattk, mdef, mhm);
     } else if (adtyp === AD_DRST) {
         await damageum_ad_drst(mdef, mattk, mhm);
+    } else if (adtyp === AD_SAMU) {
+        /* C ref: uhitm.c mhitm_ad_samu `:4573–4576` — uhitm (hero as
+           attacker) arm zeroes the leftover d(); no message, no steal
+           roll (those are the mhitu `:4577–4586` arm). */
+        mhm.damage = 0;
     }
 }
 
