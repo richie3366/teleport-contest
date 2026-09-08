@@ -552,7 +552,8 @@ damagetypes + cold `destroy_items`/`resist`/`Reflecting` shield)** (D-0450/D-068
 **`resist` Conflict-early-pass + mplayer dlev + `zhitm` ZT_SLEEP `resist(how)` gate + explode.js `olet` alev table D-2116** (resists_sleep bits live; worn/artifact scan + `defended(AD_SLEE)` + tell-shield stay deferred; music/pray clones exact for fixed-oclass callers; debt R-1082: sleep_monst mimic-reveal arm `mhitm.c:1226–1229` → live `seemimic` unported, ~6 lines); 
 **`ureflects` shield `makeknown`→`exercise(A_WIS)`** (D-0452); 
 **`dobuzz` `tmp_at(DISP_BEAM)` + `zapdir_to_glyph` + `DISP_CHANGE`/`DISP_END`** (D-0468); 
-**`zhitu` non-sleep FIRE/COLD/MISSILE/LIGHTNING + hero `destroy_items` AD_FIRE** (D-0734); 
+**`zhitu` non-sleep FIRE/COLD/MISSILE/LIGHTNING + hero `destroy_items` AD_FIRE** (D-0734);
+**`dobuzz` hero-hit arm: reflect `monstseesu`+`shieldeff` (`:4972`/`:4975`), non-reflect `monstunseesu` (`:4981`), blind-miss tingles (`:4985–4986`), lightning `flashburn(d(nd,50))` (`:4988–4989`), `stop_occupation` (`:4990`); `zhitu` MM-Antimagic `shieldeff`+`monstseesu` (`:4412`/:4414) + MM-hit `monstunseesu` (`:4418)** (D-2133; usteed `rn2(3)`+`mon_reflects` redirect stays named — `mon_reflects` has no export); 
 **`burnarmor` worn erode + `maybe_destroy_item` pline/`potionbreathe` + 
 fatal mid-destroy `finish_losehp_done`** (D-0741; 
 **ignite_items/`burn_away_slime`/`begin_burn`** (D-0978); 
