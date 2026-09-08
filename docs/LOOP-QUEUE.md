@@ -59,7 +59,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `monmove.c` dochug — blocks 2/553 corpus sessions (first at step 59): C draws `rn2(5)=1` in dochug, JS `rn2(40)=11` from dochug(monmove.js:2154). Probe: `node scripts/hidden-proxy.mjs verify dochug` (scen-tour-Priest-92235, scen-tour-Wizard-92103).
 - [ ] `uhitm.c` mhitm_knockback — blocks 2/553 corpus sessions (first at step 236): C draws `rn2(3)=2` in mhitm_knockback, JS `rn2(6)=5` from mhitm_knockback(mhitm.js:2027). Probe: `node scripts/hidden-proxy.mjs verify mhitm_knockback` (scen-poly-Ranger-92090, scen-poly-Wizard-92076).
 - [ ] `do_name.c` x_monnam — blocks 2/553 corpus sessions (first at step 36): C «@a human or elf or you (orcish barbarian called wizard)--Mor» vs JS «@a human or elf or you (orcish barbarian called wizard)». Probe: `node scripts/hidden-proxy.mjs verify x_monnam` (scen-tour-Barbarian-92024, scen-wish-Knight-91128).
 - [ ] `mon.c` unstuck — blocks 1/553 corpus sessions (first at step 120): C draws `rnd(2)=1` in unstuck, JS `rn2(6)=2` from xkilled(uhitm.js:686). Probe: `node scripts/hidden-proxy.mjs verify unstuck` (scen-wish-Rogue-92210).

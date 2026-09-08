@@ -80,7 +80,7 @@ import {
 import { dog_move, finish_meating } from './dogmove.js';
 import { worm_move, worm_nomove, see_wsegs, worm_known, wormhitu } from './worm.js';
 import { shk_move, gd_move, pri_move, costly_spot, inhishop } from './shk.js';
-import { tactics } from './wizard.js';
+import { cuss, tactics } from './wizard.js';
 import { Invis } from './timeout.js';
 import { rn2, rnd, d } from './rng.js';
 import { game } from './gstate.js';
@@ -148,6 +148,8 @@ const AT_GAZE = 15;
 const AT_MAGC = 255;
 /** C ref: monflag.h enum ms_sounds — MS_BRIBE. */
 const MS_BRIBE = 33;
+/** C ref: monflag.h enum ms_sounds — MS_CUSS (dochug vile-monster arm). */
+const MS_CUSS = 34;
 
 /** C ref: monst.h mon_offmap — mstate != MON_FLOOR */
 export function mon_offmap(mon) {
@@ -2393,7 +2395,12 @@ export async function dochug(mtmp) {
     if (!(mtmp.msleeping || !mtmp.mcanmove) && nearby) {
         await quest_talk(mtmp);
     }
-    // C: MS_CUSS !rn2(5) cuss() named omit (wizard.c cuss)
+    // C ref: monmove.c dochug — extra emotional attack for vile monsters:
+    // inrange MS_CUSS, not peaceful, seen and visible, then !rn2(5) cuss.
+    if (inrange && (mdat?.msound | 0) === MS_CUSS && !mtmp.mpeaceful
+        && couldsee(mtmp.mx, mtmp.my) && !mtmp.minvis && !rn2(5)) {
+        await cuss(mtmp);
+    }
     return 0;
 }
 

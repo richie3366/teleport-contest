@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `objnam.c` readobjnam gold-block fall-through on tin-typed `bp` **Addressed:** D-2089: wish `tin of gold piece` returns GOLD_PIECE where C (`return 2` → typfnd, skips Case 3) makes a tin — guard the `isGold` block in `js/readobjnam.js` with `!d.typ`. Probe: wish `tin of gold piece` and compare object class. Source: reviews/loop-unattended/1054-4d3d5dd3-postparse1-of-arm.md (review 1054, C-wrong 1).
+- [x] `monmove.c` dochug — blocks 2/553 corpus sessions (first at step 59): C draws `rn2(5)=1` in dochug, JS `rn2(40)=11` from dochug(monmove.js:2154). Probe: `node scripts/hidden-proxy.mjs verify dochug` (scen-tour-Priest-92235, scen-tour-Wizard-92103). **Addressed:** D-2090
+
+
+- [x] `objnam.c` readobjnam gold-block fall-through on tin-typed `bp` **Addressed:** D-2089 `fd3f5f38`: wish `tin of gold piece` returns GOLD_PIECE where C (`return 2` → typfnd, skips Case 3) makes a tin — guard the `isGold` block in `js/readobjnam.js` with `!d.typ`. Probe: wish `tin of gold piece` and compare object class. Source: reviews/loop-unattended/1054-4d3d5dd3-postparse1-of-arm.md (review 1054, C-wrong 1).
 
 
 - [x] `do_name.c` roguename — blocks 1/553 corpus sessions (first at step 89): C «Michael Toy's ghost wakes up! You stop searching.--More--» vs JS «You stop searching. Michael Toy's ghost touches you!». Probe: `node scripts/hidden-proxy.mjs verify roguename` (scen-tour-Tourist-91101). **Addressed:** D-2088 `444f29eb`

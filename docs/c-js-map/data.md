@@ -1264,7 +1264,7 @@ leftover bits walk `worn[]` by pointer not `owornmask=0`; `worn_item_removal` pa
 `flush_screen(1)` + `nh_delay_output` + `newsym`; 
 DEC/showsyms S_ss* / explode inline sparkle / `shieldeff_mon` / zap·pray·spell·trap callers still 
 named); **D-1089** sit `Antimagic()` ≡ `youprop.h` `uprops[ANTIMAGIC]` intrinsic||extrinsic 
-(invent.js `hero_Antimagic`; confer cloak-of-MR / gray DSM never writes `EAntimagic`); 
+(invent.js `hero_Antimagic` + mcastu.js reader D-2090; confer cloak-of-MR / gray DSM never writes `EAntimagic`); 
 Half_spell_damage sit clone vs uprops still named; 
 `update_inventory` / Hallucination `hcolor` still named on rndcurse; donning/`cancel_don`; 
 `in_use`; uskin `skinback`; `Amulet_off`; `Ring_gone`/`Blindf_off` still setworn;
