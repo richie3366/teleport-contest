@@ -283,8 +283,7 @@ ANTIMAGIC/SICK_RES/STUNNED (DRAIN_RES via resists_drli_you is D-2062; defended(A
 spit/gaze/were/hide/web/… deferred) + **`domonability` C-order dispatch** (D-1898;
 hide/web `yn_function` prompt; `dospit` venom/`throwit`; `doremove` nymph/`unpunish`;
 `dosummon` were/`were_summon`; `domindblast` mindflayer (D-1901: invented floating-eye/Medusa gaze retaliation deleted per C `:1893–1938` — `passive()` owns melee gaze only);
-gremlin `split_mon`/`dryup`; shriek/`aggravate`; vampire `dopoly`; gaze/hide/web
-`dogaze`/`dohide`/`dospinweb` + steed `pet_ranged_attk` still deferred) + 
+gremlin `split_mon`/`dryup`; shriek/`aggravate`; vampire `dopoly`; **`dohide`+`youhiding(FALSE)` hide arm** (D-2069; `let c = 0` C-falsy fix — a JS `'\0'` is truthy length-1 and skipped every c-gated arm; `youhiding` TRUE/`you_are` menu arm named); gaze/web `dogaze`/`dospinweb` + steed `pet_ranged_attk` still deferred) + 
 **`can_breathe`→`dobreathe` uen<15** (D-0725; 
 getdir/ubuzz deferred); **`polymon` verbose ability tips full block** (D-0725 breath; D-2007 spit/nymph/gaze/hide+web/were/gremlin/unicorn/mindflayer/shriek/vampire/sit-egg with eel exclusion)); 
 **`d` → `dodrop`/`drop`/`dropx` + gold `freeinv_core` botl/`_goldCount` 

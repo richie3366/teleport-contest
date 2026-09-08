@@ -87,10 +87,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `polyself.c` dohide — moves 1/2 m_move-blocked sessions (scen-poly-Wizard-92076 step 94): C «You are now hiding on the ceiling.» (uundetected=1 + youhiding) vs JS «Any special ability...» (named omission js/polyself.js:1562). Split from parked `monmove.c` m_move 2026-09-08 (see LOOP-QUEUE Parked). Probe: port dohide + youhiding + `node scripts/hidden-proxy.mjs verify m_move` (Wizard-92076 must PASS or move later).
+**Next cluster:** `objnam.c` xname_flags — blocks 2/553 corpus sessions (first at step 38): C «Hachi drops a scroll labeled XIXAXA XOXAXA XUXAXA. You yawn.» vs JS «Hachi drops a scroll labeled XIXAXA XOXAXA XUXAXA.--More--». Probe: `node scripts/hidden-proxy.mjs verify xname_flags` (scen-intrinsic-Samurai-92017, scen-wish-Priest-92035).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2068 (index).**
+**Keep D-0845…D-2069 (index).**
 <!-- recent:begin -->
+**D-2069** `polyself.c:1777–1874` `dohide` (ustuck/utrap refuse + reveal; eel-out-of-water; hides_und — `js/polyself.js` — exported async `dohide()` (full C branch order incl. nested You_cant reason ternary; You_cant/There/pline_The composed via `pline` per the zap.js `You` idiom; floor pile via `objects_at` nexthere + `mo
 **D-2068** `bones.c:388–399` `remove_mon_from_bones` (iswiz / Medusa / MS_NEMESIS / MS_LEADER / `is_V — `js/end.js` — file-local `fixuporacle` (Oracle-level gate, `mpeaceful=1`, DELPHI `roomno-ROOMOFFSET` keep, else centre `enexto`+`await rloc_to` and restore `rtype`, C `:307–363`) + file-local `remove_mon_from_bones` (exa
 **D-2067** `youprop.h:195–198` — `js/mhitu.js` — file-local `BInvis` + `Invis` now mirror the potion.js/zap.js idiom (`H = HInvis||intrinsic`, `E = EInvis||extrinsic`, mummy-wrapping `uarmc` stand-in for setworn `w_blocks`); `INVIS` joins the existing `
 **D-2066** `monst.h:69–73` — `js/const.js` — `M_AP_TYPE` returns `((mon?.m_ap_type ?? 0) & M_AP_TYPMASK)` with the monst.h:73 citation; `M_AP_TYPMASK` is already exported from the same file (call-time reference, no TDZ, no new import/edge).
@@ -98,11 +99,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2064** the queue owner names where C printed; the writer is the caller — `js/zap.js` — after the self-zap `losehp`, mirror the `backfire` arm: `if (game._losehp_needs_done || game.program_state?.gameover) { await finish_losehp_done(); if (game.program_state?.gameover) return 1; }`.
 **D-2063** `polyself.c` polyself `:596–615` (!polyok message arm: `pmname(flags.female)` then `the_un — `js/polyself.js` — article arm verbatim (`the_unique_pm`/`the`/`type_is_pname` + your_race/G_UNIQ guard); `controllable_poly` const (Stunned shape mirrors `hack.js` Stunned_prop `(u.HStun|0) || u.Stunned`); `vampyr_goto`
 **D-2062** the queue owner is a literal-match misattribution — `js/invent.js` — (a) ulycn were-form arm (`an(pmname(mons(ulycn), female?FEMALE:MALE))` + « in beast form» + wizard `mtimedone` iff `umonnum==ulycn`) and `Hate_silver` arm (`ismnum(ulycn) || hates_silver(youmonst.data)`)
-**D-2061** `end.c` really_done `:1186–1187` — `js/end.js` — after `at_midnight`, `if (((game.moves | 0) <= 1) && how < PANICKED && !(game.program_state?.done_stopprint | 0)) await pline(\`Do not pass Go.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2068; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2069; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

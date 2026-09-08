@@ -9,20 +9,23 @@ import {
 } from './display.js';
 import { getlin, yn_function, y_n } from './getline.js';
 import { getdir } from './lock.js';
-import { an, the, the_unique_pm, set_body_part, yname, vtense, simpleonames, makeplural } from './objnam.js';
+import { an, the, the_unique_pm, set_body_part, yname, vtense, simpleonames, makeplural, cxname, ansimpleoname, simple_typename } from './objnam.js';
 import {
-    pmname, type_is_pname, mon_nam, s_suffix, Ugender,
+    pmname, type_is_pname, mon_nam, s_suffix, Ugender, hliquid,
 } from './do_name.js';
 import { Unaware } from './eat.js';
 import { attacktype_fordmg, killed } from './uhitm.js';
 import {
     AT_SPIT, AT_GAZE, AD_BLND, AD_DRST, AD_ACID,
 } from './mhitm.js';
-import { mksobj } from './mkobj.js';
+import { mksobj, objects_at } from './mkobj.js';
 import { throwit } from './dothrow.js';
 import { were_summon } from './were.js';
 import { unpunish } from './read.js';
 import { surface, split_mon } from './sit.js';
+import { sticks } from './engrave.js';
+import { ceiling, t_at, instapetrify } from './trap.js';
+import { has_ceiling } from './dungeon.js';
 import { dryup } from './fountain.js';
 import { aggravate } from './wizard.js';
 import { wakeup } from './mon.js';
@@ -43,8 +46,8 @@ import { races } from './roles.js';
 import { encumber_msg, useup, weapon_descr, update_inventory } from './invent.js';
 import { end_burn } from './timeout.js';
 import { racial_exception, has_horns, num_horns, WrappingAllowed, is_flimsy } from './worn.js';
-import { helm_simple_name } from './mhitu.js';
-import { losehp, nomul, is_pool } from './hack.js';
+import { helm_simple_name, digests } from './mhitu.js';
+import { losehp, nomul, is_pool, waterbody_name } from './hack.js';
 import { finish_losehp_done, done } from './end.js';
 import { steed_vs_stealth } from './steed.js';
 import {
@@ -62,6 +65,7 @@ import {
     is_undead,
     is_demon,
     is_golem,
+    is_clinger,
     is_unicorn,
     strongmonst,
     bigmonst,
@@ -86,6 +90,7 @@ import {
     eggs_in_water,
     mindless,
     telepathic,
+    touch_petrifies,
     haseyes,
     MZ_SMALL,
     M1_SLITHY,
@@ -146,6 +151,14 @@ import {
     UNCHANGING,
     I_SPECIAL,
     TT_PIT,
+    M_AP_NOTHING,
+    M_AP_OBJECT,
+    M_AP_FURNITURE,
+    M_AP_MONSTER,
+    M_AP_TYPE,
+    Is_airlevel,
+    Is_waterlevel,
+    SPIKED_PIT,
     STR18,
     STR19,
     NO_PART, ARM, EYE, FINGER, FINGERTIP, FOOT, HAND, HANDED,
@@ -179,6 +192,8 @@ const PM_JELLYFISH = monsterNames.indexOf('PM_JELLYFISH');
 const PM_KRAKEN = monsterNames.indexOf('PM_KRAKEN');
 const PM_FLOATING_EYE = monsterNames.indexOf('PM_FLOATING_EYE');
 const PM_GREMLIN = monsterNames.indexOf('PM_GREMLIN');
+const CORPSE = objectNames.indexOf('CORPSE');
+const STRANGE_OBJECT = objectNames.indexOf('STRANGE_OBJECT');
 const PM_GIANT_EEL = monsterNames.indexOf('PM_GIANT_EEL');
 const PM_ELECTRIC_EEL = monsterNames.indexOf('PM_ELECTRIC_EEL');
 const BLINDING_VENOM = objectNames.indexOf('BLINDING_VENOM');
@@ -1520,11 +1535,188 @@ export async function domindblast() {
 }
 
 /**
+ * C ref: youprop.h Flying — (H||E||steed-flyer) && !B.
+ * File-local per-module idiom (eat.js Flying); dohide/youhiding need the
+ * ceiling test without importing another module's local.
+ * @returns {boolean}
+ */
+function Flying() {
+    const u = game.u || {};
+    if (u.Flying) return true;
+    const prop = u.uprops?.[FLYING];
+    const blocked = (u.BFlying | 0) || (prop?.blocked | 0);
+    if (u.usteed && is_flyer(u.usteed.data) && !blocked) return true;
+    return !!(((u.HFlying | 0) || (u.EFlying | 0)
+        || (prop?.intrinsic | 0) || (prop?.extrinsic | 0))
+        && !blocked);
+}
+
+/** C ref: dungeon.c plur — "s" unless 1 (end.js file-local idiom). */
+function plur(n) {
+    return (n | 0) === 1 ? '' : 's';
+}
+
+/**
+ * C ref: insight.c youhiding :2022–2077 — describe the hero's hiding place.
+ * Envelope: mimic shape detail (U_AP_TYPE) vs uundetected eel-in-pool /
+ * hides_under pile / ceiling-clinger-or-flyer / pit-floor trapper /
+ * surface; via_enlghtmt menu line vs topline message.
+ * Named omission: the via_enlghtmt arm (insight.c:2074–2077 `you_are`) —
+ * JS enlightenment (invent.js) never calls youhiding and the menu-line
+ * channel has no polyself-side endpoint.
+ */
+export async function youhiding(via_enlghtmt, msgflag) {
+    const u = game.u || {};
+    const youdata = game.youmonst?.data;
+    let buf = 'hiding';
+    const ap_type = M_AP_TYPE(game.youmonst);
+    if (ap_type !== M_AP_NOTHING) {
+        /* mimic; the hero only ever mimics a strange object or gold
+           (or its hallucinatory stand-in), so furniture/monster detail
+           arms stay exactly as C wrote them */
+        buf = 'mimicking';
+        if (ap_type === M_AP_OBJECT) {
+            buf += ` ${an(simple_typename(game.youmonst?.mappearance))}`;
+        } else if (ap_type === M_AP_FURNITURE) {
+            buf += ' something';
+        } else if (ap_type === M_AP_MONSTER) {
+            buf += ' someone';
+        }
+        /* else: something unexpected; leave buf as-is */
+    } else if (u.uundetected) {
+        if (youdata?.mlet === 'S_EEL') {
+            if (is_pool(u.ux, u.uy)) buf += ` in the ${waterbody_name(u.ux, u.uy)}`;
+        } else if (hides_under(youdata)) {
+            const o = objects_at(u.ux, u.uy);
+            if (o) buf += ` underneath ${ansimpleoname(o)}`;
+        } else if (is_clinger(youdata) || Flying()) {
+            /* Flying: 'lurker above' hides on ceiling but doesn't cling */
+            buf += ` on the ${ceiling(u.ux, u.uy)}`;
+        } else if ((u.utrap | 0) && (u.utraptype | 0) === TT_PIT) {
+            /* on floor; is_hider() but otherwise not special: 'trapper' */
+            const t = t_at(u.ux, u.uy);
+            buf += ` in a ${t && (t.ttyp | 0) === SPIKED_PIT ? 'spiked ' : ''}pit`;
+        } else {
+            buf += ` on the ${surface(u.ux, u.uy)}`;
+        }
+    }
+    /* else: shouldn't happen; falls through to generic "you are hiding" */
+    if (via_enlghtmt) return; /* named omission above */
+    /* C: You("are %s %s.", msgflag ? "already" : "now", buf) */
+    await pline(`You are ${msgflag ? 'already' : 'now'} ${buf}.`);
+}
+
+/**
+ * C ref: polyself.c dohide :1777–1874 — #monster hide for hiders/mimics.
+ * Branch order matches C: held/trapped refuse (+reveal uundetected/mimic)
+ * → eel-out-of-water → hides_under pile (incl. all-'trice petrify) →
+ * ceiling-without-ceiling / floor-hider-on-air-or-water → already-hiding
+ * → mimic-appearance set / uundetected set + newsym + youhiding.
+ * @returns {Promise<number>} ECMD_OK | ECMD_TIME
+ */
+export async function dohide() {
+    const u = game.u || (game.u = {});
+    if (!game.youmonst) game.youmonst = {};
+    const you = game.youmonst;
+    const youdata = you.data;
+    const ismimic = youdata?.mlet === 'S_MIMIC';
+    const on_ceiling = is_clinger(youdata) || Flying();
+
+    /* can't hide while being held (or holding) or while trapped
+       (except for floor hiders [trapper or mimic] in pits) */
+    if (u.ustuck || ((u.utrap | 0) && ((u.utraptype | 0) !== TT_PIT || on_ceiling))) {
+        /* C: You_cant("hide while you're %s.", ...) — nesting kept */
+        const why = !u.ustuck ? 'trapped'
+            : u.uswallow ? (digests(u.ustuck?.data) ? 'swallowed' : 'engulfed')
+            : !sticks(youdata) ? 'being held'
+            : (humanoid(u.ustuck?.data) ? 'holding someone' : 'holding that creature');
+        await pline(`You can't hide while you're ${why}.`);
+        if (u.uundetected || (ismimic && M_AP_TYPE(you) !== M_AP_NOTHING)) {
+            u.uundetected = 0;
+            you.m_ap_type = M_AP_NOTHING;
+            newsym(u.ux, u.uy);
+        }
+        return ECMD_OK;
+    }
+    /* note: hero-as-eel handling is incomplete but unnecessary;
+       such critters aren't offered the option of hiding via #monster */
+    if (youdata?.mlet === 'S_EEL' && !is_pool(u.ux, u.uy)) {
+        if (IS_FOUNTAIN(game.level?.at(u.ux, u.uy)?.typ)) {
+            await pline('The fountain is not deep enough to hide in.');
+        } else {
+            await pline(`There is no ${hliquid('water')} to hide in here.`);
+        }
+        u.uundetected = 0;
+        return ECMD_OK;
+    }
+    if (hides_under(youdata)) {
+        let ct = 0;
+        const otop = objects_at(u.ux, u.uy);
+        if (!otop) {
+            await pline('There is nothing to hide under here.');
+            u.uundetected = 0;
+            return ECMD_OK;
+        }
+        let otmp;
+        for (otmp = otop;
+             otmp && (otmp.otyp | 0) === CORPSE
+                && touch_petrifies(mons(otmp.corpsenm));
+             otmp = otmp.nexthere) {
+            ct += (otmp.quan | 0);
+        }
+        /* otmp is null iff the entire pile consists of 'trice corpses */
+        if (!otmp && !(u.Stone_resistance || u.HStone_resistance || u.EStone_resistance)) {
+            let corpse_name = cxname(otop);
+            /* plural case says "cockatrice corpses" / "chickatrice corpses"
+               from the top of the pile even if both types are present */
+            if (ct === 1) corpse_name = an(corpse_name);
+            /* no need to check poly_when_stoned(); no hide-underers can
+               turn into stone golems instead of becoming petrified */
+            await pline(`Hiding under ${corpse_name}${plur(ct)} is a fatal mistake...`);
+            await instapetrify(`hiding under ${corpse_name}${plur(ct)}`);
+            /* only reach here if life-saved */
+            u.uundetected = 0;
+            return ECMD_TIME;
+        }
+    }
+    /* Planes of Air and Water */
+    if (on_ceiling && !has_ceiling(u.uz)) {
+        await pline('There is nowhere to hide above you.');
+        u.uundetected = 0;
+        return ECMD_OK;
+    }
+    if (is_hider(youdata) && !Flying()
+        && (Is_airlevel(u.uz) || Is_waterlevel(u.uz))) {
+        await pline('There is nowhere to hide beneath you.');
+        u.uundetected = 0;
+        return ECMD_OK;
+    }
+    /* TODO? inhibit floor hiding at furniture locations, or
+     * else make youhiding() give smarter messages at such spots. */
+
+    if (u.uundetected || (ismimic && M_AP_TYPE(you) !== M_AP_NOTHING)) {
+        await youhiding(false, 1); /* "you are already hiding" */
+        return ECMD_OK;
+    }
+
+    if (ismimic) {
+        /* should bring up a dialog "what would you like to imitate?" */
+        you.m_ap_type = M_AP_OBJECT;
+        you.mappearance = STRANGE_OBJECT;
+    } else {
+        u.uundetected = 1;
+    }
+    newsym(u.ux, u.uy);
+    await youhiding(false, 0); /* "you are now hiding" */
+    return ECMD_TIME;
+}
+
+/**
  * C ref: cmd.c domonability — #monster special ability while poly'd.
  * Envelope: hide/web prompt; breathe → spit → nymph → gaze → were →
  * hide → web → mindflayer → gremlin → unicorn → shriek → vampire →
  * steed → reflexive/normal.
- * Named omissions: dogaze, dohide, dospinweb (polyself.c arms, queued);
+ * Named omissions: dogaze, dospinweb (polyself.c arms, queued);
  * steed breath via pet_ranged_attk (missing). Deferred arms keep the
  * old reflexive/normal fallthrough.
  * @returns {Promise<number>} ECMD_OK | ECMD_TIME
@@ -1542,7 +1734,10 @@ export async function domonability() {
     };
     // C: might_hide prompt rides before every arm
     const might_hide = is_hider(uptr) || hides_under(uptr);
-    let c = '\0';
+    /* C: char c = '\0' — 0 is falsy so `c ? ... : ...` falls to the
+       predicate arms. A JS '\0' string has length 1 (truthy) and would
+       wrongly skip every c-gated arm, so the no-answer state is 0. */
+    let c = 0;
     if (might_hide && webmaker(uptr)) {
         c = await yn_function('Hide [h] or spin a web [s]?',
             hidespinchars, 'q', true);
@@ -1559,7 +1754,7 @@ export async function domonability() {
     } else if (is_were(uptr)) {
         return dosummon();
     } else if (c ? c === 'h' : might_hide) {
-        return tail(); // dohide deferred
+        return dohide();
     } else if (c ? c === 's' : webmaker(uptr)) {
         return tail(); // dospinweb deferred
     } else if (is_mind_flayer(uptr)) {
