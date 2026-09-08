@@ -5,10 +5,13 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
+- [x] `mcastu.c` cursetxt — blocks 1/553 corpus sessions (first at step 166): C draws `rn2(4)=0` in cursetxt, JS `rn2(5)=2` from dochug(monmove.js:2401). Probe: `node scripts/hidden-proxy.mjs verify cursetxt` (scen-poly-Tourist-92047). **Addressed:** D-2137 `b9b2fdef`
+
+
 - [x] `makemon.c` makemon — blocks 1/553 corpus sessions (first at step 4): C «You ready: $ - 1093 gold pieces.--More--» vs JS «In what direction?». Probe: `node scripts/hidden-proxy.mjs verify makemon` (scen-normal-Healer-91123). **Addressed:** D-2139 `eb7ec1cb`
 
 
-- [x] `allmain.c` moveloop_core — blocks 1/553 corpus sessions (first at step 88): C draws `rn2(85)=24` in moveloop_core, JS `rn2(20)=14` from gethungry(eat.js:698). Probe: `node scripts/hidden-proxy.mjs verify moveloop_core` (scen-poly-Archeologist-92226). **Addressed:** D-2138 1602fc13
+- [x] `allmain.c` moveloop_core — blocks 1/553 corpus sessions (first at step 88): C draws `rn2(85)=24` in moveloop_core, JS `rn2(20)=14` from gethungry(eat.js:698). Probe: `node scripts/hidden-proxy.mjs verify moveloop_core` (scen-poly-Archeologist-92226). **Addressed:** D-2138 `1602fc13`
 
 
 - [x] `objnam.c` readobjnam_postparse1 — blocks 1/553 corpus sessions (first at step 126): C «One of your potions of extra healing freezes and shatters!--» vs JS «One of your potions of extra healing freezes and shatters!». Probe: `node scripts/hidden-proxy.mjs verify readobjnam_postparse1` (scen-poly-Healer-92107). **Addressed:** D-2137 `b9b2fdef`
@@ -20,7 +23,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 - [x] `trap.c` burnarmor — blocks 1/553 corpus sessions (first at step 73): C draws `rn2(5)=3` in burnarmor, JS `rn2(6)=5` from xkilled(uhitm.js:694). Probe: `node scripts/hidden-proxy.mjs verify burnarmor` (scen-wish-Ranger-92212). **Addressed:** D-2135 `55848b87`
 
 
-- [x] `artifact.c` touch_artifact — blocks 1/553 corpus sessions (first at step 73): C «The pair of lenses named the Eyes of the Overworld evades yo» vs JS «The pair of lenses named the Eyes of the Overworld evades yo». Probe: `node scripts/hidden-proxy.mjs verify touch_artifact` (scen-genesis-Valkyrie-92094).
+- [x] `artifact.c` touch_artifact — blocks 1/553 corpus sessions (first at step 73): C «The pair of lenses named the Eyes of the Overworld evades yo» vs JS «The pair of lenses named the Eyes of the Overworld evades yo». Probe: `node scripts/hidden-proxy.mjs verify touch_artifact` (scen-genesis-Valkyrie-92094). **Addressed:** D-2134 `1bb96408`
 
 
 - [x] `zap.c` dobuzz — blocks 2/553 corpus sessions (first at step 65): C draws `d(6,50)=119` in dobuzz, JS `rn2(19)=8` from exercise(attrib.js:196). Probe: `node scripts/hidden-proxy.mjs verify dobuzz` (scen-wish-Samurai-92087, scen-wish-Wizard-92048). **Addressed:** D-2133 `33a49868`

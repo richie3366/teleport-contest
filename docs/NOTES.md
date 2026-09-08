@@ -21,6 +21,7 @@ Objective/score live in `CURRENT.md`.
 - **Healer-92107 residual (D-2137 Next):** destroy double-count (`mhitu.js:901` `+=` vs C `(void)`); audit fire/elec arms.
 - **hmonas park:** Priest-92163 step-193 More-transient — owner `uhitm.c:5544` is a comment, stepFns runs `hitum`, RNG 13/13 matched, C194==JS193 (detail: Parked; do not re-pop).
 - **dmgval fired:** Priest-91137 @123→@214 (D-2139, no js/); see Parked.
+- **cursetxt row fired (no js/, no D-log):** Tourist-92047 cursetxt@166 → fig_transform@169 already shipped by D-2137 (this-iter `verify cursetxt` 0 blocked; live replay RNG 5126/5126, screen-only `--More--` at 169 across 3 cMsgOwners — probable tie-break, refill surfaces it if stored scores record it). Do not re-pop cursetxt.
 
 ## Don't re-check (≤15)
 

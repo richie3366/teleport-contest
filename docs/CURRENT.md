@@ -89,7 +89,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `mcastu.c` cursetxt (dmgval fired, see Parked). Probe: `node scripts/hidden-proxy.mjs verify cursetxt`.
+**Next cluster:** `mcastu.c` castmu (cursetxt row fired — already moved cursetxt@166 → fig_transform@169 by D-2137, see DONE). Probe: `node scripts/hidden-proxy.mjs verify castmu`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2139 (index).**
 <!-- recent:begin -->
