@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `light.c` arti_light_description — blocks 1/553 corpus sessions (first at step 161): C «The long sword named Sunsword shines brilliantly in the Arch» vs JS «The Archon swings his long sword named Sunsword. The Archon ». Probe: `node scripts/hidden-proxy.mjs verify arti_light_description` (scen-poly-Tourist-92047). **Addressed:** D-2125
+- [x] `potion.c` self_invis_message — blocks 1/553 corpus sessions (first at step 62): C «Gee! All of a sudden, you can't see yourself.--More--» vs JS «Gee! All of a sudden, you can't see yourself.--More--». Probe: `node scripts/hidden-proxy.mjs verify self_invis_message` (scen-wish-Healer-92010). **Addressed:** D-2126
+
+
+- [x] `light.c` arti_light_description — blocks 1/553 corpus sessions (first at step 161): C «The long sword named Sunsword shines brilliantly in the Arch» vs JS «The Archon swings his long sword named Sunsword. The Archon ». Probe: `node scripts/hidden-proxy.mjs verify arti_light_description` (scen-poly-Tourist-92047). **Addressed:** D-2125 `137e650f`
 
 
 - [x] `uhitm.c` missum — blocks 1/553 corpus sessions (first at step 118): C «You miss it. It screams! It kicks! It kicks again!--More--» vs JS «You miss it. It kicks! It kicks again! It is frozen by you.». Probe: `node scripts/hidden-proxy.mjs verify missum` (scen-poly-Knight-92220). **Addressed:** D-2124 `05fba4ac`

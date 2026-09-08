@@ -21,7 +21,7 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-08** — full `sessions` on the working tree
-(audit **1083–1088**: 26431cce…10ea68f1, D-2117…D-2125).
+(audit **1083–1088**: 26431cce…10ea68f1, D-2117…D-2126).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 `67+0.40/turn` (R² 0.79).
@@ -87,10 +87,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `light.c` arti_light_description — blocks 1/553 corpus sessions (first at step 161): C «The long sword named Sunsword shines brilliantly in the Arch» vs JS «The Archon swings his long sword named Sunsword. The Archon ». Probe: `node scripts/hidden-proxy.mjs verify arti_light_description` (scen-poly-Tourist-92047).
+**Next cluster:** `potion.c` self_invis_message — blocks 1/553 corpus sessions (first at step 62): C «Gee! All of a sudden, you can't see yourself.--More--» vs JS «Gee! All of a sudden, you can't see yourself.--More--». Probe: `node scripts/hidden-proxy.mjs verify self_invis_message` (scen-wish-Healer-92010).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2125 (index).**
+**Keep D-0845…D-2126 (index).**
 <!-- recent:begin -->
+**D-2126** `youprop.h:198` `Invis ≡ (HInvis || EInvis) && !BInvis` (each arm is `uprops[INVIS].intrin — `js/display.js` only — `hero_Invis()` now ORs flats + `uprops[INVIS]` intrinsic/extrinsic/blocked, `hero_See_invisible()` ORs flats + sticky + `uprops[SEE_INVIS]` intrinsic/extrinsic, in the established `Detect_monsters`
 **D-2125** `weapon.c:918–928` in `mon_wield_item` (`artifact_light(obj) && !obj->lamplit` → `begin_bu — `js/weapon.js` only — the `:918–928` arm in exact C order (`begin_burn(obj, false)` before the visibility branch so lamplit/radius are set first, matching C where the adverb reads the lit radius); import-the-export `arti
 **D-2124** `mon.c:4265–4318` `setmangry` (reached via missum → `wakeup(mon, TRUE)` → `setmangry`), `: — `js/mon.js` only — `else { await growl(mtmp); }` in exact C position with C cite; `growl` was already imported from pre-existing `./sounds.js` edge (no new import, no TDZ risk — no `imports.mjs --can` needed); header ret
 **D-2123** `do_wear.c:2029–2206` `canwearobj` (verysmall/nohands `:2036–2042`, cantweararm cloak-exce — `js/worn.js` — `cantweararm` exported (import-the-export, no second copy; `breakarm`/`sliparm` stay private).
@@ -98,11 +99,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2121** `objnam.c:660–664` `xname_flags` (`find_artifact` on real `dknown`, then `if (obj_is_pname — `js/objnam.js` only — `xname` returns bare `ONAME` (`The` downcase + strip leading `the `) when `obj_is_pname(obj) && has_oname(obj)`; `doname` uses the same bare `ONAME` as `base` for `isPname`, skips the `poisoned ` st
 **D-2120** `insight.c:1758–1765` (Swimming+Underwater guard `:1758–1759`, Breathless `:1760–1761`, Am — `js/dbridge.js` exports the four D-1967 predicates (import-the-export, no second macro implementation); `js/invent.js` extends the same-edge static `./const.js` import (SWIMMING/MAGICAL_BREATHING/PASSES_WALLS) and ports 
 **D-2119** `hack.c:2693–2709` `domove()` (writer behind the `dog_move` symptom): `gk.kickedloc.x = 0, — `js/cmd.js` only, exact C shape — `game.kickedloc = { x: 0, y: 0 }` unconditional in `domove()`'s `finally` beside `game.domove_attempting = 0` (C `:2708` position); removed the `did_step`-gated clear and the three now-r
-**D-2118** `dungeon.c:1941–1945` `In_hell` (`svd.dungeons[lev->dnum].flags.hellish`) via `dungeon.h:1 — `js/pray.js` only — `Inhell()` now the dungeon `hellish` flag; `GEHENNOM` import dropped.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2125; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2126; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

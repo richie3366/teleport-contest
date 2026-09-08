@@ -1,6 +1,6 @@
 {
- "commit": "05fba4ac",
- "at": "2026-09-08T13:31:37.355Z",
+ "commit": "137e650f",
+ "at": "2026-09-08T13:36:00.201Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -7714,16 +7714,16 @@
    "passed": false,
    "rngM": 3018,
    "rngT": 3425,
-   "scrM": 62,
+   "scrM": 130,
    "scrT": 264,
-   "kind": "screen",
-   "step": 62,
+   "kind": "rng",
+   "step": 120,
    "steps": 264,
-   "owner": "self_invis_message",
-   "loc": "potion.c:475",
-   "jsOwner": null,
-   "cTopline": "Gee! All of a sudden, you can't see yourself.--More--",
-   "jsTopline": "Gee! All of a sudden, you can't see yourself.--More--",
+   "owner": "next_ident",
+   "loc": "mkobj.c:521",
+   "jsOwner": "rnd_otyp_by_namedesc(readobjnam.js:277)",
+   "cTopline": "n - a slime mold.",
+   "jsTopline": "n - a slime mold.",
    "error": null
   },
   "scen-wish-Healer-92011": {
