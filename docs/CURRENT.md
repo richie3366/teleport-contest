@@ -88,10 +88,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `muse.c` rnd_misc_item — blocks 1/553 corpus sessions (first at step 70): C draws `rn2(6)=2` in rnd_misc_item, JS `rn2(100)=94` from makemon(makemon.js:3065). Probe: `node scripts/hidden-proxy.mjs verify rnd_misc_item` (scen-tour-Ranger-92033).
+**Next cluster:** `trap.c` burnarmor — blocks 1/553 corpus sessions (first at step 72): C draws `rn2(5)=2` in burnarmor, JS `rn2(6)=0` from trapeffect_fire_trap(trap.js:4042). Probe: `node scripts/hidden-proxy.mjs verify burnarmor` (scen-tour-Wizard-91112).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2086 (index).**
+**Keep D-0845…D-2087 (index).**
 <!-- recent:begin -->
+**D-2087** `monst.h:270` `mon_resistancebits(mon)` = `data->mresists | mextrinsics | mintrinsics` + ` — `js/trap.js` `resists_elem` now ORs `mtmp.data.mresists` for monsters only — `is_youmonst` gate preserves hero behavior (C ignores species bits for the hero; hero resists ride intrinsics/extrinsics).
 **D-2086** `muse.c:2654–2686` `rnd_misc_item` — `js/makemon.js` — file-local `See_invisible_misc()` (`youprop.h:152` cite; H||E+sticky flat, the muse.js:2147/trap.js/mhitm.js file idiom; `game` already imported, no new module edge, no TDZ risk) and case 1 is now `if (
 **D-2085** `mon.c:1847–1910` `mpickstuff` — `js/monmove.js` — ported the missing C guards verbatim in C order (isshk+inhishop, then !mtame → in_rooms(SHOPBASE) → rn2(25), so the draw stays shop-gated by short-circuit; empty-string in_rooms is falsy like C `*p == 0
 **D-2084** `objnam.c:4371–4397` `readobjnam_postparse1` corpse-type block — `js/readobjnam.js` — ported the full conditional verbatim in C position (ahead of the no-`of` scan; glob intercept above it stays map-named): guards via live `strstri`, `tin of` → spinach exact / `tin_variety_txt` offset
@@ -99,11 +100,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2082** `pickup.c:2972–3226` `use_container` — `js/pickup.js` — restored the 5-line C arm verbatim (`if (!obj.lknown) { obj.lknown = 1; if (held) update_inventory(); }`) ahead of the olocked check and corrected the comment to cite `:2992–2999` (Hmmm stays floor-only)
 **D-2081** `detect.c:842` `You("sense the presence of monsters.")`, then the one-shot else-arm `brows — `js/detect.js` — deleted the `flush_topl_more()` call and its import (no other user in this function); replaced the stale comment with the C cite (`detect.c:842` → `getpos.c:843–846`, two-space join at `js/display.js:738
 **D-2080** `read.c:329–647` `doread` — `js/read.js` — `scroll.pickup_prev = 0` (eat.js/apply.js idiom, C `:359`); Blind gate ports C branch order verbatim (`Zblind` uses the same `u.Blind || u.ublind` idiom as the disappear block below; Dead exempt; novel/wor
-**D-2079** `you.h:554` `#define Upolyd (u.umonnum != u.umonster)`; `polyself.c:200–268` `polyman` `:2 — `js/const.js` — `Upolyd(player)` is now `((player.umonnum | 0) !== (player.umonster | 0))` with the `you.h:554` cite (plus why-mtimedone-fails note).
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2086; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2087; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

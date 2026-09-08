@@ -1,6 +1,6 @@
 {
- "commit": "f042b695",
- "at": "2026-09-08T04:55:05.859Z",
+ "commit": "ab5c291b",
+ "at": "2026-09-08T05:02:05.866Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -7485,18 +7485,18 @@
   "scen-tour-Wizard-91112": {
    "src": "corpus",
    "passed": false,
-   "rngM": 10268,
+   "rngM": 11319,
    "rngT": 17689,
-   "scrM": 72,
+   "scrM": 76,
    "scrT": 137,
-   "kind": "rng",
-   "step": 72,
+   "kind": "screen",
+   "step": 73,
    "steps": 137,
-   "owner": "burnarmor",
-   "loc": "trap.c:113",
-   "jsOwner": "trapeffect_fire_trap(trap.js:4042)",
-   "cTopline": "A master lich suddenly appears next to you!--More--",
-   "jsTopline": "It suddenly appears! The master lich appears next to you!--More--",
+   "owner": "lightdamage",
+   "loc": "zap.c:3050",
+   "jsOwner": null,
+   "cTopline": "The master lich zaps himself with a runed wand!--More--",
+   "jsTopline": "The master lich zaps himself with a runed wand!--More--",
    "error": null
   },
   "scen-tour-Wizard-92103": {

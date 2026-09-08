@@ -3724,12 +3724,17 @@ function mr_bit(prop) {
 }
 
 /**
- * C ref: monst.h resists_fire / resists_sleep — Resists_Elem(prop).
- * Named omission: data->mresists not in extracted mons(); only
- * mintrinsics/mextrinsics bits when set.
+ * C ref: monst.h mon_resistancebits / mondata.c Resists_Elem(prop) subset:
+ * data->mresists | mextrinsics | mintrinsics (species bits ride
+ * mtmp.data via js/monsters.js from js/generated/monsters_data.js).
+ * The hero uses u.uprops (mirrored by mintrinsics/mextrinsics here), so
+ * species bits apply to monsters only. Named omissions: wielded-artifact
+ * defends, worn/carried oc_oprop + alchemy-smock pair, carried-artifact
+ * defends_when_carried (mondata.c:175-196).
  */
 function resists_elem(mtmp, prop) {
-    const bits = (mtmp?.mintrinsics | 0) | (mtmp?.mextrinsics | 0);
+    const species = is_youmonst(mtmp) ? 0 : (mtmp?.data?.mresists | 0);
+    const bits = species | (mtmp?.mintrinsics | 0) | (mtmp?.mextrinsics | 0);
     return !!(bits & mr_bit(prop));
 }
 function resists_fire(mtmp) {

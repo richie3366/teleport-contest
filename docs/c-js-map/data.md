@@ -1022,8 +1022,9 @@ BEAR/WEB/RUST/VIBRATING/PIT done D-0245/D-0770), Deaf+mindless silent,
 `disturb_buried_zombies`, empty-door pline_mon, drawbridge-under pool/lava; 
 **`maketrap` STATUE_TRAP → `mk_trap_statue`** (D-0538; 
 full `mongone`/MM_NOCOUNTBIRTH born tally deferred); fate-20 `seffects(SPE_REMOVE_CURSE)`; 
-fire `destroy_items`/`ignite`/`burn_floor`/`melt_ice`/`surface`/`data->mresists`/`minuhpmax`/`
-losexp`; MAGIC_PORTAL/LEVEL_TELEP `mlevel_tele_trap` arms; valley_level stronghold dest; 
+fire `destroy_items`/`ignite`/`burn_floor`/`melt_ice`/`surface`/`minuhpmax`/`losexp`
+(**D-2087** retires `data->mresists` species bits for `resists_elem`
+fire/sleep; worn/artifact `Resists_Elem` grants still named); MAGIC_PORTAL/LEVEL_TELEP `mlevel_tele_trap` arms; valley_level stronghold dest; 
 migrate light/worm/isshk; **`encumber_msg` callers beyond set_wounded_legs/preamble** (allmain 
 turn-loop / exercise STR·CON / pickup/drop); Lev/air/steed `weight_cap` MAX; `stagger()` poly; 
 `heal_legs`; **`body_part`** / **`mbodypart`** import `polyself.js` (D-1496;
