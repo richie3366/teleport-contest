@@ -1,6 +1,6 @@
 {
- "commit": "109f4444",
- "at": "2026-09-08T22:21:09.891Z",
+ "commit": "b46928ff",
+ "at": "2026-09-08T22:24:08.762Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -8432,18 +8432,18 @@
   "scen-wish-Rogue-92221": {
    "src": "corpus",
    "passed": false,
-   "rngM": 3307,
+   "rngM": 3308,
    "rngT": 3349,
-   "scrM": 92,
+   "scrM": 107,
    "scrT": 107,
-   "kind": "screen",
-   "step": 57,
+   "kind": "rng",
+   "step": 92,
    "steps": 107,
-   "owner": "vomiting_dialogue",
-   "loc": "timeout.c:249",
-   "jsOwner": null,
-   "cTopline": "Your feet are frozen to the stairs! You can move again.",
-   "jsTopline": "Your feet are frozen to the floor! You can move again.",
+   "owner": "touch_artifact",
+   "loc": "artifact.c:953",
+   "jsOwner": "readobjnam(readobjnam.js:1280)",
+   "cTopline": "You are blasted by the key named the Master Key of Thievery's power!--More--",
+   "jsTopline": "You are blasted by the key named the Master Key of Thievery's power!--More--",
    "error": null
   },
   "scen-wish-Samurai-91102": {

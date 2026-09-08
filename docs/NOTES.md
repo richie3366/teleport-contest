@@ -13,6 +13,7 @@ Objective/score live in `CURRENT.md`.
 - **Healer-92107 residual (D-2137 Next):** destroy double-count (`mhitu.js:901` `+=` vs C `(void)` — still live 2026-09-08); audit fire/elec arms.
 - **STALE parks — do not re-pop (full falsifiers: LOOP-QUEUE Parked):** lesshungry · minliquid_core · rndcurse · mhitm_ad_famn · regen_hp · barehands · do_mapping (Priest-91120 past @95; now distfleeck@108).
 - **slimed park:** comment-line owner; dual writer (T26 landing gate + Sick single-store). Falsifier + probe: LOOP-QUEUE Parked.
+- **vomiting_dialogue park (2026-09-09, no js/):** scen-wish-Rogue-92221 step-57 «stairs vs floor» is a topline-literal tie-break (`timeout.c:249` comment «You can move again»); true printer `potion.c peffect_paralysis` via `dungeon.c surface` stairs arm (D-2008). HEAD live: screens 107/107, RNG 3308/3349, owner touch_artifact@92. Probe: `node scripts/hidden-proxy.mjs verify vomiting_dialogue --base 109f4444`. Do not re-pop; residual is touch_artifact blast RNG.
 
 ## Don't re-check (≤15)
 

@@ -93,7 +93,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** - [ ] `mhitu.c` gulpmu — blocks 1/553 corpus sessions (first at step 87): C draws `rn2(4)=3` in gulpmu, JS `rn2(5)=4` from distfleeck(monmove.js:840). Probe: `node scripts/hidden-proxy.mjs verify gulpmu` (scen-wish-Monk-92194).
+**Next cluster:** - [ ] `timeout.c` vomiting_dialogue — blocks 1/553 corpus sessions (first at step 57): C «Your feet are frozen to the stairs! You can move again.» vs JS «Your feet are frozen to the floor! You can move again.». Probe: `node scripts/hidden-proxy.mjs verify vomiting_dialogue` (scen-wish-Rogue-92221).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2161 (index).**
 <!-- recent:begin -->
