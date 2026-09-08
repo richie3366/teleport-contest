@@ -1690,8 +1690,10 @@ tutorial abandon; binary savelev; statue arms; ebones;
 resetobjs known-strip / set_ghostly (SLIME_MOLD fruit mark is D-1523); `save_dlevel` assign in `no_bones_level`; Is_special boneid letter variants; 
 inven_inuse / ball-chain placebc; accessible closed_door; shk name-based peace; 
 `hide_monst` after ghostly; `unleash_all` in finish_paybill; 
-`done_in_by` G_UNIQ/ghost/mimicker/vampshifter/priest|minion/minvis/hallu/monhealthdescr/
-multi_reason; enlightenment poly/remaining resistance catalogue; set_uasmon FROMRACE; 
+`done_in_by` G_UNIQ "the "+KILLED_BY w/ imitator/High-Cleric gates (D-2145; `type_is_pname`;
+`pmname(Mgender)` gendered name + "called"/"of" mgivenname (`has_ebones`); minvis +
+hallucinogen-distorted prefixes)/ghost arms/imitator+vampshifter/priest|minion m_monnam/
+monhealthdescr/multi_reason trim still named; enlightenment poly/remaining resistance catalogue; set_uasmon FROMRACE; 
 **`paygd`/`clearpriests`/`fixup_death`/`force_launch_placement`/`clearlocks`/
 `free_pickinv_cache`/`timet_delta` D-1812** (C `end.c` `really_done`
 `:1165` / `:1203` / `:1232` / `:1239–1244` / `:1378`; `vault.c` `paygd`

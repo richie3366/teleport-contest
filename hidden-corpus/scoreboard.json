@@ -1,6 +1,6 @@
 {
- "commit": "fc5f4794",
- "at": "2026-09-08T18:14:00.272Z",
+ "commit": "bb24a32f",
+ "at": "2026-09-08T18:37:10.666Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -7643,19 +7643,19 @@
   },
   "scen-wish-Barbarian-92102": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 2597,
+   "passed": true,
+   "rngM": 2792,
    "rngT": 2792,
-   "scrM": 49,
+   "scrM": 71,
    "scrT": 71,
-   "kind": "rng",
-   "step": 39,
+   "kind": null,
+   "step": null,
    "steps": 71,
-   "owner": "start_corpse_timeout",
-   "loc": "mkobj.c:1413",
-   "jsOwner": "makewish(zap.js:6638)",
-   "cTopline": "g - 3 floating eye corpses.",
-   "jsTopline": "g - 3 sewer rat corpses.",
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-wish-Caveman-92148": {
