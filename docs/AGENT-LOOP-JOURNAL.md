@@ -8,6 +8,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-08 — Audit D-2071…D-2079 against pinned C (reviews 1041–1049) + cadence score 44/44.
+
+9 JS-touching SHAs since a1ff924f, each re-verified with hidden-proxy
+verify --base HASH~1: 8 reproduce the D-log claim exactly; 1043 shows 2
+PASS vs claimed 1 PASS + 1 moved (explained: 3a388782 fixed the later
+can_twoweapon owner mid-batch); 1049's baseline lists 1 session vs claimed
+2 (explained: stale 84dc0e34 scoreboard; working-scoreboard rows corroborate
+both moves: 92119 save_dungeon@123, 92076 mhitm_knockback@159). 0 worse
+anywhere. Deep checks: Upolyd writer-closure (5 C writers all mirrored,
+polyman gate self-consistent), suit/armoroff 7-arm dispatch + dragon ranges
+vs obj.h:347–352, mdamagem knockback order vs mhitm.c:1060–1072, doengr_exit
+vs :1259–1263, ynq literal = established idiom (query_menu-only delta, not
+queued). 9 ACCEPT, 0 Must-fix — no LOOP-QUEUE change owed. Fortress 44/44
+(Scr 11405/11405, RNG 792838/792838, speed 65+0.38/turn R² 0.80). Rule #2
+clean. Scoreboard verify dirt reverted, not committed.
 ## 2026-09-08 — D-2079 you.h Upolyd was mtimedone-based, so timeout-expiry rehumanize kept the monster umonnum and lost «You can see again.» (queue owner rehumanize)
 
 **C locus:** `you.h:554` `#define Upolyd (u.umonnum != u.umonster)`; `polyself.c:200–268` `polyman` `:207–212` (`if (Upolyd)` restores acurr/amax, `u.umonnum = u.umonster`, female) then `:259–263` (`was_blind && !Blind` → `set_itimeout(&HBlinded,1)` + `make_blinded(0,TRUE)` → `potion.c:282` «You can see again.»); `timeout.c:642–648` (`if (u.mtimedone && !--u.mtimedone) ... rehumanize()` — mtimedone is already 0 at polyman entry, but Upolyd is still true via umonnum, so C restores).

@@ -1051,3 +1051,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1038-37fe9ecd-savebones-remove-mon.md](./1038-37fe9ecd-savebones-remove-mon.md) | `37fe9ecd` | D-2068 savebones remove_mon_from_bones | **ACCEPT** |
 | [1039-fd96761c-dohide-c-fix.md](./1039-fd96761c-dohide-c-fix.md) | `fd96761c` | D-2069 dohide + domonability c fix | **ACCEPT** |
 | [1040-55a129a8-sleep-dialogue-deaf-gate.md](./1040-55a129a8-sleep-dialogue-deaf-gate.md) | `55a129a8` | D-2070 sleep_dialogue + Deaf gate | **ACCEPT** |
+| [1041-357757d9-mhitm-ad-corr-arm.md](./1041-357757d9-mhitm-ad-corr-arm.md) | `357757d9` | D-2071 mhitm_ad_corr mhitu arm | **ACCEPT** |
+| [1042-37cebe60-muse-gain-level.md](./1042-37cebe60-muse-gain-level.md) | `37cebe60` | D-2072 muse GAIN_LEVEL trycall + grow_up | **ACCEPT** |
+| [1043-2831f984-doengrave-ynq.md](./1043-2831f984-doengrave-ynq.md) | `2831f984` | D-2073 doengrave add-to ynq + BUFSZ | **ACCEPT** |
+| [1044-8598abcf-mhitm-ad-samu.md](./1044-8598abcf-mhitm-ad-samu.md) | `8598abcf` | D-2074 mhitm_ad_samu three arms | **ACCEPT** |
+| [1045-4e4cce99-mhitm-ad-stun.md](./1045-4e4cce99-mhitm-ad-stun.md) | `4e4cce99` | D-2075 mhitm_ad_stun mhitu arm | **ACCEPT** |
+| [1046-3a388782-can-twoweapon-yname.md](./1046-3a388782-can-twoweapon-yname.md) | `3a388782` | D-2076 can_twoweapon Yname2/is_plural | **ACCEPT** |
+| [1047-6a12bc6f-armoroff-nouns.md](./1047-6a12bc6f-armoroff-nouns.md) | `6a12bc6f` | D-2077 armoroff per-category nouns | **ACCEPT** |
+| [1048-620d57b0-spelleffects-amulet.md](./1048-620d57b0-spelleffects-amulet.md) | `620d57b0` | D-2078 spelleffects amulet + suffix | **ACCEPT** |
+| [1049-2d94d42e-upolyd-predicate.md](./1049-2d94d42e-upolyd-predicate.md) | `2d94d42e` | D-2079 Upolyd umonnum predicate | **ACCEPT** |
