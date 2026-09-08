@@ -86,10 +86,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `end.c` really_done — blocks 3/553 corpus sessions (first at step 23): C «Do not pass Go. Do not collect 200 zorkmids.--More--» vs JS «Do you want your possessions identified? [ynq] (n)». Probe: `node scripts/hidden-proxy.mjs verify really_done` (scen-death-Ranger-92114, scen-genesis-Archeologist-91132, scen-wish-Monk-91136).
+**Next cluster:** `insight.c` one_characteristic — blocks 3/553 corpus sessions (first at step 14): C «Your constitution was 18 (limit:18).» vs JS «Your constitution was 18 (limit:18).». Probe: `node scripts/hidden-proxy.mjs verify one_characteristic` (scen-normal-Barbarian-92208, scen-normal-Caveman-92006, scen-normal-Tourist-91122).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2061 (index).**
+**Keep D-0845…D-2062 (index).**
 <!-- recent:begin -->
+**D-2062** the queue owner is a literal-match misattribution — `js/invent.js` — (a) ulycn were-form arm (`an(pmname(mons(ulycn), female?FEMALE:MALE))` + « in beast form» + wizard `mtimedone` iff `umonnum==ulycn`) and `Hate_silver` arm (`ismnum(ulycn) || hates_silver(youmonst.data)`)
 **D-2061** `end.c` really_done `:1186–1187` — `js/end.js` — after `at_midnight`, `if (((game.moves | 0) <= 1) && how < PANICKED && !(game.program_state?.done_stopprint | 0)) await pline(\`Do not pass Go.
 **D-2060** `end.c` really_done `:1206–1219` (maintain `ugrave_arise` even for `!bones_ok`: PANICKED → — `js/end.js` — (1) `really_done` maintains `ugrave_arise` per C `:1206–1219` (PANICKED/BURNING+DISSOLVED/STONING/TURNED_SLIME+`G_GENOD` check via `game.mvitals`, `PM_GREEN_SLIME` via `monsterNames.indexOf` like D-2057; ki
 **D-2059** the queue owner is a literal-match misattribution — `js/mhitu.js` — file-local `diseasemu` + `mhitm_ad_pest_u` + `mhitm_ad_heal_u` in the `mhitm_ad_famn_u` shape, wired into `mhitm_adtyping_u` in exact C order.
@@ -97,11 +98,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2057** symptom owner `botl.c` `do_statusline1` `:47–98` (`:85` `St:%s…Ch:%-1d` via `get_strength_ — `js/attrib.js` — CHA arm now `if (tmp < 18 && (game.youmonst?.data?.mlet === 'S_NYMPH' || (u.umonnum|0) === PM_AMOROUS_DEMON)) result = 18` (C `:1214–1216`; `PM_AMOROUS_DEMON` via `monsterNames.indexOf`, same idiom as `j
 **D-2056** `dothrow.c` `dofire` `:543–554` — `js/dothrow.js` — deleted the post-doquiver `mark_topline_seen()` with a C citation comment (no skip in C; `tty_yn_function` flushes).
 **D-2055** (1–2) `objnam.c readobjnam :5143–5165` STATUE/FIGURINE/CORPSE spe arm — `js/readobjnam.js` — full C spe switch in exact C order before the recharged hunk (TIN 0 + EMPTY/SPINACH contents arms; TOWEL wetness; SLIME_MOLD `ftype` deferred with comment; KEY/CHEST/BOX/BALL/CHAIN retain; STATUE/FIG
-**D-2054** queue owner `teleport.c level_tele :1427` is the *symptom* owner (the `schedule_goto` post — `js/hack.js` — file-local `monstinroom(mndx,roomno)` (fmon scan, DEADMONSTER skip, `mnum ?? data.mndx` + local `in_rooms`, mirroring C pointer-equality via the lock.js oracle idiom) and `furniture_present(furniture,roomn
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2061; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2062; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

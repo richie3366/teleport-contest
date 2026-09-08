@@ -275,7 +275,7 @@ Options toggle)** (D-0928 #1192); **`<space>` → `donull` when `flags.rest_on_s
 Eyes/Hallu talk deferred; **Unaware talk=FALSE is D-1768**; **Punished `set_bc` is D-1769**; Sting is D-1755); 
 **`set_uasmon`→`set_mon_data` prorates `u.umovement` when new form slower** (D-0717; 
 **`set_uasmon` resist_from_form MR_* FIRE…STONE + FLYING/BLINDED** D-0928 #1121; 
-DRAIN_RES/ANTIMAGIC/SICK_RES/STUNNED/…/BLND_RES/`#monster`/`dobreathe` deferred; 
+ANTIMAGIC/SICK_RES/STUNNED (DRAIN_RES via resists_drli_you is D-2062; defended(AD_DRLI) still omitted)/…/BLND_RES/`#monster`/`dobreathe` deferred; 
 **`newman`/`polyman`/`redist_attr`/`rndexp`** (D-0718) + 
 **`urace.individual.m/f` → "new man"** (D-0726; Sick/Stoned/Slimed/livelog/retouch deferred); 
 **`polymon`→`encumber_msg` + `setworn` skip_find_ac** (D-0722); 

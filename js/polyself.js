@@ -59,6 +59,7 @@ import {
     is_gnome,
     is_giant,
     is_undead,
+    is_demon,
     is_golem,
     is_unicorn,
     strongmonst,
@@ -130,6 +131,7 @@ import {
     POISON_RES,
     ACID_RES,
     STONE_RES,
+    DRAIN_RES,
     KILLED_BY_AN,
     BOLT_LIM,
     ECMD_CANCEL,
@@ -162,6 +164,7 @@ const GRAY_DRAGON_SCALE_MAIL = objectNames.indexOf('GRAY_DRAGON_SCALE_MAIL');
 const YELLOW_DRAGON_SCALE_MAIL = objectNames.indexOf('YELLOW_DRAGON_SCALE_MAIL');
 
 const PM_GRAY_DRAGON = monsterNames.indexOf('PM_GRAY_DRAGON');
+const PM_DEATH = monsterNames.indexOf('PM_DEATH');
 const PM_URUK_HAI = monsterNames.indexOf('PM_URUK_HAI');
 const PM_ORC_CAPTAIN = monsterNames.indexOf('PM_ORC_CAPTAIN');
 const PM_OWLBEAR = monsterNames.indexOf('PM_OWLBEAR');
@@ -504,9 +507,26 @@ export function float_vs_flight() {
 }
 
 /**
+ * C ref: mondata.c resists_drli for &gy.youmonst — undead/demon/were form,
+ * human-form ulycn arm (mondata.c:206-207), Death, vampshifter. set_uasmon
+ * zeroes uwep before calling, so the wielded-weapon path is suppressed;
+ * the defended(mon, AD_DRLI) disjunct has no JS export (named omission).
+ */
+function resists_drli_you(mdat) {
+    const u = game.u || {};
+    if (!mdat) return false;
+    if (is_undead(mdat) || is_demon(mdat) || is_were(mdat)) return true;
+    if (ismnum((u.ulycn ?? NON_PM) | 0)) return true;
+    if ((u.umonnum | 0) === PM_DEATH) return true;
+    if (is_vampshifter(game.youmonst || {})) return true;
+    return false;
+}
+
+/**
  * C ref: polyself.c set_uasmon — point youmonst.data at mons[umonnum]
  * via set_mon_data (prorates u.umovement when new form is slower).
- * Named omissions: DRAIN_RES (uwep-suppressed resists_drli); ANTIMAGIC;
+ * Named omissions: defended(AD_DRLI) disjunct of resists_drli (no JS
+ * defended export); ANTIMAGIC;
  * SICK_RES fungus/ghoul; STUNNED/HALLUC_RES/SEE_INVIS/TELEPAT/INFRAVISION/
  * INVIS/TELEPORT/TELEPORT_CONTROL/LEVITATION/SWIMMING/PASSES_WALLS/
  * REGENERATION/REFLECTING/BLND_RES; vamp cham; polysense;
@@ -535,6 +555,8 @@ export function set_uasmon() {
     propset_fromform(POISON_RES, 'HPoison_resistance', !!(mres & MR_POISON));
     propset_fromform(ACID_RES, 'HAcid_resistance', !!(mres & MR_ACID));
     propset_fromform(STONE_RES, 'HStone_resistance', !!(mres & MR_STONE));
+    // C: PROPSET(DRAIN_RES, resists_drli(&gy.youmonst)) with uwep suppressed
+    propset_fromform(DRAIN_RES, 'HDrain_resistance', resists_drli_you(mdat));
 
     // C: PROPSET(FLYING, is_flyer(mdat) && !is_floater(mdat)) — D-0724
     // floating eye is flyer+floater; suppress Flying under Levitation.

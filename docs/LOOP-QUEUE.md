@@ -59,7 +59,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `insight.c` one_characteristic — blocks 3/553 corpus sessions (first at step 14): C «Your constitution was 18 (limit:18).» vs JS «Your constitution was 18 (limit:18).». Probe: `node scripts/hidden-proxy.mjs verify one_characteristic` (scen-normal-Barbarian-92208, scen-normal-Caveman-92006, scen-normal-Tourist-91122).
 - [ ] `monmove.c` distfleeck — blocks 3/553 corpus sessions (first at step 43): C draws `rn2(5)=1` in distfleeck, JS `rn2(7)=5` from do_attack(uhitm.js:2942). Probe: `node scripts/hidden-proxy.mjs verify distfleeck` (scen-normal-Healer-92218, scen-normal-Tourist-92061, scen-tour-Rogue-92030).
 - [ ] `polyself.c` polyself — blocks 2/553 corpus sessions (first at step 63): C «You can't polymorph into Croesus.--More--» vs JS «You can't polymorph into a Croesus.--More--». Probe: `node scripts/hidden-proxy.mjs verify polyself` (scen-poly-Archeologist-92119, scen-poly-Caveman-91133).
 - [ ] `zap.c` zapyourself — blocks 2/553 corpus sessions (first at step 17): C «You've set yourself afire! Your gloves smoulder!--More--» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify zapyourself` (scen-death-Knight-92188, scen-wish-Rogue-92210).
