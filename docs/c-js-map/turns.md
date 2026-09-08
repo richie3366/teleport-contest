@@ -276,7 +276,7 @@ Eyes/Hallu talk deferred; **Unaware talk=FALSE is D-1768**; **Punished `set_bc` 
 **`set_uasmon`→`set_mon_data` prorates `u.umovement` when new form slower** (D-0717; 
 **`set_uasmon` resist_from_form MR_* FIRE…STONE + FLYING/BLINDED** D-0928 #1121; 
 ANTIMAGIC/SICK_RES/STUNNED (DRAIN_RES via resists_drli_you is D-2062; defended(AD_DRLI) still omitted)/…/BLND_RES/`#monster`/`dobreathe` deferred; 
-**`newman`/`polyman`/`redist_attr`/`rndexp`** (D-0718) + 
+**`newman`/`polyman`/`redist_attr`/`rndexp`** (D-0718; **`Upolyd` ≡ `umonnum!=umonster` D-2079** — `you.h:554`, never `mtimedone`; timeout-expiry rehumanize restores race umonnum so eyeless FROMFORM clears and `make_blinded(0,TRUE)` prints "You can see again.") + 
 **`urace.individual.m/f` → "new man"** (D-0726; Sick/Stoned/Slimed/livelog/retouch deferred); 
 **`polymon`→`encumber_msg` + `setworn` skip_find_ac** (D-0722); 
 **`#monster`/`domonability` reflexive** (D-0723; 

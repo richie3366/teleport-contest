@@ -3156,9 +3156,13 @@ export function has_omid(obj) { return !!(obj?.oextra && (obj.oextra.omid | 0));
 export function MGIVENNAME(mtmp) { return mtmp?.mextra?.mgivenname || mtmp?.mgivenname || ''; }
 export function has_mgivenname(mtmp) { return !!(mtmp?.mextra?.mgivenname || mtmp?.mgivenname); }
 
-// C: you.h — #define Upolyd (u.mtimedone != 0)
+// C you.h:554 — #define Upolyd (u.umonnum != u.umonster); role init sets
+// both to urole.mnum (u_init.c:991), polymon sets umonnum=mntmp,
+// polyman restores umonnum=umonster. mtimedone==0 at timeout expiry must
+// NOT read human (D-2079: rehumanize kept mold umonnum, FROMFORM Blind
+// stuck, "You can see again." lost).
 export function Upolyd(player) {
-    return !!(player && player.mtimedone && player.mtimedone > 0);
+    return !!player && ((player.umonnum | 0) !== (player.umonster | 0));
 }
 
 // Canonical macros — previously duplicated as local stubs in 15+ files
