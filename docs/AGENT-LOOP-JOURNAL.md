@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-08 — D-2161 `mhitu.c` gulpmu AD_DREN + `trap.c` drain_en: engulf energy-drain draw (1 session moved past)
+
+**C locus:** `mhitu.c:1537–1542` (gulpmu `case AD_DREN`: «AC magic cancellation doesn't help when engulfed», `if (!mtmp->mcan && rn2(4)) drain_en(tmp, FALSE); tmp = 0`) + `trap.c:5201–5244` (`drain_en`: uenmax<1 zero-out vs throttle `n = rnd(n)` when `n > (uen+uenmax)/3`, `!` punct when `n > uen`, `uenmax -= rnd(-uen)` spill, `disp.botl`, then `You_feel` after state so status repaints first).
+**JS:** `js/trap.js` + `js/mhitu.js` (import name + 4-line arm + doc-comment omission update). Insertions ≈50, under the 600 cap.
+**Change:** new exported async `drain_en(n, max_already_drained)` in `js/trap.js` (C-faithful home; `rnd`/`You_feel`/`game.disp.botl` already live there) in exact C order and short-circuit (`|0` int reads, `Math.trunc` for the C `/3`, house `await You_feel(`${mesg}${punct}`)`); wired at the C site in gulpmu with `if (!(mtmp.mcan | 0) && rn2(4)) await drain_en(tmp, false)` (`imports.mjs --can`: ALREADY, same existing trap.js edge, no new edge).
+**Verify:** `node scripts/verify.mjs --fn gulpmu` → PASS syntax (2 changed files: js/mhitu.js js/trap.js) · PASS rule2 (no fs/path/url/node:, no DIAG/FORCE/seed gates) · PASS hidden (scen-wish-Monk-92194 moved gulpmu@87 → do_statusline2@88, later owner) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · full skipped (no shared file changed). VERIFY: PASS.
+**Named:** none in this arm — every C branch of AD_DREN + drain_en is live. (Pre-existing gulpmu omissions unchanged: Punished ball, steed DISMOUNT_ENGULFED, leashes, petrify, snuff_lit invent, Slow_digestion, ugolemeffects/monstseesu, Half_physical polish.)
+**Next:** `timeout.c` vomiting_dialogue (next Open row); queue drops 8→7, refill owed to ~12.
 ## 2026-09-08 — Audit 756b0fe9..344fe348 (reviews 1123–1126: 4 ACCEPT, 0 Must-fix) + cadence 44/44
 
 Review iter over the 4 JS-touching SHAs since bfebf129 (5 park/audit commits docs-only, skipped per method). Each verify claim re-measured with `hidden-proxy verify <fn> --base <sha>~1`: use_lamp 0 PASS/1 moved (PROGRESS), escape_from_sticky_mon 1 PASS, fprefx 0 PASS/1 moved (PROGRESS), sickness_dialogue 1 PASS — all match the D-logs, no vacuous checks, no regressions. No C-wrongs, no Must-fix, no queue/CURRENT-Next change (Open stays 8, in band). Cadence: full `sessions` 44/44, Scr 11,405/11,405, RNG 792,838/792,838, speed 55+0.35/turn (R² 0.79).

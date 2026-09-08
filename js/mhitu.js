@@ -99,7 +99,7 @@ import {
 import { morehungry, is_fainted } from './eat.js';
 import { castmu, buzzmu } from './mcastu.js';
 import { rehumanize, polymon, body_part } from './polyself.js';
-import { set_wounded_legs, burnarmor, ignite_items, ceiling } from './trap.js';
+import { set_wounded_legs, burnarmor, ignite_items, ceiling, drain_en } from './trap.js';
 import { mon_explodes } from './explode.js';
 import { make_hallucinated, make_confused, make_stunned, make_sick } from './potion.js';
 import { SetVoice, Soundeffect } from './sndprocs.js';
@@ -1713,8 +1713,8 @@ function gulpmu_can_blnd(mtmp, mattk) {
  * Envelope: first swallow place+ustuck+uswldtim; AD_PHYS/COLD/FIRE/ELEC/DGST/
  * ACID/BLND arms; mdamageu; expel on timer.
  * Named omissions: Punished ball; steed DISMOUNT_ENGULFED; leashes; petrify;
- * snuff_lit invent; Slow_digestion; ugolemeffects/monstseesu; diseasemu;
- * drain_en; Half_physical polish;
+ * snuff_lit invent; Slow_digestion; ugolemeffects/monstseesu;
+ * Half_physical polish;
  * display_nhwindow(WIN_MESSAGE) before vision_recalc (D-0852 #996);
  * swallowed cls/bot polish; u_on_newpos while digesting (D-0826 postmov).
  */
@@ -1891,6 +1891,10 @@ async function gulpmu(mtmp, mattk) {
         if (!(await diseasemu(mtmp?.data))) tmp = 0;
         break;
     case AD_DREN:
+        /* C mhitu.c:1537-1542 — AC magic cancellation doesn't help when
+           engulfed; 75% chance via rn2(4) short-circuit after !mcan */
+        if (!(mtmp.mcan | 0) && rn2(4))
+            await drain_en(tmp, false);
         tmp = 0;
         break;
     default:

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `timeout.c` sickness_dialogue — blocks 1/553 corpus sessions (first at step 65): C «You are at Death's door.--More--» vs JS «You are at Death's door.». Probe: `node scripts/hidden-proxy.mjs verify sickness_dialogue` (scen-intrinsic-Rogue-91111). **Addressed:** D-2160
+- [x] `mhitu.c` gulpmu — blocks 1/553 corpus sessions (first at step 87): C draws `rn2(4)=3` in gulpmu, JS `rn2(5)=4` from distfleeck(monmove.js:840). Probe: `node scripts/hidden-proxy.mjs verify gulpmu` (scen-wish-Monk-92194). **Addressed:** D-2161
+
+
+- [x] `timeout.c` sickness_dialogue — blocks 1/553 corpus sessions (first at step 65): C «You are at Death's door.--More--» vs JS «You are at Death's door.». Probe: `node scripts/hidden-proxy.mjs verify sickness_dialogue` (scen-intrinsic-Rogue-91111). **Addressed:** D-2160 `344fe348`
 
 
 - [x] `eat.c` fprefx — blocks 1/553 corpus sessions (first at step 99): C draws `rn2(2)=0` in fprefx, JS `rn2(70)=2` from maybe_generate_rnd_mon(allmain.js:349). Probe: `node scripts/hidden-proxy.mjs verify fprefx` (scen-wish-Knight-92105). **Addressed:** D-2159 `43f6a519`

@@ -2568,6 +2568,49 @@ export function reset_utrap(_msg) {
 }
 
 /**
+ * C ref: trap.c:5201-5244 drain_en — energy drain with uen/uenmax throttle.
+ * Exact C order and short-circuit: uenmax<1 → zero + botl + lethargic;
+ * else throttle n via rnd when n > (uen+uenmax)/3, '!' punct when n > uen,
+ * uen-=n with uenmax-=rnd(-uen) spill, botl, then You_feel after state.
+ */
+export async function drain_en(n, max_already_drained) {
+    const u = game.u || (game.u = {});
+    let mesg;
+    let punct = max_already_drained ? '!' : '.';
+    if ((u.uenmax | 0) < 1) {
+        /* energy is completely gone */
+        if ((u.uen | 0) || (u.uenmax | 0)) { /* paranoia */
+            u.uen = 0;
+            u.uenmax = 0;
+            if (game.disp) game.disp.botl = true;
+        }
+        mesg = 'momentarily lethargic';
+    } else {
+        /* throttle further loss a bit when there's not much left to lose */
+        if ((n | 0) > Math.trunc(((u.uen | 0) + (u.uenmax | 0)) / 3))
+            n = rnd(n | 0);
+        mesg = 'your magical energy drain away';
+        if ((n | 0) > (u.uen | 0))
+            punct = '!';
+        u.uen = (u.uen | 0) - (n | 0);
+        if ((u.uen | 0) < 0) {
+            u.uenmax = (u.uenmax | 0) - rnd(-(u.uen | 0));
+            if ((u.uenmax | 0) < 0)
+                u.uenmax = 0;
+            u.uen = 0;
+        } else if ((u.uen | 0) > (u.uenmax | 0)) {
+            /* uen might be greater than uenmax if caller reduced uenmax
+               and then we throttled the loss being applied to current */
+            u.uen = u.uenmax;
+        }
+        if (game.disp) game.disp.botl = true;
+    }
+    /* after manipulating u.uen,uenmax and setting context.botl, so
+       that You_feel() -> pline() will update status before the message */
+    await You_feel(`${mesg}${punct}`);
+}
+
+/**
  * C ref: trap.c back_on_ground — simplified surface wording.
  * Named omissions: ice_descr / surface / Levitation-Flying preposition
  * matrix beyond solid-ground default.

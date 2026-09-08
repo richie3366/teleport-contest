@@ -1,6 +1,6 @@
 {
- "commit": "344fe348",
- "at": "2026-09-08T22:11:47.462Z",
+ "commit": "109f4444",
+ "at": "2026-09-08T22:21:09.891Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -8058,18 +8058,18 @@
   "scen-wish-Monk-92194": {
    "src": "corpus",
    "passed": false,
-   "rngM": 2345,
+   "rngM": 2392,
    "rngT": 2392,
-   "scrM": 87,
+   "scrM": 113,
    "scrT": 135,
-   "kind": "rng",
-   "step": 87,
+   "kind": "screen",
+   "step": 88,
    "steps": 135,
-   "owner": "gulpmu",
-   "loc": "mhitu.c:1539",
-   "jsOwner": "distfleeck(monmove.js:840)",
-   "cTopline": "You feel your magical energy drain away.--More--",
-   "jsTopline": "",
+   "owner": "do_statusline2",
+   "loc": "botl.c:130",
+   "jsOwner": null,
+   "cTopline": "The air around you crackles with electricity.--More--",
+   "jsTopline": "The air around you crackles with electricity.--More--",
    "error": null
   },
   "scen-wish-Monk-92207": {

@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `mhitu.c` gulpmu — blocks 1/553 corpus sessions (first at step 87): C draws `rn2(4)=3` in gulpmu, JS `rn2(5)=4` from distfleeck(monmove.js:840). Probe: `node scripts/hidden-proxy.mjs verify gulpmu` (scen-wish-Monk-92194).
 - [ ] `timeout.c` vomiting_dialogue — blocks 1/553 corpus sessions (first at step 57): C «Your feet are frozen to the stairs! You can move again.» vs JS «Your feet are frozen to the floor! You can move again.». Probe: `node scripts/hidden-proxy.mjs verify vomiting_dialogue` (scen-wish-Rogue-92221).
 - [ ] `pray.c` doturn — blocks 1/553 corpus sessions (first at step 149): C «You are not able to call upon Raijin to turn aside evilness.» vs JS «You are not able to call upon Raijin to turn aside evilness.». Probe: `node scripts/hidden-proxy.mjs verify doturn` (scen-intrinsic-Priest-92096).
 - [ ] `botl.c` do_statusline1 — blocks 1/553 corpus sessions (first at step 253): C «i - a war hammer named Ogresmasher (weapon in right hand).» vs JS «i - a war hammer named Ogresmasher (weapon in right hand).». Probe: `node scripts/hidden-proxy.mjs verify do_statusline1` (scen-wish-Valkyrie-92206).
@@ -68,6 +67,11 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 - [ ] `makemon.c` newmonhp — blocks 1/553 corpus sessions (first at step 47): C draws `d(13,8)=55` in newmonhp, JS `d(1,8)=2` from newmonhp(makemon.js:931). Probe: `node scripts/hidden-proxy.mjs verify newmonhp` (scen-tour-Tourist-92134).
 - [ ] `zap.c` maybe_destroy_item — blocks 1/553 corpus sessions (first at step 164): C draws `rnd(4)=2` in maybe_destroy_item, JS `rn2(3)=1` from mhitm_knockback(mhitm.js:2029). Probe: `node scripts/hidden-proxy.mjs verify maybe_destroy_item` (scen-tour-Tourist-91101).
 - [ ] `cmd.c` yn_function — blocks 1/553 corpus sessions (first at step 111): C «Die? [yn] (n)» vs JS «You die...--More--». Probe: `node scripts/hidden-proxy.mjs verify yn_function` (scen-wish-Barbarian-92054).
+- [ ] `dig.c` use_pick_axe — blocks 1/553 corpus sessions (first at step 11): C «In what direction do you want to dig? [yku>]» vs JS «In what direction do you want to dig? [kyu>]». Probe: `node scripts/hidden-proxy.mjs verify use_pick_axe` (scen-kit-Archeologist-92022).
+- [ ] `attrib.c` adjattrib — blocks 1/553 corpus sessions (first at step 16): C «By that time, Narahara had already slipped his arm from the» vs JS «More info about "human samurai"? [yn] (n)». Probe: `node scripts/hidden-proxy.mjs verify adjattrib` (scen-normal-Samurai-92071).
+- [ ] `polyself.c` newman — blocks 1/553 corpus sessions (first at step 127): C draws `rn2(5)=0` in newman, JS draws nothing. Probe: `node scripts/hidden-proxy.mjs verify newman` (scen-poly-Samurai-91106).
+- [ ] `do.c` u_stuck_cannot_go — blocks 1/553 corpus sessions (first at step 172): C «You release the iron golem. The iron golem hits!--More--» vs JS «The iron golem hits! The iron golem hits!». Probe: `node scripts/hidden-proxy.mjs verify u_stuck_cannot_go` (scen-poly-Valkyrie-92195).
+- [ ] `mondata.c` name_to_monplus — blocks 1/553 corpus sessions (first at step 81): C «» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify name_to_monplus` (scen-genesis-Archeologist-92175).
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 
