@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `monmove.c` dochug — blocks 2/553 corpus sessions (first at step 59): C draws `rn2(5)=1` in dochug, JS `rn2(40)=11` from dochug(monmove.js:2154). Probe: `node scripts/hidden-proxy.mjs verify dochug` (scen-tour-Priest-92235, scen-tour-Wizard-92103). **Addressed:** D-2090
+- [x] `uhitm.c` mhitm_knockback — blocks 2/553 corpus sessions (first at step 236): C draws `rn2(3)=2` in mhitm_knockback, JS `rn2(6)=5` from mhitm_knockback(mhitm.js:2027). Probe: `node scripts/hidden-proxy.mjs verify mhitm_knockback` (scen-poly-Ranger-92090, scen-poly-Wizard-92076). **Addressed:** D-2091
+
+
+- [x] `monmove.c` dochug — blocks 2/553 corpus sessions (first at step 59): C draws `rn2(5)=1` in dochug, JS `rn2(40)=11` from dochug(monmove.js:2154). Probe: `node scripts/hidden-proxy.mjs verify dochug` (scen-tour-Priest-92235, scen-tour-Wizard-92103). **Addressed:** D-2090 `068dfccc`
 
 
 - [x] `objnam.c` readobjnam gold-block fall-through on tin-typed `bp` **Addressed:** D-2089 `fd3f5f38`: wish `tin of gold piece` returns GOLD_PIECE where C (`return 2` → typfnd, skips Case 3) makes a tin — guard the `isGold` block in `js/readobjnam.js` with `!d.typ`. Probe: wish `tin of gold piece` and compare object class. Source: reviews/loop-unattended/1054-4d3d5dd3-postparse1-of-arm.md (review 1054, C-wrong 1).
