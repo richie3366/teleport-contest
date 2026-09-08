@@ -8,6 +8,26 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-08 — Audit reviews 1027–1033 (D-2057…D-2063) + cadence score
+
+**Scope:** 7 JS-touching SHAs since audit 744aa202 (`a223472a`,
+`61843507`, `0a8386e7`, `69ae5b11`, `9151bc52`, `a5d86687`,
+`84dc0e34`); 2 park commits skipped (docs-only, no js/).
+**Method:** pinned-C audit per SHA (`csym` bodies + callers,
+`sym.mjs` on every re-pointed symbol, banned-pattern grep,
+`imports.mjs --rulecheck`, independent `hidden-proxy verify
+--base HASH~1` re-run for each claim). All 7 re-runs reproduce the
+D-log summary lines exactly (1027/1028/1029/1030/1032 byte-identical
+sessions; 1031 +1 later-queued row moving forward; 1033 0 PASS /
+2 moved-past to later owners). Deepest checks: 1028
+`glyph_is_monster` macro disjunct-for-disjunct + worm-tail
+arithmetic; 1029 `Sick`=uprops-intrinsic TIMEOUT semantics;
+1030 `mk_named_object` clone matched to `mkobj.c:2251–2267`;
+1032 `enl_msg` present/past macro driving the survived block;
+1033 do_vampyr RNG short-circuit case analysis + `mndx` provenance.
+**Result: 7 ACCEPT, 0 Must-fix.** Observations only (unreachable
+`make_sick` SICK_ALL fallback; loose Hate_silver citation).
+**Next:** pop the next Open row (`zap.c` zapyourself).
 ## 2026-09-08 — D-2063 polyself controlled-name article + POLY_MONSTER vampire shape change (queue owner polyself)
 
 **C locus:** `polyself.c` polyself `:596–615` (!polyok message arm: `pmname(flags.female)` then `the_unique_pm`→`the()` / `!type_is_pname`→bare / else `an()`; own-race-nonunique + own-role guard forces newman instead) + `:511` (`monsterpoly && isvamp` goto do_vampyr) + do_vampyr re-pick (leader `rn2(10)`→wolf else `rn2(4)`→fog/bat, cham `rn2(2)` override) + `controllable_poly` y_n «Become %s?» + PM_HUMAN→newman else polymon, goto made_change; `controllable_poly = Polymorph_control && !(Stunned || Unaware)` `:480`.

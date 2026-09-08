@@ -20,10 +20,10 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-08** — full `sessions` at **D-2056**
-(audit **1018–1026**, `72cf8c52`+review). Fortress **44/44** (no throws).
+Score last measured: **2026-09-08** — full `sessions` at **D-2063**
+(audit **1027–1033**, `84dc0e34`+review). Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`61+0.39/turn` (R² 0.79).
+`63+0.43/turn` (R² 0.79).
 
 ## Score
 
@@ -32,7 +32,7 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `89+0.60/turn` (R² 0.78) |
+| Speed label | `63+0.43/turn` (R² 0.79) |
 | Role-init throws | **0 / 44** |
 
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-06
@@ -48,6 +48,7 @@ they no longer pick work. Top owners: `welcome`→`calendar.c getlt` ×51,
 ×7, `wiz_intrinsic` ×7, 4 `ReferenceError` throws ×8 (Must-fix).
 Reviews 990–1017: 24 ACCEPT, 2 ACCEPT-WITH-DEBT (991/998 map/state debts named, 1000 D-2030 slip harmless), 2 QUALITY-RISK (1006/1014 Must-fix all shipped).
 Reviews 1018–1026: 8 ACCEPT, 1 ACCEPT-WITH-DEBT (1025 readobjnam deny-check debt, map-named, no Must-fix).
+Reviews 1027–1033: 7 ACCEPT, 0 Must-fix.
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score --jobs 8`
 (≈200 s); when every family is ≥ 85 % PASS, grow it first:
 `node scripts/scenario-gen.mjs --n 120 --seed <iter×100>`.

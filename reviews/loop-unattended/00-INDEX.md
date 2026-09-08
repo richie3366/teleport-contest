@@ -1037,3 +1037,10 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1024-48101789-arrival-messages.md](./1024-48101789-arrival-messages.md) | `48101789` | D-2054 DELPHI/COURT/Sam arrival | **ACCEPT** |
 | [1025-df50c05e-readobjnam-spe-corpsenm.md](./1025-df50c05e-readobjnam-spe-corpsenm.md) | `df50c05e` | D-2055 readobjnam spe/corpsenm | **ACCEPT-WITH-DEBT** |
 | [1026-72cf8c52-dofire-more-period.md](./1026-72cf8c52-dofire-more-period.md) | `72cf8c52` | D-2056 dofire More + period | **ACCEPT** |
+| [1027-a223472a-statusline-stat-writers.md](./1027-a223472a-statusline-stat-writers.md) | `a223472a` | D-2057 acurr CHA floor + giant Str + ring ABON | **ACCEPT** |
+| [1028-61843507-terrain-browse-describe.md](./1028-61843507-terrain-browse-describe.md) | `61843507` | D-2058 reveal int-glyph threading + GLOC_MONS | **ACCEPT** |
+| [1029-0a8386e7-mhitu-ad-heal-pest.md](./1029-0a8386e7-mhitu-ad-heal-pest.md) | `0a8386e7` | D-2059 mhitu AD_HEAL + AD_PEST | **ACCEPT** |
+| [1030-69ae5b11-stoning-statue-drop-arm.md](./1030-69ae5b11-stoning-statue-drop-arm.md) | `69ae5b11` | D-2060 ugrave_arise + LEAVESTATUE + cont arm | **ACCEPT** |
+| [1031-9151bc52-really-done-first-move.md](./1031-9151bc52-really-done-first-move.md) | `9151bc52` | D-2061 really_done first-move line | **ACCEPT** |
+| [1032-a5d86687-final-disclosure-tail.md](./1032-a5d86687-final-disclosure-tail.md) | `a5d86687` | D-2062 disclosure tail + DRAIN_RES | **ACCEPT** |
+| [1033-84dc0e34-polyself-article-vampyr.md](./1033-84dc0e34-polyself-article-vampyr.md) | `84dc0e34` | D-2063 poly article + do_vampyr | **ACCEPT** |
