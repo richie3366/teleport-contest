@@ -5,11 +5,14 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `objnam.c` readobjnam — blocks 2/553 corpus sessions: C resolves slime-mold wishes with zero draws, JS draws `rn2(76)` @ rnd_otyp_by_namedesc(readobjnam.js:245). Probe: `node scripts/hidden-proxy.mjs verify readobjnam` (scen-wish-Archeologist-92238 step 42 "3 slime mold", scen-wish-Knight-92130 step 90 "cursed slime mold"→2). Falsifier: C-recorder wish experiment (D-2021/D-2022/D-2111 — documented paths exhausted, do not re-read). **Addressed:** D-2111
-- [x] `hack.c` spoteffects — blocks 1/553 corpus sessions (first at step 35): screen-first with RNG matched ~361 draws past the D-2111 fix point; C owner `spoteffects` `hack.c:3434` falling-object arm (was `next_ident`@34). Probe: `node scripts/hidden-proxy.mjs verify spoteffects` (scen-tour-Samurai-92161). **Addressed:** D-2111
+- [x] `wield.c` chwepon — blocks 2/553 corpus sessions (first at step 68): C «Your dexterity was 9.» vs JS «Your dexterity was 9.». Probe: `node scripts/hidden-proxy.mjs verify chwepon` (scen-death-Monk-92000, scen-death-Wizard-92120). **Addressed:** D-2112
 
 
-- [x] `mkobj.c` next_ident — blocks 3/553 corpus sessions (first at step 34): C draws `rnd(2)=2` in next_ident, JS `rnd(1)=1` from monmulti(weapon.js:1460). Probe: `node scripts/hidden-proxy.mjs verify next_ident` (scen-tour-Samurai-92161, scen-wish-Archeologist-92238, scen-wish-Knight-92130). **Addressed:** D-2111
+- [x] `objnam.c` readobjnam — blocks 2/553 corpus sessions: C resolves slime-mold wishes with zero draws, JS draws `rn2(76)` @ rnd_otyp_by_namedesc(readobjnam.js:245). Probe: `node scripts/hidden-proxy.mjs verify readobjnam` (scen-wish-Archeologist-92238 step 42 "3 slime mold", scen-wish-Knight-92130 step 90 "cursed slime mold"→2). Falsifier: C-recorder wish experiment (D-2021/D-2022/D-2111 — documented paths exhausted, do not re-read). **Addressed:** D-2111 `cc3dcaae`
+- [x] `hack.c` spoteffects — blocks 1/553 corpus sessions (first at step 35): screen-first with RNG matched ~361 draws past the D-2111 fix point; C owner `spoteffects` `hack.c:3434` falling-object arm (was `next_ident`@34). Probe: `node scripts/hidden-proxy.mjs verify spoteffects` (scen-tour-Samurai-92161). **Addressed:** D-2111 `cc3dcaae`
+
+
+- [x] `mkobj.c` next_ident — blocks 3/553 corpus sessions (first at step 34): C draws `rnd(2)=2` in next_ident, JS `rnd(1)=1` from monmulti(weapon.js:1460). Probe: `node scripts/hidden-proxy.mjs verify next_ident` (scen-tour-Samurai-92161, scen-wish-Archeologist-92238, scen-wish-Knight-92130). **Addressed:** D-2111 `cc3dcaae`
 
 
 - [x] `invent.c` dolook — blocks 1/553 corpus sessions (first at step 108): C «You can't see in here!» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify dolook` (scen-genesis-Wizard-92223). **Addressed:** D-2110 `9ee606c1`

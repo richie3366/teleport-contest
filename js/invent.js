@@ -5033,9 +5033,10 @@ function status_core_lines(final = 0, opts = {}) {
         if (wizard && (hb & TIMEOUT) === hb && !u.ublindf) {
             buf += ` (${hb & TIMEOUT})`;
         }
-        // C: !haseyes(youmonst.data) avoids "innately blind innately";
-        // race form matches the neighboring Infravision fallback.
-        const noeyes = !haseyes(mons(game.urace?.mnum));
+        // C insight.c:1070-1071 — current form youmonst.data (set_uasmon
+        // points it at mons[umonnum]), not the race base form; avoids
+        // "you are innately blind innately" while eyeless-polymorphed.
+        const noeyes = !haseyes(game.youmonst?.data);
         out.push(wrap(buf, noeyes ? '' : from_what(BLINDED)));
     }
     // C: if (Deaf) you_are("deaf", from_what(DEAF)); from_what wizard-only

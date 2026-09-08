@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-08 — D-2112 `insight.c` status_enlightenment Blind `!haseyes` gate reads current form, not race (queue row `wield.c` chwepon, 2 sessions)
+
+**C locus:** `insight.c:1070–1071` — `you_are(buf, !haseyes(gy.youmonst.data) ? "" : from_what(BLINDED))` (Blind arm `:1059–1074`; `set_uasmon` points `youmonst.data` at `mons[umonnum]`, live in `js/polyself.js:558`).
+**JS:** 1 file (`invent.js`, +4/−3), under the 600/10 caps. Rule #2 clean; no DIAG/FORCE/seed gates. No hand probes — both corpus sessions reach the changed arm (final disclosure).
+**Change:** `js/invent.js` only — `const noeyes = !haseyes(game.youmonst?.data)` in exact C position. `haseyes` is null-safe (`monsters.js:379`), both names already imported (`:303`) — no new edge, no TDZ. Race fallback dropped deliberately: every playable race has eyes and C never has NULL `youmonst.data` here.
+**Verify:** `node scripts/verify.mjs --fn chwepon` → `PASS syntax 1 changed js file(s): js/invent.js` · `PASS rule2 no fs/path/url/node: imports, no DIAG/FORCE/seed gates` · `PASS hidden verify chwepon: 0 PASS, 2 moved past, 0 unchanged, 0 worse → PROGRESS` (scen-death-Monk-92000 → `from_what`@69 was 68; scen-death-Wizard-92120 → `attributes_enlightenment`@50 was 49) · `PASS green 2/2` + strict ×2 · `PASS cohort 7/7` · `skip full (no shared file changed per runner)` · `VERIFY: PASS`. Final verify ran after the last js/ edit (map/D-log/queue edits only after).
+**Named:** Infravision race-`mons` fallback (`invent.js:5519–5527`, `display.js hero_has_infravision`) stays — different arm, `set_uasmon`-deferred debt, untouched; `chwepon` named omissions (Hallucination hcolor; `useupall` clone; Yobjnam2 local) untouched.
+**Next:** do not re-pop `chwepon` (0 blocked — both sessions rest at strictly later owners). Both rest at the next disclosure row C « You could survive without air.» vs JS « Your luck was zero.» (magical-breathing/luck disclosure writer, separate arm): Wizard-92120 is already covered by the `attributes_enlightenment` queue row (2 sessions, in the refreshed top-30); Monk-92000's `from_what` single-session row surfaces via the next `hidden-proxy queue` refill — do not invent rows.
 ## 2026-09-08 — D-2111 dothrow.c multishot_class_bonus PM_NINJA arm: ninja shuriken volley 1→2 (queue row `mkobj.c` next_ident, 1 of 3 sessions)
 
 **C locus:** `dothrow.c:68–71` `multishot_class_bonus` PM_NINJA arm — `if (skill == -P_SHURIKEN || skill == -P_DART) multishot++` with FALLTHROUGH into the SAMURAI ya+yumi arm. C `monsters.h:3867–3875` NINJA has 2× `AT_WEAP`; C `mthrowu.c:238` `monmulti` drew `rnd(1)=1` then the ninja bonus made multishot=2.
