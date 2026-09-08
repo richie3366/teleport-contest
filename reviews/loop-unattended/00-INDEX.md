@@ -1125,3 +1125,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1112-bda8c297-mb-hit-magicbane.md](./1112-bda8c297-mb-hit-magicbane.md) | `bda8c297` | D-2146 Mb_hit Magicbane specials | **ACCEPT** |
 | [1113-5cd14621-mondead-kops-respawn.md](./1113-5cd14621-mondead-kops-respawn.md) | `5cd14621` | D-2147 mondead Kops respawn + clone unification | **ACCEPT** |
 | [1114-04072151-set-uasmon-regeneration.md](./1114-04072151-set-uasmon-regeneration.md) | `04072151` | D-2148 set_uasmon REGENERATION PROPSET | **ACCEPT** |
+| [1115-3c229022-dog-goal-can-touch-safely.md](./1115-3c229022-dog-goal-can-touch-safely.md) | `3c229022` | D-2149 dog_goal can_touch_safely | **ACCEPT** |
+| [1116-144563ef-do-class-genocide-livelog.md](./1116-144563ef-do-class-genocide-livelog.md) | `144563ef` | D-2150 do_class_genocide livelog | **ACCEPT** |
+| [1117-13a2969a-mhitm-ad-dise-u.md](./1117-13a2969a-mhitm-ad-dise-u.md) | `13a2969a` | D-2151 mhitm_ad_dise_u + gulpmu DISE | **ACCEPT** |
+| [1118-a56c8567-hmon-hitmon-weapon-melee.md](./1118-a56c8567-hmon-hitmon-weapon-melee.md) | `a56c8567` | D-2152 hmon_hitmon_weapon_melee | **ACCEPT** |
+| [1119-34b6810b-peffect-paralysis.md](./1119-34b6810b-peffect-paralysis.md) | `34b6810b` | D-2153 peffect_paralysis branches | **ACCEPT** |
+| [1120-717dca72-list-vanquished-pmnames.md](./1120-717dca72-list-vanquished-pmnames.md) | `717dca72` | D-2154 list_vanquished pmnames | **ACCEPT** |
+| [1121-017f6ec2-damageum-ad-cold.md](./1121-017f6ec2-damageum-ad-cold.md) | `017f6ec2` | D-2155 damageum_ad_cold | **ACCEPT** |
+| [1122-bfebf129-makewish-verb-oops.md](./1122-bfebf129-makewish-verb-oops.md) | `bfebf129` | D-2156 makewish verb/oops | **ACCEPT** |
