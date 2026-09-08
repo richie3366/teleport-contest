@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `objnam.c` readobjnam_postparse1 — blocks 1/553 corpus sessions (first at step 126): C «One of your potions of extra healing freezes and shatters!--» vs JS «One of your potions of extra healing freezes and shatters!». Probe: `node scripts/hidden-proxy.mjs verify readobjnam_postparse1` (scen-poly-Healer-92107). **Addressed:** D-2137
+- [x] `allmain.c` moveloop_core — blocks 1/553 corpus sessions (first at step 88): C draws `rn2(85)=24` in moveloop_core, JS `rn2(20)=14` from gethungry(eat.js:698). Probe: `node scripts/hidden-proxy.mjs verify moveloop_core` (scen-poly-Archeologist-92226). **Addressed:** D-2138
+
+
+- [x] `objnam.c` readobjnam_postparse1 — blocks 1/553 corpus sessions (first at step 126): C «One of your potions of extra healing freezes and shatters!--» vs JS «One of your potions of extra healing freezes and shatters!». Probe: `node scripts/hidden-proxy.mjs verify readobjnam_postparse1` (scen-poly-Healer-92107). **Addressed:** D-2137 `b9b2fdef`
 
 
 - [x] `teleport.c` level_tele — blocks 1/553 corpus sessions (first at step 108): C «You materialize on a different level!» vs JS «You materialize on a different level!». Probe: `node scripts/hidden-proxy.mjs verify level_tele` (scen-tour-Tourist-92100). **Addressed:** D-2136 `51283e0c`

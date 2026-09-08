@@ -1,6 +1,6 @@
 {
- "commit": "47480eec",
- "at": "2026-09-08T15:45:14.114Z",
+ "commit": "225c38ef",
+ "at": "2026-09-08T16:02:22.475Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6607,18 +6607,18 @@
   "scen-poly-Archeologist-92226": {
    "src": "corpus",
    "passed": false,
-   "rngM": 2920,
+   "rngM": 3097,
    "rngT": 3368,
-   "scrM": 88,
+   "scrM": 107,
    "scrT": 138,
    "kind": "rng",
-   "step": 88,
+   "step": 107,
    "steps": 138,
-   "owner": "moveloop_core",
-   "loc": "allmain.c:308",
-   "jsOwner": "gethungry(eat.js:698)",
-   "cTopline": "",
-   "jsTopline": "The little dog picks up a gold piece.",
+   "owner": "passive",
+   "loc": "uhitm.c:6019",
+   "jsOwner": "damageum(uhitm.js:1467)",
+   "cTopline": "You miss the little dog. The baluchitherium hits!--More--",
+   "jsTopline": "You bite the little dog. You kill the poor little dog!--More--",
    "error": null
   },
   "scen-poly-Caveman-91133": {

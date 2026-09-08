@@ -91,6 +91,8 @@ import {
     eggs_in_water,
     mindless,
     telepathic,
+    can_teleport,
+    control_teleport,
     touch_petrifies,
     haseyes,
     MZ_SMALL,
@@ -133,6 +135,8 @@ import {
     TIMEOUT,
     FLYING,
     BLINDED,
+    TELEPORT,
+    TELEPORT_CONTROL,
     FIRE_RES,
     COLD_RES,
     SLEEP_RES,
@@ -554,7 +558,7 @@ function resists_drli_you(mdat) {
  * Named omissions: defended(AD_DRLI) disjunct of resists_drli (no JS
  * defended export); ANTIMAGIC;
  * SICK_RES fungus/ghoul; STUNNED/HALLUC_RES/SEE_INVIS/TELEPAT/INFRAVISION/
- * INVIS/TELEPORT/TELEPORT_CONTROL/LEVITATION/SWIMMING/PASSES_WALLS/
+ * INVIS/LEVITATION/SWIMMING/PASSES_WALLS/
  * REGENERATION/REFLECTING/BLND_RES; vamp cham; polysense;
  * light-source bookkeeping.
  */
@@ -583,6 +587,11 @@ export function set_uasmon() {
     propset_fromform(STONE_RES, 'HStone_resistance', !!(mres & MR_STONE));
     // C: PROPSET(DRAIN_RES, resists_drli(&gy.youmonst)) with uwep suppressed
     propset_fromform(DRAIN_RES, 'HDrain_resistance', resists_drli_you(mdat));
+    // C polyself.c:94-95 — PROPSET(TELEPORT, can_teleport(mdat)) and
+    // PROPSET(TELEPORT_CONTROL, control_teleport(mdat)): a tengu form
+    // confers FROMFORM teleport, gating moveloop rn2(85) (allmain.c:308).
+    propset_fromform(TELEPORT, 'HTeleportation', can_teleport(mdat));
+    propset_fromform(TELEPORT_CONTROL, 'HTeleport_control', control_teleport(mdat));
 
     // C: PROPSET(FLYING, is_flyer(mdat) && !is_floater(mdat)) — D-0724
     // floating eye is flyer+floater; suppress Flying under Levitation.
