@@ -1084,3 +1084,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1071-aa1e6c57-addinv-core1-uhave-ach.md](./1071-aa1e6c57-addinv-core1-uhave-ach.md) | `aa1e6c57` | D-2105 addinv_core1 uhave/ACH | **ACCEPT** |
 | [1072-7b29e91a-fight-empty-statue-arm.md](./1072-7b29e91a-fight-empty-statue-arm.md) | `7b29e91a` | D-2106 fight_empty statue arm | **ACCEPT** |
 | [1073-67985652-makemon-birth-knowledge.md](./1073-67985652-makemon-birth-knowledge.md) | `67985652` | D-2107 birth knowledge traps/mwandexp | **ACCEPT** |
+| [1074-20e09ee9-distant-monnam-called.md](./1074-20e09ee9-distant-monnam-called.md) | `20e09ee9` | D-2108 distant_monnam delegates to x_monnam | **ACCEPT** |
+| [1075-c8488149-weapon-descr-makesingular.md](./1075-c8488149-weapon-descr-makesingular.md) | `c8488149` | D-2109 weapon_descr full switch + is_graystone | **ACCEPT** |
+| [1076-9ee606c1-gulpmu-ad-blnd.md](./1076-9ee606c1-gulpmu-ad-blnd.md) | `9ee606c1` | D-2110 gulpmu AD_BLND engulf blinding | **ACCEPT-WITH-DEBT** |
+| [1077-cc3dcaae-multishot-ninja-arm.md](./1077-cc3dcaae-multishot-ninja-arm.md) | `cc3dcaae` | D-2111 multishot_class_bonus NINJA arm | **ACCEPT** |
+| [1078-6d4e021f-noeyes-current-form.md](./1078-6d4e021f-noeyes-current-form.md) | `6d4e021f` | D-2112 noeyes reads current form | **ACCEPT** |
+| [1079-7a8bf664-were-change-howl.md](./1079-7a8bf664-were-change-howl.md) | `7a8bf664` | D-2113 were_change unseen-howl arm | **ACCEPT** |
+| [1080-229b25e1-prisoner-speaks-djinni.md](./1080-229b25e1-prisoner-speaks-djinni.md) | `229b25e1` | D-2114 prisoner_speaks + MS_DJINNI arm | **ACCEPT** |
+| [1081-590e414f-zap-dig-udz-arm.md](./1081-590e414f-zap-dig-udz-arm.md) | `590e414f` | D-2115 zap_dig u.dz stair-bounce + rock | **ACCEPT** |
+| [1082-12ef27f6-resist-sleep-gate.md](./1082-12ef27f6-resist-sleep-gate.md) | `12ef27f6` | D-2116 resist + zhitm sleep gate + explode alev | **ACCEPT-WITH-DEBT** |

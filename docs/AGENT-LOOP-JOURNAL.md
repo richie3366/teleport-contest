@@ -8,6 +8,25 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-08 — Audit 20e09ee9..12ef27f6 (reviews 1074-1082: 7 ACCEPT, 1076 + 1082 debt, 0 Must-fix) + cadence 44/44.
+
+Every D-log corpus claim re-measured with `--base <sha>~1`, all matched:
+makedog 0/1-moved, one_characteristic 1 PASS, dolook 0/1-moved,
+next_ident 0/2-moved (2nd mover is later D-2115 progress, not this SHA),
+chwepon 0/2-moved, were_change 1 PASS + 1 unchanged (Healer park stands),
+prisoner_speaks 1 PASS, zap_dig 0/1-moved, resist 0/2-moved.
+Debts (map-pointed, no Must-fix): R-1076 gulpmu BLND else-branch skips
+the `uprops[BLINDED].intrinsic` mirror sync (latent, unread);
+R-1082 zhitm sleep drops the `mhitm.c:1226–1229` mimic-reveal arm (live
+`seemimic`, ~6 lines). Sym re-points pasted per review; `--can`
+confirms no new edges (quest/mon, do_name, were/mon all ALREADY;
+dig triad same-SCC call-time). Rule #2 clean across scored js/.
+Cadence: fortress 44/44, Scr 11405/11405, RNG 792838/792838,
+`75+0.49/turn` (R² 0.80). check-hot-docs: 9/9 reviews ok; hot sum
+40.1→40.0kB trimmed from own CURRENT lines (HEAD was 39919).
+Reverted a `verify`-run stamp-only bump of scoreboard.json (no row
+change — not a rescore). Queue 9 Open (band 8–12), no refill, no
+Next-cluster change (no Must-fix).
 ## 2026-09-08 — D-2116 `zap.c` resist: mplayer arms + `zhitm` ZT_SLEEP `resist(how)` gate + explode.js `olet` alev table (queue row `zap.c` resist, 2 sessions)
 
 **C locus:** `zap.c:6100–6158` `resist` — RING_CLASS/0/NOTELL fake-player (`is_mplayer`) early pass; alev table (WAND 12 / TOOL 10 / WEAPON 10 / SCROLL 9 / POTION 6 / RING 5 / default `u.ulevel`); dlev clamp with `is_mplayer → u.ulevel else 1`; `rn2(100+alev-dlev) < mr`. Call protocol: `zhitm` ZT_SLEEP → `sleep_monst(mon, d(nd,25), type==ZT_WAND(ZT_SLEEP) ? WAND_CLASS : '\0')` (`mhitm.c:1231–1232`: `resists_sleep || defended(AD_SLEE) || resist(how)`); `explode.c:534` `resist(mtmp, olet, 0, FALSE)` with variable `olet`.
