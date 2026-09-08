@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `mhitu.c` wildmiss — blocks 2/553 corpus sessions (first at step 186): C draws `rn2(3)=1` in wildmiss, JS `rn2(5)=4` from distfleeck(monmove.js:808). Probe: `node scripts/hidden-proxy.mjs verify wildmiss` (scen-wish-Healer-92147, scen-wish-Ranger-92155). **Addressed:** D-2067
+- [x] `bones.c` savebones remove_mon_from_bones + LEAVESTATUE statue arm — blocks 1/553 corpus sessions: C 2× `rn2(100)`@obj_resists (mongone Medusa via mdrop_special_objs) + statue (`next_ident`+`rndmonst_adj`+`rn2(2)`) where JS skips both (named omissions js/end.js:1222-1226). Probe: `node scripts/hidden-proxy.mjs verify obj_resists` (scen-genesis-Valkyrie-92074 step 75). Split from parked `zap.c obj_resists` 2026-09-08 (see Parked). **Addressed:** D-2068
+
+
+- [x] `mhitu.c` wildmiss — blocks 2/553 corpus sessions (first at step 186): C draws `rn2(3)=1` in wildmiss, JS `rn2(5)=4` from distfleeck(monmove.js:808). Probe: `node scripts/hidden-proxy.mjs verify wildmiss` (scen-wish-Healer-92147, scen-wish-Ranger-92155). **Addressed:** D-2067 `b9138d02`
 
 
 - [x] `const.js` M_AP_TYPE mask — moves 1/3 mcalcmove-blocked sessions (scen-wish-Archeologist-92216 step 180) **Addressed:** D-2066 `64048333`: C `M_AP_TYPE(m) ((m)->m_ap_type & M_AP_TYPMASK)` (monst.h) skips the mimicking Large Mimic in monster_nearby, JS `M_AP_TYPE` (const.js:3184) returns raw `m_ap_type=10` (OBJECT|F_DKNOWN) so rest-safety blocks ('.'→ECMD_OK, no time) where C rests (ECMD_TIME) and runs the block. Split from parked `mon.c` mcalcmove 2026-09-08 (see Parked). Probe: port the mask + `node scripts/hidden-proxy.mjs verify mcalcmove` (Archeologist must PASS or move to a later owner; Rogue/Knight stay — parked slime writer).

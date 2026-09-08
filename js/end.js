@@ -32,10 +32,12 @@ import {
     Is_container, SORTLOOT_LOOT, SORTLOOT_PACK,
     PARANOID_DIE, PARANOID_BONES, PARANOID_QUIT, TT_LAVA, Has_contents,
     has_oname, LIFESAVED, W_AMUL,
+    DELPHI, ROOMOFFSET, Is_oracle_level,
 } from './const.js';
 import { G_NOCORPSE, mons, likes_gold, likes_gems, likes_objs, likes_magic } from './monsters.js';
-import { m_at } from './mon.js';
-import { can_carry } from './monmove.js';
+import { m_at, mongone, dmonsfree } from './mon.js';
+import { can_carry, mon_offmap } from './monmove.js';
+import { enexto, rloc_to } from './teleport.js';
 import { oname, christen_monst, free_oname, mon_nam } from './do_name.js';
 import { mkcorpstat, curse, place_object, stackobj, mksobj, add_to_minv, add_to_container, weight } from './mkobj.js';
 import { make_grave } from './engrave.js';
@@ -83,6 +85,12 @@ const CANDELABRUM_OF_INVOCATION =
     objectNames.indexOf('CANDELABRUM_OF_INVOCATION');
 const PM_GHOST = monsterNames.indexOf('PM_GHOST');
 const PM_HOUSECAT = monsterNames.indexOf('PM_HOUSECAT');
+const PM_MEDUSA = monsterNames.indexOf('PM_MEDUSA');
+const PM_ORACLE = monsterNames.indexOf('PM_ORACLE');
+const PM_VLAD = monsterNames.indexOf('PM_VLAD_THE_IMPALER');
+// C monst.h msound: MS_LEADER 36, MS_NEMESIS 37 (makemon.js:668-669 same).
+const MS_LEADER = 36;
+const MS_NEMESIS = 37;
 
 /** C ref: integer.h nowrap_add — saturate at LONG_MAX (JS Number analogue). */
 function nowrap_add(a, b) {
@@ -1242,11 +1250,65 @@ function drop_upon_death(mtmp, cont, x, y) {
 }
 
 /**
+ * C ref: bones.c fixuporacle `:307–363` — Oracle stays only on the Oracle
+ * level; set peaceful, keep when already in DELPHI, else move to the
+ * original DELPHI chamber centre via enexto+rloc_to and restore rtype.
+ */
+async function fixuporacle(oracle) {
+    // C: if (!Is_oracle_level(&u.uz)) return FALSE
+    if (!Is_oracle_level(game.u?.uz)) return false;
+    oracle.mpeaceful = 1;
+    const rooms = game.level?.rooms || [];
+    const loc = game.level?.at?.(oracle.mx | 0, oracle.my | 0);
+    let o_ridx = (loc?.roomno | 0) - ROOMOFFSET;
+    if (o_ridx >= 0 && (rooms[o_ridx]?.rtype | 0) === DELPHI) return true;
+    let ridx = rooms.length;
+    for (let i = 0; i < rooms.length; i++) {
+        if ((rooms[i]?.orig_rtype | 0) === DELPHI) { ridx = i; break; }
+    }
+    if (o_ridx !== ridx && ridx < rooms.length) {
+        const r = rooms[ridx];
+        const cc = {
+            x: (((r.lx | 0) + (r.hx | 0)) / 2) | 0,
+            y: (((r.ly | 0) + (r.hy | 0)) / 2) | 0,
+        };
+        if (enexto(cc, cc.x, cc.y, oracle.data)) {
+            await rloc_to(oracle, cc.x, cc.y);
+            const loc2 = game.level?.at?.(oracle.mx | 0, oracle.my | 0);
+            o_ridx = (loc2?.roomno | 0) - ROOMOFFSET;
+        }
+    }
+    if (ridx === o_ridx && rooms[ridx]) rooms[ridx].rtype = DELPHI;
+    return true;
+}
+
+/**
+ * C ref: bones.c remove_mon_from_bones `:388–399` — wizards, Medusa,
+ * quest nemesis/leader voices, Vlad (data or cham), and a displaced
+ * Oracle leave via mongone before the bones level is saved.
+ */
+async function remove_mon_from_bones(mtmp) {
+    if (!mtmp) return;
+    const mptr = mtmp.data;
+    const mndx = ((mptr?.mndx ?? mtmp.mnum ?? -1) | 0);
+    // C monst.h:222 is_Vlad: data Vlad or cham Vlad (vampshifted).
+    const isVlad = mndx === PM_VLAD || ((mtmp.cham | 0) === PM_VLAD);
+    if (mtmp.iswiz || mndx === PM_MEDUSA
+        || ((mptr?.msound | 0) === MS_NEMESIS) || ((mptr?.msound | 0) === MS_LEADER)
+        || isVlad
+        || (mndx === PM_ORACLE && !(await fixuporacle(mtmp)))) {
+        await mongone(mtmp);
+    }
+}
+
+/**
  * C ref: bones.c savebones — ghost envelope + VFS bones file (D-0274).
  * Branch: ordinary `ugrave_arise` NON_PM → drop_upon_death + PM_GHOST
  * MM_NONAME. Wizard Replace when bones file already exists (D-0581).
+ * C bones.c:444–445 iter_mons(remove_mon_from_bones) + dmonsfree now live
+ * (this file); the statue arm is D-2060.
  * Named omissions: file compress; unleash_all/unpunish/dismount;
- * remove_mon_from_bones/dmonsfree/forget_engravings;
+ * forget_engravings;
  * set_ghostly_objlist / resetobjs known-strip; map memory clear
  * (ux/uy zero); undead-arise mtmp arm (makemon + add_to_minv +
  * m_dowear); ebones; obj_attach_mid;
@@ -1275,6 +1337,17 @@ async function savebones(how, when, corpse) {
             return;
         }
     }
+
+    // C bones.c:444–445 iter_mons(remove_mon_from_bones) then dmonsfree.
+    // iter_mons skips DEADMONSTER (mhp<1) and mon_offmap (mstate!=MON_FLOOR);
+    // snapshot the list first like C's mtmp2=mtmp->nmon since mongone splices.
+    for (const mtmp of [...(game.fmon || [])]) {
+        if (!mtmp) continue;
+        if ((mtmp.mhp | 0) < 1) continue;
+        if (mon_offmap(mtmp)) continue;
+        await remove_mon_from_bones(mtmp);
+    }
+    dmonsfree();
 
     // C savebones `:450–453` — negate all fids before drop_upon_death
     savebones_negate_fruit_ids();

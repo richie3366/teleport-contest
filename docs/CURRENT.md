@@ -89,8 +89,9 @@ divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
 **Next cluster:** `bones.c` savebones remove_mon_from_bones + LEAVESTATUE statue arm — blocks 1/553 corpus sessions: C 2× `rn2(100)`@obj_resists (mongone Medusa via mdrop_special_objs) + statue (`next_ident`+`rndmonst_adj`+`rn2(2)`) where JS skips both (named omissions js/end.js:1222-1226). Probe: `node scripts/hidden-proxy.mjs verify obj_resists` (scen-genesis-Valkyrie-92074 step 75).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2067 (index).**
+**Keep D-0845…D-2068 (index).**
 <!-- recent:begin -->
+**D-2068** `bones.c:388–399` `remove_mon_from_bones` (iswiz / Medusa / MS_NEMESIS / MS_LEADER / `is_V — `js/end.js` — file-local `fixuporacle` (Oracle-level gate, `mpeaceful=1`, DELPHI `roomno-ROOMOFFSET` keep, else centre `enexto`+`await rloc_to` and restore `rtype`, C `:307–363`) + file-local `remove_mon_from_bones` (exa
 **D-2067** `youprop.h:195–198` — `js/mhitu.js` — file-local `BInvis` + `Invis` now mirror the potion.js/zap.js idiom (`H = HInvis||intrinsic`, `E = EInvis||extrinsic`, mummy-wrapping `uarmc` stand-in for setworn `w_blocks`); `INVIS` joins the existing `
 **D-2066** `monst.h:69–73` — `js/const.js` — `M_AP_TYPE` returns `((mon?.m_ap_type ?? 0) & M_AP_TYPMASK)` with the monst.h:73 citation; `M_AP_TYPMASK` is already exported from the same file (call-time reference, no TDZ, no new import/edge).
 **D-2065** `pline.c` `You_hear` `:436–452` — `js/hack.js` — `You_hear` ports the Unaware arm verbatim via `youprop.h:399` (`(game.multi|0)<0 && (unconscious() || is_fainted())`, importing `teleport.js` `unconscious` — hoisted-function, cycle-safe per `imports.mjs -
@@ -98,11 +99,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2063** `polyself.c` polyself `:596–615` (!polyok message arm: `pmname(flags.female)` then `the_un — `js/polyself.js` — article arm verbatim (`the_unique_pm`/`the`/`type_is_pname` + your_race/G_UNIQ guard); `controllable_poly` const (Stunned shape mirrors `hack.js` Stunned_prop `(u.HStun|0) || u.Stunned`); `vampyr_goto`
 **D-2062** the queue owner is a literal-match misattribution — `js/invent.js` — (a) ulycn were-form arm (`an(pmname(mons(ulycn), female?FEMALE:MALE))` + « in beast form» + wizard `mtimedone` iff `umonnum==ulycn`) and `Hate_silver` arm (`ismnum(ulycn) || hates_silver(youmonst.data)`)
 **D-2061** `end.c` really_done `:1186–1187` — `js/end.js` — after `at_midnight`, `if (((game.moves | 0) <= 1) && how < PANICKED && !(game.program_state?.done_stopprint | 0)) await pline(\`Do not pass Go.
-**D-2060** `end.c` really_done `:1206–1219` (maintain `ugrave_arise` even for `!bones_ok`: PANICKED → — `js/end.js` — (1) `really_done` maintains `ugrave_arise` per C `:1206–1219` (PANICKED/BURNING+DISSOLVED/STONING/TURNED_SLIME+`G_GENOD` check via `game.mvitals`, `PM_GREEN_SLIME` via `monsterNames.indexOf` like D-2057; ki
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2067; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2068; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
