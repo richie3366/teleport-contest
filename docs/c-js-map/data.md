@@ -656,7 +656,7 @@ tut_key/eckey/Knight jump/leave-invent/`map_location` tseen/`add_to_container` m
 **occupied invocation_pos** (D-1154); omit other fill *bodies*, nested `des.room` bodies beyond 
 Nesting/Fake Delphi/Huge/… outer sizes, Lua `post_level_generate` postprocess 
 queue, `mkgrave_room` bury; **D-1533 `create_object` `o->lit` `begin_burn`** (`sp_lev.c:2425–2426` after `stackobj`, not tile.lit; `l_create_object` lit default 0; mktrap_victim is D-1519; **D-1542** themerms Light source fill); **D-1723 `lspo_object` non-merge quan do-while** (`sp_lev.c:3725–3740` `!objects[id].oc_merge`; find_objtype + argc string/coord; class-letter `def_char_to_objclass`/`mkgold`; other load_* `des.object` still hand-rolled); `Can_fall_thru` before hole→ROCKTRAP (Vlad niche); 
-**D-0906 `hellfill`+`create_maze`/`LVLINIT_MAZE`** (seed4500 **32538→49776** Scr **459**; 
+**D-0906 `hellfill`+`create_maze`/`LVLINIT_MAZE`** (seed4500 **32538→49776** Scr **459**; **D-2136 hells[7] border via `selection_rect_rel`** — C `selection.rect(0,0,78,20)` takes the `get_location_coord` origin shift (`gx.xstart=1`) → frame (1,0)-(79,20), not the hand-rolled (0,0)-(78,20); `lit=0` rule explicit); 
 **hellfill Invocation_lev VS** (D-1154 `pick_vibrasquare_location`+`maketrap`); 
 rnd_hell_prefab/`makemaz("")` deferred; **D-1841 `fakewiz1`/`fakewiz2`**); empty `makemaz("")`; Is_special/quest fill; 
 **minefill `fixup_special`/`place_lregion(LR_BRANCH)` + Mines mineralize gold×2/gem×3** (D-0177); 

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `trap.c` burnarmor — blocks 1/553 corpus sessions (first at step 73): C draws `rn2(5)=3` in burnarmor, JS `rn2(6)=5` from xkilled(uhitm.js:694). Probe: `node scripts/hidden-proxy.mjs verify burnarmor` (scen-wish-Ranger-92212). **Addressed:** D-2135
+- [x] `teleport.c` level_tele — blocks 1/553 corpus sessions (first at step 108): C «You materialize on a different level!» vs JS «You materialize on a different level!». Probe: `node scripts/hidden-proxy.mjs verify level_tele` (scen-tour-Tourist-92100). **Addressed:** D-2136
+
+
+- [x] `trap.c` burnarmor — blocks 1/553 corpus sessions (first at step 73): C draws `rn2(5)=3` in burnarmor, JS `rn2(6)=5` from xkilled(uhitm.js:694). Probe: `node scripts/hidden-proxy.mjs verify burnarmor` (scen-wish-Ranger-92212). **Addressed:** D-2135 `55848b87`
 
 
 - [x] `artifact.c` touch_artifact — blocks 1/553 corpus sessions (first at step 73): C «The pair of lenses named the Eyes of the Overworld evades yo» vs JS «The pair of lenses named the Eyes of the Overworld evades yo». Probe: `node scripts/hidden-proxy.mjs verify touch_artifact` (scen-genesis-Valkyrie-92094).
