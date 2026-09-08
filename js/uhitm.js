@@ -43,7 +43,7 @@ import {
     ammo_and_launcher, is_weptool, is_launcher, is_ammo, is_missile,
     is_pole, drop_uswapwep, uwepgone,
 } from './wield.js';
-import { useup } from './invent.js';
+import { near_capacity, useup } from './invent.js';
 import { PM_BARBARIAN, PM_MONK, PM_KNIGHT, PM_SAMURAI, PM_ARCHEOLOGIST, PM_WIZARD, PM_HUMAN } from './generated/monsters_data.js';
 import {
     find_mac, get_mattk, make_corpse, monstone, mhitm_knockback, monkilled,
@@ -435,8 +435,9 @@ export async function check_caitiff(mtmp) {
 /**
  * C ref: uhitm.c find_roll_to_hit — to-hit threshold before rnd(20).
  * dokick poly AT_KICK loop is a caller (D-1310).
- * monk armor / encumbrance / trap / orc-vs-elf deferred (RNG-free;
- * no corpus session has demanded them yet).
+ * monk armor / orc-vs-elf deferred (RNG-free; no corpus session has
+ * demanded them yet). Encumbrance + utrap live (uhitm.c:407-411):
+ * scen-poly-Archeologist-92226 drew C miss at tmp 11 vs JS hit at 16.
  * maybe_polyd live: poly form's mlevel, not ulevel (uhitm.c:378-379).
  * weapon_hit_bonus from weapon.c (bare-hand unskilled = +1; AT_KICK
  * martial_bonus uses NULL weapon like C).
@@ -465,6 +466,11 @@ export async function find_roll_to_hit(mtmp, aatyp, weapon, attk_count, role_rol
     if (mtmp.mflee) tmp += 2;
     if (mtmp.msleeping) tmp += 2;
     if (!mtmp.mcanmove) tmp += 4;
+    // C uhitm.c:407-411 — encumbrance dulls agility; being trapped
+    // costs 3. near_capacity is 0 while unencumbered (no-op then).
+    const cap = near_capacity();
+    if (cap) tmp -= cap * 2 - 1;
+    if (u.utrap) tmp -= 3;
     if (aatyp === AT_WEAP || aatyp === AT_CLAW) {
         if (weapon) tmp += hitval(weapon, mtmp);
         tmp += weapon_hit_bonus(weapon);

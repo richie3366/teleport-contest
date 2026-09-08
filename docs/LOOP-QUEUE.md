@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `uhitm.c` passive — blocks 1/553 corpus sessions (first at step 107): C draws `rn2(3)=1` in passive, JS `d(1,7)=5` from damageum(uhitm.js:1467). Probe: `node scripts/hidden-proxy.mjs verify passive` (scen-poly-Archeologist-92226).
 - [ ] `artifact.c` artifact_hit — blocks 1/553 corpus sessions (first at step 104): C draws `rn2(2)=0` in artifact_hit, JS `rn2(3)=2` from mhitm_knockback(mhitm.js:2015). Probe: `node scripts/hidden-proxy.mjs verify artifact_hit` (scen-genesis-Rogue-92214).
 - [ ] `mkobj.c` start_corpse_timeout — blocks 1/553 corpus sessions (first at step 39): C draws `rn2(1000)=899` in start_corpse_timeout, JS `rn2(100)=99` from makewish(zap.js:6638). Probe: `node scripts/hidden-proxy.mjs verify start_corpse_timeout` (scen-wish-Barbarian-92102).
 - [ ] `eat.c` lesshungry — blocks 1/553 corpus sessions (first at step 162): C «You're having a hard time getting all of it down.--More--» vs JS «Your movements are now unencumbered.--More--». Probe: `node scripts/hidden-proxy.mjs verify lesshungry` (scen-wish-Tourist-91125).

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `dogmove.c` dog_goal — blocks 1/553 corpus sessions (first at step 136): C draws `rn2(8)=4` in dog_goal, JS `rn2(1)=0` from dog_move(dogmove.js:976). Probe: `node scripts/hidden-proxy.mjs verify dog_goal` (scen-wish-Priest-92136). **Addressed:** D-2141
+- [x] `uhitm.c` passive — blocks 1/553 corpus sessions (first at step 107): C draws `rn2(3)=1` in passive, JS `d(1,7)=5` from damageum(uhitm.js:1467). Probe: `node scripts/hidden-proxy.mjs verify passive` (scen-poly-Archeologist-92226). **Addressed:** D-2142
+
+
+- [x] `dogmove.c` dog_goal — blocks 1/553 corpus sessions (first at step 136): C draws `rn2(8)=4` in dog_goal, JS `rn2(1)=0` from dog_move(dogmove.js:976). Probe: `node scripts/hidden-proxy.mjs verify dog_goal` (scen-wish-Priest-92136). **Addressed:** D-2141 `79844c1c`
 
 
 - [x] `mcastu.c` castmu — blocks 1/553 corpus sessions (first at step 124): C «The Angel of Chih Sung-tzu casts a spell at you!--More--» vs JS «The Angel of Chih Sung-tzu casts a spell at you!». Probe: `node scripts/hidden-proxy.mjs verify castmu` (scen-wish-Monk-92063). **Addressed:** D-2140 `e13647e8`
