@@ -1897,7 +1897,7 @@ flash mimic/gremlin deferred); **`apply_ok` SUGGEST tools/wands/spbooks +
 weapon/oil/food/graystone ranks** (D-0157); **`getobj_apply` prompt `compactify` when suggested>5; 
 `?` keeps raw lets** (D-0466); **getobj `?`/`*` → `display_pickinv_reply`; 
 sack/bag → `use_container` take-out** (D-0375) + **put-in coins MENU_FULL** (D-0376) + 
-**locked `Tobjnam-are` pline** (D-0381 Hmmm corrected D-2028: Hmmm/`lknown` is `do_loot_cont` floor-#loot only; `use_container` held path is `Tobjnam(obj,"are")` + held put-down, no `lknown` touch) + **`in_or_out_menu` prompt ATR_INVERSE + SELECTED `*`** (D-0382; Look/stash rows use the discovery-aware `thesimpleoname` export D-2028 — known sack → "the sack") + 
+**locked `Tobjnam-are` pline** (D-0381 Hmmm corrected D-2028, flag restored D-2082: Hmmm message is `do_loot_cont` floor-#loot only, but the `lknown` pre-branch (`pickup.c:2992–2996` + held `update_inventory`) is live in `use_container`; held path is `Tobjnam(obj,"are")` + held put-down) + **`in_or_out_menu` prompt ATR_INVERSE + SELECTED `*`** (D-0382; Look/stash rows use the discovery-aware `thesimpleoname` export D-2028 — known sack → "the sack") + 
 **`use_container` outmaybe/`yname` + MENU_FULL `query_category` put-in** (D-0394) + 
 **`used`→`cknown=1` containerdone** (D-0395) + 
 **`use_container` emptymsg `Ysimple_name2`** (D-0417; D-2028: emptymsg + both loot-out fallbacks use the export; 
