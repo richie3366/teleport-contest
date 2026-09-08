@@ -43,7 +43,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `sp_lev.c` ensure_way_out rescan order — `js/mklev.js` `ensure_way_out` uses an inner `break` (exits y-loop only, x-scan continues) where C `sp_lev.c:5241–5251` uses `goto outhere` (exits both loops, do-while rescans from x=1): with ≥2 disjoint inaccessible regions stacked in one column plus a further-right region, JS joins R3a→R5→R3b where C joins R3a→R3b→R5, shifting the `selection_rndcoord` drain dice. Latent on minetn-6's observed layout (671 drain draws still match) but the D-log "verbatim" claim is false. Fix: labeled `break outer` + re-verify `selection_rndcoord`. Source: reviews/loop-unattended/1065-65152c55-ensure-way-out.md (Actionable 1).
 A **JS throw** in any corpus session (`hidden-proxy status` owner
 `js-throw …`, or a `ReferenceError` in `.cache/hidden/scores.json`
 `error`) is always a Must-fix row: it forfeits every later screen of that

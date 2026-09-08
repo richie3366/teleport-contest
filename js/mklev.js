@@ -25157,9 +25157,9 @@ function generate_way_out_method(nx, ny, ov) {
 /**
  * C ref: sp_lev.c ensure_way_out — seed a selection from same-dungeon
  * stairs plus hole/undestroyable traps, then join every ACCESSIBLE cell
- * still outside it via generate_way_out_method. The inner `break` is C's
- * `goto outhere` (leaves the y scan; the x scan continues), and the
- * do-while rescans from x=1 until a full pass finds nothing new. C
+ * still outside it via generate_way_out_method. The labeled `break outer`
+ * is C's `goto outhere` (sp_lev.c:5241-5251: exits both loops; the
+ * do-while rescans from x=1 until a full pass finds nothing new). C
  * selection_free calls are GC here. C load_special runs this after
  * link_doors_rooms/remove_boundary_syms when the des file sets the
  * `inaccessibles` level flag (only minetn-6 does) and before
@@ -25187,7 +25187,7 @@ function ensure_way_out() {
 
     do {
         ret = true;
-        for (let x = 1; x < COLNO; x++)
+        outer: for (let x = 1; x < COLNO; x++)
             for (let y = 0; y < ROWNO; y++) {
                 const loc = g.level.at(x, y);
                 if (loc && ACCESSIBLE(loc.typ)
@@ -25195,7 +25195,7 @@ function ensure_way_out() {
                     if (generate_way_out_method(x, y, ov))
                         selection_floodfill_accessible(ov, x, y, true);
                     ret = false;
-                    break;
+                    break outer;
                 }
             }
     } while (!ret);

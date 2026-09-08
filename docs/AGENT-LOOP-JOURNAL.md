@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-08 — D-2101 `sp_lev.c:5241-5251` `ensure_way_out` rescan order: inner `break` (x-scan continues) must be both-loops exit per C `goto outhere` (review 1065 Must-fix)
+
+**C locus:** `sp_lev.c:5241-5251` `ensure_way_out` driver: the match arm ends with `goto outhere` whose label sits outside both loops — one join exits the x-scan entirely and the do-while rescans from `x = 1` (`sp_lev.c:5217-5255` body read in `brief ensure_way_out`).
+**JS:** 1 file (mklev.js +5/-4 incl. comment), under the 600/10 caps. Must-fix stays one item, alone.
+**Change:** `js/mklev.js` only — outer x-loop labeled (`outer:`) with `break outer` in the match arm (exact C both-loops exit + rescan-from-x=1 via the existing do-while); doc comment corrected to cite `sp_lev.c:5241-5251` (exits both loops). No new import or edge, no TDZ (label is intra-function), no RNG/mutation change on the observed path.
+**Verify:** `node scripts/verify.mjs --fn selection_rndcoord` → PASS syntax (1 changed file: js/mklev.js) · PASS rule2 · note hidden (no corpus session blocked on `selection_rndcoord` at HEAD — vacuous, NOT a corpus PASS; row cited 0 blocks so no `--base` re-run owed; the review's `65152c55~1` measurement already showed the D-2095 move Ranger-92033 → rloc@same-step with full positional draw match) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS, final verify after the last js/ edit (map/docs edits only after).
+**Named:** none new. Review 1065's non-queued note (map_cleanup / count_level_features / link_doors_rooms geometry-invariance argument) stays as noted, not queued.
+**Next:** do not re-pop `ensure_way_out` (0 blocked; latent arm now faithful). Next rescan-order divergence on another minetn-6 seed re-opens those three extras first per review 1065.
 ## 2026-09-08 — Audit reviews 1059–1066 (fd3f5f38…213658d3) + cadence 44/44
 
 **Reviews:** 8 files, one per JS SHA, each with `--base` re-measured corpus verify (all matched D-logs). 6 ACCEPT (1059–1064), 1 QUALITY-RISK (1065 ensure_way_out inner-`break` ≠ C `goto outhere`, latent join-order C-wrong → Must-fix prepended, Next cluster set), 1 ACCEPT-WITH-DEBT (1066, pre-existing demonpet appear-msg coords debt pointer at uhitm.js:1453). Rule #2 clean; no REJECT; no STOP.

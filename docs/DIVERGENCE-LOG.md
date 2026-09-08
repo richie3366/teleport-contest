@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2101 — `sp_lev.c:5241-5251` `ensure_way_out` rescan order: inner `break` (x-scan continues) must be both-loops exit per C `goto outhere` (review 1065 Must-fix)
+
+- **Status:** fixed (Must-fix queue row `sp_lev.c` ensure_way_out rescan order; Source: reviews/loop-unattended/1065-65152c55-ensure-way-out.md Actionable 1)
+- **Symptom:** latent join-order divergence: with >=2 disjoint inaccessible regions stacked in one column plus a further-right region pending, JS joined R3a→R5→R3b where C joins R3a→R3b→R5, shifting the `selection_rndcoord` drain dice. Latent on minetn-6's observed layout (671 drain draws still match); the D-2095 "verbatim / inner-break = goto" claim is false.
+- **C locus:** `sp_lev.c:5241-5251` `ensure_way_out` driver: the match arm ends with `goto outhere` whose label sits outside both loops — one join exits the x-scan entirely and the do-while rescans from `x = 1` (`sp_lev.c:5217-5255` body read in `brief ensure_way_out`).
+- **JS was:** `js/mklev.js` `ensure_way_out` used a bare inner `break` (exits y-loop only; x-scan continued rightward) and the doc comment asserted the inner break *is* C's `goto outhere` ("leaves the y scan; the x scan continues").
+- **Fix:** `js/mklev.js` only — outer x-loop labeled (`outer:`) with `break outer` in the match arm (exact C both-loops exit + rescan-from-x=1 via the existing do-while); doc comment corrected to cite `sp_lev.c:5241-5251` (exits both loops). No new import or edge, no TDZ (label is intra-function), no RNG/mutation change on the observed path.
+- **JS:** 1 file (mklev.js +5/-4 incl. comment), under the 600/10 caps. Must-fix stays one item, alone.
+- **Verify:** `node scripts/verify.mjs --fn selection_rndcoord` → PASS syntax (1 changed file: js/mklev.js) · PASS rule2 · note hidden (no corpus session blocked on `selection_rndcoord` at HEAD — vacuous, NOT a corpus PASS; row cited 0 blocks so no `--base` re-run owed; the review's `65152c55~1` measurement already showed the D-2095 move Ranger-92033 → rloc@same-step with full positional draw match) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS, final verify after the last js/ edit (map/docs edits only after).
+- **Named omissions:** none new. Review 1065's non-queued note (map_cleanup / count_level_features / link_doors_rooms geometry-invariance argument) stays as noted, not queued.
+- **Next:** do not re-pop `ensure_way_out` (0 blocked; latent arm now faithful). Next rescan-order divergence on another minetn-6 seed re-opens those three extras first per review 1065.
+- **Cited falsifier grade:** measured (pinned C arm + same-named JS body in brief output; post-port `verify --fn selection_rndcoord` + green + strict + cohort + full-44; no JS FORCE/DIAG/seed reads used).
+
 ## D-2100 — `detect.c` find_trap queue row is stale: the step-81 mimic text already matches at HEAD (session runs to `dolook`@108 with no js/ change; inferred credit D-2092 look envelope)
 
 - **Status:** retired-stale, no js/ (Open queue row `detect.c` find_trap — cited 1/553; `node scripts/hidden-proxy.mjs verify find_trap` → 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS; row cites no review, no stamp owed)
