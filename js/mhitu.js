@@ -10,7 +10,7 @@ import {
     M_ATTK_MISS, M_ATTK_HIT, M_ATTK_AGR_DIED, M_ATTK_AGR_DONE,
     M_ATTK_DEF_DIED,
     Upolyd, DIED, P_WHIP, NON_PM, XKILL_NOMSG, NEW_MOON,
-    DISPLACED, CONFLICT, IS_WATERWALL, RLOC_MSG, RLOC_NOMSG, TIMEOUT, FAST, ARTICLE_A,
+    DISPLACED, CONFLICT, INVIS, IS_WATERWALL, RLOC_MSG, RLOC_NOMSG, TIMEOUT, FAST, ARTICLE_A,
     LEFT_SIDE, RIGHT_SIDE, LEFT_RING, RIGHT_RING, LEG, HAND, HAIR,
     POOL, DROWNING, KILLED_BY_AN,
     MAGICAL_BREATHING, SWIMMING, Is_medusa_level, Is_waterlevel,
@@ -220,9 +220,32 @@ function Displaced() {
     return !!(cloak && cloak.otyp === CLOAK_OF_DISPLACEMENT);
 }
 
-/** C ref: youprop.h Invis — match monmove: u.Invis flag. */
+/**
+ * C ref: youprop.h BInvis — uprops[INVIS].blocked.
+ * JS setworn named-omits w_blocks; worn MUMMY_WRAPPING on uarmc
+ * stands in (C worn.c setworn; potion.js/zap.js BInvis idiom).
+ */
+function BInvis() {
+    const u = game.u || {};
+    const p = u.uprops?.[INVIS];
+    if ((u.BInvis | 0) || (p?.blocked | 0)) return true;
+    const cloak = u.uarmc;
+    return !!((cloak && (cloak.otyp | 0) === MUMMY_WRAPPING));
+}
+
+/**
+ * C ref: youprop.h:195–198 Invis — (HInvis || EInvis) && !BInvis
+ * via flats + uprops[INVIS]. Quaff/spell/wand write HInvis and the
+ * uprops intrinsic (potion.js set_HInvis); the u.Invis flat is only
+ * synced by the magic-trap toggle (timeout.js D-1999), so readers
+ * must not use it here.
+ */
 function Invis() {
-    return !!(game.u?.Invis);
+    const u = game.u || {};
+    const p = u.uprops?.[INVIS];
+    const H = (u.HInvis | 0) || (p?.intrinsic | 0);
+    const E = (u.EInvis | 0) || (p?.extrinsic | 0);
+    return !!(H || E) && !BInvis();
 }
 
 /** C ref: pline.c Your — prefix "Your " (file-local like zap.js/artifact.js). */
@@ -487,7 +510,7 @@ export async function u_slow_down() {
 export async function wildmiss(mtmp, mattk) {
     const unotseen = !mtmp.mcansee || (Invis() && !perceives(mtmp.data));
     const unotthere = Displaced();
-    const usubmerged = !!(game.u?.Underwater);
+    const usubmerged = !!((game.u?.uinwater | 0)); /* C youprop.h:279 Underwater (u.uinwater) */
 
     if (!unotseen && !unotthere && !usubmerged) {
         // C: impossible("%s attacks you without knowing your location?",
@@ -2686,7 +2709,7 @@ async function passiveum(olduasmon, mtmp, mattk) {
             if ((u.umonnum | 0) === PM_FLOATING_EYE) {
                 if (!rn2(4)) tmp = 127;
                 if (mtmp.mcansee && haseyes(mtmp.data) && rn2(3)
-                    && (perceives(mtmp.data) || !u.Invis)) {
+                    && (perceives(mtmp.data) || !Invis())) {
                     if (Blind()) {
                         const sex = game.flags?.female ? FEMALE : MALE;
                         await pline(
@@ -2792,7 +2815,7 @@ async function hitmu(mtmp, mattk) {
             if (obj) {
                 let what;
                 if (Blind() && !obj.dknown) what = 'something';
-                else if (is_pool(mtmp.mx, mtmp.my) && !u.Underwater) {
+                else if (is_pool(mtmp.mx, mtmp.my) && !(u.uinwater | 0)) { /* C mhitu.c:1171 !Underwater */
                     what = 'the water';
                 } else {
                     what = doname(obj);

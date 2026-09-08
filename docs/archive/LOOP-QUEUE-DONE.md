@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `const.js` M_AP_TYPE mask — moves 1/3 mcalcmove-blocked sessions (scen-wish-Archeologist-92216 step 180) **Addressed:** D-2066: C `M_AP_TYPE(m) ((m)->m_ap_type & M_AP_TYPMASK)` (monst.h) skips the mimicking Large Mimic in monster_nearby, JS `M_AP_TYPE` (const.js:3184) returns raw `m_ap_type=10` (OBJECT|F_DKNOWN) so rest-safety blocks ('.'→ECMD_OK, no time) where C rests (ECMD_TIME) and runs the block. Split from parked `mon.c` mcalcmove 2026-09-08 (see Parked). Probe: port the mask + `node scripts/hidden-proxy.mjs verify mcalcmove` (Archeologist must PASS or move to a later owner; Rogue/Knight stay — parked slime writer).
+- [x] `mhitu.c` wildmiss — blocks 2/553 corpus sessions (first at step 186): C draws `rn2(3)=1` in wildmiss, JS `rn2(5)=4` from distfleeck(monmove.js:808). Probe: `node scripts/hidden-proxy.mjs verify wildmiss` (scen-wish-Healer-92147, scen-wish-Ranger-92155). **Addressed:** D-2067
+
+
+- [x] `const.js` M_AP_TYPE mask — moves 1/3 mcalcmove-blocked sessions (scen-wish-Archeologist-92216 step 180) **Addressed:** D-2066 `64048333`: C `M_AP_TYPE(m) ((m)->m_ap_type & M_AP_TYPMASK)` (monst.h) skips the mimicking Large Mimic in monster_nearby, JS `M_AP_TYPE` (const.js:3184) returns raw `m_ap_type=10` (OBJECT|F_DKNOWN) so rest-safety blocks ('.'→ECMD_OK, no time) where C rests (ECMD_TIME) and runs the block. Split from parked `mon.c` mcalcmove 2026-09-08 (see Parked). Probe: port the mask + `node scripts/hidden-proxy.mjs verify mcalcmove` (Archeologist must PASS or move to a later owner; Rogue/Knight stay — parked slime writer).
 
 
 - [x] `zap.c` zapyourself — blocks 2/553 corpus sessions (first at step 17): C «You've set yourself afire! Your gloves smoulder!--More--» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify zapyourself` (scen-death-Knight-92188, scen-wish-Rogue-92210). **Addressed:** D-2065 `dd88a89c`

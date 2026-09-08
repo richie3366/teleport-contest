@@ -3049,7 +3049,7 @@ weld/artifact_light wield msgs, knockback hurtle; `mshot_xname` Nth; `obj_is_pna
 enhance `add_weapon_skill`/`lose_weapon_skill`/`use_skill` may-advance;
 other `mhitm_ad_*` (uhitm/mhitm arms + ACID/DGST/… mhitu); potionbreathe/were destroy_items deferrals;
 `mswingsm` mon-mon  **`wildmiss` Displaced/Invis/Underwater + `!foundyou` skipnonmagc** (D-0816; 
-could_seduce SEDU smile live; **nolimbs lunge + set_msg_xy D-1291**; Some_Monnam impossible named)
+could_seduce SEDU smile live; **nolimbs lunge + set_msg_xy D-1291**; **mhitu Invis (H||E)&&!B + uinwater Underwater D-2067**; Some_Monnam impossible named)
 
 ### `src/dog.c`, `src/dogmove.c` (+ `steal.c` relobj)
 
