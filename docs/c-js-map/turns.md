@@ -547,7 +547,8 @@ CQ_REPEAT D-1729**
 `zapyourself` SPE_HEALING/`WAN_SLEEP`/`SPE_SLEEP`/`WAN_DEATH`/`SPE_FINGER_OF_DEATH`/`WAN_POLYMORPH`/
 `SPE_POLYMORPH` (D-0156/D-0576/D-0928 #1103); **getobj `?`/`*` → `display_pickinv_reply`; 
 RAY `weffects` → `ubuzz`/`dobuzz` for `WAN_MAGIC_MISSILE`..`WAN_LIGHTNING` (range/`zap_hit`/`zhitm` 
-damagetypes + cold `destroy_items`/`resist`/`Reflecting` shield)** (D-0450/D-0682); 
+damagetypes + cold `destroy_items`/`resist`/`Reflecting` shield)** (D-0450/D-0682);
+**`resist` Conflict-early-pass + mplayer dlev + `zhitm` ZT_SLEEP `resist(how)` gate + explode.js `olet` alev table D-2116** (resists_sleep bits live; worn/artifact scan + `defended(AD_SLEE)` + tell-shield stay deferred; music/pray clones exact for fixed-oclass callers); 
 **`ureflects` shield `makeknown`→`exercise(A_WIS)`** (D-0452); 
 **`dobuzz` `tmp_at(DISP_BEAM)` + `zapdir_to_glyph` + `DISP_CHANGE`/`DISP_END`** (D-0468); 
 **`zhitu` non-sleep FIRE/COLD/MISSILE/LIGHTNING + hero `destroy_items` AD_FIRE** (D-0734); 

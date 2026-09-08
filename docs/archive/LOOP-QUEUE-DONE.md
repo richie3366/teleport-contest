@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `dig.c` zap_dig — blocks 1/553 corpus sessions (first at step 20): C «The beam bounces off the stairs and hits the ceiling.--More-» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify zap_dig` (scen-death-Wizard-92187). **Addressed:** D-2115
+- [x] `zap.c` resist — blocks 2/553 corpus sessions (first at step 59): C draws `rn2(119)=42` in resist, JS `rn2(20)=16` from zap_hit(zap.js:1335). Probe: `node scripts/hidden-proxy.mjs verify resist` (scen-tour-Priest-92235, scen-wish-Ranger-92212). **Addressed:** D-2116
+
+
+- [x] `dig.c` zap_dig — blocks 1/553 corpus sessions (first at step 20): C «The beam bounces off the stairs and hits the ceiling.--More-» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify zap_dig` (scen-death-Wizard-92187). **Addressed:** D-2115 `590e414f`
 
 
 - [x] `quest.c` prisoner_speaks — blocks 1/553 corpus sessions (first at step 146): C «The prisoner speaks: "I'm finally free!"» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify prisoner_speaks` (scen-wish-Rogue-92210). **Addressed:** D-2114 `229b25e1`

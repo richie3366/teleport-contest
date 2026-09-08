@@ -1,6 +1,6 @@
 {
- "commit": "229b25e1",
- "at": "2026-09-08T10:37:50.322Z",
+ "commit": "590e414f",
+ "at": "2026-09-08T10:59:17.090Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -7230,18 +7230,18 @@
   "scen-tour-Priest-92235": {
    "src": "corpus",
    "passed": false,
-   "rngM": 5402,
+   "rngM": 5751,
    "rngT": 7916,
    "scrM": 60,
    "scrT": 111,
-   "kind": "rng",
-   "step": 59,
+   "kind": "screen",
+   "step": 60,
    "steps": 111,
-   "owner": "resist",
-   "loc": "zap.c:6141",
-   "jsOwner": "zap_hit(zap.js:1335)",
-   "cTopline": "You stop studying. The salamander zaps a curved wand!--More--",
-   "jsTopline": "You stop studying. The salamander zaps a curved wand!--More--",
+   "owner": "zapyourself",
+   "loc": "zap.c:2860",
+   "jsOwner": null,
+   "cTopline": "The sleep ray hits the little dog. The sleep ray hits you!--More--",
+   "jsTopline": "The sleep ray hits the little dog. The sleep ray hits you!--More--",
    "error": null
   },
   "scen-tour-Ranger-92033": {
@@ -8307,18 +8307,18 @@
   "scen-wish-Ranger-92212": {
    "src": "corpus",
    "passed": false,
-   "rngM": 3427,
+   "rngM": 3428,
    "rngT": 4105,
    "scrM": 73,
    "scrT": 152,
    "kind": "rng",
-   "step": 72,
+   "step": 73,
    "steps": 152,
-   "owner": "resist",
-   "loc": "zap.c:6141",
-   "jsOwner": "resist(explode.js:225)",
-   "cTopline": "The werejackal is caught in the tower of flame!--More--",
-   "jsTopline": "The werejackal is caught in the tower of flame!--More--",
+   "owner": "burnarmor",
+   "loc": "trap.c:113",
+   "jsOwner": "xkilled(uhitm.js:694)",
+   "cTopline": "The werejackal resists the tower of flame! Your cloak smoulders!",
+   "jsTopline": "You kill the werejackal! Your cloak smoulders!",
    "error": null
   },
   "scen-wish-Rogue-91119": {

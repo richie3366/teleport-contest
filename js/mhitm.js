@@ -986,7 +986,7 @@ function Blind_slee() {
 }
 
 /** C ref: mhitm.c resists_sleep — MR_SLEEP on data / intrinsics / extrinsics. */
-function resists_sleep_slee(mon) {
+export function resists_sleep_slee(mon) {
     if (!mon) return false;
     const bits = (mon.data?.mresists | 0) | (mon.mextrinsics | 0)
         | (mon.mintrinsics | 0);
