@@ -503,6 +503,9 @@ def main() -> int:
             "mlevel": int(lm.group(1)),
             "mmove": int(lm.group(2)),
             "ac": int(lm.group(3)),
+            # C ref: LVL group 4 is permonst.mr (magic-resistance %;
+            # zap.c resist `rn2(100 + alev - dlev) < mtmp->data->mr`)
+            "mr": int(lm.group(4)),
             "maligntyp": int(lm.group(5)),
             "geno": eval_flags(gen, G_FLAGS),
             "difficulty": int(diff.strip()),
@@ -535,6 +538,7 @@ def main() -> int:
                     "mlevel": 0,
                     "mmove": 12,
                     "ac": 10,
+                    "mr": 0,
                     "maligntyp": 0,
                     "geno": 0x1200,  # G_NOGEN|G_UNIQ fallback
                     "difficulty": 0,
@@ -606,6 +610,7 @@ def main() -> int:
     lines.append("export const mlevels = " + json.dumps([m["mlevel"] for m in mons]) + ";")
     lines.append("export const mmoves = " + json.dumps([m["mmove"] for m in mons]) + ";")
     lines.append("export const macs = " + json.dumps([m.get("ac", 10) for m in mons]) + ";")
+    lines.append("export const mrs = " + json.dumps([m.get("mr", 0) for m in mons]) + ";")
     lines.append("export const maligntyps = " + json.dumps([m["maligntyp"] for m in mons]) + ";")
     lines.append("export const genos = " + json.dumps([m["geno"] for m in mons]) + ";")
     lines.append("export const difficulties = " + json.dumps([m["difficulty"] for m in mons]) + ";")

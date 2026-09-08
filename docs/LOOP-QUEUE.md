@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `trap.c` burnarmor — blocks 1/553 corpus sessions (first at step 73): C draws `rn2(5)=3` in burnarmor, JS `rn2(6)=5` from xkilled(uhitm.js:694). Probe: `node scripts/hidden-proxy.mjs verify burnarmor` (scen-wish-Ranger-92212).
 - [ ] `objnam.c` doname_base — blocks 1/553 corpus sessions (first at step 54): C «k - a long sword named Sunsword (weapon in right hand).--Mor» vs JS «k - a long sword named Sunsword (weapon in right hand).». Probe: `node scripts/hidden-proxy.mjs verify doname_base` (scen-wish-Rogue-92037).
 - [ ] `teleport.c` level_tele — blocks 1/553 corpus sessions (first at step 108): C «You materialize on a different level!» vs JS «You materialize on a different level!». Probe: `node scripts/hidden-proxy.mjs verify level_tele` (scen-tour-Tourist-92100).
 - [ ] `objnam.c` readobjnam_postparse1 — blocks 1/553 corpus sessions (first at step 126): C «One of your potions of extra healing freezes and shatters!--» vs JS «One of your potions of extra healing freezes and shatters!». Probe: `node scripts/hidden-proxy.mjs verify readobjnam_postparse1` (scen-poly-Healer-92107).
@@ -68,6 +67,10 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 - [ ] `allmain.c` moveloop_core — blocks 1/553 corpus sessions (first at step 88): C draws `rn2(85)=24` in moveloop_core, JS `rn2(20)=14` from gethungry(eat.js:698). Probe: `node scripts/hidden-proxy.mjs verify moveloop_core` (scen-poly-Archeologist-92226).
 - [ ] `makemon.c` makemon — blocks 1/553 corpus sessions (first at step 4): C «You ready: $ - 1093 gold pieces.--More--» vs JS «In what direction?». Probe: `node scripts/hidden-proxy.mjs verify makemon` (scen-normal-Healer-91123).
 - [ ] `weapon.c` dmgval — blocks 1/553 corpus sessions (first at step 123): C draws `rnd(6)=6` in dmgval, JS `rn2(3)=2` from passive(uhitm.js:1554). Probe: `node scripts/hidden-proxy.mjs verify dmgval` (scen-poly-Priest-91137).
+- [ ] `mcastu.c` cursetxt — blocks 1/553 corpus sessions (first at step 166): C draws `rn2(4)=0` in cursetxt, JS `rn2(5)=2` from dochug(monmove.js:2401). Probe: `node scripts/hidden-proxy.mjs verify cursetxt` (scen-poly-Tourist-92047).
+- [ ] `mcastu.c` castmu — blocks 1/553 corpus sessions (first at step 124): C «The Angel of Chih Sung-tzu casts a spell at you!--More--» vs JS «The Angel of Chih Sung-tzu casts a spell at you!». Probe: `node scripts/hidden-proxy.mjs verify castmu` (scen-wish-Monk-92063).
+- [ ] `apply.c` magic_whistled — blocks 1/553 corpus sessions (first at step 78): C «A piranha appears close by.» vs JS «A piranha appears next to you.». Probe: `node scripts/hidden-proxy.mjs verify magic_whistled` (scen-genesis-Priest-91110).
+- [ ] `dogmove.c` dog_goal — blocks 1/553 corpus sessions (first at step 136): C draws `rn2(8)=4` in dog_goal, JS `rn2(1)=0` from dog_move(dogmove.js:976). Probe: `node scripts/hidden-proxy.mjs verify dog_goal` (scen-wish-Priest-92136).
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 

@@ -1,6 +1,6 @@
 {
- "commit": "c4ece44d",
- "at": "2026-09-08T14:51:08.212Z",
+ "commit": "1bb96408",
+ "at": "2026-09-08T14:59:38.110Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -8296,18 +8296,18 @@
   "scen-wish-Ranger-92212": {
    "src": "corpus",
    "passed": false,
-   "rngM": 3428,
+   "rngM": 4105,
    "rngT": 4105,
-   "scrM": 73,
+   "scrM": 77,
    "scrT": 152,
-   "kind": "rng",
-   "step": 73,
+   "kind": "screen",
+   "step": 77,
    "steps": 152,
-   "owner": "burnarmor",
-   "loc": "trap.c:113",
-   "jsOwner": "xkilled(uhitm.js:694)",
-   "cTopline": "The werejackal resists the tower of flame! Your cloak smoulders!",
-   "jsTopline": "You kill the werejackal! Your cloak smoulders!",
+   "owner": "do_statusline2",
+   "loc": "botl.c:130",
+   "jsOwner": null,
+   "cTopline": "You kill the werejackal!",
+   "jsTopline": "You kill the werejackal!",
    "error": null
   },
   "scen-wish-Rogue-91119": {

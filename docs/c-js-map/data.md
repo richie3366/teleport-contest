@@ -51,7 +51,7 @@ was wrongly 13); **`mflags3` extracted** (D-0039 INFRAVISION/VISIBLE);
 **`MAIL_STRUCTURES`→`PM_MAIL_DAEMON` in extract (D-0606; SPECIAL_PM=330)**; 
 **`msounds[]` / `mons().msound` C `monflag.h` SIZ sound (D-1053; 
 `cry_sound` no longer always-chitter)**; poisonous/acidic/carnivore predicates still underused; 
-HI_OBJ/HI_METAL extractor aliases still diverge from color.h
+HI_OBJ/HI_METAL extractor aliases still diverge from color.h; **`mrs[]` / `mons().mr`** (D-2135; LVL group-4 permonst.mr drives `zap.c:6141` resist; 225/383 nonzero)
 
 ### rumor sources
 
