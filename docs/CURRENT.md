@@ -21,7 +21,7 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-08** — full `sessions` on the working tree
-(audit **1067–1073** over 3516098b…67985652, D-2098…D-2108 ports).
+(audit **1067–1073** over 3516098b…67985652, D-2098…D-2109 ports).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 `60+0.48/turn` (R² 0.87).
@@ -92,10 +92,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `insight.c` one_characteristic — blocks 1/553 corpus sessions (first at step 168): C « You were wielding a mattock.» vs JS « You were wielding a pick-axe.». Probe: `node scripts/hidden-proxy.mjs verify one_characteristic` (scen-wish-Priest-92180).
+**Next cluster:** `invent.c` dolook — blocks 1/553 corpus sessions (first at step 108): C «You can't see in here!» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify dolook` (scen-genesis-Wizard-92223).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2108 (index).**
+**Keep D-0845…D-2109 (index).**
 <!-- recent:begin -->
+**D-2109** `weapon.c` `weapon_descr` `:90–142` (`skill = weapon_type(obj)`; `descr = P_NAME(skill)`;  — `js/invent.js` — full C switch in exact C order with the `makesingular` return; P_NONE specials via `objectNameStrs` (verified «corpse|tin|egg|statue|boulder|towel|tin opener» ≡ OBJ_NAME) / `obj.globby` / live `def_oc_sy
 **D-2108** `pager.c` `look_at_monster` `:422–444` (`"tame "` + `distant_monnam(mtmp, ARTICLE_NONE, mo — `js/do_name.js` only — `distant_monnam_none` keeps the null→`it` guard and the astral conceal first (C order), then delegates to the live `x_monnam(mtmp, ARTICLE_NONE, null, 0, true)` (same module, no new edge, no TDZ).
 **D-2107** `makemon.c:1283–1294` (birth knowledge: `In_sokoban && !mindless` → `mon_learns_traps(PIT) — `js/makemon.js` only — birth-knowledge block in exact C order between `female` and `mpeaceful` (C order is female → traps → mwandexp → place_monster → mpeaceful; the JS `place_monster`/fmon-link shape is untouched).
 **D-2106** `hack.c` `domove_fight_empty` `:2258–2267` (`boulder = sobj_at(BOULDER, x, y)`; `if (glyph — `js/cmd.js` only, exact C order: full-pile `sobj_at(BOULDER)` scan first, then `glyph_to_obj_at(x, y) === STATUE_OTYP` (pre-existing `display.js` gbuf export joining the existing display edge — no new module, no TDZ, cal
@@ -103,11 +104,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2104** `insight.c` `background_enlightenment` Upolyd form arm (`:491–511`: current-gender adj whe — `js/invent.js` only, same-module import extensions only (`const.js` INVIS/G_GENOD/TELEPORT/HANDED, `roles.js` genders, `objnam.js` just_an, `monsters.js` is_male/is_female/is_neuter/vampshifted/nonliving/weirdnonliving —
 **D-2103** none ported. Recorded owner `wishymatch(objnam.c:3280)` is the literal-heuristic misattrib — none — the tree is already past the recorded divergence with zero edits this iteration (`git status --short` clean before and after diagnosis).
 **D-2102** `monmove.c` dochugw threat check + `display.h` `_canseemon` (`:117-120`: `cansee||see_with — `js/monmove.js` dochugw only — both visibility reads now use the pre-existing `./display.js` `canspotmon` import (`display_canspotmon`; call-time use, no new edge, no TDZ); doc comment updated to cite the stub-vs-macro d
-**D-2101** `sp_lev.c:5241-5251` `ensure_way_out` driver: the match arm ends with `goto outhere` whose — `js/mklev.js` only — outer x-loop labeled (`outer:`) with `break outer` in the match arm (exact C both-loops exit + rescan-from-x=1 via the existing do-while); doc comment corrected to cite `sp_lev.c:5241-5251` (exits bo
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2108; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2109; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

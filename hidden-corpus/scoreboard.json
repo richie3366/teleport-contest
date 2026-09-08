@@ -1,6 +1,6 @@
 {
- "commit": "a31403a9",
- "at": "2026-09-08T09:10:31.928Z",
+ "commit": "20e09ee9",
+ "at": "2026-09-08T09:20:54.697Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -8221,19 +8221,19 @@
   },
   "scen-wish-Priest-92180": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 4177,
    "rngT": 4177,
-   "scrM": 178,
+   "scrM": 179,
    "scrT": 179,
-   "kind": "screen",
-   "step": 168,
+   "kind": null,
+   "step": null,
    "steps": 179,
-   "owner": "one_characteristic",
-   "loc": "insight.c:926",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "Your constitution was 12 (limit:18).",
-   "jsTopline": "Your constitution was 12 (limit:18).",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-wish-Priest-92197": {

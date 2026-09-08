@@ -55,7 +55,7 @@ import {
     clear_committed_status,
     docorner,
 } from './display.js';
-import { xprname, an, just_an, vtense, doname, distant_name, Japanese_item_name, xname, cxname_singular, set_xname_observe, set_distant_cansee, ansimpleoname, simpleonames, set_not_fully_identified, makeplural, body_part_latebound, corpse_xname, killer_xname } from './objnam.js';
+import { xprname, an, just_an, vtense, doname, distant_name, Japanese_item_name, xname, cxname_singular, set_xname_observe, set_distant_cansee, ansimpleoname, simpleonames, set_not_fully_identified, makeplural, makesingular, body_part_latebound, corpse_xname, killer_xname } from './objnam.js';
 import { yn_function, getlin, mungspaces } from './getline.js';
 import { get_count, pmatchi, cmdq_pop, cmdq_clear } from './cmd.js';
 import { mergable, is_damageable, stop_timer, splitobj, unsplitobj, clear_splitobjs, unknwn_contnr_contents, weight, delobj } from './mkobj.js';
@@ -92,6 +92,7 @@ import {
     objectNames,
     objectNameStrs,
     objects,
+    is_graystone,
 } from './objects.js';
 import { interesting_to_discover, disco_append_typename } from './o_init.js';
 import {
@@ -307,6 +308,7 @@ import {
     count_buc, count_justpicked, allow_category,
     query_category, query_objlist,
 } from './pickup.js';
+import { is_ammo } from './wield.js';
 
 // C monflag.h MZ_HUMAN ≡ MZ_MEDIUM
 const MZ_HUMAN = 2;
@@ -4385,35 +4387,63 @@ function insight_skill_level_name(skill) {
 }
 
 /**
- * C ref: weapon.c weapon_descr — P_NAME(weapon_type); P_NONE → oclass name
- * (def_oc_syms[].name). Named omissions: ammo/sling/bow/crossbow/flail
- * hook/mattock specials; wet towel; shield of reflection.
+ * C ref: weapon.c weapon_descr — P_NAME(weapon_type) with the special-case
+ * switch, returned through makesingular. P_NONE → OBJ_NAME specials /
+ * globby "glob" / def_oc_syms[oclass].name. Named omissions: none in this
+ * function (weapon_insight's wet-towel / shield-of-reflection arms live in
+ * the enlightenment callers at status/final disclosure).
  */
+const OTYP_TIN = objectNames.indexOf('TIN');
+const OTYP_BOULDER = objectNames.indexOf('BOULDER');
+const OTYP_TOWEL = objectNames.indexOf('TOWEL');
+const OTYP_TIN_OPENER = objectNames.indexOf('TIN_OPENER');
+const OTYP_DWARVISH_MATTOCK = objectNames.indexOf('DWARVISH_MATTOCK');
+const OTYP_GRAPPLING_HOOK = objectNames.indexOf('GRAPPLING_HOOK');
+const OTYP_ROCK = objectNames.indexOf('ROCK');
 export function weapon_descr(obj) {
     const skill = weapon_type(obj);
-    if (skill === P_NONE && obj) {
-        // C: corpses/tin/egg/statue/boulder/towel/opener → OBJ_NAME;
-        // else def_oc_syms[oclass].name. Spellbook path is the live peel.
-        const OC_NAME = {
-            [WEAPON_CLASS]: 'weapon',
-            [ARMOR_CLASS]: 'armor',
-            [RING_CLASS]: 'ring',
-            [AMULET_CLASS]: 'amulet',
-            [TOOL_CLASS]: 'tool',
-            [FOOD_CLASS]: 'food',
-            [POTION_CLASS]: 'potion',
-            [SCROLL_CLASS]: 'scroll',
-            [SPBOOK_CLASS]: 'spellbook',
-            [WAND_CLASS]: 'wand',
-            [COIN_CLASS]: 'coin',
-            [GEM_CLASS]: 'gem',
-            [ROCK_CLASS]: 'rock',
-            [BALL_CLASS]: 'iron ball',
-            [CHAIN_CLASS]: 'chain',
-        };
-        return OC_NAME[obj.oclass] || 'weapon';
+    let descr = skill_name(skill);
+    switch (skill) {
+    case P_NONE: {
+        if (!obj) break;
+        const otyp = obj.otyp | 0;
+        if (otyp === OTYP_CORPSE || otyp === OTYP_TIN || otyp === EGG
+            || otyp === STATUE || otyp === OTYP_BOULDER
+            || otyp === OTYP_TOWEL || otyp === OTYP_TIN_OPENER) {
+            // C: OBJ_NAME(objects[otyp]) (generated objectNameStrs).
+            descr = objectNameStrs[otyp] || descr;
+        } else if (obj.globby) {
+            descr = 'glob';
+        } else {
+            descr = def_oc_syms[obj.oclass]?.name || 'weapon';
+        }
+        break;
     }
-    return skill_name(skill);
+    case P_SLING:
+        if (is_ammo(obj))
+            descr = ((obj.otyp | 0) === OTYP_ROCK || is_graystone(obj))
+                ? 'stone'
+                : (obj.oclass === GEM_CLASS)
+                    ? 'gem'
+                    : (def_oc_syms[obj.oclass]?.name || 'weapon');
+        break;
+    case P_BOW:
+        if (is_ammo(obj)) descr = 'arrow';
+        break;
+    case P_CROSSBOW:
+        if (is_ammo(obj)) descr = 'bolt';
+        break;
+    case P_FLAIL:
+        if ((obj.otyp | 0) === OTYP_GRAPPLING_HOOK) descr = 'hook';
+        break;
+    case P_PICK_AXE:
+        // C: even if "dwarvish mattock" hasn't been discovered yet.
+        if ((obj.otyp | 0) === OTYP_DWARVISH_MATTOCK) descr = 'mattock';
+        break;
+    default:
+        break;
+    }
+    return makesingular(descr);
 }
 
 /**
