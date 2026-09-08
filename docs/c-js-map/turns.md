@@ -548,6 +548,7 @@ CQ_REPEAT D-1729**
 `SPE_POLYMORPH` (D-0156/D-0576/D-0928 #1103); **getobj `?`/`*` → `display_pickinv_reply`; 
 RAY `weffects` → `ubuzz`/`dobuzz` for `WAN_MAGIC_MISSILE`..`WAN_LIGHTNING` (range/`zap_hit`/`zhitm` 
 damagetypes + cold `destroy_items`/`resist`/`Reflecting` shield)** (D-0450/D-0682);
+**`zhitm` ZT_LIGHTNING `spell_damage_bonus` + `rnd(50)` blind (`resists_blnd_mm` import-the-export from `mhitm.js`; youmonst arm unreachable — callers pass monst*)** (D-2127; MM/FIRE/COLD bonus + `defended` + `shieldeff` stay deferred);
 **`resist` Conflict-early-pass + mplayer dlev + `zhitm` ZT_SLEEP `resist(how)` gate + explode.js `olet` alev table D-2116** (resists_sleep bits live; worn/artifact scan + `defended(AD_SLEE)` + tell-shield stay deferred; music/pray clones exact for fixed-oclass callers; debt R-1082: sleep_monst mimic-reveal arm `mhitm.c:1226–1229` → live `seemimic` unported, ~6 lines); 
 **`ureflects` shield `makeknown`→`exercise(A_WIS)`** (D-0452); 
 **`dobuzz` `tmp_at(DISP_BEAM)` + `zapdir_to_glyph` + `DISP_CHANGE`/`DISP_END`** (D-0468); 
@@ -2819,8 +2820,8 @@ callee `potion.c` `healup` `make_vomiting`+`make_sick(SICK_ALL)` + `make_slimed`
 **SPE_CURE_BLINDNESS `healup(0,0,FALSE,TRUE)` (D-1399; C `:1549–1551`; 
 callee `potion.c` cream + `make_blinded` + `make_deaf`)**; 
 **SPE_CHAIN_LIGHTNING `cast_chain_lightning` (D-1400; C `:1588–1590` / `:1002–1100`; 
-callee `zap.c` `zhitm` `BZ_U_SPELL(AD_ELEC-1)` nd=2; peaceful skip; swallow TODO; 
-`defended` / zhitm `spell_damage_bonus` still named)**; **SPE_CREATE_MONSTER `seffects` (D-1401; 
+callee `zap.c` `zhitm` `BZ_U_SPELL(AD_ELEC-1)` nd=2 (LIGHTNING bonus live D-2127); peaceful skip; swallow TODO;
+`defended` / zhitm MM/FIRE/COLD `spell_damage_bonus` still named)**; **SPE_CREATE_MONSTER `seffects` (D-1401; 
 C `:1528–1531`; no skilled bless; callee `read.c` `seffect_create_monster` `:1608–1624` → 
 `create_critters`)**; **SPE_MAGIC_MAPPING `seffects` (D-1407; same C `:1528–1531`; 
 callee `read.c` `seffect_magic_mapping` `:2102–2153`; nommap `make_confused` + `notice_mon_off/on`; 

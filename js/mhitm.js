@@ -714,7 +714,7 @@ function dmgtype_fromattack(ptr, adtyp, aatyp) {
  * C ref: mondata.c resists_blnd monster arm :248–272.
  * Named omit: resists_blnd_by_arti (Sunsword); youmonst Blind/Unaware.
  */
-function resists_blnd_mm(mon) {
+export function resists_blnd_mm(mon) {
     if (!mon) return true;
     const ptr = mon.data;
     if ((mon.mblinded | 0) || !(mon.mcansee | 0) || !haseyes(ptr)

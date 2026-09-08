@@ -1,6 +1,6 @@
 {
- "commit": "137e650f",
- "at": "2026-09-08T13:36:00.201Z",
+ "commit": "c0bd7edc",
+ "at": "2026-09-08T13:41:11.026Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -8466,18 +8466,18 @@
   "scen-wish-Samurai-92087": {
    "src": "corpus",
    "passed": false,
-   "rngM": 2387,
+   "rngM": 2397,
    "rngT": 2820,
    "scrM": 65,
    "scrT": 288,
    "kind": "rng",
-   "step": 64,
+   "step": 65,
    "steps": 288,
-   "owner": "zhitm",
-   "loc": "zap.c:4356",
-   "jsOwner": "zhitm(zap.js:1841)",
-   "cTopline": "You kill poor Hachi! You hear the rumble of distant thunder...--More--",
-   "jsTopline": "You kill poor Hachi! You hear the rumble of distant thunder...--More--",
+   "owner": "dobuzz",
+   "loc": "zap.c:4989",
+   "jsOwner": "exercise(attrib.js:196)",
+   "cTopline": "The bolt of lightning bounces! The bolt of lightning hits you!--More--",
+   "jsTopline": "The bolt of lightning bounces! The bolt of lightning hits you!",
    "error": null
   },
   "scen-wish-Samurai-92088": {

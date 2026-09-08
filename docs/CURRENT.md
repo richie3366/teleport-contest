@@ -21,7 +21,7 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-08** — full `sessions` on the working tree
-(audit **1083–1088**: 26431cce…10ea68f1, D-2117…D-2126).
+(audit **1083–1088**: 26431cce…10ea68f1, D-2117…D-2127).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 `67+0.40/turn` (R² 0.79).
@@ -87,10 +87,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `potion.c` self_invis_message — blocks 1/553 corpus sessions (first at step 62): C «Gee! All of a sudden, you can't see yourself.--More--» vs JS «Gee! All of a sudden, you can't see yourself.--More--». Probe: `node scripts/hidden-proxy.mjs verify self_invis_message` (scen-wish-Healer-92010).
+**Next cluster:** `zap.c` zhitm — blocks 1/553 corpus sessions (first at step 64): C draws `rnd(50)=37` in zhitm, JS `rn2(3)=2` from zhitm(zap.js:1841). Probe: `node scripts/hidden-proxy.mjs verify zhitm` (scen-wish-Samurai-92087).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2126 (index).**
+**Keep D-0845…D-2127 (index).**
 <!-- recent:begin -->
+**D-2127** `zap.c:4342–4365` ZT_LIGHTNING (`tmp = d(nd,6)`; spellcaster → `spell_damage_bonus`; `resi — `js/zap.js` only, exact C order — `if (spellcaster) tmp = spell_damage_bonus(tmp)` (same-module live helper), shield + `tmp = 0`, the blind gate with `rnd(50)` / `mcansee = 0` / 127-clamped `mblinded`, then the `rn2(3)` 
 **D-2126** `youprop.h:198` `Invis ≡ (HInvis || EInvis) && !BInvis` (each arm is `uprops[INVIS].intrin — `js/display.js` only — `hero_Invis()` now ORs flats + `uprops[INVIS]` intrinsic/extrinsic/blocked, `hero_See_invisible()` ORs flats + sticky + `uprops[SEE_INVIS]` intrinsic/extrinsic, in the established `Detect_monsters`
 **D-2125** `weapon.c:918–928` in `mon_wield_item` (`artifact_light(obj) && !obj->lamplit` → `begin_bu — `js/weapon.js` only — the `:918–928` arm in exact C order (`begin_burn(obj, false)` before the visibility branch so lamplit/radius are set first, matching C where the adverb reads the lit radius); import-the-export `arti
 **D-2124** `mon.c:4265–4318` `setmangry` (reached via missum → `wakeup(mon, TRUE)` → `setmangry`), `: — `js/mon.js` only — `else { await growl(mtmp); }` in exact C position with C cite; `growl` was already imported from pre-existing `./sounds.js` edge (no new import, no TDZ risk — no `imports.mjs --can` needed); header ret
@@ -98,11 +99,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2122** `end.c:326–340` killer-based `ugrave_arise` in `done_in_by` (wraith/mummy/zombie/vampire/g — `js/end.js` — `done_in_by` ports the full `:326–340` chain in C order (`mlet` on `mtmp.data`, `zombie_maker` live import, `Race_if(PM_HUMAN)` as `urace.mnum`, ghoul by `mndx`, genod reset via live `mvitals`); `really_don
 **D-2121** `objnam.c:660–664` `xname_flags` (`find_artifact` on real `dknown`, then `if (obj_is_pname — `js/objnam.js` only — `xname` returns bare `ONAME` (`The` downcase + strip leading `the `) when `obj_is_pname(obj) && has_oname(obj)`; `doname` uses the same bare `ONAME` as `base` for `isPname`, skips the `poisoned ` st
 **D-2120** `insight.c:1758–1765` (Swimming+Underwater guard `:1758–1759`, Breathless `:1760–1761`, Am — `js/dbridge.js` exports the four D-1967 predicates (import-the-export, no second macro implementation); `js/invent.js` extends the same-edge static `./const.js` import (SWIMMING/MAGICAL_BREATHING/PASSES_WALLS) and ports 
-**D-2119** `hack.c:2693–2709` `domove()` (writer behind the `dog_move` symptom): `gk.kickedloc.x = 0, — `js/cmd.js` only, exact C shape — `game.kickedloc = { x: 0, y: 0 }` unconditional in `domove()`'s `finally` beside `game.domove_attempting = 0` (C `:2708` position); removed the `did_step`-gated clear and the three now-r
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2126; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2127; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

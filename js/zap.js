@@ -257,7 +257,7 @@ import {
     hides_under, is_golem, is_mplayer, vegetarian, carnivorous, NUMMONS,
 } from './monsters.js';
 import { m_at, wakeup, seemimic, dead_species, normal_shape, replmon, find_mid, mongone, restore_cham, m_respond, hideunder, healmon, can_be_hatched, cant_drown } from './mon.js';
-import { find_mac, monkilled, shade_miss, resists_sleep_slee } from './mhitm.js';
+import { find_mac, monkilled, shade_miss, resists_sleep_slee, resists_blnd_mm } from './mhitm.js';
 import { update_mapseen_for } from './dungeon.js';
 import {
     find_drawbridge, open_drawbridge, close_drawbridge, is_db_wall,
@@ -1758,8 +1758,10 @@ export async function resist(mtmp, oclass, damage, tell) {
 /**
  * C ref: zap.c zhitm — wand/spell/breath hit on monster.
  * Envelope: ZT_MAGIC_MISSILE..ZT_ACID dice + cold/fire/elec destroy_items
- * + resist halve. Named omissions: defended(); resists_magm body;
- * zhitm spell_damage_bonus (helper lives D-1378); burnarmor/ignite; acid_damage/erode; death-breath
+ * + resist halve + ZT_LIGHTNING spell_damage_bonus + rnd(50) blind
+ * (D-2127). Named omissions: defended(); resists_magm body;
+ * MAGIC_MISSILE/FIRE/COLD spell_damage_bonus (helper lives D-1378);
+ * burnarmor/ignite; acid_damage/erode; death-breath
  * armor strip; Rider/Death; Knight questart double; shieldeff.
  * @returns {Promise<number>} damage applied (MAGIC_COOKIE = disintegrate)
  */
@@ -1845,12 +1847,27 @@ export async function zhitm(mon, type, nd, ootmp) {
     }
     case ZT_LIGHTNING:
         tmp = d(nd, 6);
+        // C zap.c:4344-4345 — Int/level bonus for hero spells (RNG-free).
+        if (spellcaster)
+            tmp = spell_damage_bonus(tmp);
         orig_dmg = tmp;
         if (resists_elec(mon) /* || defended(mon, AD_ELEC) */) {
             sho_shieldeff = true;
             tmp = 0;
+            /* can still blind the monster */
         }
-        // blinding rnd(50) when nd>2 deferred (no RNG stub when skipped)
+        // C zap.c:4352-4362 — sufficiently powerful lightning blinds monsters.
+        // Drawn before the rn2(3) destroy gate, so rnd(50) comes first.
+        // resists_blnd monster arm (import-the-export; youmonst arm
+        // unreachable — every zhitm caller passes a monst*, never youmonst).
+        if (!resists_blnd_mm(mon)
+            && !((type | 0) > 0 && engulfing_u(mon))
+            && (nd | 0) > 2) {
+            const blind_dur = rnd(50);
+            mon.mcansee = 0;
+            const blinded = (mon.mblinded | 0) + blind_dur;
+            mon.mblinded = blinded > 127 ? 127 : blinded;
+        }
         if (!rn2(3)) tmp += await destroy_items(mon, AD_ELEC, orig_dmg);
         break;
     case ZT_POISON_GAS:

@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `zap.c` zhitm — blocks 1/553 corpus sessions (first at step 64): C draws `rnd(50)=37` in zhitm, JS `rn2(3)=2` from zhitm(zap.js:1841). Probe: `node scripts/hidden-proxy.mjs verify zhitm` (scen-wish-Samurai-92087).
 - [ ] `uhitm.c` mhitm_ad_plys — blocks 1/553 corpus sessions (first at step 78): C draws `rn2(3)=0` in mhitm_ad_plys, JS `d(3,6)=3` from passive(uhitm.js:1451). Probe: `node scripts/hidden-proxy.mjs verify mhitm_ad_plys` (scen-poly-Monk-92005).
 - [ ] `worn.c` mon_adjust_speed — blocks 1/553 corpus sessions (first at step 62): C «The titan is suddenly moving faster. The titan casts a spell» vs JS «The titan is suddenly moving faster. The titan casts a spell». Probe: `node scripts/hidden-proxy.mjs verify mon_adjust_speed` (scen-tour-Barbarian-92079).
 - [ ] `pray.c` prayer_done — blocks 1/553 corpus sessions (first at step 105): C draws `rnl(10)=4` in prayer_done, JS `rn2(5)=4` from distfleeck(monmove.js:840). Probe: `node scripts/hidden-proxy.mjs verify prayer_done` (scen-tour-Healer-92198).
@@ -68,6 +67,11 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 - [ ] `artifact.c` dump_artifact_info — blocks 1/553 corpus sessions (first at step 126): C «The credit card named the Platinum Yendorian Express Card ev» vs JS «The credit card named the Platinum Yendorian Express Card ev». Probe: `node scripts/hidden-proxy.mjs verify dump_artifact_info` (scen-wish-Priest-92136).
 - [ ] `polyself.c` uunstick — blocks 1/553 corpus sessions (first at step 207): C «The fire giant hits! The fire giant is no longer in your clu» vs JS «The fire giant hits! You return to elven form!». Probe: `node scripts/hidden-proxy.mjs verify uunstick` (scen-poly-Ranger-91131).
 - [ ] `mhitu.c` gazemu — blocks 1/553 corpus sessions (first at step 163): C «You are blinded by the Archon's radiance! You falter... It h» vs JS «You are blinded by the Archon's radiance! You stagger... It ». Probe: `node scripts/hidden-proxy.mjs verify gazemu` (scen-poly-Tourist-92047).
+- [ ] `zap.c` dobuzz — blocks 2/553 corpus sessions (first at step 65): C draws `d(6,50)=119` in dobuzz, JS `rn2(19)=8` from exercise(attrib.js:196). Probe: `node scripts/hidden-proxy.mjs verify dobuzz` (scen-wish-Samurai-92087, scen-wish-Wizard-92048).
+- [ ] `zap.c` zapyourself — blocks 1/553 corpus sessions (first at step 60): C «The sleep ray hits the little dog. The sleep ray hits you!--» vs JS «The sleep ray hits the little dog. The sleep ray hits you!--». Probe: `node scripts/hidden-proxy.mjs verify zapyourself` (scen-tour-Priest-92235).
+- [ ] `artifact.c` touch_artifact — blocks 1/553 corpus sessions (first at step 73): C «The pair of lenses named the Eyes of the Overworld evades yo» vs JS «The pair of lenses named the Eyes of the Overworld evades yo». Probe: `node scripts/hidden-proxy.mjs verify touch_artifact` (scen-genesis-Valkyrie-92094).
+- [ ] `trap.c` burnarmor — blocks 1/553 corpus sessions (first at step 73): C draws `rn2(5)=3` in burnarmor, JS `rn2(6)=5` from xkilled(uhitm.js:694). Probe: `node scripts/hidden-proxy.mjs verify burnarmor` (scen-wish-Ranger-92212).
+- [ ] `objnam.c` doname_base — blocks 1/553 corpus sessions (first at step 54): C «k - a long sword named Sunsword (weapon in right hand).--Mor» vs JS «k - a long sword named Sunsword (weapon in right hand).». Probe: `node scripts/hidden-proxy.mjs verify doname_base` (scen-wish-Rogue-92037).
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 
