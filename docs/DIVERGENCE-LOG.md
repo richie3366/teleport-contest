@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2129 — `pray.c` prayer_done Inhell Gehennom gate: JS skipped `rnl(record)` + `angrygods` where C draws `rnl(10)=4` (queue row `pray.c` prayer_done, 1 session)
+
+- **Status:** fixed (Open queue row `pray.c` prayer_done — cited 1/553; `verify --fn prayer_done`: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS. Row cites no review so no stamp owed.)
+- **Symptom:** scen-tour-Healer-92198 step 105/165, RNG-first at `pray.c:2311`: C `rnl(10)=4 @ prayer_done` vs JS `rn2(5)=4 @ distfleeck(monmove.js:840)`. Toplines: C «Since you are in Gehennom, Hermes can't help you.--More--» vs JS «Since you are in Gehennom, Hermes can't help you.» (C runs the anger arm behind the MORE; JS returns). stepFns `prayer_done, angrygods, godvoice`.
+- **C locus:** `pray.c:2276–2343` `prayer_done`, Inhell arm `:2307–2313` (`pline("Since you are in Gehennom, %s can't help you.", align_gname)` → `if (u.ualign.record <= 0 || rnl(u.ualign.record)) angrygods(u.ualign.type)` → `return 0`; «haltingly aligned is least likely to anger»).
+- **JS was:** `js/pray.js` `prayer_done` Inhell arm printed the pline then `// angrygods gate deferred; return 0` — never drew `rnl`, never called `angrygods` (live same-file D-0969), so the stream fell through to next-turn `distfleeck rn2(5)` one slot early.
+- **Fix:** `js/pray.js` only, exact C order + short-circuit — `if (((u.ualign?.record | 0) <= 0) || rnl(u.ualign?.record | 0)) await angrygods(u.ualign?.type ?? 0)` with C cite `:2310–2312`. `rnl` already imported; `angrygods` same-file (no new edge, no TDZ risk — no `imports.mjs --can` needed). `||` preserves C's no-draw when `record <= 0`. No DIAG/FORCE/seed gates; Rule #2 clean.
+- **JS:** 1 file (`js/pray.js` +4/−1 — a 3-line C gate plus doc + cite; the small diff is the whole envelope), under the 600/10 caps.
+- **Verify:** `node scripts/verify.mjs --fn prayer_done` → PASS syntax (1 changed js file(s): js/pray.js) · PASS rule2 (no fs/path/url/node: imports, no DIAG/FORCE/seed gates) · PASS hidden (verify prayer_done: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS: scen-tour-Healer-92198 PASS) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) · VERIFY: PASS. Preflight `verify.mjs --no-cohort` was green before edits.
+- **Named omissions:** none new. p_type −2/−1/1/2 outcome bodies + `pray_revive` stay named (`pray.js` header; no corpus session reaches them this iter).
+- **Next:** Healer-92198 now fully PASS (165/165 screens, 31202/31202 RNG) — leave to the corpus queue; do not re-pop `prayer_done` for it.
+- **Cited falsifier grade:** measured (machine-recorded C `rnl(10)=4` vs JS `rn2(5)=4` at `pray.c:2311` + `hidden-proxy show` stepFns/toplines + `hidden-proxy verify prayer_done` baseline NO MOVEMENT → post 1 PASS; pinned C `pray.c:2275–2343` body read; green + strict + cohort 7/7 post-change; no JS FORCE/DIAG/seed reads used).
+
 ## D-2128 — `uhitm.c` mhitm_ad_plys mhitm (mon→mon) arm: ghoul-vs-monster freeze drew knockback dice where C draws `!rn2(3)` first (queue row `uhitm.c` mhitm_ad_plys, 1 session)
 
 - **Status:** fixed (Open queue row `uhitm.c` mhitm_ad_plys — cited 1/553; `verify --fn mhitm_ad_plys`: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS. Row cites no review so no stamp owed.)

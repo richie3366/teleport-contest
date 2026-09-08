@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-08 — D-2129 `pray.c` prayer_done Inhell Gehennom gate: JS skipped `rnl(record)` + `angrygods` where C draws `rnl(10)=4` (queue row `pray.c` prayer_done, 1 session)
+
+**C locus:** `pray.c:2276–2343` `prayer_done`, Inhell arm `:2307–2313` (`pline("Since you are in Gehennom, %s can't help you.", align_gname)` → `if (u.ualign.record <= 0 || rnl(u.ualign.record)) angrygods(u.ualign.type)` → `return 0`; «haltingly aligned is least likely to anger»).
+**JS:** 1 file (`js/pray.js` +4/−1 — a 3-line C gate plus doc + cite; the small diff is the whole envelope), under the 600/10 caps.
+**Change:** `js/pray.js` only, exact C order + short-circuit — `if (((u.ualign?.record | 0) <= 0) || rnl(u.ualign?.record | 0)) await angrygods(u.ualign?.type ?? 0)` with C cite `:2310–2312`. `rnl` already imported; `angrygods` same-file (no new edge, no TDZ risk — no `imports.mjs --can` needed). `||` preserves C's no-draw when `record <= 0`.
+**Verify:** `node scripts/verify.mjs --fn prayer_done` → PASS syntax (1 changed js file(s): js/pray.js) · PASS rule2 (no fs/path/url/node: imports, no DIAG/FORCE/seed gates) · PASS hidden (verify prayer_done: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS: scen-tour-Healer-92198 PASS) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) · VERIFY: PASS. Preflight `verify.mjs --no-cohort` was green before edits.
+**Named:** none new. p_type −2/−1/1/2 outcome bodies + `pray_revive` stay named (`pray.js` header; no corpus session reaches them this iter).
+**Next:** Healer-92198 now fully PASS (165/165 screens, 31202/31202 RNG) — leave to the corpus queue; do not re-pop `prayer_done` for it.
 ## 2026-09-08 — D-2128 `uhitm.c` mhitm_ad_plys mhitm (mon→mon) arm: ghoul-vs-monster freeze drew knockback dice where C draws `!rn2(3)` first (queue row `uhitm.c` mhitm_ad_plys, 1 session)
 
 **C locus:** `uhitm.c:3430–3476` `mhitm_ad_plys`, mhitm arm `:3464–3475` (`mdef->mcanmove && !rn2(3) && !mhitm_mgc_atk_negated(magr, mdef, TRUE)` → `gv.vis && canspotmon(mdef)` → plain `pline("%s is frozen by %s.")` → `paralyze_monst(mdef, rnd(10))`; leftover kept). Reached via `mhitm_adtyping :4815` from mon→mon `mdamagem` (`mhitm.c:1059`), which runs adtyping → knockback (`:1061–1065`) → HP.

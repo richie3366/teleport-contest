@@ -21,7 +21,7 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-08** — full `sessions` on the working tree
-(audit **1083–1088**: 26431cce…10ea68f1, D-2117…D-2128).
+(audit **1083–1088**: 26431cce…10ea68f1, D-2117…D-2129).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 `67+0.40/turn` (R² 0.79).
@@ -89,8 +89,9 @@ divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
 **Next cluster:** `pray.c` prayer_done — blocks 1/553 corpus sessions (first at step 105): C draws `rnl(10)=4` in prayer_done, JS `rn2(5)=4` from distfleeck(monmove.js:840). Probe: `node scripts/hidden-proxy.mjs verify prayer_done` (scen-tour-Healer-92198).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2128 (index).**
+**Keep D-0845…D-2129 (index).**
 <!-- recent:begin -->
+**D-2129** `pray.c:2276–2343` `prayer_done`, Inhell arm `:2307–2313` (`pline("Since you are in Gehenn — `js/pray.js` only, exact C order + short-circuit — `if (((u.ualign?.record | 0) <= 0) || rnl(u.ualign?.record | 0)) await angrygods(u.ualign?.type ?? 0)` with C cite `:2310–2312`.
 **D-2128** `uhitm.c:3430–3476` `mhitm_ad_plys`, mhitm arm `:3464–3475` (`mdef->mcanmove && !rn2(3) && — `js/mhitm.js` only — new exported `mhitm_ad_plys(magr, mattk, mdef, mhm)` in exact C short-circuit order (`mcanmove`, `!rn2(3)`, mgc-negated(TRUE) via the same-module live helper, `_mm_vis && canspotmon` + C-plain `pline
 **D-2127** `zap.c:4342–4365` ZT_LIGHTNING (`tmp = d(nd,6)`; spellcaster → `spell_damage_bonus`; `resi — `js/zap.js` only, exact C order — `if (spellcaster) tmp = spell_damage_bonus(tmp)` (same-module live helper), shield + `tmp = 0`, the blind gate with `rnd(50)` / `mcansee = 0` / 127-clamped `mblinded`, then the `rn2(3)` 
 **D-2126** `youprop.h:198` `Invis ≡ (HInvis || EInvis) && !BInvis` (each arm is `uprops[INVIS].intrin — `js/display.js` only — `hero_Invis()` now ORs flats + `uprops[INVIS]` intrinsic/extrinsic/blocked, `hero_See_invisible()` ORs flats + sticky + `uprops[SEE_INVIS]` intrinsic/extrinsic, in the established `Detect_monsters`
@@ -98,11 +99,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2124** `mon.c:4265–4318` `setmangry` (reached via missum → `wakeup(mon, TRUE)` → `setmangry`), `: — `js/mon.js` only — `else { await growl(mtmp); }` in exact C position with C cite; `growl` was already imported from pre-existing `./sounds.js` edge (no new import, no TDZ risk — no `imports.mjs --can` needed); header ret
 **D-2123** `do_wear.c:2029–2206` `canwearobj` (verysmall/nohands `:2036–2042`, cantweararm cloak-exce — `js/worn.js` — `cantweararm` exported (import-the-export, no second copy; `breakarm`/`sliparm` stay private).
 **D-2122** `end.c:326–340` killer-based `ugrave_arise` in `done_in_by` (wraith/mummy/zombie/vampire/g — `js/end.js` — `done_in_by` ports the full `:326–340` chain in C order (`mlet` on `mtmp.data`, `zombie_maker` live import, `Race_if(PM_HUMAN)` as `urace.mnum`, ghoul by `mndx`, genod reset via live `mvitals`); `really_don
-**D-2121** `objnam.c:660–664` `xname_flags` (`find_artifact` on real `dknown`, then `if (obj_is_pname — `js/objnam.js` only — `xname` returns bare `ONAME` (`The` downcase + strip leading `the `) when `obj_is_pname(obj) && has_oname(obj)`; `doname` uses the same bare `ONAME` as `base` for `isPname`, skips the `poisoned ` st
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2128; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2129; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

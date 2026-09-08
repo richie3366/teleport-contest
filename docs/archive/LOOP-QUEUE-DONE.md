@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `uhitm.c` mhitm_ad_plys — blocks 1/553 corpus sessions (first at step 78): C draws `rn2(3)=0` in mhitm_ad_plys, JS `d(3,6)=3` from passive(uhitm.js:1451). Probe: `node scripts/hidden-proxy.mjs verify mhitm_ad_plys` (scen-poly-Monk-92005). **Addressed:** D-2128
+- [x] `pray.c` prayer_done — blocks 1/553 corpus sessions (first at step 105): C draws `rnl(10)=4` in prayer_done, JS `rn2(5)=4` from distfleeck(monmove.js:840). Probe: `node scripts/hidden-proxy.mjs verify prayer_done` (scen-tour-Healer-92198). **Addressed:** D-2129
+
+
+- [x] `uhitm.c` mhitm_ad_plys — blocks 1/553 corpus sessions (first at step 78): C draws `rn2(3)=0` in mhitm_ad_plys, JS `d(3,6)=3` from passive(uhitm.js:1451). Probe: `node scripts/hidden-proxy.mjs verify mhitm_ad_plys` (scen-poly-Monk-92005). **Addressed:** D-2128 `a7ae28e5`
 
 
 - [x] `zap.c` zhitm — blocks 1/553 corpus sessions (first at step 64): C draws `rnd(50)=37` in zhitm, JS `rn2(3)=2` from zhitm(zap.js:1841). Probe: `node scripts/hidden-proxy.mjs verify zhitm` (scen-wish-Samurai-92087). **Addressed:** D-2127 `86cd47fa`

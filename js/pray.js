@@ -1638,6 +1638,7 @@ export async function gcrownu() {
 /**
  * C ref: pray.c prayer_done — afternmv after nomul(-3).
  * Ported: p_type 0 (too soon) full path; p_type 3 → pleased envelope;
+ * Inhell Gehennom gate + rnl(record) angrygods (pray.c:2307-2313);
  * other p_types partial/stub.
  */
 export async function prayer_done() {
@@ -1654,7 +1655,9 @@ export async function prayer_done() {
         await pline(
             `Since you are in Gehennom, ${align_gname(game.urole, alignment)} can't help you.`,
         );
-        // angrygods gate deferred
+        // C pray.c:2310-2312 haltingly aligned least likely to anger
+        if (((u.ualign?.record | 0) <= 0) || rnl(u.ualign?.record | 0))
+            await angrygods(u.ualign?.type ?? 0);
         return 0;
     }
 
