@@ -1,6 +1,6 @@
 {
- "commit": "8c0e9448",
- "at": "2026-09-08T14:11:16.323Z",
+ "commit": "fdbdd2e2",
+ "at": "2026-09-08T14:20:02.611Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6827,19 +6827,19 @@
   },
   "scen-poly-Ranger-91131": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 3061,
+   "passed": true,
+   "rngM": 3390,
    "rngT": 3390,
-   "scrM": 208,
+   "scrM": 243,
    "scrT": 243,
-   "kind": "screen",
-   "step": 207,
+   "kind": null,
+   "step": null,
    "steps": 243,
-   "owner": "uunstick",
-   "loc": "polyself.c:1950",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "The fire giant hits! The fire giant is no longer in your clutches.--More--",
-   "jsTopline": "The fire giant hits! You return to elven form!",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-poly-Ranger-92049": {

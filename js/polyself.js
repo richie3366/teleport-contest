@@ -11,7 +11,7 @@ import { getlin, yn_function, y_n } from './getline.js';
 import { getdir } from './lock.js';
 import { an, the, the_unique_pm, set_body_part, yname, vtense, simpleonames, makeplural, cxname, ansimpleoname, simple_typename } from './objnam.js';
 import {
-    pmname, type_is_pname, mon_nam, s_suffix, Ugender, hliquid,
+    pmname, type_is_pname, mon_nam, Monnam, s_suffix, Ugender, hliquid,
 } from './do_name.js';
 import { Unaware } from './eat.js';
 import { attacktype_fordmg, killed } from './uhitm.js';
@@ -47,7 +47,7 @@ import { races } from './roles.js';
 import { encumber_msg, useup, weapon_descr, update_inventory } from './invent.js';
 import { end_burn } from './timeout.js';
 import { racial_exception, has_horns, num_horns, WrappingAllowed, is_flimsy } from './worn.js';
-import { helm_simple_name, digests } from './mhitu.js';
+import { helm_simple_name, digests, set_ustuck } from './mhitu.js';
 import { losehp, nomul, is_pool, waterbody_name } from './hack.js';
 import { finish_losehp_done, done } from './end.js';
 import { steed_vs_stealth } from './steed.js';
@@ -642,15 +642,33 @@ export function change_sex() {
 }
 
 /**
+ * C ref: polyself.c uunstick :1941–1951 — release u.ustuck then pline.
+ * set_ustuck runs before pline() per C (D-2131; was a uhitm.js local clone).
+ */
+export async function uunstick() {
+    const mtmp = (game.u || {}).ustuck;
+    if (!mtmp) {
+        await impossible('uunstick: no ustuck?');
+        return;
+    }
+    // C: set_ustuck(0) before pline()
+    set_ustuck(null);
+    await pline(`${Monnam(mtmp)} is no longer in your clutches.`);
+}
+
+/**
  * C ref: polyself.c polyman — revert to original race form after newman.
- * Envelope: restore macurr/mamax; clear mh/mtimedone; set_uasmon; find_ac;
- * newsym; pline; was_blind→make_blinded; see_monsters.
- * Named omissions: skinback; ugenocided; stick/mimic/twoweapon;
+ * Envelope: restore macurr/mamax; clear mh/mtimedone; set_uasmon; sticking
+ * uunstick (D-2131); find_ac; newsym; pline; was_blind→make_blinded;
+ * see_monsters.
+ * Named omissions: skinback; ugenocided; mimic/twoweapon;
  * strangling; pool spoteffects; retouch_equipment/selftouch.
  */
 async function polyman(fmt, arg) {
     const u = game.u || (game.u = {});
     const flags = game.flags || (game.flags = {});
+    // C :200–201 — sticking reads the CURRENT (poly) form, before set_uasmon
+    const sticking = !!(sticks(game.youmonst?.data) && u.ustuck && !u.uswallow);
     // C: was_blind = !!Blind before set_uasmon clears FROMFORM Blind
     const wasBlind = !!(((u.HBlinded | 0) || (u.EBlinded | 0))
         && !(u.BBlinded | 0)) || !!u.uroleplay?.blind;
@@ -666,6 +684,8 @@ async function polyman(fmt, arg) {
     u.mtimedone = 0;
     // skinback deferred
     u.uundetected = 0;
+    // C :220–221 — release the hold before the return-to-form pline
+    if (sticking) await uunstick();
     find_ac();
     newsym(u.ux, u.uy);
     // C urgent_pline(fmt, arg) — fmt has one %s; overrides WIN_STOP

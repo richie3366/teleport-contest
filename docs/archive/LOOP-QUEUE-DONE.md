@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
+- [x] `polyself.c` uunstick — blocks 1/553 corpus sessions (first at step 207): C «The fire giant hits! The fire giant is no longer in your clu» vs JS «The fire giant hits! You return to elven form!». Probe: `node scripts/hidden-proxy.mjs verify uunstick` (scen-poly-Ranger-91131). **Addressed:** D-2131
+
+
 - [x] `mhitu.c` mattacku — blocks 1/553 corpus sessions (first at step 163): C draws `rnd(20)=9` in mattacku, JS `rn2(2)=0` from mswings_verb(mhitu.js:321). Probe: `node scripts/hidden-proxy.mjs verify mattacku` (scen-poly-Rogue-92026). **Addressed:** D-2130 `8c0e9448`
 
 

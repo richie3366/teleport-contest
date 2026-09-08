@@ -6,38 +6,39 @@ Objective/score live in `CURRENT.md`.
 ## Active
 
 - **Scenario corpus = work picker:** `hidden-proxy queue`; singletons Deferred; themed-room step-0 → `geom-probe`.
-- **distfleeck park:** body port proven no-movement; 4th session via D-2108; writers in the Parked row.
-- **mcalcmove park:** D-2066 shipped; Rogue-92137/Knight-92188 = slime-lifesave writer (see Parked).
+- **distfleeck park:** body port proven no-movement (writers: Parked row).
+- **mcalcmove park:** slime-lifesave writer (see Parked).
 
 - **Parks (do not pop):** show_conduct, ready_weapon, mdrop_obj/dopush, dosearch, save_dungeon, do_statusline2, spoteffects, dump_artifact_info (falsifiers in Parked rows).
-- **dump_artifact_info park:** scen-wish-Priest-92136 step 126 identical toplines + row-1 `--More--` diff; owner is comment-literal tie-break (3 cMsgOwners), true printer touch_artifact:966 live in JS; dump wizard-only via o_init.c:1066, zero step draws; baseline verify NO MOVEMENT (0/0/1).
+- **dump_artifact_info park:** misattributed owner; true printer `touch_artifact:966` live in JS (detail + NO-MOVEMENT baseline: Parked row).
 - **Fortress guards.** Do not reopen display_inventory dismiss / gameover heading / keep_status, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue `S_ndoor`, bigrm-2, getpos, summonmu, lookat, `do_statusline1`, snapshot, fakewiz, Ice/Boulder, `roles[]`, pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
 - **Luck runs when invulnerable; dialogues do not** (`timeout.c:623`); STONED/SLIMED expiry silent.
 - **`sit.js` lay-egg `morehungry` unawaited; `losedogs` rebuilds `migrating_mons`.** Clone drift: zap useupf; detect/potion/read/spell `useup`; Elbereth; teleport `accessible`; helm_simple_name; pickup `ysimple_name`; getobj_* clones.
 - **next_ident = symptom owner:** fix the WRITER, not the table reader.
-- **obj_resists park:** 3-writer symptom (detail: Parked). S2 fire-trap skip; S3 cube paradox.
+- **obj_resists park:** 3-writer symptom (detail: Parked).
 - **m_move symptom-owner park:** loop body faithful; D-2069 shipped; Caveman-92202 cnt-j off-by-one (detail + falsifier: Parked; do not re-pop).
 - **rloc park:** body faithful (D-0686); writer is a draw-free migration creator (detail + falsifier: Parked; do not re-pop).
 - **lightdamage park:** `mzapwand` MORE-transient misattributed to zap.c (D-1366 faithful); capture artifact, not state (detail + falsifier: Parked; do not re-pop).
 - **mattackm/can_carry park:** writer can_carry; import alone ETIMEDOUT — trio only, do not pop.
 - **spoteffects park:** Samurai-92161 step 35 topline-literal misattribution; writer is `mthrowu.c` flight/catch (forcehit + catch-inventory). Falsifier in Parked row; do not re-pop.
-- **mon_adjust_speed park:** Barbarian-92079 step 62 topline-literal misattribution (3 cMsgOwners, identical toplines); faster text is step-61 potion-quaff effect via MORE queue, map diff is 4 summon-adjacent glyph cells with full RNG sync — writer is summon glyph visibility/paint, not the speed printer. Falsifier in Parked row; do not re-pop.
+- **mon_adjust_speed park:** topline-literal misattribution; writer is summon glyph paint, not the speed printer (detail + falsifier: Parked row; do not re-pop).
 
 ## Don't re-check (≤15)
 
-- D-1790…D-2130 ports stand (range-covered). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`/`free_mgivenname`/`is_axe`/`carrying`/`end_running`.
+- D-1790…D-2131 ports stand (range-covered). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`/`free_mgivenname`/`is_axe`/`carrying`/`end_running`.
 - D-1795 `mattacku`/`getmattk` and D-1816 NATTK abort stand (range-covered). Scars: keep sleep `rn2(10)`; no second `m_monnam`/`simple_typename`; seed4500 `[2]` (D-1817): keep `flush_screen(1)`, never hide `[2]`.
 - No `stay` rebuild; no `u.Punished`; no `rn2(20)` on ordinary pit farlook.
 - seed0014 I-glyph is D-1774; findone tail D-1775. Do not revert D-0078 H2344 / offx 72 (D-1185). `g` is not Unknown (D-1186). PREFIXCMD D-1582.
   ParanoidTrap / `domagicportal` / `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 are D-1187/1188. No rhack raw-ETX (D-1189). Never FORCE the falsified mineralize TRC (76,14)/(77,14) (D-1849).
 - `Val-*`/`Sam-*` loaders shipped D-1852/D-1858 — check `load_val_*`/`load_sam_*` before refilling.
 - Don't re-apply D-0480 glyph `tty_map_color` (D-0483). Don't skip painting spaces or emit mid-row space runs >4 (D-0931). Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092). Do not blanket-restore overlay `_pending_message` (D-0929). Do not HEAVY_IRON_BALL `owt!=0` (#1194). Judge does **not** elide RC (D-0933); do not extend §1.2. Do not chase public LB in-loop.
-- Do not memcpy gi worn/ball (D-1035) / `setnotworn` from `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) / skip `tutorial()` (D-1066). Do not skip D-1067…D-2130.
-- Do not import `monmove.js` `sticks` for sit / rewrite `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) / bones→options fruitadd (D-1541). No `reset_glyphmap` / `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`. No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`. Do not re-port D-1682…D-2130.
+- Do not memcpy gi worn/ball (D-1035) / `setnotworn` from `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) / skip `tutorial()` (D-1066). Do not skip D-1067…D-2131.
+- Do not import `monmove.js` `sticks` for sit / rewrite `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) / bones→options fruitadd (D-1541). No `reset_glyphmap` / `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`. No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`. Do not re-port D-1682…D-2131.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2131: `js/polyself.js` — new exported `uunstick()` in exact C order (`impossible` on null via the already-imported `display.js` edge, `set_ustuck(null)` via Named: `polyman` was_mimicking/`ugenocided`/`skinback`/strangling/pool-spoteffects/retouch arms s
 - D-2130: `js/mhitu.js` only — `mswings` now gates on the same-module live `Blind()` (`youprop.h` `(H||E)&&!B` + roleplay/ublind mirrors, D-0716 convention; no  Named: none new.
 - D-2129: `js/pray.js` only, exact C order + short-circuit — `if (((u.ualign?.record | 0) <= 0) || rnl(u.ualign?.record | 0)) await angrygods(u.ualign?.type ??  Named: none new. p_type −2/−1/1/2 outcome bodies + `pray_revive` stay named (`pray.js` header; no
 - D-2128: `js/mhitm.js` only — new exported `mhitm_ad_plys(magr, mattk, mdef, mhm)` in exact C short-circuit order (`mcanmove`, `!rn2(3)`, mgc-negated(TRUE) via Named: mhitu you-as-def arm stays named → open D-2005 (`hitmsg` + `nomul` + `dynamic_multi_reason
@@ -52,5 +53,4 @@ Objective/score live in `CURRENT.md`.
 - D-2119: `js/cmd.js` only, exact C shape — `game.kickedloc = { x: 0, y: 0 }` unconditional in `domove()`'s `finally` beside `game.domove_attempting = 0` (C `:2 Named: none new.
 - D-2118: `js/pray.js` only — `Inhell()` now the dungeon `hellish` flag; `GEHENNOM` import dropped. Named: same-shape `dnum===GEHENNOM` clones left untouched (no corpus session proves them this ite
 - D-2117: full C-order port in `js/polyself.js` (energy cost lands before the prompt, so a cancelled breath still costs 15 — dosummon botl idiom); `BZ_U_BREATH` Named: none new in `dobreathe` (fully ported; the seed0108 `uen<15` refuse path is unchanged and 
-- D-2116: `js/zap.js` — canonical `resist` gains the Conflict early pass + mplayer dlev (needs `is_mplayer`, same-module import extension, no new edge); ZT_SLEE Named: `tell → shieldeff_mon` display stays deferred (pre-existing `void tell`); sleep `Resists_E
 <!-- landmarks:end -->
