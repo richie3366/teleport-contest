@@ -1127,7 +1127,7 @@ makeplural keeps singular pair** (D-0158);
 **`vtense` bare singular + ends-in-s plural** (D-0403; 
 full special_subjs/`of`/`from` polish deferred); 
 **xname WEAPON `poisoned ` + doname strip/reinsert** (D-0418; 
-`permapoisoned`/wet-towel/figurine deferred); 
+`permapoisoned`/wet-towel deferred; figurine ` of <pm>` live D-2098); 
 **xname RING dknown+!nn → `<descr> ring` via `oc_descr_idx`; 
 `nn`=`oc_name_known` only (not `obj.known`)** (D-0420); 
 omit fruits/door/wall/drawbridge (wizterrainwish furniture D-1279; 

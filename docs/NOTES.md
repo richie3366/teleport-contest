@@ -26,12 +26,15 @@ Objective/score live in `CURRENT.md`.
   ParanoidTrap / `domagicportal` / `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 are D-1187/1188. No rhack raw-ETX (D-1189). Never FORCE the falsified mineralize TRC (76,14)/(77,14) (D-1849).
 - `Val-*`/`Sam-*` loaders shipped D-1852/D-1858 — check `load_val_*`/`load_sam_*` before refilling.
 - Don't re-apply D-0480 glyph `tty_map_color` (D-0483). Don't skip painting spaces or emit mid-row space runs >4 (D-0931). Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092). Do not blanket-restore overlay `_pending_message` (D-0929). Do not HEAVY_IRON_BALL `owt!=0` (#1194). Judge does **not** elide RC (D-0933); do not extend §1.2. Do not chase public LB in-loop.
-- Do not memcpy gi worn/ball (D-1035) / `setnotworn` from `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) / skip `tutorial()` (D-1066). Do not skip D-1067…D-2097.
-- Do not import `monmove.js` `sticks` for sit / rewrite `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) / bones→options fruitadd (D-1541). No `reset_glyphmap` / `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`. No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`. Do not re-port D-1682…D-2097.
+- Do not memcpy gi worn/ball (D-1035) / `setnotworn` from `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) / skip `tutorial()` (D-1066). Do not skip D-1067…D-2100.
+- Do not import `monmove.js` `sticks` for sit / rewrite `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) / bones→options fruitadd (D-1541). No `reset_glyphmap` / `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`. No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`. Do not re-port D-1682…D-2100.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2100: find_trap row stale (no js/; inferred D-2092 look envelope); session re-queued as Open invent.c dolook@108 (see D-log).
+- D-2099: dowield row stale (no js/; code credit D-2044 simpleonames plural); Tourist-91126 fully PASS (see D-log).
+- D-2098: js/objnam.js xname FIGURINE of-suffix (objnam.c:709-714 via obj_pmname_corpse+just_an, STATUE-guard shape); retires D-0418 figurine half.
 - D-2097: none — no js/ changes (tree clean apart from docs). Named: SLEEPY-expiry `fall_asleep`+incr (`timeout.c` case SLEEPY — JS generic arm silently clears
 - D-2096: `js/teleport.js` `enexto_core` only — `candy.length = 0` before the second collect (exact C buffer-reuse semantics: same indices, shuffle slices and d Named: `collect_coords` callers at teleport.js:1304/1666 pass fresh arrays (unaffected; no helper
 - D-2095: `js/mklev.js` + one-word `export` on `js/trap.js` `undestroyable_trap` — new `floodfillchk_match_accessible` (`ACCESSIBLE||SDOOR||SCORR`, sp_lev.c:460 Named: `map_cleanup` + `count_level_features` + `link_doors_rooms` extras stay named on `load_min
@@ -44,7 +47,4 @@ Objective/score live in `CURRENT.md`.
 - D-2088: `js/monmove.js` — `wake_msg` joins the pre-existing `./mon.js` import (imports.mjs ALREADY, no new edge; hoisted function decl, call-time use only, no Named: none new — retires `wake_msg` on `disturb` (map turns.md:2596/2619) and the rogue object-s
 - D-2087: `js/trap.js` `resists_elem` now ORs `mtmp.data.mresists` for monsters only — `is_youmonst` gate preserves hero behavior (C ignores species bits for th Named: none new — this retires the `data->mresists` species-bits omission on `resists_elem` (map 
 - D-2086: `js/makemon.js` — file-local `See_invisible_misc()` (`youprop.h:152` cite; H||E+sticky flat, the muse.js:2147/trap.js/mhitm.js file idiom; `game` alre Named: none new — this retires the last one on `rnd_misc_item` (See_invisible treat-as-false).
-- D-2085: `js/monmove.js` — ported the missing C guards verbatim in C order (isshk+inhishop, then !mtame → in_rooms(SHOPBASE) → rn2(25), so the draw stays shop- Named: none new — this retires four from the mpickstuff doc comment: shopkeeper inhishop gate, in
-- D-2084: `js/readobjnam.js` — ported the full conditional verbatim in C position (ahead of the no-`of` scan; glob intercept above it stays map-named): guards v Named: none new — this retires `tin of`/`of`-split + `mgend`/`contents`/`tvariety` parsing + `set
-- D-2083: `js/potion.js` — both calls gated on the local `Fixed_abil()` (`potion.js:1786`, C `youprop.h:385` cite) in verbatim C order (poisontell, then adjattr Named: none new — this retires two: poisontell wording, Fixed_abil gate.
 <!-- landmarks:end -->

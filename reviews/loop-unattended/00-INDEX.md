@@ -1069,3 +1069,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1056-ab5c291b-rnd-misc-item.md](./1056-ab5c291b-rnd-misc-item.md) | `ab5c291b` | D-2086 rnd_misc_item See_invisible | **ACCEPT** |
 | [1057-25328721-resists-elem-mresists.md](./1057-25328721-resists-elem-mresists.md) | `25328721` | D-2087 resists_elem mresists | **ACCEPT** |
 | [1058-444f29eb-disturb-rogue-glyphs.md](./1058-444f29eb-disturb-rogue-glyphs.md) | `444f29eb` | D-2088 disturb wake_msg + rogue glyphs | **ACCEPT** |
+| [1059-fd3f5f38-readobjnam-gold-guard.md](./1059-fd3f5f38-readobjnam-gold-guard.md) | `fd3f5f38` | D-2089 readobjnam gold `!d.typ` guard | **ACCEPT** |
+| [1060-068dfccc-dochug-cuss-antimagic.md](./1060-068dfccc-dochug-cuss-antimagic.md) | `068dfccc` | D-2090 dochug cuss + Antimagic uprops | **ACCEPT** |
+| [1061-c5939ae8-mhitm-ad-drli-plys.md](./1061-c5939ae8-mhitm-ad-drli-plys.md) | `c5939ae8` | D-2091 mhitm_ad_drli/plys uhitm arms | **ACCEPT** |
+| [1062-48742ea2-dolook-checkfile.md](./1062-48742ea2-dolook-checkfile.md) | `48742ea2` | D-2092 do_look + checkfile two-pass | **ACCEPT** |
+| [1063-08eb8798-xkilled-unstuck.md](./1063-08eb8798-xkilled-unstuck.md) | `08eb8798` | D-2093 xkilled unstuck wiring | **ACCEPT** |
+| [1064-670a1b21-float-down-surface.md](./1064-670a1b21-float-down-surface.md) | `670a1b21` | D-2094 float_down surface call-site | **ACCEPT** |
+| [1065-65152c55-ensure-way-out.md](./1065-65152c55-ensure-way-out.md) | `65152c55` | D-2095 ensure_way_out rescan order | **QUALITY-RISK** |
+| [1066-213658d3-enexto-appear-msg.md](./1066-213658d3-enexto-appear-msg.md) | `213658d3` | D-2096 enexto overwrite + appear coords | **ACCEPT-WITH-DEBT** |

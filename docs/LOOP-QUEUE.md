@@ -42,6 +42,8 @@ The **next** real commit fills the short hash on the review (and on the
 archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
+
+- [ ] `sp_lev.c` ensure_way_out rescan order — `js/mklev.js` `ensure_way_out` uses an inner `break` (exits y-loop only, x-scan continues) where C `sp_lev.c:5241–5251` uses `goto outhere` (exits both loops, do-while rescans from x=1): with ≥2 disjoint inaccessible regions stacked in one column plus a further-right region, JS joins R3a→R5→R3b where C joins R3a→R3b→R5, shifting the `selection_rndcoord` drain dice. Latent on minetn-6's observed layout (671 drain draws still match) but the D-log "verbatim" claim is false. Fix: labeled `break outer` + re-verify `selection_rndcoord`. Source: reviews/loop-unattended/1065-65152c55-ensure-way-out.md (Actionable 1).
 A **JS throw** in any corpus session (`hidden-proxy status` owner
 `js-throw …`, or a `ReferenceError` in `.cache/hidden/scores.json`
 `error`) is always a Must-fix row: it forfeits every later screen of that
@@ -59,9 +61,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `wield.c` dowield — blocks 1/553 corpus sessions (first at step 8): C «You have 40 darts readied. Wield one? [ynq] (q)» vs JS «You have 40 dart readied. Wield one? [ynq] (q)». Probe: `node scripts/hidden-proxy.mjs verify dowield` (scen-kit-Tourist-91126).
-- [ ] `detect.c` find_trap — blocks 1/553 corpus sessions (first at step 81): C «You find a small mimic.» vs JS «You already found a monster. Use 'm' prefix to force another». Probe: `node scripts/hidden-proxy.mjs verify find_trap` (scen-genesis-Wizard-92223).
-- [ ] `pager.c` checkfile — blocks 3/553 corpus sessions (first at step 92): C «f - a figurine of a newt.» vs JS «f - a figurine.». Probe: `node scripts/hidden-proxy.mjs verify checkfile` (scen-intrinsic-Samurai-92239, scen-wish-Priest-92179, scen-wish-Priest-92180).
 - [ ] `end.c` done_in_by — blocks 2/553 corpus sessions (first at step 47): C «The vampire bat bites! You stop searching.--More--» vs JS «You stop searching. The vampire bat bites!--More--». Probe: `node scripts/hidden-proxy.mjs verify done_in_by` (scen-tour-Barbarian-92024, scen-tour-Ranger-92177).
 - [ ] `objnam.c` wishymatch — blocks 1/553 corpus sessions (first at step 70): C «@a human or elf or you (dwarven valkyrie called wizard)--Mor» vs JS «@a human or elf or you (dwarven valkyrie called wizard)». Probe: `node scripts/hidden-proxy.mjs verify wishymatch` (scen-tour-Valkyrie-92040).
 - [ ] `insight.c` enlightenment — blocks 4/553 corpus sessions (first at step 67): C «Wizard the Monk's attributes:» vs JS «Wizard the Monk's attributes:». Probe: `node scripts/hidden-proxy.mjs verify enlightenment` (scen-death-Monk-92000, scen-death-Wizard-92120, scen-wish-Healer-92147).
@@ -71,6 +70,8 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 - [ ] `dokick.c` ghitm — blocks 2/553 corpus sessions (first at step 16): C «You harmlessly attack a statue.» vs JS «You attack thin air.». Probe: `node scripts/hidden-proxy.mjs verify ghitm` (scen-genesis-Caveman-92199, scen-poly-Ranger-92090).
 - [ ] `zap.c` zap_hit — blocks 1/553 corpus sessions (first at step 59): C draws `rn2(20)=1` in zap_hit, JS `rn2(5)=1` from distfleeck(monmove.js:840). Probe: `node scripts/hidden-proxy.mjs verify zap_hit` (scen-tour-Priest-92235).
 - [ ] `dog.c` makedog — blocks 1/553 corpus sessions (first at step 31): C «tame little dog called Slasher» vs JS «tame Slasher». Probe: `node scripts/hidden-proxy.mjs verify makedog` (scen-normal-Caveman-92053).
+- [ ] `insight.c` one_characteristic — blocks 1/553 corpus sessions (first at step 168): C « You were wielding a mattock.» vs JS « You were wielding a pick-axe.». Probe: `node scripts/hidden-proxy.mjs verify one_characteristic` (scen-wish-Priest-92180).
+- [ ] `invent.c` dolook — blocks 1/553 corpus sessions (first at step 108): C «You can't see in here!» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify dolook` (scen-genesis-Wizard-92223).
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 

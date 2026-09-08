@@ -1,5 +1,43 @@
 # Divergence log
 
+## D-2100 — `detect.c` find_trap queue row is stale: the step-81 mimic text already matches at HEAD (session runs to `dolook`@108 with no js/ change; inferred credit D-2092 look envelope)
+
+- **Status:** retired-stale, no js/ (Open queue row `detect.c` find_trap — cited 1/553; `node scripts/hidden-proxy.mjs verify find_trap` → 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS; row cites no review, no stamp owed)
+- **Symptom:** scen-genesis-Wizard-92223 step 81/143 screen-first: C «You find a small mimic.» vs JS «You already found a monster. Use 'm' prefix to force another» — GONE on the working tree. Session now screen-first at `dolook`@108 (`invent.c:4318` `:` command): C row 0 «You can't see in here!» vs JS «».
+- **C locus:** the «Use 'm' prefix» text is the do_look monster-pick path, reworked by D-2092 (`pager.c` u_at `found: 1` + `CHK_DONT_ASK` + two-pass checkfile + More-before-menu) — inferred credit, same look-pick envelope, no competing look-path port in the window. The step-81 `s` key now reaches the mimic line on both sides.
+- **JS was:** already correct at HEAD — no js/ change in this window moves the session; the retirement is measured, not assumed.
+- **Fix:** none — no js/ changes for this row. Queue row retired as stale; `**Addressed:** D-2100` (this entry records the retirement). Session re-queued under its live owner as Open `invent.c` dolook (step 108).
+- **JS:** 0 files for this row.
+- **Verify:** `node scripts/hidden-proxy.mjs verify find_trap` → 0 PASS, 1 moved past (`dolook` step 108), 0 unchanged, 0 worse → PROGRESS.
+- **Named omissions:** none new.
+- **Next:** do not re-pop `find_trap` (0 blocked).
+- **Cited falsifier grade:** measured (working-tree `verify find_trap` move + `hidden-proxy show` step-108 fact).
+
+## D-2099 — `wield.c` dowield queue row is stale: «40 darts» already ships (simpleonames quan!=1 plural, code credit D-2044); session fully PASS at HEAD
+
+- **Status:** retired-stale, no js/ (Open queue row `wield.c` dowield — cited 1/553; `node scripts/hidden-proxy.mjs verify dowield` → 1 PASS, 0 unchanged, 0 worse → PROGRESS; row cites no review, no stamp owed)
+- **Symptom:** scen-kit-Tourist-91126 step 8: C «You have 40 darts readied. Wield one? [ynq] (q)» vs JS «You have 40 dart readied…» — GONE on the working tree; session fully PASS at HEAD.
+- **C locus:** `wield.c` quiver arm `Sprintf(qbuf, "You have %ld %s readied.  Wield one?", uquiver->quan, simpleonames(uquiver))` — C `simpleonames` pluralizes on `quan != 1L` (`objnam.c:2428–2442`). JS `wield.js:600` calls the live `simpleonames`, which pluralizes on `(quan ?? 1) !== 1` (`js/objnam.js`, D-2044) — the prompt path is faithful; nothing to port.
+- **Fix:** none — no js/ changes for this row. Queue row retired as stale; `**Addressed:** D-2099` (this entry records the retirement), code credit D-2044.
+- **JS:** 0 files for this row.
+- **Verify:** `node scripts/hidden-proxy.mjs verify dowield` → 1 PASS → PROGRESS.
+- **Named omissions:** none new.
+- **Next:** do not re-pop `dowield` (0 blocked).
+- **Cited falsifier grade:** measured (working-tree `verify dowield` PASS + C/JS call-site read).
+
+## D-2098 — objnam.c xname FIGURINE «of <monster>» suffix dropped in display: «figurine of a newt» drew «figurine» (queue owner checkfile, 3 sessions)
+
+- **Status:** fixed (Open queue row `pager.c` checkfile — cited 3/553; `node scripts/verify.mjs --fn checkfile` → 0 PASS, 3 moved past, 0 unchanged, 0 worse → PROGRESS; row cites no review, no stamp owed)
+- **Symptom:** scen-intrinsic-Samurai-92239 step 92 (`f - a figurine of a newt.` vs `f - a figurine.`), scen-wish-Priest-92179 step 31 (`i - a blessed figurine of an Archon.` vs `i - a blessed figurine.`), scen-wish-Priest-92180 step 38 (`The little dog picks up a figurine of a leocrotta.` vs `…a figurine.`) — JS `xname` dropped the corpsenm suffix on all three display paths (inventory ×2, pickup message ×1).
+- **C locus:** `objnam.c` `xname_flags` TOOL_CLASS arm (`:709–714`): after the dn/actualn/called selection, `if (typ == FIGURINE && omndx != NON_PM) Concat " of %s%s", just_an(pm_name), pm_name` with `pm_name = obj_pmname(obj)` (`do_name.c:1321–1356`, gender-aware). `omndx = obj->corpsenm`.
+- **JS was:** `js/objnam.js` WEAPON/VENOM/TOOL arm carried a map-named omission (`figurine " of <pm>"`, D-0418 row) and returned the bare base. Creation is faithful (`js/mkobj.js:1575` TOOL_CLASS FIGURINE sets `corpsenm = rndmonnum_adj(5,10)` minus humans; STATUE twin already ported in the ROCK_CLASS arm `:666–680`), so display was the only gap.
+- **Fix:** `js/objnam.js` only — after the dn/actualn/called selection, append `` ` of ${just_an(pm)}${pm}` `` when `n === 'FIGURINE'` with valid corpsenm (`obj_pmname_corpse` + `just_an`, both same-file live; guard mirrors the STATUE arm). Map row D-0418 retires the figurine half; wet-towel moist/wet + `permapoisoned` stay named. Same-file edit, no new import or edge, no TDZ.
+- **JS:** 1 file (objnam.js +11/−2), under the 600/10 caps. Small because C is that small (6-line arm + map-named single).
+- **Verify:** hand probe on the real `xname` (booted tables + RNG, /tmp only): newt → «figurine of a newt», archon → «figurine of an Archon», leocrotta → «figurine of a leocrotta», corpsenm −1 → bare «figurine» (no regression). `node scripts/verify.mjs --fn checkfile` → PASS syntax (1 changed file) · PASS rule2 · PASS hidden `0 PASS, 3 moved past, 0 unchanged, 0 worse → PROGRESS` (Samurai-92239 step 92 → `distfleeck` step 96; Priest-92179 step 31 → `disclose` step 100; Priest-92180 step 38 → `one_characteristic` step 168, all strictly later steps and owners) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed per verify matrix; full fortress runs in this iteration's audit). Preflight state: tree clean of js/ edits before this fix (reviews + queue docs only).
+- **Named omissions:** wet-towel moist/wet + `permapoisoned` (D-0418 row keeps them); corpse-name creation paths untouched.
+- **Next:** do not re-pop the figurine arm. Samurai-92239's `distfleeck`@96 flows through the normal queue on rescore (distfleeck stays a parked symptom owner — do not pop). Priest-92179's `disclose`@100 joins the live Open `end.c` disclose row. Priest-92180's `one_characteristic`@168 queued as a fresh Open row (C «You were wielding a mattock.» vs JS «…a pick-axe.»).
+- **Cited falsifier grade:** measured (pinned C arm + creation-site reads; pre/post hand probe on real `xname`; post-port `verify --fn checkfile` + green + strict + cohort; no JS FORCE/DIAG/seed reads used).
+
 ## D-2097 — potion.c peffect_sleeping queue row is stale: the step-62 yawn already ships via D-2070 sleep_dialogue (literal-match misattribution); session moved to distfleeck@103, no js/
 
 - **Status:** retired-stale, no js/ (Open queue row `potion.c` peffect_sleeping — cited 1/553; `node scripts/verify.mjs --fn peffect_sleeping` → 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS; row cites no review, no stamp owed)
