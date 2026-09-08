@@ -94,7 +94,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `dig.c` use_pick_axe — blocks 1/553 corpus sessions (first at step 11): C «In what direction do you want to dig? [yku>]» vs JS «In what direction do you want to dig? [kyu>]». Probe: `node scripts/hidden-proxy.mjs verify use_pick_axe` (scen-kit-Archeologist-92022).
+**Next cluster:** `lock.c` pick_lock feel/see no-door arm — blocks 1/553 corpus sessions (first at step 175): C «You feel no door there.» vs JS «You see no door there.». Probe: `node scripts/hidden-proxy.mjs verify pick_lock` (scen-normal-Samurai-92071).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2166 (index).**
 <!-- recent:begin -->

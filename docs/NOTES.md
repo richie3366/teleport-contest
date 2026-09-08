@@ -11,7 +11,7 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 - **next_ident = symptom owner:** fix the WRITER, not the table reader.
 - **Symptom-owner parks — do not re-pop (falsifiers: LOOP-QUEUE Parked):** obj_resists · m_move · rloc · lightdamage · mattackm/can_carry · spoteffects · mon_adjust_speed · zapyourself · doname_base · hmonas · minliquid_core.
 - **Healer-92107 residual (D-2137 Next):** destroy double-count (`mhitu.js:901` `+=` vs C `(void)`); audit fire/elec arms.
-- **STALE parks — do not re-pop (full falsifiers: LOOP-QUEUE Parked):** lesshungry · rndcurse · mhitm_ad_famn · regen_hp · barehands · do_mapping.
+- **STALE parks — do not re-pop (full falsifiers: LOOP-QUEUE Parked):** lesshungry · rndcurse · mhitm_ad_famn · regen_hp · barehands · do_mapping · adjattrib (look-path stale; live owner pick_lock feel/see@175).
 - **slimed park:** comment-line owner; dual writer (landing gate + Sick store). Falsifier + probe: LOOP-QUEUE Parked.
 - **vomiting_dialogue park (2026-09-09, no js/):** MISATTRIBUTED + stale (residual: touch_artifact@92). Falsifier + probe (`verify vomiting_dialogue --base 109f4444`): LOOP-QUEUE Parked. Do not re-pop.
 - **doturn park (2026-09-09, no js/):** STALE OWNER (HEAD find_trap@75). Genuine gnostic fix + proof: LOOP-QUEUE Parked. Do not re-pop.
