@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `makemon.c` makemon — blocks 1/553 corpus sessions (first at step 4): C «You ready: $ - 1093 gold pieces.--More--» vs JS «In what direction?». Probe: `node scripts/hidden-proxy.mjs verify makemon` (scen-normal-Healer-91123).
 - [ ] `weapon.c` dmgval — blocks 1/553 corpus sessions (first at step 123): C draws `rnd(6)=6` in dmgval, JS `rn2(3)=2` from passive(uhitm.js:1554). Probe: `node scripts/hidden-proxy.mjs verify dmgval` (scen-poly-Priest-91137).
 - [ ] `mcastu.c` cursetxt — blocks 1/553 corpus sessions (first at step 166): C draws `rn2(4)=0` in cursetxt, JS `rn2(5)=2` from dochug(monmove.js:2401). Probe: `node scripts/hidden-proxy.mjs verify cursetxt` (scen-poly-Tourist-92047).
 - [ ] `mcastu.c` castmu — blocks 1/553 corpus sessions (first at step 124): C «The Angel of Chih Sung-tzu casts a spell at you!--More--» vs JS «The Angel of Chih Sung-tzu casts a spell at you!». Probe: `node scripts/hidden-proxy.mjs verify castmu` (scen-wish-Monk-92063).

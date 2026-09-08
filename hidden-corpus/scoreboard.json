@@ -1,6 +1,6 @@
 {
- "commit": "225c38ef",
- "at": "2026-09-08T16:02:22.475Z",
+ "commit": "1602fc13",
+ "at": "2026-09-08T16:25:27.538Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6108,18 +6108,18 @@
   "scen-normal-Healer-91123": {
    "src": "corpus",
    "passed": false,
-   "rngM": 2721,
+   "rngM": 3085,
    "rngT": 3085,
-   "scrM": 5,
+   "scrM": 170,
    "scrT": 172,
    "kind": "screen",
-   "step": 4,
+   "step": 27,
    "steps": 172,
-   "owner": "makemon",
-   "loc": "makemon.c:1494",
+   "owner": "legs_in_no_shape",
+   "loc": "do.c:2412",
    "jsOwner": null,
-   "cTopline": "You ready: $ - 1093 gold pieces.--More--",
-   "jsTopline": "In what direction?",
+   "cTopline": "Your right leg is in no shape for riding.",
+   "jsTopline": "",
    "error": null
   },
   "scen-normal-Healer-91124": {

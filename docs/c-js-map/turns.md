@@ -2540,7 +2540,7 @@ endmultishot/drag_ball/drown/trap pass-over/check_special_room/steed
 **throwit returning_missile D-1282**; **throwit losehp `killer_xname` D-1346** (C `:1747`); 
 **throwit swallowit D-1283**; **throwit slip D-1292**; **throwit stamina D-1293**; 
 **throwit steed potionhit D-1297**; **boomhit D-1301**; **throw_gold swallow D-1302**; **throw_gold `ghitm`/bhit/dz/ship/floor D-1751** 
-(unsplitobj D-0720 / quivered gold / dungeon.c ceiling vault-temple-shop labels named); 
+(unsplitobj D-0720 / dungeon.c ceiling vault-temple-shop labels named); **throw_obj quivered-gold m_shot loop + freeinv `_goldCount` D-2139**; 
 **sho_obj_return_to_u D-1303**; **tethered DISP_TETHER/BACKTRACK D-1311**; 
 **thitmonst leader catch / finish_quest D-1312**; 
 **throwit_mon_hit snuff_candle / hot_pursuit D-1313; throwit caller D-1315**; 
