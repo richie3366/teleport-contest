@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `zap.c` zhitm — blocks 1/553 corpus sessions (first at step 64): C draws `rnd(50)=37` in zhitm, JS `rn2(3)=2` from zhitm(zap.js:1841). Probe: `node scripts/hidden-proxy.mjs verify zhitm` (scen-wish-Samurai-92087). **Addressed:** D-2127
+- [x] `uhitm.c` mhitm_ad_plys — blocks 1/553 corpus sessions (first at step 78): C draws `rn2(3)=0` in mhitm_ad_plys, JS `d(3,6)=3` from passive(uhitm.js:1451). Probe: `node scripts/hidden-proxy.mjs verify mhitm_ad_plys` (scen-poly-Monk-92005). **Addressed:** D-2128
+
+
+- [x] `zap.c` zhitm — blocks 1/553 corpus sessions (first at step 64): C draws `rnd(50)=37` in zhitm, JS `rn2(3)=2` from zhitm(zap.js:1841). Probe: `node scripts/hidden-proxy.mjs verify zhitm` (scen-wish-Samurai-92087). **Addressed:** D-2127 `86cd47fa`
 
 
 - [x] `potion.c` self_invis_message — blocks 1/553 corpus sessions (first at step 62): C «Gee! All of a sudden, you can't see yourself.--More--» vs JS «Gee! All of a sudden, you can't see yourself.--More--». Probe: `node scripts/hidden-proxy.mjs verify self_invis_message` (scen-wish-Healer-92010). **Addressed:** D-2126 `c0bd7edc`

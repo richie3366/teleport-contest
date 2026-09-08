@@ -1,6 +1,6 @@
 {
- "commit": "c0bd7edc",
- "at": "2026-09-08T13:41:11.026Z",
+ "commit": "86cd47fa",
+ "at": "2026-09-08T13:51:11.962Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6726,18 +6726,18 @@
   "scen-poly-Monk-92005": {
    "src": "corpus",
    "passed": false,
-   "rngM": 2379,
+   "rngM": 2735,
    "rngT": 2735,
-   "scrM": 78,
+   "scrM": 104,
    "scrT": 106,
-   "kind": "rng",
-   "step": 78,
+   "kind": "screen",
+   "step": 101,
    "steps": 106,
-   "owner": "mhitm_ad_plys",
-   "loc": "uhitm.c:3437",
-   "jsOwner": "passive(uhitm.js:1451)",
-   "cTopline": "You hit the ochre jelly. The ochre jelly is frozen by you!--More--",
-   "jsTopline": "You hit the ochre jelly. You are splashed by the ochre jelly's acid!--More--",
+   "owner": "save_dungeon",
+   "loc": "dungeon.c:161",
+   "jsOwner": null,
+   "cTopline": "The Dungeons of Doom:",
+   "jsTopline": "The Dungeons of Doom:",
    "error": null
   },
   "scen-poly-Monk-92164": {
