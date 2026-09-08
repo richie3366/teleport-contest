@@ -1183,9 +1183,7 @@ guardian `genus`) + EGG (`can_be_hatched`) + FIGURINE
 (uniq/human/were/MAIL_DAEMON) + STATUE direct corpsenm; dragon-scale
 stays in its hunk); **do_name `oname` `PL_PSIZ` 63** (was a local 32
 shadowing `const.js` — truncated 37-char artifact wishes so
-`artifact_exists` never matched; C `global.h:404`). Named: `tin of`/
-`of`-split + `mgend`/`ishistoric`/`wetness`/`ftype`/`contents`/
-`zombify` wish-prefix parsing; CORPSE zombify `start_timer`
+`artifact_exists` never matched; C `global.h:404`). **postparse1 `tin of`/`of`-split D-2084** (C `objnam.c:4381–4397` + init `:3946–3949` + tin-variety tail `:5342–5344`; `js/readobjnam.js` — wand/spellbook/gauntlets/gloves/finger guards, spinach `contents`, `tin_variety_txt` offset + `name_to_mon` `mgend` box, `*p = 0` truncation, typfnd `set_tin_variety` on `tvariety >= 0` with C `||` draw order). Named: `of spinach` strip + `ishistoric`/`wetness`/`ftype`/`zombify` wish-prefix parsing; CORPSE zombify `start_timer`
 (`obj_to_any` missing); STATUE verysmall `delete_contents`;
 `is_quest_artifact` short-circuit in the deny check (same draws in
 wizard mode; non-wizard quest-artifact extra `rn2` — own future row).
@@ -1812,10 +1810,10 @@ save/restore dance);
 **helmet / `m_slips_free` D-1307**; **mhitu caller D-1329**; **mhitm caller D-1330**);
 **`tin_variety_txt` D-1953** (C `eat.c:1405–1421`; `js/eat.js` export in C order,
 `!strncmpi` via C-home `str_start_is` ASCII caseblind — no 4th clone;
-`{tinvariety}` out-idiom; caller wiring live-unwired: `objnam.c:4386`
+`{tinvariety}` out-idiom; caller wiring WIRED by D-2084: `objnam.c:4386`
 readobjnam "tin of " arm — spinach contents / tvariety / `name_to_mon`
-offset parse / typ=TIN / downstream spe-corpsenm+`set_tin_variety` —
-has no JS counterpart, own-row material)
+offset parse / typ=TIN / downstream spe-corpsenm+`set_tin_variety`
+(`js/readobjnam.js` postparse1 arm + `:5342–5344` tail))
 
 ### `src/apply.c` / `src/lock.c` / `src/music.c`
 

@@ -31,7 +31,8 @@ import {
 import { mksobj, mkobj, weight, curse, oc_merge_of, spot_stop_timers, set_corpsenm } from './mkobj.js';
 import { artifact_name, nartifact_exist, permapoisoned } from './artifact.js';
 import { oname, lookup_novel } from './do_name.js';
-import { name_to_monplus } from './mondata.js';
+import { name_to_mon, name_to_monplus } from './mondata.js';
+import { tin_variety_txt, set_tin_variety } from './eat.js';
 import { makesingular, An, an } from './objnam.js';
 import { is_weptool, is_ammo, is_missile } from './wield.js';
 import { Is_candle } from './timeout.js';
@@ -58,7 +59,7 @@ import {
     MAGIC_PORTAL, MELT_ICE_AWAY, TT_LAVA, TT_NONE,
     NO_TRAP, TRAPNUM, ROCKTRAP, is_hole, Can_fall_thru,
     D_NODOOR, D_BROKEN, D_ISOPEN, D_CLOSED, D_LOCKED, D_TRAPPED,
-    WM_MASK, W_NONDIGGABLE, W_NONPASSWALL,
+    WM_MASK, W_NONDIGGABLE, W_NONPASSWALL, RANDOM_TIN,
 } from './const.js';
 
 const STRANGE_OBJECT = 0;
@@ -745,6 +746,11 @@ export function readobjnam(bp, no_wish, missOut) {
         un: null,
         name: null,
         mntmp: NON_PM,
+        // C ref: objnam.c readobjnam_init `:3946–3949` — tin variety default
+        // RANDOM_TIN, mgend -1 (random), contents TIN_UNDEFINED.
+        contents: TIN_UNDEFINED,
+        tvariety: RANDOM_TIN,
+        mgend: -1,
         otmp: null,
         islit: 0,
         looted: 0,
@@ -842,6 +848,44 @@ export function readobjnam(bp, no_wish, missOut) {
 
     // C: readobjnam_parse_charges before postparse
     readobjnam_parse_charges(d);
+
+    // C ref: objnam.c readobjnam_postparse1 `:4371–4397` — corpse type via
+    // "of" (figurine of an orc, tin of orc meat). The glob intercept above
+    // this in C stays a named omission (map). "tin of" resolves straight to
+    // typfnd (every block below is !d.typ-guarded or a no-op for this bp,
+    // and the no-"of" scan below is a proven no-op when it finds no match);
+    // " of <monster>" truncates bp (C `*d->p = 0`) so srch sees "figurine".
+    if (!strstri(d.bp, 'wand ') && !strstri(d.bp, 'spellbook ')
+        && !strstri(d.bp, 'gauntlets ') && !strstri(d.bp, 'gloves ')
+        && !strstri(d.bp, 'finger ')) {
+        const tinTail = strstri(d.bp, 'tin of ');
+        if (tinTail !== null) {
+            const s = tinTail.slice(7);
+            if (s.toLowerCase() === 'spinach') { // C: strcmpi, exact
+                d.contents = TIN_SPINACH;
+                d.mntmp = NON_PM;
+            } else {
+                const tvout = { tinvariety: -1 };
+                const tmp = tin_variety_txt(s, tvout);
+                d.tvariety = tvout.tinvariety;
+                const gbox = { gender: d.mgend };
+                d.mntmp = name_to_mon(s.slice(tmp), gbox);
+                d.mgend = gbox.gender;
+            }
+            d.typ = TIN; // C: return 2 (goto typfnd)
+        } else {
+            const ofTail = strstri(d.bp, ' of ');
+            if (ofTail !== null) {
+                const gbox = { gender: d.mgend };
+                const mtmp = name_to_mon(ofTail.slice(4), gbox);
+                if (mtmp >= LOW_PM) {
+                    d.mntmp = mtmp;
+                    d.mgend = gbox.gender;
+                    d.bp = d.bp.slice(0, d.bp.length - ofTail.length);
+                }
+            }
+        }
+    }
 
     {
         const rem = { rest: null };
@@ -1038,10 +1082,11 @@ export function readobjnam(bp, no_wish, missOut) {
     if (d.spe > SPE_LIM) d.spe = SPE_LIM;
     if (d.spe < -SPE_LIM) d.spe = -SPE_LIM;
     /* C ref: objnam.c readobjnam — set otmp->spe; may or may not use d.spe.
-       d.contents/d.wetness/d.mgend/d.ishistoric are never parsed by the JS
-       preparse above, so they read as C defaults (TIN_UNDEFINED/0/-1/0);
-       d.ftype (C default: current_fruit) is likewise unparsed — slime-mold
-       fruit-variety wishes stay a named omission (retain mksobj spe). */
+       d.contents/d.mgend/d.tvariety are parsed by the "tin of"/" of " arm
+       above (C `:4381–4397`); d.wetness/d.ishistoric are never parsed, so
+       they read as C defaults (0/0); d.ftype (C default: current_fruit) is
+       likewise unparsed — slime-mold fruit-variety wishes stay a named
+       omission (retain mksobj spe). */
     switch (d.typ) {
     case TIN:
         d.otmp.spe = 0; /* default: not spinach */
@@ -1198,6 +1243,11 @@ export function readobjnam(bp, no_wish, missOut) {
 
     d.otmp.oeroded = 0;
     d.otmp.oeroded2 = 0;
+
+    // C ref: objnam.c readobjnam `:5342–5344` — set tin variety.
+    // `rn2(4)` draws even in wizard mode (C `||` short-circuit kept).
+    if (d.otmp.otyp === TIN && (d.tvariety | 0) >= 0 && (rn2(4) || wizardMode()))
+        set_tin_variety(d.otmp, d.tvariety | 0);
 
     if (d.name) {
         const out = { otyp: 0 };
