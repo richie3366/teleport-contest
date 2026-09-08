@@ -9,7 +9,7 @@ Objective/score live in `CURRENT.md`.
 - **distfleeck park:** body port proven no-movement; 4th session via D-2108; writers in the Parked row.
 - **mcalcmove park:** D-2066 shipped; Rogue-92137/Knight-92188 = slime-lifesave writer (see Parked).
 
-- **Parks (do not pop):** show_conduct, ready_weapon, mdrop_obj/dopush, dosearch, save_dungeon, do_statusline2 (falsifiers in Parked rows).
+- **Parks (do not pop):** show_conduct, ready_weapon, mdrop_obj/dopush, dosearch, save_dungeon, do_statusline2, spoteffects (falsifiers in Parked rows).
 - **Fortress guards.** Do not reopen display_inventory dismiss / gameover heading / keep_status, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue `S_ndoor`, bigrm-2, getpos, summonmu, lookat, `do_statusline1`, snapshot, fakewiz, Ice/Boulder, `roles[]`, pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
 - **Luck runs when invulnerable; dialogues do not** (`timeout.c:623`); STONED/SLIMED expiry silent.
 - **`sit.js` lay-egg `morehungry` unawaited; `losedogs` rebuilds `migrating_mons`.** Clone drift: zap useupf; detect/potion/read/spell `useup`; Elbereth; teleport `accessible`; helm_simple_name; pickup `ysimple_name`; getobj_* clones.
@@ -19,6 +19,7 @@ Objective/score live in `CURRENT.md`.
 - **rloc park:** body faithful (D-0686); writer is a draw-free migration creator (detail + falsifier: Parked; do not re-pop).
 - **lightdamage park:** `mzapwand` MORE-transient misattributed to zap.c (D-1366 faithful); capture artifact, not state (detail + falsifier: Parked; do not re-pop).
 - **mattackm/can_carry park:** writer can_carry; import alone ETIMEDOUT — trio only, do not pop.
+- **spoteffects park:** Samurai-92161 step 35 is a topline-literal misattribution (`hidden-worker.mjs:182-183` picks `cMsgOwners[0]`=piercer `hack.c:3434` though true printer is `thitu(mthrowu.c:121)`; toplines identical, diff is map cell (53,8) `)` vs `·`). Measured (recorded C screens+RNG + JS replay): step-35 C draws contain zero spoteffects dice; JS RNG positional match through step (first mismatch idx 4084); JS-34 matched incl. `)`, JS-35 drops it, C keeps to 36 (catch → inventory `g - a shuriken`); JS-36 shows no catch + dog on (53,8). Writer: `mthrowu.c` flight/catch — `forcehit` discarded (`mthrowu.js:1070-1071`) and catch without `hold_another_object` (`mthrowu.js:1036-1039`, also `nohands(mons(PM_HUMAN))` should be `youmonst.data`). Falsifier in Parked row; do not re-pop.
 
 ## Don't re-check (≤15)
 

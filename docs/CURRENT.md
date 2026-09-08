@@ -87,7 +87,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `end.c` really_done — blocks 2/553 corpus sessions (first at step 19): C «» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify really_done` (scen-normal-Barbarian-92208, scen-tour-Wizard-92103).
+**Next cluster:** `hack.c` spoteffects — blocks 1/553 corpus sessions (first at step 35): C «You are hit by a shuriken! You are hit by a shuriken!--More-» vs JS «You are hit by a shuriken! You are hit by a shuriken!--More-». Probe: `node scripts/hidden-proxy.mjs verify spoteffects` (scen-tour-Samurai-92161).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2122 (index).**
 <!-- recent:begin -->
