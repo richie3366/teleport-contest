@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `invent.c` inuse_classify — blocks 2/553 corpus sessions (first at step 84): C «Weapons» vs JS «Weapons». Probe: `node scripts/hidden-proxy.mjs verify inuse_classify` (scen-genesis-Knight-92068, scen-wish-Caveman-92148). **Addressed:** D-2121
+- [x] `end.c` really_done — blocks 2/553 corpus sessions (first at step 19): C «» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify really_done` (scen-normal-Barbarian-92208, scen-tour-Wizard-92103). **Addressed:** D-2122
+
+
+- [x] `invent.c` inuse_classify — blocks 2/553 corpus sessions (first at step 84): C «Weapons» vs JS «Weapons». Probe: `node scripts/hidden-proxy.mjs verify inuse_classify` (scen-genesis-Knight-92068, scen-wish-Caveman-92148). **Addressed:** D-2121 `d484a5f8`
 
 
 - [x] `insight.c` attributes_enlightenment — blocks 2/553 corpus sessions (first at step 50): C «You were petrification resistant from your creature form.» vs JS «You were petrification resistant from your creature form.». Probe: `node scripts/hidden-proxy.mjs verify attributes_enlightenment` (scen-death-Wizard-92120, scen-tour-Barbarian-92079). **Addressed:** D-2120 `6a8cb884`

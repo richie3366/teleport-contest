@@ -1679,7 +1679,7 @@ Dump-core `y`→NH_abort deferred); **`done2` cancel `n` → `clear_nhwindow(WIN
 **`done` Lifesaved → makeknown→exercise + savelife/useup** (D-0868; 
 livelog/formatkiller/CHOKING vomit deferred); ParanoidDie/Bones getlin "yes"; 
 LOGFILE/XLOGFILE/toptenwin NHW_TEXT; builds_up `level_difficulty`; ParanoidQuit getlin "yes"; 
-tutorial abandon; binary savelev; arise/statue arms; ebones; 
+tutorial abandon; binary savelev; statue arms; ebones; 
 resetobjs known-strip / set_ghostly (SLIME_MOLD fruit mark is D-1523); `save_dlevel` assign in `no_bones_level`; Is_special boneid letter variants; 
 inven_inuse / ball-chain placebc; accessible closed_door; shk name-based peace; 
 `hide_monst` after ghostly; `unleash_all` in finish_paybill; 
@@ -1694,7 +1694,7 @@ multi_reason; enlightenment poly/remaining resistance catalogue; set_uasmon FROM
 `:3043`; `allmain.c` `timet_delta` `:995`; live `js/end.js` + those
 modules; named: POSIX signals in clearlocks, `grddead` inside mongone,
 display_pickinv cache setter, insight/save/`#suspend`/`#shell`
-`timet_delta` callers, DUMPLOG); **`really_done` Do-not-pass-Go D-2061** (C `end.c:1186–1187` moves<=1; live `js/end.js`; achievements/`dump_open_log` stay named); 
+`timet_delta` callers, DUMPLOG); **`really_done` Do-not-pass-Go D-2061** (C `end.c:1186–1187` moves<=1; live `js/end.js`; achievements/`dump_open_log` stay named); **`done_in_by` killer-arise + `really_done` arise pline + death-location + `outentry` escape-maxlvl D-2122** (C `end.c:326–340` wraith/mummy/zombie/vampire/ghoul + genod reset; `really_done :1351–1361` arise pline; `:1521–1541` beyond-dungeon/Astral/`In_endgame`+`single_level_branch`/quest-`dunlev`; `topten.c:973–980` escape `[max level]` + Amulet-paren fixup; `role.c` race mummy/zombie → `races[]`+`urace`; live `js/end.js`+`js/topten.js`+`js/roles.js`+`js/u_init.js`; exported `single_level_branch`; named: `outentry` astral-plane text, choked/poisoned/crushed/petrified arms); 
 **`observe_quantum_cat` disclose D-1535** (live-cat contents line; 
 **companion HP D-1754**); 
 **`artifact_score` D-1730** (C `end.c:906–940`; ESCAPED/ASCENDED `really_done`
