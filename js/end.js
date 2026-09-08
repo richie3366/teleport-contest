@@ -955,6 +955,14 @@ async function really_done(how) {
     game.iflags.at_night = night() ? 1 : 0;
     game.iflags.at_midnight = midnight() ? 1 : 0;
 
+    // C end.c:1186-1187 — die on the first move: "Do not pass Go.  Do not
+    // collect 200 zorkmids." svm.moves is game.moves; done_stopprint gates.
+    // Achievements (uachieved/beginner/ASCENDED) + dump_open_log stay named
+    // omissions (dump/livelog); wait_synch/signals have no JS counterpart.
+    if (((game.moves | 0) <= 1) && how < PANICKED && !(game.program_state?.done_stopprint | 0)) {
+        await pline(`Do not pass Go.  Do not collect 200 ${currency(200)}.`);
+    }
+
     // C: bones_ok = can_make_bones() before display_nhwindow(WIN_MESSAGE)
     const bones_ok = (how < GENOCIDED) && can_make_bones();
 

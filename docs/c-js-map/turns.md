@@ -1683,7 +1683,7 @@ multi_reason; enlightenment poly/remaining resistance catalogue; set_uasmon FROM
 `:3043`; `allmain.c` `timet_delta` `:995`; live `js/end.js` + those
 modules; named: POSIX signals in clearlocks, `grddead` inside mongone,
 display_pickinv cache setter, insight/save/`#suspend`/`#shell`
-`timet_delta` callers, DUMPLOG); 
+`timet_delta` callers, DUMPLOG); **`really_done` Do-not-pass-Go D-2061** (C `end.c:1186–1187` moves<=1; live `js/end.js`; achievements/`dump_open_log` stay named); 
 **`observe_quantum_cat` disclose D-1535** (live-cat contents line; 
 **companion HP D-1754**); 
 **`artifact_score` D-1730** (C `end.c:906–940`; ESCAPED/ASCENDED `really_done`

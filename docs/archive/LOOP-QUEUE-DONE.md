@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `bones.c` drop_upon_death — blocks 3/553 corpus sessions (first at step 95): C draws `rn2(5)=1` in drop_upon_death, JS `rn2(1000)=746` from start_corpse_timeout(mkobj.js:1395). Probe: `node scripts/hidden-proxy.mjs verify drop_upon_death` (scen-death-Knight-92203, scen-intrinsic-Caveman-92070, scen-intrinsic-Healer-91105). **Addressed:** D-2060
+- [x] `end.c` really_done — blocks 3/553 corpus sessions (first at step 23): C «Do not pass Go. Do not collect 200 zorkmids.--More--» vs JS «Do you want your possessions identified? [ynq] (n)». Probe: `node scripts/hidden-proxy.mjs verify really_done` (scen-death-Ranger-92114, scen-genesis-Archeologist-91132, scen-wish-Monk-91136). **Addressed:** D-2061
+
+
+- [x] `bones.c` drop_upon_death — blocks 3/553 corpus sessions (first at step 95): C draws `rn2(5)=1` in drop_upon_death, JS `rn2(1000)=746` from start_corpse_timeout(mkobj.js:1395). Probe: `node scripts/hidden-proxy.mjs verify drop_upon_death` (scen-death-Knight-92203, scen-intrinsic-Caveman-92070, scen-intrinsic-Healer-91105). **Addressed:** D-2060 `69ae5b11`
 
 
 - [x] `apply.c` use_pole — blocks 3/553 corpus sessions (first at step 62): C «You miss Pestilence.--More--» vs JS «You miss Pestilence.». Probe: `node scripts/hidden-proxy.mjs verify use_pole` (scen-genesis-Archeologist-91127, scen-genesis-Barbarian-91118, scen-wish-Rogue-91138). **Addressed:** D-2059 `0a8386e7`
