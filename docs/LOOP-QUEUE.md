@@ -59,7 +59,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `engrave.c` doengrave — blocks 2/553 corpus sessions (first at step 51): C «Do you want to add to the current engraving? [ynq] (y)» vs JS «You add to the writing in the dust with your fingertip.--Mor». Probe: `node scripts/hidden-proxy.mjs verify doengrave` (scen-kit-Valkyrie-91116, scen-normal-Samurai-92078).
 - [ ] `uhitm.c` mhitm_ad_samu — blocks 2/553 corpus sessions (first at step 53): C draws `rn2(20)=6` in mhitm_ad_samu, JS `rn2(3)=0` from mhitm_knockback(mhitm.js:2015). Probe: `node scripts/hidden-proxy.mjs verify mhitm_ad_samu` (scen-tour-Samurai-91113, scen-tour-Wizard-92103).
 - [ ] `uhitm.c` mhitm_ad_stun — blocks 2/553 corpus sessions (first at step 67): C draws `rn2(4)=2` in mhitm_ad_stun, JS `rn2(3)=2` from mhitm_knockback(mhitm.js:2014). Probe: `node scripts/hidden-proxy.mjs verify mhitm_ad_stun` (scen-genesis-Archeologist-91127, scen-genesis-Barbarian-91118).
 - [ ] `wield.c` can_twoweapon — blocks 2/553 corpus sessions (first at step 43): C «Your battle-axe isn't one-handed.» vs JS «battle-axe isn't one-handed.». Probe: `node scripts/hidden-proxy.mjs verify can_twoweapon` (scen-kit-Barbarian-92001, scen-kit-Samurai-92145).

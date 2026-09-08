@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `muse.c` use_misc — blocks 2/553 corpus sessions (first at step 77): C «The pit fiend drinks a dark green potion! The pit fiend look» vs JS «The pit fiend drinks a dark green potion! The pit fiend look». Probe: `node scripts/hidden-proxy.mjs verify use_misc` (scen-wish-Healer-92125, scen-wish-Healer-92173). **Addressed:** D-2072
+- [x] `engrave.c` doengrave — blocks 2/553 corpus sessions (first at step 51): C «Do you want to add to the current engraving? [ynq] (y)» vs JS «You add to the writing in the dust with your fingertip.--Mor». Probe: `node scripts/hidden-proxy.mjs verify doengrave` (scen-kit-Valkyrie-91116, scen-normal-Samurai-92078). **Addressed:** D-2073
+
+
+- [x] `muse.c` use_misc — blocks 2/553 corpus sessions (first at step 77): C «The pit fiend drinks a dark green potion! The pit fiend look» vs JS «The pit fiend drinks a dark green potion! The pit fiend look». Probe: `node scripts/hidden-proxy.mjs verify use_misc` (scen-wish-Healer-92125, scen-wish-Healer-92173). **Addressed:** D-2072 `37cebe60`
 
 
 - [x] `uhitm.c` erode_armor — blocks 2/553 corpus sessions (first at step 74): C draws `rn2(5)=1` in erode_armor, JS `rn2(3)=1` from mhitm_knockback(mhitm.js:2015). Probe: `node scripts/hidden-proxy.mjs verify erode_armor` (scen-genesis-Knight-92185, scen-genesis-Tourist-92044). **Addressed:** D-2071 `357757d9`

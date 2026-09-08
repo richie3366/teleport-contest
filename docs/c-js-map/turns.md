@@ -757,7 +757,9 @@ wipe / gem-ring `oc_tough` / boots DUST / large-silly; canned KEY D-1675);
 **`engrave` occupation `:1267–1493`** (D-2014: teleport/invent stops,
 carving/marker rate, dull split + marker ink, BUFSZ room, truncate,
 `finish %s.` iff multi-action; C `nextc`-into-`text` kept as suffix);
-dig caller still named; altar/jello; yn add-to (same-type defaults append);
+**`doengrave` add-to `ynq` + HEADSTONE + BUFSZ room** (D-2073: `:1113–1167`
+HEADSTONE append / same-type `yn_function` + `q`→`Never_mind` / full-text `There`);
+dig caller still named; altar/jello;
 Blind feel; 
 full `surface`/`is_ice`; wipeout seeded path; `disturb_grave` from doengrave
 (kick callers live); full `set_levltyp` beyond GRAVE typ; 
