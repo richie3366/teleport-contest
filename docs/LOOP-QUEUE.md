@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `mkobj.c` hornoplenty — blocks 2/553 corpus sessions (first at step 146): C «Oops! The boulder drops to the floor!» vs JS «Oops! The a boulder drops to the floor!». Probe: `node scripts/hidden-proxy.mjs verify hornoplenty` (scen-wish-Ranger-92212, scen-wish-Samurai-91102).
 - [ ] `uhitm.c` mhitm_ad_famn — blocks 1/553 corpus sessions (first at step 140): C «You hit Famine. Famine reaches out, and your body shrivels.-» vs JS «You hit Famine. Famine reaches out, and your body shrivels.». Probe: `node scripts/hidden-proxy.mjs verify mhitm_ad_famn` (scen-wish-Tourist-92067).
 - [ ] `allmain.c` regen_hp — blocks 1/553 corpus sessions (first at step 64): C draws `rn2(100)=82` in regen_hp, JS `rn2(400)=82` from dosounds(sounds.js:336). Probe: `node scripts/hidden-proxy.mjs verify regen_hp` (scen-genesis-Archeologist-92084).
 - [ ] `apply.c` use_lamp — blocks 1/553 corpus sessions (first at step 220): C «Your lamp is now on. The guardian naga bites!--More--» vs JS «Your lamp is now on. The guardian naga bites!--More--». Probe: `node scripts/hidden-proxy.mjs verify use_lamp` (scen-wish-Valkyrie-92206).
@@ -68,6 +67,11 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 - [ ] `hack.c` escape_from_sticky_mon — blocks 1/553 corpus sessions (first at step 247): C draws `rn2(40)=4` in escape_from_sticky_mon, JS `rn2(20)=4` from gethungry(eat.js:698). Probe: `node scripts/hidden-proxy.mjs verify escape_from_sticky_mon` (scen-wish-Caveman-92183).
 - [ ] `eat.c` fprefx — blocks 1/553 corpus sessions (first at step 99): C draws `rn2(2)=0` in fprefx, JS `rn2(70)=2` from maybe_generate_rnd_mon(allmain.js:349). Probe: `node scripts/hidden-proxy.mjs verify fprefx` (scen-wish-Knight-92105).
 - [ ] `timeout.c` slimed_to_death — blocks 1/553 corpus sessions (first at step 37): C «OK, so you don't die. Demogorgon hits! You feel even worse.-» vs JS «OK, so you don't die. Demogorgon hits! You feel much worse.-». Probe: `node scripts/hidden-proxy.mjs verify slimed_to_death` (scen-death-Valkyrie-92229).
+- [ ] `timeout.c` sickness_dialogue — blocks 1/553 corpus sessions (first at step 65): C «You are at Death's door.--More--» vs JS «You are at Death's door.». Probe: `node scripts/hidden-proxy.mjs verify sickness_dialogue` (scen-intrinsic-Rogue-91111).
+- [ ] `detect.c` do_mapping — blocks 1/553 corpus sessions (first at step 95): C «Move cursor to anything of interest:» vs JS «Move cursor to anything of interest:». Probe: `node scripts/hidden-proxy.mjs verify do_mapping` (scen-normal-Priest-91120).
+- [ ] `mhitu.c` gulpmu — blocks 1/553 corpus sessions (first at step 87): C draws `rn2(4)=3` in gulpmu, JS `rn2(5)=4` from distfleeck(monmove.js:840). Probe: `node scripts/hidden-proxy.mjs verify gulpmu` (scen-wish-Monk-92194).
+- [ ] `timeout.c` vomiting_dialogue — blocks 1/553 corpus sessions (first at step 57): C «Your feet are frozen to the stairs! You can move again.» vs JS «Your feet are frozen to the floor! You can move again.». Probe: `node scripts/hidden-proxy.mjs verify vomiting_dialogue` (scen-wish-Rogue-92221).
+- [ ] `pray.c` doturn — blocks 1/553 corpus sessions (first at step 149): C «You are not able to call upon Raijin to turn aside evilness.» vs JS «You are not able to call upon Raijin to turn aside evilness.». Probe: `node scripts/hidden-proxy.mjs verify doturn` (scen-intrinsic-Priest-92096).
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 

@@ -591,7 +591,14 @@ zapyourself WAN_LIGHT/CAMERA D-1366**; **`zapnodir` WAN_CREATE_MONSTER `create_c
 `declined to make a wish` nothing-arm, hands_obj terrain no-log,
 `artifact_origin(ONAME_WISH|ONAME_KNOW_ARTI)` bookkeeping,
 `"%s", got "%s"` + post-increment first/first-artifact/`wished for` trio;
-`wish_history_add/menu`/`wishcmdassist`/MAXWISHTRY retry still deferred); 
+`wish_history_add/menu`/`wishcmdassist`/MAXWISHTRY retry still deferred);
+**`makewish` wish-delivery `hold_another_object` tail** (D-2156; C
+`zap.c:6401–6420`: fatal-corpse `wishedfor=1` via `u_safe_from_fatal_corpse`/
+`st_all`, verb `slip`/`materialize`/`drop` + oops reach/away/floor/`Careful`
+arms in exact order, drop_arg `The(aobjnam(otmp, verb))` — fixes «The a
+boulder» article leak from `doname`; queue row had misattributed the literal
+to `mkobj.c hornoplenty :2905`, whose own `The(aobjnam_horn)` needed no
+change; JS `aobjnam` `quan != 1` count prefix still deferred); 
 **`zapnodir` WAN_ENLIGHTENMENT `do_enlightenment_effect` D-1395**; 
 **`zapnodir` WAN_STASIS `stasis_until` max `moves+rn1(21,10)` D-1404**; 
 **`zapnodir` SPE_DETECT_UNSEEN shares SECRET_DOOR `findit` D-1412**; 

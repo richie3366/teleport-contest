@@ -238,7 +238,7 @@ import {
 } from './invent.js';
 import { mstatusline, ustatusline } from './insight.js';
 import { setnotworn } from './do.js';
-import { doname, xname, yname, distant_name, vtense, The, the, an, An, killer_xname, ansimpleoname, makeplural } from './objnam.js';
+import { doname, xname, yname, distant_name, vtense, The, the, an, An, aobjnam, killer_xname, ansimpleoname, makeplural } from './objnam.js';
 import { uhim, uhis } from './roles.js';
 import { fix_wall_spines } from './mklev.js';
 import {
@@ -6694,11 +6694,29 @@ export async function makewish() {
     else
         livelog_printf(LL_WISH | maybe_LL_arti, 'wished for %s', wish);
 
-    // C: hold_another_object(otmp, oops_msg, The(aobjnam(...)), NULL)
-    // Simplified message path: prinv via hold when successful.
-    const verb = 'drop';
-    const oops = `Oops!  %s to the floor!`;
-    await hold_another_object(otmp, oops, `The ${doname(otmp)} ${verb}s`, null);
+    // C zap.c:6401-6402 — wished-for fatal corpse flags the materialize arm.
+    if ((otmp.otyp | 0) === CORPSE) {
+        const { u_safe_from_fatal_corpse, st_all } = await import('./pickup.js');
+        if (!u_safe_from_fatal_corpse(otmp, st_all)) otmp.wishedfor = 1;
+    }
+    // C zap.c:6404-6418 — verb + oops_msg in exact branch order and
+    // short-circuit: airlevel/uinwater slip; corpse-wish materialize;
+    // uswallow reach; air/water/odd-floor away; else floor (corpse-wish
+    // takes the Careful arm).
+    const uw = game.u || {};
+    const wtyp = game.level?.at?.(uw.ux | 0, uw.uy | 0)?.typ ?? 0;
+    const corpseWish = (otmp.otyp | 0) === CORPSE && otmp.wishedfor;
+    const verb = (Is_airlevel(uw.uz) || uw.uinwater)
+        ? 'slip'
+        : corpseWish ? 'materialize' : 'drop';
+    const oops = uw.uswallow
+        ? 'Oops!  %s out of your reach!'
+        : (Is_airlevel(uw.uz) || Is_waterlevel(uw.uz)
+            || wtyp < IRONBARS || wtyp >= ICE)
+          ? 'Oops!  %s away from you!'
+          : !corpseWish ? 'Oops!  %s to the floor!' : 'Careful! %s on the floor!';
+    // C zap.c:6419 — The(aobjnam()) is safe since otmp is unidentified -dlc.
+    await hold_another_object(otmp, oops, The(aobjnam(otmp, verb)), null);
 
     game.u.ublesscnt = (game.u.ublesscnt | 0) + rn1(100, 50);
 }
