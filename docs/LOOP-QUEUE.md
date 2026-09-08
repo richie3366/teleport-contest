@@ -32,8 +32,6 @@ not enqueue parked D-0006 or parked `dog_invent`.
 
 ## Must-fix (from reviews) — pop first
 
-- [ ] `objnam.c` readobjnam gold-block fall-through on tin-typed `bp`: wish `tin of gold piece` returns GOLD_PIECE where C (`return 2` → typfnd, skips Case 3) makes a tin — guard the `isGold` block in `js/readobjnam.js` with `!d.typ`. Probe: wish `tin of gold piece` and compare object class. Source: reviews/loop-unattended/1054-4d3d5dd3-postparse1-of-arm.md (review 1054, C-wrong 1).
-
 Written reviews are not theater. Each item is a Keep’d **C-wrong** (JS
 contradicts C, not a named omit). After shipping: stamp the cited review
 `**Addressed:** D-NNNN` (D-id only), mark the queue line `- [x]`, then

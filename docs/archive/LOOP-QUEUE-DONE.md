@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `do_name.c` roguename — blocks 1/553 corpus sessions (first at step 89): C «Michael Toy's ghost wakes up! You stop searching.--More--» vs JS «You stop searching. Michael Toy's ghost touches you!». Probe: `node scripts/hidden-proxy.mjs verify roguename` (scen-tour-Tourist-91101). **Addressed:** D-2088
+- [x] `objnam.c` readobjnam gold-block fall-through on tin-typed `bp` **Addressed:** D-2089: wish `tin of gold piece` returns GOLD_PIECE where C (`return 2` → typfnd, skips Case 3) makes a tin — guard the `isGold` block in `js/readobjnam.js` with `!d.typ`. Probe: wish `tin of gold piece` and compare object class. Source: reviews/loop-unattended/1054-4d3d5dd3-postparse1-of-arm.md (review 1054, C-wrong 1).
+
+
+- [x] `do_name.c` roguename — blocks 1/553 corpus sessions (first at step 89): C «Michael Toy's ghost wakes up! You stop searching.--More--» vs JS «You stop searching. Michael Toy's ghost touches you!». Probe: `node scripts/hidden-proxy.mjs verify roguename` (scen-tour-Tourist-91101). **Addressed:** D-2088 `444f29eb`
 
 
 - [x] `trap.c` burnarmor — blocks 1/553 corpus sessions (first at step 72): C draws `rn2(5)=2` in burnarmor, JS `rn2(6)=0` from trapeffect_fire_trap(trap.js:4042). Probe: `node scripts/hidden-proxy.mjs verify burnarmor` (scen-tour-Wizard-91112). **Addressed:** D-2087 `25328721`

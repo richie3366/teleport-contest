@@ -81,3 +81,5 @@ resolving. Claim reproduced exactly. Rule #2 clean (prior step).
 ## Verdict
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-2089
