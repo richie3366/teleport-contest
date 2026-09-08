@@ -59,7 +59,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `drawing.c` def_char_is_furniture — blocks 3/553 corpus sessions (first at step 49): C «branch staircase up» vs JS «unexplored area». Probe: `node scripts/hidden-proxy.mjs verify def_char_is_furniture` (scen-kit-Archeologist-92170, scen-normal-Knight-91100, scen-normal-Rogue-92209).
 - [ ] `zap.c` obj_resists — blocks 3/553 corpus sessions (first at step 75): C draws `rn2(100)=83` in obj_resists, JS `rnd(2)=2` from next_ident(mkobj.js:334). Probe: `node scripts/hidden-proxy.mjs verify obj_resists` (scen-genesis-Valkyrie-92074, scen-tour-Samurai-92032, scen-tour-Wizard-92219).
 - [ ] `apply.c` use_pole — blocks 3/553 corpus sessions (first at step 62): C «You miss Pestilence.--More--» vs JS «You miss Pestilence.». Probe: `node scripts/hidden-proxy.mjs verify use_pole` (scen-genesis-Archeologist-91127, scen-genesis-Barbarian-91118, scen-wish-Rogue-91138).
 - [ ] `bones.c` drop_upon_death — blocks 3/553 corpus sessions (first at step 95): C draws `rn2(5)=1` in drop_upon_death, JS `rn2(1000)=746` from start_corpse_timeout(mkobj.js:1395). Probe: `node scripts/hidden-proxy.mjs verify drop_upon_death` (scen-death-Knight-92203, scen-intrinsic-Caveman-92070, scen-intrinsic-Healer-91105).

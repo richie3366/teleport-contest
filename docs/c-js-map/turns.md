@@ -181,7 +181,8 @@ CAUSE_FEAR / IDENTIFY / CHARM_MONSTER still named);
 oldglyph trap/object restore still deferred); 
 **`#terrain`/`doterrain` View which? PICK_ONE + Esc + 
 partial `reveal_terrain`/`browse_map`** (D-0128); **DEL `\177` binds `doterrain`** (D-0341); 
-**`reveal_terrain_getglyph`/`show_glyph` TER_MAP strip mon/obj** (D-0342); 
+**`reveal_terrain_getglyph`/`show_glyph` TER_MAP strip mon/obj** (D-0342) + 
+**int-id threading into gbuf** (D-2058; full/back_to/remembered/trap-restore/strip arms carry the C int via `copy_glyph_id`, unclassified stays GLYPH_UNEXPLORED, cmap-hack remaps darkroom/litcorr ids — browse lookat needs `glyph_at`, not NO_GLYPH; `def_char_is_furniture` untouched, review-81 `}` gap stays named); 
 **`dosearch`→`cmd_safety_prevention`** (D-0228); 
 **`danger_uprops` checks flat `|0` OR `uprops[PROP].intrinsic` for STONED/SLIMED/STRANGLED/SICK** (D-2011; C `do.c:2318–2322` is intrinsic-only — `incr_prop_timeout` STRANGLED lands in uprops only); 
 **SCORR/SDOOR uncover → `recalc_block_point` not `vision_recalc(1)`** (D-0269); 
@@ -900,7 +901,10 @@ deferred; full `docrt` Blind deferred; `redraw_map` body live D-1974);
 `cmd_from_func` custom binds named / **getpos_getvalid/hilite help lines + whatis multi-pick tail** D-1880; 
 S_goodpos hilite glyphs / **mMoOdDxXaAzZ `gather_locs` cycle** D-0928 #1189 / D-1845 
 (`getpos_menu` still named; GFILTER_AREA flood live D-1941; 
-**GLOC_INTERESTING / GLOC_VALID FALLTHROUGH D-1217**); 
+**GLOC_INTERESTING / GLOC_VALID FALLTHROUGH D-1217**; 
+**GLOC_MONS reads displayed `glyph_at` + worm-tail bank exclusion** D-2058 — 
+live-state reads jump to stripped monsters in #terrain browse; 
+OBJS/DOOR/EXPLORE live-vs-displayed hybrids still named); 
 **stairs terrain match requires `seenv`** (D-0779; blank `disp_ch` is not known); 
 **`iflags.autodescribe` default On + stairs/ladder firstmatch** (D-0423); 
 **lookat trap tnum `glyph_to_trap(glyph_at)` in `auto_describe_text`** (D-1787; was tseen `trapname` D-0424); 

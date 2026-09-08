@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `botl.c` do_statusline1 — blocks 3/553 corpus sessions (first at step 119): C «You were wearing an uncursed +2 ring of gain strength (on ri» vs JS «You were wearing an uncursed +2 ring of gain strength (on ri». Probe: `node scripts/hidden-proxy.mjs verify do_statusline1` (scen-normal-Wizard-91114, scen-poly-Priest-92097, scen-wish-Archeologist-92038). **Addressed:** D-2057
+- [x] `drawing.c` def_char_is_furniture — blocks 3/553 corpus sessions (first at step 49): C «branch staircase up» vs JS «unexplored area». Probe: `node scripts/hidden-proxy.mjs verify def_char_is_furniture` (scen-kit-Archeologist-92170, scen-normal-Knight-91100, scen-normal-Rogue-92209). **Addressed:** D-2058
+
+
+- [x] `botl.c` do_statusline1 — blocks 3/553 corpus sessions (first at step 119): C «You were wearing an uncursed +2 ring of gain strength (on ri» vs JS «You were wearing an uncursed +2 ring of gain strength (on ri». Probe: `node scripts/hidden-proxy.mjs verify do_statusline1` (scen-normal-Wizard-91114, scen-poly-Priest-92097, scen-wish-Archeologist-92038). **Addressed:** D-2057 `a223472a`
 
 
 - [x] `dothrow.c` dofire — blocks 3/553 corpus sessions (first at step 38): C «You ready: b - a +0 short sword.--More--» vs JS «In what direction?». Probe: `node scripts/hidden-proxy.mjs verify dofire` (scen-normal-Barbarian-92036, scen-normal-Valkyrie-92237, scen-tour-Rogue-92030). **Addressed:** D-2056 `72cf8c52`

@@ -46,10 +46,7 @@ the C recorder by `scripts/scenario-gen.mjs`) pass **7 / 275**, RNG
 they no longer pick work. Top owners: `welcome`→`calendar.c getlt` ×51,
 `do_statusline2` ×11, `break_armor` ×9, `exercise` ×8, `enlightenment`
 ×7, `wiz_intrinsic` ×7, 4 `ReferenceError` throws ×8 (Must-fix).
-Reviews 990–997: 7 ACCEPT, 1 ACCEPT-WITH-DEBT (991 readobjnam grey-spell/armour fixups → map-name debt, no Must-fix).
-Reviews 998–1003: 5 ACCEPT, 1 ACCEPT-WITH-DEBT (998 use_container lknown pre-branch `:2985–2989` state debt, no Must-fix; 1000 notes D-2030 "nothing imports wizard.js" slip, harmless).
-Reviews 1004–1009: 5 ACCEPT, 1 QUALITY-RISK (1006 → 3 Must-fix).
-Reviews 1010–1017: 7 ACCEPT, 1 QUALITY-RISK (1014 → 1 Must-fix).
+Reviews 990–1017: 24 ACCEPT, 2 ACCEPT-WITH-DEBT (991/998 map/state debts named, 1000 D-2030 slip harmless), 2 QUALITY-RISK (1006/1014 Must-fix all shipped).
 Reviews 1018–1026: 8 ACCEPT, 1 ACCEPT-WITH-DEBT (1025 readobjnam deny-check debt, map-named, no Must-fix).
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score --jobs 8`
 (≈200 s); when every family is ≥ 85 % PASS, grow it first:
@@ -91,8 +88,9 @@ divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
 **Next cluster:** `drawing.c` def_char_is_furniture — blocks 3/553 corpus sessions (first at step 49): C «branch staircase up» vs JS «unexplored area». Probe: `node scripts/hidden-proxy.mjs verify def_char_is_furniture` (scen-kit-Archeologist-92170, scen-normal-Knight-91100, scen-normal-Rogue-92209).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2057 (index).**
+**Keep D-0845…D-2058 (index).**
 <!-- recent:begin -->
+**D-2058** the queue owner is a literal-match misattribution — `js/display.js` — thread the C int id through every `reveal_terrain_getglyph` arm so gbuf matches C: `full` arm attaches `back_to_glyph(x,y)` inside the seenv-temp window; `levl_glyph` attaches the remembered int (`mem.g
 **D-2057** symptom owner `botl.c` `do_statusline1` `:47–98` (`:85` `St:%s…Ch:%-1d` via `get_strength_ — `js/attrib.js` — CHA arm now `if (tmp < 18 && (game.youmonst?.data?.mlet === 'S_NYMPH' || (u.umonnum|0) === PM_AMOROUS_DEMON)) result = 18` (C `:1214–1216`; `PM_AMOROUS_DEMON` via `monsterNames.indexOf`, same idiom as `j
 **D-2056** `dothrow.c` `dofire` `:543–554` — `js/dothrow.js` — deleted the post-doquiver `mark_topline_seen()` with a C citation comment (no skip in C; `tty_yn_function` flushes).
 **D-2055** (1–2) `objnam.c readobjnam :5143–5165` STATUE/FIGURINE/CORPSE spe arm — `js/readobjnam.js` — full C spe switch in exact C order before the recharged hunk (TIN 0 + EMPTY/SPINACH contents arms; TOWEL wetness; SLIME_MOLD `ftype` deferred with comment; KEY/CHEST/BOX/BALL/CHAIN retain; STATUE/FIG
@@ -100,11 +98,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2053** `spell.c study_book :468–496` (dull arm; `rnd(25)` at :478): `if (!confused && !Sleep_resi — `js/spell.js` — port the dull arm in exact C order (before the interrupted-continue arm, after context creation): `!confused && !sleepRes && objdescr_is(spellbook,'dull')` with `sleepRes = H||E||flat` (C H||E plus the JS
 **D-2052** (a) `uhitm.c find_roll_to_hit :375–380` (`+ maybe_polyd(youmonst.data->mlevel, u.ulevel)`) — `js/uhitm.js` — `find_roll_to_hit` adds `Upolyd(u) ? youmonst.data.mlevel : u.ulevel`; `abon` early-returns `adj_lev(youmonst.data)-3` when poly'd (`adj_lev` joins the existing `makemon.js` import — no new edge); all fiv
 **D-2051** `hack.c losehp :4256–4292` (fatal arm: killer-name copy, `urgent_pline("You die...")`, `do — `js/artifact.js` — after the blast-arm losehp, `await finish_maybe_wail()` (no-op unless the low-HP flag was set; C runs maybe_wail inside losehp before returning) then `if (game._losehp_needs_done) { await finish_losehp
-**D-2050** `polyself.c polymon :735–902` (entry `was_blind = !!Blind` :739, before `u.umonnum=mntmp;  — `js/polyself.js` — capture `wasBlind` at polymon entry with the C `Blind` predicate (same inline shape as `polyman`, incl.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2057; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2058; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
