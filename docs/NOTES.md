@@ -15,6 +15,7 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 - **slimed park:** comment-line owner; dual writer (landing gate + Sick store). Falsifier + probe: LOOP-QUEUE Parked.
 - **vomiting_dialogue park (2026-09-09, no js/):** MISATTRIBUTED + stale (residual: touch_artifact@92). Falsifier + probe (`verify vomiting_dialogue --base 109f4444`): LOOP-QUEUE Parked. Do not re-pop.
 - **doturn park (2026-09-09, no js/):** STALE OWNER (HEAD find_trap@75). Genuine gnostic fix + proof: LOOP-QUEUE Parked. Do not re-pop.
+- **u_stuck_cannot_go park (2026-09-09, no js/):** MISATTRIBUTED + stale (step-172 key `n` = move path, true writer escape_from_sticky_mon D-2158; live residual do_statusline2@200). Falsifier + probe (`verify u_stuck_cannot_go` 0 PASS/1 moved): LOOP-QUEUE Parked. Do not re-pop.
 
 ## Don't re-check (≤15)
 

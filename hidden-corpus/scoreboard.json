@@ -1,6 +1,6 @@
 {
- "commit": "4508ab31",
- "at": "2026-09-08T23:49:05.463Z",
+ "commit": "48fb0115",
+ "at": "2026-09-08T23:55:38.863Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6983,16 +6983,16 @@
    "passed": false,
    "rngM": 3369,
    "rngT": 3377,
-   "scrM": 310,
+   "scrM": 312,
    "scrT": 313,
    "kind": "screen",
-   "step": 172,
+   "step": 200,
    "steps": 313,
-   "owner": "u_stuck_cannot_go",
-   "loc": "do.c:1123",
+   "owner": "do_statusline2",
+   "loc": "botl.c:130",
    "jsOwner": null,
-   "cTopline": "You release the iron golem. The iron golem hits!--More--",
-   "jsTopline": "The iron golem hits! The iron golem hits!",
+   "cTopline": "You turn into a brown mold!--More--",
+   "jsTopline": "You turn into a brown mold!--More--",
    "error": null
   },
   "scen-poly-Wizard-92076": {
