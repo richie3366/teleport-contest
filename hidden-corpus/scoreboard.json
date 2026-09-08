@@ -1,6 +1,6 @@
 {
- "commit": "26431cce",
- "at": "2026-09-08T12:20:10.219Z",
+ "commit": "fcc6e805",
+ "at": "2026-09-08T12:34:04.527Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6352,18 +6352,18 @@
   "scen-normal-Rogue-92146": {
    "src": "corpus",
    "passed": false,
-   "rngM": 2931,
+   "rngM": 3536,
    "rngT": 3782,
-   "scrM": 49,
+   "scrM": 122,
    "scrT": 166,
    "kind": "rng",
-   "step": 48,
+   "step": 122,
    "steps": 166,
-   "owner": "dog_move",
-   "loc": "dogmove.c:1255",
-   "jsOwner": "distfleeck(monmove.js:808)",
-   "cTopline": "You begin praying to Kos. You finish your prayer.--More--",
-   "jsTopline": "You begin praying to Kos. You finish your prayer.--More--",
+   "owner": "hmon_hitmon_weapon_melee",
+   "loc": "uhitm.c:964",
+   "jsOwner": "abuse_dog(dog.js:1220)",
+   "cTopline": "You strike the kitten from behind! The kitten yowls!--More--",
+   "jsTopline": "The kitten yowls! You hit the kitten.",
    "error": null
   },
   "scen-normal-Rogue-92160": {
