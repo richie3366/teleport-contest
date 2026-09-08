@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `insight.c` enlightenment — blocks 4/553 corpus sessions (first at step 67): C «Wizard the Monk's attributes:» vs JS «Wizard the Monk's attributes:». Probe: `node scripts/hidden-proxy.mjs verify enlightenment` (scen-death-Monk-92000, scen-death-Wizard-92120, scen-wish-Healer-92147). **Addressed:** D-2104
+- [x] `end.c` disclose — blocks 3/553 corpus sessions (first at step 110): C «Do you want to see your conduct and achievements? [ynq] (n)» vs JS «Do you want to see your conduct? [ynq] (n)». Probe: `node scripts/hidden-proxy.mjs verify disclose` (scen-genesis-Barbarian-91118, scen-wish-Monk-92031, scen-wish-Priest-92098). **Addressed:** D-2105
+
+
+- [x] `insight.c` enlightenment — blocks 4/553 corpus sessions (first at step 67): C «Wizard the Monk's attributes:» vs JS «Wizard the Monk's attributes:». Probe: `node scripts/hidden-proxy.mjs verify enlightenment` (scen-death-Monk-92000, scen-death-Wizard-92120, scen-wish-Healer-92147). **Addressed:** D-2104 `f297d61d`
 
 
 - [x] `objnam.c` wishymatch — blocks 1/553 corpus sessions (first at step 70): C «@a human or elf or you (dwarven valkyrie called wizard)--Mor» vs JS «@a human or elf or you (dwarven valkyrie called wizard)». Probe: `node scripts/hidden-proxy.mjs verify wishymatch` (scen-tour-Valkyrie-92040). **Addressed:** D-2103 `cc1595b7`

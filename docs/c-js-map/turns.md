@@ -1227,7 +1227,9 @@ lifting/removing + `pickup_encumbrance`** (D-0456;
 invent compare-learn pline** (D-0879/D-0882; uses `mkobj.mergable`; 
 quiver-prefer / worn-slot / oname / globby / `#adjust` `invent_merged` compare msg / addinv clear 
 `how_lost` deferred; **`addinv_core0` thrown-autoquiver fill live on fresh insert only** (pickup_thrown + empty 
-quiver + throwing_weapon/is_ammo → setuqwep; D-2044; merge paths `goto added` bypass the fill — no setuqwep on merge, D-2048))
+quiver + throwing_weapon/is_ammo → setuqwep; D-2044; merge paths `goto added` bypass the fill — no setuqwep on merge, D-2048); \
+**`addinv_core1` live in `js/u_init.js`** (COIN botl, AMULET/CANDELABRUM/BELL/BOOK uhave+record_achievement, \
+oartifact W_ART, mines/soko prize achievement+oid-clear+nomerge=0; questart/artitouch stays named))
 
 ### `src/do_name.c` `oname` / `docallcmd`
 
@@ -1566,7 +1568,7 @@ JS: `js/end.js`, `js/bones.js`, `js/rip.js`, `js/topten.js`, `js/getline.js`, `j
 `-i` skips invent yn); **`disclose` attributes/vanquished/genocided/conduct/overview** (D-0358; 
 gameover `enlightenment` BASIC\|MAGIC + `init_mapseen` + overview `(end)`); 
 **`disclose` conduct `" and achievements"` via live `count_achievements`** (D-2015; 
-C `end.c:664–680`; `addinv_core1` uhave/ACH arms stay named); 
+C `end.c:664–680`; `addinv_core1` uhave/ACH arms live in `js/u_init.js` (COIN botl, AMULET/CANDELABRUM/BELL/BOOK uhave+record_achievement, mines/soko prize+oid-clear+nomerge=0; questart/artitouch stays named); 
 **`genl_outrip` + Goodbye/death summary NHW_TEXT + score before bones** (D-0289); 
 **Tourist `more_experienced(depth)` on new `goto_level`** (D-0289); 
 **`goto_level` `assign_level(&u.uz0,&u.uz)` reset after Tourist XP** (D-1188; C `do.c:1967`; 

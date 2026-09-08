@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `end.c` disclose — blocks 3/553 corpus sessions (first at step 110): C «Do you want to see your conduct and achievements? [ynq] (n)» vs JS «Do you want to see your conduct? [ynq] (n)». Probe: `node scripts/hidden-proxy.mjs verify disclose` (scen-genesis-Barbarian-91118, scen-wish-Monk-92031, scen-wish-Priest-92098).
 - [ ] `teleport.c` rloc — blocks 2/553 corpus sessions (first at step 73): C draws `rnd(79)=69` in rloc, JS `rn2(12)=4` from mcalcmove(mon.js:740). Probe: `node scripts/hidden-proxy.mjs verify rloc` (scen-tour-Healer-92042, scen-tour-Ranger-92033).
 - [ ] `zap.c` lightdamage — blocks 2/553 corpus sessions (first at step 123): C «The mind flayer zaps himself with a maple wand!--More--» vs JS «The mind flayer zaps himself with a maple wand!--More--». Probe: `node scripts/hidden-proxy.mjs verify lightdamage` (scen-genesis-Barbarian-92062, scen-tour-Wizard-91112).
 - [ ] `dokick.c` ghitm — blocks 2/553 corpus sessions (first at step 16): C «You harmlessly attack a statue.» vs JS «You attack thin air.». Probe: `node scripts/hidden-proxy.mjs verify ghitm` (scen-genesis-Caveman-92199, scen-poly-Ranger-92090).
@@ -68,6 +67,11 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 - [ ] `dog.c` makedog — blocks 1/553 corpus sessions (first at step 31): C «tame little dog called Slasher» vs JS «tame Slasher». Probe: `node scripts/hidden-proxy.mjs verify makedog` (scen-normal-Caveman-92053).
 - [ ] `insight.c` one_characteristic — blocks 1/553 corpus sessions (first at step 168): C « You were wielding a mattock.» vs JS « You were wielding a pick-axe.». Probe: `node scripts/hidden-proxy.mjs verify one_characteristic` (scen-wish-Priest-92180).
 - [ ] `invent.c` dolook — blocks 1/553 corpus sessions (first at step 108): C «You can't see in here!» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify dolook` (scen-genesis-Wizard-92223).
+- [ ] `mkobj.c` next_ident — blocks 3/553 corpus sessions (first at step 34): C draws `rnd(2)=2` in next_ident, JS `rnd(1)=1` from monmulti(weapon.js:1460). Probe: `node scripts/hidden-proxy.mjs verify next_ident` (scen-tour-Samurai-92161, scen-wish-Archeologist-92238, scen-wish-Knight-92130).
+- [ ] `wield.c` chwepon — blocks 2/553 corpus sessions (first at step 68): C «Your dexterity was 9.» vs JS «Your dexterity was 9.». Probe: `node scripts/hidden-proxy.mjs verify chwepon` (scen-death-Monk-92000, scen-death-Wizard-92120).
+- [ ] `were.c` were_change — blocks 2/553 corpus sessions (first at step 69): C «The jackal bites!» vs JS «The jackal bites!». Probe: `node scripts/hidden-proxy.mjs verify were_change` (scen-intrinsic-Healer-92124, scen-tour-Ranger-92177).
+- [ ] `quest.c` prisoner_speaks — blocks 1/553 corpus sessions (first at step 146): C «The prisoner speaks: "I'm finally free!"» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify prisoner_speaks` (scen-wish-Rogue-92210).
+- [ ] `dig.c` zap_dig — blocks 1/553 corpus sessions (first at step 20): C «The beam bounces off the stairs and hits the ceiling.--More-» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify zap_dig` (scen-death-Wizard-92187).
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 
