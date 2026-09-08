@@ -20,10 +20,10 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-08** — full `sessions` at **D-2063**
-(audit **1027–1033**, `84dc0e34`+review). Fortress **44/44** (no throws).
+Score last measured: **2026-09-08** — full `sessions` at **D-2070**
+(audit **1034–1040**, `55a129a8`+review). Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`63+0.43/turn` (R² 0.79).
+`60+0.39/turn` (R² 0.80).
 
 ## Score
 
@@ -48,6 +48,7 @@ they no longer pick work. Top owners: `welcome`→`calendar.c getlt` ×51,
 ×7, `wiz_intrinsic` ×7, 4 `ReferenceError` throws ×8 (Must-fix).
 Reviews 990–1026: 32 ACCEPT, 3 ACCEPT-WITH-DEBT (debts map-named), 2 QUALITY-RISK Must-fix all shipped (full record: reviews/ + DIVERGENCE-INDEX).
 Reviews 1027–1033: 7 ACCEPT, 0 Must-fix.
+Reviews 1034–1040: 7 ACCEPT, 0 Must-fix.
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score --jobs 8`
 (≈200 s); when every family is ≥ 85 % PASS, grow it first:
 `node scripts/scenario-gen.mjs --n 120 --seed <iter×100>`.

@@ -1044,3 +1044,10 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1031-9151bc52-really-done-first-move.md](./1031-9151bc52-really-done-first-move.md) | `9151bc52` | D-2061 really_done first-move line | **ACCEPT** |
 | [1032-a5d86687-final-disclosure-tail.md](./1032-a5d86687-final-disclosure-tail.md) | `a5d86687` | D-2062 disclosure tail + DRAIN_RES | **ACCEPT** |
 | [1033-84dc0e34-polyself-article-vampyr.md](./1033-84dc0e34-polyself-article-vampyr.md) | `84dc0e34` | D-2063 poly article + do_vampyr | **ACCEPT** |
+| [1034-dda50839-dozap-selfzap-losehp.md](./1034-dda50839-dozap-selfzap-losehp.md) | `dda50839` | D-2064 dozap self-zap fatal losehp | **ACCEPT** |
+| [1035-dd88a89c-you-hear-unaware-dream.md](./1035-dd88a89c-you-hear-unaware-dream.md) | `dd88a89c` | D-2065 You_hear Unaware dream arm | **ACCEPT** |
+| [1036-64048333-map-type-mask.md](./1036-64048333-map-type-mask.md) | `64048333` | D-2066 M_AP_TYPE F_DKNOWN mask | **ACCEPT** |
+| [1037-b9138d02-mhitu-invis-flats.md](./1037-b9138d02-mhitu-invis-flats.md) | `b9138d02` | D-2067 mhitu Invis/Underwater flats | **ACCEPT** |
+| [1038-37fe9ecd-savebones-remove-mon.md](./1038-37fe9ecd-savebones-remove-mon.md) | `37fe9ecd` | D-2068 savebones remove_mon_from_bones | **ACCEPT** |
+| [1039-fd96761c-dohide-c-fix.md](./1039-fd96761c-dohide-c-fix.md) | `fd96761c` | D-2069 dohide + domonability c fix | **ACCEPT** |
+| [1040-55a129a8-sleep-dialogue-deaf-gate.md](./1040-55a129a8-sleep-dialogue-deaf-gate.md) | `55a129a8` | D-2070 sleep_dialogue + Deaf gate | **ACCEPT** |
