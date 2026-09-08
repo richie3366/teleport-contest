@@ -494,6 +494,7 @@ live `makemon` NO_MM_FLAGS + `tamedog` null FALSE);
 `is_lminion` / obj.h `is_sword` live `js/objects.js` (dothrow clone
 retired); prince/`mpickobj` already live);
 **D-1584 `mk_mplayer`** live `js/mplayer.js` (C `mplayer.c`; not this file) |
+**D-2107 `makemon` birth knowledge** (`makemon.c:1283–1294` after `female`, before `mpeaceful`: `In_sokoban && !mindless` → `mon_learns_traps(PIT/HOLE)`; `Is_stronghold && !mindless` → `(TRAPDOOR)`; `MS_LEADER/MS_NEMESIS` → `(ALL_TRAPS)`; `Is_stronghold||Is_knox||In_endgame||In_hell||In_V_tower||In_quest` → `mwandexp=TRUE` so first wand uses `buzz` not `buzz_force_miss`; `In_hell` = hellish flag idiom; `mpeaceful` MM_ANGRY arm + `mwandexp` save/restore still named);
 
 ### `src/minion.c`
 

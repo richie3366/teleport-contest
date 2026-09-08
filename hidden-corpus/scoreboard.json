@@ -1,6 +1,6 @@
 {
- "commit": "9d4b5834",
- "at": "2026-09-08T08:52:39.140Z",
+ "commit": "7b29e91a",
+ "at": "2026-09-08T08:57:33.181Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -7230,16 +7230,16 @@
   "scen-tour-Priest-92235": {
    "src": "corpus",
    "passed": false,
-   "rngM": 5019,
+   "rngM": 5402,
    "rngT": 7916,
    "scrM": 60,
    "scrT": 111,
    "kind": "rng",
    "step": 59,
    "steps": 111,
-   "owner": "zap_hit",
-   "loc": "zap.c:4709",
-   "jsOwner": "distfleeck(monmove.js:840)",
+   "owner": "resist",
+   "loc": "zap.c:6141",
+   "jsOwner": "zap_hit(zap.js:1335)",
    "cTopline": "You stop studying. The salamander zaps a curved wand!--More--",
    "jsTopline": "You stop studying. The salamander zaps a curved wand!--More--",
    "error": null

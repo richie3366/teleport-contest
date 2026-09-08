@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `zap.c` zap_hit — blocks 1/553 corpus sessions (first at step 59): C draws `rn2(20)=1` in zap_hit, JS `rn2(5)=1` from distfleeck(monmove.js:840). Probe: `node scripts/hidden-proxy.mjs verify zap_hit` (scen-tour-Priest-92235).
 - [ ] `dog.c` makedog — blocks 1/553 corpus sessions (first at step 31): C «tame little dog called Slasher» vs JS «tame Slasher». Probe: `node scripts/hidden-proxy.mjs verify makedog` (scen-normal-Caveman-92053).
 - [ ] `insight.c` one_characteristic — blocks 1/553 corpus sessions (first at step 168): C « You were wielding a mattock.» vs JS « You were wielding a pick-axe.». Probe: `node scripts/hidden-proxy.mjs verify one_characteristic` (scen-wish-Priest-92180).
 - [ ] `invent.c` dolook — blocks 1/553 corpus sessions (first at step 108): C «You can't see in here!» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify dolook` (scen-genesis-Wizard-92223).

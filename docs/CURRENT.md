@@ -91,10 +91,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `dokick.c` ghitm — blocks 2/553 corpus sessions (first at step 16): C «You harmlessly attack a statue.» vs JS «You attack thin air.». Probe: `node scripts/hidden-proxy.mjs verify ghitm` (scen-genesis-Caveman-92199, scen-poly-Ranger-92090).
+**Next cluster:** `zap.c` zap_hit — blocks 1/553 corpus sessions (first at step 59): C draws `rn2(20)=1` in zap_hit, JS `rn2(5)=1` from distfleeck(monmove.js:840). Probe: `node scripts/hidden-proxy.mjs verify zap_hit` (scen-tour-Priest-92235).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2106 (index).**
+**Keep D-0845…D-2107 (index).**
 <!-- recent:begin -->
+**D-2107** `makemon.c:1283–1294` (birth knowledge: `In_sokoban && !mindless` → `mon_learns_traps(PIT) — `js/makemon.js` only — birth-knowledge block in exact C order between `female` and `mpeaceful` (C order is female → traps → mwandexp → place_monster → mpeaceful; the JS `place_monster`/fmon-link shape is untouched).
 **D-2106** `hack.c` `domove_fight_empty` `:2258–2267` (`boulder = sobj_at(BOULDER, x, y)`; `if (glyph — `js/cmd.js` only, exact C order: full-pile `sobj_at(BOULDER)` scan first, then `glyph_to_obj_at(x, y) === STATUE_OTYP` (pre-existing `display.js` gbuf export joining the existing display edge — no new module, no TDZ, cal
 **D-2105** `invent.c` `addinv_core1` `:960–1004` (uhave/ACH arms). The disclose suffix itself (`end.c — `js/u_init.js` — new sync `addinv_core1(obj)` in exact C order, called once before the merge loop (C `addinv_core0` `:1082`): COIN → disp.botl (`flags.botl`+`disp.botl`); AMULET_OF_YENDOR → `uhave.amulet=1`+ACH_AMUL; CAN
 **D-2104** `insight.c` `background_enlightenment` Upolyd form arm (`:491–511`: current-gender adj whe — `js/invent.js` only, same-module import extensions only (`const.js` INVIS/G_GENOD/TELEPORT/HANDED, `roles.js` genders, `objnam.js` just_an, `monsters.js` is_male/is_female/is_neuter/vampshifted/nonliving/weirdnonliving —
@@ -102,11 +103,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2102** `monmove.c` dochugw threat check + `display.h` `_canseemon` (`:117-120`: `cansee||see_with — `js/monmove.js` dochugw only — both visibility reads now use the pre-existing `./display.js` `canspotmon` import (`display_canspotmon`; call-time use, no new edge, no TDZ); doc comment updated to cite the stub-vs-macro d
 **D-2101** `sp_lev.c:5241-5251` `ensure_way_out` driver: the match arm ends with `goto outhere` whose — `js/mklev.js` only — outer x-loop labeled (`outer:`) with `break outer` in the match arm (exact C both-loops exit + rescan-from-x=1 via the existing do-while); doc comment corrected to cite `sp_lev.c:5241-5251` (exits bo
 **D-2100** find_trap row stale (no js/) — step-81 mimic text matches at HEAD; session to dolook@108; inferred credit D-2092.
-**D-2099** dowield row stale (no js/) — 40 darts ships via D-2044 simpleonames plural; session fully PASS.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2106; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2107; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

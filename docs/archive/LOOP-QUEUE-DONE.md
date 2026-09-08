@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `dokick.c` ghitm — blocks 2/553 corpus sessions (first at step 16): C «You harmlessly attack a statue.» vs JS «You attack thin air.». Probe: `node scripts/hidden-proxy.mjs verify ghitm` (scen-genesis-Caveman-92199, scen-poly-Ranger-92090). **Addressed:** D-2106
+- [x] `zap.c` zap_hit — blocks 1/553 corpus sessions (first at step 59): C draws `rn2(20)=1` in zap_hit, JS `rn2(5)=1` from distfleeck(monmove.js:840). Probe: `node scripts/hidden-proxy.mjs verify zap_hit` (scen-tour-Priest-92235). **Addressed:** D-2107
+
+
+- [x] `dokick.c` ghitm — blocks 2/553 corpus sessions (first at step 16): C «You harmlessly attack a statue.» vs JS «You attack thin air.». Probe: `node scripts/hidden-proxy.mjs verify ghitm` (scen-genesis-Caveman-92199, scen-poly-Ranger-92090). **Addressed:** D-2106 `7b29e91a`
 
 
 - [x] `end.c` disclose — blocks 3/553 corpus sessions (first at step 110): C «Do you want to see your conduct and achievements? [ynq] (n)» vs JS «Do you want to see your conduct? [ynq] (n)». Probe: `node scripts/hidden-proxy.mjs verify disclose` (scen-genesis-Barbarian-91118, scen-wish-Monk-92031, scen-wish-Priest-92098). **Addressed:** D-2105 `aa1e6c57`
