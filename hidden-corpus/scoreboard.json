@@ -1,6 +1,6 @@
 {
- "commit": "08eb8798",
- "at": "2026-09-08T06:17:29.104Z",
+ "commit": "670a1b21",
+ "at": "2026-09-08T06:26:09.830Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -7247,16 +7247,16 @@
   "scen-tour-Ranger-92033": {
    "src": "corpus",
    "passed": false,
-   "rngM": 15152,
+   "rngM": 15701,
    "rngT": 24006,
    "scrM": 71,
    "scrT": 138,
    "kind": "rng",
    "step": 70,
    "steps": 138,
-   "owner": "selection_rndcoord",
-   "loc": "selvar.c:302",
-   "jsOwner": "flip_level_rnd(mklev.js:16741)",
+   "owner": "rloc",
+   "loc": "teleport.c:1850",
+   "jsOwner": "next_ident(makemon.js:429)",
    "cTopline": "You materialize on a different level!",
    "jsTopline": "You materialize on a different level!",
    "error": null

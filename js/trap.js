@@ -660,7 +660,7 @@ function is_pool_or_lava(x, y) {
 }
 
 /** C ref: trap.h undestroyable_trap — portal / vibrating square. */
-function undestroyable_trap(ttyp) {
+export function undestroyable_trap(ttyp) {
     return ttyp === MAGIC_PORTAL || ttyp === VIBRATING_SQUARE;
 }
 

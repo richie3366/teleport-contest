@@ -767,7 +767,10 @@ percent terrain + shops/temple/watch; seed0360 prefix **41777→43248**) +
 **D-0802 `des.region(sel,"lit")` → `light_region` wall-expand** (minetn-5 + minend-2; 
 seed0360 Scr **589→616**; prefix **180→231**; **D-1490 `minetn-1` Orcish Town**; 
 **D-1503 `minetn-6` Bustling Town** (solidfill then mines lit=1 bg HWALL + 
-top-aligned map `'x'` skip + shops/temple/peaceful watch); 
+top-aligned map `'x'` skip + shops/temple/peaceful watch; **D-2095
+`ensure_way_out`/`generate_way_out_method` live** — `floodfillchk_match_accessible` + 
+`selection_floodfill_accessible`, called pre-wallification per C `load_special`
+`inaccessibles` arm); 
 **D-1504 `minetn-7` Bazaar Town** (nested `des.room` 30×15 + `percent(75)` 
 nests + chance shops + sink `pos=0` door + temple `align[1]` + watch) +
 **D-1513 town-floor `des.monster("gnome")` ×3** (lua `:155–165`; not four;

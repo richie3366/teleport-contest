@@ -89,10 +89,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `trap.c` float_down — blocks 1/553 corpus sessions (first at step 43): C «You float gently to the stairs.» vs JS «You float gently to the floor.». Probe: `node scripts/hidden-proxy.mjs verify float_down` (scen-intrinsic-Samurai-92017).
+**Next cluster:** `selvar.c` selection_rndcoord — blocks 1/553 corpus sessions (first at step 70): C draws `rn2(670)=351` in selection_rndcoord, JS `rn2(2)=1` from flip_level_rnd(mklev.js:16741). Probe: `node scripts/hidden-proxy.mjs verify selection_rndcoord` (scen-tour-Ranger-92033).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2094 (index).**
+**Keep D-0845…D-2095 (index).**
 <!-- recent:begin -->
+**D-2095** `sp_lev.c:6467–6469` `load_special` — `js/mklev.js` + one-word `export` on `js/trap.js` `undestroyable_trap` — new `floodfillchk_match_accessible` (`ACCESSIBLE||SDOOR||SCORR`, sp_lev.c:4600–4605), `selection_floodfill_accessible` (selvar.c:395–452 stack shap
 **D-2094** `trap.c:4144` `You("float gently to the %s.", surface(u.ux, u.uy))` — `js/trap.js` `float_down` only — the come-down arm now `await import('./sit.js')` for `surface` (the dynamic-import idiom this file already uses for `./sit.js` `split_mon`; sit.js statically imports trap.js, so a static 
 **D-2093** (1) `mon.c:3438–3467` `unstuck` — `js/uhitm.js` `xkilled` only — after the lifesaved early-return (matching C `mondead` lifesave-before-`m_detach`), `mtmp.mtrapped = 0` + `await (await import('./mhitu.js')).unstuck(mtmp)` before treasure.
 **D-2092** (1) `pager.c:1346–1353` check_monsters "or you" tack-on (`found += append_str` → 1→2) + di — `js/pager.js` only — (1) u_at arm returns `found: 1` with didlook cite; (2) `checkfile(first, ans === LOOK_VERBOSE ?
@@ -100,11 +101,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2090** (1) `monmove.c` dochug tail — `js/monmove.js` — `cuss` joins the pre-existing `./wizard.js` import (imports.mjs ALREADY, no new edge; call-time use only, no TDZ); local `MS_CUSS = 34` beside `MS_BRIBE` (monflag.h); gate in verbatim C order/position a
 **D-2089** `objnam.c` `readobjnam_postparse1` — `js/readobjnam.js` — gold condition is now `if (!d.typ && isGold && GOLD_PIECE >= 0)` with a C cite (`return 2` skips this block); corrected the stale postparse1 comment that claimed every later block was already guarded
 **D-2088** `monmove.c:327–360` `disturb` — `js/monmove.js` — `wake_msg` joins the pre-existing `./mon.js` import (imports.mjs ALREADY, no new edge; hoisted function decl, call-time use only, no TDZ); `disturb` is now async and awaits `wake_msg(mtmp, !mtmp.mpeacef
-**D-2087** `monst.h:270` `mon_resistancebits(mon)` = `data->mresists | mextrinsics | mintrinsics` + ` — `js/trap.js` `resists_elem` now ORs `mtmp.data.mresists` for monsters only — `is_youmonst` gate preserves hero behavior (C ignores species bits for the hero; hero resists ride intrinsics/extrinsics).
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2094; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2095; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
