@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `uhitm.c` mhitm_mgc_atk_negated — blocks 2/553 corpus sessions (first at step 84): C draws `rn2(10)=5` in mhitm_mgc_atk_negated, JS `rn2(6)=3` from xkilled(uhitm.js:683). Probe: `node scripts/hidden-proxy.mjs verify mhitm_mgc_atk_negated` (scen-poly-Monk-92164, scen-wish-Monk-92013).
 - [ ] `mkobj.c` hornoplenty — blocks 2/553 corpus sessions (first at step 146): C «Oops! The boulder drops to the floor!» vs JS «Oops! The a boulder drops to the floor!». Probe: `node scripts/hidden-proxy.mjs verify hornoplenty` (scen-wish-Ranger-92212, scen-wish-Samurai-91102).
 - [ ] `uhitm.c` mhitm_ad_famn — blocks 1/553 corpus sessions (first at step 140): C «You hit Famine. Famine reaches out, and your body shrivels.-» vs JS «You hit Famine. Famine reaches out, and your body shrivels.». Probe: `node scripts/hidden-proxy.mjs verify mhitm_ad_famn` (scen-wish-Tourist-92067).
 - [ ] `allmain.c` regen_hp — blocks 1/553 corpus sessions (first at step 64): C draws `rn2(100)=82` in regen_hp, JS `rn2(400)=82` from dosounds(sounds.js:336). Probe: `node scripts/hidden-proxy.mjs verify regen_hp` (scen-genesis-Archeologist-92084).

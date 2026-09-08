@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-08 — D-2155 `uhitm.c` mhitm_ad_cold uhitm arm: poly-hero cold touch now burns the MC gate (1 session PASS)
+
+**C locus:** `uhitm.c:2626–2652` (`mhitm_ad_cold` uhitm arm: `mhitm_mgc_atk_negated(magr, mdef, TRUE)` first → damage 0 + return; `!Blind` «%s is covered in frost!»; `resists_cold || defended(AD_COLD)` → shieldeff + «frost doesn't chill %s!» + golemeffects + damage 0; `damage += destroy_items(mdef, AD_COLD, orig_dmg)`). Reached via `mhitm_adtyping :4793` → `damageum :4854` (poly hero as attacker). `mhitm_mgc_atk_negated` itself (`:75–99`) was already faithful in JS.
+**JS:** `js/uhitm.js` only (2 import names + new arm + dispatch + header comment; no new file).
+**Change:** new `damageum_ad_cold(mdef, mhm)` in `js/uhitm.js` in exact C order and short-circuit (negate-TRUE first; Blind-gated frost pline via house `Blind_that()`; resists_cold + shieldeff + chill pline then zero; `destroy_items(AD_COLD, orig)` added to leftover), wired as `AD_COLD` in `damageum_adtyping`; `resists_cold, destroy_items` join the existing `zap.js` edge and `shieldeff` the existing `display.js` edge (`imports.mjs --can`: ALREADY, no new edge).
+**Verify:** `node scripts/verify.mjs --fn mhitm_mgc_atk_negated` → PASS syntax (1 changed file) · PASS rule2 · PASS hidden (scen-poly-Monk-92164 PASS, scen-wish-Monk-92013 moved → mhitm_mgc_atk_negated at step 79, was 75) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · full skipped (no shared file changed). VERIFY: PASS.
+**Named:** `defended(mdef, AD_COLD)` worn walk (no JS export; same omit on every defended site, commented at the call); `golemeffects(mdef, AD_COLD)` slow-only for flesh golem (no heal; slow named with `golemeffects_mm`); FIRE/ELEC uhitm arms stay named in `damageum_adtyping` header.
+**Next:** `mkobj.c` hornoplenty (next Open row).
 ## 2026-09-08 — D-2154 `insight.c` list_vanquished: `pmnames[NEUTRAL]` display names (2 sessions PASS)
 
 **C locus:** `insight.c:2784–2949` (`list_vanquished`: per-type line from `mons[i].pmnames[NEUTRAL]` — `an()` for nkilled==1 else `%3d makeplural()`, `N_times` for uniques; `vanqsort_cmp` alpha arms compare the same names). Callers `end.c:607/660` (`'d'`/disclose) and `insight.c:2771` (`dovanquished` `'A'`/`'y'`).

@@ -32,7 +32,7 @@ import {
 import { exercise, A_STR, A_DEX, A_WIS, A_CON, acurr, adjalign, change_luck } from './attrib.js';
 import { overexertion, nomul, losehp, is_pool, maybe_half_phys } from './hack.js';
 import { ing_suffix } from './hacklib.js';
-import { pline, pline_mon, newsym, canseemon, canspotmon, sensemon, map_invisible, unmap_object, memory_glyph_is_invisible, glyph_is_invisible_id, flush_topl_more, You_feel, tmp_at, map_location, nh_delay_output, mon_glyph } from './display.js';
+import { pline, pline_mon, newsym, canseemon, canspotmon, sensemon, map_invisible, unmap_object, memory_glyph_is_invisible, glyph_is_invisible_id, flush_topl_more, You_feel, tmp_at, map_location, nh_delay_output, mon_glyph, shieldeff } from './display.js';
 import { cansee } from './vision.js';
 import {
     dmgval, hitval, P_SKILL, weapon_hit_bonus, martial_bonus,
@@ -55,7 +55,7 @@ import {
     AT_EXPL, AT_ENGL, AT_BREA, AT_GAZE, AD_PHYS, AD_POLY, AD_DRIN, AD_SLEE,
     AD_DRST, AD_SAMU, AD_DRLI,
 } from './mhitm.js';
-import { resists_drli } from './zap.js';
+import { resists_drli, resists_cold, destroy_items } from './zap.js';
 import {
     verysmall, nohands, G_FREQ, G_NOCORPSE, M2_COLLECT, MZ_MEDIUM, MZ_HUGE,
     bigmonst, thick_skinned, monsterNames, nonliving, haseyes,
@@ -1403,7 +1403,7 @@ export async function mhitm_ad_wrap(magr, mattk, mdef, mhm) {
 
 /**
  * C ref: uhitm.c mhitm_adtyping youmonst subset for damageum.
- * AD_PHYS + AD_POLY + AD_DRIN skipdrin + AD_WRAP (D-1348) + AD_SLEE + AD_DRST + AD_SAMU + AD_DRLI/AD_PLYS uhitm live;
+ * AD_PHYS + AD_POLY + AD_DRIN skipdrin + AD_WRAP (D-1348) + AD_SLEE + AD_DRST + AD_SAMU + AD_DRLI/AD_PLYS + AD_COLD uhitm live;
  * remaining mhitm_ad_* named. mhitm wrap brush is D-1406.
  */
 
@@ -1507,9 +1507,42 @@ async function damageum_ad_plys(mdef, mhm) {
     }
 }
 
+/**
+ * C ref: uhitm.c mhitm_ad_cold `:2626–2652` — uhitm (you→mon) arm.
+ * mhitm_mgc_atk_negated(TRUE) burns rn2(10) first (negated → damage 0,
+ * return); !Blind "is covered in frost!"; resists_cold zeros leftover
+ * after shieldeff + "The frost doesn't chill <mon>!"; leftover +=
+ * destroy_items(AD_COLD, orig). Named omissions: defended(mdef, AD_COLD)
+ * worn walk (no JS export; same omit on every defended call site);
+ * golemeffects(mdef, AD_COLD, damage) is slow-only for flesh golem
+ * (no heal; slow named with golemeffects_mm).
+ */
+async function damageum_ad_cold(mdef, mhm) {
+    const magr = game.youmonst;
+    const orig_dmg = mhm.damage | 0;
+    if (await mhitm_mgc_atk_negated(magr, mdef, true)) {
+        mhm.damage = 0;
+        return;
+    }
+    if (!Blind_that()) {
+        await pline(`${Monnam(mdef)} is covered in frost!`);
+    }
+    if (resists_cold(mdef) /* || defended(mdef, AD_COLD) */) {
+        await shieldeff(mdef.mx, mdef.my);
+        if (!Blind_that()) {
+            await pline(`The frost doesn't chill ${mon_nam(mdef)}!`);
+        }
+        mhm.damage = 0;
+    }
+    mhm.damage = (mhm.damage | 0) + ((await destroy_items(mdef, AD_COLD, orig_dmg)) | 0);
+}
+
 async function damageum_adtyping(mattk, mdef, mhm) {
     const adtyp = mattk.adtyp | 0;
     if (adtyp === AD_PHYS) damageum_ad_phys(mdef, mattk, mhm);
+    else if (adtyp === AD_COLD) {
+        await damageum_ad_cold(mdef, mhm);
+    }
     else if (adtyp === AD_POLY) {
         await mhitm_ad_poly(game.youmonst, mattk, mdef, mhm);
     } else if (adtyp === AD_DRIN) {

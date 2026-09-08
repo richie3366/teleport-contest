@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `insight.c` list_vanquished — blocks 2/553 corpus sessions (first at step 73): C «Vanquished creatures:» vs JS «Vanquished creatures:». Probe: `node scripts/hidden-proxy.mjs verify list_vanquished` (scen-genesis-Archeologist-92157, scen-genesis-Barbarian-92111). **Addressed:** D-2154
+- [x] `uhitm.c` mhitm_mgc_atk_negated — blocks 2/553 corpus sessions (first at step 84): C draws `rn2(10)=5` in mhitm_mgc_atk_negated, JS `rn2(6)=3` from xkilled(uhitm.js:683). Probe: `node scripts/hidden-proxy.mjs verify mhitm_mgc_atk_negated` (scen-poly-Monk-92164, scen-wish-Monk-92013). **Addressed:** D-2155
+
+
+- [x] `insight.c` list_vanquished — blocks 2/553 corpus sessions (first at step 73): C «Vanquished creatures:» vs JS «Vanquished creatures:». Probe: `node scripts/hidden-proxy.mjs verify list_vanquished` (scen-genesis-Archeologist-92157, scen-genesis-Barbarian-92111). **Addressed:** D-2154 `717dca72`
 
 
 - [x] `potion.c` peffect_paralysis — blocks 1/553 corpus sessions (first at step 26): C «Your feet are frozen to the stairs! The little dog misses th» vs JS «Your feet are frozen to the floor! The little dog misses the». Probe: `node scripts/hidden-proxy.mjs verify peffect_paralysis` (scen-wish-Valkyrie-92091). **Addressed:** D-2153 `34b6810b`

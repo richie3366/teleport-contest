@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-2155 — `uhitm.c` mhitm_ad_cold uhitm arm: poly-hero cold touch now burns the MC gate (1 session PASS)
+
+- **Status:** fixed (Open queue row `uhitm.c` mhitm_mgc_atk_negated — cited 2/553; `node scripts/verify.mjs --fn mhitm_mgc_atk_negated`: 1 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS. No review cited by the row, so no stamp owed.)
+- **Symptom:** scen-poly-Monk-92164 step 84/175, RNG-first: C `rn2(10)=5 @ mhitm_mgc_atk_negated(uhitm.c:87)` vs JS `rn2(6)=3 @ xkilled(uhitm.js:683)` (C «You touch the jackal. The jackal is covered in frost!--More--» vs JS «You touch the jackal. You kill the jackal!»). stepFns `gethungry/hmonas/damageum/mhitm_mgc_atk_negated/destroy_items`; cMsgOwners `mhitm_ad_cold(uhitm.c:2639)`.
+- **C locus:** `uhitm.c:2626–2652` (`mhitm_ad_cold` uhitm arm: `mhitm_mgc_atk_negated(magr, mdef, TRUE)` first → damage 0 + return; `!Blind` «%s is covered in frost!»; `resists_cold || defended(AD_COLD)` → shieldeff + «frost doesn't chill %s!» + golemeffects + damage 0; `damage += destroy_items(mdef, AD_COLD, orig_dmg)`). Reached via `mhitm_adtyping :4793` → `damageum :4854` (poly hero as attacker). `mhitm_mgc_atk_negated` itself (`:75–99`) was already faithful in JS.
+- **JS was:** `js/uhitm.js` `damageum_adtyping` handled only AD_PHYS/POLY/DRIN/WRAP/SLEE/DRST/DRLI/PLYS/SAMU — AD_COLD fell through with the leftover `d(damn, damd)` intact, so a poly-hero cold touch never drew the `rn2(10)` gate, never printed frost, and killed via `xkilled` (whose `rn2(6)` corpse roll is the JS first-diff).
+- **Fix:** new `damageum_ad_cold(mdef, mhm)` in `js/uhitm.js` in exact C order and short-circuit (negate-TRUE first; Blind-gated frost pline via house `Blind_that()`; resists_cold + shieldeff + chill pline then zero; `destroy_items(AD_COLD, orig)` added to leftover), wired as `AD_COLD` in `damageum_adtyping`; `resists_cold, destroy_items` join the existing `zap.js` edge and `shieldeff` the existing `display.js` edge (`imports.mjs --can`: ALREADY, no new edge).
+- **JS:** `js/uhitm.js` only (2 import names + new arm + dispatch + header comment; no new file).
+- **Verify:** `node scripts/verify.mjs --fn mhitm_mgc_atk_negated` → PASS syntax (1 changed file) · PASS rule2 · PASS hidden (scen-poly-Monk-92164 PASS, scen-wish-Monk-92013 moved → mhitm_mgc_atk_negated at step 79, was 75) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · full skipped (no shared file changed). VERIFY: PASS.
+- **Named omissions:** `defended(mdef, AD_COLD)` worn walk (no JS export; same omit on every defended site, commented at the call); `golemeffects(mdef, AD_COLD)` slow-only for flesh golem (no heal; slow named with `golemeffects_mm`); FIRE/ELEC uhitm arms stay named in `damageum_adtyping` header.
+- **Next:** `mkobj.c` hornoplenty (next Open row).
+
 ## D-2154 — `insight.c` list_vanquished: `pmnames[NEUTRAL]` display names (2 sessions PASS)
 
 - **Status:** fixed (Open queue row `insight.c` list_vanquished — cited 2/553; `node scripts/verify.mjs --fn list_vanquished`: 2 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS. Row cites review 1113 only as the session's prior-owner history — that review is ACCEPT with no Actionable C-wrongs, so no stamp owed.)
