@@ -7192,7 +7192,8 @@ export async function hold_another_object(obj, drop_fmt, drop_arg, hold_msg) {
         if (!(await touch_artifact(obj, youmonst))) {
             obj_extract_self(obj);
             // dropy deferred — leave on floor (C dropy after extract)
-            await hold_drop_msg();
+            // C invent.c:1227-1231 prints nothing on the refuse arm
+            // (drop_fmt sounds only in the wasUpolyd arm and drop_it).
             return obj;
         }
         obj_extract_self(obj);

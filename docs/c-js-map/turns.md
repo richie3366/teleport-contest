@@ -1196,7 +1196,7 @@ JS: `js/invent.js`, `js/objnam.js`, `js/u_init.js` `assigninvlet`/`addinv` — p
 
 **`assigninvlet` preserves free a-z/A-Z invlet** (steal→`freeinv`→later `addinv` same obj; D-0688; 
 `display_used_invlets` D-1591; pack-full NOINVSYM polish deferred); 
-**artifact touch + addinv + prinv** (D-0064); 
+**artifact touch + addinv + prinv** (D-0064); **artifact-refuse arm prints nothing** (D-2134; C `:1227–1231`, no `drop_fmt` — was JS oops `--More--`); 
 **`hold_another_object` stay-in-invent → `encumber_msg`** (D-0863; 
 flushes prinv `--More--` before makewish `ublesscnt`) + 
 **drop_it Fumbling / `inv_cnt(FALSE)>invlet_basic` / encumbrance>`pickup_burden` → `dropx` or 

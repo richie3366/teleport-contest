@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
+- [x] `artifact.c` touch_artifact — blocks 1/553 corpus sessions (first at step 73): C «The pair of lenses named the Eyes of the Overworld evades yo» vs JS «The pair of lenses named the Eyes of the Overworld evades yo». Probe: `node scripts/hidden-proxy.mjs verify touch_artifact` (scen-genesis-Valkyrie-92094).
+
+
 - [x] `zap.c` dobuzz — blocks 2/553 corpus sessions (first at step 65): C draws `d(6,50)=119` in dobuzz, JS `rn2(19)=8` from exercise(attrib.js:196). Probe: `node scripts/hidden-proxy.mjs verify dobuzz` (scen-wish-Samurai-92087, scen-wish-Wizard-92048). **Addressed:** D-2133 `33a49868`
 
 
