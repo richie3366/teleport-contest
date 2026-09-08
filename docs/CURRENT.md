@@ -21,7 +21,7 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-08** — full `sessions` on the working tree
-(audit **1103–1107**: b9b2fdef…79844c1c, D-2137…D-2147).
+(audit **1103–1107**: b9b2fdef…79844c1c, D-2137…D-2148).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 `63+0.39/turn` (R² 0.81).
@@ -90,10 +90,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** - [ ] `mon.c` mondead — blocks 1/553 corpus sessions (first at step 81): C draws `rnd(5)=1` in mondead, JS `rn2(6)=2` from xkilled(uhitm.js:669). Probe: `node scripts/hidden-proxy.mjs verify mondead` (scen-genesis-Barbarian-92111).
+**Next cluster:** - [ ] `mon.c` minliquid_core — blocks 1/553 (first at step 130, scen-genesis-Priest-91110; full row text in LOOP-QUEUE Open). Probe: `node scripts/hidden-proxy.mjs verify minliquid_core`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2147 (index).**
+**Keep D-0845…D-2148 (index).**
 <!-- recent:begin -->
+**D-2148** `polyself.c:105` `PROPSET(REGENERATION, regenerates(mdat))` inside `set_uasmon` (`:38–112` — `js/polyself.js` only — import `regenerates` on the existing `monsters.js` edge + `REGENERATION` on the existing `const.js` edge (`imports.mjs --can`: ALREADY, no new edge); `set_uasmon` gains `propset_fromform(REGENERAT
 **D-2147** `mon.c:3081–3177` (`mondead`: be_sad flag `:3089–3101`, `lifesaved_monster`, vampshifter r — `js/mhitm.js` export now ports the sync-safe prefix in exact C order and short-circuit (be_sad read+clear; cham/were restore via live `set_mon_data`/`ismnum`/`mons`/`NON_PM` + `monsterNames.indexOf` PM consts per file id
 **D-2146** `artifact.c:1248–1434` (`Mb_hit`: `scare_dieroll` spe damping, `!spec_dbon_applies→dieroll — `js/artifact.js` only — exported async `Mb_hit` in exact C order and short-circuit (tier cascade, `dr<=scare/2` cancel floor via `Math.trunc`, hit pline before effects, CANCEL `cancel_monst` + rehumanize `dmg=0` + uenmax
 **D-2145** `end.c:183–190` (`mptr`/`champtr` + `distorted`/`mimicker`/`imitator`), `:195–205` (G_UNIQ — `js/end.js` only, in C order and short-circuit: `mptr`/`champtr`/`distorted`/`mimicker`/`imitator` decls; G_UNIQ gate with imitator + High-Cleric conditions and `type_is_pname` no-`the` arm; `minvis` + `hallucinogen-dist
@@ -101,11 +102,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2143** `hack.c:2995–3018` (`runmode_delay_output`: `(svc.context.run || gm.multi) && flags.runmod — new exported async `runmode_delay_output()` in `js/hack.js` (C-faithful home, `// src/hack.c:2995` cite): raw-string normalization with C's prefix table in C order (`teleport→TPORT, run→LEAP, walk→STEP, crawl→CRAWL`, cas
 **D-2142** `uhitm.c:375–415` (`find_roll_to_hit`: `tmp = 1 + abon() + find_mac(mtmp) + u.uhitinc + sg — `js/uhitm.js` only — `near_capacity` joins the existing static `invent.js` edge (`imports.mjs --can`: already imported, no new edge); `find_roll_to_hit` applies `if (cap) tmp -= cap*2-1; if (u.utrap) tmp -= 3;` in C orde
 **D-2141** `invent.c:1227–1231` (`hold_another_object` artifact-refuse arm: `obj_extract_self(obj)` t — `js/invent.js` only — `await dropy(obj)` after `obj_extract_self(obj)` in the refuse arm (C `:1229`), with C cite.
-**D-2140** `mcastu.c:247–304` (`ret = M_ATTK_HIT` + `switch (mattk->adtyp)` AD_FIRE/AD_COLD/AD_MAGM/S — `js/mcastu.js` only — full C switch in C order and short-circuit: FIRE (`pline("You're enveloped in flames.")`, `Fire_resistance()` → `shieldeff` + resist pline + `monstseesu(M_SEEN_FIRE)` + `dmg = 0` else `monstunseesu`
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2147; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2148; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

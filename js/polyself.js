@@ -93,6 +93,7 @@ import {
     telepathic,
     can_teleport,
     control_teleport,
+    regenerates,
     touch_petrifies,
     haseyes,
     MZ_SMALL,
@@ -146,6 +147,7 @@ import {
     ACID_RES,
     STONE_RES,
     DRAIN_RES,
+    REGENERATION,
     KILLED_BY_AN,
     BOLT_LIM,
     BZ_OFS_AD,
@@ -559,7 +561,7 @@ function resists_drli_you(mdat) {
  * defended export); ANTIMAGIC;
  * SICK_RES fungus/ghoul; STUNNED/HALLUC_RES/SEE_INVIS/TELEPAT/INFRAVISION/
  * INVIS/LEVITATION/SWIMMING/PASSES_WALLS/
- * REGENERATION/REFLECTING/BLND_RES; vamp cham; polysense;
+ * REFLECTING/BLND_RES; vamp cham; polysense;
  * light-source bookkeeping.
  */
 export function set_uasmon() {
@@ -600,6 +602,10 @@ export function set_uasmon() {
     // so Monnam → "It"; long "The cockatrice …" lines were forcing
     // mid-turn --More-- that ate #version (D-0928 #1109).
     propset_fromform(BLINDED, 'HBlinded', !haseyes(mdat));
+    // C polyself.c:105 — PROPSET(REGENERATION, regenerates(mdat)): an
+    // M1_REGEN form (troll, vampire, …) heals +1/turn via regen_hp; without
+    // the FROMFORM bit a poly'd hero never regenerates (D-2148).
+    propset_fromform(REGENERATION, 'HRegeneration', regenerates(mdat));
 
     // C: if (!program_state.restoring) float_vs_flight();
     if (!game.program_state?.restoring) float_vs_flight();

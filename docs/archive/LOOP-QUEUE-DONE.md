@@ -5,7 +5,13 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `mon.c` mondead — blocks 1/553 corpus sessions (first at step 81): C draws `rnd(5)=1` in mondead, JS `rn2(6)=2` from xkilled(uhitm.js:669). Probe: `node scripts/hidden-proxy.mjs verify mondead` (scen-genesis-Barbarian-92111). **Addressed:** D-2147
+- [x] `botl.c` do_statusline2 — blocks 9/553 corpus sessions (first at step 46): C «Your shirt rips to shreds!--More--» vs JS «Your shirt rips to shreds!--More--». Probe: `node scripts/hidden-proxy.mjs verify do_statusline2` (scen-death-Tourist-92095, scen-genesis-Tourist-92044, scen-intrinsic-Caveman-92138). (Re-queued post-D-2148: Priest-91137 + Rogue-92026 PASS; per-session writers in D-2148 Next.) **Addressed:** D-2148
+
+
+- [x] `botl.c` do_statusline2 — blocks 1/553 corpus sessions (first at step 214): C `HP:44(50)` vs JS `HP:43(50)` on the status line (otherwise identical; step-214 damage path drew matched RNG — symptom owner). Re-queued from fired `weapon.c` dmgval row (D-2139 tree moved it past step 123; cf. archived D-2024 row for an earlier step). Probe: `node scripts/hidden-proxy.mjs verify do_statusline2` (scen-poly-Priest-91137). **Addressed:** D-2148
+
+
+- [x] `mon.c` mondead — blocks 1/553 corpus sessions (first at step 81): C draws `rnd(5)=1` in mondead, JS `rn2(6)=2` from xkilled(uhitm.js:669). Probe: `node scripts/hidden-proxy.mjs verify mondead` (scen-genesis-Barbarian-92111). **Addressed:** D-2147 `5cd14621`.
 
 
 - [x] `artifact.c` Mb_hit — blocks 1/553 corpus sessions (first at step 110): C draws `rn2(11)=5` in Mb_hit, JS `rn2(3)=0` from mhitm_knockback(mhitm.js:2015). Probe: `node scripts/hidden-proxy.mjs verify Mb_hit` (scen-wish-Archeologist-91134). **Addressed:** D-2146 `bda8c297`
