@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `uhitm.c` missum — blocks 1/553 corpus sessions (first at step 118): C «You miss it. It screams! It kicks! It kicks again!--More--» vs JS «You miss it. It kicks! It kicks again! It is frozen by you.». Probe: `node scripts/hidden-proxy.mjs verify missum` (scen-poly-Knight-92220). **Addressed:** D-2124
+- [x] `light.c` arti_light_description — blocks 1/553 corpus sessions (first at step 161): C «The long sword named Sunsword shines brilliantly in the Arch» vs JS «The Archon swings his long sword named Sunsword. The Archon ». Probe: `node scripts/hidden-proxy.mjs verify arti_light_description` (scen-poly-Tourist-92047). **Addressed:** D-2125
+
+
+- [x] `uhitm.c` missum — blocks 1/553 corpus sessions (first at step 118): C «You miss it. It screams! It kicks! It kicks again!--More--» vs JS «You miss it. It kicks! It kicks again! It is frozen by you.». Probe: `node scripts/hidden-proxy.mjs verify missum` (scen-poly-Knight-92220). **Addressed:** D-2124 `05fba4ac`
 
 
 - [x] `invent.c` getobj — blocks 1/553 corpus sessions (first at step 61): C «What do you want to wear? [*]» vs JS «What do you want to wear? [q or ?*]». Probe: `node scripts/hidden-proxy.mjs verify getobj` (scen-poly-Wizard-92169). **Addressed:** D-2123 `d43bbc14`

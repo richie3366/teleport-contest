@@ -2357,8 +2357,10 @@ function doname_artifact_light(obj) {
 /**
  * C ref: light.c arti_light_radius + arti_light_description `:916–931`.
  * timeout.js has the radius used by vision; this is the doname adverb.
+ * Exported for weapon.c mon_wield_item's wield-shine pline (import-the-export;
+ * timeout.js already imports doname, so the radius original stays there).
  */
-function arti_light_description(obj) {
+export function arti_light_description(obj) {
     if (!obj?.lamplit || !doname_artifact_light(obj)) return 'strangely';
     let res = obj.blessed ? 3 : (!obj.cursed ? 2 : 1);
     if (obj === game.u?.uskin) res = 1;

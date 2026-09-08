@@ -1,6 +1,6 @@
 {
- "commit": "d43bbc14",
- "at": "2026-09-08T13:25:54.970Z",
+ "commit": "05fba4ac",
+ "at": "2026-09-08T13:31:37.355Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6947,18 +6947,18 @@
   "scen-poly-Tourist-92047": {
    "src": "corpus",
    "passed": false,
-   "rngM": 4659,
+   "rngM": 4685,
    "rngT": 5126,
    "scrM": 165,
    "scrT": 189,
    "kind": "screen",
-   "step": 161,
+   "step": 163,
    "steps": 189,
-   "owner": "arti_light_description",
-   "loc": "light.c:922",
+   "owner": "gazemu",
+   "loc": "mhitu.c:1806",
    "jsOwner": null,
-   "cTopline": "The long sword named Sunsword shines brilliantly in the Archon's hand!--More--",
-   "jsTopline": "The Archon swings his long sword named Sunsword. The Archon hits!--More--",
+   "cTopline": "You are blinded by the Archon's radiance! You falter... It hits!--More--",
+   "jsTopline": "You are blinded by the Archon's radiance! You stagger... It hits!--More--",
    "error": null
   },
   "scen-poly-Tourist-92171": {

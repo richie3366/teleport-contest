@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `light.c` arti_light_description — blocks 1/553 corpus sessions (first at step 161): C «The long sword named Sunsword shines brilliantly in the Arch» vs JS «The Archon swings his long sword named Sunsword. The Archon ». Probe: `node scripts/hidden-proxy.mjs verify arti_light_description` (scen-poly-Tourist-92047).
 - [ ] `potion.c` self_invis_message — blocks 1/553 corpus sessions (first at step 62): C «Gee! All of a sudden, you can't see yourself.--More--» vs JS «Gee! All of a sudden, you can't see yourself.--More--». Probe: `node scripts/hidden-proxy.mjs verify self_invis_message` (scen-wish-Healer-92010).
 - [ ] `zap.c` zhitm — blocks 1/553 corpus sessions (first at step 64): C draws `rnd(50)=37` in zhitm, JS `rn2(3)=2` from zhitm(zap.js:1841). Probe: `node scripts/hidden-proxy.mjs verify zhitm` (scen-wish-Samurai-92087).
 - [ ] `uhitm.c` mhitm_ad_plys — blocks 1/553 corpus sessions (first at step 78): C draws `rn2(3)=0` in mhitm_ad_plys, JS `d(3,6)=3` from passive(uhitm.js:1451). Probe: `node scripts/hidden-proxy.mjs verify mhitm_ad_plys` (scen-poly-Monk-92005).
