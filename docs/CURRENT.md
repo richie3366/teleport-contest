@@ -82,14 +82,15 @@ Both must remain full RNG + screen PASS with exact lengths.
 
 **Suite 44/44** is the regression fortress. **The objective is the
 scenario corpus** (`hidden-proxy status`): 262/540 PASS, scen-* 7/275.
-Pop `LOOP-QUEUE.md` Must-fix (3 rows — review 1006) then Open in order;
+Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `apply.c` use_pole — blocks 3/553 corpus sessions (first at step 62): C «You miss Pestilence.--More--» vs JS «You miss Pestilence.». Probe: `node scripts/hidden-proxy.mjs verify use_pole` (scen-genesis-Archeologist-91127, scen-genesis-Barbarian-91118, scen-wish-Rogue-91138). (Prior `zap.c obj_resists` parked 2026-09-08 as 3-writer symptom; S1 split re-queued as Open `bones.c savebones`.)
+**Next cluster:** `apply.c` use_pole — blocks 3/553 corpus sessions (first at step 62): C «You miss Pestilence.--More--» vs JS «You miss Pestilence.». Probe: `node scripts/hidden-proxy.mjs verify use_pole` (scen-genesis-Archeologist-91127, scen-genesis-Barbarian-91118, scen-wish-Rogue-91138). (Shipped as D-2059; next head: `bones.c` drop_upon_death.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2058 (index).**
+**Keep D-0845…D-2059 (index).**
 <!-- recent:begin -->
+**D-2059** the queue owner is a literal-match misattribution — `js/mhitu.js` — file-local `diseasemu` + `mhitm_ad_pest_u` + `mhitm_ad_heal_u` in the `mhitm_ad_famn_u` shape, wired into `mhitm_adtyping_u` in exact C order.
 **D-2058** the queue owner is a literal-match misattribution — `js/display.js` — thread the C int id through every `reveal_terrain_getglyph` arm so gbuf matches C: `full` arm attaches `back_to_glyph(x,y)` inside the seenv-temp window; `levl_glyph` attaches the remembered int (`mem.g
 **D-2057** symptom owner `botl.c` `do_statusline1` `:47–98` (`:85` `St:%s…Ch:%-1d` via `get_strength_ — `js/attrib.js` — CHA arm now `if (tmp < 18 && (game.youmonst?.data?.mlet === 'S_NYMPH' || (u.umonnum|0) === PM_AMOROUS_DEMON)) result = 18` (C `:1214–1216`; `PM_AMOROUS_DEMON` via `monsterNames.indexOf`, same idiom as `j
 **D-2056** `dothrow.c` `dofire` `:543–554` — `js/dothrow.js` — deleted the post-doquiver `mark_topline_seen()` with a C citation comment (no skip in C; `tty_yn_function` flushes).
@@ -97,11 +98,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2054** queue owner `teleport.c level_tele :1427` is the *symptom* owner (the `schedule_goto` post — `js/hack.js` — file-local `monstinroom(mndx,roomno)` (fmon scan, DEADMONSTER skip, `mnum ?? data.mndx` + local `in_rooms`, mirroring C pointer-equality via the lock.js oracle idiom) and `furniture_present(furniture,roomn
 **D-2053** `spell.c study_book :468–496` (dull arm; `rnd(25)` at :478): `if (!confused && !Sleep_resi — `js/spell.js` — port the dull arm in exact C order (before the interrupted-continue arm, after context creation): `!confused && !sleepRes && objdescr_is(spellbook,'dull')` with `sleepRes = H||E||flat` (C H||E plus the JS
 **D-2052** (a) `uhitm.c find_roll_to_hit :375–380` (`+ maybe_polyd(youmonst.data->mlevel, u.ulevel)`) — `js/uhitm.js` — `find_roll_to_hit` adds `Upolyd(u) ? youmonst.data.mlevel : u.ulevel`; `abon` early-returns `adj_lev(youmonst.data)-3` when poly'd (`adj_lev` joins the existing `makemon.js` import — no new edge); all fiv
-**D-2051** `hack.c losehp :4256–4292` (fatal arm: killer-name copy, `urgent_pline("You die...")`, `do — `js/artifact.js` — after the blast-arm losehp, `await finish_maybe_wail()` (no-op unless the low-HP flag was set; C runs maybe_wail inside losehp before returning) then `if (game._losehp_needs_done) { await finish_losehp
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2058; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2059; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
