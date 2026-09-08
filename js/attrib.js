@@ -64,8 +64,11 @@ import {
     PM_ORC,
     PM_DWARF,
     PM_GNOME,
+    monsterNames,
 } from './generated/monsters_data.js';
 import { adj_erinys } from './monsters.js';
+
+const PM_AMOROUS_DEMON = monsterNames.indexOf('PM_AMOROUS_DEMON');
 
 export const A_STR = 0;
 export const A_INT = 1;
@@ -107,7 +110,12 @@ export function acurr(i) {
             result = Math.max(tmp, 3);
         }
     } else if (i === A_CHA) {
-        // C: nymph / incubus-succubus floor CHA to 18 — deferred (need youmonst)
+        // C attrib.c:1205–1215 — nymph / amorous-demon floor CHA to 18
+        if (tmp < 18
+            && ((game.youmonst?.data?.mlet === 'S_NYMPH')
+                || ((u.umonnum | 0) === PM_AMOROUS_DEMON))) {
+            result = 18;
+        }
     } else if (i === A_CON) {
         // C: ART_OGRESMASHER → 25 — deferred
     } else if (i === A_INT || i === A_WIS) {

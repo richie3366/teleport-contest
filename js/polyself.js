@@ -57,6 +57,8 @@ import {
     is_elf,
     is_dwarf,
     is_gnome,
+    is_giant,
+    is_undead,
     is_golem,
     is_unicorn,
     strongmonst,
@@ -138,6 +140,8 @@ import {
     UNCHANGING,
     I_SPECIAL,
     TT_PIT,
+    STR18,
+    STR19,
     NO_PART, ARM, EYE, FINGER, FINGERTIP, FOOT, HAND, HANDED,
     HEAD, LEG, TOE, NOSE, HAIR,
 } from './const.js';
@@ -446,7 +450,10 @@ function uasmon_maxStr() {
     }
     const R = character_race(mndx);
     if (strongmonst(ptr)) {
-        return R ? (R.attrmax[A_STR] | 0) : 18 + 100; // STR18(100) fallback
+        // C polyself.c:1100–1114 — live giant (giant, not undead) maxes at
+        // STR19(19); other strongmonst fall back to STR18(100).
+        const liveH = is_giant(ptr) && !is_undead(ptr);
+        return R ? (R.attrmax[A_STR] | 0) : liveH ? STR19(19) : STR18(100);
     }
     return R ? (R.attrmax[A_STR] | 0) : 18;
 }

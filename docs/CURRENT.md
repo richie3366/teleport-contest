@@ -89,10 +89,11 @@ Pop `LOOP-QUEUE.md` Must-fix (3 rows — review 1006) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `botl.c` do_statusline1 — blocks 3/553 corpus sessions (first at step 119): C «You were wearing an uncursed +2 ring of gain strength (on ri» vs JS «You were wearing an uncursed +2 ring of gain strength (on ri». Probe: `node scripts/hidden-proxy.mjs verify do_statusline1` (scen-normal-Wizard-91114, scen-poly-Priest-92097, scen-wish-Archeologist-92038). (D-2056 shipped the dofire row; rotated by audit 1018–1026.)
+**Next cluster:** `drawing.c` def_char_is_furniture — blocks 3/553 corpus sessions (first at step 49): C «branch staircase up» vs JS «unexplored area». Probe: `node scripts/hidden-proxy.mjs verify def_char_is_furniture` (scen-kit-Archeologist-92170, scen-normal-Knight-91100, scen-normal-Rogue-92209).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2056 (index).**
+**Keep D-0845…D-2057 (index).**
 <!-- recent:begin -->
+**D-2057** symptom owner `botl.c` `do_statusline1` `:47–98` (`:85` `St:%s…Ch:%-1d` via `get_strength_ — `js/attrib.js` — CHA arm now `if (tmp < 18 && (game.youmonst?.data?.mlet === 'S_NYMPH' || (u.umonnum|0) === PM_AMOROUS_DEMON)) result = 18` (C `:1214–1216`; `PM_AMOROUS_DEMON` via `monsterNames.indexOf`, same idiom as `j
 **D-2056** `dothrow.c` `dofire` `:543–554` — `js/dothrow.js` — deleted the post-doquiver `mark_topline_seen()` with a C citation comment (no skip in C; `tty_yn_function` flushes).
 **D-2055** (1–2) `objnam.c readobjnam :5143–5165` STATUE/FIGURINE/CORPSE spe arm — `js/readobjnam.js` — full C spe switch in exact C order before the recharged hunk (TIN 0 + EMPTY/SPINACH contents arms; TOWEL wetness; SLIME_MOLD `ftype` deferred with comment; KEY/CHEST/BOX/BALL/CHAIN retain; STATUE/FIG
 **D-2054** queue owner `teleport.c level_tele :1427` is the *symptom* owner (the `schedule_goto` post — `js/hack.js` — file-local `monstinroom(mndx,roomno)` (fmon scan, DEADMONSTER skip, `mnum ?? data.mndx` + local `in_rooms`, mirroring C pointer-equality via the lock.js oracle idiom) and `furniture_present(furniture,roomn
@@ -100,11 +101,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2052** (a) `uhitm.c find_roll_to_hit :375–380` (`+ maybe_polyd(youmonst.data->mlevel, u.ulevel)`) — `js/uhitm.js` — `find_roll_to_hit` adds `Upolyd(u) ? youmonst.data.mlevel : u.ulevel`; `abon` early-returns `adj_lev(youmonst.data)-3` when poly'd (`adj_lev` joins the existing `makemon.js` import — no new edge); all fiv
 **D-2051** `hack.c losehp :4256–4292` (fatal arm: killer-name copy, `urgent_pline("You die...")`, `do — `js/artifact.js` — after the blast-arm losehp, `await finish_maybe_wail()` (no-op unless the low-HP flag was set; C runs maybe_wail inside losehp before returning) then `if (game._losehp_needs_done) { await finish_losehp
 **D-2050** `polyself.c polymon :735–902` (entry `was_blind = !!Blind` :739, before `u.umonnum=mntmp;  — `js/polyself.js` — capture `wasBlind` at polymon entry with the C `Blind` predicate (same inline shape as `polyman`, incl.
-**D-2049** `uhitm.c mhitm_ad_were :4264–4293` (full body read from the brief): three arms — `js/mhitu.js` — new `mhitm_ad_were_u(mtmp,mattk,mhm)` in the D-2043 `mhitm_ad_slow_u` shape: unconditional `await hitmsg(mtmp,mattk)` first (RNG-free both sides), then the exact C short-circuit (`!rn2(4) && ulycn==NON_PM
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2056; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2057; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

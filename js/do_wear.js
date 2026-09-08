@@ -1266,16 +1266,10 @@ async function armor_or_accessory_off(obj) {
         return 0;
     }
     if (obj === u.uleft || obj === u.uright) {
+        // C do_wear.c:1809–1817 — off_msg before removal, then Ring_off
+        // (setworn + adjust_attrib/accuracy/damage/prop side effects).
         await off_msg(obj);
-        if (obj === u.uleft) {
-            confer_oc_oprop(obj, W_RINGL, false);
-            obj.owornmask = (obj.owornmask || 0) & ~W_RING;
-            u.uleft = null;
-        } else {
-            confer_oc_oprop(obj, W_RINGR, false);
-            obj.owornmask = (obj.owornmask || 0) & ~W_RING;
-            u.uright = null;
-        }
+        await Ring_off(obj);
         return 1;
     }
     if (obj === u.uamul) {
