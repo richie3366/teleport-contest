@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `teleport.c` level_tele — blocks 1/553 corpus sessions (first at step 108): C «You materialize on a different level!» vs JS «You materialize on a different level!». Probe: `node scripts/hidden-proxy.mjs verify level_tele` (scen-tour-Tourist-92100). **Addressed:** D-2136
+- [x] `objnam.c` readobjnam_postparse1 — blocks 1/553 corpus sessions (first at step 126): C «One of your potions of extra healing freezes and shatters!--» vs JS «One of your potions of extra healing freezes and shatters!». Probe: `node scripts/hidden-proxy.mjs verify readobjnam_postparse1` (scen-poly-Healer-92107). **Addressed:** D-2137
+
+
+- [x] `teleport.c` level_tele — blocks 1/553 corpus sessions (first at step 108): C «You materialize on a different level!» vs JS «You materialize on a different level!». Probe: `node scripts/hidden-proxy.mjs verify level_tele` (scen-tour-Tourist-92100). **Addressed:** D-2136 `51283e0c`
 
 
 - [x] `trap.c` burnarmor — blocks 1/553 corpus sessions (first at step 73): C draws `rn2(5)=3` in burnarmor, JS `rn2(6)=5` from xkilled(uhitm.js:694). Probe: `node scripts/hidden-proxy.mjs verify burnarmor` (scen-wish-Ranger-92212). **Addressed:** D-2135 `55848b87`

@@ -12,10 +12,11 @@ import {
     HEAD, EYE, TIMEOUT, DIED, KILLED_BY, A_DEX,
     MM_ANGRY, MM_NOMSG, Upolyd, ismnum, DETECT_MONSTERS,
     M_SEEN_MAGR, M_SEEN_FIRE, M_SEEN_ELEC, M_SEEN_REFL,
+    M_AP_TYPE, M_AP_OBJECT,
 } from './const.js';
 import { mon_adjust_speed } from './muse.js';
 import {
-    pline, verbalize, canspotmon, canseemon, impossible,
+    pline, pline_mon, Norep, verbalize, canspotmon, canseemon, impossible,
     You_feel, shieldeff, map_invisible, tp_sensemon,
 } from './display.js';
 import {
@@ -762,6 +763,41 @@ async function mcast_spell(mtmp, dmg, spellnum) {
     }
 }
 
+// C ref: objects.h — STRANGE_OBJECT is otyp 0 (cf. readobjnam.js).
+const STRANGE_OBJECT = 0;
+
+/**
+ * C ref: mcastu.c:61-85 cursetxt — feedback when frustrated monster
+ * couldn't cast a spell. The canseemon arm draws no RNG; the blind arm
+ * keeps C's short-circuit `!(moves % 4) || !rn2(4)` so the rn2(4) burns
+ * exactly when C burns it.
+ */
+async function cursetxt(mtmp, undirected) {
+    if (canseemon(mtmp) && couldsee(mtmp.mx, mtmp.my)) {
+        const u = game.u || {};
+        const Invis = !!(u.Invis || u.HInvis || u.EInvis);
+        const Displaced = !!(u.Displaced || u.HDisplaced || u.EDisplaced);
+        let point_msg;
+        if (undirected) {
+            point_msg = 'all around, then curses';
+        } else if ((Invis && !perceives(mtmp.data)
+                    && ((mtmp.mux | 0) !== (u.ux | 0) || (mtmp.muy | 0) !== (u.uy | 0)))
+                   || (M_AP_TYPE(game.youmonst) === M_AP_OBJECT
+                       && game.youmonst?.mappearance === STRANGE_OBJECT)
+                   || u.uundetected) {
+            point_msg = 'and curses in your general direction';
+        } else if (Displaced
+                   && ((mtmp.mux | 0) !== (u.ux | 0) || (mtmp.muy | 0) !== (u.uy | 0))) {
+            point_msg = 'and curses at your displaced image';
+        } else {
+            point_msg = 'at you, then curses';
+        }
+        await pline_mon(mtmp, `${Monnam(mtmp)} points ${point_msg}.`);
+    } else if (!(((game.moves || 0) % 4)) || !rn2(4)) {
+        if (!Deaf()) await Norep('You hear a mumbled curse.');
+    }
+}
+
 /**
  * C ref: mcastu.c castmu — spell selection + undirected early-out.
  * mcast_spell owns all 20 arms (D-0928 #1191 cast pline before effects).
@@ -786,8 +822,9 @@ export async function castmu(mtmp, mattk, thinks_it_foundyou, foundyou) {
         if (cnt === 0) return M_ATTK_MISS;
     }
 
-    // Unable to cast — cursetxt deferred (may burn rn2(4) when !canseemon)
+    // C ref: mcastu.c:174-179 — monster unable to cast: cursetxt feedback.
     if (mtmp.mcan || mtmp.mspec_used || !ml) {
+        await cursetxt(mtmp, is_undirected_spell(spellnum));
         return M_ATTK_MISS;
     }
     // m_seenres(cvt_adtyp…) — AD_SPEL/CLRC map to M_SEEN_NOTHING in C

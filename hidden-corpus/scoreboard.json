@@ -1,6 +1,6 @@
 {
- "commit": "51283e0c",
- "at": "2026-09-08T15:31:03.791Z",
+ "commit": "47480eec",
+ "at": "2026-09-08T15:45:14.114Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6675,18 +6675,18 @@
   "scen-poly-Healer-92107": {
    "src": "corpus",
    "passed": false,
-   "rngM": 3021,
+   "rngM": 3154,
    "rngT": 3588,
-   "scrM": 157,
+   "scrM": 165,
    "scrT": 321,
    "kind": "screen",
    "step": 126,
    "steps": 321,
-   "owner": "readobjnam_postparse1",
-   "loc": "objnam.c:4589",
+   "owner": "do_statusline2",
+   "loc": "botl.c:130",
    "jsOwner": null,
    "cTopline": "One of your potions of extra healing freezes and shatters!--More--",
-   "jsTopline": "One of your potions of extra healing freezes and shatters!",
+   "jsTopline": "One of your potions of extra healing freezes and shatters!--More--",
    "error": null
   },
   "scen-poly-Healer-92109": {
@@ -6947,18 +6947,18 @@
   "scen-poly-Tourist-92047": {
    "src": "corpus",
    "passed": false,
-   "rngM": 4685,
+   "rngM": 5126,
    "rngT": 5126,
-   "scrM": 166,
+   "scrM": 187,
    "scrT": 189,
-   "kind": "rng",
-   "step": 166,
+   "kind": "screen",
+   "step": 169,
    "steps": 189,
-   "owner": "cursetxt",
-   "loc": "mcastu.c:81",
-   "jsOwner": "dochug(monmove.js:2401)",
-   "cTopline": "You hear a door open. It hits! It hits again! It hits!--More--",
-   "jsTopline": "You hear a door open. It hits! It hits again! It hits!",
+   "owner": "fig_transform",
+   "loc": "apply.c:2482",
+   "jsOwner": null,
+   "cTopline": "You attack thin air. It hits! It hits again! It hits!--More--",
+   "jsTopline": "You attack thin air. It hits! It hits again! It hits!",
    "error": null
   },
   "scen-poly-Tourist-92171": {

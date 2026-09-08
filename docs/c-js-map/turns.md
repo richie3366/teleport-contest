@@ -2883,7 +2883,7 @@ JS: `js/mhitu.js`, `js/minion.js`, `js/mthrowu.js`, `js/weapon.js`, `js/muse.js`
 **`castmu` cast pline + PSI_BOLT/OPEN_WOUNDS severity plines before `mdamageu`; 
 `urgent_pline`/WIN_NOSTOP; `polyman` was_blind `make_blinded`** (D-0928 #1191; 
 seed4500 Scr **1799→1803** prefix **@1761→@1770**; 
-Half_spell_damage in castmu + **mcast_spell remaining 14 arms + `touch_of_death` D-1825** (`losestr` / `clonewiz` / `ureflects` empty-str); **PSI_BOLT `body_part(HEAD)` D-1508**; **`mcast_blind_you` EYE D-1534**; named: `mon_spell_hits_spot` / `has_aggravatables` / AD_FIRE/COLD/MAGM / `cursetxt` / `buzzmu`); 
+Half_spell_damage in castmu + **mcast_spell remaining 14 arms + `touch_of_death` D-1825** (`losestr` / `clonewiz` / `ureflects` empty-str); **PSI_BOLT `body_part(HEAD)` D-1508**; **`mcast_blind_you` EYE D-1534**; named: `mon_spell_hits_spot` / `has_aggravatables` / AD_FIRE/COLD/MAGM / `buzzmu` (incl. its `cursetxt(mtmp, FALSE)` call site, D-2137); `castmu` `cursetxt` live (D-2137); 
 **`enhance_weapon_skill` wizard y_n + speedy PICK_ONE / `skill_advance` / wizard practice columns** 
 (D-0928 #1146; seed4500 Scr **1001→1120** prefix **@630→@707**; 
 `add_weapon_skill`/`lose_weapon_skill` / `use_skill` may-advance msg deferred); 
