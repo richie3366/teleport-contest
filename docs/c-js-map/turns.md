@@ -1716,7 +1716,7 @@ JS: `js/dig.js` / `js/dbridge.js` / `js/dokick.js` — partial
 draft/crash/boulder-rock/`rnd_treefruit_at` (D-0178); 
 **`may_dig`/`mdig_tunnel`/`zap_dig`/`may_passwall` OR `flags\|wall_info` for 
 W_NONDIGGABLE/W_NONPASSWALL** (D-0865); **`zap_dig`** horizontal `rn1(18,8)` + door/SDOOR + 
-maze_dig + `DISP_BEAM` (D-0516); **`dig_check`/`fillholetyp`/`digactualhole`/`liquid_flow`/`
+maze_dig + `DISP_BEAM` (D-0516); **`zap_dig` `u.dz` arm** bounce-off-stairs/ladder + \nceiling rock (`rnd` 2/6 `hard_helmet`, `KILLED_BY_AN`, ROCK `mksobj`/`stackobj`/`newsym`) + \ndown/off-stairs `watch_dig`/`dighole` (D-2115); **`dig_check`/`fillholetyp`/`digactualhole`/`liquid_flow`/
 fill_pit`/`maybe_dunk`** for break-wand dig (D-0950); 
 **`dig_typ`/`pick_can_reach`/`is_digging`/`holetime`/`dig` occupation/`use_pick_axe`/`dighole` 
 thin/`fracture_rock`** (D-0951); **`furniture_handled` fountain/sink + HOLE `goto_level` + 
@@ -1735,7 +1735,7 @@ mon `teleport_pet` migrate** (D-0954); **`dig_up_grave` + `dighole` IS_GRAVE** (
 `trap.c` `maketrap` PIT/HOLE `set_levltyp` STONE/SCORR→CORR still named); 
 **`use_pick_axe2` `u_wipe_engr(3)` D-1375** (C `:1335` axe-scratch after `!ispick` and not 
 LANDMINE/BEAR_TRAP; callee D-1051; uteetering/uescaped_shaft / Underwater still named); 
-omit Hallucination draft; swallowed/`u.dz` ceiling; zap_dig pitdig; 
+omit Hallucination draft; swallowed pierce; zap_dig pitdig; 
 crush/entity + iron-chain scatter; impact shop `stolen_value`
 
 ### `src/eat.c`

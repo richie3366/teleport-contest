@@ -1,6 +1,6 @@
 {
- "commit": "7a8bf664",
- "at": "2026-09-08T10:18:21.446Z",
+ "commit": "229b25e1",
+ "at": "2026-09-08T10:37:50.322Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -4408,17 +4408,17 @@
   "scen-death-Wizard-92187": {
    "src": "corpus",
    "passed": false,
-   "rngM": 4099,
+   "rngM": 4495,
    "rngT": 5038,
-   "scrM": 20,
+   "scrM": 48,
    "scrT": 67,
-   "kind": "screen",
-   "step": 20,
+   "kind": "rng",
+   "step": 48,
    "steps": 67,
-   "owner": "zap_dig",
-   "loc": "dig.c:1590",
-   "jsOwner": null,
-   "cTopline": "The beam bounces off the stairs and hits the ceiling.--More--",
+   "owner": "next_ident",
+   "loc": "mkobj.c:521",
+   "jsOwner": "(no JS draw; last matched was zap_dig)",
+   "cTopline": "OK, so you don't die. You survived that attempt on your life.",
    "jsTopline": "",
    "error": null
   },

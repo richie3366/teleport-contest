@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `dig.c` zap_dig — blocks 1/553 corpus sessions (first at step 20): C «The beam bounces off the stairs and hits the ceiling.--More-» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify zap_dig` (scen-death-Wizard-92187).
 - [ ] `zap.c` resist — blocks 2/553 corpus sessions (first at step 59): C draws `rn2(119)=42` in resist, JS `rn2(20)=16` from zap_hit(zap.js:1335). Probe: `node scripts/hidden-proxy.mjs verify resist` (scen-tour-Priest-92235, scen-wish-Ranger-92212).
 - [ ] `mhitm.c` mattackm — blocks 1/553 corpus sessions (first at step 13): C draws `rnd(20)=6` in mattackm, JS `rn2(1)=0` from dog_move(dogmove.js:976). Probe: `node scripts/hidden-proxy.mjs verify mattackm` (scen-normal-Knight-92182).
 - [ ] `cmd.c` getdir — blocks 1/553 corpus sessions (first at step 115): C «In what direction?» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify getdir` (scen-poly-Healer-92109).
