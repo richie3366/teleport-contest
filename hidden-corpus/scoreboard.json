@@ -1,6 +1,6 @@
 {
- "commit": "fdbdd2e2",
- "at": "2026-09-08T14:20:02.611Z",
+ "commit": "98e0bb9e",
+ "at": "2026-09-08T14:25:00.146Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6949,16 +6949,16 @@
    "passed": false,
    "rngM": 4685,
    "rngT": 5126,
-   "scrM": 165,
+   "scrM": 166,
    "scrT": 189,
-   "kind": "screen",
-   "step": 163,
+   "kind": "rng",
+   "step": 166,
    "steps": 189,
-   "owner": "gazemu",
-   "loc": "mhitu.c:1806",
-   "jsOwner": null,
-   "cTopline": "You are blinded by the Archon's radiance! You falter... It hits!--More--",
-   "jsTopline": "You are blinded by the Archon's radiance! You stagger... It hits!--More--",
+   "owner": "cursetxt",
+   "loc": "mcastu.c:81",
+   "jsOwner": "dochug(monmove.js:2401)",
+   "cTopline": "You hear a door open. It hits! It hits again! It hits!--More--",
+   "jsTopline": "You hear a door open. It hits! It hits again! It hits!",
    "error": null
   },
   "scen-poly-Tourist-92171": {

@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `mhitu.c` gazemu — blocks 1/553 corpus sessions (first at step 163): C «You are blinded by the Archon's radiance! You falter... It h» vs JS «You are blinded by the Archon's radiance! You stagger... It ». Probe: `node scripts/hidden-proxy.mjs verify gazemu` (scen-poly-Tourist-92047).
 - [ ] `zap.c` dobuzz — blocks 2/553 corpus sessions (first at step 65): C draws `d(6,50)=119` in dobuzz, JS `rn2(19)=8` from exercise(attrib.js:196). Probe: `node scripts/hidden-proxy.mjs verify dobuzz` (scen-wish-Samurai-92087, scen-wish-Wizard-92048).
 - [ ] `zap.c` zapyourself — blocks 1/553 corpus sessions (first at step 60): C «The sleep ray hits the little dog. The sleep ray hits you!--» vs JS «The sleep ray hits the little dog. The sleep ray hits you!--». Probe: `node scripts/hidden-proxy.mjs verify zapyourself` (scen-tour-Priest-92235).
 - [ ] `artifact.c` touch_artifact — blocks 1/553 corpus sessions (first at step 73): C «The pair of lenses named the Eyes of the Overworld evades yo» vs JS «The pair of lenses named the Eyes of the Overworld evades yo». Probe: `node scripts/hidden-proxy.mjs verify touch_artifact` (scen-genesis-Valkyrie-92094).

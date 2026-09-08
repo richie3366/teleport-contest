@@ -533,7 +533,7 @@ Levitation `floating_above`; unskilled rider skip; hands/uarmg `wash_hands`;
 else `water_damage` + POT_ACID `in_use`/`useup`; 
 `pot_acid_damage` boom+delobj / `drink_ok_extra` still named); 
 **`dodip` fountain yn via `short_oname(doname,thesimpleoname,QBUFSZ-sizeof getobj)`** (D-0881; 
-pair_of→them deferred)
+pair_of→them deferred); **`make_stunned` poly stagger verb** (D-2132; C `potion.c:119–126` + `mondata.c:1394–1407`; file-local `stagger_poly` clone — same as `mhitm.js` stagger — `is_floater`/`is_flyer`/`slithy`/`amorphous`/`nolimbs`/`MZ_SMALL` join the existing `monsters.js` edge; `You ${stagger_poly(game.youmonst?.data,'stagger')}...` in C position; marilith `M1_SLITHY` → «falter»; usteed wobble stays named)
 
 ### `src/zap.c` `dozap`
 

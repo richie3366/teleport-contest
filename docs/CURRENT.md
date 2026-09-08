@@ -21,7 +21,7 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-08** — full `sessions` on the working tree
-(audit **1089–1096**: d43bbc14…8c0e9448, D-2123…D-2131).
+(audit **1089–1096**: d43bbc14…8c0e9448, D-2123…D-2132).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 `86+0.55/turn` (R² 0.81).
@@ -88,10 +88,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `polyself.c` uunstick — blocks 1/553 corpus sessions (first at step 207): C «The fire giant hits! The fire giant is no longer in your clu» vs JS «The fire giant hits! You return to elven form!». Probe: `node scripts/hidden-proxy.mjs verify uunstick` (scen-poly-Ranger-91131).
+**Next cluster:** `mhitu.c` gazemu — blocks 1/553 corpus sessions (first at step 163): C «You are blinded by the Archon's radiance! You falter... It h» vs JS «You are blinded by the Archon's radiance! You stagger... It ». Probe: `node scripts/hidden-proxy.mjs verify gazemu` (scen-poly-Tourist-92047).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2131 (index).**
+**Keep D-0845…D-2132 (index).**
 <!-- recent:begin -->
+**D-2132** `potion.c:106–131` `make_stunned` `:119–126` (`xtime && !old && talk` → usteed wobble else — `js/potion.js` only — file-local `stagger_poly` clone of `mondata.c:1394–1407` (same clone as the `mhitm.js` `stagger`; `is_floater`/`is_flyer`/`slithy`/`amorphous`/`nolimbs`/`MZ_SMALL` join the pre-existing `monsters.js
 **D-2131** `polyself.c:1941–1951` `uunstick` (`if (!mtmp) impossible("uunstick: no ustuck?")`; `set_u — `js/polyself.js` — new exported `uunstick()` in exact C order (`impossible` on null via the already-imported `display.js` edge, `set_ustuck(null)` via the existing `mhitu.js` edge extended, `Monnam` via the existing `do_
 **D-2130** `mhitu.c:128–141` `mswings` gate `:135` (`if (flags.verbose && !Blind && mon_visible(mtmp) — `js/mhitu.js` only — `mswings` now gates on the same-module live `Blind()` (`youprop.h` `(H||E)&&!B` + roleplay/ublind mirrors, D-0716 convention; no new import, hoisted function declaration so no TDZ risk) with C cites 
 **D-2129** `pray.c:2276–2343` `prayer_done`, Inhell arm `:2307–2313` (`pline("Since you are in Gehenn — `js/pray.js` only, exact C order + short-circuit — `if (((u.ualign?.record | 0) <= 0) || rnl(u.ualign?.record | 0)) await angrygods(u.ualign?.type ?? 0)` with C cite `:2310–2312`.
@@ -99,11 +100,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2127** `zap.c:4342–4365` ZT_LIGHTNING (`tmp = d(nd,6)`; spellcaster → `spell_damage_bonus`; `resi — `js/zap.js` only, exact C order — `if (spellcaster) tmp = spell_damage_bonus(tmp)` (same-module live helper), shield + `tmp = 0`, the blind gate with `rnd(50)` / `mcansee = 0` / 127-clamped `mblinded`, then the `rn2(3)` 
 **D-2126** `youprop.h:198` `Invis ≡ (HInvis || EInvis) && !BInvis` (each arm is `uprops[INVIS].intrin — `js/display.js` only — `hero_Invis()` now ORs flats + `uprops[INVIS]` intrinsic/extrinsic/blocked, `hero_See_invisible()` ORs flats + sticky + `uprops[SEE_INVIS]` intrinsic/extrinsic, in the established `Detect_monsters`
 **D-2125** `weapon.c:918–928` in `mon_wield_item` (`artifact_light(obj) && !obj->lamplit` → `begin_bu — `js/weapon.js` only — the `:918–928` arm in exact C order (`begin_burn(obj, false)` before the visibility branch so lamplit/radius are set first, matching C where the adverb reads the lit radius); import-the-export `arti
-**D-2124** `mon.c:4265–4318` `setmangry` (reached via missum → `wakeup(mon, TRUE)` → `setmangry`), `: — `js/mon.js` only — `else { await growl(mtmp); }` in exact C position with C cite; `growl` was already imported from pre-existing `./sounds.js` edge (no new import, no TDZ risk — no `imports.mjs --can` needed); header ret
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2131; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2132; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
