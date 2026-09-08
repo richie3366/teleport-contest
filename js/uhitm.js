@@ -13,7 +13,7 @@ import {
     XKILL_GIVEMSG, XKILL_NOMSG, XKILL_NOCORPSE, XKILL_NOCONDUCT,
     LL_CONDUCT, Upolyd, P_BARE_HANDED_COMBAT, P_TWO_WEAPON_COMBAT, P_BASIC, P_WHIP,
     A_CHAOTIC, INTRINSIC, CORPSTAT_BURIED, CORPSTAT_NONE, ONAME_NO_FLAGS,
-    P_DAGGER, P_AXE, P_SABER,
+    P_DAGGER, P_KNIFE, P_AXE, P_SABER, P_NONE, P_SKILLED, NEED_WEAPON,
     M_ATTK_MISS, M_ATTK_HIT, M_ATTK_DEF_DIED, NATTK,
     M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER, M_AP_TYPE, M_AP_NOTHING,
     M_AP_TYPMASK, MHID_ALTMON,
@@ -37,14 +37,14 @@ import { cansee } from './vision.js';
 import {
     dmgval, hitval, P_SKILL, weapon_hit_bonus, martial_bonus,
     dbon, weapon_dam_bonus, use_skill, weapon_type,
-    special_dmgval, silver_sears, MON_WEP,
+    special_dmgval, silver_sears, MON_WEP, setmnotwielded,
 } from './weapon.js';
 import {
     ammo_and_launcher, is_weptool, is_launcher, is_ammo, is_missile,
     is_pole, drop_uswapwep, uwepgone,
 } from './wield.js';
 import { near_capacity, useup } from './invent.js';
-import { PM_BARBARIAN, PM_MONK, PM_KNIGHT, PM_SAMURAI, PM_ARCHEOLOGIST, PM_WIZARD, PM_HUMAN } from './generated/monsters_data.js';
+import { PM_BARBARIAN, PM_MONK, PM_KNIGHT, PM_SAMURAI, PM_ARCHEOLOGIST, PM_WIZARD, PM_HUMAN, PM_HEALER, PM_ROGUE } from './generated/monsters_data.js';
 import {
     find_mac, get_mattk, make_corpse, monstone, mhitm_knockback, monkilled, mondead,
     troll_baned, mhitm_ad_poly, mhitm_ad_slee, could_seduce, failed_grab, shade_miss,
@@ -82,13 +82,14 @@ import { explode, mon_explodes, adtyp_to_expltype } from './explode.js';
 import { rehumanize, body_part, mbodypart, uunstick } from './polyself.js';
 import { mon_nam, Monnam, x_monnam, x_monnam_tame, Hallucination, type_is_pname, pmname, a_monnam, safe_oname } from './do_name.js';
 import { artifact_hit, youmonst, is_art, artifact_exists, shade_glare } from './artifact.js';
-import { xname, vtense, The, An, an, singular, makeplural, cxname, simpleonames, otense, mshot_xname } from './objnam.js';
+import { xname, vtense, The, An, an, singular, makeplural, cxname, simpleonames, otense, mshot_xname, Yobjnam2 } from './objnam.js';
 import { abuse_dog, tamedog } from './dog.js';
 import { makemon, makemon_appear_msg, newcham, adj_lev } from './makemon.js';
 import { ndemon } from './minion.js';
-import { ART_GIANTSLAYER, ART_STORMBRINGER, ART_SNICKERSNEE } from './generated/artifacts_data.js';
+import { ART_GIANTSLAYER, ART_STORMBRINGER, ART_SNICKERSNEE, ART_CLEAVER } from './generated/artifacts_data.js';
 import { paranoid_query } from './getline.js';
-import { which_armor } from './worn.js';
+import { which_armor, is_flimsy, extract_from_minvent } from './worn.js';
+import { obj_resists } from './dogmove.js';
 import { u_wipe_engr } from './engrave.js';
 import { cutworm } from './worm.js';
 import { m_unleash } from './apply.js';
@@ -161,6 +162,7 @@ const TOWEL = objectNames.indexOf('TOWEL');
 const CREAM_PIE = objectNames.indexOf('CREAM_PIE');
 const BLINDING_VENOM = objectNames.indexOf('BLINDING_VENOM');
 const BOOMERANG = objectNames.indexOf('BOOMERANG');
+const KATANA = objectNames.indexOf('KATANA');
 const WAN_LIGHT = objectNames.indexOf('WAN_LIGHT');
 const LOADSTONE = objectNames.indexOf('LOADSTONE');
 // C objclass.h ARM_SHIELD — armor oc_skill / oc_armcat
@@ -853,6 +855,98 @@ function hmon_hitmon_dmg_recalc(dmg, obj, thrown, twohits, use_weapon_skill,
 }
 
 /**
+ * C ref: uhitm.c hmon_hitmon_weapon_melee :933–1067 — ordinary melee weapon
+ * use: dmgval + train gate, Healer anatomy bonus, Rogue backstab
+ * (`rnd(ulevel)` + hittxt), dieroll-2 weapon-shatter, artifact_hit with
+ * doreturn (killed → FALSE / dmg 0 → TRUE), then silver/light/joust/poison
+ * flag arms. ctx carries the hmd fields this helper owns (dmg,
+ * use/train_weapon_skill, hittxt, doreturn, retval, dieroll, hand_to_hand).
+ * Named omissions: silvermsg/silverobj + lightobj message flags (hmon has
+ * no msg_silver/msg_lightobj plumbing — map turns.md), joust() +
+ * hmon_hitmon_jousting damage (no JS joust port), thrown ammo/poison +
+ * permapoisoned ispoisoned flags (no hmon_hitmon_poison consumer in hmon).
+ */
+async function hmon_hitmon_weapon_melee(mon, obj, ctx) {
+    const u = game.u || {};
+    ctx.use_weapon_skill = true;
+    ctx.dmg = dmgval(obj, mon);
+    ctx.train_weapon_skill = ctx.dmg > 1;
+    // C :947–951 — Healer with anatomy knowledge: wielded knife-class
+    // weapon gains min(3, kills-of-this-monster / 6).
+    if (Role_if(PM_HEALER) && ctx.hand_to_hand
+        && obj.oclass === WEAPON_CLASS
+        && (game.objects?.[obj.otyp]?.oc_skill | 0) === P_KNIFE) {
+        const mndx = mon.mnum ?? mon.data?.mndx ?? -1;
+        const died = game.mvitals?.[mndx]?.died | 0;
+        ctx.dmg += Math.min(3, Math.trunc(died / 6));
+    }
+    // C :953–1013 — special attack actions: minimal hit, stuck target,
+    // two-weaponing, or hand-to-hand Cleaver → no bonuses.
+    if (!ctx.train_weapon_skill || mon === u.ustuck || u.twoweap
+        || (ctx.hand_to_hand && is_art(obj, ART_CLEAVER))) {
+        ; // no special bonuses
+    } else if (Role_if(PM_ROGUE) && backstabbable(mon) && !Upolyd(game.u)
+        && ctx.hand_to_hand) {
+        // C :957–963 — Rogue backstab: message first, then rnd(ulevel).
+        await pline(`You strike ${mon_nam(mon)} from behind!`);
+        ctx.dmg += rnd(u.ulevel | 0);
+        ctx.hittxt = true;
+    } else if ((ctx.dieroll | 0) === 2 && obj === u.uwep
+        && obj.oclass === WEAPON_CLASS
+        && (bimanual(obj)
+            || (Role_if(PM_SAMURAI) && obj.otyp === KATANA && !u.uarms))
+        && (((ctx.wtype = (u.twoweap
+            ? P_TWO_WEAPON_COMBAT : weapon_type(u.uwep))) | 0) !== P_NONE
+            && P_SKILL(ctx.wtype) >= P_SKILLED)
+        && (((ctx.monwep = MON_WEP(mon)) || null) !== null
+            && !is_flimsy(ctx.monwep)
+            && !obj_resists(ctx.monwep,
+                50 + 15 * ((Math.max(obj.oeroded | 0, obj.oeroded2 | 0))
+                    - (Math.max(ctx.monwep.oeroded | 0,
+                        ctx.monwep.oeroded2 | 0))),
+                100))) {
+        // C :964–1013 — two-handed shatter of the defender's weapon.
+        // JS strings are unbounded so the C BUFSZ truncation is a no-op.
+        const monwep = ctx.monwep;
+        const from_your_blow = ' from the force of your blow!';
+        setmnotwielded(mon, monwep);
+        mon.weapon_check = NEED_WEAPON;
+        if (canseemon(mon)) {
+            await pline(`${Yobjnam2(monwep, 'shatter')}${from_your_blow}`);
+        } else {
+            await pline(`${s_suffix(Monnam(mon))} weapon${(monwep.quan | 0) === 1 ? '' : 's'} ${otense(monwep, 'shatter')}${from_your_blow}`);
+        }
+        // C m_useupall: extract + free; JS has no manual free (GC).
+        extract_from_minvent(mon, monwep, true, false);
+        if (rn2(4)) {
+            await monflee(mon, d(2, 3), true, true);
+        }
+        ctx.hittxt = true;
+    }
+    // C :1015–1034 — artifact_hit may kill (doreturn FALSE) or zero dmg
+    // (doreturn TRUE); otherwise hittxt.
+    if (obj.oartifact
+        && await artifact_hit(youmonst, mon, obj,
+            (ctx.dmgBox = { dmg: ctx.dmg }, ctx.dmgBox),
+            ctx.dieroll | 0)) {
+        ctx.dmg = ctx.dmgBox.dmg | 0;
+        if ((mon.mhp | 0) < 1) {
+            ctx.doreturn = true;
+            ctx.retval = false;
+            return;
+        }
+        if ((ctx.dmg | 0) === 0) {
+            ctx.doreturn = true;
+            ctx.retval = true;
+            return;
+        }
+        ctx.hittxt = true;
+    } else if (obj.oartifact) {
+        ctx.dmg = ctx.dmgBox.dmg | 0;
+    }
+}
+
+/**
  * C ref: uhitm.c hmon → hmon_hitmon.
  * Thrown cream pie / blinding venom misc_obj arm (D-0693); melee weapon path.
  * troll_baned around killed (D-1232): set TRUE only, always reset after.
@@ -967,18 +1061,30 @@ async function hmon(mon, obj, thrown, _dieroll) {
                 if ((mon.data?.mndx | 0) !== PM_SHADE) dmg++;
             }
         } else {
-            dmg = dmgval(obj, mon);
-            use_weapon_skill = true;
-            train_weapon_skill = dmg > 1;
-            // C hmon_hitmon_weapon_melee: artifact_hit after dmgval, before
-            // hmon_hitmon_dmg_recalc (Grayswandir spec_dbon max(tmp,1)).
-            if (obj.oartifact) {
-                const dmgBox = { dmg };
-                if (await artifact_hit(youmonst, mon, obj, dmgBox, _dieroll | 0)) {
-                    hittxt = true;
-                }
-                dmg = dmgBox.dmg | 0;
-            }
+            // C uhitm.c hmon_hitmon_weapon_melee :933–1067 — ordinary melee:
+            // dmgval, Healer/Rogue/shatter arms, artifact_hit with doreturn.
+            // hand_to_hand mirrors hmon_hitmon :1780 (melee, or applied
+            // polearm implying uwep); Grayswandir spec_dbon stays in the
+            // recalc below (D-0613).
+            const ctx = {
+                dmg,
+                use_weapon_skill,
+                train_weapon_skill,
+                hittxt,
+                doreturn: false,
+                retval: true,
+                dieroll: _dieroll | 0,
+                hand_to_hand: (thrown === HMON_MELEE
+                    || (thrown === HMON_APPLIED && is_pole(game.u?.uwep))),
+            };
+            await hmon_hitmon_weapon_melee(mon, obj, ctx);
+            dmg = ctx.dmg | 0;
+            use_weapon_skill = ctx.use_weapon_skill;
+            train_weapon_skill = ctx.train_weapon_skill;
+            hittxt = ctx.hittxt;
+            // C hmon_hitmon :1797 — artifact doreturn (killed → FALSE,
+            // dmg-zeroed → TRUE) skips recalc/pet/msg entirely.
+            if (ctx.doreturn) return !!ctx.retval;
         }
     } else {
         dmg = dmgval(obj, mon);

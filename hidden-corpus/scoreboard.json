@@ -1,6 +1,6 @@
 {
- "commit": "8b976e2a",
- "at": "2026-09-08T20:35:35.612Z",
+ "commit": "13a2969a",
+ "at": "2026-09-08T20:45:42.324Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6351,19 +6351,19 @@
   },
   "scen-normal-Rogue-92146": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 3536,
+   "passed": true,
+   "rngM": 3782,
    "rngT": 3782,
-   "scrM": 122,
+   "scrM": 166,
    "scrT": 166,
-   "kind": "rng",
-   "step": 122,
+   "kind": null,
+   "step": null,
    "steps": 166,
-   "owner": "hmon_hitmon_weapon_melee",
-   "loc": "uhitm.c:964",
-   "jsOwner": "abuse_dog(dog.js:1220)",
-   "cTopline": "You strike the kitten from behind! The kitten yowls!--More--",
-   "jsTopline": "The kitten yowls! You hit the kitten.",
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-normal-Rogue-92160": {

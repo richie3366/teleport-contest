@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `mhitu.c` diseasemu — blocks 1/553 corpus sessions (first at step 23): C «Demogorgon hits! You feel deathly sick. Demogorgon hits!» vs JS «Demogorgon hits!» (C `rn2(16)=6 @ diseasemu(mhitu.c:1039)` vs JS `rn2(3)=2 @ mhitm_knockback(mhitm.js:2060)`). Probe: `node scripts/hidden-proxy.mjs verify diseasemu` (scen-death-Valkyrie-92229). **Addressed:** D-2151
+- [x] `uhitm.c` hmon_hitmon_weapon_melee — blocks 1/553 corpus sessions (first at step 122): C draws `rnd(1)=1` in hmon_hitmon_weapon_melee, JS `rn2(8)=3` from abuse_dog(dog.js:1220). Probe: `node scripts/hidden-proxy.mjs verify hmon_hitmon_weapon_melee` (scen-normal-Rogue-92146). **Addressed:** D-2152
+
+
+- [x] `mhitu.c` diseasemu — blocks 1/553 corpus sessions (first at step 23): C «Demogorgon hits! You feel deathly sick. Demogorgon hits!» vs JS «Demogorgon hits!» (C `rn2(16)=6 @ diseasemu(mhitu.c:1039)` vs JS `rn2(3)=2 @ mhitm_knockback(mhitm.js:2060)`). Probe: `node scripts/hidden-proxy.mjs verify diseasemu` (scen-death-Valkyrie-92229). **Addressed:** D-2151 `13a2969a`
 
 
 - [x] `read.c` do_class_genocide — blocks 1/553 corpus sessions (first at step 78): C «What class of monsters do you want to genocide? [enter the s» vs JS «What class of monsters do you want to genocide? [enter '?' t». Probe: `node scripts/hidden-proxy.mjs verify do_class_genocide` (scen-wish-Tourist-92230). **Addressed:** D-2150 `144563ef`
