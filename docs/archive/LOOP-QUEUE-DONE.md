@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
+- [x] `lock.c` pick_lock feel/see no-door arm — blocks 1/553 corpus sessions (first at step 175): C «You feel no door there.» vs JS «You see no door there.». Probe: `node scripts/hidden-proxy.mjs verify pick_lock` (scen-normal-Samurai-92071). **Addressed:** D-2167
+
+
 - [x] `dig.c` use_pick_axe — blocks 1/553 corpus sessions (first at step 11): C «In what direction do you want to dig? [yku>]» vs JS «In what direction do you want to dig? [kyu>]». Probe: `node scripts/hidden-proxy.mjs verify use_pick_axe` (scen-kit-Archeologist-92022). **Addressed:** D-2166 `fae41579`
 
 

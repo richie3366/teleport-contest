@@ -1,6 +1,6 @@
 {
- "commit": "aeec40b6",
- "at": "2026-09-08T23:37:26.769Z",
+ "commit": "6ef8cd42",
+ "at": "2026-09-08T23:44:22.961Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6422,16 +6422,16 @@
    "passed": false,
    "rngM": 4023,
    "rngT": 4051,
-   "scrM": 190,
+   "scrM": 191,
    "scrT": 205,
-   "kind": "screen",
-   "step": 175,
+   "kind": "rng",
+   "step": 191,
    "steps": 205,
-   "owner": "pick_lock",
-   "loc": "lock.c:591",
-   "jsOwner": null,
-   "cTopline": "You feel no door there.",
-   "jsTopline": "You see no door there.",
+   "owner": "doengrave",
+   "loc": "engrave.c:1224",
+   "jsOwner": "doengrave(engrave.js:1366)",
+   "cTopline": "It bites! It hits!--More--",
+   "jsTopline": "It bites! It just misses!",
    "error": null
   },
   "scen-normal-Samurai-92078": {

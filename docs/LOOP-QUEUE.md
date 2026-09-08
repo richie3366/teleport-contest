@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `lock.c` pick_lock feel/see no-door arm — blocks 1/553 corpus sessions (first at step 175): C «You feel no door there.» vs JS «You see no door there.». Probe: `node scripts/hidden-proxy.mjs verify pick_lock` (scen-normal-Samurai-92071).
 - [ ] `polyself.c` newman — blocks 1/553 corpus sessions (first at step 127): C draws `rn2(5)=0` in newman, JS draws nothing. Probe: `node scripts/hidden-proxy.mjs verify newman` (scen-poly-Samurai-91106).
 - [ ] `do.c` u_stuck_cannot_go — blocks 1/553 corpus sessions (first at step 172): C «You release the iron golem. The iron golem hits!--More--» vs JS «The iron golem hits! The iron golem hits!». Probe: `node scripts/hidden-proxy.mjs verify u_stuck_cannot_go` (scen-poly-Valkyrie-92195).
 - [ ] `mondata.c` name_to_monplus — blocks 1/553 corpus sessions (first at step 81): C «» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify name_to_monplus` (scen-genesis-Archeologist-92175).

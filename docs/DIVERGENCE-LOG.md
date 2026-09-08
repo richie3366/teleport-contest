@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2167 — `lock.c` doopen_indir !IS_DOOR envelope: Blind feel/see + mapseen/newsym + drawbridge/container (row named pick_lock; true writer measured, 1 session moved past)
+
+- Status: fixed (Open queue row `lock.c` pick_lock feel/see no-door arm — cited 1/553; `node scripts/verify.mjs --fn pick_lock`: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS. No review cited by the row, so no stamp owed.)
+- Symptom: scen-normal-Samurai-92071 step 175/205, screen-first at lock.c:591: C «You feel no door there.» vs JS «You see no door there.». Owner pick_lock is the topline-literal tie-break (cMsgOwners pick_lock:591 / doopen_indir:851 / doclose:1015 — same class as parked doname_base/zapyourself/spoteffects): the true writer is doopen_indir. Measured, not theorized: JS key trace shows step-174 key `o` (open) then step-175 key `l` (east) → doopen_indir east; hero blind on both sides at that step (EBlinded=524288, Blind true), so C prints feel while JS's hardcoded see diverges. pick_lock's own Blind arm is already faithful (D-2002, review 972 ACCEPT) — a pick_lock body port guarantees NO MOVEMENT (clean-tree baseline verify: 1 unchanged).
+- C locus: `lock.c:780–853` (doopen_indir; impaired-direction res `:825`; unconditional mapseen/newsym block `:830–839` with the "using a key skips that" comment; !IS_DOOR envelope `:841–853` — is_db_wall/DRAWBRIDGE_UP, portcullis/DRAWBRIDGE_DOWN, container_at TRUE with Blind Feels/Seems, else Blind feel/see), NOT `lock.c pick_lock :576–590`.
+- JS was: `js/lock.js` doopen_indir hardcoded `await pline('You see no door there.')` + `return false` on the !IS_DOOR path — no Blind check, no Confusion/Stunned res, no mapseen/newsym, no drawbridge/container arms.
+- Fix: ported the C span in exact order and short-circuit — Confusion/Stunned res (same H-field + flat idiom as doclose), portcullis via live is_drawbridge_wall, update_mapseen_for + newsym + lastseentyp res, then the four message arms in order with There/pline_The as plain pline (read.js:1683 idiom) and Blind()/Feels/Seems predicates. `is_db_wall` joins the existing dbridge edge; `container_at` newly exported from `pickup.js` (same existing edge; hoisted function declaration, no TDZ — `imports.mjs --can` ALREADY on both).
+- JS: `js/lock.js` doopen_indir !IS_DOOR envelope + docstring omissions (D-2167); `js/pickup.js` container_at export (1 word).
+- Verify: `node scripts/verify.mjs --fn pick_lock` → PASS syntax (2 changed js files: js/lock.js js/pickup.js) · PASS rule2 (no fs/path/url/node: imports, no DIAG/FORCE/seed gates) · PASS hidden (scen-normal-Samurai-92071 moved pick_lock@175 → doengrave@191, later owner and later step) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · full skipped (no shared file changed). VERIFY: PASS. /tmp probes stay out of the repo per runbook.
+- Named omissions: pit "Open where?" dirprompt + pit-reach gate; stumble_on_door_mimic; set_msg_xy on the This-door arm; AUTOUNLOCK_KICK canned dokick (all pre-existing, now explicit in the docstring). doclose's twin hardcoded see arms (lock.js `!IS_DOOR` returns) intentionally untouched — separate C function, queue as its own row if the corpus names it. pick_lock !IS_DOOR LEARNED-vs-DID_NOTHING nuance stays as review-972 noted (future Open row, not this fix).
+- Next: scen-normal-Samurai-92071 residual doengrave@191 is the next owner's row, not this function's; next Open row per queue refill state.
+- Density note: ~40 insertions (one C arm envelope + 3 import names + docstring); the function bulk predates (D-0059/D-0487/D-0727/D-1837).
+
 ## D-2166 — `dig.c` use_pick_axe: direction prompt listed `[kyu>]` instead of C `[yku>]` (1 session moved past)
 
 - Status: fixed.

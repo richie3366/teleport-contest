@@ -1910,7 +1910,8 @@ muse.c mbhit named; bhito boxlock is D-1467) + **`chest_shatter_msg` Blind+`sing
 `objclass.h` PAPER/GLASS/WOOD mats** (D-0878; 
 potionbreathe / Blind hear-vs-see deferred) + **doforce ynq def `'q'`** (D-0727); 
 **`o`/`doopen` → `doopen_indir(0,0)` getdir** (D-0727; **loot-at-feet `u_at` → `doloot` D-1837**;
-pit "Open where?" / mimic / AUTOUNLOCK_KICK deferred); 
+**!IS_DOOR envelope: Confusion/Stunned TIME + mapseen/newsym res + portcullis/drawbridge + container Feels/Seems + Blind feel/see** (D-2167; `container_at` newly exported from `pickup.js`; glyph half dead — no `lev->glyph` in JS cells);
+pit "Open where?" / pit-reach / mimic / set_msg_xy / AUTOUNLOCK_KICK deferred); 
 **`#herecmdmenu`/`doherecmdmenu` self menu** (D-0728; 
 `#therecmdmenu` / next2u/far / K==0 travel / CMDQ_KEY·DIR follow-ups / glyph≠hero Look deferred); 
 **`#tip`/`dotip` floor ynq (def q) + basic floor `tipcontainer`** (D-0719; 
