@@ -497,7 +497,7 @@ potionhit/potionbreathe named);
 **`peffect_sleeping` POT_SLEEPING** (D-1437; 
 Sleep_resistance||Free_action `monstseesu(M_SEEN_SLEEP)` + 
 yawn else `fall_asleep(-rn1(10, 25-12*bcsign), TRUE)` + `monstunseesu`; 
-callee `timeout.c` `fall_asleep` / `mondata.c` `monstseesu`; potionhit/potionbreathe named); 
+callee `timeout.c` `fall_asleep` / `mondata.c` `monstseesu`; potionhit/potionbreathe named; corpus "yawn" first-diffs are the `timeout.c` `sleep_dialogue` writer (D-2070/D-2097), never this quaff arm); 
 **`peffect_gain_ability` POT_GAIN_ABILITY** (D-1438; cursed Ulch+unkn; 
 Fixed_abil extrinsic `potion_nothing++`; else blessed `adjattrib(i,1,0)` all A_MAX / uncursed `rn2` 
 tries msgflg -1 then last 0; callee `attrib.c` `adjattrib`; potionhit/potionbreathe named); 
