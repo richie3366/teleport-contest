@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `were.c` were_change — blocks 2/553 corpus sessions (first at step 69): C «The jackal bites!» vs JS «The jackal bites!». Probe: `node scripts/hidden-proxy.mjs verify were_change` (scen-intrinsic-Healer-92124, scen-tour-Ranger-92177). **Addressed:** D-2113
+- [x] `quest.c` prisoner_speaks — blocks 1/553 corpus sessions (first at step 146): C «The prisoner speaks: "I'm finally free!"» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify prisoner_speaks` (scen-wish-Rogue-92210). **Addressed:** D-2114
+
+
+- [x] `were.c` were_change — blocks 2/553 corpus sessions (first at step 69): C «The jackal bites!» vs JS «The jackal bites!». Probe: `node scripts/hidden-proxy.mjs verify were_change` (scen-intrinsic-Healer-92124, scen-tour-Ranger-92177). **Addressed:** D-2113 `7a8bf664`
 
 
 - [x] `wield.c` chwepon — blocks 2/553 corpus sessions (first at step 68): C «Your dexterity was 9.» vs JS «Your dexterity was 9.». Probe: `node scripts/hidden-proxy.mjs verify chwepon` (scen-death-Monk-92000, scen-death-Wizard-92120). **Addressed:** D-2112 `6d4e021f`

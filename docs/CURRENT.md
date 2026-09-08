@@ -21,7 +21,7 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-08** — full `sessions` on the working tree
-(audit **1067–1073** over 3516098b…67985652, D-2098…D-2113 ports).
+(audit **1067–1073** over 3516098b…67985652, D-2098…D-2114 ports).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 `60+0.48/turn` (R² 0.87).
@@ -92,10 +92,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `were.c` were_change — blocks 2/553 corpus sessions (first at step 69): C «The jackal bites!» vs JS «The jackal bites!». Probe: `node scripts/hidden-proxy.mjs verify were_change` (scen-intrinsic-Healer-92124, scen-tour-Ranger-92177).
+**Next cluster:** `quest.c` prisoner_speaks — blocks 1/553 corpus sessions (first at step 146): C «The prisoner speaks: "I'm finally free!"» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify prisoner_speaks` (scen-wish-Rogue-92210).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2113 (index).**
+**Keep D-0845…D-2114 (index).**
 <!-- recent:begin -->
+**D-2114** `quest.c:451–470` prisoner_speaks + `quest_talk :495–511` MS_DJINNI arm — `js/quest.js` only — `prisoner_speaks` in exact C order: `mndx` compare for the `data` identity (JS `mtmp.data` is a value, not a pointer — `sounds.js:1132` pattern), `canseemon` (extends the existing `display.js` edge),
 **D-2113** `were.c:18–38` — `js/were.js` only — `were_change` is now `async` and awaits `new_were` (C is fully sequential; the armor tail must settle before the `canseemon` read), then runs the howl block in exact C order: local `Deaf()` (youprop.h
 **D-2112** `insight.c:1070–1071` — `js/invent.js` only — `const noeyes = !haseyes(game.youmonst?.data)` in exact C position.
 **D-2111** `dothrow.c:68–71` `multishot_class_bonus` PM_NINJA arm — `js/weapon.js` only — `const PM_NINJA = monsterNames.indexOf('PM_NINJA')` beside the existing PM_PONY/SHADE/BALROG locals (pre-existing `monsters_data.js` edge, no new module, no TDZ) + the NINJA case in exact C position
@@ -103,11 +104,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2109** `weapon.c` `weapon_descr` `:90–142` (`skill = weapon_type(obj)`; `descr = P_NAME(skill)`;  — `js/invent.js` — full C switch in exact C order with the `makesingular` return; P_NONE specials via `objectNameStrs` (verified «corpse|tin|egg|statue|boulder|towel|tin opener» ≡ OBJ_NAME) / `obj.globby` / live `def_oc_sy
 **D-2108** `pager.c` `look_at_monster` `:422–444` (`"tame "` + `distant_monnam(mtmp, ARTICLE_NONE, mo — `js/do_name.js` only — `distant_monnam_none` keeps the null→`it` guard and the astral conceal first (C order), then delegates to the live `x_monnam(mtmp, ARTICLE_NONE, null, 0, true)` (same module, no new edge, no TDZ).
 **D-2107** `makemon.c:1283–1294` (birth knowledge: `In_sokoban && !mindless` → `mon_learns_traps(PIT) — `js/makemon.js` only — birth-knowledge block in exact C order between `female` and `mpeaceful` (C order is female → traps → mwandexp → place_monster → mpeaceful; the JS `place_monster`/fmon-link shape is untouched).
-**D-2106** `hack.c` `domove_fight_empty` `:2258–2267` (`boulder = sobj_at(BOULDER, x, y)`; `if (glyph — `js/cmd.js` only, exact C order: full-pile `sobj_at(BOULDER)` scan first, then `glyph_to_obj_at(x, y) === STATUE_OTYP` (pre-existing `display.js` gbuf export joining the existing display edge — no new module, no TDZ, cal
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2113; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2114; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

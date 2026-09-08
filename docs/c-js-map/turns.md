@@ -2248,7 +2248,7 @@ other-role locate burn shuffle only); **`quest_chat`/`quest_talk`/`leader_speaks
 `is_pure` wizard≡`flags.debug` adjust** (D-0590/D-0627/D-0640; `#chat`→`domonnoise` MS_LEADER; 
 **`mon_msound` S_NYMPH→MS_SEDUCE + cajoles/comes-on/`Hello sailor` ECMD_TIME** (D-0687; 
 **`doseduce` AMOROUS_DEMON SYSOPT non-nymph D-1750**; other MS_* deferred); **finish_quest throw/kick D-1312**; 
-encourage/got_thanks/questart/banished/nemesis talk deferred); 
+encourage/got_thanks/questart/banished/nemesis talk deferred); **prisoner_speaks + quest_talk MS_DJINNI arm** (D-2114; MS_NEMESIS nemesis_speaks still deferred); 
 **`ok_to_quest` + `goto_level` Home in-branch gate** (D-0798; 
 Gehennom amulet mysteryforce deferred); **`convert_arg` `%r`/`%R`→`rank_of` + `%ra`/`%rA`/`%rC` + 
 `%s`/`%S`/`%g` + `%Xp`/`%XP`/`%Xs`/`%XS`** (D-0627/D-0640) + 

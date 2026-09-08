@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2114 — `quest.c` prisoner_speaks + quest_talk MS_DJINNI arm (queue row `quest.c` prisoner_speaks, 1 session)
+
+- **Status:** fixed (Open queue row `quest.c` prisoner_speaks — cited 1/553; `verify --fn prisoner_speaks` re-ran it: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS. Row cites no review — 1063 only pre-confirmed this owner (Rogue-92210 step 120 → prisoner_speaks step 146) with no C-wrongs — so no stamp owed.)
+- **Symptom:** scen-wish-Rogue-92210 step 146/241, screen-first at `quest.c:459`: C «The prisoner speaks: "I'm finally free!"» vs JS «».
+- **C locus:** `quest.c:451–470` prisoner_speaks + `quest_talk :495–511` MS_DJINNI arm — guard `data == &mons[PM_PRISONER] && mstrategy & STRAT_WAITMASK`; `canseemon` → `pline("%s speaks:", Monnam)`; `SetVoice(mtmp, 0, 80, 0)`; `verbalize("I'm finally free!")`; clear waitmask; `mpeaceful = 1`; `adjalign(3)`; `(void) angry_guards(FALSE)`.
+- **JS was:** `js/quest.js` `quest_talk` handled the leader by `m_id` only (`MS_NEMESIS / MS_DJINNI deferred`); no `prisoner_speaks` anywhere in `js/` (header named omission).
+- **Fix:** `js/quest.js` only — `prisoner_speaks` in exact C order: `mndx` compare for the `data` identity (JS `mtmp.data` is a value, not a pointer — `sounds.js:1132` pattern), `canseemon` (extends the existing `display.js` edge), `Monnam` (`do_name.js`, `imports.mjs` SAFE hoisted), `SetVoice` (`sndprocs.js` !SND_LIB no-op, no cycle — call kept for C order), `adjalign` (extends the existing `attrib.js` edge), `await angry_guards(false)` (`mon.js`, same 90-module SCC, SAFE hoisted; C `FALSE` = not silent). `quest_talk` gains the C-order `switch (msound)` with the `MS_DJINNI` arm plus the C-order leader `return`; local `const MS_DJINNI = 29` (`monflag.h`; `sounds.js`/`monmove.js` local-const convention) and top-level `PM_PRISONER` (`monsters.js`, no cycle).
+- **JS:** 1 file (`quest.js`), under the 600/10 caps. Rule #2 clean; no DIAG/FORCE/seed gates. No hand probes — the corpus session reaches the changed arm.
+- **Verify:** `node scripts/verify.mjs --fn prisoner_speaks` → `PASS syntax 1 changed js file(s): js/quest.js` · `PASS rule2 no fs/path/url/node: imports, no DIAG/FORCE/seed gates` · `PASS hidden verify prisoner_speaks: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (scen-wish-Rogue-92210: PASS) · `PASS green 2/2` + strict ×2 · `PASS cohort 7/7` · `skip full (no shared file changed per runner)` · `VERIFY: PASS`. Final verify ran after the last js/ edit (map/D-log/queue edits only after).
+- **Named omissions:** `MS_NEMESIS` → `nemesis_speaks` (no live export — `quest.js` header + map).
+- **Next:** none — the blocked session fully PASSes; row archived.
+- **Cited falsifier grade:** measured (machine-recorded C-vs-JS screen row + `hidden-proxy verify prisoner_speaks` 1 PASS; pinned C `quest.c:450–511` body + caller read; `imports.mjs` SAFE on all four new edges; no JS FORCE/DIAG/seed reads used).
+
 ## D-2113 — `were.c` were_change unseen-howl arm: `You_hear` + `wake_nearto` after human→beast change (queue row `were.c` were_change, 1 of 2 sessions)
 
 - **Status:** partial-fix (Open queue row `were.c` were_change — cited 2/553; `verify --fn were_change` re-ran both: 1 PASS, 0 moved past, 1 unchanged same owner same step, 0 worse → PROGRESS. Row cites no review so no stamp owed. Row archived for its passed writer; the unchanged session is a literal-heuristic misattribution parked with a C-draw falsifier, not re-popped — see Next.)

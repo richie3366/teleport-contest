@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-08 — D-2114 `quest.c` prisoner_speaks + quest_talk MS_DJINNI arm (queue row `quest.c` prisoner_speaks, 1 session)
+
+**C locus:** `quest.c:451–470` prisoner_speaks + `quest_talk :495–511` MS_DJINNI arm — guard `data == &mons[PM_PRISONER] && mstrategy & STRAT_WAITMASK`; `canseemon` → `pline("%s speaks:", Monnam)`; `SetVoice(mtmp, 0, 80, 0)`; `verbalize("I'm finally free!")`; clear waitmask; `mpeaceful = 1`; `adjalign(3)`; `(void) angry_guards(FALSE)`.
+**JS:** 1 file (`quest.js`), under the 600/10 caps. Rule #2 clean; no DIAG/FORCE/seed gates. No hand probes — the corpus session reaches the changed arm.
+**Change:** `js/quest.js` only — `prisoner_speaks` in exact C order: `mndx` compare for the `data` identity (JS `mtmp.data` is a value, not a pointer — `sounds.js:1132` pattern), `canseemon` (extends the existing `display.js` edge), `Monnam` (`do_name.js`, `imports.mjs` SAFE hoisted), `SetVoice` (`sndprocs.js` !SND_LIB no-op, no cycle — call kept for C order), `adjalign` (extends the existing `attrib.js` edge), `await angry_guards(false)` (`mon.js`, same 90-module SCC, SAFE hoisted; C `FALSE` = not silent). `quest_talk` gains the C-order `switch (msound)` with the `MS_DJINNI` arm plus the C-order leader `return`; local `const MS_DJINNI = 29` (`monflag.h`; `sounds.js`/`monmove.js` local-const convention) and top-level `PM_PRISONER` (`monsters.js`, no cycle).
+**Verify:** `node scripts/verify.mjs --fn prisoner_speaks` → `PASS syntax 1 changed js file(s): js/quest.js` · `PASS rule2 no fs/path/url/node: imports, no DIAG/FORCE/seed gates` · `PASS hidden verify prisoner_speaks: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (scen-wish-Rogue-92210: PASS) · `PASS green 2/2` + strict ×2 · `PASS cohort 7/7` · `skip full (no shared file changed per runner)` · `VERIFY: PASS`. Final verify ran after the last js/ edit (map/D-log/queue edits only after).
+**Named:** `MS_NEMESIS` → `nemesis_speaks` (no live export — `quest.js` header + map).
+**Next:** none — the blocked session fully PASSes; row archived.
 ## 2026-09-08 — D-2113 `were.c` were_change unseen-howl arm: `You_hear` + `wake_nearto` after human→beast change (queue row `were.c` were_change, 1 of 2 sessions)
 
 **C locus:** `were.c:18–38` — after `new_were(mon)` + `gw.were_changes++` in the human→beast arm: `if (!Deaf && !canseemon(mon))` → `switch (monsndx(mon->data))` on the POST-change data (`PM_WEREWOLF`→«wolf», `PM_WEREJACKAL`→«jackal», default null) → `if (howler) { Soundeffect(se_canine_howl, 50); You_hear("a %s howling at the moon.", howler); wake_nearto(mon->mx, mon->my, 4 * 4); }`.

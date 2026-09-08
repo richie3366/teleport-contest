@@ -1,6 +1,6 @@
 {
- "commit": "6d4e021f",
- "at": "2026-09-08T09:50:33.464Z",
+ "commit": "7a8bf664",
+ "at": "2026-09-08T10:18:21.446Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -8425,18 +8425,18 @@
   },
   "scen-wish-Rogue-92210": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 7502,
+   "passed": true,
+   "rngM": 8457,
    "rngT": 8457,
-   "scrM": 147,
+   "scrM": 241,
    "scrT": 241,
-   "kind": "screen",
-   "step": 146,
+   "kind": null,
+   "step": null,
    "steps": 241,
-   "owner": "prisoner_speaks",
-   "loc": "quest.c:459",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "The prisoner speaks: \"I'm finally free!\"",
+   "cTopline": "",
    "jsTopline": "",
    "error": null
   },
