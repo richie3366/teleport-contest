@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-2162 — `attrib.c` acurr/extremeattr A_CON: wielded Ogresmasher pins CON at 25 (1 session moved past)
+
+- **Status:** fixed (Open queue row `botl.c` do_statusline1 — cited 1/553; `node scripts/verify.mjs --fn do_statusline1`: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS. No review cited by the row, so no stamp owed.)
+- **Symptom:** scen-wish-Valkyrie-92206 step 253/321, screen-first at botl.c:85 with identical toplines («i - a war hammer named Ogresmasher (weapon in right hand).» both sides); row 22 col 46: C «Wizard the Swashbuckler St:14 Dx:16 Co:25 In:10 Wi:9 Ch:8 Neutral» vs JS «… Co:18 …». Step draws draw-free state paint (stepFns: mcalcmove/maybe_generate_rnd_mon/u_calc_moveamt/regen_hp/gethungry/moveloop_core).
+- **C locus:** `attrib.c:1225–1227` (acurr A_CON arm: `if (u_wield_art(ART_OGRESMASHER)) result = 25`) + `attrib.c:1280–1282` (extremeattr A_CON arm: `lolimit = hilimit`). Owner `do_statusline1(botl.c:85)` is the status painter (sole cMsgOwner); the writer is acurr — the recipe wishes and wields Ogresmasher (`h Ogresmasher`, both sides print «(weapon in right hand)»), so C pins effective CON at 25.
+- **JS was:** `js/attrib.js` acurr A_CON arm was an empty `// C: ART_OGRESMASHER → 25 — deferred` block and extremeattr A_CON likewise deferred — JS printed the tmp clamp (18) while wielding the artifact.
+- **Fix:** `if (u_wield_art(ART_OGRESMASHER)) result = 25;` in acurr; `if (u_wield_art(ART_OGRESMASHER)) lolimit = hilimit;` in extremeattr, in exact C branch position. `u_wield_art` is the live `js/artifact.js` export (C obj.h `is_art(uwep, art)` shape; `imports.mjs --can`: ALREADY, same existing edge); `ART_OGRESMASHER` from `js/generated/artifacts_data.js` (checked-in extractor output, zero-import leaf, same class as the existing monsters_data edge).
+- **JS:** `js/attrib.js` only (2 import names + 2 one-line arms). Insertions ≈6, under the 600 cap.
+- **Verify:** `node scripts/verify.mjs --fn do_statusline1` → PASS syntax (1 changed file: js/attrib.js) · PASS rule2 (no fs/path/url/node:, no DIAG/FORCE/seed gates) · PASS hidden (scen-wish-Valkyrie-92206 moved do_statusline1@253 → exercise@313, later owner) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · full skipped (no shared file changed). VERIFY: PASS.
+- **Named omissions:** none in these arms — both C branches are live. (Sibling acurr arms STR-GoP / CHA-nymph / INT-WIS-Dunce already live per D-0797/D-2057; DEX has no C arm; extremeattr STR/INT-WIS untouched.)
+- **Next:** `polyself.c` break_armor (next Open row); queue 10→9, no refill owed (8–12 band).
+
 ## D-2161 — `mhitu.c` gulpmu AD_DREN + `trap.c` drain_en: engulf energy-drain draw (1 session moved past)
 
 - **Status:** fixed (Open queue row `mhitu.c` gulpmu — cited 1/553; `node scripts/verify.mjs --fn gulpmu`: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS. No review cited by the row, so no stamp owed.)

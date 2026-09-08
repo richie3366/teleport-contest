@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `botl.c` do_statusline1 — blocks 1/553 corpus sessions (first at step 253): C «i - a war hammer named Ogresmasher (weapon in right hand).» vs JS «i - a war hammer named Ogresmasher (weapon in right hand).». Probe: `node scripts/hidden-proxy.mjs verify do_statusline1` (scen-wish-Valkyrie-92206).
 - [ ] `polyself.c` break_armor — blocks 1/553 corpus sessions (first at step 88): C «You drop your gloves!--More--» vs JS «You drop your gloves!--More--». Probe: `node scripts/hidden-proxy.mjs verify break_armor` (scen-poly-Tourist-92171).
 - [ ] `makemon.c` newmonhp — blocks 1/553 corpus sessions (first at step 47): C draws `d(13,8)=55` in newmonhp, JS `d(1,8)=2` from newmonhp(makemon.js:931). Probe: `node scripts/hidden-proxy.mjs verify newmonhp` (scen-tour-Tourist-92134).
 - [ ] `zap.c` maybe_destroy_item — blocks 1/553 corpus sessions (first at step 164): C draws `rnd(4)=2` in maybe_destroy_item, JS `rn2(3)=1` from mhitm_knockback(mhitm.js:2029). Probe: `node scripts/hidden-proxy.mjs verify maybe_destroy_item` (scen-tour-Tourist-91101).

@@ -93,10 +93,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** doturn parked this iter (STALE OWNER — Priest-92096 blocked at step-76 map blank, see LOOP-QUEUE Parked + NOTES Active; genuine gnostic fix documented there for re-application). Pop the next Open row next iter.
+**Next cluster:** `botl.c` do_statusline1 — blocks 1/553 corpus sessions (first at step 253): C «i - a war hammer named Ogresmasher (weapon in right hand).» vs JS «i - a war hammer named Ogresmasher (weapon in right hand).». Probe: `node scripts/hidden-proxy.mjs verify do_statusline1` (scen-wish-Valkyrie-92206).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2161 (index).**
+**Keep D-0845…D-2162 (index).**
 <!-- recent:begin -->
+**D-2162** `attrib.c:1225–1227` (acurr A_CON arm: `if (u_wield_art(ART_OGRESMASHER)) result = 25`) +  — `if (u_wield_art(ART_OGRESMASHER)) result = 25;` in acurr; `if (u_wield_art(ART_OGRESMASHER)) lolimit = hilimit;` in extremeattr, in exact C branch position.
 **D-2161** `mhitu.c:1537–1542` (gulpmu `case AD_DREN`: «AC magic cancellation doesn't help when engul — new exported async `drain_en(n, max_already_drained)` in `js/trap.js` (C-faithful home; `rnd`/`You_feel`/`game.disp.botl` already live there) in exact C order and short-circuit (`|0` int reads, `Math.trunc` for the C `/3
 **D-2160** `timeout.c:692–724` (nh_timeout uprops-expiry `case SICK`), NOT `sickness_dialogue` (`:322 — new `p === SICK` arm in exact C order and short-circuit: `find_delayed_killer(SICK)`; food poisoning (`!(usick_type&SICK_NONVOMITABLE)`, short-circuits before the draw) with `rn2(100) < acurr(A_CON)` → «You have recovere
 **D-2159** `eat.c:2099–2217` (`fprefx`, static), called from ordinary-food `doeat` `:3038` when eatin — full C port in exact branch order and short-circuit (JS `feedback` flag for C `goto give_feedback`; garlic FALLTHROUGH preserved).
@@ -104,11 +105,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2157** `light.c:213–250` (`do_light_sources`), reached via `apply.c` use_lamp `:1683` pline → `be — exact C ring — `limits = circle_ptr(range)`, `offset = limits[|y − ls.y|]`; `circle_ptr` exported from `js/vision.js` (was module-private; the table itself is already a verbatim C copy; `imports.mjs --can`: ALREADY, same
 **D-2156** `zap.c:6401–6420` (`makewish` tail), not `mkobj.c hornoplenty`. The owner string is a topl — port the C block in exact branch order and short-circuit: fatal-corpse `wishedfor=1` via live `u_safe_from_fatal_corpse`/`st_all` (dynamic `pickup.js` import; `imports.mjs --can`: SAFE, hoisted function, same 90-module S
 **D-2155** `uhitm.c:2626–2652` (`mhitm_ad_cold` uhitm arm: `mhitm_mgc_atk_negated(magr, mdef, TRUE)`  — new `damageum_ad_cold(mdef, mhm)` in `js/uhitm.js` in exact C order and short-circuit (negate-TRUE first; Blind-gated frost pline via house `Blind_that()`; resists_cold + shieldeff + chill pline then zero; `destroy_items
-**D-2154** `insight.c:2784–2949` (`list_vanquished`: per-type line from `mons[i].pmnames[NEUTRAL]` — `pmname_neutral` now returns `pmnames[mndx]?.[NEUTRAL] ?? 'monster'` with the C cite (`mons[i].pmnames[NEUTRAL]`); `pmnames, NEUTRAL` join the existing `monsters.js` edge (`imports.mjs --can`: ALREADY, no new edge).
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2161; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2162; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
