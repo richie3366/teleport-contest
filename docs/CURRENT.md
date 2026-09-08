@@ -86,7 +86,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `insight.c` one_characteristic — blocks 3/553 corpus sessions (first at step 14): C «Your constitution was 18 (limit:18).» vs JS «Your constitution was 18 (limit:18).». Probe: `node scripts/hidden-proxy.mjs verify one_characteristic` (scen-normal-Barbarian-92208, scen-normal-Caveman-92006, scen-normal-Tourist-91122).
+**Next cluster:** `polyself.c` polyself — blocks 2/553 corpus sessions (first at step 63): C «You can't polymorph into Croesus.--More--» vs JS «You can't polymorph into a Croesus.--More--». Probe: `node scripts/hidden-proxy.mjs verify polyself` (scen-poly-Archeologist-92119, scen-poly-Caveman-91133). (distfleeck parked 2026-09-08 as symptom owner — see LOOP-QUEUE Parked, no D-log.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2062 (index).**
 <!-- recent:begin -->
