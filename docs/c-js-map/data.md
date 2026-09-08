@@ -111,8 +111,12 @@ wake_nearto + Slimed burn_away, async callers; **SPFX_BEHEAD Tsurugi+Vorpal
 both defend arms** (D-2144; ROLL_FROM `rn2(2)` always drawn, FATAL 200,
 `observe_object`; `Monnam`/`observe_object`/`bigmonst`/`has_head`/
 `noncorporeal`/`amorphous` existing edges, `mbodypart`/`body_part`
-`polyself.js` edge, `NECK` const edge); destroy/ignite bodies,
-Mb_hit, SPFX_DRLI still deferred); 
+`polyself.js` edge, `NECK` const edge); **Mb_hit full tiers** (D-2146;
+C `:1248–1434` + `:1537–1540` gate, `decl.c:51` fakename; `sticks`/`set_ustuck`/
+`monflee`/`make_stunned`/`make_confused`/`upstart` new `--can`-SAFE edges,
+`cancel_monst`/`resist`/`probe_monster`/`canspotmon`/`map_invisible`/`shieldeff`/
+`nomul`/`NOTELL`/`WEAPON_CLASS` existing edges, file-local `attacktype`/AT_MAGC);
+destroy/ignite bodies, SPFX_DRLI still deferred); 
 **`artiname` / `discover_artifact` / `artidisco[]`** (D-1107; save/rest artidisco named); 
 **`init_artifacts`/`hack_artifacts`** (D-1201; C `artifact.c:109–116`/`85–106`; 
 `allmain.c:792` after `init_dungeons` before `u_init_misc`; 

@@ -8,10 +8,10 @@ import {
     NROFARTIFACTS,
     artilistRaw,
 } from './generated/artifacts_data.js';
-import { objectNames, NUM_OBJECTS, objectDescrs, objects } from './objects.js';
+import { objectNames, NUM_OBJECTS, objectDescrs, objects, WEAPON_CLASS } from './objects.js';
 import { obj_shuffle_range } from './o_init.js';
 import { monsterNames, NON_PM, M2_UNDEAD, is_demon, is_dprince, is_dlord, resists_ston, hates_silver, bigmonst, has_head, noncorporeal, amorphous } from './monsters.js';
-import { Fire_resistance, Cold_resistance, Shock_resistance, Drain_resistance, resists_fire, resists_cold, resists_elec, resists_poison, resists_drli } from './zap.js';
+import { Fire_resistance, Cold_resistance, Shock_resistance, Drain_resistance, resists_fire, resists_cold, resists_elec, resists_poison, resists_drli, cancel_monst, resist, probe_monster } from './zap.js';
 import {
     A_NONE,
     ONAME_WISH,
@@ -56,6 +56,7 @@ import {
     GETOBJ_SUGGEST,
     GETOBJ_PROMPT,
     LAST_PROP,
+    NOTELL,
     HALLUC,
     TIMEOUT,
     I_SPECIAL,
@@ -91,7 +92,7 @@ import { rn2, rnd, d, rnz } from './rng.js';
 import { nhgetch } from './input.js';
 import {
     flush_screen, flush_topl_more, pline, impossible, You_feel, newsym, see_monsters,
-    set_sting_effects, glyph_at, glyph_is_trap,
+    set_sting_effects, glyph_at, glyph_is_trap, canspotmon, map_invisible, shieldeff,
 } from './display.js';
 import { cansee } from './vision.js';
 import { mon_nam, s_suffix, Monnam } from './do_name.js';
@@ -103,7 +104,12 @@ import { recalc_telepat_range } from './do_wear.js';
 import { t_at } from './trap.js';
 import { livelog_printf } from './pline.js';
 import { inside_shop } from './shk.js';
-import { losehp, maybe_half_phys, finish_maybe_wail } from './hack.js';
+import { losehp, maybe_half_phys, finish_maybe_wail, nomul } from './hack.js';
+import { sticks } from './engrave.js';
+import { set_ustuck } from './mhitu.js';
+import { monflee } from './monmove.js';
+import { make_stunned, make_confused } from './potion.js';
+import { upstart } from './hacklib.js';
 import { exercise, A_WIS } from './attrib.js';
 
 const CRYSTAL_BALL = objectNames.indexOf('CRYSTAL_BALL');
@@ -2184,14 +2190,184 @@ export function spec_dbon(otmp, mon, tmp) {
     return 0;
 }
 
+/* C artifact.c:1232–1239 — Magicbane effect indices. */
+const MB_INDEX_PROBE = 0;
+const MB_INDEX_STUN = 1;
+const MB_INDEX_SCARE = 2;
+const MB_INDEX_CANCEL = 3;
+/* C artifact.c:1241 — MB_MAX_DIEROLL 8: rolls above this aren't magical. */
+const MB_MAX_DIEROLL = 8;
+/* C artifact.c:1242–1245 — mb_verb[hallu][index]. */
+const MB_VERB = [
+    ['probe', 'stun', 'scare', 'cancel'],
+    ['prod', 'amaze', 'tickle', 'purge'],
+];
+/** C artifact.c:1340 — mdef->data identity for the cancel clay-golem arm. */
+const PM_CLAY_GOLEM = monsterNames.indexOf('PM_CLAY_GOLEM');
+/* C monattk.h AT_MAGC — JS mattk encoding 255 (mhitm.js:217; eat.js precedent). */
+const AT_MAGC = 255;
+/**
+ * C ref: mondata.h attacktype — true if any mattk slot has aatyp.
+ * File-local per eat.js/engrave.js precedent (uhitm.js edge would cycle).
+ */
+function attacktype(ptr, aatyp) {
+    const slots = ptr?.mattk;
+    if (!slots) return false;
+    for (const a of slots) {
+        if ((a?.aatyp | 0) === (aatyp | 0)) return true;
+    }
+    return false;
+}
+
+/**
+ * C ref: artifact.c Mb_hit :1248–1434 — called when someone is hit by
+ * Magicbane. Picks probe/stun/scare/cancel from spe + dieroll (RNG order:
+ * rn2(11|7) stun gate, then one rnd(4) per reached tier), prints the
+ * magic-absorbing blade hit pline, then runs the tier effect (cancel /
+ * scare / probe; stun is a flag), then stun/confuse application and the
+ * resisted/stunned-and-confused side-effect plines.
+ * @param {object} dmgBox mutable `{ dmg }` (C int *dmgptr)
+ * @param {string} hittee target's name (C char[BUFSZ]; re-set on cancel poly)
+ * @returns {boolean} whether caller should suppress ordinary hit pline
+ */
+export async function Mb_hit(magr, mdef, mb, dmgBox, dieroll, vis, hittee) {
+    const hero = game.youmonst;
+    const isHero = (m) => !!m && (m === hero || m === youmonst || !!m._youmonst);
+    const youattack = isHero(magr);
+    const youdefend = isHero(mdef);
+    const u = game.u || (game.u = {});
+    let resisted = false;
+    let do_stun;
+    let do_confuse;
+    let result = false; /* no message given yet */
+    let dr = dieroll | 0;
+    let scare_dieroll = MB_MAX_DIEROLL / 2;
+    let hb = hittee;
+    /* C :1266–1271 — severe effects less likely at higher enchantment; a
+       resisted bonus-damage roll also damps the special effects. */
+    if (((mb?.spe | 0) >= 3)) scare_dieroll = Math.trunc(scare_dieroll / (1 << Math.trunc((mb.spe | 0) / 3)));
+    if (!spec_dbon_applies) dr += 1;
+    /* C :1277 — might stun even when attempting a more severe effect. */
+    do_stun = Math.max((mb?.spe | 0), 0) < rn2(spec_dbon_applies ? 11 : 7);
+    /* C :1286–1299 — cumulative tiers; stun damage may be skipped while the
+       stun flag still applies. Base is 1d4 (athame) or 2d4 with spec_dbon. */
+    let attack_indx = MB_INDEX_PROBE;
+    dmgBox.dmg = (dmgBox.dmg | 0) + rnd(4); /* (2..3)d4 */
+    if (do_stun) {
+        attack_indx = MB_INDEX_STUN;
+        dmgBox.dmg = (dmgBox.dmg | 0) + rnd(4); /* (3..4)d4 */
+    }
+    if (dr <= scare_dieroll) {
+        attack_indx = MB_INDEX_SCARE;
+        dmgBox.dmg = (dmgBox.dmg | 0) + rnd(4); /* (3..5)d4 */
+    }
+    if (dr <= Math.trunc(scare_dieroll / 2)) {
+        attack_indx = MB_INDEX_CANCEL;
+        dmgBox.dmg = (dmgBox.dmg | 0) + rnd(4); /* (4..6)d4 */
+    }
+    /* C :1301–1311 — hit message before the effects. */
+    const verb = MB_VERB[Hallucination() ? 1 : 0][attack_indx];
+    if (youattack || youdefend || vis) {
+        result = true;
+        await pline(`The magic-absorbing blade ${vtense(null, verb)} ${hb}!`);
+        if (attack_indx === MB_INDEX_PROBE && !canspotmon(mdef)) map_invisible(mdef.mx | 0, mdef.my | 0);
+    }
+    /* C :1314–1388 — the special effects. */
+    if (attack_indx === MB_INDEX_CANCEL) {
+        const old_mdat = youdefend ? game.youmonst?.data : mdef?.data;
+        if (!(await cancel_monst(mdef, mb, youattack, false, false))) {
+            resisted = true;
+        } else {
+            do_stun = false;
+            if (youdefend) {
+                if (game.youmonst?.data !== old_mdat) dmgBox.dmg = 0; /* rehumanized */
+                if ((u.uenmax | 0) > 0) {
+                    u.uenmax = (u.uenmax | 0) - 1;
+                    if ((u.uen | 0) > 0) u.uen = (u.uen | 0) - 1;
+                    if (game.disp) game.disp.botl = true;
+                    if (game.flags) game.flags.botl = true;
+                    await pline('You lose magical energy!');
+                }
+            } else {
+                if (mdef?.data !== old_mdat) hb = mon_nam(mdef);
+                if (((mdef?.data?.mndx ?? mdef?.mnum ?? -1) | 0) === PM_CLAY_GOLEM) mdef.mhp = 1;
+                if (youattack && attacktype(mdef?.data, AT_MAGC)) {
+                    u.uenmax = (u.uenmax | 0) + 1;
+                    if ((u.uenmax | 0) > (u.uenpeak | 0)) u.uenpeak = u.uenmax;
+                    u.uen = (u.uen | 0) + 1;
+                    if (game.disp) game.disp.botl = true;
+                    if (game.flags) game.flags.botl = true;
+                    await pline('You absorb magical energy!');
+                }
+            }
+        }
+    } else if (attack_indx === MB_INDEX_SCARE) {
+        if (youdefend) {
+            if (Antimagic_hero()) {
+                resisted = true;
+            } else {
+                nomul(-3);
+                game.multi_reason = 'being scared stiff';
+                game.nomovemsg = '';
+                if (magr && (u.ustuck === magr) && sticks(game.youmonst?.data)) {
+                    set_ustuck(null);
+                    await pline(`You release ${mon_nam(magr)}!`);
+                }
+            }
+        } else {
+            if (rn2(2) && (await resist(mdef, WEAPON_CLASS, 0, NOTELL))) resisted = true;
+            else await monflee(mdef, 3, false, ((mdef?.mhp | 0) > (dmgBox.dmg | 0)));
+        }
+        if (!resisted) do_stun = false;
+    } else if (attack_indx === MB_INDEX_PROBE) {
+        if (youattack && (((mb?.spe | 0) === 0) || !rn2(3 * Math.abs(mb?.spe | 0)))) {
+            await pline(`The ${verb} is insightful.`);
+            await probe_monster(mdef);
+        }
+    }
+    /* C :1377–1379 MB_INDEX_STUN arm is just do_stun = TRUE (redundant). */
+    /* C :1389–1406 — stun if selected and no worse effect occurred. */
+    if (do_stun) {
+        if (youdefend) await make_stunned((((u.HStun | 0) & TIMEOUT) + 3) | 0, false);
+        else mdef.mstun = 1;
+        /* avoid extra stun message below if we used mb_verb["stun"] above */
+        if (attack_indx === MB_INDEX_STUN) do_stun = false;
+    }
+    /* C :1399–1406 — lastly, all this magic can be confusing... */
+    do_confuse = !rn2(12);
+    if (do_confuse) {
+        if (youdefend) await make_confused((((u.HConfusion | 0) & TIMEOUT) + 4) | 0, false);
+        else mdef.mconf = 1;
+    }
+    /* C :1408–1431 — side-effect messages. C decl.c:51 fakename[] is
+       { "mon", "you" } and C vtense treats "you" as plural, so the fake
+       verb is the raw verb for the hero and vtense('mon', verb) else. */
+    if (youattack || youdefend || vis) {
+        hb = upstart(hb); /* capitalize */
+        if (resisted) {
+            await pline(`${hb} ${youdefend ? 'resist' : vtense('mon', 'resist')}!`);
+            await shieldeff(youdefend ? (u.ux | 0) : (mdef.mx | 0), youdefend ? (u.uy | 0) : (mdef.my | 0));
+        }
+        if ((do_stun || do_confuse) && (game.flags?.verbose !== false)) {
+            let buf = '';
+            if (do_stun) buf += 'stunned';
+            if (do_stun && do_confuse) buf += ' and ';
+            if (do_confuse) buf += 'confused';
+            await pline(`${hb} ${youdefend ? 'are' : vtense('mon', 'are')} ${buf}${(do_stun && do_confuse) ? '!' : '.'}`);
+        }
+    }
+    return result;
+}
+
 /**
  * C ref: artifact.c artifact_hit :1447–1721 — preamble + four basic
  * attacks (FIRE/COLD/ELEC/MAGM) with realizes_damage plines + SPFX_BEHEAD.
  * Ported: spec_dbon add; youattack/youdefend/vis/realizes_damage/hittee;
  * impossible self-attack; elemental plines in C order; ELEC wake_nearto
- * when spec_dbon_applies; rn2(4)/rn2(5) gates burned; Slimed burn_away.
+ * when spec_dbon_applies; rn2(4)/rn2(5) gates burned; Slimed burn_away;
+ * Mb_hit (Magicbane specials).
  * Named omissions: destroy_items/ignite_items bodies (gates still burned);
- * Mb_hit; SPFX_DRLI.
+ * SPFX_DRLI.
  * @param {object} dmgBox mutable `{ dmg }` (C int *dmgptr)
  * @returns {boolean} whether caller should suppress ordinary hit pline
  */
@@ -2277,10 +2453,9 @@ export async function artifact_hit(magr, mdef, otmp, dmgBox, dieroll) {
         }
         return realizes_damage;
     }
-    // C: MB_MAX_DIEROLL 8 — rolls above this aren't magical
-    if (attacks(AD_STUN, otmp) && (dieroll | 0) <= 8) {
-        // Mb_hit deferred — Magicbane specials
-        return false;
+    // C :1537–1540 — Magicbane's special attacks (possibly modifies hittee[]).
+    if (attacks(AD_STUN, otmp) && (dieroll | 0) <= MB_MAX_DIEROLL) {
+        return await Mb_hit(magr, mdef, otmp, dmgBox, dieroll | 0, vis, hittee);
     }
     if (!spec_dbon_applies) return false;
     // C :1550–1644 — SPFX_BEHEAD (Tsurugi of Muramasa + Vorpal Blade).

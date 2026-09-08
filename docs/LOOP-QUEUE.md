@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `artifact.c` Mb_hit — blocks 1/553 corpus sessions (first at step 110): C draws `rn2(11)=5` in Mb_hit, JS `rn2(3)=0` from mhitm_knockback(mhitm.js:2015). Probe: `node scripts/hidden-proxy.mjs verify Mb_hit` (scen-wish-Archeologist-91134).
 - [ ] `mon.c` mondead — blocks 1/553 corpus sessions (first at step 81): C draws `rnd(5)=1` in mondead, JS `rn2(6)=2` from xkilled(uhitm.js:669). Probe: `node scripts/hidden-proxy.mjs verify mondead` (scen-genesis-Barbarian-92111).
 - [ ] `botl.c` do_statusline2 — blocks 1/553 corpus sessions (first at step 214): C `HP:44(50)` vs JS `HP:43(50)` on the status line (otherwise identical; step-214 damage path drew matched RNG — symptom owner). Re-queued from fired `weapon.c` dmgval row (D-2139 tree moved it past step 123; cf. archived D-2024 row for an earlier step). Probe: `node scripts/hidden-proxy.mjs verify do_statusline2` (scen-poly-Priest-91137).
 - [ ] `mon.c` minliquid_core — blocks 1/553 corpus sessions (first at step 130): C draws `rn2(15)=2` in minliquid_core, JS draws nothing after `rn2(6)=0 @ mhitm_knockback` (C topline lifesave «OK, so you don't die. You survived that attempt on your life.» vs JS empty). Re-queued from fired `apply.c` magic_whistled row (D-2096 tree moved it past step 78). Probe: `node scripts/hidden-proxy.mjs verify minliquid_core` (scen-genesis-Priest-91110).

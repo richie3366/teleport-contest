@@ -21,7 +21,7 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-08** — full `sessions` on the working tree
-(audit **1103–1107**: b9b2fdef…79844c1c, D-2137…D-2145).
+(audit **1103–1107**: b9b2fdef…79844c1c, D-2137…D-2146).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 `63+0.39/turn` (R² 0.81).
@@ -90,10 +90,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** queue head `artifact.c` Mb_hit (scen-wish-Archeologist-91134) — `eat.c` lesshungry row parked 2026-09-08 as stale owner (live block is do_statusline2@82, the parked lembas pair).
+**Next cluster:** - [ ] `artifact.c` Mb_hit — blocks 1/553 corpus sessions (first at step 110): C draws `rn2(11)=5` in Mb_hit, JS `rn2(3)=0` from mhitm_knockback(mhitm.js:2015). Probe: `node scripts/hidden-proxy.mjs verify Mb_hit` (scen-wish-Archeologist-91134). `eat.c` lesshungry row parked 2026-09-08 as stale owner (live block is do_statusline2@82, the parked lembas pair).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2145 (index).**
+**Keep D-0845…D-2146 (index).**
 <!-- recent:begin -->
+**D-2146** `artifact.c:1248–1434` (`Mb_hit`: `scare_dieroll` spe damping, `!spec_dbon_applies→dieroll — `js/artifact.js` only — exported async `Mb_hit` in exact C order and short-circuit (tier cascade, `dr<=scare/2` cancel floor via `Math.trunc`, hit pline before effects, CANCEL `cancel_monst` + rehumanize `dmg=0` + uenmax
 **D-2145** `end.c:183–190` (`mptr`/`champtr` + `distorted`/`mimicker`/`imitator`), `:195–205` (G_UNIQ — `js/end.js` only, in C order and short-circuit: `mptr`/`champtr`/`distorted`/`mimicker`/`imitator` decls; G_UNIQ gate with imitator + High-Cleric conditions and `type_is_pname` no-`the` arm; `minvis` + `hallucinogen-dist
 **D-2144** `artifact.c:1550–1644` (SPFX_BEHEAD: Tsurugi `dieroll==1` engulf-slice / `notonhead→FALSE` — `js/artifact.js` only — full BEHEAD arm in C order and short-circuit (Tsurugi `ART_TSURUGI_OF_MURAMASA` + Vorpal `ART_VORPAL_BLADE` from `generated/artifacts_data.js`; `PM_JABBERWOCK` via the existing `monsterNames.index
 **D-2143** `hack.c:2995–3018` (`runmode_delay_output`: `(svc.context.run || gm.multi) && flags.runmod — new exported async `runmode_delay_output()` in `js/hack.js` (C-faithful home, `// src/hack.c:2995` cite): raw-string normalization with C's prefix table in C order (`teleport→TPORT, run→LEAP, walk→STEP, crawl→CRAWL`, cas
@@ -101,11 +102,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2141** `invent.c:1227–1231` (`hold_another_object` artifact-refuse arm: `obj_extract_self(obj)` t — `js/invent.js` only — `await dropy(obj)` after `obj_extract_self(obj)` in the refuse arm (C `:1229`), with C cite.
 **D-2140** `mcastu.c:247–304` (`ret = M_ATTK_HIT` + `switch (mattk->adtyp)` AD_FIRE/AD_COLD/AD_MAGM/S — `js/mcastu.js` only — full C switch in C order and short-circuit: FIRE (`pline("You're enveloped in flames.")`, `Fire_resistance()` → `shieldeff` + resist pline + `monstseesu(M_SEEN_FIRE)` + `dmg = 0` else `monstunseesu`
 **D-2139** `dothrow.c:112–116` (non-quiver coins → `throw_gold`; quivered coins fall through) + `:254 — `js/dothrow.js` only — (1) coin gate is now `if COIN_CLASS && obj !== uquiver → throw_gold`; quivered coins fall through to the live m_shot loop (split/freeinv/throwit/encumber in C order); (2) file-local `freeinv` decre
-**D-2138** draw site `allmain.c:307–309` (`if (Teleportation && !rn2(85)) tele(); …`); predicate-stat — `js/polyself.js` only — `can_teleport`/`control_teleport` added to the existing `monsters.js` edge (the edge `eat.js`/`dokick.js` already use; hoisted function exports, no TDZ risk) and `TELEPORT`/`TELEPORT_CONTROL` to t
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2145; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2146; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
