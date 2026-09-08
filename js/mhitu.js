@@ -1887,6 +1887,9 @@ async function gulpmu(mtmp, mattk) {
         }
         break;
     case AD_DISE:
+        // C mhitu.c gulpmu `:1533–1536` — diseasemu decides; resistance zeroes
+        if (!(await diseasemu(mtmp?.data))) tmp = 0;
+        break;
     case AD_DREN:
         tmp = 0;
         break;
@@ -2480,6 +2483,20 @@ async function diseasemu(mdat) {
 }
 
 /**
+ * C ref: uhitm.c mhitm_ad_dise `:4593–4619` — mhitu (monster→you) arm only
+ * (`:4604–4608`). hitmsg always (unconditional, like the SAMU/WERE arms);
+ * then `if (!diseasemu(pa)) mhm->damage = 0` — sickness keeps the leftover
+ * hitmu d() ("plus the normal damage"), resistance zeroes it. The uhitm
+ * arm cannot happen (hero never polymorphs into a DISE attacker — C
+ * `:4599–4603` comment); the mhitm arm (S_FUNGUS/GHOUL/defended gate,
+ * `:4610–4618`) lives in mhitm.js.
+ */
+async function mhitm_ad_dise_u(mtmp, mattk, mhm) {
+    await hitmsg(mtmp, mattk);
+    if (!(await diseasemu(mtmp?.data))) mhm.damage = 0;
+}
+
+/**
  * C ref: uhitm.c mhitm_ad_pest `:3808–3834` — mhitu (monster→you) arm only.
  * No hitmsg (C goes straight to pline_mon, like the FAMN arm, unlike the
  * STON/SLEE arms); pline_mon reach-out, then diseasemu(pa). Leftover
@@ -2640,7 +2657,7 @@ async function mhitm_ad_stun_u(mtmp, mattk, mhm) {
  * PHYS + ELEC + COLD + FIRE + TLPT + DRST/DRDX/DRCO + SITM/SEDU + SSEX (D-1750)
  * + BLND + STON + LEGS + POLY (D-1004) + DRIN (D-1329) + WRAP (D-1331) + SLEE
  * + DRLI + RUST + CORR + STCK + PLYS + FAMN + SLOW + WERE + HEAL + PEST
- * + SAMU + STUN; other adtyps zero damage.
+ * + SAMU + STUN + DISE; other adtyps zero damage.
  */
 async function mhitm_adtyping_u(mtmp, mattk, mhm) {
     switch (mattk.adtyp | 0) {
@@ -2727,6 +2744,9 @@ async function mhitm_adtyping_u(mtmp, mattk, mhm) {
         break;
     case AD_STUN:
         await mhitm_ad_stun_u(mtmp, mattk, mhm);
+        break;
+    case AD_DISE:
+        await mhitm_ad_dise_u(mtmp, mattk, mhm);
         break;
     default:
         mhm.damage = 0;

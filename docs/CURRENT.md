@@ -91,10 +91,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** - [ ] `mhitu.c` diseasemu — blocks 1/553 corpus sessions (first at step 23): C «Demogorgon hits! You feel deathly sick. Demogorgon hits!» vs JS «Demogorgon hits!» (C `rn2(16)=6 @ diseasemu(mhitu.c:1039)` vs JS `rn2(3)=2 @ mhitm_knockback(mhitm.js:2060)`). Probe: `node scripts/hidden-proxy.mjs verify diseasemu` (scen-death-Valkyrie-92229).
+**Next cluster:** - [ ] `uhitm.c` hmon_hitmon_weapon_melee — blocks 1/553 (first at step 122, scen-normal-Rogue-92146; full row text in LOOP-QUEUE Open). Probe: `node scripts/hidden-proxy.mjs verify hmon_hitmon_weapon_melee`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2150 (index).**
+**Keep D-0845…D-2151 (index).**
 <!-- recent:begin -->
+**D-2151** `uhitm.c:4593–4619` (`mhitm_ad_dise`; mhitu arm `:4604–4608`: `hitmsg(magr, mattk); if (!d — New `mhitm_ad_dise_u` in `js/mhitu.js` in exact C order and short-circuit (`await hitmsg`; `if (!(await diseasemu(mtmp?.data))) mhm.damage = 0` — sickness keeps leftover hitmu d(), resistance zeroes it), wired as `case A
 **D-2150** `read.c:2651–2658` (`Snprintf(" [enter %s]", iflags.cmdassist ? "the symbol or name repres — Both genocide prompts use `!== false` default-On (house pattern from pickup.js/lock.js), C-cited.
 **D-2149** `dogmove.c` APPORT `can_carry` gate; `mon.c`/`artifact.c` monster touch arms — Port C monster touch refusal; port `can_touch_safely`; `dog_goal` uses the `can_carry` export.
 **D-2148** `polyself.c:105` `PROPSET(REGENERATION, regenerates(mdat))` inside `set_uasmon` (`:38–112` — `js/polyself.js` only — import `regenerates` on the existing `monsters.js` edge + `REGENERATION` on the existing `const.js` edge (`imports.mjs --can`: ALREADY, no new edge); `set_uasmon` gains `propset_fromform(REGENERAT
@@ -102,11 +103,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2146** `artifact.c:1248–1434` (`Mb_hit`: `scare_dieroll` spe damping, `!spec_dbon_applies→dieroll — `js/artifact.js` only — exported async `Mb_hit` in exact C order and short-circuit (tier cascade, `dr<=scare/2` cancel floor via `Math.trunc`, hit pline before effects, CANCEL `cancel_monst` + rehumanize `dmg=0` + uenmax
 **D-2145** `end.c:183–190` (`mptr`/`champtr` + `distorted`/`mimicker`/`imitator`), `:195–205` (G_UNIQ — `js/end.js` only, in C order and short-circuit: `mptr`/`champtr`/`distorted`/`mimicker`/`imitator` decls; G_UNIQ gate with imitator + High-Cleric conditions and `type_is_pname` no-`the` arm; `minvis` + `hallucinogen-dist
 **D-2144** `artifact.c:1550–1644` (SPFX_BEHEAD: Tsurugi `dieroll==1` engulf-slice / `notonhead→FALSE` — `js/artifact.js` only — full BEHEAD arm in C order and short-circuit (Tsurugi `ART_TSURUGI_OF_MURAMASA` + Vorpal `ART_VORPAL_BLADE` from `generated/artifacts_data.js`; `PM_JABBERWOCK` via the existing `monsterNames.index
-**D-2143** `hack.c:2995–3018` (`runmode_delay_output`: `(svc.context.run || gm.multi) && flags.runmod — new exported async `runmode_delay_output()` in `js/hack.js` (C-faithful home, `// src/hack.c:2995` cite): raw-string normalization with C's prefix table in C order (`teleport→TPORT, run→LEAP, walk→STEP, crawl→CRAWL`, cas
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2150; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2151; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

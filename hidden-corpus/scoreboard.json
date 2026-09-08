@@ -1,6 +1,6 @@
 {
- "commit": "144563ef",
- "at": "2026-09-08T20:30:13.409Z",
+ "commit": "8b976e2a",
+ "at": "2026-09-08T20:35:35.612Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -4374,18 +4374,18 @@
   "scen-death-Valkyrie-92229": {
    "src": "corpus",
    "passed": false,
-   "rngM": 2832,
+   "rngM": 3094,
    "rngT": 3094,
-   "scrM": 23,
+   "scrM": 61,
    "scrT": 63,
-   "kind": "rng",
-   "step": 23,
+   "kind": "screen",
+   "step": 37,
    "steps": 63,
-   "owner": "diseasemu",
-   "loc": "mhitu.c:1039",
-   "jsOwner": "mhitm_knockback(mhitm.js:2060)",
-   "cTopline": "Demogorgon hits! You feel deathly sick. Demogorgon hits!",
-   "jsTopline": "Demogorgon hits!",
+   "owner": "slimed_to_death",
+   "loc": "timeout.c:508",
+   "jsOwner": null,
+   "cTopline": "OK, so you don't die. Demogorgon hits! You feel even worse.--More--",
+   "jsTopline": "OK, so you don't die. Demogorgon hits! You feel much worse.--More--",
    "error": null
   },
   "scen-death-Wizard-92120": {
