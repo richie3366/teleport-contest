@@ -1,6 +1,6 @@
 {
- "commit": "da6fa87b",
- "at": "2026-09-08T12:11:13.019Z",
+ "commit": "26431cce",
+ "at": "2026-09-08T12:20:10.219Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -7185,18 +7185,18 @@
   "scen-tour-Healer-92198": {
    "src": "corpus",
    "passed": false,
-   "rngM": 29945,
+   "rngM": 30412,
    "rngT": 31202,
-   "scrM": 109,
+   "scrM": 121,
    "scrT": 165,
    "kind": "rng",
-   "step": 104,
+   "step": 105,
    "steps": 165,
-   "owner": "gethungry",
-   "loc": "eat.c:3212",
-   "jsOwner": "moveloop_core(allmain.js:1069)",
-   "cTopline": "You finish your prayer.--More--",
-   "jsTopline": "You are surrounded by a shimmering light. You finish your prayer.--More--",
+   "owner": "prayer_done",
+   "loc": "pray.c:2311",
+   "jsOwner": "distfleeck(monmove.js:840)",
+   "cTopline": "Since you are in Gehennom, Hermes can't help you.--More--",
+   "jsTopline": "Since you are in Gehennom, Hermes can't help you.",
    "error": null
   },
   "scen-tour-Monk-91117": {

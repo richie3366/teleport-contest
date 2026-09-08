@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `cmd.c` getdir — blocks 1/553 corpus sessions (first at step 115): C «In what direction?» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify getdir` (scen-poly-Healer-92109). **Addressed:** D-2117
+- [x] `eat.c` gethungry — blocks 1/553 corpus sessions (first at step 104): C draws `rn2(20)=16` in gethungry, JS `rn2(73)=69` from moveloop_core(allmain.js:1069). Probe: `node scripts/hidden-proxy.mjs verify gethungry` (scen-tour-Healer-92198). **Addressed:** D-2118
+
+
+- [x] `cmd.c` getdir — blocks 1/553 corpus sessions (first at step 115): C «In what direction?» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify getdir` (scen-poly-Healer-92109). **Addressed:** D-2117 `26431cce`
 
 
 - [x] `zap.c` resist — blocks 2/553 corpus sessions (first at step 59): C draws `rn2(119)=42` in resist, JS `rn2(20)=16` from zap_hit(zap.js:1335). Probe: `node scripts/hidden-proxy.mjs verify resist` (scen-tour-Priest-92235, scen-wish-Ranger-92212). **Addressed:** D-2116 `12ef27f6`

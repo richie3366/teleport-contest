@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `eat.c` gethungry — blocks 1/553 corpus sessions (first at step 104): C draws `rn2(20)=16` in gethungry, JS `rn2(73)=69` from moveloop_core(allmain.js:1069). Probe: `node scripts/hidden-proxy.mjs verify gethungry` (scen-tour-Healer-92198).
 - [ ] `dogmove.c` dog_move — blocks 1/553 corpus sessions (first at step 48): C draws `rn2(1)=0` in dog_move, JS `rn2(5)=1` from distfleeck(monmove.js:808). Probe: `node scripts/hidden-proxy.mjs verify dog_move` (scen-normal-Rogue-92146).
 - [ ] `insight.c` attributes_enlightenment — blocks 2/553 corpus sessions (first at step 50): C «You were petrification resistant from your creature form.» vs JS «You were petrification resistant from your creature form.». Probe: `node scripts/hidden-proxy.mjs verify attributes_enlightenment` (scen-death-Wizard-92120, scen-tour-Barbarian-92079).
 - [ ] `invent.c` inuse_classify — blocks 2/553 corpus sessions (first at step 84): C «Weapons» vs JS «Weapons». Probe: `node scripts/hidden-proxy.mjs verify inuse_classify` (scen-genesis-Knight-92068, scen-wish-Caveman-92148).

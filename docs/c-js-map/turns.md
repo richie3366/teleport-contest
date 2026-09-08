@@ -1755,7 +1755,7 @@ FAINTED on faint);
 **`gethungry` ordinary `uhunger--` via `hero_form_data` diet + 
 odd/even Regen/encumb/Hunger/Conflict burns** (D-0410) + 
 **accessorytime even cases 0/4/8/12/16 (amulet/rings)** (D-0633; 
-seed0361 **PASS**) + **`uinvulnerable` early-return skips accessorytime** (D-0517 prayer); 
+seed0361 **PASS**) + **`uinvulnerable` early-return skips accessorytime** (D-0517 prayer; D-2118: `js/pray.js` `Inhell()` now the dungeon `hellish` flag per `dungeon.c:1941–1945`, so Gehennom prayer no longer mis-sets invuln/shimmer); 
 **`init_uhunger`/`newuhs` field thresholds + u_init `uhs=NOT_HUNGRY`** (D-0438) +
 **`newuhs` hunger messages / `end_running` / ATEMP WEAK / faint/starve /
 occupation `force_save_hs` + `unfaint` afternmv** (D-1791; C `eat.c:3362–3512` /
