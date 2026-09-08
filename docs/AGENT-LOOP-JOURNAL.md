@@ -8,6 +8,13 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-08 — D-2166 `dig.c` use_pick_axe: direction prompt listed `[kyu>]` instead of C `[yku>]` (1 session moved past)
+
+**C locus:** 
+**JS:** 
+**Change:** 
+**Verify:** 
+**Next:** (see LOOP-QUEUE)
 ## 2026-09-08 — D-2165 `zap.c` zhitu ZT_DEATH: bounced death ray printed a spurious "You die..." before the wizard "Die?" prompt (1 session PASS)
 
 **C locus:** `zap.c:4502–4509` (`zhitu` ZT_DEATH non-breath arm: `monstunseesu(M_SEEN_MAGR)`, killer `KILLED_BY_AN` + beam text, `ugrave_arise = NON_PM`, `done(DIED)` — no "You die..." pline; that pline lives only in `done_in_by` monster-kill and `zapyourself` self-zap `urgent_pline` paths), NOT `cmd.c yn_function` (`:5470–5583`, already faithful per D-1805 — JS reaches the same «Die? [yn] (n)» once the extra screen is gone).

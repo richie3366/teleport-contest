@@ -1,6 +1,6 @@
 {
- "commit": "3b27be21",
- "at": "2026-09-08T23:23:14.235Z",
+ "commit": "f567ecfb",
+ "at": "2026-09-08T23:26:36.006Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -5583,16 +5583,16 @@
    "passed": false,
    "rngM": 3480,
    "rngT": 3528,
-   "scrM": 65,
+   "scrM": 68,
    "scrT": 88,
    "kind": "screen",
-   "step": 11,
+   "step": 68,
    "steps": 88,
-   "owner": "use_pick_axe",
-   "loc": "dig.c:1151",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "In what direction do you want to dig? [yku>]",
-   "jsTopline": "In what direction do you want to dig? [kyu>]",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-kit-Archeologist-92170": {

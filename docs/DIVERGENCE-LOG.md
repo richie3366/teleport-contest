@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2166 — `dig.c` use_pick_axe: direction prompt listed `[kyu>]` instead of C `[yku>]` (1 session moved past)
+
+- Status: fixed.
+- Symptom: scen-kit-Archeologist-92022 step 11/88, screen-first at dig.c:1151: C «In what direction do you want to dig? [yku>]» vs JS «In what direction do you want to dig? [kyu>]».
+- C locus: `dig.c:1092–1156`; the dir loop (`:1123–1147`) walks `for (dir = 0; dir < N_DIRS_Z; dir++)` with `cmd_from_dir(dir, MV_WALK)`, i.e. DIR_W..DIR_UP in `sdir` order `"hykulnjb><"` (`cmd.c` reset_commands; `hack.h` movementdirs; xdir/ydir/zdir `decl.c:77–79`). Planar arm: `movecmd` sets u.dx/u.dy, then `dxdy_moveok()` (NODIAG grid-bug gate), then isok/`dig_typ` filter. Vertical arm: skip when `(u.dz > 0) ^ downok`.
+- JS was: `DIG_DIR_CHARS` in hjkl-first order with the `<>` tail swapped, so the same filter produced `[kyu>]`; the loop also skipped the movecmd/dxdy_moveok steps (read static dx/dy, never set u.dx/u.dy/u.dz, no NODIAG gate).
+- Fix: reordered the table to C `sdir` order with xdir/ydir/zdir coords; the loop now sets u.dx/u.dy/u.dz per entry (movecmd equivalent under the default bindings the house ports) and calls the live `dxdy_moveok()` export for planar dirs, `(u.dz > 0) ^ downok` for up/down — exact C branch order and short-circuit.
+- JS: `js/dig.js` `use_pick_axe` + `DIG_DIR_CHARS` (dxdy_moveok joins the existing `./lock.js` edge; no new module edge).
+- Verify: `node scripts/verify.mjs --fn use_pick_axe` → PASS syntax (1 changed js file) · PASS rule2 · PASS hidden (0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS: step 11 → step 68, screens 68/88, error null; the new diff is an owner-null map/menu row-1 screen uncovered downstream — verify prints it as "js-throw" but that is the owner-null fallback label, `show` reports kind=screen with error null) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · full skipped (no shared file changed).
+- Named omissions: movecmd key-remap fidelity (num_pad/swap_yz bindings) — the house uses fixed `sdir`/`GETDIR_DIRCHARS`; the C `cmd_from_dir` binding table is unported, same pre-existing shape as the getdir path.
+- Next: the session's step-68 map/menu row diff (owner null) is the next owner's row, not this function's.
+- Density note: small diff (~35 lines) because the function bulk was already ported (D-0951/D-1018); the remaining C gap was exactly this loop.
+
 ## D-2165 — `zap.c` zhitu ZT_DEATH: bounced death ray printed a spurious "You die..." before the wizard "Die?" prompt (1 session PASS)
 
 - **Status:** fixed (Open queue row `cmd.c` yn_function — cited 1/553; `node scripts/verify.mjs --fn yn_function`: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS. No review cited by the row, so no stamp owed.)

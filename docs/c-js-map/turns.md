@@ -1751,7 +1751,7 @@ W_NONDIGGABLE/W_NONPASSWALL** (D-0865); **`zap_dig`** horizontal `rn1(18,8)` + d
 maze_dig + `DISP_BEAM` (D-0516); **`zap_dig` `u.dz` arm** bounce-off-stairs/ladder + \nceiling rock (`rnd` 2/6 `hard_helmet`, `KILLED_BY_AN`, ROCK `mksobj`/`stackobj`/`newsym`) + \ndown/off-stairs `watch_dig`/`dighole` (D-2115); **`dig_check`/`fillholetyp`/`digactualhole`/`liquid_flow`/
 fill_pit`/`maybe_dunk`** for break-wand dig (D-0950); 
 **`dig_typ`/`pick_can_reach`/`is_digging`/`holetime`/`dig` occupation/`use_pick_axe`/`dighole` 
-thin/`fracture_rock`** (D-0951); **`furniture_handled` fountain/sink + HOLE `goto_level` + 
+thin/`fracture_rock`** (D-0951); **`use_pick_axe` dir loop sdir order + movecmd/dxdy_moveok** (D-2166; num_pad/swap_yz remap still named); **`furniture_handled` fountain/sink + HOLE `goto_level` + 
 mon `teleport_pet` migrate** (D-0954); **`dig_up_grave` + `dighole` IS_GRAVE** (D-0957); 
 **`shopdig` warn/snatch from dig hole fall + start-downward** (D-0958); 
 **`destroy_drawbridge` + `find_drawbridge`/`is_drawbridge_wall` dig wires** (D-0959); **`dbridge` entity family `e_at`/`m_to_e`/`u_to_e`/`set_entity`/`is_u`/`e_canseemon`/`e_nam`/`E_phrase` + `automiss`/`e_survives_at`/`e_missed`/`e_jumps`/`e_died`/`do_entity`/`nokiller` live in `js/dbridge.js`** (D-1943 + D-1967; close/open/destroy caller wiring + revive_nasty/scatter/minliquid still named); 
