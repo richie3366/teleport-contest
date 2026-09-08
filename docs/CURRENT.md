@@ -21,7 +21,7 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-08** — full `sessions` on the working tree
-(audit **1097–1102**: 98e0bb9e…51283e0c, D-2131…D-2139).
+(audit **1097–1102**: 98e0bb9e…51283e0c, D-2131…D-2140).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 `88+0.74/turn` (R² 0.84).
@@ -89,10 +89,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `mcastu.c` castmu (cursetxt row fired — already moved cursetxt@166 → fig_transform@169 by D-2137, see DONE). Probe: `node scripts/hidden-proxy.mjs verify castmu`.
+**Next cluster:** D-2140 shipped (`mcastu.c` castmu → ready_weapon@145); pop the next Open row.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2139 (index).**
+**Keep D-0845…D-2140 (index).**
 <!-- recent:begin -->
+**D-2140** `mcastu.c:247–304` (`ret = M_ATTK_HIT` + `switch (mattk->adtyp)` AD_FIRE/AD_COLD/AD_MAGM/S — `js/mcastu.js` only — full C switch in C order and short-circuit: FIRE (`pline("You're enveloped in flames.")`, `Fire_resistance()` → `shieldeff` + resist pline + `monstseesu(M_SEEN_FIRE)` + `dmg = 0` else `monstunseesu`
 **D-2139** `dothrow.c:112–116` (non-quiver coins → `throw_gold`; quivered coins fall through) + `:254 — `js/dothrow.js` only — (1) coin gate is now `if COIN_CLASS && obj !== uquiver → throw_gold`; quivered coins fall through to the live m_shot loop (split/freeinv/throwit/encumber in C order); (2) file-local `freeinv` decre
 **D-2138** draw site `allmain.c:307–309` (`if (Teleportation && !rn2(85)) tele(); …`); predicate-stat — `js/polyself.js` only — `can_teleport`/`control_teleport` added to the existing `monsters.js` edge (the edge `eat.js`/`dokick.js` already use; hoisted function exports, no TDZ risk) and `TELEPORT`/`TELEPORT_CONTROL` to t
 **D-2137** `mcastu.c:61–85` `cursetxt` + `:174–179` `castmu` unable-to-cast arm. The lich cast at 117 — `js/mcastu.js` only — module-local `async cursetxt(mtmp, undirected)` in exact C order and short-circuit (Invis/Displaced read from `game.u` like `mcast_summon_mons`; hero-mimic via `M_AP_TYPE`/`M_AP_OBJECT` from the exi
@@ -100,11 +101,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2135** `include/monsters.h` MON `LVL(lev, mov, ac, mr, aln)` group 4 = permonst.mr (magic-resista — extractor captures `lm.group(4)` as `mr` (+ fallback 0) and emits `export const mrs = [...]` (225/383 nonzero); `js/monsters.js` imports `mrs` (same leaf edge, no TDZ risk) and `mons()` sets `mr: mrs[mndx]` with C cite.
 **D-2134** `invent.c:1227–1231` `hold_another_object` artifact-refuse arm (`if (!touch_artifact(obj,  — `js/invent.js` only — refuse arm returns after `obj_extract_self` with no pline, exact C order, C cite `:1227–1231` in place.
 **D-2133** `zap.c:4958–4991` `dobuzz` hero arm (`:4972` `monstseesu(M_SEEN_REFL)`, `:4975` `shieldeff — `js/zap.js` only, exact C order — dobuzz hero arm: reflect path `monstseesu(M_SEEN_REFL)` + `await shieldeff(sx, sy)`; non-reflect `monstunseesu(M_SEEN_REFL)` past the JS gameover guard (C `zhitu`-death is noreturn, so d
-**D-2132** `potion.c:106–131` `make_stunned` `:119–126` (`xtime && !old && talk` → usteed wobble else — `js/potion.js` only — file-local `stagger_poly` clone of `mondata.c:1394–1407` (same clone as the `mhitm.js` `stagger`; `is_floater`/`is_flyer`/`slithy`/`amorphous`/`nolimbs`/`MZ_SMALL` join the pre-existing `monsters.js
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2139; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2140; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

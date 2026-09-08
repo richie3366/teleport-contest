@@ -1,6 +1,6 @@
 {
- "commit": "1602fc13",
- "at": "2026-09-08T16:25:27.538Z",
+ "commit": "b567c868",
+ "at": "2026-09-08T16:43:09.087Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6777,18 +6777,18 @@
   "scen-poly-Priest-91137": {
    "src": "corpus",
    "passed": false,
-   "rngM": 3260,
+   "rngM": 3605,
    "rngT": 3638,
-   "scrM": 123,
+   "scrM": 214,
    "scrT": 266,
-   "kind": "rng",
-   "step": 123,
+   "kind": "screen",
+   "step": 214,
    "steps": 266,
-   "owner": "dmgval",
-   "loc": "weapon.c:227",
-   "jsOwner": "passive(uhitm.js:1554)",
-   "cTopline": "You hit the earth elemental! The earth elemental hits!",
-   "jsTopline": "You miss the earth elemental. The earth elemental hits!--More--",
+   "owner": "do_statusline2",
+   "loc": "botl.c:130",
+   "jsOwner": null,
+   "cTopline": "The earth elemental hits!",
+   "jsTopline": "The earth elemental hits!",
    "error": null
   },
   "scen-poly-Priest-92021": {
@@ -8041,18 +8041,18 @@
   "scen-wish-Monk-92063": {
    "src": "corpus",
    "passed": false,
-   "rngM": 2598,
+   "rngM": 2956,
    "rngT": 2956,
-   "scrM": 124,
+   "scrM": 168,
    "scrT": 178,
    "kind": "screen",
-   "step": 124,
+   "step": 145,
    "steps": 178,
-   "owner": "castmu",
-   "loc": "mcastu.c:200",
+   "owner": "ready_weapon",
+   "loc": "wield.c:206",
    "jsOwner": null,
-   "cTopline": "The Angel of Chih Sung-tzu casts a spell at you!--More--",
-   "jsTopline": "The Angel of Chih Sung-tzu casts a spell at you!",
+   "cTopline": "The dagger welds itself to your dominant right hand!--More--",
+   "jsTopline": "The Angel of Chih Sung-tzu swings her long sword.--More--",
    "error": null
   },
   "scen-wish-Monk-92194": {

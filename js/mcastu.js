@@ -11,7 +11,7 @@ import {
     MCF_INDIRECT, MCF_SIGHT, MCF_HOSTILE,
     HEAD, EYE, TIMEOUT, DIED, KILLED_BY, A_DEX,
     MM_ANGRY, MM_NOMSG, Upolyd, ismnum, DETECT_MONSTERS,
-    M_SEEN_MAGR, M_SEEN_FIRE, M_SEEN_ELEC, M_SEEN_REFL,
+    M_SEEN_MAGR, M_SEEN_FIRE, M_SEEN_COLD, M_SEEN_ELEC, M_SEEN_REFL,
     M_AP_TYPE, M_AP_OBJECT,
 } from './const.js';
 import { mon_adjust_speed } from './muse.js';
@@ -38,7 +38,7 @@ import { rndcurse } from './sit.js';
 import { destroy_arm } from './do_wear.js';
 import { make_stunned, make_confused } from './potion.js';
 import { mon_set_minvis } from './worn.js';
-import { destroy_items, flashburn } from './zap.js';
+import { destroy_items, flashburn, mon_spell_hits_spot } from './zap.js';
 import { burnarmor, ignite_items } from './trap.js';
 import { mkclass, makemon, set_malign } from './makemon.js';
 import { monster_census } from './minion.js';
@@ -46,6 +46,8 @@ import { enexto } from './teleport.js';
 import { setuhpmax } from './exper.js';
 import { done, finish_losehp_done } from './end.js';
 import { burn_away_slime } from './timeout.js';
+// C ref: mhitu.c mdamageu — castmu FIRE/COLD/MAGM tail (imports.mjs: hoisted, cycle-safe).
+import { mdamageu } from './mhitu.js';
 
 /** C ref: mondata.h perceives — M1_SEE_INVIS. */
 function perceives(ptr) {
@@ -97,6 +99,11 @@ function Fire_resistance() {
     const u = game.u || {};
     return !!(u.Fire_resistance || u.HFire_resistance || u.EFire_resistance);
 }
+/** C youprop.h Cold_resistance — H || E (mirrors local Fire_resistance). */
+function Cold_resistance() {
+    const u = game.u || {};
+    return !!(u.Cold_resistance || u.HCold_resistance || u.ECold_resistance);
+}
 function Shock_resistance() {
     const u = game.u || {};
     return !!(u.Shock_resistance || u.HShock_resistance || u.EShock_resistance);
@@ -134,8 +141,10 @@ function youmonst_victim() {
     return game.youmonst || { _youmonst: true };
 }
 
-// C ref: monattk.h
+// C ref: monattk.h AD_MAGM/AD_FIRE/AD_COLD (:43-45), AD_ELEC
+const AD_MAGM = 1;
 const AD_FIRE = 2;
+const AD_COLD = 3;
 const AD_ELEC = 6;
 
 // C ref: mcastu.h MONSPELL — unified spell ids
@@ -884,11 +893,59 @@ export async function castmu(mtmp, mattk, thinks_it_foundyou, foundyou) {
     }
     if (Half_spell_damage()) dmg = Math.trunc((dmg + 1) / 2);
 
-    if (adtyp === AD_SPEL || adtyp === AD_CLRC) {
+    // C ref: mcastu.c:247-304 — ret + AD_FIRE/AD_COLD/AD_MAGM/SPEL/CLRC
+    // switch in C order, then `if (dmg) mdamageu`.
+    let ret = M_ATTK_HIT;
+    const uhp = game.u || {};
+    switch (adtyp) {
+    case AD_FIRE:
+        await pline("You're enveloped in flames.");
+        if (Fire_resistance()) {
+            await shieldeff(uhp.ux, uhp.uy);
+            await pline('But you resist the effects.');
+            monstseesu(M_SEEN_FIRE);
+            dmg = 0;
+        } else {
+            monstunseesu(M_SEEN_FIRE);
+        }
+        await burn_away_slime();
+        await mon_spell_hits_spot(mtmp, AD_FIRE, uhp.ux, uhp.uy);
+        break;
+    case AD_COLD:
+        await pline("You're covered in frost.");
+        if (Cold_resistance()) {
+            await shieldeff(uhp.ux, uhp.uy);
+            await pline('But you resist the effects.');
+            monstseesu(M_SEEN_COLD);
+            dmg = 0;
+        } else {
+            monstunseesu(M_SEEN_COLD);
+        }
+        await mon_spell_hits_spot(mtmp, AD_COLD, uhp.ux, uhp.uy);
+        break;
+    case AD_MAGM:
+        // C You("are hit ...") — pline with full text (no local You clone).
+        await pline('You are hit by a shower of missiles!');
+        if (Antimagic()) {
+            await shieldeff(uhp.ux, uhp.uy);
+            // C pline_The("missiles bounce off!") — full text (cf. zap.js).
+            await pline('The missiles bounce off!');
+            monstseesu(M_SEEN_MAGR);
+            dmg = 0;
+        } else {
+            dmg = d(Math.trunc(ml / 2) + 1, 6);
+            monstunseesu(M_SEEN_MAGR);
+        }
+        await mon_spell_hits_spot(mtmp, AD_MAGM, uhp.ux, uhp.uy);
+        break;
+    case AD_SPEL:
+    case AD_CLRC:
         await mcast_spell(mtmp, dmg, spellnum);
+        dmg = 0; // done by the spell casting functions
+        break;
     }
-
-    return M_ATTK_HIT;
+    if (dmg) await mdamageu(mtmp, dmg);
+    return ret;
 }
 
 /**
