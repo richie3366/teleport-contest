@@ -17,6 +17,7 @@ Objective/score live in `CURRENT.md`.
 - **obj_resists park (2026-09-08):** 3-writer symptom (detail: Parked). S1 shipped D-2068; S2 fire-trap skip; S3 cube paradox.
 - **m_move symptom-owner park (2026-09-08):** loop body faithful; Wizard-92076 shipped D-2069; Caveman-92202 cnt-j off-by-one (D-1868 arms live) — needs C per-turn cnt/mtrack dump (detail: Parked; do not re-pop).
 - **rloc symptom-owner park (2026-09-08):** body faithful (D-0686); Healer-92042 arrival needs a →(2,8) RANDOM migrant JS never created (mydogs empty, 6 orcs elsewhere; screens identical @45,8) — writer is a draw-free migration creator, not rloc (detail + falsifier: Parked; do not re-pop).
+- **lightdamage park (2026-09-08):** queue row misattributes `mzapwand`'s "zaps himself" (muse.c:182-185 via monverbself) to zap.c:3050 (the "self with" literal also sits in lightdamage's Sprintf; lightdamage is hero-gremlin-only, D-1366 faithful). Both sessions = one-frame mid-arm MORE transient in MUSE_WAN_MAKE_INVISIBLE self-zap: C under-cell (`%` yellow bee-corpse / `·` floor) vs JS stale mon (`h`/`L`), then identical "Suddenly..." + `I`, full RNG sync (4241/4241; Wizard-91112 zap turn draws nothing, lich `L`@72 → `·`@73 with no intervening draws/messages — no game-code repaint exists in that span). Verdict: capture/shadow artifact, not state; do not paint bytes in JS (D-1831). Falsifier in Parked row; do not re-pop.
 
 ## Don't re-check (≤15)
 
