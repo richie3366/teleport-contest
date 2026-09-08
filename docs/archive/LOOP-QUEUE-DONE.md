@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
+- [x] `hack.c` escape_from_sticky_mon — blocks 1/553 corpus sessions (first at step 247): C draws `rn2(40)=4` in escape_from_sticky_mon, JS `rn2(20)=4` from gethungry(eat.js:698). Probe: `node scripts/hidden-proxy.mjs verify escape_from_sticky_mon` (scen-wish-Caveman-92183). **Addressed:** D-2158
+
+
 - [x] `apply.c` use_lamp — blocks 1/553 corpus sessions (first at step 220): C «Your lamp is now on. The guardian naga bites!--More--» vs JS «Your lamp is now on. The guardian naga bites!--More--». Probe: `node scripts/hidden-proxy.mjs verify use_lamp` (scen-wish-Valkyrie-92206). **Addressed:** D-2157 `756b0fe9`
 
 

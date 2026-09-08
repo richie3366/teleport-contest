@@ -1,6 +1,6 @@
 {
- "commit": "756b0fe9",
- "at": "2026-09-08T21:27:56.826Z",
+ "commit": "b0b0301f",
+ "at": "2026-09-08T21:33:51.994Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -7694,19 +7694,19 @@
   },
   "scen-wish-Caveman-92183": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 3581,
+   "passed": true,
+   "rngM": 3694,
    "rngT": 3694,
-   "scrM": 250,
+   "scrM": 256,
    "scrT": 256,
-   "kind": "rng",
-   "step": 247,
+   "kind": null,
+   "step": null,
    "steps": 256,
-   "owner": "escape_from_sticky_mon",
-   "loc": "hack.c:2664",
-   "jsOwner": "gethungry(eat.js:698)",
-   "cTopline": "You cannot escape from the giant mimic! The winter wolf bites!",
-   "jsTopline": "You hit the winter wolf! The winter wolf bites!",
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-wish-Healer-92010": {

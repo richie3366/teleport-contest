@@ -77,6 +77,8 @@ import { surface } from './sit.js';
 import { autopick_testobj } from './pickup.js';
 import { Hello } from './roles.js';
 import { SetVoice } from './sndprocs.js';
+import { set_ustuck, Conflict } from './mhitu.js';
+import { sticks } from './engrave.js';
 
 export { set_msg_xy };
 
@@ -2053,6 +2055,60 @@ export async function move_out_of_bounds(x, y) {
     nomul(0);
     if (game.context) game.context.move = 0;
     return true;
+}
+
+/**
+ * C ref: hack.c escape_from_sticky_mon `:2639–2692` — leaving the square of
+ * a holder (giant mimic / sticky monster) spends the turn on the escape
+ * roll: asleep/paralyzed holder `rn2(8)` else `rn2(40)`; roll 3 wakes a
+ * helpless holder then falls through to the cannot-escape arm unless the
+ * holder is tame without conflict; rolls 0–2 (or tame, no conflict) pull
+ * free. Returns true when the move is spent.
+ */
+export async function escape_from_sticky_mon(x, y) {
+    const u = game.u || {};
+    if (!u.ustuck || ((x | 0) === (u.ustuck.mx | 0) && (y | 0) === (u.ustuck.my | 0))) {
+        return false;
+    }
+    // C you.h:560 — m_next2u(m) ≡ distu(mx,my) ≤ 2.
+    const dx = (u.ustuck.mx | 0) - (u.ux | 0);
+    const dy = (u.ustuck.my | 0) - (u.uy | 0);
+    if (dx * dx + dy * dy > 2) {
+        // Perhaps it fled (or was teleported or ...).
+        set_ustuck(null);
+    } else if (sticks(game.youmonst?.data)) {
+        // Polymorphed into a sticking monster: ustuck means it is stuck
+        // to you, not you to it.
+        const mtmp = u.ustuck;
+        set_ustuck(null);
+        await pline(`You release ${y_monnam(mtmp)}.`);
+    } else {
+        switch (rn2(!u.ustuck.mcanmove ? 8 : 40)) {
+        case 3:
+            if (!u.ustuck.mcanmove) {
+                // It is free to move on next turn.
+                u.ustuck.mfrozen = 1;
+                u.ustuck.msleeping = 0;
+            }
+            // FALLTHROUGH
+        default:
+            if (Conflict() || u.ustuck.mconf || !u.ustuck.mtame) {
+                await pline(`You cannot escape from ${y_monnam(u.ustuck)}!`);
+                nomul(0);
+                return true;
+            }
+            // FALLTHROUGH
+        case 0:
+        case 1:
+        case 2: {
+            const mtmp = u.ustuck;
+            set_ustuck(null);
+            await pline(`You pull free from ${y_monnam(mtmp)}.`);
+            break;
+        }
+        }
+    }
+    return false;
 }
 
 /**

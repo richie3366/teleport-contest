@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-2158 — `hack.c` escape_from_sticky_mon: sticky-holder escape roll was a named omission in `domove` (1 session PASS)
+
+- **Status:** fixed (Open queue row `hack.c` escape_from_sticky_mon — cited 1/553; `node scripts/verify.mjs --fn escape_from_sticky_mon`: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS. No review cited by the row, so no stamp owed.)
+- **Symptom:** scen-wish-Caveman-92183 step 247/256, RNG-first at hack.c:2664: C `rn2(40)=4 @ escape_from_sticky_mon` vs JS `rn2(20)=4 @ gethungry(eat.js:698)`. C topline «You cannot escape from the giant mimic! The winter wolf bites!» vs JS «You hit the winter wolf! The winter wolf bites!» — JS never rolled the escape, so it attacked/moved and every later draw shifted.
+- **C locus:** `hack.c:2639–2692` (`escape_from_sticky_mon`, static), called from `domove_core` `:2760` after `avoid_running_into_trap_or_liquid`, before `m_at`/attack. Guard `u.ustuck && (x != mx || y != my)`; fled-holder `!m_next2u` → silent release; hero-polymorphed `sticks(youmonst.data)` → «You release …»; else `switch (rn2(!mcanmove ? 8 : 40))` with case-3 waking a helpless holder then falling through to the cannot-escape arm (`Conflict || mconf || !mtame` → «You cannot escape from …!» + `nomul(0)` + TRUE), rolls 0–2 (or tame, no conflict) pulling free.
+- **JS was:** no `escape_from_sticky_mon` anywhere in `js/` (brief: NOT FOUND); `js/cmd.js` `domove` listed it as a named omission in two comments and fell straight from `avoid_running_into_trap_or_liquid` to `mon_at`/attack — so a held hero attacked instead of spending the turn.
+- **Fix:** new exported async `escape_from_sticky_mon(x, y)` in `js/hack.js` (C-faithful home) in exact C order and short-circuit; `m_next2u` inlined as `dx*dx+dy*dy > 2` per `you.h:560` (macro, not a clone); `You(…)` via house `await pline`; `Conflict()` called as the JS function; `set_ustuck(null)` for the C `(struct monst *)0`. Wired in `js/cmd.js` `domove` exactly at the C site. Imports (`set_ustuck`/`Conflict` from `mhitu.js`, `sticks` from `engrave.js`) all `imports.mjs --can` SAFE (hoisted functions; `engrave.js` edge ALREADY).
+- **JS:** `js/hack.js` (2 import lines + ~50-line export) and `js/cmd.js` (1 import name + 3-line call site + 2 omission-comment trims); no new file.
+- **Verify:** `node scripts/verify.mjs --fn escape_from_sticky_mon` → PASS syntax (2 changed files: js/cmd.js js/hack.js) · PASS rule2 (no fs/path/url/node:, no DIAG/FORCE/seed gates) · PASS hidden (scen-wish-Caveman-92183 PASS) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed). VERIFY: PASS.
+- **Named omissions:** `air_turbulence`, `slippery_ice_fumbling` stay named in `domove` (untouched, irrelevant to this session); swallowed arm correctly has no escape call per C (its comment now lists only air/slippery).
+- **Next:** `eat.c` fprefx (next Open row); queue refill owed in this commit (Open drops 8→7).
+
 ## D-2157 — `light.c` do_light_sources: exact circle ring, not square (1 session moved past; queue row misattributed to `use_lamp`)
 
 - **Status:** fixed (Open queue row `apply.c` use_lamp — cited 1/553; `node scripts/verify.mjs --fn use_lamp`: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS. No review cited by the row, so no stamp owed.)

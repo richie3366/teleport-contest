@@ -1423,7 +1423,7 @@ C `hack.c:2515–2581` / `:2825–2828` after rooted before `u.utrap`;
 gas-region yn; Hallu `rnd(TRAPNUM-1)`; **full `test_move` Passes_walls·squeeze / FIRE invent-burn / 
 POLY `resists_magm` still named**); **`domove` swallowed → `u_on_newpos(ustuck)` + 
 attack engulfer** (D-0833; skip impaired/`m_at` walk; 
-air_turbulence/slippery_ice/escape_from_sticky still deferred; 
+air_turbulence/slippery_ice still deferred; 
 **`water_friction`/`water_turbulence` D-1800**); 
 **`domove_core` `water_friction` via `water_turbulence` +
 `avoid_running_into_trap_or_liquid` + `domove_fight_ironbars`/`domove_fight_web`
@@ -1432,10 +1432,18 @@ air_turbulence/slippery_ice/escape_from_sticky still deferred;
 testdiag doorway; JS `js/hack.js` + `js/cmd.js` `domove`;
 Swimming inlined not clone #3; `uwep_skill_type`/`u_wield_art` inlined;
 `weapon_descr` exported from invent.js; named: lookaround,
-air_turbulence, slippery_ice_fumbling, escape_from_sticky_mon,
+air_turbulence, slippery_ice_fumbling,
 `Known_wwalking`/`Known_lwalking`, autodig/tunnels chew rock/ooze/`worm_cross`,
 `exercise_steed`, Blind `feel_location` on obstacles,
 full `back_to_glyph`/`wall_angle` bump text); 
+**`domove_core` `escape_from_sticky_mon`** (D-2158; C `hack.c:2639–2692` +
+call site `:2760` — live in `js/hack.js`, wired in `js/cmd.js` `domove`
+after `avoid_running_into_trap_or_liquid` before `m_at`; exact branch
+order/short-circuit: ustuck-dest gate, `m_next2u` inline (`you.h:560`
+distu≤2), `sticks(youmonst.data)` release arm, `rn2(!mcanmove?8:40)` with
+case-3 wake + fallthrough to cannot-escape (`Conflict()`/`mconf`/`!mtame`
+→ pline + `nomul(0)` + TRUE) else pull-free; `set_ustuck`/`Conflict` from
+`mhitu.js` + `sticks` from `engrave.js`, all `imports.mjs --can` SAFE hoisted); 
 **`domove_core` `carrying_too_much` before attack** (OVERLOADED collapse / low-HP>SLT stamina; 
 air-level exempt) (D-0928 #1117); **`domove` `u_maybe_impaired`/`impaired_movement`/`confdir`** 
 (D-0437; Confusion `!rn2(5)` + Stunned; tunnels/`passes_walls` in bad_rock deferred); 

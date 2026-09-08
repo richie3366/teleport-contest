@@ -96,7 +96,7 @@ import {
     could_move_onto_boulder, Passes_walls_prop,
     end_running, carrying, runmode_delay_output,
     water_turbulence, move_out_of_bounds, avoid_running_into_trap_or_liquid,
-    domove_fight_ironbars, domove_fight_web,
+    escape_from_sticky_mon, domove_fight_ironbars, domove_fight_web,
 } from './hack.js';
 import { acurr, exercise, A_DEX, Fumbling } from './attrib.js';
 import { drag_ball, move_bc } from './ball.js';
@@ -3116,7 +3116,7 @@ async function domove(dx, dy) {
     // C ref: hack.c domove_core — swallowed: zero dx/dy, u_on_newpos onto
     // ustuck, attack engulfer; skip impaired_movement / m_at walk path.
     // Named omissions still ahead of the non-swallow arm:
-    // air_turbulence, slippery_ice_fumbling, escape_from_sticky_mon.
+    // air_turbulence, slippery_ice_fumbling.
     if ((u.uswallow | 0) && u.ustuck) {
         u.dx = 0;
         u.dy = 0;
@@ -3133,7 +3133,7 @@ async function domove(dx, dy) {
         }
         // C hack.c:2371 / :2750–2758 — water_friction via water_turbulence,
         // then move_out_of_bounds, then avoid_running_into_trap_or_liquid.
-        // Named: air_turbulence, slippery_ice_fumbling, escape_from_sticky_mon.
+        // Named: air_turbulence, slippery_ice_fumbling.
         if (await water_turbulence()) {
             if (game.context?.run) end_running(true);
             return;
@@ -3142,6 +3142,9 @@ async function domove(dx, dy) {
         newy = (u.uy | 0) + (u.dy | 0);
         if (await move_out_of_bounds(newx, newy)) return;
         if (await avoid_running_into_trap_or_liquid(newx, newy)) return;
+        // C ref: hack.c domove_core `:2760` — sticky-holder escape spends
+        // the turn before m_at / attack (D-new: escape_from_sticky_mon).
+        if (await escape_from_sticky_mon(newx, newy)) return;
 
         // C ref: hack.c domove_core — m_at / run-stop / attackmon BEFORE test_move
         // (closed_door / testdiag / rock). Diagonal intact-doorway bans must not
