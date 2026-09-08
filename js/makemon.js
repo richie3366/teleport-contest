@@ -2318,9 +2318,14 @@ export function rnd_defensive_item(mtmp) {
     }
 }
 
+/** C youprop.h:152 See_invisible (HSee_invisible || ESee_invisible) */
+function See_invisible_misc() {
+    const u = game.u || {};
+    return !!((u.HSee_invisible | 0) || (u.ESee_invisible | 0) || u.See_invisible);
+}
+
 /**
  * C ref: muse.c rnd_misc_item — weak-monster misc inventory.
- * Named omissions: See_invisible on peaceful invis arm (treat as false).
  */
 export function rnd_misc_item(mtmp) {
     const pm_ = mtmp.data;
@@ -2342,8 +2347,8 @@ export function rnd_misc_item(mtmp) {
         if (mtmp.isgd) return 0;
         return rn2(6) ? otyp('POT_SPEED') : otyp('WAN_SPEED_MONSTER');
     case 1:
-        // C: mpeaceful && !See_invisible → 0; See_invisible deferred → treat false
-        if (mtmp.mpeaceful) return 0;
+        // C muse.c:2678: mpeaceful && !See_invisible → 0
+        if (mtmp.mpeaceful && !See_invisible_misc()) return 0;
         return rn2(6) ? otyp('POT_INVISIBILITY') : otyp('WAN_MAKE_INVISIBLE');
     case 2:
         return otyp('POT_GAIN_LEVEL');

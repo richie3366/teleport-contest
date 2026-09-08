@@ -59,7 +59,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `muse.c` rnd_misc_item — blocks 1/553 corpus sessions (first at step 70): C draws `rn2(6)=2` in rnd_misc_item, JS `rn2(100)=94` from makemon(makemon.js:3065). Probe: `node scripts/hidden-proxy.mjs verify rnd_misc_item` (scen-tour-Ranger-92033).
 - [ ] `trap.c` burnarmor — blocks 1/553 corpus sessions (first at step 72): C draws `rn2(5)=2` in burnarmor, JS `rn2(6)=0` from trapeffect_fire_trap(trap.js:4042). Probe: `node scripts/hidden-proxy.mjs verify burnarmor` (scen-tour-Wizard-91112).
 - [ ] `do_name.c` roguename — blocks 1/553 corpus sessions (first at step 89): C «Michael Toy's ghost wakes up! You stop searching.--More--» vs JS «You stop searching. Michael Toy's ghost touches you!». Probe: `node scripts/hidden-proxy.mjs verify roguename` (scen-tour-Tourist-91101).
 - [ ] `monmove.c` dochug — blocks 2/553 corpus sessions (first at step 59): C draws `rn2(5)=1` in dochug, JS `rn2(40)=11` from dochug(monmove.js:2154). Probe: `node scripts/hidden-proxy.mjs verify dochug` (scen-tour-Priest-92235, scen-tour-Wizard-92103).
@@ -67,6 +66,11 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 - [ ] `do_name.c` x_monnam — blocks 2/553 corpus sessions (first at step 36): C «@a human or elf or you (orcish barbarian called wizard)--Mor» vs JS «@a human or elf or you (orcish barbarian called wizard)». Probe: `node scripts/hidden-proxy.mjs verify x_monnam` (scen-tour-Barbarian-92024, scen-wish-Knight-91128).
 - [ ] `mon.c` unstuck — blocks 1/553 corpus sessions (first at step 120): C draws `rnd(2)=1` in unstuck, JS `rn2(6)=2` from xkilled(uhitm.js:686). Probe: `node scripts/hidden-proxy.mjs verify unstuck` (scen-wish-Rogue-92210).
 - [ ] `trap.c` float_down — blocks 1/553 corpus sessions (first at step 43): C «You float gently to the stairs.» vs JS «You float gently to the floor.». Probe: `node scripts/hidden-proxy.mjs verify float_down` (scen-intrinsic-Samurai-92017).
+- [ ] `selvar.c` selection_rndcoord — blocks 1/553 corpus sessions (first at step 70): C draws `rn2(670)=351` in selection_rndcoord, JS `rn2(2)=1` from flip_level_rnd(mklev.js:16741). Probe: `node scripts/hidden-proxy.mjs verify selection_rndcoord` (scen-tour-Ranger-92033).
+- [ ] `teleport.c` goodpos — blocks 1/553 corpus sessions (first at step 67): C draws `rn2(13)=11` in goodpos, JS `rnd(2)=1` from next_ident(makemon.js:429). Probe: `node scripts/hidden-proxy.mjs verify goodpos` (scen-wish-Rogue-91119).
+- [ ] `potion.c` peffect_sleeping — blocks 1/553 corpus sessions (first at step 62): C «You yawn.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify peffect_sleeping` (scen-intrinsic-Rogue-92172).
+- [ ] `wield.c` dowield — blocks 1/553 corpus sessions (first at step 8): C «You have 40 darts readied. Wield one? [ynq] (q)» vs JS «You have 40 dart readied. Wield one? [ynq] (q)». Probe: `node scripts/hidden-proxy.mjs verify dowield` (scen-kit-Tourist-91126).
+- [ ] `detect.c` find_trap — blocks 1/553 corpus sessions (first at step 81): C «You find a small mimic.» vs JS «You already found a monster. Use 'm' prefix to force another». Probe: `node scripts/hidden-proxy.mjs verify find_trap` (scen-genesis-Wizard-92223).
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 

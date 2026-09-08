@@ -2973,7 +2973,7 @@ candles/candelabrum only, not `snuff_lit`; `thrwmu` always_toss/polearm named);
 **mbhit doorlock** WAN_OPENING/LOCKING/STRIKING + zap_oseen makeknown + 
 shop D_BROKEN add_damage(0) D-1484 (hero bhit is D-1482); 
 omit `fhito_loc`/drawbridge; `find_misc`/`find_defensive` nomore; 
-`rnd_offensive_item` case0 hard_helmet FALLTHROUGH; **`do_wear.c` `hard_helmet` `:567–573` 
+`rnd_offensive_item` case0 hard_helmet FALLTHROUGH; **`rnd_misc_item` peaceful-invis `See_invisible` gate D-2086** (C `muse.c:2654–2686` case 1 `:2678`; `js/makemon.js` file-local `See_invisible_misc` per `youprop.h:152` H||E+sticky flat, the muse/trap/mhitm file idiom — no new import; retires the treat-as-false omission); **`do_wear.c` `hard_helmet` `:567–573` 
 is one export D-1778** — `js/do_wear.js` with `is_helmet` (C `obj.h:283`) exported beside it; 
 the six local copies in dothrow/mhitu/potion/trap/uhitm/zap are gone, and the dothrow/trap 
 pair were C-wrong: no `is_helmet` gate and an inlined IRON..MITHRIL/GLASS range instead of 

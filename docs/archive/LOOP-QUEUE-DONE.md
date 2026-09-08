@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `mon.c` mpickstuff — blocks 1/553 corpus sessions (first at step 100): C draws `rn2(25)=2` in mpickstuff, JS `rn2(5)=2` from distfleeck(monmove.js:826). Probe: `node scripts/hidden-proxy.mjs verify mpickstuff` (scen-tour-Tourist-92100). **Addressed:** D-2085
+- [x] `muse.c` rnd_misc_item — blocks 1/553 corpus sessions (first at step 70): C draws `rn2(6)=2` in rnd_misc_item, JS `rn2(100)=94` from makemon(makemon.js:3065). Probe: `node scripts/hidden-proxy.mjs verify rnd_misc_item` (scen-tour-Ranger-92033). **Addressed:** D-2086
+
+
+- [x] `mon.c` mpickstuff — blocks 1/553 corpus sessions (first at step 100): C draws `rn2(25)=2` in mpickstuff, JS `rn2(5)=2` from distfleeck(monmove.js:826). Probe: `node scripts/hidden-proxy.mjs verify mpickstuff` (scen-tour-Tourist-92100). **Addressed:** D-2085 `f042b695`
 
 
 - [x] `objnam.c` rnd_otyp_by_namedesc — blocks 2/553 corpus sessions (first at step 92): C draws `rn2(26)=7` in rnd_otyp_by_namedesc, JS `rn2(5)=4` from distfleeck(monmove.js:808). Probe: `node scripts/hidden-proxy.mjs verify rnd_otyp_by_namedesc` (scen-intrinsic-Samurai-92239, scen-wish-Priest-92179). **Addressed:** D-2084 `4d3d5dd3`
