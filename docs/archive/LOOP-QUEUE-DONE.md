@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `timeout.c` nh_timeout — blocks 1/553 corpus sessions (first at step 108): C «You no longer feel secure from petrification.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify nh_timeout` (scen-wish-Rogue-91119). **Addressed:** D-2229
+- [x] `eat.c` maybe_finished_meal — eatfood-completion predicate still named (c-js-map turns.md:1824). No corpus block — port the named family (the `allmain.c` stop_occupation gate stays deferred per the lembas park). Probe: `node scripts/brief.mjs maybe_finished_meal`. **Addressed:** D-2230
+
+
+- [x] `timeout.c` nh_timeout — blocks 1/553 corpus sessions (first at step 108): C «You no longer feel secure from petrification.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify nh_timeout` (scen-wish-Rogue-91119). **Addressed:** D-2229 `7bffd9f5`
 
 
 - [x] `mkobj.c` next_ident — blocks 1/553 corpus sessions (first at step 48): C draws `rnd(2)=1` in next_ident, JS `rn2(5)=1` from distfleeck(monmove.js:904). Probe: `node scripts/hidden-proxy.mjs verify next_ident` (scen-death-Wizard-92187). Distinct block from archived D-2001 row (that shipped order+gender for 92175/92103/92130). **Addressed:** D-2228 `a3d13f73`

@@ -1820,8 +1820,15 @@ have no JS caller, `findtravelpath` `end_running(FALSE)`,
 `revive` call-site wiring** (D-2223; C `eat.c:3893–3912` / `zap.c:909`:
 occupation==eatfood && piece-identity gate, zero_victual reset via house
 `{}`, oeaten=1 floor, occupation=donull, stop_occupation, newuhs(FALSE);
-`revive` awaits it in C position after is_zomb; named: `maybe_finished_meal`
-opposite predicate still has no JS caller); 
+`revive` awaits it in C position after is_zomb; **`maybe_finished_meal`
+eatfood-completion predicate + `steal.c:371` call-site wiring** (D-2230; C
+`eat.c:3877–3889` / `steal.c:367–371`: occupation==eatfood &&
+usedtime>=reqtime gate, stopping-clear to 0/null for do_reset_eat,
+`await eatfood()` for C `(void) eatfood()`; lives in `js/eat.js` after
+`cant_finish_meal` for the module-local `eatfood` identity; `steal()`
+awaits it in C position after `Some_Monnam`, before `inv_cnt`; named:
+`allmain.c:687` `stop_occupation(TRUE)` gate stays deferred per the
+lembas park); 
 **getobj missing-letter `continue` + empty early-return** (D-0142); 
 **CORPSE `eatcorpse`/`start_eating`/`eatfood` occupation + extracted `cwt`/`cnutrit`** (D-0193;
 **rot `(moves-age)/(10+rn2(20))` live — seed0014 @43789 was D-1774 I-glyph

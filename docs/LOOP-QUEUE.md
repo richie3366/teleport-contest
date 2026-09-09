@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `eat.c` maybe_finished_meal — eatfood-completion predicate still named (c-js-map turns.md:1824). No corpus block — port the named family (the `allmain.c` stop_occupation gate stays deferred per the lembas park). Probe: `node scripts/brief.mjs maybe_finished_meal`.
 - [ ] `mon.c` mondead tail — `lifesaved_monster`/`vamprises`/`grddead`/`logdeadmon`/full `m_detach` still named (data.md:358). No corpus block — port the named family. Probe: `node scripts/brief.mjs m_detach`.
 - [ ] `mondata.c` big_little_match — multi-step walks beyond one step still named (data.md:365). No corpus block — port the named family. Probe: `node scripts/brief.mjs big_little_match`.
 - [ ] `zap.c` zhitu — acid-damage body still named (data.md:1223). No corpus block — port the named family. Probe: `node scripts/brief.mjs zhitu`.
@@ -68,6 +67,11 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 - [ ] `shk.c` SHOPTYPE/veggy — Izchak/wizard SHOPTYPE + `veggy_item` tin/corpse obj-path still named (data.md:1417). No corpus block — port the named family. Probe: `node scripts/brief.mjs veggy_item`.
 - [ ] `mon.c` newcham wizard arms — dragon-armor ordinary arm / `mon_polycontrol` / RECORD `tt_doppel` entries still named (data.md:439). No corpus block — port the named family. Probe: `node scripts/brief.mjs tt_doppel`.
 - [ ] `mon.c` m_into_limbo — limbo migration still named (data.md:744). No corpus block — port the named family. Probe: `node scripts/brief.mjs m_into_limbo`.
+- [ ] `wizard.c` intervene — udemigod `intervene`/`amulet()` still named (turns.md:94); no JS body. No corpus block — port the named family. Probe: `node scripts/brief.mjs intervene`.
+- [ ] `pray.c` pray_revive — p_type −2/−1/1/2 + `pray_revive` still named (turns.md:406); no JS body. No corpus block — port the named family. Probe: `node scripts/brief.mjs pray_revive`.
+- [ ] `mon.c` egg_type_from_parent — sit `#sit` FALSE roll + polyself `learn_egg_type` TRUE caller arms still named (data.md:331). No corpus block — port the named family. Probe: `node scripts/brief.mjs egg_type_from_parent`.
+- [ ] `hack.c` pooleffects — drawbridge/lava arms still named (turns.md:1094). No corpus block — port the named family. Probe: `node scripts/brief.mjs pooleffects`.
+- [ ] `timeout.c` learn_egg_type — egg-knowledge context still named (data.md:235,332). No corpus block — port the named family. Probe: `node scripts/brief.mjs learn_egg_type`.
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 
