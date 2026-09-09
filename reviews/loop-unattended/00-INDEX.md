@@ -1189,3 +1189,9 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1176-0a5b0256-ustatusline-info-chain.md](./1176-0a5b0256-ustatusline-info-chain.md) | `0a5b0256` | D-2210 ustatusline info chain | **ACCEPT** |
 | [1177-27d71d60-passive-obj-ad-fire-burn.md](./1177-27d71d60-passive-obj-ad-fire-burn.md) | `27d71d60` | D-2211 passive_obj AD_FIRE burn | **ACCEPT** |
 | [1178-5cd7c741-dosearch0-uswallow-norep.md](./1178-5cd7c741-dosearch0-uswallow-norep.md) | `5cd7c741` | D-2212 dosearch0 uswallow Norep | **ACCEPT** |
+| [1179-430852e1-surface-canonical-import.md](./1179-430852e1-surface-canonical-import.md) | `430852e1` | D-2213 surface canonical import | **ACCEPT** |
+| [1180-68ea2480-givit-period.md](./1180-68ea2480-givit-period.md) | `68ea2480` | D-2214 givit period | **ACCEPT** |
+| [1181-addb22dd-mthrow-hero-hit.md](./1181-addb22dd-mthrow-hero-hit.md) | `addb22dd` | D-2215 m_throw hero-hit | **ACCEPT** |
+| [1182-e6ad2c9b-populate-maze-fallback.md](./1182-e6ad2c9b-populate-maze-fallback.md) | `e6ad2c9b` | D-2216 populate_maze fallback | **ACCEPT** |
+| [1183-5f8b7477-dosounds-gates.md](./1183-5f8b7477-dosounds-gates.md) | `5f8b7477` | D-2217 dosounds gates | **ACCEPT** |
+| [1184-44843418-shop-welcome-remainder.md](./1184-44843418-shop-welcome-remainder.md) | `44843418` | D-2218 shop-welcome remainder | **ACCEPT** |

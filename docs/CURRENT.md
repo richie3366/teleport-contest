@@ -21,10 +21,10 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-09** — full `sessions` on the working tree
-(audit **1176–1178**).
+(audit **1179–1184**).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`46+0.28/turn` (R² 0.79).
+`46+0.29/turn` (R² 0.79).
 
 ## Score
 
@@ -33,7 +33,7 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `46+0.28/turn` (R² 0.79) |
+| Speed label | `46+0.29/turn` (R² 0.79) |
 | Role-init throws | **0 / 44** |
 
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-06
@@ -86,7 +86,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `shk.c` u_entered_shop Soundeffect/Hallu shkname remainder (named absent.md:16; deserted/angry/Invis/doorway shipped D-1080). Shop-welcome message surface.
+**Next cluster:** `pray.c` pleased gifts (Open head; shk Soundeffect/Hallu/bill_p remainder shipped D-2218). Gift-grant message surface.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2218 (index).**
 <!-- recent:begin -->
