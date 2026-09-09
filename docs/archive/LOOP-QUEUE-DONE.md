@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `insight.c` ustatusline — blocks 1/553 corpus sessions (first at step 141): C «Status of wizard (fervently neutral): Level 20 HP 114(114) A» vs JS «Status of wizard (fervently neutral): Level 20 HP 114(114) A». Probe: `node scripts/hidden-proxy.mjs verify ustatusline` (scen-wish-Archeologist-92004). **Addressed:** D-2210
+- [x] `insight.c` ustatusline — blocks 1/553 corpus sessions (first at step 141): C «Status of wizard (fervently neutral): Level 20 HP 114(114) A» vs JS «Status of wizard (fervently neutral): Level 20 HP 114(114) A». Probe: `node scripts/hidden-proxy.mjs verify ustatusline` (scen-wish-Archeologist-92004). **Addressed:** D-2210 `0a5b0256`
 
 
 - [x] `uhitm.c` steal_it — blocks 1/553 corpus sessions (first at step 152): C «You steal: l - a pair of old gloves. You miss the watchman.-» vs JS «You miss the watchman. You hit the watchman.--More--». Probe: `node scripts/hidden-proxy.mjs verify steal_it` (scen-poly-Priest-92097). **Addressed:** D-2209 `32f374ab`

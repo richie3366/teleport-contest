@@ -86,7 +86,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `insight.c` ustatusline — blocks 1/553 corpus sessions (first at step 141): C «Status of wizard (fervently neutral): Level 20 HP 114(114) A» vs JS «Status of wizard (fervently neutral): Level 20 HP 114(114) A». Probe: `node scripts/hidden-proxy.mjs verify ustatusline` (scen-wish-Archeologist-92004).
+**Next cluster:** `detect.c` dosearch0 — blocks 1/553 corpus sessions (first at step 179): C «What are you looking for? The exit?» vs JS «What are you looking for? The exit?--More--». Probe: `node scripts/hidden-proxy.mjs verify dosearch0` (scen-wish-Knight-92130).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2210 (index).**
 <!-- recent:begin -->

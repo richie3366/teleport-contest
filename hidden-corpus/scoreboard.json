@@ -1,6 +1,6 @@
 {
- "commit": "fa16f888",
- "at": "2026-09-09T10:18:51.185Z",
+ "commit": "0a5b0256",
+ "at": "2026-09-09T10:28:54.760Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -7569,19 +7569,19 @@
   },
   "scen-wish-Archeologist-92038": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 4080,
    "rngT": 4080,
-   "scrM": 274,
+   "scrM": 279,
    "scrT": 279,
-   "kind": "screen",
-   "step": 188,
+   "kind": null,
+   "step": null,
    "steps": 279,
-   "owner": "newcham",
-   "loc": "mon.c:5472",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "The tengu turns into a golden naga hatchling!--More--",
-   "jsTopline": "The tengu turns into a golden naga hatchling! The ice devil hits!--More--",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-wish-Archeologist-92051": {
