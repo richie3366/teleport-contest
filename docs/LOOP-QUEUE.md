@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `mkobj.c` next_ident — blocks 1/553 corpus sessions (first at step 48): C draws `rnd(2)=1` in next_ident, JS `rn2(5)=1` from distfleeck(monmove.js:904). Probe: `node scripts/hidden-proxy.mjs verify next_ident` (scen-death-Wizard-92187). Distinct block from archived D-2001 row (that shipped order+gender for 92175/92103/92130).
 - [ ] `hack.c` dopush — blocks 1/553 corpus sessions (first at step 127): C «With great effort you move the boulder.» vs JS «With great effort you move the boulder.». Probe: `node scripts/hidden-proxy.mjs verify dopush` (explore-seed0116-wizard-wear-shop-cfabc006).
 - [ ] `timeout.c` nh_timeout — blocks 1/553 corpus sessions (first at step 108): C «You no longer feel secure from petrification.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify nh_timeout` (scen-wish-Rogue-91119).
 - [ ] `eat.c` maybe_finished_meal — eatfood-completion predicate still named (c-js-map turns.md:1824). No corpus block — port the named family (the `allmain.c` stop_occupation gate stays deferred per the lembas park). Probe: `node scripts/brief.mjs maybe_finished_meal`.

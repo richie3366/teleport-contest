@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `worn.c` m_dowear_type — blocks 1/553 corpus sessions (first at step 142): C «The goblin puts on a pair of fencing gloves.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify m_dowear_type` (scen-intrinsic-Samurai-92017). **Addressed:** D-2227
+- [x] `mkobj.c` next_ident — blocks 1/553 corpus sessions (first at step 48): C draws `rnd(2)=1` in next_ident, JS `rn2(5)=1` from distfleeck(monmove.js:904). Probe: `node scripts/hidden-proxy.mjs verify next_ident` (scen-death-Wizard-92187). Distinct block from archived D-2001 row (that shipped order+gender for 92175/92103/92130). **Addressed:** D-2228
+
+
+- [x] `worn.c` m_dowear_type — blocks 1/553 corpus sessions (first at step 142): C «The goblin puts on a pair of fencing gloves.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify m_dowear_type` (scen-intrinsic-Samurai-92017). **Addressed:** D-2227 `daf781a8`
 
 
 - [x] `extralev.c` LVLINIT_ROGUE/ROGUEOPTS — rogue-level init + impossible wall checks still named (data.md:631). No corpus block — port the named family. **Addressed:** D-2226 `59983ef9`

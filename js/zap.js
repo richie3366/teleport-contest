@@ -6136,7 +6136,10 @@ async function zap_updown(obj) {
             losehp(maybe_half_phys(dmg), 'falling rock', KILLED_BY_AN);
             if (game._losehp_needs_done || game.program_state?.gameover) {
                 await finish_losehp_done();
-                return disclose;
+                // C zap.c:3314-3316, like dig.c:1597-1598 — done() returns
+                // after lifesave (end.c savelife), so the dislodged rock
+                // still lands. Return only on true death.
+                if (game.program_state?.gameover) return disclose;
             }
             const otmp = mksobj_at(ROCK, x, y, false, false);
             if (otmp) {

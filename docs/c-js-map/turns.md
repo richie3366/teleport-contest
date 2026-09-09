@@ -649,7 +649,7 @@ shop D_BROKEN add_damage+pay destroy; muse.c mbhit named);
 **zap_steed WAN_SLOW_MONSTER/SPE_SLOW_MONSTER bhitm D-1478**; 
 **zap_steed WAN_SPEED_MONSTER bhitm D-1479**; **zap_steed SPE_CURE_SICKNESS bhitm D-1480**; 
 **zap_updown WAN_PROBING D-1444**; **zap_updown WAN_OPENING/SPE_KNOCK D-1454**; 
-**zap_updown WAN_STRIKING/SPE_FORCE_BOLT D-1456**; **bhito WAN_PROBING D-1445**; 
+**zap_updown WAN_STRIKING/SPE_FORCE_BOLT D-1456**; lifesave resume — dislodged rock still lands after done() returns (D-2228); **bhito WAN_PROBING D-1445**; 
 **bhito SPE_DRAIN_LIFE drain_item D-1453**; 
 **`bhito` WAN_OPENING/WAN_LOCKING/SPE_KNOCK/SPE_WIZARD_LOCK `boxlock` D-1467** (callee `lock.c` 
 already live; **`bhito` uchain unpunish D-1481**; 
@@ -1771,7 +1771,7 @@ JS: `js/dig.js` / `js/dbridge.js` / `js/dokick.js` — partial
 draft/crash/boulder-rock/`rnd_treefruit_at` (D-0178); 
 **`may_dig`/`mdig_tunnel`/`zap_dig`/`may_passwall` OR `flags\|wall_info` for 
 W_NONDIGGABLE/W_NONPASSWALL** (D-0865); **`zap_dig`** horizontal `rn1(18,8)` + door/SDOOR + 
-maze_dig + `DISP_BEAM` (D-0516); **`zap_dig` `u.dz` arm** bounce-off-stairs/ladder + \nceiling rock (`rnd` 2/6 `hard_helmet`, `KILLED_BY_AN`, ROCK `mksobj`/`stackobj`/`newsym`) + \ndown/off-stairs `watch_dig`/`dighole` (D-2115); **`dig_check`/`fillholetyp`/`digactualhole`/`liquid_flow`/
+maze_dig + `DISP_BEAM` (D-0516); **`zap_dig` `u.dz` arm** bounce-off-stairs/ladder + \nceiling rock (`rnd` 2/6 `hard_helmet`, `KILLED_BY_AN`, ROCK `mksobj`/`stackobj`/`newsym`) + \ndown/off-stairs `watch_dig`/`dighole` (D-2115); lifesave resume — ceiling rock still lands after done() returns (D-2228); **`dig_check`/`fillholetyp`/`digactualhole`/`liquid_flow`/
 fill_pit`/`maybe_dunk`** for break-wand dig (D-0950); 
 **`dig_typ`/`pick_can_reach`/`is_digging`/`holetime`/`dig` occupation/`use_pick_axe`/`dighole` 
 thin/`fracture_rock`** (D-0951); **`use_pick_axe` dir loop sdir order + movecmd/dxdy_moveok** (D-2166; num_pad/swap_yz remap still named); **`furniture_handled` fountain/sink + HOLE `goto_level` + 

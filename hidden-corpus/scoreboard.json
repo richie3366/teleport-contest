@@ -1,6 +1,6 @@
 {
- "commit": "59983ef9",
- "at": "2026-09-09T17:19:53.760Z",
+ "commit": "daf781a8",
+ "at": "2026-09-09T17:34:26.598Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -4407,19 +4407,19 @@
   },
   "scen-death-Wizard-92187": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 4597,
+   "passed": true,
+   "rngM": 5038,
    "rngT": 5038,
-   "scrM": 58,
+   "scrM": 67,
    "scrT": 67,
-   "kind": "rng",
-   "step": 48,
+   "kind": null,
+   "step": null,
    "steps": 67,
-   "owner": "next_ident",
-   "loc": "mkobj.c:521",
-   "jsOwner": "distfleeck(monmove.js:904)",
-   "cTopline": "OK, so you don't die. You survived that attempt on your life.",
-   "jsTopline": "OK, so you don't die. You survived that attempt on your life.",
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-genesis-Archeologist-91127": {
