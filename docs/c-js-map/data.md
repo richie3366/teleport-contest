@@ -1407,7 +1407,7 @@ shopkeeper `m_initinv`/`rnd_misc_item`/`MM_ESHK` + tribute novel** (D-0203);
 **`shk_move`/`move_special`/`inhishop` + m_move isshk dispatch** (D-0205); 
 **`u_entered_shop` welcome + `move_update`/`ushops_entered` via `check_special_room`** (D-0307; 
 **deserted/angry/surcharge/robbed/Invis + pickaxe/steed/Fast doorway `dochug` D-1080**; 
-SetVoice/Soundeffect/Hallu shkname still named); **`shkname` export** (D-0307); 
+SetVoice D-1752; Soundeffect + bill_p poison + Hallu shkname D-2218); **`shkname` export + Hallu random-name arm** (D-0307; D-2218); 
 **`paybill`/`inherits`/`money2mon`/`set_repo_loc` death loot** (D-0311; 
 angry takes-all + peaceful inherit); **`shkveg`/`mkveggy_at` + HEALTHY_TIN** (D-0902); 
 omit Izchak/wizard SHOPTYPE; veggy_item obj-path tin/corpse species deferred; 

@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `shk.c` u_entered_shop Soundeffect/Hallu shkname remainder (named absent.md:16; deserted/angry/Invis/doorway shipped D-1080). Shop-welcome message surface.
 - [ ] `pray.c` pleased gifts (named debt.md:23). Gift-grant message surface.
 - [ ] `artifact.c` defended()/DFLAG1 (named data.md:106; per-adtyp neighbors shipped D-1862). Defense message + RNG surface.
 - [ ] `wield.c` weldmsg — blocks 1/553 corpus sessions (first at step 158): C «Your grappling hook is welded to your hand!» vs JS «Your weapon is welded to your hand!». Probe: `node scripts/hidden-proxy.mjs verify weldmsg` (scen-wish-Priest-92041).
