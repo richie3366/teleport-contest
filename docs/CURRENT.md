@@ -89,10 +89,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `hack.c` pooleffects — drawbridge/lava arms still named (turns.md:1094). No corpus block — port the named family. Probe: `node scripts/brief.mjs pooleffects`.
+**Next cluster:** `timeout.c` learn_egg_type — egg-knowledge context still named (data.md:235,332). No corpus block — port the named family. Probe: `node scripts/brief.mjs learn_egg_type`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2240 (index).**
+**Keep D-0845…D-2241 (index).**
 <!-- recent:begin -->
+**D-2241** `invent.c:2636–2647` (`fully_identify_obj`: `makeknown`, oartifact `discover_artifact`, `o — `js/invent.js` — `fully_identify_obj` gains the C tail arm in C position (after `set_cknown_lknown`, last in the body): `(otmp.otyp | 0) === EGG && (otmp.corpsenm | 0) !== NON_PM` (same `| 0` idiom as the neighboring `ST
 **D-2240** `hack.c:3233–3309` (`pooleffects`: leave-water `:3236–3265` — `js/pickup.js` — full C-order port: Wwalking/Swimming/Amphibious/Breathless computed once from the same-file `pickup_checks` uprops+H/E-flat idiom (+ `is_swimmer(usteed.data)` steed disjunct per C `:266`); leave-water bl
 **D-2239** `polyself.c:905–911` (`newman`: after `newsym(u.ux,u.uy)`, `if (lays_eggs(gy.youmonst.data — `js/polyself.js` — `polymon` gains the C block in C position (immediately after `newsym`, before the deferred `u.uswallow`/`u.ustuck`/`u.usteed` arms): `lays_eggs(game.youmonst?.data)` gate (same `uptr` idiom as the live
 **D-2238** `pray.c:2177–2195` (`pray_revive`: scan `svl.level.objects[u.ux][u.uy]` for the first CORP — `js/pray.js` — new module-local `async function pray_revive()` (C staticfn: same-file caller only) in C order: `objects_at(u.ux,u.uy)` `nexthere` walk (same idiom as the live `water_prayer`), CORPSE/STATUE + `has_omonst`
@@ -100,11 +101,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2236** `mon.c:3834–3840` (`m_into_limbo`: `MON_LIMBO` + `migrate_mon(ledger_no(&u.uz), MIGR_APPRO — `m_into_limbo` exported (doc cites loci + deferred sync sites).
 **D-2235** `mon.c:5198–5207` (`case NON_PM`: `which_armor(mon, W_ARM)` + `Is_dragon_scales` → `Dragon — `select_newcham_form` gains the `cham === NON_PM` arm in C position (before the wizard gate/random tail): `which_armor(mon, W_ARM)` (already imported from `worn.js`; W_ARM joins the pre-existing `const.js` edge — no new 
 **D-2234** `shknam.c:495–500` (`nlp == shklight && In_mines(&u.uz) && Is_special(&u.uz)->flags.town`  — `nameshk` gains the C early arm in C position (before the `nseed` computation, which C also skips): `nlpIn === shklight` (reference check — `shkinit` passes `shp.shknms`, and the lighting-store `shtypes` entry holds the 
-**D-2233** `mcastu.c:174–179` (`mtmp->mcan || mtmp->mspec_used || !ml || m_seenres(mtmp, cvt_adtyp_to — `js/mcastu.js` — `castmu` condition gains `|| m_seenres(mtmp, cvt_adtyp_to_mseenres(adtyp))` in C order (draw-free disjuncts; AD_SPEL/CLRC map to `M_SEEN_NOTHING` so the new arm is a proven no-op on the spell-selection p
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2240; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2241; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

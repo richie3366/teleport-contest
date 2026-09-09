@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `hack.c` pooleffects — drawbridge/lava arms still named (turns.md:1094). No corpus block — port the named family. Probe: `node scripts/brief.mjs pooleffects`. **Addressed:** D-2240
+- [x] `timeout.c` learn_egg_type — egg-knowledge context still named (data.md:235,332). No corpus block — port the named family. Probe: `node scripts/brief.mjs learn_egg_type`. **Addressed:** D-2241
+
+
+- [x] `hack.c` pooleffects — drawbridge/lava arms still named (turns.md:1094). No corpus block — port the named family. Probe: `node scripts/brief.mjs pooleffects`. **Addressed:** D-2240 `66b8bd60`
 
 
 - [x] `mon.c` egg_type_from_parent — sit `#sit` FALSE roll + polyself `learn_egg_type` TRUE caller arms still named (data.md:331). No corpus block — port the named family. Probe: `node scripts/brief.mjs egg_type_from_parent`. **Addressed:** D-2239 `b95a28db`
