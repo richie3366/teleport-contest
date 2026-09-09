@@ -88,8 +88,9 @@ divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
 **Next cluster:** `getpos.c` getpos — blocks 1/553 corpus sessions (first at step 36): C «Unknown direction: 'r' (aborted). Done.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify getpos` (scen-normal-Healer-91124). (D-2204 shipped xkilled-wasinside spoteffects.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2204 (index).**
+**Keep D-0845…D-2205 (index).**
 <!-- recent:begin -->
+**D-2205** `getpos.c:1119–1135` unknown-key tail: `pline("Unknown direction: '%s' (%s).", visctrl, no — `js/getpos.js` only — delete the clear, citing C's `msg_given = FALSE; /* suppress clear */`.
 **D-2204** `mon.c:3632–3640` xkilled wasinside arm (`museum = *mtmp` + `spoteffects(TRUE)`, «poor man — `js/uhitm.js` only — wasinside arm in C position (after treasure/corpse, before newsym): `mtmp = { ...mtmp }` (C struct copy; link-field zeroing N/A, no manual free) + `await (await import('./pickup.js')).spoteffects(tru
 **D-2203** `timeout.c:737–742` `case STUNNED:` (`set_itimeout(&HStun, 1L); make_stunned(0L, TRUE); if — `js/timeout.js` only — generic-loop `p === STUNNED` expiry arm in C order: re-arm flat `u.HStun = (HStun & ~TIMEOUT) | 1` (+ `u.Stunned` mirror) because the `--` above already zeroed it and `make_stunned` only reports wh
 **D-2202** `bones.c:457–478` savebones `ismnum(u.ugrave_arise)` arm + `mondata.c:1586–1598` `give_u_t — `js/end.js` only — full arise arm in C order (`in_mklev` + `makemon(NO_MINVENT)` with prev-restore; `!mtmp` fallback drop + `ugrave_arise = NON_PM` + return; `give_u_to_m_resistances`; `christen_monst(plname)`; `newsym`;
@@ -97,11 +98,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2200** `potion.c:368–438` `make_hallucinated` (changed gate `:394`, see_* before pline `:424–426` — `js/display.js` — `await flush_topl_more()` first inside `docrt()`'s guarded body (after the in_docrt latch, before uswallow/vision arms): a pending --More-- now waits on the intact see_* paint (C order), then docrt repa
 **D-2199** `trap.c:1029–1042` `set_utrap` (botl on `!u.utrap ^ !tim`, utrap/utraptype store, `float_v — `js/trap.js` — `float_vs_flight` added to the existing static `./polyself.js` import (same edge as `polymon`/`body_part`/`mbodypart`; `imports.mjs --can trap.js polyself.js float_vs_flight` → ALREADY, no new edge; both m
 **D-2198** `do.c:2449–2486` `heal_legs(int how)` (body already live, re-audited arm-for-arm: `Wounded — `js/eat.js` — full royal-jelly fpostfx arm in C order (killer-bee `hero_form_data()?.mndx` + `Unchanging` morph break via live `polymon`; `gainstr(piece,1,true)`; Upolyd `mh` vs hero `uhp` `rnd(20)` + dual `botl`; `rn2(1
-**D-2197** `mon.c:975–981` steed gate (`mtmp == u.usteed && (Flying || Levitation) && !waterwall`); ` — steed gate in C position (after inpool/inlava/infountain, before gremlin) with the youprop shape (flat cache or `(H||E)&&!B`, as in do.js); engulfing flush `pline` in C order (after drown pline, before mondied/xkilled) v
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2204; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2205; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

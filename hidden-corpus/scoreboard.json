@@ -1,6 +1,6 @@
 {
- "commit": "5a3d8d45",
- "at": "2026-09-09T08:29:51.808Z",
+ "commit": "ea4547d5",
+ "at": "2026-09-09T08:36:24.406Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6124,18 +6124,18 @@
   },
   "scen-normal-Healer-91124": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 2545,
    "rngT": 2545,
-   "scrM": 55,
+   "scrM": 65,
    "scrT": 65,
-   "kind": "screen",
-   "step": 36,
+   "kind": null,
+   "step": null,
    "steps": 65,
-   "owner": "getpos",
-   "loc": "getpos.c:1129",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "Unknown direction: 'r' (aborted). Done.",
+   "cTopline": "",
    "jsTopline": "",
    "error": null
   },

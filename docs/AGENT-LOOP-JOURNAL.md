@@ -14,6 +14,14 @@ Review iteration over the 8 JS-touching SHAs since d22f6c29 (D-2190..D-2197), ol
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-09 — D-2205 `getpos.c` getpos !force abort: suppress the exit clear so `Unknown direction ... Done.` stays (queue row `getpos`, 1 session PASS)
+
+**C locus:** `getpos.c:1119–1135` unknown-key tail: `pline("Unknown direction: '%s' (%s).", visctrl, note)` with `msg_given = TRUE`, then `if (force) goto nxtc; pline("Done."); msg_given = FALSE; /* suppress clear */` so `exitgetpos` (`:1153–1154` `if (msg_given) clear_nhwindow(WIN_MESSAGE)`) leaves both messages up.
+**JS:** 1 file (`getpos.js`, +2/−1), under the 600/10 caps. Rule #2 clean; no DIAG/FORCE/seed gates. Throwaway probes in /tmp only (not committed). Density note: one-line C-wrong, not a thin port — `getpos` (396 lines C) is already substantially live (D-0153/D-0815/D-1845 and the turns.md envelope); the whole remaining delta for this row was the suppress-clear line.
+**Change:** `js/getpos.js` only — delete the clear, citing C's `msg_given = FALSE; /* suppress clear */`. No new imports, no behavior change on any other exit path (ESC still force-clears per C `msg_given = TRUE`; pick/mouse paths untouched; space/CR `Done.` path already leaves the message).
+**Verify:** `node scripts/verify.mjs --fn getpos` → PASS syntax (1 file) · PASS rule2 · PASS hidden PROGRESS (`verify getpos`: 1 PASS Healer-91124, 0 moved/unchanged/worse) · PASS green 2/2 + strict ×2 · PASS cohort 7/7 · skip full (no shared file changed per runner) · `VERIFY: PASS`. /tmp full-run probe post-fix: steps 30–42 toplines byte-match, step 36 «Unknown direction: 'r' (aborted). Done.» both sides; steps 37+ re-sync untouched.
+**Named:** unchanged (getpos_menu, cmdq_pop-at-start, cmd_from_func custom binds, mouse, do_run prefix, full gs.showsyms table, do_screen_description, furniture-mimic names — all still named in turns.md).
+**Next:** do not re-pop getpos for Healer-91124 (PASS at HEAD). The adjacent ESC-exit `ccp=(-1,-1)` vs C `cx=cy=-10` delta is unproven on any session — leave until a corpus row names it.
 ## 2026-09-09 — D-2204 `mon.c` xkilled wasinside arm: museum copy + `spoteffects(TRUE)` (queue row `stairs.c` stairs_description, 1 session PROGRESS 208→241)
 
 **C locus:** `mon.c:3632–3640` xkilled wasinside arm (`museum = *mtmp` + `spoteffects(TRUE)`, «poor man's expels()») inside the treasure/corpse envelope (`:3582–3630`); `hack.c:3312–3401` spoteffects → `pickup(1)` → `pickup.c:702–709` describe_decor arm → `invent.c:4082` stairs_description. stairs_description body (Dlvl1-up/amulet/branch) already faithful — symptom owner, not writer.

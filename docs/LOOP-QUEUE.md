@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `getpos.c` getpos — blocks 1/553 corpus sessions (first at step 36): C «Unknown direction: 'r' (aborted). Done.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify getpos` (scen-normal-Healer-91124).
 - [ ] `botl.c` do_statusline1 — blocks 1/553 corpus sessions (first at step 72): C «Your intelligence was 11.» vs JS «Your intelligence was 11.». Probe: `node scripts/hidden-proxy.mjs verify do_statusline1` (scen-intrinsic-Caveman-92138).
 - [ ] `trap.c` trapeffect_sqky_board — blocks 1/553 corpus sessions (first at step 72): C «A board beneath the kitten squeaks a B flat loudly.--More--» vs JS «A board beneath your kitten squeaks a B flat loudly.--More--». Probe: `node scripts/hidden-proxy.mjs verify trapeffect_sqky_board` (scen-normal-Barbarian-92064).
 - [ ] `invent.c` prinv — blocks 1/553 corpus sessions (first at step 67): C «c - an uncursed flint stone (in quiver pouch) (19 in total).» vs JS «f - an uncursed flint stone.». Probe: `node scripts/hidden-proxy.mjs verify prinv` (scen-normal-Caveman-92059).
@@ -68,6 +67,11 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 - [ ] `insight.c` list_vanquished — blocks 1/553 corpus sessions (first at step 224): C «Do you want an account of creatures vanquished? [ynaq] (n)» vs JS «Do you want an account of creatures vanquished? [ynaq] (n)». Probe: `node scripts/hidden-proxy.mjs verify list_vanquished` (scen-wish-Tourist-92067).
 - [ ] `uhitm.c` steal_it — blocks 1/553 corpus sessions (first at step 152): C «You steal: l - a pair of old gloves. You miss the watchman.-» vs JS «You miss the watchman. You hit the watchman.--More--». Probe: `node scripts/hidden-proxy.mjs verify steal_it` (scen-poly-Priest-92097).
 - [ ] `apply.c` fig_transform — blocks 1/553 corpus sessions (first at step 169): C «You attack thin air. It hits! It hits again! It hits!--More-» vs JS «You attack thin air. It hits! It hits again! It hits!». Probe: `node scripts/hidden-proxy.mjs verify fig_transform` (scen-poly-Tourist-92047).
+- [ ] `wield.c` chwepon — blocks 1/553 corpus sessions (first at step 133): C «Your dexterity was 13.» vs JS «Your dexterity was 13.». Probe: `node scripts/hidden-proxy.mjs verify chwepon` (scen-poly-Samurai-91106).
+- [ ] `potion.c` peffect_acid — blocks 1/553 corpus sessions (first at step 71): C «tame little dog called Idefix» vs JS «tame Idefix». Probe: `node scripts/hidden-proxy.mjs verify peffect_acid` (scen-tour-Barbarian-92152).
+- [ ] `insight.c` ustatusline — blocks 1/553 corpus sessions (first at step 141): C «Status of wizard (fervently neutral): Level 20 HP 114(114) A» vs JS «Status of wizard (fervently neutral): Level 20 HP 114(114) A». Probe: `node scripts/hidden-proxy.mjs verify ustatusline` (scen-wish-Archeologist-92004).
+- [ ] `mon.c` newcham — blocks 1/553 corpus sessions (first at step 188): C «The tengu turns into a golden naga hatchling!--More--» vs JS «The tengu turns into a golden naga hatchling! The ice devil ». Probe: `node scripts/hidden-proxy.mjs verify newcham` (scen-wish-Archeologist-92038).
+- [ ] `detect.c` dosearch0 — blocks 1/553 corpus sessions (first at step 179): C «What are you looking for? The exit?» vs JS «What are you looking for? The exit?--More--». Probe: `node scripts/hidden-proxy.mjs verify dosearch0` (scen-wish-Knight-92130).
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 

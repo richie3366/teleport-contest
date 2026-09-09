@@ -952,6 +952,7 @@ TER_DETECT blanks stay unexplored; Rogue !waslit→stone;
 full glyph ID discrimination deferred) + **`maybe_blocked_staircase_down` qstart !ok_to_quest** 
 (D-0814) + **DOOR → doorway/open/broken/closed door** (D-0815; 
 drawbridge portcullis deferred) + **unknown-direction `visctrl(key)`** (D-0815; 
+!force abort keeps `Unknown ... Done.` via suppress-clear (D-2205); 
 force-note `cmd_from_func` visctrl deferred); 
 **`self_lookat_brief` gender via `pmname`/`Ugender`** (D-0664) + 
 **Punished chained suffix** (D-0928 #1149); **`cmap_defsym_explanation` TREE → `"tree"`** (D-0665; 
