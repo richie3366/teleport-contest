@@ -1186,3 +1186,6 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1173-d375dcfa-quiver-prefer-merge.md](./1173-d375dcfa-quiver-prefer-merge.md) | `d375dcfa` | D-2207 quiver-prefer pickup merge | **ACCEPT** |
 | [1174-5112743c-innategend-saved-gender.md](./1174-5112743c-innategend-saved-gender.md) | `5112743c` | D-2208 innategend saved gender when poly'd | **ACCEPT** |
 | [1175-32f374ab-steal-it-hero-theft.md](./1175-32f374ab-steal-it-hero-theft.md) | `32f374ab` | D-2209 steal_it hero theft | **ACCEPT** |
+| [1176-0a5b0256-ustatusline-info-chain.md](./1176-0a5b0256-ustatusline-info-chain.md) | `0a5b0256` | D-2210 ustatusline info chain | **ACCEPT** |
+| [1177-27d71d60-passive-obj-ad-fire-burn.md](./1177-27d71d60-passive-obj-ad-fire-burn.md) | `27d71d60` | D-2211 passive_obj AD_FIRE burn | **ACCEPT** |
+| [1178-5cd7c741-dosearch0-uswallow-norep.md](./1178-5cd7c741-dosearch0-uswallow-norep.md) | `5cd7c741` | D-2212 dosearch0 uswallow Norep | **ACCEPT** |

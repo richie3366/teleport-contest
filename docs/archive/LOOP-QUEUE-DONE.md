@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `detect.c` dosearch0 — blocks 1/553 corpus sessions (first at step 179): C «What are you looking for? The exit?» vs JS «What are you looking for? The exit?--More--». Probe: `node scripts/hidden-proxy.mjs verify dosearch0` (scen-wish-Knight-92130). **Addressed:** D-2212
+- [x] `detect.c` dosearch0 — blocks 1/553 corpus sessions (first at step 179): C «What are you looking for? The exit?» vs JS «What are you looking for? The exit?--More--». Probe: `node scripts/hidden-proxy.mjs verify dosearch0` (scen-wish-Knight-92130). **Addressed:** D-2212 `5cd7c741`
 
 
 - [x] `muse.c` use_misc — blocks 1/553 corpus sessions (first at step 145): C «You lash the fire vortex. Your bullwhip smoulders!--More--» vs JS «You lash the fire vortex. You are suddenly very hot!--More--». Probe: `node scripts/hidden-proxy.mjs verify use_misc` (scen-wish-Archeologist-92004). **Addressed:** D-2211 `27d71d60`
