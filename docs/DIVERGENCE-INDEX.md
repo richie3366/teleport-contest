@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-2179 | open | detect.c find_trap :1936–1962 — `detect.c` find_trap: clutter check must read memory `levl[][].glyph`, not gbu | scen-intrinsic-Priest-92096 step 75/172 kind=screen at detect.c:1956: C «You find an anti-magic field.--More--» vs JS identical topline, map rows 2–7 blank in JS (only `@^` at row 4). JS steps 70–74 and 76+ render the room (`┌───┐`/`│<···`) identically to C — only the find_trap More frame blanks.; fix: `js/detect.js find_trap` now reads the memory glyph — `(game.level.at(tx,ty).remembered_glyph.glyph\|0)` defaulting to `NO_GLYPH` when absent (matches C mismatch for unseen/no-memory cells; `map_*` skip the store when `hero_memory` is off on both sides) — and compares it to `tgid`. Comment cites the C memory-vs-gbuf distinction and the monster-cover case.; verify: `node scripts/verify.mjs --fn find_trap` → PASS syntax (1 changed js file: js/detect.js) · PASS rule2 · PASS hidden: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS (scen-intrinsic-Priest-92096: moved → doturn at step 149,  |
 | D-2178 | fixed |  — `muse.c` you_aggravate: WIN_MAP blocking needs more(), not flush+nhgetch (Wizard-92048 step 88→113) |  |
 | D-2177 | fixed |  — `polyself.c` polyself: non-force controllable getlin was a named omission, so poly-control + POLY_NOFLAGS w |  |
 | D-2176 | fixed |  — `engrave.c` doengrave mix-up predicates: local `Blind()` missed timed `HBlinded`, skipping every `rn2(11)`  |  |

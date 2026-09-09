@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-09 — D-2179 `detect.c` find_trap: clutter check must read memory `levl[][].glyph`, not gbuf `glyph_at` (Priest-92096 step 75→149)
+
+**C locus:** `detect.c find_trap :1936–1962` (`tseen=1`, `exercise(A_WIS)`, `feel_newsym`, then `if (Hallucination || levl[tx][ty].glyph != trap_to_glyph)` → `cls(); map_trap(trap,1); display_self(); cleared=TRUE`, `set_msg_xy`, `You("find %s.")`, `if (cleared) { display_nhwindow(WIN_MAP,TRUE); docrt(); }`) + `display.c feel_newsym/newsym/_map_location/map_trap` (memory is `levl[][].glyph`; `_map_location(x,y,show=FALSE)` under a monster still stores the trap via `map_trap(trap,0)` while gbuf shows the monster) + `wintty.c tty_display_nhwindow` NHW_MAP blocking (`end_glyphout`, topline non-empty → NEED_MORE, message wait — the `--More--`).
+**JS:** `js/detect.js` only (+10/−3 in `find_trap` + comment), under the 600/10 caps. Rule #2 clean.
+**Change:** `js/detect.js find_trap` now reads the memory glyph — `(game.level.at(tx,ty).remembered_glyph.glyph|0)` defaulting to `NO_GLYPH` when absent (matches C mismatch for unseen/no-memory cells; `map_*` skip the store when `hero_memory` is off on both sides) — and compares it to `tgid`. Comment cites the C memory-vs-gbuf distinction and the monster-cover case. No new module edge (`game`, `NO_GLYPH` already imported; `glyph_at` stays imported — still used at :1547/:1581/:1597/:2181).
+**Verify:** `node scripts/verify.mjs --fn find_trap` → PASS syntax (1 changed js file: js/detect.js) · PASS rule2 · PASS hidden: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS (scen-intrinsic-Priest-92096: moved → doturn at step 149, was 75) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed). VERIFY: PASS. Post-fix replay: JS step-75 screen keeps the room (`┌───┐`, `│@^·│`, `│·f·│`) under the identical `--More--` topline.
+**Named:** none new. `do_mapping` browse_map/`map_redisplay` partial (the `^F` gap) stays named in `turns.md:129–226`; `mthrowu.c monshoot` drift stays map debt (D-2037).
+**Next:** row addressed; residual doturn@149 («You are not able to call upon Raijin…» More) is the parked `pray.c doturn` row (stale owner; genuine `uconduct.gnostic` fix + proof in that park entry — re-apply once its map precondition holds). Do not re-pop `find_trap` for Priest-92096.
 ## 2026-09-09 — D-2178 `muse.c` you_aggravate: WIN_MAP blocking needs more(), not flush+nhgetch (Wizard-92048 step 88→113)
 
 **C locus:** 

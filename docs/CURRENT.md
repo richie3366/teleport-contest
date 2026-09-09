@@ -95,10 +95,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `muse.c` you_aggravate — blocks 1/553 corpus sessions (first at step 88): C «You feel aggravated at the master lich.--More--» vs JS «You feel aggravated at the master lich.». Probe: `node scripts/hidden-proxy.mjs verify you_aggravate` (scen-wish-Wizard-92048).
+**Next cluster:** `detect.c` find_trap — blocks 1/553 corpus sessions (first at step 75): C «You find an anti-magic field.--More--» vs JS «You find an anti-magic field.--More--» (identical toplines; map rows 2–7 blank in JS — geometry owner, geom-probe first per runbook §7; cf. doturn park). Probe: `node scripts/hidden-proxy.mjs verify find_trap` (scen-intrinsic-Priest-92096).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2178 (index).**
+**Keep D-0845…D-2179 (index).**
 <!-- recent:begin -->
+**D-2179** `detect.c find_trap :1936–1962` (`tseen=1`, `exercise(A_WIS)`, `feel_newsym`, then `if (Ha — `js/detect.js find_trap` now reads the memory glyph — `(game.level.at(tx,ty).remembered_glyph.glyph|0)` defaulting to `NO_GLYPH` when absent (matches C mismatch for unseen/no-memory cells; `map_*` skip the store when `he
 **D-2178**  — 
 **D-2177**  — 
 **D-2176**  — 
@@ -106,11 +107,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2174**  — 
 **D-2173**  — 
 **D-2172**  — 
-**D-2171**  — 
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2178; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2179; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

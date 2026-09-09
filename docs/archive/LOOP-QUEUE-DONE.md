@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `muse.c` you_aggravate — blocks 1/553 corpus sessions (first at step 88): C «You feel aggravated at the master lich.--More--» vs JS «You feel aggravated at the master lich.». Probe: `node scripts/hidden-proxy.mjs verify you_aggravate` (scen-wish-Wizard-92048). **Addressed:** D-2178
+- [x] `detect.c` find_trap — blocks 1/553 corpus sessions (first at step 75): C «You find an anti-magic field.--More--» vs JS «You find an anti-magic field.--More--» (identical toplines; map rows 2–7 blank in JS — geometry owner, geom-probe first per runbook §7; cf. doturn park). Probe: `node scripts/hidden-proxy.mjs verify find_trap` (scen-intrinsic-Priest-92096). **Addressed:** D-2179
+
+
+- [x] `muse.c` you_aggravate — blocks 1/553 corpus sessions (first at step 88): C «You feel aggravated at the master lich.--More--» vs JS «You feel aggravated at the master lich.». Probe: `node scripts/hidden-proxy.mjs verify you_aggravate` (scen-wish-Wizard-92048). **Addressed:** D-2178 `19724e2f`
 
 
 - [x] `potion.c` peffect_polymorph — blocks 1/553 corpus sessions (first at step 175): C «You feel a little strange.--More--» vs JS «You feel a little strange. You turn into a plains centaur!». Probe: `node scripts/hidden-proxy.mjs verify peffect_polymorph` (scen-poly-Ranger-92133). **Addressed:** D-2177 `e93f109a`
