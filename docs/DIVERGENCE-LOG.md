@@ -458,7 +458,7 @@
 
 ## D-2190 — `trap.c:143–146` burnarmor case 3 passes literal "gloves", not `gloves_simple_name`
 
-- **Status:** shipped (Must-fix queue row `trap.c` burnarmor case 3 gloves noun, review 1152 QUALITY-RISK. Row addressed and checked off; review stamped **Addressed:** D-2190.)
+- **Status:** shipped (Must-fix queue row `trap.c` burnarmor case 3 gloves noun, review 1152 QUALITY-RISK. Row addressed and checked off; review stamped **Addressed:** D-2190 74944545.)
 - **Symptom:** worn identified leather gauntlets + fire-trap burnarmor with `rn2(5)=3`: JS printed "Your gauntlets smoulders!" where C prints "Your gloves smoulders!".
 - **C locus:** `trap.c:143–146` — case 3 calls `burn_dmg(item, "gloves")` with the string literal, never `gloves_simple_name(item)` (contrast case 0 `helm_simple_name` and case 1 `cloak_simple_name`, which do compute names).
 - **JS was:** `js/trap.js burnarmor` case 3 passed `gloves_simple_name(item)` — D-2186's stub deletion regressed the previously-correct constant stub; the canonical import returns "gauntlets" for dknown gauntlets. It also evaluated the name fn even when `item` is null, where C touches nothing.

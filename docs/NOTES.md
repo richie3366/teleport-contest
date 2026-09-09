@@ -4,7 +4,7 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 
 ## Active
 
-- **Work picker:** `hidden-proxy queue`; singletons Deferred; themed step-0 → `geom-probe`. 2026-09-09 refill exhausted at 7 Open (D-2224): queue rows 13+ all parked/guard/live, PORT-GAP-TOP30 #1–30 + honourable all live/archived/parked/deferred/stands — do not re-add without a fired falsifier.
+- **Work picker:** `hidden-proxy queue`; singletons Deferred. Refill exhausted at 6 Open (audit 1185–1191): fresh queue all parked/guard/already-Open; TOP30 spot-checks uphold the D-2224 read — do not re-add without a fired falsifier.
 - **More-transient parks — do not re-pop:** break_armor (Tourist-92171@88 capture-timing).
 - **do_statusline2 park — do not re-pop:** row-23 value diffs are paint-timing.
 - **Fortress guards.** Do not reopen display_inventory dismiss / gameover heading / keep_status, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue `S_ndoor`, bigrm-2, getpos, summonmu, lookat, `do_statusline1`, snapshot, fakewiz, Ice/Boulder, `roles[]`, pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.

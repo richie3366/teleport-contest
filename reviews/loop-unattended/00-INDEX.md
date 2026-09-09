@@ -1195,3 +1195,10 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1182-e6ad2c9b-populate-maze-fallback.md](./1182-e6ad2c9b-populate-maze-fallback.md) | `e6ad2c9b` | D-2216 populate_maze fallback | **ACCEPT** |
 | [1183-5f8b7477-dosounds-gates.md](./1183-5f8b7477-dosounds-gates.md) | `5f8b7477` | D-2217 dosounds gates | **ACCEPT** |
 | [1184-44843418-shop-welcome-remainder.md](./1184-44843418-shop-welcome-remainder.md) | `44843418` | D-2218 shop-welcome remainder | **ACCEPT** |
+| [1185-9a72fe17-pleased-pat-on-head-gift.md](./1185-9a72fe17-pleased-pat-on-head-gift.md) | `9a72fe17` | D-2219 pleased pat_on_head case-5 | **ACCEPT** |
+| [1186-42fe12f1-spec-applies-defended-dflag1.md](./1186-42fe12f1-spec-applies-defended-dflag1.md) | `42fe12f1` | D-2220 spec_applies defended/DFLAG1 | **ACCEPT** |
+| [1187-b3f4d2f8-weldmsg-caller-wiring.md](./1187-b3f4d2f8-weldmsg-caller-wiring.md) | `b3f4d2f8` | D-2221 weldmsg caller wiring | **ACCEPT** |
+| [1188-b6fb3939-worm-seg-flips.md](./1188-b6fb3939-worm-seg-flips.md) | `b6fb3939` | D-2222 worm seg flips + flip_level arm | **ACCEPT** |
+| [1189-e0280149-cant-finish-meal.md](./1189-e0280149-cant-finish-meal.md) | `e0280149` | D-2223 cant_finish_meal + revive site | **ACCEPT** |
+| [1190-46fde86e-mon-set-minvis-clones.md](./1190-46fde86e-mon-set-minvis-clones.md) | `46fde86e` | D-2224 mon_set_minvis clones retired | **ACCEPT** |
+| [1191-820594ec-rest-track-panic.md](./1191-820594ec-rest-track-panic.md) | `820594ec` | D-2225 rest_track panic | **ACCEPT** |
