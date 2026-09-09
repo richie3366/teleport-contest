@@ -1799,7 +1799,7 @@ JS: `js/eat.js` — partial
 Cookie + **reqtime-1 food** (`touchfood`/`splitobj`/`fprefx`/`lesshungry`) (D-0155); 
 **`doeat` `check_capacity` / EXT_ENCUMBER before `is_edible`** (D-0928 #1185; 
 Strangled / uedibility / hands_obj / worn-armor eat / metallic rust-monster / RIN_SLOW_DIGESTION / 
-doeat_nonfood still deferred); **`fprefx` full C port** (D-2159; C `eat.c:2099–2217`: EGG pyrolisk/stale arms, FOOD_RATION hallu, TRIPE 3-branch + `rn2(2)` vomit gate, LEMBAS orc/elf, MEATBALL group, garlic undead vomit + FALLTHROUGH, SLIME_MOLD current_fruit, cursed-apple sleep gate, hallu core-dump `rnd(100)`, give_feedback grody/bland/gnarly; garlic `garlic_breath`/`olfaction`/`monflee(0)` D-0635 retained); 
+doeat_nonfood still deferred); **`fprefx` full C port** (D-2159; C `eat.c:2099–2217`: EGG pyrolisk/stale arms, FOOD_RATION hallu, TRIPE 3-branch + `rn2(2)` vomit gate, LEMBAS orc/elf, MEATBALL group, garlic undead vomit + FALLTHROUGH, SLIME_MOLD current_fruit, cursed-apple sleep gate, hallu core-dump `rnd(100)`, give_feedback grody/bland/gnarly; garlic `garlic_breath`/`olfaction`/`monflee(0)` D-0635 retained); **`doeat` food-class conduct switch** (D-2183; C `eat.c:2998–3024`: FLESH→unvegan (+ violated_vegetarian unless EGG), PANCAKE/FORTUNE_COOKIE/CREAM_PIE/CANDY_BAR/LUMP_OF_ROYAL_JELLY→unvegan; livelog first-time lines deferred); 
 **`gethungry` accessorytime `rn2(20)`** (D-0107); 
 **Unaware metabolic `rn2(10)` before accessorytime** (D-0156;
 `is_fainted` / Unaware `talk=FALSE` D-1768; **D-1791** `newuhs` sets

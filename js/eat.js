@@ -266,6 +266,10 @@ const PM_MASTER_MIND_FLAYER = monsterNames.indexOf('PM_MASTER_MIND_FLAYER');
 const PM_VIOLET_FUNGUS = monsterNames.indexOf('PM_VIOLET_FUNGUS');
 const PM_PYROLISK = monsterNames.indexOf('PM_PYROLISK');
 const EGG = objectNames.indexOf('EGG');
+const PANCAKE = objectNames.indexOf('PANCAKE');
+const CREAM_PIE = objectNames.indexOf('CREAM_PIE');
+const CANDY_BAR = objectNames.indexOf('CANDY_BAR');
+const LUMP_OF_ROYAL_JELLY = objectNames.indexOf('LUMP_OF_ROYAL_JELLY');
 const MEATBALL = objectNames.indexOf('MEATBALL');
 const MEAT_STICK = objectNames.indexOf('MEAT_STICK');
 const ENORMOUS_MEATBALL = objectNames.indexOf('ENORMOUS_MEATBALL');
@@ -288,6 +292,7 @@ function Race_if(pm) {
 
 /** C objclass.h material enum indices used by foodword / doeat_nonfood. */
 const MAT_WAX = 2;
+const MAT_FLESH = 4;
 const MAT_PAPER = 5;
 const MAT_LEATHER = 7;
 const MAT_BONE = 9;
@@ -3824,6 +3829,25 @@ export async function doeat() {
         if (tmp) dont_start = true;
         // eatcorpse set reqtime / may have modified oeaten
     } else {
+        // C eat.c:2998-3024 — food-class conduct: FLESH (non-EGG also
+        // breaks vegetarian) and eggs/milk foods break vegan. Livelog
+        // first-time lines deferred (house convention).
+        const material = game.objects?.[otmp.otyp]?.oc_material | 0;
+        if (material === MAT_FLESH) {
+            game.u.uconduct.unvegan = (game.u.uconduct.unvegan | 0) + 1;
+            if (otmp.otyp !== EGG && violated_vegetarian()) {
+                await pline('You feel guilty.');
+            }
+        } else if (
+            otmp.otyp === PANCAKE
+            || otmp.otyp === FORTUNE_COOKIE
+            || otmp.otyp === CREAM_PIE
+            || otmp.otyp === CANDY_BAR
+            || otmp.otyp === LUMP_OF_ROYAL_JELLY
+        ) {
+            game.u.uconduct.unvegan = (game.u.uconduct.unvegan | 0) + 1;
+        }
+
         const oc = game.objects?.[otmp.otyp];
         game.context.victual.reqtime = oc?.oc_delay ?? 1;
 

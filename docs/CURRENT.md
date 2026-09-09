@@ -96,10 +96,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `wield.c` ready_weapon — blocks 8/553 corpus sessions (first at step 20): C «You cannot wield a two-handed weapon while wearing a shield.» vs JS «e - a dwarvish mattock (weapon in hands).». Probe: `node scripts/hidden-proxy.mjs verify ready_weapon` (scen-genesis-Valkyrie-92166, scen-wish-Knight-92204, scen-wish-Monk-92063).
+**Next cluster:** `insight.c` show_conduct — blocks 6/553 corpus sessions (first at step 859): C «Ebenezum walked before me along the closest thing we could» vs JS «More info about "human wizard"? [yn] (n)». Probe: `node scripts/hidden-proxy.mjs verify show_conduct` (random-seed0360-wizard-world-tour-e115a25b, scen-genesis-Knight-92002, scen-genesis-Knight-92112).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2182 (index).**
+**Keep D-0845…D-2183 (index).**
 <!-- recent:begin -->
+**D-2183** `eat.c doeat :2998–3024` — port the switch in C order (before reqtime/rotten): `oc_material === MAT_FLESH` → unvegan++ (+ `violated_vegetarian()` with the guilt pline on true, same call-site convention as `eatcorpse`, for non-EGG); otyp in the egg
 **D-2182** `wield.c ready_weapon :168–273` — port in C order — `u.uarms && bimanual(wep)` gate with the `is_sword`/`BATTLE_AXE` noun returns 0 (C `ECMD_FAIL` takes no turn → 0 in this file's 0/1 scheme, matching `cmd.js 'w'` truthy-`move` mapping); full `will_weld`
 **D-2181** `cmd.c` rhack ECMD tail `:3810–3826` (`(res & (ECMD_OK|ECMD_TIME)) == ECMD_OK` → `reset_cm — `^W` arm captures `wishRes` and mirrors the C tail verbatim (CANCEL|FAIL → `reset_cmd_vars(true)`; else not-TIME → `reset_cmd_vars(multi < 0)`; TIME → `move = 1` — same shape as `rhack_dispatch_bound`), and `wiz_wish` re
 **D-2180** `options.c:7329–7341` (`fruitadd(pl_fruit)` then `obj_descr[SLIME_MOLD].oc_name = "fruit"` — `js/options.js init_fruit_chain` now sets the SLIME_MOLD name entry to `"fruit"` (idempotent, before the existing early-return — mirrors C init order fruitadd-then-rename; display is unaffected, it already uses ffruit fn
@@ -107,11 +108,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2178**  — 
 **D-2177**  — 
 **D-2176**  — 
-**D-2175**  — 
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2182; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2183; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
