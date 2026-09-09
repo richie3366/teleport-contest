@@ -1,6 +1,6 @@
 {
- "commit": "51fb6091",
- "at": "2026-09-09T08:14:51.533Z",
+ "commit": "5a3d8d45",
+ "at": "2026-09-09T08:29:51.808Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6705,16 +6705,16 @@
    "passed": false,
    "rngM": 4358,
    "rngT": 4358,
-   "scrM": 301,
+   "scrM": 320,
    "scrT": 321,
    "kind": "screen",
-   "step": 208,
+   "step": 241,
    "steps": 321,
-   "owner": "stairs_description",
-   "loc": "stairs.c:219",
+   "owner": "do_statusline2",
+   "loc": "botl.c:130",
    "jsOwner": null,
-   "cTopline": "There is a staircase up out of the dungeon here.",
-   "jsTopline": "The fire vortex engulfs you!--More--",
+   "cTopline": "You turn into a lichen!--More--",
+   "jsTopline": "You turn into a lichen!--More--",
    "error": null
   },
   "scen-poly-Knight-92220": {

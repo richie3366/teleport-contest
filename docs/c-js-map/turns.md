@@ -3349,7 +3349,7 @@ dieroll `poisoned()`; non-weapon keeps `magr != u.ustuck`);
 survive `monflee(10*rnd(dmg))`** (D-0836); 
 **`xkilled` `(peaceful&&!rn2(2))\|\|mtame` `change_luck(-1)` + 
 tame `adjalign(-15)` before experience** (D-0836; human-murder/unicorn/quest arms deferred); 
-**`xkilled` msg: `!canspotmon`→`it` / tame→`x_monnam(...,"poor",...)`** (D-0850); 
+**`xkilled` msg: `!canspotmon`→`it` / tame→`x_monnam(...,"poor",...)`** (D-0850); **`xkilled` wasinside → museum copy + `spoteffects(TRUE)`** (D-2204; release-square describe via live pickup→check_here→describe_decor; scen-poly-Healer-92109 208→do_statusline2@241); 
 **`mondead`/`m_detach` keeps dead on `fmon` until `dmonsfree`** (D-0828; was immediate splice); 
 **`attack_checks` `engulfing_u` early-out** (D-0833; allow melee on engulfer before Wait!); 
 **`attack_checks` clears `STRAT_WAITMASK` first** (D-0791; kick/cancel still disturb; 

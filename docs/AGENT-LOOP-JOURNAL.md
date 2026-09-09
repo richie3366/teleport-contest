@@ -14,6 +14,14 @@ Review iteration over the 8 JS-touching SHAs since d22f6c29 (D-2190..D-2197), ol
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-09 — D-2204 `mon.c` xkilled wasinside arm: museum copy + `spoteffects(TRUE)` (queue row `stairs.c` stairs_description, 1 session PROGRESS 208→241)
+
+**C locus:** `mon.c:3632–3640` xkilled wasinside arm (`museum = *mtmp` + `spoteffects(TRUE)`, «poor man's expels()») inside the treasure/corpse envelope (`:3582–3630`); `hack.c:3312–3401` spoteffects → `pickup(1)` → `pickup.c:702–709` describe_decor arm → `invent.c:4082` stairs_description. stairs_description body (Dlvl1-up/amulet/branch) already faithful — symptom owner, not writer.
+**JS:** 1 file (`uhitm.js`, +9/−2), under the 600/10 caps. Rule #2 clean; no DIAG/FORCE/seed gates. Throwaway probes live in /tmp only (not committed).
+**Change:** `js/uhitm.js` only — wasinside arm in C position (after treasure/corpse, before newsym): `mtmp = { ...mtmp }` (C struct copy; link-field zeroing N/A, no manual free) + `await (await import('./pickup.js')).spoteffects(true)` (dynamic: same-cycle idiom as the neighboring mhitu.unstuck call and D-2193's expels-tail call for the same callee; call-time use only). Doc comment retires `wasinside spoteffects` from omissions.
+**Verify:** `node scripts/verify.mjs --fn stairs_description` → PASS syntax (1 file) · PASS rule2 · PASS hidden PROGRESS (Healer-92109 208→do_statusline2@241) · PASS green 2/2 + strict ×2 · PASS cohort 7/7 · PASS full 44/44 (--full forced; runner auto-skips, uhitm.js not in its shared list). /tmp prefix probe post-fix: steps 207–211 byte-match incl. the stairs describe. Final verify ran after the last js/ edit (map/docs/queue edits only after; no D-1831 gap).
+**Named:** unchanged minus the retired line (flooreffects non-floor arms, floor-boulder nocorpse, MAIL_DAEMON, human-murder/unicorn/quest adjalign arms, be_sad/vamp/thrownobj, tame Soundeffect).
+**Next:** do not re-pop stairs_description for Healer-92109 (moved to do_statusline2@241, row-23/status class — leave for rescore to queue under its own attribution). 8 Open rows remain after archive (floor met, no refill).
 ## 2026-09-09 — D-2203 `timeout.c` STUNNED expiry: `set_itimeout(&HStun,1)` + `make_stunned(0,TRUE)` + `stop_occupation` (queue row `potion.c` make_stunned, 1 corpus PASS)
 
 **C locus:** `timeout.c:737–742` `case STUNNED:` (`set_itimeout(&HStun, 1L); make_stunned(0L, TRUE); if (!Stunned) stop_occupation();`) reached from the `nh_timeout` uprops `--` expiry switch; message body `potion.c:106–131` `make_stunned` (`!xtime && old` → `You_feel("a bit steadier now.")`). C macros read: `HStun`/`Stunned` ≡ full `uprops[STUNNED].intrinsic` (`youprop.h:80–81`); `set_itimeout` = `(*which & ~TIMEOUT) | itimeout(val)` (`potion.c:74–79`).

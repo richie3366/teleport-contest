@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `potion.c` make_stunned — blocks 1/553 corpus sessions (first at step 112): C «The baluchitherium hits again! You feel a bit steadier now.» vs JS «The baluchitherium hits again!». Probe: `node scripts/hidden-proxy.mjs verify make_stunned` (scen-poly-Archeologist-92226). **Addressed:** D-2203
+- [x] `stairs.c` stairs_description — blocks 1/553 corpus sessions (first at step 208): C «There is a staircase up out of the dungeon here.» vs JS «The fire vortex engulfs you!--More--». Probe: `node scripts/hidden-proxy.mjs verify stairs_description` (scen-poly-Healer-92109). **Addressed:** D-2204
+
+
+- [x] `potion.c` make_stunned — blocks 1/553 corpus sessions (first at step 112): C «The baluchitherium hits again! You feel a bit steadier now.» vs JS «The baluchitherium hits again!». Probe: `node scripts/hidden-proxy.mjs verify make_stunned` (scen-poly-Archeologist-92226). **Addressed:** D-2203 `2b917b52`
 
 
 - [x] `mkobj.c` next_ident residual (D-2202) — blocks 1/553 corpus sessions (first at step 48): C draws `rnd(2)` in next_ident with no newmonhp in-step, JS `rn2(5)` from distfleeck(monmove.js). Probe: `node scripts/hidden-proxy.mjs verify next_ident` (scen-death-Wizard-92187). Falsifier: ordered C step-48 tag dump naming the firing next_ident call site (clone/mkobj/restore/nextoid), then port that writer. **Addressed:** D-2202 `51fb6091`

@@ -610,7 +610,7 @@ function xkilled_treasure_drop(mtmp, mdat, mndx, x, y) {
 /**
  * C ref: mon.c xkilled — hero kill; treasure !rn2(6) then corpse_chance
  * → make_corpse; cleanup luck/align before experience.
- * Named omissions: flooreffects non-floor arms, wasinside spoteffects,
+ * Named omissions: flooreffects non-floor arms,
  * floor-boulder nocorpse (sobj_at 12 clones, no export), MAIL_DAEMON,
  * human-murder Blind_telepat see_monsters, quest leader/nemesis/
  * guardian/priest special adjalign arms, tame You_hear Soundeffect,
@@ -698,7 +698,15 @@ export async function xkilled(mtmp, xkill_flags = XKILL_GIVEMSG) {
                 game.zombify = false;
             }
         }
-        // C: wasinside → museum copy + spoteffects(TRUE) deferred
+        // C mon.c:3632-3640: wasinside → museum copy + spoteffects(TRUE)
+        // (poor man's expels); the release-square describe (e.g. stairs
+        // via pickup→check_here→describe_decor) comes from this call.
+        // Dynamic import: same-cycle idiom as mhitu.unstuck above and the
+        // expels-tail spoteffects call (D-2193); call-time use only.
+        if (wasinside) {
+            mtmp = { ...mtmp };
+            await (await import('./pickup.js')).spoteffects(true);
+        }
         if (x > 0) newsym(x, y);
     }
 
