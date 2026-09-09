@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `wizard.c` intervene — udemigod `intervene`/`amulet()` still named (turns.md:94); no JS body. No corpus block — port the named family. Probe: `node scripts/brief.mjs intervene`. **Addressed:** D-2237
+- [x] `pray.c` pray_revive — p_type −2/−1/1/2 + `pray_revive` still named (turns.md:406); no JS body. No corpus block — port the named family. Probe: `node scripts/brief.mjs pray_revive`. **Addressed:** D-2238
+
+
+- [x] `wizard.c` intervene — udemigod `intervene`/`amulet()` still named (turns.md:94); no JS body. No corpus block — port the named family. Probe: `node scripts/brief.mjs intervene`. **Addressed:** D-2237 `bb6224f0`
 
 
 - [x] `mon.c` m_into_limbo — limbo migration still named (data.md:744). No corpus block — port the named family. Probe: `node scripts/brief.mjs m_into_limbo`. **Addressed:** D-2236 `dda478bc`
