@@ -444,7 +444,7 @@ gate; else one `rn1` + outer `newcham`/`accept`)**;
 **D-1573 `newcham` Protection cancel** + outer rogue `tryct>15` + `set_mon_data` / wormgone /
 light / `pm_invisible` / hideunder / long-worm init / vampire cham / `check_gear_next_turn`;
 NC_SHOW_MSG `pline_mon` D-1586; **newcham mleashed `m_unleash` TRUE / `update_inventory` + Elbereth `monflee` D-1645**; **await remaining async NO_NC_FLAGS `newcham` D-1648** (mon_poly/stone/gulp/statue/revive/bhitm; sync makemon/`load_tower1` named);
-ustuck / `possibly_unwield` / `mon_break_armor` / boulder `flooreffects` / `poly_steed` still named (async or missing);
+ustuck / `possibly_unwield` / `mon_break_armor` / boulder `flooreffects` still named (async or missing; `poly_steed` live D-2243);
 omit `set_apparxy` in byyou arm (dochug covers); 
 **`makemon_appear_msg` Amonnam/next2u(req x,y)/MM_NOEXCLAM Norep** (D-0928 #1164; 
 sync makemon + async caller; mimic mhidden_description/set_msg_xy/dochugw still omit; 

@@ -6,7 +6,7 @@
 import { game } from './gstate.js';
 import { rn2, rnd, rn1, d } from './rng.js';
 import { depth as depth_of_level, level_difficulty as level_difficulty_of, upstart } from './hacklib.js';
-import { put_saddle_on_mon, can_saddle, place_monster } from './steed.js';
+import { put_saddle_on_mon, can_saddle, place_monster, poly_steed } from './steed.js';
 import {
     m_dowear, which_armor, check_gear_next_turn, bypass_obj, mon_break_armor,
 } from './worn.js';
@@ -1514,7 +1514,7 @@ function newcham_post_set_mon_data(mtmp, olddata, mdat, pfsc) {
 
     // W_ARMG mselftouch still named (mon_break_armor runs in after_armor)
     check_gear_next_turn(mtmp);
-    // poly_steed still named (boulders run in after_boulder)
+    // poly_steed runs in after_steed (after boulders, before Elbereth)
 }
 
 /**
@@ -1556,9 +1556,9 @@ function newcham_drop_boulders(mtmp, mdat, polyspot) {
 }
 
 /**
- * Rest of newcham after mleashed. SHOW_MSG, mon_break_armor, boulders
- * and Elbereth monflee may return a Promise; NO_NC_FLAGS without those
- * stays boolean true.
+ * Rest of newcham after mleashed. SHOW_MSG, mon_break_armor, boulders,
+ * poly_steed and Elbereth monflee may return a Promise; NO_NC_FLAGS without
+ * those stays boolean true.
  */
 function newcham_after_unleash(
     mtmp, olddata, mdat, msg, oldname, seenorsensed, pfsc, polyspot,
@@ -1575,11 +1575,16 @@ function newcham_after_unleash(
         }
         return true;
     };
+    const after_steed = () => {
+        // C `:5517–5518` if (mtmp == u.usteed) poly_steed(mtmp, olddata).
+        if (mtmp !== game.u?.usteed) return after_pu();
+        return Promise.resolve(poly_steed(mtmp, olddata)).then(after_pu);
+    };
     const after_boulder = () => {
         // C boulder loop after check_gear, before poly_steed.
         const bd = newcham_drop_boulders(mtmp, mdat, polyspot);
-        if (bd) return Promise.resolve(bd).then(after_pu);
-        return after_pu();
+        if (bd) return Promise.resolve(bd).then(after_steed);
+        return after_steed();
     };
     const after_armor = () => {
         // C :5485 mon_break_armor(mtmp, polyspot) after possibly_unwield
@@ -1617,8 +1622,9 @@ function newcham_after_unleash(
  * mon_break_armor (worn.c `:1177–1335`, NC_VIA_WAND_OR_SPELL polyspot;
  * D-1914) + boulder bypass+flooreffects (D-1914); possibly_unwield is
  * D-1744;
+ * poly_steed steed.c `:851–873` wired after boulders, before Elbereth.
  * Named omissions: W_ARMG mselftouch; ustuck expels/unstuck (async;
- * l_oldname still captured for Hallu RNG); poly_steed.
+ * l_oldname still captured for Hallu RNG).
  * @returns {boolean|Promise<boolean>} true if form changed
  */
 export function newcham(mtmp, mdat, ncflags = 0) {

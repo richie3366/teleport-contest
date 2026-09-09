@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `steed.c` poly_steed — steed-polymorph body still named (data.md:447 `poly_steed` async-or-missing arm of `newcham`); no JS symbol. No corpus block — port the named family. Probe: `node scripts/brief.mjs poly_steed`.
 - [ ] `mkobj.c` maybe_adjust_light — bless/curse caller wiring of live `obj_adjust_light_radius` still named (data.md:936); no JS symbol. No corpus block — port the named family. Probe: `node scripts/brief.mjs maybe_adjust_light`.
 - [ ] `mon.c` wiz_force_cham_form — interactive wizard `mon_polycontrol` body (`getlin` prompt loop + `mkclass_poly`/`validvamp` callees) still named (narrow-down of the data.md:439 family; wizard arm deferred by the newcham port); no JS symbol. No corpus block — port the named family. Probe: `node scripts/brief.mjs wiz_force_cham_form`.
 - [ ] `allmain.c` moveloop_core — per-turn spine dead callees (`do_storms`, `glibr`, `mkot_trap_warn`, `end_of_input`, `do_positionbar`, `runmode_delay_output`, …; PORT-GAP #10). Corpus reach: in 21 failing sessions' diverged-step C draws. Probe: `node scripts/brief.mjs moveloop_core`.
@@ -68,6 +67,11 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 - [ ] `monmove.c` dochug — dead callee `wormhitu` + ~90 lines of C unaccounted (PORT-GAP #7; distinct arms from the Deferred demon/caster-retaliation row). Corpus reach: in 6 failing sessions' diverged-step C draws. Probe: `node scripts/brief.mjs dochug`.
 - [ ] `timeout.c` nh_timeout dialogues — 13 dead callees (`stoned_dialogue`, `slime_dialogue`, `vomiting_dialogue`, `choke_dialogue`, `sickness_dialogue`, `levitation_dialogue`, `stone_luck`, …; PORT-GAP #2; runs every turn). Corpus reach: `choke_dialogue` draws in 2 diverged steps. Probe: `node scripts/brief.mjs nh_timeout`.
 - [ ] `mon.c` xkilled — `LEVEL_SPECIFIC_NOCORPSE`, the `accessible || is_pool` gate, artifact un-create (PORT-GAP #6; retires the D-1138 named omit). Corpus reach: in 1 failing session's diverged-step C draws. Probe: `node scripts/brief.mjs xkilled`.
+- [ ] `attrib.c` exercise — attribute exercise/timeout path thin vs C. Corpus reach: in 30 failing sessions' diverged-step C draws (working scoreboard, 2026-09-09). Probe: `node scripts/brief.mjs exercise`.
+- [ ] `eat.c` gethungry — hunger-state path thin vs C. Corpus reach: in 28 failing sessions' diverged-step C draws (working scoreboard, 2026-09-09). Probe: `node scripts/brief.mjs gethungry`.
+- [ ] `allmain.c` maybe_generate_rnd_mon — random-monster generation gate thin vs C. Corpus reach: in 26 failing sessions' diverged-step C draws (working scoreboard, 2026-09-09). Probe: `node scripts/brief.mjs maybe_generate_rnd_mon`.
+- [ ] `mhitu.c` mattacku — attack-type switch envelope vs C (PORT-GAP #5; audit arm by arm). Corpus reach: in 14 failing sessions' diverged-step C draws (working scoreboard, 2026-09-09). Probe: `node scripts/brief.mjs mattacku`.
+- [ ] `allmain.c` u_calc_moveamt — hero move-amount calc thin vs C. Corpus reach: in 6 failing sessions' diverged-step C draws (working scoreboard, 2026-09-09). Probe: `node scripts/brief.mjs u_calc_moveamt`.
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 

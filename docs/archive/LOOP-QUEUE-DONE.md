@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `getpos.c` getpos — blocks 1/553 corpus sessions (first at step 72): C «You detect the presence of objects. (For instructions type a» vs JS «You detect the presence of objects.--More--». Probe: `node scripts/hidden-proxy.mjs verify getpos` (scen-normal-Wizard-92127). **Addressed:** D-2242
+- [x] `steed.c` poly_steed — steed-polymorph body still named (data.md:447 `poly_steed` async-or-missing arm of `newcham`); no JS symbol. No corpus block — port the named family. Probe: `node scripts/brief.mjs poly_steed`. **Addressed:** D-2243
+
+
+- [x] `getpos.c` getpos — blocks 1/553 corpus sessions (first at step 72): C «You detect the presence of objects. (For instructions type a» vs JS «You detect the presence of objects.--More--». Probe: `node scripts/hidden-proxy.mjs verify getpos` (scen-normal-Wizard-92127). **Addressed:** D-2242 `15a3a8df`
 
 
 - [x] `timeout.c` learn_egg_type — egg-knowledge context still named (data.md:235,332). No corpus block — port the named family. Probe: `node scripts/brief.mjs learn_egg_type`. **Addressed:** D-2241 `53872d1b`

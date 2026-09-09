@@ -3308,6 +3308,12 @@ uhitm DISMOUNT_KNOCKED `u.dx`/`u.dy` caller;
 (`:185`; `wizard && y_n("Force the mount to succeed?")` short-circuit
 before `mount_steed(m_at, forcemount)`; static `y_n` from getline.js,
 hoisted cycle-safe);
+**`poly_steed` D-2243**
+(`:851–873`; `!can_saddle || !can_ride` → `dismount_steed(DISMOUNT_FELL)`,
+else `x_monnam(ARTICLE_YOUR, SUPPRESS_SADDLE)` + shape-change `"your " →
+"your new "` `strsubst` + `You("adjust yourself in the saddle on %s.")` +
+`steed_vs_stealth()`; wired in `makemon.js` `newcham` after boulders,
+before Elbereth);
 tutorial/disclosure done D-0215/16
 
 ### `src/uhitm.c`, `src/mhitm.c`, `src/explode.c`
