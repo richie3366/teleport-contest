@@ -1,6 +1,6 @@
 {
- "commit": "48fb0115",
- "at": "2026-09-08T23:55:38.863Z",
+ "commit": "ae833302",
+ "at": "2026-09-09T00:04:21.568Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -4526,16 +4526,16 @@
   },
   "scen-genesis-Archeologist-92175": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 3050,
    "rngT": 3050,
-   "scrM": 83,
+   "scrM": 84,
    "scrT": 84,
-   "kind": "screen",
-   "step": 81,
+   "kind": null,
+   "step": null,
    "steps": 84,
-   "owner": "name_to_monplus",
-   "loc": "mondata.c:1001",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",

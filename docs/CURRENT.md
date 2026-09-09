@@ -94,7 +94,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `mondata.c` name_to_monplus — blocks 1/553 corpus sessions (first at step 81): C «» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify name_to_monplus` (scen-genesis-Archeologist-92175). (u_stuck_cannot_go parked 2026-09-09: misattributed move-key owner, session already past it at HEAD — see LOOP-QUEUE Parked.)
+**Next cluster:** `monmove.c` distfleeck — blocks 7/553 corpus sessions (first at step 103): C draws `rn2(5)=2` in distfleeck, JS `rn2(1)=0` from rnd_otyp_by_namedesc(readobjnam.js:277). Probe: `node scripts/hidden-proxy.mjs verify distfleeck` (scen-intrinsic-Rogue-92172, scen-intrinsic-Samurai-92239, scen-normal-Caveman-92053). (name_to_monplus parked 2026-09-09: stale owner, session fully PASS at HEAD via D-2001 d9e7079e — see LOOP-QUEUE Parked.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2168 (index).**
 <!-- recent:begin -->

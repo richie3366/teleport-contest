@@ -16,6 +16,7 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 - **vomiting_dialogue park (2026-09-09, no js/):** MISATTRIBUTED + stale (residual: touch_artifact@92). Falsifier + probe (`verify vomiting_dialogue --base 109f4444`): LOOP-QUEUE Parked. Do not re-pop.
 - **doturn park (2026-09-09, no js/):** STALE OWNER (HEAD find_trap@75). Genuine gnostic fix + proof: LOOP-QUEUE Parked. Do not re-pop.
 - **u_stuck_cannot_go park (2026-09-09, no js/):** MISATTRIBUTED + stale (step-172 key `n` = move path, true writer escape_from_sticky_mon D-2158; live residual do_statusline2@200). Falsifier + probe (`verify u_stuck_cannot_go` 0 PASS/1 moved): LOOP-QUEUE Parked. Do not re-pop.
+- **name_to_monplus park (2026-09-09, no js/):** STALE OWNER (elf-lord box fully PASS at HEAD via D-2001 d9e7079e MM_MALE; owner line 1001 is the alt_spl literal tie-break, both sides resolve "elf-lord" identically via the pmnames exact arm). Remaining alt-table/singularization/title_to_mon arms are singletons no corpus session reaches. Falsifier + probe: LOOP-QUEUE Parked. Do not re-pop.
 
 ## Don't re-check (≤15)
 
