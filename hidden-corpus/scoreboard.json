@@ -1,6 +1,6 @@
 {
- "commit": "28be0491",
- "at": "2026-09-09T02:49:31.057Z",
+ "commit": "67f3f896",
+ "at": "2026-09-09T03:02:23.543Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -8606,19 +8606,19 @@
   },
   "scen-wish-Valkyrie-92014": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 2256,
+   "passed": true,
+   "rngM": 2275,
    "rngT": 2275,
-   "scrM": 49,
+   "scrM": 66,
    "scrT": 66,
-   "kind": "screen",
-   "step": 49,
+   "kind": null,
+   "step": null,
    "steps": 66,
-   "owner": "touch_artifact",
-   "loc": "artifact.c:966",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "The bow named the Longbow of Diana evades your grasp!",
-   "jsTopline": "The bow named the Longbow of Diana evades your grasp!--More--",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-wish-Valkyrie-92027": {

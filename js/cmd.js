@@ -2975,9 +2975,18 @@ export async function rhack(key) {
         await doattributes();
         game.context.move = 0;
     } else if (key === 23) { // ^W — C('w') wiz_wish
-        // C ref: wizcmds.c wiz_wish / cmd.c wizwish
-        await wiz_wish();
-        game.context.move = 0;
+        // C ref: wizcmds.c wiz_wish / cmd.c wizwish + rhack ECMD_OK tail
+        // `:3814–3816` — a death declined mid-wish leaves multi=-1
+        // (savelife); reset_cmd_vars clears it so the next command reads
+        // normally instead of tripping unmul's nomovemsg pline a turn
+        // early (scen-wish-Valkyrie-92014 step 49 stale --More--).
+        const wishRes = (await wiz_wish()) | 0;
+        if ((wishRes & (ECMD_CANCEL | ECMD_FAIL)) !== 0) {
+            reset_cmd_vars(true);
+        } else if ((wishRes & ECMD_TIME) === 0) {
+            reset_cmd_vars((game.multi | 0) < 0);
+        }
+        if ((wishRes & ECMD_TIME) !== 0) game.context.move = 1;
     } else if (key === 22) { // ^V — C('v') wiz_level_tele
         // C ref: wizcmds.c wiz_level_tele / cmd.c wizlevelport
         await wiz_level_tele();

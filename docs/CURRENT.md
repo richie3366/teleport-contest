@@ -96,10 +96,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `mkobj.c` next_ident — blocks 7/553 corpus sessions (first at step 57): C draws `rnd(2)=2` in next_ident, JS `rn2(5)=4` from drop_upon_death(end.js:1286). Probe: `node scripts/hidden-proxy.mjs verify next_ident` (scen-death-Wizard-92120, scen-death-Wizard-92187, scen-genesis-Knight-92068).
+**Next cluster:** `end.c` savelife — RESTORED to Open: scen-wish-Valkyrie-92014 still blocked on touch_artifact@49 (see quest-arm commit's D-log Next bullet, 0b6f3f56). Lifesave-decline More-state: step 49/66 kind=screen at artifact.c:966: C «The bow named the Longbow of Diana evades your grasp!» vs JS same + `--More--`. RNG matched through step 48. Writer is the Die?-decline message state (end.c savelife / display More), NOT touch_artifact/readobjnam/makewish. Probe: `node scripts/hidden-proxy.mjs verify touch_artifact` (expect Valkyrie-92014 → PASS or a later owner after a savelife/More-state port).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2180 (index).**
+**Keep D-0845…D-2181 (index).**
 <!-- recent:begin -->
+**D-2181** `cmd.c` rhack ECMD tail `:3810–3826` (`(res & (ECMD_OK|ECMD_TIME)) == ECMD_OK` → `reset_cm — `^W` arm captures `wishRes` and mirrors the C tail verbatim (CANCEL|FAIL → `reset_cmd_vars(true)`; else not-TIME → `reset_cmd_vars(multi < 0)`; TIME → `move = 1` — same shape as `rhack_dispatch_bound`), and `wiz_wish` re
 **D-2180** `options.c:7329–7341` (`fruitadd(pl_fruit)` then `obj_descr[SLIME_MOLD].oc_name = "fruit"` — `js/options.js init_fruit_chain` now sets the SLIME_MOLD name entry to `"fruit"` (idempotent, before the existing early-return — mirrors C init order fruitadd-then-rename; display is unaffected, it already uses ffruit fn
 **D-2179** `detect.c find_trap :1936–1962` (`tseen=1`, `exercise(A_WIS)`, `feel_newsym`, then `if (Ha — `js/detect.js find_trap` now reads the memory glyph — `(game.level.at(tx,ty).remembered_glyph.glyph|0)` defaulting to `NO_GLYPH` when absent (matches C mismatch for unseen/no-memory cells; `map_*` skip the store when `he
 **D-2178**  — 
@@ -107,11 +108,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2176**  — 
 **D-2175**  — 
 **D-2174**  — 
-**D-2173**  — 
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2180; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2181; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

@@ -122,6 +122,11 @@ WARN_OF_MON grid-bug default then def_feedback; GLIB `make_glib` + Timeout
 pline with no incr; CONFUSION via default — its `make_confused` case is
 `#if 0`'d out); **`#levelchange`** (D-1203/D-0061);
 wiz_wish / wiz_genesis / wiz_level_tele / wiz_map / wiz_identify / wiz_makemap live.
+**`^W wiz_wish` ECMD_OK + rhack tail** (D-2181; C `cmd.c:3814–3816` — ECMD_OK
+→ `reset_cmd_vars(multi<0)`, clearing savelife's multi=-1 so the next
+command reads in-turn; `wiz_wish` returns `ECMD_OK` per `wizcmds.c:43`).
+Sibling key-dispatch arms still drop `res` (no ECMD_OK tail) — named debt,
+re-queue per-arm when a corpus session blocks after a Die?-decline there.
 Named: `check_wornmask_slots`; obj/timer/mon/light/bc/trap/engraving/`levl_sanity_check`;
 optfn_boolean `sanity_check` OPTIONS=; `doredraw` body; wizweight;
 count-prefix `#wizintrinsic`.
