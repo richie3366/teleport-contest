@@ -93,7 +93,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `potion.c` make_hallucinated — blocks 1/553 corpus sessions (first at step 17): C «Oh wow! Everything looks so cosmic! Timeout for sleepy set to 30.--More--» vs JS identical (first cell diff row 16 map/menu C `&` vs JS `·`). Probe: `node scripts/hidden-proxy.mjs verify make_hallucinated` (scen-intrinsic-Caveman-92052).
+**Next cluster:** `hack.c` trapmove — blocks 1/553 corpus sessions (first at step 83): C «Your limbs are stiffening. You yawn.» vs JS «Your limbs are stiffening.». Probe: `node scripts/hidden-proxy.mjs verify trapmove` (scen-intrinsic-Knight-92016).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2200 (index).**
 <!-- recent:begin -->
