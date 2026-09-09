@@ -1035,9 +1035,14 @@ vault/shop/temple `ceiling` labels (**trap burn/water/rock `helm`/`cloak`/`glove
 full `body_part` poly, `stone_missile`/`passes_rocks` harmless arm in `thitm`, **`mons_see_trap`** 
 (D-0701); **`mintrap` already_seen = mon_knows_traps || (HOLE && !mindless)** (D-0703; 
 **floor_trigger+check_in_air skip** D-0770; **full `mintrap` dispatch body D-1922** — trapped-arm `!rn2(40) || easy-pit` escape, boulder `!rn2(2)` pulls-free + fill_pit, metallivorous bear-trap eat / spiked-pit munch (meating=5), `easily ` adverb + set_msg_xy; fresh-arm fixed_tele_trap FORCETRAP force, usteed + Sokoban pit/hole gate skip, madeby_u rnl setmangry, unhide+appears envelope); 
-full `m_harmless_trap` anti-magic/webmaker/`defended` resists (flyer check_in_air + SLP/FIRE + 
-BEAR/WEB/RUST/VIBRATING/PIT done D-0245/D-0770), Deaf+mindless silent, 
-`disturb_buried_zombies`, empty-door pline_mon, drawbridge-under pool/lava; 
+**`m_harmless_trap` ANTI_MAGIC + `defended` resists** (D-2194; canonical
+`defended` `mondata.c:89–124` + full `resists_magm` `:214–244` in
+`js/mondata.js` — `Is_dragon_armor` now exported from `js/artifact.js`;
+SLP/FIRE/ANTI_MAGIC arms wired; webmaker + flyer check_in_air +
+SLP/FIRE/BEAR/WEB/RUST/VIBRATING/PIT done D-0245/D-0770; sqky
+Deaf+mindless cringe gate `trap.c:1453`; rocktrap empty-door `pline_mon`
+`:1380–1388`; maketrap drawbridge-under DB_FLOOR `:532–545` already live
+`js/trap.js:966–976`), `disturb_buried_zombies` (addressed — out of scope); 
 **`maketrap` STATUE_TRAP → `mk_trap_statue`** (D-0538; 
 full `mongone`/MM_NOCOUNTBIRTH born tally deferred); fate-20 `seffects(SPE_REMOVE_CURSE)`; 
 fire `destroy_items`/`ignite`/`burn_floor`/`melt_ice`/`surface`/`minuhpmax`/`losexp`

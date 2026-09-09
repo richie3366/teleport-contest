@@ -92,10 +92,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `invent.c` look_here — blocks 1/553 corpus sessions (first at step 121): C «You try to feel what is lying here on the floor.--More--» vs JS «It hits!». Probe: `node scripts/hidden-proxy.mjs verify look_here` (scen-genesis-Wizard-92223).
+**Next cluster:** `dothrow.c` thitm stone_missile/passes_rocks harmless arm (new queue head). Probe: `node scripts/brief.mjs thitm`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2193 (index).**
+**Keep D-0845…D-2194 (index).**
 <!-- recent:begin -->
+**D-2194** `trap.c:1106–1187` `m_harmless_trap` (SLP_GAS `resists_sleep \|\| defended(AD_SLEE)` :1133 — canonical `defended` + full `resists_magm` (+ file-local `monsndx` = `(mndx ?? mnum ??
 **D-2193** `mhitu.c:263–306` `expels`, reached from `mhitu.c:1578–1584` `gulpmu` (`You("get %s!", … : — port the C tail in order — `um_dist(mtmp.mx, mtmp.my, 1)` → `pline('Brrooaa...
 **D-2192** `do_wear.c:434–516` `Helmet_on`, reached as `afternmv` from `hack.c:4177–4208` `unmul` (pl — full Helmet_on switch in C order: plain-helm breaks; CAUTION → live `see_monsters`; BRILLIANCE → inline `adj_abon` helm half (`:3331–3339`: makeknown iff spe, ABON INT/WIS, botl); CORNUTHAUM → ABON CHA ±1, botl, makeknow
 **D-2191** (1) `end.c:743–758` `savelife` tail — `js/end.js` `savelife` only — `await curs_on_u()` (live `js/display.js`, same-file edge already imported), then the `uswallow → expels(ustuck, ustuck.data, true)` / `ustuck → You-release vs Monnam-releases-you + unstuck(
@@ -103,11 +104,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2189** `monmove.c:462–530` `monflee` (plus `:450–457` `flees_light` macro, `:361–372` `release_he — port the three arms in C order.
 **D-2188** `dothrow.c:855–905` `hurtle_step` monster arm (`mnam = x_monnam(mon, ARTICLE_A, NULL, (has — port the arm in C order — `glyph_at` read, `mon.mundetected = 0`, `x_monnam(ARTICLE_A, null, SUPPRESS_SADDLE|AUGMENT_IT, false)`, find-by-bumping branch via `noit_mhim`, `wakeup`, `canspotmon→map_invisible(mx,my)`, `setm
 **D-2187** `eat.c:1769` `start_tin` (`pline("Using %s you try to open the tin.", yobjnam(uwep, (char  — `js/objnam.js aobjnam` prepends `` `${quan} ` `` when `((quan ?? 1)|0) !== 1` (missing quan reads as 1, same guard as `simpleonames`/`xname`; C always sets quan).
-**D-2186** `objnam.c:5492–5509` `cloak_simple_name` (ROBE→"robe", MUMMY_WRAPPING→"wrapping", ALCHEMY_ — trap.js deletes the four stubs and imports the canonicals — `helm_simple_name`/`cloak_simple_name`/`suit_simple_name` from `./do_wear.js`, `gloves_simple_name` from `./objnam.js` (both edges already exist; `imports.mjs -
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2193; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2194; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

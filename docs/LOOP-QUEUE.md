@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `trap.c` m_harmless_trap residual arms — map-driven (c-js-map data.md): anti-magic/webmaker/`defended` resists, flyer check_in_air + SLP/FIRE/BEAR/WEB/RUST/VIBRATING/PIT done-arms, Deaf+mindless silent, empty-door `pline_mon`, drawbridge-under pool/lava (`disturb_buried_zombies` already addressed — out of scope). Probe: `node scripts/brief.mjs m_harmless_trap`.
 - [ ] `dothrow.c` thitm stone_missile/passes_rocks harmless arm — map-driven (c-js-map data.md): `stone_missile`/`passes_rocks` harmless arm in `thitm` still named. Probe: `node scripts/brief.mjs thitm`.
 - [ ] `sounds.c` dosounds deferred room/guard arms — map-driven (c-js-map absent.md): swamp You1 / barracks/court You_hear / temple_priest / oracle canseemon / other MS_* still deferred. Probe: `node scripts/brief.mjs dosounds`.
 - [ ] `fountain.c` gush steed + engulfed-hero arms — map-driven (c-js-map data.md): steed Flying/Levitation, `engulfing_u` flush, `mdrop_special_objs` worn/saddle/`extract_from_minvent` still named. Probe: `node scripts/brief.mjs gush`.

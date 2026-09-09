@@ -131,7 +131,7 @@ import { welded, uwepgone, uswapwepgone } from './wield.js';
 import { count_wsegs, worm_known } from './worm.js';
 import { level_difficulty, depth } from './hacklib.js';
 import { make_stunned, make_hallucinated } from './potion.js';
-import { monstseesu, monstunseesu } from './mondata.js';
+import { monstseesu, monstunseesu, defended, resists_magm } from './mondata.js';
 import { get_obj_location } from './timeout.js';
 import { costly_spot, shop_keeper, stolen_value, make_angry_shk, add_damage, sellobj } from './shk.js';
 import { unpunish } from './read.js';
@@ -499,7 +499,9 @@ const BOULDER = objectNames.indexOf('BOULDER');
 const LOADSTONE = objectNames.indexOf('LOADSTONE');
 const the_your = ['the', 'your'];
 const AD_PHYS = 0;
+const AD_MAGM = 1; /* monattk.h */
 const AD_FIRE = 2; /* monattk.h */
+const AD_SLEE = 4; /* monattk.h */
 const TOWER_OF_FLAME = 'tower of flame';
 const VISION_CLEARS = 'vision clears.'; /* C c_vision_clears */
 // C ref: hack.h xdir/ydir — 8 dirs W,NW,N,NE,E,SE,S,SW
@@ -542,9 +544,12 @@ export function mons_see_trap(ttmp) {
 /**
  * C ref: trap.c m_harmless_trap — whether mfndpos may ignore this trap.
  * Envelope: !Sokoban floor_trigger+check_in_air; STATUE/MAGIC/VIBRATING;
- * BEAR_TRAP/WEB size·amorph·whirly·unsolid·webmaker; SLP_GAS resists_sleep;
- * RUST except iron golem; FIRE resists_fire; PIT/HOLE clinger (!Sokoban).
- * Named omission: defended(AD_SLEE/AD_FIRE); anti-magic resist arm.
+ * BEAR_TRAP/WEB size·amorph·whirly·unsolid·webmaker;
+ * SLP_GAS resists_sleep||defended(AD_SLEE); RUST except iron golem;
+ * FIRE resists_fire||defended(AD_FIRE); ANTI_MAGIC resists_magm||
+ * defended(AD_MAGM); PIT/HOLE clinger (!Sokoban). Default returns FALSE;
+ * C's impossible() on unknown ttyp stays named (sync port keeps no
+ * impossible path, per D-1868 review).
  */
 export function m_harmless_trap(mtmp, ttmp) {
     if (!ttmp) return true;
@@ -573,14 +578,17 @@ export function m_harmless_trap(mtmp, ttmp) {
         }
         return false;
     case SLP_GAS_TRAP:
-        // defended(AD_SLEE) deferred
-        return !!resists_sleep(mtmp);
+        // C trap.c:1133–1136 resists_sleep || defended(AD_SLEE)
+        return !!(resists_sleep(mtmp) || defended(mtmp, AD_SLEE));
     case RUST_TRAP:
         // C: only iron golem is harmed
         return (mdat?.mndx ?? -1) !== PM_IRON_GOLEM;
     case FIRE_TRAP:
-        // defended(AD_FIRE) deferred
-        return !!resists_fire(mtmp);
+        // C trap.c:1141–1144 resists_fire || defended(AD_FIRE)
+        return !!(resists_fire(mtmp) || defended(mtmp, AD_FIRE));
+    case ANTI_MAGIC:
+        // C trap.c:1173–1176 resists_magm || defended(AD_MAGM)
+        return !!(resists_magm(mtmp) || defended(mtmp, AD_MAGM));
     case PIT:
     case SPIKED_PIT:
     case HOLE:
@@ -3433,8 +3441,8 @@ async function trapeffect_rust_trap(mtmp, trap, _trflags) {
  * Envelope: hero feeltrap + place ROCK at u.ux/uy + losehp; monster
  * once+tseen empty rn2(15)/deltrap else t_missile+thitm(d(2,6)).
  * Named omissions: vault/shop ceiling labels; helm_simple_name "hat";
- * Yname2 soft-helm verbose; empty-door pline_mon text; stone_missile
- * harmless arm in thitm; full body_part poly table (HEAD→"head").
+ * Yname2 soft-helm verbose; stone_missile harmless arm in thitm;
+ * full body_part poly table (HEAD→"head").
  */
 async function trapeffect_rocktrap(mtmp, trap, _trflags) {
     if (is_youmonst(mtmp)) {
@@ -3486,7 +3494,11 @@ async function trapeffect_rocktrap(mtmp, trap, _trflags) {
     // Monster branch
     const in_sight = canseemon(mtmp) || (mtmp === game.u?.usteed);
     if (trap.once && trap.tseen && !rn2(15)) {
-        // C: pline_mon when in_sight && cansee — display only; omit body
+        // C trap.c:1380–1388 — a seen empty rock trap announces itself
+        if (in_sight && cansee(mtmp.mx, mtmp.my)) {
+            await pline_mon(mtmp,
+                `A trap door above ${mon_nam(mtmp)} opens, but nothing falls out!`);
+        }
         deltrap(trap);
         newsym(mtmp.mx, mtmp.my);
         return Trap_Is_Gone;
@@ -3503,7 +3515,10 @@ async function trapeffect_rocktrap(mtmp, trap, _trflags) {
  * C ref: trap.c trapeffect_sqky_board — monster branch (hero dotrap deferred).
  * Envelope: in-sight pline+seetrap; out-of-sight You_hear nearby|distance;
  * m_in_air skip; wake_nearto(40). Soundeffect no-op (no RNG).
- * Deaf+mindless silent cringe and hero Levitation/Flying named omissions.
+ * C trap.c:1445–1457 — Deaf hero hears nothing; a Deaf witness sees the
+ * squeak pline, else only a non-mindless witness sees the cringe pline
+ * (Deaf+mindless: silent). Hero Levitation/Flying arm stays named
+ * (hero dotrap deferred).
  */
 async function trapeffect_sqky_board(mtmp, trap, _trflags) {
     const in_sight = canseemon(mtmp) || (mtmp === game.u?.usteed);
@@ -3515,7 +3530,8 @@ async function trapeffect_sqky_board(mtmp, trap, _trflags) {
                 `A board beneath ${x_monnam_tame(mtmp)} squeaks ${trapnote(trap, false)} loudly.`,
             );
             seetrap(trap);
-        } else {
+        } else if (!mindless(mtmp.data)) {
+            // C trap.c:1453 — mindless witnesses don't react either
             await pline(
                 `${Monnam(mtmp)} stops momentarily and appears to cringe.`,
             );

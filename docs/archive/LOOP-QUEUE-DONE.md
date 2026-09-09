@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `invent.c` look_here — blocks 1/553 corpus sessions (first at step 121): C «You try to feel what is lying here on the floor.--More--» vs JS «It hits!». Probe: `node scripts/hidden-proxy.mjs verify look_here` (scen-genesis-Wizard-92223). **Addressed:** D-2193
+- [x] `trap.c` m_harmless_trap residual arms — map-driven (c-js-map data.md): anti-magic/webmaker/`defended` resists, flyer check_in_air + SLP/FIRE/BEAR/WEB/RUST/VIBRATING/PIT done-arms, Deaf+mindless silent, empty-door `pline_mon`, drawbridge-under pool/lava (`disturb_buried_zombies` already addressed — out of scope). Probe: `node scripts/brief.mjs m_harmless_trap`. **Addressed:** D-2194
+
+
+- [x] `invent.c` look_here — blocks 1/553 corpus sessions (first at step 121): C «You try to feel what is lying here on the floor.--More--» vs JS «It hits!». Probe: `node scripts/hidden-proxy.mjs verify look_here` (scen-genesis-Wizard-92223). **Addressed:** D-2193 `caa4ff0d`
 
 
 - [x] `do_wear.c` accessory_or_armor_on — blocks 1/553 corpus sessions (first at step 58): C «You finish your dressing maneuver.--More--» vs JS «You finish your dressing maneuver.». Probe: `node scripts/hidden-proxy.mjs verify accessory_or_armor_on` (scen-genesis-Tourist-92144). **Addressed:** D-2192 `3fbdad72`.
