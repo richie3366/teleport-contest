@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `eat.c` givit — blocks 1/553 corpus sessions (first at step 70): C «You feel less concerned about becoming petrified. The grid b» vs JS «You feel less concerned about becoming petrified The grid bu». Probe: `node scripts/hidden-proxy.mjs verify givit` (scen-wish-Rogue-91119).
 - [ ] `do_wear.c` stop_donning — blocks 1/553 corpus sessions (first at step 93): C «The kitten drops a gold piece. You stop studying.» vs JS «The kitten drops a gold piece. You stop studying.». Probe: `node scripts/hidden-proxy.mjs verify stop_donning` (scen-wish-Wizard-92135).
 - [ ] `eat.c` doeat_nonfood — blocks 1/553 corpus sessions (first at step 138): C «You feel guilty. This meatball is delicious!» vs JS «This meatball is delicious!». Probe: `node scripts/hidden-proxy.mjs verify doeat_nonfood` (scen-wish-Monk-92207).
 - [ ] `pray.c` gcrownu — blocks 1/553 corpus sessions (first at step 79): C «The barrow wight wields a long sword!--More--» vs JS «The barrow wight wields a long sword! The barrow wight hits!». Probe: `node scripts/hidden-proxy.mjs verify gcrownu` (scen-wish-Ranger-91103).

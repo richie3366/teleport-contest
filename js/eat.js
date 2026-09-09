@@ -1647,8 +1647,8 @@ async function givit(type, ptr) {
             || u.EAcid_resistance);
         if (!Acid_resistance) {
             await You_feel(hallu
-                ? 'secure from flashbacks'
-                : 'less concerned about being harmed by acid');
+                ? 'secure from flashbacks.'
+                : 'less concerned about being harmed by acid.');
         }
         incr_itimeout_prop(u, 'HAcid_resistance', d(3, 6));
         break;
@@ -1658,8 +1658,8 @@ async function givit(type, ptr) {
             || u.EStone_resistance);
         if (!Stone_resistance) {
             await You_feel(hallu
-                ? 'unusually limber'
-                : 'less concerned about becoming petrified');
+                ? 'unusually limber.'
+                : 'less concerned about becoming petrified.');
         }
         incr_itimeout_prop(u, 'HStone_resistance', d(3, 6));
         break;

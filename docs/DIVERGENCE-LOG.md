@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2214 — `eat.c` givit ACID/STONE arms dropped C's `"%s."` period, «petrified» lost its full stop (queue row givit, 1 session PROGRESS 70→108)
+
+- **Status:** shipped (Open queue row `eat.c` givit — 1/553 blocked; `verify --fn givit` → 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS. Row archived. No review cited, no stamp owed.)
+- **Symptom:** scen-wish-Rogue-91119 step 70/275 kind=screen at `eat.c:1093`: C «You feel less concerned about becoming petrified. The grid bug bites!--More--» vs JS «You feel less concerned about becoming petrified The grid bug bites!--More--». Row 0: C «You feel less concerned about becoming petrified.  The grid bug bites!--More--» vs J «You feel less concerned about becoming petrified  The grid bug bites!--More--» (period missing, double-space kept).
+- **C locus:** `eat.c:1078–1095` ACID_RES/STONE_RES arms — `You_feel("%s.", Hallucination ? "secure from flashbacks" : "less concerned about being harmed by acid")` and `You_feel("%s.", Hallucination ? "unusually limber" : "less concerned about becoming petrified")`. The period comes from the `"%s."` format, not the argument.
+- **JS was:** `js/eat.js:1649–1662` passed all four literals without a trailing period (`'secure from flashbacks'`, `'less concerned about being harmed by acid'`, `'unusually limber'`, `'less concerned about becoming petrified'`), while `You_feel` (`js/display.js:7321`, `pline('You feel ' + msg)`) appends nothing — every other `givit` arm already passes its literal with the period.
+- **Fix:** `js/eat.js` only — appended `.` to all four ACID/STONE literals to match C `"%s."`. Density note: +2/−2 lines — the 97-line C function was already ~95 % ported, so completing the remaining C-cited punctuation is the whole unit (C-is-that-small clause).
+- **JS:** 1 file (`eat.js`, 2 lines, 4 chars), under the 600/10 caps. Rule #2 clean; no DIAG/FORCE/seed gates. No committed probes.
+- **Verify:** `node scripts/verify.mjs --fn givit` → PASS syntax (1 changed js file: js/eat.js) · PASS rule2 · PASS hidden PROGRESS (scen-wish-Rogue-91119 step 70 → nh_timeout@108, strictly later step, different owner) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed per runner) · VERIFY: PASS. Final verify ran after the last js/ edit (map/D-log/queue edits only after; no D-1831 gap).
+- **Named omissions:** unchanged (debugpline only; `should_givit`/`temp_givit`/`incr_itimeout` wiring already live).
+- **Next:** do not re-pop `givit` for Rogue-91119 (0 blocked there). It now rests at `nh_timeout`@108 — leave to the rescore queue; do not invent a FAIL peel.
+- **Cited falsifier grade:** measured (machine-recorded C-vs-JS row, screen-first; pinned `eat.c:1003–1100` + `js/eat.js:1575–1670` + `You_feel` `js/display.js:7321` read in full via brief; post-fix `verify --fn givit` PROGRESS + green/strict/cohort; no JS FORCE/DIAG/seed reads used).
+
 ## D-2213 — `apply.c` use_grapple/use_whip `surface_apply` stub said «furniture», C `surface()` says «stairs» (queue row use_grapple, 1 session PROGRESS 146→158)
 
 - **Status:** shipped (Open queue row `apply.c` use_grapple — 1/553 blocked; `verify --fn use_grapple` → 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS. Row archived. No review cited, no stamp owed.)

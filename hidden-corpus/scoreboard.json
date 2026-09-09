@@ -1,6 +1,6 @@
 {
- "commit": "99c19478",
- "at": "2026-09-09T13:41:02.798Z",
+ "commit": "86be79b5",
+ "at": "2026-09-09T13:44:58.676Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -8337,16 +8337,16 @@
    "passed": false,
    "rngM": 6704,
    "rngT": 6704,
-   "scrM": 273,
+   "scrM": 274,
    "scrT": 275,
    "kind": "screen",
-   "step": 70,
+   "step": 108,
    "steps": 275,
-   "owner": "givit",
-   "loc": "eat.c:1093",
+   "owner": "nh_timeout",
+   "loc": "timeout.c:836",
    "jsOwner": null,
-   "cTopline": "You feel less concerned about becoming petrified. The grid bug bites!--More--",
-   "jsTopline": "You feel less concerned about becoming petrified The grid bug bites!--More--",
+   "cTopline": "You no longer feel secure from petrification.",
+   "jsTopline": "",
    "error": null
   },
   "scen-wish-Rogue-91138": {
