@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `uhitm.c` steal_it — blocks 1/553 corpus sessions (first at step 152): C «You steal: l - a pair of old gloves. You miss the watchman.-» vs JS «You miss the watchman. You hit the watchman.--More--». Probe: `node scripts/hidden-proxy.mjs verify steal_it` (scen-poly-Priest-92097). **Addressed:** D-2209
+- [x] `uhitm.c` steal_it — blocks 1/553 corpus sessions (first at step 152): C «You steal: l - a pair of old gloves. You miss the watchman.-» vs JS «You miss the watchman. You hit the watchman.--More--». Probe: `node scripts/hidden-proxy.mjs verify steal_it` (scen-poly-Priest-92097). **Addressed:** D-2209 `32f374ab`
 
 
 - [x] `insight.c` enlightenment — blocks 1/553 corpus sessions (first at step 108): C «Wizard the Monk's attributes:» vs JS «Wizard the Monk's attributes:». Probe: `node scripts/hidden-proxy.mjs verify enlightenment` (scen-poly-Monk-92213). **Addressed:** D-2208 `5112743c`

@@ -86,7 +86,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `wield.c` chwepon — blocks 1/553 corpus sessions (first at step 133): C «Your dexterity was 13.» vs JS «Your dexterity was 13.». Probe: `node scripts/hidden-proxy.mjs verify chwepon` (scen-poly-Samurai-91106).
+**Next cluster:** `potion.c` peffect_acid — blocks 1/553 corpus sessions (first at step 71): C «tame little dog called Idefix» vs JS «tame Idefix». Probe: `node scripts/hidden-proxy.mjs verify peffect_acid` (scen-tour-Barbarian-92152). → parked STALE 2026-09-09 (session PASSES at HEAD with zero js/ diff, no js/ shipped).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2209 (index).**
 <!-- recent:begin -->
