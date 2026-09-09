@@ -96,7 +96,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `end.c` savelife — RESTORED to Open: scen-wish-Valkyrie-92014 still blocked on touch_artifact@49 (see quest-arm commit's D-log Next bullet, 0b6f3f56). Lifesave-decline More-state: step 49/66 kind=screen at artifact.c:966: C «The bow named the Longbow of Diana evades your grasp!» vs JS same + `--More--`. RNG matched through step 48. Writer is the Die?-decline message state (end.c savelife / display More), NOT touch_artifact/readobjnam/makewish. Probe: `node scripts/hidden-proxy.mjs verify touch_artifact` (expect Valkyrie-92014 → PASS or a later owner after a savelife/More-state port).
+**Next cluster:** `dungeon.c` save_dungeon — POPPED 2026-09-09, PARKED with no js/ (stale dup of standing Parked entry; live Open row removed). All 6 working-scoreboard sessions (91118@113, 92080@35, 92140@123, 92227@20, 92215@102, 91122@37) lack `S`/`^S` in recipes and C save_dungeon (dungeon.c:148–206) has zero display calls + zero RNG — neither arm can run, so a port guarantees NO MOVEMENT. done_in_by G_UNIQ/mgivenname arms verified LIVE and C-faithful (js/end.js:1190–1217) — epitaph residual is killer.format state or render, not a body gap. See LOOP-QUEUE Parked save_dungeon confirmation + NOTES Active `save_dungeon park`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2181 (index).**
 <!-- recent:begin -->
