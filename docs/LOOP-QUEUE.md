@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `sounds.c` dosounds deferred room/guard arms — map-driven (c-js-map absent.md): swamp You1 / barracks/court You_hear / temple_priest / oracle canseemon / other MS_* still deferred. Probe: `node scripts/brief.mjs dosounds`.
 - [ ] `fountain.c` gush steed + engulfed-hero arms — map-driven (c-js-map data.md): steed Flying/Levitation, `engulfing_u` flush, `mdrop_special_objs` worn/saddle/`extract_from_minvent` still named. Probe: `node scripts/brief.mjs gush`.
 - [ ] `do.c` heal_legs — map-driven (c-js-map data.md:1048; def `do.c:2449` `heal_legs(int how)` 0 ordinary / 1 dismount / 2 stone): wounded-legs heal path (`disp.botl`, ATEMP DEX restore) still named. Probe: `node scripts/brief.mjs heal_legs`.
 - [ ] `polyself.c` float_vs_flight — map-driven (c-js-map data.md; def `polyself.c:131`): Levitation-vs-Flying I_SPECIAL toggle still named. Probe: `node scripts/brief.mjs float_vs_flight`.
@@ -68,6 +67,7 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 - [ ] `hack.c` trapmove — blocks 1/553 corpus sessions (first at step 83): C «Your limbs are stiffening. You yawn.» vs JS «Your limbs are stiffening.». Probe: `node scripts/hidden-proxy.mjs verify trapmove` (scen-intrinsic-Knight-92016).
 - [ ] `pager.c` do_screen_description — blocks 1/553 corpus sessions (first at step 56): C «floor of a room» vs JS «unexplored area». Probe: `node scripts/hidden-proxy.mjs verify do_screen_description` (scen-normal-Barbarian-92064).
 - [ ] `detect.c` reveal_terrain — blocks 1/553 corpus sessions (first at step 23): C «Showing known terrain and traps only...--More--» vs JS «Showing known terrain and traps only...--More--». Probe: `node scripts/hidden-proxy.mjs verify reveal_terrain` (scen-normal-Caveman-92059).
+- [ ] `do.c` legs_in_no_shape — blocks 1/553 corpus sessions (first at step 27): C «Your right leg is in no shape for riding.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify legs_in_no_shape` (scen-normal-Healer-91123).
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 

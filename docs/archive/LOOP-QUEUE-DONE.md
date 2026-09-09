@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `dothrow.c` thitm stone_missile/passes_rocks harmless arm — map-driven (c-js-map data.md): `stone_missile`/`passes_rocks` harmless arm in `thitm` still named. Probe: `node scripts/brief.mjs thitm`. **Addressed:** D-2195
+- [x] `sounds.c` dosounds deferred room/guard arms — map-driven (c-js-map absent.md): swamp You1 / barracks/court You_hear / temple_priest / oracle canseemon / other MS_* still deferred. Probe: `node scripts/brief.mjs dosounds`. **Addressed:** D-2196
+
+
+- [x] `dothrow.c` thitm stone_missile/passes_rocks harmless arm — map-driven (c-js-map data.md): `stone_missile`/`passes_rocks` harmless arm in `thitm` still named. Probe: `node scripts/brief.mjs thitm`. **Addressed:** D-2195 `ea5bcd4b`
 
 
 - [x] `trap.c` m_harmless_trap residual arms — map-driven (c-js-map data.md): anti-magic/webmaker/`defended` resists, flyer check_in_air + SLP/FIRE/BEAR/WEB/RUST/VIBRATING/PIT done-arms, Deaf+mindless silent, empty-door `pline_mon`, drawbridge-under pool/lava (`disturb_buried_zombies` already addressed — out of scope). Probe: `node scripts/brief.mjs m_harmless_trap`. **Addressed:** D-2194 `7c48caec`
