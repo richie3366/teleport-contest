@@ -8,6 +8,13 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-09 — D-2175 `mcastu.c` castmu fumble arm: JS burned the fumble `rn2(ml*10)` but skipped the air-crackles pline, losing the `--More--` (Monk-92013 step 79→121)
+
+**C locus:** 
+**JS:** 
+**Change:** 
+**Verify:** 
+**Next:** (see LOOP-QUEUE)
 ## 2026-09-09 — D-2174 `uhitm.c` mhitm_ad_ench mhitu arm: JS skipped the non-verbose MC gate (and hitmsg) before knockback (Knight-92034 PASS; Monk-92013 residual is More-only)
 
 **C locus:** 

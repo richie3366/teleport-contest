@@ -17,10 +17,10 @@ import {
 import { mon_adjust_speed } from './muse.js';
 import {
     pline, pline_mon, Norep, verbalize, canspotmon, canseemon, impossible,
-    You_feel, shieldeff, map_invisible, tp_sensemon,
+    You_feel, shieldeff, map_invisible, tp_sensemon, set_msg_xy,
 } from './display.js';
 import {
-    Monnam, bogusmon, pmname, type_is_pname, Mgender,
+    Monnam, mon_nam, bogusmon, pmname, type_is_pname, Mgender,
 } from './do_name.js';
 import { nomul, You_hear, losehp } from './hack.js';
 import { nasty, aggravate, clonewiz } from './wizard.js';
@@ -48,6 +48,8 @@ import { done, finish_losehp_done } from './end.js';
 import { burn_away_slime } from './timeout.js';
 // C ref: mhitu.c mdamageu — castmu FIRE/COLD/MAGM tail (imports.mjs: hoisted, cycle-safe).
 import { mdamageu } from './mhitu.js';
+import { Soundeffect } from './sndprocs.js';
+import { se_air_crackles } from './generated/seffects_data.js';
 
 /** C ref: mondata.h perceives — M1_SEE_INVIS. */
 function perceives(ptr) {
@@ -849,9 +851,15 @@ export async function castmu(mtmp, mattk, thinks_it_foundyou, foundyou) {
         return M_ATTK_MISS;
     }
 
-    // C: nomul(0) then fumble rn2(ml*10); air-crackles pline deferred
+    // C ref: mcastu.c:207-215 — nomul(0) then fumble rn2(ml*10): Soundeffect
+    // always, air-crackles pline when seen and heard (D-2175).
     nomul(0);
-    if (rn2(ml * 10) < (mtmp.mconf ? 100 : 20)) {
+    if (rn2(ml * 10) < (mtmp.mconf ? 100 : 20)) { /* fumbled attack */
+        Soundeffect(se_air_crackles, 60);
+        if (canseemon(mtmp) && !Deaf()) {
+            set_msg_xy(mtmp.mx, mtmp.my);
+            await pline(`The air crackles around ${mon_nam(mtmp)}.`);
+        }
         return M_ATTK_MISS;
     }
 

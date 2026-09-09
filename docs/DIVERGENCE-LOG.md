@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-2175 — `mcastu.c` castmu fumble arm: JS burned the fumble `rn2(ml*10)` but skipped the air-crackles pline, losing the `--More--` (Monk-92013 step 79→121)
+
+- Status: shipped (Open queue row `uhitm.c mhitm_mgc_atk_negated` — cited 1/553: scen-wish-Monk-92013. Session moved to a LATER owner/step, so the row is addressed and checked off; the gate body itself was already proven live by D-2174. No review cited, no stamp owed.)
+- Symptom: scen-wish-Monk-92013 step 79/146 kind=screen at uhitm.c:92: C «The lich touches you! You avoid harm.--More--» vs JS same text without `--More--`. RNG lockstep through the step (D-2174 banked dice: gate `rn2(10)=4` negated, knockback silent, `rn2(100)=6 @ castmu(mcastu.c:208)`). Step-80 C screen is «The air crackles around the lich.» — a second message queued behind the More on the same turn.
+- C locus: `mcastu.c:207–215` (`castmu` fumble arm) — `nomul(0)`, then `rn2(ml*10) < (mconf ? 100 : 20)`: `Soundeffect(se_air_crackles, 60)` ALWAYS, plus `pline_The("air crackles around %s.", mon_nam(mtmp))` when `canseemon(mtmp) && !Deaf`, then `return M_ATTK_MISS`. Lich ml=10 → `rn2(100)=6 < 20` fumbled, and the step-80 screen proves the pline fired — D-2174's "silent, reads as !canseemon or Deaf" was misread; the writer was never ported.
+- JS was: the fumble arm burned the `rn2` but returned `M_ATTK_MISS` silently (`air-crackles pline deferred` comment, mcastu.js:852) — the second message was never queued, so no `--More--` and the crackles line never appeared. Symptom-owner note: the proxy attributed the first-diff topline to `mhitm_mgc_atk_negated` (the visible text's owner), but the gate is C-faithful on both sides (D-2174); the writer is this arm.
+- Fix: ported the arm in exact C order and short-circuit — unconditional `Soundeffect(se_air_crackles, 60)` (empty without SND_LIB per sndprocs.h, cf. dbridge.js:613), then `canseemon(mtmp) && !Deaf()` gate (local `Deaf()`, cf. mcastu.js:806), `set_msg_xy(mtmp.mx, mtmp.my)`, `pline_The` rendered as plain `pline` per repo convention (read.js:1683), lowercase `mon_nam` per C. Imports: `Soundeffect` from sndprocs.js (`imports.mjs --can` → SAFE, no cycle), `se_air_crackles` from generated (cf. dbridge.js:34); `set_msg_xy`/`mon_nam` added to already-imported modules. No DIAG/FORCE/seed gates. Display-side untouched — the `--More--` returns from the real second pline, not a tty hack (D-1831).
+- Verify: `node scripts/verify.mjs --fn mhitm_mgc_atk_negated` → PASS syntax (1 changed js file: js/mcastu.js) · PASS rule2 · PASS hidden: 0 PASS, 1 moved past (scen-wish-Monk-92013 → `mcast_disappear` at step 121, was 79), 0 unchanged, 0 worse → PROGRESS · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7. VERIFY: PASS.
+- Named omissions: `castmu` mis-aimed waterwall wording still deferred (pre-existing, line 845); none new in the fumble arm.
+- Next: Monk-92013 is now blocked on `mcast_disappear`@121 (later owner) — next work, not this row. Do not re-pop `mhitm_mgc_atk_negated` for it.
+- Density note: ~12-line diff on an Open row; the C arm is 9 lines (density exception: C that small).
+
 ## D-2174 — `uhitm.c` mhitm_ad_ench mhitu arm: JS skipped the non-verbose MC gate (and hitmsg) before knockback (Knight-92034 PASS; Monk-92013 residual is More-only)
 
 - Status: partial (Open queue row `uhitm.c mhitm_mgc_atk_negated` — cited 1/553: scen-wish-Monk-92013. Row LEFT OPEN: the cited session is still blocked on the same owner/step, so no check-off per the savelife lesson. No review cited by the row, so no stamp owed.)

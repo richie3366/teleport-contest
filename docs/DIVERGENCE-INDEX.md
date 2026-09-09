@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-2175 | fixed |  — `mcastu.c` castmu fumble arm: JS burned the fumble `rn2(ml*10)` but skipped the air-crackles pline, losing  |  |
 | D-2174 | fixed |  — `uhitm.c` mhitm_ad_ench mhitu arm: JS skipped the non-verbose MC gate (and hitmsg) before knockback (Knight |  |
 | D-2173 | fixed |  — `steed.c` put_saddle_on_mon: local pick_saddle linked minvent without where/ocarry, hanging relobj_on_death |  |
 | D-2172 | fixed |  — `objnam.c` readobjnam wishing-abuse deny arm: quest artifacts skip the `rn2(nartifact_exist())` roll in C ( |  |

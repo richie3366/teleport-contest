@@ -1,6 +1,6 @@
 {
- "commit": "2dcdffa1",
- "at": "2026-09-09T02:05:19.832Z",
+ "commit": "bc1f21f5",
+ "at": "2026-09-09T02:11:14.999Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -8014,16 +8014,16 @@
    "passed": false,
    "rngM": 2731,
    "rngT": 2765,
-   "scrM": 118,
+   "scrM": 121,
    "scrT": 146,
    "kind": "screen",
-   "step": 79,
+   "step": 121,
    "steps": 146,
-   "owner": "mhitm_mgc_atk_negated",
-   "loc": "uhitm.c:92",
+   "owner": "mcast_disappear",
+   "loc": "mcastu.c:495",
    "jsOwner": null,
-   "cTopline": "The lich touches you! You avoid harm.--More--",
-   "jsTopline": "The lich touches you! You avoid harm.",
+   "cTopline": "The lich suddenly becomes transparent!",
+   "jsTopline": "The lich suddenly becomes transparent!",
    "error": null
   },
   "scen-wish-Monk-92031": {
