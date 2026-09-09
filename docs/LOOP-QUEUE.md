@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `mkmaze.c` walkfrom/maze0xy/populate_maze/create_maze — maze-walk builder callers deferred (named data.md:883; `is_solid` retired, `mazexy` live). C RNG surface: maze construction draws. No corpus block — port the named family.
 - [ ] `sounds.c` dosounds feature gates — findgd migrating / Is_sanctum / Soundeffect / temple Hallu pantheon RNG still deferred (named absent.md:16). C RNG + You_hear message surface.
 - [ ] `shk.c` u_entered_shop Soundeffect/Hallu shkname remainder (named absent.md:16; deserted/angry/Invis/doorway shipped D-1080). Shop-welcome message surface.
 - [ ] `pray.c` pleased gifts (named debt.md:23). Gift-grant message surface.

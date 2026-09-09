@@ -5,10 +5,13 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `worn.c` m_dowear_type — blocks 1/553 corpus sessions (first at step 142): C «The goblin puts on a pair of fencing gloves.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify m_dowear_type` (scen-intrinsic-Samurai-92017; rests here after D-2215 moved it past dosearch@54). **Addressed:** D-2215
+- [x] `mkmaze.c` walkfrom/maze0xy/populate_maze/create_maze — maze-walk builder callers deferred (named data.md:883; `is_solid` retired, `mazexy` live). C RNG surface: maze construction draws. No corpus block — port the named family. **Addressed:** D-2216
 
 
-- [x] `detect.c` dosearch — blocks 4/553 corpus sessions (first at step 54): C «You are hit by an orcish dagger. You stop searching.» vs JS «You are hit by an orcish dagger. Hachi bites the goblin.--Mo». Probe: `node scripts/hidden-proxy.mjs verify dosearch` (scen-intrinsic-Samurai-92017, scen-normal-Archeologist-92012, scen-normal-Wizard-92127). **Addressed:** D-2215
+- [x] `worn.c` m_dowear_type — blocks 1/553 corpus sessions (first at step 142): C «The goblin puts on a pair of fencing gloves.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify m_dowear_type` (scen-intrinsic-Samurai-92017; rests here after D-2215 moved it past dosearch@54). **Addressed:** D-2215 `addb22dd`
+
+
+- [x] `detect.c` dosearch — blocks 4/553 corpus sessions (first at step 54): C «You are hit by an orcish dagger. You stop searching.» vs JS «You are hit by an orcish dagger. Hachi bites the goblin.--Mo». Probe: `node scripts/hidden-proxy.mjs verify dosearch` (scen-intrinsic-Samurai-92017, scen-normal-Archeologist-92012, scen-normal-Wizard-92127). **Addressed:** D-2215 `addb22dd`
 
 
 - [x] `eat.c` givit — blocks 1/553 corpus sessions (first at step 70): C «You feel less concerned about becoming petrified. The grid b» vs JS «You feel less concerned about becoming petrified The grid bu». Probe: `node scripts/hidden-proxy.mjs verify givit` (scen-wish-Rogue-91119). **Addressed:** D-2214 `68ea2480`

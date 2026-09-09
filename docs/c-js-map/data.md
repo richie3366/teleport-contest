@@ -880,7 +880,7 @@ unlinked from beehive, fdoor=north, queen 8th not 4th)) + **D-0776 `Wiz-strt`** 
 prefix **98505→100104**; Scr **292**) + **D-0777 `maketrap` AIR/CLOUD + 
 `splev_create_trap` stairs/`get_location_coord`** (prefix **100104→100397**) + 
 **D-0800 `Wiz-loca`/`Wiz-fila`/`Wiz-filb`** (seed0360 RNG **FULL**; Scr **561**;
-**D-1818 `Wiz-goal`**; **D-1819 `Bar-goal`**; **D-1841 `fakewiz1`/`fakewiz2`); **D-1952 `mkmaze.c` `is_solid`/`mazexy`** (local `isSolidTile` clone retired; `wall_cleanup` calls `is_solid`; `mazexy` live but `populate_maze`/`create_maze`/`maze0xy`/`walkfrom` callers still deferred)
+**D-1818 `Wiz-goal`**; **D-1819 `Bar-goal`**; **D-1841 `fakewiz1`/`fakewiz2`); **D-1952 `mkmaze.c` `is_solid`/`mazexy`** (local `isSolidTile` clone retired; `wall_cleanup` calls `is_solid`; `mazexy` live but `populate_maze`/`create_maze`/`maze0xy`/`walkfrom` callers still deferred); **D-2216 `mkmaze.c` `populate_maze` + `makemaz` fallback tail** (`populate_maze` live in C order; empty-proto and load-failure paths run the C `:1197-1222` tail — is_maze_lev/corrmaze roll, create_maze variant, wallification, stairs or vibrating square, place_branch, populate_maze; walkfrom wall cell takes typ only per `:1306`; `mazexy` reads `maze_x_max()/maze_y_max()` per gx/gy; still named: populate_maze trap loop — no JS `mktrap` — plus dmonsfree/SPLEVTYPE-getenv)
 
 ### `src/mkmap.c` cavern generator
 
