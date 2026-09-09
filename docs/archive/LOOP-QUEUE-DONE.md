@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `extralev.c` LVLINIT_ROGUE/ROGUEOPTS — rogue-level init + impossible wall checks still named (data.md:631). No corpus block — port the named family. **Addressed:** D-2226
+- [x] `worn.c` m_dowear_type — blocks 1/553 corpus sessions (first at step 142): C «The goblin puts on a pair of fencing gloves.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify m_dowear_type` (scen-intrinsic-Samurai-92017). **Addressed:** D-2227
+
+
+- [x] `extralev.c` LVLINIT_ROGUE/ROGUEOPTS — rogue-level init + impossible wall checks still named (data.md:631). No corpus block — port the named family. **Addressed:** D-2226 `59983ef9`
 
 
 - [x] `track.c` SFCTOOL — save_track/rest_track flag still named (data.md:898). No corpus block — port the named family. **Addressed:** D-2225 `820594ec`

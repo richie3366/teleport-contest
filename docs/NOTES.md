@@ -18,19 +18,20 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 
 ## Don't re-check (≤15)
 
-- D-1790…D-2226 stand. Scars: `m_seenres` boolean, never `!== 0`; no 2nd `genus`/`accessible`/`confdir`/`locomotion`/`unconscious`/`free_mgivenname`/`is_axe`/`carrying`/`end_running`.
+- D-1790…D-2227 stand. Scars: `m_seenres` boolean, never `!== 0`; no 2nd `genus`/`accessible`/`confdir`/`locomotion`/`unconscious`/`free_mgivenname`/`is_axe`/`carrying`/`end_running`.
 - D-1795/D-1816 stand. Scars: sleep `rn2(10)`; no 2nd `m_monnam`/`simple_typename`; seed4500 `[2]`: keep `flush_screen(1)`.
 - No `stay` rebuild / `u.Punished` / ordinary-pit-farlook `rn2(20)`.
 - seed0014 I-glyph D-1774; findone tail D-1775; D-0078 H2344/offx 72 (D-1185); `g`≠Unknown (D-1186); PREFIXCMD D-1582.
   ParanoidTrap/`domagicportal`/`undestroyable_trap`/`mktrap` dst/`goto_level` uz0 are D-1187/1188. No rhack raw-ETX (D-1189). Never FORCE falsified mineralize TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` loaders D-1852/D-1858 — check `load_val_*`/`load_sam_*` before refilling.
 - No D-0480 `tty_map_color` re-apply (D-0483). No skipped spaces / space runs >4 (D-0931). No FORCE shk satdoor/`onlineu` (D-0376), linedup/FlipX (#1092), `_pending_message` restore (D-0929), HEAVY_IRON_BALL `owt!=0` (#1194). Judge keeps RC (D-0933); §1.2 frozen. No public-LB chase.
-- No memcpy gi worn/ball (D-1035) / `setnotworn`←`owornmask` (D-1020) / `delobj` tut loot / off-level timers (D-1037) / dropped `msounds[]` (D-1053) / tut-1 keys (D-1065) / skipped `tutorial()` (D-1066). No skip D-1067…D-2226.
-- No `monmove.js`→sit `sticks` import / `confer_oc_oprop` rewrite / emin delete / `make_happy_shk` stub (D-1540) / bones→options fruitadd (D-1541). No `reset_glyphmap`/`notice_all_mons`/savelev-freeing/`lspo_reset_level`. No `wield`/`pickup`→`polyself` `body_part`. No static `end`←`dog`. No makemon→hack/`artifact`/`minion`. No re-port D-1682…D-2226.
+- No memcpy gi worn/ball (D-1035) / `setnotworn`←`owornmask` (D-1020) / `delobj` tut loot / off-level timers (D-1037) / dropped `msounds[]` (D-1053) / tut-1 keys (D-1065) / skipped `tutorial()` (D-1066). No skip D-1067…D-2227.
+- No `monmove.js`→sit `sticks` import / `confer_oc_oprop` rewrite / emin delete / `make_happy_shk` stub (D-1540) / bones→options fruitadd (D-1541). No `reset_glyphmap`/`notice_all_mons`/savelev-freeing/`lspo_reset_level`. No `wield`/`pickup`→`polyself` `body_part`. No static `end`←`dog`. No makemon→hack/`artifact`/`minion`. No re-port D-1682…D-2227.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2227: `js/worn.js` — `m_dowear_type`/`m_dowear`/`maybe_m_dowear_special` async (awaits only on the !creation message path; creation callers run sync-through Named: W_ARMC `!See_invisible` selection guard still deferred (JS treats as !See_invisible — unto
 - D-2226: `js/extralev.js` — `IS_WALL` joins the existing `const.js` edge; `impossible` joins a new static `display.js` edge (`imports.mjs --can extralev.js dis Named: ROGUEOPTS `name=` env parse (`do_name.c:1428`) stays deferred — no environment in scored `
 - D-2225: `js/track.js` only — raw-count assign then loud `throw` on `> UTSZ` (house panic idiom); header comment records the SFCTOOL finding (C wraps only settrack/gettrack). Named: none new — `> UTSZ`-only guard mirrors C; pre-`initrack()` clear unreachable (D-0367 shape).
 - D-2224: `js/muse.js` — deleted the local clone, `mon_set_minvis` joins the pre-existing static `worn.js` edge (`imports.mjs --can muse.js worn.js mon_set_minv Named: none new — full 9-line C function live; every C caller arm that reaches it (makemon/mcastu
@@ -45,5 +46,4 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 - D-2215: `js/mthrowu.js` — full `:702–786` envelope in C order (EGG impossible/petrifier-FALLTHROUGH via live `touch_petrifies`; pie/venom `thitu(8,0)`; defaul Named: can_blnd Blindfolded/ublindf/ucreamed/visor you-gates (per the uhitm subset, map turns.md)
 - D-2214: `js/eat.js` only — appended `.` to all four ACID/STONE literals to match C `"%s."`. Named: unchanged (debugpline only; `should_givit`/`temp_givit`/`incr_itimeout` wiring already liv
 - D-2213: `js/apply.js` only — `import { surface } from './sit.js'` (canonical `dungeon.c:1750` port, D-2008; `imports.mjs --can apply.js sit.js surface` → IN-S Named: unchanged (use_grapple untrap non-adjacent FIXME, S_goodpos tmp_at D-1051; `surface()` swa
-- D-2212: `js/detect.js` only — uswallow arm now `await Norep('What are you looking for? Named: C `nomul(0)` stays the local `nomul_clear()` subset (JS clears multi + `_repeat_search`/co
 <!-- landmarks:end -->

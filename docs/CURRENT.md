@@ -87,10 +87,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `extralev.c` LVLINIT_ROGUE/ROGUEOPTS — rogue-level init + impossible wall checks still named (data.md:631). No corpus block — port the named family.
+**Next cluster:** `worn.c` m_dowear_type — blocks 1/553 corpus sessions (first at step 142): C «The goblin puts on a pair of fencing gloves.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify m_dowear_type` (scen-intrinsic-Samurai-92017).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2226 (index).**
+**Keep D-0845…D-2227 (index).**
 <!-- recent:begin -->
+**D-2227** `worn.c:798–1002` `m_dowear_type` — `js/worn.js` — `m_dowear_type`/`m_dowear`/`maybe_m_dowear_special` async (awaits only on the !creation message path; creation callers run sync-through, no await reached); sawmon/sawloc at entry in C order; puts-on + auto
 **D-2226** `extralev.c:62` (`down: no wall`), `:68` (`down door ... going nowhere`), `:84` (`up: no w — `js/extralev.js` — `IS_WALL` joins the existing `const.js` edge; `impossible` joins a new static `display.js` edge (`imports.mjs --can extralev.js display.js impossible` → SAFE, hoisted-function; fire-and-forget without 
 **D-2225** `track.c:21–59,93–105` SFCTOOL + `rest_track` (`#ifndef SFCTOOL` wraps only settrack/gettrack; `panic("rest_track: impossible pt counts")` on `> UTSZ`) — `js/track.js` only — raw-count assign then loud throw (house panic idiom); no clamp; single-ESM-build note in header comment.
 **D-2224** `worn.c:474–484` `mon_set_minvis` (`perminvis = !cursed_potion`, `!invis_blkd → minvis = p — `js/muse.js` — deleted the local clone, `mon_set_minvis` joins the pre-existing static `worn.js` edge (`imports.mjs --can muse.js worn.js mon_set_minvis` → ALREADY; `extract_from_minvent`/`which_armor` already imported).
@@ -98,11 +99,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2222** `worm.c:968–976` `flip_worm_segs_vertical` (`curr->wy = (maxy - curr->wy + miny)` over `wt — `js/worm.js` — two exports mirroring C character-for-character (`wtails[worm.wormno | 0]` walk; callers gate wormno, C does not re-check inside).
 **D-2221** `wield.c:1061–1074` `weldmsg` (`pline("%s welded to your %s!", Yobjnam2(obj, "are"), hand) — `js/wield.js` only — the three arms now `await weldmsg(u.uwep)` in C position/order (dowield keeps weldmsg→reset_remarm→unsplit-undo; doquiver keeps `weld_res = !bknown` pre-`welded()` + `weld_res ? 1 : 0`); `reset_remar
 **D-2220** `artifact.c:1008–1060` `spec_applies` (DFLAG1 arm `:1024–1025`; `defended` guard `:1036–10 — `js/artifact.js` only + one new import edge (`defended` from `./mondata.js`; `imports.mjs --can artifact.js mondata.js defended` → IN-SCC, hoisted-function SAFE; `mondata.js` already imports `artifact.js` and every cross
-**D-2219** `pray.c:1167–1354` `pleased` pat_on_head switch — `js/pray.js` only, no new cross-module edge (`see_monsters` extends the pre-existing static `display.js` edge — `imports.mjs --can pray.js display.js see_monsters` → ALREADY; `INTRINSIC` extends the pre-existing `const.j
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2226; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2227; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

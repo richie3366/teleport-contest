@@ -2766,8 +2766,10 @@ gnome unworn LEVITATION_BOOTS — closed by **D-0832** `m_dowear`/`check_gear`/`
 `makemon` `m_dowear(TRUE)` + `mpickstuff` `check_gear_next_turn` + 
 `movemon_singlemon` I_SPECIAL arm (seed0383 **10374→10608**; 
 artifact_light / dogmove check_gear deferred — youmonst which_armor table ported D-1883); 
-**D-0855:** `m_dowear_type` entry `See_invisible?Monnam:mon_nam` nambuf (Hallu rndmonnam; 
-wear/invis plines still deferred; Scr **201→209**); 
+**D-0855:** `m_dowear_type` entry `See_invisible?Monnam:mon_nam` nambuf (Hallu rndmonnam;
+Scr **201→209**); **D-2227:** !creation wear plines (`puts on` + autocurse glow) +
+`artifact_light` end/begin_burn + shine plines + invis `cannot see`/`makeknown` live
+(async `m_dowear`/`maybe_m_dowear_special` chain; W_ARMC `!See_invisible` select guard still deferred); 
 **D-0829 rejected:** makemon 165/108 creation order not @10374 — C skips gnome `dochug` with no 
 RNG); **`movemon_singlemon` Conflict→`fightm` before `dochugw`** (D-0413; 
 ustuck/itsstuck release deferred; **`m_everyturn_effect` fog→`create_gas_cloud` size-1 + 

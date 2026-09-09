@@ -1,6 +1,6 @@
 {
- "commit": "820594ec",
- "at": "2026-09-09T17:02:13.198Z",
+ "commit": "59983ef9",
+ "at": "2026-09-09T17:19:53.760Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -5512,18 +5512,18 @@
   },
   "scen-intrinsic-Samurai-92017": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 7803,
    "rngT": 7803,
-   "scrM": 142,
+   "scrM": 143,
    "scrT": 143,
-   "kind": "screen",
-   "step": 142,
+   "kind": null,
+   "step": null,
    "steps": 143,
-   "owner": "m_dowear_type",
-   "loc": "worn.c:950",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "The goblin puts on a pair of fencing gloves.",
+   "cTopline": "",
    "jsTopline": "",
    "error": null
   },

@@ -2789,7 +2789,7 @@ async function movemon_singlemon(mtmp) {
     if (await minliquid(mtmp)) return false;
 
     // C: mon.c movemon_singlemon — I_SPECIAL → m_dowear; may spend turn
-    if (maybe_m_dowear_special(mtmp)) return false;
+    if (await maybe_m_dowear_special(mtmp)) return false;
 
     // C: is_hider — restrap may hide again; disguised/undetected skip dochug.
     // Else eels may re-hide in isolated pools before dochug (rn2(4) gated).
