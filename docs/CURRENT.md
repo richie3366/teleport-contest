@@ -91,7 +91,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `topten.c` formatkiller — blocks 1/553 corpus sessions (first at step 69): C «» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify formatkiller` (scen-wish-Wizard-92060).
+**Next cluster:** `mkmaze.c` mv_bubble — blocks 1/553 corpus sessions (first at step 131): C `rn2(24)=1` vs JS `rn2(17)=4` in the `mnearto`→`enexto` near-collect after bubble deposit (rings 1–2 full 8/16 both sides; ring 3 full in C, edge-clipped in JS — cons center off by one near an edge; JS probe logged the diverging call at cx=43 cy=18 ns=[8,16,17]). Re-homed from the collect_coords row (body + mnearto proven faithful; full probe in the D-log fission/split entry). Suspect missing `b->x = gbxmin`-style hard clamps (`mkmaze.c:1980–1997`) in JS `mv_bubble_move` — unproven. Probe: `node scripts/hidden-proxy.mjs verify mv_bubble` (scen-tour-Tourist-92100).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2188 (index).**
 <!-- recent:begin -->
