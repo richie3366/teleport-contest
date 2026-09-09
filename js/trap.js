@@ -3954,9 +3954,10 @@ export async function burnarmor(victim) {
             break;
         }
         case 3: {
+            // C trap.c:143-146 passes literal "gloves", never gloves_simple_name
             const item = hitting_u ? u.uarmg : which_armor(victim, W_ARMG);
             if ((await erode_obj(
-                item, gloves_simple_name(item), ERODE_BURN, EF_GREASE,
+                item, 'gloves', ERODE_BURN, EF_GREASE,
             )) === ER_NOTHING) continue;
             break;
         }

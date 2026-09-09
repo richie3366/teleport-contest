@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-09 — D-2190 `trap.c:143–146` burnarmor case 3 passes literal "gloves", not `gloves_simple_name`
+
+**C locus:** `trap.c:143–146` — case 3 calls `burn_dmg(item, "gloves")` with the string literal, never `gloves_simple_name(item)` (contrast case 0 `helm_simple_name` and case 1 `cloak_simple_name`, which do compute names).
+**JS:** `js/trap.js` (+2/−1). Under the 600/10 caps.
+**Change:** pass the `'gloves'` literal with a C citation comment. No import change: `gloves_simple_name` stays imported (still C-correct at the four `water_damage` sites). No new cross-module edge, no DIAG/FORCE/seed/coordinate gates.
+**Verify:** `node scripts/verify.mjs --fn burnarmor` → PASS syntax (1 changed js file) · PASS rule2 · note hidden (vacuous: no corpus session blocked on burnarmor at HEAD — review-sourced Must-fix, not a corpus owner; ships on the public gates) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed). VERIFY: PASS. Pre-change `verify.mjs --no-cohort` baseline also PASS (clean tree).
+**Named:** none new. Case-0 `materialnm` helm prefix stays named (D-2186).
+**Next:** none from this row; resume popping the queue head.
 ## 2026-09-09 — Audit 46171803..d22f6c29 (reviews 1152–1155: 3 ACCEPT, 1 QUALITY-RISK, 0 Must-fix missed) + cadence 44/44
 
 Review iteration, no js/ edits. 1152 (D-2186 armor nouns): QUALITY-RISK — burnarmor case 3 passes `gloves_simple_name(item)` where C `trap.c:143–146` passes literal `"gloves"` (dknown gauntlets would print "gauntlets smoulders!"; the deleted stub was C-correct there); Must-fix prepended, Next cluster set. 1153 (D-2187 aobjnam quan): ACCEPT — re-measured `verify start_tin --base` → 1 PASS PROGRESS, exact match. 1154 (D-2188 hurtle_step): ACCEPT — arm branch-for-branch vs C `:855–905`, `_id` glyph predicate justified, re-measured 110→112 PROGRESS. 1155 (D-2189 monflee): ACCEPT — three arms in C order, all callees LIVE/verified-local, `r.owner || 'js-throw'` fallback confirmed in source (`hidden-proxy.mjs:388`), re-measured 80→96 PROGRESS. Cadence full `sessions`: 44/44, Scr 11,405/11,405, RNG 792,838/792,838, speed `58+0.37/turn` (R² 0.80) — fortress holds.

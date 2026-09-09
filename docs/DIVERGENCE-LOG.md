@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-2190 — `trap.c:143–146` burnarmor case 3 passes literal "gloves", not `gloves_simple_name`
+
+- **Status:** shipped (Must-fix queue row `trap.c` burnarmor case 3 gloves noun, review 1152 QUALITY-RISK. Row addressed and checked off; review stamped **Addressed:** D-2190.)
+- **Symptom:** worn identified leather gauntlets + fire-trap burnarmor with `rn2(5)=3`: JS printed "Your gauntlets smoulders!" where C prints "Your gloves smoulders!".
+- **C locus:** `trap.c:143–146` — case 3 calls `burn_dmg(item, "gloves")` with the string literal, never `gloves_simple_name(item)` (contrast case 0 `helm_simple_name` and case 1 `cloak_simple_name`, which do compute names).
+- **JS was:** `js/trap.js burnarmor` case 3 passed `gloves_simple_name(item)` — D-2186's stub deletion regressed the previously-correct constant stub; the canonical import returns "gauntlets" for dknown gauntlets. It also evaluated the name fn even when `item` is null, where C touches nothing.
+- **Fix:** pass the `'gloves'` literal with a C citation comment. No import change: `gloves_simple_name` stays imported (still C-correct at the four `water_damage` sites). No new cross-module edge, no DIAG/FORCE/seed/coordinate gates. Rule #2 clean.
+- **JS:** `js/trap.js` (+2/−1). Under the 600/10 caps.
+- **Verify:** `node scripts/verify.mjs --fn burnarmor` → PASS syntax (1 changed js file) · PASS rule2 · note hidden (vacuous: no corpus session blocked on burnarmor at HEAD — review-sourced Must-fix, not a corpus owner; ships on the public gates) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed). VERIFY: PASS. Pre-change `verify.mjs --no-cohort` baseline also PASS (clean tree).
+- **Named omissions:** none new. Case-0 `materialnm` helm prefix stays named (D-2186).
+- **Next:** none from this row; resume popping the queue head.
+
 ## D-2189 — `monmove.c` monflee release_hero/flees_light/Vrock arms — vrock `rn2(25)` gas cloud, 1 session moved past
 
 - **Status:** shipped (Open queue row `monmove.c` monflee — cited 1/553 at queue time: scen-tour-Monk-91117 step 80/162. Now moved past to step 96 (unattributed map/memory screen diff, owner null). Row addressed and checked off. No review cited by the row, so no stamp owed.)

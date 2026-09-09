@@ -94,8 +94,9 @@ divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
 **Next cluster:** Must-fix `trap.c` burnarmor case 3 gloves noun — pass literal `"gloves"`, not `gloves_simple_name(item)` (C `trap.c:143–146`; review 1152 QUALITY-RISK). The next port iter ships this first, alone.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2189 (index).**
+**Keep D-0845…D-2190 (index).**
 <!-- recent:begin -->
+**D-2190** `trap.c:143–146` — pass the `'gloves'` literal with a C citation comment.
 **D-2189** `monmove.c:462–530` `monflee` (plus `:450–457` `flees_light` macro, `:361–372` `release_he — port the three arms in C order.
 **D-2188** `dothrow.c:855–905` `hurtle_step` monster arm (`mnam = x_monnam(mon, ARTICLE_A, NULL, (has — port the arm in C order — `glyph_at` read, `mon.mundetected = 0`, `x_monnam(ARTICLE_A, null, SUPPRESS_SADDLE|AUGMENT_IT, false)`, find-by-bumping branch via `noit_mhim`, `wakeup`, `canspotmon→map_invisible(mx,my)`, `setm
 **D-2187** `eat.c:1769` `start_tin` (`pline("Using %s you try to open the tin.", yobjnam(uwep, (char  — `js/objnam.js aobjnam` prepends `` `${quan} ` `` when `((quan ?? 1)|0) !== 1` (missing quan reads as 1, same guard as `simpleonames`/`xname`; C always sets quan).
@@ -103,11 +104,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2185** `mcastu.c:490–501` `mcast_disappear` (`canseemon` → `pline_mon(mtmp, "%s suddenly %s!", Mo — `mon_visible` now gates on same-file `hero_See_invisible()` (flats + sticky + `uprops[SEE_INVIS]`, C `youprop.h:152`); mcastu file-local `See_invisible()` extended with `uprops[SEE_INVIS]` intrinsic/extrinsic (`SEE_INVIS
 **D-2184** `uhitm.c:1603–1634` `hmon_hitmon_splitmon` (called `:1868` after pet, before msg_hit); `mh — `js/uhitm.js` — new `hmon_hitmon_splitmon` block between pet and msg_hit with C's exact guards (black/brown pudding, post-damage `mhp>1`, `!mcan`, on-map, obj==uwep-or-twoweap-uswapwep, IRON/METAL (`objclass.h:24–25` loc
 **D-2183** `eat.c doeat :2998–3024` — port the switch in C order (before reqtime/rotten): `oc_material === MAT_FLESH` → unvegan++ (+ `violated_vegetarian()` with the guilt pline on true, same call-site convention as `eatcorpse`, for non-EGG); otyp in the egg
-**D-2182** `wield.c ready_weapon :168–273` — port in C order — `u.uarms && bimanual(wep)` gate with the `is_sword`/`BATTLE_AXE` noun returns 0 (C `ECMD_FAIL` takes no turn → 0 in this file's 0/1 scheme, matching `cmd.js 'w'` truthy-`move` mapping); full `will_weld`
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2189; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2190; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

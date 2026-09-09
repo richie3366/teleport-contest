@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `monmove.c` monflee — blocks 1/553 corpus sessions (first at step 80): C draws `rn2(25)=24` in monflee, JS `rnd(6)=5` from trapeffect_pit(trap.js:2052). Probe: `node scripts/hidden-proxy.mjs verify monflee` (scen-tour-Monk-91117). **Addressed:** D-2189
+- [x] `trap.c` burnarmor case 3 gloves noun — pass the literal `"gloves"`, not `gloves_simple_name(item)`: C `trap.c:143–146` prints "Your gloves smoulders!" even for dknown gauntlets; D-2186's stub deletion regressed the previously-correct constant stub. Probe: fire-trap burnarmor with worn identified leather gauntlets (`rn2(5)=3`). Source: reviews/loop-unattended/1152-46171803-armor-simple-names.md. **Addressed:** D-2190
+
+
+- [x] `monmove.c` monflee — blocks 1/553 corpus sessions (first at step 80): C draws `rn2(25)=24` in monflee, JS `rnd(6)=5` from trapeffect_pit(trap.js:2052). Probe: `node scripts/hidden-proxy.mjs verify monflee` (scen-tour-Monk-91117). **Addressed:** D-2189 `d22f6c29`
 
 
 - [x] `dothrow.c` hurtle_step — blocks 1/553 corpus sessions (first at step 110): C «You bump into a little dog. You stagger... The baluchitheriu» vs JS «You bump into the little dog. You stagger...--More--». Probe: `node scripts/hidden-proxy.mjs verify hurtle_step` (scen-poly-Archeologist-92226). **Addressed:** D-2188 `60a971cb`

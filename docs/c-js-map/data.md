@@ -1030,7 +1030,7 @@ omit grease/towel/container/acid boom, full `erode_obj` rust/verbose arms, overw
 SLP_GAS/`fall_asleep`/steedintrap**, **hero arrow/sqky/dart `poisoned()`; steedintrap non-pit; 
 **Punished pit `unplacebc`/`ballfall`/`placebc` D-1778** (C `trap.c:1955–1958`; 
 callers gate on `u.uball` ≡ C `Punished` **D-1786**)**, 
-vault/shop/temple `ceiling` labels (**trap burn/water/rock `helm`/`cloak`/`gloves`/`suit_simple_name` now canonical D-2186** — stubs deleted, do_wear/objnam imports; `materialnm` helm prefix still named); **`instapetrify`/`selftouch`/`mselftouch`/`minstapetrify` + 
+vault/shop/temple `ceiling` labels (**trap burn/water/rock `helm`/`cloak`/`gloves`/`suit_simple_name` now canonical D-2186** — stubs deleted, do_wear/objnam imports; `materialnm` helm prefix still named; **`burnarmor` case 3 literal `"gloves"` D-2190** (C `trap.c:143–146`, never `gloves_simple_name`)); **`instapetrify`/`selftouch`/`mselftouch`/`minstapetrify` + 
 `mon_to_stone`/`vamp_stone`/`monstone` + `xkilled` stoned** (D-0995/D-0996), `float_vs_flight`, 
 full `body_part` poly, `stone_missile`/`passes_rocks` harmless arm in `thitm`, **`mons_see_trap`** 
 (D-0701); **`mintrap` already_seen = mon_knows_traps || (HOLE && !mindless)** (D-0703; 

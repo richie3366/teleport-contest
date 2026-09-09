@@ -79,3 +79,5 @@ independently: `hidden-proxy.mjs verify erode_obj --base
    One-line, queueable alone.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-2190
