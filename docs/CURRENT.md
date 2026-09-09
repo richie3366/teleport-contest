@@ -91,7 +91,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `do.c` dodown — blocks 1/553 corpus sessions (first at step 88): C «The water demon hurls a dark potion!--More--» vs JS «The water demon hurls a dark potion!». Probe: `node scripts/hidden-proxy.mjs verify dodown` (scen-wish-Samurai-92088).
+**Next cluster:** `monmove.c` monflee — blocks 1/553 corpus sessions (first at step 80): C draws `rn2(25)=24` in monflee, JS `rnd(6)=5` from trapeffect_pit(trap.js:2052). Probe: `node scripts/hidden-proxy.mjs verify monflee` (scen-tour-Monk-91117).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2188 (index).**
 <!-- recent:begin -->
