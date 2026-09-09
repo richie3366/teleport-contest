@@ -3,8 +3,7 @@
 Metadata: SHA `f5587f13`, D-2048, Must-fix row from
 review 1014 C-wrong 1 (review-measured, zero corpus
 blocks). js/ touches 1 file: `u_init.js` (+2/−8,
-deletion-only). Stamps review 1014 **Addressed:**
-D-2048.
+deletion-only). Stamps review 1014 **Addressed:** D-2048 `f5587f13`.
 
 ## Intent vs deliverable
 

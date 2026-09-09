@@ -91,7 +91,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `attrib.c` from_what — blocks 1/553 corpus sessions (first at step 69): C «You were acid resistant from your creature form.» vs JS «You were acid resistant from your creature form.». Probe: `node scripts/hidden-proxy.mjs verify from_what` (scen-death-Monk-92000).
+**Next cluster:** `pager.c` look_at_monster — blocks 1/553 corpus sessions (first at step 148): C «ca cockatrice (chickatrice) [seen: normal vision, infravisio» vs JS «ca chickatrice [seen: normal vision, infravision]». Probe: `node scripts/hidden-proxy.mjs verify look_at_monster` (scen-genesis-Archeologist-91135).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2185 (index).**
 <!-- recent:begin -->

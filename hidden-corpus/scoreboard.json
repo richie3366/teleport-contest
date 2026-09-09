@@ -1,6 +1,6 @@
 {
- "commit": "9a755ec7",
- "at": "2026-09-09T03:57:51.478Z",
+ "commit": "8ab958e5",
+ "at": "2026-09-09T04:05:40.987Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -4458,19 +4458,19 @@
   },
   "scen-genesis-Archeologist-91135": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 6017,
    "rngT": 6017,
-   "scrM": 185,
+   "scrM": 186,
    "scrT": 186,
-   "kind": "screen",
-   "step": 148,
+   "kind": null,
+   "step": null,
    "steps": 186,
-   "owner": "look_at_monster",
-   "loc": "pager.c:491",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "ca cockatrice (chickatrice) [seen: normal vision, infravision]",
-   "jsTopline": "ca chickatrice [seen: normal vision, infravision]",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-genesis-Archeologist-92084": {
