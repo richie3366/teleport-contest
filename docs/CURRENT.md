@@ -47,14 +47,8 @@ the C recorder by `scripts/scenario-gen.mjs`) pass **7 / 275**, RNG
 they no longer pick work. Top owners: `welcome`→`calendar.c getlt` ×51,
 `do_statusline2` ×11, `break_armor` ×9, `exercise` ×8, `enlightenment`
 ×7, `wiz_intrinsic` ×7, 4 `ReferenceError` throws ×8 (Must-fix).
-Reviews 990–1073: 75 ACCEPT, 5 ACCEPT-WITH-DEBT (debts map-named), 4 QUALITY-RISK Must-fix all shipped/prepended (full record: reviews/ + DIVERGENCE-INDEX).
-Reviews 1074–1082: 7 ACCEPT, 2 ACCEPT-WITH-DEBT (debts map-pointed), 0 Must-fix.
-Reviews 1089–1132: 44 ACCEPT, 0 Must-fix.
-Reviews 1133–1137: 3 ACCEPT, 2 ACCEPT-WITH-DEBT (debts review-pointed: 1136 Hallucination import source, 1137 save.js restore_waterlevel await), 0 Must-fix.
-Reviews 1138–1145: 8 ACCEPT, 0 Must-fix.
-Reviews 1146–1151: 6 ACCEPT, 0 Must-fix.
-Reviews 1152–1155: 3 ACCEPT, 1 QUALITY-RISK (1152 burnarmor gloves literal — Must-fix prepended).
-Reviews 1156–1163: 8 ACCEPT, 0 Must-fix.
+Reviews 990–1082: 82 ACCEPT, 7 DEBT (map-named/pointed), 4 QUALITY-RISK all shipped/prepended (record: reviews/ + DIVERGENCE-INDEX).
+Reviews 1089–1163: 72 ACCEPT, 0 Must-fix except 2 DEBT (1136 Hallucination import, 1137 save.js restore_waterlevel await) + 1 QUALITY-RISK prepended (1152 gloves literal).
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score --jobs 8`
 (≈200 s); when every family is ≥ 85 % PASS, grow it first:
 `node scripts/scenario-gen.mjs --n 120 --seed <iter×100>`.
@@ -69,8 +63,7 @@ seed0360, seed0399, seed2600, seed2200, seed0383,
 seed0014-dequa-fountain-explore, seed0030-ten-diverse-deaths,
 seed4500-knight-coverage.
 
-**Notable non-PASS:** none — fortress 44/44.
-Fortress report `docs/2026-09-04-fortress-regression-42-44.md` (both Must-fix shipped).
+**Notable non-PASS:** none — 44/44.
 
 ## Green gate
 
@@ -93,10 +86,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `mkobj.c` next_ident — blocks 5/553 corpus sessions (first at step 57): C draws `rnd(2)=2` in next_ident, JS `rn2(5)=4` from drop_upon_death(end.js:1311). Probe: `node scripts/hidden-proxy.mjs verify next_ident` (scen-death-Wizard-92120, scen-death-Wizard-92187, scen-genesis-Knight-92068).
+**Next cluster:** `mkobj.c` next_ident residual (D-2202) — 1 session (scen-death-Wizard-92187 step 48): C next_ident with no newmonhp vs JS distfleeck rn2(5). Probe: `node scripts/hidden-proxy.mjs verify next_ident`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2201 (index).**
+**Keep D-0845…D-2202 (index).**
 <!-- recent:begin -->
+**D-2202** `bones.c:457–478` savebones `ismnum(u.ugrave_arise)` arm + `mondata.c:1586–1598` `give_u_t — `js/end.js` only — full arise arm in C order (`in_mklev` + `makemon(NO_MINVENT)` with prev-restore; `!mtmp` fallback drop + `ugrave_arise = NON_PM` + return; `give_u_to_m_resistances`; `christen_monst(plname)`; `newsym`;
 **D-2201** NOT the do_statusline2 append block (`botl.c:170–206`). Live tty path: `bot()` takes `bot_ — `js/display.js` `_statusLine2` emits `BL_HUNGER`, `BL_CAP`, then rank-sorted `BL_CONDITION`, every predicate verbatim (Sick split into separate FoodPois/TermIll gates so Slime/Stone sort between; Conf before Deaf, Hallu 
 **D-2200** `potion.c:368–438` `make_hallucinated` (changed gate `:394`, see_* before pline `:424–426` — `js/display.js` — `await flush_topl_more()` first inside `docrt()`'s guarded body (after the in_docrt latch, before uswallow/vision arms): a pending --More-- now waits on the intact see_* paint (C order), then docrt repa
 **D-2199** `trap.c:1029–1042` `set_utrap` (botl on `!u.utrap ^ !tim`, utrap/utraptype store, `float_v — `js/trap.js` — `float_vs_flight` added to the existing static `./polyself.js` import (same edge as `polymon`/`body_part`/`mbodypart`; `imports.mjs --can trap.js polyself.js float_vs_flight` → ALREADY, no new edge; both m
@@ -104,11 +98,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2197** `mon.c:975–981` steed gate (`mtmp == u.usteed && (Flying || Levitation) && !waterwall`); ` — steed gate in C position (after inpool/inlava/infountain, before gremlin) with the youprop shape (flat cache or `(H||E)&&!B`, as in do.js); engulfing flush `pline` in C order (after drown pline, before mondied/xkilled) v
 **D-2196** `sounds.c:201–339` `dosounds` (swamp `You1(swamp_msg[rn2(2)+hallu])` + return `:234–243`;  — port all seven arms in C order with identical draw sequences (same rn2 calls, same gates).
 **D-2195** `trap.c:6711–6773` `thitm` (strike `find_mac+tlev+spe <= rnd(20)`; miss `pline_mon` "almos — harmless arm in C order — `const harmless = !!(obj && stone_missile(obj) && passes_rocks(mon.data))` (same expression shape as live `js/dothrow.js hittmu`), suffix ternary, dam computed before the gate (preserves `dmgval
-**D-2194** `trap.c:1106–1187` `m_harmless_trap` (SLP_GAS `resists_sleep \|\| defended(AD_SLEE)` :1133 — canonical `defended` + full `resists_magm` (+ file-local `monsndx` = `(mndx ?? mnum ??
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2201; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2202; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
