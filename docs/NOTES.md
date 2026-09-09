@@ -16,6 +16,7 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 - **do_statusline1 park — do not re-pop:** Caveman-92138@72 → attributes_enlightenment.
 - **disclose + list_vanquished parks — do not re-pop:** Priest-92179 Hallu desync (done_in_by imitator); Tourist-92067@224 identical-prompt cell (display-memory).
 - **dopush park — do not re-pop:** seed0116 step-127 1-cell transient is giant-mimic memory/viz at (33,12), not the push (push byte-identical; RNG 12853/12853; needs temp-C-dump falsifier — recipe in Parked; `verify dopush` NO MOVEMENT).
+- **dochug park — do not re-pop:** STALE (js/monmove.js:2204 arm-for-arm vs monmove.c:689–989; wormhitu live via worm.js; 0/553 scoreboard mentions; `verify dochug` vacuous; falsifier: verify blocked on dochug).
 
 ## Don't re-check (≤15)
 

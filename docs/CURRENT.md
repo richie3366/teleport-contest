@@ -89,7 +89,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `mhitu.c` hitmu — monster-vs-hero hit envelope thin vs C (`mhitu.c:1144`, 123/72; honourable-mention band). Corpus reach: in 14 failing sessions' diverged-step C draws. Probe: `node scripts/brief.mjs hitmu`.
+**Next cluster:** `monmove.c` dochug — popped 2026-09-09, parked STALE with no js/ (wormhitu live per D-1798; full C:689–989 arm walk live; 0/553 corpus mentions; `verify dochug` vacuous) — next iter pops `LOOP-QUEUE.md` Open head (`timeout.c` nh_timeout).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2247 (index).**
 <!-- recent:begin -->

@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `mhitu.c` hitmu — monster-vs-hero hit envelope thin vs C (`mhitu.c:1144`, 123/72; honourable-mention band). Corpus reach: in 14 failing sessions' diverged-step C draws. Probe: `node scripts/brief.mjs hitmu`. **Addressed:** D-2247
+- [x] `mhitu.c` hitmu — monster-vs-hero hit envelope thin vs C (`mhitu.c:1144`, 123/72; honourable-mention band). Corpus reach: in 14 failing sessions' diverged-step C draws. Probe: `node scripts/brief.mjs hitmu`. **Addressed:** D-2247 e8c22613
 
 
 - [x] `allmain.c` moveloop_core — per-turn spine dead callees (`do_storms`, `glibr`, `mkot_trap_warn`, `end_of_input`, `do_positionbar`, `runmode_delay_output`, …; PORT-GAP #10). Corpus reach: in 21 failing sessions' diverged-step C draws. Probe: `node scripts/brief.mjs moveloop_core`. **Addressed:** D-2246 `72a51dc6`
