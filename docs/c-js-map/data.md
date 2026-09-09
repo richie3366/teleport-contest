@@ -607,9 +607,9 @@ skip dummy at `wheads`; `distu(wx,wy)<3` then `mattacku`; live `js/worm.js`);
 **D-2222 `flip_worm_segs_vertical`/`flip_worm_segs_horizontal** (`worm.c:968–987`;
 caller `sp_lev.c` `flip_level` `:661–666` wormno arm after priest/shk; live
 `js/worm.js` + `js/mklev.js` monsters loop);
-omit save/rest wsegs, muse/mhitu 
-`worm_move` callers; muse.c/mon.c local `mon_set_minvis` clones; feel_location 
-`is_worm_tail`; Detect_monsters cansee; MON_STILL_ARRIVING; 
+omit save/rest wsegs, muse/mhitu
+`worm_move` callers; feel_location
+`is_worm_tail`; Detect_monsters cansee; MON_STILL_ARRIVING;
 map_monst head `pet_to_glyph` / `detected_mon_to_glyph` (plain `mon_glyph`); 
 `worm_cross` live; `howmonseen` is D-1562; `worm_known` is D-1548; cutworm is D-1570; non-worm `level.monsters[][]` still fmon-only
 

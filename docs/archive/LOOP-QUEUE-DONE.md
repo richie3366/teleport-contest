@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `eat.c` cant_finish_meal — meal-interrupt predicate still named (debt.md:15). No corpus block — port the named family. **Addressed:** D-2223
+- [x] `worn.c` mon_set_minvis — muse/mon local clones still named (data.md:606-607; canonical export is `js/worn.js`). No corpus session currently blocks on it — port the named family (import the export, no new clone). **Addressed:** D-2224
+
+
+- [x] `eat.c` cant_finish_meal — meal-interrupt predicate still named (debt.md:15). No corpus block — port the named family. **Addressed:** D-2223 `e0280149`
 
 
 - [x] `worm.c` flip_worm_segs_vertical/flip_worm_segs_horizontal — save/rest segment-flip family still named (data.md:606). No corpus block — port the named family. **Addressed:** D-2222 `b6fb3939`
