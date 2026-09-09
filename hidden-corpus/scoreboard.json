@@ -1,6 +1,6 @@
 {
- "commit": "a018f317",
- "at": "2026-09-09T02:15:25.233Z",
+ "commit": "a0957c9d",
+ "at": "2026-09-09T02:23:24.461Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6889,19 +6889,19 @@
   },
   "scen-poly-Ranger-92133": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 3023,
+   "passed": true,
+   "rngM": 3051,
    "rngT": 3051,
-   "scrM": 175,
+   "scrM": 194,
    "scrT": 194,
-   "kind": "screen",
-   "step": 175,
+   "kind": null,
+   "step": null,
    "steps": 194,
-   "owner": "peffect_polymorph",
-   "loc": "potion.c:1320",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "You feel a little strange.--More--",
-   "jsTopline": "You feel a little strange. You turn into a plains centaur!",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-poly-Ranger-92217": {

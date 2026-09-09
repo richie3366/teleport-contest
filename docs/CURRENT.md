@@ -95,10 +95,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `engrave.c` doengrave — blocks 1/553 corpus sessions (first at step 191): C draws `rn2(11)=7` in doengrave, JS `rn2(25)=8` from doengrave(engrave.js:1366). Probe: `node scripts/hidden-proxy.mjs verify doengrave` (scen-normal-Samurai-92071).
+**Next cluster:** `potion.c` peffect_polymorph — blocks 1/553 corpus sessions (first at step 175): C «You feel a little strange.--More--» vs JS «You feel a little strange. You turn into a plains centaur!». Probe: `node scripts/hidden-proxy.mjs verify peffect_polymorph` (scen-poly-Ranger-92133).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2176 (index).**
+**Keep D-0845…D-2177 (index).**
 <!-- recent:begin -->
+**D-2177**  — 
 **D-2176**  — 
 **D-2175**  — 
 **D-2174**  — 
@@ -106,11 +107,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2172**  — 
 **D-2171**  — 
 **D-2170**  — 
-**D-2169**  — 
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2176; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2177; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
