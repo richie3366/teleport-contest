@@ -5,22 +5,23 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 ## Active
 
 - **Work picker:** `hidden-proxy queue`; singletons Deferred — do not re-add without a fired falsifier.
-- **More-transient parks — do not re-pop:** break_armor (Tourist-92171@88 timing).
-- **exercise park — do not re-pop:** draw-presence only (0/553 owned; tail draw-free, 111 sites/20 files — needs async vehicle; falsifier: encumbrance topline/owner).
-- **gethungry park — do not re-pop:** presence-only (0/553 owned, 28 stepFns under 12 other owners, 0 hunger toplines; JS arm-for-arm vs C except wizard-only debug_hunger; falsifier: verify blocked on gethungry or hunger topline at its step).
-- **maybe_generate_rnd_mon park — do not re-pop:** presence-only (0/553 owned, 26 stepFns under 11 other owners, 0 cEntry/jsEntry/cMsgOwners; JS arm-for-arm vs C; D-1867 topology already shipped; falsifier: verify blocked on maybe_generate or generation topline at its step).
-- **do_statusline2 park — do not re-pop:** row-23 diffs are paint-timing.
+- **More-transient parks — do not re-pop:** break_armor timing.
+- **exercise park — do not re-pop:** draw-presence only (0/553 owned; tail draw-free; falsifier: encumbrance topline/owner).
+- **gethungry park — do not re-pop:** presence-only (0/553 owned, 28 stepFns under 12 other owners, 0 hunger toplines; JS arm-for-arm vs C; falsifier: verify blocked on gethungry).
+- **maybe_generate_rnd_mon park — do not re-pop:** presence-only (0/553 owned, 26 stepFns under 11 other owners; JS arm-for-arm vs C; falsifier: verify blocked on maybe_generate).
+- **mattacku park — do not re-pop:** presence-only (0/553 owned, 14 presence rows under 11 other owners, 0 cEntry/cMsgOwners; JS arm-for-arm vs C; falsifier: verify blocked on mattacku).
+- **do_statusline2 park — do not re-pop:** paint-timing.
 - **Fortress guards** (do not reopen): display_inventory dismiss/gameover heading/keep_status, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue `S_ndoor`, bigrm-2, getpos, summonmu, lookat, `do_statusline1`, snapshot, fakewiz, Ice/Boulder, `roles[]`, pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
-- **Luck runs when invulnerable, not dialogues** (`timeout.c:623`); STONED/SLIMED silent.
+- **Luck runs when invulnerable, not dialogues** (`timeout.c:623`).
 - **Symptom-owner parks — do not re-pop:** obj_resists/m_move/rloc/lightdamage/mattackm/can_carry/spoteffects/mon_adjust_speed/zapyourself/doname_base/hmonas/minliquid_core/distfleeck.
 - **STALE parks — do not re-pop:** lesshungry/rndcurse/mhitm_ad_famn/regen_hp/barehands/do_mapping/adjattrib/from_what/look_at_monster/formatkiller/do_screen_description/reveal_terrain/peffect_acid/newcham/use_offensive/stop_donning/doeat_nonfood/gcrownu/big_little_match/xkilled. (Proofs in Parked; re-queue only on falsifier.)
 - **slimed park:** landing + Sick-store writers.
 - **MISATTRIBUTED/STALE parks — do not re-pop:** vomiting_dialogue/u_stuck_cannot_go/name_to_monplus/mcast_death_touch/save_dungeon/dodown/mv_bubble/one_characteristic/use_pole/trapmove/fig_transform/chwepon.
-- **do_statusline1 park — do not re-pop:** Caveman-92138@72 → attributes_enlightenment.
-- **disclose + list_vanquished parks — do not re-pop:** Priest-92179 Hallu desync (done_in_by imitator); Tourist-92067@224 identical-prompt cell (display-memory).
-- **dopush park — do not re-pop:** seed0116 step-127 1-cell transient is giant-mimic memory/viz at (33,12), not the push (push byte-identical; RNG 12853/12853; needs temp-C-dump falsifier — recipe in Parked; `verify dopush` NO MOVEMENT).
-- **dochug park — do not re-pop:** STALE (js/monmove.js:2204 arm-for-arm vs monmove.c:689–989; wormhitu live via worm.js; 0/553 scoreboard mentions; `verify dochug` vacuous; falsifier: verify blocked on dochug).
-- **nh_timeout park — do not re-pop:** STALE (8 dialogues live as C-cited locals js/timeout.js:358–679 wired :859–874 in C order; stone_luck live attrib.js:664; 0/553 mentions; `verify nh_timeout` vacuous green 2/2 + cohort 7/7; live timeout.c work is slimed_to_death = open D-2023; falsifier: verify blocked on nh_timeout).
+- **do_statusline1 park — do not re-pop:** → attributes_enlightenment.
+- **disclose + list_vanquished parks — do not re-pop:** Hallu desync / identical-prompt cell (proofs in Parked).
+- **dopush park — do not re-pop:** seed0116@127 1-cell transient is mimic memory/viz, not the push (proof + falsifier recipe in Parked).
+- **dochug park — do not re-pop:** STALE (arm-for-arm live, wormhitu live, 0/553 mentions; proof in Parked; falsifier: verify blocked on dochug).
+- **nh_timeout park — do not re-pop:** STALE (8 dialogues live, 0/553 mentions; proof in Parked; falsifier: verify blocked on nh_timeout).
 
 ## Don't re-check (≤15)
 

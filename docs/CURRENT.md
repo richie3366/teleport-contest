@@ -90,7 +90,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `allmain.c` maybe_generate_rnd_mon — popped 2026-09-10, parked PRESENCE-ONLY with no js/ (0/553 owned; 26 stepFns-presence rows under 11 other owners, 0 cEntry/jsEntry/cMsgOwners; JS arm-for-arm vs C; D-1867 topology already shipped) — next iter pops `LOOP-QUEUE.md` Open head (`mhitu.c` mattacku).
+**Next cluster:** `mhitu.c` mattacku — popped 2026-09-10, parked PRESENCE-ONLY with no js/ (0/553 owned; 14 stepFns/jsEntry-presence rows under 11 other owners, 0 cEntry/cMsgOwners; JS envelope + all aatyp arms arm-for-arm vs C, D-1795/D-1309/D-1326/D-1327/D-1328/D-1816/D-1844 shipped; `verify mattacku` vacuous) — next iter pops `LOOP-QUEUE.md` Open head (`allmain.c` u_calc_moveamt).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2247 (index).**
 <!-- recent:begin -->
