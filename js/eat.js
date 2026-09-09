@@ -939,7 +939,7 @@ export async function lesshungry(num) {
 /**
  * C ref: eat.c obj_nutrition — CORPSE uses mons[].cnutrit; FOOD oc_nutrition.
  */
-function obj_nutrition(otmp) {
+export function obj_nutrition(otmp) {
     if (!otmp) return 0;
     if (otmp.otyp === CORPSE) {
         return mons(otmp.corpsenm)?.cnutrit ?? 0;
@@ -1012,7 +1012,7 @@ function violated_vegetarian() {
 }
 
 /** C ref: eat.c consume_oeaten — amt>0 → >>= amt; amt<0 → += amt (floor 1). */
-function consume_oeaten(obj, amt) {
+export function consume_oeaten(obj, amt) {
     if (!obj) return;
     if (!obj_nutrition(obj)) {
         obj.oeaten = 0;

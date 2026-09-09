@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `detect.c` find_trap — blocks 1/553 corpus sessions (first at step 75): C «You find an anti-magic field.--More--» vs JS «You find an anti-magic field.--More--» (identical toplines; map rows 2–7 blank in JS — geometry owner, geom-probe first per runbook §7; cf. doturn park). Probe: `node scripts/hidden-proxy.mjs verify find_trap` (scen-intrinsic-Priest-92096). **Addressed:** D-2179
+- [x] `mkobj.c` next_ident — blocks 7/553 corpus sessions (first at step 57): C draws `rnd(2)=2` in next_ident, JS `rn2(5)=4` from drop_upon_death(end.js:1286). Probe: `node scripts/hidden-proxy.mjs verify next_ident` (scen-death-Wizard-92120, scen-death-Wizard-92187, scen-genesis-Knight-92068).
+
+
+- [x] `detect.c` find_trap — blocks 1/553 corpus sessions (first at step 75): C «You find an anti-magic field.--More--» vs JS «You find an anti-magic field.--More--» (identical toplines; map rows 2–7 blank in JS — geometry owner, geom-probe first per runbook §7; cf. doturn park). Probe: `node scripts/hidden-proxy.mjs verify find_trap` (scen-intrinsic-Priest-92096). **Addressed:** D-2179 `58d11e0f`
 
 
 - [x] `muse.c` you_aggravate — blocks 1/553 corpus sessions (first at step 88): C «You feel aggravated at the master lich.--More--» vs JS «You feel aggravated at the master lich.». Probe: `node scripts/hidden-proxy.mjs verify you_aggravate` (scen-wish-Wizard-92048). **Addressed:** D-2178 `19724e2f`

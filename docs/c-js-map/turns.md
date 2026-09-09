@@ -1114,7 +1114,7 @@ CHAIN erosion polish / other ball otypes deferred);
 wand `recharged`** (D-0507; named/called/labeled, o_ranges, glass, fruits, drawbridge (furniture 
 D-1279; trap loop D-1289; **door/wall D-1290**; 
 **secret corridor D-1304**), non-wizard spe clamps deferred); 
-**wish Amulet real/fake + `real `/`fake ` preparse + `alt_spellings[]` (generated) + gem-exact/`tin` + srch `!d.typ` guard** (D-2021; `objnam.c:4125–4133,4284–4309,4457–4467,4731–4747` + `:5002–5006` Amulet non-wizard fold; named/called/labeled, `o_ranges`, glass, fruit path, postparse1 remainder, wider typfnd `!wizard` remaps, `oc_uname` srch arm stay deferred); 
+**wish Amulet real/fake + `real `/`fake ` preparse + `alt_spellings[]` (generated) + gem-exact/`tin` + srch `!d.typ` guard** (D-2021; `objnam.c:4125–4133,4284–4309,4457–4467,4731–4747` + `:5002–5006` Amulet non-wizard fold; named/called/labeled, `o_ranges`, glass, postparse1 remainder, wider typfnd `!wizard` remaps, `oc_uname` srch arm stay deferred); **wish fruit path** (D-2180; `options.c:7341` init renames the name-table SLIME_MOLD entry to `"fruit"` so srch cannot match it + `objnam.c:4806–4868` postparse3 fruit loop (food-prefix strip, case-sensitive strcmp/singular/plural vs ffruit → SLIME_MOLD with BUC/halfeaten/cnt/ftype) + `fruitbuf` `:4926` / `ftype` default `:3958` / quan `:5071–5083` / `spe=ftype` `:5137–5138` / halfeaten bite `:5383–5393` / preparse partly-eaten `:4092–4094`; postparse3 Japanese / armor-` mail`-retry / spinach arms stay deferred); 
 doname empty/wield/swapwep/potion/implicit-uncursed (D-0024); 
 **`the_unique_obj`/`obj_is_pname` → `"the "` + Amulet uncursed skip** (D-0568) + 
 **`xname`/`doname` `!nn && oc_uses_known && oc_unique` → `known=0`** (D-0872; 
