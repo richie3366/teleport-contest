@@ -308,7 +308,7 @@ import { setuwep, setuswapwep, setuqwep, set_twoweap } from './wield.js';
 import { remove_worn_item } from './steal.js';
 import {
     mkobj, mksobj, delobj, delobj_core, objects_at, replace_object, rnd_class, weight, splitobj,
-    oc_merge_of, uncurse, attach_egg_hatch_timeout, obj_extract_self,
+    oc_merge_of, uncurse, unbless, attach_egg_hatch_timeout, obj_extract_self,
     eaten_stat, start_timer, spot_stop_timers, spot_time_left, obj_stop_timers,
     obj_ice_effects, place_object, stackobj, mergable, set_corpsenm, kill_egg,
     get_mtraits, free_omonst, free_omid, is_metallic, is_crackable,
@@ -2693,11 +2693,6 @@ function bimanual(obj) {
     return !!(game.objects?.[obj.otyp]?.oc_big);
 }
 
-/** C ref: mkobj.c unbless — clear blessed only. */
-function unbless(obj) {
-    if (obj) obj.blessed = false;
-}
-
 /**
  * C ref: zap.c revive_egg — re-arm HATCH_EGG when typed + !dead_species.
  */
@@ -3368,8 +3363,8 @@ async function cancel_item(obj) {
         }
     }
     // corpse revive→rot timer deferred
-    unbless(obj);
-    uncurse(obj);
+    await unbless(obj);
+    await uncurse(obj);
 }
 
 /**

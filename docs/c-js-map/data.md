@@ -302,6 +302,16 @@ zap.c `dealloc_oextra` poly; **zap `delete_contents` D-1770**;
 trap.js `delete_contents_chest` / mklev.js `create_object_delete_contents`,
 wizard `makemap_prepost` dobjsfree,
 `maybe_unhide_at` youmonst, `shrinking_glob_gone` vs delobj
+|**`maybe_adjust_light` + bless/curse/unbless/uncurse lamplit tails** (D-2244;
+C `mkobj.c:1703–1736` + `:1744–1838` light arms; `arti_light_radius` delta,
+`obj_adjust_light_radius` await, Blind/`get_obj_location(0)` gate,
+PLNMSG_OBJ_GLOWS It/They vs carried/canseen `Yname2`, `otense shine` +
+much/brighter/less-brightly pline; read.c dragon-scale remail was_lit/
+old_light + restore wired; bless-family async (state changes precede first
+await); zap local `unbless` clone retired to the export; polyself
+uskin/skinback arms deferred with their unported merge arms; potion dip
+flag-sets bypass bless/curse (own row); COIN_CLASS/luck/bag-weight (bless,
+curse, unbless)/bimanual/uswapwep/SPBOOK arms still deferred)
 
 ### `src/mon.c` `undead_to_corpse`/`can_be_hatched`/`mondead`/`corpse_chance`
 
@@ -933,7 +943,7 @@ callers + `iter_mons` `mon_offmap` named);
 **Blind `vision_recalc` COULD_SEE-only + old IN_SIGHT newsym** (D-0579); 
 **`do_light_sources` TEMP_LIT + makemon `emits_light` LS_MONSTER** (D-0569; 
 **D-1597 camera range 0** Null-id `LS_OBJECT` + `show_transient_light`;
-**D-2157 circle_ptr exact ring live** (hero at_hero_range trim still named); **D-1956 `obj_adjust_light_radius`** (`light.c:825–838`; first LS_OBJECT id-match wins, recalc only on change, else `impossible(xname)`; live `js/light.js` async; caller `mkobj.c` `maybe_adjust_light` bless/curse wiring named); **D-0675:** stale gas across levels blocked LOS (not 
+**D-2157 circle_ptr exact ring live** (hero at_hero_range trim still named); **D-1956 `obj_adjust_light_radius`** (`light.c:825–838`; first LS_OBJECT id-match wins, recalc only on change, else `impossible(xname)`; live `js/light.js` async; caller `mkobj.c` `maybe_adjust_light` bless/curse wiring WIRED D-2244); **D-0675:** stale gas across levels blocked LOS (not 
 Algorithm-C TRWALL); **`clear_regions` in `clear_level_structures` + 
 goto_level stash/rest** (binary `save_regions` format / free_region teardown deferred); 
 **D-0773 open:** wizard2 mumak LOS — JS `viz_clear` blocks at ROOM boulder → linedup rn2(3); 

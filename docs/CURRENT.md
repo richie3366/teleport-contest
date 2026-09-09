@@ -89,10 +89,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `steed.c` poly_steed — steed-polymorph body still named (data.md:447 `poly_steed` async-or-missing arm of `newcham`); no JS symbol. No corpus block — port the named family. Probe: `node scripts/brief.mjs poly_steed`.
+**Next cluster:** `mkobj.c` maybe_adjust_light — bless/curse caller wiring of live `obj_adjust_light_radius` still named (data.md:936); no JS symbol. No corpus block — port the named family. Probe: `node scripts/brief.mjs maybe_adjust_light`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2243 (index).**
+**Keep D-0845…D-2244 (index).**
 <!-- recent:begin -->
+**D-2244** `mkobj.c:1703–1736` (`maybe_adjust_light`: `new_range = arti_light_radius(obj)`, `delta =  — `js/mkobj.js` — new `export async function maybe_adjust_light(obj, old_range)` in C branch/short-circuit order (`| 0` int idiom on the delta; `await obj_adjust_light_radius`; `get_obj_location(obj, 0)` null-gate = C FALS
 **D-2243** `steed.c:851–873` (`poly_steed`: `if (!can_saddle(steed) || !can_ride(steed)) dismount_ste — `js/steed.js` — new `export async function poly_steed(steed, oldshape)` in C branch/short-circuit order (`!can_saddle || !can_ride` → `await dismount_steed(DISMOUNT_FELL)`; else `x_monnam(steed, ARTICLE_YOUR, null, SUPPR
 **D-2242** `detect.c:780–785` (`object_detect`: `You("detect the %s of %s.", ct ? "presence" : "absen — `js/detect.js` — deleted the `flush_topl_more()` call between the detect pline and the `!ct`/`browse_map` branch and replaced it with the C cite (`detect.c:780` → `getpos.c:843–846`, two-space join, same-class-as-D-2081 
 **D-2241** `invent.c:2636–2647` (`fully_identify_obj`: `makeknown`, oartifact `discover_artifact`, `o — `js/invent.js` — `fully_identify_obj` gains the C tail arm in C position (after `set_cknown_lknown`, last in the body): `(otmp.otyp | 0) === EGG && (otmp.corpsenm | 0) !== NON_PM` (same `| 0` idiom as the neighboring `ST
@@ -100,11 +101,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2239** `polyself.c:905–911` (`newman`: after `newsym(u.ux,u.uy)`, `if (lays_eggs(gy.youmonst.data — `js/polyself.js` — `polymon` gains the C block in C position (immediately after `newsym`, before the deferred `u.uswallow`/`u.ustuck`/`u.usteed` arms): `lays_eggs(game.youmonst?.data)` gate (same `uptr` idiom as the live
 **D-2238** `pray.c:2177–2195` (`pray_revive`: scan `svl.level.objects[u.ux][u.uy]` for the first CORP — `js/pray.js` — new module-local `async function pray_revive()` (C staticfn: same-file caller only) in C order: `objects_at(u.ux,u.uy)` `nexthere` walk (same idiom as the live `water_prayer`), CORPSE/STATUE + `has_omonst`
 **D-2237** `wizard.c:61–103` (`amulet`: worn/wielded-Amulet `!rn2(15)` portal hint at first MAGIC_POR — `js/wizard.js` — new `export async function amulet()` in C branch/short-circuit order (`uamul`-then-`uwep` Amulet test, `rn2(15)` only when held; portal walk stops at first MAGIC_PORTAL over `game.ftrap ?? game.level?.tr
-**D-2236** `mon.c:3834–3840` (`m_into_limbo`: `MON_LIMBO` + `migrate_mon(ledger_no(&u.uz), MIGR_APPRO — `m_into_limbo` exported (doc cites loci + deferred sync sites).
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2243; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2244; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
