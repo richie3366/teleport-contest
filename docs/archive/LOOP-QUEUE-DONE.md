@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `muse.c` use_misc — blocks 1/553 corpus sessions (first at step 145): C «You lash the fire vortex. Your bullwhip smoulders!--More--» vs JS «You lash the fire vortex. You are suddenly very hot!--More--». Probe: `node scripts/hidden-proxy.mjs verify use_misc` (scen-wish-Archeologist-92004). **Addressed:** D-2211
+- [x] `muse.c` use_misc — blocks 1/553 corpus sessions (first at step 145): C «You lash the fire vortex. Your bullwhip smoulders!--More--» vs JS «You lash the fire vortex. You are suddenly very hot!--More--». Probe: `node scripts/hidden-proxy.mjs verify use_misc` (scen-wish-Archeologist-92004). **Addressed:** D-2211 `27d71d60`
 
 
 - [x] `insight.c` ustatusline — blocks 1/553 corpus sessions (first at step 141): C «Status of wizard (fervently neutral): Level 20 HP 114(114) A» vs JS «Status of wizard (fervently neutral): Level 20 HP 114(114) A». Probe: `node scripts/hidden-proxy.mjs verify ustatusline` (scen-wish-Archeologist-92004). **Addressed:** D-2210 `0a5b0256`

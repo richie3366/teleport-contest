@@ -1,6 +1,6 @@
 {
- "commit": "186a5be3",
- "at": "2026-09-09T11:40:45.327Z",
+ "commit": "f9c8b073",
+ "at": "2026-09-09T12:38:56.726Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -8249,19 +8249,19 @@
   },
   "scen-wish-Priest-92197": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 5109,
    "rngT": 5109,
-   "scrM": 253,
+   "scrM": 254,
    "scrT": 254,
-   "kind": "screen",
-   "step": 107,
+   "kind": null,
+   "step": null,
    "steps": 254,
-   "owner": "use_offensive",
-   "loc": "muse.c:1969",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "The scroll erupts in a tower of flame! Boom! Your robe smoulders!--More--",
-   "jsTopline": "The scroll erupts in a tower of flame! Boom! Your cloak smoulders!--More--",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-wish-Ranger-91103": {
