@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-09 — D-2188 `dothrow.c` hurtle_step monster-bump arm — x_monnam ARTICLE_A ("a little dog"), 1 session moved past
+
+**C locus:** `dothrow.c:855–905` `hurtle_step` monster arm (`mnam = x_monnam(mon, ARTICLE_A, NULL, (has_mgivenname ? SUPPRESS_SADDLE : 0) | AUGMENT_IT, FALSE)`; `glyph_is_monster/invisible` → `You("find %s by bumping into %s.")` else `You("bump into %s.")`; `wakeup`; `!canspotmon → map_invisible`; `setmangry(mon, FALSE)`; both `touch_petrifies` checks; `wake_nearto`). The `#if 0` mundetected exceptions stay excluded (cannot know the range continues past this spot). Mechanism for the two trailing messages: `win/tty/topl.c:261–277` `update_topl` appends iff `n0 + len(toplines) + 3 < CO - 8` (room for `--More--`), else `more()` first — "a" (n0 27: 25+43+3=71 < 72 appends "hits!") vs "the" (n0 31: 25+47+3=75 ≥ 72 pages early), so the 4-char article flipped the More boundary and lagged every later screen by one message.
+**JS:** `js/dothrow.js` (+46/−7: 4 import lines + full bump arm; doc omit list drops "petrify bump; setmangry"). Under the 600/10 caps.
+**Change:** port the arm in C order — `glyph_at` read, `mon.mundetected = 0`, `x_monnam(ARTICLE_A, null, SUPPRESS_SADDLE|AUGMENT_IT, false)`, find-by-bumping branch via `noit_mhim`, `wakeup`, `canspotmon→map_invisible(mx,my)`, `setmangry(mon,false)`, hero-unarmored `touch_petrifies(mon.data)` → `instapetrify("bumping into " + an(pmname(mon.data, NEUTRAL)))` (JS `instapetrify` takes the killer string; same effect as C's `svk.killer.name` write), hero-form `touch_petrifies` + `!which_armor(mon, W_ARMU|W_ARM|W_ARMC)` → `minstapetrify(mon,true)`, `wake_nearto`. Imports: same-module extensions (`display.js` glyph trio + `map_invisible`, `do_name.js` x_monnam + pmname, `mon.js` setmangry, `trap.js` instapetrify, `const.js` ARTICLE_A/SUPPRESS_SADDLE/AUGMENT_IT/has_mgivenname/W_ARMU/W_ARM/W_ARMC) plus two IN-SCC edges (`mondata.js` noit_mhim + NEUTRAL, `worn.js` which_armor — `imports.mjs --can` confirms cycle-safe, runtime-only refs, no top-level TDZ read). For the unseen-glyph leg, `glyph_is_invisible_id` is the C-cited choice for a `glyph_at` glyph (per `display.js` doc).
+**Verify:** `node scripts/verify.mjs --fn hurtle_step` → PASS syntax (1 changed js file) · PASS rule2 · PASS hidden (PROGRESS, moved 110 → make_stunned@112) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (tool: no shared file changed). VERIFY: PASS. Spot replays: steps 110/111 toplines now byte-match C; step-112 status rows match both sides (Stun clears identically — residual is message-only).
+**Named:** none new. Pre-existing `hurtle_step` omits stand (Passes_walls/may_passwall, bad_rock squeeze, Sokoban halt, drag_ball, check_special_room, drown/waterwall, I_SPECIAL jumping, trap pass-over dotrap, nh_delay_output).
+**Next:** residual `make_stunned`@112 (stun-expiry «You feel a bit steadier now.» absent in JS though stun state matches — own `potion.c`/`timeout.c` row on rescore). Do not re-pop `hurtle_step`.
 ## 2026-09-09 — D-2187 `eat.c` start_tin via `objnam.c` aobjnam quan prefix — "6 orcish daggers", 1 session PASS
 
 **C locus:** `eat.c:1769` `start_tin` (`pline("Using %s you try to open the tin.", yobjnam(uwep, (char *)0))`); `objnam.c:2242–2258` `aobjnam` (`bp = cxname(otmp)`; `if (otmp->quan != 1L)` prepend `"%ld "`; optional `otense` verb); `objnam.c:2260–2275` `yobjnam` (`aobjnam` + `shk_your` unless carried pname artifact). `xname` pluralizes but never adds the count — the count lives in `aobjnam` (same for `doname_base :1283`).
@@ -75,44 +83,3 @@ Review-only, no js/. All six D-log corpus claims re-measured at parent baselines
 **Verify:** `node scripts/verify.mjs --fn next_ident` → PASS syntax (3 changed js files: js/eat.js js/options.js js/readobjnam.js) · PASS rule2 · PASS hidden: 2 PASS, 3 moved past (1 still next_ident at a later step), 4 unchanged, 0 worse → PROGRESS (scen-wish-Healer-92010 PASS; scen-wish-Knight-92105 PASS incl. «2 slime molds.»; scen-wish-Archeologist-92238 moved 42→obj_resists@166; scen-wish-Knight-92130 moved 90→dosearch0@179; scen-genesis-Knight-92224 moved 20→next_ident@77) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed). VERIFY: PASS.
 **Named:** none new. Postparse3 Japanese-item / armor-` mail`-retry / spinach arms and the wider preparse `historic`/`diluted` arms stay deferred (pre-existing gaps, no corpus session reaches them through this path).
 **Next:** residual 4 death/genesis sessions still blocked on next_ident (scen-death-Wizard-92120@57, scen-death-Wizard-92187@48, scen-genesis-Knight-92068@96, scen-wish-Wizard-92048@113 — stepFns next_ident/newmonhp/makemon/drop_upon_death, prev `rn2(1) @ can_make_bones`, JS draws `rn2(5) @ drop_upon_death` / `rn2(5) @ distfleeck`) are a different writer: death-path makemon/newmonhp ordering vs the inventory drop (likely `bones.c` savebones ghost-creation vs `drop_upon_death` order; those recipes contain no fruit wishes and never reach the ported arm). Falsifier: `node scripts/hidden-proxy.mjs verify next_ident`; re-queue under the writer it names — never re-pop the fruit path for them. Leftovers 92238→obj_resists@166 and 92130→dosearch0@179 belong to their new owners.
-## 2026-09-09 — Audit 0b6f3f56..58d11e0f (reviews 1138-1145: 8 ACCEPT, 0 Must-fix) + cadence 44/44
-
-**Scope:** 8 js-touching SHAs since 1137 (D-2172..D-2179); 71c6e030 (queue stamp) + 2dcdffa1 (park) docs-only, skipped. Each re-measured against pinned C with hidden-proxy verify --base: every D-log corpus claim reproduced exactly (1139's Knight-92034 now fully PASS at HEAD, better than logged; 1140's Monk residual moved 79→121 via D-2175, as logged).
-**Debts/notes:** 1138 `want !== 0` guard (unreachable, all roles have questarti); 1145 parked gnostic fix not re-applied (park falsifier owns it). No Must-fix prepended; Next cluster advances to Open head (`pager.c` lookat).
-**Cadence:** full `sessions` 44/44, Scr 11405/11405, RNG 792838/792838, speed `60+0.36/turn` (R² 0.79).
-## 2026-09-09 — D-2179 `detect.c` find_trap: clutter check must read memory `levl[][].glyph`, not gbuf `glyph_at` (Priest-92096 step 75→149)
-
-**C locus:** `detect.c find_trap :1936–1962` (`tseen=1`, `exercise(A_WIS)`, `feel_newsym`, then `if (Hallucination || levl[tx][ty].glyph != trap_to_glyph)` → `cls(); map_trap(trap,1); display_self(); cleared=TRUE`, `set_msg_xy`, `You("find %s.")`, `if (cleared) { display_nhwindow(WIN_MAP,TRUE); docrt(); }`) + `display.c feel_newsym/newsym/_map_location/map_trap` (memory is `levl[][].glyph`; `_map_location(x,y,show=FALSE)` under a monster still stores the trap via `map_trap(trap,0)` while gbuf shows the monster) + `wintty.c tty_display_nhwindow` NHW_MAP blocking (`end_glyphout`, topline non-empty → NEED_MORE, message wait — the `--More--`).
-**JS:** `js/detect.js` only (+10/−3 in `find_trap` + comment), under the 600/10 caps. Rule #2 clean.
-**Change:** `js/detect.js find_trap` now reads the memory glyph — `(game.level.at(tx,ty).remembered_glyph.glyph|0)` defaulting to `NO_GLYPH` when absent (matches C mismatch for unseen/no-memory cells; `map_*` skip the store when `hero_memory` is off on both sides) — and compares it to `tgid`. Comment cites the C memory-vs-gbuf distinction and the monster-cover case. No new module edge (`game`, `NO_GLYPH` already imported; `glyph_at` stays imported — still used at :1547/:1581/:1597/:2181).
-**Verify:** `node scripts/verify.mjs --fn find_trap` → PASS syntax (1 changed js file: js/detect.js) · PASS rule2 · PASS hidden: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS (scen-intrinsic-Priest-92096: moved → doturn at step 149, was 75) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed). VERIFY: PASS. Post-fix replay: JS step-75 screen keeps the room (`┌───┐`, `│@^·│`, `│·f·│`) under the identical `--More--` topline.
-**Named:** none new. `do_mapping` browse_map/`map_redisplay` partial (the `^F` gap) stays named in `turns.md:129–226`; `mthrowu.c monshoot` drift stays map debt (D-2037).
-**Next:** row addressed; residual doturn@149 («You are not able to call upon Raijin…» More) is the parked `pray.c doturn` row (stale owner; genuine `uconduct.gnostic` fix + proof in that park entry — re-apply once its map precondition holds). Do not re-pop `find_trap` for Priest-92096.
-## 2026-09-09 — D-2178 `muse.c` you_aggravate: WIN_MAP blocking needs more(), not flush+nhgetch (Wizard-92048 step 88→113)
-
-**C locus:** 
-**JS:** 
-**Change:** 
-**Verify:** 
-**Next:** (see LOOP-QUEUE)
-## 2026-09-09 — D-2177 `polyself.c` polyself: non-force controllable getlin was a named omission, so poly-control + POLY_NOFLAGS went random (Ranger-92133 PASS)
-
-**C locus:** 
-**JS:** 
-**Change:** 
-**Verify:** 
-**Next:** (see LOOP-QUEUE)
-## 2026-09-09 — D-2176 `engrave.c` doengrave mix-up predicates: local `Blind()` missed timed `HBlinded`, skipping every `rn2(11)` (Samurai-92071 PASS)
-
-**C locus:** 
-**JS:** 
-**Change:** 
-**Verify:** 
-**Next:** (see LOOP-QUEUE)
-## 2026-09-09 — D-2175 `mcastu.c` castmu fumble arm: JS burned the fumble `rn2(ml*10)` but skipped the air-crackles pline, losing the `--More--` (Monk-92013 step 79→121)
-
-**C locus:** 
-**JS:** 
-**Change:** 
-**Verify:** 
-**Next:** (see LOOP-QUEUE)

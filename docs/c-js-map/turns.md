@@ -2574,8 +2574,11 @@ canletgo/Mjollnir/too-heavy/welded/wet-towel / petrify `:139–148`; dig is D-13
 `u_on_newpos` (D-1038; not `teleds`; **`hurtle_step` `in_out_region` after isok before 
 `*range==0`** D-1165; **`mhurtle_step` `will_hurtle && m_in_out_region` before place** D-1176; 
 **`hurtle_step` dest-typ `switch_terrain` after flush** D-1277; 
+**`hurtle_step` monster-bump arm** D-2188 (C `:855–905`: glyph read, x_monnam ARTICLE_A + 
+AUGMENT_IT, find-by-bumping branch, wakeup, canspotmon→map_invisible, setmangry, both 
+petrify checks, wake_nearto; `#if 0` mundetected exceptions stay excluded); 
 endmultishot/drag_ball/drown/trap pass-over/check_special_room/steed 
-`u_on_newpos`/petrify/`place_monster` vs rloc deferred)**; 
+`u_on_newpos`/`place_monster` vs rloc deferred)**; 
 **`help_dir` More = `xwaitforspace(quitchars)` only** (D-0451; non-quitchar `tty_nhbell` D-1631); 
 **`throw_obj` multishot + `multishot_class_bonus` + `rnd(multishot)`** (D-0093; **PM_NINJA shuriken/dart + SAMURAI fallthrough D-2111**; named: `monmulti` mplayer +1 `mthrowu.c:220`, racial elf/orc/gnome bow bonus); 
 **`throwit`→`stackobj`** (D-0094); **`throwit` land `cansee`→`newsym`** (D-0427; 

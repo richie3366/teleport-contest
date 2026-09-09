@@ -1,6 +1,6 @@
 {
- "commit": "46171803",
- "at": "2026-09-09T04:15:00.148Z",
+ "commit": "4e0fe784",
+ "at": "2026-09-09T04:29:19.902Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6620,16 +6620,16 @@
    "passed": false,
    "rngM": 3368,
    "rngT": 3368,
-   "scrM": 135,
+   "scrM": 137,
    "scrT": 138,
    "kind": "screen",
-   "step": 110,
+   "step": 112,
    "steps": 138,
-   "owner": "hurtle_step",
-   "loc": "dothrow.c:865",
+   "owner": "make_stunned",
+   "loc": "potion.c:117",
    "jsOwner": null,
-   "cTopline": "You bump into a little dog. You stagger... The baluchitherium hits!--More--",
-   "jsTopline": "You bump into the little dog. You stagger...--More--",
+   "cTopline": "The baluchitherium hits again! You feel a bit steadier now.",
+   "jsTopline": "The baluchitherium hits again!",
    "error": null
   },
   "scen-poly-Caveman-91133": {

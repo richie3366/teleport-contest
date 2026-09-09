@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `eat.c` start_tin — blocks 1/553 corpus sessions (first at step 118): C «Using your 6 orcish daggers you try to open the tin.--More--» vs JS «Using your orcish daggers you try to open the tin.--More--». Probe: `node scripts/hidden-proxy.mjs verify start_tin` (scen-normal-Rogue-92115). **Addressed:** D-2187
+- [x] `dothrow.c` hurtle_step — blocks 1/553 corpus sessions (first at step 110): C «You bump into a little dog. You stagger... The baluchitheriu» vs JS «You bump into the little dog. You stagger...--More--». Probe: `node scripts/hidden-proxy.mjs verify hurtle_step` (scen-poly-Archeologist-92226). **Addressed:** D-2188
+
+
+- [x] `eat.c` start_tin — blocks 1/553 corpus sessions (first at step 118): C «Using your 6 orcish daggers you try to open the tin.--More--» vs JS «Using your orcish daggers you try to open the tin.--More--». Probe: `node scripts/hidden-proxy.mjs verify start_tin` (scen-normal-Rogue-92115). **Addressed:** D-2187 `4e0fe784`
 
 
 - [x] `trap.c` erode_obj — blocks 1/553 corpus sessions (first at step 86): C «Your robe smoulders!» vs JS «Your cloak smoulders!». Probe: `node scripts/hidden-proxy.mjs verify erode_obj` (scen-normal-Priest-92020). **Addressed:** D-2186 `46171803`
