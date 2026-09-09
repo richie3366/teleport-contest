@@ -48,6 +48,8 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 `error`) is always a Must-fix row: it forfeits every later screen of that
 session (Constitution §10.14).
 
+- [ ] `js` js-throw — blocks 2/553 corpus sessions (first at step undefined): C «» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify js-throw` (scen-normal-Knight-92182, scen-wish-Knight-92034).
+
 ## Open (corpus-driven, after Must-fix is empty)
 
 Ranked by corpus sessions blocked (`hidden-proxy queue`, scoreboard at
@@ -60,7 +62,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `artifact.c` touch_artifact — blocks 1/553 corpus sessions (first at step 92): C draws `d(4,10)=22` in touch_artifact, JS `rn2(1)=0` from readobjnam(readobjnam.js:1280). Probe: `node scripts/hidden-proxy.mjs verify touch_artifact` (scen-wish-Rogue-92221).
 - [ ] `mcastu.c` mcast_death_touch — blocks 1/553 corpus sessions (first at step 71): C «Oh no, he's using the touch of death! You feel drained...--More--» vs JS «Oh no, she's using the touch of death! You feel drained...--More--». Probe: `node scripts/hidden-proxy.mjs verify mcast_death_touch` (scen-tour-Tourist-92134).
 - [ ] `uhitm.c` mhitm_mgc_atk_negated — blocks 1/553 corpus sessions (first at step 79): C «The lich touches you! You avoid harm.--More--» vs JS «The lich touches you! You avoid harm.». Probe: `node scripts/hidden-proxy.mjs verify mhitm_mgc_atk_negated` (scen-wish-Monk-92013).
 - [ ] `engrave.c` doengrave — blocks 1/553 corpus sessions (first at step 191): C draws `rn2(11)=7` in doengrave, JS `rn2(25)=8` from doengrave(engrave.js:1366). Probe: `node scripts/hidden-proxy.mjs verify doengrave` (scen-normal-Samurai-92071).
@@ -68,6 +69,7 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 - [ ] `muse.c` you_aggravate — blocks 1/553 corpus sessions (first at step 88): C «You feel aggravated at the master lich.--More--» vs JS «You feel aggravated at the master lich.». Probe: `node scripts/hidden-proxy.mjs verify you_aggravate` (scen-wish-Wizard-92048).
 - [ ] `detect.c` find_trap — blocks 1/553 corpus sessions (first at step 75): C «You find an anti-magic field.--More--» vs JS «You find an anti-magic field.--More--» (identical toplines; map rows 2–7 blank in JS — geometry owner, geom-probe first per runbook §7; cf. doturn park). Probe: `node scripts/hidden-proxy.mjs verify find_trap` (scen-intrinsic-Priest-92096).
 - [ ] `pager.c` lookat — blocks 1/553 corpus sessions (first at step 20): C «You miss the gnomish wizard.--More--» vs JS «You miss the gnomish wizard.». Probe: `node scripts/hidden-proxy.mjs verify lookat` (scen-genesis-Knight-92224).
+- [ ] `mkobj.c` next_ident — blocks 7/553 corpus sessions (first at step 57): C draws `rnd(2)=2` in next_ident, JS `rn2(5)=4` from drop_upon_death(end.js:1286). Probe: `node scripts/hidden-proxy.mjs verify next_ident` (scen-death-Wizard-92120, scen-death-Wizard-92187, scen-genesis-Knight-92068).
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 

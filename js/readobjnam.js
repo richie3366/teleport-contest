@@ -30,6 +30,7 @@ import {
 } from './objects.js';
 import { mksobj, mkobj, weight, curse, oc_merge_of, spot_stop_timers, set_corpsenm } from './mkobj.js';
 import { artifact_name, nartifact_exist, permapoisoned } from './artifact.js';
+import { is_quest_artifact } from './quest.js';
 import { oname, lookup_novel } from './do_name.js';
 import { name_to_mon, name_to_monplus } from './mondata.js';
 import { tin_variety_txt, set_tin_variety } from './eat.js';
@@ -1275,11 +1276,13 @@ export function readobjnam(bp, no_wish, missOut) {
     // C objnam.c readobjnam `:5368–5369` — Grimtooth always poisoned.
     if (permapoisoned(d.otmp)) d.otmp.opoisoned = 1;
 
-    // C: evaluate rn2(nartifact_exist()) even when wizard (|| short-circuit)
-    if (d.otmp.oartifact) {
-        const denyRoll = rn2(nartifact_exist()) > 1;
-        if (denyRoll && !wizardMode()) return HANDS_OBJ;
-    }
+    // C objnam.c readobjnam `:5371–5380` — wishing abuse: quest artifacts
+    // short-circuit the existence roll (`is_quest_artifact || ...`, so no
+    // rn2 for them); non-quest artifacts always roll rn2, even in wizard
+    // mode (`&& !wizard` is last). Single if preserves C short-circuit.
+    if ((is_quest_artifact(d.otmp)
+         || (d.otmp.oartifact && rn2(nartifact_exist()) > 1)) && !wizardMode())
+        return HANDS_OBJ;
 
     d.otmp.owt = weight(d.otmp);
     return d.otmp;

@@ -1,6 +1,6 @@
 {
- "commit": "4a0daf23",
- "at": "2026-09-09T00:56:19.411Z",
+ "commit": "5dbac9f3",
+ "at": "2026-09-09T01:17:13.955Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -8431,19 +8431,19 @@
   },
   "scen-wish-Rogue-92221": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 3308,
+   "passed": true,
+   "rngM": 3349,
    "rngT": 3349,
    "scrM": 107,
    "scrT": 107,
-   "kind": "rng",
-   "step": 92,
+   "kind": null,
+   "step": null,
    "steps": 107,
-   "owner": "touch_artifact",
-   "loc": "artifact.c:953",
-   "jsOwner": "readobjnam(readobjnam.js:1280)",
-   "cTopline": "You are blasted by the key named the Master Key of Thievery's power!--More--",
-   "jsTopline": "You are blasted by the key named the Master Key of Thievery's power!--More--",
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-wish-Samurai-91102": {

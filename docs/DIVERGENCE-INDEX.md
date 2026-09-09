@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-2172 | fixed |  — `objnam.c` readobjnam wishing-abuse deny arm: quest artifacts skip the `rn2(nartifact_exist())` roll in C ( |  |
 | D-2171 | fixed |  — `mkmaze.c` movebubbles/mv_bubble water cons pickup+deposit: arrival bubbles never deposited, C eel mnearto→ |  |
 | D-2170 | fixed |  — `hack.c` domove_bump_mon: m-prefix bump onto monsters printed swap/attack instead of Pardon/move-right-into |  |
 | D-2169 | fixed |  — `attrib.c` exercise row: lifesaved touch_artifact blast skipped `exercise(A_WIS,FALSE)` + blank-paper read  |  |
