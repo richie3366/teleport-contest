@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `mkobj.c` maybe_adjust_light — bless/curse caller wiring of live `obj_adjust_light_radius` still named (data.md:936); no JS symbol. No corpus block — port the named family. Probe: `node scripts/brief.mjs maybe_adjust_light`. **Addressed:** D-2244
+- [x] `mon.c` wiz_force_cham_form — interactive wizard `mon_polycontrol` body (`getlin` prompt loop + `mkclass_poly`/`validvamp` callees) still named (narrow-down of the data.md:439 family; wizard arm deferred by the newcham port); no JS symbol. No corpus block — port the named family. Probe: `node scripts/brief.mjs wiz_force_cham_form`. **Addressed:** D-2245
+
+
+- [x] `mkobj.c` maybe_adjust_light — bless/curse caller wiring of live `obj_adjust_light_radius` still named (data.md:936); no JS symbol. No corpus block — port the named family. Probe: `node scripts/brief.mjs maybe_adjust_light`. **Addressed:** D-2244 `611866fc`
 
 
 - [x] `steed.c` poly_steed — steed-polymorph body still named (data.md:447 `poly_steed` async-or-missing arm of `newcham`); no JS symbol. No corpus block — port the named family. Probe: `node scripts/brief.mjs poly_steed`. **Addressed:** D-2243 `1fb930b1`

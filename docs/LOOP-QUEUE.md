@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `mon.c` wiz_force_cham_form — interactive wizard `mon_polycontrol` body (`getlin` prompt loop + `mkclass_poly`/`validvamp` callees) still named (narrow-down of the data.md:439 family; wizard arm deferred by the newcham port); no JS symbol. No corpus block — port the named family. Probe: `node scripts/brief.mjs wiz_force_cham_form`.
 - [ ] `allmain.c` moveloop_core — per-turn spine dead callees (`do_storms`, `glibr`, `mkot_trap_warn`, `end_of_input`, `do_positionbar`, `runmode_delay_output`, …; PORT-GAP #10). Corpus reach: in 21 failing sessions' diverged-step C draws. Probe: `node scripts/brief.mjs moveloop_core`.
 - [ ] `mhitu.c` hitmu — monster-vs-hero hit envelope thin vs C (`mhitu.c:1144`, 123/72; honourable-mention band). Corpus reach: in 14 failing sessions' diverged-step C draws. Probe: `node scripts/brief.mjs hitmu`.
 - [ ] `monmove.c` dochug — dead callee `wormhitu` + ~90 lines of C unaccounted (PORT-GAP #7; distinct arms from the Deferred demon/caster-retaliation row). Corpus reach: in 6 failing sessions' diverged-step C draws. Probe: `node scripts/brief.mjs dochug`.
