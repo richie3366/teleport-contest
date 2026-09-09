@@ -1174,3 +1174,9 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1161-ea5bcd4b-thitm-harmless-arm.md](./1161-ea5bcd4b-thitm-harmless-arm.md) | `ea5bcd4b` | D-2195 thitm harmless arm | **ACCEPT** |
 | [1162-1223ac2f-dosounds-seven-arms.md](./1162-1223ac2f-dosounds-seven-arms.md) | `1223ac2f` | D-2196 dosounds seven arms | **ACCEPT** |
 | [1163-ab784680-minliquid-steed-mdrop-obj.md](./1163-ab784680-minliquid-steed-mdrop-obj.md) | `ab784680` | D-2197 minliquid steed + mdrop_obj | **ACCEPT** |
+| [1164-fb866daa-heal-legs-royal-jelly-steed.md](./1164-fb866daa-heal-legs-royal-jelly-steed.md) | `fb866daa` | D-2198 heal_legs royal-jelly + steed gate | **ACCEPT** |
+| [1165-d271ffb6-set-utrap-float-vs-flight.md](./1165-d271ffb6-set-utrap-float-vs-flight.md) | `d271ffb6` | D-2199 set_utrap float_vs_flight | **ACCEPT** |
+| [1166-fda2efaf-make-hallucinated-docrt-expiry.md](./1166-fda2efaf-make-hallucinated-docrt-expiry.md) | `fda2efaf` | D-2200 make_hallucinated docrt + expiry | **ACCEPT** |
+| [1167-334dc087-statusline2-condition-order.md](./1167-334dc087-statusline2-condition-order.md) | `334dc087` | D-2201 statusline2 condition order | **ACCEPT** |
+| [1168-51fb6091-savebones-undead-arise.md](./1168-51fb6091-savebones-undead-arise.md) | `51fb6091` | D-2202 savebones undead-arise arm | **ACCEPT** |
+| [1169-2b917b52-stunned-expiry-arm.md](./1169-2b917b52-stunned-expiry-arm.md) | `2b917b52` | D-2203 STUNNED expiry arm | **ACCEPT** |

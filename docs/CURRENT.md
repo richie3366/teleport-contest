@@ -21,7 +21,7 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-09** — full `sessions` on the working tree
-(audit **1156–1163**).
+(audit **1164–1169**).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 `92+0.57/turn` (R² 0.77).
@@ -33,7 +33,7 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `58+0.37/turn` (R² 0.80) |
+| Speed label | `83+0.59/turn` (R² 0.76) |
 | Role-init throws | **0 / 44** |
 
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-06
@@ -48,7 +48,7 @@ they no longer pick work. Top owners: `welcome`→`calendar.c getlt` ×51,
 `do_statusline2` ×11, `break_armor` ×9, `exercise` ×8, `enlightenment`
 ×7, `wiz_intrinsic` ×7, 4 `ReferenceError` throws ×8 (Must-fix).
 Reviews 990–1082: 82 ACCEPT, 7 DEBT (map-named/pointed), 4 QUALITY-RISK all shipped/prepended (record: reviews/ + DIVERGENCE-INDEX).
-Reviews 1089–1163: 72 ACCEPT, 0 Must-fix except 2 DEBT (1136 Hallucination import, 1137 save.js restore_waterlevel await) + 1 QUALITY-RISK prepended (1152 gloves literal).
+Reviews 1089–1169: 78 ACCEPT, 0 Must-fix except 2 DEBT (1136 Hallucination import, 1137 save.js restore_waterlevel await) + 1 QUALITY-RISK prepended (1152 gloves literal).
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score --jobs 8`
 (≈200 s); when every family is ≥ 85 % PASS, grow it first:
 `node scripts/scenario-gen.mjs --n 120 --seed <iter×100>`.
@@ -86,7 +86,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `potion.c` make_stunned — blocks 1/553 corpus sessions (first at step 112): C «The baluchitherium hits again! You feel a bit steadier now.» vs JS «The baluchitherium hits again!». Probe: `node scripts/hidden-proxy.mjs verify make_stunned` (scen-poly-Archeologist-92226).
+**Next cluster:** `stairs.c` stairs_description — blocks 1/553 corpus sessions (first at step 208): C «There is a staircase up out of the dungeon here.» vs JS «The fire vortex engulfs you!--More--». Probe: `node scripts/hidden-proxy.mjs verify stairs_description` (scen-poly-Healer-92109). (D-2203 shipped make_stunned — review 1169.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2203 (index).**
 <!-- recent:begin -->
