@@ -1,6 +1,6 @@
 {
- "commit": "7b15eaf9",
- "at": "2026-09-09T08:40:34.158Z",
+ "commit": "78427e4e",
+ "at": "2026-09-09T08:44:29.006Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -5988,19 +5988,19 @@
   },
   "scen-normal-Barbarian-92064": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 4092,
    "rngT": 4092,
-   "scrM": 100,
+   "scrM": 101,
    "scrT": 101,
-   "kind": "screen",
-   "step": 72,
+   "kind": null,
+   "step": null,
    "steps": 101,
-   "owner": "trapeffect_sqky_board",
-   "loc": "trap.c:1450",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "A board beneath the kitten squeaks a B flat loudly.--More--",
-   "jsTopline": "A board beneath your kitten squeaks a B flat loudly.--More--",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-normal-Barbarian-92208": {

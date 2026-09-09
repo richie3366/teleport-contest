@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `getpos.c` getpos — blocks 1/553 corpus sessions (first at step 36): C «Unknown direction: 'r' (aborted). Done.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify getpos` (scen-normal-Healer-91124). **Addressed:** D-2205
+- [x] `trap.c` trapeffect_sqky_board — blocks 1/553 corpus sessions (first at step 72): C «A board beneath the kitten squeaks a B flat loudly.--More--» vs JS «A board beneath your kitten squeaks a B flat loudly.--More--». Probe: `node scripts/hidden-proxy.mjs verify trapeffect_sqky_board` (scen-normal-Barbarian-92064). **Addressed:** D-2206
+
+
+- [x] `getpos.c` getpos — blocks 1/553 corpus sessions (first at step 36): C «Unknown direction: 'r' (aborted). Done.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify getpos` (scen-normal-Healer-91124). **Addressed:** D-2205 `7b15eaf9`
 
 
 - [x] `stairs.c` stairs_description — blocks 1/553 corpus sessions (first at step 208): C «There is a staircase up out of the dungeon here.» vs JS «The fire vortex engulfs you!--More--». Probe: `node scripts/hidden-proxy.mjs verify stairs_description` (scen-poly-Healer-92109). **Addressed:** D-2204 `ea4547d5`

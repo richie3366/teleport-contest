@@ -996,7 +996,7 @@ blank deferred); **monster `trapeffect_pit` +
 WEB / RUST / VIBRATING / PIT clinger** (D-0245) + **flyer `check_in_air`/`floor_trigger` + 
 SLP/FIRE resist + `mintrap` in-air skip** (D-0770; defended deferred); 
 **monster `trapeffect_sqky_board`/`trapnote`/`You_hear`/`wake_nearto` + 
-real `canseemon`** (D-0163); **`maketrap` `teledest` field for themerms TELEP** (D-0166); 
+real `canseemon`** (D-0163); **hero+monster `trapeffect_sqky_board` full arms** (D-2206; hero forcetrap/Levitation notice + squeak/vibrate pline + `wake_nearby`, monster `mon_nam` ARTICLE_THE + `pline_mon`; Soundeffect no-op); **`maketrap` `teledest` field for themerms TELEP** (D-0166); 
 **monster `trapeffect_rocktrap` `t_missile(ROCK)`+`thitm(d(2,6))`** (D-0181); 
 **hero+monster `trapeffect_arrow_trap` `t_missile(ARROW)`+`thitm(8,…)`/`thitu(8,…)`** (D-2022; Soundeffect/steedintrap/gone-arm pline_mon/in_sight seetrap/obfree mirrored from the dart port; anti-magic still selector-default); 
 **hero `trapeffect_rocktrap` feeltrap+place ROCK+losehp** (D-0360; 

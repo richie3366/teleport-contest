@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `trap.c` trapeffect_sqky_board — blocks 1/553 corpus sessions (first at step 72): C «A board beneath the kitten squeaks a B flat loudly.--More--» vs JS «A board beneath your kitten squeaks a B flat loudly.--More--». Probe: `node scripts/hidden-proxy.mjs verify trapeffect_sqky_board` (scen-normal-Barbarian-92064).
 - [ ] `invent.c` prinv — blocks 1/553 corpus sessions (first at step 67): C «c - an uncursed flint stone (in quiver pouch) (19 in total).» vs JS «f - an uncursed flint stone.». Probe: `node scripts/hidden-proxy.mjs verify prinv` (scen-normal-Caveman-92059).
 - [ ] `insight.c` enlightenment — blocks 1/553 corpus sessions (first at step 108): C «Wizard the Monk's attributes:» vs JS «Wizard the Monk's attributes:». Probe: `node scripts/hidden-proxy.mjs verify enlightenment` (scen-poly-Monk-92213).
 - [ ] `insight.c` list_vanquished — blocks 1/553 corpus sessions (first at step 224): C «Do you want an account of creatures vanquished? [ynaq] (n)» vs JS «Do you want an account of creatures vanquished? [ynaq] (n)». Probe: `node scripts/hidden-proxy.mjs verify list_vanquished` (scen-wish-Tourist-92067).

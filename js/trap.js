@@ -35,7 +35,7 @@ import {
 } from './display.js';
 import { doname, an, the, The, xname, yname, cxname, makeplural, vtense, ansimpleoname, safe_qbuf, gloves_simple_name } from './objnam.js';
 import {
-    Amonnam, Monnam, mon_nam, x_monnam, x_monnam_tame, y_monnam, noit_Monnam, pmname,
+    Amonnam, Monnam, mon_nam, x_monnam, y_monnam, noit_Monnam, pmname,
     christen_monst, rndmonnam, hliquid, rndcolor, mon_pmname, YMonnam,
 } from './do_name.js';
 import { dist2, distmin, m_at, wakeup, seemimic, m_carrying, LEVEL_SPECIFIC_NOCORPSE, bad_rock, setmangry } from './mon.js';
@@ -3518,22 +3518,51 @@ async function trapeffect_rocktrap(mtmp, trap, _trflags) {
 }
 
 /**
- * C ref: trap.c trapeffect_sqky_board — monster branch (hero dotrap deferred).
- * Envelope: in-sight pline+seetrap; out-of-sight You_hear nearby|distance;
- * m_in_air skip; wake_nearto(40). Soundeffect no-op (no RNG).
+ * C ref: trap.c trapeffect_sqky_board `:1403–1476` — hero + monster arms.
+ * Hero: Levitation/Flying (!forcetrap) notices the board when !Blind;
+ * else seetrap + squeak/vibrate pline + wake_nearby. Soundeffect no-op
+ * (no audio backend; no RNG). Monster: in-sight pline+seetrap;
+ * out-of-sight You_hear nearby|distance; m_in_air skip; wake_nearto(40).
  * C trap.c:1445–1457 — Deaf hero hears nothing; a Deaf witness sees the
  * squeak pline, else only a non-mindless witness sees the cringe pline
- * (Deaf+mindless: silent). Hero Levitation/Flying arm stays named
- * (hero dotrap deferred).
+ * (Deaf+mindless: silent).
  */
-async function trapeffect_sqky_board(mtmp, trap, _trflags) {
+async function trapeffect_sqky_board(mtmp, trap, trflags) {
+    // C trap.c:1413–1415
+    const forcetrap = ((trflags & FORCETRAP) !== 0
+        || (trflags & FAILEDUNTRAP) !== 0
+        || (hero_Flying() && (trflags & VIASITTING) !== 0));
+    if (is_youmonst(mtmp)) {
+        // C trap.c:1417–1443 — hero arm
+        if ((hero_Levitation() || hero_Flying()) && !forcetrap) {
+            if (!Blind()) {
+                seetrap(trap);
+                if (Hallucination()) await pline('You notice a crease in the linoleum.');
+                else await pline('You notice a loose board below you.');
+            }
+        } else {
+            seetrap(trap);
+            // IndexOk/Soundeffect: no-op (no audio backend; draws no RNG).
+            if (!Deaf()) {
+                await pline(
+                    `A board beneath you squeaks ${trapnote(trap, false)} loudly.`,
+                );
+            } else {
+                await pline('A board beneath you vibrates.');
+            }
+            wake_nearby(false);
+        }
+        return Trap_Effect_Finished;
+    }
     const in_sight = canseemon(mtmp) || (mtmp === game.u?.usteed);
     if (m_in_air(mtmp)) return Trap_Effect_Finished;
 
     if (in_sight) {
         if (!game.u?.Deaf) {
-            await pline(
-                `A board beneath ${x_monnam_tame(mtmp)} squeaks ${trapnote(trap, false)} loudly.`,
+            // C trap.c:1450 — mon_nam (ARTICLE_THE), not ARTICLE_YOUR:
+            // even a tame pet prints "the kitten", never "your kitten".
+            await pline_mon(mtmp,
+                `A board beneath ${mon_nam(mtmp)} squeaks ${trapnote(trap, false)} loudly.`,
             );
             seetrap(trap);
         } else if (!mindless(mtmp.data)) {
