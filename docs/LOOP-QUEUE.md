@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `hack.c` domove_bump_mon — blocks 2/553 corpus sessions (first at step 32): C «Pardon me, Slasher.» (`hack.c:1942` m-prefix bump arm) vs JS «You swap places with Slasher.» + spurious `rn2(7)`@do_attack; «Pardon me» absent from scored js/ (named omission js/cmd.js:3145). Probe: `node scripts/hidden-proxy.mjs verify distfleeck` (scen-normal-Caveman-92053, scen-normal-Healer-92218; expect PASS or later owner).
 - [ ] `teleport.c` goodpos — blocks 1/553 corpus sessions (first at step 131): C draws `rn2(13)=5` in goodpos, JS `rn2(3)=0` from movebubbles(mklev.js:16122). Probe: `node scripts/hidden-proxy.mjs verify goodpos` (scen-tour-Tourist-92100).
 - [ ] `artifact.c` touch_artifact — blocks 1/553 corpus sessions (first at step 92): C draws `d(4,10)=22` in touch_artifact, JS `rn2(1)=0` from readobjnam(readobjnam.js:1280). Probe: `node scripts/hidden-proxy.mjs verify touch_artifact` (scen-wish-Rogue-92221).
 - [ ] `mcastu.c` mcast_death_touch — blocks 1/553 corpus sessions (first at step 71): C «Oh no, he's using the touch of death! You feel drained...--More--» vs JS «Oh no, she's using the touch of death! You feel drained...--More--». Probe: `node scripts/hidden-proxy.mjs verify mcast_death_touch` (scen-tour-Tourist-92134).
@@ -68,6 +67,7 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 - [ ] `engrave.c` doengrave — blocks 1/553 corpus sessions (first at step 191): C draws `rn2(11)=7` in doengrave, JS `rn2(25)=8` from doengrave(engrave.js:1366). Probe: `node scripts/hidden-proxy.mjs verify doengrave` (scen-normal-Samurai-92071).
 - [ ] `potion.c` peffect_polymorph — blocks 1/553 corpus sessions (first at step 175): C «You feel a little strange.--More--» vs JS «You feel a little strange. You turn into a plains centaur!». Probe: `node scripts/hidden-proxy.mjs verify peffect_polymorph` (scen-poly-Ranger-92133).
 - [ ] `muse.c` you_aggravate — blocks 1/553 corpus sessions (first at step 88): C «You feel aggravated at the master lich.--More--» vs JS «You feel aggravated at the master lich.». Probe: `node scripts/hidden-proxy.mjs verify you_aggravate` (scen-wish-Wizard-92048).
+- [ ] `detect.c` find_trap — blocks 1/553 corpus sessions (first at step 75): C «You find an anti-magic field.--More--» vs JS «You find an anti-magic field.--More--» (identical toplines; map rows 2–7 blank in JS — geometry owner, geom-probe first per runbook §7; cf. doturn park). Probe: `node scripts/hidden-proxy.mjs verify find_trap` (scen-intrinsic-Priest-92096).
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 

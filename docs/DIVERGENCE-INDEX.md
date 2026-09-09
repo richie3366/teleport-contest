@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-2170 | fixed |  — `hack.c` domove_bump_mon: m-prefix bump onto monsters printed swap/attack instead of Pardon/move-right-into |  |
 | D-2169 | fixed |  — `attrib.c` exercise row: lifesaved touch_artifact blast skipped `exercise(A_WIS,FALSE)` + blank-paper read  |  |
 | D-2168 | fixed |  — `polyself.c` newman dead arm: urgent_pline + done(DIED) lifesave (row named newman; 1 session moved past) |  |
 | D-2167 | fixed |  — `lock.c` doopen_indir !IS_DOOR envelope: Blind feel/see + mapseen/newsym + drawbridge/container (row named  |  |

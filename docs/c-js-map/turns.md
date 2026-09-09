@@ -1457,7 +1457,16 @@ air-level exempt) (D-0928 #1117); **`domove` `u_maybe_impaired`/`impaired_moveme
 dig-with-pick/Underwater/Hallu-monster-as-statue/full-ansimpleoname deferred); 
 **`domove` run-into-visible non-safemon stop** (`context.run` + 
 `mon_visible`/`sensemon`/`M_AP_*` → `nomul`+`move=0` before attack) (D-0440; 
-displacer/`bump_mon`/mundetected Wait!/Blind_telepat/Protection_from_shape amulet deferred); 
+displacer/mundetected Wait!/Blind_telepat/Protection_from_shape amulet deferred); 
+**`domove_core` `domove_bump_mon`** (D-2170; C `hack.c:1925–1948` + call site 
+`:2794` — live in `js/cmd.js`, wired in `domove` before `do_attack`; exact 
+branch order/short-circuit: nopick&&!travel gate, `canspotmon`/`glyph_at`+ 
+`glyph_is_invisible_id`/`glyph_is_warning`, `M_AP_TYPE`+inline H/E/base 
+Protection+`sensemon` → `stumble_onto_mimic`, peaceful&&!`Hallucination()` → 
+`Pardon me, m_monnam`, else `You move right into mon_nam`; `m_monnam`/`mon_nam`/ 
+`Hallucination` join the new `do_name.js` edge, `stumble_onto_mimic` the existing 
+`uhitm.js` edge, `canspotmon`/`glyph_at`/`glyph_is_warning` the existing 
+`display.js` edge — all `imports.mjs --can` SAFE hoisted, no TDZ); 
 **`domove` `u.utrap`→`trapmove` before test_move** (D-0401; BEARTRAP Norep+`rn2(5)`/diagonal; 
 WEB/PIT/LAVA/INFLOOR partial; steed/Sting/`climb_pit`/buried-ball deferred); 
 **`domove` clears `kickedloc` unconditionally at end** (D-2119; C `hack.c:2708` — 
@@ -1505,7 +1514,7 @@ MENU_FULL take-out** (D-0362/D-0489/D-0490) + **`doloot` capacity+nohands +
 + **`#untrap`/`could_untrap` nohands gate** (D-0726; door force D-1495; floor `untrap()` named); 
 **`domove` diagonal `test_move` intact-doorway ban + `doorless_door`** (D-0219) + 
 **`m_at`/`do_attack` before closed_door/testdiag/blocksMove** (D-0372; 
-run-into-visible stop D-0440; displacer / bump_mon / mundetected Wait! deferred); 
+run-into-visible stop D-0440; `domove_bump_mon` D-2170 live above; displacer / mundetected Wait! deferred); 
 **`blocksMove` → `IS_OBSTRUCTED`+IRONBARS+closed DOOR** (D-0231; SDOOR/SCORR/TREE); 
 **`test_move` IRONBARS `passes_bars` D-1270** (C `hack.c:1024–1036` Passes_walls \|\| 
 `passes_bars(youmonst.data)`; DO_MOVE rust/corr/metallivore `still_chewing`; 
@@ -1536,7 +1545,7 @@ C `hack.c:2953–2960` `(dx||dy)&&(U_AP_TYPE==OBJECT||FURNITURE)` → `m_ap_type
 **swap-with-pet `seemimic` D-1299** (C `hack.c:2098–2224` park 
 ux0/`mundetected=0`/`M_AP_TYPE`→`seemimic` before pit/NODIAG/boulder/mtrapped/mundisplaceable; 
 `handle_tip(TIP_UNTRAP_MON)`; cmd occupy then swap, hider skip); 
-bump_mon `stumble_onto_mimic` / `goodpos` origin / minliquid·mintrap aftermath still named))) + 
+`goodpos` origin / minliquid·mintrap aftermath still named))) + 
 **`test_move` tight-diag `cant_squeeze_thru` after dest obstacles (Sokoban case 3 / load / 
 bigmonst; hero Passes_walls + `inv_weight()+weight_cap()`)** (D-0803; 
 `can_fog` exemption / hero `worm_cross` deferred); 
