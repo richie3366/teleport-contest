@@ -1156,3 +1156,9 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1143-e93f109a-polyself-controlled-getlin.md](./1143-e93f109a-polyself-controlled-getlin.md) | `e93f109a` | D-2177 polyself controlled getlin | **ACCEPT** |
 | [1144-19724e2f-you-aggravate-more.md](./1144-19724e2f-you-aggravate-more.md) | `19724e2f` | D-2178 you_aggravate more() | **ACCEPT** |
 | [1145-58d11e0f-find-trap-memory-glyph.md](./1145-58d11e0f-find-trap-memory-glyph.md) | `58d11e0f` | D-2179 find_trap memory glyph | **ACCEPT** |
+| [1146-67f3f896-wish-fruit-path.md](./1146-67f3f896-wish-fruit-path.md) | `67f3f896` | D-2180 wish fruit path | **ACCEPT** |
+| [1147-c313ff42-rhack-ecmd-tail.md](./1147-c313ff42-rhack-ecmd-tail.md) | `c313ff42` | D-2181 rhack ECMD tail ^W | **ACCEPT** |
+| [1148-3c6e66d1-ready-weapon-arms.md](./1148-3c6e66d1-ready-weapon-arms.md) | `3c6e66d1` | D-2182 ready_weapon arms | **ACCEPT** |
+| [1149-38ec30d9-doeat-conduct-switch.md](./1149-38ec30d9-doeat-conduct-switch.md) | `38ec30d9` | D-2183 doeat conduct switch | **ACCEPT** |
+| [1150-3e7e762a-pudding-split-family.md](./1150-3e7e762a-pudding-split-family.md) | `3e7e762a` | D-2184 pudding-split family | **ACCEPT** |
+| [1151-fb69e76e-mcast-disappear-see-invisible.md](./1151-fb69e76e-mcast-disappear-see-invisible.md) | `fb69e76e` | D-2185 mcast_disappear See_invisible | **ACCEPT** |

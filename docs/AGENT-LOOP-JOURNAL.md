@@ -8,6 +8,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-09 — Audit 67f3f896..fb69e76e (reviews 1146–1151: 6 ACCEPT, 0 Must-fix) + cadence 44/44
+
+Review-only, no js/. All six D-log corpus claims re-measured at parent baselines — exact matches. Spot-checks: ECMD_OK=0 ⇒ ^W tail verbatim; will_weld/offmap/IRON/METAL/See_invisible union all C-exact. No Must-fix (2 display-only observations). Cadence 44/44 (Scr 11405, RNG 792838). Queue 8 Open, no refill.
 ## 2026-09-09 — D-2185 `mcastu.c` mcast_disappear + `display.h` _mon_visible See_invisible — Monk lich transparent L vs I, 1 session moved past
 
 **C locus:** `mcastu.c:490–501` `mcast_disappear` (`canseemon` → `pline_mon(mtmp, "%s suddenly %s!", Monnam, !See_invisible ? "disappears" : "becomes transparent")`; `mon_set_minvis(mtmp, FALSE)`; `cansee && !canspotmon → map_invisible`); `display.h:86–90` `_mon_visible` (`!mon->minvis || See_invisible`) + `youprop.h:150–152` (`See_invisible ≡ HSee_invisible || ESee_invisible`, i.e. `uprops[SEE_INVIS]` intrinsic/extrinsic).
