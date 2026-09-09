@@ -1143,3 +1143,8 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1130-3b27be21-useup-in-use-clear.md](./1130-3b27be21-useup-in-use-clear.md) | `3b27be21` | D-2164 useup in_use clear | **ACCEPT** |
 | [1131-f567ecfb-zhitu-zt-death-arm.md](./1131-f567ecfb-zhitu-zt-death-arm.md) | `f567ecfb` | D-2165 zhitu ZT_DEATH arm | **ACCEPT** |
 | [1132-fae41579-use-pick-axe-dir-loop.md](./1132-fae41579-use-pick-axe-dir-loop.md) | `fae41579` | D-2166 use_pick_axe dir loop | **ACCEPT** |
+| [1133-4508ab31-doopen-indir-nodoor-envelope.md](./1133-4508ab31-doopen-indir-nodoor-envelope.md) | `4508ab31` | D-2167 doopen_indir !IS_DOOR envelope | **ACCEPT** |
+| [1134-48fb0115-newman-dead-arm.md](./1134-48fb0115-newman-dead-arm.md) | `48fb0115` | D-2168 newman dead arm | **ACCEPT** |
+| [1135-1d79b32e-exercise-lifesave-blank-paper.md](./1135-1d79b32e-exercise-lifesave-blank-paper.md) | `1d79b32e` | D-2169 exercise lifesave + blank paper | **ACCEPT** |
+| [1136-4a0daf23-domove-bump-mon.md](./1136-4a0daf23-domove-bump-mon.md) | `4a0daf23` | D-2170 domove_bump_mon (Hallucination-import debt) | **ACCEPT-WITH-DEBT** |
+| [1137-d316606c-movebubbles-cons-deposit.md](./1137-d316606c-movebubbles-cons-deposit.md) | `d316606c` | D-2171 movebubbles cons deposit (save.js await debt) | **ACCEPT-WITH-DEBT** |

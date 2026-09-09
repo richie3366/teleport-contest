@@ -913,7 +913,7 @@
 - **Symptom:** scen-genesis-Wizard-92223 step 81/143 screen-first: C «You find a small mimic.» vs JS «You already found a monster. Use 'm' prefix to force another» — GONE on the working tree. Session now screen-first at `dolook`@108 (`invent.c:4318` `:` command): C row 0 «You can't see in here!» vs JS «».
 - **C locus:** the «Use 'm' prefix» text is the do_look monster-pick path, reworked by D-2092 (`pager.c` u_at `found: 1` + `CHK_DONT_ASK` + two-pass checkfile + More-before-menu) — inferred credit, same look-pick envelope, no competing look-path port in the window. The step-81 `s` key now reaches the mimic line on both sides.
 - **JS was:** already correct at HEAD — no js/ change in this window moves the session; the retirement is measured, not assumed.
-- **Fix:** none — no js/ changes for this row. Queue row retired as stale; `**Addressed:** D-2100` (this entry records the retirement). Session re-queued under its live owner as Open `invent.c` dolook (step 108).
+- **Fix:** none — no js/ changes for this row. Queue row retired as stale; `**Addressed:** D-2100 3516098b` (this entry records the retirement). Session re-queued under its live owner as Open `invent.c` dolook (step 108).
 - **JS:** 0 files for this row.
 - **Verify:** `node scripts/hidden-proxy.mjs verify find_trap` → 0 PASS, 1 moved past (`dolook` step 108), 0 unchanged, 0 worse → PROGRESS.
 - **Named omissions:** none new.
@@ -925,7 +925,7 @@
 - **Status:** retired-stale, no js/ (Open queue row `wield.c` dowield — cited 1/553; `node scripts/hidden-proxy.mjs verify dowield` → 1 PASS, 0 unchanged, 0 worse → PROGRESS; row cites no review, no stamp owed)
 - **Symptom:** scen-kit-Tourist-91126 step 8: C «You have 40 darts readied. Wield one? [ynq] (q)» vs JS «You have 40 dart readied…» — GONE on the working tree; session fully PASS at HEAD.
 - **C locus:** `wield.c` quiver arm `Sprintf(qbuf, "You have %ld %s readied.  Wield one?", uquiver->quan, simpleonames(uquiver))` — C `simpleonames` pluralizes on `quan != 1L` (`objnam.c:2428–2442`). JS `wield.js:600` calls the live `simpleonames`, which pluralizes on `(quan ?? 1) !== 1` (`js/objnam.js`, D-2044) — the prompt path is faithful; nothing to port.
-- **Fix:** none — no js/ changes for this row. Queue row retired as stale; `**Addressed:** D-2099` (this entry records the retirement), code credit D-2044.
+- **Fix:** none — no js/ changes for this row. Queue row retired as stale; `**Addressed:** D-2099 a101cf0e` (this entry records the retirement), code credit D-2044.
 - **JS:** 0 files for this row.
 - **Verify:** `node scripts/hidden-proxy.mjs verify dowield` → 1 PASS → PROGRESS.
 - **Named omissions:** none new.
@@ -951,7 +951,7 @@
 - **Symptom:** scen-intrinsic-Rogue-92172 step 62/151 screen-first: C «You yawn.» vs JS «» — GONE on the working tree (HEAD `213658d3`). Session now RNG-first at distfleeck@103: C `rn2(5)=2 @ distfleeck(monmove.c:549)` vs JS `rn2(1)=0 @ rnd_otyp_by_namedesc(readobjnam.js:277)`; C «The goblin wields an orcish dagger!» vs JS «The goblin wields an orcish dagger! You stop searching.».
 - **C locus:** the yawn is `timeout.c:267–274` `sleep_dialogue` (`i == 4 → You("yawn.")`) under `nh_timeout :639–640`, NOT `potion.c:905` `peffect_sleeping` (quaff arm). Proof: step-62 key is `s` (search — no quaff, no vapor event; the step's RNG is monster-movement only); only three `yawn` sites exist in C (`potion.c:905,2061`, `timeout.c:273`); `#wizintrinsic` granted SLEEPY=30 at step 51 («Timeout for sleepy set to 30.») and steps 53–58 plus the step-61 `20s` run exactly 26 `nh_timeout` ticks → 30−26=4 at step 62's pre-decrement check. `peffect_sleeping` JS body (D-1437, `js/potion.js:1774`) re-read against C and faithful — nothing to port.
 - **JS was:** already fixed by D-2070 (PROP_FLAT/TIMEOUT_FLAT SLEEPY + `sleep_dialogue` + the `:639–640` call site). /tmp prefix-replay probe at HEAD: JS topline at step 62 is «You yawn.», `HSleepy=3`, `uprops[SLEEPY].intrinsic=3` — countdown and dialogue both live.
-- **Fix:** none — no js/ changes (tree clean apart from docs). Queue row retired as stale; `**Addressed:** D-2097` (this entry records the retirement), code credit D-2070.
+- **Fix:** none — no js/ changes (tree clean apart from docs). Queue row retired as stale; `**Addressed:** D-2097 55a129a8` (this entry records the retirement), code credit D-2070.
 - **JS:** 0 files — under the 600/10 caps trivially. Rule #2 untouched; no DIAG/FORCE/seed gates; probes lived in /tmp only (kept, not committed).
 - **Verify:** `node scripts/verify.mjs --fn peffect_sleeping` → PASS syntax (0 changed js files) · PASS rule2 · PASS hidden `0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS` (Rogue-92172 62→distfleeck@103, strictly later step and owner) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) · VERIFY: PASS. Preflight `verify --no-cohort` was green before any edit on a clean tree. Working `hidden-corpus/scoreboard.json` dirt reverted before handoff (not committed, D-2068 precedent).
 - **Named omissions:** SLEEPY-expiry `fall_asleep`+incr (`timeout.c` case SLEEPY — JS generic arm silently clears; D-2070 named) — left for the session's future owner, not this envelope.
@@ -1592,7 +1592,7 @@
 
 ## D-2048 — invent.c addinv_core0 quiver fill fires on merge (review 1014 C-wrong 1)
 
-- **Status:** fixed (Must-fix queue row `invent.c` addinv_core0 quiver fill fires on merge — review-measured, cites no corpus blocks; `verify --fn addinv_core0` reports the vacuous-hidden note honestly, not a corpus PASS; review 1014 stamped **Addressed:** D-2048)
+- **Status:** fixed (Must-fix queue row `invent.c` addinv_core0 quiver fill fires on merge — review-measured, cites no corpus blocks; `verify --fn addinv_core0` reports the vacuous-hidden note honestly, not a corpus PASS; review 1014 stamped **Addressed:** D-2048 f5587f13)
 - **Symptom:** review-measured, no corpus session blocked: with a thrown stack picked up into an empty quiver while a mergable stack sits in invent, JS filled the quiver (`setuqwep(otmp)` on the merge survivor) where C leaves `uquiver` empty. Observable state (quiver letter, throw prompts) on a live arm.
 - **C locus:** `invent.c addinv_core0 :1055–1148` (full body read from the brief): the `other_obj` reinsert, the quiver-prefer merge, and the general merge loop all end in `goto added` — every one bypasses the `:1128–1140` fill arm (`obj_was_thrown && flags.pickup_thrown && !uquiver && oartifact != ART_MJOLLNIR && otyp != AKLYS && (throwing_weapon || is_ammo)` → `setuqwep`). The fill fires only on the fresh-insert fall-through (assigninvlet + chain link, then fill, then `added:`).
 - **JS was:** `addinv` (`js/u_init.js:990–997`) carried two fill hunks (D-2044 "verbatim on both paths"): the merge-survivor hunk fired `setuqwep(otmp)` on the general-merge path, contradicting C's `goto added` bypass. The fresh-insert hunk (conjunct-for-conjunct per review 1014) was already exact.
@@ -1958,7 +1958,7 @@
 
 ## D-2020 — pager.c describe_looked self '@' found-count: `found += append_str("you")` 1→2 skips checkfile, JS kept 1 and prompted
 
-- **Status:** fixed (Must-fix queue row from review 983 QUALITY-RISK — cited 0/553 corpus sessions; `verify --fn describe_looked` is a vacuous note by construction — the review shows all corpus farlooks use `;`, never reaching `checkfile`. Row cites review 983, stamped **Addressed:** D-2020)
+- **Status:** fixed (Must-fix queue row from review 983 QUALITY-RISK — cited 0/553 corpus sessions; `verify --fn describe_looked` is a vacuous note by construction — the review shows all corpus farlooks use `;`, never reaching `checkfile`. Row cites review 983, stamped **Addressed:** D-2020 923fadb9)
 - **Symptom:** verbose (`:`) look at own square as a dwarf/gnome/orc hero with help on — JS emits `More info about "dwarven archeologist"?` (yn prompt) where C prints nothing further (review 983 measured the pmatch against embedded `dat_text.js`: keys `archeolog*`/`* valkyrie`/`* ranger`/`* wizard` match the simplified self-lookat string).
 - **C locus:** `pager.c:1346–1353` — `'@'`-as-you tack-on gated on `u_at` + race ∉ {human, elf} + `!Upolyd`: `found += append_str(out_str, "you")`. `append_str` (`pager.c:82–104`) returns 1 on append, so C `found` goes 1→2; `do_look :1941` (`found == 1`) then skips the `checkfile(firstmatch, …)` block.
 - **JS was:** `js/pager.js` `describe_looked` self branch (D-2013) appended `' or you'` but returned `found: 1`; the same-function caller gate (`pager.js:1986`, `found === 1`, mirroring C `:1941`) therefore called `checkfile(first, 0)` where C calls nothing.
@@ -2262,7 +2262,7 @@
 
 ## D-1996 — invent.js missing DEAF import (D-1995 deaf ^X ReferenceError)
 
-- **Status:** fixed (Must-fix queue row from review 965; review stamped **Addressed:** D-1996)
+- **Status:** fixed (Must-fix queue row from review 965; review stamped **Addressed:** D-1996 ea1f4401)
 - **Symptom:** any deaf hero running `^X`/death disclosure threw `ReferenceError: DEAF is not defined` — fortress 43/44 (`seed0002-healer-reflection-drummer`).
 - **C locus:** `attrib.c:905–1001` `from_what` (DEAF `:931` roleplay-deaf arm); `insight.c:1059–1074` Blind/Deaf `you_are("deaf", from_what(DEAF))`.
 - **JS was:** `js/invent.js:4882` called `from_what(DEAF)` but `DEAF` (`const.js:2561`, `export const DEAF = 16`) was in none of the file's three `./const.js` import lists — the single unresolvable ALL-CAPS token in review 965's added-line cross-check.

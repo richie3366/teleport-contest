@@ -20,11 +20,11 @@ node frozen/ps_test_runner.mjs sessions
 Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-08** — full `sessions` on the working tree
-(audit **1127–1132**).
+Score last measured: **2026-09-09** — full `sessions` on the working tree
+(audit **1133–1137**).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`55+0.36/turn` (R² 0.81).
+`56+0.35/turn` (R² 0.79).
 
 ## Score
 
@@ -56,6 +56,7 @@ Reviews 1108–1114: 7 ACCEPT, 0 Must-fix.
 Reviews 1115–1122: 8 ACCEPT, 0 Must-fix.
 Reviews 1123–1126: 4 ACCEPT, 0 Must-fix.
 Reviews 1127–1132: 6 ACCEPT, 0 Must-fix.
+Reviews 1133–1137: 3 ACCEPT, 2 ACCEPT-WITH-DEBT (debts review-pointed: 1136 Hallucination import source, 1137 save.js restore_waterlevel await), 0 Must-fix.
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score --jobs 8`
 (≈200 s); when every family is ≥ 85 % PASS, grow it first:
 `node scripts/scenario-gen.mjs --n 120 --seed <iter×100>`.
