@@ -1,6 +1,6 @@
 {
- "commit": "c1fd8ff6",
- "at": "2026-09-09T09:52:06.632Z",
+ "commit": "c438107f",
+ "at": "2026-09-09T09:58:32.655Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -7127,19 +7127,19 @@
   },
   "scen-tour-Barbarian-92152": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 11376,
    "rngT": 11376,
-   "scrM": 100,
+   "scrM": 109,
    "scrT": 109,
-   "kind": "screen",
-   "step": 71,
+   "kind": null,
+   "step": null,
    "steps": 109,
-   "owner": "peffect_acid",
-   "loc": "potion.c:1306",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "tame little dog called Idefix",
-   "jsTopline": "tame Idefix",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-tour-Healer-92042": {
