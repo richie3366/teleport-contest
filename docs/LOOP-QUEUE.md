@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `wizard.c` intervene — udemigod `intervene`/`amulet()` still named (turns.md:94); no JS body. No corpus block — port the named family. Probe: `node scripts/brief.mjs intervene`.
 - [ ] `pray.c` pray_revive — p_type −2/−1/1/2 + `pray_revive` still named (turns.md:406); no JS body. No corpus block — port the named family. Probe: `node scripts/brief.mjs pray_revive`.
 - [ ] `mon.c` egg_type_from_parent — sit `#sit` FALSE roll + polyself `learn_egg_type` TRUE caller arms still named (data.md:331). No corpus block — port the named family. Probe: `node scripts/brief.mjs egg_type_from_parent`.
 - [ ] `hack.c` pooleffects — drawbridge/lava arms still named (turns.md:1094). No corpus block — port the named family. Probe: `node scripts/brief.mjs pooleffects`.

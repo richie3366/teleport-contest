@@ -91,7 +91,7 @@ allmain **`moveloop` EOT `Is_waterlevel||Is_airlevel` `movebubbles` else `flags.
 `set_uasmon` + `mkot_trap_warn` + `do_storms` after `dosounds` + SAFERHANGUP 
 `end_of_input`/`rhack` `done_hup` (D-1801; `timeout.c:1846` / `do_wear.c:2527` / 
 `artifact.c:2752`+`count_surround_traps:2707` / `cmd.c:5182`; `buzz`/`dobuzz` lightning 
-named; `fingers_or_gloves` exported)**; udemigod `intervene` / `amulet()` still named; 
+named; `fingers_or_gloves` exported)**; **udemigod `intervene` / `amulet()` live D-2237** (`js/wizard.js` exports in C order + `js/allmain.js` once-per-turn wiring: `uhave.amulet → amulet()` before wipe, `udemigod && !uinvulnerable` countdown + `intervene()` + `rn1(200,50)` after wipe); 
 **`moveloop` EOT `u_wipe_engr(rnd(3))` DEX `!rn2(40+ACURR(A_DEX)*3)` D-1372** (callee D-1051; 
 dokick(2) D-1360; uhitm do_attack(3) D-1373; dothrow/dig still named); 
 **`moveloop_core` `sanity_check` D-1664** (`allmain.c:197–198` `iflags.sanity_check\|\|debug_fuzzer` 
