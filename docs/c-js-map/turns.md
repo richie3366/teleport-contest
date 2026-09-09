@@ -1091,7 +1091,7 @@ D-0928 #1149) + **`doname` FOOD `oeaten`→`partly eaten ` + `greased ` prefix**
 **wizterrainwish** furniture/liquid/ice/tree/bars/cloud/floor then `switch_terrain` (D-1279); 
 **trap loop `maketrap` D-1289** (`str_start_is` + hole→`ROCKTRAP` + portal "to nowhere"; 
 live `trap.js`); **door/wall D-1290**; **secret corridor D-1304** (CORR→SCORR); 
-drawbridge/lava `pooleffects` still named; 
+drawbridge/lava wish arms still named (`pooleffects` live D-2240); 
 **doname candle `partly used` / lamp `(lit)` D-1308** (mksobj `age=20*oc_cost`); 
 **doname CANDELABRUM `(n of 7)` D-1317**; **doname TOOL W_TOOL|W_SADDLE `(being worn)` D-1318**; 
 **doname LEASH `(attached to …)` D-1319**; **doname POT_OIL `(lit)` D-1320**; 
