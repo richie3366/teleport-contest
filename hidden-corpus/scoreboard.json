@@ -1,6 +1,6 @@
 {
- "commit": "04fff85d",
- "at": "2026-09-09T19:16:00.657Z",
+ "commit": "f7aec9b3",
+ "at": "2026-09-09T23:05:03.129Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6584,18 +6584,18 @@
   "scen-normal-Wizard-92127": {
    "src": "corpus",
    "passed": false,
-   "rngM": 3042,
+   "rngM": 3282,
    "rngT": 3352,
-   "scrM": 72,
+   "scrM": 104,
    "scrT": 114,
-   "kind": "screen",
-   "step": 72,
+   "kind": "rng",
+   "step": 101,
    "steps": 114,
-   "owner": "getpos",
-   "loc": "getpos.c:844",
-   "jsOwner": null,
-   "cTopline": "You detect the presence of objects. (For instructions type a '?')",
-   "jsTopline": "You detect the presence of objects.--More--",
+   "owner": "distfleeck",
+   "loc": "monmove.c:549",
+   "jsOwner": "doopen_indir(lock.js:733)",
+   "cTopline": "You feel no objects here.",
+   "jsTopline": "You feel no objects here.",
    "error": null
   },
   "scen-poly-Archeologist-92119": {

@@ -67,6 +67,11 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 - [ ] `allmain.c` maybe_generate_rnd_mon — random-monster generation gate thin vs C. Corpus reach: in 26 failing sessions' diverged-step C draws (working scoreboard, 2026-09-09). Probe: `node scripts/brief.mjs maybe_generate_rnd_mon`.
 - [ ] `mhitu.c` mattacku — attack-type switch envelope vs C (PORT-GAP #5; audit arm by arm). Corpus reach: in 14 failing sessions' diverged-step C draws (working scoreboard, 2026-09-09). Probe: `node scripts/brief.mjs mattacku`.
 - [ ] `allmain.c` u_calc_moveamt — hero move-amount calc thin vs C. Corpus reach: in 6 failing sessions' diverged-step C draws (working scoreboard, 2026-09-09). Probe: `node scripts/brief.mjs u_calc_moveamt`.
+- [ ] `polyself.c` polymorph-control `mkclass_poly` callers — `:542`/`:598` unwired (named D-2245; function live since a71ff501). No corpus block — port the named callers. Probe: `node scripts/brief.mjs mkclass_poly`.
+- [ ] `sp_lev.c` special-level shapeshifter fixup — second C caller of `select_newcham_form` (`sp_lev.c:2067`, named D-2245). No corpus block — port the named caller. Probe: `node scripts/brief.mjs select_newcham_form`.
+- [ ] `potion.c` dip bless/curse light adjust — dip sets bless/curse flags inline (`potion.js:3246–3247`, never calls `bless()`/`curse()`) so dipped lit artifacts skip `maybe_adjust_light` (named D-2244). No corpus block — wire the named dip path. Probe: `node scripts/brief.mjs maybe_adjust_light`.
+- [ ] `uhitm.c` mhitm_adtyping remaining arms — SGLD/CURS/DCAY/SLIM/DGST/HALU/DETH + default (named D-2247; ACID/DREN/CONF live since e8c22613). No corpus block — port the named arms. Probe: `node scripts/brief.mjs mhitm_adtyping`.
+- [ ] `muse.c` buzzmu real zap path — `lined_up` + `rn2(3)` + buzz pline/effects (named D-2233; stub still returns MISS). No corpus block — port the named path. Probe: `node scripts/brief.mjs buzzmu`.
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 

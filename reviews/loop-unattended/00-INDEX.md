@@ -1216,3 +1216,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1203-bb6224f0-amulet-intervene-wiring.md](./1203-bb6224f0-amulet-intervene-wiring.md) | `bb6224f0` | D-2237 amulet + intervene | **ACCEPT** |
 | [1204-fc302b4f-prayer-done-revive.md](./1204-fc302b4f-prayer-done-revive.md) | `fc302b4f` | D-2238 prayer_done + pray_revive | **ACCEPT** |
 | [1205-b95a28db-polymon-egg-knowledge.md](./1205-b95a28db-polymon-egg-knowledge.md) | `b95a28db` | D-2239 polymon egg knowledge | **ACCEPT** |
+| [1206-66b8bd60-pooleffects-full-port.md](./1206-66b8bd60-pooleffects-full-port.md) | `66b8bd60` | D-2240 pooleffects full port | **ACCEPT** |
+| [1207-53872d1b-fully-identify-egg-arm.md](./1207-53872d1b-fully-identify-egg-arm.md) | `53872d1b` | D-2241 fully_identify_obj EGG arm | **ACCEPT** |
+| [1208-15a3a8df-object-detect-more.md](./1208-15a3a8df-object-detect-more.md) | `15a3a8df` | D-2242 object_detect More | **ACCEPT** |
+| [1209-1fb930b1-poly-steed-wiring.md](./1209-1fb930b1-poly-steed-wiring.md) | `1fb930b1` | D-2243 poly_steed + wiring | **ACCEPT** |
+| [1210-611866fc-maybe-adjust-light.md](./1210-611866fc-maybe-adjust-light.md) | `611866fc` | D-2244 maybe_adjust_light + tails | **ACCEPT** |
+| [1211-a71ff501-wizard-monpolycontrol.md](./1211-a71ff501-wizard-monpolycontrol.md) | `a71ff501` | D-2245 wizard monpolycontrol | **ACCEPT** |
+| [1212-72a51dc6-moveloop-spine.md](./1212-72a51dc6-moveloop-spine.md) | `72a51dc6` | D-2246 moveloop_core spine | **ACCEPT** |
+| [1213-e8c22613-mhitm-acid-dren-conf.md](./1213-e8c22613-mhitm-acid-dren-conf.md) | `e8c22613` | D-2247 mhitm acid/dren/conf | **ACCEPT** |
