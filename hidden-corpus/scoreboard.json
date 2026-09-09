@@ -1,6 +1,6 @@
 {
- "commit": "e66b8789",
- "at": "2026-09-09T05:33:50.274Z",
+ "commit": "3fbdad72",
+ "at": "2026-09-09T05:42:46.353Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -5175,16 +5175,16 @@
    "passed": false,
    "rngM": 4392,
    "rngT": 4392,
-   "scrM": 128,
+   "scrM": 130,
    "scrT": 131,
    "kind": "screen",
-   "step": 121,
+   "step": 130,
    "steps": 131,
-   "owner": "look_here",
-   "loc": "invent.c:4207",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "You try to feel what is lying here on the floor.--More--",
-   "jsTopline": "It hits!",
+   "cTopline": "",
+   "jsTopline": "What are you looking for? The exit?",
    "error": null
   },
   "scen-intrinsic-Archeologist-92178": {

@@ -1155,7 +1155,7 @@ function Deaf_respond() {
 }
 
 /** C apply.c um_dist — TRUE when Chebyshev dist to hero > n. */
-function um_dist(x, y, n) {
+export function um_dist(x, y, n) {
     const u = game.u || {};
     return Math.abs((u.ux | 0) - (x | 0)) > (n | 0)
         || Math.abs((u.uy | 0) - (y | 0)) > (n | 0);
