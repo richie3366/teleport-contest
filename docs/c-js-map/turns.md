@@ -979,6 +979,8 @@ JS: `js/wield.js` — partial
 **`rhack` `'x'` → `doswapweapon`** + **`setuwep`/`setuswapwep` clear `twoweap` ≡ `setworn`** + 
 **`ready_weapon` are/can_no_longer pline** (D-0913; 
 cantwield ridiculous / full setworn / `#swap` deferred); 
+**`ready_weapon` bimanual+shield gate + `will_weld` pline + AKLYS tether + artifact shine + unpaid shop** (D-2182; 
+`cant_wield_corpse` petrification path / `arti_speak` rumor named); 
 **`Q`/`dowieldquiver`/`doquiver_core`/`setuqwep` + uswapwep/uwep ynq** (D-0152); `doquiver_core` fire arm `You ready:` xprname dot=TRUE trailing period (D-2056); 
 **`empty_handed` gloves/humanoid** (D-0194); 
 **`#twoweapon`/`dotwoweapon`/`can_twoweapon`/`set_twoweap`/`untwoweapon`** (D-0344; 

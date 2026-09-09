@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `wield.c` ready_weapon — blocks 8/553 corpus sessions (first at step 20): C «You cannot wield a two-handed weapon while wearing a shield.» vs JS «e - a dwarvish mattock (weapon in hands).». Probe: `node scripts/hidden-proxy.mjs verify ready_weapon` (scen-genesis-Valkyrie-92166, scen-wish-Knight-92204, scen-wish-Monk-92063).
 - [ ] `insight.c` show_conduct — blocks 6/553 corpus sessions (first at step 859): C «Ebenezum walked before me along the closest thing we could» vs JS «More info about "human wizard"? [yn] (n)». Probe: `node scripts/hidden-proxy.mjs verify show_conduct` (random-seed0360-wizard-world-tour-e115a25b, scen-genesis-Knight-92002, scen-genesis-Knight-92112).
 - [ ] `teleport.c` collect_coords — blocks 3/553 corpus sessions (first at step 77): C draws `rn2(8)=4` in collect_coords, JS `rn2(3)=2` from mhitm_knockback(mhitm.js:2029). Probe: `node scripts/hidden-proxy.mjs verify collect_coords` (scen-genesis-Knight-92185, scen-poly-Wizard-92169, scen-tour-Tourist-92100).
 - [ ] `mcastu.c` mcast_disappear — blocks 1/553 corpus sessions (first at step 121): C «The lich suddenly becomes transparent!» vs JS «The lich suddenly becomes transparent!». Probe: `node scripts/hidden-proxy.mjs verify mcast_disappear` (scen-wish-Monk-92013).
