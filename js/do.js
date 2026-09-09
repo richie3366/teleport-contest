@@ -88,8 +88,8 @@ import { livelog_printf } from './pline.js';
 import { com_pager, convert_line } from './questpgr.js';
 import { keepdogs, losedogs, mon_catchup_elapsed_time, update_mlstmv, discard_migrations } from './dog.js';
 import { save_track, rest_track } from './track.js';
-import { m_at, mnexto, hide_monst, hideunder, restore_cham, wake_nearto, dist2, kill_genocided_monsters } from './mon.js';
-import { enexto } from './teleport.js';
+import { m_at, mnexto, m_into_limbo, hide_monst, hideunder, restore_cham, wake_nearto, dist2, kill_genocided_monsters } from './mon.js';
+import { enexto, rloc } from './teleport.js';
 import {
     monster_nearby, losehp, finish_maybe_wail, maybe_half_phys,
     check_special_room, is_pool, is_lava, waterbody_name,
@@ -2161,8 +2161,17 @@ export async function u_collide_m(mtmp) {
         // C: mnexto(mtmp, RLOC_NOMSG) on level-entry collide
         await mnexto(mtmp, RLOC_NOMSG);
     }
+    /* C do.c:1436–1445 — survivor on the hero square: wizard-only
+     * "(monster in hero's way)", then rloc, else limbo to return later. */
     mtmp = m_at(u.ux, u.uy);
-    if (mtmp) await mnexto(mtmp, RLOC_NOMSG);
+    if (mtmp) {
+        if (game.flags?.debug || game.flags?.wizard || game.wizard) {
+            await pline("(monster in hero's way)");
+        }
+        if (!(await rloc(mtmp, RLOC_NOMSG)) || m_at(u.ux, u.uy)) {
+            await m_into_limbo(mtmp);
+        }
+    }
 }
 
 /**

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `mon.c` newcham wizard arms — dragon-armor ordinary arm / `mon_polycontrol` / RECORD `tt_doppel` entries still named (data.md:439). No corpus block — port the named family. Probe: `node scripts/brief.mjs tt_doppel`. **Addressed:** D-2235
+- [x] `mon.c` m_into_limbo — limbo migration still named (data.md:744). No corpus block — port the named family. Probe: `node scripts/brief.mjs m_into_limbo`. **Addressed:** D-2236
+
+
+- [x] `mon.c` newcham wizard arms — dragon-armor ordinary arm / `mon_polycontrol` / RECORD `tt_doppel` entries still named (data.md:439). No corpus block — port the named family. Probe: `node scripts/brief.mjs tt_doppel`. **Addressed:** D-2235 `13abf9ae`
 
 
 - [x] `shk.c` SHOPTYPE/veggy — Izchak/wizard SHOPTYPE + `veggy_item` tin/corpse obj-path still named (data.md:1417). No corpus block — port the named family. Probe: `node scripts/brief.mjs veggy_item`. **Addressed:** D-2234 `920a0a32`

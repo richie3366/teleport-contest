@@ -1172,7 +1172,10 @@ survivor `water_damage_chain`+`rloc(RLOC_NOMSG)`; `sad_feeling`;
 teleport-away `await rloc(RLOC_MSG)`; **lava `on_fire`/`xkilled`/`fire_damage_chain` D-1138** 
 (`allmain.c:210–216` `mon_moving` around `movemon`); 
 **`deal_with_overcrowding` D-1148** (`mon.c:3986–3995` / 
-`m_into_limbo`/`migrate_mon`/`elemental_clog`; 
+`m_into_limbo`/`migrate_mon`/`elemental_clog`;
+**`m_into_limbo` caller wiring D-2236** (export + `do.c` u_collide_m tail +
+`teleport.c` u_teleport_mon engulfing arm + `vault.c` clear_fcorr occupant arm;
+sync `put_lregion_here` / wallify+`gd_mv_monaway` / dog `failed_arrivals` stay named);
 minliquid failed survivor `rloc` + `mnexto` failed-enexto; 
 **steed Flying/Levitation gate + `engulfing_u` drown flush + `mdrop_special_objs` 
 via `steal.c` `mdrop_obj` D-2197**); **`drinksink` case 10 `polyself`** (D-1118; 

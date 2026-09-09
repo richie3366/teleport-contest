@@ -88,10 +88,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `mon.c` newcham wizard arms — dragon-armor ordinary arm / `mon_polycontrol` / RECORD `tt_doppel` entries still named (data.md:439). No corpus block — port the named family. Probe: `node scripts/brief.mjs tt_doppel`.
+**Next cluster:** `mon.c` m_into_limbo — limbo migration still named (data.md:744). No corpus block — port the named family. Probe: `node scripts/brief.mjs m_into_limbo`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2235 (index).**
+**Keep D-0845…D-2236 (index).**
 <!-- recent:begin -->
+**D-2236** `mon.c:3834–3840` (`m_into_limbo`: `MON_LIMBO` + `migrate_mon(ledger_no(&u.uz), MIGR_APPRO — `m_into_limbo` exported (doc cites loci + deferred sync sites).
 **D-2235** `mon.c:5198–5207` (`case NON_PM`: `which_armor(mon, W_ARM)` + `Is_dragon_scales` → `Dragon — `select_newcham_form` gains the `cham === NON_PM` arm in C position (before the wizard gate/random tail): `which_armor(mon, W_ARM)` (already imported from `worn.js`; W_ARM joins the pre-existing `const.js` edge — no new 
 **D-2234** `shknam.c:495–500` (`nlp == shklight && In_mines(&u.uz) && Is_special(&u.uz)->flags.town`  — `nameshk` gains the C early arm in C position (before the `nseed` computation, which C also skips): `nlpIn === shklight` (reference check — `shkinit` passes `shp.shknms`, and the lighting-store `shtypes` entry holds the 
 **D-2233** `mcastu.c:174–179` (`mtmp->mcan || mtmp->mspec_used || !ml || m_seenres(mtmp, cvt_adtyp_to — `js/mcastu.js` — `castmu` condition gains `|| m_seenres(mtmp, cvt_adtyp_to_mseenres(adtyp))` in C order (draw-free disjuncts; AD_SPEL/CLRC map to `M_SEEN_NOTHING` so the new arm is a proven no-op on the spell-selection p
@@ -99,11 +100,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2231** `mon.c` `lifesaved_monster` `:2838–2884`, `vamprises` `:2888–2987`, `logdeadmon` `:2995–30 — `js/mhitm.js` — new `set_mon_min_mhpmax` (m_lev+1 floor then caller minimum), async `lifesaved_monster` (cansee-gated plines, `mlifesaver`/`m_useup_mm`/`attacktype_mm` locals, `makeknown`, `check_gear_next_turn`, `wary_d
 **D-2230** `eat.c:3877–3889` `maybe_finished_meal(stopping)` — `js/eat.js` — new `export async function maybe_finished_meal(stopping)` after `cant_finish_meal`, C branch/short-circuit order (occupation → usedtime>=reqtime → stopping-clear → eatfood → TRUE/FALSE); must live here — th
 **D-2229** `timeout.c` nh_timeout ACID_RES + STONE_RES expiry arms — `js/eat.js` — new `export function eating_dangerous_corpse(res)` after `givit`, C branch/short-circuit order (occupation → piece → CORPSE → LOW_PM → carried/obj_here → res-specific `acidic(mons)/flesh_petrifies(mons)`); 
-**D-2228** `dig.c:1596–1604` zap_dig u.dz arm — `js/dig.js` + `js/zap.js` only, control-flow, no new imports/edges (mksobj_at/xname/stackobj/newsym already imported at both sites): after `finish_losehp_done()`, return only if `game.program_state?.gameover` (true death
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2235; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2236; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

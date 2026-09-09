@@ -2898,7 +2898,7 @@ export async function vamprises(mtmp) {
  * half is relobj_on_death (mkobj.js:1922, mdrop_obj per head).
  */
 export async function grddead(grd) {
-    let dispose = clear_fcorr(grd, true);
+    let dispose = await clear_fcorr(grd, true);
     if (!dispose) {
         const gold = findgold(grd.minvent);
         if (grd.isgd && gold) {
@@ -2913,7 +2913,7 @@ export async function grddead(grd) {
         relobj_on_death(grd);
         grd.mhp = 0;
         parkguard(grd);
-        dispose = clear_fcorr(grd, true);
+        dispose = await clear_fcorr(grd, true);
     }
     if (dispose) grd.isgd = 0;
     return dispose;
