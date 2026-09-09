@@ -98,8 +98,9 @@ divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
 **Next cluster:** `mcastu.c` mcast_disappear — blocks 1/553 corpus sessions (first at step 121): C «The lich suddenly becomes transparent!» vs JS «The lich suddenly becomes transparent!». Probe: `node scripts/hidden-proxy.mjs verify mcast_disappear` (scen-wish-Monk-92013).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2184 (index).**
+**Keep D-0845…D-2185 (index).**
 <!-- recent:begin -->
+**D-2185** `mcastu.c:490–501` `mcast_disappear` (`canseemon` → `pline_mon(mtmp, "%s suddenly %s!", Mo — `mon_visible` now gates on same-file `hero_See_invisible()` (flats + sticky + `uprops[SEE_INVIS]`, C `youprop.h:152`); mcastu file-local `See_invisible()` extended with `uprops[SEE_INVIS]` intrinsic/extrinsic (`SEE_INVIS
 **D-2184** `uhitm.c:1603–1634` `hmon_hitmon_splitmon` (called `:1868` after pet, before msg_hit); `mh — `js/uhitm.js` — new `hmon_hitmon_splitmon` block between pet and msg_hit with C's exact guards (black/brown pudding, post-damage `mhp>1`, `!mcan`, on-map, obj==uwep-or-twoweap-uswapwep, IRON/METAL (`objclass.h:24–25` loc
 **D-2183** `eat.c doeat :2998–3024` — port the switch in C order (before reqtime/rotten): `oc_material === MAT_FLESH` → unvegan++ (+ `violated_vegetarian()` with the guilt pline on true, same call-site convention as `eatcorpse`, for non-EGG); otyp in the egg
 **D-2182** `wield.c ready_weapon :168–273` — port in C order — `u.uarms && bimanual(wep)` gate with the `is_sword`/`BATTLE_AXE` noun returns 0 (C `ECMD_FAIL` takes no turn → 0 in this file's 0/1 scheme, matching `cmd.js 'w'` truthy-`move` mapping); full `will_weld`
@@ -107,11 +108,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2180** `options.c:7329–7341` (`fruitadd(pl_fruit)` then `obj_descr[SLIME_MOLD].oc_name = "fruit"` — `js/options.js init_fruit_chain` now sets the SLIME_MOLD name entry to `"fruit"` (idempotent, before the existing early-return — mirrors C init order fruitadd-then-rename; display is unaffected, it already uses ffruit fn
 **D-2179** `detect.c find_trap :1936–1962` (`tseen=1`, `exercise(A_WIS)`, `feel_newsym`, then `if (Ha — `js/detect.js find_trap` now reads the memory glyph — `(game.level.at(tx,ty).remembered_glyph.glyph|0)` defaulting to `NO_GLYPH` when absent (matches C mismatch for unseen/no-memory cells; `map_*` skip the store when `he
 **D-2178**  — 
-**D-2177**  — 
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2184; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2185; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

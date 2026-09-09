@@ -2134,7 +2134,7 @@ upgrades generic gem/potion/spellbook to per-otyp color);
 **swap-with-pet `seemimic` D-1299**); **`newsym` u_at `canspotself` → `_map_location(…,!see_self)` 
 + `display_self` only when spottable** (D-0326; 
 `feel_location` !cansee still deferred — D-0928 #1166 fixed @1048 via unmap_object not 
-feel_location; **D-2126** `hero_Invis`/`hero_See_invisible` OR flats + `uprops[INVIS]`/`uprops[SEE_INVIS]` per `youprop.h:152,198` — worn-ring extrinsic lives in `uprops` only, flat-only read kept `@` over `<`); **`update_lastseentyp` on cansee/`magic_map_background`** (D-0123); 
+feel_location; **D-2126** `hero_Invis`/`hero_See_invisible` OR flats + `uprops[INVIS]`/`uprops[SEE_INVIS]` per `youprop.h:152,198` — worn-ring extrinsic lives in `uprops` only, flat-only read kept `@` over `<`); **D-2185** `mon_visible` via `hero_See_invisible` (`display.h:86–90` + `youprop.h:152`), `mcastu` `See_invisible` +`uprops[SEE_INVIS]`, `mcast_disappear` `pline_mon` (`mcastu.c:490–501`); **`update_lastseentyp` on cansee/`magic_map_background`** (D-0123); 
 **`S_engroom`/`S_engrcorr` + `erevealed` on cansee** (D-0139); 
 **`flush_screen(-1)` postpone + `docrt`→`cls`→`more` before redraw** (D-0160); 
 **`docrt` `vision_recalc(2)`+memory+`vision_recalc(0)`** (D-0328); 

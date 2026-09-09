@@ -1,6 +1,6 @@
 {
- "commit": "38ec30d9",
- "at": "2026-09-09T03:43:04.738Z",
+ "commit": "3e7e762a",
+ "at": "2026-09-09T03:49:54.405Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -8012,18 +8012,18 @@
   "scen-wish-Monk-92013": {
    "src": "corpus",
    "passed": false,
-   "rngM": 2731,
+   "rngM": 2753,
    "rngT": 2765,
-   "scrM": 121,
+   "scrM": 144,
    "scrT": 146,
    "kind": "screen",
-   "step": 121,
+   "step": 135,
    "steps": 146,
-   "owner": "mcast_disappear",
-   "loc": "mcastu.c:495",
+   "owner": "one_characteristic",
+   "loc": "insight.c:926",
    "jsOwner": null,
-   "cTopline": "The lich suddenly becomes transparent!",
-   "jsTopline": "The lich suddenly becomes transparent!",
+   "cTopline": "Your wisdom was 10 (limit:18).",
+   "jsTopline": "Your wisdom was 10 (limit:18).",
    "error": null
   },
   "scen-wish-Monk-92031": {

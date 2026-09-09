@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-09 — D-2185 `mcastu.c` mcast_disappear + `display.h` _mon_visible See_invisible — Monk lich transparent L vs I, 1 session moved past
+
+**C locus:** `mcastu.c:490–501` `mcast_disappear` (`canseemon` → `pline_mon(mtmp, "%s suddenly %s!", Monnam, !See_invisible ? "disappears" : "becomes transparent")`; `mon_set_minvis(mtmp, FALSE)`; `cansee && !canspotmon → map_invisible`); `display.h:86–90` `_mon_visible` (`!mon->minvis || See_invisible`) + `youprop.h:150–152` (`See_invisible ≡ HSee_invisible || ESee_invisible`, i.e. `uprops[SEE_INVIS]` intrinsic/extrinsic).
+**JS:** `js/display.js` (+3/−2: `mon_visible` + C refs), `js/mcastu.js` (+5/−2: `SEE_INVIS` import, `See_invisible` uprops, `pline_mon` + C ref). Under the 600/10 caps.
+**Change:** `mon_visible` now gates on same-file `hero_See_invisible()` (flats + sticky + `uprops[SEE_INVIS]`, C `youprop.h:152`); mcastu file-local `See_invisible()` extended with `uprops[SEE_INVIS]` intrinsic/extrinsic (`SEE_INVIS` joins the existing `./const.js` edge — no new module); `mcast_disappear` now `await pline_mon(mtmp, …)` (already imported). No DIAG/FORCE/seed/coordinate gates. Rule #2 clean.
+**Verify:** `node scripts/verify.mjs --fn mcast_disappear` → PASS syntax (2 changed js files: js/display.js js/mcastu.js) · PASS rule2 · PASS hidden: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS (scen-wish-Monk-92013: moved → one_characteristic at step 135, was 121) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed). VERIFY: PASS.
+**Named:** none new. `js/muse.js:2139` `mon_set_minvis` local clone still lacks `newsym`/`see_wsegs` (pre-existing; `mcastu.js` uses the `worn.js` export — untouched).
+**Next:** residual scen-wish-Monk-92013 belongs to its new owner (`one_characteristic` @135). Do not re-pop `mcast_disappear`.
 ## 2026-09-09 — D-2184 pudding-split family (`uhitm` splitmon + `mhitu` mold fission + `passive_obj` AD_CORR erode) — 2 collect_coords sessions PASS, 1 re-homed
 
 **C locus:** `uhitm.c:1603–1634` `hmon_hitmon_splitmon` (called `:1868` after pet, before msg_hit); `mhitu.c:2561–2575` `passiveum` AD_COLD (`:2569` pline, `:2570` `u.mh += (tmp+rn2(2))/2`, `:2574` `split_mon(&youmonst, mtmp)` when `mhmax > (mlevel+1)*8`); `uhitm.c:6126–6195` `passive_obj` (`:6174–6178` AD_CORR `erode_obj(obj, NULL, ERODE_CORRODE, EF_GREASE)` with zero draws); `potion.c:2873` `split_mon` (hero→`cloneu`, mon→`clone_mon`); `makemon.c:830–944` `clone_mon` (`MON_AT`→`enexto` full near-collect rings 8/16/24 + `next_ident` for the clone id).

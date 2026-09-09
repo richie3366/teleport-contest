@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `mcastu.c` mcast_disappear — blocks 1/553 corpus sessions (first at step 121): C «The lich suddenly becomes transparent!» vs JS «The lich suddenly becomes transparent!». Probe: `node scripts/hidden-proxy.mjs verify mcast_disappear` (scen-wish-Monk-92013).
 - [ ] `attrib.c` from_what — blocks 1/553 corpus sessions (first at step 69): C «You were acid resistant from your creature form.» vs JS «You were acid resistant from your creature form.». Probe: `node scripts/hidden-proxy.mjs verify from_what` (scen-death-Monk-92000).
 - [ ] `pager.c` look_at_monster — blocks 1/553 corpus sessions (first at step 148): C «ca cockatrice (chickatrice) [seen: normal vision, infravisio» vs JS «ca chickatrice [seen: normal vision, infravision]». Probe: `node scripts/hidden-proxy.mjs verify look_at_monster` (scen-genesis-Archeologist-91135).
 - [ ] `trap.c` erode_obj — blocks 1/553 corpus sessions (first at step 86): C «Your robe smoulders!» vs JS «Your cloak smoulders!». Probe: `node scripts/hidden-proxy.mjs verify erode_obj` (scen-normal-Priest-92020).

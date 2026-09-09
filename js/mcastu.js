@@ -12,7 +12,7 @@ import {
     HEAD, EYE, TIMEOUT, DIED, KILLED_BY, A_DEX,
     MM_ANGRY, MM_NOMSG, Upolyd, ismnum, DETECT_MONSTERS,
     M_SEEN_MAGR, M_SEEN_FIRE, M_SEEN_COLD, M_SEEN_ELEC, M_SEEN_REFL,
-    M_AP_TYPE, M_AP_OBJECT,
+    M_AP_TYPE, M_AP_OBJECT, SEE_INVIS,
 } from './const.js';
 import { mon_adjust_speed } from './muse.js';
 import {
@@ -124,7 +124,10 @@ function Confusion() {
 }
 function See_invisible() {
     const u = game.u || {};
-    return !!((u.HSee_invisible | 0) || (u.ESee_invisible | 0) || u.See_invisible);
+    // C youprop.h:150–152 See_invisible ≡ H||E (uprops[SEE_INVIS]); + sticky flat.
+    const p = u.uprops?.[SEE_INVIS];
+    return !!((u.HSee_invisible | 0) || (u.ESee_invisible | 0) || u.See_invisible
+        || (p?.intrinsic | 0) || (p?.extrinsic | 0));
 }
 function Detect_monsters() {
     const u = game.u || {};
@@ -507,11 +510,11 @@ async function mcast_weaken_you(mtmp) {
     }
 }
 
-/** C ref: mcastu.c mcast_disappear */
+/** C ref: mcastu.c mcast_disappear :490–501 — pline_mon + See_invisible + mon_set_minvis + map_invisible */
 async function mcast_disappear(mtmp) {
     if (!mtmp.minvis && !mtmp.invis_blkd) {
         if (canseemon(mtmp)) {
-            await pline(`${Monnam(mtmp)} suddenly ${
+            await pline_mon(mtmp, `${Monnam(mtmp)} suddenly ${
                 !See_invisible() ? 'disappears' : 'becomes transparent'}!`);
         }
         mon_set_minvis(mtmp, false);
