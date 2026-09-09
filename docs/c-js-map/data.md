@@ -331,8 +331,8 @@ named)); **`can_be_hatched`/`dead_species`** + BREEDER_EGG (D-0068);
 **`kill_eggs` after genocide D-1097** (minvent/invent/fobj/migrating/buried + Has_contents; 
 TIN/CORPSE #if 0 not ported; cham `newcham` + 
 cmd.c wiz-level-change `kill_genocided_monsters` still named; do.c `goto_level` caller D-1190); 
-**`egg_type_from_parent`** (D-1075; sit `#sit` `FALSE` roll; 
-polyself `learn_egg_type` `TRUE` still named); **`record_mvitals_died`** (D-0126); 
+**`egg_type_from_parent`** (D-1075; sit `#sit` `FALSE` roll live `js/sit.js:1129`;
+polyself `newman` `learn_egg_type` `TRUE` pair live `js/polyself.js:1187-1196` D-2239); **`record_mvitals_died`** (D-0126); 
 **trap-path `monkilled`/`mondied`/`make_corpse` ordinary default_1** (D-0150); 
 **mhitm `mondied`→`make_corpse` ordinary** (D-0167); 
 **`xkilled`→`make_corpse` when `corpse_chance`** (D-0191); 

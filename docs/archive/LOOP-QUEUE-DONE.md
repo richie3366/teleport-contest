@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `pray.c` pray_revive — p_type −2/−1/1/2 + `pray_revive` still named (turns.md:406); no JS body. No corpus block — port the named family. Probe: `node scripts/brief.mjs pray_revive`. **Addressed:** D-2238
+- [x] `mon.c` egg_type_from_parent — sit `#sit` FALSE roll + polyself `learn_egg_type` TRUE caller arms still named (data.md:331). No corpus block — port the named family. Probe: `node scripts/brief.mjs egg_type_from_parent`. **Addressed:** D-2239
+
+
+- [x] `pray.c` pray_revive — p_type −2/−1/1/2 + `pray_revive` still named (turns.md:406); no JS body. No corpus block — port the named family. Probe: `node scripts/brief.mjs pray_revive`. **Addressed:** D-2238 `fc302b4f`
 
 
 - [x] `wizard.c` intervene — udemigod `intervene`/`amulet()` still named (turns.md:94); no JS body. No corpus block — port the named family. Probe: `node scripts/brief.mjs intervene`. **Addressed:** D-2237 `bb6224f0`
