@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2213 — `apply.c` use_grapple/use_whip `surface_apply` stub said «furniture», C `surface()` says «stairs» (queue row use_grapple, 1 session PROGRESS 146→158)
+
+- **Status:** shipped (Open queue row `apply.c` use_grapple — 1/553 blocked; `verify --fn use_grapple` → 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS. Row archived. No review cited, no stamp owed.)
+- **Symptom:** scen-wish-Priest-92041 step 146/171 kind=screen at `apply.c:3857`, 0 blocked RNG (3327/3327 positional match): C «You are yanked toward the stairs!» vs JS «You are yanked toward the furniture!».
+- **C locus:** `apply.c:3857` `You("are yanked toward the %s!", surface(cc.x, cc.y))`; `dungeon.c:1749–1788` `surface()` — `On_stairs` arm returns "stairs" ahead of IS_WALL/IS_DOOR/IS_ROOM; the word "furniture" appears nowhere in C `surface()`. C `grep surface(` on `apply.c` shows all 7 whip/grapple message sites (`:3051/:3183/:3788/:3795/:3819/:3855/:3857`) call `surface()`.
+- **JS was:** local stub `surface_apply` (`js/apply.js:3289`, since removed) returned `furniture` for any IS_FURNITURE typ (stairs sit in the furniture range), `water` for air-or-pool, `floor` otherwise — dropping C's altar/headstone/fountain/stairs/wall/doorway/ground arms. All 7 C `surface()` sites (2 in `use_whip`, 5 in `use_grapple`) used it.
+- **Fix:** `js/apply.js` only — `import { surface } from './sit.js'` (canonical `dungeon.c:1750` port, D-2008; `imports.mjs --can apply.js sit.js surface` → IN-SCC hoisted-function SAFE, and `sit.js` holds no static `apply.js` edge); all 7 sites call `surface()`; stub deleted; `use_grapple` doc cites the removal.
+- **JS:** 1 file (`apply.js`, ~+11/−15 incl. import/doc/7 reworded calls/stub deletion), under the 600/10 caps. Rule #2 clean; no DIAG/FORCE/seed gates. No committed probes.
+- **Verify:** `node scripts/verify.mjs --fn use_grapple` → PASS syntax (1 changed js file: js/apply.js) · PASS rule2 · PASS hidden PROGRESS (scen-wish-Priest-92041 step 146 → weldmsg@158, strictly later step, different owner) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed per runner) · VERIFY: PASS. Final verify ran after the last js/ edit (map/D-log/queue edits only after; no D-1831 gap).
+- **Named omissions:** unchanged (use_grapple untrap non-adjacent FIXME, S_goodpos tmp_at D-1051; `surface()` swallow maw/husk arm stays named in `sit.js`; dig/dokick/engrave per-context `surface` clones untouched).
+- **Next:** do not re-pop `use_grapple` for Priest-92041 (0 blocked there). It now rests at `weldmsg`@158 — leave to the rescore queue; do not invent a FAIL peel.
+- **Cited falsifier grade:** measured (machine-recorded C-vs-JS row, screen-first, 0 blocked RNG; pinned `apply.c:3729–3873` + `dungeon.c:1749–1788` read in full via brief/csym; C `apply.c` grep confirms all 7 sites call `surface()`; post-fix `verify --fn use_grapple` PROGRESS + green/strict/cohort; no JS FORCE/DIAG/seed reads used).
+
 ## D-2212 — `detect.c` dosearch0 uswallow arm used pline, counted search re-queued «The exit?» behind --More-- (queue row dosearch0, 1 session PASS)
 
 - **Status:** shipped (Open queue row `detect.c` dosearch0 — 1/553 blocked; `verify --fn dosearch0` → 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS. Row archived. No review cited, no stamp owed.)

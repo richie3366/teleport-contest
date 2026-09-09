@@ -1,6 +1,6 @@
 {
- "commit": "5cd7c741",
- "at": "2026-09-09T13:34:25.984Z",
+ "commit": "99c19478",
+ "at": "2026-09-09T13:41:02.798Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -8133,16 +8133,16 @@
    "passed": false,
    "rngM": 3327,
    "rngT": 3327,
-   "scrM": 169,
+   "scrM": 170,
    "scrT": 171,
    "kind": "screen",
-   "step": 146,
+   "step": 158,
    "steps": 171,
-   "owner": "use_grapple",
-   "loc": "apply.c:3857",
+   "owner": "weldmsg",
+   "loc": "wield.c:1072",
    "jsOwner": null,
-   "cTopline": "You are yanked toward the stairs!",
-   "jsTopline": "You are yanked toward the furniture!",
+   "cTopline": "Your grappling hook is welded to your hand!",
+   "jsTopline": "Your weapon is welded to your hand!",
    "error": null
   },
   "scen-wish-Priest-92098": {

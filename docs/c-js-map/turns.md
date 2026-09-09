@@ -1989,7 +1989,10 @@ mintrap last_msg polish when pline unset; full is_silent msound tables);
 **`use_grease` trailing `update_inventory` + live getobj D-1656** (C `apply.c` `:2652`;
 `getobj("grease", grease_ok, GETOBJ_PROMPT)` not clone; grease_ok COIN
 `GETOBJ_EXCLUDE` 0; `gloves_simple_name` gauntlets; consume_obj_charge
-known is D-1615; sit.c `special_throne_effect` grease spray named)
+known is D-1615; sit.c `special_throne_effect` grease spray named); **`use_whip`/`use_grapple`
+`surface()` via canonical `sit.js` D-2213** (C `apply.c` `:3051/:3183/:3788/:3795/:3819/:3855/:3857`
+all call dungeon.c `surface()`; local `surface_apply` stub returned `furniture` for any
+IS_FURNITURE so stairs misread — stub deleted, all 7 sites use the D-2008 import)
 
 ### `src/display.c` `newsym` / map
 
