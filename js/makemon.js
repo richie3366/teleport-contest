@@ -1432,8 +1432,10 @@ function select_newcham_random(mon) {
 
 /**
  * C ref: mon.c mgender_from_permonst — sex from new form.
+ * Exported for the second C caller family (`sp_lev.c` create_monster
+ * M_AP_MONSTER arm, cf. D-2245 `mon_has_special` one-word export).
  */
-function mgender_from_permonst(mtmp, mdat) {
+export function mgender_from_permonst(mtmp, mdat) {
     if (is_male(mdat)) mtmp.female = 0;
     else if (is_female(mdat)) mtmp.female = 1;
     else if (!is_neuter(mdat)) {

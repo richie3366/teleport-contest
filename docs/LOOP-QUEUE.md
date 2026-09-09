@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `sp_lev.c` special-level shapeshifter fixup — second C caller of `select_newcham_form` (`sp_lev.c:2067`, named D-2245). No corpus block — port the named caller. Probe: `node scripts/brief.mjs select_newcham_form`.
 - [ ] `potion.c` dip bless/curse light adjust — dip sets bless/curse flags inline (`potion.js:3246–3247`, never calls `bless()`/`curse()`) so dipped lit artifacts skip `maybe_adjust_light` (named D-2244). No corpus block — wire the named dip path. Probe: `node scripts/brief.mjs maybe_adjust_light`.
 - [ ] `uhitm.c` mhitm_adtyping remaining arms — SGLD/CURS/DCAY/SLIM/DGST/HALU/DETH + default (named D-2247; ACID/DREN/CONF live since e8c22613). No corpus block — port the named arms. Probe: `node scripts/brief.mjs mhitm_adtyping`.
 - [ ] `muse.c` buzzmu real zap path — `lined_up` + `rn2(3)` + buzz pline/effects (named D-2233; stub still returns MISS). No corpus block — port the named path. Probe: `node scripts/brief.mjs buzzmu`.

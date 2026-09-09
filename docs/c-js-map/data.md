@@ -819,6 +819,12 @@ lua `align="noalign"`; `Amask2align(AM_NONE)`; female + peaceful override
 letter → 0; named id → find_montype gender; overwrites makemon `rn2(2)`); 
 **D-0697 `create_monster` mines dwarf/gnome `your_race`→`rn2(3)` clear pm** 
 (`splev_create_monster`/`splev_room_monster`; hand-rolled fill paths deferred); 
+**D-2249 `create_monster` appear_as M_AP_MONSTER arm** (`:2002–2123` gate +
+`select_newcham_form`/`name_to_mon` pick, `validvamp` S_HUMAN gate, mimic-self /
+mimic-Wizard disguise vs cham/vamp `set_mon_data` + light + perminvis, NOTHING /
+default impossibles, `does_block`→`block_point` tail; `opts.appear`/`appear_as`,
+no caller passes them yet; FURNITURE/OBJECT generic arms stay named — live
+levels use hand-rolled Rog-strt/soko/juiblex/minend/themerms paths); 
 **D-0537 `mineralize` In_quest goldprob/=4 gemprob/=6**; 
 **D-0539 `bigrm-8` load_special** (percent F-replace + flip); 
 **D-0621 `bigrm-7` load_special** (L→{L,T,{,.} replace + flip); 

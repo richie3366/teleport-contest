@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `polyself.c` polymorph-control `mkclass_poly` callers — `:542`/`:598` unwired (named D-2245; function live since a71ff501). No corpus block — port the named callers. Probe: `node scripts/brief.mjs mkclass_poly`. **Addressed:** D-2248
+- [x] `sp_lev.c` special-level shapeshifter fixup — second C caller of `select_newcham_form` (`sp_lev.c:2067`, named D-2245). No corpus block — port the named caller. Probe: `node scripts/brief.mjs select_newcham_form`. **Addressed:** D-2249
+
+
+- [x] `polyself.c` polymorph-control `mkclass_poly` callers — `:542`/`:598` unwired (named D-2245; function live since a71ff501). No corpus block — port the named callers. Probe: `node scripts/brief.mjs mkclass_poly`. **Addressed:** D-2248 `6a0bf305`
 
 
 - [x] `mhitu.c` hitmu — monster-vs-hero hit envelope thin vs C (`mhitu.c:1144`, 123/72; honourable-mention band). Corpus reach: in 14 failing sessions' diverged-step C draws. Probe: `node scripts/brief.mjs hitmu`. **Addressed:** D-2247 e8c22613
