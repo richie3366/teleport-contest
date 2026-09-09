@@ -21,7 +21,7 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-09** — full `sessions` on the working tree
-(audit **1164–1169**).
+(audit **1170–1175**).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 `92+0.57/turn` (R² 0.77).
@@ -33,7 +33,7 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `83+0.59/turn` (R² 0.76) |
+| Speed label | `64+0.40/turn` (R² 0.79) |
 | Role-init throws | **0 / 44** |
 
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-06
@@ -48,7 +48,7 @@ they no longer pick work. Top owners: `welcome`→`calendar.c getlt` ×51,
 `do_statusline2` ×11, `break_armor` ×9, `exercise` ×8, `enlightenment`
 ×7, `wiz_intrinsic` ×7, 4 `ReferenceError` throws ×8 (Must-fix).
 Reviews 990–1082: 82 ACCEPT, 7 DEBT (map-named/pointed), 4 QUALITY-RISK all shipped/prepended (record: reviews/ + DIVERGENCE-INDEX).
-Reviews 1089–1169: 78 ACCEPT, 0 Must-fix except 2 DEBT (1136 Hallucination import, 1137 save.js restore_waterlevel await) + 1 QUALITY-RISK prepended (1152 gloves literal).
+Reviews 1089–1175: 84 ACCEPT, 0 Must-fix except 2 DEBT (1136 Hallucination import, 1137 save.js restore_waterlevel await) + 1 QUALITY-RISK prepended (1152 gloves literal).
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score --jobs 8`
 (≈200 s); when every family is ≥ 85 % PASS, grow it first:
 `node scripts/scenario-gen.mjs --n 120 --seed <iter×100>`.

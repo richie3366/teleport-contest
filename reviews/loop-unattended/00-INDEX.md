@@ -1180,3 +1180,9 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1167-334dc087-statusline2-condition-order.md](./1167-334dc087-statusline2-condition-order.md) | `334dc087` | D-2201 statusline2 condition order | **ACCEPT** |
 | [1168-51fb6091-savebones-undead-arise.md](./1168-51fb6091-savebones-undead-arise.md) | `51fb6091` | D-2202 savebones undead-arise arm | **ACCEPT** |
 | [1169-2b917b52-stunned-expiry-arm.md](./1169-2b917b52-stunned-expiry-arm.md) | `2b917b52` | D-2203 STUNNED expiry arm | **ACCEPT** |
+| [1170-ea4547d5-xkilled-wasinside-arm.md](./1170-ea4547d5-xkilled-wasinside-arm.md) | `ea4547d5` | D-2204 xkilled wasinside arm | **ACCEPT** |
+| [1171-7b15eaf9-getpos-abort-keeps-message.md](./1171-7b15eaf9-getpos-abort-keeps-message.md) | `7b15eaf9` | D-2205 getpos !force abort keeps message | **ACCEPT** |
+| [1172-a234ca48-sqky-board-both-arms.md](./1172-a234ca48-sqky-board-both-arms.md) | `a234ca48` | D-2206 trapeffect_sqky_board both arms | **ACCEPT** |
+| [1173-d375dcfa-quiver-prefer-merge.md](./1173-d375dcfa-quiver-prefer-merge.md) | `d375dcfa` | D-2207 quiver-prefer pickup merge | **ACCEPT** |
+| [1174-5112743c-innategend-saved-gender.md](./1174-5112743c-innategend-saved-gender.md) | `5112743c` | D-2208 innategend saved gender when poly'd | **ACCEPT** |
+| [1175-32f374ab-steal-it-hero-theft.md](./1175-32f374ab-steal-it-hero-theft.md) | `32f374ab` | D-2209 steal_it hero theft | **ACCEPT** |
