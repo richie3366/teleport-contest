@@ -93,10 +93,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `hack.c` trapmove — blocks 1/553 corpus sessions (first at step 83): C «Your limbs are stiffening. You yawn.» vs JS «Your limbs are stiffening.». Probe: `node scripts/hidden-proxy.mjs verify trapmove` (scen-intrinsic-Knight-92016).
+**Next cluster:** `botl.c` do_statusline2 cond-rank (D-2201 ships cond order; row OPEN, 9 residuals). Parks: do_screen_description + reveal_terrain STALE (zero-diff moves).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2200 (index).**
+**Keep D-0845…D-2201 (index).**
 <!-- recent:begin -->
+**D-2201** NOT the do_statusline2 append block (`botl.c:170–206`). Live tty path: `bot()` takes `bot_ — `js/display.js` `_statusLine2` emits `BL_HUNGER`, `BL_CAP`, then rank-sorted `BL_CONDITION`, every predicate verbatim (Sick split into separate FoodPois/TermIll gates so Slime/Stone sort between; Conf before Deaf, Hallu 
 **D-2200** `potion.c:368–438` `make_hallucinated` (changed gate `:394`, see_* before pline `:424–426` — `js/display.js` — `await flush_topl_more()` first inside `docrt()`'s guarded body (after the in_docrt latch, before uswallow/vision arms): a pending --More-- now waits on the intact see_* paint (C order), then docrt repa
 **D-2199** `trap.c:1029–1042` `set_utrap` (botl on `!u.utrap ^ !tim`, utrap/utraptype store, `float_v — `js/trap.js` — `float_vs_flight` added to the existing static `./polyself.js` import (same edge as `polymon`/`body_part`/`mbodypart`; `imports.mjs --can trap.js polyself.js float_vs_flight` → ALREADY, no new edge; both m
 **D-2198** `do.c:2449–2486` `heal_legs(int how)` (body already live, re-audited arm-for-arm: `Wounded — `js/eat.js` — full royal-jelly fpostfx arm in C order (killer-bee `hero_form_data()?.mndx` + `Unchanging` morph break via live `polymon`; `gainstr(piece,1,true)`; Upolyd `mh` vs hero `uhp` `rnd(20)` + dual `botl`; `rn2(1
@@ -104,11 +105,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2196** `sounds.c:201–339` `dosounds` (swamp `You1(swamp_msg[rn2(2)+hallu])` + return `:234–243`;  — port all seven arms in C order with identical draw sequences (same rn2 calls, same gates).
 **D-2195** `trap.c:6711–6773` `thitm` (strike `find_mac+tlev+spe <= rnd(20)`; miss `pline_mon` "almos — harmless arm in C order — `const harmless = !!(obj && stone_missile(obj) && passes_rocks(mon.data))` (same expression shape as live `js/dothrow.js hittmu`), suffix ternary, dam computed before the gate (preserves `dmgval
 **D-2194** `trap.c:1106–1187` `m_harmless_trap` (SLP_GAS `resists_sleep \|\| defended(AD_SLEE)` :1133 — canonical `defended` + full `resists_magm` (+ file-local `monsndx` = `(mndx ?? mnum ??
-**D-2193** `mhitu.c:263–306` `expels`, reached from `mhitu.c:1578–1584` `gulpmu` (`You("get %s!", … : — port the C tail in order — `um_dist(mtmp.mx, mtmp.my, 1)` → `pline('Brrooaa...
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2200; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2201; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
