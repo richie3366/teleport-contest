@@ -90,7 +90,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `attrib.c` exercise — popped 2026-09-10, parked DRAW-PRESENCE with no js/ (JS arm-for-arm vs C except the draw-free encumber_msg tail; 0/553 rows owned by exercise; 30 presence rows under 12 other owners, 0 encumbrance toplines; tail needs 20-file async propagation — over cap) — next iter pops `LOOP-QUEUE.md` Open head (`eat.c` gethungry).
+**Next cluster:** `eat.c` gethungry — popped 2026-09-10, parked PRESENCE-ONLY with no js/ (0/553 owned; 28 stepFns-presence rows under 12 other owners, 0 hunger toplines; JS arm-for-arm vs C except wizard-only debug_hunger) — next iter pops `LOOP-QUEUE.md` Open head (`allmain.c` maybe_generate_rnd_mon).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2247 (index).**
 <!-- recent:begin -->

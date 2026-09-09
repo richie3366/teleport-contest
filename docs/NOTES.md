@@ -7,6 +7,7 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 - **Work picker:** `hidden-proxy queue`; singletons Deferred — do not re-add without a fired falsifier.
 - **More-transient parks — do not re-pop:** break_armor (Tourist-92171@88 timing).
 - **exercise park — do not re-pop:** draw-presence only (0/553 owned; tail draw-free, 111 sites/20 files — needs async vehicle; falsifier: encumbrance topline/owner).
+- **gethungry park — do not re-pop:** presence-only (0/553 owned, 28 stepFns under 12 other owners, 0 hunger toplines; JS arm-for-arm vs C except wizard-only debug_hunger; falsifier: verify blocked on gethungry or hunger topline at its step).
 - **do_statusline2 park — do not re-pop:** row-23 diffs are paint-timing.
 - **Fortress guards** (do not reopen): display_inventory dismiss/gameover heading/keep_status, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue `S_ndoor`, bigrm-2, getpos, summonmu, lookat, `do_statusline1`, snapshot, fakewiz, Ice/Boulder, `roles[]`, pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
 - **Luck runs when invulnerable, not dialogues** (`timeout.c:623`); STONED/SLIMED silent.
