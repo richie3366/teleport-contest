@@ -87,10 +87,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `hack.c` dopush row PARKED 2026-09-09 (no js/; push proven innocent, mimic-memory/vision residual needs temp-C-dump falsifier per Parked entry; Open duplicate consolidated). Next head is the `timeout.c` nh_timeout Open row — pop it via LOOP-QUEUE.md.
+**Next cluster:** `timeout.c` nh_timeout — blocks 1/553 corpus sessions (first at step 108): C «You no longer feel secure from petrification.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify nh_timeout` (scen-wish-Rogue-91119).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2228 (index).**
+**Keep D-0845…D-2229 (index).**
 <!-- recent:begin -->
+**D-2229** `timeout.c` nh_timeout ACID_RES + STONE_RES expiry arms — `js/eat.js` — new `export function eating_dangerous_corpse(res)` after `givit`, C branch/short-circuit order (occupation → piece → CORPSE → LOW_PM → carried/obj_here → res-specific `acidic(mons)/flesh_petrifies(mons)`); 
 **D-2228** `dig.c:1596–1604` zap_dig u.dz arm — `js/dig.js` + `js/zap.js` only, control-flow, no new imports/edges (mksobj_at/xname/stackobj/newsym already imported at both sites): after `finish_losehp_done()`, return only if `game.program_state?.gameover` (true death
 **D-2227** `worn.c:798–1002` `m_dowear_type` — `js/worn.js` — `m_dowear_type`/`m_dowear`/`maybe_m_dowear_special` async (awaits only on the !creation message path; creation callers run sync-through, no await reached); sawmon/sawloc at entry in C order; puts-on + auto
 **D-2226** `extralev.c:62` (`down: no wall`), `:68` (`down door ... going nowhere`), `:84` (`up: no w — `js/extralev.js` — `IS_WALL` joins the existing `const.js` edge; `impossible` joins a new static `display.js` edge (`imports.mjs --can extralev.js display.js impossible` → SAFE, hoisted-function; fire-and-forget without 
@@ -98,11 +99,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2224** `worn.c:474–484` `mon_set_minvis` (`perminvis = !cursed_potion`, `!invis_blkd → minvis = p — `js/muse.js` — deleted the local clone, `mon_set_minvis` joins the pre-existing static `worn.js` edge (`imports.mjs --can muse.js worn.js mon_set_minvis` → ALREADY; `extract_from_minvent`/`which_armor` already imported).
 **D-2223** `eat.c:3893–3912` `cant_finish_meal` (gate `go.occupation == eatfood && svc.context.victua — `js/eat.js` — new `export async function cant_finish_meal(corpse)` after `eatfood` (must live there: the gate compares against the module-local `eatfood` identity, as `newuhs` already does): piece-identity gate, house `{
 **D-2222** `worm.c:968–976` `flip_worm_segs_vertical` (`curr->wy = (maxy - curr->wy + miny)` over `wt — `js/worm.js` — two exports mirroring C character-for-character (`wtails[worm.wormno | 0]` walk; callers gate wormno, C does not re-check inside).
-**D-2221** `wield.c:1061–1074` `weldmsg` (`pline("%s welded to your %s!", Yobjnam2(obj, "are"), hand) — `js/wield.js` only — the three arms now `await weldmsg(u.uwep)` in C position/order (dowield keeps weldmsg→reset_remarm→unsplit-undo; doquiver keeps `weld_res = !bknown` pre-`welded()` + `weld_res ? 1 : 0`); `reset_remar
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2228; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2229; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

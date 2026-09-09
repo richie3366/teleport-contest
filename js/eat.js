@@ -1670,6 +1670,28 @@ async function givit(type, ptr) {
 }
 
 /**
+ * C ref: eat.c eating_dangerous_corpse `:472–493` — hero is mid-meal of a
+ * CORPSE whose harm the named resistance guards (acidic for ACID_RES,
+ * flesh-petrifying — Medusa included, not just touch — for STONE_RES):
+ * the nh_timeout caller extends the timeout instead of expiring it.
+ * Must live here: the gate compares against the module-local `eatfood`
+ * identity (same reason as `cant_finish_meal`, D-2223).
+ */
+export function eating_dangerous_corpse(res) {
+    if (game.occupation !== eatfood) return false;
+    const food = game.context?.victual?.piece;
+    if (!food || (food.otyp | 0) !== CORPSE) return false;
+    const mnum = food.corpsenm | 0;
+    if (mnum < LOW_PM) return false;
+    const u = game.u || {};
+    if (!carried(food) && !obj_here(food, u.ux | 0, u.uy | 0)) return false;
+    if ((res | 0) === ACID_RES && acidic(mons(mnum))) return true;
+    /* C: flesh_petrifies() includes Medusa as well as touch_petrifies() */
+    if ((res | 0) === STONE_RES && flesh_petrifies(mons(mnum))) return true;
+    return false;
+}
+
+/**
  * C ref: eat.c corpse_intrinsic — pick one conveyable prop (or -1 STR).
  * Non-deterministic; call once per corpse.
  */

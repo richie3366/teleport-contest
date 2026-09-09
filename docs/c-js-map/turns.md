@@ -42,7 +42,7 @@ talk D-1817**; C `timeout.c:752` / `wizcmds.c:1029`); **FAST TIMEOUT → Very_fa
 **LEVITATION TIMEOUT → `float_down(I_SPECIAL|TIMEOUT)` (D-1419)**; 
 **BLINDED TIMEOUT → make_blinded(0)+learn_unseen_invent** (D-0928 #1098); 
 **remaining `u.uprops` TIMEOUT generic `--` (INVULNERABLE etc.; 
-dedicated arms skipped)** (D-0928 #1168; expiry switch HALLUC/… still silent, STONED → stoning death live D-2029, SLIMED → `slimed_to_death` live D-2023, STRANGLED → `done_timeout(DIED, …)` + amulet-vanishes live D-2035, SICK → food-poisoning recovery `rn2(100)<ACURR(CON)` else illness death + `done_timeout(POISONING, SICK)` live D-2160); 
+dedicated arms skipped)** (D-0928 #1168; expiry switch HALLUC/… still silent, STONED → stoning death live D-2029, SLIMED → `slimed_to_death` live D-2023, STRANGLED → `done_timeout(DIED, …)` + amulet-vanishes live D-2035, SICK → food-poisoning recovery `rn2(100)<ACURR(CON)` else illness death + `done_timeout(POISONING, SICK)` live D-2160, ACID_RES/STONE_RES → `eating_dangerous_corpse` meal-extension (eat.c `:472–493`, live `js/eat.js` export) else expiry message unless resistant/Unaware live D-2229; STONE_RES `wielding_corpse` pair stays named); 
 **`u.uinvulnerable` early-return freezes all TIMEOUT** (D-0928 #1171); 
 **`#wizintrinsic` BLINDED → `make_blinded(newtimeout)` + HBlinded↔uprops sync** (D-0928 #1171); 
 **STUNNED expiry → `make_stunned(0,TRUE)` + stop_occupation** (D-2203; C `timeout.c:737–742` generic-loop arm, HALLUC-arm shape); HALLUC/… expiry msgs / `region_dialogue` / SLEEPY-expiry fall_asleep+incr (JS generic arm silently clears; D-2070 named)

@@ -1,6 +1,6 @@
 {
- "commit": "a3d13f73",
- "at": "2026-09-09T18:13:44.276Z",
+ "commit": "7d9dd3b7",
+ "at": "2026-09-09T18:20:39.621Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -8334,18 +8334,18 @@
   },
   "scen-wish-Rogue-91119": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 6704,
    "rngT": 6704,
-   "scrM": 274,
+   "scrM": 275,
    "scrT": 275,
-   "kind": "screen",
-   "step": 108,
+   "kind": null,
+   "step": null,
    "steps": 275,
-   "owner": "nh_timeout",
-   "loc": "timeout.c:836",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "You no longer feel secure from petrification.",
+   "cTopline": "",
    "jsTopline": "",
    "error": null
   },
