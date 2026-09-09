@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `artifact.c` defended()/DFLAG1 (named data.md:106; per-adtyp neighbors shipped D-1862). Defense message + RNG surface.
 - [ ] `wield.c` weldmsg — blocks 1/553 corpus sessions (first at step 158): C «Your grappling hook is welded to your hand!» vs JS «Your weapon is welded to your hand!». Probe: `node scripts/hidden-proxy.mjs verify weldmsg` (scen-wish-Priest-92041).
 - [ ] `worm.c` flip_worm_segs_vertical/flip_worm_segs_horizontal — save/rest segment-flip family still named (data.md:606). No corpus block — port the named family.
 - [ ] `eat.c` cant_finish_meal — meal-interrupt predicate still named (debt.md:15). No corpus block — port the named family.

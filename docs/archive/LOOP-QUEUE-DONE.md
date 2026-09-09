@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `pray.c` pleased gifts (named debt.md:23). Gift-grant message surface. **Addressed:** D-2219
+- [x] `artifact.c` defended()/DFLAG1 (named data.md:106; per-adtyp neighbors shipped D-1862). Defense message + RNG surface. **Addressed:** D-2220
+
+
+- [x] `pray.c` pleased gifts (named debt.md:23). Gift-grant message surface. **Addressed:** D-2219 `9a72fe17`
 
 
 - [x] `shk.c` u_entered_shop Soundeffect/Hallu shkname remainder (named absent.md:16; deserted/angry/Invis/doorway shipped D-1080). Shop-welcome message surface. **Addressed:** D-2218 `44843418`
