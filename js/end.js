@@ -1663,6 +1663,11 @@ export async function done(how) {
     if (survive) {
         game.killer.name = '';
         game.killer.format = KILLED_BY_AN;
+        // C end.c done — savelife / wizard-Discover `Die?` decline returns
+        // normally (no really_done); the JS-invented gameover flag must clear
+        // so moveloop keeps driving (scen-wish-Valkyrie-92014 step 48).
+        if (!game.program_state) game.program_state = {};
+        game.program_state.gameover = false;
         return;
     }
     await really_done(how);

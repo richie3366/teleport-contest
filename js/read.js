@@ -1735,6 +1735,20 @@ async function seffect_mail(sobj) {
 }
 
 /**
+ * C ref: read.c seffect_blank_paper `:2005–2012` — no RNG, sets known.
+ * Draw-free (oc_magic is 0, so seffects draws no exercise here); the step-313
+ * exercise is the next turn's exerper tick, restored by taking time (caller
+ * doread returns ECMD_TIME, C read.c:646) instead of the old -1 no-time path.
+ */
+async function seffect_blank_paper(sobj) {
+    const u = game.u || {};
+    const Blind = !!((u.Blinded | 0) || u.Blind || u.ublind);
+    if (Blind) await pline("You don't remember there being any magic words on this scroll.");
+    else await pline('This scroll seems to be blank.');
+    known = true;
+}
+
+/**
  * C ref: read.c unpunish — remove ball & chain (chain destroyed, ball freed).
  * Named omissions: delobj newsym / monster-under-chain polish.
  */
@@ -1959,6 +1973,11 @@ export async function seffects(sobj) {
         if (!kept) return 1;
         break;
     }
+    case SCR_BLANK_PAPER:
+        // C read.c:2222 seffect_blank_paper — prints + known, scroll kept,
+        // takes time (C doread ECMD_TIME, read.c:646).
+        await seffect_blank_paper(sobj);
+        break;
     default:
         // Other seffect_* deferred — do not useup
         await pline('That scroll is not implemented yet.');

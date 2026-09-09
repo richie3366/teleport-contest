@@ -1207,7 +1207,10 @@ export async function touch_artifact(obj, mon) {
         if (game._losehp_needs_done) {
             const { finish_losehp_done } = await import('./end.js');
             await finish_losehp_done();
-            return 0;
+            // C artifact.c:959 — losehp returns after lifesave / wizard
+            // `Die?` decline (end.c savelife); exercise still runs. Only a
+            // real death (gameover) skips it (scen-wish-Valkyrie-92014:48).
+            if (game.program_state?.gameover) return 0;
         }
         exercise(A_WIS, false);
     }

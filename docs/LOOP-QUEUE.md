@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `attrib.c` exercise — blocks 2/553 corpus sessions (first at step 48): C draws `rn2(2)=1` in exercise, JS `rn2(100)=7` from makewish(zap.js:6638). Probe: `node scripts/hidden-proxy.mjs verify exercise` (scen-wish-Valkyrie-92014, scen-wish-Valkyrie-92206).
 - [ ] `hack.c` domove_bump_mon — blocks 2/553 corpus sessions (first at step 32): C «Pardon me, Slasher.» (`hack.c:1942` m-prefix bump arm) vs JS «You swap places with Slasher.» + spurious `rn2(7)`@do_attack; «Pardon me» absent from scored js/ (named omission js/cmd.js:3145). Probe: `node scripts/hidden-proxy.mjs verify distfleeck` (scen-normal-Caveman-92053, scen-normal-Healer-92218; expect PASS or later owner).
 - [ ] `teleport.c` goodpos — blocks 1/553 corpus sessions (first at step 131): C draws `rn2(13)=5` in goodpos, JS `rn2(3)=0` from movebubbles(mklev.js:16122). Probe: `node scripts/hidden-proxy.mjs verify goodpos` (scen-tour-Tourist-92100).
 - [ ] `artifact.c` touch_artifact — blocks 1/553 corpus sessions (first at step 92): C draws `d(4,10)=22` in touch_artifact, JS `rn2(1)=0` from readobjnam(readobjnam.js:1280). Probe: `node scripts/hidden-proxy.mjs verify touch_artifact` (scen-wish-Rogue-92221).
