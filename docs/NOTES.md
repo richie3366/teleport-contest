@@ -15,6 +15,7 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 - **MISATTRIBUTED/STALE parks — do not re-pop:** vomiting_dialogue/u_stuck_cannot_go/name_to_monplus/mcast_death_touch/save_dungeon/dodown/mv_bubble/one_characteristic/use_pole/trapmove/fig_transform/chwepon.
 - **do_statusline1 park — do not re-pop:** Caveman-92138@72 → attributes_enlightenment.
 - **disclose + list_vanquished parks — do not re-pop:** Priest-92179 Hallu desync (done_in_by imitator); Tourist-92067@224 identical-prompt cell (display-memory).
+- **dopush park — do not re-pop:** explore-seed0116 step-127 1-cell transient is giant-mimic memory/viz at map (33,12), not the push (push byte-identical both sides; RNG 12853/12853). Measured 2026-09-09: JS vision/mem probed per-step (couldsee FALSE@127/TRUE@128; mem floor@127), C q3 hand-sim says UNSEEN — jointly inconsistent, needs temp-C-dump falsifier (ap/mem/vision @114–128, recipe in Parked entry). Open row consolidated into Parked; baseline `verify dopush` NO MOVEMENT.
 
 ## Don't re-check (≤15)
 
