@@ -1,6 +1,6 @@
 {
- "commit": "d375dcfa",
- "at": "2026-09-09T08:58:15.641Z",
+ "commit": "347afdb0",
+ "at": "2026-09-09T09:13:39.712Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6824,16 +6824,16 @@
    "passed": false,
    "rngM": 5241,
    "rngT": 5241,
-   "scrM": 304,
+   "scrM": 320,
    "scrT": 321,
    "kind": "screen",
-   "step": 152,
+   "step": 180,
    "steps": 321,
-   "owner": "steal_it",
-   "loc": "uhitm.c:2247",
+   "owner": "do_statusline2",
+   "loc": "botl.c:130",
    "jsOwner": null,
-   "cTopline": "You steal: l - a pair of old gloves. You miss the watchman.--More--",
-   "jsTopline": "You miss the watchman. You hit the watchman.--More--",
+   "cTopline": "You turn into a quasit!--More--",
+   "jsTopline": "You turn into a quasit!--More--",
    "error": null
   },
   "scen-poly-Ranger-91131": {

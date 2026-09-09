@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `uhitm.c` steal_it — blocks 1/553 corpus sessions (first at step 152): C «You steal: l - a pair of old gloves. You miss the watchman.-» vs JS «You miss the watchman. You hit the watchman.--More--». Probe: `node scripts/hidden-proxy.mjs verify steal_it` (scen-poly-Priest-92097).
 - [ ] `apply.c` fig_transform — blocks 1/553 corpus sessions (first at step 169): C «You attack thin air. It hits! It hits again! It hits!--More-» vs JS «You attack thin air. It hits! It hits again! It hits!». Probe: `node scripts/hidden-proxy.mjs verify fig_transform` (scen-poly-Tourist-92047).
 - [ ] `wield.c` chwepon — blocks 1/553 corpus sessions (first at step 133): C «Your dexterity was 13.» vs JS «Your dexterity was 13.». Probe: `node scripts/hidden-proxy.mjs verify chwepon` (scen-poly-Samurai-91106).
 - [ ] `potion.c` peffect_acid — blocks 1/553 corpus sessions (first at step 71): C «tame little dog called Idefix» vs JS «tame Idefix». Probe: `node scripts/hidden-proxy.mjs verify peffect_acid` (scen-tour-Barbarian-92152).

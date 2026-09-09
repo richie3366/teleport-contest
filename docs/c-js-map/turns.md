@@ -3077,7 +3077,7 @@ small-monster otyp switch** (D-0189); **`dmgval` shade/`shade_glare` D-1354**;
 **`hitmu`→`mhitm_adtyping` PHYS+ELEC+DRST/DRDX/DRCO+FIRE+TLPT+STCK+PLYS+ENCH + `mhitm_mgc_atk_negated`** (D-0198/D-0497/D-2005/D-2174) + 
 **`poisoned`/`poisontell` attrib-loss `d(2,2)` + HP/fatal arms** (D-0869; 
 name_to_mon G_UNIQ / Half_gas_damage / trap·throw callers deferred) + 
-**AD_SITM/AD_SEDU→`mhitm_ad_sedu`→`steal`** (D-0686; brag `pline_mon` D-1240; 
+**AD_SITM/AD_SEDU→`mhitm_ad_sedu`→`steal`** (D-0686; brag `pline_mon` D-1240; **uhitm `steal_it` D-2209** (`uhitm.c` `:2173–2278` staticfn + `:4629–4632` dispatch as `damageum_adtyping` AD_SEDU/AD_SSEX/AD_SITM arm in `js/uhitm.js` — W_ARM-to-end, gold shuffle, hold_another_object "You steal: ", theft_petrifies staticfn `:2147–2165` with C-disabled `#if 0` arm omitted, W_WEP/W_ARMG fixups); 
 **`worn_item_removal` on→from + nymph `She stole` D-0884**; 
 **post-steal `rloc(RLOC_MSG)` vanish D-0885**; 
 monkey cant_take / stealarm afternmv deferred;
