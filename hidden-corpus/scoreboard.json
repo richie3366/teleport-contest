@@ -1,6 +1,6 @@
 {
- "commit": "68ea2480",
- "at": "2026-09-09T13:49:06.606Z",
+ "commit": "11c8ed19",
+ "at": "2026-09-09T13:51:35.582Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -8096,19 +8096,19 @@
   },
   "scen-wish-Monk-92207": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 3147,
    "rngT": 3147,
-   "scrM": 205,
+   "scrM": 227,
    "scrT": 227,
-   "kind": "screen",
-   "step": 138,
+   "kind": null,
+   "step": null,
    "steps": 227,
-   "owner": "doeat_nonfood",
-   "loc": "eat.c:2802",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "You feel guilty. This meatball is delicious!",
-   "jsTopline": "This meatball is delicious!",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-wish-Priest-92035": {
