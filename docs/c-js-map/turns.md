@@ -3031,6 +3031,7 @@ flight `observe_object`→`makeknown`/`exercise(A_WIS)`** (D-0184) **+ ray wands
 ship/`flooreffects("drop")`; tethered AKLYS `return_flightpath`; 
 candles/candelabrum only, not `snuff_lit`; `thrwmu` always_toss/polearm named); 
 |**`m_throw` `ucatchgem` gem catch D-1947** (C `:505–529` + `:692` GEM break before `:695` catch/potionhit; unicorn-poly `otyp<=LAST` guard, glass FIRST..LAST pline×2+`makeknown`+`dropy` else `hold_another_object`, rock/gray-stone never; canonical `s_suffix`, `is_unicorn`, `makeknown`/`hold_another_object` live, `dropy` dynamic); 
+|**`m_throw` hero-hit switch + `stop_occupation` + `blindinc` tail D-2215** (C `:702–786` + `:836–841`; `js/mthrowu.js` + one-word `can_blnd` export in `js/uhitm.js`; EGG impossible/petrifier-FALLTHROUGH + pie/venom `thitu(8,0)` + default elf-bow/elven/bigmonst/acid-venom arms + poisoned + can_blnd pie/venom messages + EGG make_stoned + unconditional `stop_occupation` + `ucreamed`/`make_blinded`/`vision_clears` tail; `imports.mjs --can mthrowu.js do.js make_blinded` → SAFE hoisted-function, uhitm edge already static; named: can_blnd Blindfolded/ublindf/ucreamed/visor you-gates per the uhitm subset, `thitu` quan>1 doname, forcehit MT_FLIGHTCHECK, dmgval defender-null — all pre-existing); 
 **await `thitu`/`monshoot` plines before `losehp`/flight** (D-0319); 
 **`mbhitm` fatal striking → `finish_losehp_done` noreturn** (D-0323); 
 **`find_offensive` C `nomore` continue** — later invent cannot override selected type (D-0258); 

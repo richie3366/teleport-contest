@@ -86,10 +86,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `pray.c` gcrownu — blocks 1/553 corpus sessions (first at step 79): C «The barrow wight wields a long sword!--More--» vs JS «The barrow wight wields a long sword! The barrow wight hits!». Probe: `node scripts/hidden-proxy.mjs verify gcrownu` (scen-wish-Ranger-91103). **Parked same iter (STALE, no js/):** Ranger-91103 PASSES at HEAD (RNG 3349/3349, Screen 192/192); owner pray.c:932 is mksobj, true printer mon_wield_item.
+**Next cluster:** `worn.c` m_dowear_type — Samurai-92017@142 «The goblin puts on a pair of fencing gloves.» vs «». Probe: `node scripts/hidden-proxy.mjs verify m_dowear_type`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2214 (index).**
+**Keep D-0845…D-2215 (index).**
 <!-- recent:begin -->
+**D-2215** queue owner `detect.c:2099` (`return dosearch0(0) ? ECMD_TIME : ECMD_OK`) is the symptom o — `js/mthrowu.js` — full `:702–786` envelope in C order (EGG impossible/petrifier-FALLTHROUGH via live `touch_petrifies`; pie/venom `thitu(8,0)`; default elf `oc_skill==-P_BOW`/ELVEN_BOW/ELVEN_ARROW/bigmonst arms + acid-ve
 **D-2214** `eat.c:1078–1095` ACID_RES/STONE_RES arms — `js/eat.js` only — appended `.` to all four ACID/STONE literals to match C `"%s."`.
 **D-2213** `apply.c:3857` `You("are yanked toward the %s!", surface(cc.x, cc.y))`; `dungeon.c:1749–17 — `js/apply.js` only — `import { surface } from './sit.js'` (canonical `dungeon.c:1750` port, D-2008; `imports.mjs --can apply.js sit.js surface` → IN-SCC hoisted-function SAFE, and `sit.js` holds no static `apply.js` edge
 **D-2212** `detect.c:2022–2024` uswallow arm — `js/detect.js` only — uswallow arm now `await Norep('What are you looking for?
@@ -97,11 +98,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2210** `insight.c:3402–3489` `ustatusline` — `js/insight.js` only — full info chain in C order with house predicate idioms (`u.Sick/Stoned/Slimed` + uprops-intrinsic mirrors per `display.js:5700–5703`; Strangled H/E flats + intrinsic/extrinsic; Vomiting flat-or-int
 **D-2209** `uhitm.c:2173–2278` staticfn `steal_it` (worn-suit-to-end, charm/seduce pline, gold shuffl — `js/uhitm.js` only — file-local `theft_petrifies` (uarmg/corpsenm/Stone_resistance gates; C-disabled `#if 0` arm stays omitted) + `steal_it` in C order (minvent pointer-surgery via prev/cur; charm/seduce pline via inline
 **D-2208** `insight.c:474–479` (`innategend = (Upolyd ? u.mfemale : flags.female) ? 1 : 0`; role_titl — `js/invent.js` only — `innateFemale = Upolyd(u) ? !!u.mfemale : female` (the house Ugender idiom, cf.
-**D-2207** `invent.c:1098–1106` addinv_core0 quiver-prefer arm (`if (uquiver && merged(&uquiver, &obj — `js/mkobj.js` — gate narrowed to worn *combine* stack only (`obj`), citing C's absent check + the fixup's obj-worn-only fire condition; an unworn `obj` into a worn `otmp` needs no fixup either side.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2214; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2215; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

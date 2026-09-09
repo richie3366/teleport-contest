@@ -10,28 +10,29 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 - **Fortress guards.** Do not reopen display_inventory dismiss / gameover heading / keep_status, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue `S_ndoor`, bigrm-2, getpos, summonmu, lookat, `do_statusline1`, snapshot, fakewiz, Ice/Boulder, `roles[]`, pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
 - **Luck runs when invulnerable; dialogues do not** (`timeout.c:623`); STONED/SLIMED silent.
 - **Symptom-owner parks — do not re-pop:** obj_resists · m_move · rloc · lightdamage · mattackm/can_carry · spoteffects · mon_adjust_speed · zapyourself · doname_base · hmonas · minliquid_core · distfleeck.
-- **STALE parks — do not re-pop:** lesshungry · rndcurse · mhitm_ad_famn · regen_hp · barehands · do_mapping · adjattrib (look-path stale; pick_lock shipped) · from_what (PASS) · look_at_monster (PASS) · formatkiller (tombstone; dirty capture) · do_screen_description (step-56 passes; trapeffect PASS) · reveal_terrain (0–23 exact; live prinv@67) · peffect_acid (Barbarian-92152 PASS) · newcham · use_offensive (Priest-92197 PASS; tower text is `#if 0` + D-2186 robe noun) · stop_donning (Wizard-92135 PASS at HEAD 5462/5462+196/196; «studying» is allmain.c:688 occupation, map-cell residual under identical toplines) · doeat_nonfood (Monk-92207 PASS at HEAD 3147/3147+227/227; FOOD/FLESH meatball is doeat+fprefx, never doeat_nonfood; fixer D-2183; residual nonfood/eating_conducts guilt noted in park) · gcrownu (Ranger-91103 PASS at HEAD 3349/3349+192/192; pray.c:932 is mksobj, true printer mon_wield_item).
-- **slimed park:** comment-line owner; dual writer (landing + Sick store).
+- **STALE parks — do not re-pop:** lesshungry · rndcurse · mhitm_ad_famn · regen_hp · barehands · do_mapping · adjattrib · from_what · look_at_monster · formatkiller · do_screen_description · reveal_terrain · peffect_acid · newcham · use_offensive · stop_donning · doeat_nonfood · gcrownu. (Session ids + proofs in LOOP-QUEUE Parked; re-queue only on the listed falsifier.)
+- **slimed park:** dual writer (landing + Sick store).
 - **MISATTRIBUTED/STALE parks — do not re-pop:** vomiting_dialogue · u_stuck_cannot_go · name_to_monplus · mcast_death_touch · save_dungeon · dodown · mv_bubble · one_characteristic · use_pole · trapmove · fig_transform · chwepon.
-- **do_statusline1 park — do not re-pop:** Caveman-92138@72 disclosure row-22; true writer attributes_enlightenment.
-- **list_vanquished park — do not re-pop:** Tourist-92067@224 prompt-identical map cell (29,3) Z/d; display-memory writer (see Parked).
-- **disclose park — do not re-pop:** scen-wish-Priest-92179 conduct-prompt Hallu-glyph 4-cell diff (map (38,15),(39,15),(37,16),(39,16); core RNG 3097/3097) is a display-stream desync with no attributable C writer — disclose paints nothing, all paint arms verified draw-identical, C display draws unlogged (see Parked). Later-step killer text («doppelganger imitating Yeenoghu») is done_in_by imitator, a separate future row.
+- **do_statusline1 park — do not re-pop:** Caveman-92138@72; true writer attributes_enlightenment.
+- **list_vanquished park — do not re-pop:** Tourist-92067@224 identical-prompt map cell; display-memory writer (see Parked).
+- **disclose park — do not re-pop:** Priest-92179 Hallu-glyph desync (core RNG matched); killer text is done_in_by imitator (see Parked).
 
 ## Don't re-check (≤15)
 
-- D-1790…D-2214 ports stand (range-covered). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`/`free_mgivenname`/`is_axe`/`carrying`/`end_running`.
+- D-1790…D-2215 ports stand (range-covered). Scars: `m_seenres` is boolean, never `!== 0`; no second `genus`/`accessible`/trailing-`confdir`/`locomotion`/`unconscious`/`free_mgivenname`/`is_axe`/`carrying`/`end_running`.
 - D-1795 `mattacku`/`getmattk` and D-1816 NATTK abort stand (range-covered). Scars: keep sleep `rn2(10)`; no second `m_monnam`/`simple_typename`; seed4500 `[2]` (D-1817): keep `flush_screen(1)`, never hide `[2]`.
 - No `stay` rebuild; no `u.Punished`; no `rn2(20)` on ordinary pit farlook.
 - seed0014 I-glyph is D-1774; findone tail D-1775. Do not revert D-0078 H2344 / offx 72 (D-1185). `g` is not Unknown (D-1186). PREFIXCMD D-1582.
   ParanoidTrap / `domagicportal` / `undestroyable_trap` / `mktrap` dst / `goto_level` uz0 are D-1187/1188. No rhack raw-ETX (D-1189). Never FORCE the falsified mineralize TRC (76,14)/(77,14) (D-1849).
 - `Val-*`/`Sam-*` loaders shipped D-1852/D-1858 — check `load_val_*`/`load_sam_*` before refilling.
 - Don't re-apply D-0480 glyph `tty_map_color` (D-0483). Don't skip painting spaces or emit mid-row space runs >4 (D-0931). Do not FORCE shk satdoor/`onlineu` (D-0376) or linedup/FlipX (#1092). Do not blanket-restore overlay `_pending_message` (D-0929). Do not HEAVY_IRON_BALL `owt!=0` (#1194). Judge does **not** elide RC (D-0933); do not extend §1.2. Do not chase public LB in-loop.
-- Do not memcpy gi worn/ball (D-1035) / `setnotworn` from `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) / skip `tutorial()` (D-1066). Do not skip D-1067…D-2214.
-- Do not import `monmove.js` `sticks` for sit / rewrite `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) / bones→options fruitadd (D-1541). No `reset_glyphmap` / `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`. No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`. Do not re-port D-1682…D-2214.
+- Do not memcpy gi worn/ball (D-1035) / `setnotworn` from `owornmask` (D-1020) / `delobj` tutorial loot / off-level timers (D-1037) / omit `msounds[]` (D-1053) / tut-1 keys (D-1065) / skip `tutorial()` (D-1066). Do not skip D-1067…D-2215.
+- Do not import `monmove.js` `sticks` for sit / rewrite `confer_oc_oprop` / delete emin / stub `make_happy_shk` (D-1540) / bones→options fruitadd (D-1541). No `reset_glyphmap` / `notice_all_mons` / savelev-freeing / lua `lspo_reset_level`. No `wield.js`/`pickup.js`→`polyself.js` for `body_part`. No static `end.js`←`dog.js`. No makemon→hack/`artifact`/`minion`. Do not re-port D-1682…D-2215.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2215: `js/mthrowu.js` — full `:702–786` envelope in C order (EGG impossible/petrifier-FALLTHROUGH via live `touch_petrifies`; pie/venom `thitu(8,0)`; defaul Named: can_blnd Blindfolded/ublindf/ucreamed/visor you-gates (per the uhitm subset, map turns.md)
 - D-2214: `js/eat.js` only — appended `.` to all four ACID/STONE literals to match C `"%s."`. Named: unchanged (debugpline only; `should_givit`/`temp_givit`/`incr_itimeout` wiring already liv
 - D-2213: `js/apply.js` only — `import { surface } from './sit.js'` (canonical `dungeon.c:1750` port, D-2008; `imports.mjs --can apply.js sit.js surface` → IN-S Named: unchanged (use_grapple untrap non-adjacent FIXME, S_goodpos tmp_at D-1051; `surface()` swa
 - D-2212: `js/detect.js` only — uswallow arm now `await Norep('What are you looking for? Named: C `nomul(0)` stays the local `nomul_clear()` subset (JS clears multi + `_repeat_search`/co
@@ -46,5 +47,4 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 - D-2203: `js/timeout.js` only — generic-loop `p === STUNNED` expiry arm in C order: re-arm flat `u.HStun = (HStun & ~TIMEOUT) | 1` (+ `u.Stunned` mirror) becau Named: unchanged — remaining silent-clear generic expiries (GLIB, VOMITING-expiry dialogue is liv
 - D-2202: `js/end.js` only — full arise arm in C order (`in_mklev` + `makemon(NO_MINVENT)` with prev-restore; `!mtmp` fallback drop + `ugrave_arise = NON_PM` +  Named: unchanged — `obj_no_longer_held`; lamp `artifact_light`/`end_burn`; ebones; file compress,
 - D-2201: `js/display.js` `_statusLine2` emits `BL_HUNGER`, `BL_CAP`, then rank-sorted `BL_CONDITION`, every predicate verbatim (Sick split into separate FoodPo Named: `cond_shrinklvl` abbreviations (`text[1]`/`text[2]`) — no corpus session needs them (all f
-- D-2200: `js/display.js` — `await flush_topl_more()` first inside `docrt()`'s guarded body (after the in_docrt latch, before uswallow/vision arms): a pending - Named: make_hallucinated body still names (js/potion.js doc): EHalluc_resistance mask polish beyo
 <!-- landmarks:end -->
