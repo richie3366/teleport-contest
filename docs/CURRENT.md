@@ -86,10 +86,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `worn.c` mon_set_minvis — muse/mon local clones still named (data.md:606-607; canonical export is `js/worn.js`). No corpus session currently blocks on it — port the named family (import the export, no new clone).
+**Next cluster:** `extralev.c` LVLINIT_ROGUE/ROGUEOPTS — rogue-level init + impossible wall checks still named (data.md:631). No corpus block — port the named family.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2224 (index).**
+**Keep D-0845…D-2225 (index).**
 <!-- recent:begin -->
+**D-2225** `track.c:21–59,93–105` SFCTOOL + `rest_track` (`#ifndef SFCTOOL` wraps only settrack/gettrack; `panic("rest_track: impossible pt counts")` on `> UTSZ`) — `js/track.js` only — raw-count assign then loud throw (house panic idiom); no clamp; single-ESM-build note in header comment.
 **D-2224** `worn.c:474–484` `mon_set_minvis` (`perminvis = !cursed_potion`, `!invis_blkd → minvis = p — `js/muse.js` — deleted the local clone, `mon_set_minvis` joins the pre-existing static `worn.js` edge (`imports.mjs --can muse.js worn.js mon_set_minvis` → ALREADY; `extract_from_minvent`/`which_armor` already imported).
 **D-2223** `eat.c:3893–3912` `cant_finish_meal` (gate `go.occupation == eatfood && svc.context.victua — `js/eat.js` — new `export async function cant_finish_meal(corpse)` after `eatfood` (must live there: the gate compares against the module-local `eatfood` identity, as `newuhs` already does): piece-identity gate, house `{
 **D-2222** `worm.c:968–976` `flip_worm_segs_vertical` (`curr->wy = (maxy - curr->wy + miny)` over `wt — `js/worm.js` — two exports mirroring C character-for-character (`wtails[worm.wormno | 0]` walk; callers gate wormno, C does not re-check inside).
@@ -97,11 +98,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2220** `artifact.c:1008–1060` `spec_applies` (DFLAG1 arm `:1024–1025`; `defended` guard `:1036–10 — `js/artifact.js` only + one new import edge (`defended` from `./mondata.js`; `imports.mjs --can artifact.js mondata.js defended` → IN-SCC, hoisted-function SAFE; `mondata.js` already imports `artifact.js` and every cross
 **D-2219** `pray.c:1167–1354` `pleased` pat_on_head switch — `js/pray.js` only, no new cross-module edge (`see_monsters` extends the pre-existing static `display.js` edge — `imports.mjs --can pray.js display.js see_monsters` → ALREADY; `INTRINSIC` extends the pre-existing `const.j
 **D-2218** `shk.c:751–917` `u_entered_shop` (robbed Soundeffect `:834`; bill_p poison `:776`; tended  — `js/shk.js` — `Soundeffect(se_mutter_imprecations, 50)` in C order (before the mutter pline; contest C macro is equally empty without SND_LIB, `sndprocs.h:272`, so zero behavior change, strictly more faithful wiring — D-
-**D-2217** `sounds.c:202–339` `dosounds` (vault `:262–289` Soundeffect volumes 30/30, throne `:45–50` — `js/sounds.js` — seven `Soundeffect(se,vol)` sites in C order/volumes (contest C macro is equally empty without SND_LIB, `sndprocs.h:272`, so zero behavior change, strictly more faithful wiring; se ids from `generated/se
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2224; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2225; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

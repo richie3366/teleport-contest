@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2225 — `track.c` SFCTOOL + `rest_track` impossible-counts panic (queue row, 0 blocked)
+
+- **Status:** shipped (Open queue row `track.c` SFCTOOL — 0 corpus blocks, named-omission row (data.md:898); `verify --fn rest_track` → vacuous-hidden note + green/strict/cohort PASS → ship with the public gates per the runner. Row archived. Continue-unfinished resume: the previous agent died pre-commit with the `js/track.js` hunk + CURRENT pointer in the tree; this iteration re-read C at the cited loci, re-ran verify, and shipped the docs.)
+- **Symptom:** no corpus block — JS `rest_track` clamped a corrupt `utcnt` to UTSZ and reset-and-returned on out-of-range counts, where C assigns the raw counts then `panic("rest_track: impossible pt counts")`; and `data.md:902` still named an SFCTOOL omission for save_track/rest_track.
+- **C locus:** `track.c:21–59` `#ifndef SFCTOOL` wraps only `settrack`/`gettrack` (tool build drops the gameplay writers); `initrack`/`hastrack`/`save_track`/`rest_track` build in both. `track.c:93–105` `rest_track` — `Sfi_int` assigns raw utcnt/utpnt, then `if (utcnt > UTSZ || utpnt > UTSZ) panic(...)`; no clamp, no pre-clear.
+- **JS was:** `js/track.js rest_track` did `initrack()`, then `utcnt = min(UTSZ, snap.utcnt)`, and on `> UTSZ` re-`initrack()` + silent return — unreachable on own-produced snaps (settrack caps utcnt at UTSZ, wraps utpnt; peek_track caps) but unfaithful on corrupt input.
+- **Fix:** `js/track.js` only — assign raw `snap.utcnt|0`/`snap.utpnt|0`, then loud `throw new Error('rest_track: impossible pt counts')` on `> UTSZ` (house panic idiom, cf. `js/mklev.js:28203` mazexy); no clamp. Header comment records the SFCTOOL finding: the exclusion has no behavior to port in the single ESM build, so the full six-function family ships here. `docs/c-js-map/data.md` track.c row drops the `omit SFCTOOL` line.
+- **JS:** 1 file (`track.js` +19/−7 incl. comments), under the 600/10 caps. Rule #2 clean; no DIAG/FORCE/seed gates. No committed probes.
+- **Verify:** `node scripts/verify.mjs --fn rest_track` → PASS syntax (1 changed js file: js/track.js) · PASS rule2 · note hidden (vacuous: no corpus session blocked at HEAD — NOT claimed as a corpus PASS; the row cited 0 blocks so no `--base` re-run is owed) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed per runner) · VERIFY: PASS. Callers (`save.js:784` getlev stash, `bones.js:469` getbones) leave the throw uncaught — matches C abort semantics; own-produced snaps always satisfy the invariant. Final verify ran after the last js/ edit (map/D-log/queue edits only after; no D-1831 gap).
+- **Named omissions:** none new — C's `> UTSZ`-only guard mirrors exactly (negative counts pass through in both); JS pre-`initrack()` clear of stale ring slots vs C leaving them is unreachable (all reads bounded by utcnt; pre-existing D-0367 shape, untouched).
+- **Next:** do not re-pop `track.c` SFCTOOL / `rest_track` (six-function family live, flag resolved). A future track divergence attributes to the ring/stealth/gettrack arms, not the save/restore path. Do not invent a FAIL peel.
+- **Cited falsifier grade:** measured (pinned `track.c:21–59` + `:93–105` full bodies via direct re-read; `verify --fn rest_track` full-gate PASS; house panic-throw precedent `js/mklev.js:28203`; no JS FORCE/DIAG/seed reads used).
+
 ## D-2224 — `worn.c` mon_set_minvis muse/mon local clones retired (queue row, 0 blocked)
 
 - **Status:** shipped (Open queue row `worn.c` mon_set_minvis — 0 corpus blocks, named-omission row (data.md:606-607); `verify --fn mon_set_minvis` → vacuous-hidden note + green/strict/cohort PASS → ship with the public gates per the runner. No review cites it as Must-fix.)

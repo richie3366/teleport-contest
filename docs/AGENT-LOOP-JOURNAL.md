@@ -23,6 +23,14 @@ Review iteration over the 8 JS-touching SHAs since d22f6c29 (D-2190..D-2197), ol
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-09 — D-2225 `track.c` SFCTOOL + `rest_track` impossible-counts panic (queue row, 0 blocked; continue-unfinished resume)
+
+**C locus:** `track.c:21–59` `#ifndef SFCTOOL` wraps only `settrack`/`gettrack`; `track.c:93–105` `rest_track` assigns raw utcnt/utpnt then `panic("rest_track: impossible pt counts")` on `> UTSZ`, no clamp.
+**JS:** 1 file (`track.js`, +19/−7 incl. comments), under the 600/10 caps. Rule #2 clean; no DIAG/FORCE/seed gates. No committed probes.
+**Change:** leftover hunk kept as-is (it was correct): raw-count assign then loud throw (house panic idiom, cf. mklev.js:28203); header comment records the SFCTOOL no-port finding. Callers (`save.js:784`, `bones.js:469`) leave the throw uncaught, matching C abort semantics.
+**Verify:** `node scripts/verify.mjs --fn rest_track` → PASS syntax (1 changed js file: js/track.js) · PASS rule2 · note hidden (vacuous: no corpus session blocked at HEAD — NOT claimed as a corpus PASS; the row cited 0 blocks so no `--base` re-run is owed) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed per runner) · VERIFY: PASS. Final verify ran after the last js/ edit (map/D-log/queue edits only after; no D-1831 gap).
+**Named:** none new — `> UTSZ`-only guard mirrors C; pre-`initrack()` stale-slot clear unreachable (D-0367 shape, untouched).
+**Next:** do not re-pop `track.c` SFCTOOL / `rest_track`. Next cluster repointed to Open `extralev.c` LVLINIT_ROGUE/ROGUEOPTS. Do not invent a FAIL peel.
 ## 2026-09-09 — D-2224 `worn.c` mon_set_minvis muse/mon local clones retired (queue row, 0 blocked)
 
 **C locus:** `worn.c:474–484` `mon_set_minvis` (`perminvis = !cursed_potion`, `!invis_blkd → minvis = perminvis + newsym + wormno → see_wsegs`); callers `muse.c:2451` (`mon_set_minvis(mtmp, !otmp->cursed ? FALSE : TRUE)`, `vismon && minvis` transparency arms after) and `mon.c:1806` (stalker arm, `Monnam` buf + `vanishes/flicker/becomes invisible` pline after). Both callees (`newsym` display.js, `see_wsegs` worm.js D-1529) live.

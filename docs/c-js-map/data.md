@@ -899,7 +899,7 @@ JS: `js/track.js` — partial
 **`initrack`/`settrack`/`gettrack`** (D-0099); 
 **`goto_level` `save_track`/`rest_track`** in-memory stash (D-0367; was wipe-only); 
 **bones `write_bonesfile`/`getbones` persist utrack** (D-0578; 
-C `savelev`→`save_track` / `getlev`→`rest_track`); omit SFCTOOL
+C `savelev`→`save_track` / `getlev`→`rest_track`); **SFCTOOL resolved** (D-2225; C wraps only `settrack`/`gettrack` in `#ifndef SFCTOOL` — the single ESM build ships the full six-function family, no behavior to port; `rest_track` impossible-counts `panic` live as a loud throw)
 
 ### `src/vision.c`
 
