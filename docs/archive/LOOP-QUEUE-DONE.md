@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `timeout.c` learn_egg_type — egg-knowledge context still named (data.md:235,332). No corpus block — port the named family. Probe: `node scripts/brief.mjs learn_egg_type`. **Addressed:** D-2241
+- [x] `getpos.c` getpos — blocks 1/553 corpus sessions (first at step 72): C «You detect the presence of objects. (For instructions type a» vs JS «You detect the presence of objects.--More--». Probe: `node scripts/hidden-proxy.mjs verify getpos` (scen-normal-Wizard-92127). **Addressed:** D-2242
+
+
+- [x] `timeout.c` learn_egg_type — egg-knowledge context still named (data.md:235,332). No corpus block — port the named family. Probe: `node scripts/brief.mjs learn_egg_type`. **Addressed:** D-2241 `53872d1b`
 
 
 - [x] `hack.c` pooleffects — drawbridge/lava arms still named (turns.md:1094). No corpus block — port the named family. Probe: `node scripts/brief.mjs pooleffects`. **Addressed:** D-2240 `66b8bd60`

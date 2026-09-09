@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `getpos.c` getpos — blocks 1/553 corpus sessions (first at step 72): C «You detect the presence of objects. (For instructions type a» vs JS «You detect the presence of objects.--More--». Probe: `node scripts/hidden-proxy.mjs verify getpos` (scen-normal-Wizard-92127).
 - [ ] `steed.c` poly_steed — steed-polymorph body still named (data.md:447 `poly_steed` async-or-missing arm of `newcham`); no JS symbol. No corpus block — port the named family. Probe: `node scripts/brief.mjs poly_steed`.
 - [ ] `mkobj.c` maybe_adjust_light — bless/curse caller wiring of live `obj_adjust_light_radius` still named (data.md:936); no JS symbol. No corpus block — port the named family. Probe: `node scripts/brief.mjs maybe_adjust_light`.
 - [ ] `mon.c` wiz_force_cham_form — interactive wizard `mon_polycontrol` body (`getlin` prompt loop + `mkclass_poly`/`validvamp` callees) still named (narrow-down of the data.md:439 family; wizard arm deferred by the newcham port); no JS symbol. No corpus block — port the named family. Probe: `node scripts/brief.mjs wiz_force_cham_form`.
