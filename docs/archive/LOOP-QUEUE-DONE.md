@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `shk.c` u_entered_shop Soundeffect/Hallu shkname remainder (named absent.md:16; deserted/angry/Invis/doorway shipped D-1080). Shop-welcome message surface. **Addressed:** D-2218
+- [x] `pray.c` pleased gifts (named debt.md:23). Gift-grant message surface. **Addressed:** D-2219
+
+
+- [x] `shk.c` u_entered_shop Soundeffect/Hallu shkname remainder (named absent.md:16; deserted/angry/Invis/doorway shipped D-1080). Shop-welcome message surface. **Addressed:** D-2218 `44843418`
 
 
 - [x] `sounds.c` dosounds feature gates — findgd migrating / Is_sanctum / Soundeffect / temple Hallu pantheon RNG still deferred (named absent.md:16). C RNG + You_hear message surface. **Addressed:** D-2217 `5f8b7477`

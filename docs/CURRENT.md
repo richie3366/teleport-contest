@@ -88,8 +88,9 @@ divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
 **Next cluster:** `pray.c` pleased gifts (Open head; shk Soundeffect/Hallu/bill_p remainder shipped D-2218). Gift-grant message surface.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2218 (index).**
+**Keep D-0845…D-2219 (index).**
 <!-- recent:begin -->
+**D-2219** `pray.c:1167–1354` `pleased` pat_on_head switch — `js/pray.js` only, no new cross-module edge (`see_monsters` extends the pre-existing static `display.js` edge — `imports.mjs --can pray.js display.js see_monsters` → ALREADY; `INTRINSIC` extends the pre-existing `const.j
 **D-2218** `shk.c:751–917` `u_entered_shop` (robbed Soundeffect `:834`; bill_p poison `:776`; tended  — `js/shk.js` — `Soundeffect(se_mutter_imprecations, 50)` in C order (before the mutter pline; contest C macro is equally empty without SND_LIB, `sndprocs.h:272`, so zero behavior change, strictly more faithful wiring — D-
 **D-2217** `sounds.c:202–339` `dosounds` (vault `:262–289` Soundeffect volumes 30/30, throne `:45–50` — `js/sounds.js` — seven `Soundeffect(se,vol)` sites in C order/volumes (contest C macro is equally empty without SND_LIB, `sndprocs.h:272`, so zero behavior change, strictly more faithful wiring; se ids from `generated/se
 **D-2216** `mkmaze.c:1097-1124` `populate_maze` (rn1/rn2 loop counts, `mazexy` + `mkobj_at`/`mksobj_a — `js/mklev.js` only, no new cross-module edge (every callee same-module or already imported: `rn1`/`mkobj_at`/`mksobj_at`/`mkgold`/`makemon`/`mons`/`NO_MM_FLAGS`/`GEM_CLASS`/`RANDOM_CLASS`/`impossible`/`maketrap` — `--can
@@ -97,11 +98,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2214** `eat.c:1078–1095` ACID_RES/STONE_RES arms — `js/eat.js` only — appended `.` to all four ACID/STONE literals to match C `"%s."`.
 **D-2213** `apply.c:3857` `You("are yanked toward the %s!", surface(cc.x, cc.y))`; `dungeon.c:1749–17 — `js/apply.js` only — `import { surface } from './sit.js'` (canonical `dungeon.c:1750` port, D-2008; `imports.mjs --can apply.js sit.js surface` → IN-SCC hoisted-function SAFE, and `sit.js` holds no static `apply.js` edge
 **D-2212** `detect.c:2022–2024` uswallow arm — `js/detect.js` only — uswallow arm now `await Norep('What are you looking for?
-**D-2211** queue owner `use_misc(muse.c:2552)` is a literal tie-break, not the printer: line 2552 is  — `js/uhitm.js` only — AD_FIRE arm now `await erode_obj(weapon, null, ERODE_BURN, EF_NONE)` via dynamic `./trap.js` import (same-function AD_CORR convention, no new static edge; `weapon` is the C-resolved `obj`); `ERODE_BU
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2218; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2219; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
