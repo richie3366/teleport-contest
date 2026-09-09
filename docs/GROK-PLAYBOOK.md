@@ -245,6 +245,16 @@ in the journal.
 
 ## 10. End each loop iteration with git
 
+**Reap your own processes before `finish-iteration`.** No worker you
+started may outlive the iteration as an orphan (recent cause: 100%-CPU
+`scripts/imports.mjs --can` and `/tmp/knight-probe*.mjs` leftovers
+adopted by PID 1). Run `jobs -l` plus
+`ps -o pid,ppid,etime,command | grep -E 'node (scripts/|/tmp/|frozen/)'`,
+`kill` every PID this iteration started (re-check with `ps`; `kill -9`
+only what survives), and never touch the supervisor shell,
+`loop-observer/server.mjs`, or anything outside this checkout. Prefer
+`timeout <secs>` on probes/replays so a hang dies on its own.
+
 Commit with why (C locus / D-ID / verification); **`git push origin
 HEAD`**. The supervisor fail-closes on density / authority / empty port
 and pushes if you forgot (`docs/AGENT-PORT-LOOP.md`); green / full-suite
