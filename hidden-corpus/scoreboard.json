@@ -1,6 +1,6 @@
 {
- "commit": "78427e4e",
- "at": "2026-09-09T08:44:29.006Z",
+ "commit": "a234ca48",
+ "at": "2026-09-09T08:53:54.205Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6056,19 +6056,19 @@
   },
   "scen-normal-Caveman-92059": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 3272,
    "rngT": 3272,
-   "scrM": 73,
+   "scrM": 74,
    "scrT": 74,
-   "kind": "screen",
-   "step": 67,
+   "kind": null,
+   "step": null,
    "steps": 74,
-   "owner": "prinv",
-   "loc": "invent.c:2886",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "c - an uncursed flint stone (in quiver pouch) (19 in total).",
-   "jsTopline": "f - an uncursed flint stone.",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-normal-Caveman-92117": {

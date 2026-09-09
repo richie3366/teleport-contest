@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `trap.c` trapeffect_sqky_board — blocks 1/553 corpus sessions (first at step 72): C «A board beneath the kitten squeaks a B flat loudly.--More--» vs JS «A board beneath your kitten squeaks a B flat loudly.--More--». Probe: `node scripts/hidden-proxy.mjs verify trapeffect_sqky_board` (scen-normal-Barbarian-92064). **Addressed:** D-2206
+- [x] `invent.c` prinv — blocks 1/553 corpus sessions (first at step 67): C «c - an uncursed flint stone (in quiver pouch) (19 in total).» vs JS «f - an uncursed flint stone.». Probe: `node scripts/hidden-proxy.mjs verify prinv` (scen-normal-Caveman-92059). **Addressed:** D-2207
+
+
+- [x] `trap.c` trapeffect_sqky_board — blocks 1/553 corpus sessions (first at step 72): C «A board beneath the kitten squeaks a B flat loudly.--More--» vs JS «A board beneath your kitten squeaks a B flat loudly.--More--». Probe: `node scripts/hidden-proxy.mjs verify trapeffect_sqky_board` (scen-normal-Barbarian-92064). **Addressed:** D-2206 `a234ca48`
 
 
 - [x] `getpos.c` getpos — blocks 1/553 corpus sessions (first at step 36): C «Unknown direction: 'r' (aborted). Done.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify getpos` (scen-normal-Healer-91124). **Addressed:** D-2205 `7b15eaf9`

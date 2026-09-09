@@ -250,7 +250,7 @@ window + `permapoisoned`** (D-1732; was name-list missiles D-0012);
 starting SACK/`mkbox_cnts` (D-0013); **`splitobj`** quan/owt + floor chain + 
 `next_ident` (D-0028) + nobj link + **`obj_split_timers` D-1572**; **no invent[] splice** (D-0924 — premature splice broke 
 seed0002; invent slot via touchfood freeinv+`addinv_nomerge`); 
-**`mergable` FOOD `oeaten`/`orotten`** (D-0923; unpaid/erosion/candle arms still deferred); 
+**`mergable` FOOD `oeaten`/`orotten`** (D-0923; unpaid/erosion/candle arms still deferred) + **otmp-worn merge + quiver-prefer addinv** (D-2207; obj-worn combine still deferred — merged setworn fixup unported); 
 **`obj_extract_self` preserves ox/oy like C `remove_object`** (D-0911; 
 was zeroing → false `drag_ball` cause_delay); **`obj_extract_self` MINVENT** (D-0029); 
 **`SPBOOK_no_NOVEL` → `rnd_class`…`SPE_BLANK_PAPER`** (D-0055); 
