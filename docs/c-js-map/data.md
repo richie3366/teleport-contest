@@ -1418,7 +1418,7 @@ shopkeeper `m_initinv`/`rnd_misc_item`/`MM_ESHK` + tribute novel** (D-0203);
 SetVoice D-1752; Soundeffect + bill_p poison + Hallu shkname D-2218); **`shkname` export + Hallu random-name arm** (D-0307; D-2218); 
 **`paybill`/`inherits`/`money2mon`/`set_repo_loc` death loot** (D-0311; 
 angry takes-all + peaceful inherit); **`shkveg`/`mkveggy_at` + HEALTHY_TIN** (D-0902); 
-omit Izchak/wizard SHOPTYPE; veggy_item obj-path tin/corpse species deferred; 
+**Izchak minetown light-shk `nameshk` arm** (D-2234); **veggy_item obj-path tin/corpse species** (D-0994); omit wizard SHOPTYPE (nh_getenv — Rule #2, same class as the SPLEVTYPE getenv deferral); 
 **Orcus mongone invent+detach** (D-0767; full `shkgone`/`mdrop_obj` deferred); 
 **`pick_room`/`mkzoo` via `do_mkroom`** (D-0592); 
 **COURT `fill_zoo`/`mk_zoo_thronemon`/`courtmon`/chest/`has_court`** (D-0593); 
