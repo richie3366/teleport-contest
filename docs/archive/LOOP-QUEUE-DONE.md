@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `mkmaze.c` walkfrom/maze0xy/populate_maze/create_maze — maze-walk builder callers deferred (named data.md:883; `is_solid` retired, `mazexy` live). C RNG surface: maze construction draws. No corpus block — port the named family. **Addressed:** D-2216
+- [x] `sounds.c` dosounds feature gates — findgd migrating / Is_sanctum / Soundeffect / temple Hallu pantheon RNG still deferred (named absent.md:16). C RNG + You_hear message surface. **Addressed:** D-2217
+
+
+- [x] `mkmaze.c` walkfrom/maze0xy/populate_maze/create_maze — maze-walk builder callers deferred (named data.md:883; `is_solid` retired, `mazexy` live). C RNG surface: maze construction draws. No corpus block — port the named family. **Addressed:** D-2216 `e6ad2c9b`
 
 
 - [x] `worn.c` m_dowear_type — blocks 1/553 corpus sessions (first at step 142): C «The goblin puts on a pair of fencing gloves.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify m_dowear_type` (scen-intrinsic-Samurai-92017; rests here after D-2215 moved it past dosearch@54). **Addressed:** D-2215 `addb22dd`

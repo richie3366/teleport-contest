@@ -33,8 +33,8 @@
 // redraw; Blindfolded cream/itch; attacktype_fordmg swallow Blind gate.
 
 import { game } from './gstate.js';
-import { rn2, rn1, rnl, rnz, rnd, d } from './rng.js';
-import { pline, verbalize, You_feel, newsym } from './display.js';
+import { rn2, rn1, rnl, rnz, rnd, d, rn2_on_display_rng } from './rng.js';
+import { pline, verbalize, You_feel, newsym, impossible } from './display.js';
 import { nomul, carrying } from './hack.js';
 import { upstart } from './hacklib.js';
 import { weapon_type, unrestrict_weapon_skill, add_weapon_skill } from './weapon.js';
@@ -48,7 +48,7 @@ import {
     A_WIS, A_STR, A_MAX, change_luck, adjattrib, adjalign, exercise,
     ALIGNLIM,
 } from './attrib.js';
-import { align_gname, align_str, xlev_to_rank, uhim, u_gname, uhis } from './roles.js';
+import { align_gname, align_str, xlev_to_rank, uhim, u_gname, uhis, roles } from './roles.js';
 import {
     objects_at, uncurse, peek_at_iced_corpse_age, eaten_stat, get_mtraits,
     mksobj, bless,
@@ -2180,13 +2180,71 @@ function Role_if(pm) {
     return (game.urole?.mnum | 0) === (pm | 0);
 }
 
-/** C: pray.c halu_gname — non-Hallu → align_gname; Hallu RNG deferred. */
-function halu_gname(alignment) {
-    if (Hallucination()) {
-        // randrole + rn2_on_display_rng pantheon pick deferred
+/**
+ * C ref: pray.c halu_gname `:2577–2619` — non-Hallu → align_gname;
+ * Hallu → randrole(TRUE) pantheon pick (roles with null lgod, e.g. Priest,
+ * re-rolled) + rn2_on_display_rng(9) god slot. All Hallu draws are on the
+ * display stream (randrole(TRUE) ≡ rn2_on_display_rng(SIZE(roles)-1);
+ * JS roles[] has no terminator entry so roles.length ≡ SIZE(roles)-1).
+ * Live callers: doturn, temple_priest_sound (sounds.js).
+ */
+export async function halu_gname(alignment) {
+    if (!Hallucination()) {
         return align_gname(game.urole, alignment);
     }
-    return align_gname(game.urole, alignment);
+    // C: do which = randrole(TRUE); while (!roles[which].lgod);
+    let which;
+    do {
+        which = rn2_on_display_rng(roles.length);
+    } while (!roles[which]?.lgod);
+    // C: static hallu_gods[] (pray.c:2558–2573).
+    const hallu_gods = [
+        'the Flying Spaghetti Monster',
+        'Eris',
+        'the Martians',
+        'Xom',
+        'AnDoR dRaKoN',
+        'the Central Bank of Yendor',
+        'Tooth Fairy',
+        'Om',
+        'Yawgmoth',
+        'Morgoth',
+        'Cthulhu',
+        'the Ori',
+        'destiny',
+        'your Friend the Computer',
+    ];
+    let gnam;
+    switch (rn2_on_display_rng(9)) {
+    case 0:
+    case 1:
+        gnam = roles[which].lgod;
+        break;
+    case 2:
+    case 3:
+        gnam = roles[which].ngod;
+        break;
+    case 4:
+    case 5:
+        gnam = roles[which].cgod;
+        break;
+    case 6:
+    case 7:
+        gnam = hallu_gods[rn2_on_display_rng(hallu_gods.length)];
+        break;
+    case 8:
+        gnam = 'Moloch'; // C: static Moloch (pray.c:58)
+        break;
+    default:
+        await impossible('rn2 broken in halu_gname?!?');
+        break;
+    }
+    if (!gnam) {
+        await impossible('No random god name?');
+        gnam = 'your Friend the Computer'; // C: Paranoia fallback
+    }
+    if (gnam.charAt(0) === '_') gnam = gnam.slice(1);
+    return gnam;
 }
 
 /** Squared distance hero→mon (monmove.c mdistu). */
@@ -2287,7 +2345,7 @@ async function maybe_turn_mon_iter(mtmp, turn_undead_range, msgCnt) {
 /**
  * C ref: pray.c doturn — #turn undead (Knight / Cleric).
  * Named omissions: known_spell(SPE_TURN_UNDEAD)/spelleffects for other
- * roles; Hallu halu_gname pantheon RNG; resist TELL pline.
+ * roles; resist TELL pline.
  */
 export async function doturn() {
     const u = game.u || (game.u = {});
@@ -2302,7 +2360,7 @@ export async function doturn() {
         livelog_printf(LL_CONDUCT, 'rejected atheism by turning undead');
     }
 
-    const Gname = halu_gname(u.ualign?.type ?? 0);
+    const Gname = await halu_gname(u.ualign?.type ?? 0);
 
     if (!can_chant()) {
         const how = u.Strangled ? 'not able to call' : 'incapable of calling';
