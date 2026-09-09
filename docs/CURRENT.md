@@ -86,10 +86,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `detect.c` dosearch0 — blocks 1/553 corpus sessions (first at step 179): C «What are you looking for? The exit?» vs JS «What are you looking for? The exit?--More--». Probe: `node scripts/hidden-proxy.mjs verify dosearch0` (scen-wish-Knight-92130).
+**Next cluster:** `end.c` disclose — blocks 1/553 corpus sessions (first at step 100): C «Do you want to see your conduct? [ynq] (n)» vs JS «Do you want to see your conduct? [ynq] (n)». Probe: `node scripts/hidden-proxy.mjs verify disclose` (scen-wish-Priest-92179).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2210 (index).**
+**Keep D-0845…D-2211 (index).**
 <!-- recent:begin -->
+**D-2211** queue owner `use_misc(muse.c:2552)` is a literal tie-break, not the printer: line 2552 is  — `js/uhitm.js` only — AD_FIRE arm now `await erode_obj(weapon, null, ERODE_BURN, EF_NONE)` via dynamic `./trap.js` import (same-function AD_CORR convention, no new static edge; `weapon` is the C-resolved `obj`); `ERODE_BU
 **D-2210** `insight.c:3402–3489` `ustatusline` — `js/insight.js` only — full info chain in C order with house predicate idioms (`u.Sick/Stoned/Slimed` + uprops-intrinsic mirrors per `display.js:5700–5703`; Strangled H/E flats + intrinsic/extrinsic; Vomiting flat-or-int
 **D-2209** `uhitm.c:2173–2278` staticfn `steal_it` (worn-suit-to-end, charm/seduce pline, gold shuffl — `js/uhitm.js` only — file-local `theft_petrifies` (uarmg/corpsenm/Stone_resistance gates; C-disabled `#if 0` arm stays omitted) + `steal_it` in C order (minvent pointer-surgery via prev/cur; charm/seduce pline via inline
 **D-2208** `insight.c:474–479` (`innategend = (Upolyd ? u.mfemale : flags.female) ? 1 : 0`; role_titl — `js/invent.js` only — `innateFemale = Upolyd(u) ? !!u.mfemale : female` (the house Ugender idiom, cf.
@@ -97,11 +98,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2206** `trap.c:1402–1476` trapeffect_sqky_board. Monster in-sight arm (`:1445–1451`) prints `plin — `js/trap.js` only — monster arm uses live `mon_nam(mtmp)` (already imported) via `pline_mon(mtmp, …)` (already imported) in C order (pline then seetrap); hero arm ported in C order (forcetrap from FORCETRAP/FAILEDUNTRAP/
 **D-2205** `getpos.c:1119–1135` unknown-key tail: `pline("Unknown direction: '%s' (%s).", visctrl, no — `js/getpos.js` only — delete the clear, citing C's `msg_given = FALSE; /* suppress clear */`.
 **D-2204** `mon.c:3632–3640` xkilled wasinside arm (`museum = *mtmp` + `spoteffects(TRUE)`, «poor man — `js/uhitm.js` only — wasinside arm in C position (after treasure/corpse, before newsym): `mtmp = { ...mtmp }` (C struct copy; link-field zeroing N/A, no manual free) + `await (await import('./pickup.js')).spoteffects(tru
-**D-2203** `timeout.c:737–742` `case STUNNED:` (`set_itimeout(&HStun, 1L); make_stunned(0L, TRUE); if — `js/timeout.js` only — generic-loop `p === STUNNED` expiry arm in C order: re-arm flat `u.HStun = (HStun & ~TIMEOUT) | 1` (+ `u.Stunned` mirror) because the `--` above already zeroed it and `make_stunned` only reports wh
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2210; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2211; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

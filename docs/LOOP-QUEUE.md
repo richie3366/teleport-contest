@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `muse.c` use_misc — blocks 1/553 corpus sessions (first at step 145): C «You lash the fire vortex. Your bullwhip smoulders!--More--» vs JS «You lash the fire vortex. You are suddenly very hot!--More--». Probe: `node scripts/hidden-proxy.mjs verify use_misc` (scen-wish-Archeologist-92004).
 - [ ] `end.c` disclose — blocks 1/553 corpus sessions (first at step 100): C «Do you want to see your conduct? [ynq] (n)» vs JS «Do you want to see your conduct? [ynq] (n)». Probe: `node scripts/hidden-proxy.mjs verify disclose` (scen-wish-Priest-92179).
 - [ ] `muse.c` use_offensive — blocks 1/553 corpus sessions (first at step 107): C «The scroll erupts in a tower of flame! Boom! Your robe smoul» vs JS «The scroll erupts in a tower of flame! Boom! Your cloak smou». Probe: `node scripts/hidden-proxy.mjs verify use_offensive` (scen-wish-Priest-92197).
 - [ ] `detect.c` dosearch0 — blocks 1/553 corpus sessions (first at step 179): C «What are you looking for? The exit?» vs JS «What are you looking for? The exit?--More--». Probe: `node scripts/hidden-proxy.mjs verify dosearch0` (scen-wish-Knight-92130).

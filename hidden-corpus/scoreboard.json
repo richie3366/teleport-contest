@@ -1,6 +1,6 @@
 {
- "commit": "0a5b0256",
- "at": "2026-09-09T10:28:54.760Z",
+ "commit": "186a5be3",
+ "at": "2026-09-09T11:40:45.327Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -7552,19 +7552,19 @@
   },
   "scen-wish-Archeologist-92004": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 3846,
    "rngT": 3846,
-   "scrM": 196,
+   "scrM": 199,
    "scrT": 199,
-   "kind": "screen",
-   "step": 145,
+   "kind": null,
+   "step": null,
    "steps": 199,
-   "owner": "use_misc",
-   "loc": "muse.c:2552",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "You lash the fire vortex. Your bullwhip smoulders!--More--",
-   "jsTopline": "You lash the fire vortex. You are suddenly very hot!--More--",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-wish-Archeologist-92038": {

@@ -3430,7 +3430,7 @@ trapped-chest cmap on `M_AP_OBJECT` / Eyes `is_plural` named); **`mondied` undea
 **`pre_mm_attack` `map_invisible` when `!canspotmon`** (D-0296); 
 **hit/miss plines use shared `mon_nam` (shk)** (D-0308); 
 **`hmon_hitmon_msg_hit` `canseemon?exclam(dmg)` + bash/lash/smite/hit verb** (D-0322); 
-**`hmon_hitmon_splitmon` + `passive_obj` AD_CORR erode D-2184** (`uhitm.c:1603–1634` iron/metal hand-to-hand pudding split → live `clone_mon`+`mintrap` (dynamic trap.js import, file convention), hittxt suppresses msg_hit; `passive_obj` now async (all 5 call sites awaited incl. dothrow `thitmonst`) with AD_CORR `erode_obj(ERODE_CORRODE, EF_GREASE)` live; AD_FIRE/ACID/RUST/ENCH erode arms stay deferred); 
+**`hmon_hitmon_splitmon` + `passive_obj` AD_CORR erode D-2184** (`uhitm.c:1603–1634` iron/metal hand-to-hand pudding split → live `clone_mon`+`mintrap` (dynamic trap.js import, file convention), hittxt suppresses msg_hit; `passive_obj` now async (all 5 call sites awaited incl. dothrow `thitmonst`) with AD_CORR `erode_obj(ERODE_CORRODE, EF_GREASE)` live (D-2184) + AD_FIRE `erode_obj(weapon, NULL, ERODE_BURN, EF_NONE)` live (D-2211: scen-wish-Archeologist-92004 step 145 «Your bullwhip smoulders!»; queue owner `use_misc(muse.c:2552)` is a literal tie-break — the printer is `passive→passive_obj→erode_obj`, C dice `rn2(6)=0 @ passive_obj:6158` + `rn2(3)=1 @ passive:6019`, hot falls behind the More per tty accumulation, C step 146); AD_ACID/RUST/ENCH erode arms stay deferred); 
 **`xkilled` `nonliving` → `"destroy"`** (D-0327; 
 `is_golem`/`weirdnonliving`/`nonliving` in `monsters.js`); 
 omit `seemimic`/`mundetected` unhide+showit; 

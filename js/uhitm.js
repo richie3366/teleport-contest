@@ -22,7 +22,7 @@ import {
     SUPPRESS_NAME, SUPPRESS_IT, SUPPRESS_INVISIBLE, EXACT_NAME,
     HAND, LEG, A_LAWFUL, Is_airlevel, Is_waterlevel, PARANOID_HIT, LOW_PM,
     W_ARM, W_ARMC, W_ARMH, W_ARMU, W_ARMG, W_RINGL, W_RINGR, W_ARMF, W_AMUL, W_WEP,
-    MON_EXPLODE, NO_MM_FLAGS, NO_TRAP_FLAGS, DISP_ALWAYS, DISP_END, STOMACH, DIED, NO_KILLER_PREFIX, ERODE_CORRODE, EF_GREASE,
+    MON_EXPLODE, NO_MM_FLAGS, NO_TRAP_FLAGS, DISP_ALWAYS, DISP_END, STOMACH, DIED, NO_KILLER_PREFIX, ERODE_CORRODE, ERODE_BURN, EF_GREASE, EF_NONE,
     KILLED_BY_AN, PASSES_WALLS, SLOW_DIGESTION, MALE, FEMALE, MMOVE_DIED, CXN_ARTICLE,
 } from './const.js';
 import {
@@ -1912,9 +1912,13 @@ async function passive_obj(mon, obj, mattk) {
     }
     switch (atk.adtyp | 0) {
     case AD_FIRE:
+        // C uhitm.c passive_obj :6156–6162 — burn the hitting weapon
+        // (erode_obj live in trap.js; dynamic import keeps this file's
+        // trap.js convention, cf. AD_CORR below).
         if (!rn2(6) && !mon.mcan
             && (mon.mnum ?? mon.data?.mndx ?? -1) !== PM_STEAM_VORTEX) {
-            // erode_obj ERODE_BURN deferred
+            const { erode_obj } = await import('./trap.js');
+            await erode_obj(weapon, null, ERODE_BURN, EF_NONE);
         }
         break;
     case AD_ACID:
