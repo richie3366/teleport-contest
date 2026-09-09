@@ -1,6 +1,6 @@
 {
- "commit": "3e7e762a",
- "at": "2026-09-09T03:49:54.405Z",
+ "commit": "fb69e76e",
+ "at": "2026-09-09T03:51:51.210Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -4186,19 +4186,19 @@
   },
   "scen-death-Monk-92000": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 3293,
    "rngT": 3293,
-   "scrM": 75,
+   "scrM": 78,
    "scrT": 78,
-   "kind": "screen",
-   "step": 69,
+   "kind": null,
+   "step": null,
    "steps": 78,
-   "owner": "from_what",
-   "loc": "attrib.c:948",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "You were acid resistant from your creature form.",
-   "jsTopline": "You were acid resistant from your creature form.",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-death-Monk-92121": {

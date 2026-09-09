@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `mcastu.c` mcast_disappear — blocks 1/553 corpus sessions (first at step 121): C «The lich suddenly becomes transparent!» vs JS «The lich suddenly becomes transparent!». Probe: `node scripts/hidden-proxy.mjs verify mcast_disappear` (scen-wish-Monk-92013). **Addressed:** D-2185
+- [x] `mcastu.c` mcast_disappear — blocks 1/553 corpus sessions (first at step 121): C «The lich suddenly becomes transparent!» vs JS «The lich suddenly becomes transparent!». Probe: `node scripts/hidden-proxy.mjs verify mcast_disappear` (scen-wish-Monk-92013). **Addressed:** D-2185 `fb69e76e`
 
 
 - [x] `mkmaze.c` mv_bubble — blocks 1/553 corpus sessions (first at step 131): C `rn2(24)=1` vs JS `rn2(17)=4` in the `mnearto`→`enexto` near-collect after bubble deposit (rings 1–2 full 8/16 both sides; ring 3 full in C, edge-clipped in JS — cons center off by one near an edge; JS probe: cx=43 cy=18 ns=[8,16,17]). Re-homed from D-2184 (collect_coords body + mnearto proven faithful). Suspect missing `b->x = gbxmin`-style hard clamps (`mkmaze.c:1980–1997`) in JS `mv_bubble_move` — unproven. Probe: `node scripts/hidden-proxy.mjs verify mv_bubble` (scen-tour-Tourist-92100). **Addressed:** D-2184 `3e7e762a`
