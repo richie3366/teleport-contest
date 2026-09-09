@@ -1815,8 +1815,13 @@ occupation `force_save_hs` + `unfaint` afternmv** (D-1791; C `eat.c:3362–3512`
 `unfaint` `:3335–3344` / `hack.c` `end_running` `:4129–4158`; JS was a
 14-line field stub; `gethungry`/`morehungry` are async so they can await
 it; named: `sit.js` lay-egg `morehungry` still not awaited, `polyself.c:431/:436`
-and `cant_finish_meal` have no JS caller, `findtravelpath` `end_running(FALSE)`,
-`gt.travelmap` `selection_free`); 
+have no JS caller, `findtravelpath` `end_running(FALSE)`,
+`gt.travelmap` `selection_free`); **`cant_finish_meal` meal-interrupt +
+`revive` call-site wiring** (D-2223; C `eat.c:3893–3912` / `zap.c:909`:
+occupation==eatfood && piece-identity gate, zero_victual reset via house
+`{}`, oeaten=1 floor, occupation=donull, stop_occupation, newuhs(FALSE);
+`revive` awaits it in C position after is_zomb; named: `maybe_finished_meal`
+opposite predicate still has no JS caller); 
 **getobj missing-letter `continue` + empty early-return** (D-0142); 
 **CORPSE `eatcorpse`/`start_eating`/`eatfood` occupation + extracted `cwt`/`cnutrit`** (D-0193;
 **rot `(moves-age)/(10+rn2(20))` live — seed0014 @43789 was D-1774 I-glyph
