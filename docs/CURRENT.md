@@ -93,7 +93,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `botl.c` do_statusline2 cond-rank (D-2201 ships cond order; row OPEN, 9 residuals). Parks: do_screen_description + reveal_terrain STALE (zero-diff moves).
+**Next cluster:** `mkobj.c` next_ident — blocks 5/553 corpus sessions (first at step 57): C draws `rnd(2)=2` in next_ident, JS `rn2(5)=4` from drop_upon_death(end.js:1311). Probe: `node scripts/hidden-proxy.mjs verify next_ident` (scen-death-Wizard-92120, scen-death-Wizard-92187, scen-genesis-Knight-92068).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2201 (index).**
 <!-- recent:begin -->

@@ -6,6 +6,7 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 
 - **Work picker:** `hidden-proxy queue`; singletons Deferred; themed-room step-0 → `geom-probe`.
 - **More-transient parks — do not re-pop (see Parked):** break_armor (Tourist-92171 step-88 capture-timing, not logic).
+- **do_statusline2 park — do not re-pop (see Parked):** row-23 value diffs are paint-timing, not renderer content (renderer/formula/data verified C-faithful); falsifier + probe in the Parked entry.
 - **Fortress guards.** Do not reopen display_inventory dismiss / gameover heading / keep_status, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue `S_ndoor`, bigrm-2, getpos, summonmu, lookat, `do_statusline1`, snapshot, fakewiz, Ice/Boulder, `roles[]`, pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
 - **Luck runs when invulnerable; dialogues do not** (`timeout.c:623`); STONED/SLIMED expiry silent.
 - **next_ident = symptom owner:** fix the WRITER, not the table reader.
