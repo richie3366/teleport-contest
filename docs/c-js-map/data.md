@@ -847,7 +847,8 @@ is still nochange) +
 **Cloud room / `lspo_gas_cloud` / `create_gas_cloud_selection` D-1158** (not BFS; ttl stays −1); 
 **D-0561 `air` load_special + monclass letters + `setup_waterlevel`/`movebubbles`** + 
 **D-0571 `movebubbles` air_pos `S_cloud` glyph + 
-`setup` S_air memory** (water obj/mon/trap cons pickup+deposit still named; hero_bubble track + `maybe_adjust_hero_bubble` live) + 
+`setup` S_air memory** (hero_bubble track + `maybe_adjust_hero_bubble` live) + 
+**D-2171 `movebubbles` water cons pickup + `mv_bubble` deposit** (C `mkmaze.c:1539–1685` pickup loop + `:1952–2100` cons arms in exact order: obj unlink via `obj_extract_self`, mon off-map + `MON_BUBBLEMOVE`, hero cons + `hero_bubble`, trap cons, `water_pos` paint + `block_point`; deposit between paint and boing: `place_object`/`stackobj`, `mnearto` else `elemental_clog` (new `mon.js` export), hero `u_on_newpos` + `uundetected`/steed + `mnexto`, trap tx/ty; `movebubbles`/`mv_bubble_move`/`restore_waterlevel` async with awaited `allmain`/`do` call sites; AIR/CLOUD paint gains C `unblock`/`block_point`; still named: Punished ball carry, `vision_recalc(2)`, `earth_sense`/`see_nearby_objects` at hero deposit) + 
 **D-1827 `water` load_special + `save_waterlevel`/`restore_waterlevel`/
 `unsetup_waterlevel`/`set_wportal`** (76×20 WATER map, left-third tele,
 astral portal, eels/kraken/sharks + 19 hostile water elementals; bubble

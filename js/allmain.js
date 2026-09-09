@@ -1075,7 +1075,7 @@ export async function moveloop_core() {
                 // Callee D-1156; this is the once-per-turn twin of
                 // goto_level (D-1168).
                 if (Is_waterlevel(g.u?.uz) || Is_airlevel(g.u?.uz)) {
-                    movebubbles();
+                    await movebubbles();
                 } else if (g.level?.flags?.fumaroles) {
                     await fumaroles();
                 }

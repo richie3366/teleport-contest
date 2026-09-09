@@ -1,6 +1,6 @@
 {
- "commit": "1d79b32e",
- "at": "2026-09-09T00:21:24.597Z",
+ "commit": "4a0daf23",
+ "at": "2026-09-09T00:56:19.411Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -7389,16 +7389,16 @@
   "scen-tour-Tourist-92100": {
    "src": "corpus",
    "passed": false,
-   "rngM": 24989,
+   "rngM": 25076,
    "rngT": 27848,
    "scrM": 132,
    "scrT": 167,
    "kind": "rng",
    "step": 131,
    "steps": 167,
-   "owner": "goodpos",
-   "loc": "teleport.c:148",
-   "jsOwner": "movebubbles(mklev.js:16122)",
+   "owner": "collect_coords",
+   "loc": "teleport.c:700",
+   "jsOwner": "collect_coords(teleport.js:610)",
    "cTopline": "Endgame prerequisite: p - the Amulet of Yendor.--More--",
    "jsTopline": "Endgame prerequisite: p - the Amulet of Yendor.--More--",
    "error": null

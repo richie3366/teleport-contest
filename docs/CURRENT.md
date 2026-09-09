@@ -94,10 +94,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `hack.c` domove_bump_mon — blocks 2/553 corpus sessions (first at step 32): C «Pardon me, Slasher.» (`hack.c:1942` m-prefix bump arm) vs JS «You swap places with Slasher.» + spurious `rn2(7)`@do_attack; «Pardon me» absent from scored js/ (named omission js/cmd.js:3145). Probe: `node scripts/hidden-proxy.mjs verify distfleeck` (scen-normal-Caveman-92053, scen-normal-Healer-92218; expect PASS or later owner).
+**Next cluster:** `teleport.c` goodpos — blocks 1/553 corpus sessions (first at step 131): C draws `rn2(13)=5` in goodpos, JS `rn2(3)=0` from movebubbles(mklev.js:16122). Probe: `node scripts/hidden-proxy.mjs verify goodpos` (scen-tour-Tourist-92100). Diagnosis: symptom owner — C draw is `mnearto`→`goodpos` eel check depositing bubble-1 contents inside `movebubbles`→`mv_bubble`; JS omits water cons pickup/deposit (`js/mklev.js` named omission). True writer: `mkmaze.c` movebubbles/mv_bubble water cons arms.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2170 (index).**
+**Keep D-0845…D-2171 (index).**
 <!-- recent:begin -->
+**D-2171**  — 
 **D-2170**  — 
 **D-2169**  — 
 **D-2168**  — 
@@ -105,11 +106,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2166**  — 
 **D-2165** `zap.c:4502–4509` (`zhitu` ZT_DEATH non-breath arm: `monstunseesu(M_SEEN_MAGR)`, killer `K — port the C arm in exact order — `monstunseesu(M_SEEN_MAGR)` (live import), killer format/name, `ugrave_arise = NON_PM`, `await done(DIED)`, `return` (lifesaved resumes `dobuzz`; `done` added to the existing static `end.j
 **D-2164** `invent.c:1321–1333` (`useup`: `if (obj->quan > 1L) { obj->in_use = FALSE; /* no longer in — one line per clone — `otmp/obj.in_use = false; /* C invent.c:1326 — no longer in use */` as the first statement of the quan>1 branch.
-**D-2163** `sp_lev.c` lspo_finalize_level/load_lua epilogue (`link_doors_rooms()` before `map_cleanup — `link_doors_rooms(); remove_boundary_syms();` before `map_cleanup()` in `load_wizard3`, C order + house comment (remove_boundary is a no-op here — no CROSSWALL in wizard3's map — kept for epilogue fidelity).
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2170; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2171; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

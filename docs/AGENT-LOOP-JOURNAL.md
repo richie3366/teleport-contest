@@ -8,6 +8,13 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-09 — D-2171 `mkmaze.c` movebubbles/mv_bubble water cons pickup+deposit: arrival bubbles never deposited, C eel mnearto→goodpos rn2(13) had no JS counterpart (1 session moved past)
+
+**C locus:** 
+**JS:** 
+**Change:** 
+**Verify:** 
+**Next:** (see LOOP-QUEUE)
 ## 2026-09-09 — D-2170 `hack.c` domove_bump_mon: m-prefix bump onto monsters printed swap/attack instead of Pardon/move-right-into (2 sessions PASS)
 
 **C locus:** 

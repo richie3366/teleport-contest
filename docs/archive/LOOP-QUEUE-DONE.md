@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `hack.c` domove_bump_mon — blocks 2/553 corpus sessions (first at step 32): C «Pardon me, Slasher.» (`hack.c:1942` m-prefix bump arm) vs JS «You swap places with Slasher.» + spurious `rn2(7)`@do_attack; «Pardon me» absent from scored js/ (named omission js/cmd.js:3145). Probe: `node scripts/hidden-proxy.mjs verify distfleeck` (scen-normal-Caveman-92053, scen-normal-Healer-92218; expect PASS or later owner). **Addressed:** D-2170
+- [x] `teleport.c` goodpos — blocks 1/553 corpus sessions (first at step 131): C draws `rn2(13)=5` in goodpos, JS `rn2(3)=0` from movebubbles(mklev.js:16122). Probe: `node scripts/hidden-proxy.mjs verify goodpos` (scen-tour-Tourist-92100). **Addressed:** D-2171
+
+
+- [x] `hack.c` domove_bump_mon — blocks 2/553 corpus sessions (first at step 32): C «Pardon me, Slasher.» (`hack.c:1942` m-prefix bump arm) vs JS «You swap places with Slasher.» + spurious `rn2(7)`@do_attack; «Pardon me» absent from scored js/ (named omission js/cmd.js:3145). Probe: `node scripts/hidden-proxy.mjs verify distfleeck` (scen-normal-Caveman-92053, scen-normal-Healer-92218; expect PASS or later owner). **Addressed:** D-2170 `4a0daf23`
 
 
 - [x] `attrib.c` exercise — blocks 2/553 corpus sessions (first at step 48): C draws `rn2(2)=1` in exercise, JS `rn2(100)=7` from makewish(zap.js:6638). Probe: `node scripts/hidden-proxy.mjs verify exercise` (scen-wish-Valkyrie-92014, scen-wish-Valkyrie-92206). **Addressed:** D-2169 `1d79b32e`
