@@ -1208,3 +1208,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1195-7bffd9f5-timeout-acid-stone-expiry.md](./1195-7bffd9f5-timeout-acid-stone-expiry.md) | `7bffd9f5` | D-2229 ACID/STONE expiry arms | **ACCEPT** |
 | [1196-5ec34ec0-maybe-finished-meal-steal.md](./1196-5ec34ec0-maybe-finished-meal-steal.md) | `5ec34ec0` | D-2230 maybe_finished_meal + steal site | **ACCEPT** |
 | [1197-0a07f32a-mondead-tail-lifesaved-vamprises-detach.md](./1197-0a07f32a-mondead-tail-lifesaved-vamprises-detach.md) | `0a07f32a` | D-2231 mondead tail | **ACCEPT-WITH-DEBT** |
+| [1198-00f20f4a-acid-damage-grease-protect.md](./1198-00f20f4a-acid-damage-grease-protect.md) | `00f20f4a` | D-2232 acid_damage + grease_protect | **ACCEPT** |
+| [1199-38f6bbbc-mseen-gates-castmu-buzzmu-setnotworn.md](./1199-38f6bbbc-mseen-gates-castmu-buzzmu-setnotworn.md) | `38f6bbbc` | D-2233 M_SEEN gates | **ACCEPT** |
+| [1200-920a0a32-nameshk-izchak-arm.md](./1200-920a0a32-nameshk-izchak-arm.md) | `920a0a32` | D-2234 nameshk Izchak arm | **ACCEPT** |
+| [1201-13abf9ae-newcham-dragon-tt-doppel.md](./1201-13abf9ae-newcham-dragon-tt-doppel.md) | `13abf9ae` | D-2235 newcham dragon + tt_doppel | **ACCEPT** |
+| [1202-dda478bc-m-into-limbo-wiring.md](./1202-dda478bc-m-into-limbo-wiring.md) | `dda478bc` | D-2236 m_into_limbo wiring | **ACCEPT-WITH-DEBT** |
+| [1203-bb6224f0-amulet-intervene-wiring.md](./1203-bb6224f0-amulet-intervene-wiring.md) | `bb6224f0` | D-2237 amulet + intervene | **ACCEPT** |
+| [1204-fc302b4f-prayer-done-revive.md](./1204-fc302b4f-prayer-done-revive.md) | `fc302b4f` | D-2238 prayer_done + pray_revive | **ACCEPT** |
+| [1205-b95a28db-polymon-egg-knowledge.md](./1205-b95a28db-polymon-egg-knowledge.md) | `b95a28db` | D-2239 polymon egg knowledge | **ACCEPT** |
