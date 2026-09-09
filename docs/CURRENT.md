@@ -87,7 +87,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `mon.c` mondead tail — `lifesaved_monster`/`vamprises`/`grddead`/`logdeadmon`/full `m_detach` still named (data.md:358). No corpus block — port the named family. Probe: `node scripts/brief.mjs m_detach`.
+**Next cluster:** `mondata.c` big_little_match — multi-step walks beyond one step still named (data.md:365). No corpus block — port the named family. Probe: `node scripts/brief.mjs big_little_match`. (Parked stale — full walks live since D-1772; see LOOP-QUEUE.md Parked.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2231 (index).**
 <!-- recent:begin -->

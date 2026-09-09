@@ -362,8 +362,8 @@ omit `stinky_nemesis` gas, `minimal_monnam` format, `thiefdead` stealarm arm, `s
 
 JS: `js/mondata.js` — partial
 
-**`little_to_big`/`big_to_little`** grownups table (D-0068); name_to_mon; 
-omit `big_little_match` multi-step walks beyond one step
+**`little_to_big`/`big_to_little`** grownups table (D-0068); name_to_mon;
+**`big_little_match`** full both-direction multi-step walks (D-1772; live `js/mondata.js:296`, sole caller `mon.c:4240` wired `js/mon.js:1095`)
 
 ### `src/makemon.c`
 
