@@ -632,7 +632,7 @@ hell_tweaks lava; seed0360 Scr **638→670**); **D-0767 orcus** (prefix **76622�
 Scr **389**) + **D-0800 `Wiz-loca`/`Wiz-fila`/`Wiz-filb`** (seed0360 RNG **FULL 120639**; 
 Scr **561**/833); **D-1818 `Wiz-goal`** (Dark One / Eye; lua `aligned=` ≠
 C `align` → `induced_align`; **D-1906** 14 empty `des.object` `:74–87`, not 15 — :73 is the named Eye); fakewiz deferred; **D-0906 hellfill** via mklev; 
-omit `LVLINIT_ROGUE` / `ROGUEOPTS` / `impossible()` wall checks
+**D-2226 `LVLINIT_ROGUE` dispatch + roguecorr `impossible()` wall checks** (`sp_lev.c:2986–3003` default/NONE/ROGUE arms; `extralev.c:62–134` + `:270–273` nine guards; RIGHT from-door keeps C's verbatim `down` label); omit `ROGUEOPTS` env parse (Rule #2 — no environment in scored js/)
 
 ### `src/mklev.c` / `sp_lev.c` `lspo_map`
 

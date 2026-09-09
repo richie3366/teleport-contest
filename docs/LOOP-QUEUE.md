@@ -60,12 +60,18 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `extralev.c` LVLINIT_ROGUE/ROGUEOPTS — rogue-level init + impossible wall checks still named (data.md:631). No corpus block — port the named family.
 - [ ] `worn.c` m_dowear_type — blocks 1/553 corpus sessions (first at step 142): C «The goblin puts on a pair of fencing gloves.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify m_dowear_type` (scen-intrinsic-Samurai-92017).
 - [ ] `mkobj.c` next_ident — blocks 1/553 corpus sessions (first at step 48): C draws `rnd(2)=1` in next_ident, JS `rn2(5)=1` from distfleeck(monmove.js:904). Probe: `node scripts/hidden-proxy.mjs verify next_ident` (scen-death-Wizard-92187). Distinct block from archived D-2001 row (that shipped order+gender for 92175/92103/92130).
 - [ ] `hack.c` dopush — blocks 1/553 corpus sessions (first at step 127): C «With great effort you move the boulder.» vs JS «With great effort you move the boulder.». Probe: `node scripts/hidden-proxy.mjs verify dopush` (explore-seed0116-wizard-wear-shop-cfabc006).
 - [ ] `timeout.c` nh_timeout — blocks 1/553 corpus sessions (first at step 108): C «You no longer feel secure from petrification.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify nh_timeout` (scen-wish-Rogue-91119).
 - [ ] `eat.c` maybe_finished_meal — eatfood-completion predicate still named (c-js-map turns.md:1824). No corpus block — port the named family (the `allmain.c` stop_occupation gate stays deferred per the lembas park). Probe: `node scripts/brief.mjs maybe_finished_meal`.
+- [ ] `mon.c` mondead tail — `lifesaved_monster`/`vamprises`/`grddead`/`logdeadmon`/full `m_detach` still named (data.md:358). No corpus block — port the named family. Probe: `node scripts/brief.mjs m_detach`.
+- [ ] `mondata.c` big_little_match — multi-step walks beyond one step still named (data.md:365). No corpus block — port the named family. Probe: `node scripts/brief.mjs big_little_match`.
+- [ ] `zap.c` zhitu — acid-damage body still named (data.md:1223). No corpus block — port the named family. Probe: `node scripts/brief.mjs zhitu`.
+- [ ] `muse.c` M_SEEN gates — buried `m_canseeu`/other M_SEEN arms + `monstunseesu_prop` still named (data.md:195). No corpus block — port the named family. Probe: `node scripts/brief.mjs m_canseeu`.
+- [ ] `shk.c` SHOPTYPE/veggy — Izchak/wizard SHOPTYPE + `veggy_item` tin/corpse obj-path still named (data.md:1417). No corpus block — port the named family. Probe: `node scripts/brief.mjs veggy_item`.
+- [ ] `mon.c` newcham wizard arms — dragon-armor ordinary arm / `mon_polycontrol` / RECORD `tt_doppel` entries still named (data.md:439). No corpus block — port the named family. Probe: `node scripts/brief.mjs tt_doppel`.
+- [ ] `mon.c` m_into_limbo — limbo migration still named (data.md:744). No corpus block — port the named family. Probe: `node scripts/brief.mjs m_into_limbo`.
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 

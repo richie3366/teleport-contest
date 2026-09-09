@@ -89,8 +89,9 @@ divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
 **Next cluster:** `extralev.c` LVLINIT_ROGUE/ROGUEOPTS — rogue-level init + impossible wall checks still named (data.md:631). No corpus block — port the named family.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2225 (index).**
+**Keep D-0845…D-2226 (index).**
 <!-- recent:begin -->
+**D-2226** `extralev.c:62` (`down: no wall`), `:68` (`down door ... going nowhere`), `:84` (`up: no w — `js/extralev.js` — `IS_WALL` joins the existing `const.js` edge; `impossible` joins a new static `display.js` edge (`imports.mjs --can extralev.js display.js impossible` → SAFE, hoisted-function; fire-and-forget without 
 **D-2225** `track.c:21–59,93–105` SFCTOOL + `rest_track` (`#ifndef SFCTOOL` wraps only settrack/gettrack; `panic("rest_track: impossible pt counts")` on `> UTSZ`) — `js/track.js` only — raw-count assign then loud throw (house panic idiom); no clamp; single-ESM-build note in header comment.
 **D-2224** `worn.c:474–484` `mon_set_minvis` (`perminvis = !cursed_potion`, `!invis_blkd → minvis = p — `js/muse.js` — deleted the local clone, `mon_set_minvis` joins the pre-existing static `worn.js` edge (`imports.mjs --can muse.js worn.js mon_set_minvis` → ALREADY; `extract_from_minvent`/`which_armor` already imported).
 **D-2223** `eat.c:3893–3912` `cant_finish_meal` (gate `go.occupation == eatfood && svc.context.victua — `js/eat.js` — new `export async function cant_finish_meal(corpse)` after `eatfood` (must live there: the gate compares against the module-local `eatfood` identity, as `newuhs` already does): piece-identity gate, house `{
@@ -98,11 +99,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2221** `wield.c:1061–1074` `weldmsg` (`pline("%s welded to your %s!", Yobjnam2(obj, "are"), hand) — `js/wield.js` only — the three arms now `await weldmsg(u.uwep)` in C position/order (dowield keeps weldmsg→reset_remarm→unsplit-undo; doquiver keeps `weld_res = !bknown` pre-`welded()` + `weld_res ? 1 : 0`); `reset_remar
 **D-2220** `artifact.c:1008–1060` `spec_applies` (DFLAG1 arm `:1024–1025`; `defended` guard `:1036–10 — `js/artifact.js` only + one new import edge (`defended` from `./mondata.js`; `imports.mjs --can artifact.js mondata.js defended` → IN-SCC, hoisted-function SAFE; `mondata.js` already imports `artifact.js` and every cross
 **D-2219** `pray.c:1167–1354` `pleased` pat_on_head switch — `js/pray.js` only, no new cross-module edge (`see_monsters` extends the pre-existing static `display.js` edge — `imports.mjs --can pray.js display.js see_monsters` → ALREADY; `INTRINSIC` extends the pre-existing `const.j
-**D-2218** `shk.c:751–917` `u_entered_shop` (robbed Soundeffect `:834`; bill_p poison `:776`; tended  — `js/shk.js` — `Soundeffect(se_mutter_imprecations, 50)` in C order (before the mutter pline; contest C macro is equally empty without SND_LIB, `sndprocs.h:272`, so zero behavior change, strictly more faithful wiring — D-
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2225; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2226; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
