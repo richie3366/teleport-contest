@@ -1,6 +1,6 @@
 {
- "commit": "a59fedd8",
- "at": "2026-09-09T06:32:01.660Z",
+ "commit": "d271ffb6",
+ "at": "2026-09-09T07:10:21.230Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -5240,19 +5240,19 @@
   },
   "scen-intrinsic-Caveman-92052": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 6017,
    "rngT": 6017,
-   "scrM": 128,
+   "scrM": 131,
    "scrT": 131,
-   "kind": "screen",
-   "step": 17,
+   "kind": null,
+   "step": null,
    "steps": 131,
-   "owner": "make_hallucinated",
-   "loc": "potion.c:382",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "Oh wow! Everything looks so cosmic! Timeout for sleepy set to 30.--More--",
-   "jsTopline": "Oh wow! Everything looks so cosmic! Timeout for sleepy set to 30.--More--",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-intrinsic-Caveman-92070": {

@@ -5358,6 +5358,14 @@ export async function docrt() {
     if (game.program_state.in_docrt) return;
     game.program_state.in_docrt = true;
     try {
+        // C display.c cls — display_nhwindow(WIN_MESSAGE) flushes pending
+        // messages before clear_nhwindow(WIN_MAP). JS pline defers a
+        // concatenated --More-- past the pline, so resolve it here, before
+        // vision_recalc(2) swaps viz out and cls clears the map: the C wait
+        // sees make_hallucinated's see_* paint (potion.c:424-426), not the
+        // mid-redraw floor. No-op when nothing pends; burns no RNG
+        // (scen-intrinsic-Caveman-92052 step 17).
+        await flush_topl_more();
         // C docrt_flags: if uswallow → swallowed(1); skip map vision path
         if (game.u.uswallow) {
             await cls();

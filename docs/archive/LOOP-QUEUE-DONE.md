@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `polyself.c` float_vs_flight — map-driven (c-js-map data.md; def `polyself.c:131`): Levitation-vs-Flying I_SPECIAL toggle still named. Probe: `node scripts/brief.mjs float_vs_flight`. **Addressed:** D-2199
+- [x] `potion.c` make_hallucinated — blocks 1/553 corpus sessions (first at step 17): C «Oh wow! Everything looks so cosmic! Timeout for sleepy set to 30.--More--» vs JS «Oh wow! Everything looks so cosmic! Timeout for sleepy set to 30.--More--» (identical toplines; first cell diff row 16 map/menu C `&` vs JS `·`). Probe: `node scripts/hidden-proxy.mjs verify make_hallucinated` (scen-intrinsic-Caveman-92052). **Addressed:** D-2200
+
+
+- [x] `polyself.c` float_vs_flight — map-driven (c-js-map data.md; def `polyself.c:131`): Levitation-vs-Flying I_SPECIAL toggle still named. Probe: `node scripts/brief.mjs float_vs_flight`. **Addressed:** D-2199 `d271ffb6`
 
 
 - [x] `do.c` heal_legs — map-driven (c-js-map data.md:1048; def `do.c:2449` `heal_legs(int how)` 0 ordinary / 1 dismount / 2 stone): wounded-legs heal path (`disp.botl`, ATEMP DEX restore) still named. Probe: `node scripts/brief.mjs heal_legs`. **Addressed:** D-2198 `fb866daa`
