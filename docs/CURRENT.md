@@ -86,7 +86,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `getpos.c` getpos — blocks 1/553 corpus sessions (first at step 36): C «Unknown direction: 'r' (aborted). Done.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify getpos` (scen-normal-Healer-91124). (D-2204 shipped xkilled-wasinside spoteffects.)
+**Next cluster:** `botl.c` do_statusline1 — blocks 1/553 corpus sessions (first at step 72): C «Your intelligence was 11.» vs JS «Your intelligence was 11.». Probe: `node scripts/hidden-proxy.mjs verify do_statusline1` (scen-intrinsic-Caveman-92138). (PARKED this iter: disclosure-page misattribution; true writer insight.c attributes_enlightenment.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2205 (index).**
 <!-- recent:begin -->
