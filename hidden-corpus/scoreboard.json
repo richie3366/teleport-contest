@@ -1,6 +1,6 @@
 {
- "commit": "4db0e9eb",
- "at": "2026-09-09T04:10:56.110Z",
+ "commit": "46171803",
+ "at": "2026-09-09T04:15:00.148Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6345,19 +6345,19 @@
   },
   "scen-normal-Rogue-92115": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 3834,
    "rngT": 3834,
-   "scrM": 174,
+   "scrM": 177,
    "scrT": 177,
-   "kind": "screen",
-   "step": 118,
+   "kind": null,
+   "step": null,
    "steps": 177,
-   "owner": "start_tin",
-   "loc": "eat.c:1769",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "Using your 6 orcish daggers you try to open the tin.--More--",
-   "jsTopline": "Using your orcish daggers you try to open the tin.--More--",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-normal-Rogue-92146": {

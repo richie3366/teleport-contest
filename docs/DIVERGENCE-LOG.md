@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2187 — `eat.c` start_tin via `objnam.c` aobjnam quan prefix — "6 orcish daggers", 1 session PASS
+
+- **Status:** shipped (Open queue row `eat.c` start_tin — cited 1/553 at queue time: scen-normal-Rogue-92115 step 118/177. Now fully PASS. Row addressed and checked off. No review cited by the row, so no stamp owed.)
+- **Symptom:** screen-first at step 118, region topline: C «Using your 6 orcish daggers you try to open the tin.--More--» vs JS «Using your orcish daggers you try to open the tin.--More--». `hidden-proxy verify start_tin` → 1 PASS.
+- **C locus:** `eat.c:1769` `start_tin` (`pline("Using %s you try to open the tin.", yobjnam(uwep, (char *)0))`); `objnam.c:2242–2258` `aobjnam` (`bp = cxname(otmp)`; `if (otmp->quan != 1L)` prepend `"%ld "`; optional `otense` verb); `objnam.c:2260–2275` `yobjnam` (`aobjnam` + `shk_your` unless carried pname artifact). `xname` pluralizes but never adds the count — the count lives in `aobjnam` (same for `doname_base :1283`).
+- **JS was:** canonical `js/objnam.js aobjnam` omitted the quan prefix entirely (comment wrongly claimed it came "via xname" — xname only pluralizes). `js/eat.js` carried its own local `yobjnam` clone (`your ${xname(obj)}`, "your dagger" subset) instead of importing the canonical export, so `start_tin` printed "your orcish daggers" for a wielded stack of 6. The canonical `yobjnam` export itself had zero importers (only `Yobjnam2` used it internally); `wield.js:438` (`aobjnam(wep,'weld')`) and `zap.js:6726` (`The(aobjnam(...))`) share the same missing-count bug and are fixed by the same line. `artifact.js:1382` already had the correct local `aobjnam` with the quan prefix — the canonical now matches it.
+- **Fix:** `js/objnam.js aobjnam` prepends `` `${quan} ` `` when `((quan ?? 1)|0) !== 1` (missing quan reads as 1, same guard as `simpleonames`/`xname`; C always sets quan). `js/eat.js` deletes the local `yobjnam` clone, imports canonical `yobjnam` on the existing `./objnam.js` edge (no new module edge; `xname` import retained — still used by `singular(food, xname)` arms), and calls `yobjnam(uwep, null)` with C's NULL verb. No DIAG/FORCE/seed/coordinate gates. Rule #2 clean.
+- **JS:** `js/objnam.js` (+2/−2: `aobjnam` quan line + C ref), `js/eat.js` (+2/−7: import name, clone deleted, `null` verb at the pline). Under the 600/10 caps.
+- **Verify:** `node scripts/verify.mjs --fn start_tin` → PASS syntax (2 changed js files: js/eat.js js/objnam.js) · PASS rule2 · PASS hidden: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (scen-normal-Rogue-92115: PASS) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (tool: no shared file changed). VERIFY: PASS.
+- **Named omissions:** none new. `artifact.js:1382` local `aobjnam` stays (now behavior-identical to the canonical; no live-arm stub).
+- **Next:** row addressed; queue head moves to `dothrow.c` hurtle_step. Do not re-pop `start_tin`.
+- **Density note:** ~4-line production diff on an Open row; the C locus (`aobjnam` 16 lines + `yobjnam` 12 lines) is that small, and `start_tin` itself was already ported (D-0935).
+
 ## D-2186 — `objnam.c` armor simple names in trap.js burn/water paths — robe-vs-cloak, 1 session PASS
 
 - **Status:** shipped (Open queue row `trap.c` erode_obj — cited 1/553 at queue time: scen-normal-Priest-92020 step 86/167. Now fully PASS. Row addressed and checked off. No review cited by the row, so no stamp owed.)

@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-09 — D-2187 `eat.c` start_tin via `objnam.c` aobjnam quan prefix — "6 orcish daggers", 1 session PASS
+
+**C locus:** `eat.c:1769` `start_tin` (`pline("Using %s you try to open the tin.", yobjnam(uwep, (char *)0))`); `objnam.c:2242–2258` `aobjnam` (`bp = cxname(otmp)`; `if (otmp->quan != 1L)` prepend `"%ld "`; optional `otense` verb); `objnam.c:2260–2275` `yobjnam` (`aobjnam` + `shk_your` unless carried pname artifact). `xname` pluralizes but never adds the count — the count lives in `aobjnam` (same for `doname_base :1283`).
+**JS:** `js/objnam.js` (+2/−2: `aobjnam` quan line + C ref), `js/eat.js` (+2/−7: import name, clone deleted, `null` verb at the pline). Under the 600/10 caps.
+**Change:** `js/objnam.js aobjnam` prepends `` `${quan} ` `` when `((quan ?? 1)|0) !== 1` (missing quan reads as 1, same guard as `simpleonames`/`xname`; C always sets quan). `js/eat.js` deletes the local `yobjnam` clone, imports canonical `yobjnam` on the existing `./objnam.js` edge (no new module edge; `xname` import retained — still used by `singular(food, xname)` arms), and calls `yobjnam(uwep, null)` with C's NULL verb. No DIAG/FORCE/seed/coordinate gates.
+**Verify:** `node scripts/verify.mjs --fn start_tin` → PASS syntax (2 changed js files: js/eat.js js/objnam.js) · PASS rule2 · PASS hidden: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (scen-normal-Rogue-92115: PASS) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (tool: no shared file changed). VERIFY: PASS.
+**Named:** none new. `artifact.js:1382` local `aobjnam` stays (now behavior-identical to the canonical; no live-arm stub).
+**Next:** row addressed; queue head moves to `dothrow.c` hurtle_step. Do not re-pop `start_tin`.
 ## 2026-09-09 — D-2186 `objnam.c` armor simple names in trap.js burn/water paths — robe-vs-cloak, 1 session PASS
 
 **C locus:** `objnam.c:5492–5509` `cloak_simple_name` (ROBE→"robe", MUMMY_WRAPPING→"wrapping", ALCHEMY_SMOCK→smock/apron by oc_name_known+dknown, else "cloak"); `:5512–5528` `helm_simple_name` (`hard_helmet`→"helm" else "hat"); `:5531–5547` `gloves_simple_name` (dknown + strstri gauntlets); `suit_simple_name` mail/jacket arms. Symptom path is `trap.c:88–170` `burnarmor` case 1 (`uarmc ? cloak_simple_name : uarm xname`, C `rn2(5)=1`) → `erode_obj(obj, ostr, ERODE_BURN, EF_GREASE)` with ostr non-null, so the `cxname`-vs-`xname` readout in the brief is innocent (both reduce to xname for armor — `objnam.c:1922–1930`). The priest's robe is ARM_CLOAK worn as uarmc on both sides; only the noun differed.

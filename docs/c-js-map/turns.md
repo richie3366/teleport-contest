@@ -1841,7 +1841,7 @@ acidic `melt_ice`); **`rottenfood` + non-faint still `start_eating` (only faint 
 **`start_tin`/`opentin`/`consume_tin` + `tin_variety` + `gainstr`/`make_vomiting`/`make_glib` + 
 multi-turn non-corpse `eatfood`** (D-0935; 
 `costly_tin` shop billing / `use_tin_opener` apply / Fixed_abil Popeye Olive·Bluto / b_trapped 
-wake·stun deferred); **`done_eating`→`cpostfx` `eye_of_newt_buzz` for AT_MAGC||PM_NEWT** (D-0492; 
+wake·stun deferred); **`yobjnam`/`aobjnam` quan prefix** (D-2187; C `objnam.c:2242–2258` `aobjnam` prepends `"%ld "` when `quan != 1`; canonical `js/objnam.js` now does the same (`?? 1` for unset quan); `js/eat.js` local `yobjnam` clone deleted, canonical import used at the `start_tin` pline with C's NULL verb); **`done_eating`→`cpostfx` `eye_of_newt_buzz` for AT_MAGC||PM_NEWT** (D-0492; 
 cpostfx specials / corpse_intrinsic/givit / AD_STUN hallu deferred); 
 **`touchfood` freeinv+`addinv_nomerge` + invent `splitobj` splice** (D-0923; 
 sellobj_state invent-full dropy / COST_BITE deferred); 

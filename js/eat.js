@@ -52,7 +52,7 @@ import {
 import { BY_COOKIE, bcsign, outrumor } from './rumors.js';
 import {
     singular, xname, doname, the, makeplural, obj_is_pname, thesimpleoname,
-    an, killer_xname,
+    an, killer_xname, yobjnam,
 } from './objnam.js';
 import {
     mons, acidic, poisonous, carnivorous, herbivorous, metallivorous,
@@ -2279,12 +2279,6 @@ function fingers_or_gloves(_capitalize) {
     return game.u?.uarmg ? 'gloves' : 'fingers';
 }
 
-/** C ref: objnam.c yobjnam(obj, NULL) subset — "your dagger". */
-function yobjnam(obj) {
-    if (!obj) return 'your weapon';
-    return `your ${xname(obj)}`;
-}
-
 /**
  * C ref: eat.c tin_variety(obj, displ) — gameplay path (displ=false).
  * Homemade→rotten rn2(7) and lizard remap match C.
@@ -3526,7 +3520,7 @@ async function start_tin(otmp) {
             break;
         }
         if (!need_no_opener) {
-            await pline(`Using ${yobjnam(uwep)} you try to open the tin.`);
+            await pline(`Using ${yobjnam(uwep, null)} you try to open the tin.`);
         }
     } else {
         need_no_opener = true;
