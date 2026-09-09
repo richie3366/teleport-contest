@@ -90,7 +90,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `monmove.c` dochug — popped 2026-09-09, parked STALE with no js/ (wormhitu live per D-1798; full C:689–989 arm walk live; 0/553 corpus mentions; `verify dochug` vacuous) — next iter pops `LOOP-QUEUE.md` Open head (`timeout.c` nh_timeout).
+**Next cluster:** `timeout.c` nh_timeout dialogues — popped 2026-09-10, parked STALE with no js/ (all 8 dialogue callees live as C-cited locals in `js/timeout.js`, wired in C order; 0/553 scoreboard mentions; live `hidden-proxy queue` has 0 nh_timeout rows; `verify nh_timeout` vacuous) — next iter pops `LOOP-QUEUE.md` Open head (`mon.c` xkilled).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2247 (index).**
 <!-- recent:begin -->
