@@ -1865,7 +1865,7 @@ omit metallivore·pool floorfood / sacrifice·tin arms / **cprefx rider `revive_
 lifesave** (D-1081) / polymon stone-golem failure polish / tainted Sick / slime·stone / `?`/`*` 
 menu; `is_edible` ghoul/cube/fire/metal arms vs JS FOOD-only; 
 `oc_nutrition` still local FOOD map until extract; `addinv` often omits `where=OBJ_INVENT`; 
-timeout.c vomiting_dialog cantvomit/Hallu texts; zhitu acid_damage/erode_armor bodies; 
+timeout.c vomiting_dialog cantvomit/Hallu texts (zhitu acid_damage + grease_protect live D-2232; erode_armor live in mhitm.js); 
 C web-destroy TODO before ice still named; 
 **`eatspecial` MAIL_STRUCTURES `SCR_MAIL` + `uwepgone` `artifact_light`** (D-1204); 
 **`choke` `killer_xname` D-1344** (C `eat.c:279` tombstone KILLED_BY; 

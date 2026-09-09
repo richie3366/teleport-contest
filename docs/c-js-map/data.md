@@ -1221,7 +1221,7 @@ default perm_invent Off no `display_inventory`; On WIN_INVEN / `consume_obj_char
 C `fountain.c:441` after gift/deny before `set_levltyp` ROOM; both arms; 
 default perm_invent Off tty no-op; On WIN_INVEN / artidisco save/rest / `consume_obj_charge` still 
 named); **`vomit` cantvomit/Sick/acid poly D-1127**; 
-timeout vomiting_dialog / zhitu acid_damage bodies still named
+timeout vomiting_dialog body still named (zhitu acid_damage + grease_protect live D-2232)
 
 ### `src/detect.c` `monster_detect`
 
