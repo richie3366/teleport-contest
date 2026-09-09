@@ -1,6 +1,6 @@
 {
- "commit": "347afdb0",
- "at": "2026-09-09T09:13:39.712Z",
+ "commit": "32f374ab",
+ "at": "2026-09-09T09:15:23.954Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6957,19 +6957,19 @@
   },
   "scen-poly-Tourist-92047": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 5126,
    "rngT": 5126,
-   "scrM": 187,
+   "scrM": 189,
    "scrT": 189,
-   "kind": "screen",
-   "step": 169,
+   "kind": null,
+   "step": null,
    "steps": 189,
-   "owner": "fig_transform",
-   "loc": "apply.c:2482",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "You attack thin air. It hits! It hits again! It hits!--More--",
-   "jsTopline": "You attack thin air. It hits! It hits again! It hits!",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-poly-Tourist-92171": {

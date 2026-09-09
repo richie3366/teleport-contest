@@ -86,7 +86,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `uhitm.c` steal_it — blocks 1/553 corpus sessions (first at step 152): C «You steal: l - a pair of old gloves. You miss the watchman.-» vs JS «You miss the watchman. You hit the watchman.--More--». Probe: `node scripts/hidden-proxy.mjs verify steal_it` (scen-poly-Priest-92097).
+**Next cluster:** `wield.c` chwepon — blocks 1/553 corpus sessions (first at step 133): C «Your dexterity was 13.» vs JS «Your dexterity was 13.». Probe: `node scripts/hidden-proxy.mjs verify chwepon` (scen-poly-Samurai-91106).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2209 (index).**
 <!-- recent:begin -->
