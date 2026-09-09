@@ -1202,3 +1202,9 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1189-e0280149-cant-finish-meal.md](./1189-e0280149-cant-finish-meal.md) | `e0280149` | D-2223 cant_finish_meal + revive site | **ACCEPT** |
 | [1190-46fde86e-mon-set-minvis-clones.md](./1190-46fde86e-mon-set-minvis-clones.md) | `46fde86e` | D-2224 mon_set_minvis clones retired | **ACCEPT** |
 | [1191-820594ec-rest-track-panic.md](./1191-820594ec-rest-track-panic.md) | `820594ec` | D-2225 rest_track panic | **ACCEPT** |
+| [1192-59983ef9-roguecorr-guards-rogue-dispatch.md](./1192-59983ef9-roguecorr-guards-rogue-dispatch.md) | `59983ef9` | D-2226 roguecorr guards + ROGUE dispatch | **ACCEPT** |
+| [1193-daf781a8-mdowear-type-wear-plines.md](./1193-daf781a8-mdowear-type-wear-plines.md) | `daf781a8` | D-2227 m_dowear_type wear plines | **ACCEPT-WITH-DEBT** |
+| [1194-a3d13f73-falling-rock-lifesave-resume.md](./1194-a3d13f73-falling-rock-lifesave-resume.md) | `a3d13f73` | D-2228 falling-rock lifesave resume | **ACCEPT** |
+| [1195-7bffd9f5-timeout-acid-stone-expiry.md](./1195-7bffd9f5-timeout-acid-stone-expiry.md) | `7bffd9f5` | D-2229 ACID/STONE expiry arms | **ACCEPT** |
+| [1196-5ec34ec0-maybe-finished-meal-steal.md](./1196-5ec34ec0-maybe-finished-meal-steal.md) | `5ec34ec0` | D-2230 maybe_finished_meal + steal site | **ACCEPT** |
+| [1197-0a07f32a-mondead-tail-lifesaved-vamprises-detach.md](./1197-0a07f32a-mondead-tail-lifesaved-vamprises-detach.md) | `0a07f32a` | D-2231 mondead tail | **ACCEPT-WITH-DEBT** |
