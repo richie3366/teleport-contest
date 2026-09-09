@@ -58,7 +58,7 @@ other `u.Fumbling` boolean sites still incomplete);
 **`exerchk` `next_attrib_check=600` + `rn2(AVAL)` resolve/`rn1(200,800)` reschedule + 
 exercise Upolyd gate** (D-0449; `encumber_msg` after STR/CON exercise + Fixed_abil/Dunce deferred); 
 **`seer_turn` `rn1(31,15)` once-per-hero after umovement loop** (D-0446; was wrongly in EOT; 
-`do_vicinity_map` callee D-1391, allmain seer_turn caller / lava/pool once-per-hero still named); 
+`do_vicinity_map` callee D-1391 + allmain seer_turn caller (D-2246; `(uhave.amulet || Clairvoyant) && !In_endgame && !BClairvoyant` → `do_vicinity_map(null)` before reschedule); lava/pool once-per-hero still named); 
 **`newgame` wizard `read_wizkit`+`obj_delivery(FALSE)`** (D-1192; VFS `WIZKIT=`; 
 getenv/HOME/`wish_history`/`config_error`/`option_help` WIZKIT still named; 
 **`newgame` `init_artifacts`/`hack_artifacts`** (D-1201; save/rest `restore_artifacts` named); 
@@ -97,7 +97,7 @@ dokick(2) D-1360; uhitm do_attack(3) D-1373; dothrow/dig still named);
 **`moveloop_core` `sanity_check` D-1664** (`allmain.c:197–198` `iflags.sanity_check\|\|debug_fuzzer` 
 before `context.move`; opt_in Off; callee `wizcmds.c`; **`dobjsfree` D-1743**
 `allmain.c:192`; **SAFERHANGUP `end_of_input` D-1801** `allmain.c:181–184`; 
-bypasses / resume_wish named); **`init_sound_disp_gamewindows` window-system init
+**`clear_bypasses` (worn.c `:1067–1116` + staticfn `:1054–1064`) + `resume_wish → makewish` + second `encumber_msg` + `umoved=FALSE` after occupation + once-per-input `clear_splitobjs`** (D-2246); still named: `get_nh_event` (tty no-op `wintty.c:758`), POSITIONBAR/STATUS_HILITES off in unixconf.h, MAIL `ckmailstatus` (`stat()` fs, Rule #2), lua `NHCORE_MOVELOOP_TURN` (no lua core in scored JS), `maybe_shuffle_customizations` (glyph-customization subsystem), MICRO kbhit/`pgetchar`, WIN_MAP branch); **`init_sound_disp_gamewindows` window-system init
 `allmain.c:699–763`** (D-1965; `js/allmain.js` export, wired in `js/jsmain.js`
 before restore per `unixmain.c:217`; sentinel `WIN_MESSAGE/WIN_STATUS/WIN_MAP/
 WIN_INVEN` ids + `opt_need_promptstyle` clear + live `prepare_perminvent` /

@@ -1012,7 +1012,7 @@ export function do_mapping() {
 }
 
 /** C youprop.h Clairvoyant — (H||E) && !B. */
-function Clairvoyant() {
+export function Clairvoyant() {
     const u = game.u || {};
     const p = u.uprops?.[CLAIRVOYANT];
     const h = (u.HClairvoyant | 0) || (p?.intrinsic | 0);

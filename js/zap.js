@@ -6637,6 +6637,9 @@ export function wish_history_menu(_buf) {
  * (D-1279). Help / history still named; wish livelog arms live (D-1892).
  */
 export async function makewish() {
+    // C zap.c:6323 — makewish clears resume_wish at entry (zap.c:6341 sets
+    // it when term_gone cuts the wish short; moveloop_core resumes it).
+    if (game.context) game.context.resume_wish = 0;
     const nothing = NOTHING_OBJ;
     // C zap.c makewish: long oldwisharti = u.uconduct.wisharti — snapshot
     // before readobjnam, which is where the wisharti conduct is handled.
