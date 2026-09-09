@@ -19,7 +19,7 @@ import { game } from './gstate.js';
 import { rn2, rnd, rn1, d, rnl, rn2_on_display_rng } from './rng.js';
 import { rank_of } from './roles.js';
 import {
-    mksobj, place_object, weight, stackobj, relobj_on_death,
+    mksobj, place_object, weight, stackobj, dealloc_obj, relobj_on_death,
     is_flammable, is_rustprone, is_rottable, is_corrodeable, is_crackable,
     erosion_matters, delobj, mkcorpstat, add_to_container, obj_extract_self,
     objects_at, splitobj, nxtobj, add_to_migration,
@@ -154,6 +154,8 @@ import { fill_pit, bury_an_obj } from './dig.js';
 import { u_wield_art, attacks, bare_artifactname, has_magic_key } from './artifact.js';
 import { ART_STING } from './generated/artifacts_data.js';
 import { maybe_unhide_at } from './monmove.js';
+// C obj.h stone_missile lives in dothrow.js (canonical); same-file passes_rocks below (D-2195).
+import { stone_missile } from './dothrow.js';
 
 const AD_ELEC = 6;
 const PM_STONE_GOLEM = monsterNames.indexOf('PM_STONE_GOLEM');
@@ -499,6 +501,7 @@ const BOULDER = objectNames.indexOf('BOULDER');
 const LOADSTONE = objectNames.indexOf('LOADSTONE');
 const the_your = ['the', 'your'];
 const AD_PHYS = 0;
+const AD_RBRE = 242; /* monattk.h */
 const AD_MAGM = 1; /* monattk.h */
 const AD_FIRE = 2; /* monattk.h */
 const AD_SLEE = 4; /* monattk.h */
@@ -1186,7 +1189,7 @@ export function wearing_iron_shoes(mtmp) {
     return (game.objects?.[armf.otyp]?.oc_material | 0) === MAT_IRON;
 }
 
-// C ref: trap.c thitm() — monster hit by trap missile / pit fall damage
+// C ref: trap.c:6711–6773 thitm() — monster hit by trap missile / pit fall damage
 async function thitm(tlev, mon, obj, d_override, nocorpse) {
     // C mon_leaving_level keeps stale mx/my after death for place_object
     const place_x = mon?.mx;
@@ -1202,43 +1205,44 @@ async function thitm(tlev, mon, obj, d_override, nocorpse) {
 
     let trapkilled = false;
     if (!strike) {
-        // C: pline before place_object — triggers --More-- after prior cursemsg
         if (obj && cansee(mon.mx, mon.my)) {
-            await pline(`${Monnam(mon)} is almost hit by ${doname(obj)}!`);
+            await pline_mon(mon, `${Monnam(mon)} is almost hit by ${doname(obj)}!`);
         }
     } else {
-        // C: stone_missile && passes_rocks → harmless (strike=0, keep missile)
-        // Named omission: stone_missile/harmless arm — not dart/arrow path.
+        // C obj.h stone_missile + mondata.h passes_rocks (D-2195)
+        const harmless = !!(obj && stone_missile(obj) && passes_rocks(mon.data));
         if (obj && cansee(mon.mx, mon.my)) {
-            await pline(`${Monnam(mon)} is hit by ${doname(obj)}!`);
+            await pline_mon(mon, `${Monnam(mon)} is hit by ${doname(obj)}${harmless ? ' but is not harmed.' : '!'}`);
         }
         let dam = 1;
         if (d_override) {
             dam = d_override;
         } else if (obj) {
-            // C ref: trap.c thitm — dam = dmgval(obj, mon); if (dam < 1) dam = 1
+            // C trap.c thitm — dam = dmgval(obj, mon); if (dam < 1) dam = 1
             dam = dmgval(obj, mon);
             if (dam < 1) dam = 1;
         }
-        mon.mhp = (mon.mhp || 0) - dam;
-        if (mon.mhp <= 0) {
-            const xx = mon.mx, yy = mon.my;
-            await monkilled(mon, '', nocorpse ? -AD_PHYS /* -AD_RBRE */ : AD_PHYS);
-            if ((mon.mhp | 0) <= 0) {
-                newsym(xx, yy);
-                trapkilled = true;
+        if (!harmless) {
+            mon.mhp = (mon.mhp || 0) - dam;
+            if (mon.mhp <= 0) {
+                const xx = mon.mx, yy = mon.my;
+                await monkilled(mon, '', nocorpse ? -AD_RBRE : AD_PHYS);
+                if ((mon.mhp | 0) <= 0) { // C DEADMONSTER(monst.h:214)
+                    newsym(xx, yy);
+                    trapkilled = true;
+                }
             }
-            if (obj) { /* dealloc_obj stub */ }
-            // place_object only when !strike || d_override — see below
-        } else if (obj) {
-            /* dealloc_obj stub — missile used up on hit */
+        } else {
+            strike = 0; /* harmless; don't use up the missile */
         }
     }
 
-    // C: place missile on miss (or d_override path); uses stale mon mx/my
+    // C: place missile on miss (or d_override path); else missile is used up
     if (obj && (!strike || d_override)) {
         place_object(obj, place_x, place_y);
         stackobj(obj);
+    } else if (obj) {
+        dealloc_obj(obj);
     }
     return trapkilled;
 }

@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `dothrow.c` thitm stone_missile/passes_rocks harmless arm — map-driven (c-js-map data.md): `stone_missile`/`passes_rocks` harmless arm in `thitm` still named. Probe: `node scripts/brief.mjs thitm`.
 - [ ] `sounds.c` dosounds deferred room/guard arms — map-driven (c-js-map absent.md): swamp You1 / barracks/court You_hear / temple_priest / oracle canseemon / other MS_* still deferred. Probe: `node scripts/brief.mjs dosounds`.
 - [ ] `fountain.c` gush steed + engulfed-hero arms — map-driven (c-js-map data.md): steed Flying/Levitation, `engulfing_u` flush, `mdrop_special_objs` worn/saddle/`extract_from_minvent` still named. Probe: `node scripts/brief.mjs gush`.
 - [ ] `do.c` heal_legs — map-driven (c-js-map data.md:1048; def `do.c:2449` `heal_legs(int how)` 0 ordinary / 1 dismount / 2 stone): wounded-legs heal path (`disp.botl`, ATEMP DEX restore) still named. Probe: `node scripts/brief.mjs heal_legs`.

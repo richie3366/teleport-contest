@@ -94,8 +94,9 @@ divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
 **Next cluster:** `dothrow.c` thitm stone_missile/passes_rocks harmless arm (new queue head). Probe: `node scripts/brief.mjs thitm`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2194 (index).**
+**Keep D-0845…D-2195 (index).**
 <!-- recent:begin -->
+**D-2195** `trap.c:6711–6773` `thitm` (strike `find_mac+tlev+spe <= rnd(20)`; miss `pline_mon` "almos — harmless arm in C order — `const harmless = !!(obj && stone_missile(obj) && passes_rocks(mon.data))` (same expression shape as live `js/dothrow.js hittmu`), suffix ternary, dam computed before the gate (preserves `dmgval
 **D-2194** `trap.c:1106–1187` `m_harmless_trap` (SLP_GAS `resists_sleep \|\| defended(AD_SLEE)` :1133 — canonical `defended` + full `resists_magm` (+ file-local `monsndx` = `(mndx ?? mnum ??
 **D-2193** `mhitu.c:263–306` `expels`, reached from `mhitu.c:1578–1584` `gulpmu` (`You("get %s!", … : — port the C tail in order — `um_dist(mtmp.mx, mtmp.my, 1)` → `pline('Brrooaa...
 **D-2192** `do_wear.c:434–516` `Helmet_on`, reached as `afternmv` from `hack.c:4177–4208` `unmul` (pl — full Helmet_on switch in C order: plain-helm breaks; CAUTION → live `see_monsters`; BRILLIANCE → inline `adj_abon` helm half (`:3331–3339`: makeknown iff spe, ABON INT/WIS, botl); CORNUTHAUM → ABON CHA ±1, botl, makeknow
@@ -103,11 +104,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2190** `trap.c:143–146` — pass the `'gloves'` literal with a C citation comment.
 **D-2189** `monmove.c:462–530` `monflee` (plus `:450–457` `flees_light` macro, `:361–372` `release_he — port the three arms in C order.
 **D-2188** `dothrow.c:855–905` `hurtle_step` monster arm (`mnam = x_monnam(mon, ARTICLE_A, NULL, (has — port the arm in C order — `glyph_at` read, `mon.mundetected = 0`, `x_monnam(ARTICLE_A, null, SUPPRESS_SADDLE|AUGMENT_IT, false)`, find-by-bumping branch via `noit_mhim`, `wakeup`, `canspotmon→map_invisible(mx,my)`, `setm
-**D-2187** `eat.c:1769` `start_tin` (`pline("Using %s you try to open the tin.", yobjnam(uwep, (char  — `js/objnam.js aobjnam` prepends `` `${quan} ` `` when `((quan ?? 1)|0) !== 1` (missing quan reads as 1, same guard as `simpleonames`/`xname`; C always sets quan).
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2194; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2195; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
