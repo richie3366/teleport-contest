@@ -1,6 +1,6 @@
 {
- "commit": "11c8ed19",
- "at": "2026-09-09T13:51:35.582Z",
+ "commit": "b04bf683",
+ "at": "2026-09-09T13:54:16.148Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -8266,19 +8266,19 @@
   },
   "scen-wish-Ranger-91103": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 3349,
    "rngT": 3349,
-   "scrM": 163,
+   "scrM": 192,
    "scrT": 192,
-   "kind": "screen",
-   "step": 79,
+   "kind": null,
+   "step": null,
    "steps": 192,
-   "owner": "gcrownu",
-   "loc": "pray.c:932",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "The barrow wight wields a long sword!--More--",
-   "jsTopline": "The barrow wight wields a long sword! The barrow wight hits!--More--",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-wish-Ranger-92155": {
