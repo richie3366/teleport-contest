@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `teleport.c` collect_coords — blocks 3/553 corpus sessions (first at step 77): C draws `rn2(8)=4` in collect_coords, JS `rn2(3)=2` from mhitm_knockback(mhitm.js:2029). Probe: `node scripts/hidden-proxy.mjs verify collect_coords` (scen-genesis-Knight-92185, scen-poly-Wizard-92169, scen-tour-Tourist-92100).
 - [ ] `mcastu.c` mcast_disappear — blocks 1/553 corpus sessions (first at step 121): C «The lich suddenly becomes transparent!» vs JS «The lich suddenly becomes transparent!». Probe: `node scripts/hidden-proxy.mjs verify mcast_disappear` (scen-wish-Monk-92013).
 - [ ] `attrib.c` from_what — blocks 1/553 corpus sessions (first at step 69): C «You were acid resistant from your creature form.» vs JS «You were acid resistant from your creature form.». Probe: `node scripts/hidden-proxy.mjs verify from_what` (scen-death-Monk-92000).
 - [ ] `pager.c` look_at_monster — blocks 1/553 corpus sessions (first at step 148): C «ca cockatrice (chickatrice) [seen: normal vision, infravisio» vs JS «ca chickatrice [seen: normal vision, infravision]». Probe: `node scripts/hidden-proxy.mjs verify look_at_monster` (scen-genesis-Archeologist-91135).
@@ -68,6 +67,9 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 - [ ] `eat.c` start_tin — blocks 1/553 corpus sessions (first at step 118): C «Using your 6 orcish daggers you try to open the tin.--More--» vs JS «Using your orcish daggers you try to open the tin.--More--». Probe: `node scripts/hidden-proxy.mjs verify start_tin` (scen-normal-Rogue-92115).
 - [ ] `dothrow.c` hurtle_step — blocks 1/553 corpus sessions (first at step 110): C «You bump into a little dog. You stagger... The baluchitheriu» vs JS «You bump into the little dog. You stagger...--More--». Probe: `node scripts/hidden-proxy.mjs verify hurtle_step` (scen-poly-Archeologist-92226).
 - [ ] `topten.c` formatkiller — blocks 1/553 corpus sessions (first at step 69): C «» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify formatkiller` (scen-wish-Wizard-92060).
+- [ ] `mkmaze.c` mv_bubble — blocks 1/553 corpus sessions (first at step 131): C `rn2(24)=1` vs JS `rn2(17)=4` in the `mnearto`→`enexto` near-collect after bubble deposit (rings 1–2 full 8/16 both sides; ring 3 full in C, edge-clipped in JS — cons center off by one near an edge; JS probe logged the diverging call at cx=43 cy=18 ns=[8,16,17]). Re-homed from the collect_coords row (body + mnearto proven faithful; full probe in the D-log fission/split entry). Suspect missing `b->x = gbxmin`-style hard clamps (`mkmaze.c:1980–1997`) in JS `mv_bubble_move` — unproven. Probe: `node scripts/hidden-proxy.mjs verify mv_bubble` (scen-tour-Tourist-92100).
+- [ ] `do.c` dodown — blocks 1/553 corpus sessions (first at step 88): C «The water demon hurls a dark potion!--More--» vs JS «The water demon hurls a dark potion!». Probe: `node scripts/hidden-proxy.mjs verify dodown` (scen-wish-Samurai-92088).
+- [ ] `monmove.c` monflee — blocks 1/553 corpus sessions (first at step 80): C draws `rn2(25)=24` in monflee, JS `rnd(6)=5` from trapeffect_pit(trap.js:2052). Probe: `node scripts/hidden-proxy.mjs verify monflee` (scen-tour-Monk-91117).
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 

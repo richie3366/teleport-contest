@@ -96,10 +96,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `insight.c` show_conduct — blocks 6/553 corpus sessions (first at step 859): C «Ebenezum walked before me along the closest thing we could» vs JS «More info about "human wizard"? [yn] (n)». Probe: `node scripts/hidden-proxy.mjs verify show_conduct` (random-seed0360-wizard-world-tour-e115a25b, scen-genesis-Knight-92002, scen-genesis-Knight-92112).
+**Next cluster:** `mcastu.c` mcast_disappear — blocks 1/553 corpus sessions (first at step 121): C «The lich suddenly becomes transparent!» vs JS «The lich suddenly becomes transparent!». Probe: `node scripts/hidden-proxy.mjs verify mcast_disappear` (scen-wish-Monk-92013).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2183 (index).**
+**Keep D-0845…D-2184 (index).**
 <!-- recent:begin -->
+**D-2184** `uhitm.c:1603–1634` `hmon_hitmon_splitmon` (called `:1868` after pet, before msg_hit); `mh — `js/uhitm.js` — new `hmon_hitmon_splitmon` block between pet and msg_hit with C's exact guards (black/brown pudding, post-damage `mhp>1`, `!mcan`, on-map, obj==uwep-or-twoweap-uswapwep, IRON/METAL (`objclass.h:24–25` loc
 **D-2183** `eat.c doeat :2998–3024` — port the switch in C order (before reqtime/rotten): `oc_material === MAT_FLESH` → unvegan++ (+ `violated_vegetarian()` with the guilt pline on true, same call-site convention as `eatcorpse`, for non-EGG); otyp in the egg
 **D-2182** `wield.c ready_weapon :168–273` — port in C order — `u.uarms && bimanual(wep)` gate with the `is_sword`/`BATTLE_AXE` noun returns 0 (C `ECMD_FAIL` takes no turn → 0 in this file's 0/1 scheme, matching `cmd.js 'w'` truthy-`move` mapping); full `will_weld`
 **D-2181** `cmd.c` rhack ECMD tail `:3810–3826` (`(res & (ECMD_OK|ECMD_TIME)) == ECMD_OK` → `reset_cm — `^W` arm captures `wishRes` and mirrors the C tail verbatim (CANCEL|FAIL → `reset_cmd_vars(true)`; else not-TIME → `reset_cmd_vars(multi < 0)`; TIME → `move = 1` — same shape as `rhack_dispatch_bound`), and `wiz_wish` re
@@ -107,11 +108,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2179** `detect.c find_trap :1936–1962` (`tseen=1`, `exercise(A_WIS)`, `feel_newsym`, then `if (Ha — `js/detect.js find_trap` now reads the memory glyph — `(game.level.at(tx,ty).remembered_glyph.glyph|0)` defaulting to `NO_GLYPH` when absent (matches C mismatch for unseen/no-memory cells; `map_*` skip the store when `he
 **D-2178**  — 
 **D-2177**  — 
-**D-2176**  — 
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2183; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2184; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

@@ -45,7 +45,7 @@ import { xname, doname, an, yname, the, simpleonames, safe_qbuf, mimic_obj_name,
 import { objectNames, ARMOR_CLASS, COIN_CLASS, SILVER, WEAPON_CLASS } from './objects.js';
 import { objects_at } from './mkobj.js';
 import { steal, stealamulet, unresponsive, remove_worn_item } from './steal.js';
-import { cloneu } from './sit.js';
+import { cloneu, split_mon } from './sit.js';
 import {
     stop_donning, setworn, Ring_on, Ring_gone, suit_simple_name, hard_helmet,
     some_armor,
@@ -2937,7 +2937,8 @@ async function passiveum(olduasmon, mtmp, mattk) {
             u.mh = (u.mh | 0) + Math.trunc((tmp + rn2(2)) / 2);
             if ((u.mhmax | 0) < (u.mh | 0)) u.mhmax = u.mh | 0;
             if ((u.mhmax | 0) > (((game.youmonst?.data?.mlevel | 0) + 1) * 8)) {
-                // split_mon(&youmonst, mtmp) deferred
+                // C mhitu.c passiveum :2574 — cold-fed mold fission.
+                await split_mon(game.youmonst, mtmp);
             }
             break;
         case AD_STUN:

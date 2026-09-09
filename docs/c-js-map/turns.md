@@ -2970,7 +2970,8 @@ seed4500 **103155→104217** RNG **104364** Scr **928**; `something` Blind/`It`�
 pool-water what deferred detail matches C); 
 **`hitmu`→`passiveum`/`assess_dmg` + `mhitm_ad_ston` mhitu** (D-0928 #1105; 
 seed4500 **101373→101391** RNG **101579** Scr **924**; 
-`split_mon`/`golemeffects`/`mon_reflects`/`erode_armor`/`make_stoned` detail deferred); 
+D-2184 `passiveum` AD_COLD mold fission live (`split_mon(youmonst, mtmp)` via sit.js + C `s_suffix(mon_nam(mtmp))` heat reason); 
+`golemeffects`/`mon_reflects`/`erode_armor`/`make_stoned` detail still deferred); 
 **`spitmm`/`spitmu` + `m_lined_up`; `mattacku` AT_SPIT when range2** (D-0900); 
 **`breamm`/`breamu` + `mattacku` AT_BREA** (D-0925; 
 seed4500 **86672→87218** RNG **87347** Scr **759**; 
@@ -3426,6 +3427,7 @@ trapped-chest cmap on `M_AP_OBJECT` / Eyes `is_plural` named); **`mondied` undea
 **`pre_mm_attack` `map_invisible` when `!canspotmon`** (D-0296); 
 **hit/miss plines use shared `mon_nam` (shk)** (D-0308); 
 **`hmon_hitmon_msg_hit` `canseemon?exclam(dmg)` + bash/lash/smite/hit verb** (D-0322); 
+**`hmon_hitmon_splitmon` + `passive_obj` AD_CORR erode D-2184** (`uhitm.c:1603–1634` iron/metal hand-to-hand pudding split → live `clone_mon`+`mintrap` (dynamic trap.js import, file convention), hittxt suppresses msg_hit; `passive_obj` now async (all 5 call sites awaited incl. dothrow `thitmonst`) with AD_CORR `erode_obj(ERODE_CORRODE, EF_GREASE)` live; AD_FIRE/ACID/RUST/ENCH erode arms stay deferred); 
 **`xkilled` `nonliving` → `"destroy"`** (D-0327; 
 `is_golem`/`weirdnonliving`/`nonliving` in `monsters.js`); 
 omit `seemimic`/`mundetected` unhide+showit; 

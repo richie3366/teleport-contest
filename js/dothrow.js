@@ -620,7 +620,7 @@ export async function thitmonst(mon, obj) {
                 obj.where = OBJ_FREE;
                 return true;
             }
-            passive_obj(mon, obj, null);
+            await passive_obj(mon, obj, null);
         } else {
             await tmiss(obj, mon, true);
             if (hmode === HMON_APPLIED) await wakeup(mon, true);

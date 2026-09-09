@@ -22,7 +22,7 @@ import {
     SUPPRESS_NAME, SUPPRESS_IT, SUPPRESS_INVISIBLE, EXACT_NAME,
     HAND, LEG, A_LAWFUL, Is_airlevel, Is_waterlevel, PARANOID_HIT, LOW_PM,
     W_ARM, W_ARMC, W_ARMH, W_ARMU, W_ARMG, W_RINGL, W_RINGR, W_ARMF, W_AMUL,
-    MON_EXPLODE, NO_MM_FLAGS, DISP_ALWAYS, DISP_END, STOMACH, DIED, NO_KILLER_PREFIX,
+    MON_EXPLODE, NO_MM_FLAGS, NO_TRAP_FLAGS, DISP_ALWAYS, DISP_END, STOMACH, DIED, NO_KILLER_PREFIX, ERODE_CORRODE, EF_GREASE,
     KILLED_BY_AN, PASSES_WALLS, SLOW_DIGESTION, MALE, FEMALE, MMOVE_DIED,
 } from './const.js';
 import {
@@ -84,7 +84,7 @@ import { mon_nam, Monnam, x_monnam, x_monnam_tame, Hallucination, type_is_pname,
 import { artifact_hit, youmonst, is_art, artifact_exists, shade_glare } from './artifact.js';
 import { xname, vtense, The, An, an, singular, makeplural, cxname, simpleonames, otense, mshot_xname, Yobjnam2 } from './objnam.js';
 import { abuse_dog, tamedog } from './dog.js';
-import { makemon, makemon_appear_msg, newcham, adj_lev } from './makemon.js';
+import { makemon, makemon_appear_msg, newcham, adj_lev, clone_mon } from './makemon.js';
 import { ndemon } from './minion.js';
 import { ART_GIANTSLAYER, ART_STORMBRINGER, ART_SNICKERSNEE, ART_CLEAVER } from './generated/artifacts_data.js';
 import { paranoid_query } from './getline.js';
@@ -95,6 +95,11 @@ import { cutworm } from './worm.js';
 import { m_unleash } from './apply.js';
 import { mhis } from './mondata.js';
 import { hard_helmet } from './do_wear.js';
+
+const PM_BLACK_PUDDING = monsterNames.indexOf('PM_BLACK_PUDDING');
+const PM_BROWN_PUDDING = monsterNames.indexOf('PM_BROWN_PUDDING');
+const IRON = 11; /* objclass.h:24 IRON (Fe, incl. steel) */
+const METAL = 12; /* objclass.h:25 METAL (Sn, &c.) */
 
 /** Live pager.c object_from_map / mhidden_description; bound on first use
  * (pager.js imports mon_at from this file — static import cycles). */
@@ -1143,6 +1148,33 @@ async function hmon(mon, obj, thrown, _dieroll) {
         }
     }
 
+    // C uhitm.c hmon_hitmon_splitmon :1603–1634 — an iron/metal
+    // hand-to-hand hit on a live (mhp>1) uncanceled pudding clones it
+    // (clone_mon + mintrap for the clone); the divide message sets
+    // hittxt so the ordinary hit message is skipped. mintrap via
+    // dynamic import (file convention: trap.js bound the same way).
+    if (((mon.data?.mndx | 0) === PM_BLACK_PUDDING
+        || (mon.data?.mndx | 0) === PM_BROWN_PUDDING)
+        && (mon.mhp | 0) > 1 && !mon.mcan && (mon.mx | 0) !== 0
+        && obj && (obj === game.u?.uwep
+            || (game.u?.twoweap && obj === game.u?.uswapwep))
+        && (((game.objects?.[obj.otyp]?.oc_material | 0) === IRON)
+            || ((game.objects?.[obj.otyp]?.oc_material | 0) === METAL))
+        && !is_ammo(obj) && !is_missile(obj)
+        && (thrown === HMON_MELEE
+            || (thrown === HMON_APPLIED && is_pole(game.u?.uwep)))) {
+        const mclone = await clone_mon(mon, 0, 0);
+        if (mclone) {
+            let withwhat = '';
+            if (game.u?.twoweap && game.flags?.verbose !== false)
+                withwhat = ` with ${yname(obj)}`;
+            await pline(`${Monnam(mon)} divides as you hit it${withwhat}!`);
+            hittxt = true;
+            const { mintrap } = await import('./trap.js');
+            await mintrap(mclone, NO_TRAP_FLAGS);
+        }
+    }
+
     // C: hmon_hitmon_msg_hit — !hittxt && (!destroyed || thrown-multishot)
     if (!hittxt && !destroyed) {
         if (thrown === HMON_MELEE) {
@@ -1693,7 +1725,7 @@ async function known_hitum(mon, weapon, mhit, rollneeded, armorpenalty, uattk, d
  * C ref: uhitm.c passive_obj — erosion/drain on the hitting object.
  * erode_obj / drain_item bodies deferred; RNG order preserved.
  */
-function passive_obj(mon, obj, mattk) {
+async function passive_obj(mon, obj, mattk) {
     const u = game.u || {};
     let weapon = obj;
     let atk = mattk;
@@ -1723,9 +1755,17 @@ function passive_obj(mon, obj, mattk) {
         }
         break;
     case AD_RUST:
-    case AD_CORR:
         if (!mon.mcan) {
-            // erode_obj deferred
+            // erode_obj ERODE_RUST deferred
+        }
+        break;
+    case AD_CORR:
+        // C uhitm.c passive_obj :6174–6178 — draw-free corrode of the
+        // hitting weapon (erode_obj live in trap.js; dynamic import
+        // keeps this file's trap.js convention).
+        if (!mon.mcan) {
+            const { erode_obj } = await import('./trap.js');
+            await erode_obj(obj, null, ERODE_CORRODE, EF_GREASE);
         }
         break;
     case AD_ENCH:
@@ -1797,7 +1837,7 @@ export async function passive(mon, weapon, mhitb, maliveb, aatyp, wep_was_destro
                 }
             } else if (aatyp === AT_WEAP || aatyp === AT_CLAW
                 || aatyp === AT_MAGC || aatyp === AT_TUCH) {
-                passive_obj(mon, weapon, mattk);
+                await passive_obj(mon, weapon, mattk);
             }
         }
         break;
@@ -1823,7 +1863,7 @@ export async function passive(mon, weapon, mhitb, maliveb, aatyp, wep_was_destro
                 }
             } else if (aatyp === AT_WEAP || aatyp === AT_CLAW
                 || aatyp === AT_MAGC || aatyp === AT_TUCH) {
-                passive_obj(mon, weapon, mattk);
+                await passive_obj(mon, weapon, mattk);
             }
         }
         exercise(A_STR, false);
@@ -1844,7 +1884,7 @@ export async function passive(mon, weapon, mhitb, maliveb, aatyp, wep_was_destro
                 }
             } else if (aatyp === AT_WEAP || aatyp === AT_CLAW
                 || aatyp === AT_MAGC || aatyp === AT_TUCH) {
-                passive_obj(mon, weapon, mattk);
+                await passive_obj(mon, weapon, mattk);
             }
         }
         break;
@@ -1865,7 +1905,7 @@ export async function passive(mon, weapon, mhitb, maliveb, aatyp, wep_was_destro
                 || (aatyp >= AT_STNG && aatyp < AT_WEAP)) {
                 break;
             }
-            passive_obj(mon, weapon, mattk);
+            await passive_obj(mon, weapon, mattk);
         }
         break;
     default:
