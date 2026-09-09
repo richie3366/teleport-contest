@@ -1,6 +1,6 @@
 {
- "commit": "f9c8b073",
- "at": "2026-09-09T12:38:56.726Z",
+ "commit": "0e8ff123",
+ "at": "2026-09-09T13:07:16.743Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -7943,19 +7943,19 @@
   },
   "scen-wish-Knight-92130": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 3473,
    "rngT": 3473,
-   "scrM": 202,
+   "scrM": 205,
    "scrT": 205,
-   "kind": "screen",
-   "step": 179,
+   "kind": null,
+   "step": null,
    "steps": 205,
-   "owner": "dosearch0",
-   "loc": "detect.c:2024",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "What are you looking for? The exit?",
-   "jsTopline": "What are you looking for? The exit?--More--",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-wish-Knight-92132": {

@@ -197,7 +197,7 @@ partial `reveal_terrain`/`browse_map`** (D-0128); **DEL `\177` binds `doterrain`
 set_msg_xy / via_warning flush deferred); 
 **`dosearch0` Blind/`visible_region_at` → `feel_location` + 
 SDOOR `feel_location` / SCORR `feel_newsym` + `!Blind` `unmap_invisible`** (D-0928 #1184; 
-prop Blind not sticky); omit Hallucination/cls wait, activate_statue_trap, artifact SPFX_SEARCH; 
+prop Blind not sticky); **uswallow arm `Norep`, SDOOR/SCORR `set_msg_xy`, SCORR `unblock_point`** (D-2212; C `:2024/:2050/:2056/:2060` — SCORR was `recalc_block_point` under an unblock comment; `activate_statue_trap` + artifact SPFX_SEARCH `fund` were already live, old omit retired); C `nomul(0)` stays the local `nomul_clear` subset; omit Hallucination/cls wait; 
 findone FOUND_FLASH_COUNT==0 tmp_at path (D-1775 ported the flash/foundone/mimic/hider/invis tail); region/gascloud; M_AP_FURNITURE; 
 unconstrain underwater/buried/swallow (display_trap_map unconstrain+reconstrain D-1753); wiz_map_levltyp/legend; 
 oldglyph trap/object restore after furniture; **`do_vicinity_map` clairvoyance 9×5 (D-1391; 

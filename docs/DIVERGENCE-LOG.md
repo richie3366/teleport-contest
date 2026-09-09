@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2212 — `detect.c` dosearch0 uswallow arm used pline, counted search re-queued «The exit?» behind --More-- (queue row dosearch0, 1 session PASS)
+
+- **Status:** shipped (Open queue row `detect.c` dosearch0 — 1/553 blocked; `verify --fn dosearch0` → 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS. Row archived. No review cited, no stamp owed.)
+- **Symptom:** scen-wish-Knight-92130 step 179/205 kind=screen at `detect.c:2024`, 0 blocked RNG (3473/3473 positional match): C «What are you looking for?  The exit?» vs JS «What are you looking for?  The exit?--More--». Turn context from the recording: hero engulfed by the ochre jelly at step 175 («The ochre jelly engulfs you!»), keys `2` `0` `s` = a 20-count explicit search while swallowed (`u.uswallow` true, `aflag` 0).
+- **C locus:** `detect.c:2022–2024` uswallow arm — `Norep("What are you looking for?  The exit?")` (PLINE_NOREPEAT), not `pline`. Same function, same commit: `:2050` SDOOR `set_msg_xy`, `:2056` SCORR `unblock_point` (vision), `:2060` SCORR `set_msg_xy`.
+- **JS was:** `js/detect.js:472` printed the swallowed line with `pline`, so each of the 20 counted repetitions re-printed it and the repeats queued behind --More--; C `Norep` suppresses repeats (`msgtype_type` MSGTYP_NOREP vs `gp.prevmsg`, `js/display.js:7351–7359` mirrors C). Same body: the SCORR arm called `recalc_block_point` under a comment citing C's `unblock_point`, and both find arms omitted C's `set_msg_xy(x, y)` before the find pline.
+- **Fix:** `js/detect.js` only — uswallow arm now `await Norep('What are you looking for?  The exit?')`; SDOOR/SCORR arms now `set_msg_xy(x, y)` before the find pline; SCORR arm now `unblock_point(x, y)`. All three names were already imported (no new edge, no cycle risk). Density note: +11/−2 — the 79-line C function was already ~95 % ported, so completing the remaining C-cited arms is the whole unit (C-is-that-small clause).
+- **JS:** 1 file (`detect.js` +11/−2), under the 600/10 caps. Rule #2 clean; no DIAG/FORCE/seed gates. No committed probes.
+- **Verify:** `node scripts/verify.mjs --fn dosearch0` → PASS syntax (1 changed js file: js/detect.js) · PASS rule2 · PASS hidden PROGRESS (scen-wish-Knight-92130 → PASS) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed per runner) · VERIFY: PASS. Final verify ran after the last js/ edit (map/D-log/queue edits only after; no D-1831 gap).
+- **Named omissions:** C `nomul(0)` stays the local `nomul_clear()` subset (JS clears multi + `_repeat_search`/context run but does not mirror C's botl/uinvulnerable/usleep/end_running/cmdq_clear — map `turns.md` dosearch0 row); `mfind0` set_msg_xy / via_warning flush still deferred; Hallucination/cls trap-wait still deferred.
+- **Next:** do not re-pop `dosearch0` for Knight-92130 (0 blocked, session fully PASS). Do not invent a FAIL peel.
+- **Cited falsifier grade:** measured (machine-recorded C-vs-JS row, screen-first, 0 blocked RNG; recorded step-175 engulf + `2`/`0`/`s` count-search keys; pinned `detect.c:2015–2093` read in full + exact-line grep `:2024/:2046/:2050/:2056/:2060`; C `you.h:562` u_at identity checked (no change needed); post-fix `verify --fn dosearch0` 1 PASS + green/strict/cohort; no JS FORCE/DIAG/seed reads used).
+
 ## D-2211 — `uhitm.c` passive_obj AD_FIRE burn was deferred, «Your bullwhip smoulders!» lost (queue row use_misc, 1 session PASS)
 
 - **Status:** shipped (Open queue row `muse.c` use_misc — 1/553 blocked; `verify --fn use_misc` → 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS. Row archived. No review cited, no stamp owed.)

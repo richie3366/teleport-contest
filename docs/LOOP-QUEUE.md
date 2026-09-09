@@ -60,13 +60,17 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `detect.c` dosearch0 — blocks 1/553 corpus sessions (first at step 179): C «What are you looking for? The exit?» vs JS «What are you looking for? The exit?--More--». Probe: `node scripts/hidden-proxy.mjs verify dosearch0` (scen-wish-Knight-92130).
 - [ ] `apply.c` use_grapple — blocks 1/553 corpus sessions (first at step 146): C «You are yanked toward the stairs!» vs JS «You are yanked toward the furniture!». Probe: `node scripts/hidden-proxy.mjs verify use_grapple` (scen-wish-Priest-92041).
 - [ ] `eat.c` givit — blocks 1/553 corpus sessions (first at step 70): C «You feel less concerned about becoming petrified. The grid b» vs JS «You feel less concerned about becoming petrified The grid bu». Probe: `node scripts/hidden-proxy.mjs verify givit` (scen-wish-Rogue-91119).
 - [ ] `do_wear.c` stop_donning — blocks 1/553 corpus sessions (first at step 93): C «The kitten drops a gold piece. You stop studying.» vs JS «The kitten drops a gold piece. You stop studying.». Probe: `node scripts/hidden-proxy.mjs verify stop_donning` (scen-wish-Wizard-92135).
 - [ ] `eat.c` doeat_nonfood — blocks 1/553 corpus sessions (first at step 138): C «You feel guilty. This meatball is delicious!» vs JS «This meatball is delicious!». Probe: `node scripts/hidden-proxy.mjs verify doeat_nonfood` (scen-wish-Monk-92207).
 - [ ] `pray.c` gcrownu — blocks 1/553 corpus sessions (first at step 79): C «The barrow wight wields a long sword!--More--» vs JS «The barrow wight wields a long sword! The barrow wight hits!». Probe: `node scripts/hidden-proxy.mjs verify gcrownu` (scen-wish-Ranger-91103).
 - [ ] `detect.c` dosearch — blocks 4/553 corpus sessions (first at step 54): C «You are hit by an orcish dagger. You stop searching.» vs JS «You are hit by an orcish dagger. Hachi bites the goblin.--Mo». Probe: `node scripts/hidden-proxy.mjs verify dosearch` (scen-intrinsic-Samurai-92017, scen-normal-Archeologist-92012, scen-normal-Wizard-92127).
+- [ ] `mkmaze.c` walkfrom/maze0xy/populate_maze/create_maze — maze-walk builder callers deferred (named data.md:883; `is_solid` retired, `mazexy` live). C RNG surface: maze construction draws. No corpus session currently blocks on it — port the named family.
+- [ ] `sounds.c` dosounds feature gates — findgd migrating / Is_sanctum / Soundeffect / temple Hallu pantheon RNG still deferred (named absent.md:16). C RNG + You_hear message surface.
+- [ ] `shk.c` u_entered_shop Soundeffect/Hallu shkname remainder (named absent.md:16; deserted/angry/Invis/doorway shipped D-1080). Shop-welcome message surface.
+- [ ] `pray.c` pleased gifts (named debt.md:23). Gift-grant message surface.
+- [ ] `artifact.c` defended()/DFLAG1 (named data.md:106; per-adtyp neighbors shipped D-1862). Defense message + RNG surface.
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 
