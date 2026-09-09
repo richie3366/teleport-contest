@@ -8,6 +8,13 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-09 — D-2173 `steed.c` put_saddle_on_mon: local pick_saddle linked minvent without where/ocarry, hanging relobj_on_death on the first saddled-mon death (2 js-throw sessions move to later owners)
+
+**C locus:** 
+**JS:** 
+**Change:** 
+**Verify:** 
+**Next:** (see LOOP-QUEUE)
 ## 2026-09-09 — D-2172 `objnam.c` readobjnam wishing-abuse deny arm: quest artifacts skip the `rn2(nartifact_exist())` roll in C (`||` short-circuit), JS rolled unconditionally (Rogue-92221 PASS)
 
 **C locus:** 

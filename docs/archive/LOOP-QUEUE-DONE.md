@@ -5,10 +5,13 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `end.c` savelife — lifesave-decline More-state residual of the D-2172 touch_artifact row: scen-wish-Valkyrie-92014 step 49/66 kind=screen at artifact.c:966: C «The bow named the Longbow of Diana evades your grasp!» vs JS same + `--More--`. RNG matched through step 48 incl. C `rn2(1)=0 @ readobjnam(objnam.c:5374)` (Longbow non-quest, both sides roll) + `d(4,10)=32` blast + death + Die?-decline; step-49 C `rn2(100)=85 @ makewish(zap.c:6421)` (= JS ublesscnt `rn1(100,50)`, js/zap.js:6728, C order kept) then evade on a clean topline. JS evade text+position correct, only stale More pending → writer is the Die?-decline message state (end.c savelife / display More), NOT touch_artifact/readobjnam/makewish (all C-faithful here; cf. D-2051 family). Probe: `node scripts/hidden-proxy.mjs verify touch_artifact` (expect Valkyrie-92014 → PASS or a later owner after a savelife/More-state port; never re-pop touch_artifact for this More). No seed/step/coordinate gates. **Addressed:** D-2172
+- [x] `js` js-throw — blocks 2/553 corpus sessions (first at step undefined): C «» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify js-throw` (scen-normal-Knight-92182, scen-wish-Knight-92034). **Addressed:** D-2173
 
 
-- [x] `artifact.c` touch_artifact — blocks 1/553 corpus sessions (first at step 92): C draws `d(4,10)=22` in touch_artifact, JS `rn2(1)=0` from readobjnam(readobjnam.js:1280). Probe: `node scripts/hidden-proxy.mjs verify touch_artifact` (scen-wish-Rogue-92221). **Addressed:** D-2172
+- [x] `end.c` savelife — lifesave-decline More-state residual of the D-2172 touch_artifact row: scen-wish-Valkyrie-92014 step 49/66 kind=screen at artifact.c:966: C «The bow named the Longbow of Diana evades your grasp!» vs JS same + `--More--`. RNG matched through step 48 incl. C `rn2(1)=0 @ readobjnam(objnam.c:5374)` (Longbow non-quest, both sides roll) + `d(4,10)=32` blast + death + Die?-decline; step-49 C `rn2(100)=85 @ makewish(zap.c:6421)` (= JS ublesscnt `rn1(100,50)`, js/zap.js:6728, C order kept) then evade on a clean topline. JS evade text+position correct, only stale More pending → writer is the Die?-decline message state (end.c savelife / display More), NOT touch_artifact/readobjnam/makewish (all C-faithful here; cf. D-2051 family). Probe: `node scripts/hidden-proxy.mjs verify touch_artifact` (expect Valkyrie-92014 → PASS or a later owner after a savelife/More-state port; never re-pop touch_artifact for this More). No seed/step/coordinate gates. **Addressed:** D-2172 `71c6e030`
+
+
+- [x] `artifact.c` touch_artifact — blocks 1/553 corpus sessions (first at step 92): C draws `d(4,10)=22` in touch_artifact, JS `rn2(1)=0` from readobjnam(readobjnam.js:1280). Probe: `node scripts/hidden-proxy.mjs verify touch_artifact` (scen-wish-Rogue-92221). **Addressed:** D-2172 `71c6e030`
 
 
 - [x] `teleport.c` goodpos — blocks 1/553 corpus sessions (first at step 131): C draws `rn2(13)=5` in goodpos, JS `rn2(3)=0` from movebubbles(mklev.js:16122). Probe: `node scripts/hidden-proxy.mjs verify goodpos` (scen-tour-Tourist-92100). **Addressed:** D-2171 `d316606c`

@@ -3235,6 +3235,9 @@ D-0612 squeeze) |
 JS: `js/steed.js` — partial
 
 **`can_saddle` + `put_saddle_on_mon`** (D-0212); 
+**`put_saddle_on_mon` mpickobj linkage** (D-2173; local
+`pick_saddle` linked minvent without where/ocarry — C
+`steed.c:142–163` calls `mpickobj`, panic on merge unreachable); 
 **`use_saddle` apply SADDLE + `can_saddle` whirly/unsolid** (D-1008); 
 **`can_ride`/`doride`/`mount_steed`/`landing_spot`/`dismount_steed` BYCHOICE** (D-0213); 
 **riding display / pet mcolor / saddled / Ride botl** (D-0214); 

@@ -1,6 +1,6 @@
 {
- "commit": "5dbac9f3",
- "at": "2026-09-09T01:17:13.955Z",
+ "commit": "71c6e030",
+ "at": "2026-09-09T01:37:25.446Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6210,8 +6210,19 @@
   "scen-normal-Knight-92182": {
    "src": "corpus",
    "passed": false,
-   "loc": null,
-   "error": "worker: "
+   "rngM": 3067,
+   "rngT": 6974,
+   "scrM": 98,
+   "scrT": 177,
+   "kind": "rng",
+   "step": 95,
+   "steps": 177,
+   "owner": "obj_resists",
+   "loc": "zap.c:1469",
+   "jsOwner": "distfleeck(monmove.js:861)",
+   "cTopline": "You miss the saddled pony. Your saddled pony eats an uncursed apple.",
+   "jsTopline": "You miss the saddled pony.",
+   "error": null
   },
   "scen-normal-Knight-92215": {
    "src": "corpus",
@@ -7865,8 +7876,19 @@
   "scen-wish-Knight-92034": {
    "src": "corpus",
    "passed": false,
-   "loc": null,
-   "error": "worker: "
+   "rngM": 3219,
+   "rngT": 3346,
+   "scrM": 175,
+   "scrT": 193,
+   "kind": "rng",
+   "step": 175,
+   "steps": 193,
+   "owner": "mhitm_mgc_atk_negated",
+   "loc": "uhitm.c:87",
+   "jsOwner": "mhitm_knockback(mhitm.js:2060)",
+   "cTopline": "This book is so dull that you can't keep your eyes open.--More--",
+   "jsTopline": "This book is so dull that you can't keep your eyes open. You wake up.",
+   "error": null
   },
   "scen-wish-Knight-92045": {
    "src": "corpus",
