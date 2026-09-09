@@ -9,7 +9,7 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 - **Fortress guards.** Do not reopen display_inventory dismiss / gameover heading / keep_status, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue `S_ndoor`, bigrm-2, getpos, summonmu, lookat, `do_statusline1`, snapshot, fakewiz, Ice/Boulder, `roles[]`, pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
 - **Luck runs when invulnerable; dialogues do not** (`timeout.c:623`); STONED/SLIMED expiry silent.
 - **next_ident = symptom owner:** fix the WRITER, not the table reader.
-- **Symptom-owner parks — do not re-pop (falsifiers: LOOP-QUEUE Parked):** obj_resists · m_move · rloc · lightdamage · mattackm/can_carry · spoteffects · mon_adjust_speed · zapyourself · doname_base · hmonas · minliquid_core.
+- **Symptom-owner parks — do not re-pop (falsifiers: LOOP-QUEUE Parked):** obj_resists · m_move · rloc · lightdamage · mattackm/can_carry · spoteffects · mon_adjust_speed · zapyourself · doname_base · hmonas · minliquid_core · distfleeck.
 - **Healer-92107 residual (D-2137 Next):** destroy double-count (`mhitu.js:901` `+=` vs C `(void)`); audit fire/elec arms.
 - **STALE parks — do not re-pop (full falsifiers: LOOP-QUEUE Parked):** lesshungry · rndcurse · mhitm_ad_famn · regen_hp · barehands · do_mapping · adjattrib (look-path stale; live owner pick_lock feel/see@175).
 - **slimed park:** comment-line owner; dual writer (landing gate + Sick store). Falsifier + probe: LOOP-QUEUE Parked.

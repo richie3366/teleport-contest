@@ -94,7 +94,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `monmove.c` distfleeck — blocks 7/553 corpus sessions (first at step 103): C draws `rn2(5)=2` in distfleeck, JS `rn2(1)=0` from rnd_otyp_by_namedesc(readobjnam.js:277). Probe: `node scripts/hidden-proxy.mjs verify distfleeck` (scen-intrinsic-Rogue-92172, scen-intrinsic-Samurai-92239, scen-normal-Caveman-92053). (name_to_monplus parked 2026-09-09: stale owner, session fully PASS at HEAD via D-2001 d9e7079e — see LOOP-QUEUE Parked.)
+**Next cluster:** `attrib.c` exercise — blocks 2/553 corpus sessions (first at step 48): C draws `rn2(2)=1` in exercise, JS `rn2(100)=7` from makewish(zap.js:6638). Probe: `node scripts/hidden-proxy.mjs verify exercise` (scen-wish-Valkyrie-92014, scen-wish-Valkyrie-92206). (distfleeck parked 2026-09-09: symptom owner, Rogue-92172 PASS at HEAD, 6 same-step incl. 3 already parked; domove_bump_mon re-queued as Open — see LOOP-QUEUE Parked. name_to_monplus parked 2026-09-09: stale owner, session fully PASS at HEAD via D-2001 d9e7079e — see LOOP-QUEUE Parked.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2168 (index).**
 <!-- recent:begin -->

@@ -5,8 +5,8 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-08
 
-- [x] `polyself.c` newman — blocks 1/553 corpus sessions (first at step 127): C draws `rn2(5)=0` in newman, JS draws nothing. Probe: `node scripts/hidden-proxy.mjs verify newman` (scen-poly-Samurai-91106). **Addressed:** D-2168
-- [x] `wield.c` chwepon — blocks 1/553 corpus sessions (first at step 133): C « You were polymorphed into a yeti (106).» vs JS « You were fast innately.» (enlightenment menu row 19; full RNG 3608/3608). Probe: `node scripts/hidden-proxy.mjs verify chwepon` (scen-poly-Samurai-91106). Source: D-2168 verified movement (was newman@127). **Addressed:** D-2168
+- [x] `polyself.c` newman — blocks 1/553 corpus sessions (first at step 127): C draws `rn2(5)=0` in newman, JS draws nothing. Probe: `node scripts/hidden-proxy.mjs verify newman` (scen-poly-Samurai-91106). **Addressed:** D-2168 `48fb0115`
+- [x] `wield.c` chwepon — blocks 1/553 corpus sessions (first at step 133): C « You were polymorphed into a yeti (106).» vs JS « You were fast innately.» (enlightenment menu row 19; full RNG 3608/3608). Probe: `node scripts/hidden-proxy.mjs verify chwepon` (scen-poly-Samurai-91106). Source: D-2168 verified movement (was newman@127). **Addressed:** D-2168 `48fb0115`
 
 
 - [x] `lock.c` pick_lock feel/see no-door arm — blocks 1/553 corpus sessions (first at step 175): C «You feel no door there.» vs JS «You see no door there.». Probe: `node scripts/hidden-proxy.mjs verify pick_lock` (scen-normal-Samurai-92071). **Addressed:** D-2167 `4508ab31`
