@@ -350,7 +350,8 @@ cloak 3-way (wrapping tears/smock knot/clasp) via `cloak_simple_name` +
 random `rn1(SPECIAL_PM)`** (D-0928 #1103; **POLY_LOW_CTRL forcecontrol downgrade D-1428**;
 **controllable_poly gate + !polyok the()/bare/an() article + POLY_MONSTER isvamp do_vampyr D-2063**;
 **non-force controllable getlin + thats_enough fall-through D-2177**;
-were/dragon-merge/POLY_REVERT + placeholder substitutes + mkclass_poly +
+were/dragon-merge/POLY_REVERT + placeholder substitutes +
+by_class class-word pick D-2248 (module-local `armor_to_dragon` + `mkclass_poly` + `rn2(3)` retry live) +
 post-loop isvamp/draconian goto + wizard rehumanize + light-src deferred); **polymon mhmax block** (D-2024; C `polyself.c:859–872` dragon/`golemhp(mntmp)`/`d(mlvl,8)`+home-elemental-x3 verbatim — `golemhp` exported from `makemon.js`, no clone #2; golem `d()` + elemental-x3 defers retired); **polymon eyeless→seeing `was_blind&&!Blind` arm** (D-2050; C `polyself.c:739` entry capture + `:899–902` `set_itimeout(HBlinded,1)` + `make_blinded(0,TRUE)` in the live `polyman` shape, after `break_armor`/`drop_weapon` per C `:888`-before-`:899` order; no new imports); 
 **`set_mon_data` hero umov prorate** (D-0717))/`#invoke`/`doinvoke`/`arti_invoke` 
 !inv_prop→nothing_happens+ECMD_TIME (D-0715) + 
