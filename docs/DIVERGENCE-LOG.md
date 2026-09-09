@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2221 — `wield.c` weldmsg caller wiring: dowield/doswapweapon/doquiver_core printed "Your weapon" (queue row, 1 blocked)
+
+- **Status:** shipped (Open queue row `wield.c` weldmsg — 1 corpus block (scen-wish-Priest-92041 step 158/171); `verify --fn weldmsg` → 1 PASS, 0 moved, 0 worse → PROGRESS + green/strict/cohort PASS. Row archived. No review cited, no stamp owed.)
+- **Symptom:** screen-first at step 158: C «Your grappling hook is welded to your hand!» vs JS «Your weapon is welded to your hand!» (rngM=rngT=3327, blockedRng 0, stepFns empty — pure message divergence on the wished cursed grappling hook's wield; 13 screens unlocked).
+- **C locus:** `wield.c:1061–1074` `weldmsg` (`pline("%s welded to your %s!", Yobjnam2(obj, "are"), hand)` `:1072`, owornmask suppress/restore, bimanual plural) + its three in-file call sites `:383` (dowield), `:473` (doswapweapon), `:572` (doquiver_core newquiver==uwep) — all `weldmsg(uwep)`; dowield/doquiver add `reset_remarm()` (`:384–385`, `:573`).
+- **JS was:** `js/wield.js` `weldmsg` (`:192–200`) already C-faithful, but all three callers printed a hardcoded `'Your weapon is welded to your hand!'` and dowield/doquiver lacked `reset_remarm()`; `pickup.js:2797` already called `weldmsg` (precedent).
+- **Fix:** `js/wield.js` only — the three arms now `await weldmsg(u.uwep)` in C position/order (dowield keeps weldmsg→reset_remarm→unsplit-undo; doquiver keeps `weld_res = !bknown` pre-`welded()` + `weld_res ? 1 : 0`); `reset_remarm` joins the pre-existing static `do_wear.js` edge (`setworn` already imported; hoisted-function, no new module edge, no TDZ read).
+- **JS:** 1 file (`wield.js`, +8/−4 net), under the 600/10 caps. Rule #2 clean; no DIAG/FORCE/seed gates. No committed probes. Density note: below-40 insertions on an Open row, but C is that small (13-line function + three one-line call arms; D-2218/D-2214 precedent).
+- **Verify:** `node scripts/verify.mjs --fn weldmsg` → PASS syntax (1 changed js file: js/wield.js) · PASS rule2 · PASS hidden (verify weldmsg: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS; scen-wish-Priest-92041: PASS) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed per runner) · VERIFY: PASS. Final verify ran after the last js/ edit (map/D-log/queue edits only after; no D-1831 gap).
+- **Named omissions:** local `Yobjnam2` (wield.js:1108, xname+`Your`+vtense) vs canonical objnam export (cxname+quan+otense+shk_your) — pre-existing named gap (chwepon D-0435/D-1692), untouched; `dothrow.c:151` throw_obj welded gate (named omit js/dothrow.js:1973), `do_wear.c:2201`, `do.c:724` dodrop caller wiring stay deferred — no corpus block on any.
+- **Next:** do not re-pop `weldmsg` for the "Your weapon" surface (all wield.c arms live). A future weld-message divergence attributes to its named arm (Yobjnam2 canonical import or the deferred non-wield.c caller). Do not invent a FAIL peel.
+- **Cited falsifier grade:** measured (pinned `wield.c:1061–1074` + `:340–400`/`:455–605` call-site windows via brief + line re-reads; `hidden-proxy show` stepFns-empty/blockedRng-0 record; C-vs-JS printer search proving the literal's three JS sites; post-fix `verify --fn weldmsg` full-gate PASS with the cited session fully PASS; no JS FORCE/DIAG/seed reads used).
+
 ## D-2220 — `artifact.c` spec_applies defended()/DFLAG1 remainder (queue row, 0 blocked)
 
 - **Status:** shipped (Open queue row `artifact.c` defended()/DFLAG1 (named data.md:106; per-adtyp neighbors shipped D-1862) — 0 corpus blocks, named-omission row; `verify --fn spec_applies` → vacuous-hidden note + green/strict/cohort PASS → ship with the public gates per the runner. Row archived. No review cited, no stamp owed.)

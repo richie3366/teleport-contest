@@ -996,7 +996,8 @@ local `Yobjnam2` vs objnam export named); omit `cantwield` poly, `cant_wield_cor
 gone-trio `update_inventory`** (D-1204); full `setworn` props; 
 **`getobj_wield` SUGGEST weapons/weptools + `- ` prefix + compactify when suggested>5** (D-0457; 
 `?`/`*` pickinv still deferred); **`body_part`** via `objnam.js`
-`body_part_latebound` (do not import `polyself.js` — direct cycle).
+`body_part_latebound` (do not import `polyself.js` — direct cycle); 
+**`weldmsg` + `dowield`/`doswapweapon`/`doquiver_core` weld arms** (D-2221; C `wield.c:383`/`473`/`572` call `weldmsg(uwep)`, `:384–385`/`573` `reset_remarm`; JS printed hardcoded `'Your weapon is welded to your hand!'` — now `await weldmsg(u.uwep)` + `reset_remarm` via the pre-existing `do_wear.js` edge; `dowield` keeps C order weldmsg→reset_remarm→unsplit-undo; `doquiver_core` keeps `weld_res` pre-`welded()` + `weld_res ? 1 : 0`; local `Yobjnam2` vs objnam export still named (chwepon D-0435/D-1692); `dothrow.c:151` throw_obj + `do_wear.c:2201` + `do.c:724` dodrop caller wiring stay deferred — no corpus block).
 
 ### `src/do_wear.c`
 

@@ -1,6 +1,6 @@
 {
- "commit": "44843418",
- "at": "2026-09-09T14:35:16.177Z",
+ "commit": "42fe12f1",
+ "at": "2026-09-09T14:58:22.015Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -8130,19 +8130,19 @@
   },
   "scen-wish-Priest-92041": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 3327,
    "rngT": 3327,
-   "scrM": 170,
+   "scrM": 171,
    "scrT": 171,
-   "kind": "screen",
-   "step": 158,
+   "kind": null,
+   "step": null,
    "steps": 171,
-   "owner": "weldmsg",
-   "loc": "wield.c:1072",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "Your grappling hook is welded to your hand!",
-   "jsTopline": "Your weapon is welded to your hand!",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-wish-Priest-92098": {

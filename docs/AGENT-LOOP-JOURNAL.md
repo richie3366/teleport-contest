@@ -23,6 +23,14 @@ Review iteration over the 8 JS-touching SHAs since d22f6c29 (D-2190..D-2197), ol
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-09 — D-2221 `wield.c` weldmsg caller wiring: dowield/doswapweapon/doquiver_core printed "Your weapon" (queue row, 1 blocked)
+
+**C locus:** `wield.c:1061–1074` `weldmsg` (`pline("%s welded to your %s!", Yobjnam2(obj, "are"), hand)` `:1072`, owornmask suppress/restore, bimanual plural) + its three in-file call sites `:383` (dowield), `:473` (doswapweapon), `:572` (doquiver_core newquiver==uwep) — all `weldmsg(uwep)`; dowield/doquiver add `reset_remarm()` (`:384–385`, `:573`).
+**JS:** 1 file (`wield.js`, +8/−4 net), under the 600/10 caps. Rule #2 clean; no DIAG/FORCE/seed gates. No committed probes. Density note: below-40 insertions on an Open row, but C is that small (13-line function + three one-line call arms; D-2218/D-2214 precedent).
+**Change:** `js/wield.js` only — the three arms now `await weldmsg(u.uwep)` in C position/order (dowield keeps weldmsg→reset_remarm→unsplit-undo; doquiver keeps `weld_res = !bknown` pre-`welded()` + `weld_res ? 1 : 0`); `reset_remarm` joins the pre-existing static `do_wear.js` edge (`setworn` already imported; hoisted-function, no new module edge, no TDZ read).
+**Verify:** `node scripts/verify.mjs --fn weldmsg` → PASS syntax (1 changed js file: js/wield.js) · PASS rule2 · PASS hidden (verify weldmsg: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS; scen-wish-Priest-92041: PASS) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed per runner) · VERIFY: PASS. Final verify ran after the last js/ edit (map/D-log/queue edits only after; no D-1831 gap).
+**Named:** local `Yobjnam2` (wield.js:1108, xname+`Your`+vtense) vs canonical objnam export (cxname+quan+otense+shk_your) — pre-existing named gap (chwepon D-0435/D-1692), untouched; `dothrow.c:151` throw_obj welded gate (named omit js/dothrow.js:1973), `do_wear.c:2201`, `do.c:724` dodrop caller wiring stay deferred — no corpus block on any.
+**Next:** do not re-pop `weldmsg` for the "Your weapon" surface (all wield.c arms live). A future weld-message divergence attributes to its named arm (Yobjnam2 canonical import or the deferred non-wield.c caller). Do not invent a FAIL peel.
 ## 2026-09-09 — D-2220 `artifact.c` spec_applies defended()/DFLAG1 remainder (queue row, 0 blocked)
 
 **C locus:** `artifact.c:1008–1060` `spec_applies` (DFLAG1 arm `:1024–1025`; `defended` guard `:1036–1037` ahead of the ATTK switch); callee `mondata.c:89–124` `defended` (already live at `js/mondata.js:135`, `sym.mjs` sync). Verified no `artilist.h` row sets SPFX_DFLAG1 (grep: DFLAG1 appears only at `src/artifact.c:1024`; the artilist uses DFLAG2/DCLAS/DMONS) — the arm is unreachable today but live per C.
