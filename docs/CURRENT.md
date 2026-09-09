@@ -86,7 +86,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `eat.c` doeat_nonfood — blocks 1/553 corpus sessions (first at step 138): C «You feel guilty. This meatball is delicious!» vs JS «This meatball is delicious!». Probe: `node scripts/hidden-proxy.mjs verify doeat_nonfood` (scen-wish-Monk-92207).
+**Next cluster:** `pray.c` gcrownu — blocks 1/553 corpus sessions (first at step 79): C «The barrow wight wields a long sword!--More--» vs JS «The barrow wight wields a long sword! The barrow wight hits!». Probe: `node scripts/hidden-proxy.mjs verify gcrownu` (scen-wish-Ranger-91103). **Parked same iter (STALE, no js/):** Ranger-91103 PASSES at HEAD (RNG 3349/3349, Screen 192/192); owner pray.c:932 is mksobj, true printer mon_wield_item.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2214 (index).**
 <!-- recent:begin -->
