@@ -23,7 +23,7 @@ import {
 } from './const.js';
 import { thrwmu, spitmu, breamu } from './mthrowu.js';
 import { find_offensive, use_offensive } from './muse.js';
-import { destroy_items, resists_drli, Drain_resistance } from './zap.js';
+import { destroy_items, resists_drli, Drain_resistance, drain_item } from './zap.js';
 import { nomul, stop_occupation, maybe_half_phys, is_pool, losehp, unmul, fall_asleep } from './hack.js';
 import { upstart } from './hacklib.js';
 import { rnd, d, rn2, rn1 } from './rng.js';
@@ -41,13 +41,14 @@ import {
 import { MON_WEP, mon_wield_item, dmgval, hitval, drain_weapon_skill } from './weapon.js';
 import { arti_reflects, artifact_hit, permapoisoned, is_art, defends } from './artifact.js';
 import { is_pole, welded, is_weptool } from './wield.js';
-import { xname, doname, an, yname, the, simpleonames, safe_qbuf, mimic_obj_name, makeplural } from './objnam.js';
+import { xname, doname, an, yname, the, simpleonames, safe_qbuf, mimic_obj_name, makeplural, Yobjnam2 } from './objnam.js';
 import { objectNames, ARMOR_CLASS, COIN_CLASS, SILVER, WEAPON_CLASS } from './objects.js';
 import { objects_at } from './mkobj.js';
 import { steal, stealamulet, unresponsive, remove_worn_item } from './steal.js';
 import { cloneu } from './sit.js';
 import {
     stop_donning, setworn, Ring_on, Ring_gone, suit_simple_name, hard_helmet,
+    some_armor,
 } from './do_wear.js';
 import { mpickobj } from './makemon.js';
 import { money2mon } from './shk.js';
@@ -944,6 +945,48 @@ async function mhitm_ad_fire_u(mtmp, mattk, mhm) {
         await burn_away_slime();
     } else {
         mhm.damage = 0;
+    }
+}
+
+/**
+ * C ref: uhitm.c mhitm_ad_ench `:3603–3644` — mhitu (monster→you) arm.
+ * Non-verbose mhitm_mgc_atk_negated(FALSE) gate first (burns rn2(10),
+ * no message), then hitmsg; when !negated, some_armor else the rn2(5)
+ * ring pick, drain_item, and the "less effective" pline.
+ * uhitm/mhitm arms are C no-ops ("just do damage", no msomearmor).
+ */
+async function mhitm_ad_ench_u(mtmp, mattk, mhm) {
+    void mhm;
+    const u = game.u || {};
+    const negated = await mhitm_mgc_atk_negated(mtmp, null, false);
+    await hitmsg(mtmp, mattk);
+    // C: uncancelled is sufficient enough; please don't make this
+    // attack less frequent
+    if (!negated) {
+        let obj = some_armor(game.youmonst);
+        if (!obj) {
+            // C: some rings are susceptible; amulets and blindfolds
+            // aren't (at present)
+            switch (rn2(5)) {
+            case 0:
+                break;
+            case 1:
+                obj = u.uright;
+                break;
+            case 2:
+                obj = u.uleft;
+                break;
+            case 3:
+                obj = u.uamul;
+                break;
+            case 4:
+                obj = u.ublindf;
+                break;
+            }
+        }
+        if (obj && await drain_item(obj, false)) {
+            await pline(`${Yobjnam2(obj, 'seem')} less effective.`);
+        }
     }
 }
 
@@ -2661,7 +2704,7 @@ async function mhitm_ad_stun_u(mtmp, mattk, mhm) {
  * PHYS + ELEC + COLD + FIRE + TLPT + DRST/DRDX/DRCO + SITM/SEDU + SSEX (D-1750)
  * + BLND + STON + LEGS + POLY (D-1004) + DRIN (D-1329) + WRAP (D-1331) + SLEE
  * + DRLI + RUST + CORR + STCK + PLYS + FAMN + SLOW + WERE + HEAL + PEST
- * + SAMU + STUN + DISE; other adtyps zero damage.
+ * + SAMU + STUN + DISE + ENCH; other adtyps zero damage.
  */
 async function mhitm_adtyping_u(mtmp, mattk, mhm) {
     switch (mattk.adtyp | 0) {
@@ -2742,6 +2785,9 @@ async function mhitm_adtyping_u(mtmp, mattk, mhm) {
         break;
     case AD_HEAL:
         await mhitm_ad_heal_u(mtmp, mattk, mhm);
+        break;
+    case AD_ENCH:
+        await mhitm_ad_ench_u(mtmp, mattk, mhm);
         break;
     case AD_PEST:
         await mhitm_ad_pest_u(mtmp, mattk, mhm);

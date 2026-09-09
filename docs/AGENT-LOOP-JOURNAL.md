@@ -8,6 +8,13 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-09 — D-2174 `uhitm.c` mhitm_ad_ench mhitu arm: JS skipped the non-verbose MC gate (and hitmsg) before knockback (Knight-92034 PASS; Monk-92013 residual is More-only)
+
+**C locus:** 
+**JS:** 
+**Change:** 
+**Verify:** 
+**Next:** (see LOOP-QUEUE)
 ## 2026-09-09 — D-2173 `steed.c` put_saddle_on_mon: local pick_saddle linked minvent without where/ocarry, hanging relobj_on_death on the first saddled-mon death (2 js-throw sessions move to later owners)
 
 **C locus:** 

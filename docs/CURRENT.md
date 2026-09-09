@@ -95,10 +95,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `js` js-throw — blocks 2/553 corpus sessions (first at step undefined): C «» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify js-throw` (scen-normal-Knight-92182, scen-wish-Knight-92034).
+**Next cluster:** `uhitm.c` mhitm_mgc_atk_negated — blocks 1/553 corpus sessions (first at step 79): C «The lich touches you! You avoid harm.--More--» vs JS «The lich touches you! You avoid harm.». Probe: `node scripts/hidden-proxy.mjs verify mhitm_mgc_atk_negated` (scen-wish-Monk-92013).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2173 (index).**
+**Keep D-0845…D-2174 (index).**
 <!-- recent:begin -->
+**D-2174**  — 
 **D-2173**  — 
 **D-2172**  — 
 **D-2171**  — 
@@ -106,11 +107,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2169**  — 
 **D-2168**  — 
 **D-2167**  — 
-**D-2166**  — 
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2173; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2174; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

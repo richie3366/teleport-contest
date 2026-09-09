@@ -1,6 +1,6 @@
 {
- "commit": "71c6e030",
- "at": "2026-09-09T01:37:25.446Z",
+ "commit": "2dcdffa1",
+ "at": "2026-09-09T02:05:19.832Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -7875,19 +7875,19 @@
   },
   "scen-wish-Knight-92034": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 3219,
+   "passed": true,
+   "rngM": 3346,
    "rngT": 3346,
-   "scrM": 175,
+   "scrM": 193,
    "scrT": 193,
-   "kind": "rng",
-   "step": 175,
+   "kind": null,
+   "step": null,
    "steps": 193,
-   "owner": "mhitm_mgc_atk_negated",
-   "loc": "uhitm.c:87",
-   "jsOwner": "mhitm_knockback(mhitm.js:2060)",
-   "cTopline": "This book is so dull that you can't keep your eyes open.--More--",
-   "jsTopline": "This book is so dull that you can't keep your eyes open. You wake up.",
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-wish-Knight-92045": {

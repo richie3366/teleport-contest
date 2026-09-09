@@ -3057,7 +3057,7 @@ small-monster otyp switch** (D-0189); **`dmgval` shade/`shade_glare` D-1354**;
 **`weapon_hit_bonus` (b.h. unskilled +1; martial/twoweapon/riding)** (D-0187); 
 **`dbon` + `weapon_dam_bonus` in `hmon_hitmon_dmg_recalc`** (D-0363; Basic martial +3; 
 `use_skill` practice; PROJECTILE→launcher skillwep + may-advance msg deferred); 
-**`hitmu`→`mhitm_adtyping` PHYS+ELEC+DRST/DRDX/DRCO+FIRE+TLPT+STCK+PLYS + `mhitm_mgc_atk_negated`** (D-0198/D-0497/D-2005) + 
+**`hitmu`→`mhitm_adtyping` PHYS+ELEC+DRST/DRDX/DRCO+FIRE+TLPT+STCK+PLYS+ENCH + `mhitm_mgc_atk_negated`** (D-0198/D-0497/D-2005/D-2174) + 
 **`poisoned`/`poisontell` attrib-loss `d(2,2)` + HP/fatal arms** (D-0869; 
 name_to_mon G_UNIQ / Half_gas_damage / trap·throw callers deferred) + 
 **AD_SITM/AD_SEDU→`mhitm_ad_sedu`→`steal`** (D-0686; brag `pline_mon` D-1240; 
@@ -3401,7 +3401,7 @@ Unaware export), `ugolemeffects`/`golemeffects` (no JS port), Upolyd
 explosion_to_glyph is D-1738); 
 **`xkilled` treasure `mkobj(RANDOM_CLASS)` + food/size filters** (D-0229); 
 **`xkilled` final `newsym` after treasure/corpse** (D-0304); 
-**`mhitm_mgc_atk_negated` + hero armor `a_can`** (D-0198); 
+**`mhitm_mgc_atk_negated` + hero armor `a_can`** (D-0198; mhitu AD_ENCH caller D-2174); 
 **`attack_checks`→`stumble_onto_mimic`/`that_is_a_mimic` next_ident** (D-0207); 
 **`that_is_a_mimic` live `object_from_map` / defsyms / `MIM_OMIT_WAIT` D-1544** 
 (`uhitm.c:6201–6276`; gold `quan=2`; furniture PCHAR desc; masked `M_AP_TYPE`; 
