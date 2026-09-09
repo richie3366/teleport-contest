@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `do_wear.c` accessory_or_armor_on — blocks 1/553 corpus sessions (first at step 58): C «You finish your dressing maneuver.--More--» vs JS «You finish your dressing maneuver.». Probe: `node scripts/hidden-proxy.mjs verify accessory_or_armor_on` (scen-genesis-Tourist-92144).
 - [ ] `invent.c` look_here — blocks 1/553 corpus sessions (first at step 121): C «You try to feel what is lying here on the floor.--More--» vs JS «It hits!». Probe: `node scripts/hidden-proxy.mjs verify look_here` (scen-genesis-Wizard-92223).
 - [ ] `trap.c` m_harmless_trap residual arms — map-driven (c-js-map data.md): anti-magic/webmaker/`defended` resists, flyer check_in_air + SLP/FIRE/BEAR/WEB/RUST/VIBRATING/PIT done-arms, Deaf+mindless silent, empty-door `pline_mon`, drawbridge-under pool/lava (`disturb_buried_zombies` already addressed — out of scope). Probe: `node scripts/brief.mjs m_harmless_trap`.
 - [ ] `dothrow.c` thitm stone_missile/passes_rocks harmless arm — map-driven (c-js-map data.md): `stone_missile`/`passes_rocks` harmless arm in `thitm` still named. Probe: `node scripts/brief.mjs thitm`.
@@ -68,6 +67,10 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 - [ ] `fountain.c` gush steed + engulfed-hero arms — map-driven (c-js-map data.md): steed Flying/Levitation, `engulfing_u` flush, `mdrop_special_objs` worn/saddle/`extract_from_minvent` still named. Probe: `node scripts/brief.mjs gush`.
 - [ ] `do.c` heal_legs — map-driven (c-js-map data.md:1048; def `do.c:2449` `heal_legs(int how)` 0 ordinary / 1 dismount / 2 stone): wounded-legs heal path (`disp.botl`, ATEMP DEX restore) still named. Probe: `node scripts/brief.mjs heal_legs`.
 - [ ] `polyself.c` float_vs_flight — map-driven (c-js-map data.md; def `polyself.c:131`): Levitation-vs-Flying I_SPECIAL toggle still named. Probe: `node scripts/brief.mjs float_vs_flight`.
+- [ ] `potion.c` make_hallucinated — blocks 1/553 corpus sessions (first at step 17): C «Oh wow! Everything looks so cosmic! Timeout for sleepy set to 30.--More--» vs JS «Oh wow! Everything looks so cosmic! Timeout for sleepy set to 30.--More--» (identical toplines; first cell diff row 16 map/menu C `&` vs JS `·`). Probe: `node scripts/hidden-proxy.mjs verify make_hallucinated` (scen-intrinsic-Caveman-92052).
+- [ ] `hack.c` trapmove — blocks 1/553 corpus sessions (first at step 83): C «Your limbs are stiffening. You yawn.» vs JS «Your limbs are stiffening.». Probe: `node scripts/hidden-proxy.mjs verify trapmove` (scen-intrinsic-Knight-92016).
+- [ ] `pager.c` do_screen_description — blocks 1/553 corpus sessions (first at step 56): C «floor of a room» vs JS «unexplored area». Probe: `node scripts/hidden-proxy.mjs verify do_screen_description` (scen-normal-Barbarian-92064).
+- [ ] `detect.c` reveal_terrain — blocks 1/553 corpus sessions (first at step 23): C «Showing known terrain and traps only...--More--» vs JS «Showing known terrain and traps only...--More--». Probe: `node scripts/hidden-proxy.mjs verify reveal_terrain` (scen-normal-Caveman-92059).
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 

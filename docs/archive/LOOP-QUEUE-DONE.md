@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
+- [x] `do_wear.c` accessory_or_armor_on — blocks 1/553 corpus sessions (first at step 58): C «You finish your dressing maneuver.--More--» vs JS «You finish your dressing maneuver.». Probe: `node scripts/hidden-proxy.mjs verify accessory_or_armor_on` (scen-genesis-Tourist-92144). **Addressed:** D-2192.
+
+
 - [x] `mon.c` unstuck — blocks 1/553 corpus sessions (first at step 52): C draws `rnd(2)=2` in unstuck, JS `rn2(5)=1` from distfleeck(monmove.js:861). Probe: `node scripts/hidden-proxy.mjs verify unstuck` (scen-genesis-Knight-92002). **Addressed:** D-2191 `ad7c3c30`
 
 

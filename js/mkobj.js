@@ -47,6 +47,7 @@ import {
     G_NOCORPSE, NON_PM as MON_NON_PM,
 } from './monsters.js';
 import { PM_SAMURAI } from './generated/monsters_data.js';
+import { update_inventory } from './invent.js';
 import { distant_name, doname, cxname, The, vtense, corpse_xname } from './objnam.js';
 import {
     ROT_AGE, TAINT_AGE, TROLL_REVIVE_CHANCE,
@@ -523,6 +524,17 @@ export function bless(otmp) {
 export function unbless(otmp) {
     if (!otmp) return;
     otmp.blessed = false;
+}
+
+/**
+ * C ref: mkobj.c set_bknown — set bless/curse-known flag; update_inventory
+ * only when the flag changed, the obj is in hero inventory, and moves > 1.
+ */
+export function set_bknown(obj, onoff) {
+    const val = (onoff | 0) ? 1 : 0;
+    if (!obj || (obj.bknown | 0) === val) return;
+    obj.bknown = val;
+    if (obj.where === OBJ_INVENT && (game.moves | 0) > 1) update_inventory();
 }
 
 /**

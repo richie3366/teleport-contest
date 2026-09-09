@@ -1050,13 +1050,12 @@ skin `W_ARM|I_SPECIAL`, nudist, tux_penalty, botl, `update_inventory`;
 `Blindf_on`/`Blindf_off`** (D-0579; `inaccessible_equipment` / R remove_ok / **Punished `set_bc` D-1769**;
 `toggle_blindness` `Sting_effects(-1)` D-1755) + **empty wear/puton getobj prompt `[*]` not `[*?]`** 
 (D-0584; C `invent.c` `!buf[0]` → `" [*]"`) + 
-**`set_wear` from `moveloop_preamble` → `Helmet_on` fedora Archeologist `change_luck(1)`** (D-0596; 
+**`set_wear` from `moveloop_preamble` → `Helmet_on` full switch** (plain-helm breaks; CAUTION `see_monsters`; BRILLIANCE inline `adj_abon` helm half; CORNUTHAUM CHA±1+botl; DUNCE glow/curse/`set_bknown`/sitting + C-order known tail; OPPOSITE deferred) (D-0596/D-2192; 
 `Ring_on` body / initial `pickup(1)` deferred; **`poly_obj` `set_wear(obj)`** D-1510); 
 **`dragon_armor_handling` + `Armor_on`/`Armor_off` + 
 FAST `EFast` mirror / `Very_fast` uprops** (D-0636; 
 gold `make_hallucinated`, red `see_monsters`, yellow `wielding_corpse`, arti_light burn deferred); 
-omit amulet change/strangle/flying/breathing, ring Glib/cursed-gloves/weld, magic helms beyond
-fedora (canwearobj polyform/weld/trap gates live D-2123 — verysmall/nohands, cantweararm cloak-exception+racial via `worn.js` export, welded-bimanual, helm horns, shield bimanual/twoweap, boots slithy/centaur/4-trap, gloves welded/Glib; retires the getobj-catalogue `canwearobj` polyform named); **`doddoremarm`/`A` empty-worn You are not wearing anything (D-1185)**; 
+omit amulet change/strangle/flying/breathing, ring Glib/cursed-gloves/weld, HELM_OF_OPPOSITE_ALIGNMENT arm (uchangealign unported — D-2192; canwearobj polyform/weld/trap gates live D-2123 — verysmall/nohands, cantweararm cloak-exception+racial via `worn.js` export, welded-bimanual, helm horns, shield bimanual/twoweap, boots slithy/centaur/4-trap, gloves welded/Glib; retires the getobj-catalogue `canwearobj` polyform named); **`doddoremarm`/`A` empty-worn You are not wearing anything (D-1185)**; 
 **ggetobj takeoff D-1602** (`doddoremarm` TRADITIONAL `select_off` + `askchain`) + 
 **`take_off` occupation D-1619** (`do_takeoff` + `takeoff_order` + `oc_delay`; 
 cloak/suit extra; `Amulet_off` ESP/`RESTFUL_SLEEP`/`GUARDING`; drown/strangle/fly named) +
