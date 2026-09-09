@@ -15,6 +15,7 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 - **MISATTRIBUTED/STALE parks — do not re-pop:** vomiting_dialogue · u_stuck_cannot_go · name_to_monplus · mcast_death_touch · save_dungeon · dodown · mv_bubble · one_characteristic · use_pole · trapmove · fig_transform · chwepon.
 - **do_statusline1 park — do not re-pop:** Caveman-92138@72 disclosure row-22; true writer attributes_enlightenment.
 - **list_vanquished park — do not re-pop:** Tourist-92067@224 prompt-identical map cell (29,3) Z/d; display-memory writer (see Parked).
+- **disclose park — do not re-pop:** scen-wish-Priest-92179 conduct-prompt Hallu-glyph 4-cell diff (map (38,15),(39,15),(37,16),(39,16); core RNG 3097/3097) is a display-stream desync with no attributable C writer — disclose paints nothing, all paint arms verified draw-identical, C display draws unlogged (see Parked). Later-step killer text («doppelganger imitating Yeenoghu») is done_in_by imitator, a separate future row.
 
 ## Don't re-check (≤15)
 
