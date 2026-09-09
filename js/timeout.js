@@ -1019,6 +1019,21 @@ export async function nh_timeout() {
         // LEVITATION → float_down (D-1419), INVIS → newsym + You (D-1421),
         // SLIMED → slimed_to_death (C `:686–688`), and STRANGLED →
         // done_timeout(DIED, …) + amulet-vanishes (C `:890–900`).
+        if (!(next & TIMEOUT) && p === STUNNED) {
+            // C timeout.c:737-742 — set_itimeout(&HStun, 1L);
+            // make_stunned(0L, TRUE); if (!Stunned) stop_occupation().
+            // Re-arm the flat to 1 first: the -- above already zeroed it,
+            // and make_stunned only reports ("You feel a bit steadier
+            // now.") when old is nonzero — same shape as the HALLUC arm
+            // below and the CONFUSION/BLINDED/DEAF dedicated arms above.
+            // uprops already reads 0 here (generic loop), and
+            // make_stunned clears the flat, so both slots end at 0 and
+            // the arm cannot re-fire.
+            u.HStun = ((u.HStun | 0) & ~TIMEOUT) | 1;
+            u.Stunned = u.HStun;
+            await make_stunned(0, true);
+            if (!((u.HStun | 0) || (u.Stunned | 0))) await stop_occupation();
+        }
         if (!(next & TIMEOUT) && p === HALLUC) {
             // C timeout.c:777-783 — set_itimeout(&HHallucination, 1L);
             // make_hallucinated(0L, TRUE, 0L); if (!Hallucination)

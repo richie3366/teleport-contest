@@ -1,6 +1,6 @@
 {
- "commit": "8036c1dc",
- "at": "2026-09-09T08:09:43.584Z",
+ "commit": "51fb6091",
+ "at": "2026-09-09T08:14:51.533Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6617,19 +6617,19 @@
   },
   "scen-poly-Archeologist-92226": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 3368,
    "rngT": 3368,
-   "scrM": 137,
+   "scrM": 138,
    "scrT": 138,
-   "kind": "screen",
-   "step": 112,
+   "kind": null,
+   "step": null,
    "steps": 138,
-   "owner": "make_stunned",
-   "loc": "potion.c:117",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "The baluchitherium hits again! You feel a bit steadier now.",
-   "jsTopline": "The baluchitherium hits again!",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-poly-Caveman-91133": {

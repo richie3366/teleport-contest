@@ -11,6 +11,14 @@ Review iteration over the 8 JS-touching SHAs since d22f6c29 (D-2190..D-2197), ol
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-09 — D-2203 `timeout.c` STUNNED expiry: `set_itimeout(&HStun,1)` + `make_stunned(0,TRUE)` + `stop_occupation` (queue row `potion.c` make_stunned, 1 corpus PASS)
+
+**C locus:** `timeout.c:737–742` `case STUNNED:` (`set_itimeout(&HStun, 1L); make_stunned(0L, TRUE); if (!Stunned) stop_occupation();`) reached from the `nh_timeout` uprops `--` expiry switch; message body `potion.c:106–131` `make_stunned` (`!xtime && old` → `You_feel("a bit steadier now.")`). C macros read: `HStun`/`Stunned` ≡ full `uprops[STUNNED].intrinsic` (`youprop.h:80–81`); `set_itimeout` = `(*which & ~TIMEOUT) | itimeout(val)` (`potion.c:74–79`).
+**JS:** 1 file (`timeout.js`, +16/−0), under the 600/10 caps. Rule #2 clean; no DIAG/FORCE/seed gates. No committed probes.
+**Change:** `js/timeout.js` only — generic-loop `p === STUNNED` expiry arm in C order: re-arm flat `u.HStun = (HStun & ~TIMEOUT) | 1` (+ `u.Stunned` mirror) because the `--` above already zeroed it and `make_stunned` only reports when `old` is nonzero — same shape as the HALLUC arm below and the CONFUSION/BLINDED/DEAF dedicated arms above; then `await make_stunned(0, true)` + `if (!(HStun || Stunned)) await stop_occupation()` (C `!Stunned` ≡ HStun-full; flats just equalized by `make_stunned`). No new imports (`make_stunned`, `stop_occupation`, `STUNNED` all in scope); zero RNG draws, matching C. Both slots end at 0 so the arm cannot re-fire.
+**Verify:** `node scripts/verify.mjs --fn make_stunned` → `PASS syntax 1 changed js file(s): js/timeout.js` · `PASS rule2` · `PASS hidden verify make_stunned: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS` (scen-poly-Archeologist-92226: PASS) · `PASS green 2/2` + strict ×2 · `PASS cohort 7/7` · `skip full (no shared file changed per runner)` · `VERIFY: PASS`.
+**Named:** unchanged — remaining silent-clear generic expiries (GLIB, VOMITING-expiry dialogue is live; SLEEPY-expiry fall_asleep+incr per D-2070; `region_dialogue`; Wounded_legs handled by dedicated arm); `make_stunned` Hallu-adjective gate (`u.Hallucination || u.HHallucination` vs C `HHallucination && !Halluc_resistance`) — untouched, no corpus session needs it.
+**Next:** do not re-pop make_stunned for this session (PASS at HEAD). Re-queue nothing from this iter.
 ## 2026-09-09 — D-2202 `bones.c` savebones undead-arise arm: makemon before drop_upon_death (queue row `mkobj.c` next_ident, 4 of 5 sessions PASS)
 
 **C locus:** `bones.c:457–478` savebones `ismnum(u.ugrave_arise)` arm + `mondata.c:1586–1598` `give_u_to_m_resistances` + `bones.c:290` `drop_upon_death` mtmp arm. C creates the risen monster FIRST (`makemon` → `next_ident` + `newmonhp` draws), then drops the inventory into it.

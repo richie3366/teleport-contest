@@ -5,10 +5,13 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `mkobj.c` next_ident residual (D-2202) — blocks 1/553 corpus sessions (first at step 48): C draws `rnd(2)` in next_ident with no newmonhp in-step, JS `rn2(5)` from distfleeck(monmove.js). Probe: `node scripts/hidden-proxy.mjs verify next_ident` (scen-death-Wizard-92187). Falsifier: ordered C step-48 tag dump naming the firing next_ident call site (clone/mkobj/restore/nextoid), then port that writer. **Addressed:** D-2202
+- [x] `potion.c` make_stunned — blocks 1/553 corpus sessions (first at step 112): C «The baluchitherium hits again! You feel a bit steadier now.» vs JS «The baluchitherium hits again!». Probe: `node scripts/hidden-proxy.mjs verify make_stunned` (scen-poly-Archeologist-92226). **Addressed:** D-2203
 
 
-- [x] `mkobj.c` next_ident — blocks 5/553 corpus sessions (first at step 57): C draws `rnd(2)=2` in next_ident, JS `rn2(5)=4` from drop_upon_death(end.js:1311). Probe: `node scripts/hidden-proxy.mjs verify next_ident` (scen-death-Wizard-92120, scen-death-Wizard-92187, scen-genesis-Knight-92068). **Addressed:** D-2202
+- [x] `mkobj.c` next_ident residual (D-2202) — blocks 1/553 corpus sessions (first at step 48): C draws `rnd(2)` in next_ident with no newmonhp in-step, JS `rn2(5)` from distfleeck(monmove.js). Probe: `node scripts/hidden-proxy.mjs verify next_ident` (scen-death-Wizard-92187). Falsifier: ordered C step-48 tag dump naming the firing next_ident call site (clone/mkobj/restore/nextoid), then port that writer. **Addressed:** D-2202 `51fb6091`
+
+
+- [x] `mkobj.c` next_ident — blocks 5/553 corpus sessions (first at step 57): C draws `rnd(2)=2` in next_ident, JS `rn2(5)=4` from drop_upon_death(end.js:1311). Probe: `node scripts/hidden-proxy.mjs verify next_ident` (scen-death-Wizard-92120, scen-death-Wizard-92187, scen-genesis-Knight-92068). **Addressed:** D-2202 `51fb6091`
 
 
 - [x] `potion.c` make_hallucinated — blocks 1/553 corpus sessions (first at step 17): C «Oh wow! Everything looks so cosmic! Timeout for sleepy set to 30.--More--» vs JS «Oh wow! Everything looks so cosmic! Timeout for sleepy set to 30.--More--» (identical toplines; first cell diff row 16 map/menu C `&` vs JS `·`). Probe: `node scripts/hidden-proxy.mjs verify make_hallucinated` (scen-intrinsic-Caveman-92052). **Addressed:** D-2200 `fda2efaf`

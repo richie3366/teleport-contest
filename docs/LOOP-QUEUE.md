@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `potion.c` make_stunned — blocks 1/553 corpus sessions (first at step 112): C «The baluchitherium hits again! You feel a bit steadier now.» vs JS «The baluchitherium hits again!». Probe: `node scripts/hidden-proxy.mjs verify make_stunned` (scen-poly-Archeologist-92226).
 - [ ] `stairs.c` stairs_description — blocks 1/553 corpus sessions (first at step 208): C «There is a staircase up out of the dungeon here.» vs JS «The fire vortex engulfs you!--More--». Probe: `node scripts/hidden-proxy.mjs verify stairs_description` (scen-poly-Healer-92109).
 - [ ] `getpos.c` getpos — blocks 1/553 corpus sessions (first at step 36): C «Unknown direction: 'r' (aborted). Done.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify getpos` (scen-normal-Healer-91124).
 - [ ] `botl.c` do_statusline1 — blocks 1/553 corpus sessions (first at step 72): C «Your intelligence was 11.» vs JS «Your intelligence was 11.». Probe: `node scripts/hidden-proxy.mjs verify do_statusline1` (scen-intrinsic-Caveman-92138).
