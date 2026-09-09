@@ -1031,7 +1031,7 @@ SLP_GAS/`fall_asleep`/steedintrap**, **hero arrow/sqky/dart `poisoned()`; steedi
 **Punished pit `unplacebc`/`ballfall`/`placebc` D-1778** (C `trap.c:1955–1958`; 
 callers gate on `u.uball` ≡ C `Punished` **D-1786**)**, 
 vault/shop/temple `ceiling` labels (**trap burn/water/rock `helm`/`cloak`/`gloves`/`suit_simple_name` now canonical D-2186** — stubs deleted, do_wear/objnam imports; `materialnm` helm prefix still named; **`burnarmor` case 3 literal `"gloves"` D-2190** (C `trap.c:143–146`, never `gloves_simple_name`)); **`instapetrify`/`selftouch`/`mselftouch`/`minstapetrify` + 
-`mon_to_stone`/`vamp_stone`/`monstone` + `xkilled` stoned** (D-0995/D-0996), `float_vs_flight`, 
+`mon_to_stone`/`vamp_stone`/`monstone` + `xkilled` stoned** (D-0995/D-0996), **`float_vs_flight` via `set_utrap` (D-2199)**,
 full `body_part` poly, **`thitm` `stone_missile`/`passes_rocks` harmless arm** (D-2195; + `pline_mon` hit/miss arms, `-AD_RBRE`, `dealloc_obj` tail), **`mons_see_trap`** 
 (D-0701); **`mintrap` already_seen = mon_knows_traps || (HOLE && !mindless)** (D-0703; 
 **floor_trigger+check_in_air skip** D-0770; **full `mintrap` dispatch body D-1922** — trapped-arm `!rn2(40) || easy-pit` escape, boulder `!rn2(2)` pulls-free + fill_pit, metallivorous bear-trap eat / spiked-pit munch (meating=5), `easily ` adverb + set_msg_xy; fresh-arm fixed_tele_trap FORCETRAP force, usteed + Sokoban pit/hole gate skip, madeby_u rnl setmangry, unhide+appears envelope); 

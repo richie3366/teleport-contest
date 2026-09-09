@@ -136,7 +136,7 @@ import { get_obj_location } from './timeout.js';
 import { costly_spot, shop_keeper, stolen_value, make_angry_shk, add_damage, sellobj } from './shk.js';
 import { unpunish } from './read.js';
 import { create_gas_cloud } from './region.js';
-import { polymon, body_part, mbodypart } from './polyself.js';
+import { polymon, body_part, mbodypart, float_vs_flight } from './polyself.js';
 import { done } from './end.js';
 import { make_blinded, dropx } from './do.js';
 import { mon_adjust_speed } from './muse.js';
@@ -2557,8 +2557,8 @@ function s_suffix(s) {
 }
 
 /**
- * C ref: trap.c set_utrap — set hero trap timer/type; botl when armed↔clear.
- * Named omission: float_vs_flight Lev/Fly block.
+ * C ref: trap.c:1029-1042 set_utrap — botl when armed↔clear (!u.utrap ^ !tim),
+ * then utrap/utraptype store, then float_vs_flight() (maybe block Lev/Fly).
  */
 export function set_utrap(tim, typ) {
     const u = game.u || (game.u = {});
@@ -2570,6 +2570,7 @@ export function set_utrap(tim, typ) {
     }
     u.utrap = tim | 0;
     u.utraptype = now ? (typ | 0) : TT_NONE;
+    float_vs_flight(); /* maybe block Lev and/or Fly */
 }
 
 /**
@@ -3145,7 +3146,8 @@ export async function selftouch(arg) {
  * Envelope: hero d(2,4) then Lev/Fly skip; feeltrap; amorph/whirly/unsolid
  * /small harmlessly; set_utrap(rn1(4,4)); steed thitm or wounded-legs+losehp;
  * exercise DEX. Monster: size/amorph/air catch + thitm(d(2,4)).
- * Named omissions: float_vs_flight; Yname2 iron-shoe msg;
+ * Lev/Fly toggle via set_utrap→float_vs_flight (trap.c:1041).
+ * Named omissions: Yname2 iron-shoe msg;
  * Soundeffect roar; which_armor wearing_iron_shoes body.
  */
 async function trapeffect_bear_trap(mtmp, trap, trflags) {

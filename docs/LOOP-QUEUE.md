@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `polyself.c` float_vs_flight — map-driven (c-js-map data.md; def `polyself.c:131`): Levitation-vs-Flying I_SPECIAL toggle still named. Probe: `node scripts/brief.mjs float_vs_flight`.
 - [ ] `potion.c` make_hallucinated — blocks 1/553 corpus sessions (first at step 17): C «Oh wow! Everything looks so cosmic! Timeout for sleepy set to 30.--More--» vs JS «Oh wow! Everything looks so cosmic! Timeout for sleepy set to 30.--More--» (identical toplines; first cell diff row 16 map/menu C `&` vs JS `·`). Probe: `node scripts/hidden-proxy.mjs verify make_hallucinated` (scen-intrinsic-Caveman-92052).
 - [ ] `hack.c` trapmove — blocks 1/553 corpus sessions (first at step 83): C «Your limbs are stiffening. You yawn.» vs JS «Your limbs are stiffening.». Probe: `node scripts/hidden-proxy.mjs verify trapmove` (scen-intrinsic-Knight-92016).
 - [ ] `pager.c` do_screen_description — blocks 1/553 corpus sessions (first at step 56): C «floor of a room» vs JS «unexplored area». Probe: `node scripts/hidden-proxy.mjs verify do_screen_description` (scen-normal-Barbarian-92064).
@@ -68,6 +67,7 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 - [ ] `botl.c` do_statusline2 — blocks 13/553 corpus sessions (first at step 46): C «Your shirt rips to shreds!--More--» vs JS «Your shirt rips to shreds!--More--». Probe: `node scripts/hidden-proxy.mjs verify do_statusline2` (scen-death-Tourist-92095, scen-genesis-Tourist-92044, scen-intrinsic-Caveman-92138).
 - [ ] `mkobj.c` next_ident — blocks 5/553 corpus sessions (first at step 57): C draws `rnd(2)=2` in next_ident, JS `rn2(5)=4` from drop_upon_death(end.js:1311). Probe: `node scripts/hidden-proxy.mjs verify next_ident` (scen-death-Wizard-92120, scen-death-Wizard-92187, scen-genesis-Knight-92068).
 - [ ] `potion.c` make_stunned — blocks 1/553 corpus sessions (first at step 112): C «The baluchitherium hits again! You feel a bit steadier now.» vs JS «The baluchitherium hits again!». Probe: `node scripts/hidden-proxy.mjs verify make_stunned` (scen-poly-Archeologist-92226).
+- [ ] `stairs.c` stairs_description — blocks 1/553 corpus sessions (first at step 208): C «There is a staircase up out of the dungeon here.» vs JS «The fire vortex engulfs you!--More--». Probe: `node scripts/hidden-proxy.mjs verify stairs_description` (scen-poly-Healer-92109).
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 

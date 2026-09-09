@@ -5,8 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `do.c` heal_legs — map-driven (c-js-map data.md:1048; def `do.c:2449` `heal_legs(int how)` 0 ordinary / 1 dismount / 2 stone): wounded-legs heal path (`disp.botl`, ATEMP DEX restore) still named. Probe: `node scripts/brief.mjs heal_legs`. **Addressed:** D-2198
-- [x] `do.c` legs_in_no_shape — blocks 1/553 corpus sessions (first at step 27): C «Your right leg is in no shape for riding.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify legs_in_no_shape` (scen-normal-Healer-91123). **Addressed:** D-2198
+- [x] `polyself.c` float_vs_flight — map-driven (c-js-map data.md; def `polyself.c:131`): Levitation-vs-Flying I_SPECIAL toggle still named. Probe: `node scripts/brief.mjs float_vs_flight`. **Addressed:** D-2199
+
+
+- [x] `do.c` heal_legs — map-driven (c-js-map data.md:1048; def `do.c:2449` `heal_legs(int how)` 0 ordinary / 1 dismount / 2 stone): wounded-legs heal path (`disp.botl`, ATEMP DEX restore) still named. Probe: `node scripts/brief.mjs heal_legs`. **Addressed:** D-2198 `fb866daa`
+- [x] `do.c` legs_in_no_shape — blocks 1/553 corpus sessions (first at step 27): C «Your right leg is in no shape for riding.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify legs_in_no_shape` (scen-normal-Healer-91123). **Addressed:** D-2198 `fb866daa`
 
 
 - [x] `fountain.c` gush steed + engulfed-hero arms — map-driven (c-js-map data.md): steed Flying/Levitation, `engulfing_u` flush, `mdrop_special_objs` worn/saddle/`extract_from_minvent` still named. Probe: `node scripts/brief.mjs gush`. **Addressed:** D-2197 `ab784680`
