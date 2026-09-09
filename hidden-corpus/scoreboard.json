@@ -1,6 +1,6 @@
 {
- "commit": "60a971cb",
- "at": "2026-09-09T04:35:05.756Z",
+ "commit": "2d7ca422",
+ "at": "2026-09-09T04:59:06.724Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -7213,18 +7213,18 @@
   "scen-tour-Monk-91117": {
    "src": "corpus",
    "passed": false,
-   "rngM": 18284,
+   "rngM": 23948,
    "rngT": 23948,
-   "scrM": 85,
+   "scrM": 157,
    "scrT": 162,
-   "kind": "rng",
-   "step": 80,
+   "kind": "screen",
+   "step": 96,
    "steps": 162,
-   "owner": "monflee",
-   "loc": "monmove.c:522",
-   "jsOwner": "trapeffect_pit(trap.js:2052)",
-   "cTopline": "You hear a distant zap. The arch-lich touches you!--More--",
-   "jsTopline": "You hear a distant zap. The arch-lich touches you!--More--",
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-tour-Priest-92235": {

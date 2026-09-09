@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `monmove.c` monflee — blocks 1/553 corpus sessions (first at step 80): C draws `rn2(25)=24` in monflee, JS `rnd(6)=5` from trapeffect_pit(trap.js:2052). Probe: `node scripts/hidden-proxy.mjs verify monflee` (scen-tour-Monk-91117).
 - [ ] `insight.c` one_characteristic — blocks 2/553 corpus sessions (first at step 245): C «Your wisdom was 8 (limit:18).» vs JS «Your wisdom was 8 (limit:18).». Probe: `node scripts/hidden-proxy.mjs verify one_characteristic` (scen-wish-Caveman-92148, scen-wish-Monk-92013).
 - [ ] `mon.c` unstuck — blocks 1/553 corpus sessions (first at step 52): C draws `rnd(2)=2` in unstuck, JS `rn2(5)=1` from distfleeck(monmove.js:861). Probe: `node scripts/hidden-proxy.mjs verify unstuck` (scen-genesis-Knight-92002).
 - [ ] `apply.c` use_pole — blocks 1/553 corpus sessions (first at step 54): C «You miss the kobold shaman.--More--» vs JS «You miss the kobold shaman.». Probe: `node scripts/hidden-proxy.mjs verify use_pole` (scen-genesis-Caveman-92199).

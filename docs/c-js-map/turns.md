@@ -2644,7 +2644,7 @@ JS has those three at wrong coords (silent appr drift); not mfndpos ROOM omit;
 **peaceful shop/temple dig avoid** D-0865; full `passes_bars` ALLOW_BARS D-1258; 
 hero `hack.c` `test_move` `passes_bars` D-1270; Underwater / rock Passes_walls named); 
 **`monnear` NODIAG diagonal** (D-0199); **exported `monflee`** (D-0635; 
-**`mon_track_clear` always** D-0860; **`release_hero` D-1798** / flees_light/Vrock deferred); 
+**`mon_track_clear` always** D-0860; **`monflee` release_hero (D-1798 helper) wired + flees_light gremlin arm + Vrock gas cloud live D-2189**); 
 **`dochug` frozen/sleep Hallu `newsym`** (WAITMASK/msleeping); 
 **`dochug` NOTHING/DONE/NOMOVES Hallu `newsym` after 2nd distfleeck** (D-0853; 
 **isgd vanish D-1798**; #977/@172 Scr−2 was different window); 
