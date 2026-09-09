@@ -1,6 +1,6 @@
 {
- "commit": "d271ffb6",
- "at": "2026-09-09T07:10:21.230Z",
+ "commit": "fda2efaf",
+ "at": "2026-09-09T07:17:34.003Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -5359,19 +5359,19 @@
   },
   "scen-intrinsic-Knight-92016": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 7754,
    "rngT": 7754,
-   "scrM": 182,
+   "scrM": 184,
    "scrT": 184,
-   "kind": "screen",
-   "step": 83,
+   "kind": null,
+   "step": null,
    "steps": 184,
-   "owner": "trapmove",
-   "loc": "hack.c:1572",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "Your limbs are stiffening. You yawn.",
-   "jsTopline": "Your limbs are stiffening.",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-intrinsic-Priest-91130": {
