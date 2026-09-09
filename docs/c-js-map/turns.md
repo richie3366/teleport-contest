@@ -1759,7 +1759,7 @@ D-1754; DUMPLOG named); **companion pet HP D-1754** (C `really_done`
 verb+points; `dog.c` keepdogs `:799–809` pets_only wakeup; live `js/end.js`
 `score_escape_companions` + `js/dog.js` + exported `adj_lev`; DUMPLOG /
 keepdogs migrate/leash/`mon_has_amulet` is **D-1783**); overview interest_mapseen/endgame/builds_up/branches/cemetery list; 
-savelife Sick/endmultishot/curs_on_u/uswallow; 
+savelife Sick/endmultishot; **savelife curs_on_u + uswallow expels / ustuck release D-2191** (C `end.c:743–758`; live `js/end.js` + static `unstuck`/`expels` from `js/mhitu.js`, `sticks` from `js/engrave.js`; named: make_sick TIMEOUT==1, !mon_moving endmultishot, livelog); 
 ordinary `vision_recalc(2)` gbuf newsym loop / `notice_all_mons`
 
 ### `src/dig.c` `mdig_tunnel` / `zap_dig` / `hack.c` `may_dig`

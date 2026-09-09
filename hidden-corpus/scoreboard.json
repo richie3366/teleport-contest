@@ -1,6 +1,6 @@
 {
- "commit": "4740848f",
- "at": "2026-09-09T05:11:03.846Z",
+ "commit": "74944545",
+ "at": "2026-09-09T05:18:25.655Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -4714,18 +4714,18 @@
   "scen-genesis-Knight-92002": {
    "src": "corpus",
    "passed": false,
-   "rngM": 3400,
+   "rngM": 3576,
    "rngT": 3576,
-   "scrM": 54,
+   "scrM": 89,
    "scrT": 90,
-   "kind": "rng",
-   "step": 52,
+   "kind": "screen",
+   "step": 81,
    "steps": 90,
-   "owner": "unstuck",
-   "loc": "mon.c:3465",
-   "jsOwner": "distfleeck(monmove.js:861)",
-   "cTopline": "OK, so you don't die. The pit fiend releases you.--More--",
-   "jsTopline": "OK, so you don't die. You survived that attempt on your life.",
+   "owner": "one_characteristic",
+   "loc": "insight.c:926",
+   "jsOwner": null,
+   "cTopline": "Your wisdom was 14 (limit:18).",
+   "jsTopline": "Your wisdom was 14 (limit:18).",
    "error": null
   },
   "scen-genesis-Knight-92068": {

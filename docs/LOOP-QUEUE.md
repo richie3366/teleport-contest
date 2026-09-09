@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `mon.c` unstuck — blocks 1/553 corpus sessions (first at step 52): C draws `rnd(2)=2` in unstuck, JS `rn2(5)=1` from distfleeck(monmove.js:861). Probe: `node scripts/hidden-proxy.mjs verify unstuck` (scen-genesis-Knight-92002).
 - [ ] `apply.c` use_pole — blocks 1/553 corpus sessions (first at step 54): C «You miss the kobold shaman.--More--» vs JS «You miss the kobold shaman.». Probe: `node scripts/hidden-proxy.mjs verify use_pole` (scen-genesis-Caveman-92199).
 - [ ] `do_wear.c` accessory_or_armor_on — blocks 1/553 corpus sessions (first at step 58): C «You finish your dressing maneuver.--More--» vs JS «You finish your dressing maneuver.». Probe: `node scripts/hidden-proxy.mjs verify accessory_or_armor_on` (scen-genesis-Tourist-92144).
 - [ ] `invent.c` look_here — blocks 1/553 corpus sessions (first at step 121): C «You try to feel what is lying here on the floor.--More--» vs JS «It hits!». Probe: `node scripts/hidden-proxy.mjs verify look_here` (scen-genesis-Wizard-92223).

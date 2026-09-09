@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-09 — D-2191 end.c savelife release arms: curs_on_u + uswallow expels / ustuck release + unstuck rnd(2) (queue owner unstuck, 1 session)
+
+**C locus:** (1) `end.c:743–758` `savelife` tail — `curs_on_u()`, `!mon_moving endmultishot(FALSE)`, `u.uswallow → expels(u.ustuck, u.ustuck->data, TRUE)` else `u.ustuck → Upolyd&&sticks(youmonst.data) ? You("release %s.") : pline("%s releases you.") + unstuck(u.ustuck)`. (2) `mon.c:3438–3467` `unstuck` body (already live via `js/mhitu.js:1661`, incl. the `rnd(2)` holder gate). (3) `mondata.c:654` `sticks` (STCK || (WRAP && !ENGL) || HUGS).
+**JS:** 1 file (end.js +17/−3), under the 600/10 caps. Small because the envelope is live (unstuck body D-2093, expels, curs_on_u, Monnam, sticks); density exception applies (C locus 29 + 15 lines, corpus-recorded expectation).
+**Change:** `js/end.js` `savelife` only — `await curs_on_u()` (live `js/display.js`, same-file edge already imported), then the `uswallow → expels(ustuck, ustuck.data, true)` / `ustuck → You-release vs Monnam-releases-you + unstuck(ustuck)` arms in verbatim C order using live `expels`/`unstuck` (new static `js/mhitu.js` edge; imports.mjs --can end.js mhitu.js unstuck → SAFE, hoisted fn decls, call-time use only), `Monnam` (same-file do_name edge), `sticks` (canonical `js/engrave.js` clone per its do-not-import-monmove note; same-file edge), and the house `pline('You release …')` idiom for C `You("release %s.")` (artifact.js:2356, hack.js:2084 precedent). No DIAG/FORCE/seed gates; no frozen files.
+**Verify:** `node scripts/verify.mjs --fn unstuck` → PASS syntax (1 changed file: js/end.js) · PASS rule2 · PASS hidden `0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS` (scen-genesis-Knight-92002 step 52 → `one_characteristic` at step 81, strictly later step and owner) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: PASS. Preflight `verify --no-cohort` green on a clean tree; final verify after the last js/ edit (map/docs/queue edits only after; no D-1831 gap).
+**Named:** `savelife` make_sick TIMEOUT==1 cure, `!mon_moving endmultishot(FALSE)` (not live), livelog (pre-existing map line, kept).
+**Next:** do not re-pop `unstuck` (0 blocked). Knight-92002's `one_characteristic`@81 flows through the normal queue.
 ## 2026-09-09 — D-2190 `trap.c:143–146` burnarmor case 3 passes literal "gloves", not `gloves_simple_name`
 
 **C locus:** `trap.c:143–146` — case 3 calls `burn_dmg(item, "gloves")` with the string literal, never `gloves_simple_name(item)` (contrast case 0 `helm_simple_name` and case 1 `cloak_simple_name`, which do compute names).

@@ -7,7 +7,7 @@ import { rn2, d } from './rng.js';
 import { depth } from './hacklib.js';
 import {
     pline, flush_topl_more, bot, You_feel, clear_nhwindow_message,
-    canspotmon, Hallucination,
+    canspotmon, Hallucination, curs_on_u,
 } from './display.js';
 import { yn_function, paranoid_query } from './getline.js';
 import { show_text_pages, show_nhw_menu_text } from './pager.js';
@@ -41,9 +41,9 @@ import { G_NOCORPSE, G_UNIQ, mons, likes_gold, likes_gems, likes_objs, likes_mag
 import { m_at, mongone, dmonsfree, zombie_maker } from './mon.js';
 import { can_carry, mon_offmap } from './monmove.js';
 import { enexto, rloc_to, single_level_branch } from './teleport.js';
-import { oname, christen_monst, free_oname, mon_nam, pmname, Ugender, Mgender, type_is_pname } from './do_name.js';
+import { oname, christen_monst, free_oname, mon_nam, Monnam, pmname, Ugender, Mgender, type_is_pname } from './do_name.js';
 import { mkcorpstat, curse, place_object, stackobj, mksobj, add_to_minv, add_to_container, weight } from './mkobj.js';
-import { make_grave } from './engrave.js';
+import { make_grave, sticks } from './engrave.js';
 import { makemon, adj_lev } from './makemon.js';
 import {
     write_bonesfile, bones_file_exists, delete_bonesfile,
@@ -68,6 +68,9 @@ import {
 import { show_overview } from './dungeon.js';
 import { A_CON, acurr, adjattrib } from './attrib.js';
 import { init_uhunger } from './eat.js';
+// C: end.c savelife release arms call mon.c unstuck + mhitu.c expels
+// (imports.mjs --can: SAFE, both hoisted function decls, call-time use only).
+import { unstuck, expels } from './mhitu.js';
 import { setworn } from './do_wear.js';
 import { night, midnight, getnow, yyyymmddhhmmss } from './calendar.js';
 
@@ -1541,7 +1544,7 @@ export async function done2() {
 /**
  * C ref: end.c savelife — restore viable state after wizard/discover
  * decline-to-die (or Lifesaved). Named omissions: make_sick TIMEOUT==1;
- * endmultishot; curs_on_u; uswallow expels / ustuck release; livelog.
+ * endmultishot (!mon_moving gate arm); livelog.
  */
 async function savelife(how) {
     const u = game.u || (game.u = {});
@@ -1579,7 +1582,20 @@ async function savelife(how) {
     flags.botl = true;
     u.ugrave_arise = NON_PM;
     u.HUnchanging = 0;
-    // uswallow / ustuck / endmultishot / curs_on_u deferred
+    // C end.c:743 — cursor back on hero before the release messages.
+    await curs_on_u();
+    // C end.c:744-745 — !mon_moving endmultishot(FALSE) stays named (not live).
+    if ((u.uswallow | 0)) {
+        // C end.c:746-749 — might drop hero onto a trap that kills her again.
+        await expels(u.ustuck, u.ustuck.data, true);
+    } else if (u.ustuck) {
+        // C end.c:750-755 — poly'd sticker releases it, else it releases hero.
+        if (Upolyd(u) && sticks(game.youmonst?.data))
+            await pline(`You release ${mon_nam(u.ustuck)}.`);
+        else
+            await pline(`${Monnam(u.ustuck)} releases you.`);
+        await unstuck(u.ustuck);
+    }
 }
 
 /**
