@@ -21,10 +21,10 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-09** — full `sessions` on the working tree
-(audit **1133–1137**).
+(audit **1138–1145**).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`56+0.35/turn` (R² 0.79).
+`60+0.36/turn` (R² 0.79).
 
 ## Score
 
@@ -33,7 +33,7 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `76+0.46/turn` (R² 0.79) |
+| Speed label | `60+0.36/turn` (R² 0.79) |
 | Role-init throws | **0 / 44** |
 
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-06
@@ -57,6 +57,7 @@ Reviews 1115–1122: 8 ACCEPT, 0 Must-fix.
 Reviews 1123–1126: 4 ACCEPT, 0 Must-fix.
 Reviews 1127–1132: 6 ACCEPT, 0 Must-fix.
 Reviews 1133–1137: 3 ACCEPT, 2 ACCEPT-WITH-DEBT (debts review-pointed: 1136 Hallucination import source, 1137 save.js restore_waterlevel await), 0 Must-fix.
+Reviews 1138–1145: 8 ACCEPT, 0 Must-fix.
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score --jobs 8`
 (≈200 s); when every family is ≥ 85 % PASS, grow it first:
 `node scripts/scenario-gen.mjs --n 120 --seed <iter×100>`.
@@ -95,7 +96,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `detect.c` find_trap — blocks 1/553 corpus sessions (first at step 75): C «You find an anti-magic field.--More--» vs JS «You find an anti-magic field.--More--» (identical toplines; map rows 2–7 blank in JS — geometry owner, geom-probe first per runbook §7; cf. doturn park). Probe: `node scripts/hidden-proxy.mjs verify find_trap` (scen-intrinsic-Priest-92096).
+**Next cluster:** `pager.c` lookat — blocks 1/553 corpus sessions (first at step 20): C «You miss the gnomish wizard.--More--» vs JS «You miss the gnomish wizard.». Probe: `node scripts/hidden-proxy.mjs verify lookat` (scen-genesis-Knight-92224).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2179 (index).**
 <!-- recent:begin -->

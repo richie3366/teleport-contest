@@ -8,6 +8,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-09 — Audit 0b6f3f56..58d11e0f (reviews 1138-1145: 8 ACCEPT, 0 Must-fix) + cadence 44/44
+
+**Scope:** 8 js-touching SHAs since 1137 (D-2172..D-2179); 71c6e030 (queue stamp) + 2dcdffa1 (park) docs-only, skipped. Each re-measured against pinned C with hidden-proxy verify --base: every D-log corpus claim reproduced exactly (1139's Knight-92034 now fully PASS at HEAD, better than logged; 1140's Monk residual moved 79→121 via D-2175, as logged).
+**Debts/notes:** 1138 `want !== 0` guard (unreachable, all roles have questarti); 1145 parked gnostic fix not re-applied (park falsifier owns it). No Must-fix prepended; Next cluster advances to Open head (`pager.c` lookat).
+**Cadence:** full `sessions` 44/44, Scr 11405/11405, RNG 792838/792838, speed `60+0.36/turn` (R² 0.79).
 ## 2026-09-09 — D-2179 `detect.c` find_trap: clutter check must read memory `levl[][].glyph`, not gbuf `glyph_at` (Priest-92096 step 75→149)
 
 **C locus:** `detect.c find_trap :1936–1962` (`tseen=1`, `exercise(A_WIS)`, `feel_newsym`, then `if (Hallucination || levl[tx][ty].glyph != trap_to_glyph)` → `cls(); map_trap(trap,1); display_self(); cleared=TRUE`, `set_msg_xy`, `You("find %s.")`, `if (cleared) { display_nhwindow(WIN_MAP,TRUE); docrt(); }`) + `display.c feel_newsym/newsym/_map_location/map_trap` (memory is `levl[][].glyph`; `_map_location(x,y,show=FALSE)` under a monster still stores the trap via `map_trap(trap,0)` while gbuf shows the monster) + `wintty.c tty_display_nhwindow` NHW_MAP blocking (`end_glyphout`, topline non-empty → NEED_MORE, message wait — the `--More--`).

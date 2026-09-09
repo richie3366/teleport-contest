@@ -1148,3 +1148,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1135-1d79b32e-exercise-lifesave-blank-paper.md](./1135-1d79b32e-exercise-lifesave-blank-paper.md) | `1d79b32e` | D-2169 exercise lifesave + blank paper | **ACCEPT** |
 | [1136-4a0daf23-domove-bump-mon.md](./1136-4a0daf23-domove-bump-mon.md) | `4a0daf23` | D-2170 domove_bump_mon (Hallucination-import debt) | **ACCEPT-WITH-DEBT** |
 | [1137-d316606c-movebubbles-cons-deposit.md](./1137-d316606c-movebubbles-cons-deposit.md) | `d316606c` | D-2171 movebubbles cons deposit (save.js await debt) | **ACCEPT-WITH-DEBT** |
+| [1138-0b6f3f56-readobjnam-wishing-deny-arm.md](./1138-0b6f3f56-readobjnam-wishing-deny-arm.md) | `0b6f3f56` | D-2172 readobjnam wishing-abuse deny arm | **ACCEPT** |
+| [1139-d23fde89-put-saddle-on-mon-mpickobj.md](./1139-d23fde89-put-saddle-on-mon-mpickobj.md) | `d23fde89` | D-2173 put_saddle_on_mon mpickobj import | **ACCEPT** |
+| [1140-bc1f21f5-mhitm-ad-ench-mhitu-arm.md](./1140-bc1f21f5-mhitm-ad-ench-mhitu-arm.md) | `bc1f21f5` | D-2174 mhitm_ad_ench mhitu arm | **ACCEPT** |
+| [1141-a018f317-castmu-fumble-arm.md](./1141-a018f317-castmu-fumble-arm.md) | `a018f317` | D-2175 castmu fumble arm | **ACCEPT** |
+| [1142-a0957c9d-doengrave-blind-predicates.md](./1142-a0957c9d-doengrave-blind-predicates.md) | `a0957c9d` | D-2176 doengrave Blind predicates | **ACCEPT** |
+| [1143-e93f109a-polyself-controlled-getlin.md](./1143-e93f109a-polyself-controlled-getlin.md) | `e93f109a` | D-2177 polyself controlled getlin | **ACCEPT** |
+| [1144-19724e2f-you-aggravate-more.md](./1144-19724e2f-you-aggravate-more.md) | `19724e2f` | D-2178 you_aggravate more() | **ACCEPT** |
+| [1145-58d11e0f-find-trap-memory-glyph.md](./1145-58d11e0f-find-trap-memory-glyph.md) | `58d11e0f` | D-2179 find_trap memory glyph | **ACCEPT** |
