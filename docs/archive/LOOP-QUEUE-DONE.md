@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `potion.c` peffect_polymorph — blocks 1/553 corpus sessions (first at step 175): C «You feel a little strange.--More--» vs JS «You feel a little strange. You turn into a plains centaur!». Probe: `node scripts/hidden-proxy.mjs verify peffect_polymorph` (scen-poly-Ranger-92133). **Addressed:** D-2177
+- [x] `muse.c` you_aggravate — blocks 1/553 corpus sessions (first at step 88): C «You feel aggravated at the master lich.--More--» vs JS «You feel aggravated at the master lich.». Probe: `node scripts/hidden-proxy.mjs verify you_aggravate` (scen-wish-Wizard-92048). **Addressed:** D-2178
+
+
+- [x] `potion.c` peffect_polymorph — blocks 1/553 corpus sessions (first at step 175): C «You feel a little strange.--More--» vs JS «You feel a little strange. You turn into a plains centaur!». Probe: `node scripts/hidden-proxy.mjs verify peffect_polymorph` (scen-poly-Ranger-92133). **Addressed:** D-2177 `e93f109a`
 
 
 - [x] `engrave.c` doengrave — blocks 1/553 corpus sessions (first at step 191): C draws `rn2(11)=7` in doengrave, JS `rn2(25)=8` from doengrave(engrave.js:1366). Probe: `node scripts/hidden-proxy.mjs verify doengrave` (scen-normal-Samurai-92071). **Addressed:** D-2176 `a0957c9d`

@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2178 — `muse.c` you_aggravate: WIN_MAP blocking needs more(), not flush+nhgetch (Wizard-92048 step 88→113)
+
+- Status: shipped (Open queue row `muse.c` you_aggravate — cited 1/553: scen-wish-Wizard-92048. Session moved past step 88 to next_ident@113, so the row is addressed and checked off. No review cited by the row, so no stamp owed.)
+- Symptom: scen-wish-Wizard-92048 step 88/116 kind=screen at muse.c:2641: C «You feel aggravated at the master lich.--More--» vs JS «You feel aggravated at the master lich.». C draws zero dice at the step (`stepFns: []`); the turn is a cursed-potion-of-invisibility `you_aggravate` (caller `use_misc` MUSE_POT_INVISIBILITY arm, `muse.c:2478`).
+- C locus: `muse.c:2630–2651` (`You_feel(...)` then `display_nhwindow(WIN_MAP, TRUE)` then `docrt()`) + `wintty.c:1889–1896` (`tty_display_nhwindow` NHW_MAP blocking: `end_glyphout()`, topline non-empty → `TOPLINE_NEED_MORE`, then `WIN_MESSAGE` block → `more()` paints `--More--` and waits).
+- JS was: `js/muse.js:2971–2974` mapped the WIN_MAP block to `flush_screen(1)` + bare `nhgetch()` with the comment "no --More--" (shipped in D-1811): the key wait happened but no `--More--` was ever painted and the topline-clear semantics of `more()` were skipped.
+- Fix: `await more()` (the `display.js:6938` export — same mapping as the detect.js mfind0 and eat.js mimic `display_nhwindow(WIN_MAP,TRUE)` arms); dropped the now-unused `flush_screen` import (sole use) and the lazy `input.js` import (sole use — `more()` does its own lazy nhgetch). Doc comment cites wintty.c. No new module edge (`display.js` already imported — no TDZ risk). No DIAG/FORCE/seed gates.
+- JS: `js/muse.js` only (import + comment + 4-line body swap).
+- Verify: `node scripts/verify.mjs --fn you_aggravate` → PASS syntax (1 changed js file: js/muse.js) · PASS rule2 · PASS hidden: 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS (scen-wish-Wizard-92048: moved → next_ident at step 113, was 88) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed). VERIFY: PASS.
+- Named omissions: none new. CLIPPING `cliparound` stays named (D-1811).
+- Next: row addressed; residual next_ident@113 belongs to the existing Open `mkobj.c` next_ident row (symptom-owner family per NOTES — fix the writer, not the table reader). Do not re-pop `you_aggravate` for Wizard-92048.
+- Density note: ~8-line diff on an Open row; the C body is 20 lines and the rest of `you_aggravate` was already live (D-1811) — density exception: C arm that small.
+
 ## D-2177 — `polyself.c` polyself: non-force controllable getlin was a named omission, so poly-control + POLY_NOFLAGS went random (Ranger-92133 PASS)
 
 - Status: shipped (Open queue row `potion.c` peffect_polymorph — cited 1/553: scen-poly-Ranger-92133. Session now fully PASS, so the row is addressed and checked off. No review cited by the row, so no stamp owed.)

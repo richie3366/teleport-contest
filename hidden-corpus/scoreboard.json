@@ -1,6 +1,6 @@
 {
- "commit": "a0957c9d",
- "at": "2026-09-09T02:23:24.461Z",
+ "commit": "e93f109a",
+ "at": "2026-09-09T02:26:03.400Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -8694,16 +8694,16 @@
    "passed": false,
    "rngM": 2773,
    "rngT": 2789,
-   "scrM": 115,
+   "scrM": 116,
    "scrT": 116,
-   "kind": "screen",
-   "step": 88,
+   "kind": "rng",
+   "step": 113,
    "steps": 116,
-   "owner": "you_aggravate",
-   "loc": "muse.c:2641",
-   "jsOwner": null,
-   "cTopline": "You feel aggravated at the master lich.--More--",
-   "jsTopline": "You feel aggravated at the master lich.",
+   "owner": "next_ident",
+   "loc": "mkobj.c:521",
+   "jsOwner": "drop_upon_death(end.js:1311)",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-wish-Wizard-92060": {

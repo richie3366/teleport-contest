@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-2178 | fixed |  — `muse.c` you_aggravate: WIN_MAP blocking needs more(), not flush+nhgetch (Wizard-92048 step 88→113) |  |
 | D-2177 | fixed |  — `polyself.c` polyself: non-force controllable getlin was a named omission, so poly-control + POLY_NOFLAGS w |  |
 | D-2176 | fixed |  — `engrave.c` doengrave mix-up predicates: local `Blind()` missed timed `HBlinded`, skipping every `rn2(11)`  |  |
 | D-2175 | fixed |  — `mcastu.c` castmu fumble arm: JS burned the fumble `rn2(ml*10)` but skipped the air-crackles pline, losing  |  |
