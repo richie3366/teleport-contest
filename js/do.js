@@ -129,6 +129,7 @@ import {
     cancel_doff,
 } from './do_wear.js';
 import { bypass_objlist, nxt_unbypassed_obj, w_blocks } from './worn.js';
+import { monstunseesu_prop } from './mondata.js';
 import { reset_pick } from './lock.js';
 import { Unaware } from './eat.js';
 import { addinv_nomerge } from './u_init.js';
@@ -442,7 +443,7 @@ async function There(line) {
  * C worn.c setnotworn — pointer-walk worn[]; does not call setworn.
  * Clears oc_oprop extrinsic only for slots that currently point at obj.
  * Leaves owornmask bits when obj is not in the slot (tutorial restore flag).
- * Named omit: monstunseesu_prop; update_inventory.
+ * Named omit: update_inventory.
  * Exported for shopdig snatch (D-1016); tutorial stash/restore (D-1015/D-1020).
  */
 export function setnotworn(obj) {
@@ -458,6 +459,8 @@ export function setnotworn(obj) {
         u[slot] = null;
         unworn |= mask;
         confer_oc_oprop(obj, mask, false);
+        // C ref: worn.c:170 — monsters forget this extrinsic's seen-res.
+        monstunseesu_prop(game.objects?.[obj.otyp]?.oc_oprop | 0);
         obj.owornmask = (obj.owornmask || 0) & ~mask;
         if (obj.oartifact) set_artifact_intrinsic(obj, false, mask);
         const blocked = w_blocks(obj, mask);

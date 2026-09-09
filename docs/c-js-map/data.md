@@ -192,7 +192,10 @@ JS: `js/mondata.js` — partial
 grey dragon alt_spl subset (D-0064); **`name_to_monclass` letter/explain/truematch then 
 `name_to_mon`** (D-1098; `create_particular` class-letter still named); 
 **`monstseesu`/`monstunseesu`/`m_seenres` + makemon `seen_resistance`** (D-0235; 
-omit buried `m_canseeu`/other M_SEEN_* muse gates/`monstunseesu_prop`); 
+D-2233: `monstunseesu_prop` fully wired — `setworn` removal path (do_wear.js:561) + 
+`setnotworn` (do.js, worn.c:170); `castmu`/`buzzmu` m_seenres gates live (mcastu.js); 
+`m_canseeu` matches the live `#else` arm — the buried `u.uburied || m->mburied` variant 
+is `#if 0`-dead C, never port; `MUSE_SCR_FIRE` likewise `#if 0`); 
 **`hates_silver`/`mon_hates_silver` D-1254 + `mon_hates_light` D-1948** (`js/monsters.js`;
 C `mondata.c:524–528`/`517–519` were / S_VAMPIRE / demon / PM_SHADE / S_IMP except tengu +
 `is_vampshifter`; C `mondata.c:547–550` `mon_hates_light` ≡ `hates_light(mon->data)` ≡

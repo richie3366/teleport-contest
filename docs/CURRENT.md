@@ -88,10 +88,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `zap.c` zhitu — acid-damage body still named (data.md:1223). No corpus block — port the named family. Probe: `node scripts/brief.mjs zhitu`.
+**Next cluster:** `muse.c` M_SEEN gates — buried `m_canseeu`/other M_SEEN arms + `monstunseesu_prop` still named (data.md:195). No corpus block — port the named family. Probe: `node scripts/brief.mjs m_canseeu`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2232 (index).**
+**Keep D-0845…D-2233 (index).**
 <!-- recent:begin -->
+**D-2233** `mcastu.c:174–179` (`mtmp->mcan || mtmp->mspec_used || !ml || m_seenres(mtmp, cvt_adtyp_to — `js/mcastu.js` — `castmu` condition gains `|| m_seenres(mtmp, cvt_adtyp_to_mseenres(adtyp))` in C order (draw-free disjuncts; AD_SPEL/CLRC map to `M_SEEN_NOTHING` so the new arm is a proven no-op on the spell-selection p
 **D-2232** `trap.c:4618–4654` `acid_damage(obj)` (Null return; victim = hero when carried else OBJ_MI — `js/trap.js` — new `export async function grease_protect` (C branch order; Your→`pline('Your …')` house idiom, Monnam/s_suffix/Yobjnam2/vtense arms; sync `update_inventory()` per the water_damage greased-arm precedent; b
 **D-2231** `mon.c` `lifesaved_monster` `:2838–2884`, `vamprises` `:2888–2987`, `logdeadmon` `:2995–30 — `js/mhitm.js` — new `set_mon_min_mhpmax` (m_lev+1 floor then caller minimum), async `lifesaved_monster` (cansee-gated plines, `mlifesaver`/`m_useup_mm`/`attacktype_mm` locals, `makeknown`, `check_gear_next_turn`, `wary_d
 **D-2230** `eat.c:3877–3889` `maybe_finished_meal(stopping)` — `js/eat.js` — new `export async function maybe_finished_meal(stopping)` after `cant_finish_meal`, C branch/short-circuit order (occupation → usedtime>=reqtime → stopping-clear → eatfood → TRUE/FALSE); must live here — th
@@ -99,11 +100,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2228** `dig.c:1596–1604` zap_dig u.dz arm — `js/dig.js` + `js/zap.js` only, control-flow, no new imports/edges (mksobj_at/xname/stackobj/newsym already imported at both sites): after `finish_losehp_done()`, return only if `game.program_state?.gameover` (true death
 **D-2227** `worn.c:798–1002` `m_dowear_type` — `js/worn.js` — `m_dowear_type`/`m_dowear`/`maybe_m_dowear_special` async (awaits only on the !creation message path; creation callers run sync-through, no await reached); sawmon/sawloc at entry in C order; puts-on + auto
 **D-2226** `extralev.c:62` (`down: no wall`), `:68` (`down door ... going nowhere`), `:84` (`up: no w — `js/extralev.js` — `IS_WALL` joins the existing `const.js` edge; `impossible` joins a new static `display.js` edge (`imports.mjs --can extralev.js display.js impossible` → SAFE, hoisted-function; fire-and-forget without 
-**D-2225** `track.c:21–59,93–105` SFCTOOL + `rest_track` (`#ifndef SFCTOOL` wraps only settrack/gettrack; `panic("rest_track: impossible pt counts")` on `> UTSZ`) — `js/track.js` only — raw-count assign then loud throw (house panic idiom); no clamp; single-ESM-build note in header comment.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2232; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2233; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

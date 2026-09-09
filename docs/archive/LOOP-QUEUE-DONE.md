@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `zap.c` zhitu — acid-damage body still named (data.md:1223). No corpus block — port the named family. Probe: `node scripts/brief.mjs zhitu`. **Addressed:** D-2232
+- [x] `muse.c` M_SEEN gates — buried `m_canseeu`/other M_SEEN arms + `monstunseesu_prop` still named (data.md:195). No corpus block — port the named family. Probe: `node scripts/brief.mjs m_canseeu`. **Addressed:** D-2233
+
+
+- [x] `zap.c` zhitu — acid-damage body still named (data.md:1223). No corpus block — port the named family. Probe: `node scripts/brief.mjs zhitu`. **Addressed:** D-2232 `00f20f4a`
 
 
 - [x] `mon.c` mondead tail — `lifesaved_monster`/`vamprises`/`grddead`/`logdeadmon`/full `m_detach` still named (data.md:358). No corpus block — port the named family. Probe: `node scripts/brief.mjs m_detach`. **Addressed:** D-2231 `0a07f32a`

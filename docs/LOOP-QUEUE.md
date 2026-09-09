@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `muse.c` M_SEEN gates — buried `m_canseeu`/other M_SEEN arms + `monstunseesu_prop` still named (data.md:195). No corpus block — port the named family. Probe: `node scripts/brief.mjs m_canseeu`.
 - [ ] `shk.c` SHOPTYPE/veggy — Izchak/wizard SHOPTYPE + `veggy_item` tin/corpse obj-path still named (data.md:1417). No corpus block — port the named family. Probe: `node scripts/brief.mjs veggy_item`.
 - [ ] `mon.c` newcham wizard arms — dragon-armor ordinary arm / `mon_polycontrol` / RECORD `tt_doppel` entries still named (data.md:439). No corpus block — port the named family. Probe: `node scripts/brief.mjs tt_doppel`.
 - [ ] `mon.c` m_into_limbo — limbo migration still named (data.md:744). No corpus block — port the named family. Probe: `node scripts/brief.mjs m_into_limbo`.
