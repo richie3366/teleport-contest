@@ -33,7 +33,7 @@ import {
     obj_glyph, flush_topl_more, feel_newsym, canspotmon, map_invisible,
     set_msg_xy, Hallucination, Norep,
 } from './display.js';
-import { doname, an, the, The, xname, yname, cxname, makeplural, vtense, ansimpleoname, safe_qbuf } from './objnam.js';
+import { doname, an, the, The, xname, yname, cxname, makeplural, vtense, ansimpleoname, safe_qbuf, gloves_simple_name } from './objnam.js';
 import {
     Amonnam, Monnam, mon_nam, x_monnam, x_monnam_tame, y_monnam, noit_Monnam, pmname,
     christen_monst, rndmonnam, hliquid, rndcolor, mon_pmname, YMonnam,
@@ -142,7 +142,7 @@ import { make_blinded, dropx } from './do.js';
 import { mon_adjust_speed } from './muse.js';
 import { m_dowear } from './worn.js';
 import { m_unleash } from './apply.js';
-import { hard_helmet } from './do_wear.js';
+import { hard_helmet, helm_simple_name, cloak_simple_name, suit_simple_name } from './do_wear.js';
 import { unplacebc, placebc, ballfall } from './ball.js';
 import { carried, is_fainted, reset_faint } from './eat.js';
 import { inv_cnt, remove_worn_item } from './steal.js';
@@ -3240,26 +3240,6 @@ export function ceiling(x, y) {
 /** C ref: mondata.h passes_rocks */
 function passes_rocks(ptr) {
     return !!(passes_walls(ptr) && !unsolid(ptr));
-}
-
-/** C ref: objnam.c helm_simple_name — "helmet" / "hat" polish deferred */
-function helm_simple_name(_obj) {
-    return 'helmet';
-}
-
-/** C ref: objnam.c cloak_simple_name — robe/smock polish deferred */
-function cloak_simple_name(_obj) {
-    return 'cloak';
-}
-
-/** C ref: objnam.c gloves_simple_name */
-function gloves_simple_name(_obj) {
-    return 'gloves';
-}
-
-/** C ref: objnam.c suit_simple_name — mail/jacket polish deferred */
-function suit_simple_name(_obj) {
-    return 'suit';
 }
 
 /** C ref: obj.h bimanual — WEAPON/TOOL with oc_bimanual (oc_big). */

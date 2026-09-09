@@ -1,6 +1,6 @@
 {
- "commit": "8ab958e5",
- "at": "2026-09-09T04:05:40.987Z",
+ "commit": "4db0e9eb",
+ "at": "2026-09-09T04:10:56.110Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6294,19 +6294,19 @@
   },
   "scen-normal-Priest-92020": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 3970,
    "rngT": 3970,
-   "scrM": 166,
+   "scrM": 167,
    "scrT": 167,
-   "kind": "screen",
-   "step": 86,
+   "kind": null,
+   "step": null,
    "steps": 167,
-   "owner": "erode_obj",
-   "loc": "trap.c:178",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "Your robe smoulders!",
-   "jsTopline": "Your cloak smoulders!",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-normal-Priest-92056": {

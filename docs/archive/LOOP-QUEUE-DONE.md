@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
+- [x] `trap.c` erode_obj — blocks 1/553 corpus sessions (first at step 86): C «Your robe smoulders!» vs JS «Your cloak smoulders!». Probe: `node scripts/hidden-proxy.mjs verify erode_obj` (scen-normal-Priest-92020). **Addressed:** D-2186
+
+
 - [x] `mcastu.c` mcast_disappear — blocks 1/553 corpus sessions (first at step 121): C «The lich suddenly becomes transparent!» vs JS «The lich suddenly becomes transparent!». Probe: `node scripts/hidden-proxy.mjs verify mcast_disappear` (scen-wish-Monk-92013). **Addressed:** D-2185 `fb69e76e`
 
 

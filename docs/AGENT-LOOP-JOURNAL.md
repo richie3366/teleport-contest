@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-09 — D-2186 `objnam.c` armor simple names in trap.js burn/water paths — robe-vs-cloak, 1 session PASS
+
+**C locus:** `objnam.c:5492–5509` `cloak_simple_name` (ROBE→"robe", MUMMY_WRAPPING→"wrapping", ALCHEMY_SMOCK→smock/apron by oc_name_known+dknown, else "cloak"); `:5512–5528` `helm_simple_name` (`hard_helmet`→"helm" else "hat"); `:5531–5547` `gloves_simple_name` (dknown + strstri gauntlets); `suit_simple_name` mail/jacket arms. Symptom path is `trap.c:88–170` `burnarmor` case 1 (`uarmc ? cloak_simple_name : uarm xname`, C `rn2(5)=1`) → `erode_obj(obj, ostr, ERODE_BURN, EF_GREASE)` with ostr non-null, so the `cxname`-vs-`xname` readout in the brief is innocent (both reduce to xname for armor — `objnam.c:1922–1930`). The priest's robe is ARM_CLOAK worn as uarmc on both sides; only the noun differed.
+**JS:** `js/do_wear.js` (+13/−4: helm export + cloak-doc update + 2 ternary reuses), `js/trap.js` (+2/−22: 2 import lines, 4 stubs deleted). Under the 600/10 caps.
+**Change:** trap.js deletes the four stubs and imports the canonicals — `helm_simple_name`/`cloak_simple_name`/`suit_simple_name` from `./do_wear.js`, `gloves_simple_name` from `./objnam.js` (both edges already exist; `imports.mjs --can` confirms no new edge). New one-function canonical `helm_simple_name` export in do_wear.js (C `:5512–5528` verbatim, via live `hard_helmet`), reused by `armor_simple_name`/`armor_doff_simple_name` (behavior-identical swap of the inline ternary). No DIAG/FORCE/seed/coordinate gates.
+**Verify:** `node scripts/verify.mjs --fn erode_obj` → PASS syntax (2 changed js files: js/do_wear.js js/trap.js) · PASS rule2 · PASS hidden: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (scen-normal-Priest-92020: PASS) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (tool: no shared file changed). Plus manual full `node frozen/ps_test_runner.mjs sessions` → **44/44 PASS** (message-surface change is display-neutral on the fortress; speed `59+0.36/turn`). VERIFY: PASS.
+**Named:** `burnarmor` case-0 `materialnm` helm prefix ("iron helm" vs "helm") stays named (pre-existing); mhitu/uhitm `*_simple_name` twins stay local (C-matched, verified this iter).
+**Next:** row addressed; queue head moves to `eat.c` start_tin. Do not re-pop `erode_obj`.
 ## 2026-09-09 — Audit 67f3f896..fb69e76e (reviews 1146–1151: 6 ACCEPT, 0 Must-fix) + cadence 44/44
 
 Review-only, no js/. All six D-log corpus claims re-measured at parent baselines — exact matches. Spot-checks: ECMD_OK=0 ⇒ ^W tail verbatim; will_weld/offmap/IRON/METAL/See_invisible union all C-exact. No Must-fix (2 display-only observations). Cadence 44/44 (Scr 11405, RNG 792838). Queue 8 Open, no refill.
