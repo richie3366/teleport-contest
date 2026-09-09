@@ -1,6 +1,6 @@
 {
- "commit": "c438107f",
- "at": "2026-09-09T09:58:32.655Z",
+ "commit": "fa16f888",
+ "at": "2026-09-09T10:18:51.185Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -7555,16 +7555,16 @@
    "passed": false,
    "rngM": 3846,
    "rngT": 3846,
-   "scrM": 195,
+   "scrM": 196,
    "scrT": 199,
    "kind": "screen",
-   "step": 141,
+   "step": 145,
    "steps": 199,
-   "owner": "ustatusline",
-   "loc": "insight.c:3485",
+   "owner": "use_misc",
+   "loc": "muse.c:2552",
    "jsOwner": null,
-   "cTopline": "Status of wizard (fervently neutral): Level 20 HP 114(114) AC 9, fast.",
-   "jsTopline": "Status of wizard (fervently neutral): Level 20 HP 114(114) AC 9.--More--",
+   "cTopline": "You lash the fire vortex. Your bullwhip smoulders!--More--",
+   "jsTopline": "You lash the fire vortex. You are suddenly very hot!--More--",
    "error": null
   },
   "scen-wish-Archeologist-92038": {

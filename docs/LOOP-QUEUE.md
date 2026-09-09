@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `insight.c` ustatusline — blocks 1/553 corpus sessions (first at step 141): C «Status of wizard (fervently neutral): Level 20 HP 114(114) A» vs JS «Status of wizard (fervently neutral): Level 20 HP 114(114) A». Probe: `node scripts/hidden-proxy.mjs verify ustatusline` (scen-wish-Archeologist-92004).
 - [ ] `mon.c` newcham — blocks 1/553 corpus sessions (first at step 188): C «The tengu turns into a golden naga hatchling!--More--» vs JS «The tengu turns into a golden naga hatchling! The ice devil ». Probe: `node scripts/hidden-proxy.mjs verify newcham` (scen-wish-Archeologist-92038).
 - [ ] `detect.c` dosearch0 — blocks 1/553 corpus sessions (first at step 179): C «What are you looking for? The exit?» vs JS «What are you looking for? The exit?--More--». Probe: `node scripts/hidden-proxy.mjs verify dosearch0` (scen-wish-Knight-92130).
 - [ ] `apply.c` use_grapple — blocks 1/553 corpus sessions (first at step 146): C «You are yanked toward the stairs!» vs JS «You are yanked toward the furniture!». Probe: `node scripts/hidden-proxy.mjs verify use_grapple` (scen-wish-Priest-92041).

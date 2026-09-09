@@ -1943,7 +1943,7 @@ pit "Open where?" / pit-reach / mimic / set_msg_xy / AUTOUNLOCK_KICK deferred);
 n==0/1/2/-1 quirk; Space/Return accept dummy → getobj; ESC `ECMD_CANCEL`); 
 **`tipcontainer_gettarget` PICK_ONE D-2018** (C `pickup.c` `:3871–3948` `Where to tip the contents of <doname>` + `-` floor dummy SELECTED + blank + invent containers with real invlets; first other container `u_handsy()`; locked-known/no-hands excluded (a_obj 0, 4-space indent); n>1 dummy-first quirk; ESC cancelled; `tipcontainer` calls it before checks so empty sack shows the menu, horn passes targetbox, container target `add_to_container`); 
 altarizing `doaltarobj` / ice-box / cursed mbag / shop / toss_up / 
-candle·oil spill / tiphat / MENU_SEARCH·map_menu_cmd·multi-page named); **`use_stethoscope` self + `ustatusline`/`piousness` + 
+candle·oil spill / tiphat / MENU_SEARCH·map_menu_cmd·multi-page named); **`use_stethoscope` self + `ustatusline` full info chain (D-2210: Sick dying-from, Stoned, Slimed, Strangled, Vomiting, Confusion, Blind+goop, Stunned, Wounded_legs, Glib, utrap, Fast/Very_fast, concealed/disguised, Invis, ustuck, region cloud; Upolyd mh/mlevel live; ailment deferral retired)/`piousness` + 
 free first `hero_seq`** (D-0155) + **adjacent isok/`m_at`/empty return `res` TIME** (D-0735) + 
 **`mundetected`/`mappearance` `seemimic` + `mstatusline` align/size/AC** (D-0738; 
 SDOOR/SCORR/`its_dead`/defsyms furniture/`map_invisible`/ailment flags deferred) + 
