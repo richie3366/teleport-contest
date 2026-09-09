@@ -604,7 +604,10 @@ after head `newsym`, `abuse_dog` `:1386–1390` when the pet goes wild; unlike
 `see_wsegs` includes the dummy at `wheads`; live `js/worm.js` + `js/dog.js`);
 **D-1798 `wormhitu`** (`worm.c:343–362`; caller `monmove.c` `dochug` PHASE FOUR;
 skip dummy at `wheads`; `distu(wx,wy)<3` then `mattacku`; live `js/worm.js`);
-omit save/rest wsegs, `flip_worm_segs_vertical`/`flip_worm_segs_horizontal`, muse/mhitu 
+**D-2222 `flip_worm_segs_vertical`/`flip_worm_segs_horizontal** (`worm.c:968–987`;
+caller `sp_lev.c` `flip_level` `:661–666` wormno arm after priest/shk; live
+`js/worm.js` + `js/mklev.js` monsters loop);
+omit save/rest wsegs, muse/mhitu 
 `worm_move` callers; muse.c/mon.c local `mon_set_minvis` clones; feel_location 
 `is_worm_tail`; Detect_monsters cansee; MON_STILL_ARRIVING; 
 map_monst head `pet_to_glyph` / `detected_mon_to_glyph` (plain `mon_glyph`); 

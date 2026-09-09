@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `wield.c` weldmsg — blocks 1/553 corpus sessions (first at step 158): C «Your grappling hook is welded to your hand!» vs JS «Your weapon is welded to your hand!». Probe: `node scripts/hidden-proxy.mjs verify weldmsg` (scen-wish-Priest-92041). **Addressed:** D-2221
+- [x] `worm.c` flip_worm_segs_vertical/flip_worm_segs_horizontal — save/rest segment-flip family still named (data.md:606). No corpus block — port the named family. **Addressed:** D-2222
+
+
+- [x] `wield.c` weldmsg — blocks 1/553 corpus sessions (first at step 158): C «Your grappling hook is welded to your hand!» vs JS «Your weapon is welded to your hand!». Probe: `node scripts/hidden-proxy.mjs verify weldmsg` (scen-wish-Priest-92041). **Addressed:** D-2221 `b3f4d2f8`
 
 
 - [x] `artifact.c` defended()/DFLAG1 (named data.md:106; per-adtyp neighbors shipped D-1862). Defense message + RNG surface. **Addressed:** D-2220 `42fe12f1`

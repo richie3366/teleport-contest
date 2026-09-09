@@ -108,7 +108,7 @@ import { mk_mplayer } from './mplayer.js';
 import { can_saddle, put_saddle_on_mon } from './steed.js';
 import { m_at, mnearto, mnexto, elemental_clog } from './mon.js';
 import { enexto, rloc, goodpos, migrate_to_level } from './teleport.js';
-import { clear_wormdata, remove_worm } from './worm.js';
+import { clear_wormdata, flip_worm_segs_horizontal, flip_worm_segs_vertical, remove_worm } from './worm.js';
 import { obj_resists } from './dogmove.js';
 import {
     PM_ELF, PM_DWARF, PM_ORC, PM_GNOME, PM_HUMAN,
@@ -16902,8 +16902,8 @@ function flip_level_rnd(flp, extras) {
  * shrpos / shk shk|shd via Flip_coord (inFlipArea+x gate); ungated stairs;
  * `_level_monsters` swap (C level.monsters[][]). Named omissions:
  * SpLev_Map flip (C leaves unflipped); drawbridge helpers; vault-guard
- * extras; worm-seg helpers beyond grid swap; ball/chain;
- * flip_visuals(extras). Exclusion rectangles flip with the level (D-1109).
+ * extras; ball/chain; flip_visuals(extras).
+ * Exclusion rectangles flip with the level (D-1109).
  */
 function flip_level(flp, _extras) {
     if ((flp & 3) === 0) return;
@@ -16981,7 +16981,8 @@ function flip_level(flp, _extras) {
         if (flp & 2) otmp.ox = FlipX(otmp.ox);
     }
 
-    // monsters — C sp_lev.c flip_level: mx/my + mgoal (+ priest/shk extras)
+    // monsters — C sp_lev.c flip_level: mx/my + mgoal (+ priest/shk extras;
+    // wormno tail segs via flip_worm_segs_vertical/horizontal, D-2222)
     if (game.fmon) {
         for (const mtmp of game.fmon) {
             if (!mtmp || !inFlipArea(mtmp.mx, mtmp.my)) continue;
@@ -16994,6 +16995,11 @@ function flip_level(flp, _extras) {
             } else if (mtmp.isshk && mtmp.mextra?.eshk) {
                 Flip_coord(mtmp.mextra.eshk.shk);
                 Flip_coord(mtmp.mextra.eshk.shd);
+            } else if (mtmp.wormno) {
+                // C ref: sp_lev.c flip_level :661–666 — tail segs flip
+                // with the head (D-2222; js/worm.js walkers).
+                if (flp & 1) flip_worm_segs_vertical(mtmp, miny, maxy);
+                if (flp & 2) flip_worm_segs_horizontal(mtmp, minx, maxx);
             }
         }
     }

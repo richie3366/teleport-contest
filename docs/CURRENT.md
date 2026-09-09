@@ -86,10 +86,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `wield.c` weldmsg — blocks 1/553 corpus sessions (first at step 158): C «Your grappling hook is welded to your hand!» vs JS «Your weapon is welded to your hand!». Probe: `node scripts/hidden-proxy.mjs verify weldmsg` (scen-wish-Priest-92041).
+**Next cluster:** `eat.c` cant_finish_meal — meal-interrupt predicate still named (debt.md:15). No corpus block — port the named family.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2221 (index).**
+**Keep D-0845…D-2222 (index).**
 <!-- recent:begin -->
+**D-2222** `worm.c:968–976` `flip_worm_segs_vertical` (`curr->wy = (maxy - curr->wy + miny)` over `wt — `js/worm.js` — two exports mirroring C character-for-character (`wtails[worm.wormno | 0]` walk; callers gate wormno, C does not re-check inside).
 **D-2221** `wield.c:1061–1074` `weldmsg` (`pline("%s welded to your %s!", Yobjnam2(obj, "are"), hand) — `js/wield.js` only — the three arms now `await weldmsg(u.uwep)` in C position/order (dowield keeps weldmsg→reset_remarm→unsplit-undo; doquiver keeps `weld_res = !bknown` pre-`welded()` + `weld_res ? 1 : 0`); `reset_remar
 **D-2220** `artifact.c:1008–1060` `spec_applies` (DFLAG1 arm `:1024–1025`; `defended` guard `:1036–10 — `js/artifact.js` only + one new import edge (`defended` from `./mondata.js`; `imports.mjs --can artifact.js mondata.js defended` → IN-SCC, hoisted-function SAFE; `mondata.js` already imports `artifact.js` and every cross
 **D-2219** `pray.c:1167–1354` `pleased` pat_on_head switch — `js/pray.js` only, no new cross-module edge (`see_monsters` extends the pre-existing static `display.js` edge — `imports.mjs --can pray.js display.js see_monsters` → ALREADY; `INTRINSIC` extends the pre-existing `const.j
@@ -97,11 +98,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2217** `sounds.c:202–339` `dosounds` (vault `:262–289` Soundeffect volumes 30/30, throne `:45–50` — `js/sounds.js` — seven `Soundeffect(se,vol)` sites in C order/volumes (contest C macro is equally empty without SND_LIB, `sndprocs.h:272`, so zero behavior change, strictly more faithful wiring; se ids from `generated/se
 **D-2216** `mkmaze.c:1097-1124` `populate_maze` (rn1/rn2 loop counts, `mazexy` + `mkobj_at`/`mksobj_a — `js/mklev.js` only, no new cross-module edge (every callee same-module or already imported: `rn1`/`mkobj_at`/`mksobj_at`/`mkgold`/`makemon`/`mons`/`NO_MM_FLAGS`/`GEM_CLASS`/`RANDOM_CLASS`/`impossible`/`maketrap` — `--can
 **D-2215** queue owner `detect.c:2099` (`return dosearch0(0) ? ECMD_TIME : ECMD_OK`) is the symptom o — `js/mthrowu.js` — full `:702–786` envelope in C order (EGG impossible/petrifier-FALLTHROUGH via live `touch_petrifies`; pie/venom `thitu(8,0)`; default elf `oc_skill==-P_BOW`/ELVEN_BOW/ELVEN_ARROW/bigmonst arms + acid-ve
-**D-2214** `eat.c:1078–1095` ACID_RES/STONE_RES arms — `js/eat.js` only — appended `.` to all four ACID/STONE literals to match C `"%s."`.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2221; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2222; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

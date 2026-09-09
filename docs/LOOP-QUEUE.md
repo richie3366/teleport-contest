@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `worm.c` flip_worm_segs_vertical/flip_worm_segs_horizontal — save/rest segment-flip family still named (data.md:606). No corpus block — port the named family.
 - [ ] `eat.c` cant_finish_meal — meal-interrupt predicate still named (debt.md:15). No corpus block — port the named family.
 - [ ] `worn.c` mon_set_minvis — muse/mon local clones still named (data.md:606-607; canonical export is `js/worn.js`). No corpus session currently blocks on it — port the named family (import the export, no new clone).
 - [ ] `track.c` SFCTOOL — save_track/rest_track flag still named (data.md:898). No corpus block — port the named family.
@@ -68,6 +67,7 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 - [ ] `worn.c` m_dowear_type — blocks 1/553 corpus sessions (first at step 142): C «The goblin puts on a pair of fencing gloves.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify m_dowear_type` (scen-intrinsic-Samurai-92017).
 - [ ] `mkobj.c` next_ident — blocks 1/553 corpus sessions (first at step 48): C draws `rnd(2)=1` in next_ident, JS `rn2(5)=1` from distfleeck(monmove.js:904). Probe: `node scripts/hidden-proxy.mjs verify next_ident` (scen-death-Wizard-92187). Distinct block from archived D-2001 row (that shipped order+gender for 92175/92103/92130).
 - [ ] `hack.c` dopush — blocks 1/553 corpus sessions (first at step 127): C «With great effort you move the boulder.» vs JS «With great effort you move the boulder.». Probe: `node scripts/hidden-proxy.mjs verify dopush` (explore-seed0116-wizard-wear-shop-cfabc006).
+- [ ] `timeout.c` nh_timeout — blocks 1/553 corpus sessions (first at step 108): C «You no longer feel secure from petrification.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify nh_timeout` (scen-wish-Rogue-91119).
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 
