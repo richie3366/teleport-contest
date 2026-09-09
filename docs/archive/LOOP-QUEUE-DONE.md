@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `uhitm.c` mhitm_mgc_atk_negated — blocks 1/553 corpus sessions (first at step 79): C «The lich touches you! You avoid harm.--More--» vs JS «The lich touches you! You avoid harm.». Probe: `node scripts/hidden-proxy.mjs verify mhitm_mgc_atk_negated` (scen-wish-Monk-92013). **Addressed:** D-2175
+- [x] `engrave.c` doengrave — blocks 1/553 corpus sessions (first at step 191): C draws `rn2(11)=7` in doengrave, JS `rn2(25)=8` from doengrave(engrave.js:1366). Probe: `node scripts/hidden-proxy.mjs verify doengrave` (scen-normal-Samurai-92071). **Addressed:** D-2176
+
+
+- [x] `uhitm.c` mhitm_mgc_atk_negated — blocks 1/553 corpus sessions (first at step 79): C «The lich touches you! You avoid harm.--More--» vs JS «The lich touches you! You avoid harm.». Probe: `node scripts/hidden-proxy.mjs verify mhitm_mgc_atk_negated` (scen-wish-Monk-92013). **Addressed:** D-2175 `a018f317`
 
 
 - [x] `js` js-throw — blocks 2/553 corpus sessions (first at step undefined): C «» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify js-throw` (scen-normal-Knight-92182, scen-wish-Knight-92034). **Addressed:** D-2173 `d23fde89`

@@ -1,6 +1,6 @@
 {
- "commit": "bc1f21f5",
- "at": "2026-09-09T02:11:14.999Z",
+ "commit": "a018f317",
+ "at": "2026-09-09T02:15:25.233Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6430,19 +6430,19 @@
   },
   "scen-normal-Samurai-92071": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 4023,
+   "passed": true,
+   "rngM": 4051,
    "rngT": 4051,
-   "scrM": 191,
+   "scrM": 205,
    "scrT": 205,
-   "kind": "rng",
-   "step": 191,
+   "kind": null,
+   "step": null,
    "steps": 205,
-   "owner": "doengrave",
-   "loc": "engrave.c:1224",
-   "jsOwner": "doengrave(engrave.js:1366)",
-   "cTopline": "It bites! It hits!--More--",
-   "jsTopline": "It bites! It just misses!",
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-normal-Samurai-92078": {

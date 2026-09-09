@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2176 — `engrave.c` doengrave mix-up predicates: local `Blind()` missed timed `HBlinded`, skipping every `rn2(11)` (Samurai-92071 PASS)
+
+- Status: shipped (Open queue row `engrave.c` doengrave — cited 1/553: scen-normal-Samurai-92071. Session now fully PASS, so the row is addressed and checked off. No review cited by the row, so no stamp owed.)
+- Symptom: scen-normal-Samurai-92071 step 191/205 kind=rng at engrave.c:1224: C `rn2(11)=7 @ doengrave(engrave.c:1224)` vs JS `rn2(25)=8 @ doengrave(engrave.js:1366)`. C step-191 dice open with 10 per-char `rn2(25)`+`rn2(11)` pairs (`rn2(25)=12, rn2(11)=7, rn2(25)=16, rn2(11)=4, …`, 2 mixes via `rnd(94)=67/78`) for the DUST text "ad aerarium" written while Blind (status line shows Blind both sides); downstream combat then diverges («It bites! It hits!» vs «It bites! It just misses!»).
+- C locus: `engrave.c:1219–1226` (mix-up loop draws `rn2(25)`/`rn2(11)`/`rn2(7)`/`rn2(4)`/`rn2(2)` in fixed short-circuit order) + `youprop.h:81/84/92–103/120` (`Stunned≡HStun`, `Confusion≡HConfusion`, `Blind≡(HBlinded||EBlinded)&&!BBlinded`, `Hallucination≡HHallucination&&!resist`).
+- JS was: four file-local clones in `js/engrave.js:101–112` read only the sticky flats (`u.Blind||u.ublind`, `u.Confusion`, `u.Stunned`, `u.Hallucination`) and never the timed `H*/E*` storage, so with timed blindness set JS `Blind()` was false while C `Blind` was true — JS skipped each char's `rn2(11)` and every later draw shifted (clone drift; `sym.mjs` pattern D-1849).
+- Fix: deleted the `Blind`/`Hallucination` locals and imported the canonical C-faithful exports (`Blind` from `js/invent.js:320`, `Hallucination` from `js/display.js:963` — both modules already imported, no new edges, call-time use only so no TDZ); rewrote the `Confusion`/`Stunned` locals to `((HConfusion|0)||u.Confusion)` / `((HStun|0)||u.Stunned)` per repo convention (no canonical export exists); loop order untouched; added the C citation comment at `js/engrave.js:1364`. No DIAG/FORCE/seed gates. The same fix corrects all other `Blind()` call sites in the module (wand sfx, wipeout, add-to), which all meant C `Blind`.
+- JS: `js/engrave.js` only (imports + 2 locals replaced + 1 comment).
+- Verify: `node scripts/verify.mjs --fn doengrave` → PASS syntax (1 changed js file: js/engrave.js) · PASS rule2 · PASS hidden: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS (scen-normal-Samurai-92071: PASS) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed). VERIFY: PASS.
+- Named omissions: none new. Pre-existing section names stand (altar/jello/grave-HEADSTONE arms, Blind feel path, `surface`/`is_ice`, wipeout seeded path — `turns.md:775`).
+- Next: row addressed; next work is the next Open row (`potion.c` peffect_polymorph). Do not re-pop `doengrave` for Samurai-92071.
+- Density note: ~15-line diff on an Open row; the C arm is the 8-line mix-up loop and the rest of the 307-line `doengrave` is already live (D-0076/D-1689/D-2073) — density exception: C arm that small.
+
 ## D-2175 — `mcastu.c` castmu fumble arm: JS burned the fumble `rn2(ml*10)` but skipped the air-crackles pline, losing the `--More--` (Monk-92013 step 79→121)
 
 - Status: shipped (Open queue row `uhitm.c mhitm_mgc_atk_negated` — cited 1/553: scen-wish-Monk-92013. Session moved to a LATER owner/step, so the row is addressed and checked off; the gate body itself was already proven live by D-2174. No review cited, no stamp owed.)

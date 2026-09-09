@@ -772,6 +772,9 @@ carving/marker rate, dull split + marker ink, BUFSZ room, truncate,
 `finish %s.` iff multi-action; C `nextc`-into-`text` kept as suffix);
 **`doengrave` add-to `ynq` + HEADSTONE + BUFSZ room** (D-2073: `:1113–1167`
 HEADSTONE append / same-type `yn_function` + `q`→`Never_mind` / full-text `There`);
+**`doengrave` mix-up Blind/Confusion/Stunned/Hallu predicates** (D-2176:
+`Blind` from `invent.js`, `Hallucination` from `display.js`,
+`Confusion≡HConfusion` / `Stunned≡HStun` locals fixed; `:1219–1226` order kept);
 dig caller still named; altar/jello;
 Blind feel; 
 full `surface`/`is_ice`; wipeout seeded path; `disturb_grave` from doengrave

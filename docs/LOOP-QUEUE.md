@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `engrave.c` doengrave — blocks 1/553 corpus sessions (first at step 191): C draws `rn2(11)=7` in doengrave, JS `rn2(25)=8` from doengrave(engrave.js:1366). Probe: `node scripts/hidden-proxy.mjs verify doengrave` (scen-normal-Samurai-92071).
 - [ ] `potion.c` peffect_polymorph — blocks 1/553 corpus sessions (first at step 175): C «You feel a little strange.--More--» vs JS «You feel a little strange. You turn into a plains centaur!». Probe: `node scripts/hidden-proxy.mjs verify peffect_polymorph` (scen-poly-Ranger-92133).
 - [ ] `muse.c` you_aggravate — blocks 1/553 corpus sessions (first at step 88): C «You feel aggravated at the master lich.--More--» vs JS «You feel aggravated at the master lich.». Probe: `node scripts/hidden-proxy.mjs verify you_aggravate` (scen-wish-Wizard-92048).
 - [ ] `detect.c` find_trap — blocks 1/553 corpus sessions (first at step 75): C «You find an anti-magic field.--More--» vs JS «You find an anti-magic field.--More--» (identical toplines; map rows 2–7 blank in JS — geometry owner, geom-probe first per runbook §7; cf. doturn park). Probe: `node scripts/hidden-proxy.mjs verify find_trap` (scen-intrinsic-Priest-92096).
