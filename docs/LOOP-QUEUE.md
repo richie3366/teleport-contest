@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `mhitu.c` hitmu — monster-vs-hero hit envelope thin vs C (`mhitu.c:1144`, 123/72; honourable-mention band). Corpus reach: in 14 failing sessions' diverged-step C draws. Probe: `node scripts/brief.mjs hitmu`.
 - [ ] `monmove.c` dochug — dead callee `wormhitu` + ~90 lines of C unaccounted (PORT-GAP #7; distinct arms from the Deferred demon/caster-retaliation row). Corpus reach: in 6 failing sessions' diverged-step C draws. Probe: `node scripts/brief.mjs dochug`.
 - [ ] `timeout.c` nh_timeout dialogues — 13 dead callees (`stoned_dialogue`, `slime_dialogue`, `vomiting_dialogue`, `choke_dialogue`, `sickness_dialogue`, `levitation_dialogue`, `stone_luck`, …; PORT-GAP #2; runs every turn). Corpus reach: `choke_dialogue` draws in 2 diverged steps. Probe: `node scripts/brief.mjs nh_timeout`.
 - [ ] `mon.c` xkilled — `LEVEL_SPECIFIC_NOCORPSE`, the `accessible || is_pool` gate, artifact un-create (PORT-GAP #6; retires the D-1138 named omit). Corpus reach: in 1 failing session's diverged-step C draws. Probe: `node scripts/brief.mjs xkilled`.

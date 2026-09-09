@@ -3017,7 +3017,7 @@ on first engulf via D-0838); **`dochug` MMOVE_MOVED `engulfing_u`→`mattacku`**
 **`mattacku` AT_WEAP ranged `thrwmu` + melee HTH/`hitmu`/`hitmsg`/`mdamageu`** (D-0105/D-0106); 
 **`hitmu` `!canspotmon`→`map_invisible`** (D-0579) + 
 **`hitmu` always `stop_occupation`** (D-0928 #1097; Blind Count:N `.` wait) + 
-**`hitmu` midnight undead extra + Half/Mitre halve + permdmg hpmax cut + youmonst knockback defender** (D-1921; `mhitu.c` `:1144–1267`; `midnight`/`is_undead`/`is_vampshifter`/`mon_hates_blessings`/`minuhpmax`/`PM_CLERIC` live; full `mhitm_adtyping` arms + knockback hurtle still named); 
+**`hitmu` midnight undead extra + Half/Mitre halve + permdmg hpmax cut + youmonst knockback defender** (D-1921; `mhitu.c` `:1144–1267`; `midnight`/`is_undead`/`is_vampshifter`/`mon_hates_blessings`/`minuhpmax`/`PM_CLERIC` live; ACID/DREN/CONF mhitu arms live D-2247; SGLD/CURS/DCAY/SLIM/DGST/HALU/DETH + knockback hurtle still named); 
 **`mattacku` mounted steed `rn2(is_orc?2:4)`→`mattackm` + retaliation** (D-0217); 
 **`mattacku`→`summonmu`/`msummon` demon+were arms** (D-0473 demon; **D-1844** were `new_were`/`were_summon` `rn2(5-(night*2))`/`rn2(30)`/`rn2(10)` + `were.c` `were_summon` `rnd(5)` typ `rn2`; is_lminion/angel deferred); 
 **`mdamageu`→`done_in_by` (not `losehp`)** (D-0190); 
@@ -3094,7 +3094,7 @@ small-monster otyp switch** (D-0189); **`dmgval` shade/`shade_glare` D-1354**;
 **`weapon_hit_bonus` (b.h. unskilled +1; martial/twoweapon/riding)** (D-0187); 
 **`dbon` + `weapon_dam_bonus` in `hmon_hitmon_dmg_recalc`** (D-0363; Basic martial +3; 
 `use_skill` practice; PROJECTILE→launcher skillwep + may-advance msg deferred); 
-**`hitmu`→`mhitm_adtyping` PHYS+ELEC+DRST/DRDX/DRCO+FIRE+TLPT+STCK+PLYS+ENCH + `mhitm_mgc_atk_negated`** (D-0198/D-0497/D-2005/D-2174) + 
+**`hitmu`→`mhitm_adtyping` PHYS+ELEC+DRST/DRDX/DRCO+FIRE+TLPT+STCK+PLYS+ENCH + `mhitm_mgc_atk_negated`** (D-0198/D-0497/D-2005/D-2174) + **`mhitm_ad_acid/dren/conf` mhitu arms** (D-2247; `hitmsg` + `rn2(3)` acid / negated + `rn2(4)` `drain_en` / `rn2(4)`+`rn2(6)` `mspec_used` + `make_confused`; SGLD/CURS/DCAY/SLIM/DGST/HALU/DETH + all uhitm/mhitm arms still named) + 
 **`poisoned`/`poisontell` attrib-loss `d(2,2)` + HP/fatal arms** (D-0869; 
 name_to_mon G_UNIQ / Half_gas_damage / trap·throw callers deferred) + 
 **AD_SITM/AD_SEDU→`mhitm_ad_sedu`→`steal`** (D-0686; brag `pline_mon` D-1240; **uhitm `steal_it` D-2209** (`uhitm.c` `:2173–2278` staticfn + `:4629–4632` dispatch as `damageum_adtyping` AD_SEDU/AD_SSEX/AD_SITM arm in `js/uhitm.js` — W_ARM-to-end, gold shuffle, hold_another_object "You steal: ", theft_petrifies staticfn `:2147–2165` with C-disabled `#if 0` arm omitted, W_WEP/W_ARMG fixups); 

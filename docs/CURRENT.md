@@ -89,10 +89,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `allmain.c` moveloop_core — per-turn spine dead callees (`do_storms`, `glibr`, `mkot_trap_warn`, `end_of_input`, `do_positionbar`, `runmode_delay_output`, …; PORT-GAP #10). Corpus reach: in 21 failing sessions' diverged-step C draws. Probe: `node scripts/brief.mjs moveloop_core`.
+**Next cluster:** `mhitu.c` hitmu — monster-vs-hero hit envelope thin vs C (`mhitu.c:1144`, 123/72; honourable-mention band). Corpus reach: in 14 failing sessions' diverged-step C draws. Probe: `node scripts/brief.mjs hitmu`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2246 (index).**
+**Keep D-0845…D-2247 (index).**
 <!-- recent:begin -->
+**D-2247** `uhitm.c:2742–2786` (`mhitm_ad_acid`: mhitu arm = `hitmsg`, then `!mcan && !rn2(3)` → `Aci — `js/mhitu.js` — new `mhitm_ad_acid_u` / `mhitm_ad_dren_u` / `mhitm_ad_conf_u` in C branch/short-circuit order (acid `| 0` int idiom on the resistance/mspec fields; dren negated-before-hitmsg like the sibling `_u` arms; c
 **D-2246** `allmain.c:194–201` (`if (svc.context.bypasses) clear_bypasses();` then sanity `:197–198`, — `js/worn.js` — module-local `clear_bypass` (C staticfn: same-file caller only; Array-or-nobj walk + `Has_contents`/`cobj` recursion) + new `export function clear_bypasses()` in C order (fobj/invent/migrating_objs/`level.
 **D-2245** `mon.c:5078–5154` (`wiz_force_cham_form`: `Change %s @ %s into what?` prompt from `noit_mo — `js/makemon.js` — new `export function mkclass_poly(mletClass)` after `mk_gen_ok` in C order (same-file `mk_gen_ok`, `rn2(9)`/`rnd`, Inhell via the dungeon-hellish-flag idiom per D-0747, S_LICH string gate per the `mkcla
 **D-2244** `mkobj.c:1703–1736` (`maybe_adjust_light`: `new_range = arti_light_radius(obj)`, `delta =  — `js/mkobj.js` — new `export async function maybe_adjust_light(obj, old_range)` in C branch/short-circuit order (`| 0` int idiom on the delta; `await obj_adjust_light_radius`; `get_obj_location(obj, 0)` null-gate = C FALS
@@ -100,11 +101,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2242** `detect.c:780–785` (`object_detect`: `You("detect the %s of %s.", ct ? "presence" : "absen — `js/detect.js` — deleted the `flush_topl_more()` call between the detect pline and the `!ct`/`browse_map` branch and replaced it with the C cite (`detect.c:780` → `getpos.c:843–846`, two-space join, same-class-as-D-2081 
 **D-2241** `invent.c:2636–2647` (`fully_identify_obj`: `makeknown`, oartifact `discover_artifact`, `o — `js/invent.js` — `fully_identify_obj` gains the C tail arm in C position (after `set_cknown_lknown`, last in the body): `(otmp.otyp | 0) === EGG && (otmp.corpsenm | 0) !== NON_PM` (same `| 0` idiom as the neighboring `ST
 **D-2240** `hack.c:3233–3309` (`pooleffects`: leave-water `:3236–3265` — `js/pickup.js` — full C-order port: Wwalking/Swimming/Amphibious/Breathless computed once from the same-file `pickup_checks` uprops+H/E-flat idiom (+ `is_swimmer(usteed.data)` steed disjunct per C `:266`); leave-water bl
-**D-2239** `polyself.c:905–911` (`newman`: after `newsym(u.ux,u.uy)`, `if (lays_eggs(gy.youmonst.data — `js/polyself.js` — `polymon` gains the C block in C position (immediately after `newsym`, before the deferred `u.uswallow`/`u.ustuck`/`u.usteed` arms): `lays_eggs(game.youmonst?.data)` gate (same `uptr` idiom as the live
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2246; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2247; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
