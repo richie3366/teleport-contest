@@ -166,7 +166,7 @@ function blackout(x, y) {
  * C ref: vault.c clear_fcorr — restore fakecorr cells to saved typ/flags.
  * @returns {boolean} true if fully cleared
  */
-function clear_fcorr(grd, forceshow) {
+export function clear_fcorr(grd, forceshow) {
     const egrd = EGD(grd);
     if (!egrd) return true;
     const u = game.u;
@@ -245,7 +245,7 @@ function restfakecorr(grd) {
  * C ref: vault.c parkguard — park escort at <0,0> until corridor clears.
  * Named omission: polearm.hitmon clear; level.monsters[][] grid.
  */
-function parkguard(grd) {
+export function parkguard(grd) {
     if (!grd) return;
     const ox = grd.mx | 0;
     const oy = grd.my | 0;

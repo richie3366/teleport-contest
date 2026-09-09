@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `eat.c` maybe_finished_meal — eatfood-completion predicate still named (c-js-map turns.md:1824). No corpus block — port the named family (the `allmain.c` stop_occupation gate stays deferred per the lembas park). Probe: `node scripts/brief.mjs maybe_finished_meal`. **Addressed:** D-2230
+- [x] `mon.c` mondead tail — `lifesaved_monster`/`vamprises`/`grddead`/`logdeadmon`/full `m_detach` still named (data.md:358). No corpus block — port the named family. Probe: `node scripts/brief.mjs m_detach`. **Addressed:** D-2231
+
+
+- [x] `eat.c` maybe_finished_meal — eatfood-completion predicate still named (c-js-map turns.md:1824). No corpus block — port the named family (the `allmain.c` stop_occupation gate stays deferred per the lembas park). Probe: `node scripts/brief.mjs maybe_finished_meal`. **Addressed:** D-2230 `5ec34ec0`
 
 
 - [x] `timeout.c` nh_timeout — blocks 1/553 corpus sessions (first at step 108): C «You no longer feel secure from petrification.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify nh_timeout` (scen-wish-Rogue-91119). **Addressed:** D-2229 `7bffd9f5`

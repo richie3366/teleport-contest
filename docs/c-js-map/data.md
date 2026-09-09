@@ -355,7 +355,8 @@ flooreffects non-floor arms, floor-boulder `sobj_at` nocorpse, MAIL_DAEMON,
 wasinside `spoteffects`, Blind_telepat `see_monsters`, quest adjalign arms, genus/other 
 mon.c helpers; 
 **`mondead`** (D-2147; `js/mhitm.js` export, `uhitm.js`/`trap.js` clones removed): be_sad clear, cham/were restore, mvitals, quest-leader mark, mail-daemon `G_GENOD`, S_KOP `rnd(5)`+`makemon` in C order; 
-omit `lifesaved_monster`/`DEADMONSTER` return, `vamprises`, be_sad pline, vortex gas cloud (`rn2(10)` draw), `grddead`, `logdeadmon`, full `m_detach`
+**`mondead` tail** (D-2231; `js/mhitm.js` async export + `mon.js`/`vault.js`/`shk.js` edges): `set_mon_min_mhpmax`, `lifesaved_monster` (amulet+wary_dog+genocided), `vamprises` (door smash, no trap kill), `grddead` (vault corridor+gold), `logdeadmon` (Medusa+livelog cadence), `thiefdead` (stealmid), `shkgone` (resident/no_charge/setpaid/bill/ushops), full `m_detach` (unleash/light/mon_leaving/wizdead/nemesis/leader/relobj+gated newsym/purge/dismount), async `mondead` + `monstone`/`monkilled` wiring, all callers await;
+omit `stinky_nemesis` gas, `minimal_monnam` format, `thiefdead` stealarm arm, `shkgone` damage/`has_shop` arms, `mongone` FALSE caller, `vamprises` door-trap kill, xkilled disinteg/readers, sync `kill_genocided_monsters` nuance
 
 ### `src/mondata.c` growth
 

@@ -1745,9 +1745,19 @@ export async function maybe_mnexto(mtmp) {
  * on fmon, segs on _level_monsters — D-1565). Async only because the
  * port's unstuck awaits docrt on swallow release.
  */
-async function mon_leaving_level(mon) {
+export async function mon_leaving_level(mon) {
     const mx = mon.mx | 0, my = mon.my | 0;
-    const onmap = isok(mx, my) && m_at(mx, my) === mon;
+    // C mon.c:2699 — levl.monsters[mx][my]==mon. m_at is liveness-filtered
+    // (skips mhp<=0; m_detach calls this after mhp=0) and _level_monsters
+    // heads go stale on mx/my-only movement (m_at's own comment), so
+    // neither map alone matches C's grid. The fmon membership + coords
+    // clause covers the death path (dead mons stay on fmon with current
+    // coords until dmonsfree); live callers still match via the maps.
+    const raw_at = (x, y) => (game._level_monsters?.get(`${x | 0},${y | 0}`) ?? null);
+    const onmap = isok(mx, my)
+        && (m_at(mx, my) === mon || raw_at(mx, my) === mon
+            || ((mon.mx | 0) === mx && (mon.my | 0) === my
+                && !(mon.mstate & MON_OFFMAP) && (game.fmon || []).includes(mon)));
 
     /* to prevent an infinite relobj-flooreffects-hmon-killed loop */
     mon.mtrapped = 0;
@@ -1757,7 +1767,7 @@ async function mon_leaving_level(mon) {
     await unstuck(mon); /* mon is not swallowing or holding you nor held by you */
 
     /* vault guard might be at <0,0> */
-    if (onmap || m_at(0, 0) === mon) {
+    if (onmap || raw_at(0, 0) === mon) {
         if (mon.wormno) {
             remove_worm(mon);
         } else {
@@ -2417,7 +2427,7 @@ async function minliquid_core(mtmp) {
                     await pline(`${Monnam(mtmp)} ${fate}.`);
                 }
                 if (game.context?.mon_moving) {
-                    mondead(mtmp);
+                    await mondead(mtmp);
                 } else {
                     const { xkilled } = await import('./uhitm.js');
                     await xkilled(mtmp, XKILL_NOMSG);
@@ -2428,7 +2438,7 @@ async function minliquid_core(mtmp) {
                     if (cansee(mx, my)) {
                         await pline(`${Monnam(mtmp)} surrenders to the fire.`);
                     }
-                    mondead(mtmp);
+                    await mondead(mtmp);
                 } else if (cansee(mx, my)) {
                     await pline(`${Monnam(mtmp)} burns slightly.`);
                 }
@@ -3190,6 +3200,11 @@ export function kill_genocided_monsters() {
             if (ismnum(cham) && !kill_cham) {
                 // newcham(mtmp, NULL, NC_SHOW_MSG) deferred
             } else {
+                // Sync by design: genocided mons cannot lifesave (amulet
+                // still dies) or vamprise (G_GENOD gate); the async detach
+                // lands before the next input. Corner nuance: the minvent
+                // egg pass below runs pre-drop (C drops first, then kills
+                // floor eggs) — equivalent kill set, see D-log.
                 mondead(mtmp);
             }
         }

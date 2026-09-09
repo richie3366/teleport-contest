@@ -4,7 +4,7 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 
 ## Active
 
-- **Work picker:** `hidden-proxy queue`; singletons Deferred. Fresh queue all parked/guard/already-Open — do not re-add without a fired falsifier.
+- **Work picker:** `hidden-proxy queue`; singletons Deferred — do not re-add without a fired falsifier.
 - **More-transient parks — do not re-pop:** break_armor (Tourist-92171@88 timing).
 - **do_statusline2 park — do not re-pop:** row-23 diffs are paint-timing.
 - **Fortress guards** (do not reopen): display_inventory dismiss/gameover heading/keep_status, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue `S_ndoor`, bigrm-2, getpos, summonmu, lookat, `do_statusline1`, snapshot, fakewiz, Ice/Boulder, `roles[]`, pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
@@ -15,23 +15,24 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 - **MISATTRIBUTED/STALE parks — do not re-pop:** vomiting_dialogue/u_stuck_cannot_go/name_to_monplus/mcast_death_touch/save_dungeon/dodown/mv_bubble/one_characteristic/use_pole/trapmove/fig_transform/chwepon.
 - **do_statusline1 park — do not re-pop:** Caveman-92138@72 → attributes_enlightenment.
 - **disclose + list_vanquished parks — do not re-pop:** Priest-92179 Hallu desync (done_in_by imitator); Tourist-92067@224 identical-prompt cell (display-memory).
-- **dopush park — do not re-pop:** explore-seed0116 step-127 1-cell transient is giant-mimic memory/viz at map (33,12), not the push (push byte-identical both sides; RNG 12853/12853). Measured 2026-09-09: JS vision/mem probed per-step (couldsee FALSE@127/TRUE@128; mem floor@127), C q3 hand-sim says UNSEEN — jointly inconsistent, needs temp-C-dump falsifier (ap/mem/vision @114–128, recipe in Parked entry). Open row consolidated into Parked; baseline `verify dopush` NO MOVEMENT.
+- **dopush park — do not re-pop:** explore-seed0116 step-127 1-cell transient is giant-mimic memory/viz at map (33,12), not the push (push byte-identical both sides; RNG 12853/12853). Measured 2026-09-09: per-step probes vs C hand-sim jointly inconsistent — needs temp-C-dump falsifier (recipe in Parked entry). Open row consolidated into Parked; baseline `verify dopush` NO MOVEMENT.
 
 ## Don't re-check (≤15)
 
-- D-1790…D-2230 stand. Scars: `m_seenres` boolean, never `!== 0`; no 2nd `genus`/`accessible`/`confdir`/`locomotion`/`unconscious`/`free_mgivenname`/`is_axe`/`carrying`/`end_running`.
+- D-1790…D-2231 stand. Scars: `m_seenres` boolean, never `!== 0`; no 2nd `genus`/`accessible`/`confdir`/`locomotion`/`unconscious`/`free_mgivenname`/`is_axe`/`carrying`/`end_running`.
 - D-1795/D-1816 stand. Scars: sleep `rn2(10)`; no 2nd `m_monnam`/`simple_typename`; seed4500 `[2]`: keep `flush_screen(1)`.
 - No `stay` rebuild / `u.Punished` / ordinary-pit-farlook `rn2(20)`.
 - seed0014 I-glyph D-1774; findone tail D-1775; D-0078 H2344/offx 72 (D-1185); `g`≠Unknown (D-1186); PREFIXCMD D-1582.
   ParanoidTrap/`domagicportal`/`undestroyable_trap`/`mktrap` dst/`goto_level` uz0 are D-1187/1188. No rhack raw-ETX (D-1189). Never FORCE falsified mineralize TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` loaders D-1852/D-1858 — check `load_val_*`/`load_sam_*` before refilling.
 - No D-0480 `tty_map_color` re-apply (D-0483). No skipped spaces / space runs >4 (D-0931). No FORCE shk satdoor/`onlineu` (D-0376), linedup/FlipX (#1092), `_pending_message` restore (D-0929), HEAVY_IRON_BALL `owt!=0` (#1194). Judge keeps RC (D-0933); §1.2 frozen. No public-LB chase.
-- No memcpy gi worn/ball (D-1035) / `setnotworn`←`owornmask` (D-1020) / `delobj` tut loot / off-level timers (D-1037) / dropped `msounds[]` (D-1053) / tut-1 keys (D-1065) / skipped `tutorial()` (D-1066). No skip D-1067…D-2230.
-- No `monmove.js`→sit `sticks` import / `confer_oc_oprop` rewrite / emin delete / `make_happy_shk` stub (D-1540) / bones→options fruitadd (D-1541). No `reset_glyphmap`/`notice_all_mons`/savelev-freeing/`lspo_reset_level`. No `wield`/`pickup`→`polyself` `body_part`. No static `end`←`dog`. No makemon→hack/`artifact`/`minion`. No re-port D-1682…D-2230.
+- No memcpy gi worn/ball (D-1035) / `setnotworn`←`owornmask` (D-1020) / `delobj` tut loot / off-level timers (D-1037) / dropped `msounds[]` (D-1053) / tut-1 keys (D-1065) / skipped `tutorial()` (D-1066). No skip D-1067…D-2231.
+- No `monmove.js`→sit `sticks` import / `confer_oc_oprop` rewrite / emin delete / `make_happy_shk` stub (D-1540) / bones→options fruitadd (D-1541). No `reset_glyphmap`/`notice_all_mons`/savelev-freeing/`lspo_reset_level`. No `wield`/`pickup`→`polyself` `body_part`. No static `end`←`dog`. No makemon→hack/`artifact`/`minion`. No re-port D-1682…D-2231.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2231: `js/mhitm.js` — new `set_mon_min_mhpmax` (m_lev+1 floor then caller minimum), async `lifesaved_monster` (cansee-gated plines, `mlifesaver`/`m_useup_mm Named: `stinky_nemesis` gas + `nemesis_stinks` call (quest-text `com_pager_core` dependency); `mi
 - D-2230: `js/eat.js` — new `export async function maybe_finished_meal(stopping)` after `cant_finish_meal`, C branch/short-circuit order (occupation → usedtime> Named: `allmain.c:687` `stop_occupation(TRUE)` gate stays deferred per the lembas park (`botl.c` 
 - D-2229: `js/eat.js` — new `export function eating_dangerous_corpse(res)` after `givit`, C branch/short-circuit order (occupation → piece → CORPSE → LOW_PM → c Named: STONE_RES `wielding_corpse(uwep/uswapwep, NULL, FALSE)` pair stays deferred (`do_wear.c:60
 - D-2228: `js/dig.js` + `js/zap.js` only, control-flow, no new imports/edges (mksobj_at/xname/stackobj/newsym already imported at both sites): after `finish_los Named: none new — u.dz swallowed-pierce + pitdig conjoined/adj_pit_checks/pit_flow stay named (tu
@@ -46,5 +47,4 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 - D-2219: `js/pray.js` only, no new cross-module edge (`see_monsters` extends the pre-existing static `display.js` edge — `imports.mjs --can pray.js display.js  Named: pat_on_head cases 1–4 (uwep erosion/bless/uncurse repair `:1170–1217`; Castle tune hints `
 - D-2218: `js/shk.js` — `Soundeffect(se_mutter_imprecations, 50)` in C order (before the mutter pline; contest C macro is equally empty without SND_LIB, `sndpro Named: `shkname` impossible/panic arms (non-shopkeeper / missing-eshk error paths — JS keeps the 
 - D-2217: `js/sounds.js` — seven `Soundeffect(se,vol)` sites in C order/volumes (contest C macro is equally empty without SND_LIB, `sndprocs.h:272`, so zero beh Named: priest.c:364 pname still on its current path (C `Strcat(pname, halu_gname(...))` — unreach
-- D-2216: `js/mklev.js` only, no new cross-module edge (every callee same-module or already imported: `rn1`/`mkobj_at`/`mksobj_at`/`mkgold`/`makemon`/`mons`/`NO Named: `populate_maze` trap loop — C `mktrap(0, MKTRAP_MAZEFLAG, NULL, NULL)` picks a random type
 <!-- landmarks:end -->

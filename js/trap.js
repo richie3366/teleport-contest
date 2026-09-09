@@ -1128,7 +1128,7 @@ async function corpse_chance(mon) {
 
 // C ref: mon.c mondied → mondead + maybe make_corpse
 async function mondied(mdef) {
-    mondead(mdef);
+    await mondead(mdef);
     if ((mdef.mhp | 0) > 0) return; /* lifesaved */
     if (await corpse_chance(mdef)) await make_corpse(mdef);
 }
