@@ -86,10 +86,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `invent.c` prinv — blocks 1/553 corpus sessions (first at step 67): C «c - an uncursed flint stone (in quiver pouch) (19 in total).» vs JS «f - an uncursed flint stone.». Probe: `node scripts/hidden-proxy.mjs verify prinv` (scen-normal-Caveman-92059).
+**Next cluster:** `insight.c` enlightenment — blocks 1/553 corpus sessions (first at step 108): C «Wizard the Monk's attributes:» vs JS «Wizard the Monk's attributes:». Probe: `node scripts/hidden-proxy.mjs verify enlightenment` (scen-poly-Monk-92213).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2207 (index).**
+**Keep D-0845…D-2208 (index).**
 <!-- recent:begin -->
+**D-2208** `insight.c:474–479` (`innategend = (Upolyd ? u.mfemale : flags.female) ? 1 : 0`; role_titl — `js/invent.js` only — `innateFemale = Upolyd(u) ? !!u.mfemale : female` (the house Ugender idiom, cf.
 **D-2207** `invent.c:1098–1106` addinv_core0 quiver-prefer arm (`if (uquiver && merged(&uquiver, &obj — `js/mkobj.js` — gate narrowed to worn *combine* stack only (`obj`), citing C's absent check + the fixup's obj-worn-only fire condition; an unworn `obj` into a worn `otmp` needs no fixup either side.
 **D-2206** `trap.c:1402–1476` trapeffect_sqky_board. Monster in-sight arm (`:1445–1451`) prints `plin — `js/trap.js` only — monster arm uses live `mon_nam(mtmp)` (already imported) via `pline_mon(mtmp, …)` (already imported) in C order (pline then seetrap); hero arm ported in C order (forcetrap from FORCETRAP/FAILEDUNTRAP/
 **D-2205** `getpos.c:1119–1135` unknown-key tail: `pline("Unknown direction: '%s' (%s).", visctrl, no — `js/getpos.js` only — delete the clear, citing C's `msg_given = FALSE; /* suppress clear */`.
@@ -97,11 +98,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2203** `timeout.c:737–742` `case STUNNED:` (`set_itimeout(&HStun, 1L); make_stunned(0L, TRUE); if — `js/timeout.js` only — generic-loop `p === STUNNED` expiry arm in C order: re-arm flat `u.HStun = (HStun & ~TIMEOUT) | 1` (+ `u.Stunned` mirror) because the `--` above already zeroed it and `make_stunned` only reports wh
 **D-2202** `bones.c:457–478` savebones `ismnum(u.ugrave_arise)` arm + `mondata.c:1586–1598` `give_u_t — `js/end.js` only — full arise arm in C order (`in_mklev` + `makemon(NO_MINVENT)` with prev-restore; `!mtmp` fallback drop + `ugrave_arise = NON_PM` + return; `give_u_to_m_resistances`; `christen_monst(plname)`; `newsym`;
 **D-2201** NOT the do_statusline2 append block (`botl.c:170–206`). Live tty path: `bot()` takes `bot_ — `js/display.js` `_statusLine2` emits `BL_HUNGER`, `BL_CAP`, then rank-sorted `BL_CONDITION`, every predicate verbatim (Sick split into separate FoodPois/TermIll gates so Slime/Stone sort between; Conf before Deaf, Hallu 
-**D-2200** `potion.c:368–438` `make_hallucinated` (changed gate `:394`, see_* before pline `:424–426` — `js/display.js` — `await flush_topl_more()` first inside `docrt()`'s guarded body (after the in_docrt latch, before uswallow/vision arms): a pending --More-- now waits on the intact see_* paint (C order), then docrt repa
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2207; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2208; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

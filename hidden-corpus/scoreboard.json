@@ -1,6 +1,6 @@
 {
- "commit": "a234ca48",
- "at": "2026-09-09T08:53:54.205Z",
+ "commit": "d375dcfa",
+ "at": "2026-09-09T08:58:15.641Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6773,16 +6773,16 @@
    "passed": false,
    "rngM": 3318,
    "rngT": 3318,
-   "scrM": 116,
+   "scrM": 117,
    "scrT": 119,
    "kind": "screen",
-   "step": 108,
+   "step": 109,
    "steps": 119,
-   "owner": "enlightenment",
-   "loc": "insight.c:398",
+   "owner": "chwepon",
+   "loc": "wield.c:940",
    "jsOwner": null,
-   "cTopline": "Wizard the Monk's attributes:",
-   "jsTopline": "Wizard the Monk's attributes:",
+   "cTopline": "Your intelligence was 3.",
+   "jsTopline": "Your intelligence was 3.",
    "error": null
   },
   "scen-poly-Priest-91137": {

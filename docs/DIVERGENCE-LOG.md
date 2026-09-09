@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2208 — `insight.c` background_enlightenment innategend: role/rank/gender read saved u.mfemale when poly'd (queue row enlightenment, 1 session PROGRESS 108→109)
+
+- **Status:** shipped (Open queue row `insight.c` enlightenment — 1/553 blocked; `verify --fn enlightenment` → 0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS. Row archived. No review cited, no stamp owed.)
+- **Symptom:** scen-poly-Monk-92213 step 108/119 kind=screen at `insight.c:398` with identical C/J toplines («Wizard the Monk's attributes:»): row 4 C « You were actually a Candidate, a level 1 male human Monk.» vs JS « You were actually a Candidate, a level 1 female human Monk.». Screen-only, 0 blocked RNG (the parked barehands entry measured 3318/3318 positional RNG sync around this disclosure).
+- **C locus:** `insight.c:474–479` (`innategend = (Upolyd ? u.mfemale : flags.female) ? 1 : 0`; role_titl/rank_of from innategend) + `:512–515` (gender tmpbuf from `genders[innategend]`) + title `:392–397` (same saved-gender expression); the Upolyd form arm `:496–506` deliberately keeps current `flags.female` («here we always use current gender, not saved role gender»).
+- **JS was:** `js/invent.js` final `enlightenment()` and the `doattributes` overlay builder derived role/rank/gender/innategend from `game.flags.female` (current form gender) on every path — a poly'd male hero in a female form printed «female human Monk».
+- **Fix:** `js/invent.js` only — `innateFemale = Upolyd(u) ? !!u.mfemale : female` (the house Ugender idiom, cf. `display.js:314` / `polyself.js:794` / `do_name.js:609`; `u.mfemale` maintained by `polyself.js:654,1099,1103`); role/rank/gender/innategend read it in both builders; form-line adj, cham/form pmname and were-form pmname keep `flags.female` per C. No new import or edge (`Upolyd` already file-live), no TDZ (defined before first use in both builders).
+- **JS:** 1 file (`invent.js` +20/−9), under the 600/10 caps. Rule #2 clean; no DIAG/FORCE/seed gates. No committed probes.
+- **Verify:** `node scripts/verify.mjs --fn enlightenment` → PASS syntax (1 changed js file: js/invent.js) · PASS rule2 · PASS hidden `0 PASS, 1 moved past, 0 unchanged, 0 worse → PROGRESS` (scen-poly-Monk-92213 step 108 → chwepon@109, strictly later step, different owner) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed per runner) · VERIFY: PASS, final verify after the last js/ edit (map/D-log/queue edits only after).
+- **Named omissions:** `background_enlightenment` difgend/difalgn «started out» + «actually <align>» temp-align arms (`:574–589`; need `ualignbase`, untracked in JS) — fire on neither side here (no started-out line either side); overlay background Upolyd/handed/XP/hit-dice arms stay deferred (D-2104).
+- **Next:** do not re-pop `enlightenment` for Monk-92213 (0 blocked). It now rests at `wield.c` chwepon@109 — leave to the queue refill; do not invent a FAIL peel.
+- **Cited falsifier grade:** measured (machine-recorded C-vs-JS row; pinned C `insight.c:382–463,466–479,490–527` read via brief + full read; post-fix `verify --fn enlightenment` PROGRESS + green/strict/cohort; no JS FORCE/DIAG/seed reads used).
+
 ## D-2207 — `invent.c` quiver-prefer pickup merge: floor ammo merges into the quivered stack (queue row `prinv`, 1 session PASS)
 
 - **Status:** shipped (Open queue row `invent.c` prinv — 1/553 blocked; `verify --fn prinv` → 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS. Row archived. No review cited, no stamp owed.)
