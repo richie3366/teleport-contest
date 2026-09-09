@@ -5,7 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `fountain.c` gush steed + engulfed-hero arms — map-driven (c-js-map data.md): steed Flying/Levitation, `engulfing_u` flush, `mdrop_special_objs` worn/saddle/`extract_from_minvent` still named. Probe: `node scripts/brief.mjs gush`. **Addressed:** D-2197
+- [x] `do.c` heal_legs — map-driven (c-js-map data.md:1048; def `do.c:2449` `heal_legs(int how)` 0 ordinary / 1 dismount / 2 stone): wounded-legs heal path (`disp.botl`, ATEMP DEX restore) still named. Probe: `node scripts/brief.mjs heal_legs`. **Addressed:** D-2198
+- [x] `do.c` legs_in_no_shape — blocks 1/553 corpus sessions (first at step 27): C «Your right leg is in no shape for riding.» vs JS «». Probe: `node scripts/hidden-proxy.mjs verify legs_in_no_shape` (scen-normal-Healer-91123). **Addressed:** D-2198
+
+
+- [x] `fountain.c` gush steed + engulfed-hero arms — map-driven (c-js-map data.md): steed Flying/Levitation, `engulfing_u` flush, `mdrop_special_objs` worn/saddle/`extract_from_minvent` still named. Probe: `node scripts/brief.mjs gush`. **Addressed:** D-2197 `ab784680`
 
 
 - [x] `sounds.c` dosounds deferred room/guard arms — map-driven (c-js-map absent.md): swamp You1 / barracks/court You_hear / temple_priest / oracle canseemon / other MS_* still deferred. Probe: `node scripts/brief.mjs dosounds`. **Addressed:** D-2196 `1223ac2f`

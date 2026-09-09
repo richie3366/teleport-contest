@@ -1,6 +1,6 @@
 {
- "commit": "1223ac2f",
- "at": "2026-09-09T06:11:48.905Z",
+ "commit": "a59fedd8",
+ "at": "2026-09-09T06:32:01.660Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6107,18 +6107,18 @@
   },
   "scen-normal-Healer-91123": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 3085,
    "rngT": 3085,
-   "scrM": 170,
+   "scrM": 172,
    "scrT": 172,
-   "kind": "screen",
-   "step": 27,
+   "kind": null,
+   "step": null,
    "steps": 172,
-   "owner": "legs_in_no_shape",
-   "loc": "do.c:2412",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "Your right leg is in no shape for riding.",
+   "cTopline": "",
    "jsTopline": "",
    "error": null
   },

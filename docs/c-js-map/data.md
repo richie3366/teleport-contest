@@ -1050,7 +1050,7 @@ fire `destroy_items`/`ignite`/`burn_floor`/`melt_ice`/`surface`/`minuhpmax`/`los
 fire/sleep; worn/artifact `Resists_Elem` grants still named); MAGIC_PORTAL/LEVEL_TELEP `mlevel_tele_trap` arms; valley_level stronghold dest; 
 migrate light/worm/isshk; **`encumber_msg` callers beyond set_wounded_legs/preamble** (allmain 
 turn-loop / exercise STR·CON / pickup/drop); Lev/air/steed `weight_cap` MAX; `stagger()` poly; 
-`heal_legs`; **`body_part`** / **`mbodypart`** import `polyself.js` (D-1496;
+`heal_legs` body + all `heal_legs(0)` sites live (`js/trap.js:3017`; royal-jelly fpostfx `js/eat.js`, mount_steed wizard-force `js/steed.js`); **`body_part`** / **`mbodypart`** import `polyself.js` (D-1496;
 steed FOOT uses `mbodypart(usteed)`, not the hero). **mcastu HEAD /
 pickup HAND D-1508**. **`mcast_blind_you` EYE D-1534**. **`observe_quantum_cat` FOOT D-1535**.
 **`drown` crawl-out D-1814** (C `emergency_disrobe` `:4896` /
