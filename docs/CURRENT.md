@@ -86,7 +86,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `insight.c` enlightenment — blocks 1/553 corpus sessions (first at step 108): C «Wizard the Monk's attributes:» vs JS «Wizard the Monk's attributes:». Probe: `node scripts/hidden-proxy.mjs verify enlightenment` (scen-poly-Monk-92213).
+**Next cluster:** `insight.c` list_vanquished — blocks 1/553 corpus sessions (first at step 224): C «Do you want an account of creatures vanquished? [ynaq] (n)» vs JS «Do you want an account of creatures vanquished? [ynaq] (n)». Probe: `node scripts/hidden-proxy.mjs verify list_vanquished` (scen-wish-Tourist-92067).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2208 (index).**
 <!-- recent:begin -->

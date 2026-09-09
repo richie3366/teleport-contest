@@ -12,8 +12,9 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 - **Symptom-owner parks — do not re-pop:** obj_resists · m_move · rloc · lightdamage · mattackm/can_carry · spoteffects · mon_adjust_speed · zapyourself · doname_base · hmonas · minliquid_core · distfleeck.
 - **STALE parks — do not re-pop:** lesshungry · rndcurse · mhitm_ad_famn · regen_hp · barehands · do_mapping · adjattrib (look-path stale; pick_lock shipped) · from_what (PASS) · look_at_monster (PASS) · formatkiller (tombstone; dirty capture) · do_screen_description (step-56 passes; trapeffect PASS) · reveal_terrain (0–23 exact; live prinv@67).
 - **slimed park:** comment-line owner; dual writer (landing + Sick store); falsifier in Parked.
-- **MISATTRIBUTED/STALE parks — do not re-pop:** vomiting_dialogue (touch_artifact@92) · u_stuck_cannot_go (move-key misattr) · name_to_monplus (elf-lord PASS) · mcast_death_touch (writer unknown; body no-movement) · save_dungeon (stale; no `S`/`^S`; killer.format probe) · dodown (hurls More-timing) · mv_bubble (clamps falsified; pre-pickup writer) · one_characteristic (tie-break) · use_pole (dirty rescore) · trapmove (stiffening/yawn PASS).
+- **MISATTRIBUTED/STALE parks — do not re-pop:** vomiting_dialogue · u_stuck_cannot_go · name_to_monplus · mcast_death_touch · save_dungeon · dodown · mv_bubble · one_characteristic · use_pole · trapmove.
 - **do_statusline1 park — do not re-pop:** Caveman-92138@72 disclosure row-22 (teleport vs innate-infravision page shift); botl.c:85 mis-owns it (row>=22 rule); true writer attributes_enlightenment infravision gate; falsifier in Parked entry.
+- **list_vanquished park — do not re-pop:** Tourist-92067@224 prompt-identical map cell (29,3) Z/d; display-memory writer (see Parked).
 
 ## Don't re-check (≤15)
 
