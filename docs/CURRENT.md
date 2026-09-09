@@ -21,10 +21,10 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-09** — full `sessions` on the working tree
-(audit **1152–1155**).
+(audit **1156–1163**).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`58+0.37/turn` (R² 0.80).
+`92+0.57/turn` (R² 0.77).
 
 ## Score
 
@@ -54,6 +54,7 @@ Reviews 1133–1137: 3 ACCEPT, 2 ACCEPT-WITH-DEBT (debts review-pointed: 1136 Ha
 Reviews 1138–1145: 8 ACCEPT, 0 Must-fix.
 Reviews 1146–1151: 6 ACCEPT, 0 Must-fix.
 Reviews 1152–1155: 3 ACCEPT, 1 QUALITY-RISK (1152 burnarmor gloves literal — Must-fix prepended).
+Reviews 1156–1163: 8 ACCEPT, 0 Must-fix.
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score --jobs 8`
 (≈200 s); when every family is ≥ 85 % PASS, grow it first:
 `node scripts/scenario-gen.mjs --n 120 --seed <iter×100>`.

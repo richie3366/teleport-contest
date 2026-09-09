@@ -4,6 +4,9 @@ Append-only crumbs for `scripts/agent-port-loop.sh` iterations.
 Each agent process should add a short dated entry **at the top** (after
 this header) before exiting. Keep entries tight; detailed hypothesis
 lives in `NOTES.md` / `CURRENT.md`.
+## 2026-09-09 — Audit 74944545..ab784680 (reviews 1156–1163: 8 ACCEPT, 0 Must-fix) + cadence 44/44
+
+Review iteration over the 8 JS-touching SHAs since d22f6c29 (D-2190..D-2197), oldest-first, one file per SHA written as each finished. Every corpus claim re-measured with `hidden-proxy verify <fn> --base <SHA~1>`: burnarmor/thitm/m_harmless_trap/dosounds vacuous-0-confirmed as labeled; unstuck PROGRESS (Knight-92002 52→one_characteristic@81); accessory_or_armor_on PASS (Tourist-92144); look_here PROGRESS (Wizard-92223 121→130, residual null-owner label as disclosed); minliquid_core PASS (stale row, PASS pre/post as disclosed). C spot-checks held throughout (burnarmor literal, savelife tail, Helmet_on 7 arms + set_bknown/adj_abon, expels tail + um_dist, defended/resists_magm + sqky/rocktrap arms, thitm full body + AD_RBRE=242, dosounds 7 arms draw-for-draw, mdrop_obj/steed/flush). Minor message framings noted (ALREADY-edges called "new", D-2196/D-2194) — substance safe, no C-wrongs. Cadence: full `sessions` 44/44, Scr 11,405/11,405, RNG 792,838/792,838, speed `92+0.57/turn` (R² 0.77). No Must-fix prepended; Next cluster unchanged (fountain gush/engulfed map-driven).
 
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is

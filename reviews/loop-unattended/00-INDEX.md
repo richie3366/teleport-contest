@@ -1166,3 +1166,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1153-4e0fe784-start-tin-quan-prefix.md](./1153-4e0fe784-start-tin-quan-prefix.md) | `4e0fe784` | D-2187 start_tin aobjnam quan | **ACCEPT** |
 | [1154-60a971cb-hurtle-step-bump-arm.md](./1154-60a971cb-hurtle-step-bump-arm.md) | `60a971cb` | D-2188 hurtle_step monster-bump arm | **ACCEPT** |
 | [1155-d22f6c29-monflee-three-arms.md](./1155-d22f6c29-monflee-three-arms.md) | `d22f6c29` | D-2189 monflee three arms | **ACCEPT** |
+| [1156-74944545-burnarmor-gloves-literal.md](./1156-74944545-burnarmor-gloves-literal.md) | `74944545` | D-2190 burnarmor gloves literal | **ACCEPT** |
+| [1157-ad7c3c30-savelife-release-arms.md](./1157-ad7c3c30-savelife-release-arms.md) | `ad7c3c30` | D-2191 savelife release arms | **ACCEPT** |
+| [1158-3fbdad72-helmet-on-switch.md](./1158-3fbdad72-helmet-on-switch.md) | `3fbdad72` | D-2192 Helmet_on helm switch | **ACCEPT** |
+| [1159-caa4ff0d-expels-tail.md](./1159-caa4ff0d-expels-tail.md) | `caa4ff0d` | D-2193 expels tail | **ACCEPT** |
+| [1160-7c48caec-m-harmless-trap-arms.md](./1160-7c48caec-m-harmless-trap-arms.md) | `7c48caec` | D-2194 m_harmless_trap arms | **ACCEPT** |
+| [1161-ea5bcd4b-thitm-harmless-arm.md](./1161-ea5bcd4b-thitm-harmless-arm.md) | `ea5bcd4b` | D-2195 thitm harmless arm | **ACCEPT** |
+| [1162-1223ac2f-dosounds-seven-arms.md](./1162-1223ac2f-dosounds-seven-arms.md) | `1223ac2f` | D-2196 dosounds seven arms | **ACCEPT** |
+| [1163-ab784680-minliquid-steed-mdrop-obj.md](./1163-ab784680-minliquid-steed-mdrop-obj.md) | `ab784680` | D-2197 minliquid steed + mdrop_obj | **ACCEPT** |
