@@ -86,7 +86,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `eat.c` givit — blocks 1/553 corpus sessions (first at step 70): C «You feel less concerned about becoming petrified. The grid b» vs JS «You feel less concerned about becoming petrified The grid bu». Probe: `node scripts/hidden-proxy.mjs verify givit` (scen-wish-Rogue-91119).
+**Next cluster:** `do_wear.c` stop_donning — blocks 1/553 corpus sessions (first at step 93): C «The kitten drops a gold piece. You stop studying.» vs JS «The kitten drops a gold piece. You stop studying.». Probe: `node scripts/hidden-proxy.mjs verify stop_donning` (scen-wish-Wizard-92135).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2214 (index).**
 <!-- recent:begin -->

@@ -1,6 +1,6 @@
 {
- "commit": "86be79b5",
- "at": "2026-09-09T13:44:58.676Z",
+ "commit": "68ea2480",
+ "at": "2026-09-09T13:49:06.606Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -8725,19 +8725,19 @@
   },
   "scen-wish-Wizard-92135": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 5462,
    "rngT": 5462,
-   "scrM": 192,
+   "scrM": 196,
    "scrT": 196,
-   "kind": "screen",
-   "step": 93,
+   "kind": null,
+   "step": null,
    "steps": 196,
-   "owner": "stop_donning",
-   "loc": "do_wear.c:1711",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "The kitten drops a gold piece. You stop studying.",
-   "jsTopline": "The kitten drops a gold piece. You stop studying.",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-wish-Wizard-92153": {
