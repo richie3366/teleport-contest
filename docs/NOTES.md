@@ -10,6 +10,7 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 - **gethungry park — do not re-pop:** presence-only (0/553 owned, 28 stepFns under 12 other owners, 0 hunger toplines; JS arm-for-arm vs C; falsifier: verify blocked on gethungry).
 - **maybe_generate_rnd_mon park — do not re-pop:** presence-only (0/553 owned, 26 stepFns under 11 other owners; JS arm-for-arm vs C; falsifier: verify blocked on maybe_generate).
 - **mattacku park — do not re-pop:** presence-only (0/553 owned, 14 presence rows under 11 other owners, 0 cEntry/cMsgOwners; JS arm-for-arm vs C; falsifier: verify blocked on mattacku).
+- **u_calc_moveamt park — do not re-pop:** presence-only (0/553 owned, 6 stepFns under 4 other owners; JS arm-for-arm vs C; falsifier: verify blocked on u_calc_moveamt).
 - **do_statusline2 park — do not re-pop:** paint-timing.
 - **Fortress guards** (do not reopen): display_inventory dismiss/gameover heading/keep_status, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue `S_ndoor`, bigrm-2, getpos, summonmu, lookat, `do_statusline1`, snapshot, fakewiz, Ice/Boulder, `roles[]`, pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
 - **Luck runs when invulnerable, not dialogues** (`timeout.c:623`).
