@@ -1162,3 +1162,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1149-38ec30d9-doeat-conduct-switch.md](./1149-38ec30d9-doeat-conduct-switch.md) | `38ec30d9` | D-2183 doeat conduct switch | **ACCEPT** |
 | [1150-3e7e762a-pudding-split-family.md](./1150-3e7e762a-pudding-split-family.md) | `3e7e762a` | D-2184 pudding-split family | **ACCEPT** |
 | [1151-fb69e76e-mcast-disappear-see-invisible.md](./1151-fb69e76e-mcast-disappear-see-invisible.md) | `fb69e76e` | D-2185 mcast_disappear See_invisible | **ACCEPT** |
+| [1152-46171803-armor-simple-names.md](./1152-46171803-armor-simple-names.md) | `46171803` | D-2186 armor simple names (burnarmor gloves regression) | **QUALITY-RISK** |
+| [1153-4e0fe784-start-tin-quan-prefix.md](./1153-4e0fe784-start-tin-quan-prefix.md) | `4e0fe784` | D-2187 start_tin aobjnam quan | **ACCEPT** |
+| [1154-60a971cb-hurtle-step-bump-arm.md](./1154-60a971cb-hurtle-step-bump-arm.md) | `60a971cb` | D-2188 hurtle_step monster-bump arm | **ACCEPT** |
+| [1155-d22f6c29-monflee-three-arms.md](./1155-d22f6c29-monflee-three-arms.md) | `d22f6c29` | D-2189 monflee three arms | **ACCEPT** |

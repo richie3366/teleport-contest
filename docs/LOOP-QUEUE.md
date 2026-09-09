@@ -48,6 +48,8 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 `error`) is always a Must-fix row: it forfeits every later screen of that
 session (Constitution §10.14).
 
+- [ ] `trap.c` burnarmor case 3 gloves noun — pass the literal `"gloves"`, not `gloves_simple_name(item)`: C `trap.c:143–146` prints "Your gloves smoulders!" even for dknown gauntlets; D-2186's stub deletion regressed the previously-correct constant stub. Probe: fire-trap burnarmor with worn identified leather gauntlets (`rn2(5)=3`). Source: reviews/loop-unattended/1152-46171803-armor-simple-names.md.
+
 ## Open (corpus-driven, after Must-fix is empty)
 
 Ranked by corpus sessions blocked (`hidden-proxy queue`, scoreboard at

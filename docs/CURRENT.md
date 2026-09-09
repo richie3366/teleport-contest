@@ -21,10 +21,10 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-09** — full `sessions` on the working tree
-(audit **1146–1151**).
+(audit **1152–1155**).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`59+0.37/turn` (R² 0.78).
+`58+0.37/turn` (R² 0.80).
 
 ## Score
 
@@ -33,7 +33,7 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `60+0.36/turn` (R² 0.79) |
+| Speed label | `58+0.37/turn` (R² 0.80) |
 | Role-init throws | **0 / 44** |
 
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-06
@@ -53,6 +53,7 @@ Reviews 1089–1132: 44 ACCEPT, 0 Must-fix.
 Reviews 1133–1137: 3 ACCEPT, 2 ACCEPT-WITH-DEBT (debts review-pointed: 1136 Hallucination import source, 1137 save.js restore_waterlevel await), 0 Must-fix.
 Reviews 1138–1145: 8 ACCEPT, 0 Must-fix.
 Reviews 1146–1151: 6 ACCEPT, 0 Must-fix.
+Reviews 1152–1155: 3 ACCEPT, 1 QUALITY-RISK (1152 burnarmor gloves literal — Must-fix prepended).
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score --jobs 8`
 (≈200 s); when every family is ≥ 85 % PASS, grow it first:
 `node scripts/scenario-gen.mjs --n 120 --seed <iter×100>`.
@@ -91,7 +92,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `monmove.c` monflee — blocks 1/553 corpus sessions (first at step 80): C draws `rn2(25)=24` in monflee, JS `rnd(6)=5` from trapeffect_pit(trap.js:2052). Probe: `node scripts/hidden-proxy.mjs verify monflee` (scen-tour-Monk-91117).
+**Next cluster:** Must-fix `trap.c` burnarmor case 3 gloves noun — pass literal `"gloves"`, not `gloves_simple_name(item)` (C `trap.c:143–146`; review 1152 QUALITY-RISK). The next port iter ships this first, alone.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2189 (index).**
 <!-- recent:begin -->
