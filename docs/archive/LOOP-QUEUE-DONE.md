@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-09
 
-- [x] `mon.c` unstuck — blocks 1/553 corpus sessions (first at step 52): C draws `rnd(2)=2` in unstuck, JS `rn2(5)=1` from distfleeck(monmove.js:861). Probe: `node scripts/hidden-proxy.mjs verify unstuck` (scen-genesis-Knight-92002). **Addressed:** D-2191
+- [x] `mon.c` unstuck — blocks 1/553 corpus sessions (first at step 52): C draws `rnd(2)=2` in unstuck, JS `rn2(5)=1` from distfleeck(monmove.js:861). Probe: `node scripts/hidden-proxy.mjs verify unstuck` (scen-genesis-Knight-92002). **Addressed:** D-2191 `ad7c3c30`
 
 
 - [x] `trap.c` burnarmor case 3 gloves noun — pass the literal `"gloves"`, not `gloves_simple_name(item)`: C `trap.c:143–146` prints "Your gloves smoulders!" even for dknown gauntlets; D-2186's stub deletion regressed the previously-correct constant stub. Probe: fire-trap burnarmor with worn identified leather gauntlets (`rn2(5)=3`). Source: reviews/loop-unattended/1152-46171803-armor-simple-names.md. **Addressed:** D-2190 `74944545`
