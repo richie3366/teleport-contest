@@ -1165,9 +1165,9 @@ teleport-away `await rloc(RLOC_MSG)`; **lava `on_fire`/`xkilled`/`fire_damage_ch
 (`allmain.c:210–216` `mon_moving` around `movemon`); 
 **`deal_with_overcrowding` D-1148** (`mon.c:3986–3995` / 
 `m_into_limbo`/`migrate_mon`/`elemental_clog`; 
-minliquid failed survivor `rloc` + `mnexto` failed-enexto); 
-steed Flying/Levitation, `engulfing_u` flush, `mdrop_special_objs` 
-worn/saddle/`extract_from_minvent` still named); **`drinksink` case 10 `polyself`** (D-1118; 
+minliquid failed survivor `rloc` + `mnexto` failed-enexto; 
+**steed Flying/Levitation gate + `engulfing_u` drown flush + `mdrop_special_objs` 
+via `steal.c` `mdrop_obj` D-2197**); **`drinksink` case 10 `polyself`** (D-1118; 
 C `fountain.c:680–686`; `!Unchanging` metamorphosis + `polyself(POLY_NOFLAGS)`; 
 Unchanging skips You+call; youprop H||E flats+uprops; 
 confer writes UNCHANGING to uprops not `EUnchanging`; 
