@@ -86,7 +86,7 @@ function Half_physical_damage() {
  * (scen-tour-Wizard-92103 step 100: C "momentarily weakened", JS
  * "suddenly feel weaker" + rnd(25)). Keep the flats for eat/poly paths.
  */
-function Antimagic() {
+export function Antimagic() {
     const u = game.u || {};
     const e = u.uprops?.[ANTIMAGIC];
     return !!((u.Antimagic || u.HAntimagic || u.EAntimagic)

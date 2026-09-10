@@ -2272,7 +2272,7 @@ function res_to_mr_mon(r) {
  * C ref: mon.c mon_give_prop — MR_* mintrinsics from corpse resist props.
  * Strength / teleport / other hero-only props are ignored.
  */
-async function mon_give_prop(mtmp, prop) {
+export async function mon_give_prop(mtmp, prop) {
     let msg = null;
     switch (prop | 0) {
     case FIRE_RES:

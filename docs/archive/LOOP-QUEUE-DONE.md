@@ -5,7 +5,12 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-10
 
-- [x] `potion.c` dip bless/curse light adjust — dip sets bless/curse flags inline (`potion.js:3246–3247`, never calls `bless()`/`curse()`) so dipped lit artifacts skip `maybe_adjust_light` (named D-2244). No corpus block — wire the named dip path. Probe: `node scripts/brief.mjs maybe_adjust_light`. **Addressed:** D-2250
+
+
+- [x] `uhitm.c` mhitm_adtyping remaining arms — SGLD/CURS/DCAY/SLIM/DGST/HALU/DETH + default (named D-2247; ACID/DREN/CONF live since e8c22613). No corpus block — port the named arms. Probe: `node scripts/brief.mjs mhitm_adtyping`. **Addressed:** D-2251
+
+
+- [x] `potion.c` dip bless/curse light adjust — dip sets bless/curse flags inline (`potion.js:3246–3247`, never calls `bless()`/`curse()`) so dipped lit artifacts skip `maybe_adjust_light` (named D-2244). No corpus block — wire the named dip path. Probe: `node scripts/brief.mjs maybe_adjust_light`. **Addressed:** D-2250 `04e8aae6`
 
 ## 2026-09-09
 

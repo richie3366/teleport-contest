@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `uhitm.c` mhitm_adtyping remaining arms — SGLD/CURS/DCAY/SLIM/DGST/HALU/DETH + default (named D-2247; ACID/DREN/CONF live since e8c22613). No corpus block — port the named arms. Probe: `node scripts/brief.mjs mhitm_adtyping`.
 - [ ] `muse.c` buzzmu real zap path — `lined_up` + `rn2(3)` + buzz pline/effects (named D-2233; stub still returns MISS). No corpus block — port the named path. Probe: `node scripts/brief.mjs buzzmu`.
 - [ ] `mcastu.c` choose_monster_spell — spell-list picker thin vs C (`mcastu.c:88–123` staticfn; castmu-adjacent). Corpus reach: in 4 failing sessions' diverged-step traces (committed scoreboard f7aec9b3, 2026-09-09). Probe: `node scripts/brief.mjs choose_monster_spell`.
 - [ ] `mon.c` decide_to_shapeshift — shapeshifter-change decision thin vs C (`mon.c:4871–4938`; newcham-adjacent). Corpus reach: in 4 failing sessions' diverged-step traces (committed scoreboard f7aec9b3, 2026-09-09). Probe: `node scripts/brief.mjs decide_to_shapeshift`.
@@ -68,6 +67,10 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 - [ ] `sp_lev.c` splev_initlev — level-init dispatch thin vs C (`sp_lev.c:2981–3018` staticfn; tour-arrival path). Corpus reach: in 3 failing sessions' diverged-step traces (committed scoreboard f7aec9b3, 2026-09-09). Probe: `node scripts/brief.mjs splev_initlev`.
 - [ ] `mthrowu.c` m_lined_up — lined-up predicate thin vs C (`mthrowu.c:1375–1393` staticfn; buzzmu-adjacent, distinct function). Corpus reach: in 2 failing sessions' diverged-step traces (committed scoreboard f7aec9b3, 2026-09-09). Probe: `node scripts/brief.mjs m_lined_up`.
 - [ ] `trap.c` trapeffect_magic_trap — magic-trap effect thin vs C (`trap.c:2292–2320` staticfn). Corpus reach: in 2 failing sessions' diverged-step traces (committed scoreboard f7aec9b3, 2026-09-09). Probe: `node scripts/brief.mjs trapeffect_magic_trap`.
+- [ ] `uhitm.c` mhitm_ad_curs/dcay/deth mhitm (mon→mon) arms — `mdamagem` (`js/mhitm.js`) has no AD_CURS/AD_DCAY/AD_DETH case (gremlin `rn2(10)` cancel + clay-golem `mondied`, `completelyrots` `monkilled` + `erode_armor(ERODE_ROT)`, Death undead `rnd(dmg/2)` + drli). Named in `c-js-map/turns.md` hitmu→mhitm_adtyping line. No corpus block — port the named arms. Probe: `node scripts/brief.mjs mhitm_ad_curs`.
+- [ ] `uhitm.c` damageum_adtyping hero-poly arms SGLD/CURS/DCAY/SLIM — `damageum_adtyping` (`js/uhitm.js:1735`) lacks them (purse grab + `exercise(A_DEX)`, `night() && !rn2(10)` chuckle/cancel, rot `xkilled` + `erode_armor`, `!rn2(4)` `munslime`/`newcham` green slime). Named in `c-js-map/turns.md` hitmu→mhitm_adtyping line. No corpus block. Probe: `node scripts/brief.mjs damageum_adtyping`.
+- [ ] `polyself.c` polymon were `do_shift` + draconian `do_merge`/uskin merge + `POLY_REVERT` — polymorph-control arms still named (D-2248). No corpus block — port the named arms. Probe: `node scripts/brief.mjs polymon`.
+- [ ] `read.c` litroom gremlin light hits + Punished `move_bc` — litroom deferrals named D-2250 (gremlin `light_hits_gremlin` loop, ball-and-chain redisplay). No corpus block. Probe: `node scripts/brief.mjs litroom`.
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 
