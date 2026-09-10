@@ -91,10 +91,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `sp_lev.c` special-level shapeshifter fixup — popped 2026-09-10 (`LOOP-QUEUE.md` Open head: second C caller of `select_newcham_form` (`sp_lev.c:2067`, named D-2245). No corpus block — port the named caller. Probe: `node scripts/brief.mjs select_newcham_form`).
+**Next cluster:** `potion.c` dip bless/curse light adjust — popped 2026-09-10 (`LOOP-QUEUE.md` Open head: dip sets bless/curse flags inline (`potion.js:3246–3247`) so dipped lit artifacts skip `maybe_adjust_light` (named D-2244). No corpus block — wire the named dip path. Probe: `node scripts/brief.mjs maybe_adjust_light`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2249 (index).**
+**Keep D-0845…D-2250 (index).**
 <!-- recent:begin -->
+**D-2250** `potion.c:1563–1583` (`H2Opotion_dip` tail `(*func)(targobj)` after the glow pline + `last — `js/potion.js` — `await func(targobj)` with the C cite; new `export async function impact_arti_light(obj, worsen, seeit)` in C order (short-circuit gate so `obj_resists`' `rn2(100)` is drawn only when the BUC state can m
 **D-2249** `sp_lev.c:2002–2123` (`create_monster` appear_as fixup: `:2002–2006` gate — `js/mklev.js` — new module-local `splev_create_monster_appear_fixup(mtmp, appear, appear_as)` (C staticfn shape: same-file caller only) in C branch/short-circuit order, called first inside `if (mtmp)` before the D-0873 f
 **D-2248** `polyself.c:535–542` (`class = 0`, `name_to_mon`, `by_class: class = name_to_monclass(buf, — `js/polyself.js` — module-local `armor_to_dragon(atyp)` (C staticfn: same-file callers only, cf.
 **D-2247** `uhitm.c:2742–2786` (`mhitm_ad_acid`: mhitu arm = `hitmsg`, then `!mcan && !rn2(3)` → `Aci — `js/mhitu.js` — new `mhitm_ad_acid_u` / `mhitm_ad_dren_u` / `mhitm_ad_conf_u` in C branch/short-circuit order (acid `| 0` int idiom on the resistance/mspec fields; dren negated-before-hitmsg like the sibling `_u` arms; c
@@ -102,11 +103,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2245** `mon.c:5078–5154` (`wiz_force_cham_form`: `Change %s @ %s into what?` prompt from `noit_mo — `js/makemon.js` — new `export function mkclass_poly(mletClass)` after `mk_gen_ok` in C order (same-file `mk_gen_ok`, `rn2(9)`/`rnd`, Inhell via the dungeon-hellish-flag idiom per D-0747, S_LICH string gate per the `mkcla
 **D-2244** `mkobj.c:1703–1736` (`maybe_adjust_light`: `new_range = arti_light_radius(obj)`, `delta =  — `js/mkobj.js` — new `export async function maybe_adjust_light(obj, old_range)` in C branch/short-circuit order (`| 0` int idiom on the delta; `await obj_adjust_light_radius`; `get_obj_location(obj, 0)` null-gate = C FALS
 **D-2243** `steed.c:851–873` (`poly_steed`: `if (!can_saddle(steed) || !can_ride(steed)) dismount_ste — `js/steed.js` — new `export async function poly_steed(steed, oldshape)` in C branch/short-circuit order (`!can_saddle || !can_ride` → `await dismount_steed(DISMOUNT_FELL)`; else `x_monnam(steed, ARTICLE_YOUR, null, SUPPR
-**D-2242** `detect.c:780–785` (`object_detect`: `You("detect the %s of %s.", ct ? "presence" : "absen — `js/detect.js` — deleted the `flush_topl_more()` call between the detect pline and the `!ct`/`browse_map` branch and replaced it with the C cite (`detect.c:780` → `getpos.c:843–846`, two-space join, same-class-as-D-2081 
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2249; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2250; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

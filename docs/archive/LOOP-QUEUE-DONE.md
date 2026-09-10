@@ -3,9 +3,13 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-09-10
+
+- [x] `potion.c` dip bless/curse light adjust — dip sets bless/curse flags inline (`potion.js:3246–3247`, never calls `bless()`/`curse()`) so dipped lit artifacts skip `maybe_adjust_light` (named D-2244). No corpus block — wire the named dip path. Probe: `node scripts/brief.mjs maybe_adjust_light`. **Addressed:** D-2250
+
 ## 2026-09-09
 
-- [x] `sp_lev.c` special-level shapeshifter fixup — second C caller of `select_newcham_form` (`sp_lev.c:2067`, named D-2245). No corpus block — port the named caller. Probe: `node scripts/brief.mjs select_newcham_form`. **Addressed:** D-2249
+- [x] `sp_lev.c` special-level shapeshifter fixup — second C caller of `select_newcham_form` (`sp_lev.c:2067`, named D-2245). No corpus block — port the named caller. Probe: `node scripts/brief.mjs select_newcham_form`. **Addressed:** D-2249 `8a595f61`
 
 
 - [x] `polyself.c` polymorph-control `mkclass_poly` callers — `:542`/`:598` unwired (named D-2245; function live since a71ff501). No corpus block — port the named callers. Probe: `node scripts/brief.mjs mkclass_poly`. **Addressed:** D-2248 `6a0bf305`
