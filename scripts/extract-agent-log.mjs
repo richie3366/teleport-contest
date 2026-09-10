@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
  * Human extract and approval-denial scan over an iteration `.raw`.
- * Understands Cursor stream-json and Muse exec --json (via loop-raw.mjs).
+ * Understands Cursor stream-json, Muse exec --json, and Claude Code
+ * print stream-json (via loop-raw.mjs).
  *
  *   node scripts/extract-agent-log.mjs <raw> <out-log>
  *   node scripts/extract-agent-log.mjs --denials <raw>

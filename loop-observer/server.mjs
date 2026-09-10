@@ -319,7 +319,10 @@ async function ingestFromOffset(isReset) {
   }
   transcript.meta.bytes = st.size;
   if (!eventSource || eventSource === rawSource) {
-    const sid = transcript.meta.sessionId || (await peekRawSessionId(currentAbs));
+    // Muse only: peek the .raw for a Muse stream id. Do not use
+    // transcript.meta.sessionId — Claude init also has a UUID session_id,
+    // and a miss would walk ~/.local/share/muse/sessions on every poll.
+    const sid = await peekRawSessionId(currentAbs);
     if (sid) {
       const switched = await attachMuseSession(sid, { resetIfSwitched: !isReset && transcript.messages.length > 0 });
       if (switched && !isReset) isReset = true;

@@ -1,9 +1,9 @@
 # Loop observer
 
-Local browser view of the unattended port loop: Cursor `stream-json`
-**or** Muse `exec --json` from `.agent-port-loop-logs/iter-NNNN-STAMP.raw`,
-rendered as a conversation (prompt, thoughts, tools, Edit/Write diffs,
-result).
+Local browser view of the unattended port loop: Cursor `stream-json`,
+Muse `exec --json`, or Claude Code `-p --output-format stream-json`
+from `.agent-port-loop-logs/iter-NNNN-STAMP.raw`, rendered as a
+conversation (prompt, thoughts, tools, Edit/Write diffs, result).
 
 Muse stdout JSONL is a thin task-lifecycle view (tool names, not
 thoughts or args). When the observer sees a Muse session id it **also
@@ -11,6 +11,12 @@ tails** `~/.local/share/muse/sessions/YYYY/MM/DD/<id>/session.jsonl`
 (reasoning summaries, tool args, assistant text). `scripts/loop-raw.mjs`
 normalizes both shapes; the UI is the same. With `MUSE_NO_SESSION_LOG=1`
 it stays on `.raw` and infers Read paths from tool output when it can.
+
+Claude print-mode stream-json already carries tool names, args, and
+(with `--include-partial-messages`) thinking/text deltas. The observer
+stays on that stdout `.raw` — it does **not** tail
+`~/.claude/projects/` (different, noisier format; empty thinking
+signatures). Claude session UUIDs are not treated as Muse session ids.
 
 Zero npm dependencies. Binds **`127.0.0.1`** on an ephemeral port
 (OS-assigned first free). Not scored; not imported from `js/`.
@@ -45,16 +51,21 @@ The header follows **one** `.raw` at a time.
 - Meta bar: model, elapsed time, bytes, tokens, event count. Muse token
   totals use the same meter as the supervisor `tokens: +N` line
   (`extract-agent-usage.mjs`: sum `model_completed` input+output+reasoning,
-  cache listed in the breakdown but not added again). The count **updates
-  live** after each Muse model step (not only when the iter ends). Hover
-  the meta bar for the exact `tokens: +N (…)` string.
+  cache listed in the breakdown but not added again). Claude totals use
+  `result.usage` (and overwrite the live bar from each
+  `assistant.message.usage` so the count moves during the turn). The count
+  **updates live** after each Muse model step / Claude assistant usage
+  (not only when the iter ends). Hover the meta bar for the exact
+  `tokens: +N (…)` string.
 - **Show timings** — off by default. When on, thought and tool cards
   show `MM:SS for 12m34s`: offset from this iteration’s first event,
   then how long that card ran. The toggle is kept for later iters
   (`localStorage` plus `.agent-port-loop-logs/observer-prefs.json` so a
-  new observer port still remembers). Cursor `timestamp_ms` and Muse
-  `session.jsonl` `recorded_at` both work; Muse stdout-only `.raw`
-  clocks are synthetic and those labels stay hidden. Already-finished
+  new observer port still remembers). Cursor `timestamp_ms`, Muse
+  `session.jsonl` `recorded_at`, and Claude `timestamp` / `timestamp_ms`
+  all work; Muse stdout-only `.raw` clocks are synthetic and those labels
+  stay hidden. Claude thoughts need `--include-partial-messages` (the
+  loop default); the model may still omit thinking text. Already-finished
   cards update as soon as you turn it on.
 - **↓ Jump to latest** — scroll-follow only. Separate from live-follow:
   you can pin #1373 and still scroll that thread, or follow live and
@@ -104,7 +115,9 @@ stdout uses the same card.
 
 Muse `edit_file` results are a mini unified diff (`--- original` /
 `+++ updated`). Those (and `find`/`replace` args before the result)
-feed the same Edit/Write pretty-diff cards as Cursor.
+feed the same Edit/Write pretty-diff cards as Cursor. Claude `Edit`
+uses `old_string` / `new_string` (and `file_path`); Claude `Bash`
+stdout is the tool_result text on the same Shell card.
 
 Muse `search` is a Grep card. Hits are `path:line:text` (optional
 `matches=N` footer), not Cursor `workspaceResults`. An empty Muse

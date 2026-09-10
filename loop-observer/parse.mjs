@@ -1,9 +1,18 @@
 /**
  * Incremental Cursor stream-json → conversation messages.
- * Muse `exec --json` records are normalized first (scripts/loop-raw.mjs).
- * Thinking deltas are coalesced; tool started/completed share one card.
+ * Muse `exec --json` and Claude Code print stream-json are normalized
+ * first (scripts/loop-raw.mjs). Thinking deltas are coalesced; tool
+ * started/completed share one card.
  */
-import { isMuseRecord, createNormalizer, createUsageFold, foldUsageEvent, usageFromFold } from "../scripts/loop-raw.mjs";
+import {
+  isMuseRecord,
+  isClaudeRecord,
+  createNormalizer,
+  createClaudeNormalizer,
+  createUsageFold,
+  foldUsageEvent,
+  usageFromFold,
+} from "../scripts/loop-raw.mjs";
 
 const PREVIEW = 1200;
 const SHELL_CAP = 48000;
@@ -18,6 +27,7 @@ export function createTranscript() {
     openThinkingId: null,
     seq: 0,
     muse: createNormalizer(),
+    claude: createClaudeNormalizer(),
     usageFold: createUsageFold(),
   };
 }
@@ -52,6 +62,7 @@ export function resetTranscript(state, metaPatch = {}) {
   state.openThinkingId = null;
   state.seq = 0;
   state.muse = createNormalizer();
+  state.claude = createClaudeNormalizer();
   state.usageFold = createUsageFold();
 }
 
@@ -75,7 +86,9 @@ export function applyNdjsonChunk(state, text) {
     if (billed.found) state.meta.usage = { total: billed.total, breakdown: billed.breakdown };
     const batch = isMuseRecord(ev)
       ? (state.muse || (state.muse = createNormalizer())).normalize(ev)
-      : [ev];
+      : isClaudeRecord(ev)
+        ? (state.claude || (state.claude = createClaudeNormalizer())).normalize(ev)
+        : [ev];
     for (const one of batch) {
       const touched = applyEvent(state, one);
       if (touched) {

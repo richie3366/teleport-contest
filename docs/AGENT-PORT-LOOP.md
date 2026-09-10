@@ -1,6 +1,7 @@
 # Agent port loop (fail-closed unattended)
 
-Repeatedly asks Cursor Agent CLI (or Muse, with `--muse`) to continue the
+Repeatedly asks Cursor Agent CLI, Muse (`--muse`), or Claude Code
+(`--claude`) to continue the
 NetHack JS port. The
 shell is the **gate**: agents **commit and `git push`** inside the
 iteration. Density overflow, protected-file edits, empty ports (unless an
@@ -36,8 +37,11 @@ AGENT_FORCE=1 ./scripts/agent-port-loop.sh
 # Cap this supervisor run at ~50M tokens (all usage kinds; not persisted)
 AGENT_FORCE=1 ./scripts/agent-port-loop.sh --token-budget-m 50
 
-# Same loop, Muse instead of cursor-agent (model muse-spark-1.3-contributor, max)
+# Same loop, Muse instead of cursor-agent (model muse-spark-1.3-contributor, xhigh)
 AGENT_FORCE=1 ./scripts/agent-port-loop.sh --muse --token-budget-m 50
+
+# Same loop, Claude Code (Opus 5, --effort high). Mutually exclusive with --muse.
+AGENT_FORCE=1 ./scripts/agent-port-loop.sh --claude --token-budget-m 50
 
 # Retry a cadence slot that crashed before commit (next iter = n+1).
 # Example: failed audit #1465 → treat last completed as 1464.
@@ -68,10 +72,12 @@ supervisor writes `0`, at **startup**.
 ## Before an unattended run
 
 `--force` (`AGENT_FORCE=1`) is **required** for a useful headless loop:
-without it, Cursor `--print` mode **auto-denies** Shell/tool approvals
-and Muse stays on `--on-request` (no `--yolo`). The fail-closed script
-will halt. `--trust` / `--trust-workspace` only skips the workspace-trust
-question.
+without it, Cursor `--print` mode **auto-denies** Shell/tool approvals,
+Muse stays on `--on-request` (no `--yolo`), and Claude stays on
+`--permission-mode auto` with `--permission-prompts none` (anything that
+would prompt is denied). The fail-closed script will halt.
+`--trust` / `--trust-workspace` only skips the workspace-trust
+question (Cursor / Muse). Claude `-p` already skips the trust dialog.
 
 1. Commit everything you care about (`git status` clean; STOP and
    `NEXT_AGENT_PROMPT.md` are gitignored), unless you are relaunching
@@ -99,8 +105,14 @@ Default: **Cursor Grok 4.6 Extra High**, non-fast.
 | Extra High, fast | `cursor-grok-4.6-xhigh-fast` | Cursor Grok 4.6 Extra High Fast |
 
 Muse (`--muse`): default slug `muse-spark-1.3-contributor` at
-`--reasoning-effort max` (`MUSE_REASONING_EFFORT` override). `MODEL=` still
+`--reasoning-effort xhigh` (`MUSE_REASONING_EFFORT` override). `MODEL=` still
 overrides the slug.
+
+Claude (`--claude`): default slug `claude-opus-5` at `--effort high`
+(`CLAUDE_EFFORT` override: `low|medium|high|xhigh|max`). The loop **must**
+pass `--model` — `~/.claude/settings.json` may default to another alias
+(e.g. Fable) and would otherwise ignore the table below. `MODEL=` still
+overrides the slug. Mutually exclusive with `--muse`.
 
 Override (Cursor):
 
@@ -237,14 +249,18 @@ Optional **per supervisor run** (not saved across launches):
 ```
 
 - Sums every numeric field on the Cursor agent `result.usage` object
-  (input, output, cache read/write — no distinction). Muse `--json` stdout
-  has **no** usage events; the supervisor reads the on-disk
-  `session.jsonl` and **sums** every `model_completed` step
+  (input, output, cache read/write — no distinction). Claude Code
+  `stream-json` uses the same meter: token fields on `result.usage`
+  (`input_tokens`, `output_tokens`, `cache_read_input_tokens`,
+  `cache_creation_input_tokens`; not `web_search_requests`). Muse
+  `--json` stdout has **no** usage events; the supervisor reads the
+  on-disk `session.jsonl` and **sums** every `model_completed` step
   (input + output + reasoning; cache fields are already inside input).
   `MUSE_NO_SESSION_LOG=1` cannot meter a budget.
 - The current iteration always finishes; if the cumulative total is then over
   budget, the loop exits before starting another.
-- Requires Cursor `stream-json` (or `json`), or Muse `--json` (always on
+- Requires Cursor `stream-json` (or `json`), Claude `--output-format
+  stream-json` (always on with `--claude`), or Muse `--json` (always on
   with `--muse`); the script overrides other Cursor formats when a budget is set.
 - Three consecutive iterations with **no** usage in the stream → halt (exit 1).
 
@@ -269,6 +285,32 @@ node scripts/muse-plan-usage.mjs   # {"ok":true,"windowUsedPercent":2,"weeklyUse
 - Mid-iter provider quota (`ActionRequiredError` / "out of usage") still
   halts at once (existing path); this check is the early stop *before*
   the next iter.
+
+### Claude plan usage (`--claude` only)
+
+Same snapshot as `claude -p "/usage"` (current session % and current week %).
+After a **finished** iteration the supervisor runs that print-mode command
+in a throwaway directory (`--no-session-persistence`) and parses:
+
+```
+Current session: 0% used · resets Sep 10 at 1:20pm (Europe/Paris)
+Current week (all models): 0% used · resets Sep 15 at 6pm (Europe/Paris)
+```
+
+If both `Current week (all models)` and `Current week (Opus)` appear, the
+**higher** weekly percent is the one compared to the stop threshold.
+
+```bash
+node scripts/claude-plan-usage.mjs   # {"ok":true,"windowUsedPercent":0,"weeklyUsedPercent":0,…}
+```
+
+- Stops (exit 0, commit kept, no revert) when **session ≥ 90%** and/or
+  **weekly ≥ 95%**. Override with `CLAUDE_PLAN_WINDOW_STOP_PCT` /
+  `CLAUDE_PLAN_WEEKLY_STOP_PCT`. Set `CLAUDE_PLAN_USAGE_SKIP=1` to disable.
+- Probe failure (CLI/parse miss) is a warning; the loop continues.
+- Needs a logged-in Claude (`claude auth status`).
+- Mid-iter “hit your limit” still halts at once (`.raw` / `.err` grep);
+  this check is the early stop *before* the next iter.
 
 ### Why a stop file (not Ctrl-C only)
 
@@ -319,7 +361,12 @@ Under `.agent-port-loop-logs/` (gitignored):
 - `loop-<stamp>.log` — full concatenated stream for one process run
 - `iter-NNNN-<stamp>.log` — human-readable extract per iteration (`NNNN` is
   global and monotonic across restarts)
-- `iter-NNNN-<stamp>.raw` — full CLI output (`stream-json` or Muse `exec --json`)
+- `iter-NNNN-<stamp>.raw` — full CLI stdout (`stream-json`, Claude
+  stream-json, or Muse `exec --json`)
+- `iter-NNNN-<stamp>.err` — Claude stderr only (`--claude`; mixing it
+  into `.raw` would break the observer)
+- `iter-NNNN-<stamp>.prompt.md` — prompt body actually sent (Muse /
+  Claude; Cursor still passes the prompt as a CLI argument)
 - `last-halt-reason.txt` — why the supervisor stopped itself
 - `iteration-count` — total claimed global iterations (survives restarts).
   Bootstraps from the **count** of `iter-*.log` files if higher than the
@@ -340,20 +387,29 @@ Under `.agent-port-loop-logs/` (gitignored):
 
 | Variable | Default | Meaning |
 |----------|---------|---------|
-| `MODEL` | `cursor-grok-4.6-xhigh` (Cursor) / `muse-spark-1.3-contributor` (`--muse`) | Agent model slug |
-| `AGENT_BIN` | `cursor-agent` or `agent` | Cursor CLI binary (ignored with `--muse`) |
+| `MODEL` | `cursor-grok-4.6-xhigh` (Cursor) / `muse-spark-1.3-contributor` (`--muse`) / `claude-opus-5` (`--claude`) | Agent model slug |
+| `AGENT_BIN` | `cursor-agent` or `agent` | Cursor CLI binary (ignored with `--muse` / `--claude`) |
 | `--muse` (CLI) | unset | Use `muse exec --json` instead of cursor-agent |
 | `LOOP_MUSE` | `0` | Same as `--muse` |
+| `--claude` (CLI) | unset | Use `claude -p --output-format stream-json` instead of cursor-agent (xor `--muse`) |
+| `LOOP_CLAUDE` | `0` | Same as `--claude` |
 | `MUSE_BIN` | `muse` | Muse CLI binary |
-| `MUSE_REASONING_EFFORT` | `max` | Muse `--reasoning-effort` (none…ultra) |
+| `MUSE_REASONING_EFFORT` | `xhigh` | Muse `--reasoning-effort` (none…ultra) |
 | `MUSE_NO_SESSION_LOG` | `0` | Set `1` to pass `--no-session-log` (`.raw` remains the loop log) |
 | `MUSE_PLAN_WINDOW_STOP_PCT` | `97` | `--muse`: stop after a finished iter when the current usage window is ≥ this % |
 | `MUSE_PLAN_WEEKLY_STOP_PCT` | `99` | `--muse`: stop after a finished iter when weekly usage is ≥ this % |
 | `MUSE_PLAN_USAGE_SKIP` | `0` | Set `1` to disable the post-iter TUI `/usage` probe |
 | `MUSE_PLAN_USAGE_TIMEOUT_SEC` | `50` | Cap for the sandboxed TUI `/usage` helper |
-| `AGENT_TRUST` | `1` | Cursor: `--trust`. Muse without `--yolo`: `--trust-workspace` |
-| `AGENT_FORCE` | `0` | Cursor: `--force`. Muse: `--yolo` so Shell/scorers are not auto-denied |
-| `AGENT_OUTPUT_FORMAT` | `stream-json` | Cursor only; `--muse` always uses `--json` |
+| `CLAUDE_BIN` | `claude` | Claude Code CLI binary |
+| `CLAUDE_EFFORT` | `high` | Claude `--effort` (low, medium, high, xhigh, max) |
+| `CLAUDE_NO_PARTIAL` | `0` | Set `1` to skip `--include-partial-messages` (thoughts appear only on complete assistant messages) |
+| `CLAUDE_PLAN_WINDOW_STOP_PCT` | `90` | `--claude`: stop after a finished iter when current session usage is ≥ this % |
+| `CLAUDE_PLAN_WEEKLY_STOP_PCT` | `95` | `--claude`: stop after a finished iter when weekly usage is ≥ this % |
+| `CLAUDE_PLAN_USAGE_SKIP` | `0` | Set `1` to disable the post-iter `claude -p /usage` probe |
+| `CLAUDE_PLAN_USAGE_TIMEOUT_SEC` | `30` | Cap for the print-mode `/usage` helper |
+| `AGENT_TRUST` | `1` | Cursor: `--trust`. Muse without `--yolo`: `--trust-workspace`. Unused for Claude `-p`. |
+| `AGENT_FORCE` | `0` | Cursor: `--force`. Muse: `--yolo`. Claude: `--dangerously-skip-permissions --permission-mode bypassPermissions` |
+| `AGENT_OUTPUT_FORMAT` | `stream-json` | Cursor only; `--muse` always uses `--json`; `--claude` always uses `stream-json` |
 | `ITERATION_TIMEOUT_SEC` | `3600` | Kill an overlong agent run (then **retry** as continue-unfinished, same as crash-before-commit) |
 | `SHORT_ITER_SEC` | `30` | Agent wall-clock under this counts toward token-exhaustion streak |
 | `SHORT_STREAK_LIMIT` | `3` | Consecutive short runs before the loop halts |
@@ -387,8 +443,10 @@ Under `.agent-port-loop-logs/` (gitignored):
 Browser conversation view of the current (or a recent) iter `.raw`
 stream. For `--muse`, the observer follows the on-disk Muse
 `session.jsonl` (thoughts + tool args) once the session id is known;
-stdout `.raw` is the fallback. Zero-dep; localhost only. Full usage:
-`loop-observer/README.md`.
+stdout `.raw` is the fallback. For `--claude`, it stays on stdout `.raw`
+(tool names, args, thinking deltas with `--include-partial-messages`);
+it does **not** tail `~/.claude/projects/`. Zero-dep; localhost only.
+Full usage: `loop-observer/README.md`.
 
 ```bash
 npm run observe-loop          # prints URL, opens a window
@@ -403,9 +461,9 @@ Halt reason is still `last-halt-reason.txt`.
 
 ## Operator checklist
 
-1. `agent login` (once) so `--list-models` / runs work. For `--muse`: `muse login`.
+1. `agent login` (once) so `--list-models` / runs work. For `--muse`: `muse login`. For `--claude`: `claude auth status` (claude.ai / Pro is enough; do not use `--bare`, which needs `ANTHROPIC_API_KEY`).
 2. Clean committed tree (or continue-unfinished leftover). Queue below 8 open items is refilled in-loop.
-3. `AGENT_FORCE=1 ./scripts/agent-port-loop.sh` — or add `--muse` for Muse.
+3. `AGENT_FORCE=1 ./scripts/agent-port-loop.sh` — or add `--muse` / `--claude`.
 4. Watch the live tee, or `npm run observe-loop` (see **Loop observer**
    above). Halt reason: `last-halt-reason.txt`.
 5. To stop after the active iteration: `echo 1 > STOP_AGENT_LOOP.md`.
@@ -424,15 +482,17 @@ Halt reason is still `last-halt-reason.txt`.
 |---------|----------------|
 | `neither cursor-agent nor agent found` | Install CLI / fix PATH |
 | `muse binary not found` | Install Muse / fix PATH, or set `MUSE_BIN` |
-| Auth errors | `agent login` (Cursor) or `muse login` (Muse) |
+| `claude binary not found` | Install Claude Code / fix PATH, or set `CLAUDE_BIN` |
+| Auth errors | `agent login` (Cursor), `muse login` (Muse), or `claude auth status` (Claude) |
 | `Workspace Trust Required` | Loop defaults to `--trust`; upgrade CLI or set `AGENT_TRUST=1` |
 | banned-pattern (DIAG/FORCE/seed gate) | **Continue** (unpushed → revert this iter; already pushed → heal prompt, next iter strips hits). Does **not** write STOP |
 | density / protected | **HALT + revert** (unless already pushed — then halt, no reset) |
 | `N consecutive agent runs <30s` | Out of tokens / auth — halt (no reset; a leftover and its latch survive) |
-| `ActionRequiredError` / "You're out of usage" | Provider plan quota — halt at once, leftover + latch kept; relaunch with `--continue-unfinished` after the reset (#2238) |
+| `ActionRequiredError` / "You're out of usage" / Claude "hit your limit" | Provider plan quota — halt at once, leftover + latch kept; relaunch with `--continue-unfinished` after the reset (#2238). The supervisor also greps Claude `.raw` / `.err`. |
 | Muse plan window ≥ 97% or weekly ≥ 99% | Expected clean exit after a finished `--muse` iter (PTY TUI `/usage` via `scripts/muse-plan-usage.mjs`). Commit kept. |
+| Claude session ≥ 90% or weekly ≥ 95% | Expected clean exit after a finished `--claude` iter (`claude -p /usage` via `scripts/claude-plan-usage.mjs`). Commit kept. |
 | Token budget reached | Expected clean exit after an iteration when `--token-budget-m` is set |
-| `3× consecutive missing usage` | stream-json / Muse JSONL had no usage — halt. Muse needs the on-disk `session.jsonl` (do not set `MUSE_NO_SESSION_LOG=1` with a budget) |
+| `3× consecutive missing usage` | stream-json / Claude stream-json / Muse JSONL had no usage — halt. Muse needs the on-disk `session.jsonl` (do not set `MUSE_NO_SESSION_LOG=1` with a budget). Claude usage is on stdout `.raw` (`result.usage`). |
 | Green / full suite fail | Warn and continue; next iteration recovers. Preflight green at **launch** still refuses to start (except continue-unfinished, which warns and starts) |
 | Loop ignores STOP | Content not exactly `1` after trim, or flip during an agent run (waits until iter ends) |
 | Agent repeats dead ends | Notes/queue handoff failed — fix durable memory |

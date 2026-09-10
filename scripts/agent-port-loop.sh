@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # agent-port-loop.sh — repeatedly continue the port until human stop,
-# token-budget exhaustion, Muse plan-usage thresholds (--muse), short-run
+# token-budget exhaustion, Muse/Claude plan-usage thresholds, short-run
 # streak, or missing-usage streak.
 #
 # Crash / resource_exhausted before commit: keep the tree, arm
@@ -18,6 +18,7 @@
 # Token budget (optional, this run only — not persisted):
 #   ./scripts/agent-port-loop.sh --token-budget-m 50
 #   AGENT_FORCE=1 ./scripts/agent-port-loop.sh --muse --token-budget-m 50
+#   AGENT_FORCE=1 ./scripts/agent-port-loop.sh --claude --token-budget-m 50
 # Crash leftover: supervisor retries in-process (continue prompt + prior
 # .raw/.log). Or --continue-unfinished / NEXT_AGENT_PROMPT.md on relaunch.
 
@@ -62,12 +63,25 @@ Options:
                         After a finished iter, stop (exit 0, keep the
                         commit) if Meta plan window >= 97% or weekly >= 99%
                         (same snapshot as TUI /usage; env overrides below).
+  --claude              Use Claude Code (`claude -p --output-format
+                        stream-json --verbose`). Model defaults to
+                        claude-opus-5 at --effort high. AGENT_FORCE=1 maps
+                        to --dangerously-skip-permissions. Mutually exclusive
+                        with --muse. Observer reads the same iter-*.raw
+                        (stdout only; stderr is iter-*.err).
+                        After a finished iter, stop (exit 0, keep the
+                        commit) if current session >= 90% or weekly >= 95%
+                        (same snapshot as `claude -p /usage`; env below).
   -h, --help            Show this help.
 
 Environment knobs (unchanged): MODEL, AGENT_FORCE, AGENT_TRUST, …
 Muse knobs: MUSE_BIN, MUSE_REASONING_EFFORT, MUSE_NO_SESSION_LOG, LOOP_MUSE,
 MUSE_PLAN_WINDOW_STOP_PCT (97), MUSE_PLAN_WEEKLY_STOP_PCT (99),
 MUSE_PLAN_USAGE_SKIP=1 to disable the post-iter /usage probe.
+Claude knobs: CLAUDE_BIN, CLAUDE_EFFORT (low|medium|high|xhigh|max),
+LOOP_CLAUDE, CLAUDE_NO_PARTIAL=1 to skip --include-partial-messages,
+CLAUDE_PLAN_WINDOW_STOP_PCT (90), CLAUDE_PLAN_WEEKLY_STOP_PCT (95),
+CLAUDE_PLAN_USAGE_SKIP=1 to disable the post-iter `claude -p /usage` probe.
 Fail-closed (default): density / protected halt and revert the iteration
 (or halt without reset if already pushed). Green / full-suite regression,
 banned-pattern hits, empty ports, empty queue after port, and
@@ -99,6 +113,7 @@ CONTINUE_CLI="${LOOP_CONTINUE_UNFINISHED:-0}"
 NEXT_PROMPT_SRC="${LOOP_NEXT_PROMPT:-}"
 NEXT_MODE_CLI="${LOOP_NEXT_MODE:-}"
 USE_MUSE="${LOOP_MUSE:-0}"
+USE_CLAUDE="${LOOP_CLAUDE:-0}"
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --token-budget-m)
@@ -133,6 +148,10 @@ while [[ $# -gt 0 ]]; do
       USE_MUSE=1
       shift
       ;;
+    --claude)
+      USE_CLAUDE=1
+      shift
+      ;;
     -h|--help)
       usage
       exit 0
@@ -152,6 +171,10 @@ if [[ -n "$NEXT_PROMPT_SRC" && ! -f "$NEXT_PROMPT_SRC" ]]; then
   echo "error: --next-prompt file not found: $NEXT_PROMPT_SRC" >&2
   exit 2
 fi
+if [[ "$USE_MUSE" == "1" && "$USE_CLAUDE" == "1" ]]; then
+  echo "error: --muse and --claude are mutually exclusive" >&2
+  exit 2
+fi
 
 TOKEN_BUDGET=0
 TOKENS_USED=0
@@ -159,7 +182,7 @@ MISSING_USAGE_STREAK=0
 MISSING_USAGE_LIMIT=3
 EXTRACT_USAGE="$ROOT/scripts/extract-agent-usage.mjs"
 EXTRACT_LOG="$ROOT/scripts/extract-agent-log.mjs"
-MUSE_PLAN_USAGE="$ROOT/scripts/muse-plan-usage.mjs"
+CLAUDE_PLAN_USAGE="$ROOT/scripts/claude-plan-usage.mjs"
 
 if [[ -n "$TOKEN_BUDGET_M" ]]; then
   TOKEN_BUDGET="$(node --input-type=module -e '
@@ -339,8 +362,11 @@ fi
 # Default: Cursor Grok 4.6 Extra High, non-fast
 # (list: agent --list-models | rg grok)
 # --muse: Muse spark contributor at reasoning-effort xhigh.
+# --claude: Claude Opus 5 at --effort high.
 if [[ "$USE_MUSE" == "1" ]]; then
   MODEL="${MODEL:-muse-spark-1.3-contributor}"
+elif [[ "$USE_CLAUDE" == "1" ]]; then
+  MODEL="${MODEL:-claude-opus-5}"
 else
   MODEL="${MODEL:-cursor-grok-4.6-xhigh}"
 fi
@@ -349,6 +375,8 @@ LOOP_NAV_GATE_OFF="${LOOP_NAV_GATE_OFF:-0}"
 AGENT_BIN="${AGENT_BIN:-}"
 MUSE_REASONING_EFFORT="${MUSE_REASONING_EFFORT:-xhigh}"
 MUSE_EXTRA=()
+CLAUDE_EFFORT="${CLAUDE_EFFORT:-high}"
+CLAUDE_EXTRA=()
 if [[ "$USE_MUSE" == "1" ]]; then
   if [[ ! "$MUSE_REASONING_EFFORT" =~ ^(none|minimal|low|medium|high|xhigh|max|ultra)$ ]]; then
     echo "error: MUSE_REASONING_EFFORT must be none|minimal|low|medium|high|xhigh|max|ultra (got ${MUSE_REASONING_EFFORT})" >&2
@@ -367,6 +395,23 @@ if [[ "$USE_MUSE" == "1" ]]; then
   fi
   if [[ "${MUSE_NO_SESSION_LOG:-0}" == "1" ]]; then
     MUSE_EXTRA+=(--no-session-log)
+  fi
+elif [[ "$USE_CLAUDE" == "1" ]]; then
+  if [[ ! "$CLAUDE_EFFORT" =~ ^(low|medium|high|xhigh|max)$ ]]; then
+    echo "error: CLAUDE_EFFORT must be low|medium|high|xhigh|max (got ${CLAUDE_EFFORT})" >&2
+    exit 2
+  fi
+  AGENT_BIN="${CLAUDE_BIN:-claude}"
+  if ! command -v "$AGENT_BIN" >/dev/null 2>&1; then
+    echo "error: claude binary not found on PATH (${AGENT_BIN})" >&2
+    echo "       install Claude Code, or set CLAUDE_BIN=/path/to/claude" >&2
+    exit 1
+  fi
+  CLAUDE_EXTRA+=(--permission-prompts none)
+  if [[ "${AGENT_FORCE:-0}" == "1" ]]; then
+    CLAUDE_EXTRA+=(--dangerously-skip-permissions --permission-mode bypassPermissions)
+  else
+    CLAUDE_EXTRA+=(--permission-mode auto)
   fi
 elif [[ -z "$AGENT_BIN" ]]; then
   if command -v cursor-agent >/dev/null 2>&1; then
@@ -397,6 +442,9 @@ OUTPUT_FORMAT="${AGENT_OUTPUT_FORMAT:-stream-json}"
 JSONL_LOGS=0
 if [[ "$USE_MUSE" == "1" ]]; then
   OUTPUT_FORMAT="muse-jsonl"
+  JSONL_LOGS=1
+elif [[ "$USE_CLAUDE" == "1" ]]; then
+  OUTPUT_FORMAT="stream-json"
   JSONL_LOGS=1
 elif [[ "$OUTPUT_FORMAT" == "stream-json" || "$OUTPUT_FORMAT" == "json" ]]; then
   JSONL_LOGS=1
@@ -525,6 +573,34 @@ exit_if_muse_plan_quota() {
   echo "$(date -Iseconds) MUSE PLAN QUOTA: ${summary} — stopping after finished iteration (commit kept)" \
     | tee -a "$MASTER_LOG"
   printf '%s\n' "muse plan quota: ${summary}" >"$LOG_DIR/last-halt-reason.txt"
+  exit 0
+}
+
+# Same idea for Claude Pro/Max: `claude -p "/usage"` after a finished
+# iter. Defaults: current session window >= 90% or weekly >= 95%. Fail-open.
+exit_if_claude_plan_quota() {
+  [[ "$USE_CLAUDE" == "1" ]] || return 0
+  [[ "${CLAUDE_PLAN_USAGE_SKIP:-0}" == "1" ]] && return 0
+  [[ -f "$CLAUDE_PLAN_USAGE" ]] || return 0
+  local json rc stop summary
+  set +e
+  json="$(CLAUDE_BIN="${CLAUDE_BIN:-${AGENT_BIN:-claude}}" node "$CLAUDE_PLAN_USAGE")"
+  rc=$?
+  set -e
+  if [[ "$rc" -ne 0 || -z "$json" ]]; then
+    echo "$(date -Iseconds) warning: claude plan-usage probe failed (rc=${rc}); continuing" \
+      | tee -a "$MASTER_LOG"
+    return 0
+  fi
+  echo "$(date -Iseconds) ${json}" | tee -a "$MASTER_LOG"
+  stop="$(node -e 'const j=JSON.parse(process.argv[1]); process.stdout.write(j.shouldStop?"1":"0")' "$json" 2>/dev/null || echo 0)"
+  if [[ "$stop" != "1" ]]; then
+    return 0
+  fi
+  summary="$(node -e 'const j=JSON.parse(process.argv[1]); process.stdout.write(String(j.stopReason||j.summary||"claude plan usage threshold"))' "$json")"
+  echo "$(date -Iseconds) CLAUDE PLAN QUOTA: ${summary} — stopping after finished iteration (commit kept)" \
+    | tee -a "$MASTER_LOG"
+  printf '%s\n' "claude plan quota: ${summary}" >"$LOG_DIR/last-halt-reason.txt"
   exit 0
 }
 
@@ -772,7 +848,12 @@ run_agent_iteration() {
   local iter_raw="$2"
   shift 2
   echo "$(date -Iseconds) === agent exec starting ===" | tee -a "$MASTER_LOG"
-  run_with_timeout "$@" >"$iter_raw" 2>&1 &
+  if [[ "$USE_CLAUDE" == "1" ]]; then
+    local err_file="${iter_raw%.raw}.err"
+    run_with_timeout "$@" >"$iter_raw" 2>"$err_file" &
+  else
+    run_with_timeout "$@" >"$iter_raw" 2>&1 &
+  fi
   local agent_pid=$!
   local prog_pid=""
   if [[ "${LOOP_PROGRESS:-1}" == "1" ]]; then
@@ -784,6 +865,13 @@ run_agent_iteration() {
   if [[ -n "$prog_pid" ]]; then
     kill "$prog_pid" 2>/dev/null || true
     wait "$prog_pid" 2>/dev/null || true
+  fi
+  if [[ "$USE_CLAUDE" == "1" ]]; then
+    local err_file="${iter_raw%.raw}.err"
+    if [[ -s "$err_file" ]]; then
+      echo "$(date -Iseconds) note: Claude stderr → $err_file ($(wc -c <"$err_file" | tr -d '[:space:]') bytes)" \
+        | tee -a "$MASTER_LOG"
+    fi
   fi
   return "$status"
 }
@@ -1092,13 +1180,14 @@ touched_since() {
 # empty shipment. Never reset --hard here (#1463/#1465).
 agent_exit_hint() {
   local raw="$1" log="$2" st="$3"
+  local err="${raw%.raw}.err"
   if [[ "$st" -eq 124 ]]; then
     echo " timeout"
-  elif rg -q "out of usage|ActionRequiredError|usage limit|payment_gate|token_budget_exceeded" "$raw" "$log" 2>/dev/null; then
-    # Provider plan quota (Cursor "You're out of usage"): retrying now just
-    # dies again; keep the leftover + latch and stop for the operator (#2238).
+  elif rg -q "out of usage|ActionRequiredError|usage limit|payment_gate|token_budget_exceeded|rate_limit|hit your limit|You've hit your limit|weekly limit" "$raw" "$log" "$err" 2>/dev/null; then
+    # Provider plan quota (Cursor "You're out of usage", Claude Pro "hit your
+    # limit"): retrying now just dies again; keep leftover + latch and stop.
     echo " quota"
-  elif rg -q 'resource_exhausted|RetriableError' "$raw" "$log" 2>/dev/null; then
+  elif rg -q 'resource_exhausted|RetriableError' "$raw" "$log" "$err" 2>/dev/null; then
     echo " resource_exhausted"
   else
     echo ""
@@ -1186,6 +1275,9 @@ echo "agent:  $AGENT_BIN"
 if [[ "$USE_MUSE" == "1" ]]; then
   echo "muse:   1  (exec --json, reasoning-effort=${MUSE_REASONING_EFFORT})"
 fi
+if [[ "$USE_CLAUDE" == "1" ]]; then
+  echo "claude: 1  (print stream-json, effort=${CLAUDE_EFFORT})"
+fi
 echo "model:  $MODEL"
 echo "trust:  ${AGENT_TRUST:-1}"
 echo "force:  ${AGENT_FORCE:-0}"
@@ -1193,6 +1285,9 @@ echo "format: $OUTPUT_FORMAT"
 if [[ "${AGENT_FORCE:-0}" != "1" ]]; then
   if [[ "$USE_MUSE" == "1" ]]; then
     echo "note:   AGENT_FORCE=0 — Muse approvals stay on (no --yolo). Headless tools may stall."
+    echo "        Use AGENT_FORCE=1 after checkpointing if the agent must run scorers."
+  elif [[ "$USE_CLAUDE" == "1" ]]; then
+    echo "note:   AGENT_FORCE=0 — Claude --permission-mode auto; prompts are denied."
     echo "        Use AGENT_FORCE=1 after checkpointing if the agent must run scorers."
   else
     echo "note:   AGENT_FORCE=0 — headless Shell/tool approvals are auto-denied (no interactive prompt)."
@@ -1211,6 +1306,9 @@ else
 fi
 if [[ "$USE_MUSE" == "1" && "${MUSE_PLAN_USAGE_SKIP:-0}" != "1" ]]; then
   echo "plan:   after a finished iter, stop if window >= ${MUSE_PLAN_WINDOW_STOP_PCT:-97}% or weekly >= ${MUSE_PLAN_WEEKLY_STOP_PCT:-99}% (TUI /usage)"
+fi
+if [[ "$USE_CLAUDE" == "1" && "${CLAUDE_PLAN_USAGE_SKIP:-0}" != "1" ]]; then
+  echo "plan:   after a finished iter, stop if session >= ${CLAUDE_PLAN_WINDOW_STOP_PCT:-90}% or weekly >= ${CLAUDE_PLAN_WEEKLY_STOP_PCT:-95}% (claude -p /usage)"
 fi
 echo "stop:   $STOP_FILE  (write 1 to halt before next iteration)"
 echo "count:  $ITER_COUNT_FILE  (monotonic global iteration number)"
@@ -1285,6 +1383,7 @@ while true; do
   fi
   if (( RAN_AGENT_THIS_RUN )); then
     exit_if_muse_plan_quota
+    exit_if_claude_plan_quota
   fi
 
   iter=$((iter + 1))
@@ -1315,6 +1414,9 @@ while true; do
   fi
   if [[ "$USE_MUSE" == "1" ]]; then
     echo "cli: $AGENT_BIN exec --json --model $MODEL --reasoning-effort $MUSE_REASONING_EFFORT --workspace $ROOT --prompt-file $iter_prompt --user-input-auto-resolve ${MUSE_EXTRA[*]+${MUSE_EXTRA[*]}}" \
+      | tee -a "$MASTER_LOG"
+  elif [[ "$USE_CLAUDE" == "1" ]]; then
+    echo "cli: $AGENT_BIN -p --output-format stream-json --verbose --model $MODEL --effort $CLAUDE_EFFORT ${CLAUDE_EXTRA[*]+${CLAUDE_EXTRA[*]}}" \
       | tee -a "$MASTER_LOG"
   else
     echo "cli: $AGENT_BIN -p --model $MODEL --output-format $OUTPUT_FORMAT ${TRUST_ARGS[*]+${TRUST_ARGS[*]}} ${FORCE_ARGS[*]+${FORCE_ARGS[*]}}" \
@@ -1430,6 +1532,16 @@ while true; do
       --prompt-file "$iter_prompt" \
       --user-input-auto-resolve \
       ${MUSE_EXTRA[@]+"${MUSE_EXTRA[@]}"}
+  elif [[ "$USE_CLAUDE" == "1" ]]; then
+    printf '%s' "$prompt_body" >"$iter_prompt"
+    claude_cmd=("$AGENT_BIN" -p --output-format stream-json --verbose)
+    if [[ "${CLAUDE_NO_PARTIAL:-0}" != "1" ]]; then
+      claude_cmd+=(--include-partial-messages)
+    fi
+    claude_cmd+=(--model "$MODEL" --effort "$CLAUDE_EFFORT")
+    claude_cmd+=(${CLAUDE_EXTRA[@]+"${CLAUDE_EXTRA[@]}"})
+    claude_cmd+=(-- "$prompt_body")
+    run_agent_iteration "$iter" "$iter_raw" "${claude_cmd[@]}"
   else
     run_agent_iteration "$iter" "$iter_raw" \
       "$AGENT_BIN" -p \

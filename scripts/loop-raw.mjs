@@ -1,8 +1,9 @@
 /**
- * Cursor stream-json and Muse exec --json share one .raw NDJSON file per
- * iteration. This module detects Muse records and folds them into the
- * Cursor-shaped events the observer, usage meter, resume brief, and
- * nav report already understand. Cursor lines pass through unchanged.
+ * Cursor stream-json, Muse exec --json, and Claude Code `-p --output-format
+ * stream-json` share one .raw NDJSON file per iteration. Muse and Claude
+ * records are folded into Cursor-shaped events the observer, usage meter,
+ * resume brief, and nav report already understand. Cursor lines pass through
+ * unchanged.
  *
  * Muse `exec --json` stdout is a thin task-lifecycle view: tool names,
  * not thoughts or args. The on-disk session log
@@ -10,6 +11,11 @@
  * `reasoning_summary_*`, `assistant_tool_calls_committed`, and
  * `assistant_message_committed`. The observer tails that file when it
  * can; stdout `.raw` remains the fallback (and the supervisor log).
+ *
+ * Claude print-mode stream-json already carries tool names, args, and
+ * (with `--include-partial-messages`) thinking/text deltas. The observer
+ * stays on stdout `.raw` — the on-disk `~/.claude/projects/` jsonl is a
+ * different, noisier format.
  */
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { homedir } from "node:os";
@@ -26,6 +32,7 @@ const TOOL_KIND = {
   unified_exec: "shell",
   write_file: "write",
   write: "write",
+  edit: "edit",
   edit_file: "edit",
   apply_patch: "edit",
   str_replace: "edit",
@@ -36,6 +43,11 @@ const TOOL_KIND = {
   web_fetch: "webFetch",
   websearch: "webSearch",
   webfetch: "webFetch",
+  todowrite: "updateTodos",
+  todo_write: "updateTodos",
+  todoread: "updateTodos",
+  todo_read: "updateTodos",
+  task: "task",
 };
 
 const USAGE_KEYS = [
@@ -53,6 +65,395 @@ export function isMuseRecord(ev) {
   if (!ev || typeof ev !== "object") return false;
   if (typeof ev.payload_type === "string") return true;
   return ev.schema_version === 1 && ev.payload != null && typeof ev.payload === "object" && ev.type == null;
+}
+
+/** Claude Code print-mode stream-json (not Cursor, not Muse). */
+export function isClaudeRecord(ev) {
+  if (!ev || typeof ev !== "object") return false;
+  if (isMuseRecord(ev)) return false;
+  if (ev.type === "tool_call" || ev.type === "thinking") return false;
+  if (ev.type === "stream_event" || ev.type === "rate_limit_event") return true;
+  if (ev.type === "error") return true;
+  if (typeof ev.claude_code_version === "string") return true;
+  if (typeof ev.uuid === "string" && ev.uuid.length >= 8) return true;
+  if (ev.type === "result" && (ev.num_turns != null || Array.isArray(ev.permission_denials))) return true;
+  if (ev.type === "system" && ev.subtype === "init" && Array.isArray(ev.tools)) {
+    return ev.tools.some((t) => t === "Bash" || t === "Read" || t === "Edit" || t === "Write");
+  }
+  const content = ev.message && ev.message.content;
+  if (Array.isArray(content) && content.some((b) => b && (b.type === "tool_use" || b.type === "tool_result" || b.type === "thinking"))) {
+    return true;
+  }
+  return false;
+}
+
+export function claudeTimestampMs(ev) {
+  if (!ev || typeof ev !== "object") return undefined;
+  if (typeof ev.timestamp_ms === "number" && Number.isFinite(ev.timestamp_ms)) return ev.timestamp_ms;
+  if (typeof ev.timestampMs === "number" && Number.isFinite(ev.timestampMs)) return ev.timestampMs;
+  if (typeof ev.timestamp === "number" && Number.isFinite(ev.timestamp)) {
+    return ev.timestamp > 1e12 ? ev.timestamp : ev.timestamp * 1000;
+  }
+  if (typeof ev.timestamp === "string") {
+    const n = Date.parse(ev.timestamp);
+    if (Number.isFinite(n)) return n;
+  }
+  return undefined;
+}
+
+/** Token-like fields only (skip web_search_requests etc.). */
+export function claudeUsage(u) {
+  if (!u || typeof u !== "object" || Array.isArray(u)) return null;
+  const map = {
+    input_tokens: "inputTokens",
+    output_tokens: "outputTokens",
+    cache_read_input_tokens: "cacheReadTokens",
+    cache_creation_input_tokens: "cacheWriteTokens",
+    cache_read_tokens: "cacheReadTokens",
+    cache_write_tokens: "cacheWriteTokens",
+    inputTokens: "inputTokens",
+    outputTokens: "outputTokens",
+    cacheReadTokens: "cacheReadTokens",
+    cacheWriteTokens: "cacheWriteTokens",
+    cachedTokens: "cachedTokens",
+    reasoningTokens: "reasoningTokens",
+  };
+  const out = {};
+  for (const [k, dest] of Object.entries(map)) {
+    const v = u[k];
+    if (typeof v === "number" && Number.isFinite(v)) out[dest] = v;
+  }
+  return Object.keys(out).length ? out : null;
+}
+
+export function createClaudeNormalizer() {
+  const tools = new Map();
+  const toolJson = new Map();
+  const indexToTool = new Map();
+  let streamedThinking = "";
+  let streamedText = "";
+  let asstId = "claude-asst";
+  let emittedInit = false;
+  let model = null;
+  let sessionId = null;
+
+  function ts(ev) {
+    return claudeTimestampMs(ev);
+  }
+
+  function rememberTool(id, kind, args, name) {
+    if (!id) return { kind, args: {}, name };
+    const prev = tools.get(id) || { kind, args: {}, name };
+    prev.kind = kind || prev.kind;
+    prev.name = name || prev.name;
+    if (args && typeof args === "object") prev.args = { ...prev.args, ...args };
+    tools.set(id, prev);
+    return prev;
+  }
+
+  function emitInit(ev, out) {
+    if (typeof ev.session_id === "string" && ev.session_id) sessionId = ev.session_id;
+    if (typeof ev.model === "string" && ev.model) model = ev.model;
+    if (emittedInit) return;
+    emittedInit = true;
+    out.push({
+      type: "system",
+      subtype: "init",
+      model: model || ev.model || undefined,
+      session_id: sessionId || ev.session_id,
+      timestamp_ms: ts(ev),
+    });
+  }
+
+  function emitThinkingDelta(ev, piece, out) {
+    if (!piece) return;
+    streamedThinking += piece;
+    emitInit(ev, out);
+    out.push({ type: "thinking", subtype: "delta", text: piece, timestamp_ms: ts(ev) });
+  }
+
+  function emitThinkingDone(ev, out) {
+    out.push({ type: "thinking", subtype: "completed", timestamp_ms: ts(ev) });
+  }
+
+  function emitAssistantDelta(ev, piece, out) {
+    if (!piece) return;
+    streamedText += piece;
+    emitInit(ev, out);
+    out.push({
+      type: "assistant",
+      subtype: "delta",
+      model_call_id: asstId,
+      message: { content: [{ type: "text", text: piece }] },
+      timestamp_ms: ts(ev),
+    });
+  }
+
+  function emitAssistantFinal(ev, text, out) {
+    if (!text) return;
+    emitInit(ev, out);
+    out.push({
+      type: "assistant",
+      model_call_id: asstId,
+      message: { content: [{ type: "text", text }] },
+      timestamp_ms: ts(ev),
+    });
+  }
+
+  function emitToolStarted(ev, id, rawName, args, out) {
+    if (!id) return;
+    const kind = canonicalToolKind(rawName);
+    const mapped = mapArgs(kind, parseArgs(args));
+    rememberTool(id, kind, mapped, rawName);
+    emitInit(ev, out);
+    const key = `${kind}ToolCall`;
+    out.push({
+      type: "tool_call",
+      subtype: "started",
+      call_id: String(id),
+      timestamp_ms: ts(ev),
+      tool_call: { [key]: { args: mapped } },
+    });
+  }
+
+  function emitToolCompleted(ev, id, payload, out) {
+    if (!id) return;
+    const rec = tools.get(id) || rememberTool(id, "shell", {}, "");
+    const result = mapResult(rec.kind, payload, rec);
+    emitInit(ev, out);
+    const key = `${rec.kind}ToolCall`;
+    out.push({
+      type: "tool_call",
+      subtype: "completed",
+      call_id: String(id),
+      timestamp_ms: ts(ev),
+      tool_call: { [key]: { args: rec.args || {}, result } },
+    });
+  }
+
+  function toolResultPayload(block) {
+    const content = block?.content;
+    let text = "";
+    if (typeof content === "string") text = content;
+    else if (Array.isArray(content)) {
+      text = content
+        .map((p) => (typeof p === "string" ? p : p && typeof p.text === "string" ? p.text : ""))
+        .join("\n");
+    }
+    const isErr = !!block?.is_error;
+    return {
+      text,
+      content: text,
+      stdout: text,
+      is_error: isErr,
+      error: isErr ? text : undefined,
+    };
+  }
+
+  function handleStreamEvent(ev, out) {
+    const event = ev.event && typeof ev.event === "object" ? ev.event : {};
+    const et = String(event.type || "");
+    if (et === "message_start") {
+      streamedThinking = "";
+      streamedText = "";
+      const mid = event.message?.id || ev.uuid;
+      if (mid) asstId = String(mid);
+      if (typeof event.message?.model === "string") model = event.message.model;
+      emitInit(ev, out);
+      return;
+    }
+    const delta = event.delta && typeof event.delta === "object" ? event.delta : {};
+    const dtype = String(delta.type || "");
+    if (dtype === "thinking_delta" || dtype === "thinking") {
+      emitThinkingDelta(ev, delta.thinking || delta.text || "", out);
+      return;
+    }
+    if (dtype === "text_delta") {
+      emitAssistantDelta(ev, delta.text || "", out);
+      return;
+    }
+    if (et === "content_block_start") {
+      const block = event.content_block && typeof event.content_block === "object" ? event.content_block : {};
+      if (block.type === "tool_use" && block.id) {
+        if (event.index != null) indexToTool.set(event.index, block.id);
+        toolJson.set(block.id, "");
+        emitToolStarted(ev, block.id, block.name, block.input || {}, out);
+      }
+      return;
+    }
+    if (dtype === "input_json_delta") {
+      const id = event.index != null ? indexToTool.get(event.index) : null;
+      if (!id) return;
+      const acc = (toolJson.get(id) || "") + (delta.partial_json || "");
+      toolJson.set(id, acc);
+      try {
+        const parsed = JSON.parse(acc);
+        const rec = tools.get(id);
+        emitToolStarted(ev, id, rec?.name, parsed, out);
+      } catch {
+        /* partial JSON */
+      }
+      return;
+    }
+    if (et === "content_block_stop") {
+      if (streamedThinking && !streamedText) emitThinkingDone(ev, out);
+    }
+  }
+
+  function handleAssistant(ev, out) {
+    emitInit(ev, out);
+    const msg = ev.message && typeof ev.message === "object" ? ev.message : {};
+    if (typeof msg.model === "string" && msg.model) model = msg.model;
+    if (ev.uuid) asstId = String(ev.uuid);
+    const content = Array.isArray(msg.content) ? msg.content : [];
+    let thinkingEmitted = false;
+    for (const block of content) {
+      if (!block || typeof block !== "object") continue;
+      if (block.type === "thinking") {
+        const piece = typeof block.thinking === "string" ? block.thinking : "";
+        if (!piece) continue;
+        if (streamedThinking && (streamedThinking.includes(piece) || piece.includes(streamedThinking))) {
+          thinkingEmitted = true;
+          continue;
+        }
+        emitThinkingDelta(ev, piece, out);
+        thinkingEmitted = true;
+        continue;
+      }
+      if (block.type === "text") {
+        if (thinkingEmitted || streamedThinking) {
+          emitThinkingDone(ev, out);
+          thinkingEmitted = false;
+        }
+        const piece = typeof block.text === "string" ? block.text : "";
+        if (!piece) continue;
+        if (streamedText && (streamedText.includes(piece) || piece.includes(streamedText))) continue;
+        emitAssistantFinal(ev, piece, out);
+        continue;
+      }
+      if (block.type === "tool_use") {
+        if (thinkingEmitted || streamedThinking) {
+          emitThinkingDone(ev, out);
+          thinkingEmitted = false;
+        }
+        emitToolStarted(ev, block.id, block.name, block.input || {}, out);
+      }
+    }
+    if (thinkingEmitted) emitThinkingDone(ev, out);
+    streamedThinking = "";
+    streamedText = "";
+  }
+
+  function handleUser(ev, out) {
+    emitInit(ev, out);
+    const msg = ev.message && typeof ev.message === "object" ? ev.message : {};
+    const content = msg.content;
+    if (typeof content === "string" && content.trim()) {
+      out.push({
+        type: "user",
+        message: { content: [{ type: "text", text: content }] },
+        timestamp_ms: ts(ev),
+      });
+      return;
+    }
+    if (!Array.isArray(content)) return;
+    let prompt = "";
+    for (const block of content) {
+      if (!block || typeof block !== "object") continue;
+      if (block.type === "tool_result") {
+        emitToolCompleted(ev, block.tool_use_id, toolResultPayload(block), out);
+        continue;
+      }
+      if (block.type === "text" && typeof block.text === "string") prompt += block.text;
+    }
+    if (prompt.trim()) {
+      out.push({
+        type: "user",
+        message: { content: [{ type: "text", text: prompt }] },
+        timestamp_ms: ts(ev),
+      });
+    }
+  }
+
+  function normalize(ev) {
+    const out = [];
+    if (!isClaudeRecord(ev)) return out;
+    if (typeof ev.session_id === "string" && ev.session_id) sessionId = ev.session_id;
+    if (typeof ev.model === "string" && ev.model) model = ev.model;
+    const t = String(ev.type || "");
+    if (t === "system" && ev.subtype === "init") {
+      emitInit(ev, out);
+      return out;
+    }
+    if (t === "system" && (ev.subtype === "api_retry" || ev.subtype === "status")) {
+      emitInit(ev, out);
+      out.push({
+        type: "system",
+        subtype: "task_notification",
+        title: ev.subtype === "api_retry" ? `API retry ${ev.attempt || ""}`.trim() : ev.subtype,
+        status: ev.error || ev.error_status || "",
+        timestamp_ms: ts(ev),
+      });
+      return out;
+    }
+    if (t === "stream_event") {
+      handleStreamEvent(ev, out);
+      return out;
+    }
+    if (t === "rate_limit_event") {
+      emitInit(ev, out);
+      out.push({
+        type: "system",
+        subtype: "task_notification",
+        title: "rate_limit",
+        status: ev.message || ev.error || "rate_limit",
+        timestamp_ms: ts(ev),
+      });
+      return out;
+    }
+    if (t === "assistant") {
+      handleAssistant(ev, out);
+      return out;
+    }
+    if (t === "user") {
+      handleUser(ev, out);
+      return out;
+    }
+    if (t === "error") {
+      emitInit(ev, out);
+      const err = ev.error;
+      const msg =
+        (typeof err === "string" ? err : "") ||
+        (err && typeof err === "object" && (err.message || err.type)) ||
+        (typeof ev.message === "string" ? ev.message : "") ||
+        (typeof ev.result === "string" ? ev.result : "") ||
+        "error";
+      out.push({
+        type: "result",
+        subtype: "error",
+        is_error: true,
+        result: String(msg),
+        timestamp_ms: ts(ev),
+      });
+      return out;
+    }
+    if (t === "result") {
+      emitInit(ev, out);
+      out.push({
+        type: "result",
+        subtype: ev.subtype || (ev.is_error ? "error" : "success"),
+        is_error: !!ev.is_error,
+        duration_ms: ev.duration_ms,
+        result: ev.result,
+        usage: claudeUsage(ev.usage) || ev.usage,
+        permission_denials: Array.isArray(ev.permission_denials) ? ev.permission_denials : undefined,
+        timestamp_ms: ts(ev),
+      });
+    }
+    return out;
+  }
+
+  return { normalize };
 }
 
 export function museTimestampMs(ev) {
@@ -619,10 +1020,15 @@ function mapArgs(kind, args) {
     else if (typeof a.commandText === "string") a.command = a.commandText;
   }
   if (a.pattern == null && typeof a.query === "string") a.pattern = a.query;
-  if (kind === "grep") {
+    if (kind === "grep") {
     if (!a.path && Array.isArray(a.paths) && a.paths.length) {
       a.path = a.paths.length === 1 ? a.paths[0] : a.paths.join(", ");
     }
+  }
+  if (kind === "glob") {
+    if (!a.globPattern && typeof a.pattern === "string") a.globPattern = a.pattern;
+    if (!a.targetDirectory && typeof a.target_directory === "string") a.targetDirectory = a.target_directory;
+    if (!a.targetDirectory && typeof a.path === "string") a.targetDirectory = a.path;
   }
   if (kind === "shell" && !a.command && typeof a.raw === "string") a.command = a.raw;
   if (kind === "edit" || kind === "write") {
@@ -736,19 +1142,28 @@ function mapResult(kind, result, rec) {
     };
   }
   if (kind === "edit" || kind === "write") {
-    const raw =
+    const candidate =
       result.diffString ??
       result.diff ??
       result.diff_string ??
-      result.text ??
-      "";
+      (typeof result.text === "string" && /(?:^|\n)(?:diff |@@|[+\-]{3} )/m.test(result.text)
+        ? result.text
+        : "");
+    const raw = typeof candidate === "string" ? candidate : "";
     const diffString =
       typeof raw === "string" ? normalizeEditDiff(raw) || (/^diff |^@@/m.test(raw) ? raw : "") : "";
+    const full =
+      result.afterFullFileContent ??
+      (typeof result.content === "string" && result.content.includes("\n") && !/^The file /i.test(result.content)
+        ? result.content
+        : undefined);
     return {
       success: {
         diffString: diffString || undefined,
         path: result.path ?? rec?.args?.path,
-        afterFullFileContent: result.content ?? result.afterFullFileContent,
+        afterFullFileContent: full,
+        old_string: result.old_string ?? rec?.args?.old_string,
+        new_string: result.new_string ?? rec?.args?.new_string,
         linesAdded: result.linesAdded ?? result.lines_added,
         linesRemoved: result.linesRemoved ?? result.lines_removed,
       },
@@ -852,7 +1267,11 @@ export function createUsageFold() {
 export function foldUsageEvent(fold, ev) {
   if (!fold || !ev || typeof ev !== "object") return;
   if (ev.type === "result" && ev.usage && typeof ev.usage === "object") {
-    fold.cursorUsage = ev.usage;
+    fold.cursorUsage = isClaudeRecord(ev) ? claudeUsage(ev.usage) || ev.usage : ev.usage;
+  }
+  if (isClaudeRecord(ev) && ev.message && ev.message.usage) {
+    const u = claudeUsage(ev.message.usage);
+    if (u) fold.cursorUsage = u;
   }
   if (!isMuseRecord(ev)) return;
   harvestUsageFrom(ev, fold.museAcc);
@@ -924,7 +1343,8 @@ export function extractUsageFromPath(filePath) {
 }
 
 export function parseRawText(text) {
-  const normalizer = createNormalizer();
+  const muse = createNormalizer();
+  const claude = createClaudeNormalizer();
   const events = [];
   const stray = [];
   for (const line of String(text).split(/\r?\n/)) {
@@ -937,7 +1357,8 @@ export function parseRawText(text) {
       continue;
     }
     if (!ev || typeof ev !== "object") continue;
-    if (isMuseRecord(ev)) events.push(...normalizer.normalize(ev));
+    if (isMuseRecord(ev)) events.push(...muse.normalize(ev));
+    else if (isClaudeRecord(ev)) events.push(...claude.normalize(ev));
     else events.push(ev);
   }
   return { events, stray };
@@ -951,6 +1372,12 @@ export function scanToolDenials(text) {
   const denials = [];
   const stats = { started: 0, completed: 0, ok: 0, err: 0 };
   for (const ev of events) {
+    if (ev.type === "result" && Array.isArray(ev.permission_denials)) {
+      for (const d of ev.permission_denials) {
+        const name = (d && (d.tool_name || d.toolName)) || "tool";
+        denials.push(`${name}: permission_denial`);
+      }
+    }
     if (ev.type !== "tool_call") continue;
     if (ev.subtype === "started") {
       stats.started++;

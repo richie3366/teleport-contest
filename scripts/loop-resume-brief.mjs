@@ -55,7 +55,13 @@ for (const e of events) {
     const id = tc.toolCallId || e.call_id;
     const kindKey = Object.keys(tc).find((k) => k.endsWith('ToolCall'));
     if (e.subtype === 'started') {
-        const rec = { id, kind: (kindKey || '?').replace(/ToolCall$/, ''), args: tc[kindKey]?.args || {}, t: e.timestamp_ms, result: null };
+        const existing = byId.get(id);
+        const nextArgs = tc[kindKey]?.args || {};
+        if (existing) {
+            existing.args = { ...existing.args, ...nextArgs };
+            continue;
+        }
+        const rec = { id, kind: (kindKey || '?').replace(/ToolCall$/, ''), args: nextArgs, t: e.timestamp_ms, result: null };
         byId.set(id, rec); calls.push(rec);
     } else if (e.subtype === 'completed') {
         const rec = byId.get(id); if (!rec) continue;

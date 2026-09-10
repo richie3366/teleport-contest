@@ -8,6 +8,9 @@ import {
   parseRawText,
   extractHumanLog,
   isMuseRecord,
+  isClaudeRecord,
+  peekMuseSessionId,
+  scanToolDenials,
 } from "./loop-raw.mjs";
 import { createTranscript, applyNdjsonChunk } from "../loop-observer/parse.mjs";
 
@@ -167,6 +170,125 @@ describe("loop-raw Cursor stream-json", () => {
     assert.ok(t.messages.some((m) => m.kind === "assistant"));
     assert.ok(t.messages.some((m) => m.kind === "tool"));
     assert.equal(t.meta.usage.total, 17);
+  });
+});
+
+const claudeFixture = readFileSync(join(here, "../loop-observer/fixtures/claude-iter.jsonl"), "utf8");
+
+describe("loop-raw Claude Code stream-json", () => {
+  it("detects Claude records and not Cursor", () => {
+    const first = JSON.parse(claudeFixture.split("\n")[0]);
+    assert.equal(isClaudeRecord(first), true);
+    assert.equal(isClaudeRecord({ type: "system", subtype: "init", model: "cursor-grok-4.6-xhigh", session_id: "s1" }), false);
+    assert.equal(isClaudeRecord({ type: "tool_call", subtype: "started" }), false);
+  });
+
+  it("extracts input+output+cache token usage", () => {
+    const u = extractUsageFromRaw(claudeFixture);
+    assert.equal(u.found, true);
+    assert.equal(u.total, 1510);
+    assert.equal(u.breakdown.inputTokens, 150);
+    assert.equal(u.breakdown.outputTokens, 60);
+    assert.equal(u.breakdown.cacheReadTokens, 1100);
+    assert.equal(u.breakdown.cacheWriteTokens, 200);
+  });
+
+  it("normalizes user, thinking, assistant, Read/Bash/Edit, result", () => {
+    const { events } = parseRawText(claudeFixture);
+    assert.ok(events.some((e) => e.type === "user"));
+    assert.ok(events.some((e) => e.type === "thinking" && e.subtype === "delta"));
+    assert.ok(events.some((e) => e.type === "assistant"));
+    const read = events.find((e) => e.type === "tool_call" && e.tool_call?.readToolCall);
+    assert.equal(read.tool_call.readToolCall.args.path, "docs/CURRENT.md");
+    const bash = events.find((e) => e.type === "tool_call" && e.subtype === "started" && e.tool_call?.shellToolCall);
+    assert.match(bash.tool_call.shellToolCall.args.command, /ps_test_runner/);
+    const edit = events.find((e) => e.type === "tool_call" && e.tool_call?.editToolCall);
+    assert.equal(edit.tool_call.editToolCall.args.path, "js/mklev.js");
+    const result = events.find((e) => e.type === "result");
+    assert.equal(result.is_error, false);
+  });
+
+  it("feeds the observer transcript cards", () => {
+    const t = createTranscript();
+    applyNdjsonChunk(t, claudeFixture);
+    const kinds = t.messages.map((m) => m.kind);
+    assert.ok(kinds.includes("user"));
+    assert.ok(kinds.includes("thinking"));
+    assert.ok(kinds.includes("assistant"));
+    assert.ok(kinds.includes("tool"));
+    assert.ok(kinds.includes("result"));
+    assert.equal(t.meta.model, "claude-opus-5");
+    assert.equal(t.meta.usage?.total, 1510);
+    const read = t.messages.find((m) => m.kind === "tool" && m.name === "Read");
+    assert.match(read.title, /CURRENT\.md/);
+    const shell = t.messages.find((m) => m.kind === "tool" && m.name === "Shell");
+    assert.ok(shell);
+    const edit = t.messages.find((m) => m.kind === "tool" && m.name === "Edit");
+    assert.equal(edit.name, "Edit");
+    assert.ok(edit.result?.lines?.length);
+    const asst = t.messages.find((m) => m.kind === "assistant");
+    assert.match(asst.text, /fill_zoo/);
+  });
+
+  it("human extract includes assistant text and tool markers", () => {
+    const log = extractHumanLog(claudeFixture);
+    assert.match(log, /fill_zoo/);
+    assert.match(log, /\[tool\] read/);
+    assert.match(log, /\[tool\] shell/);
+  });
+
+  it("does not look like a Muse session id", () => {
+    assert.equal(peekMuseSessionId(claudeFixture), null);
+  });
+
+  it("treats result.permission_denials as tool denials", () => {
+    const line = JSON.stringify({
+      type: "result",
+      subtype: "success",
+      uuid: "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb",
+      is_error: false,
+      num_turns: 1,
+      permission_denials: [{ tool_name: "Bash", tool_use_id: "x", tool_input: { command: "ls" } }],
+      usage: { input_tokens: 1, output_tokens: 1 },
+    });
+    const { denials } = scanToolDenials(line);
+    assert.equal(denials.length, 1);
+    assert.match(denials[0], /Bash.*permission_denial/);
+  });
+
+  it("fills Read args from input_json_delta then the complete assistant", () => {
+    const text = [
+      JSON.stringify({
+        type: "system",
+        subtype: "init",
+        uuid: "11111111-1111-4111-8111-111111111111",
+        session_id: "sess-claude",
+        model: "claude-opus-5",
+        tools: ["Read"],
+        claude_code_version: "2.1.267",
+      }),
+      JSON.stringify({
+        type: "stream_event",
+        uuid: "22222222-2222-4222-8222-222222222222",
+        session_id: "sess-claude",
+        event: { type: "content_block_start", index: 1, content_block: { type: "tool_use", id: "call_r", name: "Read", input: {} } },
+      }),
+      JSON.stringify({
+        type: "stream_event",
+        uuid: "33333333-3333-4333-8333-333333333333",
+        session_id: "sess-claude",
+        event: { type: "content_block_delta", index: 1, delta: { type: "input_json_delta", partial_json: '{"file_path":"docs/CURRENT.md"}' } },
+      }),
+      JSON.stringify({
+        type: "assistant",
+        uuid: "44444444-4444-4444-8444-444444444444",
+        session_id: "sess-claude",
+        message: { role: "assistant", content: [{ type: "tool_use", id: "call_r", name: "Read", input: { file_path: "docs/CURRENT.md" } }] },
+      }),
+    ].join("\n");
+    const { events } = parseRawText(text);
+    const reads = events.filter((e) => e.type === "tool_call" && e.tool_call?.readToolCall);
+    assert.ok(reads.some((e) => e.tool_call.readToolCall.args.path === "docs/CURRENT.md"));
   });
 });
 
