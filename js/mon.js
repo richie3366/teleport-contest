@@ -60,7 +60,7 @@ import { newsym, pline, pline_mon, verbalize, You_feel, sensemon, canseemon, can
 import { online2, level_difficulty } from './hacklib.js';
 import { worm_cross, level_mon_at, remove_worm } from './worm.js';
 import { Monnam, mon_nam, hliquid } from './do_name.js';
-import { cansee, couldsee, does_block, is_lightblocker_mappear, unblock_point } from './vision.js';
+import { cansee, couldsee, does_block, is_lightblocker_mappear, unblock_point, vision_recalc } from './vision.js';
 import { fightm, mondead, mondied } from './mhitm.js';
 import { remove_monster } from './steed.js';
 import { engr_at } from './engrave.js';
@@ -832,8 +832,9 @@ async function decide_to_shapeshift(mon) {
  */
 async function m_calcdistress(mtmp) {
     if (!mtmp || (mtmp.mhp | 0) < 1) return;
-    // C: mmove==0 must still check liquid once/turn
+    // C: mmove==0 must still check liquid once/turn (mon.c:1186–1191)
     if ((mtmp.data?.mmove | 0) === 0) {
+        if (game.vision_full_recalc) vision_recalc(0);
         if (await minliquid(mtmp)) return;
     }
     mon_regen(mtmp, false);

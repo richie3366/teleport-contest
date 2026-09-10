@@ -2788,7 +2788,8 @@ monster still pre-place `mx/my`; **D-1175** `allmain.c` youmonst fog at `u.ux`);
 `m_in_out_region` (seed0383 **10646→10843**; dam>0 inside_f D-1146; hero_inside bit D-1169; 
 expire dissipation D-1155; teleport `update_monster_region` D-1161; 
 mhurtle_step three-loop D-1176); **`m_calcdistress`→`decide_to_shapeshift` regular+vamp** 
-(D-0623/D-0659; `pickvampshape` Vlad `mon_has_special` still deferred); 
+(D-0623/D-0659; D-2254: `decide_to_shapeshift` arm-for-arm C, `pickvampshape` C switch
+FALLTHROUGH + Vlad `mon_has_special` stay, mmove==0 `vision_full_recalc`→`vision_recalc(0)`); 
 **`restrap` body (D-0622) + movemon pre-dochug call (D-0624; eel hideunder/`rn2(4)` deferred)**); 
 **`minliquid`/`minliquid_core` lava+pool in `movemon_singlemon` + 
 mmove==0 `m_calcdistress`** (D-0775; **eel out-of-water → `monflee(2)` incl. `mon_track_clear`** 
