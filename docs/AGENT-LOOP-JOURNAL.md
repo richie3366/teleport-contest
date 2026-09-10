@@ -38,6 +38,14 @@ Review iteration over the 8 JS-touching SHAs since d22f6c29 (D-2190..D-2197), ol
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-10 — D-2258 `trap.c` trapeffect_magic_trap: full `steedintrap` + `domagictrap` fate 13/15/20 (queue row, trace reach only)
+
+**C locus:** `trap.c:2292–2320` (`trapeffect_magic_trap`); `trap.c:3101–3168` (`steedintrap`); `trap.c:4316–4451` (`domagictrap`, cases 13/15/20).
+**JS:** 1 file (`js/trap.js` +105/−32). Under the 600/10 caps.
+**Change:** `trapeffect_magic_trap` now follows the C body: explosion returns before steed; else `domagictrap` then `steedintrap(trap, null)`. New `steedintrap(trap, otmp)` is the C switch (ARROW `thitm(8)` / DART `thitm(7)` / SLP_GAS `sleep_monst` / LANDMINE `thitm rnd(16)` / PIT DEADMONSTER||`thitm rnd(6|10)` / POLY `resists_magm` short-circuit then `resist(WAND_CLASS, NOTELL)` + `newcham(NULL, NC_SHOW_MSG)` / default no-op; death → `dismount_steed(DISMOUNT_POLY)`). Pit caller uses it (clone deleted).
+**Verify:** `node scripts/verify.mjs --fn trapeffect_magic_trap` → PASS syntax (js/trap.js) · PASS rule2 · note hidden: no corpus session is blocked on trapeffect_magic_trap at HEAD. The row cited trace reach, not blocks, so no `--base` re-run is owed, and this is NOT a corpus PASS · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (trap.js not in the auto-full list). Hand `node frozen/ps_test_runner.mjs sessions` → **44/44** (RNG 792,838 / screens 11,405) including seed0012 fate 13, seed0030 hero `rn2(30)`+fate 11, seed4500 knight `rn2(21)`, seed0103/0104 ride.
+**Named:** dart/arrow `u.usteed && !rn2(2) && steedintrap` call sites; slp_gas hero `fall_asleep` + its `steedintrap`; landmine `recursive_mine`/`steedintrap`; poly `trapeffect` (selector default) + its `steedintrap`; fate<10 nearby-gremlin light (C comment only). `steedintrap` itself is the full C switch; those other trapeffects still do not call it.
+**Next:** trapeffect_magic_trap / steedintrap / domagictrap 13/15/20 are C-shaped, so do not re-pop them. The 2 trace-reach sessions belong to their recorded first-diff owners. Dart/arrow/slp/landmine/poly steedintrap call sites are their own rows if a corpus session ever owns them.
 ## 2026-09-10 — D-2257 `mthrowu.c` m_lined_up C-exact mux/concealment + `thrwmm` live (`mattackm` AT_WEAP ranged) (queue row, trace reach only)
 
 **C locus:** `mthrowu.c:1375–1393` (`m_lined_up`); `mthrowu.c:1396–1401` (`lined_up`); `mthrowu.c:260–314` (`monshoot`); `mthrowu.c:968–1012` (`thrwmm`); `mhitm.c:393–404` (`mattackm` AT_WEAP ranged); `monst.h:71` (`U_AP_TYPE` = `youmonst.m_ap_type & M_AP_TYPMASK`).

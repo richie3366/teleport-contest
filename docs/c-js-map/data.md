@@ -1034,10 +1034,9 @@ boulder-chain/`ship_object`/post-switch flooreffects deferred);
 **monster `trapeffect_hole`/TRAPDOOR → `mlevel_tele_trap`/`migrate_to_level` `Trap_Moved_Mon`** 
 (D-0250); **`thitm` hit → `dmgval` clamp≥1** (D-0252); 
 **monster `trapeffect_magic_trap` `rn2(21)`→`trapeffect_fire_trap` + FIRE_TRAP selector** (D-0254); 
+**hero MAGIC_TRAP `rn2(30)`/`domagictrap` + `steedintrap` + fate-13 `body_part(SPINE)` / fate-15 qstart prodigal / fate-20 `seffects(SPE_REMOVE_CURSE)`** (D-0266; **D-2258** full `steedintrap` `:3101–3168` replaces the PIT-only clone; explosion still returns before steed; `dofiretrap` null-box + hero FIRE_TRAP→`dofiretrap` D-0266); 
 **monster `trapeffect_slp_gas_trap`/`sleep_monst(rnd(25),-1)` + 
-`breathless`/`resists_sleep`/`mr_bit` + SLP_GAS selector** (D-0256); 
-**hero MAGIC_TRAP `rn2(30)`/`domagictrap` + `dofiretrap` null-box + 
-hero FIRE_TRAP→`dofiretrap`** (D-0266); **`trapeffect_bear_trap` hero+monster + 
+`breathless`/`resists_sleep`/`mr_bit` + SLP_GAS selector** (D-0256); **`trapeffect_bear_trap` hero+monster + 
 `floor_trigger` BEAR/LANDMINE/SLP/RUST/FIRE + `set_utrap`/`set_wounded_legs`** (D-0398); 
 **`trapeffect_rust_trap` hero+monster `rn2(5)` aim + `water_damage`/`splash_lit` + 
 iron-golem rust** (D-0508; **D-1095** gremlin `rn2(3)`→`split_mon`; **splash_lit D-1337**; 
@@ -1051,7 +1050,7 @@ grease_protect/costly_alteration/inventory_resistance/remove_worn_item deferred)
 omit grease/towel/container/acid boom, full `erode_obj` rust/verbose arms, overwrite `reset_utrap` 
 / Knox LEVEL_TELEP / Sokoban finish still named (**PIT/HOLE `set_levltyp` D-1280**; 
 **DRAWBRIDGE_UP ice D-1296**; **shop `add_damage` D-1300**), other trap types, **hero 
-SLP_GAS/`fall_asleep`/steedintrap**, **hero arrow/sqky/dart `poisoned()`; steedintrap non-pit; 
+SLP_GAS/`fall_asleep`/steedintrap call**, **hero arrow/sqky/dart `poisoned()`; dart/arrow `!rn2(2)` steedintrap / landmine / poly trapeffect still do not call the now-full helper (D-2258); 
 **Punished pit `unplacebc`/`ballfall`/`placebc` D-1778** (C `trap.c:1955–1958`; 
 callers gate on `u.uball` ≡ C `Punished` **D-1786**)**, 
 vault/shop/temple `ceiling` labels (**trap burn/water/rock `helm`/`cloak`/`gloves`/`suit_simple_name` now canonical D-2186** — stubs deleted, do_wear/objnam imports; `materialnm` helm prefix still named; **`burnarmor` case 3 literal `"gloves"` D-2190** (C `trap.c:143–146`, never `gloves_simple_name`)); **`instapetrify`/`selftouch`/`mselftouch`/`minstapetrify` + 
@@ -1068,7 +1067,7 @@ Deaf+mindless cringe gate `trap.c:1453`; rocktrap empty-door `pline_mon`
 `:1380–1388`; maketrap drawbridge-under DB_FLOOR `:532–545` already live
 `js/trap.js:966–976`), `disturb_buried_zombies` (addressed — out of scope); 
 **`maketrap` STATUE_TRAP → `mk_trap_statue`** (D-0538; 
-full `mongone`/MM_NOCOUNTBIRTH born tally deferred); fate-20 `seffects(SPE_REMOVE_CURSE)`; 
+full `mongone`/MM_NOCOUNTBIRTH born tally deferred); 
 fire `destroy_items`/`ignite`/`burn_floor`/`melt_ice`/`surface`/`minuhpmax`/`losexp`
 (**D-2087** retires `data->mresists` species bits for `resists_elem`
 fire/sleep; worn/artifact `Resists_Elem` grants still named); MAGIC_PORTAL/LEVEL_TELEP `mlevel_tele_trap` arms; valley_level stronghold dest; 

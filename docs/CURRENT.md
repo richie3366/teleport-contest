@@ -91,10 +91,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `mthrowu.c` m_lined_up — popped 2026-09-10 (`LOOP-QUEUE.md` Open head: lined-up predicate thin vs C (`mthrowu.c:1375–1393` staticfn; buzzmu-adjacent, distinct function). Corpus reach: in 2 failing sessions' diverged-step traces (committed scoreboard f7aec9b3, 2026-09-09). Probe: `node scripts/brief.mjs m_lined_up`).
+**Next cluster:** `uhitm.c` mhitm_ad_curs/dcay/deth mhitm (mon→mon) arms — next Open after D-2258. Probe: `node scripts/brief.mjs mhitm_ad_curs`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2257 (index).**
+**Keep D-0845…D-2258 (index).**
 <!-- recent:begin -->
+**D-2258** `trap.c:2292–2320` (`trapeffect_magic_trap`); `trap.c:3101–3168` (`steedintrap`); `trap.c: — `trapeffect_magic_trap` now follows the C body: explosion returns before steed; else `domagictrap` then `steedintrap(trap, null)`.
 **D-2257** `mthrowu.c:1375–1393` (`m_lined_up`); `mthrowu.c:1396–1401` (`lined_up`); `mthrowu.c:260–3 — `m_lined_up` now uses mux/muy `| 0` with no hero-ux fallback, and the C `utarget && Upolyd && rn2(25) && (uundetected || unusual AP)` chain (`M_AP_TYPE(you)` is `U_AP_TYPE`).
 **D-2256** `sp_lev.c:2981–3018` (`splev_initlev`); `sp_lev.c:3834–3875` (`lspo_level_init`); `sp_lev. — new `lspo_level_init(tbl)`, which sets `splev_init_present = true`.
 **D-2255** `bones.c:629–756` (`getbones`); `bones.c:50–193` (`resetobjs` restore arm); `bones.c` `san — `export async function getbones()` in bones.js in C order.
@@ -102,11 +103,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2253** `mcastu.c:88–123` (`choose_monster_spell`); `mcastu.c:909–985` (`spell_would_be_useless`,  — new `export function has_aggravatables(mon)` in wizard.js in C order: caster-vs-hero `In_W_tower` mismatch → false; fmon scan skipping dead and other-side monsters; `STRAT_WAITFORU || helpless` (you.h macro inlined as `m
 **D-2252** `mcastu.c:988–1012` (`buzzmu`); `mthrowu.c:1396–1401` (`lined_up` → `m_lined_up`, sets `gt — `buzzmu` now follows the C body in order: `BZ_VALID_ADTYP` (const.js) silent miss → `mcan || m_seenres` → `cursetxt` + miss → `lined_up(mtmp) && rn2(3)` (short-circuit: no rn2(3) unless lined up) → `nomul(0)` → `canseemo
 **D-2251** `uhitm.c:4782–4831` (`mhitm_adtyping` dispatch, reached from `mhitu.c:1191`); mhitu arms o — `js/mhitu.js` — `mhitm_ad_sgld_u` / `_curs_u` / `_dcay_u` / `_slim_u` / `_deth_u` in C branch/short-circuit order (DETH as the C switch with the 17–19 Antimagic fallthrough; SLIM negated-before-hitmsg like `dren_u`; DCAY
-**D-2250** `potion.c:1563–1583` (`H2Opotion_dip` tail `(*func)(targobj)` after the glow pline + `last — `js/potion.js` — `await func(targobj)` with the C cite; new `export async function impact_arti_light(obj, worsen, seeit)` in C order (short-circuit gate so `obj_resists`' `rn2(100)` is drawn only when the BUC state can m
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2257; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2258; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
