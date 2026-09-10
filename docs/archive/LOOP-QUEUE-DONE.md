@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-10
 
-- [x] `mon.c` decide_to_shapeshift — shapeshifter-change decision thin vs C (`mon.c:4871–4938`; newcham-adjacent). Corpus reach: in 4 failing sessions' diverged-step traces (committed scoreboard f7aec9b3, 2026-09-09). Probe: `node scripts/brief.mjs decide_to_shapeshift`. **Addressed:** D-2254
+- [x] `bones.c` getbones — bones-loading path on tour arrivals (`bones.c:629–756`; NHFILE I/O — check the Rule #2 analogue before porting). Corpus reach: in 3 failing sessions' diverged-step traces (committed scoreboard f7aec9b3, 2026-09-09). Probe: `node scripts/brief.mjs getbones`. **Addressed:** D-2255
+
+
+- [x] `mon.c` decide_to_shapeshift — shapeshifter-change decision thin vs C (`mon.c:4871–4938`; newcham-adjacent). Corpus reach: in 4 failing sessions' diverged-step traces (committed scoreboard f7aec9b3, 2026-09-09). Probe: `node scripts/brief.mjs decide_to_shapeshift`. **Addressed:** D-2254 `15959643`
 
 
 - [x] `mcastu.c` choose_monster_spell — spell-list picker thin vs C (`mcastu.c:88–123` staticfn; castmu-adjacent). Corpus reach: in 4 failing sessions' diverged-step traces (committed scoreboard f7aec9b3, 2026-09-09). Probe: `node scripts/brief.mjs choose_monster_spell`. **Addressed:** D-2253 `c5027d75`

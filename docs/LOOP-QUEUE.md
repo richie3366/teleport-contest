@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `bones.c` getbones — bones-loading path on tour arrivals (`bones.c:629–756`; NHFILE I/O — check the Rule #2 analogue before porting). Corpus reach: in 3 failing sessions' diverged-step traces (committed scoreboard f7aec9b3, 2026-09-09). Probe: `node scripts/brief.mjs getbones`.
 - [ ] `sp_lev.c` splev_initlev — level-init dispatch thin vs C (`sp_lev.c:2981–3018` staticfn; tour-arrival path). Corpus reach: in 3 failing sessions' diverged-step traces (committed scoreboard f7aec9b3, 2026-09-09). Probe: `node scripts/brief.mjs splev_initlev`.
 - [ ] `mthrowu.c` m_lined_up — lined-up predicate thin vs C (`mthrowu.c:1375–1393` staticfn; buzzmu-adjacent, distinct function). Corpus reach: in 2 failing sessions' diverged-step traces (committed scoreboard f7aec9b3, 2026-09-09). Probe: `node scripts/brief.mjs m_lined_up`.
 - [ ] `trap.c` trapeffect_magic_trap — magic-trap effect thin vs C (`trap.c:2292–2320` staticfn). Corpus reach: in 2 failing sessions' diverged-step traces (committed scoreboard f7aec9b3, 2026-09-09). Probe: `node scripts/brief.mjs trapeffect_magic_trap`.
@@ -68,6 +67,11 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 - [ ] `uhitm.c` damageum_adtyping hero-poly arms SGLD/CURS/DCAY/SLIM — `damageum_adtyping` (`js/uhitm.js:1735`) lacks them (purse grab + `exercise(A_DEX)`, `night() && !rn2(10)` chuckle/cancel, rot `xkilled` + `erode_armor`, `!rn2(4)` `munslime`/`newcham` green slime). Named in `c-js-map/turns.md` hitmu→mhitm_adtyping line. No corpus block. Probe: `node scripts/brief.mjs damageum_adtyping`.
 - [ ] `polyself.c` polymon were `do_shift` + draconian `do_merge`/uskin merge + `POLY_REVERT` — polymorph-control arms still named (D-2248). No corpus block — port the named arms. Probe: `node scripts/brief.mjs polymon`.
 - [ ] `read.c` litroom gremlin light hits + Punished `move_bc` — litroom deferrals named D-2250 (gremlin `light_hits_gremlin` loop, ball-and-chain redisplay). No corpus block. Probe: `node scripts/brief.mjs litroom`.
+- [ ] `makemon.c` makemon_rnd_goodpos — random-placement loop vs C (`makemon.c:1075–1137`). Corpus reach: in 2 failing sessions' diverged-step traces (scen-intrinsic-Barbarian-92165, scen-poly-Caveman-92202; committed scoreboard f7aec9b3). Probe: `node scripts/brief.mjs makemon_rnd_goodpos`.
+- [ ] `mkobj.c` mksobj_init — per-class object init arms vs C (`mkobj.c:868–1175`). Corpus reach: in 2 failing sessions' diverged-step traces (scen-tour-Healer-92042, scen-tour-Tourist-92100; committed scoreboard f7aec9b3). Probe: `node scripts/brief.mjs mksobj_init`.
+- [ ] `makemon.c` mkclass_aligned — class pick with alignment filter vs C (`makemon.c:1879–1974`). Corpus reach: in 2 failing sessions' diverged-step traces (scen-tour-Healer-92042, scen-tour-Tourist-92100; committed scoreboard f7aec9b3). Probe: `node scripts/brief.mjs mkclass_aligned`.
+- [ ] `sp_lev.c` get_location — special-level coordinate pick vs C (`sp_lev.c:1201–1269`; tour-arrival path). Corpus reach: in 2 failing sessions' diverged-step traces (scen-tour-Healer-92042, scen-tour-Tourist-92100; committed scoreboard f7aec9b3). Probe: `node scripts/brief.mjs get_location`.
+- [ ] `mhitu.c` passiveum — hero-poly passive response vs C (`mhitu.c:2434–2613`). Corpus reach: in 1 failing session's diverged-step trace (scen-poly-Healer-92107; committed scoreboard f7aec9b3). Probe: `node scripts/brief.mjs passiveum`.
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 

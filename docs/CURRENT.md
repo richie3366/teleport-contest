@@ -91,10 +91,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `mon.c` decide_to_shapeshift — popped 2026-09-10 (`LOOP-QUEUE.md` Open head: shapeshifter-change decision thin vs C (`mon.c:4871–4938`; newcham-adjacent); 4 sessions reach it in diverged-step traces (scoreboard f7aec9b3). Probe: `node scripts/brief.mjs decide_to_shapeshift`).
+**Next cluster:** `bones.c` getbones — popped 2026-09-10 (`LOOP-QUEUE.md` Open head: bones-loading path on tour arrivals (`bones.c:629–756`; NHFILE I/O — Rule #2 analogue); 3 sessions reach it in diverged-step traces (scoreboard f7aec9b3). Probe: `node scripts/brief.mjs getbones`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2254 (index).**
+**Keep D-0845…D-2255 (index).**
 <!-- recent:begin -->
+**D-2255** `bones.c:629–756` (`getbones`); `bones.c:50–193` (`resetobjs` restore arm); `bones.c` `san — `export async function getbones()` in bones.js in C order.
 **D-2254** `mon.c:4871–4938` (`decide_to_shapeshift`); `mon.c:4940–4979` (`pickvampshape`); `mon.c:11 — `pickvampshape` now is the C `switch (mndx)` with FALLTHROUGH: `PM_VLAD` → `if (mon_has_special(mon)) break;` → `wolfchance = 3` → `PM_VAMPIRE_LEADER` wolf arm (`!rn2(wolfchance) && !uppercase_only && !is_pool_or_lava` →
 **D-2253** `mcastu.c:88–123` (`choose_monster_spell`); `mcastu.c:909–985` (`spell_would_be_useless`,  — new `export function has_aggravatables(mon)` in wizard.js in C order: caster-vs-hero `In_W_tower` mismatch → false; fmon scan skipping dead and other-side monsters; `STRAT_WAITFORU || helpless` (you.h macro inlined as `m
 **D-2252** `mcastu.c:988–1012` (`buzzmu`); `mthrowu.c:1396–1401` (`lined_up` → `m_lined_up`, sets `gt — `buzzmu` now follows the C body in order: `BZ_VALID_ADTYP` (const.js) silent miss → `mcan || m_seenres` → `cursetxt` + miss → `lined_up(mtmp) && rn2(3)` (short-circuit: no rn2(3) unless lined up) → `nomul(0)` → `canseemo
@@ -102,11 +103,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2250** `potion.c:1563–1583` (`H2Opotion_dip` tail `(*func)(targobj)` after the glow pline + `last — `js/potion.js` — `await func(targobj)` with the C cite; new `export async function impact_arti_light(obj, worsen, seeit)` in C order (short-circuit gate so `obj_resists`' `rn2(100)` is drawn only when the BUC state can m
 **D-2249** `sp_lev.c:2002–2123` (`create_monster` appear_as fixup: `:2002–2006` gate — `js/mklev.js` — new module-local `splev_create_monster_appear_fixup(mtmp, appear, appear_as)` (C staticfn shape: same-file caller only) in C branch/short-circuit order, called first inside `if (mtmp)` before the D-0873 f
 **D-2248** `polyself.c:535–542` (`class = 0`, `name_to_mon`, `by_class: class = name_to_monclass(buf, — `js/polyself.js` — module-local `armor_to_dragon(atyp)` (C staticfn: same-file callers only, cf.
-**D-2247** `uhitm.c:2742–2786` (`mhitm_ad_acid`: mhitu arm = `hitmsg`, then `!mcan && !rn2(3)` → `Aci — `js/mhitu.js` — new `mhitm_ad_acid_u` / `mhitm_ad_dren_u` / `mhitm_ad_conf_u` in C branch/short-circuit order (acid `| 0` int idiom on the resistance/mspec fields; dren negated-before-hitmsg like the sibling `_u` arms; c
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2254; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2255; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

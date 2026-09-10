@@ -11,8 +11,7 @@ import { rn2, rnd, rn1, rnz } from './rng.js';
 import { CLR_CYAN, CLR_GRAY, CLR_BRIGHT_BLUE } from './terminal.js';
 import { init_rect, rnd_rect, get_rect, split_rects } from './rect.js';
 import { depth as depth_of_level, dist2, distmin, level_difficulty as level_difficulty_of, strstri } from './hacklib.js';
-import { try_load_bones } from './bones.js';
-import { no_bones_level } from './end.js';
+import { getbones } from './bones.js';
 import {
     COLNO, ROWNO, STONE, ROOM, CORR, DOOR, STAIRS,
     HWALL, VWALL, TLCORNER, TRCORNER, BLCORNER, BRCORNER,
@@ -104,7 +103,7 @@ import {
 import {
     makemon, mkclass, MM_NOGRP, set_mimic_sym, mpickobj, add_to_minv, newcham,
     mongets, set_malign, rndmonnum,
-    select_newcham_form, validvamp, mgender_from_permonst,
+    select_newcham_form, validvamp, mgender_from_permonst, propagate,
 } from './makemon.js';
 import { mk_mplayer } from './mplayer.js';
 import { can_saddle, put_saddle_on_mon } from './steed.js';
@@ -1305,17 +1304,7 @@ function in_rooms(x, y, rtype) { return []; }
 // Core mklev functions (ported from main project's mklev.js)
 // ============================================================
 
-// C ref: bones.c getbones() — chance roll then VFS open/restore (D-0274).
-async function getbones() {
-    const flags = game.flags || {};
-    // C: discover global; JS playmode explore/discover both set flags.explore
-    if (flags.explore || flags.discover) return false;
-    if (flags.bones === false) return false;
-    if (rn2(3) && !flags.debug && !flags.wizard) return false;
-    // C: no_bones_level after chance roll (still burns rn2(3) first)
-    if (no_bones_level(game.u?.uz || { dnum: 0, dlevel: 1 })) return false;
-    return try_load_bones(game.u?.uz);
-}
+// getbones: bones.c — imported from bones.js (D-0274).
 
 // C ref: nhlua.c l_nhcore_init() — nhlib shuffle is the second load;
 // after nhl_loadlua("nhcore.lua") every nhcore_call_available[] is TRUE
@@ -3000,38 +2989,6 @@ function load_bigrm_13() {
 }
 
 /**
- * C ref: makemon.c propagate + mbirth_limit — Medusa statue accept tally.
- * Named omission: full makemon-path propagate on every birth.
- */
-function medusa_statue_propagate(mndx) {
-    const g = game;
-    if (!g.mvitals) g.mvitals = [];
-    if (!g.mvitals[mndx]) g.mvitals[mndx] = { mvflags: 0, born: 0, died: 0 };
-    const ptr = mons(mndx);
-    const PM_NAZGUL = monsterNames.indexOf('PM_NAZGUL');
-    const PM_ERINYS = monsterNames.indexOf('PM_ERINYS');
-    const lim = mndx === PM_NAZGUL ? 9
-        : mndx === PM_ERINYS ? 3
-            : MAXMONNO;
-    const gone = ((g.mvitals[mndx].mvflags | 0) & G_GONE) !== 0;
-    const result = ((g.mvitals[mndx].born | 0) < lim && !gone);
-    if (ptr && (ptr.geno & G_UNIQ) !== 0
-        && mndx !== monsterNames.indexOf('PM_HIGH_CLERIC')) {
-        g.mvitals[mndx].mvflags = (g.mvitals[mndx].mvflags | 0) | G_EXTINCT;
-    }
-    // C: tally && (!ghostly || result) with tally=TRUE ghostly=FALSE → always
-    if ((g.mvitals[mndx].born | 0) < 255) {
-        g.mvitals[mndx].born = (g.mvitals[mndx].born | 0) + 1;
-    }
-    if ((g.mvitals[mndx].born | 0) >= lim
-        && ptr && (ptr.geno & G_NOGEN) === 0
-        && ((g.mvitals[mndx].mvflags | 0) & G_EXTINCT) === 0) {
-        g.mvitals[mndx].mvflags = (g.mvitals[mndx].mvflags | 0) | G_EXTINCT;
-    }
-    return result;
-}
-
-/**
  * C ref: sp_lev.c create_object Medusa special — empty statue (corpsenm NON_PM)
  * picks a non-stone-resistant corpsenm via makemon reject loop + invent transfer.
  */
@@ -3048,7 +3005,8 @@ function medusa_empty_statue_at(x, y) {
         if (!was) continue;
         if (!resists_ston(was)
             && !poly_when_stoned(mons(wastyp), g.mvitals)) {
-            medusa_statue_propagate(wastyp);
+            // C: propagate(wastyp, TRUE, FALSE) — MM_NOCOUNTBIRTH skipped tally
+            propagate(wastyp, true, false);
             break;
         }
         const list = g.fmon;
@@ -3325,7 +3283,7 @@ function load_medusa_1() {
             if (!resists_ston(was)
                 && !poly_when_stoned(mons(wastyp), g.mvitals)) {
                 // C: propagate(wastyp, TRUE, FALSE) — MM_NOCOUNTBIRTH skipped tally
-                medusa_statue_propagate(wastyp);
+                propagate(wastyp, true, false);
                 break;
             }
             // C: mongone(was) — reject stone-resistant / poly-when-stoned
