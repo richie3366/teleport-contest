@@ -1224,3 +1224,5 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1211-a71ff501-wizard-monpolycontrol.md](./1211-a71ff501-wizard-monpolycontrol.md) | `a71ff501` | D-2245 wizard monpolycontrol | **ACCEPT** |
 | [1212-72a51dc6-moveloop-spine.md](./1212-72a51dc6-moveloop-spine.md) | `72a51dc6` | D-2246 moveloop_core spine | **ACCEPT** |
 | [1213-e8c22613-mhitm-acid-dren-conf.md](./1213-e8c22613-mhitm-acid-dren-conf.md) | `e8c22613` | D-2247 mhitm acid/dren/conf | **ACCEPT** |
+| [1214-6a0bf305-polyself-by-class-pick.md](./1214-6a0bf305-polyself-by-class-pick.md) | `6a0bf305` | D-2248 polyself by_class pick | **ACCEPT** |
+| [1215-8a595f61-splev-appear-monster-arm.md](./1215-8a595f61-splev-appear-monster-arm.md) | `8a595f61` | D-2249 splev appear MONSTER arm | **ACCEPT** |
