@@ -38,3 +38,11 @@ Review iteration over the 8 JS-touching SHAs since d22f6c29 (D-2190..D-2197), ol
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-10 — D-2256 `sp_lev.c` splev_initlev cluster: `lspo_level_init` table defaults + `splev_init_present`/`icedpools` statics, MINES `linit->icedpools`, `sel_set_ter` ICE/CLOUD arms (queue row, trace reach only)
+
+**C locus:** `sp_lev.c:2981–3018` (`splev_initlev`); `sp_lev.c:3834–3875` (`lspo_level_init`); `sp_lev.c:3788–3789` (`lspo_level_flags` "icedpools"); `sp_lev.c:4609–4630` (`sel_set_ter`); `sp_lev.c:6350–6351` (`sp_level_coder_init` resets).
+**JS:** 1 file (`js/mklev.js`), +215/−287 (149 call-site renames, −127 literal lines, +~60 new code).
+**Change:** new `lspo_level_init(tbl)`, which sets `splev_init_present = true`. It applies the `get_table_*_opt` defaults (style SOLIDFILL, fg ROOM, bg INVALID_TYPE, lit BOOL_RANDOM, filling = fg, corrwid/wallthick −1, rm_deadends = !deadends(TRUE)), maps bg INVALID_TYPE to MOAT for swamp or STONE otherwise, then calls `splev_initlev`. All 149 loader sites now call it, and the `icedpools:` literals are gone.
+**Verify:** `node scripts/verify.mjs --fn splev_initlev` → PASS syntax (js/mklev.js) · PASS rule2 · note hidden: no corpus session is blocked on splev_initlev at HEAD. The row cited trace reach, not blocks, so no `--base` re-run is owed, and this is NOT a corpus PASS · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS. No RNG surface: `icedpool` is read only by `melt_ice` (zap.js).
+**Named:** `gc.coder->lvl_is_joined` (write-only in pinned C); `sel_set_ter` `set_levltyp_lit` FALSE-return early-out (JS writes unconditionally; pre-existing); the JS `sel_set_ter` `tlit` falsy→nochange legacy (D-0807/D-0928, pre-existing).
+**Next:** splev_initlev/lspo_level_init are now C-shaped, so do not re-pop them. The trace-reach tour sessions belong to their recorded first-divergence owners (`rloc` / `collect_coords`, see D-2255 Next).

@@ -128,7 +128,7 @@ Journal: green+strict seed8000/0900; seed0013 99/99 (old-save fallback **and** n
 
 ## Actionable C-wrongs
 
-1. **Bones `try_load_bones` should `deserLevel` then ghostly** — C getbones → getlev `:1299–1300`. One port: hydrate via `deserLevel(payload)` then keep peace_minded / id remap / seenv wipe. Do **not** skip relink. Named extras stay after getlev. **Addressed:** D-2255
+1. **Bones `try_load_bones` should `deserLevel` then ghostly** — C getbones → getlev `:1299–1300`. One port: hydrate via `deserLevel(payload)` then keep peace_minded / id remap / seenv wipe. Do **not** skip relink. Named extras stay after getlev. **Addressed:** D-2255 `ae53dac2`
 2. Named / already Must-fix: LS_MONSTER `mx>0` in `snapshotLocalLights` (656); RANGE_GLOBAL (D-1698); other ledgers (D-1697); worms/bubbles; EDOG relative times; `reset_oattached_mids`. Do **not** add `serLevel` #2. Do **not** restore scattered `dosave0` keys as the write path. Do **not** re-port `serTraps` (D-1694). Do **not** relink `billobjs`.
 
 Verdict: **ACCEPT-WITH-DEBT**

@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `sp_lev.c` splev_initlev — level-init dispatch thin vs C (`sp_lev.c:2981–3018` staticfn; tour-arrival path). Corpus reach: in 3 failing sessions' diverged-step traces (committed scoreboard f7aec9b3, 2026-09-09). Probe: `node scripts/brief.mjs splev_initlev`.
 - [ ] `mthrowu.c` m_lined_up — lined-up predicate thin vs C (`mthrowu.c:1375–1393` staticfn; buzzmu-adjacent, distinct function). Corpus reach: in 2 failing sessions' diverged-step traces (committed scoreboard f7aec9b3, 2026-09-09). Probe: `node scripts/brief.mjs m_lined_up`.
 - [ ] `trap.c` trapeffect_magic_trap — magic-trap effect thin vs C (`trap.c:2292–2320` staticfn). Corpus reach: in 2 failing sessions' diverged-step traces (committed scoreboard f7aec9b3, 2026-09-09). Probe: `node scripts/brief.mjs trapeffect_magic_trap`.
 - [ ] `uhitm.c` mhitm_ad_curs/dcay/deth mhitm (mon→mon) arms — `mdamagem` (`js/mhitm.js`) has no AD_CURS/AD_DCAY/AD_DETH case (gremlin `rn2(10)` cancel + clay-golem `mondied`, `completelyrots` `monkilled` + `erode_armor(ERODE_ROT)`, Death undead `rnd(dmg/2)` + drli). Named in `c-js-map/turns.md` hitmu→mhitm_adtyping line. No corpus block — port the named arms. Probe: `node scripts/brief.mjs mhitm_ad_curs`.

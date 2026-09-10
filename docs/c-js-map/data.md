@@ -1412,7 +1412,11 @@ iterate y-outer, zoo/arrival/barracks, 11 doors, soldiers/D/eels, gems);
 full Lua VM + remaining `des.*` still production requirement;
 Random-feature center terrain (D-2006: Buried treasure / Massacre /
 Statuary fills + `make_dig_engraving` postprocess — reservoir already
-listed all 15; BODIES was 12); icedpool on ICE (`splev_init_present`);
+listed all 15; BODIES was 12); **`lspo_level_init` → `splev_initlev`**
+(D-2256; C `sp_lev.c:3834–3875` table defaults + `splev_init_present`,
+`:2981–3018` dispatch, MINES `linit->icedpools` from the `:192` static set
+by Val `level_flags("icedpools")`, reset per coder `:6350`; `sel_set_ter`
+ICE icedpool + CLOUD `del_engr_at` live; `lvl_is_joined` omitted — no C reader);
 exclusion_zones save/rest deferred;
 **Garden fill + `make_garden_walls` postprocess** (D-1861; numpoints/6
 asleep wood nymphs via `splev_room_monster` default-random `induced_align`,
