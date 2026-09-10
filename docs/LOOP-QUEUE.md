@@ -48,8 +48,6 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 `error`) is always a Must-fix row: it forfeits every later screen of that
 session (Constitution §10.14).
 
-- [ ] `uhitm.c` mhitm_ad_curs/dcay/slim mhitu PM identity — JS `mtmp.data === mons[PM_GREMLIN]` / `pd === mons[PM_WOOD_GOLEM|LEATHER_GOLEM|GREEN_SLIME]` is always false (`mons()` is a fresh-object factory; `mons[n]` is undefined). Daytime gremlin still draws `rn2(10)` (C returns first). Use `(data?.mndx | 0) === PM_*` like `hates_light` / `is_wooden`. Same one-liner already dead in `rust_u` / `fire_u`. Source: reviews/loop-unattended/1217-c8fbe227-mhitm-adtyping-mhitu-arms.md.
-
 ## Open (corpus-driven, after Must-fix is empty)
 
 Ranked by corpus sessions blocked (`hidden-proxy queue`, scoreboard at

@@ -134,3 +134,5 @@ Rule #2 clean (re-run here, repo-wide).
    mhitm_ad_curs`.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-2259

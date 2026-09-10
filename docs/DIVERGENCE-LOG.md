@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2259 — `uhitm.c` mhitu PM identity: `mons()` factory vs `&mons[PM_*]` (review 1217 Must-fix)
+
+- **Status:** shipped (Must-fix queue row from reviews/loop-unattended/1217-c8fbe227-mhitm-adtyping-mhitu-arms.md; no corpus block).
+- **Symptom:** JS `mtmp.data === mons[PM_GREMLIN]` / `pd === mons[PM_WOOD_GOLEM|LEATHER_GOLEM|GREEN_SLIME]` (and the same one-liner in `mhitm_ad_rust_u` / `mhitm_ad_fire_u`) is always false. `mons` is `export function mons(mndx)` (a fresh-object factory); `mons[n]` is undefined. C `pa == &mons[PM_GREMLIN]` therefore never fired, so a daytime gremlin still drew `rn2(10)`. Rotting wood/leather golem heroes never `You rot!` + `rehumanize`; green-slime form never took the unaffected arm; iron/paper/straw golem heroes skipped rust/burn instakills. House compare is `(ptr?.mndx | 0) === PM_*` (`hates_light` / `is_wooden`).
+- **C locus:** `uhitm.c:3038–3041` (`mhitm_ad_curs` mhitu: `!night() && pa == &mons[PM_GREMLIN]`); `uhitm.c:2299–2316` (`mhitm_ad_rust` mhitu `completelyrusts`); `uhitm.c:2362–2390` (`mhitm_ad_dcay` mhitu `completelyrots`); `uhitm.c:2561–2587` (`mhitm_ad_fire` mhitu `completelyburns`); `uhitm.c:3530–3574` (`mhitm_ad_slim` mhitu `pd == &mons[PM_GREEN_SLIME]`); `mondata.h:223–227` (`completelyburns` / `completelyrots` / `completelyrusts`).
+- **JS was:** `js/mhitu.js` `mhitm_ad_curs_u` / `_dcay_u` / `_slim_u` / `_rust_u` / `_fire_u` compared `data === mons[PM_*]`.
+- **Fix:** those five gates now use `(data?.mndx | 0) === PM_*` like `hates_light` / `is_wooden`. Daytime gremlin returns before `rn2(10)`. Clay-golem `u.umonnum` was already an index compare and is unchanged.
+- **JS:** 1 file (`js/mhitu.js` ~+8/−7). Must-fix one-liner cluster; C is that small. Under the 600/10 caps.
+- **Verify:** `node scripts/verify.mjs --fn mhitm_ad_curs` → PASS syntax (js/mhitu.js) · PASS rule2 · note hidden: no corpus session is blocked on mhitm_ad_curs at HEAD — a vacuous verify is NOT a corpus PASS. The queue row cited a review, not N corpus blocks, so no `--base` re-run is owed · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (mhitu.js not in the auto-full list). VERIFY: PASS.
+- **Named omissions:** uhitm (hero-poly) and mhitm (mon→mon) arms of CURS/DCAY/SLIM/DETH stay named (Open rows; Must-fix stays alone).
+- **Next:** do not re-pop the mhitu PM-identity one-liner. The live Open head is `mdamagem` AD_CURS/AD_DCAY/AD_DETH (mon→mon).
+- **Cited falsifier grade:** measured (pinned `uhitm.c` mhitu arms + `mondata.h:223–227` read; review 1217 Actionable; no JS FORCE/DIAG/seed/coordinate reads).
+
 ## D-2258 — `trap.c` trapeffect_magic_trap: full `steedintrap` + `domagictrap` fate 13/15/20 (queue row, trace reach only)
 
 - **Status:** shipped (Open queue row `trap.c` trapeffect_magic_trap, 2 sessions with it in diverged-step traces at scoreboard f7aec9b3; no review cited).

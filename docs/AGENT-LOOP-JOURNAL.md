@@ -41,6 +41,14 @@ Review iteration over the 8 JS-touching SHAs since d22f6c29 (D-2190..D-2197), ol
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-10 — D-2259 `uhitm.c` mhitu PM identity: `mons()` factory vs `&mons[PM_*]` (review 1217 Must-fix)
+
+**C locus:** `uhitm.c:3038–3041` (`mhitm_ad_curs` mhitu: `!night() && pa == &mons[PM_GREMLIN]`); `uhitm.c:2299–2316` (`mhitm_ad_rust` mhitu `completelyrusts`); `uhitm.c:2362–2390` (`mhitm_ad_dcay` mhitu `completelyrots`); `uhitm.c:2561–2587` (`mhitm_ad_fire` mhitu `completelyburns`); `uhitm.c:3530–3574` (`mhitm_ad_slim` mhitu `pd == &mons[PM_GREEN_SLIME]`); `mondata.h:223–227` (`completelyburns` / `completelyrots` / `completelyrusts`).
+**JS:** 1 file (`js/mhitu.js` ~+8/−7). Must-fix one-liner cluster; C is that small. Under the 600/10 caps.
+**Change:** those five gates now use `(data?.mndx | 0) === PM_*` like `hates_light` / `is_wooden`. Daytime gremlin returns before `rn2(10)`. Clay-golem `u.umonnum` was already an index compare and is unchanged.
+**Verify:** `node scripts/verify.mjs --fn mhitm_ad_curs` → PASS syntax (js/mhitu.js) · PASS rule2 · note hidden: no corpus session is blocked on mhitm_ad_curs at HEAD — a vacuous verify is NOT a corpus PASS. The queue row cited a review, not N corpus blocks, so no `--base` re-run is owed · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (mhitu.js not in the auto-full list). VERIFY: PASS.
+**Named:** uhitm (hero-poly) and mhitm (mon→mon) arms of CURS/DCAY/SLIM/DETH stay named (Open rows; Must-fix stays alone).
+**Next:** do not re-pop the mhitu PM-identity one-liner. The live Open head is `mdamagem` AD_CURS/AD_DCAY/AD_DETH (mon→mon).
 ## 2026-09-10 — D-2258 `trap.c` trapeffect_magic_trap: full `steedintrap` + `domagictrap` fate 13/15/20 (queue row, trace reach only)
 
 **C locus:** `trap.c:2292–2320` (`trapeffect_magic_trap`); `trap.c:3101–3168` (`steedintrap`); `trap.c:4316–4451` (`domagictrap`, cases 13/15/20).

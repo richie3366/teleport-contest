@@ -48,7 +48,7 @@ they no longer pick work. Top owners: `welcome`→`calendar.c getlt` ×51,
 `do_statusline2` ×11, `break_armor` ×9, `exercise` ×8, `enlightenment`
 ×7, `wiz_intrinsic` ×7, 4 `ReferenceError` throws ×8 (Must-fix).
 Reviews 990–1215: ACCEPT/DEBT record in INDEX; Must-fix from those bands shipped.
-Reviews 1216–1224: 8 ACCEPT, 1 QUALITY-RISK (1217 mhitu `mons[PM_*]` identity — Must-fix prepended).
+Reviews 1216–1224: 8 ACCEPT, 1 QUALITY-RISK (1217 mhitu `mons[PM_*]` identity — Must-fix D-2259).
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score --jobs 8`
 (≈200 s); when every family is ≥ 85 % PASS, grow it first:
 `node scripts/scenario-gen.mjs --n 120 --seed <iter×100>`.
@@ -86,10 +86,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `uhitm.c` mhitm_ad_curs/dcay/slim mhitu PM identity — `=== mons[PM_*]` is always false (`mons()` factory). Source: reviews/loop-unattended/1217-c8fbe227-mhitm-adtyping-mhitu-arms.md. Probe: `node scripts/brief.mjs mhitm_ad_curs`.
+**Next cluster:** `uhitm.c` mhitm_ad_curs/dcay/deth mhitm (mon→mon) arms — `mdamagem` has no AD_CURS/AD_DCAY/AD_DETH case. Probe: `node scripts/brief.mjs mhitm_ad_curs`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2258 (index).**
+**Keep D-0845…D-2259 (index).**
 <!-- recent:begin -->
+**D-2259** `uhitm.c:3038–3041` (`mhitm_ad_curs` mhitu: `!night() && pa == &mons[PM_GREMLIN]`); `uhitm — those five gates now use `(data?.mndx | 0) === PM_*` like `hates_light` / `is_wooden`.
 **D-2258** `trap.c:2292–2320` (`trapeffect_magic_trap`); `trap.c:3101–3168` (`steedintrap`); `trap.c: — `trapeffect_magic_trap` now follows the C body: explosion returns before steed; else `domagictrap` then `steedintrap(trap, null)`.
 **D-2257** `mthrowu.c:1375–1393` (`m_lined_up`); `mthrowu.c:1396–1401` (`lined_up`); `mthrowu.c:260–3 — `m_lined_up` now uses mux/muy `| 0` with no hero-ux fallback, and the C `utarget && Upolyd && rn2(25) && (uundetected || unusual AP)` chain (`M_AP_TYPE(you)` is `U_AP_TYPE`).
 **D-2256** `sp_lev.c:2981–3018` (`splev_initlev`); `sp_lev.c:3834–3875` (`lspo_level_init`); `sp_lev. — new `lspo_level_init(tbl)`, which sets `splev_init_present = true`.
@@ -97,11 +98,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2254** `mon.c:4871–4938` (`decide_to_shapeshift`); `mon.c:4940–4979` (`pickvampshape`); `mon.c:11 — `pickvampshape` now is the C `switch (mndx)` with FALLTHROUGH: `PM_VLAD` → `if (mon_has_special(mon)) break;` → `wolfchance = 3` → `PM_VAMPIRE_LEADER` wolf arm (`!rn2(wolfchance) && !uppercase_only && !is_pool_or_lava` →
 **D-2253** `mcastu.c:88–123` (`choose_monster_spell`); `mcastu.c:909–985` (`spell_would_be_useless`,  — new `export function has_aggravatables(mon)` in wizard.js in C order: caster-vs-hero `In_W_tower` mismatch → false; fmon scan skipping dead and other-side monsters; `STRAT_WAITFORU || helpless` (you.h macro inlined as `m
 **D-2252** `mcastu.c:988–1012` (`buzzmu`); `mthrowu.c:1396–1401` (`lined_up` → `m_lined_up`, sets `gt — `buzzmu` now follows the C body in order: `BZ_VALID_ADTYP` (const.js) silent miss → `mcan || m_seenres` → `cursetxt` + miss → `lined_up(mtmp) && rn2(3)` (short-circuit: no rn2(3) unless lined up) → `nomul(0)` → `canseemo
-**D-2251** `uhitm.c:4782–4831` (`mhitm_adtyping` dispatch, reached from `mhitu.c:1191`); mhitu arms o — `js/mhitu.js` — `mhitm_ad_sgld_u` / `_curs_u` / `_dcay_u` / `_slim_u` / `_deth_u` in C branch/short-circuit order (DETH as the C switch with the 17–19 Antimagic fallthrough; SLIM negated-before-hitmsg like `dren_u`; DCAY
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2258; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2259; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

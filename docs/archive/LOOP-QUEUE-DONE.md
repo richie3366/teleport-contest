@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-10
 
+- [x] `uhitm.c` mhitm_ad_curs/dcay/slim mhitu PM identity — JS `mtmp.data === mons[PM_GREMLIN]` / `pd === mons[PM_WOOD_GOLEM|LEATHER_GOLEM|GREEN_SLIME]` is always false (`mons()` is a fresh-object factory; `mons[n]` is undefined). Daytime gremlin still draws `rn2(10)` (C returns first). Use `(data?.mndx | 0) === PM_*` like `hates_light` / `is_wooden`. Same one-liner already dead in `rust_u` / `fire_u`. Source: reviews/loop-unattended/1217-c8fbe227-mhitm-adtyping-mhitu-arms.md. **Addressed:** D-2259
+
+
 - [x] `trap.c` trapeffect_magic_trap — magic-trap effect thin vs C (`trap.c:2292–2320` staticfn). Corpus reach: in 2 failing sessions' diverged-step traces (committed scoreboard f7aec9b3, 2026-09-09). Probe: `node scripts/brief.mjs trapeffect_magic_trap`. **Addressed:** D-2258 `a74f318a`
 
 
