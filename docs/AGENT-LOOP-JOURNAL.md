@@ -38,6 +38,14 @@ Review iteration over the 8 JS-touching SHAs since d22f6c29 (D-2190..D-2197), ol
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-10 — D-2257 `mthrowu.c` m_lined_up C-exact mux/concealment + `thrwmm` live (`mattackm` AT_WEAP ranged) (queue row, trace reach only)
+
+**C locus:** `mthrowu.c:1375–1393` (`m_lined_up`); `mthrowu.c:1396–1401` (`lined_up`); `mthrowu.c:260–314` (`monshoot`); `mthrowu.c:968–1012` (`thrwmm`); `mhitm.c:393–404` (`mattackm` AT_WEAP ranged); `monst.h:71` (`U_AP_TYPE` = `youmonst.m_ap_type & M_AP_TYPMASK`).
+**JS:** 2 files (`js/mthrowu.js` +~100/−45, `js/mhitm.js` +7/−7). Under the 600/10 caps.
+**Change:** `m_lined_up` now uses mux/muy `| 0` with no hero-ux fallback, and the C `utarget && Upolyd && rn2(25) && (uundetected || unusual AP)` chain (`M_AP_TYPE(you)` is `U_AP_TYPE`). `spitmm` tx/ty and `thrwmu` retreat `distmin` match. `monshoot` follows C: distance is `mtarget.mx/my` else mux/muy; `gm.m_shot`; canseemon `set_msg_xy` + `obj_is_pname ? the : an` + `" at "` `some_mon_nam(mtarg)`; `DEADMONSTER` breaks the remaining volley.
+**Verify:** `node scripts/verify.mjs --fn m_lined_up` → PASS syntax (js/mhitm.js js/mthrowu.js) · PASS rule2 · note hidden: no corpus session is blocked on m_lined_up at HEAD. The row cited trace reach, not blocks, so no `--base` re-run is owed, and this is NOT a corpus PASS · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (mthrowu/mhitm not in the auto-full list). Hand `node frozen/ps_test_runner.mjs sessions` → **44/44** (RNG 792,838 / screens 11,405) because `monshoot` is on the hero throw path (`m_shot`, mux, `obj_is_pname`).
+**Named:** `thrwmu` polearm / `autoreturn_weapon` `always_toss` (pre-existing); `linedup_callback` (muse.c floor-corpse, D-1810).
+**Next:** m_lined_up / thrwmm / monshoot are C-shaped, so do not re-pop them. A future mon-mon missile divergence attributes to `select_rwep` / `ohitmon` / `m_throw`, not a missing `thrwmm`. The 2 trace-reach sessions belong to their recorded first-diff owners.
 ## 2026-09-10 — D-2256 `sp_lev.c` splev_initlev cluster: `lspo_level_init` table defaults + `splev_init_present`/`icedpools` statics, MINES `linit->icedpools`, `sel_set_ter` ICE/CLOUD arms (queue row, trace reach only)
 
 **C locus:** `sp_lev.c:2981–3018` (`splev_initlev`); `sp_lev.c:3834–3875` (`lspo_level_init`); `sp_lev.c:3788–3789` (`lspo_level_flags` "icedpools"); `sp_lev.c:4609–4630` (`sel_set_ter`); `sp_lev.c:6350–6351` (`sp_level_coder_init` resets).

@@ -2997,7 +2997,9 @@ pool-water what deferred detail matches C);
 seed4500 **101373→101391** RNG **101579** Scr **924**; 
 D-2184 `passiveum` AD_COLD mold fission live (`split_mon(youmonst, mtmp)` via sit.js + C `s_suffix(mon_nam(mtmp))` heat reason); 
 `golemeffects`/`mon_reflects`/`erode_armor`/`make_stoned` detail still deferred); 
-**`spitmm`/`spitmu` + `m_lined_up`; `mattacku` AT_SPIT when range2** (D-0900); 
+**`spitmm`/`spitmu` + `m_lined_up`; `mattacku` AT_SPIT when range2** (D-0900;
+D-2257: `m_lined_up` mux/muy `| 0` with no `u.ux` fallback, Upolyd `rn2(25)`
+concealment as one C `&&` chain; `thrwmm` live); 
 **`breamm`/`breamu` + `mattacku` AT_BREA** (D-0925; 
 seed4500 **86672→87218** RNG **87347** Scr **759**; 
 mon-mon `mattackm` AT_SPIT/AT_BREA live (D-1919; same-SCC hoisted
@@ -3386,8 +3388,11 @@ tame `adjalign(-15)` before experience** (D-0836; human-murder/unicorn/quest arm
 peaceful yn deferred); **`is_safemon` requires `canspotmon`** (D-0791); 
 **`mundisplaceable` + `domove` refuse leader/Oracle/priest/shk/gd swap** (D-0792; 
 `goodpos`/trap-on-dest deferred); **`mattackm` AT_WEAP `mon_wield_item`→`M_ATTK_MISS`** (D-0743;
-`possibly_unwield` + `mswingsm` live D-1919; ranged `thrwmm` still deferred —
-mthrowu `monshoot` is a local clone, not an export); **`mattackm` preamble
+`possibly_unwield` + `mswingsm` live D-1919; ranged `thrwmm` live D-2257 —
+`mthrowu.c:968–1012` + `mhitm.c:393–404`; `monshoot` stays C-staticfn
+same-file, now mtarget-or-mux + `gm.m_shot` + canseemon `" at "`
+`some_mon_nam`; named: `thrwmu` polearm / `autoreturn_weapon` always_toss);
+**`mattackm` preamble
 D-1919** (grid-bug angle MISS, mundetected clear/newsym/generic notice,
 elf-vs-orc `tmp++`; Unaware-dream + HIDE_UNDER/last_hider arms named omits —
 `Unaware`, `iflags.last_msg`, `gl.last_hider` absent); **`mattackm` melee

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-10
 
-- [x] `sp_lev.c` splev_initlev — level-init dispatch thin vs C (`sp_lev.c:2981–3018` staticfn; tour-arrival path). Corpus reach: in 3 failing sessions' diverged-step traces (committed scoreboard f7aec9b3, 2026-09-09). Probe: `node scripts/brief.mjs splev_initlev`. **Addressed:** D-2256
+- [x] `mthrowu.c` m_lined_up — lined-up predicate thin vs C (`mthrowu.c:1375–1393` staticfn; buzzmu-adjacent, distinct function). Corpus reach: in 2 failing sessions' diverged-step traces (committed scoreboard f7aec9b3, 2026-09-09). Probe: `node scripts/brief.mjs m_lined_up`. **Addressed:** D-2257
+
+
+- [x] `sp_lev.c` splev_initlev — level-init dispatch thin vs C (`sp_lev.c:2981–3018` staticfn; tour-arrival path). Corpus reach: in 3 failing sessions' diverged-step traces (committed scoreboard f7aec9b3, 2026-09-09). Probe: `node scripts/brief.mjs splev_initlev`. **Addressed:** D-2256 `ea39a7f9`
 
 
 - [x] `bones.c` getbones — bones-loading path on tour arrivals (`bones.c:629–756`; NHFILE I/O — check the Rule #2 analogue before porting). Corpus reach: in 3 failing sessions' diverged-step traces (committed scoreboard f7aec9b3, 2026-09-09). Probe: `node scripts/brief.mjs getbones`. **Addressed:** D-2255 `ae53dac2`
