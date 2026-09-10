@@ -88,8 +88,9 @@ divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
 **Next cluster:** `polyself.c` polymon were `do_shift` + draconian `do_merge`/uskin merge + `POLY_REVERT` (D-2248 named arms). No corpus block. Probe: `node scripts/brief.mjs polymon`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2261 (index).**
+**Keep D-0845…D-2262 (index).**
 <!-- recent:begin -->
+**D-2262** `polyself.c:469–733` (`polyself`): `:500–504` formrevert (`mntmp = youmonst.cham`, `monste — `js/polyself.js`.
 **D-2261** `uhitm.c:2797–2811` (`mhitm_ad_sgld` uhitm arm); `uhitm.c:3022–3035` (`mhitm_ad_curs` uhit — four file-local arms, ported from the C uhitm branches and dispatched from `damageum_adtyping`:
 **D-2260** `uhitm.c:3014–3096` (`mhitm_ad_curs` mhitm arm); `uhitm.c:2362–2415` (`mhitm_ad_dcay` mhit — added file-local `mhitm_ad_curs` / `_dcay` / `_deth` / `_drli` ported from the C mhitm arms, plus one `mdamagem` block that dispatches them.
 **D-2259** `uhitm.c:3038–3041` (`mhitm_ad_curs` mhitu: `!night() && pa == &mons[PM_GREMLIN]`); `uhitm — those five gates now use `(data?.mndx | 0) === PM_*` like `hates_light` / `is_wooden`.
@@ -97,11 +98,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2257** `mthrowu.c:1375–1393` (`m_lined_up`); `mthrowu.c:1396–1401` (`lined_up`); `mthrowu.c:260–3 — `m_lined_up` now uses mux/muy `| 0` with no hero-ux fallback, and the C `utarget && Upolyd && rn2(25) && (uundetected || unusual AP)` chain (`M_AP_TYPE(you)` is `U_AP_TYPE`).
 **D-2256** `sp_lev.c:2981–3018` (`splev_initlev`); `sp_lev.c:3834–3875` (`lspo_level_init`); `sp_lev. — new `lspo_level_init(tbl)`, which sets `splev_init_present = true`.
 **D-2255** `bones.c:629–756` (`getbones`); `bones.c:50–193` (`resetobjs` restore arm); `bones.c` `san — `export async function getbones()` in bones.js in C order.
-**D-2254** `mon.c:4871–4938` (`decide_to_shapeshift`); `mon.c:4940–4979` (`pickvampshape`); `mon.c:11 — `pickvampshape` now is the C `switch (mndx)` with FALLTHROUGH: `PM_VLAD` → `if (mon_has_special(mon)) break;` → `wolfchance = 3` → `PM_VAMPIRE_LEADER` wolf arm (`!rn2(wolfchance) && !uppercase_only && !is_pool_or_lava` →
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2261; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2262; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

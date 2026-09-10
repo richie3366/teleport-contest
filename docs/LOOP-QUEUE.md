@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `polyself.c` polymon were `do_shift` + draconian `do_merge`/uskin merge + `POLY_REVERT` — polymorph-control arms still named (D-2248). No corpus block — port the named arms. Probe: `node scripts/brief.mjs polymon`.
 - [ ] `read.c` litroom gremlin light hits + Punished `move_bc` — litroom deferrals named D-2250 (gremlin `light_hits_gremlin` loop, ball-and-chain redisplay). No corpus block. Probe: `node scripts/brief.mjs litroom`.
 - [ ] `makemon.c` makemon_rnd_goodpos — random-placement loop vs C (`makemon.c:1075–1137`). Corpus reach: in 2 failing sessions' diverged-step traces (scen-intrinsic-Barbarian-92165, scen-poly-Caveman-92202; committed scoreboard f7aec9b3). Probe: `node scripts/brief.mjs makemon_rnd_goodpos`.
 - [ ] `mkobj.c` mksobj_init — per-class object init arms vs C (`mkobj.c:868–1175`). Corpus reach: in 2 failing sessions' diverged-step traces (scen-tour-Healer-92042, scen-tour-Tourist-92100; committed scoreboard f7aec9b3). Probe: `node scripts/brief.mjs mksobj_init`.

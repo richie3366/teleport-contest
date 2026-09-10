@@ -24,19 +24,20 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 
 ## Don't re-check (≤15)
 
-- D-1790…D-2261 stand. Scars: `m_seenres` boolean, never `!== 0`; no 2nd `genus`/`accessible`/`confdir`/`locomotion`/`unconscious`/`free_mgivenname`/`is_axe`/`carrying`/`end_running`.
+- D-1790…D-2262 stand. Scars: `m_seenres` boolean, never `!== 0`; no 2nd `genus`/`accessible`/`confdir`/`locomotion`/`unconscious`/`free_mgivenname`/`is_axe`/`carrying`/`end_running`.
 - D-1795/D-1816 stand. Scars: sleep `rn2(10)`; no 2nd `m_monnam`/`simple_typename`; seed4500 `[2]`: keep `flush_screen(1)`.
 - No `stay` rebuild / `u.Punished` / ordinary-pit-farlook `rn2(20)`.
 - seed0014 I-glyph D-1774; findone tail D-1775; D-0078 H2344/offx 72 (D-1185); `g`≠Unknown (D-1186); PREFIXCMD D-1582.
   ParanoidTrap/`domagicportal`/`undestroyable_trap`/`mktrap` dst/`goto_level` uz0 are D-1187/1188. No rhack raw-ETX (D-1189). Never FORCE falsified mineralize TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` loaders D-1852/D-1858 — check `load_val_*`/`load_sam_*` before refilling.
 - No D-0480 `tty_map_color` re-apply (D-0483). No skipped spaces / space runs >4 (D-0931). No FORCE shk satdoor/`onlineu` (D-0376), linedup/FlipX (#1092), `_pending_message` restore (D-0929), HEAVY_IRON_BALL `owt!=0` (#1194). Judge keeps RC (D-0933); §1.2 frozen. No public-LB chase.
-- No memcpy gi worn/ball (D-1035) / `setnotworn`←`owornmask` (D-1020) / `delobj` tut loot / off-level timers (D-1037) / dropped `msounds[]` (D-1053) / tut-1 keys (D-1065) / skipped `tutorial()` (D-1066). No skip D-1067…D-2261.
-- No `monmove.js`→sit `sticks` import / `confer_oc_oprop` rewrite / emin delete / `make_happy_shk` stub (D-1540) / bones→options fruitadd (D-1541). No `reset_glyphmap`/`notice_all_mons`/savelev-freeing/`lspo_reset_level`. No `wield`/`pickup`→`polyself` `body_part`. No static `end`←`dog`. No makemon→hack/`artifact`/`minion`. No re-port D-1682…D-2261.
+- No memcpy gi worn/ball (D-1035) / `setnotworn`←`owornmask` (D-1020) / `delobj` tut loot / off-level timers (D-1037) / dropped `msounds[]` (D-1053) / tut-1 keys (D-1065) / skipped `tutorial()` (D-1066). No skip D-1067…D-2262.
+- No `monmove.js`→sit `sticks` import / `confer_oc_oprop` rewrite / emin delete / `make_happy_shk` stub (D-1540) / bones→options fruitadd (D-1541). No `reset_glyphmap`/`notice_all_mons`/savelev-freeing/`lspo_reset_level`. No `wield`/`pickup`→`polyself` `body_part`. No static `end`←`dog`. No makemon→hack/`artifact`/`minion`. No re-port D-1682…D-2262.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2262: `js/polyself.js`. Named: `made_change` light-source bookkeeping (`:720–730`): JS `do_light_sources` has no hero arm
 - D-2261: four file-local arms, ported from the C uhitm branches and dispatched from `damageum_adtyping`: Named: `merge_choice` shop-floor `no_charge`/`inhishop` reject (freed gold is never OBJ_FLOOR, so
 - D-2260: added file-local `mhitm_ad_curs` / `_dcay` / `_deth` / `_drli` ported from the C mhitm arms, plus one `mdamagem` block that dispatches them. Named: `monkilled` pet «May %s rot/rust/roast in peace» tail (`noit_mon_nam`); `monkilled` `iflag
 - D-2259: those five gates now use `(data?.mndx | 0) === PM_*` like `hates_light` / `is_wooden`. Named: uhitm (hero-poly) and mhitm (mon→mon) arms of CURS/DCAY/SLIM/DETH stay named (Open rows; M
@@ -51,5 +52,4 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 - D-2250: `js/potion.js` — `await func(targobj)` with the C cite; new `export async function impact_arti_light(obj, worsen, seeit)` in C order (short-circuit ga Named: none new. litroom's other deferrals stand (Punished `move_bc`, gremlin light hits, Underwa
 - D-2249: `js/mklev.js` — new module-local `splev_create_monster_appear_fixup(mtmp, appear, appear_as)` (C staticfn shape: same-file caller only) in C branch/sh Named: appear_as FURNITURE/OBJECT generic arms (defsyms explanation scan + `OBJ_NAME` scan + boul
 - D-2248: `js/polyself.js` — module-local `armor_to_dragon(atyp)` (C staticfn: same-file callers only, cf. Named: were `do_shift` + draconian `do_merge`/uskin merge + `POLY_REVERT` + post-loop isvamp/drac
-- D-2247: `js/mhitu.js` — new `mhitm_ad_acid_u` / `mhitm_ad_dren_u` / `mhitm_ad_conf_u` in C branch/short-circuit order (acid `| 0` int idiom on the resistance/ Named: `mhitm_adtyping` SGLD/CURS/DCAY/SLIM/DGST/HALU/DETH arms (SGLD 66 + CURS 82 + DGST 76 line
 <!-- landmarks:end -->

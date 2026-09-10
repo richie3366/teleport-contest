@@ -1197,7 +1197,9 @@ via `steal.c` `mdrop_obj` D-2197**); **`drinksink` case 10 `polyself`** (D-1118;
 C `fountain.c:680–686`; `!Unchanging` metamorphosis + `polyself(POLY_NOFLAGS)`; 
 Unchanging skips You+call; youprop H||E flats+uprops; 
 confer writes UNCHANGING to uprops not `EUnchanging`; 
-were/vamp/`POLY_MONSTER`/`POLY_REVERT` stay named on polyself.js); 
+polyself.js now runs were `do_shift`, draconian `do_merge`/uskin + `skinback`,
+`POLY_REVERT`, placeholder substitutes and wizard own-role `rehumanize` (D-2262);
+`made_change` hero light-source bookkeeping stays named); 
 **`drinksink` case 13 `create_gas_cloud`** (D-1124; 
 C `fountain.c:696–698` / `region.c` `create_gas_cloud`; 
 size-1 poison cloud `arg=4` + ttl `rn1(3,4)`; no expand shuffle; 
