@@ -91,10 +91,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `uhitm.c` mhitm_adtyping remaining arms — popped 2026-09-10 (`LOOP-QUEUE.md` Open head: SGLD/CURS/DCAY/SLIM/DGST/HALU/DETH + default (named D-2247; ACID/DREN/CONF live since e8c22613). No corpus block — port the named arms. Probe: `node scripts/brief.mjs mhitm_adtyping`).
+**Next cluster:** `muse.c` buzzmu real zap path — popped 2026-09-10 (`LOOP-QUEUE.md` Open head: `lined_up` + `rn2(3)` + buzz pline/effects (named D-2233; stub still returns MISS). No corpus block — port the named path. Probe: `node scripts/brief.mjs buzzmu`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2251 (index).**
+**Keep D-0845…D-2252 (index).**
 <!-- recent:begin -->
+**D-2252** `mcastu.c:988–1012` (`buzzmu`); `mthrowu.c:1396–1401` (`lined_up` → `m_lined_up`, sets `gt — `buzzmu` now follows the C body in order: `BZ_VALID_ADTYP` (const.js) silent miss → `mcan || m_seenres` → `cursetxt` + miss → `lined_up(mtmp) && rn2(3)` (short-circuit: no rn2(3) unless lined up) → `nomul(0)` → `canseemo
 **D-2251** `uhitm.c:4782–4831` (`mhitm_adtyping` dispatch, reached from `mhitu.c:1191`); mhitu arms o — `js/mhitu.js` — `mhitm_ad_sgld_u` / `_curs_u` / `_dcay_u` / `_slim_u` / `_deth_u` in C branch/short-circuit order (DETH as the C switch with the 17–19 Antimagic fallthrough; SLIM negated-before-hitmsg like `dren_u`; DCAY
 **D-2250** `potion.c:1563–1583` (`H2Opotion_dip` tail `(*func)(targobj)` after the glow pline + `last — `js/potion.js` — `await func(targobj)` with the C cite; new `export async function impact_arti_light(obj, worsen, seeit)` in C order (short-circuit gate so `obj_resists`' `rn2(100)` is drawn only when the BUC state can m
 **D-2249** `sp_lev.c:2002–2123` (`create_monster` appear_as fixup: `:2002–2006` gate — `js/mklev.js` — new module-local `splev_create_monster_appear_fixup(mtmp, appear, appear_as)` (C staticfn shape: same-file caller only) in C branch/short-circuit order, called first inside `if (mtmp)` before the D-0873 f
@@ -102,11 +103,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2247** `uhitm.c:2742–2786` (`mhitm_ad_acid`: mhitu arm = `hitmsg`, then `!mcan && !rn2(3)` → `Aci — `js/mhitu.js` — new `mhitm_ad_acid_u` / `mhitm_ad_dren_u` / `mhitm_ad_conf_u` in C branch/short-circuit order (acid `| 0` int idiom on the resistance/mspec fields; dren negated-before-hitmsg like the sibling `_u` arms; c
 **D-2246** `allmain.c:194–201` (`if (svc.context.bypasses) clear_bypasses();` then sanity `:197–198`, — `js/worn.js` — module-local `clear_bypass` (C staticfn: same-file caller only; Array-or-nobj walk + `Has_contents`/`cobj` recursion) + new `export function clear_bypasses()` in C order (fobj/invent/migrating_objs/`level.
 **D-2245** `mon.c:5078–5154` (`wiz_force_cham_form`: `Change %s @ %s into what?` prompt from `noit_mo — `js/makemon.js` — new `export function mkclass_poly(mletClass)` after `mk_gen_ok` in C order (same-file `mk_gen_ok`, `rn2(9)`/`rnd`, Inhell via the dungeon-hellish-flag idiom per D-0747, S_LICH string gate per the `mkcla
-**D-2244** `mkobj.c:1703–1736` (`maybe_adjust_light`: `new_range = arti_light_radius(obj)`, `delta =  — `js/mkobj.js` — new `export async function maybe_adjust_light(obj, old_range)` in C branch/short-circuit order (`| 0` int idiom on the delta; `await obj_adjust_light_radius`; `get_obj_location(obj, 0)` null-gate = C FALS
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2251; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2252; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
