@@ -1,5 +1,23 @@
 # Divergence log
 
+## D-2260 — `uhitm.c` mhitm_ad_curs/dcay/deth/drli mhitm (mon→mon) arms + `mdamagem` dispatch
+
+- **Status:** shipped (Open queue head; no corpus block).
+- **Symptom:** `mdamagem` (`js/mhitm.js`) had no AD_CURS / AD_DCAY / AD_DETH / AD_DRLI case. All four fell into the generic knockback + raw `d()` tail. The effects were: a gremlin never drew `rn2(10)` or cancelled its target; a clay golem never lost its writing; a wood or leather golem never rotted apart and armour never rotted; Death did full damage to undead and never drained. The mon→mon `!rn2(3)` drain + `d(2,6)` never ran, so no «becomes weaker!» and no m_lev / mhpmax loss.
+- **C locus:** `uhitm.c:3014–3096` (`mhitm_ad_curs` mhitm arm); `uhitm.c:2362–2415` (`mhitm_ad_dcay` mhitm arm); `uhitm.c:3836–3894` (`mhitm_ad_deth`, whose uhitm arm `goto`s the mhitm arm); `uhitm.c:2489–2515` (`mhitm_ad_drli` mhitm arm, `is_death` redirect); `uhitm.c:4803` dispatch; `mon.c` `monkilled` `fltxt &&` pline gate.
+- **JS was:** no such arms in mhitm.js. `monkilled` printed «X is destroyed!» even for a null `fltxt`.
+- **Fix:** added file-local `mhitm_ad_curs` / `_dcay` / `_deth` / `_drli` ported from the C mhitm arms, plus one `mdamagem` block that dispatches them. That block uses the sibling tail: knockback preempt, then `done`, then `!damage`, then HP/lifesave/grow_up.
+  - **CURS:** `night()` is checked before the gremlin test, as in C. On `!mcan && !rn2(10)`: `mcan = 1`, clear WAITFORU, and `were_change` for a non-@ were. A clay golem (`pd` captured before the change) gets the vis plines, then `mondied`, then either lifesave → MISS or unseen tame → «strangely sad», then DEF_DIED | grow_up. Otherwise Deaf-gated laughter.
+  - **DCAY:** returns if `mcan`. `completelyrots` (by mndx, D-2259) → «falls/starts to fall to pieces!» + `monkilled(null, AD_DCAY)`. Otherwise `erode_armor(ERODE_ROT)`, clear WAITFORU, leftover zeroed.
+  - **DETH:** undead target with leftover > 1 → `rnd(leftover/2)`, then the drli arm with `is_death`.
+  - **DRLI:** follows C short-circuit order: `rn2(3)`, then `resists_drli || defended(AD_DRLI)`, then `mhitm_mgc_atk_negated(TRUE)`. The mhpmax cut is floored at m_lev+1; a level-0 target gets leftover = mhp.
+  - **`monkilled`:** now gates its pline on `fltxt != null`. Every existing JS caller passes a string, so only the new DCAY call changes.
+- **JS:** 1 file (`js/mhitm.js` +183/−4). New imports: `night` (calendar.js, no cycle); `resists_drli` (zap.js, imports.mjs SAFE, hoisted function); `were_change`, `defended`, `is_undead`, `is_were`, `ERODE_ROT` on existing edges. Local `PM_GREMLIN` / `AD_CURS|DCAY|DETH` consts in the file's existing style.
+- **Verify:** `node scripts/verify.mjs --fn mhitm_ad_curs --full` → PASS syntax (js/mhitm.js) · PASS rule2 · note hidden: no corpus session is blocked on mhitm_ad_curs at HEAD, so this is not a corpus PASS. The queue row cited no corpus blocks, so no `--base` re-run is owed · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 passing. VERIFY: PASS. `--full` was forced because the auto-full list skipped mhitm.js. No hand probe (no public or corpus session reaches these arms).
+- **Named omissions:** `monkilled` pet «May %s rot/rust/roast in peace» tail (`noit_mon_nam`); `monkilled` `iflags.sad_feeling = FALSE` reset on the non-pline path; uhitm (hero-poly) CURS/DCAY arms (next Open row `damageum_adtyping`).
+- **Next:** the Open head is `damageum_adtyping` hero-poly SGLD/CURS/DCAY/SLIM. Do not re-pop mon→mon CURS/DCAY/DETH/DRLI.
+- **Cited falsifier grade:** measured against the pinned C bodies from `brief.mjs` and `mon.c` `monkilled`. No JS FORCE/DIAG/seed/coordinate reads. The arms have no corpus reach, so the only evidence is the public gates holding.
+
 ## D-2259 — `uhitm.c` mhitu PM identity: `mons()` factory vs `&mons[PM_*]` (review 1217 Must-fix)
 
 - **Status:** shipped (Must-fix queue row from reviews/loop-unattended/1217-c8fbe227-mhitm-adtyping-mhitu-arms.md; no corpus block).
