@@ -24,7 +24,7 @@ import {
     Monnam, mon_nam, bogusmon, pmname, type_is_pname, Mgender,
 } from './do_name.js';
 import { nomul, You_hear, losehp } from './hack.js';
-import { nasty, aggravate, clonewiz } from './wizard.js';
+import { nasty, aggravate, clonewiz, has_aggravatables } from './wizard.js';
 import {
     M1_SEE_INVIS, eyecount, nonliving, is_demon, mons,
 } from './monsters.js';
@@ -225,8 +225,8 @@ function is_undirected_spell(spellnum) {
 
 /**
  * C ref: mcastu.c spell_would_be_useless — RNG arms for DEATH_TOUCH /
- * GEYSER / AGGRAVATION preserved. has_aggravatables deferred → treat as
- * none (AGGRAVATION almost always useless via rn2(100)).
+ * GEYSER / AGGRAVATION preserved; AGGRAVATION's rn2(100) only when
+ * wizard.c has_aggravatables finds nothing to wake.
  */
 function spell_would_be_useless(mtmp, spellnum) {
     const flags = mcast_data[spellnum]?.flags | 0;
@@ -251,8 +251,11 @@ function spell_would_be_useless(mtmp, spellnum) {
         if (!mtmp.iswiz || ((game.context?.no_of_wizards | 0) > 1)) return true;
         break;
     case MCAST_AGGRAVATION:
-        // has_aggravatables deferred → always the "nothing to wake" arm
-        return rn2(100) ? true : false;
+        // C: if nothing needs to be awakened the spell is useless, but the
+        // caster might not realize that — small chance to pick it anyway.
+        if (!has_aggravatables(mtmp))
+            return rn2(100) ? true : false;
+        break;
     case MCAST_HASTE_SELF:
         if ((mtmp.permspeed | 0) === MFAST) return true;
         break;

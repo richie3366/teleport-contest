@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2253 — `mcastu.c` choose_monster_spell AGGRAVATION arm: `wizard.c` has_aggravatables live (+ `aggravate` In_W_tower filter) (queue row, trace reach only)
+
+- **Status:** shipped (Open queue row `mcastu.c` choose_monster_spell, 4 sessions with it in diverged-step traces at scoreboard f7aec9b3; no review cited).
+- **Symptom:** `choose_monster_spell` itself was already line-for-line C (`rn2(m_lev)` → `spellval > maxlev && rn2(maxlev)` clamp → highest non-useless ≤ spellval → `list[0]`). The gap was its callee `spell_would_be_useless`: the MCAST_AGGRAVATION arm skipped `has_aggravatables` and always took the "nothing to wake" `rn2(100)` arm. A caster with sleeping / frozen / STRAT_WAITFORU monsters on its W-tower side drew a spurious `rn2(100)` and, 99 % of the time, skipped AGGRAVATION when C picks it with no draw.
+- **C locus:** `mcastu.c:88–123` (`choose_monster_spell`); `mcastu.c:909–985` (`spell_would_be_useless`, AGGRAVATION `:946–954`); `wizard.c:472–490` (`has_aggravatables`); `wizard.c:492–510` (`aggravate`).
+- **JS was:** `js/mcastu.js spell_would_be_useless` `case MCAST_AGGRAVATION: return rn2(100) ? true : false;` (has_aggravatables named deferred); `js/wizard.js aggravate` skipped the `In_W_tower` side filter (named omission).
+- **Fix:** new `export function has_aggravatables(mon)` in wizard.js in C order: caster-vs-hero `In_W_tower` mismatch → false; fmon scan skipping dead and other-side monsters; `STRAT_WAITFORU || helpless` (you.h macro inlined as `msleeping || !mcanmove`; no 7th `helpless` clone) → true. The AGGRAVATION arm now draws `rn2(100)` only when `!has_aggravatables(mtmp)`, else breaks (not useless). `aggravate` gains the C `in_w_tower != In_W_tower(mtmp)` skip (`dungeon.js In_W_tower` was already imported).
+- **JS:** 2 files, +37/−9 (wizard.js +33/−4, mcastu.js +8/−5). Density note: the whole missing C is 18 lines of `has_aggravatables` plus one `aggravate` filter; `choose_monster_spell` needed no change.
+- **Verify:** `node scripts/verify.mjs --fn choose_monster_spell` → PASS syntax (js/mcastu.js js/wizard.js) · PASS rule2 · note hidden (no corpus session blocked on choose_monster_spell at HEAD; NOT a corpus PASS) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file) · VERIFY: PASS. Hand replay of the 4 trace-reach sessions: scen-poly-Knight-92220 PASS 6857/6857 206/206 and scen-wish-Ranger-92155 PASS 3881/3881 222/222. **They already PASS at HEAD without this diff** (checked with a stash), so post-f7aec9b3 commits moved them, not this port. scen-poly-Healer-92107 (3154/3588, 165/321; owner `do_statusline2`) and scen-tour-Barbarian-92079 (10474/16788, 62/119; owner `mon_adjust_speed`) are unchanged: no movement, and their first divergences sit with other owners.
+- **Named omissions:** none in this cluster. The 6 local `helpless` clones (mhitm/priest/shk/sounds/trap/uhitm) remain clone drift.
+- **Next:** choose_monster_spell / spell_would_be_useless / has_aggravatables are fully C, so do not re-pop them. Barbarian-92079's `mon_adjust_speed` (titan HASTE_SELF, `worn.c:554`) and Healer-92107's botl HP are the live owners for those two sessions.
+- **Cited falsifier grade:** measured (pinned `mcastu.c:88–123,909–985`, `wizard.c:472–510` bodies read; baseline vs patched replays of the 4 sessions; no JS FORCE/DIAG/seed/coordinate reads).
+
 ## D-2252 — `mcastu.c` buzzmu real zap path: `lined_up && rn2(3)` → nomul + "zaps you with a …!" + `buzz(BZ_M_SPELL)` (+ `mthrowu.c rnd_hallublast`, `zap.c flash_str` nohallu arm) (queue row, no corpus block)
 
 - **Status:** shipped (Open queue row `muse.c` buzzmu real zap path, named D-2233; no corpus block; no review cited).

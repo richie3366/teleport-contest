@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `mcastu.c` choose_monster_spell — spell-list picker thin vs C (`mcastu.c:88–123` staticfn; castmu-adjacent). Corpus reach: in 4 failing sessions' diverged-step traces (committed scoreboard f7aec9b3, 2026-09-09). Probe: `node scripts/brief.mjs choose_monster_spell`.
 - [ ] `mon.c` decide_to_shapeshift — shapeshifter-change decision thin vs C (`mon.c:4871–4938`; newcham-adjacent). Corpus reach: in 4 failing sessions' diverged-step traces (committed scoreboard f7aec9b3, 2026-09-09). Probe: `node scripts/brief.mjs decide_to_shapeshift`.
 - [ ] `bones.c` getbones — bones-loading path on tour arrivals (`bones.c:629–756`; NHFILE I/O — check the Rule #2 analogue before porting). Corpus reach: in 3 failing sessions' diverged-step traces (committed scoreboard f7aec9b3, 2026-09-09). Probe: `node scripts/brief.mjs getbones`.
 - [ ] `sp_lev.c` splev_initlev — level-init dispatch thin vs C (`sp_lev.c:2981–3018` staticfn; tour-arrival path). Corpus reach: in 3 failing sessions' diverged-step traces (committed scoreboard f7aec9b3, 2026-09-09). Probe: `node scripts/brief.mjs splev_initlev`.
