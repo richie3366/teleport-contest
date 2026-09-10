@@ -1308,7 +1308,7 @@ if [[ "$USE_MUSE" == "1" && "${MUSE_PLAN_USAGE_SKIP:-0}" != "1" ]]; then
   echo "plan:   after a finished iter, stop if window >= ${MUSE_PLAN_WINDOW_STOP_PCT:-97}% or weekly >= ${MUSE_PLAN_WEEKLY_STOP_PCT:-99}% (TUI /usage)"
 fi
 if [[ "$USE_CLAUDE" == "1" && "${CLAUDE_PLAN_USAGE_SKIP:-0}" != "1" ]]; then
-  echo "plan:   after a finished iter, stop if session >= ${CLAUDE_PLAN_WINDOW_STOP_PCT:-90}% or weekly >= ${CLAUDE_PLAN_WEEKLY_STOP_PCT:-95}% (claude -p /usage)"
+  echo "plan:   after a finished iter, stop if session >= ${CLAUDE_PLAN_WINDOW_STOP_PCT:-70}% or weekly >= ${CLAUDE_PLAN_WEEKLY_STOP_PCT:-95}% (claude -p /usage)"
 fi
 echo "stop:   $STOP_FILE  (write 1 to halt before next iteration)"
 echo "count:  $ITER_COUNT_FILE  (monotonic global iteration number)"
