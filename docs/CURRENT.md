@@ -21,10 +21,10 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-10** — full `sessions` on the working tree
-(audit **1214–1215**).
+(audit **1216–1224**, HEAD `a74f318a`).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`47+0.29/turn` (R² 0.79).
+`48+0.30/turn` (R² 0.79).
 
 ## Score
 
@@ -33,7 +33,7 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `47+0.29/turn` (R² 0.79) |
+| Speed label | `48+0.30/turn` (R² 0.79) |
 | Role-init throws | **0 / 44** |
 
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-06
@@ -47,13 +47,8 @@ the C recorder by `scripts/scenario-gen.mjs`) pass **7 / 275**, RNG
 they no longer pick work. Top owners: `welcome`→`calendar.c getlt` ×51,
 `do_statusline2` ×11, `break_armor` ×9, `exercise` ×8, `enlightenment`
 ×7, `wiz_intrinsic` ×7, 4 `ReferenceError` throws ×8 (Must-fix).
-Reviews 990–1082: 82 ACCEPT, 7 DEBT (map-named/pointed), 4 QUALITY-RISK all shipped/prepended (record: reviews/ + DIVERGENCE-INDEX).
-Reviews 1089–1175: 84 ACCEPT, 0 Must-fix except 2 DEBT (1136 Hallucination import, 1137 save.js restore_waterlevel await) + 1 QUALITY-RISK prepended (1152 gloves literal).
-Reviews 1176–1191: 16 ACCEPT, 0 Must-fix.
-Reviews 1192–1197: 4 ACCEPT, 2 DEBT (1193 worn vision_recalc, 1197 disintegested lifecycle + genocide fire-and-forget), 0 Must-fix.
-Reviews 1198–1205: 7 ACCEPT, 1 DEBT (1202 u_collide_m limbo target — C reassigns mtmp to the remaining occupant, JS limbos the original; near-dead path, one-line fix), 0 Must-fix.
-Reviews 1206–1213: 8 ACCEPT, 0 Must-fix.
-Reviews 1214–1215: 2 ACCEPT, 0 Must-fix.
+Reviews 990–1215: ACCEPT/DEBT record in INDEX; Must-fix from those bands shipped.
+Reviews 1216–1224: 8 ACCEPT, 1 QUALITY-RISK (1217 mhitu `mons[PM_*]` identity — Must-fix prepended).
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score --jobs 8`
 (≈200 s); when every family is ≥ 85 % PASS, grow it first:
 `node scripts/scenario-gen.mjs --n 120 --seed <iter×100>`.
@@ -91,7 +86,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `uhitm.c` mhitm_ad_curs/dcay/deth mhitm (mon→mon) arms — next Open after D-2258. Probe: `node scripts/brief.mjs mhitm_ad_curs`.
+**Next cluster:** `uhitm.c` mhitm_ad_curs/dcay/slim mhitu PM identity — `=== mons[PM_*]` is always false (`mons()` factory). Source: reviews/loop-unattended/1217-c8fbe227-mhitm-adtyping-mhitu-arms.md. Probe: `node scripts/brief.mjs mhitm_ad_curs`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2258 (index).**
 <!-- recent:begin -->

@@ -4,6 +4,7 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 
 ## Active
 
+- **Next port:** Must-fix 1217 — `data === mons[PM_*]` always false. Falsifier: `brief.mjs mhitm_ad_curs`.
 - **Work picker:** `hidden-proxy queue`; singletons Deferred — do not re-add without a fired falsifier.
 - **More-transient parks — do not re-pop:** break_armor timing.
 - **exercise park — do not re-pop:** draw-presence only (0/553 owned; falsifier: encumbrance topline/owner).

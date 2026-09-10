@@ -1226,3 +1226,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1213-e8c22613-mhitm-acid-dren-conf.md](./1213-e8c22613-mhitm-acid-dren-conf.md) | `e8c22613` | D-2247 mhitm acid/dren/conf | **ACCEPT** |
 | [1214-6a0bf305-polyself-by-class-pick.md](./1214-6a0bf305-polyself-by-class-pick.md) | `6a0bf305` | D-2248 polyself by_class pick | **ACCEPT** |
 | [1215-8a595f61-splev-appear-monster-arm.md](./1215-8a595f61-splev-appear-monster-arm.md) | `8a595f61` | D-2249 splev appear MONSTER arm | **ACCEPT** |
+| [1216-04e8aae6-impact-arti-light.md](./1216-04e8aae6-impact-arti-light.md) | `04e8aae6` | D-2250 impact_arti_light + litroom loops | **ACCEPT** |
+| [1217-c8fbe227-mhitm-adtyping-mhitu-arms.md](./1217-c8fbe227-mhitm-adtyping-mhitu-arms.md) | `c8fbe227` | D-2251 mhitm_adtyping mhitu arms | **QUALITY-RISK** |
+| [1218-62c6ea9f-buzzmu-zap-path.md](./1218-62c6ea9f-buzzmu-zap-path.md) | `62c6ea9f` | D-2252 buzzmu real zap path | **ACCEPT** |
+| [1219-c5027d75-has-aggravatables.md](./1219-c5027d75-has-aggravatables.md) | `c5027d75` | D-2253 has_aggravatables AGGRAVATION | **ACCEPT** |
+| [1220-15959643-pickvampshape-switch.md](./1220-15959643-pickvampshape-switch.md) | `15959643` | D-2254 pickvampshape switch | **ACCEPT** |
+| [1221-ae53dac2-getbones-full-body.md](./1221-ae53dac2-getbones-full-body.md) | `ae53dac2` | D-2255 getbones full C body | **ACCEPT** |
+| [1222-ea39a7f9-splev-initlev-cluster.md](./1222-ea39a7f9-splev-initlev-cluster.md) | `ea39a7f9` | D-2256 splev_initlev cluster | **ACCEPT** |
+| [1223-9ea0c9bc-m-lined-up-thrwmm.md](./1223-9ea0c9bc-m-lined-up-thrwmm.md) | `9ea0c9bc` | D-2257 m_lined_up mux + thrwmm | **ACCEPT** |
+| [1224-a74f318a-trapeffect-magic-trap-steedintrap.md](./1224-a74f318a-trapeffect-magic-trap-steedintrap.md) | `a74f318a` | D-2258 trapeffect_magic_trap steedintrap | **ACCEPT** |
