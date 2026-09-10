@@ -1251,7 +1251,7 @@ export async function mhitm_ad_slim(magr, mattk, mdef, mhm) {
         if (!(await munslime(mdef, false)) && !deadmonster(mdef)) {
             let ncflags = NO_NC_FLAGS;
             if (_mm_vis && canseemon(mdef)) ncflags |= NC_SHOW_MSG;
-            if (await newcham(mdef, mons[PM_GREEN_SLIME], ncflags)) {
+            if (await newcham(mdef, mons(PM_GREEN_SLIME), ncflags)) {
                 pd = mdef?.data;
             }
             mdef.mstrategy = (mdef.mstrategy | 0) & ~STRAT_WAITFORU;

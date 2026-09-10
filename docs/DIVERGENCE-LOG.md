@@ -1,5 +1,22 @@
 # Divergence log
 
+## D-2261 — `uhitm.c` mhitm_ad_sgld/curs/dcay/slim uhitm (hero-poly) arms in `damageum_adtyping`
+
+- **Status:** shipped (Open queue head; no corpus block).
+- **Symptom:** `damageum_adtyping` (`js/uhitm.js`) had no AD_SGLD / AD_CURS / AD_DCAY / AD_SLIM case. A polymorphed hero with any of these attacks did the raw `d()` damage and nothing else. A leprechaun-form hero never took gold or exercised DEX. A gremlin-form hero never drew `rn2(10)` at night, never cancelled a target and never destroyed a clay golem. A brown-pudding-form hero never rotted a wood/leather golem or eroded armour. A green-slime-form hero never burned the MC negation roll, never drew `rn2(4)`, never called `munslime`, and never turned the target into slime.
+- **C locus:** `uhitm.c:2797–2811` (`mhitm_ad_sgld` uhitm arm); `uhitm.c:3022–3035` (`mhitm_ad_curs` uhitm arm); `uhitm.c:2369–2377` (`mhitm_ad_dcay` uhitm arm); `uhitm.c:3530–3552` (`mhitm_ad_slim` negation + uhitm arm); `mondata.h:225` `completelyrots`; `invent.c:772–810` `merge_choice`.
+- **JS was:** no such arms. Also, the mhitm arm of `mhitm_ad_slim` (D-1907, `js/mhitm.js`) passed `mons[PM_GREEN_SLIME]` to `newcham`. `mons` is a factory (D-2259 class), so that argument was `undefined` and `newcham` picked a random form instead of green slime.
+- **Fix:** four file-local arms, ported from the C uhitm branches and dispatched from `damageum_adtyping`:
+  - **SGLD:** `findgold` + `obj_extract_self`. Then either `merge_choice || inv_cnt(FALSE) < invlet_basic` → `addinv` + «Your purse feels heavier.», or «You grab X's gold, but find no room…» + `dropy`. `exercise(A_DEX)` runs either way, and the leftover is zeroed.
+  - **CURS:** C short-circuit order `night() && !rn2(10) && !mcan`. A clay golem (by mndx) gets `!Blind` «Some writing vanishes…» + `xkilled(NOMSG)`, with no return, so `damageum`'s hp<1 tail runs with damage 0. Any other target gets `mcan = 1` + «You chuckle.». The leftover is zeroed.
+  - **DCAY:** `completelyrots` (wood/leather golem by mndx) → «falls|starts to fall to pieces!» (`mlifesaver`) + `xkilled(NOMSG)`. `erode_armor(ERODE_ROT)` then runs unconditionally, as in C. The leftover is zeroed.
+  - **SLIM:** `mhitm_mgc_atk_negated(FALSE)` is drawn first; if negated, the physical leftover is kept. Otherwise `!rn2(4) && !slimeproof` → `munslime(mdef, TRUE)`; a survivor gets «You turn X into slime.» + `newcham(mons(PM_GREEN_SLIME), NO_NC_FLAGS)`. If the target died, the arm returns DEF_DIED + done (skipping the death message); otherwise the leftover is zeroed.
+  - **mhitm SLIM arm:** `mons[PM_GREEN_SLIME]` → `mons(PM_GREEN_SLIME)` (same C function).
+- **JS:** 3 files (`js/uhitm.js` +117/−4, `js/mhitm.js` 1 line, `js/pickup.js` 1 line). `merge_choice_invent` is now exported from pickup.js; it was not cloned. New edges `addinv` (u_init.js), `dropy` (do.js) and `munslime` (muse.js) are imports.mjs SAFE (hoisted functions). `night` (calendar.js) adds no cycle. `Blind`, `inv_cnt`, `erode_armor` and `slimeproof` ride existing edges. There are local `AD_SGLD|DCAY|SLIM`, `PM_CLAY|WOOD|LEATHER_GOLEM` and `invlet_basic` consts, following the file's existing style. The DCAY arm reuses the file's `mlifesaver_you`.
+- **Verify:** `node scripts/verify.mjs --fn damageum_adtyping --full` → PASS syntax (3 files) · PASS rule2 · note hidden: no corpus session is blocked on damageum_adtyping at HEAD, so this is not a corpus PASS. The queue row cited no corpus blocks, so no `--base` re-run is owed · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 passing. VERIFY: PASS. `--full` was forced because the auto-full list skipped these files. No hand probe: no public or corpus session reaches these arms.
+- **Named omissions:** `merge_choice` shop-floor `no_charge`/`inhishop` reject (freed gold is never OBJ_FLOOR, so that arm can't fire here); the `nhUse(pd)` refresh after `newcham`; the AD_DETH uhitm arm (its C `goto` into the mhitm arm is not dispatched from `damageum_adtyping`).
+- **Next:** uhitm.js's local `s_suffix` adds `'` after z/x/ch/sh, but C `hacklib.c` does that only after `s`. It should import `do_name.js` `s_suffix` (callers `:541/:934/:997/:1335`). `mlifesaver_you` (uhitm.js) is a clone of mhitm.js's `mlifesaver`.
+
 ## D-2260 — `uhitm.c` mhitm_ad_curs/dcay/deth/drli mhitm (mon→mon) arms + `mdamagem` dispatch
 
 - **Status:** shipped (Open queue head; no corpus block).

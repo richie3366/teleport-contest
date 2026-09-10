@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-10
 
-- [x] `uhitm.c` mhitm_ad_curs/dcay/deth mhitm (mon→mon) arms — `mdamagem` (`js/mhitm.js`) has no AD_CURS/AD_DCAY/AD_DETH case (gremlin `rn2(10)` cancel + clay-golem `mondied`, `completelyrots` `monkilled` + `erode_armor(ERODE_ROT)`, Death undead `rnd(dmg/2)` + drli). Named in `c-js-map/turns.md` hitmu→mhitm_adtyping line. No corpus block — port the named arms. Probe: `node scripts/brief.mjs mhitm_ad_curs`. **Addressed:** D-2260
+- [x] `uhitm.c` damageum_adtyping hero-poly arms SGLD/CURS/DCAY/SLIM — `damageum_adtyping` (`js/uhitm.js:1735`) lacks them (purse grab + `exercise(A_DEX)`, `night() && !rn2(10)` chuckle/cancel, rot `xkilled` + `erode_armor`, `!rn2(4)` `munslime`/`newcham` green slime). Named in `c-js-map/turns.md` hitmu→mhitm_adtyping line. No corpus block. Probe: `node scripts/brief.mjs damageum_adtyping`. **Addressed:** D-2261
+
+
+- [x] `uhitm.c` mhitm_ad_curs/dcay/deth mhitm (mon→mon) arms — `mdamagem` (`js/mhitm.js`) has no AD_CURS/AD_DCAY/AD_DETH case (gremlin `rn2(10)` cancel + clay-golem `mondied`, `completelyrots` `monkilled` + `erode_armor(ERODE_ROT)`, Death undead `rnd(dmg/2)` + drli). Named in `c-js-map/turns.md` hitmu→mhitm_adtyping line. No corpus block — port the named arms. Probe: `node scripts/brief.mjs mhitm_ad_curs`. **Addressed:** D-2260 `9d218d29`
 
 
 - [x] `uhitm.c` mhitm_ad_curs/dcay/slim mhitu PM identity — JS `mtmp.data === mons[PM_GREMLIN]` / `pd === mons[PM_WOOD_GOLEM|LEATHER_GOLEM|GREEN_SLIME]` is always false (`mons()` is a fresh-object factory; `mons[n]` is undefined). Daytime gremlin still draws `rn2(10)` (C returns first). Use `(data?.mndx | 0) === PM_*` like `hates_light` / `is_wooden`. Same one-liner already dead in `rust_u` / `fire_u`. Source: reviews/loop-unattended/1217-c8fbe227-mhitm-adtyping-mhitu-arms.md. **Addressed:** D-2259 `e277f895`
