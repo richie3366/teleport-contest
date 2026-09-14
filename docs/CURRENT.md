@@ -84,7 +84,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `makemon.c` m_initweap — S_DEMON named specials + is_demon default FALLTHROUGH (data.md:443; D-0472; demon initial-weapon RNG + messages). Probe: `node scripts/brief.mjs m_initweap`.
+**Next cluster:** `apply.c` splash_lit pot_acid_damage boom + SPE_NOVEL blank_novel residuals (data.md trap section; D-1337 shipped the body; live `js/trap.js:5058/5084/5126` defer both arms). Probe: `node scripts/brief.mjs splash_lit`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2288 (index).**
 <!-- recent:begin -->

@@ -28,6 +28,7 @@ Park rows: re-pop only on the listed falsifier (proofs in Parked).
 - **test_move/domove_core:** STALE park 2026-09-14 — named arms live (D-1800/D-1270/D-1226); `verify` 0 blocked on both.
 - **arti_cost:** STALE DUPLICATE refill row — D-1719 triple live (proof in Parked; falsifier: `verify arti_cost` blocked with arti_cost/getprice as owner).
 - **m_initweap S_DEMON:** STALE DUPLICATE of D-0472 (parked 2026-09-14; 5 named specials + is_demon FALLTHROUGH + default live `js/makemon.js:2176-2206/2481-2575`; `verify m_initweap` 0 blocked vacuous, green+strict+cohort PASS).
+- **mextra trio:** STALE ROW (parked 2026-09-14; has/new/free + set_mimic_sym 3 arms + stale-clear + seemimic/copy_mextra/bhitm/wormgone/display/detect/pager/apply/altarmask_at/clear_bypasses all live C-cited; `verify newmcorpsenm` 0 blocked vacuous at HEAD scoreboard 614cdcf0).
 
 ## Don't re-check (≤15)
 
