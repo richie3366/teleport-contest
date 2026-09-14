@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-14
 
-- [x] `artifact.c` artilist DFLAG2 yours/Upolyd/ulycn arms (data.md:107; D-2220 shipped DFLAG1 mflags1; live `js/artifact.js:1931` names the DFLAG2 residual). Probe: `node scripts/brief.mjs spec_applies`. **Addressed:** D-2291
+- [x] `artifact.c` spec_dbon/spec_applies SPFX_DRLI destroy/ignite arms (data.md:119-120; live `js/artifact.js:156/598/2426` defer BEHEAD/DRLI). Probe: `node scripts/brief.mjs artifact_hit`. **Addressed:** D-2292
+
+
+- [x] `artifact.c` artilist DFLAG2 yours/Upolyd/ulycn arms (data.md:107; D-2220 shipped DFLAG1 mflags1; live `js/artifact.js:1931` names the DFLAG2 residual). Probe: `node scripts/brief.mjs spec_applies`. **Addressed:** D-2291 `08a179ab`
 
 
 - [x] `trap.c` steedintrap dart/arrow/landmine/poly caller wiring (data.md:1063-1064; D-2258 helper is full but dart/arrow `!rn2(2)` steedintrap / landmine / poly trapeffects still do not call it). Probe: `node scripts/brief.mjs steedintrap`. **Addressed:** D-2290 `10178807`

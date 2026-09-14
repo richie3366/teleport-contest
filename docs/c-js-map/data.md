@@ -119,7 +119,12 @@ C `:1248–1434` + `:1537–1540` gate, `decl.c:51` fakename; `sticks`/`set_ustu
 `monflee`/`make_stunned`/`make_confused`/`upstart` new `--can`-SAFE edges,
 `cancel_monst`/`resist`/`probe_monster`/`canspotmon`/`map_invisible`/`shieldeff`/
 `nomul`/`NOTELL`/`WEAPON_CLASS` existing edges, file-local `attacktype`/AT_MAGC);
-destroy/ignite bodies, SPFX_DRLI still deferred); 
+FIRE/COLD/ELEC `destroy_items` + FIRE `ignite_items` wired in C order (D-2292;
+`!youdefend` bonus keep); **SPFX_DRLI both defend arms** (D-2292; drain clamp,
+`distant_name` side effects, heal-half-up, `losexp` — `nonliving` monsters.js +
+`hcolor` do_name.js + `The`/`distant_name` objnam.js + `healmon` mon.js +
+`healup` potion.js + `losexp` exper.js + `monhp_per_lvl` makemon.js edges,
+`ART_STORMBRINGER` generated, `NH_BLACK` file-local; `artifact_hit` complete); 
 **`artiname` / `discover_artifact` / `artidisco[]`** (D-1107; save/rest artidisco named); 
 **`init_artifacts`/`hack_artifacts`** (D-1201; C `artifact.c:109–116`/`85–106`; 
 `allmain.c:792` after `init_dungeons` before `u_init_misc`; 

@@ -10,8 +10,8 @@ import {
 } from './generated/artifacts_data.js';
 import { objectNames, NUM_OBJECTS, objectDescrs, objects, WEAPON_CLASS } from './objects.js';
 import { obj_shuffle_range } from './o_init.js';
-import { monsterNames, NON_PM, M2_UNDEAD, M2_WERE, is_demon, is_dprince, is_dlord, resists_ston, hates_silver, bigmonst, has_head, noncorporeal, amorphous, is_covetous, is_mplayer } from './monsters.js';
-import { Fire_resistance, Cold_resistance, Shock_resistance, Drain_resistance, resists_fire, resists_cold, resists_elec, resists_poison, resists_drli, cancel_monst, resist, probe_monster } from './zap.js';
+import { monsterNames, NON_PM, M2_UNDEAD, M2_WERE, is_demon, is_dprince, is_dlord, resists_ston, hates_silver, bigmonst, has_head, noncorporeal, amorphous, is_covetous, is_mplayer, nonliving } from './monsters.js';
+import { Fire_resistance, Cold_resistance, Shock_resistance, Drain_resistance, resists_fire, resists_cold, resists_elec, resists_poison, resists_drli, cancel_monst, resist, probe_monster, destroy_items } from './zap.js';
 import {
     A_NONE,
     ONAME_WISH,
@@ -97,20 +97,22 @@ import {
     set_sting_effects, glyph_at, glyph_is_trap, canspotmon, map_invisible, shieldeff,
 } from './display.js';
 import { cansee } from './vision.js';
-import { mon_nam, s_suffix, Monnam, mon_aligntyp_nam } from './do_name.js';
-import { wake_nearto } from './mon.js';
+import { mon_nam, s_suffix, Monnam, mon_aligntyp_nam, hcolor } from './do_name.js';
+import { wake_nearto, healmon } from './mon.js';
 import { burn_away_slime } from './timeout.js';
 import { compactify_invlets, update_inventory, getobj_take_count, getobj_apply_count, getobj_from_cmdq, getobj_display_pickinv, getobj, observe_object } from './invent.js';
-import { xname, the, vtense, cxname, otense, set_undiscovered_artifact, set_find_artifact, simple_typename, Tobjnam } from './objnam.js';
+import { xname, the, The, vtense, cxname, otense, set_undiscovered_artifact, set_find_artifact, simple_typename, Tobjnam, distant_name } from './objnam.js';
 import { recalc_telepat_range } from './do_wear.js';
-import { t_at } from './trap.js';
+import { t_at, ignite_items } from './trap.js';
 import { livelog_printf } from './pline.js';
 import { inside_shop } from './shk.js';
 import { losehp, maybe_half_phys, finish_maybe_wail, nomul } from './hack.js';
 import { sticks } from './engrave.js';
 import { set_ustuck } from './mhitu.js';
 import { monflee } from './monmove.js';
-import { make_stunned, make_confused } from './potion.js';
+import { make_stunned, make_confused, healup } from './potion.js';
+import { losexp } from './exper.js';
+import { monhp_per_lvl } from './makemon.js';
 import { upstart } from './hacklib.js';
 import { exercise, A_WIS } from './attrib.js';
 // C mondata.c defended — hoisted fn, cycle-safe (mondata.js already imports
@@ -133,6 +135,8 @@ const PM_WATER_ELEMENTAL = monsterNames.indexOf('PM_WATER_ELEMENTAL');
 const PM_JABBERWOCK = monsterNames.indexOf('PM_JABBERWOCK');
 /** C artifact.c:63 — overkill damage forcing death through negative AC. */
 const FATAL_DAMAGE_MODIFIER = 200;
+/** C decl.h NH_BLACK — c_color_names.c_black ("black"); hcolor identity when !Hallu. */
+const NH_BLACK = 'black';
 
 export { NROFARTIFACTS };
 import {
@@ -146,6 +150,7 @@ import {
     ART_VORPAL_BLADE,
     ART_TSURUGI_OF_MURAMASA,
     ART_SUNSWORD,
+    ART_STORMBRINGER,
 } from './generated/artifacts_data.js';
 import { PM_KNIGHT, PM_ROGUE } from './generated/monsters_data.js';
 import { aligns, align_str } from './roles.js';
@@ -595,8 +600,8 @@ const LUCKSTONE_OTYP = objectNames.indexOf('LUCKSTONE');
  * C ref: artifact.c spec_ability `:516–522` — non-artifact identity gate
  * (`arti != &artilist[ART_NONARTIFACT]`, C short-circuit order) plus the
  * spfx bit test. Live callers routed here: confers_luck SPFX_LUCK;
- * sit.c rndcurse SPFX_INTEL; detect.c dosearch0 SPFX_SEARCH.
- * artifact_hit SPFX_DRLI arm stays deferred (named there).
+ * sit.c rndcurse SPFX_INTEL; detect.c dosearch0 SPFX_SEARCH;
+ * artifact_hit SPFX_DRLI + SPFX_BEHEAD arms.
  * @param {object} otmp
  * @param {number} abil SPFX_* bit mask
  * @returns {boolean}
@@ -2429,13 +2434,16 @@ export async function Mb_hit(magr, mdef, mb, dmgBox, dieroll, vis, hittee) {
 
 /**
  * C ref: artifact.c artifact_hit :1447–1721 — preamble + four basic
- * attacks (FIRE/COLD/ELEC/MAGM) with realizes_damage plines + SPFX_BEHEAD.
+ * attacks (FIRE/COLD/ELEC/MAGM) with realizes_damage plines + SPFX_BEHEAD
+ * + SPFX_DRLI.
  * Ported: spec_dbon add; youattack/youdefend/vis/realizes_damage/hittee;
  * impossible self-attack; elemental plines in C order; ELEC wake_nearto
- * when spec_dbon_applies; rn2(4)/rn2(5) gates burned; Slimed burn_away;
- * Mb_hit (Magicbane specials).
- * Named omissions: destroy_items/ignite_items bodies (gates still burned);
- * SPFX_DRLI.
+ * when spec_dbon_applies; FIRE/COLD/ELEC destroy_items bodies + FIRE
+ * ignite_items in C order (bonus kept only when !youdefend); Slimed
+ * burn_away; Mb_hit (Magicbane specials); SPFX_DRLI both defend arms
+ * (drain clamp, distant_name side effects, heal-half-rounded-up,
+ * losexp "life drainage").
+ * Named omissions: none left in this function.
  * @param {object} dmgBox mutable `{ dmg }` (C int *dmgptr)
  * @returns {boolean} whether caller should suppress ordinary hit pline
  */
@@ -2481,8 +2489,12 @@ export async function artifact_hit(magr, mdef, otmp, dmgBox, dieroll) {
                 : (mndx === PM_WATER_ELEMENTAL ? 'vaporizes part of' : 'burns');
             await pline(`The fiery blade ${verb} ${hittee}${!spec_dbon_applies ? '.' : '!'}`);
         }
+        // C :1490–1495 — destroy_items runs inside the rn2 gate even when
+        // defending (hero items burn, bonus kept); ignite minvent after.
         if (!rn2(4)) {
-            // destroy_items AD_FIRE + ignite_items deferred (gate still burned)
+            const itemdmg = (await destroy_items(mdef, AD_FIRE, dmgBox.dmg | 0)) | 0;
+            if (!youdefend) dmgBox.dmg = (dmgBox.dmg | 0) + itemdmg;
+            await ignite_items(mdef?.minvent);
         }
         if (youdefend && (game.u?.Slimed)) await burn_away_slime();
         return realizes_damage;
@@ -2492,8 +2504,11 @@ export async function artifact_hit(magr, mdef, otmp, dmgBox, dieroll) {
             const verb = !spec_dbon_applies ? 'hits' : 'freezes';
             await pline(`The ice-cold blade ${verb} ${hittee}${!spec_dbon_applies ? '.' : '!'}`);
         }
+        // C :1505–1509 — destroy_items runs inside the rn2 gate even when
+        // defending (hero items burn, bonus kept); no ignite arm on COLD.
         if (!rn2(4)) {
-            // destroy_items AD_COLD deferred (gate still burned)
+            const itemdmg = (await destroy_items(mdef, AD_COLD, dmgBox.dmg | 0)) | 0;
+            if (!youdefend) dmgBox.dmg = (dmgBox.dmg | 0) + itemdmg;
         }
         return realizes_damage;
     }
@@ -2506,8 +2521,11 @@ export async function artifact_hit(magr, mdef, otmp, dmgBox, dieroll) {
             }
         }
         if (spec_dbon_applies && pd) await wake_nearto(pd.x, pd.y, 4 * 4);
+        // C :1524–1528 — destroy_items runs inside the rn2 gate even when
+        // defending (hero items burn, bonus kept); no ignite arm on ELEC.
         if (!rn2(5)) {
-            // destroy_items AD_ELEC deferred (gate still burned)
+            const itemdmg = (await destroy_items(mdef, AD_ELEC, dmgBox.dmg | 0)) | 0;
+            if (!youdefend) dmgBox.dmg = (dmgBox.dmg | 0) + itemdmg;
         }
         return realizes_damage;
     }
@@ -2617,7 +2635,73 @@ export async function artifact_hit(magr, mdef, otmp, dmgBox, dieroll) {
             return true;
         }
     }
-    // SPFX_DRLI deferred
+    // C :1645–1720 — SPFX_DRLI (Stormbringer et al.): drain level from a
+    // monster defender (heal attacker by half, rounded up) or from the hero
+    // (losexp, heal attacker by half the lost max-HP). Message order,
+    // short-circuit and integer semantics verbatim.
+    if (spec_ability(otmp, SPFX_DRLI)) {
+        // C :1646–1648 — golems/vortices yield "animating force", not "life".
+        const life = nonliving(mdef?.data) ? 'animating force' : 'life';
+        if (!youdefend) {
+            const mLev = (mdef?.m_lev | 0);
+            const mhpmax = (mdef?.mhpmax | 0);
+            let drain = monhp_per_lvl(mdef) | 0;
+            // C :1657–1658 — stop draining HP when it drops too low (the
+            // level drain below still applies; weapon damage still applies).
+            if (mhpmax - drain <= mLev) {
+                drain = (mhpmax > mLev) ? (mhpmax - (mLev + 1)) : 0;
+            }
+            if (vis) {
+                // C: distant_name() called for side effects even though the
+                // non-Stormbringer arm prints The(otmpname).
+                const otmpname = distant_name(otmp, xname);
+                if (is_art(otmp, ART_STORMBRINGER)) {
+                    await pline(`The ${hcolor(NH_BLACK)} blade draws the ${life} from ${mon_nam(mdef)}!`);
+                } else {
+                    await pline(`${The(otmpname)} draws the ${life} from ${mon_nam(mdef)}!`);
+                }
+            }
+            if ((mdef?.m_lev | 0) === 0) {
+                // C :1673–1675 — draining a 0-level monster is fatal.
+                dmgBox.dmg = 2 * (mdef?.mhp | 0) + FATAL_DAMAGE_MODIFIER;
+            } else {
+                dmgBox.dmg = (dmgBox.dmg | 0) + drain;
+                mdef.mhpmax = (mdef?.mhpmax | 0) - drain;
+                mdef.m_lev = (mdef?.m_lev | 0) - 1;
+            }
+            if (drain > 0) {
+                // C :1682–1690 — drained HP heals the attacker by half,
+                // rounded up; the DRLI attack itself never heals (2d6 note).
+                drain = Math.trunc((drain + 1) / 2);
+                if (youattack) {
+                    await healup(drain, 0, false, false);
+                } else {
+                    // C assert(magr != 0); JS healmon is null-safe (returns 0).
+                    healmon(magr, drain, 0);
+                }
+            }
+            return vis;
+        }
+        // C :1693–1717 — youdefend: Stormbringer names the unholy blade.
+        const uu = game.u || {};
+        const oldhpmax = (uu.uhpmax | 0);
+        if (Blind()) {
+            await You_feel(`an ${is_art(otmp, ART_STORMBRINGER) ? 'unholy blade' : 'object'} drain your ${life}!`);
+        } else {
+            const otmpname = distant_name(otmp, xname);
+            if (is_art(otmp, ART_STORMBRINGER)) {
+                await pline(`The ${hcolor(NH_BLACK)} blade drains your ${life}!`);
+            } else {
+                await pline(`${The(otmpname)} drains your ${life}!`);
+            }
+        }
+        await losexp('life drainage');
+        if (magr && (magr.mhp | 0) < (magr.mhpmax | 0)) {
+            // C :1714 — heal by half the lost max-HP, rounded up.
+            healmon(magr, Math.trunc((Math.abs(oldhpmax - ((game.u?.uhpmax | 0))) + 1) / 2), 0);
+        }
+        return true;
+    }
     return false;
 }
 

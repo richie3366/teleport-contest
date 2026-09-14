@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `artifact.c` spec_dbon/spec_applies SPFX_DRLI destroy/ignite arms (data.md:119-120; live `js/artifact.js:156/598/2426` defer BEHEAD/DRLI). Probe: `node scripts/brief.mjs artifact_hit`.
 - [ ] `potion.c` make_sick Unaware talk suppress (D-2283 residual; `#wizintrinsic` KILLED_BY shipped). Probe: `node scripts/brief.mjs make_sick`.
 - [ ] `wizcmds.c` wish count-prefix + unavailcmd + make_blinded talk variants (D-2283 residuals). Probe: `node scripts/brief.mjs do_wish`.
 - [ ] `makemon.c` birth knowledge residuals — mpeaceful MM_ANGRY arm + mwandexp save/restore (data.md:531; D-2107 shipped the Sokoban/stronghold/leader/mwandexp core, makemon.c:1283-1294). Probe: `node scripts/brief.mjs makemon`.
