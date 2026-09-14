@@ -58,7 +58,7 @@ import { enexto, rloc_to, rloc, tele_restrict, noteleport_level, rloc_to_flag, m
 import { may_dig, fill_pit } from './dig.js';
 import { newsym, pline, pline_mon, verbalize, You_feel, sensemon, canseemon, canspotmon, impossible } from './display.js';
 import { online2, level_difficulty } from './hacklib.js';
-import { worm_cross, level_mon_at, remove_worm } from './worm.js';
+import { worm_cross, level_mon_at, remove_worm, place_wsegs } from './worm.js';
 import { Monnam, mon_nam, hliquid } from './do_name.js';
 import { cansee, couldsee, does_block, is_lightblocker_mappear, unblock_point, vision_recalc } from './vision.js';
 import { fightm, mondead, mondied } from './mhitm.js';
@@ -2956,8 +2956,8 @@ export async function mongone(mtmp) {
  * replacement. relmon off-map + fmon removal, then place_monster the
  * replacement (unless it is the steed), worm segs via place_wsegs,
  * light-source swap, fmon prepend, ustuck/usteed, replshk, dealloc.
- * place_wsegs stays named for the worm.c row (same replmon, other callee);
- * light sources + full replshk bill + set_ustuck botl stay named.
+ * place_wsegs live (D-2300); light sources + full replshk bill +
+ * set_ustuck botl stay named.
  * `impossible()` stays fire-and-forget so this stays sync like C.
  */
 export function replmon(mtmp, mtmp2) {
@@ -2990,7 +2990,8 @@ export function replmon(mtmp, mtmp2) {
     // C :2533–2535 — finish adding the replacement (steed stays off-map).
     if (mtmp !== game.u?.usteed)
         place_monster(mtmp2, mtmp2.mx, mtmp2.my);
-    // C :2536–2537 place_wsegs(mtmp2, mtmp) — named: next worm.c row.
+    // C :2536–2537 — the replacement takes over every body seg cell.
+    if ((mtmp2.wormno | 0)) place_wsegs(mtmp2, mtmp);
     if (!list.includes(mtmp2)) list.unshift(mtmp2);
     game.fmon = list;
 

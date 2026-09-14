@@ -141,6 +141,7 @@ import {
     PM_TOURIST, PM_ROGUE, monsterNames,
 } from './generated/monsters_data.js';
 import { dismount_steed, place_monster } from './steed.js';
+import { place_wsegs } from './worm.js';
 import { set_residency } from './shk.js';
 import { set_ustuck } from './mhitu.js';
 import { onquest, ok_to_quest } from './quest.js';
@@ -1302,7 +1303,7 @@ function rebuildObjectsAt(fobj) {
  * C ref: restore.c getlev `:1177–1198` — memset occupancy, then for each
  * fmon: set_residency, steed/ustuck m_id remap, place_monster, hideunder.
  * Always runs (even REST_LEVELS / REST_GSTATE). Steed stays on fmon but
- * off the map. Named omissions: worm place_wsegs.
+ * off the map. Worm segs via place_wsegs (D-2300).
  */
 export function getlev_place_monsters() {
     game._level_monsters = new Map();
@@ -1323,6 +1324,7 @@ export function getlev_place_monsters() {
             u.ustuck_mid = 0;
         }
         place_monster(mtmp, mtmp.mx, mtmp.my);
+        if ((mtmp.wormno | 0)) place_wsegs(mtmp, null);
         if (hides_under(mtmp.data) && mtmp.mundetected) hideunder(mtmp);
     }
 }
@@ -1332,7 +1334,7 @@ export function getlev_place_monsters() {
  * restore_cham then hide_monst rnd(10). In-memory stash path (no NHFILE).
  * restore_cham is unconditional after the REST_LEVELS continue (C `:1217`).
  * Place/residency/hideunder/steed run in getlev_place_monsters first.
- * Named omissions: ghostly peace remap / set_malign; worm place_wsegs.
+ * Named omissions: ghostly peace remap / set_malign.
  */
 export async function getlev_catchup_monsters(elapsed) {
     const u = game.u;

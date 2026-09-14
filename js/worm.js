@@ -6,7 +6,7 @@
 //   (D-1570), redraw_worm (D-1577), wormhitu (D-1798),
 //   flip_worm_segs_vertical / flip_worm_segs_horizontal (D-2222;
 //   caller sp_lev.c flip_level wormno arm in js/mklev.js).
-// Named omissions: save/rest wsegs; replmon/restore place_wsegs
+// Named omissions: save/rest wsegs (rest_worm/save_worm chain)
 //   callers; muse.c / mhitu.c worm_move callers. Wormgone callers all
 //   live: newcham head-back (D-1573), m_detach (D-2231), mon_leave (D-2296).
 

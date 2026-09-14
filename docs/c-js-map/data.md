@@ -629,7 +629,8 @@ callers `uhitm.c` `known_hitum` `:641–642` slice_or_chop after Vorpal
 oldhp `*mhit`, `dothrow.c` `thitmonst` `:2206–2207` chopper=`is_axe`;
 `m_lev>=3 && !rn2(3)` then `clone_mon`; `mcloned=0` + Nd8 not
 `newmonhp`; live `js/worm.js` + uhitm/dothrow; restore/replmon
-`place_wsegs` named); 
+`place_wsegs` live (D-2300); 
+**D-2300 `place_wsegs` callers** (`worm.c:614–635`; `mon.c` `replmon` `:2536–2537`, `restore.c` `getlev` `:1194–1195`; zap `wormno` copy + `cutworm` `:471` already live; `js/mon.js` + `js/do.js` over live `js/worm.js`);
 **D-1573 `wormgone`** (`worm.c:307–332`; callee `toss_wsegs`; caller `mon.c` `newcham`
 `:5359` place_monster head-back; `m_detach` `:2787` arm live in `js/mhitm.js`
 (D-2231); `dog.c` `mon_leave` `:728–763` live in `js/dog.js` incl. the `:755`

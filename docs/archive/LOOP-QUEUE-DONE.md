@@ -5,10 +5,13 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-14
 
-- [x] `makemon.c` makemon place_monster grid (data.md:528; D-2299 deferred grid write; needs movement remove+place parity). Probe: `node scripts/brief.mjs makemon`. **Addressed:** D-2299
+- [x] `worm.c` place_wsegs restore/replmon callers (data.md:627; D-1573 shipped wormgone + toss_wsegs; restore/replmon place_wsegs sites still named). Probe: `node scripts/brief.mjs place_wsegs`. **Addressed:** D-2300
 
 
-- [x] `mon.c` place_monster cutworm/makemon callers (data.md:523; D-1565 shipped clone_mon 2D grid; cutworm/makemon sites still named). Probe: `node scripts/brief.mjs place_monster`. **Addressed:** D-2299
+- [x] `makemon.c` makemon place_monster grid (data.md:528; D-2299 deferred grid write; needs movement remove+place parity). Probe: `node scripts/brief.mjs makemon`. **Addressed:** D-2299 `d633d068`
+
+
+- [x] `mon.c` place_monster cutworm/makemon callers (data.md:523; D-1565 shipped clone_mon 2D grid; cutworm/makemon sites still named). Probe: `node scripts/brief.mjs place_monster`. **Addressed:** D-2299 `d633d068`
 
 
 - [x] `pager.c` doidtrap `^` single-cell trap examine (turns.md farlook + D-2298 named; C pager.c:2335+ glyph trap/chest/door arms + ftrap-chain tseen examination; no JS doidtrap). Probe: `node scripts/brief.mjs doidtrap`. **Addressed:** D-2298 `dee0904f`
