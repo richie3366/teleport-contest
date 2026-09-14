@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `fountain.c` dipfountain residuals — Excalibur body + uncurse arms (C fountain.c:441; data.md:1230-1236, D-1107/D-1114 residuals: lawful oname/discover/bless, unaligned curse + spe--, `update_inventory`, artidisco save/rest, coins-not-skipped, luck/lamplit). Probe: `node scripts/brief.mjs dipfountain`.
 - [ ] `trap.c` mlevel_tele_trap — MAGIC_PORTAL/LEVEL_TELEP arms (data.md:1085; valley/stronghold dest; monster level-teleport messages + RNG). Probe: `node scripts/brief.mjs mlevel_tele_trap`.
 - [ ] `artifact.c` arti_cost — artilist.cost extract + getprice /4 (data.md D-1719 residual; C artifact.c:2308-2317; shop `get_cost` still *4; live `js/artifact.js:560`). Probe: `node scripts/brief.mjs arti_cost`.
 - [ ] `makemon.c` m_initweap — S_DEMON named specials + is_demon default FALLTHROUGH (data.md:443; D-0472; demon initial-weapon RNG + messages). Probe: `node scripts/brief.mjs m_initweap`.

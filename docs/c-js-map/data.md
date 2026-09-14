@@ -1243,7 +1243,7 @@ local `fingers_or_gloves`/`gloves_simple_name`; pool yn D-1128);
 non-potion tap+`water_damage`; potion pour + otyp switch; local `do.c` `polymorph_sink` `rn2(4)`; 
 `potionbreathe`/`trycall`/`useup`; pool yn D-1128 / `drink_ok_extra` still named); 
 **`dipfountain` cases 17–20 uncurse** (D-1114; `!is_hands && cursed` → Blind-skip glow + `uncurse`; 
-else loss pline; coins not skipped; luck/lamplit stay on mkobj `uncurse`); 
+else loss pline; coins not skipped; luck via mkobj luck arms → `set_moreluck` D-2287, lamplit tail live); 
 **`dipfountain` case 29 `mkgold` coins** (D-1115; 
 `SET_FOUNTAIN_LOOTED` then `rnd((num_dunlevs-dlevel+1)*2)+5`; Blind-skip glistening; 
 `exercise(A_WIS,TRUE)`/`newsym`; looted skip before `mkgold`; 

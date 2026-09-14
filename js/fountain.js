@@ -1242,7 +1242,7 @@ export async function dipfountain(obj) {
                 + ' and envelopes the sword.',
             );
             await pline('The fountain disappears!');
-            curse(obj);
+            await curse(obj);
             if ((obj.spe | 0) > -6 && !rn2(3)) {
                 obj.spe = (obj.spe | 0) - 1;
             }
@@ -1263,7 +1263,7 @@ export async function dipfountain(obj) {
                 ONAME_VIA_DIP | ONAME_KNOW_ARTI,
             );
             discover_artifact(ART_EXCALIBUR);
-            bless(obj);
+            await bless(obj);
             obj.oeroded = 0;
             obj.oeroded2 = 0;
             obj.oerodeproof = true;
@@ -1310,7 +1310,7 @@ export async function dipfountain(obj) {
     switch (rnd(30)) {
     case 16: // Curse the item
         if (!is_hands && obj.oclass !== COIN_CLASS && !obj.cursed) {
-            curse(obj);
+            await curse(obj);
         }
         break;
     case 17:
@@ -1319,13 +1319,13 @@ export async function dipfountain(obj) {
     case 20: // Uncurse the item
         // C fountain.c:464–475 — !hands && cursed → glow (unless Blind)
         // then uncurse; else "feeling of loss" (blessed/uncursed/hands).
-        // Coins are not skipped (unlike case 16). Luck/lamplit uncurse
-        // side effects stay on mkobj.js uncurse.
+        // Coins are not skipped (unlike case 16). Luck via mkobj
+        // `uncurse` → `set_moreluck` (D-2287); lamplit tail live there.
         if (!is_hands && obj.cursed) {
             if (!Blind()) {
                 await pline(`The ${hliquid('water')} glows for a moment.`);
             }
-            uncurse(obj);
+            await uncurse(obj);
         } else {
             await pline('A feeling of loss comes over you.');
         }
@@ -1350,8 +1350,9 @@ export async function dipfountain(obj) {
         await dogushforth(false);
         break;
     case 26: // Strange feeling
-        // C: body_part(ARM) — humanoid default "arm" (poly forms deferred)
-        await pline('A strange tingling runs up your arm.');
+        // C dipfountain case 26 — body_part(ARM) via the already-imported
+        // canonical (humanoid default "arm", poly forms live).
+        await pline(`A strange tingling runs up your ${body_part(ARM)}.`);
         break;
     case 27: // Strange feeling
         await You_feel('a sudden chill.');

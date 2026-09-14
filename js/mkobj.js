@@ -42,7 +42,7 @@ import {
     zombie_form,
 } from './mon.js';
 import { oname } from './do_name.js';
-import { nartifact_exist, mk_artifact, permapoisoned } from './artifact.js';
+import { confers_luck, nartifact_exist, mk_artifact, permapoisoned } from './artifact.js';
 import {
     mons, is_male, is_female, is_neuter, is_human, verysmall, PM_LICHEN, monsterNames,
     G_NOCORPSE, NON_PM as MON_NON_PM,
@@ -71,6 +71,7 @@ import {
     In_quest, SPINACH_TIN, RANDOM_TIN,
 } from './const.js';
 import { set_tin_variety } from './eat.js';
+import { set_moreluck } from './attrib.js';
 import { recalc_block_point, cansee } from './vision.js';
 import { del_light_source, discard_flashes, obj_sheds_light, obj_adjust_light_radius } from './light.js';
 import { arti_light_radius, get_obj_location, obj_split_light_source } from './timeout.js';
@@ -517,8 +518,9 @@ export function unsplitobj(obj) {
  * (`maybe_adjust_light` plines); every state change below precedes the
  * first await, so long-standing sync callers (mksobj_init, mklev gen,
  * mplayer loadout — always unlit there) observe identical behavior.
- * Named omit: COIN_CLASS guard, confers_luck/set_moreluck, BAG_OF_HOLDING
- * weight, uwep bimanual/reset_remarm, uswapwep drop, SPBOOK book_cursed.
+ * Named omit: COIN_CLASS guard, BAG_OF_HOLDING weight, uwep
+ * bimanual/reset_remarm, uswapwep drop, SPBOOK book_cursed
+ * (luck arm live via set_moreluck, D-2287).
  */
 export async function curse(otmp) {
     if (!otmp) return;
@@ -527,8 +529,11 @@ export async function curse(otmp) {
     const old_light = otmp.lamplit ? arti_light_radius(otmp) : 0;
     otmp.cursed = true;
     otmp.blessed = false;
-    // C mkobj.c curse — FIGURINE attach when carried/mcarried + typed
-    if ((otmp.otyp | 0) === FIGURINE
+    // C mkobj.c curse `:1803–1804` — carried luck-conferrer → set_moreluck;
+    // FIGURINE attach when carried/mcarried + typed (else-if: no obj is both).
+    if ((otmp.where | 0) === OBJ_INVENT && confers_luck(otmp)) {
+        set_moreluck();
+    } else if ((otmp.otyp | 0) === FIGURINE
         && (otmp.corpsenm | 0) !== NON_PM
         && !dead_species(otmp.corpsenm | 0, true)
         && figurine_is_carried(otmp)) {
@@ -539,15 +544,19 @@ export async function curse(otmp) {
 /**
  * C ref: mkobj.c bless `:1744–1764` — async only for the lamplit tail;
  * state changes precede the first await (see curse). Named omit:
- * COIN_CLASS guard, confers_luck/set_moreluck, BAG_OF_HOLDING weight.
+ * COIN_CLASS guard, BAG_OF_HOLDING weight (luck arm live, D-2287).
  */
 export async function bless(otmp) {
     if (!otmp) return;
     const old_light = otmp.lamplit ? arti_light_radius(otmp) : 0;
     otmp.blessed = true;
     otmp.cursed = false;
-    // C mkobj.c bless — stop FIG_TRANSFORM if figurine timed
-    if ((otmp.otyp | 0) === FIGURINE && (otmp.timed | 0)) {
+    // C mkobj.c bless `:1755–1756` — carried luck-conferrer → set_moreluck
+    // (else-if: a luckstone is never a timed figurine).
+    if ((otmp.where | 0) === OBJ_INVENT && confers_luck(otmp)) {
+        set_moreluck();
+    } else if ((otmp.otyp | 0) === FIGURINE && (otmp.timed | 0)) {
+        // C mkobj.c bless — stop FIG_TRANSFORM if figurine timed
         stop_timer(FIG_TRANSFORM, otmp);
     }
     if (otmp.lamplit) await maybe_adjust_light(otmp, old_light);
@@ -556,12 +565,16 @@ export async function bless(otmp) {
 /**
  * C ref: mkobj.c unbless `:1766–1780` — async only for the lamplit tail;
  * state change precedes the first await (see curse). Named omit:
- * confers_luck/set_moreluck, BAG_OF_HOLDING weight.
+ * BAG_OF_HOLDING weight (luck arm live, D-2287).
  */
 export async function unbless(otmp) {
     if (!otmp) return;
     const old_light = otmp.lamplit ? arti_light_radius(otmp) : 0;
     otmp.blessed = false;
+    // C mkobj.c unbless `:1774–1775` — carried luck-conferrer → set_moreluck.
+    if ((otmp.where | 0) === OBJ_INVENT && confers_luck(otmp)) {
+        set_moreluck();
+    }
     if (otmp.lamplit) await maybe_adjust_light(otmp, old_light);
 }
 
@@ -578,15 +591,19 @@ export function set_bknown(obj, onoff) {
 
 /**
  * C ref: mkobj.c uncurse `:1821–1838` — async only for the lamplit tail;
- * state changes precede the first await (see curse). Named omit:
- * confers_luck/set_moreluck.
+ * state changes precede the first await (see curse). Luck arm live
+ * via set_moreluck (D-2287).
  */
 export async function uncurse(otmp) {
     if (!otmp) return;
     const old_light = otmp.lamplit ? arti_light_radius(otmp) : 0;
     otmp.cursed = false;
+    // C mkobj.c uncurse `:1829–1832` — carried luck-conferrer → set_moreluck
+    // first, then BAG_OF_HOLDING weight, then timed FIGURINE (C order).
     const bag = objectNames.indexOf('BAG_OF_HOLDING');
-    if (bag >= 0 && (otmp.otyp | 0) === bag) otmp.owt = weight(otmp);
+    if ((otmp.where | 0) === OBJ_INVENT && confers_luck(otmp)) {
+        set_moreluck();
+    } else if (bag >= 0 && (otmp.otyp | 0) === bag) otmp.owt = weight(otmp);
     else if ((otmp.otyp | 0) === FIGURINE && (otmp.timed | 0)) {
         stop_timer(FIG_TRANSFORM, otmp);
     }
