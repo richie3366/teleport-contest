@@ -82,7 +82,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `do_name.c` x_monnam — saddle / ARTICLE_* / M2_PNAME / Wizard-article arms (TOP30 #12; 61 C callers; every monster name printed). Probe: `node scripts/brief.mjs x_monnam`.
+**Next cluster:** `end.c` really_done — death-disclosure tail arms (TOP30 #21; reached by every scen-death session). Probe: `node scripts/brief.mjs really_done`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2282 (index).**
 <!-- recent:begin -->

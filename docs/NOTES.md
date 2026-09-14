@@ -13,7 +13,7 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 - **Fortress guards** (do not reopen): display_inventory dismiss/gameover heading/keep_status, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue `S_ndoor`, bigrm-2, getpos, summonmu, lookat, `do_statusline1`, snapshot, fakewiz, Ice/Boulder, `roles[]`, pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
 - **Luck runs when invulnerable, not dialogues** (`timeout.c:623`).
 - **Symptom-owner parks — do not re-pop:** obj_resists/m_move/rloc/lightdamage/mattackm/can_carry/spoteffects/mon_adjust_speed/zapyourself/doname_base/hmonas/minliquid_core/distfleeck/passiveum.
-- **STALE parks — do not re-pop:** lesshungry/rndcurse/mhitm_ad_famn/regen_hp/barehands/do_mapping/adjattrib/from_what/look_at_monster/formatkiller/do_screen_description/reveal_terrain/peffect_acid/newcham/use_offensive/stop_donning/doeat_nonfood/gcrownu/big_little_match/xkilled. (Proofs in Parked; re-queue only on falsifier.)
+- **STALE parks — do not re-pop:** lesshungry/rndcurse/mhitm_ad_famn/regen_hp/barehands/do_mapping/adjattrib/from_what/look_at_monster/formatkiller/do_screen_description/reveal_terrain/peffect_acid/newcham/use_offensive/stop_donning/doeat_nonfood/gcrownu/big_little_match/xkilled/x_monnam. (Proofs in Parked; re-queue only on falsifier.)
 - **slimed park:** landing + Sick-store writers.
 - **MISATTRIBUTED/STALE parks — do not re-pop:** vomiting_dialogue/u_stuck_cannot_go/name_to_monplus/mcast_death_touch/save_dungeon/dodown/mv_bubble/one_characteristic/use_pole/trapmove/fig_transform/chwepon.
 - **disclose + list_vanquished parks — do not re-pop:** Hallu desync / identical-prompt cell (proofs in Parked).
@@ -21,8 +21,8 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 - **dochug / dotrap / mintrap / nh_timeout / mon_break_armor parks — do not re-pop:** STALE presence-only (proofs + falsifiers in Parked).
 - **that_is_a_mimic park — do not re-pop:** misattributed owner + unresolved C glyph mechanism.
 - **drinkfountain park — do not re-pop:** misattributed quaff owner + hallu residual.
-- **poly_obj park — do not re-pop:** misattributed citation + no C arm (proof in Parked; falsifier: `verify poly_obj` blocked with poly_obj as owner).
-- **newuhs park — do not re-pop:** STALE, full port shipped D-1791 (proof in Parked; falsifier: `verify` blocked on that fn).
+- **poly_obj park — do not re-pop:** misattributed citation + no C arm (Parked; falsifier: `verify poly_obj` blocked).
+- **newuhs park — do not re-pop:** STALE, full port shipped D-1791 (Parked; falsifier: `verify` blocked).
 
 ## Don't re-check (≤15)
 
