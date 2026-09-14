@@ -8,6 +8,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-14 — Audit reviews 1239–1243 (b5711dd9..3fcfefe2) + cadence 44/44
+
+Review iteration, no js/ edits. 4 ACCEPT (1239 mb_trapped/vamprises, 1240 scatter landmine, 1242 enlightenment Upolyd, 1243 twin canonicalization), 1 ACCEPT-WITH-DEBT (1241 copy_oextra — mergable SCR_MAIL MAIL_STRUCTURES flavor arm live but unported+unnamed; map material for data.md:302, not Must-fix). Re-measured every corpus claim: vamprises/mb_trapped/scatter/copy_oextra vacuous 0-blocked (rows cited 0); chwepon --base 6106e47d → 2 PASS PROGRESS (re-confirmed); D-2276 scoreboard delta 3 newly-PASS / 0 regressed (re-counted from the artifact). Cadence full `sessions` at HEAD 3fcfefe2: 44/44, Scr 11,405/11,405, RNG 792,838/792,838, speed 90+0.61/turn (R² 0.79). Queue 11 Open, 0 Must-fix — no REFILL (8–12 band), no archive. Next port pops Open head (`shk.c` splitbill).
 ## 2026-09-14 — D-2277 `monmove.c` mb_trapped dig/lock twins → canonical export (queue row `monmove.c` mb_trapped dig/lock twins, D-2273 named omit)
 
 **C locus:** `monmove.c:54–74` (`mb_trapped`: verbose KABOOM/nearby-distant via `mdistu > 49`, `wake_nearto 49`, `mstun = 1`, `mhp -= rnd(15)`, `DEADMONSTER` → `mondied` + still-dead TRUE with lifesave fallthrough, `mon_learns_traps(TRAPPED_DOOR)`); callers `dig.c:1436` (`if (mb_trapped(mtmp, sawit || seeit)) { newsym; return TRUE; }`) and `lock.c:1216` (`(void) mb_trapped(mtmp, sawit || seeit)` — return ignored; the `:1218` wake_nearto comment belongs to the no-monster else arm).

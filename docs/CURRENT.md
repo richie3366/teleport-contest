@@ -21,10 +21,10 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-14** — full `sessions` on the working tree
-(audit **1232–1238**, HEAD `585e3fb7`).
+(audit **1239–1243**, HEAD `3fcfefe2`).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`47+0.29/turn` (R² 0.79).
+`90+0.61/turn` (R² 0.79).
 
 ## Score
 
@@ -33,7 +33,7 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `47+0.29/turn` (R² 0.79) |
+| Speed label | `90+0.61/turn` (R² 0.79) |
 | Role-init throws | **0 / 44** |
 
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-14
@@ -46,6 +46,7 @@ the old mutant families are saturated and no longer pick work. Top owners:
 (all parked symptom/misattributed owners except live Open `drinkfountain`).
 Reviews 1225–1231: 6 ACCEPT, 1 ACCEPT-WITH-DEBT (1227 uhitm `s_suffix` debt — already a live Open row, no Must-fix).
 Reviews 1232–1238: 7 ACCEPT, 0 Must-fix.
+Reviews 1239–1243: 4 ACCEPT, 1 ACCEPT-WITH-DEBT (1241 mergable SCR_MAIL debt — map material, no Must-fix).
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score --jobs 8`
 (≈200 s); when every family is ≥ 85 % PASS, grow it first:
 `node scripts/scenario-gen.mjs --n 120 --seed <iter×100>`.

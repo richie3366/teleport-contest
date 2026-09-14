@@ -1249,3 +1249,8 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1236-04af89bd-stinky-nemesis.md](./1236-04af89bd-stinky-nemesis.md) | `04af89bd` | D-2270 stinky_nemesis + texts | **ACCEPT** |
 | [1237-0f159258-stealarm-unstolenarm.md](./1237-0f159258-stealarm-unstolenarm.md) | `0f159258` | D-2271 stealarm/unstolenarm | **ACCEPT** |
 | [1238-7a2ef83e-shkgone-damage-hasshop.md](./1238-7a2ef83e-shkgone-damage-hasshop.md) | `7a2ef83e` | D-2272 shkgone damage/has_shop | **ACCEPT** |
+| [1239-b5711dd9-vamprises-mb-trapped.md](./1239-b5711dd9-vamprises-mb-trapped.md) | `b5711dd9` | D-2273 vamprises door-trap kill + mb_trapped | **ACCEPT** |
+| [1240-075d9c80-scatter-landmine-arm.md](./1240-075d9c80-scatter-landmine-arm.md) | `075d9c80` | D-2274 scatter landmine arm | **ACCEPT** |
+| [1241-64fb2e96-copy-oextra-mailcmd.md](./1241-64fb2e96-copy-oextra-mailcmd.md) | `64fb2e96` | D-2275 copy_oextra + mailcmd | **ACCEPT-WITH-DEBT** |
+| [1242-1237c4d4-enlightenment-upolyd-arm.md](./1242-1237c4d4-enlightenment-upolyd-arm.md) | `1237c4d4` | D-2276 enlightenment Upolyd arm | **ACCEPT** |
+| [1243-3fcfefe2-mb-trapped-twins.md](./1243-3fcfefe2-mb-trapped-twins.md) | `3fcfefe2` | D-2277 mb_trapped dig/lock twins | **ACCEPT** |
