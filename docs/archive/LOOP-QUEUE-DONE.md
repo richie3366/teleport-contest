@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-14
 
-- [x] `apply.c` splash_lit pot_acid_damage boom + SPE_NOVEL blank_novel residuals (data.md trap section; D-1337 shipped the body; live `js/trap.js:5058/5084/5126` defer both arms). Probe: `node scripts/brief.mjs splash_lit`. **Addressed:** D-2289
+- [x] `trap.c` steedintrap dart/arrow/landmine/poly caller wiring (data.md:1063-1064; D-2258 helper is full but dart/arrow `!rn2(2)` steedintrap / landmine / poly trapeffects still do not call it). Probe: `node scripts/brief.mjs steedintrap`. **Addressed:** D-2290
+
+
+- [x] `apply.c` splash_lit pot_acid_damage boom + SPE_NOVEL blank_novel residuals (data.md trap section; D-1337 shipped the body; live `js/trap.js:5058/5084/5126` defer both arms). Probe: `node scripts/brief.mjs splash_lit`. **Addressed:** D-2289 `48180ad1`
 
 
 - [x] `trap.c` mlevel_tele_trap — MAGIC_PORTAL/LEVEL_TELEP arms (data.md:1085; valley/stronghold dest; monster level-teleport messages + RNG). Probe: `node scripts/brief.mjs mlevel_tele_trap`. **Addressed:** D-2288 `e210b23d`

@@ -1063,7 +1063,7 @@ grease_protect/costly_alteration/inventory_resistance/remove_worn_item deferred)
 omit grease/towel/container/acid boom, full `erode_obj` rust/verbose arms, overwrite `reset_utrap` 
 / Knox LEVEL_TELEP / Sokoban finish still named (**PIT/HOLE `set_levltyp` D-1280**; 
 **DRAWBRIDGE_UP ice D-1296**; **shop `add_damage` D-1300**), other trap types, **hero 
-SLP_GAS/`fall_asleep`/steedintrap call**, **hero arrow/sqky/dart `poisoned()`; dart/arrow `!rn2(2)` steedintrap / landmine / poly trapeffect still do not call the now-full helper (D-2258); 
+SLP_GAS/`fall_asleep`/steedintrap call** (still deferred), **hero arrow/sqky/dart `poisoned()`; D-2290 wires dart/arrow `!rn2(2)` steedintrap + landmine `recursive_mine` guard + full `trapeffect_poly_trap` hero/monster to the now-full helper (D-2258 helper); 
 **Punished pit `unplacebc`/`ballfall`/`placebc` D-1778** (C `trap.c:1955–1958`; 
 callers gate on `u.uball` ≡ C `Punished` **D-1786**)**, 
 vault/shop/temple `ceiling` labels (**trap burn/water/rock `helm`/`cloak`/`gloves`/`suit_simple_name` now canonical D-2186** — stubs deleted, do_wear/objnam imports; `materialnm` helm prefix still named; **`burnarmor` case 3 literal `"gloves"` D-2190** (C `trap.c:143–146`, never `gloves_simple_name`)); **`instapetrify`/`selftouch`/`mselftouch`/`minstapetrify` + 

@@ -31,9 +31,9 @@ import {
     newsym, pline, pline_mon, pline_xy, urgent_pline, mon_visible, see_with_infrared,
     You_feel, unmap_object, glyph_is_invisible, tmp_at, nh_delay_output,
     obj_glyph, flush_topl_more, feel_newsym, canspotmon, map_invisible, under_water,
-    set_msg_xy, Hallucination, Norep, impossible,
+    set_msg_xy, shieldeff, Hallucination, Norep, impossible,
 } from './display.js';
-import { doname, an, the, The, xname, yname, cxname, makeplural, vtense, otense, simpleonames, ansimpleoname, safe_qbuf, gloves_simple_name, aobjnam, Yobjnam2 } from './objnam.js';
+import { doname, an, the, The, xname, yname, cxname, makeplural, vtense, otense, simpleonames, ansimpleoname, safe_qbuf, gloves_simple_name, aobjnam, Yname2, Yobjnam2 } from './objnam.js';
 import {
     Amonnam, Monnam, mon_nam, x_monnam, y_monnam, noit_Monnam, pmname,
     christen_monst, rndmonnam, hliquid, rndcolor, mon_pmname, YMonnam,
@@ -86,7 +86,7 @@ import {
     TT_NONE, TT_BEARTRAP, TT_PIT, TT_WEB, TT_LAVA, TT_INFLOOR, TT_BURIEDBALL,
     LEFT_SIDE, RIGHT_SIDE, BOTH_SIDES, FOOT, LEG, SPINE,
     HEAD, ARM, FINGER, HAND,
-    NOTELL, NC_SHOW_MSG,
+    NOTELL, NC_SHOW_MSG, POLY_NOFLAGS,
     W_ARM, W_ARMC, W_ARMH, W_ARMS, W_ARMG, W_ARMF, W_ARMU, W_WEP, W_SWAPWEP,
     W_SADDLE, I_SPECIAL,
     CORPSTAT_NONE, CORPSTAT_HISTORIC, CORPSTAT_GENDER, CORPSTAT_MALE,
@@ -121,7 +121,7 @@ import {
 import { monsterNames, PM_ROGUE } from './generated/monsters_data.js';
 import { thitu, ohitmon, hits_bars } from './mthrowu.js';
 import { dmgval, MON_WEP, mwepgone, wet_a_towel, dry_a_towel, is_wet_towel, P_SKILL } from './weapon.js';
-import { observe_object, encumber_msg, near_capacity, makeknown, update_inventory, currency, calc_capacity, inv_weight, weight_cap } from './invent.js';
+import { observe_object, encumber_msg, near_capacity, makeknown, update_inventory, currency, calc_capacity, inv_weight, weight_cap, prinv } from './invent.js';
 import { makemon, rndmonnum_adj, mpickobj, set_malign, newcham } from './makemon.js';
 import {
     A_CHA, A_STR, A_DEX, A_CON, A_WIS, adjattrib, exercise, adjalign,
@@ -137,11 +137,11 @@ import { get_obj_location } from './timeout.js';
 import { costly_spot, shop_keeper, stolen_value, make_angry_shk, add_damage, sellobj } from './shk.js';
 import { unpunish, seffects } from './read.js';
 import { create_gas_cloud } from './region.js';
-import { polymon, body_part, mbodypart, float_vs_flight } from './polyself.js';
+import { polymon, body_part, mbodypart, float_vs_flight, Unchanging, polyself } from './polyself.js';
 import { done } from './end.js';
 import { make_blinded, dropx, setnotworn } from './do.js';
 import { mon_adjust_speed } from './muse.js';
-import { m_dowear } from './worn.js';
+import { m_dowear, extract_from_minvent, update_mon_extrinsics } from './worn.js';
 import { m_unleash, number_leashed, unleash_all } from './apply.js';
 import { hard_helmet, helm_simple_name, cloak_simple_name, suit_simple_name } from './do_wear.js';
 import { unplacebc, placebc, ballfall } from './ball.js';
@@ -151,11 +151,11 @@ import { ynq } from './getline.js';
 import { more_experienced, newexplevel } from './exper.js';
 import { killed, stumble_onto_mimic } from './uhitm.js';
 import { rider_cant_reach, dismount_steed } from './steed.js';
-import { resist, blank_novel } from './zap.js';
+import { resist, blank_novel, poly_obj } from './zap.js';
 import { fill_pit, bury_an_obj } from './dig.js';
 import { u_wield_art, attacks, bare_artifactname, has_magic_key } from './artifact.js';
 import { ART_STING } from './generated/artifacts_data.js';
-import { maybe_unhide_at } from './monmove.js';
+import { maybe_unhide_at, locomotion } from './monmove.js';
 import { is_waterwall, hero_Swimming, hero_Amphibious, hero_Breathless } from './dbridge.js';
 // C obj.h stone_missile lives in dothrow.js (canonical); same-file passes_rocks below (D-2195).
 import { stone_missile } from './dothrow.js';
@@ -199,6 +199,9 @@ const PM_ARCHEOLOGIST = monsterNames.indexOf('PM_ARCHEOLOGIST');
 const PM_RANGER = monsterNames.indexOf('PM_RANGER');
 const PM_PIT_VIPER = monsterNames.indexOf('PM_PIT_VIPER');
 const PM_PIT_FIEND = monsterNames.indexOf('PM_PIT_FIEND');
+const SADDLE = objectNames.indexOf('SADDLE');
+const KICKING_BOOTS = objectNames.indexOf('KICKING_BOOTS');
+const IRON_SHOES = objectNames.indexOf('IRON_SHOES');
 const something = 'something';
 
 /** C ref: hacklib.c upstart — capitalize first letter. */
@@ -1776,6 +1779,17 @@ function u_locomotion_pit(defWord) {
     return defWord;
 }
 
+/**
+ * C ref: hack.c u_locomotion `:1817–1829` — Levitation → float, Flying →
+ * fly, else monster locomotion() on the hero form ("step" arrives lowercase,
+ * so the capitalize arm never fires). Used by the poly-trap message.
+ */
+function u_locomotion_verb(def) {
+    if (hero_Levitation()) return 'float';
+    if (hero_Flying()) return 'fly';
+    return locomotion(game.youmonst?.data, def);
+}
+
 /** C hack.c losehp then maybe_wail / done(DIED). */
 async function finish_hero_losehp() {
     await finish_maybe_wail();
@@ -1791,8 +1805,11 @@ async function finish_hero_losehp() {
  * C ref: trap.c steedintrap `:3101–3168`
  * Returns 0 when no steed (hero takes the hit); 1 if the steed was hit;
  * Trap_Killed_Mon if the steed died. MAGIC_TRAP (and other default ttyp)
- * only writes mx/my. Dart/arrow/slp-gas/landmine/poly callers of this
- * helper remain named omitted at those trapeffect sites.
+ * only writes mx/my. Wired at every C call site: dart/arrow `!rn2(2)`
+ * (`:1211/:1276`), pit (`:1921`), magic (`:2313`), poly (`:2491`),
+ * landmine under the recursive_mine guard (`:2578`). The slp-gas hero
+ * arm (incl. its steedintrap call `:1578`) stays deferred with the
+ * Sleep_resistance/fall_asleep body.
  */
 async function steedintrap(trap, otmp) {
     const u = game.u || {};
@@ -2146,10 +2163,12 @@ async function trapeffect_dart_trap(mtmp, trap) {
         let otmp = t_missile(DART, trap);
         if (!rn2(6)) otmp.opoisoned = 1;
         const dam = dmgval(otmp, game.youmonst || mtmp);
-        // steedintrap arm deferred (usteed rare at L1 commons)
         const box = { obj: otmp };
-        // thitu plines are sync-append-safe after the shoot message
-        if (await thitu(7, maybe_half_phys(dam), box, 'little dart')) {
+        // C: `u.usteed && !rn2(2) && steedintrap(trap, otmp)` — steed takes it
+        if (u.usteed && !rn2(2) && await steedintrap(trap, otmp)) {
+            /* nothing — otmp consumed by thitm inside steedintrap */
+        } else if (await thitu(7, maybe_half_phys(dam), box, 'little dart')) {
+            // thitu plines are sync-append-safe after the shoot message
             otmp = box.obj;
             if (otmp) {
                 // poisoned() body deferred — still consume dart (obfree)
@@ -2157,13 +2176,15 @@ async function trapeffect_dart_trap(mtmp, trap) {
                 // obfree: no obj_resists (delobj would burn rn2)
             }
             return Trap_Effect_Finished;
-        }
-        otmp = box.obj;
-        if (otmp) {
-            place_object(otmp, u.ux, u.uy);
-            if (!u.Blind) observe_object(otmp);
-            stackobj(otmp);
-            newsym(u.ux, u.uy);
+        } else {
+            otmp = box.obj;
+            if (otmp) {
+                place_object(otmp, u.ux, u.uy);
+                if (!u.Blind) observe_object(otmp);
+                stackobj(otmp);
+                newsym(u.ux, u.uy);
+            }
+            return Trap_Effect_Finished;
         }
         return Trap_Effect_Finished;
     }
@@ -2188,8 +2209,9 @@ async function trapeffect_dart_trap(mtmp, trap) {
 // C ref: trap.c trapeffect_arrow_trap `:1189-1248` — hero + monster
 // branches. Shape mirrors trapeffect_dart_trap above: the monster arm is
 // t_missile(ARROW) (mksobj o_id + full WEAPON init, quan forced to 1) with
-// NO poison roll, then thitm(8, …); the hero arm plines and thitu(8, …).
-// Omissions mirror the dart port: Soundeffect, steedintrap, the gone-arm
+// NO poison roll, then thitm(8, …); the hero arm plines, gates
+// `u.usteed && !rn2(2) && steedintrap(trap, otmp)`, then thitu(8, …).
+// Omissions mirror the dart port: Soundeffect, the gone-arm
 // pline_mon, in_sight gating on seetrap, obfree obj_resists (all draw-free
 // except the gone-arm rn2(15), which is kept). C trace for
 // scen-poly-Priest-92021 drew o_id + mksobj_init `:877/:878/:881` +
@@ -2209,20 +2231,25 @@ async function trapeffect_arrow_trap(mtmp, trap) {
         let otmp = t_missile(ARROW, trap);
         const dam = dmgval(otmp, game.youmonst || mtmp);
         const box = { obj: otmp };
-        // thitu plines are sync-append-safe after the shoot message
-        if (await thitu(8, maybe_half_phys(dam), box, 'arrow')) {
+        // C: `u.usteed && !rn2(2) && steedintrap(trap, otmp)` — steed takes it
+        if (u.usteed && !rn2(2) && await steedintrap(trap, otmp)) {
+            /* nothing — otmp consumed by thitm inside steedintrap */
+        } else if (await thitu(8, maybe_half_phys(dam), box, 'arrow')) {
+            // thitu plines are sync-append-safe after the shoot message
             otmp = box.obj;
             if (otmp) {
                 // obfree: no obj_resists (delobj would burn rn2)
             }
             return Trap_Effect_Finished;
-        }
-        otmp = box.obj;
-        if (otmp) {
-            place_object(otmp, u.ux, u.uy);
-            if (!u.Blind) observe_object(otmp);
-            stackobj(otmp);
-            newsym(u.ux, u.uy);
+        } else {
+            otmp = box.obj;
+            if (otmp) {
+                place_object(otmp, u.ux, u.uy);
+                if (!u.Blind) observe_object(otmp);
+                stackobj(otmp);
+                newsym(u.ux, u.uy);
+            }
+            return Trap_Effect_Finished;
         }
         return Trap_Effect_Finished;
     }
@@ -4759,11 +4786,90 @@ async function blow_up_landmine(trap) {
 }
 
 /**
+ * C ref: trap.c trapeffect_poly_trap `:2453–2525` — hero + monster.
+ * Hero: steed-article verb ("trigger" / "lead <steed> onto" / "<locomotion>
+ * onto"), iron-shoes poly_obj arm, Antimagic/Unchanging shieldeff arm, else
+ * steedintrap + deltrap + polyself. Monster: iron-shoes forcible-unwear +
+ * poly_obj re-equip arm, resists_magm arm, else newcham.
+ * Named omissions: monster resists_magm `shieldeff_mon` flash (display-only,
+ * no live exporter).
+ */
+async function trapeffect_poly_trap(mtmp, trap, trflags) {
+    if (is_youmonst(mtmp)) {
+        const u = game.u || {};
+        const viasitting = (trflags & VIASITTING) !== 0;
+        let steed_article = ARTICLE_THE;
+
+        /* suppress article in various steed messages when using its
+           name (which won't occur when hallucinating) */
+        if (u.usteed && has_mgivenname(u.usteed) && !Hallucination()) {
+            steed_article = ARTICLE_NONE;
+        }
+
+        seetrap(trap);
+        let verbbuf;
+        if (viasitting) {
+            verbbuf = 'trigger'; /* follows "You sit down." */
+        } else if (u.usteed) {
+            verbbuf = `lead ${x_monnam(u.usteed, steed_article, null, SUPPRESS_SADDLE, false)} onto`;
+        } else {
+            verbbuf = `${u_locomotion_verb('step')} onto`;
+        }
+        await pline(`You ${verbbuf} a polymorph trap!`);
+        if (wearing_iron_shoes(mtmp)) {
+            deltrap(trap);
+            await pline(`${Yname2(u.uarmf)} warps strangely.`);
+            await poly_obj(u.uarmf, (u.uarmf?.otyp | 0) === IRON_SHOES ? KICKING_BOOTS : IRON_SHOES);
+            update_inventory();
+            if (u.uarmf) await prinv(null, u.uarmf, 0);
+        } else if (Antimagic_prop() || Unchanging()) {
+            await shieldeff(u.ux, u.uy);
+            await You_feel('momentarily different.');
+            /* Trap did nothing; don't remove it --KAA */
+        } else {
+            void (await steedintrap(trap, null));
+            deltrap(trap); /* delete trap before polymorph */
+            newsym(u.ux, u.uy); /* get rid of trap symbol */
+            await You_feel('a change coming over you.');
+            await polyself(POLY_NOFLAGS);
+        }
+        return Trap_Effect_Finished;
+    }
+    const in_sight = canseemon(mtmp) || (mtmp === game.u?.usteed);
+    if (wearing_iron_shoes(mtmp)) {
+        /* remove and readd the shoes to forcibly unwear them */
+        let shoes = which_armor(mtmp, W_ARMF);
+        extract_from_minvent(mtmp, shoes, true, true);
+        if (mpickobj(mtmp, shoes)) {
+            await impossible('re-equipping iron shoes destroyed them?');
+            return Trap_Effect_Finished;
+        }
+        shoes = await poly_obj(shoes, (shoes?.otyp | 0) === IRON_SHOES ? KICKING_BOOTS : IRON_SHOES);
+        /* now equip them again */
+        if (shoes) {
+            mtmp.misc_worn_check = (mtmp.misc_worn_check | 0) | W_ARMF;
+            shoes.owornmask = W_ARMF;
+            update_mon_extrinsics(mtmp, shoes, true, true);
+        }
+    } else if (resists_magm(mtmp)) {
+        /* Named omission: shieldeff_mon(mtmp) — display-only flash, no live exporter */
+    } else if (!(await resist(mtmp, WAND_CLASS, 0, NOTELL))) {
+        void (await newcham(mtmp, null, NC_SHOW_MSG));
+        if (in_sight) seetrap(trap);
+    }
+    return Trap_Effect_Finished;
+}
+
+/* C trap.c trapeffect_landmine — function-static recursion guard so the
+   steed's blast cannot re-trigger the hero's landmine before deltrap. */
+let recursive_mine = false;
+
+/**
  * C ref: trap.c trapeffect_landmine — hero + monster.
  * Monster: rnd(16) damage, iron-shoes quarter, weight gate rn2(cwt+1)
  * vs WT_ELF/2, m_in_air rn2(3), blow_up, thitm, recursive mintrap.
  * Hero: Lev/Fly discovery arms + wounded legs + losehp + recursive dotrap.
- * Named omissions: which_armor iron shoes; steedintrap / keep_saddle;
+ * Named omissions: which_armor iron shoes; keep_saddle_with_steedcorpse;
  * scatter via blow_up; fill_pit; unconscious awaken polish.
  */
 async function trapeffect_landmine(mtmp, trap, trflags) {
@@ -4799,12 +4905,25 @@ async function trapeffect_landmine(mtmp, trap, trflags) {
                     : 'it'} off!`,
             );
         } else {
-            // recursive_mine / steedintrap deferred
+            /* prevent landmine from killing steed, throwing you to
+             * the ground, and then that same landmine affecting you
+             * again because it hasn't been deleted yet
+             */
+            if (recursive_mine) return Trap_Effect_Finished;
             feeltrap(trap);
             await pline(
                 `KAABLAMM!!!  You triggered ${a_your[trap.madeby_u ? 1 : 0]}`
                 + ` land mine!`,
             );
+            const steed_mid = u.usteed ? (u.usteed.m_id | 0) : 0;
+            recursive_mine = true;
+            void (await steedintrap(trap, null));
+            recursive_mine = false;
+            const saddle = sobj_at(SADDLE, u.ux, u.uy);
+            /* Named omission: keep_saddle_with_steedcorpse(steed_mid, fobj,
+               saddle) (C `:2591–2592`) — no live importer; floor saddle stays. */
+            void steed_mid;
+            void saddle;
             await set_wounded_legs(LEFT_SIDE, rn1(35, 41));
             await set_wounded_legs(RIGHT_SIDE, rn1(35, 41));
             exercise(A_DEX, false);
@@ -4874,7 +4993,7 @@ async function trapeffect_landmine(mtmp, trap, trflags) {
         : (mtmp.mtrapped ? Trap_Caught_Mon : Trap_Effect_Finished);
 }
 
-// C ref: trap.c trapeffect_selector — dart/arrow/rock/pit/sqky/hole/magic/fire/slp/telep/bear/rust/web/landmine
+// C ref: trap.c trapeffect_selector — dart/arrow/rock/pit/sqky/hole/magic/fire/slp/telep/bear/rust/web/landmine/poly
 async function trapeffect_selector(mtmp, trap, trflags) {
     switch (trap.ttyp) {
     case DART_TRAP:
@@ -4905,6 +5024,8 @@ async function trapeffect_selector(mtmp, trap, trflags) {
         return trapeffect_fire_trap(mtmp, trap, trflags);
     case MAGIC_TRAP:
         return trapeffect_magic_trap(mtmp, trap, trflags);
+    case POLY_TRAP:
+        return trapeffect_poly_trap(mtmp, trap, trflags);
     case SLP_GAS_TRAP:
         return trapeffect_slp_gas_trap(mtmp, trap, trflags);
     case TELEP_TRAP:

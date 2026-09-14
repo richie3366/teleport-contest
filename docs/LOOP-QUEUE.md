@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `trap.c` steedintrap dart/arrow/landmine/poly caller wiring (data.md:1063-1064; D-2258 helper is full but dart/arrow `!rn2(2)` steedintrap / landmine / poly trapeffects still do not call it). Probe: `node scripts/brief.mjs steedintrap`.
 - [ ] `artifact.c` artilist DFLAG2 yours/Upolyd/ulycn arms (data.md:107; D-2220 shipped DFLAG1 mflags1; live `js/artifact.js:1931` names the DFLAG2 residual). Probe: `node scripts/brief.mjs spec_applies`.
 - [ ] `artifact.c` spec_dbon/spec_applies SPFX_DRLI destroy/ignite arms (data.md:119-120; live `js/artifact.js:156/598/2426` defer BEHEAD/DRLI). Probe: `node scripts/brief.mjs artifact_hit`.
 - [ ] `potion.c` make_sick Unaware talk suppress (D-2283 residual; `#wizintrinsic` KILLED_BY shipped). Probe: `node scripts/brief.mjs make_sick`.
