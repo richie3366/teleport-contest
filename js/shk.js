@@ -1081,6 +1081,32 @@ function discard_damage_struct(dam) {
     dam.next = null;
 }
 
+/**
+ * C ref: shk.c discard_damage_owned_by `:4529–4552` — drop every damagelist
+ * entry in shkp's shop (`strchr(in_rooms(x, y, SHOPBASE), shoproom)`).
+ * shop_owns_cell is that test (:1029). C order: prevdam walk, unlink owned,
+ * memset+free (JS: unlink and drop; GC frees). Called by shkgone (mhitm.js).
+ */
+export function discard_damage_owned_by(shkp) {
+    if (!game.level) return;
+    let prevdam = null;
+    let dam = game.level.damagelist || null;
+    while (dam) {
+        const x = dam.place?.x | 0, y = dam.place?.y | 0;
+        let dam2;
+        if (shop_owns_cell(shkp, x, y)) {
+            dam2 = dam.next || null;
+            if (prevdam) prevdam.next = dam2;
+            if (dam === game.level.damagelist) game.level.damagelist = dam2;
+            dam.next = null;
+        } else {
+            prevdam = dam;
+            dam2 = dam.next || null;
+        }
+        dam = dam2;
+    }
+}
+
 const LITTER_UPDATE = 0x01;
 const LITTER_OPEN = 0x02;
 const LITTER_INSHOP = 0x04;

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-14
 
-- [x] `steal.c` thiefdead stealarm arm — stolen-goods restoration when a thief dies (named in mondead-tail D-2231 row; data.md:373). Probe: `node scripts/brief.mjs thiefdead`. **Addressed:** D-2271
+- [x] `shk.c` shkgone damage + has_shop arms (named in mondead-tail D-2231 row; data.md:373). Probe: `node scripts/brief.mjs shkgone`. **Addressed:** D-2272
+
+
+- [x] `steal.c` thiefdead stealarm arm — stolen-goods restoration when a thief dies (named in mondead-tail D-2231 row; data.md:373). Probe: `node scripts/brief.mjs thiefdead`. **Addressed:** D-2271 `0f159258`
 
 
 - [x] `questpgr.c` stinky_nemesis — nemesis stinking-cloud gas arm (named in `mon.c` mondead-tail D-2231 row; data.md:373). Probe: `node scripts/brief.mjs stinky_nemesis`. **Addressed:** D-2270 `04af89bd`

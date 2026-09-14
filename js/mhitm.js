@@ -161,7 +161,8 @@ import { stinky_nemesis } from './questpgr.js';
 import { record_achievement } from './insight.js';
 import { livelog_printf } from './pline.js';
 import { shtypes } from './shknam.js';
-import { obfree, setpaid } from './shk.js';
+import { obfree, setpaid, discard_damage_owned_by } from './shk.js';
+import { search_special } from './sounds.js';
 import { closed_door } from './hack.js';
 import { emits_light, del_light_source } from './light.js';
 import { on_level } from './dungeon.js';
@@ -177,6 +178,7 @@ import {
     D_NODOOR,
     D_TRAPPED,
     SHOPBASE,
+    ANY_SHOP,
     ESHK,
     ROOMOFFSET,
     LS_MONSTER,
@@ -2991,20 +2993,26 @@ export function thiefdead() {
 
 /**
  * C ref: shk.c shkgone `:234–269` — a dead shopkeeper's level effects:
- * resident cleared, floor stock de-charged, bill paid out and the room
- * struck from u.ushops (C strchr/memmove on the room-char string).
+ * damage discarded, resident cleared, has_shop cleared, floor stock
+ * de-charged, bill paid out and the room struck from u.ushops
+ * (C strchr/memmove on the room-char string).
  * ESHK/rooms/ushops follow the shk.js idioms (:253, :1031); floor stock is
  * the game.fobj chain filtered by ox/oy (place_object stamps both).
- * setpaid joins the shk.js edge (same SCC, hoisted).
- * Named omissions: discard_damage_owned_by (no JS port) and the
- * has_shop clear (needs search_special(ANY_SHOP); no JS port).
+ * setpaid/discard_damage_owned_by join the shk.js edge (same SCC, hoisted);
+ * search_special is the canonical sounds.js export (same SCC, hoisted,
+ * call-time use only — no top-level TDZ read). has_shop is a C 1-bit
+ * bitfield (rm.h:435); JS clears to 0 like C `:248–249`.
  */
 export function shkgone(mtmp) {
     const eshk = ESHK(mtmp);
     if (!eshk) return;
     if (on_level(eshk.shoplevel, game.u?.uz)) {
+        discard_damage_owned_by(mtmp);
         const sroom = game.level?.rooms?.[(eshk.shoproom | 0) - ROOMOFFSET];
         if (sroom) sroom.resident = null;
+        if (!search_special(ANY_SHOP)) {
+            if (game.level?.flags) game.level.flags.has_shop = 0;
+        }
         if (sroom) {
             const lx = sroom.lx | 0, hx = sroom.hx | 0;
             const ly = sroom.ly | 0, hy = sroom.hy | 0;
@@ -3092,7 +3100,8 @@ export async function m_detach(mtmp, mptr, due_to_death) {
 // m_detach. Dead mons stay on fmon until dmonsfree — do not splice here.
 // Named omissions: mongone's m_detach(FALSE) caller arm (D-1149 body kept);
 // minimal_monnam format inside m_detach; thiefdead stealarm arm LIVE
-// (D-2271; steal.js stealarm/unstolenarm); shkgone damage/has_shop arms;
+// (D-2271; steal.js stealarm/unstolenarm); shkgone damage/has_shop arms LIVE
+// (this D; shk.js discard_damage_owned_by + sounds.js search_special);
 // xkilled-side disintegested writer + Maybe-not/vamp_rise readers
 // (uhitm names them).
 export async function mondead(mtmp) {
