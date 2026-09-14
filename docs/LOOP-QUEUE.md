@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `explode.c` scatter MAY_FRACTURE boulder restack-to-top (data.md:1065; D-2282 shipped the shop-bill arms; C explode.c:776-790 fracture_rock + sobj_at restack). Probe: `node scripts/brief.mjs scatter`.
 - [ ] `potion.c` dodrink underwater drink_ok_extra + Strangled arms (D-1834 named omissions; D-2031 shipped the breathing gate, D-1834 the fountain/sink 'n'; data.md:1252 dipsink context). Probe: `node scripts/brief.mjs dodrink`.
 - [ ] `mkmaze.c` populate_maze trap loop (data.md:923; D-2216 shipped the live tail + fallback; loop needs mktrap — no JS mktrap — plus dmonsfree/SPLEVTYPE-getenv). Probe: `node scripts/brief.mjs populate_maze`.
 - [ ] `trap.c` untrap floor disarm_*/box residuals (data.md:176; D-1495 shipped the UNTRAP door-force callee; disarm_holdingtrap/disarm_landmine/disarm_shooting_trap/disarm_box/help_monster_out still named). Probe: `node scripts/brief.mjs untrap`.

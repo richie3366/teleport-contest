@@ -85,10 +85,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `explode.c` scatter fracture restack (data.md:1065). Probe: `node scripts/brief.mjs scatter`.
+**Next cluster:** `explode.c` scatter restack (D-2303). Probe: `node scripts/brief.mjs scatter`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2302 (index).**
+**Keep D-0845…D-2303 (index).**
 <!-- recent:begin -->
+**D-2303** `explode.c:776-790` (`fracture_rock(otmp); place_object(otmp, sx, sy); if ((otmp = sobj_at — port the C arm verbatim in C order over live callees only — `otmp = sobj_at(BOULDER, sx, sy); if (otmp) { obj_extract_self(otmp); place_object(otmp, sx, sy); }` with the C comment cited.
 **D-2302** `light.c:169–250` (`do_light_sources`): clear `LSF_SHOW` per entry (`:177`); `LS_OBJECT` r — port the C skeleton in C order over the existing inline refresh (conditions unchanged): file-local `const LSF_SHOW = 0x1` (light.c:41; the line-29 `COULD_SEE` precedent — no new module edge, no `imports.mjs --can` needed
 **D-2301** `trap.c:116–123` (`mat_idx = objects[item->otyp].oc_material; Sprintf(buf, "%s %s", materi — file-local `const materialnm` (22 words, C order, `decl.c` C-ref; eat.js `foodwords` precedent — no new module edge, no `imports.mjs --can` needed; the C `nhlobj.c:222` Lua "material" use is out of scope and noted at the
 **D-2300** `worm.c:614–635` `place_wsegs` (body already live in `js/worm.js`); callers `mon.c:2536–25 — both arms in C order over live callees only — `if ((mtmp2.wormno | 0)) place_wsegs(mtmp2, mtmp)` after the steed-gated `place_monster` in `replmon`; `if ((mtmp.wormno | 0)) place_wsegs(mtmp, null)` between `place_monster
@@ -96,11 +97,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2298** `nethack-c/upstream/src/pager.c:2077–2141` `look_traps` (glyph branch `:2092–2096`: `glyph — port the C body in C order over live callees only — `glyph_at`/`glyph_is_trap`/`glyph_to_trap`/`trap_to_glyph` (display.js), `trap_description` (local, C `staticfn`), `t_at`/`trapname` (trap.js), `couldsee` (vision.js), 
 **D-2297** `nethack-c/upstream/src/region.c:79–127` create_region (box seeded from rects[0] then min/ — new exported `create_region(rects, nrect)` + `add_rect_to_reg(reg, rect)` in `js/region.js` (C order, `| 0` idiom, rects copied not aliased); both constructors now `create_region(null, 0)` + `add_rect_to_reg` per cell (i
 **D-2296** `dog.c:728–763` `mon_leave` (worm arm `:748–760`: `count_wsegs`, `min(cnt, MAX_NUM_WORMS-1 — `js/dog.js` gains `mon_leave` (C worm arm); keepdogs + `migrate_to_level` keep its count in `wormno`.
-**D-2295** `mon.c:5639–5677`, arm `:5663–5667` (`if (ismnum(mtmp->cham) && !kill_cham) (void) newcham — `js/mon.js` — the arm awaits the already-imported live `newcham(mtmp, null, NC_SHOW_MSG)` (C `(void)` return = result unused; the await only completes C's inline message before the loop continues, scored runs stay sync p
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2302; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2303; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

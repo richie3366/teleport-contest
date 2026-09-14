@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-14
 
-- [x] `light.c` do_light_sources hero at_hero_range trim (data.md:968; D-2157 shipped the circle_ptr exact ring). Probe: `node scripts/brief.mjs do_light_sources`. **Addressed:** D-2302
+- [x] `explode.c` scatter MAY_FRACTURE boulder restack-to-top (data.md:1065; D-2282 shipped the shop-bill arms; C explode.c:776-790 fracture_rock + sobj_at restack). Probe: `node scripts/brief.mjs scatter`. **Addressed:** D-2303
+
+
+- [x] `light.c` do_light_sources hero at_hero_range trim (data.md:968; D-2157 shipped the circle_ptr exact ring). Probe: `node scripts/brief.mjs do_light_sources`. **Addressed:** D-2302 `d961718b`
 
 
 - [x] `trap.c` armor-erode materialnm helm prefix (data.md:1076; D-2186 canonicalized the burn/water/rock stubs; helm-prefix arm still named). Probe: `node scripts/brief.mjs materialnm`. **Addressed:** D-2301 `775e5959`
