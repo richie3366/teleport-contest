@@ -837,6 +837,42 @@ export function unpaid_cost(unp_obj, cost_type) {
 }
 
 /**
+ * C ref: shk.c splitbill `:3623–3658` — otmp was split off unpaid obj:
+ * shrink obj's bill entry by otmp->quan, open a new entry for otmp
+ * carrying the old price (or clear otmp->unpaid when the bill is full).
+ * Sync: splitobj is sync, so the four C impossible() diagnostics stay
+ * named omissions (as in sub_one_frombill); early-return control flow
+ * is preserved. bquan under/zero-quantity arms fall through in C.
+ */
+export function splitbill(obj, otmp) {
+    /* otmp has been split off from obj */
+    const shkp = shop_keeper(game.u?.ushops || '');
+    if (!shkp || !inhishop(shkp)) return;
+    const bp = onbill(obj, shkp, false);
+    if (!bp) return;
+    bp.bquan = (bp.bquan | 0) - (otmp.quan | 0);
+
+    const eshk = ESHK(shkp);
+    if ((eshk.billct | 0) === BILLSZ) {
+        otmp.unpaid = 0;
+    } else {
+        const tmp = bp.price | 0;
+        const bill = eshk.bill_p || eshk.bill;
+        if (!Array.isArray(bill)) {
+            otmp.unpaid = 0;
+            return;
+        }
+        bill[eshk.billct | 0] = {
+            bo_id: otmp.o_id | 0,
+            bquan: otmp.quan | 0,
+            useup: false,
+            price: tmp,
+        };
+        eshk.billct = (eshk.billct | 0) + 1;
+    }
+}
+
+/**
  * C ref: shk.c sub_one_frombill `:3660–3690` — remove obj from shk bill
  * or (bquan > quan) clone the used-up slice onto billobjs.
  */

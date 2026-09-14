@@ -84,10 +84,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `monmove.c` mb_trapped dig/lock twins — `mondied`/lifesave + `mon_learns_traps` stubs in `dig.js:940`/`lock.js:794`. Probe: `node scripts/brief.mjs mb_trapped` (drinkfountain parked — see Parked).
+**Next cluster:** `shk.c` splitbill — shipped D-2278 (row archived; full text in LOOP-QUEUE-DONE.md).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2277 (index).**
+**Keep D-0845…D-2278 (index).**
 <!-- recent:begin -->
+**D-2278** `shk.c:3622–3658` (`splitbill`: `shop_keeper(*u.ushops)` + `inhishop` gate, `onbill(obj, s — new `export function splitbill(obj, otmp)` in `js/shk.js` in C position (directly before `sub_one_frombill`, matching C `:3623` before `:3660`), in C order: shkp gate → onbill gate → decrement → full-bill `unpaid = 0` el
 **D-2277** `monmove.c:54–74` (`mb_trapped`: verbose KABOOM/nearby-distant via `mdistu > 49`, `wake_ne — both clones deleted; `import { mb_trapped } from './monmove.js'` in `dig.js` + `lock.js` (hoisted function declaration, call-time use only — `imports.mjs --can` SAFE on both edges, same 90-module SCC, no top-level TDZ re
 **D-2276** `insight.c:1859–1878` (`Upolyd && u.umonnum != u.ulycn && !(final == ENL_GAMEOVERDEAD && u — `js/invent.js` final builder — the C arm verbatim in C position (after Polymorph_control, before were-form): `Upolyd && umonnum != (ulycn ??
 **D-2275** `mkobj.c:416–448` (`copy_oextra`: null guards, `newoextra` when missing, `oname(ONAME_SKIP — new `export function copy_oextra(obj2, obj1)` in `js/mkobj.js` in C order (guards, `newoextra`, `has_oname` → live `oname` with `ONAME_SKIP_INVUPD`, `has_omonst` → `newomonst` + exact-copy assign (stale keys deleted = C 
@@ -95,11 +96,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2273** `mon.c:2888–2987` (`vamprises`; trapped arm `:2966–2981`: `doormask = D_NODOOR`, `recalc_b — `js/monmove.js` — exported the canonical `mb_trapped` in C order (verbose gate, KABOOM/nearby-distant, `wake_nearto 49`, `mstun`, `rnd(15)`, `DEADMONSTER` → `await mondied` + still-dead TRUE with lifesave fallthrough to 
 **D-2272** `shk.c:234–269` (`shkgone`: `discard_damage_owned_by` `:246`, `resident = 0` `:247`, `!sea — new `export function discard_damage_owned_by(shkp)` in `js/shk.js` next to `discard_damage_struct`, in C order (`prevdam` walk, unlink owned, drop; GC frees — no `memset`/`free` in JS), ownership via the existing `shop_o
 **D-2271** `steal.c:119–128` (`thiefdead`: `stealmid = 0`, then `afternmv == stealarm` → `unstolenarm — new `export async function stealarm()` / `unstolenarm()` in `js/steal.js` in C order (async because `unmul` awaits `afternmv` and the bodies pline/rloc/monflee; `impossible` awaited on the dead-monster arm).
-**D-2270** `questpgr.c:148–194` (`stinky_nemesis`), `mon.c:2768–2774` (`m_detach` MS_NEMESIS arm), `d — `questpgr.js` table + export, `m_detach` wiring → `nemesis_stinks`.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2277; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2278; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

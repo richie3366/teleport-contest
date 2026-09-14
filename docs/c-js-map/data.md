@@ -303,7 +303,7 @@ C `mkobj.c` `copy_oextra` `:416–448` / `new_omailcmd`+`free_omailcmd` `:157–
 `bill_dummy_object` `:727–729` wire `copy_oextra`+`free_omid` in C order incl.
 LUAFREE normalize; `OMAILCMD`/`has_omailcmd` join `const.js`;
 `dealloc_oextra`/`extract_nobj` already live D-1743/D-1756);
-omit FIGURINE transform/timeout, `nextoid` shop-price search, unpaid/`splitbill`, 
+omit FIGURINE transform/timeout, `nextoid` shop-price search, `splitbill` impossible() diagnostics (flow live D-2278), 
 timers/light-split (`obj_split_light_source`), invent Array vs nobj `extract_nobj`, `oeaten`/`eaten_stat`, statue weight arms,
 zap.c `dealloc_oextra` poly; **zap `delete_contents` D-1770**;
 trap.js `delete_contents_chest` / mklev.js `create_object_delete_contents`,

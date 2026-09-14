@@ -74,7 +74,7 @@ import { set_tin_variety } from './eat.js';
 import { recalc_block_point, cansee } from './vision.js';
 import { del_light_source, discard_flashes, obj_sheds_light, obj_adjust_light_radius } from './light.js';
 import { arti_light_radius, get_obj_location } from './timeout.js';
-import { obfree } from './shk.js';
+import { obfree, splitbill } from './shk.js';
 import { hands_obj } from './weapon.js';
 import { obj_resists } from './dogmove.js';
 import { newsym, pline } from './display.js';
@@ -346,7 +346,7 @@ export function next_ident() {
  * C ref: mkobj.c splitobj — reduce obj->quan by num; return new stack of num.
  * nextoid shop-price search omitted: ordinary items take first oid then
  * next_ident() (one rnd(2)), matching non-shop dog_invent / throw paths.
- * Deferred: unpaid/splitbill, light sources (obj_split_light_source).
+ * Deferred: light sources (obj_split_light_source).
  */
 export function splitobj(obj, num) {
     const quan = obj?.quan || 1;
@@ -389,7 +389,8 @@ export function splitobj(obj, num) {
     // C: lua isn't tracking the split-off portion even if it happens to
     // be tracking the original.
     if (otmp.where === OBJ_LUAFREE) otmp.where = OBJ_FREE;
-    // C: if (obj->unpaid) splitbill(obj, otmp) stays named (shk envelope).
+    // C mkobj.c:493–494: if (obj->unpaid) splitbill(obj, otmp).
+    if (obj.unpaid) splitbill(obj, otmp);
     copy_oextra(otmp, obj);
     if (has_omid(otmp)) free_omid(otmp); // only one association with m_id
     // C: if (obj->timed) obj_split_timers(obj, otmp)

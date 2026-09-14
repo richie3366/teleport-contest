@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-14
 
-- [x] `monmove.c` mb_trapped dig/lock twins — trapped-door `mondied`/lifesave + `mon_learns_traps(TRAPPED_DOOR)` still stubs in `dig.js:940` + `lock.js:794` (canonical export shipped this iteration in `monmove.js`; lock's keeps `wake_nearto`, dig's lacks it; corpus reaches trapped-door arms via monmove door-smash + dig/lock paths). Probe: `node scripts/brief.mjs mb_trapped`. **Addressed:** D-2277
+- [x] `shk.c` splitbill — unpaid split billing on stack split (named data.md:300, debt.md:14 eat.js "unpaid splitbill", js/mkobj.js:349; copy_oextra-envelope residual). Probe: `node scripts/brief.mjs splitbill`. **Addressed:** D-2278
+
+
+- [x] `monmove.c` mb_trapped dig/lock twins — trapped-door `mondied`/lifesave + `mon_learns_traps(TRAPPED_DOOR)` still stubs in `dig.js:940` + `lock.js:794` (canonical export shipped this iteration in `monmove.js`; lock's keeps `wake_nearto`, dig's lacks it; corpus reaches trapped-door arms via monmove door-smash + dig/lock paths). Probe: `node scripts/brief.mjs mb_trapped`. **Addressed:** D-2277 `3fcfefe2`
 
 
 - [x] `insight.c` attributes_enlightenment Upolyd foreign-shape arm — blocks 2/553 corpus sessions: C « You were polymorphed into a yeti (106).» vs JS « You were fast innately.» (one-row menu shift; the «polymorphed into %s» + wizard `(mtimedone)` row, insight.c:1866–1878, is missing from both `invent.js` builders — named deferred js/invent.js:5675–5698). Probe: `node scripts/hidden-proxy.mjs verify chwepon` (scen-poly-Samurai-91106@133, scen-poly-Monk-92213@109; recorded owner `chwepon` wield.c:940 is the draw-free `exercise` tie-break — true printers are the poly-form arms, chwepon park). **Addressed:** D-2276 `1237c4d4`
