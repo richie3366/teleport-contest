@@ -83,7 +83,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `fountain.c` drinkfountain — blocks 1/553 (insight.c attributes_enlightenment Upolyd foreign-shape arm shipped D-2276 — 3 PASS incl. bonus Caveman-92138, 0 regressed). Probe: `node scripts/hidden-proxy.mjs verify drinkfountain`.
+**Next cluster:** `monmove.c` mb_trapped dig/lock twins — `mondied`/lifesave + `mon_learns_traps` stubs in `dig.js:940`/`lock.js:794`. Probe: `node scripts/brief.mjs mb_trapped` (drinkfountain parked — see Parked).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2276 (index).**
 <!-- recent:begin -->

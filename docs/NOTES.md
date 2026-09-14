@@ -26,6 +26,7 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 - **mintrap park — do not re-pop:** STALE presence-only (proof in Parked; falsifier: verify blocked on mintrap).
 - **nh_timeout park — do not re-pop:** STALE (proof in Parked; falsifier: verify blocked on nh_timeout).
 - **mon_break_armor park — do not re-pop:** STALE presence-only (proof in Parked; falsifier: `verify` blocked on mon_break_armor).
+- **drinkfountain park — do not re-pop:** misattributed quaff owner + hallu residual (proof/falsifier in Parked).
 
 ## Don't re-check (≤15)
 
