@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `explode.c` scatter — landmine `blow_up_landmine` object-scatter arm (named data.md:1046). Probe: `node scripts/brief.mjs scatter`.
 - [ ] `mkobj.c` copy_oextra / dealloc_oextra / extract_nobj tails — oextra copy/free + nobj-list extract in the delobj path (named data.md:300-301). Probe: `node scripts/brief.mjs copy_oextra`.
 - [ ] `trap.c` dotrap — hero trap-hit path (breath/gas/pit/arrow/door-trap arms; PORT-GAP honourable mention `trap.c:2996`, 64/39; corpus reaches: 10 sessions with hero-trap toplines, e.g. explore-seed0015 pit-dog-wait family). Probe: `node scripts/brief.mjs dotrap`.
 - [ ] `trap.c` mintrap — monster trap-hit path (pit/fall/arrow/door-trap arms for mtmp; PORT-GAP honourable mention `trap.c:3733`, 107/54; corpus reaches: 14 sessions with monster-trap toplines, e.g. explore-seed0015 pit-dog-wait family). Probe: `node scripts/brief.mjs mintrap`.

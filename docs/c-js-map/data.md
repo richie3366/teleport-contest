@@ -1045,7 +1045,10 @@ boulder-chain/`ship_object`/post-switch flooreffects deferred);
 iron-golem rust** (D-0508; **D-1095** gremlin `rn2(3)`→`split_mon`; **splash_lit D-1337**; 
 `update_inventory`; mlifesaver "starts to fall"; poly `body_part`; drown gremlin still named); 
 **`trapeffect_landmine` + `blow_up_landmine`** (D-0874; mon weight `rn2(cwt+1)` vs `WT_ELF/2`; 
-seed0014 **50259→52043**; omit `scatter`/fill_pit/drawbridge/`which_armor` iron shoes/steedintrap); 
+seed0014 **50259→52043**; omit fill_pit/drawbridge/`which_armor` iron shoes/steedintrap; 
+**`scatter` landmine arm + MAY_FRACTURE/MAY_DESTROY/uball/flooreffects/tail D-2274** — 
+`blow_up_landmine` awaits `scatter(x,y,4,MAY_DESTROY|MAY_HIT|MAY_FRACTURE|VIS_EFFECTS)` in C order; 
+shop bill + boulder-restack still named); 
 **`set_wounded_legs`→`encumber_msg` + `weight_cap` `WT_WOUNDEDLEG_REDUCT` + 
 preamble `oldcap` sync** (D-0400; load pline triggers bear `--More--`); 
 **`erode_obj` burn/damage/destroy envelope** (D-0491; 

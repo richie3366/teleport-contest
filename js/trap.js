@@ -4725,16 +4725,21 @@ async function trapeffect_web(mtmp, trap, trflags) {
 
 /**
  * C ref: trap.c blow_up_landmine — shared hero/mon landmine detonation.
- * Named omissions: scatter(MAY_DESTROY|MAY_HIT|MAY_FRACTURE|VIS_EFFECTS);
- * drawbridge destroy; fillholetyp/liquid_flow; fill_pit; maybe_dunk_boulders;
- * spot_checks.
+ * C order: scatter(4, MAY_DESTROY|MAY_HIT|MAY_FRACTURE|VIS_EFFECTS) first,
+ * then del_engr_at/wake_nearto/door/drawbridge/pit/fill.
+ * Named omissions: drawbridge destroy; fillholetyp/liquid_flow;
+ * fill_pit; maybe_dunk_boulders; spot_checks.
  */
-function blow_up_landmine(trap) {
+async function blow_up_landmine(trap) {
     if (!trap) return;
     const x = trap.tx | 0;
     const y = trap.ty | 0;
     const lev = game.level?.locations?.[x]?.[y];
-    // scatter deferred — object blast RNG named omission
+    await scatter(
+        x, y, 4,
+        MAY_DESTROY | MAY_HIT | MAY_FRACTURE | VIS_EFFECTS,
+        null,
+    );
     del_engr_at(x, y);
     wake_nearto(x, y, 400);
     if (lev && IS_DOOR(lev.typ)) lev.doormask = D_BROKEN;
@@ -4808,7 +4813,7 @@ async function trapeffect_landmine(mtmp, trap, trflags) {
         trap.ttyp = PIT;
         trap.madeby_u = false;
         await losehp(maybe_half_phys(damage), 'land mine', KILLED_BY_AN);
-        blow_up_landmine(trap);
+        await blow_up_landmine(trap);
         newsym(u.ux, u.uy);
         const pit = t_at(u.ux, u.uy);
         if (pit) await dotrap(pit, RECURSIVETRAP);
@@ -4852,7 +4857,7 @@ async function trapeffect_landmine(mtmp, trap, trflags) {
         await pline('Kaablamm!  You hear an explosion in the distance!');
     }
     // C captures tx/ty before blow_up for fill_pit (deferred)
-    blow_up_landmine(trap);
+    await blow_up_landmine(trap);
     /* explosion might have destroyed a drawbridge; don't dish out more
        damage if monster is already dead */
     if ((mtmp.mhp | 0) <= 0
