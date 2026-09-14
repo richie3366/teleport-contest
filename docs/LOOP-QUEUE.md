@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `shk.c` credit_report — shop credit/debit report (C shk.c:628; no live export; named data.md:1049, D-2274 residual). Probe: `node scripts/brief.mjs credit_report`.
 - [ ] `eat.c` newuhs — hunger-state messages + faint/starve arms (TOP30 #1; C eat.c:3362, 151 ln vs JS 14; reached by every session that gets Hungry). Probe: `node scripts/brief.mjs newuhs`.
 - [ ] `do_name.c` x_monnam — saddle / ARTICLE_* / M2_PNAME / Wizard-article arms (TOP30 #12; 61 C callers; every monster name printed). Probe: `node scripts/brief.mjs x_monnam`.
 - [ ] `end.c` really_done — death-disclosure tail arms (TOP30 #21; reached by every scen-death session). Probe: `node scripts/brief.mjs really_done`.

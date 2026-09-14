@@ -54,7 +54,7 @@ import { dist2, highc, online2, upstart, depth } from './hacklib.js';
 import { choose_stairs } from './wizard.js';
 import { in_rooms, stop_occupation } from './hack.js';
 import {
-    ESHK, EPRI, IS_ROOM, IS_DOOR, IS_WALL, ZAP_POS, NOTONL, u_at, isok,
+    ESHK, EPRI, BEFORE, NOW, IS_ROOM, IS_DOOR, IS_WALL, ZAP_POS, NOTONL, u_at, isok,
     ROOMOFFSET, SHOPBASE, ACH_SHOP, SVALL, ROWNO, COLNO,
     D_CLOSED, D_BROKEN, D_LOCKED, REPAIR_DELAY,
     LANDMINE, BEAR_TRAP, HOLE, PIT, SPIKED_PIT,
@@ -436,6 +436,48 @@ async function rob_shop(shkp) {
 
     hot_pursuit(shkp);
     return true;
+}
+
+/** C shk.c credit_snap — BEFORE/NOW snapshot of shop credit/debit/loan. */
+const credit_snap = [
+    [0, 0, 0],
+    [0, 0, 0],
+];
+
+/**
+ * C ref: shk.c credit_report `:628–661` — snapshot `eshkp->credit/debit/loan`
+ * into the BEFORE (`idx` 0, baseline, no message) or NOW (`idx` nonzero → 1)
+ * row, then report the delta (`Your("debt has increased/credit has been
+ * reduced by %ld %s.")`). Async only because the report plines.
+ */
+export async function credit_report(shkp, idx, silent) {
+    const eshkp = ESHK(shkp);
+    if (!idx) {
+        credit_snap[BEFORE][0] = credit_snap[NOW][0] = 0;
+        credit_snap[BEFORE][1] = credit_snap[NOW][1] = 0;
+        credit_snap[BEFORE][2] = credit_snap[NOW][2] = 0;
+    } else {
+        idx = 1;
+    }
+
+    credit_snap[idx][0] = eshkp.credit | 0;
+    credit_snap[idx][1] = eshkp.debit | 0;
+    credit_snap[idx][2] = eshkp.loan | 0;
+
+    if (idx && !silent) {
+        let amt = 0;
+        let msg = 'debt has increased';
+
+        if (credit_snap[NOW][0] < credit_snap[BEFORE][0]) {
+            amt = credit_snap[BEFORE][0] - credit_snap[NOW][0];
+            msg = 'credit has been reduced';
+        } else if (credit_snap[NOW][1] > credit_snap[BEFORE][1]) {
+            amt = credit_snap[NOW][1] - credit_snap[BEFORE][1];
+        } else if (credit_snap[NOW][2] > credit_snap[BEFORE][2]) {
+            amt = credit_snap[NOW][2] - credit_snap[BEFORE][2];
+        }
+        if (amt) await pline(`Your ${msg} by ${amt} ${currency(amt)}.`);
+    }
 }
 
 /**

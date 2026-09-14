@@ -1054,7 +1054,7 @@ iron-golem rust** (D-0508; **D-1095** gremlin `rn2(3)`→`split_mon`; **splash_l
 seed0014 **50259→52043**; omit fill_pit/drawbridge/`which_armor` iron shoes/steedintrap; 
 **`scatter` landmine arm + MAY_FRACTURE/MAY_DESTROY/uball/flooreffects/tail D-2274** — 
 `blow_up_landmine` awaits `scatter(x,y,4,MAY_DESTROY|MAY_HIT|MAY_FRACTURE|VIS_EFFECTS)` in C order; 
-shop bill + boulder-restack still named; **`invent.c` `sobj_at` canonical D-2281** (`js/mkobj.js:2184` export in C position before `nxtobj`; 9 file-local clones retired to the import — detect/dig/dokick/fountain/hack/mklev/mthrowu/teleport/trap; residual dbridge/music/steed + 7 renamed variants stay local, own Open row)); 
+shop bill live D-2282 (`credit_report` canonical `js/shk.js:453` + `scatter` baseline/gold-`addtobill`/`lostgoods` arms); boulder-restack still named; **`invent.c` `sobj_at` canonical D-2281** (`js/mkobj.js:2184` export in C position before `nxtobj`; 9 file-local clones retired to the import — detect/dig/dokick/fountain/hack/mklev/mthrowu/teleport/trap; residual dbridge/music/steed + 7 renamed variants stay local, own Open row)); 
 **`set_wounded_legs`→`encumber_msg` + `weight_cap` `WT_WOUNDEDLEG_REDUCT` + 
 preamble `oldcap` sync** (D-0400; load pline triggers bear `--More--`); 
 **`erode_obj` burn/damage/destroy envelope** (D-0491; 

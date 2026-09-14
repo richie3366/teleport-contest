@@ -32,8 +32,9 @@
 // Role_switch damu only for known role pm;
 // resists_magm worn/artifact ANTIMAGIC scan;
 // explode_show_visible already owns explosion_to_glyph;
-// scatter shop bill/VIS_EFFECTS/boulder-restack (credit_report/sobj_at
-// named; VIS_EFFECTS commented out in C).
+// scatter shop bill live via shk.js credit_report (D-2282);
+// VIS_EFFECTS/boulder-restack named (VIS_EFFECTS commented out in C;
+// sobj_at residual row).
 
 import { game } from './gstate.js';
 import { d, rn2, rnd } from './rng.js';
@@ -53,7 +54,7 @@ import { sticks } from './engrave.js';
 import { Soundeffect, se_blast } from './sndprocs.js';
 import { digests } from './mhitu.js';
 import {
-    maybe_half_phys, nomul, stop_occupation, You_hear,
+    maybe_half_phys, nomul, stop_occupation, You_hear, in_rooms,
 } from './hack.js';
 import { exercise, A_STR } from './attrib.js';
 import {
@@ -66,7 +67,7 @@ import {
     engulfing_u,
     N_DIRS, xdir, ydir, ZAP_POS, IS_DOOR, IS_SINK, STONE,
     LARGEST_INT, MAY_HITMON, MAY_HITYOU, MAY_DESTROY, MAY_FRACTURE,
-    D_ISOPEN, D_NODOOR, D_BROKEN, STATUE_TRAP,
+    D_ISOPEN, D_NODOOR, D_BROKEN, STATUE_TRAP, SHOPBASE,
 } from './const.js';
 import {
     pmnames, G_UNIQ, MR_FIRE, MR_COLD, MR_ELEC, MR_DISINT, MR_POISON,
@@ -85,6 +86,7 @@ import { dmgval } from './weapon.js';
 import { Tobjnam } from './objnam.js';
 import { unpunish } from './read.js';
 import { fracture_rock, break_statue } from './dig.js';
+import { shop_keeper, costly_spot, credit_report, addtobill } from './shk.js';
 import { breaks } from './dothrow.js';
 import { flooreffects } from './do.js';
 import { maybe_unhide_at } from './monmove.js';
@@ -124,6 +126,7 @@ const SCR_FIRE = objectNames.indexOf('SCR_FIRE');
 const BOULDER = objectNames.indexOf('BOULDER');
 const STATUE = objectNames.indexOf('STATUE');
 const EGG = objectNames.indexOf('EGG');
+const GOLD_PIECE = objectNames.indexOf('GOLD_PIECE');
 /** C ref: objclass.h material order — GLASS == 19 (cf. dothrow.js). */
 const GLASS = 19;
 
@@ -863,9 +866,11 @@ function closed_door(x, y) {
  * flooreffects-gated place_object+stackobj; hideunder/mtrapped/maybe_unhide
  * tail. Live callers: trap.js launch_obj ROLL LANDMINE (D-1256) and
  * blow_up_landmine (trap.c:3178) with C flags.
- * Named omit: shop_origin baseline + gold addtobill/lostgoods (no live
- * credit_report export); boulder restack sobj_at (no canonical export —
- * 12 local clones); VIS_EFFECTS (commented out in C too).
+ * Shop arms live (D-2282): shop_origin baseline + gold addtobill/lostgoods
+ * via the canonical shk.js credit_report.
+ * Named omit: boulder restack sobj_at (residual exact-name clones dbridge/
+ * music/steed + 7 renamed variants, own Open row); VIS_EFFECTS (commented
+ * out in C too).
  * @returns {number} total quantity that left the origin square
  */
 export async function scatter(sx, sy, blastforce, scflags, obj = null) {
@@ -874,6 +879,7 @@ export async function scatter(sx, sy, blastforce, scflags, obj = null) {
     const schain = [];
     let farthest = 0;
     let total = 0;
+    let lostgoods = false;
 
     // C explode.c:747-749 — scattered obj must be at the scatter site.
     if (individual && ((obj.ox | 0) !== (sx | 0) || (obj.oy | 0) !== (sy | 0))) {
@@ -881,7 +887,12 @@ export async function scatter(sx, sy, blastforce, scflags, obj = null) {
             `scattered object <${obj.ox},${obj.oy}> not at scatter site <${sx},${sy}>`,
         );
     }
-    // C shop_origin/credit_report baseline omitted (no live export).
+
+    // C explode.c:744-747 — shop baseline for the scatter credit report.
+    const originRooms = in_rooms(sx, sy, SHOPBASE);
+    const shkp = shop_keeper(originRooms ? originRooms.charCodeAt(0) : 0);
+    const shop_origin = !!shkp && costly_spot(sx, sy);
+    if (shop_origin) await credit_report(shkp, 0, true);
 
     while (true) {
         let otmp = individual ? obj : objects_at(sx, sy);
@@ -1024,15 +1035,30 @@ export async function scatter(sx, sy, blastforce, scflags, obj = null) {
         }
     }
 
+    // C explode.c:913 — hero shop room for the bill check below (`''` when
+    // the hero is outside a shop; `includes('')` is true, matching C
+    // `strchr(u.urooms, '\0')` returning non-null).
+    const heroShopRooms = in_rooms(game.u?.ux | 0, game.u?.uy | 0, SHOPBASE);
+    const heroShopCh = (heroShopRooms || '')[0] || '';
     for (const stmp of schain) {
         const x = stmp.ox | 0;
         const y = stmp.oy | 0;
+        let obj_left_shop = false;
         if (stmp.obj) {
             if (x !== (sx | 0) || y !== (sy | 0)) {
                 total += stmp.obj.quan | 0;
+                obj_left_shop = shop_origin && !costly_spot(x, y);
             }
-            // C shop-gold addtobill omitted (no live credit_report export).
             if (!(await flooreffects(stmp.obj, x, y, 'land'))) {
+                if (obj_left_shop && ((game.u?.urooms || '').includes(heroShopCh))) {
+                    // C explode.c:914-929 — only gold is billed on the way
+                    // out of the shop; other goods keep the full
+                    // asking-price bill by default.
+                    if ((stmp.obj.otyp | 0) === GOLD_PIECE) {
+                        await addtobill(stmp.obj, false, false, true);
+                        lostgoods = true;
+                    }
+                }
                 place_object(stmp.obj, x, y);
                 stackobj(stmp.obj);
             }
@@ -1049,5 +1075,8 @@ export async function scatter(sx, sy, blastforce, scflags, obj = null) {
         if (mtmp && mtmp.mtrapped) mtmp.mtrapped = 0;
     }
     await maybe_unhide_at(sx, sy);
+    // C explode.c:944-945 — report the scattered-out gold (implies
+    // shop_origin, so shkp is valid).
+    if (lostgoods) await credit_report(shkp, 1, false);
     return total;
 }
