@@ -84,7 +84,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `potion.c` make_sick Unaware talk suppress (D-2283 residual; `#wizintrinsic` KILLED_BY shipped). Probe: `node scripts/brief.mjs make_sick`.
+**Next cluster:** `wizcmds.c` wish count-prefix + unavailcmd + make_blinded talk variants (D-2283 residuals). Probe: `node scripts/brief.mjs do_wish`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2292 (index).**
 <!-- recent:begin -->
