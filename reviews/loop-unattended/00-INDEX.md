@@ -1235,3 +1235,10 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1222-ea39a7f9-splev-initlev-cluster.md](./1222-ea39a7f9-splev-initlev-cluster.md) | `ea39a7f9` | D-2256 splev_initlev cluster | **ACCEPT** |
 | [1223-9ea0c9bc-m-lined-up-thrwmm.md](./1223-9ea0c9bc-m-lined-up-thrwmm.md) | `9ea0c9bc` | D-2257 m_lined_up mux + thrwmm | **ACCEPT** |
 | [1224-a74f318a-trapeffect-magic-trap-steedintrap.md](./1224-a74f318a-trapeffect-magic-trap-steedintrap.md) | `a74f318a` | D-2258 trapeffect_magic_trap steedintrap | **ACCEPT** |
+| [1225-e277f895-mhitu-pm-identity.md](./1225-e277f895-mhitu-pm-identity.md) | `e277f895` | D-2259 mhitu PM identity Must-fix | **ACCEPT** |
+| [1226-9d218d29-mhitm-curs-dcay-deth-drli.md](./1226-9d218d29-mhitm-curs-dcay-deth-drli.md) | `9d218d29` | D-2260 mhitm CURS/DCAY/DETH/DRLI | **ACCEPT** |
+| [1227-3c20f022-uhitm-sgld-curs-dcay-slim.md](./1227-3c20f022-uhitm-sgld-curs-dcay-slim.md) | `3c20f022` | D-2261 uhitm SGLD/CURS/DCAY/SLIM | **ACCEPT-WITH-DEBT** |
+| [1228-635fe331-polyself-shift-merge-revert.md](./1228-635fe331-polyself-shift-merge-revert.md) | `635fe331` | D-2262 polyself shift/merge/revert | **ACCEPT** |
+| [1229-70358552-litroom-tail-snuff.md](./1229-70358552-litroom-tail-snuff.md) | `70358552` | D-2263 litroom tail + snuff | **ACCEPT** |
+| [1230-b805da3c-makemon-rnd-goodpos.md](./1230-b805da3c-makemon-rnd-goodpos.md) | `b805da3c` | D-2264 makemon_rnd_goodpos | **ACCEPT** |
+| [1231-8c1c209d-mksobj-init-envelope.md](./1231-8c1c209d-mksobj-init-envelope.md) | `8c1c209d` | D-2265 mksobj_init envelope | **ACCEPT** |

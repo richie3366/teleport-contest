@@ -4,7 +4,6 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 
 ## Active
 
-- **Next port:** Open — `mdamagem` AD_CURS/AD_DCAY/AD_DETH (mon→mon). Probe: `brief.mjs mhitm_ad_curs`.
 - **mkclass_aligned park — do not re-pop:** presence-only (0 blocked at f7aec9b3 and working; Healer-92042@73 owned by rloc, Tourist-92100@131 by collect_coords; step-73 mkclass_aligned draws all in matched rng prefix; falsifier: `verify` blocked on mkclass_aligned).
 - **get_location park — do not re-pop:** presence-only (0 blocked at f7aec9b3 and working; same pair — Healer-92042@73 owned by rloc, Tourist-92100@131 by collect_coords; arrival-gen get_location draws all in matched rng prefix; JS follows C on every live path, gaps are map-named is_ok_location Is_waterlevel + unreachable scan-falloff; falsifier: `verify` blocked on get_location).
 - **Work picker:** `hidden-proxy queue`; singletons Deferred — do not re-add without a fired falsifier.
@@ -53,5 +52,4 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 - D-2254: `pickvampshape` now is the C `switch (mndx)` with FALLTHROUGH: `PM_VLAD` → `if (mon_has_special(mon)) break;` → `wolfchance = 3` → `PM_VAMPIRE_LEADER` Named: `canseemon` in the fog/vampire arms still lacks the `worm_known` wormno arm (D-1548, uncha
 - D-2253: new `export function has_aggravatables(mon)` in wizard.js in C order: caster-vs-hero `In_W_tower` mismatch → false; fmon scan skipping dead and other- Named: none in this cluster.
 - D-2252: `buzzmu` now follows the C body in order: `BZ_VALID_ADTYP` (const.js) silent miss → `mcan || m_seenres` → `cursetxt` + miss → `lined_up(mtmp) && rn2(3 Named: the one-arg `dobuzz`/`zhitu` `flash_str` sites in zap.js (C passes FALSE at `zap.c:4811–50
-- D-2251: `js/mhitu.js` — `mhitm_ad_sgld_u` / `_curs_u` / `_dcay_u` / `_slim_u` / `_deth_u` in C branch/short-circuit order (DETH as the C switch with the 17–19 Named: uhitm and mhitm arms of CURS/DCAY/SLIM/DETH (uhitm night-chuckle cancel, `munslime`/`newch
 <!-- landmarks:end -->
