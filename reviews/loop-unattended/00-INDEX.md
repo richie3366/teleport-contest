@@ -1254,3 +1254,9 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1241-64fb2e96-copy-oextra-mailcmd.md](./1241-64fb2e96-copy-oextra-mailcmd.md) | `64fb2e96` | D-2275 copy_oextra + mailcmd | **ACCEPT-WITH-DEBT** |
 | [1242-1237c4d4-enlightenment-upolyd-arm.md](./1242-1237c4d4-enlightenment-upolyd-arm.md) | `1237c4d4` | D-2276 enlightenment Upolyd arm | **ACCEPT** |
 | [1243-3fcfefe2-mb-trapped-twins.md](./1243-3fcfefe2-mb-trapped-twins.md) | `3fcfefe2` | D-2277 mb_trapped dig/lock twins | **ACCEPT** |
+| [1244-80a22605-splitbill-unpaid-split.md](./1244-80a22605-splitbill-unpaid-split.md) | `80a22605` | D-2278 splitbill unpaid split | **ACCEPT** |
+| [1245-03e14d51-obj-split-light-source.md](./1245-03e14d51-obj-split-light-source.md) | `03e14d51` | D-2279 obj_split_light_source | **ACCEPT** |
+| [1246-93fca552-obj-move-timers.md](./1246-93fca552-obj-move-timers.md) | `93fca552` | D-2280 obj_move_timers | **ACCEPT** |
+| [1247-203f6f60-sobj-at-canonical.md](./1247-203f6f60-sobj-at-canonical.md) | `203f6f60` | D-2281 sobj_at canonical | **ACCEPT** |
+| [1248-8d7e09a9-credit-report-scatter.md](./1248-8d7e09a9-credit-report-scatter.md) | `8d7e09a9` | D-2282 credit_report + scatter | **ACCEPT** |
+| [1249-7942532c-make-sick-wizintrinsic.md](./1249-7942532c-make-sick-wizintrinsic.md) | `7942532c` | D-2283 make_sick #wizintrinsic | **ACCEPT** |

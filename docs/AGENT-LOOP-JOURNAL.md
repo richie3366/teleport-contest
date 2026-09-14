@@ -8,6 +8,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-14 — Audit 80a22605..7942532c (reviews 1244–1249: 6 ACCEPT, 0 Must-fix) + cadence 44/44
+
+Six JS SHAs since 1243, each reviewed against pinned C with `csym` body + `--callers`, `sym.mjs`, `--can`, added-line banned-pattern scan, and an independent `hidden-proxy verify --base HASH~1` re-run. 1244 splitbill (C fall-through decrement preserved, ALREADY edge), 1245 light split (snapshot+unshift = C head-insert order, callees file-local), 1246 obj_move_timers (dead API in C too, panic→throw order kept), 1247 sobj_at canonical (9 clones retired, `|0` C-exact for int otyps, full 44/44 auto), 1248 credit_report + scatter arms (strchr-NUL quirk preserved, only 2 C callers both awaited), 1249 make_sick kpfx (re-measured PROGRESS: Archeologist-92015 → PASS, 1/0/0/0). Five vacuous verifies all honestly disclosed; zero C-wrongs → no Must-fix, queue stays 11 Open (≥8, no refill). Cadence full `sessions`: 44/44, Scr 11,405/11,405, RNG 792,838/792,838, speed `47+0.29/turn` (R² 0.79).
 ## 2026-09-14 — D-2283 `potion.c` make_sick: "#wizintrinsic" SICK killer takes KILLED_BY (queue row `end.c` really_done death-disclosure tail)
 
 **C locus:** `potion.c:178–188` (`make_sick` `:137–190` tail: `kptr = find_delayed_killer(SICK)`; `if (Sick) { exercise(A_CON, FALSE); if (xtime || !old || !kptr) { int kpfx = ((cause && !strcmp(cause, "#wizintrinsic")) ? KILLED_BY : KILLED_BY_AN); delayed_killer(SICK, kpfx, cause); } } else dealloc_killer(kptr)`). Caller `wizcmds.c:1036–1038` passes the literal `"#wizintrinsic"` (D-1998); the SICK death then reads the delayed entry (`timeout.c` D-2160 arm) and the tombstone wraps `poisoned by` + bare name vs `poisoned by a` + name.
