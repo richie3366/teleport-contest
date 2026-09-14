@@ -4850,8 +4850,8 @@ export async function use_candelabrum(obj) {
 /**
  * C ref: apply.c use_candle — attach to carried candelabrum (spe<7) or
  * use_lamp. Swallow → no_elbow_room. Named omit: safe_qbuf truncation;
- * SetVoice; update_inventory; obj_split_light_source on lit split;
- * obfree oextra.
+ * SetVoice; update_inventory; obfree oextra.
+ * Lit split carries its light via splitobj → obj_split_light_source.
  */
 export async function use_candle(optr) {
     let obj = optr;

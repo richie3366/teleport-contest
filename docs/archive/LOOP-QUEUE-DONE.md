@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-14
 
-- [x] `shk.c` splitbill — unpaid split billing on stack split (named data.md:300, debt.md:14 eat.js "unpaid splitbill", js/mkobj.js:349; copy_oextra-envelope residual). Probe: `node scripts/brief.mjs splitbill`. **Addressed:** D-2278
+- [x] `light.c` obj_split_light_source — light-source split on stack split (named data.md:300 "light", js/mkobj.js:349, js/apply.js:4853; copy_oextra-envelope residual). Probe: `node scripts/brief.mjs obj_split_light_source`. **Addressed:** D-2279
+
+
+- [x] `shk.c` splitbill — unpaid split billing on stack split (named data.md:300, debt.md:14 eat.js "unpaid splitbill", js/mkobj.js:349; copy_oextra-envelope residual). Probe: `node scripts/brief.mjs splitbill`. **Addressed:** D-2278 `80a22605`
 
 
 - [x] `monmove.c` mb_trapped dig/lock twins — trapped-door `mondied`/lifesave + `mon_learns_traps(TRAPPED_DOOR)` still stubs in `dig.js:940` + `lock.js:794` (canonical export shipped this iteration in `monmove.js`; lock's keeps `wake_nearto`, dig's lacks it; corpus reaches trapped-door arms via monmove door-smash + dig/lock paths). Probe: `node scripts/brief.mjs mb_trapped`. **Addressed:** D-2277 `3fcfefe2`

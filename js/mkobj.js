@@ -73,7 +73,7 @@ import {
 import { set_tin_variety } from './eat.js';
 import { recalc_block_point, cansee } from './vision.js';
 import { del_light_source, discard_flashes, obj_sheds_light, obj_adjust_light_radius } from './light.js';
-import { arti_light_radius, get_obj_location } from './timeout.js';
+import { arti_light_radius, get_obj_location, obj_split_light_source } from './timeout.js';
 import { obfree, splitbill } from './shk.js';
 import { hands_obj } from './weapon.js';
 import { obj_resists } from './dogmove.js';
@@ -346,7 +346,7 @@ export function next_ident() {
  * C ref: mkobj.c splitobj — reduce obj->quan by num; return new stack of num.
  * nextoid shop-price search omitted: ordinary items take first oid then
  * next_ident() (one rnd(2)), matching non-shop dog_invent / throw paths.
- * Deferred: light sources (obj_split_light_source).
+ * Light split live via obj_split_light_source (C `:500–501`).
  */
 export function splitobj(obj, num) {
     const quan = obj?.quan || 1;
@@ -395,6 +395,8 @@ export function splitobj(obj, num) {
     if (has_omid(otmp)) free_omid(otmp); // only one association with m_id
     // C: if (obj->timed) obj_split_timers(obj, otmp)
     if (obj.timed) obj_split_timers(obj, otmp);
+    // C mkobj.c:500-501: if (obj_sheds_light(obj)) obj_split_light_source(obj, otmp)
+    if (obj_sheds_light(obj)) obj_split_light_source(obj, otmp);
     return otmp;
 }
 

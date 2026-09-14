@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `light.c` obj_split_light_source — light-source split on stack split (named data.md:300 "light", js/mkobj.js:349, js/apply.js:4853; copy_oextra-envelope residual). Probe: `node scripts/brief.mjs obj_split_light_source`.
 - [ ] `zap.c` poly_obj dealloc_oextra arm — oextra drop on polymorph (C zap.c:5564; named data.md:300-301, js/mkobj.js:2705; copy_oextra-envelope residual). Probe: `node scripts/brief.mjs poly_obj`.
 - [ ] `timeout.c` obj_move_timers — migrating-object timer carry (C timeout.c:2339; named data.md:239, D-1572 envelope; copy_oextra-envelope residual). Probe: `node scripts/brief.mjs obj_move_timers`.
 - [ ] `invent.c` sobj_at canonical export — boulder-restack pile scan (12 local clones, no canonical export; named data.md:1049, D-2274 residual). Probe: `node scripts/brief.mjs sobj_at`.
