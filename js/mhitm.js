@@ -156,7 +156,8 @@ import { recalc_block_point } from './vision.js';
 import { mon_leaving_level } from './mon.js';
 import { wary_dog } from './dog.js';
 import { wizdeadorgone } from './wizard.js';
-import { nemdead, leaddead } from './quest.js';
+import { nemdead, leaddead, nemesis_stinks } from './quest.js';
+import { stinky_nemesis } from './questpgr.js';
 import { record_achievement } from './insight.js';
 import { livelog_printf } from './pline.js';
 import { shtypes } from './shknam.js';
@@ -3029,9 +3030,8 @@ export function shkgone(mtmp) {
  * usteed dismount. mptr is the pre-death data (mondeadsaves it before the
  * cham/were restore, `:3112`). Callers: mondead (TRUE); mongone keeps its
  * D-1149 body (FALSE arm still named).
- * Named omissions: stinky_nemesis/nemesis_stinks gas (quest-text
- * com_pager_core dependency; questpgr.js:811); minimal_monnam format in
- * the already-detached impossible arm (no JS port; mon_nam used).
+ * Named omissions: minimal_monnam format in the already-detached
+ * impossible arm (no JS port; mon_nam used).
  */
 export async function m_detach(mtmp, mptr, due_to_death) {
     const mx = mtmp.mx, my = mtmp.my;
@@ -3047,6 +3047,8 @@ export async function m_detach(mtmp, mptr, due_to_death) {
     if (due_to_death) {
         if ((mtmp.data?.msound | 0) === MS_NEMESIS) {
             await nemdead();
+            // C mon.c:2770-2773 — Arc/Cav/Pri kill texts leave a gas cloud.
+            if (await stinky_nemesis(mtmp)) await nemesis_stinks(mx, my);
         }
         if ((mtmp.data?.msound | 0) === MS_LEADER) leaddead();
         relobj_on_death(mtmp);
@@ -3083,7 +3085,7 @@ export async function m_detach(mtmp, mptr, due_to_death) {
 // restore, mvitals, quest/mail marks, Kops respawn, logdeadmon, unmap,
 // m_detach. Dead mons stay on fmon until dmonsfree — do not splice here.
 // Named omissions: mongone's m_detach(FALSE) caller arm (D-1149 body kept);
-// stinky_nemesis gas + minimal_monnam format inside m_detach; thiefdead
+// minimal_monnam format inside m_detach; thiefdead
 // stealarm arm; shkgone damage/has_shop arms; xkilled-side disintegested
 // writer + Maybe-not/vamp_rise readers (uhitm names them).
 export async function mondead(mtmp) {

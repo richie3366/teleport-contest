@@ -2339,15 +2339,15 @@ Arc nexttime pline; explicit single-line `output=text` deferred) +
 **`com_pager_core` synopsis `putmsghistory(FALSE)`** (D-1622; howtoput; 
 default+newline synthesize `[text]`; live Arc/Bar/Pri/Wiz/Kni lua 
 synopsis + legacy after NHW_MENU; convert_line pronoun `%Xh` is D-1634; 
-**`qt_pager` common retry** D-1662; array rn2 / pauper_legacy / 
-killed_nemesis `rawtext` named; convert_arg catalogue is D-1649); 
+**`qt_pager` common retry** D-1662; array rn2 / pauper_legacy named
+(`killed_nemesis` `rawtext` live D-2270); convert_arg catalogue is D-1649); 
 **`on_goal` goal_first/next/alt + Arc/Bar/Pri/**Kni** texts + Sam goal_first** (D-0620/D-0670/D-0928 #1193; D-2054 Sam goal_first body+meta; 
 other-role goal bodies; invent/migrating chains deferred) + 
 **`setup_role_race_from_rc` installs `questarti` for `%o`/`%O`** (D-0629; 
 Arc/Bar templates only — other-role questarti still omitted on `roles[]`); 
 **`goto_level` `at_dgn_entrance("The Quest")` → `com_pager(quest_portal*)`** (D-0650) + 
 **`quest_portal` explicit `output=pline` → `deliver_by_pline`** (D-0670; 
-Is_knox/bigroom ACH deferred; Rogue primitive pline D-0805); **`qt_pager` common retry** (D-1662; role miss → `"common"` + second nhl_init); pauper_legacy; other common com_pager msgids; array rn2
+Is_knox/bigroom ACH deferred; Rogue primitive pline D-0805); **`qt_pager` common retry** (D-1662; role miss → `"common"` + second nhl_init); pauper_legacy; other common com_pager msgids; array rn2; **`stinky_nemesis` gas arm + all-13-role `killed_nemesis` text/meta** (D-2270; `js/questpgr.js` export via `com_pager_core` rawtext, hero filecode, no common retry; wired in `js/mhitm.js` `m_detach` MS_NEMESIS arm → live `nemesis_stinks`; only Arc/Cav/Pri texts match)
 
 ### `src/invent.c` `look_here` / `dfeature_at` / `src/stairs.c`
 

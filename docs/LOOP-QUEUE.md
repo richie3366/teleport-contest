@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `questpgr.c` stinky_nemesis — nemesis stinking-cloud gas arm (named in `mon.c` mondead-tail D-2231 row; data.md:373). Probe: `node scripts/brief.mjs stinky_nemesis`.
 - [ ] `steal.c` thiefdead stealarm arm — stolen-goods restoration when a thief dies (named in mondead-tail D-2231 row; data.md:373). Probe: `node scripts/brief.mjs thiefdead`.
 - [ ] `shk.c` shkgone damage + has_shop arms (named in mondead-tail D-2231 row; data.md:373). Probe: `node scripts/brief.mjs shkgone`.
 - [ ] `mon.c` vamprises door-trap kill arm — vampire smashing a trapped door (door smash shipped D-2231; data.md:372-373). Probe: `node scripts/brief.mjs vamprises`.

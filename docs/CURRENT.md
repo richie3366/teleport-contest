@@ -47,7 +47,6 @@ the C recorder by `scripts/scenario-gen.mjs`) pass **7 / 275**, RNG
 they no longer pick work. Top owners: `welcome`→`calendar.c getlt` ×51,
 `do_statusline2` ×11, `break_armor` ×9, `exercise` ×8, `enlightenment`
 ×7, `wiz_intrinsic` ×7, 4 `ReferenceError` throws ×8 (Must-fix).
-Reviews 990–1215: ACCEPT/DEBT record in INDEX; Must-fix from those bands shipped.
 Reviews 1216–1224: 8 ACCEPT, 1 QUALITY-RISK (1217 mhitu `mons[PM_*]` identity — Must-fix D-2259).
 Reviews 1225–1231: 6 ACCEPT, 1 ACCEPT-WITH-DEBT (1227 uhitm `s_suffix` debt — already a live Open row, no Must-fix).
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score --jobs 8`
@@ -87,10 +86,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** D-2269 shipped.
+**Next cluster:** D-2270 shipped.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2269 (index).**
+**Keep D-0845…D-2270 (index).**
 <!-- recent:begin -->
+**D-2270** `questpgr.c:148–194` (`stinky_nemesis`), `mon.c:2768–2774` (`m_detach` MS_NEMESIS arm), `d — `questpgr.js` table + export, `m_detach` wiring → `nemesis_stinks`.
 **D-2269** `insight.c:1567–1570` (`Blnd_resist && !Blind` → `you_are("not subject to light-induced bl — Sunsword EBlnd_resist + what_gives (artifact.js), from_what(-BLINDED) (attrib.js), Vision-head arms (invent.js).
 **D-2268** `hacklib.c:345–359` (`s_suffix`): `it`→`its`, `you`→`your` (both `strcmpi`, case-insensiti — deleted the local clone; added `s_suffix` to the existing `do_name.js` import (`imports.mjs --can uhitm.js do_name.js s_suffix` → ALREADY, no new edge, no TDZ risk).
 **D-2267** `do_wear.c:326–380` (`Cloak_on`); oilskin arm `:364–366` (`pline("%s very tightly.", Tobjn — `js/do_wear.js` `Cloak_on` is now the C switch in C order: plain-cloak breaks; PROTECTION `makeknown`; ELVEN `toggle_stealth`; DISPLACEMENT `toggle_displacement`; MUMMY checks the `(HInvis|EInvis)` flats (not full `Invis
@@ -98,11 +98,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2265** `mkobj.c:868–1175` (`mksobj_init`): FOOD `otmp->oeaten = 0`; TIN (`corpsenm = NON_PM`, `!r — `js/mkobj.js` — FOOD sets `oeaten = 0`; TIN sets `corpsenm = NON_PM` up front, calls imported `set_tin_variety(otmp, SPINACH_TIN | RANDOM_TIN)` (canonical `eat.js` export, hoisted so the new `mkobj→eat` edge is cycle-saf
 **D-2264** `makemon.c:1076–1137` (`makemon_rnd_goodpos`); `:1085` (`gpflags |= GP_AVOID_MONPOS`); `:1 — `js/makemon.js` — mutate the parameter in place (`if (!bl) gpflags &= ~GP_CHECKSCARY;`, no per-pass copy) and pass `gpflags` to all three fallback `goodpos` calls: exact C control flow (the C parameter is pass-by-value, 
 **D-2263** `read.c:2473–2488` (`set_lit`: `levl[x][y].lit = 1` + `m_at` gremlin queue via `data == &m — `js/light.js` — new `export function snuff_light_source(x, y)` in C order (index loop over `game.light_base`, `| 0` coords, first LS_OBJECT match, `obj_is_burning` gate, artifact skip, `end_burn(obj, otyp !== MAGIC_LAMP)
-**D-2262** `polyself.c:469–733` (`polyself`): `:500–504` formrevert (`mntmp = youmonst.cham`, `monste — `js/polyself.js`.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2269; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2270; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
