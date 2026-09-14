@@ -24,7 +24,7 @@ import {
     has_emin, has_epri, has_eshk, has_mcorpsenm, MCORPSENM,
     Has_contents, RLOC_MSG, RLOC_NOMSG, XKILL_NOMSG,
     NO_MM_FLAGS, NATTK, PROT_FROM_SHAPE_CHANGERS, NO_WEAPON_WANTED, engulfing_u,
-    W_SADDLE,
+    W_SADDLE, OBJ_MINVENT,
 } from './const.js';
 import { t_at, m_harmless_trap, water_damage_chain, fire_damage_chain, fixed_tele_trap } from './trap.js';
 import {
@@ -56,13 +56,13 @@ import {
 import { PM_GRID_BUG, PM_TOURIST } from './generated/monsters_data.js';
 import { enexto, rloc_to, rloc, tele_restrict, noteleport_level, rloc_to_flag, migrate_to_level, rloco, control_mon_tele, goodpos } from './teleport.js';
 import { may_dig, fill_pit } from './dig.js';
-import { newsym, pline, pline_mon, verbalize, You_feel, sensemon, canseemon, canspotmon } from './display.js';
+import { newsym, pline, pline_mon, verbalize, You_feel, sensemon, canseemon, canspotmon, impossible } from './display.js';
 import { online2, level_difficulty } from './hacklib.js';
 import { worm_cross, level_mon_at, remove_worm } from './worm.js';
 import { Monnam, mon_nam, hliquid } from './do_name.js';
 import { cansee, couldsee, does_block, is_lightblocker_mappear, unblock_point, vision_recalc } from './vision.js';
 import { fightm, mondead, mondied } from './mhitm.js';
-import { remove_monster } from './steed.js';
+import { remove_monster, place_monster } from './steed.js';
 import { engr_at } from './engrave.js';
 import { visible_region_at, is_poisoncloud_region } from './region.js';
 import { were_change } from './were.js';
@@ -2952,24 +2952,45 @@ export async function mongone(mtmp) {
 }
 
 /**
- * C ref: mon.c replmon — swap map mon for larger/traits replacement.
- * Named omit: polearm.hitmon; worm segs; light sources; full replshk bill.
+ * C ref: mon.c replmon `:2515–2563` — swap map mon for larger/traits
+ * replacement. relmon off-map + fmon removal, then place_monster the
+ * replacement (unless it is the steed), worm segs via place_wsegs,
+ * light-source swap, fmon prepend, ustuck/usteed, replshk, dealloc.
+ * place_wsegs stays named for the worm.c row (same replmon, other callee);
+ * light sources + full replshk bill + set_ustuck botl stay named.
+ * `impossible()` stays fire-and-forget so this stays sync like C.
  */
 export function replmon(mtmp, mtmp2) {
     if (!mtmp || !mtmp2) return;
+    // C :2520–2524 — transfer replacement inventory, flag inconsistency.
     for (let otmp = mtmp2.minvent; otmp; otmp = otmp.nobj) {
+        if ((otmp.where | 0) !== OBJ_MINVENT || otmp.ocarry !== mtmp)
+            void impossible('replmon: minvent inconsistency');
         otmp.ocarry = mtmp2;
     }
     mtmp.minvent = null;
 
+    // C :2525–2527 — before relmon, which could clear polearm.hitmon.
     if (game.context?.polearm?.hitmon === mtmp) {
         game.context.polearm.hitmon = mtmp2;
         game.context.polearm.m_id = mtmp2.m_id | 0;
     }
 
+    // C :2530 relmon(mtmp, NULL) — off the map and out of fmon.
+    // Grid: worm heads clear segs, else clear the head cell when it
+    // still holds the old mon (C mon_leaving_level :2696–2720).
+    const omx = mtmp.mx | 0, omy = mtmp.my | 0;
+    if ((mtmp.wormno | 0)) remove_worm(mtmp);
+    else if (game._level_monsters?.get(`${omx},${omy}`) === mtmp)
+        game._level_monsters.delete(`${omx},${omy}`);
     const list = game.fmon || [];
     const i = list.indexOf(mtmp);
     if (i >= 0) list.splice(i, 1);
+
+    // C :2533–2535 — finish adding the replacement (steed stays off-map).
+    if (mtmp !== game.u?.usteed)
+        place_monster(mtmp2, mtmp2.mx, mtmp2.my);
+    // C :2536–2537 place_wsegs(mtmp2, mtmp) — named: next worm.c row.
     if (!list.includes(mtmp2)) list.unshift(mtmp2);
     game.fmon = list;
 

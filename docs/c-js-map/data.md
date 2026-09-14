@@ -525,10 +525,13 @@ DISP_BEAM / `save_light_sources` discard named);
 !is_vampshifter`** (See_invisible peaceful invis arm deferred); 
 **D-0751 `temperature_shift` + hell `clear_level_structures` temp**; 
 **D-1078 `clone_mon`** (HP half + caller max/2; enexto; no minvent); 
-**D-1565 `clone_mon` `place_monster` 2D grid** (`steed.c:897–932` / `makemon.c:898`; 
-live `js/steed.js`; `_level_monsters` + `MON_FLOOR`; gulpmm clone retired; 
-`level_mon_at` ignores stale mx/my; `cutworm` / makemon itself calling 
-`place_monster` named); **D-1252 `demonpet` caller** (`uhitm.c`; 
+**D-1565 `clone_mon` `place_monster` 2D grid** (`steed.c:897–932` / `makemon.c:898`;
+live `js/steed.js`; `_level_monsters` + `MON_FLOOR`; gulpmm clone retired;
+`level_mon_at` ignores stale mx/my; `cutworm` via live `clone_mon`;
+**D-2299** `replmon` place arm live (`mon.c:2533–2535` + relmon grid clear +
+inventory check) + `makemon` birth flags live (`:1296–1301` mcansee/mcanmove/
+mgenmklev/seen/MM_MINVIS); `makemon` grid `place_monster(mtmp,x,y)` deferred
+(movement stale-heads; own Open row); `place_wsegs` replmon stays next row); **D-1252 `demonpet` caller** (`uhitm.c`; 
 live `makemon` NO_MM_FLAGS + `tamedog` null FALSE);
 **D-1607 `mongets` demon/lminion/mplayer-sword/invocation** (`:2189–2214` after
 `mksobj`; `is_mplayer&&is_sword` `spe=3+rn2(4)`; callees `curse` /

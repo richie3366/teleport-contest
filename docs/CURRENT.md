@@ -87,8 +87,9 @@ divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
 **Next cluster:** `mon.c` place_monster cutworm/makemon callers (new queue head). Probe: `node scripts/brief.mjs place_monster`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2298 (index).**
+**Keep D-0845…D-2299 (index).**
 <!-- recent:begin -->
+**D-2299** `mon.c:2515–2563` `replmon` (inventory check `:2520–2524`, polearm `:2525–2527`, `relmon`  — `replmon` ports C order over live callees only — `impossible` (display.js), `place_monster` (steed.js), `OBJ_MINVENT` (const.js) and `remove_worm` (worm.js) all join already-imported modules (`imports.mjs --can`: all ALR
 **D-2298** `nethack-c/upstream/src/pager.c:2077–2141` `look_traps` (glyph branch `:2092–2096`: `glyph — port the C body in C order over live callees only — `glyph_at`/`glyph_is_trap`/`glyph_to_trap`/`trap_to_glyph` (display.js), `trap_description` (local, C `staticfn`), `t_at`/`trapname` (trap.js), `couldsee` (vision.js), 
 **D-2297** `nethack-c/upstream/src/region.c:79–127` create_region (box seeded from rects[0] then min/ — new exported `create_region(rects, nrect)` + `add_rect_to_reg(reg, rect)` in `js/region.js` (C order, `| 0` idiom, rects copied not aliased); both constructors now `create_region(null, 0)` + `add_rect_to_reg` per cell (i
 **D-2296** `dog.c:728–763` `mon_leave` (worm arm `:748–760`: `count_wsegs`, `min(cnt, MAX_NUM_WORMS-1 — `js/dog.js` gains `mon_leave` (C worm arm); keepdogs + `migrate_to_level` keep its count in `wormno`.
@@ -96,11 +97,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2294** `makemon.c:1297` (`mtmp->mpeaceful = (mmflags & MM_ANGRY) ? FALSE : peace_minded(ptr)`); ` — `js/makemon.js` only — `mpeaceful` ports the C ternary verbatim (`(mmflags & MM_ANGRY) ? 0 : (peace_minded(ptr) ? 1 : 0)`); template gains `mwandexp: false` beside `mtame` so the saved blob always carries the field like 
 **D-2293** `wizcmds.c:1004–1008` (`amt = count == -1 ? DEFAULT_TIMEOUT_INCR : count`, `amt <= 0` para — `js/options.js` — `select_menu_pick_any` ports the C counting verbatim through the existing helpers (no new module edge — `toggle_menu_curr`/`menu_digit_is_gacc` join the existing `invent.js` import, same SCC, call-time 
 **D-2292** `artifact.c:1490–1495` (FIRE `destroy_items` + `ignite_items(minvent)` inside `!rn2(4)`, b — FIRE/COLD/ELEC arms call the live canonicals in C order — `(await destroy_items(mdef, AD_*, dmgBox.dmg | 0)) | 0` added only when `!youdefend`, `await ignite_items(mdef?.minvent)` after on FIRE (hero minvent undefined → 
-**D-2291** `artifact.c:1026–1031` (`spec_applies` SPFX_DFLAG2: `(ptr->mflags2 & weap->mtype) || (your — the C `||` chain verbatim in C order (mflags2 first, then the yours gate): `!Upolyd(u)` + `(game.urace.selfmask & mtype)` selfmask arm, then `(mtype & M2_WERE) && ismnum(u.ulycn)` were arm with no Upolyd gate, per C shor
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2298; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2299; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

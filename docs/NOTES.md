@@ -29,19 +29,20 @@ Park rows: re-pop only on the listed falsifier (proofs in Parked).
 
 ## Don't re-check (≤15)
 
-- D-1790…D-2298 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-2299 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 are D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` loaders D-1852/D-1858 — check `load_val_*`/`load_sam_*` before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / `setnotworn`←`owornmask` (D-1020) / `delobj` tut loot / off-level timers (D-1037) / dropped `msounds[]` (D-1053) / tut-1 keys (D-1065) / skipped `tutorial()` (D-1066). No skip D-1067…D-2298.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, or makemon→hack/artifact/minion. No re-port D-1682…D-2298.
+- No memcpy gi worn/ball (D-1035) / `setnotworn`←`owornmask` (D-1020) / `delobj` tut loot / off-level timers (D-1037) / dropped `msounds[]` (D-1053) / tut-1 keys (D-1065) / skipped `tutorial()` (D-1066). No skip D-1067…D-2299.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, or makemon→hack/artifact/minion. No re-port D-1682…D-2299.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2299: `replmon` ports C order over live callees only — `impossible` (display.js), `place_monster` (steed.js), `OBJ_MINVENT` (const.js) and `remove_worm` (wo Named: `place_wsegs(mtmp2, mtmp)` in `replmon` (next Open row `worm.c` place_wsegs restore/replmo
 - D-2298: port the C body in C order over live callees only — `glyph_at`/`glyph_is_trap`/`glyph_to_trap`/`trap_to_glyph` (display.js), `trap_description` (local Named: `doidtrap` (the `^` single-cell command, C `:2335+` — its own C function, own future row);
 - D-2297: new exported `create_region(rects, nrect)` + `add_rect_to_reg(reg, rect)` in `js/region.js` (C order, `| 0` idiom, rects copied not aliased); both con Named: none new (`clone_region`/`create_msg_region`/`create_force_field` are `#if 0` in C too; bi
 - D-2296: `js/dog.js` gains `mon_leave` (C worm arm); keepdogs + `migrate_to_level` keep its count in `wormno`. Named: only `mon_leave` no_charge loop plus shk residency stay named.
@@ -56,5 +57,4 @@ Park rows: re-pop only on the listed falsifier (proofs in Parked).
 - D-2287: new `export function set_moreluck()` in `js/attrib.js` in C position (after `stone_luck`, matching `:441` after `:423`), C order (`stone_luck(TRUE)` f Named: none new (artidisco save/rest stays Deferred; full `set_levltyp` ice/lava/count; COIN_CLAS
 - D-2286: C order in C position — isok check first, returning `res` while still `ECMD_OK`; Confusion/Stunned cost after (stumble stays deferred between them, no Named: none new (`stumble_on_door_mimic`, portcullis/drawbridge close arms, steed close path, `fe
 - D-2285: all 10 defs deleted; `sobj_at` joins each file's existing static `mkobj.js` import — no new module edge (all 9 files already import `mkobj.js`; same S Named: none new (`mon.js:156` `bad_rock` Sokoban boolean loop and `mon.js:918` behind-monster bou
-- D-2284: the C arms verbatim in C order in `js/trap.js` `drown`, preserving short-circuit, RNG (`rn2(5)` wade, `rn2(3)` gremlin/teleport, `d(2,6)` rust), list, Named: none new (`lava_effects` stays its own live D-1913 port; `You/Your/pline_The`-as-`pline` i
 <!-- landmarks:end -->
