@@ -83,7 +83,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `trap.c` mlevel_tele_trap — MAGIC_PORTAL/LEVEL_TELEP arms (data.md:1085; valley/stronghold dest; monster level-teleport messages + RNG). Probe: `node scripts/brief.mjs mlevel_tele_trap`.
+**Next cluster:** `makemon.c` m_initweap — S_DEMON named specials + is_demon default FALLTHROUGH (data.md:443; D-0472; demon initial-weapon RNG + messages). Probe: `node scripts/brief.mjs m_initweap`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2288 (index).**
 <!-- recent:begin -->

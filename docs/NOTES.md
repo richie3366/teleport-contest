@@ -26,6 +26,7 @@ Park rows: re-pop only on the listed falsifier (proofs in Parked).
 - **newuhs:** STALE, full port D-1791.
 - **domonnoise/dismount_steed:** STALE DUPLICATEs (D-1915/885).
 - **test_move/domove_core:** STALE park 2026-09-14 — named arms live (D-1800/D-1270/D-1226); `verify` 0 blocked on both.
+- **arti_cost:** STALE DUPLICATE refill row — D-1719 triple live (proof in Parked; falsifier: `verify arti_cost` blocked with arti_cost/getprice as owner).
 
 ## Don't re-check (≤15)
 
