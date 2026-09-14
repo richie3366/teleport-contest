@@ -859,7 +859,7 @@ then **lookat tnum = `glyph_to_trap(glyph_at)` D-1787** (`pager.c:718–721`
 trap glyph with no `ftrap`, so `t_at&&tseen` never entered the helper;
 `brief_at` / `describe_looked` / `auto_describe_text` enter on
 `glyph_is_trap` and pass that tnum; floor objects no longer beat a
-trap glyph; `glyph_at_gbuf` clone deleted) then **`lookat` body D-1843**
+trap glyph; `glyph_at_gbuf` clone deleted) then **DEF_INVISIBLE shown-glyph dispatch D-2266** (`pager.c:1406–1417` keyed on shown `glyph_at` via live `glyph_is_invisible_id`, not `mon_glyph(mtmp)` — a hidden lich at an `I` cell described itself as seen; queue row `there_cmd_menu_next2u` was a literal-heuristic misattribution of the `;l.` farlook pick) then **`lookat` body D-1843**
 (`pager.c:656–802` / `glyphs.c:199–231`; `glyph_is_unexplored` →
 `"unexplored area"` vs cmap `S_stone` `!seenv` → `"unexplored"`;
 `glyph_to_cmap` live; `brief_at` / `auto_describe_text` are lookat buf

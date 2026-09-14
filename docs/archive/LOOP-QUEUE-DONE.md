@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-14
 
-- [x] `mkobj.c` mksobj_init — per-class object init arms vs C (`mkobj.c:868–1175`). Corpus reach: in 2 failing sessions' diverged-step traces (scen-tour-Healer-92042, scen-tour-Tourist-92100; committed scoreboard f7aec9b3). Probe: `node scripts/brief.mjs mksobj_init`. **Addressed:** D-2265
+- [x] `cmd.c` there_cmd_menu_next2u — blocks 1/553 corpus sessions (first at step 77): C «Ia remembered, unseen, creature» vs JS «La lich (it)» (remembered-invisible glyph vs seen monster in the next-to-you menu). Probe: `node scripts/hidden-proxy.mjs verify there_cmd_menu_next2u` (scen-tour-Wizard-91112). **Addressed:** D-2266
+
+
+- [x] `mkobj.c` mksobj_init — per-class object init arms vs C (`mkobj.c:868–1175`). Corpus reach: in 2 failing sessions' diverged-step traces (scen-tour-Healer-92042, scen-tour-Tourist-92100; committed scoreboard f7aec9b3). Probe: `node scripts/brief.mjs mksobj_init`. **Addressed:** D-2265 `8c1c209d`
 
 
 - [x] `makemon.c` makemon_rnd_goodpos — random-placement loop vs C (`makemon.c:1075–1137`). Corpus reach: in 2 failing sessions' diverged-step traces (scen-intrinsic-Barbarian-92165, scen-poly-Caveman-92202; committed scoreboard f7aec9b3). Probe: `node scripts/brief.mjs makemon_rnd_goodpos`. **Addressed:** D-2264 `b805da3c`

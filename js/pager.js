@@ -1563,6 +1563,18 @@ function describe_looked(x, y) {
         const nm = trap_description(glyph_to_trap(glyph), x, y);
         return { out: `^        a trap (${nm})`, first: nm, found: 1 };
     }
+    // C ref: pager.c do_screen_description `:1406–1417` — the
+    // DEF_INVISIBLE arm is glyph-driven (sym from the shown glyph_at),
+    // not m_at-driven: a shown 'I' describes as invisexplain even when
+    // mon_at returns the hidden monster (and when it returns none).
+    if (glyph_is_invisible_id(glyph)) {
+        const uu = game.u || {};
+        const usealt = ((uu.EDetect_monsters | 0) & I_SPECIAL) !== 0;
+        const unseen = (usealt || uu.Blind)
+            ? 'unseen creature'
+            : 'remembered, unseen, creature';
+        return { out: `I        ${an(unseen)}`, first: unseen, found: 1 };
+    }
     const mtmp = mon_at(x, y);
     if (mtmp) {
         // C ref: pager.c do_screen_description check_monsters (looked) +

@@ -1,6 +1,6 @@
 {
- "commit": "e277f895",
- "at": "2026-09-10T15:26:23.438Z",
+ "commit": "de6d6dd5",
+ "at": "2026-09-14T14:36:42.271Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -7487,16 +7487,16 @@
    "passed": false,
    "rngM": 11444,
    "rngT": 17689,
-   "scrM": 77,
+   "scrM": 78,
    "scrT": 137,
    "kind": "screen",
-   "step": 77,
+   "step": 78,
    "steps": 137,
-   "owner": "there_cmd_menu_next2u",
-   "loc": "cmd.c:4613",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "Ia remembered, unseen, creature",
-   "jsTopline": "La lich (it)",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-tour-Wizard-92103": {
