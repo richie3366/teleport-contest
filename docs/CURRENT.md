@@ -21,7 +21,7 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-14** — full `sessions` on the working tree
-(audit **1255–1260**, HEAD `e6f16d72`).
+(audit **1261–1269**, HEAD `3010c0c3`).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 `47+0.29/turn` (R² 0.79).
@@ -48,6 +48,7 @@ Reviews 1239–1243: 4 ACCEPT, 1 ACCEPT-WITH-DEBT (1241 SCR_MAIL debt: map mater
 Reviews 1244–1249: 6 ACCEPT, 0 Must-fix.
 Reviews 1250–1254: 5 ACCEPT, 0 Must-fix.
 Reviews 1255–1260: 6 ACCEPT, 0 Must-fix.
+Reviews 1261–1269: 8 ACCEPT, 1 ACCEPT-WITH-DEBT (1268 light MINVENT-carrier-mx debt: map note, no Must-fix).
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score --jobs 8`
 (≈200 s); when every family is ≥ 85 % PASS, grow it first:
 `node scripts/scenario-gen.mjs --n 120 --seed <iter×100>`.

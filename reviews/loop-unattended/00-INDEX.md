@@ -1271,3 +1271,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1258-6e17d879-artifact-hit-drli-elements.md](./1258-6e17d879-artifact-hit-drli-elements.md) | `6e17d879` | D-2292 artifact_hit elements + DRLI | **ACCEPT** |
 | [1259-ef5edc3c-wiz-intrinsic-count-unavail.md](./1259-ef5edc3c-wiz-intrinsic-count-unavail.md) | `ef5edc3c` | D-2293 wiz_intrinsic count + unavailcmd | **ACCEPT** |
 | [1260-e6f16d72-makemon-angry-mwandexp.md](./1260-e6f16d72-makemon-angry-mwandexp.md) | `e6f16d72` | D-2294 makemon MM_ANGRY + mwandexp | **ACCEPT** |
+| [1261-66311ced-kill-genocided-monsters-newcham.md](./1261-66311ced-kill-genocided-monsters-newcham.md) | `66311ced` | D-2295 kill_genocided_monsters newcham arm | **ACCEPT** |
+| [1262-71b0e959-mon-leave-worm-arm.md](./1262-71b0e959-mon-leave-worm-arm.md) | `71b0e959` | D-2296 dog.c mon_leave worm arm | **ACCEPT** |
+| [1263-bc47b92b-create-region-box-nrects.md](./1263-bc47b92b-create-region-box-nrects.md) | `bc47b92b` | D-2297 create_region box/nrects + add_rect_to_reg | **ACCEPT** |
+| [1264-dee0904f-look-traps-glyph-first.md](./1264-dee0904f-look-traps-glyph-first.md) | `dee0904f` | D-2298 look_traps glyph-first listing | **ACCEPT** |
+| [1265-d633d068-replmon-place-monster-birth-flags.md](./1265-d633d068-replmon-place-monster-birth-flags.md) | `d633d068` | D-2299 replmon place_monster + makemon birth flags | **ACCEPT** |
+| [1266-d8b36251-place-wsegs-callers.md](./1266-d8b36251-place-wsegs-callers.md) | `d8b36251` | D-2300 place_wsegs replmon/restore callers | **ACCEPT** |
+| [1267-775e5959-burnarmor-materialnm-helm.md](./1267-775e5959-burnarmor-materialnm-helm.md) | `775e5959` | D-2301 burnarmor materialnm helm prefix | **ACCEPT** |
+| [1268-d961718b-do-light-sources-show-trim.md](./1268-d961718b-do-light-sources-show-trim.md) | `d961718b` | D-2302 do_light_sources SHOW skeleton + trim | **ACCEPT-WITH-DEBT** |
+| [1269-3010c0c3-scatter-boulder-restack.md](./1269-3010c0c3-scatter-boulder-restack.md) | `3010c0c3` | D-2303 scatter boulder restack-to-top | **ACCEPT** |
