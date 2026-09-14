@@ -53,7 +53,7 @@ import {
 } from './display.js';
 import {
     curse, bless, uncurse, mksobj_at, rnd_class, mkobj, mkobj_at,
-    obj_extract_self, objects_at, delobj, mkgold,
+    obj_extract_self, objects_at, sobj_at, delobj, mkgold,
 } from './mkobj.js';
 import {
     water_damage, water_damage_chain, t_at, deltrap, mintrap, NO_TRAP_FLAGS,
@@ -662,14 +662,6 @@ export function nexttodoor(sx, sy) {
         }
     }
     return false;
-}
-
-/** C ref: mkobj.c sobj_at */
-function sobj_at(otyp, x, y) {
-    for (let o = objects_at(x, y); o; o = o.nexthere) {
-        if ((o.otyp | 0) === (otyp | 0)) return o;
-    }
-    return null;
 }
 
 /**

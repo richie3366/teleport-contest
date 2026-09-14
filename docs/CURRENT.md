@@ -82,10 +82,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `timeout.c` obj_move_timers — migrating-object timer carry (C timeout.c:2339; named data.md:239, D-1572 envelope; copy_oextra-envelope residual). Probe: `node scripts/brief.mjs obj_move_timers`.
+**Next cluster:** `invent.c` sobj_at canonical export — boulder-restack pile scan (12 local clones, no canonical export; named data.md:1049, D-2274 residual). Probe: `node scripts/brief.mjs sobj_at`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2280 (index).**
+**Keep D-0845…D-2281 (index).**
 <!-- recent:begin -->
+**D-2281** `invent.c:1466–1475` (`sobj_at`: walk `svl.level.objects[x][y]` nexthere chain, `otyp ==`  — new `export function sobj_at(otyp, x, y)` in `js/mkobj.js` directly before `nxtobj` (C position :1466 before :1479; same file as its C neighbor, whose `(otyp|0)===(type|0)` compare it shares — C-exact for int otyps). 9 c
 **D-2280** `timeout.c:2339–2353` (`obj_move_timers`: walk `gt.timer_base`; per TIMER_OBJECT match on  — new `export function obj_move_timers(src, dest)` in `js/mkobj.js` in C position (directly before `obj_split_timers`, matching C `:2339` before `:2358` — same file as its sibling, timer home per review 533).
 **D-2279** `light.c:779–803` (`obj_split_light_source`: walk `gl.light_base`; per LS_OBJECT match on  — new `export function obj_split_light_source(src, dest)` in `js/timeout.js` in C position (directly before `obj_merge_light_sources`, matching C `:779` before `:808` — same file as its sibling, both callees file-local, no
 **D-2278** `shk.c:3622–3658` (`splitbill`: `shop_keeper(*u.ushops)` + `inhishop` gate, `onbill(obj, s — new `export function splitbill(obj, otmp)` in `js/shk.js` in C position (directly before `sub_one_frombill`, matching C `:3623` before `:3660`), in C order: shkp gate → onbill gate → decrement → full-bill `unpaid = 0` el
@@ -93,11 +94,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2276** `insight.c:1859–1878` (`Upolyd && u.umonnum != u.ulycn && !(final == ENL_GAMEOVERDEAD && u — `js/invent.js` final builder — the C arm verbatim in C position (after Polymorph_control, before were-form): `Upolyd && umonnum != (ulycn ??
 **D-2275** `mkobj.c:416–448` (`copy_oextra`: null guards, `newoextra` when missing, `oname(ONAME_SKIP — new `export function copy_oextra(obj2, obj1)` in `js/mkobj.js` in C order (guards, `newoextra`, `has_oname` → live `oname` with `ONAME_SKIP_INVUPD`, `has_omonst` → `newomonst` + exact-copy assign (stale keys deleted = C 
 **D-2274** `explode.c:721–947` (`scatter`: impossible site-gate `:747–749`, uball/uchain `:762–771`,  — `js/explode.js` — `scatter` now follows C order: `await impossible` site-gate; uball/uchain arm (`u.uball`/`u.uchain` identity per ball.js, `Soundeffect(se_chain_shatters,25)`, `pline('The chain shatters!')`, `unpunish()
-**D-2273** `mon.c:2888–2987` (`vamprises`; trapped arm `:2966–2981`: `doormask = D_NODOOR`, `recalc_b — `js/monmove.js` — exported the canonical `mb_trapped` in C order (verbose gate, KABOOM/nearby-distant, `wake_nearto 49`, `mstun`, `rnd(15)`, `DEADMONSTER` → `await mondied` + still-dead TRUE with lifesave fallthrough to 
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2280; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2281; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

@@ -25,7 +25,7 @@ import {
 import { cansee, recalc_block_point, vision_recalc } from './vision.js';
 import { cvt_sdoor_to_door } from './detect.js';
 import {
-    mksobj_at, objects_at, obj_extract_self, delobj, place_object, weight,
+    mksobj_at, objects_at, sobj_at, obj_extract_self, delobj, place_object, weight,
     set_corpsenm, add_to_buried, stackobj, is_organic, start_timer, stop_timer,
     obj_ice_effects,
 } from './mkobj.js';
@@ -167,13 +167,6 @@ function closed_door(x, y) {
     const loc = game.level?.at(x, y);
     if (!loc || !IS_DOOR(loc.typ)) return false;
     return !!((loc.doormask || 0) & (D_CLOSED | D_LOCKED));
-}
-
-function sobj_at(otyp, x, y) {
-    for (let o = objects_at(x, y); o; o = o.nexthere) {
-        if (o.otyp === otyp) return o;
-    }
-    return null;
 }
 
 function canseemon(mtmp) {

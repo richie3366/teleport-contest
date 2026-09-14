@@ -33,7 +33,7 @@ import {
     FIRE_RES, ANTIMAGIC, LEVITATION, FLYING, WWALKING, SWIMMING,
     MAGICAL_BREATHING, I_SPECIAL, ECMD_TIME,
 } from './const.js';
-import { objects_at, mksobj, obj_extract_self, place_object } from './mkobj.js';
+import { objects_at, sobj_at, mksobj, obj_extract_self, place_object } from './mkobj.js';
 import { objectNames, SPBOOK_CLASS } from './objects.js';
 import {
     amorphous, throws_rocks, is_flyer, is_floater, is_swimmer, likes_lava,
@@ -143,13 +143,6 @@ function accessible(x, y) {
     const loc = game.level?.at(x, y);
     if (!loc) return false;
     return ACCESSIBLE(loc.typ) && !closed_door(x, y);
-}
-
-function sobj_at(otyp, x, y) {
-    for (let o = objects_at(x, y); o; o = o.nexthere) {
-        if ((o.otyp | 0) === otyp) return o;
-    }
-    return null;
 }
 
 /** C ref: mondata.h unique_corpstat — G_UNIQ. Local (trap.js cycle). */

@@ -22,7 +22,7 @@ import {
     mksobj, place_object, weight, stackobj, dealloc_obj, relobj_on_death,
     is_flammable, is_rustprone, is_rottable, is_corrodeable, is_crackable,
     erosion_matters, delobj, mkcorpstat, add_to_container, obj_extract_self,
-    objects_at, splitobj, nxtobj, add_to_migration,
+    objects_at, sobj_at, splitobj, nxtobj, add_to_migration,
     obj_ice_effects, spot_stop_timers, stop_timer,
 } from './mkobj.js';
 import { find_mac, make_corpse, mon_to_stone, vamp_stone, monstone, mondead } from './mhitm.js';
@@ -2239,15 +2239,6 @@ export function feeltrap(trap) {
     if (!trap) return;
     trap.tseen = true;
     newsym(trap.tx, trap.ty);
-}
-
-/** C ref: mkobj.c sobj_at — first floor object of otyp at (x,y). */
-function sobj_at(otyp, x, y) {
-    // objects_at returns nexthere chain head, not an array
-    for (let o = objects_at(x, y); o; o = o.nexthere) {
-        if ((o.otyp | 0) === (otyp | 0)) return o;
-    }
-    return null;
 }
 
 /**

@@ -5,7 +5,13 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-14
 
-- [x] `timeout.c` obj_move_timers — migrating-object timer carry (C timeout.c:2339; named data.md:239, D-1572 envelope; copy_oextra-envelope residual). Probe: `node scripts/brief.mjs obj_move_timers`. **Addressed:** D-2280
+- [x] `invent.c` sobj_at residual clones — exact-name clones in dbridge/music/steed + 7 renamed same-body variants (sobj_at_monmove/shk/nexthere/otyp×2/hurtle/look; D-2281 retired 9 of 12 to the `js/mkobj.js` canonical, cut by the 10-file cap). Probe: `node scripts/brief.mjs sobj_at`. **Addressed:** D-2281
+
+
+- [x] `invent.c` sobj_at canonical export — boulder-restack pile scan (12 local clones, no canonical export; named data.md:1049, D-2274 residual). Probe: `node scripts/brief.mjs sobj_at`. **Addressed:** D-2281
+
+
+- [x] `timeout.c` obj_move_timers — migrating-object timer carry (C timeout.c:2339; named data.md:239, D-1572 envelope; copy_oextra-envelope residual). Probe: `node scripts/brief.mjs obj_move_timers`. **Addressed:** D-2280 `93fca552`
 
 
 - [x] `light.c` obj_split_light_source — light-source split on stack split (named data.md:300 "light", js/mkobj.js:349, js/apply.js:4853; copy_oextra-envelope residual). Probe: `node scripts/brief.mjs obj_split_light_source`. **Addressed:** D-2279 `03e14d51`

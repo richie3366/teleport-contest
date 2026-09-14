@@ -2177,6 +2177,18 @@ export function stackobj(obj) {
 }
 
 /**
+ * C ref: invent.c sobj_at `:1466–1475` — first floor object of otyp at (x,y).
+ * Walks the nexthere pile chain (svl.level.objects[x][y]); canonical export
+ * for the file-local clones (D-2274 boulder-restack residual).
+ */
+export function sobj_at(otyp, x, y) {
+    for (let otmp = objects_at(x, y); otmp; otmp = otmp.nexthere) {
+        if ((otmp.otyp | 0) === (otyp | 0)) return otmp;
+    }
+    return null;
+}
+
+/**
  * C ref: invent.c nxtobj — next same-otyp via nobj or nexthere.
  */
 export function nxtobj(obj, type, by_nexthere) {
