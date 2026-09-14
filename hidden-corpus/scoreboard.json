@@ -1,6 +1,6 @@
 {
- "commit": "c8789dca",
- "at": "2026-09-14T19:14:16.351Z",
+ "commit": "614cdcf0",
+ "at": "2026-09-14T20:35:09.050Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -4084,16 +4084,16 @@
   },
   "scen-death-Archeologist-92015": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 2979,
    "rngT": 2979,
-   "scrM": 57,
+   "scrM": 58,
    "scrT": 58,
-   "kind": "screen",
-   "step": 55,
+   "kind": null,
+   "step": null,
    "steps": 58,
-   "owner": "formatkiller",
-   "loc": "topten.c:98",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
    "cTopline": "",
    "jsTopline": "",

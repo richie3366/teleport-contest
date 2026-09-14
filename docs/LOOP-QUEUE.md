@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `end.c` really_done — death-disclosure tail arms (TOP30 #21; reached by every scen-death session). Probe: `node scripts/brief.mjs really_done`.
 - [ ] `sounds.c` domonnoise — MS_PRIEST / FULL_MOON / chatting-monster arms (TOP30 #17; 17 RNG + 9 msg; `#chat` and speaking monsters). Probe: `node scripts/brief.mjs domonnoise`.
 - [ ] `trap.c` drown — crawl-out / Amphibious / inventory-burn arms (TOP30 #23; 14 C callers; pit/water sessions). Probe: `node scripts/brief.mjs drown`.
 - [ ] `hack.c` test_move + domove_core — movement-attack bars/web/trap-liquid arms (TOP30 #9; C hack.c:991/:2712; reached by every session that moves; never live/archived/parked). Probe: `node scripts/brief.mjs test_move`.

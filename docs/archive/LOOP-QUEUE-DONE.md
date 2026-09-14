@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-14
 
+- [x] `end.c` really_done — death-disclosure tail arms (TOP30 #21; reached by every scen-death session). Probe: `node scripts/brief.mjs really_done`. **Addressed:** D-2283
+
+
 - [x] `shk.c` credit_report — shop credit/debit report (C shk.c:628; no live export; named data.md:1049, D-2274 residual). Probe: `node scripts/brief.mjs credit_report`. **Addressed:** D-2282 `8d7e09a9`
 
 
