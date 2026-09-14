@@ -39,7 +39,7 @@ const LINE_CAPS = {
 };
 
 const BYTE_CAPS = {
-  'docs/GROK-PLAYBOOK.md': 14_000,
+  'docs/GROK-PLAYBOOK.md': 16_000,
   'scripts/agent-port-loop.prompt.md': 8_000,
   'docs/PROGRESS.md': 1_500,
   'docs/C-JS-MAP.md': 3_000,

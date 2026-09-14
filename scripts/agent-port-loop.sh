@@ -182,6 +182,7 @@ MISSING_USAGE_STREAK=0
 MISSING_USAGE_LIMIT=3
 EXTRACT_USAGE="$ROOT/scripts/extract-agent-usage.mjs"
 EXTRACT_LOG="$ROOT/scripts/extract-agent-log.mjs"
+MUSE_PLAN_USAGE="$ROOT/scripts/muse-plan-usage.mjs"
 CLAUDE_PLAN_USAGE="$ROOT/scripts/claude-plan-usage.mjs"
 
 if [[ -n "$TOKEN_BUDGET_M" ]]; then
