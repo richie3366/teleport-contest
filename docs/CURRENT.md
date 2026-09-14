@@ -83,10 +83,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `invent.c` sobj_at residual clones — exact-name clones in dbridge/music/steed + 7 renamed same-body variants (follow-up to the D-log sobj_at canonical entry, 9 of 12 retired — 10-file cap cut). Probe: `node scripts/brief.mjs sobj_at`. (dismount_steed parked 2026-09-14: STALE DUPLICATE of archived D-1915, review 885 ACCEPT, 0 blocks; queue 7 Open, corpus queue exhausted. test_move/domove_core parked 2026-09-14: STALE row, all named bars/web/trap-liquid arms live per D-1800/D-1270/D-1226, 0 corpus blocks on both verifies.)
+**Next cluster:** `lock.c` pick_lock — feel/see arms (C lock.c:591/:851/:1015 `Blind ? "feel" : "see"`; corpus-reached scen-normal-Samurai-92071 step 175/205 «You feel/see no door there»; JS `lock.js:861/868` hardcodes "see", Blind feel_location/mapseen named at :822; adjattrib-park falsifier). Probe: `node scripts/brief.mjs pick_lock`. (D-2285 shipped 2026-09-14. dismount_steed parked: STALE DUPLICATE of D-1915 (review 885 ACCEPT); queue 12 Open. test_move/domove_core parked: STALE, arms live per D-1800/D-1270/D-1226.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2284 (index).**
+**Keep D-0845…D-2285 (index).**
 <!-- recent:begin -->
+**D-2285** `invent.c:1466–1475` (`sobj_at`: walk `svl.level.objects[x][y]` nexthere chain, `otyp ==`  — all 10 defs deleted; `sobj_at` joins each file's existing static `mkobj.js` import — no new module edge (all 9 files already import `mkobj.js`; same SCC; the canonical is a hoisted exported function declaration used at c
 **D-2284** `trap.c:5059–5199` (`drown`, 140 lines). In C order: `feel_newsym(ux,uy)`; uinwater + `is_ — the C arms verbatim in C order in `js/trap.js` `drown`, preserving short-circuit, RNG (`rn2(5)` wade, `rn2(3)` gremlin/teleport, `d(2,6)` rust), list, ownership, mutation and integer (`|0`, `Luck+2`) semantics.
 **D-2283** `potion.c:178–188` (`make_sick` `:137–190` tail: `kptr = find_delayed_killer(SICK)`; `if ( — the C arm verbatim in C position: `const kpfx = (cause && cause === '#wizintrinsic') ?
 **D-2282** `shk.c:628–661` (`credit_report`: static `credit_snap[2][3]`; `idx` 0 → zero both rows els — new `export async function credit_report(shkp, idx, silent)` in `js/shk.js:453` in C position (after `rob_shop`, before `remote_burglary` `:664` — matching C `:628` between its neighbors), module-level `credit_snap`, C o
@@ -94,11 +95,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2280** `timeout.c:2339–2353` (`obj_move_timers`: walk `gt.timer_base`; per TIMER_OBJECT match on  — new `export function obj_move_timers(src, dest)` in `js/mkobj.js` in C position (directly before `obj_split_timers`, matching C `:2339` before `:2358` — same file as its sibling, timer home per review 533).
 **D-2279** `light.c:779–803` (`obj_split_light_source`: walk `gl.light_base`; per LS_OBJECT match on  — new `export function obj_split_light_source(src, dest)` in `js/timeout.js` in C position (directly before `obj_merge_light_sources`, matching C `:779` before `:808` — same file as its sibling, both callees file-local, no
 **D-2278** `shk.c:3622–3658` (`splitbill`: `shop_keeper(*u.ushops)` + `inhishop` gate, `onbill(obj, s — new `export function splitbill(obj, otmp)` in `js/shk.js` in C position (directly before `sub_one_frombill`, matching C `:3623` before `:3660`), in C order: shkp gate → onbill gate → decrement → full-bill `unpaid = 0` el
-**D-2277** `monmove.c:54–74` (`mb_trapped`: verbose KABOOM/nearby-distant via `mdistu > 49`, `wake_ne — both clones deleted; `import { mb_trapped } from './monmove.js'` in `dig.js` + `lock.js` (hoisted function declaration, call-time use only — `imports.mjs --can` SAFE on both edges, same 90-module SCC, no top-level TDZ re
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2284; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2285; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

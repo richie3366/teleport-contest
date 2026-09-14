@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-14
 
-- [x] `trap.c` drown — crawl-out / Amphibious / inventory-burn arms (TOP30 #23; 14 C callers; pit/water sessions). Probe: `node scripts/brief.mjs drown`. **Addressed:** D-2284
+- [x] `invent.c` sobj_at residual clones — exact-name clones in dbridge/music/steed + 7 renamed same-body variants (monmove/shk/apply×2/dothrow/pager/mon; follow-up to the D-log sobj_at canonical entry, 9 of 12 retired — 10-file cap cut). Probe: `node scripts/brief.mjs sobj_at`. **Addressed:** D-2285
+
+
+- [x] `trap.c` drown — crawl-out / Amphibious / inventory-burn arms (TOP30 #23; 14 C callers; pit/water sessions). Probe: `node scripts/brief.mjs drown`. **Addressed:** D-2284 `8c4803e9`
 
 
 - [x] `end.c` really_done — death-disclosure tail arms (TOP30 #21; reached by every scen-death session). Probe: `node scripts/brief.mjs really_done`. **Addressed:** D-2283 `7942532c`

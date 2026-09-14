@@ -39,7 +39,7 @@ import {
     maybe_blocked_staircase_down,
 } from './getpos.js';
 import { mon_at, defsym_explanation } from './uhitm.js';
-import { objects_at, mksobj, mkobj, obj_stop_timers } from './mkobj.js';
+import { sobj_at, mksobj, mkobj, obj_stop_timers } from './mkobj.js';
 import {
     doname, an, the, xname, singular, ansimpleoname, distant_name, simpleonames,
     makeplural,
@@ -1040,14 +1040,6 @@ function next2u_look(x, y) {
     return dx * dx + dy * dy <= 2;
 }
 
-/** C mkobj.c sobj_at — first floor object of otyp at (x,y). */
-function sobj_at_look(otyp, x, y) {
-    for (let otmp = objects_at(x, y); otmp; otmp = otmp.nexthere) {
-        if ((otmp.otyp | 0) === (otyp | 0)) return otmp;
-    }
-    return null;
-}
-
 /** C monst.h is_obj_mappear — M_AP_TYPE (masked) == M_AP_OBJECT. */
 function is_obj_mappear_look(mon, otyp) {
     return ((mon?.m_ap_type | 0) & M_AP_TYPMASK) === M_AP_OBJECT
@@ -1064,7 +1056,7 @@ export function object_from_map(glyphotyp, x, y) {
     const otyp = glyphotyp | 0;
     let fakeobj = false;
     let mimic_obj = false;
-    let otmp = sobj_at_look(otyp, x, y);
+    let otmp = sobj_at(otyp, x, y);
     if (!otmp) {
         for (let b = game.level?.buriedobjlist || null; b; b = b.nobj) {
             if ((b.ox | 0) === (x | 0) && (b.oy | 0) === (y | 0)

@@ -60,13 +60,18 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `invent.c` sobj_at residual clones — exact-name clones in dbridge/music/steed + 7 renamed same-body variants (monmove/shk/apply×2/dothrow/pager/mon; follow-up to the D-log sobj_at canonical entry, 9 of 12 retired — 10-file cap cut). Probe: `node scripts/brief.mjs sobj_at`.
 - [ ] `lock.c` pick_lock — feel/see arms (C lock.c:591/:851/:1015 `Blind ? "feel" : "see"`; corpus-reached scen-normal-Samurai-92071 step 175/205 «You feel/see no door there»; JS `lock.js:861/868` hardcodes "see", Blind feel_location/mapseen named at :822; adjattrib-park falsifier). Probe: `node scripts/brief.mjs pick_lock`.
 - [ ] `fountain.c` dipfountain residuals — Excalibur body + uncurse arms (C fountain.c:441; data.md:1230-1236, D-1107/D-1114 residuals: lawful oname/discover/bless, unaligned curse + spe--, `update_inventory`, artidisco save/rest, coins-not-skipped, luck/lamplit). Probe: `node scripts/brief.mjs dipfountain`.
 - [ ] `trap.c` mlevel_tele_trap — MAGIC_PORTAL/LEVEL_TELEP arms (data.md:1085; valley/stronghold dest; monster level-teleport messages + RNG). Probe: `node scripts/brief.mjs mlevel_tele_trap`.
 - [ ] `artifact.c` arti_cost — artilist.cost extract + getprice /4 (data.md D-1719 residual; C artifact.c:2308-2317; shop `get_cost` still *4; live `js/artifact.js:560`). Probe: `node scripts/brief.mjs arti_cost`.
 - [ ] `makemon.c` m_initweap — S_DEMON named specials + is_demon default FALLTHROUGH (data.md:443; D-0472; demon initial-weapon RNG + messages). Probe: `node scripts/brief.mjs m_initweap`.
 - [ ] `makemon.c` corpse-name mextra — has_mcorpsenm/newmcorpsenm/freemcorpsenm (data.md:494; D-1598; mextra.h:234, makemon.c:2368-2383/:2543-2546; seemimic/copy_mextra/bhitm/wormgone/object_from_map callers). Probe: `node scripts/brief.mjs newmcorpsenm`.
+- [ ] `apply.c` splash_lit pot_acid_damage boom + SPE_NOVEL blank_novel residuals (data.md trap section; D-1337 shipped the body; live `js/trap.js:5058/5084/5126` defer both arms). Probe: `node scripts/brief.mjs splash_lit`.
+- [ ] `trap.c` steedintrap dart/arrow/landmine/poly caller wiring (data.md:1063-1064; D-2258 helper is full but dart/arrow `!rn2(2)` steedintrap / landmine / poly trapeffects still do not call it). Probe: `node scripts/brief.mjs steedintrap`.
+- [ ] `artifact.c` artilist DFLAG2 yours/Upolyd/ulycn arms (data.md:107; D-2220 shipped DFLAG1 mflags1; live `js/artifact.js:1931` names the DFLAG2 residual). Probe: `node scripts/brief.mjs spec_applies`.
+- [ ] `artifact.c` spec_dbon/spec_applies SPFX_DRLI destroy/ignite arms (data.md:119-120; live `js/artifact.js:156/598/2426` defer BEHEAD/DRLI). Probe: `node scripts/brief.mjs artifact_hit`.
+- [ ] `potion.c` make_sick Unaware talk suppress (D-2283 residual; `#wizintrinsic` KILLED_BY shipped). Probe: `node scripts/brief.mjs make_sick`.
+- [ ] `wizcmds.c` wish count-prefix + unavailcmd + make_blinded talk variants (D-2283 residuals). Probe: `node scripts/brief.mjs do_wish`.
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 

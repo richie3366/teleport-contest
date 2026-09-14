@@ -92,7 +92,7 @@ import { se_mutter_imprecations } from './generated/seffects_data.js';
 import { Hello } from './roles.js';
 import { shtypes, shkname, Shknam, saleable, is_izchak } from './shknam.js';
 import {
-    splitobj, next_ident, obj_extract_self, objects_at, place_object,
+    splitobj, next_ident, obj_extract_self, objects_at, place_object, sobj_at,
     mksobj, weight, newomid, free_omid, copy_oextra, obj_stop_timers,
     dealloc_obj,
 } from './mkobj.js';
@@ -527,14 +527,6 @@ function hero_detect_monsters() {
         || (u.HDetect_monsters | 0) || (u.EDetect_monsters | 0));
 }
 
-/** C mkobj.c sobj_at — first floor object of otyp at (x,y). */
-function sobj_at_shk(otyp, x, y) {
-    for (let o = objects_at(x, y); o; o = o.nexthere) {
-        if ((o.otyp | 0) === otyp) return o;
-    }
-    return null;
-}
-
 /**
  * C ref: shk.c deserted_shop — untended/deserted pline (caller verified).
  * Named omit: mimic-as-object still increments n not m (matches C M_AP).
@@ -738,8 +730,8 @@ export async function u_entered_shop(enterstring) {
             should_block = true;
         } else {
             should_block = !!(Fast()
-                && (sobj_at_shk(PICK_AXE, u.ux, u.uy)
-                    || sobj_at_shk(DWARVISH_MATTOCK, u.ux, u.uy)));
+                && (sobj_at(PICK_AXE, u.ux, u.uy)
+                    || sobj_at(DWARVISH_MATTOCK, u.ux, u.uy)));
         }
         if (should_block) {
             const { dochug } = await import('./monmove.js');

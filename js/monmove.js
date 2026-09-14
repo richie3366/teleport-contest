@@ -15,7 +15,7 @@ import {
 } from './monsters.js';
 import { gettrack } from './track.js';
 import { wipe_engr_at } from './engrave.js';
-import { objects_at, obj_extract_self, splitobj, delobj, eaten_stat, is_organic, is_mines_prize, is_soko_prize, g_at, place_object, stackobj } from './mkobj.js';
+import { objects_at, obj_extract_self, splitobj, delobj, eaten_stat, is_organic, is_mines_prize, is_soko_prize, g_at, place_object, stackobj, sobj_at } from './mkobj.js';
 import { find_defensive, use_defensive, find_misc, use_misc, find_offensive, searches_for_item } from './muse.js';
 import { hero_conflict, resist_conflict } from './mondata.js';
 import {
@@ -2016,14 +2016,6 @@ export function find_pmmonst(pm) {
     return null;
 }
 
-/** C ref: mkobj.c sobj_at — first floor object of otyp. */
-function sobj_at_monmove(otyp, x, y) {
-    for (let o = objects_at(x, y); o; o = o.nexthere) {
-        if ((o.otyp | 0) === otyp) return o;
-    }
-    return null;
-}
-
 /**
  * C ref: monmove.c bee_eat_jelly — killer bee on royal jelly becomes
  * queen if none on the level. 1 died, 0 ate and froze, -1 queen present.
@@ -2346,7 +2338,7 @@ export async function dochug(mtmp) {
 
     // C ref: monmove.c dochug — killer bee may eat royal jelly (no queen).
     if ((mdat?.mndx | 0) === PM_KILLER_BEE) {
-        const otmp = sobj_at_monmove(LUMP_OF_ROYAL_JELLY, mtmp.mx, mtmp.my);
+        const otmp = sobj_at(LUMP_OF_ROYAL_JELLY, mtmp.mx, mtmp.my);
         if (otmp) {
             const res = await bee_eat_jelly(mtmp, otmp);
             if (res >= 0) return res;
