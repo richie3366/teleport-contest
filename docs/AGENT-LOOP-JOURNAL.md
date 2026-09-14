@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-14 — D-2301 `trap.c` burnarmor case-0 `materialnm` helm prefix ("iron helm")
+
+**C locus:** `trap.c:116–123` (`mat_idx = objects[item->otyp].oc_material; Sprintf(buf, "%s %s", materialnm[mat_idx], helm_simple_name(item))`; no helm → literal `"helmet"`); table `decl.c:90–94` (22 words in objclass.h enum order, NO_MATERIAL=0 … MINERAL=21).
+**JS:** 1 file (`js/trap.js` +22/−5: table + descr build + doc-ledger update), far under the 600/10 caps. Density note: the locus is one 8-line C arm plus its 22-word table — C is that small; the rest of burnarmor shipped D-1009/D-2186/D-2190.
+**Change:** file-local `const materialnm` (22 words, C order, `decl.c` C-ref; eat.js `foodwords` precedent — no new module edge, no `imports.mjs --can` needed; the C `nhlobj.c:222` Lua "material" use is out of scope and noted at the table). Case 0 builds `descr` exactly like C (`item ? buf : 'helmet'`; `?? 'mysterious'` only guards a missing objects-table entry, which C never has). Display-only arm: review 1152 measured zero RNG on these paths either side.
+**Verify:** preflight `node scripts/verify.mjs --no-cohort` PASS on a clean tree before edits. `node scripts/verify.mjs --fn burnarmor` → PASS syntax (1 changed js file: js/trap.js) · PASS rule2 · note hidden (vacuous: 0 blocked at HEAD — NOT a corpus PASS; row cited 0 so no `--base` owed) · PASS green 2/2 · PASS strict seed8000 + seed0900 · PASS cohort 7/7 · skip full (no shared file changed) · VERIFY: PASS. Table check: inline `node -e` word-diff of the C `decl.c` table vs the JS clone → 22/22 TABLE MATCH (nothing kept in tree).
+**Named:** `grease_protect` polish stays named (pre-existing); `nhlobj.c:222` Lua "material" entry stays out of scope (noted at the table).
+**Next:** do not re-pop `materialnm`/`burnarmor` helm prefix. Falsifier: a rescore or fresh `verify burnarmor` showing a session blocked with it as owner.
 ## 2026-09-14 — D-2300 `worm.c` place_wsegs restore/replmon callers wired (replmon takeover + getlev occupancy)
 
 **C locus:** `worm.c:614–635` `place_wsegs` (body already live in `js/worm.js`); callers `mon.c:2536–2537` (`if (mtmp2->wormno) place_wsegs(mtmp2, mtmp)` after `place_monster`, post-`relmon` → `mon_leaving_level` → `remove_worm`) with the `mtmp2->wormno = mtmp->wormno` inheritance at `zap.c:783` (JS `js/zap.js:2794` already live); `restore.c:1192–1197` getlev loop (`place_monster`, `place_wsegs(mtmp, NULL)`, `hideunder`); `worm.c:471` `cutworm` site already live (`js/worm.js:339`, D-1570).

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-14
 
-- [x] `worm.c` place_wsegs restore/replmon callers (data.md:627; D-1573 shipped wormgone + toss_wsegs; restore/replmon place_wsegs sites still named). Probe: `node scripts/brief.mjs place_wsegs`. **Addressed:** D-2300
+- [x] `trap.c` armor-erode materialnm helm prefix (data.md:1076; D-2186 canonicalized the burn/water/rock stubs; helm-prefix arm still named). Probe: `node scripts/brief.mjs materialnm`. **Addressed:** D-2301
+
+
+- [x] `worm.c` place_wsegs restore/replmon callers (data.md:627; D-1573 shipped wormgone + toss_wsegs; restore/replmon place_wsegs sites still named). Probe: `node scripts/brief.mjs place_wsegs`. **Addressed:** D-2300 `d8b36251`
 
 
 - [x] `makemon.c` makemon place_monster grid (data.md:528; D-2299 deferred grid write; needs movement remove+place parity). Probe: `node scripts/brief.mjs makemon`. **Addressed:** D-2299 `d633d068`

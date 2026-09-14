@@ -4096,10 +4096,25 @@ export async function acid_damage(obj) {
 }
 
 /**
+ * C ref: decl.c:90-94 materialnm[] — index by oc_material in objclass.h
+ * enum order (NO_MATERIAL=0 … MINERAL=21). Scored user: burnarmor case 0
+ * helm buf (C nhlobj.c:222 Lua "material" table entry is out of scope).
+ */
+const materialnm = [
+    'mysterious', 'liquid', 'wax', 'organic',
+    'flesh', 'paper', 'cloth', 'leather',
+    'wooden', 'bone', 'dragonhide', 'iron',
+    'metal', 'copper', 'silver', 'gold',
+    'platinum', 'mithril', 'plastic', 'glass',
+    'gemstone', 'stone',
+];
+
+/**
  * C ref: trap.c burnarmor — armor-slot burn picker.
- * Envelope: wet-towel dry (D-1009); rn2(5) slot loop; case 1 cloak/suit/
- * shirt always returns TRUE after erode attempt; other cases erode then
- * continue on ER_NOTHING. Named: grease_protect polish; materialnm helm.
+ * Envelope: wet-towel dry (D-1009); rn2(5) slot loop; case 0 helm buf
+ * (D-2301); case 1 cloak/suit/shirt always returns TRUE after erode
+ * attempt; other cases erode then continue on ER_NOTHING.
+ * Named: grease_protect polish.
  */
 export async function burnarmor(victim) {
     if (!victim) return false;
@@ -4130,8 +4145,14 @@ export async function burnarmor(victim) {
         switch (rn2(5)) {
         case 0: {
             const item = hitting_u ? u.uarmh : which_armor(victim, W_ARMH);
+            // C trap.c:116-123: Sprintf(buf, "%s %s", materialnm[mat_idx],
+            // helm_simple_name(item)); bare slot passes literal "helmet"
+            const mat = game.objects?.[item?.otyp]?.oc_material ?? 0;
+            const descr = item
+                ? `${materialnm[mat] ?? 'mysterious'} ${helm_simple_name(item)}`
+                : 'helmet';
             if ((await erode_obj(
-                item, item ? helm_simple_name(item) : 'helmet',
+                item, descr,
                 ERODE_BURN, EF_GREASE,
             )) === ER_NOTHING) continue;
             break;

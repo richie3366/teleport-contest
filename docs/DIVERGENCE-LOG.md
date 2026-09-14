@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-2301 — `trap.c` burnarmor case-0 `materialnm` helm prefix ("iron helm")
+
+- **Status:** shipped (Open queue head `trap.c` armor-erode materialnm helm prefix; data.md:1084 D-2186 residual. `brief materialnm` + `verify --fn burnarmor` report 0 blocked at HEAD: vacuous note, NOT a corpus PASS; the row cited 0 blocks so no `--base` re-run is owed. No review cites this row as Must-fix, so no stamp is owed.)
+- **Symptom:** no corpus divergence — C-wrong noun. C `burnarmor` case 0 eroding a worn helm passes `"<material> <helm_simple_name>"` ("iron helm", "cloth hat", "dragonhide helm"); JS passed bare `helm_simple_name` ("helm"). The bare-slot literal `"helmet"` already matched.
+- **C locus:** `trap.c:116–123` (`mat_idx = objects[item->otyp].oc_material; Sprintf(buf, "%s %s", materialnm[mat_idx], helm_simple_name(item))`; no helm → literal `"helmet"`); table `decl.c:90–94` (22 words in objclass.h enum order, NO_MATERIAL=0 … MINERAL=21).
+- **JS was:** `js/trap.js` case 0 passed `item ? helm_simple_name(item) : 'helmet'` — the material prefix was named in the burnarmor doc ledger and data.md:1084 (D-2186 Named omissions).
+- **Fix:** file-local `const materialnm` (22 words, C order, `decl.c` C-ref; eat.js `foodwords` precedent — no new module edge, no `imports.mjs --can` needed; the C `nhlobj.c:222` Lua "material" use is out of scope and noted at the table). Case 0 builds `descr` exactly like C (`item ? buf : 'helmet'`; `?? 'mysterious'` only guards a missing objects-table entry, which C never has). Display-only arm: review 1152 measured zero RNG on these paths either side. No DIAG/FORCE/seed-gate/coordinate reads; Rule #2 clean.
+- **JS:** 1 file (`js/trap.js` +22/−5: table + descr build + doc-ledger update), far under the 600/10 caps. Density note: the locus is one 8-line C arm plus its 22-word table — C is that small; the rest of burnarmor shipped D-1009/D-2186/D-2190.
+- **Verify:** preflight `node scripts/verify.mjs --no-cohort` PASS on a clean tree before edits. `node scripts/verify.mjs --fn burnarmor` → PASS syntax (1 changed js file: js/trap.js) · PASS rule2 · note hidden (vacuous: 0 blocked at HEAD — NOT a corpus PASS; row cited 0 so no `--base` owed) · PASS green 2/2 · PASS strict seed8000 + seed0900 · PASS cohort 7/7 · skip full (no shared file changed) · VERIFY: PASS. Table check: inline `node -e` word-diff of the C `decl.c` table vs the JS clone → 22/22 TABLE MATCH (nothing kept in tree).
+- **Named omissions:** `grease_protect` polish stays named (pre-existing); `nhlobj.c:222` Lua "material" entry stays out of scope (noted at the table).
+- **Next:** do not re-pop `materialnm`/`burnarmor` helm prefix. Falsifier: a rescore or fresh `verify burnarmor` showing a session blocked with it as owner.
+
 ## D-2300 — `worm.c` place_wsegs restore/replmon callers wired (replmon takeover + getlev occupancy)
 
 - **Status:** shipped (Open queue head `worm.c` place_wsegs restore/replmon callers; data.md:627 D-1570 residual, D-2299 named the replmon site as next. `brief place_wsegs` + `verify --fn place_wsegs` report 0 blocked at HEAD: vacuous note, NOT a corpus PASS; the row cited 0 blocks so no `--base` re-run is owed. No review cites this row as Must-fix, so no stamp is owed.)
