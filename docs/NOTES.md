@@ -20,29 +20,26 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 - **do_statusline1 park — do not re-pop:** → attributes_enlightenment.
 - **disclose + list_vanquished parks — do not re-pop:** Hallu desync / identical-prompt cell (proofs in Parked).
 - **dopush park — do not re-pop:** mimic memory/viz, not the push (Parked).
-- **dochug park — do not re-pop:** STALE (proof in Parked; falsifier: verify blocked on dochug).
-- **that_is_a_mimic park — do not re-pop:** misattributed owner + unresolved C glyph mechanism (proof + falsifier in Parked).
-- **dotrap park — do not re-pop:** STALE presence-only (proof in Parked; falsifier: verify blocked on dotrap).
-- **mintrap park — do not re-pop:** STALE presence-only (proof in Parked; falsifier: verify blocked on mintrap).
-- **nh_timeout park — do not re-pop:** STALE (proof in Parked; falsifier: verify blocked on nh_timeout).
-- **mon_break_armor park — do not re-pop:** STALE presence-only (proof in Parked; falsifier: `verify` blocked on mon_break_armor).
-- **drinkfountain park — do not re-pop:** misattributed quaff owner + hallu residual (proof/falsifier in Parked).
+- **dochug / dotrap / mintrap / nh_timeout / mon_break_armor parks — do not re-pop:** STALE presence-only (proofs + falsifiers in Parked).
+- **that_is_a_mimic park — do not re-pop:** misattributed owner + unresolved C glyph mechanism.
+- **drinkfountain park — do not re-pop:** misattributed quaff owner + hallu residual.
 
 ## Don't re-check (≤15)
 
-- D-1790…D-2276 stand. Scars: `m_seenres` boolean, never `!== 0`; no 2nd `genus`/`accessible`/`confdir`/`locomotion`/`unconscious`/`free_mgivenname`/`is_axe`/`carrying`/`end_running`.
+- D-1790…D-2277 stand. Scars: `m_seenres` boolean, never `!== 0`; no 2nd `genus`/`accessible`/`confdir`/`locomotion`/`unconscious`/`free_mgivenname`/`is_axe`/`carrying`/`end_running`.
 - D-1795/D-1816 stand. Scars: sleep `rn2(10)`; no 2nd `m_monnam`/`simple_typename`; seed4500 `[2]`: keep `flush_screen(1)`.
 - No `stay` rebuild / `u.Punished` / ordinary-pit-farlook `rn2(20)`.
 - seed0014 I-glyph D-1774; findone tail D-1775; D-0078 H2344/offx 72 (D-1185); `g`≠Unknown (D-1186); PREFIXCMD D-1582.
   ParanoidTrap/`domagicportal`/`undestroyable_trap`/`mktrap` dst/`goto_level` uz0 are D-1187/1188. No rhack raw-ETX (D-1189). Never FORCE falsified mineralize TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` loaders D-1852/D-1858 — check `load_val_*`/`load_sam_*` before refilling.
 - No D-0480 `tty_map_color` re-apply (D-0483). No skipped spaces / space runs >4 (D-0931). No FORCE shk satdoor/`onlineu` (D-0376), linedup/FlipX (#1092), `_pending_message` restore (D-0929), HEAVY_IRON_BALL `owt!=0` (#1194). Judge keeps RC (D-0933); §1.2 frozen. No public-LB chase.
-- No memcpy gi worn/ball (D-1035) / `setnotworn`←`owornmask` (D-1020) / `delobj` tut loot / off-level timers (D-1037) / dropped `msounds[]` (D-1053) / tut-1 keys (D-1065) / skipped `tutorial()` (D-1066). No skip D-1067…D-2276.
-- No `monmove.js`→sit `sticks` import / `confer_oc_oprop` rewrite / emin delete / `make_happy_shk` stub (D-1540) / bones→options fruitadd (D-1541). No `reset_glyphmap`/`notice_all_mons`/savelev-freeing/`lspo_reset_level`. No `wield`/`pickup`→`polyself` `body_part`. No static `end`←`dog`. No makemon→hack/`artifact`/`minion`. No re-port D-1682…D-2276.
+- No memcpy gi worn/ball (D-1035) / `setnotworn`←`owornmask` (D-1020) / `delobj` tut loot / off-level timers (D-1037) / dropped `msounds[]` (D-1053) / tut-1 keys (D-1065) / skipped `tutorial()` (D-1066). No skip D-1067…D-2277.
+- No `monmove.js`→sit `sticks` import / `confer_oc_oprop` rewrite / emin delete / `make_happy_shk` stub (D-1540) / bones→options fruitadd (D-1541). No `reset_glyphmap`/`notice_all_mons`/savelev-freeing/`lspo_reset_level`. No `wield`/`pickup`→`polyself` `body_part`. No static `end`←`dog`. No makemon→hack/`artifact`/`minion`. No re-port D-1682…D-2277.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2277: both clones deleted; `import { mb_trapped } from './monmove.js'` in `dig.js` + `lock.js` (hoisted function declaration, call-time use only — `imports. Named: `mb_trapped` message predicates stay the canonical's house checks (`game.u` Unaware/Deaf, 
 - D-2276: `js/invent.js` final builder — the C arm verbatim in C position (after Polymorph_control, before were-form): `Upolyd && umonnum != (ulycn ?? Named: `lays_eggs` arm (`:1879`, neither form lays eggs — no corpus row); Unchanging/Polymorph bl
 - D-2275: new `export function copy_oextra(obj2, obj1)` in `js/mkobj.js` in C order (guards, `newoextra`, `has_oname` → live `oname` with `ONAME_SKIP_INVUPD`, ` Named: `shk.c` splitbill (unpaid split billing — live Open row, queued this commit as REFILL); `o
 - D-2274: `js/explode.js` — `scatter` now follows C order: `await impossible` site-gate; uball/uchain arm (`u.uball`/`u.uchain` identity per ball.js, `Soundeffe Named: shop_origin baseline + gold `addtobill`/`lostgoods` (no live `credit_report` export — data
@@ -57,5 +54,4 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 - D-2265: `js/mkobj.js` — FOOD sets `oeaten = 0`; TIN sets `corpsenm = NON_PM` up front, calls imported `set_tin_variety(otmp, SPINACH_TIN | RANDOM_TIN)` (canon Named: none new.
 - D-2264: `js/makemon.js` — mutate the parameter in place (`if (!bl) gpflags &= ~GP_CHECKSCARY;`, no per-pass copy) and pass `gpflags` to all three fallback `go Named: none new.
 - D-2263: `js/light.js` — new `export function snuff_light_source(x, y)` in C order (index loop over `game.light_base`, `| 0` coords, first LS_OBJECT match, `ob Named: Underwater beyond the `no_op` gate (as before); `end_burn`/`cleanup_burn` `update_inventor
-- D-2262: `js/polyself.js`. Named: `made_change` light-source bookkeeping (`:720–730`): JS `do_light_sources` has no hero arm
 <!-- landmarks:end -->

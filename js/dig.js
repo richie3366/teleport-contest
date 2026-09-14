@@ -20,7 +20,7 @@ import { game } from './gstate.js';
 import { rn1, rn2, rnd } from './rng.js';
 import {
     newsym, pline, You_feel, tmp_at, nh_delay_output, verbalize,
-    feel_newsym, flush_screen, flush_topl_more, pline_mon,
+    feel_newsym, flush_screen, flush_topl_more,
 } from './display.js';
 import { cansee, recalc_block_point, vision_recalc } from './vision.js';
 import { cvt_sdoor_to_door } from './detect.js';
@@ -73,6 +73,10 @@ import {
 import { obj_resists } from './dogmove.js';
 import { unpunish, punish } from './read.js';
 import { getdir, dxdy_moveok } from './lock.js';
+// C ref: monmove.c mb_trapped `:54–74` — canonical trapped-door export
+// (KABOOM/hear, wake_nearto 49, mstun, rnd(15), mondied/lifesave,
+// mon_learns_traps TRAPPED_DOOR); hoisted fn, cycle-safe per imports.mjs.
+import { mb_trapped } from './monmove.js';
 import {
     IS_STWALL, IS_TREE, IS_WALL, IS_OBSTRUCTED, IS_DOOR, IS_FOUNTAIN,
     IS_THRONE, IS_ALTAR, IS_ROOM, IS_SINK, IS_FURNITURE, IS_GRAVE,
@@ -934,36 +938,13 @@ function rnd_treefruit_at(x, y) {
 }
 
 /**
- * C ref: monmove.c mb_trapped subset — door trap after digger eats door.
- * wake_nearto / mon_learns_traps / full mondead deferred.
- */
-async function mb_trapped(mtmp, canseeit) {
-    if (game.flags?.verbose !== false) {
-        if (canseeit && !Unaware()) {
-            await pline_mon(mtmp, 'KABOOM!!  You see a door explode.');
-        } else if (!game.u?.Deaf) {
-            const far = dist2(mtmp.mx, mtmp.my, game.u.ux, game.u.uy) > 7 * 7;
-            await pline(`You hear a ${far ? 'distant' : 'nearby'} explosion.`);
-        }
-    }
-    mtmp.mstun = 1;
-    mtmp.mhp -= rnd(15);
-    if ((mtmp.mhp | 0) < 1) {
-        mtmp.mhp = 0;
-        mtmp.mx = 0;
-        mtmp.my = 0;
-        return true;
-    }
-    return false;
-}
-
-/**
  * C ref: dig.c mdig_tunnel — return true if monster died.
  * Branch envelope: SDOOR convert; closed-door eat (+trap); SCORR open;
  * open-floor early return (still burns pile=rnd(12)); WALL/TREE/STONE dig;
  * maze→ROOM / cavernous→CORR / else DOOR; pile&lt;5 boulder/rock or fruit.
- * Named omissions: Hallucination draft; Soundeffect; full mondead on
- * trap death; pay_for_damage.
+ * Trap death runs the canonical `monmove.js` mb_trapped (wake_nearto,
+ * mondied/lifesave, mon_learns_traps TRAPPED_DOOR).
+ * Named omissions: Hallucination draft; Soundeffect; pay_for_damage.
  */
 export async function mdig_tunnel(mtmp) {
     const pile = rnd(12);
