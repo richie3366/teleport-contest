@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `lock.c` pick_lock — feel/see arms (C lock.c:591/:851/:1015 `Blind ? "feel" : "see"`; corpus-reached scen-normal-Samurai-92071 step 175/205 «You feel/see no door there»; JS `lock.js:861/868` hardcodes "see", Blind feel_location/mapseen named at :822; adjattrib-park falsifier). Probe: `node scripts/brief.mjs pick_lock`.
 - [ ] `fountain.c` dipfountain residuals — Excalibur body + uncurse arms (C fountain.c:441; data.md:1230-1236, D-1107/D-1114 residuals: lawful oname/discover/bless, unaligned curse + spe--, `update_inventory`, artidisco save/rest, coins-not-skipped, luck/lamplit). Probe: `node scripts/brief.mjs dipfountain`.
 - [ ] `trap.c` mlevel_tele_trap — MAGIC_PORTAL/LEVEL_TELEP arms (data.md:1085; valley/stronghold dest; monster level-teleport messages + RNG). Probe: `node scripts/brief.mjs mlevel_tele_trap`.
 - [ ] `artifact.c` arti_cost — artilist.cost extract + getprice /4 (data.md D-1719 residual; C artifact.c:2308-2317; shop `get_cost` still *4; live `js/artifact.js:560`). Probe: `node scripts/brief.mjs arti_cost`.

@@ -1927,7 +1927,7 @@ strange-direction pline; `?` still forces help; not `game.flags`);
 getobj missing-letter `continue`+`flush_topl_more` (D-0025); 
 **empty SUGGEST → "don't have anything"** (D-0141); **`doopen_indir` CLOSED autoopen** (D-0059); 
 **`doclose`/`c` getdir cmdassist + close envelope** (D-0740;
-stumble_on_door_mimic / Blind feel / portcullis deferred) +
+stumble_on_door_mimic / portcullis deferred; **Blind feel_location/mapseen + feel/see nodoor** D-2286 — !isok before Confusion/Stunned per C order, glyph half dead, no `lev->glyph` in JS cells) +
 **impaired-direction TIME + getdir-tail confdir(FALSE)** (D-2009; `lock.c`
 `if (Confusion || Stunned) res = ECMD_TIME` + `cmd.c:4116–4117`
 caller-local `confdir`, so a confused no-door close costs the C turn); 

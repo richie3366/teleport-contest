@@ -819,7 +819,7 @@ async function obstructed_close(x, y) {
  * C ref: lock.c doclose — #close / `c` command.
  * Envelope: nohands/pit gates, getdir (cmdassist) + getdir-tail confdir(FALSE),
  * impaired-direction TIME, door mask arms, close roll.
- * Named omissions: stumble_on_door_mimic; Blind feel_location/mapseen;
+ * Named omissions: stumble_on_door_mimic;
  * portcullis/drawbridge; steed close path;
  * feel_newsym mapseen gating; Some_Monnam obstructed polish.
  * @returns {Promise<boolean>} true when C would return ECMD_TIME
@@ -853,19 +853,31 @@ export async function doclose() {
     }
 
     let res = false; // C: res starts ECMD_OK
+    // C lock.c doclose `:985–996` — !isok goes to nodoor while res is still
+    // ECMD_OK (the Confusion/Stunned turn cost comes after, with
+    // stumble_on_door_mimic deferred between them).
+    if (x < 1 || x >= COLNO || y < 0 || y >= ROWNO) {
+        await pline(`You ${Blind() ? 'feel' : 'see'} no door there.`);
+        return res;
+    }
     // C lock.c doclose — impaired direction choice costs a turn even when no
     // door is targeted: if (Confusion || Stunned) res = ECMD_TIME.
     // C Confusion/Stunned ≡ H-fields (youprop.h); flat mirrors per repo idiom.
     if ((u.HConfusion | 0) || u.Confusion || (u.HStun | 0) || u.Stunned) res = true;
-    if (x < 1 || x >= COLNO || y < 0 || y >= ROWNO) {
-        await pline('You see no door there.');
-        return res;
-    }
 
     const loc = game.level?.at(x, y);
+    // C lock.c doclose — Blind: feel_location + mapseen; LEARNED when
+    // lastseentyp changes. C also compares door->glyph, which JS cells
+    // don't model (game.js), so only the lastseentyp half is live —
+    // same idiom as doopen_indir above.
+    if (Blind()) {
+        const oldlastseentyp = update_mapseen_for(x, y);
+        feel_location(x, y);
+        if ((game.lastseentyp?.[x]?.[y] | 0) !== (oldlastseentyp | 0)) res = true;
+    }
     if (!loc || !IS_DOOR(loc.typ)) {
         // C: portcullis/drawbridge arms deferred
-        await pline('You see no door there.');
+        await pline(`You ${Blind() ? 'feel' : 'see'} no door there.`);
         return res;
     }
 

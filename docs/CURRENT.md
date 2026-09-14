@@ -83,10 +83,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `lock.c` pick_lock — feel/see arms (C lock.c:591/:851/:1015 `Blind ? "feel" : "see"`; corpus-reached scen-normal-Samurai-92071 step 175/205 «You feel/see no door there»; JS `lock.js:861/868` hardcodes "see", Blind feel_location/mapseen named at :822; adjattrib-park falsifier). Probe: `node scripts/brief.mjs pick_lock`. (D-2285 shipped 2026-09-14. dismount_steed parked: STALE DUPLICATE of D-1915 (review 885 ACCEPT); queue 12 Open. test_move/domove_core parked: STALE, arms live per D-1800/D-1270/D-1226.)
+**Next cluster:** `fountain.c` dipfountain residuals — Excalibur body + uncurse arms (C fountain.c:441; data.md:1230-1236, D-1107/D-1114 residuals: lawful oname/discover/bless, unaligned curse + spe--, `update_inventory`, artidisco save/rest, coins-not-skipped, luck/lamplit). Probe: `node scripts/brief.mjs dipfountain`. (D-2286 shipped 2026-09-14: doclose Blind feel/see; pick_lock/doopen arms stood via D-2002/D-2167.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2285 (index).**
+**Keep D-0845…D-2286 (index).**
 <!-- recent:begin -->
+**D-2286** `lock.c:957–1020` (`doclose`): `!isok(x,y)` goes to `nodoor` while `res` is still `ECMD_OK — C order in C position — isok check first, returning `res` while still `ECMD_OK`; Confusion/Stunned cost after (stumble stays deferred between them, noted in the comment); new Blind block calling the already-imported `upd
 **D-2285** `invent.c:1466–1475` (`sobj_at`: walk `svl.level.objects[x][y]` nexthere chain, `otyp ==`  — all 10 defs deleted; `sobj_at` joins each file's existing static `mkobj.js` import — no new module edge (all 9 files already import `mkobj.js`; same SCC; the canonical is a hoisted exported function declaration used at c
 **D-2284** `trap.c:5059–5199` (`drown`, 140 lines). In C order: `feel_newsym(ux,uy)`; uinwater + `is_ — the C arms verbatim in C order in `js/trap.js` `drown`, preserving short-circuit, RNG (`rn2(5)` wade, `rn2(3)` gremlin/teleport, `d(2,6)` rust), list, ownership, mutation and integer (`|0`, `Luck+2`) semantics.
 **D-2283** `potion.c:178–188` (`make_sick` `:137–190` tail: `kptr = find_delayed_killer(SICK)`; `if ( — the C arm verbatim in C position: `const kpfx = (cause && cause === '#wizintrinsic') ?
@@ -94,11 +95,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2281** `invent.c:1466–1475` (`sobj_at`: walk `svl.level.objects[x][y]` nexthere chain, `otyp ==`  — new `export function sobj_at(otyp, x, y)` in `js/mkobj.js` directly before `nxtobj` (C position :1466 before :1479; same file as its C neighbor, whose `(otyp|0)===(type|0)` compare it shares — C-exact for int otyps). 9 c
 **D-2280** `timeout.c:2339–2353` (`obj_move_timers`: walk `gt.timer_base`; per TIMER_OBJECT match on  — new `export function obj_move_timers(src, dest)` in `js/mkobj.js` in C position (directly before `obj_split_timers`, matching C `:2339` before `:2358` — same file as its sibling, timer home per review 533).
 **D-2279** `light.c:779–803` (`obj_split_light_source`: walk `gl.light_base`; per LS_OBJECT match on  — new `export function obj_split_light_source(src, dest)` in `js/timeout.js` in C position (directly before `obj_merge_light_sources`, matching C `:779` before `:808` — same file as its sibling, both callees file-local, no
-**D-2278** `shk.c:3622–3658` (`splitbill`: `shop_keeper(*u.ushops)` + `inhishop` gate, `onbill(obj, s — new `export function splitbill(obj, otmp)` in `js/shk.js` in C position (directly before `sub_one_frombill`, matching C `:3623` before `:3660`), in C order: shkp gate → onbill gate → decrement → full-bill `unpaid = 0` el
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2285; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2286; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
