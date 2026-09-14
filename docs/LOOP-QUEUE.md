@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `light.c` do_light_sources hero at_hero_range trim (data.md:968; D-2157 shipped the circle_ptr exact ring). Probe: `node scripts/brief.mjs do_light_sources`.
 - [ ] `explode.c` scatter MAY_FRACTURE boulder restack-to-top (data.md:1065; D-2282 shipped the shop-bill arms; C explode.c:776-790 fracture_rock + sobj_at restack). Probe: `node scripts/brief.mjs scatter`.
 - [ ] `potion.c` dodrink underwater drink_ok_extra + Strangled arms (D-1834 named omissions; D-2031 shipped the breathing gate, D-1834 the fountain/sink 'n'; data.md:1252 dipsink context). Probe: `node scripts/brief.mjs dodrink`.
 - [ ] `mkmaze.c` populate_maze trap loop (data.md:923; D-2216 shipped the live tail + fallback; loop needs mktrap — no JS mktrap — plus dmonsfree/SPLEVTYPE-getenv). Probe: `node scripts/brief.mjs populate_maze`.
@@ -68,6 +67,7 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 - [ ] `end.c` really_done death-screen residuals (TOP30 #21; local clone js/end.js:959 is clone drift; fixup_death/clearlocks/logfile-xlogfile/paygd arms named). Probe: `node scripts/brief.mjs really_done`.
 - [ ] `mon.c` make_corpse special-corpse table (TOP30 #4; live js/mhitm.js:2391 covers the baseline; dragon scales/unicorn horn/worm-tooth arms + their draws still named). Probe: `node scripts/brief.mjs make_corpse`.
 - [ ] `pline.c` vpline duplicate-suppression layer (TOP30 #16; no JS vpline; msgtype_type/NOREP-NOSHOW under every pline). Probe: `node scripts/brief.mjs vpline`.
+- [ ] `cmd.c` rhack `-`→fight binding (fresh rescore 2026-09-14: ownerless screen step, C«» vs JS«Unknown command '-'» — C number_pad map binds `-` to fight, cmd.c:2772, consumed via cmdbind_get in rhack :3679; no `'-'` binding in js/cmd.js so JS falls to the Unknown-command arm js/cmd.js:3074). Probe: `node frozen/ps_test_runner.mjs .cache/hidden/sessions/random-seed0015-valk-level2-pit-dog-wait-eb7e90ad.session.json` (step 33/72) + `node scripts/brief.mjs rhack`.
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 

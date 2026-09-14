@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-14
 
-- [x] `trap.c` armor-erode materialnm helm prefix (data.md:1076; D-2186 canonicalized the burn/water/rock stubs; helm-prefix arm still named). Probe: `node scripts/brief.mjs materialnm`. **Addressed:** D-2301
+- [x] `light.c` do_light_sources hero at_hero_range trim (data.md:968; D-2157 shipped the circle_ptr exact ring). Probe: `node scripts/brief.mjs do_light_sources`. **Addressed:** D-2302
+
+
+- [x] `trap.c` armor-erode materialnm helm prefix (data.md:1076; D-2186 canonicalized the burn/water/rock stubs; helm-prefix arm still named). Probe: `node scripts/brief.mjs materialnm`. **Addressed:** D-2301 `775e5959`
 
 
 - [x] `worm.c` place_wsegs restore/replmon callers (data.md:627; D-1573 shipped wormgone + toss_wsegs; restore/replmon place_wsegs sites still named). Probe: `node scripts/brief.mjs place_wsegs`. **Addressed:** D-2300 `d8b36251`

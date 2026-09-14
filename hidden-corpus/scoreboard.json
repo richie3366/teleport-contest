@@ -1,6 +1,6 @@
 {
- "commit": "614cdcf0",
- "at": "2026-09-14T20:35:09.050Z",
+ "commit": "775e5959",
+ "at": "2026-09-14T23:39:39.091Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6491,7 +6491,7 @@
    "steps": 169,
    "owner": "distfleeck",
    "loc": "monmove.c:549",
-   "jsOwner": "corpse_chance(trap.js:1127)",
+   "jsOwner": "corpse_chance(trap.js:1138)",
    "cTopline": "The little dog misses the newt. The newt bites!",
    "jsTopline": "m_detach: it is already detached?--More--",
    "error": null
@@ -6593,7 +6593,7 @@
    "steps": 114,
    "owner": "distfleeck",
    "loc": "monmove.c:549",
-   "jsOwner": "doopen_indir(lock.js:733)",
+   "jsOwner": "doopen_indir(lock.js:737)",
    "cTopline": "You feel no objects here.",
    "jsTopline": "You feel no objects here.",
    "error": null
@@ -7154,7 +7154,7 @@
    "steps": 95,
    "owner": "rloc",
    "loc": "teleport.c:1850",
-   "jsOwner": "mcalcmove(mon.js:741)",
+   "jsOwner": "mcalcmove(mon.js:733)",
    "cTopline": "You materialize on a different level!",
    "jsTopline": "You materialize on a different level!",
    "error": null
@@ -7256,7 +7256,7 @@
    "steps": 138,
    "owner": "rloc",
    "loc": "teleport.c:1850",
-   "jsOwner": "next_ident(makemon.js:452)",
+   "jsOwner": "next_ident(makemon.js:453)",
    "cTopline": "You materialize on a different level!",
    "jsTopline": "You materialize on a different level!",
    "error": null
@@ -7349,7 +7349,7 @@
   "scen-tour-Samurai-92161": {
    "src": "corpus",
    "passed": false,
-   "rngM": 4320,
+   "rngM": 4321,
    "rngT": 19192,
    "scrM": 37,
    "scrT": 88,
@@ -7409,7 +7409,7 @@
    "steps": 167,
    "owner": "collect_coords",
    "loc": "teleport.c:700",
-   "jsOwner": "collect_coords(teleport.js:610)",
+   "jsOwner": "collect_coords(teleport.js:611)",
    "cTopline": "Endgame prerequisite: p - the Amulet of Yendor.--More--",
    "jsTopline": "Endgame prerequisite: p - the Amulet of Yendor.--More--",
    "error": null
