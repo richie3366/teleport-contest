@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `timeout.c` obj_move_timers — migrating-object timer carry (C timeout.c:2339; named data.md:239, D-1572 envelope; copy_oextra-envelope residual). Probe: `node scripts/brief.mjs obj_move_timers`.
 - [ ] `invent.c` sobj_at canonical export — boulder-restack pile scan (12 local clones, no canonical export; named data.md:1049, D-2274 residual). Probe: `node scripts/brief.mjs sobj_at`.
 - [ ] `shk.c` credit_report — shop credit/debit report (C shk.c:628; no live export; named data.md:1049, D-2274 residual). Probe: `node scripts/brief.mjs credit_report`.
 - [ ] `eat.c` newuhs — hunger-state messages + faint/starve arms (TOP30 #1; C eat.c:3362, 151 ln vs JS 14; reached by every session that gets Hungry). Probe: `node scripts/brief.mjs newuhs`.
@@ -68,6 +67,8 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 - [ ] `end.c` really_done — death-disclosure tail arms (TOP30 #21; reached by every scen-death session). Probe: `node scripts/brief.mjs really_done`.
 - [ ] `sounds.c` domonnoise — MS_PRIEST / FULL_MOON / chatting-monster arms (TOP30 #17; 17 RNG + 9 msg; `#chat` and speaking monsters). Probe: `node scripts/brief.mjs domonnoise`.
 - [ ] `trap.c` drown — crawl-out / Amphibious / inventory-burn arms (TOP30 #23; 14 C callers; pit/water sessions). Probe: `node scripts/brief.mjs drown`.
+- [ ] `hack.c` test_move + domove_core — movement-attack bars/web/trap-liquid arms (TOP30 #9; C hack.c:991/:2712; reached by every session that moves; never live/archived/parked). Probe: `node scripts/brief.mjs test_move`.
+- [ ] `steed.c` dismount_steed — poly / engulfed / water-and-lava steed-death arms (TOP30 #26; C steed.c:576; 29 C callers; never live/archived/parked). Probe: `node scripts/brief.mjs dismount_steed`.
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 

@@ -4,42 +4,41 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 
 ## Active
 
-- **mkclass_aligned park — do not re-pop:** presence-only (proof in Parked; falsifier: `verify` blocked on mkclass_aligned).
-- **get_location park — do not re-pop:** presence-only (proof in Parked; falsifier: `verify` blocked on get_location).
+- **mkclass_aligned / get_location parks — do not re-pop:** presence-only (proofs in Parked; falsifier: `verify` blocked on that fn).
 - **Work picker:** `hidden-proxy queue`; singletons Deferred — do not re-add without a fired falsifier.
 - **More-transient parks — do not re-pop:** break_armor timing.
 - **exercise park — do not re-pop:** draw-presence only (0/553 owned; falsifier: encumbrance topline/owner).
 - **gethungry / maybe_generate_rnd_mon / mattacku / u_calc_moveamt parks — do not re-pop:** presence-only, 0/553 owned, JS arm-for-arm vs C (falsifier: `verify` blocked on that fn; proofs in Parked).
-- **do_statusline2 park — do not re-pop:** paint-timing.
+- **do_statusline1 + do_statusline2 parks — do not re-pop:** paint-timing; statusline1 → attributes_enlightenment.
 - **Fortress guards** (do not reopen): display_inventory dismiss/gameover heading/keep_status, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue `S_ndoor`, bigrm-2, getpos, summonmu, lookat, `do_statusline1`, snapshot, fakewiz, Ice/Boulder, `roles[]`, pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
 - **Luck runs when invulnerable, not dialogues** (`timeout.c:623`).
 - **Symptom-owner parks — do not re-pop:** obj_resists/m_move/rloc/lightdamage/mattackm/can_carry/spoteffects/mon_adjust_speed/zapyourself/doname_base/hmonas/minliquid_core/distfleeck/passiveum.
 - **STALE parks — do not re-pop:** lesshungry/rndcurse/mhitm_ad_famn/regen_hp/barehands/do_mapping/adjattrib/from_what/look_at_monster/formatkiller/do_screen_description/reveal_terrain/peffect_acid/newcham/use_offensive/stop_donning/doeat_nonfood/gcrownu/big_little_match/xkilled. (Proofs in Parked; re-queue only on falsifier.)
 - **slimed park:** landing + Sick-store writers.
 - **MISATTRIBUTED/STALE parks — do not re-pop:** vomiting_dialogue/u_stuck_cannot_go/name_to_monplus/mcast_death_touch/save_dungeon/dodown/mv_bubble/one_characteristic/use_pole/trapmove/fig_transform/chwepon.
-- **do_statusline1 park — do not re-pop:** → attributes_enlightenment.
 - **disclose + list_vanquished parks — do not re-pop:** Hallu desync / identical-prompt cell (proofs in Parked).
 - **dopush park — do not re-pop:** mimic memory/viz, not the push (Parked).
 - **dochug / dotrap / mintrap / nh_timeout / mon_break_armor parks — do not re-pop:** STALE presence-only (proofs + falsifiers in Parked).
 - **that_is_a_mimic park — do not re-pop:** misattributed owner + unresolved C glyph mechanism.
 - **drinkfountain park — do not re-pop:** misattributed quaff owner + hallu residual.
-- **poly_obj park — do not re-pop:** misattributed citation + no C arm (zap.c:5564 is fracture_rock, already live js/dig.js:1575; C poly_obj 1702–1989 has zero oextra lines; falsifier: `verify poly_obj` blocked with poly_obj as owner).
+- **poly_obj park — do not re-pop:** misattributed citation + no C arm (proof in Parked; falsifier: `verify poly_obj` blocked with poly_obj as owner).
 
 ## Don't re-check (≤15)
 
-- D-1790…D-2279 stand. Scars: `m_seenres` boolean, never `!== 0`; no 2nd `genus`/`accessible`/`confdir`/`locomotion`/`unconscious`/`free_mgivenname`/`is_axe`/`carrying`/`end_running`.
+- D-1790…D-2280 stand. Scars: `m_seenres` boolean, never `!== 0`; no 2nd `genus`/`accessible`/`confdir`/`locomotion`/`unconscious`/`free_mgivenname`/`is_axe`/`carrying`/`end_running`.
 - D-1795/D-1816 stand. Scars: sleep `rn2(10)`; no 2nd `m_monnam`/`simple_typename`; seed4500 `[2]`: keep `flush_screen(1)`.
 - No `stay` rebuild / `u.Punished` / ordinary-pit-farlook `rn2(20)`.
 - seed0014 I-glyph D-1774; findone tail D-1775; D-0078 H2344/offx 72 (D-1185); `g`≠Unknown (D-1186); PREFIXCMD D-1582.
   ParanoidTrap/`domagicportal`/`undestroyable_trap`/`mktrap` dst/`goto_level` uz0 are D-1187/1188. No rhack raw-ETX (D-1189). Never FORCE falsified mineralize TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` loaders D-1852/D-1858 — check `load_val_*`/`load_sam_*` before refilling.
 - No D-0480 `tty_map_color` re-apply (D-0483). No skipped spaces / space runs >4 (D-0931). No FORCE shk satdoor/`onlineu` (D-0376), linedup/FlipX (#1092), `_pending_message` restore (D-0929), HEAVY_IRON_BALL `owt!=0` (#1194). Judge keeps RC (D-0933); §1.2 frozen. No public-LB chase.
-- No memcpy gi worn/ball (D-1035) / `setnotworn`←`owornmask` (D-1020) / `delobj` tut loot / off-level timers (D-1037) / dropped `msounds[]` (D-1053) / tut-1 keys (D-1065) / skipped `tutorial()` (D-1066). No skip D-1067…D-2279.
-- No `monmove.js`→sit `sticks` import / `confer_oc_oprop` rewrite / emin delete / `make_happy_shk` stub (D-1540) / bones→options fruitadd (D-1541). No `reset_glyphmap`/`notice_all_mons`/savelev-freeing/`lspo_reset_level`. No `wield`/`pickup`→`polyself` `body_part`. No static `end`←`dog`. No makemon→hack/`artifact`/`minion`. No re-port D-1682…D-2279.
+- No memcpy gi worn/ball (D-1035) / `setnotworn`←`owornmask` (D-1020) / `delobj` tut loot / off-level timers (D-1037) / dropped `msounds[]` (D-1053) / tut-1 keys (D-1065) / skipped `tutorial()` (D-1066). No skip D-1067…D-2280.
+- No `monmove.js`→sit `sticks` import / `confer_oc_oprop` rewrite / emin delete / `make_happy_shk` stub (D-1540) / bones→options fruitadd (D-1541). No `reset_glyphmap`/`notice_all_mons`/savelev-freeing/`lspo_reset_level`. No `wield`/`pickup`→`polyself` `body_part`. No static `end`←`dog`. No makemon→hack/`artifact`/`minion`. No re-port D-1682…D-2280.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2280: new `export function obj_move_timers(src, dest)` in `js/mkobj.js` in C position (directly before `obj_split_timers`, matching C `:2339` before `:2358` Named: none new (SetVoice / migrating `#if 0` hatch arms stay with the D-1572 row; `splitbill`/`c
 - D-2279: new `export function obj_split_light_source(src, dest)` in `js/timeout.js` in C position (directly before `obj_merge_light_sources`, matching C `:779` Named: none new (`timers` in the data.md row = `obj_move_timers`, its own live Open row).
 - D-2278: new `export function splitbill(obj, otmp)` in `js/shk.js` in C position (directly before `sub_one_frombill`, matching C `:3623` before `:3660`), in C  Named: the four `impossible()` diagnostics (no-shkp, not-on-bill, under/zero-quantity — control f
 - D-2277: both clones deleted; `import { mb_trapped } from './monmove.js'` in `dig.js` + `lock.js` (hoisted function declaration, call-time use only — `imports. Named: `mb_trapped` message predicates stay the canonical's house checks (`game.u` Unaware/Deaf, 
@@ -54,5 +53,4 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 - D-2268: deleted the local clone; added `s_suffix` to the existing `do_name.js` import (`imports.mjs --can uhitm.js do_name.js s_suffix` → ALREADY, no new edge Named: none new.
 - D-2267: `js/do_wear.js` `Cloak_on` is now the C switch in C order: plain-cloak breaks; PROTECTION `makeknown`; ELVEN `toggle_stealth`; DISPLACEMENT `toggle_di Named: none new.
 - D-2266: `js/pager.js` `describe_looked` — `glyph_is_invisible_id(glyph)` (already imported) tested on the shown `glyph_at` before `mon_at`, returning `I` + `a Named: none new.
-- D-2265: `js/mkobj.js` — FOOD sets `oeaten = 0`; TIN sets `corpsenm = NON_PM` up front, calls imported `set_tin_variety(otmp, SPINACH_TIN | RANDOM_TIN)` (canon Named: none new.
 <!-- landmarks:end -->

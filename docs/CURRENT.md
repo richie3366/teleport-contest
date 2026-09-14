@@ -38,9 +38,7 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-14
 audit 1232–1238): **463 / 540 PASS (85.7 %)** excl. 13 env-only rows
-(463/553); RNG 98.9 %; screens 98.4 %. The 2026-09-06 cohort figures
-(262/540, scen-* 7/275) are stale — eight days of ports moved ~200 rows;
-the old mutant families are saturated and no longer pick work. Top owners:
+(463/553); RNG 98.9 %; screens 98.4 %. Top owners:
 `do_statusline2` ×11, `save_dungeon` ×8, `obj_resists` ×6, `distfleeck` ×5,
 `one_characteristic` ×3, `m_move`/`rloc`/`chwepon` ×2, then 1-block singles
 (all parked symptom/misattributed owners except live Open `drinkfountain`).
@@ -84,10 +82,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `zap.c` poly_obj dealloc_oextra — PARKED this iter (misattributed citation + no C arm; no js/; proof in LOOP-QUEUE Parked + NOTES Active). Next iter pops the new head (`timeout.c` obj_move_timers).
+**Next cluster:** `timeout.c` obj_move_timers — migrating-object timer carry (C timeout.c:2339; named data.md:239, D-1572 envelope; copy_oextra-envelope residual). Probe: `node scripts/brief.mjs obj_move_timers`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2279 (index).**
+**Keep D-0845…D-2280 (index).**
 <!-- recent:begin -->
+**D-2280** `timeout.c:2339–2353` (`obj_move_timers`: walk `gt.timer_base`; per TIMER_OBJECT match on  — new `export function obj_move_timers(src, dest)` in `js/mkobj.js` in C position (directly before `obj_split_timers`, matching C `:2339` before `:2358` — same file as its sibling, timer home per review 533).
 **D-2279** `light.c:779–803` (`obj_split_light_source`: walk `gl.light_base`; per LS_OBJECT match on  — new `export function obj_split_light_source(src, dest)` in `js/timeout.js` in C position (directly before `obj_merge_light_sources`, matching C `:779` before `:808` — same file as its sibling, both callees file-local, no
 **D-2278** `shk.c:3622–3658` (`splitbill`: `shop_keeper(*u.ushops)` + `inhishop` gate, `onbill(obj, s — new `export function splitbill(obj, otmp)` in `js/shk.js` in C position (directly before `sub_one_frombill`, matching C `:3623` before `:3660`), in C order: shkp gate → onbill gate → decrement → full-bill `unpaid = 0` el
 **D-2277** `monmove.c:54–74` (`mb_trapped`: verbose KABOOM/nearby-distant via `mdistu > 49`, `wake_ne — both clones deleted; `import { mb_trapped } from './monmove.js'` in `dig.js` + `lock.js` (hoisted function declaration, call-time use only — `imports.mjs --can` SAFE on both edges, same 90-module SCC, no top-level TDZ re
@@ -95,11 +94,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2275** `mkobj.c:416–448` (`copy_oextra`: null guards, `newoextra` when missing, `oname(ONAME_SKIP — new `export function copy_oextra(obj2, obj1)` in `js/mkobj.js` in C order (guards, `newoextra`, `has_oname` → live `oname` with `ONAME_SKIP_INVUPD`, `has_omonst` → `newomonst` + exact-copy assign (stale keys deleted = C 
 **D-2274** `explode.c:721–947` (`scatter`: impossible site-gate `:747–749`, uball/uchain `:762–771`,  — `js/explode.js` — `scatter` now follows C order: `await impossible` site-gate; uball/uchain arm (`u.uball`/`u.uchain` identity per ball.js, `Soundeffect(se_chain_shatters,25)`, `pline('The chain shatters!')`, `unpunish()
 **D-2273** `mon.c:2888–2987` (`vamprises`; trapped arm `:2966–2981`: `doormask = D_NODOOR`, `recalc_b — `js/monmove.js` — exported the canonical `mb_trapped` in C order (verbose gate, KABOOM/nearby-distant, `wake_nearto 49`, `mstun`, `rnd(15)`, `DEADMONSTER` → `await mondied` + still-dead TRUE with lifesave fallthrough to 
-**D-2272** `shk.c:234–269` (`shkgone`: `discard_damage_owned_by` `:246`, `resident = 0` `:247`, `!sea — new `export function discard_damage_owned_by(shkp)` in `js/shk.js` next to `discard_damage_struct`, in C order (`prevdam` walk, unlink owned, drop; GC frees — no `memset`/`free` in JS), ownership via the existing `shop_o
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2279; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2280; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
@@ -118,9 +116,7 @@ paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 
 ## Pointers
 
-`NOTES.md` · `LOOP-QUEUE.md` · `HIDDEN-PROXY.md` · `PORT-GAP-HELDOUT.md` · `PORT-GAP-TOP30.md` ·
-`DIVERGENCE-INDEX.md` · `C-JS-MAP.md` ·
-journal tail · `archive/PROGRESS-HISTORY.md`.
+`NOTES.md` · `LOOP-QUEUE.md` · `HIDDEN-PROXY.md` · `PORT-GAP-TOP30.md` · `DIVERGENCE-INDEX.md` · `C-JS-MAP.md`.
 
 ## Handoff rule
 

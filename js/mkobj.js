@@ -1152,6 +1152,32 @@ export function start_timer(when, kind, action, arg) {
 }
 
 /**
+ * C ref: timeout.c obj_move_timers `:2339–2353` — reassign every
+ * TIMER_OBJECT on src to dest, leaving src untimed. Repoints the queue
+ * entry (no reinsert: timeout is absolute, order unchanged) and bumps
+ * dest.timed per moved timer; count must equal src.timed or C panics
+ * (JS throws like dealloc_obj's C-panic ports — impossible() is async).
+ * C has zero callers in pinned upstream (migrating-object carry API,
+ * extern.h:3247); named omit of the D-1572 envelope, residual after
+ * D-2275 copy_oextra / D-2279 light split. In C position directly
+ * before obj_split_timers (`:2339` before `:2358`).
+ */
+export function obj_move_timers(src, dest) {
+    if (!src || !dest) return;
+    const g = timer_base();
+    let count = 0;
+    for (let curr = g._timer_base; curr; curr = curr.next) {
+        if ((curr.kind | 0) === TIMER_OBJECT && curr.obj === src) {
+            curr.obj = dest;
+            dest.timed = (dest.timed | 0) + 1;
+            count++;
+        }
+    }
+    if (count !== (src.timed | 0)) throw new Error('obj_move_timers');
+    src.timed = 0;
+}
+
+/**
  * C ref: timeout.c obj_split_timers — duplicate every TIMER_OBJECT on
  * src onto dest with the same remaining (timeout − moves). Caller
  * splitobj zeros dest.timed first; start_timer bumps it. Save next
