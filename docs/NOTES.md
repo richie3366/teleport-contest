@@ -21,6 +21,7 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 - **disclose + list_vanquished parks — do not re-pop:** Hallu desync / identical-prompt cell (proofs in Parked).
 - **dopush park — do not re-pop:** mimic memory/viz, not the push (Parked).
 - **dochug park — do not re-pop:** STALE (proof in Parked; falsifier: verify blocked on dochug).
+- **that_is_a_mimic park — do not re-pop:** misattributed owner + unresolved C glyph mechanism (proof + falsifier in Parked).
 - **nh_timeout park — do not re-pop:** STALE (proof in Parked; falsifier: verify blocked on nh_timeout).
 
 ## Don't re-check (≤15)

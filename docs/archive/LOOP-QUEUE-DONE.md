@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-14
 
-- [x] `hacklib.c` s_suffix — `js/uhitm.js` local `s_suffix` appends `'` after z/x/ch/sh; C appends `'` only after `s` (`it`→`its`, `you`→`your`, else `'s`). Import `do_name.js` `s_suffix` for the uhitm callers (cream-pie splash, shatter, face, grease). No corpus block (D-2261 Next). Probe: `node scripts/brief.mjs s_suffix`. **Addressed:** D-2268
+- [x] `hacklib.c` s_suffix — `js/uhitm.js` local `s_suffix` appends `'` after z/x/ch/sh; C appends `'` only after `s` (`it`→`its`, `you`→`your`, else `'s`). Import `do_name.js` `s_suffix` for the uhitm callers (cream-pie splash, shatter, face, grease). No corpus block (D-2261 Next). Probe: `node scripts/brief.mjs s_suffix`. **Addressed:** D-2268 `1f904287`
 
 
 - [x] `do_wear.c` Cloak_on — blocks 1/553 corpus sessions (first at step 129): C «The slippery cloak fits very tightly.--More--» vs JS «You are now wearing a slippery cloak.» (oilskin arm). Probe: `node scripts/hidden-proxy.mjs verify Cloak_on` (scen-wish-Rogue-92137). **Addressed:** D-2267 `d739cce2`

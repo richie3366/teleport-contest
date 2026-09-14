@@ -87,7 +87,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `hacklib.c` s_suffix. Probe: `node scripts/brief.mjs s_suffix`.
+**Next cluster:** `insight.c` enlightenment (that_is_a_mimic popped then parked — MISATTRIBUTED owner + unresolved display/memory mechanism, proof in LOOP-QUEUE Parked; no js/, no D-log). Probe: `node scripts/brief.mjs enlightenment`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2268 (index).**
 <!-- recent:begin -->
