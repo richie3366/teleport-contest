@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-14 — D-2268 `hacklib.c` `s_suffix` uhitm clone retired onto the canonical `do_name.js` import (queue row `hacklib.c` s_suffix, D-2261 Next)
+
+**C locus:** `hacklib.c:345–359` (`s_suffix`): `it`→`its`, `you`→`your` (both `strcmpi`, case-insensitive); trailing lowercase `s` → `'`; else `’s`. Only `s` — C has no z/x/ch/sh arm.
+**JS:** 1 file, +1/−13 (`js/uhitm.js`), under the 600/10 caps. Density note: portable C is 14 lines and the canonical export already existed — a clone retirement is small by nature.
+**Change:** deleted the local clone; added `s_suffix` to the existing `do_name.js` import (`imports.mjs --can uhitm.js do_name.js s_suffix` → ALREADY, no new edge, no TDZ risk). All 8 callers now resolve to the canonical `js/do_name.js:383` export, which is C-arm-for-arm (`toLowerCase` it/you, trailing-`s` → `'`, else `'s`). No DIAG/FORCE/seed-gate/coordinate/RNG-index reads; Rule #2 clean.
+**Verify:** `node scripts/verify.mjs --fn s_suffix` → PASS syntax (1 changed js file: js/uhitm.js) · PASS rule2 · note hidden (vacuous: 0 blocked at HEAD — NOT a corpus PASS; row cited 0 blocks so no --base owed) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · VERIFY: PASS (full `sessions` skipped: no shared file changed). Preflight `verify --no-cohort` green on a clean tree before edits. No maintained unit test: no `js/` unit harness exists (`sessions/` + `hidden-proxy` are the suite); the z/x/ch/sh possessive arm fires on no fortress path (durable-test-collateral disclosure).
+**Named:** none new. The remaining `s_suffix` clones named by `brief.mjs` (`explode.js`, `minion.js`, `mthrowu.js`, `questpgr.js`, `shk.js`, `trap.js`) stay as-was — different owners, separate rows on rescore; do not widen this row to them.
+**Next:** do not re-pop `s_suffix` for uhitm. Falsifier: a session blocked with `s_suffix` as owner, or a uhitm possessive topline diverging on a z/x/ch/sh-final name.
 ## 2026-09-14 — D-2267 `do_wear.c` `Cloak_on` full otyp switch: OILSKIN fit-tightly pline + MUMMY/INVISIBILITY/ALCHEMY arms + known/`update_inventory` tail (queue row `do_wear.c` Cloak_on, oilskin arm)
 
 **C locus:** `do_wear.c:326–380` (`Cloak_on`); oilskin arm `:364–366` (`pline("%s very tightly.", Tobjnam(uarmc, "fit"))`); MUMMY `:348–355` (`(HInvis || EInvis) && !Blind`, newsym, `You("can %s!")`); INVISIBILITY `:356–363` (`!oldprop && !HInvis && !Blind`, `makeknown`, newsym, `pline("Suddenly you can%s yourself.")`); ALCHEMY_SMOCK `:367–370` (`EAcid_resistance |= WORN_CLOAK`, `youprop.h:60` = `uprops[ACID_RES].extrinsic`); tail `:371–375` (`known = 1` + `update_inventory()`, no `find_ac` per D-0810). ALCHEMY `oc_oprop` is POISON_RES (already conferred by `setworn`), so the arm adds the second bit.

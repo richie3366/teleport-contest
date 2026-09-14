@@ -3353,7 +3353,7 @@ gains `!is_wet_towel`, pole arm gains `!is_art(SNICKERSNEE)` per wield.c:128–1
 dothrow is D-1374 / dig is D-1375); **`do_attack` leprechaun evade D-1381** (`S_LEPRECHAUN` 
 `!rn2(7)` `m_move(0)` then stumble/`return FALSE`; check_capacity / twoweapon still named); 
 **`hmon` cream pie `The(xname)`/`An(singular)` splash** (D-0888; 
-`mbodypart` FACE deferred — hardcoded face); 
+`mbodypart` FACE deferred — hardcoded face; `s_suffix` now the canonical `do_name.js` import, local z/x/ch/sh clone deleted (D-2268); shatter/grease/helmet/wrap/golem/taste/killer callers ride the same import); 
 **`could_seduce` + `hitmm`/`missmm` smile/pretend + 
 `mhitu` `hitmsg`/`missmu`/`wildmiss` seduce arms** (D-0887; **hitmm shade_miss D-1341**; 
 **dmgval shade/`shade_glare` D-1354**; **hitmm silver sear D-1351**; 

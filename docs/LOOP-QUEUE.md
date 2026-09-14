@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `hacklib.c` s_suffix — `js/uhitm.js` local `s_suffix` appends `'` after z/x/ch/sh; C appends `'` only after `s` (`it`→`its`, `you`→`your`, else `'s`). Import `do_name.js` `s_suffix` for the uhitm callers (cream-pie splash, shatter, face, grease). No corpus block (D-2261 Next). Probe: `node scripts/brief.mjs s_suffix`.
 - [ ] `uhitm.c` that_is_a_mimic — blocks 1/553 corpus sessions (first at step 89): C «A strange object appears next to you.» vs JS «A green gem appears next to you.». Probe: `node scripts/hidden-proxy.mjs verify that_is_a_mimic` (scen-genesis-Healer-92189).
 - [ ] `insight.c` enlightenment — blocks 1/553 corpus sessions (first at step 226): C «Wizard the Rogue's attributes:» vs JS «Wizard the Rogue's attributes:». Probe: `node scripts/hidden-proxy.mjs verify enlightenment` (scen-wish-Rogue-92037).
 - [ ] `questpgr.c` stinky_nemesis — nemesis stinking-cloud gas arm (named in `mon.c` mondead-tail D-2231 row; data.md:373). Probe: `node scripts/brief.mjs stinky_nemesis`.

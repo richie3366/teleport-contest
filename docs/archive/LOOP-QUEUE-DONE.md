@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-14
 
-- [x] `do_wear.c` Cloak_on — blocks 1/553 corpus sessions (first at step 129): C «The slippery cloak fits very tightly.--More--» vs JS «You are now wearing a slippery cloak.» (oilskin arm). Probe: `node scripts/hidden-proxy.mjs verify Cloak_on` (scen-wish-Rogue-92137). **Addressed:** D-2267
+- [x] `hacklib.c` s_suffix — `js/uhitm.js` local `s_suffix` appends `'` after z/x/ch/sh; C appends `'` only after `s` (`it`→`its`, `you`→`your`, else `'s`). Import `do_name.js` `s_suffix` for the uhitm callers (cream-pie splash, shatter, face, grease). No corpus block (D-2261 Next). Probe: `node scripts/brief.mjs s_suffix`. **Addressed:** D-2268
+
+
+- [x] `do_wear.c` Cloak_on — blocks 1/553 corpus sessions (first at step 129): C «The slippery cloak fits very tightly.--More--» vs JS «You are now wearing a slippery cloak.» (oilskin arm). Probe: `node scripts/hidden-proxy.mjs verify Cloak_on` (scen-wish-Rogue-92137). **Addressed:** D-2267 `d739cce2`
 
 
 - [x] `cmd.c` there_cmd_menu_next2u — blocks 1/553 corpus sessions (first at step 77): C «Ia remembered, unseen, creature» vs JS «La lich (it)» (remembered-invisible glyph vs seen monster in the next-to-you menu). Probe: `node scripts/hidden-proxy.mjs verify there_cmd_menu_next2u` (scen-tour-Wizard-91112). **Addressed:** D-2266 `9ac4640d`

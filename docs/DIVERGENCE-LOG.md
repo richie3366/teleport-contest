@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-2268 — `hacklib.c` `s_suffix` uhitm clone retired onto the canonical `do_name.js` import (queue row `hacklib.c` s_suffix, D-2261 Next)
+
+- **Status:** shipped (Open queue head `hacklib.c` s_suffix — no corpus block; `hidden-proxy verify s_suffix` vacuous at HEAD, NOT a corpus PASS. D-2261 Next prescribes exactly this fix. Review 1227 ACCEPT-WITH-DEBT names the same debt as its debt item 1 and defers to this Open row with no Must-fix prepend, so no stamp is owed.)
+- **Symptom:** no corpus divergence — C-wrong clone. Every uhitm possessive built from a name ending in z/x/ch/sh (cream-pie splash-face, shatter, grease, helmet-block, wrap-brush, clay-golem writing, expelled-taste, explosion killer) printed `…'` where C prints `…’s`; case variants past `It`/`You` (e.g. `IT`, `YOU`) also diverged, since C matches `it`/`you` with `strcmpi`.
+- **C locus:** `hacklib.c:345–359` (`s_suffix`): `it`→`its`, `you`→`your` (both `strcmpi`, case-insensitive); trailing lowercase `s` → `'`; else `’s`. Only `s` — C has no z/x/ch/sh arm.
+- **JS was:** `js/uhitm.js:261–271` file-local `function s_suffix(s)`: exact-match `it`/`It` and `you`/`You` only, plus a `z`/`x`/`ch`/`sh` → `'` arm C never has. All 8 value call sites (explosion killer, shatter, splash-face, grease, helmet-block, wrap-brush, clay-golem writing, expelled-taste) resolved to the clone.
+- **Fix:** deleted the local clone; added `s_suffix` to the existing `do_name.js` import (`imports.mjs --can uhitm.js do_name.js s_suffix` → ALREADY, no new edge, no TDZ risk). All 8 callers now resolve to the canonical `js/do_name.js:383` export, which is C-arm-for-arm (`toLowerCase` it/you, trailing-`s` → `'`, else `'s`). No DIAG/FORCE/seed-gate/coordinate/RNG-index reads; Rule #2 clean.
+- **JS:** 1 file, +1/−13 (`js/uhitm.js`), under the 600/10 caps. Density note: portable C is 14 lines and the canonical export already existed — a clone retirement is small by nature.
+- **Verify:** `node scripts/verify.mjs --fn s_suffix` → PASS syntax (1 changed js file: js/uhitm.js) · PASS rule2 · note hidden (vacuous: 0 blocked at HEAD — NOT a corpus PASS; row cited 0 blocks so no --base owed) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · VERIFY: PASS (full `sessions` skipped: no shared file changed). Preflight `verify --no-cohort` green on a clean tree before edits. No maintained unit test: no `js/` unit harness exists (`sessions/` + `hidden-proxy` are the suite); the z/x/ch/sh possessive arm fires on no fortress path (durable-test-collateral disclosure).
+- **Named omissions:** none new. The remaining `s_suffix` clones named by `brief.mjs` (`explode.js`, `minion.js`, `mthrowu.js`, `questpgr.js`, `shk.js`, `trap.js`) stay as-was — different owners, separate rows on rescore; do not widen this row to them.
+- **Next:** do not re-pop `s_suffix` for uhitm. Falsifier: a session blocked with `s_suffix` as owner, or a uhitm possessive topline diverging on a z/x/ch/sh-final name.
+
 ## D-2267 — `do_wear.c` `Cloak_on` full otyp switch: OILSKIN fit-tightly pline + MUMMY/INVISIBILITY/ALCHEMY arms + known/`update_inventory` tail (queue row `do_wear.c` Cloak_on, oilskin arm)
 
 - **Status:** shipped (Open queue row `do_wear.c` Cloak_on — 1/553 blocked: scen-wish-Rogue-92137 step 129/216 kind=screen, C «The slippery cloak fits very tightly.--More--» vs JS «You are now wearing a slippery cloak.». No review cited it, so no stamp is owed.)
