@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `trap.c` drown — crawl-out / Amphibious / inventory-burn arms (TOP30 #23; 14 C callers; pit/water sessions). Probe: `node scripts/brief.mjs drown`.
 - [ ] `hack.c` test_move + domove_core — movement-attack bars/web/trap-liquid arms (TOP30 #9; C hack.c:991/:2712; reached by every session that moves; never live/archived/parked). Probe: `node scripts/brief.mjs test_move`.
 - [ ] `steed.c` dismount_steed — poly / engulfed / water-and-lava steed-death arms (TOP30 #26; C steed.c:576; 29 C callers; never live/archived/parked). Probe: `node scripts/brief.mjs dismount_steed`.
 - [ ] `invent.c` sobj_at residual clones — exact-name clones in dbridge/music/steed + 7 renamed same-body variants (monmove/shk/apply×2/dothrow/pager/mon; follow-up to the D-log sobj_at canonical entry, 9 of 12 retired — 10-file cap cut). Probe: `node scripts/brief.mjs sobj_at`.

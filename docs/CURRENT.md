@@ -85,8 +85,9 @@ divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
 **Next cluster:** `trap.c` drown — crawl-out / Amphibious / inventory-burn arms (TOP30 #23; 14 C callers; pit/water sessions). Probe: `node scripts/brief.mjs drown`. (domonnoise parked 2026-09-14: stale TOP30 #17 duplicate, all arms live per D-1808/D-1969/D-1977–D-1980.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2283 (index).**
+**Keep D-0845…D-2284 (index).**
 <!-- recent:begin -->
+**D-2284** `trap.c:5059–5199` (`drown`, 140 lines). In C order: `feel_newsym(ux,uy)`; uinwater + `is_ — the C arms verbatim in C order in `js/trap.js` `drown`, preserving short-circuit, RNG (`rn2(5)` wade, `rn2(3)` gremlin/teleport, `d(2,6)` rust), list, ownership, mutation and integer (`|0`, `Luck+2`) semantics.
 **D-2283** `potion.c:178–188` (`make_sick` `:137–190` tail: `kptr = find_delayed_killer(SICK)`; `if ( — the C arm verbatim in C position: `const kpfx = (cause && cause === '#wizintrinsic') ?
 **D-2282** `shk.c:628–661` (`credit_report`: static `credit_snap[2][3]`; `idx` 0 → zero both rows els — new `export async function credit_report(shkp, idx, silent)` in `js/shk.js:453` in C position (after `rob_shop`, before `remote_burglary` `:664` — matching C `:628` between its neighbors), module-level `credit_snap`, C o
 **D-2281** `invent.c:1466–1475` (`sobj_at`: walk `svl.level.objects[x][y]` nexthere chain, `otyp ==`  — new `export function sobj_at(otyp, x, y)` in `js/mkobj.js` directly before `nxtobj` (C position :1466 before :1479; same file as its C neighbor, whose `(otyp|0)===(type|0)` compare it shares — C-exact for int otyps). 9 c
@@ -94,11 +95,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2279** `light.c:779–803` (`obj_split_light_source`: walk `gl.light_base`; per LS_OBJECT match on  — new `export function obj_split_light_source(src, dest)` in `js/timeout.js` in C position (directly before `obj_merge_light_sources`, matching C `:779` before `:808` — same file as its sibling, both callees file-local, no
 **D-2278** `shk.c:3622–3658` (`splitbill`: `shop_keeper(*u.ushops)` + `inhishop` gate, `onbill(obj, s — new `export function splitbill(obj, otmp)` in `js/shk.js` in C position (directly before `sub_one_frombill`, matching C `:3623` before `:3660`), in C order: shkp gate → onbill gate → decrement → full-bill `unpaid = 0` el
 **D-2277** `monmove.c:54–74` (`mb_trapped`: verbose KABOOM/nearby-distant via `mdistu > 49`, `wake_ne — both clones deleted; `import { mb_trapped } from './monmove.js'` in `dig.js` + `lock.js` (hoisted function declaration, call-time use only — `imports.mjs --can` SAFE on both edges, same 90-module SCC, no top-level TDZ re
-**D-2276** `insight.c:1859–1878` (`Upolyd && u.umonnum != u.ulycn && !(final == ENL_GAMEOVERDEAD && u — `js/invent.js` final builder — the C arm verbatim in C position (after Polymorph_control, before were-form): `Upolyd && umonnum != (ulycn ??
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2283; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2284; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

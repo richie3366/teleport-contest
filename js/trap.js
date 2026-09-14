@@ -30,7 +30,7 @@ import { mon_explodes, scatter } from './explode.js';
 import {
     newsym, pline, pline_mon, pline_xy, urgent_pline, mon_visible, see_with_infrared,
     You_feel, unmap_object, glyph_is_invisible, tmp_at, nh_delay_output,
-    obj_glyph, flush_topl_more, feel_newsym, canspotmon, map_invisible,
+    obj_glyph, flush_topl_more, feel_newsym, canspotmon, map_invisible, under_water,
     set_msg_xy, Hallucination, Norep, impossible,
 } from './display.js';
 import { doname, an, the, The, xname, yname, cxname, makeplural, vtense, ansimpleoname, safe_qbuf, gloves_simple_name, aobjnam, Yobjnam2 } from './objnam.js';
@@ -45,7 +45,7 @@ import {
     G_FREQ, G_UNIQ, verysmall, grounded, passes_walls,
     is_flyer, is_floater, is_clinger,
     mon_knows_traps, mon_learns_traps,
-    amorphous, unsolid, is_whirly, breathless, MZ_SMALL, MZ_HUGE,
+    amorphous, unsolid, is_whirly, breathless, can_teleport, MZ_SMALL, MZ_HUGE,
     likes_gems, mons, webmaker, throws_rocks,
     is_animal, mindless, haseyes,
     bigmonst, is_golem, is_mplayer, is_rider,
@@ -81,7 +81,7 @@ import {
     UTOTYPE_NONE, UTOTYPE_FALLING, Is_stronghold,
     KILLED_BY, KILLED_BY_AN, NO_KILLER_PREFIX, NO_PART, STONING,
     ARTICLE_NONE, ARTICLE_THE, SUPPRESS_SADDLE, has_mgivenname,
-    DISMOUNT_POLY, DISMOUNT_FELL,
+    DISMOUNT_POLY, DISMOUNT_FELL, DISMOUNT_GENERIC,
     WATER, BURNING, DROWNING, DISSOLVED, PLNMSG_BACK_ON_GROUND,
     TT_NONE, TT_BEARTRAP, TT_PIT, TT_WEB, TT_LAVA, TT_INFLOOR, TT_BURIEDBALL,
     LEFT_SIDE, RIGHT_SIDE, BOTH_SIDES, FOOT, LEG, SPINE,
@@ -99,7 +99,7 @@ import {
     MAY_DESTROY, MAY_HIT, MAY_FRACTURE, VIS_EFFECTS,
     IS_OBSTRUCTED, IS_STWALL, IS_TREE, IRONBARS,
     HVY_ENCUMBER, EXT_ENCUMBER, UNENCUMBERED, SLT_ENCUMBER, WT_TOOMUCH_DIAGONAL,
-    TELEDS_ALLOW_DRAG,
+    TELEDS_ALLOW_DRAG, TELEDS_TELEPORT, TELEPORT, TELEPORT_CONTROL,
     ECMD_OK, ECMD_TIME, MON_DETACH,
     Is_container, Waterproof_container, Is_box,
     xytodir, DIR_180, DIR_ERR,
@@ -112,7 +112,7 @@ import {
     maybe_half_phys, nomul, unmul, losehp, finish_maybe_wail, stop_occupation,
     in_rooms, set_uinwater,
 } from './hack.js';
-import { goodpos, mlevel_tele_trap, mtele_trap, tele_trap, level_tele_trap, domagicportal, rloco, random_teleport_level, teleds } from './teleport.js';
+import { goodpos, mlevel_tele_trap, mtele_trap, tele_trap, level_tele_trap, domagicportal, rloco, random_teleport_level, teleds, safe_teleds, noteleport_level, dotele } from './teleport.js';
 import { get_level, on_level, at_dgn_entrance } from './dungeon.js';
 import {
     objectNames, POTION_CLASS, SCROLL_CLASS, SPBOOK_CLASS, ARMOR_CLASS,
@@ -142,7 +142,7 @@ import { done } from './end.js';
 import { make_blinded, dropx } from './do.js';
 import { mon_adjust_speed } from './muse.js';
 import { m_dowear } from './worn.js';
-import { m_unleash } from './apply.js';
+import { m_unleash, number_leashed, unleash_all } from './apply.js';
 import { hard_helmet, helm_simple_name, cloak_simple_name, suit_simple_name } from './do_wear.js';
 import { unplacebc, placebc, ballfall } from './ball.js';
 import { carried, is_fainted, reset_faint } from './eat.js';
@@ -156,6 +156,7 @@ import { fill_pit, bury_an_obj } from './dig.js';
 import { u_wield_art, attacks, bare_artifactname, has_magic_key } from './artifact.js';
 import { ART_STING } from './generated/artifacts_data.js';
 import { maybe_unhide_at } from './monmove.js';
+import { is_waterwall, hero_Swimming, hero_Amphibious, hero_Breathless } from './dbridge.js';
 // C obj.h stone_missile lives in dothrow.js (canonical); same-file passes_rocks below (D-2195).
 import { stone_missile } from './dothrow.js';
 
@@ -5270,51 +5271,152 @@ export function rnd_nextto_goodpos(pos, mtmp) {
 }
 
 /**
- * C ref: trap.c drown `:5058–5199` — fall/plunge into pool/waterwall;
- * crawl out via rnd_nextto_goodpos + emergency_disrobe + teleds.
- * Branch envelope: first-entry fall/plunge + sink; water_damage_chain;
- * usleep unmul / reset_faint; mmove + rnd_nextto_goodpos; waterlevel
- * skip disrobe else emergency_disrobe; crawl/Pheew/teleds(ALLOW_DRAG)
- * or But-in-vain. Fail-crawl set_uinwater(1) is D-1267.
- * Named omissions: Amphibious/Breathless/Swimming wade set_uinwater;
- * post-rescue set_uinwater(0); gremlin/iron golem; leash;
- * Teleportation escape; steed dismount; drowning done() loop;
- * Hallucination Titanic; feel_newsym waterwall.
- * @returns {Promise<boolean>} true if hero relocated
+ * C ref: trap.c drown `:5059–5199` — fall/plunge into pool/waterwall;
+ * wade / Amphibious / teleport / steed / crawl-out / drowning loop.
+ * Branch envelope in C order: feel_newsym waterwall map; uinwater wade
+ * (prev-cell is_pool + Swim/Amphib/Breathless, rn2(5) inpool_ok else
+ * early FALSE); first-entry fall/plunge + Titanic/rock sink;
+ * water_damage_chain; gremlin rn2(3) split_mon / iron-golem
+ * Maybe_Half_Phys(d(2,6)) rust; inpool_ok early FALSE; leash slip;
+ * Amphibious/Breathless/Swimming (verbose aren't-drowning, waterlevel
+ * bottom/keel, Punished unplacebc/placebc, vision_recalc, set_uinwater,
+ * under_water) early FALSE; Teleportation/can_teleport + !Unaware +
+ * (Teleport_control || rn2(3) < Luck+2) dotele escape; usteed
+ * dismount_steed(GENERIC); usleep unmul / reset_faint; mmove +
+ * rnd_nextto_goodpos + waterlevel/emergency_disrobe crawl + Pheew/teleds
+ * or But-in-vain; set_uinwater(1) + urgent You-drown + 2x done(DROWNING)
+ * / safe_teleds loop (deep-water/limitless format arms) + set_uinwater(0)
+ * + rescued_from_terrain TRUE. Fail-crawl set_uinwater(1) is D-1267.
+ * C macros: is_solid ≡ is_waterwall (dbridge.c:37); Swimming ≡
+ * H||E||steed is_swimmer, Amphibious/Breathless ≡ H||E Magical_breathing
+ * || form (youprop.h:264–279) via dbridge hero_*; Punished ≡ uball != 0
+ * (:77); Unaware ≡ multi<0 && (unconscious||is_fainted) (:399) via eat.js
+ * (local trap.js Unaware is usleep-only); Luck ≡ uluck+moreluck (you.h);
+ * Teleportation/Teleport_control ≡ H||E (+uprops slot mirror).
+ * You/Your/pline_The render as plain pline (no second You clone).
+ * @returns {Promise<boolean>} true if hero relocated (or drowned); false if wading/swimming on
  */
 export async function drown() {
     const u = game.u;
     if (!u) return false;
-    const isSolid = isok(u.ux, u.uy)
-        && game.level?.at(u.ux, u.uy)?.typ === WATER;
+    /* C trap.c:5065 — boolean is_solid = is_waterwall(u.ux, u.uy) */
+    const isSolid = is_waterwall(u.ux | 0, u.uy | 0);
+    let inpool_ok = false;
 
-    if (!u.uinwater) {
-        const body = waterbody_name(u.ux, u.uy);
-        await pline(`You ${isSolid ? 'plunge' : 'fall'} into the ${body}!`);
-        if (!isSolid) {
-            await pline('You sink like a rock.');
-        }
+    feel_newsym(u.ux | 0, u.uy | 0); /* in case Blind, map the water here */
+    /* happily wading in the same contiguous pool */
+    if ((u.uinwater | 0)
+        && is_pool((u.ux | 0) - (u.dx | 0), (u.uy | 0) - (u.dy | 0))
+        && (hero_Swimming() || hero_Amphibious() || hero_Breathless())) {
+        /* water effects on objects every now and then */
+        if (!rn2(5))
+            inpool_ok = true;
+        else
+            return false;
+    }
+
+    if (!(u.uinwater | 0)) {
+        const body = waterbody_name(u.ux | 0, u.uy | 0);
+        const punct = (hero_Amphibious() || hero_Swimming() || hero_Breathless()) ? '.' : '!';
+        await pline(`You ${isSolid ? 'plunge' : 'fall'} into the ${body}${punct}`);
+        if (!hero_Swimming() && !isSolid)
+            await pline(Hallucination() ? 'You sink like the Titanic.' : 'You sink like a rock.');
     }
 
     await water_damage_chain(game.invent, false);
 
+    if ((u.umonnum | 0) === PM_GREMLIN && rn2(3)) {
+        const { split_mon } = await import('./sit.js');
+        await split_mon(game.youmonst, null);
+    } else if ((u.umonnum | 0) === PM_IRON_GOLEM) {
+        await pline('You rust!');
+        const i = maybe_half_phys(d(2, 6));
+        if ((u.mhmax | 0) > i)
+            u.mhmax = (u.mhmax | 0) - i;
+        losehp(i, 'rusting away', KILLED_BY);
+        if (game._losehp_needs_done || game.program_state?.gameover) {
+            const { finish_losehp_done } = await import('./end.js');
+            await finish_losehp_done();
+            return true;
+        }
+    }
+    if (inpool_ok)
+        return false;
+
+    const leashed = number_leashed();
+    if (leashed > 0) {
+        await pline(`The leash${leashed > 1 ? 'es' : ''} slip${leashed > 1 ? '' : 's'} loose.`);
+        unleash_all();
+    }
+
+    if (hero_Amphibious() || hero_Breathless() || hero_Swimming()) {
+        if (hero_Amphibious() || hero_Breathless()) {
+            if (game.flags?.verbose !== false)
+                await pline("But you aren't drowning.");
+            if (!Is_waterlevel(u.uz)) {
+                if (Hallucination())
+                    await pline('Your keel hits the bottom.');
+                else
+                    await pline('You touch bottom.');
+            }
+        }
+        if (u.uball) {
+            unplacebc();
+            placebc();
+        }
+        vision_recalc(2); /* unsee old position */
+        await set_uinwater(1); /* u.uinwater = 1 */
+        await under_water(1);
+        game.vision_full_recalc = 1;
+        return false;
+    }
+    {
+        const teleportation = !!((u.HTeleportation | 0) || (u.ETeleportation | 0) || u.Teleportation
+            || (u.uprops?.[TELEPORT]?.intrinsic | 0) || (u.uprops?.[TELEPORT]?.extrinsic | 0));
+        /* local Unaware() is usleep-only; C :399 needs unconscious||faint */
+        const { Unaware: UnawareProp } = await import('./eat.js');
+        const teleportControl = !!((u.HTeleport_control | 0) || (u.ETeleport_control | 0)
+            || u.Teleport_control
+            || (u.uprops?.[TELEPORT_CONTROL]?.intrinsic | 0)
+            || (u.uprops?.[TELEPORT_CONTROL]?.extrinsic | 0));
+        const luck = (u.uluck | 0) + (u.moreluck | 0);
+        if ((teleportation || can_teleport(game.youmonst?.data)) && !UnawareProp()
+            && (teleportControl || rn2(3) < luck + 2)) {
+            await pline('You attempt a teleport spell.'); /* utcsri!carroll */
+            if (!noteleport_level(game.youmonst)) {
+                await dotele(false);
+                if (!is_pool(u.ux | 0, u.uy | 0))
+                    return true;
+            } else {
+                await pline('The attempted teleport spell fails.');
+            }
+        }
+    }
+    if (u.usteed) {
+        await dismount_steed(DISMOUNT_GENERIC);
+        if (!is_pool(u.ux | 0, u.uy | 0))
+            return true;
+    }
     /* if sleeping, wake up now so that we don't crawl out of water
-       while still asleep; unmul() clears u.usleep */
-    if (u.usleep) await unmul('Suddenly you wake up!');
+       while still asleep; we can't do that the same way that waking
+       due to combat is handled; note unmul() clears u.usleep */
+    if (u.usleep)
+        await unmul('Suddenly you wake up!');
     /* being doused will revive from fainting */
-    if (is_fainted()) await reset_faint();
+    if (is_fainted())
+        await reset_faint();
 
     const pos = { x: u.ux, y: u.uy };
     /* have to be able to move in order to crawl */
     if ((game.multi | 0) >= 0 && (game.youmonst?.data?.mmove | 0)
         && rnd_nextto_goodpos(pos, game.youmonst)) {
         const lostRef = { lost: false };
+        /* time to do some strip-tease... */
         const succ = Is_waterlevel(u.uz) ? true : await emergency_disrobe(lostRef);
 
         await pline(`You try to crawl out of the ${hliquid('water')}.`);
-        if (lostRef.lost) {
+        if (lostRef.lost)
             await pline('You dump some of your gear to lose weight...');
-        }
         if (succ) {
             await pline('Pheew!  That was close.');
             await teleds(pos.x, pos.y, TELEDS_ALLOW_DRAG);
@@ -5325,7 +5427,37 @@ export async function drown() {
     }
 
     await set_uinwater(1); /* C trap.c:5170 — u.uinwater = 1 */
-    await pline('You drown.');
+    await urgent_pline('You drown.');
+    /* first pass is survivable by using up an amulet of life-saving or by
+       answering no to "Die?" in explore|wizard mode; second pass can only
+       be survivable via the latter */
+    for (let i = 0; i < 2; i++) {
+        /* killer format and name are reconstructed every iteration
+           because lifesaving resets them */
+        let pool_of_water = waterbody_name(u.ux | 0, u.uy | 0);
+        if (!game.killer) game.killer = { name: '', format: 0 };
+        game.killer.format = KILLED_BY_AN;
+        /* avoid "drowned in [a] water" */
+        if (pool_of_water === 'water') {
+            pool_of_water = 'deep water';
+            game.killer.format = KILLED_BY;
+        /* avoid "drowned in _a_ limitless water" on Plane of Water */
+        } else if (pool_of_water === 'limitless water') {
+            game.killer.format = KILLED_BY;
+        }
+        game.killer.name = pool_of_water;
+        await done(DROWNING);
+        /* oops, we're still alive.  better get out of the water. */
+        if (game.program_state?.gameover) return true;
+        if (await safe_teleds(TELEDS_ALLOW_DRAG | TELEDS_TELEPORT))
+            break; /* successful life-save */
+        /* nowhere safe to land; repeat drowning loop... */
+        await pline("You're still drowning.");
+    }
+
+    if (u.uinwater | 0)
+        await set_uinwater(0); /* u.uinwater = 0 */
+    await rescued_from_terrain(DROWNING);
     return true;
 }
 

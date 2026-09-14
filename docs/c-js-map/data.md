@@ -1088,12 +1088,18 @@ turn-loop / exercise STR·CON / pickup/drop); Lev/air/steed `weight_cap` MAX; `s
 `heal_legs` body + all `heal_legs(0)` sites live (`js/trap.js:3017`; royal-jelly fpostfx `js/eat.js`, mount_steed wizard-force `js/steed.js`); **`body_part`** / **`mbodypart`** import `polyself.js` (D-1496;
 steed FOOT uses `mbodypart(usteed)`, not the hero). **mcastu HEAD /
 pickup HAND D-1508**. **`mcast_blind_you` EYE D-1534**. **`observe_quantum_cat` FOOT D-1535**.
-**`drown` crawl-out D-1814** (C `emergency_disrobe` `:4896` /
-`rnd_nextto_goodpos` `:4944` / crawl `teleds(TELEDS_ALLOW_DRAG)`
-`:5154–5166`; JS stub always-TRUE disrobe + `teleds_drown`; now those
-plus `unmul`/`reset_faint`/`mmove`; named: Amphibious wade,
-Teleportation escape, steed, drowning `done()` loop, `feel_newsym`
-waterwall, lava_effects). **`climb_pit` + file-local `m_easy_escape_pit`**
+**`drown` full port D-2284** (C `:5059–5199` in C order: `feel_newsym`
+waterwall map; uinwater wade prev-cell `is_pool` + Swim/Amphib/Breathless
+`rn2(5)`; fall/plunge `.`/`!` + Titanic/rock sink; `water_damage_chain`;
+gremlin `rn2(3)` `split_mon` / iron-golem `Maybe_Half_Phys(d(2,6))` rust;
+leash slip; Amphibious/Breathless/Swimming survive + Punished
+`unplacebc/placebc` + `vision_recalc`/`set_uinwater`/`under_water`;
+Teleportation/`can_teleport` + `!Unaware` + Teleport_control/`rn2(3)<Luck+2`
+`dotele`; `dismount_steed(GENERIC)`; `unmul`/`reset_faint`; mmove +
+`rnd_nextto_goodpos` + waterlevel/`emergency_disrobe` crawl; `set_uinwater(1)`
++ urgent drown + 2x `done(DROWNING)`/`safe_teleds` loop + `set_uinwater(0)` +
+`rescued_from_terrain`; `is_solid` ≡ `is_waterwall`, D-1814/D-1267 retired;
+`lava_effects` stays D-1913). **`climb_pit` + file-local `m_easy_escape_pit`**
 (D-1876; C `trap.c:4183–4230` Passes_walls ascend / `!rn2(2)` boulder
 crevice with `display_nhwindow` flush / Flying-clinger climb-out /
 `--utrap`-or-easy-escape (pit fiend, `msize >= MZ_HUGE`) crawl-out with

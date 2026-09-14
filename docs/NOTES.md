@@ -4,42 +4,44 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 
 ## Active
 
-- **mkclass_aligned / get_location parks — do not re-pop:** presence-only (proofs in Parked; falsifier: `verify` blocked on that fn).
-- **Work picker:** `hidden-proxy queue`; singletons Deferred — do not re-add without a fired falsifier.
-- **More-transient parks — do not re-pop:** break_armor timing.
-- **exercise park — do not re-pop:** draw-presence only (0/553 owned; falsifier: encumbrance topline/owner).
-- **gethungry / maybe_generate_rnd_mon / mattacku / u_calc_moveamt parks — do not re-pop:** presence-only, 0/553 owned, JS arm-for-arm vs C (falsifier: `verify` blocked on that fn; proofs in Parked).
-- **do_statusline1 + do_statusline2 parks — do not re-pop:** paint-timing; statusline1 → attributes_enlightenment.
-- **Fortress guards** (do not reopen): display_inventory dismiss/gameover heading/keep_status, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue `S_ndoor`, bigrm-2, getpos, summonmu, lookat, `do_statusline1`, snapshot, fakewiz, Ice/Boulder, `roles[]`, pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
+Park rows: re-pop only on the listed falsifier (proofs in Parked / LOOP-QUEUE-DONE).
+
+- **mkclass_aligned/get_location:** presence-only (falsifier: `verify` blocked).
+- **Work picker:** `hidden-proxy queue`; singletons Deferred until a falsifier fires.
+- **Transient parks:** break_armor timing.
+- **exercise:** draw-presence only, 0/553 owned (falsifier: encumbrance topline/owner).
+- **gethungry/maybe_generate_rnd_mon/mattacku/u_calc_moveamt:** presence-only, 0/553 owned, JS arm-for-arm vs C (falsifier: `verify` blocked).
+- **do_statusline1/2:** paint-timing; statusline1 → attributes_enlightenment.
+- **Fortress guards** (settled — do not reopen): display_inventory dismiss/gameover heading/keep_status, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue `S_ndoor`, bigrm-2, getpos, summonmu, lookat, `do_statusline1`, snapshot, fakewiz, Ice/Boulder, `roles[]`, pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
 - **Luck runs when invulnerable, not dialogues** (`timeout.c:623`).
-- **Symptom-owner parks — do not re-pop:** obj_resists/m_move/rloc/lightdamage/mattackm/can_carry/spoteffects/mon_adjust_speed/zapyourself/doname_base/hmonas/minliquid_core/distfleeck/passiveum.
-- **STALE parks — do not re-pop:** lesshungry/rndcurse/mhitm_ad_famn/regen_hp/barehands/do_mapping/adjattrib/from_what/look_at_monster/formatkiller/do_screen_description/reveal_terrain/peffect_acid/newcham/use_offensive/stop_donning/doeat_nonfood/gcrownu/big_little_match/xkilled/x_monnam. (Proofs in Parked; re-queue only on falsifier.)
-- **slimed park:** landing + Sick-store writers.
-- **MISATTRIBUTED/STALE parks — do not re-pop:** vomiting_dialogue/u_stuck_cannot_go/name_to_monplus/mcast_death_touch/save_dungeon/dodown/mv_bubble/one_characteristic/use_pole/trapmove/fig_transform/chwepon.
-- **disclose + list_vanquished parks — do not re-pop:** Hallu desync / identical-prompt cell (proofs in Parked).
-- **dopush park — do not re-pop:** mimic memory/viz, not the push (Parked).
-- **dochug / dotrap / mintrap / nh_timeout / mon_break_armor parks — do not re-pop:** STALE presence-only (proofs + falsifiers in Parked).
-- **that_is_a_mimic park — do not re-pop:** misattributed owner + unresolved C glyph mechanism.
-- **drinkfountain park — do not re-pop:** misattributed quaff owner + hallu residual.
-- **poly_obj park — do not re-pop:** misattributed citation + no C arm (Parked; falsifier: `verify poly_obj` blocked).
-- **newuhs park — do not re-pop:** STALE, full port shipped D-1791 (Parked; falsifier: `verify` blocked).
-- **domonnoise park — do not re-pop:** STALE DUPLICATE, TOP30 #17 fossil (proof in Parked; falsifier: `verify domonnoise` blocked with domonnoise as owner).
+- **Symptom-owner parks:** obj_resists/m_move/rloc/lightdamage/mattackm/can_carry/spoteffects/mon_adjust_speed/zapyourself/doname_base/hmonas/minliquid_core/distfleeck/passiveum.
+- **STALE parks:** lesshungry/rndcurse/mhitm_ad_famn/regen_hp/barehands/do_mapping/adjattrib/from_what/look_at_monster/formatkiller/do_screen_description/reveal_terrain/peffect_acid/newcham/use_offensive/stop_donning/doeat_nonfood/gcrownu/big_little_match/xkilled/x_monnam.
+- **slimed:** landing + Sick-store writers.
+- **MISATTRIBUTED/STALE parks:** vomiting_dialogue/u_stuck_cannot_go/name_to_monplus/mcast_death_touch/save_dungeon/dodown/mv_bubble/one_characteristic/use_pole/trapmove/fig_transform/chwepon.
+- **disclose/list_vanquished:** Hallu desync / identical-prompt cell.
+- **dopush:** mimic memory/viz, not the push.
+- **dochug/dotrap/mintrap/nh_timeout/mon_break_armor:** STALE presence-only.
+- **that_is_a_mimic/drinkfountain:** misattributed owners (mimic: unresolved C glyph mechanism; fountain: quaff owner + hallu residual).
+- **poly_obj:** misattributed citation + no C arm (falsifier: `verify poly_obj` blocked).
+- **newuhs:** STALE, full port shipped D-1791 (falsifier: `verify` blocked).
+- **domonnoise:** STALE DUPLICATE, TOP30 #17 fossil (falsifier: `verify domonnoise` blocked as owner).
 
 ## Don't re-check (≤15)
 
-- D-1790…D-2283 stand. Scars: `m_seenres` boolean, never `!== 0`; no 2nd `genus`/`accessible`/`confdir`/`locomotion`/`unconscious`/`free_mgivenname`/`is_axe`/`carrying`/`end_running`.
+- D-1790…D-2284 stand. Scars: `m_seenres` boolean, never `!== 0`; no 2nd `genus`/`accessible`/`confdir`/`locomotion`/`unconscious`/`free_mgivenname`/`is_axe`/`carrying`/`end_running`.
 - D-1795/D-1816 stand. Scars: sleep `rn2(10)`; no 2nd `m_monnam`/`simple_typename`; seed4500 `[2]`: keep `flush_screen(1)`.
 - No `stay` rebuild / `u.Punished` / ordinary-pit-farlook `rn2(20)`.
 - seed0014 I-glyph D-1774; findone tail D-1775; D-0078 H2344/offx 72 (D-1185); `g`≠Unknown (D-1186); PREFIXCMD D-1582.
   ParanoidTrap/`domagicportal`/`undestroyable_trap`/`mktrap` dst/`goto_level` uz0 are D-1187/1188. No rhack raw-ETX (D-1189). Never FORCE falsified mineralize TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` loaders D-1852/D-1858 — check `load_val_*`/`load_sam_*` before refilling.
 - No D-0480 `tty_map_color` re-apply (D-0483). No skipped spaces / space runs >4 (D-0931). No FORCE shk satdoor/`onlineu` (D-0376), linedup/FlipX (#1092), `_pending_message` restore (D-0929), HEAVY_IRON_BALL `owt!=0` (#1194). Judge keeps RC (D-0933); §1.2 frozen. No public-LB chase.
-- No memcpy gi worn/ball (D-1035) / `setnotworn`←`owornmask` (D-1020) / `delobj` tut loot / off-level timers (D-1037) / dropped `msounds[]` (D-1053) / tut-1 keys (D-1065) / skipped `tutorial()` (D-1066). No skip D-1067…D-2283.
-- No `monmove.js`→sit `sticks` import / `confer_oc_oprop` rewrite / emin delete / `make_happy_shk` stub (D-1540) / bones→options fruitadd (D-1541). No `reset_glyphmap`/`notice_all_mons`/savelev-freeing/`lspo_reset_level`. No `wield`/`pickup`→`polyself` `body_part`. No static `end`←`dog`. No makemon→hack/`artifact`/`minion`. No re-port D-1682…D-2283.
+- No memcpy gi worn/ball (D-1035) / `setnotworn`←`owornmask` (D-1020) / `delobj` tut loot / off-level timers (D-1037) / dropped `msounds[]` (D-1053) / tut-1 keys (D-1065) / skipped `tutorial()` (D-1066). No skip D-1067…D-2284.
+- No `monmove.js`→sit `sticks` import / `confer_oc_oprop` rewrite / emin delete / `make_happy_shk` stub (D-1540) / bones→options fruitadd (D-1541). No `reset_glyphmap`/`notice_all_mons`/savelev-freeing/`lspo_reset_level`. No `wield`/`pickup`→`polyself` `body_part`. No static `end`←`dog`. No makemon→hack/`artifact`/`minion`. No re-port D-1682…D-2284.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2284: the C arms verbatim in C order in `js/trap.js` `drown`, preserving short-circuit, RNG (`rn2(5)` wade, `rn2(3)` gremlin/teleport, `d(2,6)` rust), list, Named: none new (`lava_effects` stays its own live D-1913 port; `You/Your/pline_The`-as-`pline` i
 - D-2283: the C arm verbatim in C position: `const kpfx = (cause && cause === '#wizintrinsic') ? Named: none new (`make_sick` Unaware talk suppress stays; `wizcmds.js` count-prefix + unavailcmd 
 - D-2282: new `export async function credit_report(shkp, idx, silent)` in `js/shk.js:453` in C position (after `rob_shop`, before `remote_burglary` `:664` — mat Named: boulder-restack `sobj_at` residual (own Open row); `VIS_EFFECTS` (commented out in C too).
 - D-2281: canonical `sobj_at` in `js/mkobj.js` before `nxtobj`; 9 clones retired to the import. Named: dbridge/music/steed + 7 renamed variants (own Open row).
@@ -54,5 +56,4 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 - D-2272: new `export function discard_damage_owned_by(shkp)` in `js/shk.js` next to `discard_damage_struct`, in C order (`prevdam` walk, unlink owned, drop; GC Named: `teleport.js` `search_special` ANY_TYPE arm (clone drift; canonical export is `sounds.js` 
 - D-2271: new `export async function stealarm()` / `unstolenarm()` in `js/steal.js` in C order (async because `unmul` awaits `afternmv` and the bodies pline/rlo Named: none new.
 - D-2270: `questpgr.js` table + export, `m_detach` wiring → `nemesis_stinks`. Named: none new.
-- D-2269: Sunsword EBlnd_resist + what_gives (artifact.js), from_what(-BLINDED) (attrib.js), Vision-head arms (invent.js). Named: none new.
 <!-- landmarks:end -->
