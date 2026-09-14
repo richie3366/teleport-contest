@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-14
 
-- [x] `mkobj.c` copy_oextra / dealloc_oextra / extract_nobj tails — oextra copy/free + nobj-list extract in the delobj path (named data.md:300-301). Probe: `node scripts/brief.mjs copy_oextra`. **Addressed:** D-2275
+- [x] `mkobj.c` copy_oextra / dealloc_oextra / extract_nobj tails — oextra copy/free + nobj-list extract in the delobj path (named data.md:300-301). Probe: `node scripts/brief.mjs copy_oextra`. **Addressed:** D-2275 `64fb2e96`
 
 
 - [x] `explode.c` scatter — landmine `blow_up_landmine` object-scatter arm (named data.md:1046). Probe: `node scripts/brief.mjs scatter`. **Addressed:** D-2274 `075d9c80`

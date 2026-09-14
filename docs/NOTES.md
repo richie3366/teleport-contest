@@ -7,7 +7,6 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 - **mkclass_aligned park — do not re-pop:** presence-only (0 blocked at f7aec9b3 and working; Healer-92042@73 owned by rloc, Tourist-92100@131 by collect_coords; step-73 mkclass_aligned draws all in matched rng prefix; falsifier: `verify` blocked on mkclass_aligned).
 - **get_location park — do not re-pop:** presence-only (0 blocked at f7aec9b3 and working; same pair — Healer-92042@73 owned by rloc, Tourist-92100@131 by collect_coords; arrival-gen get_location draws all in matched rng prefix; JS follows C on every live path, gaps are map-named is_ok_location Is_waterlevel + unreachable scan-falloff; falsifier: `verify` blocked on get_location).
 - **Work picker:** `hidden-proxy queue`; singletons Deferred — do not re-add without a fired falsifier.
-- **Queue refill (D-2275):** Open 12 — corpus rows parked/unreached; map refills dup-checked. Never re-pop.
 - **More-transient parks — do not re-pop:** break_armor timing.
 - **exercise park — do not re-pop:** draw-presence only (0/553 owned; falsifier: encumbrance topline/owner).
 - **gethungry / maybe_generate_rnd_mon / mattacku / u_calc_moveamt parks — do not re-pop:** presence-only, 0/553 owned, JS arm-for-arm vs C (falsifier: `verify` blocked on that fn; proofs in Parked).
@@ -23,6 +22,7 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 - **dopush park — do not re-pop:** mimic memory/viz, not the push (Parked).
 - **dochug park — do not re-pop:** STALE (proof in Parked; falsifier: verify blocked on dochug).
 - **that_is_a_mimic park — do not re-pop:** misattributed owner + unresolved C glyph mechanism (proof + falsifier in Parked).
+- **dotrap park — do not re-pop:** STALE presence-only (proof in Parked; falsifier: verify blocked on dotrap).
 - **nh_timeout park — do not re-pop:** STALE (proof in Parked; falsifier: verify blocked on nh_timeout).
 
 ## Don't re-check (≤15)
