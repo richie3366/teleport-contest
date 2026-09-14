@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `makemon.c` birth knowledge residuals — mpeaceful MM_ANGRY arm + mwandexp save/restore (data.md:531; D-2107 shipped the Sokoban/stronghold/leader/mwandexp core, makemon.c:1283-1294). Probe: `node scripts/brief.mjs makemon`.
 - [ ] `cmd.c` makemap_prepost kill_genocided_monsters (data.md:350; D-1097/D-1190 residual; do.c goto_level caller shipped D-1190; C cmd.c:1048). Probe: `node scripts/brief.mjs makemap_prepost`.
 - [ ] `worm.c` wormgone mondead/dog callers (data.md:623-624; D-1573 shipped body + toss_wsegs + newcham head-back; mon.c:2787 / dog.c:755 still named). Probe: `node scripts/brief.mjs wormgone`.
 - [ ] `region.c` create_region box/nrects (data.md:952; D-1962 shipped inside_rect/inside_region). Probe: `node scripts/brief.mjs create_region`.

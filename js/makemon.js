@@ -3127,6 +3127,7 @@ export function makemon(mdat, x, y, mmflags = 0) {
         mstun: 0,
         minvis: 0,
         mtame: 0,
+        mwandexp: false, // C monst.h — wand experience (birth init + muse.c buzz; whole-struct save)
         m_id: 0,
         mavenge: 0,
         malign: 0, // set_malign after mpeaceful
@@ -3204,7 +3205,9 @@ export function makemon(mdat, x, y, mmflags = 0) {
         || In_V_tower(game.u?.uz) || In_quest(game.u?.uz))
         mtmp.mwandexp = true;
 
-    mtmp.mpeaceful = peace_minded(ptr) ? 1 : 0;
+    // C: makemon.c:1297 — MM_ANGRY births are created angry, skipping
+    // peace_minded (which can draw rn2 on its tail) entirely.
+    mtmp.mpeaceful = (mmflags & MM_ANGRY) ? 0 : (peace_minded(ptr) ? 1 : 0);
 
     // C: ptr->mflags3 && !(mmflags & MM_NOWAIT) → STRAT_WAITFORU / STRAT_CLOSE
     // / STRAT_APPEARMSG (makemon.c; D-0928 #1128 — appear pline forces

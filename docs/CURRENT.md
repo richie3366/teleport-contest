@@ -86,8 +86,9 @@ divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
 **Next cluster:** `makemon.c` birth knowledge residuals (data.md:531; D-2107 core shipped). Probe: `node scripts/brief.mjs makemon`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2293 (index).**
+**Keep D-0845…D-2294 (index).**
 <!-- recent:begin -->
+**D-2294** `makemon.c:1297` (`mtmp->mpeaceful = (mmflags & MM_ANGRY) ? FALSE : peace_minded(ptr)`); ` — `js/makemon.js` only — `mpeaceful` ports the C ternary verbatim (`(mmflags & MM_ANGRY) ? 0 : (peace_minded(ptr) ? 1 : 0)`); template gains `mwandexp: false` beside `mtame` so the saved blob always carries the field like 
 **D-2293** `wizcmds.c:1004–1008` (`amt = count == -1 ? DEFAULT_TIMEOUT_INCR : count`, `amt <= 0` para — `js/options.js` — `select_menu_pick_any` ports the C counting verbatim through the existing helpers (no new module edge — `toggle_menu_curr`/`menu_digit_is_gacc` join the existing `invent.js` import, same SCC, call-time 
 **D-2292** `artifact.c:1490–1495` (FIRE `destroy_items` + `ignite_items(minvent)` inside `!rn2(4)`, b — FIRE/COLD/ELEC arms call the live canonicals in C order — `(await destroy_items(mdef, AD_*, dmgBox.dmg | 0)) | 0` added only when `!youdefend`, `await ignite_items(mdef?.minvent)` after on FIRE (hero minvent undefined → 
 **D-2291** `artifact.c:1026–1031` (`spec_applies` SPFX_DFLAG2: `(ptr->mflags2 & weap->mtype) || (your — the C `||` chain verbatim in C order (mflags2 first, then the yours gate): `!Upolyd(u)` + `(game.urace.selfmask & mtype)` selfmask arm, then `(mtype & M2_WERE) && ismnum(u.ulycn)` were arm with no Upolyd gate, per C shor
@@ -95,11 +96,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2289** `trap.c:4657–4710` (`pot_acid_damage`: Blind off-invent `dknown = 0`, `acid_ctx` dkn/unk_b — new `export function blank_novel(obj)` in `js/zap.js` directly after `cancel_item` (C position `:1367` after cancel), wired at both C call sites (cancel `:1330`, water_damage `:4820`); new file-local `pot_acid_damage(obj
 **D-2288** `teleport.c:2006–2098` (`mlevel_tele_trap`; stronghold valley `:2018`, botlevel avoid `:20 — `js/trap.js`: new `export function clamp_hole_destination(dlev)` beside `hole_destination`, over the existing quest/hell-aware file-local `dng_bottom` (C `trap.c` staticfn position).
 **D-2287** `attrib.c:439–451` (`set_moreluck`: `stone_luck(TRUE)`; `!luckbon && !carrying(LUCKSTONE)` — new `export function set_moreluck()` in `js/attrib.js` in C position (after `stone_luck`, matching `:441` after `:423`), C order (`stone_luck(TRUE)` first, `carrying` short-circuited); luck-first else-if gates in all fou
-**D-2286** `lock.c:957–1020` (`doclose`): `!isok(x,y)` goes to `nodoor` while `res` is still `ECMD_OK — C order in C position — isok check first, returning `res` while still `ECMD_OK`; Confusion/Stunned cost after (stumble stays deferred between them, noted in the comment); new Blind block calling the already-imported `upd
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2293; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2294; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

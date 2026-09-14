@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-14
 
-- [x] `wizcmds.c` wish count-prefix + unavailcmd + make_blinded talk variants (D-2283 residuals). Probe: `node scripts/brief.mjs do_wish`. **Addressed:** D-2293
+- [x] `makemon.c` birth knowledge residuals — mpeaceful MM_ANGRY arm + mwandexp save/restore (data.md:531; D-2107 shipped the Sokoban/stronghold/leader/mwandexp core, makemon.c:1283-1294). Probe: `node scripts/brief.mjs makemon`. **Addressed:** D-2294
+
+
+- [x] `wizcmds.c` wish count-prefix + unavailcmd + make_blinded talk variants (D-2283 residuals). Probe: `node scripts/brief.mjs do_wish`. **Addressed:** D-2293 `ef5edc3c`
 
 
 - [x] `artifact.c` spec_dbon/spec_applies SPFX_DRLI destroy/ignite arms (data.md:119-120; live `js/artifact.js:156/598/2426` defer BEHEAD/DRLI). Probe: `node scripts/brief.mjs artifact_hit`. **Addressed:** D-2292 `6e17d879`
