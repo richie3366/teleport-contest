@@ -23,6 +23,7 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 - **drinkfountain park — do not re-pop:** misattributed quaff owner + hallu residual.
 - **poly_obj park — do not re-pop:** misattributed citation + no C arm (Parked; falsifier: `verify poly_obj` blocked).
 - **newuhs park — do not re-pop:** STALE, full port shipped D-1791 (Parked; falsifier: `verify` blocked).
+- **domonnoise park — do not re-pop:** STALE DUPLICATE, TOP30 #17 fossil (proof in Parked; falsifier: `verify domonnoise` blocked with domonnoise as owner).
 
 ## Don't re-check (≤15)
 
