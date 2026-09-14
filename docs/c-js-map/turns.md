@@ -870,9 +870,12 @@ trap glyph; `glyph_at_gbuf` clone deleted) then **DEF_INVISIBLE shown-glyph disp
 `S_stone`; `room_cmap_explanation` is no longer a lookat arm);
 Hallu
 random_obj otyp / glyph_is_body|statue
-corpsenm / buried-embedded suffixes named; **`look_traps` still
-prints `trap at (x,y)`** (C `:2093–2094` uses `glyph_to_trap` +
-`trap_description`); `doidtrap` unported; C TODO recursive/buried
+corpsenm / buried-embedded suffixes named; **`look_traps` D-2298**
+(C `:2077–2141`: glyph branch `glyph_to_trap` + `trap_description`,
+obscured branch `t_at` + `tseen` + water/air-unless-`couldsee` gate +
+`trapname` + `trap_to_glyph` re-point, coord/glyph line, BUFSZ guard,
+`upstart` header; covering char via the `look_engrs` idiom, glyphmap
+`encglyph` named); `doidtrap` unported; C TODO recursive/buried
 containers named; **`do_screen_description` full cmap/symbol table**
 (later owner after D-1843; ROOM parenthetical still uses
 `room_cmap_explanation`) then **blank-sym collapse D-1854**

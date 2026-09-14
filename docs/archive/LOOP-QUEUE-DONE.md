@@ -5,7 +5,13 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-14
 
-- [x] `region.c` create_region box/nrects (data.md:952; D-1962 shipped inside_rect/inside_region). Probe: `node scripts/brief.mjs create_region`. **Addressed:** D-2297
+- [x] `pager.c` doidtrap `^` single-cell trap examine (turns.md farlook + D-2298 named; C pager.c:2335+ glyph trap/chest/door arms + ftrap-chain tseen examination; no JS doidtrap). Probe: `node scripts/brief.mjs doidtrap`. **Addressed:** D-2298
+
+
+- [x] `detect.c` trapped_chest_at/trapped_door_at glyph callers pass ttyp not glyph_to_trap (data.md:1003-1009; D-1779 shipped trap_description; C detect.c:135-197). Probe: `node scripts/brief.mjs trapped_chest_at`. **Addressed:** D-2298
+
+
+- [x] `region.c` create_region box/nrects (data.md:952; D-1962 shipped inside_rect/inside_region). Probe: `node scripts/brief.mjs create_region`. **Addressed:** D-2297 `bc47b92b`
 
 
 - [x] `worm.c` wormgone mondead/dog callers (data.md:623-624; D-1573 shipped body + toss_wsegs + newcham head-back; mon.c:2787 / dog.c:755 still named). Probe: `node scripts/brief.mjs wormgone`. **Addressed:** D-2296 `71b0e959`

@@ -1016,8 +1016,8 @@ detect clone retired; **pager `trap_description` D-1779** — C
 `trapped_chest_at` `:135–177` / `trapped_door_at` `:178–197`, both of
 which draw `rn2(20)` while Hallucinating (RNG-visible from farlook);
 live `js/detect.js` exports + `js/pager.js` local (C `staticfn`);
-named: callers still pass the live `t_at` ttyp, not
-`glyph_to_trap(glyph_at())`, and C's own TODO on recursive/buried
+all callers pass `glyph_to_trap(glyph_at())` (lookat D-1787,
+`look_traps` D-2298); named: C's own TODO on recursive/buried
 containers); 
 Monster dart path: `t_at`/`t_missile`/`thitm` miss pline/`mintrap`/`seetrap` (D-0018–D-0019); 
 **`maketrap` + `choose_trapnote` + `hole_destination`/`dng_bottom`** (D-0054) + 
