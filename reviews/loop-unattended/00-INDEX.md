@@ -1265,3 +1265,9 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1252-790ef0a4-doclose-blind-feel-mapseen.md](./1252-790ef0a4-doclose-blind-feel-mapseen.md) | `790ef0a4` | D-2286 doclose Blind feel/mapseen | **ACCEPT** |
 | [1253-f08d0f46-set-moreluck-luck-arms.md](./1253-f08d0f46-set-moreluck-luck-arms.md) | `f08d0f46` | D-2287 set_moreluck + luck arms | **ACCEPT** |
 | [1254-e210b23d-mlevel-tele-trap-residuals.md](./1254-e210b23d-mlevel-tele-trap-residuals.md) | `e210b23d` | D-2288 mlevel_tele_trap residuals | **ACCEPT** |
+| [1255-48180ad1-water-damage-acid-blank-novel.md](./1255-48180ad1-water-damage-acid-blank-novel.md) | `48180ad1` | D-2289 water_damage acid boom + blank_novel | **ACCEPT** |
+| [1256-10178807-steedintrap-dart-arrow-mine-poly.md](./1256-10178807-steedintrap-dart-arrow-mine-poly.md) | `10178807` | D-2290 steedintrap dart/arrow/mine/poly | **ACCEPT** |
+| [1257-08a179ab-spec-applies-dflag2-yours.md](./1257-08a179ab-spec-applies-dflag2-yours.md) | `08a179ab` | D-2291 spec_applies DFLAG2 yours arms | **ACCEPT** |
+| [1258-6e17d879-artifact-hit-drli-elements.md](./1258-6e17d879-artifact-hit-drli-elements.md) | `6e17d879` | D-2292 artifact_hit elements + DRLI | **ACCEPT** |
+| [1259-ef5edc3c-wiz-intrinsic-count-unavail.md](./1259-ef5edc3c-wiz-intrinsic-count-unavail.md) | `ef5edc3c` | D-2293 wiz_intrinsic count + unavailcmd | **ACCEPT** |
+| [1260-e6f16d72-makemon-angry-mwandexp.md](./1260-e6f16d72-makemon-angry-mwandexp.md) | `e6f16d72` | D-2294 makemon MM_ANGRY + mwandexp | **ACCEPT** |

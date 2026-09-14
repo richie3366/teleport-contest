@@ -8,6 +8,18 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-14 — Audit 48180ad1..e6f16d72 (reviews 1255–1260: 6 ACCEPT, 0 Must-fix) + cadence 44/44
+
+Six JS SHAs vs pinned C (`csym` + `sym.mjs` each): D-2289 acid
+boom/blank_novel; D-2290 steedintrap ×4 (Antimagic_prop = pre-existing
+D-1089 CLONE); D-2291 DFLAG2 truth table ≡ C; D-2292 elements + full
+DRLI (sync/async call shapes checked); D-2293 wiz_intrinsic count +
+wintty machine re-read; D-2294 MM_ANGRY ternary (skips 2 tail draws).
+All `verify --base SHA~1` re-runs 0-blocked both sides; rulecheck clean.
+Nits (no Must-fix): D-2290 `:1211/:1276` prose swap, landmine map row
+stale omit, keep_saddle codelog-only. Cadence 44/44, Scr
+11,405/11,405, RNG 792,838/792,838, `47+0.29/turn` — identical to
+standing score. Queue 11 open, no refill. No js/ edits.
 ## 2026-09-14 — D-2294 `makemon.c` birth knowledge residuals: mpeaceful MM_ANGRY arm + mwandexp zeromonst/save field (queue row `makemon.c` birth knowledge residuals, D-2107-named)
 
 **C locus:** `makemon.c:1297` (`mtmp->mpeaceful = (mmflags & MM_ANGRY) ? FALSE : peace_minded(ptr)`); `monst.h:166` (`mwandexp` bitfield, zeroed by `*mtmp = cg.zeromonst`) + `save.c:826–834`/`restore.c:307` (`savemon`/`restmon` write the whole struct via `Sfo_monst`/`Sfi_monst`, so `mwandexp` persists across save/restore by construction).
