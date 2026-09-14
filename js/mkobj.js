@@ -66,7 +66,9 @@ import {
     LS_OBJECT, LS_MONSTER, OMONST, has_omonst, OMID, has_omid, MON_DETACH,
     IRONBARS, ROOM, IS_ALTAR, Is_airlevel, Is_waterlevel,
     MAX_OIL_IN_FLASK, nothing_happens, EPRI, PLNMSG_OBJ_GLOWS,
+    In_quest, SPINACH_TIN, RANDOM_TIN,
 } from './const.js';
+import { set_tin_variety } from './eat.js';
 import { recalc_block_point, cansee } from './vision.js';
 import { del_light_source, discard_flashes, obj_sheds_light, obj_adjust_light_radius } from './light.js';
 import { arti_light_radius, get_obj_location } from './timeout.js';
@@ -745,8 +747,8 @@ export function rnd_class(first, last) {
 const SPBOOK_no_NOVEL = 0 - SPBOOK_CLASS;
 const SPE_BLANK_PAPER = objectNames.indexOf('SPE_BLANK_PAPER');
 
-// C ref: mkobj.c mkbox_cnts — ICE_BOX → mksobj(CORPSE); else boxiprobs.
-// Deferred: BAG_OF_HOLDING Is_mbag→SACK / WAN_CANCELLATION re-roll.
+// C ref: mkobj.c mkbox_cnts — ICE_BOX → mksobj(CORPSE); else boxiprobs,
+// incl. BAG_OF_HOLDING Is_mbag→SACK / WAN_CANCELLATION re-roll (D-2265).
 function mkbox_cnts(box) {
     let n;
     const name = otypName(box.otyp);
@@ -778,6 +780,8 @@ function mkbox_cnts(box) {
     }
     const DILITHIUM_CRYSTAL = objectNames.indexOf('DILITHIUM_CRYSTAL');
     const LOADSTONE = objectNames.indexOf('LOADSTONE');
+    const WAN_LIGHT = objectNames.indexOf('WAN_LIGHT');
+    const WAN_LIGHTNING = objectNames.indexOf('WAN_LIGHTNING');
     for (n = rn2(n + 1); n > 0; n--) {
         let otmp;
         if (name === 'ICE_BOX') {
@@ -802,7 +806,21 @@ function mkbox_cnts(box) {
                     otmp.owt = weight(otmp);
                 }
             }
-            // BAG_OF_HOLDING nested-bag / cancellation wand rewrite deferred
+            // C ref: mkobj.c mkbox_cnts `:371–379` — no nested magic bags;
+            // re-roll wands of cancellation (D-2265)
+            if (name === 'BAG_OF_HOLDING') {
+                // C obj.h `Is_mbag` — BAG_OF_HOLDING || BAG_OF_TRICKS
+                const bn = otypName(otmp.otyp);
+                if (bn === 'BAG_OF_HOLDING' || bn === 'BAG_OF_TRICKS') {
+                    otmp.otyp = objectNames.indexOf('SACK');
+                    otmp.spe = 0;
+                    otmp.owt = weight(otmp);
+                } else {
+                    while (otypName(otmp.otyp) === 'WAN_CANCELLATION') {
+                        otmp.otyp = rnd_class(WAN_LIGHT, WAN_LIGHTNING);
+                    }
+                }
+            }
         }
         add_to_container(box, otmp);
     }
@@ -1527,6 +1545,8 @@ function mksobj_init(otmp, artif) {
         }
         break;
     case FOOD_CLASS: {
+        // C ref: mkobj.c mksobj_init FOOD — `otmp->oeaten = 0` (D-2265)
+        otmp.oeaten = 0;
         const name = otypName(otmp.otyp);
         if (name === 'CORPSE') {
             // C ref: mkobj.c mksobj_init FOOD CORPSE — undead_to_corpse + G_NOCORPSE retry
@@ -1551,21 +1571,21 @@ function mksobj_init(otmp, artif) {
         } else if (name === 'KELP_FROND') {
             otmp.quan = rnd(2);
         } else if (name === 'TIN') {
-            // C ref: mkobj.c TIN + eat.c set_tin_variety(RANDOM_TIN)
+            // C ref: mkobj.c mksobj_init FOOD TIN — spinach 1/6
+            // via eat.c set_tin_variety, else loop undead_to_corpse until
+            // an edible (cnutrit) non-NOCORPSE monster, then RANDOM_TIN
+            // (D-2265; was inline clone missing the cnutrit gate + the
+            // ROTTEN_TIN→HOMEMADE_TIN remap)
+            otmp.corpsenm = NON_PM; /* empty (so far) */
             if (!rn2(6)) {
-                otmp.corpsenm = -1; // SPINACH_TIN
-                otmp.spe = 1;
+                set_tin_variety(otmp, SPINACH_TIN);
             } else {
-                // C ref: mkobj.c TIN — undead_to_corpse(rndmonnum()) until edible
                 for (let tryct = 200; tryct > 0; --tryct) {
                     const mndx = undead_to_corpse(rndmonnum());
-                    const ptr = mons(mndx);
                     const mv = game.mvitals?.[mndx]?.mvflags ?? 0;
-                    if (ptr && !(mv & G_NOCORPSE)) {
+                    if ((mons(mndx)?.cnutrit | 0) && !(mv & G_NOCORPSE)) {
                         otmp.corpsenm = mndx;
-                        // set_tin_variety(RANDOM_TIN): rn2(TTSZ-1) with TTSZ=16
-                        const r = rn2(15);
-                        otmp.spe = -(r + 1);
+                        set_tin_variety(otmp, RANDOM_TIN);
                         break;
                     }
                 }
@@ -1598,6 +1618,8 @@ function mksobj_init(otmp, artif) {
         break;
     }
     case GEM_CLASS: {
+        // C ref: mkobj.c mksobj_init GEM — `corpsenm = 0` LOADSTONE hack (D-2265)
+        otmp.corpsenm = 0;
         const name = otypName(otmp.otyp);
         if (name === 'LOADSTONE') curse(otmp);
         else if (name === 'ROCK') otmp.quan = rn1(6, 6);
@@ -1627,7 +1649,8 @@ function mksobj_init(otmp, artif) {
         } else if (name === 'CHEST' || name === 'LARGE_BOX') {
             otmp.olocked = !!rn2(5);
             otmp.otrapped = !rn2(10);
-            if (otmp.otrapped && !rn2(100)) otmp.tknown = 1;
+            // C: `tknown = otrapped && !rn2(100)` — assigned, not just set
+            otmp.tknown = (otmp.otrapped && !rn2(100)) ? 1 : 0;
             mkbox_cnts(otmp);
         } else if (name === 'ICE_BOX' || name === 'SACK' || name === 'OILSKIN_SACK'
             || name === 'BAG_OF_HOLDING') {
@@ -1684,6 +1707,8 @@ function mksobj_init(otmp, artif) {
         }
         break;
     case SPBOOK_CLASS:
+        // C ref: mkobj.c mksobj_init SPBOOK — `spestudied = 0` (D-2265)
+        otmp.spestudied = 0;
         blessorcurse(otmp, 17);
         break;
     case ARMOR_CLASS:
@@ -1706,10 +1731,11 @@ function mksobj_init(otmp, artif) {
         if (artif && !rn2(40 + (10 * nartifact_exist()))) {
             mk_artifact(otmp);
         }
-        // C ref: mkobj.c ARMOR_CLASS — lacquered armor for Samurai
+        // C ref: mkobj.c ARMOR_CLASS — lacquered armor for samurai
+        // (`moves <= 1 || In_quest`; D-0079 shipped moves, D-2265 the quest arm)
         if (game.urole?.mnum === PM_SAMURAI
             && otypName(otmp.otyp) === 'SPLINT_MAIL'
-            && ((game.moves ?? 0) <= 1 /* || In_quest deferred */)) {
+            && ((game.moves ?? 0) <= 1 || In_quest(game.u?.uz))) {
             otmp.oerodeproof = 1;
             otmp.rknown = 1;
         }

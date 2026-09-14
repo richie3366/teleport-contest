@@ -263,6 +263,7 @@ was zeroing → false `drag_ball` cause_delay); **`obj_extract_self` MINVENT** (
 **`mksobj_init` WEAPON/ARMOR artif `rn2(20|40+10*nartifact_exist())`** (D-0588) + 
 **`mk_artifact` A_NONE eligible/`rn2(n)`** (D-0759; 
 by_align/gift_value/gen_spe deferred; mksobj_init `permapoisoned` is D-1732); 
+**`mksobj_init` envelope completion** (D-2265; FOOD `oeaten = 0`, TIN `cnutrit` gate + canonical `set_tin_variety` SPINACH/RANDOM incl. rotten remap, GEM `corpsenm = 0`, SPBOOK `spestudied = 0`, CHEST `tknown` assign, samurai `In_quest`); 
 **floor `stackobj`/`merged`/`mergable`** (D-0094) + **`add_to_minv` merge D-1492** + 
 **`oc_merge_of` from `objects[].oc_merge`** (D-1712; was class heuristic
 D-0679); **`delobj`→`obj_resists(0,0)`** (D-0105) + **`delobj_core` D-1756**; 
@@ -283,7 +284,7 @@ was WAND/class-name stand-in D-0316); steal.c / muse.c callers named;
 `oc_merge_of` SPELL/WAND mrg=0 D-0679; food/candle/boomerang/venom vs
 non-stack swords); 
 **`mkbox_cnts` ICE_BOX → `mksobj(CORPSE)` + age=0/timers + `add_to_container`** (D-0361; 
-BoH Is_mbag→SACK / WAN_CANCELLATION re-roll + BoH weight factor deferred); 
+D-2265 ships BoH Is_mbag→SACK / WAN_CANCELLATION re-roll; BoH weight factor still deferred); 
 **candle `mksobj` `age=20*oc_cost` D-1308**; 
 **`mksobj_migr_to_species` D-1363** (`:253–265` `add_to_migration` + `MIGR_TO_SPECIES` + 
 `migr_species` overlay; caller `mkmaze.c` `stolen_booty`); 

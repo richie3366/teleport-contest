@@ -86,10 +86,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `makemon.c` makemon_rnd_goodpos — random-placement loop vs C (`makemon.c:1075–1137`). Corpus reach: in 2 failing sessions' diverged-step traces (scen-intrinsic-Barbarian-92165, scen-poly-Caveman-92202; committed scoreboard f7aec9b3). Probe: `node scripts/brief.mjs makemon_rnd_goodpos`.
+**Next cluster:** `makemon.c` mkclass_aligned — class pick with alignment filter vs C (`makemon.c:1879–1974`). Corpus reach: in 2 failing sessions' diverged-step traces (scen-tour-Healer-92042, scen-tour-Tourist-92100; committed scoreboard f7aec9b3). Probe: `node scripts/brief.mjs mkclass_aligned`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2264 (index).**
+**Keep D-0845…D-2265 (index).**
 <!-- recent:begin -->
+**D-2265** `mkobj.c:868–1175` (`mksobj_init`): FOOD `otmp->oeaten = 0`; TIN (`corpsenm = NON_PM`, `!r — `js/mkobj.js` — FOOD sets `oeaten = 0`; TIN sets `corpsenm = NON_PM` up front, calls imported `set_tin_variety(otmp, SPINACH_TIN | RANDOM_TIN)` (canonical `eat.js` export, hoisted so the new `mkobj→eat` edge is cycle-saf
 **D-2264** `makemon.c:1076–1137` (`makemon_rnd_goodpos`); `:1085` (`gpflags |= GP_AVOID_MONPOS`); `:1 — `js/makemon.js` — mutate the parameter in place (`if (!bl) gpflags &= ~GP_CHECKSCARY;`, no per-pass copy) and pass `gpflags` to all three fallback `goodpos` calls: exact C control flow (the C parameter is pass-by-value, 
 **D-2263** `read.c:2473–2488` (`set_lit`: `levl[x][y].lit = 1` + `m_at` gremlin queue via `data == &m — `js/light.js` — new `export function snuff_light_source(x, y)` in C order (index loop over `game.light_base`, `| 0` coords, first LS_OBJECT match, `obj_is_burning` gate, artifact skip, `end_burn(obj, otyp !== MAGIC_LAMP)
 **D-2262** `polyself.c:469–733` (`polyself`): `:500–504` formrevert (`mntmp = youmonst.cham`, `monste — `js/polyself.js`.
@@ -97,11 +98,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2260** `uhitm.c:3014–3096` (`mhitm_ad_curs` mhitm arm); `uhitm.c:2362–2415` (`mhitm_ad_dcay` mhit — added file-local `mhitm_ad_curs` / `_dcay` / `_deth` / `_drli` ported from the C mhitm arms, plus one `mdamagem` block that dispatches them.
 **D-2259** `uhitm.c:3038–3041` (`mhitm_ad_curs` mhitu: `!night() && pa == &mons[PM_GREMLIN]`); `uhitm — those five gates now use `(data?.mndx | 0) === PM_*` like `hates_light` / `is_wooden`.
 **D-2258** `trap.c:2292–2320` (`trapeffect_magic_trap`); `trap.c:3101–3168` (`steedintrap`); `trap.c: — `trapeffect_magic_trap` now follows the C body: explosion returns before steed; else `domagictrap` then `steedintrap(trap, null)`.
-**D-2257** `mthrowu.c:1375–1393` (`m_lined_up`); `mthrowu.c:1396–1401` (`lined_up`); `mthrowu.c:260–3 — `m_lined_up` now uses mux/muy `| 0` with no hero-ux fallback, and the C `utarget && Upolyd && rn2(25) && (uundetected || unusual AP)` chain (`M_AP_TYPE(you)` is `U_AP_TYPE`).
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2264; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2265; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
