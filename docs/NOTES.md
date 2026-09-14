@@ -23,6 +23,7 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 - **dochug / dotrap / mintrap / nh_timeout / mon_break_armor parks — do not re-pop:** STALE presence-only (proofs + falsifiers in Parked).
 - **that_is_a_mimic park — do not re-pop:** misattributed owner + unresolved C glyph mechanism.
 - **drinkfountain park — do not re-pop:** misattributed quaff owner + hallu residual.
+- **poly_obj park — do not re-pop:** misattributed citation + no C arm (zap.c:5564 is fracture_rock, already live js/dig.js:1575; C poly_obj 1702–1989 has zero oextra lines; falsifier: `verify poly_obj` blocked with poly_obj as owner).
 
 ## Don't re-check (≤15)
 
