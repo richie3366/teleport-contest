@@ -87,7 +87,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `mhitu.c` passiveum — hero-poly passive response vs C (`mhitu.c:2434–2613`; scen-poly-Healer-92107). Probe: `node scripts/brief.mjs passiveum`. (get_location parked 2026-09-14: presence-only, 0 blocked at f7aec9b3 and working, owners rloc/collect_coords — same pair as the mkclass_aligned park.)
+**Next cluster:** `cmd.c` there_cmd_menu_next2u — remembered-invisible glyph vs seen monster (scen-tour-Wizard-91112). Probe: `node scripts/hidden-proxy.mjs verify there_cmd_menu_next2u`. (passiveum parked 2026-09-14. get_location parked 2026-09-14: presence-only, 0 blocked at f7aec9b3 and working, owners rloc/collect_coords — same pair as the mkclass_aligned park.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2265 (index).**
 <!-- recent:begin -->
