@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-14
 
-- [x] `worm.c` wormgone mondead/dog callers (data.md:623-624; D-1573 shipped body + toss_wsegs + newcham head-back; mon.c:2787 / dog.c:755 still named). Probe: `node scripts/brief.mjs wormgone`. **Addressed:** D-2296
+- [x] `region.c` create_region box/nrects (data.md:952; D-1962 shipped inside_rect/inside_region). Probe: `node scripts/brief.mjs create_region`. **Addressed:** D-2297
+
+
+- [x] `worm.c` wormgone mondead/dog callers (data.md:623-624; D-1573 shipped body + toss_wsegs + newcham head-back; mon.c:2787 / dog.c:755 still named). Probe: `node scripts/brief.mjs wormgone`. **Addressed:** D-2296 `71b0e959`
 
 
 - [x] `cmd.c` makemap_prepost kill_genocided_monsters (data.md:350; D-1097/D-1190 residual; do.c goto_level caller shipped D-1190; C cmd.c:1048). Probe: `node scripts/brief.mjs makemap_prepost`. **Addressed:** D-2295 `66311ced`

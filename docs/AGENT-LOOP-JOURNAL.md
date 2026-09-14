@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-14 — D-2297 `region.c` create_region box/nrects + add_rect_to_reg: stored bounding_box/nrects/C defaults wired at both gas-cloud constructors
+
+**C locus:** `nethack-c/upstream/src/region.c:79–127` create_region (box seeded from rects[0] then min/max-expanded per rect; empty → lx=COLNO, ly=ROWNO, hx=hy=0; rects copied; nrects stored; ttl=-1, NO_CALLBACK ×6, clear_hero_inside + clear_heros_fault, zero monster list, arg=cg.zeroany) + `:133–157` add_rect_to_reg (append copy, nrects++, expand box). Live callers both do create_region(NULL,0) + add_rect loop: create_gas_cloud `:1297`, create_gas_cloud_selection `:1325`; clone_region/msg/force-field callers are `#if 0`. Struct `region.h:33–66`.
+**JS:** `js/region.js` (+91/−20 with the two rewires and header ref).
+**Change:** new exported `create_region(rects, nrect)` + `add_rect_to_reg(reg, rect)` in `js/region.js` (C order, `| 0` idiom, rects copied not aliased); both constructors now `create_region(null, 0)` + `add_rect_to_reg` per cell (identical resulting flags: REG_NOT_HEROS set, INSIDE clear; `make_gas_cloud` still overwrites inside_f/expire_f/arg/glyph/visible in C order); `inside_region` loops `reg.nrects` per C `:62–73` with `?? rects.length` fallback for pre-stored-field saves; stored-box recompute fallback kept for the same.
+**Verify:** 16-case hand probe (`/tmp/probe_create_region.mjs`, deleted after run) PROBE PASS — empty box/defaults/flags, seeded-box expansion, copy independence, add grow + interior no-op, stored-box early-out, null reg, empty-region containment, legacy no-field fallback. `node scripts/verify.mjs --fn create_region` → PASS syntax (1 file) / rule2 / green 2/2 / strict ×2 / cohort 7/7; hidden is the explicit vacuous note (0 blocked at HEAD, NOT a corpus PASS; row cited 0 blocks so no `--base` re-run owed). VERIFY: PASS.
+**Named:** none new (`clone_region`/`create_msg_region`/`create_force_field` are `#if 0` in C too; binary save_regions/rest_regions + free_region teardown stay deferred per the module header).
+**Next:** `detect.c` trapped_chest_at/trapped_door_at (next Open row).
 ## 2026-09-14 — D-2296 `dog.c` mon_leave worm arm: count/truncate/wormgone/head-back wired at keepdogs + migrate_to_level (queue row `worm.c` wormgone mondead/dog callers)
 
 **C locus:** `dog.c:728–763` `mon_leave` (worm arm `:748–760`: `count_wsegs`, `min(cnt, MAX_NUM_WORMS-1)` per `monst.h:160` = 32, `wormgone` `:755`, `place_monster` head-back `if (mx)`); callers keepdogs `:861/:865` (mydogs) and `migrate_to_level` `:904/:916` (migrating_mons). `m_detach` `:2786–2787` already live (D-2231).

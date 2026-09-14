@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `region.c` create_region box/nrects (data.md:952; D-1962 shipped inside_rect/inside_region). Probe: `node scripts/brief.mjs create_region`.
 - [ ] `detect.c` trapped_chest_at/trapped_door_at glyph callers pass ttyp not glyph_to_trap (data.md:1003-1009; D-1779 shipped trap_description; C detect.c:135-197). Probe: `node scripts/brief.mjs trapped_chest_at`.
 - [ ] `mon.c` place_monster cutworm/makemon callers (data.md:523; D-1565 shipped clone_mon 2D grid; cutworm/makemon sites still named). Probe: `node scripts/brief.mjs place_monster`.
 - [ ] `worm.c` place_wsegs restore/replmon callers (data.md:627; D-1573 shipped wormgone + toss_wsegs; restore/replmon place_wsegs sites still named). Probe: `node scripts/brief.mjs place_wsegs`.
