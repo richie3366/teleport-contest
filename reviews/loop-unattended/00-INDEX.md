@@ -1242,3 +1242,10 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1229-70358552-litroom-tail-snuff.md](./1229-70358552-litroom-tail-snuff.md) | `70358552` | D-2263 litroom tail + snuff | **ACCEPT** |
 | [1230-b805da3c-makemon-rnd-goodpos.md](./1230-b805da3c-makemon-rnd-goodpos.md) | `b805da3c` | D-2264 makemon_rnd_goodpos | **ACCEPT** |
 | [1231-8c1c209d-mksobj-init-envelope.md](./1231-8c1c209d-mksobj-init-envelope.md) | `8c1c209d` | D-2265 mksobj_init envelope | **ACCEPT** |
+| [1232-9ac4640d-pager-def-invisible-glyph.md](./1232-9ac4640d-pager-def-invisible-glyph.md) | `9ac4640d` | D-2266 pager DEF_INVISIBLE glyph arm | **ACCEPT** |
+| [1233-d739cce2-cloak-on-switch.md](./1233-d739cce2-cloak-on-switch.md) | `d739cce2` | D-2267 Cloak_on full switch | **ACCEPT** |
+| [1234-1f904287-ssuffix-clone-retire.md](./1234-1f904287-ssuffix-clone-retire.md) | `1f904287` | D-2268 s_suffix clone retire | **ACCEPT** |
+| [1235-a7db375d-enlightenment-sunsword.md](./1235-a7db375d-enlightenment-sunsword.md) | `a7db375d` | D-2269 enlightenment Sunsword chain | **ACCEPT** |
+| [1236-04af89bd-stinky-nemesis.md](./1236-04af89bd-stinky-nemesis.md) | `04af89bd` | D-2270 stinky_nemesis + texts | **ACCEPT** |
+| [1237-0f159258-stealarm-unstolenarm.md](./1237-0f159258-stealarm-unstolenarm.md) | `0f159258` | D-2271 stealarm/unstolenarm | **ACCEPT** |
+| [1238-7a2ef83e-shkgone-damage-hasshop.md](./1238-7a2ef83e-shkgone-damage-hasshop.md) | `7a2ef83e` | D-2272 shkgone damage/has_shop | **ACCEPT** |

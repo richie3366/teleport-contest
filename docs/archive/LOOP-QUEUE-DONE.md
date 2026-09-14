@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-14
 
-- [x] `shk.c` shkgone damage + has_shop arms (named in mondead-tail D-2231 row; data.md:373). Probe: `node scripts/brief.mjs shkgone`. **Addressed:** D-2272
+- [x] `shk.c` shkgone damage + has_shop arms (named in mondead-tail D-2231 row; data.md:373). Probe: `node scripts/brief.mjs shkgone`. **Addressed:** D-2272 `7a2ef83e`
 
 
 - [x] `steal.c` thiefdead stealarm arm — stolen-goods restoration when a thief dies (named in mondead-tail D-2231 row; data.md:373). Probe: `node scripts/brief.mjs thiefdead`. **Addressed:** D-2271 `0f159258`

@@ -21,10 +21,10 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-14** — full `sessions` on the working tree
-(audit **1225–1231**, HEAD `8fb3eb14`).
+(audit **1232–1238**, HEAD `585e3fb7`).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`48+0.30/turn` (R² 0.78).
+`47+0.29/turn` (R² 0.79).
 
 ## Score
 
@@ -33,22 +33,19 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `48+0.30/turn` (R² 0.79) |
+| Speed label | `47+0.29/turn` (R² 0.79) |
 | Role-init throws | **0 / 44** |
 
-**Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-06
-after the **scenario cohort** landed): **262 / 540 PASS (48.5 %)** excl.
-13 env-only rows; RNG 95.3 %; screens 88.3 %. The 275 new `scen-*`
-sessions (wish/genesis/poly/intrinsic/death/kit/tour/normal, authored on
-the C recorder by `scripts/scenario-gen.mjs`) pass **7 / 275**, RNG
-76.6 %, screens 58.3 % — the same shape as the live held-out score
-(**7 / 44**, RNG 22.8 %, screens 45.4 % on the public leaderboard,
-2026-09-06). The old mutant families sit at 255/278 and are saturated:
-they no longer pick work. Top owners: `welcome`→`calendar.c getlt` ×51,
-`do_statusline2` ×11, `break_armor` ×9, `exercise` ×8, `enlightenment`
-×7, `wiz_intrinsic` ×7, 4 `ReferenceError` throws ×8 (Must-fix).
-Reviews 1216–1224: 8 ACCEPT, 1 QUALITY-RISK (1217 mhitu `mons[PM_*]` identity — Must-fix D-2259).
+**Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-14
+audit 1232–1238): **463 / 540 PASS (85.7 %)** excl. 13 env-only rows
+(463/553); RNG 98.9 %; screens 98.4 %. The 2026-09-06 cohort figures
+(262/540, scen-* 7/275) are stale — eight days of ports moved ~200 rows;
+the old mutant families are saturated and no longer pick work. Top owners:
+`do_statusline2` ×11, `save_dungeon` ×8, `obj_resists` ×6, `distfleeck` ×5,
+`one_characteristic` ×3, `m_move`/`rloc`/`chwepon` ×2, then 1-block singles
+(all parked symptom/misattributed owners except live Open `drinkfountain`).
 Reviews 1225–1231: 6 ACCEPT, 1 ACCEPT-WITH-DEBT (1227 uhitm `s_suffix` debt — already a live Open row, no Must-fix).
+Reviews 1232–1238: 7 ACCEPT, 0 Must-fix.
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score --jobs 8`
 (≈200 s); when every family is ≥ 85 % PASS, grow it first:
 `node scripts/scenario-gen.mjs --n 120 --seed <iter×100>`.
@@ -86,7 +83,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `shk.c` shkgone damage + has_shop arms (named in mondead-tail D-2231 row; data.md:373). Probe: `node scripts/brief.mjs shkgone`.
+**Next cluster:** `mon.c` vamprises door-trap kill arm — vampire smashing a trapped door (door smash shipped D-2231; data.md:372-373). Probe: `node scripts/brief.mjs vamprises`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2272 (index).**
 <!-- recent:begin -->
