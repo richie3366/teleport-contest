@@ -22,6 +22,7 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 - **that_is_a_mimic park — do not re-pop:** misattributed owner + unresolved C glyph mechanism.
 - **drinkfountain park — do not re-pop:** misattributed quaff owner + hallu residual.
 - **poly_obj park — do not re-pop:** misattributed citation + no C arm (proof in Parked; falsifier: `verify poly_obj` blocked with poly_obj as owner).
+- **newuhs park — do not re-pop:** STALE, full port shipped D-1791 (proof in Parked; falsifier: `verify` blocked on that fn).
 
 ## Don't re-check (≤15)
 

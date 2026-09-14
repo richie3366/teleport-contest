@@ -82,7 +82,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `shk.c` credit_report — shop credit/debit report (C shk.c:628; no live export; named data.md:1049, D-2274 residual). Probe: `node scripts/brief.mjs credit_report`.
+**Next cluster:** `do_name.c` x_monnam — saddle / ARTICLE_* / M2_PNAME / Wizard-article arms (TOP30 #12; 61 C callers; every monster name printed). Probe: `node scripts/brief.mjs x_monnam`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2282 (index).**
 <!-- recent:begin -->
