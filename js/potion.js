@@ -2413,8 +2413,9 @@ function BLevitation() {
  * Branch envelope: fountain-at-feet yn → dipfountain; sink-at-feet yn →
  * dipsink (D-1113); pool yn → wash_hands / water_damage (D-1128);
  * potion getobj → potion_dip mix (D-1457).
- * Deferred: m-prefix skip floor polish, inaccessible_equipment,
- * pot_acid_damage boom+delobj (ER_DESTROYED without delete).
+ * Deferred: m-prefix skip floor polish, inaccessible_equipment.
+ * Pool-dip acid boom rides live `water_damage` → `pot_acid_damage`
+ * (trap.js; ER_DESTROYED deletes, `in_use` short-circuit per C).
  * @returns {number} ECMD_*
  */
 export async function dodip() {

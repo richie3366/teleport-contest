@@ -1018,8 +1018,9 @@ Blind smoke D-1138** + **CAN_OF_GREASE / TOWEL `wet_a_towel` / greased /
 `Is_container`+`Waterproof_container` before luck `rn2(20)`** (D-0928 #1101) + 
 **`splash_lit` D-1337** (apply.c brass dunk/crackle/`snuff_lit`+age; 
 rust-trap walks + water_damage; invent grease wash + container `hliquid` plines /
-waterproof `makeknown` D-1501; pot_acid boom / SPE_NOVEL 
-blank deferred); **monster `trapeffect_pit` + 
+waterproof `makeknown` D-1501; **`pot_acid_damage` boom + `blank_novel` 
+D-2289** (grease-described/`Your` fade+dilute/`update_inventory`, Book steam, 
+SPE_NOVEL→blank, SCR_MAIL immune, chain acid_ctx/bhitpos; zap cancel too)); **monster `trapeffect_pit` + 
 `thitm`→`monkilled`/`make_corpse` ordinary** (D-0150); 
 **hero `trapeffect_pit` PIT/SPIKED + `trapeffect_hole` `Can_fall_thru` (D-1076; 
 `fall_through` already D-0986; `check_in_air` Lev/Fly youprop.h; 

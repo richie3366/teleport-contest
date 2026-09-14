@@ -33,7 +33,7 @@ import {
     obj_glyph, flush_topl_more, feel_newsym, canspotmon, map_invisible, under_water,
     set_msg_xy, Hallucination, Norep, impossible,
 } from './display.js';
-import { doname, an, the, The, xname, yname, cxname, makeplural, vtense, ansimpleoname, safe_qbuf, gloves_simple_name, aobjnam, Yobjnam2 } from './objnam.js';
+import { doname, an, the, The, xname, yname, cxname, makeplural, vtense, otense, simpleonames, ansimpleoname, safe_qbuf, gloves_simple_name, aobjnam, Yobjnam2 } from './objnam.js';
 import {
     Amonnam, Monnam, mon_nam, x_monnam, y_monnam, noit_Monnam, pmname,
     christen_monst, rndmonnam, hliquid, rndcolor, mon_pmname, YMonnam,
@@ -103,7 +103,7 @@ import {
     ECMD_OK, ECMD_TIME, MON_DETACH,
     Is_container, Waterproof_container, Is_box,
     xytodir, DIR_180, DIR_ERR,
-    OBJ_FLOOR, OBJ_FREE, SHOPBASE, ESHK, M_SEEN_ELEC,
+    OBJ_FLOOR, OBJ_FREE, SHOPBASE, ESHK, M_SEEN_ELEC, CONTAINED_TOO, BURIED_TOO,
     P_RIDING, P_BASIC, M_AP_FURNITURE, M_AP_OBJECT,
     A_LAWFUL, XKILL_NOMSG, SHOP_HOLE_COST,
 } from './const.js';
@@ -139,7 +139,7 @@ import { unpunish, seffects } from './read.js';
 import { create_gas_cloud } from './region.js';
 import { polymon, body_part, mbodypart, float_vs_flight } from './polyself.js';
 import { done } from './end.js';
-import { make_blinded, dropx } from './do.js';
+import { make_blinded, dropx, setnotworn } from './do.js';
 import { mon_adjust_speed } from './muse.js';
 import { m_dowear } from './worn.js';
 import { m_unleash, number_leashed, unleash_all } from './apply.js';
@@ -151,7 +151,7 @@ import { ynq } from './getline.js';
 import { more_experienced, newexplevel } from './exper.js';
 import { killed, stumble_onto_mimic } from './uhitm.js';
 import { rider_cant_reach, dismount_steed } from './steed.js';
-import { resist } from './zap.js';
+import { resist, blank_novel } from './zap.js';
 import { fill_pit, bury_an_obj } from './dig.js';
 import { u_wield_art, attacks, bare_artifactname, has_magic_key } from './artifact.js';
 import { ART_STING } from './generated/artifacts_data.js';
@@ -5055,18 +5055,64 @@ const SPE_BOOK_OF_THE_DEAD = objectNames.indexOf('SPE_BOOK_OF_THE_DEAD');
 const SPE_NOVEL = objectNames.indexOf('SPE_NOVEL');
 const CAN_OF_GREASE = objectNames.indexOf('CAN_OF_GREASE');
 const TOWEL = objectNames.indexOf('TOWEL');
+// C MAIL_STRUCTURES is on (global.h:430): mail resists water-fade.
+const SCR_MAIL = objectNames.indexOf('SCR_MAIL');
 
 /**
- * C ref: trap.c water_damage
+ * C ref: trap.c pot_acid_damage `:4657–4710` (staticfn) — water hits a
+ * potion of acid: it explodes (setnotworn + delobj). First message is
+ * "A/Some <name> explode(s)" (`simpleonames` + `vtense`, dknown picks
+ * the word via the chain acid context: second and subsequent same-chain
+ * explosions with matching dknown say "Another/More"); after a grease
+ * wash-off the potion is already described, so just "The potion(s)
+ * explode(s)!". `Blind` off-invent unidentifies first.
+ * @returns {Promise<void>}
+ */
+async function pot_acid_damage(obj, in_invent, described) {
+    const one = ((obj.quan ?? 1) | 0) === 1;
+    let exploded = false;
+
+    if (Blind() && !in_invent)
+        obj.dknown = 0;
+    const actx = game.acid_ctx;
+    if (actx && actx.ctx_valid)
+        exploded = ((obj.dknown ? actx.dkn_boom : actx.unk_boom) > 0);
+    if (described) {
+        /* just gave "The grease washes off ..."; don't re-describe here */
+        await pline(
+            `The potion${((obj.quan ?? 1) | 0) !== 1 ? 's' : ''} ${otense(obj, 'explode')}!`,
+        );
+    } else {
+        const bufp = simpleonames(obj);
+        await pline(
+            `${!exploded ? (one ? 'A ' : 'Some ') : (one ? 'Another ' : 'More ')}${bufp} ${vtense(bufp, 'explode')}!`,
+        );
+    }
+    if (actx && actx.ctx_valid) {
+        if (obj.dknown) actx.dkn_boom = (actx.dkn_boom | 0) + 1;
+        else actx.unk_boom = (actx.unk_boom | 0) + 1;
+    }
+    setnotworn(obj);
+    delobj(obj);
+    if (in_invent)
+        update_inventory();
+}
+
+/**
+ * C ref: trap.c water_damage `:4712–4851`
  * Branch envelope: null → ER_NOTHING; splash_lit (D-1337); CAN_OF_GREASE;
- * TOWEL wet; greased wash rn2(2); Is_container / Waterproof_container
- * before luck rn2(20); potion dilute / scroll fade / spellbook fade;
- * else `erode_obj(..., ERODE_RUST, EF_NONE)` (D-0683 / D-0928 #1101).
- * Named omit: pot_acid_damage boom; SPE_NOVEL blank_novel.
+ * TOWEL wet; greased wash rn2(2) + `pot_acid_damage` when the wash
+ * exposes acid; Is_container / Waterproof_container before luck rn2(20);
+ * scroll fade (SCR_MAIL immune, MAIL_STRUCTURES) / spellbook fade
+ * (Book of the Dead steams, `blank_novel` on SPE_NOVEL) / potion dilute
+ * (`pot_acid_damage` on POT_ACID); else `erode_obj(..., ERODE_RUST,
+ * EF_NONE)` (D-0683 / D-0928 #1101). `Your` fades/dilutes and every
+ * mutation carry `update_inventory` (C `:4793/:4807/:4828/:4838/:4845`).
  */
 export async function water_damage(obj, ostr, force) {
     if (!obj) return ER_NOTHING;
     const in_invent = carried_obj(obj);
+    let described = false;
 
     // C: splash_lit before ostr / luck — extinguish skips further damage RNG
     if (await splash_lit(obj)) return ER_DAMAGED;
@@ -5085,10 +5131,12 @@ export async function water_damage(obj, ostr, force) {
             obj.greased = 0;
             if (in_invent) {
                 await pline(`The grease on ${yname(obj)} washes off.`);
+                described = true; /* used to modify potion feedback */
                 update_inventory();
             }
+            /* ungreased potions of acid will always be destroyed by water */
             if (obj.otyp === POT_ACID) {
-                // pot_acid_damage deferred
+                await pot_acid_damage(obj, in_invent, described);
                 return ER_DESTROYED;
             }
         }
@@ -5117,37 +5165,69 @@ export async function water_damage(obj, ostr, force) {
     }
 
     if (obj.oclass === SCROLL_CLASS) {
-        if (obj.otyp === SCR_BLANK_PAPER) return ER_NOTHING;
+        if (obj.otyp === SCR_BLANK_PAPER || obj.otyp === SCR_MAIL)
+            return ER_NOTHING;
+        if (in_invent)
+            await pline(`Your ${ostr} ${vtense(ostr, 'fade')}.`);
         obj.otyp = SCR_BLANK_PAPER;
         obj.dknown = 0;
         obj.spe = 0;
+        if (in_invent)
+            update_inventory();
         return ER_DAMAGED;
     }
     if (obj.oclass === SPBOOK_CLASS) {
-        if (obj.otyp === SPE_BOOK_OF_THE_DEAD) return ER_NOTHING;
-        if (obj.otyp === SPE_BLANK_PAPER) return ER_NOTHING;
-        const otyp = obj.otyp;
+        const otyp = obj.otyp | 0;
+        if (otyp === SPE_BOOK_OF_THE_DEAD) {
+            let ox = 0, oy = 0;
+
+            /* note: The Book of the Dead can't be contained or buried */
+            const bloc = get_obj_location(obj, CONTAINED_TOO | BURIED_TOO);
+            if (bloc) {
+                ox = bloc.x | 0; oy = bloc.y | 0;
+                obj.ox = ox; obj.oy = oy;
+            }
+            if (isok(ox, oy) && cansee(ox, oy))
+                await pline(`Steam rises from ${the(xname(obj))}.`);
+            return ER_NOTHING;
+        } else if (otyp === SPE_BLANK_PAPER) {
+            return ER_NOTHING;
+        }
+        if (in_invent)
+            await pline(`Your ${ostr} ${vtense(ostr, 'fade')}.`);
         obj.otyp = SPE_BLANK_PAPER;
-        if (obj.spestudied) obj.spestudied = rn2(obj.spestudied);
+        /* same re-init as over-reading or polymorph; matters if it gets
+           polymorphed into non-blank */
+        if (obj.spestudied)
+            obj.spestudied = rn2(obj.spestudied);
         obj.dknown = 0;
-        void otyp; // SPE_NOVEL blank_novel deferred
-        void SPE_NOVEL;
+        /* blanking a novel is more involved than blanking a spellbook */
+        if (otyp === SPE_NOVEL) /* old type */
+            blank_novel(obj);
+        if (in_invent)
+            update_inventory();
         return ER_DAMAGED;
     }
     if (obj.oclass === POTION_CLASS) {
         if (obj.otyp === POT_ACID) {
-            // pot_acid_damage deferred
+            await pot_acid_damage(obj, in_invent, described);
             return ER_DESTROYED;
-        }
-        if (obj.odiluted) {
+        } else if (obj.odiluted) {
+            if (in_invent)
+                await pline(`Your ${ostr} ${vtense(ostr, 'dilute')} further.`);
             obj.otyp = POT_WATER;
             obj.dknown = 0;
             obj.blessed = obj.cursed = false;
             obj.odiluted = 0;
+            if (in_invent)
+                update_inventory();
             return ER_DAMAGED;
-        }
-        if (obj.otyp !== POT_WATER) {
+        } else if (obj.otyp !== POT_WATER) {
+            if (in_invent)
+                await pline(`Your ${ostr} ${vtense(ostr, 'dilute')}.`);
             obj.odiluted = (obj.odiluted | 0) + 1;
+            if (in_invent)
+                update_inventory();
             return ER_DAMAGED;
         }
         return ER_NOTHING;
@@ -5182,20 +5262,47 @@ export async function fire_damage_chain(chain, force, here, x, y) {
 }
 
 /**
- * C ref: trap.c water_damage_chain — walk invent / floor chain.
- * acid_ctx / bhitpos save deferred.
+ * C ref: trap.c water_damage_chain `:4854–4890` — walk invent / floor
+ * chain, snapshotting next before `water_damage` may delobj. Initializes
+ * the acid context so second and subsequent same-chain acid explosions
+ * with matching dknown say "Another/More"; saves and restores bhitpos
+ * (it can be live up the call stack, e.g. a thrown item hurtling the
+ * levitating hero into water) around the erode_obj visibility checks.
  */
 export async function water_damage_chain(objOrList, here) {
     if (!objOrList) return;
+    /* so far, neither seen (dknown) nor unseen acid has exploded here */
+    game.acid_ctx = { dkn_boom: 0, unk_boom: 0, ctx_valid: true };
+    /* don't permanently overwrite bhitpos below */
+    const save_bhitpos = {
+        x: game.bhitpos?.x | 0,
+        y: game.bhitpos?.y | 0,
+    };
+    const head = Array.isArray(objOrList) ? objOrList[0] : objOrList;
+    if (head) {
+        const bloc = get_obj_location(head, CONTAINED_TOO);
+        if (!game.bhitpos) game.bhitpos = {};
+        if (bloc) {
+            game.bhitpos.x = bloc.x | 0;
+            game.bhitpos.y = bloc.y | 0;
+        }
+    }
     if (Array.isArray(objOrList)) {
         for (const obj of [...objOrList]) {
             await water_damage(obj, null, false);
         }
-        return;
+    } else {
+        for (let obj = objOrList; obj;) {
+            const otmp = here ? obj.nexthere : obj.nobj;
+            await water_damage(obj, null, false);
+            obj = otmp;
+        }
     }
-    for (let obj = objOrList; obj; obj = here ? obj.nexthere : obj.nobj) {
-        await water_damage(obj, null, false);
-    }
+    /* reset acid context and bhitpos */
+    game.acid_ctx = { dkn_boom: 0, unk_boom: 0, ctx_valid: false };
+    if (!game.bhitpos) game.bhitpos = {};
+    game.bhitpos.x = save_bhitpos.x;
+    game.bhitpos.y = save_bhitpos.y;
 }
 
 /**

@@ -25,26 +25,24 @@ Park rows: re-pop only on the listed falsifier (proofs in Parked).
 - **poly_obj:** misattributed citation + no C arm.
 - **newuhs:** STALE, full port D-1791.
 - **domonnoise/dismount_steed:** STALE DUPLICATEs (D-1915/885).
-- **test_move/domove_core:** STALE park 2026-09-14 — named arms live (D-1800/D-1270/D-1226); `verify` 0 blocked on both.
-- **arti_cost:** STALE DUPLICATE refill row — D-1719 triple live (proof in Parked; falsifier: `verify arti_cost` blocked with arti_cost/getprice as owner).
-- **m_initweap S_DEMON:** STALE DUPLICATE of D-0472 (parked 2026-09-14; 5 named specials + is_demon FALLTHROUGH + default live `js/makemon.js:2176-2206/2481-2575`; `verify m_initweap` 0 blocked vacuous, green+strict+cohort PASS).
-- **mextra trio:** STALE ROW (parked 2026-09-14; has/new/free + set_mimic_sym 3 arms + stale-clear + seemimic/copy_mextra/bhitm/wormgone/display/detect/pager/apply/altarmask_at/clear_bypasses all live C-cited; `verify newmcorpsenm` 0 blocked vacuous at HEAD scoreboard 614cdcf0).
+- **STALE parks 2026-09-14** (proofs in Parked; re-pop only on `verify <fn>` blocked with `<fn>` as owner): test_move/domove_core (D-1800/D-1270/D-1226 live), arti_cost (D-1719 triple), m_initweap S_DEMON (D-0472), mextra trio (D-1598 + follow-ups).
 
 ## Don't re-check (≤15)
 
-- D-1790…D-2288 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-2289 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 are D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` loaders D-1852/D-1858 — check `load_val_*`/`load_sam_*` before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / `setnotworn`←`owornmask` (D-1020) / `delobj` tut loot / off-level timers (D-1037) / dropped `msounds[]` (D-1053) / tut-1 keys (D-1065) / skipped `tutorial()` (D-1066). No skip D-1067…D-2288.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, or makemon→hack/artifact/minion. No re-port D-1682…D-2288.
+- No memcpy gi worn/ball (D-1035) / `setnotworn`←`owornmask` (D-1020) / `delobj` tut loot / off-level timers (D-1037) / dropped `msounds[]` (D-1053) / tut-1 keys (D-1065) / skipped `tutorial()` (D-1066). No skip D-1067…D-2289.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, or makemon→hack/artifact/minion. No re-port D-1682…D-2289.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2289: new `export function blank_novel(obj)` in `js/zap.js` directly after `cancel_item` (C position `:1367` after cancel), wired at both C call sites (canc Named: none new (zap `cancel_item` corpse revive→rot timer swap stays; `You/Your/pline_The`-as-`p
 - D-2288: `js/trap.js`: new `export function clamp_hole_destination(dlev)` beside `hole_destination`, over the existing quest/hell-aware file-local `dng_bottom` Named: none new (hero `level_tele_trap`/`domagicportal` are different C functions; `assign_level`
 - D-2287: new `export function set_moreluck()` in `js/attrib.js` in C position (after `stone_luck`, matching `:441` after `:423`), C order (`stone_luck(TRUE)` f Named: none new (artidisco save/rest stays Deferred; full `set_levltyp` ice/lava/count; COIN_CLAS
 - D-2286: C order in C position — isok check first, returning `res` while still `ECMD_OK`; Confusion/Stunned cost after (stumble stays deferred between them, no Named: none new (`stumble_on_door_mimic`, portcullis/drawbridge close arms, steed close path, `fe
@@ -59,5 +57,4 @@ Park rows: re-pop only on the listed falsifier (proofs in Parked).
 - D-2277: both clones deleted; `import { mb_trapped } from './monmove.js'` in `dig.js` + `lock.js` (hoisted function declaration, call-time use only — `imports. Named: `mb_trapped` message predicates stay the canonical's house checks (`game.u` Unaware/Deaf, 
 - D-2276: `js/invent.js` final builder — the C arm verbatim in C position (after Polymorph_control, before were-form): `Upolyd && umonnum != (ulycn ?? Named: `lays_eggs` arm (`:1879`, neither form lays eggs — no corpus row); Unchanging/Polymorph bl
 - D-2275: new `export function copy_oextra(obj2, obj1)` in `js/mkobj.js` in C order (guards, `newoextra`, `has_oname` → live `oname` with `ONAME_SKIP_INVUPD`, ` Named: `shk.c` splitbill (unpaid split billing — live Open row, queued this commit as REFILL); `o
-- D-2274: `js/explode.js` — `scatter` now follows C order: `await impossible` site-gate; uball/uchain arm (`u.uball`/`u.uchain` identity per ball.js, `Soundeffe Named: shop_origin baseline + gold `addtobill`/`lostgoods` (no live `credit_report` export — data
 <!-- landmarks:end -->
