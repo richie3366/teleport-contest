@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-14
 
-- [x] `questpgr.c` stinky_nemesis — nemesis stinking-cloud gas arm (named in `mon.c` mondead-tail D-2231 row; data.md:373). Probe: `node scripts/brief.mjs stinky_nemesis`. **Addressed:** D-2270
+- [x] `steal.c` thiefdead stealarm arm — stolen-goods restoration when a thief dies (named in mondead-tail D-2231 row; data.md:373). Probe: `node scripts/brief.mjs thiefdead`. **Addressed:** D-2271
+
+
+- [x] `questpgr.c` stinky_nemesis — nemesis stinking-cloud gas arm (named in `mon.c` mondead-tail D-2231 row; data.md:373). Probe: `node scripts/brief.mjs stinky_nemesis`. **Addressed:** D-2270 `04af89bd`
 
 
 - [x] `insight.c` enlightenment — blocks 1/553 corpus sessions (first at step 226): C «Wizard the Rogue's attributes:» vs JS «Wizard the Rogue's attributes:». Probe: `node scripts/hidden-proxy.mjs verify enlightenment` (scen-wish-Rogue-92037). **Addressed:** D-2269 `a7db375d`

@@ -114,7 +114,7 @@ import {
     weight, mksobj, set_corpsenm, obj_stop_timers, mkgold, clear_dknown,
     obj_extract_self, add_to_minv,
 } from './mkobj.js';
-import { findgold } from './steal.js';
+import { findgold, stealarm, unstolenarm } from './steal.js';
 import { munslime } from './muse.js';
 import { Monnam, mon_nam, mon_nam_too, Adjmonnam, oname, pmname, x_monnam, hliquid, YMonnam, s_suffix, free_mgivenname, a_monnam, y_monnam, some_mon_nam } from './do_name.js';
 import { an, xname, makeplural, cxname, vtense, The, simpleonames } from './objnam.js';
@@ -2976,11 +2976,17 @@ export function logdeadmon(mtmp, mndx) {
 
 /**
  * C ref: steal.c thiefdead `:119–128` — a dead thief ends theft-in-progress.
- * Named omission: afternmv==stealarm → unstolenarm arm (steal-armor
- * occupation never set in JS; steal.js:379).
+ * C order: stealmid = 0, then if afternmv == stealarm swap to unstolenarm
+ * (hero finishes taking off the armor instead of handing it over) and
+ * clear nomovemsg. stealarm/unstolenarm live in steal.js (D-2271).
  */
 export function thiefdead() {
+    /* hero is busy taking off an item of armor which takes multiple turns */
     game.stealmid = 0;
+    if (game.afternmv === stealarm) {
+        game.afternmv = unstolenarm;
+        game.nomovemsg = null;
+    }
 }
 
 /**
@@ -3085,9 +3091,10 @@ export async function m_detach(mtmp, mptr, due_to_death) {
 // restore, mvitals, quest/mail marks, Kops respawn, logdeadmon, unmap,
 // m_detach. Dead mons stay on fmon until dmonsfree — do not splice here.
 // Named omissions: mongone's m_detach(FALSE) caller arm (D-1149 body kept);
-// minimal_monnam format inside m_detach; thiefdead
-// stealarm arm; shkgone damage/has_shop arms; xkilled-side disintegested
-// writer + Maybe-not/vamp_rise readers (uhitm names them).
+// minimal_monnam format inside m_detach; thiefdead stealarm arm LIVE
+// (D-2271; steal.js stealarm/unstolenarm); shkgone damage/has_shop arms;
+// xkilled-side disintegested writer + Maybe-not/vamp_rise readers
+// (uhitm names them).
 export async function mondead(mtmp) {
     // C `:3089–3090` — potential pet message flag; always cleared.
     const beSad = !!(game.iflags && game.iflags.sad_feeling);

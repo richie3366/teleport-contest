@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `steal.c` thiefdead stealarm arm — stolen-goods restoration when a thief dies (named in mondead-tail D-2231 row; data.md:373). Probe: `node scripts/brief.mjs thiefdead`.
 - [ ] `shk.c` shkgone damage + has_shop arms (named in mondead-tail D-2231 row; data.md:373). Probe: `node scripts/brief.mjs shkgone`.
 - [ ] `mon.c` vamprises door-trap kill arm — vampire smashing a trapped door (door smash shipped D-2231; data.md:372-373). Probe: `node scripts/brief.mjs vamprises`.
 - [ ] `explode.c` scatter — landmine `blow_up_landmine` object-scatter arm (named data.md:1046). Probe: `node scripts/brief.mjs scatter`.
@@ -68,6 +67,7 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 - [ ] `trap.c` dotrap — hero trap-hit path (breath/gas/pit/arrow/door-trap arms; PORT-GAP honourable mention `trap.c:2996`, 64/39; corpus reaches: 10 sessions with hero-trap toplines, e.g. explore-seed0015 pit-dog-wait family). Probe: `node scripts/brief.mjs dotrap`.
 - [ ] `trap.c` mintrap — monster trap-hit path (pit/fall/arrow/door-trap arms for mtmp; PORT-GAP honourable mention `trap.c:3733`, 107/54; corpus reaches: 14 sessions with monster-trap toplines, e.g. explore-seed0015 pit-dog-wait family). Probe: `node scripts/brief.mjs mintrap`.
 - [ ] `worn.c` mon_break_armor — poly armor-break arms (PORT-GAP honourable mention, absent, 23 messages; corpus reaches: scen-poly-Archeologist-92119/-92226, scen-poly-Caveman-92050 armor-fall toplines). Probe: `node scripts/brief.mjs mon_break_armor`.
+- [ ] `fountain.c` drinkfountain — blocks 1/553 corpus sessions (first at step 227): C «The feeling subsides.» vs JS «The feeling subsides.». Probe: `node scripts/hidden-proxy.mjs verify drinkfountain` (scen-wish-Rogue-92037; D-2269 residual, moved 226→227 past enlightenment).
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 
