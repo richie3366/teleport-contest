@@ -1,6 +1,6 @@
 {
- "commit": "9ac4640d",
- "at": "2026-09-14T14:46:45.263Z",
+ "commit": "9ea572c7",
+ "at": "2026-09-14T15:48:33.378Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -8388,16 +8388,16 @@
    "passed": false,
    "rngM": 3788,
    "rngT": 3788,
-   "scrM": 226,
+   "scrM": 227,
    "scrT": 233,
    "kind": "screen",
-   "step": 226,
+   "step": 227,
    "steps": 233,
-   "owner": "enlightenment",
-   "loc": "insight.c:398",
+   "owner": "drinkfountain",
+   "loc": "fountain.c:292",
    "jsOwner": null,
-   "cTopline": "Wizard the Rogue's attributes:",
-   "jsTopline": "Wizard the Rogue's attributes:",
+   "cTopline": "The feeling subsides.",
+   "jsTopline": "The feeling subsides.",
    "error": null
   },
   "scen-wish-Rogue-92137": {

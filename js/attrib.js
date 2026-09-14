@@ -45,7 +45,7 @@ import {
 import { objectNames } from './objects.js';
 import { pline, You_feel, impossible } from './display.js';
 import { ysimple_name } from './objnam.js';
-import { what_gives, bare_artifactname, confers_luck, u_wield_art } from './artifact.js';
+import { what_gives, bare_artifactname, confers_luck, u_wield_art, is_art } from './artifact.js';
 import {
     PM_ARCHEOLOGIST,
     PM_BARBARIAN,
@@ -66,7 +66,7 @@ import {
     PM_GNOME,
     monsterNames,
 } from './generated/monsters_data.js';
-import { ART_OGRESMASHER } from './generated/artifacts_data.js';
+import { ART_OGRESMASHER, ART_EYES_OF_THE_OVERWORLD } from './generated/artifacts_data.js';
 import { adj_erinys } from './monsters.js';
 
 const PM_AMOROUS_DEMON = monsterNames.indexOf('PM_AMOROUS_DEMON');
@@ -1006,13 +1006,24 @@ export function is_innate(propidx) {
 /**
  * C ref: attrib.c from_what — wizard-mode intrinsic source suffix.
  * Ported: innate reasons; FAST+Very_fast known speed-boots / worn-
- * equipment arms; what_gives extrinsic worn/artifact; " pair of " strip.
+ * equipment arms; what_gives extrinsic worn/artifact; " pair of " strip;
+ * negative BLINDED Eyes-of-the-Overworld arm.
  * Named omissions: birth blind/deaf; Blindfolded_only / cream;
- * negative prop blocking; strangulation trim.
+ * negative INVIS (mummy wrapping) / CLAIRVOYANT (cornuthaum) blocking;
+ * strangulation trim.
  */
 export function from_what(propidx) {
     const wizard = !!(game.flags?.wizard || game.flags?.debug);
-    if (!wizard || propidx < 0) return '';
+    if (!wizard) return '';
+    if (propidx < 0) {
+        // C attrib.c from_what negative arm: wearing the Eyes of the
+        // Overworld overrides blindness (insight.c:1564–1566 you_can arm).
+        if (-propidx === BLINDED && (game.u?.BBlinded | 0)
+            && is_art(game.u?.ublindf, ART_EYES_OF_THE_OVERWORLD)) {
+            return ` because of ${bare_artifactname(game.u.ublindf)}`;
+        }
+        return '';
+    }
     let buf = '';
     const innateness = is_innate(propidx);
     if (innateness === FROM_ROLE_REASON || innateness === FROM_RACE_REASON) {

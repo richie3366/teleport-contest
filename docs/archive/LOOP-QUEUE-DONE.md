@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-14
 
+- [x] `insight.c` enlightenment — blocks 1/553 corpus sessions (first at step 226): C «Wizard the Rogue's attributes:» vs JS «Wizard the Rogue's attributes:». Probe: `node scripts/hidden-proxy.mjs verify enlightenment` (scen-wish-Rogue-92037). **Addressed:** D-2269
+
+
 - [x] `hacklib.c` s_suffix — `js/uhitm.js` local `s_suffix` appends `'` after z/x/ch/sh; C appends `'` only after `s` (`it`→`its`, `you`→`your`, else `'s`). Import `do_name.js` `s_suffix` for the uhitm callers (cream-pie splash, shatter, face, grease). No corpus block (D-2261 Next). Probe: `node scripts/brief.mjs s_suffix`. **Addressed:** D-2268 `1f904287`
 
 

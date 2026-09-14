@@ -87,10 +87,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `insight.c` enlightenment (that_is_a_mimic popped then parked — MISATTRIBUTED owner + unresolved display/memory mechanism, proof in LOOP-QUEUE Parked; no js/, no D-log). Probe: `node scripts/brief.mjs enlightenment`.
+**Next cluster:** D-2269 shipped.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2268 (index).**
+**Keep D-0845…D-2269 (index).**
 <!-- recent:begin -->
+**D-2269** `insight.c:1567–1570` (`Blnd_resist && !Blind` → `you_are("not subject to light-induced bl — Sunsword EBlnd_resist + what_gives (artifact.js), from_what(-BLINDED) (attrib.js), Vision-head arms (invent.js).
 **D-2268** `hacklib.c:345–359` (`s_suffix`): `it`→`its`, `you`→`your` (both `strcmpi`, case-insensiti — deleted the local clone; added `s_suffix` to the existing `do_name.js` import (`imports.mjs --can uhitm.js do_name.js s_suffix` → ALREADY, no new edge, no TDZ risk).
 **D-2267** `do_wear.c:326–380` (`Cloak_on`); oilskin arm `:364–366` (`pline("%s very tightly.", Tobjn — `js/do_wear.js` `Cloak_on` is now the C switch in C order: plain-cloak breaks; PROTECTION `makeknown`; ELVEN `toggle_stealth`; DISPLACEMENT `toggle_displacement`; MUMMY checks the `(HInvis|EInvis)` flats (not full `Invis
 **D-2266** `pager.c:1406–1417` (DEF_INVISIBLE arm of `do_screen_description`); `:1246–1273` (looked → — `js/pager.js` `describe_looked` — `glyph_is_invisible_id(glyph)` (already imported) tested on the shown `glyph_at` before `mon_at`, returning `I` + `an(unseen)` with the C `:1408–1410` EDetect-I_SPECIAL/Blind select (`un
@@ -98,11 +99,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2264** `makemon.c:1076–1137` (`makemon_rnd_goodpos`); `:1085` (`gpflags |= GP_AVOID_MONPOS`); `:1 — `js/makemon.js` — mutate the parameter in place (`if (!bl) gpflags &= ~GP_CHECKSCARY;`, no per-pass copy) and pass `gpflags` to all three fallback `goodpos` calls: exact C control flow (the C parameter is pass-by-value, 
 **D-2263** `read.c:2473–2488` (`set_lit`: `levl[x][y].lit = 1` + `m_at` gremlin queue via `data == &m — `js/light.js` — new `export function snuff_light_source(x, y)` in C order (index loop over `game.light_base`, `| 0` coords, first LS_OBJECT match, `obj_is_burning` gate, artifact skip, `end_burn(obj, otyp !== MAGIC_LAMP)
 **D-2262** `polyself.c:469–733` (`polyself`): `:500–504` formrevert (`mntmp = youmonst.cham`, `monste — `js/polyself.js`.
-**D-2261** `uhitm.c:2797–2811` (`mhitm_ad_sgld` uhitm arm); `uhitm.c:3022–3035` (`mhitm_ad_curs` uhit — four file-local arms, ported from the C uhitm branches and dispatched from `damageum_adtyping`:
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2268; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2269; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

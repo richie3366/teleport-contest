@@ -49,6 +49,7 @@ import {
     ENERGY_REGENERATION,
     HALF_SPDAM,
     HALF_PHDAM,
+    BLND_RES,
     ECMD_OK,
     ECMD_TIME,
     ECMD_CANCEL,
@@ -143,6 +144,7 @@ import {
     ART_MASTER_KEY_OF_THIEVERY,
     ART_VORPAL_BLADE,
     ART_TSURUGI_OF_MURAMASA,
+    ART_SUNSWORD,
 } from './generated/artifacts_data.js';
 import { PM_KNIGHT, PM_ROGUE } from './generated/monsters_data.js';
 import { aligns, align_str } from './roles.js';
@@ -816,8 +818,10 @@ function warntype_info() {
  * SPFX_XRAY `:859–866` u.xray_range 3/-1 + vision_full_recalc (Eyes
  * W_TOOL via setworn). vision_recalc IN_SIGHT xray circle named.
  * Named omissions: defn/cary resist masks; SPFX_PROTECT; inv_prop
- * arti_invoke on W_ART drop; Sunsword EBlnd_resist; message paths.
+ * arti_invoke on W_ART drop; message paths.
  * SPFX_REFLECT && W_WEP is D-1342 (not other wp_mask).
+ * C artifact.c:886–891 — wielded Sunsword sets EBlnd_resist (W_WEP
+ * exact, not bit-test).
  * @param {object} otmp
  * @param {boolean} on
  * @param {number} wp_mask
@@ -898,6 +902,11 @@ export function set_artifact_intrinsic(otmp, on, wp_mask) {
     // C artifact.c:867–872 — only the wielded-weapon slot sets EReflecting
     if ((spfx & SPFX_REFLECT) && (wp_mask & W_WEP)) {
         set_spfx_extrinsic(REFLECTING, 'EReflecting', wp_mask, on);
+    }
+    // C artifact.c:886–891 — wielded Sunsword sets EBlnd_resist; exact
+    // W_WEP match (is_art: otmp->oartifact == ART_SUNSWORD).
+    if (wp_mask === W_WEP && is_art(otmp, ART_SUNSWORD)) {
+        set_spfx_extrinsic(BLND_RES, 'EBlnd_resist', wp_mask, on);
     }
 }
 
@@ -2625,8 +2634,9 @@ function abil_to_spfx(propidx) {
 /**
  * C ref: artifact.c what_gives — first invent item conveying extrinsic.
  * Ported: artifact abil_to_spfx match when wielded/worn; non-artifact
- * wornmask match (rings/armor/amulet/tool).
- * Named omissions: abil_to_adtyp cary/defn arms; Sunsword EBlnd;
+ * wornmask match (rings/armor/amulet/tool); wielded-Sunsword EBlnd_resist
+ * (C artifact.c:2411–2417; only Sunsword ever sets EBlnd_resist&W_WEP).
+ * Named omissions: abil_to_adtyp cary/defn arms;
  * what_gives cspfx match (conferral is D-1539); EWarn_of_mon warntype guard.
  * @param {number} extrinsicBits u.uprops[prop].extrinsic
  * @param {number} propidx u_prop index selecting the abil_to_spfx row
@@ -2654,6 +2664,12 @@ export function what_gives(extrinsicBits, propidx = -1) {
             // C: (art->spfx & spfx) == spfx && obj->owornmask
             if (needSpfx && ((art.spfx | 0) & needSpfx) === needSpfx
                 && (obj.owornmask | 0)) {
+                return obj;
+            }
+            // C artifact.c:2411–2417 — wielded Sunsword conveys
+            // EBlnd_resist (abil == &EBlnd_resist, W_WEP bit set).
+            if (propidx === BLND_RES && obj === game.u?.uwep
+                && (bits & W_WEP) !== 0) {
                 return obj;
             }
             continue;

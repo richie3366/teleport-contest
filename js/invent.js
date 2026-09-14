@@ -205,6 +205,7 @@ import {
     STUNNED,
     CONFUSION,
     BLINDED,
+    BLND_RES, // C insight.c:1567-1570 Blnd_resist arm (Sunsword EBlnd_resist)
     DEAF, // C attrib.c from_what(DEAF) via insight.c:1074 deaf arm (D-1996)
     TIMEOUT,
     I_SPECIAL,
@@ -5501,6 +5502,26 @@ export async function enlightenment(mode, final = 0) {
                 'recognize detrimental food', '',
             ));
         }
+        // C insight.c:1564-1566 — blind with blindness blocked (Eyes of
+        // the Overworld); macro-exact (HBlinded||EBlinded)&&BBlinded.
+        if (((u.HBlinded | 0) || (u.EBlinded | 0)) && (u.BBlinded | 0)) {
+            lines.push(enlght_line_txt(
+                You_, final ? 'could ' : 'can ', 'see',
+                from_what(-BLINDED),
+            ));
+        }
+        // C insight.c:1567-1570 — Blnd_resist (H from form, E wielded
+        // Sunsword) when not blind; !Blind is the youprop.h macro
+        // ((HBlinded||EBlinded) && !BBlinded), no roleplay gate.
+        if ((((u.HBlnd_resist | 0) || (u.uprops?.[BLND_RES]?.intrinsic | 0)
+            || (u.EBlnd_resist | 0) || (u.uprops?.[BLND_RES]?.extrinsic | 0)))
+            && !(((u.HBlinded | 0) || (u.EBlinded | 0))
+                && !(u.BBlinded | 0))) {
+            lines.push(you_are(
+                'not subject to light-induced blindness',
+                from_what(BLND_RES),
+            ));
+        }
         // C insight.c:1571-1580 — See_invisible (Warn_of_mon deferred after).
         if ((u.HSee_invisible | 0) || (u.ESee_invisible | 0)) {
             if (!Blind()) {
@@ -6284,6 +6305,25 @@ export async function doattributes(enl_mode = null) {
         if (u.uedibility) {
             lines.push(o(enlght_line_txt(
                 'You ', 'can ', 'recognize detrimental food', '',
+            )));
+        }
+        // C insight.c:1564-1566 — blind with blindness blocked (Eyes of
+        // the Overworld); macro-exact (HBlinded||EBlinded)&&BBlinded.
+        if (((u.HBlinded | 0) || (u.EBlinded | 0)) && (u.BBlinded | 0)) {
+            lines.push(o(enlght_line_txt(
+                'You ', 'can ', 'see', from_what(-BLINDED),
+            )));
+        }
+        // C insight.c:1567-1570 — Blnd_resist (H from form, E wielded
+        // Sunsword via artifact.c:886-891) when not blind; !Blind is the
+        // youprop.h macro, no roleplay gate.
+        if ((((u.HBlnd_resist | 0) || (u.uprops?.[BLND_RES]?.intrinsic | 0)
+            || (u.EBlnd_resist | 0) || (u.uprops?.[BLND_RES]?.extrinsic | 0)))
+            && !(((u.HBlinded | 0) || (u.EBlinded | 0))
+                && !(u.BBlinded | 0))) {
+            lines.push(o(enlght_line_txt(
+                'You ', 'are ', 'not subject to light-induced blindness',
+                from_what(BLND_RES),
             )));
         }
         // Vision — Blind_telepat + Warning before Searching (See_invisible /
