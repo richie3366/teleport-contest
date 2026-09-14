@@ -83,7 +83,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `trap.c` mintrap — monster trap-hit path (dotrap popped then parked — STALE + presence-only, proof in LOOP-QUEUE Parked; no js/, no D-log). Probe: `node scripts/brief.mjs mintrap`.
+**Next cluster:** `worn.c` mon_break_armor — poly armor-break arms (mintrap popped then parked — STALE + presence-only, proof in LOOP-QUEUE Parked; no js/, no D-log). Probe: `node scripts/brief.mjs mon_break_armor`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2275 (index).**
 <!-- recent:begin -->

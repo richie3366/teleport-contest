@@ -23,6 +23,7 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 - **dochug park — do not re-pop:** STALE (proof in Parked; falsifier: verify blocked on dochug).
 - **that_is_a_mimic park — do not re-pop:** misattributed owner + unresolved C glyph mechanism (proof + falsifier in Parked).
 - **dotrap park — do not re-pop:** STALE presence-only (proof in Parked; falsifier: verify blocked on dotrap).
+- **mintrap park — do not re-pop:** STALE presence-only (proof in Parked; falsifier: verify blocked on mintrap).
 - **nh_timeout park — do not re-pop:** STALE (proof in Parked; falsifier: verify blocked on nh_timeout).
 
 ## Don't re-check (≤15)
