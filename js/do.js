@@ -1851,7 +1851,7 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     // C do.c:1817 — after losedogs, before run_timers / u_collide_m.
     // Migrating mons (and eggs) genocided while in limbo die here so
     // possessions land on this level.
-    kill_genocided_monsters();
+    await kill_genocided_monsters();
     // C do.c:1818–1823 — after losedogs + obj_delivery, before
     // u_collide_m. Expire timers that went off while away (restored
     // RANGE_LEVEL list + invent/migrating timers that save_timers

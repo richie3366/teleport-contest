@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-14
 
-- [x] `makemon.c` birth knowledge residuals — mpeaceful MM_ANGRY arm + mwandexp save/restore (data.md:531; D-2107 shipped the Sokoban/stronghold/leader/mwandexp core, makemon.c:1283-1294). Probe: `node scripts/brief.mjs makemon`. **Addressed:** D-2294
+- [x] `cmd.c` makemap_prepost kill_genocided_monsters (data.md:350; D-1097/D-1190 residual; do.c goto_level caller shipped D-1190; C cmd.c:1048). Probe: `node scripts/brief.mjs makemap_prepost`. **Addressed:** D-2295
+
+
+- [x] `makemon.c` birth knowledge residuals — mpeaceful MM_ANGRY arm + mwandexp save/restore (data.md:531; D-2107 shipped the Sokoban/stronghold/leader/mwandexp core, makemon.c:1283-1294). Probe: `node scripts/brief.mjs makemon`. **Addressed:** D-2294 `e6f16d72`
 
 
 - [x] `wizcmds.c` wish count-prefix + unavailcmd + make_blinded talk variants (D-2283 residuals). Probe: `node scripts/brief.mjs do_wish`. **Addressed:** D-2293 `ef5edc3c`

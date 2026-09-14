@@ -353,8 +353,8 @@ post-death cham/slime/wraith/`grow_up(null)`/nurse/`mon_givit`; swallowed AT_BOO
 gulpmu invent / digest-Medusa stone / `newcham` NC_SHOW_MSG D-1586; `grow_up` little_to_big still 
 named)); **`can_be_hatched`/`dead_species`** + BREEDER_EGG (D-0068); 
 **`kill_eggs` after genocide D-1097** (minvent/invent/fobj/migrating/buried + Has_contents; 
-TIN/CORPSE #if 0 not ported; cham `newcham` + 
-cmd.c wiz-level-change `kill_genocided_monsters` still named; do.c `goto_level` caller D-1190); 
+TIN/CORPSE #if 0 not ported; cham `newcham` D-2295 +
+cmd.c wiz-level-change `kill_genocided_monsters` D-1288; do.c `goto_level` caller D-1190); 
 **`egg_type_from_parent`** (D-1075; sit `#sit` `FALSE` roll live `js/sit.js:1129`;
 polyself `newman` `learn_egg_type` `TRUE` pair live `js/polyself.js:1187-1196` D-2239); **`record_mvitals_died`** (D-0126); 
 **trap-path `monkilled`/`mondied`/`make_corpse` ordinary default_1** (D-0150); 

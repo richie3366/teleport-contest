@@ -3162,7 +3162,7 @@ export function hide_monst(mon) {
  * (dead_species(..., TRUE) also checks baby form). JS invent is an
  * array; other lists are nobj chains. TIN/CORPSE arms are #if 0 in C.
  */
-function kill_eggs(obj_list) {
+export function kill_eggs(obj_list) {
     if (!obj_list) return;
     if (Array.isArray(obj_list)) {
         for (const otmp of obj_list) kill_eggs_one(otmp);
@@ -3183,12 +3183,18 @@ function kill_eggs_one(otmp) {
 }
 
 /**
- * C ref: mon.c kill_genocided_monsters — wipe live mons of G_GENOD species
- * then kill_eggs on minvent / invent / fobj / migrating_objs / buried.
- * Named omissions: chameleon `newcham` when imitating a genocided form.
- * Callers: do.c goto_level (D-1190); cmd.c makemap_prepost post (D-1288).
+ * C ref: mon.c kill_genocided_monsters `:5639–5677` — wipe live mons of
+ * G_GENOD species then kill_eggs on minvent / invent / fobj /
+ * migrating_objs / buried. A cham imitating a genocided form takes a new
+ * shape via `newcham(mtmp, NULL, NC_SHOW_MSG)` (C `:5665`, `(void)`
+ * return); the await only completes C's inline message before the loop
+ * continues — scored runs stay sync (D-1648). mondead stays
+ * fire-and-forget per the review-1197 debt (amulet+More corner suspends
+ * detach past later loop iterations — display-order only).
+ * Callers: do.c goto_level (D-1190); cmd.c makemap_prepost post (D-1288);
+ * read.c do_class_genocide / do_genocide — all await.
  */
-export function kill_genocided_monsters() {
+export async function kill_genocided_monsters() {
     const mv = game.mvitals || [];
     for (const mtmp of [...(game.fmon || [])]) {
         if (!mtmp || (mtmp.mhp | 0) < 1) continue;
@@ -3197,7 +3203,7 @@ export function kill_genocided_monsters() {
         const kill_cham = ismnum(cham) && (((mv[cham]?.mvflags ?? 0) & G_GENOD) !== 0);
         if ((((mv[mndx]?.mvflags ?? 0) & G_GENOD) !== 0) || kill_cham) {
             if (ismnum(cham) && !kill_cham) {
-                // newcham(mtmp, NULL, NC_SHOW_MSG) deferred
+                await newcham(mtmp, null, NC_SHOW_MSG);
             } else {
                 // Sync by design: genocided mons cannot lifesave (amulet
                 // still dies) or vamprise (G_GENOD gate); the async detach

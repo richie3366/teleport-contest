@@ -592,7 +592,7 @@ export async function makemap_prepost(pre, wiztower) {
     const amulet = !!(u.uhave?.amulet || u.uhave_amulet);
     await u_on_rndspot((amulet ? 1 : 0) | (wiztower ? 2 : 0));
     await losedogs();
-    kill_genocided_monsters();
+    await kill_genocided_monsters();
     const mtmp = m_at(u.ux, u.uy);
     if (mtmp) await u_collide_m(mtmp);
     initrack();
