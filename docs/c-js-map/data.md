@@ -236,7 +236,7 @@ hideunder expose / contents bury still named);
 C `timeout.c` `attach_egg_hatch_timeout` `:980–1005` / `obj_split_timers` `:2358–2370`;
 `mkobj.c` `splitobj` `:498–499`; `zap.c` `poly_obj` `:1756–1779` `kill_egg`+`set_corpsenm`
 `random_monster(rn2)`; `hatch_egg` `is_pool(mon)` + `learn_egg_type` `update_inventory`
-+ impossible; SetVoice / migrating #if 0 / copy_oextra / light split / `obj_move_timers`
++ impossible; SetVoice / migrating #if 0 / light split / `obj_move_timers`
 named); 
 **`hatch_egg`/`learn_egg_type` body + `cry_sound`** (D-1036; dispatch D-1037; 
 **`msound` table D-1053**; **`get_obj_location(0)` CONTAINED/BURIED + 
@@ -297,8 +297,14 @@ mklev ROCK/book/`mktrap_victim` discards);
 `zap.c` revive floor `delobj_core(,TRUE)` `:1110–1113`; live `obj_resists`;
 floor `maybe_unhide_at`+`newsym` then `obfree`; CONTAINED/BURIED revive
 `obfree`; live `js/mkobj.js` + `js/zap.js`); 
+**`copy_oextra` + mailcmd oextra tails** (D-2275;
+C `mkobj.c` `copy_oextra` `:416–448` / `new_omailcmd`+`free_omailcmd` `:157–176` /
+`invent.c` mergable mailcmd gate `:4477–4481`; `splitobj` `:495–499` +
+`bill_dummy_object` `:727–729` wire `copy_oextra`+`free_omid` in C order incl.
+LUAFREE normalize; `OMAILCMD`/`has_omailcmd` join `const.js`;
+`dealloc_oextra`/`extract_nobj` already live D-1743/D-1756);
 omit FIGURINE transform/timeout, `nextoid` shop-price search, unpaid/`splitbill`, 
-timers/light/`copy_oextra`, invent Array vs nobj `extract_nobj`, `oeaten`/`eaten_stat`, statue weight arms,
+timers/light-split (`obj_split_light_source`), invent Array vs nobj `extract_nobj`, `oeaten`/`eaten_stat`, statue weight arms,
 zap.c `dealloc_oextra` poly; **zap `delete_contents` D-1770**;
 trap.js `delete_contents_chest` / mklev.js `create_object_delete_contents`,
 wizard `makemap_prepost` dobjsfree,

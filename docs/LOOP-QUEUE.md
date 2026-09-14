@@ -60,13 +60,19 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `mkobj.c` copy_oextra / dealloc_oextra / extract_nobj tails — oextra copy/free + nobj-list extract in the delobj path (named data.md:300-301). Probe: `node scripts/brief.mjs copy_oextra`.
 - [ ] `trap.c` dotrap — hero trap-hit path (breath/gas/pit/arrow/door-trap arms; PORT-GAP honourable mention `trap.c:2996`, 64/39; corpus reaches: 10 sessions with hero-trap toplines, e.g. explore-seed0015 pit-dog-wait family). Probe: `node scripts/brief.mjs dotrap`.
 - [ ] `trap.c` mintrap — monster trap-hit path (pit/fall/arrow/door-trap arms for mtmp; PORT-GAP honourable mention `trap.c:3733`, 107/54; corpus reaches: 14 sessions with monster-trap toplines, e.g. explore-seed0015 pit-dog-wait family). Probe: `node scripts/brief.mjs mintrap`.
 - [ ] `worn.c` mon_break_armor — poly armor-break arms (PORT-GAP honourable mention, absent, 23 messages; corpus reaches: scen-poly-Archeologist-92119/-92226, scen-poly-Caveman-92050 armor-fall toplines). Probe: `node scripts/brief.mjs mon_break_armor`.
 - [ ] `insight.c` attributes_enlightenment Upolyd foreign-shape arm — blocks 2/553 corpus sessions: C « You were polymorphed into a yeti (106).» vs JS « You were fast innately.» (one-row menu shift; the «polymorphed into %s» + wizard `(mtimedone)` row, insight.c:1866–1878, is missing from both `invent.js` builders — named deferred js/invent.js:5675–5698). Probe: `node scripts/hidden-proxy.mjs verify chwepon` (scen-poly-Samurai-91106@133, scen-poly-Monk-92213@109; recorded owner `chwepon` wield.c:940 is the draw-free `exercise` tie-break — true printers are the poly-form arms, chwepon park).
 - [ ] `fountain.c` drinkfountain — blocks 1/553 corpus sessions (first at step 227): C «The feeling subsides.» vs JS «The feeling subsides.». Probe: `node scripts/hidden-proxy.mjs verify drinkfountain` (scen-wish-Rogue-92037; D-2269 residual, moved 226→227 past enlightenment).
 - [ ] `monmove.c` mb_trapped dig/lock twins — trapped-door `mondied`/lifesave + `mon_learns_traps(TRAPPED_DOOR)` still stubs in `dig.js:940` + `lock.js:794` (canonical export shipped this iteration in `monmove.js`; lock's keeps `wake_nearto`, dig's lacks it; corpus reaches trapped-door arms via monmove door-smash + dig/lock paths). Probe: `node scripts/brief.mjs mb_trapped`.
+
+- [ ] `shk.c` splitbill — unpaid split billing on stack split (named data.md:300, debt.md:14 eat.js "unpaid splitbill", js/mkobj.js:349; copy_oextra-envelope residual). Probe: `node scripts/brief.mjs splitbill`.
+- [ ] `light.c` obj_split_light_source — light-source split on stack split (named data.md:300 "light", js/mkobj.js:349, js/apply.js:4853; copy_oextra-envelope residual). Probe: `node scripts/brief.mjs obj_split_light_source`.
+- [ ] `zap.c` poly_obj dealloc_oextra arm — oextra drop on polymorph (C zap.c:5564; named data.md:300-301, js/mkobj.js:2705; copy_oextra-envelope residual). Probe: `node scripts/brief.mjs poly_obj`.
+- [ ] `timeout.c` obj_move_timers — migrating-object timer carry (C timeout.c:2339; named data.md:239, D-1572 envelope; copy_oextra-envelope residual). Probe: `node scripts/brief.mjs obj_move_timers`.
+- [ ] `invent.c` sobj_at canonical export — boulder-restack pile scan (12 local clones, no canonical export; named data.md:1049, D-2274 residual). Probe: `node scripts/brief.mjs sobj_at`.
+- [ ] `shk.c` credit_report — shop credit/debit report (C shk.c:628; no live export; named data.md:1049, D-2274 residual). Probe: `node scripts/brief.mjs credit_report`.
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 

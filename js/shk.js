@@ -44,7 +44,7 @@
 // nextoid shop-price
 // oid match; stolen_value callers beyond revive/kick/dig/lock/costly_alteration
 // / rloc_to minvent (D-1163);
-// copy_oextra / free_omid / Is_candle on bill_dummy;
+// Is_candle gate on bill_dummy lamplit;
 // ghod_hitsu; clear_no_charge shop-rival filter / buriedobjlist;
 // mbodypart/body_part lunge text; sleep(1) door-yank pause.
 
@@ -93,7 +93,8 @@ import { Hello } from './roles.js';
 import { shtypes, shkname, Shknam, saleable, is_izchak } from './shknam.js';
 import {
     splitobj, next_ident, obj_extract_self, objects_at, place_object,
-    mksobj, weight, newomid, obj_stop_timers, dealloc_obj,
+    mksobj, weight, newomid, free_omid, copy_oextra, obj_stop_timers,
+    dealloc_obj,
 } from './mkobj.js';
 import { add_to_minv, mpickobj, makemon } from './makemon.js';
 import { acurr, acurrstr, A_CHA, A_WIS, adjalign, exercise, Fast } from './attrib.js';
@@ -927,7 +928,7 @@ function carried_shop(obj) {
 /**
  * C ref: mkobj.c bill_dummy_object — charge for fully used unpaid item.
  * Dummy lands on billobjs via add_one_tobill (D-1714). Named: nextoid
- * price-matched oid (uses next_ident); copy_oextra / free_omid.
+ * price-matched oid (uses next_ident).
  */
 export async function bill_dummy_object(otmp) {
     if (!otmp) return;
@@ -945,6 +946,8 @@ export async function bill_dummy_object(otmp) {
     dummy.where = OBJ_FREE;
     dummy.o_id = next_ident();
     dummy.timed = 0;
+    copy_oextra(dummy, otmp);
+    if (has_omid(dummy)) free_omid(dummy); // only one association with m_id
     dummy.lamplit = 0;
     dummy.owornmask = 0;
     dummy.nobj = null;

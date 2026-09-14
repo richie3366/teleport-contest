@@ -41,6 +41,7 @@ import {
     undead_to_corpse, can_be_hatched, dead_species, copy_mextra,
     zombie_form,
 } from './mon.js';
+import { oname } from './do_name.js';
 import { nartifact_exist, mk_artifact, permapoisoned } from './artifact.js';
 import {
     mons, is_male, is_female, is_neuter, is_human, verysmall, PM_LICHEN, monsterNames,
@@ -63,7 +64,8 @@ import {
     CORPSTAT_NEUTER, CORPSTAT_FEMALE, CORPSTAT_MALE,
     CXN_NO_PFX,
     Is_rogue_level, isok, ICE, DRAWBRIDGE_UP, DB_UNDER, DB_ICE,
-    LS_OBJECT, LS_MONSTER, OMONST, has_omonst, OMID, has_omid, MON_DETACH,
+    LS_OBJECT, LS_MONSTER, ONAME, has_oname, OMONST, has_omonst, OMID, has_omid,
+    OMAILCMD, has_omailcmd, ONAME_SKIP_INVUPD, MON_DETACH,
     IRONBARS, ROOM, IS_ALTAR, Is_airlevel, Is_waterlevel,
     MAX_OIL_IN_FLASK, nothing_happens, EPRI, PLNMSG_OBJ_GLOWS,
     In_quest, SPINACH_TIN, RANDOM_TIN,
@@ -344,7 +346,7 @@ export function next_ident() {
  * C ref: mkobj.c splitobj — reduce obj->quan by num; return new stack of num.
  * nextoid shop-price search omitted: ordinary items take first oid then
  * next_ident() (one rnd(2)), matching non-shop dog_invent / throw paths.
- * Deferred: unpaid/splitbill, copy_oextra, light sources, Lua where.
+ * Deferred: unpaid/splitbill, light sources (obj_split_light_source).
  */
 export function splitobj(obj, num) {
     const quan = obj?.quan || 1;
@@ -384,6 +386,12 @@ export function splitobj(obj, num) {
         otmp.nexthere = obj.nexthere || null;
         obj.nexthere = otmp;
     }
+    // C: lua isn't tracking the split-off portion even if it happens to
+    // be tracking the original.
+    if (otmp.where === OBJ_LUAFREE) otmp.where = OBJ_FREE;
+    // C: if (obj->unpaid) splitbill(obj, otmp) stays named (shk envelope).
+    copy_oextra(otmp, obj);
+    if (has_omid(otmp)) free_omid(otmp); // only one association with m_id
     // C: if (obj->timed) obj_split_timers(obj, otmp)
     if (obj.timed) obj_split_timers(obj, otmp);
     return otmp;
@@ -2037,7 +2045,8 @@ export function oc_merge_of(otyp) {
 
 /**
  * C ref: invent.c mergable() — floor-stack subset + globby early TRUE.
- * Named omit: shop/mail/candle polish beyond current checks.
+ * Mail-command gate is live (invent.c:4477–4481). Named omit: shop/unpaid
+ * + candle polish beyond current checks.
  */
 export function mergable(otmp, obj) {
     if (!obj || !otmp || obj === otmp || obj.otyp !== otmp.otyp) return false;
@@ -2061,6 +2070,11 @@ export function mergable(otmp, obj) {
     }
     // C: dknown must match; known may differ and is reconciled in merged()
     if (!!obj.dknown !== !!otmp.dknown) return false;
+    // C invent.c mergable: one-sided mail command must match exactly.
+    if (!has_omailcmd(obj) ? has_omailcmd(otmp)
+        : (!has_omailcmd(otmp) || OMAILCMD(obj) !== OMAILCMD(otmp))) {
+        return false;
+    }
     // C invent.c mergable `:4379–4499` (whole body) has NO owornmask check:
     // floor pickups merge into quivered/wielded stacks, and addinv_core0
     // tries the quiver first (`:1098–1106`). Reject only a worn combine
@@ -2942,6 +2956,27 @@ export function free_omid(otmp) {
 }
 
 /**
+ * C ref: mkobj.c new_omailcmd `:157–167` — ensure oextra, drop any old
+ * mail command, dup the response string (scroll-of-mail feedback).
+ */
+export function new_omailcmd(otmp, response_cmd) {
+    if (!otmp) return;
+    newoextra(otmp);
+    if (OMAILCMD(otmp)) free_omailcmd(otmp);
+    otmp.oextra.omailcmd = response_cmd ? String(response_cmd) : '';
+}
+
+/**
+ * C ref: mkobj.c free_omailcmd `:169–176` — drop the mail command string.
+ */
+export function free_omailcmd(otmp) {
+    if (otmp?.oextra?.omailcmd) {
+        otmp.oextra.omailcmd = null;
+        delete otmp.oextra.omailcmd;
+    }
+}
+
+/**
  * C ref: mkobj.c dealloc_oextra `:95–111` — drop oname / omonst /
  * omailcmd then the oextra bag. Caller dealloc_obj_real. Named: zap.c
  * poly_obj caller.
@@ -2953,6 +2988,38 @@ export function dealloc_oextra(o) {
     if (x.omonst) free_omonst(o);
     if (x.omailcmd) x.omailcmd = 0;
     o.oextra = null;
+}
+
+/**
+ * C ref: mkobj.c copy_oextra `:416–448` — copy obj1's oextra bag onto
+ * obj2 (callers splitobj `:495`, bill_dummy_object `:727`). No-op unless
+ * obj1 carries oextra; obj2's bag is created when missing. oname via
+ * oname(ONAME_SKIP_INVUPD); omonst via whole-struct copy with mextra +
+ * nmon cleared (the `#if 0` m_id renewal stays out — m_id is copied),
+ * then copy_mextra when the source keeps mextra; omailcmd via
+ * new_omailcmd; omid via newomid (callers free_omid after: only one
+ * association with m_id).
+ */
+export function copy_oextra(obj2, obj1) {
+    if (!obj2 || !obj1 || !obj1.oextra) return;
+    if (!obj2.oextra) newoextra(obj2);
+    if (has_oname(obj1)) oname(obj2, ONAME(obj1), ONAME_SKIP_INVUPD);
+    if (has_omonst(obj1)) {
+        if (!OMONST(obj2)) newomonst(obj2);
+        const dst = OMONST(obj2);
+        const src = OMONST(obj1);
+        // C memcpy: dst becomes an exact copy, no stale fields survive.
+        for (const k of Object.keys(dst)) delete dst[k];
+        Object.assign(dst, src);
+        dst.mextra = null;
+        dst.nmon = null;
+        if (src.mextra) copy_mextra(dst, src);
+    }
+    if (has_omailcmd(obj1)) new_omailcmd(obj2, OMAILCMD(obj1));
+    if (has_omid(obj1)) {
+        if (!OMID(obj2)) newomid(obj2);
+        obj2.oextra.omid = OMID(obj1);
+    }
 }
 
 /**
