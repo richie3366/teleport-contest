@@ -129,7 +129,8 @@ Sibling key-dispatch arms still drop `res` (no ECMD_OK tail) — named debt,
 re-queue per-arm when a corpus session blocks after a Die?-decline there.
 Named: `check_wornmask_slots`; obj/timer/mon/light/bc/trap/engraving/`levl_sanity_check`;
 optfn_boolean `sanity_check` OPTIONS=; `doredraw` body; wizweight;
-count-prefix `#wizintrinsic`.
+`#wizintrinsic` count-prefix + unavailcmd-ecname + make_blinded-talk D-2293
+(menu counts via shared `select_menu_pick_any` wintty counting).
 
 ### `src/detect.c` `dosearch0`/`findit`/`do_mapping`/`reveal_terrain` + `cmd.c` `doterrain`
 

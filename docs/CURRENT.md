@@ -84,10 +84,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `wizcmds.c` wish count-prefix + unavailcmd + make_blinded talk variants (D-2283 residuals). Probe: `node scripts/brief.mjs do_wish`.
+**Next cluster:** `makemon.c` birth knowledge residuals (data.md:531; D-2107 core shipped). Probe: `node scripts/brief.mjs makemon`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2292 (index).**
+**Keep D-0845…D-2293 (index).**
 <!-- recent:begin -->
+**D-2293** `wizcmds.c:1004–1008` (`amt = count == -1 ? DEFAULT_TIMEOUT_INCR : count`, `amt <= 0` para — `js/options.js` — `select_menu_pick_any` ports the C counting verbatim through the existing helpers (no new module edge — `toggle_menu_curr`/`menu_digit_is_gacc` join the existing `invent.js` import, same SCC, call-time 
 **D-2292** `artifact.c:1490–1495` (FIRE `destroy_items` + `ignite_items(minvent)` inside `!rn2(4)`, b — FIRE/COLD/ELEC arms call the live canonicals in C order — `(await destroy_items(mdef, AD_*, dmgBox.dmg | 0)) | 0` added only when `!youdefend`, `await ignite_items(mdef?.minvent)` after on FIRE (hero minvent undefined → 
 **D-2291** `artifact.c:1026–1031` (`spec_applies` SPFX_DFLAG2: `(ptr->mflags2 & weap->mtype) || (your — the C `||` chain verbatim in C order (mflags2 first, then the yours gate): `!Upolyd(u)` + `(game.urace.selfmask & mtype)` selfmask arm, then `(mtype & M2_WERE) && ismnum(u.ulycn)` were arm with no Upolyd gate, per C shor
 **D-2290** `trap.c:1211` (arrow hero `u.usteed && !rn2(2) && steedintrap(trap, otmp)` before `thitu(8 — dart/arrow hero arms gate `u.usteed && !rn2(2) && await steedintrap(trap, otmp)` ahead of `thitu` in C order (t_missile → poison → dmgval → gate → thitu/place), steed-hit arm a bare `;` with the otmp-consumed note, miss 
@@ -95,11 +96,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2288** `teleport.c:2006–2098` (`mlevel_tele_trap`; stronghold valley `:2018`, botlevel avoid `:20 — `js/trap.js`: new `export function clamp_hole_destination(dlev)` beside `hole_destination`, over the existing quest/hell-aware file-local `dng_bottom` (C `trap.c` staticfn position).
 **D-2287** `attrib.c:439–451` (`set_moreluck`: `stone_luck(TRUE)`; `!luckbon && !carrying(LUCKSTONE)` — new `export function set_moreluck()` in `js/attrib.js` in C position (after `stone_luck`, matching `:441` after `:423`), C order (`stone_luck(TRUE)` first, `carrying` short-circuited); luck-first else-if gates in all fou
 **D-2286** `lock.c:957–1020` (`doclose`): `!isok(x,y)` goes to `nodoor` while `res` is still `ECMD_OK — C order in C position — isok check first, returning `res` while still `ECMD_OK`; Confusion/Stunned cost after (stumble stays deferred between them, noted in the comment); new Blind block calling the already-imported `upd
-**D-2285** `invent.c:1466–1475` (`sobj_at`: walk `svl.level.objects[x][y]` nexthere chain, `otyp ==`  — all 10 defs deleted; `sobj_at` joins each file's existing static `mkobj.js` import — no new module edge (all 9 files already import `mkobj.js`; same SCC; the canonical is a hoisted exported function declaration used at c
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2292; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2293; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

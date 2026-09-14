@@ -60,13 +60,18 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `wizcmds.c` wish count-prefix + unavailcmd + make_blinded talk variants (D-2283 residuals). Probe: `node scripts/brief.mjs do_wish`.
 - [ ] `makemon.c` birth knowledge residuals — mpeaceful MM_ANGRY arm + mwandexp save/restore (data.md:531; D-2107 shipped the Sokoban/stronghold/leader/mwandexp core, makemon.c:1283-1294). Probe: `node scripts/brief.mjs makemon`.
 - [ ] `cmd.c` makemap_prepost kill_genocided_monsters (data.md:350; D-1097/D-1190 residual; do.c goto_level caller shipped D-1190; C cmd.c:1048). Probe: `node scripts/brief.mjs makemap_prepost`.
 - [ ] `worm.c` wormgone mondead/dog callers (data.md:623-624; D-1573 shipped body + toss_wsegs + newcham head-back; mon.c:2787 / dog.c:755 still named). Probe: `node scripts/brief.mjs wormgone`.
 - [ ] `region.c` create_region box/nrects (data.md:952; D-1962 shipped inside_rect/inside_region). Probe: `node scripts/brief.mjs create_region`.
 - [ ] `detect.c` trapped_chest_at/trapped_door_at glyph callers pass ttyp not glyph_to_trap (data.md:1003-1009; D-1779 shipped trap_description; C detect.c:135-197). Probe: `node scripts/brief.mjs trapped_chest_at`.
 - [ ] `mon.c` place_monster cutworm/makemon callers (data.md:523; D-1565 shipped clone_mon 2D grid; cutworm/makemon sites still named). Probe: `node scripts/brief.mjs place_monster`.
+- [ ] `worm.c` place_wsegs restore/replmon callers (data.md:627; D-1573 shipped wormgone + toss_wsegs; restore/replmon place_wsegs sites still named). Probe: `node scripts/brief.mjs place_wsegs`.
+- [ ] `trap.c` armor-erode materialnm helm prefix (data.md:1076; D-2186 canonicalized the burn/water/rock stubs; helm-prefix arm still named). Probe: `node scripts/brief.mjs materialnm`.
+- [ ] `light.c` do_light_sources hero at_hero_range trim (data.md:968; D-2157 shipped the circle_ptr exact ring). Probe: `node scripts/brief.mjs do_light_sources`.
+- [ ] `explode.c` scatter MAY_FRACTURE boulder restack-to-top (data.md:1065; D-2282 shipped the shop-bill arms; C explode.c:776-790 fracture_rock + sobj_at restack). Probe: `node scripts/brief.mjs scatter`.
+- [ ] `potion.c` dodrink underwater drink_ok_extra + Strangled arms (D-1834 named omissions; D-2031 shipped the breathing gate, D-1834 the fountain/sink 'n'; data.md:1252 dipsink context). Probe: `node scripts/brief.mjs dodrink`.
+- [ ] `mkmaze.c` populate_maze trap loop (data.md:923; D-2216 shipped the live tail + fallback; loop needs mktrap — no JS mktrap — plus dmonsfree/SPLEVTYPE-getenv). Probe: `node scripts/brief.mjs populate_maze`.
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 
