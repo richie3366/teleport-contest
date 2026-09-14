@@ -1260,3 +1260,8 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1247-203f6f60-sobj-at-canonical.md](./1247-203f6f60-sobj-at-canonical.md) | `203f6f60` | D-2281 sobj_at canonical | **ACCEPT** |
 | [1248-8d7e09a9-credit-report-scatter.md](./1248-8d7e09a9-credit-report-scatter.md) | `8d7e09a9` | D-2282 credit_report + scatter | **ACCEPT** |
 | [1249-7942532c-make-sick-wizintrinsic.md](./1249-7942532c-make-sick-wizintrinsic.md) | `7942532c` | D-2283 make_sick #wizintrinsic | **ACCEPT** |
+| [1250-8c4803e9-drown-wade-teleport-steed-loop.md](./1250-8c4803e9-drown-wade-teleport-steed-loop.md) | `8c4803e9` | D-2284 drown wade/teleport/steed/loop | **ACCEPT** |
+| [1251-1d169d4a-sobj-at-residual-clones.md](./1251-1d169d4a-sobj-at-residual-clones.md) | `1d169d4a` | D-2285 sobj_at residual clones | **ACCEPT** |
+| [1252-790ef0a4-doclose-blind-feel-mapseen.md](./1252-790ef0a4-doclose-blind-feel-mapseen.md) | `790ef0a4` | D-2286 doclose Blind feel/mapseen | **ACCEPT** |
+| [1253-f08d0f46-set-moreluck-luck-arms.md](./1253-f08d0f46-set-moreluck-luck-arms.md) | `f08d0f46` | D-2287 set_moreluck + luck arms | **ACCEPT** |
+| [1254-e210b23d-mlevel-tele-trap-residuals.md](./1254-e210b23d-mlevel-tele-trap-residuals.md) | `e210b23d` | D-2288 mlevel_tele_trap residuals | **ACCEPT** |

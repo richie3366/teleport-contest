@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-14 — Audit 8c4803e9..e210b23d (reviews 1250–1254: 5 ACCEPT, 0 Must-fix) + cadence 44/44
+
+Review iteration, no js/ edits. Audited one SHA at a time against pinned C
+(csym bodies + callers, sym.mjs on every re-point, --can on every new edge,
+hidden-proxy verify --base re-measure per SHA): 1250 drown (trap.c:5058–5199
+branch-verbatim; iron-golem-lifesave-continue follows the house
+finish_losehp_done idiom, not queued); 1251 sobj_at 10-clone retire
+(canonical mkobj.js:2201; mon.js negative-guard deletion dead for all call
+sites; objects_at removals verified zero-use); 1252 doclose Blind arms
+(isok→nodoor order kept, glyph-half drop matches D-2167 doopen_indir idiom);
+1253 set_moreluck verbatim + 4 bless-family luck heads preserving C else-if
+exclusion (remaining arms pre-existing named omits); 1254 mlevel_tele_trap
+(pline_mon is real C at all 5 sites; dng_bottom is a trap.c staticfn so the
+file-local is correct; onscary keep justified by monmove.c:240–303 room
+resist covering (0,0)). Strongest verify of the five: D-2288's 13/13 hand
+probe. Queue stays 8 Open (no refill owed); filled the D-2288 Addressed
+short hash (`e210b23d`).
 ## 2026-09-14 — D-2288 `teleport.c` mlevel_tele_trap hole residuals: valley assign, botlevel avoids pline, pline_mon, impossible, canonical clamp + clone retire (queue row `trap.c` mlevel_tele_trap)
 
 **C locus:** `teleport.c:2006–2098` (`mlevel_tele_trap`; stronghold valley `:2018`, botlevel avoid `:2021–2029` with `(tt == HOLE) ? "hole" : "trap"`, dst + `clamp_hole_destination` `:2030–2032`, `impossible("mlevel_tele_trap: unexpected trap type (%d)")` `:2079–2081`); `pline.c:137–150` (`pline_mon` msg_xy); `trap.c:591–599` (`clamp_hole_destination` = min(dlevel, `dng_bottom`)) + `:417–438` (`dng_bottom` quest-locate / Gehennom-invocation cutoffs); `trap.c:3577–3584` (`seetrap`); `wizard.c:106–114` (`mon_has_amulet`); `makemon.c:33–50` (`is_home_elemental`).
