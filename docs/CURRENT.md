@@ -86,7 +86,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `makemon.c` mkclass_aligned — class pick with alignment filter vs C (`makemon.c:1879–1974`). Corpus reach: in 2 failing sessions' diverged-step traces (scen-tour-Healer-92042, scen-tour-Tourist-92100; committed scoreboard f7aec9b3). Probe: `node scripts/brief.mjs mkclass_aligned`.
+**Next cluster:** `sp_lev.c` get_location — special-level coordinate pick vs C (`sp_lev.c:1201–1269`; tour-arrival path). Corpus reach: in 2 failing sessions' diverged-step traces (scen-tour-Healer-92042, scen-tour-Tourist-92100; committed scoreboard f7aec9b3). Probe: `node scripts/brief.mjs get_location`. (mkclass_aligned parked 2026-09-14: presence-only, 0 blocked, owners rloc/collect_coords.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2265 (index).**
 <!-- recent:begin -->
