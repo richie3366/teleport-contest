@@ -628,7 +628,11 @@ oldhp `*mhit`, `dothrow.c` `thitmonst` `:2206–2207` chopper=`is_axe`;
 `newmonhp`; live `js/worm.js` + uhitm/dothrow; restore/replmon
 `place_wsegs` named); 
 **D-1573 `wormgone`** (`worm.c:307–332`; callee `toss_wsegs`; caller `mon.c` `newcham`
-`:5359` place_monster head-back; mondead `:2787` / dog `:755` callers still named);
+`:5359` place_monster head-back; `m_detach` `:2787` arm live in `js/mhitm.js`
+(D-2231); `dog.c` `mon_leave` `:728–763` live in `js/dog.js` incl. the `:755`
+worm arm — count, truncate, `wormgone`, head-back — wired at the keepdogs
+follower arm + `migrate_to_level` (D-2296; `mon_leave`'s `no_charge` /
+`picked_container` + `set_residency` named));
 **D-1577 `redraw_worm`** (`worm.c:989–998`; callers `dog.c` `tamedog` `:1275–1276`
 after head `newsym`, `abuse_dog` `:1386–1390` when the pet goes wild; unlike
 `see_wsegs` includes the dummy at `wheads`; live `js/worm.js` + `js/dog.js`);

@@ -85,10 +85,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `cmd.c` makemap_prepost kill_genocided_monsters (D-1097/D-1190 residual, C cmd.c:1048). Probe: `node scripts/brief.mjs makemap_prepost`.
+**Next cluster:** D-2296 shipped — `dog.c` mon_leave worm arm (queue row `worm.c` wormgone callers).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2295 (index).**
+**Keep D-0845…D-2296 (index).**
 <!-- recent:begin -->
+**D-2296** `dog.c:728–763` `mon_leave` (worm arm `:748–760`: `count_wsegs`, `min(cnt, MAX_NUM_WORMS-1 — `js/dog.js` gains `mon_leave` (C worm arm); keepdogs + `migrate_to_level` keep its count in `wormno`.
 **D-2295** `mon.c:5639–5677`, arm `:5663–5667` (`if (ismnum(mtmp->cham) && !kill_cham) (void) newcham — `js/mon.js` — the arm awaits the already-imported live `newcham(mtmp, null, NC_SHOW_MSG)` (C `(void)` return = result unused; the await only completes C's inline message before the loop continues, scored runs stay sync p
 **D-2294** `makemon.c:1297` (`mtmp->mpeaceful = (mmflags & MM_ANGRY) ? FALSE : peace_minded(ptr)`); ` — `js/makemon.js` only — `mpeaceful` ports the C ternary verbatim (`(mmflags & MM_ANGRY) ? 0 : (peace_minded(ptr) ? 1 : 0)`); template gains `mwandexp: false` beside `mtame` so the saved blob always carries the field like 
 **D-2293** `wizcmds.c:1004–1008` (`amt = count == -1 ? DEFAULT_TIMEOUT_INCR : count`, `amt <= 0` para — `js/options.js` — `select_menu_pick_any` ports the C counting verbatim through the existing helpers (no new module edge — `toggle_menu_curr`/`menu_digit_is_gacc` join the existing `invent.js` import, same SCC, call-time 
@@ -96,11 +97,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2291** `artifact.c:1026–1031` (`spec_applies` SPFX_DFLAG2: `(ptr->mflags2 & weap->mtype) || (your — the C `||` chain verbatim in C order (mflags2 first, then the yours gate): `!Upolyd(u)` + `(game.urace.selfmask & mtype)` selfmask arm, then `(mtype & M2_WERE) && ismnum(u.ulycn)` were arm with no Upolyd gate, per C shor
 **D-2290** `trap.c:1211` (arrow hero `u.usteed && !rn2(2) && steedintrap(trap, otmp)` before `thitu(8 — dart/arrow hero arms gate `u.usteed && !rn2(2) && await steedintrap(trap, otmp)` ahead of `thitu` in C order (t_missile → poison → dmgval → gate → thitu/place), steed-hit arm a bare `;` with the otmp-consumed note, miss 
 **D-2289** `trap.c:4657–4710` (`pot_acid_damage`: Blind off-invent `dknown = 0`, `acid_ctx` dkn/unk_b — new `export function blank_novel(obj)` in `js/zap.js` directly after `cancel_item` (C position `:1367` after cancel), wired at both C call sites (cancel `:1330`, water_damage `:4820`); new file-local `pot_acid_damage(obj
-**D-2288** `teleport.c:2006–2098` (`mlevel_tele_trap`; stronghold valley `:2018`, botlevel avoid `:20 — `js/trap.js`: new `export function clamp_hole_destination(dlev)` beside `hole_destination`, over the existing quest/hell-aware file-local `dng_bottom` (C `trap.c` staticfn position).
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2295; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2296; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
