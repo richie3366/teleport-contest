@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-14
 
-- [x] `fountain.c` dipfountain residuals — Excalibur body + uncurse arms (C fountain.c:441; data.md:1230-1236, D-1107/D-1114 residuals: lawful oname/discover/bless, unaligned curse + spe--, `update_inventory`, artidisco save/rest, coins-not-skipped, luck/lamplit). Probe: `node scripts/brief.mjs dipfountain`. **Addressed:** D-2287
+- [x] `trap.c` mlevel_tele_trap — MAGIC_PORTAL/LEVEL_TELEP arms (data.md:1085; valley/stronghold dest; monster level-teleport messages + RNG). Probe: `node scripts/brief.mjs mlevel_tele_trap`. **Addressed:** D-2288
+
+
+- [x] `fountain.c` dipfountain residuals — Excalibur body + uncurse arms (C fountain.c:441; data.md:1230-1236, D-1107/D-1114 residuals: lawful oname/discover/bless, unaligned curse + spe--, `update_inventory`, artidisco save/rest, coins-not-skipped, luck/lamplit). Probe: `node scripts/brief.mjs dipfountain`. **Addressed:** D-2287 `f08d0f46`
 
 
 - [x] `lock.c` pick_lock — feel/see arms (C lock.c:591/:851/:1015 `Blind ? "feel" : "see"`; corpus-reached scen-normal-Samurai-92071 step 175/205 «You feel/see no door there»; JS `lock.js:861/868` hardcodes "see", Blind feel_location/mapseen named at :822; adjattrib-park falsifier). Probe: `node scripts/brief.mjs pick_lock`. **Addressed:** D-2286 `790ef0a4`

@@ -635,6 +635,13 @@ function dng_bottom(lev) {
     return bottom;
 }
 
+// C ref: trap.c clamp_hole_destination — min(dlevel, dng_bottom)
+export function clamp_hole_destination(dlev) {
+    const bottom = dng_bottom(dlev);
+    if ((dlev.dlevel | 0) > bottom) dlev.dlevel = bottom;
+    return dlev;
+}
+
 // C ref: trap.c hole_destination
 export function hole_destination(dst) {
     const uz = game.u?.uz ?? { dnum: 0, dlevel: 1 };

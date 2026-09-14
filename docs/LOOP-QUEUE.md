@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `trap.c` mlevel_tele_trap — MAGIC_PORTAL/LEVEL_TELEP arms (data.md:1085; valley/stronghold dest; monster level-teleport messages + RNG). Probe: `node scripts/brief.mjs mlevel_tele_trap`.
 - [ ] `artifact.c` arti_cost — artilist.cost extract + getprice /4 (data.md D-1719 residual; C artifact.c:2308-2317; shop `get_cost` still *4; live `js/artifact.js:560`). Probe: `node scripts/brief.mjs arti_cost`.
 - [ ] `makemon.c` m_initweap — S_DEMON named specials + is_demon default FALLTHROUGH (data.md:443; D-0472; demon initial-weapon RNG + messages). Probe: `node scripts/brief.mjs m_initweap`.
 - [ ] `makemon.c` corpse-name mextra — has_mcorpsenm/newmcorpsenm/freemcorpsenm (data.md:494; D-1598; mextra.h:234, makemon.c:2368-2383/:2543-2546; seemimic/copy_mextra/bhitm/wormgone/object_from_map callers). Probe: `node scripts/brief.mjs newmcorpsenm`.

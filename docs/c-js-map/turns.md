@@ -3641,8 +3641,15 @@ force-field callbacks still named; hack.c walk D-1157; dothrow `hurtle_step` D-1
 do.c `goto_level` D-1166; mhurtle_step D-1176)**; 
 **`mlevel_tele_trap` MAGIC_PORTAL/LEVEL_TELEP/NO_TRAP (D-1112; 
 endgame amulet/`is_home_elemental`/`rn2(7)` stay; LEVEL_TELEP `random_teleport_level`+`get_level`; 
-NO_TRAP `onscary(0,0)` stay else same-level migrate; `is_xport`&&!`control_teleport` mconf; 
-valley_level / botlevel hole avoid pline still named; hero `level_tele_trap` D-1224)**; 
+NO_TRAP `onscary(0,0)` stay else same-level migrate; `is_xport`&&!`control_teleport` mconf;
+**`mlevel_tele_trap` hole residuals (D-2288; C `teleport.c:2016–2032,2079–2081`)**:
+stronghold `valley_level` assign; botlevel avoids `pline_mon` (`tseen`-gated,
+hole->"hole" else "trap"); every in_sight line `pline_mon` (msg_xy);
+unexpected-type `impossible`; hole-dst via canonical `trap.js`
+`clamp_hole_destination` (quest/hell-aware `dng_bottom`); `seetrap` /
+`mon_has_amulet` / `is_home_elemental` clones retired to static imports
+(local `onscary` kept — C `monmove.c:280–284` shk/priest resist covers
+auditory `(0,0)`, `mon.js` defers it; hero `level_tele_trap` D-1224)**;
 **`domagicportal` (D-1188; C `teleport.c:1444–1488` / `trap.c` `trapeffect_magic_portal`; 
 activate pline; tutorial leave ATSTAIRS+`Resuming regular play.`; 
 else PORTAL+stunmsg+`make_stunned((HStun&TIMEOUT)+3,FALSE)`; `mktrap` dst←`ucamefrom`; 
