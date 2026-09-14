@@ -4,8 +4,8 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 
 ## Active
 
-- **mkclass_aligned park — do not re-pop:** presence-only (0 blocked at f7aec9b3 and working; Healer-92042@73 owned by rloc, Tourist-92100@131 by collect_coords; step-73 mkclass_aligned draws all in matched rng prefix; falsifier: `verify` blocked on mkclass_aligned).
-- **get_location park — do not re-pop:** presence-only (0 blocked at f7aec9b3 and working; same pair — Healer-92042@73 owned by rloc, Tourist-92100@131 by collect_coords; arrival-gen get_location draws all in matched rng prefix; JS follows C on every live path, gaps are map-named is_ok_location Is_waterlevel + unreachable scan-falloff; falsifier: `verify` blocked on get_location).
+- **mkclass_aligned park — do not re-pop:** presence-only (proof in Parked; falsifier: `verify` blocked on mkclass_aligned).
+- **get_location park — do not re-pop:** presence-only (proof in Parked; falsifier: `verify` blocked on get_location).
 - **Work picker:** `hidden-proxy queue`; singletons Deferred — do not re-add without a fired falsifier.
 - **More-transient parks — do not re-pop:** break_armor timing.
 - **exercise park — do not re-pop:** draw-presence only (0/553 owned; falsifier: encumbrance topline/owner).
@@ -25,23 +25,24 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 - **dotrap park — do not re-pop:** STALE presence-only (proof in Parked; falsifier: verify blocked on dotrap).
 - **mintrap park — do not re-pop:** STALE presence-only (proof in Parked; falsifier: verify blocked on mintrap).
 - **nh_timeout park — do not re-pop:** STALE (proof in Parked; falsifier: verify blocked on nh_timeout).
-- **mon_break_armor park — do not re-pop:** STALE presence-only (0 blocked at 585e3fb7 and working; queue --limit 100 has 0 lines; 92226 PASSES 3368/3368+138/138, 92119/92050 owned by save_dungeon with full RNG match; JS arm-for-arm + both callers wired; falsifier: `verify` blocked on mon_break_armor).
+- **mon_break_armor park — do not re-pop:** STALE presence-only (proof in Parked; falsifier: `verify` blocked on mon_break_armor).
 
 ## Don't re-check (≤15)
 
-- D-1790…D-2275 stand. Scars: `m_seenres` boolean, never `!== 0`; no 2nd `genus`/`accessible`/`confdir`/`locomotion`/`unconscious`/`free_mgivenname`/`is_axe`/`carrying`/`end_running`.
+- D-1790…D-2276 stand. Scars: `m_seenres` boolean, never `!== 0`; no 2nd `genus`/`accessible`/`confdir`/`locomotion`/`unconscious`/`free_mgivenname`/`is_axe`/`carrying`/`end_running`.
 - D-1795/D-1816 stand. Scars: sleep `rn2(10)`; no 2nd `m_monnam`/`simple_typename`; seed4500 `[2]`: keep `flush_screen(1)`.
 - No `stay` rebuild / `u.Punished` / ordinary-pit-farlook `rn2(20)`.
 - seed0014 I-glyph D-1774; findone tail D-1775; D-0078 H2344/offx 72 (D-1185); `g`≠Unknown (D-1186); PREFIXCMD D-1582.
   ParanoidTrap/`domagicportal`/`undestroyable_trap`/`mktrap` dst/`goto_level` uz0 are D-1187/1188. No rhack raw-ETX (D-1189). Never FORCE falsified mineralize TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` loaders D-1852/D-1858 — check `load_val_*`/`load_sam_*` before refilling.
 - No D-0480 `tty_map_color` re-apply (D-0483). No skipped spaces / space runs >4 (D-0931). No FORCE shk satdoor/`onlineu` (D-0376), linedup/FlipX (#1092), `_pending_message` restore (D-0929), HEAVY_IRON_BALL `owt!=0` (#1194). Judge keeps RC (D-0933); §1.2 frozen. No public-LB chase.
-- No memcpy gi worn/ball (D-1035) / `setnotworn`←`owornmask` (D-1020) / `delobj` tut loot / off-level timers (D-1037) / dropped `msounds[]` (D-1053) / tut-1 keys (D-1065) / skipped `tutorial()` (D-1066). No skip D-1067…D-2275.
-- No `monmove.js`→sit `sticks` import / `confer_oc_oprop` rewrite / emin delete / `make_happy_shk` stub (D-1540) / bones→options fruitadd (D-1541). No `reset_glyphmap`/`notice_all_mons`/savelev-freeing/`lspo_reset_level`. No `wield`/`pickup`→`polyself` `body_part`. No static `end`←`dog`. No makemon→hack/`artifact`/`minion`. No re-port D-1682…D-2275.
+- No memcpy gi worn/ball (D-1035) / `setnotworn`←`owornmask` (D-1020) / `delobj` tut loot / off-level timers (D-1037) / dropped `msounds[]` (D-1053) / tut-1 keys (D-1065) / skipped `tutorial()` (D-1066). No skip D-1067…D-2276.
+- No `monmove.js`→sit `sticks` import / `confer_oc_oprop` rewrite / emin delete / `make_happy_shk` stub (D-1540) / bones→options fruitadd (D-1541). No `reset_glyphmap`/`notice_all_mons`/savelev-freeing/`lspo_reset_level`. No `wield`/`pickup`→`polyself` `body_part`. No static `end`←`dog`. No makemon→hack/`artifact`/`minion`. No re-port D-1682…D-2276.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2276: `js/invent.js` final builder — the C arm verbatim in C position (after Polymorph_control, before were-form): `Upolyd && umonnum != (ulycn ?? Named: `lays_eggs` arm (`:1879`, neither form lays eggs — no corpus row); Unchanging/Polymorph bl
 - D-2275: new `export function copy_oextra(obj2, obj1)` in `js/mkobj.js` in C order (guards, `newoextra`, `has_oname` → live `oname` with `ONAME_SKIP_INVUPD`, ` Named: `shk.c` splitbill (unpaid split billing — live Open row, queued this commit as REFILL); `o
 - D-2274: `js/explode.js` — `scatter` now follows C order: `await impossible` site-gate; uball/uchain arm (`u.uball`/`u.uchain` identity per ball.js, `Soundeffe Named: shop_origin baseline + gold `addtobill`/`lostgoods` (no live `credit_report` export — data
 - D-2273: `js/monmove.js` — exported the canonical `mb_trapped` in C order (verbose gate, KABOOM/nearby-distant, `wake_nearto 49`, `mstun`, `rnd(15)`, `DEADMONS Named: `js/dig.js:940` + `js/lock.js:794` `mb_trapped` twins stay stubs (no `mondied`/`mon_learns
@@ -56,5 +57,4 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 - D-2264: `js/makemon.js` — mutate the parameter in place (`if (!bl) gpflags &= ~GP_CHECKSCARY;`, no per-pass copy) and pass `gpflags` to all three fallback `go Named: none new.
 - D-2263: `js/light.js` — new `export function snuff_light_source(x, y)` in C order (index loop over `game.light_base`, `| 0` coords, first LS_OBJECT match, `ob Named: Underwater beyond the `no_op` gate (as before); `end_burn`/`cleanup_burn` `update_inventor
 - D-2262: `js/polyself.js`. Named: `made_change` light-source bookkeeping (`:720–730`): JS `do_light_sources` has no hero arm
-- D-2261: four file-local arms, ported from the C uhitm branches and dispatched from `damageum_adtyping`: Named: `merge_choice` shop-floor `no_charge`/`inhishop` reject (freed gold is never OBJ_FLOOR, so
 <!-- landmarks:end -->

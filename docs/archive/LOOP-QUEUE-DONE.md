@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-14
 
+- [x] `insight.c` attributes_enlightenment Upolyd foreign-shape arm — blocks 2/553 corpus sessions: C « You were polymorphed into a yeti (106).» vs JS « You were fast innately.» (one-row menu shift; the «polymorphed into %s» + wizard `(mtimedone)` row, insight.c:1866–1878, is missing from both `invent.js` builders — named deferred js/invent.js:5675–5698). Probe: `node scripts/hidden-proxy.mjs verify chwepon` (scen-poly-Samurai-91106@133, scen-poly-Monk-92213@109; recorded owner `chwepon` wield.c:940 is the draw-free `exercise` tie-break — true printers are the poly-form arms, chwepon park). **Addressed:** D-2276
+
+
 - [x] `mkobj.c` copy_oextra / dealloc_oextra / extract_nobj tails — oextra copy/free + nobj-list extract in the delobj path (named data.md:300-301). Probe: `node scripts/brief.mjs copy_oextra`. **Addressed:** D-2275 `64fb2e96`
 
 

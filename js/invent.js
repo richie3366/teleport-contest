@@ -303,7 +303,7 @@ import { stairway_at, stairs_description } from './mklev.js';
 import { objects_at } from './mkobj.js';
 import { t_at, trapname } from './trap.js';
 import { visible_region_at, reg_damg } from './region.js';
-import { PM_SAMURAI, PM_MONK, PM_CLERIC } from './generated/monsters_data.js';
+import { PM_SAMURAI, PM_MONK, PM_CLERIC, monsterNames } from './generated/monsters_data.js';
 import { humanoid, strongmonst, mons, touch_petrifies, poly_when_stoned, hides_under, haseyes, dmgtype, hates_silver, is_male, is_female, is_neuter, vampshifted, nonliving, weirdnonliving } from './monsters.js';
 import { hideunder } from './mon.js';
 import { set_artifact_intrinsic, undiscovered_artifact, discover_artifact } from './artifact.js';
@@ -317,6 +317,11 @@ import { learn_egg_type } from './timeout.js';
 
 // C monflag.h MZ_HUMAN ≡ MZ_MEDIUM
 const MZ_HUMAN = 2;
+
+// C insight.c attributes_enlightenment — green-slime death exclusion;
+// generated table exports no PM_GREEN_SLIME const (same indexOf pattern
+// as js/eat.js and js/end.js).
+const PM_GREEN_SLIME = monsterNames.indexOf('PM_GREEN_SLIME');
 
 /** C youprop.h Blind ≡ (HBlinded || EBlinded) && !BBlinded (+ roleplay). */
 export function Blind() {
@@ -5552,10 +5557,11 @@ export async function enlightenment(mode, final = 0) {
         if (Searching()) {
             lines.push(you_have('automatic searching', from_what(SEARCHING)));
         }
-        // C Infravision via set_uasmon FROMRACE; port falls back to race mons
-        // like display.js hero_has_infravision (set_uasmon still deferred).
+        // C polyself.c set_uasmon PROPSET(INFRAVISION, infravision(Upolyd ?
+        // mdat : race)): poly'd reads the form bit only — never the race
+        // fallback (else a poly'd elf/orc would show a row C clears).
         let hasInfra = !!(u.HInfravision || u.EInfravision);
-        if (!hasInfra) {
+        if (!hasInfra && !Upolyd(u)) {
             const { mons: monsFn, infravision: infraFn } = await import('./monsters.js');
             const racePm = game.urace?.mnum;
             if (racePm != null) hasInfra = infraFn(monsFn(racePm));
@@ -5672,12 +5678,29 @@ export async function enlightenment(mode, final = 0) {
             }
         }
         // C insight.c:1857-1858 — Polymorph_control after the shape-change
-        // arms (Unchanging / Polymorph / Upolyd deferred), before Fast.
+        // arms (Unchanging / Polymorph deferred; Upolyd foreign-shape below),
+        // before Fast.
         if (hero_Polymorph_control(u)) {
             lines.push(you_have('polymorph control', from_what(POLYMORPH_CONTROL)));
         }
+        // C insight.c:1859-1878 — Upolyd foreign-shape (except were-form,
+        // handled below) with wizard (mtimedone); slime-death exclusion.
+        if (Upolyd(u) && (u.umonnum | 0) !== ((u.ulycn ?? NON_PM) | 0)
+            && !(final === ENL_GAMEOVERDEAD
+                && (u.umonnum | 0) === PM_GREEN_SLIME
+                && !(u.Unchanging || u.HUnchanging || u.EUnchanging))) {
+            const uasmon = game.youmonst?.data || mons(u.umonnum);
+            let polybuf;
+            if (!vampshifted(game.youmonst)) {
+                polybuf = `polymorphed into ${an(pmname(uasmon, female ? FEMALE : MALE))}`;
+            } else {
+                polybuf = `polymorphed into ${an(pmname(mons(game.youmonst?.cham), female ? FEMALE : MALE))} in ${pmname(uasmon, female ? FEMALE : MALE)} form`;
+            }
+            if (wiz) polybuf += ` (${u.mtimedone | 0})`;
+            lines.push(you_are(polybuf));
+        }
         // C insight.c:1881-1892 — were-form after the shape-change arms
-        // (Upolyd foreign-shape / lays_eggs / Unchanging deferred above).
+        // (lays_eggs / Unchanging deferred above).
         if (ismnum((u.ulycn ?? NON_PM) | 0)) {
             // C: an(pmname(&mons[u.ulycn], flags.female ? FEMALE : MALE))
             let werebuf = an(pmname(mons(u.ulycn), female ? FEMALE : MALE));
@@ -6345,9 +6368,10 @@ export async function doattributes(enl_mode = null) {
             )));
         }
         // C insight.c:1621-1622 — Infravision after Clairvoyant (deferred);
-        // same race-mons fallback as the gameover path above.
+        // poly'd reads the form bit only, never the race fallback
+        // (C polyself.c set_uasmon: infravision(Upolyd ? mdat : race)).
         let hasInfra = !!((u.HInfravision | 0) || (u.EInfravision | 0));
-        if (!hasInfra) {
+        if (!hasInfra && !Upolyd(u)) {
             const { mons: monsFn, infravision: infraFn } = await import('./monsters.js');
             const racePm = game.urace?.mnum;
             if (racePm != null) hasInfra = infraFn(monsFn(racePm));
@@ -6473,12 +6497,27 @@ export async function doattributes(enl_mode = null) {
             }
         }
         // C insight.c:1857-1858 — Polymorph_control after the shape-change
-        // arms (Unchanging / Polymorph / Upolyd deferred), before Fast.
+        // arms (Unchanging / Polymorph deferred; Upolyd foreign-shape below),
+        // before Fast.
         if (hero_Polymorph_control(u)) {
             lines.push(o(enlght_line_txt(
                 'You ', 'have ', 'polymorph control',
                 from_what(POLYMORPH_CONTROL),
             )));
+        }
+        // C insight.c:1859-1878 — Upolyd foreign-shape after Polymorph_control
+        // (^X in-progress → "are"; the ENL_GAMEOVERDEAD slime exclusion is
+        // dead here since final == 0; lays_eggs / were-form still deferred).
+        if (Upolyd(u) && (u.umonnum | 0) !== ((u.ulycn ?? NON_PM) | 0)) {
+            const uasmon = game.youmonst?.data || mons(u.umonnum);
+            let polybuf;
+            if (!vampshifted(game.youmonst)) {
+                polybuf = `polymorphed into ${an(pmname(uasmon, female ? FEMALE : MALE))}`;
+            } else {
+                polybuf = `polymorphed into ${an(pmname(mons(game.youmonst?.cham), female ? FEMALE : MALE))} in ${pmname(uasmon, female ? FEMALE : MALE)} form`;
+            }
+            if (wizard) polybuf += ` (${u.mtimedone | 0})`;
+            lines.push(o(enlght_line_txt('You ', 'are ', polybuf, '')));
         }
         if (Fast()) {
             const fastAttr = Very_fast() ? 'very fast' : 'fast';
