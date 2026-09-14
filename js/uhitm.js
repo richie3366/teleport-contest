@@ -3332,7 +3332,7 @@ function resists_blnd_mon(mtmp) {
  * Cry/recoil are pline_mon (D-1240); flash_hits_mon awaken/blind stay pline.
  * Named omissions: SetVoice; map_invisible when !canspotmon after hit.
  */
-async function light_hits_gremlin(mon, dmg) {
+export async function light_hits_gremlin(mon, dmg) {
     if (!mon) return;
     const mx = mon.mx | 0;
     const my = mon.my | 0;

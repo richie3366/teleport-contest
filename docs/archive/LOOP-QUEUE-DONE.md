@@ -3,9 +3,13 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-09-14
+
+- [x] `read.c` litroom gremlin light hits + Punished `move_bc` — litroom deferrals named D-2250 (gremlin `light_hits_gremlin` loop, ball-and-chain redisplay). No corpus block. Probe: `node scripts/brief.mjs litroom`. **Addressed:** D-2263
+
 ## 2026-09-10
 
-- [x] `polyself.c` polymon were `do_shift` + draconian `do_merge`/uskin merge + `POLY_REVERT` — polymorph-control arms still named (D-2248). No corpus block — port the named arms. Probe: `node scripts/brief.mjs polymon`. **Addressed:** D-2262
+- [x] `polyself.c` polymon were `do_shift` + draconian `do_merge`/uskin merge + `POLY_REVERT` — polymorph-control arms still named (D-2248). No corpus block — port the named arms. Probe: `node scripts/brief.mjs polymon`. **Addressed:** D-2262 `635fe331`
 
 
 - [x] `uhitm.c` damageum_adtyping hero-poly arms SGLD/CURS/DCAY/SLIM — `damageum_adtyping` (`js/uhitm.js:1735`) lacks them (purse grab + `exercise(A_DEX)`, `night() && !rn2(10)` chuckle/cancel, rot `xkilled` + `erode_armor`, `!rn2(4)` `munslime`/`newcham` green slime). Named in `c-js-map/turns.md` hitmu→mhitm_adtyping line. No corpus block. Probe: `node scripts/brief.mjs damageum_adtyping`. **Addressed:** D-2261 `3c20f022`
