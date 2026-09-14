@@ -83,7 +83,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `steed.c` dismount_steed — poly / engulfed / water-and-lava steed-death arms (TOP30 #26; C steed.c:576; 29 C callers; never live/archived/parked). Probe: `node scripts/brief.mjs dismount_steed`. (test_move/domove_core parked 2026-09-14: STALE row, all named bars/web/trap-liquid arms live per D-1800/D-1270/D-1226, 0 corpus blocks on both verifies.)
+**Next cluster:** `invent.c` sobj_at residual clones — exact-name clones in dbridge/music/steed + 7 renamed same-body variants (follow-up to the D-log sobj_at canonical entry, 9 of 12 retired — 10-file cap cut). Probe: `node scripts/brief.mjs sobj_at`. (dismount_steed parked 2026-09-14: STALE DUPLICATE of archived D-1915, review 885 ACCEPT, 0 blocks; queue 7 Open, corpus queue exhausted. test_move/domove_core parked 2026-09-14: STALE row, all named bars/web/trap-liquid arms live per D-1800/D-1270/D-1226, 0 corpus blocks on both verifies.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2284 (index).**
 <!-- recent:begin -->

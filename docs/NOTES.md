@@ -24,7 +24,7 @@ Park rows: re-pop only on the listed falsifier (proofs in Parked / LOOP-QUEUE-DO
 - **that_is_a_mimic/drinkfountain:** misattributed owners (mimic: unresolved C glyph mechanism; fountain: quaff owner + hallu residual).
 - **poly_obj:** misattributed citation + no C arm (falsifier: `verify poly_obj` blocked).
 - **newuhs:** STALE, full port shipped D-1791 (falsifier: `verify` blocked).
-- **domonnoise:** STALE DUPLICATE, TOP30 #17 fossil (falsifier: `verify domonnoise` blocked as owner).
+- **domonnoise/dismount_steed:** STALE DUPLICATEs (steed D-1915/885; falsifier: `verify` blocked as owner).
 - **test_move/domove_core:** STALE park 2026-09-14 — all named bars/web/trap-liquid arms live (D-1800/D-1270/D-1226; TOP30 #9 predates D-1800); `verify` 0 blocked on both at HEAD 614cdcf0 (falsifier: `verify` blocked with either as owner, not stepFns presence).
 
 ## Don't re-check (≤15)
