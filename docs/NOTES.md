@@ -6,6 +6,7 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 
 - **Next port:** Open — `mdamagem` AD_CURS/AD_DCAY/AD_DETH (mon→mon). Probe: `brief.mjs mhitm_ad_curs`.
 - **mkclass_aligned park — do not re-pop:** presence-only (0 blocked at f7aec9b3 and working; Healer-92042@73 owned by rloc, Tourist-92100@131 by collect_coords; step-73 mkclass_aligned draws all in matched rng prefix; falsifier: `verify` blocked on mkclass_aligned).
+- **get_location park — do not re-pop:** presence-only (0 blocked at f7aec9b3 and working; same pair — Healer-92042@73 owned by rloc, Tourist-92100@131 by collect_coords; arrival-gen get_location draws all in matched rng prefix; JS follows C on every live path, gaps are map-named is_ok_location Is_waterlevel + unreachable scan-falloff; falsifier: `verify` blocked on get_location).
 - **Work picker:** `hidden-proxy queue`; singletons Deferred — do not re-add without a fired falsifier.
 - **More-transient parks — do not re-pop:** break_armor timing.
 - **exercise park — do not re-pop:** draw-presence only (0/553 owned; falsifier: encumbrance topline/owner).
