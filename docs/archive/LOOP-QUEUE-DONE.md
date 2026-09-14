@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-14
 
-- [x] `read.c` litroom gremlin light hits + Punished `move_bc` — litroom deferrals named D-2250 (gremlin `light_hits_gremlin` loop, ball-and-chain redisplay). No corpus block. Probe: `node scripts/brief.mjs litroom`. **Addressed:** D-2263
+- [x] `makemon.c` makemon_rnd_goodpos — random-placement loop vs C (`makemon.c:1075–1137`). Corpus reach: in 2 failing sessions' diverged-step traces (scen-intrinsic-Barbarian-92165, scen-poly-Caveman-92202; committed scoreboard f7aec9b3). Probe: `node scripts/brief.mjs makemon_rnd_goodpos`. **Addressed:** D-2264
+
+
+- [x] `read.c` litroom gremlin light hits + Punished `move_bc` — litroom deferrals named D-2250 (gremlin `light_hits_gremlin` loop, ball-and-chain redisplay). No corpus block. Probe: `node scripts/brief.mjs litroom`. **Addressed:** D-2263 `70358552`
 
 ## 2026-09-10
 

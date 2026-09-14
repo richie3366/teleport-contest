@@ -389,7 +389,7 @@ Ordinary `is_armed`/`m_initweap`/`mongets`/`m_initthrow`
 **S_HUMAN PM_NINJA** (D-1516) /
 **S_ANGEL humanoid** (D-0649) + **S_KOP cream pie/club/hose** (D-1515) + default); 
 **`add_to_minv` uses `OBJ_MINVENT`** (D-0029) + **`add_to_minv` merge D-1492**; 
-**`makemon_rnd_goodpos` + null-ptr `rndmonst` order + `m_initgrp`/`G_SGROUP`** (D-0034); 
+**`makemon_rnd_goodpos` + null-ptr `rndmonst` order + `m_initgrp`/`G_SGROUP`** (D-0034) + **fallback clears `GP_CHECKSCARY` in `gpflags` itself (bl==1 pass + stairway)** (D-2264); 
 **`mkclass`/`mkclass_aligned`/`init_mongen_order`/`mk_gen_ok`/`is_placeholder`** (D-0053) +
 **D-1575 `mk_gen_ok` MAIL_DAEMON** (random-demon `mkclass(S_DEMON, G_NOGEN)` / `ndemon`); 
 **`peace_minded` co-align + `race_hostile`/`race_peaceful` via urace hatemask/lovemask** 
