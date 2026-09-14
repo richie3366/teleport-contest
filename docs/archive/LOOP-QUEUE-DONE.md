@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-14
 
+- [x] `mon.c` vamprises door-trap kill arm — vampire smashing a trapped door (door smash shipped D-2231; data.md:372-373). Probe: `node scripts/brief.mjs vamprises`. **Addressed:** D-2273
+
+
 - [x] `shk.c` shkgone damage + has_shop arms (named in mondead-tail D-2231 row; data.md:373). Probe: `node scripts/brief.mjs shkgone`. **Addressed:** D-2272 `7a2ef83e`
 
 

@@ -85,8 +85,9 @@ divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
 **Next cluster:** `mon.c` vamprises door-trap kill arm — vampire smashing a trapped door (door smash shipped D-2231; data.md:372-373). Probe: `node scripts/brief.mjs vamprises`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2272 (index).**
+**Keep D-0845…D-2273 (index).**
 <!-- recent:begin -->
+**D-2273** `mon.c:2888–2987` (`vamprises`; trapped arm `:2966–2981`: `doormask = D_NODOOR`, `recalc_b — `js/monmove.js` — exported the canonical `mb_trapped` in C order (verbose gate, KABOOM/nearby-distant, `wake_nearto 49`, `mstun`, `rnd(15)`, `DEADMONSTER` → `await mondied` + still-dead TRUE with lifesave fallthrough to 
 **D-2272** `shk.c:234–269` (`shkgone`: `discard_damage_owned_by` `:246`, `resident = 0` `:247`, `!sea — new `export function discard_damage_owned_by(shkp)` in `js/shk.js` next to `discard_damage_struct`, in C order (`prevdam` walk, unlink owned, drop; GC frees — no `memset`/`free` in JS), ownership via the existing `shop_o
 **D-2271** `steal.c:119–128` (`thiefdead`: `stealmid = 0`, then `afternmv == stealarm` → `unstolenarm — new `export async function stealarm()` / `unstolenarm()` in `js/steal.js` in C order (async because `unmul` awaits `afternmv` and the bodies pline/rloc/monflee; `impossible` awaited on the dead-monster arm).
 **D-2270** `questpgr.c:148–194` (`stinky_nemesis`), `mon.c:2768–2774` (`m_detach` MS_NEMESIS arm), `d — `questpgr.js` table + export, `m_detach` wiring → `nemesis_stinks`.
@@ -94,11 +95,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2268** `hacklib.c:345–359` (`s_suffix`): `it`→`its`, `you`→`your` (both `strcmpi`, case-insensiti — deleted the local clone; added `s_suffix` to the existing `do_name.js` import (`imports.mjs --can uhitm.js do_name.js s_suffix` → ALREADY, no new edge, no TDZ risk).
 **D-2267** `do_wear.c:326–380` (`Cloak_on`); oilskin arm `:364–366` (`pline("%s very tightly.", Tobjn — `js/do_wear.js` `Cloak_on` is now the C switch in C order: plain-cloak breaks; PROTECTION `makeknown`; ELVEN `toggle_stealth`; DISPLACEMENT `toggle_displacement`; MUMMY checks the `(HInvis|EInvis)` flats (not full `Invis
 **D-2266** `pager.c:1406–1417` (DEF_INVISIBLE arm of `do_screen_description`); `:1246–1273` (looked → — `js/pager.js` `describe_looked` — `glyph_is_invisible_id(glyph)` (already imported) tested on the shown `glyph_at` before `mon_at`, returning `I` + `an(unseen)` with the C `:1408–1410` EDetect-I_SPECIAL/Blind select (`un
-**D-2265** `mkobj.c:868–1175` (`mksobj_init`): FOOD `otmp->oeaten = 0`; TIN (`corpsenm = NON_PM`, `!r — `js/mkobj.js` — FOOD sets `oeaten = 0`; TIN sets `corpsenm = NON_PM` up front, calls imported `set_tin_variety(otmp, SPINACH_TIN | RANDOM_TIN)` (canonical `eat.js` export, hoisted so the new `mkobj→eat` edge is cycle-saf
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2272; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2273; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

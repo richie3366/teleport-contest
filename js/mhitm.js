@@ -131,7 +131,7 @@ import { update_inventory } from './invent.js';
 import { bury_an_obj } from './dig.js';
 import { is_pole, is_weptool } from './wield.js';
 import { mswings_verb, Conflict, unstuck } from './mhitu.js';
-import { mon_offmap, set_apparxy } from './monmove.js';
+import { mon_offmap, set_apparxy, mb_trapped } from './monmove.js';
 import { hurtle, mhurtle, will_hurtle } from './dothrow.js';
 import { make_stunned } from './potion.js';
 import { m_is_steadfast } from './uhitm.js';
@@ -2820,9 +2820,10 @@ export async function lifesaved_monster(mtmp) {
  * mhp restore, ustuck release (expels when swallowing), newcham (a failed
  * revert returns !DEADMONSTER), cham fixup, canspotmon rise pline +
  * vamp_rise_msg, closed-door smash (You_hear/You_see/pline_The in C order,
- * then D_NODOOR + recalc), newsym. Unaware is the house u.Unaware field.
- * Named omissions: trapped-door mb_trapped + "is destroyed!" pline
- * (monmove.js:1035 clone omits full mondead/lifesave — needs its own row);
+ * then D_NODOOR + recalc, trapped mb_trapped with verbose suppression +
+ * unconditional "is destroyed!" when the trap kills), newsym. Unaware is
+ * the house u.Unaware field.
+ * Named omissions:
  * gd.disintegested writer in xkilled (uhitm names it; monkilled sets it).
  */
 export async function vamprises(mtmp) {
@@ -2892,6 +2893,20 @@ export async function vamprises(mtmp) {
 
             if (door) door.doormask = D_NODOOR;
             recalc_block_point(x, y);
+            if (trapped) {
+                // C mon.c `:2969–2980` — suppress mb_trapped() messages
+                // (that makes the 'seeit' arg moot), restore after; a
+                // killed vampire was mondead()ed inside with no death
+                // pline yet, so print unconditional "destroyed".
+                if (!game.flags) game.flags = {};
+                const saveVerbose = game.flags.verbose;
+                game.flags.verbose = false;
+                const trap_killed = await mb_trapped(mtmp, seeit);
+                game.flags.verbose = saveVerbose;
+                if (trap_killed && canspotmon(mtmp) && !unaware) {
+                    await pline_mon(mtmp, `${Monnam(mtmp)} is destroyed!`);
+                }
+            }
         }
         newsym(x, y);
         return true;

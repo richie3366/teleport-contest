@@ -369,9 +369,9 @@ flooreffects non-floor arms, floor-boulder `sobj_at` nocorpse, MAIL_DAEMON,
 wasinside `spoteffects`, Blind_telepat `see_monsters`, quest adjalign arms, genus/other 
 mon.c helpers; 
 **`mondead`** (D-2147; `js/mhitm.js` export, `uhitm.js`/`trap.js` clones removed): be_sad clear, cham/were restore, mvitals, quest-leader mark, mail-daemon `G_GENOD`, S_KOP `rnd(5)`+`makemon` in C order; 
-**`mondead` tail** (D-2231; `js/mhitm.js` async export + `mon.js`/`vault.js`/`shk.js` edges): `set_mon_min_mhpmax`, `lifesaved_monster` (amulet+wary_dog+genocided), `vamprises` (door smash, no trap kill), `grddead` (vault corridor+gold), `logdeadmon` (Medusa+livelog cadence), `thiefdead` (stealmid + stealarm→unstolenarm swap; `stealarm`/`unstolenarm` live in `steal.js`, `steal()` sets `afternmv`, D-2271), `shkgone` (resident/no_charge/setpaid/bill/ushops), full `m_detach` (unleash/light/mon_leaving/wizdead/nemesis/leader/relobj+gated newsym/purge/dismount), async `mondead` + `monstone`/`monkilled` wiring, all callers await;
+**`mondead` tail** (D-2231; `js/mhitm.js` async export + `mon.js`/`vault.js`/`shk.js` edges): `set_mon_min_mhpmax`, `lifesaved_monster` (amulet+wary_dog+genocided), `vamprises` (door smash + trapped-door kill D-2273 via canonical `monmove.js` `mb_trapped`), `grddead` (vault corridor+gold), `logdeadmon` (Medusa+livelog cadence), `thiefdead` (stealmid + stealarm→unstolenarm swap; `stealarm`/`unstolenarm` live in `steal.js`, `steal()` sets `afternmv`, D-2271), `shkgone` (resident/no_charge/setpaid/bill/ushops), full `m_detach` (unleash/light/mon_leaving/wizdead/nemesis/leader/relobj+gated newsym/purge/dismount), async `mondead` + `monstone`/`monkilled` wiring, all callers await;
 **`shkgone` damage/`has_shop`** (this D; `js/shk.js` `discard_damage_owned_by` + `js/mhitm.js` has_shop clear via canonical `sounds.js` `search_special` export);
-omit `minimal_monnam` format, `mongone` FALSE caller, `vamprises` door-trap kill, xkilled disinteg/readers, sync `kill_genocided_monsters` nuance (`stinky_nemesis` gas live D-2270);
+omit `minimal_monnam` format, `mongone` FALSE caller, xkilled disinteg/readers, sync `kill_genocided_monsters` nuance (`stinky_nemesis` gas live D-2270);
 omit `teleport.js` `search_special` ANY_TYPE arm (clone drift; canonical export is `sounds.js`)
 
 ### `src/mondata.c` growth

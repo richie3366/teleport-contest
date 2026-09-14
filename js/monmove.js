@@ -6,7 +6,7 @@ import {
     monsterNames, M1_SEE_INVIS, M1_AMORPHOUS, M1_NOTAKE, tunnels, needspick,
     can_track, likes_gold, likes_gems, likes_objs, likes_magic,
     throws_rocks, is_swimmer, likes_lava, mindless, is_animal, strongmonst, is_mercenary,
-    mon_knows_traps, can_teleport, hides_under, webmaker, PM_GIANT_SPIDER,
+    mon_knows_traps, mon_learns_traps, can_teleport, hides_under, webmaker, PM_GIANT_SPIDER,
     is_vampshifter, is_watch, is_mind_flayer, is_covetous,
     is_floater, is_flyer, amorphous, nolimbs, M1_SLITHY, MZ_SMALL,
     grounded, telepathic, mons, metallivorous, humanoid, is_neuter, G_UNIQ,
@@ -29,7 +29,7 @@ import {
     count_traps,
 } from './trap.js';
 import { mattacku, unstuck, expels } from './mhitu.js';
-import { mattackm, mdisplacem, monkilled, grow_up } from './mhitm.js';
+import { mattackm, mdisplacem, monkilled, mondied, grow_up } from './mhitm.js';
 import { castmu, AD_SPEL, AD_CLRC } from './mcastu.js';
 import { cansee, couldsee, vision_recalc, recalc_block_point, m_cansee } from './vision.js';
 import {
@@ -46,7 +46,7 @@ import {
     Upolyd, OBJ_FLOOR, is_pit, Is_waterlevel,
     STAIRS, LADDER, IRONBARS, WEB, W_NONDIGGABLE, ARM, HEAD,
     M_ATTK_HIT, M_ATTK_DEF_DIED, M_ATTK_AGR_DIED,
-    MON_FLOOR, NORMAL_SPEED, G_GENOD, RLOC_MSG,
+    MON_FLOOR, NORMAL_SPEED, G_GENOD, RLOC_MSG, TRAPPED_DOOR,
 } from './const.js';
 import { is_pool, is_lava, in_town, stop_occupation, noattacks, disturb_buried_zombies, losehp, finish_maybe_wail, dissolve_bars, SURFACE_AT, in_rooms } from './hack.js';
 import {
@@ -99,6 +99,7 @@ import {
     mnexto,
     wakeup,
     wake_msg,
+    wake_nearto,
     m_consume_obj,
     meatmetal,
     meatobj,
@@ -1028,11 +1029,14 @@ function monhaskey(mon, for_unlocking) {
 }
 
 /**
- * C ref: monmove.c mb_trapped — door trap explosion after open/smash.
- * Named omission: wake_nearto; mon_learns_traps(TRAPPED_DOOR); full
- * mondead/lifesave (HP≤0 clears mx and returns died).
+ * C ref: monmove.c mb_trapped `:54–74` — monster on a trapped door that
+ * just exploded. C order: verbose KABOOM/nearby-distant (mdistu > 49),
+ * wake_nearto 49, mstun, rnd(15), DEADMONSTER → mondied (lifesave may
+ * revive; still-dead returns TRUE), mon_learns_traps(TRAPPED_DOOR).
+ * Callers (dig/lock/monmove/vamprises) share this export; message
+ * predicates stay the module's house checks (game.u Unaware/Deaf).
  */
-async function mb_trapped(mtmp, canseeit) {
+export async function mb_trapped(mtmp, canseeit) {
     if (game.flags?.verbose !== false) {
         if (canseeit && !game.u?.Unaware) {
             await pline_mon(mtmp, 'KABOOM!!  You see a door explode.');
@@ -1041,14 +1045,15 @@ async function mb_trapped(mtmp, canseeit) {
             await pline(`You hear a ${far ? 'distant' : 'nearby'} explosion.`);
         }
     }
+    await wake_nearto(mtmp.mx | 0, mtmp.my | 0, 7 * 7);
     mtmp.mstun = 1;
     mtmp.mhp -= rnd(15);
     if ((mtmp.mhp | 0) < 1) {
-        mtmp.mhp = 0;
-        mtmp.mx = 0;
-        mtmp.my = 0;
-        return true;
+        await mondied(mtmp);
+        if ((mtmp.mhp | 0) < 1) return true;
+        /* lifesaved: fall through to mon_learns_traps like C */
     }
+    mon_learns_traps(mtmp, TRAPPED_DOOR);
     return false;
 }
 
