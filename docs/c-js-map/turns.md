@@ -1011,10 +1011,10 @@ JS: `js/do_wear.js` — partial
 sync `uprops[FUMBLING].intrinsic`** (D-0688/D-0689) + **SPEED_BOOTS `makeknown`→`exercise(A_WIS)` + 
 `You_feel` speed up** (D-0744) + **`Gloves_on` GAUNTLETS_OF_POWER `makeknown` + 
 FUMBLING `incr_itimeout`** (D-0783; DEX `adj_abon` deferred) + 
-**`Cloak_on` PROTECTION `makeknown` + DISPLACEMENT `toggle_displacement`; 
-no `find_ac`** (D-0783/D-0810; **`toggle_stealth` RIN_STEALTH/ELVEN_CLOAK/ELVEN_BOOTS on+off + 
+**`Cloak_on` full otyp switch in C order** (plain-cloak breaks; PROTECTION `makeknown`; ELVEN `toggle_stealth`; DISPLACEMENT `toggle_displacement`; MUMMY_WRAPPING newsym + `You can …!`; CLOAK_OF_INVISIBILITY `makeknown` + newsym + `Suddenly you can… yourself.`; OILSKIN `Tobjnam(fit)` + `very tightly.`; ALCHEMY_SMOCK `EAcid_resistance |= WORN_CLOAK`; default `impossible`; known + `update_inventory` tail; 
+no `find_ac`** (D-0783/D-0810/D-2267; **`toggle_stealth` RIN_STEALTH/ELVEN_CLOAK/ELVEN_BOOTS on+off + 
 `EStealth` mirror** (D-0970); Cloak_off DISPLACEMENT off; 
-MUMMY/INVIS/OILSKIN/ALCHEMY + Boots_off SPEED/water/levitation deferred; 
+Cloak_off MUMMY/INVIS/ALCHEMY + Boots_off SPEED/water/levitation deferred; 
 **`nh_timeout` FUMBLING `slip_or_trip` D-0692**) + **`dotakeoff`** (D-0063) + **`ia_dotakeoff` "alttakeoff" canned takeoff (D-1934)** + 
 **`getobj_takeoff` missing-letter `continue`+`--More--`** (D-0634) + 
 **`getobj_takeoff` → `yn_function` leave `gt.toplines`** (D-0928 #1148; 

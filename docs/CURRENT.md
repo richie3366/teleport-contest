@@ -87,10 +87,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `do_wear.c` Cloak_on — oilskin arm (scen-wish-Rogue-92137). Probe: `node scripts/hidden-proxy.mjs verify Cloak_on`.
+**Next cluster:** `hacklib.c` s_suffix. Probe: `node scripts/brief.mjs s_suffix`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2266 (index).**
+**Keep D-0845…D-2267 (index).**
 <!-- recent:begin -->
+**D-2267** `do_wear.c:326–380` (`Cloak_on`); oilskin arm `:364–366` (`pline("%s very tightly.", Tobjn — `js/do_wear.js` `Cloak_on` is now the C switch in C order: plain-cloak breaks; PROTECTION `makeknown`; ELVEN `toggle_stealth`; DISPLACEMENT `toggle_displacement`; MUMMY checks the `(HInvis|EInvis)` flats (not full `Invis
 **D-2266** `pager.c:1406–1417` (DEF_INVISIBLE arm of `do_screen_description`); `:1246–1273` (looked → — `js/pager.js` `describe_looked` — `glyph_is_invisible_id(glyph)` (already imported) tested on the shown `glyph_at` before `mon_at`, returning `I` + `an(unseen)` with the C `:1408–1410` EDetect-I_SPECIAL/Blind select (`un
 **D-2265** `mkobj.c:868–1175` (`mksobj_init`): FOOD `otmp->oeaten = 0`; TIN (`corpsenm = NON_PM`, `!r — `js/mkobj.js` — FOOD sets `oeaten = 0`; TIN sets `corpsenm = NON_PM` up front, calls imported `set_tin_variety(otmp, SPINACH_TIN | RANDOM_TIN)` (canonical `eat.js` export, hoisted so the new `mkobj→eat` edge is cycle-saf
 **D-2264** `makemon.c:1076–1137` (`makemon_rnd_goodpos`); `:1085` (`gpflags |= GP_AVOID_MONPOS`); `:1 — `js/makemon.js` — mutate the parameter in place (`if (!bl) gpflags &= ~GP_CHECKSCARY;`, no per-pass copy) and pass `gpflags` to all three fallback `goodpos` calls: exact C control flow (the C parameter is pass-by-value, 
@@ -98,11 +99,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2262** `polyself.c:469–733` (`polyself`): `:500–504` formrevert (`mntmp = youmonst.cham`, `monste — `js/polyself.js`.
 **D-2261** `uhitm.c:2797–2811` (`mhitm_ad_sgld` uhitm arm); `uhitm.c:3022–3035` (`mhitm_ad_curs` uhit — four file-local arms, ported from the C uhitm branches and dispatched from `damageum_adtyping`:
 **D-2260** `uhitm.c:3014–3096` (`mhitm_ad_curs` mhitm arm); `uhitm.c:2362–2415` (`mhitm_ad_dcay` mhit — added file-local `mhitm_ad_curs` / `_dcay` / `_deth` / `_drli` ported from the C mhitm arms, plus one `mdamagem` block that dispatches them.
-**D-2259** `uhitm.c:3038–3041` (`mhitm_ad_curs` mhitu: `!night() && pa == &mons[PM_GREMLIN]`); `uhitm — those five gates now use `(data?.mndx | 0) === PM_*` like `hates_light` / `is_wooden`.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2266; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2267; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

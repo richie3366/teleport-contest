@@ -1,6 +1,6 @@
 {
- "commit": "de6d6dd5",
- "at": "2026-09-14T14:36:42.271Z",
+ "commit": "9ac4640d",
+ "at": "2026-09-14T14:46:45.263Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -8402,19 +8402,19 @@
   },
   "scen-wish-Rogue-92137": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 4782,
    "rngT": 4782,
-   "scrM": 214,
+   "scrM": 216,
    "scrT": 216,
-   "kind": "screen",
-   "step": 129,
+   "kind": null,
+   "step": null,
    "steps": 216,
-   "owner": "Cloak_on",
-   "loc": "do_wear.c:366",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "The slippery cloak fits very tightly.--More--",
-   "jsTopline": "You are now wearing a slippery cloak.",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-wish-Rogue-92184": {
