@@ -84,10 +84,11 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `trap.c` steedintrap dart/arrow/landmine/poly caller wiring (data.md:1063-1064; D-2258 helper is full but dart/arrow `!rn2(2)` steedintrap / landmine / poly trapeffects still do not call it). Probe: `node scripts/brief.mjs steedintrap`.
+**Next cluster:** `artifact.c` artilist DFLAG2 yours/Upolyd/ulycn arms (data.md:107; D-2220 shipped DFLAG1 mflags1; live `js/artifact.js:1931` names the DFLAG2 residual). Probe: `node scripts/brief.mjs spec_applies`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2290 (index).**
+**Keep D-0845…D-2291 (index).**
 <!-- recent:begin -->
+**D-2291** `artifact.c:1026–1031` (`spec_applies` SPFX_DFLAG2: `(ptr->mflags2 & weap->mtype) || (your — the C `||` chain verbatim in C order (mflags2 first, then the yours gate): `!Upolyd(u)` + `(game.urace.selfmask & mtype)` selfmask arm, then `(mtype & M2_WERE) && ismnum(u.ulycn)` were arm with no Upolyd gate, per C shor
 **D-2290** `trap.c:1211` (arrow hero `u.usteed && !rn2(2) && steedintrap(trap, otmp)` before `thitu(8 — dart/arrow hero arms gate `u.usteed && !rn2(2) && await steedintrap(trap, otmp)` ahead of `thitu` in C order (t_missile → poison → dmgval → gate → thitu/place), steed-hit arm a bare `;` with the otmp-consumed note, miss 
 **D-2289** `trap.c:4657–4710` (`pot_acid_damage`: Blind off-invent `dknown = 0`, `acid_ctx` dkn/unk_b — new `export function blank_novel(obj)` in `js/zap.js` directly after `cancel_item` (C position `:1367` after cancel), wired at both C call sites (cancel `:1330`, water_damage `:4820`); new file-local `pot_acid_damage(obj
 **D-2288** `teleport.c:2006–2098` (`mlevel_tele_trap`; stronghold valley `:2018`, botlevel avoid `:20 — `js/trap.js`: new `export function clamp_hole_destination(dlev)` beside `hole_destination`, over the existing quest/hell-aware file-local `dng_bottom` (C `trap.c` staticfn position).
@@ -95,11 +96,10 @@ divergence with its probe. Do **not** pop map-omission singletons
 **D-2286** `lock.c:957–1020` (`doclose`): `!isok(x,y)` goes to `nodoor` while `res` is still `ECMD_OK — C order in C position — isok check first, returning `res` while still `ECMD_OK`; Confusion/Stunned cost after (stumble stays deferred between them, noted in the comment); new Blind block calling the already-imported `upd
 **D-2285** `invent.c:1466–1475` (`sobj_at`: walk `svl.level.objects[x][y]` nexthere chain, `otyp ==`  — all 10 defs deleted; `sobj_at` joins each file's existing static `mkobj.js` import — no new module edge (all 9 files already import `mkobj.js`; same SCC; the canonical is a hoisted exported function declaration used at c
 **D-2284** `trap.c:5059–5199` (`drown`, 140 lines). In C order: `feel_newsym(ux,uy)`; uinwater + `is_ — the C arms verbatim in C order in `js/trap.js` `drown`, preserving short-circuit, RNG (`rn2(5)` wade, `rn2(3)` gremlin/teleport, `d(2,6)` rust), list, ownership, mutation and integer (`|0`, `Luck+2`) semantics.
-**D-2283** `potion.c:178–188` (`make_sick` `:137–190` tail: `kptr = find_delayed_killer(SICK)`; `if ( — the C arm verbatim in C position: `const kpfx = (cause && cause === '#wizintrinsic') ?
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2290; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2291; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

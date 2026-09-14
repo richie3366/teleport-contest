@@ -104,7 +104,9 @@ JS: extractor + `js/generated/artifacts_data.js` + `js/artifact.js` — partial
 PHYS early + DMONS/DCLAS/DFLAG1/DFLAG2/DALIGN + ATTK Magm/Stun `rn2` + per-adtyp
 Fire/Cold/Elec/Drst/Drli/Ston resists (D-1862; hero props + mon `resists_*`;
 `defended()` guard via live mondata.js import + DFLAG1 mflags1 arm (D-2220;
-no artilist row sets DFLAG1); DFLAG2 yours/Upolyd/ulycn arms still deferred));
+no artilist row sets DFLAG1); DFLAG2 yours/Upolyd/ulycn arms live (D-2291;
+`Upolyd`/`ismnum` const.js + `M2_WERE` monsters.js existing-edge imports,
+`game.urace.selfmask` your_race convention));
 **`spec_dbon`/`artifact_hit`/`attacks`/`is_art`** (D-0613;
 Grayswandir `max(tmp,1)` double + FIRE/COLD/ELEC `rn2` gates;
 D-1873 preamble + FIRE/COLD/ELEC/MAGM realizes_damage plines + ELEC

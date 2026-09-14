@@ -10,7 +10,7 @@ import {
 } from './generated/artifacts_data.js';
 import { objectNames, NUM_OBJECTS, objectDescrs, objects, WEAPON_CLASS } from './objects.js';
 import { obj_shuffle_range } from './o_init.js';
-import { monsterNames, NON_PM, M2_UNDEAD, is_demon, is_dprince, is_dlord, resists_ston, hates_silver, bigmonst, has_head, noncorporeal, amorphous, is_covetous, is_mplayer } from './monsters.js';
+import { monsterNames, NON_PM, M2_UNDEAD, M2_WERE, is_demon, is_dprince, is_dlord, resists_ston, hates_silver, bigmonst, has_head, noncorporeal, amorphous, is_covetous, is_mplayer } from './monsters.js';
 import { Fire_resistance, Cold_resistance, Shock_resistance, Drain_resistance, resists_fire, resists_cold, resists_elec, resists_poison, resists_drli, cancel_monst, resist, probe_monster } from './zap.js';
 import {
     A_NONE,
@@ -69,6 +69,7 @@ import {
     ENL_GAMEINPROGRESS,
     P_EXPERT,
     Upolyd,
+    ismnum,
     engulfing_u,
     nothing_happens,
     nothing_seems_to_happen,
@@ -1928,8 +1929,10 @@ export async function doinvoke() {
  * resists (hero props when the hero is the target, `resists_*` when a
  * monster is). defended() is the live mondata.js export (imported, not
  * cloned); DFLAG1 has no artilist row today but the arm is live per C.
- * Named omissions: DFLAG2 yours/Upolyd/ulycn arms (hero as target);
- * resists_* artifact/worn grants (inherited from the zap.js/monsters.js
+ * DFLAG2 yours/Upolyd/ulycn arms live per C `:1026–1031`
+ * (`Upolyd`/`ismnum` const.js imports, `M2_WERE` monsters.js import,
+ * `game.urace.selfmask` per mklev.js/monsters.js `your_race` convention).
+ * Named omissions: resists_* artifact/worn grants (inherited from the zap.js/monsters.js
  * bit subsets); hero Poison/Stone read H/E/sticky flats (no uprops
  * fallback, matching this function's Antimagic arm convention).
  */
@@ -1954,9 +1957,17 @@ function spec_applies(weap, mtmp) {
         return (((ptr?.mflags1 | 0) & (weap.mtype | 0)) !== 0) ? 1 : 0;
     }
     if (spfx & SPFX_DFLAG2) {
-        const m2 = (ptr?.mflags2 | 0) & (weap.mtype | 0);
-        // yours / urace.selfmask / ulycn were-arms deferred
-        return m2 ? 1 : 0;
+        // C :1026–1031: ((ptr->mflags2 & weap->mtype) || (yours
+        //   && ((!Upolyd && (gu.urace.selfmask & weap->mtype))
+        //       || ((weap->mtype & M2_WERE) && ismnum(u.ulycn)))))
+        if ((((ptr?.mflags2 | 0) & (weap.mtype | 0)) | 0) !== 0) return 1;
+        if (yours) {
+            const u = game.u || {};
+            if (!Upolyd(u)
+                && ((((game.urace?.selfmask ?? 0) | 0) & (weap.mtype | 0)) | 0) !== 0) return 1;
+            if ((((weap.mtype | 0) & M2_WERE) | 0) !== 0 && ismnum(u.ulycn)) return 1;
+        }
+        return 0;
     }
     if (spfx & SPFX_DALIGN) {
         if (yours) {
