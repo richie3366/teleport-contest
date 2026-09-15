@@ -3737,13 +3737,18 @@ um_dist `rn2(10)`** (D-0377); **`clear_fcorr`/`restfakecorr` +
 **`parkguard`/`gd_move_cleanup` + `!u_in_vault` look-around → Suddenly pline + 
 `flush_topl_more`** (D-0397); **`uleftvault` via `teleds` (D-1140; 
 gold+`um_dist` irate/`mpeaceful=0`; dest VAULT fake then restore)**; 
-omit hostile/witness/goldincorridor gd_move / migrating findgd / `wallify_vault` body / 
-`vault_summon_gd` / Croesus angry wield / `fracture_rock` / `xy_set_wall_state` / Punished-uball / 
-yelp-rloc-limbo / corridor-disappears pline / confused-disappears / Well begone verbalize / 
+omit hostile/witness/goldincorridor gd_move / migrating findgd /
+`vault_summon_gd` / Croesus angry wield / `fracture_rock` / Punished-uball /
+corridor-disappears pline / confused-disappears / Well begone verbalize /
 gd_mv_monaway / mpickgold / dig `del_engr_at`; **`move_gold`**
 (D-1946; `vault.c:632–643`; live `js/vault.js` export in C order via
-`obj_extract_self` floor arm + `rooms[vroom].lx/ly + rn2(2)` paygd idiom;
-caller `wallify_vault` body stays named omitted)
+`obj_extract_self` floor arm + `rooms[vroom].lx/ly + rn2(2)` paygd idiom);
+**`wallify_vault`** (D-2390; `vault.c:646–731`; live `js/vault.js` async in C
+order — boundary-ring scan, yelp/rloc-else-limbo, `move_gold`, ROCK/BOULDER
+extract+`obfree`, `deltrap`, corner/HWALL/VWALL typ + `wall_info=0`,
+`del_engr_at`, IN_SIGHT|COULD_SEE `newsym` pulse + `block_point`, whisper vs
+distant-chant + gold-moved + walls-restored plines; `xy_set_wall_state`
+paint stays named omitted, mklev.js-local like `invault`)
 
 ### `src/shk.c` `shk_move` / `src/priest.c` `move_special` / `pri_move` / `intemple`
 
