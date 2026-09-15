@@ -80,7 +80,7 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `trap.c` erode_obj rust/verbose + grease/towel/container/acid-boom arms (named data.md:1078, post-D-2186 residual; never live/archived/parked). Probe: `node scripts/brief.mjs erode_obj`. (potionhit → **PARKED C-commented-arms** 2026-09-15, no D-log, no js/; proof in Parked.)
+**Next cluster:** dosounds → **PARKED STALE-DUPLICATE** 2026-09-15, no D-log, no js/; proof in LOOP-QUEUE Parked. (Next iter pops first Open: `apply.c` use_stone.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2325 (index).**
 <!-- recent:begin -->

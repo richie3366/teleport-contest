@@ -15,6 +15,7 @@ Park rows: re-pop only on the listed falsifier (proofs in Parked).
 - dodown re-queue 2026-09-15: parked-dupe NO MOVEMENT (Parked).
 - **STALE parks 2026-09-14/15** (falsifiers in Parked): test_move, arti_cost D-1719, m_initweap D-0472, mextra-trio D-1598, make_sick Unaware, dodrink D-2031, make_corpse D-1794, vpline D-1807, mkcavearea D-0960, dig_up_grave review-26, furniture_handled D-0954, use_bell D-1028, ignite_items/catch_lit D-0978; getcad-trio, kick_object D-0989, costly_gold/donate_gold D-0991, use_unicorn_horn D-1030, use_towel D-1009, use_tinning_kit D-1027, costly_tin/use_tin_opener D-0940, flip_through_book/flip_coin D-1024; use_candle/use_candelabrum D-1025, use_figurine D-1029, use_crystal_ball D-1010, potionhit C-commented-arms (proofs in Parked).
 - gd_sound park 2026-09-15: D-0208/D-0298 live; verify 0 blocked → NO MOVEMENT.
+- **dosounds park 2026-09-15:** STALE-DUPE — D-0303/D-0306 fixed, D-2196/D-2217 shipped+archived (rows 417/350); `You_hear1`≡`You_hear("%s")` per hack.h:1030 so JS exact; `verify dosounds` 0 blocked → NO MOVEMENT. Residuals map-named. Falsifier: fresh `verify dosounds` with dosounds as owner.
 - **dopay park 2026-09-15:** DUPE — robbed/angry/debit live via D-0998 (+D-1704/D-1716); `verify dopay` 0 blocked → NO MOVEMENT. Residuals map-named. Falsifier: fresh `verify dopay` with dopay as owner.
 
 ## Don't re-check (≤15)
