@@ -1418,7 +1418,7 @@ still named); **`maybe_kick_monster`/`kick_monster`/`kickdmg` + `martial()`** (D
 dokick monster recoil / `kick_object` air `hurtle` still named); 
 **`kick_nondoor` SDOOR/SCORR + altar/fountain/grave/bars/sink** (D-0985); 
 **throne/`fall_through` + tree scatter/swarm** (D-0986); 
-**`ship_object`/`impact_drop`** (D-0984/D-0961); **`obj_delivery`** (D-1177; 
+**`ship_object`/`impact_drop`** (D-0984/D-0961; D-2318 launch_obj ROLL gate-drop/post-switch/boulder-chain + remove_worn_item/maybe_unhide_at); **`obj_delivery`** (D-1177; 
 `goto_level` FALSE after placebc / TRUE after `check_special_room`; XOR WITH_HERO; 
 `obj_extract_self` OBJ_MIGRATING; `deliver_obj_to_mon` D-1193 makemon DF_NONE; 
 **`mksobj_migr_to_species` / stolen_booty D-1363**; 

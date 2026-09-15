@@ -94,7 +94,7 @@ import {
     MM_FEMALE, NO_MINVENT, M_AP_TYPE, ismnum, ANIMATE_NORMAL,
     ANIMATE_SHATTER, ANIMATE_SPELL, AS_OK, AS_NO_MON, AS_MON_IS_UNIQUE,
     OBJ_INVENT, OBJ_MINVENT, has_oname, has_omonst, ONAME, OMONST,
-    ROLL, LAUNCH_KNOWN, LAUNCH_UNSEEN, u_at, MIGR_RANDOM,
+    ROLL, LAUNCH_KNOWN, LAUNCH_UNSEEN, u_at, MIGR_RANDOM, MIGR_NOWHERE,
     DISP_FLASH, DISP_END,
     MAY_DESTROY, MAY_HIT, MAY_FRACTURE, VIS_EFFECTS,
     IS_OBSTRUCTED, IS_STWALL, IS_TREE, IRONBARS,
@@ -141,6 +141,8 @@ import { create_gas_cloud } from './region.js';
 import { polymon, body_part, mbodypart, float_vs_flight, Unchanging, polyself } from './polyself.js';
 import { done } from './end.js';
 import { make_blinded, dropx, setnotworn } from './do.js';
+import { Soundeffect } from './sndprocs.js';
+import { se_loud_crash } from './generated/seffects_data.js';
 import { mon_adjust_speed } from './muse.js';
 import { m_dowear, extract_from_minvent, update_mon_extrinsics } from './worn.js';
 import { m_unleash, number_leashed, unleash_all } from './apply.js';
@@ -2349,10 +2351,12 @@ export function force_launch_placement() {
  * Mid-roll TELEP_TRAP / LEVEL_TELEP: cansee pline_xy else !Deaf You_hear,
  * then rloco or add_to_migration (D-1237). Mid-roll LANDMINE rn2(10)>2
  * KAABLAMM / fracture_rock / scatter + PIT/SPIKED_PIT/HOLE/TRAPDOOR
- * flooreffects + dist=-1 (D-1256). Named omissions: LAUNCH_UNSEEN
- * bowling msgs; dig context clear; down_gate /
- * ship_object; post-switch flooreffects; boulder-on-boulder chain;
- * scatter MAY_FRACTURE/MAY_DESTROY/VIS_EFFECTS (explode.js); curs_on_u.
+ * flooreffects + dist=-1 (D-1256). ROLL gate-drop via down_gate +
+ * ship_object `:3424–3430`, post-switch flooreffects `:3509`, and
+ * boulder-on-boulder chain `:3514–3529` (D-2318). Named omissions:
+ * LAUNCH_UNSEEN bowling msgs; dig context clear; closed_door crash
+ * (`pline_The` has no JS counterpart); STWALL `Thump!`; scatter
+ * MAY_FRACTURE/MAY_DESTROY/VIS_EFFECTS (explode.js); curs_on_u.
  * @returns {Promise<number>} 0 none, 1 placed, 2 used up
  */
 async function launch_obj(otyp, x1, y1, x2, y2, style) {
@@ -2469,9 +2473,19 @@ async function launch_obj(otyp, x1, y1, x2, y2, style) {
              * TELEP_TRAP / LEVEL_TELEP pline_xy then rloco or migrate
              * (D-1237). LANDMINE rn2(10)>2 KAABLAMM/fracture_rock/scatter
              * + PIT/SPIKED_PIT/HOLE/TRAPDOOR flooreffects+dist=-1 (D-1256).
-             * down_gate / ship_object / post-switch flooreffects /
-             * boulder-on-boulder still named. launch_drop_spot is live. */
+             * down_gate/ship_object gate-drop, post-switch flooreffects
+             * + boulder-on-boulder chain (D-2318). launch_drop_spot live. */
             if (style === ROLL) {
+                // C `:3424–3430` — rolling over stairs/ladder/open hole:
+                // the boulder ships down via ship_object (D-0984).
+                const { down_gate, ship_object } = await import('./dokick.js');
+                if (down_gate(x, y) !== MIGR_NOWHERE) {
+                    if (await ship_object(singleobj, x, y, false)) {
+                        used_up = true;
+                        launch_drop_spot(null, 0, 0);
+                        break;
+                    }
+                }
                 const t = t_at(x, y);
                 if (t && otyp === BOULDER) {
                     let newlev = 0;
@@ -2548,6 +2562,40 @@ async function launch_obj(otyp, x1, y1, x2, y2, style) {
                         }
                     }
                     if (used_up || dist === -1) break;
+                }
+                // C `:3509–3513` — the roll cell itself may swallow the
+                // boulder (pit/hole/trapdoor flooreffects).
+                const { flooreffects } = await import('./do.js');
+                if (await flooreffects(singleobj, x, y, 'fall')) {
+                    used_up = true;
+                    launch_drop_spot(null, 0, 0);
+                    break;
+                }
+                // C `:3514–3529` — boulder meets boulder: crash message,
+                // swap in the resting boulder, wake nearby monsters.
+                // Soundeffect is draw-free (C `:3522`).
+                const otmp2 = otyp === BOULDER
+                    ? sobj_at(BOULDER, x, y)
+                    : null;
+                if (otmp2) {
+                    let bmsg = ' as one boulder sets another in motion';
+                    const fx = x + dx, fy = y + dy;
+                    const ftyp = game.level?.at?.(fx, fy)?.typ ?? 0;
+                    if (!isok(fx, fy) || !dist
+                        || IS_OBSTRUCTED(ftyp)) {
+                        bmsg = ' as one boulder hits another';
+                    }
+                    Soundeffect(se_loud_crash, 80);
+                    await You_hear(
+                        `a loud crash${cansee(x, y) ? bmsg : ''}!`,
+                    );
+                    obj_extract_self(otmp2);
+                    // pass off the otrapped flag to the next boulder
+                    otmp2.otrapped = singleobj.otrapped;
+                    singleobj.otrapped = 0;
+                    place_object(singleobj, x, y);
+                    singleobj = otmp2;
+                    wake_nearto(x, y, 10 * 10);
                 }
             }
 
