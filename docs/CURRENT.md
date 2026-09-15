@@ -86,7 +86,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `explode.c` scatter restack (D-2303). Probe: `node scripts/brief.mjs scatter`.
+**Next cluster:** `mkmaze.c` populate_maze trap loop (data.md:923; D-2216 shipped the live tail + fallback). Probe: `node scripts/brief.mjs populate_maze`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2303 (index).**
 <!-- recent:begin -->
