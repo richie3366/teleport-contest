@@ -449,6 +449,7 @@ import; **D-1598 `has_mcorpsenm`**);
 moves=0 through mklev (D-0652); **D-0751 `temperature_shift` via `pm_resistance`**; 
 other `m_initinv` bodies (mercenary armor/nymph/giant/…); hell-court `noteleport_level`; 
 **`m_initweap` S_DEMON named specials + `is_demon`→default FALLTHROUGH** (D-0472); 
+**`bagotricks` bad-bag `impossible` + empty/seen `update_inventory` + `tipcontainer` BoT-target apply** (D-2354; `js/apply.js` vs `makemon.c:2554–2601`, target arm `pickup.c:3961–3966` via `js/pickup.js` dynamic import; D-1023 core); 
 **`!in_mklev` `newsym` after invent (+ byyou early)** (D-0481); 
 **D-0526/D-1088 `m_initweap` MS_GUARDIAN kit (`ptr.msound` then switch mm) + 
 `in_mklev` giant-eel/ndemon/wumpus/long-worm sleep before invent**; 

@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `makemon.c` bagotricks BAG_OF_TRICKS (named debt.md D-1023 family; never live/archived/parked). Probe: `node scripts/brief.mjs bagotricks`.
 - [ ] `apply.c` use_trap (named debt.md D-1023 family; never live/archived/parked). Probe: `node scripts/brief.mjs use_trap`.
 - [ ] `cmd.c` paranoid_query ParanoidBreakwand/ParanoidPray (named debt.md D-0999/D-1000; never live/archived/parked). Probe: `node scripts/brief.mjs paranoid_query`.
 - [ ] `apply.c` use_lamp residual (named debt.md D-1023/D-1052; use_candle D-1025 + DONE arms shipped; never own-row live/parked). Probe: `node scripts/brief.mjs use_lamp`.

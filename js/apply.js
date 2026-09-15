@@ -7,7 +7,7 @@ import {
     flush_screen, flush_topl_more, pline, pline_mon, canseemon, canspotmon, newsym,
     map_invisible, unmap_invisible, glyph_is_invisible, You_feel, sensemon,
     verbalize, mon_visible, tp_sensemon, see_with_infrared, tmp_at,
-    set_msg_xy, bot,
+    set_msg_xy, bot, impossible,
 } from './display.js';
 import { cansee, couldsee, howmonseen } from './vision.js';
 import {
@@ -4956,17 +4956,25 @@ export async function use_trap(otmp) {
 }
 
 /**
- * C ref: makemon.c bagotricks — apply / tip BAG_OF_TRICKS.
+ * C ref: makemon.c bagotricks `:2554-2601` — apply / tip BAG_OF_TRICKS.
+ * C order: bad-bag impossible; spe<1 empty (cknown + update_inventory);
+ * consume_obj_charge; rn2(23) extra rnd(7) makemon; seecount/makeknown.
  * Named omit: pickup invent getobj tip.
  * @returns {Promise<number>} monsters created
  */
 export async function bagotricks(bag, tipping = false, seencount = null) {
     let moncount = 0;
-    if (!bag || bag.otyp !== BAG_OF_TRICKS) return 0;
+    // C makemon.c:2562-2563 — bad bag is impossible, moncount stays 0.
+    if (!bag || bag.otyp !== BAG_OF_TRICKS) {
+        await impossible("bad bag o' tricks");
+        return 0;
+    }
     if ((bag.spe | 0) < 1) {
         await pline((tipping && bag.cknown) ? "It's empty." : nothing_happens);
+        // C `:2568-2571` — known-empty; update_inventory for perm_invent.
         if (bag.dknown && game.objects?.[bag.otyp]?.oc_name_known) {
             bag.cknown = 1;
+            update_inventory();
         }
         return 0;
     }
@@ -4989,7 +4997,11 @@ export async function bagotricks(bag, tipping = false, seencount = null) {
         if (seencount && typeof seencount === 'object') {
             seencount.n = (seencount.n | 0) + seecount;
         }
-        if (bag.dknown) makeknown(BAG_OF_TRICKS);
+        // C `:2591-2594` — seen monsters identify the bag; perm_invent refresh.
+        if (bag.dknown) {
+            makeknown(BAG_OF_TRICKS);
+            update_inventory();
+        }
     } else if (!tipping) {
         await pline(!moncount ? nothing_happens : nothing_seems_to_happen);
     }
