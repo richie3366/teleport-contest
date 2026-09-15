@@ -87,7 +87,7 @@ import {
     Amask2align, AM_MASK, A_NONE, A_LAWFUL,
     W_NONDIGGABLE, SDOOR, SCORR, CORR, ROOM, DOOR, TREE, STONE,
     D_NODOOR, D_BROKEN, D_TRAPPED, D_CLOSED, D_LOCKED,
-    SHOPBASE, SHOP_DOOR_COST, SHOP_PIT_COST, TT_PIT, TT_WEB, isok,
+    SHOPBASE, SHOP_DOOR_COST, SHOP_WALL_COST, SHOP_PIT_COST, TT_PIT, TT_WEB, isok,
     Is_earthlevel, Is_airlevel, Is_waterlevel,
     Can_dig_down, Is_stronghold, Is_botlevel, DISP_BEAM, DISP_END,
     DIGCHECK_PASSED, DIGCHECK_PASSED_PITONLY, DIGCHECK_PASSED_DESTROY_TRAP,
@@ -1186,9 +1186,12 @@ export async function zap_dig() {
                 if (IS_WALL(room.typ)) {
                     if (!(rm_wall_info(room) & W_NONDIGGABLE)) {
                         if (in_rooms(zx, zy, SHOPBASE)) {
+                            const { add_damage } = await import('./shk.js');
+                            add_damage(zx, zy, SHOP_WALL_COST);
                             shopwall = true;
                         }
-                        await watch_dig(null, zx, zy, true);
+                        // C dig.c:1686-1698 — maze wall: schedule only,
+                        // no watch_dig (ordinary arm below keeps it, :1719).
                         room.typ = ROOM;
                         room.flags = 0;
                         recalc_block_point(zx, zy);
@@ -1219,6 +1222,8 @@ export async function zap_dig() {
                 if (!may_dig(zx, zy)) break;
                 if (IS_WALL(room.typ) || room.typ === SDOOR) {
                     if (in_rooms(zx, zy, SHOPBASE)) {
+                        const { add_damage } = await import('./shk.js');
+                        add_damage(zx, zy, SHOP_WALL_COST);
                         shopwall = true;
                     }
                     await watch_dig(null, zx, zy, true);

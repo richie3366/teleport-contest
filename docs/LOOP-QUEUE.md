@@ -60,12 +60,14 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `dig.c` watch_dig shop-dig arms (debt.md D-0941; C dig.c watch_dig). Probe: `node scripts/brief.mjs watch_dig`.
 - [ ] `dokick.c` kick_door shop/watchman arms (debt.md D-0947; C dokick.c kick_door). Probe: `node scripts/brief.mjs kick_door`.
 - [ ] `apply.c` flip_through_book/flip_coin (debt.md D-1024; C apply.c flip_coin). Probe: `node scripts/brief.mjs flip_coin`.
 - [ ] `apply.c` use_candle/use_candelabrum (debt.md D-1025; C apply.c use_candle). Probe: `node scripts/brief.mjs use_candle`.
 - [ ] `apply.c` use_figurine (debt.md D-1029; C apply.c use_figurine). Probe: `node scripts/brief.mjs use_figurine`.
 - [ ] `apply.c` use_crystal_ball (debt.md D-1010; C apply.c use_crystal_ball). Probe: `node scripts/brief.mjs use_crystal_ball`.
+- [ ] `dig.c` zap_dig pitdig branch via adj_pit_checks/pit_flow (JS stub `if (pitdig) break` + `pit_flow deferred` in zap_dig; C dig.c:1617-1662 branch + :1763 adj_pit_checks + :1844 pit_flow). Probe: `node scripts/brief.mjs adj_pit_checks`.
+- [ ] `dig.c` zap_dig swallowed-pierce arm (JS early-return `if (u.uswallow)` js/dig.js zap_dig; C dig.c:1569-1582 pierce pline + mhp + expels). Probe: `node scripts/brief.mjs zap_dig`.
+- [ ] `dig.c` dighole DRAWBRIDGE_UP + magical-trap explode arms (JS-doc named omit js/dig.js dighole; C dig.c:885 dighole). Probe: `node scripts/brief.mjs dighole`.
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 

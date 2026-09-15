@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
+- [x] `dig.c` watch_dig shop-dig arms (debt.md D-0941; C dig.c watch_dig). Probe: `node scripts/brief.mjs watch_dig`. **Addressed:** D-2319
+
+
 - [x] `dokick.c` ship_object + otransit_msg ship-floor polish (debt.md D-0984; C dokick.c ship_object). Probe: `node scripts/brief.mjs ship_object`. **Addressed:** D-2318 `f028aee2`
 
 
