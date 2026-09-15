@@ -250,7 +250,8 @@ legacy `_repeat_search` path unused when occupation set);
 **Ctrl-rush `context.run=3` / capital run `run=1`** (D-0261); 
 **`g`/`G` PREFIXCMD `do_rush`/`do_run` run=2/3 + following walk first-step keeps run (D-1186; 
 **rhack `got_prefix_input` + `cmdq_shift` D-1582** — C `cmd.c` PREFIXCMD `:3762–3774` 
-`goto got_prefix_input` (g/G/F/m `do_rush`/`do_run`/`do_fight`/`do_reqmenu`); 
+`goto got_prefix_input` (g/G/F/m `do_rush`/`do_run`/`do_fight`/`do_reqmenu`; 
+`-`→`do_fight` via commands_init bind D-2306); 
 `cmdq_shift` `:354–370`; doextcmd `:3753–3760` ext_tlist add+shift; 
 `set_move_cmd` `:1386–1400` + `do_move_*` REPEAT; keyboard hjkl still DIR_DX; 
 nested F+g/G / full CMD_gGF table / rhack `dxdy_moveok` / `cmd_from_func` / capital 

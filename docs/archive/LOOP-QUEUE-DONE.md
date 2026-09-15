@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
+- [x] `cmd.c` rhack `-`→fight binding (fresh rescore 2026-09-14: **Addressed:** D-2306 ownerless screen step, C«» vs JS«Unknown command '-'» — C number_pad map binds `-` to fight, cmd.c:2772, consumed via cmdbind_get in rhack :3679; no `'-'` binding in js/cmd.js so JS falls to the Unknown-command arm js/cmd.js:3074). Probe: `node frozen/ps_test_runner.mjs .cache/hidden/sessions/random-seed0015-valk-level2-pit-dog-wait-eb7e90ad.session.json` (step 33/72) + `node scripts/brief.mjs rhack`.
+
+
 - [x] `trap.c` untrap floor disarm_*/box residuals (data.md:176; D-1495 shipped the UNTRAP door-force callee; disarm_holdingtrap/disarm_landmine/disarm_shooting_trap/disarm_box/help_monster_out still named). Probe: `node scripts/brief.mjs untrap`. **Addressed:** D-2305 `9881e89f`
 
 
