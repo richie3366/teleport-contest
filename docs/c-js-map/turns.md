@@ -2023,7 +2023,7 @@ y_monnam); apply suffix clones retired to canonical exports
 (`fingers_or_gloves`, `Tobjnam`, `otense`)); **`use_whip`/`use_grapple`
 `surface()` via canonical `sit.js` D-2213** (C `apply.c` `:3051/:3183/:3788/:3795/:3819/:3855/:3857`
 all call dungeon.c `surface()`; local `surface_apply` stub returned `furniture` for any
-IS_FURNITURE so stairs misread — stub deleted, all 7 sites use the D-2008 import)
+IS_FURNITURE so stairs misread — stub deleted, all 7 sites use the D-2008 import) + **`use_lamp` shop billing (D-2355; C `apply.c:1683–1685` lamp `check_unpaid` before on-pline + `:1690–1698` fresh-candle `costly_spot`/`20*oc_cost` `verbalize` + `bill_dummy_object`; `SetVoice` omitted like `use_candle`; `objects` joins the existing `objects.js` import)
 
 ### `src/display.c` `newsym` / map
 

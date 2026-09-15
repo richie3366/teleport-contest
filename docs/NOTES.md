@@ -4,34 +4,35 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 
 ## Active
 
-Park rows: re-pop only on the listed falsifier (proofs in Parked).
-- **paranoid_query park (2026-09-15):** debt.md D-0999/D-1000 refill row; every named arm live+C-cited (getline.js:1301/1351, apply.js:1012-1020, pray.js:1790-1807, mon.js:451/514, end.js Quit/Die/Bones); brief+verify 0 blocked (vacuous); queue tops all parked-class, queue at 7 Open, no filler.
+Parks: re-pop only on the listed falsifier (proofs in Parked).
+- **paranoid_query park (2026-09-15):** D-0999/D-1000; all arms live+C-cited (getline.js:1301/1351, apply.js:1012+, pray.js:1790+, mon.js:451/514, end.js Quit/Die/Bones); verify 0 blocked.
 
-- **Eval-order TDZ (D-2349):** no static `objnam.js`→`shk.js` edge (or anything reaching polyself at eval) — boot crashes with `_body_part` TDZ via polyself's top-level `set_body_part`. Late-bind via setters (the `_y_monnam` idiom).
+- **Eval-order TDZ (D-2349):** no static `objnam.js`→`shk.js` edge (or anything reaching polyself at eval) — boot `_body_part` TDZ via polyself top-level `set_body_part`. Late-bind via setters (the `_y_monnam` idiom).
 
-- **Presence-only parks (0/553 owned):** mkclass_aligned/get_location, gethungry/maybe_generate/mattacku/u_calc_moveamt/exercise, dochug/dotrap/mintrap/nh_timeout/mon_break_armor.
-- **Fortress guards** (settled — do not reopen): display_inventory, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue S_ndoor, bigrm-2, getpos, summonmu, lookat, do_statusline1, snapshot, fakewiz, Ice/Boulder, roles[], pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
+- **Presence-only (0/553):** mkclass_aligned/get_location, gethungry/maybe_generate/mattacku/u_calc_moveamt/exercise, dochug/dotrap/mintrap/nh_timeout/mon_break_armor.
+- **Fortress guards** (do not reopen): display_inventory, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue S_ndoor, bigrm-2, getpos, summonmu, lookat, do_statusline1, snapshot, fakewiz, Ice/Boulder, roles[], pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
 - **Luck runs when invulnerable, not dialogues** (`timeout.c:623`).
-- **Symptom-owner parks:** obj_resists/m_move/rloc/lightdamage/mattackm/can_carry/spoteffects/mon_adjust_speed/zapyourself/doname_base/hmonas/minliquid_core/distfleeck/passiveum; do_statusline1/2 paint-timing; slimed landing + Sick-store.
+- **Symptom parks:** obj_resists/m_move/rloc/lightdamage/mattackm/can_carry/spoteffects/mon_adjust_speed/zapyourself/doname_base/hmonas/minliquid_core/distfleeck/passiveum; do_statusline1/2 paint-timing; slimed landing + Sick-store.
 - **STALE parks:** lesshungry/rndcurse/mhitm_ad_famn/regen_hp/barehands/do_mapping/adjattrib/from_what/look_at_monster/formatkiller/do_screen_description/reveal_terrain/peffect_acid/newcham/use_offensive/stop_donning/doeat_nonfood/gcrownu/big_little_match/xkilled/x_monnam, domonnoise.
-- **Misattributed parks (proofs in Parked):** vomiting_dialogue/u_stuck_cannot_go/name_to_monplus/mcast_death_touch/save_dungeon/dodown/mv_bubble/one_characteristic/use_pole/trapmove/fig_transform/chwepon, that_is_a_mimic/drinkfountain, poly_obj, disclose/list_vanquished, dopush.
-- **2026-09-14/15 STALE-DUPE/DEAD-ARM parks (all `verify` 0 blocked → NO MOVEMENT):** test_move, arti_cost, m_initweap, mextra-trio, make_sick Unaware, dodrink, make_corpse, vpline, mkcavearea, dig_up_grave, furniture_handled, use_bell, ignite_items/catch_lit, getcad-trio, kick_object, costly_gold/donate_gold, use_unicorn_horn, use_towel, use_tinning_kit, costly_tin/use_tin_opener, flip_through_book/flip_coin, use_candle/use_candelabrum, use_figurine, use_crystal_ball, potionhit C-commented-arms, gd_sound, dosounds, dopay, use_stone, kick_nondoor SDOOR+helpers/throne+tree, resists_ston, cpostfx/corpse_intrinsic/givit, offer_too_soon/eatspecial/cprefx/use_defensive/hitmu/getdir, do_earthquake/do_pit/DRUM (D-0972+D-2315 shipped, verify 0 blocked), use_whip/grapple/pole (D-1022 family shipped, verify 0 blocked), use_pick_axe2 (D-0951 shipped, 0 blocked), use_trap (D-1023 shipped, 0 blocked).
+- **Misattributed parks:** vomiting_dialogue/u_stuck_cannot_go/name_to_monplus/mcast_death_touch/save_dungeon/dodown/mv_bubble/one_characteristic/use_pole/trapmove/fig_transform/chwepon, that_is_a_mimic/drinkfountain, poly_obj, disclose/list_vanquished, dopush.
+- **2026-09-14/15 STALE-DUPE/DEAD-ARM parks (all `verify` 0 blocked):** test_move, arti_cost, m_initweap, mextra-trio, make_sick Unaware, dodrink, make_corpse, vpline, mkcavearea, dig_up_grave, furniture_handled, use_bell, ignite_items/catch_lit, getcad-trio, kick_object, costly_gold/donate_gold, use_unicorn_horn, use_towel, use_tinning_kit, costly_tin, flip_through_book/flip_coin, use_figurine, use_crystal_ball, potionhit C-commented-arms, gd_sound, dosounds, dopay, use_stone, kick_nondoor SDOOR+helpers/throne+tree, resists_ston, cpostfx/corpse_intrinsic/givit, offer_too_soon/eatspecial/cprefx/use_defensive/hitmu/getdir, do_earthquake/do_pit/DRUM, use_whip/grapple/pole, use_pick_axe2, use_trap.
 
 ## Don't re-check (≤15)
 
-- D-1790…D-2354 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-2355 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
-  ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 are D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
-- `Val/Sam` loaders D-1852/D-1858 — check `load_val_*`/`load_sam_*` before refilling.
+  ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
+- `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / `setnotworn`←`owornmask` (D-1020) / `delobj` tut loot / off-level timers (D-1037) / dropped `msounds[]` (D-1053) / tut-1 keys (D-1065) / skipped `tutorial()` (D-1066). No skip D-1067…D-2354.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, or makemon→hack/artifact/minion. No re-port D-1682…D-2354.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2355.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2355.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2355: `js/apply.js` only, no new modules, no new module edges (`objects` joins the existing `objects.js` import — `imports.mjs --can` ALREADY; `check_unpaid Named: candle `SetVoice(shop_keeper(*in_rooms(...)), 0, 80, 0)` (audio voice no-op, use_candle pr
 - D-2354: `js/apply.js` — `impossible` joins the existing `display.js` import (`imports.mjs --can` ALREADY, no new edge); bad-bag arm awaits `impossible("bad ba Named: `tipcontainer_checks` otrapped `chest_trap`/`nomul`, recursive `tipcontainer_checks(target
 - D-2353: `dodrop` (shop + non-shop arms), `doapply`, `dorub` call live `getobj` with the C word/ok/flags; deleted the three clones + six single-use letter help Named: remaining `getobj_*` clones with verb-specific shape (wield/ready hands-return mapping `wi
 - D-2352: `js/pickup.js` only (+11/−4, no new modules, no new imports — `PICK_ANY` already imported): `sortflags` starts `(how === PICK_ANY) ? Named: none new.
@@ -46,5 +47,4 @@ Park rows: re-pop only on the listed falsifier (proofs in Parked).
 - D-2343: `js/attrib.js` — exported `uchangealign` (1:1 with C `attrib.c`): ublessed=0 + `game.flags.botl` (pray.js-guarded idiom), CONVERT livelog `permanently Named: `angry_priest` (C priest.c:876–911) at the conversion-glow priest check — own next Open qu
 - D-2342: `js/mklev.js` only, zero new module edges (`imports.mjs --can mklev.js worn.js m_dowear` → ALREADY: file already statically imports worn.js). Named: other loaders' `spo_end_moninvent m_dowear` Named-omission lines (Kni-loca/fila/filb, Mon-
 - D-2341: `js/end.js` — 5 names join existing imports (no new edges: `m_monnam`, `is_vampshifter`, `strstri`, `the_unique_pm`, `BUFSZ`; all `imports.mjs --can`  Named: `done_in_by` ghost arms (no corpus reach); vampshifter-alt + mimicker sub-arms (ported, un
-- D-2340: 4 js files (+61/−23), no new modules. Named: `You_see "%s %s under %s"` pline + `set_msg_xy` / `PLNMSG_HIDE_UNDER` / `last_hider` (asyn
 <!-- landmarks:end -->

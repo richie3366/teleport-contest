@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
+- [x] `apply.c` use_lamp residual (named debt.md D-1023/D-1052; use_candle D-1025 + DONE arms shipped; never own-row live/parked). Probe: `node scripts/brief.mjs use_lamp`. **Addressed:** D-2355
+
+
 - [x] `makemon.c` bagotricks BAG_OF_TRICKS (named debt.md D-1023 family; never live/archived/parked). Probe: `node scripts/brief.mjs bagotricks`. **Addressed:** D-2354 `2ac37870`
 
 

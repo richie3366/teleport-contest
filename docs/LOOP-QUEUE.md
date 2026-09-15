@@ -60,13 +60,18 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `apply.c` use_lamp residual (named debt.md D-1023/D-1052; use_candle D-1025 + DONE arms shipped; never own-row live/parked). Probe: `node scripts/brief.mjs use_lamp`.
 - [ ] `apply.c` release_hold WAN_OPENING + flash_hits_mon (named debt.md D-0979; never live/archived/parked). Probe: `node scripts/brief.mjs release_hold`.
 - [ ] `apply.c` Blindf_on/Blindf_off BLINDFOLD/LENSES (named debt.md D-1013; never live/archived/parked). Probe: `node scripts/brief.mjs Blindf_on`.
 - [ ] `music.c` charm_snakes/calm_nymphs/charm_monsters flute/harp (named debt.md D-0974; never live/archived/parked). Probe: `node scripts/brief.mjs charm_monsters`.
 - [ ] `music.c` awaken_soldiers BUGLE + ubuzz FIRE/FROST horn (named debt.md D-0974; never live/archived/parked). Probe: `node scripts/brief.mjs awaken_soldiers`.
 - [ ] `apply.c` getobj_apply CMDQ_KEY (named debt.md D-1018; live getobj callers D-2353 shipped; never own-row live/parked). Probe: `node scripts/brief.mjs getobj_apply`.
 - [ ] `eat.c` is_edible poly diets + doeat_nonfood (named debt.md D-0936; never own-row live/parked). Probe: `node scripts/brief.mjs is_edible`.
+- [ ] `zap.c` cancel_monst self-cancel hero-invent walk (named debt.md D-1017; never live/archived/parked). Probe: `node scripts/brief.mjs cancel_monst`.
+- [ ] `mthrowu.c` hits_bars thrown-through-bars (named debt.md D-0990; never live/archived/parked). Probe: `node scripts/brief.mjs hits_bars`.
+- [ ] `zap.c` melt_ice/melt_ice_away/start_melt_ice_timeout + burn_floor_objects (named debt.md D-0965; never live/archived/parked). Probe: `node scripts/brief.mjs melt_ice`.
+- [ ] `zap.c` zap_over_floor closed-door/SDOOR/IRONBARS shopdamage (named debt.md D-0948; never live/archived/parked). Probe: `node scripts/brief.mjs zap_over_floor`.
+- [ ] `zap.c` unturn_dead/revive invent+floor (named debt.md D-0955; never live/archived/parked). Probe: `node scripts/brief.mjs unturn_dead`.
+- [ ] `zap.c` break_statue STATUE_TRAP activate (named debt.md D-0997; never live/archived/parked). Probe: `node scripts/brief.mjs break_statue`.
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 

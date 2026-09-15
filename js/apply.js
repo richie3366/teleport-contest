@@ -13,7 +13,7 @@ import { cansee, couldsee, howmonseen } from './vision.js';
 import {
     TOOL_CLASS, WAND_CLASS, SPBOOK_CLASS, WEAPON_CLASS, POTION_CLASS,
     COIN_CLASS, GEM_CLASS, FOOD_CLASS, RING_CLASS, RANDOM_CLASS,
-    objectNames, objectNameStrs, objectDescrs, is_axe,
+    objectNames, objectNameStrs, objectDescrs, is_axe, objects,
 } from './objects.js';
 import {
     P_AXE, P_PICK_AXE, P_POLEARMS, P_LANCE, P_NONE, P_BASIC, P_SKILLED,
@@ -4709,11 +4709,16 @@ async function use_unpaid_trapobj(otmp, _x, _y) {
 }
 
 /**
- * C ref: apply.c use_lamp — light or snuff oil lamp / magic lamp / lantern
- * (candle arms included; doapply candles dispatch use_candle, D-1025).
+ * C ref: apply.c use_lamp `:1628-1700` — light or snuff oil lamp /
+ * magic lamp / lantern (candle arms included; doapply candles dispatch
+ * use_candle, D-1025). Lamp arm runs check_unpaid(obj) before the
+ * "is now on" pline (`:1683`); candle arm bills a fresh unpaid candle
+ * via SetVoice + verbalize + bill_dummy_object when unpaid, costly_spot
+ * and age == 20*oc_cost (`:1690-1698`).
  * Cursed spill: make_glib((Glib&TIMEOUT)+d(2,10)) — Glib is
  * (HGlib|EGlib) remaining timeout, not a flat `u.Glib` boolean (D-1052).
- * Named omit: shop check_unpaid; candle unpaid SetVoice / bill_dummy.
+ * Named omit: candle SetVoice (no-op without audio voice; use_candle
+ * attach arm omits it the same way, js/apply.js use_candle).
  */
 export async function use_lamp(obj) {
     if (!obj) return;
@@ -4762,13 +4767,23 @@ export async function use_lamp(obj) {
         return;
     }
     if (lamp) {
-        // check_unpaid deferred
+        // C apply.c:1683-1685 — check_unpaid before the "is now on" pline
+        await check_unpaid(obj);
         await pline(`${Shk_Your_apply(obj)}${lamp} is now on.`);
     } else {
         await pline(
             `${s_suffix_apply(Yname2_oil(obj))} flame${plur_quan(obj.quan)} ${otense(obj, 'burn')}${Blind() ? '.' : ' brightly!'}`,
         );
-        // candle unpaid verbalize / bill_dummy deferred
+        // C apply.c:1690-1698 — fresh unpaid candle burns into a sale
+        const u = game.u || {};
+        if (obj.unpaid && costly_spot(u.ux | 0, u.uy | 0)
+            && (obj.age | 0) === 20 * (objects()?.[obj.otyp | 0]?.oc_cost | 0)) {
+            const ithem = (obj.quan | 0) > 1 ? 'them' : 'it';
+            // C SetVoice(shop_keeper(*in_rooms(...)), 0, 80, 0) omitted
+            // (audio voice no-op; use_candle attach arm omits it too)
+            await verbalize(`You burn ${ithem}, you bought ${ithem}!`);
+            await bill_dummy_object(obj);
+        }
     }
     begin_burn(obj, false);
 }
