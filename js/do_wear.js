@@ -11,7 +11,7 @@ import {
     newsym, see_monsters, urgent_pline, impossible, Hallucination,
 } from './display.js';
 import { yn_function, paranoid_ynq } from './getline.js';
-import { an, doname, the, xname, xprname, vtense, makeplural, makesingular, otense, gloves_simple_name, obj_pmname_corpse, simpleonames, body_part_latebound, Tobjnam } from './objnam.js';
+import { an, doname, the, xname, xprname, vtense, makeplural, makesingular, otense, gloves_simple_name, obj_pmname_corpse, simpleonames, body_part_latebound, Tobjnam, Yname2, corpse_xname, killer_xname, arti_light_description } from './objnam.js';
 import { find_ac } from './u_init.js';
 import {
     A_STR, A_INT, A_WIS, A_CON, A_CHA, A_DEX, acurr, extremeattr, change_luck, Fast, Very_fast,
@@ -55,6 +55,7 @@ import {
     MENU_TRADITIONAL, MENU_COMBINATION, MENU_FULL,
     ALL_FINISHED, ALL_TYPES_SELECTED, ALL_TYPES, WORN_TYPES, UNPAID_TYPES,
     BUCX_TYPES, SIGNAL_NOMENU, USE_INVLET, INVORDER_SORT, PICK_ANY,
+    CXN_ARTICLE,
     HAND, FOOT, FINGER, TT_BEARTRAP, TT_INFLOOR, TT_LAVA, TT_BURIEDBALL, P_SHORT_SWORD, P_SABER,
     rightleftchars, RIGHT_HANDED,
     GETOBJ_EXCLUDE, GETOBJ_EXCLUDE_INACCESS, GETOBJ_DOWNPLAY, GETOBJ_SUGGEST,
@@ -72,8 +73,10 @@ import {
     is_flammable, is_rustprone, is_rottable, is_corrodeable, is_crackable,
     erosion_matters, is_damageable, is_metallic, curse, set_bknown,
 } from './mkobj.js';
-import { erode_obj, selftouch } from './trap.js';
-import { artifact_light, end_burn } from './timeout.js';
+import { erode_obj, selftouch, instapetrify } from './trap.js';
+import { artifact_light, begin_burn, end_burn } from './timeout.js';
+import { strsubst } from './hacklib.js';
+import { make_hallucinated } from './potion.js';
 import { rn2, rnd } from './rng.js';
 import { set_mimic_blocking } from './vision.js';
 import { restartcham, rescham } from './mon.js';
@@ -422,14 +425,56 @@ function set_extrinsic_bit(propIdx, flatField, mask, on) {
 }
 
 /**
- * C ref: do_wear.c dragon_armor_handling — suit/scales special extrinsics.
- * Named omissions: gold make_hallucinated; red see_monsters; yellow
- * wielding_corpse on doff; artifact_light begin_burn/end_burn in Armor_*.
+ * C ref: do_wear.c wielding_corpse `:606–643` — petrify check when stoning
+ * protection is lost (yellow-DSM doff, gloves doff, resist timeout).
+ * C order: null/non-corpse/gloved early return; wielded-or-twoweap-alt
+ * gate; touch_petrifies + !Stone_resistance You/instapetrify/remove_worn_item.
+ * The final remove_worn_item uses the file-local weapon-thin helper (review
+ * 47): obj here is always a wielded corpse (W_WEP), so the armor/amulet/ring
+ * arms of the steal.js canonical export are unreachable; unchain_ball FALSE
+ * is irrelevant for a weapon.
+ * @param {object|null} obj uwep/uswapwep candidate
+ * @param {object|null} how gloves/dragon armor/Null
+ * @param {boolean} voluntary taking protection off on purpose
+ */
+export async function wielding_corpse(obj, how, voluntary) {
+    if (!obj || (obj.otyp | 0) !== CORPSE || game.u?.uarmg) return;
+    // note: can't dual-wield non-weapons so twoweap is always false for corpse
+    if (obj !== game.u?.uwep && (obj !== game.u?.uswapwep || !game.u?.twoweap)) return;
+    const stoneRes = (u) => !!((u?.Stone_resistance) || (u?.HStone_resistance) || (u?.EStone_resistance));
+    if (touch_petrifies(mons(obj.corpsenm)) && !stoneRes(game.u)) {
+        const wieldWord = (how && is_gloves(how)) ? 'now wield' : 'are wielding';
+        const cx = corpse_xname(obj, null, CXN_ARTICLE);
+        const hands = makeplural(body_part_latebound(HAND));
+        // C You("%s %s in your bare %s.", …) — pline with You prefix (blue-arm idiom)
+        await pline(`You ${wieldWord} ${cx} in your bare ${hands}.`);
+        // "removing" ought to be "taking off" but that truncates tombstone text
+        let hbuf;
+        if (how) {
+            const howName = is_gloves(how)
+                ? gloves_simple_name(how)
+                : strsubst(simpleonames(how), 'set of ', '');
+            hbuf = `${voluntary ? 'removing' : 'losing'} ${howName}`;
+        } else {
+            hbuf = 'resistance timing out';
+        }
+        const kbuf = `${hbuf} while wielding ${killer_xname(obj)}`;
+        await instapetrify(kbuf);
+        // life-saved or poly'd into stone golem; can't keep wielding unless resistant now
+        if (!stoneRes(game.u)) remove_worn_item(obj);
+    }
+}
+
+/**
+ * C ref: do_wear.c dragon_armor_handling `:797–884` — suit/scales special
+ * extrinsics in C switch order. Red calls see_monsters() on both puton and
+ * doff; gold calls make_hallucinated(!puton, !restoring, W_ARM); yellow calls
+ * wielding_corpse on doff only. Artifact light lives in Armor_on/off/gone.
  * @param {object|null} otmp
  * @param {boolean} puton
- * @param {boolean} [_on_purpose=true]
+ * @param {boolean} [on_purpose=true]
  */
-async function dragon_armor_handling(otmp, puton, _on_purpose = true) {
+async function dragon_armor_handling(otmp, puton, on_purpose = true) {
     if (!otmp) return;
     const otyp = otmp.otyp | 0;
     switch (otyp) {
@@ -460,11 +505,13 @@ async function dragon_armor_handling(otmp, puton, _on_purpose = true) {
         case RED_DRAGON_SCALES:
         case RED_DRAGON_SCALE_MAIL:
             set_extrinsic_bit(INFRAVISION, 'EInfravision', W_ARM, puton);
-            // see_monsters() deferred
+            // C: see_monsters() on both puton and doff
+            see_monsters();
             break;
         case GOLD_DRAGON_SCALES:
         case GOLD_DRAGON_SCALE_MAIL:
-            // make_hallucinated(!puton, …, W_ARM) deferred
+            // C: (void) make_hallucinated((long) !puton, restoring ? FALSE : TRUE, W_ARM)
+            await make_hallucinated(puton ? 0 : 1, !(game.program_state?.restoring), W_ARM);
             break;
         case ORANGE_DRAGON_SCALES:
         case ORANGE_DRAGON_SCALE_MAIL:
@@ -479,7 +526,11 @@ async function dragon_armor_handling(otmp, puton, _on_purpose = true) {
         case YELLOW_DRAGON_SCALES:
         case YELLOW_DRAGON_SCALE_MAIL:
             set_extrinsic_bit(STONE_RES, 'EStone_resistance', W_ARM, puton);
-            // wielding_corpse on doff deferred
+            if (!puton) {
+                // C: prevent wielding cockatrice after losing stoning resistance
+                await wielding_corpse(game.u?.uwep, otmp, on_purpose);
+                await wielding_corpse(game.u?.uswapwep, otmp, on_purpose);
+            }
             break;
         case WHITE_DRAGON_SCALES:
         case WHITE_DRAGON_SCALE_MAIL:
@@ -633,11 +684,29 @@ function clear_worn(mask) {
     setworn(null, mask);
 }
 
-/** C ref: do_wear.c Armor_off — suit; arti_light end_burn deferred */
+/**
+ * C ref: do_wear.c Armor_off `:909–930` — suit doff in C order: was_arti_light
+ * snapshot, takeoff.mask clear, setworn(NULL, W_ARM), cancelled_don reset,
+ * gold-DSM arti_light end_burn + "stop shining" before the potentially fatal
+ * dragon_armor_handling(otmp, FALSE, TRUE). Mirrors Armor_gone's snapshot rule:
+ * unwearing clears the W_ARM bit artifact_light reads on gold DSM/scales.
+ */
 export async function Armor_off() {
     const otmp = game.u?.uarm;
+    const was_arti_light = !!(otmp && otmp.lamplit && artifact_light(otmp));
+    if (game.context?.takeoff) {
+        game.context.takeoff.mask =
+            (game.context.takeoff.mask | 0) & ~W_ARM;
+    }
     clear_worn(W_ARM);
-    // C: setworn(NULL) then dragon_armor_handling(otmp, FALSE, TRUE)
+    if (game.context?.takeoff) {
+        game.context.takeoff.cancelled_don = false;
+    }
+    /* C: non-fatal arti_light change before the potentially fatal handling. */
+    if (was_arti_light && !artifact_light(otmp)) {
+        end_burn(otmp, false);
+        if (!Blind()) await pline(`${Tobjnam(otmp, 'stop')} shining.`);
+    }
     await dragon_armor_handling(otmp, false, true);
     return 0;
 }
@@ -758,17 +827,23 @@ export function Shirt_off() {
 }
 
 /**
- * C ref: do_wear.c Armor_on — known + dragon_armor_handling.
- * Named omission: artifact_light begin_burn (gold DSM light).
+ * C ref: do_wear.c Armor_on `:886–900` — known + dragon_armor_handling +
+ * gold-DSM arti_light begin_burn in C order. find_ac kept (house; C relies
+ * on the botl repaint instead).
  */
 async function Armor_on() {
     const uarm = game.u?.uarm;
     if (!uarm) return 0;
     if (!uarm.known) {
         uarm.known = 1;
+        update_inventory();
     }
     await dragon_armor_handling(uarm, true, true);
-    // artifact_light begin_burn deferred
+    /* gold DSM requires extra handling since it emits light when worn */
+    if (artifact_light(uarm) && !uarm.lamplit) {
+        begin_burn(uarm, false);
+        if (!Blind()) await pline(`${Yname2(uarm)} ${otense(uarm, 'begin')} to shine ${arti_light_description(uarm)}!`);
+    }
     find_ac();
     return 0;
 }

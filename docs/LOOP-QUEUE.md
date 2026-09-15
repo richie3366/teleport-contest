@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `do_wear.c` dragon_armor_handling color/arti_light arms (turns.md:1067-1069 D-0636 deferred: gold make_hallucinated, red see_monsters, yellow wielding_corpse, arti_light burn; never own-row live/archived/parked). Probe: `node scripts/brief.mjs dragon_armor_handling`.
 - [ ] `trap.c` untrap disarm arms (TOP30 #22; dead callees disarm_holdingtrap/disarm_landmine/disarm_shooting_trap/disarm_box/help_monster_out; never own-row live/archived/parked). Probe: `node scripts/brief.mjs untrap`.
 - [ ] `mhitu.c` hitmu (TOP30 honourable 123/72; swallowed-hero strike path; never own-row live/archived/parked). Probe: `node scripts/brief.mjs hitmu`.
 - [ ] `makemon.c` grow_up (TOP30 honourable 127/67; pet/horse growth path; never own-row live/archived/parked). Probe: `node scripts/brief.mjs grow_up`.

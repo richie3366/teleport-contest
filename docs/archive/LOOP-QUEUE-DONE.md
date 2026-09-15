@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `topten.c` outentry astral/choked/poisoned/crushed/petrified arms (D-2122-named residual; C topten.c:946–1107; local clone in js/; never own-row live/archived/parked). Probe: `node scripts/brief.mjs outentry`. **Addressed:** D-2394
+- [x] `do_wear.c` dragon_armor_handling color/arti_light arms (turns.md:1067-1069 D-0636 deferred: gold make_hallucinated, red see_monsters, yellow wielding_corpse, arti_light burn; never own-row live/archived/parked). Probe: `node scripts/brief.mjs dragon_armor_handling`. **Addressed:** D-2395
+
+
+- [x] `topten.c` outentry astral/choked/poisoned/crushed/petrified arms (D-2122-named residual; C topten.c:946–1107; local clone in js/; never own-row live/archived/parked). Probe: `node scripts/brief.mjs outentry`. **Addressed:** D-2394 `bb704c9c`
 
 
 - [x] `do.c` obj_no_longer_held (D-2060-named residual; C do.c:893–920; not in js/; never own-row live/archived/parked). Probe: `node scripts/brief.mjs obj_no_longer_held`. **Addressed:** D-2393 `b7216a99`
