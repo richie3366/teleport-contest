@@ -99,3 +99,5 @@ claimed (corpus re-run above is the independent check).
    iter; falsifier: shifted-vampire killer epitaph vs C.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-2351

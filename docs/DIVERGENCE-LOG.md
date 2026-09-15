@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-2351 — `end.c` done_in_by vampire-bat arm polarity (`!==` → `===`)
+
+- **Status:** fixed (Must-fix queue head from review 1314 `done_in_by` imitator predicate; review stamped **Addressed:** D-2351.)
+- **Symptom:** shifted-vampire killer epitaphs contradicted C in both directions: a vampshifter in bat form printed "vampire in vampire bat form" (C: "vampire in bat form"), and a vampshifter in fog form printed "in bat form" (C keeps "fog cloud").
+- **C locus:** `nethack-c/upstream/src/end.c` imitator arm (`else if (alt && strstri(realnm, "vampire") && !strcmp(fakenm, "vampire bat"))` → `fakenm = "bat"`, comment: prefer "vampire in bat form" over "vampire in vampire bat form"); reachable for vampshifter killers (`cham` ∈ vampire/leader/Vlad, `monst.h:217-219`, fog-or-bat forms).
+- **JS was:** `js/end.js:1241` fired on `fakenm !== 'vampire bat'` → `'bat'` — the exact inversion of C's `!strcmp` equality.
+- **Fix:** `js/end.js` only (+3/−2, no new modules, no new imports): predicate `!==` → `===` with a C-cited comment (`end.c` imitator arm `!strcmp(fakenm, "vampire bat")` → `"bat"`).
+- **JS:** 1 js file (+3/−2). No new modules, no new module edges.
+- **Verify:** `node scripts/verify.mjs --fn done_in_by` → PASS syntax (1 changed js file) · PASS rule2 · note hidden (vacuous: 0 blocked at HEAD — NOT a corpus PASS; the row cited 0 corpus blocks so no `--base` owed) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · VERIFY: PASS. `/tmp/probe-vampbat.mjs` truth table (bat/fog/vampire vs C `!strcmp`) + shape consequence (bat→"bat", fog→"fog cloud") PROBE PASS; probe deleted. Pre-change `node scripts/verify.mjs --no-cohort` on the clean tree → VERIFY: PASS (green 2/2 + strict ×2).
+- **Named omissions:** none new — ghost arms stay named per D-2341.
+- **Next:** do not re-pop `done_in_by` for this arm. Falsifier: a shifted-vampire killer epitaph trace contradicting the `===` arm above. No seed/step/coordinate gates.
+
 ## D-2350 — `pickup.c` pickup floor-pickup body: dbridge pool/lava gate, count-N PICK_ONE, engulfer chain, all_but_uchain
 
 - **Status:** fixed (Open queue head `pickup.c` pickup floor-pickup body; archived narrow arms safe_qbuf D-1654/observe_quantum_cat D-1535. No review cites this row — no stamp owed.)

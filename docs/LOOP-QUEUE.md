@@ -43,7 +43,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `end.c` done_in_by vampire-bat arm fires on `!==` where C fires on equality (`!strcmp(fakenm, "vampire bat")`, `end.c` imitator arm) — shifted-vampire epitaphs contradict C in both directions (bat form keeps "vampire bat", fog form forced to "bat"). Fix: `js/end.js:1241` `!==` → `===`. Source: reviews/loop-unattended/1314-aa08fdb3-done-in-by-imitator-predicate.md.
 - [ ] `pickup.c` query_objlist_pickup count-N PICK_ONE arm runs the PICK_ANY-only FEEL_COCKATRICE abort + SORTLOOT_PETRIFY augment (C gates both on `qflags & FEEL_COCKATRICE`, set only at `pickup.c:774-776`). Fix: gate `sortflags |= SORTLOOT_PETRIFY` and the will_feel abort on `how === PICK_ANY`. Source: reviews/loop-unattended/1316-b214fb72-pickup-floor-pickup-body.md.
 
 A **JS throw** in any corpus session (`hidden-proxy status` owner

@@ -80,10 +80,11 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `end.c` done_in_by vampire-bat polarity (review 1314 Must-fix: `js/end.js:1241` `!==` → `===` per `end.c` imitator arm `!strcmp(fakenm, "vampire bat")`). Probe: shifted-vampire killer epitaph vs C.
+**Next cluster:** `pickup.c` query_objlist_pickup count-N PICK_ONE arm (review 1316 Must-fix: gate FEEL_COCKATRICE abort + SORTLOOT_PETRIFY on `how === PICK_ANY` per `pickup.c:774-776`). Probe: `node scripts/brief.mjs query_objlist_pickup`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2350 (index).**
+**Keep D-0845…D-2351 (index).**
 <!-- recent:begin -->
+**D-2351** `nethack-c/upstream/src/end.c` imitator arm (`else if (alt && strstri(realnm, "vampire") & — `js/end.js` only (+3/−2, no new modules, no new imports): predicate `!==` → `===` with a C-cited comment (`end.c` imitator arm `!strcmp(fakenm, "vampire bat")` → `"bat"`).
 **D-2350** `nethack-c/upstream/src/pickup.c` `pickup` `:672–910` (objchain `:741–747` BY_NEXTHERE vs  — `js/pickup.js` only, no new modules, no new module edges (`PICK_ANY` joins the existing const.js import; `is_pool`/`is_lava` were already imported from hack.js — no `imports.mjs --can` owed).
 **D-2349** `nethack-c/upstream/src/shk.c` `shk_your` `:5862–5877` (`!shk_owns && !mon_owns` order) +  — `js/shk.js` — exported `shk_owns_prefix` (C `shk_owns` order, canonical `timeout.js` `get_obj_location(obj, 0)` via existing import, local `costly_spot`/`inside_shop`/`shop_keeper`/`s_suffix`/`shkname`; the file-local pr
 **D-2348** `nethack-c/upstream/src/end.c` `done_in_by` `:184-190` (`mptr = mtmp->data`, `champtr = is — `js/end.js` only: `mptrNdx = mptr?.mndx ?? mnum`, `chamNdx = ismnum(cham) ? cham : mptrNdx`, `imitator = mptrNdx !== chamNdx || mimicker` with C citations (`end.c:184-190`, `makemon.c:1355-1359`, `mon.c:535-546`).
@@ -91,11 +92,10 @@ Do **not** pop map-omission singletons
 **D-2346** `nethack-c/upstream/src/apply.c` `do_break_wand` `:3909–4146` — `js/apply.js` only (+22/−15, no new modules): `await check_unpaid(obj)` before `costly_alteration`; real `freeinv(obj)` (already imported); `Soundeffect(se_wall_of_force, 65)` in C order (`imports.mjs --can apply.js sndp
 **D-2345** `nethack-c/upstream/src/pray.c` `offer_real_amulet` `:1529–1589` (Amulet_off-if-worn, carr — `js/pray.js` only — file-local async `offer_too_soon` / `offer_real_amulet` / `offer_fake_amulet` in C order (C `staticfn` ⇒ file-local, matching `offer_corpse`/`offer_negative_valued`), wired into `dosacrifice` replacin
 **D-2344** `nethack-c/upstream/src/priest.c` `angry_priest` `:876–911` (`findpriest(temple_occupied(u — `js/priest.js` — exported `free_epri` (GC replaces `free()`: null the `mextra.epri` slot, then `ispriest=0` like C) and exported async `angry_priest` in C order (`findpriest(temple_occupied(...))` early-return, `await wa
-**D-2343** `nethack-c/upstream/src/pray.c` `offer_different_alignment_altar` `:1630–1695` (conversion — `js/attrib.js` — exported `uchangealign` (1:1 with C `attrib.c`): ublessed=0 + `game.flags.botl` (pray.js-guarded idiom), CONVERT livelog `permanently converted to <adj>` via `aligns[1-newalign]` (roles.js order matches 
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2350; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2351; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

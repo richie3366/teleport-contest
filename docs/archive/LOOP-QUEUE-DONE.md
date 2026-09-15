@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `pickup.c` pickup floor-pickup body (TOP30 honourable mention, 238/135; reached by 374 corpus traces; archived rows are narrow arms safe_qbuf D-1654/observe_quantum_cat D-1535; never live/parked). Probe: `node scripts/brief.mjs pickup`. **Addressed:** D-2350
+- [x] `end.c` done_in_by vampire-bat arm fires on `!==` where C fires on equality (`!strcmp(fakenm, "vampire bat")`, `end.c` imitator arm) — shifted-vampire epitaphs contradict C in both directions (bat form keeps "vampire bat", fog form forced to "bat"). Fix: `js/end.js:1241` `!==` → `===`. Source: reviews/loop-unattended/1314-aa08fdb3-done-in-by-imitator-predicate.md. **Addressed:** D-2351
+
+
+- [x] `pickup.c` pickup floor-pickup body (TOP30 honourable mention, 238/135; reached by 374 corpus traces; archived rows are narrow arms safe_qbuf D-1654/observe_quantum_cat D-1535; never live/parked). Probe: `node scripts/brief.mjs pickup`. **Addressed:** D-2350 `b214fb72`
 
 
 - [x] `apply.c` use_grease CAN_OF_GREASE (named debt.md:16 D-1026; never live/archived/parked). Probe: `node scripts/brief.mjs use_grease`. **Addressed:** D-2349 `18f6e38f`

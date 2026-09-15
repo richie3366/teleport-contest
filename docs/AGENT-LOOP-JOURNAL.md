@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-15 — D-2351 `end.c` done_in_by vampire-bat arm polarity (`!==` → `===`)
+
+**C locus:** `nethack-c/upstream/src/end.c` imitator arm (`else if (alt && strstri(realnm, "vampire") && !strcmp(fakenm, "vampire bat"))` → `fakenm = "bat"`, comment: prefer "vampire in bat form" over "vampire in vampire bat form"); reachable for vampshifter killers (`cham` ∈ vampire/leader/Vlad, `monst.h:217-219`, fog-or-bat forms).
+**JS:** 1 js file (+3/−2). No new modules, no new module edges.
+**Change:** `js/end.js` only (+3/−2, no new modules, no new imports): predicate `!==` → `===` with a C-cited comment (`end.c` imitator arm `!strcmp(fakenm, "vampire bat")` → `"bat"`).
+**Verify:** `node scripts/verify.mjs --fn done_in_by` → PASS syntax (1 changed js file) · PASS rule2 · note hidden (vacuous: 0 blocked at HEAD — NOT a corpus PASS; the row cited 0 corpus blocks so no `--base` owed) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · VERIFY: PASS. `/tmp/probe-vampbat.mjs` truth table (bat/fog/vampire vs C `!strcmp`) + shape consequence (bat→"bat", fog→"fog cloud") PROBE PASS; probe deleted. Pre-change `node scripts/verify.mjs --no-cohort` on the clean tree → VERIFY: PASS (green 2/2 + strict ×2).
+**Named:** none new — ghost arms stay named per D-2341.
+**Next:** do not re-pop `done_in_by` for this arm. Falsifier: a shifted-vampire killer epitaph trace contradicting the `===` arm above. No seed/step/coordinate gates.
 ## 2026-09-15 — Audit aa08fdb3..b214fb72 (reviews 1314-1316: 1 ACCEPT, 2 QUALITY-RISK + Must-fix) + cadence 44/44
 
 Each JS-touching SHA re-audited against pinned C (csym body+callers, sym on re-point targets, added-line banned grep, rulecheck, independent hidden-proxy verify --base re-run). 1314 QUALITY-RISK: aa08fdb3 fixed its 1307 Must-fix (imitator index compare verified arm-for-arm incl. null/birth cases), but walking the function surfaced the D-2341 vampire-bat arm firing on `!==` where C fires on equality (`!strcmp(fakenm,"vampire bat")`) — shifted-vampire epitaphs contradict C both ways; Must-fix prepended (`!==` → `===`), Next cluster set. 1315 ACCEPT: 18f6e38f shk_owns prefix arm-for-arm (order/trailing-space), all 14 clone re-points land on live C-faithful canonicals (Eyes delta toward C), TDZ late-bind disclosed; one stale `shk_your` jsdoc omit line noted, not queued. 1316 QUALITY-RISK: b214fb72 gate/FOLLOW/count/autoselect all verified vs C, but the new PICK_ONE arm inherits the ungated FEEL_COCKATRICE abort + PETRIFY augment (C sets both only at pickup.c:774-776 PICK_ANY); Must-fix prepended (gate on `how === PICK_ANY`). Cadence: full sessions 44/44, Scr 11405/11405, RNG 792838/792838, speed 47+0.29/turn. Queue at 10 unchecked (2 Must-fix + 8 Open) — no refill.

@@ -1238,8 +1238,9 @@ export async function done_in_by(mtmp, how = DIED) {
             // C: realnm already correct (champtr==mptr); fake from mappearance
             shapeptr = mtmp?.mappearance != null ? mons(mtmp.mappearance) : mptr;
             fakenm = pmname(shapeptr, gend);
-        } else if (alt && strstri(realnm, 'vampire') && fakenm !== 'vampire bat') {
-            // C: "vampire in bat form", not "vampire in vampire bat form"
+        } else if (alt && strstri(realnm, 'vampire') && fakenm === 'vampire bat') {
+            // C end.c imitator arm: !strcmp(fakenm, "vampire bat") → "bat",
+            // i.e. "vampire in bat form", not "vampire in vampire bat form"
             fakenm = 'bat';
         }
         let shape;

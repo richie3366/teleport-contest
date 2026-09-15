@@ -18,19 +18,20 @@ Park rows: re-pop only on the listed falsifier (proofs in Parked).
 
 ## Don't re-check (≤15)
 
-- D-1790…D-2350 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-2351 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 are D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` loaders D-1852/D-1858 — check `load_val_*`/`load_sam_*` before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / `setnotworn`←`owornmask` (D-1020) / `delobj` tut loot / off-level timers (D-1037) / dropped `msounds[]` (D-1053) / tut-1 keys (D-1065) / skipped `tutorial()` (D-1066). No skip D-1067…D-2350.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, or makemon→hack/artifact/minion. No re-port D-1682…D-2350.
+- No memcpy gi worn/ball (D-1035) / `setnotworn`←`owornmask` (D-1020) / `delobj` tut loot / off-level timers (D-1037) / dropped `msounds[]` (D-1053) / tut-1 keys (D-1065) / skipped `tutorial()` (D-1066). No skip D-1067…D-2351.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, or makemon→hack/artifact/minion. No re-port D-1682…D-2351.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2351: `js/end.js` only (+3/−2, no new modules, no new imports): predicate `!==` → `===` with a C-cited comment (`end.c` imitator arm `!strcmp(fakenm, "vampi Named: none new — ghost arms stay named per D-2341.
 - D-2350: `js/pickup.js` only, no new modules, no new module edges (`PICK_ANY` joins the existing const.js import; `is_pool`/`is_lava` were already imported fro Named: query_objlist `:1060–1062` single-worn-engulfer-item autoselect suppress (unreachable: man
 - D-2349: `js/shk.js` — exported `shk_owns_prefix` (C `shk_owns` order, canonical `timeout.js` `get_obj_location(obj, 0)` via existing import, local `costly_spo Named: `Yname2_oil`/`s_suffix_apply`/`plur_quan`/`otense_stone` suffix families (use_stone/use_la
 - D-2348: `js/end.js` only: `mptrNdx = mptr?.mndx ?? mnum`, `chamNdx = ismnum(cham) ? cham : mptrNdx`, `imitator = mptrNdx !== chamNdx || mimicker` with C citat Named: none new — ghost arms stay named per D-2341.
@@ -45,5 +46,4 @@ Park rows: re-pop only on the listed falsifier (proofs in Parked).
 - D-2339: `js/makemon.js` only, zero new module edges (`MM_NOCOUNTBIRTH` joins the existing const.js import; `propagate` is same-file — no new cross-module impo Named: `makemon` ptr-arm `G_GENOD` veto + wizard extinct `debugpline` (`makemon.c:1204–1212`, own
 - D-2338: `js/trap.js` only, zero new module edges (`imports.mjs --can` ALREADY ×7: `fillholetyp`/`liquid_flow`/`maybe_dunk_boulders` join the existing dig.js i Named: `spot_checks(x,y,old_typ)` (C `:3218`) — no JS counterpart anywhere in `js/` (own future r
 - D-2337: extractor parses A() args[12]/args[13] as `genSpe`/`giftValue` and emits them; `js/generated/artifacts_data.js` regenerated via the checked-in extract Named: pray.c `bestow_artifact` caller wiring (pray.js:2200 comment stays — own row; this port sh
-- D-2336: `js/mklev.js` only, zero new module edges (all names file-local; no `imports.mjs --can` needed — no new cross-module import). Named: medusa-1/3 pre-flip pushes with manual TELE/BRANCH drains (behaviorally exact duplicates o
 <!-- landmarks:end -->
