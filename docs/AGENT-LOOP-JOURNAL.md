@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-15 — D-2308 `shk.c` shopdig anger arms: rile_shk bill surcharge + digactualhole make_angry_shk
+
+**C locus:** `shk.c` `shopdig` `:5018–5110` (curse/growl arm calls `rile_shk`); `rile_shk` `:1362–1377` (NOTANGRY=FALSE + `(price+2)/3` bill walk); `dig.c` `digactualhole` `:821–822` (`if (mtmp->isshk) make_angry_shk(mtmp, 0, 0)` before `migrate_to_level`).
+**JS:** 2 files (`shk.js` +8/−2, `dig.js` +7/−3 incl. doc-ledger updates), far under the 600/10 caps.
+**Change:** `js/shk.js` only: `rile_shk` ports the walk verbatim in C order over the live `bill_p`/`bill` shape (same `||` fallback as `addupbill`; `| 0` integer idiom). `js/dig.js` only: the `teleport_pet` success arm calls the already-live `make_angry_shk` via the file's existing dynamic `shk.js` import (no new module edge, no `imports.mjs --can` needed); header envelope + Named-omit ledger updated. Rule #2 clean.
+**Verify:** preflight `verify --no-cohort` PASS on a clean tree before edits. `verify --fn shopdig` → PASS syntax (2 changed js files) · PASS rule2 · note hidden (vacuous: 0 blocked at HEAD — NOT a corpus PASS; row cited 0 so no `--base` owed) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (tool-gated) · VERIFY: PASS. No hand probe: `rile_shk` is module-private (no production export added for testability) and both arms are straight-line C-order ports over live callees (`make_angry_shk` already exercised via its dokick/dothrow/teleport/trap callers); surcharge arithmetic spot-checked (price 10→14, 1→2, 0→0 both sides).
+**Named:** `SetVoice` in `shopdig` warn (pre-existing); `#if 0` nolimbs curse/rile early-return (C-disabled, both sides); remaining `digactualhole` ledger (`buried_ball_to_punishment`, `ship_object`, shop `add_damage`, `liquid_flow` — other rows). Seen while reading, untouched: `dig()` `:520` `unblock_point` vs JS `recalc_block_point`, `:528–533` earth-debris elemental still deferred.
+**Next:** do not re-pop shopdig. Falsifier: a rescore or fresh `verify` showing a session blocked with a shopdig/rile/make_angry owner.
 ## 2026-09-15 — D-2307 `dig.c` bury-family deferred arms: end_burn/maybe_unhide_at/buried-ball/delfloortrap/damage-chains/pooleffects
 
 **C locus:** `dig.c` `bury_an_obj` `:1982–2047` (`end_burn` `:2011–2012`); `bury_objs` `:2049–2081` (`maybe_unhide_at` `:2074`); `unearth_objs` `:2084–2112` (`buried_ball` `:2091`, punish arm `:2096–2099`); `liquid_flow` `:837–879` (`u_at` `:843`, `delfloortrap` `:857`, damage chains `:868–872`, `pooleffects` `:875`). `buried_ball{,_to_punishment,_to_freedom}` + `rot_organic` re-read; bodies already faithful, untouched.

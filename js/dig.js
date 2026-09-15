@@ -627,13 +627,13 @@ export async function liquid_flow(x, y, typ, ttmp, fillmsg) {
  * Branch envelope (D-0950/D-0954/D-0958/D-0961/D-0963): furniture_handled;
  * maketrap; furniture fall msg; desecrate_altar on hero/obj altar dig;
  * shop add_damage / pay ruin; PIT at_u set_utrap + wake_nearby; HOLE hero
- * fall goto_level + shopdig(1) pack snatch; mon teleport_pet migrate;
- * impact_drop floor objs through hole.
+ * fall goto_level + shopdig(1) pack snatch; mon teleport_pet migrate
+ * + angry shk; impact_drop floor objs through hole.
  * PIT after wake_nearby and HOLE at_u await switch_terrain then
  * re-read Lev/Fly (D-1269; C dig.c:733 / :757). maketrap PIT/HOLE
  * set_levltyp STONE/SCORR→CORR / wall|SDOOR (D-1280);
  * DRAWBRIDGE_UP ice→floor (D-1296). Named omit:
- * buried_ball_to_punishment; make_angry_shk; ship_object;
+ * buried_ball_to_punishment; ship_object;
  * shop add_damage; liquid_flow.
  */
 export async function digactualhole(x, y, madeby, ttyp) {
@@ -850,7 +850,11 @@ export async function digactualhole(x, y, madeby, ttyp) {
                     } else {
                         get_level(tolevel, depth(u.uz) + 1);
                     }
-                    // make_angry_shk deferred when mtmp.isshk
+                    /* C dig.c:821–822 — teleported shopkeeper gets angry. */
+                    if (mtmp.isshk) {
+                        const { make_angry_shk } = await import('./shk.js');
+                        await make_angry_shk(mtmp, 0, 0);
+                    }
                     migrate_to_level(
                         mtmp, ledger_no(tolevel), MIGR_RANDOM, null,
                     );

@@ -4081,14 +4081,20 @@ export function setpaid(shkp) {
     }
 }
 
-/** C ref: shk.c rile_shk — angry + surcharge on bill (bill walk deferred). */
+/** C ref: shk.c rile_shk `:1362–1377` — angry + 1/3 surcharge on every bill line. */
 function rile_shk(shkp) {
     if (!shkp) return;
     shkp.mpeaceful = 0;
     const eshk = ESHK(shkp);
     if (eshk && !eshk.surcharge) {
         eshk.surcharge = true;
-        // bill_p price bump deferred when billct==0 (common for angry combat)
+        const bp = eshk.bill_p || eshk.bill;
+        let ct = eshk.billct | 0;
+        for (let i = 0; ct-- > 0; i++) {
+            const e = bp?.[i];
+            if (!e) continue;
+            e.price = (e.price | 0) + ((((e.price | 0) + 2) / 3) | 0);
+        }
     }
 }
 

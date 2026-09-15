@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2308 — `shk.c` shopdig anger arms: rile_shk bill surcharge + digactualhole make_angry_shk
+
+- **Status:** shipped (Open queue head `shk.c` shopdig warn/snatch, debt.md D-0958 residuals; no review cites this row, so no stamp is owed. `brief shopdig` + `verify --fn shopdig` report 0 blocked at HEAD: vacuous note, NOT a corpus PASS; the debt row cited 0 blocks so no `--base` re-run is owed.)
+- **Symptom:** no corpus divergence — C-fidelity residuals. `shopdig` warn/snatch bodies shipped in D-0958/D-1016 with the dig-shop damage/anger envelope wired except two arms (below).
+- **C locus:** `shk.c` `shopdig` `:5018–5110` (curse/growl arm calls `rile_shk`); `rile_shk` `:1362–1377` (NOTANGRY=FALSE + `(price+2)/3` bill walk); `dig.c` `digactualhole` `:821–822` (`if (mtmp->isshk) make_angry_shk(mtmp, 0, 0)` before `migrate_to_level`).
+- **JS was:** `js/shk.js` `rile_shk` set `mpeaceful=0` + `surcharge` flag but deferred the `bill_p` price walk — C walks unconditionally (`while (ct-- > 0)` no-ops on empty bills itself), so a shopkeeper angered while owed never got the 1/3 surcharge. `js/dig.js` `digactualhole` carried `// make_angry_shk deferred` — a shopkeeper teleported down a hero-dug hole migrated without the C "gets angry/is furious" + pursuit.
+- **Fix:** `js/shk.js` only: `rile_shk` ports the walk verbatim in C order over the live `bill_p`/`bill` shape (same `||` fallback as `addupbill`; `| 0` integer idiom). `js/dig.js` only: the `teleport_pet` success arm calls the already-live `make_angry_shk` via the file's existing dynamic `shk.js` import (no new module edge, no `imports.mjs --can` needed); header envelope + Named-omit ledger updated. Rule #2 clean.
+- **JS:** 2 files (`shk.js` +8/−2, `dig.js` +7/−3 incl. doc-ledger updates), far under the 600/10 caps.
+- **Verify:** preflight `verify --no-cohort` PASS on a clean tree before edits. `verify --fn shopdig` → PASS syntax (2 changed js files) · PASS rule2 · note hidden (vacuous: 0 blocked at HEAD — NOT a corpus PASS; row cited 0 so no `--base` owed) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (tool-gated) · VERIFY: PASS. No hand probe: `rile_shk` is module-private (no production export added for testability) and both arms are straight-line C-order ports over live callees (`make_angry_shk` already exercised via its dokick/dothrow/teleport/trap callers); surcharge arithmetic spot-checked (price 10→14, 1→2, 0→0 both sides). No DIAG/FORCE/seed reads.
+- **Named omissions:** `SetVoice` in `shopdig` warn (pre-existing); `#if 0` nolimbs curse/rile early-return (C-disabled, both sides); remaining `digactualhole` ledger (`buried_ball_to_punishment`, `ship_object`, shop `add_damage`, `liquid_flow` — other rows). Seen while reading, untouched: `dig()` `:520` `unblock_point` vs JS `recalc_block_point`, `:528–533` earth-debris elemental still deferred.
+- **Next:** do not re-pop shopdig. Falsifier: a rescore or fresh `verify` showing a session blocked with a shopdig/rile/make_angry owner.
+- **Cited falsifier grade:** measured (pinned `shk.c:5018–5110` + `:1362–1377` + `:1470–1489` + `dig.c:640–829` + `:1336–1352` + `trap.c:667–668` read in full; `brief.mjs shopdig`; post-fix `verify --fn` full-gate PASS; no JS FORCE/DIAG/seed reads used).
+
 ## D-2307 — `dig.c` bury-family deferred arms: end_burn/maybe_unhide_at/buried-ball/delfloortrap/damage-chains/pooleffects
 
 - **Status:** shipped (Open queue head `dig.c` bury family, debt.md D-0967 residuals; review 36 ACCEPT-WITH-DEBT, no Must-fix stamp owed. `brief bury_an_obj` + `verify --fn bury_an_obj` report 0 blocked at HEAD: vacuous note, NOT a corpus PASS; the row cited 0 blocks so no `--base` re-run is owed.)

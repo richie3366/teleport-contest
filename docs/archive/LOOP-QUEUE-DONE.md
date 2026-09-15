@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `dig.c` bury family: bury_an_obj/bury_objs/unearth_objs/rot_organic + liquid_flow ice/unearth (debt.md D-0967; C dig.c:1982 bury_an_obj; no JS bury/unearth/rot_organic). Probe: `node scripts/brief.mjs bury_an_obj`. **Addressed:** D-2307
+- [x] `shk.c` shopdig warn/snatch (debt.md D-0958; C shk.c:5018 shopdig; dig-shop damage/anger unwired). Probe: `node scripts/brief.mjs shopdig`. **Addressed:** D-2308
+
+
+- [x] `dig.c` bury family: bury_an_obj/bury_objs/unearth_objs/rot_organic + liquid_flow ice/unearth (debt.md D-0967; C dig.c:1982 bury_an_obj; no JS bury/unearth/rot_organic). Probe: `node scripts/brief.mjs bury_an_obj`. **Addressed:** D-2307 `4fac3591`
 
 
 - [x] `cmd.c` rhack `-`→fight binding (fresh rescore 2026-09-14: **Addressed:** D-2306 ownerless screen step, C«» vs JS«Unknown command '-'» — C number_pad map binds `-` to fight, cmd.c:2772, consumed via cmdbind_get in rhack :3679; no `'-'` binding in js/cmd.js so JS falls to the Unknown-command arm js/cmd.js:3074). Probe: `node frozen/ps_test_runner.mjs .cache/hidden/sessions/random-seed0015-valk-level2-pit-dog-wait-eb7e90ad.session.json` (step 33/72) + `node scripts/brief.mjs rhack`.
