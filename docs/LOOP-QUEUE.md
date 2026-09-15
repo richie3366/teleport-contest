@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `dig.c` zap_dig swallowed-pierce arm (JS early-return `if (u.uswallow)` js/dig.js zap_dig; C dig.c:1569-1582 pierce pline + mhp + expels). Probe: `node scripts/brief.mjs zap_dig`.
 - [ ] `dig.c` dighole DRAWBRIDGE_UP + magical-trap explode arms (JS-doc named omit js/dig.js dighole; C dig.c:885 dighole). Probe: `node scripts/brief.mjs dighole`.
 - [ ] `do.c` dodown stair-descent More-transient (live corpus owner, 1 session: scen-wish-Samurai-92088 step 88 C «The water demon hurls a dark potion!--More--» vs JS «The water demon hurls a dark potion!»; live residual of shipped ready_weapon D-2158 which moved the session here; not live/archived/parked). Probe: `node scripts/brief.mjs dodown`.
 

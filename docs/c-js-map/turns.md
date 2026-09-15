@@ -1801,7 +1801,8 @@ mon `teleport_pet` migrate** (D-0954); **`dig_up_grave` + `dighole` IS_GRAVE** (
 **`use_pick_axe2` `u_wipe_engr(3)` D-1375** (C `:1335` axe-scratch after `!ispick` and not 
 LANDMINE/BEAR_TRAP; callee D-1051; uteetering/uescaped_shaft / Underwater still named);
 **`zap_dig` pitdig + `adj_pit_checks`/`pit_flow`** (D-2321; C `:1617-1662` + `:1763` + `:1844`);
-omit Hallucination draft; swallowed pierce (next Open row);
+**`zap_dig` swallowed pierce** (D-2322; C `:1569-1582`: non-whirly pierce pline + unique-halve/else-1 mhp + `expels`);
+omit Hallucination draft;
 crush/entity + iron-chain scatter; impact shop `stolen_value`
 
 ### `src/eat.c`

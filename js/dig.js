@@ -41,6 +41,7 @@ import {
 import { CLR_WHITE } from './terminal.js';
 import {
     is_watch, is_flyer, is_floater, grounded, MZ_HUGE, passes_walls, mons,
+    is_whirly, G_UNIQ,
 } from './monsters.js';
 import {
     PM_DWARF, PM_ELF, PM_RANGER, PM_ARCHEOLOGIST, PM_SAMURAI, PM_WIZARD,
@@ -106,7 +107,7 @@ import {
     WEB, LANDMINE, BEAR_TRAP, TRAPDOOR, KILLED_BY, KILLED_BY_AN, NO_PART,
     HEAD, FOOT,
     TT_BURIEDBALL, TT_INFLOOR, DRAWBRIDGE_DOWN, DBWALL, MIGR_RANDOM,
-    TAINT_AGE, MM_NOMSG, IN_SIGHT, COULD_SEE, RLOC_NOMSG,
+    TAINT_AGE, MM_NOMSG, IN_SIGHT, COULD_SEE, RLOC_NOMSG, STOMACH,
     xytodir, DIR_180, DIR_ERR, xdir, ydir, N_DIRS,
     ICE, DRAWBRIDGE_UP, DB_UNDER, DB_ICE,
     ROT_ORGANIC, TIMER_OBJECT, Has_contents, OBJ_FREE,
@@ -1196,7 +1197,9 @@ export async function pit_flow(trap, filltyp) {
  * KILLED_BY_AN falling rock, mksobj ROCK + stackobj + newsym);
  * zap down elsewhere is watch_dig + dighole. Air/waterlevel and
  * u.uinwater (C `Underwater` = u.uinwater, youprop.h:279) skip both.
- * Named omissions: swallowed pierce.
+ * Swallowed pierce (C dig.c:1569-1582): non-whirly swallower takes the
+ * digests-only pierce pline, unique halves mhp else mhp = 1, then
+ * expels (mhitu.js, dynamic import per this file's convention).
  * pitdig conjoined / adj_pit_checks / pit_flow live below
  * (C dig.c:1617-1662 + :1763 adj_pit_checks + :1844 pit_flow).
  */
@@ -1204,8 +1207,31 @@ export async function zap_dig() {
     const u = game.u;
     if (!u) return;
 
+    /* C dig.c:1569-1582 — swallowed: pierce the swallower unless whirly
+     * (vortex letter, air elemental), halve a unique's hp else floor it
+     * to 1, then expel the hero. uswallow implies ustuck in C; the null
+     * guard below is dead in practice and only avoids a JS throw.
+     * Dynamic imports: mhitu.js / polyself.js are caller-side modules
+     * (this file's convention, cf. the u.dz arm + use_pick_axe2). */
     if (u.uswallow) {
-        // pierce / expels deferred
+        const mtmp = u.ustuck;
+        if (mtmp && !is_whirly(mtmp.data)) {
+            const { digests, expels } = await import('./mhitu.js');
+            const { mbodypart } = await import('./polyself.js');
+            const digesting = digests(mtmp.data);
+            if (digesting) {
+                await pline(
+                    `You pierce ${s_suffix(mon_nam(mtmp))} ${mbodypart(mtmp, STOMACH)} wall!`,
+                );
+            }
+            /* C mondata.h:174 unique_corpstat — geno & G_UNIQ. */
+            if (((mtmp.data?.geno | 0) & G_UNIQ) !== 0) {
+                mtmp.mhp = (((mtmp.mhp | 0) + 1) / 2) | 0;
+            } else {
+                mtmp.mhp = 1; /* almost dead */
+            }
+            await expels(mtmp, mtmp.data, !digesting);
+        }
         return;
     }
 

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `dig.c` zap_dig pitdig branch via adj_pit_checks/pit_flow (JS stub `if (pitdig) break` + `pit_flow deferred` in zap_dig; C dig.c:1617-1662 branch + :1763 adj_pit_checks + :1844 pit_flow). Probe: `node scripts/brief.mjs adj_pit_checks`. **Addressed:** D-2321
+- [x] `dig.c` zap_dig swallowed-pierce arm (JS early-return `if (u.uswallow)` js/dig.js zap_dig; C dig.c:1569-1582 pierce pline + mhp + expels). Probe: `node scripts/brief.mjs zap_dig`. **Addressed:** D-2322
+
+
+- [x] `dig.c` zap_dig pitdig branch via adj_pit_checks/pit_flow (JS stub `if (pitdig) break` + `pit_flow deferred` in zap_dig; C dig.c:1617-1662 branch + :1763 adj_pit_checks + :1844 pit_flow). Probe: `node scripts/brief.mjs adj_pit_checks`. **Addressed:** D-2321 `95c162ad`
 
 
 - [x] `dokick.c` kick_door shop/watchman arms (debt.md D-0947; C dokick.c kick_door). Probe: `node scripts/brief.mjs kick_door`. **Addressed:** D-2320 `031ebb3a`
