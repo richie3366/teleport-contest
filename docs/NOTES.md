@@ -22,7 +22,7 @@ Park rows: re-pop only on the listed falsifier (proofs in Parked).
 - **really_done:** STALE per D-1812; live end.c residual is `disclose`.
 - **newuhs:** STALE, full port D-1791.
 - **domonnoise/dismount_steed:** STALE DUPLICATEs (D-1915/885).
-- **STALE parks 2026-09-14/15** (proofs in Parked; re-pop only on blocked-owner verify): test_move/domove_core (live), arti_cost (D-1719), m_initweap S_DEMON (D-0472), mextra trio (D-1598), make_sick Unaware (#if 0), dodrink arms (D-2031 + D-1834), make_corpse (D-1794), vpline (D-1807), mkcavearea/mkcavepos/rm_waslit (D-0960 — Parked), dig_up_grave/IS_GRAVE (review-26 — Parked), furniture_handled-HOLE (D-0954 — Parked).
+- **STALE parks 2026-09-14/15** (proofs in Parked; re-pop only on blocked-owner verify): test_move/domove_core, arti_cost (D-1719), m_initweap S_DEMON (D-0472), mextra trio (D-1598), make_sick Unaware, dodrink (D-2031+D-1834), make_corpse (D-1794), vpline (D-1807), mkcavearea/mkcavepos/rm_waslit (D-0960), dig_up_grave/IS_GRAVE (review-26), furniture_handled-HOLE (D-0954), use_bell/openit/openone/mkundead (D-1028).
 
 ## Don't re-check (≤15)
 
