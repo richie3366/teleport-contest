@@ -43,6 +43,9 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
+- [ ] `do_wear.c` Gloves_off misses the `:687/696` `wielding_corpse` pair (new live export wired only for yellow-DSM doff; gloves-doff CORPSE-gated pair unnamed in map). Capture `gloves` + `on_purpose` pre-clear per C `:647–651`, add the pair, make `Gloves_off` async with caller cascade (`js/do_wear.js` :1373/:1391/:1868). Probe: wield cockatrice corpse, doff gloves, check petrify. Source: reviews/loop-unattended/1361-af4fb4cc-dragon-armor-wielding-corpse.md.
+- [ ] `dothrow.c` throwit landing misses `obj_no_longer_held` (call miswired into `throw_gold`, which C never calls it from; C `dothrow.c:1808` is in `throwit` between `flooreffects` and pick-snatch/snuff). Move the canonical `do.js` call from `throw_gold` into JS `throwit` landing (`js/dothrow.js` ~:2316–2340, after the `flooreffects` block). Probe: throw a crysknife and check worm-tooth revert on landing. Source: reviews/loop-unattended/1359-b7216a99-obj-no-longer-held.md.
+
 A **JS throw** in any corpus session (`hidden-proxy status` owner
 `js-throw …`, or a `ReferenceError` in `.cache/hidden/scores.json`
 `error`) is always a Must-fix row: it forfeits every later screen of that
@@ -61,6 +64,7 @@ output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
 - [ ] `vision.c` vision_recalc (TOP30 #30 345/180, hops 0, 36 callers; dead callees get_unused_cs/new_angle; never own-row live/archived/parked). Probe: `node scripts/brief.mjs vision_recalc`.
+- [ ] `end.c` disclose (queue 1/553: scen-wish-Priest-92179 step 100 kind=screen, C «Do you want to see your conduct? [ynq] (n)» vs identical JS topline — paint/More-timing class; archived disclose rows D-2105/D-2039/D-2015 cover other steps/sessions, never this one; really_done park terms: own row when queued). Probe: `node scripts/brief.mjs disclose`.
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 

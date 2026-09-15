@@ -4,6 +4,26 @@ Append-only crumbs for `scripts/agent-port-loop.sh` iterations.
 Each agent process should add a short dated entry **at the top** (after
 this header) before exiting. Keep entries tight; detailed hypothesis
 lives in `NOTES.md` / `CURRENT.md`.
+## 2026-09-15 — Audit b7216a99..a00fc90c (reviews 1359–1362) + cadence 44/44
+
+1359 D-2393 obj_no_longer_held → **QUALITY-RISK** (canonical body exact vs
+:891–920; whip/bones gates exact; clone fully retired; but the dothrow
+call is miswired into `throw_gold`, which C never calls it from — C
+:1808 is `throwit` landing, still unwired → Must-fix). 1360 D-2394
+outentry → **ACCEPT** (death arms + astral switch arm-for-arm vs
+:945–1107; committed outentry.test.mjs 4/4 re-run here). 1361 D-2395
+dragon armor/wielding_corpse → **QUALITY-RISK** (body + RED/GOLD/YELLOW
++ Armor_on/off exact; all callees LIVE; but `Gloves_off` :687/696 pair
+unwired and unnamed in map → Must-fix; flats-only Stone gate audited vs
+writers, no split state). 1362 D-2396 sick/slimed/stoned mirror →
+**ACCEPT** (dual-storage clobber mechanism verified in generic `--`
+loop; re-ran `verify slimed_to_death --base` → Valkyrie-92229 PASS,
+PROGRESS, 0 worse). Per-SHA `--base` re-verify throughout (3× 0/0
+vacuous-confirmed, 1× PROGRESS), rulecheck/banned-grep clean. Cadence
+44/44 (Scr 11,405, RNG 792,838, `48+0.30/turn`). Refill: +1 lawful Open
+(`end.c` disclose, per really_done park terms); other 29 queue owners
+all parked/archived — map-omit refill refused (corpus 88.7% < 90%,
+§10.13 wins over the iter refill note). Open 1→2, Must-fix 0→2.
 ## 2026-09-15 — Audit 585f3720..48716eb3 (reviews 1354–1358) + cadence 44/44
 
 1354 D-2388 query_classes → **ACCEPT** (canonical tally_BUCX, priest

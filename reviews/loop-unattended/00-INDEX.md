@@ -1369,3 +1369,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1356-48e528df-wallify-vault-body.md](./1356-48e528df-wallify-vault-body.md) | `48e528df` | D-2390 wallify_vault body | **ACCEPT** |
 | [1357-3b146232-autoreturn-weapon.md](./1357-3b146232-autoreturn-weapon.md) | `3b146232` | D-2391 autoreturn_weapon | **ACCEPT** |
 | [1358-48716eb3-mhitm-ad-slow.md](./1358-48716eb3-mhitm-ad-slow.md) | `48716eb3` | D-2392 mhitm_ad_slow | **ACCEPT** |
+| [1359-b7216a99-obj-no-longer-held.md](./1359-b7216a99-obj-no-longer-held.md) | `b7216a99` | D-2393 obj_no_longer_held | **QUALITY-RISK** |
+| [1360-bb704c9c-outentry-arms.md](./1360-bb704c9c-outentry-arms.md) | `bb704c9c` | D-2394 outentry arms | **ACCEPT** |
+| [1361-af4fb4cc-dragon-armor-wielding-corpse.md](./1361-af4fb4cc-dragon-armor-wielding-corpse.md) | `af4fb4cc` | D-2395 dragon armor/wielding_corpse | **QUALITY-RISK** |
+| [1362-a00fc90c-sick-slimed-stoned-mirror.md](./1362-a00fc90c-sick-slimed-stoned-mirror.md) | `a00fc90c` | D-2396 sick/slimed/stoned mirror | **ACCEPT** |

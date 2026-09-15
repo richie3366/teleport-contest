@@ -21,10 +21,10 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-15** — full `sessions` on the working tree
-(audit **1354–1358**, HEAD `48716eb3`).
+(audit **1359–1362**, HEAD `a00fc90c`).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`49+0.30/turn` (R² 0.78).
+`48+0.30/turn` (R² 0.79).
 
 ## Score
 
@@ -33,16 +33,16 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `65+0.43/turn` (R² 0.77) |
+| Speed label | `48+0.30/turn` (R² 0.79) |
 | Role-init throws | **0 / 44** |
 
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-15
-audit 1307–1313): **478 / 540 PASS (88.5 %)** excl. 13 env-only rows
-(478/553); RNG 98.9 %; screens 98.5 %. Top owners:
+audit 1307–1313): **479 / 540 PASS (88.7 %)** excl. 13 env-only rows
+(479/553, +Valkyrie-92229 via D-2396); RNG 98.9 %; screens 98.5 %. Top owners:
 `do_statusline2` ×10, `obj_resists` ×6, `distfleeck` ×5,
 `m_move` ×3, `one_characteristic` ×3, `rloc` ×2, then 1-block singles
 (all parked symptom/misattributed owners; `save_dungeon` ×8 cleared by D-2341, knockback cleared by D-2347).
-Reviews 1225–1358: 124 ACCEPT, 3 ACCEPT-WITH-DEBT, 1 DEBT, 1 QUALITY-RISK (Must-fix shipped D-2380); 0 Must-fix outstanding.
+Reviews 1225–1362: 126 ACCEPT, 3 ACCEPT-WITH-DEBT, 1 DEBT, 3 QUALITY-RISK (D-2380 Must-fix shipped; 2 Must-fix outstanding from 1359/1361, both call-site wirings).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx (both map notes).
 Refresh on audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s);
 families ≥ 85 % → grow first via `scenario-gen.mjs --n 120 --seed <iter×100>`.
@@ -79,7 +79,7 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** Open `timeout.c` slimed_to_death (corpus queue 1/553: scen-death-Valkyrie-92229 step 37 kind=screen, C «You feel even worse» vs JS «You feel much worse» after Demogorgon lifesave; never own-row live/archived/parked). Probe: `node scripts/brief.mjs slimed_to_death`.
+**Next cluster:** Must-fix `do_wear.c` Gloves_off `:687/696` `wielding_corpse` pair (review 1361; slimed_to_death Open row retired by D-2396 — Valkyrie-92229 PASS, PROGRESS re-verified). Probe: `node scripts/brief.mjs wielding_corpse`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2396 (index).**
 <!-- recent:begin -->
