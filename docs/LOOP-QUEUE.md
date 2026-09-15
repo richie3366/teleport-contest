@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `pickup.c` pickup floor-pickup body (TOP30 honourable mention, 238/135; reached by 374 corpus traces; archived rows are narrow arms safe_qbuf D-1654/observe_quantum_cat D-1535; never live/parked). Probe: `node scripts/brief.mjs pickup`.
 - [ ] `mhitu.c` hitmu monster-hits-hero dispatch (TOP30 honourable mention, 123/72; reached by 235 corpus traces; no whole-function row live/archived/parked). Probe: `node scripts/brief.mjs hitmu`.
 - [ ] `invent.c` getobj prompt/filter machinery (TOP30 #13, 334/133, in_doagain + prompt/filter; every "What do you want" prompt; archived ALLOWCNT arm D-1530 only; never live/parked). Probe: `node scripts/brief.mjs getobj`.
 - [ ] `cmd.c` getdir direction machinery (TOP30 #15, help_dir/cmdassist/strange-direction/dxdy_moveok/yn_function_menu; archived cmdassist-cancel arms only; never live/parked). Probe: `node scripts/brief.mjs getdir`.
