@@ -81,7 +81,7 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** Open `trap.c` instapetrify + barefoot kick petrify + bhit DISP_FLASH (debt.md:18 D-0995; never own-row live/archived/parked). Probe: `node scripts/brief.mjs instapetrify`.
+**Next cluster:** Open `pray.c` fix_worst_trouble majors Stoned…Region (debt.md:23 D-1011; never own-row live/archived/parked). Probe: `node scripts/brief.mjs fix_worst_trouble`. → parked this iter (D-1011 shipped; see LOOP-QUEUE Parked).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2381 (index).**
 <!-- recent:begin -->
