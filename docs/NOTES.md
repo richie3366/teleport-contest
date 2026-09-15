@@ -6,6 +6,7 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 
 Parks: re-pop only on the listed falsifier (proofs in Parked).
 - **paranoid_query park (2026-09-15):** D-0999/D-1000; all arms live+C-cited (getline.js:1301/1351, apply.js:1012+, pray.js:1790+, mon.js:451/514, end.js Quit/Die/Bones); verify 0 blocked.
+- **release_hold/flash_hits_mon park (2026-09-15):** D-0979; all arms live+C-cited (zap.js:2520 release_hold, apply.js:1053 break-wand, zap.js:4017/4462 bhitm/self, uhitm.js:3390 flash + :3347 gremlin); brief+verify 0 blocked.
 
 - **Eval-order TDZ (D-2349):** no static `objnam.js`→`shk.js` edge (or anything reaching polyself at eval) — boot `_body_part` TDZ via polyself top-level `set_body_part`. Late-bind via setters (the `_y_monnam` idiom).
 

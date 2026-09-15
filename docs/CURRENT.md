@@ -80,7 +80,7 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `apply.c` use_lamp residual (first Open row; `paranoid_query` was parked this iter as a stale duplicate of shipped D-0999/D-1000 — all arms live, verify 0 blocked). Probe: `node scripts/brief.mjs use_lamp`.
+**Next cluster:** `apply.c` Blindf_on/Blindf_off BLINDFOLD/LENSES (next Open row; `release_hold` WAN_OPENING + `flash_hits_mon` popped this iter and parked as a stale duplicate of shipped D-0979 — all arms live, brief+verify 0 blocked. See LOOP-QUEUE Parked). Probe: `node scripts/brief.mjs Blindf_on`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2355 (index).**
 <!-- recent:begin -->
