@@ -21,10 +21,10 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-15** — full `sessions` on the working tree
-(audit **1339–1345**, HEAD `ff517412`).
+(audit **1346–1347**, HEAD `a1b96e3f`).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`83+0.48/turn` (R² 0.71).
+`65+0.43/turn` (R² 0.77).
 
 ## Score
 
@@ -33,7 +33,7 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `46+0.29/turn` (R² 0.80) |
+| Speed label | `65+0.43/turn` (R² 0.77) |
 | Role-init throws | **0 / 44** |
 
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-15
@@ -42,12 +42,12 @@ audit 1307–1313): **478 / 540 PASS (88.5 %)** excl. 13 env-only rows
 `do_statusline2` ×10, `obj_resists` ×6, `distfleeck` ×5,
 `m_move` ×3, `one_characteristic` ×3, `rloc` ×2, then 1-block singles
 (all parked symptom/misattributed owners; `save_dungeon` ×8 cleared by D-2341, knockback cleared by D-2347).
-Reviews 1225–1338: 106 ACCEPT, 3 ACCEPT-WITH-DEBT, 0 Must-fix outstanding (1314 → D-2351 shipped+stamped; 1316 → D-2352 shipped+stamped; 1315/1317–1323 ACCEPT; 1324–1338 ACCEPT 15/15, no C-wrongs).
-Reviews 1339–1345: 5 ACCEPT, 1 DEBT (1340), 1 QUALITY-RISK (1339 → Must-fix).
-Live debts: 1241 SCR_MAIL (map material), 1268 light MINVENT-carrier-mx (map note).
-Refresh on audit iters with `node scripts/hidden-proxy.mjs score --jobs 8`
-(≈200 s); when every family is ≥ 85 % PASS, grow it first:
-`node scripts/scenario-gen.mjs --n 120 --seed <iter×100>`.
+Reviews 1225–1338: 106 ACCEPT, 3 ACCEPT-WITH-DEBT, 0 Must-fix outstanding.
+Reviews 1339–1345: 5 ACCEPT, 1 DEBT, 1 QUALITY-RISK (Must-fix shipped D-2380).
+Reviews 1346–1347: 2 ACCEPT, 0 Must-fix.
+Live debts: 1241 SCR_MAIL, 1268 light carrier-mx (both map notes).
+Refresh on audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s);
+families ≥ 85 % → grow first via `scenario-gen.mjs --n 120 --seed <iter×100>`.
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
 seed0102, seed0700, seed1150, seed0017, seed0077, seed0106, seed0501,

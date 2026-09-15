@@ -1356,3 +1356,5 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1343-7c83a6ca-peffect-water-make-sick.md](./1343-7c83a6ca-peffect-water-make-sick.md) | `7c83a6ca` | D-2377 peffect_water make_sick | **ACCEPT** |
 | [1344-e3d36021-set-artifact-intrinsic.md](./1344-e3d36021-set-artifact-intrinsic.md) | `e3d36021` | D-2378 set_artifact_intrinsic | **ACCEPT** |
 | [1345-ff517412-ceiling-full-arms.md](./1345-ff517412-ceiling-full-arms.md) | `ff517412` | D-2379 ceiling | **ACCEPT** |
+| [1346-3f602af2-pfsc-canonical-export.md](./1346-3f602af2-pfsc-canonical-export.md) | `3f602af2` | D-2380 PfSC canonical export | **ACCEPT** |
+| [1347-828e88b4-float-up-residuals.md](./1347-828e88b4-float-up-residuals.md) | `828e88b4` | D-2381 float_up residuals | **ACCEPT** |

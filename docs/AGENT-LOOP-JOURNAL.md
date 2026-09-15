@@ -4,6 +4,14 @@ Append-only crumbs for `scripts/agent-port-loop.sh` iterations.
 Each agent process should add a short dated entry **at the top** (after
 this header) before exiting. Keep entries tight; detailed hypothesis
 lives in `NOTES.md` / `CURRENT.md`.
+## 2026-09-15 — Audit 3f602af2..a1b96e3f (reviews 1346–1347) + cadence 44/44
+
+1346 D-2380 → **ACCEPT** (1339 Must-fix retired as ordered; `were.js:57`
+verified vs `youprop.h:355–360`). 1347 D-2381 float_up → **ACCEPT**
+(buried_ball/Lev_at_will/surface/WEB/Flying arm-exact; fixes latent
+`TT_WEB`-vs-`WEB` + `Flying_fu`-sans-steed-flyer C-wrongs). Per-SHA verify
+0/0, rulecheck/banned-grep clean. Cadence 44/44 (Scr 11,405, RNG 792,838,
+`65+0.43/turn`). No Must-fix; 9 Open in band, no refill.
 
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
