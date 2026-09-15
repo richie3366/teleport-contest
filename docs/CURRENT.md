@@ -81,7 +81,7 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** Open `artifact.c` artifact_hit realizes/drain/blind arms (TOP30 #28; never own-row live/archived/parked). Probe: `node scripts/brief.mjs artifact_hit`. (burn_away_slime+LS_OBJECT/BURN_OBJECT → parked this iter, STALE DUPLICATE of shipped D-0978; fix_wall_spines parked prev iter D-0975; see LOOP-QUEUE Parked.)
+**Next cluster:** Open `hack.c` findtravelpath TEST_TRAV/guess/travelmap (TOP30 #29; travel `_` adjacent/greedy only). Probe: `node scripts/brief.mjs findtravelpath`. (artifact_hit → parked this iter, STALE TOP30 RATIO of shipped D-1873/D-2144/D-2292; see LOOP-QUEUE Parked.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2381 (index).**
 <!-- recent:begin -->
