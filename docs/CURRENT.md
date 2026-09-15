@@ -80,7 +80,7 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `music.c` do_earthquake DRUM_OF_EARTHQUAKE — PARKED stale-duplicate this iter (D-0972 + D-2315 shipped, review 1281 ACCEPT, verify 0 blocked); queue refilled to 12 Open from debt.md. Probe: `node scripts/brief.mjs do_earthquake`.
+**Next cluster:** `apply.c` use_whip grapple/pole family — PARKED stale-duplicate this iter (D-1022 + D-1040/D-1041/D-1045/D-1051/D-2213 shipped, verify 0 blocked); queue drops to 11 Open, no refill (corpus tops all parked/archived, singletons gated < 90%). Probe: `node scripts/brief.mjs use_whip`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2353 (index).**
 <!-- recent:begin -->

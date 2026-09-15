@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `invent.c` getobj prompt/filter machinery (TOP30 #13, 334/133, in_doagain + prompt/filter; every "What do you want" prompt; archived ALLOWCNT arm D-1530 only; never live/parked). Probe: `node scripts/brief.mjs getobj`. **Addressed:** D-2353
+- [x] `invent.c` getobj prompt/filter machinery (TOP30 #13, 334/133, in_doagain + prompt/filter; every "What do you want" prompt; archived ALLOWCNT arm D-1530 only; never live/parked). Probe: `node scripts/brief.mjs getobj`. **Addressed:** D-2353 `589d9acb`
 
 
 - [x] `pickup.c` query_objlist_pickup count-N PICK_ONE arm runs the PICK_ANY-only FEEL_COCKATRICE abort + SORTLOOT_PETRIFY augment (C gates both on `qflags & FEEL_COCKATRICE`, set only at `pickup.c:774-776`). Fix: gate `sortflags |= SORTLOOT_PETRIFY` and the will_feel abort on `how === PICK_ANY`. Source: reviews/loop-unattended/1316-b214fb72-pickup-floor-pickup-body.md. **Addressed:** D-2352 `9cc2b25f`
