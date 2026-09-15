@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `vault.c` wallify_vault body (turns.md:3746; move_gold D-1946 caller omitted; local clone in js/; never own-row live/archived/parked). Probe: `node scripts/brief.mjs wallify_vault`. **Addressed:** D-2390
+- [x] `weapon.c` autoreturn_weapon always_toss (turns.md:3426-named; C weapon.c:520–529; 3 local clones in js/; never own-row live/archived/parked). Probe: `node scripts/brief.mjs autoreturn_weapon`. **Addressed:** D-2391
+
+
+- [x] `vault.c` wallify_vault body (turns.md:3746; move_gold D-1946 caller omitted; local clone in js/; never own-row live/archived/parked). Probe: `node scripts/brief.mjs wallify_vault`. **Addressed:** D-2390 `48e528df`
 
 
 - [x] `do_wear.c` better_not_take_that_off (D-1602-named residual; C do_wear.c:2990–3010 stoning-corpse/gloves-name arms; not in js/; never own-row live/archived/parked). Probe: `node scripts/brief.mjs better_not_take_that_off`. **Addressed:** D-2389 `515afbee`

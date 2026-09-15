@@ -79,10 +79,11 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** Open `vault.c` wallify_vault body (turns.md:3746; move_gold D-1946 caller omitted; local clone in js/; never own-row live/archived/parked). Probe: `node scripts/brief.mjs wallify_vault`.
+**Next cluster:** Open `weapon.c` autoreturn_weapon always_toss (turns.md:3426-named; C weapon.c:520–529; 3 local clones in js/; never own-row live/archived/parked). Probe: `node scripts/brief.mjs autoreturn_weapon`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2390 (index).**
+**Keep D-0845…D-2391 (index).**
 <!-- recent:begin -->
+**D-2391** `nethack-c/upstream/src/weapon.c` `autoreturn_weapon` `:519–529` over `arwep[]` `:513–517` — `js/weapon.js` — canonical exported `autoreturn_weapon` (C order: null guard, `otyp('AKLYS')` compare, `{ otyp, range: AKLYS_LIM², tethered: 1 }`; `BOLT_LIM`/`AKLYS_LIM` join the const.js import; `otyp`/`objectNames` alr
 **D-2390** `nethack-c/upstream/src/vault.c` `wallify_vault` `:646–731` (boundary-ring scan with inter — `js/vault.js` — full async `wallify_vault` in C order/branch structure (boundary-ring loops with interior `continue`; `IS_WALL || g_at || sobj_at(ROCK) || sobj_at(BOULDER)` gate short-circuit + `!in_fcorridor`; `m_at` oc
 **D-2389** `nethack-c/upstream/src/do_wear.c` `better_not_take_that_off` `:2989–3010` (corpse scan; ` — `js/do_wear.js` — new `carrying_stoning_corpse()` (C invent walk over `game.invent`, `CORPSE` + `touch_petrifies(mons(corpsenm))`; exported: C declares it extern, `extern.h:1394`, unlike the staticfn below) + new async `
 **D-2388** `nethack-c/upstream/src/pickup.c` `query_classes` `:140–262` (m_seen `:158` + ask_again `: — `js/pickup.js` only (+ import line): `query_classes` calls canonical `tally_BUCX(objs, here)` from `./invent.js` (`imports.mjs --can` → ALREADY, same SCC, no new edge) and the local clone is deleted (D-2347/D-2349 idiom)
@@ -90,11 +91,10 @@ Do **not** pop map-omission singletons
 **D-2386** `nethack-c/upstream/src/hack.c:1852–1881` (TIP_GETPOS arm `:1871–1873` `l_nhcore_call(NHCO — `js/hack.js` — TIP_GETPOS arm in C switch order (`await l_nhcore_call(NHCORE_GETPOS_TIP); return true`, `:1583–1587`) + `NUM_TIPS` range check; `js/do.js` — GETPOS_TIP dispatch (`await show_getpos_tip(); return`, `:1108–
 **D-2385** `nethack-c/upstream/src/weapon.c:1424–1434` (`if (skill != P_NONE && !P_RESTRICTED(skill)) — `js/weapon.js` — `use_skill` is now `async`, C order (`P_NONE`/`P_ISRESTRICTED` guards, `advance_before = can_advance(skill, false)`, `+= degree|0`, `!before && can_advance` → `await give_may_advance_msg(skill)`); stale 
 **D-2384** `nethack-c/upstream/src/trap.c:4975-5008` (over/on preposit; `surface()`; is_ice→ice_descr — `back_on_ground` ported arm-for-arm in C order over the shared `surface()` (sit.js D-2008) with the file-local `hero_Levitation()`/`hero_Flying()` preposit gate, `an`/`the` (objnam.js) matrix arms, `game.flags?.verbose !
-**D-2383** `nethack-c/upstream/src/region.c:1341–1363` (`region_danger`: `!hero_inside` skip, gas_clo — both loops use the file-local `hero_inside(reg)` (no new edge, no TDZ — same-file function declaration); safety dual-writes flat + `uprops[MAGICAL_BREATHING].intrinsic` TIMEOUT bits (HBlinded precedent in `do.js`; `MAGIC
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2390; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2391; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

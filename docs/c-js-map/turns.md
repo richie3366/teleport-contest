@@ -3420,7 +3420,7 @@ peaceful yn deferred); **`is_safemon` requires `canspotmon`** (D-0791);
 `possibly_unwield` + `mswingsm` live D-1919; ranged `thrwmm` live D-2257 —
 `mthrowu.c:968–1012` + `mhitm.c:393–404`; `monshoot` stays C-staticfn
 same-file, now mtarget-or-mux + `gm.m_shot` + canseemon `" at "`
-`some_mon_nam`; named: `thrwmu` polearm / `autoreturn_weapon` always_toss);
+`some_mon_nam`; `thrwmu` autoreturn always_toss D-2391 (`mthrowu.c:1241–1259` canonical `autoreturn_weapon` from `js/weapon.js` over C `arwep[]` `:513–517` AKLYS-only + `!mwelded` + `rang > arw->range || !couldsee` return + `!always_toss` skipping the retreat `rn2`; 3 local clones retired; named: `thrwmu` polearm arm `:1195–1240`);
 **`mattackm` preamble
 D-1919** (grid-bug angle MISS, mundetected clear/newsym/generic notice,
 elf-vs-orc `tmp++`; Unaware-dream + HIDE_UNDER/last_hider arms named omits —

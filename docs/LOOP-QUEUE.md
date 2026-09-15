@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `weapon.c` autoreturn_weapon always_toss (turns.md:3426-named; C weapon.c:520–529; 3 local clones in js/; never own-row live/archived/parked). Probe: `node scripts/brief.mjs autoreturn_weapon`.
 - [ ] `uhitm.c` mhitm_ad_slow mhitm-arm + dispatch (D-2043-named residual; mhitu arm live as mhitm_ad_slow_u; C uhitm.c:3652–3687 not in js/; never own-row live/archived/parked). Probe: `node scripts/brief.mjs mhitm_ad_slow`.
 - [ ] `do.c` obj_no_longer_held (D-2060-named residual; C do.c:893–920; not in js/; never own-row live/archived/parked). Probe: `node scripts/brief.mjs obj_no_longer_held`.
 - [ ] `topten.c` outentry astral/choked/poisoned/crushed/petrified arms (D-2122-named residual; C topten.c:946–1107; local clone in js/; never own-row live/archived/parked). Probe: `node scripts/brief.mjs outentry`.

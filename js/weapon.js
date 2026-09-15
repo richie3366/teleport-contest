@@ -50,7 +50,7 @@ import {
     NO_WEAPON_WANTED, W_WEP, W_ARMS, W_ARMG,
     W_ARM, W_ARMC, W_ARMH, W_ARMF, W_ARMU, W_RINGL, W_RINGR,
     ECMD_OK, STR18, Upolyd, MAXULEV, HAND, WT_IRON_BALL_INCR,
-    NON_PM, TIP_ENHANCE,
+    NON_PM, TIP_ENHANCE, BOLT_LIM, AKLYS_LIM,
 } from './const.js';
 import { obj_extract_self, place_object, stackobj } from './mkobj.js';
 import { flooreffects } from './do.js';
@@ -411,6 +411,19 @@ export function multishot_class_bonus(pm, ammo, launcher) {
 
 function otyp(name) {
     return objectNames.indexOf(name);
+}
+
+/**
+ * C ref: weapon.c autoreturn_weapon `:519–529` over `arwep[]` `:513–517`
+ * (`AKLYS_LIM` `:512` = `BOLT_LIM / 2`; `{ AKLYS, AKLYS_LIM², tethered }`;
+ * the `{ BOOMERANG, 5, 0 }` row is commented out in C, so only AKLYS
+ * returns non-null). Canonical export: `js/dothrow.js`, `js/monmove.js`
+ * and `js/mthrowu.js` import this instead of local clones.
+ */
+export function autoreturn_weapon(otmp) {
+    if (!otmp) return null;
+    if ((otmp.otyp | 0) !== otyp('AKLYS')) return null;
+    return { otyp: otyp('AKLYS'), range: AKLYS_LIM * AKLYS_LIM, tethered: 1 };
 }
 
 /**
