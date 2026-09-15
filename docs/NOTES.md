@@ -5,6 +5,7 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 ## Active
 
 Park rows: re-pop only on the listed falsifier (proofs in Parked).
+- **paranoid_query park (2026-09-15):** debt.md D-0999/D-1000 refill row; every named arm live+C-cited (getline.js:1301/1351, apply.js:1012-1020, pray.js:1790-1807, mon.js:451/514, end.js Quit/Die/Bones); brief+verify 0 blocked (vacuous); queue tops all parked-class, queue at 7 Open, no filler.
 
 - **Eval-order TDZ (D-2349):** no static `objnam.js`→`shk.js` edge (or anything reaching polyself at eval) — boot crashes with `_body_part` TDZ via polyself's top-level `set_body_part`. Late-bind via setters (the `_y_monnam` idiom).
 

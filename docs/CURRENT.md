@@ -80,7 +80,7 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `cmd.c` paranoid_query ParanoidBreakwand/ParanoidPray (first Open row; `use_trap` was parked by `74797791` after being named here — stale pointer fixed this audit). Probe: `node scripts/brief.mjs paranoid_query`.
+**Next cluster:** `apply.c` use_lamp residual (first Open row; `paranoid_query` was parked this iter as a stale duplicate of shipped D-0999/D-1000 — all arms live, verify 0 blocked). Probe: `node scripts/brief.mjs use_lamp`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2354 (index).**
 <!-- recent:begin -->
