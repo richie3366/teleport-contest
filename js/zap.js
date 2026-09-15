@@ -279,6 +279,7 @@ import {
     trap_ice_effects,
     NO_TRAP_FLAGS, ignite_items, openholdingtrap, closeholdingtrap,
     openfallingtrap, self_invis_message, trapname, animate_statue,
+    activate_statue_trap,
     acid_damage,
 } from './trap.js';
 import { potionbreathe, make_stunned, speed_up } from './potion.js';
@@ -289,7 +290,7 @@ import { show_transient_light, transient_light_cleanup } from './light.js';
 import { create_gas_cloud } from './region.js';
 import { recalc_block_point } from './vision.js';
 import { picking_at, reset_pick, boxlock, boxlock_invent, doorlock, getdir } from './lock.js';
-import { monflee, sticks } from './monmove.js';
+import { monflee, sticks, maybe_unhide_at } from './monmove.js';
 import { digests, set_ustuck, unstuck, expels, ureflects, u_slow_down } from './mhitu.js';
 import { newcham, makemon, create_critters, monhp_per_lvl, neweshk, add_to_minv, set_mimic_sym, newmcorpsenm } from './makemon.js';
 import { tele, u_teleport_mon, rloco, enexto } from './teleport.js';
@@ -356,7 +357,7 @@ import {
     IS_POOL, CONTAINED_TOO, BURIED_TOO, ROOM, CORR, GRAVE,
     CORPSTAT_GENDER, CORPSTAT_MALE, CORPSTAT_FEMALE, MFAST,
     OMONST, has_oname, ONAME, has_omonst, has_omid, OMID, ESHK,
-    WEB, PIT, HOLE, TRAPDOOR, HEAD, FACE, FOOT, ARM, ENGRAVE, IS_FOUNTAIN, IS_WATERWALL, IS_WALL, HWALL, VWALL,
+    WEB, PIT, HOLE, TRAPDOOR, STATUE_TRAP, HEAD, FACE, FOOT, ARM, ENGRAVE, IS_FOUNTAIN, IS_WATERWALL, IS_WALL, HWALL, VWALL,
     TIMER_LEVEL, MELT_ICE_AWAY, EXPL_FIERY, EXPL_MAGICAL, COLNO, ROWNO,
     xytodir,
     IS_ALTAR, Is_earthlevel, IS_AIR, CLOUD, IS_SINK,
@@ -5421,16 +5422,56 @@ async function bhito(obj, otmp) {
 }
 
 /**
- * C ref: zap.c bhitpile — walk floor pile with fhito.
- * create_polymon / recreate_pile / fill_pit deferred.
+ * C ref: zap.c bhitpile :2426–2500 — walk floor pile with fhito.
+ * Head (:2436–2476) live: hidingunder/first init, WAN_STRIKING /
+ * SPE_FORCE_BOLT STATUE_TRAP pre-activate + learnwand (the default
+ * bhito -> break_statue -> activate_statue_trap sequence could
+ * otherwise operate on next_obj below the current statue), first=FALSE
+ * when the pile head changed, hidingunder up/down skips in the walk,
+ * maybe_unhide_at tail.
+ * Named omit (tails, own rows): create_polymon after poly_zapped,
+ * recreate_pile restack, fill_pit.
  */
-export async function bhitpile(wand, fhito, tx, ty, _zz) {
+export async function bhitpile(wand, fhito, tx, ty, zz) {
     let hitanything = 0;
     if (!objects_at(tx, ty)) return 0;
+
+    /* C :2440–2443 — hiding under an object gates the up/down skips. */
+    const hidingunder = (zz | 0) !== 0 && ((game.u?.uundetected | 0) !== 0)
+        && hides_under(game.youmonst?.data);
+    let first = true;
+
+    /* C :2446–2461 — striking/force-bolt pre-activates a statue trap
+     * before the walk (see the C comment for why the default calling
+     * sequence cannot be trusted here). */
+    if ((wand?.otyp | 0) === SPE_FORCE_BOLT
+        || (wand?.otyp | 0) === WAN_STRIKING) {
+        const t = t_at(tx, ty);
+        const topofpile = objects_at(tx, ty);
+        if (t && (t.ttyp | 0) === STATUE_TRAP
+            && (await activate_statue_trap(t, tx, ty, true)))
+            learnwand(wand);
+        /* C :2459–2461 — assume a changed pile head means the top item
+         * was a statue which activated. */
+        if (objects_at(tx, ty) !== topofpile)
+            first = false;
+    }
 
     game._poly_zapped = -1;
     for (let otmp = objects_at(tx, ty); otmp; ) {
         const next_obj = otmp.nexthere;
+        if (hidingunder) {
+            if (first) {
+                first = false; /* reset for next item */
+                if ((zz | 0) > 0) { /* down zap skips the top item */
+                    otmp = next_obj;
+                    continue;
+                }
+            } else if ((zz | 0) < 0) { /* up zap hits the top item only */
+                otmp = next_obj;
+                continue;
+            }
+        }
         if (otmp.where !== OBJ_FLOOR
             || (otmp.ox | 0) !== (tx | 0) || (otmp.oy | 0) !== (ty | 0)) {
             otmp = next_obj;
@@ -5439,6 +5480,8 @@ export async function bhitpile(wand, fhito, tx, ty, _zz) {
         hitanything += (await fhito(otmp, wand)) | 0;
         otmp = next_obj;
     }
+    /* C :2495–2497 — pile might have been destroyed or dispersed. */
+    if (hidingunder) await maybe_unhide_at(tx, ty);
     return hitanything;
 }
 

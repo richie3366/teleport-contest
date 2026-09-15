@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `zap.c` break_statue STATUE_TRAP activate (named debt.md D-0997; never live/archived/parked). Probe: `node scripts/brief.mjs break_statue`.
 - [ ] `eat.c` doeat Strangled/uedibility/retouch-blast/rustproof arms (named turns.md:1816-1818 deferred; check_capacity/hands_obj/worn/slow-digestion/nonfood live; never own-row live/archived/parked). Probe: `node scripts/brief.mjs doeat`.
 - [ ] `pray.c` pleased pat_on_head gift cases 1-4/6/7-8 + give_spell (named turns.md:410 + js/pray.js:19-21; case-5 shipped D-2219; never own-row live/archived/parked). Probe: `node scripts/brief.mjs pat_on_head`.
 - [ ] `mhitm.c` sleep_monst trap-path clone defended/shieldeff (trap.js `sleep_monst` keeps its own named omit, turns.md:2000; sleep-gas/steed callers pass how=-1 so C still checks resists_sleep/defended + shieldeff, data.md:1065 D-0256; music path live D-2357; never own-row live/archived/parked). Probe: `node scripts/brief.mjs sleep_monst`.
@@ -68,6 +67,7 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 - [ ] `muse.c` searches_for_item FOOD corpse/tin/egg + can_blow polish (D-0598 shipped potion/wand/scroll/amulet/tool subset; Is_container/Is_mbag D-0861; turns.md:2768; never own-row live/archived/parked). Probe: `node scripts/brief.mjs searches_for_item`.
 - [ ] `monmove.c` mon_would_consume_item body (underfoot/can_carry family turns.md:2768, D-0183/D-0223 shipped the wiring; never own-row live/archived/parked). Probe: `node scripts/brief.mjs mon_would_consume_item`.
 - [ ] `zap.c` resist tell-shield `shieldeff_mon` arm (C zap.c:6143-6144 `if (tell)`; turns.md:563 residual "tell-shield stay deferred"; archived D-2116 row is the rn2-roll/alev arms, not this arm; zap.js export defers it per D-2357; never own-row live/parked). Probe: `node scripts/brief.mjs resist`.
+- [ ] `pray.c` bestow_artifact body + caller wiring (no `bestow_artifact` symbol in `js/`; archived #77/D-2337 shipped the `mk_artifact` callee only with caller unwired per its text; D-2345 names the corpse-gift path untouched as its own row; `js/pray.js:25` header-named; prayer/sacrifice family reached by the corpus — pat_on_head gifts own Open row; never own-row live/archived/parked). Probe: `node scripts/brief.mjs bestow_artifact`.
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 

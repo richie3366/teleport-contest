@@ -80,10 +80,11 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `zap.c` break_statue STATUE_TRAP activate (next Open; named debt.md D-0997). Probe: `node scripts/brief.mjs break_statue`.
+**Next cluster:** `eat.c` doeat Strangled/uedibility/retouch-blast/rustproof arms (next Open; named turns.md:1816-1818 deferred). Probe: `node scripts/brief.mjs doeat`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2359 (index).**
+**Keep D-0845…D-2360 (index).**
 <!-- recent:begin -->
+**D-2360** `nethack-c/upstream/src/zap.c` `bhitpile` `:2428–2500` (early return; hidingunder/first in — `js/zap.js` only (+48/−5, no new modules): ported the `bhitpile` head in C order/conjuncts — `hidingunder` from `(zz|0) !== 0 && uundetected && hides_under(youmonst.data)`, `first = true`; STRIKING/FORCE_BOLT arm capture
 **D-2359** `nethack-c/upstream/src/zap.c` `melt_ice` `:5040–5079` (`spot_stop_timers`; `t_at` → `trap — `js/trap.js` — new exported async `trap_ice_effects(x, y, ice_is_melting)` in C order/conjuncts next to `undestroyable_trap` (C home; all callees `t_at`/`m_at`/`cnv_trap_obj`/`deltrap`/`undestroyable_trap`/LAND_MINE/BEAR
 **D-2358** `nethack-c/upstream/src/mthrowu.c` `MT_FLIGHTCHECK` `:552–569` (edge / IS_OBSTRUCTED / clo — `js/mthrowu.js` only, no new modules, no new module edges (`IRONBARS`/`IS_SINK` join the existing `const.js` import; `otense` joins the existing `objnam.js` import; `The`/`mshot_xname`/`canseemon`/`game.marcher`/`game._m
 **D-2357** `nethack-c/upstream/src/mhitm.c` `sleep_monst` `:1225–1250` (`:1231–1234` `resists_sleep | — `js/music.js` only, no new modules, no new module edges (`defended` joins the existing `mondata.js` import and `shieldeff` joins the existing `display.js` import — `imports.mjs --can music.js mondata.js defended` → ALREA
@@ -91,11 +92,10 @@ Do **not** pop map-omission singletons
 **D-2355** `nethack-c/upstream/src/apply.c` `use_lamp` `:1628–1700` (lamp arm `:1683–1685` `check_unp — `js/apply.js` only, no new modules, no new module edges (`objects` joins the existing `objects.js` import — `imports.mjs --can` ALREADY; `check_unpaid`, `costly_spot`, `bill_dummy_object`, `verbalize`, `in_rooms` already
 **D-2354** `nethack-c/upstream/src/makemon.c` `bagotricks` `:2554–2601` (`:2562–2563` bad-bag `imposs — `js/apply.js` — `impossible` joins the existing `display.js` import (`imports.mjs --can` ALREADY, no new edge); bad-bag arm awaits `impossible("bad bag o' tricks")` then returns 0; both tails call sync `update_inventory(
 **D-2353** `nethack-c/upstream/src/invent.c` `getobj` `:1751–2089`; call sites `do.c:35-36` (`getobj( — `dodrop` (shop + non-shop arms), `doapply`, `dorub` call live `getobj` with the C word/ok/flags; deleted the three clones + six single-use letter helpers (`drop_raw_lets`, `drop_suggest_lets`, `apply_lets`, `apply_prompt
-**D-2352** `nethack-c/upstream/src/pickup.c` `pickup` `:761–772` (count-N arm: `"Pick %d of what?"` + — `js/pickup.js` only (+11/−4, no new modules, no new imports — `PICK_ANY` already imported): `sortflags` starts `(how === PICK_ANY) ?
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2359; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2360; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
