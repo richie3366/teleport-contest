@@ -1741,12 +1741,12 @@ export async function destroy_items(mon, dmgtyp, dmg_in) {
 }
 
 /**
- * C ref: zap.c resist — alev by oclass; if resisted halve damage; apply
+ * C ref: zap.c resist :6100-6158 — alev by oclass; if resisted tell-shield
+ * (:6143-6144 `if (tell) shieldeff_mon(mtmp)`) then halve damage; apply
  * remaining damage and kill when fatal.
  * @returns {Promise<boolean>} true if resisted
  */
 export async function resist(mtmp, oclass, damage, tell) {
-    void tell; // shieldeff deferred
     // C: fake players always pass vs Conflict (RING_CLASS, 0 damage, NOTELL).
     if (oclass === RING_CLASS && !damage && !tell && is_mplayer(mtmp.data))
         return true;
@@ -1766,7 +1766,11 @@ export async function resist(mtmp, oclass, damage, tell) {
     const mr = mtmp.data?.mr | 0;
     const resisted = rn2(100 + alev - dlev) < mr;
     let dmg = damage | 0;
-    if (resisted) dmg = Math.trunc((dmg + 1) / 2);
+    if (resisted) {
+        // C :6143-6144: shield effect before the halve, only when tell.
+        if (tell) await shieldeff_mon(mtmp);
+        dmg = Math.trunc((dmg + 1) / 2);
+    }
     if (dmg) {
         mtmp.mhp = (mtmp.mhp | 0) - dmg;
         if ((mtmp.mhp | 0) < 1) {

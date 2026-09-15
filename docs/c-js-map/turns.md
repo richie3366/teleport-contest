@@ -560,7 +560,7 @@ CQ_REPEAT D-1729**
 RAY `weffects` → `ubuzz`/`dobuzz` for `WAN_MAGIC_MISSILE`..`WAN_LIGHTNING` (range/`zap_hit`/`zhitm` 
 damagetypes + cold `destroy_items`/`resist`/`Reflecting` shield)** (D-0450/D-0682);
 **`zhitm` ZT_LIGHTNING `spell_damage_bonus` + `rnd(50)` blind (`resists_blnd_mm` import-the-export from `mhitm.js`; youmonst arm unreachable — callers pass monst*)** (D-2127; MM/FIRE/COLD bonus + `defended` + `shieldeff` stay deferred);
-**`resist` Conflict-early-pass + mplayer dlev + `zhitm` ZT_SLEEP `resist(how)` gate + explode.js `olet` alev table D-2116** (resists_sleep bits live; worn/artifact scan + `defended(AD_SLEE)` + tell-shield stay deferred; music/pray clones exact for fixed-oclass callers; debt R-1082: sleep_monst mimic-reveal arm `mhitm.c:1226–1229` → live `seemimic` unported, ~6 lines); 
+**`resist` Conflict-early-pass + mplayer dlev + `zhitm` ZT_SLEEP `resist(how)` gate + explode.js `olet` alev table D-2116 + tell-shield D-2366** (resists_sleep bits live; tell-shield `shieldeff_mon` live; worn/artifact scan + `defended(AD_SLEE)` stay deferred; music/pray clones exact for fixed-oclass callers; debt R-1082: sleep_monst mimic-reveal arm `mhitm.c:1226–1229` → live `seemimic` unported, ~6 lines); 
 **`ureflects` shield `makeknown`→`exercise(A_WIS)`** (D-0452); 
 **`dobuzz` `tmp_at(DISP_BEAM)` + `zapdir_to_glyph` + `DISP_CHANGE`/`DISP_END`** (D-0468); 
 **`zhitu` non-sleep FIRE/COLD/MISSILE/LIGHTNING + hero `destroy_items` AD_FIRE** (D-0734);

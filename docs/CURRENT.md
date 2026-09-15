@@ -80,10 +80,11 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `monmove.c` mon_would_consume_item body (next Open). Probe: `node scripts/brief.mjs mon_would_consume_item`.
+**Next cluster:** `zap.c` resist tell-shield `shieldeff_mon` arm (C zap.c:6143-6144 `if (tell)`). Probe: `node scripts/brief.mjs resist`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2365 (index).**
+**Keep D-0845…D-2366 (index).**
 <!-- recent:begin -->
+**D-2366** `nethack-c/upstream/src/zap.c` `resist` `:6100–6158` (`:6141` `resisted = rn2(100 + alev - — `js/zap.js` only, no new modules, no new module edges (callee is a hoisted same-file `async function` declaration — no import, no TDZ read): the `if (resisted)` arm awaits `shieldeff_mon(mtmp)` when `tell`, before the ha
 **D-2365** `nethack-c/upstream/src/monmove.c` `mon_would_consume_item` `:1036–1050` (`CORPSE && !touc — `js/monmove.js` only, no new modules, no new module edges (`imports.mjs --can` ALREADY on both: `dogfood` joins the existing `dogmove.js` import, `EDOG`/`has_edog`/`ACCFOOD`/`MANFOOD` join the existing `const.js` import 
 **D-2364** `nethack-c/upstream/src/muse.c` `searches_for_item` `:2706–2792` (floor `OBJ_FLOOR` + unde — `js/muse.js` only, no new modules, no new module edges (all three names ride pre-existing edges, used only at runtime inside the function body — no top-level TDZ read): floor gate gains `&& onscary(obj.ox, obj.oy, mon)` 
 **D-2363** `nethack-c/upstream/src/mhitm.c` `sleep_monst` `:1223–1246` (`:1226–1229` how>=0 mimic `se — `js/trap.js` only (+11/−9, no new modules, no new module edges — `defended` already imported from `./mondata.js:138`, `shieldeff` from `./display.js`, `AD_SLEE=4` file-local at `:519`, all already used: `defended` at `:5
@@ -91,11 +92,10 @@ Do **not** pop map-omission singletons
 **D-2361** `nethack-c/upstream/src/eat.c` `doeat` `:2817–3084` (Strangled head; `floorfood`; `check_c — `js/eat.js` only, no new modules: new async `edibility_prompts` in C order/conjuncts next to `doeat` (C home; `Tobjnam(otmp,'smell')` + quan it/they; `ismnum`/`flesh_petrifies`/`Stone_resistance`-triple/`poly_when_stoned
 **D-2360** `nethack-c/upstream/src/zap.c` `bhitpile` `:2428–2500` (early return; hidingunder/first in — `js/zap.js` only (+48/−5, no new modules): ported the `bhitpile` head in C order/conjuncts — `hidingunder` from `(zz|0) !== 0 && uundetected && hides_under(youmonst.data)`, `first = true`; STRIKING/FORCE_BOLT arm capture
 **D-2359** `nethack-c/upstream/src/zap.c` `melt_ice` `:5040–5079` (`spot_stop_timers`; `t_at` → `trap — `js/trap.js` — new exported async `trap_ice_effects(x, y, ice_is_melting)` in C order/conjuncts next to `undestroyable_trap` (C home; all callees `t_at`/`m_at`/`cnv_trap_obj`/`deltrap`/`undestroyable_trap`/LAND_MINE/BEAR
-**D-2358** `nethack-c/upstream/src/mthrowu.c` `MT_FLIGHTCHECK` `:552–569` (edge / IS_OBSTRUCTED / clo — `js/mthrowu.js` only, no new modules, no new module edges (`IRONBARS`/`IS_SINK` join the existing `const.js` import; `otense` joins the existing `objnam.js` import; `The`/`mshot_xname`/`canseemon`/`game.marcher`/`game._m
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2365; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2366; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

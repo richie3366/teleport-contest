@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `monmove.c` mon_would_consume_item body (underfoot/can_carry family turns.md:2768, D-0183/D-0223 shipped the wiring; never own-row live/archived/parked). Probe: `node scripts/brief.mjs mon_would_consume_item`. **Addressed:** D-2365
+- [x] `zap.c` resist tell-shield `shieldeff_mon` arm (C zap.c:6143-6144 `if (tell)`; turns.md:563 residual "tell-shield stay deferred"; archived D-2116 row is the rn2-roll/alev arms, not this arm; zap.js export defers it per D-2357; never own-row live/parked). Probe: `node scripts/brief.mjs resist`. **Addressed:** D-2366
+
+
+- [x] `monmove.c` mon_would_consume_item body (underfoot/can_carry family turns.md:2768, D-0183/D-0223 shipped the wiring; never own-row live/archived/parked). Probe: `node scripts/brief.mjs mon_would_consume_item`. **Addressed:** D-2365 `dc39711c`
 
 
 - [x] `muse.c` searches_for_item FOOD corpse/tin/egg + can_blow polish (D-0598 shipped potion/wand/scroll/amulet/tool subset; Is_container/Is_mbag D-0861; turns.md:2768; never own-row live/archived/parked). Probe: `node scripts/brief.mjs searches_for_item`. **Addressed:** D-2364 `f35ffe91`
