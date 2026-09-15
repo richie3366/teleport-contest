@@ -80,10 +80,11 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `shk.c` globby_bill_fixup body (data.md:287 deferred with shrink ice-eat; never own-row live/archived/parked). Probe: `node scripts/brief.mjs globby_bill_fixup`.
+**Next cluster:** `do_name.c` minimal_monnam body (data.md:388 omit with mongone FALSE caller; never own-row live/archived/parked). Probe: `node scripts/brief.mjs minimal_monnam`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2374 (index).**
+**Keep D-0845…D-2375 (index).**
 <!-- recent:begin -->
+**D-2375** `nethack-c/upstream/src/do_name.c:1254–1285` (null mon / null data / two wild-pointer rang — new exported sync `minimal_monnam(mon, ckloc)` in `js/do_name.js` (C home) in C order/conjuncts, one `nextmbuf` slot per call (`x_monnam` idiom, so the steed overlap double-call keeps both tags).
 **D-2374** `nethack-c/upstream/src/shk.c:5976–6097` (floor x/y; unpaid-absorber `next_shkp(fmon,TRUE) — new exported async `globby_bill_fixup(obj_absorber, obj_absorbed)` in `js/shk.js` (C home; all 16 other callees already local/imported there — `next_shkp`/`onbill`/`set_cost`/`clear_unpaid_obj`/`get_pricing_units` locals
 **D-2373** `nethack-c/upstream/src/lock.c:758–769` (`m_at` + `is_door_mappear` + `!Protection_from_sh — new exported async `stumble_on_door_mimic(x, y)` in `js/lock.js:636` (C home; predicate draws no RNG; async only because JS `stumble_onto_mimic` reaches pline --More--) with local `Protection_from_shape_changers()` (`js/
 **D-2372** `nethack-c/upstream/src/trap.c` `move_into_trap` `:5393–5437` (`test_move(u.ux,u.uy,sgn(x- — `js/trap.js` only, no new modules, no new module edges (`imports.mjs --can` ALREADY on all three static extends: `trap.js → ball.js` for `drag_ball`/`move_bc`, `trap.js → apply.js` for `check_leash`, `trap.js → steed.js`
@@ -91,11 +92,10 @@ Do **not** pop map-omission singletons
 **D-2370** `nethack-c/upstream/src/quest.c` `artitouch` `:125–136` (`!Qstat(touched_artifact)` → `obs — 2 js files, no new modules (`imports.mjs --can` SAFE on `is_quest_artifact`; `quest.js → invent.js` ALREADY; new `u_init → quest` edge reads both names only at runtime inside `addinv_core1` — no top-level TDZ read): new 
 **D-2369** `nethack-c/upstream/src/spell.c` `dovspell` `:2021–2053` (VIEW loop; `SPELLMENU_SORT` → `s — `js/spell.js` only, no new modules, no new module edges (all names — `ATR_INVERSE`, `paint_corner_nhw_menu`, `dismiss_nhw_menu`, `flush_screen`, `nhgetch`, `objectNameStrs`, `game.objects` oc_level/oc_skill, `ECMD_OK` — 
 **D-2368** `nethack-c/upstream/src/sp_lev.c` `is_ok_location` `:1280–1308` (`:1284–1285` `Is_waterlev — `js/mklev.js` only, no new modules, no new module edges (`imports.mjs --can` ALREADY on both: `is_pool`/`is_lava` join the existing `./hack.js` import, `Is_waterlevel` rides the pre-existing `./const.js` edge — all used 
-**D-2367** `nethack-c/upstream/src/pray.c` `bestow_artifact` `:1781–1836` (raw `u.ulevel > 2 && u.ulu — `js/pray.js` only, no new modules, no new module edges (all four artifact names + `y_n` ride pre-existing edges — `imports.mjs --can` ALREADY on both; used only at runtime inside the function body — no top-level TDZ read
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2374; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2375; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

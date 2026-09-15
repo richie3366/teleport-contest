@@ -1398,6 +1398,14 @@ named `oname` ONAME_LEVEL_DEF); artifact_name slip is D-1670; cmdq_pop
 canned is D-1671; sink-fluid/`safe_qbuf` is D-1672; `oname` via_naming
 livelog is D-1680; `'i'` getobj `"name"` is D-1681; #if 0 EXCLUDE /
 `silly_thing` is D-1682; `undiscover_object` / `gem_learned` is D-1691.
+**`minimal_monnam` D-2375** (C `do_name.c` `:1254–1285` null mon/data +
+wild-pointer range arms + `ckloc` long-worm tail grid arm + tame/peaceful
+prefix + `mon_pmname` coords + `{cham}`; exported sync `js/do_name.js`
+one `nextmbuf` slot per call; range arms key on numeric `data.mndx`
+with `0x` hex + symbolic table ends; grid is `game._level_monsters`;
+wired `m_detach` already-detached FALSE + `place_monster` bounds TRUE +
+overlap FALSE/TRUE with C's flags, `place_mon_nam` clone deleted;
+named: wiz `migr` list caller, `mongone` FALSE-caller body D-1149).
 
 ### `src/dokick.c`
 

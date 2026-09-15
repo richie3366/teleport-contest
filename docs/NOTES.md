@@ -19,19 +19,20 @@ Parks: re-pop only on the listed falsifier (proofs in Parked).
 
 ## Don't re-check (≤15)
 
-- D-1790…D-2374 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-2375 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2374.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2374.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2375.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2375.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2375: new exported sync `minimal_monnam(mon, ckloc)` in `js/do_name.js` (C home) in C order/conjuncts, one `nextmbuf` slot per call (`x_monnam` idiom, so th Named: wiz `migr` list caller (`wizcmds.c:1587–1599` `strsubst <0,0>` strip + MGIVENNAME + mux/mu
 - D-2374: new exported async `globby_bill_fixup(obj_absorber, obj_absorbed)` in `js/shk.js` (C home; all 16 other callees already local/imported there — `next_s Named: `onbill` impossible() arms (pre-existing clone takes `_silent`; shared helper, own row); s
 - D-2373: new exported async `stumble_on_door_mimic(x, y)` in `js/lock.js:636` (C home; predicate draws no RNG; async only because JS `stumble_onto_mimic` reach Named: `pick_lock` `:571` keeps its own inline (same predicate but C-ungated + `maybe_absorb_item
 - D-2372: `js/trap.js` only, no new modules, no new module edges (`imports.mjs --can` ALREADY on all three static extends: `trap.js → ball.js` for `drag_ball`/` Named: full `test_move` rock/closed-door/boulder/worm/travel arms (try_disarm already gates bould
@@ -46,5 +47,4 @@ Parks: re-pop only on the listed falsifier (proofs in Parked).
 - D-2363: `js/trap.js` only (+11/−9, no new modules, no new module edges — `defended` already imported from `./mondata.js:138`, `shieldeff` from `./display.js`, Named: how>=0 `seemimic` reveal + `resist(how,0,NOTELL)` (trap clone stays how=-1-only; music pat
 - D-2362: `js/pray.js` (+~200): new async `give_spell` in C order/conjuncts next to `pleased` (C home; `SPBOOK_no_NOVEL = 0-SPBOOK_CLASS` per objclass.h:152; `s Named: `moves>100000` `ublesscnt` incr (C tail; pre-existing JS gap, untouched — own row when a f
 - D-2361: `js/eat.js` only, no new modules: new async `edibility_prompts` in C order/conjuncts next to `doeat` (C home; `Tobjnam(otmp,'smell')` + quan it/they;  Named: slow-digestion `dknown → trycall` (C `:2906` arm; pre-existing JS gap, untouched — own row
-- D-2360: `js/zap.js` only (+48/−5, no new modules): ported the `bhitpile` head in C order/conjuncts — `hidingunder` from `(zz|0) !== 0 && uundetected && hides_ Named: `bhitpile` tails `create_polymon` after `poly_zapped` / `recreate_pile` restack / `fill_pi
 <!-- landmarks:end -->
