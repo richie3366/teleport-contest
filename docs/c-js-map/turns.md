@@ -523,7 +523,7 @@ hallu + STR then CON + wounded legs (D-1411; potionhit/potionbreathe named; dip 
 `adjattrib` INT then WIS then `do_enlightenment_effect` (D-1413; artifact invoke still named)); 
 **`POT_SICKNESS`/`peffect_sickness`** blessed stale-fruit + uncursed attr/HP (D-0680; 
 D-2083 poisontell + Fixed_abil gate live; peffect hallu-clear via make_hallucinated still thin); 
-**`peffect_water` + potionbreathe `POT_WATER` lycan** (D-1004; `make_sick` body deferred); 
+**`peffect_water` + potionbreathe `POT_WATER` lycan** (D-1004; blessed-cure `make_sick(0,NULL,TRUE,SICK_ALL)` live via D-2377); 
 **throwit steed `potionhit` crash/saddle/`H2Opotion_dip`/POT_WATER body D-1297 + 
 remaining otyp switch/shop unpaid D-1472** (C-commented GAIN_LEVEL/LEVITATION/FRUIT/DETECT named) + 
 **`potionbreathe` remaining otyps D-1477** (towel Half_gas_damage; restore/gain ABASE++; 

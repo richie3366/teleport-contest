@@ -1433,8 +1433,9 @@ async function peffect_booze(otmp) {
 
 /**
  * C ref: potion.c peffect_water — plain / holy / unholy water.
- * Lycanthropy cure / force-change arms (D-1004). make_sick body deferred
- * (TIMEOUT clear only). mon_hates_blessings via is_undead|is_demon|vamp.
+ * Lycanthropy cure / force-change arms (D-1004). Blessed cure calls live
+ * make_sick(0, NULL, TRUE, SICK_ALL) (D-2377; was TIMEOUT-clear-only u.Sick=0).
+ * mon_hates_blessings via is_undead|is_demon|vamp.
  */
 async function peffect_water(otmp) {
     const u = game.u || (game.u = {});
@@ -1474,8 +1475,8 @@ async function peffect_water(otmp) {
         }
     } else if (otmp.blessed) {
         await You_feel('full of awe.');
-        // C: make_sick(0L, NULL, TRUE, SICK_ALL) — clear Sick TIMEOUT
-        u.Sick = 0;
+        // C potion.c:750: make_sick(0L, NULL, TRUE, SICK_ALL)
+        await make_sick(0, null, true, SICK_ALL);
         exercise(A_WIS, true);
         exercise(A_CON, true);
         if (ismnum(u.ulycn)) await you_unwere(true); // "Purified"

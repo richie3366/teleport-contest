@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-2377 — `potion.c` peffect_water blessed-cure `make_sick` call
+
+- **Status:** fixed (Open queue head ``potion.c`` peffect_water body; debt.md:23 potionbreathe POT_WATER lycan residual; never own-row live/archived/parked.)
+- **Symptom:** map-driven row — 0 corpus sessions blocked, so no corpus PASS is claimed. D-1004 ported the full `peffect_water` body but left the blessed non-hater cure arm as a TIMEOUT-clear-only shortcut (`u.Sick = 0`) because the `make_sick` body was deferred then. `make_sick` is now live (`js/potion.js:947`), so the shortcut skipped observable C behavior: `usick_type` mask clear, the talk=TRUE "cured.  What a relief!" (or partial "somewhat better.") message, `botl`, and dealloc of the SICK delayed killer.
+- **C locus:** `nethack-c/upstream/src/potion.c:716–768` (`peffect_water`; blessed+!hates arm `:744–750` calls `make_sick(0L, NULL, TRUE, SICK_ALL)`); `make_sick` `:137–` (xtime=0 cure path: `usick_type &= ~type`, talk messages, `botl`, `dealloc_killer`). `potionbreathe` `POT_WATER` vapor arm `:2080–2091` audited and already exact in JS (`js/potion.js:2853–2866` — gremlin `split_mon` + lycan vapor `you_unwere(FALSE)`/`you_were()` with no cure, C comment included) — no change there.
+- **JS was:** `js/potion.js:1477–1478` `u.Sick = 0` with a "`make_sick` body deferred (TIMEOUT clear only)" doc note (`turns.md:526` carried the same note).
+- **Fix:** replaced with `await make_sick(0, null, true, SICK_ALL)` (same-file callee — no new import, no new module edge, no TDZ; matches the `curesick` precedent at `js/potion.js:2171`); doc comment + `turns.md:526` updated. Other arms audited against C and left untouched: plain-water pline + `rnd(10)` + `newuhs`; `potion_unkn++`; hates via `mon_hates_blessings||CHAOTIC`; Your-affinity via pline (same text); `youmonst.data==&mons[ulycn]` as `umonnum==ulycn` (C itself compares `u.umonnum` in `potionbreathe` `:2081`); `Upolyd` ≡ `umonnum!=umonster` both sides (`you.h:554` vs `js/const.js:3172`). No DIAG/FORCE/seed gates (Rule #2 clean).
+- **JS:** 1 js file (+5/−4 per `git diff --numstat`: `js/potion.js`; plus the `turns.md:526` map touch + queue refill to 12 Open), under the 600/10 caps. Below the 40-insertion density floor because C is 51 lines and the body shipped in D-1004 — this iteration retires only the named residual.
+- **Verify:** pre-change `node scripts/verify.mjs --no-cohort` on the clean tree → VERIFY: PASS. Post-change `node scripts/verify.mjs --fn peffect_water` → PASS syntax (1 file) · PASS rule2 · note hidden (0 blocked at HEAD; row cited 0 blocks so no --base owed — NOT a corpus PASS) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 → VERIFY: PASS.
+- **Named omissions:** none new.
+- **Next:** do not re-pop `peffect_water` for this body. Falsifier: a rescore or fresh `verify peffect_water` showing a session blocked with `peffect_water` as owner (not mere dopotion/caller presence); re-queue under the writer it names. No seed/step/coordinate gates.
+
 ## D-2376 — `mkobj.c` shrink_glob full body + ice/eat/catch-up/messages
 
 - **Status:** fixed (Open queue head ``mkobj.c`` shrink_glob body; data.md:287 thin shrink_glob with globby_bill_fixup; never own-row live/archived/parked.)

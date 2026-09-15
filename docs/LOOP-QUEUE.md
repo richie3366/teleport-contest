@@ -60,13 +60,18 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `potion.c` peffect_water body (debt.md:23 potionbreathe POT_WATER lycan residual; never own-row live/archived/parked). Probe: `node scripts/brief.mjs peffect_water`.
 - [ ] `artifact.c` set_artifact_intrinsic W_ART-off invoked-toggle reversal via arti_invoke (C artifact.c:880-885; sync locus js/artifact.js:848 + js/invent.js:7361 freeinv_core with 25 freeinv sites incl. local shadows; async arti_invoke needs propagation vehicle; zap-poly half shipped alongside D-2371). Probe: `node scripts/brief.mjs set_artifact_intrinsic`.
 - [ ] `potion.c` peffect_levitation body (debt.md:23 D-1419 POT/SPE_LEVITATION; never own-row live/archived/parked). Probe: `node scripts/brief.mjs peffect_levitation`.
 - [ ] `potion.c` peffect_restore_ability body (debt.md:23 D-1420 POT/SPE_RESTORE_ABILITY; never own-row live/archived/parked). Probe: `node scripts/brief.mjs peffect_restore_ability`.
 - [ ] `potion.c` peffect_invisibility body (debt.md:23 D-1421 POT/SPE_INVISIBILITY; never own-row live/archived/parked). Probe: `node scripts/brief.mjs peffect_invisibility`.
 - [ ] `trap.c` float_up body (debt.md:14 D-0956 Ring_gone/float_up; never own-row live/archived/parked). Probe: `node scripts/brief.mjs float_up`.
 - [ ] `hack.c` still_chewing body (debt.md:14 D-0937/D-0941 floorfood chew + shop add_damage; never own-row live/archived/parked). Probe: `node scripts/brief.mjs still_chewing`.
+- [ ] `shk.c` sellobj BSS + robbed micro-arms (debt.md:18 D-1019 BSS `'\0'` not `'a'` + `robbed -= (offer<0)` then clear; D-0994 sellobj/check_shop_obj family; never own-row live/archived/parked). Probe: `node scripts/brief.mjs sellobj`.
+- [ ] `trap.c` instapetrify + barefoot kick petrify + bhit DISP_FLASH (debt.md:18 D-0995; never own-row live/archived/parked). Probe: `node scripts/brief.mjs instapetrify`.
+- [ ] `pray.c` fix_worst_trouble majors Stoned…Region (debt.md:23 D-1011; never own-row live/archived/parked). Probe: `node scripts/brief.mjs fix_worst_trouble`.
+- [ ] `do_wear.c` toggle_stealth RIN/ELVEN cloak+boots on/off + EStealth (debt.md:12 D-0970; never own-row live/archived/parked). Probe: `node scripts/brief.mjs toggle_stealth`.
+- [ ] `mkmaze.c` fix_wall_spines lavawall→wall (debt.md:15 D-0975; never own-row live/archived/parked). Probe: `node scripts/brief.mjs fix_wall_spines`.
+- [ ] `timeout.c` burn_away_slime + LS_OBJECT/BURN_OBJECT (debt.md:15 D-0978 ignite_items/catch_lit/begin_burn family; never own-row live/archived/parked). Probe: `node scripts/brief.mjs burn_away_slime`.
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 

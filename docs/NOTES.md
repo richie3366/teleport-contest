@@ -15,23 +15,24 @@ Parks: re-pop only on the listed falsifier (proofs in Parked).
 - **Symptom parks:** obj_resists/m_move/rloc/lightdamage/mattackm/can_carry/spoteffects/mon_adjust_speed/zapyourself/doname_base/hmonas/minliquid_core/distfleeck/passiveum; do_statusline1/2 paint-timing; slimed landing + Sick-store.
 - **STALE parks:** lesshungry/rndcurse/mhitm_ad_famn/regen_hp/barehands/do_mapping/adjattrib/from_what/look_at_monster/formatkiller/do_screen_description/reveal_terrain/peffect_acid/newcham/use_offensive/stop_donning/gcrownu/big_little_match/xkilled/x_monnam, domonnoise.
 - **Misattributed parks:** vomiting_dialogue/u_stuck_cannot_go/name_to_monplus/mcast_death_touch/save_dungeon/dodown/mv_bubble/one_characteristic/use_pole/trapmove/fig_transform/chwepon, that_is_a_mimic/drinkfountain, poly_obj, disclose/list_vanquished, dopush.
-- **2026-09-14/15 stale-dupe parks** (0 blocked; proofs in Parked): test_move, arti_cost, m_initweap, mextra-trio, make_sick Unaware, dodrink, make_corpse, vpline, mkcavearea, kick_object, use_towel, use_tinning_kit, costly_tin, use_stone, kick_nondoor SDOOR+helpers/throne+tree, cpostfx/corpse_intrinsic/givit, offer_too_soon/eatspecial/cprefx/use_defensive/hitmu/getdir, use_whip/grapple/pole, use_pick_axe2, use_trap, awaken_soldiers/ubuzz D-0974, undead_to_corpse (all 5 arms live: mon.js:616, mkobj.js:1849/1880/2181, mhitm.js:2452; verify 0 blocked); can_be_hatched (body mon.js:562 + EGG multi-retry mkobj.js:1856 + 3 other callers live, D-0068; verify 0 blocked).
+- **2026-09-14/15 stale-dupe parks** (0 blocked; proofs in Parked): test_move, arti_cost, m_initweap, mextra-trio, make_sick Unaware, dodrink, make_corpse, vpline, mkcavearea, kick_object, use_towel, use_tinning_kit, costly_tin, use_stone, kick_nondoor SDOOR+helpers/throne+tree, cpostfx/corpse_intrinsic/givit, offer_too_soon/eatspecial/cprefx/use_defensive/hitmu/getdir, use_whip/grapple/pole, use_pick_axe2, use_trap, awaken_soldiers/ubuzz D-0974, undead_to_corpse (5 arms live; proof in Parked); can_be_hatched D-0068 (proof in Parked).
 
 ## Don't re-check (≤15)
 
-- D-1790…D-2376 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-2377 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2376.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2376.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2377.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2377.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2377: replaced with `await make_sick(0, null, true, SICK_ALL)` (same-file callee — no new import, no new module edge, no TDZ; matches the `curesick` precede Named: none new.
 - D-2376: `js/mkobj.js` — file-local `NOT_ON_ICE/SET_ON_ICE/BURIED_UNDER_ICE` consts + `item_on_ice` (JS `get_obj_location` returns `{x,y}|null`, so the C boole Named: `insane_object` full port (object-diagnostic helper; own row when a falsifier fires); `sta
 - D-2375: new exported sync `minimal_monnam(mon, ckloc)` in `js/do_name.js` (C home) in C order/conjuncts, one `nextmbuf` slot per call (`x_monnam` idiom, so th Named: wiz `migr` list caller (`wizcmds.c:1587–1599` `strsubst <0,0>` strip + MGIVENNAME + mux/mu
 - D-2374: new exported async `globby_bill_fixup(obj_absorber, obj_absorbed)` in `js/shk.js` (C home; all 16 other callees already local/imported there — `next_s Named: `onbill` impossible() arms (pre-existing clone takes `_silent`; shared helper, own row); s
@@ -46,5 +47,4 @@ Parks: re-pop only on the listed falsifier (proofs in Parked).
 - D-2365: `js/monmove.js` only, no new modules, no new module edges (`imports.mjs --can` ALREADY on both: `dogfood` joins the existing `dogmove.js` import, `EDO Named: none new.
 - D-2364: `js/muse.js` only, no new modules, no new module edges (all three names ride pre-existing edges, used only at runtime inside the function body — no to Named: none new.
 - D-2363: `js/trap.js` only (+11/−9, no new modules, no new module edges — `defended` already imported from `./mondata.js:138`, `shieldeff` from `./display.js`, Named: how>=0 `seemimic` reveal + `resist(how,0,NOTELL)` (trap clone stays how=-1-only; music pat
-- D-2362: `js/pray.js` (+~200): new async `give_spell` in C order/conjuncts next to `pleased` (C home; `SPBOOK_no_NOVEL = 0-SPBOOK_CLASS` per objclass.h:152; `s Named: `moves>100000` `ublesscnt` incr (C tail; pre-existing JS gap, untouched — own row when a f
 <!-- landmarks:end -->

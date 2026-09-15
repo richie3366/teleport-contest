@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `mkobj.c` shrink_glob body (data.md:287 thin shrink_glob with globby_bill_fixup; never own-row live/archived/parked). Probe: `node scripts/brief.mjs shrink_glob`. **Addressed:** D-2376
+- [x] `potion.c` peffect_water body (debt.md:23 potionbreathe POT_WATER lycan residual; never own-row live/archived/parked). Probe: `node scripts/brief.mjs peffect_water`. **Addressed:** D-2377
+
+
+- [x] `mkobj.c` shrink_glob body (data.md:287 thin shrink_glob with globby_bill_fixup; never own-row live/archived/parked). Probe: `node scripts/brief.mjs shrink_glob`. **Addressed:** D-2376 `f4c8bef2`
 
 
 - [x] `do_name.c` minimal_monnam body (data.md:388 omit with mongone FALSE caller; never own-row live/archived/parked). Probe: `node scripts/brief.mjs minimal_monnam`. **Addressed:** D-2375 `aaaa5508`
