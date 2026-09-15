@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `trap.c` float_up body (debt.md:14 D-0956 Ring_gone/float_up; never own-row live/archived/parked). Probe: `node scripts/brief.mjs float_up`. **Addressed:** D-2381
+- [x] `trap.c` float_up body (debt.md:14 D-0956 Ring_gone/float_up; never own-row live/archived/parked). Probe: `node scripts/brief.mjs float_up`. **Addressed:** D-2381 `828e88b4`
 
 
 - [x] `lock.c` stumble_on_door_mimic PfSC clone drops uprops extrinsic (review 1339 QUALITY-RISK; `js/lock.js:618` flats-only vs C `youprop.h:355–360` H||E: worn PfSC ring sets uprops extrinsic with no E-flat mirror, clone stumbles where C is FALSE). Fix: import `js/were.js:57` export (`--can` SAFE). Probe: wear ring, open at door mimic. Source: reviews/loop-unattended/1339-ae5c5da2-stumble-on-door-mimic.md.

@@ -81,7 +81,7 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** Open `hack.c` still_chewing body (debt.md:14 D-0937/D-0941 floorfood chew + shop add_damage). Probe: `node scripts/brief.mjs still_chewing`.
+**Next cluster:** Open `shk.c` sellobj BSS + robbed micro-arms (debt.md:18 D-1019 BSS `'\0'` not `'a'` + `robbed -= (offer<0)` then clear; D-0994 sellobj/check_shop_obj family; never own-row live/archived/parked). Probe: `node scripts/brief.mjs sellobj`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2381 (index).**
 <!-- recent:begin -->
