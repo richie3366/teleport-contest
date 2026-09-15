@@ -5,7 +5,13 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `sp_lev.c` flip_level lregion coord update (named data.md:773; never live/archived/parked). Probe: `node scripts/brief.mjs flip_level`. **Addressed:** D-2336
+- [x] `pray.c` bestow_artifact gift chance + mk_artifact call (named turns.md:399, D-2337 follow-up — callee shipped, caller unwired; pray.js:2200 comment; never live/archived/parked). Probe: `node scripts/brief.mjs bestow_artifact`. **Addressed:** D-2337
+
+
+- [x] `artifact.c` mk_artifact by_align/gift_value/gen_spe (named data.md:272, D-0759 residual; never live/archived/parked). Probe: `node scripts/brief.mjs mk_artifact`. **Addressed:** D-2337
+
+
+- [x] `sp_lev.c` flip_level lregion coord update (named data.md:773; never live/archived/parked). Probe: `node scripts/brief.mjs flip_level`. **Addressed:** D-2336 `c5f1048b`
 
 
 - [x] `mon.c` m_dowear Pelias/Lord Carnarvon/Arch Priest quest specials (named data.md:785; worn.c m_dowear_type is a different fn; never live/archived/parked). Probe: `node scripts/brief.mjs m_dowear`. **Addressed:** D-2335 `5076ec8d`

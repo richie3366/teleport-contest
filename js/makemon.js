@@ -2018,7 +2018,7 @@ function race_peaceful(ptr) {
     const mask = game.urace?.lovemask ?? 0;
     return !!(mask && (ptr.mflags2 & mask));
 }
-function race_hostile(ptr) {
+export function race_hostile(ptr) {
     const mask = game.urace?.hatemask ?? 0;
     return !!(mask && (ptr.mflags2 & mask));
 }

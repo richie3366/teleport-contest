@@ -363,7 +363,20 @@ def main() -> int:
         align_tok = args[9].strip()
         role_tok = args[10].strip()
         race_tok = args[11].strip()
-        # A() gs/gv (gen_spe/gift_value) still named; cost is arti_cost.
+        # A() gs/gv — gen_spe/gift_value (D-0759 residual; mk_artifact needs
+        # both: gift_value gates eligibility, gen_spe adjusts spe).
+        gs_raw = strip_c_comments(args[12]).strip()
+        m_gs = re.match(r"^(-?\d+)[Ll]?$", gs_raw)
+        if not m_gs:
+            print("bad gen_spe", name, args[12], file=sys.stderr)
+            continue
+        gen_spe = int(m_gs.group(1))
+        gv_raw = strip_c_comments(args[13]).strip()
+        m_gv = re.match(r"^(\d+)[Ll]?$", gv_raw)
+        if not m_gv:
+            print("bad gift_value", name, args[13], file=sys.stderr)
+            continue
+        gift_value = int(m_gv.group(1))
         cost_raw = strip_c_comments(args[14]).strip()
         m_cost = re.match(r"^(\d+)[Ll]?$", cost_raw)
         if not m_cost:
@@ -405,6 +418,8 @@ def main() -> int:
                 "alignment": ALIGN[align_tok],
                 "roleName": role_tok,
                 "raceName": race_tok,
+                "genSpe": gen_spe,
+                "giftValue": gift_value,
                 "cost": cost,
                 "acolor": CLR[clr_tok],
                 "bn": bn if bn != "NONARTIFACT" else "NONARTIFACT",
@@ -457,6 +472,8 @@ def main() -> int:
             f' alignment: {e["alignment"]},'
             f' roleName: {e["roleName"]!r},'
             f' raceName: {e["raceName"]!r},'
+            f' genSpe: {e["genSpe"]},'
+            f' giftValue: {e["giftValue"]},'
             f' cost: {e["cost"]},'
             f' acolor: {e["acolor"]},'
             f' bn: {e["bn"]!r}'

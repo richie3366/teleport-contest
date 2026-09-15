@@ -268,8 +268,9 @@ was zeroing → false `drag_ball` cause_delay); **`obj_extract_self` MINVENT** (
 **CORPSE `undead_to_corpse` + `G_NOCORPSE` retry** (D-0057); 
 **EGG `can_be_hatched` multi-retry** (D-0068); **Samurai lacquered `SPLINT_MAIL`** (D-0079); 
 **`mksobj_init` WEAPON/ARMOR artif `rn2(20|40+10*nartifact_exist())`** (D-0588) + 
-**`mk_artifact` A_NONE eligible/`rn2(n)`** (D-0759; 
-by_align/gift_value/gen_spe deferred; mksobj_init `permapoisoned` is D-1732); 
+**`mk_artifact` A_NONE eligible/`rn2(n)`** (D-0759) + 
+**by_align gift path + gift_value gate + gen_spe data + permapoisoned tail** (D-2337; 
+extractor emits gs/gv; pray.c bestow_artifact caller wiring stays its own row); 
 **`mksobj_init` envelope completion** (D-2265; FOOD `oeaten = 0`, TIN `cnutrit` gate + canonical `set_tin_variety` SPINACH/RANDOM incl. rotten remap, GEM `corpsenm = 0`, SPBOOK `spestudied = 0`, CHEST `tknown` assign, samurai `In_quest`); 
 **floor `stackobj`/`merged`/`mergable`** (D-0094) + **`add_to_minv` merge D-1492** + 
 **`oc_merge_of` from `objects[].oc_merge`** (D-1712; was class heuristic
