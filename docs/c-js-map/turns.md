@@ -2864,7 +2864,7 @@ force skips find `rn2`/fail `rnd`; usual `getdir` D-0928 #1175);
 `untrap_prob` / `cnv_trap_obj` / `try_lift` D-1813** (C `:5551` /
 `:5593` / `:5663` / `:5793` / `:5820` / `:5699` / `:5440` / `:5287` /
 `:5340` / `:5676`; JS `untrap` had returned 0 on a seen floor trap);
-`disarm_squeaky_board` / adjacent-Whoops `move_into_trap` (no
+`disarm_squeaky_board` / adjacent-Whoops `move_into_trap` D-2372 (doorway gate via steed `test_move_ok`, punished `drag_ball`/`move_bc`, thin `u_on_newpos`+steed, `failing_untrap` spoteffects; full test_move/cliparound/jerk-damage named — was no
 `test_move` export) / `stumble_on_door_mimic` named; 
 **`chest_trap` luck-save + explode/gas/needle/fire/elec/freeze/hallu** (D-0989; 
 **gas `Blind`/`rndcolor` D-1147**; Soundeffect / bot polish / Halluc_resistance stagger still 

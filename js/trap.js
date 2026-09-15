@@ -147,15 +147,15 @@ import { Soundeffect } from './sndprocs.js';
 import { se_loud_crash } from './generated/seffects_data.js';
 import { mon_adjust_speed } from './muse.js';
 import { m_dowear, extract_from_minvent, update_mon_extrinsics } from './worn.js';
-import { m_unleash, number_leashed, unleash_all } from './apply.js';
+import { m_unleash, number_leashed, unleash_all, check_leash } from './apply.js';
 import { hard_helmet, helm_simple_name, cloak_simple_name, suit_simple_name } from './do_wear.js';
-import { unplacebc, placebc, ballfall } from './ball.js';
+import { unplacebc, placebc, ballfall, drag_ball, move_bc } from './ball.js';
 import { carried, is_fainted, reset_faint } from './eat.js';
 import { inv_cnt, remove_worn_item } from './steal.js';
 import { ynq } from './getline.js';
 import { more_experienced, newexplevel } from './exper.js';
 import { killed, stumble_onto_mimic } from './uhitm.js';
-import { rider_cant_reach, dismount_steed } from './steed.js';
+import { rider_cant_reach, dismount_steed, test_move_ok } from './steed.js';
 import { resist, blank_novel, poly_obj } from './zap.js';
 import { fill_pit, fillholetyp, liquid_flow, maybe_dunk_boulders, bury_an_obj } from './dig.js';
 import { u_wield_art, attacks, bare_artifactname, has_magic_key } from './artifact.js';
@@ -6483,10 +6483,95 @@ export async function cnv_trap_obj(otyp, cnt, ttmp, bury_it) {
 }
 
 /**
+ * C ref: trap.c move_into_trap `:5393–5437` — failed adjacent untrap stumbles
+ * hero onto the trap (`Whoops...` already printed by try_disarm).
+ * C order: `test_move(u.ux,u.uy,sgn(x-ux),sgn(y-uy),TEST_MOVE)` (here the
+ * doorway-diagonal subset `test_move_ok` — C hack.c `:1140–1147` into /
+ * `:1205–1213` out of an intact doorway over accessible_cell) &&
+ * (`!Punished` || `drag_ball(x,y,&bc,&bx,&by,&cx,&cy,&unused,TRUE)` whose JS
+ * shape is `{ok,bc_control,ballx,bally,chainx,chainy}`); then `ux0/uy0`,
+ * `u_on_newpos(x,y)` (thin mklev.js + steed share — C dungeon.c:1568),
+ * `umoved`, `newsym(old)`, `vision_recalc(1)`, `check_leash(old)`,
+ * `move_bc(0,bc,...)` when punished, `tseen=0` check_here hack,
+ * `failing_untrap++`, `spoteffects(TRUE)`, `failing_untrap--`, re-`tseen=1`,
+ * `exercise(WIS)`; else `Fortunately, you don't move into/onto it.`
+ * Named omissions: full `test_move` rock/closed-door/boulder/worm/travel arms
+ * (try_disarm already gates boulder/tight-diagonal/reach; trap cells are
+ * accessible so the doorway subset is the live arm — block_door/block_entry
+ * shopkeeper, may_passwall, underwater, tunnels, autodig ride along);
+ * `u_on_newpos` cliparound/uundetected/see_nearby/earth_sense; drag jerk
+ * hmon/miss damage (ball.js burns the rnd(20) roll).
+ */
+async function move_into_trap(ttmp) {
+    const u = game.u || {};
+    const x = ttmp.tx | 0, y = ttmp.ty | 0;
+    const dx = sgn(x - (u.ux | 0)), dy = sgn(y - (u.uy | 0));
+    // C hack.c:1000 test_move clears door_opened on entry (all modes).
+    if (game.context) game.context.door_opened = false;
+    // C youprop.h:77 Punished ≡ (u.uball != 0) — inline uball check per
+    // trap.js convention (D-1786); never sticky u.Punished.
+    const isPunished = !!(game.u?.uball);
+    let bc = 0, bx = 0, by = 0, cx = 0, cy = 0;
+    let canMove = false;
+    // C short-circuit: test_move first; drag_ball only when punished.
+    if (test_move_ok(u.ux | 0, u.uy | 0, dx, dy)) {
+        if (!isPunished) {
+            canMove = true;
+        } else {
+            const entryUx = u.ux | 0, entryUy = u.uy | 0;
+            const drag = await drag_ball(x, y, true);
+            if (drag.ok) {
+                canMove = true;
+                bc = drag.bc_control | 0;
+                bx = drag.ballx | 0; by = drag.bally | 0;
+                cx = drag.chainx | 0; cy = drag.chainy | 0;
+            } else {
+                // C ball.c jerk-back runs spoteffects(TRUE) inside drag_ball
+                // before returning FALSE; JS defers it to the caller
+                // (ball.js). Encumber (hero unmoved) has no spoteffects
+                // in C either.
+                if ((u.ux | 0) !== entryUx || (u.uy | 0) !== entryUy) {
+                    const { spoteffects: spotJerk } = await import('./pickup.js');
+                    await spotJerk(true);
+                }
+                canMove = false;
+            }
+        }
+    }
+    if (canMove) {
+        const ux0 = u.ux | 0, uy0 = u.uy | 0;
+        u.ux0 = ux0; u.uy0 = uy0;
+        // C dungeon.c:1568 u_on_newpos sets ux,uy (+ CLIPPING) and shares
+        // with steed; JS thin mklev.js sets ux,uy — sync steed here.
+        const { u_on_newpos } = await import('./mklev.js');
+        u_on_newpos(x, y);
+        if (u.usteed) {
+            u.usteed.mx = x;
+            u.usteed.my = y;
+        }
+        u.umoved = true;
+        newsym(ux0, uy0);
+        vision_recalc(1);
+        await check_leash(ux0, uy0);
+        if (isPunished) move_bc(0, bc, bx, by, cx, cy);
+        ttmp.tseen = 0; // hack for check_here()
+        if (!game.iflags) game.iflags = {};
+        game.iflags.failing_untrap = (game.iflags.failing_untrap | 0) + 1;
+        const { spoteffects } = await import('./pickup.js');
+        await spoteffects(true); // pickup() + dotrap()
+        game.iflags.failing_untrap -= 1;
+        const here = t_at(u.ux | 0, u.uy | 0);
+        if (here) here.tseen = 1;
+        exercise(A_WIS, false);
+    } else {
+        await pline(`Fortunately, you don't move ${into_vs_onto(ttmp.ttyp) ? 'into' : 'onto'} it.`);
+    }
+}
+
+/**
  * C ref: trap.c try_disarm `:5440–5527` — reach/occupancy then untrap_prob.
  * Returns 0 no-time, 1 spent-fail, 2 success (caller disarms).
- * Named omit: adjacent-Whoops `move_into_trap` (no `test_move` export;
- * drag_ball / u_on_newpos / failing_untrap spoteffects).
+ * Adjacent-Whoops arm calls `move_into_trap` above.
  */
 async function try_disarm(ttmp, force_failure) {
     const u = game.u || {};
@@ -6547,8 +6632,9 @@ async function try_disarm(ttmp, force_failure) {
                 }
             } else if (under_u) {
                 await dotrap(ttmp, FAILEDUNTRAP);
+            } else {
+                await move_into_trap(ttmp);
             }
-            // else: move_into_trap named omit
         } else {
             const whose = ttmp.madeby_u ? 'Your' : under_u ? 'This' : 'That';
             const verb = ttype === WEB ? 'remove' : 'disarm';
