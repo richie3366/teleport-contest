@@ -284,7 +284,7 @@ flooreffects / vault-gold / pet `droppables` deferred);
 **`place_object` first-boulder / floor extract → `recalc_block_point` + 
 under-boulder pile** (D-0270); **`clear_dknown` in `mksobj` (dknowns[] + shield-range)** (D-0292); 
 **`Is_pudding`/`globby` mksobj init + `obj_nexto_xy`/`obj_absorb`/`obj_meld`/`pudding_merge_message`
- + thin `shrink_glob`** (D-0993; full `globby_bill_fixup` / shrink ice-eat deferred); 
+ + thin `shrink_glob`** (D-0993; D-2374 ships full `globby_bill_fixup` (`js/shk.js` export, 4 scenarios) + globby `get_pricing_units` weight arm; shrink ice-eat still deferred); 
 **`mksobj` `unknow_object` `known` from `oc_uses_known`** (D-1674;
 was WAND/class-name stand-in D-0316); steal.c / muse.c callers named;
 **RING_CLASS `mksobj_init` `oc_charged`** (D-1690; was RIN_* name-list);

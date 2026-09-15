@@ -75,7 +75,7 @@ import { set_moreluck } from './attrib.js';
 import { recalc_block_point, cansee } from './vision.js';
 import { del_light_source, discard_flashes, obj_sheds_light, obj_adjust_light_radius } from './light.js';
 import { arti_light_radius, get_obj_location, obj_split_light_source, Is_candle } from './timeout.js';
-import { obfree, splitbill, same_price } from './shk.js';
+import { obfree, splitbill, same_price, globby_bill_fixup } from './shk.js';
 import { hands_obj } from './weapon.js';
 import { obj_resists } from './dogmove.js';
 import { newsym, pline, Hallucination } from './display.js';
@@ -2325,14 +2325,6 @@ export function obj_nexto(otmp) {
 }
 
 /**
- * C ref: shk.c globby_bill_fixup — shop bill when globs merge.
- * Named omit: full unpaid/debit/credit scenarios (no-op when neither unpaid).
- */
-function globby_bill_fixup(_absorber, _absorbed) {
-    // deferred — unpaid shop merge not exercised by fortress public suite
-}
-
-/**
  * C ref: mkobj.c obj_absorb — *obj1 absorbs *obj2; free *obj2.
  * @param {{obj: object|null}} p1 survivor ref
  * @param {{obj: object|null}} p2 absorbed ref (nulled)
@@ -2342,7 +2334,11 @@ export function obj_absorb(p1, p2) {
     const otmp1 = p1?.obj;
     const otmp2 = p2?.obj;
     if (!otmp1 || !otmp2 || otmp1 === otmp2) return otmp1 || null;
-    globby_bill_fixup(otmp1, otmp2);
+    // C mkobj.c:3713 globby_bill_fixup(otmp1, otmp2) is sync in C but async
+    // here (scenarios 2-3 reach pline/verbalize); fire-and-forget like
+    // pudding_merge_message — scenario 1 runs fully synchronous, so bill
+    // state is settled before obj_absorb continues.
+    void globby_bill_fixup(otmp1, otmp2);
     if (!!otmp1.bknown !== !!otmp2.bknown) {
         otmp1.bknown = 0;
         otmp2.bknown = 0;
