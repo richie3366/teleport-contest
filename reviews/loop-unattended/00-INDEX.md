@@ -1298,3 +1298,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1285-df21066c-zap-dig-shop-wall-arms.md](./1285-df21066c-zap-dig-shop-wall-arms.md) | `df21066c` | D-2319 zap_dig shop-wall add_damage + maze watch_dig | **ACCEPT** |
 | [1286-031ebb3a-kick-door-doorbuster-soundeffect.md](./1286-031ebb3a-kick-door-doorbuster-soundeffect.md) | `031ebb3a` | D-2320 kick_door doorbuster + Soundeffect | **ACCEPT** |
 | [1287-95c162ad-pitdig-adj-pit-checks-pit-flow.md](./1287-95c162ad-pitdig-adj-pit-checks-pit-flow.md) | `95c162ad` | D-2321 pitdig adj_pit_checks + pit_flow | **ACCEPT** |
+| [1288-3782e831-zap-dig-swallowed-pierce.md](./1288-3782e831-zap-dig-swallowed-pierce.md) | `3782e831` | D-2322 zap_dig swallowed-pierce arm | **ACCEPT** |
+| [1289-0e191fab-dighole-magical-drawbridge-bymagic.md](./1289-0e191fab-dighole-magical-drawbridge-bymagic.md) | `0e191fab` | D-2323 dighole magical/drawbridge/by_magic | **QUALITY-RISK** |
+| [1290-90809a8c-mergable-same-price.md](./1290-90809a8c-mergable-same-price.md) | `90809a8c` | D-2324 mergable full port + same_price | **ACCEPT** |
+| [1291-d43e86c1-erode-obj-full-body.md](./1291-d43e86c1-erode-obj-full-body.md) | `d43e86c1` | D-2325 erode_obj full body + ward gate | **QUALITY-RISK** |

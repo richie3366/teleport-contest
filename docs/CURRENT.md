@@ -21,10 +21,10 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-15** — full `sessions` on the working tree
-(audit **1285–1287**, HEAD `95c162ad`).
+(audit **1288–1291**, HEAD `6508dec4`).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`46+0.29/turn` (R² 0.79).
+`47+0.29/turn` (R² 0.79).
 
 ## Score
 
@@ -33,7 +33,7 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `46+0.29/turn` (R² 0.79) |
+| Speed label | `47+0.29/turn` (R² 0.79) |
 | Role-init throws | **0 / 44** |
 
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-14
@@ -42,7 +42,7 @@ audit 1232–1238): **463 / 540 PASS (85.7 %)** excl. 13 env-only rows
 `do_statusline2` ×11, `save_dungeon` ×8, `obj_resists` ×6, `distfleeck` ×5,
 `one_characteristic` ×3, `m_move`/`rloc`/`chwepon` ×2, then 1-block singles
 (all parked symptom/misattributed owners; `drinkfountain` since parked).
-Reviews 1225–1287: 60 ACCEPT, 3 ACCEPT-WITH-DEBT, no Must-fix rows outstanding.
+Reviews 1225–1291: 62 ACCEPT, 3 ACCEPT-WITH-DEBT, 2 Must-fix rows outstanding (1289 `surface` drawbridge-under nouns, message-only; 1291 dwarvish-cloak 90 ward arm, RNG-live).
 Live debts: 1241 SCR_MAIL (map material), 1268 light MINVENT-carrier-mx (map note).
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score --jobs 8`
 (≈200 s); when every family is ≥ 85 % PASS, grow it first:
@@ -80,7 +80,7 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** dosounds → **PARKED STALE-DUPLICATE** 2026-09-15, no D-log, no js/; proof in LOOP-QUEUE Parked. (Next iter pops first Open: `apply.c` use_stone.)
+**Next cluster:** `invent.js` `u_adtyp_resistance_obj` dwarvish-cloak 90 arm (Must-fix from review 1291; C `zap.c:5690–5694`; D-2325 BURN gate inherits it — RNG-live). Then Must-fix `dig.js` surface drawbridge-under nouns (review 1289), then first Open: `apply.c` use_stone. (dosounds PARKED STALE-DUPLICATE 2026-09-15, proof in LOOP-QUEUE Parked.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2325 (index).**
 <!-- recent:begin -->
