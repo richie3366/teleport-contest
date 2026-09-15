@@ -80,7 +80,7 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `eat.c` is_edible poly diets + doeat_nonfood (Open head). Probe: `node scripts/brief.mjs is_edible`.
+**Next cluster:** `zap.c` cancel_monst self-cancel hero-invent walk (Open head). Probe: `node scripts/brief.mjs cancel_monst`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2357 (index).**
 <!-- recent:begin -->

@@ -5,6 +5,7 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 ## Active
 
 Parks: re-pop only on the listed falsifier (proofs in Parked).
+- **is_edible/doeat_nonfood park (2026-09-15):** D-0936; both bodies live+C-cited (eat.js:1044/2967, caller :3900); brief+verify 0 blocked ×2; residuals map-grade (nonfood SCR_MAIL nutrition, poison killer args, livelog); doeat pre-arms re-queued own Open row.
 - **paranoid_query park (2026-09-15):** D-0999/D-1000; all arms live+C-cited (getline.js:1301/1351, apply.js:1012+, pray.js:1790+, mon.js:451/514, end.js Quit/Die/Bones); verify 0 blocked.
 - **release_hold/flash_hits_mon park (2026-09-15):** D-0979; all arms live+C-cited (zap.js:2520 release_hold, apply.js:1053 break-wand, zap.js:4017/4462 bhitm/self, uhitm.js:3390 flash + :3347 gremlin); brief+verify 0 blocked.
 - **getobj_apply CMDQ_KEY park (2026-09-15):** not a C fn (0 refs); all 5 wield re-queues live (dig.js:2425, apply.js:3143/3609/3759/5084) + getobj_from_cmdq KEY/INT/USER_INPUT/HANDS (invent.js:7657) + rhack canned/KEY-as-command (cmd.js:2411); 'key'-vs-CMDQ_KEY drift stays (potion.js:2355 takes only 'key'); verify 0 blocked.
