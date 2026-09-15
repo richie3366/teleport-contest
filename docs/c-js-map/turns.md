@@ -2707,7 +2707,7 @@ other `mcast_spell` / `mattacku` AT_MAGC deferred);
 `m_consume_obj` heal/`delobj`; meatbox/poly named); **`meatmetal` D-1271**; 
 **`meatobj` D-1284** (cube floor engulf `mpickobj` / devour `m_consume_obj`); 
 **`meatcorpse` D-1285** (corpse_eater floor CORPSE; vegan/petrify skip; rider revive; splitobj; 
-`m_consume_obj`; `mon_would_consume_item` still named); **postmov IRONBARS D-1247**; 
+`m_consume_obj`); **postmov IRONBARS D-1247**; 
 **`mon_yells` D-1248**); **`dochug` uses `hero_conflict` + 
 PHASE FOUR `resist_conflict` for peaceful under Conflict** (D-0413); 
 **`dochug` MMOVE_MOVED fall-through includes `ranged_attk_available`** (D-0609; 
@@ -2768,7 +2768,7 @@ prize skip, corpse petrify/lizard/acidic thru-arms** (D-2085);
 underfoot `return TRUE`→`postmov`→`mpickstuff` restored; 
 **`searches_for_item` full body (D-0598 potion/wand/scroll/amulet/tool subset;
 **Is_container/Is_mbag/!olocked** D-0861; floor onscary + horn `can_blow` +
-unicorn `is_unicorn` + FOOD corpse/tin/egg D-2364)**/`mon_would_consume_item` body + 
+unicorn `is_unicorn` + FOOD corpse/tin/egg D-2364)**/**`mon_would_consume_item` body (D-2365)** + 
 outer `can_touch_safely` call in `m_search_items` (arms live D-2149) 
 (shop `in_rooms`+`rn2(25)`+`isshk` gate, `hides_under`+`cansee`, `onscary`, 
 `costly_spot`+merchandise, prizes, outer `can_touch_safely` live D-2047); 
@@ -2832,7 +2832,7 @@ hypocrite/`qst_guardians_respond`/`hot_pursuit`/`freemcorpsenm`/light-block);
 vampshift fog door sequencing; **ALLOW_BARS rust/corr/metallivore D-1258**; 
 hero `test_move` `passes_bars` D-1270; **`dissolve_bars` `switch_terrain` D-1259**; 
 **`meatmetal` D-1271**; **`meatobj` D-1284**; **`meatcorpse` D-1285**; 
-`mon_would_consume_item` named; engulfing_u; shop `add_damage`; `has_magic_key` disarm; 
+engulfing_u; shop `add_damage`; `has_magic_key` disarm; 
 `is_rider` unlock; full mondied from `mb_trapped`; `finish_meating` mimic AP; 
 cursed-mwep dig-tool gate **ported D-1868**; huge-quan `rn2` clamp; dogmove `can_carry` still simplified |
 

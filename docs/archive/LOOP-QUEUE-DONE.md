@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `muse.c` searches_for_item FOOD corpse/tin/egg + can_blow polish (D-0598 shipped potion/wand/scroll/amulet/tool subset; Is_container/Is_mbag D-0861; turns.md:2768; never own-row live/archived/parked). Probe: `node scripts/brief.mjs searches_for_item`. **Addressed:** D-2364
+- [x] `monmove.c` mon_would_consume_item body (underfoot/can_carry family turns.md:2768, D-0183/D-0223 shipped the wiring; never own-row live/archived/parked). Probe: `node scripts/brief.mjs mon_would_consume_item`. **Addressed:** D-2365
+
+
+- [x] `muse.c` searches_for_item FOOD corpse/tin/egg + can_blow polish (D-0598 shipped potion/wand/scroll/amulet/tool subset; Is_container/Is_mbag D-0861; turns.md:2768; never own-row live/archived/parked). Probe: `node scripts/brief.mjs searches_for_item`. **Addressed:** D-2364 `f35ffe91`
 
 
 - [x] `mhitm.c` sleep_monst trap-path clone defended/shieldeff (trap.js `sleep_monst` keeps its own named omit, turns.md:2000; sleep-gas/steed callers pass how=-1 so C still checks resists_sleep/defended + shieldeff, data.md:1065 D-0256; music path live D-2357; never own-row live/archived/parked). Probe: `node scripts/brief.mjs sleep_monst`. **Addressed:** D-2363 `d26385df`
