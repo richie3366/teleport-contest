@@ -19,7 +19,7 @@ Park rows: re-pop only on the listed falsifier (proofs in Parked).
 - **disclose/list_vanquished:** Hallu desync / identical-prompt cell.
 - **dopush:** mimic memory/viz, not the push.
 - **domonnoise:** STALE DUPLICATE of D-1915 (review 885 ACCEPT; no-skip range holds it).
-- **STALE parks 2026-09-14/15** (falsifiers in Parked): test_move family, arti_cost (D-1719), m_initweap (D-0472), mextra trio (D-1598), make_sick Unaware, dodrink (D-2031 family), make_corpse (D-1794), vpline (D-1807), mkcavearea family (D-0960), dig_up_grave (review-26), furniture_handled (D-0954), use_bell family (D-1028), ignite_items/catch_lit (D-0978); getcad trio (stale), kick_object (D-0989 family), costly_gold/donate_gold (D-0991 family), use_unicorn_horn envelope (D-1030 family), use_towel wet/dry + burnarmor dry (D-1009).
+- **STALE parks 2026-09-14/15** (falsifiers in Parked): test_move family, arti_cost (D-1719), m_initweap (D-0472), mextra trio (D-1598), make_sick Unaware, dodrink (D-2031 family), make_corpse (D-1794), vpline (D-1807), mkcavearea family (D-0960), dig_up_grave (review-26), furniture_handled (D-0954), use_bell family (D-1028), ignite_items/catch_lit (D-0978); getcad trio (stale), kick_object (D-0989 family), costly_gold/donate_gold (D-0991 family), use_unicorn_horn envelope (D-1030 family), use_towel wet/dry + burnarmor dry (D-1009), use_tinning_kit envelope (D-1027).
 
 ## Don't re-check (≤15)
 
