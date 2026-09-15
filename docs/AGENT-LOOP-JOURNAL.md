@@ -8,6 +8,10 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-15 — Audit ae5c5da2..ff517412 (reviews 1339–1345) + cadence 44/44
+
+1339 D-2373 stumble_on_door_mimic → **QUALITY-RISK** (flats-only PfSC clone drops uprops extrinsic; worn ring stumbles where C is FALSE; fix = import were.js:57, --can SAFE; Must-fix + Next cluster set). 1340 D-2374 globby_bill_fixup → **ACCEPT-WITH-DEBT** (4 scenarios + pricing exact; scen 2–3 msg order fire-and-forget, named). 1341 D-2375 minimal_monnam → **ACCEPT**. 1342 D-2376 shrink_glob → **ACCEPT**. 1343 D-2377 peffect_water → **ACCEPT**. 1344 D-2378 set_artifact_intrinsic → **ACCEPT**. 1345 D-2379 ceiling → **ACCEPT**.
+Verify: per-SHA `hidden-proxy verify --base ~1` → 0/0 every time (rows cited 0 blocks); rulecheck clean; banned-grep hits prose-only. Cadence 44/44 (Scr 11,405, RNG 792,838). Next: 1339 Must-fix first, alone (10 Open, in band).
 ## 2026-09-15 — D-2379 `dungeon.c` ceiling() full arms via `trap.js` export (peffect_levitation residual)
 
 **C locus:** `nethack-c/upstream/src/dungeon.c` `ceiling` (vault/temple/SHOPBASE `*in_rooms` → "vault's/temple's/shop's ceiling"; `Is_waterlevel` → "water above"; `IS_AIR` → "sky"; `Is_firelevel` → "flames above"; `In_quest` → "expanse above"; `Underwater` → "water's surface"; `(IS_ROOM && !Is_earthlevel) || IS_WALL || IS_DOOR || SDOOR` → "ceiling"; else "rock cavern"); `hack.c` `in_rooms` `goodtype` macro (SHOPBASE also matches `rtype > SHOPBASE` — the JS clone already matches); `youprop.h:279` (`Underwater` ≡ `u.uinwater`).

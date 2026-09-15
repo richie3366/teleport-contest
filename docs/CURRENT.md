@@ -21,10 +21,10 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-15** — full `sessions` on the working tree
-(audit **1324–1338**, HEAD `12cae556`).
+(audit **1339–1345**, HEAD `ff517412`).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`46+0.29/turn` (R² 0.80).
+`83+0.48/turn` (R² 0.71).
 
 ## Score
 
@@ -43,6 +43,7 @@ audit 1307–1313): **478 / 540 PASS (88.5 %)** excl. 13 env-only rows
 `m_move` ×3, `one_characteristic` ×3, `rloc` ×2, then 1-block singles
 (all parked symptom/misattributed owners; `save_dungeon` ×8 cleared by D-2341, knockback cleared by D-2347).
 Reviews 1225–1338: 106 ACCEPT, 3 ACCEPT-WITH-DEBT, 0 Must-fix outstanding (1314 → D-2351 shipped+stamped; 1316 → D-2352 shipped+stamped; 1315/1317–1323 ACCEPT; 1324–1338 ACCEPT 15/15, no C-wrongs).
+Reviews 1339–1345: 5 ACCEPT, 1 DEBT (1340), 1 QUALITY-RISK (1339 → Must-fix).
 Live debts: 1241 SCR_MAIL (map material), 1268 light MINVENT-carrier-mx (map note).
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score --jobs 8`
 (≈200 s); when every family is ≥ 85 % PASS, grow it first:
@@ -80,7 +81,7 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `potion.c` peffect_levitation body (debt.md:23 D-1419 POT/SPE_LEVITATION). Probe: `node scripts/brief.mjs peffect_levitation`.
+**Next cluster:** Must-fix `lock.c` stumble_on_door_mimic PfSC clone (review 1339; import `were.js` export, delete `js/lock.js:618` local). Probe: wear ring of protection from shape changers, open toward door mimic.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2379 (index).**
 <!-- recent:begin -->

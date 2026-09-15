@@ -1349,3 +1349,10 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1336-02f97953-artitouch-addinv-quest-arm.md](./1336-02f97953-artitouch-addinv-quest-arm.md) | `02f97953` | D-2370 artitouch addinv quest arm | **ACCEPT** |
 | [1337-1e326cc7-poly-obj-addinv-cores.md](./1337-1e326cc7-poly-obj-addinv-cores.md) | `1e326cc7` | D-2371 poly_obj addinv cores | **ACCEPT** |
 | [1338-12cae556-move-into-trap.md](./1338-12cae556-move-into-trap.md) | `12cae556` | D-2372 move_into_trap | **ACCEPT** |
+| [1339-ae5c5da2-stumble-on-door-mimic.md](./1339-ae5c5da2-stumble-on-door-mimic.md) | `ae5c5da2` | D-2373 stumble_on_door_mimic PfSC clone | **QUALITY-RISK** |
+| [1340-12c4cda0-globby-bill-fixup.md](./1340-12c4cda0-globby-bill-fixup.md) | `12c4cda0` | D-2374 globby_bill_fixup | **ACCEPT-WITH-DEBT** |
+| [1341-aaaa5508-minimal-monnam.md](./1341-aaaa5508-minimal-monnam.md) | `aaaa5508` | D-2375 minimal_monnam | **ACCEPT** |
+| [1342-f4c8bef2-shrink-glob.md](./1342-f4c8bef2-shrink-glob.md) | `f4c8bef2` | D-2376 shrink_glob | **ACCEPT** |
+| [1343-7c83a6ca-peffect-water-make-sick.md](./1343-7c83a6ca-peffect-water-make-sick.md) | `7c83a6ca` | D-2377 peffect_water make_sick | **ACCEPT** |
+| [1344-e3d36021-set-artifact-intrinsic.md](./1344-e3d36021-set-artifact-intrinsic.md) | `e3d36021` | D-2378 set_artifact_intrinsic | **ACCEPT** |
+| [1345-ff517412-ceiling-full-arms.md](./1345-ff517412-ceiling-full-arms.md) | `ff517412` | D-2379 ceiling | **ACCEPT** |
