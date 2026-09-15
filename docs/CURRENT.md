@@ -80,7 +80,7 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `worn.c` mon_adjust_speed (queue head: blocks 1/553, scen-tour-Barbarian-92079 step 62; never live/archived/parked per the row). Probe: `node scripts/hidden-proxy.mjs verify mon_adjust_speed`. NOTE: NOTES.md symptom-owner-parks line still lists mon_adjust_speed — row says otherwise; port iter re-measures via the probe. Prior cluster (`monmove.c` can_hide_under_obj coins/pet-cursed/cockatrice) shipped D-2340 (review 1306 ACCEPT).
+**Next cluster:** `dungeon.c` save_dungeon (head after 2026-09-15 mon_adjust_speed duplicate-park removal: blocks 8/553, scen-genesis-Barbarian-91118 first at step 113; 09-07 MISATTRIBUTED park predates scoreboard — measure the C overview-menu writer or re-park). Probe: `node scripts/hidden-proxy.mjs verify save_dungeon`. Prior cluster (`monmove.c` can_hide_under_obj coins/pet-cursed/cockatrice) shipped D-2340 (review 1306 ACCEPT). NOTE 2026-09-15: the `worn.c` mon_adjust_speed Open row duplicated LOOP-QUEUE.md:162 MISATTRIBUTED park (fresh probe reproduced it exactly; Open line removed, no js/, no D-log).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2340 (index).**
 <!-- recent:begin -->
