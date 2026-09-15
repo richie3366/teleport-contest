@@ -1295,3 +1295,6 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1282-cb720cc9-drawbridge-revive-nasty.md](./1282-cb720cc9-drawbridge-revive-nasty.md) | `cb720cc9` | D-2316 drawbridge revive_nasty + Soundeffect/wall_info/nokiller | **ACCEPT** |
 | [1283-48f96186-holding-falling-canspotmon.md](./1283-48f96186-holding-falling-canspotmon.md) | `48f96186` | D-2317 openholding/openfalling canspotmon | **ACCEPT** |
 | [1284-f028aee2-launch-obj-roll-ship.md](./1284-f028aee2-launch-obj-roll-ship.md) | `f028aee2` | D-2318 launch_obj ROLL + ship_object worn/unhide | **ACCEPT** |
+| [1285-df21066c-zap-dig-shop-wall-arms.md](./1285-df21066c-zap-dig-shop-wall-arms.md) | `df21066c` | D-2319 zap_dig shop-wall add_damage + maze watch_dig | **ACCEPT** |
+| [1286-031ebb3a-kick-door-doorbuster-soundeffect.md](./1286-031ebb3a-kick-door-doorbuster-soundeffect.md) | `031ebb3a` | D-2320 kick_door doorbuster + Soundeffect | **ACCEPT** |
+| [1287-95c162ad-pitdig-adj-pit-checks-pit-flow.md](./1287-95c162ad-pitdig-adj-pit-checks-pit-flow.md) | `95c162ad` | D-2321 pitdig adj_pit_checks + pit_flow | **ACCEPT** |

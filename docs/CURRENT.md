@@ -21,7 +21,7 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-15** — full `sessions` on the working tree
-(audit **1282–1284**, HEAD `a3070de6`).
+(audit **1285–1287**, HEAD `95c162ad`).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 `46+0.29/turn` (R² 0.79).
@@ -42,7 +42,7 @@ audit 1232–1238): **463 / 540 PASS (85.7 %)** excl. 13 env-only rows
 `do_statusline2` ×11, `save_dungeon` ×8, `obj_resists` ×6, `distfleeck` ×5,
 `one_characteristic` ×3, `m_move`/`rloc`/`chwepon` ×2, then 1-block singles
 (all parked symptom/misattributed owners; `drinkfountain` since parked).
-Reviews 1225–1284: 57 ACCEPT, 3 ACCEPT-WITH-DEBT, no Must-fix rows outstanding.
+Reviews 1225–1287: 60 ACCEPT, 3 ACCEPT-WITH-DEBT, no Must-fix rows outstanding.
 Live debts: 1241 SCR_MAIL (map material), 1268 light MINVENT-carrier-mx (map note).
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score --jobs 8`
 (≈200 s); when every family is ≥ 85 % PASS, grow it first:
