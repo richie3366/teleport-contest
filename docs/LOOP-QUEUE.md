@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `weapon.c` use_skill may-advance arm (turns.md:410 deferred; give_may_advance_msg D-1963 shipped; never own-row live/archived/parked). Probe: `node scripts/brief.mjs use_skill`.
 - [ ] `hack.c` handle_tip TIP_GETPOS arm (turns.md:410 deferred; TIP_ENHANCE D-1963 shipped; never own-row live/archived/parked). Probe: `node scripts/brief.mjs handle_tip`.
 - [ ] `mhitu.c` gulpmu BLND visored-helmet + flat/uprops mirror (turns.md:3048 named residual, debt R-1076; gulpmu DGST/PHYS/ACID/DREN/DISE shipped D-1993/D-2110/D-2151/D-2161/D-2356; residual never own-row live/archived/parked). Probe: `node scripts/brief.mjs gulpmu`.
 - [ ] `pickup.c` loot_in_first 'r' reversed + explain_container_prompt (turns.md:1542 D-1567 residual; traditional_loot/askchain archived; never own-row live/archived/parked). Probe: `node scripts/brief.mjs loot_in_first`.

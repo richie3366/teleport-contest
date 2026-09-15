@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `trap.c` back_on_ground full surface matrix (D-1011 deferred thin lava-rescue; turns.md:1617; never own-row live/archived/parked). Probe: `node scripts/brief.mjs back_on_ground`. **Addressed:** D-2384
+- [x] `weapon.c` use_skill may-advance arm (turns.md:410 deferred; give_may_advance_msg D-1963 shipped; never own-row live/archived/parked). Probe: `node scripts/brief.mjs use_skill`. **Addressed:** D-2385
+
+
+- [x] `trap.c` back_on_ground full surface matrix (D-1011 deferred thin lava-rescue; turns.md:1617; never own-row live/archived/parked). Probe: `node scripts/brief.mjs back_on_ground`. **Addressed:** D-2384 `d6462205`
 
 
 - [x] `region.c` region_danger/region_safety geometric residual (turns.md:1599; envelope D-1011/D-1169 shipped; residual never own-row live/archived/parked). Probe: `node scripts/brief.mjs region_safety`. **Addressed:** D-2383 `c30e0585`

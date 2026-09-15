@@ -2228,7 +2228,7 @@ export async function domove_fight_web(x, y) {
         return true;
     } else {
         await pline(`You ${uwep ? 'cut' : 'punch'} through the web.`);
-        use_skill(wtype, 1);
+        await use_skill(wtype, 1);
     }
     deltrap(trap);
     newsym(x, y);

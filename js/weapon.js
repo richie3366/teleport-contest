@@ -934,9 +934,9 @@ export async function drain_weapon_skill(n) {
 /**
  * C ref: weapon.c enhance_weapon_skill (#enhance) + add_skills_to_menu.
  * Branch envelope: wizard y_n + speedy PICK_ONE loop + skill_advance;
- * non-wizard / no-advance PICK_NONE; * / # legend. add_weapon_skill now
- * awaits give_may_advance_msg; lose_weapon_skill / use_skill may-advance
- * arms still deferred (sync hot paths — see use_skill).
+ * non-wizard / no-advance PICK_NONE; * / # legend. add_weapon_skill and
+ * use_skill now await give_may_advance_msg; lose_weapon_skill may-advance
+ * arm still deferred.
  */
 export async function enhance_weapon_skill() {
     await flush_topl_more();
@@ -1227,17 +1227,20 @@ export function weapon_dam_bonus(weapon) {
 
 /**
  * C ref: weapon.c use_skill `:1424–1434` — advance practice; before/after
- * `can_advance` → `give_may_advance_msg(skill)`.
- * Named omission: the may-advance arm stays unwired — this is sync and its
- * callers include sync hot paths (`hmon_hitmon_dmg_recalc`, `exercise_steed`
- * via cmd move), so awaiting the async export needs an async cascade of its
- * own. The export is live above for the wired `add_weapon_skill` arm.
+ * `can_advance(skill, FALSE)` → `give_may_advance_msg(skill)`.
+ * Async: the may-advance arm awaits the live export above (pline can reach
+ * nhgetch); all five C callers ride the async cascade (hack/dokick/uhitm
+ * recalc/steed/spell — spell.js imports this instead of its old clone).
  */
-export function use_skill(skill, degree) {
+export async function use_skill(skill, degree) {
     if (skill === P_NONE) return;
     const ws = game.u?.weapon_skills?.[skill];
     if (!ws || ws.skill === P_ISRESTRICTED) return;
+    const advance_before = can_advance(skill, false);
     ws.advance = (ws.advance || 0) + (degree | 0);
+    if (!advance_before && can_advance(skill, false)) {
+        await give_may_advance_msg(skill);
+    }
 }
 
 /**

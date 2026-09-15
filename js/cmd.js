@@ -3578,7 +3578,7 @@ async function domove(dx, dy) {
         u.usteed.my = newy;
         /* C hack.c:2883 [if move attempt ends up being blocked, should
          * training count?] exercise_steed(); train riding skill */
-        exercise_steed();
+        await exercise_steed();
     }
 
     if (mtmp && is_safemon(mtmp)

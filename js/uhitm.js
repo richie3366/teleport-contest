@@ -854,10 +854,11 @@ function hmonas_toggle_altwep(u) {
 
 /**
  * C ref: uhitm.c hmon_hitmon_dmg_recalc — udaminc + dbon + weapon_dam_bonus.
+ * Async for the `use_skill` may-advance arm (single caller `hmon` is async).
  * Named omissions: PROJECTILE→launcher
  * skillwep swap (ammo uses weapon_type(obj) until shot path ports).
  */
-function hmon_hitmon_dmg_recalc(dmg, obj, thrown, twohits, use_weapon_skill,
+async function hmon_hitmon_dmg_recalc(dmg, obj, thrown, twohits, use_weapon_skill,
     train_weapon_skill) {
     let dmgbonus = game.u?.udaminc | 0;
     const u = game.u || {};
@@ -883,7 +884,7 @@ function hmon_hitmon_dmg_recalc(dmg, obj, thrown, twohits, use_weapon_skill,
             const wtype = thrown
                 ? weapon_type(skillwep)
                 : (u.twoweap ? P_TWO_WEAPON_COMBAT : weapon_type(u.uwep));
-            use_skill(wtype, 1);
+            await use_skill(wtype, 1);
         }
     }
     dmg += dmgbonus;
@@ -1128,7 +1129,7 @@ async function hmon(mon, obj, thrown, _dieroll) {
     }
     // C: if (hmd.dmg > 0) hmon_hitmon_dmg_recalc — before stagger
     if (dmg > 0) {
-        dmg = hmon_hitmon_dmg_recalc(dmg, obj, thrown, twohits,
+        dmg = await hmon_hitmon_dmg_recalc(dmg, obj, thrown, twohits,
             use_weapon_skill, train_weapon_skill);
     }
 
