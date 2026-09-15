@@ -164,8 +164,8 @@ const PM_HOUSECAT = monsterNames.indexOf('PM_HOUSECAT');
 const INVLET_BASIC = 52;
 /* C hack.h stoning_checks — u_safe_from_fatal_corpse tests. */
 const st_gloves = 0x1;
-const st_corpse = 0x2;
-const st_petrifies = 0x4;
+export const st_corpse = 0x2;
+export const st_petrifies = 0x4;
 const st_resists = 0x8;
 export const st_all = st_gloves | st_corpse | st_petrifies | st_resists;
 

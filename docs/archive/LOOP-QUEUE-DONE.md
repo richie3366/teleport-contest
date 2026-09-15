@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
+- [x] `do_wear.c` better_not_take_that_off (D-1602-named residual; C do_wear.c:2990–3010 stoning-corpse/gloves-name arms; not in js/; never own-row live/archived/parked). Probe: `node scripts/brief.mjs better_not_take_that_off`. **Addressed:** D-2389
+
+
 - [x] `pickup.c` floor TRADITIONAL query_classes (turns.md:1543 D-1620; D-2350 FOLLOW chain live; never own-row live/archived/parked). Probe: `node scripts/brief.mjs query_classes`. **Addressed:** D-2388 `585f3720`
 
 

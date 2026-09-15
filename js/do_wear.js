@@ -10,8 +10,8 @@ import {
     flush_topl_more, pline, You_feel, mark_topline_prompt,
     newsym, see_monsters, urgent_pline, impossible, Hallucination,
 } from './display.js';
-import { yn_function } from './getline.js';
-import { an, doname, the, xname, xprname, vtense, makeplural, makesingular, otense, gloves_simple_name, simpleonames, body_part_latebound, Tobjnam } from './objnam.js';
+import { yn_function, paranoid_ynq } from './getline.js';
+import { an, doname, the, xname, xprname, vtense, makeplural, makesingular, otense, gloves_simple_name, obj_pmname_corpse, simpleonames, body_part_latebound, Tobjnam } from './objnam.js';
 import { find_ac } from './u_init.js';
 import {
     A_STR, A_INT, A_WIS, A_CON, A_CHA, A_DEX, acurr, extremeattr, change_luck, Fast, Very_fast,
@@ -32,7 +32,7 @@ import { w_blocks, cantweararm, racial_exception, WrappingAllowed, is_flimsy, ha
 import { monstunseesu_prop } from './mondata.js';
 import {
     add_valid_menu_class, menu_class_present, query_category, query_objlist,
-    is_worn_by_type,
+    is_worn_by_type, u_safe_from_fatal_corpse, st_corpse, st_petrifies,
 } from './pickup.js';
 import { obj_resists } from './dogmove.js';
 import { toggle_blindness, dropx, canletgo, setnotworn } from './do.js';
@@ -67,7 +67,7 @@ import {
     ARMOR_CLASS, RING_CLASS, AMULET_CLASS, WEAPON_CLASS, TOOL_CLASS,
     objectNames, objectNameStrs, objectDescrs, is_sword,
 } from './objects.js';
-import { PM_ARCHEOLOGIST, PM_WIZARD, PM_MONK, nolimbs, nohands, verysmall, slithy, MZ_SMALL } from './monsters.js';
+import { PM_ARCHEOLOGIST, PM_WIZARD, PM_MONK, nolimbs, nohands, verysmall, slithy, MZ_SMALL, touch_petrifies, mons } from './monsters.js';
 import {
     is_flammable, is_rustprone, is_rottable, is_corrodeable, is_crackable,
     erosion_matters, is_damageable, is_metallic, curse, set_bknown,
@@ -114,6 +114,7 @@ const BLINDFOLD = objectNames.indexOf('BLINDFOLD');
 const TOWEL = objectNames.indexOf('TOWEL');
 const LENSES = objectNames.indexOf('LENSES');
 const BATTLE_AXE = objectNames.indexOf('BATTLE_AXE');
+const CORPSE = objectNames.indexOf('CORPSE');
 const AMULET_OF_ESP = objectNames.indexOf('AMULET_OF_ESP');
 const AMULET_OF_LIFE_SAVING = objectNames.indexOf('AMULET_OF_LIFE_SAVING');
 const AMULET_VERSUS_POISON = objectNames.indexOf('AMULET_VERSUS_POISON');
@@ -1541,10 +1542,47 @@ function wearing_armor() {
 }
 
 /**
+ * C ref: invent.c carrying_stoning_corpse `:1507–1516` — first invent
+ * CORPSE that petrifies on touch (cockatrice/chickatrice). Sole C caller
+ * is better_not_take_that_off (do_wear.c:2992); defined here at the
+ * caller's home. Exported: C declares it extern (extern.h:1394), unlike
+ * the staticfn better_not_take_that_off below.
+ * @returns {object|null} the corpse, or null when carrying none
+ */
+export function carrying_stoning_corpse() {
+    for (const o of game.invent || []) {
+        if ((o?.otyp | 0) === CORPSE && touch_petrifies(mons(o?.corpsenm))) {
+            return o;
+        }
+    }
+    return null;
+}
+
+/**
+ * C ref: do_wear.c better_not_take_that_off `:2989–3010` — removing gloves
+ * while carrying a stoning corpse needs a paranoid "yes". The
+ * st_corpse|st_petrifies pair (hack.h:858–859) deliberately omits
+ * st_resists: losing stoning resistance later without the gloves on could
+ * prove dangerous (C comment `:2995–3000`). `paranoid_ynq(TRUE, …)` always
+ * takes the typed-"yes" path (cmd.c:5595); the caller blocks on anything
+ * but 'y'.
+ * @param {object} otmp the gloves being removed
+ * @returns {Promise<boolean>} true when the gloves must stay on
+ */
+async function better_not_take_that_off(otmp) {
+    const corpse = carrying_stoning_corpse();
+    if (corpse && !u_safe_from_fatal_corpse(corpse, st_corpse | st_petrifies)) {
+        const buf = `Take off your ${gloves_simple_name(otmp)} despite carrying a dead ${obj_pmname_corpse(corpse)}?`;
+        return (await paranoid_ynq(true, buf, false)) !== 'y';
+    }
+    return false;
+}
+
+/**
  * C do_wear.c select_off `:2694–2821`. Sets takeoff.mask; does not
  * remove the item (`take_off` occupation is D-1619).
- * Named omit: better_not_take_that_off stoning-corpse gloves yn;
- * gloves_simple_name gauntlets; cloak_simple_name robe; surface()
+ * Named omit: gloves_simple_name gauntlets (ring arm uses "gloves");
+ * cloak_simple_name robe (suit arm uses "cloak"/"suit"); surface()
  * infloor noun (uses "floor").
  * @param {object|null} otmp
  * @returns {Promise<number>} always 0 like C
@@ -1597,7 +1635,7 @@ async function select_off(otmp) {
             await pline(`${art} gloves are too slippery to take off.`);
             return 0;
         }
-        /* better_not_take_that_off named omit */
+        if (await better_not_take_that_off(otmp)) return 0;
     }
     if (otmp === u.uarmf) {
         if (u.utrap && (u.utraptype | 0) === TT_BEARTRAP) {

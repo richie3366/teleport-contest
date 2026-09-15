@@ -1074,7 +1074,7 @@ cloak/suit extra; `Amulet_off` ESP/`RESTFUL_SLEEP`/`GUARDING`; drown/strangle/fl
 **`cancel_doff`** (D-1766; C `do_wear.c` `:1643–1659` skip `cancel_don` when
 `I_SPECIAL` then `takeoff.mask &= ~slotmask`; `setworn`/`setnotworn` callers;
 `doffing` `:1600–1640` accessory/wep `takeoff.what`; named: setnotworn
-`monstunseesu_prop`/`update_inventory`) / **`menu_remarm` D-1630** (C `do_wear.c` `:3089–3138` MENU_FULL 
+`monstunseesu_prop`/`update_inventory`) + **`better_not_take_that_off`** (D-2389; C `do_wear.c` `:2989–3010` + `carrying_stoning_corpse` C `invent.c` `:1507–1516`, exported — C extern `extern.h:1394`; `st_corpse|st_petrifies` via `pickup.js` exports, `obj_pmname_corpse` via `objnam.js`, `paranoid_ynq` via `getline.js`, all ALREADY edges; wired in `select_off` uarmg arm after Glib; named: ring-arm gauntlets/`cloak_simple_name`/`surface()` nouns) / **`menu_remarm` D-1630** (C `do_wear.c` `:3089–3138` MENU_FULL 
 `query_category(WORN|ALL|UNPAID|BUCX)` then `query_objlist(SIGNAL_NOMENU|USE_INVLET|INVORDER_SORT)` 
 PICK_ANY `is_worn`/`is_worn_by_type`; COMBINATION `ggetobj` combo; TRADITIONAL `'m'` retry -2/-3; 
 callees `js/pickup.js`; `obj_to_glyph` display RNG / INCLUDE_HERO / ParanoidAutoAll named); 
