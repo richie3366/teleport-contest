@@ -7,6 +7,7 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 Park rows: re-pop only on the listed falsifier (proofs in Parked).
 
 - **Presence-only parks (0/553 owned):** mkclass_aligned/get_location, gethungry/maybe_generate/mattacku/u_calc_moveamt, dochug/dotrap/mintrap/nh_timeout/mon_break_armor (STALE).
+- **ignite_items/catch_lit:** STALE DUPLICATE, parked 2026-09-15 (shipped D-0978; both bodies live and C-faithful; `verify` 0 blocked; proof in LOOP-QUEUE Parked; re-pop only on blocked-owner verify).
 - **Transient parks:** break_armor timing.
 - **exercise:** draw-presence only, 0/553 owned.
 - **do_statusline1/2:** paint-timing (statusline1 → attributes_enlightenment).

@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `trap.c` openholdingtrap/openfallingtrap + Punished boxlock arms (debt.md D-0981; C trap.c:6101 openholdingtrap). Probe: `node scripts/brief.mjs openholdingtrap`. **Addressed:** D-2317
+- [x] `trap.c` openholdingtrap/openfallingtrap + Punished boxlock arms (debt.md D-0981; C trap.c:6101 openholdingtrap). Probe: `node scripts/brief.mjs openholdingtrap`. **Addressed:** D-2317 48f96186
 
 
 - [x] `dbridge.c` open_drawbridge/close_drawbridge + music passtune (debt.md D-0977; C dbridge.c:840 open_drawbridge). Probe: `node scripts/brief.mjs open_drawbridge`. **Addressed:** D-2316 `cb720cc9`

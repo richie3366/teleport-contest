@@ -80,7 +80,7 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `trap.c` openholdingtrap/openfallingtrap + Punished boxlock arms (debt.md D-0981; C trap.c:6101 openholdingtrap). Probe: `node scripts/brief.mjs openholdingtrap`.
+**Next cluster:** `trap.c` ignite_items + apply.c catch_lit fire ignition (debt.md D-0978; C trap.c:7161 ignite_items). Probe: `node scripts/brief.mjs ignite_items`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2317 (index).**
 <!-- recent:begin -->
