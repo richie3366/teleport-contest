@@ -80,7 +80,7 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `dokick.c` kick_object Is_box container_impact_dmg/chest_trap + ghitm (debt.md D-0989; C dokick.c kick_object). Probe: `node scripts/brief.mjs kick_object`.
+**Next cluster:** `dokick.c` kick_object Is_box container_impact_dmg/chest_trap + ghitm (debt.md D-0989; C dokick.c kick_object). Probe: `node scripts/brief.mjs kick_object`. → **PARKED 2026-09-15 as STALE DUPLICATE** (shipped D-0989; every arm live and C-cited; five verifies 0 blocked; proof in LOOP-QUEUE Parked). Next pop: `dokick.c` costly_gold/donate_gold row.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2318 (index).**
 <!-- recent:begin -->
