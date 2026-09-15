@@ -79,7 +79,7 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** Open `objnam.c` makeplural (TOP30 honourable 186/59, ch_ksound dead; never own-row live/archived/parked). Probe: `node scripts/brief.mjs makeplural`.
+**Next cluster:** Open `timeout.c` slimed_to_death (corpus queue 1/553: scen-death-Valkyrie-92229 step 37 kind=screen, C «You feel even worse» vs JS «You feel much worse» after Demogorgon lifesave; never own-row live/archived/parked). Probe: `node scripts/brief.mjs slimed_to_death`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2395 (index).**
 <!-- recent:begin -->

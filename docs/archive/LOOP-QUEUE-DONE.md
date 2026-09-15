@@ -1460,7 +1460,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 - [x] `pickup.c` pickup — pickup body remaining arms (TOP30 honourable mention, 238/135; archived rows are sub-arms only). **Addressed:** D-1926 `a3aa0f8d`
 
 
-- [x] `explode.c` explode — explosion body remaining arms (TOP30 honourable mention; archived D-1760 is the named map_invisible bit only).
+- [x] `explode.c` explode — explosion body remaining arms (TOP30 honourable mention; archived D-1760 is the named map_invisible bit only). **Addressed:** D-1925 `7571aee9`
 
 
 - [x] `trap.c` dotrap — hero/monster trap dispatch body (TOP30 honourable mention; archived untrap/pit-hole/spoteffects rows explicitly Not dotrap). **Addressed:** D-1924 `b87ddc27`
