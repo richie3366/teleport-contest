@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `music.c` charm_snakes/calm_nymphs/charm_monsters flute/harp (named debt.md D-0974; never live/archived/parked). Probe: `node scripts/brief.mjs charm_monsters`. **Addressed:** D-2357
+- [x] `music.c` charm_snakes/calm_nymphs/charm_monsters flute/harp (named debt.md D-0974; never live/archived/parked). Probe: `node scripts/brief.mjs charm_monsters`. **Addressed:** D-2357 `d8cfa25c`
 
 
 - [x] `apply.c` Blindf_on/Blindf_off BLINDFOLD/LENSES (named debt.md D-1013; never live/archived/parked). Probe: `node scripts/brief.mjs Blindf_on`. **Addressed:** D-2356 `c7041cb5`

@@ -10,6 +10,7 @@ Parks: re-pop only on the listed falsifier (proofs in Parked).
 - **release_hold/flash_hits_mon park (2026-09-15):** D-0979; all arms live+C-cited (zap.js:2520 release_hold, apply.js:1053 break-wand, zap.js:4017/4462 bhitm/self, uhitm.js:3390 flash + :3347 gremlin); brief+verify 0 blocked.
 - **getobj_apply CMDQ_KEY park (2026-09-15):** not a C fn (0 refs); all 5 wield re-queues live (dig.js:2425, apply.js:3143/3609/3759/5084) + getobj_from_cmdq KEY/INT/USER_INPUT/HANDS (invent.js:7657) + rhack canned/KEY-as-command (cmd.js:2411); 'key'-vs-CMDQ_KEY drift stays (potion.js:2355 takes only 'key'); verify 0 blocked.
 
+- **cancel_monst park (2026-09-15):** D-1017; every named arm live+C-cited (zap.js:3402 resist/self-cancel Array walk/clay hallu/s_suffix/AD_SPEL; callers artifact.js:2441 + zap.js:3878/4400); muse cancel wand stays map-named (muse.js:753); brief+verify 0 blocked.
 - **Eval-order TDZ (D-2349):** no static `objnam.js`→`shk.js` edge (or anything reaching polyself at eval) — boot `_body_part` TDZ via polyself top-level `set_body_part`. Late-bind via setters (the `_y_monnam` idiom).
 
 - **Presence-only (0/553):** mkclass_aligned/get_location, gethungry/maybe_generate/mattacku/u_calc_moveamt/exercise, dochug/dotrap/mintrap/nh_timeout/mon_break_armor.
