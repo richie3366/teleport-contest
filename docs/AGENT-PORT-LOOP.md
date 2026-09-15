@@ -135,7 +135,8 @@ MODEL=cursor-grok-4.6-high ./scripts/agent-port-loop.sh
 │       continue latch: force port (or audit) and skip n%10 for       │
 │             that one global #; leftover dirty tree is the cluster   │
 │       port: Must-fix beats Open; if open count < 8, agent refills  │
-│             Open from the map (target 12) then ships one cluster   │
+│             evidence rows only (queue owners, park-named writers,  │
+│             [campaign]/[measure]; target 12) then ships one cluster│
 │       snapshot js/; remember HEAD; run agent (commit + push)       │
 │       FAIL-CLOSED (revert HEAD + STOP=1 if not yet on origin):     │
 │         3× short runs, tool denials, protected edit,               │
@@ -503,11 +504,13 @@ Halt reason is still `last-halt-reason.txt`.
 | Agent `git push` then green/suite FAIL | Continue; next iter recovers |
 | Port / audit `resource_exhausted` before commit | Supervisor **retries** the same `#` as continue-unfinished (cites that iter `.log`/`.raw` + resume brief); does **not** exit. 3× short runs still halt (tree kept) |
 | Uncommitted `js/` or `reviews/` after the agent returns | Same in-process retry, keep tree |
-| Docs-only park of a queue row (Open `- [ ]` moved to **Parked**, no `js/`) | **Continue** — not an empty-port halt. Supervisor commits leftover park docs if the agent forgot. Do not `finish-iteration` |
-| Empty port (no `js/` and no Parked-row move) | **HALT + revert** (unless already pushed — then halt, no reset). This is the “spun, shipped nothing” case (#2278 wiped an uncommitted park) |
+| Docs-only park of a queue row (Open `- [ ]` moved to **Parked**, no `js/`) | **Continue** — not an empty-port halt. Supervisor commits leftover park docs if the agent forgot. Do not `finish-iteration`. Since 2026-09-16 the live Parked line is an index entry (≤ 300 chars) and the park must add the writer's Open row or a `[measure]` row in the same commit |
+| Popped `[measure]` row, no `js/` | **Continue** — `port-did-park.mjs --measure`; its deliverable is a C-side measurement in `NOTES.md` + the writer's Open row. Supervisor commits leftovers like a park |
+| Empty port (no `js/`, no Parked-row move, no `[measure]` pop) | **HALT + revert** (unless already pushed — then halt, no reset). This is the “spun, shipped nothing” case (#2278 wiped an uncommitted park) |
+| Park share climbs (≥ 3 `Park …` commits in 10 port iters) | Refill leaked non-evidence rows. `check-hot-docs` FAILs live rows without evidence; `hidden-proxy queue` tags open/parked/archived owners. 2026-09-09..15: 126/362 iterations were parks, 109/161 parked rows stale copies of shipped work |
 | Dirty tree at start | Loop refuses to launch, unless a continue latch is armed (`--continue-unfinished`, crash leftover, or dirty tree + `NEXT_AGENT_PROMPT.md`) |
 | QUALITY-RISK with no Must-fix | Review did nothing — halt+revert (or halt if pushed) |
-| Queue empty after port | Agent failed to refill from the map — halt |
+| Queue empty after port | Agent failed to refill (evidence rows: `hidden-proxy queue` untagged owners, park-named writers, `[campaign]`/`[measure]` rows) — halt |
 
 The shell parses `__RESULTS_JSON__` (the frozen runner exits 0 on FAIL),
 enforces density, one-loop locking, protected-path hashes, finite

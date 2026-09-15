@@ -55,14 +55,20 @@ by default. Use `DIVERGENCE-INDEX.md` + one entry.
 ## When public suite is PASS
 
 Treat local full-suite PASS as a **regression fortress**. Work comes from
-named map omissions / debt (`docs/c-js-map/`), not invented FAIL peels or
-leaderboard chasing. One **semantic cluster** per iteration (related
-deferrals OK); denser than one-bullet peels; see `GROK-PLAYBOOK.md` §2a–2b.
-For tagged restore/other-floor omits run
+the **scenario corpus** (`LOOP-QUEUE.md`: Must-fix, then Open rows that
+carry evidence — a corpus block, a park-named writer, a `[campaign]` step,
+a `[measure]` row, or a C arm verified absent from the JS body), not from
+invented FAIL peels, leaderboard chasing, or `c-js-map`/`debt.md`/TOP30
+lines copied without reading the JS (109 of 161 parks were such copies;
+Constitution §10.15–16). A stale row is a 3-call detour, never an
+iteration. One **semantic cluster** per iteration (related deferrals OK);
+denser than one-bullet peels; see `GROK-PLAYBOOK.md` §2a–2b. For tagged
+restore/other-floor omits run
 `node scripts/save-oracle.mjs probe --omit '<C file>:<fn>'` (no-op if
 untagged). Do not shop the fork dashboard for a new peel. This rule's
-constitution/playbook/runbook/prompt edits were a one-shot process take;
-ordinary later loop iters follow that text and must not rewrite it.
+constitution/playbook/runbook/prompt edits were one-shot process takes
+(2026-09-06, 2026-09-16); ordinary later loop iters follow that text and
+must not rewrite it.
 
 ## When fixing divergence
 

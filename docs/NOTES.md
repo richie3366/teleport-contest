@@ -4,17 +4,33 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 
 ## Active
 
-Parks: re-pop only on the listed falsifier (proofs in Parked).
-- **2026-09-14/15 stale-dupe parks** (0 blocked; every item has its own Parked row with proof+falsifier — see there, not here).
+Parks are indexed in `LOOP-QUEUE.md` **Parked** (one line each, class +
+falsifier; proofs in `docs/archive/LOOP-QUEUE-PARKED.md`). Do not list them
+here again. Live hypotheses only:
+
+- **2026-09-16 process take (measured):** 126/362 non-audit iterations
+  2026-09-09..15 were parks; 109/161 parked rows were stale copies of
+  shipped work from `data.md`/`debt.md`/TOP30 refills. Falsifier for the
+  fix: park share over the next 30 port iterations
+  (`git log --format=%s -60 | rg -c '^Park'`) — expect ≤ 3, all diagnostic
+  (writer or `[measure]` row added in the same commit).
+- **Corpus remainder is paint-timing + writer misattribution, not bodies:**
+  `hidden-proxy queue` now prints the differing screen row (e.g. row 23
+  `AC:6` vs `AC:10`; row 4 «You were held by a pit fiend» vs «You weren't
+  hungry»). The value's writer is the port; the painter is proven faithful
+  (do_statusline1/2, one_characteristic parks).
+- **botl paint parity (campaign 1/3 open):** C paints status only on
+  `disp.botl/botlx/time_botl` (`allmain.c:473–479`); JS `bot()` runs every
+  loop behind `_statusSuppressed` shims. Gating it locally regressed 7
+  fortress sessions (2026-09-07 probe) — each a missing JS set site or the
+  menu-close redraw. Falsifier per step: full `sessions` with the gate on.
+- **Knight worker spin** (`[measure]` row): importing canonical `can_carry`
+  fixes Knight-92182 step 13 but the worker spins (ETIMEDOUT); same class
+  as the ready_weapon full-arm Knight-92204 spin. Suspect an
+  input-exhaustion sync loop — profile past the step, do not theorize.
 - **R-1082 music path live:** `seemimic` js/music.js:312; omit is trap-clone-only.
 - **Eval-order TDZ (D-2349):** no static edge to polyself at eval; late-bind setters.
-
-- **Presence-only:** mkclass_aligned/get_location, gethungry/maybe_generate/mattacku/u_calc_moveamt/exercise, dochug/dotrap/mintrap/nh_timeout/mon_break_armor.
-- **Stale-dupe parks** (0 blocked; proofs+falsifiers in Parked rows — re-pop only if verify blocks with the named owner): hitmu TOP30-ratio, grow_up D-1920, in_or_out_menu, untrap D-1813+D-2305+D-2372, makeplural D-1923, explode D-1925.
 - **Fortress guards** (do not reopen): display_inventory, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue S_ndoor, bigrm-2, getpos, summonmu, lookat, do_statusline1, snapshot, fakewiz, Ice/Boulder, roles[], pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
-- **ggetobj/take_off/cancel_doff parked** STALE DUPLICATE (fixed, 0 blocked on all 7 family fns; D-numbers: Parked row). Falsifier: verify blocked with any family fn as owner.
-- **Symptom parks:** obj_resists/m_move/rloc/lightdamage/mattackm/can_carry/spoteffects/mon_adjust_speed/zapyourself/doname_base/hmonas/minliquid_core/distfleeck/passiveum; do_statusline1/2 paint-timing; slimed landing + Sick-store.
-- **STALE + misattributed parks** (proofs+falsifiers: Parked rows): lesshungry/rndcurse/mhitm_ad_famn/regen_hp/barehands/do_mapping/adjattrib/from_what/look_at_monster/formatkiller/do_screen_description/reveal_terrain/peffect_acid/newcham/use_offensive/stop_donning/gcrownu/big_little_match/xkilled/x_monnam/domonnoise; vomiting_dialogue/u_stuck_cannot_go/name_to_monplus/mcast_death_touch/save_dungeon/dodown/mv_bubble/one_characteristic/use_pole/trapmove/fig_transform/chwepon/that_is_a_mimic/drinkfountain/poly_obj/disclose/list_vanquished/dopush.
 ## Don't re-check (≤15)
 
 - D-1790…D-2398 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.

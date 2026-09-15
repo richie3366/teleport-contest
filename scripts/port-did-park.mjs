@@ -6,6 +6,10 @@
  *
  *   node scripts/port-did-park.mjs <before_rev> [queue.md]
  *   exit 0 = park, 1 = not a park
+ *
+ * `--measure`: true when a `[measure]` Open row left the live list (its
+ * deliverable is a C-side measurement + a writer row, no js/ — 2026-09-16
+ * process take). Same exit convention.
  */
 import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
@@ -61,6 +65,13 @@ export function didPark(beforeText, afterText) {
   });
 }
 
+/** A `[measure]` row was popped (left the live list) — docs-only by design. */
+export function didMeasure(beforeText, afterText) {
+  const afterOpen = new Set(liveOpenLines(afterText));
+  const removed = liveOpenLines(beforeText).filter((l) => !afterOpen.has(l));
+  return removed.some((row) => /\[measure\]/.test(row));
+}
+
 function gitShowQueue(rev) {
   try {
     return execFileSync('git', ['-C', root, 'show', `${rev}:${QUEUE_REL}`], {
@@ -73,15 +84,19 @@ function gitShowQueue(rev) {
 }
 
 function main(argv) {
-  const beforeRev = argv[2];
+  const args = argv.slice(2);
+  const measure = args.includes('--measure');
+  const rest = args.filter((a) => a !== '--measure');
+  const beforeRev = rest[0];
   if (!beforeRev) {
-    console.error(`usage: node scripts/port-did-park.mjs <before_rev> [${QUEUE_REL}]`);
+    console.error(`usage: node scripts/port-did-park.mjs [--measure] <before_rev> [${QUEUE_REL}]`);
     process.exit(2);
   }
-  const queuePath = argv[3] || join(root, QUEUE_REL);
+  const queuePath = rest[1] || join(root, QUEUE_REL);
   const before = gitShowQueue(beforeRev);
   if (before == null || !existsSync(queuePath)) process.exit(1);
-  process.exit(didPark(before, readFileSync(queuePath, 'utf8')) ? 0 : 1);
+  const after = readFileSync(queuePath, 'utf8');
+  process.exit((measure ? didMeasure(before, after) : didPark(before, after)) ? 0 : 1);
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {

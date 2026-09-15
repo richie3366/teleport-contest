@@ -254,11 +254,30 @@ clearly marked temporary and scheduled for deletion.
     below 90 %. Twice (2026-09-04 public 44/44, 2026-09-06 mutant corpus
     96 %) the loop kept shipping display singletons against a saturated
     signal while held-out sat at 7/44.
-14. **A JS throw in any corpus session is a Must-fix**, ahead of every
-    Open row: a `ReferenceError` at step 0 forfeits every screen of the
-    session, and the fix is usually an import of an existing export. The
+14. **A JS throw or worker hang in any corpus session is a Must-fix**,
+    ahead of every Open row: a `ReferenceError` at step 0 (or an
+    `ETIMEDOUT` sync spin) forfeits every screen of the session, and the
+    fix is usually an import of an existing export or one loop. The
     scoreboard's `error` field / `js-throw` owner is the trigger; the
     iteration verifies with `hidden-proxy score --ids` on those sessions.
+15. **Queue rows carry evidence; a stale row costs three calls, not an
+    iteration.** Every live `LOOP-QUEUE.md` row states its corpus block
+    (session, step), a C arm verified absent from the JS body in a brief,
+    a `[campaign]`/`[measure]` tag, or a throw/hang. A map/debt/TOP30 line
+    or a D-number is not evidence (2026-09-09..15: 109 of 161 parks were
+    such copies of already-shipped work, ~35 % of iterations). A popped row
+    whose function is live, `0 blocked`, with no missing arm is retired in
+    one Parked line plus the spawning map line, and the iteration continues
+    with the next row. Live Parked lines are an index (≤ 300 chars); proofs
+    live in `docs/archive/LOOP-QUEUE-PARKED.md`.
+16. **A park names its writer or its measurement.** A diagnostic park
+    (owner is a symptom, body faithful) adds, in the same commit, the Open
+    row for the writer it names — or a `[measure]` row naming the one
+    C-side measurement that would name it. Work too large for one
+    iteration is a `[campaign k/n]` series whose every step ships `js/`
+    and keeps the fortress. Parked corpus owners are the remaining held-out
+    signal; they are worked through their writers, never by re-porting the
+    symptom owner and never by padding the queue from the map.
 
 ---
 

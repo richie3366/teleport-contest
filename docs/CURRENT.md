@@ -75,11 +75,17 @@ Both must remain full RNG + screen PASS with exact lengths.
 ## Primary objective
 
 **Suite 44/44** is the regression fortress. **The objective is the
-scenario corpus** (`hidden-proxy status`): 463/540 PASS.
-Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
-Do **not** pop map-omission singletons
-(`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** Open `vision.c` vision_recalc (TOP30 #30; throwit Must-fix retired by D-2398). Probe: `node scripts/brief.mjs vision_recalc`.
+scenario corpus** (`hidden-proxy status`): 479/540 PASS; the 61 remaining
+sessions sit under **parked symptom owners** (do_statusline2 ×10,
+obj_resists ×6, distfleeck ×5, m_move ×3, …) whose parks already name
+writers. 2026-09-16 process take: rows carry evidence, stale rows are a
+3-call detour, parks requeue their writer, `[campaign]`/`[measure]` rows
+replace map filler (`LOOP-QUEUE.md` header; Constitution §10.15–16).
+Pop `LOOP-QUEUE.md` Must-fix, then Open in order — the Open head is now
+the park-named writers, then the **botl paint-parity campaign** (10
+sessions), then two `[measure]` rows; the 2026-09-15 map-omit refill rows
+sit last, flagged *unverified at enqueue* (stale check first).
+**Next cluster:** Open `mthrowu.c` m_throw flight stop + `u_catch_thrown_obj` (Samurai-92161). Probe: `node scripts/brief.mjs m_throw`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2398 (index).**
 <!-- recent:begin -->
@@ -105,6 +111,9 @@ paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 + seed2200 + seed0383 + strict lengths.
 
 ## Parked (diagnose only — do not implement)
+
+The full index is `LOOP-QUEUE.md` **Parked** (one line each; proofs in
+`docs/archive/LOOP-QUEUE-PARKED.md`). Two never re-pop without C state:
 
 | ID | Why parked |
 |----|------------|

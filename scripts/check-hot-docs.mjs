@@ -38,14 +38,19 @@ const LINE_CAPS = {
   'docs/NOTES.md': { target: 100, maxBytes: 6_000 },
 };
 
+/* 2026-09-16: playbook 16 → 18 kB, prompt 8 → 9 kB, hot sum 40 → 44 kB to
+   hold the stale-check / refill-evidence / campaign / callers rules
+   (~750 tokens per iteration, against ~35 % of iterations lost to
+   stale-row parks). NOTES.md shrank by the same order (park lists now
+   live in the LOOP-QUEUE Parked index). */
 const BYTE_CAPS = {
-  'docs/GROK-PLAYBOOK.md': 16_000,
-  'scripts/agent-port-loop.prompt.md': 8_000,
+  'docs/GROK-PLAYBOOK.md': 18_000,
+  'scripts/agent-port-loop.prompt.md': 9_000,
   'docs/PROGRESS.md': 1_500,
   'docs/C-JS-MAP.md': 3_000,
 };
 
-const HOT_SUM_MAX = 40_000;
+const HOT_SUM_MAX = 44_000;
 const QUEUE_MIN = 8;
 const QUEUE_TARGET = 12;
 const NOTES_SECTION_TARGET = 15;
@@ -118,6 +123,31 @@ function queueCounts(text) {
     }
   }
   return { mf, open, total: mf + open };
+}
+
+/** Queue hygiene (2026-09-16): every live Open/Must-fix row must carry
+ *  evidence — a corpus block count, a verified missing C arm, a campaign /
+ *  measure tag, a throw/hang, or an explicit "unverified at enqueue" flag
+ *  that tells the porter to run the stale check first. Live Parked lines
+ *  are an index (≤ PARKED_LINE_MAX chars); proofs live in the archive. */
+const EVIDENCE_RE = /blocks \d+\/\d+|absent from js\/|\[campaign|\[measure\]|ETIMEDOUT|ReferenceError|js-throw|unverified at enqueue|Source: reviews\//;
+const PARKED_LINE_MAX = 400;
+function queueHygiene(text) {
+  let sec = '';
+  const noEvidence = [];
+  const longParked = [];
+  for (const line of text.split('\n')) {
+    if (/^## Parked/.test(line)) { sec = 'parked'; continue; }
+    if (/^## Must-fix|^## Open/.test(line)) { sec = 'live'; continue; }
+    if (/^## /.test(line)) { sec = ''; continue; }
+    if (sec === 'live' && /^- \[ \]/.test(line) && !EVIDENCE_RE.test(line)) {
+      noEvidence.push(line.slice(6, 70));
+    }
+    if (sec === 'parked' && /^- /.test(line) && line.length > PARKED_LINE_MAX) {
+      longParked.push(line.slice(2, 60));
+    }
+  }
+  return { noEvidence, longParked };
 }
 
 function readRel(rel) {
@@ -409,6 +439,29 @@ FAIL / ROTATE / REFILL / missing = do that action only.`);
         '',
         '',
       );
+    }
+    const { noEvidence, longParked } = queueHygiene(queue);
+    if (noEvidence.length) {
+      add(
+        'FAIL',
+        'LOOP-QUEUE evidence',
+        `${noEvidence.length} live row(s) without evidence`,
+        noEvidence[0],
+        'each Open row needs `blocks N/M`, `absent from js/…`, `[campaign`, `[measure]`, a throw/hang, or `unverified at enqueue` (LOOP-QUEUE.md header)',
+      );
+    } else {
+      add('ok', 'LOOP-QUEUE evidence', 'every live row carries evidence', '', '');
+    }
+    if (longParked.length) {
+      add(
+        'FAIL',
+        'LOOP-QUEUE parked',
+        `${longParked.length} live Parked line(s) > ${PARKED_LINE_MAX} chars`,
+        longParked[0],
+        'live Parked is an index: one line, proof to docs/archive/LOOP-QUEUE-PARKED.md',
+      );
+    } else {
+      add('ok', 'LOOP-QUEUE parked', `index lines ≤ ${PARKED_LINE_MAX} chars`, '', '');
     }
   }
 

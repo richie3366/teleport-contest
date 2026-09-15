@@ -74,10 +74,13 @@ locked suite:
 2. Choose work from the **scenario corpus** first
    (`node scripts/hidden-proxy.mjs queue`; `docs/HIDDEN-PROXY.md` §4–5):
    every row is a C-recorded session the port fails, attributed to the
-   owning C function. A `js-throw` owner is Must-fix. Named omissions in
-   `c-js-map/*.md` come only when every corpus family is ≥ 90 % PASS
-   (Constitution §10.13); parked items stay diagnose-only until their
-   falsifier exists.
+   owning C function — the attribution is a heuristic (status-row and
+   identical-topline diffs name the painter, not the writer; the queue
+   prints the differing screen row for that reason). A `js-throw` /
+   hang owner is Must-fix. When the top owners are all parked, the work
+   is their **writers**, `[campaign]` steps and `[measure]` rows
+   (`LOOP-QUEUE.md` header) — not map singletons, which come only when
+   every corpus family is ≥ 90 % PASS (Constitution §10.13).
 3. **Keep the corpus unsaturated:** when every family is ≥ 85 % PASS the
    audit iteration generates a new cohort with `scripts/scenario-gen.mjs`
    (wizard-mode wishes, `^G`, `#polyself`, `#wizintrinsic`, deaths,
@@ -509,8 +512,28 @@ each iteration must still be finite, auditable, and useful to a fresh model.
 
 ### Parked deep work
 
-When `DIVERGENCE-LOG.md` marks an item **parked** (missing falsifier,
-instrumentation, or prerequisite), loop agents may record hypotheses in the
-journal but must not ship production changes for that item. Return to the
-primary foundation objective in `CURRENT.md` instead of re-peeling the parked
-trace.
+When `DIVERGENCE-LOG.md` or `LOOP-QUEUE.md` marks an item **parked**
+(missing falsifier, instrumentation, or prerequisite), loop agents may
+record hypotheses in the journal but must not ship production changes for
+that item. Return to the primary objective in `CURRENT.md` instead of
+re-peeling the parked trace.
+
+A park is a fork, not a dead end (Constitution §10.15–16):
+
+- **Stale row** (the function shipped before the row was written; brief
+  shows a live body, `0 blocked`, no missing C arm): one Parked index line,
+  retire the map/debt line that spawned it, pop the next row **in the same
+  iteration**. Three calls, no essay.
+- **Diagnostic park that names the writer**: the writer becomes an Open
+  row in the same commit, carrying the session as evidence.
+- **Diagnostic park that names no writer**: a `[measure]` Open row states
+  the one C-side measurement (temp C dump at the cited locus, recorder
+  screen, `geom-probe`, prefix-state probe) that would; completing it is a
+  docs-only iteration by design (measurement in `NOTES.md` *measured*, +
+  the writer's row).
+- **Too large for one iteration** (paint-timing parity, a shim-thick module
+  restart): a `[campaign k/n]` row series; every step ships `js/`, keeps
+  the fortress, and writes what the next step must do into its row.
+
+Live Parked lines are an index (≤ 300 chars); the full proof goes to
+`docs/archive/LOOP-QUEUE-PARKED.md` under the same name.

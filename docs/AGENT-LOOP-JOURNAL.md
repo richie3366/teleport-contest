@@ -4,6 +4,37 @@ Append-only crumbs for `scripts/agent-port-loop.sh` iterations.
 Each agent process should add a short dated entry **at the top** (after
 this header) before exiting. Keep entries tight; detailed hypothesis
 lives in `NOTES.md` / `CURRENT.md`.
+## 2026-09-16 — Process take (human-directed architect pass): stop stale-row parks, requeue park writers
+
+**Measured:** last 400 commits — 126 of 362 non-audit iterations were
+`Park …` commits (69 on 2026-09-15 alone); 109 of the 161 Parked rows
+were **stale** (function live + C-cited before the row existed; rows
+copied from `data.md`/`debt.md`/`absent.md`/TOP30 by the mandatory
+refill). Parked rows averaged ~2 kB each; `LOOP-QUEUE.md` was 332 kB.
+The 61 remaining corpus failures all sit under parked symptom owners
+whose parks already name writers that were never re-queued
+(`ready_weapon` shine arm, `m_throw`/`u_catch_thrown_obj`, `set_uasmon`
+infravision, `can_carry` + worker spin, botl paint parity).
+**Changed (docs):** `LOOP-QUEUE.md` header = row eligibility (evidence
+in the row), stale check as a ≤3-call detour, park-and-requeue,
+`[campaign k/n]` and `[measure]` rows, Parked as a ≤300-char index with
+proofs moved to `docs/archive/LOOP-QUEUE-PARKED.md` (332 kB → 30 kB);
+Open seeded with 3 writer rows, the botl-parity campaign (3 steps) and 2
+`[measure]` rows ahead of the 8 unverified 2026-09-15 refill rows.
+Playbook §1/§2/§2a/§2b/§5/§6/§8/§9/§10, Constitution §10.14–16, runbook
+"Parked deep work" + corpus item, `CURRENT.md` objective, `NOTES.md`
+Active (park lists → pointer), `HIDDEN-PROXY.md` §3, `AGENT-PORT-LOOP.md`
+failure modes, Cursor rule "When public suite is PASS", the three loop
+prompts. **Changed (scripts):** `agent-port-loop.sh` refill overlay now
+asks for evidence rows (was: "prefer `data.md`/`debt.md`"), a popped
+`[measure]` row is not an empty port (`port-did-park.mjs --measure`, +3
+tests); `hidden-proxy.mjs queue` tags owners already open/parked/archived
+and prints the differing screen row when toplines are identical;
+`check-hot-docs.mjs` FAILs live rows without evidence and Parked lines >
+400 chars; caps playbook 16→18 kB, prompt 8→9 kB, hot sum 40→44 kB.
+**Falsifier:** park share over the next 30 port iterations ≤ 3, all
+diagnostic with a writer/`[measure]` row in the same commit; corpus
+PASS moves off 479/540 via the writer rows.
 ## 2026-09-15 — Audit b7216a99..a00fc90c (reviews 1359–1362) + cadence 44/44
 
 1359 D-2393 obj_no_longer_held → **QUALITY-RISK** (canonical body exact vs

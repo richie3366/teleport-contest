@@ -296,7 +296,7 @@ function aggregate(rows) {
         a.blockedRng += r.blockedRng || 0;
         a.blockedScr += r.blockedScr || 0;
         a.kinds[r.kind || 'error'] = (a.kinds[r.kind || 'error'] || 0) + 1;
-        if (a.examples.length < 3) a.examples.push({ id: r.id, step: r.step, c: r.cTopline, js: r.jsTopline, cEntry: r.cEntry, jsEntry: r.jsEntry, jsOwner: r.jsOwner });
+        if (a.examples.length < 3) a.examples.push({ id: r.id, step: r.step, c: r.cTopline, js: r.jsTopline, cEntry: r.cEntry, jsEntry: r.jsEntry, jsOwner: r.jsOwner, rowDiff: r.rowDiff, kind: r.kind });
         by.set(key, a);
     }
     const out = [...by.values()];
@@ -323,19 +323,71 @@ function printStatus(rows) {
 
 function cmdStatus() { printStatus(loadScores().rows); }
 
+/* Where LOOP-QUEUE already knows an owner: live Open/Must-fix row, Parked
+   index line (with its class word), or an archived DONE row. Refill must
+   not re-enqueue any of these — a parked owner's *writer* row is the only
+   legal follow-up (LOOP-QUEUE.md header, 2026-09-16). */
+function queueKnowledge() {
+    const known = new Map(); // fn -> tag
+    const q = path.join(ROOT, 'docs', 'LOOP-QUEUE.md');
+    const done = path.join(ROOT, 'docs', 'archive', 'LOOP-QUEUE-DONE.md');
+    const fnsOf = (line) => [...line.matchAll(/`[\w./-]+\.c`[:\s]+([A-Za-z_][\w/]*(?:\s*\+\s*[A-Za-z_]\w*)*)/g)]
+        .flatMap((m) => m[1].split(/\s*\+\s*|\//)).map((s) => s.trim()).filter(Boolean);
+    if (existsSync(q)) {
+        let section = '';
+        for (const line of readFileSync(q, 'utf8').split('\n')) {
+            if (/^## /.test(line)) { section = line; continue; }
+            if (!/^- /.test(line)) continue;
+            if (/^## Parked/.test(section)) {
+                const cls = (/ — ([A-Z][A-Z-]+(?: [A-Z-]+)?)/.exec(line) || [])[1] || 'PARKED';
+                const grouped = /^- `[\w.]+\.c`:\s*(.+)$/.exec(line);
+                if (grouped) {
+                    for (const part of grouped[1].split(';')) {
+                        const fn = (/^\s*([A-Za-z_]\w*)/.exec(part) || [])[1];
+                        if (fn && !known.has(fn)) known.set(fn, 'parked: STALE (shipped)');
+                    }
+                } else for (const fn of fnsOf(line)) if (!known.has(fn)) known.set(fn, `parked: ${cls}`);
+            } else if (/^- \[ \]/.test(line)) {
+                for (const fn of fnsOf(line)) if (!known.has(fn)) known.set(fn, /^## Must-fix/.test(section) ? 'open: Must-fix' : 'open');
+            }
+        }
+    }
+    if (existsSync(done)) {
+        for (const line of readFileSync(done, 'utf8').split('\n')) {
+            if (!/^- \[x\]/.test(line)) continue;
+            const d = (/\*\*Addressed:\*\*\s*(D-\d+)/.exec(line) || [])[1];
+            for (const fn of fnsOf(line)) if (!known.has(fn)) known.set(fn, `archived${d ? ' ' + d : ''}`);
+        }
+    }
+    return known;
+}
+
 function cmdQueue() {
     const limit = Number(val('limit', 12));
     const rows = loadScores().rows;
     const agg = aggregate(rows).filter((a) => !a.owner.startsWith('unattributed') && !a.owner.startsWith('env:'));
     const total = Object.keys(rows).length;
+    const known = queueKnowledge();
+    let fresh = 0;
     for (const a of agg.slice(0, limit)) {
         const ex = a.examples[0] || {};
         const file = a.file || (a.owner.startsWith('js-throw') ? 'js' : '?');
-        const what = ex.cEntry
-            ? `C draws \`${String(ex.cEntry).replace(/\s*@.*$/, '')}\` in ${a.owner}, JS ${ex.jsEntry ? '`' + String(ex.jsEntry).replace(/\s*@.*$/, '') + '` from ' + (ex.jsOwner || '?') : 'draws nothing'}`
-            : `C «${(ex.c || '').slice(0, 60)}» vs JS «${(ex.js || '').slice(0, 60)}»`;
-        console.log(`- [ ] \`${file}\` ${a.owner} — blocks ${a.sessions.length}/${total} corpus sessions (first at step ${ex.step}): ${what}. Probe: \`node scripts/hidden-proxy.mjs verify ${a.owner}\` (${a.examples.map((e) => e.id).join(', ')}).`);
+        const rd = ex.rowDiff;
+        const sameTop = (ex.c || '') === (ex.js || '');
+        let what;
+        if (ex.cEntry) {
+            what = `C draws \`${String(ex.cEntry).replace(/\s*@.*$/, '')}\` in ${a.owner}, JS ${ex.jsEntry ? '`' + String(ex.jsEntry).replace(/\s*@.*$/, '') + '` from ' + (ex.jsOwner || '?') : 'draws nothing'}`;
+        } else if (sameTop && rd && rd.c !== undefined) {
+            what = `toplines identical; first differing screen row ${rd.row}: C «${String(rd.c).trim().slice(0, 70)}» vs JS «${String(rd.js).trim().slice(0, 70)}» — the owner is the region heuristic; port the writer of the differing value, not the painter`;
+        } else {
+            what = `C «${(ex.c || '').slice(0, 60)}» vs JS «${(ex.js || '').slice(0, 60)}»`;
+        }
+        const tag = known.get(a.owner);
+        const mark = tag ? ` **[${tag} — do not re-enqueue${/^parked/.test(tag) ? '; queue its writer or a [measure] row' : ''}]**` : '';
+        if (!tag) fresh++;
+        console.log(`- [ ] \`${file}\` ${a.owner} — blocks ${a.sessions.length}/${total} corpus sessions (first at step ${ex.step}): ${what}. Probe: \`node scripts/hidden-proxy.mjs verify ${a.owner}\` (${a.examples.map((e) => e.id).join(', ')}).${mark}`);
     }
+    console.error(`queue: ${Math.min(limit, agg.length)} owners shown, ${fresh} not yet open/parked/archived (eligible as-is); the rest need a writer or [measure] row`);
 }
 
 /* The committed scoreboard at a git rev: the rows the queue row and the

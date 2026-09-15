@@ -29,17 +29,17 @@ Target **≤12k tokens** of docs before C.
 | 1 | **This file** | priority, **Rule #2**, anti-patterns, endings | — |
 | 2 | Cursor rules / `CONSTITUTION.md` §1–2 (esp. §1.5 Rule #2), §5, §10 | hard bans only | full essays |
 | 3 | **`CURRENT.md`** | score, green gate, **primary objective**, focused cmd | — |
-| 4 | `NOTES.md` | live hypothesis + don’t-recheck | — |
-| 5 | `node scripts/brief.mjs <cfn>` | C body + callers, JS body, map lines, D-rows, corpus rows — one call | paging map files, grepping for definitions |
-| 6 | `HIDDEN-PROXY.md` §1–3 | what a corpus row is; verify semantics | the method essay |
-| 7 | `PORTING-RUNBOOK.md` §3–7 | only if procedure unclear | strategy rationale |
+| 4 | `LOOP-QUEUE.md` header + first row | eligibility rule, stale check, the row | Parked index (unless a row points there) |
+| 5 | `NOTES.md` | live hypothesis + don’t-recheck | — |
+| 6 | `node scripts/brief.mjs <cfn>` | C body + callers, JS body, map lines, D-rows, corpus rows — one call | paging map files, grepping for definitions |
+| 7 | `HIDDEN-PROXY.md` §1–3 | what a corpus row is; verify semantics | the method essay |
+| 8 | `PORTING-RUNBOOK.md` §3–7 | only if procedure unclear | strategy rationale |
 
-**Do not read by default:** `PORTING-STRATEGY.md`, `archive/**`, full
-`DIVERGENCE-LOG.md`, full journal, `PORT-GAP-HELDOUT.md` (all ported).
-Use `DIVERGENCE-INDEX.md` + **one** `## D-NNNN` entry; journal tail only.
-
-**Always re-read the relevant C function** (body + callers + guarding `if`)
-before patching — `brief.mjs` / `csym.mjs fn --callers` fetch both in one call.
+**Do not read by default:** `PORTING-STRATEGY.md`, `archive/**` (except the
+one parked row a queue row points at), full `DIVERGENCE-LOG.md`, full
+journal, `PORT-GAP-HELDOUT.md`. `DIVERGENCE-INDEX.md` + **one** `## D-NNNN`
+entry; journal tail only. **Always re-read the C function** (body +
+callers + guarding `if`) before patching — the brief has both.
 
 ---
 
@@ -48,8 +48,16 @@ before patching — `brief.mjs` / `csym.mjs fn --callers` fetch both in one call
 1. **`CURRENT.md` → Primary objective** (chooses work).
 2. Deep canary only when primary is complete, blocked on a named prerequisite,
    or a human moved it to primary.
-3. **Parked** items in `CURRENT.md` / `DIVERGENCE-INDEX.md` — diagnose only;
-   **do not implement** until the listed falsifier exists.
+3. **Parked** items — diagnose only; **do not implement** until the listed
+   falsifier exists. But a park is not a dead end: if it names the **writer**,
+   the writer is an Open row (park-and-requeue); if it names none, the
+   missing **measurement** is a `[measure]` row. Parked corpus owners are
+   where the remaining 11 % of the corpus lives — work them through their
+   writers, never by re-porting the symptom owner.
+4. **Fallback order when Must-fix is empty:** corpus owner not yet parked →
+   park-named writer → `[campaign]` next step → `[measure]` for the top
+   parked corpus owner → verified missing C arm → (only at ≥ 90 % corpus)
+   map singletons. Never map/debt/TOP30 copies (109 of 161 parks were that).
 
 ### 2a. After local public suite PASS (map-driven mode)
 
@@ -63,8 +71,9 @@ treat that score as a **regression fortress**, not a work picker.
 | Verify with `hidden-proxy verify <fn>`: blocked sessions PASS or move to a **later** owner | Call NO MOVEMENT a named omission, or chase public leaderboard / CDN drift in-loop |
 | Keep green + cohort + cadence full `sessions` PASS | “Improve” already-matching public paths without a C citation |
 | Pop `LOOP-QUEUE.md` **Must-fix** (written-review C-wrongs) before Open | Leave QUALITY-RISK reviews unread and keep map-dumping |
-| Keep 8–12 open rows; refill from `hidden-proxy queue`; grow the corpus (`scenario-gen.mjs`) when every family is ≥ 85 % | Halt and wait for a human because the queue ran dry |
-| A JS **throw** in a corpus session is Must-fix: it forfeits every later screen | Leave a `ReferenceError` row behind a map omission |
+| Keep 8–12 **evidence-carrying** rows (`LOOP-QUEUE.md` header); refill from `hidden-proxy queue` (untagged owners), park-named writers, `[campaign]`/`[measure]` rows; grow the corpus (`scenario-gen.mjs`) when every family is ≥ 85 % | Pad the band with `data.md`/`debt.md`/TOP30 copies, or halt because the queue ran dry |
+| **Stale row** (brief: live JS body, 0 blocked, no missing arm) → one Parked line, retire the map line, pop the next row, **same iteration** | Spend an iteration proving a shipped function shipped (2 kB park essay) |
+| A JS **throw** or worker **hang** in a corpus session is Must-fix: it forfeits every later screen | Leave a `ReferenceError` / `ETIMEDOUT` row behind a map omission |
 
 Sessions measure progress; they are **not** the specification. The
 held-out 44 are scripted wizard-mode scenarios (wishes, `^G`, named-level
@@ -92,7 +101,16 @@ together iff every C callee is live, a C-matched clone, or a named
 omit in this commit (no stub in a live arm). Must-fix stays one item,
 alone. If success/failure needs two unrelated theories, split.
 
-Stop on empty “hold green / docs only” iterations.
+**Campaigns.** Work too big for one iteration (botl paint parity, a
+shim-thick module restart) is a `[campaign k/n]` row series: each step
+ships `js/`, keeps 44/44, and names in its row what the next step must
+do. Steps pop in order; a step that would regress the fortress after two
+fixes ships its verified core and pushes the rest into the next step's
+row. No step is "docs only".
+
+Stop on empty “hold green / docs only” iterations — except a popped
+`[measure]` row, whose deliverable is the C-side measurement + the
+writer's Open row.
 
 ---
 
@@ -176,6 +194,11 @@ leftover:** verify is call ≤5, not call 150 (#2240).
 **`rng-diff`:** default segment 0; `--all-segments` for save recipes.
 **`PASS`:** inspect `__RESULTS_JSON__` / per-session lines — runner exit code
 can be 0 when sessions fail. Always `strict-output-check` on green sessions.
+**Callers table:** the brief lists every C call site of the function you
+ported. The D-log names, per site, the JS call now wired (file:line) or
+the named omission. The two 2026-09-15 QUALITY-RISKs (D-2393 wired into
+`throw_gold`, which C never calls it from; D-2395 left `Gloves_off`
+unwired) were both caller misses on otherwise exact bodies.
 
 ---
 
@@ -183,9 +206,13 @@ can be 0 when sessions fail. Always `strict-output-check` on green sessions.
 
 1. **Verified faithful change** — C cited, gates pass, DIAG removed, docs updated.
 2. **Falsified hypothesis** — revert experiment if needed; dead end in `NOTES.md`.
-3. **Prerequisite identified** — record as next objective in `CURRENT.md` with a command.
+3. **Prerequisite identified** — a `[measure]` row completed (measurement in
+   `NOTES.md`, *measured*, with its command) **and** the writer's Open row
+   added; or a diagnostic park (one line) **plus** its writer / `[measure]` row.
 
-**Not acceptable:** unverified hack, “prefix moved” without C cause, DIAG left in `js/`.
+**Not acceptable:** unverified hack, “prefix moved” without C cause, DIAG
+left in `js/`, an iteration that ends on a **stale** row (that is a 3-call
+detour before the real row), a park with no writer and no measurement row.
 
 ---
 
@@ -219,6 +246,7 @@ prerequisite, or park with the exact probe command in `NOTES.md`.
 |-----------|-------|
 | Score / green gate / primary objective | **`CURRENT.md`** (keep tiny; refresh Score every 10 loop iters via full `sessions`) |
 | Unresolved hypothesis / dead end | `NOTES.md` (target 100 lines; `check-hot-docs.mjs`) |
+| Parked row: one index line / full proof | `LOOP-QUEUE.md` Parked (≤ 300 chars) / `docs/archive/LOOP-QUEUE-PARKED.md` |
 | Proved cause / rejected theory | `DIVERGENCE-LOG.md` + index row |
 | Module status / omissions | one `c-js-map/*.md` |
 | Iteration audit | prepend `AGENT-LOOP-JOURNAL.md` (`rotate-journal.mjs` / `--fix`) |
@@ -240,31 +268,33 @@ in the journal.
 - Reach for Node `fs` — **Rule #2**; Chrome loads it too.
 - Spend calls on lookup — `brief.mjs` / `sym.mjs` / `csym.mjs` are one call each.
 - Serial regression rounds — one verify lists every FAIL; fix causes.
+- Prove a negative at length — a stale row gets one line, not a 2 kB essay.
+- Trust the owner column — `do_statusline1/2` and identical-topline screen
+  rows are the region heuristic; `hidden-proxy queue` now prints the
+  differing screen row (e.g. `AC:6` vs `AC:10`): port the **value's writer**.
 
 ---
 
 ## 10. End each loop iteration with git
 
 **Reap your own processes before `finish-iteration`.** No worker you
-started may outlive the iteration as an orphan (recent cause: 100%-CPU
-`scripts/imports.mjs --can` and `/tmp/knight-probe*.mjs` leftovers
-adopted by PID 1). Run `jobs -l` plus
+started may outlive the iteration (past cause: 100%-CPU `imports.mjs
+--can` / `/tmp/*probe*.mjs` orphans). `jobs -l` +
 `ps -o pid,ppid,etime,command | grep -E 'node (scripts/|/tmp/|frozen/)'`,
-`kill` every PID this iteration started (re-check with `ps`; `kill -9`
-only what survives), and never touch the supervisor shell,
-`loop-observer/server.mjs`, or anything outside this checkout. Prefer
-`timeout <secs>` on probes/replays so a hang dies on its own.
+`kill` what you started (`kill -9` only survivors); never touch the
+supervisor shell or `loop-observer/server.mjs`. Prefer `timeout <secs>`
+on probes/replays.
 
 Commit with why (C locus / D-ID / verification); **`git push origin
 HEAD`**. The supervisor fail-closes on density / authority / empty port
-and pushes if you forgot (`docs/AGENT-PORT-LOOP.md`); green / full-suite
-regression and banned-pattern hits (`FORCE`/`DIAG`/seed gate/`console.log`)
-are logged and the loop continues — rewrite those lines next iter.
-No `--force`, no amend of pushed commits, no `git reset
---hard`. `STOP_AGENT_LOOP.md` is gitignored; only the supervisor writes
-`0`. `finish-iteration.mjs --commit` stamps `**Addressed:** D-NNNN`,
-archives the `- [x]` queue row and rotates the journal; the short hash
-goes in the **next** real commit (never a stamp-only SHA).
+(a Parked-row move or a popped `[measure]` row is not an empty port) and
+pushes if you forgot (`docs/AGENT-PORT-LOOP.md`); green / full-suite
+regression and banned-pattern hits are logged and the loop continues.
+No `--force`, no amend of pushed commits, no `git reset --hard`.
+`STOP_AGENT_LOOP.md` is gitignored; only the supervisor writes `0`.
+`finish-iteration.mjs --commit` stamps `**Addressed:** D-NNNN`, archives
+the `- [x]` row, rotates the journal; the short hash goes in the **next**
+real commit (never a stamp-only SHA).
 
 ---
 

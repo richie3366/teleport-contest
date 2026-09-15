@@ -55,7 +55,7 @@ cell plus the mineralize-eligible diff (D-1849).
 | verify | `node scripts/verify.mjs --fn <cfn>` (runs `hidden-proxy verify <cfn>`) | hand probes with expectations the agent derived by *reading* C — the expectation is now recorded from C |
 | handoff | `node scripts/finish-iteration.mjs --commit` | index row, journal crumb, CURRENT recent block and ranges, NOTES landmark, review stamp, hash backfill, archive, caps, commit message, push — all from the one hand-written D-log entry |
 | audit | `node scripts/hidden-proxy.mjs score` | nothing existed; CURRENT now carries the proxy pass rate next to the public score |
-| refill | `node scripts/hidden-proxy.mjs queue` → then `PORT-GAP-TOP30.md` rows the corpus reaches → map omits only at ≥ 90 % corpus PASS | map-walk order |
+| refill | `node scripts/hidden-proxy.mjs queue` (owners already open/parked/archived are tagged — a parked owner's **writer** or a `[measure]` row is the legal follow-up; identical-topline screen rows print the differing screen row) → `[campaign]` steps → TOP30 rows with a **verified** missing arm → map omits only at ≥ 90 % corpus PASS | map-walk order; 109 stale parks from map/debt copies (2026-09-09..15) |
 | grow | `node scripts/scenario-gen.mjs --n 120 --seed N` when every family is ≥ 85 % PASS (audit iters) | a saturated proxy that picked display singletons |
 
 `verify <fn>` semantics: every session blocked on `<fn>` must **PASS** or

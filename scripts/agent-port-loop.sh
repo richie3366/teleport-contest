@@ -7,7 +7,7 @@
 # continue-unfinished (cite that iter's .raw/.log + a resume brief),
 # rewind n, retry in this run; a provider quota error halts instead
 # (latch kept). Density, protected files still halt. Empty ports (unless a
-# Parked-row move), an empty queue after port, and QUALITY-RISK/REJECT
+# Parked-row move or a popped [measure] row), an empty queue after port, and QUALITY-RISK/REJECT
 # reviews without a Must-fix row warn and arm a next-iter overlay instead
 # of halting.
 # Banned-pattern hits do not write STOP: revert if unpushed, else arm
@@ -96,9 +96,10 @@ runs still halt (out of tokens; tree kept). A provider quota error
 (ActionRequiredError / "out of usage") halts at once with the latch
 armed — relaunch with --continue-unfinished. The continue overlay
 carries a resume brief (scripts/loop-resume-brief.mjs over the prior
-.raw). Queue below LOOP_QUEUE_MIN (8) must
-be refilled from the map
-(target LOOP_QUEUE_TARGET 12); halt after a port that still has no
+.raw). Queue below LOOP_QUEUE_MIN (8) asks for a refill of
+evidence-carrying rows only (LOOP-QUEUE.md header: corpus owners, park-named
+writers, [campaign] steps, [measure] rows — never map/debt/TOP30 copies;
+target LOOP_QUEUE_TARGET 12); halt after a port that still has no
 open items. Agents commit and push; the script fail-closes and pushes
 if they forgot. STOP_AGENT_LOOP.md is gitignored; only this script
 writes 0, at launch.
@@ -972,9 +973,11 @@ arm_empty_port_prompt() {
         echo "\`js/\` port work."
         ;;
       queue-empty)
-        echo "The queue is still empty after port. Refill Open rows from"
-        echo "\`docs/c-js-map/\` (minimum ${LOOP_QUEUE_MIN} Open items) before or"
-        echo "alongside the next port cluster."
+        echo "The queue is still empty after port. Refill Open rows that carry"
+        echo "evidence (LOOP-QUEUE.md header: corpus owner not yet parked, a"
+        echo "park's named writer, a [campaign] step, a [measure] row for the top"
+        echo "parked corpus owner) before or alongside the next port cluster."
+        echo "Do not copy c-js-map / debt.md / TOP30 lines."
         ;;
     esac
   } >"$NEXT_ITER_PROMPT"
@@ -1116,10 +1119,17 @@ port_did_park() {
   node "$PORT_DID_PARK" "$1" "$QUEUE_FILE"
 }
 
-# If the agent parked a queue row but forgot to commit, keep the docs.
+# True when a `[measure]` Open row was popped: its deliverable is a C-side
+# measurement + the writer's Open row, no js/ (2026-09-16 process take).
+port_did_measure() {
+  node "$PORT_DID_PARK" --measure "$1" "$QUEUE_FILE"
+}
+
+# If the agent parked a queue row (or finished a [measure] row) but forgot
+# to commit, keep the docs.
 maybe_commit_park() {
   local base="$1"
-  if ! port_did_park "$base"; then
+  if ! port_did_park "$base" && ! port_did_measure "$base"; then
     return 0
   fi
   local files=(
@@ -1127,6 +1137,7 @@ maybe_commit_park() {
     docs/NOTES.md
     docs/CURRENT.md
     docs/AGENT-LOOP-JOURNAL.md
+    docs/archive/LOOP-QUEUE-PARKED.md
   )
   if git diff --quiet -- "${files[@]}"; then
     echo "$(date -Iseconds) park already committed; not an empty port" \
@@ -1318,7 +1329,7 @@ echo "prompt: $PROMPT_FILE"
 echo "audit:  every ${LOOP_CADENCE_EVERY} (review + full suite); else port"
 echo "        continue latch: $CONTINUE_LATCH"
 echo "        extra prompt:   $HUMAN_NEXT_PROMPT (gitignored) or --next-prompt"
-echo "queue:  min ${LOOP_QUEUE_MIN} open / target ${LOOP_QUEUE_TARGET} (refill from map)"
+echo "queue:  min ${LOOP_QUEUE_MIN} open / target ${LOOP_QUEUE_TARGET} (refill: evidence rows only, see LOOP-QUEUE.md header)"
 echo "gates:  fail-closed=${LOOP_FAIL_CLOSED}  js cap ${LOOP_MAX_JS_INSERTIONS} ins / ${LOOP_MAX_JS_FILES} files"
 echo "push:   agents commit+push; supervisor backup (LOOP_PUSH=${LOOP_PUSH})"
 echo
@@ -1504,17 +1515,20 @@ while true; do
   if [[ "$resume_unfinished" != "1" ]] && (( open_now < LOOP_QUEUE_MIN )); then
     echo "$(date -Iseconds) === queue refill required (open=${open_now} min=${LOOP_QUEUE_MIN} target=${LOOP_QUEUE_TARGET}) ===" \
       | tee -a "$MASTER_LOG"
-    prompt_body+=$'\n\n## Queue refill (mandatory this iteration)\n'
+    prompt_body+=$'\n\n## Queue refill (this iteration, eligible rows only)\n'
     prompt_body+="Open \`- [ ]\` count is ${open_now} (min ${LOOP_QUEUE_MIN}, target ${LOOP_QUEUE_TARGET})."$'\n'
     prompt_body+=$'If you archive this iter’s item, count the remainder **after** archive.\n'
-    prompt_body+=$'Append **Open** lines until the live file has about '
-    prompt_body+="${LOOP_QUEUE_TARGET}"
-    prompt_body+=$' unchecked items.\n'
-    prompt_body+=$'Sources: named omits in one `docs/c-js-map/*.md` (prefer `data.md` /\n'
-    prompt_body+=$'`debt.md`, then `absent.md`). One C function/family per line; cite C\n'
-    prompt_body+=$'file + function. Grep live `LOOP-QUEUE.md` and\n'
-    prompt_body+=$'`docs/archive/LOOP-QUEUE-DONE.md` so you do not duplicate. Do not invent\n'
-    prompt_body+=$'FAIL peels. Do not enqueue parked D-0006.\n'
+    prompt_body+=$'Append **Open** rows that carry **evidence** (LOOP-QUEUE.md header) up to\n'
+    prompt_body+="about ${LOOP_QUEUE_TARGET}"
+    prompt_body+=$': (1) `node scripts/hidden-proxy.mjs queue --limit 30` owners not\n'
+    prompt_body+=$'tagged open/parked/archived; (2) the **writer** a Parked line names, with\n'
+    prompt_body+=$'its session; (3) the next `[campaign]` step; (4) a `[measure]` row for the\n'
+    prompt_body+=$'top parked corpus owner by sessions blocked; (5) a C arm you verified\n'
+    prompt_body+=$'absent from the JS body in a `brief.mjs` output (quote C lines + JS fn).\n'
+    prompt_body+=$'A `c-js-map`/`debt.md`/TOP30 line or a D-number is **not** evidence — 109\n'
+    prompt_body+=$'of 161 parks were rows copied from those after the function had shipped.\n'
+    prompt_body+=$'Nothing eligible → append nothing, one journal line. One C function per\n'
+    prompt_body+=$'row; do not duplicate live/archived/parked rows; no D-0006 / dog_invent.\n'
     if [[ "$mode" == "port" ]]; then
       prompt_body+=$'Then pop Must-fix else Open (including a line you just added if the\n'
       prompt_body+=$'queue was empty) and ship that one cluster in this same iteration.\n'
@@ -1709,6 +1723,10 @@ while true; do
     if port_did_park "$before_head"; then
       parked=1
       echo "$(date -Iseconds) port parked a LOOP-QUEUE row; not an empty port" \
+        | tee -a "$MASTER_LOG"
+    elif port_did_measure "$before_head"; then
+      parked=1
+      echo "$(date -Iseconds) port finished a [measure] row (docs-only by design); not an empty port" \
         | tee -a "$MASTER_LOG"
     fi
     if (( js_ins == 0 && js_files == 0 && js_c_ins == 0 && js_c_files == 0 )); then

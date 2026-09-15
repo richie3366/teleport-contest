@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { didPark } from './port-did-park.mjs';
+import { didPark, didMeasure } from './port-did-park.mjs';
 
 const header = `# Loop work queue
 
@@ -64,5 +64,33 @@ ${parkedHdr}${parkedD0006}
 - leftover note with no function name
 `;
     assert.equal(didPark(before, after), false);
+  });
+});
+
+describe('didMeasure', () => {
+  const measureOpen =
+    '- [ ] `mon.c` can_carry strong-flat cap + Knight worker spin `[measure]` — blocks 1/553.';
+  const beforeM = `${header}${measureOpen}
+${physOpen}
+${parkedHdr}${parkedD0006}
+`;
+
+  it('is true when a [measure] row left the live list', () => {
+    const after = `${header}${physOpen}
+- [ ] \`allmain.c\` moveloop_core sync spin — blocks 1/553 (from the can_carry measurement).
+${parkedHdr}${parkedD0006}
+`;
+    assert.equal(didMeasure(beforeM, after), true);
+  });
+
+  it('is false when the popped row was not a [measure] row', () => {
+    const after = `${header}${measureOpen}
+${parkedHdr}${parkedD0006}
+`;
+    assert.equal(didMeasure(beforeM, after), false);
+  });
+
+  it('is false when nothing moved', () => {
+    assert.equal(didMeasure(beforeM, beforeM), false);
   });
 });

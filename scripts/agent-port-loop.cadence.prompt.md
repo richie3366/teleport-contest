@@ -38,11 +38,13 @@ If any public session failed: journal the failure, **do not** invent a
 peel, **do not** “align” tests. Do not pop a new queue item. You **may**
 archive leftover `- [x]` (`node scripts/archive-loop-queue-done.mjs`)
 and fill missing Addressed hashes. If `check-hot-docs` says REFILL,
-append Open rows in this order — `node scripts/hidden-proxy.mjs queue`
-(C-function owners with corpus sessions attached), then
-`docs/PORT-GAP-TOP30.md` rows the corpus reaches, then (only at ≥ 90 %
-corpus PASS) map omits — one C family per line, to ~12, never a
-seed-shaped row. The supervisor
+append **evidence-carrying** Open rows only (`LOOP-QUEUE.md` header):
+`node scripts/hidden-proxy.mjs queue` owners not tagged
+open/parked/archived, the **writer** a Parked line names (with its
+session), `[campaign]` steps, a `[measure]` row for the top parked corpus
+owner, then TOP30 rows whose missing arm you verified in a brief; map
+omits only at ≥ 90 % corpus PASS. One C family per line, to ~12, never a
+seed-shaped row, never a map/debt line copied without checking the JS. The supervisor
 logs a full-suite FAIL and continues; the next port pops Must-fix if an
 audit review prepended one.
 
