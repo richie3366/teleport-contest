@@ -334,7 +334,7 @@ nested g/G after F / full CMD_gGF table deferred);
 tight-diag squeeze + couldsee-prefer / seenv-detour quiet-rest** (D-0702;
 **door/boulder delay re-queue + grid-bug NODIAG + unseeded start matrix** (D-1897);
 **C-ordered TEST_TRAV edge `travel_test_move`: closed-door pass, boulder-leaf two-in-row, diagonal doorway bans in/out** (D-1971;
-travelmap revisit / visited "unsure" / may_passwall / worm_cross / block_entry / wand-unknown / Known_*walking still deferred);
+may_passwall / worm_cross / block_entry / wand-unknown / Known_*walking still deferred) + **travelmap visited set (mklev `selection_*` exports, `reset_cmd_vars`/`end_running` clear) + revisit `You stop, unsure which way to go.` + VALID mark-only success + GUESS no-guess mark + Underwater rock gate** (D-2382);
 **autoopen walk-into → `doopen_indir`** (D-0059); 
 **closed-door rush/impaired → orthogonal bump `Ouch!`+`exercise(A_DEX,FALSE)` / `That door is 
 closed.` — check `!run` before clearing run** (D-0433) + 

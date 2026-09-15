@@ -1016,7 +1016,8 @@ export function maybe_half_phys(dmg) {
 
 /**
  * C hack.c end_running `:4129–4158` — stop run; optional travel/mv.
- * Named omit: gt.travelmap selection_free (travelmap not allocated).
+ * C `:4151–4153` frees gt.travelmap unconditionally (even when and_travel
+ * is false); game.travelmap is heap, never saved (selection lives in mklev).
  * @param {boolean} and_travel also clear travel / travel1 / mv
  */
 export function end_running(and_travel) {
@@ -1038,6 +1039,8 @@ export function end_running(and_travel) {
         game.context.travel1 = 0;
         game.context.mv = 0;
     }
+    /* C :4151–4153 — the travel-session visited set dies with the run. */
+    game.travelmap = null;
     if ((game.multi | 0) > 0) game.multi = 0;
 }
 
