@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
+- [x] `mthrowu.c` m_throw flight stop + `u_catch_thrown_obj` catch — blocks 1/553 (scen-tour-Samurai-92161, step 35, kind=screen; spoteffects park 2026-09-08 named this writer). Evidence from the park: JS `mthrowu.js:1070-1071` draws `forcehit = !rn2(5)` then discards it (C `m_throw` stop condition via `MT_FLIGHTCHECK`, C `:798` region), so landing squares diverge with identical dice; JS `u_catch_thrown_obj` success returns silently (`mthrowu.js:1036-1039`) without C's `hold_another_object` («You catch the shuriken!»). Read C `m_throw`/`u_catch_thrown_obj` bodies + callers; port both arms. Probe: `node scripts/brief.mjs m_throw`; verify `node scripts/verify.mjs --fn spoteffects` (`--base <sha the park cites>` if vacuous at HEAD; expect Samurai-92161 → PASS or later owner). **Addressed:** D-2399.
+
+
 - [x] `dothrow.c` throwit landing misses `obj_no_longer_held` (call miswired into `throw_gold`, which C never calls it from; C `dothrow.c:1808` is in `throwit` between `flooreffects` and pick-snatch/snuff). Move the canonical `do.js` call from `throw_gold` into JS `throwit` landing (`js/dothrow.js` ~:2316–2340, after the `flooreffects` block). Probe: throw a crysknife and check worm-tooth revert on landing. Source: reviews/loop-unattended/1359-b7216a99-obj-no-longer-held.md.
 
 

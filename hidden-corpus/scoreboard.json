@@ -1,6 +1,6 @@
 {
- "commit": "a00fc90c",
- "at": "2026-09-15T21:48:09.576Z",
+ "commit": "f41dcf64",
+ "at": "2026-09-15T22:35:07.464Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -7349,18 +7349,18 @@
   "scen-tour-Samurai-92161": {
    "src": "corpus",
    "passed": false,
-   "rngM": 4321,
+   "rngM": 4375,
    "rngT": 19192,
-   "scrM": 37,
+   "scrM": 39,
    "scrT": 88,
-   "kind": "screen",
-   "step": 35,
+   "kind": "rng",
+   "step": 37,
    "steps": 88,
-   "owner": "spoteffects",
-   "loc": "hack.c:3434",
-   "jsOwner": null,
-   "cTopline": "You are hit by a shuriken! You are hit by a shuriken!--More--",
-   "jsTopline": "You are hit by a shuriken! You are hit by a shuriken!--More--",
+   "owner": "distfleeck",
+   "loc": "monmove.c:549",
+   "jsOwner": "score_targ(dogmove.js:730)",
+   "cTopline": "You hear a chugging sound.",
+   "jsTopline": "You hear a chugging sound.",
    "error": null
   },
   "scen-tour-Tourist-91101": {

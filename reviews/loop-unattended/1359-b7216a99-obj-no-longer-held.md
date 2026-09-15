@@ -99,4 +99,4 @@ handoff. Right-sized (§2b).
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-2398
+**Addressed:** D-2398 `8a086d00`

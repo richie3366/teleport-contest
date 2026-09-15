@@ -85,10 +85,11 @@ Pop `LOOP-QUEUE.md` Must-fix, then Open in order — the Open head is now
 the park-named writers, then the **botl paint-parity campaign** (10
 sessions), then two `[measure]` rows; the 2026-09-15 map-omit refill rows
 sit last, flagged *unverified at enqueue* (stale check first).
-**Next cluster:** Open `mthrowu.c` m_throw flight stop + `u_catch_thrown_obj` (Samurai-92161). Probe: `node scripts/brief.mjs m_throw`.
+**Next cluster:** Open `wield.c` ready_weapon artifact-light shine arm (Rogue-92037). Probe: `node scripts/brief.mjs ready_weapon`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2398 (index).**
+**Keep D-0845…D-2399 (index).**
 <!-- recent:begin -->
+**D-2399** `nethack-c/upstream/src/mthrowu.c` `u_catch_thrown_obj :532–550` (gate `:536–543`: `!Blind — `js/mthrowu.js` only — `u_catch_thrown_obj` now `async`, tests `!nohands(game.youmonst?.data)` (null-safe; identical for unpoly'd heroes), and on success computes `simpleonames(otmp)` once (pre-addinv, as C's `buf`/`drop
 **D-2398** `nethack-c/upstream/src/dothrow.c` `throwit :1806–1809` (`flooreffects(obj, bhitpos, "fall — `js/dothrow.js` only — deleted the dead `throw_gold` block; added the same dynamic-import + `await` in `throwit` between the `flooreffects` block and the snuff arm (exact C `:1808` position; pick-snatch stays named omit)
 **D-2397** `nethack-c/upstream/src/do_wear.c` Gloves_off `:646–702` (`gloves = uarmg` capture `:647`, — `js/do_wear.js` — `Gloves_off` now async in C order: capture `gloves` + `on_purpose` pre-clear, `takeoff.mask &= ~W_ARMG`, `clear_worn(W_ARMG)`, then the CORPSE-gated pair on the captured gloves (KMH comment preserved); 
 **D-2396** `nethack-c/upstream/src/potion.c` make_sick `:140–188` (onset message gate `:158`, `set_it — `js/potion.js` only — the make_sick onset, partial-cure and full-cure arms plus make_slimed/make_stoned now mirror TIMEOUT bits to `u.uprops[…].intrinsic` (slot created when missing; full cure clears intrinsic per C `Sic
@@ -96,11 +97,10 @@ sit last, flagged *unverified at enqueue* (stale check first).
 **D-2394** `nethack-c/upstream/src/topten.c` `outentry :946–1107` — `js/topten.js` only — the four arms in exact C order with `slice(0,6/8/7/13)` prefix checks (≡ the `strncmp` lens) and `t1.plgend?.[0]==='F'`, then the astral switch in C order with C's two fmt strings (`replace('%s',arg
 **D-2393** `nethack-c/upstream/src/do.c` `obj_no_longer_held :893–920` — `js/do.js` — canonical exported `async obj_no_longer_held` in exact C order (null return; `Has_contents` recursion; `(otyp|0)===CRYSKNIFE` + `!oerodeproof || !rn2(10)` short-circuit so normal draws zero RNG and fixed dra
 **D-2392** `nethack-c/upstream/src/uhitm.c` `mhitm_ad_slow :3652–3687` — `js/mhitm.js` — exported `mhitm_ad_slow` in exact C mhitm-branch order (gate first, `|0` mspeed/MSLOW guard, oldspeed snapshot, `await mon_adjust_speed(mdef,-1,null)`, WAITFORU clear, `_mm_vis && canspotmon` + `pline_mon
-**D-2391** `nethack-c/upstream/src/weapon.c` `autoreturn_weapon` `:519–529` over `arwep[]` `:513–517` — `js/weapon.js` — canonical exported `autoreturn_weapon` (C order: null guard, `otyp('AKLYS')` compare, `{ otyp, range: AKLYS_LIM², tethered: 1 }`; `BOLT_LIM`/`AKLYS_LIM` join the const.js import; `otyp`/`objectNames` alr
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2398; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2399; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
