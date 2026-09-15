@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `dig.c` bury family: bury_an_obj/bury_objs/unearth_objs/rot_organic + liquid_flow ice/unearth (debt.md D-0967; C dig.c:1982 bury_an_obj; no JS bury/unearth/rot_organic). Probe: `node scripts/brief.mjs bury_an_obj`.
 - [ ] `shk.c` shopdig warn/snatch (debt.md D-0958; C shk.c:5018 shopdig; dig-shop damage/anger unwired). Probe: `node scripts/brief.mjs shopdig`.
 - [ ] `pray.c` desecrate_altar/god_zaps_you/fry_by_god + dig wire (debt.md D-0963; C pray.c:609 god_zaps_you). Probe: `node scripts/brief.mjs god_zaps_you`.
 - [ ] `dig.c` mkcavearea/mkcavepos/rm_waslit earth dig (debt.md D-0960; C dig.c:47 mkcavepos). Probe: `node scripts/brief.mjs mkcavepos`.

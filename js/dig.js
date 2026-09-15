@@ -52,7 +52,7 @@ import { stairway_at } from './mklev.js';
 import {
     t_at, maketrap, seetrap, feeltrap, set_utrap, reset_utrap, deltrap,
     delfloortrap, trapname, mintrap, b_trapped, conjoined_pits,
-    activate_statue_trap, ceiling,
+    activate_statue_trap, ceiling, fire_damage_chain, water_damage_chain,
 } from './trap.js';
 import { set_occupation, can_reach_floor, del_engr_at, u_wipe_engr } from './engrave.js';
 import { wield_tool, welded } from './wield.js';
@@ -76,7 +76,7 @@ import { getdir, dxdy_moveok } from './lock.js';
 // C ref: monmove.c mb_trapped `:54–74` — canonical trapped-door export
 // (KABOOM/hear, wake_nearto 49, mstun, rnd(15), mondied/lifesave,
 // mon_learns_traps TRAPPED_DOOR); hoisted fn, cycle-safe per imports.mjs.
-import { mb_trapped } from './monmove.js';
+import { mb_trapped, maybe_unhide_at } from './monmove.js';
 import {
     IS_STWALL, IS_TREE, IS_WALL, IS_OBSTRUCTED, IS_DOOR, IS_FOUNTAIN,
     IS_THRONE, IS_ALTAR, IS_ROOM, IS_SINK, IS_FURNITURE, IS_GRAVE,
@@ -376,9 +376,11 @@ function is_ice(x, y) {
 }
 
 /**
- * C ref: dig.c bury_an_obj — floor obj → buriedobjlist (or merge rock/
- * boulder). Returns nexthere predecessor chain link for bury_objs loop.
- * Named omit: end_burn lamplit; shop stolen_value callers handle separately.
+ * C ref: dig.c bury_an_obj `:1984–2047` — floor obj → buriedobjlist (or
+ * merge rock/boulder). Returns nexthere predecessor chain link for the
+ * bury_objs loop. Named omit: none (end_burn lamplit live since this
+ * port; CORPSE-under-ice is a C TODO `:2026–2028`; RUST_METAL is C
+ * `#if 0`).
  */
 export async function bury_an_obj(otmp, dealloced) {
     if (dealloced) dealloced.v = false;
@@ -395,9 +397,11 @@ export async function bury_an_obj(otmp, dealloced) {
         const { o_unleash } = await import('./apply.js');
         o_unleash(otmp);
     }
-    // end_burn(lamplit && otyp != POT_OIL) deferred
+    /* C `:2011–2012` — end_burn stops the BURN_OBJECT timer and drops the
+       light source; a bare lamplit=0 would leave both live while buried. */
     if (otmp.lamplit && otmp.otyp !== POT_OIL) {
-        otmp.lamplit = 0;
+        const { end_burn } = await import('./timeout.js');
+        end_burn(otmp, true);
     }
 
     obj_extract_self(otmp);
@@ -428,8 +432,9 @@ export async function bury_an_obj(otmp, dealloced) {
 }
 
 /**
- * C ref: dig.c bury_objs — bury every floor object at <x,y>.
- * Shop stolen_value + bury merchandise owe (D-0983).
+ * C ref: dig.c bury_objs `:2050–2081` — bury every floor object at <x,y>.
+ * Shop stolen_value + bury-merchandise owe live (D-0983);
+ * maybe_unhide_at live since this port.
  */
 export async function bury_objs(x, y) {
     const rooms = in_rooms(x, y, SHOPBASE) || '';
@@ -448,7 +453,8 @@ export async function bury_objs(x, y) {
     }
     del_engr_at(x, y);
     newsym(x, y);
-    // maybe_unhide_at deferred
+    /* C `:2074` — reveal a hider whose floor cover was just buried. */
+    await maybe_unhide_at(x, y);
     if (costly && loss) {
         await pline(
             `You owe ${shkname(shkp)} ${loss} ${currency(loss)} for burying merchandise.`,
@@ -457,19 +463,28 @@ export async function bury_objs(x, y) {
 }
 
 /**
- * C ref: dig.c unearth_objs — buriedobjlist at <x,y> → floor pile.
- * Named omit: buried_ball / buried_ball_to_punishment arm.
+ * C ref: dig.c unearth_objs `:2086–2112` — buriedobjlist at <x,y> →
+ * floor pile. Async since this port: the buried-ball arm awaits
+ * buried_ball_to_punishment (punish can reach --More--).
  */
-export function unearth_objs(x, y) {
+export async function unearth_objs(x, y) {
+    const u = game.u || {};
+    const cc = { x: x | 0, y: y | 0 };
+    const bball = buried_ball(cc);
     let otmp = game.level?.buriedobjlist || null;
     while (otmp) {
         const otmp2 = otmp.nobj || null;
         if ((otmp.ox | 0) === (x | 0) && (otmp.oy | 0) === (y | 0)) {
-            // buried_ball_to_punishment deferred
-            obj_extract_self(otmp);
-            if (otmp.timed) stop_timer(ROT_ORGANIC, otmp);
-            place_object(otmp, x, y);
-            stackobj(otmp);
+            /* C `:2096–2098` — unearthing the chained ball re-punishes. */
+            if (bball && otmp === bball
+                && (u.utrap | 0) && (u.utraptype | 0) === TT_BURIEDBALL) {
+                await buried_ball_to_punishment();
+            } else {
+                obj_extract_self(otmp);
+                if (otmp.timed) stop_timer(ROT_ORGANIC, otmp);
+                place_object(otmp, x, y);
+                stackobj(otmp);
+            }
         }
         otmp = otmp2;
     }
@@ -567,23 +582,37 @@ export async function rot_organic(obj) {
 }
 
 /**
- * C ref: dig.c liquid_flow — after terrain set to pool/moat/lava.
- * Branch envelope (D-0967): delfloortrap; obj_ice_effects + unearth_objs;
- * fillmsg; hero pooleffects deferred; mon minliquid.
- * Named omit: fire_damage_chain / water_damage_chain on released objs.
+ * C ref: dig.c liquid_flow `:838–879` — after the caller set the terrain
+ * to pool/moat/lava. C order: delfloortrap; obj_ice_effects + unearth_objs;
+ * fillmsg; object damage before hero damage (bones); hero pooleffects /
+ * mon minliquid. Named omit: none (sanity-check impossible kept soft per
+ * file convention).
  */
 export async function liquid_flow(x, y, typ, ttmp, fillmsg) {
+    /* C `:843` reads u_at before the sanity return. */
+    const u_spot = u_at(x, y);
     if (!is_pool_or_lava(x, y)) return;
-    if (ttmp) deltrap(ttmp);
+    /* C `:857` delfloortrap untraps a monster caught in the trap. */
+    if (ttmp) delfloortrap(ttmp);
     obj_ice_effects(x, y, true);
-    unearth_objs(x, y);
+    await unearth_objs(x, y);
     if (fillmsg) {
         const liq = hliquid(typ === LAVAPOOL ? 'lava' : 'water');
         await pline(String(fillmsg).replace('%s', liq));
     }
-    // fire_damage_chain / water_damage_chain deferred
-    if (u_at(x, y)) {
-        // pooleffects deferred
+    /* handle object damage before hero damage; affects potential bones */
+    const objchain = objects_at(x, y);
+    if (objchain) {
+        if ((typ | 0) === LAVAPOOL) {
+            await fire_damage_chain(objchain, true, true, x, y);
+        } else {
+            await water_damage_chain(objchain, true);
+        }
+    }
+    /* damage to the hero */
+    if (u_spot) {
+        const { pooleffects } = await import('./pickup.js');
+        await pooleffects(false);
     } else {
         const mon = m_at(x, y);
         if (mon) {
