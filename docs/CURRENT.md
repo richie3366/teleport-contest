@@ -21,10 +21,10 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-15** — full `sessions` on the working tree
-(audit **1307–1313**, HEAD `e2d16801`).
+(audit **1314–1316**, HEAD `7f998ee8`).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`48+0.30/turn` (R² 0.80).
+`47+0.29/turn` (R² 0.78).
 
 ## Score
 
@@ -33,7 +33,7 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `48+0.30/turn` (R² 0.80) |
+| Speed label | `47+0.29/turn` (R² 0.78) |
 | Role-init throws | **0 / 44** |
 
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-15
@@ -42,7 +42,7 @@ audit 1307–1313): **478 / 540 PASS (88.5 %)** excl. 13 env-only rows
 `do_statusline2` ×10, `obj_resists` ×6, `distfleeck` ×5,
 `m_move` ×3, `one_characteristic` ×3, `rloc` ×2, then 1-block singles
 (all parked symptom/misattributed owners; `save_dungeon` ×8 cleared by D-2341, knockback cleared by D-2347).
-Reviews 1225–1313: 83 ACCEPT, 3 ACCEPT-WITH-DEBT, 1 Must-fix outstanding (1307 `done_in_by` imitator predicate → Next cluster; audits 1308–1313 all ACCEPT).
+Reviews 1225–1316: 84 ACCEPT, 3 ACCEPT-WITH-DEBT, 2 Must-fix outstanding (1314 `done_in_by` vampire-bat polarity → Next cluster; 1316 PICK_ONE FEEL gating; 1315 ACCEPT).
 Live debts: 1241 SCR_MAIL (map material), 1268 light MINVENT-carrier-mx (map note).
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score --jobs 8`
 (≈200 s); when every family is ≥ 85 % PASS, grow it first:
@@ -80,7 +80,7 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `mhitu.c` hitmu monster-hits-hero dispatch (TOP30 honourable mention, 123/72; reached by 235 corpus traces; no whole-function row live/archived/parked). Probe: `node scripts/brief.mjs hitmu`.
+**Next cluster:** `end.c` done_in_by vampire-bat polarity (review 1314 Must-fix: `js/end.js:1241` `!==` → `===` per `end.c` imitator arm `!strcmp(fakenm, "vampire bat")`). Probe: shifted-vampire killer epitaph vs C.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2350 (index).**
 <!-- recent:begin -->

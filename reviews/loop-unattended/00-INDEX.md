@@ -1324,3 +1324,6 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1311-dd78cfac-amulet-offering-arms.md](./1311-dd78cfac-amulet-offering-arms.md) | `dd78cfac` | D-2345 amulet offering arms | **ACCEPT** |
 | [1312-3f6c64d3-do-break-wand-residuals.md](./1312-3f6c64d3-do-break-wand-residuals.md) | `3f6c64d3` | D-2346 do_break_wand residuals | **ACCEPT** |
 | [1313-e2d16801-magic-negation-hero-arm.md](./1313-e2d16801-magic-negation-hero-arm.md) | `e2d16801` | D-2347 magic_negation hero arm | **ACCEPT** |
+| [1314-aa08fdb3-done-in-by-imitator-predicate.md](./1314-aa08fdb3-done-in-by-imitator-predicate.md) | `aa08fdb3` | D-2348 done_in_by imitator predicate | **QUALITY-RISK** |
+| [1315-18f6e38f-use-grease-shk-owns-clones.md](./1315-18f6e38f-use-grease-shk-owns-clones.md) | `18f6e38f` | D-2349 shk_owns prefix + clone retirements | **ACCEPT** |
+| [1316-b214fb72-pickup-floor-pickup-body.md](./1316-b214fb72-pickup-floor-pickup-body.md) | `b214fb72` | D-2350 pickup floor-pickup body | **QUALITY-RISK** |
