@@ -2958,7 +2958,11 @@ bhitm `u_teleport_mon`; zapyourself `tele()`; bhito `rloco`; zap_steed D-1455)**
 **SPE_HEALING/SPE_EXTRA_HEALING IMMEDIATE `weffects` bhit (D-1469; 
 C `:1475–1514` skilled bless then getdir + zapyourself/`weffects`; callee zap.c `:3440–3451`; 
 bhitm `:433–473` `healmon` + skilled/extra `mcureblindness`; zapyourself healup D-0135; 
-zap_steed via bhitm)**; omit swap/sort, other `spelleffects` otyps (remaining peffects 
+zap_steed via bhitm)**; **`dovspell` VIEW swap/sort + sort cluster
+`spell_cmp`/`sortspells`/`spellsortmenu` (D-2369; C `:1842–2053`;
+orderindx display, preselect-decline, CURRENT/RETAIN arms; tty
+de-select self-swap + sort preselect marker + `SPELLMENU_DUMP` named)**;
+omit other `spelleffects` otyps (remaining peffects 
 mix/potionhit/potionbreathe; remaining scroll-duplicate REMOVE_CURSE /
 CONFUSE_MONSTER / CAUSE_FEAR / IDENTIFY / CHARM_MONSTER — DETECT_FOOD is D-1788;
 SPE_DRAIN_LIFE bhitm D-1436 / self-dir zapyourself D-1446), 

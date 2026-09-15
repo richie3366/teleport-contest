@@ -5,7 +5,13 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `sp_lev.c` is_ok_location HOT/WET/SOLID humidity arms + Is_waterlevel short-circuit (data.md:910 named; local clone js/mklev.js:18515, get_location park names the short-circuit unreached; never own-row live/archived/parked). Probe: `node scripts/brief.mjs is_ok_location`. **Addressed:** D-2368
+- [x] `spell.c` spelleffects non-standard cast otyps + oc_charged (D-2369 split: dovspell swap/sort shipped; remainder is turns.md:2961 named omits — remaining peffects mix/potionhit/potionbreathe, scroll-duplicate REMOVE_CURSE/CONFUSE_MONSTER/CAUSE_FEAR/IDENTIFY/CHARM_MONSTER, SPE_DRAIN_LIFE, doorlock/zap_updown/steed, traditional getspell yn, CQ_REPEAT/amulet drain; never own-row live/archived/parked). Probe: `node scripts/brief.mjs spelleffects`. **Addressed:** D-2369
+
+
+- [x] `spell.c` dovspell VIEW swap/sort + non-standard cast otyps/oc_charged (debt.md:20 residual; live js/spell.js:1310; never own-row live/archived/parked). Probe: `node scripts/brief.mjs dovspell`. **Addressed:** D-2369
+
+
+- [x] `sp_lev.c` is_ok_location HOT/WET/SOLID humidity arms + Is_waterlevel short-circuit (data.md:910 named; local clone js/mklev.js:18515, get_location park names the short-circuit unreached; never own-row live/archived/parked). Probe: `node scripts/brief.mjs is_ok_location`. **Addressed:** D-2368 `4b4edfa4`
 
 
 - [x] `pray.c` bestow_artifact body + caller wiring (no `bestow_artifact` symbol in `js/`; archived #77/D-2337 shipped the `mk_artifact` callee only with caller unwired per its text; D-2345 names the corpse-gift path untouched as its own row; `js/pray.js:25` header-named; prayer/sacrifice family reached by the corpus — pat_on_head gifts own Open row; never own-row live/archived/parked). Probe: `node scripts/brief.mjs bestow_artifact`. **Addressed:** D-2367 `72c7ee76`
