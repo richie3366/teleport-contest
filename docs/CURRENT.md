@@ -80,7 +80,7 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `cmd.c` getdir direction machinery (TOP30 #15, help_dir/cmdassist/strange-direction/dxdy_moveok/yn_function_menu; archived cmdassist-cancel arms only; never live/parked). Probe: `node scripts/brief.mjs getdir`.
+**Next cluster:** `music.c` do_earthquake DRUM_OF_EARTHQUAKE — PARKED stale-duplicate this iter (D-0972 + D-2315 shipped, review 1281 ACCEPT, verify 0 blocked); queue refilled to 12 Open from debt.md. Probe: `node scripts/brief.mjs do_earthquake`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2353 (index).**
 <!-- recent:begin -->
