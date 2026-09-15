@@ -1073,9 +1073,9 @@ seed0014 **50259→52043**; omit fill_pit/drawbridge/`which_armor` iron shoes/st
 shop bill live D-2282 (`credit_report` canonical `js/shk.js:453` + `scatter` baseline/gold-`addtobill`/`lostgoods` arms); boulder-restack live D-2303 (C `explode.c:776-790` `sobj_at(BOULDER)` extract+place via the canonical import); **`invent.c` `sobj_at` canonical D-2281** (`js/mkobj.js:2184` export in C position before `nxtobj`; 9 file-local clones retired to the import — detect/dig/dokick/fountain/hack/mklev/mthrowu/teleport/trap; residuals retired D-2285 (dbridge/music/steed + 7 renamed variants rewired to the import — zero clones remain))); 
 **`set_wounded_legs`→`encumber_msg` + `weight_cap` `WT_WOUNDEDLEG_REDUCT` + 
 preamble `oldcap` sync** (D-0400; load pline triggers bear `--More--`); 
-**`erode_obj` burn/damage/destroy envelope** (D-0491; 
-grease_protect/costly_alteration/inventory_resistance/remove_worn_item deferred); 
-omit grease/towel/container/acid boom, full `erode_obj` rust/verbose arms, overwrite `reset_utrap` 
+**`erode_obj` full body** (D-0491 envelope + D-2325 `:170–354` arm-for-arm; 
+hero/monster/floor victim + visobj, AD_FIRE/AD_ACID wards via `inventory_resistance_check` (invent.js, C zap.c:5710), grease_protect, verbose arms, EF_PAY costly_alteration, remove_worn_item/extract_from_minvent unwear; s_suffix clone retired); 
+omit towel/container/acid-boom caller arms (water_damage container + fire chain + acid scroll-fade live D-0928/D-1501/D-2289/D-1009), overwrite `reset_utrap` 
 / Knox LEVEL_TELEP / Sokoban finish still named (**PIT/HOLE `set_levltyp` D-1280**; 
 **DRAWBRIDGE_UP ice D-1296**; **shop `add_damage` D-1300**), other trap types, **hero 
 SLP_GAS/`fall_asleep`/steedintrap call** (still deferred), **hero arrow/sqky/dart `poisoned()`; D-2290 wires dart/arrow `!rn2(2)` steedintrap + landmine `recursive_mine` guard + full `trapeffect_poly_trap` hero/monster to the now-full helper (D-2258 helper); 

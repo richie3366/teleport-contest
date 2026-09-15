@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `trap.c` erode_obj rust/verbose + grease/towel/container/acid-boom arms (named data.md:1078, post-D-2186 residual; never live/archived/parked). Probe: `node scripts/brief.mjs erode_obj`.
 - [ ] `sounds.c` dosounds fountain/sink You_hear + shop You_hear (named absent.md:16, D-0303/D-0306; post-D-2217/D-2196 residual; never live/archived/parked). Probe: `node scripts/brief.mjs dosounds`.
 - [ ] `apply.c` use_stone graystone/touchstone (named absent.md:30, D-1014; never live/archived/parked). Probe: `node scripts/brief.mjs use_stone`.
 - [ ] `steed.c` use_saddle (named absent.md:29, D-1008; never live/archived/parked). Probe: `node scripts/brief.mjs use_saddle`.

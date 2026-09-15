@@ -82,8 +82,9 @@ Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
 **Next cluster:** `trap.c` erode_obj rust/verbose + grease/towel/container/acid-boom arms (named data.md:1078, post-D-2186 residual; never live/archived/parked). Probe: `node scripts/brief.mjs erode_obj`. (potionhit → **PARKED C-commented-arms** 2026-09-15, no D-log, no js/; proof in Parked.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2324 (index).**
+**Keep D-0845…D-2325 (index).**
 <!-- recent:begin -->
+**D-2325** `nethack-c/upstream/src/trap.c` `erode_obj` `:170–354` (whole body, C order) + `nethack-c/ — `js/trap.js` — erode_obj rewritten arm-for-arm in C order: victim (carried_obj→youmonst / OBJ_MINVENT ocarry / null) + uvictim/vismon (local canseemon) / visobj (cansee bhitpos, !is_pool || next2u-dist2≤2 + u.uinwater ≡ 
 **D-2324** `nethack-c/upstream/src/invent.c` `mergable` `:4379–4499` (whole body, C order) + `nethack — `js/mkobj.js` — mergable rewritten in C order: unpaid/spe/no_charge/obroken/otrapped/lamplit block; FOOD arm kept (JS `orotten` is separate storage vs C obj.h:130 `#define orotten oeroded` — documented in comment); dknow
 **D-2323** `nethack-c/upstream/src/dig.c` `dighole` `:884-1024` — `js/dig.js` only.
 **D-2322** `nethack-c/upstream/src/dig.c` `zap_dig` `:1569-1582` (`u.uswallow` → `mtmp = u.ustuck`; ` — `js/dig.js` only, no new static module edges (`is_whirly` + `G_UNIQ` join the existing `monsters.js` import; `STOMACH` joins the existing `const.js` import; `s_suffix`/`mon_nam`/`pline` already imported): the `u.uswallow
@@ -91,11 +92,10 @@ Do **not** pop map-omission singletons
 **D-2320** `nethack-c/upstream/src/dokick.c` `kick_door` `:909–970` — `js/dokick.js` only, no new module edges (`is_giant` joins the existing `monsters.js` import — `imports.mjs --can` ALREADY; `Soundeffect` joins the existing `sndprocs.js` import; the two `se_*` constants via `generated/s
 **D-2319** `nethack-c/upstream/src/dig.c` `zap_dig` beam arms — `js/dig.js` only (+ static `SHOP_WALL_COST` from `const.js`, already exported; `add_damage` via the file's existing per-arm dynamic `shk.js` import — the door arm's own convention, no new module edge, no TDZ risk): maze 
 **D-2318** `trap.c` launch_obj ROLL block (`:3423–3430` down_gate/ship_object; `:3505–3513` post-swit — `js/trap.js` only (+2 static imports: `sndprocs.js` Soundeffect — `imports.mjs` SAFE, no cycle; `const.js` MIGR_NOWHERE; `dokick.js`/`do.js` via the file's in-function dynamic-import convention): ROLL gate-drop pre-block
-**D-2317** `trap.c:6185` (`if (canspotmon(mon))`, openholdingtrap monster arm); `trap.c:6279` (`*noti — both call sites now use the already-imported `canspotmon` (`display.js:1237` ≡ C; no new module edge, no TDZ risk).
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2324; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2325; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

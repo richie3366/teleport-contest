@@ -4855,6 +4855,20 @@ function u_adtyp_resistance_obj(dmgtyp) {
 }
 
 /**
+ * C ref: zap.c inventory_resistance_check `:5710–5718` — extrinsic ward
+ * roll for one object: `u_adtyp_resistance_obj` probability, then
+ * `rn2(100) < prob` (no draw when nothing protects). Callers: erode_obj
+ * BURN/CORRODE hero arms + acid_damage (trap.js).
+ *
+ * @returns {boolean} TRUE when an equipped ward protects the object
+ */
+export function inventory_resistance_check(dmgtyp) {
+    const prob = u_adtyp_resistance_obj(dmgtyp) | 0;
+    if (!prob) return false;
+    return rn2(100) < prob;
+}
+
+/**
  * C ref: objnam.c suit_simple_name — dragon mail/scales + mail/jacket.
  * Local copy for item_what (do_wear.js suit_simple_name still defers dragon).
  */
