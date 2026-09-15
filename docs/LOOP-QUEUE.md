@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `pickup.c` floor TRADITIONAL query_classes (turns.md:1543 D-1620; D-2350 FOLLOW chain live; never own-row live/archived/parked). Probe: `node scripts/brief.mjs query_classes`.
 - [ ] `pickup.c` in_or_out_menu more-containers 'n' (turns.md:1545 D-1592; doloot_core live; never own-row live/archived/parked). Probe: `node scripts/brief.mjs in_or_out_menu`.
 - [ ] `do_wear.c` ggetobj takeoff + take_off occupation + cancel_doff (turns.md:1071-1076 D-1602/D-1619/D-1766; never own-row live/archived/parked). Probe: `node scripts/brief.mjs ggetobj`.
 - [ ] `do_wear.c` dragon_armor_handling color/arti_light arms (turns.md:1067-1069 D-0636 deferred: gold make_hallucinated, red see_monsters, yellow wielding_corpse, arti_light burn; never own-row live/archived/parked). Probe: `node scripts/brief.mjs dragon_armor_handling`.

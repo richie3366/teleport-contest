@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
+- [x] `pickup.c` floor TRADITIONAL query_classes (turns.md:1543 D-1620; D-2350 FOLLOW chain live; never own-row live/archived/parked). Probe: `node scripts/brief.mjs query_classes`. **Addressed:** D-2388
+
+
 - [x] `mhitu.c` gulpmu BLND visored-helmet + flat/uprops mirror (turns.md:3048 named residual, debt R-1076; gulpmu DGST/PHYS/ACID/DREN/DISE shipped D-1993/D-2110/D-2151/D-2161/D-2356; residual never own-row live/archived/parked). Probe: `node scripts/brief.mjs gulpmu`. **Addressed:** D-2387 `5c766aef`
 
 

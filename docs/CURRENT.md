@@ -81,8 +81,9 @@ Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
 **Next cluster:** Open `pickup.c` floor TRADITIONAL query_classes (turns.md:1543 D-1620; D-2350 FOLLOW chain live; never own-row live/archived/parked). Probe: `node scripts/brief.mjs query_classes`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2387 (index).**
+**Keep D-0845…D-2388 (index).**
 <!-- recent:begin -->
+**D-2388** `nethack-c/upstream/src/pickup.c` `query_classes` `:140–262` (m_seen `:158` + ask_again `: — `js/pickup.js` only (+ import line): `query_classes` calls canonical `tally_BUCX(objs, here)` from `./invent.js` (`imports.mjs --can` → ALREADY, same SCC, no new edge) and the local clone is deleted (D-2347/D-2349 idiom)
 **D-2387** `nethack-c/upstream/src/mondata.c:305–398` (`can_blnd`: `check_visor` set only by the BLIN — `js/mhitu.js` — `gulpmu_can_blnd` gains C's `check_visor` flag (set in the CLAW arm only) + the `:388–396` tail via new file-local `visored_helmet_worn()` (`owornmask & W_ARMH` + imported `objdescr_is` "visored helmet" o
 **D-2386** `nethack-c/upstream/src/hack.c:1852–1881` (TIP_GETPOS arm `:1871–1873` `l_nhcore_call(NHCO — `js/hack.js` — TIP_GETPOS arm in C switch order (`await l_nhcore_call(NHCORE_GETPOS_TIP); return true`, `:1583–1587`) + `NUM_TIPS` range check; `js/do.js` — GETPOS_TIP dispatch (`await show_getpos_tip(); return`, `:1108–
 **D-2385** `nethack-c/upstream/src/weapon.c:1424–1434` (`if (skill != P_NONE && !P_RESTRICTED(skill)) — `js/weapon.js` — `use_skill` is now `async`, C order (`P_NONE`/`P_ISRESTRICTED` guards, `advance_before = can_advance(skill, false)`, `+= degree|0`, `!before && can_advance` → `await give_may_advance_msg(skill)`); stale 
@@ -90,11 +91,10 @@ Do **not** pop map-omission singletons
 **D-2383** `nethack-c/upstream/src/region.c:1341–1363` (`region_danger`: `!hero_inside` skip, gas_clo — both loops use the file-local `hero_inside(reg)` (no new edge, no TDZ — same-file function declaration); safety dual-writes flat + `uprops[MAGICAL_BREATHING].intrinsic` TIMEOUT bits (HBlinded precedent in `do.js`; `MAGIC
 **D-2382** `nethack-c/upstream/src/hack.c:1266–1523` (`findtravelpath`: entry alloc `:1268–1269`, TRA — `js/cmd.js` — `travelmap_ensure()` (C `:1268–1269`; per-game heap on `game.travelmap`, never saved, like C) + `TRAVEL_NOPATH/STEP/STEP_UNSURE` tri-state (C returns boolean, but `You` is async-only in JS, so the sync BFS 
 **D-2381** `nethack-c/upstream/src/trap.c:3937–4006` (`float_up`); `dig.c:1884–1932` (`buried_ball`); — BURIEDBALL arm calls `buried_ball(cc)` (newly exported from `js/dig.js:514`, verified arm-for-arm vs C: `!u.utrap || TT_BURIEDBALL` gate, exact-spot return, dist2≤8 nearest + cc mutation) and reads `IS_ROOM` at the ball 
-**D-2380** `nethack-c/upstream/include/youprop.h:355–360` (`Protection_from_shape_changers` ≡ `u.upro — deleted the `js/lock.js:618` local, added `import { Protection_from_shape_changers } from './were.js'` (the `:57` export reads flats + `uprops[].intrinsic/extrinsic`, same shape as the `display.js`/`mon.js` clones).
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2387; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2388; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
