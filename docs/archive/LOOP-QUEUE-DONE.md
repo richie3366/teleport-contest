@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `dig.c` dig_typ/pick_can_reach/is_digging pick-axe occupation residuals (debt.md D-0951; C dig.c dig_typ). Probe: `node scripts/brief.mjs dig_typ`. **Addressed:** D-2312
+- [x] `dig.c` destroy_drawbridge/find/is_wall + dig wires (debt.md D-0959; C dig.c destroy_drawbridge). Probe: `node scripts/brief.mjs destroy_drawbridge`. **Addressed:** D-2313
+
+
+- [x] `dig.c` dig_typ/pick_can_reach/is_digging pick-axe occupation residuals (debt.md D-0951; C dig.c dig_typ). Probe: `node scripts/brief.mjs dig_typ`. **Addressed:** D-2312 `8fd36dc4`
 
 
 - [x] `dig.c` dig_check/fillholetyp/maybe_dunk_boulders hole-typing residuals (debt.md D-0950; digactualhole switch_terrain archived D-1269; liquid_flow ice/unearth rides the bury row). Probe: `node scripts/brief.mjs dig_check`. **Addressed:** D-2311 `4d8e68fb`

@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `dig.c` destroy_drawbridge/find/is_wall + dig wires (debt.md D-0959; C dig.c destroy_drawbridge). Probe: `node scripts/brief.mjs destroy_drawbridge`.
 - [ ] `dig.c` impact_drop/down_gate/drop_to HOLE wire (debt.md D-0961; C dig.c impact_drop). Probe: `node scripts/brief.mjs impact_drop`.
 - [ ] `dig.c` furniture_handled fountain/sink + HOLE goto_level/migrate (debt.md D-0954; C dig.c furniture_handled). Probe: `node scripts/brief.mjs furniture_handled`.
 - [ ] `music.c` do_earthquake quake arms (debt.md D-0972; C music.c:344 do_earthquake). Probe: `node scripts/brief.mjs do_earthquake`.
