@@ -3,9 +3,13 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-09-15
+
+- [x] `mkmaze.c` populate_maze trap loop (data.md:923; D-2216 shipped the live tail + fallback; loop needs mktrap — no JS mktrap — plus dmonsfree/SPLEVTYPE-getenv). Probe: `node scripts/brief.mjs populate_maze`. **Addressed:** D-2304
+
 ## 2026-09-14
 
-- [x] `explode.c` scatter MAY_FRACTURE boulder restack-to-top (data.md:1065; D-2282 shipped the shop-bill arms; C explode.c:776-790 fracture_rock + sobj_at restack). Probe: `node scripts/brief.mjs scatter`. **Addressed:** D-2303
+- [x] `explode.c` scatter MAY_FRACTURE boulder restack-to-top (data.md:1065; D-2282 shipped the shop-bill arms; C explode.c:776-790 fracture_rock + sobj_at restack). Probe: `node scripts/brief.mjs scatter`. **Addressed:** D-2303 `3010c0c3`
 
 
 - [x] `light.c` do_light_sources hero at_hero_range trim (data.md:968; D-2157 shipped the circle_ptr exact ring). Probe: `node scripts/brief.mjs do_light_sources`. **Addressed:** D-2302 `d961718b`

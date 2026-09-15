@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `mkmaze.c` populate_maze trap loop (data.md:923; D-2216 shipped the live tail + fallback; loop needs mktrap — no JS mktrap — plus dmonsfree/SPLEVTYPE-getenv). Probe: `node scripts/brief.mjs populate_maze`.
 - [ ] `trap.c` untrap floor disarm_*/box residuals (data.md:176; D-1495 shipped the UNTRAP door-force callee; disarm_holdingtrap/disarm_landmine/disarm_shooting_trap/disarm_box/help_monster_out still named). Probe: `node scripts/brief.mjs untrap`.
 - [ ] `end.c` really_done death-screen residuals (TOP30 #21; local clone js/end.js:959 is clone drift; fixup_death/clearlocks/logfile-xlogfile/paygd arms named). Probe: `node scripts/brief.mjs really_done`.
 - [ ] `mon.c` make_corpse special-corpse table (TOP30 #4; live js/mhitm.js:2391 covers the baseline; dragon scales/unicorn horn/worm-tooth arms + their draws still named). Probe: `node scripts/brief.mjs make_corpse`.

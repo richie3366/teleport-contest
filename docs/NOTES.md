@@ -7,7 +7,6 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 Park rows: re-pop only on the listed falsifier (proofs in Parked).
 
 - **mkclass_aligned/get_location:** presence-only.
-- **Work picker:** `hidden-proxy queue`; singletons Deferred.
 - **Transient parks:** break_armor timing.
 - **exercise:** draw-presence only, 0/553 owned.
 - **gethungry/maybe_generate/mattacku/u_calc_moveamt:** presence-only, 0/553 owned.
@@ -25,23 +24,24 @@ Park rows: re-pop only on the listed falsifier (proofs in Parked).
 - **poly_obj:** misattributed citation + no C arm.
 - **newuhs:** STALE, full port D-1791.
 - **domonnoise/dismount_steed:** STALE DUPLICATEs (D-1915/885).
-- **STALE parks 2026-09-14/15** (proofs in Parked; re-pop only on `verify <fn>` blocked with `<fn>` as owner): test_move/domove_core (D-1800/D-1270/D-1226 live), arti_cost (D-1719 triple), m_initweap S_DEMON (D-0472), mextra trio (D-1598 + follow-ups), make_sick Unaware (C potion.c:145-148 #if 0 — a live port would contradict C), dodrink drink_ok_extra/Strangled/underwater (D-2031 `ee5d6d71` + D-1834 — `verify dodrink` vacuous, live queue 0 dodrink lines).
+- **STALE parks 2026-09-14/15** (proofs in Parked; re-pop only on `verify <fn>` blocked with `<fn>` as owner): test_move/domove_core (D-1800/D-1270/D-1226 live), arti_cost (D-1719 triple), m_initweap S_DEMON (D-0472), mextra trio (D-1598 + follow-ups), make_sick Unaware (C potion.c:145-148 #if 0), dodrink drink_ok_extra/Strangled/underwater (D-2031 + D-1834).
 
 ## Don't re-check (≤15)
 
-- D-1790…D-2303 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-2304 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 are D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` loaders D-1852/D-1858 — check `load_val_*`/`load_sam_*` before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / `setnotworn`←`owornmask` (D-1020) / `delobj` tut loot / off-level timers (D-1037) / dropped `msounds[]` (D-1053) / tut-1 keys (D-1065) / skipped `tutorial()` (D-1066). No skip D-1067…D-2303.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, or makemon→hack/artifact/minion. No re-port D-1682…D-2303.
+- No memcpy gi worn/ball (D-1035) / `setnotworn`←`owornmask` (D-1020) / `delobj` tut loot / off-level timers (D-1037) / dropped `msounds[]` (D-1053) / tut-1 keys (D-1065) / skipped `tutorial()` (D-1066). No skip D-1067…D-2304.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, or makemon→hack/artifact/minion. No re-port D-1682…D-2304.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2304: `js/mklev.js` only, no new cross-module edge (every callee same-module or already imported — `MKTRAP_NOFLAGS/SEEN/MAZEFLAG` join the existing `const.j Named: `mktrap` invalid-args `paniclog` write (file-only, no scored-JS equivalent under Rule #2; 
 - D-2303: port the C arm verbatim in C order over live callees only — `otmp = sobj_at(BOULDER, sx, sy); if (otmp) { obj_extract_self(otmp); place_object(otmp, s Named: VIS_EFFECTS (commented out in C too — `/* tmp_at ...
 - D-2302: port the C skeleton in C order over the existing inline refresh (conditions unchanged): file-local `const LSF_SHOW = 0x1` (light.c:41; the line-29 `CO Named: `LSF_NEEDS_FIXUP` (unchanged); `get_*_location` refinement arms — youmonst/usteed identity
 - D-2301: file-local `const materialnm` (22 words, C order, `decl.c` C-ref; eat.js `foodwords` precedent — no new module edge, no `imports.mjs --can` needed; th Named: `grease_protect` polish stays named (pre-existing); `nhlobj.c:222` Lua "material" entry st
@@ -56,5 +56,4 @@ Park rows: re-pop only on the listed falsifier (proofs in Parked).
 - D-2292: FIRE/COLD/ELEC arms call the live canonicals in C order — `(await destroy_items(mdef, AD_*, dmgBox.dmg | 0)) | 0` added only when `!youdefend`, `await Named: none new — `artifact_hit` has no deferred arms left (FIRE/COLD/ELEC/MAGM + Mb_hit + BEHEAD
 - D-2291: the C `||` chain verbatim in C order (mflags2 first, then the yours gate): `!Upolyd(u)` + `(game.urace.selfmask & mtype)` selfmask arm, then `(mtype & Named: none new (resists_* artifact/worn grants and hero Poison/Stone H/E/sticky flats stay in th
 - D-2290: dart/arrow hero arms gate `u.usteed && !rn2(2) && await steedintrap(trap, otmp)` ahead of `thitu` in C order (t_missile → poison → dmgval → gate → thi Named: `keep_saddle_with_steedcorpse(steed_mid, fobj, saddle)` (C `:2591–2592` — no live importer
-- D-2289: new `export function blank_novel(obj)` in `js/zap.js` directly after `cancel_item` (C position `:1367` after cancel), wired at both C call sites (canc Named: none new (zap `cancel_item` corpse revive→rot timer swap stays; `You/Your/pline_The`-as-`p
 <!-- landmarks:end -->
