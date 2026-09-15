@@ -81,7 +81,7 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** Open `pray.c` fix_worst_trouble majors Stoned…Region (debt.md:23 D-1011; never own-row live/archived/parked). Probe: `node scripts/brief.mjs fix_worst_trouble`. → parked this iter (D-1011 shipped; see LOOP-QUEUE Parked).
+**Next cluster:** Open `do_wear.c` toggle_stealth RIN/ELVEN cloak+boots on/off + EStealth (debt.md:12 D-0970; never own-row live/archived/parked). Probe: `node scripts/brief.mjs toggle_stealth`. → parked this iter (D-0970 shipped; see LOOP-QUEUE Parked).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2381 (index).**
 <!-- recent:begin -->
