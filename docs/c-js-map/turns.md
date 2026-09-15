@@ -1799,8 +1799,9 @@ mon `teleport_pet` migrate** (D-0954); **`dig_up_grave` + `dighole` IS_GRAVE** (
 `:757` HOLE `at_u` before Lev/Fly re-read; 
 `trap.c` `maketrap` PIT/HOLE `set_levltyp` STONE/SCORR→CORR still named); 
 **`use_pick_axe2` `u_wipe_engr(3)` D-1375** (C `:1335` axe-scratch after `!ispick` and not 
-LANDMINE/BEAR_TRAP; callee D-1051; uteetering/uescaped_shaft / Underwater still named); 
-omit Hallucination draft; swallowed pierce; zap_dig pitdig; 
+LANDMINE/BEAR_TRAP; callee D-1051; uteetering/uescaped_shaft / Underwater still named);
+**`zap_dig` pitdig + `adj_pit_checks`/`pit_flow`** (D-2321; C `:1617-1662` + `:1763` + `:1844`);
+omit Hallucination draft; swallowed pierce (next Open row);
 crush/entity + iron-chain scatter; impact shop `stolen_value`
 
 ### `src/eat.c`

@@ -48,8 +48,8 @@ import {
 } from './generated/monsters_data.js';
 import { m_canseeu } from './mondata.js';
 import { an, An, the, simpleonames, xname, Yobjnam2, otense } from './objnam.js';
-import { hliquid, Monnam, mon_nam } from './do_name.js';
-import { stairway_at } from './mklev.js';
+import { hliquid, Monnam, mon_nam, s_suffix } from './do_name.js';
+import { stairway_at, On_ladder } from './mklev.js';
 import {
     t_at, maketrap, seetrap, feeltrap, set_utrap, reset_utrap, deltrap,
     delfloortrap, trapname, mintrap, b_trapped, conjoined_pits,
@@ -105,9 +105,9 @@ import {
     P_PICK_AXE, P_AXE, IRONBARS, LAVAWALL, IS_WATERWALL,
     WEB, LANDMINE, BEAR_TRAP, TRAPDOOR, KILLED_BY, KILLED_BY_AN, NO_PART,
     HEAD, FOOT,
-    TT_BURIEDBALL, TT_INFLOOR, DRAWBRIDGE_DOWN, MIGR_RANDOM,
+    TT_BURIEDBALL, TT_INFLOOR, DRAWBRIDGE_DOWN, DBWALL, MIGR_RANDOM,
     TAINT_AGE, MM_NOMSG, IN_SIGHT, COULD_SEE, RLOC_NOMSG,
-    xytodir, DIR_180, DIR_ERR,
+    xytodir, DIR_180, DIR_ERR, xdir, ydir, N_DIRS,
     ICE, DRAWBRIDGE_UP, DB_UNDER, DB_ICE,
     ROT_ORGANIC, TIMER_OBJECT, Has_contents, OBJ_FREE,
     CORPSTAT_HISTORIC, STATUE_TRAP,
@@ -1076,6 +1076,117 @@ export async function mdig_tunnel(mtmp) {
 }
 
 /**
+ * C ref: dig.c adj_pit_checks `:1763-1838` — gate an adjacent pit dig.
+ * Returns true when the caller may dighole; else false with *msg set
+ * (empty when the caller handles it: pool/lava). C clears room->flags
+ * unconditionally after saving ltyp; JS mirrors via lev.flags = 0.
+ * msg is a { v: '' } out-param (C `char *msg`, caller pline1(buf)).
+ */
+export function adj_pit_checks(cc, msg) {
+    // C dig.c:1770-1774 — null/off-level gates leave *msg untouched.
+    if (!cc) return false;
+    if (!isok(cc.x | 0, cc.y | 0)) return false;
+    msg.v = '';
+    const lev = game.level?.at(cc.x | 0, cc.y | 0);
+    if (!lev) return false;
+    // C: ltyp = room->typ, room->flags = 0.
+    const ltyp = lev.typ;
+    lev.flags = 0;
+
+    if (is_pool(cc.x | 0, cc.y | 0) || is_lava(cc.x | 0, cc.y | 0)) {
+        /* this is handled by the caller after we return FALSE */
+        return false;
+    } else if (closed_door(cc.x | 0, cc.y | 0) || lev.typ === SDOOR) {
+        /* We reject this here because dighole() isn't
+           prepared to deal with this case */
+        msg.v = 'The foundation is too hard to dig through from this angle.';
+        return false;
+    } else if (IS_WALL(ltyp)) {
+        /* if (room->wall_info & W_NONDIGGABLE) */
+        msg.v = 'The foundation is too hard to dig through from this angle.';
+        return false;
+    } else if (IS_TREE(ltyp)) { /* check trees before stone */
+        /* if (room->wall_info & W_NONDIGGABLE) */
+        msg.v = "The tree's roots glow then fade.";
+        return false;
+    } else if (ltyp === STONE || ltyp === SCORR) {
+        if (rm_wall_info(lev) & W_NONDIGGABLE) {
+            msg.v = 'The rock glows then fades.';
+            return false;
+        }
+    } else if (ltyp === IRONBARS) {
+        /* "set of iron bars" */
+        msg.v = 'The bars go much deeper than your pit.';
+        return false;
+    } else if (IS_SINK(ltyp)) {
+        msg.v = 'A tangled mass of plumbing remains below the sink.';
+        return false;
+    } else if (On_ladder(cc.x | 0, cc.y | 0)) {
+        msg.v = 'The ladder is unaffected.';
+        return false;
+    } else {
+        let supporting = null;
+
+        if (IS_FOUNTAIN(ltyp)) supporting = 'fountain';
+        else if (IS_THRONE(ltyp)) supporting = 'throne';
+        else if (IS_ALTAR(ltyp)) supporting = 'altar';
+        else if (On_stairs(cc.x | 0, cc.y | 0))
+            /* staircase up or down. On_ladder handled above. */
+            supporting = 'stairs';
+        else if (ltyp === DRAWBRIDGE_DOWN /* "lowered drawbridge" */
+            || ltyp === DBWALL) /* "raised drawbridge" */
+            supporting = 'drawbridge';
+
+        if (supporting) {
+            msg.v = `The ${s_suffix(supporting)} supporting structures remain intact.`;
+            return false;
+        }
+    }
+    return true;
+}
+
+/**
+ * C ref: dig.c pit_flow `:1844-1882` — fill a pit (and every conjoined
+ * neighbour) with liquid. Copies the trap by value before liquid_flow
+ * (which deltrap()s and clears conjoined on both pits), then recurses
+ * over the saved conjoined bits. filltyp != ROOM gate + is_pit gate.
+ */
+export async function pit_flow(trap, filltyp) {
+    /*
+     * FIXME?
+     *  liquid_flow() -> pooleffects() -> {drown(),lava_effects()}
+     *  might kill the hero; the game will end and if that leaves bones,
+     *  remaining conjoined pits will be left unprocessed.
+     */
+    if (trap && filltyp !== ROOM && is_pit(trap.ttyp)) {
+        // C: t = *trap (by value; survives liquid_flow's deltrap).
+        const t = { tx: trap.tx | 0, ty: trap.ty | 0, conjoined: trap.conjoined | 0 };
+        const lev = game.level?.at(t.tx, t.ty);
+        if (lev) {
+            lev.typ = filltyp;
+            lev.flags = 0;
+        }
+        await liquid_flow(
+            t.tx, t.ty, filltyp, trap,
+            u_at(t.tx, t.ty)
+                ? 'Suddenly %s flows in from the adjacent pit!'
+                : null,
+        );
+        for (let idx = 0; idx < N_DIRS; ++idx) {
+            if ((t.conjoined & (1 << idx)) !== 0) {
+                const x = t.tx + xdir[idx];
+                const y = t.ty + ydir[idx];
+                const t2 = t_at(x, y);
+                /* C `#if 0` back-check omitted (liquid_flow deltrap
+                 * already cleaned conjoined on both pits). */
+                /* recursion */
+                await pit_flow(t2, filltyp);
+            }
+        }
+    }
+}
+
+/**
  * C ref: dig.c zap_dig — wand/spell dig beam across the level.
  * Branch envelope: horizontal digdepth=rn1(18,8) + door/SDOOR + maze_dig
  * wall/tree/stone + ordinary IS_OBSTRUCTED dig; DISP_BEAM trail.
@@ -1085,8 +1196,9 @@ export async function mdig_tunnel(mtmp) {
  * KILLED_BY_AN falling rock, mksobj ROCK + stackobj + newsym);
  * zap down elsewhere is watch_dig + dighole. Air/waterlevel and
  * u.uinwater (C `Underwater` = u.uinwater, youprop.h:279) skip both.
- * Named omissions: swallowed pierce; pitdig conjoined /
- * adj_pit_checks / pit_flow.
+ * Named omissions: swallowed pierce.
+ * pitdig conjoined / adj_pit_checks / pit_flow live below
+ * (C dig.c:1617-1662 + :1763 adj_pit_checks + :1844 pit_flow).
  */
 export async function zap_dig() {
     const u = game.u;
@@ -1149,8 +1261,18 @@ export async function zap_dig() {
     const maze_dig = !!(game.level?.flags?.is_maze_lev) && !Is_earthlevel(u.uz);
     let zx = (u.ux | 0) + (u.dx | 0);
     let zy = (u.uy | 0) + (u.dy | 0);
-    const pitdig = !!(u.utrap && u.utraptype === TT_PIT);
-    // trap_with_u / xytodir used only by deferred pitdig body
+    // C dig.c:1617-1623 — already in a pit: dig one adjacent pit.
+    let pitdig = false;
+    let pitflow = false;
+    let flow_x = -1;
+    let flow_y = -1;
+    let diridx = 8;
+    let trap_with_u = null;
+    if (u.utrap && (u.utraptype | 0) === TT_PIT
+        && (trap_with_u = t_at(u.ux | 0, u.uy | 0))) {
+        pitdig = true;
+        diridx = xytodir(u.dx | 0, u.dy | 0);
+    }
 
     let digdepth = rn1(18, 8);
     tmp_at(DISP_BEAM, digbeam_glyph());
@@ -1162,9 +1284,41 @@ export async function zap_dig() {
             tmp_at(zx, zy);
             await nh_delay_output();
 
-            if (pitdig) {
-                // conjoined pits / dighole deferred — one adjacent only
-                break;
+            if (pitdig) { /* we are already in a pit if this is true */
+                let adjpit = t_at(zx, zy);
+
+                if (diridx !== DIR_ERR
+                    && !conjoined_pits(adjpit, trap_with_u, false)) {
+                    digdepth = 0; /* limited to the adjacent location only */
+                    if (!(adjpit && is_pit(adjpit.ttyp))) {
+                        const cc = { x: zx, y: zy };
+                        const buf = { v: '' };
+                        if (!adj_pit_checks(cc, buf)) {
+                            if (buf.v) await pline(buf.v);
+                        } else {
+                            /* this can also result in a pool at zx,zy */
+                            await dighole(true, true, cc);
+                            adjpit = t_at(zx, zy);
+                        }
+                    }
+                    if (adjpit && is_pit(adjpit.ttyp)) {
+                        const adjidx = DIR_180(diridx);
+
+                        trap_with_u.conjoined = (trap_with_u.conjoined | 0)
+                            | (1 << diridx);
+                        adjpit.conjoined = (adjpit.conjoined | 0)
+                            | (1 << adjidx);
+                        flow_x = zx;
+                        flow_y = zy;
+                        pitflow = true;
+                    }
+                    if (is_pool(zx, zy) || is_lava(zx, zy)) {
+                        flow_x = zx - (u.dx | 0);
+                        flow_y = zy - (u.dy | 0);
+                        pitflow = true;
+                    }
+                    break;
+                }
             } else if (closed_door(zx, zy) || room.typ === SDOOR) {
                 if (in_rooms(zx, zy, SHOPBASE)) {
                     const { add_damage } = await import('./shk.js');
@@ -1255,7 +1409,17 @@ export async function zap_dig() {
         tmp_at(DISP_END, 0);
     }
 
-    // pit_flow deferred
+    // C dig.c:1742-1750 — liquid flow into the new/conjoined pit.
+    if (pitflow && isok(flow_x, flow_y)) {
+        const ttmp = t_at(flow_x, flow_y);
+
+        if (ttmp && is_pit(ttmp.ttyp)) {
+            const filltyp = fillholetyp(ttmp.tx, ttmp.ty, true);
+
+            if (filltyp !== ROOM) await pit_flow(ttmp, filltyp);
+        }
+    }
+
     if (shopdoor || shopwall) {
         const { pay_for_damage } = await import('./shk.js');
         await pay_for_damage(shopdoor ? 'destroy' : 'dig into', false);
