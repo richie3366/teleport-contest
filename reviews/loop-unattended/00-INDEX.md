@@ -1373,3 +1373,8 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1360-bb704c9c-outentry-arms.md](./1360-bb704c9c-outentry-arms.md) | `bb704c9c` | D-2394 outentry arms | **ACCEPT** |
 | [1361-af4fb4cc-dragon-armor-wielding-corpse.md](./1361-af4fb4cc-dragon-armor-wielding-corpse.md) | `af4fb4cc` | D-2395 dragon armor/wielding_corpse | **QUALITY-RISK** |
 | [1362-a00fc90c-sick-slimed-stoned-mirror.md](./1362-a00fc90c-sick-slimed-stoned-mirror.md) | `a00fc90c` | D-2396 sick/slimed/stoned mirror | **ACCEPT** |
+| [1363-484c303d-gloves-off-wielding-corpse.md](./1363-484c303d-gloves-off-wielding-corpse.md) | `484c303d` | D-2397 Gloves_off wielding_corpse pair | **ACCEPT** |
+| [1364-8a086d00-throwit-no-longer-held.md](./1364-8a086d00-throwit-no-longer-held.md) | `8a086d00` | D-2398 throwit obj_no_longer_held | **ACCEPT** |
+| [1365-0c7b4556-u-catch-thrown-obj.md](./1365-0c7b4556-u-catch-thrown-obj.md) | `0c7b4556` | D-2399 u_catch_thrown_obj catch arm | **QUALITY-RISK** |
+| [1366-d1747cfa-botl-parity-sites.md](./1366-d1747cfa-botl-parity-sites.md) | `d1747cfa` | D-2400 botl-parity set sites | **QUALITY-RISK** |
+| [1367-eb9ad04a-droppables-tool-keeping.md](./1367-eb9ad04a-droppables-tool-keeping.md) | `eb9ad04a` | D-2401 droppables tool-keeping | **ACCEPT** |

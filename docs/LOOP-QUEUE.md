@@ -70,6 +70,9 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
+- [ ] `display.c` `docrt()` uswallow/underwater/buried arms return without `botlx`, but C `goto post_map` (`:1724–1736` → `:1766–1769`) sets it on every non-maponly call ("skip it as in C" is C-false; step-2 gate would stale those paths). Fix: set `botlx` on the three early arms, note redrawonly-arm botlx in the map omit. Source: reviews/loop-unattended/1366-d1747cfa-botl-parity-sites.md.
+- [ ] `mthrowu.c` `u_catch_thrown_obj` guard calls divergent `freehand` clone (mthrowu.js:292 `oc_big`/`uswapwep`, no welded check) instead of C `engrave.c:472–477` (sole C `freehand`, extern.h:1018; clone's "invent.c" home does not exist): welded weapon → C FALSE vs JS TRUE, big+swap → C TRUE vs JS FALSE; `imports.mjs --can mthrowu.js engrave.js freehand` → SAFE. Fix: import canonical, retire clone, keep 44/44 + cohort. Source: reviews/loop-unattended/1365-0c7b4556-u-catch-thrown-obj.md.
+
 A **JS throw** in any corpus session (`hidden-proxy status` owner
 `js-throw …`, or a `ReferenceError` in `.cache/hidden/scores.json`
 `error`), and a corpus worker **hang** (`ETIMEDOUT` under `verify`), are
@@ -77,6 +80,10 @@ always Must-fix rows: they forfeit every later screen of that session
 (Constitution §10.14).
 
 ## Open (corpus-driven, after Must-fix is empty)
+
+- [ ] [campaign botl-parity 2/3]: ship the moveloop gate — `bot()` on `disp.botl|botlx`, `timebot()` on `time_botl` (D-2400 local-gate probe: full `sessions` 38/44 → 43/44, all screen-only with RNG/cursors fully matched; seed0007-T stale-time residual needs its C-side flag trace). Pops after the docrt early-path Must-fix (review 1366) — the gate would stale swallow/water/buried paths without it. Falsifier: `verify do_statusline2` moving the 4 remaining sessions (scen-poly-Healer-92107 step 126, scen-wish-Healer-92092 step 58, scen-wish-Monk-92194 step 88, scen-wish-Tourist-91125 step 82).
+- [ ] [measure] `distfleeck` invocation stream (top parked corpus owner post-rescore, 7/553: scen-genesis-Knight-92112 step 96, scen-intrinsic-Samurai-92239, scen-normal-Tourist-92061 — C draws `rn2(5)=1` in `distfleeck`, JS `rn2(10)=1` from `m_move` (monmove.js:1827)). Deliverable: temp C dump of the `distfleeck` call stream (which monster flees, from/to cells) across Knight-92112 step 96 vs the JS replay + the writer's Open row (no `js/`; commit and push — "empty port pushed" expected).
+- [ ] `eat.c` `losehp` death-path bypass at the two corpse-damage sites: C `eat.c:1926–1942` `losehp`-call arms absent from js/eat.js:eatcorpse (verified via `brief.mjs losehp` at enqueue: canonical `losehp` live at `js/hack.js:1228` sync, 0 blocked, no row names it) — C `eat.c:1926` `losehp(rnd(15), "acidic corpse"/"acidic glob", …)` + `:1942` `losehp(rnd(8), "cadaver"/"rotted glob", KILLED_BY_AN)` vs JS inline `uhp -= rnd(15)/rnd(8)` + `botl` flag only (D-2402), so Upolyd/mh handling, `end_running`, killer attribution and the death path never run. Fix: route both sites through canonical `losehp` (`imports.mjs --can eat.js hack.js losehp` → ALREADY, no new edge).
 
 Ranked by corpus sessions blocked. Every row is a recorded C-vs-JS fact;
 the fix is the owning C function's port, never a read of a seed, step or
@@ -86,8 +93,6 @@ committed scoreboard; if the row was queued at an older SHA pass
 (pop in order; each step ships `js/` and keeps 44/44). `[measure]` rows
 deliver a C-side measurement + the writer's Open row, no `js/` (commit
 and push; the supervisor logs "empty port pushed" — expected).
-
-- [ ] `polyself.c` `polymon` find_ac:890-vs-capture order — blocks 1/553 (scen-death-Tourist-92095, step 46, kind=screen): C `Dlvl:1 $:605 HP:15(15) Pw:2(2) AC:6 HD:6 Burdened Blind` vs JS AC:10, identical `Your shirt rips to shreds!` toplines; JS u.uac=6 post-step (state correct — find_ac HAS the mons[umonnum].ac form-base arm) but the step-46 capture lands pre-find_ac (JS find_ac deferred post-encumber_msg, js/polyself.js:1305) while C lands post-find_ac (polyself.c:888–890). Caution: prior AC:9 session needed the deferral (js/polyself.js:1292–1296) — fix flush/More timing, not just find_ac position. Probe: `node scripts/hidden-proxy.mjs show scen-death-Tourist-92095`.
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 
@@ -181,6 +186,8 @@ retire the spawning map line when you touch that section.
 - `display.c` map_location tseen — STALE 2026-09-16: wrapper + tseen arm live js/display.js:4798 (D-0120/D-0326/D-1528), 0 blocked. Falsifier: rescore blocking a session on map_location.
 - `sp_lev.c` load_special soko remainder — STALE 2026-09-16: load_soko1_1/4_1 live js/mklev.js:12307/12839 (D-0756 fixed), 0 blocked. Falsifier: rescore blocking a session on load_special.
 - `dungeon.c` single_level_branch Knox — STALE 2026-09-16: 7-line fn + stairs/end/teleport callers live (js/teleport.js:2133), 0 blocked; 2 caller gates stay named omits. Falsifier: rescore blocking a session on single_level_branch.
+- `eat.c` stop_occupation gate [botl-parity 3/3] — MASKED 2026-09-16 (C-exact wiring NO MOVEMENT, js/eat.js:2101 live, 0 blocked; falsifier: step-2 gate ship → re-verify do_statusline2).
+- `eat.c` deferred singletons (map turns.md eat section): is_edible poly diets + doeat_nonfood; cprefx; lesshungry; newuhs; costly_tin bill; cpostfx specials/intrinsic/givit/AD_STUN; eatspecial PAPER/potion/accessory/leash/trident/flint/uwepgone/unpunish.
 
 - `apply.c`: getobj_apply CMDQ_KEY; release_hold WAN_OPENING + flash_hits_mon; use_crystal_ball; use_figurine; flip_through_book/flip_coin; use_unicorn_horn trouble-fix envelope; use_bell; use_pole; fig_transform; use_towel wet/dry_a_towel + burnarmor dry; use_tinning_kit; use_candle/use_candelabrum; use_stone; use_whip grapple/pole family; use_trap
 - `artifact.c`: arti_cost; artifact_hit realizes/drain/blind arms
@@ -192,7 +199,6 @@ retire the spawning map line when you touch that section.
 - `do_wear.c`: stop_donning; toggle_stealth RIN/ELVEN cloak+boots on/off + EStealth; ggetobj takeoff + take_off occupation + cancel_doff
 - `do.c`: u_stuck_cannot_go
 - `dokick.c`: costly_gold/donate_gold shop gold bill; kick_object Is_box/container_impact/chest_trap + ghitm; kick_nondoor SDOOR/altar/fountain/grave/sink + helpers; kick_nondoor throne destroy/loot/fall_through + tree fruit/swarm
-- `eat.c`: is_edible poly diets + doeat_nonfood; cprefx; lesshungry; doeat_nonfood; newuhs; costly_tin + use_tin_opener tin-shop bill; cpostfx corpse specials / corpse_intrinsic / givit / AD_STUN hallu; eatspecial PAPER/potion/eataccessory/leash/trident/flint/uwepgone/unpunish; stop_occupation maybe_finished_meal(TRUE) gate [botl-parity 3/3] — MASKED 2026-09-16 (C-exact wiring NO MOVEMENT, js/eat.js:2101 live, 0 blocked; falsifier: step-2 paint gate ship → re-verify do_statusline2)
 - `end.c`: really_done
 - `hack.c`: test_move + domove_core; trapmove; still_chewing body
 - `insight.c`: show_conduct

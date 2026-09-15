@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
+- [x] `polyself.c` `polymon` find_ac:890-vs-capture order — blocks 1/553 (scen-death-Tourist-92095, step 46, kind=screen): C `Dlvl:1 $:605 HP:15(15) Pw:2(2) AC:6 HD:6 Burdened Blind` vs JS AC:10, identical `Your shirt rips to shreds!` toplines; JS u.uac=6 post-step (state correct — find_ac HAS the mons[umonnum].ac form-base arm) but the step-46 capture lands pre-find_ac (JS find_ac deferred post-encumber_msg, js/polyself.js:1305) while C lands post-find_ac (polyself.c:888–890). Caution: prior AC:9 session needed the deferral (js/polyself.js:1292–1296) — fix flush/More timing, not just find_ac position. Probe: `node scripts/hidden-proxy.mjs show scen-death-Tourist-92095`.
+
+
 - [x] `mon.c` can_carry strong-flat cap + Knight worker spin `[measure]` — blocks 1/553 (scen-normal-Knight-92182, step 13; mattackm/can_carry parks 2026-09-08). C `can_carry` allows a 640-wt chest for a strong flat monster (cap 1000); JS stub caps at 448, so `dog_move` goal differs and `rn2(++chcnt)` draws shift. Importing the canonical `can_carry` (`monmove.js:248`) fixes step 13 **but the worker then spins** (`verify mattackm` → ETIMEDOUT), same class as the ready_weapon Knight-92204 spin. Deliverable: profile/stack of the spinning worker (`node --cpu-prof` or `--inspect` on the replay command from `hidden-proxy show scen-normal-Knight-92182`, prefix moves past step 13) naming the sync loop; then an Open row for that loop (a hang forfeits every later screen — Must-fix class). No `js/` unless the loop is found and is one C-cited fix. **Delivered 2026-09-16 (no js/): no spin at HEAD — import live at js/dogmove.js:17, Knight-92182 replays 0.3 s to step 95 (parked obj_resists); `verify mattackm` vacuous, cohort 7/7; writer already parked, no new row.**
 
 

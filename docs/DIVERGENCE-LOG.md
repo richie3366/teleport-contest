@@ -1,5 +1,16 @@
 # Divergence log
 
+## D-2402 — `polyself.c` `polymon` find_ac C-order restore (`:890` + `:967`)
+
+- **Status:** fixed (Open queue row `polyself.c` `polymon` find_ac:890-vs-capture order — blocks 1/553 scen-death-Tourist-92095 step 46 kind=screen; shipped per operator order after failed iter #3119 landed no `js/`).
+- **Symptom:** step 46 toplines identical («Your shirt rips to shreds!--More--») but row 23 C `AC:6` vs JS `AC:10`; JS `u.uac=6` post-step (state converges — a capture-timing gap, not armor state). C screens 44/45/47+ identical both sides; only screen 46 diverges.
+- **C locus:** `nethack-c/upstream/src/polyself.c` `polymon` — `break_armor()` `:887` → `drop_weapon(1)` `:888` → `find_ac()` `:890` («repeated below») → … → `find_ac()` `:967` → … → `encumber_msg()` `:1019`. Both find_acs precede encumber_msg; `find_ac` arms `disp.botl` on change, so C's screen-46 flush paints post-strip AC:6.
+- **JS was:** D-0722 deferred BOTH find_acs past `encumber_msg` (`js/polyself.js:1305–1306`) so the D-0722 gnome AC:9 capture would stay stale — but the deferral was for `setworn`'s poisoning (since fixed with `skip_find_ac`, C worn.c has no find_ac), not polymon's own call. The shreds-More flush therefore painted pre-find_ac AC:10.
+- **Fix:** `js/polyself.js` only — `find_ac()` right after `drop_weapon(1)` (C `:890`), second `find_ac()` after `see_monsters`, still before `encumber_msg()` (C `:967` → `:1019`); both call-site comments re-cited, the deferral comment + `break_armor` docstring invariant corrected. RNG-neutral (`find_ac`/`encumber_msg`/`see_monsters` draw nothing). The D-0722 AC:9 capture precedes the first find_ac in code order on both sides, so it stays stale as C shows it.
+- **Verify:** targeted replay dump (JS step 46 row23 `AC:10` → `AC:6`, steps 44/45/47+ byte-identical) · `node scripts/verify.mjs --fn polymon` → PASS syntax (1 file) · PASS rule2 (one comment `seed0108` token tripped the scan — reworded to D-0722, re-PASS) · vacuous `verify polymon` (owner is do_statusline2) · PASS green 2/2 + strict ×2 · PASS cohort 7/7 · VERIFY: PASS · full `sessions` 44/44 on the working tree (seed0108 303/303 holds) · `hidden-proxy verify do_statusline2` on the working tree → 4 PASS + 2 moved past (Tourist-92095 step 46 → `savelife` at 49; Valkyrie-92195 step 200 → `peffect_polymorph` at 312) + 4 unchanged, 0 worse → PROGRESS. Probes in `/tmp` (`poly-ac6-screens.mjs`), not the repo.
+- **Named omissions:** none new (spoteffects/Passes_walls/amorphous/webmaker + retouch + Stoned/Sick/Slimed/strangle/glib + hideunder/utrap/egg-learn/swallow-expel/light/livelog pre-existing).
+- **Next:** pop Must-fix first (freehand guard review 1365, docrt early-path botlx review 1366), then Open in order (campaign 2/3 gate, obj_resists [measure], eat losehp arm).
+
 ## D-2401 — `dogmove.c` `droppables` tool-keeping arms (`:27–136`)
 
 - **Status:** fixed (Open queue row `dogmove.c` `droppables` pet flooreffects/vault-gold arms (data.md:286) — unverified at enqueue; stale check finds a live C-vs-JS gap, shipped as a missing-arm port. Head `eat.c` 3/3 MASKED — C-exact `stop_occupation` gate verifies NO MOVEMENT, reverted, left for after step-2 paint ships.)
