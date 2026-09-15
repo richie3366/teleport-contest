@@ -6120,7 +6120,8 @@ export async function openholdingtrap(mon) {
     } else {
         if (!(mon.mtrapped | 0)) return { happened: false, noticed: false };
         mon.mtrapped = 0;
-        if (canseemon(mon)) {
+        // C trap.c:6185 `if (canspotmon(mon))` — telepathy-sensed counts.
+        if (canspotmon(mon)) {
             noticed = true;
             await pline(
                 `${Monnam(mon)} is released from ${whichSpaced}${trapdescr}.`,
@@ -6212,7 +6213,8 @@ export async function openfallingtrap(mon, trapdoor_only) {
         return { happened: !!(u.utrap | 0), noticed: true };
     }
     if (mon.mtrapped | 0) return { happened: false, noticed: false };
-    const noticed = cansee(t.tx | 0, t.ty | 0) || canseemon(mon);
+    // C trap.c:6279 `cansee(t->tx, t->ty) || canspotmon(mon)` — sensed counts.
+    const noticed = cansee(t.tx | 0, t.ty | 0) || canspotmon(mon);
     await wakeup(mon, true);
     const res = await mintrap(mon, FORCETRAP);
     return {

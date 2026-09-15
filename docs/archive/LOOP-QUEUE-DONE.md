@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `dbridge.c` open_drawbridge/close_drawbridge + music passtune (debt.md D-0977; C dbridge.c:840 open_drawbridge). Probe: `node scripts/brief.mjs open_drawbridge`. **Addressed:** D-2316
+- [x] `trap.c` openholdingtrap/openfallingtrap + Punished boxlock arms (debt.md D-0981; C trap.c:6101 openholdingtrap). Probe: `node scripts/brief.mjs openholdingtrap`. **Addressed:** D-2317
+
+
+- [x] `dbridge.c` open_drawbridge/close_drawbridge + music passtune (debt.md D-0977; C dbridge.c:840 open_drawbridge). Probe: `node scripts/brief.mjs open_drawbridge`. **Addressed:** D-2316 `cb720cc9`
 
 
 - [x] `music.c` do_earthquake quake arms (debt.md D-0972; C music.c:344 do_earthquake). Probe: `node scripts/brief.mjs do_earthquake`. **Addressed:** D-2315 `f5d3798f`

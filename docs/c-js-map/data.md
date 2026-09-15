@@ -1154,7 +1154,11 @@ pline at `js/trap.js:3598`, a different C function). **`clear_conjoined_pits`
 + `:6535` — file-local port in C order, `deltrap` calls it first; `fountain.js`
 local clone replaced by the canonical export, hero `reset_utrap` arm
 unreachable via the `gush` `u_at` guard; named: Sokoban `maybe_finish_sokoban`
-+ `dealloc_trap` tail).
++ `dealloc_trap` tail); **`openholdingtrap`/`openfallingtrap` monster-arm
+`canspotmon`** (D-2317; C `trap.c:6185` + `:6279` — telepathy-sensed counts;
+JS narrowed both to file-local `canseemon`, dropping the `|| sensemon` arm;
+`canspotmon` already imported from `display.js`, no new edge; `closeholdingtrap`
+already correct; `boxlock_invent` `update_inventory` refresh stays named).
 
 ### `src/dog.c` `tamedog` / `initedog`
 
