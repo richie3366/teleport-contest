@@ -20,7 +20,7 @@ Park rows: re-pop only on the listed falsifier (proofs in Parked).
 - **disclose/list_vanquished:** Hallu desync / identical-prompt cell.
 - **dopush:** mimic memory/viz, not the push.
 - **domonnoise:** STALE DUPLICATE of D-1915 (review 885 ACCEPT; no-skip range holds it).
-- **STALE parks 2026-09-14/15** (proofs in Parked; re-pop only on blocked-owner verify): test_move/domove_core, arti_cost (D-1719), m_initweap S_DEMON (D-0472), mextra trio (D-1598), make_sick Unaware, dodrink (D-2031+D-1834), make_corpse (D-1794), vpline (D-1807), mkcavearea/mkcavepos/rm_waslit (D-0960), dig_up_grave/IS_GRAVE (review-26), furniture_handled-HOLE (D-0954), use_bell/openit/openone/mkundead (D-1028); getcad trio (stale), kick_object Is_box/container_impact/chest_trap/ghitm (D-0989).
+- **STALE parks 2026-09-14/15** (proofs in Parked; re-pop only on blocked-owner verify): test_move/domove_core, arti_cost (D-1719), m_initweap S_DEMON (D-0472), mextra trio (D-1598), make_sick Unaware, dodrink (D-2031+D-1834), make_corpse (D-1794), vpline (D-1807), mkcavearea/mkcavepos/rm_waslit (D-0960), dig_up_grave/IS_GRAVE (review-26), furniture_handled-HOLE (D-0954), use_bell/openit/openone/mkundead (D-1028); getcad trio (stale), kick_object Is_box/container_impact/chest_trap/ghitm (D-0989), costly_gold/donate_gold (D-0991+D-1705+D-0994).
 
 ## Don't re-check (≤15)
 
