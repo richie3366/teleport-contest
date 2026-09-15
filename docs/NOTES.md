@@ -10,6 +10,7 @@ Parks: re-pop only on the listed falsifier (proofs in Parked).
 - **Eval-order TDZ (D-2349):** no static edge to polyself at eval; late-bind setters.
 
 - **Presence-only:** mkclass_aligned/get_location, gethungry/maybe_generate/mattacku/u_calc_moveamt/exercise, dochug/dotrap/mintrap/nh_timeout/mon_break_armor.
+- **in_or_out_menu park probe (2026-09-15):** C `:3396-3477` re-read arm-for-arm vs `js/pickup.js:2343-2445` — selectors/return/texts/defaults/ESC all live (D-1592 + review 553 ACCEPT-WITH-DEBT, 0 C-wrongs); `something`=="something" (`decl.c:45/150/152`); Look/stash via export; residuals `n==0`/`n>1` behaviorally dead in the nhgetch loop. brief 0 blocked; verify vacuous (green 2/2, strict ×2, cohort 7/7); live queue `--limit 30` no owner → parked STALE DUPLICATE, no js/. Falsifier: verify showing a session blocked with in_or_out_menu as owner.
 - **Fortress guards** (do not reopen): display_inventory, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue S_ndoor, bigrm-2, getpos, summonmu, lookat, do_statusline1, snapshot, fakewiz, Ice/Boulder, roles[], pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
 - **Luck runs when invulnerable, not dialogues** (`timeout.c:623`).
 - **Symptom parks:** obj_resists/m_move/rloc/lightdamage/mattackm/can_carry/spoteffects/mon_adjust_speed/zapyourself/doname_base/hmonas/minliquid_core/distfleeck/passiveum; do_statusline1/2 paint-timing; slimed landing + Sick-store.

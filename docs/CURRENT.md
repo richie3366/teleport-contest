@@ -79,7 +79,7 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** Open `pickup.c` floor TRADITIONAL query_classes (turns.md:1543 D-1620; D-2350 FOLLOW chain live; never own-row live/archived/parked). Probe: `node scripts/brief.mjs query_classes`.
+**Next cluster:** Open `pickup.c` in_or_out_menu more-containers 'n' (turns.md:1545 D-1592; doloot_core live; never own-row live/archived/parked). Probe: `node scripts/brief.mjs in_or_out_menu`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2388 (index).**
 <!-- recent:begin -->
