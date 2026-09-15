@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `pray.c` offer_different_alignment_altar altar-wrath offering (named turns.md:399 dosacrifice family; never live/archived/parked). Probe: `node scripts/brief.mjs offer_different_alignment_altar`. **Addressed:** D-2343
+- [x] `pray.c` angry_priest temple-priest anger (named turns.md:399 dosacrifice family; never live/archived/parked). Probe: `node scripts/brief.mjs angry_priest`. **Addressed:** D-2344
+
+
+- [x] `pray.c` offer_different_alignment_altar altar-wrath offering (named turns.md:399 dosacrifice family; never live/archived/parked). Probe: `node scripts/brief.mjs offer_different_alignment_altar`. **Addressed:** D-2343 `b52af340`
 
 
 - [x] `sp_lev.c` spo_end_moninvent m_dowear for Kni-strt King Arthur + Mon-strt Grand Master custom invents (follow-up to the shipped Pelias/Lord Carnarvon/Arch Priest quest-invent wear row; still deferred at the Kni/Mon loaders in js/mklev.js; never live/archived/parked). Probe: `node scripts/brief.mjs m_dowear`. **Addressed:** D-2342 `c2fdbd1f`

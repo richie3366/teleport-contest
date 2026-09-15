@@ -23,8 +23,8 @@
 // Inhell fall-through) / -1 (undead godvoice + rehumanize + rnd(20)
 // losehp + exercise) / pray_revive (tame-corpse/statue scan + revive /
 // animate_statue ANIMATE_SPELL); bestow_artifact /
-// angry_priest from sacrifice_your_race + offer_different_alignment_altar
-// (own Open row); offer_too_soon /
+// angry_priest (priest.js, D-2344) from sacrifice_your_race +
+// offer_different_alignment_altar; offer_too_soon /
 // offer_fake_amulet / offer_real_amulet (dosacrifice ECMD_TIME after
 // pick is D-1667);
 // known_spell SPE_TURN_UNDEAD /
@@ -110,7 +110,7 @@ import {
     make_glib, make_deaf,
 } from './potion.js';
 import { init_uhunger, floorfood, carried } from './eat.js';
-import { findpriest, temple_occupied, p_coaligned } from './priest.js';
+import { findpriest, temple_occupied, p_coaligned, angry_priest } from './priest.js';
 import { rider_corpse_revival } from './pickup.js';
 import { region_danger, region_safety } from './region.js';
 import { safe_teleds } from './teleport.js';
@@ -1988,7 +1988,7 @@ async function offer_negative_valued(highaltar, altaralign) {
 /**
  * C ref: pray.c sacrifice_your_race `:1697–1778`.
  * Same-race corpse: demon satisfaction / infamous offense; high-altar
- * desecrate; stain or vanish altar; dlord summon. angry_priest named.
+ * desecrate; stain or vanish altar (either angers the priest); dlord summon.
  */
 async function sacrifice_your_race(otmp, highaltar, altaralign) {
     const u = game.u || (game.u = {});
@@ -2017,7 +2017,7 @@ async function sacrifice_your_race(otmp, highaltar, altaralign) {
             loc.flags = AM_CHAOTIC;
         }
         newsym(u.ux | 0, u.uy | 0);
-        /* angry_priest named */
+        await angry_priest();
     } else {
         let demonless_msg;
         if (altaralign === A_CHAOTIC && (u.ualign.type | 0) !== A_CHAOTIC) {
@@ -2031,7 +2031,7 @@ async function sacrifice_your_race(otmp, highaltar, altaralign) {
                 loc.flags = 0;
             }
             newsym(u.ux | 0, u.uy | 0);
-            /* angry_priest named */
+            await angry_priest();
             demonless_msg = 'cloud dissipates';
         } else {
             await pline('The blood covers the altar!');
@@ -2083,8 +2083,7 @@ async function sacrifice_your_race(otmp, highaltar, altaralign) {
  * rejection (ugangr/adjalign/godvoice/luck/adjattrib/angrygods);
  * else consume + conflict sense, rn2-gated altar conversion glow
  * (altarmask + shrine bit + newsym + summon + priest anger) or
- * power-decrease.
- * Named omission: angry_priest (C priest.c:876–911, own Open row).
+ * power-decrease (conversion glow angers a non-coaligned priest).
  */
 async function offer_different_alignment_altar(otmp, altaralign) {
     const u = game.u || (game.u = {});
@@ -2158,7 +2157,7 @@ async function offer_different_alignment_altar(otmp, altaralign) {
             /* anger priest; test handles bones files */
             const pri = findpriest(temple_occupied(u.urooms));
             if (pri && !p_coaligned(pri)) {
-                /* angry_priest named — C priest.c:876–911, own Open row */
+                await angry_priest();
             }
         } else {
             await pline(
