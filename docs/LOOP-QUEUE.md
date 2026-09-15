@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `pray.c` offer_different_alignment_altar altar-wrath offering (named turns.md:399 dosacrifice family; never live/archived/parked). Probe: `node scripts/brief.mjs offer_different_alignment_altar`.
 - [ ] `pray.c` angry_priest temple-priest anger (named turns.md:399 dosacrifice family; never live/archived/parked). Probe: `node scripts/brief.mjs angry_priest`.
 - [ ] `pray.c` offer_real_amulet/offer_fake_amulet amulet offering arms (named turns.md:399 dosacrifice family; never live/archived/parked). Probe: `node scripts/brief.mjs offer_real_amulet`.
 - [ ] `apply.c` do_break_wand explode-type/inert + create-monster + dig pay_for_damage (named debt.md:16, D-0949/D-0950 residual; never live/archived/parked). Probe: `node scripts/brief.mjs do_break_wand`.

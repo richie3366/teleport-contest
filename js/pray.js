@@ -3,7 +3,8 @@
 // water_prayer, on_altar / a_align helpers; dosacrifice (#offer); #turn
 // (doturn / maybe_turn_mon_iter, D-0912); desecrate_altar / god_zaps_you /
 // fry_by_god (D-0963); angrygods cases 4–8 + gods_angry (D-0969);
-// offer_corpse / eval_offering / consume_offering (D-1678).
+// offer_corpse / eval_offering / consume_offering (D-1678) /
+// offer_different_alignment_altar + uchangealign (attrib.js) caller.
 //
 // Branch envelope: ParanoidPray → paranoid_query(ParanoidConfirm) (D-1000)
 // + wizard Force (D-0517) + #pray ublesscnt-too-soon (p_type 0) →
@@ -21,8 +22,9 @@
 // p_type -2 (Moloch laughter + wake_nearby + adjalign + exercise,
 // Inhell fall-through) / -1 (undead godvoice + rehumanize + rnd(20)
 // losehp + exercise) / pray_revive (tame-corpse/statue scan + revive /
-// animate_statue ANIMATE_SPELL); offer_different_alignment_altar / bestow_artifact /
-// angry_priest from sacrifice_your_race; offer_too_soon /
+// animate_statue ANIMATE_SPELL); bestow_artifact /
+// angry_priest from sacrifice_your_race + offer_different_alignment_altar
+// (own Open row); offer_too_soon /
 // offer_fake_amulet / offer_real_amulet (dosacrifice ECMD_TIME after
 // pick is D-1667);
 // known_spell SPE_TURN_UNDEAD /
@@ -50,7 +52,7 @@ import { m_at, wake_nearby } from './mon.js';
 import { revive } from './zap.js';
 import {
     A_WIS, A_STR, A_CON, A_MAX, change_luck, adjattrib, adjalign, exercise,
-    ALIGNLIM,
+    ALIGNLIM, uchangealign,
 } from './attrib.js';
 import { align_gname, align_str, xlev_to_rank, uhim, u_gname, uhis, roles } from './roles.js';
 import {
@@ -108,6 +110,7 @@ import {
     make_glib, make_deaf,
 } from './potion.js';
 import { init_uhunger, floorfood, carried } from './eat.js';
+import { findpriest, temple_occupied, p_coaligned } from './priest.js';
 import { rider_corpse_revival } from './pickup.js';
 import { region_danger, region_safety } from './region.js';
 import { safe_teleds } from './teleport.js';
@@ -122,8 +125,8 @@ import {
     discover_artifact,
 } from './artifact.js';
 import {
-    IS_ALTAR, Amask2align, AM_MASK, AM_SHRINE, AM_SANCTUM, AM_CHAOTIC,
-    A_NONE, A_LAWFUL, A_NEUTRAL, A_CHAOTIC, ECMD_OK, ECMD_TIME,
+    IS_ALTAR, Amask2align, Align2amask, AM_MASK, AM_SHRINE, AM_SANCTUM, AM_CHAOTIC,
+    A_NONE, A_LAWFUL, A_NEUTRAL, A_CHAOTIC, A_CG_CONVERT, ECMD_OK, ECMD_TIME,
     PARANOID_PRAY, PARANOID_CONFIRM, LL_CONDUCT, LL_DIVINEGIFT, LL_ARTIFACT,
     LL_SPOILER, CXN_ARTICLE, FROMOUTSIDE, INTRINSIC,
     LUCKMAX, has_omonst, OMONST, NON_PM, ROOM, FOOT, something, Something,
@@ -2075,10 +2078,110 @@ async function sacrifice_your_race(otmp, highaltar, altaralign) {
 }
 
 /**
+ * C ref: pray.c offer_different_alignment_altar `:1630–1695`.
+ * Cross-align sacrifice: angry-god conversion (uchangealign) or
+ * rejection (ugangr/adjalign/godvoice/luck/adjattrib/angrygods);
+ * else consume + conflict sense, rn2-gated altar conversion glow
+ * (altarmask + shrine bit + newsym + summon + priest anger) or
+ * power-decrease.
+ * Named omission: angry_priest (C priest.c:876–911, own Open row).
+ */
+async function offer_different_alignment_altar(otmp, altaralign) {
+    const u = game.u || (game.u = {});
+    if (!u.ualign) u.ualign = { type: 0, record: 0 };
+    const atype = u.ualign.type | 0;
+    /* Is this a conversion ? */
+    /* An unaligned altar in Gehennom will always elicit rejection. */
+    if (ugod_is_angry() || (altaralign === A_NONE && Inhell())) {
+        const baseCur = u.ualignbase?.current ?? atype;
+        const baseOrig = u.ualignbase?.original ?? atype;
+        if (baseCur === baseOrig && altaralign !== A_NONE) {
+            await pline(
+                `You have a strong feeling that ${
+                    u_gname(game.urole, atype)
+                } is angry...`,
+            );
+            await consume_offering(otmp);
+            await pline(`${a_gname()} accepts your allegiance.`);
+
+            await uchangealign(altaralign, A_CG_CONVERT);
+            /* Beware, Conversion is costly */
+            change_luck(-3);
+            u.ublesscnt = (u.ublesscnt | 0) + 300;
+        } else {
+            u.ugangr = (u.ugangr | 0) + 3;
+            adjalign(-5);
+            await pline(`${a_gname()} rejects your sacrifice!`);
+            await godvoice(altaralign, 'Suffer, infidel!');
+            change_luck(-5);
+            await adjattrib(A_WIS, -2, true);
+            if (!Inhell()) await angrygods(u.ualign.type);
+        }
+    } else {
+        await consume_offering(otmp);
+        await pline(
+            `You sense a conflict between ${
+                u_gname(game.urole, u.ualign.type)
+            } and ${a_gname()}.`,
+        );
+        if (rn2(8 + (u.ulevel | 0)) > 5) {
+            await You_feel(
+                `the power of ${u_gname(game.urole, u.ualign.type)} increase.`,
+            );
+            exercise(A_WIS, true);
+            change_luck(1);
+            const shrine = on_shrine();
+            const loc = game.level?.at(u.ux, u.uy);
+            if (loc) {
+                loc.altarmask = Align2amask(u.ualign.type);
+                if (shrine) loc.altarmask |= AM_SHRINE;
+            }
+            newsym(u.ux | 0, u.uy | 0); /* in case Invisible to self */
+            if (!Blind()) {
+                await pline(
+                    `The altar glows ${
+                        hcolor(
+                            atype === A_LAWFUL
+                                ? 'white'
+                                : atype
+                                    ? 'black'
+                                    : 'gray',
+                        )
+                    }.`,
+                );
+            }
+
+            if (rnl(u.ulevel | 0) > 6 && (u.ualign.record | 0) > 0
+                && rnd(u.ualign.record | 0) > Math.trunc((3 * ALIGNLIM()) / 4)) {
+                await summon_minion(altaralign, true);
+            }
+            /* anger priest; test handles bones files */
+            const pri = findpriest(temple_occupied(u.urooms));
+            if (pri && !p_coaligned(pri)) {
+                /* angry_priest named — C priest.c:876–911, own Open row */
+            }
+        } else {
+            await pline(
+                `Unluckily, you feel the power of ${
+                    u_gname(game.urole, u.ualign.type)
+                } decrease.`,
+            );
+            change_luck(-1);
+            exercise(A_WIS, false);
+            if (rnl(u.ulevel | 0) > 6 && (u.ualign.record | 0) > 0
+                && rnd(u.ualign.record | 0) > Math.trunc((7 * ALIGNLIM()) / 8)) {
+                await summon_minion(altaralign, true);
+            }
+        }
+    }
+}
+
+/**
  * C ref: pray.c offer_corpse `:1958–2120`.
  * Gnostic livelog; feel_cockatrice; rider revival; same-race / former
- * pet; eval_offering; consume + mollify / absolve / blesscnt / luck.
- * Named: offer_different_alignment_altar; bestow_artifact.
+ * pet; eval_offering; cross-align offer_different_alignment_altar;
+ * consume + mollify / absolve / blesscnt / luck.
+ * Named: bestow_artifact.
  */
 async function offer_corpse(otmp, highaltar, altaralign) {
     const u = game.u || (game.u = {});
@@ -2132,7 +2235,7 @@ async function offer_corpse(otmp, highaltar, altaralign) {
         return;
     }
     if ((u.ualign.type | 0) !== altaralign) {
-        /* offer_different_alignment_altar named — uchangealign */
+        await offer_different_alignment_altar(otmp, altaralign);
         return;
     }
     await consume_offering(otmp);

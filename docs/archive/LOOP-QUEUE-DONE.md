@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `sp_lev.c` spo_end_moninvent m_dowear for Kni-strt King Arthur + Mon-strt Grand Master custom invents (follow-up to the shipped Pelias/Lord Carnarvon/Arch Priest quest-invent wear row; still deferred at the Kni/Mon loaders in js/mklev.js; never live/archived/parked). Probe: `node scripts/brief.mjs m_dowear`. **Addressed:** D-2342
+- [x] `pray.c` offer_different_alignment_altar altar-wrath offering (named turns.md:399 dosacrifice family; never live/archived/parked). Probe: `node scripts/brief.mjs offer_different_alignment_altar`. **Addressed:** D-2343
+
+
+- [x] `sp_lev.c` spo_end_moninvent m_dowear for Kni-strt King Arthur + Mon-strt Grand Master custom invents (follow-up to the shipped Pelias/Lord Carnarvon/Arch Priest quest-invent wear row; still deferred at the Kni/Mon loaders in js/mklev.js; never live/archived/parked). Probe: `node scripts/brief.mjs m_dowear`. **Addressed:** D-2342 `c2fdbd1f`
 
 
 - [x] `dungeon.c` save_dungeon — blocks 8/553 corpus sessions (first at step 113): C «The Dungeons of Doom:» vs JS «The Dungeons of Doom:». Probe: `node scripts/hidden-proxy.mjs verify save_dungeon` (scen-genesis-Barbarian-91118, scen-normal-Caveman-92140, scen-poly-Archeologist-92119; queue refill 2026-09-15 — top unarchived weight; 09-07 MISATTRIBUTED park predates scoreboard, next iter measures the C overview-menu writer or re-parks). **Addressed:** D-2341 `c22b911d`

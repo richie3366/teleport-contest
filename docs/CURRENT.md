@@ -80,10 +80,11 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `sp_lev.c` spo_end_moninvent m_dowear for Kni-strt King Arthur + Mon-strt Grand Master custom invents (follow-up to shipped D-2335 Pelias/Lord Carnarvon/Arch Priest wear row; still deferred at the Kni/Mon loaders in js/mklev.js). Probe: `node scripts/brief.mjs m_dowear`.
+**Next cluster:** `pray.c` offer_different_alignment_altar altar-wrath offering (named turns.md:399 dosacrifice family; never live/archived/parked). Probe: `node scripts/brief.mjs offer_different_alignment_altar`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2342 (index).**
+**Keep D-0845…D-2343 (index).**
 <!-- recent:begin -->
+**D-2343** `nethack-c/upstream/src/pray.c` `offer_different_alignment_altar` `:1630–1695` (conversion — `js/attrib.js` — exported `uchangealign` (1:1 with C `attrib.c`): ublessed=0 + `game.flags.botl` (pray.js-guarded idiom), CONVERT livelog `permanently converted to <adj>` via `aligns[1-newalign]` (roles.js order matches 
 **D-2342** `nethack-c/upstream/src/sp_lev.c` `spo_end_moninvent` `:3031–3036` (`m_dowear(invent_carry — `js/mklev.js` only, zero new module edges (`imports.mjs --can mklev.js worn.js m_dowear` → ALREADY: file already statically imports worn.js).
 **D-2341** `end.c` `done_in_by` `:184-344` — `js/end.js` — 5 names join existing imports (no new edges: `m_monnam`, `is_vampshifter`, `strstri`, `the_unique_pm`, `BUFSZ`; all `imports.mjs --can` ALREADY); imitator arm in C order incl. mimicker `mons(mappearance)` +
 **D-2340** `nethack-c/upstream/src/mon.c` `hideunder` `:4725–4802`, concealer arm `:4752–4772` (`hide — 4 js files (+61/−23), no new modules.
@@ -91,11 +92,10 @@ Do **not** pop map-omission singletons
 **D-2338** `nethack-c/upstream/src/trap.c` `blow_up_landmine` `:3172–3219` (scatter `:3176–3179` → de — `js/trap.js` only, zero new module edges (`imports.mjs --can` ALREADY ×7: `fillholetyp`/`liquid_flow`/`maybe_dunk_boulders` join the existing dig.js import, `is_drawbridge_wall`/`find_drawbridge`/`destroy_drawbridge` joi
 **D-2337** `nethack-c/upstream/src/artifact.c` `mk_artifact` `:172–309` (eligibility gather `:188–245 — extractor parses A() args[12]/args[13] as `genSpe`/`giftValue` and emits them; `js/generated/artifacts_data.js` regenerated via the checked-in extractor (34 rows gain the two fields, values spot-checked vs C); `artifacts
 **D-2336** `nethack-c/upstream/src/sp_lev.c` `flip_level` `:698–734` (lregion arm flips inarea+delare — `js/mklev.js` only, zero new module edges (all names file-local; no `imports.mjs --can` needed — no new cross-module import).
-**D-2335** `nethack-c/upstream/src/sp_lev.c` `spo_end_moninvent` `:3031–3036` (`m_dowear(invent_carry — `js/mklev.js` only.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2342; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2343; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
