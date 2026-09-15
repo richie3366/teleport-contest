@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
+- [x] `mthrowu.c` hits_bars thrown-through-bars (named debt.md D-0990; never live/archived/parked). Probe: `node scripts/brief.mjs hits_bars`. **Addressed:** D-2358
+
+
 - [x] `music.c` charm_snakes/calm_nymphs/charm_monsters flute/harp (named debt.md D-0974; never live/archived/parked). Probe: `node scripts/brief.mjs charm_monsters`. **Addressed:** D-2357 `d8cfa25c`
 
 

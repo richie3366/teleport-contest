@@ -82,8 +82,9 @@ Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
 **Next cluster:** `mthrowu.c` hits_bars thrown-through-bars (Open head). Probe: `node scripts/brief.mjs hits_bars`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2357 (index).**
+**Keep D-0845…D-2358 (index).**
 <!-- recent:begin -->
+**D-2358** `nethack-c/upstream/src/mthrowu.c` `MT_FLIGHTCHECK` `:552–569` (edge / IS_OBSTRUCTED / clo — `js/mthrowu.js` only, no new modules, no new module edges (`IRONBARS`/`IS_SINK` join the existing `const.js` import; `otense` joins the existing `objnam.js` import; `The`/`mshot_xname`/`canseemon`/`game.marcher`/`game._m
 **D-2357** `nethack-c/upstream/src/mhitm.c` `sleep_monst` `:1225–1250` (`:1231–1234` `resists_sleep | — `js/music.js` only, no new modules, no new module edges (`defended` joins the existing `mondata.js` import and `shieldeff` joins the existing `display.js` import — `imports.mjs --can music.js mondata.js defended` → ALREA
 **D-2356** `nethack-c/upstream/src/do_wear.c` `Blindf_off` `:1495–1534` (`:1503–1506` impossible, `:1 — `js/mhitu.js` — real exported async `gulp_blnd_check` in C order/conjuncts next to gulpmu (C home; `attacktype_fordmg`/`can_blnd` join the existing uhitm.js edge; AT_ENGL already imported, AD_BLND file-local const; `expo
 **D-2355** `nethack-c/upstream/src/apply.c` `use_lamp` `:1628–1700` (lamp arm `:1683–1685` `check_unp — `js/apply.js` only, no new modules, no new module edges (`objects` joins the existing `objects.js` import — `imports.mjs --can` ALREADY; `check_unpaid`, `costly_spot`, `bill_dummy_object`, `verbalize`, `in_rooms` already
@@ -91,11 +92,10 @@ Do **not** pop map-omission singletons
 **D-2353** `nethack-c/upstream/src/invent.c` `getobj` `:1751–2089`; call sites `do.c:35-36` (`getobj( — `dodrop` (shop + non-shop arms), `doapply`, `dorub` call live `getobj` with the C word/ok/flags; deleted the three clones + six single-use letter helpers (`drop_raw_lets`, `drop_suggest_lets`, `apply_lets`, `apply_prompt
 **D-2352** `nethack-c/upstream/src/pickup.c` `pickup` `:761–772` (count-N arm: `"Pick %d of what?"` + — `js/pickup.js` only (+11/−4, no new modules, no new imports — `PICK_ANY` already imported): `sortflags` starts `(how === PICK_ANY) ?
 **D-2351** `nethack-c/upstream/src/end.c` imitator arm (`else if (alt && strstri(realnm, "vampire") & — `js/end.js` only (+3/−2, no new modules, no new imports): predicate `!==` → `===` with a C-cited comment (`end.c` imitator arm `!strcmp(fakenm, "vampire bat")` → `"bat"`).
-**D-2350** `nethack-c/upstream/src/pickup.c` `pickup` `:672–910` (objchain `:741–747` BY_NEXTHERE vs  — `js/pickup.js` only, no new modules, no new module edges (`PICK_ANY` joins the existing const.js import; `is_pool`/`is_lava` were already imported from hack.js — no `imports.mjs --can` owed).
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2357; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2358; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
