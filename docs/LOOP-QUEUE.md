@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `mhitu.c` gulpmu BLND visored-helmet + flat/uprops mirror (turns.md:3048 named residual, debt R-1076; gulpmu DGST/PHYS/ACID/DREN/DISE shipped D-1993/D-2110/D-2151/D-2161/D-2356; residual never own-row live/archived/parked). Probe: `node scripts/brief.mjs gulpmu`.
 - [ ] `pickup.c` loot_in_first 'r' reversed + explain_container_prompt (turns.md:1542 D-1567 residual; traditional_loot/askchain archived; never own-row live/archived/parked). Probe: `node scripts/brief.mjs loot_in_first`.
 - [ ] `pickup.c`/`invent.c` collect_obj_classes INVLET arms (turns.md:1542 D-1581 residual: add_valid_menu_class/allow_category; traditional_loot/askchain/sortloot archived; never own-row live/archived/parked). Probe: `node scripts/brief.mjs collect_obj_classes`.
 - [ ] `pickup.c` floor TRADITIONAL query_classes (turns.md:1543 D-1620; D-2350 FOLLOW chain live; never own-row live/archived/parked). Probe: `node scripts/brief.mjs query_classes`.

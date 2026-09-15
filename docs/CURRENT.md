@@ -42,9 +42,7 @@ audit 1307–1313): **478 / 540 PASS (88.5 %)** excl. 13 env-only rows
 `do_statusline2` ×10, `obj_resists` ×6, `distfleeck` ×5,
 `m_move` ×3, `one_characteristic` ×3, `rloc` ×2, then 1-block singles
 (all parked symptom/misattributed owners; `save_dungeon` ×8 cleared by D-2341, knockback cleared by D-2347).
-Reviews 1225–1338: 106 ACCEPT, 3 ACCEPT-WITH-DEBT, 0 Must-fix outstanding.
-Reviews 1339–1345: 5 ACCEPT, 1 DEBT, 1 QUALITY-RISK (Must-fix shipped D-2380).
-Reviews 1346–1347: 2 ACCEPT, 0 Must-fix.
+Reviews 1225–1347: 113 ACCEPT, 3 ACCEPT-WITH-DEBT, 1 DEBT, 1 QUALITY-RISK (Must-fix shipped D-2380); 0 Must-fix outstanding.
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx (both map notes).
 Refresh on audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s);
 families ≥ 85 % → grow first via `scenario-gen.mjs --n 120 --seed <iter×100>`.
@@ -81,10 +79,11 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** Open `hack.c` handle_tip TIP_GETPOS arm (turns.md:410 deferred; TIP_ENHANCE D-1963 shipped; never own-row live/archived/parked). Probe: `node scripts/brief.mjs handle_tip`.
+**Next cluster:** Open `mhitu.c` gulpmu BLND visored-helmet + flat/uprops mirror (turns.md:3048, debt R-1076; prior arms D-1993/D-2110/D-2151/D-2161/D-2356). Probe: `node scripts/brief.mjs gulpmu`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2386 (index).**
+**Keep D-0845…D-2387 (index).**
 <!-- recent:begin -->
+**D-2387** `nethack-c/upstream/src/mondata.c:305–398` (`can_blnd`: `check_visor` set only by the BLIN — `js/mhitu.js` — `gulpmu_can_blnd` gains C's `check_visor` flag (set in the CLAW arm only) + the `:388–396` tail via new file-local `visored_helmet_worn()` (`owornmask & W_ARMH` + imported `objdescr_is` "visored helmet" o
 **D-2386** `nethack-c/upstream/src/hack.c:1852–1881` (TIP_GETPOS arm `:1871–1873` `l_nhcore_call(NHCO — `js/hack.js` — TIP_GETPOS arm in C switch order (`await l_nhcore_call(NHCORE_GETPOS_TIP); return true`, `:1583–1587`) + `NUM_TIPS` range check; `js/do.js` — GETPOS_TIP dispatch (`await show_getpos_tip(); return`, `:1108–
 **D-2385** `nethack-c/upstream/src/weapon.c:1424–1434` (`if (skill != P_NONE && !P_RESTRICTED(skill)) — `js/weapon.js` — `use_skill` is now `async`, C order (`P_NONE`/`P_ISRESTRICTED` guards, `advance_before = can_advance(skill, false)`, `+= degree|0`, `!before && can_advance` → `await give_may_advance_msg(skill)`); stale 
 **D-2384** `nethack-c/upstream/src/trap.c:4975-5008` (over/on preposit; `surface()`; is_ice→ice_descr — `back_on_ground` ported arm-for-arm in C order over the shared `surface()` (sit.js D-2008) with the file-local `hero_Levitation()`/`hero_Flying()` preposit gate, `an`/`the` (objnam.js) matrix arms, `game.flags?.verbose !
@@ -92,11 +91,10 @@ Do **not** pop map-omission singletons
 **D-2382** `nethack-c/upstream/src/hack.c:1266–1523` (`findtravelpath`: entry alloc `:1268–1269`, TRA — `js/cmd.js` — `travelmap_ensure()` (C `:1268–1269`; per-game heap on `game.travelmap`, never saved, like C) + `TRAVEL_NOPATH/STEP/STEP_UNSURE` tri-state (C returns boolean, but `You` is async-only in JS, so the sync BFS 
 **D-2381** `nethack-c/upstream/src/trap.c:3937–4006` (`float_up`); `dig.c:1884–1932` (`buried_ball`); — BURIEDBALL arm calls `buried_ball(cc)` (newly exported from `js/dig.js:514`, verified arm-for-arm vs C: `!u.utrap || TT_BURIEDBALL` gate, exact-spot return, dist2≤8 nearest + cc mutation) and reads `IS_ROOM` at the ball 
 **D-2380** `nethack-c/upstream/include/youprop.h:355–360` (`Protection_from_shape_changers` ≡ `u.upro — deleted the `js/lock.js:618` local, added `import { Protection_from_shape_changers } from './were.js'` (the `:57` export reads flats + `uprops[].intrinsic/extrinsic`, same shape as the `display.js`/`mon.js` clones).
-**D-2379** `nethack-c/upstream/src/dungeon.c` `ceiling` (vault/temple/SHOPBASE `*in_rooms` → "vault's — `js/trap.js` `ceiling` ported arm-for-arm in C order (wording cross-checked against the live full `js/zap.js:2482` `ceiling_updown` that serves zap_updown probing).
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2386; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2387; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

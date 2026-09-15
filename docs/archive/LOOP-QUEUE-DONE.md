@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `hack.c` handle_tip TIP_GETPOS arm (turns.md:410 deferred; TIP_ENHANCE D-1963 shipped; never own-row live/archived/parked). Probe: `node scripts/brief.mjs handle_tip`. **Addressed:** D-2386
+- [x] `mhitu.c` gulpmu BLND visored-helmet + flat/uprops mirror (turns.md:3048 named residual, debt R-1076; gulpmu DGST/PHYS/ACID/DREN/DISE shipped D-1993/D-2110/D-2151/D-2161/D-2356; residual never own-row live/archived/parked). Probe: `node scripts/brief.mjs gulpmu`. **Addressed:** D-2387
+
+
+- [x] `hack.c` handle_tip TIP_GETPOS arm (turns.md:410 deferred; TIP_ENHANCE D-1963 shipped; never own-row live/archived/parked). Probe: `node scripts/brief.mjs handle_tip`. **Addressed:** D-2386 `74e2f96f`
 
 
 - [x] `weapon.c` use_skill may-advance arm (turns.md:410 deferred; give_may_advance_msg D-1963 shipped; never own-row live/archived/parked). Probe: `node scripts/brief.mjs use_skill`. **Addressed:** D-2385 `f285c65c`
