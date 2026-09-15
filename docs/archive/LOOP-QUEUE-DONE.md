@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `trap.c` untrap floor disarm_*/box residuals (data.md:176; D-1495 shipped the UNTRAP door-force callee; disarm_holdingtrap/disarm_landmine/disarm_shooting_trap/disarm_box/help_monster_out still named). Probe: `node scripts/brief.mjs untrap`. **Addressed:** D-2305
+- [x] `trap.c` untrap floor disarm_*/box residuals (data.md:176; D-1495 shipped the UNTRAP door-force callee; disarm_holdingtrap/disarm_landmine/disarm_shooting_trap/disarm_box/help_monster_out still named). Probe: `node scripts/brief.mjs untrap`. **Addressed:** D-2305 `9881e89f`
 
 
 - [x] `mkmaze.c` populate_maze trap loop (data.md:923; D-2216 shipped the live tail + fallback; loop needs mktrap — no JS mktrap — plus dmonsfree/SPLEVTYPE-getenv). Probe: `node scripts/brief.mjs populate_maze`. **Addressed:** D-2304 `4581ce02`

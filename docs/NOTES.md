@@ -25,7 +25,7 @@ Park rows: re-pop only on the listed falsifier (proofs in Parked).
 - **poly_obj:** misattributed citation + no C arm.
 - **newuhs:** STALE, full port D-1791.
 - **domonnoise/dismount_steed:** STALE DUPLICATEs (D-1915/885).
-- **STALE parks 2026-09-14/15** (proofs in Parked; re-pop only on `verify <fn>` blocked with `<fn>` as owner): test_move/domove_core (D-1800/D-1270/D-1226 live), arti_cost (D-1719 triple), m_initweap S_DEMON (D-0472), mextra trio (D-1598 + follow-ups), make_sick Unaware (C potion.c:145-148 #if 0), dodrink drink_ok_extra/Strangled/underwater (D-2031 + D-1834), make_corpse table (D-1794 live, 0 blocked).
+- **STALE parks 2026-09-14/15** (proofs in Parked; re-pop only on `verify <fn>` blocked with `<fn>` as owner): test_move/domove_core (D-1800/D-1270/D-1226 live), arti_cost (D-1719 triple), m_initweap S_DEMON (D-0472), mextra trio (D-1598 + follow-ups), make_sick Unaware (C potion.c:145-148 #if 0), dodrink drink_ok_extra/Strangled/underwater (D-2031 + D-1834), make_corpse table (D-1794 live, 0 blocked), vpline suppression layer (D-1807 gate live, 0 blocked).
 
 ## Don't re-check (≤15)
 

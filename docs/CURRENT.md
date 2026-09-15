@@ -81,7 +81,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `mon.c` make_corpse special-corpse table (TOP30 #4; live js/mhitm.js:2391 covers the baseline; dragon scales/unicorn horn/worm-tooth arms + their draws still named). Probe: `node scripts/brief.mjs make_corpse`.
+**Next cluster:** `cmd.c` rhack `-`→fight binding (fresh rescore 2026-09-14: ownerless screen step, C«» vs JS«Unknown command '-'» — C number_pad map binds `-` to fight, cmd.c:2772, consumed via cmdbind_get in rhack :3679; no `'-'` binding in js/cmd.js so JS falls to the Unknown-command arm js/cmd.js:3074). Probe: `node frozen/ps_test_runner.mjs .cache/hidden/sessions/random-seed0015-valk-level2-pit-dog-wait-eb7e90ad.session.json` (step 33/72) + `node scripts/brief.mjs rhack`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2305 (index).**
 <!-- recent:begin -->
