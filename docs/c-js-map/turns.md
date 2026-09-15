@@ -1747,7 +1747,7 @@ inven_inuse / ball-chain placebc; accessible closed_door; shk name-based peace;
 `pmname(Mgender)` gendered name + "called"/"of" mgivenname (`has_ebones`); minvis +
 hallucinogen-distorted prefixes)/ghost arms still named (D-2341 retires
 imitator+vampshifter "imitating/in-form/disguised" + priest|minion m_monnam +
-killer multi_reason trim; monhealthdescr is exact-omit, `#if 0` no-op); enlightenment poly/remaining resistance catalogue; set_uasmon FROMRACE; 
+killer multi_reason trim (D-2348: imitator predicate compares mndx indices — mons() factory breaks object identity); monhealthdescr is exact-omit, `#if 0` no-op); enlightenment poly/remaining resistance catalogue; set_uasmon FROMRACE; 
 **`paygd`/`clearpriests`/`fixup_death`/`force_launch_placement`/`clearlocks`/
 `free_pickinv_cache`/`timet_delta` D-1812** (C `end.c` `really_done`
 `:1165` / `:1203` / `:1232` / `:1239–1244` / `:1378`; `vault.c` `paygd`

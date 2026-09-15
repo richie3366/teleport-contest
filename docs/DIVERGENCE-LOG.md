@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-2348 — `end.c` done_in_by imitator predicate: permonst index compare (review 1307 Must-fix)
+
+- **Status:** fixed (Must-fix queue head from review 1307 `done_in_by` imitator predicate; review stamped **Addressed:** D-2348.)
+- **Symptom:** true-form shapechangers (birth-state `cham == mndx`) wrongly took the D-2341 imitator arm — epitaph "chameleon imitating a chameleon" (Vlad: "in Vlad the Impaler form") — and the G_UNIQ `"the "` gate (`!(imitator && !mimicker)`) wrongly suppressed for true-form unique shifters.
+- **C locus:** `nethack-c/upstream/src/end.c` `done_in_by` `:184-190` (`mptr = mtmp->data`, `champtr = ismnum(cham) ? &mons[cham] : mptr`, `imitator = (mptr != champtr || mimicker)` — permonst pointer compare); birth state `makemon.c:1355-1359` (`cham = pm_to_cham(mndx)`) with `pm_to_cham` returning `mndx` itself (`mon.c:535-546`), so C reads `mptr == champtr`, imitator false.
+- **JS was:** `js/end.js:1208` `const imitator = mptr !== champtr || mimicker` — object identity, but `mons()` returns a fresh object per call (`js/monsters.js:203`), so any `ismnum(cham)` read imitator=true even when `cham == mndx`.
+- **Fix:** `js/end.js` only: `mptrNdx = mptr?.mndx ?? mnum`, `chamNdx = ismnum(cham) ? cham : mptrNdx`, `imitator = mptrNdx !== chamNdx || mimicker` with C citations (`end.c:184-190`, `makemon.c:1355-1359`, `mon.c:535-546`). Null-safe (both-undefined reads equal, matching old `null !== null` false); data-`mndx` preferred over `mnum` (C compares the data pointer); `champtr` object still feeds `realnm`. Matches the existing `makemon.js:1061`/`1196` index-compare idiom. No new imports/edges; no DIAG/FORCE/seed gates.
+- **JS:** 1 js file (+6/−1), no new modules, no new module edges.
+- **Verify:** `/tmp/probe-imitator.mjs` → pre-fix FAIL observed (`mptr !== champtr` present; true-form old=true/new=false, shifted old=true/new=true), post-fix PASS (true-form non-imitator, shifted imitator, source uses `mptrNdx !== chamNdx`); probe deleted. `node scripts/verify.mjs --fn done_in_by` → PASS syntax (1 changed js file) · PASS rule2 · note hidden (vacuous: 0 blocked at HEAD — NOT a corpus PASS; row cited a review, not corpus blocks, so no `--base` owed; `brief done_in_by` likewise lists none) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · VERIFY: PASS.
+- **Named omissions:** none new — ghost arms stay named per D-2341. No committed unit test: no `tests/` dir and no test script in package.json — sessions are the suite (disclosed per durable-test-collateral); no public or corpus session reaches a true-form-shifter killer epitaph.
+- **Next:** do not re-pop `done_in_by` imitator predicate. Falsifier: a true-form-shifter killer epitaph trace contradicting the C order above. No seed/step/coordinate gates.
+
 ## D-2347 — `mhitu.c` magic_negation hero arm: amulet-of-guarding / extrinsic Protection / intrinsic floor (queue owner `mhitm_knockback` was the symptom)
 
 - **Status:** fixed (Open queue head `uhitm.c` mhitm_knockback attack-selection: scen-wish-Priest-92163 step 248 kind=rng. No review cites this row — no stamp owed.)

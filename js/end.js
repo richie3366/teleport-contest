@@ -1205,7 +1205,12 @@ export async function done_in_by(mtmp, how = DIED) {
     const champtr = ismnum(mtmp?.cham) ? mons(mtmp.cham) : mptr;
     const distorted = Hallucination() && canspotmon(mtmp);
     const mimicker = M_AP_TYPE(mtmp) === M_AP_MONSTER;
-    const imitator = mptr !== champtr || mimicker;
+    // C end.c:184-190 compares permonst pointers (mptr != champtr); mons()
+    // returns a fresh object per call, so compare indices instead — birth-state
+    // cham == mndx (makemon.c:1355-1359, mon.c:535-546) must read non-imitator.
+    const mptrNdx = mptr?.mndx ?? mnum;
+    const chamNdx = ismnum(mtmp?.cham) ? mtmp.cham : mptrNdx;
+    const imitator = mptrNdx !== chamNdx || mimicker;
     // C: svk.killer.format = KILLED_BY_AN; then branch may override
     game.killer.format = KILLED_BY_AN;
     let buf = '';
