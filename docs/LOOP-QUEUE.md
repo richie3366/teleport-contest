@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `mkobj.c` mergable FOOD `oeaten`/`orotten` + unpaid/erosion/candle arms (named data.md:264, D-0923; never live/archived/parked). Probe: `node scripts/brief.mjs mergable`.
 - [ ] `shk.c` dopay robbed/angry/debit arms (named absent.md:38, D-0998; never live/archived/parked; D-1716/D-1704 shipped other dopay arms). Probe: `node scripts/brief.mjs dopay`.
 - [ ] `potion.c` potionhit GAIN_LEVEL/LEVITATION/FRUIT/DETECT commented arms (named debt.md:23, D-1472 residual; never live/archived/parked). Probe: `node scripts/brief.mjs potionhit`.
 - [ ] `trap.c` erode_obj rust/verbose + grease/towel/container/acid-boom arms (named data.md:1078, post-D-2186 residual; never live/archived/parked). Probe: `node scripts/brief.mjs erode_obj`.

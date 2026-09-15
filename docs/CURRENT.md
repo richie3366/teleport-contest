@@ -80,10 +80,11 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `do.c` dodown stair-descent More-transient (live corpus owner scen-wish-Samurai-92088 step 88; D-2158 residual). Probe: `node scripts/brief.mjs dodown`. dighole → **SHIPPED D-2323**. Then: use_unicorn_horn/use_towel/use_tinning_kit/costly_tin/flip_coin → PARKED stale-dupes (D-1030/D-1009/D-1027/D-0940/D-1024; proofs in Parked). kick_door → **SHIPPED D-2320**; use_candle/use_candelabrum/use_figurine/use_crystal_ball → PARKED stale-dupes (D-1025/D-1029/D-1010; proofs in Parked). zap_dig pitdig → **SHIPPED D-2321**; swallowed-pierce → **SHIPPED D-2322**. Queue-head `vault.c` gd_sound → **PARKED stale-dupe** (D-0208/D-0298 live, `verify gd_sound` 0 blocked; proof in Parked).
+**Next cluster:** `mkobj.c` mergable FOOD `oeaten`/`orotten` + unpaid/erosion/candle arms (named data.md:264, D-0923; never live/archived/parked). Probe: `node scripts/brief.mjs mergable`. dighole → **SHIPPED D-2323**. Then: use_unicorn_horn/use_towel/use_tinning_kit/costly_tin/flip_coin → PARKED stale-dupes (D-1030/D-1009/D-1027/D-0940/D-1024; proofs in Parked). kick_door → **SHIPPED D-2320**; use_candle/use_candelabrum/use_figurine/use_crystal_ball → PARKED stale-dupes (D-1025/D-1029/D-1010; proofs in Parked). zap_dig pitdig → **SHIPPED D-2321**; swallowed-pierce → **SHIPPED D-2322**. Queue-head `vault.c` gd_sound → **PARKED stale-dupe** (D-0208/D-0298 live, `verify gd_sound` 0 blocked; proof in Parked).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2323 (index).**
+**Keep D-0845…D-2324 (index).**
 <!-- recent:begin -->
+**D-2324** `nethack-c/upstream/src/invent.c` `mergable` `:4379–4499` (whole body, C order) + `nethack — `js/mkobj.js` — mergable rewritten in C order: unpaid/spe/no_charge/obroken/otrapped/lamplit block; FOOD arm kept (JS `orotten` is separate storage vs C obj.h:130 `#define orotten oeroded` — documented in comment); dknow
 **D-2323** `nethack-c/upstream/src/dig.c` `dighole` `:884-1024` — `js/dig.js` only.
 **D-2322** `nethack-c/upstream/src/dig.c` `zap_dig` `:1569-1582` (`u.uswallow` → `mtmp = u.ustuck`; ` — `js/dig.js` only, no new static module edges (`is_whirly` + `G_UNIQ` join the existing `monsters.js` import; `STOMACH` joins the existing `const.js` import; `s_suffix`/`mon_nam`/`pline` already imported): the `u.uswallow
 **D-2321** `nethack-c/upstream/src/dig.c` `zap_dig` `:1617-1662` (pitdig setup `:1617-1623`, adjacent — `js/dig.js` only, no new module edges (all four added names join existing static imports — `imports.mjs --can` ALREADY for each: `s_suffix` joins the existing `do_name.js` import; `On_ladder` joins `mklev.js`; `DBWALL`/`
@@ -91,11 +92,10 @@ Do **not** pop map-omission singletons
 **D-2319** `nethack-c/upstream/src/dig.c` `zap_dig` beam arms — `js/dig.js` only (+ static `SHOP_WALL_COST` from `const.js`, already exported; `add_damage` via the file's existing per-arm dynamic `shk.js` import — the door arm's own convention, no new module edge, no TDZ risk): maze 
 **D-2318** `trap.c` launch_obj ROLL block (`:3423–3430` down_gate/ship_object; `:3505–3513` post-swit — `js/trap.js` only (+2 static imports: `sndprocs.js` Soundeffect — `imports.mjs` SAFE, no cycle; `const.js` MIGR_NOWHERE; `dokick.js`/`do.js` via the file's in-function dynamic-import convention): ROLL gate-drop pre-block
 **D-2317** `trap.c:6185` (`if (canspotmon(mon))`, openholdingtrap monster arm); `trap.c:6279` (`*noti — both call sites now use the already-imported `canspotmon` (`display.js:1237` ≡ C; no new module edge, no TDZ risk).
-**D-2316** `dbridge.c:862-863` (`Soundeffect(se_gears_turning_chains_rattling,100)` before `You_hear` — `js/hack.js` (C-file match): new export `revive_nasty` in C order — `mons()`+`is_rider` permonst (mondata.h:110), `monsterNames.indexOf('PM_WIZARD_OF_YENDOR')` (eat.js/objnam.js convention), `objects_at`/`m_at`/`Norep`/`
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2323; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2324; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

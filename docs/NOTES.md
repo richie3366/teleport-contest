@@ -6,32 +6,32 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 
 Park rows: re-pop only on the listed falsifier (proofs in Parked).
 
-- **Presence-only parks (0/553 owned):** mkclass_aligned/get_location, gethungry/maybe_generate/mattacku/u_calc_moveamt, dochug/dotrap/mintrap/nh_timeout/mon_break_armor (STALE); transient break_armor timing.
-- **exercise:** draw-presence only, 0/553 owned.
+- **Presence-only parks (0/553 owned):** mkclass_aligned/get_location, gethungry/maybe_generate/mattacku/u_calc_moveamt/exercise (draw-presence only), dochug/dotrap/mintrap/nh_timeout/mon_break_armor (STALE).
 - **Fortress guards** (settled — do not reopen): display_inventory, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue S_ndoor, bigrm-2, getpos, summonmu, lookat, do_statusline1, snapshot, fakewiz, Ice/Boulder, roles[], pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
 - **Luck runs when invulnerable, not dialogues** (`timeout.c:623`).
 - **Symptom-owner parks:** obj_resists/m_move/rloc/lightdamage/mattackm/can_carry/spoteffects/mon_adjust_speed/zapyourself/doname_base/hmonas/minliquid_core/distfleeck/passiveum; do_statusline1/2 paint-timing; slimed landing + Sick-store.
-- **STALE parks:** lesshungry/rndcurse/mhitm_ad_famn/regen_hp/barehands/do_mapping/adjattrib/from_what/look_at_monster/formatkiller/do_screen_description/reveal_terrain/peffect_acid/newcham/use_offensive/stop_donning/doeat_nonfood/gcrownu/big_little_match/xkilled/x_monnam, domonnoise (D-1915 DUP).
-- **Misattributed parks (proofs in Parked):** vomiting_dialogue/u_stuck_cannot_go/name_to_monplus/mcast_death_touch/save_dungeon/dodown/mv_bubble/one_characteristic/use_pole/trapmove/fig_transform/chwepon, that_is_a_mimic/drinkfountain, poly_obj (no C arm), disclose/list_vanquished (Hallu desync/identical-prompt), dopush (mimic memory/viz).
-- **dodown re-queue probe 2026-09-15 (HEAD 0e191fab):** Open duplicate of parked dodown (Samurai-92088 step 88 hurls More, owner do.c:1196 "the water" literal, stepFns [u_catch_thrown_obj], true printer muse.c:2017) re-verified `verify dodown` → 0 PASS / 0 moved / 1 unchanged → NO MOVEMENT; falsifier (stair-key dodown step, or muse/mthrowu More port moving verify) unmet; returned to park, no js/.
-- **STALE parks 2026-09-14/15** (falsifiers in Parked): test_move, arti_cost D-1719, m_initweap D-0472, mextra-trio D-1598, make_sick Unaware, dodrink D-2031, make_corpse D-1794, vpline D-1807, mkcavearea D-0960, dig_up_grave review-26, furniture_handled D-0954, use_bell D-1028, ignite_items/catch_lit D-0978; getcad-trio, kick_object D-0989, costly_gold/donate_gold D-0991, use_unicorn_horn D-1030, use_towel D-1009, use_tinning_kit D-1027, costly_tin/use_tin_opener D-0940, flip_through_book/flip_coin D-1024; use_candle/use_candelabrum D-1025, use_figurine D-1029, use_crystal_ball D-1010 (parks: bodies + dispatch live, 0 blocked; ** dead; falsifier: fresh verify with any as owner; proofs in Parked).
-- **gd_sound park 2026-09-15 (HEAD 79507d79):** queue-head row claimed "never live" — false: `gd_sound` (`js/sounds.js:242`) + full `dosounds` vault arm (`:466-505`, incl. `rn2(2)+hallu` + all five plines) live since D-0208/D-0298; `verify gd_sound` → 0 blocked, live queue has no vault owner → NO MOVEMENT; returned to park, no js/.
+- **STALE parks:** lesshungry/rndcurse/mhitm_ad_famn/regen_hp/barehands/do_mapping/adjattrib/from_what/look_at_monster/formatkiller/do_screen_description/reveal_terrain/peffect_acid/newcham/use_offensive/stop_donning/doeat_nonfood/gcrownu/big_little_match/xkilled/x_monnam, domonnoise.
+- **Misattributed parks (proofs in Parked):** vomiting_dialogue/u_stuck_cannot_go/name_to_monplus/mcast_death_touch/save_dungeon/dodown/mv_bubble/one_characteristic/use_pole/trapmove/fig_transform/chwepon, that_is_a_mimic/drinkfountain, poly_obj, disclose/list_vanquished, dopush.
+- **dodown re-queue probe 2026-09-15:** dupe of parked dodown, NO MOVEMENT; falsifier unmet; no js/.
+- **STALE parks 2026-09-14/15** (falsifiers in Parked): test_move, arti_cost D-1719, m_initweap D-0472, mextra-trio D-1598, make_sick Unaware, dodrink D-2031, make_corpse D-1794, vpline D-1807, mkcavearea D-0960, dig_up_grave review-26, furniture_handled D-0954, use_bell D-1028, ignite_items/catch_lit D-0978; getcad-trio, kick_object D-0989, costly_gold/donate_gold D-0991, use_unicorn_horn D-1030, use_towel D-1009, use_tinning_kit D-1027, costly_tin/use_tin_opener D-0940, flip_through_book/flip_coin D-1024; use_candle/use_candelabrum D-1025, use_figurine D-1029, use_crystal_ball D-1010 (proofs in Parked).
+- **gd_sound park 2026-09-15:** 'never live' false (D-0208/D-0298); verify 0 blocked → NO MOVEMENT; no js/.
 
 ## Don't re-check (≤15)
 
-- D-1790…D-2323 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-2324 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 are D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` loaders D-1852/D-1858 — check `load_val_*`/`load_sam_*` before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / `setnotworn`←`owornmask` (D-1020) / `delobj` tut loot / off-level timers (D-1037) / dropped `msounds[]` (D-1053) / tut-1 keys (D-1065) / skipped `tutorial()` (D-1066). No skip D-1067…D-2323.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, or makemon→hack/artifact/minion. No re-port D-1682…D-2323.
+- No memcpy gi worn/ball (D-1035) / `setnotworn`←`owornmask` (D-1020) / `delobj` tut loot / off-level timers (D-1037) / dropped `msounds[]` (D-1053) / tut-1 keys (D-1065) / skipped `tutorial()` (D-1066). No skip D-1067…D-2324.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, or makemon→hack/artifact/minion. No re-port D-1682…D-2324.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2324: `js/mkobj.js` — mergable rewritten in C order: unpaid/spe/no_charge/obroken/otrapped/lamplit block; FOOD arm kept (JS `orotten` is separate storage vs Named: obj-worn combine guard stays (D-2207; merged setworn fixup unported); C `#if 0` bypass non
 - D-2323: `js/dig.js` only. Named: `spot_checks` tail (no JS counterpart anywhere in `js/` — new-function scope, pre-existing
 - D-2322: `js/dig.js` only, no new static module edges (`is_whirly` + `G_UNIQ` join the existing `monsters.js` import; `STOMACH` joins the existing `const.js` i Named: none new — the `zap_dig` docstring omit retired to Hallucination draft only.
 - D-2321: `js/dig.js` only, no new module edges (all four added names join existing static imports — `imports.mjs --can` ALREADY for each: `s_suffix` joins the  Named: swallowed pierce (`u.uswallow` early-return; next Open row, untouched); `nhUse(digdepth)` 
@@ -46,5 +46,4 @@ Park rows: re-pop only on the listed falsifier (proofs in Parked).
 - D-2312: `js/dig.js` only: bear-trap arm ports C order (`rnl(7)` first, `dmgval(uwep, game.youmonst)+dbon()`, `u.uarmf` halve `| 0`, `body_part(FOOT)` via dyna Named: `Soundeffect` (draw-free); `IS_ALTAR altar_wrath`/`angry_priest` (pray family, D-0963 row)
 - D-2311: `js/dig.js`: `maybe_dunk_boulders` now async with C order preserved — `boulder_hits_pool` via dynamic `do.js` import (the file's convention for `do.js Named: `trap.js blow_up_landmine` fill_pit/maybe_dunk/spot_checks (own future trap row); `dig_che
 - D-2310: port `clear_conjoined_pits` file-local in C order (`| 0` idiom, `xdir`/`ydir`/`N_DIRS`, `DIR_180`, `isok` + `t_at` neighbour lookup); `deltrap` calls  Named: `deltrap` Sokoban `maybe_finish_sokoban` + `dealloc_trap` tail (C `:6536–6545`; shop/regio
-- D-2309: `js/pray.js` only (no new module edge — `shieldeff` joins the existing `display.js` import): both survive-lightning arms `await shieldeff(u.ux, u.uy)` Named: `SetVoice` ×2 (C-side no-op in this build); `mcastu ureflects` (pre-existing); post-death 
 <!-- landmarks:end -->

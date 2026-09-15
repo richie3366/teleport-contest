@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
+- [x] `mkobj.c` mergable FOOD `oeaten`/`orotten` + unpaid/erosion/candle arms (named data.md:264, D-0923; never live/archived/parked). Probe: `node scripts/brief.mjs mergable`.
+
+
 - [x] `dig.c` DRAWBRIDGE_UP-ice + dothrow hurtle + u_on_rndspot + objnam-wish residuals (named debt.md:17 dig.js row; post-D-2323/D-2321/D-2319; never live/archived/parked). Probe: `node scripts/brief.mjs zap_dig`. **Addressed:** D-2323 `0e191fab`
 
 
