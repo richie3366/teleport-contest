@@ -80,7 +80,7 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `music.c` charm_snakes/calm_nymphs/charm_monsters flute/harp (next Open row). Probe: `node scripts/brief.mjs charm_monsters`.
+**Next cluster:** `music.c` awaken_soldiers BUGLE + ubuzz FIRE/FROST horn (Open head). Probe: `node scripts/brief.mjs awaken_soldiers`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2357 (index).**
 <!-- recent:begin -->
