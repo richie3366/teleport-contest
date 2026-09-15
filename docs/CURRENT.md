@@ -81,10 +81,11 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** Open `trap.c` float_up body (debt.md:14 D-0956 Ring_gone/float_up). Probe: `node scripts/brief.mjs float_up`.
+**Next cluster:** Open `hack.c` still_chewing body (debt.md:14 D-0937/D-0941 floorfood chew + shop add_damage). Probe: `node scripts/brief.mjs still_chewing`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2380 (index).**
+**Keep D-0845…D-2381 (index).**
 <!-- recent:begin -->
+**D-2381** `nethack-c/upstream/src/trap.c:3937–4006` (`float_up`); `dig.c:1884–1932` (`buried_ball`); — BURIEDBALL arm calls `buried_ball(cc)` (newly exported from `js/dig.js:514`, verified arm-for-arm vs C: `!u.utrap || TT_BURIEDBALL` gate, exact-spot return, dist2≤8 nearest + cc mutation) and reads `IS_ROOM` at the ball 
 **D-2380** `nethack-c/upstream/include/youprop.h:355–360` (`Protection_from_shape_changers` ≡ `u.upro — deleted the `js/lock.js:618` local, added `import { Protection_from_shape_changers } from './were.js'` (the `:57` export reads flats + `uprops[].intrinsic/extrinsic`, same shape as the `display.js`/`mon.js` clones).
 **D-2379** `nethack-c/upstream/src/dungeon.c` `ceiling` (vault/temple/SHOPBASE `*in_rooms` → "vault's — `js/trap.js` `ceiling` ported arm-for-arm in C order (wording cross-checked against the live full `js/zap.js:2482` `ceiling_updown` that serves zap_updown probing).
 **D-2378** `nethack-c/upstream/src/artifact.c:715–893` (`set_artifact_intrinsic`; `dtyp=(wp_mask!=W_A — `js/artifact.js` — defn/cary→(prop, E* flat) seven-way map written through the existing dual-write `set_spfx_extrinsic` (C E* macros ARE `uprops[].extrinsic`; JS gates read the flats, e.g.
@@ -92,11 +93,10 @@ Do **not** pop map-omission singletons
 **D-2376** `nethack-c/upstream/src/mkobj.c:1497–1669` (`shrink_glob`: `item_on_ice` before the globby — `js/mkobj.js` — file-local `NOT_ON_ICE/SET_ON_ICE/BURIED_UNDER_ICE` consts + `item_on_ice` (JS `get_obj_location` returns `{x,y}|null`, so the C boolean+out-param gate becomes a null check with the FLOOR/BURIED switch on
 **D-2375** `nethack-c/upstream/src/do_name.c:1254–1285` (null mon / null data / two wild-pointer rang — new exported sync `minimal_monnam(mon, ckloc)` in `js/do_name.js` (C home) in C order/conjuncts, one `nextmbuf` slot per call (`x_monnam` idiom, so the steed overlap double-call keeps both tags).
 **D-2374** `nethack-c/upstream/src/shk.c:5976–6097` (floor x/y; unpaid-absorber `next_shkp(fmon,TRUE) — new exported async `globby_bill_fixup(obj_absorber, obj_absorbed)` in `js/shk.js` (C home; all 16 other callees already local/imported there — `next_shkp`/`onbill`/`set_cost`/`clear_unpaid_obj`/`get_pricing_units` locals
-**D-2373** `nethack-c/upstream/src/lock.c:758–769` (`m_at` + `is_door_mappear` + `!Protection_from_sh — new exported async `stumble_on_door_mimic(x, y)` in `js/lock.js:636` (C home; predicate draws no RNG; async only because JS `stumble_onto_mimic` reaches pline --More--) with local `Protection_from_shape_changers()` (`js/
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2380; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2381; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

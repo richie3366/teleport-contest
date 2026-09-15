@@ -89,7 +89,7 @@ import {
     HEAD, ARM, FINGER, HAND,
     NOTELL, NC_SHOW_MSG, POLY_NOFLAGS,
     W_ARM, W_ARMC, W_ARMH, W_ARMS, W_ARMG, W_ARMF, W_ARMU, W_WEP, W_SWAPWEP,
-    W_SADDLE, I_SPECIAL,
+    W_SADDLE, I_SPECIAL, W_ARTI,
     CORPSTAT_NONE, CORPSTAT_HISTORIC, CORPSTAT_GENDER, CORPSTAT_MALE,
     CORPSTAT_FEMALE, MM_NOCOUNTBIRTH, MM_NOMSG, MM_ADJACENTOK, MM_MALE,
     MM_FEMALE, NO_MINVENT, M_AP_TYPE, ismnum, ANIMATE_NORMAL,
@@ -2850,14 +2850,20 @@ function Flying_fu() {
 }
 
 /**
- * C ref: trap.c float_up — gain levitation messages + float_vs_flight +
- * encumber_msg.
+ * C ref: trap.c float_up (`:3937–4006`) — gain levitation messages +
+ * float_vs_flight + encumber_msg.
  * Branch envelope: utrap PIT/lava/infloor/buriedball/web/bear; uinwater
  * spoteffects; uswallow animal/spiral; Hallucination; airlevel; default;
- * steed flyer/floater gate + dismount; Flying lose-control; float_vs_flight;
- * encumber_msg.
- * Named omissions: buried_ball exact coord; Lev_at_will steed float;
- * surface() wording (floor/ground stand-in).
+ * steed flyer/floater gate + Lev_at_will float vs dismount; Flying
+ * lose-control; float_vs_flight; encumber_msg.
+ * D-0956 residuals retired here: buried_ball exact coord (exported from
+ * dig.js, C dig.c:1884–1932); Lev_at_will steed float (youprop.h:242–245);
+ * surface() wording via dungeon.c maw/husk inline (shared sit.js surface
+ * still names that arm). WEB arm kept dead per C: `:3963` compares
+ * utraptype against trap-type WEB=18 (trap.h:77), not TT_WEB=3
+ * (you.h:349), so a TT_WEB hero falls through to the bear-trap arm.
+ * Flying via canonical mhitu.js export (C youprop.h:253–255 incl. steed
+ * flyer); file-local Flying_fu stays for float_down and below.
  */
 export async function float_up() {
     const u = game.u || (game.u = {});
@@ -2877,13 +2883,20 @@ export async function float_up() {
                 `Your body pulls upward, but your ${makeplural(body_part(LEG))} are still stuck.`,
             );
         } else if (typ === TT_BURIEDBALL) {
-            // buried_ball(&cc) deferred — room vs ground via hero cell
-            const loc = game.level?.at(u.ux | 0, u.uy | 0);
+            // C trap.c:3950-3962: buried_ball(&cc) finds the first buried
+            // ball within 2 steps (dig.c:1884-1932), floor/ground read at
+            // the ball cell, not the hero cell.
+            const { buried_ball } = await import('./dig.js');
+            const cc = { x: u.ux | 0, y: u.uy | 0 };
+            buried_ball(cc);
+            const loc = game.level?.at(cc.x, cc.y);
             const ground = loc && IS_ROOM(loc.typ) ? 'floor' : 'ground';
             await pline(
                 `You feel lighter, but your ${body_part(LEG)} is still chained to the ${ground}.`,
             );
-        } else if (typ === TT_WEB) {
+        } else if (typ === WEB) {
+            // Dead in C (trap.c:3963 vs trap.h:77 WEB=18, you.h:349
+            // TT_WEB=3): kept literal so TT_WEB falls through below.
             await pline(
                 `You float up slightly, but you are still stuck in the ${trapname(WEB, false)}.`,
             );
@@ -2898,7 +2911,13 @@ export async function float_up() {
     } else if (u.uswallow) {
         const stuck = u.ustuck;
         if (stuck && is_animal(stuck.data)) {
-            await pline('You float away from the floor.');
+            // C trap.c:3974-3975 via dungeon.c surface():1749-1759 — u_at
+            // && uswallow && is_animal always holds here, so surface is
+            // maw/husk/nonesuch, never the terrain word.
+            const { digests, enfolds } = await import('./mhitu.js');
+            const surf = digests(stuck.data) ? 'maw'
+                : enfolds(stuck.data) ? 'husk' : 'nonesuch';
+            await pline(`You float away from the ${surf}.`);
         } else if (stuck) {
             await pline(`You spiral up into ${mon_nam(stuck)}.`);
         }
@@ -2911,13 +2930,26 @@ export async function float_up() {
     }
 
     if (u.usteed && !is_floater(u.usteed.data) && !is_flyer(u.usteed.data)) {
-        // Lev_at_will steed float deferred — always dismount path
-        await pline(`You cannot stay on ${mon_nam(u.usteed)}.`);
-        const { dismount_steed } = await import('./steed.js');
-        const { DISMOUNT_GENERIC } = await import('./const.js');
-        await dismount_steed(DISMOUNT_GENERIC);
+        // C trap.c:3987-3995 with youprop.h:242-245 Lev_at_will: at-will
+        // sources only (HLevitation&I_SPECIAL or ELevitation&W_ARTI, no
+        // other H/E bits) keep the rider mounted.
+        const HLev = u.HLevitation | 0, ELev = u.ELevitation | 0;
+        const levAtWill = ((HLev & I_SPECIAL) !== 0 || (ELev & W_ARTI) !== 0)
+            && (HLev & ~(I_SPECIAL | TIMEOUT)) === 0
+            && (ELev & ~W_ARTI) === 0;
+        if (levAtWill) {
+            await pline(`${Monnam(u.usteed)} magically floats up!`);
+        } else {
+            await pline(`You cannot stay on ${mon_nam(u.usteed)}.`);
+            const { dismount_steed } = await import('./steed.js');
+            const { DISMOUNT_GENERIC } = await import('./const.js');
+            await dismount_steed(DISMOUNT_GENERIC);
+        }
     }
-    if (Flying_fu()) {
+    // C trap.c:3997 `if (Flying)` — canonical youprop.h:253-255 export
+    // (incl. steed flyer), not the file-local subset below.
+    const { Flying } = await import('./mhitu.js');
+    if (Flying()) {
         await pline('You are no longer able to control your flight.');
     }
     const { float_vs_flight } = await import('./polyself.js');

@@ -1167,7 +1167,7 @@ unreachable via the `gush` `u_at` guard; named: Sokoban `maybe_finish_sokoban`
 `canspotmon`** (D-2317; C `trap.c:6185` + `:6279` — telepathy-sensed counts;
 JS narrowed both to file-local `canseemon`, dropping the `|| sensemon` arm;
 `canspotmon` already imported from `display.js`, no new edge; `closeholdingtrap`
-already correct; `boxlock_invent` `update_inventory` refresh stays named).
+already correct; `boxlock_invent` `update_inventory` refresh stays named). **`float_up` gain-levitation** (D-2381; C `trap.c:3937–4006` — D-0956 residuals retired: BURIEDBALL arm calls exported `dig.js` `buried_ball` (C `dig.c:1884–1932`, floor/ground at ball cell); steed arm ports `youprop.h:242–245` `Lev_at_will` inline (`Monnam` magically-floats-up vs dismount); uswallow-animal arm inlines the only reachable `dungeon.c` `surface()` branch (maw/husk/nonesuch via `mhitu.js` `digests`+`enfolds`); WEB arm kept literal-dead per C (`:3963` vs `trap.h:77` WEB=18 / `you.h` TT_WEB=3, TT_WEB falls to bear-trap arm); tail uses canonical `mhitu.js` `Flying` (`youprop.h:253–255`); runtime `await import` only, no new static edges; named: file-local `Flying_fu` stays for `float_down`).
 
 ### `src/dog.c` `tamedog` / `initedog`
 

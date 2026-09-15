@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `trap.c` float_up body (debt.md:14 D-0956 Ring_gone/float_up; never own-row live/archived/parked). Probe: `node scripts/brief.mjs float_up`.
 - [ ] `hack.c` still_chewing body (debt.md:14 D-0937/D-0941 floorfood chew + shop add_damage; never own-row live/archived/parked). Probe: `node scripts/brief.mjs still_chewing`.
 - [ ] `shk.c` sellobj BSS + robbed micro-arms (debt.md:18 D-1019 BSS `'\0'` not `'a'` + `robbed -= (offer<0)` then clear; D-0994 sellobj/check_shop_obj family; never own-row live/archived/parked). Probe: `node scripts/brief.mjs sellobj`.
 - [ ] `trap.c` instapetrify + barefoot kick petrify + bhit DISP_FLASH (debt.md:18 D-0995; never own-row live/archived/parked). Probe: `node scripts/brief.mjs instapetrify`.
@@ -68,6 +67,8 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 - [ ] `do_wear.c` toggle_stealth RIN/ELVEN cloak+boots on/off + EStealth (debt.md:12 D-0970; never own-row live/archived/parked). Probe: `node scripts/brief.mjs toggle_stealth`.
 - [ ] `mkmaze.c` fix_wall_spines lavawall→wall (debt.md:15 D-0975; never own-row live/archived/parked). Probe: `node scripts/brief.mjs fix_wall_spines`.
 - [ ] `timeout.c` burn_away_slime + LS_OBJECT/BURN_OBJECT (debt.md:15 D-0978 ignite_items/catch_lit/begin_burn family; never own-row live/archived/parked). Probe: `node scripts/brief.mjs burn_away_slime`.
+- [ ] `artifact.c` artifact_hit realizes/drain/blind arms (TOP30 #28: C 269 vs JS 37, 3 RNG + 19 msg, 14% ported; never own-row live/archived/parked). Probe: `node scripts/brief.mjs artifact_hit`.
+- [ ] `hack.c` findtravelpath TEST_TRAV/guess/travelmap (TOP30 #29: C 257 vs JS absent; travel `_` adjacent/greedy only; never own-row live/archived/parked). Probe: `node scripts/brief.mjs findtravelpath`.
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 

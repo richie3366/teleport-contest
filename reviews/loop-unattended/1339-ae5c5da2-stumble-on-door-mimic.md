@@ -93,4 +93,4 @@ dodge the lock↔trap static edge is proportionate and verified IN-SCC/runtime-o
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-2380
+**Addressed:** D-2380 `3f602af2`

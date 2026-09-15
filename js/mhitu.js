@@ -1112,7 +1112,7 @@ export function digests(ptr) {
 /**
  * C ref: mondata.h enfolds — AT_ENGL + AD_WRAP (trapper / lurker).
  */
-function enfolds(ptr) {
+export function enfolds(ptr) {
     const slots = ptr?.mattk;
     if (!slots) return false;
     for (const a of slots) {

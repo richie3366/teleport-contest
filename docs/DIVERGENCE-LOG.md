@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-2381 — `trap.c` float_up retires D-0956 residuals + dead-WEB C-wrong
+
+- **Status:** fixed (Open queue head `trap.c` float_up body; debt.md:14 D-0956 residuals).
+- **Symptom:** three D-0956-named stand-ins plus one latent C-wrong in levitation-gain feedback; 0 corpus sessions blocked on `float_up` at HEAD (`brief` + `verify float_up` vacuous note — row cited 0 blocks so no `--base` owed; no corpus PASS claimed).
+- **C locus:** `nethack-c/upstream/src/trap.c:3937–4006` (`float_up`); `dig.c:1884–1932` (`buried_ball`); `dungeon.c:1749–1759` (`surface` maw/husk first branch); `include/youprop.h:242–245` (`Lev_at_will`), `:253–255` (`Flying`); `include/trap.h:77` (WEB=18) vs `include/you.h:347–353` (TT_WEB=3).
+- **JS was:** `js/trap.js` `float_up` read buried-ball floor/ground at the hero cell (`buried_ball(&cc)` skipped); always dismounted the steed (`Lev_at_will` deferred); hardcoded "the floor" for the uswallow-animal arm (`surface()` deferred); compared the web arm against `TT_WEB` where C compares trap-type `WEB` (dead in C — a TT_WEB hero takes the bear-trap leg message); tail used file-local `Flying_fu`, missing the steed-flyer disjunct.
+- **Fix:** BURIEDBALL arm calls `buried_ball(cc)` (newly exported from `js/dig.js:514`, verified arm-for-arm vs C: `!u.utrap || TT_BURIEDBALL` gate, exact-spot return, dist2≤8 nearest + cc mutation) and reads `IS_ROOM` at the ball cell; steed arm ports `Lev_at_will` inline over the `HLevitation`/`ELevitation` flats (`I_SPECIAL`/`W_ARTI`/`TIMEOUT` value-matched to `prop.h`; bits maintained live at `js/artifact.js:1587`, `js/hack.js:3193–3194`, `js/potion.js:1267/1294`) with `Monnam` magically-floats-up vs dismount; uswallow-animal arm inlines the only reachable `surface()` branch (maw/husk/nonesuch via `mhitu.js` `digests` + newly exported `enfolds` — shared `sit.js` `surface` still names that arm); WEB arm kept literal-dead per C so TT_WEB falls through; tail uses canonical `mhitu.js` `Flying`. All cross-module names via runtime `await import` (no new static edges; `W_ARTI` joins the existing `const.js` edge).
+- **JS:** `js/trap.js` `float_up` (+doc) · `js/dig.js` export `buried_ball` · `js/mhitu.js` export `enfolds`. 3 files, +51/−19, no new modules or static edges.
+- **Verify:** `node scripts/verify.mjs --fn float_up` → PASS syntax (3 changed files) · rule2 clean · hidden vacuous note (0 blocked at HEAD; row cited 0 blocks) · green 2/2 · strict ×2 · cohort 7/7. Runtime shape probe (plain-node dynamic imports): `float_up`/`buried_ball`/`Flying`/`digests`/`enfolds` all `function`. No corpus PASS claimed.
+- **Named omissions:** none new in `float_up` (D-0956 float_up residuals fully retired). Pre-existing surroundings untouched: file-local `Flying_fu` stays for `float_down` and below (own row when a falsifier fires); `flags.botl` extra set left as-shipped.
+- **Next:** Open `hack.c` still_chewing body (next queue head after this row archives).
+
 ## D-2380 — `lock.c` stumble_on_door_mimic PfSC gate uses canonical `were.js` export (review 1339 Must-fix)
 
 - **Status:** fixed (Must-fix queue head `lock.c` stumble_on_door_mimic PfSC clone; review 1339 QUALITY-RISK C-wrong 1.)
