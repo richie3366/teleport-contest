@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `pickup.c` query_objlist_pickup count-N PICK_ONE arm runs the PICK_ANY-only FEEL_COCKATRICE abort + SORTLOOT_PETRIFY augment (C gates both on `qflags & FEEL_COCKATRICE`, set only at `pickup.c:774-776`). Fix: gate `sortflags |= SORTLOOT_PETRIFY` and the will_feel abort on `how === PICK_ANY`. Source: reviews/loop-unattended/1316-b214fb72-pickup-floor-pickup-body.md. **Addressed:** D-2352
+- [x] `invent.c` getobj prompt/filter machinery (TOP30 #13, 334/133, in_doagain + prompt/filter; every "What do you want" prompt; archived ALLOWCNT arm D-1530 only; never live/parked). Probe: `node scripts/brief.mjs getobj`. **Addressed:** D-2353
+
+
+- [x] `pickup.c` query_objlist_pickup count-N PICK_ONE arm runs the PICK_ANY-only FEEL_COCKATRICE abort + SORTLOOT_PETRIFY augment (C gates both on `qflags & FEEL_COCKATRICE`, set only at `pickup.c:774-776`). Fix: gate `sortflags |= SORTLOOT_PETRIFY` and the will_feel abort on `how === PICK_ANY`. Source: reviews/loop-unattended/1316-b214fb72-pickup-floor-pickup-body.md. **Addressed:** D-2352 `9cc2b25f`
 
 
 - [x] `end.c` done_in_by vampire-bat arm fires on `!==` where C fires on equality (`!strcmp(fakenm, "vampire bat")`, `end.c` imitator arm) — shifted-vampire epitaphs contradict C in both directions (bat form keeps "vampire bat", fog form forced to "bat"). Fix: `js/end.js:1241` `!==` → `===`. Source: reviews/loop-unattended/1314-aa08fdb3-done-in-by-imitator-predicate.md. **Addressed:** D-2351 `736bd185`

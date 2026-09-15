@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `invent.c` getobj prompt/filter machinery (TOP30 #13, 334/133, in_doagain + prompt/filter; every "What do you want" prompt; archived ALLOWCNT arm D-1530 only; never live/parked). Probe: `node scripts/brief.mjs getobj`.
 - [ ] `cmd.c` getdir direction machinery (TOP30 #15, help_dir/cmdassist/strange-direction/dxdy_moveok/yn_function_menu; archived cmdassist-cancel arms only; never live/parked). Probe: `node scripts/brief.mjs getdir`.
 - [ ] `music.c` do_earthquake DRUM_OF_EARTHQUAKE (named debt.md D-0972; DONE has 1 arm; never live/parked). Probe: `node scripts/brief.mjs do_earthquake`.
 - [ ] `dig.c` use_pick_axe/use_pick_axe2 via doapply is_pick|is_axe (named debt.md D-0951; DONE has 2 arms; never live/parked). Probe: `node scripts/brief.mjs use_pick_axe`.

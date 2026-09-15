@@ -135,4 +135,4 @@ full-suite green is the backstop.
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-2352
+**Addressed:** D-2352 `9cc2b25f`

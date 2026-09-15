@@ -38,7 +38,7 @@ import {
     IS_TREE, W_NONPASSWALL, FIG_TRANSFORM, TIMER_OBJECT, OBJ_MINVENT,
     EXACT_NAME, DISP_BEAM, DISP_END, HI_ZAP,
     MONSEEN_NORMAL, MONSEEN_SEEINVIS, MONSEEN_INFRAVIS,
-    GETOBJ_PROMPT, GETOBJ_EXCLUDE as GETOBJ_EXCLUDE_C,
+    GETOBJ_PROMPT, GETOBJ_NOFLAGS, GETOBJ_EXCLUDE as GETOBJ_EXCLUDE_C,
 } from './const.js';
 import { pick_lock, getdir } from './lock.js';
 import { ustatusline, mstatusline } from './insight.js';
@@ -335,118 +335,11 @@ function apply_ok(obj) {
     return GETOBJ_EXCLUDE_SELECTABLE;
 }
 
-/** Invent-order SUGGEST letters only (C getobj; DOWNPLAY stays off prompt). */
-function apply_lets() {
-    const lets = [];
-    for (const o of game.invent || []) {
-        if (o?.invlet && apply_ok(o) === GETOBJ_SUGGEST) lets.push(o.invlet);
-    }
-    return lets.join('');
-}
-
-/** C invent.c getobj: if (suggested > 5) compactify(bp) for prompt only. */
-function apply_prompt_lets(raw) {
-    if (!raw || raw.length <= 5) return raw;
-    return compactify_invlets(raw);
-}
-
-/** True when invent has DOWNPLAY (forces prompt even if SUGGEST empty). */
-function apply_has_downplay() {
-    for (const o of game.invent || []) {
-        if (apply_ok(o) === GETOBJ_DOWNPLAY) return true;
-    }
-    return false;
-}
-
-/**
- * C ref: invent.c getobj("use or apply", apply_ok) — loop on missing letter;
- * flush_topl_more before re-prompt so "don't have" gets --More--.
- * Empty SUGGEST with no DOWNPLAY/hands → early "don't have anything"
- * (C suggested==0 && !forceprompt && !allownone); do not prompt [*].
- * Canned CMDQ_KEY live; CMDQ_INT aborts (!ALLOWCNT).
- */
-async function getobj_apply() {
-    const cq = getobj_from_cmdq(apply_ok, false);
-    if (!cq.skip) return cq.otmp;
-
-    const lets0 = apply_lets();
-    // C: apply_ok(NULL) is GETOBJ_EXCLUDE — no hands; DOWNPLAY sets forceprompt.
-    if (!lets0 && !apply_has_downplay()) {
-        await pline("You don't have anything to use or apply.");
-        return null;
-    }
-
-    for (;;) {
-        await flush_topl_more();
-        const rawLets = apply_lets();
-        if (!rawLets && !apply_has_downplay()) {
-            await pline("You don't have anything to use or apply.");
-            return null;
-        }
-        // C: Strcpy(lets, bp); if (suggested > 5) compactify(bp); prompt uses bp
-        const lets = apply_prompt_lets(rawLets);
-        const query = lets
-            ? `What do you want to use or apply? [${lets} or ?*]`
-            : 'What do you want to use or apply? [*]';
-        const prompt = `${query} `;
-        game._pending_message = prompt;
-        await flush_screen(1);
-        const disp = game.nhDisplay;
-        if (disp?.setCursor) disp.setCursor(prompt.length, 0);
-
-        const key = await nhgetch();
-        const ch = String.fromCharCode(key);
-        if (key === 27 || ch === ' ' || ch === '\n' || ch === '\r') {
-            if (game.flags?.verbose !== false) await pline('Never mind.');
-            return null;
-        }
-        if (ch === '?' || ch === '*') {
-            // C: display_pickinv uses non-compacted lets[]; redo_menu D-1578
-            const counted = { cnt: 0, cntgiven: false };
-            const ilet = await getobj_display_pickinv(
-                ch, rawLets, false, counted,
-                { word: 'use or apply', allownone: false, promptHasHands: false },
-            );
-            if (ilet === '\x1b') {
-                if (game.flags?.verbose !== false) await pline('Never mind.');
-                return null;
-            }
-            if (!ilet) {
-                if (game.iflags?.force_invmenu) return null;
-                continue; // Space/Return → re-prompt getobj
-            }
-            const picked = (game.invent || []).find((o) => o.invlet === ilet);
-            if (!picked) {
-                await pline("You don't have that object.");
-                continue;
-            }
-            const rank = apply_ok(picked);
-            if (rank === GETOBJ_EXCLUDE) {
-                await pline('That is a silly thing to apply.');
-                return null;
-            }
-            game._pending_message = '';
-            getobj_record_repeat(picked, ilet);
-            return picked;
-        }
-        const otmp = (game.invent || []).find((o) => o.invlet === ch);
-        if (!otmp) {
-            // C: You("don't have that object."); continue;
-            await pline("You don't have that object.");
-            continue;
-        }
-        const rank = apply_ok(otmp);
-        if (rank === GETOBJ_EXCLUDE) {
-            await pline('That is a silly thing to apply.');
-            return null;
-        }
-        // SUGGEST / DOWNPLAY / EXCLUDE_SELECTABLE → return; doapply default
-        // prints "Sorry…" for EXCLUDE_SELECTABLE otyps.
-        game._pending_message = '';
-        getobj_record_repeat(otmp, ch);
-        return otmp;
-    }
-}
+/* doapply/dorub call live invent.c getobj directly (C apply.c:4226/:1793);
+ * retired clones: getobj_apply (raw nhgetch instead of yn_function, no
+ * in_doagain/force_invmenu, hardcoded '...to apply.' silly_thing, no botl),
+ * apply_lets/apply_prompt_lets/apply_has_downplay (charCode-free sortloot
+ * SORTLOOT_INVLET + DOWNPLAY altlets now live in getobj_filter_prompt). */
 
 /**
  * C ref: apply.c use_stethoscope — one free use per hero_seq; '.' → ustatusline.
@@ -2401,7 +2294,8 @@ export async function doapply() {
     }
 
     // C doapply: struct obj *obj is mutated via &obj (light_cocktail, …)
-    let obj = await getobj_apply();
+    // C apply.c:4226 getobj("use or apply", apply_ok, GETOBJ_NOFLAGS)
+    let obj = await getobj('use or apply', apply_ok, GETOBJ_NOFLAGS);
     if (!obj) return false;
 
     // C: WAND_CLASS → do_break_wand (before tool cases in C after getobj)
@@ -5113,54 +5007,10 @@ function rub_ok(obj) {
     return GETOBJ_EXCLUDE;
 }
 
-function rub_suggest_lets() {
-    const lets = [];
-    for (const o of game.invent || []) {
-        if (o?.invlet && rub_ok(o) === GETOBJ_SUGGEST) lets.push(o.invlet);
-    }
-    lets.sort((a, b) => a.charCodeAt(0) - b.charCodeAt(0));
-    return lets.join('');
-}
-
-/**
- * C ref: invent.c getobj("rub", rub_ok).
- * Canned KEY live (dorub re-queue); CMDQ_INT aborts (!ALLOWCNT).
- */
-async function getobj_rub() {
-    const cq = getobj_from_cmdq(rub_ok, false);
-    if (!cq.skip) return cq.otmp;
-
-    const raw = rub_suggest_lets();
-    if (!raw) {
-        await pline("You don't have anything to rub.");
-        return null;
-    }
-    for (;;) {
-        await flush_topl_more();
-        const lets = raw.length > 5 ? compactify_invlets(raw) : raw;
-        const query = `What do you want to rub? [${lets} or ?*]`;
-        const prompt = `${query} `;
-        game._pending_message = prompt;
-        await flush_screen(1);
-        const disp = game.nhDisplay;
-        if (disp?.setCursor) disp.setCursor(prompt.length, 0);
-
-        const key = await nhgetch();
-        if (key === 27) return null;
-        const ch = String.fromCharCode(key);
-        if (ch === '?' || ch === '*') {
-            // menu listing deferred — re-prompt
-            continue;
-        }
-        for (const o of game.invent || []) {
-            if (o.invlet === ch && rub_ok(o) === GETOBJ_SUGGEST) {
-                getobj_record_repeat(o, ch);
-                return o;
-            }
-        }
-        await pline(`You don't have that object.`);
-    }
-}
+/* getobj_rub retired to live getobj too (C apply.c:1793): the clone sorted
+ * lets by charCode, read raw nhgetch instead of yn_function, dropped
+ * `?`/`*` into a re-prompt with no display_pickinv, returned silent null
+ * on ESC, and missed in_doagain/force_invmenu/botl entirely. */
 
 /** C ref: cmd.c cmdq_add_ec / cmdq_add_key for dorub re-queue after wield. */
 function cmdq_add_ec(fn) {
@@ -5185,7 +5035,8 @@ export async function dorub() {
         await pline("You aren't able to rub anything without hands.");
         return ECMD_OK;
     }
-    const obj = await getobj_rub();
+    // C apply.c:1793 getobj("rub", rub_ok, GETOBJ_NOFLAGS)
+    const obj = await getobj('rub', rub_ok, GETOBJ_NOFLAGS);
     if (!obj) return ECMD_CANCEL;
 
     if (obj.oclass === GEM_CLASS || obj.oclass === FOOD_CLASS) {
