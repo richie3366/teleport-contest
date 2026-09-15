@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `end.c` done_in_by imitator predicate uses JS object identity (`mptr !== champtr`, `js/end.js:1208`) where C compares permonst pointers (`end.c:184-190`) — true-form shifters (birth-state `cham == mndx`, `makemon.c:1355-1359`) wrongly take the D-2341 imitator arm ("chameleon imitating a chameleon") and lose G_UNIQ "the ". Fix: compare `mndx` indices. Source: reviews/loop-unattended/1307-c22b911d-death-disclosure-epitaphs.md. **Addressed:** D-2348
+- [x] `apply.c` use_grease CAN_OF_GREASE (named debt.md:16 D-1026; never live/archived/parked). Probe: `node scripts/brief.mjs use_grease`. **Addressed:** D-2349
+
+
+- [x] `end.c` done_in_by imitator predicate uses JS object identity (`mptr !== champtr`, `js/end.js:1208`) where C compares permonst pointers (`end.c:184-190`) — true-form shifters (birth-state `cham == mndx`, `makemon.c:1355-1359`) wrongly take the D-2341 imitator arm ("chameleon imitating a chameleon") and lose G_UNIQ "the ". Fix: compare `mndx` indices. Source: reviews/loop-unattended/1307-c22b911d-death-disclosure-epitaphs.md. **Addressed:** D-2348 `aa08fdb3`
 
 
 - [x] `uhitm.c` mhitm_knockback attack-selection (fresh corpus owner 2026-09-15: scen-wish-Priest-92163 step 248 kind=rng, C `rn2(3)` in mhitm_knockback vs JS `rn2(8)` from mhitm_ad_drst_u; knockback body full since D-1932 per archived D-2035/D-2091 — this row is the arm-selection upstream, not the body; no live/parked owner row, archived rows are other sessions). Probe: `node scripts/hidden-proxy.mjs verify mhitm_knockback`. **Addressed:** D-2347 `e2d16801`

@@ -82,8 +82,9 @@ Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
 **Next cluster:** `apply.c` use_grease CAN_OF_GREASE (named debt.md:16 D-1026; never live/archived/parked). Probe: `node scripts/brief.mjs use_grease`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2348 (index).**
+**Keep D-0845…D-2349 (index).**
 <!-- recent:begin -->
+**D-2349** `nethack-c/upstream/src/shk.c` `shk_your` `:5862–5877` (`!shk_owns && !mon_owns` order) +  — `js/shk.js` — exported `shk_owns_prefix` (C `shk_owns` order, canonical `timeout.js` `get_obj_location(obj, 0)` via existing import, local `costly_spot`/`inside_shop`/`shop_keeper`/`s_suffix`/`shkname`; the file-local pr
 **D-2348** `nethack-c/upstream/src/end.c` `done_in_by` `:184-190` (`mptr = mtmp->data`, `champtr = is — `js/end.js` only: `mptrNdx = mptr?.mndx ?? mnum`, `chamNdx = ismnum(cham) ? cham : mptrNdx`, `imitator = mptrNdx !== chamNdx || mimicker` with C citations (`end.c:184-190`, `makemon.c:1355-1359`, `mon.c:535-546`).
 **D-2347** `nethack-c/upstream/src/mhitu.c` `magic_negation` hero arm (`:1087–1137`): `gotprot = (EPr — `js/mhitm.js` `magic_negation_you` exported with the full C hero arm in C order (gotprot from `u.EProtection` flat mirror or `uprops[PROTECTION].extrinsic` — eat.js:746 idiom; `AMULET_OF_GUARDING` via the `objectNames.in
 **D-2346** `nethack-c/upstream/src/apply.c` `do_break_wand` `:3909–4146` — `js/apply.js` only (+22/−15, no new modules): `await check_unpaid(obj)` before `costly_alteration`; real `freeinv(obj)` (already imported); `Soundeffect(se_wall_of_force, 65)` in C order (`imports.mjs --can apply.js sndp
@@ -91,11 +92,10 @@ Do **not** pop map-omission singletons
 **D-2344** `nethack-c/upstream/src/priest.c` `angry_priest` `:876–911` (`findpriest(temple_occupied(u — `js/priest.js` — exported `free_epri` (GC replaces `free()`: null the `mextra.epri` slot, then `ispriest=0` like C) and exported async `angry_priest` in C order (`findpriest(temple_occupied(...))` early-return, `await wa
 **D-2343** `nethack-c/upstream/src/pray.c` `offer_different_alignment_altar` `:1630–1695` (conversion — `js/attrib.js` — exported `uchangealign` (1:1 with C `attrib.c`): ublessed=0 + `game.flags.botl` (pray.js-guarded idiom), CONVERT livelog `permanently converted to <adj>` via `aligns[1-newalign]` (roles.js order matches 
 **D-2342** `nethack-c/upstream/src/sp_lev.c` `spo_end_moninvent` `:3031–3036` (`m_dowear(invent_carry — `js/mklev.js` only, zero new module edges (`imports.mjs --can mklev.js worn.js m_dowear` → ALREADY: file already statically imports worn.js).
-**D-2341** `end.c` `done_in_by` `:184-344` — `js/end.js` — 5 names join existing imports (no new edges: `m_monnam`, `is_vampshifter`, `strstri`, `the_unique_pm`, `BUFSZ`; all `imports.mjs --can` ALREADY); imitator arm in C order incl. mimicker `mons(mappearance)` +
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2348; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2349; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

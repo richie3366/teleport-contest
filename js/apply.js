@@ -120,7 +120,7 @@ import {
     make_glib, Glib, make_sick, make_confused, make_stunned, make_vomiting,
     make_hallucinated, make_deaf, djinni_from_bottle,
 } from './potion.js';
-import { Blindf_on, Blindf_off, cursed_check } from './do_wear.js';
+import { Blindf_on, Blindf_off, cursed_check, fingers_or_gloves } from './do_wear.js';
 import {
     dropx, setnotworn, fire_damage, make_blinded, revive_corpse,
 } from './do.js';
@@ -2115,7 +2115,7 @@ export async function flip_coin(obj) {
     } else if (Glib_apply() || Fumbling()
         || (acurr(A_DEX) < 10 && !rn2(acurr(A_DEX)))) {
         await pline(
-            `It slips between your ${fingers_or_gloves_apply(false)}.`,
+            `It slips between your ${fingers_or_gloves(false)}.`,
         );
         lose_coin = true;
     }
@@ -2138,11 +2138,7 @@ export async function flip_coin(obj) {
     return ECMD_TIME;
 }
 
-/** C objnam.c Tobjnam — The(xname) + otense (use_grease). */
-function Tobjnam_grease(obj, verb) {
-    if ((obj?.quan | 0) !== 1) return `${The(xname(obj))} ${verb}`;
-    return `${The(xname(obj))} ${vtense(null, verb)}`;
-}
+/** C objnam.c Tobjnam — live export covers the use_grease arms (D-2349). */
 
 /**
  * C ref: do_wear.c inaccessible_equipment predicate (no messages).
@@ -2166,7 +2162,7 @@ export function equipment_is_inaccessible(obj, only_if_known_cursed) {
 
 /**
  * C ref: do_wear.c inaccessible_equipment — messages when verb is set.
- * Named omit: shk_owns shop prefix (unpaid / floor costly).
+ * shk_owns shop prefix ("Foobar's ") via shk_your (D-2349).
  */
 export async function inaccessible_equipment(obj, verb, only_if_known_cursed) {
     if (!equipment_is_inaccessible(obj, only_if_known_cursed)) return false;
@@ -2227,7 +2223,7 @@ export async function use_grease(obj) {
 
     if (Glib()) {
         await pline(
-            `${Tobjnam(obj, 'slip')} from your ${fingers_or_gloves_apply(false)}.`,
+            `${Tobjnam(obj, 'slip')} from your ${fingers_or_gloves(false)}.`,
         );
         await dropx(obj);
         return ECMD_TIME;
@@ -2237,7 +2233,7 @@ export async function use_grease(obj) {
         if ((obj.cursed || Fumbling()) && !rn2(2)) {
             await consume_obj_charge(obj, true);
             await pline(
-                `${Tobjnam(obj, 'slip')} from your ${fingers_or_gloves_apply(false)}.`,
+                `${Tobjnam(obj, 'slip')} from your ${fingers_or_gloves(false)}.`,
             );
             await dropx(obj);
             return ECMD_TIME;
@@ -2258,13 +2254,13 @@ export async function use_grease(obj) {
             if (obj.cursed && !nohands(game.youmonst?.data)) {
                 make_glib(oldglib + rn1(6, 10)); /* + 10..15 */
                 await pline(
-                    `Some of the grease gets all over your ${fingers_or_gloves_apply(true)}.`,
+                    `Some of the grease gets all over your ${fingers_or_gloves(true)}.`,
                 );
             }
         } else {
             make_glib(oldglib + rn1(11, 5)); /* + 5..15 */
             await pline(
-                `You coat your ${fingers_or_gloves_apply(true)} with grease.`,
+                `You coat your ${fingers_or_gloves(true)} with grease.`,
             );
         }
     } else if (obj.known) {
@@ -4008,21 +4004,9 @@ function Yname2_oil(obj) {
     const s = `${shk_your_apply(obj)}${xname(obj)}`;
     return s.charAt(0).toUpperCase() + s.slice(1);
 }
-function otense_oil(obj, verb) {
-    if ((obj?.quan | 0) !== 1) return verb;
-    return vtense(null, verb);
-}
-function Tobjnam_oil(obj, verb) {
-    return `${The(xname(obj))} ${otense_oil(obj, verb)}`;
-}
+/** C objnam.c otense/Tobjnam — live exports cover the lamp arms (D-2349). */
 
-/** C do_wear.c fingers_or_gloves — gloves vs makeplural(FINGER). */
-function fingers_or_gloves_apply(check_gloves) {
-    if (check_gloves && game.u?.uarmg) {
-        return gloves_simple_name(game.u.uarmg);
-    }
-    return makeplural(body_part(FINGER));
-}
+/** C do_wear.c fingers_or_gloves — live export covers the apply arms (D-2349). */
 
 function Stunned_apply() {
     const u = game.u || {};
@@ -4148,7 +4132,7 @@ export async function use_bell(obj) {
             if (mtmp) {
                 await pline(`You summon ${a_monnam(mtmp)}!`);
                 if (!obj_resists(obj, 93, 100)) {
-                    await pline(`${Tobjnam_grease(obj, 'have')} shattered!`);
+                    await pline(`${Tobjnam(obj, 'have')} shattered!`);
                     useup(obj);
                     obj = null;
                 } else {
@@ -4181,7 +4165,7 @@ export async function use_bell(obj) {
             wakem = true;
         } else if (invoking) {
             await pline(
-                `${Tobjnam_grease(obj, 'issue')} an unsettling shrill sound...`,
+                `${Tobjnam(obj, 'issue')} an unsettling shrill sound...`,
             );
             obj.age = game.moves | 0;
             learno = true;
@@ -4706,7 +4690,7 @@ export async function use_candelabrum(obj) {
         );
         if (!Blind()) {
             await pline(
-                `${(obj.spe | 0) === 1 ? 'It is' : 'They are'} lit.  ${Tobjnam_oil(obj, 'shine')} dimly.`,
+                `${(obj.spe | 0) === 1 ? 'It is' : 'They are'} lit.  ${Tobjnam(obj, 'shine')} dimly.`,
             );
         }
     } else {
@@ -4727,9 +4711,9 @@ export async function use_candelabrum(obj) {
     } else {
         if ((obj.spe | 0) === 7) {
             if (Blind()) {
-                await pline(`${Tobjnam_oil(obj, 'radiate')} a strange warmth!`);
+                await pline(`${Tobjnam(obj, 'radiate')} a strange warmth!`);
             } else {
-                await pline(`${Tobjnam_oil(obj, 'glow')} with a strange light!`);
+                await pline(`${Tobjnam(obj, 'glow')} with a strange light!`);
             }
         }
         obj.known = 1;
@@ -4871,12 +4855,12 @@ export async function use_lamp(obj) {
     if (obj.cursed && !rn2(2)) {
         if ((obj.otyp === OIL_LAMP || obj.otyp === MAGIC_LAMP) && !rn2(3)) {
             await pline(
-                `The lamp spills and covers your ${fingers_or_gloves_apply(true)} with oil.`,
+                `The lamp spills and covers your ${fingers_or_gloves(true)} with oil.`,
             );
             make_glib((Glib() & TIMEOUT) + d(2, 10));
         } else if (!Blind()) {
             await pline(
-                `${Tobjnam_oil(obj, 'flicker')} for a moment, then ${otense_oil(obj, 'die')}.`,
+                `${Tobjnam(obj, 'flicker')} for a moment, then ${otense(obj, 'die')}.`,
             );
         } else {
             await pline(nothing_seems_to_happen);
@@ -4888,7 +4872,7 @@ export async function use_lamp(obj) {
         await pline(`${Shk_Your_apply(obj)}${lamp} is now on.`);
     } else {
         await pline(
-            `${s_suffix_apply(Yname2_oil(obj))} flame${plur_quan(obj.quan)} ${otense_oil(obj, 'burn')}${Blind() ? '.' : ' brightly!'}`,
+            `${s_suffix_apply(Yname2_oil(obj))} flame${plur_quan(obj.quan)} ${otense(obj, 'burn')}${Blind() ? '.' : ' brightly!'}`,
         );
         // candle unpaid verbalize / bill_dummy deferred
     }

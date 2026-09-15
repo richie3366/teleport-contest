@@ -60,12 +60,17 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `apply.c` use_grease CAN_OF_GREASE (named debt.md:16 D-1026; never live/archived/parked). Probe: `node scripts/brief.mjs use_grease`.
 - [ ] `muse.c` use_defensive hurt-monster defensive-item depth (TOP30 #18, 12% ported, dead callees mreadmsg/reveal_trap/mon_escape/mon_consume_unstone; reached by scen-tour-Archeologist-92023 + scen-tour-Wizard-91112 traces; archived import row is wiring-only; never live/parked). Probe: `node scripts/brief.mjs use_defensive`.
 - [ ] `pickup.c` pickup floor-pickup body (TOP30 honourable mention, 238/135; reached by 374 corpus traces; archived rows are narrow arms safe_qbuf D-1654/observe_quantum_cat D-1535; never live/parked). Probe: `node scripts/brief.mjs pickup`.
 - [ ] `mhitu.c` hitmu monster-hits-hero dispatch (TOP30 honourable mention, 123/72; reached by 235 corpus traces; no whole-function row live/archived/parked). Probe: `node scripts/brief.mjs hitmu`.
 - [ ] `invent.c` getobj prompt/filter machinery (TOP30 #13, 334/133, in_doagain + prompt/filter; every "What do you want" prompt; archived ALLOWCNT arm D-1530 only; never live/parked). Probe: `node scripts/brief.mjs getobj`.
 - [ ] `cmd.c` getdir direction machinery (TOP30 #15, help_dir/cmdassist/strange-direction/dxdy_moveok/yn_function_menu; archived cmdassist-cancel arms only; never live/parked). Probe: `node scripts/brief.mjs getdir`.
+- [ ] `music.c` do_earthquake DRUM_OF_EARTHQUAKE (named debt.md D-0972; DONE has 1 arm; never live/parked). Probe: `node scripts/brief.mjs do_earthquake`.
+- [ ] `dig.c` use_pick_axe/use_pick_axe2 via doapply is_pick|is_axe (named debt.md D-0951; DONE has 2 arms; never live/parked). Probe: `node scripts/brief.mjs use_pick_axe`.
+- [ ] `makemon.c` bagotricks BAG_OF_TRICKS (named debt.md D-1023 family; never live/archived/parked). Probe: `node scripts/brief.mjs bagotricks`.
+- [ ] `apply.c` use_trap (named debt.md D-1023 family; never live/archived/parked). Probe: `node scripts/brief.mjs use_trap`.
+- [ ] `cmd.c` paranoid_query ParanoidBreakwand/ParanoidPray (named debt.md D-0999/D-1000; never live/archived/parked). Probe: `node scripts/brief.mjs paranoid_query`.
+- [ ] `apply.c` use_lamp residual (named debt.md D-1023/D-1052; use_candle D-1025 + DONE arms shipped; never own-row live/parked). Probe: `node scripts/brief.mjs use_lamp`.
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 

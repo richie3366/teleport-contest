@@ -49,6 +49,6 @@ Matches the D-log exactly (7 PASS + 92075 → 80, owner-null single-cell). Banne
 
 ## Actionable C-wrongs
 
-1. `done_in_by` imitator predicate uses object identity (`mptr !== champtr`) where C compares permonst identity — true-form shifters (birth-state `cham == mndx`) take the imitator arm and lose G_UNIQ `"the "`. Fix: compare `mndx` indices. One port iter; falsifier: true-form-shifter killer epitaph vs C. **Addressed:** D-2348
+1. `done_in_by` imitator predicate uses object identity (`mptr !== champtr`) where C compares permonst identity — true-form shifters (birth-state `cham == mndx`) take the imitator arm and lose G_UNIQ `"the "`. Fix: compare `mndx` indices. One port iter; falsifier: true-form-shifter killer epitaph vs C. **Addressed:** D-2348 `aa08fdb3`
 
 Verdict: **QUALITY-RISK**
