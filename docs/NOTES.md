@@ -8,6 +8,7 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (one line each, class +
 falsifier; proofs in `docs/archive/LOOP-QUEUE-PARKED.md`). Do not list them
 here again. Live hypotheses only:
 
+- **do_statusline2→polymon writer (MEASURED 2026-09-16):** scen-death-Tourist-92095 step-46 screen (C AC:6 vs JS AC:10, identical `Your shirt rips to shreds!` toplines) is find_ac-vs-capture ordering inside one polymon batch, NOT armor state. Fresh-process prefix replays: 27 tokens→45 screens u.uac=10 (matches C AC:10 @44); 28 tokens→49 screens u.uac=6, all worn null, umonnum set (matches C AC:6). So JS find_ac HAS the `mons[u.umonnum].ac` form-base arm (C do_wear.c:2475); JS step-46 capture lands pre-find_ac (deferred post-encumber_msg, js/polyself.js:1305) while C lands post-find_ac (polyself.c:888–890). Steps 44–45 + 47–49 identical both sides; only screen 46 diverges. Prior AC:9 session needed the deferral (js/polyself.js:1292–1296) — porter must fix flush/More timing, not just move find_ac. Cmds: `node scripts/hidden-proxy.mjs show scen-death-Tourist-92095`, probes /tmp/dbg-trunc27.mjs /tmp/dbg-trunc.mjs /tmp/dbg-rows.mjs. Falsifier: `verify polymon` moving Tourist-92095 to PASS/later owner.
 - **2026-09-16 process take (measured):** 126/362 non-audit iterations
   2026-09-09..15 were parks; 109/161 parked rows were stale copies of
   shipped work from `data.md`/`debt.md`/TOP30 refills. Falsifier for the

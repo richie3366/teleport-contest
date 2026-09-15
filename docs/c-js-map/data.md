@@ -299,7 +299,7 @@ was WAND/class-name stand-in D-0316); steal.c / muse.c callers named;
 `oc_merge_of` SPELL/WAND mrg=0 D-0679; food/candle/boomerang/venom vs
 non-stack swords); 
 **`mkbox_cnts` ICE_BOX → `mksobj(CORPSE)` + age=0/timers + `add_to_container`** (D-0361; 
-D-2265 ships BoH Is_mbag→SACK / WAN_CANCELLATION re-roll; BoH weight factor still deferred); 
+D-2265 ships BoH Is_mbag→SACK / WAN_CANCELLATION re-roll; BoH bag-weight lives in the bless/curse/unbless arms below, not this fn — body live, queue row retired STALE 2026-09-16); 
 **candle `mksobj` `age=20*oc_cost` D-1308**; 
 **`mksobj_migr_to_species` D-1363** (`:253–265` `add_to_migration` + `MIGR_TO_SPECIES` + 
 `migr_species` overlay; caller `mkmaze.c` `stolen_booty`); 
@@ -331,7 +331,7 @@ PLNMSG_OBJ_GLOWS It/They vs carried/canseen `Yname2`, `otense shine` +
 much/brighter/less-brightly pline; read.c dragon-scale remail was_lit/
 old_light + restore wired; bless-family async (state changes precede first
 await); zap local `unbless` clone retired to the export; polyself
-uskin/skinback arms deferred with their unported merge arms; potion dip
+uskin merge arms deferred (skinback itself live js/polyself.js:1366 — queue row retired STALE 2026-09-16); potion dip
 flag-sets bypass bless/curse (own row); COIN_CLASS/luck/bag-weight (bless,
 curse, unbless)/bimanual/uswapwep/SPBOOK arms still deferred)
 
@@ -531,7 +531,7 @@ DISP_BEAM / `save_light_sources` discard named);
 **D-1574 `unblock_point`/`dig_point`**; **D-0747 `uncommon`/`rndmonst_adj` Inhell via dungeon `hellish` + 
 `G_NOHELL` skip**; **D-0748 `mkclass_aligned` `gehennom=Inhell` via hellish** (`pick_nasty` / other 
 `GEHENNOM` dnum sites still wrong); **D-0749 `rnd_misc_item` life-saving `!nonliving && 
-!is_vampshifter`** (See_invisible peaceful invis arm deferred); 
+!is_vampshifter`** (See_invisible peaceful-invis arm shipped D-2086 js/makemon.js:2665 — queue row retired STALE 2026-09-16); 
 **D-0751 `temperature_shift` + hell `clear_level_structures` temp**; 
 **D-1078 `clone_mon`** (HP half + caller max/2; enexto; no minvent); 
 **D-1565 `clone_mon` `place_monster` 2D grid** (`steed.c:897–932` / `makemon.c:898`;
@@ -713,7 +713,7 @@ C `sokoban_rules=0`); **`fill_lvl`→`makemaz(minefill)` +
 **tut-1 loot→end + `mineralize` special skip after kelp** (D-0353) + **tut-2 second variant 14x8 + up stair + burn `eckey(up)` + seen portal** (D-1895) + 
 **D-1847 `mineralize` gold/gem loop** (`mklev.c:1501–1540` skip `y+=2`/`y+=1` then for `y++`; `Is_special` `on_level`; `dunlev` 0; `bound_digging` earth/`W_NONPASSWALL`; `join` arboreal ROOM; `reset_xystart_size` at clear/makerooms/themerooms_post). Named: 1-cluster `ly=15` east HWALL+TRC (Knight d5 409 vs 410; C STONE vs JS walls; `wall_cleanup` blocked by interior ROOM); 
 **`water_has_kelp` `!Is_waterlevel` + `In_endgame` return before kelp** (D-1059; 
-tut_key/eckey/Knight jump/leave-invent/`map_location` tseen/`add_to_container` merge deferred); 
+tut_key/eckey/Knight jump/leave-invent/`add_to_container` merge deferred — `map_location` tseen live js/display.js:4798 (D-0120/D-0326/D-1528), queue row retired STALE 2026-09-16); 
 **occupied invocation_pos** (D-1154); omit other fill *bodies*, nested `des.room` bodies beyond 
 Nesting/Fake Delphi/Huge/… outer sizes, Lua `post_level_generate` postprocess 
 queue, `mkgrave_room` bury; **D-1533 `create_object` `o->lit` `begin_burn`** (`sp_lev.c:2425–2426` after `stackobj`, not tile.lit; `l_create_object` lit default 0; mktrap_victim is D-1519; **D-1542** themerms Light source fill); **D-1723 `lspo_object` non-merge quan do-while** (`sp_lev.c:3725–3740` `!objects[id].oc_merge`; find_objtype + argc string/coord; class-letter `def_char_to_objclass`/`mkgold`; other load_* `des.object` still hand-rolled); `Can_fall_thru` before hole→ROCKTRAP (Vlad niche); 
@@ -781,7 +781,7 @@ temperate → hot; valley still overrides temperate);
 **D-1513 minetn-7 town-floor three gnomes**; **D-1841 `fakewiz1`/`fakewiz2`** (hellfill D-0906); 
 **D-2336 quest-start/soko branch levregions stored pre-flip for flip_level remap**; 
 **D-0608 `minend-1` `des.object("(")`→TOOL not WEAPON** (defsym `'('`=TOOL_CLASS); 
-**D-0543 `soko1-2` load_special** (map/reward percent(25); other `soko*-*` deferred); 
+**D-0543 `soko1-2` load_special** (map/reward percent(25); soko1-1 + soko4-1 loaders live js/mklev.js:12307/12839, soko4-1 D-0756 fixed — remainder claim retired STALE 2026-09-16); 
 **D-0547 `soko2-1` + `is_ok_location_dry` boulder reject**; **D-1820 `soko2-2`**; 
 **D-0548 `soko3-1`/`soko3-2`/`soko4-2` load_special**; 
 **D-0567 Sokoban `premap_detect`/`solidify_map`/`SpLev_Map` + 
@@ -984,7 +984,7 @@ callers + `iter_mons` `mon_offmap` named);
 **D-1597 camera range 0** Null-id `LS_OBJECT` + `show_transient_light`;
 **D-2157 circle_ptr exact ring live** (hero at_hero_range trim live D-2302); **D-1956 `obj_adjust_light_radius`** (`light.c:825–838`; first LS_OBJECT id-match wins, recalc only on change, else `impossible(xname)`; live `js/light.js` async; caller `mkobj.c` `maybe_adjust_light` bless/curse wiring WIRED D-2244); **D-0675:** stale gas across levels blocked LOS (not 
 Algorithm-C TRWALL); **`clear_regions` in `clear_level_structures` + 
-goto_level stash/rest** (binary `save_regions` format / free_region teardown deferred); 
+goto_level stash/rest** (binary `save_regions` format unportable by design — JS saves JSON per Constitution §1.6; teardown `clear_regions` live js/region.js:647 — queue row parked DIAGNOSED 2026-09-16); 
 **D-0773 open:** wizard2 mumak LOS — JS `viz_clear` blocks at ROOM boulder → linedup rn2(3); 
 C screen lava flanks differ + warn mon @(55,9); recorder `couldsee`/boulder open; 
 Underwater moat in does_block deferred; seed0030 @372 blank niche was **not** doorway LOS (D-0302 
@@ -1036,7 +1036,7 @@ Monster dart path: `t_at`/`t_missile`/`thitm` miss pline/`mintrap`/`seetrap` (D-
 **`maketrap` + `choose_trapnote` + `hole_destination`/`dng_bottom`** (D-0054) + 
 **D-0782 MAGIC_PORTAL mon migrate** + **D-0777 terrain gates** 
 (`CAN_OVERWRITE`/pool/furniture/`IS_AIR` CLOUD ≠ portal → null, skip victim `rnd(4)`; 
-Knox `single_level_branch` deferred); **`water_damage` POT_WATER/force/dilute/scroll/book + 
+Knox caller gates deferred (maketrap trap.c:482 + LEVEL_TELEP-kind mklev.c:1963 named omits js/trap.js:946 js/mklev.js:28338; fn + stairs/end/teleport callers live — queue row retired STALE 2026-09-16); **`water_damage` POT_WATER/force/dilute/scroll/book + 
 `erode_obj(ERODE_RUST)`** (D-0109/D-0683) + **`fire_damage_chain` invent/floor walk + 
 Blind smoke D-1138** + **CAN_OF_GREASE / TOWEL `wet_a_towel` / greased / 
 `Is_container`+`Waterproof_container` before luck `rn2(20)`** (D-0928 #1101) + 

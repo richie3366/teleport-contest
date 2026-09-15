@@ -87,13 +87,7 @@ committed scoreboard; if the row was queued at an older SHA pass
 deliver a C-side measurement + the writer's Open row, no `js/` (commit
 and push; the supervisor logs "empty port pushed" — expected).
 
-- [ ] `mkobj.c` `mkbox_cnts` BoH weight factor (data.md:302) — **unverified at enqueue (2026-09-15 refill)**: stale check first. Probe: `node scripts/brief.mjs mkbox_cnts`.
-- [ ] `polyself.c` `skinback` uskin merge arms (data.md:334) — **unverified at enqueue**: stale check first. Probe: `node scripts/brief.mjs skinback`.
-- [ ] `muse.c` `rnd_misc_item` See_invisible peaceful-invis arm (data.md:534) — **unverified at enqueue**: stale check first. Probe: `node scripts/brief.mjs rnd_misc_item`.
-- [ ] `display.c` `map_location` tseen + add_to_container merge (data.md:716) — **unverified at enqueue**: stale check first. Probe: `node scripts/brief.mjs map_location`.
-- [ ] `sp_lev.c` `load_special` soko1-1/soko4-1 remainder (data.md:784-788) — **unverified at enqueue**: stale check first. Probe: `node scripts/brief.mjs load_special`.
-- [ ] `region.c` `save_regions` binary format + free_region teardown (data.md:987) — **unverified at enqueue**: stale check first. Probe: `node scripts/brief.mjs save_regions`.
-- [ ] `dungeon.c` `single_level_branch` Knox arm (data.md:1039) — **unverified at enqueue**: stale check first. Probe: `node scripts/brief.mjs single_level_branch`.
+- [ ] `polyself.c` `polymon` find_ac:890-vs-capture order — blocks 1/553 (scen-death-Tourist-92095, step 46, kind=screen): C `Dlvl:1 $:605 HP:15(15) Pw:2(2) AC:6 HD:6 Burdened Blind` vs JS AC:10, identical `Your shirt rips to shreds!` toplines; JS u.uac=6 post-step (state correct — find_ac HAS the mons[umonnum].ac form-base arm) but the step-46 capture lands pre-find_ac (JS find_ac deferred post-encumber_msg, js/polyself.js:1305) while C lands post-find_ac (polyself.c:888–890). Caution: prior AC:9 session needed the deferral (js/polyself.js:1292–1296) — fix flush/More timing, not just find_ac position. Probe: `node scripts/hidden-proxy.mjs show scen-death-Tourist-92095`.
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 
@@ -172,6 +166,7 @@ for a map/debt/TOP30 line.
 - `insight.c` list_vanquished — MISATTRIBUTED 2026-09-09. Falsifier: a rescore or fresh `verify list_vanquished` showing a session blocked on list *content* (a vanquished line or count row); re-queue under the display/memory writer it names
 - `end.c` disclose — SYMPTOM 2026-09-16 (re-measured): body faithful (js/end.js:769, 6 arms); step-100 diff = hallucinated repaint post-attributes-menu (C frozen 90–97, repaint at 100 both sides, core 3081/3081). 2nd drinkfountain-class witness. Falsifier: drinkfountain park trace; re-queue under its writer.
 - `allmain.c` u_calc_moveamt — PRESENCE-ONLY 2026-09-10. Falsifier: a rescore or fresh `verify u_calc_moveamt` showing a session blocked with u_calc_moveamt as owner (not mere stepFns presence), a u_calc_moveamt cEntry/jsEntry, or an `rn2(3) @…
+- `region.c` save_regions — DIAGNOSED 2026-09-16: binary NHFILE format unportable (JS saves JSON, Constitution §1.6); teardown clear_regions live js/region.js:647; never a corpus owner. Falsifier: save-oracle/tagged-restore divergence naming region state.
 
 ### Stale (already shipped when the row was written; verify 0 blocked)
 
@@ -180,6 +175,12 @@ Grouped by C file. Each was a refill row copied from a `data.md`/`debt.md`/
 retire the spawning map line when you touch that section.
 - `mhitu.c` hitmu rat AD_DRCO `[measure]` — STALE 2026-09-16: scen-genesis-Priest-91110 now PASS 151/151 at HEAD; `js/mhitu.js:3307` live C-order body, 0 blocked. Falsifier: rescore newly blocking a session on hitmu.
 - `vision.c` vision_recalc (TOP30 #30) — STALE 2026-09-16: `js/vision.js:908` full C-order port (Blind/pit/xray/nv/lights/main loop), 0 blocked; only delta `notice_all_mons(TRUE)` tail (async fan-out, 36 callers). Falsifier: rescore blocking a session on vision_recalc.
+- `mkobj.c` mkbox_cnts BoH weight — STALE 2026-09-16: full C-order body live js/mkobj.js:791 (D-0361/D-2265), 0 blocked; weight factor = bless-arm deferral, not this fn. Falsifier: rescore blocking a session on mkbox_cnts.
+- `polyself.c` skinback merge arms — STALE 2026-09-16: 15-line C verbatim live js/polyself.js:1366, 0 blocked; merge arms live in polymon. Falsifier: rescore blocking a session on skinback.
+- `muse.c` rnd_misc_item See_invisible arm — STALE 2026-09-16: case-1 gate shipped D-2086 (js/makemon.js:2665+2694), 0 blocked. Falsifier: rescore blocking a session on rnd_misc_item.
+- `display.c` map_location tseen — STALE 2026-09-16: wrapper + tseen arm live js/display.js:4798 (D-0120/D-0326/D-1528), 0 blocked. Falsifier: rescore blocking a session on map_location.
+- `sp_lev.c` load_special soko remainder — STALE 2026-09-16: load_soko1_1/4_1 live js/mklev.js:12307/12839 (D-0756 fixed), 0 blocked. Falsifier: rescore blocking a session on load_special.
+- `dungeon.c` single_level_branch Knox — STALE 2026-09-16: 7-line fn + stairs/end/teleport callers live (js/teleport.js:2133), 0 blocked; 2 caller gates stay named omits. Falsifier: rescore blocking a session on single_level_branch.
 
 - `apply.c`: getobj_apply CMDQ_KEY; release_hold WAN_OPENING + flash_hits_mon; use_crystal_ball; use_figurine; flip_through_book/flip_coin; use_unicorn_horn trouble-fix envelope; use_bell; use_pole; fig_transform; use_towel wet/dry_a_towel + burnarmor dry; use_tinning_kit; use_candle/use_candelabrum; use_stone; use_whip grapple/pole family; use_trap
 - `artifact.c`: arti_cost; artifact_hit realizes/drain/blind arms
