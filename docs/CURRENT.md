@@ -85,7 +85,7 @@ Pop `LOOP-QUEUE.md` Must-fix, then Open in order — the Open head is now
 the park-named writers, then the **botl paint-parity campaign** (10
 sessions), then two `[measure]` rows; the 2026-09-15 map-omit refill rows
 sit last, flagged *unverified at enqueue* (stale check first).
-**Next cluster:** `mhitu.c` hitmu damage post-processing at a rat AD_DRCO bite `[measure]` — blocks 1/553 (scen-genesis-Priest-91110, step 130, kind=rng); head `eat.c` 3/3 parked Stale (masked, NO MOVEMENT) and `can_carry` `[measure]` delivered 2026-09-16 (no spin at HEAD, import live at js/dogmove.js:17).
+**Next cluster:** `mkobj.c` `mkbox_cnts` (Open head after 2026-09-16 hygiene). Shipped: `mhitu.c` hitmu `[measure]` STALE (scen-genesis-Priest-91110 now PASS 151/151), `vision.c` vision_recalc STALE (TOP30 unverified, body live, 0 blocked), `end.c` disclose parked SYMPTOM (step-100 display-stream-only diff, 2nd drinkfountain-class witness; no new writer row — falsifier already live under drinkfountain). Prior: `eat.c` 3/3 parked Stale (masked, NO MOVEMENT) and `can_carry` `[measure]` delivered 2026-09-16 (no spin at HEAD, import live at js/dogmove.js:17).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2401 (index).**
 <!-- recent:begin -->

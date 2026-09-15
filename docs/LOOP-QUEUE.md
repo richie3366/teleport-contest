@@ -87,9 +87,6 @@ committed scoreboard; if the row was queued at an older SHA pass
 deliver a C-side measurement + the writer's Open row, no `js/` (commit
 and push; the supervisor logs "empty port pushed" — expected).
 
-- [ ] `mhitu.c` hitmu damage post-processing at a rat AD_DRCO bite `[measure]` — blocks 1/553 (scen-genesis-Priest-91110, step 130, kind=rng; minliquid_core park 2026-09-08). JS lands the bite 74→68, C 74→69 with **identical dice** and no player-damage draws in the step, so the delta is a draw-free damage adjustment (compare C `hitmu` post-`dmg` arms — AC-based reduction, `Half_physical_damage`, `u.uac` sign — against `js/mhitu.js` on a prefix probe). Deliverable: the C line whose arm JS lacks + its Open row; ship in the same iteration if it is one arm.
-- [ ] `vision.c` vision_recalc (TOP30 #30 345/180, 36 callers) — **unverified at enqueue (2026-09-15 refill)**: run the stale check first; eligible only if the brief shows a C arm absent from `js/vision.js`. Probe: `node scripts/brief.mjs vision_recalc`.
-- [ ] `end.c` disclose — blocks 1/553 (scen-wish-Priest-92179 step 100 kind=screen, identical toplines; parked 2026-09-09 as writer-unidentified, re-opened by really_done park terms). Falsifier from the park: C display-stream logging or a per-turn occupant/draw dump over steps 99–101. Treat as `[measure]` unless the brief shows a missing arm. Probe: `node scripts/brief.mjs disclose`.
 - [ ] `mkobj.c` `mkbox_cnts` BoH weight factor (data.md:302) — **unverified at enqueue (2026-09-15 refill)**: stale check first. Probe: `node scripts/brief.mjs mkbox_cnts`.
 - [ ] `polyself.c` `skinback` uskin merge arms (data.md:334) — **unverified at enqueue**: stale check first. Probe: `node scripts/brief.mjs skinback`.
 - [ ] `muse.c` `rnd_misc_item` See_invisible peaceful-invis arm (data.md:534) — **unverified at enqueue**: stale check first. Probe: `node scripts/brief.mjs rnd_misc_item`.
@@ -173,7 +170,7 @@ for a map/debt/TOP30 line.
 - `botl.c` do_statusline2 value-residuals — SYMPTOM 2026-09-09. Falsifier: /tmp prefix-state probe (`runSegment` truncated moves) reading JS `u.uac` + worn slots at the step boundary — post-poly `uac`=3 ⟹ message-geometry writer (getlin/display flush path), 7 ⟹…
 - `botl.c` do_statusline1 — MISATTRIBUTED 2026-09-09. Falsifier: an enlightenment infravision-gate port moving `verify do_statusline1` (expect Caveman-92138 → PASS or a later owner)
 - `insight.c` list_vanquished — MISATTRIBUTED 2026-09-09. Falsifier: a rescore or fresh `verify list_vanquished` showing a session blocked on list *content* (a vanquished line or count row); re-queue under the display/memory writer it names
-- `end.c` disclose — SYMPTOM 2026-09-09. Falsifier: C display-stream logging (or a C per-turn occupant/draw dump over steps 99–101) naming the extra C draw / differing occupant; or a paint-path port moving `verify disclose` (expect 92179…
+- `end.c` disclose — SYMPTOM 2026-09-16 (re-measured): body faithful (js/end.js:769, 6 arms); step-100 diff = hallucinated repaint post-attributes-menu (C frozen 90–97, repaint at 100 both sides, core 3081/3081). 2nd drinkfountain-class witness. Falsifier: drinkfountain park trace; re-queue under its writer.
 - `allmain.c` u_calc_moveamt — PRESENCE-ONLY 2026-09-10. Falsifier: a rescore or fresh `verify u_calc_moveamt` showing a session blocked with u_calc_moveamt as owner (not mere stepFns presence), a u_calc_moveamt cEntry/jsEntry, or an `rn2(3) @…
 
 ### Stale (already shipped when the row was written; verify 0 blocked)
@@ -181,6 +178,8 @@ for a map/debt/TOP30 line.
 Grouped by C file. Each was a refill row copied from a `data.md`/`debt.md`/
 `absent.md`/TOP30 line after the function had shipped. Do not re-enqueue;
 retire the spawning map line when you touch that section.
+- `mhitu.c` hitmu rat AD_DRCO `[measure]` — STALE 2026-09-16: scen-genesis-Priest-91110 now PASS 151/151 at HEAD; `js/mhitu.js:3307` live C-order body, 0 blocked. Falsifier: rescore newly blocking a session on hitmu.
+- `vision.c` vision_recalc (TOP30 #30) — STALE 2026-09-16: `js/vision.js:908` full C-order port (Blind/pit/xray/nv/lights/main loop), 0 blocked; only delta `notice_all_mons(TRUE)` tail (async fan-out, 36 callers). Falsifier: rescore blocking a session on vision_recalc.
 
 - `apply.c`: getobj_apply CMDQ_KEY; release_hold WAN_OPENING + flash_hits_mon; use_crystal_ball; use_figurine; flip_through_book/flip_coin; use_unicorn_horn trouble-fix envelope; use_bell; use_pole; fig_transform; use_towel wet/dry_a_towel + burnarmor dry; use_tinning_kit; use_candle/use_candelabrum; use_stone; use_whip grapple/pole family; use_trap
 - `artifact.c`: arti_cost; artifact_hit realizes/drain/blind arms
