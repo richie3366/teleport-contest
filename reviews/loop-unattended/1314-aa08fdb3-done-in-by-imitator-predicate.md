@@ -100,4 +100,4 @@ claimed (corpus re-run above is the independent check).
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-2351
+**Addressed:** D-2351 `736bd185`

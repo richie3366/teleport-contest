@@ -1356,8 +1356,10 @@ export async function pickup_object(obj, count, telekinesis) {
  * `@` MENU_INVERT_ALL / `.` SELECT_ALL / `-` UNSELECT_ALL (tty wintty).
  * INVORDER_SORT (sortpack): pack-order class headings via let_to_name;
  * menu letters assigned in that display order (no USE_INVLET on floor).
- * Sort: sortloot(SORTLOOT_LOOT|PACK|PETRIFY) + nexthere (D-0405, D-1599).
- * FEEL_COCKATRICE: will_feel during walk → look_here(0) abort (no menu).
+ * Sort: sortloot(SORTLOOT_LOOT|PACK + PETRIFY on PICK_ANY only) + nexthere
+ * (D-0405, D-1599).
+ * FEEL_COCKATRICE (PICK_ANY only per pickup.c:774-776; count-N PICK_ONE
+ * at :761-772 omits it): will_feel during walk → look_here(0) abort.
  * PICK_ONE (count-N "Pick %d of what?"): AUTOSELECT_SINGLE still applies
  * (C `:761` sets it before the count branch); a menu letter returns the
  * single pick at once (tty PICK_ONE ends on first selection), prompt is
@@ -1383,9 +1385,12 @@ async function query_objlist_pickup(objList, extraAllow = null, opts = null) {
     const doSort = flags.sortpack !== false;
     // C: sortflags — sortloot 'l'/'f' + !USE_INVLET → SORTLOOT_LOOT;
     // sortpack → SORTLOOT_PACK; FEEL_COCKATRICE → SORTLOOT_PETRIFY.
+    // C query_objlist gates PETRIFY on qflags & FEEL_COCKATRICE, and C
+    // pickup.c:774-776 sets FEEL_COCKATRICE only on the PICK_ANY arm
+    // (the count-N PICK_ONE arm at :761-772 omits it) → gate on PICK_ANY.
     // Floor pile is a nexthere chain.
     const sortlootOpt = flags.sortloot ?? 'l';
-    let sortflags = SORTLOOT_PETRIFY;
+    let sortflags = (how === PICK_ANY) ? SORTLOOT_PETRIFY : 0;
     if (sortlootOpt === 'l' || sortlootOpt === 'f') sortflags |= SORTLOOT_LOOT;
     if (doSort) sortflags |= SORTLOOT_PACK;
 
@@ -1414,7 +1419,9 @@ async function query_objlist_pickup(objList, extraAllow = null, opts = null) {
     for (const { obj } of ranked) {
         // C query_objlist `:1111–1116` — FEEL_COCKATRICE CORPSE will_feel
         // destroys the menu and reverts to look_here(0, LOOKHERE_NOFLAGS).
-        if ((obj.otyp | 0) === CORPSE && will_feel_cockatrice(obj, false)) {
+        // Gated on qflags & FEEL_COCKATRICE, which C pickup.c:774-776 sets
+        // only on the PICK_ANY arm (count-N PICK_ONE at :761-772 omits it).
+        if (how === PICK_ANY && (obj.otyp | 0) === CORPSE && will_feel_cockatrice(obj, false)) {
             await look_here(0, LOOKHERE_NOFLAGS);
             return [];
         }

@@ -1517,7 +1517,7 @@ BARRACKS monstinroom / wake_msg text still deferred); **`,` → `dopickup`/`pick
 (D-0192) + **`pickup_checks` furniture/pool/lava/swallow D-1838** (C `hack.c` `:3788–3872` throne/sink/grave/fountain/open-door/altar/`STAIRS`/`There`; `dopickup` `:3876–3892` `-2` `loot_mon`; named: dungeon.c `surface`) + **multi `query_objlist` PICK_ANY** (D-0365) + **`INVORDER_SORT` class headings + 
 prompt ATR_INVERSE** (D-0384) + **floor `query_objlist` `sortloot(SORTLOOT_LOOT|PACK)`** (D-0405) + 
 **PICK_ANY `@`/`./`-` MENU_INVERT/SELECT/UNSELECT_ALL** (D-0406; 
-SKIPINVERT/page invert/search deferred; FEEL_COCKATRICE look_here abort is D-1599;
+SKIPINVERT/page invert/search deferred; FEEL_COCKATRICE look_here abort is D-1599, PICK_ANY-only (count-N PICK_ONE omits it — `sortflags` PETRIFY + will_feel abort gated on `how === PICK_ANY`) **D-2352**;
 loot_classify subclass deferred; count-N PICK_ONE `n_or_more` + force-to-N + `all_but_uchain` PICK_ANY + floor/minvent FOLLOW chain **D-2350**; **floor TRADITIONAL `query_classes` D-1620**) + **`:` `container_contents` `sortloot` + 
 `add_to_container` merge / corpse `spe` gender** (D-0383; 
 nested/identified discover deferred; **`observe_quantum_cat` D-1535**); 

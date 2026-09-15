@@ -43,8 +43,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `pickup.c` query_objlist_pickup count-N PICK_ONE arm runs the PICK_ANY-only FEEL_COCKATRICE abort + SORTLOOT_PETRIFY augment (C gates both on `qflags & FEEL_COCKATRICE`, set only at `pickup.c:774-776`). Fix: gate `sortflags |= SORTLOOT_PETRIFY` and the will_feel abort on `how === PICK_ANY`. Source: reviews/loop-unattended/1316-b214fb72-pickup-floor-pickup-body.md.
-
 A **JS throw** in any corpus session (`hidden-proxy status` owner
 `js-throw …`, or a `ReferenceError` in `.cache/hidden/scores.json`
 `error`) is always a Must-fix row: it forfeits every later screen of that

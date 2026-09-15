@@ -134,3 +134,5 @@ full-suite green is the backstop.
    PICK_ANY`. One port iter; falsifier above.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-2352

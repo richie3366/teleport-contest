@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-2352 — `pickup.c` count-N PICK_ONE arm drops PICK_ANY-only FEEL_COCKATRICE abort + SORTLOOT_PETRIFY (review 1316 Must-fix)
+
+- **Status:** fixed (Must-fix queue head from review 1316 `query_objlist_pickup` count-N arm; review stamped **Addressed:** D-2352.)
+- **Symptom:** no corpus divergence (0 sessions blocked) — C-wrong on a newly live arm: C shows `"Pick N of what?"` while JS `look_here`-aborted whenever a feelable cockatrice corpse was ranked (allowed with quan≥N, or augment-included with quan<N) alongside 2+ qualifying piles.
+- **C locus:** `nethack-c/upstream/src/pickup.c` `pickup` `:761–772` (count-N arm: `"Pick %d of what?"` + PICK_ONE `n_or_more`, no FEEL_COCKATRICE) vs `:774–776` (PICK_ANY arm: `traverse_how | FEEL_COCKATRICE`); `query_objlist` gates both the `SORTLOOT_PETRIFY` augment and the CORPSE `will_feel_cockatrice` menu-destroy/`look_here(0)` abort on `qflags & FEEL_COCKATRICE`.
+- **JS was:** `js/pickup.js` `query_objlist_pickup` unconditionally set `sortflags = SORTLOOT_PETRIFY` and always `will_feel`-aborted to `look_here` — correct for PICK_ANY manual (D-1599), wrong for the new count-N PICK_ONE arm (D-2350).
+- **Fix:** `js/pickup.js` only (+11/−4, no new modules, no new imports — `PICK_ANY` already imported): `sortflags` starts `(how === PICK_ANY) ? SORTLOOT_PETRIFY : 0`, and the CORPSE `will_feel_cockatrice` abort is gated on `how === PICK_ANY`; C-cited comments on both gates plus the doc header. PICK_ANY path byte-identical behavior.
+- **JS:** 1 js file (+11/−4). No new modules, no new module edges.
+- **Verify:** `node scripts/verify.mjs --fn pickup` → PASS syntax (1 changed js file) · PASS rule2 · note hidden (vacuous: 0 blocked at HEAD — NOT a corpus PASS; the row cited 0 corpus blocks and review 1316 re-measured 0 blocked at `b214fb72~1`, so no `--base` owed) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · VERIFY: PASS. Pre-change `node scripts/verify.mjs --no-cohort` on the clean tree → VERIFY: PASS (green 2/2 + strict ×2). No committed unit test: no `tests/` dir and no test script in package.json — sessions are the suite (D-2350 precedent); the count-N arm is reached by no public or corpus session (review 1316 states full-suite green is the backstop) and `query_objlist_pickup` is file-local async over display/input, infeasible to unit-probe headless.
+- **Named omissions:** none new.
+- **Next:** do not re-pop `query_objlist_pickup`/`pickup` for this arm. Falsifier: count-N pickup over a feelable-cockatrice-corpse pile, C menu vs JS abort. No seed/step/coordinate gates.
+
 ## D-2351 — `end.c` done_in_by vampire-bat arm polarity (`!==` → `===`)
 
 - **Status:** fixed (Must-fix queue head from review 1314 `done_in_by` imitator predicate; review stamped **Addressed:** D-2351.)
