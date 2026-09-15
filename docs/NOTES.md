@@ -11,6 +11,7 @@ Parks: re-pop only on the listed falsifier (proofs in Parked).
 
 - **Presence-only:** mkclass_aligned/get_location, gethungry/maybe_generate/mattacku/u_calc_moveamt/exercise, dochug/dotrap/mintrap/nh_timeout/mon_break_armor.
 - **in_or_out_menu parked** STALE DUPLICATE (full proof: Parked row). Falsifier: verify blocked with it as owner.
+- **untrap parked** STALE DUPLICATE (D-1813+D-2305+D-2372 shipped; 0 blocked). Falsifier: verify blocked with untrap-envelope owner.
 - **Fortress guards** (do not reopen): display_inventory, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue S_ndoor, bigrm-2, getpos, summonmu, lookat, do_statusline1, snapshot, fakewiz, Ice/Boulder, roles[], pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
 - **ggetobj/take_off/cancel_doff parked** STALE DUPLICATE (fixed, 0 blocked on all 7 family fns; D-numbers: Parked row). Falsifier: verify blocked with any family fn as owner.
 - **Symptom parks:** obj_resists/m_move/rloc/lightdamage/mattackm/can_carry/spoteffects/mon_adjust_speed/zapyourself/doname_base/hmonas/minliquid_core/distfleeck/passiveum; do_statusline1/2 paint-timing; slimed landing + Sick-store.
