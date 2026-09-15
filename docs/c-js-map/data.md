@@ -783,7 +783,7 @@ flip `fix_wall_spines`** (**D-1820 `soko2-2`**; `soko4-1` D-0756);
 `is_exclusion_zone`** (omit `m_into_limbo`; **D-1109 `lspo_exclusion`**; `undestroyable_trap`; 
 other soko*-*; **D-0526 Bar-strt through Pelias/chieftains/trap/eels/ogre floodfill/flip/branch**; 
 **D-0588 `Arc-strt` load_special + `splev_discard_default_minvent` (`mdrop_special_objs` 
-obj_resists)**; Pelias/`Lord Carnarvon`/`Arch Priest` `m_dowear` live (D-2335); 
+obj_resists)**; Pelias/`Lord Carnarvon`/`Arch Priest` `m_dowear` live (D-2335) + King Arthur/Grand Master `m_dowear` live (D-2342); 
 **D-0637 `Pri-strt` load_special** (map/temple/altar/Arch Priest 
 invent/acolytes/trees/darts/zombies/flip/branch); 
 **D-0642 `Pri-loca` load_special** (mines lit-field + 

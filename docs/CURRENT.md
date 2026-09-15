@@ -80,10 +80,11 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `dungeon.c` save_dungeon (head after 2026-09-15 mon_adjust_speed duplicate-park removal: blocks 8/553, scen-genesis-Barbarian-91118 first at step 113; 09-07 MISATTRIBUTED park predates scoreboard — this iter measures the C overview-menu writer (`print_mapseen`/`add_menu_heading` centering) or re-parks). Probe: `node scripts/hidden-proxy.mjs verify save_dungeon`. Prior cluster (`monmove.c` can_hide_under_obj coins/pet-cursed/cockatrice) shipped D-2340 (review 1306 ACCEPT). NOTE 2026-09-15: the `worn.c` mon_adjust_speed Open row duplicated LOOP-QUEUE.md:162 MISATTRIBUTED park (fresh probe reproduced it exactly; Open line removed, no js/, no D-log).
+**Next cluster:** `sp_lev.c` spo_end_moninvent m_dowear for Kni-strt King Arthur + Mon-strt Grand Master custom invents (follow-up to shipped D-2335 Pelias/Lord Carnarvon/Arch Priest wear row; still deferred at the Kni/Mon loaders in js/mklev.js). Probe: `node scripts/brief.mjs m_dowear`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2341 (index).**
+**Keep D-0845…D-2342 (index).**
 <!-- recent:begin -->
+**D-2342** `nethack-c/upstream/src/sp_lev.c` `spo_end_moninvent` `:3031–3036` (`m_dowear(invent_carry — `js/mklev.js` only, zero new module edges (`imports.mjs --can mklev.js worn.js m_dowear` → ALREADY: file already statically imports worn.js).
 **D-2341** `end.c` `done_in_by` `:184-344` — `js/end.js` — 5 names join existing imports (no new edges: `m_monnam`, `is_vampshifter`, `strstri`, `the_unique_pm`, `BUFSZ`; all `imports.mjs --can` ALREADY); imitator arm in C order incl. mimicker `mons(mappearance)` +
 **D-2340** `nethack-c/upstream/src/mon.c` `hideunder` `:4725–4802`, concealer arm `:4752–4772` (`hide — 4 js files (+61/−23), no new modules.
 **D-2339** `nethack-c/upstream/src/makemon.c` `makemon` — `js/makemon.js` only, zero new module edges (`MM_NOCOUNTBIRTH` joins the existing const.js import; `propagate` is same-file — no new cross-module import, so no `imports.mjs --can` owed).
@@ -91,11 +92,10 @@ Do **not** pop map-omission singletons
 **D-2337** `nethack-c/upstream/src/artifact.c` `mk_artifact` `:172–309` (eligibility gather `:188–245 — extractor parses A() args[12]/args[13] as `genSpe`/`giftValue` and emits them; `js/generated/artifacts_data.js` regenerated via the checked-in extractor (34 rows gain the two fields, values spot-checked vs C); `artifacts
 **D-2336** `nethack-c/upstream/src/sp_lev.c` `flip_level` `:698–734` (lregion arm flips inarea+delare — `js/mklev.js` only, zero new module edges (all names file-local; no `imports.mjs --can` needed — no new cross-module import).
 **D-2335** `nethack-c/upstream/src/sp_lev.c` `spo_end_moninvent` `:3031–3036` (`m_dowear(invent_carry — `js/mklev.js` only.
-**D-2334** `nethack-c/upstream/src/sp_lev.c` `map_cleanup` `:328–356` (28-line body; callers `:6029`/ — `js/mklev.js` only, zero new module edges (`imports.mjs --can` ALREADY ×2: `deltrap` joins the existing trap.js import, `engr_at`/`del_engr` join the existing engrave.js import): trap arm `const ttmp = t_at(x, y); if (tt
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2341; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2342; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

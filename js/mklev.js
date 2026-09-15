@@ -6324,7 +6324,8 @@ function load_arc_goal() {
  * C ref: dat/Kni-strt.lua via load_special — Knight quest start (Arthur).
  * solidfill ROOM then mines fg=bg="." lit-field kludge; Camelot map;
  * COURT FILL_LVFLAGS; CUSTOM_INVENT Excalibur + plate; warhorse saddles.
- * Named omissions: spo_end_moninvent m_dowear; humidity get_location;
+ * King Arthur invent wears via m_dowear (sp_lev.c spo_end_moninvent).
+ * Named omissions: humidity get_location;
  * light_region wall expansion; ensure_way_out / map_cleanup.
  */
 async function load_kni_strt() {
@@ -6465,7 +6466,9 @@ async function load_kni_strt() {
                     mpickobj(mtmp, otmp);
                 }
             }
-            // spo_end_moninvent → m_dowear deferred
+            // C: sp_lev.c spo_end_moninvent `:3032–3035` → m_dowear(TRUE) after
+            // King Arthur custom invent (creation: sync-through, no messages/RNG).
+            m_dowear(mtmp, true);
         }
     }
 
@@ -10025,7 +10028,8 @@ async function load_ran_filb() {
  * FILL_LVFLAGS), floodfill runs before des.terrain (same ROOM seed either
  * way), Grand Master + robe +6 invent, no chest (tin + rations instead),
  * 8 abbots, 8 earth elementals + 4 xorns on siege duty.
- * Named omissions: humidity-aware get_location; spo_end_moninvent m_dowear.
+ * Grand Master invent wears via m_dowear (sp_lev.c spo_end_moninvent).
+ * Named omissions: humidity-aware get_location.
  */
 function load_mon_strt() {
     const g = game;
@@ -10169,7 +10173,9 @@ function load_mon_strt() {
                 obj_extract_self(otmp);
                 mpickobj(mtmp, otmp);
             }
-            // spo_end_moninvent → m_dowear deferred
+            // C: sp_lev.c spo_end_moninvent `:3032–3035` → m_dowear(TRUE) after
+            // Grand Master custom invent (creation: sync-through, no messages/RNG).
+            m_dowear(mtmp, true);
         }
     }
 
