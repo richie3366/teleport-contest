@@ -1891,7 +1891,7 @@ async function steedintrap(trap, otmp) {
     case SLP_GAS_TRAP:
         if (!resists_sleep(steed) && !breathless(steed.data)
             && !helpless(steed)) {
-            if (sleep_monst(steed, rnd(25), -1)) {
+            if (await sleep_monst(steed, rnd(25), -1)) {
                 /* no in_sight check here; you can feel it even if blind */
                 await pline(`${Monnam(steed)} suddenly falls asleep!`);
             }
@@ -3981,16 +3981,18 @@ function helpless(mtmp) {
 }
 
 /**
- * C ref: mhitm.c sleep_monst — how < 0 skips mimic reveal / resist().
- * Envelope: resists_sleep shield; else if mcanmove freeze via mfrozen.
- * Named omissions: defended(AD_SLEE); how>=0 seemimic/resist; shieldeff;
+ * C ref: mhitm.c sleep_monst :1223-1246 — trap path (D-0256 callers pass
+ * how=-1, so C still checks resists_sleep/defended + shieldeff).
+ * C order: resists_sleep || defended(AD_SLEE) || (how>=0 && resist)
+ * → shieldeff + return 0; defended() is RNG-free, shieldeff display-only.
+ * Named omissions: how>=0 seemimic/resist (music path live D-2357);
  * full finish_meating mimic AP reset (inline meating=0 only).
  */
-function sleep_monst(mon, amt, how) {
+async function sleep_monst(mon, amt, how) {
     if (!mon) return 0;
-    // how >= 0 mimic reveal / resist(how) deferred
-    if (resists_sleep(mon) /* || defended(mon, AD_SLEE) */) {
-        // shieldeff deferred
+    // how >= 0 mimic reveal / resist(how) deferred (music path live D-2357)
+    if (resists_sleep(mon) || defended(mon, AD_SLEE)) {
+        await shieldeff(mon.mx, mon.my);
         return 0;
     }
     if (mon.mcanmove) {
@@ -4763,7 +4765,7 @@ async function trapeffect_slp_gas_trap(mtmp, trap, _trflags) {
     }
     const in_sight = canseemon(mtmp) || (mtmp === game.u?.usteed);
     if (!resists_sleep(mtmp) && !breathless(mtmp.data) && !helpless(mtmp)) {
-        if (sleep_monst(mtmp, rnd(25), -1) && in_sight) {
+        if (await sleep_monst(mtmp, rnd(25), -1) && in_sight) {
             await pline(`${Monnam(mtmp)} suddenly falls asleep!`);
             seetrap(trap);
         }

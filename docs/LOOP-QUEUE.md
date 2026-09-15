@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `mhitm.c` sleep_monst trap-path clone defended/shieldeff (trap.js `sleep_monst` keeps its own named omit, turns.md:2000; sleep-gas/steed callers pass how=-1 so C still checks resists_sleep/defended + shieldeff, data.md:1065 D-0256; music path live D-2357; never own-row live/archived/parked). Probe: `node scripts/brief.mjs sleep_monst`.
 - [ ] `dig.c` adj_pit_checks ladder arm (dig.c:1812 `On_ladder` live-unwired, turns.md:2391 D-1950; archived D-2321 row is the pitdig branch, not this arm; never own-row live/parked). Probe: `node scripts/brief.mjs adj_pit_checks`.
 - [ ] `muse.c` searches_for_item FOOD corpse/tin/egg + can_blow polish (D-0598 shipped potion/wand/scroll/amulet/tool subset; Is_container/Is_mbag D-0861; turns.md:2768; never own-row live/archived/parked). Probe: `node scripts/brief.mjs searches_for_item`.
 - [ ] `monmove.c` mon_would_consume_item body (underfoot/can_carry family turns.md:2768, D-0183/D-0223 shipped the wiring; never own-row live/archived/parked). Probe: `node scripts/brief.mjs mon_would_consume_item`.
