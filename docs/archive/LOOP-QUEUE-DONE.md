@@ -5,10 +5,13 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `spell.c` spelleffects non-standard cast otyps + oc_charged (D-2369 split: dovspell swap/sort shipped; remainder is turns.md:2961 named omits — remaining peffects mix/potionhit/potionbreathe, scroll-duplicate REMOVE_CURSE/CONFUSE_MONSTER/CAUSE_FEAR/IDENTIFY/CHARM_MONSTER, SPE_DRAIN_LIFE, doorlock/zap_updown/steed, traditional getspell yn, CQ_REPEAT/amulet drain; never own-row live/archived/parked). Probe: `node scripts/brief.mjs spelleffects`. **Addressed:** D-2369
+- [x] `artifact.c` artitouch quest-artifact touch arms (no `artitouch` symbol in `js/`; Deferred invoke-touch family; never own-row live/archived/parked). Probe: `node scripts/brief.mjs artitouch`. **Addressed:** D-2370
 
 
-- [x] `spell.c` dovspell VIEW swap/sort + non-standard cast otyps/oc_charged (debt.md:20 residual; live js/spell.js:1310; never own-row live/archived/parked). Probe: `node scripts/brief.mjs dovspell`. **Addressed:** D-2369
+- [x] `spell.c` spelleffects non-standard cast otyps + oc_charged (D-2369 split: dovspell swap/sort shipped; remainder is turns.md:2961 named omits — remaining peffects mix/potionhit/potionbreathe, scroll-duplicate REMOVE_CURSE/CONFUSE_MONSTER/CAUSE_FEAR/IDENTIFY/CHARM_MONSTER, SPE_DRAIN_LIFE, doorlock/zap_updown/steed, traditional getspell yn, CQ_REPEAT/amulet drain; never own-row live/archived/parked). Probe: `node scripts/brief.mjs spelleffects`. **Addressed:** D-2369 `229bdd8a`
+
+
+- [x] `spell.c` dovspell VIEW swap/sort + non-standard cast otyps/oc_charged (debt.md:20 residual; live js/spell.js:1310; never own-row live/archived/parked). Probe: `node scripts/brief.mjs dovspell`. **Addressed:** D-2369 `229bdd8a`
 
 
 - [x] `sp_lev.c` is_ok_location HOT/WET/SOLID humidity arms + Is_waterlevel short-circuit (data.md:910 named; local clone js/mklev.js:18515, get_location park names the short-circuit unreached; never own-row live/archived/parked). Probe: `node scripts/brief.mjs is_ok_location`. **Addressed:** D-2368 `4b4edfa4`

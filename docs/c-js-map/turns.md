@@ -1267,7 +1267,8 @@ quiver-prefer / worn-slot / oname / globby / `#adjust` `invent_merged` compare m
 `how_lost` deferred; **`addinv_core0` thrown-autoquiver fill live on fresh insert only** (pickup_thrown + empty 
 quiver + throwing_weapon/is_ammo → setuqwep; D-2044; merge paths `goto added` bypass the fill — no setuqwep on merge, D-2048); \
 **`addinv_core1` live in `js/u_init.js`** (COIN botl, AMULET/CANDELABRUM/BELL/BOOK uhave+record_achievement, \
-oartifact W_ART, mines/soko prize achievement+oid-clear+nomerge=0; questart/artitouch stays named))
+oartifact W_ART, mines/soko prize achievement+oid-clear+nomerge=0; questart `uhave.questart=1` + `artitouch` D-2370; \
+already-have impossible() arms stay named))
 
 ### `src/do_name.c` `oname` / `docallcmd`
 

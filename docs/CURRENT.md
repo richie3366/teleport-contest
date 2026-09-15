@@ -80,10 +80,11 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `spell.c` dovspell VIEW swap/sort + non-standard cast otyps/oc_charged (debt.md:20 residual; live js/spell.js:1310; never own-row live/archived/parked). Probe: `node scripts/brief.mjs dovspell`.
+**Next cluster:** `artifact.c` artitouch quest-artifact touch arms (no `artitouch` symbol in `js/`; Deferred invoke-touch family; never own-row live/archived/parked). Probe: `node scripts/brief.mjs artitouch`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2369 (index).**
+**Keep D-0845…D-2370 (index).**
 <!-- recent:begin -->
+**D-2370** `nethack-c/upstream/src/quest.c` `artitouch` `:125–136` (`!Qstat(touched_artifact)` → `obs — 2 js files, no new modules (`imports.mjs --can` SAFE on `is_quest_artifact`; `quest.js → invent.js` ALREADY; new `u_init → quest` edge reads both names only at runtime inside `addinv_core1` — no top-level TDZ read): new 
 **D-2369** `nethack-c/upstream/src/spell.c` `dovspell` `:2021–2053` (VIEW loop; `SPELLMENU_SORT` → `s — `js/spell.js` only, no new modules, no new module edges (all names — `ATR_INVERSE`, `paint_corner_nhw_menu`, `dismiss_nhw_menu`, `flush_screen`, `nhgetch`, `objectNameStrs`, `game.objects` oc_level/oc_skill, `ECMD_OK` — 
 **D-2368** `nethack-c/upstream/src/sp_lev.c` `is_ok_location` `:1280–1308` (`:1284–1285` `Is_waterlev — `js/mklev.js` only, no new modules, no new module edges (`imports.mjs --can` ALREADY on both: `is_pool`/`is_lava` join the existing `./hack.js` import, `Is_waterlevel` rides the pre-existing `./const.js` edge — all used 
 **D-2367** `nethack-c/upstream/src/pray.c` `bestow_artifact` `:1781–1836` (raw `u.ulevel > 2 && u.ulu — `js/pray.js` only, no new modules, no new module edges (all four artifact names + `y_n` ride pre-existing edges — `imports.mjs --can` ALREADY on both; used only at runtime inside the function body — no top-level TDZ read
@@ -91,11 +92,10 @@ Do **not** pop map-omission singletons
 **D-2365** `nethack-c/upstream/src/monmove.c` `mon_would_consume_item` `:1036–1050` (`CORPSE && !touc — `js/monmove.js` only, no new modules, no new module edges (`imports.mjs --can` ALREADY on both: `dogfood` joins the existing `dogmove.js` import, `EDOG`/`has_edog`/`ACCFOOD`/`MANFOOD` join the existing `const.js` import 
 **D-2364** `nethack-c/upstream/src/muse.c` `searches_for_item` `:2706–2792` (floor `OBJ_FLOOR` + unde — `js/muse.js` only, no new modules, no new module edges (all three names ride pre-existing edges, used only at runtime inside the function body — no top-level TDZ read): floor gate gains `&& onscary(obj.ox, obj.oy, mon)` 
 **D-2363** `nethack-c/upstream/src/mhitm.c` `sleep_monst` `:1223–1246` (`:1226–1229` how>=0 mimic `se — `js/trap.js` only (+11/−9, no new modules, no new module edges — `defended` already imported from `./mondata.js:138`, `shieldeff` from `./display.js`, `AD_SLEE=4` file-local at `:519`, all already used: `defended` at `:5
-**D-2362** `nethack-c/upstream/src/pray.c` `pleased` `:1071–1381` (gift switch `:1167–1354`: case 1 ` — `js/pray.js` (+~200): new async `give_spell` in C order/conjuncts next to `pleased` (C home; `SPBOOK_no_NOVEL = 0-SPBOOK_CLASS` per objclass.h:152; `spe_Unknown`/`spe_Fresh`/`spe_Forgotten` match the C spell.h enum arm-f
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2369; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2370; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
