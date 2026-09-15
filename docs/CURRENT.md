@@ -81,10 +81,11 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** Open `region.c` region_danger/region_safety geometric residual (turns.md:1599; envelope D-1011/D-1169 shipped; residual never own-row live/archived/parked). Probe: `node scripts/brief.mjs region_safety`.
+**Next cluster:** Open `trap.c` back_on_ground full surface matrix (D-1011 deferred thin lava-rescue; turns.md:1617; never own-row live/archived/parked). Probe: `node scripts/brief.mjs back_on_ground`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2383 (index).**
+**Keep D-0845…D-2384 (index).**
 <!-- recent:begin -->
+**D-2384** `nethack-c/upstream/src/trap.c:4975-5008` (over/on preposit; `surface()`; is_ice→ice_descr — `back_on_ground` ported arm-for-arm in C order over the shared `surface()` (sit.js D-2008) with the file-local `hero_Levitation()`/`hero_Flying()` preposit gate, `an`/`the` (objnam.js) matrix arms, `game.flags?.verbose !
 **D-2383** `nethack-c/upstream/src/region.c:1341–1363` (`region_danger`: `!hero_inside` skip, gas_clo — both loops use the file-local `hero_inside(reg)` (no new edge, no TDZ — same-file function declaration); safety dual-writes flat + `uprops[MAGICAL_BREATHING].intrinsic` TIMEOUT bits (HBlinded precedent in `do.js`; `MAGIC
 **D-2382** `nethack-c/upstream/src/hack.c:1266–1523` (`findtravelpath`: entry alloc `:1268–1269`, TRA — `js/cmd.js` — `travelmap_ensure()` (C `:1268–1269`; per-game heap on `game.travelmap`, never saved, like C) + `TRAVEL_NOPATH/STEP/STEP_UNSURE` tri-state (C returns boolean, but `You` is async-only in JS, so the sync BFS 
 **D-2381** `nethack-c/upstream/src/trap.c:3937–4006` (`float_up`); `dig.c:1884–1932` (`buried_ball`); — BURIEDBALL arm calls `buried_ball(cc)` (newly exported from `js/dig.js:514`, verified arm-for-arm vs C: `!u.utrap || TT_BURIEDBALL` gate, exact-spot return, dist2≤8 nearest + cc mutation) and reads `IS_ROOM` at the ball 
@@ -92,11 +93,10 @@ Do **not** pop map-omission singletons
 **D-2379** `nethack-c/upstream/src/dungeon.c` `ceiling` (vault/temple/SHOPBASE `*in_rooms` → "vault's — `js/trap.js` `ceiling` ported arm-for-arm in C order (wording cross-checked against the live full `js/zap.js:2482` `ceiling_updown` that serves zap_updown probing).
 **D-2378** `nethack-c/upstream/src/artifact.c:715–893` (`set_artifact_intrinsic`; `dtyp=(wp_mask!=W_A — `js/artifact.js` — defn/cary→(prop, E* flat) seven-way map written through the existing dual-write `set_spfx_extrinsic` (C E* macros ARE `uprops[].extrinsic`; JS gates read the flats, e.g.
 **D-2377** `nethack-c/upstream/src/potion.c:716–768` (`peffect_water`; blessed+!hates arm `:744–750`  — replaced with `await make_sick(0, null, true, SICK_ALL)` (same-file callee — no new import, no new module edge, no TDZ; matches the `curesick` precedent at `js/potion.js:2171`); doc comment + `turns.md:526` updated.
-**D-2376** `nethack-c/upstream/src/mkobj.c:1497–1669` (`shrink_glob`: `item_on_ice` before the globby — `js/mkobj.js` — file-local `NOT_ON_ICE/SET_ON_ICE/BURIED_UNDER_ICE` consts + `item_on_ice` (JS `get_obj_location` returns `{x,y}|null`, so the C boolean+out-param gate becomes a null check with the FLOOR/BURIED switch on
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2383; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2384; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

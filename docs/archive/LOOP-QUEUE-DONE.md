@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `region.c` region_danger/region_safety geometric residual (turns.md:1599; envelope D-1011/D-1169 shipped; residual never own-row live/archived/parked). Probe: `node scripts/brief.mjs region_safety`. **Addressed:** D-2383
+- [x] `trap.c` back_on_ground full surface matrix (D-1011 deferred thin lava-rescue; turns.md:1617; never own-row live/archived/parked). Probe: `node scripts/brief.mjs back_on_ground`. **Addressed:** D-2384
+
+
+- [x] `region.c` region_danger/region_safety geometric residual (turns.md:1599; envelope D-1011/D-1169 shipped; residual never own-row live/archived/parked). Probe: `node scripts/brief.mjs region_safety`. **Addressed:** D-2383 `c30e0585`
 
 
 - [x] `hack.c` findtravelpath TEST_TRAV/guess/travelmap (TOP30 #29: C 257 vs JS absent; travel `_` adjacent/greedy only; never own-row live/archived/parked). Probe: `node scripts/brief.mjs findtravelpath`. **Addressed:** D-2382 `87c59279`

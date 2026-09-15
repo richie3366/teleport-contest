@@ -1614,7 +1614,7 @@ Wizard/Elf/Valkyrie power-count + Soundeffect deferred at other losehp call site
 `finish_maybe_wail`); omit `showdamage`/`done(DIED)` bodies (monster kills use `done_in_by` 
 D-0190); fulll `end_running`/`cmdq_clear`; 
 **`overexert_hp` + melee `overexertion` HVY_ENCUMBER** (D-1003); pool/trap/sink; 
-**`describe_decor` mention_decor** (D-0356; D-1835 Fumbling defer / waterhere `waterbody_name` / ice `Norep` / `back_on_ground` / `force_decor` / `deferred_decor` timeout catch-up; 
+**`describe_decor` mention_decor** (D-0356; D-1835 Fumbling defer / waterhere `waterbody_name` / ice `Norep` / `back_on_ground` full matrix + `ice_descr` shipped D-2384 (`js/trap.js`; other ice_descr callers keep local wording) / `force_decor` / `deferred_decor` timeout catch-up; 
 **`waterbody_name` Medusa/juiblex/samurai/ICE/waterlevel** D-0928 #1163; 
 **SURFACE_AT/`db_under_typ` D-1103**; ice_descr / `dfeature_at` ice/pool/lava/throne/drawbridge still named); 
 Passes_walls/autodig/chew; Blind `feel_location`/`autopick` arms; 
