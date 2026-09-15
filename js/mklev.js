@@ -149,6 +149,7 @@ import { monst_to_any } from './hack.js';
 import { begin_burn } from './timeout.js';
 import { nexttodoor } from './fountain.js';
 import { ndemon } from './minion.js';
+import { m_dowear } from './worn.js'; // C: sp_lev.c spo_end_moninvent → m_dowear(TRUE); creation path runs sync-through (no await), same as makemon.js
 import { readobjnam, rnd_otyp_by_namedesc } from './readobjnam.js';
 // C mkmap.c envelope lives in ./mkmap.js; splev_initlev MINES awaits it.
 // Cycle-safe: mkmap only calls back into mklev function declarations.
@@ -4305,9 +4306,9 @@ function load_bigrm_12() {
 
 /**
  * C ref: dat/Bar-strt.lua via load_special — full script through branch
- * levregion; m_dowear after Pelias invent still partial.
- * Named omissions: m_dowear after custom invent; flip_level lregion
- * coord update (C also leaves lregions unflipped in this port path).
+ * levregion; m_dowear after Pelias invent live (sp_lev.c spo_end_moninvent).
+ * Named omissions: flip_level lregion coord update
+ * (C also leaves lregions unflipped in this port path).
  */
 function load_bar_strt() {
     const g = game;
@@ -4428,7 +4429,9 @@ function load_bar_strt() {
                 obj_extract_self(otmp);
                 mpickobj(mtmp, otmp);
             }
-            // spo_end_moninvent → m_dowear deferred (C-JS-MAP)
+            // C: sp_lev.c spo_end_moninvent `:3032–3035` → m_dowear(TRUE) after
+            // Pelias custom invent (creation: sync-through, no messages/RNG).
+            m_dowear(mtmp, true);
         }
     }
 
@@ -5206,8 +5209,8 @@ function load_wiz_goal() {
 
 /**
  * C ref: dat/Pri-strt.lua via load_special — Priest quest start.
- * Named omissions: spo_end_moninvent m_dowear after Arch Priest invent;
- * flip_level lregion coord update (same shortcut as Bar-strt);
+ * Arch Priest invent wears via m_dowear (sp_lev.c spo_end_moninvent).
+ * Named omissions: flip_level lregion coord update (same shortcut as Bar-strt);
  * fill_special_room TEMPLE beyond FILL_LVFLAGS has_temple.
  */
 function load_pri_strt() {
@@ -5348,7 +5351,9 @@ function load_pri_strt() {
                 obj_extract_self(otmp);
                 mpickobj(mtmp, otmp);
             }
-            // spo_end_moninvent → m_dowear deferred
+            // C: sp_lev.c spo_end_moninvent `:3032–3035` → m_dowear(TRUE) after
+            // Arch Priest custom invent (creation: sync-through, no messages/RNG).
+            m_dowear(mtmp, true);
         }
     }
 
@@ -5722,7 +5727,8 @@ xxxxx...xxxxxx....xxxxxxxx
 
 /**
  * C ref: dat/Arc-strt.lua via load_special — Archeologist quest start.
- * Named omissions: spo_end_moninvent m_dowear;
+ * Lord Carnarvon invent wears via m_dowear (sp_lev.c spo_end_moninvent).
+ * Named omissions:
  * humidity-aware get_location for water-likers (eels use fixed moat).
  */
 function load_arc_strt() {
@@ -5836,6 +5842,9 @@ function load_arc_strt() {
                 obj_extract_self(otmp);
                 mpickobj(mtmp, otmp);
             }
+            // C: sp_lev.c spo_end_moninvent `:3032–3035` → m_dowear(TRUE) after
+            // Lord Carnarvon custom invent (creation: sync-through, no messages/RNG).
+            m_dowear(mtmp, true);
         }
     }
 

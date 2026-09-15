@@ -80,10 +80,11 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `sp_lev.c` map_cleanup deltrap/del_engr arms (named data.md:667, D-0774 residual; never live/archived/parked). Probe: `node scripts/brief.mjs map_cleanup`.
+**Next cluster:** `mon.c` m_dowear Pelias/Lord Carnarvon/Arch Priest quest specials (named data.md:785; worn.c m_dowear_type is a different fn; never live/archived/parked). Probe: `node scripts/brief.mjs m_dowear`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2334 (index).**
+**Keep D-0845…D-2335 (index).**
 <!-- recent:begin -->
+**D-2335** `nethack-c/upstream/src/sp_lev.c` `spo_end_moninvent` `:3031–3036` (`m_dowear(invent_carry — `js/mklev.js` only.
 **D-2334** `nethack-c/upstream/src/sp_lev.c` `map_cleanup` `:328–356` (28-line body; callers `:6029`/ — `js/mklev.js` only, zero new module edges (`imports.mjs --can` ALREADY ×2: `deltrap` joins the existing trap.js import, `engr_at`/`del_engr` join the existing engrave.js import): trap arm `const ttmp = t_at(x, y); if (tt
 **D-2333** `nethack-c/upstream/src/wield.c` `wield_tool` `:683–758` (guard envelope; caller `dorub` ` — `js/wield.js` only.
 **D-2332** `nethack-c/upstream/src/pray.c` `angrygods` `:703–784` (case 2/3 `losexp((char *)0)` `:739 — `js/pray.js` only, zero new module edges (`imports.mjs --can` ALREADY ×2: `losexp` joins the existing exper.js import, `hcolor` joins the existing do_name.js import): case 2/3 awaits live `losexp(null)` and the 29-line `
@@ -91,11 +92,10 @@ Do **not** pop map-omission singletons
 **D-2330** `nethack-c/upstream/src/trap.c` `launch_obj` `:3533–3541` — `js/trap.js` only, zero new imports (file-local `closed_door` :707 is the C predicate — IS_DOOR + D_CLOSED|D_LOCKED; `cansee`/`set_msg_xy`/`recalc_block_point`/`pline`/`BOULDER`/`D_BROKEN` all already imported): current-
 **D-2329** `nethack-c/upstream/src/ball.c` `drop_ball` `:881–961` (whole body, C order) + callers `do — `js/ball.js` gains exported async `drop_ball(x,y)` in C arm order — Blind `bc_order`+`bglyph` snapshot; `x != ux || y != uy` gate; utrap yank for every type but INFLOOR/BURIEDBALL (pit / web + `Soundeffect(se_destroy_web
 **D-2328** `nethack-c/upstream/src/steed.c` `use_saddle` `:63–69` — `js/steed.js` only, no new static module edges: `poly_when_stoned` joins the existing `monsters.js` import and `Mgender` joins the existing `do_name.js` import (`imports.mjs --can` ALREADY for both); `PM_STONE_GOLEM` con
-**D-2327** `nethack-c/upstream/src/dungeon.c` `surface` `:1749–1788` — clone deleted; `js/dig.js` imports the shared C-order `surface` from `js/sit.js` (D-2008 home: SURFACE_AT/`db_under_typ`, air-bubble, pool, ice, lava, bridge, SDOOR, earthlevel gate) with a C-citing import comment.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2334; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2335; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

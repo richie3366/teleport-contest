@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `sp_lev.c` map_cleanup deltrap/del_engr arms (named data.md:667, D-0774 residual; never live/archived/parked). Probe: `node scripts/brief.mjs map_cleanup`.
+- [x] `mon.c` m_dowear Pelias/Lord Carnarvon/Arch Priest quest specials (named data.md:785; worn.c m_dowear_type is a different fn; never live/archived/parked). Probe: `node scripts/brief.mjs m_dowear`. **Addressed:** D-2335
+
+
+- [x] `sp_lev.c` map_cleanup deltrap/del_engr arms (named data.md:667, D-0774 residual; never live/archived/parked). Probe: `node scripts/brief.mjs map_cleanup`. **Addressed:** D-2334 `d8a41af3`
 
 
 - [x] `apply.c` dorub #rub/wield_tool envelope (named turns.md:1911 re-queue, D-0710; never live/archived/parked). Probe: `node scripts/brief.mjs dorub`. **Addressed:** D-2333 `0d320968`
