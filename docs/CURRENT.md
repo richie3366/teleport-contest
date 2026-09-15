@@ -79,7 +79,7 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** Open `pickup.c` in_or_out_menu more-containers 'n' (turns.md:1545 D-1592; doloot_core live; never own-row live/archived/parked). Probe: `node scripts/brief.mjs in_or_out_menu`.
+**Next cluster:** Open `do_wear.c` ggetobj takeoff + take_off occupation + cancel_doff (turns.md:1071-1076 D-1602/D-1619/D-1766) — verdict STALE DUPLICATE, parked 2026-09-15 (all three D-numbers fixed, bodies live and C-cited, 0 blocked on all 7 family fns; probe in NOTES.md). Queue refilled to 12 Open.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2388 (index).**
 <!-- recent:begin -->
