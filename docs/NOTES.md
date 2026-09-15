@@ -16,6 +16,7 @@ Park rows: re-pop only on the listed falsifier (proofs in Parked).
 
 - `pray.c` offer_too_soon parked 2026-09-15 (STALE DUPLICATE of D-2345, review 1311 ACCEPT; proof in Parked): body `js/pray.js:2334` + wired `:2434`/`:2481`; `verify offer_too_soon` 0 blocked (vacuous, NOT a PASS) with green 2/2 + strict ×2 + cohort 7/7; live queue lists no owner. Falsifier: fresh `verify offer_too_soon` showing a session blocked with it as owner. No seed/step/coordinate gates.
 - `eat.c` eatspecial parked 2026-09-15 (STALE DUPLICATE of D-0946/D-1204; proof in Parked): every named arm live `js/eat.js:2888-2958` vs C `eat.c:2414-2486`, caller wired `:3027`, `eataccessory` live `:2701`, archived LOOP-QUEUE-DONE:3495 (D-1204); `verify eatspecial` 0 blocked (vacuous, NOT a PASS) with green 2/2 + strict ×2 + cohort 7/7. Falsifier: fresh `verify eatspecial` showing a session blocked with it as owner. No seed/step/coordinate gates.
+- `eat.c` cprefx parked 2026-09-15 (STALE DUPLICATE of D-0939/D-1081; proof in Parked): full body live `js/eat.js:3284-3368` vs C `eat.c:791-864`, both C callers wired in C order (`:2115`/`:3457`), all named helpers live incl. `same_race` undead letter families (`js/mondata.js:330`); review-06 debts resolved (revive_corpse → D-1081); `verify cprefx` 0 blocked (vacuous, NOT a PASS) with green 2/2 + strict ×2 + cohort 7/7. Falsifier: fresh `verify cprefx` showing a session blocked with it as owner. No seed/step/coordinate gates.
 
 ## Don't re-check (≤15)
 
