@@ -79,7 +79,7 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** Open `makemon.c` grow_up (TOP30 honourable 127/67; pet/horse growth path; never own-row live/archived/parked). Probe: `node scripts/brief.mjs grow_up`.
+**Next cluster:** Open `objnam.c` makeplural (TOP30 honourable 186/59, ch_ksound dead; never own-row live/archived/parked). Probe: `node scripts/brief.mjs makeplural`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2395 (index).**
 <!-- recent:begin -->
