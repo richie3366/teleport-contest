@@ -1947,7 +1947,7 @@ strange-direction pline; `?` still forces help; not `game.flags`);
 getobj missing-letter `continue`+`flush_topl_more` (D-0025); 
 **empty SUGGEST → "don't have anything"** (D-0141); **`doopen_indir` CLOSED autoopen** (D-0059); 
 **`doclose`/`c` getdir cmdassist + close envelope** (D-0740;
-**`stumble_on_door_mimic` shared door-mimic + doopen/doclose/untrap wires** D-2373 (`lock.c:758–769` is_door_mappear + !Protection gate; trap.js doorway via lazy import, floor-trap :5962 inline untouched) / portcullis deferred; **Blind feel_location/mapseen + feel/see nodoor** D-2286 — !isok before Confusion/Stunned per C order, glyph half dead, no `lev->glyph` in JS cells) +
+**`stumble_on_door_mimic` shared door-mimic + doopen/doclose/untrap wires** D-2373 (`lock.c:758–769` is_door_mappear + !Protection gate; trap.js doorway via lazy import, floor-trap :5962 inline untouched) / portcullis deferred; **PfSC gate canonical `were.js` export** D-2380 (deleted the flats-only `lock.js:618` local — C `youprop.h:355–360` H||E; worn PfSC ring sets uprops extrinsic with no E-flat mirror; `--can` SAFE hoisted fn); **Blind feel_location/mapseen + feel/see nodoor** D-2286 — !isok before Confusion/Stunned per C order, glyph half dead, no `lev->glyph` in JS cells) +
 **impaired-direction TIME + getdir-tail confdir(FALSE)** (D-2009; `lock.c`
 `if (Confusion || Stunned) res = ECMD_TIME` + `cmd.c:4116–4117`
 caller-local `confdir`, so a confused no-door close costs the C turn); 

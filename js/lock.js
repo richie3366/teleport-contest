@@ -38,6 +38,10 @@ import { PM_ROGUE, PM_WIZARD, PM_GRID_BUG, monsterNames } from './generated/mons
 import { mon_nam } from './do_name.js';
 import { SetVoice } from './sndprocs.js';
 import { stumble_onto_mimic } from './uhitm.js';
+// C youprop.h:355-360 Protection_from_shape_changers = H || E
+// (uprops[PROT_FROM_SHAPE_CHANGERS].intrinsic || .extrinsic); canonical
+// export, hoisted fn cycle-safe per imports.mjs (D-2373 follow-up).
+import { Protection_from_shape_changers } from './were.js';
 import { update_mapseen_for } from './dungeon.js';
 import { is_drawbridge_wall, is_db_wall } from './dbridge.js';
 import { m_at, wake_nearto } from './mon.js';
@@ -612,17 +616,6 @@ export async function get_adjacent_loc(prompt, emsg) {
 }
 
 /**
- * C youprop.h Protection_from_shape_changers — H || E (+ JS flat fallback,
- * same per-file idiom as Blind()/Deaf() below; macro, not a clone).
- */
-function Protection_from_shape_changers() {
-    const u = game.u || {};
-    return !!((u.HProtection_from_shape_changers | 0)
-        || (u.EProtection_from_shape_changers | 0)
-        || u.Protection_from_shape_changers);
-}
-
-/**
  * C ref: lock.c stumble_on_door_mimic `:758–769` — shared door-mimic stumble
  * for doopen_indir / doclose / untrap doorway.
  * C `is_door_mappear` (monst.h `:240`): M_AP_FURNITURE mimicking S_hcdoor or
@@ -631,6 +624,8 @@ function Protection_from_shape_changers() {
  * its own call below.)
  * Async only because JS `stumble_onto_mimic` reaches pline --More--;
  * the predicate itself draws no RNG, matching C order exactly.
+ * PfSC gate is the canonical `were.js` export (C youprop.h H || E incl.
+ * uprops extrinsic, e.g. the worn ring — no local flats-only clone).
  * @returns {Promise<boolean>} true when C returns TRUE (caller takes ECMD_TIME / 1)
  */
 export async function stumble_on_door_mimic(x, y) {

@@ -92,3 +92,5 @@ dodge the lock↔trap static edge is proportionate and verified IN-SCC/runtime-o
    C FALSE vs JS TRUE.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-2380

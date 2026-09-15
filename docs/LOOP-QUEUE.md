@@ -43,8 +43,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `lock.c` stumble_on_door_mimic PfSC clone drops uprops extrinsic (review 1339 QUALITY-RISK; `js/lock.js:618` flats-only vs C `youprop.h:355–360` H||E: worn PfSC ring sets uprops extrinsic with no E-flat mirror, clone stumbles where C is FALSE). Fix: import `js/were.js:57` export (`--can` SAFE). Probe: wear ring, open at door mimic. Source: reviews/loop-unattended/1339-ae5c5da2-stumble-on-door-mimic.md.
-
 A **JS throw** in any corpus session (`hidden-proxy status` owner
 `js-throw …`, or a `ReferenceError` in `.cache/hidden/scores.json`
 `error`) is always a Must-fix row: it forfeits every later screen of that
