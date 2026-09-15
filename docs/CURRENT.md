@@ -81,7 +81,7 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** Open `timeout.c` burn_away_slime + LS_OBJECT/BURN_OBJECT (debt.md:15 D-0978 ignite_items/catch_lit/begin_burn family; never own-row live/archived/parked). Probe: `node scripts/brief.mjs burn_away_slime`. (fix_wall_spines → parked this iter, STALE DUPLICATE of shipped D-0975; see LOOP-QUEUE Parked.)
+**Next cluster:** Open `artifact.c` artifact_hit realizes/drain/blind arms (TOP30 #28; never own-row live/archived/parked). Probe: `node scripts/brief.mjs artifact_hit`. (burn_away_slime+LS_OBJECT/BURN_OBJECT → parked this iter, STALE DUPLICATE of shipped D-0978; fix_wall_spines parked prev iter D-0975; see LOOP-QUEUE Parked.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2381 (index).**
 <!-- recent:begin -->
