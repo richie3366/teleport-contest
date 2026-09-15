@@ -80,7 +80,7 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `pray.c` desecrate_altar/god_zaps_you/fry_by_god + dig wire (debt.md D-0963; C pray.c:609 god_zaps_you). Probe: `node scripts/brief.mjs god_zaps_you`.
+**Next cluster:** `dig.c` mkcavearea/mkcavepos/rm_waslit earth dig (debt.md D-0960; C dig.c:47 mkcavepos). Probe: `node scripts/brief.mjs mkcavepos`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2309 (index).**
 <!-- recent:begin -->
