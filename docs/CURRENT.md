@@ -80,7 +80,7 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `makemon.c` bagotricks BAG_OF_TRICKS (named debt.md D-1023 family; never live/archived/parked). Probe: `node scripts/brief.mjs bagotricks`.
+**Next cluster:** `apply.c` use_trap (named debt.md D-1023 family; never live/archived/parked). Probe: `node scripts/brief.mjs use_trap`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2354 (index).**
 <!-- recent:begin -->

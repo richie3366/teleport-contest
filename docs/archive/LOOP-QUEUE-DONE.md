@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `makemon.c` bagotricks BAG_OF_TRICKS (named debt.md D-1023 family; never live/archived/parked). Probe: `node scripts/brief.mjs bagotricks`. **Addressed:** D-2354
+- [x] `makemon.c` bagotricks BAG_OF_TRICKS (named debt.md D-1023 family; never live/archived/parked). Probe: `node scripts/brief.mjs bagotricks`. **Addressed:** D-2354 `2ac37870`
 
 
 - [x] `invent.c` getobj prompt/filter machinery (TOP30 #13, 334/133, in_doagain + prompt/filter; every "What do you want" prompt; archived ALLOWCNT arm D-1530 only; never live/parked). Probe: `node scripts/brief.mjs getobj`. **Addressed:** D-2353 `589d9acb`
