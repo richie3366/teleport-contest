@@ -80,10 +80,11 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `music.c` do_earthquake quake arms (debt.md D-0972; C music.c:344 do_earthquake). Probe: `node scripts/brief.mjs do_earthquake`.
+**Next cluster:** `dbridge.c` open_drawbridge/close_drawbridge + music passtune (debt.md D-0977; C dbridge.c:840 open_drawbridge). Probe: `node scripts/brief.mjs open_drawbridge`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2315 (index).**
+**Keep D-0845…D-2316 (index).**
 <!-- recent:begin -->
+**D-2316** `dbridge.c:862-863` (`Soundeffect(se_gears_turning_chains_rattling,100)` before `You_hear` — `js/hack.js` (C-file match): new export `revive_nasty` in C order — `mons()`+`is_rider` permonst (mondata.h:110), `monsterNames.indexOf('PM_WIZARD_OF_YENDOR')` (eat.js/objnam.js convention), `objects_at`/`m_at`/`Norep`/`
 **D-2315** `music.c:430` (`unblock_point(x, y)` after `typ = CORR` — `js/music.js` only, no new module edges (all three source modules already imported): SCORR arm calls live `unblock_point` (joins the existing `vision.js` import; ≡ C); ALTAR arm calls live `altarmask_at(x, y)` (joins the
 **D-2314** `do.c:1611–1613` (`if (falling) /* assuming this is only trap door or hole */ impact_drop( — `js/do.js` only: `if (falling) await impact_drop(null, u.ux|0, u.uy|0, newlevel.dlevel|0)` immediately before the keepdogs block, hence before `check_special_room(true)` — C relative order (impact_drop precedes both; the
 **D-2313** `dbridge.c:888–1019` `destroy_drawbridge` re-read in full (brief output): `:906` `Soundeff — `js/dbridge.js` only: both `Soundeffect` calls in C order (before messages); boulder arm `await flooreffects(otmp2,x,y,'fall')` (new static `do.js` edge); debris loop verbatim (`rn2(6)`/`rn2(2)`, `mksobj_at` + `await sca
@@ -91,11 +92,10 @@ Do **not** pop map-omission singletons
 **D-2311** `apply.c:3897–3905` `maybe_dunk_boulders` (extract then `boulder_hits_pool(otmp,x,y,FALSE) — `js/dig.js`: `maybe_dunk_boulders` now async with C order preserved — `boulder_hits_pool` via dynamic `do.js` import (the file's convention for `do.js`: `goto_level`/`dropx` same file; `imports.mjs --can dig.js do.js bou
 **D-2310** `trap.c:6579–6601` `clear_conjoined_pits` (staticfn); called first from `deltrap` at `:653 — port `clear_conjoined_pits` file-local in C order (`| 0` idiom, `xdir`/`ydir`/`N_DIRS`, `DIR_180`, `isok` + `t_at` neighbour lookup); `deltrap` calls it first per C `:6535`.
 **D-2309** `pray.c` `god_zaps_you` `:609–691` (no `return` after either `fry_by_god` — `js/pray.js` only (no new module edge — `shieldeff` joins the existing `display.js` import): both survive-lightning arms `await shieldeff(u.ux, u.uy)` in C order; each fry arm gates continuation on `game.program_state?.g
-**D-2308** `shk.c` `shopdig` `:5018–5110` (curse/growl arm calls `rile_shk`); `rile_shk` `:1362–1377` — `js/shk.js` only: `rile_shk` ports the walk verbatim in C order over the live `bill_p`/`bill` shape (same `||` fallback as `addupbill`; `| 0` integer idiom).
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2315; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2316; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

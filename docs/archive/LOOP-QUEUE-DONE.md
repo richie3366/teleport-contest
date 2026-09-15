@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `music.c` do_earthquake quake arms (debt.md D-0972; C music.c:344 do_earthquake). Probe: `node scripts/brief.mjs do_earthquake`. **Addressed:** D-2315
+- [x] `dbridge.c` open_drawbridge/close_drawbridge + music passtune (debt.md D-0977; C dbridge.c:840 open_drawbridge). Probe: `node scripts/brief.mjs open_drawbridge`. **Addressed:** D-2316
+
+
+- [x] `music.c` do_earthquake quake arms (debt.md D-0972; C music.c:344 do_earthquake). Probe: `node scripts/brief.mjs do_earthquake`. **Addressed:** D-2315 `f5d3798f`
 
 
 - [x] `dig.c` impact_drop/down_gate/drop_to HOLE wire (debt.md D-0961; C dig.c impact_drop). Probe: `node scripts/brief.mjs impact_drop`. **Addressed:** D-2314 `00e88b95`

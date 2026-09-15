@@ -11,7 +11,7 @@
 // :340–769; imports.mjs --can: monsters/rng/pickup/steed/trap/teleport/
 // end/mhitm/uhitm/hack/sndprocs/region/mondata/eat/attrib all SAFE —
 // same 89-module SCC, hoisted function declarations, no top-level TDZ).
-// Named omit: revive_nasty (open/close); Blind/Unaware You_see
+// Named omit: Blind/Unaware You_see
 // polish; debugpline D_DEBUG-only lines; local wake_nearto STRAT_WAITMASK
 // + wake_msg/G_UNIQ (mon.c wake_nearto_core, review-28 residual).
 
@@ -33,10 +33,10 @@ import { mhe } from './mondata.js';
 import { vtense } from './objnam.js';
 import { objectNames } from './generated/objects_data.js';
 import { PM_LONG_WORM_TAIL } from './generated/monsters_data.js';
-import { se_crushing_sound, se_splash, se_loud_splash, se_loud_crash } from './generated/seffects_data.js';
+import { se_crushing_sound, se_splash, se_loud_splash, se_loud_crash, se_gears_turning_chains_rattling, se_chains_rattling_gears_turning, se_smashing_and_crushing } from './generated/seffects_data.js';
 import { Soundeffect } from './sndprocs.js';
 import { rn2, rnd } from './rng.js';
-import { is_pool, is_lava } from './hack.js';
+import { is_pool, is_lava, revive_nasty } from './hack.js';
 import { spoteffects } from './pickup.js';
 import { remove_monster, place_monster } from './steed.js';
 import { update_monster_region } from './region.js';
@@ -734,8 +734,8 @@ export function nokiller() {
 
 /**
  * C ref: dbridge.c close_drawbridge — raise bridge at (x,y).
- * Terrain + messages + delallobj + traps/engr + vision. Crush/entity
- * and revive_nasty deferred (named omit).
+ * Terrain + Soundeffect/messages + revive_nasty + delallobj +
+ * traps/engr + vision + nokiller. Crush/entity deferred (D-1967).
  */
 export async function close_drawbridge(x, y) {
     const lev1 = game.level?.at(x, y);
@@ -755,6 +755,7 @@ export async function close_drawbridge(x, y) {
             || distu(x2, y2) < distu(x, y);
         await You_see(`a drawbridge ${coming ? 'coming' : 'going'} up!`);
     } else {
+        Soundeffect(se_chains_rattling_gears_turning, 75);
         await You_hear('chains rattling and gears turning.');
     }
 
@@ -770,13 +771,15 @@ export async function close_drawbridge(x, y) {
         lev2.horizontal = false;
         break;
     }
-    lev2.wall_info = (lev2.wall_info | 0) | W_NONDIGGABLE;
+    lev2.wall_info = W_NONDIGGABLE;
     // set_entity / do_entity deferred
 
     if (objects_at(x, y) && !(u.Deaf || game.flags?.acoustics === false)) {
+        Soundeffect(se_smashing_and_crushing, 75);
         await You_hear('smashing and crushing.');
     }
-    // revive_nasty deferred
+    await revive_nasty(x, y, null);
+    await revive_nasty(x2, y2, null);
     delallobj(x, y);
     delallobj(x2, y2);
     {
@@ -793,13 +796,14 @@ export async function close_drawbridge(x, y) {
     newsym(x2, y2);
     recalc_block_point(x2, y2); // C block_point
     vision_recalc(0);
-    // nokiller deferred
+    nokiller();
 }
 
 /**
  * C ref: dbridge.c open_drawbridge — lower bridge at (x,y).
- * Terrain + messages + delallobj + traps/engr + vision + stronghold
- * uopened_dbridge. Crush/entity and revive_nasty deferred.
+ * Terrain + Soundeffect/messages + revive_nasty + delallobj +
+ * traps/engr + vision + stronghold uopened_dbridge + nokiller.
+ * Crush/entity deferred (D-1967).
  */
 export async function open_drawbridge(x, y) {
     const lev1 = game.level?.at(x, y);
@@ -816,6 +820,7 @@ export async function open_drawbridge(x, y) {
         const going = distu(x2, y2) < distu(x, y);
         await You_see(`a drawbridge ${going ? 'going' : 'coming'} down!`);
     } else {
+        Soundeffect(se_gears_turning_chains_rattling, 100);
         await You_hear('gears turning and chains rattling.');
     }
 
@@ -824,7 +829,7 @@ export async function open_drawbridge(x, y) {
     lev2.doormask = D_NODOOR;
     // set_entity / do_entity deferred
 
-    // revive_nasty deferred
+    await revive_nasty(x, y, null);
     delallobj(x, y);
     {
         const t = t_at(x, y);
@@ -845,7 +850,7 @@ export async function open_drawbridge(x, y) {
         if (!uu.uevent) uu.uevent = {};
         uu.uevent.uopened_dbridge = true;
     }
-    // nokiller deferred
+    nokiller();
 }
 
 /**
