@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `zap.c` break_statue STATUE_TRAP activate (named debt.md D-0997; never live/archived/parked). Probe: `node scripts/brief.mjs break_statue`. **Addressed:** D-2360
+- [x] `eat.c` doeat Strangled/uedibility/retouch-blast/rustproof arms (named turns.md:1816-1818 deferred; check_capacity/hands_obj/worn/slow-digestion/nonfood live; never own-row live/archived/parked). Probe: `node scripts/brief.mjs doeat`. **Addressed:** D-2361
+
+
+- [x] `zap.c` break_statue STATUE_TRAP activate (named debt.md D-0997; never live/archived/parked). Probe: `node scripts/brief.mjs break_statue`. **Addressed:** D-2360 `2c1456a0`
 
 
 - [x] `zap.c` melt_ice/melt_ice_away/start_melt_ice_timeout + burn_floor_objects (named debt.md D-0965; never live/archived/parked). Probe: `node scripts/brief.mjs melt_ice`.
