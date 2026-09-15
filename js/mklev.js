@@ -94,7 +94,7 @@ import {
 } from './objects.js';
 import { shtypes, stock_room } from './shknam.js';
 import { setgemprobs } from './o_init.js';
-import { maketrap, t_at, undestroyable_trap } from './trap.js';
+import { maketrap, t_at, undestroyable_trap, deltrap } from './trap.js';
 import {
     mkobj, mksobj, mksobj_at, mksobj_migr_to_species, mkobj_at, mkgold,
     mkcorpstat, next_ident,
@@ -131,7 +131,7 @@ import { name_to_monplus, name_to_mon, set_mon_data } from './mondata.js';
 import { fruit_from_name } from './objnam.js';
 import { christen_monst, christen_orc, rndorcname, new_oname, oname, lookup_novel } from './do_name.js';
 import { makeroguerooms, makerogueghost } from './extralev.js';
-import { make_engr_at, make_grave, wipe_engr_at, random_engraving, del_engr_at } from './engrave.js';
+import { make_engr_at, make_grave, wipe_engr_at, random_engraving, del_engr_at, engr_at, del_engr } from './engrave.js';
 import { cmd_from_ecname } from './dokeylist.js';
 import {
     find_level, dungeon_branch, at_dgn_entrance, insert_branch, get_level,
@@ -17705,9 +17705,12 @@ export function mkmap_flood_fill_rm(sx, sy, rmno, lit, anyroom, bounds) {
 }
 
 /**
- * C ref: sp_lev.c map_cleanup — after lua/special content, before
- * wallification/flip: strip boulders from lava/pool cells.
- * Named omissions: deltrap on liquid; del_engr; undestroyable_trap.
+ * C ref: sp_lev.c map_cleanup (`:328–356`) — after lua/special content,
+ * before wallification/flip: strip boulders, destroyable traps and
+ * engravings from lava/pool cells, in C arm order.
+ * Named omissions: the shared `deltrap` Sokoban PIT/HOLE
+ * `maybe_finish_sokoban` sub-arm (trap.c; callee not live in js/ —
+ * own row when the corpus reaches it).
  */
 function map_cleanup() {
     const g = game;
@@ -17729,6 +17732,12 @@ function map_cleanup() {
                 otmp.nexthere = null;
                 otmp.nobj = null;
             }
+            // C: traps on liquid (portal / vibrating square survive)?
+            const ttmp = t_at(x, y);
+            if (ttmp && !undestroyable_trap(ttmp.ttyp)) deltrap(ttmp);
+            // C: engravings?
+            const etmp = engr_at(x, y);
+            if (etmp) del_engr(etmp);
         }
     }
 }

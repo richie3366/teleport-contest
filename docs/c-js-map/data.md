@@ -664,7 +664,7 @@ JS: `js/extralev.js` — partial
 seed0360 Scr **633→638**) + **D-0807 `sel_set_ter` IS_LAVA→lit** (C `set_levltyp`; 
 hell_tweaks lava; seed0360 Scr **638→670**); **D-0767 orcus** (prefix **76622→82982**); 
 **D-0768 wizard1** (prefix **82982→86029**); **D-0771 wizard2** (prefix **86170→98492**); 
-**D-0774 `map_cleanup`** before wallify/flip (asmodeus/orcus/wizard1–2; deltrap/del_engr deferred); 
+**D-0774 `map_cleanup`** before wallify/flip (asmodeus/orcus/wizard1–2); **D-2334** deltrap/del_engr arms (shared-deltrap Sokoban `maybe_finish_sokoban` named); 
 **D-0775 minliquid**; **D-0776 `Wiz-strt`** + **D-0777 `maketrap` AIR/CLOUD** + 
 **D-0782 branch LR_BRANCH pre-flip** (prefix **101022→101930**; 
 Scr **389**) + **D-0800 `Wiz-loca`/`Wiz-fila`/`Wiz-filb`** (seed0360 RNG **FULL 120639**; 

@@ -5,10 +5,13 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `apply.c` dorub #rub/wield_tool envelope (named turns.md:1911 re-queue, D-0710; never live/archived/parked). Probe: `node scripts/brief.mjs dorub`.
+- [x] `sp_lev.c` map_cleanup deltrap/del_engr arms (named data.md:667, D-0774 residual; never live/archived/parked). Probe: `node scripts/brief.mjs map_cleanup`.
 
 
-- [x] `pray.c` angrygods high-anger arms (named absent.md:13, post-D-0969 residual; 0–8/default-zap shipped; never live/archived/parked). Probe: `node scripts/brief.mjs angrygods`.
+- [x] `apply.c` dorub #rub/wield_tool envelope (named turns.md:1911 re-queue, D-0710; never live/archived/parked). Probe: `node scripts/brief.mjs dorub`. **Addressed:** D-2333 `0d320968`
+
+
+- [x] `pray.c` angrygods high-anger arms (named absent.md:13, post-D-0969 residual; 0–8/default-zap shipped; never live/archived/parked). Probe: `node scripts/brief.mjs angrygods`. **Addressed:** D-2332 `ce42f088`
 
 
 - [x] `apply.c` use_royal_jelly full body (named absent.md:34 + turns.md:2014 deferred, D-1021; JS local-only partial; never live/archived/parked). Probe: `node scripts/brief.mjs use_royal_jelly`. **Addressed:** D-2331 `e39f3bf8`
