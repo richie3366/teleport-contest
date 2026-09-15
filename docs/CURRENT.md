@@ -81,7 +81,7 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** Open `potion.c` peffect_restore_ability body (debt.md:23 D-1420 POT/SPE_RESTORE_ABILITY). Probe: `node scripts/brief.mjs peffect_restore_ability`.
+**Next cluster:** Open `potion.c` peffect_invisibility body (debt.md:23 D-1421 POT/SPE_INVISIBILITY). Probe: `node scripts/brief.mjs peffect_invisibility`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2380 (index).**
 <!-- recent:begin -->
