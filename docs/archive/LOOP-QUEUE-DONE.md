@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `monmove.c` can_hide_under_obj coins/pet-cursed/cockatrice (named data.md:462, D-0630 residual; mon.c hideunder callers; never live/archived/parked). Probe: `node scripts/brief.mjs can_hide_under_obj`. **Addressed:** D-2340
+- [x] `dungeon.c` save_dungeon — blocks 8/553 corpus sessions (first at step 113): C «The Dungeons of Doom:» vs JS «The Dungeons of Doom:». Probe: `node scripts/hidden-proxy.mjs verify save_dungeon` (scen-genesis-Barbarian-91118, scen-normal-Caveman-92140, scen-poly-Archeologist-92119; queue refill 2026-09-15 — top unarchived weight; 09-07 MISATTRIBUTED park predates scoreboard, next iter measures the C overview-menu writer or re-parks). **Addressed:** D-2341
+
+
+- [x] `monmove.c` can_hide_under_obj coins/pet-cursed/cockatrice (named data.md:462, D-0630 residual; mon.c hideunder callers; never live/archived/parked). Probe: `node scripts/brief.mjs can_hide_under_obj`. **Addressed:** D-2340 `09146ec5`
 
 
 - [x] `mon.c` mongone MM_NOCOUNTBIRTH born tally (named data.md:1098, D-0538 residual; savebones/mdrop_special_objs are other rows; never live/archived/parked). Probe: `node scripts/brief.mjs mongone`. **Addressed:** D-2339 `abcd52ce`

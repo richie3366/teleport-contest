@@ -306,6 +306,7 @@ toss_up / litter still named) + **`doaltarobj`/`fire_damage`/hot potion** (D-099
 shops/sinks named; corpse `better_not_try_to_drop_that` **D-1960** (C `do.c` `:946–962` guard wired at `drop` `:720`; `u_safe_from_fatal_corpse`/`st_all` exported from `pickup.js`, `obj_pmname_corpse` exported from `objnam.js`, no clone #2); **`#droptype`/`D` `doddrop` D-1635** (C `do.c` `:922–944` TRADITIONAL `ggetobj("drop", drop)` + `'m'` `menu_drop`; FULL `query_category` then autopick/`query_objlist`; COMBINATION ggetobj combo ALL_FINISHED; callees `menudrop_split` `:963–977` / `menu_drop` `:980–1107`; `worn.c` `bypass_objlist`/`nxt_unbypassed_obj`; `cmd.c` `reset_occupations`; `getline.js` `#droptype`; ParanoidAutoAll / INCLUDE_VENOM display / `clear_bypasses` named); **drop getobj ALLOWCNT count prefix D-1530**; globby pudding_merge deferred); 
 **`'>'` → `dodown`/`next_level`/`goto_level` ordinary stairs + 
 `flush_screen(-1)` descend `--More--` + clear `_objects_at`/`head_engr`** (D-0149/D-0160/D-0161); 
+**`goto_level` builds_up `dunlev_reached` min-track** (D-2341; C `do.c:1678–1684` else-arm; live `js/do.js`); 
 **`goto_level` descend Flying / encumber|Punished|Fumbling fall `rnd(3)` `losehp`** (D-0445; 
 **`Fumbling()` ≡ H\|\|E not sticky `u.Fumbling`** D-0691; **trap-door `do_fall_dmg`** (D-1179; 
 Punished `ballfall` is **D-1778**; callers gate on `u.uball` ≡ C `Punished` **D-1786**; 
@@ -1744,8 +1745,9 @@ inven_inuse / ball-chain placebc; accessible closed_door; shk name-based peace;
 `hide_monst` after ghostly; `unleash_all` in finish_paybill; 
 `done_in_by` G_UNIQ "the "+KILLED_BY w/ imitator/High-Cleric gates (D-2145; `type_is_pname`;
 `pmname(Mgender)` gendered name + "called"/"of" mgivenname (`has_ebones`); minvis +
-hallucinogen-distorted prefixes)/ghost arms/imitator+vampshifter/priest|minion m_monnam/
-monhealthdescr/multi_reason trim still named; enlightenment poly/remaining resistance catalogue; set_uasmon FROMRACE; 
+hallucinogen-distorted prefixes)/ghost arms still named (D-2341 retires
+imitator+vampshifter "imitating/in-form/disguised" + priest|minion m_monnam +
+killer multi_reason trim; monhealthdescr is exact-omit, `#if 0` no-op); enlightenment poly/remaining resistance catalogue; set_uasmon FROMRACE; 
 **`paygd`/`clearpriests`/`fixup_death`/`force_launch_placement`/`clearlocks`/
 `free_pickinv_cache`/`timet_delta` D-1812** (C `end.c` `really_done`
 `:1165` / `:1203` / `:1232` / `:1239–1244` / `:1378`; `vault.c` `paygd`

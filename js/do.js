@@ -11,7 +11,7 @@
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1, d } from './rng.js';
-import { depth } from './hacklib.js';
+import { depth, builds_up } from './hacklib.js';
 import {
     STAIRS, LADDER, ECMD_OK, ECMD_TIME, ECMD_FAIL, ECMD_CANCEL,
     W_ARM, W_ARMC, W_ARMH, W_ARMS, W_ARMG, W_ARMF, W_ARMU, W_ARMOR,
@@ -1634,11 +1634,18 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     if (!game.flags) game.flags = {};
     game.flags.botl = true;
 
-    // C: dunlev_reached for non-builds_up
+    // C do.c goto_level :1678-1684 — usual case tracks the deepest
+    // dlevel reached; builds_up branches (Sokoban) track the shallowest
+    // (minimum) dlevel instead.
     const dun = game.dungeons?.[u.uz.dnum | 0];
     if (dun) {
         const dl = u.uz.dlevel | 0;
-        if ((dun.dunlev_ureached | 0) < dl) dun.dunlev_ureached = dl;
+        if (!builds_up(u.uz)) {
+            if ((dun.dunlev_ureached | 0) < dl) dun.dunlev_ureached = dl;
+        } else if ((dun.dunlev_ureached | 0) === 0
+            || dl < (dun.dunlev_ureached | 0)) {
+            dun.dunlev_ureached = dl;
+        }
     }
 
     stairway_free_all();

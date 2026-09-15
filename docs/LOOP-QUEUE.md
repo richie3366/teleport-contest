@@ -60,13 +60,18 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `dungeon.c` save_dungeon — blocks 8/553 corpus sessions (first at step 113): C «The Dungeons of Doom:» vs JS «The Dungeons of Doom:». Probe: `node scripts/hidden-proxy.mjs verify save_dungeon` (scen-genesis-Barbarian-91118, scen-normal-Caveman-92140, scen-poly-Archeologist-92119; queue refill 2026-09-15 — top unarchived weight; 09-07 MISATTRIBUTED park predates scoreboard, next iter measures the C overview-menu writer or re-parks).
 - [ ] `sp_lev.c` spo_end_moninvent m_dowear for Kni-strt King Arthur + Mon-strt Grand Master custom invents (follow-up to the shipped Pelias/Lord Carnarvon/Arch Priest quest-invent wear row; still deferred at the Kni/Mon loaders in js/mklev.js; never live/archived/parked). Probe: `node scripts/brief.mjs m_dowear`.
 - [ ] `pray.c` offer_different_alignment_altar altar-wrath offering (named turns.md:399 dosacrifice family; never live/archived/parked). Probe: `node scripts/brief.mjs offer_different_alignment_altar`.
 - [ ] `pray.c` angry_priest temple-priest anger (named turns.md:399 dosacrifice family; never live/archived/parked). Probe: `node scripts/brief.mjs angry_priest`.
 - [ ] `pray.c` offer_real_amulet/offer_fake_amulet amulet offering arms (named turns.md:399 dosacrifice family; never live/archived/parked). Probe: `node scripts/brief.mjs offer_real_amulet`.
 - [ ] `apply.c` do_break_wand explode-type/inert + create-monster + dig pay_for_damage (named debt.md:16, D-0949/D-0950 residual; never live/archived/parked). Probe: `node scripts/brief.mjs do_break_wand`.
 - [ ] `eat.c` cpostfx corpse specials / corpse_intrinsic / givit / AD_STUN hallu (named turns.md:1871 deferred; never live/archived/parked). Probe: `node scripts/brief.mjs cpostfx`.
+- [ ] `uhitm.c` mhitm_knockback attack-selection (fresh corpus owner 2026-09-15: scen-wish-Priest-92163 step 248 kind=rng, C `rn2(3)` in mhitm_knockback vs JS `rn2(8)` from mhitm_ad_drst_u; knockback body full since D-1932 per archived D-2035/D-2091 — this row is the arm-selection upstream, not the body; no live/parked owner row, archived rows are other sessions). Probe: `node scripts/hidden-proxy.mjs verify mhitm_knockback`.
+- [ ] `pray.c` offer_too_soon altar-too-soon refusal (named turns.md:399 dosacrifice family; never live/archived/parked). Probe: `node scripts/brief.mjs offer_too_soon`.
+- [ ] `eat.c` eatspecial PAPER/potion/eataccessory/leash/trident/flint/uwepgone/unpunish (named debt.md:14 D-0946; never live/archived/parked). Probe: `node scripts/brief.mjs eatspecial`.
+- [ ] `eat.c` cprefx cannibal/petrify/slimeproof/were_beastie/stoned/slimed/killer (named debt.md:14 D-0939; never live/archived/parked). Probe: `node scripts/brief.mjs cprefx`.
+- [ ] `dokick.c` throne destroy/loot/fall_through + tree scatter/swarm (named debt.md:18 D-0986; never live/archived/parked). Probe: `node scripts/brief.mjs throne`.
+- [ ] `apply.c` use_grease CAN_OF_GREASE (named debt.md:16 D-1026; never live/archived/parked). Probe: `node scripts/brief.mjs use_grease`.
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 
