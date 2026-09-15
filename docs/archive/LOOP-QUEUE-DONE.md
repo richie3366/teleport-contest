@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `trap.c` move_into_trap body (no `move_into_trap` symbol in `js/`; data.md:176 named with stumble_on_door_mimic; never own-row live/archived/parked). Probe: `node scripts/brief.mjs move_into_trap`. **Addressed:** D-2372
+- [x] `trap.c` move_into_trap body (no `move_into_trap` symbol in `js/`; data.md:176 named with stumble_on_door_mimic; never own-row live/archived/parked). Probe: `node scripts/brief.mjs move_into_trap`. **Addressed:** D-2372 `12cae556`
 
 
 - [x] `artifact.c` arti_invoke on-drop invoke + zap-poly addinv_core1 (live js/artifact.js:1945; Deferred invoke-touch family; never own-row live/archived/parked). Probe: `node scripts/brief.mjs arti_invoke`. **Addressed:** D-2371 `1e326cc7`

@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-15 — Audit reviews 1324–1338 (D-2358…D-2372) + cadence 44/44
+
+Review iteration, no `js/` edits. Audited every JS-touching SHA since
+1323 oldest-first against pinned C (`csym` body + callers + guarding
+`if`, `sym.mjs` on re-pointed symbols, added-line banned grep,
+`imports.mjs --rulecheck` clean, `hidden-proxy verify --base HASH~1`
+re-measured per SHA): 15/15 **ACCEPT**, zero Actionable C-wrongs, zero
+Must-fix (LOOP-QUEUE untouched, CURRENT Next cluster untouched). Every
+D-log Verify bullet honestly marked its corpus check vacuous (all rows
+cited 0 blocks — confirmed 0-at-baseline/0-working on each re-run).
+Residuals noted in prose, not queued: 1335 Esc-on-swap menu-flow delta
+(doc-named `:2159–2163`); 1338 unmoved-jerk spoteffects nuance lives in
+the pre-existing ball.js caller-side vehicle shared with domove.
+Cadence: full `sessions` at HEAD `12cae556` → **44/44**, Scr
+11,405/11,405, RNG 792,838/792,838, `46+0.29/turn` (R² 0.80) — fortress
+holds, CURRENT Score refreshed. Queue at 8 Open (band floor, no refill;
+no `- [x]` leftovers). Filled archive `D-2372` short hash `12cae556`.
 ## 2026-09-15 — D-2372 `trap.c` move_into_trap failed-untrap stumble onto trap
 
 **C locus:** `nethack-c/upstream/src/trap.c` `move_into_trap` `:5393–5437` (`test_move(u.ux,u.uy,sgn(x-ux),sgn(y-uy),TEST_MOVE)` short-circuit + `!Punished || drag_ball(x,y,&bc,&bx,&by,&cx,&cy,&unused,TRUE)`; then `ux0/uy0`, `u_on_newpos(x,y)`, `umoved`, `newsym(old)`, `vision_recalc(1)`, `check_leash(old)`, `move_bc(0,...)` when punished, `tseen=0` check_here hack, `failing_untrap++`, `spoteffects(TRUE)`, `failing_untrap--`, re-`tseen=1`, `exercise(A_WIS)`; else `Fortunately... into/onto` via `into_vs_onto`) + `nethack-c/upstream/src/hack.c` `test_move` `:1000` door_opened clear / `:1140–1147` + `:1205–1213` doorway-diagonal bans + `nethack-c/upstream/src/ball.c` `drag_ball` TRUE/FALSE contract (jerk-back moves hero + `spoteffects(TRUE)` inside before FALSE; encumber moves nothing) + `nethack-c/upstream/src/dungeon.c` `u_on_newpos` `:1568–1595`.

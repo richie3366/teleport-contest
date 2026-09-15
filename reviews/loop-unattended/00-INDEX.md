@@ -1334,3 +1334,18 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1321-aba73268-use-lamp-shop-billing.md](./1321-aba73268-use-lamp-shop-billing.md) | `aba73268` | D-2355 use_lamp shop billing | **ACCEPT** |
 | [1322-c7041cb5-blindf-off-gulp-blnd-check.md](./1322-c7041cb5-blindf-off-gulp-blnd-check.md) | `c7041cb5` | D-2356 Blindf_off + gulp_blnd_check | **ACCEPT** |
 | [1323-d8cfa25c-flute-sleep-resist.md](./1323-d8cfa25c-flute-sleep-resist.md) | `d8cfa25c` | D-2357 flute sleep-resist | **ACCEPT** |
+| [1324-cb0e739f-mthrowu-flightcheck-bars-sink.md](./1324-cb0e739f-mthrowu-flightcheck-bars-sink.md) | `cb0e739f` | D-2358 m_throw MT_FLIGHTCHECK bars/sink | **ACCEPT** |
+| [1325-035b9842-melt-ice-trap-ice-effects.md](./1325-035b9842-melt-ice-trap-ice-effects.md) | `035b9842` | D-2359 melt_ice trap_ice_effects | **ACCEPT** |
+| [1326-2c1456a0-bhitpile-head-statue-preactivate.md](./1326-2c1456a0-bhitpile-head-statue-preactivate.md) | `2c1456a0` | D-2360 bhitpile head statue pre-activate | **ACCEPT** |
+| [1327-719c1a6a-doeat-edibility-artifact-rust.md](./1327-719c1a6a-doeat-edibility-artifact-rust.md) | `719c1a6a` | D-2361 doeat edibility/artifact/rust | **ACCEPT** |
+| [1328-135bb101-pleased-gifts-give-spell.md](./1328-135bb101-pleased-gifts-give-spell.md) | `135bb101` | D-2362 pleased gifts give_spell | **ACCEPT** |
+| [1329-d26385df-sleep-monst-defended-shieldeff.md](./1329-d26385df-sleep-monst-defended-shieldeff.md) | `d26385df` | D-2363 sleep_monst defended/shieldeff | **ACCEPT** |
+| [1330-f35ffe91-searches-for-item-arms.md](./1330-f35ffe91-searches-for-item-arms.md) | `f35ffe91` | D-2364 searches_for_item arms | **ACCEPT** |
+| [1331-dc39711c-mon-would-consume-item.md](./1331-dc39711c-mon-would-consume-item.md) | `dc39711c` | D-2365 mon_would_consume_item | **ACCEPT** |
+| [1332-80a89d3e-resist-tell-shield.md](./1332-80a89d3e-resist-tell-shield.md) | `80a89d3e` | D-2366 resist tell-shield | **ACCEPT** |
+| [1333-72c7ee76-bestow-artifact.md](./1333-72c7ee76-bestow-artifact.md) | `72c7ee76` | D-2367 bestow_artifact | **ACCEPT** |
+| [1334-4b4edfa4-is-ok-location-arms.md](./1334-4b4edfa4-is-ok-location-arms.md) | `4b4edfa4` | D-2368 is_ok_location arms | **ACCEPT** |
+| [1335-229bdd8a-dovspell-swap-sort.md](./1335-229bdd8a-dovspell-swap-sort.md) | `229bdd8a` | D-2369 dovspell swap/sort | **ACCEPT** |
+| [1336-02f97953-artitouch-addinv-quest-arm.md](./1336-02f97953-artitouch-addinv-quest-arm.md) | `02f97953` | D-2370 artitouch addinv quest arm | **ACCEPT** |
+| [1337-1e326cc7-poly-obj-addinv-cores.md](./1337-1e326cc7-poly-obj-addinv-cores.md) | `1e326cc7` | D-2371 poly_obj addinv cores | **ACCEPT** |
+| [1338-12cae556-move-into-trap.md](./1338-12cae556-move-into-trap.md) | `12cae556` | D-2372 move_into_trap | **ACCEPT** |
