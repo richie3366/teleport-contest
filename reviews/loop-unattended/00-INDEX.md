@@ -1302,3 +1302,9 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1289-0e191fab-dighole-magical-drawbridge-bymagic.md](./1289-0e191fab-dighole-magical-drawbridge-bymagic.md) | `0e191fab` | D-2323 dighole magical/drawbridge/by_magic | **QUALITY-RISK** |
 | [1290-90809a8c-mergable-same-price.md](./1290-90809a8c-mergable-same-price.md) | `90809a8c` | D-2324 mergable full port + same_price | **ACCEPT** |
 | [1291-d43e86c1-erode-obj-full-body.md](./1291-d43e86c1-erode-obj-full-body.md) | `d43e86c1` | D-2325 erode_obj full body + ward gate | **QUALITY-RISK** |
+| [1292-94adc86d-dwarvish-cloak-90-arm.md](./1292-94adc86d-dwarvish-cloak-90-arm.md) | `94adc86d` | D-2326 dwarvish-cloak 90 arm | **ACCEPT** |
+| [1293-348a7846-surface-shared-import.md](./1293-348a7846-surface-shared-import.md) | `348a7846` | D-2327 surface clone retires to shared | **ACCEPT** |
+| [1294-5622d826-use-saddle-petrify-guard.md](./1294-5622d826-use-saddle-petrify-guard.md) | `5622d826` | D-2328 use_saddle poly_when_stoned guard | **ACCEPT** |
+| [1295-e23e920d-drop-ball-body-callers.md](./1295-e23e920d-drop-ball-body-callers.md) | `e23e920d` | D-2329 drop_ball body + caller wiring | **ACCEPT** |
+| [1296-4d1f4fce-launch-obj-door-crash.md](./1296-4d1f4fce-launch-obj-door-crash.md) | `4d1f4fce` | D-2330 launch_obj closed-door crash | **ACCEPT** |
+| [1297-e39f3bf8-royal-jelly-canonicals.md](./1297-e39f3bf8-royal-jelly-canonicals.md) | `e39f3bf8` | D-2331 royal jelly clones retire | **ACCEPT** |
