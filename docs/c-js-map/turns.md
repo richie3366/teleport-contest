@@ -1909,7 +1909,7 @@ retouch/wand-break/flip_book/coin still deferred);
 **`#jump`/`dojump`/`jump` physical + knight chess `distu==5` + `walk_path`/`check_jump` (D-0899; 
 SPE_JUMPING spell is D-1397; #jump known_spell fallback / hurtle_step / steed·trap-escape; 
 S_goodpos tmp_at D-1051)**; **`#rub`/`dorub`/`wield_tool` re-queue** (D-0710; 
-**`use_stone` graystone** D-1014; jelly deferred; **`djinni_from_bottle`** MAGIC_LAMP (D-1144)); 
+**`use_stone` graystone** D-1014; jelly full body D-2331; **`djinni_from_bottle`** MAGIC_LAMP (D-1144); **`wield_tool` guard arms D-2333**); 
 **`splash_lit` D-1337**; **`use_cream_pie`** immerse+`rnd(25)`+ucreamed/`make_blinded`+delobj 
 (D-0711) + **`make_blinded` toggle → `vision_recalc(0)`** (D-0721; 
 Blind_telepat/Infravision/Sting `see_monsters` D-1755 / Eyes / **Punished `set_bc` D-1769**; 

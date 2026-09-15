@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `apply.c` dorub #rub/wield_tool envelope (named turns.md:1911 re-queue, D-0710; never live/archived/parked). Probe: `node scripts/brief.mjs dorub`.
 - [ ] `sp_lev.c` map_cleanup deltrap/del_engr arms (named data.md:667, D-0774 residual; never live/archived/parked). Probe: `node scripts/brief.mjs map_cleanup`.
 - [ ] `mon.c` m_dowear Pelias/Lord Carnarvon/Arch Priest quest specials (named data.md:785; worn.c m_dowear_type is a different fn; never live/archived/parked). Probe: `node scripts/brief.mjs m_dowear`.
 - [ ] `sp_lev.c` flip_level lregion coord update (named data.md:773; never live/archived/parked). Probe: `node scripts/brief.mjs flip_level`.
@@ -68,6 +67,7 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 - [ ] `trap.c` blow_up_landmine fill_pit/drawbridge/which_armor-iron-shoes/steedintrap (named data.md:1070, D-0874 residual; mintrap/teleds/scatter arms are other rows; never live/archived/parked). Probe: `node scripts/brief.mjs blow_up_landmine`.
 - [ ] `mon.c` mongone MM_NOCOUNTBIRTH born tally (named data.md:1098, D-0538 residual; savebones/mdrop_special_objs are other rows; never live/archived/parked). Probe: `node scripts/brief.mjs mongone`.
 - [ ] `monmove.c` can_hide_under_obj coins/pet-cursed/cockatrice (named data.md:462, D-0630 residual; mon.c hideunder callers; never live/archived/parked). Probe: `node scripts/brief.mjs can_hide_under_obj`.
+- [ ] `worn.c` mon_adjust_speed — blocks 1/553 corpus sessions (first at step 62): C «The titan is suddenly moving faster. The titan casts a spell» vs JS «The titan is suddenly moving faster. The titan casts a spell». Probe: `node scripts/hidden-proxy.mjs verify mon_adjust_speed` (scen-tour-Barbarian-92079; queue refill 2026-09-15; never live/archived/parked).
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 
