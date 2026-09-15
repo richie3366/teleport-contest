@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `pray.c` desecrate_altar/god_zaps_you/fry_by_god + dig wire (debt.md D-0963; C pray.c:609 god_zaps_you). Probe: `node scripts/brief.mjs god_zaps_you`.
 - [ ] `dig.c` mkcavearea/mkcavepos/rm_waslit earth dig (debt.md D-0960; C dig.c:47 mkcavepos). Probe: `node scripts/brief.mjs mkcavepos`.
 - [ ] `trap.c` conjoined_pits/xytodir + autodig quiet + dighole boulder-fill/delfloortrap (debt.md D-0962; C trap.c:6551 conjoined_pits). Probe: `node scripts/brief.mjs conjoined_pits`.
 - [ ] `dig.c` dig_check/fillholetyp/maybe_dunk_boulders hole-typing residuals (debt.md D-0950; digactualhole switch_terrain archived D-1269; liquid_flow ice/unearth rides the bury row). Probe: `node scripts/brief.mjs dig_check`.

@@ -80,10 +80,11 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `shk.c` shopdig warn/snatch (debt.md D-0958; C shk.c:5018 shopdig; dig-shop damage/anger unwired). Probe: `node scripts/brief.mjs shopdig`.
+**Next cluster:** `pray.c` desecrate_altar/god_zaps_you/fry_by_god + dig wire (debt.md D-0963; C pray.c:609 god_zaps_you). Probe: `node scripts/brief.mjs god_zaps_you`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2308 (index).**
+**Keep D-0845…D-2309 (index).**
 <!-- recent:begin -->
+**D-2309** `pray.c` `god_zaps_you` `:609–691` (no `return` after either `fry_by_god` — `js/pray.js` only (no new module edge — `shieldeff` joins the existing `display.js` import): both survive-lightning arms `await shieldeff(u.ux, u.uy)` in C order; each fry arm gates continuation on `game.program_state?.g
 **D-2308** `shk.c` `shopdig` `:5018–5110` (curse/growl arm calls `rile_shk`); `rile_shk` `:1362–1377` — `js/shk.js` only: `rile_shk` ports the walk verbatim in C order over the live `bill_p`/`bill` shape (same `||` fallback as `addupbill`; `| 0` integer idiom).
 **D-2307** `dig.c` `bury_an_obj` `:1982–2047` (`end_burn` `:2011–2012`); `bury_objs` `:2049–2081` (`m — `js/dig.js` only (+ `js/zap.js` 1-line `await`): `end_burn` via dynamic `timeout.js` import (sync export; `stop_timer` runs `cleanup_burn` — C `timeout.c` order); `maybe_unhide_at` joins the existing `monmove.js` static 
 **D-2306** `cmd.c:2772` `(void) bind_key('-', "fight", FALSE)` in `commands_init` (unconditional — `js/cmd.js` only, no new module edge (`do_fight` same-module; no `imports.mjs --can` needed): `-` shares the `F` arm (`ch === 'F' || ch === '-'` → `do_fight`, `prefix_seen` = fight, C `:1621–1634` + `:2772` cited); the f
@@ -91,11 +92,10 @@ Do **not** pop map-omission singletons
 **D-2304** `mklev.c:2036-2150` `mktrap` (invalid-args once-guard + paniclog; `m.x=m.y=0`; tm pool/lav — `js/mklev.js` only, no new cross-module edge (every callee same-module or already imported — `MKTRAP_NOFLAGS/SEEN/MAZEFLAG` join the existing `const.js` flag import; `--can` correctly skipped): new `traptype_roguelvl` ve
 **D-2303** `explode.c:776-790` (`fracture_rock(otmp); place_object(otmp, sx, sy); if ((otmp = sobj_at — port the C arm verbatim in C order over live callees only — `otmp = sobj_at(BOULDER, sx, sy); if (otmp) { obj_extract_self(otmp); place_object(otmp, sx, sy); }` with the C comment cited.
 **D-2302** `light.c:169–250` (`do_light_sources`): clear `LSF_SHOW` per entry (`:177`); `LS_OBJECT` r — port the C skeleton in C order over the existing inline refresh (conditions unchanged): file-local `const LSF_SHOW = 0x1` (light.c:41; the line-29 `COULD_SEE` precedent — no new module edge, no `imports.mjs --can` needed
-**D-2301** `trap.c:116–123` (`mat_idx = objects[item->otyp].oc_material; Sprintf(buf, "%s %s", materi — file-local `const materialnm` (22 words, C order, `decl.c` C-ref; eat.js `foodwords` precedent — no new module edge, no `imports.mjs --can` needed; the C `nhlobj.c:222` Lua "material" use is out of scope and noted at the
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2308; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2309; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

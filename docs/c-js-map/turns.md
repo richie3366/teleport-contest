@@ -1793,7 +1793,7 @@ mon `teleport_pet` migrate** (D-0954); **`dig_up_grave` + `dighole` IS_GRAVE** (
 **`impact_drop`/`down_gate`/`drop_to`/`add_to_migration` HOLE floor fall** (D-0961); 
 **`conjoined_pits`/`xytodir` + autodig quiet + `dighole` boulder-fill/`delfloortrap`** (D-0962); 
 **`desecrate_altar`/`god_zaps_you`/`fry_by_god` + 
-`disintegrate_arm`/`summon_minion` dig wire** (D-0963); 
+`disintegrate_arm`/`summon_minion` dig wire** (D-0963; D-2309: no-return-after-fry fall-through via gameover gate, `shieldeff` wired, astral/sanctum block outside the Disint if/else); 
 **`angrygods` cases 4–8 + `gods_angry`/`rndcurse`/`punish`/`summon_minion`/`god_zaps_you` default** 
 (D-0969); **`digactualhole` PIT/HOLE `switch_terrain` D-1269** (C `dig.c:733` after `wake_nearby`; 
 `:757` HOLE `at_u` before Lev/Fly re-read; 
