@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `do_wear.c` Gloves_off misses the `:687/696` `wielding_corpse` pair (new live export wired only for yellow-DSM doff; gloves-doff CORPSE-gated pair unnamed in map). Capture `gloves` + `on_purpose` pre-clear per C `:647–651`, add the pair, make `Gloves_off` async with caller cascade (`js/do_wear.js` :1373/:1391/:1868). Probe: wield cockatrice corpse, doff gloves, check petrify. Source: reviews/loop-unattended/1361-af4fb4cc-dragon-armor-wielding-corpse.md. **Addressed:** D-2397
+- [x] `dothrow.c` throwit landing misses `obj_no_longer_held` (call miswired into `throw_gold`, which C never calls it from; C `dothrow.c:1808` is in `throwit` between `flooreffects` and pick-snatch/snuff). Move the canonical `do.js` call from `throw_gold` into JS `throwit` landing (`js/dothrow.js` ~:2316–2340, after the `flooreffects` block). Probe: throw a crysknife and check worm-tooth revert on landing. Source: reviews/loop-unattended/1359-b7216a99-obj-no-longer-held.md.
+
+
+- [x] `do_wear.c` Gloves_off misses the `:687/696` `wielding_corpse` pair (new live export wired only for yellow-DSM doff; gloves-doff CORPSE-gated pair unnamed in map). Capture `gloves` + `on_purpose` pre-clear per C `:647–651`, add the pair, make `Gloves_off` async with caller cascade (`js/do_wear.js` :1373/:1391/:1868). Probe: wield cockatrice corpse, doff gloves, check petrify. Source: reviews/loop-unattended/1361-af4fb4cc-dragon-armor-wielding-corpse.md. **Addressed:** D-2397 `484c303d`
 
 
 - [x] `timeout.c` slimed_to_death (corpus queue 1/553: scen-death-Valkyrie-92229 step 37 kind=screen, C «You feel even worse» vs JS «You feel much worse» after Demogorgon lifesave; never own-row live/archived/parked). Probe: `node scripts/brief.mjs slimed_to_death`. **Addressed:** D-2396 `a00fc90c`

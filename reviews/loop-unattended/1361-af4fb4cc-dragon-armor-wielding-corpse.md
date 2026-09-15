@@ -116,4 +116,4 @@ verify. Right-sized (§2b).
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-2397
+**Addressed:** D-2397 `484c303d`

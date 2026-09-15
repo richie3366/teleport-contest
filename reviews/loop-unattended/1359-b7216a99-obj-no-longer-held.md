@@ -98,3 +98,5 @@ handoff. Right-sized (§2b).
    the snuff/ship arms (C `:1808` position).
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-2398

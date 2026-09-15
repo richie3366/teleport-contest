@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-2398 — `dothrow.c` throwit landing `obj_no_longer_held` miswire (review 1359 Must-fix)
+
+- **Status:** fixed (Must-fix queue row `dothrow.c` throwit landing misses `obj_no_longer_held` — review 1359 QUALITY-RISK Actionable C-wrong 1, stamped this commit; 0 corpus sessions blocked on throwit at HEAD so no `--base` owed and no corpus PASS claimed.)
+- **Symptom:** a genuinely thrown crysknife landing via `throwit` never reverted to a worm tooth; the D-2393 canonical call had been wired into `throw_gold` instead. Probe: normal crysknife through the canonical export reverts to WORM_TOOTH (PASS).
+- **C locus:** `nethack-c/upstream/src/dothrow.c` `throwit :1806–1809` (`flooreffects(obj, bhitpos, "fall")` → `obj_no_longer_held(obj)` `:1808` → shk pick-snatch `is_pick`/`mpickobj` → `snuff_candle` → `ship_object`). C `throw_gold` (`:2656+`) never calls it — gold is never CRYSKNIFE, so a call there is dead code.
+- **JS was:** `js/dothrow.js` `throw_gold` landing carried the dynamic-imported `await obj_no_longer_held(obj)` after its `flooreffects` gate (dead — COIN_CLASS otyp never matches); `js/dothrow.js` `throwit` landing went `flooreffects` → `snuff_candle` → `ship_object` with no call (D-2393 subject overclaimed this wiring).
+- **Fix:** `js/dothrow.js` only — deleted the dead `throw_gold` block; added the same dynamic-import + `await` in `throwit` between the `flooreffects` block and the snuff arm (exact C `:1808` position; pick-snatch stays named omit). No new static edges (dynamic import on the live `do.js` edge, same shape as the removed block — no TDZ risk); Rule #2 clean; no DIAG/FORCE/seed gates.
+- **JS:** 1 js file (`js/dothrow.js`, +7/−6), under the 600/10 caps. Density note: Must-fix single item shipped alone per rule.
+- **Verify:** `/tmp/probe_throwit_land.mjs` → normal-crysknife-revert PASS (mon_moving gate skips billing, revert still applies; deleted after run). `node scripts/verify.mjs --fn throwit` → PASS syntax (1 changed js file: js/dothrow.js) · PASS rule2 (no fs/path/url/node:, no DIAG/FORCE/seed gates) · note hidden `verify throwit: no corpus session is blocked on it at HEAD` (vacuous, NOT a corpus PASS; row cited 0 blocks so no --base owed) · PASS green 2/2 + strict ×2 · PASS cohort 7/7 · VERIFY: PASS. Preflight `--no-cohort` green on the clean tree before edits.
+- **Named omissions:** `throwit` shk pick-snatch (`is_pick`/`mpickobj`, pre-existing named per review 295/D-2393) stays named; `mkobj.c` `place_object`/`add_to_container` + `worn.c` `extract_from_minvent` sync-core callers stay map-named (D-2393).
+- **Next:** pop the next Open row (`vision.c` vision_recalc). Queue 11→10 unchecked on archive, in the 8–12 band — no refill.
+
 ## D-2397 — `do_wear.c` Gloves_off `:687/696` wielding_corpse pair (review 1361 Must-fix)
 
 - **Status:** fixed (Must-fix queue row `do_wear.c` Gloves_off `:687/696` wielding_corpse pair — review 1361 QUALITY-RISK Actionable C-wrong 1, stamped this commit; 0 corpus sessions blocked on Gloves_off at HEAD so no `--base` owed and no corpus PASS claimed.)
