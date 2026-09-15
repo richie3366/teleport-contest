@@ -81,8 +81,9 @@ Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
 **Next cluster:** Open `timeout.c` slimed_to_death (corpus queue 1/553: scen-death-Valkyrie-92229 step 37 kind=screen, C «You feel even worse» vs JS «You feel much worse» after Demogorgon lifesave; never own-row live/archived/parked). Probe: `node scripts/brief.mjs slimed_to_death`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2395 (index).**
+**Keep D-0845…D-2396 (index).**
 <!-- recent:begin -->
+**D-2396** `nethack-c/upstream/src/potion.c` make_sick `:140–188` (onset message gate `:158`, `set_it — `js/potion.js` only — the make_sick onset, partial-cure and full-cure arms plus make_slimed/make_stoned now mirror TIMEOUT bits to `u.uprops[…].intrinsic` (slot created when missing; full cure clears intrinsic per C `Sic
 **D-2395** `nethack-c/upstream/src/do_wear.c` `wielding_corpse :606–643` (null/non-CORPSE/gloved retu — `js/do_wear.js` only — new exported `wielding_corpse(obj, how, voluntary)` in exact C order (CORPSE/uarmg/wield gates; `touch_petrifies(mons(corpsenm))` + flat/H/E Stone check; `pline You … in your bare …` blue-arm idiom
 **D-2394** `nethack-c/upstream/src/topten.c` `outentry :946–1107` — `js/topten.js` only — the four arms in exact C order with `slice(0,6/8/7/13)` prefix checks (≡ the `strncmp` lens) and `t1.plgend?.[0]==='F'`, then the astral switch in C order with C's two fmt strings (`replace('%s',arg
 **D-2393** `nethack-c/upstream/src/do.c` `obj_no_longer_held :893–920` — `js/do.js` — canonical exported `async obj_no_longer_held` in exact C order (null return; `Has_contents` recursion; `(otyp|0)===CRYSKNIFE` + `!oerodeproof || !rn2(10)` short-circuit so normal draws zero RNG and fixed dra
@@ -90,11 +91,10 @@ Do **not** pop map-omission singletons
 **D-2391** `nethack-c/upstream/src/weapon.c` `autoreturn_weapon` `:519–529` over `arwep[]` `:513–517` — `js/weapon.js` — canonical exported `autoreturn_weapon` (C order: null guard, `otyp('AKLYS')` compare, `{ otyp, range: AKLYS_LIM², tethered: 1 }`; `BOLT_LIM`/`AKLYS_LIM` join the const.js import; `otyp`/`objectNames` alr
 **D-2390** `nethack-c/upstream/src/vault.c` `wallify_vault` `:646–731` (boundary-ring scan with inter — `js/vault.js` — full async `wallify_vault` in C order/branch structure (boundary-ring loops with interior `continue`; `IS_WALL || g_at || sobj_at(ROCK) || sobj_at(BOULDER)` gate short-circuit + `!in_fcorridor`; `m_at` oc
 **D-2389** `nethack-c/upstream/src/do_wear.c` `better_not_take_that_off` `:2989–3010` (corpse scan; ` — `js/do_wear.js` — new `carrying_stoning_corpse()` (C invent walk over `game.invent`, `CORPSE` + `touch_petrifies(mons(corpsenm))`; exported: C declares it extern, `extern.h:1394`, unlike the staticfn below) + new async `
-**D-2388** `nethack-c/upstream/src/pickup.c` `query_classes` `:140–262` (m_seen `:158` + ask_again `: — `js/pickup.js` only (+ import line): `query_classes` calls canonical `tally_BUCX(objs, here)` from `./invent.js` (`imports.mjs --can` → ALREADY, same SCC, no new edge) and the local clone is deleted (D-2347/D-2349 idiom)
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2395; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2396; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

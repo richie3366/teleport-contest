@@ -120,7 +120,7 @@ SICK `rn2(2)` vomit-type + `make_sick`; STONED `make_stoned` KILLED_BY;
 STUNNED `make_stunned`; VOMITING silent `make_vomiting` + pline buf;
 WARN_OF_MON grid-bug default then def_feedback; GLIB `make_glib` + Timeout
 pline with no incr; CONFUSION via default — its `make_confused` case is
-`#if 0`'d out); **`make_sick` delayed-killer `kpfx` D-2283** (C `potion.c:178–188` — cause `"#wizintrinsic"` → KILLED_BY else KILLED_BY_AN; live `js/potion.js` tail; both retired omission notes deleted); **`#levelchange`** (D-1203/D-0061);
+`#if 0`'d out); **`make_sick` delayed-killer `kpfx` D-2283** (C `potion.c:178–188` — cause `"#wizintrinsic"` → KILLED_BY else KILLED_BY_AN; live `js/potion.js` tail; both retired omission notes deleted); **`make_sick`/`make_slimed`/`make_stoned` uprops mirror D-2396** (C `potion.c:75–79` set_itimeout + `youprop.h:108` single storage; `js/potion.js` writers mirror TIMEOUT bits to `u.uprops[…]` so the nh_timeout generic `--` decrements what C wrote — fixes scen-death-Valkyrie-92229 even/much-worse); **`#levelchange`** (D-1203/D-0061);
 wiz_wish / wiz_genesis / wiz_level_tele / wiz_map / wiz_identify / wiz_makemap live.
 **`^W wiz_wish` ECMD_OK + rhack tail** (D-2181; C `cmd.c:3814–3816` — ECMD_OK
 → `reset_cmd_vars(multi<0)`, clearing savelife's multi=-1 so the next

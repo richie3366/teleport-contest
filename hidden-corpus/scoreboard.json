@@ -1,6 +1,6 @@
 {
- "commit": "e2d16801",
- "at": "2026-09-15T10:36:20.869Z",
+ "commit": "4da5695d",
+ "at": "2026-09-15T21:37:06.576Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -4373,19 +4373,19 @@
   },
   "scen-death-Valkyrie-92229": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 3094,
    "rngT": 3094,
-   "scrM": 61,
+   "scrM": 63,
    "scrT": 63,
-   "kind": "screen",
-   "step": 37,
+   "kind": null,
+   "step": null,
    "steps": 63,
-   "owner": "slimed_to_death",
-   "loc": "timeout.c:508",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "OK, so you don't die. Demogorgon hits! You feel even worse.--More--",
-   "jsTopline": "OK, so you don't die. Demogorgon hits! You feel much worse.--More--",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-death-Wizard-92120": {
