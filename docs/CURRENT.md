@@ -82,8 +82,9 @@ Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
 **Next cluster:** `ball.c` drop_ball punish-drop (TOP30 queue-mapping named; no JS symbol; never live/archived/parked). Probe: `node scripts/brief.mjs drop_ball`. (Prior head `dokick.c` kick_nondoor SDOOR+helpers / throne+tree parked 2026-09-15, no js/ — stale-dupe proofs in LOOP-QUEUE Parked.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2328 (index).**
+**Keep D-0845…D-2329 (index).**
 <!-- recent:begin -->
+**D-2329** `nethack-c/upstream/src/ball.c` `drop_ball` `:881–961` (whole body, C order) + callers `do — `js/ball.js` gains exported async `drop_ball(x,y)` in C arm order — Blind `bc_order`+`bglyph` snapshot; `x != ux || y != uy` gate; utrap yank for every type but INFLOOR/BURIEDBALL (pit / web + `Soundeffect(se_destroy_web
 **D-2328** `nethack-c/upstream/src/steed.c` `use_saddle` `:63–69` — `js/steed.js` only, no new static module edges: `poly_when_stoned` joins the existing `monsters.js` import and `Mgender` joins the existing `do_name.js` import (`imports.mjs --can` ALREADY for both); `PM_STONE_GOLEM` con
 **D-2327** `nethack-c/upstream/src/dungeon.c` `surface` `:1749–1788` — clone deleted; `js/dig.js` imports the shared C-order `surface` from `js/sit.js` (D-2008 home: SURFACE_AT/`db_under_typ`, air-bubble, pool, ice, lava, bridge, SDOOR, earthlevel gate) with a C-citing import comment.
 **D-2326** `nethack-c/upstream/src/zap.c` `u_adtyp_resistance_obj` `:5676–5698` — `js/invent.js` only, no new module edges (`objectNames` already imported; `AD_COLD`/`AD_FIRE` file-local monattk.h block; `game.u.uarmc` ≡ C `uarmc`): the cloak arm in C position and C predicate order (`AD_COLD || AD_FIR
@@ -91,11 +92,10 @@ Do **not** pop map-omission singletons
 **D-2324** `nethack-c/upstream/src/invent.c` `mergable` `:4379–4499` (whole body, C order) + `nethack — `js/mkobj.js` — mergable rewritten in C order: unpaid/spe/no_charge/obroken/otrapped/lamplit block; FOOD arm kept (JS `orotten` is separate storage vs C obj.h:130 `#define orotten oeroded` — documented in comment); dknow
 **D-2323** `nethack-c/upstream/src/dig.c` `dighole` `:884-1024` — `js/dig.js` only.
 **D-2322** `nethack-c/upstream/src/dig.c` `zap_dig` `:1569-1582` (`u.uswallow` → `mtmp = u.ustuck`; ` — `js/dig.js` only, no new static module edges (`is_whirly` + `G_UNIQ` join the existing `monsters.js` import; `STOMACH` joins the existing `const.js` import; `s_suffix`/`mon_nam`/`pline` already imported): the `u.uswallow
-**D-2321** `nethack-c/upstream/src/dig.c` `zap_dig` `:1617-1662` (pitdig setup `:1617-1623`, adjacent — `js/dig.js` only, no new module edges (all four added names join existing static imports — `imports.mjs --can` ALREADY for each: `s_suffix` joins the existing `do_name.js` import; `On_ladder` joins `mklev.js`; `DBWALL`/`
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2328; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2329; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

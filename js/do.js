@@ -156,7 +156,7 @@ import {
     haseyes, eyecount,
 } from './monsters.js';
 import {
-    placebc, unplacebc, drag_down, ballrelease, set_bc, ballfall,
+    placebc, unplacebc, drag_down, ballrelease, set_bc, ballfall, drop_ball,
 } from './ball.js';
 import { obj_resists } from './dogmove.js';
 import { Soundeffect, se_scratching, se_alarm } from './sndprocs.js';
@@ -2247,8 +2247,9 @@ function freeinv_drop(obj) {
 /**
  * C ref: do.c dropz — place at hero feet; always encumber_msg (polyself
  * break_armor armor-drop More packs load before gloves).
- * Named omissions: engulf digest; shop sell wired (D-0994); altar; ball;
- * Blind+Levitation map_object. hitfloor dropz(TRUE) is D-1263.
+ * Punished uball → drop_ball (C do.c:834, D-2329); else shop sell (D-0994).
+ * Named omissions: engulf digest; altar; Blind+Levitation map_object.
+ * hitfloor dropz(TRUE) is D-1263.
  */
 export async function dropz(obj, with_impact) {
     if (!obj) return;
@@ -2272,8 +2273,10 @@ export async function dropz(obj, with_impact) {
         await container_impact_dmg(obj, u.ux | 0, u.uy | 0);
     }
     impact_disturbs_zombies(obj, !!with_impact);
-    // C: sellobj when has_shop (after place, before stack)
-    if (game.level?.flags?.has_shop) {
+    // C do.c:831-834 — uball → drop_ball, else shop sell (after place)
+    if (obj === u.uball) {
+        await drop_ball(u.ux | 0, u.uy | 0);
+    } else if (game.level?.flags?.has_shop) {
         const { sellobj } = await import('./shk.js');
         await sellobj(obj, u.ux | 0, u.uy | 0);
     }

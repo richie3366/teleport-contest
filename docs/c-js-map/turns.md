@@ -729,7 +729,7 @@ vampshifted POLY_REVERT still named (polyself voids it); do_genocide livelog / H
 `create_particular` class-letter still named) + 
 **`domove` Punished `drag_ball`/`move_bc`/`cause_delay`→`nomul(-2)`** (D-0909; 
 Blind move_bc felt/glyph is **D-1777**, `ballfall` is **D-1778**; jerked-back hmon/miss, 
-drop_ball/litter/unpunish deferred; **`set_bc` is D-1769**); 
+**drop_ball D-2329**; litter/unpunish deferred; **`set_bc` is D-1769**); 
 **`create_particular` named `name_to_mon` + gendered-name `MM_MALE`/`MM_FEMALE`** (D-2001; explicit female/male terms + name-gender merge, conflict explicit-wins; D-2003: bare `strstri` search, no leading pad — `shemale …` hits MALE — + `memset`-width in-place blanking) + `makemon(..., MM_NOEXCLAM)` + 
 `makemon_appear_msg` for `#wizgenesis`/`^G`** (D-0510/D-0928 #1164;
 D-2004: `cant_revive` uniqueness gate live — guard/shopkeeper-create/clerics/angel → zombie, worm tail → worm, unique → doppelganger — with the `Creating %s instead; force %s?` y_n override (long-worm-tail exempt) + doppelganger `newcham` fixup;

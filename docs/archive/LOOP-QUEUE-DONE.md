@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
+- [x] `ball.c` drop_ball punish-drop (TOP30 queue-mapping named; no JS symbol; never live/archived/parked). Probe: `node scripts/brief.mjs drop_ball`. **Addressed:** D-2329
+
+
 - [x] `steed.c` use_saddle (named absent.md:29, D-1008; never live/archived/parked). Probe: `node scripts/brief.mjs use_saddle`. **Addressed:** D-2328 5622d826
 
 
