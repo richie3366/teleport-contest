@@ -66,10 +66,10 @@ import { set_malign, makemon } from './makemon.js';
 import { killed, xkilled } from './uhitm.js';
 import { ureflects } from './mhitu.js';
 import { aggravate } from './wizard.js';
-import { setuhpmax } from './exper.js';
+import { setuhpmax, losexp } from './exper.js';
 import { done } from './end.js';
 import { monstseesu, monstunseesu } from './mondata.js';
-import { mon_nam, Monnam, a_monnam, oname, s_suffix } from './do_name.js';
+import { mon_nam, Monnam, a_monnam, oname, s_suffix, hcolor } from './do_name.js';
 import { disintegrate_arm, setworn, stuck_ring, unchanger } from './do_wear.js';
 import { summon_minion, dlord } from './minion.js';
 import {
@@ -230,11 +230,6 @@ function Antimagic() {
 /** C: Punished ≡ uball != 0. Exported for polyself.c doremove. */
 export function Punished() {
     return !!(game.u?.uball);
-}
-
-/** C ref: potion.c hcolor — Hallucination synonym deferred. */
-function hcolor(colorword) {
-    return colorword || 'odd';
 }
 
 /** C: pray.c on_altar */
@@ -992,36 +987,6 @@ export async function altar_wrath(x, y) {
     }
 }
 
-/**
- * C ref: exper.c losexp — level-drain for divine anger (drainer==null).
- * RNG-free body; resists_drli / Upolyd / achievements deferred.
- */
-function losexp_divine() {
-    const u = game.u || (game.u = {});
-    if ((u.ulevel | 0) > 1) {
-        u.ulevel = (u.ulevel | 0) - 1;
-        // adjabil / "lost experience level N" livelog deferred
-    } else {
-        u.uexp = 0;
-        // C: livelog_printf(LL_MINORAC, "lost all experience")
-        livelog_printf(LL_MINORAC, 'lost all experience');
-    }
-    const numHp = (u.uhpinc?.[u.ulevel] | 0);
-    u.uhpmax = (u.uhpmax | 0) - numHp;
-    if ((u.uhpmax | 0) < 10) u.uhpmax = 10;
-    u.uhp = (u.uhp | 0) - numHp;
-    if ((u.uhp | 0) < 1) u.uhp = 1;
-    else if ((u.uhp | 0) > (u.uhpmax | 0)) u.uhp = u.uhpmax;
-    const numEn = (u.ueninc?.[u.ulevel] | 0);
-    u.uenmax = (u.uenmax | 0) - numEn;
-    if ((u.uenmax | 0) < 0) u.uenmax = 0;
-    u.uen = (u.uen | 0) - numEn;
-    if ((u.uen | 0) < 0) u.uen = 0;
-    else if ((u.uen | 0) > (u.uenmax | 0)) u.uen = u.uenmax;
-    if (!game.flags) game.flags = {};
-    game.flags.botl = true;
-}
-
 /** C ref: youprop.h Reflecting — H/E + worn SoR/AoR/silver DSM / form. */
 function Reflecting() {
     const u = game.u || {};
@@ -1226,8 +1191,7 @@ async function gods_angry(g_align) {
 /**
  * C ref: pray.c angrygods — cases 0–8 + default god_zaps_you + ublesscnt
  * rnz(300) tail (D-0969).
- * Named omissions: SetVoice pitch; poly mlet "creature"; shieldeff on
- * Antimagic glow path.
+ * Named omissions: SetVoice pitch (audio only, no screen/RNG surface).
  */
 async function angrygods(resp_god) {
     const u = game.u || (game.u = {});
@@ -1247,7 +1211,9 @@ async function angrygods(resp_god) {
     if (maxanger < 1) maxanger = 1;
     else if (maxanger > 15) maxanger = 15;
 
-    const mortal = 'mortal'; // youmonst.data->mlet == S_HUMAN assumed for L1 roles
+    // C: gy.youmonst.data->mlet == S_HUMAN ? "mortal" : "creature". C
+    // youmonst.data is never NULL in play; an unset JS slot reads as human.
+    const mortal = ((game.youmonst?.data?.mlet || 'S_HUMAN') === 'S_HUMAN') ? 'mortal' : 'creature';
     switch (rn2(maxanger)) {
     case 0:
     case 1:
@@ -1270,7 +1236,9 @@ async function angrygods(resp_god) {
         await verbalize('Thou must relearn thy lessons!');
         // C: adjattrib(A_WIS, -1, FALSE) → You_feel("foolish!") → more()
         await adjattrib(A_WIS, -1, false);
-        losexp_divine();
+        // C: losexp((char *)0) — divine drain, drainer NULL: resists_drli
+        // gate, "Goodbye level N." pline, adjabil, uexp reset (exper.c).
+        await losexp(null);
         break;
     }
     case 6:

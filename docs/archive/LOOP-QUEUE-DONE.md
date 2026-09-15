@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `apply.c` use_royal_jelly full body (named absent.md:34 + turns.md:2014 deferred, D-1021; JS local-only partial; never live/archived/parked). Probe: `node scripts/brief.mjs use_royal_jelly`. **Addressed:** D-2331
+- [x] `pray.c` angrygods high-anger arms (named absent.md:13, post-D-0969 residual; 0–8/default-zap shipped; never live/archived/parked). Probe: `node scripts/brief.mjs angrygods`.
+
+
+- [x] `apply.c` use_royal_jelly full body (named absent.md:34 + turns.md:2014 deferred, D-1021; JS local-only partial; never live/archived/parked). Probe: `node scripts/brief.mjs use_royal_jelly`. **Addressed:** D-2331 `e39f3bf8`
 
 
 - [x] `trap.c` launch_obj closed-door crash-through arm (named D-2318 residual, C trap.c:3533–3541; C arm is that small; never live/archived/parked). Probe: `node scripts/brief.mjs launch_obj`. **Addressed:** D-2330 `4d1f4fce`

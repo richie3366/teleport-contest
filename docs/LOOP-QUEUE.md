@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `pray.c` angrygods high-anger arms (named absent.md:13, post-D-0969 residual; 0–8/default-zap shipped; never live/archived/parked). Probe: `node scripts/brief.mjs angrygods`.
 - [ ] `apply.c` dorub #rub/wield_tool envelope (named turns.md:1911 re-queue, D-0710; never live/archived/parked). Probe: `node scripts/brief.mjs dorub`.
 - [ ] `sp_lev.c` map_cleanup deltrap/del_engr arms (named data.md:667, D-0774 residual; never live/archived/parked). Probe: `node scripts/brief.mjs map_cleanup`.
 - [ ] `mon.c` m_dowear Pelias/Lord Carnarvon/Arch Priest quest specials (named data.md:785; worn.c m_dowear_type is a different fn; never live/archived/parked). Probe: `node scripts/brief.mjs m_dowear`.
