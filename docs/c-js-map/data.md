@@ -770,7 +770,7 @@ temperate → hot; valley still overrides temperate);
 **D-0753 `maybe_generate_rnd_mon` stronghold-depth rate** + **D-0754 `minetn-5`** + 
 **D-1490 `minetn-1`** + **D-1503 `minetn-6`** + **D-1504 `minetn-7`** +
 **D-1513 minetn-7 town-floor three gnomes**; **D-1841 `fakewiz1`/`fakewiz2`** (hellfill D-0906); 
-flip_level lregion coord update deferred; 
+**D-2336 quest-start/soko branch levregions stored pre-flip for flip_level remap**; 
 **D-0608 `minend-1` `des.object("(")`→TOOL not WEAPON** (defsym `'('`=TOOL_CLASS); 
 **D-0543 `soko1-2` load_special** (map/reward percent(25); other `soko*-*` deferred); 
 **D-0547 `soko2-1` + `is_ok_location_dry` boulder reject**; **D-1820 `soko2-2`**; 

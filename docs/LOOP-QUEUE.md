@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `sp_lev.c` flip_level lregion coord update (named data.md:773; never live/archived/parked). Probe: `node scripts/brief.mjs flip_level`.
 - [ ] `artifact.c` mk_artifact by_align/gift_value/gen_spe (named data.md:272, D-0759 residual; never live/archived/parked). Probe: `node scripts/brief.mjs mk_artifact`.
 - [ ] `trap.c` blow_up_landmine fill_pit/drawbridge/which_armor-iron-shoes/steedintrap (named data.md:1070, D-0874 residual; mintrap/teleds/scatter arms are other rows; never live/archived/parked). Probe: `node scripts/brief.mjs blow_up_landmine`.
 - [ ] `mon.c` mongone MM_NOCOUNTBIRTH born tally (named data.md:1098, D-0538 residual; savebones/mdrop_special_objs are other rows; never live/archived/parked). Probe: `node scripts/brief.mjs mongone`.

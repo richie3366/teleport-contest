@@ -16,19 +16,20 @@ Park rows: re-pop only on the listed falsifier (proofs in Parked).
 
 ## Don't re-check (≤15)
 
-- D-1790…D-2335 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-2336 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 are D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` loaders D-1852/D-1858 — check `load_val_*`/`load_sam_*` before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / `setnotworn`←`owornmask` (D-1020) / `delobj` tut loot / off-level timers (D-1037) / dropped `msounds[]` (D-1053) / tut-1 keys (D-1065) / skipped `tutorial()` (D-1066). No skip D-1067…D-2335.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, or makemon→hack/artifact/minion. No re-port D-1682…D-2335.
+- No memcpy gi worn/ball (D-1035) / `setnotworn`←`owornmask` (D-1020) / `delobj` tut loot / off-level timers (D-1037) / dropped `msounds[]` (D-1053) / tut-1 keys (D-1065) / skipped `tutorial()` (D-1066). No skip D-1067…D-2336.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, or makemon→hack/artifact/minion. No re-port D-1682…D-2336.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2336: `js/mklev.js` only, zero new module edges (all names file-local; no `imports.mjs --can` needed — no new cross-module import). Named: medusa-1/3 pre-flip pushes with manual TELE/BRANCH drains (behaviorally exact duplicates o
 - D-2335: `js/mklev.js` only. Named: Kni-strt King Arthur + Mon-strt Grand Master identical `spo_end_moninvent m_dowear` patter
 - D-2334: `js/mklev.js` only, zero new module edges (`imports.mjs --can` ALREADY ×2: `deltrap` joins the existing trap.js import, `engr_at`/`del_engr` join the  Named: shared-`deltrap` Sokoban PIT/HOLE `maybe_finish_sokoban` sub-arm (`trap.c`; callee not liv
 - D-2333: `js/wield.js` only. Named: untwoweapon side effects beyond basic clear (pre-existing).
@@ -43,5 +44,4 @@ Park rows: re-pop only on the listed falsifier (proofs in Parked).
 - D-2324: `js/mkobj.js` — mergable rewritten in C order: unpaid/spe/no_charge/obroken/otrapped/lamplit block; FOOD arm kept (JS `orotten` is separate storage vs Named: obj-worn combine guard stays (D-2207; merged setworn fixup unported); C `#if 0` bypass non
 - D-2323: `js/dig.js` only. Named: `spot_checks` tail (no JS counterpart anywhere in `js/` — new-function scope, pre-existing
 - D-2322: `js/dig.js` only, no new static module edges (`is_whirly` + `G_UNIQ` join the existing `monsters.js` import; `STOMACH` joins the existing `const.js` i Named: none new — the `zap_dig` docstring omit retired to Hallucination draft only.
-- D-2321: `js/dig.js` only, no new module edges (all four added names join existing static imports — `imports.mjs --can` ALREADY for each: `s_suffix` joins the  Named: swallowed pierce (`u.uswallow` early-return; next Open row, untouched); `nhUse(digdepth)` 
 <!-- landmarks:end -->
