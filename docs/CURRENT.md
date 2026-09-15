@@ -81,7 +81,7 @@ Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order;
 every row is a recorded C-vs-JS first
 divergence with its probe. Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `end.c` really_done death-screen residuals (TOP30 #21; local clone js/end.js:959 is clone drift; fixup_death/clearlocks/logfile-xlogfile/paygd arms named). Probe: `node scripts/brief.mjs really_done`.
+**Next cluster:** `mon.c` make_corpse special-corpse table (TOP30 #4; live js/mhitm.js:2391 covers the baseline; dragon scales/unicorn horn/worm-tooth arms + their draws still named). Probe: `node scripts/brief.mjs make_corpse`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2305 (index).**
 <!-- recent:begin -->
