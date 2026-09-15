@@ -17,19 +17,20 @@ Park rows: re-pop only on the listed falsifier (proofs in Parked).
 
 ## Don't re-check (≤15)
 
-- D-1790…D-2319 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-2320 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 are D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` loaders D-1852/D-1858 — check `load_val_*`/`load_sam_*` before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / `setnotworn`←`owornmask` (D-1020) / `delobj` tut loot / off-level timers (D-1037) / dropped `msounds[]` (D-1053) / tut-1 keys (D-1065) / skipped `tutorial()` (D-1066). No skip D-1067…D-2319.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, or makemon→hack/artifact/minion. No re-port D-1682…D-2319.
+- No memcpy gi worn/ball (D-1035) / `setnotworn`←`owornmask` (D-1020) / `delobj` tut loot / off-level timers (D-1037) / dropped `msounds[]` (D-1053) / tut-1 keys (D-1065) / skipped `tutorial()` (D-1066). No skip D-1067…D-2320.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, or makemon→hack/artifact/minion. No re-port D-1682…D-2320.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2320: `js/dokick.js` only, no new module edges (`is_giant` joins the existing `monsters.js` import — `imports.mjs --can` ALREADY; `Soundeffect` joins the ex Named: `vision_recalc(1)` after each success arm (JS-only display refresh, pre-existing, untouche
 - D-2319: `js/dig.js` only (+ static `SHOP_WALL_COST` from `const.js`, already exported; `add_damage` via the file's existing per-arm dynamic `shk.js` import —  Named: `SetVoice` (audio, draw-free); do_break_wand ICE `spot_stop_timers` + `check_unpaid` polis
 - D-2318: `js/trap.js` only (+2 static imports: `sndprocs.js` Soundeffect — `imports.mjs` SAFE, no cycle; `const.js` MIGR_NOWHERE; `dokick.js`/`do.js` via the f Named: launch_obj `closed_door` crash-through (C `:3533–3541`; `pline_The` has no JS counterpart)
 - D-2317: both call sites now use the already-imported `canspotmon` (`display.js:1237` ≡ C; no new module edge, no TDZ risk). Named: `boxlock_invent` `update_inventory()` refresh (map-named; UI redraw, no corpus screen/RNG 
@@ -44,5 +45,4 @@ Park rows: re-pop only on the listed falsifier (proofs in Parked).
 - D-2308: `js/shk.js` only: `rile_shk` ports the walk verbatim in C order over the live `bill_p`/`bill` shape (same `||` fallback as `addupbill`; `| 0` integer  Named: `SetVoice` in `shopdig` warn (pre-existing); `#if 0` nolimbs curse/rile early-return (C-di
 - D-2307: `js/dig.js` only (+ `js/zap.js` 1-line `await`): `end_burn` via dynamic `timeout.js` import (sync export; `stop_timer` runs `cleanup_burn` — C `timeou Named: sanity-check `impossible` text (file-convention soft); CORPSE-under-ice (C TODO `:2026–202
 - D-2306: `js/cmd.js` only, no new module edge (`do_fight` same-module; no `imports.mjs --can` needed): `-` shares the `F` arm (`ch === 'F' || ch === '-'` → `do Named: `!`→doshell binding (2 corpus sessions, own future row); other number_pad/phone/swap_yz/pc
-- D-2305: `js/trap.js` only, no new module edge (`getobj`/`useup`/`consume_obj_charge` join the existing `invent.js` import; `GETOBJ_*` join `const.js`; `unbloc Named: `move_into_trap` (adjacent-Whoops; needs `test_move` export, D-1813); `stumble_on_door_mim
 <!-- landmarks:end -->

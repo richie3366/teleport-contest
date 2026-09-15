@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-15 — D-2320 `dokick.c` kick_door residuals: giant doorbuster predicate + shatter/crash Soundeffect
+
+**C locus:** `nethack-c/upstream/src/dokick.c` `kick_door` `:909–970` — `:924` (`doorbuster = Upolyd && is_giant(gy.youmonst.data)`, `mondata.h:107` M2_GIANT predicate), `:940` (`Soundeffect(se_kick_door_it_shatters, 50)`), `:946` (`Soundeffect(se_kick_door_it_crashes_open, 50)`).
+**JS:** 1 file (`dokick.js`), far under the 600/10 caps.
+**Change:** `js/dokick.js` only, no new module edges (`is_giant` joins the existing `monsters.js` import — `imports.mjs --can` ALREADY; `Soundeffect` joins the existing `sndprocs.js` import; the two `se_*` constants via `generated/seffects_data.js` — the `trap.js:145` convention): doorbuster uses the live `is_giant` M2_GIANT predicate (≡ C macro); both success arms call `Soundeffect` in C order before the message (draw-free no-op in this build per `sndprocs.js:36`, D-2318/D-2316/D-2315 convention). +9/−3 lines incl. C-cite comments; docstring omit retired.
+**Verify:** preflight `verify --no-cohort` PASS on a clean tree before edits. Hand probe `/tmp/probe_doorbuster.mjs` (deleted after run; no corpus session reaches the giant-poly kick arm): `mons(PM_FIRE_GIANT)` carries M2_GIANT with no `.is_giant` field — old predicate false, new true; `mons(PM_HUMAN)` false both sides. No maintained unit harness exists for game logic (only `scripts/*.test.mjs` for loop tooling + session replay); disclosed per skill.
+**Named:** `vision_recalc(1)` after each success arm (JS-only display refresh, pre-existing, untouched); `loc.flags = loc.doormask` cell-rep sync (pre-existing); `get_iter_mons`/`get_iter_mons_xy` file-local clones vs `mon.c:4544` `mon_offmap` skip (review-14 risk, standing pattern); kick_nondoor/SDOOR (other rows).
+**Next:** do not re-pop kick_door for the D-0947 line. Queue head is now the `apply.c` flip_through_book/flip_coin row (D-1024). Falsifier: a rescore or fresh `verify kick_door` showing a session blocked with kick_door as owner, or a giant-poly kick trace burning `rnl(35)` where C busts.
 ## 2026-09-15 — D-2319 `dig.c` zap_dig shop-wall arms: missing `add_damage(SHOP_WALL_COST)` + extra maze `watch_dig`
 
 **C locus:** `nethack-c/upstream/src/dig.c` `zap_dig` beam arms — door-razed `:1664–1683` (`add_damage(SHOP_DOOR_COST)` + `watch_dig(zap)`), maze wall `:1686–1698` (`add_damage(SHOP_WALL_COST)` + `shopwall`, NO `watch_dig`), ordinary wall/SDOOR `:1712–1729` (`add_damage(SHOP_WALL_COST)` + `shopwall` + `watch_dig(zap)`), tail `:1751–1752` (`pay_for_damage("destroy"/"dig into")`).
