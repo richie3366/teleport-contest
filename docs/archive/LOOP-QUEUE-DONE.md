@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
+- [x] `apply.c` Blindf_on/Blindf_off BLINDFOLD/LENSES (named debt.md D-1013; never live/archived/parked). Probe: `node scripts/brief.mjs Blindf_on`. **Addressed:** D-2356
+
+
 - [x] `apply.c` use_lamp residual (named debt.md D-1023/D-1052; use_candle D-1025 + DONE arms shipped; never own-row live/parked). Probe: `node scripts/brief.mjs use_lamp`. **Addressed:** D-2355 `aba73268`
 
 
