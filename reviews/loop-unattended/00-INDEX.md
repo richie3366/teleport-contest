@@ -1308,3 +1308,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1295-e23e920d-drop-ball-body-callers.md](./1295-e23e920d-drop-ball-body-callers.md) | `e23e920d` | D-2329 drop_ball body + caller wiring | **ACCEPT** |
 | [1296-4d1f4fce-launch-obj-door-crash.md](./1296-4d1f4fce-launch-obj-door-crash.md) | `4d1f4fce` | D-2330 launch_obj closed-door crash | **ACCEPT** |
 | [1297-e39f3bf8-royal-jelly-canonicals.md](./1297-e39f3bf8-royal-jelly-canonicals.md) | `e39f3bf8` | D-2331 royal jelly clones retire | **ACCEPT** |
+| [1298-ce42f088-angrygods-clone-retirement.md](./1298-ce42f088-angrygods-clone-retirement.md) | `ce42f088` | D-2332 angrygods losexp/mortal/hcolor | **ACCEPT** |
+| [1299-0d320968-wield-tool-guard-arms.md](./1299-0d320968-wield-tool-guard-arms.md) | `0d320968` | D-2333 wield_tool guard arms | **ACCEPT** |
+| [1300-d8a41af3-map-cleanup-trap-engr.md](./1300-d8a41af3-map-cleanup-trap-engr.md) | `d8a41af3` | D-2334 map_cleanup deltrap/del_engr | **ACCEPT** |
+| [1301-5076ec8d-spo-end-moninvent-mdowear.md](./1301-5076ec8d-spo-end-moninvent-mdowear.md) | `5076ec8d` | D-2335 spo_end_moninvent m_dowear ×3 | **ACCEPT** |
+| [1302-c5f1048b-flip-level-lregion-coords.md](./1302-c5f1048b-flip-level-lregion-coords.md) | `c5f1048b` | D-2336 flip_level lregion coords ×13 | **ACCEPT** |
+| [1303-0b271ba2-mk-artifact-gift-path.md](./1303-0b271ba2-mk-artifact-gift-path.md) | `0b271ba2` | D-2337 mk_artifact gift path + gates | **ACCEPT** |
+| [1304-a5d8009f-blow-up-landmine-tails.md](./1304-a5d8009f-blow-up-landmine-tails.md) | `a5d8009f` | D-2338 blow_up_landmine + tails | **ACCEPT** |
+| [1305-abcd52ce-makemon-nocountbirth-tally.md](./1305-abcd52ce-makemon-nocountbirth-tally.md) | `abcd52ce` | D-2339 makemon NOCOUNTBIRTH tally | **ACCEPT** |
+| [1306-09146ec5-hideunder-concealer-arms.md](./1306-09146ec5-hideunder-concealer-arms.md) | `09146ec5` | D-2340 hideunder concealer arms | **ACCEPT** |
