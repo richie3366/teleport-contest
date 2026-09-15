@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `potion.c` peffect_water body (debt.md:23 potionbreathe POT_WATER lycan residual; never own-row live/archived/parked). Probe: `node scripts/brief.mjs peffect_water`. **Addressed:** D-2377
+- [x] `artifact.c` set_artifact_intrinsic W_ART-off invoked-toggle reversal via arti_invoke (C artifact.c:880-885; sync locus js/artifact.js:848 + js/invent.js:7361 freeinv_core with 25 freeinv sites incl. local shadows; async arti_invoke needs propagation vehicle; zap-poly half shipped alongside D-2371). Probe: `node scripts/brief.mjs set_artifact_intrinsic`. **Addressed:** D-2378
+
+
+- [x] `potion.c` peffect_water body (debt.md:23 potionbreathe POT_WATER lycan residual; never own-row live/archived/parked). Probe: `node scripts/brief.mjs peffect_water`. **Addressed:** D-2377 `7c83a6ca`
 
 
 - [x] `mkobj.c` shrink_glob body (data.md:287 thin shrink_glob with globby_bill_fixup; never own-row live/archived/parked). Probe: `node scripts/brief.mjs shrink_glob`. **Addressed:** D-2376 `f4c8bef2`

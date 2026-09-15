@@ -301,7 +301,7 @@ import { dryup } from './fountain.js';
 import { explode } from './explode.js';
 import { unpunish, litroom } from './read.js';
 import { engr_at, del_engr, make_engr_at, wipe_engr_at, random_engraving, rloc_engr } from './engrave.js';
-import { bare_artifactname, defends, defends_when_carried, artifact_origin } from './artifact.js';
+import { bare_artifactname, defends, defends_when_carried, artifact_origin, revoke_invoked_property } from './artifact.js';
 import {
     Ring_gone, Ring_off, Ring_on, setworn, set_wear, hard_helmet,
 } from './do_wear.js';
@@ -5093,8 +5093,9 @@ export async function poly_obj(obj, id) {
             /* C zap.c `:1910–1914` — freeinv_core(obj) then addinv_core1/2
              * on otmp: the in-place invent swap's side effects (uhave /
              * questart artitouch / W_ART intrinsic / archeologist decipher).
-             * Old-obj invoked-toggle reversal inside set_artifact_intrinsic
-             * stays named (sync locus, async arti_invoke vehicle). */
+             * Old-obj invoked-toggle reversal (artifact.c `:880–885`, D-2378)
+             * runs here, in C order before addinv_core1. */
+            if (obj.oartifact) await revoke_invoked_property(obj);
             await addinv_core1(otmp);
             await addinv_core2(otmp);
             if (old_wornmask) {

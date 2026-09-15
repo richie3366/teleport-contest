@@ -145,15 +145,22 @@ see_it / `display_warning` mon_to_glyph; `see_wsegs` D-1529 / polyd·species pro
 EREGEN/HSPDAM/HPHDAM; MKoT WARN\|TCTRL\|HPHDAM, Orb of Fate WARN\|HSPDAM\|HPHDAM, Heart STLTH, 
 Detection/PYEC ESP\|HSPDAM, Eye EREGEN\|HSPDAM; callers invent `addinv_core1` `:991` / 
 `freeinv_core` `:1383`; extractor A() s2; live `js/artifact.js` + `js/u_init.js` `addinv` + 
-`js/invent.js` `freeinv_core`; defn/cary resist / SPFX_PROTECT / inv_prop 
-`arti_invoke` on W_ART drop named (sync locus, async vehicle — own row); questart `artitouch` live D-2370; zap poly `addinv_core1/2` live D-2371); 
+`js/invent.js` `freeinv_core`; resists + PROTECT + inv_prop drop shipped D-2378; 
+questart `artitouch` live D-2370; zap poly `addinv_core1/2` live D-2371); 
 **`set_artifact_intrinsic` SPFX_SEARCH/REGEN/XRAY D-1558** (C `artifact.c:781–786` 
 ESearching Excalibur wield, `:812–817` ERegeneration Trollsbane/Staff wield, 
 `:859–866` Eyes `u.xray_range` 3/-1 + `gv.vision_full_recalc`; live 
 `js/artifact.js` + `js/do_wear.js` `setworn` W_TOOL; carry W_ART uses cspfx so 
 SEARCH is not a carry bit; Palantir `#if 0` REGEN cspfx; vision_recalc IN_SIGHT 
-xray circle / SPFX_PROTECT / defn/cary / inv_prop drop / Sunsword named; 
-cspfx is D-1539); 
+xray circle / Sunsword named; cspfx is D-1539);
+**`set_artifact_intrinsic` defn/cary resists + PROTECT + inv_prop drop D-2378** (C 
+`artifact.c:731–768` seven-way defn/cary adtyp→E* mask + W_ART-off 
+`cary.adtyp==dtyp` other-carrier guard (pure table check — C-quirk stale-bit 
+parity probed); `:873–878` SPFX_PROTECT (Mitre/Tsurugi spfx); `:880–885` W_ART-off 
+invoked-toggle reversal via async `revoke_invoked_property` (C guard verbatim; 
+only Orb/INVIS, Sceptre/CONFLICT, Heart/LEVITATION ≤ LAST_PROP), awaited by 
+`dropx` (C `dropx` order) + zap poly (C `:1910–1914` order); no-floor drops ride 
+`finesse_ahriman` (own row); live `js/artifact.js` + `js/do.js` + `js/zap.js`);
 **defn/cary extract + `defends`/`defends_when_carried` D-1453**;
 **`artilist.cost` extract + `arti_cost` D-1719** (C
 `artifact.c:2308–2317`; `getprice` `/4`; shop `get_cost` still `*4`);

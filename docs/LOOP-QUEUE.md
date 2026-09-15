@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `artifact.c` set_artifact_intrinsic W_ART-off invoked-toggle reversal via arti_invoke (C artifact.c:880-885; sync locus js/artifact.js:848 + js/invent.js:7361 freeinv_core with 25 freeinv sites incl. local shadows; async arti_invoke needs propagation vehicle; zap-poly half shipped alongside D-2371). Probe: `node scripts/brief.mjs set_artifact_intrinsic`.
 - [ ] `potion.c` peffect_levitation body (debt.md:23 D-1419 POT/SPE_LEVITATION; never own-row live/archived/parked). Probe: `node scripts/brief.mjs peffect_levitation`.
 - [ ] `potion.c` peffect_restore_ability body (debt.md:23 D-1420 POT/SPE_RESTORE_ABILITY; never own-row live/archived/parked). Probe: `node scripts/brief.mjs peffect_restore_ability`.
 - [ ] `potion.c` peffect_invisibility body (debt.md:23 D-1421 POT/SPE_INVISIBILITY; never own-row live/archived/parked). Probe: `node scripts/brief.mjs peffect_invisibility`.

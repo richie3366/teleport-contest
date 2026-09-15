@@ -133,7 +133,7 @@ import { reset_pick } from './lock.js';
 import { Unaware } from './eat.js';
 import { addinv_nomerge } from './u_init.js';
 import {
-    set_artifact_intrinsic, Sting_effects,
+    set_artifact_intrinsic, revoke_invoked_property, Sting_effects,
 } from './artifact.js';
 import { more_experienced, newexplevel } from './exper.js';
 import {
@@ -2303,6 +2303,10 @@ export async function dropy(obj) {
 export async function dropx(obj) {
     if (!obj) return;
     freeinv_drop(obj);
+    // C invent.c:1383 + artifact.c:880–885 — W_ART off while the invoked
+    // toggle is on re-invokes to turn it off (async half; sync bits ran in
+    // freeinv_core, in C order before ship_object/doaltarobj).
+    if (obj.oartifact) await revoke_invoked_property(obj);
     const u = game.u || {};
     if (!u.uswallow) {
         if (await ship_object(obj, u.ux | 0, u.uy | 0, false)) return;
