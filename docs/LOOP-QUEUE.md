@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `trap.c` launch_obj closed-door crash-through arm (named D-2318 residual, C trap.c:3533–3541; C arm is that small; never live/archived/parked). Probe: `node scripts/brief.mjs launch_obj`.
 - [ ] `apply.c` use_royal_jelly full body (named absent.md:34 + turns.md:2014 deferred, D-1021; JS local-only partial; never live/archived/parked). Probe: `node scripts/brief.mjs use_royal_jelly`.
 - [ ] `pray.c` angrygods high-anger arms (named absent.md:13, post-D-0969 residual; 0–8/default-zap shipped; never live/archived/parked). Probe: `node scripts/brief.mjs angrygods`.
 - [ ] `apply.c` dorub #rub/wield_tool envelope (named turns.md:1911 re-queue, D-0710; never live/archived/parked). Probe: `node scripts/brief.mjs dorub`.

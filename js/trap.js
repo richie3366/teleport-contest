@@ -2356,10 +2356,10 @@ export function force_launch_placement() {
  * KAABLAMM / fracture_rock / scatter + PIT/SPIKED_PIT/HOLE/TRAPDOOR
  * flooreffects + dist=-1 (D-1256). ROLL gate-drop via down_gate +
  * ship_object `:3424–3430`, post-switch flooreffects `:3509`, and
- * boulder-on-boulder chain `:3514–3529` (D-2318). Named omissions:
- * LAUNCH_UNSEEN bowling msgs; dig context clear; closed_door crash
- * (`pline_The` has no JS counterpart); STWALL `Thump!`; scatter
- * MAY_FRACTURE/MAY_DESTROY/VIS_EFFECTS (explode.js); curs_on_u.
+ * boulder-on-boulder chain `:3514–3529` (D-2318) and the
+ * closed_door crash-through `:3533–3541` (this D-log). Named omissions:
+ * LAUNCH_UNSEEN bowling msgs; dig context clear; STWALL `Thump!`;
+ * scatter MAY_FRACTURE/MAY_DESTROY/VIS_EFFECTS (explode.js); curs_on_u.
  * @returns {Promise<number>} 0 none, 1 placed, 2 used up
  */
 async function launch_obj(otyp, x1, y1, x2, y2, style) {
@@ -2602,6 +2602,22 @@ async function launch_obj(otyp, x1, y1, x2, y2, style) {
                 }
             }
 
+            /* C trap.c launch_obj `:3533–3541` — a boulder on the roll cell
+             * crashes through a closed door: cansee-gated set_msg_xy +
+             * pline_The, doormask=D_BROKEN, recalc while dist remains.
+             * pline_The renders as plain pline with the The-phrase
+             * (dokick.js:348 convention). File-local closed_door (trap.js:707)
+             * is the C predicate (IS_DOOR + D_CLOSED|D_LOCKED). */
+            if (otyp === BOULDER && closed_door(x, y)) {
+                if (cansee(x, y)) {
+                    set_msg_xy(x, y);
+                    await pline('The boulder crashes through a door.');
+                }
+                const doorloc = game.level?.at?.(x, y);
+                if (doorloc) doorloc.doormask = D_BROKEN;
+                if (dist) recalc_block_point(x, y);
+            }
+
             if (dist > 0 && isok(x + dx, y + dy)) {
                 const typ = game.level?.at?.(x + dx, y + dy)?.typ ?? 0;
                 if (typ === IRONBARS) {
@@ -2622,14 +2638,6 @@ async function launch_obj(otyp, x1, y1, x2, y2, style) {
                     xRest = x;
                     yRest = y;
                     break;
-                }
-                if (IS_DOOR(typ)) {
-                    const loc = game.level.at(x + dx, y + dy);
-                    const dm = loc?.doormask ?? loc?.flags ?? 0;
-                    if ((dm & (D_CLOSED | D_LOCKED)) !== 0) {
-                        // C: boulder crashes through closed door — continue
-                        if (loc) loc.doormask = D_BROKEN;
-                    }
                 }
             }
         }

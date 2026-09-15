@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-15 — D-2330 `trap.c` launch_obj closed-door crash-through arm
+
+**C locus:** `nethack-c/upstream/src/trap.c` `launch_obj` `:3533–3541` — `if (otyp == BOULDER && closed_door(x, y))` on the roll cell (after the ROLL block, before the IRONBARS/STWALL lookahead): cansee-gated `set_msg_xy` + `pline_The("boulder crashes through a door.")`, `levl[x][y].doormask = D_BROKEN`, `if (dist) recalc_block_point(x, y)` on the post-decrement loop var.
+**JS:** 1 file (`trap.js`, +19/−9), far under the 600/10 caps. Small because the C arm is that small (queue row says so).
+**Change:** `js/trap.js` only, zero new imports (file-local `closed_door` :707 is the C predicate — IS_DOOR + D_CLOSED|D_LOCKED; `cansee`/`set_msg_xy`/`recalc_block_point`/`pline`/`BOULDER`/`D_BROKEN` all already imported): current-cell arm in C position with C predicate and message order; `pline_The` renders as plain `pline('The boulder crashes through a door.')` (dokick.js:348 convention); `if (dist)` matches C's nonzero test; the forward-cell `IS_DOOR` block is deleted (C has no lookahead door arm — boulders enter doors freely). Function docstring omit retires to STWALL `Thump!` only.
+**Verify:** preflight `verify --no-cohort` PASS on a clean tree before edits. Import smoke `await import('./js/trap.js')` → IMPORT-OK (no new edges, nothing to TDZ). `node scripts/verify.mjs --fn launch_obj` → PASS syntax (1 changed js file) · PASS rule2 · note hidden (vacuous: 0 blocked — NOT a corpus PASS; row cited 0 blocks so no --base owed) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · VERIFY: PASS.
+**Named:** none new — STWALL/TREE `Thump!` + `wake_nearto(x2, y2, 16)` stays named (own future row); LAUNCH_UNSEEN bowling/rumble msgs, dig-context clear, scatter MAY_*/VIS_EFFECTS, `curs_on_u` stay pre-existing.
+**Next:** do not re-pop launch_obj closed-door for the D-2318 line. Queue head is now `apply.c` use_royal_jelly. Falsifier: a rolling-boulder trace entering a closed door without the crash message / without D_BROKEN + recalc, or a fresh `verify launch_obj` showing a session blocked with launch_obj as owner. No seed/step/coordinate gates.
 ## 2026-09-15 — D-2329 `ball.c` drop_ball punish-drop body + do.c/dothrow.c caller wiring
 
 **C locus:** `nethack-c/upstream/src/ball.c` `drop_ball` `:881–961` (whole body, C order) + callers `do.c:834` (`drop_ball(u.ux,u.uy)` on the `obj == uball` arm, else shop `sellobj`) and `dothrow.c:1840` (`drop_ball(gb.bhitpos.x,gb.bhitpos.y)` after `stackobj`, before `cansee` newsym).
