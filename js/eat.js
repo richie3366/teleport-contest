@@ -1695,6 +1695,16 @@ export function eating_dangerous_corpse(res) {
 }
 
 /**
+ * C ref: eat.c eating_glob `:2077–2081` — hero is mid-meal of this glob
+ * (occupation identity gate; must live here: the gate compares against the
+ * module-local `eatfood` identity, same reason as `cant_finish_meal`,
+ * D-2223). Used by the shrink_glob timer routine.
+ */
+export function eating_glob(glob) {
+    return game.occupation === eatfood && glob === game.context?.victual?.piece;
+}
+
+/**
  * C ref: eat.c corpse_intrinsic — pick one conveyable prop (or -1 STR).
  * Non-deterministic; call once per corpse.
  */

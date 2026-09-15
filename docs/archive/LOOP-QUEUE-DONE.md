@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `do_name.c` minimal_monnam body (data.md:388 omit with mongone FALSE caller; never own-row live/archived/parked). Probe: `node scripts/brief.mjs minimal_monnam`. **Addressed:** D-2375
+- [x] `mkobj.c` shrink_glob body (data.md:287 thin shrink_glob with globby_bill_fixup; never own-row live/archived/parked). Probe: `node scripts/brief.mjs shrink_glob`. **Addressed:** D-2376
+
+
+- [x] `do_name.c` minimal_monnam body (data.md:388 omit with mongone FALSE caller; never own-row live/archived/parked). Probe: `node scripts/brief.mjs minimal_monnam`. **Addressed:** D-2375 `aaaa5508`
 
 
 - [x] `shk.c` globby_bill_fixup body (data.md:287 deferred with shrink ice-eat; never own-row live/archived/parked). Probe: `node scripts/brief.mjs globby_bill_fixup`. **Addressed:** D-2374 `12c4cda0`

@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `mkobj.c` shrink_glob body (data.md:287 thin shrink_glob with globby_bill_fixup; never own-row live/archived/parked). Probe: `node scripts/brief.mjs shrink_glob`.
 - [ ] `mon.c` undead_to_corpse body (data.md:268 CORPSE undead_to_corpse + G_NOCORPSE retry; never own-row live/archived/parked). Probe: `node scripts/brief.mjs undead_to_corpse`.
 - [ ] `mon.c` can_be_hatched body (data.md:269 EGG can_be_hatched multi-retry; never own-row live/archived/parked). Probe: `node scripts/brief.mjs can_be_hatched`.
 - [ ] `potion.c` peffect_water body (debt.md:23 potionbreathe POT_WATER lycan residual; never own-row live/archived/parked). Probe: `node scripts/brief.mjs peffect_water`.
