@@ -494,7 +494,8 @@ export async function missmu(mtmp, nearmiss, mattk) {
  * speed is taken away. HFast = 0; !Fast → "You slow down." else
  * (speed boots / EFast) "Your quickness feels less natural.";
  * exercise(A_DEX, FALSE). Callers: zap.c zapyourself WAN/SPE_SLOW
- * (D-1433). mhitu AD_SLOW gaze / uhitm mhitm_ad_slow still named.
+ * (D-1433). mhitu AD_SLOW gaze still named; uhitm damageum_ad_slow
+ * (uhitm.js) + mhitm mhitm_ad_slow (mhitm.js) live.
  */
 export async function u_slow_down() {
     const u = game.u || (game.u = {});
