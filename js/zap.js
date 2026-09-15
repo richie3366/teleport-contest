@@ -294,7 +294,7 @@ import { monflee, sticks, maybe_unhide_at } from './monmove.js';
 import { digests, set_ustuck, unstuck, expels, ureflects, u_slow_down } from './mhitu.js';
 import { newcham, makemon, create_critters, monhp_per_lvl, neweshk, add_to_minv, set_mimic_sym, newmcorpsenm } from './makemon.js';
 import { tele, u_teleport_mon, rloco, enexto } from './teleport.js';
-import { find_ac } from './u_init.js';
+import { find_ac, addinv_core1, addinv_core2 } from './u_init.js';
 import { rehumanize, polymon, body_part } from './polyself.js';
 import { costly_alteration, stolen_value, costly_spot, shop_keeper, hot_pursuit, obfree, delete_contents, addtobill } from './shk.js';
 import { dryup } from './fountain.js';
@@ -4936,7 +4936,8 @@ async function stone_to_flesh_obj(obj) {
  * C ref: zap.c poly_obj — STRANGE_OBJECT class-preserving poly
  * (wand/pile + potion_dip D-1499) plus mksobj(id) for stone-to-flesh
  * (D-1461 :1728–1736). Invent worn remap + set_wear (D-1510).
- * Named: sokoban_guilt / egg/leash / addinv_core1/2 / shop bill /
+ * Invent side effects via addinv_core1/2 (C `:1910–1914`).
+ * Named: sokoban_guilt / egg/leash / shop bill /
  * gem mineral rnd / spestudied / floor boulder block.
  */
 export async function poly_obj(obj, id) {
@@ -5089,7 +5090,13 @@ export async function poly_obj(obj, id) {
         replace_object(obj, otmp);
         if (obj_location === OBJ_INVENT) {
             freeinv_core(obj);
-            /* addinv_core1/2 named */
+            /* C zap.c `:1910–1914` — freeinv_core(obj) then addinv_core1/2
+             * on otmp: the in-place invent swap's side effects (uhave /
+             * questart artitouch / W_ART intrinsic / archeologist decipher).
+             * Old-obj invoked-toggle reversal inside set_artifact_intrinsic
+             * stays named (sync locus, async arti_invoke vehicle). */
+            await addinv_core1(otmp);
+            await addinv_core2(otmp);
             if (old_wornmask) {
                 /* C :1921–1950 — keep weapon slots; else wearslot & old. */
                 const was_twohanded = bimanual(obj);

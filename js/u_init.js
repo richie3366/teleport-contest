@@ -901,7 +901,7 @@ function reorder_invent() {
  * `added:` label for merged and fresh takes alike.
  * Named omit: set_moreluck luck recompute (no JS Luck engine yet).
  */
-async function addinv_core2(obj) {
+export async function addinv_core2(obj) {
     if (!obj) return;
     // C: confers_luck(obj) → set_moreluck() — named omit (see above).
     const oc = game.objects?.[obj.otyp];
@@ -934,7 +934,7 @@ async function addinv_core2(obj) {
  * named omit (async pline, cf. artifact.js:496). Async: the questart arm
  * awaits artitouch (quest.c; qt_pager can reach nhgetch).
  */
-async function addinv_core1(obj) {
+export async function addinv_core1(obj) {
     if (!obj) return;
     if ((obj.oclass | 0) === COIN_CLASS) {
         // C: disp.botl = TRUE

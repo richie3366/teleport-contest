@@ -5,7 +5,13 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `artifact.c` artitouch quest-artifact touch arms (no `artitouch` symbol in `js/`; Deferred invoke-touch family; never own-row live/archived/parked). Probe: `node scripts/brief.mjs artitouch`. **Addressed:** D-2370
+- [x] `artifact.c` set_artifact_intrinsic W_ART-off invoked-toggle reversal via arti_invoke (C artifact.c:880-885; sync locus js/artifact.js:848 + js/invent.js:7361 freeinv_core with 25 freeinv sites incl. local shadows; async arti_invoke needs propagation vehicle; zap-poly half shipped D-2371). Probe: `node scripts/brief.mjs set_artifact_intrinsic`. **Addressed:** D-2371
+
+
+- [x] `artifact.c` arti_invoke on-drop invoke + zap-poly addinv_core1 (live js/artifact.js:1945; Deferred invoke-touch family; never own-row live/archived/parked). Probe: `node scripts/brief.mjs arti_invoke`. **Addressed:** D-2371
+
+
+- [x] `artifact.c` artitouch quest-artifact touch arms (no `artitouch` symbol in `js/`; Deferred invoke-touch family; never own-row live/archived/parked). Probe: `node scripts/brief.mjs artitouch`. **Addressed:** D-2370 `02f97953`
 
 
 - [x] `spell.c` spelleffects non-standard cast otyps + oc_charged (D-2369 split: dovspell swap/sort shipped; remainder is turns.md:2961 named omits — remaining peffects mix/potionhit/potionbreathe, scroll-duplicate REMOVE_CURSE/CONFUSE_MONSTER/CAUSE_FEAR/IDENTIFY/CHARM_MONSTER, SPE_DRAIN_LIFE, doorlock/zap_updown/steed, traditional getspell yn, CQ_REPEAT/amulet drain; never own-row live/archived/parked). Probe: `node scripts/brief.mjs spelleffects`. **Addressed:** D-2369 `229bdd8a`

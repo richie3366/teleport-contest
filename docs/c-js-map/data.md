@@ -146,7 +146,7 @@ EREGEN/HSPDAM/HPHDAM; MKoT WARN\|TCTRL\|HPHDAM, Orb of Fate WARN\|HSPDAM\|HPHDAM
 Detection/PYEC ESP\|HSPDAM, Eye EREGEN\|HSPDAM; callers invent `addinv_core1` `:991` / 
 `freeinv_core` `:1383`; extractor A() s2; live `js/artifact.js` + `js/u_init.js` `addinv` + 
 `js/invent.js` `freeinv_core`; defn/cary resist / SPFX_PROTECT / inv_prop 
-`arti_invoke` on drop / questart `artitouch` / zap poly `addinv_core1` named); 
+`arti_invoke` on W_ART drop named (sync locus, async vehicle — own row); questart `artitouch` live D-2370; zap poly `addinv_core1/2` live D-2371); 
 **`set_artifact_intrinsic` SPFX_SEARCH/REGEN/XRAY D-1558** (C `artifact.c:781–786` 
 ESearching Excalibur wield, `:812–817` ERegeneration Trollsbane/Staff wield, 
 `:859–866` Eyes `u.xray_range` 3/-1 + `gv.vision_full_recalc`; live 
