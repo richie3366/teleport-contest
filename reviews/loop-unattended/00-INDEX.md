@@ -1280,3 +1280,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1267-775e5959-burnarmor-materialnm-helm.md](./1267-775e5959-burnarmor-materialnm-helm.md) | `775e5959` | D-2301 burnarmor materialnm helm prefix | **ACCEPT** |
 | [1268-d961718b-do-light-sources-show-trim.md](./1268-d961718b-do-light-sources-show-trim.md) | `d961718b` | D-2302 do_light_sources SHOW skeleton + trim | **ACCEPT-WITH-DEBT** |
 | [1269-3010c0c3-scatter-boulder-restack.md](./1269-3010c0c3-scatter-boulder-restack.md) | `3010c0c3` | D-2303 scatter boulder restack-to-top | **ACCEPT** |
+| [1270-4581ce02-mktrap-dispatcher-maze-loop.md](./1270-4581ce02-mktrap-dispatcher-maze-loop.md) | `4581ce02` | D-2304 mktrap dispatcher + populate_maze trap loop | **ACCEPT** |
+| [1271-9881e89f-disarm-squeaky-board.md](./1271-9881e89f-disarm-squeaky-board.md) | `9881e89f` | D-2305 disarm_squeaky_board + unsqueak_ok | **ACCEPT** |
+| [1272-29aedc7f-dash-fight-binding.md](./1272-29aedc7f-dash-fight-binding.md) | `29aedc7f` | D-2306 `-`→fight binding | **ACCEPT** |
+| [1273-4fac3591-bury-family-arms.md](./1273-4fac3591-bury-family-arms.md) | `4fac3591` | D-2307 bury-family deferred arms | **ACCEPT** |

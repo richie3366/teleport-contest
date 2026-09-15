@@ -8,6 +8,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-15 — Audit 4581ce02..ef75880a (reviews 1270–1274: 5 ACCEPT, 0 Must-fix) + cadence 44/44
+
+Review iteration, no `js/` edits. One SHA at a time, file written as each finished: 1270 mktrap dispatcher + maze trap loop (traptype_roguelvl verbatim; victim-tail delegation verified; tm pool/lava `IS_POOL` idiom noted latent-unreachable, not Must-fix), 1271 squeaky-board pair + sobj_at retire + door unblock_point (C :6078), 1272 `-`→fight (corpus session re-run PASS 72/72 by this review; every `'F'` site carries `-`), 1273 bury five arms (two genuine C-wrongs fixed: bare-lamplit leak, deltrap→delfloortrap; async ripple fully awaited), 1274 rile_shk surcharge (`(price+2)/3` bit-exact; dig `unblock_point`-vs-recalc drive-by adjudicated outcome-equivalent, not queued). Corpus re-runs all vacuous-honest except 1272's real move. Cadence full `sessions` 44/44, Scr 11,405/11,405, RNG 792,838/792,838, speed 46+0.29/turn. Queue 9 Open (in-band, no refill), Must-fix empty, D-2308/D-2306 archive hashes filled.
 ## 2026-09-15 — D-2308 `shk.c` shopdig anger arms: rile_shk bill surcharge + digactualhole make_angry_shk
 
 **C locus:** `shk.c` `shopdig` `:5018–5110` (curse/growl arm calls `rile_shk`); `rile_shk` `:1362–1377` (NOTANGRY=FALSE + `(price+2)/3` bill walk); `dig.c` `digactualhole` `:821–822` (`if (mtmp->isshk) make_angry_shk(mtmp, 0, 0)` before `migrate_to_level`).
