@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `mthrowu.c` hits_bars thrown-through-bars (named debt.md D-0990; never live/archived/parked). Probe: `node scripts/brief.mjs hits_bars`. **Addressed:** D-2358
+- [x] `zap.c` melt_ice/melt_ice_away/start_melt_ice_timeout + burn_floor_objects (named debt.md D-0965; never live/archived/parked). Probe: `node scripts/brief.mjs melt_ice`.
+
+
+- [x] `mthrowu.c` hits_bars thrown-through-bars (named debt.md D-0990; never live/archived/parked). Probe: `node scripts/brief.mjs hits_bars`. **Addressed:** D-2358 `cb0e739f`
 
 
 - [x] `music.c` charm_snakes/calm_nymphs/charm_monsters flute/harp (named debt.md D-0974; never live/archived/parked). Probe: `node scripts/brief.mjs charm_monsters`. **Addressed:** D-2357 `d8cfa25c`

@@ -229,7 +229,7 @@ import {
     obj_glyph, cmap_to_glyph, glyph_is_invisible, map_invisible, unmap_object,
     bot, set_msg_xy, impossible,
 } from './display.js';
-import { cansee, couldsee } from './vision.js';
+import { cansee, couldsee, vision_recalc } from './vision.js';
 import { readobjnam_wish, HANDS_OBJ, NOTHING_OBJ } from './readobjnam.js';
 import {
     hold_another_object, makeknown, encumber_msg, enlightenment, freeinv_core,
@@ -237,7 +237,7 @@ import {
     update_inventory, set_cknown_lknown, getobj, useupall, useup,
 } from './invent.js';
 import { mstatusline, ustatusline } from './insight.js';
-import { setnotworn } from './do.js';
+import { setnotworn, boulder_hits_pool } from './do.js';
 import { doname, xname, yname, distant_name, vtense, The, the, an, An, aobjnam, killer_xname, ansimpleoname, makeplural } from './objnam.js';
 import { uhim, uhis } from './roles.js';
 import { fix_wall_spines } from './mklev.js';
@@ -256,7 +256,7 @@ import {
     G_UNIQ, G_NOCORPSE, is_rider, is_swimmer, mindless, MZ_MEDIUM, is_whirly,
     hides_under, is_golem, is_mplayer, vegetarian, carnivorous, NUMMONS,
 } from './monsters.js';
-import { m_at, wakeup, seemimic, dead_species, normal_shape, replmon, find_mid, mongone, restore_cham, m_respond, hideunder, healmon, can_be_hatched, cant_drown } from './mon.js';
+import { m_at, wakeup, seemimic, dead_species, normal_shape, replmon, find_mid, mongone, restore_cham, m_respond, hideunder, healmon, can_be_hatched, cant_drown, minliquid } from './mon.js';
 import { find_mac, monkilled, shade_miss, resists_sleep_slee, resists_blnd_mm, erode_armor } from './mhitm.js';
 import { update_mapseen_for } from './dungeon.js';
 import {
@@ -276,12 +276,14 @@ import { rnd_hallublast } from './mthrowu.js';
 import { finish_losehp_done, done } from './end.js';
 import {
     burnarmor, t_at, maketrap, delfloortrap, dotrap, mintrap, deltrap,
+    trap_ice_effects,
     NO_TRAP_FLAGS, ignite_items, openholdingtrap, closeholdingtrap,
     openfallingtrap, self_invis_message, trapname, animate_statue,
     acid_damage,
 } from './trap.js';
 import { potionbreathe, make_stunned, speed_up } from './potion.js';
 import { carried, fix_petrification, cant_finish_meal } from './eat.js';
+import { spoteffects } from './pickup.js';
 import { burn_away_slime, get_obj_location } from './timeout.js';
 import { show_transient_light, transient_light_cleanup } from './light.js';
 import { create_gas_cloud } from './region.js';
@@ -308,7 +310,7 @@ import { abuse_dog, wary_dog, tamedog } from './dog.js';
 import { setuwep, setuswapwep, setuqwep, set_twoweap } from './wield.js';
 import { remove_worn_item } from './steal.js';
 import {
-    mkobj, mksobj, delobj, delobj_core, objects_at, replace_object, rnd_class, weight, splitobj, container_weight,
+    mkobj, mksobj, delobj, delobj_core, objects_at, sobj_at, replace_object, rnd_class, weight, splitobj, container_weight,
     oc_merge_of, uncurse, unbless, attach_egg_hatch_timeout, obj_extract_self,
     eaten_stat, start_timer, spot_stop_timers, spot_time_left, obj_stop_timers,
     obj_ice_effects, place_object, stackobj, mergable, set_corpsenm, kill_egg,
@@ -873,9 +875,10 @@ export function is_ice(x, y) {
 }
 
 /**
- * C ref: zap.c burn_floor_objects — burn scrolls/spellbooks/slime glob
- * on floor; return count destroyed. ignite_items still stub (D-0965).
- * give_feedback pline arm (D-0975); zap_over_floor still uses FALSE + smoke.
+ * C ref: zap.c burn_floor_objects `:4598–4656` — burn scrolls/spellbooks/
+ * slime glob on floor; per-unit `!rn2(3)` delquan; useupf when u_caused
+ * else partial quan/weight else delobj; give_feedback plines; ignite_items
+ * tail; return count destroyed.
  */
 export async function burn_floor_objects(x, y, give_feedback, u_caused) {
     let cnt = 0;
@@ -933,10 +936,10 @@ export async function burn_floor_objects(x, y, give_feedback, u_caused) {
 }
 
 /**
- * C ref: zap.c melt_ice — ICE/DB_ICE → pool/moat; stop melt timer;
- * obj_ice_effects + unearth_objs; Norep; hero spoteffects / mon
- * minliquid. Named omit: trap_ice_effects; Underwater vision;
- * boulder_hits_pool body (D-0965/D-0967).
+ * C ref: zap.c melt_ice `:5040–5079` — ICE/DB_ICE → pool/moat; stop melt
+ * timer; trap_ice_effects(TRUE) + obj_ice_effects + unearth_objs; Underwater
+ * vision_recalc; Norep; boulder settle via boulder_hits_pool; hero
+ * spoteffects / mon minliquid.
  */
 export async function melt_ice(x, y, msg) {
     const lev = game.level?.at?.(x, y);
@@ -950,23 +953,30 @@ export async function melt_ice(x, y, msg) {
         lev.icedpool = 0;
     }
     spot_stop_timers(x, y, MELT_ICE_AWAY);
-    // trap_ice_effects deferred
+    if (t_at(x, y)) await trap_ice_effects(x, y, true); // TRUE: ice_is_melting
     obj_ice_effects(x, y, false);
     await unearth_objs(x, y);
-    if (game.u?.Underwater) {
-        // vision_recalc(1) deferred
-    }
+    if (game.u?.Underwater) vision_recalc(1);
     newsym(x, y);
     if (cansee(x, y) || u_at(x, y)) await Norep(msg);
-    // boulder settle / boulder_hits_pool deferred
-    if (u_at(x, y)) {
-        // spoteffects(TRUE) deferred — drown/notice objects
-    } else if (is_pool(x, y)) {
-        const mtmp = m_at(x, y);
-        if (mtmp) {
-            const { minliquid } = await import('./mon.js');
-            await minliquid(mtmp);
+    let otmp = sobj_at(BOULDER, x, y);
+    if (otmp) {
+        if (cansee(x, y)) await pline(`${An(xname(otmp))} settles...`);
+        for (;;) {
+            obj_extract_self(otmp); // boulder isn't being pushed
+            if (!(await boulder_hits_pool(otmp, x, y, false)))
+                await impossible('melt_ice: no pool?');
+            /* try again if there's another boulder and pool didn't fill */
+            if (!is_pool(x, y)) break;
+            otmp = sobj_at(BOULDER, x, y);
+            if (!otmp) break;
         }
+        newsym(x, y);
+    }
+    if (u_at(x, y)) await spoteffects(true); // possibly drown, notice objects
+    else if (is_pool(x, y)) {
+        const mtmp = m_at(x, y);
+        if (mtmp) await minliquid(mtmp);
     }
 }
 

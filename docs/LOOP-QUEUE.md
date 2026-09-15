@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `zap.c` melt_ice/melt_ice_away/start_melt_ice_timeout + burn_floor_objects (named debt.md D-0965; never live/archived/parked). Probe: `node scripts/brief.mjs melt_ice`.
 - [ ] `zap.c` zap_over_floor closed-door/SDOOR/IRONBARS shopdamage (named debt.md D-0948; never live/archived/parked). Probe: `node scripts/brief.mjs zap_over_floor`.
 - [ ] `zap.c` unturn_dead/revive invent+floor (named debt.md D-0955; never live/archived/parked). Probe: `node scripts/brief.mjs unturn_dead`.
 - [ ] `zap.c` break_statue STATUE_TRAP activate (named debt.md D-0997; never live/archived/parked). Probe: `node scripts/brief.mjs break_statue`.

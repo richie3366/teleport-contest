@@ -696,6 +696,26 @@ export function undestroyable_trap(ttyp) {
 }
 
 /**
+ * C ref: trap.c trap_ice_effects `:7175–7194` — melting ice frees a trapped
+ * mon and drops a landmine/bear trap to a floor object, else removes it.
+ */
+export async function trap_ice_effects(x, y, ice_is_melting) {
+    const ttmp = t_at(x, y);
+    if (ttmp && ice_is_melting) {
+        const mtmp = m_at(x, y);
+        if (mtmp && mtmp.mtrapped) mtmp.mtrapped = 0;
+        if (ttmp.ttyp === LANDMINE || ttmp.ttyp === BEAR_TRAP) {
+            /* landmine or bear trap set on top of the ice falls
+               into the water */
+            const otyp = (ttmp.ttyp === LANDMINE) ? LAND_MINE : BEARTRAP;
+            await cnv_trap_obj(otyp, 1, ttmp, true);
+        } else {
+            if (!undestroyable_trap(ttmp.ttyp)) deltrap(ttmp);
+        }
+    }
+}
+
+/**
  * C ref: rm.h CAN_OVERWRITE_TERRAIN — stairs/ladder unless debug override.
  * Named omission: iflags.debug_overwrite_stairs (always false here).
  */
