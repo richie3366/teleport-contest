@@ -80,7 +80,7 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `mkobj.c` mergable FOOD `oeaten`/`orotten` + unpaid/erosion/candle arms (named data.md:264, D-0923; never live/archived/parked). Probe: `node scripts/brief.mjs mergable`. dighole → **SHIPPED D-2323**. Then: use_unicorn_horn/use_towel/use_tinning_kit/costly_tin/flip_coin → PARKED stale-dupes (D-1030/D-1009/D-1027/D-0940/D-1024; proofs in Parked). kick_door → **SHIPPED D-2320**; use_candle/use_candelabrum/use_figurine/use_crystal_ball → PARKED stale-dupes (D-1025/D-1029/D-1010; proofs in Parked). zap_dig pitdig → **SHIPPED D-2321**; swallowed-pierce → **SHIPPED D-2322**. Queue-head `vault.c` gd_sound → **PARKED stale-dupe** (D-0208/D-0298 live, `verify gd_sound` 0 blocked; proof in Parked).
+**Next cluster:** `potion.c` potionhit GAIN_LEVEL/LEVITATION/FRUIT/DETECT commented arms (named debt.md:23, D-1472 residual; never live/archived/parked). Probe: `node scripts/brief.mjs potionhit`. (dopay → **PARKED stale-dupe** 2026-09-15, no D-log, no js/; proof in Parked.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2324 (index).**
 <!-- recent:begin -->
