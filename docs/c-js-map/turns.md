@@ -1987,7 +1987,7 @@ sack/bag → `use_container` take-out** (D-0375) + **put-in coins MENU_FULL** (D
 `dosounds` Deaf≡HDeaf** (D-0454) + **`DRUM_OF_EARTHQUAKE` → 
 `do_earthquake`/`do_pit`/`generic_lvl_desc` + 
 fountain/sink/altar(`desecrate_altar`)/grave/throne/SCORR/ROOM/door collapse + 
-PIT IS_ROOM→ROOM morph in shared `maketrap`** (D-0972 / **D-1280**) + 
+PIT IS_ROOM→ROOM morph in shared `maketrap`** (D-0972 / **D-1280**) + quake-arm residuals **D-2315** (SCORR `unblock_point`, ALTAR `altarmask_at`, se_thump/se_scream; do_pit filltype `set_levltyp` still named) + 
 **flute/harp sleep·snake·nymph·charm + FIRE/FROST horn `ubuzz`/`zapyourself` + 
 BUGLE `awaken_soldiers`** (D-0974; **passtune getlin + `open_drawbridge`/`close_drawbridge` + 
 Mastermind hints** D-0977; **do_play_instrument ynq def `'q'` (hack.h:1330) + wind `can_blow` gate + Mastermind `Soundeffect` + ESC-only tune abort D-2046**; `Hero_playnotes`/`obj_to_instr` audio; flees_light; can_blow is_silent-table poly approx; selftouch petrify; 
