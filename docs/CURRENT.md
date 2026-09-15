@@ -80,10 +80,11 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `dig.c` mkcavearea/mkcavepos/rm_waslit earth dig (debt.md D-0960; C dig.c:47 mkcavepos). Probe: `node scripts/brief.mjs mkcavepos`.
+**Next cluster:** `trap.c` conjoined_pits/xytodir + autodig quiet + dighole boulder-fill/delfloortrap (debt.md D-0962; C trap.c:6551 conjoined_pits). Probe: `node scripts/brief.mjs conjoined_pits`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2309 (index).**
+**Keep D-0845…D-2310 (index).**
 <!-- recent:begin -->
+**D-2310** `trap.c:6579–6601` `clear_conjoined_pits` (staticfn); called first from `deltrap` at `:653 — port `clear_conjoined_pits` file-local in C order (`| 0` idiom, `xdir`/`ydir`/`N_DIRS`, `DIR_180`, `isok` + `t_at` neighbour lookup); `deltrap` calls it first per C `:6535`.
 **D-2309** `pray.c` `god_zaps_you` `:609–691` (no `return` after either `fry_by_god` — `js/pray.js` only (no new module edge — `shieldeff` joins the existing `display.js` import): both survive-lightning arms `await shieldeff(u.ux, u.uy)` in C order; each fry arm gates continuation on `game.program_state?.g
 **D-2308** `shk.c` `shopdig` `:5018–5110` (curse/growl arm calls `rile_shk`); `rile_shk` `:1362–1377` — `js/shk.js` only: `rile_shk` ports the walk verbatim in C order over the live `bill_p`/`bill` shape (same `||` fallback as `addupbill`; `| 0` integer idiom).
 **D-2307** `dig.c` `bury_an_obj` `:1982–2047` (`end_burn` `:2011–2012`); `bury_objs` `:2049–2081` (`m — `js/dig.js` only (+ `js/zap.js` 1-line `await`): `end_burn` via dynamic `timeout.js` import (sync export; `stop_timer` runs `cleanup_burn` — C `timeout.c` order); `maybe_unhide_at` joins the existing `monmove.js` static 
@@ -91,11 +92,10 @@ Do **not** pop map-omission singletons
 **D-2305** `trap.c` `unsqueak_ok` `:5606–5626`; `disarm_squeaky_board` `:5630–5660`; `try_disarm` bou — `js/trap.js` only, no new module edge (`getobj`/`useup`/`consume_obj_charge` join the existing `invent.js` import; `GETOBJ_*` join `const.js`; `unblock_point` joins `vision.js`; `POT_OIL` follows the file's `objectNames.
 **D-2304** `mklev.c:2036-2150` `mktrap` (invalid-args once-guard + paniclog; `m.x=m.y=0`; tm pool/lav — `js/mklev.js` only, no new cross-module edge (every callee same-module or already imported — `MKTRAP_NOFLAGS/SEEN/MAZEFLAG` join the existing `const.js` flag import; `--can` correctly skipped): new `traptype_roguelvl` ve
 **D-2303** `explode.c:776-790` (`fracture_rock(otmp); place_object(otmp, sx, sy); if ((otmp = sobj_at — port the C arm verbatim in C order over live callees only — `otmp = sobj_at(BOULDER, sx, sy); if (otmp) { obj_extract_self(otmp); place_object(otmp, sx, sy); }` with the C comment cited.
-**D-2302** `light.c:169–250` (`do_light_sources`): clear `LSF_SHOW` per entry (`:177`); `LS_OBJECT` r — port the C skeleton in C order over the existing inline refresh (conditions unchanged): file-local `const LSF_SHOW = 0x1` (light.c:41; the line-29 `COULD_SEE` precedent — no new module edge, no `imports.mjs --can` needed
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2309; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2310; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-2310 — `trap.c` clear_conjoined_pits + deltrap wire; fountain delfloortrap dedup
+
+- **Status:** fixed (map-driven debt retirement; D-0962 residual)
+- **Symptom:** deleting a conjoined pit left stale conjoined bits on its neighbours, so a later `conjoined_pits` check could report TRUE for a pit pair C had already unlinked; `fountain.js` carried a narrowed `delfloortrap` clone beside the canonical `trap.js` export.
+- **C locus:** `trap.c:6579–6601` `clear_conjoined_pits` (staticfn); called first from `deltrap` at `:6535`.
+- **JS was:** `js/trap.js` `deltrap` spliced the trap with no bit cleanup (`clear_conjoined_pits` absent from `js/`); the `adj_nonconjoined_pit` callers (`dotrap`, hero `trapeffect_pit`) were already wired, as were D-0962's `conjoined_pits`/`xytodir`/autodig-quiet/boulder-fill arms. `js/fountain.js:671` local `delfloortrap` dropped the hero `reset_utrap` arm (documented omit: gush skips `u_at` cells).
+- **Fix:** port `clear_conjoined_pits` file-local in C order (`| 0` idiom, `xdir`/`ydir`/`N_DIRS`, `DIR_180`, `isok` + `t_at` neighbour lookup); `deltrap` calls it first per C `:6535`. `fountain.js` deletes the clone and imports the canonical `delfloortrap` export (no new module edge — `trap.js` already imported); reachable-domain identical because `gush` returns early on `u_at` cells, leaving the export's hero arm unreachable there.
+- **JS:** `js/trap.js` (+24: `clear_conjoined_pits` + `deltrap` call), `js/fountain.js` (clone −19, +1 import name, gush note). No new cross-module edge (`imports.mjs --can fountain.js trap.js delfloortrap`: ALREADY).
+- **Verify:** `/tmp/probe_conjoined.mjs` 6/6 PASS (conjoined TRUE pre-delete; unlink; neighbour bit cleared; non-pit delete keeps neighbour bits; null guards; deleted after run — no maintained unit harness exists for `js/`, sessions are the acceptance tests per Constitution §1.2). `node scripts/verify.mjs --fn conjoined_pits` → PASS syntax (2 files) · PASS rule2 · note hidden (0 sessions blocked at HEAD — debt row cited 0 blocks, vacuous note not a corpus PASS) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · VERIFY: PASS.
+- **Named omissions:** `deltrap` Sokoban `maybe_finish_sokoban` + `dealloc_trap` tail (C `:6536–6545`; shop/region cleanup still deferred as before).
+- **Next:** pop next Open row (`dig_check` head after archive).
+
 ## D-2309 — `pray.c` god_zaps_you lifesave fall-through + shieldeff + astral-block placement (review-32 debt #1)
 
 - **Status:** shipped (Open queue head `pray.c` desecrate_altar/god_zaps_you/fry_by_god + dig wire, debt.md D-0963 residuals; review 32 `32-e3c6cff4-desecrate-altar.md` ACCEPT-WITH-DEBT, §Risques #1 — no Must-fix stamp owed. `brief god_zaps_you` + `verify --fn god_zaps_you` report 0 blocked at HEAD: vacuous note, NOT a corpus PASS; the row cited 0 blocks so no `--base` re-run is owed.)

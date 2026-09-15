@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `pray.c` desecrate_altar/god_zaps_you/fry_by_god + dig wire (debt.md D-0963; C pray.c:609 god_zaps_you). Probe: `node scripts/brief.mjs god_zaps_you`. **Addressed:** D-2309
+- [x] `trap.c` conjoined_pits/xytodir + autodig quiet + dighole boulder-fill/delfloortrap (debt.md D-0962; C trap.c:6551 conjoined_pits). Probe: `node scripts/brief.mjs conjoined_pits`.
+
+
+- [x] `pray.c` desecrate_altar/god_zaps_you/fry_by_god + dig wire (debt.md D-0963; C pray.c:609 god_zaps_you). Probe: `node scripts/brief.mjs god_zaps_you`. **Addressed:** D-2309 `6ce28063`.
 
 
 - [x] `shk.c` shopdig warn/snatch (debt.md D-0958; C shk.c:5018 shopdig; dig-shop damage/anger unwired). Probe: `node scripts/brief.mjs shopdig`. **Addressed:** D-2308 `ef75880a`

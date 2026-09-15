@@ -60,13 +60,18 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `trap.c` conjoined_pits/xytodir + autodig quiet + dighole boulder-fill/delfloortrap (debt.md D-0962; C trap.c:6551 conjoined_pits). Probe: `node scripts/brief.mjs conjoined_pits`.
 - [ ] `dig.c` dig_check/fillholetyp/maybe_dunk_boulders hole-typing residuals (debt.md D-0950; digactualhole switch_terrain archived D-1269; liquid_flow ice/unearth rides the bury row). Probe: `node scripts/brief.mjs dig_check`.
 - [ ] `dig.c` dig_typ/pick_can_reach/is_digging pick-axe occupation residuals (debt.md D-0951; C dig.c dig_typ). Probe: `node scripts/brief.mjs dig_typ`.
 - [ ] `dig.c` dig_up_grave + dighole IS_GRAVE (debt.md D-0957; C dig.c dig_up_grave). Probe: `node scripts/brief.mjs dig_up_grave`.
 - [ ] `dig.c` destroy_drawbridge/find/is_wall + dig wires (debt.md D-0959; C dig.c destroy_drawbridge). Probe: `node scripts/brief.mjs destroy_drawbridge`.
 - [ ] `dig.c` impact_drop/down_gate/drop_to HOLE wire (debt.md D-0961; C dig.c impact_drop). Probe: `node scripts/brief.mjs impact_drop`.
 - [ ] `dig.c` furniture_handled fountain/sink + HOLE goto_level/migrate (debt.md D-0954; C dig.c furniture_handled). Probe: `node scripts/brief.mjs furniture_handled`.
+- [ ] `music.c` do_earthquake quake arms (debt.md D-0972; C music.c:344 do_earthquake). Probe: `node scripts/brief.mjs do_earthquake`.
+- [ ] `dbridge.c` open_drawbridge/close_drawbridge + music passtune (debt.md D-0977; C dbridge.c:840 open_drawbridge). Probe: `node scripts/brief.mjs open_drawbridge`.
+- [ ] `trap.c` openholdingtrap/openfallingtrap + Punished boxlock arms (debt.md D-0981; C trap.c:6101 openholdingtrap). Probe: `node scripts/brief.mjs openholdingtrap`.
+- [ ] `trap.c` ignite_items + apply.c catch_lit fire ignition (debt.md D-0978; C trap.c:7161 ignite_items). Probe: `node scripts/brief.mjs ignite_items`.
+- [ ] `apply.c` use_bell BELL_OF_OPENING + openit/openone/mkundead wire (debt.md D-1028; C apply.c:1202 use_bell). Probe: `node scripts/brief.mjs use_bell`.
+- [ ] `shk.c` getcad + mkobj.c costly_alteration/bill_dummy_object shop bill arms (debt.md D-0940; C shk.c:5138 getcad). Probe: `node scripts/brief.mjs getcad`.
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 

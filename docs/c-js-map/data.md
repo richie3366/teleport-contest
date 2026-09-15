@@ -1149,7 +1149,12 @@ re-read the macro via `liveWwalking()` (boots burst clears the slot through
 this file; retires the file-local `surface_fd` floor/ground stand-in on
 this arm, which misread STAIRS (STAIRS >= ROOM, `IS_ROOM` true) as
 'floor'; `surface_fd` stays for the `fall_through` `The … opens up`
-pline at `js/trap.js:3598`, a different C function).
+pline at `js/trap.js:3598`, a different C function). **`clear_conjoined_pits`
++ `deltrap` wire + `delfloortrap` clone retired** (D-2310; C `trap.c:6579–6601`
++ `:6535` — file-local port in C order, `deltrap` calls it first; `fountain.js`
+local clone replaced by the canonical export, hero `reset_utrap` arm
+unreachable via the `gush` `u_at` guard; named: Sokoban `maybe_finish_sokoban`
++ `dealloc_trap` tail).
 
 ### `src/dog.c` `tamedog` / `initedog`
 

@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-15 — D-2310 `trap.c` clear_conjoined_pits + deltrap wire; fountain delfloortrap dedup
+
+**C locus:** `trap.c:6579–6601` `clear_conjoined_pits` (staticfn); called first from `deltrap` at `:6535`.
+**JS:** `js/trap.js` (+24: `clear_conjoined_pits` + `deltrap` call), `js/fountain.js` (clone −19, +1 import name, gush note). No new cross-module edge (`imports.mjs --can fountain.js trap.js delfloortrap`: ALREADY).
+**Change:** port `clear_conjoined_pits` file-local in C order (`| 0` idiom, `xdir`/`ydir`/`N_DIRS`, `DIR_180`, `isok` + `t_at` neighbour lookup); `deltrap` calls it first per C `:6535`. `fountain.js` deletes the clone and imports the canonical `delfloortrap` export (no new module edge — `trap.js` already imported); reachable-domain identical because `gush` returns early on `u_at` cells, leaving the export's hero arm unreachable there.
+**Verify:** `/tmp/probe_conjoined.mjs` 6/6 PASS (conjoined TRUE pre-delete; unlink; neighbour bit cleared; non-pit delete keeps neighbour bits; null guards; deleted after run — no maintained unit harness exists for `js/`, sessions are the acceptance tests per Constitution §1.2). `node scripts/verify.mjs --fn conjoined_pits` → PASS syntax (2 files) · PASS rule2 · note hidden (0 sessions blocked at HEAD — debt row cited 0 blocks, vacuous note not a corpus PASS) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · VERIFY: PASS.
+**Named:** `deltrap` Sokoban `maybe_finish_sokoban` + `dealloc_trap` tail (C `:6536–6545`; shop/region cleanup still deferred as before).
+**Next:** pop next Open row (`dig_check` head after archive).
 ## 2026-09-15 — D-2309 `pray.c` god_zaps_you lifesave fall-through + shieldeff + astral-block placement (review-32 debt #1)
 
 **C locus:** `pray.c` `god_zaps_you` `:609–691` (no `return` after either `fry_by_god` — `done(DIED)` returns on lifesave/wizard-decline and C falls through to "is not deterred..." + beam; `shieldeff(u.ux,u.uy)` `:627`/`:634` first in both survive-lightning arms; astral/sanctum `summon_minion` ×3 `:678–687` OUTSIDE the `if (!Disint_resistance)` if/else). `fry_by_god` `:694–701` re-read, already faithful, untouched.

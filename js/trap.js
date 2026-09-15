@@ -1270,10 +1270,34 @@ export function seetrap(trap) {
     }
 }
 
+/**
+ * C ref: trap.c clear_conjoined_pits (staticfn :6579–6601) — drop the
+ * conjoined links between a deleted pit and its pit neighbours.
+ * Called first from deltrap (C :6535).
+ */
+function clear_conjoined_pits(trap) {
+    if (trap && is_pit(trap.ttyp)) {
+        for (let diridx = 0; diridx < N_DIRS; ++diridx) {
+            if ((trap.conjoined | 0) & (1 << diridx)) {
+                const x = (trap.tx | 0) + xdir[diridx];
+                const y = (trap.ty | 0) + ydir[diridx];
+                if (isok(x, y)) {
+                    const t = t_at(x, y);
+                    if (t && is_pit(t.ttyp)) {
+                        t.conjoined = (t.conjoined | 0) & ~(1 << DIR_180(diridx));
+                    }
+                }
+                trap.conjoined = (trap.conjoined | 0) & ~(1 << diridx);
+            }
+        }
+    }
+}
+
 // C ref: trap.c deltrap — remove from ftrap list (shop/region cleanup deferred)
 export function deltrap(trap) {
     const traps = game.level?.traps;
     if (!traps || !trap) return;
+    clear_conjoined_pits(trap);
     const i = traps.indexOf(trap);
     if (i >= 0) traps.splice(i, 1);
 }
