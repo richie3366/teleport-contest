@@ -1327,3 +1327,7 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1314-aa08fdb3-done-in-by-imitator-predicate.md](./1314-aa08fdb3-done-in-by-imitator-predicate.md) | `aa08fdb3` | D-2348 done_in_by imitator predicate | **QUALITY-RISK** |
 | [1315-18f6e38f-use-grease-shk-owns-clones.md](./1315-18f6e38f-use-grease-shk-owns-clones.md) | `18f6e38f` | D-2349 shk_owns prefix + clone retirements | **ACCEPT** |
 | [1316-b214fb72-pickup-floor-pickup-body.md](./1316-b214fb72-pickup-floor-pickup-body.md) | `b214fb72` | D-2350 pickup floor-pickup body | **QUALITY-RISK** |
+| [1317-736bd185-vampire-bat-polarity.md](./1317-736bd185-vampire-bat-polarity.md) | `736bd185` | D-2351 vampire-bat arm polarity | **ACCEPT** |
+| [1318-9cc2b25f-pickup-pick-one-petrify-gate.md](./1318-9cc2b25f-pickup-pick-one-petrify-gate.md) | `9cc2b25f` | D-2352 PICK_ONE petrify gate | **ACCEPT** |
+| [1319-589d9acb-getobj-clone-retirement.md](./1319-589d9acb-getobj-clone-retirement.md) | `589d9acb` | D-2353 getobj clone retirement | **ACCEPT** |
+| [1320-2ac37870-bagotricks-tails-tip-arm.md](./1320-2ac37870-bagotricks-tails-tip-arm.md) | `2ac37870` | D-2354 bagotricks tails + tip arm | **ACCEPT** |

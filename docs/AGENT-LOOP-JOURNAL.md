@@ -8,6 +8,17 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-15 — Audit 736bd185..2ac37870 (reviews 1317–1320: 4 ACCEPT) + cadence 44/44
+
+**Range:** four JS-touching SHAs since review 1316 (`b214fb72`); park/audit commits skipped (docs-only, verified no `js/` in stat). All four Must-fix/Open continuations, zero new Must-fix rows.
+**1317** `736bd185` D-2351 (closes 1314 Must-fix): `!==` → `===` ≡ C `!strcmp(fakenm, "vampire bat")` — ACCEPT.
+**1318** `9cc2b25f` D-2352 (closes 1316 Must-fix): PICK_ONE arm drops FEEL_COCKATRICE abort + SORTLOOT_PETRIFY; caller audit proves PICK_ANY path byte-identical — ACCEPT.
+**1319** `589d9acb` D-2353: 3 prompt clones + 6 letter helpers retire to live `getobj` (`invent.js:8047`); all three C word/ok/flags verified (`do.c:35-36`, `apply.c:4226/:1793`); `sym.mjs` pasted (9 deletes NOT FOUND, edges ALREADY) — ACCEPT.
+**1320** `2ac37870` D-2354: bad-bag `impossible`, two `update_inventory` tails, tipcontainer undiscovered-BoT arm; C order + gettarget exclusion verified arm-for-arm — ACCEPT.
+**Verify:** each SHA re-measured `hidden-proxy verify <fn> --base HASH~1` (all 0-blocked vacuous, matching D-logs); `imports.mjs --rulecheck` clean ×4; added-line banned grep 0 ×4.
+**Cadence:** `frozen/ps_test_runner.mjs sessions` → 44/44, Scr 11,405/11,405, RNG 792,838/792,838, `48+0.29/turn` (R² 0.78); CURRENT Score rewritten.
+**Fix:** Next cluster pointed at `use_trap`, parked by `74797791` in the same commit that named it — repointed to first Open row (`paranoid_query`). Queue at 8 Open (floor, no refill); no `- [x]` leftovers.
+**Next:** pop Open in order from `paranoid_query`. No seed/step/coordinate gates.
 ## 2026-09-15 — D-2354 `makemon.c` bagotricks: bad-bag impossible, perm_invent refresh, tipcontainer BoT-target arm
 
 **C locus:** `nethack-c/upstream/src/makemon.c` `bagotricks` `:2554–2601` (`:2562–2563` bad-bag `impossible("bad bag o' tricks")`, moncount stays 0; `:2568–2571` empty `cknown = 1` + `update_inventory()`; `:2591–2594` seen `makeknown(BAG_OF_TRICKS)` + `update_inventory()`); caller `pickup.c` `tipcontainer_checks` `:3961–3966` (`targetbox->otyp == BAG_OF_TRICKS` → `bagotricks(targetbox, FALSE, &seencount)`, `TIPCHECK_CANNOT`); gettarget exclusion `:3912–3916` (known BoT is skipped from the target menu, so the checks arm only ever fires for undiscovered BoT).
