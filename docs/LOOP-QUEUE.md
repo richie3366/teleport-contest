@@ -43,7 +43,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `invent.js` `u_adtyp_resistance_obj` dwarvish-cloak 90 arm (C `zap.c:5690–5694`; helper comment admits "deferred", map-unnamed; new D-2325 `erode_obj` BURN gate draws no `rn2(100)` where C wards 90 — RNG-live). Probe: dwarvish cloak worn + `ERODE_BURN` hero invent. Source: reviews/loop-unattended/1291-d43e86c1-erode-obj-full-body.md.
 - [ ] `dig.js` `surface` clone drawbridge-under nouns (C `dungeon.c` `surface` `:1749–1788` via `SURFACE_AT` `rm.h:146` + `db_under_typ`/`is_pool`/`is_lava`/`is_ice` `dbridge.c`; clone prints "ground" where C prints water/molten lava/ice on the D-2323 `DRAWBRIDGE_UP` cop-out — message-only, 0 blocks). Probe: pickaxe-down on closed drawbridge with failed `fillholetyp` fluid rolls. Source: reviews/loop-unattended/1289-0e191fab-dighole-magical-drawbridge-bymagic.md.
 
 A **JS throw** in any corpus session (`hidden-proxy status` owner

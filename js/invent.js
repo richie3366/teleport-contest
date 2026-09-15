@@ -4843,14 +4843,20 @@ function adtyp_to_prop(dmgtyp) {
 }
 
 /**
- * C ref: zap.c u_adtyp_resistance_obj — extrinsic armor/accessory/wep/art
- * → 99; dwarvish cloak cold/fire 90 deferred.
+ * C ref: zap.c u_adtyp_resistance_obj `:5676–5698` — extrinsic
+ * armor/accessory/wep/art → 99; worn dwarvish cloak → 90 vs cold/fire.
  */
 function u_adtyp_resistance_obj(dmgtyp) {
     const prop = adtyp_to_prop(dmgtyp);
     if (!prop) return 0;
     const x = game.u?.uprops?.[prop]?.extrinsic | 0;
     if (x & (W_ARMOR | W_ACCESSORY | W_WEP | W_ART)) return 99;
+    /* C zap.c:5690–5694 — worn dwarvish cloaks give 90% protection
+       against heat and cold to carried items. */
+    const uarmc = game.u?.uarmc;
+    if (uarmc && (uarmc.otyp | 0) === objectNames.indexOf('DWARVISH_CLOAK')
+        && (dmgtyp === AD_COLD || dmgtyp === AD_FIRE))
+        return 90;
     return 0;
 }
 

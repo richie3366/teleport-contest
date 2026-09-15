@@ -1074,7 +1074,7 @@ shop bill live D-2282 (`credit_report` canonical `js/shk.js:453` + `scatter` bas
 **`set_wounded_legs`→`encumber_msg` + `weight_cap` `WT_WOUNDEDLEG_REDUCT` + 
 preamble `oldcap` sync** (D-0400; load pline triggers bear `--More--`); 
 **`erode_obj` full body** (D-0491 envelope + D-2325 `:170–354` arm-for-arm; 
-hero/monster/floor victim + visobj, AD_FIRE/AD_ACID wards via `inventory_resistance_check` (invent.js, C zap.c:5710), grease_protect, verbose arms, EF_PAY costly_alteration, remove_worn_item/extract_from_minvent unwear; s_suffix clone retired); 
+hero/monster/floor victim + visobj, AD_FIRE/AD_ACID wards via `inventory_resistance_check` (invent.js, C zap.c:5710; `u_adtyp_resistance_obj` extrinsic-99 + dwarvish-cloak-90 arms C zap.c:5676–5698, D-2326; `adtyp_to_prop` stays the enl FIRE/COLD/DISN/ELEC/ACID subset vs C :5653–5671 full switch), grease_protect, verbose arms, EF_PAY costly_alteration, remove_worn_item/extract_from_minvent unwear; s_suffix clone retired); 
 omit towel/container/acid-boom caller arms (water_damage container + fire chain + acid scroll-fade live D-0928/D-1501/D-2289/D-1009), overwrite `reset_utrap` 
 / Knox LEVEL_TELEP / Sokoban finish still named (**PIT/HOLE `set_levltyp` D-1280**; 
 **DRAWBRIDGE_UP ice D-1296**; **shop `add_damage` D-1300**), other trap types, **hero 

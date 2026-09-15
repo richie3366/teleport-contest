@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-2326 — `zap.c` u_adtyp_resistance_obj dwarvish-cloak 90 arm (erode_obj BURN ward)
+
+- **Status:** fixed (Must-fix from review 1291; C `zap.c:5690–5694`; helper comment admitted "deferred", map-unnamed. `brief u_adtyp_resistance_obj` reports 0 corpus sessions blocked at HEAD: vacuous note, NOT a corpus PASS; the row cited 0 blocks so no `--base` re-run is owed.)
+- **Symptom:** RNG-live C-wrong in a new live arm. A dwarvish-cloak-wearing hero hit by ERODE_BURN drew no `rn2(100)` and always eroded where C wards 90%; acid side unaffected (cloak covers fire/cold only). The enlightenment caller (`item_resistance_message_lines`, `protection < 99 → "somewhat"`) was already written expecting the 90 arm — proof the arm was missing, not designed out.
+- **C locus:** `nethack-c/upstream/src/zap.c` `u_adtyp_resistance_obj` `:5676–5698` — the `:5690–5694` arm (`uarmc && uarmc->otyp == DWARVISH_CLOAK && (dmgtyp == AD_COLD || dmgtyp == AD_FIRE)` → 90), in C branch order after the extrinsic 99 arm. Callers `zap.c:5712` (`inventory_resistance_check`) + `insight.c:1473` (enlightenment) need no changes.
+- **JS was:** `js/invent.js:4849` file-local `u_adtyp_resistance_obj` ran the extrinsic 99 arm then `return 0`; its doc comment said "dwarvish cloak cold/fire 90 deferred".
+- **Fix:** `js/invent.js` only, no new module edges (`objectNames` already imported; `AD_COLD`/`AD_FIRE` file-local monattk.h block; `game.u.uarmc` ≡ C `uarmc`): the cloak arm in C position and C predicate order (`AD_COLD || AD_FIRE`), `(uarmc.otyp | 0) === objectNames.indexOf('DWARVISH_CLOAK')` (the `do_wear.js:102` convention), doc comment updated to cite `:5676–5698`.
+- **JS:** 1 file (`invent.js` +8/−3 with C-cite comments), far under the 600/10 caps.
+- **Verify:** preflight `verify --no-cohort` PASS on a clean tree before edits. Hand probe `/tmp/probe_cloak_2326.mjs` 7/7 PASS (deleted before finishing; arm no corpus session reaches): no-cloak fire/cold false, robe fire false, cloak fire rate 0.901 / cold 0.894 over 4000 trials each (≈90%), cloak elec/disn false. `node scripts/verify.mjs --fn u_adtyp_resistance_obj` → PASS syntax (1 changed js file) · PASS rule2 · note hidden (vacuous: 0 blocked — NOT a corpus PASS) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · VERIFY: PASS. Final verify ran after the last `js/` edit (map/D-log/queue/review-stamp edits only after; no D-1831 gap).
+- **Named omissions:** none new — the "deferred" comment retires in this commit; `adtyp_to_prop` stays the enl-subset (FIRE/COLD/DISN/ELEC/ACID vs C `:5653–5671` full switch — pre-existing, map-named below).
+- **Next:** do not re-pop the cloak arm. Queue head is now the `dig.js` surface drawbridge-under nouns Must-fix (review 1289). Falsifier: a rescore or fresh `verify u_adtyp_resistance_obj` showing a session blocked with it as owner, or a cloak-worn burn-erode trace missing the ward roll. No refill: archiving this Must-fix leaves Open at 10 rows, inside the 8–12 band.
+
 ## D-2325 — `trap.c` erode_obj full body: victim/vis arms, wards, grease, verbose, EF_PAY unwear/destroy + acid_damage ward gate
 
 - **Status:** fixed (Open queue head `trap.c` erode_obj rust/verbose + grease/towel/container/acid-boom arms; named data.md:1078, post-D-2186 residual. `brief erode_obj` reports 0 corpus sessions blocked at HEAD: vacuous note, NOT a corpus PASS; the row cited 0 blocks so no `--base` re-run is owed.)

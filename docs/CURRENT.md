@@ -82,8 +82,9 @@ Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
 **Next cluster:** `invent.js` `u_adtyp_resistance_obj` dwarvish-cloak 90 arm (Must-fix from review 1291; C `zap.c:5690–5694`; D-2325 BURN gate inherits it — RNG-live). Then Must-fix `dig.js` surface drawbridge-under nouns (review 1289), then first Open: `apply.c` use_stone. (dosounds PARKED STALE-DUPLICATE 2026-09-15, proof in LOOP-QUEUE Parked.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2325 (index).**
+**Keep D-0845…D-2326 (index).**
 <!-- recent:begin -->
+**D-2326** `nethack-c/upstream/src/zap.c` `u_adtyp_resistance_obj` `:5676–5698` — `js/invent.js` only, no new module edges (`objectNames` already imported; `AD_COLD`/`AD_FIRE` file-local monattk.h block; `game.u.uarmc` ≡ C `uarmc`): the cloak arm in C position and C predicate order (`AD_COLD || AD_FIR
 **D-2325** `nethack-c/upstream/src/trap.c` `erode_obj` `:170–354` (whole body, C order) + `nethack-c/ — `js/trap.js` — erode_obj rewritten arm-for-arm in C order: victim (carried_obj→youmonst / OBJ_MINVENT ocarry / null) + uvictim/vismon (local canseemon) / visobj (cansee bhitpos, !is_pool || next2u-dist2≤2 + u.uinwater ≡ 
 **D-2324** `nethack-c/upstream/src/invent.c` `mergable` `:4379–4499` (whole body, C order) + `nethack — `js/mkobj.js` — mergable rewritten in C order: unpaid/spe/no_charge/obroken/otrapped/lamplit block; FOOD arm kept (JS `orotten` is separate storage vs C obj.h:130 `#define orotten oeroded` — documented in comment); dknow
 **D-2323** `nethack-c/upstream/src/dig.c` `dighole` `:884-1024` — `js/dig.js` only.
@@ -91,11 +92,10 @@ Do **not** pop map-omission singletons
 **D-2321** `nethack-c/upstream/src/dig.c` `zap_dig` `:1617-1662` (pitdig setup `:1617-1623`, adjacent — `js/dig.js` only, no new module edges (all four added names join existing static imports — `imports.mjs --can` ALREADY for each: `s_suffix` joins the existing `do_name.js` import; `On_ladder` joins `mklev.js`; `DBWALL`/`
 **D-2320** `nethack-c/upstream/src/dokick.c` `kick_door` `:909–970` — `js/dokick.js` only, no new module edges (`is_giant` joins the existing `monsters.js` import — `imports.mjs --can` ALREADY; `Soundeffect` joins the existing `sndprocs.js` import; the two `se_*` constants via `generated/s
 **D-2319** `nethack-c/upstream/src/dig.c` `zap_dig` beam arms — `js/dig.js` only (+ static `SHOP_WALL_COST` from `const.js`, already exported; `add_damage` via the file's existing per-arm dynamic `shk.js` import — the door arm's own convention, no new module edge, no TDZ risk): maze 
-**D-2318** `trap.c` launch_obj ROLL block (`:3423–3430` down_gate/ship_object; `:3505–3513` post-swit — `js/trap.js` only (+2 static imports: `sndprocs.js` Soundeffect — `imports.mjs` SAFE, no cycle; `const.js` MIGR_NOWHERE; `dokick.js`/`do.js` via the file's in-function dynamic-import convention): ROLL gate-drop pre-block
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2325; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2326; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

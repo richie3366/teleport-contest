@@ -48,6 +48,6 @@ Matches. Added-lines grep: 0 banned-pattern hits. `imports.mjs --rulecheck`: cle
 
 ## Actionable C-wrongs
 
-1. invent.js `u_adtyp_resistance_obj` missing dwarvish-cloak 90 arm (C zap.c:5690-5694); new erode_obj BURN gate inherits it — port the arm (one iter). → Must-fix, prepended.
+1. invent.js `u_adtyp_resistance_obj` missing dwarvish-cloak 90 arm (C zap.c:5690-5694); new erode_obj BURN gate inherits it — port the arm (one iter). → Must-fix, prepended. **Addressed:** D-2326
 
 Verdict: **QUALITY-RISK**
