@@ -80,10 +80,11 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `mon.c` mongone MM_NOCOUNTBIRTH born tally (named data.md:1098, D-0538 residual; savebones/mdrop_special_objs are other rows; never live/archived/parked). Probe: `node scripts/brief.mjs mongone`.
+**Next cluster:** `monmove.c` can_hide_under_obj coins/pet-cursed/cockatrice (named data.md:462, D-0630 residual; mon.c hideunder callers; never live/archived/parked). Probe: `node scripts/brief.mjs can_hide_under_obj`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2339 (index).**
+**Keep D-0845…D-2340 (index).**
 <!-- recent:begin -->
+**D-2340** `nethack-c/upstream/src/mon.c` `hideunder` `:4725–4802`, concealer arm `:4752–4772` (`hide — 4 js files (+61/−23), no new modules.
 **D-2339** `nethack-c/upstream/src/makemon.c` `makemon` — `js/makemon.js` only, zero new module edges (`MM_NOCOUNTBIRTH` joins the existing const.js import; `propagate` is same-file — no new cross-module import, so no `imports.mjs --can` owed).
 **D-2338** `nethack-c/upstream/src/trap.c` `blow_up_landmine` `:3172–3219` (scatter `:3176–3179` → de — `js/trap.js` only, zero new module edges (`imports.mjs --can` ALREADY ×7: `fillholetyp`/`liquid_flow`/`maybe_dunk_boulders` join the existing dig.js import, `is_drawbridge_wall`/`find_drawbridge`/`destroy_drawbridge` joi
 **D-2337** `nethack-c/upstream/src/artifact.c` `mk_artifact` `:172–309` (eligibility gather `:188–245 — extractor parses A() args[12]/args[13] as `genSpe`/`giftValue` and emits them; `js/generated/artifacts_data.js` regenerated via the checked-in extractor (34 rows gain the two fields, values spot-checked vs C); `artifacts
@@ -91,11 +92,10 @@ Do **not** pop map-omission singletons
 **D-2335** `nethack-c/upstream/src/sp_lev.c` `spo_end_moninvent` `:3031–3036` (`m_dowear(invent_carry — `js/mklev.js` only.
 **D-2334** `nethack-c/upstream/src/sp_lev.c` `map_cleanup` `:328–356` (28-line body; callers `:6029`/ — `js/mklev.js` only, zero new module edges (`imports.mjs --can` ALREADY ×2: `deltrap` joins the existing trap.js import, `engr_at`/`del_engr` join the existing engrave.js import): trap arm `const ttmp = t_at(x, y); if (tt
 **D-2333** `nethack-c/upstream/src/wield.c` `wield_tool` `:683–758` (guard envelope; caller `dorub` ` — `js/wield.js` only.
-**D-2332** `nethack-c/upstream/src/pray.c` `angrygods` `:703–784` (case 2/3 `losexp((char *)0)` `:739 — `js/pray.js` only, zero new module edges (`imports.mjs --can` ALREADY ×2: `losexp` joins the existing exper.js import, `hcolor` joins the existing do_name.js import): case 2/3 awaits live `losexp(null)` and the 29-line `
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2339; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2340; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `monmove.c` can_hide_under_obj coins/pet-cursed/cockatrice (named data.md:462, D-0630 residual; mon.c hideunder callers; never live/archived/parked). Probe: `node scripts/brief.mjs can_hide_under_obj`.
 - [ ] `worn.c` mon_adjust_speed — blocks 1/553 corpus sessions (first at step 62): C «The titan is suddenly moving faster. The titan casts a spell» vs JS «The titan is suddenly moving faster. The titan casts a spell». Probe: `node scripts/hidden-proxy.mjs verify mon_adjust_speed` (scen-tour-Barbarian-92079; queue refill 2026-09-15; never live/archived/parked).
 - [ ] `dungeon.c` save_dungeon — blocks 8/553 corpus sessions (first at step 113): C «The Dungeons of Doom:» vs JS «The Dungeons of Doom:». Probe: `node scripts/hidden-proxy.mjs verify save_dungeon` (scen-genesis-Barbarian-91118, scen-normal-Caveman-92140, scen-poly-Archeologist-92119; queue refill 2026-09-15 — top unarchived weight; 09-07 MISATTRIBUTED park predates scoreboard, next iter measures the C overview-menu writer or re-parks).
 - [ ] `sp_lev.c` spo_end_moninvent m_dowear for Kni-strt King Arthur + Mon-strt Grand Master custom invents (follow-up to the shipped Pelias/Lord Carnarvon/Arch Priest quest-invent wear row; still deferred at the Kni/Mon loaders in js/mklev.js; never live/archived/parked). Probe: `node scripts/brief.mjs m_dowear`.

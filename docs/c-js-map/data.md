@@ -460,7 +460,7 @@ other `m_initinv` bodies (mercenary armor/nymph/giant/…); hell-court `notelepo
 `S_ELF` mlet; **D-1518** dprince MS_BRIBE / raven `BEC_DE_CORBIN`; **D-1526** emin roaming); 
 + **D-0628 `hides_under`/`M1_CONCEAL` gate** (python `S_SNAKE` but !CONCEAL stays visible; 
 was blind `mundetected=1`); **D-0630 inline hideunder non-pit `t_at` blocks** (POLY_TRAP; 
-`can_hide_under_obj` coins / pet cursed / cockatrice still deferred); 
+`can_hide_under_obj` coins / pet cursed / cockatrice retired by **D-2340** — all three live in `mon.js` hideunder, the `monmove.js` postmov local, and the `makemon.js` birth inline; `You_see` pline + `set_msg_xy`/`PLNMSG_HIDE_UNDER`/`last_hider` stay named); 
 **D-0528 vampshifter `newcham`/`pickvampshape` + Vlad candelabrum + covetous `noteleport_level`**; 
 **D-0606 `select_newcham_form` sandestin/doppel/cham/vamp + random + 
 `accept_newcham_form`/`polyok`/`is_mplayer`; 
