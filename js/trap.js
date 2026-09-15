@@ -6876,8 +6876,7 @@ async function untrap_box(box, force, confused) {
  * C ref: trap.c untrap `:5847–6096` — #untrap / autounlock / #invoke.
  * Floor switch: holding / landmine / dart / arrow / pit help_monster_out
  * + boxcnt ynq / untrap_box / disarm_box. Door force luck-skip D-1495.
- * Named omissions: stumble_on_door_mimic;
- * try_disarm adjacent-Whoops move_into_trap.
+ * Named omissions: try_disarm adjacent-Whoops move_into_trap.
  * @param {boolean} [force=false]
  * @param {number} [rx=0]
  * @param {number} [ry=0]
@@ -7022,7 +7021,10 @@ export async function untrap(force = false, rx = 0, ry = 0, container = null) {
             }
             await pline('There are no other chests or boxes here.');
         }
-        // stumble_on_door_mimic named omit
+        // C trap.c untrap `:6026` — doorway door-mimic stumble (home lock.c;
+        // lazy import: lock.js statically imports b_trapped/t_at from here).
+        const { stumble_on_door_mimic } = await import('./lock.js');
+        if (await stumble_on_door_mimic(x, y)) return 1;
     }
     const loc = game.level?.at?.(x, y);
     if (!loc || !IS_DOOR(loc.typ | 0)) {

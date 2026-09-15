@@ -1,5 +1,17 @@
 # Divergence log
 
+## D-2373 — `lock.c` stumble_on_door_mimic shared door-mimic + 3 call sites
+
+- **Status:** fixed (Open queue head `trap.c` stumble_on_door_mimic body; no symbol in `js/`; data.md:176 named with move_into_trap; never own-row live/archived/parked.)
+- **Symptom:** door-mimic stumble deferred at all three C call sites (`doopen_indir` comment, `doclose`/`untrap` named omits). Map-driven row — 0 corpus sessions blocked, so no corpus PASS is claimed.
+- **C locus:** `nethack-c/upstream/src/lock.c:758–769` (`m_at` + `is_door_mappear` + `!Protection_from_shape_changers` → `stumble_onto_mimic`, TRUE/FALSE); `monst.h:240` (`M_AP_FURNITURE` + `S_hcdoor`/`S_vcdoor` only); `youprop.h:355–360` (H || E). Callers: `lock.c:820` (doopen_indir → ECMD_TIME, before Confusion/Stunned cost), `lock.c:987` (doclose → ECMD_TIME, between !isok nodoor and Confusion/Stunned), `trap.c:6026` (untrap doorway → 1, after box loop, before IS_DOOR check). C `trap.c:5962` floor-trap inline (FURNITURE||OBJECT, ungated) is a different arm — already live in JS, untouched.
+- **JS was:** `doopen_indir` `// C: stumble_on_door_mimic — deferred`; `doclose` + `untrap` named omits; no shared helper.
+- **Fix:** new exported async `stumble_on_door_mimic(x, y)` in `js/lock.js:636` (C home; predicate draws no RNG; async only because JS `stumble_onto_mimic` reaches pline --More--) with local `Protection_from_shape_changers()` (`js/lock.js:618`, H||E+flat per-file idiom). Wired in exact C order: `doopen_indir` (`:691`, before Confusion/Stunned res), `doclose` (`:899`, between !isok and Confusion/Stunned), untrap doorway (`js/trap.js:7027-7028`, after box loop) via lazy `await import('./lock.js')` — lock.js statically imports `b_trapped`/`t_at` from trap.js, so no new static edge and no top-level TDZ read (`imports.mjs` IN-SCC, runtime-only use).
+- **JS:** `js/lock.js` (+helper, 2 wires, doc touch-ups), `js/trap.js` (doorway wire + `untrap` doc omit retired). No new modules, no new static edges. `js/` insertions ~50, well under 600.
+- **Verify:** `node scripts/verify.mjs --fn stumble_on_door_mimic` → PASS syntax (2 files) · PASS rule2 · note hidden (0 blocked at HEAD; row cited 0 blocks so no --base owed — NOT a corpus PASS) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 → VERIFY: PASS. Focused /tmp probes (deleted before finish): 5 false arms (no-monster, object-mimic, furniture-non-door, H-protected hcdoor, E-protected vcdoor → all false) + true arm (unprotected hcdoor → true, mimic revealed `m_ap_type=0`).
+- **Named omissions:** `pick_lock` `:571` keeps its own inline (same predicate but C-ungated + `maybe_absorb_item` tail); doopen pit dirprompt/pit-reach; doclose portcullis/drawbridge/steed; untrap `move_into_trap` residuals (D-2372).
+- **Next:** pop next Open row (`shk.c` globby_bill_fixup probe).
+
 ## D-2372 — `trap.c` move_into_trap failed-untrap stumble onto trap
 
 - **Status:** fixed (Open queue head `trap.c` move_into_trap body; no `move_into_trap` symbol in `js/`, data.md:176 named with stumble_on_door_mimic.)

@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
+- [x] `trap.c` stumble_on_door_mimic body (no `stumble_on_door_mimic` symbol in `js/`; data.md:176 named with move_into_trap; never own-row live/archived/parked). Probe: `node scripts/brief.mjs stumble_on_door_mimic`. **Addressed:** D-2373
+
+
 - [x] `trap.c` move_into_trap body (no `move_into_trap` symbol in `js/`; data.md:176 named with stumble_on_door_mimic; never own-row live/archived/parked). Probe: `node scripts/brief.mjs move_into_trap`. **Addressed:** D-2372 `12cae556`
 
 

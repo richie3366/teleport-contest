@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `trap.c` stumble_on_door_mimic body (no `stumble_on_door_mimic` symbol in `js/`; data.md:176 named with move_into_trap; never own-row live/archived/parked). Probe: `node scripts/brief.mjs stumble_on_door_mimic`.
 - [ ] `shk.c` globby_bill_fixup body (data.md:287 deferred with shrink ice-eat; never own-row live/archived/parked). Probe: `node scripts/brief.mjs globby_bill_fixup`.
 - [ ] `do_name.c` minimal_monnam body (data.md:388 omit with mongone FALSE caller; never own-row live/archived/parked). Probe: `node scripts/brief.mjs minimal_monnam`.
 - [ ] `mkobj.c` shrink_glob body (data.md:287 thin shrink_glob with globby_bill_fixup; never own-row live/archived/parked). Probe: `node scripts/brief.mjs shrink_glob`.
@@ -68,6 +67,11 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 - [ ] `mon.c` can_be_hatched body (data.md:269 EGG can_be_hatched multi-retry; never own-row live/archived/parked). Probe: `node scripts/brief.mjs can_be_hatched`.
 - [ ] `potion.c` peffect_water body (debt.md:23 potionbreathe POT_WATER lycan residual; never own-row live/archived/parked). Probe: `node scripts/brief.mjs peffect_water`.
 - [ ] `artifact.c` set_artifact_intrinsic W_ART-off invoked-toggle reversal via arti_invoke (C artifact.c:880-885; sync locus js/artifact.js:848 + js/invent.js:7361 freeinv_core with 25 freeinv sites incl. local shadows; async arti_invoke needs propagation vehicle; zap-poly half shipped alongside D-2371). Probe: `node scripts/brief.mjs set_artifact_intrinsic`.
+- [ ] `potion.c` peffect_levitation body (debt.md:23 D-1419 POT/SPE_LEVITATION; never own-row live/archived/parked). Probe: `node scripts/brief.mjs peffect_levitation`.
+- [ ] `potion.c` peffect_restore_ability body (debt.md:23 D-1420 POT/SPE_RESTORE_ABILITY; never own-row live/archived/parked). Probe: `node scripts/brief.mjs peffect_restore_ability`.
+- [ ] `potion.c` peffect_invisibility body (debt.md:23 D-1421 POT/SPE_INVISIBILITY; never own-row live/archived/parked). Probe: `node scripts/brief.mjs peffect_invisibility`.
+- [ ] `trap.c` float_up body (debt.md:14 D-0956 Ring_gone/float_up; never own-row live/archived/parked). Probe: `node scripts/brief.mjs float_up`.
+- [ ] `hack.c` still_chewing body (debt.md:14 D-0937/D-0941 floorfood chew + shop add_damage; never own-row live/archived/parked). Probe: `node scripts/brief.mjs still_chewing`.
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 

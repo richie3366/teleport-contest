@@ -80,10 +80,11 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `trap.c` move_into_trap body (no `move_into_trap` symbol in `js/`; data.md:176 named with stumble_on_door_mimic; never own-row live/archived/parked). Probe: `node scripts/brief.mjs move_into_trap`.
+**Next cluster:** `trap.c` stumble_on_door_mimic body (no `stumble_on_door_mimic` symbol in `js/`; data.md:176 named with move_into_trap; never own-row live/archived/parked). Probe: `node scripts/brief.mjs stumble_on_door_mimic`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2372 (index).**
+**Keep D-0845…D-2373 (index).**
 <!-- recent:begin -->
+**D-2373** `nethack-c/upstream/src/lock.c:758–769` (`m_at` + `is_door_mappear` + `!Protection_from_sh — new exported async `stumble_on_door_mimic(x, y)` in `js/lock.js:636` (C home; predicate draws no RNG; async only because JS `stumble_onto_mimic` reaches pline --More--) with local `Protection_from_shape_changers()` (`js/
 **D-2372** `nethack-c/upstream/src/trap.c` `move_into_trap` `:5393–5437` (`test_move(u.ux,u.uy,sgn(x- — `js/trap.js` only, no new modules, no new module edges (`imports.mjs --can` ALREADY on all three static extends: `trap.js → ball.js` for `drag_ball`/`move_bc`, `trap.js → apply.js` for `check_leash`, `trap.js → steed.js`
 **D-2371** `nethack-c/upstream/src/zap.c` `poly_obj` `:1905–1914` (`get_obj_location` + `old_wornmask — 2 js files, no new modules, no new module edges (`imports.mjs --can` ALREADY on `zap.js → u_init.js`; `u_init.js` imports nothing from `zap.js` — no cycle; both names used only at runtime inside async `poly_obj` — no top
 **D-2370** `nethack-c/upstream/src/quest.c` `artitouch` `:125–136` (`!Qstat(touched_artifact)` → `obs — 2 js files, no new modules (`imports.mjs --can` SAFE on `is_quest_artifact`; `quest.js → invent.js` ALREADY; new `u_init → quest` edge reads both names only at runtime inside `addinv_core1` — no top-level TDZ read): new 
@@ -91,11 +92,10 @@ Do **not** pop map-omission singletons
 **D-2368** `nethack-c/upstream/src/sp_lev.c` `is_ok_location` `:1280–1308` (`:1284–1285` `Is_waterlev — `js/mklev.js` only, no new modules, no new module edges (`imports.mjs --can` ALREADY on both: `is_pool`/`is_lava` join the existing `./hack.js` import, `Is_waterlevel` rides the pre-existing `./const.js` edge — all used 
 **D-2367** `nethack-c/upstream/src/pray.c` `bestow_artifact` `:1781–1836` (raw `u.ulevel > 2 && u.ulu — `js/pray.js` only, no new modules, no new module edges (all four artifact names + `y_n` ride pre-existing edges — `imports.mjs --can` ALREADY on both; used only at runtime inside the function body — no top-level TDZ read
 **D-2366** `nethack-c/upstream/src/zap.c` `resist` `:6100–6158` (`:6141` `resisted = rn2(100 + alev - — `js/zap.js` only, no new modules, no new module edges (callee is a hoisted same-file `async function` declaration — no import, no TDZ read): the `if (resisted)` arm awaits `shieldeff_mon(mtmp)` when `tell`, before the ha
-**D-2365** `nethack-c/upstream/src/monmove.c` `mon_would_consume_item` `:1036–1050` (`CORPSE && !touc — `js/monmove.js` only, no new modules, no new module edges (`imports.mjs --can` ALREADY on both: `dogfood` joins the existing `dogmove.js` import, `EDOG`/`has_edog`/`ACCFOOD`/`MANFOOD` join the existing `const.js` import 
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2372; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2373; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

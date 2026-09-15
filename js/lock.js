@@ -612,6 +612,40 @@ export async function get_adjacent_loc(prompt, emsg) {
 }
 
 /**
+ * C youprop.h Protection_from_shape_changers — H || E (+ JS flat fallback,
+ * same per-file idiom as Blind()/Deaf() below; macro, not a clone).
+ */
+function Protection_from_shape_changers() {
+    const u = game.u || {};
+    return !!((u.HProtection_from_shape_changers | 0)
+        || (u.EProtection_from_shape_changers | 0)
+        || u.Protection_from_shape_changers);
+}
+
+/**
+ * C ref: lock.c stumble_on_door_mimic `:758–769` — shared door-mimic stumble
+ * for doopen_indir / doclose / untrap doorway.
+ * C `is_door_mappear` (monst.h `:240`): M_AP_FURNITURE mimicking S_hcdoor or
+ * S_vcdoor only. (The pick_lock direction arm, lock.c `:571`, inlines the
+ * same predicate but ungated with a `maybe_absorb_item` tail, so it keeps
+ * its own call below.)
+ * Async only because JS `stumble_onto_mimic` reaches pline --More--;
+ * the predicate itself draws no RNG, matching C order exactly.
+ * @returns {Promise<boolean>} true when C returns TRUE (caller takes ECMD_TIME / 1)
+ */
+export async function stumble_on_door_mimic(x, y) {
+    const mtmp = m_at(x, y);
+    if (mtmp && M_AP_TYPE(mtmp) === M_AP_FURNITURE
+        && (((mtmp.mappearance | 0) === S_hcdoor)
+            || ((mtmp.mappearance | 0) === S_vcdoor))
+        && !Protection_from_shape_changers()) {
+        await stumble_onto_mimic(mtmp);
+        return true;
+    }
+    return false;
+}
+
+/**
  * C ref: lock.c doopen — #open / `o` command.
  * @returns {Promise<boolean>} true when C would return ECMD_TIME
  */
@@ -624,8 +658,7 @@ export async function doopen() {
  * Autoopen callers pass door coordinates (x > 0). Interactive `o`
  * uses get_adjacent_loc → getdir ("In what direction?").
  * Named omissions: pit "Open where? [.>]" dirprompt + pit-reach gate;
- * door-mimic stumble (stumble_on_door_mimic); set_msg_xy on the
- * This-door arm; AUTOUNLOCK_KICK canned dokick.
+ * set_msg_xy on the This-door arm; AUTOUNLOCK_KICK canned dokick.
  * Returns true when C would return ECMD_TIME (open attempt / lock setup).
  */
 export async function doopen_indir(x, y) {
@@ -653,7 +686,9 @@ export async function doopen_indir(x, y) {
         return (await doloot()) === ECMD_TIME;
     }
     // C: u.utrap TT_PIT reach — deferred
-    // C: stumble_on_door_mimic — deferred
+    // C lock.c doopen_indir `:820` — door-mimic stumble before the
+    // Confusion/Stunned turn cost below.
+    if (await stumble_on_door_mimic(cc.x, cc.y)) return true;
 
     // C lock.c doopen_indir — impaired direction costs a turn even with no
     // door targeted: if (Confusion || Stunned) res = ECMD_TIME.
@@ -819,8 +854,7 @@ async function obstructed_close(x, y) {
  * C ref: lock.c doclose — #close / `c` command.
  * Envelope: nohands/pit gates, getdir (cmdassist) + getdir-tail confdir(FALSE),
  * impaired-direction TIME, door mask arms, close roll.
- * Named omissions: stumble_on_door_mimic;
- * portcullis/drawbridge; steed close path;
+ * Named omissions: portcullis/drawbridge; steed close path;
  * feel_newsym mapseen gating; Some_Monnam obstructed polish.
  * @returns {Promise<boolean>} true when C would return ECMD_TIME
  */
@@ -854,12 +888,15 @@ export async function doclose() {
 
     let res = false; // C: res starts ECMD_OK
     // C lock.c doclose `:985–996` — !isok goes to nodoor while res is still
-    // ECMD_OK (the Confusion/Stunned turn cost comes after, with
-    // stumble_on_door_mimic deferred between them).
+    // ECMD_OK (the Confusion/Stunned turn cost comes after, with the
+    // stumble_on_door_mimic call between them).
     if (x < 1 || x >= COLNO || y < 0 || y >= ROWNO) {
         await pline(`You ${Blind() ? 'feel' : 'see'} no door there.`);
         return res;
     }
+    // C lock.c doclose `:987` — door-mimic stumble between the !isok
+    // nodoor arm above and the Confusion/Stunned turn cost below.
+    if (await stumble_on_door_mimic(x, y)) return true;
     // C lock.c doclose — impaired direction choice costs a turn even when no
     // door is targeted: if (Confusion || Stunned) res = ECMD_TIME.
     // C Confusion/Stunned ≡ H-fields (youprop.h); flat mirrors per repo idiom.

@@ -1939,7 +1939,7 @@ strange-direction pline; `?` still forces help; not `game.flags`);
 getobj missing-letter `continue`+`flush_topl_more` (D-0025); 
 **empty SUGGEST → "don't have anything"** (D-0141); **`doopen_indir` CLOSED autoopen** (D-0059); 
 **`doclose`/`c` getdir cmdassist + close envelope** (D-0740;
-stumble_on_door_mimic / portcullis deferred; **Blind feel_location/mapseen + feel/see nodoor** D-2286 — !isok before Confusion/Stunned per C order, glyph half dead, no `lev->glyph` in JS cells) +
+**`stumble_on_door_mimic` shared door-mimic + doopen/doclose/untrap wires** D-2373 (`lock.c:758–769` is_door_mappear + !Protection gate; trap.js doorway via lazy import, floor-trap :5962 inline untouched) / portcullis deferred; **Blind feel_location/mapseen + feel/see nodoor** D-2286 — !isok before Confusion/Stunned per C order, glyph half dead, no `lev->glyph` in JS cells) +
 **impaired-direction TIME + getdir-tail confdir(FALSE)** (D-2009; `lock.c`
 `if (Confusion || Stunned) res = ECMD_TIME` + `cmd.c:4116–4117`
 caller-local `confdir`, so a confused no-door close costs the C turn); 
@@ -2865,7 +2865,7 @@ force skips find `rn2`/fail `rnd`; usual `getdir` D-0928 #1175);
 `:5593` / `:5663` / `:5793` / `:5820` / `:5699` / `:5440` / `:5287` /
 `:5340` / `:5676`; JS `untrap` had returned 0 on a seen floor trap);
 `disarm_squeaky_board` / adjacent-Whoops `move_into_trap` D-2372 (doorway gate via steed `test_move_ok`, punished `drag_ball`/`move_bc`, thin `u_on_newpos`+steed, `failing_untrap` spoteffects; full test_move/cliparound/jerk-damage named — was no
-`test_move` export) / `stumble_on_door_mimic` named; 
+`test_move` export) / `stumble_on_door_mimic` live D-2373; 
 **`chest_trap` luck-save + explode/gas/needle/fire/elec/freeze/hallu** (D-0989; 
 **gas `Blind`/`rndcolor` D-1147**; Soundeffect / bot polish / Halluc_resistance stagger still 
 named); omit steed `mon_learns`; `madeby_u` `rnl` setmangry
