@@ -1364,3 +1364,8 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1351-f285c65c-use-skill-may-advance.md](./1351-f285c65c-use-skill-may-advance.md) | `f285c65c` | D-2385 use_skill may-advance | **ACCEPT** |
 | [1352-74e2f96f-tip-getpos-arm.md](./1352-74e2f96f-tip-getpos-arm.md) | `74e2f96f` | D-2386 TIP_GETPOS arm | **ACCEPT** |
 | [1353-5c766aef-gulpmu-blnd-visor.md](./1353-5c766aef-gulpmu-blnd-visor.md) | `5c766aef` | D-2387 gulpmu BLND visor | **ACCEPT** |
+| [1354-585f3720-query-classes-tally.md](./1354-585f3720-query-classes-tally.md) | `585f3720` | D-2388 query_classes tally | **ACCEPT** |
+| [1355-515afbee-stoning-corpse-guard.md](./1355-515afbee-stoning-corpse-guard.md) | `515afbee` | D-2389 stoning-corpse guard | **ACCEPT** |
+| [1356-48e528df-wallify-vault-body.md](./1356-48e528df-wallify-vault-body.md) | `48e528df` | D-2390 wallify_vault body | **ACCEPT** |
+| [1357-3b146232-autoreturn-weapon.md](./1357-3b146232-autoreturn-weapon.md) | `3b146232` | D-2391 autoreturn_weapon | **ACCEPT** |
+| [1358-48716eb3-mhitm-ad-slow.md](./1358-48716eb3-mhitm-ad-slow.md) | `48716eb3` | D-2392 mhitm_ad_slow | **ACCEPT** |

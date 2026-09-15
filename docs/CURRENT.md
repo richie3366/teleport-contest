@@ -21,10 +21,10 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-15** — full `sessions` on the working tree
-(audit **1348–1353**, HEAD `5c766aef`).
+(audit **1354–1358**, HEAD `48716eb3`).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`48+0.30/turn` (R² 0.78).
+`49+0.30/turn` (R² 0.78).
 
 ## Score
 
@@ -42,7 +42,7 @@ audit 1307–1313): **478 / 540 PASS (88.5 %)** excl. 13 env-only rows
 `do_statusline2` ×10, `obj_resists` ×6, `distfleeck` ×5,
 `m_move` ×3, `one_characteristic` ×3, `rloc` ×2, then 1-block singles
 (all parked symptom/misattributed owners; `save_dungeon` ×8 cleared by D-2341, knockback cleared by D-2347).
-Reviews 1225–1353: 119 ACCEPT, 3 ACCEPT-WITH-DEBT, 1 DEBT, 1 QUALITY-RISK (Must-fix shipped D-2380); 0 Must-fix outstanding.
+Reviews 1225–1358: 124 ACCEPT, 3 ACCEPT-WITH-DEBT, 1 DEBT, 1 QUALITY-RISK (Must-fix shipped D-2380); 0 Must-fix outstanding.
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx (both map notes).
 Refresh on audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s);
 families ≥ 85 % → grow first via `scenario-gen.mjs --n 120 --seed <iter×100>`.

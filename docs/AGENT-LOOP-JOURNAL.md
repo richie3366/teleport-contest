@@ -4,6 +4,21 @@ Append-only crumbs for `scripts/agent-port-loop.sh` iterations.
 Each agent process should add a short dated entry **at the top** (after
 this header) before exiting. Keep entries tight; detailed hypothesis
 lives in `NOTES.md` / `CURRENT.md`.
+## 2026-09-15 — Audit 585f3720..48716eb3 (reviews 1354–1358) + cadence 44/44
+
+1354 D-2388 query_classes → **ACCEPT** (canonical tally_BUCX, priest
+bknown force incl. coin-clear; m_seen once; simple_look impossible).
+1355 D-2389 stoning-corpse guard → **ACCEPT** (extern carrying_ fn;
+select_off uarmg call site after Glib matches C :2742). 1356 D-2390
+wallify_vault → **ACCEPT** (arm-for-arm vs :645–731; gd_move :913/:920
+stay OMIT; sym "LOCAL CLONE" is C-staticfn linkage, not drift). 1357
+D-2391 autoreturn_weapon → **ACCEPT** (arwep single live row; always_toss
+skips the retreat rn2; AKLYS∉is_pole verified via obj.h:228; 3 clones
+retired). 1358 D-2392 mhitm_ad_slow → **ACCEPT** (both arms + shared
+`rn2(10)` gate; WAITFORU only in mhitm arm per damageum :4859; defended
+OMIT). Per-SHA `--base` re-verify 0/0 throughout, rulecheck/banned-grep
+clean. Cadence 44/44 (Scr 11,405, RNG 792,838, `49+0.30/turn`). No
+Must-fix; 8 Open in band, no refill; D-2392 archive hash filled.
 ## 2026-09-15 — Audit 828e88b4..5c766aef (reviews 1348–1353) + cadence 44/44
 
 1348 D-2382 findtravelpath → **ACCEPT** (visited set + VALID mark-only +
