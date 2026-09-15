@@ -24,9 +24,9 @@
 // losehp + exercise) / pray_revive (tame-corpse/statue scan + revive /
 // animate_statue ANIMATE_SPELL); bestow_artifact /
 // angry_priest (priest.js, D-2344) from sacrifice_your_race +
-// offer_different_alignment_altar; offer_too_soon /
-// offer_fake_amulet / offer_real_amulet (dosacrifice ECMD_TIME after
-// pick is D-1667);
+// offer_different_alignment_altar; offer_too_soon / offer_fake_amulet /
+// offer_real_amulet live + wired in dosacrifice (dosacrifice ECMD_TIME
+// after pick is D-1667);
 // known_spell SPE_TURN_UNDEAD /
 // spelleffects fallback for non-Knight/Cleric; resist TELL pline polish;
 // other livelog paths; poly silent/headless can_chant; Fixed_abil/Dunce
@@ -40,7 +40,7 @@
 import { game } from './gstate.js';
 import { rn2, rn1, rnl, rnz, rnd, d, rn2_on_display_rng } from './rng.js';
 import { pline, verbalize, You_feel, newsym, impossible, see_monsters, shieldeff } from './display.js';
-import { nomul, carrying, losehp, finish_maybe_wail } from './hack.js';
+import { nomul, carrying, losehp, finish_maybe_wail, You_hear } from './hack.js';
 import { upstart } from './hacklib.js';
 import { weapon_type, unrestrict_weapon_skill, add_weapon_skill } from './weapon.js';
 import {
@@ -72,7 +72,7 @@ import { setuhpmax, losexp } from './exper.js';
 import { done } from './end.js';
 import { monstseesu, monstunseesu } from './mondata.js';
 import { mon_nam, Monnam, a_monnam, oname, s_suffix, hcolor } from './do_name.js';
-import { disintegrate_arm, setworn, stuck_ring, unchanger } from './do_wear.js';
+import { disintegrate_arm, setworn, stuck_ring, unchanger, Amulet_off } from './do_wear.js';
 import { summon_minion, dlord } from './minion.js';
 import {
     near_capacity, encumber_msg, feel_cockatrice, useup, useupf,
@@ -110,6 +110,8 @@ import {
     make_glib, make_deaf,
 } from './potion.js';
 import { init_uhunger, floorfood, carried } from './eat.js';
+import { Soundeffect } from './sndprocs.js';
+import { se_thunderclap } from './generated/seffects_data.js';
 import { findpriest, temple_occupied, p_coaligned, angry_priest } from './priest.js';
 import { rider_corpse_revival } from './pickup.js';
 import { region_danger, region_safety } from './region.js';
@@ -2325,9 +2327,135 @@ async function offer_corpse(otmp, highaltar, altaralign) {
 }
 
 /**
+ * C ref: pray.c offer_too_soon `:1478–1498` — low-altar Amulet hint.
+ * Unaligned Gehennom altar → gods_upset(A_NONE); else Hallu homesick /
+ * on-track surface urge / ashamed You_feel.
+ */
+async function offer_too_soon(altaralign) {
+    const u = game.u || (game.u = {});
+    if (!u.ualign) u.ualign = { type: 0, record: 0 };
+    if (altaralign === A_NONE && Inhell()) {
+        /* offering on an unaligned altar in Gehennom; hero has left
+           Moloch's Sanctum (caller handles that) so is in the process
+           of getting away with the Amulet */
+        await gods_upset(A_NONE); /* Moloch becomes angry */
+        return;
+    }
+    await You_feel(Hallucination()
+        ? 'homesick.'
+        /* if on track, give a big hint */
+        : (altaralign | 0) === (u.ualign.type | 0)
+            ? 'an urge to return to the surface.'
+            /* else headed towards celestial disgrace */
+            : 'ashamed.');
+}
+
+/**
+ * C ref: pray.c offer_real_amulet `:1529–1589` — the final Test.
+ * Amulet_off when worn; consume; A_NONE → Moloch death (lifesave falls
+ * through to fry_by_god then ESCAPED); wrong-align → adjalign(-99) +
+ * ESCAPED; own-align → ascended + adjalign(10) + ASCENDED.
+ * C is NORETURN but done() can return on lifesave/wizard-decline, so
+ * each done/fry arm gates continuation on program_state.gameover
+ * (god_zaps_you `:1102–1104` idiom). display_nhwindow(WIN_MESSAGE)
+ * is a no-op here (topline paints via pline; cf. allmain
+ * init_sound_disp_gamewindows); SetVoice pitch deferred (file convention).
+ */
+async function offer_real_amulet(otmp, altaralign) {
+    const u = game.u || (game.u = {});
+    if (!u.ualign) u.ualign = { type: 0, record: 0 };
+    if (!u.uevent) u.uevent = {};
+    /* The final Test.  Did you win? */
+    if (u.uamul === otmp) await Amulet_off();
+    if (carried(otmp)) useup(otmp); /* well, it's gone now */
+    else useupf(otmp, 1);
+
+    await pline(`You offer the Amulet of Yendor to ${a_gname()}...`);
+
+    if (altaralign === A_NONE) {
+        /* Moloch's high altar at the bottom of Gehennom. */
+        if ((u.ualign.record | 0) > -99) u.ualign.record = -99;
+        await pline('An invisible choir chants, and you are bathed in darkness...');
+        /*[apparently shrug/snarl can be sensed without being seen]*/
+        await pline(`${MOLOCH} shrugs and retains dominion over ${u_gname(game.urole, u.ualign.type)},`);
+        await pline('then mercilessly snuffs out your life.');
+        if (!game.killer) game.killer = { name: '', format: 0 };
+        game.killer.format = KILLED_BY;
+        game.killer.name = `${s_suffix(MOLOCH)} indifference`;
+        await done(DIED);
+        if (game.program_state?.gameover) return;
+        /* life-saved (or declined to die in wizard/explore mode) */
+        await pline(`${MOLOCH} snarls and tries again...`);
+        await fry_by_god(A_NONE, true); /* wrath of Moloch */
+        if (game.program_state?.gameover) return;
+        /* declined to die in wizard or explore mode */
+        await pline(`A cloud of ${hcolor('black')} smoke surrounds you...`);
+        await done(ESCAPED);
+        return;
+        /*NOTREACHED*/
+    } else if ((u.ualign.type | 0) !== altaralign) {
+        /* And the opposing team picks you up and carries you off
+           on their shoulders. */
+        adjalign(-99);
+        await pline(`${a_gname()} accepts your gift, and gains dominion over ${u_gname(game.urole, u.ualign.type)}...`);
+        await pline(`${u_gname(game.urole, u.ualign.type)} is enraged...`);
+        await pline(`Fortunately, ${a_gname()} permits you to live...`);
+        await pline(`A cloud of ${hcolor('orange')} smoke surrounds you...`);
+        await done(ESCAPED);
+        return;
+        /*NOTREACHED*/
+    } else {
+        /* You've won the game!  Feedback-wise, it's a bit of a let down. */
+        u.uevent.ascended = 1;
+        adjalign(10);
+        await pline('An invisible choir sings, and you are bathed in radiance...');
+        await godvoice(altaralign, 'Mortal, thou hast done well!');
+        // C: display_nhwindow(WIN_MESSAGE, FALSE) — no-op (see doc above).
+        // C: SetVoice((struct monst *)0, 0, 80, voice_deity) — pitch deferred.
+        await verbalize('In return for thy service, I grant thee the gift of Immortality!');
+        await pline(`You ascend to the status of Demigod${game.flags?.female ? 'dess' : ''}...`);
+        await done(ASCENDED);
+        return;
+        /*NOTREACHED*/
+    }
+    /*NOTREACHED*/
+}
+
+/**
+ * C ref: pray.c offer_fake_amulet `:1601–1627` — low-altar unknown fake
+ * defers to offer_too_soon; else thunderclap + unknown (boo-boo/mistake,
+ * known, luck-1) / known fool-the-gods (Deaf "Oh, no.", luck-3,
+ * adjalign-1, ugangr+3, offer_negative_valued) arms in C order.
+ */
+async function offer_fake_amulet(otmp, highaltar, altaralign) {
+    const u = game.u || (game.u = {});
+    if (!u.ualign) u.ualign = { type: 0, record: 0 };
+    if (!highaltar && !otmp.known) {
+        await offer_too_soon(altaralign);
+        return;
+    }
+    Soundeffect(se_thunderclap, 100);
+    await You_hear('a nearby thunderclap.');
+    if (!otmp.known) {
+        await pline(`You realize you have made a ${Hallucination() ? 'boo-boo' : 'mistake'}.`);
+        otmp.known = 1;
+        change_luck(-1);
+    } else {
+        /* don't you dare try to fool the gods */
+        const Deaf = !!(u.Deaf || u.HDeaf || u.EDeaf || u.uroleplay?.deaf);
+        if (Deaf) await pline('Oh, no.'); /* didn't hear thunderclap */
+        change_luck(-3);
+        adjalign(-1);
+        u.ugangr = (u.ugangr | 0) + 3;
+        await offer_negative_valued(highaltar, altaralign);
+    }
+}
+
+/**
  * C ref: pray.c dosacrifice `#offer` `:1853–1896`.
  * Branch envelope: not-on-altar / impaired / empty floorfood → ECMD_OK;
- * CORPSE → offer_corpse (D-1678); Yendor / fake still named; TIME.
+ * CORPSE → offer_corpse (D-1678); Yendor / fake → offer_too_soon /
+ * offer_real_amulet / offer_fake_amulet; TIME.
  */
 export async function dosacrifice() {
     const u = game.u || {};
@@ -2347,15 +2475,19 @@ export async function dosacrifice() {
 
     const otmp = await floorfood('sacrifice', 1);
     if (!otmp) return ECMD_OK;
-    /* C pray.c `:1874–1895` — each live otyp spends the turn. */
+    /* C pray.c `:1874–1889` — each live otyp spends the turn. */
     if ((otmp.otyp | 0) === AMULET_OF_YENDOR) {
-        /* offer_too_soon / offer_real_amulet named */
-        return ECMD_TIME;
-    }
+        if (!highaltar) {
+            await offer_too_soon(altaralign);
+            return ECMD_TIME;
+        }
+        await offer_real_amulet(otmp, altaralign);
+        return ECMD_TIME; /* C NOTREACHED — done() can return on lifesave */
+    } /* real Amulet */
     if ((otmp.otyp | 0) === FAKE_AMULET_OF_YENDOR) {
-        /* offer_fake_amulet named */
+        await offer_fake_amulet(otmp, highaltar, altaralign);
         return ECMD_TIME;
-    }
+    } /* fake Amulet */
     if ((otmp.otyp | 0) === CORPSE) {
         await offer_corpse(otmp, highaltar, altaralign);
         return ECMD_TIME;

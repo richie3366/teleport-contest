@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `pray.c` angry_priest temple-priest anger (named turns.md:399 dosacrifice family; never live/archived/parked). Probe: `node scripts/brief.mjs angry_priest`. **Addressed:** D-2344
+- [x] `pray.c` offer_real_amulet/offer_fake_amulet amulet offering arms (named turns.md:399 dosacrifice family; never live/archived/parked). Probe: `node scripts/brief.mjs offer_real_amulet`. **Addressed:** D-2345
+
+
+- [x] `pray.c` angry_priest temple-priest anger (named turns.md:399 dosacrifice family; never live/archived/parked). Probe: `node scripts/brief.mjs angry_priest`. **Addressed:** D-2344 `c2a2a6fd`
 
 
 - [x] `pray.c` offer_different_alignment_altar altar-wrath offering (named turns.md:399 dosacrifice family; never live/archived/parked). Probe: `node scripts/brief.mjs offer_different_alignment_altar`. **Addressed:** D-2343 `b52af340`
