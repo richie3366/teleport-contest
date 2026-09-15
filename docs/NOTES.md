@@ -25,19 +25,20 @@ Park rows: re-pop only on the listed falsifier (proofs in Parked).
 
 ## Don't re-check (≤15)
 
-- D-1790…D-2313 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-2314 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 are D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` loaders D-1852/D-1858 — check `load_val_*`/`load_sam_*` before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / `setnotworn`←`owornmask` (D-1020) / `delobj` tut loot / off-level timers (D-1037) / dropped `msounds[]` (D-1053) / tut-1 keys (D-1065) / skipped `tutorial()` (D-1066). No skip D-1067…D-2313.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, or makemon→hack/artifact/minion. No re-port D-1682…D-2313.
+- No memcpy gi worn/ball (D-1035) / `setnotworn`←`owornmask` (D-1020) / `delobj` tut loot / off-level timers (D-1037) / dropped `msounds[]` (D-1053) / tut-1 keys (D-1065) / skipped `tutorial()` (D-1066). No skip D-1067…D-2314.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, or makemon→hack/artifact/minion. No re-port D-1682…D-2314.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2314: `js/do.js` only: `if (falling) await impact_drop(null, u.ux|0, u.uy|0, newlevel.dlevel|0)` immediately before the keepdogs block, hence before `check_ Named: `goto_hell(at_stairs,falling)` (dungeon.c:1956–1962) has no JS counterpart (zero `goto_hel
 - D-2313: `js/dbridge.js` only: both `Soundeffect` calls in C order (before messages); boulder arm `await flooreffects(otmp2,x,y,'fall')` (new static `do.js` ed Named: local `wake_nearto` `& ~0x01` vs C `~STRAT_WAITMASK` + `wake_msg`/`G_UNIQ` skip (mon.c `wa
 - D-2312: `js/dig.js` only: bear-trap arm ports C order (`rnl(7)` first, `dmgval(uwep, game.youmonst)+dbon()`, `u.uarmf` halve `| 0`, `body_part(FOOT)` via dyna Named: `Soundeffect` (draw-free); `IS_ALTAR altar_wrath`/`angry_priest` (pray family, D-0963 row)
 - D-2311: `js/dig.js`: `maybe_dunk_boulders` now async with C order preserved — `boulder_hits_pool` via dynamic `do.js` import (the file's convention for `do.js Named: `trap.js blow_up_landmine` fill_pit/maybe_dunk/spot_checks (own future trap row); `dig_che
@@ -52,5 +53,4 @@ Park rows: re-pop only on the listed falsifier (proofs in Parked).
 - D-2302: port the C skeleton in C order over the existing inline refresh (conditions unchanged): file-local `const LSF_SHOW = 0x1` (light.c:41; the line-29 `CO Named: `LSF_NEEDS_FIXUP` (unchanged); `get_*_location` refinement arms — youmonst/usteed identity
 - D-2301: file-local `const materialnm` (22 words, C order, `decl.c` C-ref; eat.js `foodwords` precedent — no new module edge, no `imports.mjs --can` needed; th Named: `grease_protect` polish stays named (pre-existing); `nhlobj.c:222` Lua "material" entry st
 - D-2300: both arms in C order over live callees only — `if ((mtmp2.wormno | 0)) place_wsegs(mtmp2, mtmp)` after the steed-gated `place_monster` in `replmon`; ` Named: replmon light-source swap, full `replshk` bill, `set_ustuck` botl edge, `dealloc_monst` (G
-- D-2299: `replmon` ports C order over live callees only — `impossible` (display.js), `place_monster` (steed.js), `OBJ_MINVENT` (const.js) and `remove_worm` (wo Named: `place_wsegs(mtmp2, mtmp)` in `replmon` (next Open row `worm.c` place_wsegs restore/replmo
 <!-- landmarks:end -->

@@ -101,7 +101,7 @@ import { place_object, stackobj, weight, delobj, obj_extract_self,
     save_timers, restore_timers, run_timers, splitobj,
     save_light_sources, restore_light_sources, dobjsfree,
 } from './mkobj.js';
-import { ship_object, obj_delivery, container_impact_dmg } from './dokick.js';
+import { ship_object, obj_delivery, container_impact_dmg, impact_drop } from './dokick.js';
 import {
     doname, xname, the, The, vtense, an, yname, corpse_xname, is_plural,
     otense, makeplural, body_part_latebound, obj_pmname_corpse,
@@ -1463,6 +1463,14 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
         const { reset_trapset } = await import('./apply.js');
         reset_trapset();
     } catch { /* apply optional */ }
+
+    // C do.c:1611-1613 — falling (trap door/hole only): floor objects at
+    // the hero may follow to newlevel.dlevel with MIGR_WITH_HERO (checked
+    // in obj_delivery). Before keepdogs/check_special_room like C (travelcc
+    // /polearm clears live later in JS, pre-existing drift, untouched).
+    if (falling) {
+        await impact_drop(null, u.ux | 0, u.uy | 0, newlevel.dlevel | 0);
+    }
 
     // C: if (!iflags.nofollowers) keepdogs(FALSE)
     if (!game.iflags?.nofollowers) await keepdogs(false);
