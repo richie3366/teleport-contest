@@ -248,17 +248,11 @@ function is_pool_or_lava(x, y) {
     return is_pool(x, y) || is_lava(x, y);
 }
 
-/** C ref: dungeon.c surface — enough for dig messages. */
-function surface(x, y) {
-    const loc = game.level?.at(x, y);
-    const typ = loc?.typ ?? 0;
-    if (IS_FOUNTAIN(typ)) return 'fountain';
-    if (IS_ALTAR(typ)) return 'altar';
-    if (IS_WALL(typ) || IS_STWALL(typ)) return 'wall';
-    if (IS_DOOR(typ)) return 'doorway';
-    if (IS_ROOM(typ) && !Is_earthlevel(game.u?.uz)) return 'floor';
-    return 'ground';
-}
+/** C ref: dungeon.c surface `:1749–1788` — shared home is sit.js (D-2008:
+ * SURFACE_AT/db_under_typ, pool/ice/lava incl. drawbridge-under arms);
+ * the file-local clone printed "ground" on DRAWBRIDGE_UP moat/lava/ice
+ * (review 1289). Hoisted fn, cycle-safe per imports.mjs. */
+import { surface } from './sit.js';
 
 /** C: dungeon.c ledger_no — local copy (avoid dig↔do cycle). */
 function ledger_no(lev) {

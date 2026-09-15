@@ -43,8 +43,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `dig.js` `surface` clone drawbridge-under nouns (C `dungeon.c` `surface` `:1749–1788` via `SURFACE_AT` `rm.h:146` + `db_under_typ`/`is_pool`/`is_lava`/`is_ice` `dbridge.c`; clone prints "ground" where C prints water/molten lava/ice on the D-2323 `DRAWBRIDGE_UP` cop-out — message-only, 0 blocks). Probe: pickaxe-down on closed drawbridge with failed `fillholetyp` fluid rolls. Source: reviews/loop-unattended/1289-0e191fab-dighole-magical-drawbridge-bymagic.md.
-
 A **JS throw** in any corpus session (`hidden-proxy status` owner
 `js-throw …`, or a `ReferenceError` in `.cache/hidden/scores.json`
 `error`) is always a Must-fix row: it forfeits every later screen of that

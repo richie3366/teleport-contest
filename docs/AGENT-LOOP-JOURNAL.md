@@ -8,6 +8,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-15 — D-2327 `dungeon.c` surface drawbridge-under nouns (dig.js clone retires to shared sit.js surface)
+
+**C locus:** `nethack-c/upstream/src/dungeon.c` `surface` `:1749–1788` — `SURFACE_AT(x,y)` (`rm.h:146`: DRAWBRIDGE_UP looks through via `db_under_typ`, MOAT/LAVAPOOL/ICE) feeds the position arms; `is_pool` fires via `is_moat`'s drawbridge-under arm (`dbridge.c`, `DB_MOAT=0` so mask 0 also reads moat outside Juiblex), `is_lava`/`is_ice` have explicit drawbridge-under arms. Non-hallu nouns come back through `hliquid` as-is (`do_name.c:1493–1512`).
+**JS:** 1 file (`dig.js` +5/−10), far under the 600/10 caps.
+**Change:** clone deleted; `js/dig.js` imports the shared C-order `surface` from `js/sit.js` (D-2008 home: SURFACE_AT/`db_under_typ`, air-bubble, pool, ice, lava, bridge, SDOOR, earthlevel gate) with a C-citing import comment. `imports.mjs --can dig.js sit.js surface` → SAFE (hoisted fn, no TDZ risk; matches the file's existing mid-file C-ref import convention). All six `surface(...)` call sites in dig.js (digactualhole furniture/surface_type, too-hard ×2, DRAWBRIDGE_UP cop-out, pickaxe scratch) now read the shared body.
+**Verify:** preflight `verify --no-cohort` PASS on a clean tree before edits. Hand probe `/tmp/probe_surface_1289.mjs` 8/8 PASS (deleted before finishing; arm no corpus session reaches): DB_MOAT→water, DB_LAVA→lava, DB_ICE→ice, degenerate mask→water, ROOM→floor, MOAT→water, LAVAPOOL→lava, ICE→ice; `dig.js` loads with the new edge (no TDZ). `node scripts/verify.mjs --fn surface` → PASS syntax (1 changed js file: js/dig.js) · PASS rule2 · note hidden (vacuous: 0 blocked — NOT a corpus PASS; row cited 0 blocks so no --base owed) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · VERIFY: PASS.
+**Named:** none new — shared surface's swallow maw/husk arm stays named (D-2008; digests/enfolds live in mhitu.js, fires only while swallowed by an animal); dokick/engrave per-context clones stay (turns.md).
+**Next:** do not re-pop the dig surface clone. Queue head is now first Open `apply.c` use_stone. Falsifier: pickaxe-down on a closed drawbridge printing "ground" where C prints the under-noun, or a fresh `verify surface` showing a session blocked with surface as owner. No seed/step/coordinate gates.
 ## 2026-09-15 — D-2326 `zap.c` u_adtyp_resistance_obj dwarvish-cloak 90 arm (erode_obj BURN ward)
 
 **C locus:** `nethack-c/upstream/src/zap.c` `u_adtyp_resistance_obj` `:5676–5698` — the `:5690–5694` arm (`uarmc && uarmc->otyp == DWARVISH_CLOAK && (dmgtyp == AD_COLD || dmgtyp == AD_FIRE)` → 90), in C branch order after the extrinsic 99 arm. Callers `zap.c:5712` (`inventory_resistance_check`) + `insight.c:1473` (enlightenment) need no changes.
