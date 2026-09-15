@@ -1284,3 +1284,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1271-9881e89f-disarm-squeaky-board.md](./1271-9881e89f-disarm-squeaky-board.md) | `9881e89f` | D-2305 disarm_squeaky_board + unsqueak_ok | **ACCEPT** |
 | [1272-29aedc7f-dash-fight-binding.md](./1272-29aedc7f-dash-fight-binding.md) | `29aedc7f` | D-2306 `-`→fight binding | **ACCEPT** |
 | [1273-4fac3591-bury-family-arms.md](./1273-4fac3591-bury-family-arms.md) | `4fac3591` | D-2307 bury-family deferred arms | **ACCEPT** |
+| [1274-ef75880a-rile-shk-shopdig-anger.md](./1274-ef75880a-rile-shk-shopdig-anger.md) | `ef75880a` | D-2308 rile_shk shopdig anger | **ACCEPT** |
+| [1275-6ce28063-god-zaps-you-fallthrough.md](./1275-6ce28063-god-zaps-you-fallthrough.md) | `6ce28063` | D-2309 god_zaps_you lifesave fall-through + shieldeff | **ACCEPT** |
+| [1276-9f676bea-clear-conjoined-pits.md](./1276-9f676bea-clear-conjoined-pits.md) | `9f676bea` | D-2310 clear_conjoined_pits + delfloortrap dedup | **ACCEPT** |
+| [1277-4d8e68fb-maybe-dunk-boulders.md](./1277-4d8e68fb-maybe-dunk-boulders.md) | `4d8e68fb` | D-2311 maybe_dunk_boulders + dig_check altar | **ACCEPT** |
+| [1278-8fd36dc4-dig-occupation-arms.md](./1278-8fd36dc4-dig-occupation-arms.md) | `8fd36dc4` | D-2312 dig() occupation residuals | **ACCEPT** |
+| [1279-00ed5bbc-destroy-drawbridge-tail.md](./1279-00ed5bbc-destroy-drawbridge-tail.md) | `00ed5bbc` | D-2313 destroy_drawbridge full tail | **ACCEPT** |
+| [1280-00e88b95-goto-level-falling.md](./1280-00e88b95-goto-level-falling.md) | `00e88b95` | D-2314 goto_level falling impact_drop | **ACCEPT** |
+| [1281-f5d3798f-do-earthquake-arms.md](./1281-f5d3798f-do-earthquake-arms.md) | `f5d3798f` | D-2315 do_earthquake quake arms | **ACCEPT** |
