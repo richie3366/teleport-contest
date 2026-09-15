@@ -5,10 +5,13 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `pray.c` bestow_artifact gift chance + mk_artifact call (named turns.md:399, D-2337 follow-up — callee shipped, caller unwired; pray.js:2200 comment; never live/archived/parked). Probe: `node scripts/brief.mjs bestow_artifact`. **Addressed:** D-2337
+- [x] `trap.c` blow_up_landmine fill_pit/drawbridge/which_armor-iron-shoes/steedintrap (named data.md:1070, D-0874 residual; mintrap/teleds/scatter arms are other rows; never live/archived/parked). Probe: `node scripts/brief.mjs blow_up_landmine`. **Addressed:** D-2338
 
 
-- [x] `artifact.c` mk_artifact by_align/gift_value/gen_spe (named data.md:272, D-0759 residual; never live/archived/parked). Probe: `node scripts/brief.mjs mk_artifact`. **Addressed:** D-2337
+- [x] `pray.c` bestow_artifact gift chance + mk_artifact call (named turns.md:399, D-2337 follow-up — callee shipped, caller unwired; pray.js:2200 comment; never live/archived/parked). Probe: `node scripts/brief.mjs bestow_artifact`. **Addressed:** D-2337 `0b271ba2`
+
+
+- [x] `artifact.c` mk_artifact by_align/gift_value/gen_spe (named data.md:272, D-0759 residual; never live/archived/parked). Probe: `node scripts/brief.mjs mk_artifact`. **Addressed:** D-2337 `0b271ba2`
 
 
 - [x] `sp_lev.c` flip_level lregion coord update (named data.md:773; never live/archived/parked). Probe: `node scripts/brief.mjs flip_level`. **Addressed:** D-2336 `c5f1048b`

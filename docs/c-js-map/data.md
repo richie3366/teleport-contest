@@ -1067,8 +1067,8 @@ boulder-chain/`ship_object`/post-switch flooreffects (D-2318) + closed_door cras
 **`trapeffect_rust_trap` hero+monster `rn2(5)` aim + `water_damage`/`splash_lit` + 
 iron-golem rust** (D-0508; **D-1095** gremlin `rn2(3)`→`split_mon`; **splash_lit D-1337**; 
 `update_inventory`; mlifesaver "starts to fall"; poly `body_part`; drown gremlin still named); 
-**`trapeffect_landmine` + `blow_up_landmine`** (D-0874; mon weight `rn2(cwt+1)` vs `WT_ELF/2`; 
-seed0014 **50259→52043**; omit fill_pit/drawbridge/`which_armor` iron shoes/steedintrap; 
+**`trapeffect_landmine` + `blow_up_landmine`** (D-0874; mon weight `rn2(cwt+1)` vs `WT_ELF/2`;
+seed0014 **50259→52043**; **D-2338** retires fill_pit/drawbridge/fillholetyp-liquid/maybe_dunk/unconscious + stale `which_armor`-iron-shoes (live `wearing_iron_shoes`)/steedintrap (live D-2258) — `spot_checks` + `keep_saddle_with_steedcorpse` stay named (no JS counterpart);
 **`scatter` landmine arm + MAY_FRACTURE/MAY_DESTROY/uball/flooreffects/tail D-2274** — 
 `blow_up_landmine` awaits `scatter(x,y,4,MAY_DESTROY|MAY_HIT|MAY_FRACTURE|VIS_EFFECTS)` in C order; 
 shop bill live D-2282 (`credit_report` canonical `js/shk.js:453` + `scatter` baseline/gold-`addtobill`/`lostgoods` arms); boulder-restack live D-2303 (C `explode.c:776-790` `sobj_at(BOULDER)` extract+place via the canonical import); **`invent.c` `sobj_at` canonical D-2281** (`js/mkobj.js:2184` export in C position before `nxtobj`; 9 file-local clones retired to the import — detect/dig/dokick/fountain/hack/mklev/mthrowu/teleport/trap; residuals retired D-2285 (dbridge/music/steed + 7 renamed variants rewired to the import — zero clones remain))); 
