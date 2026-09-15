@@ -85,10 +85,11 @@ Pop `LOOP-QUEUE.md` Must-fix, then Open in order — the Open head is now
 the park-named writers, then the **botl paint-parity campaign** (10
 sessions), then two `[measure]` rows; the 2026-09-15 map-omit refill rows
 sit last, flagged *unverified at enqueue* (stale check first).
-**Next cluster:** Open `wield.c` ready_weapon artifact-light shine arm (Rogue-92037). Probe: `node scripts/brief.mjs ready_weapon`.
+**Next cluster:** Open `allmain.c` moveloop_core `[campaign botl-parity 2/3]` (step 1 D-2400 shipped set sites, 44/44). Gate `bot()`/`timebot()` per `allmain.c:473–479` + delete dead shims; remainder seed0007 travel-T needs a C-side per-turn flag trace (D-2400 Next). Probe: `node scripts/brief.mjs moveloop_core`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2399 (index).**
+**Keep D-0845…D-2400 (index).**
 <!-- recent:begin -->
+**D-2400** `display.c` docrt post_map `:1766–1769` (`!maponly`: `update_inventory(); disp.botlx = TRU — `js/display.js` only — docrt sets `game.flags.botlx = true` after `see_monsters()` (post vision path, mirroring post_map; early uswallow/water/buried returns skip it as in C); omission narrowed to params + `update_invent
 **D-2399** `nethack-c/upstream/src/mthrowu.c` `u_catch_thrown_obj :532–550` (gate `:536–543`: `!Blind — `js/mthrowu.js` only — `u_catch_thrown_obj` now `async`, tests `!nohands(game.youmonst?.data)` (null-safe; identical for unpoly'd heroes), and on success computes `simpleonames(otmp)` once (pre-addinv, as C's `buf`/`drop
 **D-2398** `nethack-c/upstream/src/dothrow.c` `throwit :1806–1809` (`flooreffects(obj, bhitpos, "fall — `js/dothrow.js` only — deleted the dead `throw_gold` block; added the same dynamic-import + `await` in `throwit` between the `flooreffects` block and the snuff arm (exact C `:1808` position; pick-snatch stays named omit)
 **D-2397** `nethack-c/upstream/src/do_wear.c` Gloves_off `:646–702` (`gloves = uarmg` capture `:647`, — `js/do_wear.js` — `Gloves_off` now async in C order: capture `gloves` + `on_purpose` pre-clear, `takeoff.mask &= ~W_ARMG`, `clear_worn(W_ARMG)`, then the CORPSE-gated pair on the captured gloves (KMH comment preserved); 
@@ -96,11 +97,10 @@ sit last, flagged *unverified at enqueue* (stale check first).
 **D-2395** `nethack-c/upstream/src/do_wear.c` `wielding_corpse :606–643` (null/non-CORPSE/gloved retu — `js/do_wear.js` only — new exported `wielding_corpse(obj, how, voluntary)` in exact C order (CORPSE/uarmg/wield gates; `touch_petrifies(mons(corpsenm))` + flat/H/E Stone check; `pline You … in your bare …` blue-arm idiom
 **D-2394** `nethack-c/upstream/src/topten.c` `outentry :946–1107` — `js/topten.js` only — the four arms in exact C order with `slice(0,6/8/7/13)` prefix checks (≡ the `strncmp` lens) and `t1.plgend?.[0]==='F'`, then the astral switch in C order with C's two fmt strings (`replace('%s',arg
 **D-2393** `nethack-c/upstream/src/do.c` `obj_no_longer_held :893–920` — `js/do.js` — canonical exported `async obj_no_longer_held` in exact C order (null return; `Has_contents` recursion; `(otyp|0)===CRYSKNIFE` + `!oerodeproof || !rn2(10)` short-circuit so normal draws zero RNG and fixed dra
-**D-2392** `nethack-c/upstream/src/uhitm.c` `mhitm_ad_slow :3652–3687` — `js/mhitm.js` — exported `mhitm_ad_slow` in exact C mhitm-branch order (gate first, `|0` mspeed/MSLOW guard, oldspeed snapshot, `await mon_adjust_speed(mdef,-1,null)`, WAITFORU clear, `_mm_vis && canspotmon` + `pline_mon
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2399; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2400; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

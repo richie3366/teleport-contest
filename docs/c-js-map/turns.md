@@ -2328,7 +2328,8 @@ into `docrt()` after uswallow, each returning before the vision path
 D-1974); no new cross-module edge; named: non-docrt caller wiring
 (`allmain.c:432,434`, `detect.c:99,101`, `dig.c:2225,2234`,
 `trap.c:5123`), docrt_flags maponly/redrawonly/nocls + post_map
-botlx/update_inventory, legacy `u.Underwater` vs live `u.uinwater`);
+update_inventory (post_map botlx live D-2400; dismiss re-arms after the
+JS-only suppression wipe), legacy `u.Underwater` vs live `u.uinwater`);
 
 ### `src/questpgr.c` / tty menu
 
