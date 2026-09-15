@@ -80,7 +80,7 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `eat.c` cprefx cannibal/petrify/slimeproof/were_beastie/stoned/slimed/killer (named debt.md:14 D-0939; never live/archived/parked). Probe: `node scripts/brief.mjs cprefx`.
+**Next cluster:** `apply.c` use_grease CAN_OF_GREASE (named debt.md:16 D-1026; never live/archived/parked). Probe: `node scripts/brief.mjs use_grease`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2348 (index).**
 <!-- recent:begin -->

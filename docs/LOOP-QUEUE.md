@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `dokick.c` throne destroy/loot/fall_through + tree scatter/swarm (named debt.md:18 D-0986; never live/archived/parked). Probe: `node scripts/brief.mjs throne`.
 - [ ] `apply.c` use_grease CAN_OF_GREASE (named debt.md:16 D-1026; never live/archived/parked). Probe: `node scripts/brief.mjs use_grease`.
 - [ ] `muse.c` use_defensive hurt-monster defensive-item depth (TOP30 #18, 12% ported, dead callees mreadmsg/reveal_trap/mon_escape/mon_consume_unstone; reached by scen-tour-Archeologist-92023 + scen-tour-Wizard-91112 traces; archived import row is wiring-only; never live/parked). Probe: `node scripts/brief.mjs use_defensive`.
 - [ ] `pickup.c` pickup floor-pickup body (TOP30 honourable mention, 238/135; reached by 374 corpus traces; archived rows are narrow arms safe_qbuf D-1654/observe_quantum_cat D-1535; never live/parked). Probe: `node scripts/brief.mjs pickup`.
