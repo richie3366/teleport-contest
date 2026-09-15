@@ -80,7 +80,7 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `steed.c` use_saddle (named absent.md:29, D-1008; never live/archived/parked). Probe: `node scripts/brief.mjs use_saddle`.
+**Next cluster:** `dokick.c` kick_nondoor SDOOR/altar/fountain/grave/sink + altar_wrath/disturb_grave/sink_backs_up (named absent.md:25-26, D-0985; never live/archived/parked). Probe: `node scripts/brief.mjs kick_nondoor`. (Prior head `mon.c` resists_ston/poly_when_stoned parked 2026-09-15, no js/ — dead-arm proof in LOOP-QUEUE Parked.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2328 (index).**
 <!-- recent:begin -->
