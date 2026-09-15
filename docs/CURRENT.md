@@ -80,7 +80,7 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `apply.c` use_unicorn_horn trouble-fix envelope (debt.md D-1030; C apply.c use_unicorn_horn). Probe: `node scripts/brief.mjs use_unicorn_horn`. → **PARKED 2026-09-15 as STALE DUPLICATE** (shipped D-1030 + D-1970 + D-1031/D-1032/D-1420/D-1898; every envelope arm live and C-cited; verify 0 blocked; proof in LOOP-QUEUE Parked). Next pop: `apply.c` use_towel row.
+**Next cluster:** `apply.c` use_unicorn_horn trouble-fix envelope (debt.md D-1030; C apply.c use_unicorn_horn). Probe: `node scripts/brief.mjs use_unicorn_horn`. → **PARKED 2026-09-15 as STALE DUPLICATE** (shipped D-1030 + D-1970 + D-1031/D-1032/D-1420/D-1898; every envelope arm live and C-cited; verify 0 blocked; proof in LOOP-QUEUE Parked). use_towel → **PARKED 2026-09-15 as STALE DUPLICATE** (shipped D-1009; wet/dry/burnarmor-dry + use_towel all live and C-cited; verify 0 blocked; proof in LOOP-QUEUE Parked). Next pop: `apply.c` use_tinning_kit row.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2318 (index).**
 <!-- recent:begin -->
