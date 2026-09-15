@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `apply.c` do_break_wand explode-type/inert + create-monster + dig pay_for_damage (named debt.md:16, D-0949/D-0950 residual; never live/archived/parked). Probe: `node scripts/brief.mjs do_break_wand`. **Addressed:** D-2346
+- [x] `uhitm.c` mhitm_knockback attack-selection (fresh corpus owner 2026-09-15: scen-wish-Priest-92163 step 248 kind=rng, C `rn2(3)` in mhitm_knockback vs JS `rn2(8)` from mhitm_ad_drst_u; knockback body full since D-1932 per archived D-2035/D-2091 — this row is the arm-selection upstream, not the body; no live/parked owner row, archived rows are other sessions). Probe: `node scripts/hidden-proxy.mjs verify mhitm_knockback`. **Addressed:** D-2347
+
+
+- [x] `apply.c` do_break_wand explode-type/inert + create-monster + dig pay_for_damage (named debt.md:16, D-0949/D-0950 residual; never live/archived/parked). Probe: `node scripts/brief.mjs do_break_wand`. **Addressed:** D-2346 `3f6c64d3`
 
 
 - [x] `pray.c` offer_real_amulet/offer_fake_amulet amulet offering arms (named turns.md:399 dosacrifice family; never live/archived/parked). Probe: `node scripts/brief.mjs offer_real_amulet`. **Addressed:** D-2345 `dd78cfac`

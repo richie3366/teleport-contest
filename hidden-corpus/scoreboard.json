@@ -1,6 +1,6 @@
 {
- "commit": "86a4f210",
- "at": "2026-09-15T09:21:42.378Z",
+ "commit": "7de527d3",
+ "at": "2026-09-15T10:20:18.889Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -8198,19 +8198,19 @@
   },
   "scen-wish-Priest-92163": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 3748,
+   "passed": true,
+   "rngM": 4249,
    "rngT": 4249,
-   "scrM": 251,
+   "scrM": 320,
    "scrT": 320,
-   "kind": "rng",
-   "step": 248,
+   "kind": null,
+   "step": null,
    "steps": 320,
-   "owner": "mhitm_knockback",
-   "loc": "uhitm.c:5258",
-   "jsOwner": "mhitm_ad_drst_u(mhitu.js:1076)",
-   "cTopline": "You are bare handed. The snake bites!",
-   "jsTopline": "You are bare handed. The snake bites!",
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-wish-Priest-92179": {

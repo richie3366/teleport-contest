@@ -80,10 +80,11 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `eat.c` cpostfx corpse specials / corpse_intrinsic / givit / AD_STUN hallu (named turns.md:1871 deferred; never live/archived/parked). Probe: `node scripts/brief.mjs cpostfx`.
+**Next cluster:** `uhitm.c` mhitm_knockback attack-selection (fresh corpus owner 2026-09-15: scen-wish-Priest-92163 step 248 kind=rng, C `rn2(3)` in mhitm_knockback vs JS `rn2(8)` from mhitm_ad_drst_u; knockback body full since D-1932 per archived D-2035/D-2091 — this row is the arm-selection upstream, not the body). Probe: `node scripts/brief.mjs mhitm_knockback`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2346 (index).**
+**Keep D-0845…D-2347 (index).**
 <!-- recent:begin -->
+**D-2347** `nethack-c/upstream/src/mhitu.c` `magic_negation` hero arm (`:1087–1137`): `gotprot = (EPr — `js/mhitm.js` `magic_negation_you` exported with the full C hero arm in C order (gotprot from `u.EProtection` flat mirror or `uprops[PROTECTION].extrinsic` — eat.js:746 idiom; `AMULET_OF_GUARDING` via the `objectNames.in
 **D-2346** `nethack-c/upstream/src/apply.c` `do_break_wand` `:3909–4146` — `js/apply.js` only (+22/−15, no new modules): `await check_unpaid(obj)` before `costly_alteration`; real `freeinv(obj)` (already imported); `Soundeffect(se_wall_of_force, 65)` in C order (`imports.mjs --can apply.js sndp
 **D-2345** `nethack-c/upstream/src/pray.c` `offer_real_amulet` `:1529–1589` (Amulet_off-if-worn, carr — `js/pray.js` only — file-local async `offer_too_soon` / `offer_real_amulet` / `offer_fake_amulet` in C order (C `staticfn` ⇒ file-local, matching `offer_corpse`/`offer_negative_valued`), wired into `dosacrifice` replacin
 **D-2344** `nethack-c/upstream/src/priest.c` `angry_priest` `:876–911` (`findpriest(temple_occupied(u — `js/priest.js` — exported `free_epri` (GC replaces `free()`: null the `mextra.epri` slot, then `ispriest=0` like C) and exported async `angry_priest` in C order (`findpriest(temple_occupied(...))` early-return, `await wa
@@ -91,11 +92,10 @@ Do **not** pop map-omission singletons
 **D-2342** `nethack-c/upstream/src/sp_lev.c` `spo_end_moninvent` `:3031–3036` (`m_dowear(invent_carry — `js/mklev.js` only, zero new module edges (`imports.mjs --can mklev.js worn.js m_dowear` → ALREADY: file already statically imports worn.js).
 **D-2341** `end.c` `done_in_by` `:184-344` — `js/end.js` — 5 names join existing imports (no new edges: `m_monnam`, `is_vampshifter`, `strstri`, `the_unique_pm`, `BUFSZ`; all `imports.mjs --can` ALREADY); imitator arm in C order incl. mimicker `mons(mappearance)` +
 **D-2340** `nethack-c/upstream/src/mon.c` `hideunder` `:4725–4802`, concealer arm `:4752–4772` (`hide — 4 js files (+61/−23), no new modules.
-**D-2339** `nethack-c/upstream/src/makemon.c` `makemon` — `js/makemon.js` only, zero new module edges (`MM_NOCOUNTBIRTH` joins the existing const.js import; `propagate` is same-file — no new cross-module import, so no `imports.mjs --can` owed).
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2346; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2347; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
