@@ -1358,3 +1358,9 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1345-ff517412-ceiling-full-arms.md](./1345-ff517412-ceiling-full-arms.md) | `ff517412` | D-2379 ceiling | **ACCEPT** |
 | [1346-3f602af2-pfsc-canonical-export.md](./1346-3f602af2-pfsc-canonical-export.md) | `3f602af2` | D-2380 PfSC canonical export | **ACCEPT** |
 | [1347-828e88b4-float-up-residuals.md](./1347-828e88b4-float-up-residuals.md) | `828e88b4` | D-2381 float_up residuals | **ACCEPT** |
+| [1348-87c59279-findtravelpath-travelmap.md](./1348-87c59279-findtravelpath-travelmap.md) | `87c59279` | D-2382 findtravelpath travelmap | **ACCEPT** |
+| [1349-c30e0585-region-danger-safety.md](./1349-c30e0585-region-danger-safety.md) | `c30e0585` | D-2383 region_danger/safety | **ACCEPT** |
+| [1350-d6462205-back-on-ground-ice-descr.md](./1350-d6462205-back-on-ground-ice-descr.md) | `d6462205` | D-2384 back_on_ground ice_descr | **ACCEPT** |
+| [1351-f285c65c-use-skill-may-advance.md](./1351-f285c65c-use-skill-may-advance.md) | `f285c65c` | D-2385 use_skill may-advance | **ACCEPT** |
+| [1352-74e2f96f-tip-getpos-arm.md](./1352-74e2f96f-tip-getpos-arm.md) | `74e2f96f` | D-2386 TIP_GETPOS arm | **ACCEPT** |
+| [1353-5c766aef-gulpmu-blnd-visor.md](./1353-5c766aef-gulpmu-blnd-visor.md) | `5c766aef` | D-2387 gulpmu BLND visor | **ACCEPT** |

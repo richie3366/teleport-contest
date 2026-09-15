@@ -4,6 +4,21 @@ Append-only crumbs for `scripts/agent-port-loop.sh` iterations.
 Each agent process should add a short dated entry **at the top** (after
 this header) before exiting. Keep entries tight; detailed hypothesis
 lives in `NOTES.md` / `CURRENT.md`.
+## 2026-09-15 — Audit 828e88b4..5c766aef (reviews 1348–1353) + cadence 44/44
+
+1348 D-2382 findtravelpath → **ACCEPT** (visited set + VALID mark-only +
+Underwater gate; UNSURE deferral is a forced async-You adaptation,
+message-before-step preserved). 1349 D-2383 region_danger/safety →
+**ACCEPT** (REG_HERO_INSIDE bit; blind tail + breathing dual-write vs
+youprop.h). 1350 D-2384 back_on_ground → **ACCEPT** (matrix arm-for-arm;
+hliquid('lava') fires the lava arm on both sides). 1351 D-2385 use_skill
+→ **ACCEPT** (5 C callers = 5 awaited JS sites; spell clone retired to
+the canonical export). 1352 D-2386 TIP_GETPOS → **ACCEPT** (+ committed
+handle-tip.test.mjs 3/3; D-log `:1583–1587` cite is the JS lines, C arm
+is `:1871–1873` — doc nit only). 1353 D-2387 gulpmu BLND → **ACCEPT**
+(check_visor tail; HBlinded≡uprops mirror). Per-SHA `--base` re-verify
+0/0 throughout, rulecheck/banned-grep clean. Cadence 44/44 (Scr 11,405,
+RNG 792,838, `48+0.30/turn`). No Must-fix; 11 Open in band, no refill.
 ## 2026-09-15 — Audit 3f602af2..a1b96e3f (reviews 1346–1347) + cadence 44/44
 
 1346 D-2380 → **ACCEPT** (1339 Must-fix retired as ordered; `were.js:57`
