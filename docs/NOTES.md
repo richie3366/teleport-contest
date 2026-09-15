@@ -20,6 +20,7 @@ Park rows: re-pop only on the listed falsifier (proofs in Parked).
 - **disclose/list_vanquished:** Hallu desync / identical-prompt cell.
 - **dopush:** mimic memory/viz, not the push.
 - **dochug/dotrap/mintrap/nh_timeout/mon_break_armor:** STALE presence-only.
+- **really_done:** STALE (TOP30 #21 arms all live per D-1812; 0 corpus blocked; live end.c residual is `disclose`, own row).
 - **that_is_a_mimic/drinkfountain:** misattributed owners (proofs in Parked).
 - **poly_obj:** misattributed citation + no C arm.
 - **newuhs:** STALE, full port D-1791.
