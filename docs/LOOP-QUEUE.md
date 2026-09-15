@@ -93,7 +93,6 @@ and push; the supervisor logs "empty port pushed" — expected).
 - [ ] `vision.c` vision_recalc (TOP30 #30 345/180, 36 callers) — **unverified at enqueue (2026-09-15 refill)**: run the stale check first; eligible only if the brief shows a C arm absent from `js/vision.js`. Probe: `node scripts/brief.mjs vision_recalc`.
 - [ ] `end.c` disclose — blocks 1/553 (scen-wish-Priest-92179 step 100 kind=screen, identical toplines; parked 2026-09-09 as writer-unidentified, re-opened by really_done park terms). Falsifier from the park: C display-stream logging or a per-turn occupant/draw dump over steps 99–101. Treat as `[measure]` unless the brief shows a missing arm. Probe: `node scripts/brief.mjs disclose`.
 - [ ] `mkobj.c` `mkbox_cnts` BoH weight factor (data.md:302) — **unverified at enqueue (2026-09-15 refill)**: stale check first. Probe: `node scripts/brief.mjs mkbox_cnts`.
-- [ ] `dogmove.c` `droppables` pet flooreffects/vault-gold arms (data.md:286) — **unverified at enqueue**: stale check first. Probe: `node scripts/brief.mjs droppables`.
 - [ ] `polyself.c` `skinback` uskin merge arms (data.md:334) — **unverified at enqueue**: stale check first. Probe: `node scripts/brief.mjs skinback`.
 - [ ] `muse.c` `rnd_misc_item` See_invisible peaceful-invis arm (data.md:534) — **unverified at enqueue**: stale check first. Probe: `node scripts/brief.mjs rnd_misc_item`.
 - [ ] `display.c` `map_location` tseen + add_to_container merge (data.md:716) — **unverified at enqueue**: stale check first. Probe: `node scripts/brief.mjs map_location`.

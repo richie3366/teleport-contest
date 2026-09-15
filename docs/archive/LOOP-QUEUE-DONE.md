@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
+- [x] `dogmove.c` `droppables` pet flooreffects/vault-gold arms (data.md:286) — **unverified at enqueue**: stale check first. Probe: `node scripts/brief.mjs droppables`. **Addressed:** D-2401
+
+
 - [x] `allmain.c` moveloop_core `[campaign botl-parity 2/3]` — gate `bot()`/`timebot()` exactly per `allmain.c:473–479`, delete the `_statusSuppressed` / status-snapshot shims the gate makes dead (D-1831 class), full `sessions` 44/44 + `node scripts/verify.mjs --fn do_statusline2` (expect the lembas pair Healer-92092/Tourist-91125 → step 60 or later; value-residual sessions move or PASS). Pop only after step 1 shipped. (Step 1 D-2400 remainder: seed0007 travel-T run=8 — RDO fires LEAP+time yet `time_botl` never reaches the gate; needs a C-side per-turn flag trace to name the writer.) **Addressed:** D-2400 `d1747cfa`
 
 

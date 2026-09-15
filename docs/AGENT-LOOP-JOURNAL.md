@@ -97,6 +97,14 @@ verified vs `youprop.h:355–360`). 1347 D-2381 float_up → **ACCEPT**
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-15 — D-2401 `dogmove.c` `droppables` tool-keeping arms (`:27–136`)
+
+**C locus:** `nethack-c/upstream/src/dogmove.c` `droppables` `:27–136` (dummy sentinel GOLD_PIECE/oartifact=1 never returned; animal/mindless → dummy; non-tunnel/no-needpick → pickaxe=dummy; nohands/verysmall → key=dummy; wep `is_pick`/`UNICORN_HORN` capture; `DWARVISH_MATTOCK` shield-gated FALLTHROUGH to `PICK_AXE` artifact-preference keep/return; `UNICORN_HORN` cursed-reject + artifact keep; `SKELETON_KEY`→`LOCK_PICK`→`CREDIT_CARD` FALLTHROUGH chain with artifact preference; default falls to `!owornmask && !=wep` first-free return; `0` when nothing droppable).
+**JS:** 1 js file (`js/dogmove.js` +102/−8: imports +4, otyp consts +7, body +91/−8), under 600/10 caps. Density note: one C locus family (110-line C → ~90-line JS), the whole missing envelope.
+**Change:** `js/dogmove.js` only — full C-order port with C FALLTHROUGH structure, `|0` oartifact integer idiom, `MON_WEP(mon)` canonical wep, `which_armor(mon, W_ARMS)` mattock gate, `is_pick`/`tunnels`/`needspick`/`nohands`/`verysmall`/`is_animal`/`mindless` canonical imports (`imports.mjs --can` SAFE — hoisted functions, same 90-module SCC), numeric `objectNames.indexOf` otyp consts, fresh per-call dummy sentinel never returned. No RNG, no DIAG/FORCE/seed gates; Rule #2 clean.
+**Verify:** `node scripts/verify.mjs --fn droppables` → PASS syntax (1 changed js file) · PASS rule2 · note hidden (0 blocked at HEAD — vacuous, row cited no N so no `--base` owed) · PASS green 2/2 + strict ×2 · PASS cohort 7/7 · skip full (no shared file) · VERIFY: PASS. Preflight `--no-cohort` green on clean tree. Probe `/tmp/probe-droppables2.mjs` (otyp consts resolve, `dogmove.js` loads, `MON_WEP`/`which_armor` functions) — repo-untouched, kept in `/tmp` per policy.
+**Named:** `mdrop_obj` flooreffects + vault-guard gold + worn/shop extrinsics stay named (pre-existing `js/dogmove.js:559` subset comment; data.md:286 narrowed to those, tool-keeping retired); `dog_has_minvent` standalone export still absent (inlined in `dog_invent` apport gate).
+**Next:** pop next Open row in order (head `eat.c` 3/3 stays MASKED until step-2 paint ships; `[measure]` Knight spin + rat-bite rows are no-`js/` parks).
 ## 2026-09-15 — D-2400 `allmain.c` moveloop_core [campaign botl-parity 1/3]: missing disp.botl/botlx set sites
 
 **C locus:** `display.c` docrt post_map `:1766–1769` (`!maponly`: `update_inventory(); disp.botlx = TRUE;` + «caller needs to call bot() to actually redraw status») and `hack.c` losehp `:4268` (`disp.botl = TRUE; /* u.uhp or u.mh is changing */`, first line, unconditional).

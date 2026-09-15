@@ -3283,8 +3283,8 @@ Tobjnam stop / big_corpse catch named);
 **`finish_meating` stub** (D-0169); **`mnum_leashable` PM-index leashable predicate** (D-1959; C `dogmove.c:1460–1469` in C order after `finish_meating`, `NUMMONS-1` for HIGH_PM, `quickmimic` wiring named); **`dog_nutrition` uses extracted `cwt`/`cnutrit`** (D-0193); 
 **`dog_nutrition` FOOD `objects[].oc_delay` + nutrition map + msize× + non-food `owt/20`** (D-0364; 
 `oeaten`/extractor `oc_nutrition` deferred); 
-omit bee jelly/rust spit/unpaid shop, `dog_invent` eat-return path (DOGFOOD/CADAVER/starving 
-ACCFOOD→`dog_eat`, D-0223), `flooreffects`, vault-guard gold, worn/shop extrinsics, 
+**`droppables` tool-keeping envelope live** (D-2401; C `dogmove.c:27–136` dummy/GOLD_PIECE sentinel, animal/mindless + tunnels/needspick + nohands/verysmall gates, `MON_WEP` canonical, mattock/W_ARMS + pick/horn/key artifact-preference FALLTHROUGH chain); omit bee jelly/rust spit/unpaid shop, `dog_invent` eat-return path (DOGFOOD/CADAVER/starving
+ACCFOOD→`dog_eat`, D-0223), `mdrop_obj` `flooreffects`, vault-guard gold, worn/shop extrinsics, 
 **`m_in_out_region` before `newdogpos` place**; `see_monster_closeup`; 
 seed1500 RNG complete (D-0021); **`dog_goal` gettrack/ogoal** (D-0099); 
 **`dog_goal` wantdoor via off-hero `do_clear_area`/`view_from` vis_func** (D-0211); 
