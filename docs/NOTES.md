@@ -5,7 +5,7 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 ## Active
 
 Parks: re-pop only on the listed falsifier (proofs in Parked).
-- **2026-09-15 stale-dupe parks** (live+C-cited, 0 blocked): is_edible/doeat_nonfood D-0936 (doeat arms own Open row); paranoid_query D-0999/D-1000; release_hold/flash_hits_mon D-0979; getobj_apply CMDQ_KEY (not a C fn; 5 re-queues live); cancel_monst D-1017; zap_over_floor D-0948 (Soundeffect no-op); unturn_dead/revive D-0955 (all arms live).
+- **2026-09-15 stale-dupe parks** (live+C-cited, 0 blocked): is_edible/doeat_nonfood D-0936 (doeat arms own Open row); paranoid_query D-0999/D-1000; release_hold/flash_hits_mon D-0979; getobj_apply CMDQ_KEY (not a C fn; 5 re-queues live); cancel_monst D-1017; zap_over_floor D-0948 (Soundeffect no-op); unturn_dead/revive D-0955 (all arms live); adj_pit_checks (D-1950+D-2321 live).
 - **R-1082 music path live** (1323): `seemimic` js/music.js:312; omit is trap-clone-only.
 - **Eval-order TDZ (D-2349):** no static edge reaching polyself at eval (objnam→shk); late-bind setters (`_y_monnam` idiom).
 

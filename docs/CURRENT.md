@@ -80,7 +80,7 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `mhitm.c` sleep_monst trap-path clone defended/shieldeff (next Open). Probe: `node scripts/brief.mjs sleep_monst`.
+**Next cluster:** `muse.c` searches_for_item FOOD corpse/tin/egg + can_blow polish (next Open). Probe: `node scripts/brief.mjs searches_for_item`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2363 (index).**
 <!-- recent:begin -->
