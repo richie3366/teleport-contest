@@ -855,8 +855,8 @@ function useupf(obj, numused) {
     delobj(victim);
 }
 
-/** C ref: pline.c You — prefix "You ". */
-async function You(rest) {
+/** C ref: pline.c You — prefix "You ". Exported for pray.c pleased. */
+export async function You(rest) {
     await pline(`You ${rest}`);
 }
 

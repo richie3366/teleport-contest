@@ -359,6 +359,34 @@ function spellet(i) {
         : String.fromCharCode('A'.charCodeAt(0) + i - 26);
 }
 
+/**
+ * C ref: spell.c force_learn_spell `:2391–2413` — divine direct learning
+ * (sole caller pray.c give_spell): blank/BotD or already-Fresh → '\0';
+ * first NO_SPELL/same-otyp slot else impossible; sp_id/sp_lev assign +
+ * incrnknow(i, 0) → spell letter.
+ * @param {number} otyp
+ * @returns {Promise<string>} spell letter or '\0'
+ */
+export async function force_learn_spell(otyp) {
+    if (otyp === SPE_BLANK_PAPER || otyp === SPE_BOOK_OF_THE_DEAD
+        || known_spell(otyp) === spe_Fresh)
+        return '\0';
+    let i;
+    for (i = 0; i < MAXSPELL; i++)
+        if (spellid(i) === NO_SPELL || spellid(i) === otyp)
+            break;
+    if (i === MAXSPELL) {
+        await impossible('Too many spells memorized');
+        return '\0';
+    }
+    // C: svs.spl_book — entries exist post-init (incrnknow guards the same way)
+    if (!game.spl_book) init_spl_book();
+    game.spl_book[i].sp_id = otyp;
+    game.spl_book[i].sp_lev = game.objects?.[otyp]?.oc_level ?? 0;
+    incrnknow(i, 0);
+    return spellet(i);
+}
+
 function P_SKILL(type) {
     return game.u?.weapon_skills?.[type]?.skill ?? P_ISRESTRICTED;
 }

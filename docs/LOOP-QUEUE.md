@@ -60,13 +60,18 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `pray.c` pleased pat_on_head gift cases 1-4/6/7-8 + give_spell (named turns.md:410 + js/pray.js:19-21; case-5 shipped D-2219; never own-row live/archived/parked). Probe: `node scripts/brief.mjs pat_on_head`.
 - [ ] `mhitm.c` sleep_monst trap-path clone defended/shieldeff (trap.js `sleep_monst` keeps its own named omit, turns.md:2000; sleep-gas/steed callers pass how=-1 so C still checks resists_sleep/defended + shieldeff, data.md:1065 D-0256; music path live D-2357; never own-row live/archived/parked). Probe: `node scripts/brief.mjs sleep_monst`.
 - [ ] `dig.c` adj_pit_checks ladder arm (dig.c:1812 `On_ladder` live-unwired, turns.md:2391 D-1950; archived D-2321 row is the pitdig branch, not this arm; never own-row live/parked). Probe: `node scripts/brief.mjs adj_pit_checks`.
 - [ ] `muse.c` searches_for_item FOOD corpse/tin/egg + can_blow polish (D-0598 shipped potion/wand/scroll/amulet/tool subset; Is_container/Is_mbag D-0861; turns.md:2768; never own-row live/archived/parked). Probe: `node scripts/brief.mjs searches_for_item`.
 - [ ] `monmove.c` mon_would_consume_item body (underfoot/can_carry family turns.md:2768, D-0183/D-0223 shipped the wiring; never own-row live/archived/parked). Probe: `node scripts/brief.mjs mon_would_consume_item`.
 - [ ] `zap.c` resist tell-shield `shieldeff_mon` arm (C zap.c:6143-6144 `if (tell)`; turns.md:563 residual "tell-shield stay deferred"; archived D-2116 row is the rn2-roll/alev arms, not this arm; zap.js export defers it per D-2357; never own-row live/parked). Probe: `node scripts/brief.mjs resist`.
 - [ ] `pray.c` bestow_artifact body + caller wiring (no `bestow_artifact` symbol in `js/`; archived #77/D-2337 shipped the `mk_artifact` callee only with caller unwired per its text; D-2345 names the corpse-gift path untouched as its own row; `js/pray.js:25` header-named; prayer/sacrifice family reached by the corpus — pat_on_head gifts own Open row; never own-row live/archived/parked). Probe: `node scripts/brief.mjs bestow_artifact`.
+- [ ] `sp_lev.c` is_ok_location HOT/WET/SOLID humidity arms + Is_waterlevel short-circuit (data.md:910 named; local clone js/mklev.js:18515, get_location park names the short-circuit unreached; never own-row live/archived/parked). Probe: `node scripts/brief.mjs is_ok_location`.
+- [ ] `spell.c` dovspell VIEW swap/sort + non-standard cast otyps/oc_charged (debt.md:20 residual; live js/spell.js:1310; never own-row live/archived/parked). Probe: `node scripts/brief.mjs dovspell`.
+- [ ] `artifact.c` artitouch quest-artifact touch arms (no `artitouch` symbol in `js/`; Deferred invoke-touch family; never own-row live/archived/parked). Probe: `node scripts/brief.mjs artitouch`.
+- [ ] `artifact.c` arti_invoke on-drop invoke + zap-poly addinv_core1 (live js/artifact.js:1945; Deferred invoke-touch family; never own-row live/archived/parked). Probe: `node scripts/brief.mjs arti_invoke`.
+- [ ] `trap.c` move_into_trap body (no `move_into_trap` symbol in `js/`; data.md:176 named with stumble_on_door_mimic; never own-row live/archived/parked). Probe: `node scripts/brief.mjs move_into_trap`.
+- [ ] `trap.c` stumble_on_door_mimic body (no `stumble_on_door_mimic` symbol in `js/`; data.md:176 named with move_into_trap; never own-row live/archived/parked). Probe: `node scripts/brief.mjs stumble_on_door_mimic`.
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 
