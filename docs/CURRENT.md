@@ -80,10 +80,11 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `zap.c` resist tell-shield `shieldeff_mon` arm (C zap.c:6143-6144 `if (tell)`). Probe: `node scripts/brief.mjs resist`.
+**Next cluster:** `sp_lev.c` is_ok_location HOT/WET/SOLID humidity arms + Is_waterlevel short-circuit (data.md:910 named; local clone js/mklev.js:18515, get_location park names the short-circuit unreached; never own-row live/archived/parked). Probe: `node scripts/brief.mjs is_ok_location`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2366 (index).**
+**Keep D-0845…D-2367 (index).**
 <!-- recent:begin -->
+**D-2367** `nethack-c/upstream/src/pray.c` `bestow_artifact` `:1781–1836` (raw `u.ulevel > 2 && u.ulu — `js/pray.js` only, no new modules, no new module edges (all four artifact names + `y_n` ride pre-existing edges — `imports.mjs --can` ALREADY on both; used only at runtime inside the function body — no top-level TDZ read
 **D-2366** `nethack-c/upstream/src/zap.c` `resist` `:6100–6158` (`:6141` `resisted = rn2(100 + alev - — `js/zap.js` only, no new modules, no new module edges (callee is a hoisted same-file `async function` declaration — no import, no TDZ read): the `if (resisted)` arm awaits `shieldeff_mon(mtmp)` when `tell`, before the ha
 **D-2365** `nethack-c/upstream/src/monmove.c` `mon_would_consume_item` `:1036–1050` (`CORPSE && !touc — `js/monmove.js` only, no new modules, no new module edges (`imports.mjs --can` ALREADY on both: `dogfood` joins the existing `dogmove.js` import, `EDOG`/`has_edog`/`ACCFOOD`/`MANFOOD` join the existing `const.js` import 
 **D-2364** `nethack-c/upstream/src/muse.c` `searches_for_item` `:2706–2792` (floor `OBJ_FLOOR` + unde — `js/muse.js` only, no new modules, no new module edges (all three names ride pre-existing edges, used only at runtime inside the function body — no top-level TDZ read): floor gate gains `&& onscary(obj.ox, obj.oy, mon)` 
@@ -91,11 +92,10 @@ Do **not** pop map-omission singletons
 **D-2362** `nethack-c/upstream/src/pray.c` `pleased` `:1071–1381` (gift switch `:1167–1354`: case 1 ` — `js/pray.js` (+~200): new async `give_spell` in C order/conjuncts next to `pleased` (C home; `SPBOOK_no_NOVEL = 0-SPBOOK_CLASS` per objclass.h:152; `spe_Unknown`/`spe_Fresh`/`spe_Forgotten` match the C spell.h enum arm-f
 **D-2361** `nethack-c/upstream/src/eat.c` `doeat` `:2817–3084` (Strangled head; `floorfood`; `check_c — `js/eat.js` only, no new modules: new async `edibility_prompts` in C order/conjuncts next to `doeat` (C home; `Tobjnam(otmp,'smell')` + quan it/they; `ismnum`/`flesh_petrifies`/`Stone_resistance`-triple/`poly_when_stoned
 **D-2360** `nethack-c/upstream/src/zap.c` `bhitpile` `:2428–2500` (early return; hidingunder/first in — `js/zap.js` only (+48/−5, no new modules): ported the `bhitpile` head in C order/conjuncts — `hidingunder` from `(zz|0) !== 0 && uundetected && hides_under(youmonst.data)`, `first = true`; STRIKING/FORCE_BOLT arm capture
-**D-2359** `nethack-c/upstream/src/zap.c` `melt_ice` `:5040–5079` (`spot_stop_timers`; `t_at` → `trap — `js/trap.js` — new exported async `trap_ice_effects(x, y, ice_is_melting)` in C order/conjuncts next to `undestroyable_trap` (C home; all callees `t_at`/`m_at`/`cnv_trap_obj`/`deltrap`/`undestroyable_trap`/LAND_MINE/BEAR
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2366; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2367; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

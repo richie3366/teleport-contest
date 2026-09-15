@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `zap.c` resist tell-shield `shieldeff_mon` arm (C zap.c:6143-6144 `if (tell)`; turns.md:563 residual "tell-shield stay deferred"; archived D-2116 row is the rn2-roll/alev arms, not this arm; zap.js export defers it per D-2357; never own-row live/parked). Probe: `node scripts/brief.mjs resist`. **Addressed:** D-2366
+- [x] `pray.c` bestow_artifact body + caller wiring (no `bestow_artifact` symbol in `js/`; archived #77/D-2337 shipped the `mk_artifact` callee only with caller unwired per its text; D-2345 names the corpse-gift path untouched as its own row; `js/pray.js:25` header-named; prayer/sacrifice family reached by the corpus — pat_on_head gifts own Open row; never own-row live/archived/parked). Probe: `node scripts/brief.mjs bestow_artifact`. **Addressed:** D-2367
+
+
+- [x] `zap.c` resist tell-shield `shieldeff_mon` arm (C zap.c:6143-6144 `if (tell)`; turns.md:563 residual "tell-shield stay deferred"; archived D-2116 row is the rn2-roll/alev arms, not this arm; zap.js export defers it per D-2357; never own-row live/parked). Probe: `node scripts/brief.mjs resist`. **Addressed:** D-2366 `80a89d3e`
 
 
 - [x] `monmove.c` mon_would_consume_item body (underfoot/can_carry family turns.md:2768, D-0183/D-0223 shipped the wiring; never own-row live/archived/parked). Probe: `node scripts/brief.mjs mon_would_consume_item`. **Addressed:** D-2365 `dc39711c`

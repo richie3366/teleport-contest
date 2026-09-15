@@ -20,7 +20,8 @@
 // p_type -2 (Moloch laughter + wake_nearby + adjalign + exercise,
 // Inhell fall-through) / -1 (undead godvoice + rehumanize + rnd(20)
 // losehp + exercise) / pray_revive (tame-corpse/statue scan + revive /
-// animate_statue ANIMATE_SPELL); bestow_artifact /
+// animate_statue ANIMATE_SPELL); bestow_artifact live + wired in
+// offer_corpse (sacrifice gift);
 // angry_priest (priest.js, D-2344) from sacrifice_your_race +
 // offer_different_alignment_altar; offer_too_soon / offer_fake_amulet /
 // offer_real_amulet live + wired in dosacrifice (dosacrifice ECMD_TIME
@@ -57,7 +58,7 @@ import {
     objects_at, uncurse, peek_at_iced_corpse_age, eaten_stat, get_mtraits,
     mksobj, bless, mkobj, place_object, rnd_class,
 } from './mkobj.js';
-import { yn_function, paranoid_query } from './getline.js';
+import { yn_function, y_n, paranoid_query } from './getline.js';
 import { livelog_printf } from './pline.js';
 import { can_chant, known_spell, spe_Unknown, spe_Fresh, spe_Forgotten, spell_skilltype, force_learn_spell } from './spell.js';
 import { couldsee } from './vision.js';
@@ -123,7 +124,8 @@ import { make_blinded, dropy } from './do.js';
 import { buried_ball_to_freedom } from './dig.js';
 import {
     confers_luck, u_wield_art, exist_artifact, artiname, is_art,
-    discover_artifact,
+    discover_artifact, nartifact_exist, mk_artifact, artifact_origin,
+    bare_artifactname,
 } from './artifact.js';
 import {
     IS_ALTAR, Amask2align, Align2amask, AM_MASK, AM_SHRINE, AM_SANCTUM, AM_CHAOTIC,
@@ -2358,11 +2360,73 @@ async function offer_different_alignment_altar(otmp, altaralign) {
 }
 
 /**
+ * C ref: pray.c bestow_artifact `:1781–1836` — sacrifice artifact gift:
+ * ulevel>2 && raw uluck>=0 gate, wizard y_n vs !rn2(6+2*ugifts*nartifacts),
+ * mk_artifact(NULL, a_align, max_giftvalue, TRUE) NULL-able, artifact_origin
+ * GIFT|KNOW_ARTI, spe<0 clamp, uncurse, oerodeproof, Hallu/Blind buf +
+ * " named <bare>" when seen, at_your_feet(upstart) + dropy + godvoice,
+ * ugifts++, ublesscnt rnz(300+50*nartifacts), exercise WIS, livelog gift
+ * by god, unrestrict weapon skill, seen observe + makeknown + discover.
+ * @param {number} max_giftvalue
+ * @returns {Promise<boolean>}
+ */
+async function bestow_artifact(max_giftvalue) {
+    const u = game.u || (game.u = {});
+    if (!u.ualign) u.ualign = { type: 0, record: 0 };
+    const nartifacts = nartifact_exist();
+    let do_bestow = (u.ulevel | 0) > 2 && (u.uluck | 0) >= 0;
+    if (do_bestow) {
+        const wizard = !!(game.flags?.debug || game.flags?.wizard);
+        if (wizard)
+            do_bestow = (await y_n('Gift an artifact?')) === 'y';
+        else
+            do_bestow = !rn2(6 + (2 * (u.ugifts | 0) * nartifacts));
+    }
+
+    if (do_bestow) {
+        // C: mk_artifact() with NULL obj and a_align() arg can return NULL
+        const otmp = mk_artifact(
+            null, a_align(u.ux | 0, u.uy | 0), max_giftvalue | 0, true,
+        );
+        if (otmp) {
+            artifact_origin(otmp, ONAME_GIFT | ONAME_KNOW_ARTI);
+            if ((otmp.spe | 0) < 0) otmp.spe = 0;
+            if (otmp.cursed) await uncurse(otmp);
+            otmp.oerodeproof = 1;
+            let buf = Hallucination() ? 'a doodad'
+                : Blind() ? 'an object'
+                    : ansimpleoname(otmp);
+            if (!Blind()) buf += ` named ${bare_artifactname(otmp)}`;
+            await at_your_feet(upstart(buf));
+            await dropy(otmp);
+            await godvoice(u.ualign?.type | 0, 'Use my gift wisely!');
+            u.ugifts = (u.ugifts | 0) + 1;
+            u.ublesscnt = rnz(300 + (50 * nartifacts));
+            exercise(A_WIS, true);
+            livelog_printf(
+                LL_DIVINEGIFT | LL_ARTIFACT,
+                'was bestowed with %s by %s',
+                artiname(otmp.oartifact | 0),
+                align_gname(game.urole, u.ualign?.type | 0),
+            );
+            // C: make sure we can use this weapon
+            unrestrict_weapon_skill(weapon_type(otmp));
+            if (!Hallucination() && !Blind()) {
+                observe_object(otmp);
+                makeknown(otmp.otyp | 0);
+                discover_artifact(otmp.oartifact | 0);
+            }
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
  * C ref: pray.c offer_corpse `:1958–2120`.
  * Gnostic livelog; feel_cockatrice; rider revival; same-race / former
  * pet; eval_offering; cross-align offer_different_alignment_altar;
- * consume + mollify / absolve / blesscnt / luck.
- * Named: bestow_artifact.
+ * consume + mollify / absolve / blesscnt / bestow_artifact gift + luck.
  */
 async function offer_corpse(otmp, highaltar, altaralign) {
     const u = game.u || (game.u = {});
@@ -2481,7 +2545,8 @@ async function offer_corpse(otmp, highaltar, altaralign) {
             }
         }
     } else {
-        /* bestow_artifact named — mk_artifact by_align */
+        // C :2091 — sacrifice gift attempt before the luck increase.
+        if (await bestow_artifact(value)) return;
         const orig_luck = u.uluck | 0;
         let luck_increase = Math.trunc((value * LUCKMAX) / (MAXVALUE * 2));
         if (orig_luck > value) luck_increase = 0;

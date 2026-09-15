@@ -60,13 +60,18 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `pray.c` bestow_artifact body + caller wiring (no `bestow_artifact` symbol in `js/`; archived #77/D-2337 shipped the `mk_artifact` callee only with caller unwired per its text; D-2345 names the corpse-gift path untouched as its own row; `js/pray.js:25` header-named; prayer/sacrifice family reached by the corpus — pat_on_head gifts own Open row; never own-row live/archived/parked). Probe: `node scripts/brief.mjs bestow_artifact`.
 - [ ] `sp_lev.c` is_ok_location HOT/WET/SOLID humidity arms + Is_waterlevel short-circuit (data.md:910 named; local clone js/mklev.js:18515, get_location park names the short-circuit unreached; never own-row live/archived/parked). Probe: `node scripts/brief.mjs is_ok_location`.
 - [ ] `spell.c` dovspell VIEW swap/sort + non-standard cast otyps/oc_charged (debt.md:20 residual; live js/spell.js:1310; never own-row live/archived/parked). Probe: `node scripts/brief.mjs dovspell`.
 - [ ] `artifact.c` artitouch quest-artifact touch arms (no `artitouch` symbol in `js/`; Deferred invoke-touch family; never own-row live/archived/parked). Probe: `node scripts/brief.mjs artitouch`.
 - [ ] `artifact.c` arti_invoke on-drop invoke + zap-poly addinv_core1 (live js/artifact.js:1945; Deferred invoke-touch family; never own-row live/archived/parked). Probe: `node scripts/brief.mjs arti_invoke`.
 - [ ] `trap.c` move_into_trap body (no `move_into_trap` symbol in `js/`; data.md:176 named with stumble_on_door_mimic; never own-row live/archived/parked). Probe: `node scripts/brief.mjs move_into_trap`.
 - [ ] `trap.c` stumble_on_door_mimic body (no `stumble_on_door_mimic` symbol in `js/`; data.md:176 named with move_into_trap; never own-row live/archived/parked). Probe: `node scripts/brief.mjs stumble_on_door_mimic`.
+- [ ] `shk.c` globby_bill_fixup body (data.md:287 deferred with shrink ice-eat; never own-row live/archived/parked). Probe: `node scripts/brief.mjs globby_bill_fixup`.
+- [ ] `do_name.c` minimal_monnam body (data.md:388 omit with mongone FALSE caller; never own-row live/archived/parked). Probe: `node scripts/brief.mjs minimal_monnam`.
+- [ ] `mkobj.c` shrink_glob body (data.md:287 thin shrink_glob with globby_bill_fixup; never own-row live/archived/parked). Probe: `node scripts/brief.mjs shrink_glob`.
+- [ ] `mon.c` undead_to_corpse body (data.md:268 CORPSE undead_to_corpse + G_NOCORPSE retry; never own-row live/archived/parked). Probe: `node scripts/brief.mjs undead_to_corpse`.
+- [ ] `mon.c` can_be_hatched body (data.md:269 EGG can_be_hatched multi-retry; never own-row live/archived/parked). Probe: `node scripts/brief.mjs can_be_hatched`.
+- [ ] `potion.c` peffect_water body (debt.md:23 potionbreathe POT_WATER lycan residual; never own-row live/archived/parked). Probe: `node scripts/brief.mjs peffect_water`.
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 
