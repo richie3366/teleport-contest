@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `apply.c` do_break_wand explode-type/inert + create-monster + dig pay_for_damage (named debt.md:16, D-0949/D-0950 residual; never live/archived/parked). Probe: `node scripts/brief.mjs do_break_wand`.
 - [ ] `eat.c` cpostfx corpse specials / corpse_intrinsic / givit / AD_STUN hallu (named turns.md:1871 deferred; never live/archived/parked). Probe: `node scripts/brief.mjs cpostfx`.
 - [ ] `uhitm.c` mhitm_knockback attack-selection (fresh corpus owner 2026-09-15: scen-wish-Priest-92163 step 248 kind=rng, C `rn2(3)` in mhitm_knockback vs JS `rn2(8)` from mhitm_ad_drst_u; knockback body full since D-1932 per archived D-2035/D-2091 — this row is the arm-selection upstream, not the body; no live/parked owner row, archived rows are other sessions). Probe: `node scripts/hidden-proxy.mjs verify mhitm_knockback`.
 - [ ] `pray.c` offer_too_soon altar-too-soon refusal (named turns.md:399 dosacrifice family; never live/archived/parked). Probe: `node scripts/brief.mjs offer_too_soon`.
@@ -68,6 +67,11 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 - [ ] `eat.c` cprefx cannibal/petrify/slimeproof/were_beastie/stoned/slimed/killer (named debt.md:14 D-0939; never live/archived/parked). Probe: `node scripts/brief.mjs cprefx`.
 - [ ] `dokick.c` throne destroy/loot/fall_through + tree scatter/swarm (named debt.md:18 D-0986; never live/archived/parked). Probe: `node scripts/brief.mjs throne`.
 - [ ] `apply.c` use_grease CAN_OF_GREASE (named debt.md:16 D-1026; never live/archived/parked). Probe: `node scripts/brief.mjs use_grease`.
+- [ ] `muse.c` use_defensive hurt-monster defensive-item depth (TOP30 #18, 12% ported, dead callees mreadmsg/reveal_trap/mon_escape/mon_consume_unstone; reached by scen-tour-Archeologist-92023 + scen-tour-Wizard-91112 traces; archived import row is wiring-only; never live/parked). Probe: `node scripts/brief.mjs use_defensive`.
+- [ ] `pickup.c` pickup floor-pickup body (TOP30 honourable mention, 238/135; reached by 374 corpus traces; archived rows are narrow arms safe_qbuf D-1654/observe_quantum_cat D-1535; never live/parked). Probe: `node scripts/brief.mjs pickup`.
+- [ ] `mhitu.c` hitmu monster-hits-hero dispatch (TOP30 honourable mention, 123/72; reached by 235 corpus traces; no whole-function row live/archived/parked). Probe: `node scripts/brief.mjs hitmu`.
+- [ ] `invent.c` getobj prompt/filter machinery (TOP30 #13, 334/133, in_doagain + prompt/filter; every "What do you want" prompt; archived ALLOWCNT arm D-1530 only; never live/parked). Probe: `node scripts/brief.mjs getobj`.
+- [ ] `cmd.c` getdir direction machinery (TOP30 #15, help_dir/cmdassist/strange-direction/dxdy_moveok/yn_function_menu; archived cmdassist-cancel arms only; never live/parked). Probe: `node scripts/brief.mjs getdir`.
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 

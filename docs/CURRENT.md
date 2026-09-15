@@ -80,10 +80,11 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `pray.c` offer_real_amulet/offer_fake_amulet amulet offering arms (named turns.md:399 dosacrifice family; never live/archived/parked). Probe: `node scripts/brief.mjs offer_real_amulet`.
+**Next cluster:** `apply.c` do_break_wand explode-type/inert + create-monster + dig pay_for_damage (named debt.md:16, D-0949/D-0950 residual; never live/archived/parked). Probe: `node scripts/brief.mjs do_break_wand`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2345 (index).**
+**Keep D-0845…D-2346 (index).**
 <!-- recent:begin -->
+**D-2346** `nethack-c/upstream/src/apply.c` `do_break_wand` `:3909–4146` — `js/apply.js` only (+22/−15, no new modules): `await check_unpaid(obj)` before `costly_alteration`; real `freeinv(obj)` (already imported); `Soundeffect(se_wall_of_force, 65)` in C order (`imports.mjs --can apply.js sndp
 **D-2345** `nethack-c/upstream/src/pray.c` `offer_real_amulet` `:1529–1589` (Amulet_off-if-worn, carr — `js/pray.js` only — file-local async `offer_too_soon` / `offer_real_amulet` / `offer_fake_amulet` in C order (C `staticfn` ⇒ file-local, matching `offer_corpse`/`offer_negative_valued`), wired into `dosacrifice` replacin
 **D-2344** `nethack-c/upstream/src/priest.c` `angry_priest` `:876–911` (`findpriest(temple_occupied(u — `js/priest.js` — exported `free_epri` (GC replaces `free()`: null the `mextra.epri` slot, then `ispriest=0` like C) and exported async `angry_priest` in C order (`findpriest(temple_occupied(...))` early-return, `await wa
 **D-2343** `nethack-c/upstream/src/pray.c` `offer_different_alignment_altar` `:1630–1695` (conversion — `js/attrib.js` — exported `uchangealign` (1:1 with C `attrib.c`): ublessed=0 + `game.flags.botl` (pray.js-guarded idiom), CONVERT livelog `permanently converted to <adj>` via `aligns[1-newalign]` (roles.js order matches 
@@ -91,11 +92,10 @@ Do **not** pop map-omission singletons
 **D-2341** `end.c` `done_in_by` `:184-344` — `js/end.js` — 5 names join existing imports (no new edges: `m_monnam`, `is_vampshifter`, `strstri`, `the_unique_pm`, `BUFSZ`; all `imports.mjs --can` ALREADY); imitator arm in C order incl. mimicker `mons(mappearance)` +
 **D-2340** `nethack-c/upstream/src/mon.c` `hideunder` `:4725–4802`, concealer arm `:4752–4772` (`hide — 4 js files (+61/−23), no new modules.
 **D-2339** `nethack-c/upstream/src/makemon.c` `makemon` — `js/makemon.js` only, zero new module edges (`MM_NOCOUNTBIRTH` joins the existing const.js import; `propagate` is same-file — no new cross-module import, so no `imports.mjs --can` owed).
-**D-2338** `nethack-c/upstream/src/trap.c` `blow_up_landmine` `:3172–3219` (scatter `:3176–3179` → de — `js/trap.js` only, zero new module edges (`imports.mjs --can` ALREADY ×7: `fillholetyp`/`liquid_flow`/`maybe_dunk_boulders` join the existing dig.js import, `is_drawbridge_wall`/`find_drawbridge`/`destroy_drawbridge` joi
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2345; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2346; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

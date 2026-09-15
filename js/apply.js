@@ -7,7 +7,7 @@ import {
     flush_screen, flush_topl_more, pline, pline_mon, canseemon, canspotmon, newsym,
     map_invisible, unmap_invisible, glyph_is_invisible, You_feel, sensemon,
     verbalize, mon_visible, tp_sensemon, see_with_infrared, tmp_at,
-    set_msg_xy,
+    set_msg_xy, bot,
 } from './display.js';
 import { cansee, couldsee, howmonseen } from './vision.js';
 import {
@@ -66,7 +66,7 @@ import { wield_tool, welded, is_pole, mwelded } from './wield.js';
 import {
     splitobj, unsplitobj, delobj, objects_at, sobj_at, unbless, attach_egg_hatch_timeout, kill_egg,
     obj_extract_self, place_object, stackobj, weight, mksobj, stop_timer,
-    start_timer, hornoplenty,
+    start_timer, hornoplenty, spot_stop_timers,
 } from './mkobj.js';
 import { xname, the, The, makeplural, vtense, doname, an, singular, cxname, thesimpleoname, simpleonames, yname, shk_your, Tobjnam, gloves_simple_name, otense } from './objnam.js';
 import { obj_resists } from './dogmove.js';
@@ -90,7 +90,7 @@ import {
 import { yn_function, paranoid_query } from './getline.js';
 import {
     costly_alteration, costly_spot, add_damage, bill_dummy_object, shop_keeper,
-    check_unpaid_usage, obfree,
+    check_unpaid_usage, check_unpaid, obfree,
 } from './shk.js';
 import { zappable, release_hold, revive } from './zap.js';
 import { explode } from './explode.js';
@@ -100,6 +100,8 @@ import {
 } from './uhitm.js';
 import { digests, set_ustuck } from './mhitu.js';
 import { growl, yelp, whimper, mon_msound } from './sounds.js';
+import { Soundeffect } from './sndprocs.js';
+import { se_wall_of_force } from './generated/seffects_data.js';
 import { vault_summon_gd } from './vault.js';
 import { fill_pit, buried_ball_to_freedom } from './dig.js';
 import {
@@ -1094,8 +1096,7 @@ async function broken_wand_explode(obj, dmg, expltype) {
  * WAN_CREATE_MONSTER makemon + dig shop pay_for_damage (D-0950);
  * strike/cancel/poly/tele/undead adjacent bhitm/bhitpile/zapyourself
  * + WAN_LIGHT litroom (D-0952).
- * Named omit: check_unpaid bill polish; ICE spot_stop_timers;
- * HOLE goto_level; revive container/buried polish.
+ * Named omit: HOLE goto_level fall; revive container/buried polish.
  * @returns {number} ECMD_*
  */
 async function do_break_wand(obj) {
@@ -1132,13 +1133,13 @@ async function do_break_wand(obj) {
     );
 
     if (obj.unpaid) {
-        // check_unpaid deferred — costly_alteration bills destroy
+        await check_unpaid(obj); /* Extra charge for use */
         await costly_alteration(obj, COST_DSTROY);
     }
 
-    game.current_wand = obj;
-    freeinv_pie(obj);
-    setnotworn(obj);
+    game.current_wand = obj; /* destroy_items might reset this */
+    freeinv(obj); /* hide it from destroy_items instead... */
+    setnotworn(obj); /* so we need to do this ourselves */
 
     if (!zappable(obj)) {
         await pline(NOTHING_ELSE_HAPPENS);
@@ -1188,8 +1189,10 @@ async function do_break_wand(obj) {
         await broken_wand_explode(obj, dmg, EXPL_MAGICAL);
         return ECMD_TIME;
     case WAN_STRIKING:
+        /* we want this before the explosion instead of at the very end */
+        Soundeffect(se_wall_of_force, 65);
         await pline('A wall of force smashes down around you!');
-        dmg = d(1 + (obj.spe | 0), 6);
+        dmg = d(1 + (obj.spe | 0), 6); /* normally 2d12 */
         // FALLTHROUGH
     case WAN_CANCELLATION:
     case WAN_POLYMORPH:
@@ -1214,7 +1217,7 @@ async function do_break_wand(obj) {
     const {
         DIGCHECK_FAILED, DIGCHECK_FAIL_BOULDER, IS_WALL, IS_DOOR,
         Can_dig_down, PIT, HOLE, ROOM, ICE, N_DIRS, xdir, ydir, isok,
-        SHOPBASE, NO_MM_FLAGS, NO_KILLER_PREFIX,
+        SHOPBASE, NO_MM_FLAGS, NO_KILLER_PREFIX, MELT_ICE_AWAY,
     } = await import('./const.js');
     const { in_rooms, losehp, maybe_half_phys } = await import('./hack.js');
     const { makemon } = await import('./makemon.js');
@@ -1239,9 +1242,11 @@ async function do_break_wand(obj) {
         const y = (obj.oy | 0) + (ydir[i] | 0);
         if (!isok(x, y)) continue;
 
+        /* C gb.bhitpos single slot; hit_zap reads game.bhitpos, bhitm game._bhitpos */
         if (!game._bhitpos) game._bhitpos = { x: 0, y: 0 };
         game._bhitpos.x = x;
         game._bhitpos.y = y;
+        game.bhitpos = game._bhitpos;
 
         if (obj.otyp === WAN_DIGGING) {
             const dcres = dig_check(BY_OBJECT, x, y);
@@ -1251,8 +1256,7 @@ async function do_break_wand(obj) {
                     await watch_dig(null, x, y, true);
                     if (in_rooms(x, y, SHOPBASE)) shop_damage = true;
                 }
-                // ICE spot_stop_timers deferred
-                void ICE;
+                if ((lev?.typ | 0) === (ICE | 0)) spot_stop_timers(x, y, MELT_ICE_AWAY);
                 const typ = fillholetyp(x, y, false);
                 if (typ !== ROOM) {
                     if (lev) {
@@ -1287,22 +1291,25 @@ async function do_break_wand(obj) {
         if (x !== (u.ux | 0) || y !== (u.uy | 0)) {
             const mon = m_at(x, y);
             if (mon) await bhitm(mon, obj);
+            /* if (disp.botl) bot(); — C has this commented out after bhitm */
             if (affects_objects && objects_at(x, y)) {
                 await bhitpile(obj, bhito, x, y, 0);
+                if (game.disp?.botl || game.flags?.botl) await bot(); /* potion effects */
             }
         } else {
             if (affects_objects && objects_at(x, y)) {
                 await bhitpile(obj, bhito, x, y, 0);
+                if (game.disp?.botl || game.flags?.botl) await bot(); /* potion effects */
             }
             const damage = await zapyourself(obj, false);
             if (damage) {
-                const him = game.flags?.female ? 'her' : 'him';
-                const buf = `killed ${him}self by breaking a wand`;
+                const buf = `killed ${uhim()}self by breaking a wand`;
                 losehp(maybe_half_phys(damage), buf, NO_KILLER_PREFIX);
                 if (game._losehp_needs_done || game.program_state?.gameover) {
                     await finish_losehp_done();
                 }
             }
+            if (game.disp?.botl || game.flags?.botl) await bot(); /* blindness */
         }
     }
 

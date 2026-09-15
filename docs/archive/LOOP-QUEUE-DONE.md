@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `pray.c` offer_real_amulet/offer_fake_amulet amulet offering arms (named turns.md:399 dosacrifice family; never live/archived/parked). Probe: `node scripts/brief.mjs offer_real_amulet`. **Addressed:** D-2345
+- [x] `apply.c` do_break_wand explode-type/inert + create-monster + dig pay_for_damage (named debt.md:16, D-0949/D-0950 residual; never live/archived/parked). Probe: `node scripts/brief.mjs do_break_wand`. **Addressed:** D-2346
+
+
+- [x] `pray.c` offer_real_amulet/offer_fake_amulet amulet offering arms (named turns.md:399 dosacrifice family; never live/archived/parked). Probe: `node scripts/brief.mjs offer_real_amulet`. **Addressed:** D-2345 `dd78cfac`
 
 
 - [x] `pray.c` angry_priest temple-priest anger (named turns.md:399 dosacrifice family; never live/archived/parked). Probe: `node scripts/brief.mjs angry_priest`. **Addressed:** D-2344 `c2a2a6fd`
