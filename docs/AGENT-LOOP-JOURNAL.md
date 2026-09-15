@@ -8,6 +8,16 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-15 — Audit 2ac37870..d8cfa25c (reviews 1321–1323: 3 ACCEPT) + cadence 44/44
+
+**Range:** three JS-touching SHAs since review 1320 (`2ac37870`); park commits skipped (docs-only, verified no `js/` in stat). Zero new Must-fix rows, so Next cluster stays on the Open head (`hits_bars`).
+**1321** `aba73268` D-2355: lamp `check_unpaid` before on-pline + candle fresh-unpaid `verbalize`/`bill_dummy_object`; C `:1683-1685`/`:1690-1698` order verified, `SetVoice` omit is VOICEONLY-compiled-out — ACCEPT.
+**1322** `c7041cb5` D-2356: real async `gulp_blnd_check` (conjuncts ≡ C `:1272-1285`, `Blinded` macro `youprop.h:92` verified) + Blindf_off impossible/takeoff/owornmask/gulp-gate; stub deleted, both new edges ALREADY, 2 of 3 C callers live (use_towel named follow-up) — ACCEPT.
+**1323** `d8cfa25c` D-2357: `sleep_monst_music` middle `defended(mon, AD_SLEE)` + `shieldeff` in C `:1231-1234` order; AD_SLEE=4 ≡ `monattk.h:46`, defended RNG-free (0 hits), sole caller awaited — ACCEPT.
+**Verify:** each SHA re-measured `hidden-proxy verify <fn> --base HASH~1` (all 0-blocked vacuous, matching D-logs); `imports.mjs --rulecheck` clean; added-line banned grep 0 ×3.
+**Cadence:** `frozen/ps_test_runner.mjs sessions` → 44/44, Scr 11,405/11,405, RNG 792,838/792,838, `47+0.29/turn` (R² 0.78); CURRENT Score rewritten.
+**Refill:** queue 7 → 12 Open from c-js-map named omits (turns.md:2000 sleep_monst trap clone; turns.md:2391 adj_pit_checks ladder arm; turns.md:2768 searches_for_item + mon_would_consume_item; turns.md:563 resist tell-shield), each deduped vs live/archive/parked. Corpus still 88.5% < 90% so these are map-grade by construction — pop Must-fix first, then Open in order; do not re-pop parked owners for these lines.
+**Next:** pop Open in order from `hits_bars`. D-2356-crumb use_towel-gulp re-queue superseded by the use_towel park (TRUE arm unreachable) — do not re-queue. No seed/step/coordinate gates.
 ## 2026-09-15 — D-2357 `music.c` flute sleep-resist: `sleep_monst_music` defended(AD_SLEE) + shieldeff
 
 **C locus:** `nethack-c/upstream/src/mhitm.c` `sleep_monst` `:1225–1250` (`:1231–1234` `resists_sleep || defended(AD_SLEE) || (how>=0 && resist(how,0,NOTELL))` → `shieldeff(mx,my)` + return 0); `monst.h:270/274` (`mon_resistancebits`, `resists_sleep ≡ Resists_Elem(SLEEP_RES)`), `mondata.c:91–124` (`defended`: wielded artifact + adult-dragon self-suit + worn W_ARM dragon armor), `artifact.c:636–668` (`defends`: only orange scales/mail map AD_SLEE; no artifact carries AD_SLEE — `artilist.h` has zero), `objects.h:517/544` (only SLEEP_RES oc_oprop items are orange scale mail/scales), `prop.h:17` (SLEEP_RES=3 → rsstmask 1<<2 = MR_SLEEP), `monattk.h:46` (AD_SLEE=4). Caller `music.c:596` `put_monsters_to_sleep(u.ulevel*5)` via `do_improvisation` MAGIC_FLUTE `:589–598`.

@@ -5,13 +5,9 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 ## Active
 
 Parks: re-pop only on the listed falsifier (proofs in Parked).
-- **is_edible/doeat_nonfood park (2026-09-15):** D-0936; both bodies live+C-cited (eat.js:1044/2967, caller :3900); brief+verify 0 blocked ×2; residuals map-grade (nonfood SCR_MAIL nutrition, poison killer args, livelog); doeat pre-arms re-queued own Open row.
-- **paranoid_query park (2026-09-15):** D-0999/D-1000; all arms live+C-cited (getline.js:1301/1351, apply.js:1012+, pray.js:1790+, mon.js:451/514, end.js Quit/Die/Bones); verify 0 blocked.
-- **release_hold/flash_hits_mon park (2026-09-15):** D-0979; all arms live+C-cited (zap.js:2520 release_hold, apply.js:1053 break-wand, zap.js:4017/4462 bhitm/self, uhitm.js:3390 flash + :3347 gremlin); brief+verify 0 blocked.
-- **getobj_apply CMDQ_KEY park (2026-09-15):** not a C fn (0 refs); all 5 wield re-queues live (dig.js:2425, apply.js:3143/3609/3759/5084) + getobj_from_cmdq KEY/INT/USER_INPUT/HANDS (invent.js:7657) + rhack canned/KEY-as-command (cmd.js:2411); 'key'-vs-CMDQ_KEY drift stays (potion.js:2355 takes only 'key'); verify 0 blocked.
-
-- **cancel_monst park (2026-09-15):** D-1017; every named arm live+C-cited (zap.js:3402 resist/self-cancel Array walk/clay hallu/s_suffix/AD_SPEL; callers artifact.js:2441 + zap.js:3878/4400); muse cancel wand stays map-named (muse.js:753); brief+verify 0 blocked.
-- **Eval-order TDZ (D-2349):** no static `objnam.js`→`shk.js` edge (or anything reaching polyself at eval) — boot `_body_part` TDZ via polyself top-level `set_body_part`. Late-bind via setters (the `_y_monnam` idiom).
+- **2026-09-15 stale-dupe parks** (bodies live+C-cited, 0 blocked; re-pop only on Parked falsifier): is_edible/doeat_nonfood D-0936 (residuals map-grade; doeat pre-arms own Open row); paranoid_query D-0999/D-1000; release_hold/flash_hits_mon D-0979; getobj_apply CMDQ_KEY (not a C fn; 5 re-queues + cmdq pop live; 'key' drift stays); cancel_monst D-1017 (muse cancel wand map-named).
+- **R-1082 music path live** (1323): `seemimic` js/music.js:312; omit is trap-clone-only.
+- **Eval-order TDZ (D-2349):** no static edge reaching polyself at eval (objnam→shk); late-bind setters (`_y_monnam` idiom).
 
 - **Presence-only (0/553):** mkclass_aligned/get_location, gethungry/maybe_generate/mattacku/u_calc_moveamt/exercise, dochug/dotrap/mintrap/nh_timeout/mon_break_armor.
 - **Fortress guards** (do not reopen): display_inventory, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue S_ndoor, bigrm-2, getpos, summonmu, lookat, do_statusline1, snapshot, fakewiz, Ice/Boulder, roles[], pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
@@ -19,7 +15,7 @@ Parks: re-pop only on the listed falsifier (proofs in Parked).
 - **Symptom parks:** obj_resists/m_move/rloc/lightdamage/mattackm/can_carry/spoteffects/mon_adjust_speed/zapyourself/doname_base/hmonas/minliquid_core/distfleeck/passiveum; do_statusline1/2 paint-timing; slimed landing + Sick-store.
 - **STALE parks:** lesshungry/rndcurse/mhitm_ad_famn/regen_hp/barehands/do_mapping/adjattrib/from_what/look_at_monster/formatkiller/do_screen_description/reveal_terrain/peffect_acid/newcham/use_offensive/stop_donning/doeat_nonfood/gcrownu/big_little_match/xkilled/x_monnam, domonnoise.
 - **Misattributed parks:** vomiting_dialogue/u_stuck_cannot_go/name_to_monplus/mcast_death_touch/save_dungeon/dodown/mv_bubble/one_characteristic/use_pole/trapmove/fig_transform/chwepon, that_is_a_mimic/drinkfountain, poly_obj, disclose/list_vanquished, dopush.
-- **2026-09-14/15 STALE-DUPE/DEAD-ARM parks (all `verify` 0 blocked; dropped names keep full falsifier proofs in Parked):** test_move, arti_cost, m_initweap, mextra-trio, make_sick Unaware, dodrink, make_corpse, vpline, mkcavearea, kick_object, use_towel, use_tinning_kit, costly_tin, use_stone, kick_nondoor SDOOR+helpers/throne+tree, cpostfx/corpse_intrinsic/givit, offer_too_soon/eatspecial/cprefx/use_defensive/hitmu/getdir, use_whip/grapple/pole, use_pick_axe2, use_trap, awaken_soldiers/ubuzz (D-0974 BUGLE+FIRE/FROST horn — `verify awaken_soldiers`/`verify ubuzz` 0 blocked, live queue no owner).
+- **2026-09-14/15 STALE-DUPE/DEAD-ARM parks (all `verify` 0 blocked; dropped names keep full falsifier proofs in Parked):** test_move, arti_cost, m_initweap, mextra-trio, make_sick Unaware, dodrink, make_corpse, vpline, mkcavearea, kick_object, use_towel, use_tinning_kit, costly_tin, use_stone, kick_nondoor SDOOR+helpers/throne+tree, cpostfx/corpse_intrinsic/givit, offer_too_soon/eatspecial/cprefx/use_defensive/hitmu/getdir, use_whip/grapple/pole, use_pick_axe2, use_trap, awaken_soldiers/ubuzz (D-0974; proofs in Parked).
 
 ## Don't re-check (≤15)
 

@@ -1331,3 +1331,6 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1318-9cc2b25f-pickup-pick-one-petrify-gate.md](./1318-9cc2b25f-pickup-pick-one-petrify-gate.md) | `9cc2b25f` | D-2352 PICK_ONE petrify gate | **ACCEPT** |
 | [1319-589d9acb-getobj-clone-retirement.md](./1319-589d9acb-getobj-clone-retirement.md) | `589d9acb` | D-2353 getobj clone retirement | **ACCEPT** |
 | [1320-2ac37870-bagotricks-tails-tip-arm.md](./1320-2ac37870-bagotricks-tails-tip-arm.md) | `2ac37870` | D-2354 bagotricks tails + tip arm | **ACCEPT** |
+| [1321-aba73268-use-lamp-shop-billing.md](./1321-aba73268-use-lamp-shop-billing.md) | `aba73268` | D-2355 use_lamp shop billing | **ACCEPT** |
+| [1322-c7041cb5-blindf-off-gulp-blnd-check.md](./1322-c7041cb5-blindf-off-gulp-blnd-check.md) | `c7041cb5` | D-2356 Blindf_off + gulp_blnd_check | **ACCEPT** |
+| [1323-d8cfa25c-flute-sleep-resist.md](./1323-d8cfa25c-flute-sleep-resist.md) | `d8cfa25c` | D-2357 flute sleep-resist | **ACCEPT** |
