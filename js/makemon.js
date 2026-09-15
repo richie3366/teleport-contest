@@ -94,7 +94,7 @@ import {
     NO_MINVENT, NO_MM_FLAGS, MM_NOGRP, MM_ASLEEP, MM_NONAME, MM_ESHK, MM_EGD,
     MM_EMIN, MM_EPRI, MM_EDOG, MM_ANGRY, MM_ADJACENTOK, MM_NOTAIL, MM_NOWAIT,
     MM_MALE, MM_FEMALE, MM_MINVIS,
-    MM_NOMSG, MM_NOEXCLAM, MM_IGNOREWATER, M_SEEN_NOTHING,
+    MM_NOCOUNTBIRTH, MM_NOMSG, MM_NOEXCLAM, MM_IGNOREWATER, M_SEEN_NOTHING,
     GP_CHECKSCARY, GP_AVOID_MONPOS, Is_rogue_level, Is_earthlevel,
     Is_firelevel, Is_airlevel, Is_astralevel,
     In_mines, In_sokoban, In_endgame, Is_stronghold, Is_knox, In_V_tower,
@@ -3038,6 +3038,9 @@ export function makemon(mdat, x, y, mmflags = 0) {
     let ptr = mdat;
     const anymon = !ptr;
     const allow_minvent = (mmflags & NO_MINVENT) === 0;
+    // C makemon.c:1160 — countbirth false under MM_NOCOUNTBIRTH (revival /
+    // statue-trap donors must not tally births).
+    const countbirth = (mmflags & MM_NOCOUNTBIRTH) === 0;
     const allowtail = (mmflags & MM_NOTAIL) === 0;
     const byyou = !!(game.u && x === game.u.ux && y === game.u.uy);
     // C: (mmflags & MM_IGNOREWATER) | GP_CHECKSCARY | GP_AVOID_MONPOS
@@ -3102,6 +3105,12 @@ export function makemon(mdat, x, y, mmflags = 0) {
             && ((tryct === 1 && throws_rocks(ptr) && In_sokoban(game.u?.uz))
                 || !goodpos(x, y, { data: ptr }, gpflags)));
     }
+
+    // C makemon.c:1233 — (void) propagate(mndx, countbirth, FALSE) once mndx
+    // is known (both ptr and random arms), before newmonst. Draw-free; still
+    // marks uniques / extinct-at-limit when tally is skipped. Named omit:
+    // ptr-arm G_GENOD veto + wizard extinct debugpline (:1204-1212, own row).
+    propagate(ptr.mndx, countbirth, false);
 
     // C: *mtmp = cg.zeromonst — mux/muy stay 0 until set_apparxy (not spawn xy)
     const mtmp = {

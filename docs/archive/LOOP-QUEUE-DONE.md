@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `trap.c` blow_up_landmine fill_pit/drawbridge/which_armor-iron-shoes/steedintrap (named data.md:1070, D-0874 residual; mintrap/teleds/scatter arms are other rows; never live/archived/parked). Probe: `node scripts/brief.mjs blow_up_landmine`. **Addressed:** D-2338
+- [x] `mon.c` mongone MM_NOCOUNTBIRTH born tally (named data.md:1098, D-0538 residual; savebones/mdrop_special_objs are other rows; never live/archived/parked). Probe: `node scripts/brief.mjs mongone`. **Addressed:** D-2339
+
+
+- [x] `trap.c` blow_up_landmine fill_pit/drawbridge/which_armor-iron-shoes/steedintrap (named data.md:1070, D-0874 residual; mintrap/teleds/scatter arms are other rows; never live/archived/parked). Probe: `node scripts/brief.mjs blow_up_landmine`. **Addressed:** D-2338 `a5d8009f`
 
 
 - [x] `pray.c` bestow_artifact gift chance + mk_artifact call (named turns.md:399, D-2337 follow-up — callee shipped, caller unwired; pray.js:2200 comment; never live/archived/parked). Probe: `node scripts/brief.mjs bestow_artifact`. **Addressed:** D-2337 `0b271ba2`

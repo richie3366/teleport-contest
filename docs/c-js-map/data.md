@@ -1096,7 +1096,7 @@ Deaf+mindless cringe gate `trap.c:1453`; rocktrap empty-door `pline_mon`
 `:1380–1388`; maketrap drawbridge-under DB_FLOOR `:532–545` already live
 `js/trap.js:966–976`), `disturb_buried_zombies` (addressed — out of scope); 
 **`maketrap` STATUE_TRAP → `mk_trap_statue`** (D-0538; 
-full `mongone`/MM_NOCOUNTBIRTH born tally deferred); 
+**D-2339** retires the MM_NOCOUNTBIRTH born tally — `makemon` `countbirth` + `propagate(mndx,countbirth,FALSE)` at C `:1160`/`:1233`; full `mongone` stays D-1149-named); 
 fire `destroy_items`/`ignite`/`burn_floor`/`melt_ice`/`surface`/`minuhpmax`/`losexp`
 (**D-2087** retires `data->mresists` species bits for `resists_elem`
 fire/sleep; worn/artifact `Resists_Elem` grants still named); MAGIC_PORTAL/LEVEL_TELEP `mlevel_tele_trap` arms; valley_level stronghold dest; 
