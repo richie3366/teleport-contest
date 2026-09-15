@@ -80,7 +80,7 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `apply.c` use_whip grapple/pole family — PARKED stale-duplicate this iter (D-1022 + D-1040/D-1041/D-1045/D-1051/D-2213 shipped, verify 0 blocked); queue drops to 11 Open, no refill (corpus tops all parked/archived, singletons gated < 90%). Probe: `node scripts/brief.mjs use_whip`.
+**Next cluster:** `dig.c` use_pick_axe/use_pick_axe2 via doapply is_pick|is_axe — PARKED stale-duplicate this iter (D-0951 + D-2166/D-1018/D-1375/D-0962 shipped, verify 0 blocked); queue drops to 10 Open, no refill (corpus tops all parked/archived, singletons gated < 90%). Probe: `node scripts/brief.mjs use_pick_axe`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2353 (index).**
 <!-- recent:begin -->
