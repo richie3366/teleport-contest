@@ -1997,7 +1997,7 @@ PIT IS_ROOM→ROOM morph in shared `maketrap`** (D-0972 / **D-1280**) + quake-ar
 BUGLE `awaken_soldiers`** (D-0974; **passtune getlin + `open_drawbridge`/`close_drawbridge` + 
 Mastermind hints** D-0977; **do_play_instrument ynq def `'q'` (hack.h:1330) + wind `can_blow` gate + Mastermind `Soundeffect` + ESC-only tune abort D-2046**; `Hero_playnotes`/`obj_to_instr` audio; flees_light; can_blow is_silent-table poly approx; selftouch petrify; 
 flooreffects full; maketrap shop-hole/DRAWBRIDGE_UP ice named (**set_levltyp D-1280**); 
-sleep defended/shieldeff; set_entity crush still deferred); 
+**sleep_monst_music `defended(AD_SLEE)` + `shieldeff` D-2357** (music path live; trap.js `sleep_monst` keeps its own named omit); set_entity crush still deferred); 
 omit `do_break_wand`/`flip_through_book`/`flip_coin`, adjacent/dz/cursed stethoscope, forcelock 
 shop/erosion polish, `feel_location` mapseen gating, **stash getobj ALLOWCNT D-1561** (`stash_ok`/`ck_bag`/`GETOBJ_PROMPT|GETOBJ_ALLOWCNT` + `in_container` early-outs/`unsplitobj`); **`'r'` reversed D-1567** (`loot_in_first` put-in then take-out; TRADITIONAL yn_function + `explain_container_prompt`); **traditional_loot askchain D-1581** (ggetobj takeoff/identify / in_or_out_menu more_containers `n`/lootabc Next / mbag explosion / icebox age / shop sellobj / snuff_lit named); 
 door `b_trapped` body / AUTOUNLOCK_KICK / quest-artifact autokey ranking; 

@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `music.c` charm_snakes/calm_nymphs/charm_monsters flute/harp (named debt.md D-0974; never live/archived/parked). Probe: `node scripts/brief.mjs charm_monsters`.
 - [ ] `music.c` awaken_soldiers BUGLE + ubuzz FIRE/FROST horn (named debt.md D-0974; never live/archived/parked). Probe: `node scripts/brief.mjs awaken_soldiers`.
 - [ ] `apply.c` getobj_apply CMDQ_KEY (named debt.md D-1018; live getobj callers D-2353 shipped; never own-row live/parked). Probe: `node scripts/brief.mjs getobj_apply`.
 - [ ] `eat.c` is_edible poly diets + doeat_nonfood (named debt.md D-0936; never own-row live/parked). Probe: `node scripts/brief.mjs is_edible`.

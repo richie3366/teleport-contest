@@ -20,19 +20,20 @@ Parks: re-pop only on the listed falsifier (proofs in Parked).
 
 ## Don't re-check (≤15)
 
-- D-1790…D-2356 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-2357 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2356.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2356.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2357.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2357.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2357: `js/music.js` only, no new modules, no new module edges (`defended` joins the existing `mondata.js` import and `shieldeff` joins the existing `display Named: trap.js `sleep_monst` defended/shieldeff/how>=0 arms (own trap.c row, header-named); share
 - D-2356: `js/mhitu.js` — real exported async `gulp_blnd_check` in C order/conjuncts next to gulpmu (C home; `attacktype_fordmg`/`can_blnd` join the existing uh Named: use_towel `apply.c:178` gulp arm (still inline always-false + map-named at apply.js:1886; 
 - D-2355: `js/apply.js` only, no new modules, no new module edges (`objects` joins the existing `objects.js` import — `imports.mjs --can` ALREADY; `check_unpaid Named: candle `SetVoice(shop_keeper(*in_rooms(...)), 0, 80, 0)` (audio voice no-op, use_candle pr
 - D-2354: `js/apply.js` — `impossible` joins the existing `display.js` import (`imports.mjs --can` ALREADY, no new edge); bad-bag arm awaits `impossible("bad ba Named: `tipcontainer_checks` otrapped `chest_trap`/`nomul`, recursive `tipcontainer_checks(target
@@ -47,5 +48,4 @@ Parks: re-pop only on the listed falsifier (proofs in Parked).
 - D-2345: `js/pray.js` only — file-local async `offer_too_soon` / `offer_real_amulet` / `offer_fake_amulet` in C order (C `staticfn` ⇒ file-local, matching `off Named: `bestow_artifact` (corpse-gift path, own row) untouched; `display_nhwindow(WIN_MESSAGE, FA
 - D-2344: `js/priest.js` — exported `free_epri` (GC replaces `free()`: null the `mextra.epri` slot, then `ispriest=0` like C) and exported async `angry_priest`  Named: none new — `altar_wrath` was already live (`pray.js`, used by dokick/eat); remaining `dig(
 - D-2343: `js/attrib.js` — exported `uchangealign` (1:1 with C `attrib.c`): ublessed=0 + `game.flags.botl` (pray.js-guarded idiom), CONVERT livelog `permanently Named: `angry_priest` (C priest.c:876–911) at the conversion-glow priest check — own next Open qu
-- D-2342: `js/mklev.js` only, zero new module edges (`imports.mjs --can mklev.js worn.js m_dowear` → ALREADY: file already statically imports worn.js). Named: other loaders' `spo_end_moninvent m_dowear` Named-omission lines (Kni-loca/fila/filb, Mon-
 <!-- landmarks:end -->
