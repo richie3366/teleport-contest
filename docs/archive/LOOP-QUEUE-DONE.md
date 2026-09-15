@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `dogmove.c` `droppables` pet flooreffects/vault-gold arms (data.md:286) — **unverified at enqueue**: stale check first. Probe: `node scripts/brief.mjs droppables`. **Addressed:** D-2401
+- [x] `mon.c` can_carry strong-flat cap + Knight worker spin `[measure]` — blocks 1/553 (scen-normal-Knight-92182, step 13; mattackm/can_carry parks 2026-09-08). C `can_carry` allows a 640-wt chest for a strong flat monster (cap 1000); JS stub caps at 448, so `dog_move` goal differs and `rn2(++chcnt)` draws shift. Importing the canonical `can_carry` (`monmove.js:248`) fixes step 13 **but the worker then spins** (`verify mattackm` → ETIMEDOUT), same class as the ready_weapon Knight-92204 spin. Deliverable: profile/stack of the spinning worker (`node --cpu-prof` or `--inspect` on the replay command from `hidden-proxy show scen-normal-Knight-92182`, prefix moves past step 13) naming the sync loop; then an Open row for that loop (a hang forfeits every later screen — Must-fix class). No `js/` unless the loop is found and is one C-cited fix. **Delivered 2026-09-16 (no js/): no spin at HEAD — import live at js/dogmove.js:17, Knight-92182 replays 0.3 s to step 95 (parked obj_resists); `verify mattackm` vacuous, cohort 7/7; writer already parked, no new row.**
+
+
+- [x] `dogmove.c` `droppables` pet flooreffects/vault-gold arms (data.md:286) — **unverified at enqueue**: stale check first. Probe: `node scripts/brief.mjs droppables`. **Addressed:** D-2401 `eb9ad04a`
 
 
 - [x] `allmain.c` moveloop_core `[campaign botl-parity 2/3]` — gate `bot()`/`timebot()` exactly per `allmain.c:473–479`, delete the `_statusSuppressed` / status-snapshot shims the gate makes dead (D-1831 class), full `sessions` 44/44 + `node scripts/verify.mjs --fn do_statusline2` (expect the lembas pair Healer-92092/Tourist-91125 → step 60 or later; value-residual sessions move or PASS). Pop only after step 1 shipped. (Step 1 D-2400 remainder: seed0007 travel-T run=8 — RDO fires LEAP+time yet `time_botl` never reaches the gate; needs a C-side per-turn flag trace to name the writer.) **Addressed:** D-2400 `d1747cfa`

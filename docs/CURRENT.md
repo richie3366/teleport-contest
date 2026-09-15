@@ -85,7 +85,7 @@ Pop `LOOP-QUEUE.md` Must-fix, then Open in order — the Open head is now
 the park-named writers, then the **botl paint-parity campaign** (10
 sessions), then two `[measure]` rows; the 2026-09-15 map-omit refill rows
 sit last, flagged *unverified at enqueue* (stale check first).
-**Next cluster:** Open `dogmove.c` `droppables` pet flooreffects/vault-gold arms (head `eat.c` 3/3 MASKED — C-exact gate NO MOVEMENT, reverted, do not re-attempt until step-2 paint ships; next shippable missing-arm row with live C-vs-JS gap shipped instead per stale-check rule).
+**Next cluster:** `mhitu.c` hitmu damage post-processing at a rat AD_DRCO bite `[measure]` — blocks 1/553 (scen-genesis-Priest-91110, step 130, kind=rng); head `eat.c` 3/3 parked Stale (masked, NO MOVEMENT) and `can_carry` `[measure]` delivered 2026-09-16 (no spin at HEAD, import live at js/dogmove.js:17).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2401 (index).**
 <!-- recent:begin -->

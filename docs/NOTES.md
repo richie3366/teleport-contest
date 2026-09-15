@@ -26,10 +26,7 @@ here again. Live hypotheses only:
   cohort identical, reverted) — masked until the step-2 gate ships. DONE
   2/3 stamped D-2400 but the gate was reverted (seed0007-T needs a C-side
   flag trace); no live 2/3 row — supervisor to re-queue or consolidate.
-- **Knight worker spin** (`[measure]` row): importing canonical `can_carry`
-  fixes Knight-92182 step 13 but the worker spins (ETIMEDOUT); same class
-  as the ready_weapon full-arm Knight-92204 spin. Suspect an
-  input-exhaustion sync loop — profile past the step, do not theorize.
+- **Knight worker spin** (MEASURED 2026-09-16, `[measure]` row delivered): no spin at HEAD — canonical `can_carry` import live (`js/dogmove.js:17`), Knight-92182 replays in 0.3 s to step 95 (parked `obj_resists`); `verify mattackm` vacuous, cohort 7/7. The 2026-09-08 ETIMEDOUT premise is retired with its row.
 - **R-1082 music path live:** `seemimic` js/music.js:312; omit is trap-clone-only.
 - **Eval-order TDZ (D-2349):** no static edge to polyself at eval; late-bind setters.
 - **Fortress guards** (do not reopen): display_inventory, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue S_ndoor, bigrm-2, getpos, summonmu, lookat, do_statusline1, snapshot, fakewiz, Ice/Boulder, roles[], pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
