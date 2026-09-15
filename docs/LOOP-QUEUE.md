@@ -60,8 +60,17 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `dig.c` dighole DRAWBRIDGE_UP + magical-trap explode arms (JS-doc named omit js/dig.js dighole; C dig.c:885 dighole). Probe: `node scripts/brief.mjs dighole`.
 - [ ] `do.c` dodown stair-descent More-transient (live corpus owner, 1 session: scen-wish-Samurai-92088 step 88 C «The water demon hurls a dark potion!--More--» vs JS «The water demon hurls a dark potion!»; live residual of shipped ready_weapon D-2158 which moved the session here; not live/archived/parked). Probe: `node scripts/brief.mjs dodown`.
+- [ ] `vault.c` gd_sound `rn2(2)` vault-guard approach sound (named absent.md:16, D-0208; never live/archived/parked). Probe: `node scripts/brief.mjs gd_sound`.
+- [ ] `mkobj.c` mergable FOOD `oeaten`/`orotten` + unpaid/erosion/candle arms (named data.md:264, D-0923; never live/archived/parked). Probe: `node scripts/brief.mjs mergable`.
+- [ ] `shk.c` dopay robbed/angry/debit arms (named absent.md:38, D-0998; never live/archived/parked; D-1716/D-1704 shipped other dopay arms). Probe: `node scripts/brief.mjs dopay`.
+- [ ] `potion.c` potionhit GAIN_LEVEL/LEVITATION/FRUIT/DETECT commented arms (named debt.md:23, D-1472 residual; never live/archived/parked). Probe: `node scripts/brief.mjs potionhit`.
+- [ ] `trap.c` erode_obj rust/verbose + grease/towel/container/acid-boom arms (named data.md:1078, post-D-2186 residual; never live/archived/parked). Probe: `node scripts/brief.mjs erode_obj`.
+- [ ] `sounds.c` dosounds fountain/sink You_hear + shop You_hear (named absent.md:16, D-0303/D-0306; post-D-2217/D-2196 residual; never live/archived/parked). Probe: `node scripts/brief.mjs dosounds`.
+- [ ] `apply.c` use_stone graystone/touchstone (named absent.md:30, D-1014; never live/archived/parked). Probe: `node scripts/brief.mjs use_stone`.
+- [ ] `steed.c` use_saddle (named absent.md:29, D-1008; never live/archived/parked). Probe: `node scripts/brief.mjs use_saddle`.
+- [ ] `mon.c` resists_ston/poly_when_stoned worn/artifact STONE_RES arms (named data.md:880, D-0654 residual; never live/archived/parked). Probe: `node scripts/brief.mjs resists_ston`.
+- [ ] `dokick.c` kick_nondoor SDOOR/altar/fountain/grave/sink + altar_wrath/disturb_grave/sink_backs_up (named absent.md:25-26, D-0985; never live/archived/parked). Probe: `node scripts/brief.mjs kick_nondoor`.
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 

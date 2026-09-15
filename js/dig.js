@@ -17,7 +17,7 @@
 //        D-1375 use_pick_axe2 u_wipe_engr(3) axe-scratch)
 
 import { game } from './gstate.js';
-import { rn1, rn2, rnd, rnl } from './rng.js';
+import { d, rn1, rn2, rnd, rnl } from './rng.js';
 import {
     newsym, pline, You_feel, tmp_at, nh_delay_output, verbalize,
     feel_newsym, flush_screen, flush_topl_more,
@@ -55,6 +55,7 @@ import {
     t_at, maketrap, seetrap, feeltrap, set_utrap, reset_utrap, deltrap,
     delfloortrap, trapname, mintrap, b_trapped, conjoined_pits,
     activate_statue_trap, ceiling, fire_damage_chain, water_damage_chain,
+    cnv_trap_obj,
 } from './trap.js';
 import { set_occupation, can_reach_floor, del_engr_at, u_wipe_engr } from './engrave.js';
 import { wield_tool, welded } from './wield.js';
@@ -75,6 +76,9 @@ import {
 import { obj_resists } from './dogmove.js';
 import { unpunish, punish } from './read.js';
 import { getdir, dxdy_moveok } from './lock.js';
+// C ref: explode.c explode — dighole magical-trap explode arm
+// (hoisted fn, cycle-safe per imports.mjs).
+import { explode } from './explode.js';
 // C ref: monmove.c mb_trapped `:54–74` — canonical trapped-door export
 // (KABOOM/hear, wake_nearto 49, mstun, rnd(15), mondied/lifesave,
 // mon_learns_traps TRAPPED_DOOR); hoisted fn, cycle-safe per imports.mjs.
@@ -99,17 +103,18 @@ import {
     DIGCHECK_FAIL_UNDESTROYABLETRAP, DIGCHECK_FAIL_CANTDIG,
     DIGCHECK_FAIL_BOULDER, DIGCHECK_FAIL_OBJ_POOL_OR_TRAP,
     PIT, HOLE, MAGIC_PORTAL, VIBRATING_SQUARE, AM_SANCTUM,
-    MOAT, POOL, LAVAPOOL, COLNO, ROWNO, is_pit, is_hole, u_at,
+    MOAT, POOL, LAVAPOOL, COLNO, ROWNO, is_pit, is_hole, is_magical_trap, u_at,
     DIGTYP_UNDIGGABLE, DIGTYP_ROCK, DIGTYP_STATUE, DIGTYP_BOULDER,
     DIGTYP_DOOR, DIGTYP_TREE,
     ECMD_OK, ECMD_TIME, ECMD_CANCEL,
     P_PICK_AXE, P_AXE, IRONBARS, LAVAWALL, IS_WATERWALL,
-    WEB, LANDMINE, BEAR_TRAP, TRAPDOOR, KILLED_BY, KILLED_BY_AN, NO_PART,
+    WEB, LANDMINE, BEAR_TRAP, TRAPDOOR, TRAP_EXPLODE, EXPL_MAGICAL,
+    KILLED_BY, KILLED_BY_AN, NO_PART,
     HEAD, FOOT,
     TT_BURIEDBALL, TT_INFLOOR, DRAWBRIDGE_DOWN, DBWALL, MIGR_RANDOM,
     TAINT_AGE, MM_NOMSG, IN_SIGHT, COULD_SEE, RLOC_NOMSG, STOMACH,
     xytodir, DIR_180, DIR_ERR, xdir, ydir, N_DIRS,
-    ICE, DRAWBRIDGE_UP, DB_UNDER, DB_ICE,
+    ICE, DRAWBRIDGE_UP, DB_UNDER, DB_MOAT, DB_LAVA, DB_ICE,
     ROT_ORGANIC, TIMER_OBJECT, Has_contents, OBJ_FREE,
     CORPSTAT_HISTORIC, STATUE_TRAP,
 } from './const.js';
@@ -120,6 +125,9 @@ const STATUE = objectNames.indexOf('STATUE');
 const CORPSE = objectNames.indexOf('CORPSE');
 const LEASH = objectNames.indexOf('LEASH');
 const POT_OIL = objectNames.indexOf('POT_OIL');
+// C ref: dig.c dighole by_magic arm — settable traps convert to buried objects.
+const LAND_MINE = objectNames.indexOf('LAND_MINE');
+const BEARTRAP = objectNames.indexOf('BEARTRAP');
 // C ref: dig.c earth-debris `rn2(2) ? PM_EARTH_ELEMENTAL : PM_XORN`
 // (minion.js convention — generated data exports only role PM consts).
 const PM_EARTH_ELEMENTAL = monsterNames.indexOf('PM_EARTH_ELEMENTAL');
@@ -1930,14 +1938,14 @@ export async function dig_up_grave(cc) {
 
 /**
  * C ref: dig.c dighole — create PIT/HOLE under hero (pickaxe down path).
- * Branch envelope: dig_check hard fails; pool/lava splash; drawbridge
- * destroy (D-0959); boulder fill / settle (D-0962); IS_GRAVE →
- * digactualhole(PIT)+dig_up_grave (D-0957); fillholetyp liquid;
+ * Branch envelope: dig_check hard fails; magical-trap explode;
+ * pool/lava splash; drawbridge destroy (D-0959); boulder fill / settle
+ * (D-0962); IS_GRAVE → digactualhole(PIT)+dig_up_grave (D-0957);
+ * DRAWBRIDGE_UP fluid fill; fillholetyp liquid; by_magic trap-convert;
  * digactualhole PIT/HOLE.
- * Named omit: magical traps explode; DRAWBRIDGE_UP fluid polish;
- * spot_checks; by_magic traps.
+ * Named omit: spot_checks (no JS counterpart).
  */
-export async function dighole(pit_only, _by_magic, cc) {
+export async function dighole(pit_only, by_magic, cc) {
     const u = game.u || {};
     let dig_x = u.ux | 0;
     let dig_y = u.uy | 0;
@@ -1961,6 +1969,13 @@ export async function dighole(pit_only, _by_magic, cc) {
         await pline(
             `The ${surface(dig_x, dig_y)} ${th}here is too hard to dig in.`,
         );
+        return false;
+    }
+    // C: dig.c dighole — digging into a magical trap detonates it.
+    if (ttmp && is_magical_trap(ttmp.ttyp)) {
+        await explode(dig_x, dig_y, 0, 20 + d(3, 6), TRAP_EXPLODE, EXPL_MAGICAL);
+        deltrap(ttmp);
+        newsym(dig_x, dig_y);
         return false;
     }
     if (is_pool_or_lava(dig_x, dig_y)) {
@@ -2003,6 +2018,27 @@ export async function dighole(pit_only, _by_magic, cc) {
         await dig_up_grave(cc);
         return true;
     }
+    // C: dig.c dighole DRAWBRIDGE_UP — must be floor or ice, other cases
+    // handled above. Dig a pit and let fluid flow in (if possible).
+    if (old_typ === DRAWBRIDGE_UP) {
+        const holetyp = fillholetyp(dig_x, dig_y, false);
+        if (holetyp === ROOM) {
+            // We can't dig a hole here since that will destroy
+            // the drawbridge. The following is a cop-out. --dlc
+            const th = (dig_x !== (u.ux | 0) || dig_y !== (u.uy | 0)) ? 't' : '';
+            await pline(
+                `The ${surface(dig_x, dig_y)} ${th}here is too hard to dig in.`,
+            );
+            return false;
+        }
+        lev.drawbridgemask = (lev.drawbridgemask | 0) & ~DB_UNDER;
+        lev.drawbridgemask |= (holetyp === LAVAPOOL) ? DB_LAVA : DB_MOAT;
+        await liquid_flow(
+            dig_x, dig_y, holetyp, ttmp,
+            'As you dig, the hole fills with %s!',
+        );
+        return true;
+    }
     if (IS_THRONE(old_typ)) {
         await pline('The throne is too hard to break apart.');
         return false;
@@ -2025,6 +2061,12 @@ export async function dighole(pit_only, _by_magic, cc) {
         return true;
     }
     ttmp = t_at(dig_x, dig_y);
+    // C: magical digging disarms settable traps into buried objects.
+    if (by_magic && ttmp
+        && (ttmp.ttyp === LANDMINE || ttmp.ttyp === BEAR_TRAP)) {
+        const otyp = (ttmp.ttyp === LANDMINE) ? LAND_MINE : BEARTRAP;
+        await cnv_trap_obj(otyp, 1, ttmp, true);
+    }
     if (nohole || pit_only
         || dig_check_result === DIGCHECK_PASSED_DESTROY_TRAP
         || dig_check_result === DIGCHECK_PASSED_PITONLY) {

@@ -5,7 +5,16 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `dig.c` zap_dig swallowed-pierce arm (JS early-return `if (u.uswallow)` js/dig.js zap_dig; C dig.c:1569-1582 pierce pline + mhp + expels). Probe: `node scripts/brief.mjs zap_dig`. **Addressed:** D-2322
+- [x] `dig.c` DRAWBRIDGE_UP-ice + dothrow hurtle + u_on_rndspot + objnam-wish residuals (named debt.md:17 dig.js row; post-D-2323/D-2321/D-2319; never live/archived/parked). Probe: `node scripts/brief.mjs zap_dig`. **Addressed:** D-2323
+
+
+- [x] `dig.c` DRAWBRIDGE_UP-ice + dothrow hurtle + u_on_rndspot + objnam-wish residuals (named debt.md:17 dig.js row; post-D-2323/D-2321/D-2319; never live/archived/parked). Probe: `node scripts/brief.mjs zap_dig`. **Addressed:** D-2323
+
+
+- [x] `dig.c` dighole DRAWBRIDGE_UP + magical-trap explode arms (JS-doc named omit js/dig.js dighole; C dig.c:885 dighole). Probe: `node scripts/brief.mjs dighole`. **Addressed:** D-2323
+
+
+- [x] `dig.c` zap_dig swallowed-pierce arm (JS early-return `if (u.uswallow)` js/dig.js zap_dig; C dig.c:1569-1582 pierce pline + mhp + expels). Probe: `node scripts/brief.mjs zap_dig`. **Addressed:** D-2322 `3782e831`
 
 
 - [x] `dig.c` zap_dig pitdig branch via adj_pit_checks/pit_flow (JS stub `if (pitdig) break` + `pit_flow deferred` in zap_dig; C dig.c:1617-1662 branch + :1763 adj_pit_checks + :1844 pit_flow). Probe: `node scripts/brief.mjs adj_pit_checks`. **Addressed:** D-2321 `95c162ad`

@@ -1802,6 +1802,7 @@ mon `teleport_pet` migrate** (D-0954); **`dig_up_grave` + `dighole` IS_GRAVE** (
 LANDMINE/BEAR_TRAP; callee D-1051; uteetering/uescaped_shaft / Underwater still named);
 **`zap_dig` pitdig + `adj_pit_checks`/`pit_flow`** (D-2321; C `:1617-1662` + `:1763` + `:1844`);
 **`zap_dig` swallowed pierce** (D-2322; C `:1569-1582`: non-whirly pierce pline + unique-halve/else-1 mhp + `expels`);
+**`dighole` magical-trap explode + DRAWBRIDGE_UP fluid + by_magic trap-convert** (D-2323; C `:885-1024`: `is_magical_trap` explode/deltrap/newsym, DRAWBRIDGE_UP fillholetyp + drawbridgemask + liquid_flow, LANDMINE/BEAR_TRAP cnv_trap_obj; spot_checks still named);
 omit Hallucination draft;
 crush/entity + iron-chain scatter; impact shop `stolen_value`
 
