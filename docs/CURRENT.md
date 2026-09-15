@@ -79,7 +79,7 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** Open `mhitu.c` gulpmu BLND visored-helmet + flat/uprops mirror (turns.md:3048, debt R-1076; prior arms D-1993/D-2110/D-2151/D-2161/D-2356). Probe: `node scripts/brief.mjs gulpmu`.
+**Next cluster:** Open `pickup.c`/`invent.c` collect_obj_classes INVLET arms (turns.md:1542 D-1581 residual: add_valid_menu_class/allow_category; traditional_loot/askchain/sortloot archived; never own-row live/archived/parked). Probe: `node scripts/brief.mjs collect_obj_classes`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2387 (index).**
 <!-- recent:begin -->

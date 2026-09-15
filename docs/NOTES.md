@@ -5,7 +5,7 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 ## Active
 
 Parks: re-pop only on the listed falsifier (proofs in Parked).
-- **2026-09-15 stale-dupe parks** (0 blocked): is_edible/doeat_nonfood, paranoid_query, release_hold/flash_hits_mon, getobj_apply, cancel_monst, zap_over_floor, unturn_dead/revive, adj_pit_checks, still_chewing, sellobj, instapetrify/barefoot-kick/bhit-DISP_FLASH (D-0995); fix_worst_trouble (D-1011); toggle_stealth (D-0970); fix_wall_spines (D-0975); burn_away_slime (D-0978).
+- **2026-09-15 stale-dupe parks** (0 blocked): is_edible/doeat_nonfood, paranoid_query, release_hold/flash_hits_mon, getobj_apply, cancel_monst, zap_over_floor, unturn_dead/revive, adj_pit_checks, still_chewing, sellobj, instapetrify/barefoot-kick/bhit-DISP_FLASH (D-0995); fix_worst_trouble (D-1011); toggle_stealth (D-0970); fix_wall_spines (D-0975); burn_away_slime (D-0978); loot_in_first/explain_container_prompt (D-1567 live, `brief`+`verify` 0 blocked).
 - **R-1082 music path live:** `seemimic` js/music.js:312; omit is trap-clone-only.
 - **Eval-order TDZ (D-2349):** no static edge to polyself at eval; late-bind setters.
 - **artifact_hit park:** TOP30 #28 stale, body live D-1873/D-2144/D-2292.
