@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `dokick.c` kick_door shop/watchman arms (debt.md D-0947; C dokick.c kick_door). Probe: `node scripts/brief.mjs kick_door`. **Addressed:** D-2320
+- [x] `dokick.c` kick_door shop/watchman arms (debt.md D-0947; C dokick.c kick_door). Probe: `node scripts/brief.mjs kick_door`. **Addressed:** D-2320 `031ebb3a`
 
 
 - [x] `dig.c` watch_dig shop-dig arms (debt.md D-0941; C dig.c watch_dig). Probe: `node scripts/brief.mjs watch_dig`. **Addressed:** D-2319 `df21066c`
