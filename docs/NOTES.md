@@ -16,7 +16,7 @@ Park rows: re-pop only on the listed falsifier (proofs in Parked).
 - **Misattributed parks (proofs in Parked):** vomiting_dialogue/u_stuck_cannot_go/name_to_monplus/mcast_death_touch/save_dungeon/dodown/mv_bubble/one_characteristic/use_pole/trapmove/fig_transform/chwepon, that_is_a_mimic/drinkfountain, poly_obj, disclose/list_vanquished, dopush.
 - **2026-09-14/15 STALE-DUPE/DEAD-ARM parks (per-park proofs+falsifiers in Parked; all `verify` 0 blocked → NO MOVEMENT):** test_move, arti_cost, m_initweap, mextra-trio, make_sick Unaware, dodrink, make_corpse, vpline, mkcavearea, dig_up_grave, furniture_handled, use_bell, ignite_items/catch_lit, getcad-trio, kick_object, costly_gold/donate_gold, use_unicorn_horn, use_towel, use_tinning_kit, costly_tin/use_tin_opener, flip_through_book/flip_coin, use_candle/use_candelabrum, use_figurine, use_crystal_ball, potionhit C-commented-arms, gd_sound, dosounds, dopay, use_stone, kick_nondoor SDOOR+helpers/throne+tree, resists_ston, cpostfx/corpse_intrinsic/givit (D-ids in Parked/DONE).
 
-- 2026-09-15 STALE-DUPE parks (proofs in Parked): `offer_too_soon`, `eatspecial`, `cprefx`; throne/tree row DELETED as dupe of the line-219 `kick_nondoor` park. Falsifier: fresh `verify <fn>` blocking with it as owner.
+- 2026-09-15 STALE-DUPE parks (proofs in Parked): `offer_too_soon`, `eatspecial`, `cprefx`, `use_defensive`.
 
 ## Don't re-check (≤15)
 

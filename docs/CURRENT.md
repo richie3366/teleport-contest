@@ -80,7 +80,7 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `apply.c` use_grease CAN_OF_GREASE (named debt.md:16 D-1026; never live/archived/parked). Probe: `node scripts/brief.mjs use_grease`.
+**Next cluster:** `muse.c` use_defensive hurt-monster defensive-item depth (TOP30 #18, 12% ported, dead callees mreadmsg/reveal_trap/mon_escape/mon_consume_unstone; reached by scen-tour-Archeologist-92023 + scen-tour-Wizard-91112 traces; archived import row is wiring-only; never live/parked). Probe: `node scripts/brief.mjs use_defensive`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2349 (index).**
 <!-- recent:begin -->

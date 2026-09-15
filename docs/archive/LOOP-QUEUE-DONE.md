@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `apply.c` use_grease CAN_OF_GREASE (named debt.md:16 D-1026; never live/archived/parked). Probe: `node scripts/brief.mjs use_grease`. **Addressed:** D-2349
+- [x] `apply.c` use_grease CAN_OF_GREASE (named debt.md:16 D-1026; never live/archived/parked). Probe: `node scripts/brief.mjs use_grease`. **Addressed:** D-2349 `18f6e38f`
 
 
 - [x] `end.c` done_in_by imitator predicate uses JS object identity (`mptr !== champtr`, `js/end.js:1208`) where C compares permonst pointers (`end.c:184-190`) — true-form shifters (birth-state `cham == mndx`, `makemon.c:1355-1359`) wrongly take the D-2341 imitator arm ("chameleon imitating a chameleon") and lose G_UNIQ "the ". Fix: compare `mndx` indices. Source: reviews/loop-unattended/1307-c22b911d-death-disclosure-epitaphs.md. **Addressed:** D-2348 `aa08fdb3`
