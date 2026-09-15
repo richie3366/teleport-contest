@@ -21,10 +21,10 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-15** — full `sessions` on the working tree
-(audit **1298–1306**, HEAD `09146ec5`).
+(audit **1307–1313**, HEAD `e2d16801`).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`46+0.28/turn` (R² 0.78).
+`48+0.30/turn` (R² 0.80).
 
 ## Score
 
@@ -33,16 +33,16 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `46+0.28/turn` (R² 0.78) |
+| Speed label | `48+0.30/turn` (R² 0.80) |
 | Role-init throws | **0 / 44** |
 
-**Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-14
-audit 1232–1238): **463 / 540 PASS (85.7 %)** excl. 13 env-only rows
-(463/553); RNG 98.9 %; screens 98.4 %. Top owners:
-`do_statusline2` ×11, `save_dungeon` ×8, `obj_resists` ×6, `distfleeck` ×5,
-`one_characteristic` ×3, `m_move`/`rloc`/`chwepon` ×2, then 1-block singles
-(all parked symptom/misattributed owners; `drinkfountain` since parked).
-Reviews 1225–1306: 77 ACCEPT, 3 ACCEPT-WITH-DEBT, 0 Must-fix outstanding (1289 `surface` nouns addressed by D-2327 `348a7846`; 1291 cloak-90 arm addressed by D-2326 `94adc86d`; audits 1292–1306 all ACCEPT).
+**Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-15
+audit 1307–1313): **478 / 540 PASS (88.5 %)** excl. 13 env-only rows
+(478/553); RNG 98.9 %; screens 98.5 %. Top owners:
+`do_statusline2` ×10, `obj_resists` ×6, `distfleeck` ×5,
+`m_move` ×3, `one_characteristic` ×3, `rloc` ×2, then 1-block singles
+(all parked symptom/misattributed owners; `save_dungeon` ×8 cleared by D-2341, knockback cleared by D-2347).
+Reviews 1225–1313: 83 ACCEPT, 3 ACCEPT-WITH-DEBT, 1 Must-fix outstanding (1307 `done_in_by` imitator predicate → Next cluster; audits 1308–1313 all ACCEPT).
 Live debts: 1241 SCR_MAIL (map material), 1268 light MINVENT-carrier-mx (map note).
 Refresh on audit iters with `node scripts/hidden-proxy.mjs score --jobs 8`
 (≈200 s); when every family is ≥ 85 % PASS, grow it first:
@@ -80,7 +80,7 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `uhitm.c` mhitm_knockback attack-selection (fresh corpus owner 2026-09-15: scen-wish-Priest-92163 step 248 kind=rng, C `rn2(3)` in mhitm_knockback vs JS `rn2(8)` from mhitm_ad_drst_u; knockback body full since D-1932 per archived D-2035/D-2091 — this row is the arm-selection upstream, not the body). Probe: `node scripts/brief.mjs mhitm_knockback`.
+**Next cluster:** `end.c` done_in_by imitator predicate (Must-fix from review 1307: `mptr !== champtr` object identity vs C permonst identity — true-form shifters take the wrong epitaph arm). Probe: `node scripts/brief.mjs done_in_by`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2347 (index).**
 <!-- recent:begin -->

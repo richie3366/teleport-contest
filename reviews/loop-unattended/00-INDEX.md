@@ -1317,3 +1317,10 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1304-a5d8009f-blow-up-landmine-tails.md](./1304-a5d8009f-blow-up-landmine-tails.md) | `a5d8009f` | D-2338 blow_up_landmine + tails | **ACCEPT** |
 | [1305-abcd52ce-makemon-nocountbirth-tally.md](./1305-abcd52ce-makemon-nocountbirth-tally.md) | `abcd52ce` | D-2339 makemon NOCOUNTBIRTH tally | **ACCEPT** |
 | [1306-09146ec5-hideunder-concealer-arms.md](./1306-09146ec5-hideunder-concealer-arms.md) | `09146ec5` | D-2340 hideunder concealer arms | **ACCEPT** |
+| [1307-c22b911d-death-disclosure-epitaphs.md](./1307-c22b911d-death-disclosure-epitaphs.md) | `c22b911d` | D-2341 death-disclosure epitaphs | **QUALITY-RISK** |
+| [1308-c2fdbd1f-spo-end-moninvent-mdowear.md](./1308-c2fdbd1f-spo-end-moninvent-mdowear.md) | `c2fdbd1f` | D-2342 spo_end_moninvent m_dowear | **ACCEPT** |
+| [1309-b52af340-uchangealign-altar-offering.md](./1309-b52af340-uchangealign-altar-offering.md) | `b52af340` | D-2343 uchangealign + altar offering | **ACCEPT** |
+| [1310-c2a2a6fd-angry-priest-free-epri.md](./1310-c2a2a6fd-angry-priest-free-epri.md) | `c2a2a6fd` | D-2344 angry_priest + free_epri | **ACCEPT** |
+| [1311-dd78cfac-amulet-offering-arms.md](./1311-dd78cfac-amulet-offering-arms.md) | `dd78cfac` | D-2345 amulet offering arms | **ACCEPT** |
+| [1312-3f6c64d3-do-break-wand-residuals.md](./1312-3f6c64d3-do-break-wand-residuals.md) | `3f6c64d3` | D-2346 do_break_wand residuals | **ACCEPT** |
+| [1313-e2d16801-magic-negation-hero-arm.md](./1313-e2d16801-magic-negation-hero-arm.md) | `e2d16801` | D-2347 magic_negation hero arm | **ACCEPT** |

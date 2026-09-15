@@ -43,6 +43,8 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
+- [ ] `end.c` done_in_by imitator predicate uses JS object identity (`mptr !== champtr`, `js/end.js:1208`) where C compares permonst pointers (`end.c:184-190`) — true-form shifters (birth-state `cham == mndx`, `makemon.c:1355-1359`) wrongly take the D-2341 imitator arm ("chameleon imitating a chameleon") and lose G_UNIQ "the ". Fix: compare `mndx` indices. Source: reviews/loop-unattended/1307-c22b911d-death-disclosure-epitaphs.md.
+
 A **JS throw** in any corpus session (`hidden-proxy status` owner
 `js-throw …`, or a `ReferenceError` in `.cache/hidden/scores.json`
 `error`) is always a Must-fix row: it forfeits every later screen of that
