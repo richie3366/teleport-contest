@@ -3290,7 +3290,7 @@ JS: `js/steed.js` — partial
 **`put_saddle_on_mon` mpickobj linkage** (D-2173; local
 `pick_saddle` linked minvent without where/ocarry — C
 `steed.c:142–163` calls `mpickobj`, panic on merge unreachable); 
-**`use_saddle` apply SADDLE + `can_saddle` whirly/unsolid** (D-1008); 
+**`use_saddle` apply SADDLE + `can_saddle` whirly/unsolid** (D-1008; outer poly_when_stoned guard D-2328); 
 **`can_ride`/`doride`/`mount_steed`/`landing_spot`/`dismount_steed` BYCHOICE** (D-0213); 
 **riding display / pet mcolor / saddled / Ride botl** (D-0214); 
 **`m_at` skips `usteed` (C remove_monster)** (D-0217); 

@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `steed.c` use_saddle (named absent.md:29, D-1008; never live/archived/parked). Probe: `node scripts/brief.mjs use_saddle`.
 - [ ] `mon.c` resists_ston/poly_when_stoned worn/artifact STONE_RES arms (named data.md:880, D-0654 residual; never live/archived/parked). Probe: `node scripts/brief.mjs resists_ston`.
 - [ ] `dokick.c` kick_nondoor SDOOR/altar/fountain/grave/sink + altar_wrath/disturb_grave/sink_backs_up (named absent.md:25-26, D-0985; never live/archived/parked). Probe: `node scripts/brief.mjs kick_nondoor`.
 - [ ] `ball.c` drop_ball punish-drop (TOP30 queue-mapping named; no JS symbol; never live/archived/parked). Probe: `node scripts/brief.mjs drop_ball`.

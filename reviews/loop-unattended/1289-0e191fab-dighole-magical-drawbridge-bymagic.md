@@ -52,6 +52,6 @@ the file-local clone and is the Actionable item above, not an import):
 
 ## Actionable C-wrongs
 
-1. dig.js `surface` clone prints `ground` on DRAWBRIDGE_UP cop-out; C prints water/molten lava/ice via SURFACE_AT + drawbridge-under arms — extend the clone (one iter). → Must-fix, prepended. **Addressed:** D-2327
+1. dig.js `surface` clone prints `ground` on DRAWBRIDGE_UP cop-out; C prints water/molten lava/ice via SURFACE_AT + drawbridge-under arms — extend the clone (one iter). → Must-fix, prepended. **Addressed:** D-2327 `348a7846`
 
 Verdict: **QUALITY-RISK**
