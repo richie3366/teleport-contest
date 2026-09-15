@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `potion.c` peffect_levitation body (debt.md:23 D-1419 POT/SPE_LEVITATION; never own-row live/archived/parked). Probe: `node scripts/brief.mjs peffect_levitation`.
 - [ ] `potion.c` peffect_restore_ability body (debt.md:23 D-1420 POT/SPE_RESTORE_ABILITY; never own-row live/archived/parked). Probe: `node scripts/brief.mjs peffect_restore_ability`.
 - [ ] `potion.c` peffect_invisibility body (debt.md:23 D-1421 POT/SPE_INVISIBILITY; never own-row live/archived/parked). Probe: `node scripts/brief.mjs peffect_invisibility`.
 - [ ] `trap.c` float_up body (debt.md:14 D-0956 Ring_gone/float_up; never own-row live/archived/parked). Probe: `node scripts/brief.mjs float_up`.

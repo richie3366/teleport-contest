@@ -82,8 +82,9 @@ Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
 **Next cluster:** `potion.c` peffect_levitation body (debt.md:23 D-1419 POT/SPE_LEVITATION). Probe: `node scripts/brief.mjs peffect_levitation`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2378 (index).**
+**Keep D-0845…D-2379 (index).**
 <!-- recent:begin -->
+**D-2379** `nethack-c/upstream/src/dungeon.c` `ceiling` (vault/temple/SHOPBASE `*in_rooms` → "vault's — `js/trap.js` `ceiling` ported arm-for-arm in C order (wording cross-checked against the live full `js/zap.js:2482` `ceiling_updown` that serves zap_updown probing).
 **D-2378** `nethack-c/upstream/src/artifact.c:715–893` (`set_artifact_intrinsic`; `dtyp=(wp_mask!=W_A — `js/artifact.js` — defn/cary→(prop, E* flat) seven-way map written through the existing dual-write `set_spfx_extrinsic` (C E* macros ARE `uprops[].extrinsic`; JS gates read the flats, e.g.
 **D-2377** `nethack-c/upstream/src/potion.c:716–768` (`peffect_water`; blessed+!hates arm `:744–750`  — replaced with `await make_sick(0, null, true, SICK_ALL)` (same-file callee — no new import, no new module edge, no TDZ; matches the `curesick` precedent at `js/potion.js:2171`); doc comment + `turns.md:526` updated.
 **D-2376** `nethack-c/upstream/src/mkobj.c:1497–1669` (`shrink_glob`: `item_on_ice` before the globby — `js/mkobj.js` — file-local `NOT_ON_ICE/SET_ON_ICE/BURIED_UNDER_ICE` consts + `item_on_ice` (JS `get_obj_location` returns `{x,y}|null`, so the C boolean+out-param gate becomes a null check with the FLOOR/BURIED switch on
@@ -91,11 +92,10 @@ Do **not** pop map-omission singletons
 **D-2374** `nethack-c/upstream/src/shk.c:5976–6097` (floor x/y; unpaid-absorber `next_shkp(fmon,TRUE) — new exported async `globby_bill_fixup(obj_absorber, obj_absorbed)` in `js/shk.js` (C home; all 16 other callees already local/imported there — `next_shkp`/`onbill`/`set_cost`/`clear_unpaid_obj`/`get_pricing_units` locals
 **D-2373** `nethack-c/upstream/src/lock.c:758–769` (`m_at` + `is_door_mappear` + `!Protection_from_sh — new exported async `stumble_on_door_mimic(x, y)` in `js/lock.js:636` (C home; predicate draws no RNG; async only because JS `stumble_onto_mimic` reaches pline --More--) with local `Protection_from_shape_changers()` (`js/
 **D-2372** `nethack-c/upstream/src/trap.c` `move_into_trap` `:5393–5437` (`test_move(u.ux,u.uy,sgn(x- — `js/trap.js` only, no new modules, no new module edges (`imports.mjs --can` ALREADY on all three static extends: `trap.js → ball.js` for `drag_ball`/`move_bc`, `trap.js → apply.js` for `check_leash`, `trap.js → steed.js`
-**D-2371** `nethack-c/upstream/src/zap.c` `poly_obj` `:1905–1914` (`get_obj_location` + `old_wornmask — 2 js files, no new modules, no new module edges (`imports.mjs --can` ALREADY on `zap.js → u_init.js`; `u_init.js` imports nothing from `zap.js` — no cycle; both names used only at runtime inside async `poly_obj` — no top
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2378; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2379; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

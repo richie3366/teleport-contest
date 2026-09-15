@@ -70,7 +70,7 @@ import {
     STONE, SCORR, CORR, ROOM, DOOR, ICE, MAX_TYPE, SDOOR, STAIRS, LADDER, DRAWBRIDGE_UP,
     DRAWBRIDGE_DOWN, DB_UNDER, DB_ICE, DB_FLOOR,
     MELT_ICE_AWAY, ROT_ORGANIC,
-    MAGIC_PORTAL, LEVEL_TELEP, Is_waterlevel, Is_airlevel,
+    MAGIC_PORTAL, LEVEL_TELEP, Is_waterlevel, Is_airlevel, Is_firelevel,
     D_NODOOR, D_ISOPEN, D_CLOSED, D_LOCKED, D_BROKEN, D_TRAPPED,
     MAXULEV,
     ER_NOTHING, ER_GREASED, ER_DAMAGED, ER_DESTROYED,
@@ -104,7 +104,7 @@ import {
     ECMD_OK, ECMD_TIME, MON_DETACH,
     Is_container, Waterproof_container, Is_box,
     xytodir, DIR_180, DIR_ERR,
-    OBJ_FLOOR, OBJ_FREE, SHOPBASE, ESHK, M_SEEN_ELEC, CONTAINED_TOO, BURIED_TOO,
+    OBJ_FLOOR, OBJ_FREE, VAULT, TEMPLE, SHOPBASE, ESHK, M_SEEN_ELEC, CONTAINED_TOO, BURIED_TOO,
     GETOBJ_PROMPT, GETOBJ_SUGGEST, GETOBJ_EXCLUDE, GETOBJ_DOWNPLAY,
     P_RIDING, P_BASIC, M_AP_FURNITURE, M_AP_OBJECT,
     A_LAWFUL, XKILL_NOMSG, SHOP_HOLE_COST,
@@ -3414,13 +3414,26 @@ async function trapeffect_bear_trap(mtmp, trap, trflags) {
 }
 
 /**
- * C ref: dungeon.c ceiling — room/air/cavern labels for trap plines.
- * Named omissions: vault/temple/shop in_rooms; water/fire/quest/Underwater.
+ * C ref: dungeon.c ceiling — vault/temple/shop in_rooms, then water/air/
+ * fire/quest/Underwater, then room (non-earth)/wall/door/SDOOR, else cavern.
+ * Serves trap plines and (via import) potion.c peffect_levitation/gain_level.
  */
 export function ceiling(x, y) {
-    const typ = game.level?.at(x, y)?.typ ?? 0;
+    const typ = game.level?.at?.(x, y)?.typ ?? 0;
+    const uz = game.u?.uz;
+    /* other room types will no longer exist when we're interested --
+     * see check_special_room() */
+    if (in_rooms(x, y, VAULT)) return "vault's ceiling";
+    if (in_rooms(x, y, TEMPLE)) return "temple's ceiling";
+    if (in_rooms(x, y, SHOPBASE)) return "shop's ceiling";
+    if (Is_waterlevel(uz)) return 'water above';
     if (IS_AIR(typ)) return 'sky';
-    if (IS_ROOM(typ) || IS_WALL(typ) || IS_DOOR(typ) || typ === SDOOR)
+    if (Is_firelevel(uz)) return 'flames above';
+    if (In_quest(uz)) return 'expanse above';
+    /* C youprop.h Underwater ≡ u.uinwater (u.Underwater is never written) */
+    if ((game.u?.uinwater | 0)) return "water's surface";
+    if ((IS_ROOM(typ) && !Is_earthlevel(uz))
+        || IS_WALL(typ) || IS_DOOR(typ) || typ === SDOOR)
         return 'ceiling';
     return 'rock cavern';
 }

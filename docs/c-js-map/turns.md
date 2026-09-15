@@ -466,7 +466,7 @@ empty threatened/`heebie jeebies` return 1);
 `set_itimeout(1)`+`float_up` else `potion_nothing++`; 
 cursed `~I_SPECIAL` then upstairs `doup` or `has_ceiling` `rnd`/`losehp` colliding with the 
 ceiling; blessed `rn1(50,250)`+`I_SPECIAL`; uncursed `rn1(140,10)`; sink `spoteffects`; 
-`timeout.c` `:794–803` expiry `float_down`; vault/temple/shop ceiling labels named); 
+`timeout.c` `:794–803` expiry `float_down`; full `dungeon.c` `ceiling()` arms live in `trap.js` export (D-2379; `potion.js` clone removed, `dothrow.js` toss_up clone + `zap.js` `ceiling_updown` dead `u.Underwater` read named); 
 **`peffect_restore_ability` POT/SPE_RESTORE_ABILITY** (D-1420; cursed Ulch; 
 else Wow good/better/great; `rn2(A_MAX)` ABASE=AMAX + AEXE max 0; potion `pluslvl`; 
 apply.c `unfixable_trouble_count`); **`peffect_invisibility` POT/SPE_INVISIBILITY** (D-1421; 
