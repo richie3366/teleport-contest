@@ -80,7 +80,7 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `dig.js` `surface` clone drawbridge-under nouns (Must-fix from review 1289; C `dungeon.c` `surface` `:1749–1788` via `SURFACE_AT` `rm.h:146` + `db_under_typ`/`is_pool`/`is_lava`/`is_ice` `dbridge.c`; clone prints "ground" where C prints water/molten lava/ice on the D-2323 `DRAWBRIDGE_UP` cop-out — message-only, 0 blocks). Then first Open: `apply.c` use_stone.
+**Next cluster:** `apply.c` use_stone graystone/touchstone (named absent.md:30, D-1014; never live/archived/parked). Probe: `node scripts/brief.mjs use_stone`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2327 (index).**
 <!-- recent:begin -->
