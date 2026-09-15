@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `region.c` region_danger/region_safety geometric residual (turns.md:1599; envelope D-1011/D-1169 shipped; residual never own-row live/archived/parked). Probe: `node scripts/brief.mjs region_safety`.
 - [ ] `trap.c` back_on_ground full surface matrix (D-1011 deferred thin lava-rescue; turns.md:1617; never own-row live/archived/parked). Probe: `node scripts/brief.mjs back_on_ground`.
 - [ ] `weapon.c` use_skill may-advance arm (turns.md:410 deferred; give_may_advance_msg D-1963 shipped; never own-row live/archived/parked). Probe: `node scripts/brief.mjs use_skill`.
 - [ ] `hack.c` handle_tip TIP_GETPOS arm (turns.md:410 deferred; TIP_ENHANCE D-1963 shipped; never own-row live/archived/parked). Probe: `node scripts/brief.mjs handle_tip`.

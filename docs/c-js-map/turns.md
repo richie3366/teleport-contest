@@ -1596,7 +1596,7 @@ apply.js clone / dungeon.c `Invocation_lev` export still named)**;
 gas NO_CALLBACK never rejects; REG_HERO_INSIDE; `is_hero_inside_gas_cloud` now the bit; 
 dothrow `hurtle_step` D-1165; do.c `goto_level` D-1166; 
 `run_regions` hero `inside_f` `hero_inside` bit D-1169; 
-`region_danger`/`region_safety` still geometric)**; 
+`region_danger`/`region_safety` hero `inside_f` `hero_inside` bit D-2383)**; 
 **`domove` youmonst `m_postmove_effect` after occupy before steed mx/my (D-1167; 
 C `hack.c:2877` / `monmove.c` 672–683; Hezrou/Steam trail at `u.ux0`; helper `is_u`; 
 **`allmain.c` once-per-input `m_everyturn_effect(&youmonst)` fog at `u.ux` (D-1175)**; 
@@ -3718,8 +3718,7 @@ candelabrum spe==7&&lamplit throb/glow; walk `domove` D-1150;
 `hack.c` distu-sort You see/notice; default `spot_monsters` Off; goto_level wrap D-1194; 
 newgame wrap D-1200; `vision.c` `vision_recalc` / `seffect_magic_mapping` / wizcmds / save / 
 `postmov` / option wiring still named)**; 
-`run_regions` hero `inside_f` `hero_inside` bit D-1169 (`region_danger`/`region_safety` still 
-geometric); youmonst `m_postmove_effect` D-1167; **`tele_restrict` async canseemon pline** (D-0816)
+`run_regions` hero `inside_f` `hero_inside` bit D-1169 (`region_danger`/`region_safety` hero bit D-2383); youmonst `m_postmove_effect` D-1167; **`tele_restrict` async canseemon pline** (D-0816)
 
 ### `src/vault.c`
 
