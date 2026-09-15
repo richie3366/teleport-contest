@@ -17,7 +17,7 @@
 //        D-1375 use_pick_axe2 u_wipe_engr(3) axe-scratch)
 
 import { game } from './gstate.js';
-import { rn1, rn2, rnd } from './rng.js';
+import { rn1, rn2, rnd, rnl } from './rng.js';
 import {
     newsym, pline, You_feel, tmp_at, nh_delay_output, verbalize,
     feel_newsym, flush_screen, flush_topl_more,
@@ -40,14 +40,15 @@ import {
 } from './objects.js';
 import { CLR_WHITE } from './terminal.js';
 import {
-    is_watch, is_flyer, is_floater, grounded, MZ_HUGE, passes_walls,
+    is_watch, is_flyer, is_floater, grounded, MZ_HUGE, passes_walls, mons,
 } from './monsters.js';
 import {
     PM_DWARF, PM_ELF, PM_RANGER, PM_ARCHEOLOGIST, PM_SAMURAI, PM_WIZARD,
+    monsterNames,
 } from './generated/monsters_data.js';
 import { m_canseeu } from './mondata.js';
-import { an, An, the, simpleonames, xname } from './objnam.js';
-import { hliquid, Monnam } from './do_name.js';
+import { an, An, the, simpleonames, xname, Yobjnam2, otense } from './objnam.js';
+import { hliquid, Monnam, mon_nam } from './do_name.js';
 import { stairway_at } from './mklev.js';
 import {
     t_at, maketrap, seetrap, feeltrap, set_utrap, reset_utrap, deltrap,
@@ -59,16 +60,16 @@ import { wield_tool, welded } from './wield.js';
 import {
     Fumbling, adjalign, acurr, A_STR, A_WIS, exercise,
 } from './attrib.js';
-import { dbon } from './weapon.js';
+import { dbon, dmgval } from './weapon.js';
 import { depth } from './hacklib.js';
 import { get_level } from './dungeon.js';
-import { align_str } from './roles.js';
+import { align_str, uhis } from './roles.js';
 import { count_wsegs, worm_known } from './worm.js';
 import {
     dogushforth, dryup, breaksink, SET_FOUNTAIN_WARNED,
 } from './fountain.js';
 import {
-    find_drawbridge, is_drawbridge_wall, destroy_drawbridge,
+    find_drawbridge, is_drawbridge_wall, is_db_wall, destroy_drawbridge,
 } from './dbridge.js';
 import { obj_resists } from './dogmove.js';
 import { unpunish, punish } from './read.js';
@@ -103,7 +104,7 @@ import {
     ECMD_OK, ECMD_TIME, ECMD_CANCEL,
     P_PICK_AXE, P_AXE, IRONBARS, LAVAWALL, IS_WATERWALL,
     WEB, LANDMINE, BEAR_TRAP, TRAPDOOR, KILLED_BY, KILLED_BY_AN, NO_PART,
-    HEAD,
+    HEAD, FOOT,
     TT_BURIEDBALL, TT_INFLOOR, DRAWBRIDGE_DOWN, MIGR_RANDOM,
     TAINT_AGE, MM_NOMSG, IN_SIGHT, COULD_SEE, RLOC_NOMSG,
     xytodir, DIR_180, DIR_ERR,
@@ -118,6 +119,10 @@ const STATUE = objectNames.indexOf('STATUE');
 const CORPSE = objectNames.indexOf('CORPSE');
 const LEASH = objectNames.indexOf('LEASH');
 const POT_OIL = objectNames.indexOf('POT_OIL');
+// C ref: dig.c earth-debris `rn2(2) ? PM_EARTH_ELEMENTAL : PM_XORN`
+// (minion.js convention — generated data exports only role PM consts).
+const PM_EARTH_ELEMENTAL = monsterNames.indexOf('PM_EARTH_ELEMENTAL');
+const PM_XORN = monsterNames.indexOf('PM_XORN');
 const TREEFRUITS = [
     objectNames.indexOf('APPLE'),
     objectNames.indexOf('ORANGE'),
@@ -1878,7 +1883,10 @@ async function dig() {
         }
         if (IS_OBSTRUCTED(lev.typ) && !may_dig(dpx, dpy)
             && dig_typ(uwep, dpx, dpy) === DIGTYP_ROCK) {
-            await pline(`This wall is too hard to ${verb}.`);
+            // C dig.c:332-334 — drawbridge vs wall noun.
+            await pline(
+                `This ${is_db_wall(dpx, dpy) ? 'drawbridge' : 'wall'} is too hard to ${verb}.`,
+            );
             return 0;
         }
     }
@@ -1891,10 +1899,19 @@ async function dig() {
                 const { dropx } = await import('./do.js');
                 await dropx(uwep);
             } else {
-                await pline(
-                    `Ouch!  ${Yobjnam2_dig(uwep, 'bounce')} and `
-                    + `${otense_dig(uwep, 'hit')} you!`,
-                );
+                // C dig.c:347-355 — welded fumble bounces off the steed
+                // when mounted (live Yobjnam2/otense conjugation).
+                if (u.usteed) {
+                    await pline(
+                        `${Yobjnam2(uwep, 'bounce')} and `
+                        + `${otense(uwep, 'hit')} ${mon_nam(u.usteed)}!`,
+                    );
+                } else {
+                    await pline(
+                        `Ouch!  ${Yobjnam2(uwep, 'bounce')} and `
+                        + `${otense(uwep, 'hit')} you!`,
+                    );
+                }
                 const { set_wounded_legs } = await import('./trap.js');
                 const { RIGHT_SIDE } = await import('./const.js');
                 await set_wounded_legs(RIGHT_SIDE, 5 + rnd(5));
@@ -1939,12 +1956,34 @@ async function dig() {
             return 0;
         }
         if (ttmp && ttmp.ttyp === BEAR_TRAP && u.utrap) {
-            // rnl bear-trap self-hit / destroy — thin destroy path
-            await pline(
-                `You destroy the bear trap with ${yobjnam_dig(uwep)}.`,
-            );
-            deltrap(ttmp);
-            reset_utrap(true);
+            // C dig.c:405-423 — digging out of an occupied bear trap:
+            // rnl(7) self-hit (Fumbling raises the bar) vs trap destroy;
+            // either way no pit progress yet (body_part dynamic import
+            // follows the zap_dig falling-rock convention above).
+            if (rnl(7) > (Fumbling() ? 1 : 4)) {
+                const { body_part } = await import('./polyself.js');
+                let dmg = dmgval(uwep, game.youmonst) + dbon();
+                if (dmg < 1) dmg = 1;
+                else if (u.uarmf) dmg = (((dmg + 1) / 2) | 0);
+                await pline(`You hit yourself in the ${body_part(FOOT)}.`);
+                losehp(
+                    maybe_half_phys(dmg),
+                    `chopping off ${uhis()} own ${body_part(FOOT)}`,
+                    KILLED_BY,
+                );
+                if (game._losehp_needs_done
+                    || game.program_state?.gameover) {
+                    const { finish_losehp_done } = await import('./end.js');
+                    await finish_losehp_done();
+                    if (game.program_state?.gameover) return 0;
+                }
+            } else {
+                await pline(
+                    `You destroy the bear trap with ${yobjnam_dig(uwep)}.`,
+                );
+                deltrap(ttmp);
+                reset_utrap(true);
+            }
             digging.effort = 0;
             return 0;
         }
@@ -2063,7 +2102,15 @@ async function dig() {
             const { pay_for_damage } = await import('./shk.js');
             await pay_for_damage(dmgtxt, false);
         }
-        // earth elemental debris deferred
+        // C dig.c:521-527 — earth-level dig debris comes to life
+        // (makemon dynamic import follows the dighole convention above).
+        if (Is_earthlevel(u.uz) && !rn2(3)) {
+            const mndx = rn2(2) ? PM_EARTH_ELEMENTAL : PM_XORN;
+            const { makemon } = await import('./makemon.js');
+            if (makemon(mons(mndx), dpx, dpy, MM_NOMSG)) {
+                await pline('The debris from your digging comes to life!');
+            }
+        }
         if (IS_DOOR(lev.typ) && ((lev.doormask | 0) & D_TRAPPED)) {
             lev.doormask = D_NODOOR;
             await b_trapped('door', NO_PART);

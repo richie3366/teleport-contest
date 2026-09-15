@@ -82,8 +82,9 @@ Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
 **Next cluster:** `dig.c` dig_typ/pick_can_reach/is_digging pick-axe occupation residuals (debt.md D-0951; C dig.c dig_typ). Probe: `node scripts/brief.mjs dig_typ`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2311 (index).**
+**Keep D-0845…D-2312 (index).**
 <!-- recent:begin -->
+**D-2312** `dig.c` `dig` `:405–423` (occupied BEAR_TRAP `rnl(7) > (Fumbling?1:4)` self-hit `dmgval+db — `js/dig.js` only: bear-trap arm ports C order (`rnl(7)` first, `dmgval(uwep, game.youmonst)+dbon()`, `u.uarmf` halve `| 0`, `body_part(FOOT)` via dynamic `polyself.js` import — the zap_dig falling-rock convention in the 
 **D-2311** `apply.c:3897–3905` `maybe_dunk_boulders` (extract then `boulder_hits_pool(otmp,x,y,FALSE) — `js/dig.js`: `maybe_dunk_boulders` now async with C order preserved — `boulder_hits_pool` via dynamic `do.js` import (the file's convention for `do.js`: `goto_level`/`dropx` same file; `imports.mjs --can dig.js do.js bou
 **D-2310** `trap.c:6579–6601` `clear_conjoined_pits` (staticfn); called first from `deltrap` at `:653 — port `clear_conjoined_pits` file-local in C order (`| 0` idiom, `xdir`/`ydir`/`N_DIRS`, `DIR_180`, `isok` + `t_at` neighbour lookup); `deltrap` calls it first per C `:6535`.
 **D-2309** `pray.c` `god_zaps_you` `:609–691` (no `return` after either `fry_by_god` — `js/pray.js` only (no new module edge — `shieldeff` joins the existing `display.js` import): both survive-lightning arms `await shieldeff(u.ux, u.uy)` in C order; each fry arm gates continuation on `game.program_state?.g
@@ -91,11 +92,10 @@ Do **not** pop map-omission singletons
 **D-2307** `dig.c` `bury_an_obj` `:1982–2047` (`end_burn` `:2011–2012`); `bury_objs` `:2049–2081` (`m — `js/dig.js` only (+ `js/zap.js` 1-line `await`): `end_burn` via dynamic `timeout.js` import (sync export; `stop_timer` runs `cleanup_burn` — C `timeout.c` order); `maybe_unhide_at` joins the existing `monmove.js` static 
 **D-2306** `cmd.c:2772` `(void) bind_key('-', "fight", FALSE)` in `commands_init` (unconditional — `js/cmd.js` only, no new module edge (`do_fight` same-module; no `imports.mjs --can` needed): `-` shares the `F` arm (`ch === 'F' || ch === '-'` → `do_fight`, `prefix_seen` = fight, C `:1621–1634` + `:2772` cited); the f
 **D-2305** `trap.c` `unsqueak_ok` `:5606–5626`; `disarm_squeaky_board` `:5630–5660`; `try_disarm` bou — `js/trap.js` only, no new module edge (`getobj`/`useup`/`consume_obj_charge` join the existing `invent.js` import; `GETOBJ_*` join `const.js`; `unblock_point` joins `vision.js`; `POT_OIL` follows the file's `objectNames.
-**D-2304** `mklev.c:2036-2150` `mktrap` (invalid-args once-guard + paniclog; `m.x=m.y=0`; tm pool/lav — `js/mklev.js` only, no new cross-module edge (every callee same-module or already imported — `MKTRAP_NOFLAGS/SEEN/MAZEFLAG` join the existing `const.js` flag import; `--can` correctly skipped): new `traptype_roguelvl` ve
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2311; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2312; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
