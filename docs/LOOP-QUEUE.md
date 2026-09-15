@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `do.c` obj_no_longer_held (D-2060-named residual; C do.c:893–920; not in js/; never own-row live/archived/parked). Probe: `node scripts/brief.mjs obj_no_longer_held`.
 - [ ] `topten.c` outentry astral/choked/poisoned/crushed/petrified arms (D-2122-named residual; C topten.c:946–1107; local clone in js/; never own-row live/archived/parked). Probe: `node scripts/brief.mjs outentry`.
 - [ ] `do_wear.c` dragon_armor_handling color/arti_light arms (turns.md:1067-1069 D-0636 deferred: gold make_hallucinated, red see_monsters, yellow wielding_corpse, arti_light burn; never own-row live/archived/parked). Probe: `node scripts/brief.mjs dragon_armor_handling`.
 - [ ] `trap.c` untrap disarm arms (TOP30 #22; dead callees disarm_holdingtrap/disarm_landmine/disarm_shooting_trap/disarm_box/help_monster_out; never own-row live/archived/parked). Probe: `node scripts/brief.mjs untrap`.
@@ -68,6 +67,7 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 - [ ] `makemon.c` grow_up (TOP30 honourable 127/67; pet/horse growth path; never own-row live/archived/parked). Probe: `node scripts/brief.mjs grow_up`.
 - [ ] `objnam.c` makeplural (TOP30 honourable 186/59, ch_ksound dead; never own-row live/archived/parked). Probe: `node scripts/brief.mjs makeplural`.
 - [ ] `zap.c` explode (TOP30 honourable 491/287; blast-damage path; never own-row live/archived/parked). Probe: `node scripts/brief.mjs explode`.
+- [ ] `timeout.c` slimed_to_death (corpus queue 1/553: scen-death-Valkyrie-92229 step 37 kind=screen, C «You feel even worse» vs JS «You feel much worse» after Demogorgon lifesave; never own-row live/archived/parked). Probe: `node scripts/brief.mjs slimed_to_death`.
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 

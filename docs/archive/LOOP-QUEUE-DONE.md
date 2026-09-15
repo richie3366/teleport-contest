@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
+- [x] `do.c` obj_no_longer_held (D-2060-named residual; C do.c:893–920; not in js/; never own-row live/archived/parked). Probe: `node scripts/brief.mjs obj_no_longer_held`. **Addressed:** D-2393
+
+
 - [x] `uhitm.c` mhitm_ad_slow mhitm-arm + dispatch (D-2043-named residual; mhitu arm live as mhitm_ad_slow_u; C uhitm.c:3652–3687 not in js/; never own-row live/archived/parked). Probe: `node scripts/brief.mjs mhitm_ad_slow`. **Addressed:** D-2392 `48716eb3`
 
 
