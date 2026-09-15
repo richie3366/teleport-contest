@@ -80,7 +80,7 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `eat.c` eatspecial PAPER/potion/eataccessory/leash/trident/flint/uwepgone/unpunish (new queue head after the `pray.c` offer_too_soon row was parked 2026-09-15 as a stale duplicate of D-2345 — body `js/pray.js:2334` + wired callers, review 1311 ACCEPT, `verify offer_too_soon` 0 blocked; proof in LOOP-QUEUE Parked). Probe: `node scripts/brief.mjs eatspecial`.
+**Next cluster:** `eat.c` cprefx cannibal/petrify/slimeproof/were_beastie/stoned/slimed/killer (new queue head after the `eat.c` eatspecial row was parked 2026-09-15 as a stale duplicate of D-0946/D-1204 — every named arm live `js/eat.js:2888-2958`, caller wired `:3027`, archived LOOP-QUEUE-DONE:3495; proof in LOOP-QUEUE Parked). Probe: `node scripts/brief.mjs cprefx`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2348 (index).**
 <!-- recent:begin -->
