@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `dig.c` dig_check/fillholetyp/maybe_dunk_boulders hole-typing residuals (debt.md D-0950; digactualhole switch_terrain archived D-1269; liquid_flow ice/unearth rides the bury row). Probe: `node scripts/brief.mjs dig_check`.
 - [ ] `dig.c` dig_typ/pick_can_reach/is_digging pick-axe occupation residuals (debt.md D-0951; C dig.c dig_typ). Probe: `node scripts/brief.mjs dig_typ`.
 - [ ] `dig.c` dig_up_grave + dighole IS_GRAVE (debt.md D-0957; C dig.c dig_up_grave). Probe: `node scripts/brief.mjs dig_up_grave`.
 - [ ] `dig.c` destroy_drawbridge/find/is_wall + dig wires (debt.md D-0959; C dig.c destroy_drawbridge). Probe: `node scripts/brief.mjs destroy_drawbridge`.

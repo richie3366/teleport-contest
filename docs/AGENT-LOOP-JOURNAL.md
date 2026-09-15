@@ -8,6 +8,23 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-15 — D-2311 `apply.c` maybe_dunk_boulders via live boulder_hits_pool; dig_check altar via altarmask_at
+
+**C locus:** `apply.c:3897–3905` `maybe_dunk_boulders` (extract then `boulder_hits_pool(otmp,x,y,FALSE)` inside `while (is_pool_or_lava && sobj_at(BOULDER))`); `dig.c:215–219` altar arm (`altarmask_at(x,y) & AM_SANCTUM`); `do.c:49–155` `boulder_hits_pool` + `dig.c:1982–2047` `bury_an_obj` re-read (rock/boulder "merges into burying material", obfree — never buried).
+**JS:** 2 files (`dig.js` +14/−5, `apply.js` +1/−1), far under the 600/10 caps. Small by nature: the cluster bulk shipped in D-0950; this is the remaining C delta (8-line C function + 1-line gate).
+**Change:** `js/dig.js`: `maybe_dunk_boulders` now async with C order preserved — `boulder_hits_pool` via dynamic `do.js` import (the file's convention for `do.js`: `goto_level`/`dropx` same file; `imports.mjs --can dig.js do.js boulder_hits_pool`: SAFE, hoisted fn, same 90-module SCC, call-time use). `dig_check` altar arm calls `altarmask_at(x, y)` via a new static `pray.js` import (`--can dig.js pray.js altarmask_at`: SAFE, hoisted fn). `js/apply.js`: `await maybe_dunk_boulders(x, y)` (sole live caller; `trap.js blow_up_landmine` keeps its named deferral for its own row).
+**Verify:** preflight `verify --no-cohort` PASS on a clean tree before edits. Hand probe `/tmp/probe_dunk.mjs` PROBE-PASS 16/16 (arms no corpus session reaches; deleted after run): 3× single dunk burns C `rn2(10)` + morph matches the C fills_up formula (`chance != 0` on water) + boulder gone; 2-boulder C-order (fills → exactly 1 dunk draw and floor 0 — the 2nd boulder merges via `bury_objs` per the re-read C arm, loop exits on ROOM); sanctum + BY_OBJECT/monster → FAIL_ALTAR, plain altar + BY_OBJECT → PASSED. Probe detours worth recording: in-process rng log carries no `@ jsfn` tags (the worker adds those) — match `^rn2\(10\)=\d+# Agent loop journal
+
+Append-only crumbs for `scripts/agent-port-loop.sh` iterations.
+Each agent process should add a short dated entry **at the top** (after
+this header) before exiting. Keep entries tight; detailed hypothesis
+lives in `NOTES.md` / `CURRENT.md`.
+
+The next agent reads **only this file** (latest ~10 entries), not the
+archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
+, chance is the first in-window draw; `--More--` inside direct plines needs `nhDisplay.pushKey` padding (D-2309 precedent); B observed the fills branch (chance=2) — the no-fill 2-draw arm follows from the same verified while.
+**Named:** `trap.js blow_up_landmine` fill_pit/maybe_dunk/spot_checks (own future trap row); `dig_check` `On_stairs`-vs-`stairway_at` + `!lev → TOOHARD` guard (review-17 rows 1/9 — identical in all reachable states; C derefs the stairway unconditionally); `boulder_hits_pool` pre-existing thins (mondied→mtrapped-clear, burn_away_slime, Soundeffect, DRAWBRIDGE_UP mask polish); `fill_pit` flooreffects("settle") (needs live flooreffects — own row).
+**Next:** do not re-pop dig_check/fillholetyp/maybe_dunk_boulders. Falsifier: a rescore or fresh `verify` showing a session blocked with any of the three as owner.
 ## 2026-09-15 — D-2310 `trap.c` clear_conjoined_pits + deltrap wire; fountain delfloortrap dedup
 
 **C locus:** `trap.c:6579–6601` `clear_conjoined_pits` (staticfn); called first from `deltrap` at `:6535`.

@@ -77,6 +77,9 @@ import { getdir, dxdy_moveok } from './lock.js';
 // (KABOOM/hear, wake_nearto 49, mstun, rnd(15), mondied/lifesave,
 // mon_learns_traps TRAPPED_DOOR); hoisted fn, cycle-safe per imports.mjs.
 import { mb_trapped, maybe_unhide_at } from './monmove.js';
+// C ref: pray.c altarmask_at `:2489–2504` — dig_check reads the mimic-aware
+// mask like C (static; hoisted fn, cycle-safe per imports.mjs).
+import { altarmask_at } from './pray.js';
 import {
     IS_STWALL, IS_TREE, IS_WALL, IS_OBSTRUCTED, IS_DOOR, IS_FOUNTAIN,
     IS_THRONE, IS_ALTAR, IS_ROOM, IS_SINK, IS_FURNITURE, IS_GRAVE,
@@ -302,7 +305,7 @@ export function dig_check(madeby, x, y) {
     }
     if (IS_ALTAR(lev.typ)
         && (madeby !== BY_OBJECT
-            || ((lev.altarmask | 0) & AM_SANCTUM) !== 0)) {
+            || (altarmask_at(x, y) & AM_SANCTUM) !== 0)) {
         return DIGCHECK_FAIL_ALTAR;
     }
     if (Is_airlevel(game.u?.uz)) return DIGCHECK_FAIL_AIRLEVEL;
@@ -881,15 +884,21 @@ export function fill_pit(x, y) {
 }
 
 /**
- * C ref: apply.c maybe_dunk_boulders — dunk boulders into pool/lava.
- * boulder_hits_pool deferred → extract+delobj while liquid present.
+ * C ref: apply.c maybe_dunk_boulders `:3897–3905` — dunk boulders into
+ * pool/lava. C order: while the square holds liquid and a boulder,
+ * `obj_extract_self` then `boulder_hits_pool(otmp, x, y, FALSE)` (fill
+ * morph, splash, wake_nearto, lava damage ride the live `do.js` port;
+ * D-0950 extract+delobj thin retired). Dynamic import is the file's
+ * convention for `do.js` (`goto_level`/`dropx` same file).
+ * @returns {Promise<void>}
  */
-export function maybe_dunk_boulders(x, y) {
+export async function maybe_dunk_boulders(x, y) {
+    const { boulder_hits_pool } = await import('./do.js');
     while (is_pool_or_lava(x, y)) {
         const otmp = sobj_at(BOULDER, x, y);
         if (!otmp) break;
         obj_extract_self(otmp);
-        delobj(otmp);
+        await boulder_hits_pool(otmp, x, y, false);
     }
 }
 

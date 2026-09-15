@@ -1782,7 +1782,7 @@ draft/crash/boulder-rock/`rnd_treefruit_at` (D-0178);
 **`may_dig`/`mdig_tunnel`/`zap_dig`/`may_passwall` OR `flags\|wall_info` for 
 W_NONDIGGABLE/W_NONPASSWALL** (D-0865); **`zap_dig`** horizontal `rn1(18,8)` + door/SDOOR + 
 maze_dig + `DISP_BEAM` (D-0516); **`zap_dig` `u.dz` arm** bounce-off-stairs/ladder + \nceiling rock (`rnd` 2/6 `hard_helmet`, `KILLED_BY_AN`, ROCK `mksobj`/`stackobj`/`newsym`) + \ndown/off-stairs `watch_dig`/`dighole` (D-2115); lifesave resume — ceiling rock still lands after done() returns (D-2228); **`dig_check`/`fillholetyp`/`digactualhole`/`liquid_flow`/
-fill_pit`/`maybe_dunk`** for break-wand dig (D-0950); 
+fill_pit`/`maybe_dunk`** for break-wand dig (D-0950; D-2311: `maybe_dunk_boulders` async via live `boulder_hits_pool(otmp,x,y,FALSE)`, `dig_check` altar arm via `altarmask_at`); 
 **`dig_typ`/`pick_can_reach`/`is_digging`/`holetime`/`dig` occupation/`use_pick_axe`/`dighole` 
 thin/`fracture_rock`** (D-0951); **`use_pick_axe` dir loop sdir order + movecmd/dxdy_moveok** (D-2166; num_pad/swap_yz remap still named); **`furniture_handled` fountain/sink + HOLE `goto_level` + 
 mon `teleport_pet` migrate** (D-0954); **`dig_up_grave` + `dighole` IS_GRAVE** (D-0957); 
