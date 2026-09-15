@@ -7,7 +7,6 @@ Not a progress log. Caps: `node scripts/check-hot-docs.mjs` (do not count).
 Park rows: re-pop only on the listed falsifier (proofs in Parked).
 
 - **Presence-only parks (0/553 owned):** mkclass_aligned/get_location, gethungry/maybe_generate/mattacku/u_calc_moveamt, dochug/dotrap/mintrap/nh_timeout/mon_break_armor (STALE).
-- **ignite_items/catch_lit:** STALE DUPLICATE, parked 2026-09-15 (shipped D-0978; proof in LOOP-QUEUE Parked).
 - **Transient parks:** break_armor timing.
 - **exercise:** draw-presence only, 0/553 owned.
 - **do_statusline1/2:** paint-timing (statusline1 → attributes_enlightenment).
@@ -16,11 +15,11 @@ Park rows: re-pop only on the listed falsifier (proofs in Parked).
 - **Symptom-owner parks:** obj_resists/m_move/rloc/lightdamage/mattackm/can_carry/spoteffects/mon_adjust_speed/zapyourself/doname_base/hmonas/minliquid_core/distfleeck/passiveum.
 - **STALE parks:** lesshungry/rndcurse/mhitm_ad_famn/regen_hp/barehands/do_mapping/adjattrib/from_what/look_at_monster/formatkiller/do_screen_description/reveal_terrain/peffect_acid/newcham/use_offensive/stop_donning/doeat_nonfood/gcrownu/big_little_match/xkilled/x_monnam.
 - **slimed:** landing + Sick-store writers.
-- **Misattributed parks (proofs in Parked):** vomiting_dialogue/u_stuck_cannot_go/name_to_monplus/mcast_death_touch/save_dungeon/dodown/mv_bubble/one_characteristic/use_pole/trapmove/fig_transform/chwepon, that_is_a_mimic/drinkfountain, poly_obj (citation + no C arm).
+- **Misattributed parks (proofs in Parked):** vomiting_dialogue/u_stuck_cannot_go/name_to_monplus/mcast_death_touch/save_dungeon/dodown/mv_bubble/one_characteristic/use_pole/trapmove/fig_transform/chwepon, that_is_a_mimic/drinkfountain, poly_obj (no C arm).
 - **disclose/list_vanquished:** Hallu desync / identical-prompt cell.
 - **dopush:** mimic memory/viz, not the push.
 - **domonnoise:** STALE DUPLICATE of D-1915 (review 885 ACCEPT; no-skip range holds it).
-- **STALE parks 2026-09-14/15** (proofs in Parked; re-pop only on blocked-owner verify): test_move/domove_core, arti_cost (D-1719), m_initweap S_DEMON (D-0472), mextra trio (D-1598), make_sick Unaware, dodrink (D-2031+D-1834), make_corpse (D-1794), vpline (D-1807), mkcavearea/mkcavepos/rm_waslit (D-0960), dig_up_grave/IS_GRAVE (review-26), furniture_handled-HOLE (D-0954), use_bell/openit/openone/mkundead (D-1028); getcad trio (stale), kick_object Is_box/container_impact/chest_trap/ghitm (D-0989), costly_gold/donate_gold (D-0991+D-1705+D-0994), use_unicorn_horn envelope (D-1030+D-1970+D-1031/D-1032/D-1420; apply_ok SUGGEST dissolves via WEPTOOL→TOOL_CLASS), use_towel wet/dry + burnarmor dry (D-1009; oc_bimanual≡oc_big, gulp TRUE-arm unreachable, freehand-gate residual).
+- **STALE parks 2026-09-14/15** (falsifiers in Parked): test_move family, arti_cost (D-1719), m_initweap (D-0472), mextra trio (D-1598), make_sick Unaware, dodrink (D-2031 family), make_corpse (D-1794), vpline (D-1807), mkcavearea family (D-0960), dig_up_grave (review-26), furniture_handled (D-0954), use_bell family (D-1028), ignite_items/catch_lit (D-0978); getcad trio (stale), kick_object (D-0989 family), costly_gold/donate_gold (D-0991 family), use_unicorn_horn envelope (D-1030 family), use_towel wet/dry + burnarmor dry (D-1009).
 
 ## Don't re-check (≤15)
 

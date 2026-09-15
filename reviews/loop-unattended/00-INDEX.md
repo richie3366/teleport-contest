@@ -1292,3 +1292,6 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1279-00ed5bbc-destroy-drawbridge-tail.md](./1279-00ed5bbc-destroy-drawbridge-tail.md) | `00ed5bbc` | D-2313 destroy_drawbridge full tail | **ACCEPT** |
 | [1280-00e88b95-goto-level-falling.md](./1280-00e88b95-goto-level-falling.md) | `00e88b95` | D-2314 goto_level falling impact_drop | **ACCEPT** |
 | [1281-f5d3798f-do-earthquake-arms.md](./1281-f5d3798f-do-earthquake-arms.md) | `f5d3798f` | D-2315 do_earthquake quake arms | **ACCEPT** |
+| [1282-cb720cc9-drawbridge-revive-nasty.md](./1282-cb720cc9-drawbridge-revive-nasty.md) | `cb720cc9` | D-2316 drawbridge revive_nasty + Soundeffect/wall_info/nokiller | **ACCEPT** |
+| [1283-48f96186-holding-falling-canspotmon.md](./1283-48f96186-holding-falling-canspotmon.md) | `48f96186` | D-2317 openholding/openfalling canspotmon | **ACCEPT** |
+| [1284-f028aee2-launch-obj-roll-ship.md](./1284-f028aee2-launch-obj-roll-ship.md) | `f028aee2` | D-2318 launch_obj ROLL + ship_object worn/unhide | **ACCEPT** |

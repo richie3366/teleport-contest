@@ -8,6 +8,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-15 — Audit cb720cc9..f028aee2 (reviews 1282-1284: 3 ACCEPT, 0 Must-fix) + cadence 44/44
+
+Audit, no `js/`: 1282/1283/1284 (D-2316/17/18) all ACCEPT, no Must-fix. Queue at 8 Open — no refill. Cadence 44/44, Scr 11,405/11,405, RNG 792,838/792,838, `46+0.29/turn`.
 ## 2026-09-15 — D-2318 `trap.c` launch_obj ROLL-path ship arms + `ship_object` worn/unhide residuals
 
 **C locus:** `trap.c` launch_obj ROLL block (`:3423–3430` down_gate/ship_object; `:3505–3513` post-switch flooreffects; `:3514–3529` boulder-on-boulder); `dokick.c:1715` (`remove_worn_item(otmp, TRUE)` owornmask arm) + nodrop-impact arm (`impact_drop` then `maybe_unhide_at(x, y)`).
