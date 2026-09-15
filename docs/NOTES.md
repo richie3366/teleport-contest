@@ -28,19 +28,20 @@ Park rows: re-pop only on the listed falsifier (proofs in Parked).
 
 ## Don't re-check (≤15)
 
-- D-1790…D-2304 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-2305 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 are D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` loaders D-1852/D-1858 — check `load_val_*`/`load_sam_*` before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / `setnotworn`←`owornmask` (D-1020) / `delobj` tut loot / off-level timers (D-1037) / dropped `msounds[]` (D-1053) / tut-1 keys (D-1065) / skipped `tutorial()` (D-1066). No skip D-1067…D-2304.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, or makemon→hack/artifact/minion. No re-port D-1682…D-2304.
+- No memcpy gi worn/ball (D-1035) / `setnotworn`←`owornmask` (D-1020) / `delobj` tut loot / off-level timers (D-1037) / dropped `msounds[]` (D-1053) / tut-1 keys (D-1065) / skipped `tutorial()` (D-1066). No skip D-1067…D-2305.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, or makemon→hack/artifact/minion. No re-port D-1682…D-2305.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2305: `js/trap.js` only, no new module edge (`getobj`/`useup`/`consume_obj_charge` join the existing `invent.js` import; `GETOBJ_*` join `const.js`; `unbloc Named: `move_into_trap` (adjacent-Whoops; needs `test_move` export, D-1813); `stumble_on_door_mim
 - D-2304: `js/mklev.js` only, no new cross-module edge (every callee same-module or already imported — `MKTRAP_NOFLAGS/SEEN/MAZEFLAG` join the existing `const.j Named: `mktrap` invalid-args `paniclog` write (file-only, no scored-JS equivalent under Rule #2; 
 - D-2303: port the C arm verbatim in C order over live callees only — `otmp = sobj_at(BOULDER, sx, sy); if (otmp) { obj_extract_self(otmp); place_object(otmp, s Named: VIS_EFFECTS (commented out in C too — `/* tmp_at ...
 - D-2302: port the C skeleton in C order over the existing inline refresh (conditions unchanged): file-local `const LSF_SHOW = 0x1` (light.c:41; the line-29 `CO Named: `LSF_NEEDS_FIXUP` (unchanged); `get_*_location` refinement arms — youmonst/usteed identity
@@ -55,5 +56,4 @@ Park rows: re-pop only on the listed falsifier (proofs in Parked).
 - D-2293: `js/options.js` — `select_menu_pick_any` ports the C counting verbatim through the existing helpers (no new module edge — `toggle_menu_curr`/`menu_dig Named: none new (pickup `query_objlist`/`query_category` count consumption was already live downs
 - D-2292: FIRE/COLD/ELEC arms call the live canonicals in C order — `(await destroy_items(mdef, AD_*, dmgBox.dmg | 0)) | 0` added only when `!youdefend`, `await Named: none new — `artifact_hit` has no deferred arms left (FIRE/COLD/ELEC/MAGM + Mb_hit + BEHEAD
 - D-2291: the C `||` chain verbatim in C order (mflags2 first, then the yours gate): `!Upolyd(u)` + `(game.urace.selfmask & mtype)` selfmask arm, then `(mtype & Named: none new (resists_* artifact/worn grants and hero Poison/Stone H/E/sticky flats stay in th
-- D-2290: dart/arrow hero arms gate `u.usteed && !rn2(2) && await steedintrap(trap, otmp)` ahead of `thitu` in C order (t_missile → poison → dmgval → gate → thi Named: `keep_saddle_with_steedcorpse(steed_mid, fobj, saddle)` (C `:2591–2592` — no live importer
 <!-- landmarks:end -->

@@ -39,7 +39,7 @@ import {
     christen_monst, rndmonnam, hliquid, rndcolor, mon_pmname, YMonnam,
 } from './do_name.js';
 import { dist2, distmin, m_at, wakeup, seemimic, m_carrying, LEVEL_SPECIFIC_NOCORPSE, bad_rock, setmangry } from './mon.js';
-import { cansee, couldsee, m_cansee, recalc_block_point, vision_recalc } from './vision.js';
+import { cansee, couldsee, m_cansee, recalc_block_point, unblock_point, vision_recalc } from './vision.js';
 import { del_engr_at, can_reach_floor } from './engrave.js';
 import {
     G_FREQ, G_UNIQ, verysmall, grounded, passes_walls,
@@ -104,6 +104,7 @@ import {
     Is_container, Waterproof_container, Is_box,
     xytodir, DIR_180, DIR_ERR,
     OBJ_FLOOR, OBJ_FREE, SHOPBASE, ESHK, M_SEEN_ELEC, CONTAINED_TOO, BURIED_TOO,
+    GETOBJ_PROMPT, GETOBJ_SUGGEST, GETOBJ_EXCLUDE, GETOBJ_DOWNPLAY,
     P_RIDING, P_BASIC, M_AP_FURNITURE, M_AP_OBJECT,
     A_LAWFUL, XKILL_NOMSG, SHOP_HOLE_COST,
 } from './const.js';
@@ -121,7 +122,7 @@ import {
 import { monsterNames, PM_ROGUE } from './generated/monsters_data.js';
 import { thitu, ohitmon, hits_bars } from './mthrowu.js';
 import { dmgval, MON_WEP, mwepgone, wet_a_towel, dry_a_towel, is_wet_towel, P_SKILL } from './weapon.js';
-import { observe_object, encumber_msg, near_capacity, makeknown, update_inventory, currency, calc_capacity, inv_weight, weight_cap, prinv } from './invent.js';
+import { observe_object, encumber_msg, near_capacity, makeknown, update_inventory, currency, calc_capacity, inv_weight, weight_cap, prinv, getobj, useup, consume_obj_charge } from './invent.js';
 import { makemon, rndmonnum_adj, mpickobj, set_malign, newcham } from './makemon.js';
 import {
     A_CHA, A_STR, A_DEX, A_CON, A_WIS, adjattrib, exercise, adjalign,
@@ -5196,6 +5197,7 @@ const SPE_BLANK_PAPER = objectNames.indexOf('SPE_BLANK_PAPER');
 const SPE_BOOK_OF_THE_DEAD = objectNames.indexOf('SPE_BOOK_OF_THE_DEAD');
 const SPE_NOVEL = objectNames.indexOf('SPE_NOVEL');
 const CAN_OF_GREASE = objectNames.indexOf('CAN_OF_GREASE');
+const POT_OIL = objectNames.indexOf('POT_OIL');
 const TOWEL = objectNames.indexOf('TOWEL');
 // C MAIL_STRUCTURES is on (global.h:430): mail resists water-fade.
 const SCR_MAIL = objectNames.indexOf('SCR_MAIL');
@@ -6314,15 +6316,8 @@ async function try_disarm(ttmp, force_failure) {
         await pline(`${Monnam(mtmp)} is in the way.`);
         return 0;
     }
-    let boulder_here = false;
-    for (let o = objects_at(ttmp.tx, ttmp.ty); o; o = o.nexthere) {
-        if ((o.otyp | 0) === BOULDER) {
-            boulder_here = true;
-            break;
-        }
-    }
     const Passes_walls = !!(u.Passes_walls || u.HPasses_walls || u.EPasses_walls);
-    if (boulder_here && !Passes_walls && !under_u) {
+    if (sobj_at(BOULDER, ttmp.tx, ttmp.ty) && !Passes_walls && !under_u) {
         await pline('There is a boulder in your way.');
         return 0;
     }
@@ -6441,6 +6436,48 @@ async function disarm_landmine(ttmp) {
     if (fails < 2) return fails;
     await pline(`You disarm ${the_your[ttmp.madeby_u ? 1 : 0]} land mine.`);
     await cnv_trap_obj(LAND_MINE, 1, ttmp, false);
+    return 1;
+}
+
+/**
+ * C ref: trap.c unsqueak_ok `:5606–5626` — getobj callback for the
+ * squeaky-board tool: grease or known oil suggested, other potions
+ * downplayed, everything else excluded.
+ */
+function unsqueak_ok(obj) {
+    if (!obj) return GETOBJ_EXCLUDE;
+    if ((obj.otyp | 0) === CAN_OF_GREASE) return GETOBJ_SUGGEST;
+    if ((obj.otyp | 0) === POT_OIL && obj.dknown
+        && game.objects?.[POT_OIL]?.oc_name_known) return GETOBJ_SUGGEST;
+    if ((obj.oclass | 0) === POTION_CLASS) return GETOBJ_DOWNPLAY;
+    return GETOBJ_EXCLUDE;
+}
+
+/**
+ * C ref: trap.c disarm_squeaky_board `:5630–5660` — oil or grease quiets
+ * the squeaky board. A cursed tool, lit oil, or an empty grease can
+ * forces the try_disarm failure path (bad_tool).
+ */
+async function disarm_squeaky_board(ttmp) {
+    const obj = await getobj('untrap with', unsqueak_ok, GETOBJ_PROMPT);
+    if (!obj) return 0;
+    const bad_tool = obj.cursed
+        || (((obj.otyp | 0) !== POT_OIL || obj.lamplit)
+            && ((obj.otyp | 0) !== CAN_OF_GREASE || !(obj.spe | 0)));
+    const fails = await try_disarm(ttmp, bad_tool);
+    if (fails < 2) return fails;
+    if ((obj.otyp | 0) === CAN_OF_GREASE) {
+        await consume_obj_charge(obj, true);
+    } else {
+        useup(obj);
+        makeknown(POT_OIL);
+    }
+    await pline('You repair the squeaky board.');
+    deltrap(ttmp);
+    const u = game.u || {};
+    newsym((u.ux | 0) + (u.dx | 0), (u.uy | 0) + (u.dy | 0));
+    more_experienced(1, 5);
+    await newexplevel();
     return 1;
 }
 
@@ -6571,8 +6608,8 @@ async function untrap_box(box, force, confused) {
  * C ref: trap.c untrap `:5847–6096` — #untrap / autounlock / #invoke.
  * Floor switch: holding / landmine / dart / arrow / pit help_monster_out
  * + boxcnt ynq / untrap_box / disarm_box. Door force luck-skip D-1495.
- * Named omissions: disarm_squeaky_board (SQKY_BOARD → cannot-disable);
- * stumble_on_door_mimic; try_disarm adjacent-Whoops move_into_trap.
+ * Named omissions: stumble_on_door_mimic;
+ * try_disarm adjacent-Whoops move_into_trap.
  * @param {boolean} [force=false]
  * @param {number} [rx=0]
  * @param {number} [ry=0]
@@ -6672,6 +6709,8 @@ export async function untrap(force = false, rx = 0, ry = 0, container = null) {
                     return disarm_holdingtrap(ttmp);
                 case LANDMINE:
                     return disarm_landmine(ttmp);
+                case SQKY_BOARD:
+                    return disarm_squeaky_board(ttmp);
                 case DART_TRAP:
                     return disarm_shooting_trap(ttmp, DART);
                 case ARROW_TRAP:
@@ -6688,7 +6727,6 @@ export async function untrap(force = false, rx = 0, ry = 0, container = null) {
                     }
                     return help_monster_out(mtmp, ttmp);
                 default:
-                    // SQKY_BOARD disarm_squeaky_board named omit
                     await pline(`You cannot disable ${!here ? 'that' : 'this'} trap.`);
                     return 0;
                 }
@@ -6752,7 +6790,7 @@ export async function untrap(force = false, rx = 0, ry = 0, container = null) {
                 await pline('You set it off!');
                 await b_trapped('door', FINGER);
                 loc.doormask = D_NODOOR;
-                recalc_block_point(x, y);
+                unblock_point(x, y);
                 newsym(x, y);
                 if (in_rooms(x, y, SHOPBASE)) add_damage(x, y, 0);
             } else {
