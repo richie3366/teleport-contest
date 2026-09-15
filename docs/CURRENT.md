@@ -80,7 +80,7 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `do.c` dodown stair-descent More-transient (live corpus owner scen-wish-Samurai-92088 step 88; D-2158 residual). Probe: `node scripts/brief.mjs dodown`. dighole → **SHIPPED D-2323**. Then: use_unicorn_horn/use_towel/use_tinning_kit/costly_tin/flip_coin → PARKED stale-dupes (D-1030/D-1009/D-1027/D-0940/D-1024; proofs in Parked). kick_door → **SHIPPED D-2320**; use_candle/use_candelabrum/use_figurine/use_crystal_ball → PARKED stale-dupes (D-1025/D-1029/D-1010; proofs in Parked). zap_dig pitdig → **SHIPPED D-2321**; swallowed-pierce → **SHIPPED D-2322**.
+**Next cluster:** `do.c` dodown stair-descent More-transient (live corpus owner scen-wish-Samurai-92088 step 88; D-2158 residual). Probe: `node scripts/brief.mjs dodown`. dighole → **SHIPPED D-2323**. Then: use_unicorn_horn/use_towel/use_tinning_kit/costly_tin/flip_coin → PARKED stale-dupes (D-1030/D-1009/D-1027/D-0940/D-1024; proofs in Parked). kick_door → **SHIPPED D-2320**; use_candle/use_candelabrum/use_figurine/use_crystal_ball → PARKED stale-dupes (D-1025/D-1029/D-1010; proofs in Parked). zap_dig pitdig → **SHIPPED D-2321**; swallowed-pierce → **SHIPPED D-2322**. Queue-head `vault.c` gd_sound → **PARKED stale-dupe** (D-0208/D-0298 live, `verify gd_sound` 0 blocked; proof in Parked).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2323 (index).**
 <!-- recent:begin -->
