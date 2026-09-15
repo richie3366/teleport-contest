@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `sp_lev.c` is_ok_location HOT/WET/SOLID humidity arms + Is_waterlevel short-circuit (data.md:910 named; local clone js/mklev.js:18515, get_location park names the short-circuit unreached; never own-row live/archived/parked). Probe: `node scripts/brief.mjs is_ok_location`.
 - [ ] `spell.c` dovspell VIEW swap/sort + non-standard cast otyps/oc_charged (debt.md:20 residual; live js/spell.js:1310; never own-row live/archived/parked). Probe: `node scripts/brief.mjs dovspell`.
 - [ ] `artifact.c` artitouch quest-artifact touch arms (no `artitouch` symbol in `js/`; Deferred invoke-touch family; never own-row live/archived/parked). Probe: `node scripts/brief.mjs artitouch`.
 - [ ] `artifact.c` arti_invoke on-drop invoke + zap-poly addinv_core1 (live js/artifact.js:1945; Deferred invoke-touch family; never own-row live/archived/parked). Probe: `node scripts/brief.mjs arti_invoke`.

@@ -907,7 +907,7 @@ chain persist on savelev/getlev);
 rooms, shuffled sanctums + `priestini`, Moloch/aligned hordes, Riders;
 `deliver_splev_message` `convert_line` `%d`); 
 **D-0551 adult-dragon endgame HP**; **D-0552 `pm_to_humidity` + 
-`is_ok_location` HOT/WET/SOLID in `splev_create_monster`** (Is_waterlevel short-circuit deferred); 
+`is_ok_location` HOT/WET/SOLID in `splev_create_monster`** (Is_waterlevel + `is_pool`/`is_lava` arms live D-2368); 
 **D-0553 `m_initinv` S_GIANT**; **D-0554 `golemhp`**; 
 **D-0555 `get_location_coord` random double-retry** before create_monster DRY fallback (fixed 
 coords / croom somexy deferred; object/trap get_location_coord still single-loop); 

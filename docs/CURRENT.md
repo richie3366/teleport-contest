@@ -82,8 +82,9 @@ Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
 **Next cluster:** `sp_lev.c` is_ok_location HOT/WET/SOLID humidity arms + Is_waterlevel short-circuit (data.md:910 named; local clone js/mklev.js:18515, get_location park names the short-circuit unreached; never own-row live/archived/parked). Probe: `node scripts/brief.mjs is_ok_location`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2367 (index).**
+**Keep D-0845…D-2368 (index).**
 <!-- recent:begin -->
+**D-2368** `nethack-c/upstream/src/sp_lev.c` `is_ok_location` `:1280–1308` (`:1284–1285` `Is_waterlev — `js/mklev.js` only, no new modules, no new module edges (`imports.mjs --can` ALREADY on both: `is_pool`/`is_lava` join the existing `./hack.js` import, `Is_waterlevel` rides the pre-existing `./const.js` edge — all used 
 **D-2367** `nethack-c/upstream/src/pray.c` `bestow_artifact` `:1781–1836` (raw `u.ulevel > 2 && u.ulu — `js/pray.js` only, no new modules, no new module edges (all four artifact names + `y_n` ride pre-existing edges — `imports.mjs --can` ALREADY on both; used only at runtime inside the function body — no top-level TDZ read
 **D-2366** `nethack-c/upstream/src/zap.c` `resist` `:6100–6158` (`:6141` `resisted = rn2(100 + alev - — `js/zap.js` only, no new modules, no new module edges (callee is a hoisted same-file `async function` declaration — no import, no TDZ read): the `if (resisted)` arm awaits `shieldeff_mon(mtmp)` when `tell`, before the ha
 **D-2365** `nethack-c/upstream/src/monmove.c` `mon_would_consume_item` `:1036–1050` (`CORPSE && !touc — `js/monmove.js` only, no new modules, no new module edges (`imports.mjs --can` ALREADY on both: `dogfood` joins the existing `dogmove.js` import, `EDOG`/`has_edog`/`ACCFOOD`/`MANFOOD` join the existing `const.js` import 
@@ -91,11 +92,10 @@ Do **not** pop map-omission singletons
 **D-2363** `nethack-c/upstream/src/mhitm.c` `sleep_monst` `:1223–1246` (`:1226–1229` how>=0 mimic `se — `js/trap.js` only (+11/−9, no new modules, no new module edges — `defended` already imported from `./mondata.js:138`, `shieldeff` from `./display.js`, `AD_SLEE=4` file-local at `:519`, all already used: `defended` at `:5
 **D-2362** `nethack-c/upstream/src/pray.c` `pleased` `:1071–1381` (gift switch `:1167–1354`: case 1 ` — `js/pray.js` (+~200): new async `give_spell` in C order/conjuncts next to `pleased` (C home; `SPBOOK_no_NOVEL = 0-SPBOOK_CLASS` per objclass.h:152; `spe_Unknown`/`spe_Fresh`/`spe_Forgotten` match the C spell.h enum arm-f
 **D-2361** `nethack-c/upstream/src/eat.c` `doeat` `:2817–3084` (Strangled head; `floorfood`; `check_c — `js/eat.js` only, no new modules: new async `edibility_prompts` in C order/conjuncts next to `doeat` (C home; `Tobjnam(otmp,'smell')` + quan it/they; `ismnum`/`flesh_petrifies`/`Stone_resistance`-triple/`poly_when_stoned
-**D-2360** `nethack-c/upstream/src/zap.c` `bhitpile` `:2428–2500` (early return; hidingunder/first in — `js/zap.js` only (+48/−5, no new modules): ported the `bhitpile` head in C order/conjuncts — `hidingunder` from `(zz|0) !== 0 && uundetected && hides_under(youmonst.data)`, `first = true`; STRIKING/FORCE_BOLT arm capture
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2367; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2368; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
