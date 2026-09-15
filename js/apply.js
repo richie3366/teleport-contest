@@ -48,7 +48,7 @@ import {
 } from './mon.js';
 import {
     compactify_invlets, makeknown, near_capacity, observe_object, prinv,
-    hold_another_object, consume_obj_charge, update_inventory, getobj,
+    hold_another_object, consume_obj_charge, freeinv, update_inventory, getobj,
     getobj_from_cmdq, getobj_record_repeat, getobj_display_pickinv, useupall,
     useup, useupf,
 } from './invent.js';
@@ -64,11 +64,11 @@ import {
 import { can_blow, little_to_big, big_to_little, hero_conflict } from './mondata.js';
 import { wield_tool, welded, is_pole, mwelded } from './wield.js';
 import {
-    splitobj, delobj, objects_at, sobj_at, unbless, attach_egg_hatch_timeout, kill_egg,
+    splitobj, unsplitobj, delobj, objects_at, sobj_at, unbless, attach_egg_hatch_timeout, kill_egg,
     obj_extract_self, place_object, stackobj, weight, mksobj, stop_timer,
     start_timer, hornoplenty,
 } from './mkobj.js';
-import { xname, the, The, makeplural, vtense, doname, an, singular, cxname, thesimpleoname, simpleonames, yname, shk_your, Tobjnam, gloves_simple_name } from './objnam.js';
+import { xname, the, The, makeplural, vtense, doname, an, singular, cxname, thesimpleoname, simpleonames, yname, shk_your, Tobjnam, gloves_simple_name, otense } from './objnam.js';
 import { obj_resists } from './dogmove.js';
 import { acurr, A_CHA, A_STR, A_DEX, A_CON, change_luck, Fumbling } from './attrib.js';
 import { Monnam, mon_nam, x_monnam, y_monnam, Hallucination, a_monnam, Amonnam, monverbself, l_monnam } from './do_name.js';
@@ -90,7 +90,7 @@ import {
 import { yn_function, paranoid_query } from './getline.js';
 import {
     costly_alteration, costly_spot, add_damage, bill_dummy_object, shop_keeper,
-    check_unpaid_usage,
+    check_unpaid_usage, obfree,
 } from './shk.js';
 import { zappable, release_hold, revive } from './zap.js';
 import { explode } from './explode.js';
@@ -112,7 +112,7 @@ import { show_transient_light, transient_light_cleanup } from './light.js';
 import { set_occupation, u_wipe_engr } from './engrave.js';
 import { makemon, mkclass } from './makemon.js';
 import { make_familiar } from './dog.js';
-import { addinv } from './u_init.js';
+import { addinv, addinv_nomerge } from './u_init.js';
 import { stairway_at, morguemon } from './mklev.js';
 import {
     make_glib, Glib, make_sick, make_confused, make_stunned, make_vomiting,
@@ -2996,157 +2996,47 @@ function jelly_ok(obj) {
 }
 
 /**
- * C ref: invent.c getobj("rub the royal jelly on", jelly_ok, GETOBJ_PROMPT).
- * Prompt even with no eggs. Canned KEY live; CMDQ_INT aborts (!ALLOWCNT).
- */
-async function getobj_jelly() {
-    const word = 'rub the royal jelly on';
-    const cq = getobj_from_cmdq(jelly_ok, false);
-    if (!cq.skip) return cq.otmp;
-
-    const suggest_lets = () => {
-        const lets = [];
-        for (const o of game.invent || []) {
-            if (o?.invlet && jelly_ok(o) === GETOBJ_SUGGEST) lets.push(o.invlet);
-        }
-        return lets.join('');
-    };
-
-    for (;;) {
-        await flush_topl_more();
-        const rawLets = suggest_lets();
-        // C GETOBJ_PROMPT: still ask when suggested==0
-        const lets = rawLets.length > 5 ? compactify_invlets(rawLets) : rawLets;
-        const query = lets
-            ? `What do you want to ${word}? [${lets} or ?*]`
-            : `What do you want to ${word}? [*]`;
-        const prompt = `${query} `;
-        game._pending_message = prompt;
-        await flush_screen(1);
-        const disp = game.nhDisplay;
-        if (disp?.setCursor) disp.setCursor(prompt.length, 0);
-
-        const key = await nhgetch();
-        const ch = String.fromCharCode(key);
-        if (key === 27 || ch === ' ' || ch === '\n' || ch === '\r') {
-            if (game.flags?.verbose !== false) await pline('Never mind.');
-            return null;
-        }
-        if (ch === '?' || ch === '*') {
-            const counted = { cnt: 0, cntgiven: false };
-            const ilet = await getobj_display_pickinv(
-                ch, rawLets, false, counted,
-                { word, allownone: false, promptHasHands: false },
-            );
-            if (ilet === '\x1b') {
-                if (game.flags?.verbose !== false) await pline('Never mind.');
-                return null;
-            }
-            if (!ilet) {
-                if (game.iflags?.force_invmenu) return null;
-                continue;
-            }
-            const picked = (game.invent || []).find((o) => o.invlet === ilet);
-            if (!picked) {
-                await pline("You don't have that object.");
-                continue;
-            }
-            const rank = jelly_ok(picked);
-            if (rank === GETOBJ_EXCLUDE) {
-                await pline(`That is a silly thing to ${word}.`);
-                return null;
-            }
-            game._pending_message = '';
-            getobj_record_repeat(picked, ilet);
-            return picked;
-        }
-        const otmp = (game.invent || []).find((o) => o.invlet === ch);
-        if (!otmp) {
-            await pline("You don't have that object.");
-            continue;
-        }
-        const rank = jelly_ok(otmp);
-        if (rank === GETOBJ_EXCLUDE) {
-            await pline(`That is a silly thing to ${word}.`);
-            return null;
-        }
-        game._pending_message = '';
-        getobj_record_repeat(otmp, ch);
-        return otmp;
-    }
-}
-
-/** C ref: invent.c freeinv — drop from invent[]; where=OBJ_FREE. */
-function freeinv_jelly(obj) {
-    if (!obj) return;
-    const inv = game.invent || [];
-    const idx = inv.indexOf(obj);
-    if (idx >= 0) inv.splice(idx, 1);
-    obj.where = OBJ_FREE;
-    obj.pickup_prev = 0;
-}
-
-/**
- * C ref: mkobj.c unsplitobj — OBJ_FREE/FLOOR return null. After
- * use_royal_jelly freeinv the lump is OBJ_FREE so cancel is a no-op
- * (C same: stack quan already reduced).
- */
-function unsplitobj_jelly(obj) {
-    if (!obj || obj.where !== OBJ_INVENT) return null;
-    const split = game.context?.objsplit;
-    if (!split) return null;
-    let parent = null;
-    let child = null;
-    if (obj.o_id === split.child_oid) {
-        child = obj;
-        parent = (game.invent || []).find((o) => o.o_id === split.parent_oid);
-    } else if (obj.o_id === split.parent_oid) {
-        parent = obj;
-        child = (game.invent || []).find((o) => o.o_id === split.child_oid);
-    }
-    if (!parent || !child || parent === child) return null;
-    parent.quan = (parent.quan | 0) + (child.quan | 0);
-    const inv = game.invent || [];
-    const idx = inv.indexOf(child);
-    if (idx >= 0) inv.splice(idx, 1);
-    child.where = OBJ_FREE;
-    child.quan = 0;
-    return parent;
-}
-
-/**
- * C ref: apply.c use_royal_jelly — split/freeinv; getobj egg; killer→queen;
- * cursed kill_egg; else attach_egg_hatch_timeout + blessed spe=2; obfree lump.
- * Named omit: update_inventory redraw.
+ * C ref: apply.c use_royal_jelly `:3616–3683` — split/freeinv; getobj egg
+ * (GETOBJ_PROMPT); killer→queen; cursed kill_egg; else
+ * attach_egg_hatch_timeout + blessed spe=2; setnotworn + obfree lump.
+ * Helpers are canonical live imports (invent.js getobj/freeinv/unsplitobj/
+ * update_inventory, u_init.js addinv_nomerge, objnam.js otense, shk.js
+ * obfree) — no local clones. C `*optr = 0`: both live callers (dorub
+ * `:1800`, doapply `:4263`) return the ECMD code immediately without
+ * touching obj, so the OBJ_FREE lump is simply dropped (GC) on the JS side.
  * @returns {number} ECMD_CANCEL | ECMD_TIME
  */
 async function use_royal_jelly(obj) {
+    // C: `boolean splitit = (obj->quan > 1L)`; split before freeinv so the
+    // lump is not offered as a self-rub choice.
     const splitit = (obj.quan || 1) > 1;
     let lump = obj;
     if (splitit) {
         const child = splitobj(obj, 1);
         if (child) lump = child;
     }
-    // C: freeinv so the lump is not offered as a self-rub choice
-    freeinv_jelly(lump);
+    freeinv(lump);
 
-    const eobj = await getobj_jelly();
+    // C: `eobj = getobj("rub the royal jelly on", jelly_ok, GETOBJ_PROMPT)`
+    const eobj = await getobj('rub the royal jelly on', jelly_ok, GETOBJ_PROMPT);
     if (!eobj) {
         if (splitit) {
-            unsplitobj_jelly(lump);
+            unsplitobj(lump);
+            // C: freeinv() updated perminv w/ obj omitted
+            update_inventory();
         } else {
-            const { addinv_nomerge } = await import('./u_init.js');
+            // C: this lump was already separate; prevent merge
             await addinv_nomerge(lump);
         }
         return ECMD_CANCEL;
     }
 
+    // C: `You("smear royal jelly all over %s.", yname(eobj))`
     await pline(`You smear royal jelly all over ${yname(eobj)}.`);
     if (eobj.otyp !== EGG) {
-        await pline(nothing_happens);
+        await pline(nothing_happens); // C: pline1(nothing_happens)
         setnotworn(lump);
-        lump.quan = 0;
-        lump.where = OBJ_FREE;
+        obfree(lump, null);
         return ECMD_TIME;
     }
 
@@ -3158,22 +3048,22 @@ async function use_royal_jelly(obj) {
     if (lump.cursed) {
         if ((eobj.timed | 0) || (eobj.corpsenm ?? NON_PM) !== oldcorpsenm) {
             await pline(
-                `The ${xname(eobj)} ${otense_stone(eobj, 'quiver')} feebly.`,
+                `The ${xname(eobj)} ${otense(eobj, 'quiver')} feebly.`,
             );
         } else {
             await pline(nothing_seems_to_happen);
         }
         kill_egg(eobj);
         setnotworn(lump);
-        lump.quan = 0;
-        lump.where = OBJ_FREE;
+        obfree(lump, null);
         return ECMD_TIME;
     }
 
     const was_timed = eobj.timed | 0;
     if ((eobj.corpsenm ?? NON_PM) !== NON_PM) {
         if (!(eobj.timed | 0)) attach_egg_hatch_timeout(eobj, 0);
-        // C: blessed jelly → hatched creature thinks you're the parent
+        // C: blessed jelly makes the hatched creature think you're the
+        // parent — but has no effect if you laid the egg (!eobj->spe)
         if (lump.blessed && !(eobj.spe | 0)) eobj.spe = 2;
     }
 
@@ -3181,15 +3071,15 @@ async function use_royal_jelly(obj) {
         || (eobj.spe | 0) === 2
         || (eobj.corpsenm ?? NON_PM) !== oldcorpsenm) {
         await pline(
-            `The ${xname(eobj)} ${otense_stone(eobj, 'quiver')} briefly.`,
+            `The ${xname(eobj)} ${otense(eobj, 'quiver')} briefly.`,
         );
     } else {
         await pline(nothing_seems_to_happen);
     }
 
+    // C useup_jelly: not useup() because freeinv() was already done
     setnotworn(lump);
-    lump.quan = 0;
-    lump.where = OBJ_FREE;
+    obfree(lump, null);
     return ECMD_TIME;
 }
 

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `trap.c` launch_obj closed-door crash-through arm (named D-2318 residual, C trap.c:3533–3541; C arm is that small; never live/archived/parked). Probe: `node scripts/brief.mjs launch_obj`. **Addressed:** D-2330
+- [x] `apply.c` use_royal_jelly full body (named absent.md:34 + turns.md:2014 deferred, D-1021; JS local-only partial; never live/archived/parked). Probe: `node scripts/brief.mjs use_royal_jelly`. **Addressed:** D-2331
+
+
+- [x] `trap.c` launch_obj closed-door crash-through arm (named D-2318 residual, C trap.c:3533–3541; C arm is that small; never live/archived/parked). Probe: `node scripts/brief.mjs launch_obj`. **Addressed:** D-2330 `4d1f4fce`
 
 
 - [x] `ball.c` drop_ball punish-drop (TOP30 queue-mapping named; no JS symbol; never live/archived/parked). Probe: `node scripts/brief.mjs drop_ball`. **Addressed:** D-2329 `e23e920d`

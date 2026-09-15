@@ -80,10 +80,11 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `trap.c` launch_obj closed-door crash-through arm (named D-2318 residual, C trap.c:3533–3541; C arm is that small; never live/archived/parked). Probe: `node scripts/brief.mjs launch_obj`.
+**Next cluster:** `apply.c` use_royal_jelly full body (named absent.md:34 + turns.md:2014 deferred, D-1021; JS local-only partial; never live/archived/parked). Probe: `node scripts/brief.mjs use_royal_jelly`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2330 (index).**
+**Keep D-0845…D-2331 (index).**
 <!-- recent:begin -->
+**D-2331** `nethack-c/upstream/src/apply.c` `use_royal_jelly` `:3616–3683` + `jelly_ok` (EGG→SUGGEST  — `js/apply.js` only, zero new module edges (all five names join existing static imports — `imports.mjs --can` ALREADY ×5: `freeinv`/invent.js, `unsplitobj`/mkobj.js, `otense`/objnam.js, `obfree`/shk.js, `addinv_nomerge`/u
 **D-2330** `nethack-c/upstream/src/trap.c` `launch_obj` `:3533–3541` — `js/trap.js` only, zero new imports (file-local `closed_door` :707 is the C predicate — IS_DOOR + D_CLOSED|D_LOCKED; `cansee`/`set_msg_xy`/`recalc_block_point`/`pline`/`BOULDER`/`D_BROKEN` all already imported): current-
 **D-2329** `nethack-c/upstream/src/ball.c` `drop_ball` `:881–961` (whole body, C order) + callers `do — `js/ball.js` gains exported async `drop_ball(x,y)` in C arm order — Blind `bc_order`+`bglyph` snapshot; `x != ux || y != uy` gate; utrap yank for every type but INFLOOR/BURIEDBALL (pit / web + `Soundeffect(se_destroy_web
 **D-2328** `nethack-c/upstream/src/steed.c` `use_saddle` `:63–69` — `js/steed.js` only, no new static module edges: `poly_when_stoned` joins the existing `monsters.js` import and `Mgender` joins the existing `do_name.js` import (`imports.mjs --can` ALREADY for both); `PM_STONE_GOLEM` con
@@ -91,11 +92,10 @@ Do **not** pop map-omission singletons
 **D-2326** `nethack-c/upstream/src/zap.c` `u_adtyp_resistance_obj` `:5676–5698` — `js/invent.js` only, no new module edges (`objectNames` already imported; `AD_COLD`/`AD_FIRE` file-local monattk.h block; `game.u.uarmc` ≡ C `uarmc`): the cloak arm in C position and C predicate order (`AD_COLD || AD_FIR
 **D-2325** `nethack-c/upstream/src/trap.c` `erode_obj` `:170–354` (whole body, C order) + `nethack-c/ — `js/trap.js` — erode_obj rewritten arm-for-arm in C order: victim (carried_obj→youmonst / OBJ_MINVENT ocarry / null) + uvictim/vismon (local canseemon) / visobj (cansee bhitpos, !is_pool || next2u-dist2≤2 + u.uinwater ≡ 
 **D-2324** `nethack-c/upstream/src/invent.c` `mergable` `:4379–4499` (whole body, C order) + `nethack — `js/mkobj.js` — mergable rewritten in C order: unpaid/spe/no_charge/obroken/otrapped/lamplit block; FOOD arm kept (JS `orotten` is separate storage vs C obj.h:130 `#define orotten oeroded` — documented in comment); dknow
-**D-2323** `nethack-c/upstream/src/dig.c` `dighole` `:884-1024` — `js/dig.js` only.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2330; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2331; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

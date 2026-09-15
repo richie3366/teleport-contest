@@ -2011,7 +2011,7 @@ keepdogs stay-behind + leash is **D-1783**; grow_up leash / Hallu
 EUCALYPTUS_LEAF whistle arms** (D-1007; Soundeffect; Hallu hcolor eucalyptus brown; 
 mintrap last_msg polish when pline unset; full is_silent msound tables); 
 **`use_saddle` via `doapply` SADDLE** (D-1008; `update_mon_extrinsics` deferred); 
-**`use_stone` + dorub/doapply graystone** (D-1014; use_royal_jelly deferred); 
+**`use_stone` + dorub/doapply graystone** (D-1014; **`use_royal_jelly` full body D-2331** — canonical getobj/freeinv/unsplitobj/obfree/otense, split-cancel update_inventory); 
 **`use_grease` trailing `update_inventory` + live getobj D-1656** (C `apply.c` `:2652`;
 `getobj("grease", grease_ok, GETOBJ_PROMPT)` not clone; grease_ok COIN
 `GETOBJ_EXCLUDE` 0; `gloves_simple_name` gauntlets; consume_obj_charge

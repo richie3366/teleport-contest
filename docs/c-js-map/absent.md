@@ -31,7 +31,7 @@ This is a planning list, not an exhaustive C file inventory:
   D-1014; containers already wired via `use_container`;
   **whip/grapple/`use_pole` D-1022** + **pole `glyph_at` D-1040** + **`thitmonst` hit-vs-miss D-1041** + **shared getdir/`hurtle` D-1038** + **whip `yname`/`Amonnam`/`mbodypart` D-1045** + **`u_wipe_engr` / S_goodpos `tmp_at` D-1051**;
   **oil lamp/cocktail/trap/BoT D-1023** + **`light_cocktail` `struct obj **` D-1046** + **`consume_obj_charge` unpaid/`check_unpaid` D-1047** (SetVoice / lamp-oil `check_unpaid` / perm_invent redraw still named);
-  **`use_royal_jelly` D-1021**);
+  **`use_royal_jelly` full body D-2331**);
 - potions, scrolls, wands, spells, equipment, artifacts;
 - shops/priests/vault guards and billing (sellobj/check_shop_obj
   throw-land + drop via D-0994; **dopay robbed/angry/debit** via
