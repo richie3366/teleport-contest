@@ -96,6 +96,7 @@ import {
     notice_mon_off, notice_mon_on, notice_all_mons,
     impact_disturbs_zombies, set_uinwater,
 } from './hack.js';
+import { show_getpos_tip } from './getpos.js';
 import { place_object, stackobj, weight, delobj, obj_extract_self,
     obj_nexto_xy, obj_meld, pudding_merge_message,
     save_timers, restore_timers, run_timers, splitobj,
@@ -1088,8 +1089,9 @@ function ensure_nhcore_available() {
  * C ref: nhlua.c l_nhcore_call — skip if !available; if nhcore.<name> is
  * a Lua function, pcall it, else mark unavailable.
  * JS: ENTER/LEAVE → tutorial_enter/leave. GETPOS_TIP is a Lua function
- * (wired in getpos.js, not here). start/restore/moveloop/exit are
- * commented out in nhcore.lua so the first call disables them.
+ * (nhcore.lua getpos_tip = show_getpos_tip, exported from getpos.js).
+ * start/restore/moveloop/exit are commented out in nhcore.lua so the
+ * first call disables them.
  */
 export async function l_nhcore_call(callidx) {
     if (callidx < 0 || callidx >= NUM_NHCORE_CALLS) return;
@@ -1103,8 +1105,14 @@ export async function l_nhcore_call(callidx) {
         await tutorial_leave();
         return;
     }
+    if (callidx === NHCORE_GETPOS_TIP) {
+        // C: pcall nhcore.getpos_tip = show_getpos_tip (nhcore.lua:108-121);
+        // the Lua function exists so the call stays available.
+        await show_getpos_tip();
+        return;
+    }
     // C: lua_type != LUA_TFUNCTION → available[callidx] = FALSE
-    if (callidx !== NHCORE_GETPOS_TIP) avail[callidx] = false;
+    avail[callidx] = false;
 }
 
 /**

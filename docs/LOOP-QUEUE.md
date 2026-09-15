@@ -60,7 +60,6 @@ the row was queued at an older SHA pass `--base <sha>`). Refill from
 output are the next candidates; `PORT-GAP-TOP30.md` rows the corpus
 reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
-- [ ] `hack.c` handle_tip TIP_GETPOS arm (turns.md:410 deferred; TIP_ENHANCE D-1963 shipped; never own-row live/archived/parked). Probe: `node scripts/brief.mjs handle_tip`.
 - [ ] `mhitu.c` gulpmu BLND visored-helmet + flat/uprops mirror (turns.md:3048 named residual, debt R-1076; gulpmu DGST/PHYS/ACID/DREN/DISE shipped D-1993/D-2110/D-2151/D-2161/D-2356; residual never own-row live/archived/parked). Probe: `node scripts/brief.mjs gulpmu`.
 - [ ] `pickup.c` loot_in_first 'r' reversed + explain_container_prompt (turns.md:1542 D-1567 residual; traditional_loot/askchain archived; never own-row live/archived/parked). Probe: `node scripts/brief.mjs loot_in_first`.
 - [ ] `pickup.c`/`invent.c` collect_obj_classes INVLET arms (turns.md:1542 D-1581 residual: add_valid_menu_class/allow_category; traditional_loot/askchain/sortloot archived; never own-row live/archived/parked). Probe: `node scripts/brief.mjs collect_obj_classes`.
@@ -68,6 +67,11 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 - [ ] `pickup.c` in_or_out_menu more-containers 'n' (turns.md:1545 D-1592; doloot_core live; never own-row live/archived/parked). Probe: `node scripts/brief.mjs in_or_out_menu`.
 - [ ] `do_wear.c` ggetobj takeoff + take_off occupation + cancel_doff (turns.md:1071-1076 D-1602/D-1619/D-1766; never own-row live/archived/parked). Probe: `node scripts/brief.mjs ggetobj`.
 - [ ] `do_wear.c` dragon_armor_handling color/arti_light arms (turns.md:1067-1069 D-0636 deferred: gold make_hallucinated, red see_monsters, yellow wielding_corpse, arti_light burn; never own-row live/archived/parked). Probe: `node scripts/brief.mjs dragon_armor_handling`.
+- [ ] `trap.c` untrap disarm arms (TOP30 #22; dead callees disarm_holdingtrap/disarm_landmine/disarm_shooting_trap/disarm_box/help_monster_out; never own-row live/archived/parked). Probe: `node scripts/brief.mjs untrap`.
+- [ ] `mhitu.c` hitmu (TOP30 honourable 123/72; swallowed-hero strike path; never own-row live/archived/parked). Probe: `node scripts/brief.mjs hitmu`.
+- [ ] `makemon.c` grow_up (TOP30 honourable 127/67; pet/horse growth path; never own-row live/archived/parked). Probe: `node scripts/brief.mjs grow_up`.
+- [ ] `objnam.c` makeplural (TOP30 honourable 186/59, ch_ksound dead; never own-row live/archived/parked). Probe: `node scripts/brief.mjs makeplural`.
+- [ ] `zap.c` explode (TOP30 honourable 491/287; blast-damage path; never own-row live/archived/parked). Probe: `node scripts/brief.mjs explode`.
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 
