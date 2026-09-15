@@ -80,10 +80,11 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** `muse.c` searches_for_item FOOD corpse/tin/egg + can_blow polish (next Open). Probe: `node scripts/brief.mjs searches_for_item`.
+**Next cluster:** `monmove.c` mon_would_consume_item body (next Open). Probe: `node scripts/brief.mjs mon_would_consume_item`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2363 (index).**
+**Keep D-0845…D-2364 (index).**
 <!-- recent:begin -->
+**D-2364** `nethack-c/upstream/src/muse.c` `searches_for_item` `:2706–2792` (floor `OBJ_FLOOR` + unde — `js/muse.js` only, no new modules, no new module edges (all three names ride pre-existing edges, used only at runtime inside the function body — no top-level TDZ read): floor gate gains `&& onscary(obj.ox, obj.oy, mon)` 
 **D-2363** `nethack-c/upstream/src/mhitm.c` `sleep_monst` `:1223–1246` (`:1226–1229` how>=0 mimic `se — `js/trap.js` only (+11/−9, no new modules, no new module edges — `defended` already imported from `./mondata.js:138`, `shieldeff` from `./display.js`, `AD_SLEE=4` file-local at `:519`, all already used: `defended` at `:5
 **D-2362** `nethack-c/upstream/src/pray.c` `pleased` `:1071–1381` (gift switch `:1167–1354`: case 1 ` — `js/pray.js` (+~200): new async `give_spell` in C order/conjuncts next to `pleased` (C home; `SPBOOK_no_NOVEL = 0-SPBOOK_CLASS` per objclass.h:152; `spe_Unknown`/`spe_Fresh`/`spe_Forgotten` match the C spell.h enum arm-f
 **D-2361** `nethack-c/upstream/src/eat.c` `doeat` `:2817–3084` (Strangled head; `floorfood`; `check_c — `js/eat.js` only, no new modules: new async `edibility_prompts` in C order/conjuncts next to `doeat` (C home; `Tobjnam(otmp,'smell')` + quan it/they; `ismnum`/`flesh_petrifies`/`Stone_resistance`-triple/`poly_when_stoned
@@ -91,11 +92,10 @@ Do **not** pop map-omission singletons
 **D-2359** `nethack-c/upstream/src/zap.c` `melt_ice` `:5040–5079` (`spot_stop_timers`; `t_at` → `trap — `js/trap.js` — new exported async `trap_ice_effects(x, y, ice_is_melting)` in C order/conjuncts next to `undestroyable_trap` (C home; all callees `t_at`/`m_at`/`cnv_trap_obj`/`deltrap`/`undestroyable_trap`/LAND_MINE/BEAR
 **D-2358** `nethack-c/upstream/src/mthrowu.c` `MT_FLIGHTCHECK` `:552–569` (edge / IS_OBSTRUCTED / clo — `js/mthrowu.js` only, no new modules, no new module edges (`IRONBARS`/`IS_SINK` join the existing `const.js` import; `otense` joins the existing `objnam.js` import; `The`/`mshot_xname`/`canseemon`/`game.marcher`/`game._m
 **D-2357** `nethack-c/upstream/src/mhitm.c` `sleep_monst` `:1225–1250` (`:1231–1234` `resists_sleep | — `js/music.js` only, no new modules, no new module edges (`defended` joins the existing `mondata.js` import and `shieldeff` joins the existing `display.js` import — `imports.mjs --can music.js mondata.js defended` → ALREA
-**D-2356** `nethack-c/upstream/src/do_wear.c` `Blindf_off` `:1495–1534` (`:1503–1506` impossible, `:1 — `js/mhitu.js` — real exported async `gulp_blnd_check` in C order/conjuncts next to gulpmu (C home; `attacktype_fordmg`/`can_blnd` join the existing uhitm.js edge; AT_ENGL already imported, AD_BLND file-local const; `expo
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2363; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2364; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

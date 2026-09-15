@@ -2766,9 +2766,9 @@ prize skip, corpse petrify/lizard/acidic thru-arms** (D-2085);
 **`can_carry` quan>1 → 1 only for `M1_NOHANDS` non-glomper** (D-0186); 
 **underfoot MMOVE_DONE + peaceful `can_carry`** (D-0183/D-0223; 
 underfoot `return TRUE`→`postmov`→`mpickstuff` restored; 
-omit `searches_for_item` (D-0598 potion/wand/scroll/amulet/tool subset; 
-**Is_container/Is_mbag/!olocked** D-0861; 
-FOOD corpse/tin/egg + `can_blow` polish deferred)/`mon_would_consume_item` body + 
+**`searches_for_item` full body (D-0598 potion/wand/scroll/amulet/tool subset;
+**Is_container/Is_mbag/!olocked** D-0861; floor onscary + horn `can_blow` +
+unicorn `is_unicorn` + FOOD corpse/tin/egg D-2364)**/`mon_would_consume_item` body + 
 outer `can_touch_safely` call in `m_search_items` (arms live D-2149) 
 (shop `in_rooms`+`rn2(25)`+`isshk` gate, `hides_under`+`cansee`, `onscary`, 
 `costly_spot`+merchandise, prizes, outer `can_touch_safely` live D-2047); 
