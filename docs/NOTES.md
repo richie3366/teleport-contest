@@ -19,11 +19,13 @@ here again. Live hypotheses only:
   `AC:6` vs `AC:10`; row 4 «You were held by a pit fiend» vs «You weren't
   hungry»). The value's writer is the port; the painter is proven faithful
   (do_statusline1/2, one_characteristic parks).
-- **botl paint parity (campaign 1/3 open):** C paints status only on
-  `disp.botl/botlx/time_botl` (`allmain.c:473–479`); JS `bot()` runs every
-  loop behind `_statusSuppressed` shims. Gating it locally regressed 7
-  fortress sessions (2026-09-07 probe) — each a missing JS set site or the
-  menu-close redraw. Falsifier per step: full `sessions` with the gate on.
+- **botl parity (1/3 shipped D-2400; 2/3 gate open, 3/3 masked):** C paints
+  status only on `disp.botl/botlx/time_botl`; JS `bot()` runs every loop.
+  3/3 meal gate measured 2026-09-16: C-exact wiring verifies NO MOVEMENT
+  (lembas first diffs @58/@82 precede the park step-60 effect; 44/44 +
+  cohort identical, reverted) — masked until the step-2 gate ships. DONE
+  2/3 stamped D-2400 but the gate was reverted (seed0007-T needs a C-side
+  flag trace); no live 2/3 row — supervisor to re-queue or consolidate.
 - **Knight worker spin** (`[measure]` row): importing canonical `can_carry`
   fixes Knight-92182 step 13 but the worker spins (ETIMEDOUT); same class
   as the ready_weapon full-arm Knight-92204 spin. Suspect an

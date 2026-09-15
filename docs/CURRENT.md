@@ -85,7 +85,7 @@ Pop `LOOP-QUEUE.md` Must-fix, then Open in order — the Open head is now
 the park-named writers, then the **botl paint-parity campaign** (10
 sessions), then two `[measure]` rows; the 2026-09-15 map-omit refill rows
 sit last, flagged *unverified at enqueue* (stale check first).
-**Next cluster:** Open `allmain.c` moveloop_core `[campaign botl-parity 2/3]` (step 1 D-2400 shipped set sites, 44/44). Gate `bot()`/`timebot()` per `allmain.c:473–479` + delete dead shims; remainder seed0007 travel-T needs a C-side per-turn flag trace (D-2400 Next). Probe: `node scripts/brief.mjs moveloop_core`.
+**Next cluster:** Open `eat.c` maybe_finished_meal + `allmain.c` stop_occupation gate `[campaign botl-parity 3/3]` — MASKED (queue-head polyself row retired stale: D-2276 duplicate, Caveman-92138 PASS; 3/3 C-exact gate verified NO MOVEMENT this iter, reverted, row annotated — do not re-attempt until the step-2 paint gate ships). Next shippable: the two `[measure]` rows (can_carry Knight spin, hitmu rat-bite).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2400 (index).**
 <!-- recent:begin -->
