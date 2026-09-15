@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `dokick.c` ship_object + otransit_msg ship-floor polish (debt.md D-0984; C dokick.c ship_object). Probe: `node scripts/brief.mjs ship_object`. **Addressed:** D-2318
+- [x] `dokick.c` ship_object + otransit_msg ship-floor polish (debt.md D-0984; C dokick.c ship_object). Probe: `node scripts/brief.mjs ship_object`. **Addressed:** D-2318 `f028aee2`
 
 
 - [x] `trap.c` openholdingtrap/openfallingtrap + Punished boxlock arms (debt.md D-0981; C trap.c:6101 openholdingtrap). Probe: `node scripts/brief.mjs openholdingtrap`. **Addressed:** D-2317 48f96186
