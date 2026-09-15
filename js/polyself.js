@@ -1099,7 +1099,7 @@ async function break_armor() {
             // C: Drop weapon along with gloves
             await pline(`You drop your gloves${u.uwep ? ' and weapon' : ''}!`);
             await drop_weapon(0);
-            Gloves_off();
+            await Gloves_off();
             await dropx(gloves);
         }
         const shield = u.uarms;

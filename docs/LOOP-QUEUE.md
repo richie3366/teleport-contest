@@ -43,7 +43,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `do_wear.c` Gloves_off misses the `:687/696` `wielding_corpse` pair (new live export wired only for yellow-DSM doff; gloves-doff CORPSE-gated pair unnamed in map). Capture `gloves` + `on_purpose` pre-clear per C `:647–651`, add the pair, make `Gloves_off` async with caller cascade (`js/do_wear.js` :1373/:1391/:1868). Probe: wield cockatrice corpse, doff gloves, check petrify. Source: reviews/loop-unattended/1361-af4fb4cc-dragon-armor-wielding-corpse.md.
 - [ ] `dothrow.c` throwit landing misses `obj_no_longer_held` (call miswired into `throw_gold`, which C never calls it from; C `dothrow.c:1808` is in `throwit` between `flooreffects` and pick-snatch/snuff). Move the canonical `do.js` call from `throw_gold` into JS `throwit` landing (`js/dothrow.js` ~:2316–2340, after the `flooreffects` block). Probe: throw a crysknife and check worm-tooth revert on landing. Source: reviews/loop-unattended/1359-b7216a99-obj-no-longer-held.md.
 
 A **JS throw** in any corpus session (`hidden-proxy status` owner
@@ -65,6 +64,14 @@ reaches come after; map singletons only at ≥ 90 % corpus PASS.
 
 - [ ] `vision.c` vision_recalc (TOP30 #30 345/180, hops 0, 36 callers; dead callees get_unused_cs/new_angle; never own-row live/archived/parked). Probe: `node scripts/brief.mjs vision_recalc`.
 - [ ] `end.c` disclose (queue 1/553: scen-wish-Priest-92179 step 100 kind=screen, C «Do you want to see your conduct? [ynq] (n)» vs identical JS topline — paint/More-timing class; archived disclose rows D-2105/D-2039/D-2015 cover other steps/sessions, never this one; really_done park terms: own row when queued). Probe: `node scripts/brief.mjs disclose`.
+- [ ] `mkobj.c` `mkbox_cnts` BoH weight factor (data.md:302; D-0361 ships ICE_BOX CORPSE + D-2265 ships BoH Is_mbag→SACK / WAN_CANCELLATION re-roll — BoH weight factor still deferred; never own-row live/archived/parked). Probe: `node scripts/brief.mjs mkbox_cnts`.
+- [ ] `dogmove.c` `droppables` pet flooreffects/vault-gold arms (data.md:286; D-0108/D-0632 ship relobj_on_death + mdrop_obj distant_name observe — flooreffects / vault-gold / pet droppables deferred; never own-row live/archived/parked). Probe: `node scripts/brief.mjs droppables`.
+- [ ] `polyself.c` `skinback` uskin merge arms (data.md:334; D-2244 residual — polyself uskin/skinback arms deferred with their unported merge arms; never own-row live/archived/parked). Probe: `node scripts/brief.mjs skinback`.
+- [ ] `muse.c` `rnd_misc_item` See_invisible peaceful-invis arm (data.md:534; D-0749 residual — life-saving `!nonliving && !is_vampshifter` live, See_invisible peaceful invis arm deferred; never own-row live/archived/parked). Probe: `node scripts/brief.mjs rnd_misc_item`.
+- [ ] `display.c` `map_location` tseen + add_to_container merge (data.md:716; D-1059 water_has_kelp residual — tut_key/eckey/Knight jump/leave-invent/map_location tseen/add_to_container merge deferred; never own-row live/archived/parked). Probe: `node scripts/brief.mjs map_location`.
+- [ ] `sp_lev.c` `load_special` soko1-1/soko4-1 remainder (data.md:784-788; D-0543 soko1-2 + D-0547 soko2-1 + D-1820 soko2-2 + D-0548 soko3-1/3-2/4-2 ship the other levels — remaining soko load_special deferred; never own-row live/archived/parked). Probe: `node scripts/brief.mjs load_special`.
+- [ ] `region.c` `save_regions` binary format + free_region teardown (data.md:987; clear_regions live — binary save_regions format / free_region teardown deferred; never own-row live/archived/parked). Probe: `node scripts/brief.mjs save_regions`.
+- [ ] `dungeon.c` `single_level_branch` Knox arm (data.md:1039; D-0777 terrain-gates residual — Knox single_level_branch deferred; never own-row live/archived/parked). Probe: `node scripts/brief.mjs single_level_branch`.
 
 ## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
 

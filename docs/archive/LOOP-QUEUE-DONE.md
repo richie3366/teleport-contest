@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `timeout.c` slimed_to_death (corpus queue 1/553: scen-death-Valkyrie-92229 step 37 kind=screen, C «You feel even worse» vs JS «You feel much worse» after Demogorgon lifesave; never own-row live/archived/parked). Probe: `node scripts/brief.mjs slimed_to_death`. **Addressed:** D-2396
+- [x] `do_wear.c` Gloves_off misses the `:687/696` `wielding_corpse` pair (new live export wired only for yellow-DSM doff; gloves-doff CORPSE-gated pair unnamed in map). Capture `gloves` + `on_purpose` pre-clear per C `:647–651`, add the pair, make `Gloves_off` async with caller cascade (`js/do_wear.js` :1373/:1391/:1868). Probe: wield cockatrice corpse, doff gloves, check petrify. Source: reviews/loop-unattended/1361-af4fb4cc-dragon-armor-wielding-corpse.md. **Addressed:** D-2397
+
+
+- [x] `timeout.c` slimed_to_death (corpus queue 1/553: scen-death-Valkyrie-92229 step 37 kind=screen, C «You feel even worse» vs JS «You feel much worse» after Demogorgon lifesave; never own-row live/archived/parked). Probe: `node scripts/brief.mjs slimed_to_death`. **Addressed:** D-2396 `a00fc90c`
 
 
 - [x] `do_wear.c` dragon_armor_handling color/arti_light arms (turns.md:1067-1069 D-0636 deferred: gold make_hallucinated, red see_monsters, yellow wielding_corpse, arti_light burn; never own-row live/archived/parked). Probe: `node scripts/brief.mjs dragon_armor_handling`. **Addressed:** D-2395 `af4fb4cc`

@@ -115,3 +115,5 @@ verify. Right-sized (§2b).
    pre-existing, out of scope.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-2397

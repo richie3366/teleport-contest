@@ -79,10 +79,11 @@ scenario corpus** (`hidden-proxy status`): 463/540 PASS.
 Pop `LOOP-QUEUE.md` Must-fix (drained) then Open in order.
 Do **not** pop map-omission singletons
 (`LOOP-QUEUE.md` Deferred) while any corpus family is below 90 % PASS.
-**Next cluster:** Must-fix `do_wear.c` Gloves_off `:687/696` `wielding_corpse` pair (review 1361; slimed_to_death Open row retired by D-2396 — Valkyrie-92229 PASS, PROGRESS re-verified). Probe: `node scripts/brief.mjs wielding_corpse`.
+**Next cluster:** Must-fix `dothrow.c` throwit landing misses `obj_no_longer_held` (review 1359; Gloves_off Must-fix retired by D-2397). Probe: `node scripts/brief.mjs throwit`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2396 (index).**
+**Keep D-0845…D-2397 (index).**
 <!-- recent:begin -->
+**D-2397** `nethack-c/upstream/src/do_wear.c` Gloves_off `:646–702` (`gloves = uarmg` capture `:647`, — `js/do_wear.js` — `Gloves_off` now async in C order: capture `gloves` + `on_purpose` pre-clear, `takeoff.mask &= ~W_ARMG`, `clear_worn(W_ARMG)`, then the CORPSE-gated pair on the captured gloves (KMH comment preserved); 
 **D-2396** `nethack-c/upstream/src/potion.c` make_sick `:140–188` (onset message gate `:158`, `set_it — `js/potion.js` only — the make_sick onset, partial-cure and full-cure arms plus make_slimed/make_stoned now mirror TIMEOUT bits to `u.uprops[…].intrinsic` (slot created when missing; full cure clears intrinsic per C `Sic
 **D-2395** `nethack-c/upstream/src/do_wear.c` `wielding_corpse :606–643` (null/non-CORPSE/gloved retu — `js/do_wear.js` only — new exported `wielding_corpse(obj, how, voluntary)` in exact C order (CORPSE/uarmg/wield gates; `touch_petrifies(mons(corpsenm))` + flat/H/E Stone check; `pline You … in your bare …` blue-arm idiom
 **D-2394** `nethack-c/upstream/src/topten.c` `outentry :946–1107` — `js/topten.js` only — the four arms in exact C order with `slice(0,6/8/7/13)` prefix checks (≡ the `strncmp` lens) and `t1.plgend?.[0]==='F'`, then the astral switch in C order with C's two fmt strings (`replace('%s',arg
@@ -90,11 +91,10 @@ Do **not** pop map-omission singletons
 **D-2392** `nethack-c/upstream/src/uhitm.c` `mhitm_ad_slow :3652–3687` — `js/mhitm.js` — exported `mhitm_ad_slow` in exact C mhitm-branch order (gate first, `|0` mspeed/MSLOW guard, oldspeed snapshot, `await mon_adjust_speed(mdef,-1,null)`, WAITFORU clear, `_mm_vis && canspotmon` + `pline_mon
 **D-2391** `nethack-c/upstream/src/weapon.c` `autoreturn_weapon` `:519–529` over `arwep[]` `:513–517` — `js/weapon.js` — canonical exported `autoreturn_weapon` (C order: null guard, `otyp('AKLYS')` compare, `{ otyp, range: AKLYS_LIM², tethered: 1 }`; `BOLT_LIM`/`AKLYS_LIM` join the const.js import; `otyp`/`objectNames` alr
 **D-2390** `nethack-c/upstream/src/vault.c` `wallify_vault` `:646–731` (boundary-ring scan with inter — `js/vault.js` — full async `wallify_vault` in C order/branch structure (boundary-ring loops with interior `continue`; `IS_WALL || g_at || sobj_at(ROCK) || sobj_at(BOULDER)` gate short-circuit + `!in_fcorridor`; `m_at` oc
-**D-2389** `nethack-c/upstream/src/do_wear.c` `better_not_take_that_off` `:2989–3010` (corpse scan; ` — `js/do_wear.js` — new `carrying_stoning_corpse()` (C invent walk over `game.invent`, `CORPSE` + `touch_petrifies(mons(corpsenm))`; exported: C declares it extern, `extern.h:1394`, unlike the staticfn below) + new async `
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2396; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2397; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
