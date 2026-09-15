@@ -5,7 +5,7 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-15
 
-- [x] `steed.c` use_saddle (named absent.md:29, D-1008; never live/archived/parked). Probe: `node scripts/brief.mjs use_saddle`. **Addressed:** D-2328
+- [x] `steed.c` use_saddle (named absent.md:29, D-1008; never live/archived/parked). Probe: `node scripts/brief.mjs use_saddle`. **Addressed:** D-2328 5622d826
 
 
 - [x] `dig.js` `surface` clone drawbridge-under nouns (C `dungeon.c` `surface` `:1749–1788` via `SURFACE_AT` `rm.h:146` + `db_under_typ`/`is_pool`/`is_lava`/`is_ice` `dbridge.c`; clone prints "ground" where C prints water/molten lava/ice on the D-2323 `DRAWBRIDGE_UP` cop-out — message-only, 0 blocks). Probe: pickaxe-down on closed drawbridge with failed `fillholetyp` fluid rolls. Source: reviews/loop-unattended/1289-0e191fab-dighole-magical-drawbridge-bymagic.md. **Addressed:** D-2327 `348a7846`
