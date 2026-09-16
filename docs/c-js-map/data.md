@@ -300,6 +300,7 @@ was WAND/class-name stand-in D-0316); steal.c / muse.c callers named;
 non-stack swords); 
 **`mkbox_cnts` ICE_BOX → `mksobj(CORPSE)` + age=0/timers + `add_to_container`** (D-0361; 
 D-2265 ships BoH Is_mbag→SACK / WAN_CANCELLATION re-roll; BoH bag-weight lives in the bless/curse/unbless arms below, not this fn — body live, queue row retired STALE 2026-09-16); 
+**`weight()` BoH divisor arms live D-2422** (C `mkobj.c:1932–1934` `cursed ? cwt*2 : blessed ? (cwt+3)/4 : (cwt+1)/2` in C ternary order in `js/mkobj.js weight()`; bless-family BoH reweigh calls inherit it via `weight()`; named: STATUE corpsenm/msize/minwt arms, HEAVY_IRON_BALL owt kludge, `pickup.c delta_cwt` container paths resolve via the factored body); 
 **candle `mksobj` `age=20*oc_cost` D-1308**; 
 **`mksobj_migr_to_species` D-1363** (`:253–265` `add_to_migration` + `MIGR_TO_SPECIES` + 
 `migr_species` overlay; caller `mkmaze.c` `stolen_booty`); 
