@@ -5,7 +5,7 @@
 
 import { game } from './gstate.js';
 import { rn2, rnd, d } from './rng.js';
-import { dochugw, m_everyturn_effect, monflee, can_hide_under_obj } from './monmove.js';
+import { dochugw, m_everyturn_effect, monflee, can_hide_under_obj, can_fog } from './monmove.js';
 import {
     COLNO, ROWNO, IS_OBSTRUCTED, IS_DOOR, IS_TREE, D_CLOSED, D_LOCKED, D_BROKEN,
     ALLOW_ROCK, ALLOW_DIG, Is_rogue_level, NOTONL, ALLOW_ALL, ALLOW_BARS,
@@ -2686,11 +2686,10 @@ export function mfndpos(mon, data, flag) {
                                 || dmgtype(mdat, AD_CORR))))) {
                     continue;
                 }
-                // C mon.c mfndpos — amorphous (or fog-form) monsters slip
-                // under/through closed doors unless engulfing the hero.
-                // can_fog still deferred — named in C-JS-MAP.
+                // C mon.c:2232-2238 mfndpos — amorphous or fog-form monsters
+                // slip under/through closed doors unless engulfing the hero.
                 if (IS_DOOR(ntyp)
-                    && !((amorphous(mdat) /* || can_fog(mon) */) && !engulfing_u(mon))) {
+                    && !((amorphous(mdat) || can_fog(mon)) && !engulfing_u(mon))) {
                     const dm = loc.doormask || 0;
                     if ((((dm & D_CLOSED) && !(flag & OPENDOOR))
                         || ((dm & D_LOCKED) && !(flag & UNLOCKDOOR)))
