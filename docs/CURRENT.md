@@ -86,7 +86,7 @@ writer, `[campaign]`/`[measure]` rows replace map filler
 Pop `LOOP-QUEUE.md` Must-fix (freehand guard, docrt early-path botlx),
 then Open in order — campaign botl-parity 2/3, `status_enlightenment`
 held-by/utrap arms (3 sessions), the `[measure]` rows, eat `losehp`.
-**Next cluster:** - [ ] [measure] `collect_coords` ring-state residuals — queue Open head after D-2425 shipped the `do_statusline2` writers (`mhitm_ad_cold` + eat-progress rows). See `LOOP-QUEUE.md` for the full row.
+**Next cluster:** [measure] `collect_coords` delivered as D-2426 (no js/): `mk_bubble` ini-flip writer queued (head of Open). Next pop: the writer row, then Open in order.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2423 (index).**
 <!-- recent:begin -->

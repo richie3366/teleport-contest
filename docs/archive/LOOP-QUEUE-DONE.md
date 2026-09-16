@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-16
 
+- [x] [measure] `collect_coords` ring-state residuals — blocks 1/553 (scen-tour-Tourist-92100 step 131 kind=rng: C `rn2(24)=1`@collect_coords vs JS `rn2(17)=4`@collect_coords(`js/teleport.js:611`); same fn both sides, positional prefix fully matched → upstream content/ring-state per the `get_location`/`mkclass_aligned` presence-only parks). Deliverable: C per-step draw-owner dump (which C function draws what at the blocked step on the recorder, temp RNG-tag instrumentation reverted) vs the JS prefix-state probe, then the writer's Open row. Do not re-port `collect_coords` (live, parked SYMPTOM) or `get_location`/`mkclass_aligned` (presence-only parks). Probe: `node scripts/hidden-proxy.mjs verify collect_coords`.
+
+
 - [x] [measure] `do_statusline2` HP residuals — blocks 3/553 (scen-poly-Healer-92107, scen-wish-Healer-92092, scen-wish-Monk-92194; identical toplines, first diff row 23 HP: C `HP:7(33)` vs JS `HP:2(33)`; top parked owner with no Open row). Deliverable: C per-step draw-owner dump (which C function draws what at each blocked step on the recorder, temp RNG-tag instrumentation reverted) vs the JS prefix-state probe, then the writer's Open row. Do not re-port `do_statusline1/2` (painters proven faithful, parked). Probe: `node scripts/hidden-proxy.mjs verify do_statusline2`. **Addressed:** D-2425
 
 
