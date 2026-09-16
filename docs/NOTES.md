@@ -9,6 +9,7 @@ falsifier; proofs in `docs/archive/LOOP-QUEUE-PARKED.md`). Do not list them
 here again. Live hypotheses only:
 
 - **obj_resists S2/S3 writers (MEASURED 2026-09-16):** C per-turn dump (reverted; VALUES-IDENTICAL) names `steal.c` relobj death-drop `flooreffects` for both sessions (detail in D-2407). Falsified — do not re-check: S2 fire-trap burn/destroy, S3 fmon-order/move-gate/cube/meatcorpse, polyuse, monstone, bury, steal.
+- **obj_resists K/A/H (D-2413/14/15):** C fprintf, reverted, BYTE-IDENTICAL. Knight apple-eat; Arch whip-rate + 2 cells; Healer gloves-disintegrate (JS named).
 
 - **2026-09-16 process take (measured):** 126/362 non-audit iterations
   2026-09-09..15 were parks; 109/161 parked rows were stale copies of

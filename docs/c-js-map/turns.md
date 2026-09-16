@@ -720,7 +720,7 @@ saddle glow, update_inventory, SPE_REMOVE_CURSE cast deferred);
 **SCR_ENCHANT_WEAPON → `seffect_enchant_weapon` + `chwepon`/`cap_spe`** (D-0435; 
 confused Yobjnam2/hcolor polish, twoweapon secondary, shop costly_alteration on proof strip 
 deferred); **SCR_DESTROY_ARMOR → `seffect_destroy_armor`/`destroy_arm`** (D-0491; 
-confused p_glow2, cursed vibrate/disintegrate_arm, blessed choice/disintegrate_cursed deferred); 
+confused p_glow2, cursed vibrate/disintegrate_arm (D-2413 writer: Healer-92173 s230 cursed→disintegrate_arm arm, JS read.js:1214 named), blessed choice/disintegrate_cursed deferred); 
 **SCR_IDENTIFY → `seffect_identify` + invent `identify_pack`/`not_fully_identified`/`identify`** 
 (D-0678; SPE_IDENTIFY cast, traditional ggetobj, `discover_artifact`/`learn_egg_type` deferred); 
 **SCR_PUNISHMENT → `seffect_punishment`/`punish` + `setworn` W_BALL/CHAIN + `placebc`** (D-0908) +

@@ -1,6 +1,6 @@
 {
- "commit": "59b0f846",
- "at": "2026-09-16T12:05:17.942Z",
+ "commit": "eb69ebb7",
+ "at": "2026-09-16T12:10:41.870Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6219,7 +6219,7 @@
    "steps": 177,
    "owner": "obj_resists",
    "loc": "zap.c:1469",
-   "jsOwner": "distfleeck(monmove.js:926)",
+   "jsOwner": "distfleeck(monmove.js:928)",
    "cTopline": "You miss the saddled pony. Your saddled pony eats an uncursed apple.",
    "jsTopline": "You miss the saddled pony.",
    "error": null
@@ -7630,7 +7630,7 @@
    "steps": 214,
    "owner": "obj_resists",
    "loc": "zap.c:1469",
-   "jsOwner": "distfleeck(monmove.js:926)",
+   "jsOwner": "distfleeck(monmove.js:928)",
    "cTopline": "The kitten yowls! The bullwhip hits the kitten.",
    "jsTopline": "The kitten yowls! The bullwhip hits the kitten.",
    "error": null

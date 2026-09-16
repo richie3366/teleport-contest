@@ -1,5 +1,41 @@
 # Divergence log
 
+## D-2415 — `dothrow.c` thrown-whip landing vs kitten square (Arch one-cell split, writer row)
+
+- **Status:** open (writer row from delivered [measure] `obj_resists` Knight/Arch/Healer burn writers).
+- **Symptom:** scen-wish-Archeologist-92238 step 166 kind=rng: C `rn2(100)=77`@obj_resists vs JS `rn2(5)=2`@distfleeck (C's much-later draw — positional shift). Toplines identical: «The kitten yowls! The bullwhip hits the kitten.»
+- **C locus:** `dothrow.c:2152` `thitmonst` (thrown bullwhip hits kitten) → `dothrow.c:2592` `breaktest` (`obj_resists(obj,1,99)`) → `drop_throw`/`flooreffects` landing; `dogmove.c:531` `dog_goal` (`otyp = dogfood(mtmp, obj)`, 0,95).
+- **Measured:** temp C fprintf in `obj_resists` (rebuilt x86_64, reverted; Healer re-record BYTE-IDENTICAL, all values/screens identical — method proof in NOTES Active). Blocked = 24th obj_resists draw: moves=7 ux=34 uy=8 otyp=82=BULLWHIP (`cc -E -DOBJECTS_ENUM` ground truth) oclass=WEAPON och=0 ach=95 chance=77 ret=0. Step-166 chain: thitmonst `rnd(20)` → dmgval → abuse_dog → hmon_hitmon_pet → exercise → obj_resists(61) [breaktest — matched both sides] → dochug `rn2(40)` → distfleeck(5)=1 [matched] → obj_resists(77) BLOCKED → dog_invent×3 → obj_resists(95) → dog_goal(8) → obj_resists(80,72) → dog_move…. geom-probe @166: 2 cells — (34,9) C=')' whip vs JS='f' kitten, (35,9) C='f' vs JS='<' stairs.
+- **JS was:** kitten square off by one (C (35,9) rating the adjacent landed whip vs JS (34,9)) and/or the whip landing square differs (JS whip not floor-visible at (34,9)). `dogfood`/`dog_invent` live (`js/dogmove.js:136/683`); map turns.md dogfood/dog_eat already live — no map change.
+- **Fix:** JS object-layer dump at step 166 first (whip ox/oy + kitten mx/my); fix the landing (`drop_throw`) or the placement — not `dogfood`.
+- **Verify:** `node scripts/verify.mjs --fn obj_resists` (expect Arch-92238 → PASS or later owner; Knight/Healer stay).
+- **Falsified — do not re-check:** `breaktest` (61 matched), abuse/flee draws (matched), `dogfood`/`dog_invent`/`obj_resists` bodies (live), terrain beyond the 2 cells.
+- **Next:** queue in order (`shkinit`, `migrate_orc`, `[measure]` distfleeck residuals).
+
+## D-2414 — `dogmove.c` `dog_invent` underfoot-eat state (Knight pony, writer row)
+
+- **Status:** open (writer row from delivered [measure] `obj_resists` Knight/Arch/Healer burn writers).
+- **Symptom:** scen-normal-Knight-92182 step 95 kind=rng: C `rn2(100)=18`@obj_resists vs JS `rn2(5)=3`@distfleeck (C's later draw — positional shift). Screens: C «You miss the saddled pony. Your saddled pony eats an uncursed apple.» vs JS «You miss the saddled pony.»
+- **C locus:** `dogmove.c:427–441` (`dog_invent` underfoot: `dogfood` rate → `dog_eat`); `dog.c:1004` `dogfood` (0,95); `dogmove.c:315` apport re-rate; `splitobj` (`mkobj.c:549` `next_ident`).
+- **Measured:** same instrumentation (Knight re-record reproduces the committed step-95 draws exactly). Blocked = 70th obj_resists draw: moves=20 ux=34 uy=12 otyp=277=APPLE oclass=FOOD och=0 ach=95 chance=18 ret=0 [rate]; 71st: (0,95)=87 [apport re-rate]; `next_ident rnd(2)=1` between (splitobj one apple off the stack); 72nd: (0,0)=97 on the same apple — consume sub-call OPEN (`useup`-shaped but no `useup` caller on the pet path; `delobj` draws nothing). geom-probe @95: 0 differing cells (342/342 eligible) — squares identical; C @/u unstacked-adjacent (no steed-riding).
+- **JS was:** `js/dogmove.js:683–713` `dog_invent` ported (helpless/meating early-out, droppables, underfoot rate → `dog_eat`, `could_reach_item` live); JS pony drew nothing — never reached the :707 rate. `dogfood`/`dog_eat` live.
+- **Fix:** JS state probe first — pony edog (hungrytime/apport/meating/mconf) + apple presence at (mx,my) at step 95; then the gating — not the bodies.
+- **Verify:** `node scripts/verify.mjs --fn obj_resists` (expect Knight-92182 → PASS or later owner).
+- **Falsified — do not re-check:** map/terrain (geom 0), `dogfood`/`dog_eat`/`obj_resists` bodies (live), monster population (post-eat draws align positionally), steed-ridden.
+- **Next:** queue in order (`shkinit`, `migrate_orc`, `[measure]` distfleeck residuals).
+
+## D-2413 — `read.c` `seffect_destroy_armor` cursed arm: `disintegrate_arm(otmp)` never called (writer row)
+
+- **Status:** open (writer row from delivered [measure] `obj_resists` Knight/Arch/Healer burn writers).
+- **Symptom:** scen-wish-Healer-92173 step 230 kind=rng: C `rn2(100)=64`@obj_resists vs JS no draw (last matched exercise). Screens: C «As you read the scroll, it disappears. Your gloves vanish!» vs JS «As you read the scroll, it disappears.» (gloves stay).
+- **C locus:** `read.c:1372–1383` (`seffect_destroy_armor`: scursed + unconfused + otmp uncursed → `else if (disintegrate_arm(otmp))`); `do_wear.c:3237–3241` uarmg arm (`maybe_destroy_armor(uarmg, atmp, &resisted)` → `obj_resists(armor,0,90)` → `wornarm_destroyed` → Gloves_off + useup).
+- **Measured:** same instrumentation (see NOTES Active). 15 obj_resists draws in the session; blocked = 15th: moves=12 ux=66 uy=3 otyp=159=LEATHER_GLOVES oclass=ARMOR och=0 ach=90 chance=64 ret=0 (destroyed). Single draw — only uarmg worn (uarmc/uarm/uarmu/uarmh null → `maybe_destroy_armor` guard draws nothing). Moves 2–7: six `dogfood`(0,95) pairs (otyp 215 + 438, pet ratings — not this event).
+- **JS was:** `js/read.js:1204–1215` cursed arm is vibrate-only + `// else disintegrate_arm deferred` (named); live `js/do_wear.js:3388 disintegrate_arm` unwired from this path. Map turns.md:722 already names the deferral.
+- **Fix:** call live `disintegrate_arm(otmp)` in the cursed `else` arm in C order (`read.c:1380–1383`: keep the vibrate branch; `gk.known` on success; mirror the return-0 fallthrough out of the scursed block).
+- **Verify:** `node scripts/verify.mjs --fn obj_resists` (expect Healer-92173 → PASS or later owner; Knight/Arch stay).
+- **Falsified — do not re-check:** `obj_resists`/`disintegrate_arm` bodies (live), `destroy_arm` erosion path (C took disintegrate), confused/blessed arms (scroll cursed, hero unconfused).
+- **Next:** queue in order (`shkinit`, `migrate_orc`, `[measure]` distfleeck residuals).
+
 ## D-2412 — `insight.c` `list_genocided` ngone>0 menu arm + `set_vanq_order` + pick-one preselect finish
 
 - **Status:** fixed (Open queue head `insight.c` `list_genocided` ngone>0 menu arm — 1/553, arm verified absent via `brief.mjs list_genocided`: stub empty-path only, `num_extinct`/`num_gone`/`set_vanq_order` NOT FOUND in `js/`).
