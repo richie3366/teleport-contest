@@ -1,6 +1,6 @@
 {
- "commit": "cb17ead7",
- "at": "2026-09-16T13:54:51.416Z",
+ "commit": "8e105ad5",
+ "at": "2026-09-16T14:08:04.429Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -8011,19 +8011,19 @@
   },
   "scen-wish-Monk-92013": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 2765,
    "rngT": 2765,
-   "scrM": 144,
+   "scrM": 146,
    "scrT": 146,
-   "kind": "screen",
-   "step": 135,
+   "kind": null,
+   "step": null,
    "steps": 146,
-   "owner": "one_characteristic",
-   "loc": "insight.c:926",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "Your wisdom was 10 (limit:18).",
-   "jsTopline": "Your wisdom was 10 (limit:18).",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-wish-Monk-92031": {
