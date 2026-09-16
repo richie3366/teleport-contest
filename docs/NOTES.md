@@ -10,7 +10,7 @@ here again. Live hypotheses only:
 
 - **obj_resists S2/S3 writers (MEASURED 2026-09-16):** C per-turn dump (reverted; VALUES-IDENTICAL) names `steal.c` relobj death-drop `flooreffects` for both sessions (detail in D-2407). Falsified — do not re-check: S2 fire-trap burn/destroy, S3 fmon-order/move-gate/cube/meatcorpse, polyuse, monstone, bury, steal.
 
-- **polymon find_ac (SHIPPED D-2402):** the D-0722 deferral (both find_acs past `encumber_msg`) was for `setworn`'s poisoning, not polymon's own call — C runs `:890` + `:967` before `:1019`. Restored C order: Tourist-92095 step 46 → `savelife`@49, 4 poly PASS, 0 worse, seed0108 303/303 holds.
+- **polymon find_ac (SHIPPED D-2402):** C `:890` + `:967` before `:1019` (D-0722 deferral was setworn poisoning; detail in D-2402). Do not re-check.
 - **2026-09-16 process take (measured):** 126/362 non-audit iterations
   2026-09-09..15 were parks; 109/161 parked rows were stale copies of
   shipped work from `data.md`/`debt.md`/TOP30 refills. Falsifier for the
@@ -22,30 +22,31 @@ here again. Live hypotheses only:
   `AC:6` vs `AC:10`; row 4 «You were held by a pit fiend» vs «You weren't
   hungry»). The value's writer is the port; the painter is proven faithful
   (do_statusline1/2, one_characteristic parks).
-- **botl parity (SHIPPED D-2405; 3/3 unblocked):** moveloop gate `allmain.c:473–479` live (flush unconditional); travel-T writer was the live walk path missing C `cmd.c:1397` `run = 0` (`run=8` stuck 350→383, EOT time suppressed). Full 44/44; corpus lembas pair +1 (59/83); meal gate shipped with the row (DONE-26).
+- **botl parity (SHIPPED D-2405; 3/3 unblocked):** moveloop gate + walk `run = 0` writer live (detail in D-2405). Do not re-check.
 - **Knight worker spin** (MEASURED 2026-09-16): no spin at HEAD (canonical `can_carry` live); 2026-09-08 ETIMEDOUT premise retired — do not re-queue.
 - **disclose→enlightenment writer (MEASURED 2026-09-16):** scen-wish-Priest-92179 step-100 map diff is display-stream-only (core RNG 3081/3081 both sides; hallu both sides; identical freeze-then-fresh-repaint shape, different picks ⇒ desync in the 97→100 menu window). 2nd drinkfountain-class witness — no new writer row; disclose parks as SYMPTOM on that park's C display-RNG-trace falsifier (full proof in the park archive).
 - **rloc arrivals (MEASURED 2026-09-16, [measure] delivered):** C temp-fprintf (reverted; re-record byte-identical) + JS prefix probes. Healer-92042 s73 = `mon_arrive` After_you orc-captain (mnum 77, ORC_LEADER, 2:3→2:8); JS queued all 6 at s53 but captain mux=3,muy=0 (vs C 2:8) → `migrate_orc` leader-dest writer row. Ranger-92033 s70 = minetn arrival (uz=2:4, moves=24), NO migrants — two `shkinit:660` insurance rlocs (nymph mnum 69, lynx mnum 35); JS zeroes blocker (`shknam.js:642`) → `shkinit` writer row.
-- **m_move cnt-j (MEASURED 2026-09-16):** C MEAS n=5551 (temp fprintf, reverted; VALUES-IDENTICAL re-record) vs scratch-JS JMEAS (scored `js/` untouched): goblin@22,6 cnt C5/J4, mtrack identical, C extra (21,5)/ALLOW_M = kobold-zombie also present in JS → writer `mm_aggression` heads Open (Valkyrie s113/s72 same signature). Falsified: mtrack timing. Probe: /tmp/meas.log.
-- **distfleeck stream (MEASURED 2026-09-16):** C temp-fprintf in `distfleeck`+mail arm (reverted; VALUES-IDENTICAL re-record 100 steps/3221 draws/screens/cursors): Knight-92112 step 96 = mail daemon mndx=314 @15,5 peace=1, `distfleeck` seq=144 → MAILDAEMON «I'm late!»+mongone (draw-free) → dragon seq=145 `distfleeck`; JS lacks the MAIL arm (`js/monmove.js:1783`→`:1785` shk/gd/priest→Tengu, map turns.md:2785) so its daemon draws peaceful-getitems `rn2(10)`@:1845. Writer: `m_move` MAIL_DAEMON Open row. Recorder tree is x86_64 (Rosetta): rebuild with `CFLAGS="-arch x86_64 -g -I../include -DNOTPARMDECL -DNO_TIMED_DELAY" LINK="cc -arch x86_64"`, run `NETHACK_BINARY=<src>/nethack` + isolated `NETHACK_INSTALL` copy. Probe: `/tmp/probe_distfleeck.mjs` K=95/96.
+- **m_move cnt-j (MEASURED 2026-09-16, detail in D-2409):** goblin@22,6 cnt C5/J4 → D-2409 shipped the mfndpos arm; Valkyrie s113/s72 track-check residual still needs its writer row. Falsified: mtrack timing.
+- **distfleeck stream (SHIPPED D-2410):** Knight-92112 mail-daemon writer ported (seq=144 «I'm late!»+mongone draw-free → PASS; detail in D-2410). Residual 7 sessions → Open [measure] row. Recorder tree is x86_64 (Rosetta): rebuild `CFLAGS="-arch x86_64 -g -I../include -DNOTPARMDECL -DNO_TIMED_DELAY" LINK="cc -arch x86_64"`, run `NETHACK_BINARY=<src>/nethack` + isolated `NETHACK_INSTALL` copy.
 - **R-1082 music path live:** `seemimic` js/music.js:312; omit is trap-clone-only.
 - **Eval-order TDZ (D-2349):** no static edge to polyself at eval; late-bind setters.
 - **Fortress guards** (do not reopen): display_inventory, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue S_ndoor, bigrm-2, getpos, summonmu, lookat, do_statusline1, snapshot, fakewiz, Ice/Boulder, roles[], pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
 ## Don't re-check (≤15)
 
-- D-1790…D-2409 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-2410 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2409.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2409.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2410.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2410.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2410: `js/monmove.js` only — the arm in C order: `(ptr?.mndx ?? -1) === PM_MAIL_DAEMON` (module idiom, cf. the Tengu arm); `!hero_Deaf() && canseemon(mtmp)` Named: none new (local `canseemon` infrared/invis stand-in per D-1548 stays as named there).
 - D-2409: `js/mon.js` only — three file-local functions (C `staticfn`, same shape as NODIAG/may_passwall) + the MON_AT arm in C order (`mmflag = flag | mm_aggre Named: none new (the `mfndpos` header comment now cites only `can_fog`-in-squeeze plus the pre-ex
 - D-2408: `js/invent.js` only — new exported `utrap_steed_verb(final, anchored)` (`:4975`-area, C `:1094–1096` verbatim: `final ? (anchored ? 'were ' : 'was ')  Named: none new (`self_lookat` steed `y_monnam` arm stays per D-2406; null-steedname → `you_are` 
 - D-2407: `js/mkobj.js` — `relobj_on_death` now `async`, dynamic-imports `flooreffects` from `./do.js` (no new static edge into the 90-module SCC; same shape as Named: vault-guard gold arm inside `relobj_on_death` (`grddead` issues isgd inline; a guard dying
@@ -60,5 +61,4 @@ here again. Live hypotheses only:
 - D-2398: `js/dothrow.js` only — deleted the dead `throw_gold` block; added the same dynamic-import + `await` in `throwit` between the `flooreffects` block and  Named: `throwit` shk pick-snatch (`is_pick`/`mpickobj`, pre-existing named per review 295/D-2393)
 - D-2397: `js/do_wear.js` — `Gloves_off` now async in C order: capture `gloves` + `on_purpose` pre-clear, `takeoff.mask &= ~W_ARMG`, `clear_worn(W_ARMG)`, then  Named: Gloves_off Fumbling/Power/Dexterity switch arms + Glib cure + encumber_msg (pre-existing t
 - D-2396: `js/potion.js` only — the make_sick onset, partial-cure and full-cure arms plus make_slimed/make_stoned now mirror TIMEOUT bits to `u.uprops[…].intrin Named: make_vomiting/make_stunned/make_confused flat writers share the dual-storage shape (own ro
-- D-2395: `js/do_wear.js` only — new exported `wielding_corpse(obj, how, voluntary)` in exact C order (CORPSE/uarmg/wield gates; `touch_petrifies(mons(corpsenm) Named: none new.
 <!-- landmarks:end -->

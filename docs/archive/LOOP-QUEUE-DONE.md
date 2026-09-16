@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-16
 
+- [x] `monmove.c` `m_move` MAIL_DAEMON departure — blocks 1/553 (scen-genesis-Knight-92112 step 96 kind=rng: C `rn2(5)=1`@distfleeck vs JS `rn2(10)=1`@m_move:1845; measured: temp-fprintf `distfleeck` stream (reverted; VALUES-IDENTICAL re-record 100 steps/3221 draws/screens/cursors) shows mail daemon mndx=314 @15,5 peace=1 `distfleeck` seq=144 then MAILDAEMON «I'm late!»+mongone (draw-free) then dragon seq=145 `distfleeck`, vs JS daemon alive @15,5 taking peaceful-getitems `rn2(10)`; JS arm absent — `js/monmove.js:1783`→`:1785` jumps shk/gd/priest to Tengu, no MAIL_STRUCTURES arm (map turns.md:2785 MAIL_DAEMON deferred)). Fix: port `monmove.c:1829–1838` (verbalize + mongone + MMOVE_DIED) via canonical `mongone` (`js/mon.js:3017`; `imports.mjs --can` first). Verify: `node scripts/verify.mjs --fn m_move` + `verify distfleeck` (expect Knight-92112 → PASS or later owner). Probe: `/tmp/probe_distfleeck.mjs` K=95/96. **Addressed:** D-2410
+
+
 - [x] [measure] `distfleeck` invocation stream (top parked corpus owner post-rescore, 7/553: scen-genesis-Knight-92112 step 96, scen-intrinsic-Samurai-92239, scen-normal-Tourist-92061 — C draws `rn2(5)=1` in `distfleeck`, JS `rn2(10)=1` from `m_move` (monmove.js:1827)). Deliverable: temp C dump of the `distfleeck` call stream (which monster flees, from/to cells) across Knight-92112 step 96 vs the JS replay + the writer's Open row (no `js/`; commit and push — "empty port pushed" expected).
 
 

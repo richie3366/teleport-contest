@@ -21,7 +21,7 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-16** — full `sessions` on the working tree
-(audit **1368–1373** + D-2403…D-2409).
+(audit **1368–1373** + D-2403…D-2410).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 `48+0.30/turn` (R² 0.78).
@@ -37,7 +37,7 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Role-init throws | **0 / 44** |
 
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-16
-audit 1368–1373 + D-2403…D-2409): **485 / 540 PASS (89.8 %)** excl. 13 env-only rows
+audit 1368–1373 + D-2403…D-2410): **485 / 540 PASS (89.8 %)** excl. 13 env-only rows
 (485/553; D-2405/D-2406/D-2407 moved Knight-92002 + Wizard-92219 to PASS and the lembas pair + Samurai-92032 to later owners); RNG 99.0 %; screens 98.7 %. Top owners:
 `distfleeck` ×7, `do_statusline2` ×4, `m_move` ×3, `obj_resists` ×3,
 `rloc` ×2, `one_characteristic` ×2, then 1-block singles
@@ -85,10 +85,11 @@ writer, `[campaign]`/`[measure]` rows replace map filler
 Pop `LOOP-QUEUE.md` Must-fix (freehand guard, docrt early-path botlx),
 then Open in order — campaign botl-parity 2/3, `status_enlightenment`
 held-by/utrap arms (3 sessions), the `[measure]` rows, eat `losehp`.
-**Next cluster:** Open `monmove.c` `m_move` MAIL_DAEMON departure — writer from the DELIVERED [measure] `distfleeck` stream (Knight-92112 step 96: C mail daemon seq=144 → «I'm late!»+mongone draw-free → dragon seq=145, vs JS daemon into peaceful-getitems `rn2(10)`; arm absent `js/monmove.js:1783`→`:1785`). Fix: port `monmove.c:1829–1838` via canonical `mongone`; verify `--fn m_move` + `verify distfleeck` (Knight-92112 → PASS or later owner). Prior DELIVERED [measure] `teleport.c` rloc arrivals → writer Open rows `migrate_orc` + `shkinit`. Prior SHIPPED D-2409 mm_aggression/mfndpos MON_AT, D-2408 utrap-steed verb, D-2407 relobj flooreffects (detail in D-index + recent block).
+**Next cluster:** [measure] `worn.c` mon_adjust_speed Barbarian-92079 glyph writer (1/553 screen row 5; parked MISATTRIBUTED, body arm-for-arm — deliverable is the C per-turn dump + writer's Open row; do not re-port). Prior SHIPPED D-2410 m_move MAIL_DAEMON (Knight-92112 PASS), D-2409 mfndpos MON_AT, D-2408 utrap-steed verb (detail in D-index + recent block).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2409 (index).**
+**Keep D-0845…D-2410 (index).**
 <!-- recent:begin -->
+**D-2410** `monmove.c:1829–1838` (`#ifdef MAIL_STRUCTURES` arm; unconditionally `#define`d — `js/monmove.js` only — the arm in C order: `(ptr?.mndx ?? -1) === PM_MAIL_DAEMON` (module idiom, cf. the Tengu arm); `!hero_Deaf() && canseemon(mtmp)` preserves the C short-circuit (`Deaf` ≡ local `hero_Deaf`, same gate 
 **D-2409** `mon.c:2299–2317` (MON_AT arm: `mmflag = flag | mm_aggression(mon, mtmp2)`; ALLOW_M + tame — `js/mon.js` only — three file-local functions (C `staticfn`, same shape as NODIAG/may_passwall) + the MON_AT arm in C order (`mmflag = flag | mm_aggression`; ALLOW_M / tame-TM / else MDISP with the flag mutation, which p
 **D-2408** `insight.c:1094–1096` — `js/invent.js` only — new exported `utrap_steed_verb(final, anchored)` (`:4975`-area, C `:1094–1096` verbatim: `final ? (anchored ? 'were ' : 'was ') : (anchored ? 'are ' : 'is ')`); the steed arm calls it; the comment n
 **D-2407** `steal.c:874–898` `relobj` → per-head `mdrop_obj` `:813–846`, whose `:840–843` routes the  — `js/mkobj.js` — `relobj_on_death` now `async`, dynamic-imports `flooreffects` from `./do.js` (no new static edge into the 90-module SCC; same shape as `mon.js` `mdrop_obj` / `dothrow.js` `throwit`; `imports.mjs --can mko
@@ -96,11 +97,10 @@ held-by/utrap arms (3 sessions), the `[measure]` rows, eat `losehp`.
 **D-2405** `allmain.c:473–479` (the gate itself) + `cmd.c:1386–1400` `set_move_cmd` (`if (!gd.domove_ — `js/allmain.js` only — the C gate verbatim on the live store (`game.flags`, which `bot()`/`flush_screen` already gate on): `botl|botlx → bot() + curs_on_u()`, else `time_botl → timebot() + curs_on_u()`; unconditional `fl
 **D-2404** `nethack-c/upstream/src/engrave.c` `freehand :472–477` (`!uwep || !welded(uwep) || (!biman — `js/mthrowu.js` only — `import { freehand } from './engrave.js'` (new static edge; `imports.mjs --can mthrowu.js engrave.js freehand` → SAFE: hoisted function, same 90-module SCC, no top-level TDZ read — same shape as th
 **D-2403** `nethack-c/upstream/src/display.c` `docrt_flags` — `js/display.js` only — `if (game.flags) game.flags.botlx = true;` before each of the three early `return`s (mirroring the join; `update_inventory()` stays a named omit as D-2400 named it); the in-code named-omission comm
-**D-2402** `nethack-c/upstream/src/polyself.c` `polymon` find_ac `:890` + `:967` (D-0722 deferral retired, C order — `js/polyself.js` only — `find_ac()` after `drop_weapon(1)`, second after `see_monsters` before `encumber_msg()`; Tourist-92095 step-46 `AC:6` now paints post-strip; 4 poly PASS + 2 moved past, 0 worse; seed0108 303/303 holds; full 44/44)
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2409; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2410; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

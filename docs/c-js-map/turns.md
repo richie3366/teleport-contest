@@ -2782,7 +2782,7 @@ outer `can_touch_safely` call in `m_search_items` (arms live D-2149)
 (shop `in_rooms`+`rn2(25)`+`isshk` gate, `hides_under`+`cansee`, `onscary`, 
 `costly_spot`+merchandise, prizes, outer `can_touch_safely` live D-2047); 
 **`m_move` Tengu nature teleport `!rn2(5)`→rloc/mnexto + uswallow early-out** (D-0778; 
-MAIL_DAEMON deferred); **`dochug`/`postmov` `mon_offmap` after `m_move`/`mintrap`** (D-0781; 
+MAIL_DAEMON departure D-2410); **`dochug`/`postmov` `mon_offmap` after `m_move`/`mintrap`** (D-0781; 
 skips 2nd `distfleeck`; setter paths still partial); 
 **`m_move` isshk→`shk_move` before getitems** (D-0205); 
 **`m_move` `set_apparxy` before mtame/shk|gd|priest** (D-0267; 

@@ -1,6 +1,6 @@
 {
- "commit": "50392524",
- "at": "2026-09-16T11:06:31.519Z",
+ "commit": "c2198752",
+ "at": "2026-09-16T11:21:47.148Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -4747,19 +4747,19 @@
   },
   "scen-genesis-Knight-92112": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 3171,
+   "passed": true,
+   "rngM": 3221,
    "rngT": 3221,
-   "scrM": 96,
+   "scrM": 100,
    "scrT": 100,
-   "kind": "rng",
-   "step": 96,
+   "kind": null,
+   "step": null,
    "steps": 100,
-   "owner": "distfleeck",
-   "loc": "monmove.c:549",
-   "jsOwner": "m_move(monmove.js:1845)",
-   "cTopline": "You stop searching. \"I'm late!\" The baby red dragon bites!",
-   "jsTopline": "You stop searching. The baby red dragon bites!",
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-genesis-Knight-92149": {
@@ -7162,7 +7162,7 @@
   "scen-tour-Healer-92055": {
    "src": "corpus",
    "passed": false,
-   "rngM": 26337,
+   "rngM": 26355,
    "rngT": 31355,
    "scrM": 106,
    "scrT": 150,
@@ -7171,7 +7171,7 @@
    "steps": 150,
    "owner": "distfleeck",
    "loc": "monmove.c:549",
-   "jsOwner": "m_move(monmove.js:1927)",
+   "jsOwner": "m_move(monmove.js:1941)",
    "cTopline": "You hear a masticating sound. You hear a masticating sound.",
    "jsTopline": "You hear a masticating sound. You hear a masticating sound.",
    "error": null
@@ -7290,7 +7290,7 @@
    "steps": 95,
    "owner": "distfleeck",
    "loc": "monmove.c:549",
-   "jsOwner": "m_move(monmove.js:1829)",
+   "jsOwner": "m_move(monmove.js:1843)",
    "cTopline": "",
    "jsTopline": "",
    "error": null
@@ -7443,7 +7443,7 @@
    "steps": 148,
    "owner": "m_move",
    "loc": "monmove.c:2003",
-   "jsOwner": "m_move(monmove.js:1927)",
+   "jsOwner": "m_move(monmove.js:1941)",
    "cTopline": "You're having a hard time getting all of it down.--More--",
    "jsTopline": "You're having a hard time getting all of it down.--More--",
    "error": null
@@ -7460,7 +7460,7 @@
    "steps": 149,
    "owner": "m_move",
    "loc": "monmove.c:2003",
-   "jsOwner": "m_move(monmove.js:1927)",
+   "jsOwner": "m_move(monmove.js:1941)",
    "cTopline": "",
    "jsTopline": "",
    "error": null
