@@ -1,6 +1,6 @@
 {
- "commit": "c2198752",
- "at": "2026-09-16T11:21:47.148Z",
+ "commit": "59b0f846",
+ "at": "2026-09-16T12:05:17.942Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -8504,19 +8504,19 @@
   },
   "scen-wish-Samurai-92088": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 5493,
    "rngT": 5493,
-   "scrM": 272,
+   "scrM": 288,
    "scrT": 288,
-   "kind": "screen",
-   "step": 272,
+   "kind": null,
+   "step": null,
    "steps": 288,
-   "owner": "list_genocided",
-   "loc": "insight.c:3036",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "Do you want a list of species genocided? [ynaq] (n)",
-   "jsTopline": "Do you want to see your conduct and achievements? [ynq] (n)",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-wish-Tourist-91125": {

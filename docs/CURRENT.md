@@ -21,7 +21,7 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-16** — full `sessions` on the working tree
-(audit **1368–1373** + D-2403…D-2411).
+(audit **1368–1373** + D-2403…D-2412).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 `48+0.30/turn` (R² 0.78).
@@ -37,7 +37,7 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Role-init throws | **0 / 44** |
 
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-16
-audit 1368–1373 + D-2403…D-2411): **485 / 540 PASS (89.8 %)** excl. 13 env-only rows
+audit 1368–1373 + D-2403…D-2412): **485 / 540 PASS (89.8 %)** excl. 13 env-only rows
 (485/553; D-2405/D-2406/D-2407 moved Knight-92002 + Wizard-92219 to PASS and the lembas pair + Samurai-92032 to later owners); RNG 99.0 %; screens 98.7 %. Top owners:
 `distfleeck` ×7, `do_statusline2` ×4, `m_move` ×3, `obj_resists` ×3,
 `rloc` ×2, `one_characteristic` ×2, then 1-block singles
@@ -85,10 +85,11 @@ writer, `[campaign]`/`[measure]` rows replace map filler
 Pop `LOOP-QUEUE.md` Must-fix (freehand guard, docrt early-path botlx),
 then Open in order — campaign botl-parity 2/3, `status_enlightenment`
 held-by/utrap arms (3 sessions), the `[measure]` rows, eat `losehp`.
-**Next cluster:** `eat.c` `losehp` death-path bypass at the two corpse-damage sites (Open head; [measure] enlightenment delivered → `mkobj.c weight()` BoH-divisor + `attributes_enlightenment` Unchanging writer rows at the Open tail).
+**Next cluster:** `insight.c` `list_genocided` ngone>0 menu arm — blocks 1/553 (scen-wish-Samurai-92088 step 272: C «Do you want a list of species genocided? [ynaq] (n)» vs JS «Do you want to see your conduct and achievements? [ynq] (n)»). C `insight.c:3007–3131` full menu body absent from `js/insight.js:846` stub. Port the ngone>0 arm in C order.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2411 (index).**
+**Keep D-0845…D-2412 (index).**
 <!-- recent:begin -->
+**D-2412** `insight.c:3007–3131` `list_genocided` (both=dumping||genoing→'y', genoing→both=FALSE; `nu — `js/insight.js` — exported `num_extinct`/`num_gone` (C `staticfn`, exported for the test pin; out-param→returned array, LOW_PM order); `genocided_prompt`/`genocided_title`/`genocided_line` pure builders (`:3043–3048`/`:3
 **D-2411** `eat.c:1926` `losehp(rnd(15), !glob ? "acidic corpse" : "acidic glob", KILLED_BY_AN)` and  — `js/eat.js` only — both sites call canonical sync `losehp` with C arg order and killer strings (`rnd(15)`/`rnd(8)` kept per C, not `1+rn2`); `finish_maybe_wail` added to the existing static `./hack.js` import (`imports.m
 **D-2410** `monmove.c:1829–1838` (`#ifdef MAIL_STRUCTURES` arm; unconditionally `#define`d — `js/monmove.js` only — the arm in C order: `(ptr?.mndx ?? -1) === PM_MAIL_DAEMON` (module idiom, cf. the Tengu arm); `!hero_Deaf() && canseemon(mtmp)` preserves the C short-circuit (`Deaf` ≡ local `hero_Deaf`, same gate 
 **D-2409** `mon.c:2299–2317` (MON_AT arm: `mmflag = flag | mm_aggression(mon, mtmp2)`; ALLOW_M + tame — `js/mon.js` only — three file-local functions (C `staticfn`, same shape as NODIAG/may_passwall) + the MON_AT arm in C order (`mmflag = flag | mm_aggression`; ALLOW_M / tame-TM / else MDISP with the flag mutation, which p
@@ -96,11 +97,10 @@ held-by/utrap arms (3 sessions), the `[measure]` rows, eat `losehp`.
 **D-2407** `steal.c:874–898` `relobj` → per-head `mdrop_obj` `:813–846`, whose `:840–843` routes the  — `js/mkobj.js` — `relobj_on_death` now `async`, dynamic-imports `flooreffects` from `./do.js` (no new static edge into the 90-module SCC; same shape as `mon.js` `mdrop_obj` / `dothrow.js` `throwit`; `imports.mjs --can mko
 **D-2406** `insight.c:1086–1098` (`u.utrap` → `trap_predicament(predicament, final, wizard)` + steed/ — `js/invent.js` — new exported `trap_predicament(final, wizxtra)` (`:4975`, C `:232–261` verbatim incl.
 **D-2405** `allmain.c:473–479` (the gate itself) + `cmd.c:1386–1400` `set_move_cmd` (`if (!gd.domove_ — `js/allmain.js` only — the C gate verbatim on the live store (`game.flags`, which `bot()`/`flush_screen` already gate on): `botl|botlx → bot() + curs_on_u()`, else `time_botl → timebot() + curs_on_u()`; unconditional `fl
-**D-2404** `nethack-c/upstream/src/engrave.c` `freehand :472–477` (`!uwep || !welded(uwep) || (!biman — `js/mthrowu.js` only — `import { freehand } from './engrave.js'` (new static edge; `imports.mjs --can mthrowu.js engrave.js freehand` → SAFE: hoisted function, same 90-module SCC, no top-level TDZ read — same shape as th
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2411; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2412; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

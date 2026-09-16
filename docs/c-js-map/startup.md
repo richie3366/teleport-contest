@@ -255,6 +255,10 @@ seed0106 Scr **257→259**/267; full **10/44** Scr **1130** RNG
 (D-0126) → seed0106 Scr **259→262**/267; full **10/44** Scr **1133**
 RNG **104575**/792838. **`list_vanquished` display names from `pmnames[NEUTRAL]`**
 (D-2154; was `PM_*`-enum derivation → `uruk hai`/`keystone kop`; scen-genesis pair PASS).
+**Full `list_genocided` ngone>0 arm + `num_extinct`/`num_gone` + `set_vanq_order`**
+(D-2412; retires the empty-`#genocided` deferral — yn prompt, NHW_MENU with
+extinctions/tallies, COUNT→ALPHA_MIX fallback, class headers; scen-wish-Samurai-92088 PASS.
+Pick-one primitive paints preselected `*` + space/enter finish (wintty.c); DUMPLOG file arm stays retired.)
 **`#adjust`/`doorganize` getobj + destination cancel** (D-0127) →
 seed0106 Scr **262→264**/267; full **10/44** Scr **1135** RNG
 **104575**/792838.
