@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2408 — `insight.c` utrap-steed verb: C `:1094–1096` anchored ternary (`is/was` vs `are/were`)
+
+- **Status:** fixed (Must-fix queue row from review 1372, QUALITY-RISK on D-2406 — the steed verb shipped hardcoded plural).
+- **Symptom:** no corpus session blocked and no public FAIL — a review-caught C-wrong, not a first-diff owner. Observable divergence: a mounted hero in a non-ball trap (pit/web/beartrap/lava/in-floor) hears "<Steed> are trapped …" in JS where C prints "<Steed> is trapped …" (final: "were" vs "was"). The anchored BURIEDBALL arm ("you and <steed> are …") was already correct. No corpus session walks the steed+utrap+non-ball corner, so the fix ships on the C citation + gates per the review.
+- **C locus:** `insight.c:1094–1096` — `enl_msg(buf, (anchored ? "are " : "is "), (anchored ? "were " : "was "), predicament, "")` where `anchored = (u.utraptype == TT_BURIEDBALL)` (`:1088`); the steed branch tests `u.usteed`, not `Riding` (`:1092`).
+- **JS was:** `js/invent.js` utrap block passed `final ? 'were ' : 'are '` unconditionally, and its own comment misquoted C as "enl_msg(buf, are/were, …)", normalizing away the ternary (the false C-claim review 1372 flagged as load-bearing).
+- **Fix:** `js/invent.js` only — new exported `utrap_steed_verb(final, anchored)` (`:4975`-area, C `:1094–1096` verbatim: `final ? (anchored ? 'were ' : 'was ') : (anchored ? 'are ' : 'is ')`); the steed arm calls it; the comment now quotes C's full ternary. No new imports (same-file helper); no RNG re-decisions (verb selection is RNG-neutral); no DIAG/FORCE/seed gates; Rule #2 clean.
+- **JS:** 1 js file (`js/invent.js` +13/−3: helper +9, call site +1, comment +3/−3) + extended maintained test `scripts/trap-predicament.test.mjs` (+16: new `utrap_steed_verb` describe, anchored are/were + unanchored is/was), under the 600/10 caps. Density note: Must-fix single item, alone — C is three lines, so the small diff is the whole locus.
+- **Callers:** the verb is inline in C's `status_enlightenment` (static fn; its only caller is `enlightenment()` `:417`, untouched). The JS call site is the one steed arm of `status_core_lines` (`js/invent.js:5161`-area), which feeds both enlightenment paths (BASIC/MAGIC + `^X` overlay) with no call-site rewiring. No call from a site C never calls from; no C caller left unwired.
+- **Verify:** `node scripts/verify.mjs --fn status_enlightenment` → PASS syntax (1 changed js file: js/invent.js) · PASS rule2 · note hidden (vacuous — 0 blocked at HEAD; the row cites no corpus session so no `--base` owed; ships on the C citation + public gates per review 1372) · PASS green 2/2 + strict ×2 · PASS cohort 7/7 · skip full (no shared file) · VERIFY: PASS. `node --test scripts/trap-predicament.test.mjs` → 8/8 pass (6 pre-existing + 2 new verb cases; new cases fail on pre-fix code — hardcoded plural — by construction). Preflight `--no-cohort` green on the clean tree before edits.
+- **Named omissions:** none new (`self_lookat` steed `y_monnam` arm stays per D-2406; null-steedname → `you_are` fallback stays per D-2406).
+- **Next:** pop the next Open row (`mon.c` `mm_aggression`/`mm_displacement` writer, 3 sessions) in order.
+
 ## D-2407 — `steal.c` relobj death-drop `flooreffects` arm (`relobj_on_death`)
 
 - **Status:** fixed (Open queue row `steal.c` relobj death-drop `flooreffects` arm — 2/553 under owner `obj_resists`).

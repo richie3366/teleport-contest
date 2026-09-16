@@ -2556,7 +2556,7 @@ corner leftover WIN_STATUS left of offx (D-1842; C `docorner` `cl_end` from `tty
 (D-0856; seed0383 Scr 209→211); **`dismiss_nhw_menu` ≡ erase_menu_or_text** (fullscreen docrt / 
 corner gbuf-flush; D-0857); **`doattributes` Status `Hallucination` + 
 Attributes `Antimagic`/`from_what`** (D-0858; seed0383 **PASS**; 
-Stoned/Slimed/…/Blind status + Invulnerable/Cold/… resists + wear/invis plines deferred) + **Status utrap + held-by/holding D-2406** (`insight.c:1086–1131` in C order in `status_core_lines`: `trap_predicament` export wired at both C call sites + steed/anchored `enl_msg` vs `you_are` + `ustick` holding/held-by + `dxdy_to_dist_descr`; poly/ride/Glib/Fumbling still deferred); 
+Stoned/Slimed/…/Blind status + Invulnerable/Cold/… resists + wear/invis plines deferred) + **Status utrap + held-by/holding D-2406** (`insight.c:1086–1131` in C order in `status_core_lines`: `trap_predicament` export wired at both C call sites + steed/anchored `enl_msg` vs `you_are` (steed verb `utrap_steed_verb` C `:1094–1096` anchored ternary D-2408) + `ustick` holding/held-by + `dxdy_to_dist_descr`; poly/ride/Glib/Fumbling still deferred); 
 disco inv_order + `*`/encounter + `OBJ_DESCR`/`obj_typename` (D-0040); 
 **`disco_append_typename` + `append_price_quote` `{buy N}`** (D-0469; 
 sell quotes / BUFSZ truncate deferred); **`dodiscovered` NHW_TEXT `show_text_pages` + 

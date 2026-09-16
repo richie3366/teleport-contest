@@ -109,3 +109,5 @@ enlightenment family (one fn + two call sites + two arms). At the
    ships on the C citation.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-2408

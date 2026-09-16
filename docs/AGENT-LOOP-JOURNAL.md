@@ -145,6 +145,14 @@ verified vs `youprop.h:355–360`). 1347 D-2381 float_up → **ACCEPT**
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-16 — D-2408 `insight.c` utrap-steed verb: C `:1094–1096` anchored ternary (`is/was` vs `are/were`)
+
+**C locus:** `insight.c:1094–1096` — `enl_msg(buf, (anchored ? "are " : "is "), (anchored ? "were " : "was "), predicament, "")` where `anchored = (u.utraptype == TT_BURIEDBALL)` (`:1088`); the steed branch tests `u.usteed`, not `Riding` (`:1092`).
+**JS:** 1 js file (`js/invent.js` +13/−3: helper +9, call site +1, comment +3/−3) + extended maintained test `scripts/trap-predicament.test.mjs` (+16: new `utrap_steed_verb` describe, anchored are/were + unanchored is/was), under the 600/10 caps. Density note: Must-fix single item, alone — C is three lines, so the small diff is the whole locus.
+**Change:** `js/invent.js` only — new exported `utrap_steed_verb(final, anchored)` (`:4975`-area, C `:1094–1096` verbatim: `final ? (anchored ? 'were ' : 'was ') : (anchored ? 'are ' : 'is ')`); the steed arm calls it; the comment now quotes C's full ternary. No new imports (same-file helper); no RNG re-decisions (verb selection is RNG-neutral); no DIAG/FORCE/seed gates; Rule #2 clean.
+**Verify:** `node scripts/verify.mjs --fn status_enlightenment` → PASS syntax (1 changed js file: js/invent.js) · PASS rule2 · note hidden (vacuous — 0 blocked at HEAD; the row cites no corpus session so no `--base` owed; ships on the C citation + public gates per review 1372) · PASS green 2/2 + strict ×2 · PASS cohort 7/7 · skip full (no shared file) · VERIFY: PASS. `node --test scripts/trap-predicament.test.mjs` → 8/8 pass (6 pre-existing + 2 new verb cases; new cases fail on pre-fix code — hardcoded plural — by construction). Preflight `--no-cohort` green on the clean tree before edits.
+**Named:** none new (`self_lookat` steed `y_monnam` arm stays per D-2406; null-steedname → `you_are` fallback stays per D-2406).
+**Next:** pop the next Open row (`mon.c` `mm_aggression`/`mm_displacement` writer, 3 sessions) in order.
 ## 2026-09-16 — D-2407 `steal.c` relobj death-drop `flooreffects` arm (`relobj_on_death`)
 
 **C locus:** `steal.c:874–898` `relobj` → per-head `mdrop_obj` `:813–846`, whose `:840–843` routes the freed obj through `flooreffects(obj, omx, omy, "fall")` before `place_object` + `stackobj` (death path passes verbosely=FALSE; the saddle-no_charge arm is tame-only and `update_mon_extrinsics` is `!DEADMONSTER`-gated, so neither fires on a death drop).

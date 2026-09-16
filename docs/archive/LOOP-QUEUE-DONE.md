@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-16
 
+- [x] `insight.c` utrap-steed verb: C `:1094–1096` passes `anchored ? are/were : is/was`, JS `js/invent.js` utrap block always `are/were` (review-caught, no corpus session in steed+trap state; anchored BURIEDBALL arm correct). Fix: mirror C's ternary in the verb + correct the comment quote. Source: reviews/loop-unattended/1372-3e4e31f8-enlightenment-utrap-held.md
+
+
 - [x] [measure] `monmove.c` m_move Caveman-92202 `cnt-j` split — blocks 3/553 (scen-poly-Caveman-92202 step 103: C `rn2(20)=5` vs JS `rn2(16)=13`, first draw of that `m_move` call, `appr!=0` both sides, candidate count differs by exactly 1; Wizard-92076 writer `dohide` shipped). Candidates left by the park: one extra `mfndpos` candidate in C, an `mtrack` history shift (all 6 C `mon_track_clear` sites have JS counterparts — verify they fire at the same turns), a `mon_track_add` timing gap. Deliverable: C `mfndpos` position list + `mtrack[]` dump at step 103 on the recorder (temp fprintf, reverted) vs the JS prefix-state probe, then the writer's Open row. Do not re-port the selection loop (faithful, parked). Probe: `node scripts/hidden-proxy.mjs show scen-poly-Caveman-92202`.
 
 

@@ -4972,6 +4972,17 @@ function item_resistance_message_lines(adtyp, prot_message, final, o = (t) => t)
  * @param {number} final
  * @param {boolean} wizxtra wizard-mode ` {<utrap>}` counter suffix
  */
+/**
+ * C ref: insight.c status_enlightenment `:1094–1096` — the steed-trap
+ * enl_msg verb: plural when the ball-and-chain anchors hero and steed
+ * together (`anchored`, TT_BURIEDBALL), singular for the steed alone.
+ * @param {number} final
+ * @param {boolean} anchored
+ */
+export function utrap_steed_verb(final, anchored) {
+    return final ? (anchored ? 'were ' : 'was ') : (anchored ? 'are ' : 'is ');
+}
+
 export function trap_predicament(final, wizxtra) {
     const u = game.u || {};
     const ux = u.ux | 0, uy = u.uy | 0;
@@ -5142,13 +5153,14 @@ function status_core_lines(final = 0, opts = {}) {
             false);
         if (u.usteed && steedname) {
             // C: Sprintf(buf, "%s%s ", anchored ? "you and " : "",
-            // steedname); *buf = highc(*buf); enl_msg(buf, are/were,
+            // steedname); *buf = highc(*buf); enl_msg(buf,
+            // anchored ? "are " : "is ", anchored ? "were " : "was ",
             // predicament, "") — enl_msg lines take the overlay prefix
             // like you_are lines.
             const rawstart = `${anchored ? 'you and ' : ''}${steedname} `;
             const start = `${highc(rawstart)}${rawstart.slice(1)}`;
             const line = enlght_line_txt(
-                start, final ? 'were ' : 'are ', predicament, '');
+                start, utrap_steed_verb(final, anchored), predicament, '');
             out.push(overlay ? ` ${line}` : line);
         } else {
             out.push(wrap(predicament));

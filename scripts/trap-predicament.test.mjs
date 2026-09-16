@@ -1,6 +1,6 @@
 import { describe, it, beforeEach, afterEach } from "node:test";
 import assert from "node:assert/strict";
-import { trap_predicament } from "../js/invent.js";
+import { trap_predicament, utrap_steed_verb } from "../js/invent.js";
 import {
   TT_BEARTRAP,
   TT_PIT,
@@ -71,5 +71,20 @@ describe("trap_predicament (insight.c:232-261)", () => {
       trap_predicament(0, true),
       "tethered to something buried {7}",
     );
+  });
+});
+
+// C ref: insight.c status_enlightenment `:1094–1096` — the steed-trap
+// enl_msg verb: plural when anchored (ball-and-chain), singular for the
+// steed alone (review 1372 C-wrong 1).
+describe("utrap_steed_verb (insight.c:1094-1096)", () => {
+  it("anchored steed takes are/were", () => {
+    assert.equal(utrap_steed_verb(0, true), "are ");
+    assert.equal(utrap_steed_verb(1, true), "were ");
+  });
+
+  it("unanchored steed takes is/was", () => {
+    assert.equal(utrap_steed_verb(0, false), "is ");
+    assert.equal(utrap_steed_verb(1, false), "was ");
   });
 });
