@@ -31,19 +31,20 @@ here again. Live hypotheses only:
 - **do_statusline2 residuals (MEASURED D-2425, 2 writer rows):** W1 Healer-92107 = `mhitm_ad_cold` (void)-discard — JS `mhitm_ad_cold_u` adds destroy return (mdamageu 10+5=15 vs C 10; Δ5 = rnd(4) 3+2); W2 Satiated pair (92092/91125) = eat-progress timing — JS `uhs` satiated a bite early, paints a turn late (newuhs no-botl early return). Monk-92194 Pw = D-2161 gulpmu residual (JS drains a turn late) — no new row. Probes in /tmp (botl-probe, uhs-scan, probe125 copy), kept out of repo.
 ## Don't re-check (≤15)
 
-- D-1790…D-2429 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-2430 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2429.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2429.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2430.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2430.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2430: `js/lock.js` only for the locus — tail `if (!(u.dz | 0)) confdir(false)` in C order at both exits (self + normal); `confdir` was already imported (no  Named: stethoscope `apply.c:379` self-confdir (pre-existing deferral, kept); C getdir mouse `_` g
 - D-2429: `js/mklev.js` only — capture `ttmp` and call `mktrap_seen_victim(ttmp, {})` (exact: not-WEB so spider flag moot, seen/novictim false per the string+co Named: other bare-`maketrap` NO-TAIL sites left exactly as found (no session evidence): `555` MAG
 - D-2428: `js/monmove.js` — `function can_fog` → `export function can_fog` (hoisted declaration, no TDZ risk); `js/mon.js` — `can_fog` added to the existing sta Named: `stuff_prevents_passage` inside `can_fog` (pre-existing map note, same deferral as `can_oo
 - D-2427: `js/mklev.js` only — `dx`/`dy` → `let`; inside the existing `!Is_airlevel || !rn2(6)` gate (same RNG shape: water draws nothing new, air keeps its sin Named: ini-path `unblock_point`/`block_point` paint arms stay named (D-2171 map note — no session
@@ -58,5 +59,4 @@ here again. Live hypotheses only:
 - D-2411: `js/eat.js` only — both sites call canonical sync `losehp` with C arg order and killer strings (`rnd(15)`/`rnd(8)` kept per C, not `1+rn2`); `finish_m Named: tainted-arm `make_sick` stays deferred (pre-existing, map-kept); `showdamage`/`rehumanize`
 - D-2410: `js/monmove.js` only — the arm in C order: `(ptr?.mndx ?? -1) === PM_MAIL_DAEMON` (module idiom, cf. the Tengu arm); `!hero_Deaf() && canseemon(mtmp)` Named: none new (local `canseemon` infrared/invis stand-in per D-1548 stays as named there).
 - D-2409: `js/mon.js` only — three file-local functions (C `staticfn`, same shape as NODIAG/may_passwall) + the MON_AT arm in C order (`mmflag = flag | mm_aggre Named: none new (the `mfndpos` header comment now cites only `can_fog`-in-squeeze plus the pre-ex
-- D-2408: `js/invent.js` only — new exported `utrap_steed_verb(final, anchored)` (`:4975`-area, C `:1094–1096` verbatim: `final ? (anchored ? 'were ' : 'was ')  Named: none new (`self_lookat` steed `y_monnam` arm stays per D-2406; null-steedname → `you_are` 
 <!-- landmarks:end -->

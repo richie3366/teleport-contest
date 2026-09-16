@@ -556,7 +556,7 @@ JS: `js/zap.js` — partial
 `WAN_SECRET_DOOR_DETECTION` → `findit` (D-0074); 
 **directional getdir `.`=self + `confdir` + getdir_zap yn_function D-1721 /
 CQ_REPEAT D-1729**
-(confdir stays local; do not add to shared `getdir`) +
+(trailing `confdir` centralized in shared `getdir` D-2430; getdir_zap pass-through) +
 `zapyourself` SPE_HEALING/`WAN_SLEEP`/`SPE_SLEEP`/`WAN_DEATH`/`SPE_FINGER_OF_DEATH`/`WAN_POLYMORPH`/
 `SPE_POLYMORPH` (D-0156/D-0576/D-0928 #1103); **getobj `?`/`*` → `display_pickinv_reply`; 
 RAY `weffects` → `ubuzz`/`dobuzz` for `WAN_MAGIC_MISSILE`..`WAN_LIGHTNING` (range/`zap_hit`/`zhitm` 
@@ -1928,18 +1928,21 @@ Blind_telepat/Infravision/Sting `see_monsters` D-1755 / Eyes / **Punished `set_b
 costly_alteration COST_SPLAT / quan>1 invent-split deferred); exported `getdir` for kick/apply; 
 **`getdir` `'.'` = SELF** (D-0780; was cancel) + 
 **D-1038 `lock.js` `getdir` cmdq DIR/KEY, `s` self, `<>`, movecmd HJKL/Ctrl, optional numpad, `^R` 
-retry** (no trailing `confdir`) + 
+retry** + **D-2430 trailing `:4115–4116` `if (!u.dz) confdir(FALSE)` in shared 
+`getdir`** (self falls through like C; `use_whip` `:2980` / pick-axe `:1193` 
+self-calls kept so confused draws match C 1-or-2; `getdir_zap`/`doclose` 
+compensations removed — C zap.c/lock.c have no self-call) + 
 **D-1721 `getdir` yn_function** (C `cmd.c` `:3987–4011` `yn_function(query, NULL, '\0', FALSE)` then 
 `clear_nhwindow(WIN_MESSAGE)`; `(s && *s != '^')` query; live `js/lock.js` + 
 `getdir_cmdassist` / `getdir_zap`; unused dothrow clone deleted) + 
 **D-1729 `getdir` CQ_REPEAT** (C `:3962–4019` `cmdq_pop` DIR/KEY + `cmdq_add_key(CQ_REPEAT)` 
 when `!in_doagain`; `in_doagain` `nhgetch`; live `getdir_read_dirsym`; `getdir_zap` 
-calls shared `getdir` then local `confdir`; dig `use_pick_axe` calls `getdir`) + 
+pass-through; dig `use_pick_axe` calls `getdir`) + 
 **D-1806 `getdir` help_dir / cmdassist / strange-direction NEED_MORE / `dxdy_moveok`**
 (C `help_dir` `:4168–4296` NHW_TEXT `show_text_pages` quitchar wait + Guidebook
 `dowhatdoes_core`; `dxdy_moveok` `:3901–3907` NODIAG grid-bug; live shared
 `js/lock.js` `getdir`; `getdir_cmdassist` wraps; `doclose` / `get_adjacent_loc`
-call `getdir`; no trailing `confdir`; named: mouse `_` getpos, fuzzer,
+call `getdir` with the tail inside it; named: mouse `_` getpos, fuzzer,
 `cmd_from_func` keys, rhack `dxdy_moveok`; `yn_function_menu` is D-1728) +
 **D-1815 `getdir` `:4098` `iflags.cmdassist`** (optlist default On;
 Options/`O` writes `game.iflags`; `!cmdassist` skips `help_dir` for the
@@ -1949,8 +1952,8 @@ getobj missing-letter `continue`+`flush_topl_more` (D-0025);
 **`doclose`/`c` getdir cmdassist + close envelope** (D-0740;
 **`stumble_on_door_mimic` shared door-mimic + doopen/doclose/untrap wires** D-2373 (`lock.c:758–769` is_door_mappear + !Protection gate; trap.js doorway via lazy import, floor-trap :5962 inline untouched) / portcullis deferred; **PfSC gate canonical `were.js` export** D-2380 (deleted the flats-only `lock.js:618` local — C `youprop.h:355–360` H||E; worn PfSC ring sets uprops extrinsic with no E-flat mirror; `--can` SAFE hoisted fn); **Blind feel_location/mapseen + feel/see nodoor** D-2286 — !isok before Confusion/Stunned per C order, glyph half dead, no `lev->glyph` in JS cells) +
 **impaired-direction TIME + getdir-tail confdir(FALSE)** (D-2009; `lock.c`
-`if (Confusion || Stunned) res = ECMD_TIME` + `cmd.c:4116–4117`
-caller-local `confdir`, so a confused no-door close costs the C turn); 
+`if (Confusion || Stunned) res = ECMD_TIME`; tail centralized in `getdir`
+D-2430, so a confused no-door close costs the C turn); 
 **`get_adjacent_loc` → shared `getdir` (D-1806); `MAGIC_MARKER` → `dowrite`** (D-0742); 
 **`doopen_indir`/`kick_door` `recalc_block_point`; `pick_lock` NODOOR/ISOPEN/BROKEN** (D-0113); **`pick_lock` direction-arm occupied square: pit rim, visible-monster (`mon_nam` + credit-card shk/Oracle `verbalize`), door-mimic reveal (`is_door_mappear` inline, `stumble_onto_mimic`), !IS_DOOR feel/mapseen + Blind feel/see + drawbridge** (D-2002; `maybe_absorb_item` named; !IS_DOOR return stays LEARNED — no `lev->glyph` in JS cells); 
 **`doopen_indir` locked → autounlock APPLY_KEY + `autokey`/`pick_lock` ynq + 
