@@ -15993,7 +15993,7 @@ function setup_waterlevel() {
     }
 }
 
-/** C ref: mkmaze.c mk_bubble + mv_bubble(ini) cloud/air paint RNG. */
+/** C ref: mkmaze.c mk_bubble + mv_bubble(b,0,0,TRUE) ini boing colli flips + cloud/air paint RNG. */
 function mk_bubble(x, y, n, gbxmin, gbymin, gbxmax, gbymax) {
     const BM = [
         [2, 1, 0x3],
@@ -16011,13 +16011,32 @@ function mk_bubble(x, y, n, gbxmin, gbymin, gbxmax, gbymax) {
     let by = y;
     if ((bx + bm[0] - 1) > gbxmax) bx = gbxmax - bm[0] + 1;
     if ((by + bm[1] - 1) > gbymax) by = gbymax - bm[1] + 1;
-    const dx = 1 - rn2(3);
-    const dy = 1 - rn2(3);
-    // C: mv_bubble(b, 0, 0, TRUE) — air clouds skip move unless !rn2(6)
+    let dx = 1 - rn2(3);
+    let dy = 1 - rn2(3);
+    // C mkmaze.c:1924 mv_bubble(b, 0, 0, TRUE): the :1959 move block runs with
+    // dx=dy=0 (no position change; air clouds still burn rn2(6)), then the
+    // :2087-2106 boing switch flips direction on border collision even at ini
+    // (only the default-branch redirect is ini-gated). Bounce arms are
+    // no-ops with dx=dy=0.
     if (!Is_airlevel(game.u?.uz) || !rn2(6)) {
-        // ini move with dx=dy=0 — no position change; still burns air rn2(6)
-        void dx;
-        void dy;
+        let colli = 0;
+        if (bx <= gbxmin) colli |= 2;
+        if (by <= gbymin) colli |= 1;
+        if ((bx + bm[0] - 1) >= gbxmax) colli |= 2;
+        if ((by + bm[1] - 1) >= gbymax) colli |= 1;
+        switch (colli) {
+        case 1:
+            dy = -dy;
+            break;
+        case 3:
+            dy = -dy;
+            /* FALLTHROUGH */
+        case 2:
+            dx = -dx;
+            break;
+        default:
+            break; // C :2099-2105 redirect runs only when !ini
+        }
     }
     // paint bubble cells: water→AIR, air→CLOUD
     const paint = Is_waterlevel(game.u?.uz) ? AIR : CLOUD;

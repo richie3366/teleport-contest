@@ -1,6 +1,6 @@
 {
- "commit": "5dee71f0",
- "at": "2026-09-16T16:00:20.801Z",
+ "commit": "4cd9ed60",
+ "at": "2026-09-16T16:05:23.834Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -7400,18 +7400,18 @@
   "scen-tour-Tourist-92100": {
    "src": "corpus",
    "passed": false,
-   "rngM": 25076,
+   "rngM": 25954,
    "rngT": 27848,
-   "scrM": 132,
+   "scrM": 133,
    "scrT": 167,
-   "kind": "rng",
-   "step": 131,
+   "kind": "screen",
+   "step": 132,
    "steps": 167,
-   "owner": "collect_coords",
-   "loc": "teleport.c:700",
-   "jsOwner": "collect_coords(teleport.js:611)",
-   "cTopline": "Endgame prerequisite: p - the Amulet of Yendor.--More--",
-   "jsTopline": "Endgame prerequisite: p - the Amulet of Yendor.--More--",
+   "owner": "level_tele",
+   "loc": "teleport.c:1427",
+   "jsOwner": null,
+   "cTopline": "You materialize on a different level!--More--",
+   "jsTopline": "You materialize on a different level!--More--",
    "error": null
   },
   "scen-tour-Tourist-92134": {
