@@ -22,6 +22,7 @@ here again. Live hypotheses only:
   (do_statusline1/2, one_characteristic parks).
 - **botl parity (1/3 shipped D-2400; 2/3 gate open, 3/3 masked):** C paints
   status only on `disp.botl/botlx/time_botl`; JS `bot()` runs every loop.
+- **botl gate 2/3 (REVERTED 2026-09-16, measured):** allmain.c:473–479 gate (A-shape, flush unconditional) → full 43/44 seed0007-only (T: stale travel turns 351/360/361, RNG/cursors 100%), corpus Healer-92092 58→59 + Tourist-91125 82→83. JS RDO/end_running/nomul/regen all write live flags; disp-trap proved zero inert `game.disp` sets on stale turns → writer is NOT the disp split; needs a C-side per-turn disp-flag trace (no recorder build this iter). Ship gate + writer together.
   3/3 meal gate measured 2026-09-16: C-exact wiring verifies NO MOVEMENT
   (lembas first diffs @58/@82 precede the park step-60 effect; 44/44 +
   cohort identical, reverted) — masked until the step-2 gate ships. DONE
