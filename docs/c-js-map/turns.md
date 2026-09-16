@@ -2763,8 +2763,7 @@ dochug geometry); **S_LEPRECHAUN findgold arm D-1798** in want_move OR;
 post-select `chi` + `itsstuck` + `ALLOW_U`→mux + 
 `nix==mux`→`m_move_aggress` (empty image → DONE)** (D-0790; 
 **`mdisplacem` swap + `update_monster_region` both after defender tail (D-1174)** / 
-`should_displace` prefer / `m_can_break_boulder` / region can_enter / `mfndpos` still omits setting 
-`ALLOW_MDISP`); **`mfndpos` door amorphous-engulfing arm + fixed-tele-track `ALLOW_TRAPS` (D-1868;
+`should_displace` prefer / `m_can_break_boulder` / region can_enter / `mfndpos` MON_AT `mm_aggression`/`mm_displacement` (D-2409)); **`mfndpos` door amorphous-engulfing arm + fixed-tele-track `ALLOW_TRAPS` (D-1868;
 can_fog / corrupt-ttyp impossible still named)**; **D-0794/D-0796 fixed:** seed0360 leftover apprentice was missing `HASTE_SELF` 
 MFAST (EOT `+=24`); prefix **112243→112279**; **`movemon_singlemon` early exits** (D-0795; 
 full `gd_move` / `dmonsfree` deferred); **`m_move` Invis `should_see&&rn2(11)` + 

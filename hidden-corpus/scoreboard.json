@@ -1,6 +1,6 @@
 {
- "commit": "15147092",
- "at": "2026-09-16T10:57:20.906Z",
+ "commit": "50392524",
+ "at": "2026-09-16T11:06:31.519Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6669,18 +6669,18 @@
   "scen-poly-Caveman-92202": {
    "src": "corpus",
    "passed": false,
-   "rngM": 6485,
+   "rngM": 6772,
    "rngT": 10999,
-   "scrM": 103,
+   "scrM": 153,
    "scrT": 265,
    "kind": "rng",
-   "step": 103,
+   "step": 116,
    "steps": 265,
-   "owner": "m_move",
-   "loc": "monmove.c:2003",
-   "jsOwner": "m_move(monmove.js:1927)",
-   "cTopline": "",
-   "jsTopline": "",
+   "owner": "distfleeck",
+   "loc": "monmove.c:549",
+   "jsOwner": "gethungry(eat.js:719)",
+   "cTopline": "You cannot fight while so heavily loaded. The grid bug bites!--More--",
+   "jsTopline": "You miss Slasher. Slasher misses the grid bug. The grid bug misses!--More--",
    "error": null
   },
   "scen-poly-Healer-92107": {
