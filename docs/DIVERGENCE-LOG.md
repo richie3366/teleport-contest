@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2416 — `read.c` `seffect_destroy_armor` cursed→`disintegrate_arm` arm (Healer writer, shipped)
+
+- **Status:** fixed (Open writer row from delivered [measure] `obj_resists` K/A/H; the delivered head is retired in this same commit — its deliverable shipped 2026-09-16 as D-2413/2414/2415 + three writer rows).
+- **Symptom:** scen-wish-Healer-92173 step 230 kind=rng: C `rn2(100)=64`@obj_resists vs JS no draw (last matched exercise). Screens: C «As you read the scroll, it disappears. Your gloves vanish!» vs JS «As you read the scroll, it disappears.» (gloves stay). Measured D-2413 (15th/15 draw, LEATHER_GLOVES otyp 159 (0,90), only uarmg worn).
+- **C locus:** `read.c:1372–1383` (`seffect_destroy_armor` scursed arm); the shipped arm is `:1380–1383` (`else if (disintegrate_arm(otmp)) { gk.known = TRUE; return; }` — scroll survives either way). C's only caller is `read.c:2212` (`seffect_destroy_armor(&sobj)`).
+- **JS was:** `js/read.js:1204–1215` cursed arm was vibrate-only + `// else disintegrate_arm deferred` (named); live `js/do_wear.js:3388 disintegrate_arm` unwired from this path.
+- **Fix:** `js/read.js` only — `else if (await disintegrate_arm(otmp)) { known = true; }` in C order with the `return sobj` fallthrough (C `return`, not useup); `disintegrate_arm` added to the existing static `./do_wear.js` import (`imports.mjs --can` → ALREADY, no new edge); `seffect_destroy_armor` exported (C `staticfn`, test pin per D-2412); doc envelope updated, `disintegrate_arm` struck from named omissions.
+- **JS:** `js/read.js:116` (import), `:1178` (export), `:1180–1217` (arm); new `scripts/seffect-destroy-armor.test.mjs` (2 its: uncursed-gloves destroyed + scroll survives; cursed-gloves vibrate branch keeps target with `spe -1`). Fixture note: worn gloves carry `owornmask: W_ARMG` — the C worn.c invariant, else `setworn`'s Setworn-impossible fires (caught live via an `impossible→more→nhgetch` float in the probe).
+- **Callers:** C `read.c:2212` (doread SCR_DESTROY_ARMOR) → JS `js/read.js:1999` (`const kept = await seffect_destroy_armor(sobj)`, already wired, unchanged). No other C call site exists (decl `:26` + call `:2212` only).
+- **Verify:** focused `node --test scripts/seffect-destroy-armor.test.mjs` 2/2 (destroy arm failed-before on gloves-stay; vibrate sibling passed throughout). `node scripts/verify.mjs --fn obj_resists` → `PASS hidden verify obj_resists: 1 PASS, 0 moved past, 2 unchanged, 0 worse → PROGRESS` (scen-wish-Healer-92173: PASS; Knight-92182 s95 + Arch-92238 s166 unchanged under still-open D-2414/D-2415); `PASS green 2/2`, `PASS strict` ×2, `PASS cohort 7/7`; `VERIFY: PASS`.
+- **Named omissions:** vibrate `adj_abon` + `make_stunned` body (pre-existing, doc-kept); blessed getobj choice + `disintegrate_cursed_armor`; confused `p_glow2`/COST_DEGRD (pre-existing). `obj_resists`/`disintegrate_arm` bodies untouched (live).
+- **Next:** writer rows D-2414 (`dog_invent` Knight) + D-2415 (thrown-whip Arch) stay open; then `shkinit`, `migrate_orc`, `[measure]` distfleeck residuals.
+
 ## D-2415 — `dothrow.c` thrown-whip landing vs kitten square (Arch one-cell split, writer row)
 
 - **Status:** open (writer row from delivered [measure] `obj_resists` Knight/Arch/Healer burn writers).

@@ -1,6 +1,6 @@
 {
- "commit": "eb69ebb7",
- "at": "2026-09-16T12:10:41.870Z",
+ "commit": "c8def23e",
+ "at": "2026-09-16T12:37:16.222Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -7841,19 +7841,19 @@
   },
   "scen-wish-Healer-92173": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 3174,
+   "passed": true,
+   "rngM": 3250,
    "rngT": 3250,
-   "scrM": 230,
+   "scrM": 239,
    "scrT": 239,
-   "kind": "rng",
-   "step": 230,
+   "kind": null,
+   "step": null,
    "steps": 239,
-   "owner": "obj_resists",
-   "loc": "zap.c:1469",
-   "jsOwner": "(no JS draw; last matched was exercise)",
-   "cTopline": "As you read the scroll, it disappears. Your gloves vanish!--More--",
-   "jsTopline": "As you read the scroll, it disappears.--More--",
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-wish-Knight-91128": {
