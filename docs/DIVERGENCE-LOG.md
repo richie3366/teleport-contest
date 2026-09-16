@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2404 — `mthrowu.c` `u_catch_thrown_obj` guard: canonical `freehand` (`engrave.c:472–477`)
+
+- **Status:** fixed (Must-fix queue row from review 1365, QUALITY-RISK on D-2399 — the catch arm shipped with a divergent file-local `freehand` clone in its guard chain).
+- **Symptom:** no corpus session blocked on `u_catch_thrown_obj`/`freehand` at HEAD and no public FAIL — a review-caught C-wrong, not a first-diff owner. Observable divergence: welded weapon → C FALSE vs clone TRUE; bimanual (`oc_big`) weapon + swap set → C TRUE vs clone FALSE. No corpus session walks the welded/big corner, so the fix ships on the C citation + gates per the review.
+- **C locus:** `nethack-c/upstream/src/engrave.c` `freehand :472–477` (`!uwep || !welded(uwep) || (!bimanual(uwep) && (!uarms || !uarms->cursed))`) — the ONLY `freehand` in pinned C (`extern.h:1018`; review's `src/*.c` grep confirms no second definition, so the clone's "C invent.c freehand" docstring names a home that does not exist).
+- **JS was:** `js/mthrowu.js:292` file-local `freehand()` (`oc_big`/`uswapwep`, no welded check) called from the `u_catch_thrown_obj` guard; canonical C-faithful `freehand()` already live at `js/engrave.js:610` (welded + bimanual/uarms-cursed arms).
+- **Fix:** `js/mthrowu.js` only — `import { freehand } from './engrave.js'` (new static edge; `imports.mjs --can mthrowu.js engrave.js freehand` → SAFE: hoisted function, same 90-module SCC, no top-level TDZ read — same shape as the 1866 existing edges), deleted the 8-line clone, C-cited the guard (`engrave.c:472–477`). Guard short-circuit/RNG order untouched; no DIAG/FORCE/seed gates; Rule #2 clean.
+- **JS:** 1 js file (`js/mthrowu.js` +4/−10: import +1, docstring +2, clone −9/−1 blank), under the 600/10 caps. Density note: Must-fix single item, alone — one import + one deletion at one C locus.
+- **Callers:** the retired clone had exactly one call site — the `u_catch_thrown_obj` guard (`js/mthrowu.js:602`), now wired to the canonical export. C's only `u_catch_thrown_obj` caller is `m_throw :695` (wired with `await` + `break` by D-2399 — untouched). No call added from a site C never calls from; no C caller left unwired. Other files' local `freehand` clones (`pickup.js`, `pray.js`, `spell.js`, `steed.js`) stay as they were — outside this Must-fix item, still covered by the `engrave.js:609` "other files keep local clones" note.
+- **Verify:** `node scripts/verify.mjs --fn u_catch_thrown_obj` → PASS syntax (1 changed js file) · PASS rule2 · note hidden (vacuous — 0 blocked at HEAD; row cited no N blocks so no `--base` owed) · PASS green 2/2 + strict ×2 · PASS cohort 7/7 · skip full (no shared file) · VERIFY: PASS. `hidden-proxy verify spoteffects` → 0 blocked at baseline HEAD too (Samurai-92161 already moved past to `distfleeck`@37 under D-2399 — same-or-better holds, nothing to regress). Preflight `--no-cohort` green on the clean tree before edits.
+- **Named omissions:** `drop_throw` `passive_obj` arm (pre-existing D-2399 omit, map line kept); sibling-file `freehand` clones (not this item's scope).
+- **Next:** Must-fix is now empty — pop Open head `[campaign botl-parity 2/3]` (moveloop gate) in order.
+
 ## D-2403 — `display.c` `docrt()` early-arm `botlx` (`:1724–1736` → post_map)
 
 - **Status:** fixed (Must-fix queue row from review 1366, QUALITY-RISK on D-2400 — D-2400's "(early uswallow/water/buried returns skip it as in C)" misread C; there are no early returns on those paths).

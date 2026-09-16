@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-16
 
+- [x] `mthrowu.c` `u_catch_thrown_obj` guard calls divergent `freehand` clone (mthrowu.js:292 `oc_big`/`uswapwep`, no welded check) instead of C `engrave.c:472–477` (sole C `freehand`, extern.h:1018; clone's "invent.c" home does not exist): welded weapon → C FALSE vs JS TRUE, big+swap → C TRUE vs JS FALSE; `imports.mjs --can mthrowu.js engrave.js freehand` → SAFE. Fix: import canonical, retire clone, keep 44/44 + cohort. Source: reviews/loop-unattended/1365-0c7b4556-u-catch-thrown-obj.md.
+
+
 - [x] `display.c` `docrt()` uswallow/underwater/buried arms return without `botlx`, but C `goto post_map` (`:1724–1736` → `:1766–1769`) sets it on every non-maponly call ("skip it as in C" is C-false; step-2 gate would stale those paths). Fix: set `botlx` on the three early arms, note redrawonly-arm botlx in the map omit. Source: reviews/loop-unattended/1366-d1747cfa-botl-parity-sites.md.
 
 ## 2026-09-15

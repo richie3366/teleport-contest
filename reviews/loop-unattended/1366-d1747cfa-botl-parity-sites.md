@@ -101,4 +101,4 @@ Campaign-step sized; acceptable.
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-2403
+**Addressed:** D-2403 `285aea6b`

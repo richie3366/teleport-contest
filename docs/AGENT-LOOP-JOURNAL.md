@@ -136,6 +136,14 @@ verified vs `youprop.h:355–360`). 1347 D-2381 float_up → **ACCEPT**
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-16 — D-2404 `mthrowu.c` `u_catch_thrown_obj` guard: canonical `freehand` (`engrave.c:472–477`)
+
+**C locus:** `nethack-c/upstream/src/engrave.c` `freehand :472–477` (`!uwep || !welded(uwep) || (!bimanual(uwep) && (!uarms || !uarms->cursed))`) — the ONLY `freehand` in pinned C (`extern.h:1018`; review's `src/*.c` grep confirms no second definition, so the clone's "C invent.c freehand" docstring names a home that does not exist).
+**JS:** 1 js file (`js/mthrowu.js` +4/−10: import +1, docstring +2, clone −9/−1 blank), under the 600/10 caps. Density note: Must-fix single item, alone — one import + one deletion at one C locus.
+**Change:** `js/mthrowu.js` only — `import { freehand } from './engrave.js'` (new static edge; `imports.mjs --can mthrowu.js engrave.js freehand` → SAFE: hoisted function, same 90-module SCC, no top-level TDZ read — same shape as the 1866 existing edges), deleted the 8-line clone, C-cited the guard (`engrave.c:472–477`). Guard short-circuit/RNG order untouched; no DIAG/FORCE/seed gates; Rule #2 clean.
+**Verify:** `node scripts/verify.mjs --fn u_catch_thrown_obj` → PASS syntax (1 changed js file) · PASS rule2 · note hidden (vacuous — 0 blocked at HEAD; row cited no N blocks so no `--base` owed) · PASS green 2/2 + strict ×2 · PASS cohort 7/7 · skip full (no shared file) · VERIFY: PASS. `hidden-proxy verify spoteffects` → 0 blocked at baseline HEAD too (Samurai-92161 already moved past to `distfleeck`@37 under D-2399 — same-or-better holds, nothing to regress). Preflight `--no-cohort` green on the clean tree before edits.
+**Named:** `drop_throw` `passive_obj` arm (pre-existing D-2399 omit, map line kept); sibling-file `freehand` clones (not this item's scope).
+**Next:** Must-fix is now empty — pop Open head `[campaign botl-parity 2/3]` (moveloop gate) in order.
 ## 2026-09-16 — D-2403 `display.c` `docrt()` early-arm `botlx` (`:1724–1736` → post_map)
 
 **C locus:** `nethack-c/upstream/src/display.c` `docrt_flags` — `redrawonly` `:1722–1724`, `u.uswallow` `:1726–1728`, `Underwater && !Is_waterlevel` `:1730–1732`, `u.uburied` `:1734–1736` ALL `goto post_map`, which sets `disp.botlx = TRUE` whenever `!maponly` (`:1766–1769`). Plain `docrt()` passes `docrtRecalc` (= 0, never maponly). The `:1717–1718` `!u.ux || in_docrt` return precedes the flag and correctly skips it.
