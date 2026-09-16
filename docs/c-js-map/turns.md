@@ -3286,7 +3286,7 @@ Tobjnam stop / big_corpse catch named);
 **`dog_nutrition` FOOD `objects[].oc_delay` + nutrition map + msize× + non-food `owt/20`** (D-0364; 
 `oeaten`/extractor `oc_nutrition` deferred); 
 **`droppables` tool-keeping envelope live** (D-2401; C `dogmove.c:27–136` dummy/GOLD_PIECE sentinel, animal/mindless + tunnels/needspick + nohands/verysmall gates, `MON_WEP` canonical, mattock/W_ARMS + pick/horn/key artifact-preference FALLTHROUGH chain); omit bee jelly/rust spit/unpaid shop, `dog_invent` eat-return path (DOGFOOD/CADAVER/starving
-ACCFOOD→`dog_eat`, D-0223), `mdrop_obj` `flooreffects`, vault-guard gold, worn/shop extrinsics, 
+ACCFOOD→`dog_eat`, D-0223), pet-path `mdrop_obj` `flooreffects` still omitted (death-drop `relobj_on_death` flooreffects live D-2407), vault-guard gold, worn/shop extrinsics, 
 **`m_in_out_region` before `newdogpos` place**; `see_monster_closeup`; 
 seed1500 RNG complete (D-0021); **`dog_goal` gettrack/ogoal** (D-0099); 
 **`dog_goal` wantdoor via off-hero `do_clear_area`/`view_from` vis_func** (D-0211); 
