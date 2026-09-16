@@ -840,7 +840,7 @@ omit full `key2extcmddesc` misc/numpad; PORT_HELP; getpos menu-jump/hilite; loot
 look_traps format; invis/warning glyphs; custom BIND=/number_pad; 
 selectable `process_menu_window` path; **`self_lookat` → `pmname(umonnum,Ugender)` not male 
 `urole.name.m`** (D-0664) + **Punished `, chained to ` + `ansimpleoname(uball)`** (D-0928 #1149; 
-steed/utrap deferred) + **`brief_at` CLOUD fog/vapor** (D-0811) + 
+**utrap `, <trap_predicament>` D-2406** (`pager.c:131`, `final=0` no wizard suffix; steed/`y_monnam` still deferred) + **`brief_at` CLOUD fog/vapor** (D-0811) + 
 **`room_cmap_explanation` S_darkroom** (D-0812) + **blocked staircase down qstart** (D-0814) + **`describe_looked` self "or you"** (D-2013; `pager.c:1346–1353` '@'-as-you tack-on when race ∉ {human, elf} && !Upolyd — `u_at` is the branch, '@' its prefix; the `wishymatch` queue owner was a literal-heuristic misfire on `"dwarven "` at `objnam.c:3280`, wishymatch arms stay named in the wish-subset row) + **self found-count** (D-2020 corrected by D-2092: the 1→2 is pre-didlook; didlook `:1591–1616` appends the self_lookat parenthetical and resets `found = 1`, so `do_look :1941` runs `checkfile` — `found: 1`); 
 look_at_monster hallu/health/stuck/leashed/trapped; **howmonseen D-1562**; 
 **`object_from_map` / `look_at_object` D-1524** (`pager.c:284–399`; fake SLIME_MOLD 
@@ -2556,7 +2556,7 @@ corner leftover WIN_STATUS left of offx (D-1842; C `docorner` `cl_end` from `tty
 (D-0856; seed0383 Scr 209→211); **`dismiss_nhw_menu` ≡ erase_menu_or_text** (fullscreen docrt / 
 corner gbuf-flush; D-0857); **`doattributes` Status `Hallucination` + 
 Attributes `Antimagic`/`from_what`** (D-0858; seed0383 **PASS**; 
-Stoned/Slimed/…/Blind status + Invulnerable/Cold/… resists + wear/invis plines deferred); 
+Stoned/Slimed/…/Blind status + Invulnerable/Cold/… resists + wear/invis plines deferred) + **Status utrap + held-by/holding D-2406** (`insight.c:1086–1131` in C order in `status_core_lines`: `trap_predicament` export wired at both C call sites + steed/anchored `enl_msg` vs `you_are` + `ustick` holding/held-by + `dxdy_to_dist_descr`; poly/ride/Glib/Fumbling still deferred); 
 disco inv_order + `*`/encounter + `OBJ_DESCR`/`obj_typename` (D-0040); 
 **`disco_append_typename` + `append_price_quote` `{buy N}`** (D-0469; 
 sell quotes / BUFSZ truncate deferred); **`dodiscovered` NHW_TEXT `show_text_pages` + 
