@@ -86,7 +86,7 @@ writer, `[campaign]`/`[measure]` rows replace map filler
 Pop `LOOP-QUEUE.md` Must-fix (freehand guard, docrt early-path botlx),
 then Open in order — campaign botl-parity 2/3, `status_enlightenment`
 held-by/utrap arms (3 sessions), the `[measure]` rows, eat `losehp`.
-**Next cluster:** [measure] `do_statusline2` HP residuals — queue Open head (scen-poly-Healer-92107, scen-wish-Healer-92092, scen-wish-Monk-92194; identical toplines, first diff row 23 HP; top parked owner with no Open row). See `LOOP-QUEUE.md` for the full row; D-2424 shipped the `m_move` Valkyrie writer (`can_fog` door arm) this iteration.
+**Next cluster:** - [ ] [measure] `collect_coords` ring-state residuals — queue Open head after D-2425 shipped the `do_statusline2` writers (`mhitm_ad_cold` + eat-progress rows). See `LOOP-QUEUE.md` for the full row.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2423 (index).**
 <!-- recent:begin -->

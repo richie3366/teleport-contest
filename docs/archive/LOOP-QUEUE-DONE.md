@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-16
 
+- [x] [measure] `do_statusline2` HP residuals — blocks 3/553 (scen-poly-Healer-92107, scen-wish-Healer-92092, scen-wish-Monk-92194; identical toplines, first diff row 23 HP: C `HP:7(33)` vs JS `HP:2(33)`; top parked owner with no Open row). Deliverable: C per-step draw-owner dump (which C function draws what at each blocked step on the recorder, temp RNG-tag instrumentation reverted) vs the JS prefix-state probe, then the writer's Open row. Do not re-port `do_statusline1/2` (painters proven faithful, parked). Probe: `node scripts/hidden-proxy.mjs verify do_statusline2`. **Addressed:** D-2425
+
+
 - [x] [measure] `m_move` Valkyrie track-check residuals — blocks 2/553 (scen-tour-Valkyrie-92040 step 113: C `rn2(24)`@m_move vs JS `rn2(20)`@m_move; scen-tour-Valkyrie-92162 step 72: C `rn2(20)` vs JS `rn2(16)`; same track-check cnt-off-by-occupant signature as D-2409's Caveman-92202, whose `mfndpos` ALLOW_M arm shipped — the occupant pair here is still unflipped). Deliverable: C per-turn dump of the moving monster + the extra occupant's species/tame/level/size/ALLOW flags at those steps (temp RNG-tag instrumentation, reverted) vs the JS prefix-state probe, then the writer's Open row. Do not re-port `m_move` (live) or `mfndpos` (D-2409). Probe: `node scripts/hidden-proxy.mjs verify m_move`. **Addressed:** D-2424
 
 

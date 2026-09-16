@@ -32,6 +32,7 @@ here again. Live hypotheses only:
 - **Eval-order TDZ (D-2349):** no static edge to polyself at eval; late-bind setters.
 - **Fortress guards** (do not reopen): display_inventory, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue S_ndoor, bigrm-2, getpos, summonmu, lookat, do_statusline1, snapshot, fakewiz, Ice/Boulder, roles[], pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
 - **distfleeck residuals (D-2420 MEASURED, 6 writer rows):** tags+probe → 5 single-draw shifts (W1 Rogue/Samurai92239 distfleeck; W2 Healer mfndpos; W3 Samurai92161 score_targ; W5 Wizard doopen_indir) + 2 branch divergences (W4 Tourist fox-detach; W6 Caveman overload-gate). Falsified — do not re-check: scared re-port, MAIL arm, seed/step/coords logic.
+- **do_statusline2 residuals (MEASURED D-2425, 2 writer rows):** W1 Healer-92107 = `mhitm_ad_cold` (void)-discard — JS `mhitm_ad_cold_u` adds destroy return (mdamageu 10+5=15 vs C 10; Δ5 = rnd(4) 3+2); W2 Satiated pair (92092/91125) = eat-progress timing — JS `uhs` satiated a bite early, paints a turn late (newuhs no-botl early return). Monk-92194 Pw = D-2161 gulpmu residual (JS drains a turn late) — no new row. Probes in /tmp (botl-probe, uhs-scan, probe125 copy), kept out of repo.
 ## Don't re-check (≤15)
 
 - D-1790…D-2424 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
