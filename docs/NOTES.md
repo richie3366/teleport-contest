@@ -8,8 +8,7 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (one line each, class +
 falsifier; proofs in `docs/archive/LOOP-QUEUE-PARKED.md`). Do not list them
 here again. Live hypotheses only:
 
-- **obj_resists S2/S3 writers (MEASURED 2026-09-16):** C per-turn dump (reverted; VALUES-IDENTICAL) names `steal.c` relobj death-drop `flooreffects` for both sessions (detail in D-2407). Falsified — do not re-check: S2 fire-trap burn/destroy, S3 fmon-order/move-gate/cube/meatcorpse, polyuse, monstone, bury, steal.
-- **obj_resists K/A/H (D-2413/14/15):** C fprintf, reverted, BYTE-IDENTICAL. Knight apple-eat; Arch whip-rate + 2 cells; Healer gloves-disintegrate (JS named).
+- **obj_resists writers (D-2407 S2/S3 + D-2413/14/15 K/A/H, MEASURED):** dumps reverted, VALUES/BYTE-IDENTICAL — S2/S3 `steal.c` relobj `flooreffects`; Knight apple-eat, Arch whip-rate, Healer gloves-disintegrate. Falsified — do not re-check: fire-trap burn, fmon-order, polyuse, monstone, bury, steal.
 
 - **2026-09-16 process take (measured):** 126/362 non-audit iterations
   2026-09-09..15 were parks; 109/161 parked rows were stale copies of
@@ -24,17 +23,18 @@ here again. Live hypotheses only:
   (do_statusline1/2, one_characteristic parks).
 - **disclose→enlightenment (measured):** Priest-92179 s100 map diff is display-stream-only (RNG 3081/3081); no writer row — disclose parks as SYMPTOM on the park's C display-RNG-trace falsifier (proof in park archive).
 - **rloc arrivals (SHIPPED D-2418 `shkinit` + D-2419 `migrate_orc`):** Healer-92042 orc-captain + Ranger-92033 minetn arrivals (detail in those D-logs).
-- **m_move cnt-j (MEASURED 2026-09-16, detail in D-2409):** goblin@22,6 cnt C5/J4 → D-2409 shipped the mfndpos arm; Valkyrie s113/s72 track-check residual still needs its writer row. Falsified: mtrack timing.
+- **m_move cnt-j (D-2409 + D-2424):** goblin C5/J4 → mfndpos ALLOW_M arm; Valkyrie residuals → can_fog door writer (below). Falsified: mtrack, occupants.
+- **m_move Valkyrie can_fog door (MEASURED 2026-09-16, D-2424):** temp C fprintf post-`mfndpos` (reverted; 92040 re-record byte-identical) vs neutral worker-cloned JS prefix probe — both movers wild vampire-bat lev7 cham=227, C cnt=6 vs JS cnt=5, extra cell a FREE door ((19,14) D_CLOSED info=0; (47,13) D_LOCKED info=NOTONL), zero occupants either side; C `can_fog` all-true (fogmvflags=16, protshape=0, stuffprev=0) vs JS `/* || can_fog(mon) */` deferred (`js/mon.js:2693`; live `can_fog` at `js/monmove.js:761`). Wire door arm only, not squeeze (`:191`). Falsified: occupants, mtrack, re-ports.
 - **distfleeck stream (SHIPPED D-2410):** mail-daemon writer → PASS (detail in D-2410); residuals → D-2420 writer rows.
 - **mon_adjust_speed glyph (SHIPPED D-2421):** `makemon` dochugw arm live in `makemon_appear_msg` + `nasty` wired; Barbarian-92079 → PASS. Falsified — do not re-check: glyph, `nasty` break, re-port.
-- **enlightenment writers (delivered):** Caveman-92148 → `mkobj.c weight()` BoH-divisor row; Monk-92013 → `attributes_enlightenment` Unchanging row (measurements in those rows). Falsified — do not re-check: `one_characteristic` re-port, `inv_weight`, item generation.
+- **enlightenment writers (delivered D-2422/D-2423):** Caveman BoH-divisor; Monk Unchanging arms. Falsified — do not re-check: `one_characteristic` re-port, `inv_weight`.
 - **R-1082 music path live:** `seemimic` js/music.js:312; omit is trap-clone-only.
 - **Eval-order TDZ (D-2349):** no static edge to polyself at eval; late-bind setters.
 - **Fortress guards** (do not reopen): display_inventory, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue S_ndoor, bigrm-2, getpos, summonmu, lookat, do_statusline1, snapshot, fakewiz, Ice/Boulder, roles[], pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
-- **distfleeck residuals (MEASURED 2026-09-16, delivered D-2420):** recorder RNG-tag step dumps (no temp instrumentation — tags ARE the dump) + JS flat/slice probe (`hidden-proxy verify distfleeck` 7 unchanged; probe deleted): 5 clean single-draw shifts (W1 Rogue+Samurai92239 C-extra-distfleeck; W2 Healer JS-extra-mfndpos `rn2(4*(cnt-j))`; W3 Samurai92161 JS-extra-score_targ; W5 Wizard JS-extra-doopen_indir) + 2 branch divergences (W4 Tourist fox-detach/creation; W6 Caveman overload-gate) → 6 writer Open rows. Falsified — do not re-check: distfleeck scared/onscary re-port, m_move MAIL arm, seed/step/coords logic.
+- **distfleeck residuals (D-2420 MEASURED, 6 writer rows):** tags+probe → 5 single-draw shifts (W1 Rogue/Samurai92239 distfleeck; W2 Healer mfndpos; W3 Samurai92161 score_targ; W5 Wizard doopen_indir) + 2 branch divergences (W4 Tourist fox-detach; W6 Caveman overload-gate). Falsified — do not re-check: scared re-port, MAIL arm, seed/step/coords logic.
 ## Don't re-check (≤15)
 
-- D-1790…D-2423 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-2424 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
@@ -42,7 +42,7 @@ here again. Live hypotheses only:
 - `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
 - No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2423.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2423.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2424.
 
 ## Landmarks (≤15)
 
