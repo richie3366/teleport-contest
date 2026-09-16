@@ -136,6 +136,14 @@ verified vs `youprop.h:355–360`). 1347 D-2381 float_up → **ACCEPT**
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-16 — D-2403 `display.c` `docrt()` early-arm `botlx` (`:1724–1736` → post_map)
+
+**C locus:** `nethack-c/upstream/src/display.c` `docrt_flags` — `redrawonly` `:1722–1724`, `u.uswallow` `:1726–1728`, `Underwater && !Is_waterlevel` `:1730–1732`, `u.uburied` `:1734–1736` ALL `goto post_map`, which sets `disp.botlx = TRUE` whenever `!maponly` (`:1766–1769`). Plain `docrt()` passes `docrtRecalc` (= 0, never maponly). The `:1717–1718` `!u.ux || in_docrt` return precedes the flag and correctly skips it.
+**JS:** 1 js file (`js/display.js` +9/−2), under the 600/10 caps. Density note: Must-fix single item, alone — three 1-line flag writes + C citations at one C locus family.
+**Change:** `js/display.js` only — `if (game.flags) game.flags.botlx = true;` before each of the three early `return`s (mirroring the join; `update_inventory()` stays a named omit as D-2400 named it); the in-code named-omission comment now notes the unported `redrawonly` arm's post_map `botlx` goes with that omit. Map `turns.md` display line updated the same way. No new imports/edges (direct `game.flags` writes); no RNG touched; no DIAG/FORCE/seed gates; Rule #2 clean.
+**Verify:** `node scripts/verify.mjs --fn docrt` → PASS syntax (1 changed js file) · PASS rule2 · note hidden (vacuous — 0 blocked at HEAD; row cited no N blocks so no `--base` owed) · PASS green 2/2 + strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS. Preflight `--no-cohort` green on the clean tree before edits.
+**Named:** `redrawonly`-arm `botlx` (unported `redrawonly` arm, map + in-code comments); `update_inventory()` post_map call (pre-existing D-2400 omit); `!u.ux`/`in_docrt` early returns skip `botlx` exactly as C `:1717–1718` does.
+**Next:** pop the remaining Must-fix (`mthrowu.c` freehand guard, review 1365), then Open head campaign botl-parity 2/3 (this fix un-stales its swallow/water/buried paths).
 ## 2026-09-15 — D-2401 `dogmove.c` `droppables` tool-keeping arms (`:27–136`)
 
 **C locus:** `nethack-c/upstream/src/dogmove.c` `droppables` `:27–136` (dummy sentinel GOLD_PIECE/oartifact=1 never returned; animal/mindless → dummy; non-tunnel/no-needpick → pickaxe=dummy; nohands/verysmall → key=dummy; wep `is_pick`/`UNICORN_HORN` capture; `DWARVISH_MATTOCK` shield-gated FALLTHROUGH to `PICK_AXE` artifact-preference keep/return; `UNICORN_HORN` cursed-reject + artifact keep; `SKELETON_KEY`→`LOCK_PICK`→`CREDIT_CARD` FALLTHROUGH chain with artifact preference; default falls to `!owornmask && !=wep` first-free return; `0` when nothing droppable).

@@ -100,3 +100,5 @@ Campaign-step sized; acceptable.
    44/44 + cohort. Corrects the false "skip it as in C" for step 2.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-2403

@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2403 — `display.c` `docrt()` early-arm `botlx` (`:1724–1736` → post_map)
+
+- **Status:** fixed (Must-fix queue row from review 1366, QUALITY-RISK on D-2400 — D-2400's "(early uswallow/water/buried returns skip it as in C)" misread C; there are no early returns on those paths).
+- **Symptom:** no corpus session blocked on `docrt` at HEAD and no public FAIL — a review-caught C-wrong, not a first-diff owner. Without the fix, step-2's moveloop gate would stale engulfed/submerged/buried turns (C sets `botlx` on every plain-`docrt()` call; JS set it only on the vision path).
+- **C locus:** `nethack-c/upstream/src/display.c` `docrt_flags` — `redrawonly` `:1722–1724`, `u.uswallow` `:1726–1728`, `Underwater && !Is_waterlevel` `:1730–1732`, `u.uburied` `:1734–1736` ALL `goto post_map`, which sets `disp.botlx = TRUE` whenever `!maponly` (`:1766–1769`). Plain `docrt()` passes `docrtRecalc` (= 0, never maponly). The `:1717–1718` `!u.ux || in_docrt` return precedes the flag and correctly skips it.
+- **JS was:** `js/display.js` `docrt()` `return`ed from all three early arms (`:5373/5379/5385`) with no flag set; only the post-`see_monsters()` path set `botlx` (D-2400).
+- **Fix:** `js/display.js` only — `if (game.flags) game.flags.botlx = true;` before each of the three early `return`s (mirroring the join; `update_inventory()` stays a named omit as D-2400 named it); the in-code named-omission comment now notes the unported `redrawonly` arm's post_map `botlx` goes with that omit. Map `turns.md` display line updated the same way. No new imports/edges (direct `game.flags` writes); no RNG touched; no DIAG/FORCE/seed gates; Rule #2 clean.
+- **JS:** 1 js file (`js/display.js` +9/−2), under the 600/10 caps. Density note: Must-fix single item, alone — three 1-line flag writes + C citations at one C locus family.
+- **Callers:** body-level fix inside the single live `docrt()` (`js/display.js:5353`) — every existing JS caller (moveloop, menu-dismiss erase, doredraw, `detect.c`-order callers) inherits the C set with no call-site rewiring. No call added from a site C never calls from; no C caller left newly unwired (the `redrawonly`-only `docrt_flags` callers stay under the pre-existing named omit).
+- **Verify:** `node scripts/verify.mjs --fn docrt` → PASS syntax (1 changed js file) · PASS rule2 · note hidden (vacuous — 0 blocked at HEAD; row cited no N blocks so no `--base` owed) · PASS green 2/2 + strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS. Preflight `--no-cohort` green on the clean tree before edits.
+- **Named omissions:** `redrawonly`-arm `botlx` (unported `redrawonly` arm, map + in-code comments); `update_inventory()` post_map call (pre-existing D-2400 omit); `!u.ux`/`in_docrt` early returns skip `botlx` exactly as C `:1717–1718` does.
+- **Next:** pop the remaining Must-fix (`mthrowu.c` freehand guard, review 1365), then Open head campaign botl-parity 2/3 (this fix un-stales its swallow/water/buried paths).
+
 ## D-2402 — `polyself.c` `polymon` find_ac C-order restore (`:890` + `:967`)
 
 - **Status:** fixed (Open queue row `polyself.c` `polymon` find_ac:890-vs-capture order — blocks 1/553 scen-death-Tourist-92095 step 46 kind=screen; shipped per operator order after failed iter #3119 landed no `js/`).

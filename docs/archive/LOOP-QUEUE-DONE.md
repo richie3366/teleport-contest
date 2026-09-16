@@ -3,6 +3,10 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-09-16
+
+- [x] `display.c` `docrt()` uswallow/underwater/buried arms return without `botlx`, but C `goto post_map` (`:1724–1736` → `:1766–1769`) sets it on every non-maponly call ("skip it as in C" is C-false; step-2 gate would stale those paths). Fix: set `botlx` on the three early arms, note redrawonly-arm botlx in the map omit. Source: reviews/loop-unattended/1366-d1747cfa-botl-parity-sites.md.
+
 ## 2026-09-15
 
 - [x] `polyself.c` `polymon` find_ac:890-vs-capture order — blocks 1/553 (scen-death-Tourist-92095, step 46, kind=screen): C `Dlvl:1 $:605 HP:15(15) Pw:2(2) AC:6 HD:6 Burdened Blind` vs JS AC:10, identical `Your shirt rips to shreds!` toplines; JS u.uac=6 post-step (state correct — find_ac HAS the mons[umonnum].ac form-base arm) but the step-46 capture lands pre-find_ac (JS find_ac deferred post-encumber_msg, js/polyself.js:1305) while C lands post-find_ac (polyself.c:888–890). Caution: prior AC:9 session needed the deferral (js/polyself.js:1292–1296) — fix flush/More timing, not just find_ac position. Probe: `node scripts/hidden-proxy.mjs show scen-death-Tourist-92095`.
