@@ -1378,3 +1378,9 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1365-0c7b4556-u-catch-thrown-obj.md](./1365-0c7b4556-u-catch-thrown-obj.md) | `0c7b4556` | D-2399 u_catch_thrown_obj catch arm | **QUALITY-RISK** |
 | [1366-d1747cfa-botl-parity-sites.md](./1366-d1747cfa-botl-parity-sites.md) | `d1747cfa` | D-2400 botl-parity set sites | **QUALITY-RISK** |
 | [1367-eb9ad04a-droppables-tool-keeping.md](./1367-eb9ad04a-droppables-tool-keeping.md) | `eb9ad04a` | D-2401 droppables tool-keeping | **ACCEPT** |
+| [1368-ccbd68f2-polymon-find-ac-order.md](./1368-ccbd68f2-polymon-find-ac-order.md) | `ccbd68f2` | D-2402 polymon find_ac C-order | **ACCEPT** |
+| [1369-285aea6b-docrt-early-botlx.md](./1369-285aea6b-docrt-early-botlx.md) | `285aea6b` | D-2403 docrt early-arm botlx | **ACCEPT** |
+| [1370-63941e67-canonical-freehand.md](./1370-63941e67-canonical-freehand.md) | `63941e67` | D-2404 canonical freehand | **ACCEPT** |
+| [1371-a01e8b84-moveloop-gate-walk-run.md](./1371-a01e8b84-moveloop-gate-walk-run.md) | `a01e8b84` | D-2405 moveloop gate + walk run=0 | **ACCEPT** |
+| [1372-3e4e31f8-enlightenment-utrap-held.md](./1372-3e4e31f8-enlightenment-utrap-held.md) | `3e4e31f8` | D-2406 enlightenment utrap + held | **QUALITY-RISK** |
+| [1373-0a008ef1-relobj-flooreffects.md](./1373-0a008ef1-relobj-flooreffects.md) | `0a008ef1` | D-2407 relobj death-drop flooreffects | **ACCEPT** |

@@ -78,6 +78,8 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
+- [ ] `insight.c` utrap-steed verb: C `:1094–1096` passes `anchored ? are/were : is/was`, JS `js/invent.js` utrap block always `are/were` (review-caught, no corpus session in steed+trap state; anchored BURIEDBALL arm correct). Fix: mirror C's ternary in the verb + correct the comment quote. Source: reviews/loop-unattended/1372-3e4e31f8-enlightenment-utrap-held.md
+
 A **JS throw** in any corpus session (`hidden-proxy status` owner
 `js-throw …`, or a `ReferenceError` in `.cache/hidden/scores.json`
 `error`), and a corpus worker **hang** (`ETIMEDOUT` under `verify`), are

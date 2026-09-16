@@ -21,10 +21,10 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-16** — full `sessions` on the working tree
-(audit **1363–1367** + D-2402 polymon port).
+(audit **1368–1373** + D-2403…D-2407).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`47+0.29/turn` (R² 0.79).
+`48+0.30/turn` (R² 0.78).
 
 ## Score
 
@@ -33,16 +33,16 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `47+0.29/turn` (R² 0.79) |
+| Speed label | `48+0.30/turn` (R² 0.78) |
 | Role-init throws | **0 / 44** |
 
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-16
-audit 1363–1367 + D-2402): **483 / 540 PASS (89.4 %)** excl. 13 env-only rows
-(483/553; D-2402 moved 4 poly sessions to PASS and Tourist-92095/Valkyrie-92195 to later owners); RNG 98.9 %; screens 98.7 %. Top owners:
-`distfleeck` ×7, `obj_resists` ×5, `do_statusline2` ×4,
-`m_move` ×3, `one_characteristic` ×3, `rloc` ×2, then 1-block singles
-(incl. new `savelife` ×1 Tourist-92095 step 49 and `peffect_polymorph` ×1 Valkyrie-92195 step 312, both moved past by D-2402; all parked/archived owners).
-Reviews 1225–1367: 129 ACCEPT, 3 ACCEPT-WITH-DEBT, 1 DEBT, 5 QUALITY-RISK (D-2380/D-2393/D-2395 Must-fix shipped; 2 Must-fix outstanding from 1365/1366: freehand guard + docrt early-path botlx).
+audit 1368–1373 + D-2403…D-2407): **485 / 540 PASS (89.8 %)** excl. 13 env-only rows
+(485/553; D-2405/D-2406/D-2407 moved Knight-92002 + Wizard-92219 to PASS and the lembas pair + Samurai-92032 to later owners); RNG 99.0 %; screens 98.7 %. Top owners:
+`distfleeck` ×7, `do_statusline2` ×4, `m_move` ×3, `obj_resists` ×3,
+`rloc` ×2, `one_characteristic` ×2, then 1-block singles
+(incl. `savelife` ×1 and `peffect_polymorph` ×1, both moved-past layers; all parked/archived owners).
+Reviews 1225–1373: 134 ACCEPT, 3 ACCEPT-WITH-DEBT, 1 DEBT, 6 QUALITY-RISK (all Must-fix shipped except 1 outstanding from 1372: utrap-steed is/was verb).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx (both map notes).
 Refresh on audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s);
 families ≥ 85 % → grow first via `scenario-gen.mjs --n 120 --seed <iter×100>`.
@@ -85,7 +85,7 @@ writer, `[campaign]`/`[measure]` rows replace map filler
 Pop `LOOP-QUEUE.md` Must-fix (freehand guard, docrt early-path botlx),
 then Open in order — campaign botl-parity 2/3, `status_enlightenment`
 held-by/utrap arms (3 sessions), the `[measure]` rows, eat `losehp`.
-**Next cluster:** DELIVERED [measure] `monmove.c` m_move Caveman-92202 `cnt-j` split (no `js/`): C MEAS n=5551 vs scratch-JS JMEAS n=5551 — goblin@22,6 cnt C5/J4, mtrack identical, C extra (21,5)/ALLOW_M = kobold-zombie occupant → writer Open row `mon.c mm_aggression/mm_displacement` (3 sessions: Caveman-92202 s103, Valkyrie-92040 s113, Valkyrie-92162 s72). Heads: the new writer row, then `[measure]` distfleeck stream. Prior DELIVERED [measure] `teleport.c` rloc migrant creation (no `js/`): Healer-92042 s73 = orc-captain migrant (2:3→2:8) JS misroutes to 3:0 → writer `migrate_orc` leader-dest; Ranger-92033 s70 = minetn shk insurance rlocs JS zeroes instead → writer `shkinit`. Heads: the two new Open writer rows, then `[measure]` m_move Caveman-92202. Prior SHIPPED D-2407 relobj death-drop `flooreffects` (Wizard-92219 PASS, Samurai-92032 59→96). Prior POPPED Open `insight.c` status_enlightenment held-by/holding + `trap_predicament` utrap arms — blocks 3/553 (Knight-92002 step 81 row 4 C «You were held by a pit fiend (north).» vs JS «You weren't hungry <891>.»; Caveman-92148, Monk-92013 same owner). Port C `insight.c:1086–1098` (utrap → trap_predicament + steed/anchored enl_msg vs you_are) + `:1124–1131` (ustick holding/held-by + dxdy_to_dist_descr) into `js/invent.js` status_core_lines in C order; new exported `trap_predicament` (`insight.c:233–261`) wired at both C call sites (`insight.c:1090`, `pager.c:131` self_lookat). Prior POPPED Open [campaign botl-parity 2/3] SHIPPED D-2405 (gate + `cmd.c` walk `run = 0` writer; full 44/44; corpus lembas pair +1). Prior POPPED Must-fix `mthrowu.c` `u_catch_thrown_obj` guard calls divergent `freehand` clone (mthrowu.js:292 `oc_big`/`uswapwep`, no welded check) instead of C `engrave.c:472–477` (sole C `freehand`, extern.h:1018; clone's "invent.c" home does not exist): welded weapon → C FALSE vs JS TRUE, big+swap → C TRUE vs JS FALSE; `imports.mjs --can mthrowu.js engrave.js freehand` → SAFE. Fix: import canonical, retire clone, keep 44/44 + cohort. Source: reviews/loop-unattended/1365-0c7b4556-u-catch-thrown-obj.md. Open head `polyself.c` polymon DELIVERED by D-2402 (Tourist-92095 step 46 → `savelife` at 49; 4 poly PASS; seed0108 303/303 holds). History: 7 head rows retired (6 STALE incl. mhitu/vision, save_regions unportable, disclose parked SYMPTOM); eat 3/3 Stale; can_carry [measure] delivered.
+**Next cluster:** Must-fix `insight.c` utrap-steed is/was verb (review 1372; one-line C-ternary mirror, no corpus corner) — then DELIVERED [measure] `monmove.c` m_move Caveman-92202 `cnt-j` split (no `js/`): C MEAS n=5551 vs scratch-JS JMEAS n=5551 — goblin@22,6 cnt C5/J4, mtrack identical, C extra (21,5)/ALLOW_M = kobold-zombie occupant → writer Open row `mon.c mm_aggression/mm_displacement` (3 sessions: Caveman-92202 s103, Valkyrie-92040 s113, Valkyrie-92162 s72). Heads: the mm_aggression writer row, then `[measure]` distfleeck stream. Prior DELIVERED [measure] `teleport.c` rloc arrivals → writer Open rows `migrate_orc` + `shkinit`. Prior SHIPPED D-2407 relobj flooreffects, D-2406 enlightenment arms (review 1372 steed-verb Must-fix heads Next cluster), D-2405 botl gate + walk run=0, D-2404 canonical freehand, D-2402 polymon find_ac (detail in D-index + recent block).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2407 (index).**
 <!-- recent:begin -->
