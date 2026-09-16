@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-16 — D-2419 `dungeon.c` `ledger_to_dnum` bottom-level spill via `migrate_orc` ORC_LEADER (Healer orc-captain arrival)
+
+**C locus:** `dungeon.c:1403–1414` (`ledger_to_dnum`: `ledger_start < ledgerno && ledgerno <= ledger_start + num_dunlevs`; `ledger_no` `:1376–1378` is `dlevel + ledger_start`, so valid ledgers run start+1..start+num) via `dog.c:887–926` `migrate_to_level` (`:909–910` decode → `:924–925` `mux=new_lev.dnum, muy=new_lev.dlevel`) via `mkmaze.c:717–745` `migrate_orc` leader arm (`nlev=max_depth`, `!rn2(40)` rare −1, `MIGR_LEFTOVERS`; sole leader caller `:851`, gang caller `:885`).
+**JS:** `js/teleport.js:2733–2747`; `scripts/ledger-to-dnum.test.mjs` (new); map `docs/c-js-map/turns.md:3257` (new line).
+**Change:** `js/teleport.js` only — local condition → `start < want && want <= start + n` with a `|0` coercion (same shape as `js/dungeon.js:718–729`), C-order comment citing `:1408–1411`. No new import (teleport↔dungeon stay decoupled); `ledger_to_dlev` local already matches C. New `scripts/ledger-to-dnum.test.mjs` (3 its: bottom-ledger→own bottom, interior unchanged, next-dungeon head unchanged).
+**Verify:** `node --test scripts/ledger-to-dnum.test.mjs` → 3/3 (bottom-boundary it failed pre-fix: mux=next-dungeon). `node scripts/verify.mjs --fn migrate_orc` → PASS syntax (1 file: teleport.js) · rule2 · green 2/2 · strict ×2 · cohort 7/7; hidden vacuous for `migrate_orc` (nothing blocked ON it at HEAD — recorded owner is `rloc`). Live single-session replay `node frozen/ps_test_runner.mjs .cache/hidden/sessions/scen-tour-Healer-92042.session.json` → PASS RNG 18888/18888 Screen 95/95 (was step-73 rloc-vs-mcalcmove).
+**Named:** leash `mtame--`/`m_unleash` + light-source `vision_recalc` inside `migrate_to_level` (pre-existing, doc-kept); no new omission.
+**Next:** hidden re-score on an audit iter should take Healer-92042 to PASS (rloc ×2 → ×1); Ranger-92033 already sits at mktrap@98 (queued writer row, untouched here).
 ## 2026-09-16 — D-2418 `shknam.c` `shkinit` MON_AT insurance rloc (Ranger minetn arrival)
 
 **C locus:** `shknam.c:658–660` (`if (MON_AT(sx, sy)) (void) rloc(m_at(sx, sy), RLOC_NOMSG); /* insurance */`); sole C caller `stock_room` (`shknam.c:733`).

@@ -21,7 +21,7 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-16** — full `sessions` on the working tree
-(audit **1368–1373** + D-2403…D-2418).
+(audit **1368–1373** + D-2403…D-2419).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 `48+0.30/turn` (R² 0.78).
@@ -37,7 +37,7 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Role-init throws | **0 / 44** |
 
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-16
-audit 1368–1373 + D-2403…D-2418): **485 / 540 PASS (89.8 %)** excl. 13 env-only rows
+audit 1368–1373 + D-2403…D-2419): **485 / 540 PASS (89.8 %)** excl. 13 env-only rows
 (485/553; D-2405/D-2406/D-2407 moved Knight-92002 + Wizard-92219 to PASS and the lembas pair + Samurai-92032 to later owners); RNG 99.0 %; screens 98.7 %. Top owners:
 `distfleeck` ×7, `do_statusline2` ×4, `m_move` ×3, `obj_resists` ×3,
 `rloc` ×2, `one_characteristic` ×2, then 1-block singles
@@ -85,10 +85,11 @@ writer, `[campaign]`/`[measure]` rows replace map filler
 Pop `LOOP-QUEUE.md` Must-fix (freehand guard, docrt early-path botlx),
 then Open in order — campaign botl-parity 2/3, `status_enlightenment`
 held-by/utrap arms (3 sessions), the `[measure]` rows, eat `losehp`.
-**Next cluster:** `shknam.c` `shkinit` MON_AT insurance rloc (popped after `dothrow.c` whip row parked STALE 2026-09-16: Arch-92238 PASS at HEAD, D-2415 stale, true writer D-2417) — blocks 1/553 (scen-tour-Ranger-92033 step 70: `#levelchange` minetn arrival; C `shkinit :658–660` insurance `rloc`s shk-spot squatters vs JS `js/shknam.js:642–646` zeroes blocker mx/my, 0 RNG). Fix: route through canonical async `rloc`. Verify `node scripts/verify.mjs --fn shkinit`.
+**Next cluster:** `mkmaze.c` migrate_orc ORC_LEADER destination — blocks 1/553 (scen-tour-Healer-92042 step 73: level-tele arrival uz=2:8; C `losedogs → mon_arrive` After_you MIGR_RANDOM `rloc` for the stolen_booty ORC_LEADER orc-captain (mnum=77, migflags=8192, from 2:3 → dest 2:8) vs JS holding the captain at mux=3,muy=0, so JS `losedogs` never delivers and draws `rn2(12)`@mcalcmove where C draws `rnd(79)`@rloc). Fix: JS `migrate_orc` leader `nlev=max_depth → get_level → ledger_no` path (`js/mklev.js:993–1012`; gang arm verified live). Do not re-port `rloc` (D-0686), `stolen_booty` creation, or `mon_arrive` delivery (both live). Probe: `node scripts/hidden-proxy.mjs show scen-tour-Healer-92042`; verify `node scripts/verify.mjs --fn migrate_orc` (blocked owner is `rloc`: expect Healer → PASS or later owner).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2418 (index).**
+**Keep D-0845…D-2419 (index).**
 <!-- recent:begin -->
+**D-2419** `dungeon.c:1403–1414` (`ledger_to_dnum`: `ledger_start < ledgerno && ledgerno <= ledger_st — `js/teleport.js` only — local condition → `start < want && want <= start + n` with a `|0` coercion (same shape as `js/dungeon.js:718–729`), C-order comment citing `:1408–1411`.
 **D-2418** `shknam.c:658–660` (`if (MON_AT(sx, sy)) (void) rloc(m_at(sx, sy), RLOC_NOMSG); /* insuran — `js/shknam.js` — `shkinit` async with the insurance arm `if (blocker) await rloc(blocker, RLOC_NOMSG)` in C order (result ignored like C's `(void)`); `RLOC_NOMSG` added to the `./const.js` import; static `import { rloc }
 **D-2417** `mon.c:4349` (`wakeup` calls `finish_meating(mtmp)` unconditionally); `uhitm.c:5215–5216`  — `js/mon.js` only — `finish_meating` added to the existing static `./dogmove.js` import (`imports.mjs --can` → ALREADY, no new edge); unconditional `finish_meating(mtmp)` in C order (after the mimic/forcefight block, befo
 **D-2416** `read.c:1372–1383` (`seffect_destroy_armor` scursed arm); the shipped arm is `:1380–1383`  — `js/read.js` only — `else if (await disintegrate_arm(otmp)) { known = true; }` in C order with the `return sobj` fallthrough (C `return`, not useup); `disintegrate_arm` added to the existing static `./do_wear.js` import 
@@ -96,11 +97,10 @@ held-by/utrap arms (3 sessions), the `[measure]` rows, eat `losehp`.
 **D-2411** `eat.c:1926` `losehp(rnd(15), !glob ? "acidic corpse" : "acidic glob", KILLED_BY_AN)` and  — `js/eat.js` only — both sites call canonical sync `losehp` with C arg order and killer strings (`rnd(15)`/`rnd(8)` kept per C, not `1+rn2`); `finish_maybe_wail` added to the existing static `./hack.js` import (`imports.m
 **D-2410** `monmove.c:1829–1838` (`#ifdef MAIL_STRUCTURES` arm; unconditionally `#define`d — `js/monmove.js` only — the arm in C order: `(ptr?.mndx ?? -1) === PM_MAIL_DAEMON` (module idiom, cf. the Tengu arm); `!hero_Deaf() && canseemon(mtmp)` preserves the C short-circuit (`Deaf` ≡ local `hero_Deaf`, same gate 
 **D-2409** `mon.c:2299–2317` (MON_AT arm: `mmflag = flag | mm_aggression(mon, mtmp2)`; ALLOW_M + tame — `js/mon.js` only — three file-local functions (C `staticfn`, same shape as NODIAG/may_passwall) + the MON_AT arm in C order (`mmflag = flag | mm_aggression`; ALLOW_M / tame-TM / else MDISP with the flag mutation, which p
-**D-2408** `insight.c:1094–1096` — `js/invent.js` only — new exported `utrap_steed_verb(final, anchored)` (`:4975`-area, C `:1094–1096` verbatim: `final ? (anchored ? 'were ' : 'was ') : (anchored ? 'are ' : 'is ')`); the steed arm calls it; the comment n
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2418; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2419; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

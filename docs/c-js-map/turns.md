@@ -3253,7 +3253,8 @@ itself, hence no `mon_leaving_level` `:2694–2730`
 analogue)**; `free_luathemes` / full migrating `obfree` named; 
 **`migrate_to_level` `In_W_tower` xyflags bit 2 (D-1198)**; 
 **`mon_arrive` After_you `my=xyflags` before rloc (D-1199)**; 
-**`mon_arrive` After_you `MIGR_LEFTOVERS` `deliver_obj_to_mon` DF_ALL (D-1505)**; 
+**`mon_arrive` After_you `MIGR_LEFTOVERS` `deliver_obj_to_mon` DF_ALL (D-1505)**;
+**`migrate_to_level` local `ledger_to_dnum` bottom-level spill (D-2419; C `dungeon.c:1408–1411` `start < ledgerno <= start+num`; `teleport.js` local had `start <= tolev < start+n`, decoding every dungeon bottom into the next dungeon at dlevel 0 — canonical `dungeon.js` export already C-faithful)**; 
 **`mon_arrive` After_you wander/`somexy` after catchup (D-1538; C `:491–500`/`:506`/`:582–605`; 
 `in_rooms` live; mkroom `somex`/`somey`/`inside_room`/`somexy` local clone — mklev→trap→dog; 
 kops/EXACT_XY Before_you/failed_arrivals/Wiz_arrive/mnearto yank still named)**; 
