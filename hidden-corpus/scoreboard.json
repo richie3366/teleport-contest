@@ -1,6 +1,6 @@
 {
- "commit": "48087086",
- "at": "2026-09-15T23:49:54.085Z",
+ "commit": "b9166ebc",
+ "at": "2026-09-16T09:02:55.480Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -7796,13 +7796,13 @@
    "scrM": 141,
    "scrT": 144,
    "kind": "screen",
-   "step": 58,
+   "step": 59,
    "steps": 144,
    "owner": "do_statusline2",
    "loc": "botl.c:130",
    "jsOwner": null,
-   "cTopline": "This lembas wafer is delicious!--More--",
-   "jsTopline": "This lembas wafer is delicious!--More--",
+   "cTopline": "You're having a hard time getting all of it down.--More--",
+   "jsTopline": "You're having a hard time getting all of it down.--More--",
    "error": null
   },
   "scen-wish-Healer-92125": {
@@ -8527,13 +8527,13 @@
    "scrM": 83,
    "scrT": 189,
    "kind": "screen",
-   "step": 82,
+   "step": 83,
    "steps": 189,
    "owner": "do_statusline2",
    "loc": "botl.c:130",
    "jsOwner": null,
-   "cTopline": "This lembas wafer is delicious!--More--",
-   "jsTopline": "This lembas wafer is delicious!--More--",
+   "cTopline": "You're having a hard time getting all of it down.--More--",
+   "jsTopline": "You're having a hard time getting all of it down.--More--",
    "error": null
   },
   "scen-wish-Tourist-92067": {

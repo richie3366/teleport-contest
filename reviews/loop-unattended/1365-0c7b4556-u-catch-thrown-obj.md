@@ -88,4 +88,4 @@ One C arm + caller, code + map + measured verify. Right-sized.
    session currently blocks on the welded/big corner, so the fix
    ships on the C citation + gates.
 
-Verdict: **QUALITY-RISK** **Addressed:** D-2404
+Verdict: **QUALITY-RISK** **Addressed:** D-2404 `63941e67`

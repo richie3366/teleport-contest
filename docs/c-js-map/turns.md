@@ -18,7 +18,8 @@ stethoscope free/TIME); **`moveloop_preamble` `set_wear(NULL)` after rndencode**
 (TTY_PERM_INVENT gate for `sync_perminvent`; `:107–110` `iflags.perm_invent`
 `update_inventory`; preamble(true) does not store — C `dorecover` does;
 tty WIN_INVEN `#perminv`/assesstty D-1642; create at `allmain.c:726` named); 
-**`amulet_wish` once-per-input → `makewish`** (D-0559); 
+**`amulet_wish` once-per-input → `makewish`** (D-0559);
+**once-per-input `bot()` on `disp.botl|botlx` else `timebot()` on `disp.time_botl` + `curs_on_u`** (D-2405; C `allmain.c:473–479`; `game.flags` is the live store `bot()`/`flush_screen` gate on; unconditional `flush_screen(1)` kept — C `display.c:2237–2240` carries the same inner gate); 
 **once-per-input `see_monsters` when Unblind_telepat/Warning/Hallu/Warn_of_mon/`any_visible_region`** (D-0672/D-1493/D-1512; 
 **timeout `visible_region_summary` D-1527**; **display `show_region` D-1528**); **`encumber_msg` + 
 `mvl_wtcap=near_capacity()` after monsters before EOT arm** (D-0411); 
@@ -276,6 +277,7 @@ lookaround trap/liquid + travelmap + TEST_TRAV deferred)**;
 **`set_move_cmd` DOMOVE_WALK/RUSH + continue_run no re-set** (D-0359); 
 **`set_move_cmd` clears `travel`/`travel1` on walk and capital/Ctrl run** (D-0493; 
 leftover `_` travel must not rewrite dx on `H`); 
+**plain walk writes `run = 0` when `!domove_attempting && !u.dz`** (D-2405; C `cmd.c:1396–1399`; ends travel's run=8 so EOT re-arms `time_botl` — stale-T fix; `menu_requested→nopick` arm stays named); 
 **`.` → `donull` + `cmd_safety_prevention`** (D-0033/D-0228) + 
 **`cmd_safety_prevention` reads `iflags.cmdassist` (optlist default On; 
 Options toggle)** (D-0928 #1192); **`<space>` → `donull` when `flags.rest_on_space`** (D-0715); 

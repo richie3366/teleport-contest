@@ -5,6 +5,12 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-16
 
+- [x] [campaign botl-parity 3/3] UNMASKED by D-2405 (mask was "step-2 gate ships" — shipped, full 44/44): ship the `eat.c` `stop_occupation` meal gate (`js/eat.js:2101` live wiring verified NO MOVEMENT pre-gate). Evidence: post-D-2405 `verify do_statusline2` holds the lembas pair one step out (scen-wish-Healer-92092 step 59, scen-wish-Tourist-91125 step 83, same owner) against the step-60 meal effect. Falsifier: gate on → pair reaches step 60+ or a later owner. **Addressed:** D-2405
+
+
+- [x] [campaign botl-parity 2/3]: ship the moveloop gate — `bot()` on `disp.botl|botlx`, `timebot()` on `time_botl` (D-2400 local-gate probe: full `sessions` 38/44 → 43/44, all screen-only with RNG/cursors fully matched; seed0007-T stale-time residual needs its C-side flag trace). Pops after the docrt early-path Must-fix (review 1366) — the gate would stale swallow/water/buried paths without it. Falsifier: `verify do_statusline2` moving the 4 remaining sessions (scen-poly-Healer-92107 step 126, scen-wish-Healer-92092 step 58, scen-wish-Monk-92194 step 88, scen-wish-Tourist-91125 step 82). **Addressed:** D-2405
+
+
 - [x] `mthrowu.c` `u_catch_thrown_obj` guard calls divergent `freehand` clone (mthrowu.js:292 `oc_big`/`uswapwep`, no welded check) instead of C `engrave.c:472–477` (sole C `freehand`, extern.h:1018; clone's "invent.c" home does not exist): welded weapon → C FALSE vs JS TRUE, big+swap → C TRUE vs JS FALSE; `imports.mjs --can mthrowu.js engrave.js freehand` → SAFE. Fix: import canonical, retire clone, keep 44/44 + cohort. Source: reviews/loop-unattended/1365-0c7b4556-u-catch-thrown-obj.md.
 
 

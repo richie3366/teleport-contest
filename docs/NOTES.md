@@ -20,15 +20,7 @@ here again. Live hypotheses only:
   `AC:6` vs `AC:10`; row 4 «You were held by a pit fiend» vs «You weren't
   hungry»). The value's writer is the port; the painter is proven faithful
   (do_statusline1/2, one_characteristic parks).
-- **botl parity (1/3 shipped D-2400; 2/3 gate open, 3/3 masked):** C paints
-  status only on `disp.botl/botlx/time_botl`; JS `bot()` runs every loop.
-- **botl gate 2/3 (REVERTED 2026-09-16, measured):** allmain.c:473–479 gate (A-shape, flush unconditional) → full 43/44 seed0007-only (T: stale travel turns 351/360/361, RNG/cursors 100%), corpus Healer-92092 58→59 + Tourist-91125 82→83. JS RDO/end_running/nomul/regen all write live flags; disp-trap proved zero inert `game.disp` sets on stale turns → writer is NOT the disp split; needs a C-side per-turn disp-flag trace (no recorder build this iter). Ship gate + writer together.
-  3/3 meal gate measured 2026-09-16: C-exact wiring verifies NO MOVEMENT
-  (lembas first diffs @58/@82 precede the park step-60 effect; 44/44 +
-  cohort identical, reverted) — masked until the step-2 gate ships. DONE
-  2/3 stamped D-2400 but the gate was reverted (seed0007-T needs a C-side
-  flag trace); 2/3 row re-queued by the D-2402 audit (gate-probe evidence),
-  pops after the docrt early-path Must-fix (review 1366).
+- **botl parity (SHIPPED D-2405; 3/3 unblocked):** moveloop gate `allmain.c:473–479` live (flush unconditional); travel-T writer was the live walk path missing C `cmd.c:1397` `run = 0` (`run=8` stuck 350→383, EOT time suppressed). Full 44/44; corpus lembas pair +1 (59/83). 3/3 meal gate re-queued Open (mask lifted).
 - **Knight worker spin** (MEASURED 2026-09-16, `[measure]` row delivered): no spin at HEAD — canonical `can_carry` import live (`js/dogmove.js:17`), Knight-92182 replays in 0.3 s to step 95 (parked `obj_resists`); `verify mattackm` vacuous, cohort 7/7. The 2026-09-08 ETIMEDOUT premise is retired with its row.
 - **disclose→enlightenment writer (MEASURED 2026-09-16):** scen-wish-Priest-92179 step-100 map diff is display-stream-only (core RNG 3081/3081 both sides; hallu both sides; identical freeze-then-fresh-repaint shape, different picks ⇒ desync in the 97→100 menu window). 2nd drinkfountain-class witness — no new writer row; disclose parks as SYMPTOM on that park's C display-RNG-trace falsifier (full proof in the park archive).
 - **R-1082 music path live:** `seemimic` js/music.js:312; omit is trap-clone-only.
@@ -36,19 +28,20 @@ here again. Live hypotheses only:
 - **Fortress guards** (do not reopen): display_inventory, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue S_ndoor, bigrm-2, getpos, summonmu, lookat, do_statusline1, snapshot, fakewiz, Ice/Boulder, roles[], pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
 ## Don't re-check (≤15)
 
-- D-1790…D-2404 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-2405 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2404.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2404.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2405.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2405.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2405: `js/allmain.js` only — the C gate verbatim on the live store (`game.flags`, which `bot()`/`flush_screen` already gate on): `botl|botlx → bot() + curs_ Named: `set_move_cmd` `menu_requested→nopick` arm stays named (same C body, adjacent line, no ses
 - D-2404: `js/mthrowu.js` only — `import { freehand } from './engrave.js'` (new static edge; `imports.mjs --can mthrowu.js engrave.js freehand` → SAFE: hoisted  Named: `drop_throw` `passive_obj` arm (pre-existing D-2399 omit, map line kept); sibling-file `fr
 - D-2403: `js/display.js` only — `if (game.flags) game.flags.botlx = true;` before each of the three early `return`s (mirroring the join; `update_inventory()` s Named: `redrawonly`-arm `botlx` (unported `redrawonly` arm, map + in-code comments); `update_inve
 - D-2402: `js/polyself.js` only — polymon find_ac C order (`:890` post-drop_weapon, `:967` pre-encumber_msg); Tourist-92095 step 46 AC:6 paints post-strip, 4 poly PASS + 2 moved, seed0108 holds, 44/44.
