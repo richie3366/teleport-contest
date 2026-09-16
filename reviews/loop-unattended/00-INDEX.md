@@ -1384,3 +1384,15 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1371-a01e8b84-moveloop-gate-walk-run.md](./1371-a01e8b84-moveloop-gate-walk-run.md) | `a01e8b84` | D-2405 moveloop gate + walk run=0 | **ACCEPT** |
 | [1372-3e4e31f8-enlightenment-utrap-held.md](./1372-3e4e31f8-enlightenment-utrap-held.md) | `3e4e31f8` | D-2406 enlightenment utrap + held | **QUALITY-RISK** |
 | [1373-0a008ef1-relobj-flooreffects.md](./1373-0a008ef1-relobj-flooreffects.md) | `0a008ef1` | D-2407 relobj death-drop flooreffects | **ACCEPT** |
+| [1374-50392524-utrap-steed-verb.md](./1374-50392524-utrap-steed-verb.md) | `50392524` | D-2408 utrap-steed verb | **ACCEPT** |
+| [1375-de4695a7-mfndpos-monat-arm.md](./1375-de4695a7-mfndpos-monat-arm.md) | `de4695a7` | D-2409 mfndpos MON_AT arm | **ACCEPT** |
+| [1376-2201c4e6-mail-daemon-departure.md](./1376-2201c4e6-mail-daemon-departure.md) | `2201c4e6` | D-2410 MAIL_DAEMON departure | **ACCEPT** |
+| [1377-59b0f846-eatcorpse-losehp.md](./1377-59b0f846-eatcorpse-losehp.md) | `59b0f846` | D-2411 eatcorpse losehp | **ACCEPT** |
+| [1378-eb69ebb7-list-genocided.md](./1378-eb69ebb7-list-genocided.md) | `eb69ebb7` | D-2412 list_genocided | **ACCEPT** |
+| [1379-51ee14c5-seffect-destroy-armor.md](./1379-51ee14c5-seffect-destroy-armor.md) | `51ee14c5` | D-2416 seffect_destroy_armor | **ACCEPT** |
+| [1380-8547ab87-wakeup-finish-meating.md](./1380-8547ab87-wakeup-finish-meating.md) | `8547ab87` | D-2417 wakeup finish_meating | **ACCEPT** |
+| [1381-2f0f9f76-shkinit-insurance-rloc.md](./1381-2f0f9f76-shkinit-insurance-rloc.md) | `2f0f9f76` | D-2418 shkinit insurance rloc | **ACCEPT** |
+| [1382-470f6f36-ledger-to-dnum-spill.md](./1382-470f6f36-ledger-to-dnum-spill.md) | `470f6f36` | D-2419 ledger_to_dnum spill | **ACCEPT** |
+| [1383-cb17ead7-makemon-dochugw.md](./1383-cb17ead7-makemon-dochugw.md) | `cb17ead7` | D-2421 makemon dochugw | **ACCEPT** |
+| [1384-8e105ad5-weight-boh-factor.md](./1384-8e105ad5-weight-boh-factor.md) | `8e105ad5` | D-2422 weight BoH factor | **ACCEPT** |
+| [1385-b68d89a0-attributes-enlightenment-unchanging.md](./1385-b68d89a0-attributes-enlightenment-unchanging.md) | `b68d89a0` | D-2423 attributes_enlightenment | **ACCEPT** |

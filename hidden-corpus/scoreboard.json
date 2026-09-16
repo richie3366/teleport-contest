@@ -1,6 +1,6 @@
 {
- "commit": "b68d89a0",
- "at": "2026-09-16T14:12:02.608Z",
+ "commit": "3eda9fe5",
+ "at": "2026-09-16T14:53:18.232Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -7144,19 +7144,19 @@
   },
   "scen-tour-Healer-92042": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 18880,
+   "passed": true,
+   "rngM": 18888,
    "rngT": 18888,
    "scrM": 95,
    "scrT": 95,
-   "kind": "rng",
-   "step": 73,
+   "kind": null,
+   "step": null,
    "steps": 95,
-   "owner": "rloc",
-   "loc": "teleport.c:1850",
-   "jsOwner": "mcalcmove(mon.js:736)",
-   "cTopline": "You materialize on a different level!",
-   "jsTopline": "You materialize on a different level!",
+   "owner": null,
+   "loc": null,
+   "jsOwner": null,
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-tour-Healer-92055": {

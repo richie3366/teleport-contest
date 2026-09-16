@@ -21,10 +21,10 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-16** — full `sessions` on the working tree
-(audit **1368–1373** + D-2403…D-2423).
+(audit **1374–1385**).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`48+0.30/turn` (R² 0.78).
+`48+0.30/turn` (R² 0.79).
 
 ## Score
 
@@ -37,12 +37,13 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Role-init throws | **0 / 44** |
 
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-16
-audit 1368–1373 + D-2403…D-2423): **485 / 540 PASS (89.8 %)** excl. 13 env-only rows
-(485/553; D-2405/D-2406/D-2407 moved Knight-92002 + Wizard-92219 to PASS and the lembas pair + Samurai-92032 to later owners); RNG 99.0 %; screens 98.7 %. Top owners:
-`distfleeck` ×7, `do_statusline2` ×4, `m_move` ×3, `obj_resists` ×3,
-`rloc` ×2, `one_characteristic` ×2, then 1-block singles
-(incl. `savelife` ×1 and `peffect_polymorph` ×1, both moved-past layers; all parked/archived owners).
-Reviews 1225–1373: 134 ACCEPT, 3 ACCEPT-WITH-DEBT, 1 DEBT, 6 QUALITY-RISK (all Must-fix shipped except 1 outstanding from 1372: utrap-steed is/was verb).
+audit 1374–1385): **493 / 540 PASS (91.3 %)** excl. 13 env-only rows
+(493/553; D-2408…D-2423 cleared the `obj_resists`, `rloc`,
+`one_characteristic` and `mon_adjust_speed` owners and cut `m_move` 3→2); RNG 99.2 %; screens 98.9 %. Top owners:
+`distfleeck` ×7, `do_statusline2` ×4, `m_move` ×2, then 1-block singles
+(`mktrap`, `collect_coords`, `savelife`, `peffect_polymorph`, `zapyourself`,
+`doturn`, `dopush`, `mdrop_obj`, `that_is_a_mimic`; all parked/archived owners).
+Reviews 1225–1385: 146 ACCEPT, 3 ACCEPT-WITH-DEBT, 1 DEBT, 6 QUALITY-RISK (all Must-fix shipped, including 1372's utrap-steed verb via D-2408).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx (both map notes).
 Refresh on audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s);
 families ≥ 85 % → grow first via `scenario-gen.mjs --n 120 --seed <iter×100>`.
@@ -75,9 +76,9 @@ Both must remain full RNG + screen PASS with exact lengths.
 ## Primary objective
 
 **Suite 44/44** is the regression fortress. **The objective is the
-scenario corpus** (`hidden-proxy status`): 483/540 PASS; the 57 remaining
+scenario corpus** (`hidden-proxy status`): 493/540 PASS; the 47 remaining
 sessions sit under **parked symptom owners** (distfleeck ×7,
-obj_resists ×5, do_statusline2 ×4, m_move ×3, …) worked through
+do_statusline2 ×4, m_move ×2, …) worked through
 `[measure]`/writer rows, never symptom re-ports. 2026-09-16 process take:
 rows carry evidence, stale rows are a 3-call detour, parks requeue their
 writer, `[campaign]`/`[measure]` rows replace map filler
