@@ -10,7 +10,6 @@ here again. Live hypotheses only:
 
 - **obj_resists S2/S3 writers (MEASURED 2026-09-16):** C per-turn dump (reverted; VALUES-IDENTICAL) names `steal.c` relobj death-drop `flooreffects` for both sessions (detail in D-2407). Falsified — do not re-check: S2 fire-trap burn/destroy, S3 fmon-order/move-gate/cube/meatcorpse, polyuse, monstone, bury, steal.
 
-- **polymon find_ac (SHIPPED D-2402):** C `:890` + `:967` before `:1019` (D-0722 deferral was setworn poisoning; detail in D-2402). Do not re-check.
 - **2026-09-16 process take (measured):** 126/362 non-audit iterations
   2026-09-09..15 were parks; 109/161 parked rows were stale copies of
   shipped work from `data.md`/`debt.md`/TOP30 refills. Falsifier for the
@@ -22,12 +21,12 @@ here again. Live hypotheses only:
   `AC:6` vs `AC:10`; row 4 «You were held by a pit fiend» vs «You weren't
   hungry»). The value's writer is the port; the painter is proven faithful
   (do_statusline1/2, one_characteristic parks).
-- **botl parity (SHIPPED D-2405; 3/3 unblocked):** moveloop gate + walk `run = 0` writer live (detail in D-2405). Do not re-check.
 - **Knight worker spin** (MEASURED 2026-09-16): no spin at HEAD (canonical `can_carry` live); 2026-09-08 ETIMEDOUT premise retired — do not re-queue.
 - **disclose→enlightenment writer (MEASURED 2026-09-16):** scen-wish-Priest-92179 step-100 map diff is display-stream-only (core RNG 3081/3081 both sides; hallu both sides; identical freeze-then-fresh-repaint shape, different picks ⇒ desync in the 97→100 menu window). 2nd drinkfountain-class witness — no new writer row; disclose parks as SYMPTOM on that park's C display-RNG-trace falsifier (full proof in the park archive).
 - **rloc arrivals (MEASURED 2026-09-16, [measure] delivered):** C temp-fprintf (reverted; re-record byte-identical) + JS prefix probes. Healer-92042 s73 = `mon_arrive` After_you orc-captain (mnum 77, ORC_LEADER, 2:3→2:8); JS queued all 6 at s53 but captain mux=3,muy=0 (vs C 2:8) → `migrate_orc` leader-dest writer row. Ranger-92033 s70 = minetn arrival (uz=2:4, moves=24), NO migrants — two `shkinit:660` insurance rlocs (nymph mnum 69, lynx mnum 35); JS zeroes blocker (`shknam.js:642`) → `shkinit` writer row.
 - **m_move cnt-j (MEASURED 2026-09-16, detail in D-2409):** goblin@22,6 cnt C5/J4 → D-2409 shipped the mfndpos arm; Valkyrie s113/s72 track-check residual still needs its writer row. Falsified: mtrack timing.
 - **distfleeck stream (SHIPPED D-2410):** Knight-92112 mail-daemon writer ported (seq=144 «I'm late!»+mongone draw-free → PASS; detail in D-2410). Residual 7 sessions → Open [measure] row. Recorder tree is x86_64 (Rosetta): rebuild `CFLAGS="-arch x86_64 -g -I../include -DNOTPARMDECL -DNO_TIMED_DELAY" LINK="cc -arch x86_64"`, run `NETHACK_BINARY=<src>/nethack` + isolated `NETHACK_INSTALL` copy.
+- **mon_adjust_speed glyph (MEASURED 2026-09-16, [measure] delivered):** Barbarian-92079 s62 = mid-turn MORE split at `makemon` dochugw (C-62 mid-`nasty` @161, C-63 same call); JS omits it (`makemon.c:1502–1504` vs `js/makemon.js:3490`), JS-62 draws 395, fmon 33→38; glyph/nasty/re-port theories falsified.
 - **R-1082 music path live:** `seemimic` js/music.js:312; omit is trap-clone-only.
 - **Eval-order TDZ (D-2349):** no static edge to polyself at eval; late-bind setters.
 - **Fortress guards** (do not reopen): display_inventory, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue S_ndoor, bigrm-2, getpos, summonmu, lookat, do_statusline1, snapshot, fakewiz, Ice/Boulder, roles[], pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.

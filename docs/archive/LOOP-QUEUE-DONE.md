@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-16
 
+- [x] [measure] `worn.c` mon_adjust_speed Barbarian-92079 glyph writer — blocks 1/553 (scen-tour-Barbarian-92079 step 62, kind=screen: identical toplines, row 5 C `·@·` vs JS `Y@'`; parked MISATTRIBUTED — body arm-for-arm D-0871, 0 RNG draws, proven no-movement). Deliverable: C per-turn dump (mons pos/minvis + levl glyphs at step 62 on the recorder, temp instrumentation reverted) naming the summon-path glyph writer, then the writer's Open row. Do not re-port `mon_adjust_speed`. Probe: `node scripts/hidden-proxy.mjs show scen-tour-Barbarian-92079`; archive row `worn.c mon_adjust_speed` for the full proof.
+
+
 - [x] `monmove.c` `m_move` MAIL_DAEMON departure — blocks 1/553 (scen-genesis-Knight-92112 step 96 kind=rng: C `rn2(5)=1`@distfleeck vs JS `rn2(10)=1`@m_move:1845; measured: temp-fprintf `distfleeck` stream (reverted; VALUES-IDENTICAL re-record 100 steps/3221 draws/screens/cursors) shows mail daemon mndx=314 @15,5 peace=1 `distfleeck` seq=144 then MAILDAEMON «I'm late!»+mongone (draw-free) then dragon seq=145 `distfleeck`, vs JS daemon alive @15,5 taking peaceful-getitems `rn2(10)`; JS arm absent — `js/monmove.js:1783`→`:1785` jumps shk/gd/priest to Tengu, no MAIL_STRUCTURES arm (map turns.md:2785 MAIL_DAEMON deferred)). Fix: port `monmove.c:1829–1838` (verbalize + mongone + MMOVE_DIED) via canonical `mongone` (`js/mon.js:3017`; `imports.mjs --can` first). Verify: `node scripts/verify.mjs --fn m_move` + `verify distfleeck` (expect Knight-92112 → PASS or later owner). Probe: `/tmp/probe_distfleeck.mjs` K=95/96. **Addressed:** D-2410
 
 
