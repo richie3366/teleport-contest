@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-16
 
+- [x] [measure] enlightenment Status/Attributes value writers (top parked owner `one_characteristic` post-ship, 2/553: scen-wish-Caveman-92148 step 245 row 5 C «You were unencumbered <-247>.» vs JS «<-210>.»; scen-wish-Monk-92013 step 135 row 17 C «You couldn't change from your current form because of your amulet of» vs JS «You were fast innately.»; both steps list `chwepon(wield.c:940)` in cMsgOwners — fresh `verify one_characteristic` this iteration). Deliverable: C per-step u-state dump (utrap/utraptype/ustuck/uswallow/Upolyd/umonnum/amulet/inv_weight + invent otyp/owt list) at both steps on the recorder (temp fprintf in `enlightenment()`, reverted) vs the JS prefix-state probe, then the writer's Open row (weight arithmetic vs item generation vs Unchanging-form arm). Do not re-port `one_characteristic` (parked MISATTRIBUTED) or the shipped status utrap/held arms. Probe: `node scripts/hidden-proxy.mjs show scen-wish-Caveman-92148`.
+
+
 - [x] [measure] `worn.c` mon_adjust_speed Barbarian-92079 glyph writer — blocks 1/553 (scen-tour-Barbarian-92079 step 62, kind=screen: identical toplines, row 5 C `·@·` vs JS `Y@'`; parked MISATTRIBUTED — body arm-for-arm D-0871, 0 RNG draws, proven no-movement). Deliverable: C per-turn dump (mons pos/minvis + levl glyphs at step 62 on the recorder, temp instrumentation reverted) naming the summon-path glyph writer, then the writer's Open row. Do not re-port `mon_adjust_speed`. Probe: `node scripts/hidden-proxy.mjs show scen-tour-Barbarian-92079`; archive row `worn.c mon_adjust_speed` for the full proof.
 
 

@@ -85,7 +85,7 @@ writer, `[campaign]`/`[measure]` rows replace map filler
 Pop `LOOP-QUEUE.md` Must-fix (freehand guard, docrt early-path botlx),
 then Open in order — campaign botl-parity 2/3, `status_enlightenment`
 held-by/utrap arms (3 sessions), the `[measure]` rows, eat `losehp`.
-**Next cluster:** DELIVERED [measure] `worn.c` mon_adjust_speed Barbarian-92079 (no `js/`): writer is `makemon.c:1502–1504` `dochugw` occupation arm → new Open row at the end of the Open list; head: that row. Prior SHIPPED D-2410 m_move MAIL_DAEMON (Knight-92112 PASS), D-2409 mfndpos MON_AT, D-2408 utrap-steed verb (detail in D-index + recent block).
+**Next cluster:** `eat.c` `losehp` death-path bypass at the two corpse-damage sites (Open head; [measure] enlightenment delivered → `mkobj.c weight()` BoH-divisor + `attributes_enlightenment` Unchanging writer rows at the Open tail).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2410 (index).**
 <!-- recent:begin -->
