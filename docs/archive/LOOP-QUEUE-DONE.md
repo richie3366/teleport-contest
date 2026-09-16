@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-16
 
+- [x] [measure] `monmove.c` m_move Caveman-92202 `cnt-j` split — blocks 3/553 (scen-poly-Caveman-92202 step 103: C `rn2(20)=5` vs JS `rn2(16)=13`, first draw of that `m_move` call, `appr!=0` both sides, candidate count differs by exactly 1; Wizard-92076 writer `dohide` shipped). Candidates left by the park: one extra `mfndpos` candidate in C, an `mtrack` history shift (all 6 C `mon_track_clear` sites have JS counterparts — verify they fire at the same turns), a `mon_track_add` timing gap. Deliverable: C `mfndpos` position list + `mtrack[]` dump at step 103 on the recorder (temp fprintf, reverted) vs the JS prefix-state probe, then the writer's Open row. Do not re-port the selection loop (faithful, parked). Probe: `node scripts/hidden-proxy.mjs show scen-poly-Caveman-92202`.
+
+
 - [x] [measure] `teleport.c` rloc migrant creation — blocks 2/553 (scen-tour-Healer-92042 step 73 + scen-tour-Ranger-92033 step 70). DELIVERED 2026-09-16 (no js/): C temp-fprintf dump (losedogs/migrating list, mon_arrive, mon_arrive→rloc, put_lregion-oneshot, rloc entry + call-count; reverted, re-record byte-identical) + JS prefix probes → two writer Open rows below (migrate_orc leader-dest, shkinit insurance). Do not re-port `rloc` (D-0686).
 
 

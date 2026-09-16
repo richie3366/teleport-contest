@@ -8,7 +8,7 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (one line each, class +
 falsifier; proofs in `docs/archive/LOOP-QUEUE-PARKED.md`). Do not list them
 here again. Live hypotheses only:
 
-- **obj_resists S2/S3 writers (MEASURED 2026-09-16):** C per-turn dump (reverted; VALUES-IDENTICAL) names `steal.c` relobj death-drop `flooreffects` for both: Samurai-92032 s59 (nymph died on lava (61,9), potion312 burned) and Wizard-92219 s115 (orc on lava (63,3), potion315 burned); JS `relobj_on_death` places directly, terrain/traps/fmon match. Falsified — do not re-check: S2 fire-trap burn/destroy, S3 fmon-order/move-gate/cube/meatcorpse, polyuse, monstone, bury, steal.
+- **obj_resists S2/S3 writers (MEASURED 2026-09-16):** C per-turn dump (reverted; VALUES-IDENTICAL) names `steal.c` relobj death-drop `flooreffects` for both sessions (detail in D-2407). Falsified — do not re-check: S2 fire-trap burn/destroy, S3 fmon-order/move-gate/cube/meatcorpse, polyuse, monstone, bury, steal.
 
 - **polymon find_ac (SHIPPED D-2402):** the D-0722 deferral (both find_acs past `encumber_msg`) was for `setworn`'s poisoning, not polymon's own call — C runs `:890` + `:967` before `:1019`. Restored C order: Tourist-92095 step 46 → `savelife`@49, 4 poly PASS, 0 worse, seed0108 303/303 holds.
 - **2026-09-16 process take (measured):** 126/362 non-audit iterations
@@ -22,10 +22,11 @@ here again. Live hypotheses only:
   `AC:6` vs `AC:10`; row 4 «You were held by a pit fiend» vs «You weren't
   hungry»). The value's writer is the port; the painter is proven faithful
   (do_statusline1/2, one_characteristic parks).
-- **botl parity (SHIPPED D-2405; 3/3 unblocked):** moveloop gate `allmain.c:473–479` live (flush unconditional); travel-T writer was the live walk path missing C `cmd.c:1397` `run = 0` (`run=8` stuck 350→383, EOT time suppressed). Full 44/44; corpus lembas pair +1 (59/83). 3/3 meal gate re-queued Open (mask lifted).
-- **Knight worker spin** (MEASURED 2026-09-16, `[measure]` row delivered): no spin at HEAD — canonical `can_carry` import live (`js/dogmove.js:17`), Knight-92182 replays in 0.3 s to step 95 (parked `obj_resists`); `verify mattackm` vacuous, cohort 7/7. The 2026-09-08 ETIMEDOUT premise is retired with its row.
+- **botl parity (SHIPPED D-2405; 3/3 unblocked):** moveloop gate `allmain.c:473–479` live (flush unconditional); travel-T writer was the live walk path missing C `cmd.c:1397` `run = 0` (`run=8` stuck 350→383, EOT time suppressed). Full 44/44; corpus lembas pair +1 (59/83); meal gate shipped with the row (DONE-26).
+- **Knight worker spin** (MEASURED 2026-09-16): no spin at HEAD (canonical `can_carry` live); 2026-09-08 ETIMEDOUT premise retired — do not re-queue.
 - **disclose→enlightenment writer (MEASURED 2026-09-16):** scen-wish-Priest-92179 step-100 map diff is display-stream-only (core RNG 3081/3081 both sides; hallu both sides; identical freeze-then-fresh-repaint shape, different picks ⇒ desync in the 97→100 menu window). 2nd drinkfountain-class witness — no new writer row; disclose parks as SYMPTOM on that park's C display-RNG-trace falsifier (full proof in the park archive).
 - **rloc arrivals (MEASURED 2026-09-16, [measure] delivered):** C temp-fprintf (reverted; re-record byte-identical) + JS prefix probes. Healer-92042 s73 = `mon_arrive` After_you orc-captain (mnum 77, ORC_LEADER, 2:3→2:8); JS queued all 6 at s53 but captain mux=3,muy=0 (vs C 2:8) → `migrate_orc` leader-dest writer row. Ranger-92033 s70 = minetn arrival (uz=2:4, moves=24), NO migrants — two `shkinit:660` insurance rlocs (nymph mnum 69, lynx mnum 35); JS zeroes blocker (`shknam.js:642`) → `shkinit` writer row.
+- **m_move cnt-j (MEASURED 2026-09-16):** C MEAS n=5551 (temp fprintf, reverted; VALUES-IDENTICAL re-record) vs scratch-JS JMEAS (scored `js/` untouched): goblin@22,6 cnt C5/J4, mtrack identical, C extra (21,5)/ALLOW_M = kobold-zombie also present in JS → writer `mm_aggression` heads Open (Valkyrie s113/s72 same signature). Falsified: mtrack timing. Probe: /tmp/meas.log.
 - **R-1082 music path live:** `seemimic` js/music.js:312; omit is trap-clone-only.
 - **Eval-order TDZ (D-2349):** no static edge to polyself at eval; late-bind setters.
 - **Fortress guards** (do not reopen): display_inventory, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue S_ndoor, bigrm-2, getpos, summonmu, lookat, do_statusline1, snapshot, fakewiz, Ice/Boulder, roles[], pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
