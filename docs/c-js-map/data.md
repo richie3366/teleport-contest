@@ -482,7 +482,9 @@ NC_SHOW_MSG `pline_mon` D-1586; **newcham mleashed `m_unleash` TRUE / `update_in
 ustuck / `possibly_unwield` / `mon_break_armor` / boulder `flooreffects` still named (async or missing; `poly_steed` live D-2243);
 omit `set_apparxy` in byyou arm (dochug covers); 
 **`makemon_appear_msg` Amonnam/next2u(req x,y)/MM_NOEXCLAM Norep** (D-0928 #1164; 
-sync makemon + async caller; mimic mhidden_description/set_msg_xy/dochugw still omit; 
+sync makemon + async caller; mimic mhidden_description/set_msg_xy still omit; 
+occupation `dochugw(mtmp,FALSE)` live in the tail (D-2421: Norep stays MM_NOMSG-gated, 
+`:1502–1504` arm runs whenever occupied; `nasty` both arms wired pre-mpeaceful-zero); 
 in-body await still deferred); **D-0530 `m_initweap` S_TROLL polearm kit**; 
 **D-0540 `m_initweap` soldier/watchman `rn1(PARTISAN..BEC_DE_CORBIN)` + `P_POLEARMS` filter**; 
 **D-0541 `m_initweap` S_HUMAN `is_elf` kit (`M2_ELF`)**; 

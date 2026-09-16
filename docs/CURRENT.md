@@ -21,7 +21,7 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-16** — full `sessions` on the working tree
-(audit **1368–1373** + D-2403…D-2419).
+(audit **1368–1373** + D-2403…D-2421).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 `48+0.30/turn` (R² 0.78).
@@ -37,7 +37,7 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Role-init throws | **0 / 44** |
 
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-16
-audit 1368–1373 + D-2403…D-2419): **485 / 540 PASS (89.8 %)** excl. 13 env-only rows
+audit 1368–1373 + D-2403…D-2421): **485 / 540 PASS (89.8 %)** excl. 13 env-only rows
 (485/553; D-2405/D-2406/D-2407 moved Knight-92002 + Wizard-92219 to PASS and the lembas pair + Samurai-92032 to later owners); RNG 99.0 %; screens 98.7 %. Top owners:
 `distfleeck` ×7, `do_statusline2` ×4, `m_move` ×3, `obj_resists` ×3,
 `rloc` ×2, `one_characteristic` ×2, then 1-block singles
@@ -85,10 +85,11 @@ writer, `[campaign]`/`[measure]` rows replace map filler
 Pop `LOOP-QUEUE.md` Must-fix (freehand guard, docrt early-path botlx),
 then Open in order — campaign botl-parity 2/3, `status_enlightenment`
 held-by/utrap arms (3 sessions), the `[measure]` rows, eat `losehp`.
-**Next cluster:** `[measure]` `distfleeck` residual writers — DELIVERED as D-2420 (no `js/`): 7/553 still blocked (`hidden-proxy verify distfleeck`: 7 unchanged NO MOVEMENT, expected for a measure); recorder RNG-tag step dumps (no temp instrumentation — the tags ARE the dump) + JS flat/slice probe (`/tmp/distfleeck-probe.mjs`, deleted) group into 6 writer Open rows (W1 m_move-loop C-extra-distfleeck ×2 incl. `fig_transform` lead; W2 mfndpos-family JS-extra-draw Healer; W3 dog extra `score_targ`; W4 fox `m_detach` lifecycle; W5 `doopen_indir` extra rnl; W6 overload gate Caveman). Do not re-port `distfleeck` (live, parked SYMPTOM) or the `m_move` MAIL arm.
+**Next cluster:** `makemon.c` makemon `dochugw` occupation arm — blocks 1/553 (scen-tour-Barbarian-92079 step 62, recorded owner `mon_adjust_speed`). C `makemon.c:1502–1504` `if (go.occupation) (void) dochugw(mtmp, FALSE)` vs JS newsym-only (`js/makemon.js:3490–3492`, named omit). Fix: occupation arm in `makemon_appear_msg` (async tail, C order after appear) + wire `nasty` (the blocked path, MM_NOMSG) before its `mpeaceful=0` mutation. Verify `node scripts/verify.mjs --fn mon_adjust_speed` (expect Barbarian-92079 → PASS or later owner). Do not re-port `mon_adjust_speed`, `nasty`, or the MORE machinery.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2419 (index).**
+**Keep D-0845…D-2421 (index).**
 <!-- recent:begin -->
+**D-2421** `makemon.c:1476–1504` (`!gi.in_mklev`: `newsym`, then `!MM_NOMSG`-gated appear `Norep`, th — `js/makemon.js` only for the arm — `dochugw` added to the existing static `./monmove.js` import (`imports.mjs --can` → ALREADY, hoisted `async function`, no new edge); `makemon_appear_msg` restructured so the appear `Nor
 **D-2419** `dungeon.c:1403–1414` (`ledger_to_dnum`: `ledger_start < ledgerno && ledgerno <= ledger_st — `js/teleport.js` only — local condition → `start < want && want <= start + n` with a `|0` coercion (same shape as `js/dungeon.js:718–729`), C-order comment citing `:1408–1411`.
 **D-2418** `shknam.c:658–660` (`if (MON_AT(sx, sy)) (void) rloc(m_at(sx, sy), RLOC_NOMSG); /* insuran — `js/shknam.js` — `shkinit` async with the insurance arm `if (blocker) await rloc(blocker, RLOC_NOMSG)` in C order (result ignored like C's `(void)`); `RLOC_NOMSG` added to the `./const.js` import; static `import { rloc }
 **D-2417** `mon.c:4349` (`wakeup` calls `finish_meating(mtmp)` unconditionally); `uhitm.c:5215–5216`  — `js/mon.js` only — `finish_meating` added to the existing static `./dogmove.js` import (`imports.mjs --can` → ALREADY, no new edge); unconditional `finish_meating(mtmp)` in C order (after the mimic/forcefight block, befo
@@ -96,11 +97,10 @@ held-by/utrap arms (3 sessions), the `[measure]` rows, eat `losehp`.
 **D-2412** `insight.c:3007–3131` `list_genocided` (both=dumping||genoing→'y', genoing→both=FALSE; `nu — `js/insight.js` — exported `num_extinct`/`num_gone` (C `staticfn`, exported for the test pin; out-param→returned array, LOW_PM order); `genocided_prompt`/`genocided_title`/`genocided_line` pure builders (`:3043–3048`/`:3
 **D-2411** `eat.c:1926` `losehp(rnd(15), !glob ? "acidic corpse" : "acidic glob", KILLED_BY_AN)` and  — `js/eat.js` only — both sites call canonical sync `losehp` with C arg order and killer strings (`rnd(15)`/`rnd(8)` kept per C, not `1+rn2`); `finish_maybe_wail` added to the existing static `./hack.js` import (`imports.m
 **D-2410** `monmove.c:1829–1838` (`#ifdef MAIL_STRUCTURES` arm; unconditionally `#define`d — `js/monmove.js` only — the arm in C order: `(ptr?.mndx ?? -1) === PM_MAIL_DAEMON` (module idiom, cf. the Tengu arm); `!hero_Deaf() && canseemon(mtmp)` preserves the C short-circuit (`Deaf` ≡ local `hero_Deaf`, same gate 
-**D-2409** `mon.c:2299–2317` (MON_AT arm: `mmflag = flag | mm_aggression(mon, mtmp2)`; ALLOW_M + tame — `js/mon.js` only — three file-local functions (C `staticfn`, same shape as NODIAG/may_passwall) + the MON_AT arm in C order (`mmflag = flag | mm_aggression`; ALLOW_M / tame-TM / else MDISP with the flag mutation, which p
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2419; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2421; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

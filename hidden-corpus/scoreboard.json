@@ -1,6 +1,6 @@
 {
- "commit": "470f6f36",
- "at": "2026-09-16T13:36:36.168Z",
+ "commit": "fa0c5f89",
+ "at": "2026-09-16T13:49:18.246Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -7076,19 +7076,19 @@
   },
   "scen-tour-Barbarian-92079": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 10474,
+   "passed": true,
+   "rngM": 16788,
    "rngT": 16788,
-   "scrM": 62,
+   "scrM": 119,
    "scrT": 119,
-   "kind": "screen",
-   "step": 62,
+   "kind": null,
+   "step": null,
    "steps": 119,
-   "owner": "mon_adjust_speed",
-   "loc": "worn.c:554",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "The titan is suddenly moving faster. The titan casts a spell!--More--",
-   "jsTopline": "The titan is suddenly moving faster. The titan casts a spell!--More--",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-tour-Barbarian-92086": {

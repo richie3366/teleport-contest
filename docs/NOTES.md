@@ -23,10 +23,10 @@ here again. Live hypotheses only:
   hungry»). The value's writer is the port; the painter is proven faithful
   (do_statusline1/2, one_characteristic parks).
 - **disclose→enlightenment (measured):** Priest-92179 s100 map diff is display-stream-only (RNG 3081/3081); no writer row — disclose parks as SYMPTOM on the park's C display-RNG-trace falsifier (proof in park archive).
-- **rloc arrivals (MEASURED 2026-09-16, [measure] delivered):** C temp-fprintf (reverted; re-record byte-identical) + JS prefix probes. Healer-92042 s73 = `mon_arrive` After_you orc-captain (mnum 77, ORC_LEADER, 2:3→2:8); JS queued all 6 at s53 but captain mux=3,muy=0 (vs C 2:8) → `migrate_orc` leader-dest writer row. Ranger-92033 s70 = minetn arrival (uz=2:4, moves=24), NO migrants — two `shkinit:660` insurance rlocs (nymph mnum 69, lynx mnum 35); JS zeroes blocker (`shknam.js:642`) → `shkinit` writer row.
+- **rloc arrivals (SHIPPED D-2418 `shkinit` + D-2419 `migrate_orc`):** Healer-92042 orc-captain + Ranger-92033 minetn arrivals (detail in those D-logs).
 - **m_move cnt-j (MEASURED 2026-09-16, detail in D-2409):** goblin@22,6 cnt C5/J4 → D-2409 shipped the mfndpos arm; Valkyrie s113/s72 track-check residual still needs its writer row. Falsified: mtrack timing.
-- **distfleeck stream (SHIPPED D-2410):** mail-daemon writer → PASS (detail in D-2410); residual 7 → Open [measure] row. Recorder tree is x86_64 (Rosetta): rebuild `CFLAGS="-arch x86_64 -g -I../include -DNOTPARMDECL -DNO_TIMED_DELAY" LINK="cc -arch x86_64"`, run `NETHACK_BINARY=<src>/nethack` + isolated `NETHACK_INSTALL` copy.
-- **mon_adjust_speed glyph (MEASURED 2026-09-16, [measure] delivered):** Barbarian-92079 s62 = mid-turn MORE split at `makemon` dochugw (C-62 mid-`nasty` @161, C-63 same call); JS omits it (`makemon.c:1502–1504` vs `js/makemon.js:3490`), JS-62 draws 395, fmon 33→38; glyph/nasty/re-port theories falsified.
+- **distfleeck stream (SHIPPED D-2410):** mail-daemon writer → PASS (detail in D-2410); residuals → D-2420 writer rows.
+- **mon_adjust_speed glyph (SHIPPED D-2421):** `makemon` dochugw arm live in `makemon_appear_msg` + `nasty` wired; Barbarian-92079 → PASS. Falsified — do not re-check: glyph, `nasty` break, re-port.
 - **enlightenment writers (delivered):** Caveman-92148 → `mkobj.c weight()` BoH-divisor row; Monk-92013 → `attributes_enlightenment` Unchanging row (measurements in those rows). Falsified — do not re-check: `one_characteristic` re-port, `inv_weight`, item generation.
 - **R-1082 music path live:** `seemimic` js/music.js:312; omit is trap-clone-only.
 - **Eval-order TDZ (D-2349):** no static edge to polyself at eval; late-bind setters.
@@ -34,19 +34,20 @@ here again. Live hypotheses only:
 - **distfleeck residuals (MEASURED 2026-09-16, delivered D-2420):** recorder RNG-tag step dumps (no temp instrumentation — tags ARE the dump) + JS flat/slice probe (`hidden-proxy verify distfleeck` 7 unchanged; probe deleted): 5 clean single-draw shifts (W1 Rogue+Samurai92239 C-extra-distfleeck; W2 Healer JS-extra-mfndpos `rn2(4*(cnt-j))`; W3 Samurai92161 JS-extra-score_targ; W5 Wizard JS-extra-doopen_indir) + 2 branch divergences (W4 Tourist fox-detach/creation; W6 Caveman overload-gate) → 6 writer Open rows. Falsified — do not re-check: distfleeck scared/onscary re-port, m_move MAIL arm, seed/step/coords logic.
 ## Don't re-check (≤15)
 
-- D-1790…D-2419 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-2421 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2419.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2419.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2421.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2421.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2421: `js/makemon.js` only for the arm — `dochugw` added to the existing static `./monmove.js` import (`imports.mjs --can` → ALREADY, hoisted `async functio Named: `set_msg_xy` in the appear block (pre-existing, kept); `unmakemon` geno-substitute kill (p
 - D-2419: `js/teleport.js` only — local condition → `start < want && want <= start + n` with a `|0` coercion (same shape as `js/dungeon.js:718–729`), C-order co Named: leash `mtame--`/`m_unleash` + light-source `vision_recalc` inside `migrate_to_level` (pre-
 - D-2418: `js/shknam.js` — `shkinit` async with the insurance arm `if (blocker) await rloc(blocker, RLOC_NOMSG)` in C order (result ignored like C's `(void)`);  Named: `assign_level` clones, `good_shopdoor`/`nameshk` locals (pre-existing, untouched); `rloc` 
 - D-2417: `js/mon.js` only — `finish_meating` added to the existing static `./dogmove.js` import (`imports.mjs --can` → ALREADY, no new edge); unconditional `fi Named: `finish_meating` mimic-AP reset (pre-existing, kept); `ghod_hitsu` (pre-existing).
@@ -61,5 +62,4 @@ here again. Live hypotheses only:
 - D-2405: `js/allmain.js` only — the C gate verbatim on the live store (`game.flags`, which `bot()`/`flush_screen` already gate on): `botl|botlx → bot() + curs_ Named: `set_move_cmd` `menu_requested→nopick` arm stays named (same C body, adjacent line, no ses
 - D-2404: `js/mthrowu.js` only — `import { freehand } from './engrave.js'` (new static edge; `imports.mjs --can mthrowu.js engrave.js freehand` → SAFE: hoisted  Named: `drop_throw` `passive_obj` arm (pre-existing D-2399 omit, map line kept); sibling-file `fr
 - D-2403: `js/display.js` only — `if (game.flags) game.flags.botlx = true;` before each of the three early `return`s (mirroring the join; `update_inventory()` s Named: `redrawonly`-arm `botlx` (unported `redrawonly` arm, map + in-code comments); `update_inve
-- D-2402: `js/polyself.js` only — polymon find_ac C order (`:890` post-drop_weapon, `:967` pre-encumber_msg); Tourist-92095 step 46 AC:6 paints post-strip, 4 poly PASS + 2 moved, seed0108 holds, 44/44.
 <!-- landmarks:end -->
