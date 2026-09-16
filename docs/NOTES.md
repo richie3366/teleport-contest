@@ -31,6 +31,7 @@ here again. Live hypotheses only:
 - **R-1082 music path live:** `seemimic` js/music.js:312; omit is trap-clone-only.
 - **Eval-order TDZ (D-2349):** no static edge to polyself at eval; late-bind setters.
 - **Fortress guards** (do not reopen): display_inventory, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue S_ndoor, bigrm-2, getpos, summonmu, lookat, do_statusline1, snapshot, fakewiz, Ice/Boulder, roles[], pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
+- **distfleeck residuals (MEASURED 2026-09-16, delivered D-2420):** recorder RNG-tag step dumps (no temp instrumentation — tags ARE the dump) + JS flat/slice probe (`hidden-proxy verify distfleeck` 7 unchanged; probe deleted): 5 clean single-draw shifts (W1 Rogue+Samurai92239 C-extra-distfleeck; W2 Healer JS-extra-mfndpos `rn2(4*(cnt-j))`; W3 Samurai92161 JS-extra-score_targ; W5 Wizard JS-extra-doopen_indir) + 2 branch divergences (W4 Tourist fox-detach/creation; W6 Caveman overload-gate) → 6 writer Open rows. Falsified — do not re-check: distfleeck scared/onscary re-port, m_move MAIL arm, seed/step/coords logic.
 ## Don't re-check (≤15)
 
 - D-1790…D-2419 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.

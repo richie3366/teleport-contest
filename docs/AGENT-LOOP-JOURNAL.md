@@ -7,6 +7,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-16 — [measure] distfleeck residual writers delivered as D-2420 (no js/)
+
+Queue `[measure]` head (7 distfleeck-owned sessions): recorder RNG-tag step dumps (no temp instrumentation — tags ARE the dump) + JS flat first-mismatch/slice probe (`/tmp/distfleeck-probe.mjs`, deleted). 5 clean single-draw shifts + 2 branch divergences → 6 writer Open rows W1–W6 (D-2420); `[measure]` row marked done + archived; commit+push, no finish-iteration. `verify distfleeck` 7 unchanged (expected); green gate PASS. Queue band 8−1+6=13 (one over; pop in order).
 ## 2026-09-16 — D-2419 `dungeon.c` `ledger_to_dnum` bottom-level spill via `migrate_orc` ORC_LEADER (Healer orc-captain arrival)
 
 **C locus:** `dungeon.c:1403–1414` (`ledger_to_dnum`: `ledger_start < ledgerno && ledgerno <= ledger_start + num_dunlevs`; `ledger_no` `:1376–1378` is `dlevel + ledger_start`, so valid ledgers run start+1..start+num) via `dog.c:887–926` `migrate_to_level` (`:909–910` decode → `:924–925` `mux=new_lev.dnum, muy=new_lev.dlevel`) via `mkmaze.c:717–745` `migrate_orc` leader arm (`nlev=max_depth`, `!rn2(40)` rare −1, `MIGR_LEFTOVERS`; sole leader caller `:851`, gang caller `:885`).
