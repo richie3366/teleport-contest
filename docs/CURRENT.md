@@ -38,7 +38,7 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-16
 audit 1374–1385): **493 / 540 PASS (91.3 %)** excl. 13 env-only rows
-(493/553; D-2408…D-2428 cleared the `obj_resists`, `rloc`,
+(493/553; D-2408…D-2429 cleared the `obj_resists`, `rloc`,
 `one_characteristic` and `mon_adjust_speed` owners and cut `m_move` 3→2); RNG 99.2 %; screens 98.9 %. Top owners:
 `distfleeck` ×7, `do_statusline2` ×4, `m_move` ×2, then 1-block singles
 (`mktrap`, `collect_coords`, `savelife`, `peffect_polymorph`, `zapyourself`,
@@ -86,10 +86,11 @@ writer, `[campaign]`/`[measure]` rows replace map filler
 Pop `LOOP-QUEUE.md` Must-fix (freehand guard, docrt early-path botlx),
 then Open in order — campaign botl-parity 2/3, `status_enlightenment`
 held-by/utrap arms (3 sessions), the `[measure]` rows, eat `losehp`.
-**Next cluster:** monmove.c `can_fog` → mon.c `mfndpos` closed-door arm (m_move Valkyrie track-check writer) — blocks 2/553 (scen-tour-Valkyrie-92040 step 113 kind=rng flat#30031: C `rn2(24)=7` vs JS `rn2(20)=15` @m_move:2003/1941; scen-tour-Valkyrie-92162 step 72 flat#8893: C `rn2(20)=0` vs JS `rn2(16)=8`; MEASURED D-2424: C cnt=6 vs JS cnt=5, extra C FREE-door cell, `can_fog` all-true). Fix: wire live `can_fog` into the `mfndpos` door gate in C order; verify `--fn m_move`.
+**Next cluster:** `mklev.c` mktrap trap-kind die (Ranger downstream of the shkinit insurance port) — blocks 1/553 (scen-tour-Ranger-92033 step 98 kind=rng: C `rnd(4)=2`@mktrap vs JS `rn2(3)=2`@induced_align(mklev.js:25312); surfaced at HEAD when the shkinit insurance port moved Ranger rloc@70 → mktrap@98; untagged owner in `hidden-proxy queue`, eligible as-is). Fix: port the owning C arm in mktrap trap selection (brief mktrap first; never read seed/step/coords into logic). Verify `node scripts/verify.mjs --fn mktrap` (expect Ranger → PASS or later owner).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2428 (index).**
+**Keep D-0845…D-2429 (index).**
 <!-- recent:begin -->
+**D-2429** `nethack-c/upstream/src/mklev.c:2135–2144` victim gate (`lvl <= (unsigned) rnd(4)` at `:21 — `js/mklev.js` only — capture `ttmp` and call `mktrap_seen_victim(ttmp, {})` (exact: not-WEB so spider flag moot, seen/novictim false per the string+coord defaults) in both blocks with a C-order comment; intentionally min
 **D-2428** `nethack-c/upstream/src/monmove.c:2365–2371` `can_fog` (fog-cloud `mvitals` not `G_GENOD`  — `js/monmove.js` — `function can_fog` → `export function can_fog` (hoisted declaration, no TDZ risk); `js/mon.js` — `can_fog` added to the existing static `./monmove.js` import (`imports.mjs --can` → ALREADY, no new edge)
 **D-2427** `nethack-c/upstream/src/mkmaze.c:1873–1925` `mk_bubble` ends with `mv_bubble(b, 0, 0, TRUE — `js/mklev.js` only — `dx`/`dy` → `let`; inside the existing `!Is_airlevel || !rn2(6)` gate (same RNG shape: water draws nothing new, air keeps its single `rn2(6)`), compute `colli` from `(bx,by)` vs `(gbxmin,gbymin,gbxma
 **D-2423** `nethack-c/upstream/src/insight.c` attributes_enlightenment — arms ported in C order on both builders — final `enlightenment()` (past tense via `final`, `you_are`/`enlght_line_txt` directly) and `doattributes()` ^X (in-progress tense via `o()` wrapper; C `!final` arms read `polymor
@@ -97,11 +98,10 @@ held-by/utrap arms (3 sessions), the `[measure]` rows, eat `losehp`.
 **D-2421** `makemon.c:1476–1504` (`!gi.in_mklev`: `newsym`, then `!MM_NOMSG`-gated appear `Norep`, th — `js/makemon.js` only for the arm — `dochugw` added to the existing static `./monmove.js` import (`imports.mjs --can` → ALREADY, hoisted `async function`, no new edge); `makemon_appear_msg` restructured so the appear `Nor
 **D-2419** `dungeon.c:1403–1414` (`ledger_to_dnum`: `ledger_start < ledgerno && ledgerno <= ledger_st — `js/teleport.js` only — local condition → `start < want && want <= start + n` with a `|0` coercion (same shape as `js/dungeon.js:718–729`), C-order comment citing `:1408–1411`.
 **D-2418** `shknam.c:658–660` (`if (MON_AT(sx, sy)) (void) rloc(m_at(sx, sy), RLOC_NOMSG); /* insuran — `js/shknam.js` — `shkinit` async with the insurance arm `if (blocker) await rloc(blocker, RLOC_NOMSG)` in C order (result ignored like C's `(void)`); `RLOC_NOMSG` added to the `./const.js` import; static `import { rloc }
-**D-2417** `mon.c:4349` (`wakeup` calls `finish_meating(mtmp)` unconditionally); `uhitm.c:5215–5216`  — `js/mon.js` only — `finish_meating` added to the existing static `./dogmove.js` import (`imports.mjs --can` → ALREADY, no new edge); unconditional `finish_meating(mtmp)` in C order (after the mimic/forcefight block, befo
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2428; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2429; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

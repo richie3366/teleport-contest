@@ -1479,8 +1479,8 @@ function sp_level_coder_init_statics() {
  * Mon-strt, Mon-loca, Mon-goal, Mon-fila, Mon-filb,
  * Cav-strt, Cav-loca, Cav-goal, Cav-fila, Cav-filb, knox.
  * Named omissions:
- * hellfill rnd_hell_prefab; dmonsfree on the load_special path;
- * populate_maze trap loop (no JS mktrap).
+ * hellfill rnd_hell_prefab; dmonsfree on the load_special path.
+ * (populate_maze trap loop is live via mktrap below.)
  */
 async function makemaz(s) {
     const g = game;
@@ -14645,15 +14645,20 @@ function load_minend_3() {
     for (let i = 0; i < 7; i++) splev_create_trap();
 
     // des.trap("level teleport", place[2]) / place[1] — packed coord
+    // C: sp_lev.c create_trap → mktrap(tm) (mklev.c:2036-2150); the victim
+    // gate burns rnd(4) (mklev.c:2137) even though LEVEL_TELEP fails the
+    // later (kind < HOLE) tail check — C && order draws before skipping.
     {
         const p2 = place[1];
         const pos = get_location_coord(DRY, null, p2[0], p2[1]);
-        maketrap(pos.x, pos.y, LEVEL_TELEP);
+        const ttmp = maketrap(pos.x, pos.y, LEVEL_TELEP);
+        mktrap_seen_victim(ttmp, {});
     }
     {
         const p1 = place[0];
         const pos = get_location_coord(DRY, null, p1[0], p1[1]);
-        maketrap(pos.x, pos.y, LEVEL_TELEP);
+        const ttmp = maketrap(pos.x, pos.y, LEVEL_TELEP);
+        mktrap_seen_victim(ttmp, {});
     }
 
     for (let i = 0; i < 5; i++) splev_create_monster('M');

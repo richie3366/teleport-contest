@@ -883,6 +883,8 @@ via nested `lspo_map` coord); Big Room 13/13;
 **D-1823 `minend-3` load_special** (Catacombs: HWALL solidfill so mazewalk
 carves map STONE only; valign bottom; west `stocked=false`; lua wallify;
 luckstone prize + flint + level-teleports); Mine's End 3/3;
+**D-2429 minend-3 level-teleport pair** (both explicit traps now through
+`mktrap_seen_victim` — victim-gate `rnd(4)` burn per `mklev.c:2137` C `&&` order);
 **D-0651 `medusa-1` load_special** + `Is_medusa_level` fixup statues;
 **D-0759 `medusa-3` load_special** (place `selection_rndcoord` + Perseus/ravens; 
 `mk_artifact` A_NONE) + **D-0928 open** #1092 C recorder: medusa-3 flip **sum81** stair**(32,16)** 
