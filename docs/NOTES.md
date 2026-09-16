@@ -21,31 +21,31 @@ here again. Live hypotheses only:
   `AC:6` vs `AC:10`; row 4 «You were held by a pit fiend» vs «You weren't
   hungry»). The value's writer is the port; the painter is proven faithful
   (do_statusline1/2, one_characteristic parks).
-- **Knight worker spin** (MEASURED 2026-09-16): no spin at HEAD (canonical `can_carry` live); 2026-09-08 ETIMEDOUT premise retired — do not re-queue.
-- **disclose→enlightenment writer (MEASURED 2026-09-16):** scen-wish-Priest-92179 step-100 map diff is display-stream-only (core RNG 3081/3081 both sides; hallu both sides; identical freeze-then-fresh-repaint shape, different picks ⇒ desync in the 97→100 menu window). 2nd drinkfountain-class witness — no new writer row; disclose parks as SYMPTOM on that park's C display-RNG-trace falsifier (full proof in the park archive).
+- **disclose→enlightenment (measured):** Priest-92179 s100 map diff is display-stream-only (RNG 3081/3081); no writer row — disclose parks as SYMPTOM on the park's C display-RNG-trace falsifier (proof in park archive).
 - **rloc arrivals (MEASURED 2026-09-16, [measure] delivered):** C temp-fprintf (reverted; re-record byte-identical) + JS prefix probes. Healer-92042 s73 = `mon_arrive` After_you orc-captain (mnum 77, ORC_LEADER, 2:3→2:8); JS queued all 6 at s53 but captain mux=3,muy=0 (vs C 2:8) → `migrate_orc` leader-dest writer row. Ranger-92033 s70 = minetn arrival (uz=2:4, moves=24), NO migrants — two `shkinit:660` insurance rlocs (nymph mnum 69, lynx mnum 35); JS zeroes blocker (`shknam.js:642`) → `shkinit` writer row.
 - **m_move cnt-j (MEASURED 2026-09-16, detail in D-2409):** goblin@22,6 cnt C5/J4 → D-2409 shipped the mfndpos arm; Valkyrie s113/s72 track-check residual still needs its writer row. Falsified: mtrack timing.
-- **distfleeck stream (SHIPPED D-2410):** Knight-92112 mail-daemon writer ported (seq=144 «I'm late!»+mongone draw-free → PASS; detail in D-2410). Residual 7 sessions → Open [measure] row. Recorder tree is x86_64 (Rosetta): rebuild `CFLAGS="-arch x86_64 -g -I../include -DNOTPARMDECL -DNO_TIMED_DELAY" LINK="cc -arch x86_64"`, run `NETHACK_BINARY=<src>/nethack` + isolated `NETHACK_INSTALL` copy.
+- **distfleeck stream (SHIPPED D-2410):** mail-daemon writer → PASS (detail in D-2410); residual 7 → Open [measure] row. Recorder tree is x86_64 (Rosetta): rebuild `CFLAGS="-arch x86_64 -g -I../include -DNOTPARMDECL -DNO_TIMED_DELAY" LINK="cc -arch x86_64"`, run `NETHACK_BINARY=<src>/nethack` + isolated `NETHACK_INSTALL` copy.
 - **mon_adjust_speed glyph (MEASURED 2026-09-16, [measure] delivered):** Barbarian-92079 s62 = mid-turn MORE split at `makemon` dochugw (C-62 mid-`nasty` @161, C-63 same call); JS omits it (`makemon.c:1502–1504` vs `js/makemon.js:3490`), JS-62 draws 395, fmon 33→38; glyph/nasty/re-port theories falsified.
-- **enlightenment writers (MEASURED 2026-09-16, [measure] delivered):** C temp-fprintf in `enlightenment()` (reverted; both re-records byte-identical) vs JS disclosure probe — Caveman-92148 = blessed-BoH divisor (bag owt C 28 = 15+(50+3)/4 vs JS 65 = 15+50; invent otherwise 10/10 identical, wcap 950) → `mkobj.c weight()` writer row; Monk-92013 = invent byte-identical (wcap 775, invwt -508), amulet-of-unchanging worn both sides, Upolyd=0 → `attributes_enlightenment` Unchanging-arm writer row. Falsified — do not re-check: `one_characteristic` re-port, `inv_weight` arithmetic, item generation (both invents match C item-for-item).
+- **enlightenment writers (delivered):** Caveman-92148 → `mkobj.c weight()` BoH-divisor row; Monk-92013 → `attributes_enlightenment` Unchanging row (measurements in those rows). Falsified — do not re-check: `one_characteristic` re-port, `inv_weight`, item generation.
 - **R-1082 music path live:** `seemimic` js/music.js:312; omit is trap-clone-only.
 - **Eval-order TDZ (D-2349):** no static edge to polyself at eval; late-bind setters.
 - **Fortress guards** (do not reopen): display_inventory, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue S_ndoor, bigrm-2, getpos, summonmu, lookat, do_statusline1, snapshot, fakewiz, Ice/Boulder, roles[], pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
 ## Don't re-check (≤15)
 
-- D-1790…D-2410 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-2411 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2410.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2410.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2411.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2411.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2411: `js/eat.js` only — both sites call canonical sync `losehp` with C arg order and killer strings (`rnd(15)`/`rnd(8)` kept per C, not `1+rn2`); `finish_m Named: tainted-arm `make_sick` stays deferred (pre-existing, map-kept); `showdamage`/`rehumanize`
 - D-2410: `js/monmove.js` only — the arm in C order: `(ptr?.mndx ?? -1) === PM_MAIL_DAEMON` (module idiom, cf. the Tengu arm); `!hero_Deaf() && canseemon(mtmp)` Named: none new (local `canseemon` infrared/invis stand-in per D-1548 stays as named there).
 - D-2409: `js/mon.js` only — three file-local functions (C `staticfn`, same shape as NODIAG/may_passwall) + the MON_AT arm in C order (`mmflag = flag | mm_aggre Named: none new (the `mfndpos` header comment now cites only `can_fog`-in-squeeze plus the pre-ex
 - D-2408: `js/invent.js` only — new exported `utrap_steed_verb(final, anchored)` (`:4975`-area, C `:1094–1096` verbatim: `final ? (anchored ? 'were ' : 'was ')  Named: none new (`self_lookat` steed `y_monnam` arm stays per D-2406; null-steedname → `you_are` 
@@ -60,5 +60,4 @@ here again. Live hypotheses only:
 - D-2399: `js/mthrowu.js` only — `u_catch_thrown_obj` now `async`, tests `!nohands(game.youmonst?.data)` (null-safe; identical for unpoly'd heroes), and on succ Named: `mthrowu.js:292` file-local `freehand` clone kept (engrave.js:610 canonical is C-home and 
 - D-2398: `js/dothrow.js` only — deleted the dead `throw_gold` block; added the same dynamic-import + `await` in `throwit` between the `flooreffects` block and  Named: `throwit` shk pick-snatch (`is_pick`/`mpickobj`, pre-existing named per review 295/D-2393)
 - D-2397: `js/do_wear.js` — `Gloves_off` now async in C order: capture `gloves` + `on_purpose` pre-clear, `takeoff.mask &= ~W_ARMG`, `clear_worn(W_ARMG)`, then  Named: Gloves_off Fumbling/Power/Dexterity switch arms + Glib cure + encumber_msg (pre-existing t
-- D-2396: `js/potion.js` only — the make_sick onset, partial-cure and full-cure arms plus make_slimed/make_stoned now mirror TIMEOUT bits to `u.uprops[…].intrin Named: make_vomiting/make_stunned/make_confused flat writers share the dual-storage shape (own ro
 <!-- landmarks:end -->

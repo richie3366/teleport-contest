@@ -1860,8 +1860,8 @@ lembas park);
 fight_empty, not skipped `nonrotting_corpse`**); 
 **`eatcorpse` palatable/yummy via `hero_form_data` when `youmonst` unset** (D-0409; 
 full `set_uasmon` FROMFORM props deferred); 
-**`eatcorpse` acid/sick inline `losehp` via `rnd(15)`/`rnd(8)` not `1+rn2`** (D-0428; 
-real `losehp`/`make_sick` deferred); **`floorfood` feeding yn + 
+**`eatcorpse` acid/sick arms via canonical `losehp`** (D-0428 shipped as D-2411;
+`rnd(15)`/`rnd(8)` kept per C; tainted-arm `make_sick` still deferred); **`floorfood` feeding yn + 
 `poison_strdmg(rnd(4),rnd(15))`** (D-0221); 
 **floor `useup`→`useupf`/`delobj`/`obj_resists(0,0)`** (D-0222;
 **D-1771** eat.c `carried`? `useup`:`useupf` — C `invent.c` `useupf`

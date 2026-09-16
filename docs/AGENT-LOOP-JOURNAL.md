@@ -136,3 +136,15 @@ is `:1871–1873` — doc nit only). 1353 D-2387 gulpmu BLND → **ACCEPT**
 (check_visor tail; HBlinded≡uprops mirror). Per-SHA `--base` re-verify
 0/0 throughout, rulecheck/banned-grep clean. Cadence 44/44 (Scr 11,405,
 RNG 792,838, `48+0.30/turn`). No Must-fix; 11 Open in band, no refill.
+
+The next agent reads **only this file** (latest ~10 entries), not the
+archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
+`node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-16 — D-2411 `eat.c` `eatcorpse` acid/cadaver arms route through canonical `losehp`
+
+**C locus:** `eat.c:1926` `losehp(rnd(15), !glob ? "acidic corpse" : "acidic glob", KILLED_BY_AN)` and `:1942` `losehp(rnd(8), !glob ? "cadaver" : "rotted glob", KILLED_BY_AN)`; semantics from `hack.c:4256` `losehp` (`disp.botl = TRUE`; `end_running(TRUE)`; Upolyd → `u.mh -= n` + `rehumanize`/`maybe_wail`, else `u.uhp -= n` + killer/`urgent_pline("You die...")`/`done(DIED)` noreturn, else `maybe_wail`).
+**JS:** 1 js file (`js/eat.js` +24/−17) + new `scripts/eatcorpse-losehp.test.mjs` (2 tests: non-fatal acid envelope — `rnd(15)` range, `botl`, run/mv/travel + multi cleared, killer/gameover untouched; Upolyd → `mh` damaged, `uhp` intact). Pre-fix check: old body + export shim fails 0/2; fixed tree passes 2/2. Fatal arm needs full game-over state — covered by session verify per the gloves-test precedent. Under the 600/10 caps.
+**Change:** `js/eat.js` only — both sites call canonical sync `losehp` with C arg order and killer strings (`rnd(15)`/`rnd(8)` kept per C, not `1+rn2`); `finish_maybe_wail` added to the existing static `./hack.js` import (`imports.mjs --can eat.js hack.js losehp` → ALREADY, hoisted fn, no new edge); fatal (`_losehp_needs_done`/`gameover`) → dynamic-import `finish_losehp_done` from `./end.js` (house pattern, no static end.js edge) + `return 1` (C noreturn → `dont_start`, no `start_eating` occupation or "begin eating" pline), else `await finish_maybe_wail()` (C blocks inside `losehp`). `eatcorpse` now `export`ed (C name, 1:1 convention) for the test. No DIAG/FORCE/seed gates; Rule #2 clean.
+**Verify:** preflight `verify.mjs --no-cohort` green on the clean tree. Post-fix `node scripts/verify.mjs --fn eatcorpse` → PASS syntax (1 file) · PASS rule2 · hidden vacuous note (row cited 0 blocked at enqueue — expected, not a corpus PASS) · PASS green 2/2 + strict ×2 · PASS cohort 7/7. `node --test scripts/eatcorpse-losehp.test.mjs` → 2/2.
+**Named:** tainted-arm `make_sick` stays deferred (pre-existing, map-kept); `showdamage`/`rehumanize` inside canonical `losehp` per its standing deferrals; poison-arm local `poison_strdmg` clone untouched (pre-existing drift, not this row).
+**Next:** queue in order (`list_genocided`, `[measure]` obj_resists burn writers, `shkinit`, `migrate_orc`, `[measure]` distfleeck residuals).
