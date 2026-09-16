@@ -1,6 +1,6 @@
 {
- "commit": "13f2a1ea",
- "at": "2026-09-16T16:44:36.941Z",
+ "commit": "1e638e7f",
+ "at": "2026-09-16T17:50:25.096Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6482,18 +6482,18 @@
   "scen-normal-Tourist-92061": {
    "src": "corpus",
    "passed": false,
-   "rngM": 2793,
+   "rngM": 3455,
    "rngT": 4466,
-   "scrM": 3,
+   "scrM": 21,
    "scrT": 169,
-   "kind": "rng",
-   "step": 3,
+   "kind": "screen",
+   "step": 17,
    "steps": 169,
-   "owner": "distfleeck",
-   "loc": "monmove.c:549",
-   "jsOwner": "corpse_chance(trap.js:1165)",
-   "cTopline": "The little dog misses the newt. The newt bites!",
-   "jsTopline": "m_detach: fox <65,14> is already detached?--More--",
+   "owner": "doread",
+   "loc": "read.c:622",
+   "jsOwner": null,
+   "cTopline": "As you pronounce the formula on it, the scroll disappears.--More--",
+   "jsTopline": "As you read the scroll, it disappears. A map coalesces in your mind!--More--",
    "error": null
   },
   "scen-normal-Valkyrie-92077": {

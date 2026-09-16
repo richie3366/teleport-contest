@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2431 — `trap.c` fire-trap xtradmg/monkilled `!DEADMONSTER` guard (Tourist fox double-detach)
+
+- **Status:** fixed (Open queue row `mon.c` fox death/detach lifecycle Tourist, D-2420 W4; recorded corpus owner `distfleeck` — symptom, not re-ported).
+- **Symptom:** scen-normal-Tourist-92061 step 3/169 kind=rng flat#2785: C `rn2(5)=4`@distfleeck vs JS `rn2(3)=0`@corpse_chance, prev destroy_items matched; JS branch next_ident+rndmonst_adj creation vs C distfleeck×N; JS topline «m_detach: fox <65,14> is already detached?» (`mon.c:2792`) vs C «little dog misses newt». MEASURED: C step-3 draw list shows the thitm-kill `corpse_chance rn2(3)=1`@mon.c:3248 (index 19) then `burnarmor rn2(5)`×3 + `destroy_items` then the blocked `distfleeck rn2(5)=4` (index 24) — JS re-kills after destroy_items instead of moving on.
+- **C locus:** `trap.c:1797–1806` (`trapeffect_fire_trap` monster branch: xtradmg subtraction and the AD_FIRE `monkilled` both sit under `if (!DEADMONSTER(mtmp))`); `monst.h:214` (`DEADMONSTER` ≡ `mhp < 1`); `mon.c:2792` double-detach impossible.
+- **JS was:** `js/trap.js` burn block ran `if ((mhp|0)<=0) monkilled(AD_FIRE)` unconditionally — a monster thitm had already killed (monkilled→mondied→mondead→m_detach) detached twice (impossible → `--More--` topline) and drew a second corpse_chance + make_corpse creation in the slot where C draws distfleeck.
+- **Fix:** `js/trap.js` only — subtract + AD_FIRE monkilled nested under the existing `(mhp|0)>0` check in C order (`:1800–1806` comment); `trapeffect_fire_trap` exported (C `staticfn`, test pin per D-2416 precedent). No new import, no cycle risk. Rule #2 clean.
+- **JS:** `js/trap.js:4499` (export), `:4553–4569` (guard); new `scripts/fire-trap-xtradmg-guard.test.mjs` (2 its: dead fox single-kill + live survivor untouched); map `docs/c-js-map/data.md:1076` (D-0254 line).
+- **Callers:** fix sits in the shared body, so every JS caller inherits it — C `trap.c:2317` (magic-trap fallthrough) + `:2958` (FIRE_TRAP selector) via the pre-existing JS `mintrap` dispatch, unchanged. Brief C `distfleeck` sites `:791`/`:834`/`:915` (dochug) mirror pre-existing JS `js/monmove.js:2325`/`:2365`/`:2438`, untouched. No call from a site C never calls from.
+- **Verify:** `node --test scripts/fire-trap-xtradmg-guard.test.mjs` → 2/2 (pre-fix authentic failure via stash: rejects «Input queue empty» on the double-detach `--More--`). `node scripts/verify.mjs --fn distfleeck` → PASS syntax (1 file: trap.js) · rule2 · hidden `0 PASS, 1 moved past, 4 unchanged, 0 worse → PROGRESS` (Tourist-92061 distfleeck@3 → doread@17, step strictly later; Wizard/Caveman/Healer/Samurai unchanged, 0 worse) · green 2/2 · strict ×2 · cohort 7/7 · VERIFY: PASS.
+- **Named omissions:** trap.js local `monkilled`/`mondied` clones ignoring `how`/disintegested + missing accessible||is_pool gate (pre-existing, kept — the fox path takes mondied both sides); thitm `-AD_RBRE` nocorpse arm untouched.
+- **Next:** D-2420 W5 `doopen_indir` Wizard + W6 overload-gate Caveman; Healer-92055 / Samurai-92161 still distfleeck-owned.
+
 ## D-2430 — `cmd.c` getdir trailing `confdir(FALSE)` centralized (Samurai figurine-apply direction)
 
 - **Status:** fixed (Open queue row D-2420 W1 `monmove.c` dochug/m_move C-extra-distfleeck; recorded corpus owner `distfleeck` — body live, not re-ported).

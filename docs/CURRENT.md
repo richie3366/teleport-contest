@@ -38,7 +38,7 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-16
 audit 1374–1385): **493 / 540 PASS (91.3 %)** excl. 13 env-only rows
-(493/553; D-2408…D-2430 cleared the `obj_resists`, `rloc`,
+(493/553; D-2408…D-2431 cleared the `obj_resists`, `rloc`,
 `one_characteristic` and `mon_adjust_speed` owners and cut `m_move` 3→2); RNG 99.2 %; screens 98.9 %. Top owners:
 `distfleeck` ×7, `do_statusline2` ×4, `m_move` ×2, then 1-block singles
 (`mktrap`, `collect_coords`, `savelife`, `peffect_polymorph`, `zapyourself`,
@@ -86,10 +86,11 @@ writer, `[campaign]`/`[measure]` rows replace map filler
 Pop `LOOP-QUEUE.md` Must-fix (freehand guard, docrt early-path botlx),
 then Open in order — campaign botl-parity 2/3, `status_enlightenment`
 held-by/utrap arms (3 sessions), the `[measure]` rows, eat `losehp`.
-**Next cluster:** `mon.c` fox death/detach lifecycle Tourist (D-2420 W4) — blocks 1/553 (scen-normal-Tourist-92061 step 3/169 kind=rng flat#2785: C `rn2(5)=4`@distfleeck vs JS `rn2(3)=0`@corpse_chance, prev destroy_items matched; JS branch next_ident+rndmonst_adj creation vs C distfleeck×N; JS topline «m_detach: fox <65,14> is already detached?» (`mon.c:2792`) vs C «little dog misses newt»; MEASURED D-2420 vs JS probe). Fix: the fox mondead/mongone/`m_detach` path in C order. Verify `node scripts/verify.mjs --fn distfleeck` (recorded owner: expect Tourist → PASS or later owner). Do not re-port `distfleeck`. (W2 Healer + W3 Samurai-dog parked 2026-09-16 as SYMPTOMs — see Parked index + live `[measure]` rows.)
+**Next cluster:** `doopen_indir` extra rnl Wizard (D-2420 W5) — blocks 1/553 (scen-normal-Wizard-92127 step 101/114 kind=rng flat#3271: C `rn2(5)=3`@distfleeck vs JS `rnl(20)=3`@doopen_indir, prev moveloop_core matched; JS-extra-single-draw proven; C step 18 draws; MEASURED D-2420 vs JS probe). Fix: the open-action RNG gate in C order. Verify `node scripts/verify.mjs --fn distfleeck` (recorded owner: expect Wizard → PASS or later owner). Do not re-port `distfleeck`. (W4 fox shipped D-2431; W2 Healer + W3 Samurai-dog parked 2026-09-16 as SYMPTOMs — see Parked index + live `[measure]` rows.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2430 (index).**
+**Keep D-0845…D-2431 (index).**
 <!-- recent:begin -->
+**D-2431** `trap.c:1797–1806` (`trapeffect_fire_trap` monster branch: xtradmg subtraction and the AD_ — `js/trap.js` only — subtract + AD_FIRE monkilled nested under the existing `(mhp|0)>0` check in C order (`:1800–1806` comment); `trapeffect_fire_trap` exported (C `staticfn`, test pin per D-2416 precedent).
 **D-2430** `nethack-c/upstream/src/cmd.c:4115–4116` (`if (!u.dz) confdir(FALSE)` inside `getdir`, aft — `js/lock.js` only for the locus — tail `if (!(u.dz | 0)) confdir(false)` in C order at both exits (self + normal); `confdir` was already imported (no new edge).
 **D-2429** `nethack-c/upstream/src/mklev.c:2135–2144` victim gate (`lvl <= (unsigned) rnd(4)` at `:21 — `js/mklev.js` only — capture `ttmp` and call `mktrap_seen_victim(ttmp, {})` (exact: not-WEB so spider flag moot, seen/novictim false per the string+coord defaults) in both blocks with a C-order comment; intentionally min
 **D-2428** `nethack-c/upstream/src/monmove.c:2365–2371` `can_fog` (fog-cloud `mvitals` not `G_GENOD`  — `js/monmove.js` — `function can_fog` → `export function can_fog` (hoisted declaration, no TDZ risk); `js/mon.js` — `can_fog` added to the existing static `./monmove.js` import (`imports.mjs --can` → ALREADY, no new edge)
@@ -97,11 +98,10 @@ held-by/utrap arms (3 sessions), the `[measure]` rows, eat `losehp`.
 **D-2423** `nethack-c/upstream/src/insight.c` attributes_enlightenment — arms ported in C order on both builders — final `enlightenment()` (past tense via `final`, `you_are`/`enlght_line_txt` directly) and `doattributes()` ^X (in-progress tense via `o()` wrapper; C `!final` arms read `polymor
 **D-2422** `nethack-c/upstream/src/mkobj.c` weight() `:1932–1934` — the three divisor arms in C order (cursed first, C ternary short-circuit; `Math.trunc` for the round-up divisions) + a module-level `BAG_OF_HOLDING` const via `objectNames.indexOf` (same shape as `STATUE`); doc header no
 **D-2421** `makemon.c:1476–1504` (`!gi.in_mklev`: `newsym`, then `!MM_NOMSG`-gated appear `Norep`, th — `js/makemon.js` only for the arm — `dochugw` added to the existing static `./monmove.js` import (`imports.mjs --can` → ALREADY, hoisted `async function`, no new edge); `makemon_appear_msg` restructured so the appear `Nor
-**D-2419** `dungeon.c:1403–1414` (`ledger_to_dnum`: `ledger_start < ledgerno && ledgerno <= ledger_st — `js/teleport.js` only — local condition → `start < want && want <= start + n` with a `|0` coercion (same shape as `js/dungeon.js:718–729`), C-order comment citing `:1408–1411`.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2430; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2431; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

@@ -7,6 +7,15 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-16 — D-2431 `trap.c` fire-trap xtradmg/monkilled `!DEADMONSTER` guard (Tourist fox double-detach)
+
+**C locus:** `trap.c:1797–1806` (`trapeffect_fire_trap` monster branch: xtradmg subtraction and the AD_FIRE `monkilled` both sit under `if (!DEADMONSTER(mtmp))`); `monst.h:214` (`DEADMONSTER` ≡ `mhp < 1`); `mon.c:2792` double-detach impossible.
+**JS:** `js/trap.js:4499` (export), `:4553–4569` (guard); new `scripts/fire-trap-xtradmg-guard.test.mjs` (2 its: dead fox single-kill + live survivor untouched); map `docs/c-js-map/data.md:1076` (D-0254 line).
+**Change:** `js/trap.js` only — subtract + AD_FIRE monkilled nested under the existing `(mhp|0)>0` check in C order (`:1800–1806` comment); `trapeffect_fire_trap` exported (C `staticfn`, test pin per D-2416 precedent). No new import, no cycle risk. Rule #2 clean.
+**Verify:** `node --test scripts/fire-trap-xtradmg-guard.test.mjs` → 2/2 (pre-fix authentic failure via stash: rejects «Input queue empty» on the double-detach `--More--`). `node scripts/verify.mjs --fn distfleeck` → PASS syntax (1 file: trap.js) · rule2 · hidden `0 PASS, 1 moved past, 4 unchanged, 0 worse → PROGRESS` (Tourist-92061 distfleeck@3 → doread@17, step strictly later; Wizard/Caveman/Healer/Samurai unchanged, 0 worse) · green 2/2 · strict ×2 · cohort 7/7 · VERIFY: PASS.
+**Named:** trap.js local `monkilled`/`mondied` clones ignoring `how`/disintegested + missing accessible||is_pool gate (pre-existing, kept — the fox path takes mondied both sides); thitm `-AD_RBRE` nocorpse arm untouched.
+**Next:** D-2420 W5 `doopen_indir` Wizard + W6 overload-gate Caveman; Healer-92055 / Samurai-92161 still distfleeck-owned.
+**Refill:** queue sits short at 7 Open (band 8–12) — `hidden-proxy queue` shows 0 untagged owners eligible as-is (rest archived/parked/open) and no parked row names an unqueued writer, so per the header rule nothing was appended; `finish-iteration --commit` gated on the band, committing this handoff manually.
 ## 2026-09-16 — D-2430 `cmd.c` getdir trailing `confdir(FALSE)` centralized (Samurai figurine-apply direction)
 
 **C locus:** `nethack-c/upstream/src/cmd.c:4115–4116` (`if (!u.dz) confdir(FALSE)` inside `getdir`, after `dxdy_moveok`; the `:4023–4025` self arm falls through to it since dz==0) via `apply.c:2544` `use_figurine` (getdir, no self-confdir) via `cmd.c:4302` `confdir` → `hack.c:2420` `u_maybe_impaired` (`Stunned || (Confusion && !rn2(5))`, short-circuit, no draw unless confused-and-unstunned).
