@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2418 — `shknam.c` `shkinit` MON_AT insurance rloc (Ranger minetn arrival)
+
+- **Status:** fixed (Open queue row; blocked owner `rloc`).
+- **Symptom:** scen-tour-Ranger-92033 step 70 kind=rng: C `rnd(79)`@rloc vs JS `rnd(2)`@next_ident. Wizard `#levelchange` minetn arrival (NEW uz=2:4, moves=24); C insurance-rlocs each shk-spot squatter (mountain nymph mnum=69 @(31,12), lynx mnum=35 @(45,15), 2 tries each) before its shopkeeper `makemon` — measured on instrumented recorder at enqueue (reverted, re-record byte-identical).
+- **C locus:** `shknam.c:658–660` (`if (MON_AT(sx, sy)) (void) rloc(m_at(sx, sy), RLOC_NOMSG); /* insurance */`); sole C caller `stock_room` (`shknam.c:733`).
+- **JS was:** `js/shknam.js:642–646` zeroed the blocker's mx/my (0 RNG), so JS never drew the rloc tries and diverged at the next positional draw.
+- **Fix:** `js/shknam.js` — `shkinit` async with the insurance arm `if (blocker) await rloc(blocker, RLOC_NOMSG)` in C order (result ignored like C's `(void)`); `RLOC_NOMSG` added to the `./const.js` import; static `import { rloc } from './teleport.js'` (`imports.mjs --can` → same 90-module SCC, hoisted fn, cycle-safe). `stock_room` async + `await shkinit`. `js/mklev.js` — `fill_special_room` async (subroom recursion + shop `stock_room` arm awaited); all 3 call sites already sit in async fns (`await` added: makemaz tail `:23901`, vault `fill_vault` `:23964`, ordinary tail `:24055`). `rloc` itself untouched (D-0686 live).
+- **JS:** `js/shknam.js:46` (import), `:635–639` (doc), `:639` (`async shkinit`), `:643–647` (insurance arm), `:688`/`:692` (`stock_room`); `js/mklev.js:23901`, `:23964`, `:24055`, `:24448`, `:24451`, `:24460`.
+- **Callers:** C `shkinit` has one call site (`stock_room` :733) → JS `stock_room` (`js/shknam.js:692`) awaits it. C `stock_room` callers (`sp_lev.c` `fill_special_room`) → JS `fill_special_room` (`js/mklev.js:24460`) awaits it; its 3 JS call sites all await. No call from a site C never calls from; no C caller left unwired.
+- **Verify:** `node scripts/verify.mjs --fn shkinit` → PASS syntax (2 files) · rule2 · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file changed); hidden vacuous for `shkinit` (owner is `rloc`). `hidden-proxy verify rloc`: Ranger-92033 moved rloc@70 → mktrap@98 (later owner, step strictly later); Healer-92042 unchanged rloc@73 (own writer row `migrate_orc` stays open); 0 worse → PROGRESS.
+- **Named omissions:** `assign_level` clones, `good_shopdoor`/`nameshk` locals (pre-existing, untouched); `rloc` body not re-ported.
+- **Next:** Healer-92042 via the queued `migrate_orc` row; Ranger mktrap@98 residuals surface via queue/refill (not opened here). Bundled in this commit: queue head `dothrow.c` whip row parked STALE (D-2415 → stale; Arch-92238 PASS at HEAD, true writer D-2417).
+
 ## D-2417 — `mon.c` `wakeup` unconditional `finish_meating` (Knight pony mid-meal miss)
 
 - **Status:** fixed (Open queue head `dogmove.c` `dog_invent` underfoot-eat state, D-2414 writer row).
@@ -29,7 +42,7 @@
 
 ## D-2415 — `dothrow.c` thrown-whip landing vs kitten square (Arch one-cell split, writer row)
 
-- **Status:** open (writer row from delivered [measure] `obj_resists` Knight/Arch/Healer burn writers).
+- **Status:** stale 2026-09-16 (writer hypothesis falsified: Arch-92238 PASS at HEAD with no landing change — `verify obj_resists --base c8def23e` 3 PASS incl. Arch; true writer was D-2417 `wakeup`/`finish_meating` pet-meal movement. Was: open writer row from delivered [measure] `obj_resists` Knight/Arch/Healer burn writers).
 - **Symptom:** scen-wish-Archeologist-92238 step 166 kind=rng: C `rn2(100)=77`@obj_resists vs JS `rn2(5)=2`@distfleeck (C's much-later draw — positional shift). Toplines identical: «The kitten yowls! The bullwhip hits the kitten.»
 - **C locus:** `dothrow.c:2152` `thitmonst` (thrown bullwhip hits kitten) → `dothrow.c:2592` `breaktest` (`obj_resists(obj,1,99)`) → `drop_throw`/`flooreffects` landing; `dogmove.c:531` `dog_goal` (`otyp = dogfood(mtmp, obj)`, 0,95).
 - **Measured:** temp C fprintf in `obj_resists` (rebuilt x86_64, reverted; Healer re-record BYTE-IDENTICAL, all values/screens identical — method proof in NOTES Active). Blocked = 24th obj_resists draw: moves=7 ux=34 uy=8 otyp=82=BULLWHIP (`cc -E -DOBJECTS_ENUM` ground truth) oclass=WEAPON och=0 ach=95 chance=77 ret=0. Step-166 chain: thitmonst `rnd(20)` → dmgval → abuse_dog → hmon_hitmon_pet → exercise → obj_resists(61) [breaktest — matched both sides] → dochug `rn2(40)` → distfleeck(5)=1 [matched] → obj_resists(77) BLOCKED → dog_invent×3 → obj_resists(95) → dog_goal(8) → obj_resists(80,72) → dog_move…. geom-probe @166: 2 cells — (34,9) C=')' whip vs JS='f' kitten, (35,9) C='f' vs JS='<' stairs.

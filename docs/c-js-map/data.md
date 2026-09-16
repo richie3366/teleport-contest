@@ -1481,7 +1481,7 @@ SDOOR-kept `arboreal_sdoor` per-cell `rn2(100)`; `cvt_sdoor_to_door` clears it)
 JS: `js/mklev.js`, `js/shknam.js`, `js/makemon.js`, `js/shk.js` — partial
 
 **`mkshop` eligibility + shtypes** (D-0201); 
-**`stock_room`/`shkinit`/`mkshobj_at`/`get_shop_item`/iprobs/shknms + 
+**`stock_room`/`shkinit` MON_AT insurance `rloc(RLOC_NOMSG)` (D-2418; async `shkinit`/`stock_room`/`fill_special_room` + 3 awaited call sites)/`mkshobj_at`/`get_shop_item`/iprobs/shknms + 
 shopkeeper `m_initinv`/`rnd_misc_item`/`MM_ESHK` + tribute novel** (D-0203); 
 **`stock_room` locked-door `"Closed for inventory"` cell via `shk.c` `inside_shop` (`edge` = outside) + `Is_special`/`in_rooms` ROOM-or-CORR rewrite** (D-1849; shknam `inside_shop` clone removed — it ignored `edge`, put the engraving in rock and made that rock ROOM, costing `mineralize` one gold cell); 
 **`make_happy_shk` adjalign / `home_shk` / migrate / `make_happy_shoppers` D-1540**

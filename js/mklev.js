@@ -23898,7 +23898,7 @@ async function makelevel() {
 
     // C ref: mklev.c:1416-1420 — common tail after makemaz
     for (let i = 0; i < (g.level?.nroom | 0); i++)
-        fill_special_room(g.level.rooms[i]);
+        await fill_special_room(g.level.rooms[i]);
     run_themerms_post_level_generate();
     wallification(1, 0, COLNO - 1, ROWNO - 1);
 }
@@ -23961,7 +23961,7 @@ async function makelevel_ordinary() {
                 g.level.flags.has_vault = true;
                 const vaultRoom = g.level.rooms[g.level.nroom - 1];
                 if (vaultRoom) vaultRoom.needfill = FILL_NORMAL;
-                fill_special_room(vaultRoom);
+                await fill_special_room(vaultRoom);
                 mk_knox_portal(vx.v + vw.v, vy.v + vh.v);
                 // C: if (!noteleport && !rn2(3)) makevtele();
                 if (!g.level.flags.noteleport && !rn2(3))
@@ -24052,7 +24052,7 @@ async function makelevel_ordinary() {
 
     // C ref: mklev.c:1416-1418 — fill all special rooms
     for (let i = 0; i < g.level.nroom; i++)
-        fill_special_room(g.level.rooms[i]);
+        await fill_special_room(g.level.rooms[i]);
 
     // C ref: mklev.c themerooms_post_level_generate() — after fill, Lua
     // post_level_generate then full-map wallification.
@@ -24445,10 +24445,10 @@ function ROOM_IS_FILLABLE(croom) {
 /**
  * C ref: sp_lev.c fill_special_room() — vault gold; shop stock_room; fill_zoo.
  */
-function fill_special_room(croom) {
+async function fill_special_room(croom) {
     if (!croom) return;
     for (let i = 0; i < (croom.nsubrooms || 0); i++)
-        fill_special_room(croom.sbrooms[i]);
+        await fill_special_room(croom.sbrooms[i]);
 
     if (croom.rtype === OROOM || croom.rtype === THEMEROOM
         || croom.needfill === 0 /* FILL_NONE */)
@@ -24457,7 +24457,7 @@ function fill_special_room(croom) {
     if (croom.needfill === FILL_NORMAL) {
         // C: rtype >= SHOPBASE → stock_room(...); has_shop
         if (croom.rtype >= SHOPBASE) {
-            stock_room(croom.rtype - SHOPBASE, croom);
+            await stock_room(croom.rtype - SHOPBASE, croom);
             if (game.level?.flags) game.level.flags.has_shop = true;
             return;
         }

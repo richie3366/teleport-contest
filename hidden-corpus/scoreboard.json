@@ -1,6 +1,6 @@
 {
- "commit": "51ee14c5",
- "at": "2026-09-16T13:15:30.131Z",
+ "commit": "8547ab87",
+ "at": "2026-09-16T13:22:47.031Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -7154,7 +7154,7 @@
    "steps": 95,
    "owner": "rloc",
    "loc": "teleport.c:1850",
-   "jsOwner": "mcalcmove(mon.js:733)",
+   "jsOwner": "mcalcmove(mon.js:736)",
    "cTopline": "You materialize on a different level!",
    "jsTopline": "You materialize on a different level!",
    "error": null
@@ -7247,16 +7247,16 @@
   "scen-tour-Ranger-92033": {
    "src": "corpus",
    "passed": false,
-   "rngM": 15701,
+   "rngM": 21256,
    "rngT": 24006,
-   "scrM": 71,
+   "scrM": 98,
    "scrT": 138,
    "kind": "rng",
-   "step": 70,
+   "step": 98,
    "steps": 138,
-   "owner": "rloc",
-   "loc": "teleport.c:1850",
-   "jsOwner": "next_ident(makemon.js:456)",
+   "owner": "mktrap",
+   "loc": "mklev.c:2137",
+   "jsOwner": "induced_align(mklev.js:25312)",
    "cTopline": "You materialize on a different level!",
    "jsTopline": "You materialize on a different level!",
    "error": null
