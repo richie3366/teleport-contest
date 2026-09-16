@@ -4,6 +4,9 @@ Append-only crumbs for `scripts/agent-port-loop.sh` iterations.
 Each agent process should add a short dated entry **at the top** (after
 this header) before exiting. Keep entries tight; detailed hypothesis
 lives in `NOTES.md` / `CURRENT.md`.
+## 2026-09-16 — [measure] obj_resists S2/S3 writers delivered (no js/)
+
+Queue-head `[measure]` (Samurai-92032 s59 + Wizard-92219 s115): C per-turn dump (fmon/movement/traps, objresist args/where, or00 site markers, lavafall square; reverted, VALUES-IDENTICAL) names one writer — `steal.c` relobj death-drop `flooreffects` (nymph @61,9-lava, orc @63,3-lava; C burned potion via lava_damage, JS `relobj_on_death` places directly). Terrain 0 diffs, traps 16/16. Writer Open row added; -[x] archived; commit+push, no finish-iteration.
 ## 2026-09-16 — Self-heal pass (human-directed): the loop must not stop at night
 
 **What happened 00:31–01:54 (iters 3113–3120):** 3 ports shipped (D-2399

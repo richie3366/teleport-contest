@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-16
 
+- [x] [measure] `zap.c` obj_resists S2/S3 writers — blocks 6/553 (scen-tour-Samurai-92032 step 59: C 3× `rn2(100)`@obj_resists mid-`m_move` vs JS `rn2(5),rn2(1),rn2(2)` then reconvergence — fire-trap `burnarmor`/`destroy_items` event C ran and JS skipped?; scen-tour-Wizard-92219 step 115: C `obj_resists` ×3 with no preceding dochug draw vs JS HORSE/APE moves + gel cube skipped despite `movement=12` — fmon-order / move-gate split). S1 (savebones) shipped. Deliverable: a C-side per-turn dump (temp `fprintf` in `movemon`/`dochug` of fmon order + `movement` + trap state at those steps on the recorder, reverted after) naming the writer for each session, then the writer's Open row. Do not re-port `obj_resists` (body faithful, parked). Probe: `node scripts/hidden-proxy.mjs show scen-tour-Wizard-92219`; archive row `zap.c obj_resists` for the falsified candidates (do not re-check them).
+
+
 - [x] [measure] enlightenment Status/Attributes value writers (top parked owner `one_characteristic` post-D-2406, 2/553: scen-wish-Caveman-92148 step 245 row 5 C «You were unencumbered <-247>.» vs JS «<-210>.»; scen-wish-Monk-92013 step 135 row 17 C «You couldn't change from your current form because of your amulet of» vs JS «You were fast innately.»; both steps list `chwepon(wield.c:940)` in cMsgOwners — fresh `verify one_characteristic` this iteration). Deliverable: C per-step u-state dump (utrap/utraptype/ustuck/uswallow/Upolyd/umonnum/amulet/inv_weight + invent otyp/owt list) at both steps on the recorder (temp fprintf in `enlightenment()`, reverted) vs the JS prefix-state probe, then the writer's Open row (weight arithmetic vs item generation vs Unchanging-form arm). Do not re-port `one_characteristic` (parked MISATTRIBUTED) or status utrap/held arms (live D-2406). Probe: `node scripts/hidden-proxy.mjs show scen-wish-Caveman-92148`. **Addressed:** D-2406
 
 
