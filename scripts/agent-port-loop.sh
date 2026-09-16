@@ -5,11 +5,14 @@
 #
 # Crash / resource_exhausted before commit: keep the tree, arm
 # continue-unfinished (cite that iter's .raw/.log + a resume brief),
-# rewind n, retry in this run; a provider quota error halts instead
-# (latch kept). Density, protected files still halt. Empty ports (unless a
+# rewind n, retry in this run. Self-heal (2026-09-16): a provider quota
+# error or 3 short runs WAITS for the plan window (poll, max 10 h) instead
+# of halting; density → iteration undone (reset, or forward revert when
+# pushed) + overlay; protected authority files → restored + overlay (3 in
+# a row halts); review/audit js/ → kept + warn. Empty ports (unless a
 # Parked-row move or a popped [measure] row), an empty queue after port, and QUALITY-RISK/REJECT
 # reviews without a Must-fix row warn and arm a next-iter overlay instead
-# of halting.
+# of halting. Overlays are mode-tagged; port-only ones skip audits.
 # Banned-pattern hits do not write STOP: revert if unpushed, else arm
 # a next-iter heal prompt.
 # Stop: write "1" into STOP_AGENT_LOOP.md.
@@ -82,8 +85,11 @@ Claude knobs: CLAUDE_BIN, CLAUDE_EFFORT (low|medium|high|xhigh|max),
 LOOP_CLAUDE, CLAUDE_NO_PARTIAL=1 to skip --include-partial-messages,
 CLAUDE_PLAN_WINDOW_STOP_PCT (90), CLAUDE_PLAN_WEEKLY_STOP_PCT (95),
 CLAUDE_PLAN_USAGE_SKIP=1 to disable the post-iter `claude -p /usage` probe.
-Fail-closed (default): density / protected halt and revert the iteration
-(or halt without reset if already pushed). Green / full-suite regression,
+Self-healing (default): density → iteration undone (reset --hard, or a
+forward git revert + push when already on origin) and the next port iter
+told to split; protected authority files → restored from before_head and
+committed; both continue (halt only on a revert conflict or 3 authority
+violations in a row). Green / full-suite regression,
 banned-pattern hits, empty ports, empty queue after port, and
 QUALITY-RISK/REJECT without Must-fix are logged; the loop continues so
 the next iteration can recover (unpushed ban → revert; pushed ban → heal
@@ -572,10 +578,9 @@ exit_if_muse_plan_quota() {
     return 0
   fi
   summary="$(node -e 'const j=JSON.parse(process.argv[1]); process.stdout.write(String(j.stopReason||j.summary||"muse plan usage threshold"))' "$json")"
-  echo "$(date -Iseconds) MUSE PLAN QUOTA: ${summary} — stopping after finished iteration (commit kept)" \
+  echo "$(date -Iseconds) MUSE PLAN QUOTA: ${summary} — waiting for the window to reset (commit kept)" \
     | tee -a "$MASTER_LOG"
-  printf '%s\n' "muse plan quota: ${summary}" >"$LOG_DIR/last-halt-reason.txt"
-  exit 0
+  wait_for_plan_quota "muse plan quota: ${summary}"
 }
 
 # Same idea for Claude Pro/Max: `claude -p "/usage"` after a finished
@@ -600,10 +605,9 @@ exit_if_claude_plan_quota() {
     return 0
   fi
   summary="$(node -e 'const j=JSON.parse(process.argv[1]); process.stdout.write(String(j.stopReason||j.summary||"claude plan usage threshold"))' "$json")"
-  echo "$(date -Iseconds) CLAUDE PLAN QUOTA: ${summary} — stopping after finished iteration (commit kept)" \
+  echo "$(date -Iseconds) CLAUDE PLAN QUOTA: ${summary} — waiting for the window to reset (commit kept)" \
     | tee -a "$MASTER_LOG"
-  printf '%s\n' "claude plan quota: ${summary}" >"$LOG_DIR/last-halt-reason.txt"
-  exit 0
+  wait_for_plan_quota "claude plan quota: ${summary}"
 }
 
 # Parse one iteration raw stream; update TOKENS_USED / missing-usage streak.
@@ -675,8 +679,39 @@ write_iter_count() {
   printf '%s\n' "$n" >"$ITER_COUNT_FILE"
 }
 
+# Authority / fixture paths no loop agent may edit. One list: the
+# fingerprint hashes it, and self_heal_restore_protected restores it.
+PROTECTED_PATHS=(
+  docs/CONSTITUTION.md
+  docs/PORTING-RUNBOOK.md
+  docs/GROK-PLAYBOOK.md
+  docs/API.md
+  docs/PHASES.md
+  docs/PORTING-STRATEGY.md
+  docs/AGENT-PORT-LOOP.md
+  README.md
+  .cursor/rules
+  scripts/agent-port-loop.sh
+  scripts/agent-port-loop.prompt.md
+  scripts/agent-port-loop.review.prompt.md
+  scripts/agent-port-loop.cadence.prompt.md
+  scripts/agent-port-loop.continue.prompt.md
+  scripts/loop-require-results-pass.mjs
+  scripts/archive-loop-queue-done.mjs
+  scripts/port-did-park.mjs
+  scripts/check-hot-docs.mjs
+  scripts/rotate-journal.mjs
+  frozen
+  sessions
+  nethack-c/upstream
+  nethack-c/patches
+  js/isaac64.js
+  js/terminal.js
+  js/storage.js
+)
+
 protected_fingerprint() {
-  node --input-type=module - "$ROOT" <<'NODE'
+  node --input-type=module - "$ROOT" "${PROTECTED_PATHS[@]}" <<'NODE'
 import { createHash } from 'node:crypto';
 import {
   existsSync, lstatSync, readFileSync, readdirSync, readlinkSync,
@@ -684,34 +719,7 @@ import {
 import { join, relative } from 'node:path';
 
 const root = process.argv[2];
-const protectedPaths = [
-  'docs/CONSTITUTION.md',
-  'docs/PORTING-RUNBOOK.md',
-  'docs/GROK-PLAYBOOK.md',
-  'docs/API.md',
-  'docs/PHASES.md',
-  'docs/PORTING-STRATEGY.md',
-  'docs/AGENT-PORT-LOOP.md',
-  'README.md',
-  '.cursor/rules',
-  'scripts/agent-port-loop.sh',
-  'scripts/agent-port-loop.prompt.md',
-  'scripts/agent-port-loop.review.prompt.md',
-  'scripts/agent-port-loop.cadence.prompt.md',
-  'scripts/agent-port-loop.continue.prompt.md',
-  'scripts/loop-require-results-pass.mjs',
-  'scripts/archive-loop-queue-done.mjs',
-  'scripts/port-did-park.mjs',
-  'scripts/check-hot-docs.mjs',
-  'scripts/rotate-journal.mjs',
-  'frozen',
-  'sessions',
-  'nethack-c/upstream',
-  'nethack-c/patches',
-  'js/isaac64.js',
-  'js/terminal.js',
-  'js/storage.js',
-];
+const protectedPaths = process.argv.slice(3);
 const hash = createHash('sha256');
 
 function visit(path) {
@@ -927,6 +935,7 @@ arm_banned_heal_prompt() {
   local hits
   hits="$(dump_banned_hits "$snapshot" || true)"
   {
+    echo "<!-- overlay-for: port -->"
     echo "The supervisor banned-pattern scan flagged new production js/"
     echo "lines (word-bound DIAG/FORCE, seed####, console.log/error/debug,"
     echo "getRngLog compare, or a deleted js/ file). Recover in-loop:"
@@ -958,10 +967,16 @@ arm_empty_port_prompt() {
     return 0
   fi
   {
+    echo "<!-- overlay-for: port -->"
     echo "The supervisor flagged iteration **#${iter}** as a failed port."
     echo "Do not write STOP and do not wait for a human."
     echo
     case "$kind" in
+      stale-only)
+        echo "The iteration only parked **stale** rows (no \`js/\`). Per"
+        echo "LOOP-QUEUE.md a stale row is a 3-call detour, never the iteration:"
+        echo "pop the next Open row now and ship it with real \`js/\` work."
+        ;;
       pushed)
         echo "No \`js/\` diff landed (docs-only or empty commit may already be on"
         echo "origin). Ship the current \`LOOP-QUEUE\` Open head with real \`js/\`"
@@ -995,6 +1010,7 @@ arm_review_debt_prompt() {
     return 0
   fi
   {
+    echo "<!-- overlay-for: any -->"
     echo "The supervisor flagged iteration **#${iter}** as incomplete audit work."
     echo "Do not write STOP and do not wait for a human."
     echo
@@ -1016,6 +1032,43 @@ arm_review_debt_prompt() {
     | tee -a "$MASTER_LOG"
 }
 
+# Next iteration is told its predecessor edited authority files (already
+# restored by the supervisor). Any mode.
+arm_authority_heal_prompt() {
+  local iter="$1"
+  if [[ -f "$NEXT_ITER_PROMPT" || -f "$CONTINUE_LATCH" ]]; then
+    return 0
+  fi
+  {
+    echo "<!-- overlay-for: any -->"
+    echo "Iteration **#${iter}** edited protected authority/fixture files"
+    echo "(Constitution / runbook / playbook / loop prompts+scripts / Cursor"
+    echo "rules / frozen / sessions / upstream C / frozen js contracts). The"
+    echo "supervisor restored them. Do not edit those paths; propose process"
+    echo "changes in the journal. Continue the normal iteration."
+  } >"$NEXT_ITER_PROMPT"
+  echo "$(date -Iseconds) note: authority-heal overlay armed for next iteration" \
+    | tee -a "$MASTER_LOG"
+}
+
+# Next port iteration is told its predecessor was undone for density.
+arm_density_heal_prompt() {
+  local iter="$1" ins="$2" files="$3"
+  if [[ -f "$NEXT_ITER_PROMPT" || -f "$CONTINUE_LATCH" ]]; then
+    return 0
+  fi
+  {
+    echo "<!-- overlay-for: port -->"
+    echo "Iteration **#${iter}** shipped +${ins} js/ insertions across ${files}"
+    echo "files (caps ${LOOP_MAX_JS_INSERTIONS} / ${LOOP_MAX_JS_FILES}); the supervisor undid it"
+    echo "(forward revert when pushed). The queue row is live again: split the"
+    echo "cluster — ship the verified core (one C function / tight cluster,"
+    echo "80–400 lines) and queue the remainder as its own Open row."
+  } >"$NEXT_ITER_PROMPT"
+  echo "$(date -Iseconds) note: density-heal overlay armed for next iteration" \
+    | tee -a "$MASTER_LOG"
+}
+
 # Navigation discipline (advisory; never halts, never reverts). Names only
 # the grep classes this iteration answered BY HAND while calling the script
 # that answers them zero times — so it goes quiet as substitution improves
@@ -1034,7 +1087,7 @@ arm_nav_discipline_prompt() {
   if [[ -z "$note" ]]; then
     return 0
   fi
-  printf '%s\n' "$note" >"$NEXT_ITER_PROMPT"
+  printf '%s\n%s\n' "<!-- overlay-for: port -->" "$note" >"$NEXT_ITER_PROMPT"
   echo "$(date -Iseconds) note: navigation-discipline overlay armed for next iteration" \
     | tee -a "$MASTER_LOG"
   return 0
@@ -1070,8 +1123,17 @@ apply_iteration_overlays() {
     mode="$cadence"
   fi
   if [[ -f "$NEXT_ITER_PROMPT" ]]; then
-    prompt_extra="$(cat "$NEXT_ITER_PROMPT")"
-    mv "$NEXT_ITER_PROMPT" "$LOG_DIR/next-iter.prompt.used-$STAMP-$iter.md"
+    # Overlays carry a mode tag. A port-only overlay ("ship js/", "strip
+    # banned hits") must never reach a review/audit iteration (#3120: it
+    # made the audit port js/). Leave it for the next port iteration.
+    local overlay_for
+    overlay_for="$(sed -n '1s/^<!-- overlay-for: \([a-z]*\) -->$/\1/p' "$NEXT_ITER_PROMPT")"
+    if [[ "$overlay_for" == "port" && "$mode" != "port" ]]; then
+      echo "$(date -Iseconds) === port-only overlay deferred (mode=$mode) ===" | tee -a "$MASTER_LOG"
+    else
+      prompt_extra="$(sed '1{/^<!-- overlay-for: [a-z]* -->$/d;}' "$NEXT_ITER_PROMPT")"
+      mv "$NEXT_ITER_PROMPT" "$LOG_DIR/next-iter.prompt.used-$STAMP-$iter.md"
+    fi
   fi
   # Consume the repo-root one-shot only when it was the extra-prompt source.
   if [[ -z "$NEXT_PROMPT_SRC" && -f "$HUMAN_NEXT_PROMPT" ]]; then
@@ -1151,7 +1213,7 @@ maybe_commit_park() {
     return 0
   fi
   if ! git commit -m "Park LOOP-QUEUE row (docs-only; not a shipped D-id)."; then
-    halt_loop "failed to commit LOOP-QUEUE park (local tree kept)" 0
+    warn_regression "failed to commit LOOP-QUEUE park (local tree kept); next iteration commits it"
   fi
 }
 
@@ -1215,7 +1277,7 @@ maybe_archive_checked_queue() {
   fi
   git add docs/LOOP-QUEUE.md docs/archive/LOOP-QUEUE-DONE.md
   if ! git commit -m "Archive checked LOOP-QUEUE items."; then
-    halt_loop "failed to commit archived LOOP-QUEUE items (local tree kept)" 0
+    warn_regression "failed to commit archived LOOP-QUEUE items (local tree kept); next iteration commits it"
   fi
 }
 
@@ -1239,7 +1301,7 @@ maybe_rotate_journal() {
     return 0
   fi
   if ! git commit -m "Rotate agent loop journal."; then
-    halt_loop "failed to commit rotated journal (local tree kept)" 0
+    warn_regression "failed to commit rotated journal (local tree kept); next iteration commits it"
   fi
 }
 
@@ -1279,6 +1341,148 @@ warn_regression() {
   local reason="$1"
   echo "$(date -Iseconds) warning: $reason — continuing (next iteration should recover; not writing STOP)" \
     | tee -a "$MASTER_LOG"
+}
+
+# ---------------------------------------------------------------------------
+# Self-heal (2026-09-16). The loop runs unattended overnight; a rule
+# violation that git can undo must be undone by the supervisor, logged, and
+# the loop continued. Only states git cannot fix (revert conflict, no
+# tokens for hours, three authority violations in a row) still halt.
+# No history rewrite: pushed work is undone with a forward `git revert`.
+# ---------------------------------------------------------------------------
+push_with_retry() {
+  local attempt delays=(30 120 300 600 900)
+  for attempt in 0 1 2 3 4; do
+    if run_with_timeout_secs 120 git push origin HEAD >/dev/null 2>&1; then
+      return 0
+    fi
+    echo "$(date -Iseconds) warning: git push failed (attempt $((attempt + 1))/5); retry in ${delays[$attempt]}s" \
+      | tee -a "$MASTER_LOG"
+    sleep "${delays[$attempt]}"
+    git_fetch_origin
+  done
+  warn_regression "git push origin HEAD still failing after 5 attempts (commits kept locally; next iteration retries)"
+  return 1
+}
+
+# Undo this iteration's commits after they reached origin: forward revert,
+# one new commit, pushed. Returns 1 on conflict (nothing changed).
+self_heal_revert_pushed() {
+  local reason="$1"
+  local head_now
+  head_now="$(git rev-parse HEAD)"
+  if [[ -z "${before_head:-}" || "$head_now" == "$before_head" ]]; then
+    return 0
+  fi
+  echo "$(date -Iseconds) self-heal: git revert ${before_head:0:8}..${head_now:0:8} ($reason)" \
+    | tee -a "$MASTER_LOG"
+  git reset -q --hard "$head_now" >/dev/null 2>&1 || true
+  if ! git revert --no-edit --no-commit "${before_head}..${head_now}" >/dev/null 2>&1; then
+    git revert --abort >/dev/null 2>&1 || git reset -q --hard "$head_now" >/dev/null 2>&1 || true
+    echo "$(date -Iseconds) self-heal: revert conflicted — commits kept" | tee -a "$MASTER_LOG"
+    return 1
+  fi
+  if git diff --cached --quiet; then
+    git revert --abort >/dev/null 2>&1 || true
+    return 0
+  fi
+  git commit -q -m "Revert iteration ${iter} (${reason}) — supervisor self-heal, forward revert, no history rewrite." \
+    || return 1
+  push_with_retry || true
+  return 0
+}
+
+# Undo this iteration whether or not it was pushed. Never writes STOP.
+self_heal_undo_iteration() {
+  local reason="$1"
+  if (( agent_pushed )); then
+    self_heal_revert_pushed "$reason" && return 0
+    return 1
+  fi
+  if [[ -n "${before_head:-}" ]]; then
+    echo "$(date -Iseconds) self-heal: git reset --hard $before_head ($reason)" | tee -a "$MASTER_LOG"
+    git reset -q --hard "$before_head" >/dev/null
+    git clean -fd -- js reviews >/dev/null 2>&1 || true
+  fi
+  return 0
+}
+
+# Restore protected authority/fixture paths from before_head; commit the
+# restore when the iteration already committed (pushed or not).
+self_heal_restore_protected() {
+  # Only files git reports as changed/added/untracked under the protected
+  # paths are touched — never a whole directory (upstream C, frozen).
+  local tracked untracked f
+  tracked="$(git diff --name-only "$before_head" -- "${PROTECTED_PATHS[@]}" 2>/dev/null || true)"
+  untracked="$(git ls-files --others --exclude-standard -- "${PROTECTED_PATHS[@]}" 2>/dev/null || true)"
+  echo "$(date -Iseconds) self-heal: restoring protected files from ${before_head:0:8}: $(printf '%s ' $tracked $untracked)" \
+    | tee -a "$MASTER_LOG"
+  while IFS= read -r f; do
+    [[ -n "$f" ]] || continue
+    if git cat-file -e "${before_head}:${f}" 2>/dev/null; then
+      git checkout -q "$before_head" -- "$f" || true
+    else
+      git rm -q --cached --ignore-unmatch -- "$f" >/dev/null 2>&1 || true
+      rm -f -- "$ROOT/$f"
+    fi
+  done <<<"$tracked"
+  while IFS= read -r f; do
+    [[ -n "$f" ]] || continue
+    rm -f -- "$ROOT/$f"
+  done <<<"$untracked"
+  if ! git diff --cached --quiet; then
+    git commit -q -m "Restore protected authority/fixture files edited by loop iteration ${iter} (supervisor self-heal)." || true
+    if (( agent_pushed )); then push_with_retry || true; fi
+  fi
+  if [[ "$(protected_fingerprint)" != "$AUTHORITY_HASH" ]]; then
+    echo "$(date -Iseconds) self-heal: fingerprint still differs after restore (ignored/untracked build output under a protected dir?)" \
+      | tee -a "$MASTER_LOG"
+    return 1
+  fi
+  return 0
+}
+
+# Provider plan window / quota exhausted: sleep in slices and re-probe
+# instead of exiting at 3 AM. Gives up (exit 0, commit kept) only after
+# LOOP_QUOTA_WAIT_MAX_SEC (default 10 h).
+LOOP_QUOTA_POLL_SEC="${LOOP_QUOTA_POLL_SEC:-900}"
+LOOP_QUOTA_WAIT_MAX_SEC="${LOOP_QUOTA_WAIT_MAX_SEC:-36000}"
+# True while the provider plan says stop. False (= not blocked) when no
+# probe exists or the probe fails, so a TUI glitch never traps the loop.
+plan_quota_blocked() {
+  local json=""
+  set +e
+  if [[ "$USE_MUSE" == "1" && -f "$MUSE_PLAN_USAGE" && "${MUSE_PLAN_USAGE_SKIP:-0}" != "1" ]]; then
+    json="$(MUSE_BIN="${MUSE_BIN:-${AGENT_BIN:-muse}}" node "$MUSE_PLAN_USAGE" 2>/dev/null)"
+  elif [[ "$USE_CLAUDE" == "1" && -f "$CLAUDE_PLAN_USAGE" && "${CLAUDE_PLAN_USAGE_SKIP:-0}" != "1" ]]; then
+    json="$(CLAUDE_BIN="${CLAUDE_BIN:-${AGENT_BIN:-claude}}" node "$CLAUDE_PLAN_USAGE" 2>/dev/null)"
+  fi
+  set -e
+  [[ -n "$json" ]] || return 1
+  [[ "$(node -e 'try{const j=JSON.parse(process.argv[1]);process.stdout.write(j.shouldStop?"1":"0")}catch{process.stdout.write("0")}' "$json")" == "1" ]]
+}
+
+wait_for_plan_quota() {
+  local why="$1" waited=0
+  echo "$(date -Iseconds) QUOTA WAIT: ${why} — sleeping ${LOOP_QUOTA_POLL_SEC}s slices, re-probing (max ${LOOP_QUOTA_WAIT_MAX_SEC}s); write 1 to STOP_AGENT_LOOP.md to exit" \
+    | tee -a "$MASTER_LOG"
+  printf '%s\n' "waiting for plan quota: ${why}" >"$LOG_DIR/last-halt-reason.txt"
+  while (( waited < LOOP_QUOTA_WAIT_MAX_SEC )); do
+    sleep "$LOOP_QUOTA_POLL_SEC"
+    waited=$((waited + LOOP_QUOTA_POLL_SEC))
+    if should_stop; then
+      echo "$(date -Iseconds) STOP while waiting for quota" | tee -a "$MASTER_LOG"
+      exit 0
+    fi
+    if ! plan_quota_blocked; then
+      echo "$(date -Iseconds) QUOTA WAIT: plan usage back under threshold after ${waited}s — resuming" \
+        | tee -a "$MASTER_LOG"
+      return 0
+    fi
+    echo "$(date -Iseconds) QUOTA WAIT: still blocked (${waited}s / ${LOOP_QUOTA_WAIT_MAX_SEC}s)" | tee -a "$MASTER_LOG"
+  done
+  echo "$(date -Iseconds) QUOTA WAIT: gave up after ${waited}s — exiting (commit kept)" | tee -a "$MASTER_LOG"
+  exit 0
 }
 
 echo "=== agent-port-loop ==="
@@ -1378,6 +1582,7 @@ if token_budget_active; then
     | tee -a "$MASTER_LOG"
 fi
 short_streak=0
+authority_streak=0
 resume_unfinished=0
 prompt_extra=""
 prompt_context=""
@@ -1631,19 +1836,15 @@ while true; do
       | tee -a "$MASTER_LOG"
     if [[ "$hint" == " quota" ]]; then
       # Do not retry into an exhausted plan (each retry would be another
-      # short run) and do not halt_loop (that resets --hard and would wipe
-      # the leftover). Tree + latch stay; the operator relaunches.
-      echo "$(date -Iseconds) HALT: provider usage quota exhausted during iteration ${crashed_iter}; leftover kept, continue latch armed — relaunch once usage resets: AGENT_FORCE=1 ./scripts/agent-port-loop.sh --continue-unfinished" \
-        | tee -a "$MASTER_LOG"
-      printf '%s\n' "provider usage quota exhausted (ActionRequiredError) during iteration ${crashed_iter}; leftover kept; relaunch: AGENT_FORCE=1 ./scripts/agent-port-loop.sh --continue-unfinished" \
-        >"$LOG_DIR/last-halt-reason.txt"
-      printf '1\n' >"$STOP_FILE"
-      exit 1
-    fi
-    if (( short_streak >= SHORT_STREAK_LIMIT )); then
-      # No reset here: the tree may hold a crashed iteration's leftover
-      # (this branch printed "not reverting" above); the latch survives.
-      halt_loop "${SHORT_STREAK_LIMIT} consecutive agent runs <${SHORT_ITER_SEC}s — likely out of tokens; leftover kept, relaunch with --continue-unfinished" 0
+      # short run) and never reset --hard (that would wipe the leftover).
+      # Tree + latch stay; wait for the plan window, then retry in-run.
+      wait_for_plan_quota "provider usage quota exhausted (ActionRequiredError) during iteration ${crashed_iter}; leftover kept, continue latch armed"
+      short_streak=0
+    elif (( short_streak >= SHORT_STREAK_LIMIT )); then
+      # Likely out of tokens. Leftover kept, latch armed; wait (plan probe
+      # when available, else a fixed slice) instead of halting at night.
+      wait_for_plan_quota "${SHORT_STREAK_LIMIT} consecutive agent runs <${SHORT_ITER_SEC}s — likely out of tokens; leftover kept"
+      short_streak=0
     fi
     if should_stop; then
       echo "$(date -Iseconds) STOP: $STOP_FILE is 1 — exiting after failed iteration $crashed_iter" \
@@ -1660,10 +1861,17 @@ while true; do
   fi
 
   if (( MISSING_USAGE_STREAK >= MISSING_USAGE_LIMIT )); then
-    halt_loop "${MISSING_USAGE_LIMIT} consecutive iterations with no usage in stream" 1
+    # Budget accounting is blind, the work is not: keep the iteration,
+    # keep going, stop counting until usage reappears. (Was halt+revert —
+    # a stream-format hiccup must not undo a verified port at night.)
+    warn_regression "${MISSING_USAGE_LIMIT} consecutive iterations with no usage in stream — token budget cannot be enforced this run"
+    MISSING_USAGE_STREAK=0
   fi
   if (( short_streak >= SHORT_STREAK_LIMIT )); then
-    halt_loop "${SHORT_STREAK_LIMIT} consecutive agent runs <${SHORT_ITER_SEC}s — likely out of tokens" 1
+    # Three quick exits in a row (auth / plan / provider). Keep whatever the
+    # agent committed, wait for the plan window, then keep going.
+    wait_for_plan_quota "${SHORT_STREAK_LIMIT} consecutive agent runs <${SHORT_ITER_SEC}s — likely out of tokens or auth"
+    short_streak=0
   fi
 
   origin_after=""
@@ -1677,10 +1885,22 @@ while true; do
   fi
 
   if [[ "$(protected_fingerprint)" != "$AUTHORITY_HASH" ]]; then
-    if (( agent_pushed )); then
-      halt_loop "protected authority/fixture changed AND already pushed — human must revert origin" 0
+    # A loop agent edited authority/fixture files. Restore them from
+    # before_head (commit + push when the iteration was committed), keep
+    # the rest of the iteration, warn the next agent. Three in a row means
+    # the prompts are being ignored systematically — that still halts.
+    authority_streak=$((authority_streak + 1))
+    if self_heal_restore_protected; then
+      warn_regression "protected authority/fixture files were edited by iteration ${iter} and restored by the supervisor (streak ${authority_streak}/3)"
+      arm_authority_heal_prompt "$iter"
+    else
+      halt_loop "protected authority/fixture changed and could not be restored — human must inspect origin" 0
     fi
-    halt_loop "protected authority/fixture changed" 1
+    if (( authority_streak >= 3 )); then
+      halt_loop "3 consecutive iterations edited protected authority files" 0
+    fi
+  else
+    authority_streak=0
   fi
 
   if ! scan_new_banned_patterns "$snapshot"; then
@@ -1712,10 +1932,12 @@ while true; do
   fi
 
   if [[ "$mode" != "port" ]] && (( js_files > 0 )); then
-    if (( agent_pushed )); then
-      halt_loop "$mode iteration touched js/ AND already pushed — human must revert origin" 0
-    fi
-    halt_loop "$mode iteration must not edit js/ (${js_files} file(s), +${js_ins})" 1
+    # A review/audit iteration ported js/ (2026-09-16 #3120: an empty-port
+    # overlay leaked into the audit). The code went through the agent's
+    # verify and goes through the green + full-suite gates below; keep it,
+    # warn, and let the next audit review that SHA like any port. Do not
+    # halt overnight for a mode violation git gates already cover.
+    warn_regression "$mode iteration touched js/ (${js_files} file(s), +${js_ins}) — kept; gates below decide, next audit reviews the SHA"
   fi
 
   if [[ "$mode" == "port" ]]; then
@@ -1731,7 +1953,12 @@ while true; do
     fi
     if (( js_ins == 0 && js_files == 0 && js_c_ins == 0 && js_c_files == 0 )); then
       if (( parked )); then
-        :
+        # Stale-only parks are a detour, not an iteration: keep the docs,
+        # tell the next port iteration to ship the next row.
+        if node "$PORT_DID_PARK" --stale-only "$before_head" "$QUEUE_FILE"; then
+          warn_regression "iteration ${iter} only parked STALE rows (no js/) — next port iteration must ship the queue head"
+          arm_empty_port_prompt "$iter" "stale-only"
+        fi
       elif (( agent_pushed )); then
         warn_regression "empty port iteration (no js/ diff) already pushed"
         arm_empty_port_prompt "$iter" "pushed"
@@ -1764,10 +1991,20 @@ while true; do
       continue
     fi
     if (( js_ins > LOOP_MAX_JS_INSERTIONS || js_files > LOOP_MAX_JS_FILES )); then
-      if (( agent_pushed )); then
-        halt_loop "density cap exceeded (+${js_ins} / ${js_files} files) AND already pushed" 0
+      # Oversized cluster: undo it (forward revert when pushed), tell the
+      # next agent to split, continue. Halt only if git cannot undo it.
+      if self_heal_undo_iteration "density cap exceeded: js +${js_ins} / ${js_files} files (max ${LOOP_MAX_JS_INSERTIONS}/${LOOP_MAX_JS_FILES})"; then
+        warn_regression "density cap exceeded (+${js_ins} / ${js_files} files) — iteration ${iter} undone by the supervisor"
+        arm_density_heal_prompt "$iter" "$js_ins" "$js_files"
+        rm -rf "$snapshot"
+        if should_stop; then
+          echo "$(date -Iseconds) STOP after undone oversized iteration $iter" | tee -a "$MASTER_LOG"
+          exit 0
+        fi
+        sleep "${LOOP_SLEEP_SEC:-2}"
+        continue
       fi
-      halt_loop "density cap exceeded: js +${js_ins} insertions / ${js_files} files (max ${LOOP_MAX_JS_INSERTIONS}/${LOOP_MAX_JS_FILES})" 1
+      halt_loop "density cap exceeded (+${js_ins} / ${js_files} files) AND the pushed revert conflicted — human must inspect origin" 0
     fi
   fi
 
@@ -1853,8 +2090,8 @@ while true; do
     if [[ -n "$remote_head" && "$local_head" != "$remote_head" ]] ||
        [[ -z "$remote_head" && "$local_head" != "$before_head" ]]; then
       echo "$(date -Iseconds) === supervisor git push ===" | tee -a "$MASTER_LOG"
-      if ! git push origin HEAD; then
-        halt_loop "git push origin HEAD failed (local commits kept)" 0
+      if ! run_with_timeout_secs 120 git push origin HEAD; then
+        push_with_retry || true
       fi
     fi
   fi

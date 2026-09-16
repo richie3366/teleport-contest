@@ -47,7 +47,8 @@ cycle alone is not a blocker; a top-level TDZ read is). If the row cites
 same-named JS body, `0 blocked`, no C arm missing → the row is stale: one
 line (≤ 300 chars) under `LOOP-QUEUE.md` Parked **Stale**, retire the
 map/debt line that spawned it, **pop the next row and ship it in this
-iteration**. No proof essay; ending on a stale row is a failed iteration.
+iteration**. No proof essay; an iteration that only parks stale rows is
+flagged by the supervisor and the next one is told to ship the head.
 
 A row naming a **corpus session** (`scen-*` = held-out genre) is a real
 C-vs-JS divergence with a recorded expectation: the deliverable is the **C
@@ -130,11 +131,12 @@ append nothing, one journal line. `js-throw` / worker hang = Must-fix.
 A **diagnostic** park (body faithful, owner is a symptom) moves the row to
 Parked as **one line** (name — class — proof pointer — falsifier; long proof
 to `docs/archive/LOOP-QUEUE-PARKED.md`) and, if it names the writer, **adds
-the writer's Open row in the same commit** (session as evidence); if not,
-adds a `[measure]` row naming the one C-side measurement that would.
-A `[measure]` row's deliverable is that measurement in `NOTES.md` Active
-(*measured*, with command) plus the writer's Open row. Both: **commit and
-push**, no `finish-iteration` (supervisor logs "empty port pushed" — expected).
+the writer's Open row in the same commit** (session as evidence, after a
+brief confirms the arm is still absent); if not, adds a `[measure]` row
+naming the one C-side measurement that would. A `[measure]` row's
+deliverable is the writer's Open row carrying the measurement (≤ 3 lines
+in `NOTES.md` Active, *measured*, with command). Both: **commit and
+push**, no `finish-iteration`; the supervisor accepts them as no-`js/`.
 
 ## Absolute prohibitions
 

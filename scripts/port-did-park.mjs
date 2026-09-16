@@ -44,9 +44,27 @@ export function parkedLines(text) {
 }
 
 export function openRowKey(line) {
-  const m = line.match(/`([^`]+)`\s+(\S+)/);
+  // "- [ ] `mkobj.c` mkbox_cnts …" or "- [ ] `mkobj.c` `mkbox_cnts` …" — the
+  // function token may itself be backticked (2026-09-16 #3119: seven stale
+  // parks went undetected because the key kept the backticks).
+  const m = line.match(/`([^`]+\.[ch])`\s+`?([A-Za-z_][\w.]*)`?/);
   if (!m) return null;
   return { file: m[1], fn: m[2].replace(/[.,;:].*$/, '') };
+}
+
+/** New Parked lines this iteration (after minus before). */
+function newParkedLines(beforeText, afterText) {
+  const beforePark = new Set(parkedLines(beforeText));
+  return parkedLines(afterText).filter((l) => !beforePark.has(l));
+}
+
+/** True when the park(s) this iteration were all STALE retirements — a
+ *  3-call detour per LOOP-QUEUE.md, so the iteration should also have
+ *  shipped js/. The supervisor arms a "ship the next row" overlay. */
+export function didStaleOnlyPark(beforeText, afterText) {
+  if (!didPark(beforeText, afterText)) return false;
+  const fresh = newParkedLines(beforeText, afterText);
+  return fresh.length > 0 && fresh.every((l) => /\bSTALE\b/i.test(l));
 }
 
 export function didPark(beforeText, afterText) {
@@ -86,17 +104,21 @@ function gitShowQueue(rev) {
 function main(argv) {
   const args = argv.slice(2);
   const measure = args.includes('--measure');
-  const rest = args.filter((a) => a !== '--measure');
+  const staleOnly = args.includes('--stale-only');
+  const rest = args.filter((a) => !a.startsWith('--'));
   const beforeRev = rest[0];
   if (!beforeRev) {
-    console.error(`usage: node scripts/port-did-park.mjs [--measure] <before_rev> [${QUEUE_REL}]`);
+    console.error(`usage: node scripts/port-did-park.mjs [--measure|--stale-only] <before_rev> [${QUEUE_REL}]`);
     process.exit(2);
   }
   const queuePath = rest[1] || join(root, QUEUE_REL);
   const before = gitShowQueue(beforeRev);
   if (before == null || !existsSync(queuePath)) process.exit(1);
   const after = readFileSync(queuePath, 'utf8');
-  process.exit((measure ? didMeasure(before, after) : didPark(before, after)) ? 0 : 1);
+  const hit = measure ? didMeasure(before, after)
+    : staleOnly ? didStaleOnlyPark(before, after)
+      : didPark(before, after);
+  process.exit(hit ? 0 : 1);
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {

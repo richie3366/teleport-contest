@@ -83,11 +83,8 @@ rows carry evidence, stale rows are a 3-call detour, parks requeue their
 writer, `[campaign]`/`[measure]` rows replace map filler
 (`LOOP-QUEUE.md` header; Constitution §10.15–16).
 Pop `LOOP-QUEUE.md` Must-fix (freehand guard, docrt early-path botlx),
-then Open in order — campaign botl-parity 2/3 gate, distfleeck
-`[measure]`, eat `losehp` arm. Refilled 2026-09-16 to 3 eligible rows
-(0 as-is owners; parks name measurements not writers; singletons gated
-< 90 %; no D-0006/dog_invent) — short of the 8–12 band by rule, not by
-omission.
+then Open in order — campaign botl-parity 2/3, `status_enlightenment`
+held-by/utrap arms (3 sessions), the `[measure]` rows, eat `losehp`.
 **Next cluster:** Must-fix `mthrowu.c` freehand guard (review 1365), then docrt early-path `botlx` (review 1366) — then Open head campaign botl-parity 2/3. Open head `polyself.c` polymon DELIVERED by D-2402 (Tourist-92095 step 46 → `savelife` at 49; 4 poly PASS; seed0108 303/303 holds). Popped 7 head rows: mkbox_cnts/skinback/rnd_misc_item/map_location/load_special/single_level_branch STALE, save_regions DIAGNOSED-unportable (map clauses corrected). Shipped: `mhitu.c` hitmu `[measure]` STALE (scen-genesis-Priest-91110 now PASS 151/151), `vision.c` vision_recalc STALE (TOP30 unverified, body live, 0 blocked), `end.c` disclose parked SYMPTOM (step-100 display-stream-only diff, 2nd drinkfountain-class witness; no new writer row — falsifier already live under drinkfountain). Prior: `eat.c` 3/3 parked Stale (masked, NO MOVEMENT) and `can_carry` `[measure]` delivered 2026-09-16 (no spin at HEAD, import live at js/dogmove.js:17).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2402 (index).**

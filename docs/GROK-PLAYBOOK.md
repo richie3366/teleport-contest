@@ -286,10 +286,12 @@ supervisor shell or `loop-observer/server.mjs`. Prefer `timeout <secs>`
 on probes/replays.
 
 Commit with why (C locus / D-ID / verification); **`git push origin
-HEAD`**. The supervisor fail-closes on density / authority / empty port
-(a Parked-row move or a popped `[measure]` row is not an empty port) and
-pushes if you forgot (`docs/AGENT-PORT-LOOP.md`); green / full-suite
-regression and banned-pattern hits are logged and the loop continues.
+HEAD`**. The supervisor self-heals density (iteration undone, forward
+revert if pushed) and authority edits (files restored), treats a
+Parked-row move or a popped `[measure]` row as a legitimate no-`js/`
+iteration, pushes if you forgot (`docs/AGENT-PORT-LOOP.md`); green /
+full-suite regression and banned-pattern hits are logged and the loop
+continues.
 No `--force`, no amend of pushed commits, no `git reset --hard`.
 `STOP_AGENT_LOOP.md` is gitignored; only the supervisor writes `0`.
 `finish-iteration.mjs --commit` stamps `**Addressed:** D-NNNN`, archives

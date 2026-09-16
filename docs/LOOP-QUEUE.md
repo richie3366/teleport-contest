@@ -38,13 +38,21 @@ iteration on a stale row.
 
 **Park-and-requeue:** a diagnostic park that names the real writer (C
 function + session) **adds that writer as an Open row in the same commit**
-with the session as evidence. A park that names no writer records the one
-C-side measurement that would (`geom-probe`, temp C dump, recorder
+with the session as evidence — after one `brief.mjs <writer>` confirms
+the arm is still absent (a park's writer claim ages too: `ready_weapon`
+shine and `set_uasmon` infravision were queued 2026-09-16 from parks and
+had shipped as D-2182 / D-2276). A park that names no writer records the
+one C-side measurement that would (`geom-probe`, temp C dump, recorder
 screen) — that measurement is the next iteration's deliverable
-(`[measure]` row), not a reason to refill from the map.
+(`[measure]` row), not a reason to refill from the map. A finished
+`[measure]` row leaves **≤ 3 lines** in `NOTES.md` Active; the full
+measurement goes into the writer's Open row (and the archive parked row).
 
 Live Parked lines are **≤ 300 chars**: name — class — proof pointer —
 falsifier. Longer proof goes to the archive file under the same name.
+The supervisor recognises a Parked-row move or a popped `[measure]` row
+as a legitimate no-`js/` iteration; an iteration whose only parks are
+**STALE** gets a "ship the queue head" overlay on the next port iteration.
 
 Refill sources, in order: `node scripts/hidden-proxy.mjs queue`
 (owners not yet parked; a parked owner's **writer** row, if named, counts),
@@ -82,6 +90,10 @@ always Must-fix rows: they forfeit every later screen of that session
 ## Open (corpus-driven, after Must-fix is empty)
 
 - [ ] [campaign botl-parity 2/3]: ship the moveloop gate — `bot()` on `disp.botl|botlx`, `timebot()` on `time_botl` (D-2400 local-gate probe: full `sessions` 38/44 → 43/44, all screen-only with RNG/cursors fully matched; seed0007-T stale-time residual needs its C-side flag trace). Pops after the docrt early-path Must-fix (review 1366) — the gate would stale swallow/water/buried paths without it. Falsifier: `verify do_statusline2` moving the 4 remaining sessions (scen-poly-Healer-92107 step 126, scen-wish-Healer-92092 step 58, scen-wish-Monk-92194 step 88, scen-wish-Tourist-91125 step 82).
+- [ ] `insight.c` status_enlightenment held-by/holding + `trap_predicament` utrap arms — blocks 3/553 (scen-genesis-Knight-92002 step 81, scen-wish-Caveman-92148, scen-wish-Monk-92013; owner `one_characteristic` is the region heuristic — `hidden-proxy queue` shows the differing screen row: C «You were held by a pit fiend (north).» vs JS «You weren't hungry <891>.»). C `insight.c:1086–1098` (`u.utrap` → `trap_predicament(predicament, final, wizard)` + steed/anchored `enl_msg` vs `you_are`) and `:1124–1131` (`else if (u.ustuck)`: `ustick = Upolyd && sticks(youmonst.data)`, `"%s %s (%s)"` holding/held by + `heldmon` + `dxdy_to_dist_descr(dx, dy, TRUE)`, `you_are`) absent from `js/invent.js:5077–5097` status_enlightenment (its own comment defers both; only the `uswallow` arm is live). `trap_predicament` (`insight.c:233`) has no JS body; `dxdy_to_dist_descr` is live (`js/display.js:7158`). Port both arms in C order (utrap block before the ustuck/uswallow block). Probe: `node scripts/brief.mjs status_enlightenment`; verify `node scripts/verify.mjs --fn one_characteristic` (expect Knight-92002 → PASS or later owner) + `#enlightenment`/death-disclosure cohort (seed0030).
+- [ ] [measure] `zap.c` obj_resists S2/S3 writers — blocks 6/553 (scen-tour-Samurai-92032 step 59: C 3× `rn2(100)`@obj_resists mid-`m_move` vs JS `rn2(5),rn2(1),rn2(2)` then reconvergence — fire-trap `burnarmor`/`destroy_items` event C ran and JS skipped?; scen-tour-Wizard-92219 step 115: C `obj_resists` ×3 with no preceding dochug draw vs JS HORSE/APE moves + gel cube skipped despite `movement=12` — fmon-order / move-gate split). S1 (savebones) shipped. Deliverable: a C-side per-turn dump (temp `fprintf` in `movemon`/`dochug` of fmon order + `movement` + trap state at those steps on the recorder, reverted after) naming the writer for each session, then the writer's Open row. Do not re-port `obj_resists` (body faithful, parked). Probe: `node scripts/hidden-proxy.mjs show scen-tour-Wizard-92219`; archive row `zap.c obj_resists` for the falsified candidates (do not re-check them).
+- [ ] [measure] `teleport.c` rloc migrant creation — blocks 2/553 (scen-tour-Healer-92042 step 73: C `losedogs → mon_arrive(MIGR_RANDOM) → rloc` for a migrant JS never created — mydogs empty, all prior RNG matched, screens byte-identical; scen-tour-Ranger-92033 unprobed). Deliverable: C `migrating_mons` dump at arrival (temp fprintf in `losedogs`/`mon_arrive` on the recorder, reverted) naming the →(2,8) migrant + its creation site (`migrate_orc` / muse stairs / dig hole / dokick / RANDOM creator), then the creator's Open row; prefix-probe Ranger-92033 the same way. Do not re-port `rloc` (body faithful D-0686). Probe: `node scripts/hidden-proxy.mjs show scen-tour-Healer-92042`.
+- [ ] [measure] `monmove.c` m_move Caveman-92202 `cnt-j` split — blocks 3/553 (scen-poly-Caveman-92202 step 103: C `rn2(20)=5` vs JS `rn2(16)=13`, first draw of that `m_move` call, `appr!=0` both sides, candidate count differs by exactly 1; Wizard-92076 writer `dohide` shipped). Candidates left by the park: one extra `mfndpos` candidate in C, an `mtrack` history shift (all 6 C `mon_track_clear` sites have JS counterparts — verify they fire at the same turns), a `mon_track_add` timing gap. Deliverable: C `mfndpos` position list + `mtrack[]` dump at step 103 on the recorder (temp fprintf, reverted) vs the JS prefix-state probe, then the writer's Open row. Do not re-port the selection loop (faithful, parked). Probe: `node scripts/hidden-proxy.mjs show scen-poly-Caveman-92202`.
 - [ ] [measure] `distfleeck` invocation stream (top parked corpus owner post-rescore, 7/553: scen-genesis-Knight-92112 step 96, scen-intrinsic-Samurai-92239, scen-normal-Tourist-92061 — C draws `rn2(5)=1` in `distfleeck`, JS `rn2(10)=1` from `m_move` (monmove.js:1827)). Deliverable: temp C dump of the `distfleeck` call stream (which monster flees, from/to cells) across Knight-92112 step 96 vs the JS replay + the writer's Open row (no `js/`; commit and push — "empty port pushed" expected).
 - [ ] `eat.c` `losehp` death-path bypass at the two corpse-damage sites: C `eat.c:1926–1942` `losehp`-call arms absent from js/eat.js:eatcorpse (verified via `brief.mjs losehp` at enqueue: canonical `losehp` live at `js/hack.js:1228` sync, 0 blocked, no row names it) — C `eat.c:1926` `losehp(rnd(15), "acidic corpse"/"acidic glob", …)` + `:1942` `losehp(rnd(8), "cadaver"/"rotted glob", KILLED_BY_AN)` vs JS inline `uhp -= rnd(15)/rnd(8)` + `botl` flag only (D-2402), so Upolyd/mh handling, `end_running`, killer attribution and the death path never run. Fix: route both sites through canonical `losehp` (`imports.mjs --can eat.js hack.js losehp` → ALREADY, no new edge).
 

@@ -397,6 +397,8 @@ Under `.agent-port-loop-logs/` (gitignored):
 | `MUSE_BIN` | `muse` | Muse CLI binary |
 | `MUSE_REASONING_EFFORT` | `xhigh` | Muse `--reasoning-effort` (none…ultra) |
 | `MUSE_NO_SESSION_LOG` | `0` | Set `1` to pass `--no-session-log` (`.raw` remains the loop log) |
+| `LOOP_QUOTA_POLL_SEC` | `900` | Sleep slice while waiting for a provider plan window / after 3 short runs (re-probes usage each slice) |
+| `LOOP_QUOTA_WAIT_MAX_SEC` | `36000` | Give up waiting (exit 0, commit kept) after this many seconds |
 | `MUSE_PLAN_WINDOW_STOP_PCT` | `97` | `--muse`: stop after a finished iter when the current usage window is ≥ this % |
 | `MUSE_PLAN_WEEKLY_STOP_PCT` | `99` | `--muse`: stop after a finished iter when weekly usage is ≥ this % |
 | `MUSE_PLAN_USAGE_SKIP` | `0` | Set `1` to disable the post-iter TUI `/usage` probe |
@@ -487,29 +489,30 @@ Halt reason is still `last-halt-reason.txt`.
 | Auth errors | `agent login` (Cursor), `muse login` (Muse), or `claude auth status` (Claude) |
 | `Workspace Trust Required` | Loop defaults to `--trust`; upgrade CLI or set `AGENT_TRUST=1` |
 | banned-pattern (DIAG/FORCE/seed gate) | **Continue** (unpushed → revert this iter; already pushed → heal prompt, next iter strips hits). Does **not** write STOP |
-| density / protected | **HALT + revert** (unless already pushed — then halt, no reset) |
-| `N consecutive agent runs <30s` | Out of tokens / auth — halt (no reset; a leftover and its latch survive) |
-| `ActionRequiredError` / "You're out of usage" / Claude "hit your limit" | Provider plan quota — halt at once, leftover + latch kept; relaunch with `--continue-unfinished` after the reset (#2238). The supervisor also greps Claude `.raw` / `.err`. |
-| Muse plan window ≥ 97% or weekly ≥ 99% | Expected clean exit after a finished `--muse` iter (PTY TUI `/usage` via `scripts/muse-plan-usage.mjs`). Commit kept. |
-| Claude session ≥ 90% or weekly ≥ 95% | Expected clean exit after a finished `--claude` iter (`claude -p /usage` via `scripts/claude-plan-usage.mjs`). Commit kept. |
+| density / protected | **Self-heal + continue** (2026-09-16): density → the iteration is undone (`git reset --hard` if unpushed, forward `git revert` + push if pushed) and the next port iteration gets a "split the cluster" overlay; protected authority/fixture files → restored from `before_head` (commit + push when needed), "do not edit" overlay, `authority_streak` — 3 in a row still halts. Halt only when the pushed revert conflicts |
+| `N consecutive agent runs <30s` | Out of tokens / auth — **wait, do not halt**: `wait_for_plan_quota` sleeps `LOOP_QUOTA_POLL_SEC` (900 s) slices re-probing the plan usage, up to `LOOP_QUOTA_WAIT_MAX_SEC` (10 h), then resumes (leftover + latch kept). Exits only after the max wait or STOP=1 |
+| `ActionRequiredError` / "You're out of usage" / Claude "hit your limit" | Provider plan quota — leftover + latch kept, **wait for the window** (same poll loop), then retry the iteration in-run. No relaunch needed |
+| Muse plan window ≥ 97% or weekly ≥ 99% | Commit kept, then **wait** (poll `/usage` every 15 min, max 10 h) and resume when the window resets; STOP=1 exits the wait |
+| Claude session ≥ 90% or weekly ≥ 95% | Same wait-and-resume as Muse |
 | Token budget reached | Expected clean exit after an iteration when `--token-budget-m` is set |
 | `3× consecutive missing usage` | stream-json / Claude stream-json / Muse JSONL had no usage — halt. Muse needs the on-disk `session.jsonl` (do not set `MUSE_NO_SESSION_LOG=1` with a budget). Claude usage is on stdout `.raw` (`result.usage`). |
 | Green / full suite fail | Warn and continue; next iteration recovers. Preflight green at **launch** still refuses to start (except continue-unfinished, which warns and starts) |
+| Review/audit iteration touched `js/` | **Warn + continue** (2026-09-16 #3120: a port-only overlay had leaked into the audit). The code passes the same green/full-suite gates; the next audit reviews the SHA. Overlays now carry `<!-- overlay-for: port|any -->` and port-only ones are deferred past non-port iterations |
 | Loop ignores STOP | Content not exactly `1` after trim, or flip during an agent run (waits until iter ends) |
 | Agent repeats dead ends | Notes/queue handoff failed — fix durable memory |
 | Agent spends >20 min on a level-gen owner with no C measurement (#2262) | Symptom owner ≠ writer; playbook §7 / prompt now require `geom-probe.mjs` by call ~40. Kill it, run the probe yourself, paste its output into `NEXT_AGENT_PROMPT.md` |
 | `connection: reconnecting` mid-iteration, retry with `checkpoint_turn_count: 1` | The retry may drop visible context and the agent re-derives (#2262 lost ~5 min). Not handled yet — proposal: on reconnect, write a resume brief (`loop-resume-brief.mjs`) into `NEXT_AGENT_PROMPT.md` |
-| Agent `git push` then density/authority fail | Halt without reset; human reverts origin |
+| Agent `git push` then density/authority fail | Forward revert / protected-file restore committed and pushed by the supervisor; continue. `git push` failures retry 5× with backoff (30 s … 15 min) and otherwise warn — never halt |
 | Agent `git push` then banned-pattern hit | Continue; next iter gets a heal prompt and strips the hits |
 | Agent `git push` then green/suite FAIL | Continue; next iter recovers |
 | Port / audit `resource_exhausted` before commit | Supervisor **retries** the same `#` as continue-unfinished (cites that iter `.log`/`.raw` + resume brief); does **not** exit. 3× short runs still halt (tree kept) |
 | Uncommitted `js/` or `reviews/` after the agent returns | Same in-process retry, keep tree |
 | Docs-only park of a queue row (Open `- [ ]` moved to **Parked**, no `js/`) | **Continue** — not an empty-port halt. Supervisor commits leftover park docs if the agent forgot. Do not `finish-iteration`. Since 2026-09-16 the live Parked line is an index entry (≤ 300 chars) and the park must add the writer's Open row or a `[measure]` row in the same commit |
 | Popped `[measure]` row, no `js/` | **Continue** — `port-did-park.mjs --measure`; its deliverable is a C-side measurement in `NOTES.md` + the writer's Open row. Supervisor commits leftovers like a park |
-| Empty port (no `js/`, no Parked-row move, no `[measure]` pop) | **HALT + revert** (unless already pushed — then halt, no reset). This is the “spun, shipped nothing” case (#2278 wiped an uncommitted park) |
+| Empty port (no `js/`, no Parked-row move, no `[measure]` pop) | Unpushed → revert + "ship the head" overlay; pushed → warn + overlay. **Continue** either way. An iteration whose only parks are STALE also gets the overlay (`port-did-park.mjs --stale-only`) |
 | Park share climbs (≥ 3 `Park …` commits in 10 port iters) | Refill leaked non-evidence rows. `check-hot-docs` FAILs live rows without evidence; `hidden-proxy queue` tags open/parked/archived owners. 2026-09-09..15: 126/362 iterations were parks, 109/161 parked rows stale copies of shipped work |
 | Dirty tree at start | Loop refuses to launch, unless a continue latch is armed (`--continue-unfinished`, crash leftover, or dirty tree + `NEXT_AGENT_PROMPT.md`) |
-| QUALITY-RISK with no Must-fix | Review did nothing — halt+revert (or halt if pushed) |
+| QUALITY-RISK with no Must-fix | Review-debt overlay for the next iteration (any mode); continue |
 | Queue empty after port | Agent failed to refill (evidence rows: `hidden-proxy queue` untagged owners, park-named writers, `[campaign]`/`[measure]` rows) — halt |
 
 The shell parses `__RESULTS_JSON__` (the frozen runner exits 0 on FAIL),

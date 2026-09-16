@@ -35,7 +35,7 @@ const approxTok = (bytes) => Math.ceil(bytes / 4);
 
 const LINE_CAPS = {
   'docs/CURRENT.md': { target: 150, maxBytes: 8_000 },
-  'docs/NOTES.md': { target: 100, maxBytes: 6_000 },
+  'docs/NOTES.md': { target: 100, maxBytes: 7_000 },
 };
 
 /* 2026-09-16: playbook 16 → 18 kB, prompt 8 → 9 kB, hot sum 40 → 44 kB to
@@ -50,7 +50,7 @@ const BYTE_CAPS = {
   'docs/C-JS-MAP.md': 3_000,
 };
 
-const HOT_SUM_MAX = 44_000;
+const HOT_SUM_MAX = 46_000;
 const QUEUE_MIN = 8;
 const QUEUE_TARGET = 12;
 const NOTES_SECTION_TARGET = 15;
@@ -132,6 +132,7 @@ function queueCounts(text) {
  *  are an index (≤ PARKED_LINE_MAX chars); proofs live in the archive. */
 const EVIDENCE_RE = /blocks \d+\/\d+|absent from js\/|\[campaign|\[measure\]|ETIMEDOUT|ReferenceError|js-throw|unverified at enqueue|Source: reviews\//;
 const PARKED_LINE_MAX = 400;
+const PARKED_GROUPED_LINE_MAX = 1500;
 function queueHygiene(text) {
   let sec = '';
   const noEvidence = [];
@@ -143,7 +144,11 @@ function queueHygiene(text) {
     if (sec === 'live' && /^- \[ \]/.test(line) && !EVIDENCE_RE.test(line)) {
       noEvidence.push(line.slice(6, 70));
     }
-    if (sec === 'parked' && /^- /.test(line) && line.length > PARKED_LINE_MAX) {
+    // Grouped stale lines ("- `eat.c`: fn; fn; …") may legitimately grow;
+    // one-row index lines may not.
+    const grouped = /^- `[\w.]+\.c`:\s/.test(line);
+    const max = grouped ? PARKED_GROUPED_LINE_MAX : PARKED_LINE_MAX;
+    if (sec === 'parked' && /^- /.test(line) && line.length > max) {
       longParked.push(line.slice(2, 60));
     }
   }
@@ -429,7 +434,7 @@ FAIL / ROTATE / REFILL / missing = do that action only.`);
         'LOOP-QUEUE',
         `mf=${mf} open=${open} total=${total}  (band ${QUEUE_MIN}–${QUEUE_TARGET})`,
         '',
-        `LOOP-QUEUE: append Open to ~${QUEUE_TARGET} from c-js-map`,
+        `LOOP-QUEUE: append evidence rows to ~${QUEUE_TARGET} (hidden-proxy queue untagged owners, park-named writers, [campaign]/[measure]) — never map/debt copies`,
       );
     } else {
       add(

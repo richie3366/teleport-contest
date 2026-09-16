@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { didPark, didMeasure } from './port-did-park.mjs';
+import { didPark, didMeasure, didStaleOnlyPark, openRowKey } from './port-did-park.mjs';
 
 const header = `# Loop work queue
 
@@ -64,6 +64,50 @@ ${parkedHdr}${parkedD0006}
 - leftover note with no function name
 `;
     assert.equal(didPark(before, after), false);
+  });
+});
+
+describe('openRowKey', () => {
+  it('strips backticks around the function token (#3119)', () => {
+    assert.deepEqual(
+      openRowKey('- [ ] `mkobj.c` `mkbox_cnts` BoH weight factor (data.md:302)'),
+      { file: 'mkobj.c', fn: 'mkbox_cnts' },
+    );
+    assert.deepEqual(
+      openRowKey('- [ ] `vision.c` vision_recalc (TOP30 #30 345/180)'),
+      { file: 'vision.c', fn: 'vision_recalc' },
+    );
+  });
+});
+
+describe('didStaleOnlyPark', () => {
+  const staleOpen = '- [ ] `mkobj.c` `mkbox_cnts` BoH weight factor — unverified at enqueue.';
+  const beforeS = `${header}${staleOpen}
+${physOpen}
+${parkedHdr}${parkedD0006}
+`;
+
+  it('is true when every new Parked line is a STALE retirement (backticked fn row)', () => {
+    const after = `${header}${physOpen}
+${parkedHdr}${parkedD0006}
+- \`mkobj.c\` mkbox_cnts BoH weight — STALE 2026-09-16: body live js/mkobj.js:791, 0 blocked.
+`;
+    assert.equal(didPark(beforeS, after), true);
+    assert.equal(didStaleOnlyPark(beforeS, after), true);
+  });
+
+  it('is false when the park is diagnostic (writer named)', () => {
+    const after = `${header}${physOpen}
+- [ ] \`polyself.c\` polymon find_ac order — blocks 1/553 (Tourist-92095).
+${parkedHdr}${parkedD0006}
+- \`mkobj.c\` mkbox_cnts — SYMPTOM 2026-09-16. Falsifier: verify polymon.
+`;
+    assert.equal(didPark(beforeS, after), true);
+    assert.equal(didStaleOnlyPark(beforeS, after), false);
+  });
+
+  it('is false when nothing was parked', () => {
+    assert.equal(didStaleOnlyPark(beforeS, beforeS), false);
   });
 });
 
