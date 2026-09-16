@@ -1396,3 +1396,8 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1383-cb17ead7-makemon-dochugw.md](./1383-cb17ead7-makemon-dochugw.md) | `cb17ead7` | D-2421 makemon dochugw | **ACCEPT** |
 | [1384-8e105ad5-weight-boh-factor.md](./1384-8e105ad5-weight-boh-factor.md) | `8e105ad5` | D-2422 weight BoH factor | **ACCEPT** |
 | [1385-b68d89a0-attributes-enlightenment-unchanging.md](./1385-b68d89a0-attributes-enlightenment-unchanging.md) | `b68d89a0` | D-2423 attributes_enlightenment | **ACCEPT** |
+| [1386-bbe672c4-mk-bubble-ini-boing.md](./1386-bbe672c4-mk-bubble-ini-boing.md) | `bbe672c4` | D-2427 mk_bubble ini boing | **ACCEPT** |
+| [1387-7fd86533-can-fog-mfndpos-door.md](./1387-7fd86533-can-fog-mfndpos-door.md) | `7fd86533` | D-2428 can_fog mfndpos door | **ACCEPT** |
+| [1388-13f2a1ea-mktrap-victim-gate.md](./1388-13f2a1ea-mktrap-victim-gate.md) | `13f2a1ea` | D-2429 mktrap victim gate | **ACCEPT** |
+| [1389-f768f270-getdir-trailing-confdir.md](./1389-f768f270-getdir-trailing-confdir.md) | `f768f270` | D-2430 getdir trailing confdir | **ACCEPT** |
+| [1390-c2935846-fire-trap-xtradmg-guard.md](./1390-c2935846-fire-trap-xtradmg-guard.md) | `c2935846` | D-2431 fire-trap xtradmg guard | **ACCEPT** |

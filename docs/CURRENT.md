@@ -21,10 +21,10 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-16** — full `sessions` on the working tree
-(audit **1374–1385**).
+(audit **1386–1390**).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`48+0.30/turn` (R² 0.79).
+`48+0.29/turn` (R² 0.79).
 
 ## Score
 
@@ -33,17 +33,19 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `48+0.30/turn` (R² 0.78) |
+| Speed label | `48+0.29/turn` (R² 0.79) |
 | Role-init throws | **0 / 44** |
 
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-16
-audit 1374–1385): **493 / 540 PASS (91.3 %)** excl. 13 env-only rows
-(493/553; D-2408…D-2431 cleared the `obj_resists`, `rloc`,
-`one_characteristic` and `mon_adjust_speed` owners and cut `m_move` 3→2); RNG 99.2 %; screens 98.9 %. Top owners:
-`distfleeck` ×7, `do_statusline2` ×4, `m_move` ×2, then 1-block singles
-(`mktrap`, `collect_coords`, `savelife`, `peffect_polymorph`, `zapyourself`,
-`doturn`, `dopush`, `mdrop_obj`, `that_is_a_mimic`; all parked/archived owners).
-Reviews 1225–1385: 146 ACCEPT, 3 ACCEPT-WITH-DEBT, 1 DEBT, 6 QUALITY-RISK (all Must-fix shipped, including 1372's utrap-steed verb via D-2408).
+audit 1386–1390): **495 / 540 PASS (91.7 %)** excl. 13 env-only rows
+(495/553; D-2427…D-2431 cleared `collect_coords`, `m_move` (both
+Valkyries → 0 blocked), `mktrap`, and 3 `distfleeck` sessions);
+RNG 99.3 %; screens 99.0 %. Top owners: `distfleeck` ×4,
+`do_statusline2` ×4, then 1-block singles (`newmonhp`, `savelife`,
+`zapyourself`, `level_tele`, `mksobj_init`, `doread`,
+`wiz_levltyp_legend`, `doturn`, `peffect_polymorph`, `dopush`;
+all parked/archived owners).
+Reviews 1225–1390: 151 ACCEPT, 3 ACCEPT-WITH-DEBT, 1 DEBT, 6 QUALITY-RISK (all Must-fix shipped, including 1372's utrap-steed verb via D-2408).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx (both map notes).
 Refresh on audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s);
 families ≥ 85 % → grow first via `scenario-gen.mjs --n 120 --seed <iter×100>`.
