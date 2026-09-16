@@ -86,7 +86,7 @@ writer, `[campaign]`/`[measure]` rows replace map filler
 Pop `LOOP-QUEUE.md` Must-fix (freehand guard, docrt early-path botlx),
 then Open in order — campaign botl-parity 2/3, `status_enlightenment`
 held-by/utrap arms (3 sessions), the `[measure]` rows, eat `losehp`.
-**Next cluster:** `dogmove.c` dog loop extra `score_targ` Samurai (D-2420 W3) — blocks 1/553 (scen-tour-Samurai-92161 step 37/88 kind=rng flat#4092: C `rn2(5)=4`@distfleeck vs JS `rnd(5)=5`@score_targ 2nd-consecutive, prev score_targ matched; JS-extra-single-draw proven; C step 63 draws; MEASURED D-2420 vs JS probe). Fix: `dog_goal`/`dog_move`/`score_targ` loop count in C order. Verify `node scripts/verify.mjs --fn distfleeck` (recorded owner: expect Samurai → PASS or later owner). Do not re-port `distfleeck`. (W2 Healer parked 2026-09-16 as SYMPTOM: C bat cnt=5 all-occupied, arrangement diverges pre-turn — see Parked index + new `[measure]` cluster-bisect row.)
+**Next cluster:** `mon.c` fox death/detach lifecycle Tourist (D-2420 W4) — blocks 1/553 (scen-normal-Tourist-92061 step 3/169 kind=rng flat#2785: C `rn2(5)=4`@distfleeck vs JS `rn2(3)=0`@corpse_chance, prev destroy_items matched; JS branch next_ident+rndmonst_adj creation vs C distfleeck×N; JS topline «m_detach: fox <65,14> is already detached?» (`mon.c:2792`) vs C «little dog misses newt»; MEASURED D-2420 vs JS probe). Fix: the fox mondead/mongone/`m_detach` path in C order. Verify `node scripts/verify.mjs --fn distfleeck` (recorded owner: expect Tourist → PASS or later owner). Do not re-port `distfleeck`. (W2 Healer + W3 Samurai-dog parked 2026-09-16 as SYMPTOMs — see Parked index + live `[measure]` rows.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2430 (index).**
 <!-- recent:begin -->
