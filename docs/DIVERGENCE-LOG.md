@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-2417 — `mon.c` `wakeup` unconditional `finish_meating` (Knight pony mid-meal miss)
+
+- **Status:** fixed (Open queue head `dogmove.c` `dog_invent` underfoot-eat state, D-2414 writer row).
+- **Symptom:** scen-normal-Knight-92182 step 95 kind=rng: C `rn2(100)=18`@obj_resists vs JS `rn2(5)`@distfleeck (C's later draw); C «You miss the saddled pony. Your saddled pony eats an uncursed apple.» vs JS «You miss the saddled pony.»
+- **C locus:** `mon.c:4349` (`wakeup` calls `finish_meating(mtmp)` unconditionally); `uhitm.c:5215–5216` (`missum`: `if (!helpless(mdef)) wakeup(mdef, TRUE)`). The step-94 fight misses the pony → meal ends → step-95 `dog_invent` rates the apple.
+- **Measured:** JS state probe (pony `meating=1` entering 95, `apport=3`, `hungrytime=1500`, APPLE otyp 277 ×7 underfoot at (33,13); after 95: pile ×6, hungrytime 1750). C screens: hero drops 9 apples (s75), pony eats at s80/s92/s95. Temp C dump at `movemon`/`m_move`/`dog_invent`/`dog_eat` (reverted; re-record byte-identical incl. step-95 draws): C eats at moves 18/19/20/21 with meat cleared between — no `m_move` decrement, no `mon_regen` digest, no catchup — the only actor in the window is the step-94 miss. Falsified — do not re-check: `dogfood`/`dog_eat`/`dog_invent`-gate/`m_move`-gate bodies (all faithful), accrual/speed/movement (pony mmove 16 both; `mcalcmove` identical), turn/step counting (More-spans match), pile/positions (geom 0).
+- **JS was:** `js/mon.js:1299` `wakeup` carried `// finish_meating deferred` (named omission), so the mid-meal pony kept `meating=1` through the miss; step-95 `m_move` decremented 1→0 and returned DONE — `dog_invent` never rated.
+- **Fix:** `js/mon.js` only — `finish_meating` added to the existing static `./dogmove.js` import (`imports.mjs --can` → ALREADY, no new edge); unconditional `finish_meating(mtmp)` in C order (after the mimic/forcefight block, before `if (via_attack)`); doc comment updated (`finish_meating` struck from omissions). New `scripts/wakeup-finish-meating.test.mjs` (3 its: tame attack-wakeup clears, non-attack wakeup clears, non-eater untouched; 2 fail pre-fix, proven via stash).
+- **JS:** `js/mon.js:83` (import), `:1295–1331` (`wakeup`); `scripts/wakeup-finish-meating.test.mjs` (new).
+- **Callers:** the fix sits inside `wakeup`, so every JS caller inherits C behavior — `missum` (`js/uhitm.js:1278`, the Knight path), stumble/mimic reveals, `apply`/`dokick`/`dothrow` wakes, `disturb`, `muse`, `music` (all mirror C call sites; no call from a site C never calls from). No C caller left unwired: the arm is in the shared body.
+- **Verify:** `node --test scripts/wakeup-finish-meating.test.mjs` → 3/3 (2 fail pre-fix). `node scripts/verify.mjs --fn obj_resists` → PASS syntax (1 file) · PASS rule2 · hidden `2 PASS, 0 moved past, 0 unchanged, 0 worse` (Knight-92182 PASS; Arch-92238 also PASS — bonus, see Next) · PASS green 2/2 + strict ×2 · PASS cohort 7/7 · PASS full 44/44 (shared `mon.js` changed). `VERIFY: PASS`.
+- **Named omissions:** `finish_meating` mimic-AP reset (pre-existing, kept); `ghod_hitsu` (pre-existing).
+- **Next:** queue in order (`dothrow` Arch whip — its session PASSED here, flag for stale-check; `shkinit`, `migrate_orc`, `[measure]` distfleeck residuals).
+
 ## D-2416 — `read.c` `seffect_destroy_armor` cursed→`disintegrate_arm` arm (Healer writer, shipped)
 
 - **Status:** fixed (Open writer row from delivered [measure] `obj_resists` K/A/H; the delivered head is retired in this same commit — its deliverable shipped 2026-09-16 as D-2413/2414/2415 + three writer rows).

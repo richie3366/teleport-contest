@@ -143,6 +143,14 @@ RNG 792,838, `48+0.30/turn`). No Must-fix; 11 Open in band, no refill.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-16 — D-2417 `mon.c` `wakeup` unconditional `finish_meating` (Knight pony mid-meal miss)
+
+**C locus:** `mon.c:4349` (`wakeup` calls `finish_meating(mtmp)` unconditionally); `uhitm.c:5215–5216` (`missum`: `if (!helpless(mdef)) wakeup(mdef, TRUE)`). The step-94 fight misses the pony → meal ends → step-95 `dog_invent` rates the apple.
+**JS:** `js/mon.js:83` (import), `:1295–1331` (`wakeup`); `scripts/wakeup-finish-meating.test.mjs` (new).
+**Change:** `js/mon.js` only — `finish_meating` added to the existing static `./dogmove.js` import (`imports.mjs --can` → ALREADY, no new edge); unconditional `finish_meating(mtmp)` in C order (after the mimic/forcefight block, before `if (via_attack)`); doc comment updated (`finish_meating` struck from omissions). New `scripts/wakeup-finish-meating.test.mjs` (3 its: tame attack-wakeup clears, non-attack wakeup clears, non-eater untouched; 2 fail pre-fix, proven via stash).
+**Verify:** `node --test scripts/wakeup-finish-meating.test.mjs` → 3/3 (2 fail pre-fix). `node scripts/verify.mjs --fn obj_resists` → PASS syntax (1 file) · PASS rule2 · hidden `2 PASS, 0 moved past, 0 unchanged, 0 worse` (Knight-92182 PASS; Arch-92238 also PASS — bonus, see Next) · PASS green 2/2 + strict ×2 · PASS cohort 7/7 · PASS full 44/44 (shared `mon.js` changed). `VERIFY: PASS`.
+**Named:** `finish_meating` mimic-AP reset (pre-existing, kept); `ghod_hitsu` (pre-existing).
+**Next:** queue in order (`dothrow` Arch whip — its session PASSED here, flag for stale-check; `shkinit`, `migrate_orc`, `[measure]` distfleeck residuals).
 ## 2026-09-16 — D-2416 `read.c` `seffect_destroy_armor` cursed→`disintegrate_arm` arm (Healer writer, shipped)
 
 **C locus:** `read.c:1372–1383` (`seffect_destroy_armor` scursed arm); the shipped arm is `:1380–1383` (`else if (disintegrate_arm(otmp)) { gk.known = TRUE; return; }` — scroll survives either way). C's only caller is `read.c:2212` (`seffect_destroy_armor(&sobj)`).

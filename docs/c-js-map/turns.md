@@ -2825,9 +2825,11 @@ D-0928 #1110; **D-1095** gremlin `split_mon`+fountain `dryup`+pool `water_damage
 **D-1148** `deal_with_overcrowding` after failed survivor `rloc`; 
 **D-1149** clog-victim `mongone` `mdrop_special_objs` then discard; 
 steed air/`engulfing_u` flush / `mdrop_obj` worn extract still named); 
-**`seemimic`/`wakeup`/`setmangry` for stumble reveal + missum/hmon anger** (D-0207/D-0234; 
-**`wakeup` was_sleeping → `wake_nearto(mlevel*18)`** D-0922 + **`wake_msg` + 
-growl pline** D-0928 #1161; **`peacefuls_respond` D-1772** (watch Halt
+**`seemimic`/`wakeup`/`setmangry` for stumble reveal + missum/hmon anger** (D-0207/D-0234;
+**`wakeup` was_sleeping → `wake_nearto(mlevel*18)`** D-0922 + **`wake_msg` +
+growl pline** D-0928 #1161; **unconditional `finish_meating` D-2417**
+(missum-miss ends mid-meal pony → `dog_invent` re-rates);
+**`peacefuls_respond` D-1772** (watch Halt
 `verbalize`+`angry_guards`; humanoid `maybe_gasp`/flee/anger; same-mlet
 `big_little_match`+growl `PLNMSG_GROWL`; `setmangry` `!mon_moving`); **victim growl else-arm ported D-2124**; omit Elbereth
 hypocrite/`qst_guardians_respond`/`hot_pursuit`/`freemcorpsenm`/light-block);

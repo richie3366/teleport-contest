@@ -21,7 +21,7 @@ Update Score: pass count, screen/RNG aggregates, speed, PASS list,
 notable non-PASS. Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-16** — full `sessions` on the working tree
-(audit **1368–1373** + D-2403…D-2416).
+(audit **1368–1373** + D-2403…D-2417).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 `48+0.30/turn` (R² 0.78).
@@ -37,7 +37,7 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Role-init throws | **0 / 44** |
 
 **Hidden-score proxy** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-16
-audit 1368–1373 + D-2403…D-2416): **485 / 540 PASS (89.8 %)** excl. 13 env-only rows
+audit 1368–1373 + D-2403…D-2417): **485 / 540 PASS (89.8 %)** excl. 13 env-only rows
 (485/553; D-2405/D-2406/D-2407 moved Knight-92002 + Wizard-92219 to PASS and the lembas pair + Samurai-92032 to later owners); RNG 99.0 %; screens 98.7 %. Top owners:
 `distfleeck` ×7, `do_statusline2` ×4, `m_move` ×3, `obj_resists` ×3,
 `rloc` ×2, `one_characteristic` ×2, then 1-block singles
@@ -85,10 +85,11 @@ writer, `[campaign]`/`[measure]` rows replace map filler
 Pop `LOOP-QUEUE.md` Must-fix (freehand guard, docrt early-path botlx),
 then Open in order — campaign botl-parity 2/3, `status_enlightenment`
 held-by/utrap arms (3 sessions), the `[measure]` rows, eat `losehp`.
-**Next cluster:** `read.c` `seffect_destroy_armor` cursed→`disintegrate_arm` arm — blocks 1/553 (scen-wish-Healer-92173 step 230 kind=rng: C `rn2(100)=64`@obj_resists vs JS no draw; C «Your gloves vanish!» vs JS gloves stay; MEASURED D-2413). Fix: call live `disintegrate_arm(otmp)` in the cursed `else` arm in C order (`read.c:1380–1383`). Retire delivered K/A/H `[measure]` head in the same commit (D-2413/14/15 + three writer rows shipped 2026-09-16).
+**Next cluster:** `mon.c` `wakeup` unconditional `finish_meating` (Knight pony mid-meal miss, D-2417 shipped 2026-09-16) — queue head `dogmove.c` `dog_invent` underfoot-eat state blocked 1/553 (scen-normal-Knight-92182 step 95; C «pony eats an uncursed apple.» vs JS miss-only). Fix shipped: `js/mon.js` `wakeup` calls live `finish_meating` in C order (missum-miss ends the meal). Bonus: scen-wish-Archeologist-92238 also PASS — flag its `dothrow` whip row for stale-check next iteration.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2416 (index).**
+**Keep D-0845…D-2417 (index).**
 <!-- recent:begin -->
+**D-2417** `mon.c:4349` (`wakeup` calls `finish_meating(mtmp)` unconditionally); `uhitm.c:5215–5216`  — `js/mon.js` only — `finish_meating` added to the existing static `./dogmove.js` import (`imports.mjs --can` → ALREADY, no new edge); unconditional `finish_meating(mtmp)` in C order (after the mimic/forcefight block, befo
 **D-2416** `read.c:1372–1383` (`seffect_destroy_armor` scursed arm); the shipped arm is `:1380–1383`  — `js/read.js` only — `else if (await disintegrate_arm(otmp)) { known = true; }` in C order with the `return sobj` fallthrough (C `return`, not useup); `disintegrate_arm` added to the existing static `./do_wear.js` import 
 **D-2412** `insight.c:3007–3131` `list_genocided` (both=dumping||genoing→'y', genoing→both=FALSE; `nu — `js/insight.js` — exported `num_extinct`/`num_gone` (C `staticfn`, exported for the test pin; out-param→returned array, LOW_PM order); `genocided_prompt`/`genocided_title`/`genocided_line` pure builders (`:3043–3048`/`:3
 **D-2411** `eat.c:1926` `losehp(rnd(15), !glob ? "acidic corpse" : "acidic glob", KILLED_BY_AN)` and  — `js/eat.js` only — both sites call canonical sync `losehp` with C arg order and killer strings (`rnd(15)`/`rnd(8)` kept per C, not `1+rn2`); `finish_maybe_wail` added to the existing static `./hack.js` import (`imports.m
@@ -96,11 +97,10 @@ held-by/utrap arms (3 sessions), the `[measure]` rows, eat `losehp`.
 **D-2409** `mon.c:2299–2317` (MON_AT arm: `mmflag = flag | mm_aggression(mon, mtmp2)`; ALLOW_M + tame — `js/mon.js` only — three file-local functions (C `staticfn`, same shape as NODIAG/may_passwall) + the MON_AT arm in C order (`mmflag = flag | mm_aggression`; ALLOW_M / tame-TM / else MDISP with the flag mutation, which p
 **D-2408** `insight.c:1094–1096` — `js/invent.js` only — new exported `utrap_steed_verb(final, anchored)` (`:4975`-area, C `:1094–1096` verbatim: `final ? (anchored ? 'were ' : 'was ') : (anchored ? 'are ' : 'is ')`); the steed arm calls it; the comment n
 **D-2407** `steal.c:874–898` `relobj` → per-head `mdrop_obj` `:813–846`, whose `:840–843` routes the  — `js/mkobj.js` — `relobj_on_death` now `async`, dynamic-imports `flooreffects` from `./do.js` (no new static edge into the 90-module SCC; same shape as `mon.js` `mdrop_obj` / `dothrow.js` `throwit`; `imports.mjs --can mko
-**D-2406** `insight.c:1086–1098` (`u.utrap` → `trap_predicament(predicament, final, wizard)` + steed/ — `js/invent.js` — new exported `trap_predicament(final, wizxtra)` (`:4975`, C `:232–261` verbatim incl.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2416; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2417; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
