@@ -464,7 +464,9 @@ if (( TOKEN_BUDGET > 0 )) && [[ "$USE_MUSE" != "1" ]] && [[ "$OUTPUT_FORMAT" != 
   OUTPUT_FORMAT="stream-json"
   JSONL_LOGS=1
 fi
-ITERATION_TIMEOUT_SEC="${ITERATION_TIMEOUT_SEC:-3600}"
+# 2026-09-18 breadth phase: whole-function ports (200–800 js/ lines) need
+# more wall time and a higher density cap than one-arm peels did.
+ITERATION_TIMEOUT_SEC="${ITERATION_TIMEOUT_SEC:-5400}"
 GIT_FETCH_TIMEOUT_SEC="${GIT_FETCH_TIMEOUT_SEC:-30}"
 LOOP_PROGRESS_INTERVAL_SEC="${LOOP_PROGRESS_INTERVAL_SEC:-30}"
 LOOP_PROGRESS="${LOOP_PROGRESS:-1}"
@@ -472,8 +474,8 @@ LOOP_PROGRESS="${LOOP_PROGRESS:-1}"
 SHORT_ITER_SEC="${SHORT_ITER_SEC:-30}"
 SHORT_STREAK_LIMIT="${SHORT_STREAK_LIMIT:-3}"
 LOOP_CADENCE_EVERY="${LOOP_CADENCE_EVERY:-10}"
-LOOP_MAX_JS_INSERTIONS="${LOOP_MAX_JS_INSERTIONS:-600}"
-LOOP_MAX_JS_FILES="${LOOP_MAX_JS_FILES:-10}"
+LOOP_MAX_JS_INSERTIONS="${LOOP_MAX_JS_INSERTIONS:-1500}"
+LOOP_MAX_JS_FILES="${LOOP_MAX_JS_FILES:-15}"
 LOOP_PUSH="${LOOP_PUSH:-1}"
 LOOP_FAIL_CLOSED="${LOOP_FAIL_CLOSED:-1}"
 LOOP_QUEUE_MIN="${LOOP_QUEUE_MIN:-8}"
@@ -1063,7 +1065,7 @@ arm_density_heal_prompt() {
     echo "files (caps ${LOOP_MAX_JS_INSERTIONS} / ${LOOP_MAX_JS_FILES}); the supervisor undid it"
     echo "(forward revert when pushed). The queue row is live again: split the"
     echo "cluster — ship the verified core (one C function / tight cluster,"
-    echo "80–400 lines) and queue the remainder as its own Open row."
+    echo "200–800 lines) and queue the remainder as its own Open row."
   } >"$NEXT_ITER_PROMPT"
   echo "$(date -Iseconds) note: density-heal overlay armed for next iteration" \
     | tee -a "$MASTER_LOG"
@@ -1725,15 +1727,15 @@ while true; do
     prompt_body+=$'If you archive this iter’s item, count the remainder **after** archive.\n'
     prompt_body+=$'Append **Open** rows that carry **evidence** (LOOP-QUEUE.md header) up to\n'
     prompt_body+="about ${LOOP_QUEUE_TARGET}"
-    prompt_body+=$': (1) `node scripts/hidden-proxy.mjs queue --limit 30` owners not\n'
-    prompt_body+=$'tagged open/parked/archived; (2) the **writer** a Parked line names, with\n'
-    prompt_body+=$'its session; (3) the next `[campaign]` step; (4) a `[measure]` row for the\n'
-    prompt_body+=$'top parked corpus owner by sessions blocked; (5) a C arm you verified\n'
-    prompt_body+=$'absent from the JS body in a `brief.mjs` output (quote C lines + JS fn).\n'
-    prompt_body+=$'A `c-js-map`/`debt.md`/TOP30 line or a D-number is **not** evidence — 109\n'
-    prompt_body+=$'of 161 parks were rows copied from those after the function had shipped.\n'
-    prompt_body+=$'Nothing eligible → append nothing, one journal line. One C function per\n'
-    prompt_body+=$'row; do not duplicate live/archived/parked rows; no D-0006 / dog_invent.\n'
+    prompt_body+=$': breadth phase — (1) `node scripts/port-coverage.mjs --rows N` and paste\n'
+    prompt_body+=$'its rows verbatim under **Open — coverage** (it measures the JS tree now and\n'
+    prompt_body+=$'skips live rows / by-design names); then, only if it prints none: (2)\n'
+    prompt_body+=$'`node scripts/hidden-proxy.mjs queue --limit 30` owners not tagged\n'
+    prompt_body+=$'open/parked/archived; (3) the **writer** a Parked line names, with its\n'
+    prompt_body+=$'session; (4) a C arm you verified absent from the JS body in a `brief.mjs`\n'
+    prompt_body+=$'output (quote C lines + JS fn). A `c-js-map`/`debt.md`/TOP30 line or a\n'
+    prompt_body+=$'D-number copied by hand is **not** evidence. One C function per row; do not\n'
+    prompt_body+=$'duplicate live/archived/parked rows; no D-0006 / dog_invent.\n'
     if [[ "$mode" == "port" ]]; then
       prompt_body+=$'Then pop Must-fix else Open (including a line you just added if the\n'
       prompt_body+=$'queue was empty) and ship that one cluster in this same iteration.\n'
@@ -2078,7 +2080,7 @@ while true; do
     if (( agent_pushed )); then
       warn_regression "queue still empty after port (map refill failed) AND already pushed"
     else
-      warn_regression "queue still empty after port — refill Open from c-js-map (min ${LOOP_QUEUE_MIN})"
+      warn_regression "queue still empty after port — refill Open with \`port-coverage.mjs --rows\` (min ${LOOP_QUEUE_MIN})"
     fi
     arm_empty_port_prompt "$iter" "queue-empty"
   fi

@@ -29,10 +29,10 @@ Target **≤12k tokens** of docs before C.
 | 1 | **This file** | priority, **Rule #2**, anti-patterns, endings | — |
 | 2 | Cursor rules / `CONSTITUTION.md` §1–2 (esp. §1.5 Rule #2), §5, §10 | hard bans only | full essays |
 | 3 | **`CURRENT.md`** | score, green gate, **primary objective**, focused cmd | — |
-| 4 | `LOOP-QUEUE.md` header + first row | eligibility rule, stale check, the row | Parked index (unless a row points there) |
+| 4 | `LOOP-QUEUE.md` Breadth-phase block + first **Open — coverage** row | stale check, the row | Parked index, Phase 2 section |
 | 5 | `NOTES.md` | live hypothesis + don’t-recheck | — |
 | 6 | `node scripts/brief.mjs <cfn>` | C body + callers, JS body, map lines, D-rows, corpus rows — one call | paging map files, grepping for definitions |
-| 7 | `HIDDEN-PROXY.md` §1–3 | what a corpus row is; verify semantics | the method essay |
+| 7 | `HIDDEN-PROXY.md` §1–3 | what REACH means; verify semantics | the method essay |
 | 8 | `PORTING-RUNBOOK.md` §3–7 | only if procedure unclear | strategy rationale |
 
 **Do not read by default:** `PORTING-STRATEGY.md`, `archive/**` (except the
@@ -45,72 +45,65 @@ callers + guarding `if`) before patching — the brief has both.
 
 ## 2. Objective priority (non-negotiable)
 
-1. **`CURRENT.md` → Primary objective** (chooses work).
-2. Deep canary only when primary is complete, blocked on a named prerequisite,
-   or a human moved it to primary.
-3. **Parked** items — diagnose only; **do not implement** until the listed
-   falsifier exists. But a park is not a dead end: if it names the **writer**,
-   the writer is an Open row (park-and-requeue); if it names none, the
-   missing **measurement** is a `[measure]` row. Parked corpus owners are
-   where the remaining 11 % of the corpus lives — work them through their
-   writers, never by re-porting the symptom owner.
-4. **Fallback order when Must-fix is empty:** corpus owner not yet parked →
-   park-named writer → `[campaign]` next step → `[measure]` for the top
-   parked corpus owner → verified missing C arm → (only at ≥ 90 % corpus)
-   map singletons. Never map/debt/TOP30 copies (109 of 161 parks were that).
+1. **`CURRENT.md` → Primary objective** (chooses work). Since 2026-09-18
+   that is the **breadth phase** (Constitution §10.17): held-out read
+   11/44, RNG 26.6 %, screens 50 % while the local corpus read 91.7 % —
+   the corpus stopped predicting the judge, so **measured coverage** picks
+   work: `LOOP-QUEUE.md` Must-fix, then the first **Open — coverage** row
+   (`port-coverage.mjs --rows`: pinned-C functions MISSING/THIN in `js/`,
+   ranked by reach × loudness, gap measured on the JS tree at enqueue).
+2. **Parked** items and `[measure]` rows are **phase 2** (corpus
+   debugging) — closed until a human reopens it in `CURRENT.md`. Do not
+   pop, requeue, or instrument C for them now.
+3. Corpus-residual Open rows ship only **with** a coverage row in the same
+   C file, or when the coverage list is empty (it never is — refill it).
+4. Never map/debt/TOP30 copies (109 of 161 parks were that); the only
+   hand-written evidence is a C arm you verified absent in a brief.
 
-### 2a. After local public suite PASS (map-driven mode)
+### 2a. Breadth phase — what an iteration is
 
-When `CURRENT.md` shows a clean local public suite (all sessions PASS),
-treat that score as a **regression fortress**, not a work picker.
+Public 44/44 **and** the corpus PASS set are a **regression fortress**,
+not a work picker. Held-out (`node scripts/leaderboard.mjs`) is the score.
 
 | Do | Do not |
 |----|--------|
-| Pop the queue row: a **scenario-corpus** first-diff owner (`hidden-proxy queue`, `scen-*` sessions), then a `PORT-GAP-TOP30.md` row the corpus reaches | Invent FAIL peels, ALIGN/FORCE, seed-shaped gates, or map singletons while a corpus family is < 90 % PASS |
-| A `hidden-corpus` / `private-sessions` first diff is a **C-vs-JS fact** with a recorded expectation; port the **owning C function** | Make a corpus session pass by reading a seed, step, coordinate or RNG index |
-| Verify with `hidden-proxy verify <fn>`: blocked sessions PASS or move to a **later** owner | Call NO MOVEMENT a named omission, or chase public leaderboard / CDN drift in-loop |
-| Keep green + cohort + cadence full `sessions` PASS | “Improve” already-matching public paths without a C citation |
-| Pop `LOOP-QUEUE.md` **Must-fix** (written-review C-wrongs) before Open | Leave QUALITY-RISK reviews unread and keep map-dumping |
-| Keep 8–12 **evidence-carrying** rows (`LOOP-QUEUE.md` header); refill from `hidden-proxy queue` (untagged owners), park-named writers, `[campaign]`/`[measure]` rows; grow the corpus (`scenario-gen.mjs`) when every family is ≥ 85 % | Pad the band with `data.md`/`debt.md`/TOP30 copies, or halt because the queue ran dry |
-| **Stale row** (brief: live JS body, 0 blocked, no missing arm) → one Parked line, retire the map line, pop the next row, **same iteration** | Spend an iteration proving a shipped function shipped (2 kB park essay) |
-| A JS **throw** or worker **hang** in a corpus session is Must-fix: it forfeits every later screen | Leave a `ReferenceError` / `ETIMEDOUT` row behind a map omission |
+| Pop the first coverage row; `brief.mjs <fn>` in one call; read the **whole** C body + every caller | Port the arm a session happens to hit and call the function done |
+| Port the **entire C function** in C order: every arm, every callee live or named in the map, every C caller wired (brief callers table) | Leave a `// TODO` stub inside a live arm, or a local clone of an existing export (`sym.mjs` first) |
+| Prefer **restart**: delete the thin JS body, re-port from C, keep the export name/signature | Stack a third shim on a thin function |
+| Ship the same-C-file Must-fix/Open row in the same iteration | Open a second unrelated C file |
+| **Stale row** (brief: body complete under this or split names) → one Parked **Stale** line, next row, **same iteration** | Spend an iteration proving a shipped function shipped |
+| `verify.mjs --fn <fn>` must end **REACH-OK** (+ green, strict, cohort, full when shared) | Ship a corpus PASS→FAIL as a "named omission"; touch a session or a seed to make it pass |
+| A JS **throw** / worker **hang** anywhere is Must-fix (forfeits every later screen) | Leave a `ReferenceError` / `ETIMEDOUT` behind |
+| Refill: `port-coverage.mjs --rows N`, paste verbatim | Hand-write a row from a map/debt/TOP30 line |
 
-Sessions measure progress; they are **not** the specification. The
-held-out 44 are scripted wizard-mode scenarios (wishes, `^G`, named-level
-`^V`, deaths); the `scen-*` corpus is the local stand-in
-(`HIDDEN-PROXY.md` §4–5). Tagged restore: save-oracle probe.
+The held-out 44 are scripted wizard-mode scenarios (wishes, `^G`,
+named-level `^V`, polyself, deaths); anything they reach that `js/`
+lacks is a cliff for every later screen. Tagged restore: save-oracle probe.
 
 ### 2b. Iteration density (token vs quality)
 
-Each fresh agent pays large fixed cost (docs, C read-in, verify,
-journal). Prefer **fewer, denser** iterations once the suite is green.
+Each fresh agent pays a large fixed cost (docs, C read-in, verify,
+journal). Prefer **fewer, denser** iterations.
 
 | Too small (waste) | Right size | Too big (quality risk) |
 |-------------------|------------|------------------------|
-| One deferred `if` alone | One C function **or** tight caller/callee cluster | “Finish potions” / half of `mon.c` |
-| Separate iters for sibling `switch` arms | Whole practical `switch` / role kit / item-class envelope | Unrelated subsystems in one commit |
+| One deferred `if` or one `switch` arm | **One whole C function** (or a tight caller/callee pair, e.g. `dogaze` + its `polyself.c` siblings) | Half of `mon.c`; two unrelated subsystems |
 | Docs-only then code next iter | Code + map + verify in one handoff | Multiple independent hypotheses |
 
-**Rule:** one falsifier, one C locus family, usually one JS module (or
-two that already call each other). Related map deferrals in that
-envelope may retire together. Target roughly **80–400 lines** of
-C-faithful JS or one small-file restart. Below ~40 insertions on a
-non-Must-fix port is a failed density handoff unless C is that small.
-Consecutive Open rows of the **same** C `file.c:function` may ship
-together iff every C callee is live, a C-matched clone, or a named
-omit in this commit (no stub in a live arm). Must-fix stays one item,
-alone. If success/failure needs two unrelated theories, split.
+**Rule:** one C function family, usually one JS module (or two that
+already call each other). Target **200–800 lines** of C-faithful JS or
+one small-file restart; supervisor caps **1500 insertions / 15 files**
+(over → the iteration is undone: split at a C function boundary). Below
+~40 insertions on a non-Must-fix port is a failed density handoff unless
+C is that small. Consecutive coverage rows of the **same** C file may ship
+together iff every C callee is live, a C-matched clone, or a named omit in
+this commit (no stub in a live arm). Must-fix stays one item, alone.
 
-**Campaigns.** Work too big for one iteration (botl paint parity, a
-shim-thick module restart) is a `[campaign k/n]` row series: each step
-ships `js/`, keeps 44/44, and names in its row what the next step must
-do. Steps pop in order; a step that would regress the fortress after two
-fixes ships its verified core and pushes the rest into the next step's
-row. No step is "docs only".
-
-Stop on empty “hold green / docs only” iterations — except a popped
-`[measure]` row, whose deliverable is the C-side measurement + the
-writer's Open row.
+**Campaigns.** A C function too big for one iteration (`really_done`,
+`getobj`) is a `[campaign k/n]` row series: each step ships `js/`, keeps
+44/44 + REACH-OK, and names in its row what the next step must do. A step
+that would regress the fortress after two fixes ships its verified core
+and pushes the rest into the next step's row. No step is "docs only".
 
 ---
 
@@ -164,10 +157,12 @@ Cohort:           <distinct session sharing this code>
 ```
 
 `node scripts/brief.mjs <cfn>` fills C locus, JS locus, callers, corpus
-falsifier and replay command in one call. When the suite is already PASS,
-the falsifier is a corpus session blocked on the function (channel RNG or
-screen, both sides named) or a named `c-js-map` row — never an invented
-public FAIL (§2a–2b).
+rows and replay command in one call. In the breadth phase the falsifier
+is `verify.mjs --fn <cfn>`: blocked sessions (if any) PASS or move later,
+**and** REACH-OK — every baseline-PASS corpus session that executes the
+function still passes. Branch envelope = **the whole C body**; "deferred"
+is allowed only for a callee that is itself a coverage row, named in the
+map in this commit.
 
 **Minimum C read:** function body + immediate callers + the `if` that guards the
 diverging RNG. Do not patch from `rng-diff` output alone.
@@ -183,14 +178,17 @@ diverging RNG. Do not patch from `rng-diff` output alone.
 | roles / u_init / mkobj / mon | cohort + full `sessions` before claiming milestone |
 | Display/cursor/menus | green + viewer smoke if available |
 
-**One call:** `node scripts/verify.mjs --fn <cfn>` runs corpus verify, syntax,
-Rule #2 scan, green + strict, cohort, and the full suite when a shared file
-changed; paste its tail into the D-log Verify bullet. On a cohort/full FAIL
-it lists every failing session's first divergence: **triage them all**
-(group by row/owner), fix each cause once, re-run once. `note hidden … no
-corpus session is blocked` is **not** a corpus PASS — if the queue row
-cited N blocks, `--base <sha the row was queued at>`. **Resuming a
-leftover:** verify is call ≤5, not call 150 (#2240).
+**One call:** `node scripts/verify.mjs --fn <cfn>` runs corpus verify,
+**REACH** (baseline-PASS corpus sessions whose C RNG log executes `<cfn>`,
+spread ≤ 80 — `--reach-all` before handoff on a hot function; a fixed
+smoke spread when none reach it), syntax, Rule #2 scan, green + strict,
+cohort, and the full suite when a shared file changed; paste its tail into
+the D-log Verify bullet. On a cohort/full/REACH FAIL it lists every failing
+session's first divergence: **triage them all** (group by row/owner), fix
+each cause once, re-run once. A REACH regression is a port bug you just
+wrote — fix it, never park it. `note hidden … no corpus session is
+blocked` is expected for most coverage rows; REACH-OK is the corpus
+evidence then. **Resuming a leftover:** verify is call ≤5, not call 150.
 **`rng-diff`:** default segment 0; `--all-segments` for save recipes.
 **`PASS`:** inspect `__RESULTS_JSON__` / per-session lines — runner exit code
 can be 0 when sessions fail. Always `strict-output-check` on green sessions.
@@ -204,15 +202,16 @@ unwired) were both caller misses on otherwise exact bodies.
 
 ## 6. Iteration must end as exactly one of
 
-1. **Verified faithful change** — C cited, gates pass, DIAG removed, docs updated.
+1. **Verified faithful change** — whole C function, C cited, gates + REACH
+   pass, DIAG removed, docs updated.
 2. **Falsified hypothesis** — revert experiment if needed; dead end in `NOTES.md`.
-3. **Prerequisite identified** — a `[measure]` row completed (measurement in
-   `NOTES.md`, *measured*, with its command) **and** the writer's Open row
-   added; or a diagnostic park (one line) **plus** its writer / `[measure]` row.
+3. **Campaign step** — a C function too big for one iteration shipped its
+   verified core and left `[campaign k/n]` rows naming the rest.
 
-**Not acceptable:** unverified hack, “prefix moved” without C cause, DIAG
-left in `js/`, an iteration that ends on a **stale** row (that is a 3-call
-detour before the real row), a park with no writer and no measurement row.
+**Not acceptable:** unverified hack, one arm of a function presented as
+the function, a REACH regression shipped as a "named omission", DIAG left
+in `js/`, an iteration that ends on a **stale** row (that is a 3-call
+detour before the real row), a `[measure]`/park iteration (phase 2).
 
 ---
 
@@ -304,10 +303,12 @@ real commit (never a stamp-only SHA).
 
 ```bash
 node scripts/brief.mjs <cfn>              # orient (C + JS + map + D-rows + corpus)
-node scripts/verify.mjs --fn <cfn>        # corpus verify + green/strict + cohort (+full)
+node scripts/verify.mjs --fn <cfn>        # corpus verify + REACH + green/strict + cohort (+full)
 node scripts/finish-iteration.mjs --commit   # stamps from the D-log entry, commit, push
-node scripts/geom-probe.mjs <session-id> [--step N]   # C ^F map vs JS (geometry owners)
-node scripts/hidden-proxy.mjs status      # corpus pass rate + owners (the number to move)
+node scripts/port-coverage.mjs --rows 12  # refill Open — coverage (paste verbatim)
+node scripts/port-coverage.mjs --name <cfn>   # the measured gap behind one row
+node scripts/leaderboard.mjs              # held-out score — the objective (audit iters)
+node scripts/hidden-proxy.mjs status      # corpus fortress (audit iters)
 node frozen/ps_test_runner.mjs sessions   # public fortress (audit iters)
 ```
 

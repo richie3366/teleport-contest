@@ -5,6 +5,23 @@ Unattended **port** iterations pop the **first unchecked** row, preferring
 `docs/archive/LOOP-QUEUE-DONE.md`, parked proofs to
 `docs/archive/LOOP-QUEUE-PARKED.md` (index below).
 
+## Breadth phase (opened 2026-09-18 — Constitution §10.17, `CURRENT.md`)
+
+Held-out read **11/44, RNG 26.6 %, screens 50.0 %** on 2026-09-17 while the
+local corpus read 91.7 %: the corpus stopped predicting the judge. Until a
+human closes the phase, **Open — coverage** rows are the work: one whole C
+function per iteration (every arm, callee, caller; 200–800 lines), emitted
+by `node scripts/port-coverage.mjs --rows N` which measures the JS tree at
+enqueue and skips live rows / by-design names. **Refill = paste its output
+verbatim** under Open — coverage (top up to ~12 when below 8). Pop-time
+stale check (≤ 3 calls): `brief.mjs <fn>` shows the C body already
+complete under this or split names → one Parked **Stale** line, next row.
+A Must-fix/Open row in the **same C file** as the popped row ships in the
+same iteration. `[measure]` rows, parks-as-work and `hidden-proxy queue`
+refills are **phase 2** (section below) — not popped now. Every `verify`
+must end **REACH-OK**: corpus sessions that executed the function still
+PASS; a regression is fixed in the port before handoff, never parked.
+
 ## Row eligibility (2026-09-16 process take — read before refilling)
 
 Between 2026-09-09 and 2026-09-15, **126 of 362** non-audit iterations were
@@ -15,6 +32,9 @@ full iteration. The rules below exist to make that class impossible.
 
 Every `- [ ]` row **carries its evidence** in the row text, one of:
 
+- **coverage:** `coverage MISSING|THIN|PARTIAL (C N L … / JS M L …)` as
+  printed by `port-coverage.mjs --rows` (measured on the JS tree at
+  enqueue; the breadth-phase class — never hand-written);
 - **corpus:** `blocks N/553 (<session-id>, step S, kind=rng|screen)` from
   `node scripts/hidden-proxy.mjs queue` or a park that named this writer;
 - **missing arm:** `C <file.c>:<a>–<b> absent from js/<file>.js:<fn>` —
@@ -23,11 +43,10 @@ Every `- [ ]` row **carries its evidence** in the row text, one of:
 - **hang/throw:** a corpus worker `ETIMEDOUT` / `ReferenceError` (Must-fix).
 
 Not evidence: a `c-js-map` deferral line, a `debt.md` D-number, a TOP30
-line ratio, "dead callees" that are C `staticfn`, or "never own-row".
-A row without evidence is not appended. **The 8–12 band counts eligible
-rows only**; when none exists the queue sits short and the iteration does
-the next campaign step or a measurement (below) — never filler. Say so in
-the journal in one line.
+line ratio copied by hand, "dead callees" that are C `staticfn`, or
+"never own-row". A row without evidence is not appended. **The 8–12 band
+counts eligible rows only**; `port-coverage.mjs --rows` always has more,
+so the queue never sits short during the breadth phase.
 
 **Stale check (≤3 calls, never an iteration):** the brief for the popped
 row shows a live same-named JS body, `0 blocked`, and no C arm missing →
@@ -54,16 +73,16 @@ The supervisor recognises a Parked-row move or a popped `[measure]` row
 as a legitimate no-`js/` iteration; an iteration whose only parks are
 **STALE** gets a "ship the queue head" overlay on the next port iteration.
 
-Refill sources, in order: `node scripts/hidden-proxy.mjs queue`
-(owners not yet parked; a parked owner's **writer** row, if named, counts),
-`[campaign]` next steps, `[measure]` rows for the top parked corpus owners
-by sessions blocked, `PORT-GAP-TOP30.md` rows the corpus reaches **with a
-verified missing arm**, then `c-js-map` omits only when every corpus
-family is ≥ 90 % PASS (Constitution §10.13). A level-gen owner
-(`mineralize`, `bound_digging`, `wallification`, `place_lregion`…) is where
-C *noticed* the difference: its falsifier is `node scripts/geom-probe.mjs
-<session>`. Do not duplicate live, archived or parked rows. Do not enqueue
-parked D-0006 or `dog_invent`.
+Refill sources, in order — **breadth phase:** `node scripts/port-coverage.mjs
+--rows N` (paste verbatim; it skips live rows and by-design names). **Phase 2
+(closed):** `node scripts/hidden-proxy.mjs queue` (owners not yet parked; a
+parked owner's **writer** row, if named, counts), `[campaign]` next steps,
+`[measure]` rows for the top parked corpus owners by sessions blocked,
+`PORT-GAP-TOP30.md` rows the corpus reaches **with a verified missing arm**,
+then `c-js-map` omits. A level-gen owner (`mineralize`, `bound_digging`,
+`wallification`, `place_lregion`…) is where C *noticed* the difference: its
+falsifier is `node scripts/geom-probe.mjs <session>`. Do not duplicate live,
+archived or parked rows. Do not enqueue parked D-0006 or `dog_invent`.
 
 ## Must-fix (from reviews) — pop first
 
@@ -84,29 +103,61 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 always Must-fix rows: they forfeit every later screen of that session
 (Constitution §10.14).
 
-## Open (corpus-driven, after Must-fix is empty)
+## Open — coverage (breadth phase — pop first after Must-fix)
+
+Rows below are `port-coverage.mjs --rows` output (score = reach × call
+breadth × RNG/message loudness × coverage gap, measured on the JS tree at
+the stamped SHA). Pop the first; `brief.mjs <fn>` decides stale in ≤ 3
+calls (`split?` rows especially — the body may live under other names).
+Deliverable: the whole C body, callers wired, 200–800 lines, REACH-OK.
+Refill: `node scripts/port-coverage.mjs --rows N`, paste verbatim.
+
+- [ ] `polyself.c` polymon — coverage PARTIAL (C 336 L `polyself.c:735–1071` / JS 201 L in js/polyself.js; hops 2, callers 26, RNG 7, msg 27; dead callees: check_strangling). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn polymon` (reach regression must be 0). Measured `port-coverage.mjs --name polymon` 2026-09-18 @ a35f6369.
+- [ ] `mon.c` newcham — coverage THIN (C 254 L `mon.c:5278–5535` / JS 84 L in js/makemon.js; hops 2, callers 40, RNG 2, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn newcham` (reach regression must be 0). Measured `port-coverage.mjs --name newcham` 2026-09-18 @ a35f6369.
+- [ ] `cmd.c` getdir — coverage THIN (C 161 L `cmd.c:3958–4119` / JS 60 L in js/lock.js; hops 2, callers 29, RNG 5, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn getdir` (reach regression must be 0). Measured `port-coverage.mjs --name getdir` 2026-09-18 @ a35f6369.
+- [ ] `end.c` really_done — coverage THIN (C 460 L `end.c:1130–1590` / JS 189 L in js/end.js; hops 2, callers 5, RNG 1, msg 9). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn really_done` (reach regression must be 0). Measured `port-coverage.mjs --name really_done` 2026-09-18 @ a35f6369.
+- [ ] `polyself.c` dogaze — coverage MISSING (C 131 L `polyself.c:1642–1773` / JS no symbol; hops 1, callers 1, RNG 4, msg 14). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dogaze` (reach regression must be 0). Measured `port-coverage.mjs --name dogaze` 2026-09-18 @ a35f6369.
+- [ ] `polyself.c` rehumanize — coverage THIN (C 51 L `polyself.c:1367–1418` / JS 20 L in js/polyself.js; hops 1, callers 29, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn rehumanize` (reach regression must be 0). Measured `port-coverage.mjs --name rehumanize` 2026-09-18 @ a35f6369.
+- [ ] `dungeon.c` init_dungeons — coverage THIN (C 114 L `dungeon.c:1205–1319` / JS 46 L in js/dungeon.js; hops 1, callers 5, RNG 0, msg 7; dead callees: free_proto_dungeon, dumpit). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn init_dungeons` (reach regression must be 0). Measured `port-coverage.mjs --name init_dungeons` 2026-09-18 @ a35f6369.
+- [ ] `attrib.c` adjattrib — coverage PARTIAL (C 79 L `attrib.c:117–199` / JS 53 L in js/attrib.js; hops 1, callers 33, RNG 2, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn adjattrib` (reach regression must be 0). Measured `port-coverage.mjs --name adjattrib` 2026-09-18 @ a35f6369.
+- [ ] `hack.c` test_move — coverage MISSING (C 261 L `hack.c:991–1255` / JS no symbol; hops 2, callers 19, RNG 0, msg 14; split? cited 79× in js/ — brief first). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn test_move` (reach regression must be 0). Measured `port-coverage.mjs --name test_move` 2026-09-18 @ a35f6369.
+- [ ] `invent.c` getobj — coverage THIN (C 334 L `invent.c:1752–2089` / JS 94 L in js/invent.js; hops 3, callers 48, RNG 0, msg 8). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn getobj` (reach regression must be 0). Measured `port-coverage.mjs --name getobj` 2026-09-18 @ a35f6369.
+- [ ] `polyself.c` dospinweb — coverage MISSING (C 124 L `polyself.c:1497–1621` / JS no symbol; hops 1, callers 1, RNG 0, msg 11). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dospinweb` (reach regression must be 0). Measured `port-coverage.mjs --name dospinweb` 2026-09-18 @ a35f6369.
+- [ ] `pager.c` checkfile — coverage THIN (C 295 L `pager.c:830–1129` / JS 35 L in js/pager.js; hops 1, callers 4, RNG 0, msg 5; dead callees: strip_newline). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn checkfile` (reach regression must be 0). Measured `port-coverage.mjs --name checkfile` 2026-09-18 @ a35f6369.
+- [ ] `mon.c` xkilled — coverage PARTIAL (C 261 L `mon.c:3477–3740` / JS 143 L in js/uhitm.js; hops 3, callers 37, RNG 2, msg 14). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn xkilled` (reach regression must be 0). Measured `port-coverage.mjs --name xkilled` 2026-09-18 @ a35f6369.
+- [ ] `pager.c` look_at_monster — coverage MISSING (C 130 L `pager.c:422–555` / JS no symbol; hops 2, callers 2, RNG 0, msg 20; dead callees: coyotename). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn look_at_monster` (reach regression must be 0). Measured `port-coverage.mjs --name look_at_monster` 2026-09-18 @ a35f6369.
+
+## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 
 - [ ] `doopen_indir` extra rnl Wizard (D-2420 W5) — blocks 1/553 (scen-normal-Wizard-92127 step 101/114 kind=rng flat#3271: C `rn2(5)=3`@distfleeck vs JS `rnl(20)=3`@doopen_indir, prev moveloop_core matched; JS-extra-single-draw proven; C step 18 draws; MEASURED D-2420 vs JS probe). Fix: the open-action RNG gate in C order. Verify `node scripts/verify.mjs --fn distfleeck` (recorded owner: expect Wizard → PASS or later owner). Do not re-port `distfleeck`.
 - [ ] hero overload attack-gate Caveman (D-2420 W6) — blocks 1/553 (scen-poly-Caveman-92202 step 116/265 kind=rng flat#6619: C `rn2(5)=3`@distfleeck vs JS `rn2(20)=18`@gethungry, prev makemon matched; C «You cannot fight while so heavily loaded» + m_lined_up/m_move vs JS hmonas/passive combat «You miss Slasher…»; C step 65 draws; MEASURED D-2420 vs JS probe; BoH-blessed row is the opposite direction — check cursed-bag/container state first). Fix: the inv_weight/capacity attack gate in C order. Verify `node scripts/verify.mjs --fn distfleeck` (recorded owner: expect Caveman → PASS or later owner). Do not re-port `distfleeck` or `inv_weight` beyond the gate.
 - [ ] `uhitm.c` mhitm_ad_cold `:2661` (void)-discard Healer (D-2425 W1) — blocks 1/553 (scen-poly-Healer-92107 step 126/321 kind=screen: C `HP:7(33)` vs JS `HP:2(33)`, toplines identical; MEASURED D-2425: one lich-touch turn spans captures s123–s126 — to-hit `rnd(20)=3` + base `d(3,6)=10` in s123 bucket both sides; destroy-A quan-1 `rnd(4)=3` losehp 22→19; destroy-B quan-3 `rnd(4)=2` losehp 19→17; recorder s126 dump = knockback×2+passiveum+spell-choice identical both sides; instrumented /tmp js/ copy logging mdamageu/losehp callers: JS `mdamageu(10+5=15)`@hitmu after `losehp(2)`@maybe_destroy_item vs C `mdamageu(10+0)` — JS `mhitm_ad_cold_u` (`js/mhitu.js:913`) adds the destroy return that C discards (`(void)`, hero already losehps inside); Δ5 = destroy total 3+2; only adjacent monster = master lich (38,18 vs hero-owlbear 37,17)). Fix: discard the return in `mhitm_ad_cold_u` per C `:2661` (fire_u `:953` already discards; elec_u body deferred, keep). Verify `node scripts/verify.mjs --fn do_statusline2` (recorded owner: expect Healer → PASS or later owner). Do not re-port `do_statusline1/2`; do not touch `mhitm.js` monster-defender arms (destroy deferred, pre-existing). Falsified: destroy-pagination, hidden d(N,1)/d(N,0), knockback FALSE, passiveum tmp=0, no cast, half-phys, permdmg.
 - [ ] `eat.c` eatfood meal-progress uhs/botl timing lembas pair (D-2425 W2) — blocks 2/553 (scen-wish-Healer-92092 step 59/144 + scen-wish-Tourist-91125 step 83/189, kind=screen: C `Xp:N Satiated` vs JS bare `Xp:N`, toplines identical («hard time getting all of it down»); MEASURED D-2425: C stepFns empty both, RNG fully matched (92092 3078/3078) — deterministic; C flips+paints Satiated at the hard-time turn; JS prefix probe + uhs-scan shows `uhs`=0=SATIATED already after the first bite («delicious») yet paints Satiated a turn late («stop eating» — state converges +1 step); `newuhs` eatfood early-return (`js/eat.js:562–568`) sets `uhs` with no botl). Fix: C-order audit of first-bite lesshungry/newuhs vs botl in the eatfood/maybe_finished_meal path (both live: `js/eat.js:551`/:2101 — ordering, not a missing fn). Verify `node scripts/verify.mjs --fn do_statusline2` (recorded owner: expect both → PASS or later owner). Do not re-port `do_statusline1/2`. See parked `botl.c` do_statusline2 lembas pair (retire on ship if the port confirms the mechanism).
 - [ ] `wizcmds.c` wiz_levltyp_legend #terrain legend Valkyrie — blocks 1/553 (scen-tour-Valkyrie-92162 step 129 kind=screen: C «#terrain encodings:» vs JS «»; untagged owner in `hidden-proxy queue`, eligible as-is). Fix: port the owning C arm in wiz_levltyp_legend (brief wiz_levltyp_legend first; never read seed/step/coords into logic). Verify `node scripts/verify.mjs --fn wiz_levltyp_legend` (expect Valkyrie-92162 → PASS or later owner).
-- [ ] `[measure]` Healer (43–47,10–14) cluster first-divergent-turn (W2 park follow-up) — C TEMP-W2 MFND history (re-record scen-tour-Healer-92055 with a log-only `mfndpos`/`m_move` dump in the ignored recorder tree: `mon.c` pre-`data->cnt`, `monmove.c` post-`mfndpos` + track-check, `rng_log_get_call_count()` for correlation, rebuild `CC="cc -arch x86_64"`, revert + rebuild after) vs JS prefix probes (`runSegment` with step-keys 1..T from the committed session, dump cluster occupancy) for T=95–104: bisect to the first turn whose start arrangement differs (turn-104-start: (44,12) C 230 vs JS empty, (45,12) C 246 vs JS 230, (45,11) C 244 vs JS 246?, (46,10) JS 244; test one-turn-lag), then queue the writer's Open row with the session as evidence. No `js/` in the measure commit.
-- [ ] `[measure]` Samurai-92161 step-37 pet-turn ray-rejector (W3 park follow-up) — blocks 1/553 (scen-tour-Samurai-92161 step 37/88 kind=rng: C 1× rnd(5)@score_targ then distfleeck vs JS wolf+samurai 2×; dog loop proven faithful, see Parked `dogmove.c` W3). Deliverable: TEMP-C re-record with log-only find_targ/best_target dump in the ignored recorder tree (W2-park recipe: `nethack-c/recorder/src/dogmove.c` per-ray m_at/minvis/mundetected/head-square + pet mux/muy + best_target per-ray scores at step 37, `make Sysunix CC="cc -arch x86_64"`, revert + rebuild after; probes in /tmp, never committed), then the writer's Open row with the session as evidence (suspect unseen-layout/lifecycle writer: C (54,7)/(55,8) content vs JS samurai@(55,8)); if the dump shows C's loop (not state) differs, re-queue as dog-loop Open instead. No `js/` in the measure commit.
 
 Ranked by corpus sessions blocked. Every row is a recorded C-vs-JS fact;
 the fix is the owning C function's port, never a read of a seed, step or
 coordinate. Verify with `node scripts/verify.mjs --fn <fn>` (uses the
 committed scoreboard; if the row was queued at an older SHA pass
-`--base <sha>`). `[campaign]` rows are steps of one multi-iteration plan
-(pop in order; each step ships `js/` and keeps 44/44). `[measure]` rows
-deliver a C-side measurement + the writer's Open row, no `js/` (commit
-and push; the supervisor logs "empty port pushed" — expected).
+`--base <sha>`). During the breadth phase these pop only when the
+coverage list is empty, or alongside a coverage row in the same C file.
 
-## Deferred (map-driven singletons — do not pop while any corpus family is < 90 % PASS)
+## Phase 2 — corpus debugging (closed 2026-09-18; a human reopens it in `CURRENT.md`)
 
-Plain bullets on purpose (not popped, not counted). Re-enable as `- [ ]`
-Open rows only when `hidden-proxy status` shows every family ≥ 90 %.
+Plain bullets on purpose (not popped, not counted). `[measure]` rows
+deliver a C-side measurement + the writer's Open row, no `js/`;
+`[campaign]` rows are steps of one multi-iteration plan. Re-enable as
+`- [ ]` under Open when the phase reopens.
+
+- `[measure]` Healer (43–47,10–14) cluster first-divergent-turn (W2 park follow-up) — C TEMP-W2 MFND history (re-record scen-tour-Healer-92055 with a log-only `mfndpos`/`m_move` dump in the ignored recorder tree: `mon.c` pre-`data->cnt`, `monmove.c` post-`mfndpos` + track-check, `rng_log_get_call_count()` for correlation, rebuild `CC="cc -arch x86_64"`, revert + rebuild after) vs JS prefix probes (`runSegment` with step-keys 1..T from the committed session, dump cluster occupancy) for T=95–104: bisect to the first turn whose start arrangement differs (turn-104-start: (44,12) C 230 vs JS empty, (45,12) C 246 vs JS 230, (45,11) C 244 vs JS 246?, (46,10) JS 244; test one-turn-lag), then queue the writer's Open row with the session as evidence. No `js/` in the measure commit.
+- `[measure]` Samurai-92161 step-37 pet-turn ray-rejector (W3 park follow-up) — blocks 1/553 (scen-tour-Samurai-92161 step 37/88 kind=rng: C 1× rnd(5)@score_targ then distfleeck vs JS wolf+samurai 2×; dog loop proven faithful, see Parked `dogmove.c` W3). Deliverable: TEMP-C re-record with log-only find_targ/best_target dump in the ignored recorder tree (W2-park recipe: `nethack-c/recorder/src/dogmove.c` per-ray m_at/minvis/mundetected/head-square + pet mux/muy + best_target per-ray scores at step 37, `make Sysunix CC="cc -arch x86_64"`, revert + rebuild after; probes in /tmp, never committed), then the writer's Open row with the session as evidence (suspect unseen-layout/lifecycle writer: C (54,7)/(55,8) content vs JS samurai@(55,8)); if the dump shows C's loop (not state) differs, re-queue as dog-loop Open instead. No `js/` in the measure commit.
+
+## Deferred (map-driven singletons — not popped by hand)
+
+Plain bullets on purpose (not popped, not counted). During the breadth
+phase a function listed here enters Open only through
+`port-coverage.mjs --rows` (measured gap), or as a same-C-file companion
+of a popped coverage row — never by copying the line.
 
 - `monmove.c` dochug demon/caster retaliation — MS_BRIBE mux skipped by D-1798; live `demon_talk`/`cuss` unwired at monmove.c:823/985 (sounds.c:1143/1150 wired).
 - `artifact.c` artiname/discover_artifact/artidisco[] save-rest — discovery announce + artidisco bit (D-1107 live; save/rest artidisco named; c-js-map data.md).

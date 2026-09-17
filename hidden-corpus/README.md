@@ -39,9 +39,14 @@ scored alongside these.
 
 ## Rules
 
-- These files are evidence and a work picker, **never the specification**.
-  The C source is the specification. A row in `LOOP-QUEUE.md` names the C
-  function that owns a divergence; the fix is that function's port.
+- These files are evidence, **never the specification**. The C source is
+  the specification. A row in `LOOP-QUEUE.md` names the C function that
+  owns a divergence; the fix is that function's port. Since 2026-09-18
+  (breadth phase, Constitution §10.17) the corpus is a **regression
+  fortress**, not the work picker: `hidden-proxy verify <fn>` re-runs the
+  PASS sessions that execute `<fn>` (REACH) and a whole-function port must
+  keep them PASS. It reached 91.7 % while held-out sat at 11/44 — it no
+  longer predicts the judge; `port-coverage.mjs --rows` picks work.
 - Never write a seed, a step index, a recorded coordinate, or an RNG index
   into `js/` to make a corpus session pass. That is the same ban as for the
   public sessions (Constitution §1.2 / playbook §3).

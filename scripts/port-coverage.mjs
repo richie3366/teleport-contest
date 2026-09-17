@@ -7,6 +7,9 @@
  *   node scripts/port-coverage.mjs                # top 40 table
  *   node scripts/port-coverage.mjs --limit 30 --md
  *   node scripts/port-coverage.mjs --name eatfood # explain one function
+ *   node scripts/port-coverage.mjs --rows 12      # LOOP-QUEUE Open rows (breadth phase)
+ *       [--min-c-lines 40] [--exclude a,b]        # skips live queue rows, by-design
+ *                                                 # names, one-liners; flags split ports
  *
  * Method (all static, deterministic, read-only):
  *  1. index every function defined in nethack-c/upstream/src/*.c
@@ -22,6 +25,7 @@
 import { readdirSync, readFileSync, existsSync } from 'node:fs';
 import { join, dirname, relative, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { execSync } from 'node:child_process';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const cSrc = join(root, 'nethack-c/upstream/src');
@@ -48,6 +52,24 @@ const arg = (k, d) => {
 const LIMIT = parseInt(arg('--limit', '40'), 10);
 const AS_MD = argv.includes('--md');
 const ONE = arg('--name', null);
+const ROWS = argv.includes('--rows') ? parseInt(arg('--rows', '12'), 10) : 0;
+const MIN_C_LINES = parseInt(arg('--min-c-lines', '40'), 10);
+const EXCLUDE_CLI = new Set((arg('--exclude', '') || '').split(',').filter(Boolean));
+
+/* Not ported by design (Constitution §1.5 Rule #2 / §1.6, retired features,
+   frozen RNG wrappers, tty-only menus, fuzzer/debug builds). `--rows` never
+   emits these; the table still shows them so the exclusion stays visible. */
+const BY_DESIGN = new Set([
+  'getlev', 'savelev', 'dosave0', 'dorecover', 'restlevelfile', 'savestateinlock',
+  'savegamestate', 'restgamestate', 'getlev_core', 'save_dungeon', 'restore_dungeon',
+  'dump_everything', 'dump_plines', 'dump_redirect', 'dump_start_screendump',
+  'fuzzer_savelife', 'do_fuzzer_savelife',
+  'rn2', 'rnd', 'rn1', 'rne', 'rnz', 'rnl', 'rn2_on_display_rng',
+  'status_hilite_menu_add', 'status_hilite_menu_choose_behavior',
+  'status_hilite_menu_fld', 'status_hilites_viewall', 'parse_status_hl1',
+  'makelevel', /* split into makelevel + makelevel_ordinary (TOP30 note) */
+  'vision_recalc', /* full C-order port; line ratio lies (LOOP-QUEUE Stale) */
+]);
 
 /* ---------- 1. pinned C function index ---------- */
 const cFiles = readdirSync(cSrc).filter((f) => f.endsWith('.c'))
@@ -209,6 +231,52 @@ rows.sort((a, b) => b.score - a.score);
 if (ONE) {
   const r = rows.find((x) => x.name === ONE) || null;
   console.log(r ? JSON.stringify(r, null, 2) : `${ONE}: covered or not a src/*.c function`);
+  process.exit(0);
+}
+
+/* ---------- --rows: LOOP-QUEUE Open rows for the breadth phase ----------
+   Evidence class `coverage` (LOOP-QUEUE.md header): the gap is measured
+   here, on the JS tree as it is now, not copied from a map/debt line.
+   Excluded: names already in a live `- [ ]` row (Must-fix/Open), BY_DESIGN,
+   `--exclude`, C bodies under --min-c-lines. A MISSING name cited > 20× in
+   js/ is flagged `split?` — the pop-time brief decides (3-call stale rule). */
+if (ROWS) {
+  const queuePath = join(root, 'docs/LOOP-QUEUE.md');
+  const live = new Set();
+  if (existsSync(queuePath)) {
+    let sec = '';
+    for (const line of readFileSync(queuePath, 'utf8').split('\n')) {
+      if (/^## (Must-fix|Open)/.test(line)) { sec = 'live'; continue; }
+      if (/^## /.test(line)) { sec = ''; continue; }
+      if (sec !== 'live' || !/^- \[ \]/.test(line)) continue;
+      for (const m of line.matchAll(/\b([a-z_][a-z0-9_]*)\b/g)) if (cFns.has(m[1])) live.add(m[1]);
+    }
+  }
+  const head = (() => {
+    try { return execSync('git rev-parse --short HEAD', { cwd: root, encoding: 'utf8' }).trim(); } catch { return 'HEAD'; }
+  })();
+  const now = new Date();
+  const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+  const picked = [];
+  for (const r of rows) {
+    if (picked.length >= ROWS) break;
+    if (BY_DESIGN.has(r.name) || EXCLUDE_CLI.has(r.name) || live.has(r.name)) continue;
+    if (r.lines < MIN_C_LINES && !r.dead.length) continue;
+    picked.push(r);
+  }
+  for (const r of picked) {
+    const js = r.jsLines ? `${r.jsLines} L in ${r.jsFiles.split(' ')[0]}` : 'no symbol';
+    const dead = r.dead.length ? `; dead callees: ${r.dead.slice(0, 6).join(', ')}${r.dead.length > 6 ? ', …' : ''}` : '';
+    const split = r.cover === 'MISSING' && r.mentions > 20 ? `; split? cited ${r.mentions}× in js/ — brief first` : '';
+    console.log(
+      `- [ ] \`${r.file}\` ${r.name} — coverage ${r.cover} (C ${r.lines} L \`${r.file}:${r.start}–${r.end}\` / JS ${js}; `
+      + `hops ${r.d === 9 ? '—' : r.d}, callers ${r.calls}, RNG ${r.rng}, msg ${r.out}${dead}${split}). `
+      + `Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. `
+      + `Verify \`node scripts/verify.mjs --fn ${r.name}\` (reach regression must be 0). `
+      + `Measured \`port-coverage.mjs --name ${r.name}\` ${today} @ ${head}.`,
+    );
+  }
+  console.error(`${picked.length} row(s); ${live.size} live queue name(s) skipped; ${BY_DESIGN.size} by-design names; min C lines ${MIN_C_LINES}.`);
   process.exit(0);
 }
 const top = rows.slice(0, LIMIT);

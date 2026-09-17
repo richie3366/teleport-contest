@@ -64,14 +64,20 @@ This is an audit against **pinned C**, not against the commit message.
    read is.
 5. Hallucination check: does the D-log / CURRENT / subject say “Match C”
    for a **dispatch** while the **callee** is a stub? Say so explicitly.
-6. Density §2b. Verification: the D-log Verify bullet must show
-   `hidden-proxy verify <fn>` → PROGRESS/PASS, or say explicitly that no
-   corpus session is blocked on that function; then green + **relevant**
-   cohort. NO MOVEMENT presented as a named omission is QUALITY-RISK.
+6. Density §2b — **breadth phase (Constitution §10.17):** a coverage row
+   asked for the **whole** C function. Compare the C body's arms/cases
+   with the JS: an arm-only port sold as the function, an unwired C
+   caller, or a callee left as a silent stub is QUALITY-RISK with a
+   Must-fix row naming the missing arms. Verification: the D-log Verify
+   bullet must show `hidden-proxy verify <fn>` → PROGRESS/PASS (or the
+   vacuous note) **and** `REACH-OK`; then green + **relevant** cohort.
+   NO MOVEMENT presented as a named omission is QUALITY-RISK.
    **Re-measure the corpus claim yourself:** run
-   `node scripts/hidden-proxy.mjs verify <fn> --base HASH~1` (the
-   sessions blocked at the parent commit, re-run on this SHA's code) and
-   cite its summary line. A bullet that says "PASS hidden" or "no corpus
+   `node scripts/hidden-proxy.mjs verify <fn> --base HASH~1 --reach-all`
+   (the sessions blocked at the parent commit plus every baseline-PASS
+   session that executes `<fn>`, re-run on this SHA's code) and cite both
+   summary lines. Any `REGRESSED` session is a C-wrong the port
+   introduced → QUALITY-RISK + Must-fix row naming session and owner. A bullet that says "PASS hidden" or "no corpus
    session is blocked" while the queue row cited N blocks is a vacuous
    check (a verify earlier in that iteration rewrote the baseline); if
    your re-run shows WORSE or "still <fn> at a later step" for sessions
@@ -122,12 +128,11 @@ Must-fix prepend is a failed review — the supervisor will halt.
 After every listed SHA already has its file on disk: journal crumb.
 Cadence score (full `sessions`) if this is the audit overlay.
 `node scripts/check-hot-docs.mjs --fix --review NN …` (this iter’s
-review ids; do not count). `ok` = no cap edit. If REFILL, append Open
-to ~12 with **evidence rows only** (`LOOP-QUEUE.md` header): untagged
-`node scripts/hidden-proxy.mjs queue --limit 30` owners, park-named
-writers, `[campaign]`/`[measure]` rows; map omits only at ≥ 90 % corpus
-PASS, never a map/debt copy. **Then** one grouped commit **and**
-`git push origin HEAD`.
+review ids; do not count). `ok` = no cap edit. If REFILL, append
+`node scripts/port-coverage.mjs --rows N` output verbatim under **Open —
+coverage** (to ~12; breadth phase, Constitution §10.17) — never a
+map/debt copy, never a `[measure]` row (phase 2). **Then** one grouped
+commit **and** `git push origin HEAD`.
 
 ## STOP
 

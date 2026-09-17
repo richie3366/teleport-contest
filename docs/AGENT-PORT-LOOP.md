@@ -135,12 +135,13 @@ MODEL=cursor-grok-4.6-high ./scripts/agent-port-loop.sh
 │       continue latch: force port (or audit) and skip n%10 for       │
 │             that one global #; leftover dirty tree is the cluster   │
 │       port: Must-fix beats Open; if open count < 8, agent refills  │
-│             evidence rows only (queue owners, park-named writers,  │
-│             [campaign]/[measure]; target 12) then ships one cluster│
+│             evidence rows only (port-coverage --rows first, then   │
+│             queue owners / park-named writers; target 12) then     │
+│             ships one whole C function (200–800 js/ lines)         │
 │       snapshot js/; remember HEAD; run agent (commit + push)       │
 │       FAIL-CLOSED (revert HEAD + STOP=1 if not yet on origin):     │
 │         3× short runs, tool denials, protected edit,               │
-│         js/ on audit, empty committed port, density >600/10,       │
+│         js/ on audit, empty committed port, density >1500/15,      │
 │         QUALITY-RISK/REJECT with no new Must-fix row               │
 │       WARN + CONTINUE (no STOP): green / full-suite fail;          │
 │         banned-pattern (unpushed → revert; pushed → heal prompt);  │
@@ -413,7 +414,7 @@ Under `.agent-port-loop-logs/` (gitignored):
 | `AGENT_TRUST` | `1` | Cursor: `--trust`. Muse without `--yolo`: `--trust-workspace`. Unused for Claude `-p`. |
 | `AGENT_FORCE` | `0` | Cursor: `--force`. Muse: `--yolo`. Claude: `--dangerously-skip-permissions --permission-mode bypassPermissions` |
 | `AGENT_OUTPUT_FORMAT` | `stream-json` | Cursor only; `--muse` always uses `--json`; `--claude` always uses `stream-json` |
-| `ITERATION_TIMEOUT_SEC` | `3600` | Kill an overlong agent run (then **retry** as continue-unfinished, same as crash-before-commit) |
+| `ITERATION_TIMEOUT_SEC` | `5400` | Kill an overlong agent run (then **retry** as continue-unfinished, same as crash-before-commit). 3600 before the 2026-09-18 breadth phase |
 | `SHORT_ITER_SEC` | `30` | Agent wall-clock under this counts toward token-exhaustion streak |
 | `SHORT_STREAK_LIMIT` | `3` | Consecutive short runs before the loop halts |
 | `--token-budget-m` (CLI) | unset | Cap this run at *n* million tokens (all usage kinds); not persisted |
@@ -425,8 +426,8 @@ Under `.agent-port-loop-logs/` (gitignored):
 | `LOOP_NEXT_PROMPT` | unset | Path copied like `--next-prompt` |
 | `LOOP_NEXT_MODE` | unset | Same as `--next-mode` |
 | `LOOP_CADENCE_EVERY` | `10` | Review + full-suite score when `n % this == 0` |
-| `LOOP_MAX_JS_INSERTIONS` | `600` | Halt+revert if a port iter exceeds this `js/` insertion count |
-| `LOOP_MAX_JS_FILES` | `10` | Halt+revert if a port iter touches more `js/` files |
+| `LOOP_MAX_JS_INSERTIONS` | `1500` | Undo the iteration if a port iter exceeds this `js/` insertion count (600 before the 2026-09-18 breadth phase: whole-function ports target 200–800 lines) |
+| `LOOP_MAX_JS_FILES` | `15` | Undo the iteration if a port iter touches more `js/` files (10 before 2026-09-18) |
 | `LOOP_QUEUE_MIN` | `8` | Agent must refill Open when live `- [ ]` count is below this |
 | `LOOP_QUEUE_TARGET` | `12` | Refill up to about this many open rows |
 | `LOOP_PUSH` | `1` | Supervisor `git push origin HEAD` after gates |
@@ -513,7 +514,7 @@ Halt reason is still `last-halt-reason.txt`.
 | Park share climbs (≥ 3 `Park …` commits in 10 port iters) | Refill leaked non-evidence rows. `check-hot-docs` FAILs live rows without evidence; `hidden-proxy queue` tags open/parked/archived owners. 2026-09-09..15: 126/362 iterations were parks, 109/161 parked rows stale copies of shipped work |
 | Dirty tree at start | Loop refuses to launch, unless a continue latch is armed (`--continue-unfinished`, crash leftover, or dirty tree + `NEXT_AGENT_PROMPT.md`) |
 | QUALITY-RISK with no Must-fix | Review-debt overlay for the next iteration (any mode); continue |
-| Queue empty after port | Agent failed to refill (evidence rows: `hidden-proxy queue` untagged owners, park-named writers, `[campaign]`/`[measure]` rows) — halt |
+| Queue empty after port | Agent failed to refill (breadth phase: `node scripts/port-coverage.mjs --rows N` pasted verbatim; phase 2: `hidden-proxy queue` untagged owners, park-named writers, `[campaign]`/`[measure]` rows) — warn + next-iter overlay |
 
 The shell parses `__RESULTS_JSON__` (the frozen runner exits 0 on FAIL),
 enforces density, one-loop locking, protected-path hashes, finite

@@ -8,14 +8,23 @@ Parks are indexed in `LOOP-QUEUE.md` **Parked** (one line each, class +
 falsifier; proofs in `docs/archive/LOOP-QUEUE-PARKED.md`). Do not list them
 here again. Live hypotheses only:
 
+- **Breadth phase (architect, 2026-09-18 — Constitution §10.17):**
+  hypothesis: held-out (11/44, RNG 26.6 %, screens 50 %) is bounded by
+  *missing C*, not by the corpus residuals — 2,345/4,868 pinned-C functions
+  MISSING/THIN, held-out sessions are wizard-mode tours that walk into them.
+  Falsifier: `node scripts/leaderboard.mjs` after ~30 whole-function
+  iterations (≈ iteration 3190); held-out passing/RNG % not moving while
+  `port-coverage.mjs` MISSING/THIN count falls ⇒ the picker is wrong, human
+  revisits. Phase-2 rows (`[measure]`, parks, `hidden-proxy queue`) stay
+  closed meanwhile; the corpus is guarded by REACH in `verify.mjs`.
+  Everything below this bullet is phase-2 context — do not act on it now.
+
 - **obj_resists writers (D-2407/2413-15, MEASURED):** `steal.c` relobj `flooreffects` + Knight/Arch/Healer arms (detail in D-logs). Falsified — do not re-check: fire-trap burn, fmon-order, polyuse, monstone, bury, steal.
 
 - **2026-09-16 process take (measured):** 126/362 non-audit iterations
-  2026-09-09..15 were parks; 109/161 parked rows were stale copies of
-  shipped work from `data.md`/`debt.md`/TOP30 refills. Falsifier for the
-  fix: park share over the next 30 port iterations
-  (`git log --format=%s -60 | rg -c '^Park'`) — expect ≤ 3, all diagnostic
-  (writer or `[measure]` row added in the same commit).
+  2026-09-09..15 were parks; 109/161 parked rows were stale copies from
+  `data.md`/`debt.md`/TOP30. Superseded by the breadth phase (parks closed;
+  rows come from `port-coverage.mjs --rows`, measured at enqueue).
 - **Corpus remainder is paint-timing + writer misattribution, not bodies:**
   `hidden-proxy queue` now prints the differing screen row (e.g. row 23
   `AC:6` vs `AC:10`; row 4 «You were held by a pit fiend» vs «You weren't
@@ -27,8 +36,8 @@ here again. Live hypotheses only:
 - **R-1082 music path live:** `seemimic` js/music.js:312; omit is trap-clone-only.
 - **Eval-order TDZ (D-2349):** no static edge to polyself at eval; late-bind setters.
 - **Fortress guards** (do not reopen): display_inventory, stock_room engraving, inside_shop clone, level_tele, priestname, Rogue S_ndoor, bigrm-2, getpos, summonmu, lookat, do_statusline1, snapshot, fakewiz, Ice/Boulder, roles[], pickup_checks, doloot_core, themerms, look_here, Bar-goal, castmu, medusa/soko/Wiz, Knight/Rogue lua.
-- **distfleeck residuals (D-2420 MEASURED, 6 writer rows):** tags+probe → 5 single-draw shifts (W1 Rogue/Samurai92239 distfleeck; W2 Healer mfndpos; W3 Samurai92161 score_targ; W5 Wizard doopen_indir) + 2 branch divergences (W4 Tourist fox-detach; W6 Caveman overload-gate). Falsified — do not re-check: scared re-port, MAIL arm, seed/step/coords logic.
-- **do_statusline2 residuals (MEASURED D-2425, 2 writer rows):** W1 Healer-92107 = `mhitm_ad_cold` (void)-discard — JS `mhitm_ad_cold_u` adds destroy return (mdamageu 10+5=15 vs C 10; Δ5 = rnd(4) 3+2); W2 Satiated pair (92092/91125) = eat-progress timing — JS `uhs` satiated a bite early, paints a turn late (newuhs no-botl early return). Monk-92194 Pw = D-2161 gulpmu residual (JS drains a turn late) — no new row. Probes in /tmp (botl-probe, uhs-scan, probe125 copy), kept out of repo.
+- **distfleeck residuals (D-2420 MEASURED):** W5 Wizard `doopen_indir` + W6 Caveman overload-gate remain as corpus-residual Open rows (detail in D-2420); W1/W4 shipped, W2/W3 parked with `[measure]` rows (Phase 2 section). Falsified — do not re-check: scared re-port, MAIL arm, seed/step/coords logic.
+- **do_statusline2 residuals (D-2425 MEASURED):** W1 Healer-92107 `mhitm_ad_cold_u` extra destroy return; W2 Satiated pair = eat-progress `uhs`/botl timing — both are corpus-residual Open rows (detail in D-2425). Monk-92194 Pw = D-2161 gulpmu residual, no new row.
 ## Don't re-check (≤15)
 
 - D-1790…D-2431 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.

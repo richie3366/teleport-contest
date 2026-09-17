@@ -10,7 +10,7 @@
  *
  * ok     = at target or within +33% — no edit.
  * ROTATE = journal overflow — re-run with --fix (do not copy crumbs).
- * REFILL = queue below 8 — append Open from the map.
+ * REFILL = queue below 8 — append Open rows (`port-coverage.mjs --rows`).
  * FAIL   = beyond +33% — prune/trim that file.
  * missing= review id not found.
  *
@@ -130,7 +130,9 @@ function queueCounts(text) {
  *  measure tag, a throw/hang, or an explicit "unverified at enqueue" flag
  *  that tells the porter to run the stale check first. Live Parked lines
  *  are an index (≤ PARKED_LINE_MAX chars); proofs live in the archive. */
-const EVIDENCE_RE = /blocks \d+\/\d+|absent from js\/|\[campaign|\[measure\]|ETIMEDOUT|ReferenceError|js-throw|unverified at enqueue|Source: reviews\//;
+/* `coverage MISSING|THIN|PARTIAL` = breadth-phase row emitted by
+   `port-coverage.mjs --rows` (gap measured on the JS tree at enqueue). */
+const EVIDENCE_RE = /blocks \d+\/\d+|absent from js\/|coverage (MISSING|THIN|PARTIAL)|\[campaign|\[measure\]|ETIMEDOUT|ReferenceError|js-throw|unverified at enqueue|Source: reviews\//;
 const PARKED_LINE_MAX = 400;
 const PARKED_GROUPED_LINE_MAX = 1500;
 function queueHygiene(text) {
@@ -434,7 +436,7 @@ FAIL / ROTATE / REFILL / missing = do that action only.`);
         'LOOP-QUEUE',
         `mf=${mf} open=${open} total=${total}  (band ${QUEUE_MIN}–${QUEUE_TARGET})`,
         '',
-        `LOOP-QUEUE: append evidence rows to ~${QUEUE_TARGET} (hidden-proxy queue untagged owners, park-named writers, [campaign]/[measure]) — never map/debt copies`,
+        `LOOP-QUEUE: append evidence rows to ~${QUEUE_TARGET} — breadth phase: \`node scripts/port-coverage.mjs --rows N\` (coverage rows); then hidden-proxy queue untagged owners, park-named writers, [campaign]/[measure] — never map/debt copies`,
       );
     } else {
       add(
@@ -452,7 +454,7 @@ FAIL / ROTATE / REFILL / missing = do that action only.`);
         'LOOP-QUEUE evidence',
         `${noEvidence.length} live row(s) without evidence`,
         noEvidence[0],
-        'each Open row needs `blocks N/M`, `absent from js/…`, `[campaign`, `[measure]`, a throw/hang, or `unverified at enqueue` (LOOP-QUEUE.md header)',
+        'each Open row needs `coverage MISSING|THIN|PARTIAL` (port-coverage --rows), `blocks N/M`, `absent from js/…`, `[campaign`, `[measure]`, a throw/hang, or `unverified at enqueue` (LOOP-QUEUE.md header)',
       );
     } else {
       add('ok', 'LOOP-QUEUE evidence', 'every live row carries evidence', '', '');

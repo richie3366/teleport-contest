@@ -1,5 +1,15 @@
 # Held-out coverage gaps — what to port next
 
+**Status 2026-09-18.** Tier A and Tier B are **done**: all 126 `dat/*.lua`
+level scripts have a `js/mklev.js` protofile loader (`rg -o "protofile ===
+'([A-Za-z0-9_-]+)'" js/mklev.js | sort -u` → 126; the 5 unmatched names —
+`dungeon`, `nhcore`, `nhlib`, `quest`, `themerms` — are not levels). Do not
+enqueue level rows from this file. **Tier C** (behaviour clusters) is still
+the right *shape* of the held-out deficit; its live, machine-measured form
+is `node scripts/port-coverage.mjs --rows` (Constitution §10.17 breadth
+phase), which is the only refill source — this file explains *why* those
+functions matter, it is not copied into the queue by hand.
+
 **What this is.** A refill source for `docs/LOOP-QUEUE.md` **Open**, ordered
 **cheapest × most-reached first**. Where `docs/PORT-GAP-TOP30.md` ranks *functions*
 by hidden-score risk, this file ranks **content and subsystem coverage** — the

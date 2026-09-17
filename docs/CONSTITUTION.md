@@ -253,7 +253,8 @@ clearly marked temporary and scheduled for deletion.
     session and no C RNG/message surface are Deferred while any family is
     below 90 %. Twice (2026-09-04 public 44/44, 2026-09-06 mutant corpus
     96 %) the loop kept shipping display singletons against a saturated
-    signal while held-out sat at 7/44.
+    signal while held-out sat at 7/44. **Suspended during the breadth
+    phase (§10.17)**, whose picker is measured coverage, not the corpus.
 14. **A JS throw or worker hang in any corpus session is a Must-fix**,
     ahead of every Open row: a `ReferenceError` at step 0 (or an
     `ETIMEDOUT` sync spin) forfeits every screen of the session, and the
@@ -278,6 +279,25 @@ clearly marked temporary and scheduled for deletion.
     and keeps the fortress. Parked corpus owners are the remaining held-out
     signal; they are worked through their writers, never by re-porting the
     symptom owner and never by padding the queue from the map.
+17. **Breadth phase (human decision 2026-09-18).** The local corpus stopped
+    predicting the judge: on 2026-09-17 it read 495/540 PASS (91.7 %) while
+    the leaderboard read held-out **11/44, RNG 26.6 %, screens 50.0 %**
+    (best agentic fork: 35/44, 93 %). Until a human closes the phase in
+    `CURRENT.md`, the work picker is **measured coverage**, not corpus rows:
+    `node scripts/port-coverage.mjs --rows` names the pinned-C functions
+    that are MISSING or THIN in `js/`, ranked by reach × loudness and
+    measured on the JS tree at enqueue (evidence class `coverage`, §10.15).
+    An iteration ports **one whole C function** — every arm, every callee
+    live or named, every C caller wired — 200–800 lines of C-faithful JS,
+    never one arm of it. §10.13's deferral of map singletons is suspended
+    for the phase; §10.14 (throws are Must-fix) and §10.15–16 stand. The
+    public 44 **and** the corpus PASS set are the regression fortress:
+    `verify.mjs --fn` re-runs the corpus sessions that execute the function
+    (REACH) and any PASS→FAIL fails the iteration — fix the port, never the
+    session. Corpus-driven debugging (`[measure]` rows, parks, writers) is
+    **phase 2**, reopened by a human; audits still re-score the corpus and
+    record the leaderboard held-out line (`scripts/leaderboard.mjs`), which
+    is the only number that measures the phase.
 
 ---
 

@@ -63,7 +63,7 @@ JSON by offsets is the failure mode this prompt exists to stop
    journal tail. Archive the queue line only if **this leftover** was
    already the popped item (`- [x]` + `archive-loop-queue-done.mjs`).
 8. **Commit and `git push origin HEAD`.** No force-push, no amend of
-   pushed commits. Density cap still applies (`js/` +600 / 10 files vs
+   pushed commits. Density cap still applies (`js/` +1500 / 15 files vs
    HEAD). Contest Rule #2: no `fs` / `node:*` / `readFileSync` in scored
    `js/`. Remove DIAG/FORCE / seed gates.
 

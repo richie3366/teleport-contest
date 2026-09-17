@@ -3,50 +3,41 @@ port loop. Do **not** port new C. Do **not** edit `js/` except if you
 must fix a typo in a comment you are not here to write — default is
 **zero `js/` edits**.
 
-## Mandatory (2 calls)
+## Mandatory (3 calls)
 
 ```bash
 node frozen/ps_test_runner.mjs sessions
 node scripts/hidden-proxy.mjs score --jobs 8
+node scripts/leaderboard.mjs
 ```
 
 Parse `__RESULTS_JSON__`. Rewrite `docs/CURRENT.md` Score: pass count,
-screen/RNG aggregates, speed label, PASS list, notable non-PASS. Under it,
-rewrite the **Hidden-score proxy** line from the `score` summary: PASS
-count excluding env-only rows, RNG %, screens %, and the top three
-blocking owners with their session counts (the proxy is the number the
-loop is trying to move; the public 44 are the regression fortress).
-Update `docs/NOTES.md` landmarks/score echo. Prepend a short crumb to
-`docs/AGENT-LOOP-JOURNAL.md`. Then `node scripts/check-hot-docs.mjs --fix`
-(do not count lines/boxes; do not copy crumbs by hand).
+screen/RNG aggregates, speed label, PASS list, notable non-PASS; the
+**Held-out** row from `leaderboard.mjs` (passing, points, RNG %, screens
+%, date — this is the objective of the breadth phase, Constitution
+§10.17); the **Corpus fortress** line from the `score` summary (PASS
+count excluding env-only rows, RNG %, screens %). Compare the new
+scoreboard with the committed one (`git diff --stat hidden-corpus/
+scoreboard.json`; `hidden-proxy show <id>` per changed row): every
+session that was PASS and is not anymore is a **Must-fix** row naming
+the owner, the session and the port SHAs since the last audit (`git log
+--oneline -- js/`). Update `docs/NOTES.md` landmarks/score echo. Prepend
+a short crumb to `docs/AGENT-LOOP-JOURNAL.md`. Then `node
+scripts/check-hot-docs.mjs --fix` (do not count lines/boxes; do not copy
+crumbs by hand).
 
-**Keep the proxy unsaturated (Constitution §10.13).** If the `score`
-summary shows every corpus family ≥ 85 % PASS (`scen-*` included), run
-
-```bash
-node scripts/scenario-gen.mjs --n 120 --seed $((ITER * 100)) --jobs 6
-node scripts/hidden-proxy.mjs score --jobs 8
-```
-
-(ITER = this global iteration number; new recipes land in
-`hidden-corpus/recipes/`, commit them with the scoreboard), then rebuild
-**Open** from `node scripts/hidden-proxy.mjs queue --limit 30` — corpus
-owners replace map singletons, which move to `LOOP-QUEUE.md` Deferred.
-Any `js-throw` owner becomes a **Must-fix** row (§10.14).
+**Corpus growth (`scenario-gen.mjs`) and `hidden-proxy queue` refills
+are phase 2** — closed during the breadth phase; do not run them. Any
+`js-throw` owner in the new scoreboard is still a **Must-fix** row (§10.14).
 
 If any public session failed: journal the failure, **do not** invent a
 peel, **do not** “align” tests. Do not pop a new queue item. You **may**
 archive leftover `- [x]` (`node scripts/archive-loop-queue-done.mjs`)
 and fill missing Addressed hashes. If `check-hot-docs` says REFILL,
-append **evidence-carrying** Open rows only (`LOOP-QUEUE.md` header):
-`node scripts/hidden-proxy.mjs queue` owners not tagged
-open/parked/archived, the **writer** a Parked line names (with its
-session), `[campaign]` steps, a `[measure]` row for the top parked corpus
-owner, then TOP30 rows whose missing arm you verified in a brief; map
-omits only at ≥ 90 % corpus PASS. One C family per line, to ~12, never a
-seed-shaped row, never a map/debt line copied without checking the JS. The supervisor
-logs a full-suite FAIL and continues; the next port pops Must-fix if an
-audit review prepended one.
+append `node scripts/port-coverage.mjs --rows N` output verbatim under
+**Open — coverage** (to ~12); never a hand-written map/debt/TOP30 copy,
+never a seed-shaped row. The supervisor logs a full-suite FAIL and
+continues; the next port pops Must-fix if an audit review prepended one.
 
 ## Git
 

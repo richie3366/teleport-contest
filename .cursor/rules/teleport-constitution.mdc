@@ -52,23 +52,27 @@ by default. Use `DIVERGENCE-INDEX.md` + one entry.
   the relevant `docs/c-js-map/*.md` section.
 - Do **not** edit frozen contracts for scoring: `js/isaac64.js`, `js/terminal.js`, `js/storage.js` (judge overlays them).
 
-## When public suite is PASS
+## Breadth phase (2026-09-18, Constitution §10.17)
 
-Treat local full-suite PASS as a **regression fortress**. Work comes from
-the **scenario corpus** (`LOOP-QUEUE.md`: Must-fix, then Open rows that
-carry evidence — a corpus block, a park-named writer, a `[campaign]` step,
-a `[measure]` row, or a C arm verified absent from the JS body), not from
-invented FAIL peels, leaderboard chasing, or `c-js-map`/`debt.md`/TOP30
-lines copied without reading the JS (109 of 161 parks were such copies;
-Constitution §10.15–16). A stale row is a 3-call detour, never an
-iteration. One **semantic cluster** per iteration (related deferrals OK);
-denser than one-bullet peels; see `GROK-PLAYBOOK.md` §2a–2b. For tagged
-restore/other-floor omits run
-`node scripts/save-oracle.mjs probe --omit '<C file>:<fn>'` (no-op if
-untagged). Do not shop the fork dashboard for a new peel. This rule's
-constitution/playbook/runbook/prompt edits were one-shot process takes
-(2026-09-06, 2026-09-16); ordinary later loop iters follow that text and
-must not rewrite it.
+Public 44/44 **and** the corpus PASS set are the **regression fortress**;
+neither picks work. Held-out (leaderboard) is the objective: 11/44, RNG
+26.6 %, screens 50.0 % on 2026-09-17 while the local corpus read 91.7 % —
+the corpus stopped predicting the judge. Work comes from **measured
+coverage**: `LOOP-QUEUE.md` Must-fix first, then Open rows emitted by
+`node scripts/port-coverage.mjs --rows` (`coverage MISSING|THIN|PARTIAL`,
+measured on the JS tree at enqueue). One iteration = **one whole C
+function** — every arm, every callee live or named in the map, every C
+caller wired — 200–800 lines of C-faithful JS; one arm of it is a failed
+handoff. Stale row (brief shows the body already complete) = one Parked
+line, next row, same iteration. `verify.mjs --fn` must end REACH-OK: a
+corpus session that matched C before the port must still match; fix the
+port, never the session. Corpus-driven debugging (`[measure]`, parks,
+writers, `hidden-proxy queue`) is **phase 2** — a human reopens it in
+`CURRENT.md`. No `c-js-map`/`debt.md`/TOP30 lines copied by hand (109 of
+161 parks were such copies; §10.15). Do not shop the fork dashboard for a
+peel. This rule's constitution/playbook/runbook/prompt edits were one-shot
+process takes (2026-09-06, 2026-09-16, 2026-09-18); ordinary loop iters
+follow that text and must not rewrite it.
 
 ## When fixing divergence
 

@@ -1,14 +1,21 @@
 # Top 30 port gaps by hidden-score risk
 
+**Status 2026-09-18 (breadth phase, Constitution §10.17).** This table is a
+2026-09-04 snapshot of `port-coverage.mjs`. The **live** ranking is
+`node scripts/port-coverage.mjs --limit 60 --md`, and `LOOP-QUEUE.md`
+**Open — coverage** is refilled only from `node scripts/port-coverage.mjs
+--rows N` (measured on the JS tree at enqueue, live rows and by-design
+names skipped). Never copy a row from this file into the queue by hand —
+rows 1, 2, 3, 8 and 12 below (`newuhs`, `nh_timeout`, `dmgval`,
+`spoteffects`, `x_monnam`) already measure **covered** on 2026-09-18, and a
+hand copy is exactly the stale-row class §10.15 bans. Read it
+for *why* a function matters and *which arms* the port lacked.
+
 **What this is.** The pinned-C functions most likely to cost points on
 sessions we cannot see: functions an ordinary game reaches often, that
 draw RNG or print, and whose `js/` port is missing or thin. The public
-suite is 44/44. **Since 2026-09-06 this table is the second source**:
-the scenario corpus (`docs/HIDDEN-PROXY.md` §4–5, `node
-scripts/hidden-proxy.mjs queue`) measures which of these a held-out-style
-session actually hits, and `LOOP-QUEUE.md` Open is built from that. Use
-this file to pick *which arm* of a reached function to port, and to refill
-when the corpus queue is exhausted.
+suite is 44/44. Use this file to understand *which arm* of a reached
+function is missing; the queue itself comes from the live ranking above.
 
 **Reproduce:** `node scripts/port-coverage.mjs --limit 40` (add `--md`
 for a table, `--name <fn>` to explain one function). The script indexes

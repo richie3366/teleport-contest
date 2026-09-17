@@ -28,11 +28,16 @@
  *       moved to a later owner, which did not move. Re-running verify in
  *       the same iteration re-runs the same sessions (the baseline is not
  *       the file verify itself rewrites). Reviews: --base <sha>~1.
+ *       Then the REACH check: baseline-PASS sessions whose C RNG log tags
+ *       <fn> are re-run (spread of --reach-max 80; --reach-all; --no-reach);
+ *       any PASS→FAIL is REACH-REGRESSION (exit 1). No reach set → a fixed
+ *       24-session smoke spread. A whole-function port must keep both 0.
  *   node scripts/hidden-proxy.mjs show <sessionId>
  *   node scripts/hidden-proxy.mjs status
  *
- * The number to move is the pass rate printed by `status`. The public 44
- * stay the regression fortress; this corpus is the work picker.
+ * 2026-09-18 breadth phase (Constitution §10.17): the picker is
+ * `port-coverage.mjs --rows`; this corpus is a regression fortress guarded
+ * by the REACH check in `verify`. `queue`/`scenario-gen` are phase 2.
  */
 import { spawn, spawnSync } from 'node:child_process';
 import {
@@ -408,48 +413,115 @@ function baselineRows(rev) {
     } catch { return null; }
 }
 
+/* Sessions whose recorded C RNG log tags <fn> (`… @ fn(file.c:line)`): the
+   recorder names the C function of every draw, so this is "which corpus
+   sessions actually execute fn" for any function that draws RNG. */
+function reachSessions(fn) {
+    const dirs = [SESSIONS, PRIVATE].filter((d) => existsSync(d));
+    if (!dirs.length) return [];
+    const r = spawnSync('rg', ['-l', '--fixed-strings', `@ ${fn}(`, ...dirs], { encoding: 'utf8', maxBuffer: 1 << 26 });
+    if (r.status !== 0 && r.status !== 1) return [];
+    return (r.stdout || '').split('\n').filter((l) => l.endsWith('.session.json')).map(stem).sort();
+}
+
+/* Evenly spaced pick over a sorted id list: ids sort by family prefix
+   (explore-, ind-, random-, scen-death-, scen-genesis-, …), so a spread
+   sample covers every family. Deterministic — the same fn re-runs the same
+   sessions, in this iteration and in the review's re-measure. */
+function spread(list, max) {
+    if (list.length <= max) return list;
+    const out = [];
+    for (let i = 0; i < max; i++) out.push(list[Math.floor((i * list.length) / max)]);
+    return out;
+}
+
 async function cmdVerify(fn) {
-    if (!fn) { console.error('usage: verify <C function> [--base <git-rev>|working] [--jobs N]'); process.exit(2); }
+    if (!fn) { console.error('usage: verify <C function> [--base <git-rev>|working] [--jobs N] [--reach-max N|--reach-all|--no-reach]'); process.exit(2); }
     const baseRev = val('base', 'HEAD');
     const base = baseRev === 'working' ? null : baselineRows(baseRev);
     if (baseRev !== 'working' && !base) console.log(`verify ${fn}: no committed scoreboard at ${baseRev}; using the working scores as baseline`);
     const prev = loadScores();
+    const jobs = Number(val('jobs', 6));
     const blockedIn = (rows) => Object.values(rows).filter((r) => r.owner === fn).map((r) => r.id);
     const baseIds = base ? blockedIn(base.rows) : [];
     const workIds = blockedIn(prev.rows);
     const ids = [...new Set([...baseIds, ...workIds])];
     console.log(`verify ${fn}: baseline ${base ? `${baseRev} (scoreboard at ${base.commit}, ${base.at})` : 'working scores'} — ${ids.length} session(s) blocked on it (${baseIds.length} at baseline, ${workIds.length} in the working scoreboard)`);
+    let exitCode = 0;
     if (!ids.length) {
-        console.log(`verify ${fn}: no corpus session is blocked on it at ${base ? baseRev : 'working'} — a vacuous verify is NOT a corpus PASS. If the queue row cited N corpus blocks, re-run with --base <the commit that row was queued at>; otherwise ship with the public gates and say so in the D-log.`);
-        return;
-    }
-    const entries = corpusEntries().filter((e) => ids.includes(e.id) && existsSync(e.session));
-    const missing = ids.filter((id) => !entries.some((e) => e.id === id));
-    if (missing.length) console.log(`  (${missing.length} blocked session(s) have no cached recording — \`node scripts/hidden-proxy.mjs record\`: ${missing.slice(0, 5).join(', ')}${missing.length > 5 ? ', …' : ''})`);
-    const res = await pool(entries, Number(val('jobs', 6)), async (e) => ({ ...(await runWorker(e.session)), id: e.id, src: e.src }));
-    let passed = 0, moved = 0, sameStep = 0, stillFn = 0, stuck = 0, worse = 0;
-    for (const r of res) {
-        const before = (base && base.rows[r.id]) || prev.rows[r.id] || {};
-        prev.rows[r.id] = r;
-        let verdict;
-        if (r.passed) { verdict = 'PASS'; passed++; }
-        else if (before.passed) { verdict = `WORSE: was PASS at baseline, now ${r.owner || 'js-throw'} at step ${r.step}`; worse++; }
-        else if ((r.step ?? -1) > (before.step ?? -1) || (r.owner !== fn && (r.step ?? 0) >= (before.step ?? 0))) {
-            const same = (r.step ?? -1) === (before.step ?? -2);
-            const later = r.owner === fn;
-            verdict = `moved → ${r.owner || 'js-throw'} at step ${r.step} (was ${before.step}${same ? '; same step: re-attributed, read the row diff' : later ? `; still ${fn}, ${r.step - before.step} step(s) later` : ''})`;
-            moved++; if (same) sameStep++; if (later) stillFn++;
+        console.log(`verify ${fn}: no corpus session is blocked on it at ${base ? baseRev : 'working'} — a vacuous verify is NOT a corpus PASS. If the queue row cited N corpus blocks, re-run with --base <the commit that row was queued at>; otherwise ship with the public gates + the reach line below and say so in the D-log.`);
+    } else {
+        const entries = corpusEntries().filter((e) => ids.includes(e.id) && existsSync(e.session));
+        const missing = ids.filter((id) => !entries.some((e) => e.id === id));
+        if (missing.length) console.log(`  (${missing.length} blocked session(s) have no cached recording — \`node scripts/hidden-proxy.mjs record\`: ${missing.slice(0, 5).join(', ')}${missing.length > 5 ? ', …' : ''})`);
+        const res = await pool(entries, jobs, async (e) => ({ ...(await runWorker(e.session)), id: e.id, src: e.src }));
+        let passed = 0, moved = 0, sameStep = 0, stillFn = 0, stuck = 0, worse = 0;
+        for (const r of res) {
+            const before = (base && base.rows[r.id]) || prev.rows[r.id] || {};
+            prev.rows[r.id] = r;
+            let verdict;
+            if (r.passed) { verdict = 'PASS'; passed++; }
+            else if (before.passed) { verdict = `WORSE: was PASS at baseline, now ${r.owner || 'js-throw'} at step ${r.step}`; worse++; }
+            else if ((r.step ?? -1) > (before.step ?? -1) || (r.owner !== fn && (r.step ?? 0) >= (before.step ?? 0))) {
+                const same = (r.step ?? -1) === (before.step ?? -2);
+                const later = r.owner === fn;
+                verdict = `moved → ${r.owner || 'js-throw'} at step ${r.step} (was ${before.step}${same ? '; same step: re-attributed, read the row diff' : later ? `; still ${fn}, ${r.step - before.step} step(s) later` : ''})`;
+                moved++; if (same) sameStep++; if (later) stillFn++;
+            }
+            else if ((r.step ?? 0) < (before.step ?? 0) || (r.rngM || 0) < (before.rngM || 0)) { verdict = `WORSE: now ${r.owner} at step ${r.step} (was ${before.step})`; worse++; }
+            else { verdict = `still ${fn} at step ${r.step}: C«${r.cTopline}» J«${r.jsTopline}»`; stuck++; }
+            console.log(`  ${r.id}: ${verdict}`);
         }
-        else if ((r.step ?? 0) < (before.step ?? 0) || (r.rngM || 0) < (before.rngM || 0)) { verdict = `WORSE: now ${r.owner} at step ${r.step} (was ${before.step})`; worse++; }
-        else { verdict = `still ${fn} at step ${r.step}: C«${r.cTopline}» J«${r.jsTopline}»`; stuck++; }
-        console.log(`  ${r.id}: ${verdict}`);
+        const verdict = worse ? 'REGRESSION' : stuck && !passed && !moved ? 'NO MOVEMENT' : 'PROGRESS';
+        const notes = [sameStep ? `${sameStep} re-attributed at the same step` : '', stillFn ? `${stillFn} still ${fn} at a later step` : ''].filter(Boolean);
+        console.log(`verify ${fn}: ${passed} PASS, ${moved} moved past${notes.length ? ` (${notes.join('; ')})` : ''}, ${stuck} unchanged, ${worse} worse → ${verdict}`);
+        if (worse) exitCode = 1;
     }
+
+    /* Reach regression (breadth phase, 2026-09-18): every corpus session
+       that PASSes at the baseline and executes <fn> is re-run — a
+       whole-function port must leave them PASS. Default: a deterministic
+       spread of ≤ --reach-max (80); --reach-all runs every one; --no-reach
+       skips. No reach set (fn draws no RNG, or nothing reaches it) → a
+       fixed 24-session smoke spread of baseline-PASS sessions instead. */
+    if (!flag('no-reach')) {
+        const baseRows = base ? base.rows : prev.rows;
+        const passAtBase = (id) => !!baseRows[id]?.passed;
+        const all = reachSessions(fn).filter((id) => !ids.includes(id) && passAtBase(id));
+        let label = 'reach';
+        let pick = all;
+        if (!all.length) {
+            label = 'smoke';
+            pick = Object.keys(baseRows).filter(passAtBase).sort();
+            pick = spread(pick, 24);
+        }
+        const max = flag('reach-all') ? Infinity : Number(val('reach-max', 80));
+        const sample = spread(pick, max);
+        const entries = corpusEntries().filter((e) => sample.includes(e.id) && existsSync(e.session));
+        if (!entries.length) {
+            console.log(`reach ${fn}: no baseline-PASS session reaches it and no smoke sample is available → REACH-OK (vacuous)`);
+        } else {
+            const t0 = Date.now();
+            const res = await pool(entries, jobs, async (e) => ({ ...(await runWorker(e.session)), id: e.id, src: e.src }));
+            let ok = 0, bad = 0;
+            for (const r of res) {
+                prev.rows[r.id] = r;
+                if (r.passed) { ok++; continue; }
+                bad++;
+                const rd = r.rowDiff;
+                const where = rd ? ` row ${rd.row} C«${(rd.c || '').slice(0, 50)}» J«${(rd.js || '').slice(0, 50)}»`
+                    : r.kind === 'rng' ? ` C«${r.cEntry}» J«${r.jsEntry}»` : r.error ? ` throw: ${String(r.error).slice(0, 90)}` : '';
+                console.log(`  ${r.id}: REGRESSED — ${r.kind || 'error'}@${r.step}/${r.steps} owner=${r.owner || 'js-throw'}${where}`);
+            }
+            const secs = ((Date.now() - t0) / 1000).toFixed(1);
+            console.log(`${label} ${fn}: ${label === 'reach' ? `${all.length} baseline-PASS session(s) reach it` : 'no RNG-tagged reach; fixed smoke spread'} (${res.length} run, ${secs}s): ${ok} PASS, ${bad} regressed → ${bad ? 'REACH-REGRESSION' : 'REACH-OK'}${all.length > res.length ? ` (spread sample; --reach-all for all ${all.length})` : ''}`);
+            if (bad) exitCode = 1;
+        }
+    }
+
     writeJson(SCORES, { commit: gitHead(), at: new Date().toISOString(), rows: prev.rows });
     writeScoreboard(prev.rows);
-    const verdict = worse ? 'REGRESSION' : stuck && !passed && !moved ? 'NO MOVEMENT' : 'PROGRESS';
-    const notes = [sameStep ? `${sameStep} re-attributed at the same step` : '', stillFn ? `${stillFn} still ${fn} at a later step` : ''].filter(Boolean);
-    console.log(`verify ${fn}: ${passed} PASS, ${moved} moved past${notes.length ? ` (${notes.join('; ')})` : ''}, ${stuck} unchanged, ${worse} worse → ${verdict}`);
-    if (worse) process.exit(1);
+    if (exitCode) process.exit(exitCode);
 }
 
 function cmdShow(id) {

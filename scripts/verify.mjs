@@ -11,6 +11,10 @@
  *   3. hidden    hidden-proxy verify <fn> against the COMMITTED scoreboard
  *                (HEAD, or --base <rev>): every session blocked on that C fn
  *                is re-run on every call. Nothing blocked → `note`, not PASS.
+ *   3b. reach    baseline-PASS corpus sessions whose C RNG log executes <fn>
+ *                (spread of ≤ 80; --reach-max N / --reach-all / --no-reach),
+ *                or a fixed 24-session smoke spread when none reach it. Any
+ *                PASS→FAIL is a FAIL here: the port broke a path that matched.
  *   4. green     seed8000 + seed0900 RNG/screen + strict lengths (per session)
  *   5. cohort    seed1500/1800/0012/0004/0007/2200/0383
  *   6. full      all 44 public sessions (--full, or automatically when a
@@ -60,19 +64,30 @@ line('rule2', bad.length === 0, bad.length ? `${bad.length} banned line(s)` : 'n
       sessions. A vacuous verify (nothing blocked) prints `note`, never PASS. */
 if (fn) {
     const base = val('base', null);
-    const r = sh(process.execPath, ['scripts/hidden-proxy.mjs', 'verify', fn, ...(base ? ['--base', base] : [])]);
+    const extra = [];
+    for (const k of ['reach-max']) if (val(k, null)) extra.push(`--${k}`, val(k, null));
+    for (const k of ['reach-all', 'no-reach']) if (flag(k)) extra.push(`--${k}`);
+    const r = sh(process.execPath, ['scripts/hidden-proxy.mjs', 'verify', fn, ...(base ? ['--base', base] : []), ...extra]);
     const lines = r.out.trim().split('\n');
-    const last = lines[lines.length - 1] || '';
+    const blockedLine = lines.find((l) => new RegExp(`^verify ${fn}: \\d+ PASS, `).test(l)) || '';
+    const reachLine = lines.find((l) => /→ REACH-(OK|REGRESSION)/.test(l)) || '';
     if (/no corpus session is blocked/.test(r.out)) {
-        console.log(`note  hidden   ${last}`);
+        console.log(`note  hidden   verify ${fn}: no corpus session blocked on it at baseline`);
         console.log('               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)');
     } else {
-        const ok = r.code === 0 && !/NO MOVEMENT/.test(last);
-        line('hidden', ok, last, r.out);
-        if (ok) for (const l of lines) if (/^  \S/.test(l)) console.log('     ' + l);
+        const ok = !/WORSE|REGRESSION/.test(blockedLine) && !/NO MOVEMENT/.test(blockedLine);
+        line('hidden', ok, blockedLine, r.out);
+        if (ok) for (const l of lines) if (/^  \S/.test(l) && !/REGRESSED/.test(l)) console.log('     ' + l);
+    }
+    /* Reach regression: baseline-PASS corpus sessions that execute <fn>
+       (or a fixed smoke spread) must all still PASS after the port. */
+    if (reachLine) {
+        const okR = /REACH-OK/.test(reachLine);
+        line('reach', okR, reachLine.replace(/^(reach|smoke) \S+: /, ''), lines.filter((l) => /REGRESSED/.test(l)).join('\n'));
+        if (!okR) console.log('      → a corpus session that matched C before this change no longer does: read its row, fix the port (never the session), re-run verify.');
     }
 } else {
-    console.log('skip  hidden   (no --fn; pass the C function you ported to check the corpus sessions blocked on it)');
+    console.log('skip  hidden   (no --fn; pass the C function you ported to check the corpus sessions blocked on it + the reach regression)');
 }
 
 /* First divergence of every failing public session, in this same call, so

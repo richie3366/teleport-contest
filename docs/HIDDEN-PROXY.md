@@ -1,9 +1,21 @@
 # The hidden-score proxy — how the loop measures what it cannot see
 
-**Status:** adopted 2026-09-04; scenario cohort + saturation rule 2026-09-06. Companion to `PORT-GAP-HELDOUT.md` (what
-content is missing) and `PORT-GAP-TOP30.md` (which functions are thin).
+**Status:** adopted 2026-09-04; scenario cohort + saturation rule 2026-09-06;
+**demoted to regression fortress 2026-09-18** (breadth phase, Constitution
+§10.17). Companion to `PORT-GAP-HELDOUT.md` (what content is missing) and
+`PORT-GAP-TOP30.md` / `port-coverage.mjs` (which functions are thin).
 This file is about **evidence**: where a hidden session's divergence
-comes from, how to find it locally, and how to prove a port moved it.
+comes from, how to find it locally, and how to prove a port moved it —
+or, in the breadth phase, that a whole-function port broke nothing that
+matched before (**REACH**, §3).
+
+**Why the demotion.** From 2026-09-06 to 2026-09-17 the corpus went
+262/540 → 495/540 PASS (48 % → 91.7 %) while the judge's held-out went
+7/44 → 11/44 (RNG 22.8 % → 26.6 %, screens 45 % → 50 %). The remaining 45
+corpus failures are parked symptom owners needing C instrumentation, and
+the best agentic fork sits at 35/44 with a far more complete port. The
+corpus is saturated **and** unrepresentative; the picker is now measured
+coverage (`port-coverage.mjs --rows`), and this corpus guards it.
 
 ## 1. Why
 
@@ -53,6 +65,7 @@ cell plus the mineralize-eligible diff (D-1849).
 | orient | `node scripts/brief.mjs <cfn>` | 8–15 grep/sed/csym/sym/map calls; the corpus rows for that function come with C vs JS draw and replay |
 | diagnose | `node scripts/geom-probe.mjs <id> [--step N]` | JS DIAG dumps and coordinate FORCEs that cannot see C `levl[]` (#2262: 54 min, 362 calls, no C measurement) |
 | verify | `node scripts/verify.mjs --fn <cfn>` (runs `hidden-proxy verify <cfn>`) | hand probes with expectations the agent derived by *reading* C — the expectation is now recorded from C |
+| **reach** (breadth phase) | same call: `hidden-proxy verify <cfn>` re-runs every baseline-PASS session whose recorded C RNG log tags `@ <cfn>(` (spread ≤ 80; `--reach-all`; `--no-reach`), or a fixed 24-session smoke spread when none does. Any PASS→FAIL is `REACH-REGRESSION` (exit 1) | shipping a whole-function port on the public 44 alone and discovering the corpus break at the next audit |
 | handoff | `node scripts/finish-iteration.mjs --commit` | index row, journal crumb, CURRENT recent block and ranges, NOTES landmark, review stamp, hash backfill, archive, caps, commit message, push — all from the one hand-written D-log entry |
 | audit | `node scripts/hidden-proxy.mjs score` | nothing existed; CURRENT now carries the proxy pass rate next to the public score |
 | refill | `node scripts/hidden-proxy.mjs queue` (owners already open/parked/archived are tagged — a parked owner's **writer** or a `[measure]` row is the legal follow-up; identical-topline screen rows print the differing screen row) → `[campaign]` steps → TOP30 rows with a **verified** missing arm → map omits only at ≥ 90 % corpus PASS | map-walk order; 109 stale parks from map/debt copies (2026-09-09..15) |
@@ -63,7 +76,13 @@ cell plus the mineralize-eligible diff (D-1849).
 the same step or later). **NO MOVEMENT** means the port did not change
 what C does at that point — the arm is still wrong, not "named".
 **REGRESSION** (an earlier step, fewer RNG matched, or a session that was
-PASS at the baseline) fails the iteration.
+PASS at the baseline) fails the iteration. **REACH** semantics: the
+sessions re-run are those that PASS in the baseline scoreboard and whose
+C recording executed `<fn>` (RNG tag) — a whole-function port must keep
+every one PASS; `REACH-REGRESSION` names the session, step, owner and
+differing row, and the fix is in the port. A function that draws no RNG
+has no reach set; the smoke spread then only catches the "broke
+everything" class, so the public cohort/full gates carry more weight.
 
 The blocked set comes from the **committed** scoreboard (`HEAD`, or
 `--base <rev>` — the rows the queue row was built from), unioned with
