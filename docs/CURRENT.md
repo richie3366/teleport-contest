@@ -23,10 +23,10 @@ the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-18** — full `sessions` on the working tree
-(audit **1435–1443**).
+(audit **1444–1452**).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`49+0.30/turn` (R² 0.80).
+`42+0.56/turn` (R² 0.92).
 
 ## Score
 
@@ -36,19 +36,19 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `49+0.30/turn` (R² 0.80) |
+| Speed label | `42+0.56/turn` (R² 0.92) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 4/22, 2nd agentic; best agentic fork 35/44, RNG 98.5 %,
 screens 93.2 %. Held-out moved 7 → 11 over 2026-09-06..17 while the local
 corpus went 48 % → 91.7 %: the corpus no longer predicts the judge.
-**Corpus fortress** (re-scored 2026-09-18 audit 1435–1443): **495 / 540
+**Corpus fortress** (re-scored 2026-09-18 audit 1444–1452): **495 / 540
 PASS (91.7 %)** excl. 13 env-only; RNG 99.29 %, screens 99.0 % — identical
-to the prior audit, no flips across D-2476…D-2493 (every per-SHA re-run:
-0 regressed; role_init REACH 91/91).
-Reviews 1225–1443: 193 ACCEPT, 6 WITH-DEBT, 1 DEBT, 14 QUALITY-RISK (1 Must-fix pending).
-Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named).
+to the prior audit, no flips across D-2485…D-2493 (every per-SHA re-run:
+0 regressed; makemaz REACH 77/77, misc_obj 12/12, ad_legs 13/13).
+Reviews 1225–1452: 200 ACCEPT, 8 WITH-DEBT, 1 DEBT, 14 QUALITY-RISK (0 Must-fix pending).
+Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph (display.h:842–844 vs display.js:849), 1448 safe_typename guard (objnam.c:316) — review-debt, unqueued.
 Audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s) + `leaderboard.mjs`.
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -98,7 +98,7 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `display.c` see_monsters + flush_screen — coverage PARTIAL (see_monsters C 42 L `display.c:1487–1529` / JS 26 L; flush_screen C 59 L `display.c:2208–2267` / JS 35 L; both in js/display.js). Port both whole C bodies in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn see_monsters` + `--fn flush_screen` (reach regression must be 0). Measured `port-coverage.mjs --name see_monsters` / `--name flush_screen` 2026-09-18 @ 6b72742e.
+**Next cluster:** `mon.c` setmangry — coverage PARTIAL (C 53 L `mon.c:4265–4318` / JS 28 L in js/mon.js; hops 2, callers 18, RNG 1, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn setmangry` (reach regression must be 0). Measured `port-coverage.mjs --name setmangry` 2026-09-18 @ 6b72742e.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2493 (index).**
 <!-- recent:begin -->

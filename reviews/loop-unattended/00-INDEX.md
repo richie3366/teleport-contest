@@ -1454,3 +1454,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1441-fbf613c9-mhitm-ad-heal.md](./1441-fbf613c9-mhitm-ad-heal.md) | `fbf613c9` | D-2482 mhitm_ad_heal | **ACCEPT** |
 | [1442-c4e28dcc-xname-flags.md](./1442-c4e28dcc-xname-flags.md) | `c4e28dcc` | D-2483 xname_flags | **ACCEPT** |
 | [1443-6b72742e-wishcmdassist.md](./1443-6b72742e-wishcmdassist.md) | `6b72742e` | D-2484 wishcmdassist | **ACCEPT** |
+| [1444-d58ca60a-has-egd-import-fix.md](./1444-d58ca60a-has-egd-import-fix.md) | `d58ca60a` | D-2485 has_egd import fix | **ACCEPT** |
+| [1445-3a3a69fb-hmon-hitmon-misc-obj.md](./1445-3a3a69fb-hmon-hitmon-misc-obj.md) | `3a3a69fb` | D-2486 hmon_hitmon_misc_obj | **ACCEPT** |
+| [1446-db42061d-parse-id-glyphs.md](./1446-db42061d-parse-id-glyphs.md) | `db42061d` | D-2487 parse_id + glyphid cache | **ACCEPT-WITH-DEBT** |
+| [1447-c46e4014-quickmimic.md](./1447-c46e4014-quickmimic.md) | `c46e4014` | D-2488 quickmimic | **ACCEPT** |
+| [1448-655fdad6-bc-sanity-check.md](./1448-655fdad6-bc-sanity-check.md) | `655fdad6` | D-2489 bc_sanity_check | **ACCEPT-WITH-DEBT** |
+| [1449-86faaeed-mhitm-ad-legs.md](./1449-86faaeed-mhitm-ad-legs.md) | `86faaeed` | D-2490 mhitm_ad_legs | **ACCEPT** |
+| [1450-1f5ce2fe-corpse-xname.md](./1450-1f5ce2fe-corpse-xname.md) | `1f5ce2fe` | D-2491 corpse_xname | **ACCEPT** |
+| [1451-f43f2ae7-makemaz.md](./1451-f43f2ae7-makemaz.md) | `f43f2ae7` | D-2492 makemaz | **ACCEPT** |
+| [1452-aad9f117-see-monsters-flush-screen.md](./1452-aad9f117-see-monsters-flush-screen.md) | `aad9f117` | D-2493 see_monsters + flush_screen | **ACCEPT** |

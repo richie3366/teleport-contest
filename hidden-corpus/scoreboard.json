@@ -1,6 +1,6 @@
 {
- "commit": "f43f2ae7",
- "at": "2026-09-18T21:53:29.847Z",
+ "commit": "aad9f117",
+ "at": "2026-09-18T22:21:01.844Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6678,7 +6678,7 @@
    "steps": 265,
    "owner": "distfleeck",
    "loc": "monmove.c:549",
-   "jsOwner": "gethungry(eat.js:728)",
+   "jsOwner": "gethungry(eat.js:729)",
    "cTopline": "You cannot fight while so heavily loaded. The grid bug bites!--More--",
    "jsTopline": "You miss Slasher. Slasher misses the grid bug. The grid bug misses!--More--",
    "error": null
@@ -7358,7 +7358,7 @@
    "steps": 88,
    "owner": "distfleeck",
    "loc": "monmove.c:549",
-   "jsOwner": "score_targ(dogmove.js:948)",
+   "jsOwner": "score_targ(dogmove.js:959)",
    "cTopline": "You hear a chugging sound.",
    "jsTopline": "You hear a chugging sound.",
    "error": null
