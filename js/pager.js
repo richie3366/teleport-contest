@@ -1537,7 +1537,13 @@ export function do_screen_description(cc, looked, sym, outStr, firstMatch, forSu
                 }
                 xStr = defsym_explanation(altI);
                 if (!xStr) continue;
-                if (sym === cmap_showsym_code(altI)) {
+                // C `:1475` — the unlooked `/`-query path compares against
+                // the Primary defsyms byte, not the DEC showsyms byte.
+                const cmapByte = looked
+                    ? cmap_showsym_code(altI)
+                    : ((typeof DEFSYMS_CH[altI] === 'string' && DEFSYMS_CH[altI].length)
+                        ? DEFSYMS_CH[altI].charCodeAt(0) : -1);
+                if (sym === cmapByte) {
                     let article;
                     // C `:1480–1481` — dark room already included above.
                     if (altI === S_darkroom && glyph !== NO_GLYPH

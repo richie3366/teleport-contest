@@ -124,3 +124,5 @@ suite cannot catch item 1.
    do_screen_description`. Must-fix prepended.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-2449

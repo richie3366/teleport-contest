@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2449 — `pager.c` do_screen_description unlooked cmap scan Primary byte (review 1406 item 1)
+
+- **Status:** fixed (Must-fix from review 1406 item 1 on D-2447).
+- **Symptom:** DEC user typing `/` `|` got "I've never heard of such things." where C prints the wall description (S_pool moat second-look inherited the miss). No corpus session issues an unlooked cmap query under DEC, so the suite cannot catch it (review 1406 re-measured 0 blocked, vacuous).
+- **C locus:** `nethack-c/upstream/src/pager.c:1475` (`sym == (looked ? gs.showsyms[alt_i] : defsyms[alt_i].sym)` — the unlooked `/`-query path always uses the Primary def byte); caller `pager.c:1917` do_look (`from_screen || clicklook` gates looked; typed symbol takes the unlooked arm).
+- **JS was:** `js/pager.js:1540` used `cmap_showsym_code(altI)` on both paths, which returns the DEC byte when `decSymsActive()` (`DEC_CMAP_BYTE[S_vwall]=0xF8` vs Primary `|` = `DEFSYMS_CH[1]`).
+- **Fix:** `js/pager.js` only — cmap-scan match is now `looked ? cmap_showsym_code(altI) : DEFSYMS_CH[altI].charCodeAt(0)` per C `:1475`. Unlooked path uses the Primary byte (`-1` fallback when the slot has no Primary char, so no false hit); looked path unchanged (glyph-bank DEC byte vs `cmap_showsym_code` DEC byte). Monster/object/warning arms untouched — identical under DEC (letters un-remapped), diverge only under custom `OPTIONS=monsters/objects` overrides, already named in D-2447.
+- **JS:** `js/pager.js` (cmap scan match only); no new module edges (`DEFSYMS_CH` already imported at `js/pager.js:43`).
+- **Callers:** pager.c:1917 do_look → `js/pager.js:do_look` both arms pre-existing ✓ (from_screen → `do_screen_description(cc, true, …)`; typed sym → `do_screen_description(cc, false, sym, …)`); cmd.c:1360 dolookaround, display.c:2068 show_glyph, getpos.c:649 auto_describe all pass `looked=TRUE` so unaffected ✓; getpos.c:700 getpos_menu stays a named omission (D-2447). No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn do_screen_description` → PASS syntax (1 file: js/pager.js) · rule2 · hidden note (0 blocked at baseline) · **reach smoke 24/24 PASS, 0 regressed → REACH-OK** · green 2/2 · strict ×2 · cohort 7/7 (no shared file → full skipped) → VERIFY: PASS. Probe `/tmp/probe-dec-looked.mjs` under `symset:DECgraphics`: unlooked `|` → found=3 "a wall or an open door or a grave" (PROBE-PASS); unlooked `0xF8` → found=0 (correct: raw DEC byte is not a Primary query).
+- **Named omissions:** none new (D-2447 omissions stand: rogue_syms, non-boulder ov slots, `gw.warnsyms`, gameover hallucinate gate, getpos_menu, do_supplemental_info).
+- **Next:** Must-fix head after this row (`mon.c` xkilled holder-release).
+
 ## D-2448 — `vault.c` gd_move whole body in C order (coverage PARTIAL → live)
 
 - **Status:** fixed (Open coverage row: gd_move PARTIAL C 313 L `vault.c:888–1201` / JS 232 L in `js/vault.js` + `shk.js` re-export; 3 C call sites + decl; RNG 1, msg 13; dead callee gd_pick_corridor_gold).

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-18 — D-2449 `pager.c` do_screen_description unlooked cmap scan Primary byte (review 1406 item 1)
+
+**C locus:** `nethack-c/upstream/src/pager.c:1475` (`sym == (looked ? gs.showsyms[alt_i] : defsyms[alt_i].sym)` — the unlooked `/`-query path always uses the Primary def byte); caller `pager.c:1917` do_look (`from_screen || clicklook` gates looked; typed symbol takes the unlooked arm).
+**JS:** `js/pager.js` (cmap scan match only); no new module edges (`DEFSYMS_CH` already imported at `js/pager.js:43`).
+**Change:** `js/pager.js` only — the cmap-scan match now compares against `looked ? cmap_showsym_code(altI) : DEFSYMS_CH[altI].charCodeAt(0)` (Primary byte, `-1` fallback when the slot has no Primary char so no false hit), with a `:1475` cite. Looked path unchanged (glyph-bank DEC byte vs `cmap_showsym_code` DEC byte). Monster/object/warning arms untouched — identical under DEC (letters un-remapped), diverge only under custom `OPTIONS=monsters/objects` overrides, already named in D-2447.
+**Verify:** `node scripts/verify.mjs --fn do_screen_description` → PASS syntax (1 file: js/pager.js) · rule2 · hidden note (0 blocked at baseline) · **reach smoke 24/24 PASS, 0 regressed → REACH-OK** · green 2/2 · strict ×2 · cohort 7/7 (no shared file → full skipped) → VERIFY: PASS. Probe `/tmp/probe-dec-looked.mjs` under `symset:DECgraphics`: unlooked `|` → found=3 "a wall or an open door or a grave" (PROBE-PASS); unlooked `0xF8` → found=0 (correct: raw DEC byte is not a Primary query).
+**Named:** none new (D-2447 omissions stand: rogue_syms, non-boulder ov slots, `gw.warnsyms`, gameover hallucinate gate, getpos_menu, do_supplemental_info).
+**Next:** Must-fix head after this row (`mon.c` xkilled holder-release).
 ## 2026-09-18 — Audit 678a0821..38249822 (reviews 1399–1407: 6 ACCEPT, 3 QUALITY-RISK) + cadence 44/44, proxy 495/540
 
 **Scope:** 9 JS-touching SHAs since review 1398 (D-2440 getdir-dz delete, D-2441 setmangry + D-2442 bury_objs imports, D-2443 checkfile, D-2444 xkilled+disintegrate_mon, D-2445 look_at_monster, D-2446 mstatusline, D-2447 do_screen_description, D-2448 gd_move). One SHA reviewed then filed immediately; one grouped commit.

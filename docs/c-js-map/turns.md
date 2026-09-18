@@ -919,6 +919,7 @@ seven `dispfile_*` + five `hmenu_*` live as the `dohelp` items in C
 `dohistory` → `ECMD_OK`; `sym.h:98–99` local `is_cmap_trap`/
 `is_cmap_drawbridge`; `mon_nam` scratch unneeded);
 `do_screen_description` showsyms scan D-2447 (call sites rewired) +
+unlooked cmap scan Primary byte D-2449 (`:1475`: `looked ? cmap_showsym_code : DEFSYMS_CH` charCode) +
 `look_engrs` headstone/`strsubst` wiring + `sysopt.hideusage` gate +
 PORT_HELP named
 

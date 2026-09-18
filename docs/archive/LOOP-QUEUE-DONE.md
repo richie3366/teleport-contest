@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-18
 
-- [x] `vault.c` gd_move — coverage PARTIAL (C 313 L `vault.c:888–1201` / JS 232 L in js/shk.js; hops 2, callers 4, RNG 1, msg 13; dead callees: gd_pick_corridor_gold). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn gd_move` (reach regression must be 0). Measured `port-coverage.mjs --name gd_move` 2026-09-18 @ e6289b5b. **Addressed:** D-2448
+- [x] `pager.c` do_screen_description cmap scan uses showsyms (DEC) byte on the unlooked `/`-query path (js/pager.js:1540; C compares `looked ? showsyms : defsyms` — DEC user typing `/` `|` misses where C hits: DEC_CMAP_BYTE[S_vwall]=0xF8 vs Primary `|`). Fix: compare against the Primary DEFSYMS_CH byte when `!looked`. Verify unlooked `/` query under DEC + `node scripts/verify.mjs --fn do_screen_description`. Source: reviews/loop-unattended/1406-d32f725f-do-screen-description-whole-body.md item 1. **Addressed:** D-2449
+
+
+- [x] `vault.c` gd_move — coverage PARTIAL (C 313 L `vault.c:888–1201` / JS 232 L in js/shk.js; hops 2, callers 4, RNG 1, msg 13; dead callees: gd_pick_corridor_gold). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn gd_move` (reach regression must be 0). Measured `port-coverage.mjs --name gd_move` 2026-09-18 @ e6289b5b. **Addressed:** D-2448 `38249822`
 
 
 - [x] `pager.c` do_screen_description — coverage MISSING (C 376 L `pager.c:1247–1627` / JS no symbol; hops 1, callers 5, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn do_screen_description` (reach regression must be 0). Measured `port-coverage.mjs --name do_screen_description` 2026-09-18 @ e6289b5b. **Addressed:** D-2447 `d32f725f`
