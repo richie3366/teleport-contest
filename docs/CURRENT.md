@@ -45,7 +45,7 @@ screens 93.2 %. Held-out moved 7 → 11 over 2026-09-06..17 while the local
 corpus went 48 % → 91.7 %: the corpus no longer predicts the judge.
 **Corpus fortress** (re-scored 2026-09-18 audit 1426–1434): **495 / 540
 PASS (91.7 %)** excl. 13 env-only; RNG 99.29 %, screens 99.0 % — identical
-to the prior audit, no flips across D-2467…D-2480 (every per-SHA re-run:
+to the prior audit, no flips across D-2467…D-2481 (every per-SHA re-run:
 0 regressed).
 Reviews 1225–1434: 185 ACCEPT, 6 WITH-DEBT, 1 DEBT, 13 QUALITY-RISK (2 Must-fix pending).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named).
@@ -98,10 +98,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `cmd.c` randomkey — coverage MISSING (C 61 L `cmd.c:3517–3578` / JS no symbol; hops 3, callers 3, RNG 11, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn randomkey` (reach regression must be 0). Measured `port-coverage.mjs --name randomkey` 2026-09-18 @ 34ef28ed.
+**Next cluster:** `role.c` role_init — coverage MISSING (C 137 L `role.c:1980–2117` / JS no symbol; hops 3, callers 5, RNG 2, msg 0; dead callees: randrole_filtered, randrace, randalign; split? cited 23× in js/ — brief first). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn role_init` (reach regression must be 0). Measured `port-coverage.mjs --name role_init` 2026-09-18 @ 34ef28ed.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2480 (index).**
+**Keep D-0845…D-2481 (index).**
 <!-- recent:begin -->
+**D-2481** `nethack-c/upstream/src/role.c:1980–2117` (`role_init`); callees `plnamesuffix` `:1664–172 — `js/roles.js` (C home) in C order — `randrole` (`rn2(roles.length)` ≡ `rn2(SIZE-1)`; display arm via live `rn2_on_display_rng`), module-local `randrole_filtered` (live `ok_*` filter chain, `randrole(FALSE)` fallback), `r
 **D-2480** `nethack-c/upstream/src/cmd.c:3517–3578` (`randomkey`); callers `pgetchar` `:445–453`, `ra — `js/cmd.js` in C order — `pgetchar` (fuzzer arm returns `randomkey()`, else `await nhgetch()`; async only per Constitution §2), `randomkey` (full body: ^A/^P repeat gate on `game.program_state.input_state === commandInp`
 **D-2479** `nethack-c/upstream/src/mon.c:72–255` (`sanity_check_single_mon`); static `pet_sanity_chec — both functions added module-local in `js/mon.js` (C home, matching C `staticfn`) in C order — data-pointer range, mnum fixup, HP bounds (gremlin `m_lev` arm kept commented-out like C), dead-monster early return, genocide
 **D-2478** `nethack-c/upstream/src/mail.c:399–456` (`newmail`); static `md_start` `:148–239`, `md_sto — `js/mail.js` in C order — file-local C-macro equivalents (`Deaf`/`Blind`/`Blind_telepat`/`distu`, sibling-idiom verbatim; `mail_text` + `md_exclamations` via `rn2(3)`); `md_start` (Blind-nearby arm, stairwell-in-sight sc
@@ -109,11 +110,10 @@ revisits the picker.
 **D-2476** `engrave.c:396` (`You("%s: \"%s\"%s",…)`); `rumors.c:573` (`pline1(line)`); `pager.c:1922` — route each through the `%s` arm (verbalize/impossible D-2471 precedent — substituted args are never re-scanned by `vpline_expand`): engrave keeps the C format+args shape `You('%s: "%s"%s', feel/read, et, endpunct)`; rumo
 **D-2475** `nethack-c/upstream/src/topten.c:1194–1353` (`prscore`); static `score_wanted` `:1112–1192 — `js/topten.js` only, in C order — new module-local `score_wanted` (version gate; `pers_is_uid` uid arm; `-uname` strip; `-p/-r/-u` + next-arg arms with `i++` consume; `all`/name-prefix/`-<roleletter>`/maxrank; `ch()` hel
 **D-2474** `nethack-c/upstream/src/priest.c:795–874` (`ghod_hitsu`); callees `temple_occupied`/`has_s — `js/priest.js` only, in C order — new `export async function ghod_hitsu` (`:191`): roomno-char gate (`temple_occupied`, `'\0'` check) + `has_shrine`; shrpos origin; `svr.rooms` via bones.js `charCodeAt-ROOMOFFSET` idiom;
-**D-2473** `nethack-c/upstream/src/artifact.c:2508–2591` (`retouch_object`); supporting `touch_blaste — `js/artifact.js` restart in C order — `retouch_object(obj, loseit)` (`:1451`): Bell-of-Opening invocation-square pass-through (`BELL_OF_OPENING` const via `objectNames.indexOf`, live `invocation_pos`/`On_stairs` from hac
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2480; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2481; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

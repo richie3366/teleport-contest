@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-18
 
-- [x] `cmd.c` randomkey — coverage MISSING (C 61 L `cmd.c:3517–3578` / JS no symbol; hops 3, callers 3, RNG 11, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn randomkey` (reach regression must be 0). Measured `port-coverage.mjs --name randomkey` 2026-09-18 @ 34ef28ed. **Addressed:** D-2480
+- [x] `role.c` role_init — coverage MISSING (C 137 L `role.c:1980–2117` / JS no symbol; hops 3, callers 5, RNG 2, msg 0; dead callees: randrole_filtered, randrace, randalign; split? cited 23× in js/ — brief first). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn role_init` (reach regression must be 0). Measured `port-coverage.mjs --name role_init` 2026-09-18 @ 34ef28ed. **Addressed:** D-2481
+
+
+- [x] `cmd.c` randomkey — coverage MISSING (C 61 L `cmd.c:3517–3578` / JS no symbol; hops 3, callers 3, RNG 11, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn randomkey` (reach regression must be 0). Measured `port-coverage.mjs --name randomkey` 2026-09-18 @ 34ef28ed. **Addressed:** D-2480 `1d36d74a`
 
 
 - [x] `mon.c` sanity_check_single_mon — coverage MISSING **Addressed:** D-2479 (C 179 L `mon.c:73–255` / JS no symbol; hops 3, callers 2, RNG 2, msg 0; dead callees: pet_sanity_check, levltyp_to_name). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn sanity_check_single_mon` (reach regression must be 0). Measured `port-coverage.mjs --name sanity_check_single_mon` 2026-09-18 @ 34ef28ed.
