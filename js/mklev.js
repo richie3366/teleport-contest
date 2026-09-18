@@ -111,7 +111,7 @@ import {
 } from './makemon.js';
 import { mk_mplayer } from './mplayer.js';
 import { can_saddle, put_saddle_on_mon } from './steed.js';
-import { m_at, mnearto, mnexto, elemental_clog, seemimic, minliquid } from './mon.js';
+import { m_at, mnearto, mnexto, elemental_clog, seemimic, minliquid, dmonsfree } from './mon.js';
 import { enexto, rloc, goodpos, migrate_to_level } from './teleport.js';
 import { clear_wormdata, flip_worm_segs_horizontal, flip_worm_segs_vertical, remove_worm } from './worm.js';
 import { obj_resists } from './dogmove.js';
@@ -136,7 +136,7 @@ import { make_engr_at, make_grave, wipe_engr_at, random_engraving, del_engr_at, 
 import { cmd_from_ecname } from './dokeylist.js';
 import {
     find_level, dungeon_branch, at_dgn_entrance, insert_branch, get_level,
-    on_level, init_dungeons,
+    on_level, init_dungeons, Is_special, Invocation_lev,
 } from './dungeon.js';
 import { premap_detect } from './detect.js';
 import {
@@ -1462,45 +1462,39 @@ function sp_level_coder_init_statics() {
 }
 
 /**
- * C ref: mkmaze.c makemaz — build protofile (rndlevs → rnd), load_special,
- * else maze fallback. Ported loaders: minefill, tut-1, tut-2, bigrm-2, bigrm-3,
- * bigrm-4, bigrm-5, bigrm-6, bigrm-7, bigrm-8, bigrm-9, bigrm-11, bigrm-12, Bar-strt, Bar-loca, Bar-fila,
- * Bar-filb, Bar-goal, Arc-strt, Arc-loca, Arc-fila, Arc-filb, Arc-goal, soko1-1,
- * soko1-2, soko2-1, soko2-2, soko3-1, soko3-2, soko4-1, soko4-2, tower1, tower2,
- * tower3, fire, air, water, astral, minend-1, minend-2, minend-3, minetn-1, minetn-2, minetn-3,
- * minetn-4, minetn-5, minetn-6, minetn-7, medusa-1, medusa-2, medusa-3, medusa-4, oracle, castle, valley,
- * sanctum, asmodeus, juiblex, baalz, orcus, wizard1–3, fakewiz1, fakewiz2,
- * Wiz-strt, Wiz-loca, Wiz-fila, Wiz-filb, Wiz-goal,
- * Pri-fila, Pri-filb, hellfill, minetn-1/2/3/4/5/6/7,
- * Kni-strt, Kni-loca, Kni-fila, Kni-filb, Kni-goal,
- * Rog-strt, Rog-loca, Rog-fila, Rog-filb, Rog-goal,
- * Val-strt, Val-loca, Val-fila, Val-filb, Val-goal,
- * Sam-strt, Sam-loca, Sam-fila, Sam-filb, Sam-goal,
- * Hea-strt, Hea-loca, Hea-fila, Hea-filb, Hea-goal,
- * Tou-strt, Tou-loca, Tou-fila, Tou-filb, Tou-goal,
- * Ran-strt, Ran-loca, Ran-goal, Ran-fila, Ran-filb,
- * Mon-strt, Mon-loca, Mon-goal, Mon-fila, Mon-filb,
- * Cav-strt, Cav-loca, Cav-goal, Cav-fila, Cav-filb, knox.
- * Named omissions:
- * hellfill rnd_hell_prefab; dmonsfree on the load_special path.
- * (populate_maze trap loop is live via mktrap below.)
+ * C ref: mkmaze.c makemaz `:1127-1223` — whole-body port in C order.
+ * `:1133-1157` protofile build: `*s` → `%s-%d` with `rnd(rndlevs)`;
+ * dungeon proto + `dunlev` (`dungeon.c:1325` returns dlevel) with an `rnd`
+ * suffix when `dunlevs_in_dungeon` (`dungeon.c:1332` returns num_dunlevs)
+ * exceeds 1. `:1160-1182` wizard SPLEVTYPE `getenv` override (named omit —
+ * no environment in scored ESM per Rule #2; wizard reads game.flags per
+ * D-0176). `:1184-1195` guarded block: `check_ransacked` ASSIGN
+ * (`mkmaze.c:707-711` orctown kludge), `Strcat` LEV_EXT (`global.h:34`
+ * ".lua"), `load_special` dispatch with `dmonsfree` (`mon.c`) on success,
+ * `impossible` WITH the extension on failure. `:1197-1222` mazification
+ * tail (`makemaz_maze_fallback` below; `coord mm` lives there).
+ * Named omissions: SPLEVTYPE getenv endpoint; `Is_branchlev` (no live
+ * export — same-file local); `load_special` file IO (bare-stem
+ * `load_special_proto` dispatch; extension kept for the message).
  */
 async function makemaz(s) {
     const g = game;
     const uz = g.u?.uz || { dnum: 0, dlevel: 1 };
-    const sp = (g.sp_levchn || []).find(s0 =>
-        (s0.dlevel?.dnum | 0) === (uz.dnum | 0)
-        && (s0.dlevel?.dlevel | 0) === (uz.dlevel | 0));
-    const dun = g.dungeons?.[uz.dnum | 0];
+    // C :1129 — s_level *sp = Is_special(&u.uz) (live dungeon.js export;
+    // on_level compares dnum+dlevel like the inline walk it replaces)
+    const sp = Is_special(uz);
     let protofile = '';
 
-    // C ref: mkmaze.c:1133-1157 — protofile construction
+    // C :1133-1139 — if (*s): rndlevs ? "%s-%d" : strcpy
     if (s && String(s).length) {
         if (sp && (sp.rndlevs | 0))
             protofile = `${s}-${rnd(sp.rndlevs | 0)}`;
         else
             protofile = String(s);
-    } else if (dun?.proto) {
+    // C :1140-1154 — else if (*(proto)): dunlevs_in_dungeon > 1 appends
+    // dunlev, with an rnd suffix when rndlevs; else rnd suffix or copy
+    } else if (g.dungeons?.[uz.dnum | 0]?.proto) {
+        const dun = g.dungeons[uz.dnum | 0];
         const nlev = dun.num_dunlevs | 0;
         const dlev = uz.dlevel | 0;
         if (nlev > 1) {
@@ -1514,57 +1508,76 @@ async function makemaz(s) {
             protofile = String(dun.proto);
         }
     }
+    // C :1156-1157 — else Strcpy(protofile, ""): stays ''.
 
-    // C: wizard SPLEVTYPE override deferred (getenv)
+    // C :1160-1182 — wizard SPLEVTYPE override via getenv (not nh_getenv),
+    // parsed as "level-choice,..." against the protofile stem up to '-'.
+    // Named omit: scored ESM has no environment (Rule #2), so the endpoint
+    // is always absent and the protofile built above stands as-is.
 
-    if (!protofile) {
-        // C ref: mkmaze.c:1197-1222 — no proto: straight to mazification
-        makemaz_maze_fallback();
-        return;
+    // C :1184-1195 — if (*protofile): ransack check, +LEV_EXT, load, mazify
+    if (protofile) {
+        // C mkmaze.c:707-711 — check_ransacked ASSIGNS (orctown is minetn-1)
+        g.ransacked = ((g.u?.uz?.dnum | 0) === (g.mines_dnum | 0) && protofile === 'minetn-1');
+        // C :1186 — Strcat(protofile, LEV_EXT); dispatch takes the bare
+        // stem while the message keeps the extension like C's call.
+        const levfile = `${protofile}.lua`;
+        // C :1187 — gi.in_mk_themerooms = FALSE
+        g.in_mk_themerooms = false;
+        // C :1188-1192 — if (load_special(protofile)): dmonsfree(); return
+        if (await load_special_proto(protofile)) {
+            dmonsfree();
+            return; // no mazification right now
+        }
+        // C :1194 — impossible WITH the extension, then fall to mazify
+        await impossible(`Couldn't load "${levfile}" - making a maze.`);
     }
 
-    // C: check_ransacked(protofile) — no RNG; orctown flag only
-    if ((uz.dnum | 0) === (g.mines_dnum | 0) && protofile === 'minetn-1')
-        g.ransacked = true;
-
-    g.in_mk_themerooms = false;
-    if (await load_special_proto(protofile)) {
-        // C: dmonsfree() after successful load_special (named omit, mon.c)
-        return;
-    }
-    // C ref: mkmaze.c:1194 — proto load failed: impossible, then mazify
-    impossible(`Couldn't load "${protofile}" - making a maze.`);
+    // C :1197-1222 — mazification tail (empty proto or failed load)
     makemaz_maze_fallback();
 }
 
 /**
- * C ref: mkmaze.c makemaz `:1197-1222` — maze fallback tail: is_maze_lev +
- * corrmaze roll, create_maze variant choice, wallification, stairs (or the
- * vibrating-square spot on Invocation_lev), branch placement, populate_maze.
+ * C ref: mkmaze.c makemaz `:1197-1222` — maze fallback tail in C order:
+ * `:1197` is_maze_lev = 1; `:1198` corrmaze = !rn2(3); `:1200-1204`
+ * !Invocation_lev && rn2(2) → create_maze(-1,-1,!rn2(5)), else
+ * create_maze(1,1,FALSE); `:1206-1207` wallification over gx/gy maxima when
+ * !corrmaze; `:1209-1210` mazexy + upstairs; `:1211-1216` downstairs, or the
+ * vibrating-square spot on Invocation_lev; `:1219` place_branch; `:1221`
+ * populate_maze. `coord mm` is C `:1130`.
  */
 function makemaz_maze_fallback() {
     const g = game;
     const mm = { x: 0, y: 0 };
+    // C :1197-1198 — svl.level.flags.is_maze_lev = 1; corrmaze = !rn2(3)
     g.level.flags.is_maze_lev = true;
     g.level.flags.corrmaze = rn2(3) === 0;
-    if (!Invocation_lev_mk(g.u?.uz) && rn2(2))
+    // C :1200-1204 — short-circuit: no rn2(2) burn on Invocation_lev
+    if (!Invocation_lev(g.u?.uz) && rn2(2))
         create_maze(-1, -1, rn2(5) === 0);
     else
         create_maze(1, 1, false);
+    // C :1206-1207 — wallification(2, 2, gx.x_maze_max, gy.y_maze_max)
     if (!g.level.flags.corrmaze)
         wallification(2, 2, maze_x_max(), maze_y_max());
+    // C :1209-1210 — mazexy(&mm); mkstairs up (NULL room, FALSE)
     mazexy(mm);
     mkstairs(mm.x, mm.y, 1, 0);
-    if (!Invocation_lev_mk(g.u?.uz)) {
+    if (!Invocation_lev(g.u?.uz)) {
+        // C :1211-1213 — second mazexy + downstairs
         mazexy(mm);
         mkstairs(mm.x, mm.y, 0, 0);
     } else { /* choose "vibrating square" location */
+        // C :1214-1216 — pick_vibrasquare_location + VIBRATING_SQUARE trap
         pick_vibrasquare_location();
         const ip = svi_inv_pos();
         maketrap(ip.x, ip.y, VIBRATING_SQUARE);
     }
     /* place branch stair or portal */
+    // C :1219 — place_branch(Is_branchlev(&u.uz), 0, 0); Is_branchlev has
+    // no live export, so the same-file local stands (named in the map).
     place_branch(is_branchlev(), 0, 0);
+    // C :1221 — populate_maze()
     populate_maze();
 }
 
@@ -24177,6 +24190,15 @@ async function makelevel() {
         const loc_dlvl = loc_lev?.dlevel?.dlevel | 0;
         const suffix = ((g.u.uz.dlevel | 0) < loc_dlvl) ? 'a' : 'b';
         await makemaz(`${code}-fil${suffix}`);
+    } else if (
+        // C ref: mklev.c:1286-1289 — In_hell short-circuits before rn2(5).
+        // In_hell (dungeon.h) has no live export; hellish-flag read matches
+        // the do.js/trap.js clones and the mklev.js:1408 temperature arm.
+        !!(g.dungeons?.[g.u?.uz?.dnum | 0]?.flags?.hellish)
+        || (rn2(5) && g.u?.uz?.dnum === g.medusa_level?.dnum
+            && depth_of_level(g.u?.uz) > depth_of_level(g.medusa_level))
+    ) {
+        await makemaz('');
     } else {
         await makelevel_ordinary();
         return; // ordinary already runs fill_special + themerms_post + wallify
@@ -24193,13 +24215,8 @@ async function makelevel() {
 async function makelevel_ordinary() {
     const g = game;
 
-    // C ref: mklev.c:1286-1289 — hell or (rn2(5) && past medusa) → makemaz("")
-    // Burn Medusa rn2(5) only on the ordinary path when not In_hell.
-    const medusa = g.medusa_level;
-    if (rn2(5) && g.u?.uz?.dnum === medusa?.dnum
-        && depth_of_level(g.u?.uz) > depth_of_level(medusa)) {
-        // Would makemaz("") — deferred; continue ordinary for now
-    }
+    // C ref: mklev.c:1290-1299 — ordinary rooms; the :1286-1289 hell/medusa
+    // makemaz("") gate lives in makelevel above (it owns the rn2(5) burn).
 
     const isRogue = Is_rogue_level(g.u?.uz);
 

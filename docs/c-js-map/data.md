@@ -776,6 +776,7 @@ seed0030 @372 was **not** doorway LOS (D-0302) ;
 **D-0519 `makemaz` protofile `rnd(rndlevs)` + 
 `load_special` dispatch (`bigrm-2`, `bigrm-8` D-0539, `Bar-strt` through randline path carve 
 D-0525); `splev_map_origin` honors `splev_*`; makemon nymph/jabberwock sleep + S_NYMPH invent**; 
+**D-2492 `makemaz` whole-body restart (`mkmaze.c:1127–1223` in C order: live `Is_special`/`Invocation_lev`/`dmonsfree`, `check_ransacked` ASSIGN, `.lua` message + `await impossible`, `mklev.c:1289` hell/medusa `makemaz("")` gate wired; named: SPLEVTYPE getenv, `Is_branchlev`/`In_hell` (no live exports), `load_special` file IO)**; 
 **D-0804 `flip_level` swaps `_objects_at` with terrain (preserve nexthere; no fobj rebuild)**; 
 **D-0520 `soko1-1` + `flip_level_rnd` + fill_zoo ZOO + `builds_up`/`level_difficulty` + 
 Sokoban `set_mimic_sym`/`m_initinv` gold+spider**; 
