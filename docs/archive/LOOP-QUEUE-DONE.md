@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-18
 
-- [x] `cmd.c` getdir — coverage THIN (C 161 L `cmd.c:3958–4119` / JS 60 L in js/lock.js; hops 2, callers 29, RNG 5, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn getdir` (reach regression must be 0). Measured `port-coverage.mjs --name getdir` 2026-09-18 @ a35f6369. **Addressed:** D-2434
+- [x] `end.c` really_done — coverage THIN (C 460 L `end.c:1130–1590` / JS 189 L in js/end.js; hops 2, callers 5, RNG 1, msg 9). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn really_done` (reach regression must be 0). Measured `port-coverage.mjs --name really_done` 2026-09-18 @ a35f6369. **Addressed:** D-2435
+
+
+- [x] `cmd.c` getdir — coverage THIN (C 161 L `cmd.c:3958–4119` / JS 60 L in js/lock.js; hops 2, callers 29, RNG 5, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn getdir` (reach regression must be 0). Measured `port-coverage.mjs --name getdir` 2026-09-18 @ a35f6369. **Addressed:** D-2434 `1d21e3be`
 
 
 - [x] `mon.c` newcham — coverage THIN (C 254 L `mon.c:5278–5535` / JS 84 L in js/makemon.js; hops 2, callers 40, RNG 2, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn newcham` (reach regression must be 0). Measured `port-coverage.mjs --name newcham` 2026-09-18 @ a35f6369. **Addressed:** D-2433 `acf54d66`
