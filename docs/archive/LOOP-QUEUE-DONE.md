@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-18
 
-- [x] `files.c` open_levelfile — coverage MISSING (C 43 L `files.c:673–716` / JS no symbol; hops 3, callers 6, RNG 1, msg 0; dead callees: set_levelfile_name, new_nhfile, viable_nhfile). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn open_levelfile` (reach regression must be 0). Measured `port-coverage.mjs --name open_levelfile` 2026-09-18 @ 838c6b6e. **Addressed:** D-2472
+- [x] `artifact.c` retouch_object — coverage THIN (C 81 L `artifact.c:2508–2591` / JS 9 L in js/artifact.js; hops 3, callers 7, RNG 2, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn retouch_object` (reach regression must be 0). Measured `port-coverage.mjs --name retouch_object` 2026-09-18 @ 838c6b6e. **Addressed:** D-2473
+
+
+- [x] `files.c` open_levelfile — coverage MISSING (C 43 L `files.c:673–716` / JS no symbol; hops 3, callers 6, RNG 1, msg 0; dead callees: set_levelfile_name, new_nhfile, viable_nhfile). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn open_levelfile` (reach regression must be 0). Measured `port-coverage.mjs --name open_levelfile` 2026-09-18 @ 838c6b6e. **Addressed:** D-2472 `467d4280`
 
 
 - [x] `pline.c` vpline — coverage MISSING (C 138 L `pline.c:153–291` / JS no symbol; hops 2, callers 16, RNG 0, msg 3; split? cited 26× in js/ — brief first). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn vpline` (reach regression must be 0). Measured `port-coverage.mjs --name vpline` 2026-09-18 @ 78b9ec99. **Addressed:** D-2471 `01c936c3`

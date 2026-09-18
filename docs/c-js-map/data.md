@@ -110,7 +110,7 @@ SELF_RECOVER); `create_levelfile` (write side).
 
 JS: extractor + `js/generated/artifacts_data.js` + `js/artifact.js` — partial
 
-**name/otyp/spfx/align/role/race** (D-0064); **`retouch_object` + touch gate** (D-0065); 
+**name/otyp/spfx/align/role/race** (D-0064); **`retouch_object` + touch gate** (D-0065; whole-body restart D-2473 — Bell rite arm, ag/bane `You_cant` + `rnd(10)` damage + `losehp`/`exercise(A_CON)` fatal drain, worn-removal invent rescan, `loseit` Levitation freeinv/hitfloor else altar-gated pline + dropx; callers doapply newly wired, doinvoke/dowear/doeat/dowield already wired, untouchable/retouch_equipment named); 
 **attk+mtype extract + `spec_abon`/`spec_applies`** (D-0611;
 PHYS early + DMONS/DCLAS/DFLAG1/DFLAG2/DALIGN + ATTK Magm/Stun `rn2` + per-adtyp
 Fire/Cold/Elec/Drst/Drli/Ston resists (D-1862; hero props + mon `resists_*`;
