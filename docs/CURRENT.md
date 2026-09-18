@@ -23,10 +23,10 @@ the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-18** — full `sessions` on the working tree
-(audit **1391–1398**).
+(audit **1399–1407**).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`65+0.41/turn` (R² 0.79).
+`58+0.36/turn` (R² 0.79).
 
 ## Score
 
@@ -36,17 +36,18 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `65+0.41/turn` (R² 0.79) |
+| Speed label | `58+0.36/turn` (R² 0.79) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 4/22, 2nd agentic; best agentic fork 35/44, RNG 98.5 %,
 screens 93.2 %. Held-out moved 7 → 11 over 2026-09-06..17 while the local
 corpus went 48 % → 91.7 %: the corpus no longer predicts the judge.
-**Corpus fortress** (re-scored 2026-09-18 audit 1391–1398): **492 / 540
-PASS (91.1 %)** excl. 13 env-only; RNG 99.28 %, screens 98.9 %. Down from
-495/540: 3 PASS→FAIL bisected to `1d21e3be` getdir (Must-fix, Next cluster).
-Reviews 1225–1398: 156 ACCEPT, 4 WITH-DEBT, 1 DEBT, 8 QUALITY-RISK (3 Must-fix pending).
+**Corpus fortress** (re-scored 2026-09-18 audit 1399–1407): **495 / 540
+PASS (91.7 %)** excl. 13 env-only; RNG 99.29 %, screens 99.0 %. The 3
+`1d21e3be` getdir flips recovered via D-2440; no new flips across D-2440…D-2448
+(every per-SHA re-run: 0 regressed).
+Reviews 1225–1407: 162 ACCEPT, 4 WITH-DEBT, 1 DEBT, 11 QUALITY-RISK (3 Must-fix pending).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx (both map notes).
 Audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s) + `leaderboard.mjs`.
 
@@ -97,7 +98,7 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `vault.c` gd_move — coverage PARTIAL (C 313 L `vault.c:888–1201` / JS 232 L in js/shk.js; hops 2, callers 4, RNG 1, msg 13; dead callees: gd_pick_corridor_gold). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn gd_move` (reach regression must be 0). Measured `port-coverage.mjs --name gd_move` 2026-09-18 @ e6289b5b.
+**Next cluster:** `pager.c` do_screen_description unlooked cmap sym source — Must-fix from review 1406 (js/pager.js:1540 uses the DEC showsyms byte on the `/`-query path; C uses defsyms when `!looked`). Compare against the Primary DEFSYMS_CH byte when `!looked`. Verify unlooked `/` query under DEC + `node scripts/verify.mjs --fn do_screen_description`. Source: reviews/loop-unattended/1406-d32f725f-do-screen-description-whole-body.md item 1.
 **Prev cluster:** `insight.c` mstatusline — coverage THIN (C 123 L `insight.c:3275–3398` / JS 24 L in js/insight.js; hops 3, callers 8, RNG 1, msg 22; dead callees: wseg_at). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mstatusline` (reach regression must be 0). Measured `port-coverage.mjs --name mstatusline` 2026-09-18 @ e6289b5b.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2448 (index).**

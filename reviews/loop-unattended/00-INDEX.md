@@ -1409,3 +1409,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1396-f3b5aaa5-init-dungeons-whole-body.md](./1396-f3b5aaa5-init-dungeons-whole-body.md) | `f3b5aaa5` | D-2437 init_dungeons whole body | **ACCEPT** |
 | [1397-a28c8688-adjattrib-whole-body.md](./1397-a28c8688-adjattrib-whole-body.md) | `a28c8688` | D-2438 adjattrib whole body | **ACCEPT** |
 | [1398-e6289b5b-test-move-whole-body.md](./1398-e6289b5b-test-move-whole-body.md) | `e6289b5b` | D-2439 test_move whole body | **ACCEPT-WITH-DEBT** |
+| [1399-678a0821-getdir-dz-zeroing-deleted.md](./1399-678a0821-getdir-dz-zeroing-deleted.md) | `678a0821` | D-2440 getdir dz-zeroing deleted | **ACCEPT** |
+| [1400-5f5f6f7a-dogaze-setmangry-import.md](./1400-5f5f6f7a-dogaze-setmangry-import.md) | `5f5f6f7a` | D-2441 dogaze setmangry import | **ACCEPT** |
+| [1401-eebc6dc2-dospinweb-bury-objs-import.md](./1401-eebc6dc2-dospinweb-bury-objs-import.md) | `eebc6dc2` | D-2442 dospinweb bury_objs import | **ACCEPT** |
+| [1402-74dc5699-checkfile-whole-body.md](./1402-74dc5699-checkfile-whole-body.md) | `74dc5699` | D-2443 checkfile whole body | **QUALITY-RISK** |
+| [1403-f57848fc-xkilled-disintegrate-mon.md](./1403-f57848fc-xkilled-disintegrate-mon.md) | `f57848fc` | D-2444 xkilled + disintegrate_mon | **QUALITY-RISK** |
+| [1404-61e88a0a-look-at-monster-whole-body.md](./1404-61e88a0a-look-at-monster-whole-body.md) | `61e88a0a` | D-2445 look_at_monster whole body | **ACCEPT** |
+| [1405-232ff9b1-mstatusline-whole-body.md](./1405-232ff9b1-mstatusline-whole-body.md) | `232ff9b1` | D-2446 mstatusline whole body | **ACCEPT** |
+| [1406-d32f725f-do-screen-description-whole-body.md](./1406-d32f725f-do-screen-description-whole-body.md) | `d32f725f` | D-2447 do_screen_description whole body | **QUALITY-RISK** |
+| [1407-38249822-gd-move-whole-body.md](./1407-38249822-gd-move-whole-body.md) | `38249822` | D-2448 gd_move whole body | **ACCEPT** |

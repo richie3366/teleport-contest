@@ -1,6 +1,6 @@
 {
- "commit": "d32f725f",
- "at": "2026-09-18T11:38:49.799Z",
+ "commit": "38249822",
+ "at": "2026-09-18T12:00:09.959Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -1826,7 +1826,7 @@
    "passed": false,
    "rngM": 3960,
    "rngT": 3960,
-   "scrM": 251,
+   "scrM": 277,
    "scrT": 278,
    "kind": "screen",
    "step": 158,
@@ -6593,7 +6593,7 @@
    "steps": 114,
    "owner": "distfleeck",
    "loc": "monmove.c:549",
-   "jsOwner": "doopen_indir(lock.js:874)",
+   "jsOwner": "doopen_indir(lock.js:873)",
    "cTopline": "You feel no objects here.",
    "jsTopline": "You feel no objects here.",
    "error": null
@@ -7179,7 +7179,7 @@
   "scen-tour-Healer-92093": {
    "src": "corpus",
    "passed": false,
-   "rngM": 22950,
+   "rngM": 23239,
    "rngT": 32478,
    "scrM": 70,
    "scrT": 140,

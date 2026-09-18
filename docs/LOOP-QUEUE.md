@@ -97,6 +97,10 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
+- [ ] `pager.c` do_screen_description cmap scan uses showsyms (DEC) byte on the unlooked `/`-query path (js/pager.js:1540; C compares `looked ? showsyms : defsyms` — DEC user typing `/` `|` misses where C hits: DEC_CMAP_BYTE[S_vwall]=0xF8 vs Primary `|`). Fix: compare against the Primary DEFSYMS_CH byte when `!looked`. Verify unlooked `/` query under DEC + `node scripts/verify.mjs --fn do_screen_description`. Source: reviews/loop-unattended/1406-d32f725f-do-screen-description-whole-body.md item 1.
+- [ ] `mon.c` xkilled holder-release mis-layered/mis-ordered/over-broad (js/uhitm.js:745–750 runs after the lifesaved return and on the stoned path; C releases inside mondead via mon_leaving_level :2702–2703, before the lifesave check, never via monstone :3286–3373 — lifesaved holders stay stuck + rnd(2) skipped, stoned path releases+draws). Fix: move the two lines after `game.disintegested=false`, gated on `!was_stoned`. Verify `node scripts/verify.mjs --fn xkilled`. Source: reviews/loop-unattended/1403-f57848fc-xkilled-disintegrate-mon.md item 1.
+- [ ] `pager.c` checkfile dbase-side `" ("` strip (charges/`(lit)`/aum, C `:977–981`) absent from `checkfile_split_names` in js/pager.js — lit/charged lookups miss where C hits (probe: `"oil lamp (lit)"` keeps suffix; reachable via objnam.c:1477–1490). Fix: truncate dbase at first `" ("` mirroring C. Verify lit-lamp lookup + `node scripts/verify.mjs --fn checkfile`. Source: reviews/loop-unattended/1402-74dc5699-checkfile-whole-body.md item 1.
+
 A **JS throw** in any corpus session (`hidden-proxy status` owner
 `js-throw …`, or a `ReferenceError` in `.cache/hidden/scores.json`
 `error`), and a corpus worker **hang** (`ETIMEDOUT` under `verify`), are
