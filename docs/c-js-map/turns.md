@@ -880,20 +880,29 @@ obscured branch `t_at` + `tseen` + water/air-unless-`couldsee` gate +
 `trapname` + `trap_to_glyph` re-point, coord/glyph line, BUFSZ guard,
 `upstart` header; covering char via the `look_engrs` idiom, glyphmap
 `encglyph` named); `doidtrap` unported; C TODO recursive/buried
-containers named; **`do_screen_description` full cmap/symbol table**
-(later owner after D-1843; ROOM parenthetical still uses
-`room_cmap_explanation`) then **blank-sym collapse D-1854**
-(`pager.c:1246–1627` looked `' '`: ghost + dark-room + unexplored + stone
-+ air found=5 → prefix + "can be many things" + didlook lookat
-"(unexplored area)"/"(unexplored)"/"(dark part of a room)", found=1;
-full showsyms scan, terrainmode gating, moat double-add, warnsym/boulder
-co-locate, override gotos, unreconnoitered/mon_interior still deferred) then
-**object-glyph `an(explain) (lookat)` D-1886** (`pager.c:1355–1400`
-object loop + didlook `:1607–1640` supplement, driven off the shown glyph
-via `glyph_to_obj` + `game.objects` oc_class + `def_oc_syms` explain;
-boulder split; `look_at_object` buried/stone/wall/door/pool/lava suffixes
-`:388–399`; statue monster-prefix, venom `'.'`-row, tree dangling named)
-then **monster-glyph `an(class-explain) (lookat)` D-2045** (`pager.c` check_monsters + didlook `:1607–1640`: shown-char prefix via `mon_glyph`, `mlet_class_explain` from `drawing.c def_monsyms[].explain` (`js/mondata.js` export), first=look_buf with tame/peaceful, `[seen:]` kept; DEF_INVISIBLE `'I'` arm `:1406–1417` with EDetect-I_SPECIAL/Blind select, no didlook; `do_look` checkfile gate `!= LOOK_QUICK`; furniture-mimic dispatch still named)
+containers named; **`do_screen_description` whole body D-2447**
+(`pager.c:1247–1627` → `js/pager.js:do_screen_description` in C order with
+holder out-params: restricted vision, x_str, check_monsters incl `@`-as-you,
+objects + boulder/statue split + venom skip, DEF_INVISIBLE, dark-room +
+unexplored with showsyms-slot halves, cmap scan with lava rotation/article/
+moat/`need_to_look`, warnings + boulder co-locate, venom restore, option
+overrides with check_monsters re-entry, `found > 4` collapse, didlook
+lookat/ice/blocked-stair/engraving/monbuf; showsyms emulated via
+glyph-bank resolution + `DEC_CMAP_BYTE` + darkroom equate
+`display.c:1850–1853` + paint-rule prefix; `describe_looked` /
+`describe_wall/stairs_looked` / `stair_cmap_explanation` / `is_stair_spot`
+deleted as superseded; `defsym_explanation` cmap 38–73/86–87;
+`DEF_MONSYM_MLET`/`DEFSYMS_CH` exported; callers cmd.c:1360 + display.c:2068
+via `auto_describe_text`, getpos.c:649 direct, pager.c:1917 `do_look` both
+arms with C's NULL checkfile pm; getpos_menu + do_supplemental_info +
+rogue_syms + non-boulder ov slots + `gw.warnsyms` + gameover named) then
+**blank-sym collapse D-1854** (subsumed by D-2447: looked `' '` ghost +
+dark-room + unexplored + stone + air found=5 → collapse + didlook) then
+**object-glyph `an(explain) (lookat)` D-1886** (subsumed by D-2447: object
+loop + didlook supplement; statue monster-prefix, venom `'.'`-row live;
+tree dangling named) then **monster-glyph `an(class-explain) (lookat)`
+D-2045** (subsumed by D-2447: check_monsters + didlook; DEF_INVISIBLE arm
+live; furniture-mimic dispatch still named)
 then **history/descr arms D-1903** (`pager.c:82–106` `append_str`
 strstri dup-gate + BUFSZ-1 `" or "` cap; `:1133–1245` `add_cmap_descr`
 NO_GLYPH water arm + levl-typ/`EHalluc_resistance` save-restore around
@@ -909,7 +918,7 @@ seven `dispfile_*` + five `hmenu_*` live as the `dohelp` items in C
 `help_menu_items` order on file-macro consts; `:2961–2965` exported
 `dohistory` → `ECMD_OK`; `sym.h:98–99` local `is_cmap_trap`/
 `is_cmap_drawbridge`; `mon_nam` scratch unneeded);
-`do_screen_description` showsyms scan (call sites not yet rewired) +
+`do_screen_description` showsyms scan D-2447 (call sites rewired) +
 `look_engrs` headstone/`strsubst` wiring + `sysopt.hideusage` gate +
 PORT_HELP named
 

@@ -3364,8 +3364,8 @@ function is_plural_that(otmp) {
 /**
  * C drawing.c defsyms[].explanation — PCHAR desc, not PCHAR2 tilenm
  * (defsym.h PCHAR_DRAWING). Furniture mimics use 1–2/15–16/25–26/33–37
- * (DELPHI S_fountain is D-1556). Ice/pool/trap cmap except
- * S_trapped_chest named.
+ * (DELPHI S_fountain is D-1556). Water/ice/drawbridge/air/cloud +
+ * trap cmap 38–73 covered (do_screen_description table scan).
  */
 const DEFSYM_EXPLANATION = [
     'stone', 'wall', 'wall', 'wall', 'wall', 'wall', 'wall', 'wall',
@@ -3375,7 +3375,19 @@ const DEFSYM_EXPLANATION = [
     'engraving', 'staircase up', 'staircase down', 'ladder up',
     'ladder down', 'branch staircase up', 'branch staircase down',
     'branch ladder up', 'branch ladder down', 'altar', 'grave',
-    'opulent throne', 'sink', 'fountain',
+    'opulent throne', 'sink', 'fountain', 'water', 'ice', 'molten lava',
+    'wall of lava', 'lowered drawbridge', 'lowered drawbridge',
+    'raised drawbridge', 'raised drawbridge', 'air', 'cloud', 'water',
+    'arrow trap', 'dart trap', 'falling rock trap', 'squeaky board',
+    'bear trap', 'land mine', 'rolling boulder trap', 'sleeping gas trap',
+    'rust trap', 'fire trap', 'pit', 'spiked pit', 'hole', 'trap door',
+    'teleportation trap', 'level teleporter', 'magic portal', 'web',
+    'statue trap', 'magic trap', 'anti-magic field', 'polymorph trap',
+    'vibrating square', 'trapped door', 'trapped chest',
+    // C defsym.h 74–85 carry no explanation (beams, shields); the falsy
+    // slots keep the 'furniture' fallback below, as before.
+    '', '', '', '', '', '', '', '', '', '', '', '',
+    'poison cloud', 'valid position',
 ];
 const S_TRAPPED_CHEST = 73; // defsym.h PCHAR S_trapped_chest
 

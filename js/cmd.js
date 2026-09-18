@@ -1635,8 +1635,7 @@ function shown_corr_cmap(x, y) {
  * C cmd.c dolookaround — #lookaround and newgame glyph_updates then-arm.
  * Temporarily forces a11y.accessiblemsg On and getloc_filter VIEW.
  * Named: corridor-goes-to rooms TODO; stuff outside current room TODO;
- * integer glyph_at / full do_screen_description table (firstmatch via
- * getpos auto_describe_text / lookat).
+ * firstmatch via getpos auto_describe_text (do_screen_description).
  */
 export async function dolookaround() {
     if (!game.iflags) game.iflags = {};

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-18
 
-- [x] `insight.c` mstatusline — coverage THIN (C 123 L `insight.c:3275–3398` / JS 24 L in js/insight.js; hops 3, callers 8, RNG 1, msg 22; dead callees: wseg_at). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mstatusline` (reach regression must be 0). Measured `port-coverage.mjs --name mstatusline` 2026-09-18 @ e6289b5b. **Addressed:** D-2446
+- [x] `pager.c` do_screen_description — coverage MISSING (C 376 L `pager.c:1247–1627` / JS no symbol; hops 1, callers 5, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn do_screen_description` (reach regression must be 0). Measured `port-coverage.mjs --name do_screen_description` 2026-09-18 @ e6289b5b. **Addressed:** D-2447
+
+
+- [x] `insight.c` mstatusline — coverage THIN (C 123 L `insight.c:3275–3398` / JS 24 L in js/insight.js; hops 3, callers 8, RNG 1, msg 22; dead callees: wseg_at). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mstatusline` (reach regression must be 0). Measured `port-coverage.mjs --name mstatusline` 2026-09-18 @ e6289b5b. **Addressed:** D-2446 `232ff9b1`
 
 
 - [x] `pager.c` look_at_monster — coverage MISSING (C 130 L `pager.c:422–555` / JS no symbol; hops 2, callers 2, RNG 0, msg 20; dead callees: coyotename). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn look_at_monster` (reach regression must be 0). Measured `port-coverage.mjs --name look_at_monster` 2026-09-18 @ a35f6369.
