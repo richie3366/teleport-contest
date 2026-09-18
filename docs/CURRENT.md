@@ -23,10 +23,10 @@ the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-18** — full `sessions` on the working tree
-(audit **1408–1416**).
+(audit **1417–1425**).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`71+0.49/turn` (R² 0.74).
+`60+0.47/turn` (R² 0.80).
 
 ## Score
 
@@ -36,18 +36,18 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `58+0.36/turn` (R² 0.79) |
+| Speed label | `60+0.47/turn` (R² 0.80) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 4/22, 2nd agentic; best agentic fork 35/44, RNG 98.5 %,
 screens 93.2 %. Held-out moved 7 → 11 over 2026-09-06..17 while the local
 corpus went 48 % → 91.7 %: the corpus no longer predicts the judge.
-**Corpus fortress** (re-scored 2026-09-18 audit 1408–1416): **495 / 540
+**Corpus fortress** (re-scored 2026-09-18 audit 1417–1425): **495 / 540
 PASS (91.7 %)** excl. 13 env-only; RNG 99.29 %, screens 99.0 %. The 3
-`1d21e3be` getdir flips recovered via D-2440; no new flips across D-2440…D-2466
+`1d21e3be` getdir flips recovered via D-2440; no new flips across D-2458…D-2466
 (every per-SHA re-run: 0 regressed).
-Reviews 1225–1416: 170 ACCEPT, 5 WITH-DEBT, 1 DEBT, 11 QUALITY-RISK (0 Must-fix pending).
+Reviews 1225–1425: 179 ACCEPT, 5 WITH-DEBT, 1 DEBT, 11 QUALITY-RISK (0 Must-fix pending).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip (all map-named).
 Audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s) + `leaderboard.mjs`.
 
@@ -98,7 +98,7 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `trap.c` sink_into_lava — coverage MISSING (C 43 L `trap.c:6991–7034` / JS no symbol; hops 2, callers 2, RNG 2, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn sink_into_lava` (reach regression must be 0). Measured `port-coverage.mjs --name sink_into_lava` 2026-09-18 @ 78b9ec99.
+**Next cluster:** `mklev.c` mkinvokearea — coverage MISSING (C 87 L `mklev.c:2410–2497` / JS no symbol; hops 3, callers 2, RNG 0, msg 1; dead callees: mkinvk_check_wall, mkinvpos). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mkinvokearea` (reach regression must be 0). Measured `port-coverage.mjs --name mkinvokearea` 2026-09-18 @ 78b9ec99.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2466 (index).**
 <!-- recent:begin -->

@@ -1427,3 +1427,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1414-4cff7e98-dog-move-arms.md](./1414-4cff7e98-dog-move-arms.md) | `4cff7e98` | D-2455 dog_move arms | **ACCEPT** |
 | [1415-fd174200-mv-bubble.md](./1415-fd174200-mv-bubble.md) | `fd174200` | D-2456 mv_bubble | **ACCEPT** |
 | [1416-1363fc19-slip-or-trip.md](./1416-1363fc19-slip-or-trip.md) | `1363fc19` | D-2457 slip_or_trip | **ACCEPT** |
+| [1417-0363023b-make-hallucinated.md](./1417-0363023b-make-hallucinated.md) | `0363023b` | D-2458 make_hallucinated | **ACCEPT** |
+| [1418-4cc1fd66-mon-arrive.md](./1418-4cc1fd66-mon-arrive.md) | `4cc1fd66` | D-2459 mon_arrive | **ACCEPT** |
+| [1419-78b9ec99-mon-wield-item.md](./1419-78b9ec99-mon-wield-item.md) | `78b9ec99` | D-2460 mon_wield_item | **ACCEPT** |
+| [1420-111d92e0-docrt-flags.md](./1420-111d92e0-docrt-flags.md) | `111d92e0` | D-2461 docrt_flags + feel_location | **ACCEPT** |
+| [1421-99e86dae-gulpmu.md](./1421-99e86dae-gulpmu.md) | `99e86dae` | D-2462 gulpmu | **ACCEPT** |
+| [1422-f14d4535-rloco.md](./1422-f14d4535-rloco.md) | `f14d4535` | D-2463 rloco | **ACCEPT** |
+| [1423-4238093f-verbalize.md](./1423-4238093f-verbalize.md) | `4238093f` | D-2464 verbalize | **ACCEPT** |
+| [1424-b0f6b7b1-fpostfx.md](./1424-b0f6b7b1-fpostfx.md) | `b0f6b7b1` | D-2465 fpostfx | **ACCEPT** |
+| [1425-c08a88b9-sink-into-lava.md](./1425-c08a88b9-sink-into-lava.md) | `c08a88b9` | D-2466 sink_into_lava | **ACCEPT** |
