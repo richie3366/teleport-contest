@@ -104,3 +104,5 @@ One 129-line C function + wire, one module: right-sized.
    the `(game.invent || [])` array idiom.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-2477

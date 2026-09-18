@@ -103,8 +103,6 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 always Must-fix rows: they forfeit every later screen of that session
 (Constitution §10.14).
 
-- [ ] nobj-chain walk over array-model `game.invent` (D-2470 follow-up) — `js/trap.js:5169` hero carried-artifact scan in `trapeffect_anti_magic` (`for (otmp = game.invent; …; otmp = otmp.nobj)`) runs once against the array itself, so the carried non-quest `defends(AD_MAGM)` `rnd(4)` never fires (C draws it; `js/invent.js:369`: invent is an array, minvent stays chains). Same dead pattern at `js/trap.js:1721` (`trap_immune` RUST_TRAP hero walk) — co-fix. Fix: swap both to the `(game.invent || [])` array idiom used at 10 other trap.js sites. Verify with a carried-MR-artifact anti-magic probe (RNG draw present) + gates. Source: reviews/loop-unattended/1429-3d84b5d4-trapeffect-anti-magic.md.
-
 ## Open — coverage (breadth phase — pop first after Must-fix)
 
 Rows below are `port-coverage.mjs --rows` output (score = reach × call

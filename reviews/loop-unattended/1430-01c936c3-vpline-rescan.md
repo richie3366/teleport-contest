@@ -105,4 +105,4 @@ this commit).
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-2476
+**Addressed:** D-2476 `ea470835`

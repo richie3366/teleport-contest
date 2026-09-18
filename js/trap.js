@@ -1717,13 +1717,23 @@ export function immune_to_trap(mon, ttype) {
         return TRAP_NOT_IMMUNE;
     case RUST_TRAP:
         if ((pm?.mndx ?? -1) === PM_IRON_GOLEM) return TRAP_NOT_IMMUNE;
-        for (let obj = is_you ? game.invent : mon.minvent; obj; obj = obj.nobj) {
-            if (is_rustprone(obj) && (obj.owornmask | 0)) {
-                if (is_you && (obj === u.uquiver
-                    || (obj === u.uswapwep && !u.twoweap))) {
-                    continue;
+        /* C walks is_you ? gi.invent (nobj chain) : mon->minvent; JS
+           game.invent is an array — same predicate, same quiver skip */
+        if (is_you) {
+            for (const obj of game.invent || []) {
+                if (is_rustprone(obj) && (obj.owornmask | 0)) {
+                    if (obj === u.uquiver
+                        || (obj === u.uswapwep && !u.twoweap)) {
+                        continue;
+                    }
+                    return TRAP_NOT_IMMUNE;
                 }
-                return TRAP_NOT_IMMUNE;
+            }
+        } else {
+            for (let obj = mon.minvent; obj; obj = obj.nobj) {
+                if (is_rustprone(obj) && (obj.owornmask | 0)) {
+                    return TRAP_NOT_IMMUNE;
+                }
             }
         }
         return TRAP_CLEARLY_IMMUNE;
@@ -5166,9 +5176,12 @@ async function trapeffect_anti_magic(mtmp, trap, _trflags) {
             /* having an artifact--other than own quest one--which
                confers magic resistance simply by being carried
                also increases the effect */
-            for (otmp = game.invent; otmp; otmp = otmp.nobj) {
-                if ((otmp.oartifact | 0) && !is_quest_artifact(otmp)
-                    && defends_when_carried(AD_MAGM, otmp)) break;
+            /* C gi.invent is an nobj chain; JS game.invent is an array
+               (invent.js o_on idiom) — walk the array, same break shape */
+            otmp = null;
+            for (const _am of game.invent || []) {
+                if ((_am.oartifact | 0) && !is_quest_artifact(_am)
+                    && defends_when_carried(AD_MAGM, _am)) { otmp = _am; break; }
             }
             if (otmp) dmgval2 += rnd(4);
             if (Passes_walls()) dmgval2 = ((dmgval2 + 3) / 4) | 0;
