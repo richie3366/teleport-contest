@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-18 — D-2463 `teleport.c` rloco whole-body port (revive/flooreffects/shop/W-tower)
+
+**C locus:** `nethack-c/upstream/src/teleport.c:2102–2187` (`rloco`).
+**JS:** `js/teleport.js` `rloco` (now `export async`), `mons` import, `CORPSE` const.
+**Change:** restart as `async` in C order — `:2109–2112` Rider corpse `revive_corpse` (dynamic do.js import); `:2114–2117` extract-then-read otx/oty + `restricted_fall = otx==0 && dndest.lx` (`game.dndest` mirrors `svd.dndest`); `:2118–2139` pick loop with draws before the `try_limit` break check, `restricted_fall` dndest/nlx arms, W-tower inside/outside XOR via live `On_W_tower_level` + file-local `within_bounded_area`; `:2141–2147` `flooreffects(obj,tx,ty,"fall")` + old-loc `newsym` + FALSE; `:2148` otx==0&&oty==0 trap-door no-op arm; `:2150–2180` shop block (`find_objowner`/`costly_spot`/`costly_adjacent` live sync; `subfrombill` sync; `addtobill`/`stolen_value` awaited; `in_rooms` string + `'\0'`-for-empty mirrors C `char h/oo` + `strchr`); `:2181–2185` place + newsym pair + TRUE. No new static edge (dynamic do.js/shk.js imports per `rloc_maybe_minvent_shop_bill`); `mons` added to the existing monsters.js import; local `CORPSE` const.
+**Verify:** `node scripts/verify.mjs --fn rloco` → PASS syntax (5 files) · PASS rule2 · hidden note (0 blocked) · PASS reach (smoke 24/24 → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · full skipped (no shared file per gate). Tail pasted verbatim in handoff.
+**Named:** `mkobj.c:2081` `mkcorpstat` x==0&&y==0 `rloco` — JS `mkcorpstat` is sync with 5+ transitive sync callers (end.js `mk_named_object`, mhitm `make_corpse`); async cascade is its own row. `hack.c:582` hurtle boulder-TELEP — no live JS counterpart (`js/hack.js` has no TELEP boulder path; `js/dothrow.js` `hurtle_step` is hero-only).
+**Next:** none for rloco; queue refill per breadth phase.
 ## 2026-09-18 — D-2462 `mhitu.c` gulpmu whole-body port (first-swallow + all AD arms)
 
 **C locus:** `nethack-c/upstream/src/mhitu.c:1289–1587` (`gulpmu`; engulf_target `:1300`, pit+boulder `:1302`, failed_grab `:1304`, Punished unplacebc `:1306`, remove/place_monster `:1309–1311`, steed `:1316–1335`, stop/reset_occupations `:1337`, utrap release `:1339–1343`, leashes `:1345–1351`, petrify minstapetrify `:1353–1369`, uswldtim `:1395–1413`, DGST `:1417–1436`, PHYS `:1437–1456`, ACID `:1457–1470`, BLND `:1471–1484`, ELEC `:1485–1499`, COLD `:1500–1514`, FIRE `:1515–1532`, DISE `:1533–1536`, DREN `:1537–1542`, physical AC `:1547–1553`, mswallower/mdamageu `:1555–1559`, expel tail `:1561–1585`).

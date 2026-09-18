@@ -2558,7 +2558,7 @@ async function launch_obj(otyp, x1, y1, x2, y2, style) {
                             }
                             singleobj.otrapped = 0;
                             if (ttyp === TELEP_TRAP) {
-                                rloco(singleobj);
+                                await rloco(singleobj);
                             } else {
                                 add_to_migration(singleobj);
                                 const dest = { dnum: 0, dlevel: 0 };

@@ -3757,7 +3757,17 @@ candelabrum spe==7&&lamplit throb/glow; walk `domove` D-1150;
 `hack.c` distu-sort You see/notice; default `spot_monsters` Off; goto_level wrap D-1194; 
 newgame wrap D-1200; `vision.c` `vision_recalc` / `seffect_magic_mapping` / wizcmds / save / 
 `postmov` / option wiring still named)**; 
-`run_regions` hero `inside_f` `hero_inside` bit D-1169 (`region_danger`/`region_safety` hero bit D-2383); youmonst `m_postmove_effect` D-1167; **`tele_restrict` async canseemon pline** (D-0816)
+`run_regions` hero `inside_f` `hero_inside` bit D-1169 (`region_danger`/`region_safety` hero bit D-2383); youmonst `m_postmove_effect` D-1167; **`tele_restrict` async canseemon pline** (D-0816); 
+**`rloco` whole-body restart (D-2463; C `teleport.c:2102–2187`; live
+`js/teleport.js` async export in C order — Rider `revive_corpse`;
+extract-then-read; `rn1`/`rn2` draws before `try_limit` break;
+`restricted_fall` dndest/nlx + W-tower XOR via `On_W_tower_level`;
+`flooreffects("fall")`; trap-door no-op arm; shop
+`find_objowner`/`costly_spot`/`costly_adjacent`/`subfrombill` +
+awaited `addtobill`/`stolen_value` (`in_rooms` `'\0'` mirrors C `char`);
+callers awaited: dokick scatter, zap bhito, trap launch_obj, mon
+migrate-`mdrop_special_objs`; named: `mkcorpstat` x==0&&y==0 sync-chain
+row, hack hurtle-TELEP no live counterpart, `do.c:181` comment-not-call)**
 
 ### `src/vault.c`
 

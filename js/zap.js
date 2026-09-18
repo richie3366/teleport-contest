@@ -5470,7 +5470,7 @@ async function bhito(obj, otmp) {
     }
     case WAN_TELEPORTATION:
     case SPE_TELEPORT_AWAY:
-        rloco(obj);
+        await rloco(obj);
         break;
     case WAN_UNDEAD_TURNING:
     case SPE_TURN_UNDEAD:

@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2463 — `teleport.c` rloco whole-body port (revive/flooreffects/shop/W-tower)
+
+- **Status:** fixed (Open coverage row: rloco THIN C 85 L `teleport.c:2102–2187` / JS 19 L in js/teleport.js; hops 3, callers 8, RNG 2, msg 0).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify rloco`: no corpus session blocked on it at baseline).
+- **C locus:** `nethack-c/upstream/src/teleport.c:2102–2187` (`rloco`).
+- **JS was:** `js/teleport.js:1839` sync 19 L — extract + bare `goodpos` loop + place. Named away Rider-corpse revive, `flooreffects`, shop bill/`stolen_value`, `restricted_fall`/W-tower gates; read otx/oty before extract (observably same, C order is extract-then-read).
+- **Fix:** restart as `async` in C order — `:2109–2112` Rider corpse `revive_corpse` (dynamic do.js import); `:2114–2117` extract-then-read otx/oty + `restricted_fall = otx==0 && dndest.lx` (`game.dndest` mirrors `svd.dndest`); `:2118–2139` pick loop with draws before the `try_limit` break check, `restricted_fall` dndest/nlx arms, W-tower inside/outside XOR via live `On_W_tower_level` + file-local `within_bounded_area`; `:2141–2147` `flooreffects(obj,tx,ty,"fall")` + old-loc `newsym` + FALSE; `:2148` otx==0&&oty==0 trap-door no-op arm; `:2150–2180` shop block (`find_objowner`/`costly_spot`/`costly_adjacent` live sync; `subfrombill` sync; `addtobill`/`stolen_value` awaited; `in_rooms` string + `'\0'`-for-empty mirrors C `char h/oo` + `strchr`); `:2181–2185` place + newsym pair + TRUE. No new static edge (dynamic do.js/shk.js imports per `rloc_maybe_minvent_shop_bill`); `mons` added to the existing monsters.js import; local `CORPSE` const.
+- **JS:** `js/teleport.js` `rloco` (now `export async`), `mons` import, `CORPSE` const.
+- **Callers:** `dokick.c:1845` scatter → `js/dokick.js:2194` now `await rloco(otmp)`; `zap.c:2326` bhito TELEPORT → `js/zap.js:5473` now `await rloco(obj)`; `trap.c:3477` launch_obj TELEP → `js/trap.js:2561` now `await rloco(singleobj)`; `steal.c:867` migrating `mdrop_special_objs` → `js/mon.js:1560` now `await rloco(obj)`; `do.c:181` is a `flooreffects` comment about rloco, not a call site.
+- **Verify:** `node scripts/verify.mjs --fn rloco` → PASS syntax (5 files) · PASS rule2 · hidden note (0 blocked) · PASS reach (smoke 24/24 → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · full skipped (no shared file per gate). Tail pasted verbatim in handoff.
+- **Named omissions:** `mkobj.c:2081` `mkcorpstat` x==0&&y==0 `rloco` — JS `mkcorpstat` is sync with 5+ transitive sync callers (end.js `mk_named_object`, mhitm `make_corpse`); async cascade is its own row. `hack.c:582` hurtle boulder-TELEP — no live JS counterpart (`js/hack.js` has no TELEP boulder path; `js/dothrow.js` `hurtle_step` is hero-only). File-local `within_bounded_area` (`js/teleport.js:320`) predates canonical `js/rect.js:69` and serves `tele_jump_ok`/`rloc_pos_ok` too — no new clone added. No committed unit test: repo has no `tests/` harness; `verify --fn rloco` (REACH + cohort) is the maintained check.
+- **Next:** none for rloco; queue refill per breadth phase.
+
 ## D-2462 — `mhitu.c` gulpmu whole-body port (first-swallow + all AD arms)
 
 - **Status:** fixed (Open coverage row: gulpmu PARTIAL C 298 L `mhitu.c:1289–1587` / JS 219 L in js/mhitu.js; hops 2, callers 2, RNG 8, msg 19).

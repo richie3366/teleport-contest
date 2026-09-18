@@ -1557,7 +1557,7 @@ export async function mdrop_special_objs(mon) {
                 unlink_minvent(mon, obj);
                 obj.nobj = null;
                 obj.nexthere = null;
-                rloco(obj);
+                await rloco(obj);
             }
         }
         obj = next;
