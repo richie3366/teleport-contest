@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2464 — `pline.c` verbalize whole-body port (PLINE_VERBALIZE flag + variadic format)
+
+- **Status:** fixed (Open coverage row: verbalize THIN C 14 L `pline.c:476–490` / JS 4 L in js/display.js; hops 2, callers 148, RNG 0, msg 2; dead callees: You_buf).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify verbalize`: no corpus session blocked on it at baseline).
+- **C locus:** `nethack-c/upstream/src/pline.c:476–490` (`verbalize`); callees `You_buf` `:338–348`, `vpline` `:152–291`; flag read by SND_SPEECH `sound_speak` (`sounds.c:2201`) via the `SoundSpeak` macro (`sndprocs.h:240–246`).
+- **JS was:** `js/display.js:7438` 4 L — `verbalize(msg)` took one pre-formatted string, quoted it, no `PLINE_VERBALIZE` set/clear, no variadic format arm.
+- **Fix:** restart in C order — `gp.pline_flags |= PLINE_VERBALIZE` (`PLINE_VERBALIZE` joins the existing const.js import); quote-then-format (`"..."` wrap, then `%s/%d/%ld/%%` per the livelog_printf/impossible convention, only when args are present so the ~60 pre-formatted single-string callers are byte-identical); `await pline(tmp)` (the live vpline path); try/finally `&= ~PLINE_VERBALIZE` (C `:488` clears only that bit, unlike Norep's reset). `You_buf` shared-buffer growth named unneeded in JS (immutable strings).
+- **JS:** `js/display.js` only (const import + restart, one file).
+- **Callers:** signature backwards-compatible — every live JS site keeps `await verbalize(str)` (apply, dig, do_name, dokick, dothrow, fountain, hack, lock, mcastu, mhitm, mhitu, minion, mon, monmove, muse, mplayer, potion, pray, priest, quest, read, rumors, shk, sit, sounds, teleport, timeout, vault, wizard). Spot-checked C→JS: `uhitm.c:4533` Burrrrp → `js/mhitm.js:3481` (`mhitm_ad_dgst`); `uhitm.c:4373` Doc → `js/mhitu.js:2828` (`mhitm_ad_heal_u`); `mkobj.c:806,818` costly_alteration → `js/shk.js:2121,2129`. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn verbalize` → PASS syntax (1 file: js/display.js) · PASS rule2 · note hidden (0 blocked) · PASS reach (no RNG-tagged reach; smoke 24/24 → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) → VERIFY: PASS.
+- **Named omissions:** `mail.c:342,373,418,434` (`md_rush` — no JS counterpart); `eat.c:2588` (inside `fpostfx`, its own Open coverage row); `nhlua.c:655` (lua binding, no JS lua); C `verbalize("")` would print `""` but JS keeps the file's empty no-op guard (no caller passes empty). No committed unit test: repo has no `tests/` harness; `verify --fn verbalize` (REACH + cohort + full 44) is the maintained check.
+- **Next:** queue head after this ships per breadth phase.
+
 ## D-2463 — `teleport.c` rloco whole-body port (revive/flooreffects/shop/W-tower)
 
 - **Status:** fixed (Open coverage row: rloco THIN C 85 L `teleport.c:2102–2187` / JS 19 L in js/teleport.js; hops 3, callers 8, RNG 2, msg 0).

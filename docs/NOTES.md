@@ -40,19 +40,20 @@ here again. Live hypotheses only:
 - **do_statusline2 residuals (D-2425 MEASURED):** W1 Healer-92107 `mhitm_ad_cold_u` extra destroy return; W2 Satiated pair = eat-progress `uhs`/botl timing — both are corpus-residual Open rows (detail in D-2425). Monk-92194 Pw = D-2161 gulpmu residual, no new row.
 ## Don't re-check (≤15)
 
-- D-1790…D-2463 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-2464 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2463.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2463.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2464.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2464.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2464: restart in C order — `gp.pline_flags |= PLINE_VERBALIZE` (`PLINE_VERBALIZE` joins the existing const.js import); quote-then-format (`"..."` wrap, then Named: `mail.c:342,373,418,434` (`md_rush` — no JS counterpart); `eat.c:2588` (inside `fpostfx`, 
 - D-2463: restart as `async` in C order — `:2109–2112` Rider corpse `revive_corpse` (dynamic do.js import); `:2114–2117` extract-then-read otx/oty + `restricted Named: `mkobj.c:2081` `mkcorpstat` x==0&&y==0 `rloco` — JS `mkcorpstat` is sync with 5+ transitiv
 - D-2462: `js/mhitu.js` only — restart in C order: `t_at` + pit/boulder miss (`is_pit`, `sobj_at`, BOULDER const); Punished `unplacebc()`; live remove/place_mon Named: none new in this body.
 - D-2461: `js/display.js` — new exported `docrtRecalc/Refresh/MapOnly/Nocls` consts + `export async function docrt_flags(refresh_flags)` in C order (flag decode Named: wintty.c:435 rescale trigger (above); non-docrt under_water/under_ground caller wiring (pr
@@ -67,5 +68,4 @@ here again. Live hypotheses only:
 - D-2452: `js/eat.js` — rottenfood guard is now `!rn2(4) && !Blind()` (live `invent.js` Blind; `imports.mjs --can` ALREADY on the invent edge; the two function- Named: eat.c:2520 fpostfx CARROT blindness (`js/eat.js:1961` + map; EGG/other otyps with it); `Yo
 - D-2451: `js/pager.js` only — `checkfile_split_names` now truncates `dbase` at the first `" ("` (`indexOf`, matching C `strstri` on the already-lowered string, Named: none new (D-2443 omissions stand: do_supplemental_info `:2255`, dlb I/O-error arms).
 - D-2450: `js/uhitm.js` only — the two lines moved to right after `game.disintegested = false`, gated on `!was_stoned`, before the lifesaved return; the stale " Named: none new (D-2444 omissions stand: `mhitm_ad_rust`/`mhitm_ad_fire` uhitm arms, `wiz_kill`; 
-- D-2449: `js/pager.js` only — cmap-scan match is now `looked ? cmap_showsym_code(altI) : DEFSYMS_CH[altI].charCodeAt(0)` per C `:1475`. Named: none new (D-2447 omissions stand: rogue_syms, non-boulder ov slots, `gw.warnsyms`, gameove
 <!-- landmarks:end -->

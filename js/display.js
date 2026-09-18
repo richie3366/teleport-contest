@@ -112,6 +112,7 @@ import {
     MSGTYP_NOSHOW,
     MSGTYP_STOP,
     PLINE_NOREPEAT,
+    PLINE_VERBALIZE,
     OVERRIDE_MSGTYPE,
     URGENT_MESSAGE,
     SUPPRESS_HISTORY,
@@ -7434,10 +7435,34 @@ export async function You_feel(msg) {
     await pline(`You feel ${msg}`);
 }
 
-// C ref: pline.c verbalize — wrap spoken text in double quotes
-export async function verbalize(msg) {
-    if (msg == null || msg === '') return;
-    await pline(`"${msg}"`);
+// C ref: pline.c verbalize :476–490 — quote the format, then vpline.
+// C order: va_start; gp.pline_flags |= PLINE_VERBALIZE;
+// tmp = You_buf(strlen(line) + sizeof "\"\"") (:482–483); Strcpy/Strcat
+// the quotes (:484–486); vpline(tmp, the_args) (:487);
+// gp.pline_flags &= ~PLINE_VERBALIZE (:488); va_end. You_buf (:338–348)
+// is C shared-buffer growth (gy.you_buf) — unneeded in JS (immutable
+// strings); vpline is pline()/pline_after_consume() above. The flag is
+// read by SND_SPEECH sound_speak (sounds.c:2201 strips the quotes) via
+// the SoundSpeak macro (sndprocs.h:240–246; js/sndprocs.js SoundSpeak
+// is a no-op without SND_LIB). Variadic formats follow the
+// livelog_printf/impossible convention (%s/%d/%ld/%%); live JS callers
+// pass one pre-formatted string, which takes the no-args path unchanged.
+export async function verbalize(line, ...args) {
+    if (line == null || line === '') return;
+    let tmp = `"${String(line)}"`;
+    if (args.length > 0) {
+        let i = 0;
+        tmp = tmp.replace(/%%|%(?:ld|[ds])/g, (m) => {
+            if (m === '%%') return '%';
+            return String(args[i++] ?? '');
+        });
+    }
+    gp.pline_flags |= PLINE_VERBALIZE;
+    try {
+        await pline(tmp);
+    } finally {
+        gp.pline_flags &= ~PLINE_VERBALIZE;
+    }
 }
 
 /**

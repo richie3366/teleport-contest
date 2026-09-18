@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-18 — D-2464 `pline.c` verbalize whole-body port (PLINE_VERBALIZE flag + variadic format)
+
+**C locus:** `nethack-c/upstream/src/pline.c:476–490` (`verbalize`); callees `You_buf` `:338–348`, `vpline` `:152–291`; flag read by SND_SPEECH `sound_speak` (`sounds.c:2201`) via the `SoundSpeak` macro (`sndprocs.h:240–246`).
+**JS:** `js/display.js` only (const import + restart, one file).
+**Change:** restart in C order — `gp.pline_flags |= PLINE_VERBALIZE` (`PLINE_VERBALIZE` joins the existing const.js import); quote-then-format (`"..."` wrap, then `%s/%d/%ld/%%` per the livelog_printf/impossible convention, only when args are present so the ~60 pre-formatted single-string callers are byte-identical); `await pline(tmp)` (the live vpline path); try/finally `&= ~PLINE_VERBALIZE` (C `:488` clears only that bit, unlike Norep's reset). `You_buf` shared-buffer growth named unneeded in JS (immutable strings).
+**Verify:** `node scripts/verify.mjs --fn verbalize` → PASS syntax (1 file: js/display.js) · PASS rule2 · note hidden (0 blocked) · PASS reach (no RNG-tagged reach; smoke 24/24 → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) → VERIFY: PASS.
+**Named:** `mail.c:342,373,418,434` (`md_rush` — no JS counterpart); `eat.c:2588` (inside `fpostfx`, its own Open coverage row); `nhlua.c:655` (lua binding, no JS lua); C `verbalize("")` would print `""` but JS keeps the file's empty no-op guard (no caller passes empty). No committed unit test: repo has no `tests/` harness; `verify --fn verbalize` (REACH + cohort + full 44) is the maintained check.
+**Next:** queue head after this ships per breadth phase.
 ## 2026-09-18 — D-2463 `teleport.c` rloco whole-body port (revive/flooreffects/shop/W-tower)
 
 **C locus:** `nethack-c/upstream/src/teleport.c:2102–2187` (`rloco`).
