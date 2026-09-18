@@ -217,7 +217,7 @@ export function cant_squeeze_thru(mon) {
 }
 
 /** C ref: mondata.h perceives — M1_SEE_INVIS. */
-function perceives(ptr) {
+export function perceives(ptr) {
     return !!((ptr?.mflags1 ?? 0) & M1_SEE_INVIS);
 }
 

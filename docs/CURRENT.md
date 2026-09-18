@@ -45,7 +45,7 @@ screens 93.2 %. Held-out moved 7 → 11 over 2026-09-06..17 while the local
 corpus went 48 % → 91.7 %: the corpus no longer predicts the judge.
 **Corpus fortress** (re-scored 2026-09-18 audit 1399–1407): **495 / 540
 PASS (91.7 %)** excl. 13 env-only; RNG 99.29 %, screens 99.0 %. The 3
-`1d21e3be` getdir flips recovered via D-2440; no new flips across D-2440…D-2454
+`1d21e3be` getdir flips recovered via D-2440; no new flips across D-2440…D-2455
 (every per-SHA re-run: 0 regressed).
 Reviews 1225–1407: 162 ACCEPT, 4 WITH-DEBT, 1 DEBT, 11 QUALITY-RISK (3 Must-fix pending).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx (both map notes).
@@ -98,10 +98,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `zap.c` destroy_items — coverage THIN (C 128 L `zap.c:5965–6097` / JS 36 L in js/zap.js; hops 2, callers 36, RNG 2, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn destroy_items` (reach regression must be 0). Measured `port-coverage.mjs --name destroy_items` 2026-09-18 @ e6289b5b.
+**Next cluster:** `dogmove.c` dog_move — coverage PARTIAL (C 379 L `dogmove.c:977–1358` / JS 240 L in js/dogmove.js; hops 2, callers 2, RNG 9, msg 3; dead callees: undesirable_disp). Queue-head `mon.c` newcham, `pager.c` checkfile, `cmd.c` getdir, `end.c` really_done, `display.c` show_glyph all parked STALE same iteration (bodies complete split-named per D-2433/D-2443/D-2434/D-2435 + show_glyph_cell). Ship dog_move's missing arms in C order: dog_hunger/dog_starve, should_displace + ALLOW_MDISP/undesirable_disp, pet_ranged_attk body, score_targ RNG order, whimper/m_digweapon_check/kludge. Verify `node scripts/verify.mjs --fn dog_move` (reach regression must be 0). Measured `port-coverage.mjs --name dog_move` 2026-09-18 @ e19b6d0a.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2454 (index).**
+**Keep D-0845…D-2455 (index).**
 <!-- recent:begin -->
+**D-2455** `nethack-c/upstream/src/dogmove.c:977–1358` (`dog_move`); `:348–360` `dog_starve`; `:362–3 — `js/dogmove.js` — DOG_HUNGRY/WEAK/STARVE 300/500/750 (`:10–12`) + AT_NONE 0; local `dog_starve` (leash-slack net-identical pline / starves / Hallu feel + `mondied`) + `dog_hunger` (non-eater push, weak/confuse/cansee-beg
 **D-2454** `nethack-c/upstream/src/zap.c:5965–6097` (destroy_items); callees `worn.c` bypass_objlist/ — `js/zap.js:1711` restart in C order — limit + unconditional `rn2(DMG_DESTROY_SCALE)` gate (`:1712–1716`), live-chain `objchn()` getter (C `:5984 obj**`), `{oid,otmp,deferred}` array (`:1722–1726`), `bypass_objlist(clear)
 **D-2453** `nethack-c/upstream/src/hack.c:2712–2991` (domove_core); callees `hack.c:2342–2360` air_tu — `js/hack.js` — new `air_turbulence` (`:2273`, Is_airlevel+rn2(4)+Levitation/Flying gate, rn2(3) tumble/You_cant/thin-air + DEX exercise) and `slippery_ice_fumbling` (`:2300`, snow-boots objdescr / resists_cold / Flying /
 **D-2452** `nethack-c/upstream/src/potion.c:260–331` (make_blinded); callers `eat.c:1822–1830` rotten — `js/eat.js` — rottenfood guard is now `!rn2(4) && !Blind()` (live `invent.js` Blind; `imports.mjs --can` ALREADY on the invent edge; the two function-scoped `const Blind` mirrors at :1644/:1788 shadow it legally, untouch
@@ -109,11 +110,10 @@ revisits the picker.
 **D-2450** `nethack-c/upstream/src/mon.c:2702–2703` (`mon_leaving_level`: `mtrapped=0` + `unstuck`) r — `js/uhitm.js` only — the two lines moved to right after `game.disintegested = false`, gated on `!was_stoned`, before the lifesaved return; the stale "before the rn2(6) draw" comment replaced with the `mon_leaving_level`/
 **D-2449** `nethack-c/upstream/src/pager.c:1475` (`sym == (looked ? gs.showsyms[alt_i] : defsyms[alt_ — `js/pager.js` only — cmap-scan match is now `looked ? cmap_showsym_code(altI) : DEFSYMS_CH[altI].charCodeAt(0)` per C `:1475`.
 **D-2448** `nethack-c/upstream/src/vault.c:888–1201` (gd_move); helpers `:734–750` gd_mv_monaway, `:7 — `js/vault.js` restart in C order — off-level `:893-894`, dead/parked/gddone cleanup `:896-899`, both-out wallify `:909-911`, hostile rloc/wallify/clear_fcorr/gd_letknow `:913-928`, teleported-guard reject `:934-935`, wit
-**D-2447** `nethack-c/upstream/src/pager.c:1247–1627` (do_screen_description); showsyms machinery `sy — `js/pager.js` restart in C order — restricted vision (`:1291–1305`), x_str (`:1307–1325`), check_monsters incl `@`-as-you (`:1327–1354`), objects with boulder/statue split + venom skip (`:1356–1404`), DEF_INVISIBLE (`:14
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2454; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2455; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

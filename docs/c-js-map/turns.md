@@ -3218,8 +3218,7 @@ JS: `js/dog.js`, `js/dogmove.js` — partial
 
 Starting-pet subset; **`find_friends`/`score_targ`/`dog_move` pal/target `ptr.msound` numeric 
 MS_LEADER/GUARDIAN** (D-1093; string `'MS_LEADER'` was dead after D-1053; 
-`perceives` invis-tame pal, `score_targ` conf/`Is_qstart`/faith/AT_NONE/vampshifter, melee 
-`haseyes`/`mon_reflects`/`touch_petrifies` still named); 
+`perceives` invis-tame pal + `find_targ` perceives gate live (D-2455); `score_targ` conf-gate/`Is_qstart`/faith/AT_NONE/lichen/vampshifter/stronger-foe live (D-2455); melee `haseyes`/`perceives`/`mon_reflects`/`touch_petrifies`/`resists_ston` live (D-2455)); 
 **`obj_resists` invocation/rider items skip `rn2(100)`** + 
 **`dogfood` `is_quest_artifact` short-circuit** (D-0864; seed0399 **10309→10382**); 
 **`abuse_dog` mtame-- / `rn2(mtame)` → yelp/growl** (D-0836; 
@@ -3293,12 +3292,13 @@ CORPSE age→POISON + `cursed_object_at` in `dog_goal` (D-0015);
 `resists_*`/polyfood/cannibalism/rider/petrify deferred); `carnivorous`/`herbivorous` from mflags1; 
 `dog_move` uncursedcnt/`cursemsg` pline (D-0017/D-0019); 
 **`cursemsg` gates on `display.canseemon` LOS** (D-0416; 
-hero_memory glyph/`distant_name` what-name deferred); 
+hero_memory glyph + `distant_name`/`vtense`-locomotion/flyer-over what-name live D-2455); 
 **`resist_conflict`/`hero_conflict` after dog_goal + `mon_allowflags` ALLOW_U** (D-0406; 
 **D-1617 `dog_move` Conflict `!edog` `lose_guardian_angel(mtmp)`** body D-1608; 
 **DISMOUNT_THROWN steed throw D-1627**; setworn oc_oprop named); 
 **`dog_move` newdogpos `ALLOW_U`→`mattacku`/`MMOVE_DONE`** (D-0414; 
-**ALLOW_U `m_unleash` FALSE D-1609**; `pet_ranged_attk` youmonst→`mattacku` deferred); 
+**ALLOW_U `m_unleash` FALSE D-1609**; `pet_ranged_attk` full body incl youmonst→`mattacku` live D-2455); 
+**`dog_move` whole-body D-2455** (C `dogmove.c:977–1358`; `dog_hunger`/`dog_starve`, `should_displace` + ALLOW_MDISP/`undesirable_disp` (`monmove.js` exports), leashed/guardian gates, bhitpos/notonhead, trap `whimper`, `m_in_out_region` + `m_digweapon_check`, leashed goodpos kludge, j==1 goto-newdogpos; named: direct mx/my set, `dog_goal`/`dog_invent` clones, `mhis` inline); 
 **`dog_eat` message gate C order — `sawpet` is `cansee`+`mon_visible`, second arm `canspotmon`** (D-1875; queue owner `glibr` was a `corpse`-substring misattribution, `glibr()` untouched);
 **`tamedog` already-tame thrown food → `dogfood`/`dog_eat`** (D-0415; 
 **blessed scroll/spell +2 clamp 10 D-1532**; new-tame food devour polish /
@@ -3327,7 +3327,7 @@ seed0017 RNG **full** after `#pray` (D-0101); seed0106 @2993 post-kill `dog_goal
 seed0012 @6952 **`dog_goal` gg/wantdoor** (D-0367); 
 **seed0004 Conflict after D-0405 timers/sortloot (D-0406); teleport scroll D-0407**; 
 **D-0453 fixed:** @26987 was hero Y desync from stale `travelcc`; 
-**`m_in_out_region`/`m_digweapon_check` before place still omitted**; 
+**`m_in_out_region`/`m_digweapon_check` before place live** (D-2455); 
 **D-0485 fixed** (dofire More+getdir); **D-0490 fixed:** seed0007 @7142→7175 — missing `#loot` 
 take-out gold; **`mfndpos` still lacks onscary/garlic/`mm_aggression` (D-0597 pool/lava; 
 D-0612 squeeze) |
