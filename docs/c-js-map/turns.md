@@ -3758,10 +3758,15 @@ um_dist `rn2(10)`** (D-0377); **`clear_fcorr`/`restfakecorr` +
 **`parkguard`/`gd_move_cleanup` + `!u_in_vault` look-around → Suddenly pline + 
 `flush_topl_more`** (D-0397); **`uleftvault` via `teleds` (D-1140; 
 gold+`um_dist` irate/`mpeaceful=0`; dest VAULT fake then restore)**; 
-omit hostile/witness/goldincorridor gd_move / migrating findgd /
-`vault_summon_gd` / Croesus angry wield / `fracture_rock` / Punished-uball /
-corridor-disappears pline / confused-disappears / Well begone verbalize /
-gd_mv_monaway / mpickgold / dig `del_engr_at`; **`move_gold`**
+**whole `gd_move` `:888–1201` + `gd_mv_monaway` + `gd_pick_corridor_gold` +
+`gd_letknow` + mon.c `mpickgold`** (D-2448; hostile/witness/fcend==1>1
+arms + goldincorridor + Move-along `sticks` + look-around/nextpos-dig +
+stuck find_guard_dest retry + newpos remove/place/mpickgold; `rm.h:213`
+doormask-IS-flags read-back; `movemon_singlemon` parked-guard caller wired;
+`GOLD = 15` const);
+omit migrating findgd / `vault_summon_gd` / Croesus angry wield /
+`fracture_rock` / Punished-uball / gd_move debugpline1 / defensive
+!isok/!crm early-0 in the dig loop; **`move_gold`**
 (D-1946; `vault.c:632–643`; live `js/vault.js` export in C order via
 `obj_extract_self` floor arm + `rooms[vroom].lx/ly + rn2(2)` paygd idiom);
 **`wallify_vault`** (D-2390; `vault.c:646–731`; live `js/vault.js` async in C

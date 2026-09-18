@@ -97,11 +97,12 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `pager.c` do_screen_description — coverage MISSING (C 376 L `pager.c:1247–1627` / JS no symbol; hops 1, callers 5, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn do_screen_description` (reach regression must be 0). Measured `port-coverage.mjs --name do_screen_description` 2026-09-18 @ e6289b5b.
+**Next cluster:** `vault.c` gd_move — coverage PARTIAL (C 313 L `vault.c:888–1201` / JS 232 L in js/shk.js; hops 2, callers 4, RNG 1, msg 13; dead callees: gd_pick_corridor_gold). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn gd_move` (reach regression must be 0). Measured `port-coverage.mjs --name gd_move` 2026-09-18 @ e6289b5b.
 **Prev cluster:** `insight.c` mstatusline — coverage THIN (C 123 L `insight.c:3275–3398` / JS 24 L in js/insight.js; hops 3, callers 8, RNG 1, msg 22; dead callees: wseg_at). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mstatusline` (reach regression must be 0). Measured `port-coverage.mjs --name mstatusline` 2026-09-18 @ e6289b5b.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2447 (index).**
+**Keep D-0845…D-2448 (index).**
 <!-- recent:begin -->
+**D-2448** `nethack-c/upstream/src/vault.c:888–1201` (gd_move); helpers `:734–750` gd_mv_monaway, `:7 — `js/vault.js` restart in C order — off-level `:893-894`, dead/parked/gddone cleanup `:896-899`, both-out wallify `:909-911`, hostile rloc/wallify/clear_fcorr/gd_letknow `:913-928`, teleported-guard reject `:934-935`, wit
 **D-2447** `nethack-c/upstream/src/pager.c:1247–1627` (do_screen_description); showsyms machinery `sy — `js/pager.js` restart in C order — restricted vision (`:1291–1305`), x_str (`:1307–1325`), check_monsters incl `@`-as-you (`:1327–1354`), objects with boulder/statue split + venom skip (`:1356–1404`), DEF_INVISIBLE (`:14
 **D-2446** `nethack-c/upstream/src/insight.c:3275–3398` (mstatusline); helpers `worm.c:946–966` wseg_ — `js/insight.js` restart in C order — `mon_aligntyp` fixed to EPRI shralign / EMIN min_align / data.maligntyp with A_NONE passthrough (`:3277`); tame + `wizardMode()` count and EDOG hungry/apport unless isminion (`:3281–3
 **D-2445** `nethack-c/upstream/src/pager.c:422–555` (look_at_monster, staticfn); callee `do_name.c:15 — `js/pager.js` restart in C order — new `export function look_at_monster(mtmp, x, y)` returning `{ buf, monbuf }`: accurate gate (`:429`); coyote `data.mndx === PM_COYOTE && accurate ? coyotename : distant_monnam(ARTICLE_
@@ -109,11 +110,10 @@ revisits the picker.
 **D-2443** `nethack-c/upstream/src/pager.c:829–1129` (checkfile, staticfn); callees lcase/strstri/cop — `js/pager.js` only — `checkfile_dbase_str` (`:867–935` all strips with C else-if chains), `checkfile_split_names` (`:944–976` incl. live supplemental_name fill from original-case inp), `checkfile_alt_for` (fruit → `slime
 **D-2442** `nethack-c/upstream/src/polyself.c:1497–1621` (dospinweb PIT arm `bury_objs(x, y)` after ` — `js/polyself.js:89` only — added `bury_objs` to the existing `./dig.js` import.
 **D-2441** `nethack-c/upstream/src/polyself.c:1642–1773` (dogaze; `setmangry(mtmp, TRUE)` after the p — `js/polyself.js:38` only — added `setmangry` to the existing `./mon.js` import.
-**D-2440** `nethack-c/upstream/src/cmd.c:3956–4119` (getdir `:4095` `else if (!(is_mov = movecmd(dirs — `js/lock.js` only — deleted the `if (!applied) { u.dz = 0; }` block.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2447; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2448; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

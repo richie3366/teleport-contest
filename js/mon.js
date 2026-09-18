@@ -49,8 +49,9 @@ import {
 import {
     objects_at, sobj_at, kill_egg, place_object, stackobj, delobj, is_metallic,
     is_rustprone, mksobj_at, is_organic, is_mines_prize, is_soko_prize,
-    obj_extract_self, nxtobj, splitobj,
+    obj_extract_self, nxtobj, splitobj, g_at, add_to_minv,
 } from './mkobj.js';
+import { gd_move } from './vault.js';
 import {
     objectNames, objectDescrs, ROCK_CLASS, SCROLL_CLASS,
 } from './generated/objects_data.js';
@@ -85,7 +86,7 @@ import { touch_artifact } from './artifact.js';
 import { experience, more_experienced, newexplevel } from './exper.js';
 import { hastrack } from './track.js';
 import { MON_WEP } from './weapon.js';
-import { is_axe, is_pick } from './objects.js';
+import { is_axe, is_pick, GOLD } from './objects.js';
 
 const PM_FLOATING_EYE = monsterNames.indexOf('PM_FLOATING_EYE');
 const PM_GREMLIN = monsterNames.indexOf('PM_GREMLIN');
@@ -1577,6 +1578,31 @@ export async function migrate_mon(mtmp, target_lev, xyloc) {
 }
 
 /**
+ * C ref: mon.c mpickgold `:1827–1843` — monster picks up floor gold at its
+ * feet: extract + add_to_minv; when seen, newsym, plus a verbose
+ * non-guard pline_mon with the gold-vs-money material message
+ * (GOLD = objclass.h 15, Au). Callers: vault.c gd_move newpos +
+ * gd_pick_corridor_gold (same iteration).
+ */
+export async function mpickgold(mtmp) {
+    const gold = g_at(mtmp.mx, mtmp.my);
+    if (gold) {
+        const mat = game.objects?.[gold.otyp]?.oc_material ?? 0;
+        obj_extract_self(gold);
+        add_to_minv(mtmp, gold);
+        if (cansee(mtmp.mx, mtmp.my)) {
+            if ((game.flags?.verbose !== false) && !mtmp.isgd) {
+                await pline_mon(
+                    mtmp,
+                    `${Monnam(mtmp)} picks up some ${mat === GOLD ? 'gold' : 'money'}.`,
+                );
+            }
+            newsym(mtmp.mx, mtmp.my);
+        }
+    }
+}
+
+/**
  * C ref: mon.c m_into_limbo `:3834–3840` — MON_LIMBO then migrate to current
  * ledger with MIGR_APPROX_XY. Callers: deal_with_overcrowding (same file),
  * do.c u_collide_m, teleport.c u_teleport_mon, vault.c clear_fcorr.
@@ -2883,10 +2909,15 @@ async function movemon_singlemon(mtmp) {
         return true;
     }
 
-    // C: parked vault guard at <0,0> — gd_move may discard; no NORMAL_SPEED spend.
-    // Named omission: full gd_move corridor teardown (D-0795); skip spend only.
+    // C mon.c:1233-1239 — parked vault guard at <0,0> gets one gd_move
+    // per turn (tears down the corridor, clears isgd when done); no
+    // NORMAL_SPEED spend, and FALSE either way (dead or alive).
     if (mtmp?.isgd && !(mtmp.mx | 0)
         && !((mtmp.mstate | 0) & MON_MIGRATING)) {
+        if ((game.moves | 0) > (mtmp.mlstmv | 0)) {
+            await gd_move(mtmp);
+            mtmp.mlstmv = game.moves | 0;
+        }
         return false;
     }
 
