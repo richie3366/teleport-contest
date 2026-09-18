@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-18 — D-2437 `dungeon.c` init_dungeons whole body in C order (coverage THIN → live)
+
+**C locus:** `nethack-c/upstream/src/dungeon.c:1205–1319` (init_dungeons); callees `nhl_init`/`nhl_loadlua`/`nhl_done` (private Lua state), `init_dungeon_dungeons` (`:997+`), `init_level`, `place_level`, `add_level`, `init_castle_tune`, `fixup_level_locations`, `free_proto_dungeon` (`:1185–1203`), `dumpit` (DEBUG); callers `allmain.c:789`, `mklev.c:1260–1263`, `topten.c:1232–1234`, `vision.c:845` (comment only).
+**JS:** `js/dungeon.js:1046–1139` (init_dungeons restart, function at :1053); `js/mklev.js:138` (import), `:23890–23899` (makelevel guard); map `docs/c-js-map/startup.md:22`.
+**Change:** `js/dungeon.js` restart in C order: memset/re-zero cited on the pd literal; nhl_init/nhl_loadlua failure panics named omits (generated `dungeon_data.js` embed, D-0477 pattern) keeping the observable nhlib align shuffle; window_inited→clear_nhwindow(WIN_MAP) named omit (screen side effect, no primitive); sp_levchn NULL→`[]`; Array.isArray + per-entry object checks for the two lua-table panics; MAXDUNGEON/place panics stay throws; lua_next loop with `cl`-carries-across-dungeons and `i`-counts-successes notes; DDEBUG/debugpline2/nhl_done/free_proto_dungeon/dumpit named omits. `js/mklev.js`: init_dungeons joins the existing dungeon.js import (no new edge — dungeon.js never imports mklev) + the C makelevel guard (`wiz1_level.dlevel==0` → impossible + init_dungeons). No DIAG/FORCE/seed logic; Rule #2 clean.
+**Verify:** `node scripts/verify.mjs --fn init_dungeons` → PASS syntax (2 files: dungeon.js mklev.js) · rule2 · hidden note (0 blocked at baseline) · **REACH smoke 24/24 PASS, 0 regressed → REACH-OK** · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared dungeon.js changed) → VERIFY: PASS.
+**Named:** nhl_init/nhl_loadlua/nhl_done Lua-state scaffolding + load-failure tbuf panic (generated-data embed); window_inited clear_nhwindow(WIN_MAP) (display side effect); DDEBUG block + debugpline2 DONE + DEBUG dumpit (debug-only); free_proto_dungeon (GC); topten.c:1234 standalone-scores caller.
+**Next:** no other dungeon.c row queued; head is now `attrib.c` adjattrib (PARTIAL).
 ## 2026-09-18 — D-2436 `polyself.c` dogaze + dospinweb + rehumanize whole bodies in C order (coverage MISSING/MISSING/THIN → live)
 
 **C locus:** `nethack-c/upstream/src/polyself.c:1642–1773` (dogaze); `:1497–1621` (dospinweb); `:1367–1418` (rehumanize); predicates `monst.h:251` helpless, `mondata.h:81` perceives, `dbridge.c:77–83` is_pool_or_lava, `youprop.h` Blind/Invis/See_invisible/Free_action/Confusion/Hallucination; `mhitu.c:1699` expels; `zap.c:1706` destroy_items.

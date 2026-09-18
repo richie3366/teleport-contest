@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-18
 
+- [x] `dungeon.c` init_dungeons — coverage THIN (C 114 L `dungeon.c:1205–1319` / JS 46 L in js/dungeon.js; hops 1, callers 5, RNG 0, msg 7; dead callees: free_proto_dungeon, dumpit). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn init_dungeons` (reach regression must be 0). Measured `port-coverage.mjs --name init_dungeons` 2026-09-18 @ a35f6369. **Addressed:** D-2437
+
+
 - [x] `polyself.c` dogaze — coverage MISSING (C 131 L `polyself.c:1642–1773` / JS no symbol; hops 1, callers 1, RNG 4, msg 14). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dogaze` (reach regression must be 0). Measured `port-coverage.mjs --name dogaze` 2026-09-18 @ a35f6369.
 - [x] `polyself.c` rehumanize — coverage THIN (C 51 L `polyself.c:1367–1418` / JS 20 L in js/polyself.js; hops 1, callers 29, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn rehumanize` (reach regression must be 0). Measured `port-coverage.mjs --name rehumanize` 2026-09-18 @ a35f6369.
 - [x] `polyself.c` dospinweb — coverage MISSING (C 124 L `polyself.c:1497–1621` / JS no symbol; hops 1, callers 1, RNG 0, msg 11). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dospinweb` (reach regression must be 0). Measured `port-coverage.mjs --name dospinweb` 2026-09-18 @ a35f6369.

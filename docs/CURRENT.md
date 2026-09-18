@@ -101,8 +101,9 @@ breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
 **Next cluster:** `dungeon.c` init_dungeons — coverage THIN (C 114 L `dungeon.c:1205–1319` / JS 46 L in js/dungeon.js; hops 1, callers 5, RNG 0, msg 7; dead callees: free_proto_dungeon, dumpit). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn init_dungeons` (reach regression must be 0). Measured `port-coverage.mjs --name init_dungeons` 2026-09-18 @ a35f6369.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2436 (index).**
+**Keep D-0845…D-2437 (index).**
 <!-- recent:begin -->
+**D-2437** `nethack-c/upstream/src/dungeon.c:1205–1319` (init_dungeons); callees `nhl_init`/`nhl_load — `js/dungeon.js` restart in C order: memset/re-zero cited on the pd literal; nhl_init/nhl_loadlua failure panics named omits (generated `dungeon_data.js` embed, D-0477 pattern) keeping the observable nhlib align shuffle; 
 **D-2436** `nethack-c/upstream/src/polyself.c:1642–1773` (dogaze); `:1497–1621` (dospinweb); `:1367–1 — `js/polyself.js` only, in C order. dogaze: AT_GAZE mattk scan with AD_CONF/AD_FIRE gate else impossible; Blind/Hallucination/uen<15 gates; uen-=15 + botl; snapshot fmon loop (one visit per monster while killed() unlinks)
 **D-2435** `nethack-c/upstream/src/end.c:1130–1590` (`really_done`); achievements `:1173–1183` via `i — `js/end.js` only, in C order — achievements via live `record_achievement` (ACH_BLND/NUDE gated on `uachieved[0]||!beginner`, ACH_UWIN on ASCENDED; gameover-quiet, no RNG/output); `finish_paybill` moved before grave+score
 **D-2434** `nethack-c/upstream/src/cmd.c:3958–4119` (`getdir`); callees `movecmd :3868–3898`, `dxdy_m — `js/lock.js` only, in C order — cmdq DIR respects num_pad NDIR/SDIR + dirz `>`/`<`, non-DIR/KEY now `await impossible('getdir: command queue had no dir?')`; retry keeps `getdirInp` + in_doagain-nhgetch, adds short-circui
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2432** `nethack-c/upstream/src/polyself.c:735–1071` (`polymon`); same-file staticfn `check_strang — `js/polyself.js` only — restart of the thin body in C order: entry `sticking`/`wasHidingUnder`/`wasExpelled`/`ustuckNam` locals; first-poly `livelog_printf(LL_CONDUCT)`; `unmul('')` mimic-gold stop; Stoned→`PM_STONE_GOLE
 **D-2431** `trap.c:1797–1806` (`trapeffect_fire_trap` monster branch: xtradmg subtraction and the AD_ — `js/trap.js` only — subtract + AD_FIRE monkilled nested under the existing `(mhp|0)>0` check in C order (`:1800–1806` comment); `trapeffect_fire_trap` exported (C `staticfn`, test pin per D-2416 precedent).
 **D-2430** `nethack-c/upstream/src/cmd.c:4115–4116` (`if (!u.dz) confdir(FALSE)` inside `getdir`, aft — `js/lock.js` only for the locus — tail `if (!(u.dz | 0)) confdir(false)` in C order at both exits (self + normal); `confdir` was already imported (no new edge).
-**D-2429** `nethack-c/upstream/src/mklev.c:2135–2144` victim gate (`lvl <= (unsigned) rnd(4)` at `:21 — `js/mklev.js` only — capture `ttmp` and call `mktrap_seen_victim(ttmp, {})` (exact: not-WEB so spider flag moot, seen/novictim false per the string+coord defaults) in both blocks with a C-order comment; intentionally min
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2436; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2437; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

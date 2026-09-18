@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2437 — `dungeon.c` init_dungeons whole body in C order (coverage THIN → live)
+
+- **Status:** fixed (Open coverage row: init_dungeons THIN C 114 L `dungeon.c:1205–1319` / JS 46 L in `js/dungeon.js`).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify init_dungeons`: no session blocked at baseline). JS ran the main dungeon loop but carried no C line cites, no Lua-table type panics, no window-init arm, and left every Lua-scaffolding callee unnamed; the `mklev.c` defensive re-init caller was unwired.
+- **C locus:** `nethack-c/upstream/src/dungeon.c:1205–1319` (init_dungeons); callees `nhl_init`/`nhl_loadlua`/`nhl_done` (private Lua state), `init_dungeon_dungeons` (`:997+`), `init_level`, `place_level`, `add_level`, `init_castle_tune`, `fixup_level_locations`, `free_proto_dungeon` (`:1185–1203`), `dumpit` (DEBUG); callers `allmain.c:789`, `mklev.c:1260–1263`, `topten.c:1232–1234`, `vision.c:845` (comment only).
+- **JS was:** `js/dungeon.js:1050` thin body (pd literal, align shuffle, sp_levchn/branches/dungeons reset, length count, MAXDUNGEON throw, entry loop, castle tune + fixup) with one stale comment and no per-arm C cites.
+- **Fix:** `js/dungeon.js` restart in C order: memset/re-zero cited on the pd literal; nhl_init/nhl_loadlua failure panics named omits (generated `dungeon_data.js` embed, D-0477 pattern) keeping the observable nhlib align shuffle; window_inited→clear_nhwindow(WIN_MAP) named omit (screen side effect, no primitive); sp_levchn NULL→`[]`; Array.isArray + per-entry object checks for the two lua-table panics; MAXDUNGEON/place panics stay throws; lua_next loop with `cl`-carries-across-dungeons and `i`-counts-successes notes; DDEBUG/debugpline2/nhl_done/free_proto_dungeon/dumpit named omits. `js/mklev.js`: init_dungeons joins the existing dungeon.js import (no new edge — dungeon.js never imports mklev) + the C makelevel guard (`wiz1_level.dlevel==0` → impossible + init_dungeons). No DIAG/FORCE/seed logic; Rule #2 clean.
+- **JS:** `js/dungeon.js:1046–1139` (init_dungeons restart, function at :1053); `js/mklev.js:138` (import), `:23890–23899` (makelevel guard); map `docs/c-js-map/startup.md:22`.
+- **Callers:** allmain.c:789 → `js/allmain.js:749` (pre-existing, unchanged). mklev.c:1262 → `js/mklev.js:23897` (new guard, C-order). topten.c:1234 → named omit (no standalone --scores entry in JS; in-game topten always runs post-init so the guard is false; dlb_init/init_done have no JS counterparts). vision.c:845 → comment mention only, not a call. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn init_dungeons` → PASS syntax (2 files: dungeon.js mklev.js) · rule2 · hidden note (0 blocked at baseline) · **REACH smoke 24/24 PASS, 0 regressed → REACH-OK** · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared dungeon.js changed) → VERIFY: PASS.
+- **Named omissions:** nhl_init/nhl_loadlua/nhl_done Lua-state scaffolding + load-failure tbuf panic (generated-data embed); window_inited clear_nhwindow(WIN_MAP) (display side effect); DDEBUG block + debugpline2 DONE + DEBUG dumpit (debug-only); free_proto_dungeon (GC); topten.c:1234 standalone-scores caller.
+- **Next:** no other dungeon.c row queued; head is now `attrib.c` adjattrib (PARTIAL).
+
 ## D-2436 — `polyself.c` dogaze + dospinweb + rehumanize whole bodies in C order (coverage MISSING/MISSING/THIN → live)
 
 - **Status:** fixed (Open coverage rows: dogaze MISSING C 131 L `polyself.c:1642–1773`; dospinweb MISSING C 124 L `polyself.c:1497–1621`; rehumanize THIN C 51 L `polyself.c:1367–1418` / JS 20 L in `js/polyself.js`).
