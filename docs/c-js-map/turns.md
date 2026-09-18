@@ -573,6 +573,7 @@ fatal mid-destroy `finish_losehp_done`** (D-0741;
 **ignite_items/`burn_away_slime`/`begin_burn`** (D-0978); 
 death-breath disintegrate / poison·acid / ugolemeffects / inventory_resistance deferred; 
 **`maybe_destroy_item` AD_ELEC D-1368 / Shock uprops D-1371**); 
+**`destroy_items` whole C body `:5965–6097` (D-2454; limit rn2 + bypass_objlist/nxt_unbypassed_obj reservoir traversal + worn-levitation/flying + lycanthropy-water defer second pass + o_id/where identity + bypass clear; all 36 C callers on the same export, signature unchanged)**; 
 **fatal `zhitu`→`losehp` awaits `finish_losehp_done` + `weffects` skips `learnwand` (D-0737; 
 ≡C noreturn / thitu D-0255)**; **IMMEDIATE `weffects` → `bhit(rn1(8,6))` + 
 `bhito` WAN_POLYMORPH (`obj_unpolyable`/`obj_shudders`/`poly_obj` floor + 

@@ -305,7 +305,7 @@ import { bare_artifactname, defends, defends_when_carried, artifact_origin, revo
 import {
     Ring_gone, Ring_off, Ring_on, setworn, set_wear, hard_helmet,
 } from './do_wear.js';
-import { which_armor, mon_set_minvis, check_gear_next_turn, wearslot, wearmask_to_obj, extract_from_minvent } from './worn.js';
+import { which_armor, mon_set_minvis, check_gear_next_turn, wearslot, wearmask_to_obj, extract_from_minvent, bypass_objlist, nxt_unbypassed_obj } from './worn.js';
 import { mhurtle, hero_breaks, breaks } from './dothrow.js';
 import { abuse_dog, wary_dog, tamedog } from './dog.js';
 import { setuwep, setuswapwep, setuqwep, set_twoweap } from './wield.js';
@@ -329,7 +329,7 @@ import {
     NO_KILLER_PREFIX, DIED, KILLED_BY, KILLED_BY_AN, isok, ZAP_POS, STONE,
     IS_DOOR, IS_ROOM, D_CLOSED, D_LOCKED, D_NODOOR, D_BROKEN,
     DISP_BEAM, DISP_CHANGE, DISP_END, DISP_FLASH, DISP_TETHER,
-    OBJ_FREE, OBJ_FLOOR, OBJ_INVENT, OBJ_MINVENT, OBJ_CONTAINED, OBJ_BURIED,
+    OBJ_FREE, OBJ_FLOOR, OBJ_INVENT, OBJ_MINVENT, OBJ_CONTAINED, OBJ_BURIED, NOBJ_STATES,
     Has_contents, ZAPPED_WAND, THROWN_WEAPON, THROWN_TETHERED_WEAPON,
     KICKED_WEAPON,
     FLASHED_LIGHT, INVIS_BEAM, NOTELL, TELL,
@@ -352,7 +352,7 @@ import {
     def_warnsyms, S_flashbeam,
     W_RING, W_ARMG, W_ARMH, W_ARMOR, W_SADDLE, W_ART, W_ARTI,
     W_WEP, W_SWAPWEP, W_QUIVER, W_WEAPONS,
-    REFLECTING, ANTIMAGIC, SHOCK_RES, DRAIN_RES, TELEPORT_CONTROL, STUNNED, M_SEEN_MAGR, M_SEEN_REFL,
+    REFLECTING, ANTIMAGIC, SHOCK_RES, DRAIN_RES, TELEPORT_CONTROL, STUNNED, M_SEEN_MAGR, M_SEEN_REFL, LEVITATION, FLYING,
     NO_MINVENT, MM_NOWAIT, MM_NOMSG, MM_NOCOUNTBIRTH, MM_MALE, MM_FEMALE,
     IS_POOL, CONTAINED_TOO, BURIED_TOO, ROOM, CORR, GRAVE,
     CORPSTAT_GENDER, CORPSTAT_MALE, CORPSTAT_FEMALE, MFAST,
@@ -1699,44 +1699,84 @@ async function maybe_destroy_item(carrier, obj, dmgtyp) {
 }
 
 /**
- * C ref: zap.c destroy_items — limit rn2 + invent/minvent scan.
- * Hero uses game.invent array; monsters use minvent nobj chain.
- * Named omissions: bypass_objlist; defer levitation/were.
+ * C ref: zap.c destroy_items `:5965–6097` — limit from dmg_in (C `:5996–6008`),
+ * reservoir-sample eligible stacks over a bypass_objlist /
+ * nxt_unbypassed_obj traversal (C `:6074–6082`), defer worn
+ * levitation/flying + lycanthropy-triggering holy/unholy water to a second
+ * pass (C `:6059–6072`), then destroy via maybe_destroy_item with o_id/where
+ * identity (C `:6083–6093`), clear bypass (C `:6094–6096`), return dmg_out.
+ * Hero uses game.invent array; monsters use minvent nobj chain (C `:5984`).
+ * The gameover break is the JS rendering of C losehp→done noreturn.
  */
 export async function destroy_items(mon, dmgtyp, dmg_in) {
     let limit = Math.trunc((dmg_in | 0) / DMG_DESTROY_SCALE);
+    // C :5997 — dmg = 9: 20% chance of limit=1, 80% of limit=2, etc.
     if (((dmg_in | 0) % DMG_DESTROY_SCALE) > rn2(DMG_DESTROY_SCALE)) limit++;
     if (limit > MAX_ITEMS_DESTROYED) limit = MAX_ITEMS_DESTROYED;
-    if (limit < 1) return 0;
+    if (limit < 1) return 0; // C :6006–6008 — nothing destroyed
 
     const u_carry = is_youmonst_carrier(mon);
-    const items = new Array(MAX_ITEMS_DESTROYED).fill(null);
+    // C :5984 — struct obj **objchn; re-read the live head each use so a
+    // recursive destroy_items (trap drop mid-pass) sees the current chain.
+    const objchn = () => (u_carry ? game.invent : mon?.minvent);
+    const items_to_destroy = [];
+    for (let k = 0; k < MAX_ITEMS_DESTROYED; k++) {
+        // C :5987–5991 — 0 is never a valid o_id
+        items_to_destroy.push({ oid: 0, otmp: null, deferred: false });
+    }
     let elig_stacks = 0;
+    let where = NOBJ_STATES;
 
-    const visit = (obj) => {
-        if (!destroyable(obj, dmgtyp)) return;
+    bypass_objlist(objchn(), false); // C :6074 — clear bypass bit for invent
+    let obj;
+    while ((obj = nxt_unbypassed_obj(objchn())) != null) {
+        if (!destroyable(obj, dmgtyp)) continue; // C :6077–6078
+        // C :6080–6082 — reservoir sample; rn2 only once the array is full
         const i = (elig_stacks < limit) ? elig_stacks : rn2(elig_stacks);
         elig_stacks++;
-        if (i < 0 || i >= limit) return;
-        items[i] = obj;
-    };
-
-    if (u_carry) {
-        for (const obj of game.invent || []) visit(obj);
-    } else {
-        for (let obj = mon?.minvent; obj; obj = obj.nobj) visit(obj);
-    }
-
-    if (elig_stacks > limit) elig_stacks = limit;
-    let dmg_out = 0;
-    for (let i = 0; i < elig_stacks; i++) {
-        const obj = items[i];
-        if (obj) {
-            dmg_out += await maybe_destroy_item(mon, obj, dmgtyp);
-            // C: losehp→done noreturn mid-loop
-            if (u_carry && game.program_state?.gameover) break;
+        if (i < 0 || i >= limit) continue; // C :6083–6086
+        items_to_destroy[i].oid = obj.o_id | 0;
+        items_to_destroy[i].otmp = obj;
+        if (where === NOBJ_STATES) {
+            where = obj.where;
+        } else if (where !== obj.where) {
+            await impossible('destroy_item: items in multiple chains');
+        }
+        // C :6064–6072 — loss of this item might dump us onto a trap, so a
+        // recursive destroy_items would bypass-skip the rest; hold it for
+        // the second pass. Destroyed poly potions/wands don't polymorph,
+        // so only levitation/flying worn gear and lycanthropy-triggering
+        // holy/unholy water defer.
+        if (u_carry
+            && (((obj.owornmask | 0) !== 0
+                 && (((game.objects?.[obj.otyp]?.oc_oprop | 0) === LEVITATION)
+                     || ((game.objects?.[obj.otyp]?.oc_oprop | 0) === FLYING)))
+                || ((obj.otyp | 0) === POT_WATER && ismnum(game.u?.ulycn)
+                    && (Upolyd(game.u) ? obj.blessed : obj.cursed)))) {
+            items_to_destroy[i].deferred = true;
+        } else {
+            items_to_destroy[i].deferred = false;
         }
     }
+    if (elig_stacks > limit) elig_stacks = limit; // C :6087–6089
+    let dmg_out = 0;
+    for (let defer = 0; defer <= 1; ++defer) {
+        for (let i = 0; i < elig_stacks; ++i) {
+            const entry = items_to_destroy[i];
+            const target = entry.otmp;
+            if (target && (target.o_id | 0) === (entry.oid | 0)
+                && target.where === where
+                && entry.deferred === (defer === 1)) {
+                dmg_out += await maybe_destroy_item(mon, target, dmgtyp);
+                entry.otmp = null;
+                // C: losehp→done noreturn mid-loop
+                if (u_carry && game.program_state?.gameover) break;
+            }
+        }
+        if (u_carry && game.program_state?.gameover) break;
+    }
+    // C :6094–6096 — almost certainly not everything was destroyed
+    bypass_objlist(objchn(), false);
     return dmg_out;
 }
 

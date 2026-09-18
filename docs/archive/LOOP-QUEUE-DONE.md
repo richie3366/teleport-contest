@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-18
 
+- [x] `zap.c` destroy_items — coverage THIN (C 128 L `zap.c:5965–6097` / JS 36 L in js/zap.js; hops 2, callers 36, RNG 2, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn destroy_items` (reach regression must be 0). Measured `port-coverage.mjs --name destroy_items` 2026-09-18 @ e6289b5b. **Addressed:** D-2454
+
+
 - [x] `hack.c` domove_core — coverage MISSING **Addressed:** D-2453 (C 279 L `hack.c:2712–2991` / JS no symbol; hops 1, callers 1, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn domove_core` (reach regression must be 0). Measured `port-coverage.mjs --name domove_core` 2026-09-18 @ e6289b5b.
 
 
