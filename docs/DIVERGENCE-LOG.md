@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2466 — `trap.c` sink_into_lava whole-body port (lava-trap sinking + moveloop wire)
+
+- **Status:** fixed (Open coverage row: sink_into_lava MISSING C 43 L `trap.c:6991–7034` / JS no symbol; hops 2, callers 2, RNG 2, msg 3).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify sink_into_lava`: no corpus session blocked on it at baseline).
+- **C locus:** `nethack-c/upstream/src/trap.c:6991–7034` (`sink_into_lava`); callers `allmain.c:424–425`, `trap.c:6966` (comment inside `lava_effects`, not a call site).
+- **JS was:** no symbol anywhere in `js/`; the moveloop site (`js/allmain.js:1150`) deferred `sink_into_lava`/`pooleffects`/`under_water|ground` together (D-1000).
+- **Fix:** new `export async function sink_into_lava()` (`js/trap.js:6296`, placed after `lava_effects` in C file order) — whole body in C order: not-trapped no-op (polymorph flier-to-ceiling-hider case); not-on-lava `reset_utrap(FALSE)`; `!uinvulnerable` third-HP burn-down (`Math.trunc((uhp+2)/3)`, C int division) + `utrap -= 1<<8`; terminal `KILLED_BY` "molten lava" (file's `game.killer` guard pattern) + urgent death + `burn_away_slime` + `done(DISSOLVED)` + life-save `reset_utrap(TRUE)` + `safe_teleds(DRAG|TELEPORT)` unless `hero_Levitation()/hero_Flying()` (file-local youprop.h helpers, D-1070); else `!umoved` sink-deeper (`Slimed && rnd(10-1) >= (Slimed&TIMEOUT)` → pline + burn vs `Norep`) + `utrap += rnd(4)`. Slimed reads the `u.Slimed` flat — the same field `burn_away_slime` guards on. All 9 callees live (is_lava, reset_utrap, Fire_resistance file-local; rnd, urgent_pline/pline/Norep, safe_teleds, done on existing edges; `burn_away_slime` joins the existing trap.js→timeout.js static edge; allmain.js→trap.js static import verified with `imports.mjs --can` (ALREADY, no top-level TDZ read); `TT_LAVA` joins the allmain const.js edge). No DIAG/FORCE/seed logic; Rule #2 clean.
+- **JS:** `js/trap.js` (+62: import name + function), `js/allmain.js` (+7/−2: trap.js import, TT_LAVA const, guarded call).
+- **Callers:** C `allmain.c:425` `sink_into_lava()` → `js/allmain.js:1157` `await sink_into_lava()` under the same `utrap && utraptype == TT_LAVA` guard (`allmain.c:424`); C `trap.c:6966` is a comment, not a call site. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn sink_into_lava` → PASS syntax (2 files: js/trap.js js/allmain.js) · PASS rule2 · note hidden (0 blocked) · PASS reach (no RNG-tagged reach; smoke 24/24 → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) → VERIFY: PASS.
+- **Named omissions:** none new in this body (every callee live, every arm ported). The `else if (!u.umoved) pooleffects(FALSE)` arm at the moveloop site stays deferred with `under_water`/`under_ground` (pre-existing D-1000 name); wiring it would change every stationary turn's pool behavior and is its owner's row, not this function's.
+- **Next:** queue head after this ships per breadth phase.
+
 ## D-2465 — `eat.c` fpostfx whole-body port (all 7 food post-effects)
 
 - **Status:** fixed (Open coverage row: fpostfx MISSING C 92 L `eat.c:2510–2600` / JS no symbol; hops 4, callers 2, RNG 7, msg 4). Also parks the popped makeplural PARTIAL row as Stale in this same iteration (body already complete — see Parked).

@@ -45,7 +45,7 @@ screens 93.2 %. Held-out moved 7 → 11 over 2026-09-06..17 while the local
 corpus went 48 % → 91.7 %: the corpus no longer predicts the judge.
 **Corpus fortress** (re-scored 2026-09-18 audit 1408–1416): **495 / 540
 PASS (91.7 %)** excl. 13 env-only; RNG 99.29 %, screens 99.0 %. The 3
-`1d21e3be` getdir flips recovered via D-2440; no new flips across D-2440…D-2465
+`1d21e3be` getdir flips recovered via D-2440; no new flips across D-2440…D-2466
 (every per-SHA re-run: 0 regressed).
 Reviews 1225–1416: 170 ACCEPT, 5 WITH-DEBT, 1 DEBT, 11 QUALITY-RISK (0 Must-fix pending).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip (all map-named).
@@ -98,10 +98,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `eat.c` fpostfx — coverage MISSING (C 90 L `eat.c:2510–2600` / JS no symbol; hops 4, callers 2, RNG 7, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn fpostfx` (reach regression must be 0). Measured `port-coverage.mjs --name fpostfx` 2026-09-18 @ 78b9ec99.
+**Next cluster:** `trap.c` sink_into_lava — coverage MISSING (C 43 L `trap.c:6991–7034` / JS no symbol; hops 2, callers 2, RNG 2, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn sink_into_lava` (reach regression must be 0). Measured `port-coverage.mjs --name sink_into_lava` 2026-09-18 @ 78b9ec99.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2465 (index).**
+**Keep D-0845…D-2466 (index).**
 <!-- recent:begin -->
+**D-2466** `nethack-c/upstream/src/trap.c:6991–7034` (`sink_into_lava`); callers `allmain.c:424–425`, — new `export async function sink_into_lava()` (`js/trap.js:6296`, placed after `lava_effects` in C file order) — whole body in C order: not-trapped no-op (polymorph flier-to-ceiling-hider case); not-on-lava `reset_utrap(F
 **D-2465** `nethack-c/upstream/src/eat.c:2510–2600` (`fpostfx`, staticfn); sole caller `done_eating`  — new module-local `async function fpostfx(otmp)` (`js/eat.js:1980`) in C order — `:2513–2516` wolfsbane `you_unwere(TRUE)` (moved verbatim); `:2517–2521` carrot `make_blinded(ucreamed)` unless swallowed-by-blinding-engulf
 **D-2464** `nethack-c/upstream/src/pline.c:476–490` (`verbalize`); callees `You_buf` `:338–348`, `vpl — restart in C order — `gp.pline_flags |= PLINE_VERBALIZE` (`PLINE_VERBALIZE` joins the existing const.js import); quote-then-format (`"..."` wrap, then `%s/%d/%ld/%%` per the livelog_printf/impossible convention, only whe
 **D-2463** `nethack-c/upstream/src/teleport.c:2102–2187` (`rloco`). — restart as `async` in C order — `:2109–2112` Rider corpse `revive_corpse` (dynamic do.js import); `:2114–2117` extract-then-read otx/oty + `restricted_fall = otx==0 && dndest.lx` (`game.dndest` mirrors `svd.dndest`); `:2
@@ -109,11 +110,10 @@ revisits the picker.
 **D-2461** `nethack-c/upstream/src/display.c:1709–1773` (`docrt_flags`; flag decode `:1711–1715`, red — `js/display.js` — new exported `docrtRecalc/Refresh/MapOnly/Nocls` consts + `export async function docrt_flags(refresh_flags)` in C order (flag decode; `!u.ux`/in_docrt guard + file's `!game.level` guard; try/finally in_
 **D-2460** `nethack-c/upstream/src/weapon.c:801–934` (`mon_wield_item`; NEED_HTH `:813–815` / NEED_RA — `js/weapon.js` restart of mon_wield_item in C order — impossible('weapon_check %d for %s?') + bare return-0 in default; mwelded refuse arm (bimanual/makeplural hand, otense/mhis weld buffer, PICK_AXE Since/cannot-wield v
 **D-2459** `nethack-c/upstream/src/dog.c:419–623` (`mon_arrive`; when-enum `:15–19` Before_you 0/With — `js/dog.js` — module-local when consts + `failed_arrivals` (C dog.c:301 reset-in-losedogs) + `mon_arrive_link` head (STILL_ARRIVING/fmon/isshk→set_residency/long-worm get_wormno+initworm) shared by both helpers; With_you
-**D-2458** `nethack-c/upstream/src/potion.c:369–438` (`make_hallucinated`); eyemsg/vismsg `:257–258`; — `js/potion.js` only — restart in C order: `u.Unaware || Unaware()` suppress (make_deaf shape); `!Blind()` verb (file-local Blind, C Blind macro); mask arm with uprops[HALLUC_RES].extrinsic mirror (make_slimed shape) + Ha
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2465; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2466; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

@@ -137,7 +137,7 @@ import { count_wsegs, worm_known } from './worm.js';
 import { level_difficulty, depth } from './hacklib.js';
 import { make_stunned, make_hallucinated } from './potion.js';
 import { monstseesu, monstunseesu, defended, resists_magm } from './mondata.js';
-import { get_obj_location } from './timeout.js';
+import { get_obj_location, burn_away_slime } from './timeout.js';
 import { costly_spot, shop_keeper, stolen_value, make_angry_shk, add_damage, sellobj, costly_alteration } from './shk.js';
 import { unpunish, seffects } from './read.js';
 import { create_gas_cloud } from './region.js';
@@ -6276,6 +6276,67 @@ export async function lava_effects() {
         }
         await ignite_items(game.invent);
         return false;
+    }
+}
+
+/**
+ * C ref: trap.c sink_into_lava `:6991–7034` — per-turn lava-trap sinking
+ * (moveloop calls when `utrap && utraptype == TT_LAVA`).
+ * Branch envelope: whole body in C order — not-trapped no-op (polymorph
+ * flier-to-ceiling-hider case); not-on-lava `reset_utrap(FALSE)`;
+ * `!uinvulnerable` third-HP burn-down (`(uhp+2)/3`, C int division),
+ * `utrap -= 1<<8`, terminal `KILLED_BY` "molten lava" + urgent death +
+ * `burn_away_slime` + `done(DISSOLVED)` + life-save `reset_utrap(TRUE)` +
+ * `safe_teleds` unless Levitation/Flying, else `!umoved` sink-deeper
+ * (`Slimed && rnd(9) >= (Slimed&TIMEOUT)` pline + burn vs `Norep`) +
+ * `utrap += rnd(4)`. Slimed reads the `u.Slimed` flat — the same field
+ * `burn_away_slime` guards on; Levitation/Flying via the file-local
+ * youprop.h helpers (D-1070).
+ */
+export async function sink_into_lava() {
+    const u = game.u || {};
+    const sink_deeper = 'You sink deeper into the lava.';
+
+    if (!(u.utrap | 0) || (u.utraptype | 0) !== TT_LAVA) {
+        /* do nothing; this usually won't happen but could after
+         * polymorphing from a flier into a ceiling hider and then hiding;
+         * moveloop only checks whether the hero is at a lava location,
+         * not whether he or she is currently sinking */
+    } else if (!is_lava(u.ux | 0, u.uy | 0)) {
+        reset_utrap(false); /* this shouldn't happen either */
+    } else if (!u.uinvulnerable) {
+        /* ordinarily we'd have to be fire resistant to survive long
+           enough to become stuck in lava, but it can happen without
+           resistance if water walking boots allow survival and then
+           get burned up; utrap time will be quite short in that case */
+        if (!Fire_resistance())
+            u.uhp = Math.trunc(((u.uhp | 0) + 2) / 3);
+
+        u.utrap = (u.utrap | 0) - (1 << 8);
+        if ((u.utrap | 0) < (1 << 8)) {
+            if (!game.killer) game.killer = { name: '', format: 0 };
+            game.killer.format = KILLED_BY;
+            game.killer.name = 'molten lava';
+            await urgent_pline('You sink below the surface and die.');
+            await burn_away_slime(); /* add insult to injury? */
+            await done(DISSOLVED);
+            /* can only get here via life-saving; try to get away from lava */
+            reset_utrap(true);
+            /* levitation or flight have become unblocked, otherwise Tport */
+            if (!hero_Levitation() && !hero_Flying())
+                await safe_teleds(TELEDS_ALLOW_DRAG | TELEDS_TELEPORT);
+        } else if (!u.umoved) {
+            /* can't fully turn into slime while in lava, but might not
+               have it be burned away until you've come awfully close */
+            const Slimed = u.Slimed | 0;
+            if (Slimed && rnd(10 - 1) >= (Slimed & TIMEOUT)) {
+                await pline(sink_deeper);
+                await burn_away_slime();
+            } else {
+                await Norep(sink_deeper);
+            }
+            u.utrap = (u.utrap | 0) + rnd(4);
+        }
     }
 }
 

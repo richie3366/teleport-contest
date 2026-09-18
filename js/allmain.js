@@ -60,6 +60,7 @@ import { amulet, intervene } from './wizard.js';
 import { run_regions, any_visible_region } from './region.js';
 import { m_everyturn_effect } from './monmove.js';
 import { tele } from './teleport.js';
+import { sink_into_lava } from './trap.js';
 import { polyself, set_uasmon } from './polyself.js';
 import { you_were } from './were.js';
 import {
@@ -69,6 +70,7 @@ import {
     UTOTYPE_NONE, TIMEOUT, REGENERATION, CLAIRVOYANT,
     MAXULEV, ENERGY_REGENERATION, MAGICAL_BREATHING, GLIB,
     TELEPORT, TELEPAT, POLYMORPH, UNCHANGING, NON_PM, POLY_NOFLAGS, ismnum,
+    TT_LAVA,
     WARNING, HALF_PHDAM, Is_waterlevel, Is_airlevel, In_endgame,
     WIN_ERR, MENU_BEHAVE_STANDARD, MENU_BEHAVE_PERMINV,
     WC2_HILITE_STATUS, WC2_FLUSH_STATUS,
@@ -1147,7 +1149,12 @@ export async function moveloop_core() {
             }
             g.context.seer_turn = g.moves + rn1(31, 15);
         }
-        // C: sink_into_lava / pooleffects / under_water|ground deferred;
+        // C allmain.c:424-428 — [fast hero sinks multiple times per turn];
+        // lava-trapped hero sinks, else a stationary hero feels pool
+        // effects (pooleffects(FALSE) stays deferred with under_water /
+        // under_ground, D-1000).
+        if ((g.u.utrap | 0) && (g.u.utraptype | 0) === TT_LAVA)
+            await sink_into_lava();
         // see_nearby_monsters at end of actual-time-passed (D-1000).
         await see_nearby_monsters();
     }

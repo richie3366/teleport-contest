@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-18 — D-2466 `trap.c` sink_into_lava whole-body port (lava-trap sinking + moveloop wire)
+
+**C locus:** `nethack-c/upstream/src/trap.c:6991–7034` (`sink_into_lava`); callers `allmain.c:424–425`, `trap.c:6966` (comment inside `lava_effects`, not a call site).
+**JS:** `js/trap.js` (+62: import name + function), `js/allmain.js` (+7/−2: trap.js import, TT_LAVA const, guarded call).
+**Change:** new `export async function sink_into_lava()` (`js/trap.js:6296`, placed after `lava_effects` in C file order) — whole body in C order: not-trapped no-op (polymorph flier-to-ceiling-hider case); not-on-lava `reset_utrap(FALSE)`; `!uinvulnerable` third-HP burn-down (`Math.trunc((uhp+2)/3)`, C int division) + `utrap -= 1<<8`; terminal `KILLED_BY` "molten lava" (file's `game.killer` guard pattern) + urgent death + `burn_away_slime` + `done(DISSOLVED)` + life-save `reset_utrap(TRUE)` + `safe_teleds(DRAG|TELEPORT)` unless `hero_Levitation()/hero_Flying()` (file-local youprop.h helpers, D-1070); else `!umoved` sink-deeper (`Slimed && rnd(10-1) >= (Slimed&TIMEOUT)` → pline + burn vs `Norep`) + `utrap += rnd(4)`. Slimed reads the `u.Slimed` flat — the same field `burn_away_slime` guards on. All 9 callees live (is_lava, reset_utrap, Fire_resistance file-local; rnd, urgent_pline/pline/Norep, safe_teleds, done on existing edges; `burn_away_slime` joins the existing trap.js→timeout.js static edge; allmain.js→trap.js static import verified with `imports.mjs --can` (ALREADY, no top-level TDZ read); `TT_LAVA` joins the allmain const.js edge).
+**Verify:** `node scripts/verify.mjs --fn sink_into_lava` → PASS syntax (2 files: js/trap.js js/allmain.js) · PASS rule2 · note hidden (0 blocked) · PASS reach (no RNG-tagged reach; smoke 24/24 → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) → VERIFY: PASS.
+**Named:** none new in this body (every callee live, every arm ported). The `else if (!u.umoved) pooleffects(FALSE)` arm at the moveloop site stays deferred with `under_water`/`under_ground` (pre-existing D-1000 name); wiring it would change every stationary turn's pool behavior and is its owner's row, not this function's.
+**Next:** queue head after this ships per breadth phase.
 ## 2026-09-18 — D-2465 `eat.c` fpostfx whole-body port (all 7 food post-effects)
 
 **C locus:** `nethack-c/upstream/src/eat.c:2510–2600` (`fpostfx`, staticfn); sole caller `done_eating` `:562–565`.
