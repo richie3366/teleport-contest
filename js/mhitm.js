@@ -4407,9 +4407,10 @@ async function mdamagem(magr, mdef, mattk, mwep, dieroll) {
 
 /**
  * C ref: uhitm.c shade_aware — boulder/ball/chain/mirror/garlic/silver.
- * Used only for the shade_miss noun ("attack" vs cxname).
+ * Used for the shade_miss noun ("attack" vs cxname) and by uhitm.js
+ * hmon_hitmon's do_hit shade guard (D-2486).
  */
-function shade_aware(obj) {
+export function shade_aware(obj) {
     if (!obj) return false;
     const otyp = obj.otyp | 0;
     if (otyp === BOULDER || otyp === HEAVY_IRON_BALL || otyp === IRON_CHAIN

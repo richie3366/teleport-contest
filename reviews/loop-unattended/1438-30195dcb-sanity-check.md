@@ -85,4 +85,4 @@ Right-sized: one C function pair, one module + one-word export.
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-2485
+**Addressed:** D-2485 `d58ca60a`

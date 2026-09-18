@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-18
 
-- [x] `mon.js` sanity_check_single_mon missing `has_egd` import — `ReferenceError` when a vault guard (`isgd`) is checked (used `js/mon.js:477`, live export `js/const.js:3141`, never imported; latent until `mon_sanity_check` ships). Fix: add `has_egd` to the const.js import in `js/mon.js`. Verify `node scripts/verify.mjs --fn sanity_check_single_mon`. Source: reviews/loop-unattended/1438-30195dcb-sanity-check.md. **Addressed:** D-2485
+- [x] `uhitm.c` hmon_hitmon_misc_obj — coverage MISSING (C 261 L `uhitm.c:1119–1383` / JS no symbol; hops 6, callers 1, RNG 8, msg 12). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn hmon_hitmon_misc_obj` (reach regression must be 0). Measured `port-coverage.mjs --name hmon_hitmon_misc_obj` 2026-09-18 @ f8881130. **Addressed:** D-2486
+
+
+- [x] `mon.js` sanity_check_single_mon missing `has_egd` import — `ReferenceError` when a vault guard (`isgd`) is checked (used `js/mon.js:477`, live export `js/const.js:3141`, never imported; latent until `mon_sanity_check` ships). Fix: add `has_egd` to the const.js import in `js/mon.js`. Verify `node scripts/verify.mjs --fn sanity_check_single_mon`. Source: reviews/loop-unattended/1438-30195dcb-sanity-check.md. **Addressed:** D-2485 `d58ca60a`
 
 
 - [x] `zap.c` wishcmdassist — coverage MISSING (C 54 L `zap.c:6165–6219` / JS no symbol; hops 3, callers 2, RNG 0, msg 7). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn wishcmdassist` (reach regression must be 0). Measured `port-coverage.mjs --name wishcmdassist` 2026-09-18 @ f8881130. **Addressed:** D-2484 `6b72742e`
