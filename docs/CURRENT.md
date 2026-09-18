@@ -45,7 +45,7 @@ screens 93.2 %. Held-out moved 7 → 11 over 2026-09-06..17 while the local
 corpus went 48 % → 91.7 %: the corpus no longer predicts the judge.
 **Corpus fortress** (re-scored 2026-09-18 audit 1444–1452): **495 / 540
 PASS (91.7 %)** excl. 13 env-only; RNG 99.29 %, screens 99.0 % — identical
-to the prior audit, no flips across D-2485…D-2496 (every per-SHA re-run:
+to the prior audit, no flips across D-2485…D-2497 (every per-SHA re-run:
 0 regressed; makemaz REACH 77/77, misc_obj 12/12, ad_legs 13/13).
 Reviews 1225–1452: 200 ACCEPT, 8 WITH-DEBT, 1 DEBT, 14 QUALITY-RISK (0 Must-fix pending).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph (display.h:842–844 vs display.js:849), 1448 safe_typename guard (objnam.c:316) — review-debt, unqueued.
@@ -98,10 +98,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `steal.c` mpickobj — coverage THIN (C 67 L `steal.c:618–685` / JS 9 L in js/makemon.js; hops 2, callers 46, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mpickobj` (reach regression must be 0). Measured `port-coverage.mjs --name mpickobj` 2026-09-18 @ 6b72742e.
+**Next cluster:** `objnam.c` doname_base — coverage MISSING (C 526 L `objnam.c:1223–1751` / JS no symbol; hops 3, callers 4, RNG 0, msg 16; dead callees: sitoa). Verify `node scripts/verify.mjs --fn doname_base` (reach regression must be 0). Measured @ d6cf97e2. **Shipped:** D-2497 (row archived verbatim in LOOP-QUEUE-DONE.md).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2496 (index).**
+**Keep D-0845…D-2497 (index).**
 <!-- recent:begin -->
+**D-2497** `nethack-c/upstream/src/objnam.c:1223–1751` (`doname_base`); flags `:1217–1219` (WITH_PRIC — `js/objnam.js` — `doname` → `doname_base(obj, flags)` (existing body kept, arms in C order) + `DONAME_*` exports + `doname_vague_quan` wrapper; override_ID five-flag force `:1255`; vague `"some "` `:1283`; BoT/HoP `spe==
 **D-2496** `nethack-c/upstream/src/steal.c:618–685` (`mpickobj`; 48 C refs). Callees all live: `impos — `js/makemon.js` only — `mpickobj` restarted in C order with `:line` cites: `:622–631` null/ball+chain guards (`game.u?.uball/uchain`, chain-vs-ball label, `simpleonames`); `:634–637` thrown/kicked clear (existing `game.t
 **D-2495** `nethack-c/upstream/src/cmd.c:4171–4296` (`help_dir`, staticfn; sole code call site `cmd.c — `js/lock.js` only — `help_dir` restarted in C order with `:line` cites plus module-local `show_direction_keys(lines, centerchar, nodiag)` with verbatim Sprintf layouts (`:4129–4130` falsy-center fallback; `:4133–4146` ca
 **D-2494** `nethack-c/upstream/src/mon.c:4265–4318` (`setmangry`); 18 code call sites (`dokick.c:152, — `js/mon.js` — `setmangry` restarted in C order with `:line` cites: Elbereth arm first (`via_attack` + strict `sengr_at` inlined via live `engr_at`: exact case-insensitive `actual_text` match, `HEADSTONE` skip, `engr_time
@@ -109,11 +110,10 @@ revisits the picker.
 **D-2492** `nethack-c/upstream/src/mkmaze.c:1127–1223` (`makemaz`); 5 code call sites `mklev.c:1270,1 — `js/mklev.js` only, no new static edges (`imports.mjs --can` reports the dungeon.js/mon.js edges already static) — 4 import words (`Is_special`, `Invocation_lev` in the dungeon.js block `:139`; `dmonsfree` in the mon.js 
 **D-2491** `nethack-c/upstream/src/objnam.c:1824–1920` (`corpse_xname`); 23 code call sites (dig/do/d — `js/objnam.js` — `corpse_xname` restarted in C order with `:line` cites: `:1830–1841` flag decode; `:1841` glob as `(otyp|0) !== CORPSE && globby`; `:1843` OBJ_NAME glob name; `:1844–1845` NON_PM paranoia → `thing` (null
 **D-2490** `nethack-c/upstream/src/uhitm.c:4425–4489` (`mhitm_ad_legs`); sole C caller `uhitm.c:4788` — `js/mhitm.js` only, no new imports (`is_youmonst`, `mhitm_ad_phys`, knockback/grow_up/monkilled all local; `imports.mjs --can` confirms display/trap/rng edges already static, attrib `exercise` hoisted-safe) — new `const 
-**D-2489** `nethack-c/upstream/src/ball.c:1034–1102` (`bc_sanity_check`); sole C caller `wizcmds.c:14 — `js/ball.js` — new `export async function bc_sanity_check` in C order: Punished/!Punished `%s%s%s` arms verbatim (`punished = !!u.uball` per youprop.h:77 + do.js/trap.js D-1786 convention; the `!uball` disjunct is dead i
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2496; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2497; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

@@ -1199,6 +1199,7 @@ monmove callers / gameover o_id wipe deferred);
 **`doname` unpaid suffix + `paydoname` suppress_price** (D-0461; 
 container paydoname rewrite D-1702 / `contained_cost` via unpaid_cost COST_CONTENTS); 
 `doname_with_price` for-sale + **`record_price_quote`** (D-0460/D-0469); 
+**whole-body `doname_base(obj, flags)` (D-2497)** (`objnam.c:1223–1751`; DONAME_WITH_PRICE/VAGUE_QUAN/FOR_MENU=1/2/4; override_ID five-flag force; vague `"some "`; BoT/HoP `spe==0&&!known` empty; SCR_MAIL uncursed exclusion (MAIL on); ARMOR W_ARMOR uskin/doffing/donning/Glib/artifact-light via late-bound do_wear predicates (`var` slot — static edge TDZ-faults do_name `set_y_monnam`, corpse_xname D-2491 precedent); AMULET class gate; trailing pricequotes append in shk suffix; for_menu BUFSZ-4 truncation; `doname_vague_quan` wrapper; pager farlook dknown-gated with_price/vague; end.c container_contents with_price). Named: obuf/eos/Concat/strprepend/releaseobuf/sitoa + doname_full/paniclog (D-2483 strings); leash impossible() (async); distant_name Eyes/blind comment arm; 
 **box `locked`/`unlocked`/`broken`/`trapped` prefixes** (D-0464; `greased` prefix deferred); 
 **`short_oname` + `simpleonames`/`thesimpleoname`** (D-0881; 
 **`safe_qbuf` + `Yname2`/`ysimple_name`/`Ysimple_name2` D-1654**; 

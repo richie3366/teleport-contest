@@ -56,6 +56,7 @@ import {
     M_AP_OBJECT,
     BUFSZ,
     MAX_ERODE,
+    GLIB,
 } from './const.js';
 import { currency } from './invent.js';
 
@@ -75,6 +76,8 @@ const HAWAIIAN_SHIRT = objectNames.indexOf('HAWAIIAN_SHIRT');
 const ALCHEMY_SMOCK = objectNames.indexOf('ALCHEMY_SMOCK');
 const CANDY_BAR = objectNames.indexOf('CANDY_BAR');
 const TOWEL = objectNames.indexOf('TOWEL');
+const BAG_OF_TRICKS = objectNames.indexOf('BAG_OF_TRICKS');
+const HORN_OF_PLENTY = objectNames.indexOf('HORN_OF_PLENTY');
 
 /** C objnam.c PREFIX — bytes reserved ahead of xname buf for doname. */
 const XNAME_PREFIX = 80;
@@ -2389,6 +2392,22 @@ export function set_noit_mon_nam(fn) {
 }
 
 /**
+ * Late-bound from do_wear.js — C do_wear.c doffing/donning for the
+ * doname_base ARMOR W_ARMOR arm. do_wear already imports objnam, so a
+ * static back-edge would pull do_name's eval-time set_y_monnam into
+ * objnam's partial window (TDZ); registration runs at do_wear top-level,
+ * which can land while this module is still partial (via invent).
+ * `var` (not `let`): hoisted so the early write is kept — the bare
+ * redeclaration below is a no-op and never clears it. Unset → plain
+ * "(being worn)".
+ */
+var _doffing_fn, _donning_fn;
+export function set_doffing_predicates(doffingFn, donningFn) {
+    _doffing_fn = doffingFn;
+    _donning_fn = donningFn;
+}
+
+/**
  * Late-bound from polyself.js — C objnam.c doname_base body_part(HAND).
  * Avoids static objnam↔polyself cycle (polyself already imports an).
  * Unset → C mbodypart null-data humanoid "hand".
@@ -2861,12 +2880,50 @@ export function append_wizmgender_suffix(obj, bp) {
 }
 
 /**
- * C ref: objnam.c doname() — invent-kit subset (Tourist/Rogue starter lines).
- * C doname_base starts with xname(obj), which forces cleric bknown before
- * the BUC prefix is read; JS doname uses pretty_base so apply the same force.
+ * C objnam.c `:1217–1219` — doname_base flag bits (file-local in C).
+ * DONAME_FOR_MENU is not used anywhere in C yet; its truncation arm is live.
+ */
+export const DONAME_WITH_PRICE = 1;
+export const DONAME_VAGUE_QUAN = 2;
+export const DONAME_FOR_MENU = 4;
+
+/** C youprop.h Glib ≡ u.uprops[GLIB].intrinsic (slippery-fingers gloves). */
+function Glib() {
+    return (((game.u?.uprops?.[GLIB]?.intrinsic) | 0) !== 0);
+}
+
+/**
+ * C ref: objnam.c doname `:1754–1756` — doname_base with no flags.
  */
 export function doname(obj) {
+    return doname_base(obj, 0);
+}
+
+/**
+ * C ref: objnam.c doname_vague_quan `:1768–1782` — "some" instead of a
+ * precise quantity when the pile hasn't been seen up close (farlook).
+ * C's TODO (a qknown flag overlaying cknown) stays a comment: no such
+ * field on either side.
+ */
+export function doname_vague_quan(obj) {
+    return doname_base(obj, DONAME_VAGUE_QUAN);
+}
+
+/**
+ * C ref: objnam.c doname_base `:1223–1751` — full object description.
+ * C doname_base starts with xname(obj), which forces cleric bknown before
+ * the BUC prefix is read; JS doname uses pretty_base so apply the same force.
+ * Buffer machinery (obuf/xnamep/eos/Concat/strprepend/releaseobuf/sitoa,
+ * D-2483 by-design JS strings) is plain concatenation; the once-only
+ * doname_full/paniclog overflow path is a named omit, the truncation live.
+ */
+export function doname_base(obj, doname_flags = 0) {
     if (!obj) return 'something';
+    const with_price = ((((doname_flags | 0) & DONAME_WITH_PRICE)) !== 0);
+    const vague_quan = ((((doname_flags | 0) & DONAME_VAGUE_QUAN)) !== 0);
+    const for_menu = ((((doname_flags | 0) & DONAME_FOR_MENU)) !== 0);
+    // C `:1255–1262` — iflags.override_ID forces all five ID flags.
+    const overrideID = !!game.iflags?.override_ID;
 
     // C doname_base → xname_flags clears unique known leak before article
     clear_unique_known_leak(obj);
@@ -2881,8 +2938,11 @@ export function doname(obj) {
     const oclass = obj.oclass;
     // C doname_base: switch (is_weptool(obj) ? WEAPON_CLASS : obj->oclass)
     const donameClass = is_weptool(obj) ? WEAPON_CLASS : oclass;
-    const known = !!obj.known;
-    const bknown = !!obj.bknown;
+    const known = !!(overrideID || obj.known);
+    const dknown = !!(overrideID || obj.dknown);
+    const cknown = !!(overrideID || obj.cknown);
+    const bknown = !!(overrideID || obj.bknown);
+    const lknown = !!(overrideID || obj.lknown);
     const quan = obj.quan || 1;
     const oname = objectNames[otyp];
     // C doname_base `:1247` — bp = xname(obj); pname artifacts arrive as
@@ -2924,7 +2984,7 @@ export function doname(obj) {
     // (D-1521). bp is xname: fname (+ ick) + optional " named ONAME" then
     // strip leading "the " (`:1011`). JS doname uses pretty_base so rebuild
     // that lookup here; named suffix is still appended after prefix.
-    const onameStrForArti = (obj.dknown && obj.oextra?.oname)
+    const onameStrForArti = (dknown && obj.oextra?.oname)
         ? String(obj.oextra.oname) : '';
     let bpForArti = onameStrForArti
         ? `${base} named ${onameStrForArti}` : base;
@@ -2959,7 +3019,8 @@ export function doname(obj) {
     // its adjective (CXN_ARTICLE|CXN_NOCORPSE; D-1255).
     let prefix = '';
     if (quan !== 1) {
-        prefix = `${quan} `;
+        // C `:1283–1289` — vague_quan without dknown prints "some ".
+        prefix = (dknown || !vague_quan) ? `${quan} ` : 'some ';
     } else if (oname === 'CORPSE') {
         // skip article — corpse_xname owns it
     } else if (force_the || obj_is_pname(obj) || the_unique_obj(obj)) {
@@ -2971,9 +3032,14 @@ export function doname(obj) {
         prefix = 'a ';
     }
 
-    // C: cknown + (Is_container || STATUE) + !Has_contents → "empty "
-    if (obj.cknown
-        && ((Is_container(obj) || oname === 'STATUE') && !Has_contents(obj))) {
+    // C `:1302–1316` — bag of tricks / horn of plenty print "empty " when
+    // spe==0 && !known (emptiness discovery never sets known); other
+    // containers and statues when cknown with no contents.
+    if (cknown
+        && (((otyp === BAG_OF_TRICKS || otyp === HORN_OF_PLENTY)
+            ? (((obj.spe | 0) === 0) && !known)
+            : ((Is_container(obj) || oname === 'STATUE')
+                && !Has_contents(obj))))) {
         prefix += 'empty ';
     }
 
@@ -2994,6 +3060,7 @@ export function doname(obj) {
                 || ((!known || !charged
                     || oclass === ARMOR_CLASS
                     || oclass === RING_CLASS)
+                    && oname !== 'SCR_MAIL'
                     && otyp !== FAKE_AMULET_OF_YENDOR
                     && otyp !== AMULET_OF_YENDOR
                     && !Role_if(PM_CLERIC));
@@ -3005,7 +3072,7 @@ export function doname(obj) {
     if (Is_box(obj) && obj.otrapped && obj.tknown && obj.dknown) {
         prefix += 'trapped ';
     }
-    if (obj.lknown && Is_box(obj)) {
+    if (lknown && Is_box(obj)) {
         if (obj.obroken) prefix += 'broken ';
         else if (obj.olocked) prefix += 'locked ';
         else prefix += 'unlocked ';
@@ -3095,7 +3162,7 @@ export function doname(obj) {
     // C: has_oname && dknown → " named Foo" — skipped for pname artifacts:
     // bp is already bare ONAME (xname goto nameit), not "<base> named ONAME".
     const onameStr = obj.oextra?.oname;
-    if (onameStr && obj.dknown && !isPname) {
+    if (onameStr && dknown && !isPname) {
         const nameStart = bp.length + ' named '.length;
         bp += ` named ${onameStr}`;
         /* C objnam.c:1006–1008 — downcase "The" in "<item> named The ..." */
@@ -3110,7 +3177,8 @@ export function doname(obj) {
     // C: doname_base — cknown && Has_contents → " containing %ld item%s"
     // invent.c count_contents(obj, FALSE, FALSE, TRUE, FALSE): separate
     // stacks, no nest. Inline to avoid invent↔objnam import cycle.
-    if (obj.cknown && Has_contents(obj)) {
+    // C `:1373` adds bpspaceleft > 0 — trivially true for JS strings.
+    if (cknown && Has_contents(obj)) {
         let itemcount = 0;
         for (let otmp = obj.cobj; otmp; otmp = otmp.nobj) itemcount += 1;
         bp += ` containing ${itemcount} item${itemcount !== 1 ? 's' : ''}`;
@@ -3167,10 +3235,27 @@ export function doname(obj) {
         bp += ' (lit)';
     }
 
-    if (oclass === ARMOR_CLASS && (obj.owornmask & W_ARMOR))
+    // C `:1387–1419` ARMOR_CLASS — uskin/doffing/donning variants, then the
+    // Glib slippery and lamplit artifact-light paren rewrites. C guards each
+    // rewrite on bp_eos[-1]==')' (truncation could drop the paren); JS
+    // strings never truncate so the paren is always present.
+    if (donameClass === ARMOR_CLASS && ((obj.owornmask | 0) & W_ARMOR) !== 0) {
+        const u = game.u || {};
+        const isDoffing = _doffing_fn ? !!_doffing_fn(obj) : false;
+        const isDonning = !isDoffing && _donning_fn
+            ? !!_donning_fn(obj) : false;
+        bp += (obj === u.uskin) ? ' (embedded in your skin)'
+            : isDoffing ? ' (being doffed)'
+            : isDonning ? ' (being donned)'
+            : ' (being worn)';
+        if (obj === u.uarmg && Glib()) bp = `${bp.slice(0, -1)}; slippery)`;
+        if (!Blind() && obj.lamplit && doname_artifact_light(obj)) {
+            bp = `${bp.slice(0, -1)}, ${arti_light_description(obj)} lit)`;
+        }
+    }
+    if (donameClass === AMULET_CLASS && ((obj.owornmask | 0) & W_AMUL) !== 0) {
         bp += ' (being worn)';
-    if (obj.owornmask & W_AMUL)
-        bp += ' (being worn)';
+    }
     // C doname_base RING_CLASS ring: + FOOD MEAT_RING goto ring —
     // " (on right " / " (on left " then body_part(HAND) + ")" (objnam.c:1492–1499).
     if (donameClass === RING_CLASS || isMeatRing) {
@@ -3268,9 +3353,21 @@ export function doname(obj) {
     if (known && donameClass === WAND_CLASS)
         bp += ` (${obj.recharged | 0}:${obj.spe | 0})`;
 
-    // C doname_base: is_unpaid → unpaid_cost suffix (D-0461); with_price=0
-    if (_doname_shop_suffix) bp = _doname_shop_suffix(obj, bp, false);
-    return append_wizweight_suffix(obj, bp, false);
+    // C `:1652–1683` price chain — suppress/restoring skip, then is_unpaid
+    // → unpaid_cost, else with_price → shop price, else pricequotes
+    // discovery append. Unpaid + trailing pricequotes ride the late-bound
+    // shk suffix (objnam↔shk cycle); the for-sale arm is shk.js
+    // doname_with_price calling doname_base with DONAME_WITH_PRICE.
+    // with_price rides along so the trailing arm fires for plain doname only.
+    if (_doname_shop_suffix) bp = _doname_shop_suffix(obj, bp, with_price);
+    // C `:1697–1709` — with_price rewrites a trailing ')' for the aum.
+    bp = append_wizweight_suffix(obj, bp, with_price);
+    // C `:1736–1745` menu truncation (offsetbp=4); the >BUFSZ-1 panic and the
+    // once-only doname_full/paniclog path are named omits (D-2483 strings).
+    if (bp.length + (for_menu ? 4 : 0) >= (BUFSZ - 1)) {
+        bp = bp.slice(0, BUFSZ - 1 - (for_menu ? 4 : 0));
+    }
+    return bp;
 }
 
 /**
