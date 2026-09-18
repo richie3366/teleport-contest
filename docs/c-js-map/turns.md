@@ -1980,6 +1980,12 @@ caller `if (!applied) u.dz = 0` — apply_dirsym already zeroes dz on true
 failure (D-1387), up/down keep dz=±1 per C `movecmd` (`:3868–3898` returns
 `!u.dz`); named:
 `cmd_from_func` keys, rhack `dxdy_moveok`; `yn_function_menu` is D-1728) +
+**D-2495 `help_dir` whole-body restart** (C `:4171–4296` + staticfn
+`show_direction_keys` `:4122–4165` in C order, `js/lock.js` only:
+prefixhandling vs live `getdir_spkey(NHKF_ESC)`; grid via live
+`cmd_from_dir(dir, MV_WALK)` + `visctrl` (SW,S,SE at index 7,6,5 — first
+verify caught the swap as REACH-REGRESSION); self via live SELF/SELF2
+spkey `%4s`; `#if 0` buf arm named as compiled-out) +
 **D-1815 `getdir` `:4098` `iflags.cmdassist`** (optlist default On;
 Options/`O` writes `game.iflags`; `!cmdassist` skips `help_dir` for the
 strange-direction pline; `?` still forces help; not `game.flags`); 

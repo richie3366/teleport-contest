@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2495 — `cmd.c` help_dir whole-body port (live-binding grid; prefixhandling/self via spkeys)
+
+- **Status:** fixed (breadth-phase coverage row: `cmd.c` help_dir PARTIAL, C 122 L `cmd.c:4171–4296` / JS 64 L in `js/lock.js`; `hidden-proxy verify help_dir`: no corpus session blocked).
+- **Symptom:** none — coverage row, not a divergence. The brief showed the thin body hardcoded three live C lookups: the direction grid letters (hjkl/yubn via `help_dir_move_lines`), `spkey != 27` for ESC, and `./s` for the self key.
+- **C locus:** `nethack-c/upstream/src/cmd.c:4171–4296` (`help_dir`, staticfn; sole code call site `cmd.c:4101` in `getdir`) + staticfn `show_direction_keys` (`cmd.c:4122–4165`). Callees: `create_nhwindow`/`putstr`/`display_nhwindow`/`destroy_nhwindow` (`show_text_pages` idiom, D-1806), `dowhatdoes_core` (`pager.js:2915` sync), `visctrl` (`dokeylist.js:42` sync), `cmd_from_func(do_move_*)` (live `cmd_from_dir(dir, MV_WALK)` — same move_funcs row-0 table), `letter`/`highc` (hacklib), `NODIAG(u.umonnum)` (hack.h PM_GRID_BUG-only).
+- **JS was:** `js/lock.js:222` local `help_dir` with `(spkey|0) !== 27`, hardcoded grid lines, hardcoded `(numPad ? 's' : '.')` self key; formats matched defaults but any rebound layout or spkey rebind diverged from C.
+- **Fix:** `js/lock.js` only — `help_dir` restarted in C order with `:line` cites plus module-local `show_direction_keys(lines, centerchar, nodiag)` with verbatim Sprintf layouts (`:4129–4130` falsy-center fallback; `:4133–4146` cardinal / `:4147–4164` 8-way) reading live `cmd_from_dir(dir, MV_WALK)` through `visctrl` (bottom row index 7,6,5 = SW,S,SE per move_funcs rows); `:4184–4185` prefixhandling vs live `getdir_spkey(NHKF_ESC)`; `:4277–4281` self via `getdir_spkey(numPad ? SELF2 : SELF)` with `%4s` padStart; `:4193–4229` `#if 0` buf arms cited as compiled-out so `*buf` at `:4239` is always empty. `cmd_from_dir` joins the dokeylist import block and `MV_WALK` the const block (`imports.mjs --can`: lock.js→dokeylist.js ALREADY, no new edge).
+- **JS:** `js/lock.js` `show_direction_keys` (`:203`), `help_dir` (`:231`), 2 import lines (`:21`, `:59`).
+- **Callers:** `cmd.c:4101` → `js/lock.js:683` (wired pre-existing, shape re-verified: `^`-prompt hsym, ESC spkey, `help_requested ? null : 'Invalid direction key!'`, `goto retry` as `continue`, `pline("What a strange direction!")` when `!did_help`). No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn help_dir` → first run FAIL on reach (smoke 23/24: explore-seed0116-wizard-wear-shop row 7 C `b  j  n` vs JS `n  j  b` — bottom-row dir indices read as SE,S,SW instead of C arg order SW,S,SE); fixed to `key(7),key(6),key(5)`. Re-run → PASS syntax (1 file: js/lock.js) · rule2 · hidden note (no session blocked) · reach REACH-OK (no RNG tags, smoke 24/24, 0 regressed) · green 2/2 · strict ×2 · cohort 7/7. VERIFY: PASS.
+- **Named omissions:** `:4193–4229` `#if 0` bad-prefix buf arms (compiled out in C); `:4239` `*buf` branch (dead — always empty); `create_nhwindow` NULL → `!game.nhDisplay`; `dokeylist.js:378` `show_direction_keys(lines)` keylist clone untouched (different owner, `keylist_putcmds` family).
+- **Next:** next coverage row.
+
 ## D-2494 — `mon.c` setmangry whole-body port (Elbereth hypocrite + qst_guardians_respond; vault.c:526 dead-Croesus caller wired)
 
 - **Status:** fixed (breadth-phase coverage row: `mon.c` setmangry PARTIAL, C 53 L `mon.c:4265–4318`, JS 28 L in `js/mon.js`; `hidden-proxy verify setmangry`: no corpus session blocked).
