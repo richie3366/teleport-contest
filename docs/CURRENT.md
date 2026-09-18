@@ -45,7 +45,7 @@ screens 93.2 %. Held-out moved 7 → 11 over 2026-09-06..17 while the local
 corpus went 48 % → 91.7 %: the corpus no longer predicts the judge.
 **Corpus fortress** (re-scored 2026-09-18 audit 1417–1425): **495 / 540
 PASS (91.7 %)** excl. 13 env-only; RNG 99.29 %, screens 99.0 %. The 3
-`1d21e3be` getdir flips recovered via D-2440; no new flips across D-2458…D-2470
+`1d21e3be` getdir flips recovered via D-2440; no new flips across D-2458…D-2471
 (every per-SHA re-run: 0 regressed).
 Reviews 1225–1425: 179 ACCEPT, 5 WITH-DEBT, 1 DEBT, 11 QUALITY-RISK (0 Must-fix pending).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip (all map-named).
@@ -98,10 +98,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `trap.c` trapeffect_anti_magic — coverage MISSING (C 124 L `trap.c:2323–2450` / JS no symbol; hops 4, callers 1, RNG 10, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn trapeffect_anti_magic` (reach regression must be 0). Measured `port-coverage.mjs --name trapeffect_anti_magic` 2026-09-18 @ 78b9ec99.
+**Next cluster:** `pline.c` vpline — coverage MISSING (C 138 L `pline.c:153–291` / JS no symbol; hops 2, callers 16, RNG 0, msg 3; split? cited 26× in js/ — brief first). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn vpline` (reach regression must be 0). Measured `port-coverage.mjs --name vpline` 2026-09-18 @ 78b9ec99.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2470 (index).**
+**Keep D-0845…D-2471 (index).**
 <!-- recent:begin -->
+**D-2471** `nethack-c/upstream/src/pline.c:153–291` (`vpline`); supporting `BIGBUFSZ` `:10–12`, `putm — `js/display.js` only, in C order — new `export async function vpline(fmt, ...args)` (`:7650`): consume-then-format accessiblemsg (`vpline_consume_msg_loc`, D-1207; C's recurse-with-same-va_list is prefix-then-format sinc
 **D-2470** `nethack-c/upstream/src/trap.c:2322–2450` (`trapeffect_anti_magic`); sole C caller `trapef — `js/trap.js` only, in C order — module-local `async trapeffect_anti_magic` (`:5128`): iron-shoes `spe>0` drain (same-object fetch via `u.uarmf`/file-local `which_armor` matching `wearing_iron_shoes`; hero-only seetrap + 
 **D-2469** `nethack-c/upstream/src/mklev.c:939–1171` (`fill_ordinary_room`); static `mksink` `:2316–2 — `js/mklev.js` only, in C order — `(u.uhave.amulet || !rn2(3))` short-circuit with `makemon` + spider check (`data?.mndx === PM_GIANT_SPIDER`, monmove.js idiom) + occupied-guarded `maketrap(WEB)`; trap loop calls live `mk
 **D-2468** `nethack-c/upstream/src/pager.c:1673–1963` (`do_look(mode, click_cc)`); static `suptext1`  — `js/pager.js` only, in C order — `do_look(mode = 0, click_cc = null)` with `quick`/`clicklook` (`:1675–1676`); cmdq pop/`cmdq_clear()` (= CQ_CANNED default, js/cmd.js) with `have_cmdq` tracking the C `goto dowhatiscmd` (
@@ -109,11 +110,10 @@ revisits the picker.
 **D-2466** `nethack-c/upstream/src/trap.c:6991–7034` (`sink_into_lava`); callers `allmain.c:424–425`, — new `export async function sink_into_lava()` (`js/trap.js:6296`, placed after `lava_effects` in C file order) — whole body in C order: not-trapped no-op (polymorph flier-to-ceiling-hider case); not-on-lava `reset_utrap(F
 **D-2465** `nethack-c/upstream/src/eat.c:2510–2600` (`fpostfx`, staticfn); sole caller `done_eating`  — new module-local `async function fpostfx(otmp)` (`js/eat.js:1980`) in C order — `:2513–2516` wolfsbane `you_unwere(TRUE)` (moved verbatim); `:2517–2521` carrot `make_blinded(ucreamed)` unless swallowed-by-blinding-engulf
 **D-2464** `nethack-c/upstream/src/pline.c:476–490` (`verbalize`); callees `You_buf` `:338–348`, `vpl — restart in C order — `gp.pline_flags |= PLINE_VERBALIZE` (`PLINE_VERBALIZE` joins the existing const.js import); quote-then-format (`"..."` wrap, then `%s/%d/%ld/%%` per the livelog_printf/impossible convention, only whe
-**D-2463** `nethack-c/upstream/src/teleport.c:2102–2187` (`rloco`). — restart as `async` in C order — `:2109–2112` Rider corpse `revive_corpse` (dynamic do.js import); `:2114–2117` extract-then-read otx/oty + `restricted_fall = otx==0 && dndest.lx` (`game.dndest` mirrors `svd.dndest`); `:2
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2470; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2471; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

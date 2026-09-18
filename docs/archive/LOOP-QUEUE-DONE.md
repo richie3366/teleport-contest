@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-18
 
+- [x] `pline.c` vpline — coverage MISSING (C 138 L `pline.c:153–291` / JS no symbol; hops 2, callers 16, RNG 0, msg 3; split? cited 26× in js/ — brief first). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn vpline` (reach regression must be 0). Measured `port-coverage.mjs --name vpline` 2026-09-18 @ 78b9ec99. **Addressed:** D-2471
+
+
 - [x] `trap.c` trapeffect_anti_magic — coverage MISSING (C 124 L `trap.c:2323–2450` / JS no symbol; hops 4, callers 1, RNG 10, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn trapeffect_anti_magic` (reach regression must be 0). Measured `port-coverage.mjs --name trapeffect_anti_magic` 2026-09-18 @ 78b9ec99.
 
 

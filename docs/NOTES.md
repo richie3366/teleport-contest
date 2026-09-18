@@ -40,19 +40,20 @@ here again. Live hypotheses only:
 - **do_statusline2 residuals (D-2425 MEASURED):** W1 Healer-92107 `mhitm_ad_cold_u` extra destroy return; W2 Satiated pair = eat-progress `uhs`/botl timing — both are corpus-residual Open rows (detail in D-2425). Monk-92194 Pw = D-2161 gulpmu residual, no new row.
 ## Don't re-check (≤15)
 
-- D-1790…D-2470 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-2471 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2470.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2470.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2471.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2471.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2471: `js/display.js` only, in C order — new `export async function vpline(fmt, ...args)` (`:7650`): consume-then-format accessiblemsg (`vpline_consume_msg_ Named: `panic` on `ln > BIGBUFSZ-1` (fatal exit, no JS export — never hit; JS keeps the BUFSZ-tru
 - D-2470: `js/trap.js` only, in C order — module-local `async trapeffect_anti_magic` (`:5128`): iron-shoes `spe>0` drain (same-object fetch via `u.uarmf`/file-l Named: none new in this body (every callee live; `which_armor`/`monkilled`/`attacktype` file-loca
 - D-2469: `js/mklev.js` only, in C order — `(u.uhave.amulet || !rn2(3))` short-circuit with `makemon` + spider check (`data?.mndx === PM_GIANT_SPIDER`, monmove. Named: `set_levltyp` full `count_level_features` recount (`mkmaze.c:106–108`) — C recounts then `
 - D-2468: `js/pager.js` only, in C order — `do_look(mode = 0, click_cc = null)` with `quick`/`clicklook` (`:1675–1676`); cmdq pop/`cmdq_clear()` (= CQ_CANNED de Named: `create/start/add/end/select/destroy_nhwindow` windowing mechanism (JS paints the same ent
@@ -67,5 +68,4 @@ here again. Live hypotheses only:
 - D-2459: `js/dog.js` — module-local when consts + `failed_arrivals` (C dog.c:301 reset-in-losedogs) + `mon_arrive_link` head (STILL_ARRIVING/fmon/isshk→set_res Named: losedogs kops-dismiss scan (dismissKops/make_happy_shoppers `:310–356`); full mnearto yank
 - D-2458: `js/potion.js` only — restart in C order: `u.Unaware || Unaware()` suppress (make_deaf shape); `!Blind()` verb (file-local Blind, C Blind macro); mask Named: eatmupdate (eat.c:180–213, no JS export — gate live, call deferred); artifact.c:794 SPFX_H
 - D-2457: `js/timeout.js:176–307` restart in C order — pronoun/doname/sobj_at-rock/something chain; highc capitalize + bite/bites; uarmf+CORPSE+touch_petrifies+ Named: none new, none remaining in this body (all six prior deferred arms now live; the doc recor
-- D-2456: `js/mklev.js` only — renamed `mv_bubble_move` → `mv_bubble` (module-local like C staticfn; bounds ride as params for C's file-scope gbxmin statics); a Named: none new (pre-existing D-2171 omits stand: Punished ball carry, `vision_recalc(2)`, `earth
 <!-- landmarks:end -->

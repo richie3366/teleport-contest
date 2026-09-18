@@ -113,10 +113,13 @@ import {
     MSGTYP_STOP,
     PLINE_NOREPEAT,
     PLINE_VERBALIZE,
+    PLINE_SPEECH,
+    NO_CURS_ON_U,
     OVERRIDE_MSGTYPE,
     URGENT_MESSAGE,
     SUPPRESS_HISTORY,
     PLNMSG_UNKNOWN,
+    BUFSZ,
     gp,
     ECMD_OK,
 } from './const.js';
@@ -7357,9 +7360,9 @@ export function set_msg_dir(dir) {
  * Live dest: msg_mon_movement after place (D-1228); rolling-boulder
  * TELEP/LEVEL_TELEP in launch_obj (D-1237).
  */
-export async function pline_xy(x, y, msg) {
+export async function pline_xy(x, y, fmt, ...args) {
     set_msg_xy(x, y);
-    await pline(msg);
+    await vpline(fmt, ...args);
 }
 
 /**
@@ -7380,13 +7383,13 @@ export async function pline_xy(x, y, msg) {
  * Rolling-boulder TELEP is pline_xy (D-1237).
  * Do not wrap msg_mon_movement as pline_mon (D-1228).
  */
-export async function pline_mon(mtmp, msg) {
+export async function pline_mon(mtmp, fmt, ...args) {
     if (mtmp === game.youmonst) {
         set_msg_xy(0, 0);
     } else {
         set_msg_xy(mtmp.mx, mtmp.my);
     }
-    await pline(msg);
+    await vpline(fmt, ...args);
 }
 
 /**
@@ -7395,9 +7398,9 @@ export async function pline_mon(mtmp, msg) {
  * xytodir(-dx,-dy); run>=2 boulder "A boulder blocks your path."
  * (D-1226).
  */
-export async function pline_dir(dir, msg) {
+export async function pline_dir(dir, fmt, ...args) {
     set_msg_dir(dir);
-    await pline(msg);
+    await vpline(fmt, ...args);
 }
 
 /**
@@ -7429,10 +7432,42 @@ function vpline_consume_msg_loc(msg) {
     return msg;
 }
 
+// C ref: pline.c You `:355–363` / Your `:365–373` / You_feel `:375–388` /
+// You_cant `:390–398` / pline_The `:400–408` / There `:410–418` —
+// YouMessage prefix on the FORMAT then vpline with the same args
+// (You_buf growth unneeded in JS). You_feel's Unaware dream arm and
+// You_hear/You_see (hack.js / below) keep their prop gates; the plain
+// prefixes here wire the C callers that have none.
+export async function You(fmt, ...args) {
+    if (fmt == null || fmt === '') return;
+    await vpline(`You ${fmt}`, ...args);
+}
+export async function Your(fmt, ...args) {
+    if (fmt == null || fmt === '') return;
+    await vpline(`Your ${fmt}`, ...args);
+}
+export async function You_cant(fmt, ...args) {
+    if (fmt == null || fmt === '') return;
+    await vpline(`You can't ${fmt}`, ...args);
+}
+export async function pline_The(fmt, ...args) {
+    if (fmt == null || fmt === '') return;
+    await vpline(`The ${fmt}`, ...args);
+}
+export async function There(fmt, ...args) {
+    if (fmt == null || fmt === '') return;
+    await vpline(`There ${fmt}`, ...args);
+}
 // C ref: pline.c You_feel — prefix "You feel " (Unaware dream path deferred)
-export async function You_feel(msg) {
-    if (msg == null || msg === '') return;
-    await pline(`You feel ${msg}`);
+export async function You_feel(fmt, ...args) {
+    if (fmt == null || fmt === '') return;
+    await vpline(`You feel ${fmt}`, ...args);
+}
+export async function You_see(fmt, ...args) {
+    // Named: C Unaware «dream that you see» + Blind «sense» arms (D-2065
+    // family; need Unaware/Blind prop edges — plain arm only here).
+    if (fmt == null || fmt === '') return;
+    await vpline(`You see ${fmt}`, ...args);
 }
 
 // C ref: pline.c verbalize :476–490 — quote the format, then vpline.
@@ -7459,7 +7494,10 @@ export async function verbalize(line, ...args) {
     }
     gp.pline_flags |= PLINE_VERBALIZE;
     try {
-        await pline(tmp);
+        // C vpline(tmp, the_args) with the quoted FORMAT: route the
+        // pre-formatted text through the "%s" arm so arg-introduced '%'
+        // is never re-scanned (C va_arg verbatim semantics).
+        await vpline('%s', tmp);
     } finally {
         gp.pline_flags &= ~PLINE_VERBALIZE;
     }
@@ -7510,10 +7548,10 @@ async function vpline_after_putmesg(line, msgtyp) {
  * default MSGTYP_NOREP; suppress when identical to gp.prevmsg unless
  * a MSGTYPE= pattern matched first).
  */
-export async function Norep(msg) {
+export async function Norep(fmt, ...args) {
     gp.pline_flags = PLINE_NOREPEAT;
     try {
-        await pline(msg);
+        await vpline(fmt, ...args);
     } finally {
         gp.pline_flags = 0;
     }
@@ -7525,42 +7563,178 @@ export async function Norep(msg) {
  * update_topl and gp.prevmsg still run, so a later Norep compares
  * against this line.
  */
-export async function custompline(flags, msg) {
-    msg = vpline_consume_msg_loc(msg);
-    if (msg == null || msg === '') return;
+export async function custompline(flags, fmt, ...args) {
     gp.pline_flags = flags | 0;
     try {
-        await pline_after_consume(msg, (flags & SUPPRESS_HISTORY) !== 0);
+        await vpline(fmt, ...args);
     } finally {
         gp.pline_flags = 0;
     }
 }
 
-// ── pline ──
-// C ref: pline.c vpline — msgtype_type then flush_screen before putmesg.
-export async function pline(msg) {
-    msg = vpline_consume_msg_loc(msg);
-    if (msg == null || msg === '') return;
-    await pline_after_consume(msg);
+// ── vpline ──
+// C ref: pline.c vpline `:153–291` — the whole body in C order.
+// BIGBUFSZ is 5*BUFSZ (C `:10–12`); the vsnprintf result is chopped to
+// BUFSZ-1 preserving the last 3 chars (`:216–231`). Static `in_pline`
+// is module-local `_vpline_in_pline`. The accessiblemsg prefix
+// (`:175–190`, D-1207) is `vpline_consume_msg_loc` above: C recurses
+// with the prefixed format + same va_list, which is prefix-then-format
+// (the prefix never contains '%'), so consume-then-format below is the
+// same net text without reusing a va_list.
+const BIGBUFSZ = 5 * BUFSZ;
+let _vpline_in_pline = 0;
+
+/**
+ * C ref: pline.c vpline `:192–212` — vsnprintf-style expansion.
+ * C arms: no '%' → as-is; exactly "%s" → first va_arg verbatim
+ * (percent signs inside it are NOT expanded); else vsnprintf.
+ * JS covers the contest's pline verbs (`%s/%d/%i/%u/%ld/%lu/%x/%X/%o/%c/%%`
+ * with optional flags/width/precision, stripped before conversion).
+ * @returns {{ text: string, ln: number }}
+ */
+function vpline_expand(fmt, args) {
+    const f = String(fmt);
+    if (!f.includes('%')) return { text: f, ln: f.length };
+    if (f === '%s') {
+        const s = String(args[0] ?? '');
+        return { text: s, ln: s.length };
+    }
+    let i = 0;
+    const text = f.replace(/%%|%[-+ #0-9.]*?(ld|lu|d|i|u|x|X|o|c|s)/g, (m, spec) => {
+        if (m === '%%') return '%';
+        const a = args[i++];
+        switch (spec) {
+            case 's': return String(a ?? '');
+            case 'c': return typeof a === 'number' ? String.fromCharCode(a | 0) : String(a ?? '').charAt(0);
+            case 'x': return ((Number(a) | 0) >>> 0).toString(16);
+            case 'X': return (((Number(a) | 0) >>> 0)).toString(16).toUpperCase();
+            case 'o': return (((Number(a) | 0) >>> 0)).toString(8);
+            case 'u':
+            case 'lu': return (Number(a) >>> 0).toString(10);
+            default: return String(Number(a) | 0);
+        }
+    });
+    return { text, ln: text.length };
 }
 
-async function pline_after_consume(msg, suppressHistory = false) {
+/**
+ * C ref: pline.c vpline `:216–231` — modest overflow truncates to
+ * BUFSZ-1 with '...' at [BUFSZ-1-6..-4] and the final 3 chars kept:
+ * "___ extremely long text" -> "___ extremely l...ext".
+ */
+function vpline_truncate(line, ln) {
+    if (ln <= BUFSZ - 1) return line;
+    // C copies the over-long line into pbuf first when it is not already
+    // there (`line != pbuf`); JS strings make the copy implicit.
+    const head = String(line).slice(0, BUFSZ - 1 - 6);
+    const tail = String(line).slice(ln - 3);
+    return `${head}...${tail}`;
+}
+
+/**
+ * C ref: pline.c vpline `:153–291` — whole body in C order.
+ * Callers (same file + C wrappers): pline / pline_dir / pline_xy /
+ * pline_mon / custompline / urgent_pline / Norep / You / Your /
+ * You_cant / pline_The / There / verbalize below, plus the file-idiom
+ * prefixed `pline("You ...")` sites (hack.js/lock.js idiom) which now
+ * flow through here via pline().
+ * Named omissions (no live JS export — see D-log): `panic` on
+ * `ln > BIGBUFSZ-1` (fatal exit, never hit; longest corpus topline is
+ * far shorter — JS keeps the truncated line); `raw_print`/`raw_printf`
+ * (pre-window/recursive terminal path — sets last_msg UNKNOWN and
+ * returns after dumplog, no scored window surface); `alloc` (prefixed
+ * accessiblemsg tmp — JS strings, GC); `maybe_play_sound` (USER_SOUNDS
+ * compiled out of the contest C — D-1807); `putmesg` as a named export
+ * (split: SoundSpeak + topl window in `pline_after_consume` below).
+ */
+export async function vpline(fmt, ...args) {
+    // C `:160–163` — always snapshot+reset a11y.msg_loc first (D-1207),
+    // even for empty lines. The helper prefixes `coord_desc: ` when
+    // accessiblemsg && isok(saved) (NONE→COMFULL).
+    let line = vpline_consume_msg_loc(fmt);
+    // C `:165–166` — empty format returns after the reset above.
+    if (line == null || line === '') return;
+    // C HANGUPHANDLING `:167–170` — before wizkit.
+    if (game.program_state?.done_hup) return;
+    // C `:171–172` — wizkit wishing suppresses the message entirely.
+    if (game.program_state?.wizkit_wishing) return;
+    // C `:192–212` — printf arms (helper above).
+    const { text, ln } = vpline_expand(line, args);
+    line = text;
+    // C `:213–214` — `ln > BIGBUFSZ-1` panics. Named omit (no JS panic
+    // export; fatal, never reached in scored runs) — execution continues
+    // to the BUFSZ truncation below instead of aborting.
+    // C `:216–231` — modest overflow truncates preserving the last 3.
+    line = vpline_truncate(line, ln);
+    // C DUMPLOG_CORE `:233–239` — dumplogmsg before putmesg when
+    // SUPPRESS_HISTORY is off (yn ATR_NOHISTORY still named).
+    if ((gp.pline_flags & SUPPRESS_HISTORY) === 0) dumplogmsg(line);
+    // C `:243–249` — `if (in_pline++ || !window_inited)`: raw_print path.
+    // C prints via raw_print (named omit above), sets last_msg UNKNOWN,
+    // and jumps to pline_done (SPEECH clear + --in_pline).
+    const _wasIn = _vpline_in_pline;
+    _vpline_in_pline++;
+    try {
+        if (_wasIn || !game.iflags?.window_inited) {
+            if (game.iflags) game.iflags.last_msg = PLNMSG_UNKNOWN;
+            return;
+        }
+        // C `:251–268` — OVERRIDE_MSGTYPE / msgtype_type / URGENT suppress
+        // gate lives in `pline_after_consume` (vpline_msgtyp_gate) so the
+        // window body stays one function; order matches C (gate → vision
+        // → flush → putmesg). The suppress jump lands on pline_done via
+        // this try/finally (SPEECH clear + --in_pline).
+        await pline_after_consume(line, true);
+    } finally {
+        // C pline_done `:285–290` — SND_SPEECH clear (compiled out of the
+        // contest C; the flag still clears) then --in_pline.
+        gp.pline_flags &= ~PLINE_SPEECH;
+        _vpline_in_pline--;
+    }
+}
+
+// C ref: pline.c pline `:103–110` — va_start then vpline.
+export async function pline(fmt, ...args) {
+    await vpline(fmt, ...args);
+}
+
+async function pline_after_consume(msg, alreadyDumplogged = false) {
     const CO = game?.nhDisplay?.cols || 80;
     const line = String(msg);
-    // C pline.c vpline DUMPLOG_CORE: dumplogmsg before putmesg when
-    // SUPPRESS_HISTORY is off (default). yn ATR_NOHISTORY still named.
-    if (!suppressHistory) dumplogmsg(line);
+    // C pline.c vpline DUMPLOG_CORE `:233–239`: vpline() above already
+    // dumplogged before the in_pline/raw gate; direct callers pass false.
+    // yn ATR_NOHISTORY still named.
+    if (!alreadyDumplogged) dumplogmsg(line);
     const { msgtyp, suppress } = vpline_msgtyp_gate(line);
     if (suppress) return;
-    // C pline.c vpline: vision_recalc before flush when dirty (boulder
-    // extract / door / light sets vision_full_recalc mid-turn).
+    // C pline.c vpline `:270–276` — vision_recalc(0) with in_pline saved
+    // at 0 so a recursive pline during recalc takes the raw_print path
+    // (boulder extract / door / light set vision_full_recalc mid-turn).
     if (game.vision_full_recalc) {
-        vision_recalc(0);
+        const _savedInPline = _vpline_in_pline;
+        _vpline_in_pline = 0;
+        try {
+            vision_recalc(0);
+        } finally {
+            _vpline_in_pline = _savedInPline;
+        }
     }
-    // C: if (u.ux) flush_screen(...) before putmesg — botl update first
-    if (game.u?.ux) await flush_screen(1);
-    // C pline.c putmesg `:79` SoundSpeak after putstr; empty without SND_LIB.
-    SoundSpeak(line);
+    // C `:277–278` — if (u.ux) flush_screen(NO_CURS_ON_U ? 0 : 1).
+    if (game.u?.ux) await flush_screen((gp.pline_flags & NO_CURS_ON_U) ? 0 : 1);
+    // C pline.c putmesg `:69–80` — debug_prevent_pline skips putstr (the
+    // rest — execplinehandler/prevmsg/more — still runs); URGENT/NOHISTORY
+    // attrs need wincap2 (tty) so only SoundSpeak paints here. Named: the
+    // putstr(WIN_MESSAGE) window call itself (topl block below is its JS
+    // paint); debug_prevent_pline is never set in scored runs.
+    const _prevented = !!game.iflags?.debug_prevent_pline;
+    if (!_prevented) SoundSpeak(line);
+    // C putmesg early-return above skips the message-window paint but not
+    // the trailer (execplinehandler / prevmsg / STOP more). Never set here.
+    if (_prevented) {
+        _prevmsg = line.slice(0, BUFSZ - 1);
+        await vpline_after_putmesg(line, msgtyp);
+        return;
+    }
 
     // Capture skip before more(); C still paints the new line with the
     // pre-more skip flag even if ESC sets WIN_STOP during more().
@@ -7579,8 +7753,8 @@ async function pline_after_consume(msg, suppressHistory = false) {
         && ((notdied = line.startsWith('You die') ? 0 : 1) !== 0)) {
         _toplines = _toplines ? `${_toplines}  ${line}` : line;
         if (!skip) game._pending_message = _toplines;
-        // C: gp.prevmsg = line (new text only, not the concatenated topline)
-        _prevmsg = line;
+        // C `:282` strncpy(gp.prevmsg, line, BUFSZ) (new text, not topline).
+        _prevmsg = line.slice(0, BUFSZ - 1);
         await vpline_after_putmesg(line, msgtyp);
         return;
     }
@@ -7615,8 +7789,8 @@ async function pline_after_consume(msg, suppressHistory = false) {
     // C topl.c update_topl `:280` remember_topl before replacing gt.toplines
     remember_topl();
     _toplines = formatted;
-    // C: strncpy(gp.prevmsg, line, BUFSZ) after putmesg
-    _prevmsg = line;
+    // C vpline `:282` strncpy(gp.prevmsg, line, BUFSZ) after putmesg.
+    _prevmsg = line.slice(0, BUFSZ - 1);
     // C: if (!notdied) cw->flags &= ~WIN_STOP, skip = FALSE;
     if (!notdied) {
         _win_stop = false;
@@ -7637,8 +7811,8 @@ async function pline_after_consume(msg, suppressHistory = false) {
  * C ref: pline.c urgent_pline — URGENT_MESSAGE / WIN_NOSTOP so ESC'd
  * --More-- (WIN_STOP) cannot suppress this line; clears STOP first.
  */
-export async function urgent_pline(msg) {
-    if (msg == null || msg === '') return;
+export async function urgent_pline(fmt, ...args) {
+    if (fmt == null || fmt === '') return;
     // C tty_putstr ATR_URGENT: if WIN_STOP, clear_nhwindow + clear STOP
     if (_win_stop) {
         _win_stop = false;
@@ -7649,7 +7823,7 @@ export async function urgent_pline(msg) {
     _win_nostop = true;
     gp.pline_flags = URGENT_MESSAGE;
     try {
-        await pline(msg);
+        await vpline(fmt, ...args);
     } finally {
         // C: NOSTOP is one-shot after putstr returns
         _win_nostop = false;
@@ -7675,7 +7849,7 @@ export async function impossible(s, ...args) {
         if (m === '%%') return '%';
         return String(args[i++] ?? '');
     });
-    await urgent_pline(pbuf);
+    await urgent_pline('%s', pbuf);
     if (ps.in_sanity_check) {
         ps.in_impossible = 0;
         return;
@@ -7684,7 +7858,7 @@ export async function impossible(s, ...args) {
     if (ps.something_worth_saving) {
         pbuf2 += '  (Saving and reloading may fix this problem.)';
     }
-    await pline(pbuf2);
-    await pline(`Please report these messages to ${DEVTEAM_EMAIL}.`);
+    await pline('%s', pbuf2);
+    await pline('%s', `Please report these messages to ${DEVTEAM_EMAIL}.`);
     ps.in_impossible = 0;
 }
