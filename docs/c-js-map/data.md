@@ -399,7 +399,11 @@ peaceful adjalign + `iter_mons(anger_quest_guardians)` (`js/mon.js` ports),
 tame `Soundeffect` + `LL_KILLEDPET` gamelog, malign; `zap.c`
 `disintegrate_mon` ported with both `dobuzz` sites wired); omit only the
 unported caller functions `mhitm_ad_rust`/`mhitm_ad_fire` uhitm arms
-(`uhitm.c:2294/2547`) and `wiz_kill` (`wizcmds.c:315`) — own coverage rows; 
+(`uhitm.c:2294/2547`) and `wiz_kill` (`wizcmds.c:315`) — own coverage rows;
+holder-release re-layered D-2450 (`mtrapped=0` + `unstuck` right after the
+`disintegested` reset, `!was_stoned`-gated, before the lifesave return —
+C releases inside `mondead` via `mon_leaving_level :2702–2703`, never via
+`monstone :3286–3373`); 
 **`mondead`** (D-2147; `js/mhitm.js` export, `uhitm.js`/`trap.js` clones removed): be_sad clear, cham/were restore, mvitals, quest-leader mark, mail-daemon `G_GENOD`, S_KOP `rnd(5)`+`makemon` in C order; 
 **`mondead` tail** (D-2231; `js/mhitm.js` async export + `mon.js`/`vault.js`/`shk.js` edges): `set_mon_min_mhpmax`, `lifesaved_monster` (amulet+wary_dog+genocided), `vamprises` (door smash + trapped-door kill D-2273 via canonical `monmove.js` `mb_trapped`), `grddead` (vault corridor+gold), `logdeadmon` (Medusa+livelog cadence), `thiefdead` (stealmid + stealarm→unstolenarm swap; `stealarm`/`unstolenarm` live in `steal.js`, `steal()` sets `afternmv`, D-2271), `shkgone` (resident/no_charge/setpaid/bill/ushops), full `m_detach` (unleash/light/mon_leaving/wizdead/nemesis/leader/relobj+gated newsym/purge/dismount), async `mondead` + `monstone`/`monkilled` wiring, all callers await;
 **`shkgone` damage/`has_shop`** (this D; `js/shk.js` `discard_damage_owned_by` + `js/mhitm.js` has_shop clear via canonical `sounds.js` `search_special` export);

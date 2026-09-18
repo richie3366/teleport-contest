@@ -123,3 +123,5 @@ suite cannot catch item 1 (same structural blindness as 1393/1395).
    is a same-file follow-up debt, not this row. Must-fix prepended.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-2450

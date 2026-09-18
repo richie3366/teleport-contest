@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2450 — `mon.c` xkilled holder-release re-layered/re-ordered/gated (review 1403 item 1)
+
+- **Status:** fixed (Must-fix from review 1403 item 1 on D-2444).
+- **Symptom:** a holder killed by the hero but lifesaved stayed stuck (C releases it), with the `rnd(2)` mspec_used draw skipped; a stoned holder was released + drew where C does neither. No corpus session holds-then-lifesaves or stones its holder, so the suite cannot catch it (review 1403 re-measured 0 blocked).
+- **C locus:** `nethack-c/upstream/src/mon.c:2702–2703` (`mon_leaving_level`: `mtrapped=0` + `unstuck`) reached through `m_detach` inside `mondead` — every death path including lifesaved, before xkilled's lifesave check (`:3553–3562`); never on the `monstone` path (`:3286–3373` has no unstuck call). `unstuck :3437–3467` draws `rnd(2)` into `mspec_used` for AD_STCK/AT_ENGL/AT_HUGS holders.
+- **JS was:** `js/uhitm.js:745–750` ran `mtmp.mtrapped = 0` + `unstuck(mtmp)` after the lifesaved early-return and unconditionally on the stoned path.
+- **Fix:** `js/uhitm.js` only — the two lines moved to right after `game.disintegested = false`, gated on `!was_stoned`, before the lifesaved return; the stale "before the rn2(6) draw" comment replaced with the `mon_leaving_level`/`monstone` cite. Export name/signature unchanged; no new module edges (`mhitu.js` dynamic import already the file's cycle idiom).
+- **JS:** `js/uhitm.js` (xkilled body only).
+- **Callers:** unchanged from D-2444 (no caller added, moved, or rewired in this commit; all C call sites stay on the same `xkilled` export). No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn xkilled` → PASS syntax (1 file: js/uhitm.js) · rule2 · hidden note (0 blocked at baseline) · **reach 125/125 PASS, 0 regressed → REACH-OK** (`--reach-all`; 80/80 spread sample first) · green 2/2 · strict ×2 · cohort 7/7 (no shared file → full skipped) → VERIFY: PASS.
+- **Named omissions:** none new (D-2444 omissions stand: `mhitm_ad_rust`/`mhitm_ad_fire` uhitm arms, `wiz_kill`; deeper unstuck-inside-JS-mondead for all callers stays a same-file follow-up debt per review 1403).
+- **Next:** Must-fix head after this row (`pager.c` checkfile dbase-side `" ("` strip).
+
 ## D-2449 — `pager.c` do_screen_description unlooked cmap scan Primary byte (review 1406 item 1)
 
 - **Status:** fixed (Must-fix from review 1406 item 1 on D-2447).

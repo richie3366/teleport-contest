@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-18
 
-- [x] `pager.c` do_screen_description cmap scan uses showsyms (DEC) byte on the unlooked `/`-query path (js/pager.js:1540; C compares `looked ? showsyms : defsyms` — DEC user typing `/` `|` misses where C hits: DEC_CMAP_BYTE[S_vwall]=0xF8 vs Primary `|`). Fix: compare against the Primary DEFSYMS_CH byte when `!looked`. Verify unlooked `/` query under DEC + `node scripts/verify.mjs --fn do_screen_description`. Source: reviews/loop-unattended/1406-d32f725f-do-screen-description-whole-body.md item 1. **Addressed:** D-2449
+- [x] `mon.c` xkilled holder-release mis-layered/mis-ordered/over-broad (js/uhitm.js:745–750 runs after the lifesaved return and on the stoned path; C releases inside mondead via mon_leaving_level :2702–2703, before the lifesave check, never via monstone :3286–3373 — lifesaved holders stay stuck + rnd(2) skipped, stoned path releases+draws). Fix: move the two lines after `game.disintegested=false`, gated on `!was_stoned`. Verify `node scripts/verify.mjs --fn xkilled`. Source: reviews/loop-unattended/1403-f57848fc-xkilled-disintegrate-mon.md item 1.
+
+
+- [x] `pager.c` do_screen_description cmap scan uses showsyms (DEC) byte on the unlooked `/`-query path (js/pager.js:1540; C compares `looked ? showsyms : defsyms` — DEC user typing `/` `|` misses where C hits: DEC_CMAP_BYTE[S_vwall]=0xF8 vs Primary `|`). Fix: compare against the Primary DEFSYMS_CH byte when `!looked`. Verify unlooked `/` query under DEC + `node scripts/verify.mjs --fn do_screen_description`. Source: reviews/loop-unattended/1406-d32f725f-do-screen-description-whole-body.md item 1. **Addressed:** D-2449 `ef8abf5a`
 
 
 - [x] `vault.c` gd_move — coverage PARTIAL (C 313 L `vault.c:888–1201` / JS 232 L in js/shk.js; hops 2, callers 4, RNG 1, msg 13; dead callees: gd_pick_corridor_gold). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn gd_move` (reach regression must be 0). Measured `port-coverage.mjs --name gd_move` 2026-09-18 @ e6289b5b. **Addressed:** D-2448 `38249822`
