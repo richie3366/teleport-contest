@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-18 — D-2433 `mon.c` newcham whole body in C order (coverage THIN → live)
+
+**C locus:** `nethack-c/upstream/src/mon.c:5278–5535` (`newcham`); `monattk.h` AT_ENGL=11; `trap.c` `mselftouch`; `mhitu.c` `expels`/`unstuck`; `display.c` `swallowed`; `pline.c` `You`.
+**JS:** `js/makemon.js:178–182` (imports), `:1722` (`AT_ENGL`), `:1728–1759` (`newcham_light_invis`), `:1761–1803` (`newcham_ustuck`), `:1805–1818` (`newcham_worm_newsym`), `:1862–1932` (`newcham_after_unleash`), `:1960` (`newcham`), `:2053` (`newcham_apply_form`); map `docs/c-js-map/turns.md:2749`.
+**Change:** `js/makemon.js` only — split the post-`set_mon_data` block into `newcham_light_invis` (`:5399–5412`), `newcham_ustuck` (`:5413–5450`: break-out `You` + mhp 1 + `expels` consuming SHOW_MSG even when msg is FALSE, silent expels for noncorporeal/whirly/amorphous/light, `swallowed(0)` repaint when the new form keeps AT_ENGL, `unstuck()` release unless new form or hero still sticks or new form unsolid-proof), `newcham_worm_newsym` (`:5452–5456`); `newcham_after_unleash` re-chained to C order (light → ustuck → worm/newsym → SHOW_MSG → vampire cham → possibly_unwield → mon_break_armor → mselftouch → check_gear → boulders → poly_steed → Elbereth); `l_oldname` threaded through `newcham_apply_form` for the break-out name. 5 new edges (`expels`/`unstuck`/`digests`←`mhitu.js`, `mselftouch`←`trap.js`, `You`←`zap.js`, C-locus `sticks`←`engrave.js`, `swallowed` joins the existing `display.js` edge; `W_ARMG`/`ARTICLE_NONE` join the `const.js` edge) all `imports.mjs --can` SAFE (hoisted declarations); local `AT_ENGL = 11` per monattk.h (cf. `monmove.js:153`). No DIAG/FORCE/seed logic; Rule #2 clean; sync-boolean contract for NO_NC_FLAGS preserved (D-1648).
+**Verify:** `node scripts/verify.mjs --fn newcham` → PASS syntax (1 file: makemon.js) · rule2 · hidden note (0 blocked at baseline) · **REACH smoke spread 24/24 PASS, 0 regressed → REACH-OK** · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file changed) · VERIFY: PASS.
+**Named:** none inside the function. Caller-function gaps above stay named (vamp_shift/engulfer-digest have no JS body; sp_lev fixup is D-2249).
+**Next:** same-file Open row `mon.c` xkilled (PARTIAL) stays queued for its own iteration.
 ## 2026-09-18 — D-2432 `polyself.c` polymon whole body `:735–1071` in C order (coverage PARTIAL → live)
 
 **C locus:** `nethack-c/upstream/src/polyself.c:735–1071` (`polymon`); same-file staticfn `check_strangling :167–194`; hero arm of `mondata.c can_be_strangled :590–619`; inlined 8-line `dbridge.c:76 is_pool_or_lava`; `artifact.c:2639 retouch_equipment` (named, own row).

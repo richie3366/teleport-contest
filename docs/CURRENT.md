@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `polyself.c` polymon — coverage PARTIAL (C 336 L `polyself.c:735–1071` / JS 201 L in js/polyself.js; hops 2, callers 26, RNG 7, msg 27; dead callees: check_strangling). Port the whole C body in C order. Verify `node scripts/verify.mjs --fn polymon`.
+**Next cluster:** `mon.c` newcham — coverage THIN (C 254 L `mon.c:5278–5535` / JS 84 L in js/makemon.js; hops 2, callers 40, RNG 2, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn newcham` (reach regression must be 0).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2432 (index).**
+**Keep D-0845…D-2433 (index).**
 <!-- recent:begin -->
+**D-2433** `nethack-c/upstream/src/mon.c:5278–5535` (`newcham`); `monattk.h` AT_ENGL=11; `trap.c` `ms — `js/makemon.js` only — split the post-`set_mon_data` block into `newcham_light_invis` (`:5399–5412`), `newcham_ustuck` (`:5413–5450`: break-out `You` + mhp 1 + `expels` consuming SHOW_MSG even when msg is FALSE, silent e
 **D-2432** `nethack-c/upstream/src/polyself.c:735–1071` (`polymon`); same-file staticfn `check_strang — `js/polyself.js` only — restart of the thin body in C order: entry `sticking`/`wasHidingUnder`/`wasExpelled`/`ustuckNam` locals; first-poly `livelog_printf(LL_CONDUCT)`; `unmul('')` mimic-gold stop; Stoned→`PM_STONE_GOLE
 **D-2431** `trap.c:1797–1806` (`trapeffect_fire_trap` monster branch: xtradmg subtraction and the AD_ — `js/trap.js` only — subtract + AD_FIRE monkilled nested under the existing `(mhp|0)>0` check in C order (`:1800–1806` comment); `trapeffect_fire_trap` exported (C `staticfn`, test pin per D-2416 precedent).
 **D-2430** `nethack-c/upstream/src/cmd.c:4115–4116` (`if (!u.dz) confdir(FALSE)` inside `getdir`, aft — `js/lock.js` only for the locus — tail `if (!(u.dz | 0)) confdir(false)` in C order at both exits (self + normal); `confdir` was already imported (no new edge).
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2428** `nethack-c/upstream/src/monmove.c:2365–2371` `can_fog` (fog-cloud `mvitals` not `G_GENOD`  — `js/monmove.js` — `function can_fog` → `export function can_fog` (hoisted declaration, no TDZ risk); `js/mon.js` — `can_fog` added to the existing static `./monmove.js` import (`imports.mjs --can` → ALREADY, no new edge)
 **D-2427** `nethack-c/upstream/src/mkmaze.c:1873–1925` `mk_bubble` ends with `mv_bubble(b, 0, 0, TRUE — `js/mklev.js` only — `dx`/`dy` → `let`; inside the existing `!Is_airlevel || !rn2(6)` gate (same RNG shape: water draws nothing new, air keeps its single `rn2(6)`), compute `colli` from `(bx,by)` vs `(gbxmin,gbymin,gbxma
 **D-2423** `nethack-c/upstream/src/insight.c` attributes_enlightenment — arms ported in C order on both builders — final `enlightenment()` (past tense via `final`, `you_are`/`enlght_line_txt` directly) and `doattributes()` ^X (in-progress tense via `o()` wrapper; C `!final` arms read `polymor
-**D-2422** `nethack-c/upstream/src/mkobj.c` weight() `:1932–1934` — the three divisor arms in C order (cursed first, C ternary short-circuit; `Math.trunc` for the round-up divisions) + a module-level `BAG_OF_HOLDING` const via `objectNames.indexOf` (same shape as `STATUE`); doc header no
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2432; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2433; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

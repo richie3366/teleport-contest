@@ -2746,7 +2746,7 @@ pet `mtrapped`** (D-0169); **`mcalcdistress`/`mon_regen` mfrozen/mblinded/mfleet
 unseen-howl arm live D-2113 — `!Deaf && !canseemon` → monsndx wolf/jackal → `Soundeffect` (no-op) + `You_hear` + `wake_nearto` 4*4, `async` (sole caller `mon.js:840` already awaits); omit `monflee` onscary (`possibly_unwield` D-1744; **`mon_break_armor` C `:129`-before-unwield wired D-1917**, canonical `js/worn.js` export); 
 cham `decide_to_shapeshift` regular+vamp (D-0623/D-0659; minliquid via D-0775); 
 **`newcham` NC_SHOW_MSG `pline_mon`/`usmellmon`/`noname_monnam` D-1586**; **`normal_shape` await `NC_SHOW_MSG` D-1594** (Protection cancel 
-D-1573; **getlev `restore_cham` D-1637**; **newcham mleashed `m_unleash` TRUE/`update_inventory` + Elbereth `set_apparxy`/`monflee` D-1645**; **await remaining async NO_NC_FLAGS `newcham` D-1648**; `possibly_unwield`/`mon_break_armor`/ustuck/`poly_steed`/boulder named; sync makemon/`load_tower1` named); 
+D-1573; **getlev `restore_cham` D-1637**; **newcham mleashed `m_unleash` TRUE/`update_inventory` + Elbereth `set_apparxy`/`monflee` D-1645**; **await remaining async NO_NC_FLAGS `newcham` D-1648**; `possibly_unwield`/`mon_break_armor`/`poly_steed`/boulder live; ustuck `:5413–5450` + W_ARMG `mselftouch` `:5486–5488` wired D-2433 (vampire cham + check_gear moved to C order after the pline); sync makemon/`load_tower1` named); 
 **open D-0928 #1118:** after getlev, vamp-bat @46,19 `mcalcmove` add 12 vs C 24 (2nd movemon pass 
 missing → early EOT shapeshift @104705; fmon order / lich placement suspect; 
 `restore_cham` on getlev is D-1637); 
