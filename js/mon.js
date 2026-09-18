@@ -13,7 +13,7 @@ import {
     NOGARLIC, IRONBARS, IS_ALTAR, DISPLACED, W_NONDIGGABLE,
     IS_WATERWALL, LAVAWALL, Is_waterlevel, POOL, MOAT, WATER, LAVAPOOL,
     M_AP_NOTHING, M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER, M_AP_TYPE,
-    MSLOW, MFAST, STRAT_WAITMASK, STRAT_WAITFORU, G_GENOD, PLNMSG_GROWL,
+    MSLOW, MFAST, STRAT_WAITMASK, STRAT_WAITFORU, G_GENOD, PLNMSG_GROWL, HEADSTONE,
     BOLT_LIM, WT_TOOMUCH_DIAGONAL, IS_STWALL, W_NONPASSWALL,
     ROOM, IN_SIGHT, COULD_SEE, is_pit, TT_PIT, In_endgame, Is_earthlevel,
     Is_astralevel, Is_airlevel, Is_firelevel,
@@ -59,7 +59,7 @@ import {
 import { PM_GRID_BUG, PM_TOURIST } from './generated/monsters_data.js';
 import { enexto, rloc_to, rloc, tele_restrict, noteleport_level, rloc_to_flag, migrate_to_level, rloco, control_mon_tele, goodpos } from './teleport.js';
 import { may_dig, fill_pit } from './dig.js';
-import { newsym, pline, pline_mon, verbalize, You_feel, sensemon, canseemon, canspotmon, impossible } from './display.js';
+import { newsym, pline, pline_mon, pline_The, verbalize, You_feel, sensemon, canseemon, canspotmon, impossible } from './display.js';
 import { online2, level_difficulty } from './hacklib.js';
 import { worm_cross, level_mon_at, remove_worm, place_wsegs, count_wsegs } from './worm.js';
 import { On_W_tower_level, In_W_tower } from './dungeon.js';
@@ -67,7 +67,7 @@ import { Monnam, mon_nam, hliquid, pmname, mon_pmname, Mgender } from './do_name
 import { cansee, couldsee, does_block, is_lightblocker_mappear, unblock_point, vision_recalc } from './vision.js';
 import { fightm, mondead, mondied } from './mhitm.js';
 import { remove_monster, place_monster } from './steed.js';
-import { engr_at } from './engrave.js';
+import { engr_at, del_engr_at } from './engrave.js';
 import { visible_region_at, is_poisoncloud_region } from './region.js';
 import { were_change } from './were.js';
 import {
@@ -81,7 +81,7 @@ import { maybe_m_dowear_special, extract_from_minvent, update_mon_extrinsics, mo
 import { adjalign } from './attrib.js';
 import { SetVoice } from './sndprocs.js';
 import { maybe_gasp, growl } from './sounds.js';
-import { vtense, doname, distant_name } from './objnam.js';
+import { vtense, doname, distant_name, makeplural } from './objnam.js';
 import { obj_resists, cursed_object_at, finish_meating, quickmimic } from './dogmove.js';
 import { touch_artifact } from './artifact.js';
 import { experience, more_experienced, newexplevel } from './exper.js';
@@ -1222,7 +1222,7 @@ export function restartcham() {
  * angry_guards; humanoid gasp/exclaim/flee/anger; same-mlet growl+flee.
  * Caller setmangry `:4317` when !mon_moving. mndx not mons() identity
  * for `mons[quest_info(MS_LEADER)]` / `mons[gu.urole.guardnum]`.
- * Named: qst_guardians_respond; tame tameness reduce.
+ * Named: tame tameness reduce (qst_guardians_respond ported D-2494).
  */
 async function peacefuls_respond(mtmp) {
     const mndx = mtmp.data?.mndx ?? mtmp.mnum ?? NON_PM;
@@ -1323,24 +1323,92 @@ async function peacefuls_respond(mtmp) {
     }
 }
 
+/** C youprop.h Blind — (HBlinded || EBlinded) && !BBlinded (do.js idiom). */
+function Blind() {
+    const u = game.u || {};
+    return !!(((u.HBlinded | 0) || (u.EBlinded | 0)) && !(u.BBlinded | 0));
+}
+
+/** C youprop.h Hallucination — flat flag or (HHallucination && !resist). */
+function Hallucination() {
+    const u = game.u || {};
+    if (u.Hallucination) return true;
+    return !!((u.HHallucination | 0) && !(u.HHalluc_resistance | 0));
+}
+
 /**
- * C ref: mon.c setmangry `:4260–4318` — peaceful → hostile on attack.
- * Branch envelope: core mpeaceful clear + humanoid/shk/gd couldsee
- * pline_mon + adjalign (priest coalign / -1) + non-humanoid victim
- * growl else-arm (`:4304–4309`) + peacefuls_respond when !mon_moving
- * (D-1772). Named omissions: Elbereth hypocrite/rnd(5)/del_engr;
- * qst_guardians_respond.
+ * C ref: mon.c qst_guardians_respond `:4134–4159` (staticfn) — attacking
+ * the quest leader angers the peaceful guardians. C order: fmon sweep
+ * (DEADMONSTER skip; data match + mpeaceful → clear, canseemon → got_mad),
+ * then the Hallucination-gated pline_The with makeplural past one.
+ * `&mons[quest_info(MS_GUARDIAN)]` is the mndx-vs-guardnum compare
+ * (peacefuls_respond `:1229` urole idiom, no read.js clone);
+ * `pmnames[NEUTRAL]` per mon.js:461.
+ */
+async function qst_guardians_respond() {
+    const guardnum = game.urole?.guardnum | 0;
+    let got_mad = 0;
+
+    /* guardians will sense this attack even if they can't see it */
+    for (const mon of game.fmon || []) {
+        if (!mon || (mon.mhp | 0) <= 0) continue; /* DEADMONSTER */
+        if ((mon.data?.mndx ?? mon.mnum ?? NON_PM) === guardnum && mon.mpeaceful) {
+            mon.mpeaceful = 0;
+            if (canseemon(mon)) ++got_mad;
+        }
+    }
+    if (got_mad && !Hallucination()) {
+        let who = pmnames[guardnum]?.[NEUTRAL] ?? 'guardian';
+        if (got_mad > 1) who = makeplural(who);
+        await pline_The(`${who} ${vtense(who, 'appear')} to be angry too...`);
+    }
+}
+
+/**
+ * C ref: mon.c setmangry `:4265–4318` — mtmp gets annoyed at the player.
+ * C order: Elbereth hypocrite arm (`:4272–4284`: via_attack + strict
+ * sengr_at + onscary/mpeaceful → You_feel + adjalign(-5 or -rnd(5)) +
+ * !Blind pline + del_engr_at); mstrategy waitmask clear; !mpeaceful and
+ * tame early returns; mpeaceful clear; priest coaligned -5/+2 else -1;
+ * humanoid/shk/gd couldsee pline_mon else victim growl (`:4304–4309`,
+ * D-2124); quest-leader → qst_guardians_respond (`:4311–4313`);
+ * peacefuls_respond when !mon_moving (`:4316–4317`, D-1772).
+ * sengr_at strict (engrave.c:250–261) is inline via live engr_at —
+ * teleport.js:175 keeps its own module-local clone, no second clone here.
+ * onscary is the live same-module export (its own omissions pre-existing).
  */
 export async function setmangry(mtmp, via_attack) {
     if (!mtmp) return;
-    // Elbereth hypocrite arm deferred (no RNG when not on Elbereth)
-    void via_attack;
+    const u = game.u || {};
+    const ux = u.ux | 0;
+    const uy = u.uy | 0;
+    if (via_attack) {
+        const ep = engr_at(ux, uy);
+        const txt = ep ? String(ep.engr_txt?.actual_text ?? ep.engr_txt ?? '') : '';
+        if (ep && ep.engr_type !== HEADSTONE && (ep.engr_time | 0) <= (game.moves | 0)
+            && txt.toLowerCase() === 'elbereth'
+            && (onscary(ux, uy, mtmp) || mtmp.mpeaceful)) {
+            await You_feel('like a hypocrite.');
+            /* AIS: larger than the usual 1s and 2s; average when already low */
+            adjalign(((u.ualign?.record | 0) > 5) ? -5 : -rnd(5));
+            if (!Blind()) {
+                await pline('The engraving beneath you fades.');
+            }
+            del_engr_at(ux, uy);
+        }
+    }
+
+    /* AIS: Should this be in both places, or just in wakeup()? */
     if (mtmp.mstrategy != null) mtmp.mstrategy &= ~STRAT_WAITMASK;
     if (!mtmp.mpeaceful) return;
+    /* [C FIXME: this logic seems wrong; peaceful humanoids gasp or exclaim
+       when they see you attack a peaceful monster but they just casually
+       look the other way when you attack a pet?] */
     if (mtmp.mtame) return;
     mtmp.mpeaceful = 0;
     if (mtmp.ispriest) {
-        adjalign(p_coaligned(mtmp) ? -5 : 2);
+        if (p_coaligned(mtmp)) adjalign(-5); /* very bad */
+        else adjalign(2);
     } else {
         adjalign(-1); /* attacking peaceful monsters is bad */
     }
@@ -1349,11 +1417,15 @@ export async function setmangry(mtmp, via_attack) {
             await pline_mon(mtmp, `${Monnam(mtmp)} gets angry!`);
         }
     } else {
-        // C mon.c:4307-4309 — non-humanoid victim growls ("It screams!");
-        // pre-existing sounds.js edge, already imported (no new edge, no TDZ).
         await growl(mtmp);
     }
-    // qst_guardians_respond named omitted (quest-leader only, no corpus reach)
+
+    /* attacking your own quest leader will anger his or her guardians */
+    if (game.urole != null
+        && (mtmp.data?.mndx ?? mtmp.mnum ?? NON_PM) === (game.urole.ldrnum | 0)) {
+        await qst_guardians_respond();
+    }
+
     /* make other peaceful monsters react */
     if (!game.context?.mon_moving) {
         await peacefuls_respond(mtmp);

@@ -2915,8 +2915,7 @@ growl pline** D-0928 #1161; **unconditional `finish_meating` D-2417**
 (missum-miss ends mid-meal pony → `dog_invent` re-rates);
 **`peacefuls_respond` D-1772** (watch Halt
 `verbalize`+`angry_guards`; humanoid `maybe_gasp`/flee/anger; same-mlet
-`big_little_match`+growl `PLNMSG_GROWL`; `setmangry` `!mon_moving`); **victim growl else-arm ported D-2124**; omit Elbereth
-hypocrite/`qst_guardians_respond`/`hot_pursuit`/`freemcorpsenm`/light-block);
+`big_little_match`+growl `PLNMSG_GROWL`; `setmangry` `!mon_moving`); **victim growl else-arm ported D-2124**; **`setmangry` whole body + `qst_guardians_respond` ported D-2494** (Elbereth hypocrite arm with inline strict `sengr_at`; quest-leader mndx/`ldrnum` gate; `vault.c:526` dead-Croesus caller wired in `js/vault.js` `invault`; `quest.c:479` pissed_off stays named); omit `hot_pursuit`/`freemcorpsenm`/light-block + Croesus-alive dialogue);
 **`postmov` hides_under/`S_EEL` `rn2(5)`→`hideunder` + `can_hide_under_obj`** (D-0496; 
 **You_see hide pline** D-0928 #1139; pet cursed / cockatrice skip deferred) + 
 **`m_move` `maybe_unhide_at` after place before track/postmov** (D-0769; youmonst path deferred); 
