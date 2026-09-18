@@ -428,7 +428,8 @@ pickup via latebound — polyself→do→pickup cycle). **`mcast_blind_you`
 `body_part(FOOT)` D-1535** (pickup latebound); **`zoo_mon_sound` zoo_msg+You_hear D-1871**
 (C `sounds.c` `:115–128` (msleeping||animal)+ZOO gate, `rn2(2)+hallu`; live
 `js/sounds.js` async print; file-local `get_iter_mons` async for printing bfunc;
-throne/beehive/morgue/barracks/court You_hear plines still named).
+throne/beehive/morgue/barracks/court You_hear plines still named); \
+**`randomkey`/`pgetchar`/`random_response` D-2480** (C `cmd.c` `:3517–3578` + `:445–453` + `:3580–3597`; live `js/cmd.js` in C order (^A/^P gate, rn2(16) arms, extcmdlist cycle incl. donull sentinel, cmd_from_dir d/m draws, last_c latch); `cmd_from_dir` `:3029–3032` live `js/dokeylist.js` via `cmd_from_func_ecname` + hoisted move/run/rush tables; `readchar_core` `:5218` + `wintty.c:4068` fuzzer arms named).
 
 ### `src/potion.c`
 

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-18 — D-2480 `cmd.c` randomkey whole-body port (+ pgetchar/random_response callers, cmd_from_dir export)
+
+**C locus:** `nethack-c/upstream/src/cmd.c:3517–3578` (`randomkey`); callers `pgetchar` `:445–453`, `random_response` `:3580–3597`; callee `cmd_from_dir` `:3029–3032` via `cmd_from_func` `:3036–3064` over `move_funcs` `:2070–2083`; `global.h:487` (`C(c)`); `hack.h` movemodes.
+**JS:** `js/cmd.js` (+3 exports, +4 const/rng import names on existing edges); `js/dokeylist.js` (+`cmd_from_dir` export, hoisted tables, +3 const names on existing edge); `scripts/randomkey.test.mjs` (6 tests).
+**Change:** `js/cmd.js` in C order — `pgetchar` (fuzzer arm returns `randomkey()`, else `await nhgetch()`; async only per Constitution §2), `randomkey` (full body: ^A/^P repeat gate on `game.program_state.input_state === commandInp`, `rn2(16)` switch default-ESC through case 14, `last_c` latch; statics as module lets + `reset_randomkey` test support), `random_response` (accumulate to `\n`, ESC discards, ≤ sz-1 chars; returns the JS string for C buf+NUL). JS adaptations: key codes as numbers (nhgetch convention); `C('a')/C('p')` as 1/16; case 8 cycles `i++ % (EXTCMDLIST.length + 1)` with index == length yielding key 0 (C SIZE counts the donull sentinel `cmd.c:2068`, generated list omits it); case 10–12 draws `rn2(N_DIRS)` then `rn2(7) ? MV_WALK : (!rn2(3) ?
+**Verify:** `node scripts/verify.mjs --fn randomkey --full` → syntax 2 files · rule2 · hidden note (no corpus session blocked — coverage row) · REACH smoke spread 24/24 PASS → REACH-OK · green 2/2 · strict 2/2 · cohort 7/7 · full 44/44 → VERIFY: PASS. Focused `node --test scripts/randomkey.test.mjs` 6/6 (seed-pinned C-order stream, ^A/^P gate, cmd_from_dir modes, response bound, pgetchar arms). Probe scratch in /tmp only.
+**Named:** `readchar_core` fuzzer arm (`cmd.c:5218`); `wintty.c:4068` tty fuzzer arm.
+**Next:** queue head moves to `role.c` role_init (split? — brief first).
 ## 2026-09-18 — D-2479 `mon.c` sanity_check_single_mon whole-body port (+ static pet_sanity_check)
 
 **C locus:** `nethack-c/upstream/src/mon.c:72–255` (`sanity_check_single_mon`); static `pet_sanity_check` `:56–70`; `alloc.c:125` (`fmt_ptr`); `youprop.h:359` (`Protection_from_shape_changers` macro).
