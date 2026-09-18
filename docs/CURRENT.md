@@ -45,7 +45,7 @@ screens 93.2 %. Held-out moved 7 → 11 over 2026-09-06..17 while the local
 corpus went 48 % → 91.7 %: the corpus no longer predicts the judge.
 **Corpus fortress** (re-scored 2026-09-18 audit 1435–1443): **495 / 540
 PASS (91.7 %)** excl. 13 env-only; RNG 99.29 %, screens 99.0 % — identical
-to the prior audit, no flips across D-2476…D-2484 (every per-SHA re-run:
+to the prior audit, no flips across D-2476…D-2485 (every per-SHA re-run:
 0 regressed; role_init REACH 91/91).
 Reviews 1225–1443: 193 ACCEPT, 6 WITH-DEBT, 1 DEBT, 14 QUALITY-RISK (1 Must-fix pending).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named).
@@ -98,10 +98,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** Must-fix `has_egd` import (`js/mon.js:477`; review 1438), then Open — coverage head.
+**Next cluster:** Must-fix `mon.js` sanity_check_single_mon missing `has_egd` import — `ReferenceError` when a vault guard (`isgd`) is checked (used `js/mon.js:477`, live export `js/const.js:3141`, never imported). Fix: add `has_egd` to the const.js import in `js/mon.js`. Verify `node scripts/verify.mjs --fn sanity_check_single_mon`. Source: reviews/loop-unattended/1438-30195dcb-sanity-check.md.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2484 (index).**
+**Keep D-0845…D-2485 (index).**
 <!-- recent:begin -->
+**D-2485** `nethack-c/upstream/src/mon.c:72–255` (`sanity_check_single_mon`, staticfn) — one word — `has_egd` added to the existing const.js import in `js/mon.js:25` (no new edge: `imports.mjs --can mon.js const.js has_egd` reports mon.js already statically imports const.js; same line shape as the sibling `h
 **D-2484** `nethack-c/upstream/src/zap.c:6165–6219` (`wishcmdassist`, staticfn); sole live caller `ma — `js/zap.js` only + one import — new `export async function wishcmdassist(triesleft)` in C order: `WISHCMDASSIST_INFO[]` (all 15 `wishinfo` lines verbatim, trailing 0 excluded per `SIZE - 1`), wishless-conduct line while 
 **D-2483** `nethack-c/upstream/src/objnam.c:581–1029` (`xname_flags`); callers `xname` `:575–578`, `c — `js/objnam.js` only, no new imports — new `export function xname_flags(obj, cxn_flags)` holding the former `xname` body in C order (prologue `:632–650`, pname nameit `:674–676`, boulder `:814–823`, pluralize incl. slime 
 **D-2482** `nethack-c/upstream/src/uhitm.c:4296–4385` (`mhitm_ad_heal`); uhitm arm `:4300–4304` (phys — `js/mhitm.js` in C order, mirroring shipped `mhitm_ad_were` (D-2049, identical 3-arm shape) — `const AD_HEAL = 27` (monattk.h `:69`); exported `mhitm_ad_heal(magr, mattk, mdef, mhm)` (`:1321`: `is_youmonst(mdef)` guard +
@@ -109,11 +110,10 @@ revisits the picker.
 **D-2480** `nethack-c/upstream/src/cmd.c:3517–3578` (`randomkey`); callers `pgetchar` `:445–453`, `ra — `js/cmd.js` in C order — `pgetchar` (fuzzer arm returns `randomkey()`, else `await nhgetch()`; async only per Constitution §2), `randomkey` (full body: ^A/^P repeat gate on `game.program_state.input_state === commandInp`
 **D-2479** `nethack-c/upstream/src/mon.c:72–255` (`sanity_check_single_mon`); static `pet_sanity_chec — both functions added module-local in `js/mon.js` (C home, matching C `staticfn`) in C order — data-pointer range, mnum fixup, HP bounds (gremlin `m_lev` arm kept commented-out like C), dead-monster early return, genocide
 **D-2478** `nethack-c/upstream/src/mail.c:399–456` (`newmail`); static `md_start` `:148–239`, `md_sto — `js/mail.js` in C order — file-local C-macro equivalents (`Deaf`/`Blind`/`Blind_telepat`/`distu`, sibling-idiom verbatim; `mail_text` + `md_exclamations` via `rn2(3)`); `md_start` (Blind-nearby arm, stairwell-in-sight sc
-**D-2477** `nethack-c/upstream/src/trap.c:2360–2365` (`for (otmp = gi.invent; …)` carried `defends_wh — `js/trap.js` only, no new imports — anti-magic site walks `for (const _am of game.invent || [])` with the same predicate (`oartifact` + `!is_quest_artifact` + `defends_when_carried(AD_MAGM)`, live exports) and break-on-f
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2484; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2485; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

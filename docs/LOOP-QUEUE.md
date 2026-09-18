@@ -97,8 +97,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `mon.js` sanity_check_single_mon missing `has_egd` import — `ReferenceError` when a vault guard (`isgd`) is checked (used `js/mon.js:477`, live export `js/const.js:3141`, never imported; latent until `mon_sanity_check` ships). Fix: add `has_egd` to the const.js import in `js/mon.js`. Verify `node scripts/verify.mjs --fn sanity_check_single_mon`. Source: reviews/loop-unattended/1438-30195dcb-sanity-check.md.
-
 A **JS throw** in any corpus session (`hidden-proxy status` owner
 `js-throw …`, or a `ReferenceError` in `.cache/hidden/scores.json`
 `error`), and a corpus worker **hang** (`ETIMEDOUT` under `verify`), are

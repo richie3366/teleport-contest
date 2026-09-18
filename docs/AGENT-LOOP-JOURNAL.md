@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-18 — D-2485 `mon.c` sanity_check_single_mon `has_egd` import miss (review 1438 Must-fix)
+
+**C locus:** `nethack-c/upstream/src/mon.c:72–255` (`sanity_check_single_mon`, staticfn) — the `isgd && !has_egd(mtmp)` guard arm (`impossible("guard without egd (%s)")`).
+**JS:** `js/mon.js:25` (import only; body untouched).
+**Change:** one word — `has_egd` added to the existing const.js import in `js/mon.js:25` (no new edge: `imports.mjs --can mon.js const.js has_egd` reports mon.js already statically imports const.js; same line shape as the sibling `has_*` guards). No durable unit test: repo has no `tests/` harness (no `tests/` dir, no `js/*.test.*`) — sessions + `verify --fn` are the maintained checks (D-2482 precedent).
+**Verify:** `node scripts/verify.mjs --fn sanity_check_single_mon` → PASS (syntax 1 file `js/mon.js`; rule2; hidden note: no corpus session blocked; reach: no RNG tags, smoke 24/24 REACH-OK; green 2/2; strict ×2; cohort 7/7; full skipped — no shared file changed). Operative check per review 1438: `grep -n has_egd js/mon.js js/const.js` → import `:25`, use `:477`, export `const.js:3141` — bound.
+**Named:** none new (D-2479 `panic`/`levltyp_to_name`/`#if 0` arms + unwired `mon_sanity_check` callers stand).
+**Next:** queue head per breadth phase (first Open — coverage row).
 ## 2026-09-18 — Audit 1435–1443 (D-2476…D-2484) + cadence: 8 ACCEPT, 1 QUALITY-RISK
 
 1438: `has_egd` used at `js/mon.js:477`, never imported (live `js/const.js:3141`) — latent ReferenceError; Must-fix prepended, Next cluster set. Prior Must-fix closed: 1430 by D-2476 (ENGRAVE-OK re-probed), 1429 by D-2477 (RUST/anti-magic vs C). Every SHA re-measured (`verify --base HASH~1 --reach-all`, 0 regressed); role_init REACH 91/91. Rule #2 clean. Cadence: public 44/44, held-out 11/44 (unchanged), corpus 495/540 (91.7 %, identical). Refill: 22 tool rows skipped as shipped/parked dupes; 7 verbatim appended (corpse_xname/makemaz/see_monsters/flush_screen/setmangry/help_dir/mpickobj) to 12 coverage rows. No `js/` edits, no REJECT.

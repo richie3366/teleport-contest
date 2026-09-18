@@ -70,4 +70,4 @@ None in this peel. Named (map, not Must-fix): mouse `_`; fuzzer; `cmd_from_func`
 
 Verdict: **ACCEPT**
 
-**Addressed:** D-2484
+**Addressed:** D-2484 `6b72742e`

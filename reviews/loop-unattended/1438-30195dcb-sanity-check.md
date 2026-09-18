@@ -84,3 +84,5 @@ Right-sized: one C function pair, one module + one-word export.
    vs live `js/const.js:3141`; add to the const.js import.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-2485

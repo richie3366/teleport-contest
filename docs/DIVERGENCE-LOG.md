@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2485 — `mon.c` sanity_check_single_mon `has_egd` import miss (review 1438 Must-fix)
+
+- **Status:** fixed (Must-fix from review 1438 on D-2479: C-wrong, not a named omit — JS contradicted C on a live arm).
+- **Symptom:** latent `ReferenceError`: `js/mon.js:477` `if (mtmp.isgd && !has_egd(mtmp))` used `has_egd` with no binding — throws the first time a vault guard (`isgd`) is checked. Latent today (function module-local and unwired; C callers in unported `mon_sanity_check` fmon/migr sites, named in D-2479), guaranteed throw on the first guarded `#sanity` run after the caller ships.
+- **C locus:** `nethack-c/upstream/src/mon.c:72–255` (`sanity_check_single_mon`, staticfn) — the `isgd && !has_egd(mtmp)` guard arm (`impossible("guard without egd (%s)")`).
+- **JS was:** `js/mon.js:25` const.js import carried `has_emin, has_epri, has_eshk, has_edog` but not `has_egd`, while the live export exists at `js/const.js:3141`; usage at `js/mon.js:477` was the only hit (unbound free variable — `node --check` and dynamic `import()` both pass, failing only at call time on the `isgd` path, per review 1438).
+- **Fix:** one word — `has_egd` added to the existing const.js import in `js/mon.js:25` (no new edge: `imports.mjs --can mon.js const.js has_egd` reports mon.js already statically imports const.js; same line shape as the sibling `has_*` guards). No durable unit test: repo has no `tests/` harness (no `tests/` dir, no `js/*.test.*`) — sessions + `verify --fn` are the maintained checks (D-2482 precedent).
+- **JS:** `js/mon.js:25` (import only; body untouched).
+- **Callers:** none new — `sanity_check_single_mon` stays module-local (matching C staticfn, D-2479); its C callers remain the unported `mon_sanity_check` fmon (`mon.c:265`) + migr (`:313`) sites (map-named, wire when that ships). No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn sanity_check_single_mon` → PASS (syntax 1 file `js/mon.js`; rule2; hidden note: no corpus session blocked; reach: no RNG tags, smoke 24/24 REACH-OK; green 2/2; strict ×2; cohort 7/7; full skipped — no shared file changed). Operative check per review 1438: `grep -n has_egd js/mon.js js/const.js` → import `:25`, use `:477`, export `const.js:3141` — bound.
+- **Named omissions:** none new (D-2479 `panic`/`levltyp_to_name`/`#if 0` arms + unwired `mon_sanity_check` callers stand).
+- **Next:** queue head per breadth phase (first Open — coverage row).
+
 ## D-2484 — `zap.c` wishcmdassist whole-body port (makewish help arm wired)
 
 - **Status:** fixed (breadth-phase coverage row: `zap.c` wishcmdassist MISSING, C 54 L `zap.c:6165–6219`, JS no symbol; `hidden-proxy verify wishcmdassist`: no corpus session blocked).

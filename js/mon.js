@@ -22,7 +22,7 @@ import {
     FIRE_RES, COLD_RES, SLEEP_RES, DISINT_RES, SHOCK_RES, STONE_RES,
     u_at, isok, TEMPLE, SHOPBASE, MON_FLOOR, MON_OFFMAP, MON_MIGRATING, MON_DETACH,
     MON_LIMBO, MON_OBLITERATE, MON_ENDGAME_MIGR, MIGR_APPROX_XY, MIGR_RANDOM,
-    has_emin, has_epri, has_eshk, has_edog, EDOG, has_mcorpsenm, MCORPSENM, OBJ_AT,
+    has_emin, has_epri, has_eshk, has_egd, has_edog, EDOG, has_mcorpsenm, MCORPSENM, OBJ_AT,
     Has_contents, RLOC_MSG, RLOC_NOMSG, XKILL_NOMSG,
     NO_MM_FLAGS, NATTK, PROT_FROM_SHAPE_CHANGERS, NO_WEAPON_WANTED, engulfing_u,
     W_SADDLE, OBJ_MINVENT,
