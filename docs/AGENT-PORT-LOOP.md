@@ -415,6 +415,7 @@ Under `.agent-port-loop-logs/` (gitignored):
 | `AGENT_FORCE` | `0` | Cursor: `--force`. Muse: `--yolo`. Claude: `--dangerously-skip-permissions --permission-mode bypassPermissions` |
 | `AGENT_OUTPUT_FORMAT` | `stream-json` | Cursor only; `--muse` always uses `--json`; `--claude` always uses `stream-json` |
 | `ITERATION_TIMEOUT_SEC` | `5400` | Kill an overlong agent run (then **retry** as continue-unfinished, same as crash-before-commit). 3600 before the 2026-09-18 breadth phase |
+| `LOOP_STALL_SEC` | `600` | SIGTERM the agent process tree when `iter-*.raw` is unchanged for this many seconds (Muse stream-close hang after a finished port, iter 3199). `0` disables. Committed work is kept; uncommitted leftover arms continue-unfinished |
 | `SHORT_ITER_SEC` | `30` | Agent wall-clock under this counts toward token-exhaustion streak |
 | `SHORT_STREAK_LIMIT` | `3` | Consecutive short runs before the loop halts |
 | `--token-budget-m` (CLI) | unset | Cap this run at *n* million tokens (all usage kinds); not persisted |
