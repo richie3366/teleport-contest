@@ -27,7 +27,7 @@ import {
     canspotself, mon_to_glyph, hero_Invisible, NO_GLYPH,
     set_bot_disabled, tty_nhbell,
 } from './display.js';
-import { howmonseen, couldsee } from './vision.js';
+import { howmonseen, couldsee, cansee } from './vision.js';
 import { getlin, y_n } from './getline.js';
 import {
     paint_corner_nhw_menu, dismiss_nhw_menu, dfeature_at, display_inventory,
@@ -45,7 +45,7 @@ import {
     makeplural, makesingular, fruit_from_name,
 } from './objnam.js';
 import { strstri, lcase } from './hacklib.js';
-import { distant_monnam_none, pmname, Ugender, mon_nam, rndmonnam } from './do_name.js';
+import { distant_monnam, coyotename, PM_COYOTE, pmname, Mgender, Ugender, mon_nam, rndmonnam } from './do_name.js';
 import { hides_under, is_hider, is_clinger, is_flyer, mons,
     M2_HUMAN, M2_ELF, M2_ORC, M2_DEMON, pmnames, NEUTRAL,
 } from './monsters.js';
@@ -56,7 +56,8 @@ import { align_str } from './roles.js';
 import { is_drawbridge_wall } from './dbridge.js';
 import { PM_WIZARD, PM_GNOME, PM_HUMAN, PM_ELF } from './generated/monsters_data.js';
 import { visible_region_at } from './region.js';
-import { engr_at } from './engrave.js';
+import { engr_at, sticks } from './engrave.js';
+import { digests } from './mhitu.js';
 import { option_help_lines } from './options.js';
 import { dokeylist_lines, domenucontrols_lines } from './dokeylist.js';
 import { trapname, t_at } from './trap.js';
@@ -79,8 +80,9 @@ import {
     HELP, SHELP, HISTORY, LICENSE, OPTIONFILE, OPTMENUHELP, USAGEHELP, DEBUGHELP,
     ECMD_OK, BUFSZ, QBUFSZ,
     OBJ_FREE, OBJ_FLOOR, OBJ_BURIED, M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER,
-    M_AP_TYPMASK, M_AP_F_DKNOWN,
+    M_AP_TYPMASK, M_AP_F_DKNOWN, M_AP_TYPE,
     MCORPSENM, has_mcorpsenm, MALE, FEMALE,
+    ARTICLE_NONE, BEAR_TRAP, WEB, NO_TRAP, is_pit,
     MHID_PREFIX, MHID_ARTICLE, MHID_ALTMON, MHID_REGION,
     MONSEEN_NORMAL, MONSEEN_SEEINVIS, MONSEEN_INFRAVIS, MONSEEN_TELEPAT,
     MONSEEN_XRAYVIS, MONSEEN_DETECT, MONSEEN_WARNMON,
@@ -407,18 +409,63 @@ function self_lookat() {
 }
 
 /**
- * C ref: pager.c look_at_monster — distant_monnam ARTICLE_NONE + tame/peaceful
- * + mfrozen/msleeping/STRAT_WAITMASK + mhidden_description (D-1554).
- * howmonseen monbuf is D-1562 (describe_looked [seen:]; look_all NULL).
- * Health / stuck / leashed / trapped / hallu deferred.
+ * C ref: pager.c monhealthdescr `:138–160` — the `#if 0` block is disabled,
+ * so this always stores empty (`nhUse(mon); nhUse(addspace); *outbuf =
+ * '\0'`). Shared by look_at_monster() and done_in_by().
  */
-function look_at_monster_buf(mtmp) {
-    if (!mtmp) return 'monster';
-    const name = distant_monnam_none(mtmp);
-    let buf = '';
-    if (mtmp.mtame) buf = 'tame ';
-    else if (mtmp.mpeaceful) buf = 'peaceful ';
-    buf += name;
+export function monhealthdescr(mon) {
+    return '';
+}
+
+/**
+ * C ref: pager.c look_at_monster `:422–555` — full body in C order.
+ * `buf` arms: coyote (`do_name.c:1526` via live `coyotename`) vs
+ * `distant_monnam(ARTICLE_NONE)` gated on `accurate = !Hallucination`
+ * (`:430–432`); worm-tail "tail of "/"tail of a " on look-vs-mon pos
+ * with the isshk&&accurate split (`:433–436`); `monhealthdescr` prefix
+ * (always empty, see above) (`:437`); tame/peaceful gated on accurate
+ * (`:438–442`); ustuck swallowed/engulfing via `digests` vs held/holding
+ * via `Upolyd && sticks(youmonst.data)` (`:443–451`); mfrozen /
+ * msleeping / STRAT_WAITMASK (`:452–464`); mleashed (`:466–467`);
+ * mtrapped + `cansee` + `t_at` BEAR_TRAP/is_pit/WEB with `tseen = 1`
+ * (`:468–478`); `mhidden_description` on mundetected/M_AP_TYPE/
+ * `visible_region_at(look x,y)` (D-1554) (`:479–484`). `monbuf` arms
+ * (`:486–554`): `howmonseen` bits (D-1562) in C bit order with C ", "
+ * separators; WARNMON hallu "paranoid delusion" vs warntype/mflags2
+ * human/elf/orc/demon/`pmname(data, Mgender)` + `makeplural`.
+ * look_all passes NULL monbuf; describe_looked appends " [seen: %s]".
+ */
+export function look_at_monster(mtmp, x, y) {
+    if (!mtmp) return { buf: 'monster', monbuf: '' };
+    const u = game.u || {};
+    const accurate = !Hallucination(); // C :429
+    // C :430–432 — data == &mons[PM_COYOTE] compares the permonst ptr;
+    // JS mons() builds fresh objects so compare data.mndx (do_name.c idiom).
+    const mndx = mtmp.data?.mndx ?? mtmp.mnum;
+    const name = (mndx === PM_COYOTE && accurate)
+        ? coyotename(mtmp)
+        : distant_monnam(mtmp, ARTICLE_NONE);
+    // C :433–442 Sprintf(buf, "%s%s%s%s", tail, health, tamepeace, name).
+    const tail = (mtmp.mx !== x || mtmp.my !== y)
+        ? ((mtmp.isshk && accurate) ? 'tail of ' : 'tail of a ')
+        : '';
+    const health = accurate ? monhealthdescr(mtmp) : '';
+    const tamepeace = (mtmp.mtame && accurate)
+        ? 'tame '
+        : (mtmp.mpeaceful && accurate)
+            ? 'peaceful '
+            : '';
+    let buf = `${tail}${health}${tamepeace}${name}`;
+    // C :443–451 — u.ustuck == mtmp pointer compare.
+    if (u.ustuck && mtmp && u.ustuck === mtmp) {
+        if (u.uswallow || game.iflags?.save_uswallow) {
+            buf += digests(mtmp.data) ? ', swallowing you' : ', engulfing you';
+        } else {
+            buf += (Upolyd(u) && sticks(game.youmonst?.data))
+                ? ', being held' : ', holding you';
+        }
+    }
+    // C :452–464 (excerpt from mstatusline for stethoscope/probe).
     if (mtmp.mfrozen) {
         buf += ", can't move (paralyzed or sleeping or busy)";
     } else if (mtmp.msleeping) {
@@ -426,70 +473,100 @@ function look_at_monster_buf(mtmp) {
     } else if ((mtmp.mstrategy || 0) & STRAT_WAITMASK) {
         buf += ', meditating';
     }
-    const x = mtmp.mx | 0;
-    const y = mtmp.my | 0;
-    // C: mundetected || M_AP_TYPE || visible_region_at(look x,y).
-    // Worm-tail look coords named (C FIXME uses mx,my inside mhidden).
-    if (mtmp.mundetected || ((mtmp.m_ap_type | 0) & M_AP_TYPMASK)
-        || visible_region_at(x, y)) {
+    // C :466–467.
+    if (mtmp.mleashed) buf += ', leashed to you';
+    // C :468–478 — newsym lets you know of the trap, so mention it here.
+    if (mtmp.mtrapped && cansee(mtmp.mx | 0, mtmp.my | 0)) {
+        const t = t_at(mtmp.mx | 0, mtmp.my | 0);
+        const tt = t ? t.ttyp : NO_TRAP;
+        if (tt === BEAR_TRAP || is_pit(tt) || tt === WEB) {
+            buf += `, trapped in ${an(trapname(tt, false))}`;
+            t.tseen = 1;
+        }
+    }
+    // C :479–484 — shown via persistent detection; x,y are the LOOK
+    // coords (worm-tail FIXME reads mx,my inside mhidden itself).
+    if (mtmp.mundetected || M_AP_TYPE(mtmp) || visible_region_at(x, y)) {
         buf += mhidden_description(mtmp,
             MHID_PREFIX | MHID_ARTICLE | MHID_REGION);
     }
-    return buf;
+    // C :486–554 monbuf; [0] = '\0' then bits in fixed order, ", "
+    // appended while bits remain (mirrored below, not join()).
+    let monbuf = '';
+    let how_seen = howmonseen(mtmp) | 0;
+    if (how_seen !== 0 && how_seen !== MONSEEN_NORMAL) {
+        if (how_seen & MONSEEN_NORMAL) {
+            monbuf += 'normal vision';
+            how_seen &= ~MONSEEN_NORMAL;
+            if (how_seen) monbuf += ', ';
+        }
+        if (how_seen & MONSEEN_SEEINVIS) {
+            monbuf += 'see invisible';
+            how_seen &= ~MONSEEN_SEEINVIS;
+            if (how_seen) monbuf += ', ';
+        }
+        if (how_seen & MONSEEN_INFRAVIS) {
+            monbuf += 'infravision';
+            how_seen &= ~MONSEEN_INFRAVIS;
+            if (how_seen) monbuf += ', ';
+        }
+        if (how_seen & MONSEEN_TELEPAT) {
+            monbuf += 'telepathy';
+            how_seen &= ~MONSEEN_TELEPAT;
+            if (how_seen) monbuf += ', ';
+        }
+        if (how_seen & MONSEEN_XRAYVIS) {
+            // C: Eyes of the Overworld.
+            monbuf += 'astral vision';
+            how_seen &= ~MONSEEN_XRAYVIS;
+            if (how_seen) monbuf += ', ';
+        }
+        if (how_seen & MONSEEN_DETECT) {
+            monbuf += 'monster detection';
+            how_seen &= ~MONSEEN_DETECT;
+            if (how_seen) monbuf += ', ';
+        }
+        if (how_seen & MONSEEN_WARNMON) {
+            if (Hallucination()) {
+                monbuf += 'paranoid delusion';
+            } else {
+                const wt = game.context?.warntype || {};
+                const mW = (wt.obj | 0) | (wt.polyd | 0);
+                const m2 = mtmp.data?.mflags2 | 0;
+                const whom = ((mW & M2_HUMAN & m2) ? 'human'
+                    : (mW & M2_ELF & m2) ? 'elf'
+                      : (mW & M2_ORC & m2) ? 'orc'
+                        : (mW & M2_DEMON & m2) ? 'demon'
+                          : pmname(mtmp.data, Mgender(mtmp)));
+                monbuf += `warned of ${makeplural(whom)}`;
+            }
+            how_seen &= ~MONSEEN_WARNMON;
+            if (how_seen) monbuf += ', ';
+        }
+        // C :550–553 — all 7 bits consumed above, so leftover is
+        // unreachable; C logs impossible() (async debug path, skipped in
+        // this sync look) and still appends "(%u)". Suffix preserved.
+        if (how_seen) monbuf += `(${how_seen >>> 0})`;
+    }
+    return { buf, monbuf };
 }
 
 /**
- * C ref: pager.c look_at_monster :485–554 monbuf — howmonseen bits as
- * "normal vision, telepathy, …". Empty when 0 or NORMAL-only (D-1562).
- * look_all passes NULL monbuf; describe_looked appends " [seen: %s]".
+ * C ref: pager.c look_at_monster `:433–484` buf half (see look_at_monster).
+ * Callers: lookat `:710` (with monbuf), look_all `:2002` (NULL monbuf),
+ * do_screen_description monster arm (with [seen:] suffix).
+ */
+function look_at_monster_buf(mtmp, x, y) {
+    return look_at_monster(mtmp, x, y).buf;
+}
+
+/**
+ * C ref: pager.c look_at_monster `:486–554` monbuf half (D-1562).
+ * Empty when 0 or NORMAL-only. look_all passes NULL monbuf;
+ * describe_looked appends " [seen: %s]".
  */
 function howmonseen_look_buf(mtmp) {
-    let how_seen = howmonseen(mtmp) | 0;
-    if (!how_seen || how_seen === MONSEEN_NORMAL) return '';
-    const parts = [];
-    if (how_seen & MONSEEN_NORMAL) {
-        parts.push('normal vision');
-        how_seen &= ~MONSEEN_NORMAL;
-    }
-    if (how_seen & MONSEEN_SEEINVIS) {
-        parts.push('see invisible');
-        how_seen &= ~MONSEEN_SEEINVIS;
-    }
-    if (how_seen & MONSEEN_INFRAVIS) {
-        parts.push('infravision');
-        how_seen &= ~MONSEEN_INFRAVIS;
-    }
-    if (how_seen & MONSEEN_TELEPAT) {
-        parts.push('telepathy');
-        how_seen &= ~MONSEEN_TELEPAT;
-    }
-    if (how_seen & MONSEEN_XRAYVIS) {
-        parts.push('astral vision');
-        how_seen &= ~MONSEEN_XRAYVIS;
-    }
-    if (how_seen & MONSEEN_DETECT) {
-        parts.push('monster detection');
-        how_seen &= ~MONSEEN_DETECT;
-    }
-    if (how_seen & MONSEEN_WARNMON) {
-        if (Hallucination()) {
-            parts.push('paranoid delusion');
-        } else {
-            const wt = game.context?.warntype || {};
-            const mW = (wt.obj | 0) | (wt.polyd | 0);
-            const m2 = mtmp.data?.mflags2 | 0;
-            const whom = ((mW & M2_HUMAN & m2) ? 'human'
-                : (mW & M2_ELF & m2) ? 'elf'
-                  : (mW & M2_ORC & m2) ? 'orc'
-                    : (mW & M2_DEMON & m2) ? 'demon'
-                      : pmname(mtmp.data, mtmp.female ? FEMALE : MALE));
-            parts.push(`warned of ${makeplural(whom)}`);
-        }
-        how_seen &= ~MONSEEN_WARNMON;
-    }
-    /* C impossible leftover bits */
-    if (how_seen) parts.push(`(${how_seen >>> 0})`);
-    return parts.join(', ');
+    return look_at_monster(mtmp, mtmp?.mx | 0, mtmp?.my | 0).monbuf;
 }
 
 /**
@@ -1453,8 +1530,10 @@ export function lookat(x, y) {
     } else if (glyph_is_monster(glyph)) {
         const mtmp = mon_at(x, y);
         if (mtmp) {
-            buf = look_at_monster_buf(mtmp);
-            monbuf = howmonseen_look_buf(mtmp);
+            // C lookat `:710` — look_at_monster(buf, monbuf, mtmp, x, y).
+            const seen = look_at_monster(mtmp, x, y);
+            buf = seen.buf;
+            monbuf = seen.monbuf;
             pm = mtmp.data || null;
         } else if (Hallucination()) {
             buf = rndmonnam(null);
@@ -1681,16 +1760,17 @@ function describe_looked(x, y) {
                 : 'remembered, unseen, creature';
             return { out: `I        ${an(unseen)}`, first: unseen, found: 1 };
         }
-        const look = look_at_monster_buf(mtmp);
+        // C do_screen_description check_monsters: same look_at_monster
+        // buf + [seen: monbuf] pair as lookat (x,y are the looked coords).
+        const looked = look_at_monster(mtmp, x, y);
         const explain = mlet_class_explain(mtmp.data?.mlet) || 'monster';
         let out = `${ch}        ${an(explain)}`;
         let first = explain;
-        if (look) {
-            out += ` (${look})`;
-            first = look;
+        if (looked.buf) {
+            out += ` (${looked.buf})`;
+            first = looked.buf;
         }
-        const seen = howmonseen_look_buf(mtmp);
-        if (seen) out += ` [seen: ${seen}]`;
+        if (looked.monbuf) out += ` [seen: ${looked.monbuf}]`;
         return { out, first, found: 1 };
     }
     const loc = game.level?.at?.(x, y);
@@ -1815,7 +1895,9 @@ async function look_all(nearby, do_mons) {
                     lookbuf = self_lookat();
                     glyphCh = '@';
                 } else if (shown?.kind === 'mon') {
-                    lookbuf = look_at_monster_buf(shown.mtmp);
+                    // C look_all `:2002` — look_at_monster(lookbuf, NULL,
+                    // mtmp, x, y); NULL monbuf, so buf half only.
+                    lookbuf = look_at_monster_buf(shown.mtmp, x, y);
                     glyphCh = mon_glyph(shown.mtmp).ch || '?';
                 }
             } else if (shown?.kind === 'obj') {

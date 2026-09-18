@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-18
 
-- [x] `mon.c` xkilled — coverage PARTIAL (C 261 L `mon.c:3477–3740` / JS 143 L in js/uhitm.js; hops 3, callers 37, RNG 2, msg 14). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn xkilled` (reach regression must be 0). Measured `port-coverage.mjs --name xkilled` 2026-09-18 @ a35f6369. **Addressed:** D-2444
+- [x] `pager.c` look_at_monster — coverage MISSING (C 130 L `pager.c:422–555` / JS no symbol; hops 2, callers 2, RNG 0, msg 20; dead callees: coyotename). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn look_at_monster` (reach regression must be 0). Measured `port-coverage.mjs --name look_at_monster` 2026-09-18 @ a35f6369.
+
+
+- [x] `mon.c` xkilled — coverage PARTIAL (C 261 L `mon.c:3477–3740` / JS 143 L in js/uhitm.js; hops 3, callers 37, RNG 2, msg 14). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn xkilled` (reach regression must be 0). Measured `port-coverage.mjs --name xkilled` 2026-09-18 @ a35f6369. **Addressed:** D-2444 `f57848fc`
 
 
 - [x] `pager.c` checkfile — coverage THIN (C 295 L `pager.c:830–1129` / JS 35 L in js/pager.js; hops 1, callers 4, RNG 0, msg 5; dead callees: strip_newline). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn checkfile` (reach regression must be 0). Measured `port-coverage.mjs --name checkfile` 2026-09-18 @ a35f6369. **Addressed:** D-2443 `74dc5699`
