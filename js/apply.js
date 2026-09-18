@@ -428,6 +428,12 @@ async function use_stethoscope(_obj) {
             await pline(`There is ${mnm} there.`);
         }
 
+        // C apply.c:395 — gb.bhitpos needed by mstatusline iff long worm.
+        if (!game._bhitpos) game._bhitpos = { x: 0, y: 0 };
+        game._bhitpos.x = rx; game._bhitpos.y = ry;
+        game.bhitpos = game._bhitpos;
+        game.notonhead = ((mtmp.mx | 0) !== (rx | 0)
+            || (mtmp.my | 0) !== (ry | 0));
         await mstatusline(mtmp);
         if (!canspotmon(mtmp)) {
             // map_invisible deferred — still return res

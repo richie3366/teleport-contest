@@ -1992,8 +1992,7 @@ n==0/1/2/-1 quirk; Space/Return accept dummy → getobj; ESC `ECMD_CANCEL`);
 altarizing `doaltarobj` / ice-box / cursed mbag / shop / toss_up / 
 candle·oil spill / tiphat / MENU_SEARCH·map_menu_cmd·multi-page named); **`use_stethoscope` self + `ustatusline` full info chain (D-2210: Sick dying-from, Stoned, Slimed, Strangled, Vomiting, Confusion, Blind+goop, Stunned, Wounded_legs, Glib, utrap, Fast/Very_fast, concealed/disguised, Invis, ustuck, region cloud; Upolyd mh/mlevel live; ailment deferral retired)/`piousness` + 
 free first `hero_seq`** (D-0155) + **adjacent isok/`m_at`/empty return `res` TIME** (D-0735) + 
-**`mundetected`/`mappearance` `seemimic` + `mstatusline` align/size/AC** (D-0738; 
-SDOOR/SCORR/`its_dead`/defsyms furniture/`map_invisible`/ailment flags deferred) + 
+**`mundetected`/`mappearance` `seemimic` + `mstatusline` whole C body in C order** (D-0738 envelope; **D-2446** lands wizard tame hungry/apport, worm `count_wsegs`+`wseg_at`+`ordin`, shapechanger/eating, `mhidden_description`, cancelled/confused/blind/stunned, asleep/can't-move/meditating, scared/trapped/speed/invisible, ustuck swallow/engulf/hold, usteed carrying+injured, leashed, `x_monnam` ARTICLE_YOUR SUPPRESS_IT|SUPPRESS_INVISIBLE, `bhitpos`/`notonhead` caller wiring; caller SDOOR/SCORR/`its_dead`/defsyms furniture/`map_invisible` still deferred) + 
 **`use_mirror` getdir+cursed+self+`bhit` INVIS_BEAM+flee `rn2(5)`/`monflee` + 
 `use_camera` getdir+charge+`flash_hits_mon` subset** (D-0736; 
 Medusa/`mon_reflects`/nymph steal+rloc; `howmonseen` is D-1562; `see_monster_closeup`; 
