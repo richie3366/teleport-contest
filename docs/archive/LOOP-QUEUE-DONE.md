@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-18
 
+- [x] `dog.c` mon_arrive — coverage MISSING (C 203 L `dog.c:420–623` / JS no symbol; hops 2, callers 12, RNG 5, msg 0; split? cited 22× in js/ — brief first). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mon_arrive` (reach regression must be 0). Measured `port-coverage.mjs --name mon_arrive` 2026-09-18 @ cc6372c7. **Addressed:** D-2459
+
+
 - [x] `potion.c` make_hallucinated — coverage PARTIAL (C 66 L `potion.c:369–438` / JS 49 L in js/potion.js; hops 1, callers 15, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn make_hallucinated` (reach regression must be 0). Measured `port-coverage.mjs --name make_hallucinated` 2026-09-18 @ cc6372c7.
 
 

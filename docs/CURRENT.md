@@ -45,7 +45,7 @@ screens 93.2 %. Held-out moved 7 → 11 over 2026-09-06..17 while the local
 corpus went 48 % → 91.7 %: the corpus no longer predicts the judge.
 **Corpus fortress** (re-scored 2026-09-18 audit 1408–1416): **495 / 540
 PASS (91.7 %)** excl. 13 env-only; RNG 99.29 %, screens 99.0 %. The 3
-`1d21e3be` getdir flips recovered via D-2440; no new flips across D-2440…D-2458
+`1d21e3be` getdir flips recovered via D-2440; no new flips across D-2440…D-2459
 (every per-SHA re-run: 0 regressed).
 Reviews 1225–1416: 170 ACCEPT, 5 WITH-DEBT, 1 DEBT, 11 QUALITY-RISK (0 Must-fix pending).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip (all map-named).
@@ -98,10 +98,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `potion.c` make_hallucinated — coverage PARTIAL (C 66 L `potion.c:369–438` / JS 49 L in js/potion.js; hops 1, callers 15, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn make_hallucinated` (reach regression must be 0). Measured `port-coverage.mjs --name make_hallucinated` 2026-09-18 @ cc6372c7.
+**Next cluster:** `weapon.c` mon_wield_item — coverage PARTIAL (C 133 L `weapon.c:801–934` / JS 75 L js/weapon.js; hops 1, callers 10, RNG 0, msg 9). Port the whole C body in C order, callers wired. Verify `node scripts/verify.mjs --fn mon_wield_item` (reach regression must be 0).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2458 (index).**
+**Keep D-0845…D-2459 (index).**
 <!-- recent:begin -->
+**D-2459** `nethack-c/upstream/src/dog.c:419–623` (`mon_arrive`; when-enum `:15–19` Before_you 0/With — `js/dog.js` — module-local when consts + `failed_arrivals` (C dog.c:301 reset-in-losedogs) + `mon_arrive_link` head (STILL_ARRIVING/fmon/isshk→set_residency/long-worm get_wormno+initworm) shared by both helpers; With_you
 **D-2458** `nethack-c/upstream/src/potion.c:369–438` (`make_hallucinated`); eyemsg/vismsg `:257–258`; — `js/potion.js` only — restart in C order: `u.Unaware || Unaware()` suppress (make_deaf shape); `!Blind()` verb (file-local Blind, C Blind macro); mask arm with uprops[HALLUC_RES].extrinsic mirror (make_slimed shape) + Ha
 **D-2457** `nethack-c/upstream/src/timeout.c:1222–1341` (`slip_or_trip`, staticfn); caller `:906` nh_ — `js/timeout.js:176–307` restart in C order — pronoun/doname/sobj_at-rock/something chain; highc capitalize + bite/bites; uarmf+CORPSE+touch_petrifies+Stone_resistance-flat instapetrify (`tripping over <an pmname NEUTRAL>
 **D-2456** `nethack-c/upstream/src/mkmaze.c:1952–2107` (`mv_bubble`, staticfn); callers `:1677` moveb — `js/mklev.js` only — renamed `mv_bubble_move` → `mv_bubble` (module-local like C staticfn; bounds ride as params for C's file-scope gbxmin statics); added the four `:1981–1999` pline+clamp arms in C order (template-liter
@@ -109,11 +110,10 @@ revisits the picker.
 **D-2454** `nethack-c/upstream/src/zap.c:5965–6097` (destroy_items); callees `worn.c` bypass_objlist/ — `js/zap.js:1711` restart in C order — limit + unconditional `rn2(DMG_DESTROY_SCALE)` gate (`:1712–1716`), live-chain `objchn()` getter (C `:5984 obj**`), `{oid,otmp,deferred}` array (`:1722–1726`), `bypass_objlist(clear)
 **D-2453** `nethack-c/upstream/src/hack.c:2712–2991` (domove_core); callees `hack.c:2342–2360` air_tu — `js/hack.js` — new `air_turbulence` (`:2273`, Is_airlevel+rn2(4)+Levitation/Flying gate, rn2(3) tumble/You_cant/thin-air + DEX exercise) and `slippery_ice_fumbling` (`:2300`, snow-boots objdescr / resists_cold / Flying /
 **D-2452** `nethack-c/upstream/src/potion.c:260–331` (make_blinded); callers `eat.c:1822–1830` rotten — `js/eat.js` — rottenfood guard is now `!rn2(4) && !Blind()` (live `invent.js` Blind; `imports.mjs --can` ALREADY on the invent edge; the two function-scoped `const Blind` mirrors at :1644/:1788 shadow it legally, untouch
-**D-2451** `nethack-c/upstream/src/pager.c:977–981` (`/* remove charges or "(lit)" or wizmode "(N aum — `js/pager.js` only — `checkfile_split_names` now truncates `dbase` at the first `" ("` (`indexOf`, matching C `strstri` on the already-lowered string, `> 0` matching C `ep > dbase_str`), placed after the named/called tru
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2458; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2459; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
