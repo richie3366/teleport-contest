@@ -7,6 +7,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-18 — Audit 1435–1443 (D-2476…D-2484) + cadence: 8 ACCEPT, 1 QUALITY-RISK
+
+1438: `has_egd` used at `js/mon.js:477`, never imported (live `js/const.js:3141`) — latent ReferenceError; Must-fix prepended, Next cluster set. Prior Must-fix closed: 1430 by D-2476 (ENGRAVE-OK re-probed), 1429 by D-2477 (RUST/anti-magic vs C). Every SHA re-measured (`verify --base HASH~1 --reach-all`, 0 regressed); role_init REACH 91/91. Rule #2 clean. Cadence: public 44/44, held-out 11/44 (unchanged), corpus 495/540 (91.7 %, identical). Refill: 22 tool rows skipped as shipped/parked dupes; 7 verbatim appended (corpse_xname/makemaz/see_monsters/flush_screen/setmangry/help_dir/mpickobj) to 12 coverage rows. No `js/` edits, no REJECT.
 ## 2026-09-18 — D-2484 `zap.c` wishcmdassist whole-body port (makewish help arm wired)
 
 **C locus:** `nethack-c/upstream/src/zap.c:6165–6219` (`wishcmdassist`, staticfn); sole live caller `makewish` `:6348–6351` (`wishcmdassist(MAXWISHTRY - tries)` on `!strcmpi(buf, "help")`, then clear + `goto retry`). `apply.c:635` is a comment-only cardinal-names mention, not a call; `zap.c:42` is the prototype.

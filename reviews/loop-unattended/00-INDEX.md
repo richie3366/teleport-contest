@@ -1445,3 +1445,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1432-34ef28ed-retouch-object.md](./1432-34ef28ed-retouch-object.md) | `34ef28ed` | D-2473 retouch_object | **ACCEPT** |
 | [1433-d7282bed-ghod-hitsu.md](./1433-d7282bed-ghod-hitsu.md) | `d7282bed` | D-2474 ghod_hitsu buzzer-field | **ACCEPT-WITH-DEBT** |
 | [1434-f8881130-prscore.md](./1434-f8881130-prscore.md) | `f8881130` | D-2475 prscore | **ACCEPT** |
+| [1435-ea470835-vpline-rescan-fix.md](./1435-ea470835-vpline-rescan-fix.md) | `ea470835` | D-2476 vpline re-scan fix | **ACCEPT** |
+| [1436-1ba77343-nobj-chain-walk.md](./1436-1ba77343-nobj-chain-walk.md) | `1ba77343` | D-2477 nobj-chain walk | **ACCEPT** |
+| [1437-67ecc58a-newmail.md](./1437-67ecc58a-newmail.md) | `67ecc58a` | D-2478 newmail | **ACCEPT** |
+| [1438-30195dcb-sanity-check.md](./1438-30195dcb-sanity-check.md) | `30195dcb` | D-2479 sanity_check | **QUALITY-RISK** |
+| [1439-1d36d74a-randomkey.md](./1439-1d36d74a-randomkey.md) | `1d36d74a` | D-2480 randomkey | **ACCEPT** |
+| [1440-01b3e393-role-init.md](./1440-01b3e393-role-init.md) | `01b3e393` | D-2481 role_init | **ACCEPT** |
+| [1441-fbf613c9-mhitm-ad-heal.md](./1441-fbf613c9-mhitm-ad-heal.md) | `fbf613c9` | D-2482 mhitm_ad_heal | **ACCEPT** |
+| [1442-c4e28dcc-xname-flags.md](./1442-c4e28dcc-xname-flags.md) | `c4e28dcc` | D-2483 xname_flags | **ACCEPT** |
+| [1443-6b72742e-wishcmdassist.md](./1443-6b72742e-wishcmdassist.md) | `6b72742e` | D-2484 wishcmdassist | **ACCEPT** |

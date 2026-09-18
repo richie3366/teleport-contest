@@ -23,10 +23,10 @@ the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-18** — full `sessions` on the working tree
-(audit **1426–1434**).
+(audit **1435–1443**).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`47+0.30/turn` (R² 0.80).
+`49+0.30/turn` (R² 0.80).
 
 ## Score
 
@@ -36,18 +36,18 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `60+0.47/turn` (R² 0.80) |
+| Speed label | `49+0.30/turn` (R² 0.80) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 4/22, 2nd agentic; best agentic fork 35/44, RNG 98.5 %,
 screens 93.2 %. Held-out moved 7 → 11 over 2026-09-06..17 while the local
 corpus went 48 % → 91.7 %: the corpus no longer predicts the judge.
-**Corpus fortress** (re-scored 2026-09-18 audit 1426–1434): **495 / 540
+**Corpus fortress** (re-scored 2026-09-18 audit 1435–1443): **495 / 540
 PASS (91.7 %)** excl. 13 env-only; RNG 99.29 %, screens 99.0 % — identical
-to the prior audit, no flips across D-2467…D-2484 (every per-SHA re-run:
-0 regressed).
-Reviews 1225–1434: 185 ACCEPT, 6 WITH-DEBT, 1 DEBT, 13 QUALITY-RISK (2 Must-fix pending).
+to the prior audit, no flips across D-2476…D-2484 (every per-SHA re-run:
+0 regressed; role_init REACH 91/91).
+Reviews 1225–1443: 193 ACCEPT, 6 WITH-DEBT, 1 DEBT, 14 QUALITY-RISK (1 Must-fix pending).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named).
 Audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s) + `leaderboard.mjs`.
 
@@ -98,7 +98,7 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `zap.c` wishcmdassist — coverage MISSING (C 54 L `zap.c:6165–6219` / JS no symbol; hops 3, callers 2, RNG 0, msg 7). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn wishcmdassist` (reach regression must be 0). Measured `port-coverage.mjs --name wishcmdassist` 2026-09-18 @ f8881130.
+**Next cluster:** Must-fix `has_egd` import (`js/mon.js:477`; review 1438), then Open — coverage head.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2484 (index).**
 <!-- recent:begin -->
