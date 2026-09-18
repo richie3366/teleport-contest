@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2488 — `dogmove.c` quickmimic whole-body port (pet mimic-shape + caller wired)
+
+- **Status:** fixed (breadth-phase coverage row: `dogmove.c` quickmimic MISSING, C 69 L `dogmove.c:1472–1541`, JS no symbol; `hidden-proxy verify quickmimic`: no corpus session blocked).
+- **Symptom:** coverage — JS had no `quickmimic`; pet-eats-mimic-corpse shape change absent.
+- **C locus:** `nethack-c/upstream/src/dogmove.c:1472–1541` (`quickmimic`); caller `nethack-c/upstream/src/mon.c:1447` (`m_consume_obj`, `ispet && deadmimic`).
+- **JS was:** no symbol; `js/mon.js` `m_consume_obj` was a sync heal+delobj stub naming `deadmimic quickmimic` as omit; `qm[]` table absent.
+- **Fix:** `js/dogmove.js` — `qm[]` (9 rows verbatim: 7 same-pet/same-symbol monster rows, `S_DOG`/sink furniture row, tripe-ration end row) + `export async function quickmimic` in C order: Protection/meating guard (H/E/intrinsic inline, apply.js/cmd.js idiom), `dismount_steed(DISMOUNT_POLY)` pre-change, 5-try `rn2(qm.length)` same-mndx/same-mlet/any-shape breaks with tripe fallback, `y_monnam` buf + spotted/seeloc before the `m_ap_type` change, what-chain (`defsym_explanation` ≡ defsyms[].explanation via uhitm.js, `objectDescrs`/`objectNameStrs` ≡ OBJ_DESCR/OBJ_NAME through objects[otyp], `pmname`+`Mgender`, else `something`), `newsym`, leash-slack (`Your` + `m_unleash(FALSE)`), appear/sense `You`, `more()` ≡ `display_nhwindow(WIN_MAP,TRUE)` (detect.js:374 idiom). Async only for the message/dismount/unleash/flush callees. `js/mon.js` `m_consume_obj` is now async with the C-order deadmimic computation (pre-delobj otmp fields, SMALL/LARGE/GIANT_MIMIC) + `await quickmimic`; 5 call sites await (`meatmetal`/`meatobj`/`meatcorpse`, `dog_eat`, `gelcube_digests` which turned async inside async `dochug`). `imports.mjs --can dogmove.js uhitm.js defsym_explanation` SAFE; mon.js→dogmove.js edge pre-existed.
+- **JS:** `js/dogmove.js` quickmimic + qm; `js/mon.js` m_consume_obj + 3 awaits + mimic consts; `js/monmove.js` gelcube_digests async + 1 await.
+- **Callers:** C `mon.c:1447` → `js/mon.js` m_consume_obj deadmimic arm (wired). Sole code caller; `extern.h:819` is the decl.
+- **Verify:** `node scripts/verify.mjs --fn quickmimic` → PASS syntax (3 files) · rule2 · hidden note (no session blocked) · reach REACH-OK (smoke 24/24) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file changed). VERIFY: PASS.
+- **Named omissions:** `m_consume_obj` tail stays stub (meatbox, uball/uchain unpunish, poly/slime newcham, grow_up, stoning, heal/eyes, pyrolisk egg, mon_givit). `what !== something` is a value compare (no defsym/object/pmname text equals "something", so pointer-identical).
+- **Next:** next coverage row.
+
 ## D-2487 — `glyphs.c` parse_id whole-body port (G_/S_ id lookup + glyphid cache)
 
 - **Status:** fixed (breadth-phase coverage row: `glyphs.c` parse_id MISSING, C 336 L `glyphs.c:824–1162`, JS no symbol; `hidden-proxy verify parse_id`: no corpus session blocked).

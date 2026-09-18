@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-18
 
-- [x] `glyphs.c` parse_id — coverage MISSING (C 336 L `glyphs.c:824–1162` / JS no symbol; hops —, callers 3, RNG 0, msg 15; dead callees: find_glyph_in_cache, fix_glyphname, add_glyph_to_cache). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn parse_id` (reach regression must be 0). Measured `port-coverage.mjs --name parse_id` 2026-09-18 @ f8881130. **Addressed:** D-2487
+- [x] `dogmove.c` quickmimic — coverage MISSING (C 69 L `dogmove.c:1472–1541` / JS no symbol; hops 3, callers 1, RNG 1, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn quickmimic` (reach regression must be 0). Measured `port-coverage.mjs --name quickmimic` 2026-09-18 @ f8881130. **Addressed:** D-2488
+
+
+- [x] `glyphs.c` parse_id — coverage MISSING (C 336 L `glyphs.c:824–1162` / JS no symbol; hops —, callers 3, RNG 0, msg 15; dead callees: find_glyph_in_cache, fix_glyphname, add_glyph_to_cache). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn parse_id` (reach regression must be 0). Measured `port-coverage.mjs --name parse_id` 2026-09-18 @ f8881130. **Addressed:** D-2487 `db42061d`
 
 
 - [x] `uhitm.c` hmon_hitmon_misc_obj — coverage MISSING (C 261 L `uhitm.c:1119–1383` / JS no symbol; hops 6, callers 1, RNG 8, msg 12). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn hmon_hitmon_misc_obj` (reach regression must be 0). Measured `port-coverage.mjs --name hmon_hitmon_misc_obj` 2026-09-18 @ f8881130. **Addressed:** D-2486 `3a3a69fb`

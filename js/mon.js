@@ -82,7 +82,7 @@ import { adjalign } from './attrib.js';
 import { SetVoice } from './sndprocs.js';
 import { maybe_gasp, growl } from './sounds.js';
 import { vtense, doname, distant_name } from './objnam.js';
-import { obj_resists, cursed_object_at, finish_meating } from './dogmove.js';
+import { obj_resists, cursed_object_at, finish_meating, quickmimic } from './dogmove.js';
 import { touch_artifact } from './artifact.js';
 import { experience, more_experienced, newexplevel } from './exper.js';
 import { hastrack } from './track.js';
@@ -97,6 +97,9 @@ const PM_FOG_CLOUD = monsterNames.indexOf('PM_FOG_CLOUD');
 const PM_LONG_WORM = monsterNames.indexOf('PM_LONG_WORM');
 const PM_LONG_WORM_TAIL = monsterNames.indexOf('PM_LONG_WORM_TAIL');
 const PM_WIZARD_OF_YENDOR = monsterNames.indexOf('PM_WIZARD_OF_YENDOR');
+const PM_SMALL_MIMIC = monsterNames.indexOf('PM_SMALL_MIMIC');
+const PM_LARGE_MIMIC = monsterNames.indexOf('PM_LARGE_MIMIC');
+const PM_GIANT_MIMIC = monsterNames.indexOf('PM_GIANT_MIMIC');
 const PM_MEDUSA = monsterNames.indexOf('PM_MEDUSA');
 const PM_ERINYS = monsterNames.indexOf('PM_ERINYS');
 const PM_PURPLE_WORM = monsterNames.indexOf('PM_PURPLE_WORM');
@@ -2215,18 +2218,27 @@ export function healmon(mtmp, amt, overheal) {
 
 /**
  * C ref: mon.c m_consume_obj — non-pet heal by oc_weight then delobj.
+ * The ispet/deadmimic quickmimic arm (`:1447`) is live (dogmove.js);
+ * async only for it (Constitution §2).
  * Named omit: Has_contents meatbox; uball/uchain unpunish; polyfood/slime
  * newcham; mlevelgain grow_up; mstoning; mhealup/carrot mcureblindness;
- * deadmimic quickmimic; pyrolisk egg explode; mon_givit.
+ * pyrolisk egg explode; mon_givit.
  */
-export function m_consume_obj(mtmp, otmp) {
+export async function m_consume_obj(mtmp, otmp) {
     if (!mtmp || !otmp) return;
     const ispet = !!mtmp.mtame;
     if (!ispet && (mtmp.mhp | 0) < (mtmp.mhpmax | 0)) {
         const ocw = game.objects?.[otmp.otyp]?.oc_weight | 0;
         healmon(mtmp, ocw, 0);
     }
+    // C: deadmimic is computed from the pre-delobj otmp (otyp/corpsenm) and
+    // consumed after the omitted poly/grow/stone/heal/eyes arms (`:1447`).
+    const corpsenm = ((otmp.otyp | 0) === CORPSE) ? (otmp.corpsenm | 0) : NON_PM;
+    const deadmimic = ((otmp.otyp | 0) === CORPSE
+        && (corpsenm === PM_SMALL_MIMIC || corpsenm === PM_LARGE_MIMIC
+            || corpsenm === PM_GIANT_MIMIC));
     delobj(otmp);
+    if (ispet && deadmimic) await quickmimic(mtmp);
 }
 
 /** C ref: pline.c You_hear — acoustics/Deaf; Unaware/Underwater deferred. */
@@ -2297,7 +2309,7 @@ export async function meatmetal(mtmp) {
                     await You_hear_meat('a crunching sound.');
                 }
                 mtmp.meating = ((otmp.owt | 0) / 2 | 0) + 1;
-                m_consume_obj(mtmp, otmp);
+                await m_consume_obj(mtmp, otmp);
                 if ((mtmp.mhp | 0) < 1) return 2;
                 if (rnd(25) < 3) {
                     mksobj_at(ROCK, mtmp.mx, mtmp.my, true, false);
@@ -2416,7 +2428,7 @@ export async function meatobj(mtmp) {
                     await You_hear_meat('a slurping sound.');
                 }
             }
-            m_consume_obj(mtmp, otmp);
+            await m_consume_obj(mtmp, otmp);
             const ptr = mtmp.data;
             if (!ptr || (ptr.mndx ?? mtmp.mnum ?? -1) !== originalMndx) {
                 return !ptr ? 2 : 1;
@@ -2488,7 +2500,7 @@ export async function meatcorpse(mtmp) {
             await You_hear_meat('a masticating sound.');
         }
 
-        m_consume_obj(mtmp, otmp);
+        await m_consume_obj(mtmp, otmp);
         const ptr = mtmp.data;
         if (!ptr || (ptr.mndx ?? mtmp.mnum ?? -1) !== originalMndx) {
             return !ptr ? 2 : 1;
