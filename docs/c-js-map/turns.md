@@ -443,7 +443,7 @@ JS: `js/potion.js` — partial
 **`getobj_drink` prompt `compactify` when suggested>5; `?` keeps raw lets** (D-0455; 
 other getobj callers / shared getobj still may omit); 
 **`peffect_see_invisible`/`POT_FRUIT_JUICE` + `dopotion` trycall/`docall`** (D-0430; 
-`make_blinded`/See_invisible props deferred; fruit `newuhs` field via D-0438); 
+`make_blinded(0,TRUE)` wired D-2452; set_mimic_blocking/see_monsters/newsym still deferred; fruit `newuhs` field via D-0438); 
 **`peffect_paralysis` `rn1(10,25-12*bcsign)`** (D-0430; full C branches D-2153 — `Free_action()` resist, Levitation/air/water suspended, usteed frozen-in-place, feet + shared `surface` via sit.js; `FOOT`/`Is_airlevel`/`Is_waterlevel` on existing edges); 
 **`peffect_confusion` + `make_confused`/`itimeout_incr` `rn1(7,16-8*bcsign)` + talk `You_feel` + 
 `nh_timeout` CONFUSION expiry** (D-0436/D-0441; 
@@ -1886,7 +1886,7 @@ useupf clone, detect/potion/read/spell useup clones; fprefx pyrolisk retired D-2
 `zap.c` `ubreatheu`/`zhitu` ZT_ACID resist+hliquid+d(nd,6)+rn2 gates; altar_wrath; 
 acidic `melt_ice`); **`rottenfood` + non-faint still `start_eating` (only faint dont_start; 
 `consume_oeaten(…,2)`)** (D-0443; **`Hear_again` afternmv** (D-0911); 
-`make_blinded` body / foodword poly deferred); 
+rottenfood `make_blinded` arm wired D-2452 (foodword poly still deferred); done_eating fpostfx CARROT blindness `eat.c:2520` named omit (`js/eat.js:1961`); 
 **ordinary-food `doeat` rotten → `rottenfood`/`consume_oeaten`/`dont_start`** (D-0911); 
 **`start_tin`/`opentin`/`consume_tin` + `tin_variety` + `gainstr`/`make_vomiting`/`make_glib` + 
 multi-turn non-corpse `eatfood`** (D-0935; 

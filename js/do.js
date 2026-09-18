@@ -2734,8 +2734,8 @@ export async function doup() {
     return ECMD_TIME;
 }
 
-/** C youprop.h BlindedTimeout. */
-function BlindedTimeout() {
+/** C youprop.h BlindedTimeout. Exported for eat.js rottenfood (D-2452). */
+export function BlindedTimeout() {
     return (game.u?.HBlinded | 0) & TIMEOUT;
 }
 

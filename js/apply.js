@@ -1888,7 +1888,9 @@ async function use_towel(obj) {
         // C: incr_itimeout(&HBlinded, -ucreamed)
         await make_blinded(BlindedTimeout() - cream, false);
         u.ucreamed = 0;
-        if (!Blind()) {
+        // C apply.c:177 !Blinded ≡ HBlinded && !BBlinded (youprop.h:92),
+        // not !Blind() (a worn blindfold with H==0 takes the glop-off path).
+        if (!((u.HBlinded | 0) && !(u.BBlinded | 0))) {
             await pline("You've got the glop off.");
             // gulp_blnd_check deferred → always false
             await make_blinded(1, false);

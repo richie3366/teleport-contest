@@ -5,7 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-18
 
-- [x] `pager.c` checkfile dbase-side `" ("` strip (charges/`(lit)`/aum, C `:977–981`) absent from `checkfile_split_names` in js/pager.js — lit/charged lookups miss where C hits (probe: `"oil lamp (lit)"` keeps suffix; reachable via objnam.c:1477–1490). Fix: truncate dbase at first `" ("` mirroring C. Verify lit-lamp lookup + `node scripts/verify.mjs --fn checkfile`. Source: reviews/loop-unattended/1402-74dc5699-checkfile-whole-body.md item 1. **Addressed:** D-2451
+- [x] `cmd.c` yn_function — coverage PARTIAL (C 108 L `cmd.c:5471–5583` / JS 70 L in js/getline.js; hops 1, callers 40, RNG 5, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn yn_function` (reach regression must be 0). Measured `port-coverage.mjs --name yn_function` 2026-09-18 @ e6289b5b. **Stale-parked:** see Parked Stale yn_function (no js/; shipped make_blinded D-2452 in the same iteration).
+- [x] `potion.c` make_blinded — coverage PARTIAL (C 70 L `potion.c:261–331` / JS 49 L in js/do.js; hops 1, callers 39, RNG 0, msg 8). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn make_blinded` (reach regression must be 0). Measured `port-coverage.mjs --name make_blinded` 2026-09-18 @ e6289b5b. **Addressed:** D-2452
+
+
+- [x] `pager.c` checkfile dbase-side `" ("` strip (charges/`(lit)`/aum, C `:977–981`) absent from `checkfile_split_names` in js/pager.js — lit/charged lookups miss where C hits (probe: `"oil lamp (lit)"` keeps suffix; reachable via objnam.c:1477–1490). Fix: truncate dbase at first `" ("` mirroring C. Verify lit-lamp lookup + `node scripts/verify.mjs --fn checkfile`. Source: reviews/loop-unattended/1402-74dc5699-checkfile-whole-body.md item 1. **Addressed:** D-2451 `c393792a`
 
 
 - [x] `mon.c` xkilled holder-release mis-layered/mis-ordered/over-broad (js/uhitm.js:745–750 runs after the lifesaved return and on the stoned path; C releases inside mondead via mon_leaving_level :2702–2703, before the lifesave check, never via monstone :3286–3373 — lifesaved holders stay stuck + rnd(2) skipped, stoned path releases+draws). Fix: move the two lines after `game.disintegested=false`, gated on `!was_stoned`. Verify `node scripts/verify.mjs --fn xkilled`. Source: reviews/loop-unattended/1403-f57848fc-xkilled-disintegrate-mon.md item 1.

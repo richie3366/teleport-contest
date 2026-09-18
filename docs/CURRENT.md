@@ -45,7 +45,7 @@ screens 93.2 %. Held-out moved 7 → 11 over 2026-09-06..17 while the local
 corpus went 48 % → 91.7 %: the corpus no longer predicts the judge.
 **Corpus fortress** (re-scored 2026-09-18 audit 1399–1407): **495 / 540
 PASS (91.7 %)** excl. 13 env-only; RNG 99.29 %, screens 99.0 %. The 3
-`1d21e3be` getdir flips recovered via D-2440; no new flips across D-2440…D-2451
+`1d21e3be` getdir flips recovered via D-2440; no new flips across D-2440…D-2452
 (every per-SHA re-run: 0 regressed).
 Reviews 1225–1407: 162 ACCEPT, 4 WITH-DEBT, 1 DEBT, 11 QUALITY-RISK (3 Must-fix pending).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx (both map notes).
@@ -98,10 +98,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `pager.c` checkfile dbase-side `" ("` strip (charges/`(lit)`/aum, C `:977–981`) absent from `checkfile_split_names` in js/pager.js — lit/charged lookups miss where C hits (probe: `"oil lamp (lit)"` keeps suffix; reachable via objnam.c:1477–1490). Fix: truncate dbase at first `" ("` mirroring C. Verify lit-lamp lookup + `node scripts/verify.mjs --fn checkfile`. Source: reviews/loop-unattended/1402-74dc5699-checkfile-whole-body.md item 1.
+**Next cluster:** `potion.c` make_blinded — coverage PARTIAL (C 72 L `potion.c:260–331` / JS 49 L in js/do.js; callers 39, msg 8). Body live (D-1768/1755/1769); wire the open caller arms: eat.c:1827 rottenfood blind arm (`BlindedTimeout+d(2,10)` + `vision_clears`), potion.c:865 see-invisible `make_blinded(0,TRUE)`, apply.c:177 `!Blinded` guard (H&&!B, not !Blind). Named omits: eat.c:2520 CARROT (fpostfx), SND_SPEECH/DUMPLOG/paniclog (build-dead/Rule #2/retired). Verify `node scripts/verify.mjs --fn make_blinded` (reach regression must be 0). Popped after yn_function parked STALE (same iteration).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2451 (index).**
+**Keep D-0845…D-2452 (index).**
 <!-- recent:begin -->
+**D-2452** `nethack-c/upstream/src/potion.c:260–331` (make_blinded); callers `eat.c:1822–1830` rotten — `js/eat.js` — rottenfood guard is now `!rn2(4) && !Blind()` (live `invent.js` Blind; `imports.mjs --can` ALREADY on the invent edge; the two function-scoped `const Blind` mirrors at :1644/:1788 shadow it legally, untouch
 **D-2451** `nethack-c/upstream/src/pager.c:977–981` (`/* remove charges or "(lit)" or wizmode "(N aum — `js/pager.js` only — `checkfile_split_names` now truncates `dbase` at the first `" ("` (`indexOf`, matching C `strstri` on the already-lowered string, `> 0` matching C `ep > dbase_str`), placed after the named/called tru
 **D-2450** `nethack-c/upstream/src/mon.c:2702–2703` (`mon_leaving_level`: `mtrapped=0` + `unstuck`) r — `js/uhitm.js` only — the two lines moved to right after `game.disintegested = false`, gated on `!was_stoned`, before the lifesaved return; the stale "before the rn2(6) draw" comment replaced with the `mon_leaving_level`/
 **D-2449** `nethack-c/upstream/src/pager.c:1475` (`sym == (looked ? gs.showsyms[alt_i] : defsyms[alt_ — `js/pager.js` only — cmap-scan match is now `looked ? cmap_showsym_code(altI) : DEFSYMS_CH[altI].charCodeAt(0)` per C `:1475`.
@@ -109,11 +110,10 @@ revisits the picker.
 **D-2447** `nethack-c/upstream/src/pager.c:1247–1627` (do_screen_description); showsyms machinery `sy — `js/pager.js` restart in C order — restricted vision (`:1291–1305`), x_str (`:1307–1325`), check_monsters incl `@`-as-you (`:1327–1354`), objects with boulder/statue split + venom skip (`:1356–1404`), DEF_INVISIBLE (`:14
 **D-2446** `nethack-c/upstream/src/insight.c:3275–3398` (mstatusline); helpers `worm.c:946–966` wseg_ — `js/insight.js` restart in C order — `mon_aligntyp` fixed to EPRI shralign / EMIN min_align / data.maligntyp with A_NONE passthrough (`:3277`); tame + `wizardMode()` count and EDOG hungry/apport unless isminion (`:3281–3
 **D-2445** `nethack-c/upstream/src/pager.c:422–555` (look_at_monster, staticfn); callee `do_name.c:15 — `js/pager.js` restart in C order — new `export function look_at_monster(mtmp, x, y)` returning `{ buf, monbuf }`: accurate gate (`:429`); coyote `data.mndx === PM_COYOTE && accurate ? coyotename : distant_monnam(ARTICLE_
-**D-2444** `nethack-c/upstream/src/mon.c:3477–3740` (xkilled); callees `mon.c:4527` iter_mons + `:307 — `js/uhitm.js` restart in C order — sad_feeling save/clear; conduct; kill message; pit `t_at`+`is_pit` with `sobj_at(BOULDER)` nocorpse / `m_carrying(BOULDER)` bury; tame `EDOG.killed_by_u`; engulfer missile via live `mpi
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2451; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2452; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
