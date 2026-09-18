@@ -40,19 +40,20 @@ here again. Live hypotheses only:
 - **do_statusline2 residuals (D-2425 MEASURED):** W1 Healer-92107 `mhitm_ad_cold_u` extra destroy return; W2 Satiated pair = eat-progress `uhs`/botl timing — both are corpus-residual Open rows (detail in D-2425). Monk-92194 Pw = D-2161 gulpmu residual, no new row.
 ## Don't re-check (≤15)
 
-- D-1790…D-2439 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-2440 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2439.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2439.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2440.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2440.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2440: `js/lock.js` only — deleted the `if (!applied) { u.dz = 0; }` block. Named: review 1393 item 2 — num_pad `'5'` self disjunct has no C counterpart (C binds `5` to the 
 - D-2439: `js/hack.js:302–560` new `export async function test_move(ux, uy, dx, dy, mode)` in C order with per-arm `:line` cites: entry `door_opened=false` on a Named: block_door (shk.c:5791 — stub-false js/cmd.js:1176, no shop ESHK wire-up); block_entry (sh
 - D-2438: `js/attrib.js` restart of the body in C order with per-arm `:line` cites: old_abase/old_amax snapshot beside old_acurr; abonflg from `u.abon.a[ndx]` ( Named: u_init.c:933/:935 (`u_init_carry_attr_boost` STR/CON loop) — JS `js/u_init.js:1689` stub s
 - D-2437: `js/dungeon.js` restart in C order: memset/re-zero cited on the pd literal; nhl_init/nhl_loadlua failure panics named omits (generated `dungeon_data.j Named: nhl_init/nhl_loadlua/nhl_done Lua-state scaffolding + load-failure tbuf panic (generated-d
@@ -67,5 +68,4 @@ here again. Live hypotheses only:
 - D-2428: `js/monmove.js` — `function can_fog` → `export function can_fog` (hoisted declaration, no TDZ risk); `js/mon.js` — `can_fog` added to the existing sta Named: `stuff_prevents_passage` inside `can_fog` (pre-existing map note, same deferral as `can_oo
 - D-2427: `js/mklev.js` only — `dx`/`dy` → `let`; inside the existing `!Is_airlevel || !rn2(6)` gate (same RNG shape: water draws nothing new, air keeps its sin Named: ini-path `unblock_point`/`block_point` paint arms stay named (D-2171 map note — no session
 - D-2423: arms ported in C order on both builders — final `enlightenment()` (past tense via `final`, `you_are`/`enlght_line_txt` directly) and `doattributes()`  Named: `lays_eggs` `:1879` (both builders), were-form on the ^X path (live on final path), Free_a
-- D-2422: the three divisor arms in C order (cursed first, C ternary short-circuit; `Math.trunc` for the round-up divisions) + a module-level `BAG_OF_HOLDING` c Named: STATUE corpsenm/msize/minwt arms (C `:1919–1931`) still absent from JS `weight()`; HEAVY_I
 <!-- landmarks:end -->

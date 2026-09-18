@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-18 — D-2440 `lock.js` getdir caller dz-zeroing deleted (up/down restored)
+
+**C locus:** `nethack-c/upstream/src/cmd.c:3956–4119` (getdir `:4095` `else if (!(is_mov = movecmd(dirsym, MV_ANY)) && !u.dz)`); callee `movecmd :3868–3898` returns `!u.dz` while KEEPING dz=±1 on up/down.
+**JS:** `js/lock.js:662–667`; map `docs/c-js-map/turns.md:1946`.
+**Change:** `js/lock.js` only — deleted the `if (!applied) { u.dz = 0; }` block. `apply_dirsym` already zeroes dz on every true-failure exit (code=0 arm, fallthrough arm), mirroring C; D-1387 kept. Compass/self/mouse/quit/help/confdir arms untouched, in C order.
+**Verify:** `node scripts/verify.mjs --fn getdir` → PASS syntax (1 file: lock.js) · rule2 · hidden note (0 sessions blocked on `getdir` at baseline — the 3 flips are owned by exercise/distfleeck/could_untrap) · **reach smoke 24/24 PASS, 0 regressed → REACH-OK** · green 2/2 · strict ×2 · cohort 7/7 (no shared file → full skipped) → VERIFY: PASS. Plus `node scripts/hidden-proxy.mjs score --ids scen-death-Wizard-92187,scen-kit-Archeologist-92190,scen-normal-Archeologist-92012` → all 3 PASS; working `hidden-corpus/scoreboard.json` back to 495/540 (91.7%).
+**Named:** review 1393 item 2 — num_pad `'5'` self disjunct has no C counterpart (C binds `5` to the run prefix, `movecmd` matches only directional move_funcs); session-unreachable (num_pad never set in any suite); next `cmd.c`/`lock.js` iter takes it. Must-fix stays one item, alone.
+**Next:** Must-fix dogaze `setmangry` + dospinweb `bury_objs` imports (review 1395), then the Open — coverage head.
 ## 2026-09-18 — Audit 3ea4873c..e6289b5b (reviews 1391–1398: 5 ACCEPT, 1 ACCEPT-WITH-DEBT, 2 QUALITY-RISK) + cadence 44/44, proxy 492/540
 
 **Scope:** 8 JS-touching SHAs since review 1390 (D-2432 polymon, D-2433 newcham, D-2434 getdir, D-2435 really_done, D-2436 dogaze/dospinweb/rehumanize, D-2437 init_dungeons, D-2438 adjattrib, D-2439 test_move). One SHA reviewed then filed immediately; one grouped commit.

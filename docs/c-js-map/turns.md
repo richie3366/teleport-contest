@@ -1945,7 +1945,10 @@ pass-through; dig `use_pick_axe` calls `getdir`) +
 `dowhatdoes_core`; `dxdy_moveok` `:3901–3907` NODIAG grid-bug; live shared
 `js/lock.js` `getdir`; `getdir_cmdassist` wraps; `doclose` / `get_adjacent_loc`
 call `getdir` with the tail inside it; D-2434 whole-body: mouse `_` getpos,
-fuzzer, spkeys/quitchars, cmdbind movecmd/redraw live; named:
+fuzzer, spkeys/quitchars, cmdbind movecmd/redraw live; D-2440 deleted the
+caller `if (!applied) u.dz = 0` — apply_dirsym already zeroes dz on true
+failure (D-1387), up/down keep dz=±1 per C `movecmd` (`:3868–3898` returns
+`!u.dz`); named:
 `cmd_from_func` keys, rhack `dxdy_moveok`; `yn_function_menu` is D-1728) +
 **D-1815 `getdir` `:4098` `iflags.cmdassist`** (optlist default On;
 Options/`O` writes `game.iflags`; `!cmdassist` skips `help_dir` for the

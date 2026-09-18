@@ -97,10 +97,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** Must-fix getdir dz (1393 QR, 3 flips, one-block delete), then dogaze `setmangry` (1395), then first Open — coverage row. (C 261 L `hack.c:991–1255` / JS no symbol; hops 2, callers 19, RNG 0, msg 14; split? cited 79× in js/ — brief first). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn test_move` (reach regression must be 0). Measured `port-coverage.mjs --name test_move` 2026-09-18 @ a35f6369.
+**Next cluster:** `lock.js` getdir zeroes up/down dz — corpus PASS→FAIL ×3 (D-2434 `apply_dirsym('<'/'>')` sets `u.dz=∓1` and returns `!dz=false` per C `movecmd`, then the caller `if (!applied) u.dz = 0` destroys it; every `</>` at a direction prompt prints "cmdassist: Invalid direction key!"+help and fails where C returns 1). Fix: delete `if (!applied) { u.dz = 0; }`. Verify the 3 sessions PASS + `verify.mjs --fn getdir`. Source: reviews/loop-unattended/1393-1d21e3be-getdir-whole-body.md.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2439 (index).**
+**Keep D-0845…D-2440 (index).**
 <!-- recent:begin -->
+**D-2440** `nethack-c/upstream/src/cmd.c:3956–4119` (getdir `:4095` `else if (!(is_mov = movecmd(dirs — `js/lock.js` only — deleted the `if (!applied) { u.dz = 0; }` block.
 **D-2439** `nethack-c/upstream/src/hack.c:991–1255` (test_move; DO_MOVE/TEST_MOVE/TEST_TRAV/TEST_TRAP — `js/hack.js:302–560` new `export async function test_move(ux, uy, dx, dy, mode)` in C order with per-arm `:line` cites: entry `door_opened=false` on all modes (`:1000`); obstructed/IRONBARS with Blind feel, Passes_walls+
 **D-2438** `nethack-c/upstream/src/attrib.c:117–199` (adjattrib); callees `Fixed_abil`, `Your`/`pline — `js/attrib.js` restart of the body in C order with per-arm `:line` cites: old_abase/old_amax snapshot beside old_acurr; abonflg from `u.abon.a[ndx]` (`<0` on gains, `>0` on losses); ACURR-unmoved arm with msgflg==0-exact
 **D-2437** `nethack-c/upstream/src/dungeon.c:1205–1319` (init_dungeons); callees `nhl_init`/`nhl_load — `js/dungeon.js` restart in C order: memset/re-zero cited on the pd literal; nhl_init/nhl_loadlua failure panics named omits (generated `dungeon_data.js` embed, D-0477 pattern) keeping the observable nhlib align shuffle; 
@@ -108,11 +109,10 @@ revisits the picker.
 **D-2435** `nethack-c/upstream/src/end.c:1130–1590` (`really_done`); achievements `:1173–1183` via `i — `js/end.js` only, in C order — achievements via live `record_achievement` (ACH_BLND/NUDE gated on `uachieved[0]||!beginner`, ACH_UWIN on ASCENDED; gameover-quiet, no RNG/output); `finish_paybill` moved before grave+score
 **D-2434** `nethack-c/upstream/src/cmd.c:3958–4119` (`getdir`); callees `movecmd :3868–3898`, `dxdy_m — `js/lock.js` only, in C order — cmdq DIR respects num_pad NDIR/SDIR + dirz `>`/`<`, non-DIR/KEY now `await impossible('getdir: command queue had no dir?')`; retry keeps `getdirInp` + in_doagain-nhgetch, adds short-circui
 **D-2433** `nethack-c/upstream/src/mon.c:5278–5535` (`newcham`); `monattk.h` AT_ENGL=11; `trap.c` `ms — `js/makemon.js` only — split the post-`set_mon_data` block into `newcham_light_invis` (`:5399–5412`), `newcham_ustuck` (`:5413–5450`: break-out `You` + mhp 1 + `expels` consuming SHOW_MSG even when msg is FALSE, silent e
-**D-2432** `nethack-c/upstream/src/polyself.c:735–1071` (`polymon`); same-file staticfn `check_strang — `js/polyself.js` only — restart of the thin body in C order: entry `sticking`/`wasHidingUnder`/`wasExpelled`/`ustuckNam` locals; first-poly `livelog_printf(LL_CONDUCT)`; `unmul('')` mimic-gold stop; Stoned→`PM_STONE_GOLE
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2439; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2440; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

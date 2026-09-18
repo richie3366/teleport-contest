@@ -89,6 +89,7 @@ direction.
    exit (code=0 arm, fallthrough arm), mirroring C; D-1387 stays satisfied.
    Verify: the 3 sessions PASS + `verify.mjs --fn getdir`. One-block,
    one-iter fix. Must-fix prepended.
+**Addressed:** D-2440
 2. `getdir` num_pad `'5'` self arm has no C counterpart (`|| (numPad &&
    ch === '5')`). C binds `'5'` to the run *prefix* under number_pad
    (`cmd.c:2770`; `key2extcmddesc :2583`), and `movecmd` matches only

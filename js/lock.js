@@ -660,13 +660,12 @@ export async function getdir(prompt) {
         }
 
         // C `:4095` — movecmd(dirsym, MV_ANY); <> set dz (not is_mov).
+        // C movecmd returns !u.dz while KEEPING dz=±1 on up/down;
+        // apply_dirsym already zeroes u.dz on true failure (code=0 /
+        // fallthrough arms, D-1387), so no caller zeroing here.
         const applied = apply_dirsym(ch);
         // C movecmd returns !u.dz — up/down set dz and are not is_mov
         const is_mov = applied && !(u.dz | 0);
-        if (!applied) {
-            // C movecmd failure zeros dz, leaves leftover dx/dy (D-1387)
-            u.dz = 0;
-        }
 
         if (!is_mov && !(u.dz | 0)) {
             // C `:4095–4111` — quitchars return 0 without help_dir
