@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-18 — D-2489 `ball.c` bc_sanity_check whole-body port (Punished/ball/chain walk + caller wired)
+
+**C locus:** `nethack-c/upstream/src/ball.c:1034–1102` (`bc_sanity_check`); sole C caller `wizcmds.c:1476` (`sanity_check`, after light_sources, before trap). Callee `safe_typename` (`objnam.c:311–330`); `impossible` live. C `Punished` is `youprop.h:77` `(uball != 0)`, not a sticky flag.
+**JS:** `js/ball.js` bc_sanity_check (`:944`) + imports (impossible; OBJ_FLOOR/OBJ_INVENT/W_BALL/W_CHAIN/W_WEAPONS; safe_typename; objectNames + 2 otyp consts); `js/objnam.js` safe_typename (`:3474`) + NUM_OBJECTS import word; `js/wizcmds.js` sanity_check wiring (`:699–701`). Scratch probe `/tmp/bc-check.mjs` (silent no-ball state, chain-only arm, `safe_typename(-5) === 'glorkum[-5]'`, all no-throw) PASS — throwaway, not committed.
+**Change:** `js/ball.js` — new `export async function bc_sanity_check` in C order: Punished/!Punished `%s%s%s` arms verbatim (`punished = !!u.uball` per youprop.h:77 + do.js/trap.js D-1786 convention; the `!uball` disjunct is dead in C too, kept); `freechain`/`freeball` as 0/1 ints so the `^` XOR arms match C, `where` read off the objects (not `carried()`), `owornmask` W_BALL/W_WEAPONS/W_CHAIN gates with C `~(…)` complements; uball/uchain type+where+mask arms via live `safe_typename`; hero/chain/ball Chebyshev distance arm (`Math.abs`, OBJ_INVENT ≡ carried → hero square per `get_obj_location`); `[check bc_order too?]` kept as C comment. `%08lx` pre-formatted to 8-digit hex passed via `%s` — live `impossible()` expands `%s`/`%d` only (trap.js erode_obj precedent). Otyp ids via the `objectNames.indexOf` idiom (dig.js/dbridge.js); edge `ball.js → generated/objects_data.js` matches the pre-existing `seffects_data.js` static edge class (`--can` does not index generated/).
+**Verify:** `node scripts/verify.mjs --fn bc_sanity_check` → PASS syntax (3 files) · rule2 · hidden note (no session blocked) · reach REACH-OK (no RNG tags, smoke 24/24) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (`--full`: shared ball.js). VERIFY: PASS.
+**Named:** `sanity_check` siblings obj/timer/mon/light/trap/engraving/`levl_sanity_check` (unported writers, own rows); `check_wornmask_slots`; `dobjsfree`/`clear_bypasses`/`resume_wish` (all pre-existing D-1664 names, map keeps them).
+**Next:** next coverage row.
 ## 2026-09-18 — D-2488 `dogmove.c` quickmimic whole-body port (pet mimic-shape + caller wired)
 
 **C locus:** `nethack-c/upstream/src/dogmove.c:1472–1541` (`quickmimic`); caller `nethack-c/upstream/src/mon.c:1447` (`m_consume_obj`, `ispet && deadmimic`).

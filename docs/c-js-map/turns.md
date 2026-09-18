@@ -113,6 +113,7 @@ JS: `js/wizcmds.js` — partial
 **`sanity_check` + `you_sanity_check` gold/invlet D-1664** (`:1459–1481` / `:1401–1441`; 
 `check_invent_gold("invent")` live D-1641; `sanity_no_check` ^P CMD_INSANE; 
 `in_sanity_check` for `impossible`; swallow/overlay/HP-Pw clamps); 
+**`bc_sanity_check` D-2489** (`ball.c:1034–1102`, `:1476` live in `sanity_check` — Punished/ball/chain + Chebyshev distance walk; `safe_typename` live `objnam.c:311–330`; `%08lx` pre-formatted for `%s`/`%d`-only `impossible`);
 **`#wizintrinsic` BLINDED `make_blinded`** (D-0928 #1171); **`#wizintrinsic`
 DEAF `make_deaf(newtimeout, TRUE)`** (D-1817; C `wizcmds.c:1029`; not
 generic Timeout pline); **`#wizintrinsic` SICK/STONED/STUNNED/VOMITING/
@@ -128,7 +129,7 @@ wiz_wish / wiz_genesis / wiz_level_tele / wiz_map / wiz_identify / wiz_makemap l
 command reads in-turn; `wiz_wish` returns `ECMD_OK` per `wizcmds.c:43`).
 Sibling key-dispatch arms still drop `res` (no ECMD_OK tail) — named debt,
 re-queue per-arm when a corpus session blocks after a Die?-decline there.
-Named: `check_wornmask_slots`; obj/timer/mon/light/bc/trap/engraving/`levl_sanity_check`;
+Named: `check_wornmask_slots`; obj/timer/mon/light/trap/engraving/`levl_sanity_check`;
 optfn_boolean `sanity_check` OPTIONS=; `doredraw` body; wizweight;
 `#wizintrinsic` count-prefix + unavailcmd-ecname + make_blinded-talk D-2293
 (menu counts via shared `select_menu_pick_any` wintty counting).

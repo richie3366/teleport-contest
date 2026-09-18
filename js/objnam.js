@@ -18,6 +18,7 @@ import {
     VENOM_CLASS,
     BALL_CLASS,
     CHAIN_CLASS,
+    NUM_OBJECTS,
     objectNames,
     objectNameStrs,
     objectDescrs,
@@ -3460,6 +3461,31 @@ export function simple_typename(otyp) {
     const pp = buf.indexOf(' (');
     if (pp >= 0) buf = buf.slice(0, pp);
     return buf;
+}
+
+/**
+ * C ref: objnam.c safe_typename `:311–330` — otyp forced fully
+ * discovered through simple_typename; out-of-range or nameless otyp
+ * yields `glorkum[N]` plus an impossible (C `nextobuf`/`Sprintf` need
+ * no buffer here: JS strings; sibling simple_typename idiom above).
+ * Caller `ball.c` bc_sanity_check `:1065` / `:1078`.
+ * Async: the glorkum arm awaits impossible (live `display.js`).
+ */
+export async function safe_typename(otyp) {
+    otyp |= 0;
+    if (otyp < STRANGE_OBJECT || otyp >= NUM_OBJECTS || !objectNames[otyp]) {
+        const res = `glorkum[${otyp}]`;
+        const { impossible } = await import('./display.js');
+        await impossible('safe_typename: %s', res);
+        return res;
+    }
+    // C: force it to be treated as fully discovered, then restore.
+    const ocl = game.objects?.[otyp];
+    const save_nameknown = ocl ? ocl.oc_name_known : undefined;
+    if (ocl) ocl.oc_name_known = 1;
+    const res = simple_typename(otyp);
+    if (ocl) ocl.oc_name_known = save_nameknown;
+    return res;
 }
 
 /**

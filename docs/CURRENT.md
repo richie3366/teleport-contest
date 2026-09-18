@@ -45,7 +45,7 @@ screens 93.2 %. Held-out moved 7 → 11 over 2026-09-06..17 while the local
 corpus went 48 % → 91.7 %: the corpus no longer predicts the judge.
 **Corpus fortress** (re-scored 2026-09-18 audit 1435–1443): **495 / 540
 PASS (91.7 %)** excl. 13 env-only; RNG 99.29 %, screens 99.0 % — identical
-to the prior audit, no flips across D-2476…D-2488 (every per-SHA re-run:
+to the prior audit, no flips across D-2476…D-2489 (every per-SHA re-run:
 0 regressed; role_init REACH 91/91).
 Reviews 1225–1443: 193 ACCEPT, 6 WITH-DEBT, 1 DEBT, 14 QUALITY-RISK (1 Must-fix pending).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named).
@@ -98,10 +98,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `dogmove.c` quickmimic — coverage MISSING (C 69 L `dogmove.c:1472–1541` / JS no symbol; hops 3, callers 1, RNG 1, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn quickmimic` (reach regression must be 0). Measured `port-coverage.mjs --name quickmimic` 2026-09-18 @ f8881130.
+**Next cluster:** `ball.c` bc_sanity_check — coverage MISSING (C 68 L `ball.c:1034–1102` / JS no symbol; hops 2, callers 1, RNG 2, msg 0; dead callees: safe_typename). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn bc_sanity_check` (reach regression must be 0). Measured `port-coverage.mjs --name bc_sanity_check` 2026-09-18 @ f8881130.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2488 (index).**
+**Keep D-0845…D-2489 (index).**
 <!-- recent:begin -->
+**D-2489** `nethack-c/upstream/src/ball.c:1034–1102` (`bc_sanity_check`); sole C caller `wizcmds.c:14 — `js/ball.js` — new `export async function bc_sanity_check` in C order: Punished/!Punished `%s%s%s` arms verbatim (`punished = !!u.uball` per youprop.h:77 + do.js/trap.js D-1786 convention; the `!uball` disjunct is dead i
 **D-2488** `nethack-c/upstream/src/dogmove.c:1472–1541` (`quickmimic`); caller `nethack-c/upstream/sr — `js/dogmove.js` — `qm[]` (9 rows verbatim: 7 same-pet/same-symbol monster rows, `S_DOG`/sink furniture row, tripe-ration end row) + `export async function quickmimic` in C order: Protection/meating guard (H/E/intrinsic i
 **D-2487** `nethack-c/upstream/src/glyphs.c:824–1162` (`parse_id`, staticfn). Callers `glyph_find_cor — new `js/glyphs.js` (634 L) in C order — `zero_find`, `strcmpi` (hacklib `strncmpi` -1 idiom), `fix_glyphname`, `glyph_hash` (rotl-1/XOR uint32), double-hash cache (`init`/`add`/`find`, odd step, `free`, `status`), `parse
 **D-2486** `nethack-c/upstream/src/uhitm.c:1119–1383` (`hmon_hitmon_misc_obj`, staticfn); sole C call — `js/uhitm.js` — new module-local `async function hmon_hitmon_misc_obj(mon, obj, ctx)` (C staticfn shape, mirroring sibling `hmon_hitmon_weapon_melee`'s ctx idiom) in C order: boulder/ball/chain `:1125` dmgval; mirror `:1
@@ -109,11 +110,10 @@ revisits the picker.
 **D-2484** `nethack-c/upstream/src/zap.c:6165–6219` (`wishcmdassist`, staticfn); sole live caller `ma — `js/zap.js` only + one import — new `export async function wishcmdassist(triesleft)` in C order: `WISHCMDASSIST_INFO[]` (all 15 `wishinfo` lines verbatim, trailing 0 excluded per `SIZE - 1`), wishless-conduct line while 
 **D-2483** `nethack-c/upstream/src/objnam.c:581–1029` (`xname_flags`); callers `xname` `:575–578`, `c — `js/objnam.js` only, no new imports — new `export function xname_flags(obj, cxn_flags)` holding the former `xname` body in C order (prologue `:632–650`, pname nameit `:674–676`, boulder `:814–823`, pluralize incl. slime 
 **D-2482** `nethack-c/upstream/src/uhitm.c:4296–4385` (`mhitm_ad_heal`); uhitm arm `:4300–4304` (phys — `js/mhitm.js` in C order, mirroring shipped `mhitm_ad_were` (D-2049, identical 3-arm shape) — `const AD_HEAL = 27` (monattk.h `:69`); exported `mhitm_ad_heal(magr, mattk, mdef, mhm)` (`:1321`: `is_youmonst(mdef)` guard +
-**D-2481** `nethack-c/upstream/src/role.c:1980–2117` (`role_init`); callees `plnamesuffix` `:1664–172 — `js/roles.js` (C home) in C order — `randrole` (`rn2(roles.length)` ≡ `rn2(SIZE-1)`; display arm via live `rn2_on_display_rng`), module-local `randrole_filtered` (live `ok_*` filter chain, `randrole(FALSE)` fallback), `r
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2488; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2489; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

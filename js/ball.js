@@ -16,11 +16,12 @@
 
 import { game } from './gstate.js';
 import { place_object, obj_extract_self, objects_at } from './mkobj.js';
-import { newsym, pline, You_feel, cls, map_object } from './display.js';
+import { newsym, pline, You_feel, cls, map_object, impossible } from './display.js';
 import {
-    OBJ_FREE, BC_BALL, BC_CHAIN, IS_OBSTRUCTED, IS_DOOR,
+    OBJ_FREE, OBJ_FLOOR, OBJ_INVENT, BC_BALL, BC_CHAIN, IS_OBSTRUCTED, IS_DOOR,
     D_CLOSED, D_LOCKED, POOL, is_pit, is_hole, SLT_ENCUMBER,
-    W_ARMOR, W_ACCESSORY, W_SADDLE, A_STR, NO_KILLER_PREFIX, KILLED_BY,
+    W_ARMOR, W_ACCESSORY, W_SADDLE, W_BALL, W_CHAIN, W_WEAPONS,
+    A_STR, NO_KILLER_PREFIX, KILLED_BY,
     KILLED_BY_AN, LEG,
     TT_PIT, TT_WEB, TT_LAVA, TT_BEARTRAP, TT_INFLOOR, TT_BURIEDBALL,
     LEFT_SIDE, RIGHT_SIDE,
@@ -48,7 +49,12 @@ import { mon_at } from './uhitm.js';
 import { hard_helmet } from './do_wear.js';
 import { welded, setuwep, setuswapwep, setuqwep } from './wield.js';
 import { exercise } from './attrib.js';
-import { xname, Yname2, body_part_latebound } from './objnam.js';
+import { xname, Yname2, body_part_latebound, safe_typename } from './objnam.js';
+import { objectNames } from './generated/objects_data.js';
+
+/* C otyp ids (dig.js / dbridge.js idiom: indexOf on objectNames). */
+const HEAVY_IRON_BALL = objectNames.indexOf('HEAVY_IRON_BALL');
+const IRON_CHAIN = objectNames.indexOf('IRON_CHAIN');
 
 /** C ref: ball.c BCPOS_* — stacking order when ball&chain share a cell. */
 const BCPOS_DIFFER = 0;
@@ -922,4 +928,98 @@ export async function drop_ball(x, y) {
             await spoteffects(true);
         }
     }
+}
+
+/**
+ * C ref: ball.c bc_sanity_check `:1034–1102` — Punished/ball/chain
+ * consistency walk for wizard-mode `sanity_check` (`wizcmds.c:1476`).
+ * C order throughout. `Punished` is `youprop.h:77` `(uball != 0)`, not a
+ * sticky flag (do.js goto_level / trap.js D-1786 convention); the `!uball`
+ * disjunct below is dead in C too and kept verbatim. `freeball`/`freechain`
+ * stay 0/1 ints so the `^` XOR arms match C. `where` is read off the
+ * objects like C (not `carried()`). `%08lx` is pre-formatted: live
+ * `impossible()` expands `%s`/`%d` only (trap.js erode_obj precedent).
+ * No RNG of its own. Async: `impossible` + `safe_typename` are async.
+ */
+export async function bc_sanity_check() {
+    const u = game.u || {};
+    const uball = u.uball;
+    const uchain = u.uchain;
+    const punished = !!uball; // C youprop.h:77 Punished ≡ (uball != 0)
+
+    if (punished && (!uball || !uchain)) {
+        await impossible(
+            'Punished without %s%s%s?',
+            !uball ? 'iron ball' : '',
+            (!uball && !uchain) ? ' and ' : '',
+            !uchain ? 'attached chain' : '',
+        );
+    } else if (!punished && (uball || uchain)) {
+        await impossible(
+            'Attached %s%s%s without being Punished?',
+            uchain ? 'chain' : '',
+            (uchain && uball) ? ' and ' : '',
+            uball ? 'iron ball' : '',
+        );
+    }
+    /* C: ball is free when swallowed, when changing levels or during air
+       bubble management on Plane of Water (both of which start and end in
+       between sanity checking cycles, so shouldn't be relevant);
+       other times? */
+    const freechain = (!uchain || uchain.where === OBJ_FREE) ? 1 : 0;
+    const freeball = (!uball || uball.where === OBJ_FREE
+        /* lie to simplify the testing logic */
+        || (freechain && uball.where === OBJ_INVENT)) ? 1 : 0;
+    if (uball && (uball.otyp !== HEAVY_IRON_BALL
+            || (uball.where !== OBJ_FLOOR
+                && uball.where !== OBJ_INVENT
+                && uball.where !== OBJ_FREE)
+            || (freeball ^ freechain)
+            || ((uball.owornmask | 0) & W_BALL) === 0
+            || ((uball.owornmask | 0) & ~(W_BALL | W_WEAPONS)) !== 0)) {
+        const otyp = uball.otyp | 0;
+        const onam = await safe_typename(otyp);
+        const hex = ((uball.owornmask | 0) >>> 0).toString(16).padStart(8, '0');
+        await impossible(
+            'uball: type %d (%s), where %d, wornmask=0x%s',
+            otyp, onam, uball.where | 0, hex,
+        );
+    }
+    /* similar check to ball except can't be in inventory */
+    if (uchain && (uchain.otyp !== IRON_CHAIN
+            || (uchain.where !== OBJ_FLOOR
+                && uchain.where !== OBJ_FREE)
+            || (freechain ^ freeball)
+            /* [could simplify this to owornmask != W_CHAIN] */
+            || ((uchain.owornmask | 0) & W_CHAIN) === 0
+            || ((uchain.owornmask | 0) & ~W_CHAIN) !== 0)) {
+        const otyp = uchain.otyp | 0;
+        const onam = await safe_typename(otyp);
+        const hex = ((uchain.owornmask | 0) >>> 0).toString(16).padStart(8, '0');
+        await impossible(
+            'uchain: type %d (%s), where %d, wornmask=0x%s',
+            otyp, onam, uchain.where | 0, hex,
+        );
+    }
+    if (uball && uchain && !(freeball && freechain)) {
+        /* non-free chain should be under or next to the hero;
+           non-free ball should be on or next to the chain or else carried */
+        const cx = uchain.ox | 0, cy = uchain.oy | 0;
+        const cdx = Math.abs(cx - (u.ux | 0));
+        const cdy = Math.abs(cy - (u.uy | 0));
+        let bx, by;
+        if (uball.where === OBJ_INVENT) { // carried(uball)
+            bx = u.ux | 0; by = u.uy | 0; // get_obj_location()
+        } else {
+            bx = uball.ox | 0; by = uball.oy | 0;
+        }
+        const bdx = Math.abs(bx - cx);
+        const bdy = Math.abs(by - cy);
+        if (cdx > 1 || cdy > 1 || bdx > 1 || bdy > 1)
+            await impossible(
+                'b&c distance: you@<%d,%d>, chain@<%d,%d>, ball@<%d,%d>',
+                u.ux | 0, u.uy | 0, cx, cy, bx, by,
+            );
+    }
+    /* [check bc_order too?] */
 }
