@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-18
 
-- [x] `mail.c` newmail — coverage MISSING (C 57 L `mail.c:399–456` / JS no symbol; hops 3, callers 1, RNG 0, msg 4; dead callees: md_start, md_stop, md_rush). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn newmail` (reach regression must be 0). Measured `port-coverage.mjs --name newmail` 2026-09-18 @ 838c6b6e. **Addressed:** D-2478
+- [x] `mon.c` sanity_check_single_mon — coverage MISSING **Addressed:** D-2479 (C 179 L `mon.c:73–255` / JS no symbol; hops 3, callers 2, RNG 2, msg 0; dead callees: pet_sanity_check, levltyp_to_name). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn sanity_check_single_mon` (reach regression must be 0). Measured `port-coverage.mjs --name sanity_check_single_mon` 2026-09-18 @ 34ef28ed.
+
+
+- [x] `mail.c` newmail — coverage MISSING (C 57 L `mail.c:399–456` / JS no symbol; hops 3, callers 1, RNG 0, msg 4; dead callees: md_start, md_stop, md_rush). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn newmail` (reach regression must be 0). Measured `port-coverage.mjs --name newmail` 2026-09-18 @ 838c6b6e. **Addressed:** D-2478 `67ecc58a`
 
 
 - [x] nobj-chain walk over array-model `game.invent` (D-2470 follow-up) — `js/trap.js:5169` hero carried-artifact scan in `trapeffect_anti_magic` (`for (otmp = game.invent; …; otmp = otmp.nobj)`) runs once against the array itself, so the carried non-quest `defends(AD_MAGM)` `rnd(4)` never fires (C draws it; `js/invent.js:369`: invent is an array, minvent stays chains). Same dead pattern at `js/trap.js:1721` (`trap_immune` RUST_TRAP hero walk) — co-fix. Fix: swap both to the `(game.invent || [])` array idiom used at 10 other trap.js sites. Verify with a carried-MR-artifact anti-magic probe (RNG draw present) + gates. Source: reviews/loop-unattended/1429-3d84b5d4-trapeffect-anti-magic.md. **Addressed:** D-2477 `1ba77343`

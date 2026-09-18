@@ -45,7 +45,7 @@ screens 93.2 %. Held-out moved 7 → 11 over 2026-09-06..17 while the local
 corpus went 48 % → 91.7 %: the corpus no longer predicts the judge.
 **Corpus fortress** (re-scored 2026-09-18 audit 1426–1434): **495 / 540
 PASS (91.7 %)** excl. 13 env-only; RNG 99.29 %, screens 99.0 % — identical
-to the prior audit, no flips across D-2467…D-2478 (every per-SHA re-run:
+to the prior audit, no flips across D-2467…D-2479 (every per-SHA re-run:
 0 regressed).
 Reviews 1225–1434: 185 ACCEPT, 6 WITH-DEBT, 1 DEBT, 13 QUALITY-RISK (2 Must-fix pending).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named).
@@ -98,10 +98,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `mail.c` newmail — coverage MISSING (C 57 L `mail.c:399–456` / JS no symbol; hops 3, callers 1, RNG 0, msg 4; dead callees: md_start, md_stop, md_rush). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn newmail` (reach regression must be 0). Measured `port-coverage.mjs --name newmail` 2026-09-18 @ 838c6b6e.
+**Next cluster:** `mon.c` sanity_check_single_mon — coverage MISSING (C 179 L `mon.c:73–255` / JS no symbol; hops 3, callers 2, RNG 2, msg 0; dead callees: pet_sanity_check, levltyp_to_name). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn sanity_check_single_mon` (reach regression must be 0). Measured `port-coverage.mjs --name sanity_check_single_mon` 2026-09-18 @ 34ef28ed.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2478 (index).**
+**Keep D-0845…D-2479 (index).**
 <!-- recent:begin -->
+**D-2479** `nethack-c/upstream/src/mon.c:72–255` (`sanity_check_single_mon`); static `pet_sanity_chec — both functions added module-local in `js/mon.js` (C home, matching C `staticfn`) in C order — data-pointer range, mnum fixup, HP bounds (gremlin `m_lev` arm kept commented-out like C), dead-monster early return, genocide
 **D-2478** `nethack-c/upstream/src/mail.c:399–456` (`newmail`); static `md_start` `:148–239`, `md_sto — `js/mail.js` in C order — file-local C-macro equivalents (`Deaf`/`Blind`/`Blind_telepat`/`distu`, sibling-idiom verbatim; `mail_text` + `md_exclamations` via `rn2(3)`); `md_start` (Blind-nearby arm, stairwell-in-sight sc
 **D-2477** `nethack-c/upstream/src/trap.c:2360–2365` (`for (otmp = gi.invent; …)` carried `defends_wh — `js/trap.js` only, no new imports — anti-magic site walks `for (const _am of game.invent || [])` with the same predicate (`oartifact` + `!is_quest_artifact` + `defends_when_carried(AD_MAGM)`, live exports) and break-on-f
 **D-2476** `engrave.c:396` (`You("%s: \"%s\"%s",…)`); `rumors.c:573` (`pline1(line)`); `pager.c:1922` — route each through the `%s` arm (verbalize/impossible D-2471 precedent — substituted args are never re-scanned by `vpline_expand`): engrave keeps the C format+args shape `You('%s: "%s"%s', feel/read, et, endpunct)`; rumo
@@ -109,11 +110,10 @@ revisits the picker.
 **D-2474** `nethack-c/upstream/src/priest.c:795–874` (`ghod_hitsu`); callees `temple_occupied`/`has_s — `js/priest.js` only, in C order — new `export async function ghod_hitsu` (`:191`): roomno-char gate (`temple_occupied`, `'\0'` check) + `has_shrine`; shrpos origin; `svr.rooms` via bones.js `charCodeAt-ROOMOFFSET` idiom;
 **D-2473** `nethack-c/upstream/src/artifact.c:2508–2591` (`retouch_object`); supporting `touch_blaste — `js/artifact.js` restart in C order — `retouch_object(obj, loseit)` (`:1451`): Bell-of-Opening invocation-square pass-through (`BELL_OF_OPENING` const via `objectNames.indexOf`, live `invocation_pos`/`On_stairs` from hac
 **D-2472** `nethack-c/upstream/src/files.c:673–716` (`open_levelfile`); supporting `fqname` `:354–393 — `js/files.js` only, in C order — new `export function fqname` (`:501`: PREFIX branch live, prefixes from `game.gf?.fqn_prefix` (unset → basenam, as C with empty prefixes), buffnum-clamp + too-long `impossible()` arms in 
-**D-2471** `nethack-c/upstream/src/pline.c:153–291` (`vpline`); supporting `BIGBUFSZ` `:10–12`, `putm — `js/display.js` only, in C order — new `export async function vpline(fmt, ...args)` (`:7650`): consume-then-format accessiblemsg (`vpline_consume_msg_loc`, D-1207; C's recurse-with-same-va_list is prefix-then-format sinc
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2478; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2479; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

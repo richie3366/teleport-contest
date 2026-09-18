@@ -419,7 +419,9 @@ C releases inside `mondead` via `mon_leaving_level :2702–2703`, never via
 **`mondead` tail** (D-2231; `js/mhitm.js` async export + `mon.js`/`vault.js`/`shk.js` edges): `set_mon_min_mhpmax`, `lifesaved_monster` (amulet+wary_dog+genocided), `vamprises` (door smash + trapped-door kill D-2273 via canonical `monmove.js` `mb_trapped`), `grddead` (vault corridor+gold), `logdeadmon` (Medusa+livelog cadence), `thiefdead` (stealmid + stealarm→unstolenarm swap; `stealarm`/`unstolenarm` live in `steal.js`, `steal()` sets `afternmv`, D-2271), `shkgone` (resident/no_charge/setpaid/bill/ushops), full `m_detach` (unleash/light/mon_leaving/wizdead/nemesis/leader/relobj+gated newsym/purge/dismount), async `mondead` + `monstone`/`monkilled` wiring, all callers await;
 **`shkgone` damage/`has_shop`** (this D; `js/shk.js` `discard_damage_owned_by` + `js/mhitm.js` has_shop clear via canonical `sounds.js` `search_special` export);
 `minimal_monnam` live (D-2375; turns.md `do_name.c` row); omit `mongone` FALSE caller, sync `kill_genocided_monsters` nuance (`stinky_nemesis` gas live D-2270);
-omit `teleport.js` `search_special` ANY_TYPE arm (clone drift; canonical export is `sounds.js`)
+omit `teleport.js` `search_special` ANY_TYPE arm (clone drift; canonical export is `sounds.js`);
+**`sanity_check_single_mon` + `pet_sanity_check`** (D-2479; both module-local in `js/mon.js`, C order — data-range/mnum/HP/dead/geno/tame/eshk/epri/egd/emin/edog/steed/trapped/frozen/hiding/mimic/leash arms; `monsndx` export added to `js/mondata.js`);
+named omits: `panic` (own row; illegal-data arm throws), `levltyp_to_name` + all three `#if 0` arms (dead-mon fmon/guard, mimic location, leash distu — omitted like C), callers in unported `mon_sanity_check` (`mon.c:258–324`, fmon `:265` + migr `:313` — wire when that ships)
 
 ### `src/mondata.c` growth
 
