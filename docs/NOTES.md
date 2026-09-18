@@ -40,19 +40,20 @@ here again. Live hypotheses only:
 - **do_statusline2 residuals (D-2425 MEASURED):** W1 Healer-92107 `mhitm_ad_cold_u` extra destroy return; W2 Satiated pair = eat-progress `uhs`/botl timing — both are corpus-residual Open rows (detail in D-2425). Monk-92194 Pw = D-2161 gulpmu residual, no new row.
 ## Don't re-check (≤15)
 
-- D-1790…D-2474 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-2475 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2474.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2474.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2475.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2475.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2475: `js/topten.js` only, in C order — new module-local `score_wanted` (version gate; `pers_is_uid` uid arm; `-uname` strip; `-p/-r/-u` + next-arg arms wit Named: `fopen_datafile` (VFS read is the Rule #2 analogue); `readentry`/`newttentry` allocation m
 - D-2474: `js/priest.js` only, in C order — new `export async function ghod_hitsu` (`:191`): roomno-char gate (`temple_occupied`, `'\0'` check) + `has_shrine`;  Named: C `hmon` anger_guards tail (`uhitm.c:826–827` + `:831–833`; mon.js angry_guards live, unwi
 - D-2473: `js/artifact.js` restart in C order — `retouch_object(obj, loseit)` (`:1451`): Bell-of-Opening invocation-square pass-through (`BELL_OF_OPENING` const Named: `untouchable`/`retouch_equipment` (sole unwired caller chain; `loseit=TRUE` reachable only
 - D-2472: `js/files.js` only, in C order — new `export function fqname` (`:501`: PREFIX branch live, prefixes from `game.gf?.fqn_prefix` (unset → basenam, as C  Named: MACOS9 `macopen`, MSDOS/WIN32 `setmode`, VMS `;1`, WIN32 `translate_path_variables` (platf
@@ -67,5 +68,4 @@ here again. Live hypotheses only:
 - D-2463: restart as `async` in C order — `:2109–2112` Rider corpse `revive_corpse` (dynamic do.js import); `:2114–2117` extract-then-read otx/oty + `restricted Named: `mkobj.c:2081` `mkcorpstat` x==0&&y==0 `rloco` — JS `mkcorpstat` is sync with 5+ transitiv
 - D-2462: `js/mhitu.js` only — restart in C order: `t_at` + pit/boulder miss (`is_pit`, `sobj_at`, BOULDER const); Punished `unplacebc()`; live remove/place_mon Named: none new in this body.
 - D-2461: `js/display.js` — new exported `docrtRecalc/Refresh/MapOnly/Nocls` consts + `export async function docrt_flags(refresh_flags)` in C order (flag decode Named: wintty.c:435 rescale trigger (above); non-docrt under_water/under_ground caller wiring (pr
-- D-2460: `js/weapon.js` restart of mon_wield_item in C order — impossible('weapon_check %d for %s?') + bare return-0 in default; mwelded refuse arm (bimanual/m Named: none new in-body (every arm live); the two caller defers above stay with their owners (dog
 <!-- landmarks:end -->

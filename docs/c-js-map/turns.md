@@ -1804,7 +1804,8 @@ verb+points; `dog.c` keepdogs `:799–809` pets_only wakeup; live `js/end.js`
 `score_escape_companions` + `js/dog.js` + exported `adj_lev`; DUMPLOG /
 keepdogs migrate/leash/`mon_has_amulet` is **D-1783**); overview interest_mapseen/endgame/builds_up/branches/cemetery list; 
 savelife Sick/endmultishot; **savelife curs_on_u + uswallow expels / ustuck release D-2191** (C `end.c:743–758`; live `js/end.js` + static `unstuck`/`expels` from `js/mhitu.js`, `sticks` from `js/engrave.js`; named: make_sick TIMEOUT==1, !mon_moving endmultishot, livelog); 
-ordinary `vision_recalc(2)` gbuf newsym loop / `notice_all_mons`
+ordinary `vision_recalc(2)` gbuf newsym loop / `notice_all_mons`; 
+**`prscore` score-subset display + `score_wanted` filter** (D-2475; C `topten.c:1194–1353` + static `:1112–1192`; live `js/topten.js` export, `outheader`/`outentry` reused via emit, record scan via live `read_record_entries`, `init_dungeons` via dynamic import, `str2role`/`str2race` extend the pre-existing roles edge, `BUFSZ` const; named: `fopen_datafile` (VFS analogue), `readentry`/`newttentry` alloc mechanics, `dlb_init`/`free_dungeons`/`dlb_cleanup`, `free_ttlist` (GC), `raw_print`/`raw_printf` + `topten_print` routing (panel lines, D-2471), AMIGA ×2, `gh.hname`, `scores_only` CLI caller chain with no JS counterpart)
 
 ### `src/dig.c` `mdig_tunnel` / `zap_dig` / `hack.c` `may_dig`
 

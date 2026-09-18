@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-18
 
+- [x] `topten.c` prscore — coverage MISSING (C 159 L `topten.c:1194–1353` / JS no symbol; hops —, callers 5, RNG 0, msg 7; dead callees: fopen_datafile, score_wanted, free_dungeons, free_ttlist). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn prscore` (reach regression must be 0). Measured `port-coverage.mjs --name prscore` 2026-09-18 @ 838c6b6e. **Addressed:** D-2475
+
+
 - [x] `priest.c` ghod_hitsu — coverage MISSING **Addressed:** D-2474 (C 78 L `priest.c:796–874` / JS no symbol; hops 3, callers 2, RNG 2, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn ghod_hitsu` (reach regression must be 0). Measured `port-coverage.mjs --name ghod_hitsu` 2026-09-18 @ 838c6b6e.
 
 
