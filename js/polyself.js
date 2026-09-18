@@ -35,7 +35,7 @@ import {
 import { has_ceiling } from './dungeon.js';
 import { dryup } from './fountain.js';
 import { aggravate } from './wizard.js';
-import { wakeup, egg_type_from_parent } from './mon.js';
+import { wakeup, egg_type_from_parent, setmangry } from './mon.js';
 import { Punished } from './pray.js';
 import { name_to_mon, name_to_monclass, set_mon_data } from './mondata.js';
 import {

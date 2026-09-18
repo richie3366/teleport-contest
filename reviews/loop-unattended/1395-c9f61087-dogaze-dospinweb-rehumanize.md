@@ -95,6 +95,7 @@ strict · cohort · PASS. Independent re-measure on this SHA:
    Fix: add `setmangry` to the existing `./mon.js` import —
    `imports.mjs --can polyself.js mon.js setmangry` → ALREADY, no new
    edge. Verify `verify.mjs --fn dogaze`.
+   **Addressed:** D-2441
 2. `dospinweb` PIT arm calls unimported `bury_objs`
    (`js/polyself.js:2584`, `await bury_objs(x, y)`; only `./dig.js`
    import is `buried_ball_to_freedom`). Guaranteed ReferenceError on web

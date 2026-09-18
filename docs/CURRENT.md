@@ -97,10 +97,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `lock.js` getdir zeroes up/down dz — corpus PASS→FAIL ×3 (D-2434 `apply_dirsym('<'/'>')` sets `u.dz=∓1` and returns `!dz=false` per C `movecmd`, then the caller `if (!applied) u.dz = 0` destroys it; every `</>` at a direction prompt prints "cmdassist: Invalid direction key!"+help and fails where C returns 1). Fix: delete `if (!applied) { u.dz = 0; }`. Verify the 3 sessions PASS + `verify.mjs --fn getdir`. Source: reviews/loop-unattended/1393-1d21e3be-getdir-whole-body.md.
+**Next cluster:** `polyself.js` dogaze missing `setmangry` import — ReferenceError throw (D-2436 `js/polyself.js:2439`, no import/local/global; live `js/mon.js:1120` ASYNC; edge ALREADY, add to existing `./mon.js` import). Fix: one line. Verify `node scripts/verify.mjs --fn dogaze`. Source: reviews/loop-unattended/1395-c9f61087-dogaze-dospinweb-rehumanize.md.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2440 (index).**
+**Keep D-0845…D-2441 (index).**
 <!-- recent:begin -->
+**D-2441** `nethack-c/upstream/src/polyself.c:1642–1773` (dogaze; `setmangry(mtmp, TRUE)` after the p — `js/polyself.js:38` only — added `setmangry` to the existing `./mon.js` import.
 **D-2440** `nethack-c/upstream/src/cmd.c:3956–4119` (getdir `:4095` `else if (!(is_mov = movecmd(dirs — `js/lock.js` only — deleted the `if (!applied) { u.dz = 0; }` block.
 **D-2439** `nethack-c/upstream/src/hack.c:991–1255` (test_move; DO_MOVE/TEST_MOVE/TEST_TRAV/TEST_TRAP — `js/hack.js:302–560` new `export async function test_move(ux, uy, dx, dy, mode)` in C order with per-arm `:line` cites: entry `door_opened=false` on all modes (`:1000`); obstructed/IRONBARS with Blind feel, Passes_walls+
 **D-2438** `nethack-c/upstream/src/attrib.c:117–199` (adjattrib); callees `Fixed_abil`, `Your`/`pline — `js/attrib.js` restart of the body in C order with per-arm `:line` cites: old_abase/old_amax snapshot beside old_acurr; abonflg from `u.abon.a[ndx]` (`<0` on gains, `>0` on losses); ACURR-unmoved arm with msgflg==0-exact
@@ -108,11 +109,10 @@ revisits the picker.
 **D-2436** `nethack-c/upstream/src/polyself.c:1642–1773` (dogaze); `:1497–1621` (dospinweb); `:1367–1 — `js/polyself.js` only, in C order. dogaze: AT_GAZE mattk scan with AD_CONF/AD_FIRE gate else impossible; Blind/Hallucination/uen<15 gates; uen-=15 + botl; snapshot fmon loop (one visit per monster while killed() unlinks)
 **D-2435** `nethack-c/upstream/src/end.c:1130–1590` (`really_done`); achievements `:1173–1183` via `i — `js/end.js` only, in C order — achievements via live `record_achievement` (ACH_BLND/NUDE gated on `uachieved[0]||!beginner`, ACH_UWIN on ASCENDED; gameover-quiet, no RNG/output); `finish_paybill` moved before grave+score
 **D-2434** `nethack-c/upstream/src/cmd.c:3958–4119` (`getdir`); callees `movecmd :3868–3898`, `dxdy_m — `js/lock.js` only, in C order — cmdq DIR respects num_pad NDIR/SDIR + dirz `>`/`<`, non-DIR/KEY now `await impossible('getdir: command queue had no dir?')`; retry keeps `getdirInp` + in_doagain-nhgetch, adds short-circui
-**D-2433** `nethack-c/upstream/src/mon.c:5278–5535` (`newcham`); `monattk.h` AT_ENGL=11; `trap.c` `ms — `js/makemon.js` only — split the post-`set_mon_data` block into `newcham_light_invis` (`:5399–5412`), `newcham_ustuck` (`:5413–5450`: break-out `You` + mhp 1 + `expels` consuming SHOW_MSG even when msg is FALSE, silent e
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2440; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2441; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

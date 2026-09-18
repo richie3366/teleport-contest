@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-18
 
-- [x] `lock.js` getdir zeroes up/down dz — corpus PASS→FAIL ×3 (D-2434 `apply_dirsym('<'/'>')` sets `u.dz=∓1` and returns `!dz=false` per C `movecmd`, then the caller `if (!applied) u.dz = 0` destroys it; every `</>` at a direction prompt prints "cmdassist: Invalid direction key!"+help and fails where C returns 1; flipped Wizard-92187/exercise, Arch-92190/distfleeck, Arch-92012/could_untrap — bisected PASS@c2935846+acf54d66 → FAIL@1d21e3be). Fix: delete `if (!applied) { u.dz = 0; }` (`apply_dirsym` zeroes dz on true failure, D-1387 kept). Verify the 3 sessions PASS + `verify.mjs --fn getdir`. Source: reviews/loop-unattended/1393-1d21e3be-getdir-whole-body.md. **Addressed:** D-2440
+- [x] `polyself.js` dogaze missing `setmangry` import — ReferenceError throw (D-2436 `js/polyself.js:2439`, no import/local/global; live `js/mon.js:1120` ASYNC; edge ALREADY, add to existing `./mon.js` import). Fix: one line. Verify `node scripts/verify.mjs --fn dogaze`. Source: reviews/loop-unattended/1395-c9f61087-dogaze-dospinweb-rehumanize.md. **Addressed:** D-2441
+
+
+- [x] `lock.js` getdir zeroes up/down dz — corpus PASS→FAIL ×3 (D-2434 `apply_dirsym('<'/'>')` sets `u.dz=∓1` and returns `!dz=false` per C `movecmd`, then the caller `if (!applied) u.dz = 0` destroys it; every `</>` at a direction prompt prints "cmdassist: Invalid direction key!"+help and fails where C returns 1; flipped Wizard-92187/exercise, Arch-92190/distfleeck, Arch-92012/could_untrap — bisected PASS@c2935846+acf54d66 → FAIL@1d21e3be). Fix: delete `if (!applied) { u.dz = 0; }` (`apply_dirsym` zeroes dz on true failure, D-1387 kept). Verify the 3 sessions PASS + `verify.mjs --fn getdir`. Source: reviews/loop-unattended/1393-1d21e3be-getdir-whole-body.md. **Addressed:** D-2440 `678a0821`
 
 
 - [x] `hack.c` test_move — coverage MISSING (C 261 L `hack.c:991–1255` / JS no symbol; hops 2, callers 19, RNG 0, msg 14; split? cited 79× in js/ — brief first). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn test_move` (reach regression must be 0). Measured `port-coverage.mjs --name test_move` 2026-09-18 @ a35f6369. **Addressed:** D-2439 `e6289b5b`

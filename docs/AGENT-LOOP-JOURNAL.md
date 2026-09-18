@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-18 — D-2441 `polyself.js` dogaze `setmangry` import wired (ReferenceError deleted)
+
+**C locus:** `nethack-c/upstream/src/polyself.c:1642–1773` (dogaze; `setmangry(mtmp, TRUE)` after the peaceful-confirm gate, C `:1704`); dispatched from C `cmd.c:909` AT_GAZE arm.
+**JS:** `js/polyself.js:38`; map `docs/c-js-map/turns.md:296`.
+**Change:** `js/polyself.js:38` only — added `setmangry` to the existing `./mon.js` import. `node scripts/imports.mjs --can polyself.js mon.js setmangry` → ALREADY, no new edge. Live callee `js/mon.js:1120` is `export async`, call site already awaits.
+**Verify:** `node scripts/verify.mjs --fn dogaze` → PASS syntax (1 file: polyself.js) · rule2 · hidden note (0 blocked at baseline) · **reach smoke 24/24 PASS, 0 regressed → REACH-OK** · green 2/2 · strict ×2 · cohort 7/7 (no shared file → full skipped) → VERIFY: PASS.
+**Named:** review 1395 item 2 — `dospinweb` PIT arm `bury_objs` (`js/polyself.js:2584`, live `js/dig.js:450` ASYNC) stays open as its own Must-fix row; Must-fix stays one item, alone.
+**Next:** dospinweb `bury_objs` import row, then the Open — coverage head (`invent.c` getobj).
 ## 2026-09-18 — D-2440 `lock.js` getdir caller dz-zeroing deleted (up/down restored)
 
 **C locus:** `nethack-c/upstream/src/cmd.c:3956–4119` (getdir `:4095` `else if (!(is_mov = movecmd(dirsym, MV_ANY)) && !u.dz)`); callee `movecmd :3868–3898` returns `!u.dz` while KEEPING dz=±1 on up/down.

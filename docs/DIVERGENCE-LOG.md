@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2441 — `polyself.js` dogaze `setmangry` import wired (ReferenceError deleted)
+
+- **Status:** fixed (Must-fix review 1395 QUALITY-RISK item 1 on D-2436).
+- **Symptom:** `dogaze` awaited a bare `setmangry(mtmp, true)` with no import, local, or global — guaranteed ReferenceError on the first gazeable monster reached via the `domonability` AT_GAZE arm. No corpus session executes dogaze, so green/cohort/smoke never evaluated the line (review 1395 re-measured 0 blocked, vacuous).
+- **C locus:** `nethack-c/upstream/src/polyself.c:1642–1773` (dogaze; `setmangry(mtmp, TRUE)` after the peaceful-confirm gate, C `:1704`); dispatched from C `cmd.c:909` AT_GAZE arm.
+- **JS was:** `js/polyself.js:2439` awaited unimported `setmangry`; the line-38 `./mon.js` import carried only `wakeup, egg_type_from_parent` (line-68 seconds it with `hideunder` only).
+- **Fix:** `js/polyself.js:38` only — added `setmangry` to the existing `./mon.js` import. `node scripts/imports.mjs --can polyself.js mon.js setmangry` → ALREADY, no new edge. Live callee `js/mon.js:1120` is `export async`, call site already awaits. No DIAG/FORCE/seed logic; Rule #2 clean.
+- **JS:** `js/polyself.js:38`; map `docs/c-js-map/turns.md:296`.
+- **Callers:** `dogaze` export name/signature unchanged; the `domonability` AT_GAZE-arm wiring from D-2436 stands. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn dogaze` → PASS syntax (1 file: polyself.js) · rule2 · hidden note (0 blocked at baseline) · **reach smoke 24/24 PASS, 0 regressed → REACH-OK** · green 2/2 · strict ×2 · cohort 7/7 (no shared file → full skipped) → VERIFY: PASS.
+- **Named omissions:** review 1395 item 2 — `dospinweb` PIT arm `bury_objs` (`js/polyself.js:2584`, live `js/dig.js:450` ASYNC) stays open as its own Must-fix row; Must-fix stays one item, alone.
+- **Next:** dospinweb `bury_objs` import row, then the Open — coverage head (`invent.c` getobj).
+
 ## D-2440 — `lock.js` getdir caller dz-zeroing deleted (up/down restored)
 
 - **Status:** fixed (Must-fix review 1393 QUALITY-RISK on D-2434; corpus PASS→FAIL ×3).
