@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-18
 
-- [x] `pager.c` do_look — coverage PARTIAL (C 290 L `pager.c:1673–1963` / JS 163 L in js/pager.js; hops 0, callers 2, RNG 0, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn do_look` (reach regression must be 0). Measured `port-coverage.mjs --name do_look` 2026-09-18 @ 78b9ec99. **Addressed:** D-2468
+- [x] `mklev.c` fill_ordinary_room — coverage PARTIAL (C 230 L `mklev.c:939–1171` / JS 151 L in js/mklev.js; hops 1, callers 1, RNG 23, msg 0; dead callees: mksink). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn fill_ordinary_room` (reach regression must be 0). Measured `port-coverage.mjs --name fill_ordinary_room` 2026-09-18 @ 78b9ec99. **Addressed:** D-2469
+
+
+- [x] `pager.c` do_look — coverage PARTIAL (C 290 L `pager.c:1673–1963` / JS 163 L in js/pager.js; hops 0, callers 2, RNG 0, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn do_look` (reach regression must be 0). Measured `port-coverage.mjs --name do_look` 2026-09-18 @ 78b9ec99. **Addressed:** D-2468 `981a50f7`
 
 
 - [x] `mklev.c` mkinvokearea — coverage MISSING (C 87 L `mklev.c:2410–2497` / JS no symbol; hops 3, callers 2, RNG 0, msg 1; dead callees: mkinvk_check_wall, mkinvpos). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mkinvokearea` (reach regression must be 0). Measured `port-coverage.mjs --name mkinvokearea` 2026-09-18 @ 78b9ec99. **Addressed:** D-2467 `8299d47b`

@@ -45,7 +45,7 @@ screens 93.2 %. Held-out moved 7 → 11 over 2026-09-06..17 while the local
 corpus went 48 % → 91.7 %: the corpus no longer predicts the judge.
 **Corpus fortress** (re-scored 2026-09-18 audit 1417–1425): **495 / 540
 PASS (91.7 %)** excl. 13 env-only; RNG 99.29 %, screens 99.0 %. The 3
-`1d21e3be` getdir flips recovered via D-2440; no new flips across D-2458…D-2468
+`1d21e3be` getdir flips recovered via D-2440; no new flips across D-2458…D-2469
 (every per-SHA re-run: 0 regressed).
 Reviews 1225–1425: 179 ACCEPT, 5 WITH-DEBT, 1 DEBT, 11 QUALITY-RISK (0 Must-fix pending).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip (all map-named).
@@ -98,10 +98,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `pager.c` do_look — coverage PARTIAL (C 290 L `pager.c:1673–1963` / JS 163 L in js/pager.js; hops 0, callers 2, RNG 0, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn do_look` (reach regression must be 0). Measured `port-coverage.mjs --name do_look` 2026-09-18 @ 78b9ec99.
+**Next cluster:** `mklev.c` fill_ordinary_room — coverage PARTIAL (C 230 L `mklev.c:939–1171` / JS 151 L in js/mklev.js; hops 1, callers 1, RNG 23, msg 0; dead callees: mksink). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn fill_ordinary_room` (reach regression must be 0). Measured `port-coverage.mjs --name fill_ordinary_room` 2026-09-18 @ 78b9ec99.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2468 (index).**
+**Keep D-0845…D-2469 (index).**
 <!-- recent:begin -->
+**D-2469** `nethack-c/upstream/src/mklev.c:939–1171` (`fill_ordinary_room`); static `mksink` `:2316–2 — `js/mklev.js` only, in C order — `(u.uhave.amulet || !rn2(3))` short-circuit with `makemon` + spider check (`data?.mndx === PM_GIANT_SPIDER`, monmove.js idiom) + occupied-guarded `maketrap(WEB)`; trap loop calls live `mk
 **D-2468** `nethack-c/upstream/src/pager.c:1673–1963` (`do_look(mode, click_cc)`); static `suptext1`  — `js/pager.js` only, in C order — `do_look(mode = 0, click_cc = null)` with `quick`/`clicklook` (`:1675–1676`); cmdq pop/`cmdq_clear()` (= CQ_CANNED default, js/cmd.js) with `have_cmdq` tracking the C `goto dowhatiscmd` (
 **D-2467** `nethack-c/upstream/src/mklev.c:2410–2497` (`mkinvokearea`); static helpers `mkinvpos` `:2 — `js/mklev.js` only — new `export async function mkinvokearea()` + module-local `mkinvpos`/`mkinvk_check_wall` in C order: shake pline + wall-count loop (`dist!=3` wider-than-high, skip-y-when-x-found, early stop on wallc
 **D-2466** `nethack-c/upstream/src/trap.c:6991–7034` (`sink_into_lava`); callers `allmain.c:424–425`, — new `export async function sink_into_lava()` (`js/trap.js:6296`, placed after `lava_effects` in C file order) — whole body in C order: not-trapped no-op (polymorph flier-to-ceiling-hider case); not-on-lava `reset_utrap(F
@@ -109,11 +110,10 @@ revisits the picker.
 **D-2464** `nethack-c/upstream/src/pline.c:476–490` (`verbalize`); callees `You_buf` `:338–348`, `vpl — restart in C order — `gp.pline_flags |= PLINE_VERBALIZE` (`PLINE_VERBALIZE` joins the existing const.js import); quote-then-format (`"..."` wrap, then `%s/%d/%ld/%%` per the livelog_printf/impossible convention, only whe
 **D-2463** `nethack-c/upstream/src/teleport.c:2102–2187` (`rloco`). — restart as `async` in C order — `:2109–2112` Rider corpse `revive_corpse` (dynamic do.js import); `:2114–2117` extract-then-read otx/oty + `restricted_fall = otx==0 && dndest.lx` (`game.dndest` mirrors `svd.dndest`); `:2
 **D-2462** `nethack-c/upstream/src/mhitu.c:1289–1587` (`gulpmu`; engulf_target `:1300`, pit+boulder ` — `js/mhitu.js` only — restart in C order: `t_at` + pit/boulder miss (`is_pit`, `sobj_at`, BOULDER const); Punished `unplacebc()`; live remove/place_monster; steed `mon_nam` buf + `urgent_pline(Some_Monnam …)` + `dismount_
-**D-2461** `nethack-c/upstream/src/display.c:1709–1773` (`docrt_flags`; flag decode `:1711–1715`, red — `js/display.js` — new exported `docrtRecalc/Refresh/MapOnly/Nocls` consts + `export async function docrt_flags(refresh_flags)` in C order (flag decode; `!u.ux`/in_docrt guard + file's `!game.level` guard; try/finally in_
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2468; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2469; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

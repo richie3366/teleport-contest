@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2469 — `mklev.c` fill_ordinary_room whole-body restart (amulet/WEB, rogue skip, live mktrap, mksink/mkgrave)
+
+- **Status:** fixed (Open coverage row: fill_ordinary_room PARTIAL C 230 L `mklev.c:939–1171` / JS 151 L in js/mklev.js; hops 1, callers 1, RNG 23, msg 0; dead callees: mksink).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify fill_ordinary_room`: no corpus session blocked on it at baseline).
+- **C locus:** `nethack-c/upstream/src/mklev.c:939–1171` (`fill_ordinary_room`); static `mksink` `:2316–2329`, `mkgrave` `:2353–2397`; callers `:962` (self-recursion) and `:1408` (makelevel fill loop). Supporting: `set_levltyp` `mkmaze.c:77–121` (recount `:106–108`), `CORPSTAT_INIT` `hack.h:1193` (= 0x08), `CAN_OVERWRITE_TERRAIN` `rm.h:320`.
+- **JS was:** module-local `async fill_ordinary_room` (`js/mklev.js:28906`, 151 L) — amulet arm dropped (always drew `rn2(3)`) and the giant-spider WEB arm missing; trap loop via partial `mktrap_room` clone (no rogue kinds / hellish bias, dlevel-vs-`Can_fall_thru` hole mapping, single placement without the occupied/boulder 200-retry); no `Is_rogue_level` skip (rogue levels got fountains/sinks/altars/graves/bonus/chests/graffiti); sink inline instead of `mksink`; grave live under `mkgrave_room` with dobell drawn after the rtype gate (C draws first) and fire-and-forget `curse`; all three `impossible` arms missing (null subroom, supply-chest tryct==50, overflow4).
+- **Fix:** `js/mklev.js` only, in C order — `(u.uhave.amulet || !rn2(3))` short-circuit with `makemon` + spider check (`data?.mndx === PM_GIANT_SPIDER`, monmove.js idiom) + occupied-guarded `maketrap(WEB)`; trap loop calls live `mktrap(0, MKTRAP_NOFLAGS, croom, null)` (`mktrap_room` clone deleted); `Is_rogue_level(g.u?.uz)` wraps the dressing block (= `goto skip_nonrogue`); new module-local `mksink` (find_okay_roompos + SINK + nsinks++); `mkgrave_room` renamed to async `mkgrave` with C-order dobell draw + awaited `curse`; supply-chest tryct==50 + overflow4 + null-subroom `impossible` arms live. No new cross-module imports (every name already imported); Rule #2 clean, no DIAG/FORCE/seed logic.
+- **JS:** `js/mklev.js` (+152/−133: `mksink` :28871, `mkgrave` :28882, `fill_ordinary_room` :28918; `mktrap_room` deleted); map section `docs/c-js-map/data.md` mklev/sp_lev lspo_map.
+- **Callers:** C `:962` recursion → `js/mklev.js:28927` `await fill_ordinary_room(subroom, false)`; C `:1408` fill loop → `js/mklev.js:24336` `await fill_ordinary_room(croom, fillable && bonus===0)`. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn fill_ordinary_room --reach-all` → PASS syntax (1 file: js/mklev.js) · PASS rule2 · note hidden (0 blocked) · PASS reach (495 baseline-PASS sessions reach it, 495 run, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) → VERIFY: PASS.
+- **Named omissions:** `set_levltyp` full `count_level_features` recount (`mkmaze.c:106–108`) — C recounts then `nsinks++`/`nfountains++` (net actual+1); `js/` keeps incremental counts per the named recount omit on trap.js `set_levltyp` (wizard-#terrain exact counts only; `sounds.c:220` audibility gate unaffected); pre-existing `mkfount`/`mkaltar` clones untouched (same incremental convention); supply_chest null guard kept (C doesn't check); `if (engrText)` empty-string gate kept from the prior port.
+- **Next:** queue head after this ships per breadth phase.
+
 ## D-2468 — `pager.c` do_look whole-body port (clicklook + lootabc menu + supplemental lore)
 
 - **Status:** fixed (Open coverage row: do_look PARTIAL C 290 L `pager.c:1673–1963` / JS 163 L in js/pager.js; hops 0, callers 2, RNG 0, msg 4).

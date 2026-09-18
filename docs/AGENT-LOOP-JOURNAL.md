@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-18 — D-2469 `mklev.c` fill_ordinary_room whole-body restart (amulet/WEB, rogue skip, live mktrap, mksink/mkgrave)
+
+**C locus:** `nethack-c/upstream/src/mklev.c:939–1171` (`fill_ordinary_room`); static `mksink` `:2316–2329`, `mkgrave` `:2353–2397`; callers `:962` (self-recursion) and `:1408` (makelevel fill loop). Supporting: `set_levltyp` `mkmaze.c:77–121` (recount `:106–108`), `CORPSTAT_INIT` `hack.h:1193` (= 0x08), `CAN_OVERWRITE_TERRAIN` `rm.h:320`.
+**JS:** `js/mklev.js` (+152/−133: `mksink` :28871, `mkgrave` :28882, `fill_ordinary_room` :28918; `mktrap_room` deleted); map section `docs/c-js-map/data.md` mklev/sp_lev lspo_map.
+**Change:** `js/mklev.js` only, in C order — `(u.uhave.amulet || !rn2(3))` short-circuit with `makemon` + spider check (`data?.mndx === PM_GIANT_SPIDER`, monmove.js idiom) + occupied-guarded `maketrap(WEB)`; trap loop calls live `mktrap(0, MKTRAP_NOFLAGS, croom, null)` (`mktrap_room` clone deleted); `Is_rogue_level(g.u?.uz)` wraps the dressing block (= `goto skip_nonrogue`); new module-local `mksink` (find_okay_roompos + SINK + nsinks++); `mkgrave_room` renamed to async `mkgrave` with C-order dobell draw + awaited `curse`; supply-chest tryct==50 + overflow4 + null-subroom `impossible` arms live. No new cross-module imports (every name already imported); Rule #2 clean, no DIAG/FORCE/seed logic.
+**Verify:** `node scripts/verify.mjs --fn fill_ordinary_room --reach-all` → PASS syntax (1 file: js/mklev.js) · PASS rule2 · note hidden (0 blocked) · PASS reach (495 baseline-PASS sessions reach it, 495 run, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) → VERIFY: PASS.
+**Named:** `set_levltyp` full `count_level_features` recount (`mkmaze.c:106–108`) — C recounts then `nsinks++`/`nfountains++` (net actual+1); `js/` keeps incremental counts per the named recount omit on trap.js `set_levltyp` (wizard-#terrain exact counts only; `sounds.c:220` audibility gate unaffected); pre-existing `mkfount`/`mkaltar` clones untouched (same incremental convention); supply_chest null guard kept (C doesn't check); `if (engrText)` empty-string gate kept from the prior port.
+**Next:** queue head after this ships per breadth phase.
 ## 2026-09-18 — D-2468 `pager.c` do_look whole-body port (clicklook + lootabc menu + supplemental lore)
 
 **C locus:** `nethack-c/upstream/src/pager.c:1673–1963` (`do_look(mode, click_cc)`); static `suptext1` `:2233–2242`, `suptext2` `:2244–2251`, `do_supplemental_info` `:2255–2315`; callers `dowhatis` `:2324`, `doquickwhatis` `:2331`.

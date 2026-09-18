@@ -702,8 +702,8 @@ C `align` → `induced_align`; **D-1906** 14 empty `des.object` `:74–87`, not 
 
 JS: `js/mklev.js` — partial
 
-Ordinary level path substantial; **`fill_ordinary_room` nsubrooms recursion before needfill** 
-(D-0917); mineralize bury-vs-place (D-0014); 
+Ordinary level path substantial; **`fill_ordinary_room` nsubrooms recursion before needfill**
+(D-0917) + **D-2469 `fill_ordinary_room` whole-body restart** (`mklev.c:939–1171` in C order: amulet-or-rn2(3) sleeper + spider-WEB, live `mktrap(0,NOFLAGS)` loop, `Is_rogue_level` skip, `mksink`/`mkgrave` live as same-file locals, 3 `impossible` arms; named omit: `count_level_features` recount quirk, incremental nsinks); mineralize bury-vs-place (D-0014); 
 `mktrap_victim` place_object ammo/possessions (D-0016) + **D-1519 floor gnome candle `begin_burn`** (`mklev.c:1918–1919` after `place_object`, `!levl[x][y].lit` → live `timeout.js` `begin_burn`; not `m_initinv` D-1506; **D-1533** `create_object` `o->lit`); 
 **`set_wall_state`/`xy_set_wall_state`** (D-0038); 
 **`makeniche` → real `mkclass(S_HUMAN)`** (D-0053); 
