@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-18 — D-2496 `steal.c` mpickobj whole-body port (thin 9 L → full C order)
+
+**C locus:** `nethack-c/upstream/src/steal.c:618–685` (`mpickobj`; 48 C refs). Callees all live: `impossible`/`pline`/`canseemon` (`display.js`, async fire-and-forget per makemon convention), `pmname`/`Mgender` (`do_name.js`), `simpleonames`/`Tobjnam` (`objnam.js`, exports imported — not the dothrow/detect local clones), `count_unpaid`+`Blind` (`invent.js`), `subfrombill`/`find_objowner` (`shk.js`, hoisted, same-SCC edge), `obj_sheds_light`/`snuff_light_source` (`light.js`), `unknow_object`/`carry_obj_effects`/`add_to_minv` (`mkobj.js`), `attacktype` (module-local mondata.h port, AT_ENGL=11 `:1720`), `engulfing_u`+LOST_* (`const.js`).
+**JS:** `js/makemon.js` `mpickobj` (`:2146`), imports (`:121`, `:130`, `:168`, `:170–171`, `:184–185`).
+**Change:** `js/makemon.js` only — `mpickobj` restarted in C order with `:line` cites: `:622–631` null/ball+chain guards (`game.u?.uball/uchain`, chain-vs-ball label, `simpleonames`); `:634–637` thrown/kicked clear (existing `game.thrownobj/kickedobj` mapping kept); `:640–643` unpaid bill (`otmp.cobj != null` ≡ Has_contents obj.h:334, `find_objowner(otmp, ox, oy)`); `:647–654` AT_ENGL snuff (`engulfing_u && !Blind()` → `` `${Tobjnam(otmp, 'go')} out.` ``); `:657` `no_charge = 0`; `:659–673` non-pet `unknow_object` (unseen && !== `game.u?.ustuck`) + LOST_THROWN→STOLEN / LOST_DROPPED→NONE (`|0` normalizes zero-init); `:675–684` carry-before-add + deferred `snuff_light_source(mx, my)`, returns freed flag. 6 import lines extended, no new module edges (all ALREADY static; shk edge hoisted-safe in existing SCC).
+**Verify:** `node scripts/verify.mjs --fn mpickobj` → PASS syntax (1 file: js/makemon.js) · rule2 · hidden note (no session blocked) · reach REACH-OK (no RNG tags, smoke 24/24, 0 regressed) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file changed). VERIFY: PASS.
+**Named:** none in the ported body — every C arm is live. Caller-side omissions above.
+**Next:** pop `mon.c` newcham (next Open — coverage row).
 ## 2026-09-18 — D-2495 `cmd.c` help_dir whole-body port (live-binding grid; prefixhandling/self via spkeys)
 
 **C locus:** `nethack-c/upstream/src/cmd.c:4171–4296` (`help_dir`, staticfn; sole code call site `cmd.c:4101` in `getdir`) + staticfn `show_direction_keys` (`cmd.c:4122–4165`). Callees: `create_nhwindow`/`putstr`/`display_nhwindow`/`destroy_nhwindow` (`show_text_pages` idiom, D-1806), `dowhatdoes_core` (`pager.js:2915` sync), `visctrl` (`dokeylist.js:42` sync), `cmd_from_func(do_move_*)` (live `cmd_from_dir(dir, MV_WALK)` — same move_funcs row-0 table), `letter`/`highc` (hacklib), `NODIAG(u.umonnum)` (hack.h PM_GRID_BUG-only).

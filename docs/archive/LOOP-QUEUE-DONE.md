@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-18
 
-- [x] `cmd.c` help_dir — coverage PARTIAL (C 122 L `cmd.c:4171–4296` / JS 64 L in js/lock.js; hops 1, callers 2, RNG 0, msg 20). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn help_dir` (reach regression must be 0). Measured `port-coverage.mjs --name help_dir` 2026-09-18 @ 6b72742e. **Addressed:** D-2495
+- [x] `steal.c` mpickobj — coverage THIN (C 67 L `steal.c:618–685` / JS 9 L in js/makemon.js; hops 2, callers 46, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mpickobj` (reach regression must be 0). Measured `port-coverage.mjs --name mpickobj` 2026-09-18 @ 6b72742e. **Addressed:** D-2496
+
+
+- [x] `cmd.c` help_dir — coverage PARTIAL (C 122 L `cmd.c:4171–4296` / JS 64 L in js/lock.js; hops 1, callers 2, RNG 0, msg 20). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn help_dir` (reach regression must be 0). Measured `port-coverage.mjs --name help_dir` 2026-09-18 @ 6b72742e. **Addressed:** D-2495 `c6909a83`
 
 
 - [x] `mon.c` setmangry — coverage PARTIAL (C 53 L `mon.c:4265–4318` / JS 28 L in js/mon.js; hops 2, callers 18, RNG 1, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn setmangry` (reach regression must be 0). Measured `port-coverage.mjs --name setmangry` 2026-09-18 @ 6b72742e. **Addressed:** D-2494 `12fef55e`

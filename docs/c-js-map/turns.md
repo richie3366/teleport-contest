@@ -3299,7 +3299,9 @@ next trailing exercise / seg1. **seed0367 @1946 getobj_takeoff (D-0634);
 @3282 intemple+teleds (D-0638/39); @3310 #chat quest_chat (D-0640); @3332 castmu (D-0641); 
 @3438 Pri-loca (D-0642–45); @15172 Pri-goal (D-0646; next @17449 minetn-2)**; 
 **`makedog` role petnames + `christen_monst`** (D-0079); 
-**`makedog` pony → `put_saddle_on_mon`** (D-0212); **`initedog` `u.uconduct.pets++`** (D-0125); 
+**`makedog` pony → `put_saddle_on_mon`** (D-0212); **`initedog` `u.uconduct.pets++`** (D-0125);
+**`steal.c` `mpickobj` `:618–685` live in `js/makemon.js`** (D-2496; restart in C order: null/ball+chain impossible guards, thrown/kicked clear, shop subfrombill, AT_ENGL snuff, no_charge, non-pet unknow/how_lost, carry+add_to_minv, deferred snuff_light_source);
+
 **`keepdogs`/`losedogs`/`levl_follower`/`mon_arrive` With_you** (D-0149; 
 **With_you `restore_cham` D-1637**; **keepdogs stay_behind + both leash
 arms D-1783** — C `dog.c:786–884`: trapped follower gets a `mintrap`

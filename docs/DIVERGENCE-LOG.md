@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2496 — `steal.c` mpickobj whole-body port (thin 9 L → full C order)
+
+- **Status:** fixed (breadth-phase coverage row: `steal.c` mpickobj THIN, C 67 L `steal.c:618–685` / JS 9 L in `js/makemon.js`; `hidden-proxy verify mpickobj`: no corpus session blocked).
+- **Symptom:** none — coverage row, not a divergence. The thin body only cleared thrown/kicked trackers and ran carry+add_to_minv; every other C arm was absent.
+- **C locus:** `nethack-c/upstream/src/steal.c:618–685` (`mpickobj`; 48 C refs). Callees all live: `impossible`/`pline`/`canseemon` (`display.js`, async fire-and-forget per makemon convention), `pmname`/`Mgender` (`do_name.js`), `simpleonames`/`Tobjnam` (`objnam.js`, exports imported — not the dothrow/detect local clones), `count_unpaid`+`Blind` (`invent.js`), `subfrombill`/`find_objowner` (`shk.js`, hoisted, same-SCC edge), `obj_sheds_light`/`snuff_light_source` (`light.js`), `unknow_object`/`carry_obj_effects`/`add_to_minv` (`mkobj.js`), `attacktype` (module-local mondata.h port, AT_ENGL=11 `:1720`), `engulfing_u`+LOST_* (`const.js`).
+- **JS was:** `js/makemon.js:2142` thin `mpickobj` (null→1, thrown/kicked clear, carry+add) — missing impossible guards, shop bill, light snuff, no_charge, unknow/how_lost arms.
+- **Fix:** `js/makemon.js` only — `mpickobj` restarted in C order with `:line` cites: `:622–631` null/ball+chain guards (`game.u?.uball/uchain`, chain-vs-ball label, `simpleonames`); `:634–637` thrown/kicked clear (existing `game.thrownobj/kickedobj` mapping kept); `:640–643` unpaid bill (`otmp.cobj != null` ≡ Has_contents obj.h:334, `find_objowner(otmp, ox, oy)`); `:647–654` AT_ENGL snuff (`engulfing_u && !Blind()` → `` `${Tobjnam(otmp, 'go')} out.` ``); `:657` `no_charge = 0`; `:659–673` non-pet `unknow_object` (unseen && !== `game.u?.ustuck`) + LOST_THROWN→STOLEN / LOST_DROPPED→NONE (`|0` normalizes zero-init); `:675–684` carry-before-add + deferred `snuff_light_source(mx, my)`, returns freed flag. 6 import lines extended, no new module edges (all ALREADY static; shk edge hoisted-safe in existing SCC).
+- **JS:** `js/makemon.js` `mpickobj` (`:2146`), imports (`:121`, `:130`, `:168`, `:170–171`, `:184–185`).
+- **Callers:** export name/signature unchanged (sync, returns int) — all existing JS sites stay wired: monmove, steed (`:291`), dokick (`:1159`), muse (`:2933`, `:3130`), mplayer (`:158`, `:289`, `:313`), dogmove (`:820`), shk (`:1348`), steal (`:481`, `:547`, `:665`), mhitu (`:1326`), uhitm (`:736`, `:2151`, `:2209`), mklev (×15 incl. `:24552` priest spellbooks ↔ C priest.c:266), minion (`:524`), dothrow (`:560`, `:1686`), trap (`:466`, `:2480`, `:5314`), wizard (`:596`), makemon internal (×10), mon (`:2482`). Named omissions: C `apply.c:1165` mirror-steal (deferred pline-only, `js/apply.js:703`), C `do.c:824` engulfer-drop (deferred, `js/do.js` dropz uswallow arm), C `priest.c:133` (`#if 0` dead code in C itself).
+- **Verify:** `node scripts/verify.mjs --fn mpickobj` → PASS syntax (1 file: js/makemon.js) · rule2 · hidden note (no session blocked) · reach REACH-OK (no RNG tags, smoke 24/24, 0 regressed) · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file changed). VERIFY: PASS.
+- **Named omissions:** none in the ported body — every C arm is live. Caller-side omissions above.
+- **Next:** pop `mon.c` newcham (next Open — coverage row).
+
 ## D-2495 — `cmd.c` help_dir whole-body port (live-binding grid; prefixhandling/self via spkeys)
 
 - **Status:** fixed (breadth-phase coverage row: `cmd.c` help_dir PARTIAL, C 122 L `cmd.c:4171–4296` / JS 64 L in `js/lock.js`; `hidden-proxy verify help_dir`: no corpus session blocked).
