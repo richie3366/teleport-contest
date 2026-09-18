@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-18 — D-2460 `weapon.c` mon_wield_item whole-body completion (mwelded refuse/weld + tether + impossible)
+
+**C locus:** `nethack-c/upstream/src/weapon.c:801–934` (`mon_wield_item`; NEED_HTH `:813–815` / NEED_RANGED + gp.propellor `:816–819` / NEED_PICK_AXE `:820–827` / NEED_AXE `:828–834` / NEED_PICK_OR_AXE `:835–847` / default impossible `:848–852`; same-otyp `:856–860`; mwelded refuse `:866–891`; wield + setmnotwielded `:892–894`; wield pline `:898–900`; tether `:901–903`; 3.6.3 weld toggle `:909–921`; artifact_light `:923–933`; final `owornmask = W_WEP`).
+**JS:** `js/weapon.js` only (1 file).
+**Change:** `js/weapon.js` restart of mon_wield_item in C order — impossible('weapon_check %d for %s?') + bare return-0 in default; mwelded refuse arm (bimanual/makeplural hand, otense/mhis weld buffer, PICK_AXE Since/cannot-wield vs tries-to-wield/Yname2 split, bknown=1, NO_WEAPON_WANTED return-1); `mon.mw = obj` + setmnotwielded (await its light-stop Promise) in C order; tether pline via the(xname); W_WEP-toggle newly_welded test + Tobjnam/is_plural weld pline; artifact_light arm kept + 3.6.3 invisible-monst comment; final `obj.owornmask = W_WEP`. Imports on existing edges: impossible (display.js), makeplural/Yname2/the/is_plural (objnam.js), bimanual (wield.js); new edge mhis (mondata.js) — SAFE per imports.mjs (hoisted fn, same 90-module SCC). `mon_has_shield` kept as `which_armor(mon, W_ARMS)` (`js/mon.js:413`).
+**Verify:** `node scripts/verify.mjs --fn mon_wield_item` → PASS syntax (1 file) · PASS rule2 · hidden 0 blocked · REACH smoke spread 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file changed).
+**Named:** none new in-body (every arm live); the two caller defers above stay with their owners (dogmove/vault ports).
+**Next:** queue head after this ships is `display.c` docrt_flags (MISSING).
 ## 2026-09-18 — D-2459 `dog.c` mon_arrive whole-body completion (missing arms + callers wired)
 
 **C locus:** `nethack-c/upstream/src/dog.c:419–623` (`mon_arrive`; when-enum `:15–19` Before_you 0/With_you 1/After_you 2/Wiz_arrive −1; head `:430–461`; With_you `:468–479`; Wiz_arrive `:481–485`; catchup `:491–500`; xyloc switch `:502–574`; LEFTOVERS `:576–580`; jitter `:582–605`; place `:607–613`; tail `:614–621`); `mon.c:2561–2590` (`relmon`); callers dog.c `:371/:383/:397` (losedogs `:303–415`) + wizard.c `:748` (resurrect `:730–756`).

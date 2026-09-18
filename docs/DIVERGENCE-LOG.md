@@ -1,5 +1,20 @@
 # Divergence log
 
+## D-2460 — `weapon.c` mon_wield_item whole-body completion (mwelded refuse/weld + tether + impossible)
+
+- **Status:** fixed (Open coverage row: mon_wield_item PARTIAL C 133 L `weapon.c:801–934` / JS 75 L in js/weapon.js; hops 1, callers 10, RNG 0, msg 9).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify mon_wield_item`: 0 blocked at baseline). JS had the switch + same-otyp early-0 + wield pline + artifact_light arm but left three live arms as a free switch: mwelded refuse-wield, weld-on-wield, autoreturn tether. Default skipped C's impossible and wrongly reset weapon_check; old-weapon release cleared W_WEP inline instead of setmnotwielded; final owornmask OR'd instead of C's assignment.
+- **C locus:** `nethack-c/upstream/src/weapon.c:801–934` (`mon_wield_item`; NEED_HTH `:813–815` / NEED_RANGED + gp.propellor `:816–819` / NEED_PICK_AXE `:820–827` / NEED_AXE `:828–834` / NEED_PICK_OR_AXE `:835–847` / default impossible `:848–852`; same-otyp `:856–860`; mwelded refuse `:866–891`; wield + setmnotwielded `:892–894`; wield pline `:898–900`; tether `:901–903`; 3.6.3 weld toggle `:909–921`; artifact_light `:923–933`; final `owornmask = W_WEP`).
+- **JS was:** `js/weapon.js:717` thin port (doc named the three defers); default set NEED_WEAPON with no impossible; inline `mw_tmp.owornmask &= ~W_WEP`; final `|= W_WEP`.
+- **Fix:** `js/weapon.js` restart of mon_wield_item in C order — impossible('weapon_check %d for %s?') + bare return-0 in default; mwelded refuse arm (bimanual/makeplural hand, otense/mhis weld buffer, PICK_AXE Since/cannot-wield vs tries-to-wield/Yname2 split, bknown=1, NO_WEAPON_WANTED return-1); `mon.mw = obj` + setmnotwielded (await its light-stop Promise) in C order; tether pline via the(xname); W_WEP-toggle newly_welded test + Tobjnam/is_plural weld pline; artifact_light arm kept + 3.6.3 invisible-monst comment; final `obj.owornmask = W_WEP`. Imports on existing edges: impossible (display.js), makeplural/Yname2/the/is_plural (objnam.js), bimanual (wield.js); new edge mhis (mondata.js) — SAFE per imports.mjs (hoisted fn, same 90-module SCC). `mon_has_shield` kept as `which_armor(mon, W_ARMS)` (`js/mon.js:413`).
+- **JS:** `js/weapon.js` only (1 file).
+- **Callers:** dog.c:212 → js/dog.js:283 wired; dog.c:1279 → js/dog.js:709 wired; mhitm.c:408 → js/mhitm.js:4940 wired; mhitu.c:897 → js/mhitu.js:4255 wired; monmove.c:857 dochug → js/monmove.js:2441 wired; monmove.c:1131 m_digweapon_check → js/monmove.js:593 wired; mthrowu.c:979 → js/mthrowu.js:1338 wired; mthrowu.c:1187 → js/mthrowu.js:1393 wired. Named omissions: dogmove.c:469 dog_pickup AT_WEAP wield + check_gear_next_turn (js/dogmove.js:810 comment; no AT_WEAP pet); vault.c:539 invault Croesus-dead angry wield (js/vault.js:782 comment; guard-revival arm unported).
+- **Verify:** `node scripts/verify.mjs --fn mon_wield_item` → PASS syntax (1 file) · PASS rule2 · hidden 0 blocked · REACH smoke spread 24/24 → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file changed).
+- **Named omissions:** none new in-body (every arm live); the two caller defers above stay with their owners (dogmove/vault ports).
+- **Next:** queue head after this ships is `display.c` docrt_flags (MISSING).
+
+---
+
 ## D-2459 — `dog.c` mon_arrive whole-body completion (missing arms + callers wired)
 
 - **Status:** fixed (Open coverage row: mon_arrive MISSING C 203 L `dog.c:420–623` / JS split helpers only; hops 2, callers 12, RNG 5, msg 0). Popped after parking display_pickinv + mhitm_ad_phys as Stale (both split-complete, 0 blocked — Parked lines 2026-09-18).
