@@ -69,3 +69,5 @@ This audit: `csym` `:3956–4119` gate `:4098` vs HEAD `js/lock.js:560`. Rule #2
 None in this peel. Named (map, not Must-fix): mouse `_`; fuzzer; `cmd_from_func` keys; rhack `dxdy_moveok`; trailing `confdir`; `wishcmdassist` / `makewish` `flags.cmdassist`.
 
 Verdict: **ACCEPT**
+
+**Addressed:** D-2484

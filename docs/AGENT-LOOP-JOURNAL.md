@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-18 — D-2484 `zap.c` wishcmdassist whole-body port (makewish help arm wired)
+
+**C locus:** `nethack-c/upstream/src/zap.c:6165–6219` (`wishcmdassist`, staticfn); sole live caller `makewish` `:6348–6351` (`wishcmdassist(MAXWISHTRY - tries)` on `!strcmpi(buf, "help")`, then clear + `goto retry`). `apply.c:635` is a comment-only cardinal-names mention, not a call; `zap.c:42` is the prototype.
+**JS:** `js/zap.js` — `wishcmdassist` (new export), `WISHCMDASSIST_INFO`, `plur` (file-local), `makewish` (help arm + iflags predicate).
+**Change:** `js/zap.js` only + one import — new `export async function wishcmdassist(triesleft)` in C order: `WISHCMDASSIST_INFO[]` (all 15 `wishinfo` lines verbatim, trailing 0 excluded per `SIZE - 1`), wishless-conduct line while `!(u.uconduct.wishes)`, blank, `retry_info` line (cardinal word for 0–5 else `too many`, ` more` while `triesleft < MAXWISHTRY`, local `plur` sibling-idiom), `retry_too` + blank, suppress-cmdassist line while `iflags.cmdassist`; window via live `show_text_pages` (pager.js — the NHW_TEXT path `help_dir` uses; `imports.mjs --can` hoisted/cycle-safe), with `!game.nhDisplay` early return for C `if (!win) return`. Caller: `makewish` awaits `wishcmdassist(MAXWISHTRY - tries)` before the clear + `continue` (C clear-then-retry), and the prompt suffix now reads `game.iflags?.cmdassist` per C `:6330` (review 784 predicate). RNG 0 — none added.
+**Verify:** `node scripts/verify.mjs --fn wishcmdassist` → PASS (syntax 1 file `js/zap.js`; rule2; hidden note: no corpus session blocked; reach: no RNG tags, smoke 24/24 REACH-OK; green 2/2; strict ×2; cohort 7/7; full skipped — no shared file changed).
+**Named:** `wish_history_add`/`wish_history_menu` DEBUG menu (pre-existing no-op/deferred, map turns.md); MAXWISHTRY retry loop for unrecognized names (pre-existing single-shot fall-through, unchanged).
+**Next:** continue breadth phase at the next Open — coverage row.
 ## 2026-09-18 — D-2483 `objnam.c` xname_flags whole-body port (export + SINGULAR/override_ID callers wired)
 
 **C locus:** `nethack-c/upstream/src/objnam.c:581–1029` (`xname_flags`); callers `xname` `:575–578`, `cxname_singular` `:1934–1939`.

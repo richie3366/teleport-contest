@@ -607,7 +607,7 @@ zapyourself WAN_LIGHT/CAMERA D-1366**; **`zapnodir` WAN_CREATE_MONSTER `create_c
 `declined to make a wish` nothing-arm, hands_obj terrain no-log,
 `artifact_origin(ONAME_WISH|ONAME_KNOW_ARTI)` bookkeeping,
 `"%s", got "%s"` + post-increment first/first-artifact/`wished for` trio;
-`wish_history_add/menu`/`wishcmdassist`/MAXWISHTRY retry still deferred);
+`wish_history_add/menu`/MAXWISHTRY retry still deferred; `wishcmdassist` live D-2484);
 **`makewish` wish-delivery `hold_another_object` tail** (D-2156; C
 `zap.c:6401–6420`: fatal-corpse `wishedfor=1` via `u_safe_from_fatal_corpse`/
 `st_all`, verb `slip`/`materialize`/`drop` + oops reach/away/floor/`Careful`
