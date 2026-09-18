@@ -5,7 +5,7 @@
 
 import { game } from './gstate.js';
 import { rn2, rnd, d } from './rng.js';
-import { dochugw, m_everyturn_effect, monflee, can_hide_under_obj, can_fog } from './monmove.js';
+import { dochugw, m_everyturn_effect, monflee, can_hide_under_obj, can_fog, mon_offmap } from './monmove.js';
 import {
     COLNO, ROWNO, IS_OBSTRUCTED, IS_DOOR, IS_TREE, D_CLOSED, D_LOCKED, D_BROKEN,
     ALLOW_ROCK, ALLOW_DIG, Is_rogue_level, NOTONL, ALLOW_ALL, ALLOW_BARS,
@@ -2509,10 +2509,34 @@ async function minliquid_core(mtmp) {
     return 0;
 }
 
-// C ref: mondata.h unique_corpstat — G_UNIQ. Local (same shape as the
-// teleport.js/trap.js/music.js locals; mondata.js monsndx stays unexported).
-function unique_corpstat(ptr) {
+// C ref: mondata.h unique_corpstat — G_UNIQ. Exported (was file-local);
+// uhitm.c xkilled tame-murder gamelog shares it (no fifth local).
+export function unique_corpstat(ptr) {
     return !!((ptr?.geno | 0) & G_UNIQ);
+}
+
+/**
+ * C ref: mon.c iter_mons `:4527–4540` — call vfunc for every living
+ * on-level monster. DEADMONSTER is `mhp < 1`; fmon is a JS array (no nmon
+ * unlink hazard), so the C mtmp2 snapshot is the loop itself.
+ */
+export async function iter_mons(vfunc) {
+    for (const mtmp of game.fmon || []) {
+        if ((mtmp.mhp | 0) < 1 || mon_offmap(mtmp)) continue;
+        await vfunc(mtmp);
+    }
+}
+
+/**
+ * C ref: mon.c anger_quest_guardians `:3072–3077` (staticfn) — anger the
+ * quest guards on the level. Guard comparison by mndx (mon.js:1016 idiom);
+ * setmangry is async.
+ */
+export async function anger_quest_guardians(mtmp) {
+    const guardnum = game.urole?.guardnum | 0;
+    if ((mtmp.data?.mndx ?? mtmp.mnum ?? NON_PM) === guardnum) {
+        await setmangry(mtmp, true);
+    }
 }
 
 // C ref: mon.c mm_2way_aggression `:2387–2420` — the two-way half of

@@ -2343,7 +2343,7 @@ function completelyburns_mm(data) {
 }
 
 /** C ref: mon.c mlifesaver — worn AMULET_OF_LIFE_SAVING on living/vampshift. */
-function mlifesaver(mon) {
+export function mlifesaver(mon) {
     if (!mon?.data) return null;
     if (!nonliving(mon.data) || is_vampshifter(mon)) {
         const otmp = which_armor(mon, W_AMUL);

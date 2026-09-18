@@ -370,8 +370,8 @@ polyself `newman` `learn_egg_type` `TRUE` pair live `js/polyself.js:1187-1196` D
 **mhitm `mondied`→`make_corpse` ordinary** (D-0167); 
 **`xkilled`→`make_corpse` when `corpse_chance`** (D-0191); 
 **`xkilled` treasure `mkobj(RANDOM_CLASS)` + food/size filters** (D-0229); 
-**`xkilled` `adjalign(malign)` + peaceful −5** (D-0251; 
-quest/nemesis/guardian/priest/tame specials + peaceful luck rn2 deferred); 
+**`xkilled` `adjalign(malign)` + peaceful −5** (D-0251; superseded by D-2444
+whole-body port — leader/nemesis/guardian/priest/tame/peaceful arms live); 
 **`make_corpse` undead specials before `G_NOCORPSE`** (D-0271; trap shares `mhitm` export); 
 **`make_corpse` pudding→GLOB + `obj_nexto`/`obj_meld`** (D-0993); 
 **`make_corpse` special-corpse table** (D-1794; dragon scales `rn2(mrevived?20:3)`, 
@@ -386,14 +386,24 @@ Vlad/lich dust, youmonst stomach boom);
 short-circuit; `accessible` export uses `SURFACE_AT`; `artifact_exists` `!mod` 
 clears `artiexist`; `corpse_chance` clones duplicate the macro as C does; 
 `make_corpse` bury via `m_carrying` BOULDER; human-murder luck-2 + unicorn luck-5); 
-omit cham/were restore before monsndx (`mondead`, not `make_corpse`), 
-flooreffects non-floor arms, floor-boulder `sobj_at` nocorpse, MAIL_DAEMON, 
-wasinside `spoteffects`, Blind_telepat `see_monsters`, quest adjalign arms, genus/other 
-mon.c helpers; 
+omit cham/were restore before monsndx (`mondead`, not `make_corpse`), genus/other 
+mon.c helpers;
+**`xkilled` whole body** (D-2444; `js/uhitm.js` restart in C order — conduct,
+message, pit `t_at`/`is_pit` + floor-boulder `sobj_at` nocorpse / carried-boulder
+bury, pet `killed_by_u`, engulfer missile via `mpickobj`, `vamp_rise_msg` +
+`disintegested` writers around `monstone`/`mondead`, lifesaved "Maybe not...",
+`be_sad`, MAIL_DAEMON `SCR_MAIL`, treasure `!rn2(6)` gates + `flooreffects`
+gate, corpse + buried message, museum copy + `spoteffects`, unconditional
+`newsym`, murder `see_monsters` via `hero_Blind_telepat`, quest/priest/tame/
+peaceful adjalign + `iter_mons(anger_quest_guardians)` (`js/mon.js` ports),
+tame `Soundeffect` + `LL_KILLEDPET` gamelog, malign; `zap.c`
+`disintegrate_mon` ported with both `dobuzz` sites wired); omit only the
+unported caller functions `mhitm_ad_rust`/`mhitm_ad_fire` uhitm arms
+(`uhitm.c:2294/2547`) and `wiz_kill` (`wizcmds.c:315`) — own coverage rows; 
 **`mondead`** (D-2147; `js/mhitm.js` export, `uhitm.js`/`trap.js` clones removed): be_sad clear, cham/were restore, mvitals, quest-leader mark, mail-daemon `G_GENOD`, S_KOP `rnd(5)`+`makemon` in C order; 
 **`mondead` tail** (D-2231; `js/mhitm.js` async export + `mon.js`/`vault.js`/`shk.js` edges): `set_mon_min_mhpmax`, `lifesaved_monster` (amulet+wary_dog+genocided), `vamprises` (door smash + trapped-door kill D-2273 via canonical `monmove.js` `mb_trapped`), `grddead` (vault corridor+gold), `logdeadmon` (Medusa+livelog cadence), `thiefdead` (stealmid + stealarm→unstolenarm swap; `stealarm`/`unstolenarm` live in `steal.js`, `steal()` sets `afternmv`, D-2271), `shkgone` (resident/no_charge/setpaid/bill/ushops), full `m_detach` (unleash/light/mon_leaving/wizdead/nemesis/leader/relobj+gated newsym/purge/dismount), async `mondead` + `monstone`/`monkilled` wiring, all callers await;
 **`shkgone` damage/`has_shop`** (this D; `js/shk.js` `discard_damage_owned_by` + `js/mhitm.js` has_shop clear via canonical `sounds.js` `search_special` export);
-`minimal_monnam` live (D-2375; turns.md `do_name.c` row); omit `mongone` FALSE caller, xkilled disinteg/readers, sync `kill_genocided_monsters` nuance (`stinky_nemesis` gas live D-2270);
+`minimal_monnam` live (D-2375; turns.md `do_name.c` row); omit `mongone` FALSE caller, sync `kill_genocided_monsters` nuance (`stinky_nemesis` gas live D-2270);
 omit `teleport.js` `search_special` ANY_TYPE arm (clone drift; canonical export is `sounds.js`)
 
 ### `src/mondata.c` growth

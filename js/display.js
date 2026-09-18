@@ -950,7 +950,7 @@ function hero_HTelepat() {
     const u = game.u || {};
     return (u.HTelepat | 0) || (u.uprops?.[TELEPAT]?.intrinsic | 0);
 }
-function hero_Blind_telepat() {
+export function hero_Blind_telepat() {
     return !!(hero_HTelepat() || hero_ETelepat());
 }
 function hero_Unblind_telepat() {
