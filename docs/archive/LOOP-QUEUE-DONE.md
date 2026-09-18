@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-18
 
-- [x] `objnam.c` doname_base — coverage MISSING (C 526 L `objnam.c:1223–1751` / JS no symbol; hops 3, callers 4, RNG 0, msg 16; dead callees: sitoa; split? cited 39× in js/ — brief first). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn doname_base` (reach regression must be 0). Measured `port-coverage.mjs --name doname_base` 2026-09-19 @ d6cf97e2. **Addressed:** D-2497
+- [x] `botl.c` evaluate_and_notify_windowport — coverage MISSING (C 57 L `botl.c:1621–1680` / JS no symbol; hops 2, callers 1, RNG 0, msg 0; dead callees: eval_notify_windowport_field). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn evaluate_and_notify_windowport` (reach regression must be 0). Measured `port-coverage.mjs --name evaluate_and_notify_windowport` 2026-09-19 @ d6cf97e2. **Addressed:** D-2498
+
+
+- [x] `objnam.c` doname_base — coverage MISSING (C 526 L `objnam.c:1223–1751` / JS no symbol; hops 3, callers 4, RNG 0, msg 16; dead callees: sitoa; split? cited 39× in js/ — brief first). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn doname_base` (reach regression must be 0). Measured `port-coverage.mjs --name doname_base` 2026-09-19 @ d6cf97e2. **Addressed:** D-2497 `2a0c6559`
 
 
 - [x] `steal.c` mpickobj — coverage THIN (C 67 L `steal.c:618–685` / JS 9 L in js/makemon.js; hops 2, callers 46, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mpickobj` (reach regression must be 0). Measured `port-coverage.mjs --name mpickobj` 2026-09-18 @ 6b72742e. **Addressed:** D-2496 `d6cf97e2`
