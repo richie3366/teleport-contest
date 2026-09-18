@@ -22,33 +22,31 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-16** — full `sessions` on the working tree
-(audit **1386–1390**).
+Score last measured: **2026-09-18** — full `sessions` on the working tree
+(audit **1391–1398**).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`48+0.29/turn` (R² 0.79).
+`65+0.41/turn` (R² 0.79).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge, 2026-09-17)** | **11 / 44**, 5,637 / 11,265 pts, RNG **26.6 %**, rngSteps 81.5 %, screens **50.0 %** |
+| **Held-out (judge, 2026-09-18)** | **11 / 44**, 5,637 / 11,265 pts, RNG **26.6 %**, rngSteps 81.5 %, screens **50.0 %** |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `48+0.29/turn` (R² 0.79) |
+| Speed label | `65+0.41/turn` (R² 0.79) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 4/22, 2nd agentic; best agentic fork 35/44, RNG 98.5 %,
 screens 93.2 %. Held-out moved 7 → 11 over 2026-09-06..17 while the local
 corpus went 48 % → 91.7 %: the corpus no longer predicts the judge.
-**Corpus fortress** (`docs/HIDDEN-PROXY.md`, re-scored 2026-09-16 audit
-1386–1390): **495 / 540 PASS (91.7 %)** excl. 13 env-only rows; RNG 99.3 %;
-screens 99.0 %. Remaining owners: `distfleeck` ×4, `do_statusline2` ×4,
-1-block singles — all parked symptom owners needing C instrumentation
-(phase 2). A PASS→FAIL on re-score is a Must-fix row naming the SHA.
-Reviews 1225–1390: 151 ACCEPT, 3 ACCEPT-WITH-DEBT, 1 DEBT, 6 QUALITY-RISK (all Must-fix shipped).
+**Corpus fortress** (re-scored 2026-09-18 audit 1391–1398): **492 / 540
+PASS (91.1 %)** excl. 13 env-only; RNG 99.28 %, screens 98.9 %. Down from
+495/540: 3 PASS→FAIL bisected to `1d21e3be` getdir (Must-fix, Next cluster).
+Reviews 1225–1398: 156 ACCEPT, 4 WITH-DEBT, 1 DEBT, 8 QUALITY-RISK (3 Must-fix pending).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx (both map notes).
 Audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s) + `leaderboard.mjs`.
 
@@ -99,7 +97,7 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `hack.c` test_move — coverage MISSING (C 261 L `hack.c:991–1255` / JS no symbol; hops 2, callers 19, RNG 0, msg 14; split? cited 79× in js/ — brief first). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn test_move` (reach regression must be 0). Measured `port-coverage.mjs --name test_move` 2026-09-18 @ a35f6369.
+**Next cluster:** Must-fix getdir dz (1393 QR, 3 flips, one-block delete), then dogaze `setmangry` (1395), then first Open — coverage row. (C 261 L `hack.c:991–1255` / JS no symbol; hops 2, callers 19, RNG 0, msg 14; split? cited 79× in js/ — brief first). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn test_move` (reach regression must be 0). Measured `port-coverage.mjs --name test_move` 2026-09-18 @ a35f6369.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2439 (index).**
 <!-- recent:begin -->

@@ -1401,3 +1401,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1388-13f2a1ea-mktrap-victim-gate.md](./1388-13f2a1ea-mktrap-victim-gate.md) | `13f2a1ea` | D-2429 mktrap victim gate | **ACCEPT** |
 | [1389-f768f270-getdir-trailing-confdir.md](./1389-f768f270-getdir-trailing-confdir.md) | `f768f270` | D-2430 getdir trailing confdir | **ACCEPT** |
 | [1390-c2935846-fire-trap-xtradmg-guard.md](./1390-c2935846-fire-trap-xtradmg-guard.md) | `c2935846` | D-2431 fire-trap xtradmg guard | **ACCEPT** |
+| [1391-3ea4873c-polymon-whole-body.md](./1391-3ea4873c-polymon-whole-body.md) | `3ea4873c` | D-2432 polymon whole body | **ACCEPT** |
+| [1392-acf54d66-newcham-whole-body.md](./1392-acf54d66-newcham-whole-body.md) | `acf54d66` | D-2433 newcham whole body | **ACCEPT** |
+| [1393-1d21e3be-getdir-whole-body.md](./1393-1d21e3be-getdir-whole-body.md) | `1d21e3be` | D-2434 getdir whole body | **QUALITY-RISK** |
+| [1394-3a25da21-really-done-whole-body.md](./1394-3a25da21-really-done-whole-body.md) | `3a25da21` | D-2435 really_done whole body | **ACCEPT** |
+| [1395-c9f61087-dogaze-dospinweb-rehumanize.md](./1395-c9f61087-dogaze-dospinweb-rehumanize.md) | `c9f61087` | D-2436 dogaze/dospinweb/rehumanize | **QUALITY-RISK** |
+| [1396-f3b5aaa5-init-dungeons-whole-body.md](./1396-f3b5aaa5-init-dungeons-whole-body.md) | `f3b5aaa5` | D-2437 init_dungeons whole body | **ACCEPT** |
+| [1397-a28c8688-adjattrib-whole-body.md](./1397-a28c8688-adjattrib-whole-body.md) | `a28c8688` | D-2438 adjattrib whole body | **ACCEPT** |
+| [1398-e6289b5b-test-move-whole-body.md](./1398-e6289b5b-test-move-whole-body.md) | `e6289b5b` | D-2439 test_move whole body | **ACCEPT-WITH-DEBT** |

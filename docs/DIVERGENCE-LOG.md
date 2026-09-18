@@ -1078,7 +1078,7 @@
 
 ## D-2352 — `pickup.c` count-N PICK_ONE arm drops PICK_ANY-only FEEL_COCKATRICE abort + SORTLOOT_PETRIFY (review 1316 Must-fix)
 
-- **Status:** fixed (Must-fix queue head from review 1316 `query_objlist_pickup` count-N arm; review stamped **Addressed:** D-2352.)
+- **Status:** fixed (Must-fix queue head from review 1316 `query_objlist_pickup` count-N arm; review stamped **Addressed:** D-2352 9cc2b25f.)
 - **Symptom:** no corpus divergence (0 sessions blocked) — C-wrong on a newly live arm: C shows `"Pick N of what?"` while JS `look_here`-aborted whenever a feelable cockatrice corpse was ranked (allowed with quan≥N, or augment-included with quan<N) alongside 2+ qualifying piles.
 - **C locus:** `nethack-c/upstream/src/pickup.c` `pickup` `:761–772` (count-N arm: `"Pick %d of what?"` + PICK_ONE `n_or_more`, no FEEL_COCKATRICE) vs `:774–776` (PICK_ANY arm: `traverse_how | FEEL_COCKATRICE`); `query_objlist` gates both the `SORTLOOT_PETRIFY` augment and the CORPSE `will_feel_cockatrice` menu-destroy/`look_here(0)` abort on `qflags & FEEL_COCKATRICE`.
 - **JS was:** `js/pickup.js` `query_objlist_pickup` unconditionally set `sortflags = SORTLOOT_PETRIFY` and always `will_feel`-aborted to `look_here` — correct for PICK_ANY manual (D-1599), wrong for the new count-N PICK_ONE arm (D-2350).
@@ -1090,7 +1090,7 @@
 
 ## D-2351 — `end.c` done_in_by vampire-bat arm polarity (`!==` → `===`)
 
-- **Status:** fixed (Must-fix queue head from review 1314 `done_in_by` imitator predicate; review stamped **Addressed:** D-2351.)
+- **Status:** fixed (Must-fix queue head from review 1314 `done_in_by` imitator predicate; review stamped **Addressed:** D-2351 736bd185.)
 - **Symptom:** shifted-vampire killer epitaphs contradicted C in both directions: a vampshifter in bat form printed "vampire in vampire bat form" (C: "vampire in bat form"), and a vampshifter in fog form printed "in bat form" (C keeps "fog cloud").
 - **C locus:** `nethack-c/upstream/src/end.c` imitator arm (`else if (alt && strstri(realnm, "vampire") && !strcmp(fakenm, "vampire bat"))` → `fakenm = "bat"`, comment: prefer "vampire in bat form" over "vampire in vampire bat form"); reachable for vampshifter killers (`cham` ∈ vampire/leader/Vlad, `monst.h:217-219`, fog-or-bat forms).
 - **JS was:** `js/end.js:1241` fired on `fakenm !== 'vampire bat'` → `'bat'` — the exact inversion of C's `!strcmp` equality.
@@ -1126,7 +1126,7 @@
 
 ## D-2348 — `end.c` done_in_by imitator predicate: permonst index compare (review 1307 Must-fix)
 
-- **Status:** fixed (Must-fix queue head from review 1307 `done_in_by` imitator predicate; review stamped **Addressed:** D-2348.)
+- **Status:** fixed (Must-fix queue head from review 1307 `done_in_by` imitator predicate; review stamped **Addressed:** D-2348 aa08fdb3.)
 - **Symptom:** true-form shapechangers (birth-state `cham == mndx`) wrongly took the D-2341 imitator arm — epitaph "chameleon imitating a chameleon" (Vlad: "in Vlad the Impaler form") — and the G_UNIQ `"the "` gate (`!(imitator && !mimicker)`) wrongly suppressed for true-form unique shifters.
 - **C locus:** `nethack-c/upstream/src/end.c` `done_in_by` `:184-190` (`mptr = mtmp->data`, `champtr = ismnum(cham) ? &mons[cham] : mptr`, `imitator = (mptr != champtr || mimicker)` — permonst pointer compare); birth state `makemon.c:1355-1359` (`cham = pm_to_cham(mndx)`) with `pm_to_cham` returning `mndx` itself (`mon.c:535-546`), so C reads `mptr == champtr`, imitator false.
 - **JS was:** `js/end.js:1208` `const imitator = mptr !== champtr || mimicker` — object identity, but `mons()` returns a fresh object per call (`js/monsters.js:203`), so any `ismnum(cham)` read imitator=true even when `cham == mndx`.
