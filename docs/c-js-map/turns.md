@@ -751,7 +751,8 @@ SCR/SPE_CONFUSE_MONSTER `seffect_confuse_monster` + SCR_SCARE_MONSTER/SPE_CAUSE_
 (`forget`) + SCR_EARTH `seffect_earth` (`drop_boulder_on_player/monster`; `has_ceiling`/`avoid_ceiling` live `js/dungeon.js` D-1961; dothrow/mon/potion `has_ceiling` clones stay named) + 
 SCR_STINKING_CLOUD `seffect_stinking_cloud` (`do_stinking_cloud`, `can_center_cloud`, 
 `display_stinking_cloud_positions`, `p_glow3`) (D-1896; seffects dispatch + doread gate; 
-enchant-armor `adj_abon`/`maybe_adjust_light` named; mail `readmail` live `js/mail.js` (D-1958; MAILREADER spawn + `getmailstatus` stat named)**; 
+enchant-armor `adj_abon`/`maybe_adjust_light` named; mail `readmail` live `js/mail.js` (D-1958; MAILREADER spawn + `getmailstatus` stat named)**;
+**`mail.c` `newmail` + `md_start`/`md_stop`/`md_rush`** (D-2478; `js/mail.js` in C order — `md_start` Blind/stairwell/farthest-edge arms, `md_stop` 3×3 + `enexto` fallback, `md_rush` off-map greedy descent + displacement + crowded-refusal, exported async `newmail` with SCR_MAIL handoff + MSG_OTHER `Hark!` fallback; `place_worm_seg` newly exported from `js/worm.js`, all other callees live; `ckmailstatus` stat/broadcast/mustgetmail callers + `newphone` stay named); 
 omit other `seffect_*` (punishment done D-0908; create is D-1401; 
 mapping is D-1407; fire is D-2032 (confused/underwater/blessed-getpos + tower/burn_away_slime + explode; doread allowlist + nodisappear); blank-paper live D-2169 (`seffect_blank_paper` read.c:2005-2012 Blind/pline + known, seffects case + doread time-taking)), fortune/shirt/credit/marker/coin/orb/candy-read, their Braille arms, Rogue 
 `unblock_point` on blessed SDOOR, `can_chant` poly silent/headless/buzz/burble; 

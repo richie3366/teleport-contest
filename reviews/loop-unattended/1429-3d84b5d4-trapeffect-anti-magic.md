@@ -105,4 +105,4 @@ One 129-line C function + wire, one module: right-sized.
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-2477
+**Addressed:** D-2477 `1ba77343`
