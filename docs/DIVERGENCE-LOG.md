@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2465 — `eat.c` fpostfx whole-body port (all 7 food post-effects)
+
+- **Status:** fixed (Open coverage row: fpostfx MISSING C 92 L `eat.c:2510–2600` / JS no symbol; hops 4, callers 2, RNG 7, msg 4). Also parks the popped makeplural PARTIAL row as Stale in this same iteration (body already complete — see Parked).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify fpostfx`: no corpus session blocked on it at baseline).
+- **C locus:** `nethack-c/upstream/src/eat.c:2510–2600` (`fpostfx`, staticfn); sole caller `done_eating` `:562–565`.
+- **JS was:** `js/eat.js` done_eating inlined 3 of 7 arms (cookie rumor only, wolfsbane, royal jelly); CARROT/EGG/EUCALYPTUS_LEAF/APPLE plus the cookie literate-conduct had no JS counterpart (turns.md map-named omits).
+- **Fix:** new module-local `async function fpostfx(otmp)` (`js/eat.js:1980`) in C order — `:2513–2516` wolfsbane `you_unwere(TRUE)` (moved verbatim); `:2517–2521` carrot `make_blinded(ucreamed)` unless swallowed-by-blinding-engulf (in-file `attacktype_fordmg` + local AT_ENGL/AD_BLND=11 per monattk.h `:21`/`:53`); `:2522–2528` cookie `outrumor` + `literate++` gated on !Blind with first-read `livelog_printf(LL_CONDUCT)`; `:2529–2559` jelly (moved verbatim: queen morph/gainstr/HP/`done`/heal_legs); `:2560–2575` petrifier-egg `make_stoned(5, killer "%s egg")` unless Stone-resistant, stone-golem-morphed, or already Stoned; `:2576–2581` eucalyptus `make_sick(SICK_ALL)`/`make_vomiting` when uncursed; `:2582–2599` cursed-apple Snow-White (dwarf+Hallu verbalize; Deaf/sound-off pline "You fall asleep."; else Soundeffect + canonical `You_hear`; `fall_asleep(-rn1(11,20))`). done_eating dispatches cpostfx/fpostfx per C `:562–565`. New edges: pline.js `livelog_printf`, sndprocs.js `Soundeffect`, generated seffects_data.js `se_sinister_laughter` (all imports.mjs SAFE); verbalize/You_hear/fall_asleep join the existing display.js/hack.js edges; SICK_ALL/LL_CONDUCT join the const.js edge. No DIAG/FORCE/seed logic; Rule #2 clean.
+- **JS:** `js/eat.js` only (+205/−49 with header consts/imports; one file).
+- **Callers:** C `eat.c:565` done_eating `fpostfx(piece)` → `js/eat.js:2146` done_eating `await fpostfx(piece)` (same position, before useup); C `eat.c:2177` is a comment, not a call site. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn fpostfx` → PASS syntax (1 file: js/eat.js) · PASS rule2 · note hidden (0 blocked) · PASS reach (no RNG-tagged reach; smoke 24/24 → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 → VERIFY: PASS; plus full `sessions` 44/44 PASS (run manually since eat.js is central).
+- **Named omissions:** none new in this body. In-file `attacktype_fordmg` clone kept (cycle-avoidance per its doc; canonical `uhitm.js:529` not imported — no new edge); Deaf triple inlined from youprop.h `:125` (apply.js Deaf_hero is the same predicate + u.Deaf sticky but module-local there). The turns.md eat-section `fpostfx CARROT/EGG` named omit is retired by this port.
+- **Next:** queue head after this ships per breadth phase.
+
 ## D-2464 — `pline.c` verbalize whole-body port (PLINE_VERBALIZE flag + variadic format)
 
 - **Status:** fixed (Open coverage row: verbalize THIN C 14 L `pline.c:476–490` / JS 4 L in js/display.js; hops 2, callers 148, RNG 0, msg 2; dead callees: You_buf).

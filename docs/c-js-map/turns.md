@@ -1895,7 +1895,7 @@ useupf clone, detect/potion/read/spell useup clones; fprefx pyrolisk retired D-2
 `zap.c` `ubreatheu`/`zhitu` ZT_ACID resist+hliquid+d(nd,6)+rn2 gates; altar_wrath; 
 acidic `melt_ice`); **`rottenfood` + non-faint still `start_eating` (only faint dont_start; 
 `consume_oeaten(…,2)`)** (D-0443; **`Hear_again` afternmv** (D-0911); 
-rottenfood `make_blinded` arm wired D-2452 (foodword poly still deferred); done_eating fpostfx CARROT blindness `eat.c:2520` named omit (`js/eat.js:1961`); 
+rottenfood `make_blinded` arm wired D-2452 (foodword poly still deferred); done_eating `fpostfx` whole-body port D-2465 (`eat.c:2510–2600`: wolfsbane/carrot/cookie+literate/jelly/egg/eucalyptus/apple; in-file attacktype_fordmg + local Deaf triple kept, see D-log); 
 **ordinary-food `doeat` rotten → `rottenfood`/`consume_oeaten`/`dont_start`** (D-0911); 
 **`start_tin`/`opentin`/`consume_tin` + `tin_variety` + `gainstr`/`make_vomiting`/`make_glib` + 
 multi-turn non-corpse `eatfood`** (D-0935; 

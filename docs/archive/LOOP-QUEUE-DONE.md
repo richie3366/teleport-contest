@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-18
 
-- [x] `pline.c` verbalize — coverage THIN (C 14 L `pline.c:476–490` / JS 4 L in js/display.js; hops 2, callers 148, RNG 0, msg 2; dead callees: You_buf). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn verbalize` (reach regression must be 0). Measured `port-coverage.mjs --name verbalize` 2026-09-18 @ 78b9ec99. **Addressed:** D-2464
+- [x] `eat.c` fpostfx — coverage MISSING (C 90 L `eat.c:2510–2600` / JS no symbol; hops 4, callers 2, RNG 7, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn fpostfx` (reach regression must be 0). Measured `port-coverage.mjs --name fpostfx` 2026-09-18 @ 78b9ec99.
+
+
+- [x] `pline.c` verbalize — coverage THIN (C 14 L `pline.c:476–490` / JS 4 L in js/display.js; hops 2, callers 148, RNG 0, msg 2; dead callees: You_buf). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn verbalize` (reach regression must be 0). Measured `port-coverage.mjs --name verbalize` 2026-09-18 @ 78b9ec99. **Addressed:** D-2464 `4238093f`
 
 
 - [x] `teleport.c` rloco — coverage THIN (C 85 L `teleport.c:2102–2187` / JS 19 L in js/teleport.js; hops 3, callers 8, RNG 2, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn rloco` (reach regression must be 0). Measured `port-coverage.mjs --name rloco` 2026-09-18 @ cc6372c7. **Addressed:** D-2463 `f14d4535`
