@@ -2317,7 +2317,9 @@ every cell in range so never `&no_ginfo`; default `!UNBUFFERED_GLYPHINFO`
 ignores `glyph`, hushed via `void` like C's `nhUse`);
 `await flush_screen(cursor_on_u)` (async for bot/more reach);
 `on_level` added to the existing `./dungeon.js` import (same SCC edge);
-named: docrt_flags redrawonly + core `cliparound` call sites (tty resend live since D-1982 via `tty_cliparound`));
+`docrt_flags(docrtRefresh)` redraw-only arm wired D-2461
+(`js/lock.js` getdir ^R, `js/getpos.js` getpos_refresh);
+named: core `cliparound` call sites (tty resend live since D-1982 via `tty_cliparound`));
 |**`reglyph_darkroom` live** (D-1975; C `display.c:1818–1854`;
 `js/display.js` exported sync in C order with `| 0` int idiom —
 `!dark_room: S_corr+waslit→S_litcorr` (`:1826–1829`), `dark_room:
@@ -2354,11 +2356,17 @@ y-inner with `hero_Blind` + `u_at` off-hero blank; ground limited =
 `under_water(1)`, `:1734–1736` `u.uburied` → `under_ground(1)`) wired
 into `docrt()` after uswallow, each returning before the vision path
 (async for cls/show_glyph_cell reach, same shape as `redraw_map`
-D-1974); no new cross-module edge; named: non-docrt caller wiring
-(`allmain.c:432,434`, `detect.c:99,101`, `dig.c:2225,2234`,
-`trap.c:5123`), docrt_flags maponly/redrawonly/nocls + post_map
-update_inventory (post_map botlx live D-2400 incl. uswallow/water/buried early arms; unported redrawonly-arm botlx stays with that omit; dismiss re-arms after the
-JS-only suppression wipe), legacy `u.Underwater` vs live `u.uinwater`);
+D-1974); no new cross-module edge; `docrt_flags` whole body shipped
+D-2461 (`docrtRecalc/Refresh/MapOnly/Nocls` consts + `docrt_flags()` in C
+order incl. post_map `update_inventory()` + `botlx`; `docrt()` rewired to
+`docrt_flags(docrtRecalc)` per C `:1701–1705`; memory loop x-outer/y-inner
+per C via `show_memory_glyph`); `feel_location` levitate arm completed
+D-2461 (`sobj_at` pile boulder, open-door, ROOM/POOL `do_room_glyph`,
+hallway litcorr/darkroom fixups via new `set_memory_cmap`); named:
+non-docrt caller wiring (`allmain.c:432,434`, `detect.c:99,101`,
+`dig.c:2225,2234`, `trap.c:5123`), wintty.c:435 tty-rescale trigger (no JS
+equivalent; browser resize rides the display layer), dismiss re-arms after the
+JS-only suppression wipe, legacy `u.Underwater` vs live `u.uinwater`);
 
 ### `src/questpgr.c` / tty menu
 

@@ -10,7 +10,7 @@
 import { game } from './gstate.js';
 import { rank_of } from './roles.js';
 import { cansee, couldsee, vision_recalc, vision_off_newsym_gbuf } from './vision.js';
-import { objects_at } from './mkobj.js';
+import { objects_at, sobj_at } from './mkobj.js';
 import {
     mcolors, mons, pmnames, infravision, infravisible, mindless, NUMMONS,
     is_flyer,
@@ -138,7 +138,7 @@ import {
 } from './attrib.js';
 import { depth, dist2 } from './hacklib.js';
 import { monsterNames } from './generated/monsters_data.js';
-import { observe_object, near_capacity } from './invent.js';
+import { observe_object, near_capacity, update_inventory } from './invent.js';
 import { visible_region_at, show_region } from './region.js';
 import { see_wsegs, worm_known, level_mon_at } from './worm.js';
 import { SoundSpeak } from './sndprocs.js';
@@ -4670,13 +4670,15 @@ export function suppress_map_output() {
 
 /**
  * C ref: display.c feel_location `:745–909` — Blind map update for the
- * hero cell or an adjacent square (boulder-push). Reachable arm:
+ * hero cell or an adjacent square (boulder-push). Levitate arm
+ * (`:777–858`): obstructed/closed-door background, pile boulder via
+ * sobj_at, open-door background, ROOM/POOL do_room_glyph polish, hallway
+ * background + litcorr/darkroom remembered-glyph fixups. Reachable arm:
  * engr_can_be_felt → _map_location(show) → Punished bc_felt → ROOM/CORR
  * dark adjust; then `:901–908` sensed mon overlay when !u_at (sensemon
  * includes MATCH_WARN D-1514) with is_worm_tail (D-1749). newsym
  * Detect_monsters skips tails; this overlay does not.
- * Named omissions: full levitate-arm do_room_glyph / litcorr /
- * remembered-boulder polish; usteed P_RIDING in can_reach_floor.
+ * Named omissions: usteed P_RIDING in can_reach_floor (feel_can_reach_floor).
  */
 export function feel_location(x, y) {
     // C `:754–758` — same mklev/save/restore gate as newsym/show_glyph.
@@ -4697,20 +4699,66 @@ export function feel_location(x, y) {
     set_seenv(loc, u.ux | 0, u.uy | 0, x, y);
 
     if (!feel_can_reach_floor()) {
-        // Levitate arm (partial) — walls/closed doors via map_background;
-        // boulder via map_object; else map_background. Full do_room_glyph
-        // / litcorr remembered-boulder arms deferred.
+        // C `:777–858` — Levitation Rules in C order: stone/walls/closed
+        // doors felt as background; boulders felt before doorways (sobj_at
+        // finds a boulder anywhere in the pile, not just the pile top);
+        // open doors as background; ROOM/POOL remembered-boulder polish;
+        // everything else (hallways) as background + remembered-glyph
+        // litcorr/darkroom fixups.
         const typ = loc.typ | 0;
         if (IS_OBSTRUCTED(typ)
             || (IS_DOOR(typ) && (loc.doormask & (D_LOCKED | D_CLOSED)))) {
+            // C `:793–796` — stone, walls, closed doors.
             map_background(x, y, 1);
-        } else {
-            const obj = objects_at(x, y);
-            if (obj && (obj.otyp | 0) === BOULDER_OTYP) {
-                map_object(obj, 1);
-            } else {
-                map_background(x, y, 1);
+        } else if (sobj_at(BOULDER_OTYP, x, y)) {
+            // C `:797–798` — boulder before doorway.
+            map_object(sobj_at(BOULDER_OTYP, x, y), 1);
+        } else if (IS_DOOR(typ)) {
+            // C `:799–800` — open doors.
+            map_background(x, y, 1);
+        } else if (IS_ROOM(typ) || IS_POOL(typ)) {
+            // C `:801–849` — open room or water: clear a remembered
+            // boulder (or unseen-monster memory) down to the seen
+            // background or the floor symbol; repaint a stale
+            // wall-range memory glyph as floor.
+            const mem = loc.remembered_glyph;
+            const memG = (mem && typeof mem.glyph === 'number')
+                ? mem.glyph : NO_GLYPH;
+            let do_room_glyph = false;
+            if (memG === objnum_to_glyph(BOULDER_OTYP)
+                || memory_glyph_is_invisible(loc)) {
+                // C `:830–834` — non-ROOM seen cells keep the background
+                // (fountains/pools underneath when already seen).
+                if (typ !== ROOM && loc.seenv) map_background(x, y, 1);
+                else do_room_glyph = true;
+            } else if (memG >= cmap_to_glyph(S_stone)
+                       && memG < cmap_to_glyph(S_darkroom)) {
+                // C `:835–838` — stale remembered wall.
+                do_room_glyph = true;
             }
+            if (do_room_glyph) {
+                // C `:839–845` — dark-room tint (rogue level stays stone),
+                // else the lit/unlit floor symbol.
+                const darkRoom = game.flags?.dark_room !== false
+                    && game.iflags?.use_color !== false
+                    && !Is_rogue_level(game.u?.uz);
+                set_memory_cmap(x, y, loc, darkRoom ? S_darkroom
+                    : (loc.waslit ? S_room : S_stone));
+            }
+        } else {
+            // C `:850–858` — hallways are felt; corridors never felt as
+            // lit (unless remembered that way); dark-room ROOM memory.
+            map_background(x, y, 1);
+            const mem = loc.remembered_glyph;
+            const memG = (mem && typeof mem.glyph === 'number')
+                ? mem.glyph : NO_GLYPH;
+            if (typ === CORR && memG === cmap_to_glyph(S_litcorr)
+                && !loc.waslit)
+                set_memory_cmap(x, y, loc, S_corr);
+            else if (typ === ROOM && game.flags?.dark_room !== false
+                     && game.iflags?.use_color !== false
+                     && memG === cmap_to_glyph(S_room))
+                set_memory_cmap(x, y, loc, S_darkroom);
         }
     } else {
         // C `:860–861` — engr_can_be_felt → erevealed
@@ -5227,6 +5275,21 @@ function show_memory_glyph(x, y) {
 }
 
 /**
+ * C ref: display.c `show_glyph(x, y, lev->glyph)` — remember a cmap floor
+ * symbol as hero memory and paint it. `cmap_idx_to_glyph` supplies the
+ * tty ch/color/dec plus the integer glyph id (the feel_location
+ * do_room_glyph/litcorr/darkroom arms `:839–858`); the id rides both the
+ * memory record and the paint call like `show_memory_glyph`.
+ */
+function set_memory_cmap(x, y, loc, cmapIdx) {
+    const g = cmap_idx_to_glyph(cmapIdx);
+    loc.remembered_glyph = {
+        ch: g.ch, color: g.color, decgfx: !!g.dec, glyph: g.glyph,
+    };
+    show_glyph_cell(x, y, g.ch, g.color, !!g.dec, 0, g.glyph);
+}
+
+/**
  * C ref: display.c curs_on_u `:1687–1690` — put the cursor on the hero:
  * flush waiting glyphs, then park the tty cursor on the hero. C body is
  * one call (`:1689` flush_screen(1)); the `/* Flush waiting glyphs & put
@@ -5350,11 +5413,40 @@ export async function under_ground(mode) {
     }
 }
 
-export async function docrt() {
+// C ref: include/display.h `:1016–1022` docrt_flags_bits — OR-able
+// refresh controls for docrt_flags (C enum; JS module consts).
+export const docrtRecalc = 0; // full docrt(), recalculate the map
+export const docrtRefresh = 1; // redraw_map(), draw what the map shows
+export const docrtMapOnly = 2; // ORed with Recalc/Refresh: map, not status/perminv
+export const docrtNocls = 4; // skip the cls() before repainting memory
+
+/**
+ * C ref: display.c docrt_flags `:1709–1773` — the main refresh-the-screen
+ * routine with finer control, in C order. Every arm ends at post_map
+ * (`:1766–1772`: update_inventory + disp.botlx unless maponly); the
+ * if/else chain below is C's gotos. `show_glyph(x, y, lev->glyph)` paints
+ * hero memory without live mon_to_glyph/obj_to_glyph — under Hallu that
+ * would burn display RNG for sensed monsters while cansee is false, so
+ * the memory loop uses show_memory_glyph (D-0838).
+ * Async: cls/redraw_map await bot/more (nhgetch reach); the void C body
+ * rides awaits (same shape as redraw_map D-1974).
+ * Callers: docrt `:1704` (docrtRecalc), cmd.c `:4014` getdir ^R
+ * (docrtRefresh), getpos.c `:760` getpos_refresh (docrtRefresh),
+ * wintty.c `:435` tty rescale (docrtRefresh; no JS equivalent trigger —
+ * browser resize rides the display layer, stays named in the map).
+ */
+export async function docrt_flags(refresh_flags) {
+    // C `:1711–1715` — flag decode.
+    const maponly = ((refresh_flags | 0) & docrtMapOnly) !== 0;
+    const redrawonly = ((refresh_flags | 0) & docrtRefresh) !== 0;
+    const nocls = ((refresh_flags | 0) & docrtNocls) !== 0;
+
+    // C `:1717–1718` — display isn't ready yet (plus the file's
+    // !game.level guard: C levl[] always exists, JS game.level may not
+    // during init). in_docrt skips nested redraw and gates
+    // show_glyph_change (D-1219).
     if (!game.u?.ux || !game.level) return;
     if (!game.program_state) game.program_state = {};
-    // C display.c docrt_flags 1717–1720 / 1772 — in_docrt skips nested
-    // redraw and gates show_glyph_change (D-1219).
     if (game.program_state.in_docrt) return;
     game.program_state.in_docrt = true;
     try {
@@ -5366,62 +5458,70 @@ export async function docrt() {
         // mid-redraw floor. No-op when nothing pends; burns no RNG
         // (scen-intrinsic-Caveman-92052 step 17).
         await flush_topl_more();
-        // C docrt_flags `:1726–1728` → post_map: the uswallow arm still
-        // sets botlx on every non-maponly call (plain docrt() never maponly).
-        if (game.u.uswallow) {
+        if (redrawonly) {
+            // C `:1722–1724` — redraw what the map shows (gbuf resend,
+            // no vision_recalc/cls), then post_map.
+            await redraw_map(0);
+        } else if (game.u.uswallow) {
+            // C `:1726–1728` — swallowed(1) does cls()+bot() in C; JS
+            // swallowed skips both (cls here, bot via botlx at post_map).
             await cls();
             swallowed(1);
-            if (game.flags) game.flags.botlx = true;
-            return;
-        }
-        // C docrt_flags `:1730–1732` — engulfed-water map arm (Underwater
-        // ≡ u.uinwater, youprop.h:279; the water level has its own routines).
-        if ((game.u.uinwater | 0) && !Is_waterlevel(game.u.uz)) {
+        } else if ((game.u.uinwater | 0) && !Is_waterlevel(game.u.uz)) {
+            // C `:1730–1732` — engulfed-water map arm (Underwater ≡
+            // u.uinwater, youprop.h:279; the water level has its routines).
             await under_water(1);
-            // C `:1730–1732` → post_map: underwater arm sets botlx too.
-            if (game.flags) game.flags.botlx = true;
-            return;
-        }
-        // C docrt_flags `:1734–1736` — buried map arm (C's own
-        // `/* [not implemented] */` marker notwithstanding, it calls through).
-        if (game.u.uburied) {
+        } else if (game.u.uburied) {
+            // C `:1734–1736` — buried map arm (C's own
+            // `/* [not implemented] */` marker notwithstanding, it calls
+            // through).
             await under_ground(1);
-            // C `:1734–1736` → post_map: buried arm sets botlx too.
-            if (game.flags) game.flags.botlx = true;
-            return;
-        }
-        // C vision_recalc(2) update loop newsyms prior sight while !cansee
-        // (Hallu mon_warning → rn2(5)). JS vision_recalc(2) skips that loop
-        // (D-0583 getbones/getpos paint). Under Hallu, burn-only newsyms on
-        // live viz before cls (D-0852). Non-Hallu skipped — incomplete
-        // !cansee memory/waslit arms regress PASS screens (#992 cohort).
-        {
-            const u = game.u || {};
-            if (u.Hallucination
-                || ((u.HHallucination | 0) && !(u.Halluc_resistance | 0))) {
-                vision_off_newsym_gbuf({ useLiveViz: true });
+        } else {
+            // C vision_recalc(2) update loop newsyms prior sight while
+            // !cansee (Hallu mon_warning → rn2(5)). JS vision_recalc(2)
+            // skips that loop (D-0583 getbones/getpos paint). Under Hallu,
+            // burn-only newsyms on live viz before cls (D-0852). Non-Hallu
+            // skipped — incomplete !cansee memory/waslit arms regress PASS
+            // screens (#992 cohort).
+            {
+                const u = game.u || {};
+                if (u.Hallucination
+                    || ((u.HHallucination | 0) && !(u.Halluc_resistance | 0))) {
+                    vision_off_newsym_gbuf({ useLiveViz: true });
+                }
             }
-        }
-        vision_recalc(2);
-        await cls();
-        // C: show_glyph(x,y, lev->glyph) for all cells (memory; no Hallu RNG)
-        for (let y = 0; y < ROWNO; y++)
+            // C `:1739` — shut down vision.
+            vision_recalc(2);
+            // C `:1741–1748` — cls() fills the physical screen with rock
+            // and clears the glyph buffer.
+            if (!nocls) await cls();
+            // C `:1750–1755` — display memory (x outer, y inner).
             for (let x = 1; x < COLNO; x++)
-                show_memory_glyph(x, y);
-        // C: vision_recalc(0) — see what is to be seen (+ newsym updates)
-        vision_recalc(0);
-        // C docrt also see_monsters() after vision — floating warns / sensed mons
-        see_monsters();
-        // C display.c `:1766–1769` post_map (non-maponly): update_inventory()
-        // then disp.botlx = TRUE ("caller needs to call bot() to actually
-        // redraw status") — the moveloop gate repaints on the next tick.
-        if (game.flags) game.flags.botlx = true;
-        // Named omission:
-        // docrt_flags maponly/redrawonly/nocls params (the unported
-        // redrawonly arm's post_map botlx goes with it); update_inventory().
+                for (let y = 0; y < ROWNO; y++)
+                    show_memory_glyph(x, y);
+            // C `:1758` — see what is to be seen.
+            vision_recalc(0);
+            // C `:1761` — overlay with monsters.
+            see_monsters();
+        }
+        // C `:1766–1772` post_map (every arm lands here): perm_invent
+        // update + disp.botlx = TRUE ("caller needs to call bot() to
+        // actually redraw status") — the moveloop gate repaints next tick.
+        if (!maponly) {
+            update_inventory();
+            if (game.flags) game.flags.botlx = true;
+        }
     } finally {
         game.program_state.in_docrt = false;
     }
+}
+
+/**
+ * C ref: display.c docrt `:1701–1705` — plain docrt() is
+ * docrt_flags(docrtRecalc).
+ */
+export async function docrt() {
+    await docrt_flags(docrtRecalc);
 }
 
 // ── Serialize a map row with DEC line-drawing and ANSI colors ──

@@ -5,7 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-18
 
-- [x] `weapon.c` mon_wield_item — coverage PARTIAL (C 133 L `weapon.c:801–934` / JS 75 L in js/weapon.js; hops 1, callers 10, RNG 0, msg 9). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mon_wield_item` (reach regression must be 0). Measured `port-coverage.mjs --name mon_wield_item` 2026-09-18 @ cc6372c7. **Addressed:** D-2460
+- [x] `display.c` docrt_flags — coverage MISSING (C 64 L `display.c:1709–1773` / JS no symbol; hops 1, callers 3, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn docrt_flags` (reach regression must be 0). Measured `port-coverage.mjs --name docrt_flags` 2026-09-18 @ cc6372c7. **Addressed:** D-2461
+- [x] `display.c` feel_location — coverage PARTIAL (C 163 L `display.c:746–909` / JS 102 L in js/display.js; hops 1, callers 22, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn feel_location` (reach regression must be 0). Measured `port-coverage.mjs --name feel_location` 2026-09-18 @ cc6372c7. **Addressed:** D-2461
+
+
+- [x] `weapon.c` mon_wield_item — coverage PARTIAL (C 133 L `weapon.c:801–934` / JS 75 L in js/weapon.js; hops 1, callers 10, RNG 0, msg 9). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mon_wield_item` (reach regression must be 0). Measured `port-coverage.mjs --name mon_wield_item` 2026-09-18 @ cc6372c7. **Addressed:** D-2460 `78b9ec99`
 
 
 - [x] `dog.c` mon_arrive — coverage MISSING (C 203 L `dog.c:420–623` / JS no symbol; hops 2, callers 12, RNG 5, msg 0; split? cited 22× in js/ — brief first). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mon_arrive` (reach regression must be 0). Measured `port-coverage.mjs --name mon_arrive` 2026-09-18 @ cc6372c7. **Addressed:** D-2459 `4cc1fd66`

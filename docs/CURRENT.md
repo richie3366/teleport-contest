@@ -45,7 +45,7 @@ screens 93.2 %. Held-out moved 7 → 11 over 2026-09-06..17 while the local
 corpus went 48 % → 91.7 %: the corpus no longer predicts the judge.
 **Corpus fortress** (re-scored 2026-09-18 audit 1408–1416): **495 / 540
 PASS (91.7 %)** excl. 13 env-only; RNG 99.29 %, screens 99.0 %. The 3
-`1d21e3be` getdir flips recovered via D-2440; no new flips across D-2440…D-2460
+`1d21e3be` getdir flips recovered via D-2440; no new flips across D-2440…D-2461
 (every per-SHA re-run: 0 regressed).
 Reviews 1225–1416: 170 ACCEPT, 5 WITH-DEBT, 1 DEBT, 11 QUALITY-RISK (0 Must-fix pending).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip (all map-named).
@@ -98,10 +98,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `weapon.c` mon_wield_item — coverage PARTIAL (C 133 L `weapon.c:801–934` / JS 75 L js/weapon.js; hops 1, callers 10, RNG 0, msg 9). Port the whole C body in C order, callers wired. Verify `node scripts/verify.mjs --fn mon_wield_item` (reach regression must be 0).
+**Next cluster:** `display.c` docrt_flags — coverage MISSING (C 64 L `display.c:1709–1773` / JS no symbol; hops 1, callers 3, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn docrt_flags` (reach regression must be 0). Measured `port-coverage.mjs --name docrt_flags` 2026-09-18 @ cc6372c7.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2460 (index).**
+**Keep D-0845…D-2461 (index).**
 <!-- recent:begin -->
+**D-2461** `nethack-c/upstream/src/display.c:1709–1773` (`docrt_flags`; flag decode `:1711–1715`, red — `js/display.js` — new exported `docrtRecalc/Refresh/MapOnly/Nocls` consts + `export async function docrt_flags(refresh_flags)` in C order (flag decode; `!u.ux`/in_docrt guard + file's `!game.level` guard; try/finally in_
 **D-2460** `nethack-c/upstream/src/weapon.c:801–934` (`mon_wield_item`; NEED_HTH `:813–815` / NEED_RA — `js/weapon.js` restart of mon_wield_item in C order — impossible('weapon_check %d for %s?') + bare return-0 in default; mwelded refuse arm (bimanual/makeplural hand, otense/mhis weld buffer, PICK_AXE Since/cannot-wield v
 **D-2459** `nethack-c/upstream/src/dog.c:419–623` (`mon_arrive`; when-enum `:15–19` Before_you 0/With — `js/dog.js` — module-local when consts + `failed_arrivals` (C dog.c:301 reset-in-losedogs) + `mon_arrive_link` head (STILL_ARRIVING/fmon/isshk→set_residency/long-worm get_wormno+initworm) shared by both helpers; With_you
 **D-2458** `nethack-c/upstream/src/potion.c:369–438` (`make_hallucinated`); eyemsg/vismsg `:257–258`; — `js/potion.js` only — restart in C order: `u.Unaware || Unaware()` suppress (make_deaf shape); `!Blind()` verb (file-local Blind, C Blind macro); mask arm with uprops[HALLUC_RES].extrinsic mirror (make_slimed shape) + Ha
@@ -109,11 +110,10 @@ revisits the picker.
 **D-2456** `nethack-c/upstream/src/mkmaze.c:1952–2107` (`mv_bubble`, staticfn); callers `:1677` moveb — `js/mklev.js` only — renamed `mv_bubble_move` → `mv_bubble` (module-local like C staticfn; bounds ride as params for C's file-scope gbxmin statics); added the four `:1981–1999` pline+clamp arms in C order (template-liter
 **D-2455** `nethack-c/upstream/src/dogmove.c:977–1358` (`dog_move`); `:348–360` `dog_starve`; `:362–3 — `js/dogmove.js` — DOG_HUNGRY/WEAK/STARVE 300/500/750 (`:10–12`) + AT_NONE 0; local `dog_starve` (leash-slack net-identical pline / starves / Hallu feel + `mondied`) + `dog_hunger` (non-eater push, weak/confuse/cansee-beg
 **D-2454** `nethack-c/upstream/src/zap.c:5965–6097` (destroy_items); callees `worn.c` bypass_objlist/ — `js/zap.js:1711` restart in C order — limit + unconditional `rn2(DMG_DESTROY_SCALE)` gate (`:1712–1716`), live-chain `objchn()` getter (C `:5984 obj**`), `{oid,otmp,deferred}` array (`:1722–1726`), `bypass_objlist(clear)
-**D-2453** `nethack-c/upstream/src/hack.c:2712–2991` (domove_core); callees `hack.c:2342–2360` air_tu — `js/hack.js` — new `air_turbulence` (`:2273`, Is_airlevel+rn2(4)+Levitation/Flying gate, rn2(3) tumble/You_cant/thin-air + DEX exercise) and `slippery_ice_fumbling` (`:2300`, snow-boots objdescr / resists_cold / Flying /
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2460; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2461; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
