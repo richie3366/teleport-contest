@@ -45,7 +45,7 @@ screens 93.2 %. Held-out moved 7 → 11 over 2026-09-06..17 while the local
 corpus went 48 % → 91.7 %: the corpus no longer predicts the judge.
 **Corpus fortress** (re-scored 2026-09-18 audit 1399–1407): **495 / 540
 PASS (91.7 %)** excl. 13 env-only; RNG 99.29 %, screens 99.0 %. The 3
-`1d21e3be` getdir flips recovered via D-2440; no new flips across D-2440…D-2455
+`1d21e3be` getdir flips recovered via D-2440; no new flips across D-2440…D-2456
 (every per-SHA re-run: 0 regressed).
 Reviews 1225–1407: 162 ACCEPT, 4 WITH-DEBT, 1 DEBT, 11 QUALITY-RISK (3 Must-fix pending).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx (both map notes).
@@ -98,10 +98,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `dogmove.c` dog_move — coverage PARTIAL (C 379 L `dogmove.c:977–1358` / JS 240 L in js/dogmove.js; hops 2, callers 2, RNG 9, msg 3; dead callees: undesirable_disp). Queue-head `mon.c` newcham, `pager.c` checkfile, `cmd.c` getdir, `end.c` really_done, `display.c` show_glyph all parked STALE same iteration (bodies complete split-named per D-2433/D-2443/D-2434/D-2435 + show_glyph_cell). Ship dog_move's missing arms in C order: dog_hunger/dog_starve, should_displace + ALLOW_MDISP/undesirable_disp, pet_ranged_attk body, score_targ RNG order, whimper/m_digweapon_check/kludge. Verify `node scripts/verify.mjs --fn dog_move` (reach regression must be 0). Measured `port-coverage.mjs --name dog_move` 2026-09-18 @ e19b6d0a.
+**Next cluster:** `mkmaze.c` mv_bubble — coverage MISSING (C 155 L `mkmaze.c:1952–2107` / JS no symbol; hops 3, callers 3, RNG 5, msg 5). Body lives split-named as `mv_bubble_move` (js/mklev.js:16201) + `mk_bubble` ini replica: ship same-named `mv_bubble`, add the four pline+clamp arms + cons-default `impossible`, retire D-2427's unblock/block ini-paint omit via the `:1924` path. Verify `node scripts/verify.mjs --fn mv_bubble` (reach regression must be 0). Measured `port-coverage.mjs --name mv_bubble` 2026-09-18 @ cc6372c7.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2455 (index).**
+**Keep D-0845…D-2456 (index).**
 <!-- recent:begin -->
+**D-2456** `nethack-c/upstream/src/mkmaze.c:1952–2107` (`mv_bubble`, staticfn); callers `:1677` moveb — `js/mklev.js` only — renamed `mv_bubble_move` → `mv_bubble` (module-local like C staticfn; bounds ride as params for C's file-scope gbxmin statics); added the four `:1981–1999` pline+clamp arms in C order (template-liter
 **D-2455** `nethack-c/upstream/src/dogmove.c:977–1358` (`dog_move`); `:348–360` `dog_starve`; `:362–3 — `js/dogmove.js` — DOG_HUNGRY/WEAK/STARVE 300/500/750 (`:10–12`) + AT_NONE 0; local `dog_starve` (leash-slack net-identical pline / starves / Hallu feel + `mondied`) + `dog_hunger` (non-eater push, weak/confuse/cansee-beg
 **D-2454** `nethack-c/upstream/src/zap.c:5965–6097` (destroy_items); callees `worn.c` bypass_objlist/ — `js/zap.js:1711` restart in C order — limit + unconditional `rn2(DMG_DESTROY_SCALE)` gate (`:1712–1716`), live-chain `objchn()` getter (C `:5984 obj**`), `{oid,otmp,deferred}` array (`:1722–1726`), `bypass_objlist(clear)
 **D-2453** `nethack-c/upstream/src/hack.c:2712–2991` (domove_core); callees `hack.c:2342–2360` air_tu — `js/hack.js` — new `air_turbulence` (`:2273`, Is_airlevel+rn2(4)+Levitation/Flying gate, rn2(3) tumble/You_cant/thin-air + DEX exercise) and `slippery_ice_fumbling` (`:2300`, snow-boots objdescr / resists_cold / Flying /
@@ -109,11 +110,10 @@ revisits the picker.
 **D-2451** `nethack-c/upstream/src/pager.c:977–981` (`/* remove charges or "(lit)" or wizmode "(N aum — `js/pager.js` only — `checkfile_split_names` now truncates `dbase` at the first `" ("` (`indexOf`, matching C `strstri` on the already-lowered string, `> 0` matching C `ep > dbase_str`), placed after the named/called tru
 **D-2450** `nethack-c/upstream/src/mon.c:2702–2703` (`mon_leaving_level`: `mtrapped=0` + `unstuck`) r — `js/uhitm.js` only — the two lines moved to right after `game.disintegested = false`, gated on `!was_stoned`, before the lifesaved return; the stale "before the rn2(6) draw" comment replaced with the `mon_leaving_level`/
 **D-2449** `nethack-c/upstream/src/pager.c:1475` (`sym == (looked ? gs.showsyms[alt_i] : defsyms[alt_ — `js/pager.js` only — cmap-scan match is now `looked ? cmap_showsym_code(altI) : DEFSYMS_CH[altI].charCodeAt(0)` per C `:1475`.
-**D-2448** `nethack-c/upstream/src/vault.c:888–1201` (gd_move); helpers `:734–750` gd_mv_monaway, `:7 — `js/vault.js` restart in C order — off-level `:893-894`, dead/parked/gddone cleanup `:896-899`, both-out wallify `:909-911`, hostile rloc/wallify/clear_fcorr/gd_letknow `:913-928`, teleported-guard reject `:934-935`, wit
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2455; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2456; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

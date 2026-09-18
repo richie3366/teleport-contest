@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-18
 
-- [x] `dogmove.c` dog_move — coverage PARTIAL (C 379 L `dogmove.c:977–1358` / JS 240 L in js/dogmove.js; hops 2, callers 2, RNG 9, msg 3; dead callees: undesirable_disp). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dog_move` (reach regression must be 0). Measured `port-coverage.mjs --name dog_move` 2026-09-18 @ e19b6d0a. **Addressed:** D-2455
+- [x] `mkmaze.c` mv_bubble — coverage MISSING (C 155 L `mkmaze.c:1952–2107` / JS no symbol; hops 3, callers 3, RNG 5, msg 5). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mv_bubble` (reach regression must be 0). Measured `port-coverage.mjs --name mv_bubble` 2026-09-18 @ cc6372c7.
+
+
+- [x] `dogmove.c` dog_move — coverage PARTIAL (C 379 L `dogmove.c:977–1358` / JS 240 L in js/dogmove.js; hops 2, callers 2, RNG 9, msg 3; dead callees: undesirable_disp). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dog_move` (reach regression must be 0). Measured `port-coverage.mjs --name dog_move` 2026-09-18 @ e19b6d0a. **Addressed:** D-2455 `4cff7e98`
 
 
 - [x] `zap.c` destroy_items — coverage THIN (C 128 L `zap.c:5965–6097` / JS 36 L in js/zap.js; hops 2, callers 36, RNG 2, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn destroy_items` (reach regression must be 0). Measured `port-coverage.mjs --name destroy_items` 2026-09-18 @ e6289b5b. **Addressed:** D-2454 `cc6372c7`

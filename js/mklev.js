@@ -142,7 +142,7 @@ import {
     create_gas_cloud, create_gas_cloud_selection, clear_regions,
     clear_heros_fault,
 } from './region.js';
-import { Norep, newsym, impossible } from './display.js';
+import { Norep, newsym, impossible, pline } from './display.js';
 import { block_point, unblock_point, does_block } from './vision.js';
 import { emits_light, new_light_source, del_light_source } from './light.js';
 import { monst_to_any, is_pool, is_lava } from './hack.js';
@@ -15998,7 +15998,12 @@ function setup_waterlevel() {
     }
 }
 
-/** C ref: mkmaze.c mk_bubble + mv_bubble(b,0,0,TRUE) ini boing colli flips + cloud/air paint RNG. */
+/** C ref: mkmaze.c mk_bubble (:1873–1925) + the :1924 mv_bubble(b,0,0,TRUE)
+ * ini path replicated inline (sync load path): air-gated rn2(6), border
+ * colli + boing flips, default redirect ini-gated, AIR/CLOUD paint with
+ * C unblock/block_point. sgn-clamp/bounce/out-of-bounds pline+clamp are
+ * provably no-ops here (bx,by pre-clamped in-bounds above, dx=dy=0) and
+ * cons is null, so the deposit is a no-op like C. */
 function mk_bubble(x, y, n, gbxmin, gbymin, gbxmax, gbymax) {
     const BM = [
         [2, 1, 0x3],
@@ -16043,8 +16048,11 @@ function mk_bubble(x, y, n, gbxmin, gbymin, gbxmax, gbymax) {
             break; // C :2099-2105 redirect runs only when !ini
         }
     }
-    // paint bubble cells: water→AIR, air→CLOUD
-    const paint = Is_waterlevel(game.u?.uz) ? AIR : CLOUD;
+    // C mv_bubble :2010-2025 ini paint (dx=dy=0): water→AIR+unblock,
+    // air→CLOUD+block, lit in both.
+    const isWater = Is_waterlevel(game.u?.uz);
+    const isAir = Is_airlevel(game.u?.uz);
+    const paint = isWater ? AIR : CLOUD;
     for (let i = 0; i < bm[0]; i++) {
         for (let j = 0; j < bm[1]; j++) {
             if (bm[j + 2] & (1 << i)) {
@@ -16052,6 +16060,8 @@ function mk_bubble(x, y, n, gbxmin, gbymin, gbxmax, gbymax) {
                 if (loc) {
                     loc.typ = paint;
                     loc.lit = true;
+                    if (isWater) unblock_point(bx + i, by + j);
+                    else if (isAir) block_point(bx + i, by + j);
                 }
             }
         }
@@ -16074,7 +16084,7 @@ function mk_bubble(x, y, n, gbxmin, gbymin, gbxmax, gbymax) {
 /**
  * C ref: mkmaze.c movebubbles — water cons pickup + air edge clouds +
  * bubble drift (goto_level / moveloop). Async: bubble deposit reaches
- * mnearto/mnexto (pline-capable). Deposit runs inside mv_bubble_move
+ * mnearto/mnexto (pline-capable). Deposit runs inside mv_bubble
  * between paint and boing, matching C mv_bubble order.
  * Named omissions: Punished ball carry (unplacebc/lift_covet not live);
  * vision_recalc(2) (display-only).
@@ -16188,17 +16198,21 @@ export async function movebubbles() {
         const ry = rn2(3);
         const mdx = b.dx + 1 - (!b.dx ? rx : (rx ? 1 : 0));
         const mdy = b.dy + 1 - (!b.dy ? ry : (ry ? 1 : 0));
-        await mv_bubble_move(b, mdx, mdy, gbxmin, gbymin, gbxmax, gbymax, false);
+        await mv_bubble(b, mdx, mdy, gbxmin, gbymin, gbxmax, gbymax, false);
     }
     /* C: put attached ball&chain back — Punished arm named omission. */
     g.vision_full_recalc = 1;
 }
 
-/** C ref: mkmaze.c mv_bubble — move + AIR/CLOUD paint + water cons
- * deposit + boing (exact C order; deposit draws RNG via mnearto/mnexto).
- * Async: deposit reaches pline-capable callees. ini path (mk_bubble /
- * restore) carries no cons, so deposit is a no-op there like C. */
-async function mv_bubble_move(b, dx, dy, gbxmin, gbymin, gbxmax, gbymax, ini) {
+/** C ref: mkmaze.c:1952–2107 mv_bubble (staticfn) — move (sgn clamp,
+ * border colli, out-of-bounds pline+clamp, bounce) + AIR/CLOUD paint +
+ * water cons deposit + boing, in exact C order; deposit draws RNG via
+ * mnearto/mnexto. Async: clamp plines, cons-default impossible and the
+ * deposit callees are pline-capable. Bounds ride as params (C uses the
+ * file-scope gbxmin/gbymax statics). Callers: movebubbles (mkmaze.c:1677),
+ * restore_waterlevel (:1777); mk_bubble (:1924) replicates the ini path
+ * inline (sync load path; clamp/bounce provably no-ops there). */
+async function mv_bubble(b, dx, dy, gbxmin, gbymin, gbxmax, gbymax, ini) {
     const uz = game.u?.uz;
     const isWater = Is_waterlevel(uz);
     const isAir = Is_airlevel(uz);
@@ -16215,6 +16229,23 @@ async function mv_bubble_move(b, dx, dy, gbxmin, gbymin, gbxmax, gbymax, ini) {
         if (b.y <= gbymin) colli |= 1;
         if ((b.x + b.bm[0] - 1) >= gbxmax) colli |= 2;
         if ((b.y + b.bm[1] - 1) >= gbymax) colli |= 1;
+        /* C :1981-1999: out-of-bounds bubbles pline, then clamp back. */
+        if (b.x < gbxmin) {
+            await pline(`bubble xmin: x = ${b.x}, xmin = ${gbxmin}`);
+            b.x = gbxmin;
+        }
+        if (b.y < gbymin) {
+            await pline(`bubble ymin: y = ${b.y}, ymin = ${gbymin}`);
+            b.y = gbymin;
+        }
+        if ((b.x + b.bm[0] - 1) > gbxmax) {
+            await pline(`bubble xmax: x = ${b.x + b.bm[0] - 1}, xmax = ${gbxmax}`);
+            b.x = gbxmax - b.bm[0] + 1;
+        }
+        if ((b.y + b.bm[1] - 1) > gbymax) {
+            await pline(`bubble ymax: y = ${b.y + b.bm[1] - 1}, ymax = ${gbymax}`);
+            b.y = gbymax - b.bm[1] + 1;
+        }
         if (b.x === gbxmin && adx < 0) adx = -adx;
         if (b.x + b.bm[0] - 1 === gbxmax && adx > 0) adx = -adx;
         if (b.y === gbymin && ady < 0) ady = -ady;
@@ -16241,8 +16272,8 @@ async function mv_bubble_move(b, dx, dy, gbxmin, gbymin, gbxmax, gbymax, ini) {
     /* C mv_bubble: replace contents of bubble (water only). Each cons
      * cell rides the applied displacement (cons->x += dx). Cons list
      * order matches C's prepend-built chain. */
-    if (isWater && b.cons && b.cons.length) {
-        for (const cons of b.cons) {
+    if (isWater) {
+        for (const cons of b.cons || []) {
             const cx = (cons.x | 0) + adx, cy = (cons.y | 0) + ady;
             if (cons.what === CONS_OBJ) {
                 for (let olist = cons.list, otmp; olist; olist = otmp) {
@@ -16274,6 +16305,8 @@ async function mv_bubble_move(b, dx, dy, gbxmin, gbymin, gbxmax, gbymax, ini) {
                 const btrap = cons.list;
                 btrap.tx = cx;
                 btrap.ty = cy;
+            } else {
+                await impossible('mv_bubble: unknown bubble contents');
             }
         }
         b.cons = null;
@@ -16420,7 +16453,7 @@ export async function restore_waterlevel(blob) {
             g.bbubbles = b;
             b.prev = null;
         }
-        await mv_bubble_move(b, 0, 0, gbxmin, gbymin, gbxmax, gbymax, true);
+        await mv_bubble(b, 0, 0, gbxmin, gbymin, gbxmax, gbymax, true);
     }
     g.ebubbles = b;
     if (b) b.next = null;

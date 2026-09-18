@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2456 — `mkmaze.c` mv_bubble whole-body port (coverage MISSING → same-named live)
+
+- **Status:** fixed (Open coverage row: mv_bubble MISSING C 155 L `mkmaze.c:1952–2107` / JS no symbol; hops 3, callers 3, RNG 5, msg 5).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify mv_bubble`: 0 blocked at baseline). The body lived split-named as local `mv_bubble_move` (`js/mklev.js`) + an ini replica inside `mk_bubble`, missing three C arms: the four out-of-bounds pline+clamp diagnostics, the cons-switch default `impossible`, and unblock/block_point on the `mk_bubble` ini paint (D-2427 named omit).
+- **C locus:** `nethack-c/upstream/src/mkmaze.c:1952–2107` (`mv_bubble`, staticfn); callers `:1677` movebubbles, `:1777` restore_waterlevel, `:1924` mk_bubble; callees `rn2`/`sgn`, `pline`, `unblock_point`/`block_point`, `place_object`/`stackobj`, `mnearto`/`elemental_clog`, `m_at`/`u_on_newpos`/`newsym`/`mnexto`, `impossible`; consts CONS_OBJ/MON/HERO/TRAP, RLOC_NOMSG.
+- **JS was:** `js/mklev.js:16201` local `mv_bubble_move` — air-gated move, sgn clamp, border colli, bounce, AIR/CLOUD paint + unblock/block, water deposit, boing all in C order, but no clamp plines, deposit gated on non-empty cons with no default arm; `mk_bubble` ini paint set typ+lit without unblock/block.
+- **Fix:** `js/mklev.js` only — renamed `mv_bubble_move` → `mv_bubble` (module-local like C staticfn; bounds ride as params for C's file-scope gbxmin statics); added the four `:1981–1999` pline+clamp arms in C order (template-literal messages, awaited — every live path is async); deposit now runs whenever waterlevel over `b.cons || []` with `b.cons = null` unconditional and the default `await impossible('mv_bubble: unknown bubble contents')`; `mk_bubble` ini paint gains the C unblock/block_point arms. `pline` joins the existing display.js import (`imports.mjs --can` ALREADY, no new edge). No DIAG/FORCE/seed logic; Rule #2 clean.
+- **JS:** `js/mklev.js:145` (import), `:16001–16009` (mk_bubble doc), `:16056–16073` (ini paint), `:16207–16215` (mv_bubble doc+def), `:16234–16249` (clamp arms), `:16278–16314` (deposit+default); map `docs/c-js-map/data.md:927–928`.
+- **Callers:** mkmaze.c:1677 → `js/mklev.js:16201` (`movebubbles` drift, ini=FALSE); :1777 → `:16456` (`restore_waterlevel`, ini=TRUE); :1924 → `js/mklev.js:16007` (`mk_bubble`, inline ini replica on the sync load_air/load_water path — sgn-clamp/bounce/clamp-pline provably no-ops with pre-clamped bx,by and dx=dy=0, cons null; documented, not a second body). No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn mv_bubble` → PASS syntax (1 file: js/mklev.js) · rule2 · hidden note (0 blocked at baseline) · **reach smoke 24/24 PASS, 0 regressed → REACH-OK** · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file changed) → VERIFY: PASS.
+- **Named omissions:** none new (pre-existing D-2171 omits stand: Punished ball carry, `vision_recalc(2)`, `earth_sense`/`see_nearby_objects` at hero deposit; `mk_bubble`'s own n-guard arms belong to a future mk_bubble row).
+- **Next:** Open — coverage head after mv_bubble (`teleport.c` rloc_to_core — note Parked Stale claims its body is complete split-named; brief decides).
+
 ## D-2455 — `dogmove.c` dog_move missing arms (coverage PARTIAL → live)
 
 - **Status:** fixed (Open coverage row `dogmove.c` dog_move PARTIAL, C 379 L `:977–1358` / JS 240 L `js/dogmove.js:866`). Same iteration parks 5 STALE rows (newcham/checkfile/getdir/really_done/show_glyph — bodies complete split-named per D-2433/D-2443/D-2434/D-2435 + `show_glyph_cell`; LOOP-QUEUE Parked Stale).
