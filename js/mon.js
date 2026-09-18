@@ -138,8 +138,9 @@ function mdistu(mtmp) {
     return dist2(mtmp.mx, mtmp.my, game.u.ux, game.u.uy);
 }
 
-/** C ref: hack.c may_passwall — STWALL + W_NONPASSWALL blocks. */
-function may_passwall(x, y) {
+/** C ref: hack.c may_passwall — STWALL + W_NONPASSWALL blocks. Exported for
+ * hack.c test_move (same C body; teleport.js keeps its D-1100 local copy). */
+export function may_passwall(x, y) {
     const loc = game.level?.at(x, y);
     if (!loc) return false;
     // C: wall_info aliases flags; OR JS split W_* fields (D-0865).

@@ -1455,8 +1455,8 @@ JS: `js/hack.js`, `js/pickup.js`, `js/cmd.js`, `js/mon.js`, `js/monmove.js` — 
 spend turn, no step) (D-0928 #1106; Is_airlevel/Is_waterlevel "in place" deferred — Levitation 
 alone); **`domove_core` ParanoidTrap → `avoid_trap_andor_region`** (D-1187; 
 C `hack.c:2515–2581` / `:2825–2828` after rooted before `u.utrap`; 
-`into_vs_onto` + `immune_to_trap` hero MAGIC_PORTAL `TRAP_NOT_IMMUNE`; silent TEST_MOVE subset; 
-gas-region yn; Hallu `rnd(TRAPNUM-1)`; **full `test_move` Passes_walls·squeeze / FIRE invent-burn / 
+`into_vs_onto` + `immune_to_trap` hero MAGIC_PORTAL `TRAP_NOT_IMMUNE`; full `test_move` TEST_MOVE (D-2439 — was the `test_move_viable` silent subset); 
+gas-region yn; Hallu `rnd(TRAPNUM-1)`; **FIRE invent-burn / 
 POLY `resists_magm` still named**); **`domove` swallowed → `u_on_newpos(ustuck)` + 
 attack engulfer** (D-0833; skip impaired/`m_at` walk; 
 air_turbulence/slippery_ice still deferred; 
@@ -1557,7 +1557,9 @@ Underwater / generic rock Passes_walls / tunnels / autodig still named);
 **`test_move` run>=2 boulder `pline_dir`** (D-1226; 
 C `hack.c:1216–1221` / `could_move_onto_boulder` 145–163; DO_MOVE+mention_walls; TEST_MOVE silent; 
 Passes_walls skip; cannot_push squeeze D-1239; **cannot_push giant pickup/maneuver D-1253**; 
-**nopick m-dir over/against D-1262**); **`moverock`/`dopush` clear-dest boulder push + 
+**nopick m-dir over/against D-1262**);
+**`test_move` whole-function port** (D-2439; C `hack.c:991–1255` all modes in C order, live `js/hack.js:337 test_move`; Known_wwalking/lwalking `hack.c:59–66` + Blind_tm beside it; may_passwall exported from mon.js; Fire_resistance exported from trap.js; wired avoid_trap ×2 / move_into_trap / mhitm_knockback / mount_steed; named block_door shk.c:5791 stub-false, block_entry shk.c:5826, ECMD_OK/canned-kick, defsyms prose, autodig flag; domove :2843 inline + travel BFS via travel_test_move D-1971 + click_to_cmd/zap-ball/steed-533 callers retained as named splits);
+**`moverock`/`dopush` clear-dest boulder push + 
 STR exercise** (D-0238) + **monster-behind `You_hear`/`canspotmon` + `closed_door` vain + 
 dopush `unmap` I** (D-0317; shop/trap/`unmap_object` trap·engr deferred; 
 **cannot_push squeeze + `sokoban_guilt` D-1239**; **cannot_push giant pickup/maneuver D-1253**; 

@@ -34,6 +34,7 @@ import {
     A_DEX, A_CHA, A_WIS,
     MON_FLOOR, MON_OFFMAP,
     ARTICLE_YOUR, SUPPRESS_SADDLE,
+    TEST_MOVE,
 } from './const.js';
 import { objectNames, objectDescrs } from './objects.js';
 import { rnd, rn2, rn1 } from './rng.js';
@@ -43,7 +44,7 @@ import { y_n } from './getline.js';
 import { m_at, cant_drown } from './mon.js';
 import { isok, strsubst } from './hacklib.js';
 import { Monnam, mon_nam, monverbself, pmname, Mgender, y_monnam, Hallucination, hliquid, x_monnam, minimal_monnam } from './do_name.js';
-import { losehp, maybe_half_phys, finish_maybe_wail, is_pool, is_lava } from './hack.js';
+import { losehp, maybe_half_phys, finish_maybe_wail, is_pool, is_lava, test_move } from './hack.js';
 import { set_wounded_legs, heal_legs, legs_in_no_shape, sokoban_guilt, mintrap } from './trap.js';
 import { finish_meating } from './dogmove.js';
 import { an } from './objnam.js';
@@ -636,9 +637,10 @@ export async function mount_steed(mtmp, force) {
         return false;
     }
 
+    // Full test_move TEST_MOVE (was the test_move_ok doorway subset).
     if (u.uswallow || u.ustuck || u.utrap || u.Punished
-        || !test_move_ok(u.ux, u.uy, (mtmp.mx | 0) - (u.ux | 0),
-            (mtmp.my | 0) - (u.uy | 0))) {
+        || !await test_move(u.ux, u.uy, (mtmp.mx | 0) - (u.ux | 0),
+            (mtmp.my | 0) - (u.uy | 0), TEST_MOVE)) {
         if (u.Punished || !(u.uswallow || u.ustuck || u.utrap)) {
             await pline('You are unable to swing your leg over.');
         } else {
