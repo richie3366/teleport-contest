@@ -143,10 +143,9 @@ import {
     create_gas_cloud, create_gas_cloud_selection, clear_regions,
     clear_heros_fault,
 } from './region.js';
-import { Norep, newsym, impossible, pline, flush_screen, nh_delay_output } from './display.js';
+import { Norep, newsym, impossible, pline, You, flush_screen, nh_delay_output } from './display.js';
 import { buried_ball_to_punishment, fracture_rock } from './dig.js';
 import { obfree } from './shk.js';
-import { You } from './zap.js';
 import { block_point, unblock_point, does_block } from './vision.js';
 import { emits_light, new_light_source, del_light_source } from './light.js';
 import { monst_to_any, is_pool, is_lava } from './hack.js';

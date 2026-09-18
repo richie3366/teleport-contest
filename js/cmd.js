@@ -9,7 +9,7 @@ import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import { rn2 } from './rng.js';
 import {
-    newsym, flush_screen, pline, pline_dir, pline_xy, set_msg_xy,
+    newsym, flush_screen, pline, You, pline_dir, pline_xy, set_msg_xy,
     see_nearby_objects,
     clear_nhwindow_message,
     mon_visible, sensemon, canspotmon, glyph_at, glyph_is_invisible_id,
@@ -58,7 +58,7 @@ import {
 import { dovspell, docast, num_spells } from './spell.js';
 import { doeat } from './eat.js';
 import { dodrink } from './potion.js';
-import { dozap, You } from './zap.js';
+import { dozap } from './zap.js';
 import { doread } from './read.js';
 import { doengrave, maybe_smudge_engr, set_occupation, can_reach_floor, engr_at } from './engrave.js';
 import { dothrow, dofire } from './dothrow.js';

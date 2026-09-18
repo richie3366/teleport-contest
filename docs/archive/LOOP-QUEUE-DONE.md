@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-18
 
-- [x] `topten.c` prscore — coverage MISSING (C 159 L `topten.c:1194–1353` / JS no symbol; hops —, callers 5, RNG 0, msg 7; dead callees: fopen_datafile, score_wanted, free_dungeons, free_ttlist). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn prscore` (reach regression must be 0). Measured `port-coverage.mjs --name prscore` 2026-09-18 @ 838c6b6e. **Addressed:** D-2475
+- [x] `vpline` re-scan of verbatim-text call sites (D-2471 follow-up) — `js/engrave.js` read-back interpolates runtime engraving text into single-arg `pline` (C `engrave.c:396` passes it as a `%s` arg; engraving `%s` now prints empty, `%d` → `0`, `%%` → `%`). Same family: `js/rumors.js` outrumor `pline(line)` (C `pline1` = verbatim macro `hack.h:1026`), `js/pager.js` `pline(outH.s)`, `zap.js You(rest)` pre-format + re-scan for its 7 importers. Fix: route each through the `%s` arm (verbalize/impossible precedent in D-2471); merge the duplicate `zap.js:859 You` into `display.js:7441`. Verify with a `%s`-engraving read-back probe + full 44 + `hidden-proxy score` (message-text class: reach is vacuous). Source: reviews/loop-unattended/1430-01c936c3-vpline-rescan.md.
+
+
+- [x] `topten.c` prscore — coverage MISSING (C 159 L `topten.c:1194–1353` / JS no symbol; hops —, callers 5, RNG 0, msg 7; dead callees: fopen_datafile, score_wanted, free_dungeons, free_ttlist). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn prscore` (reach regression must be 0). Measured `port-coverage.mjs --name prscore` 2026-09-18 @ 838c6b6e. **Addressed:** D-2475 `f8881130`
 
 
 - [x] `priest.c` ghod_hitsu — coverage MISSING **Addressed:** D-2474 (C 78 L `priest.c:796–874` / JS no symbol; hops 3, callers 2, RNG 2, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn ghod_hitsu` (reach regression must be 0). Measured `port-coverage.mjs --name ghod_hitsu` 2026-09-18 @ 838c6b6e.

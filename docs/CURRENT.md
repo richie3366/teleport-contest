@@ -45,7 +45,7 @@ screens 93.2 %. Held-out moved 7 → 11 over 2026-09-06..17 while the local
 corpus went 48 % → 91.7 %: the corpus no longer predicts the judge.
 **Corpus fortress** (re-scored 2026-09-18 audit 1426–1434): **495 / 540
 PASS (91.7 %)** excl. 13 env-only; RNG 99.29 %, screens 99.0 % — identical
-to the prior audit, no flips across D-2467…D-2475 (every per-SHA re-run:
+to the prior audit, no flips across D-2467…D-2476 (every per-SHA re-run:
 0 regressed).
 Reviews 1225–1434: 185 ACCEPT, 6 WITH-DEBT, 1 DEBT, 13 QUALITY-RISK (2 Must-fix pending).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named).
@@ -100,8 +100,9 @@ breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
 **Next cluster:** Must-fix `vpline` re-scan of verbatim-text call sites (review 1430 — engrave.js `%s` read-back prints empty vs C `engrave.c:396` verbatim `%s` arg; same family: rumors.js `pline(line)`, pager.js `pline(outH.s)`, zap-`You` double-scan). Route each through the `%s` arm; merge duplicate `zap.js:859 You`. Source: reviews/loop-unattended/1430-01c936c3-vpline-rescan.md.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2475 (index).**
+**Keep D-0845…D-2476 (index).**
 <!-- recent:begin -->
+**D-2476** `engrave.c:396` (`You("%s: \"%s\"%s",…)`); `rumors.c:573` (`pline1(line)`); `pager.c:1922` — route each through the `%s` arm (verbalize/impossible D-2471 precedent — substituted args are never re-scanned by `vpline_expand`): engrave keeps the C format+args shape `You('%s: "%s"%s', feel/read, et, endpunct)`; rumo
 **D-2475** `nethack-c/upstream/src/topten.c:1194–1353` (`prscore`); static `score_wanted` `:1112–1192 — `js/topten.js` only, in C order — new module-local `score_wanted` (version gate; `pers_is_uid` uid arm; `-uname` strip; `-p/-r/-u` + next-arg arms with `i++` consume; `all`/name-prefix/`-<roleletter>`/maxrank; `ch()` hel
 **D-2474** `nethack-c/upstream/src/priest.c:795–874` (`ghod_hitsu`); callees `temple_occupied`/`has_s — `js/priest.js` only, in C order — new `export async function ghod_hitsu` (`:191`): roomno-char gate (`temple_occupied`, `'\0'` check) + `has_shrine`; shrpos origin; `svr.rooms` via bones.js `charCodeAt-ROOMOFFSET` idiom;
 **D-2473** `nethack-c/upstream/src/artifact.c:2508–2591` (`retouch_object`); supporting `touch_blaste — `js/artifact.js` restart in C order — `retouch_object(obj, loseit)` (`:1451`): Bell-of-Opening invocation-square pass-through (`BELL_OF_OPENING` const via `objectNames.indexOf`, live `invocation_pos`/`On_stairs` from hac
@@ -109,11 +110,10 @@ revisits the picker.
 **D-2471** `nethack-c/upstream/src/pline.c:153–291` (`vpline`); supporting `BIGBUFSZ` `:10–12`, `putm — `js/display.js` only, in C order — new `export async function vpline(fmt, ...args)` (`:7650`): consume-then-format accessiblemsg (`vpline_consume_msg_loc`, D-1207; C's recurse-with-same-va_list is prefix-then-format sinc
 **D-2470** `nethack-c/upstream/src/trap.c:2322–2450` (`trapeffect_anti_magic`); sole C caller `trapef — `js/trap.js` only, in C order — module-local `async trapeffect_anti_magic` (`:5128`): iron-shoes `spe>0` drain (same-object fetch via `u.uarmf`/file-local `which_armor` matching `wearing_iron_shoes`; hero-only seetrap + 
 **D-2469** `nethack-c/upstream/src/mklev.c:939–1171` (`fill_ordinary_room`); static `mksink` `:2316–2 — `js/mklev.js` only, in C order — `(u.uhave.amulet || !rn2(3))` short-circuit with `makemon` + spider check (`data?.mndx === PM_GIANT_SPIDER`, monmove.js idiom) + occupied-guarded `maketrap(WEB)`; trap loop calls live `mk
-**D-2468** `nethack-c/upstream/src/pager.c:1673–1963` (`do_look(mode, click_cc)`); static `suptext1`  — `js/pager.js` only, in C order — `do_look(mode = 0, click_cc = null)` with `quick`/`clicklook` (`:1675–1676`); cmdq pop/`cmdq_clear()` (= CQ_CANNED default, js/cmd.js) with `have_cmdq` tracking the C `goto dowhatiscmd` (
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2475; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2476; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

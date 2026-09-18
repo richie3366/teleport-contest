@@ -38,7 +38,7 @@
 
 import { game } from './gstate.js';
 import { rn2, rn1, rnl, rnz, rnd, d, rn2_on_display_rng } from './rng.js';
-import { pline, verbalize, You_feel, newsym, impossible, see_monsters, shieldeff } from './display.js';
+import { pline, You, verbalize, You_feel, newsym, impossible, see_monsters, shieldeff } from './display.js';
 import { nomul, carrying, losehp, finish_maybe_wail, You_hear } from './hack.js';
 import { upstart } from './hacklib.js';
 import { weapon_type, unrestrict_weapon_skill, add_weapon_skill, P_RESTRICTED } from './weapon.js';
@@ -48,7 +48,7 @@ import {
     ART_VORPAL_BLADE,
 } from './generated/artifacts_data.js';
 import { m_at, wake_nearby } from './mon.js';
-import { revive, You } from './zap.js';
+import { revive } from './zap.js';
 import {
     A_WIS, A_STR, A_CON, A_MAX, change_luck, adjattrib, adjalign, exercise,
     ALIGNLIM, uchangealign,

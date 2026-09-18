@@ -224,7 +224,7 @@ import { rn1, rn2, rnd, d } from './rng.js';
 import { getlin, yn_function } from './getline.js';
 import { livelog_printf } from './pline.js';
 import {
-    flush_screen, flush_topl_more, pline, pline_dir, pline_mon, Norep, You_feel, newsym,
+    flush_screen, flush_topl_more, pline, pline_dir, pline_mon, Norep, You, Your, You_feel, newsym,
     tmp_at, zapdir_to_glyph, nh_delay_output, canseemon, canspotmon, shieldeff,
     obj_glyph, cmap_to_glyph, glyph_is_invisible, map_invisible, unmap_object,
     bot, set_msg_xy, impossible,
@@ -855,15 +855,9 @@ function useupf(obj, numused) {
     delobj(victim);
 }
 
-/** C ref: pline.c You — prefix "You ". Exported for pray.c pleased. */
-export async function You(rest) {
-    await pline(`You ${rest}`);
-}
-
-/** C ref: pline.c Your — prefix "Your ". */
-async function Your(rest) {
-    await pline(`Your ${rest}`);
-}
+// C ref: pline.c You/Your — single definition lives in display.js
+// (D-2471; prefix-on-format then vpline with the same args). The local
+// pre-format+re-scan clones are deleted; callers use the display export.
 
 /** C ref: dbridge.c / rm.h is_ice — ICE or drawbridge-under DB_ICE. */
 export function is_ice(x, y) {
@@ -2364,7 +2358,7 @@ export async function dobuzz(
                         await pline(`The ${flash_str(fltyp)} whizzes by you!`);
                     } else if (damgtype === ZT_LIGHTNING) {
                         // C zap.c:4985–4986 — blind miss still tingles
-                        await Your(`${body_part(ARM)} tingles.`);
+                        await Your('%s tingles.', body_part(ARM));
                     }
                     // C zap.c:4988–4989 — lightning blinds via flashburn on
                     // any pass through the hero, hit or missed or reflected
@@ -2634,7 +2628,8 @@ export async function release_hold() {
         await expels(mtmp, mtmp.data, true);
     } else if (sticks(game.youmonst?.data)) {
         set_ustuck(null);
-        await You(`release ${mon_nam(mtmp)}.`);
+        // C zap.c:598 You("release %s.", mon_nam(mtmp)).
+        await You('release %s.', mon_nam(mtmp));
     } else {
         await unstuck(u.ustuck);
         let relbuf;
@@ -2650,7 +2645,8 @@ export async function release_hold() {
         } else {
             relbuf = `by ${mon_nam(mtmp)}`;
         }
-        await You(`are released ${relbuf}.`);
+        // C zap.c:607 You("are released %s.", relbuf).
+        await You('are released %s.', relbuf);
     }
 }
 
@@ -3865,7 +3861,8 @@ export async function bhitm(mtmp, otmp) {
             await mon_adjust_speed(mtmp, -1, otmp);
             check_gear_next_turn(mtmp);
             if (engulfing_u(mtmp) && is_whirly(mtmp.data)) {
-                await You(`disrupt ${mon_nam(mtmp)}!`);
+                // C zap.c:227 You("disrupt %s!", mon_nam(mtmp)).
+                await You('disrupt %s!', mon_nam(mtmp));
                 await pline('A huge hole opens up...');
                 await expels(mtmp, mtmp.data, true);
             }
@@ -5404,10 +5401,12 @@ async function bhito(obj, otmp) {
             if (!obj.cobj) {
                 await pline(`${Tobjnam_zap(obj, 'are')} empty.`);
             } else if (SchroedingersBox(obj)) {
+                // C zap.c:2243 You("aren't sure whether %s has %s or its
+                // corpse inside.", the(xname(obj)), an(Hallu?rndmonnam:"cat")).
                 await You(
-                    `aren't sure whether ${the(xname(obj))} has ${
-                        an(Hallucination() ? rndmonnam(null) : 'cat')
-                    } or its corpse inside.`,
+                    "aren't sure whether %s has %s or its corpse inside.",
+                    the(xname(obj)),
+                    an(Hallucination() ? rndmonnam(null) : 'cat'),
                 );
                 obj.cknown = 0;
             } else {
@@ -6166,7 +6165,8 @@ async function zap_map(x, y, obj) {
                 const ttmpname = trapname(ttmp.ttyp, false);
                 /* Invocation_lev vibrating-square "the" named */
                 const use_the = hallu ? !rn2(4) : false;
-                await You(`find ${use_the ? the(ttmpname) : an(ttmpname)}${use_the ? '!' : '.'}`);
+                // C zap.c:3790 You("find %s%c", use_the?the:an, '!'/'.').
+                await You('find %s%c', use_the ? the(ttmpname) : an(ttmpname), use_the ? '!' : '.');
                 /* C :3793 — assign, not OR */
                 learn.v = !hallu;
             }
@@ -6227,7 +6227,8 @@ async function zap_updown(obj) {
         /* C zap.c :3236–3262 */
         let ptmp = 0;
         if (dz < 0) {
-            await You(`probe towards the ${ceiling_updown(x, y)}.`);
+            // C zap.c:3241 You("probe towards the %s.", ceiling(x, y)).
+            await You('probe towards the %s.', ceiling_updown(x, y));
         } else {
             const rememberedltyp = update_mapseen_for(x, y);
             ptmp += await bhitpile(obj, bhito, x, y, dz);
@@ -6242,7 +6243,8 @@ async function zap_updown(obj) {
             } else {
                 surf = the(surface_zap(x, y));
             }
-            await You(`probe beneath ${surf}.`);
+            // C zap.c:3257 You("probe beneath %s.", surf).
+            await You('probe beneath %s.', surf);
             ptmp += await display_binventory(x, y, true);
         }
         if (!ptmp) await Your('probe reveals nothing.');

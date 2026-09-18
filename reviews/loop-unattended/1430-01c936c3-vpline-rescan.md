@@ -104,3 +104,5 @@ this commit).
    zap.js `You`.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-2476

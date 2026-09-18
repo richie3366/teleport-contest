@@ -2703,9 +2703,10 @@ export async function do_look(mode = 0, click_cc = null) {
         if (found) {
             /* C `:1922` putmixed(WIN_MESSAGE, 0, out_str): literal text
                (may hold an encoded glyph) with no forced more(). JS has
-               no putmixed export; pline takes the literal (single-arg,
-               no % expansion — D-0330) on the same message-window path. */
-            await pline(outH.s);
+               no putmixed export; route the literal through the "%s" arm
+               (vpline "%s"-exact verbatim, pline.c:197-203) on the same
+               message-window path so '%' in the text prints literally. */
+            await pline('%s', outH.s);
             /* C DUMPLOG_CORE `:1925–1939` decode_mixed+dumplogmsg omitted:
                DUMPLOG retired (D-1776) — pline already dumplogmsgs. */
 
@@ -2940,10 +2941,15 @@ export async function dowhatdoes() {
         if (q === 38 || q === 63) await whatdoes_help(); // '&' or '?'
         const nl = reslt.indexOf('\n');
         if (nl < 0) {
-            await pline(reslt);
+            // C pager.c:2700 pline("%s", reslt) verbatim.
+            await pline('%s', reslt);
         } else {
-            await pline(`${reslt.slice(0, nl)},`);
-            await pline(`${reslt.slice(0, 8)}${reslt.slice(nl + 1)}`);
+            // C `:2706` pline("%s,", reslt) with reslt NUL-cut at the
+            // newline (first line + comma); `:2708` pline("%8.8s%s",
+            // reslt, p + 1) (8-char key field + second line). JS keeps
+            // its slice emulation of both cuts, routed verbatim.
+            await pline('%s,', reslt.slice(0, nl));
+            await pline('%s%s', reslt.slice(0, 8), reslt.slice(nl + 1));
         }
     } else {
         const label = key2txt(q);

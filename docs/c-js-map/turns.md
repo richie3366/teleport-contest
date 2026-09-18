@@ -2509,7 +2509,7 @@ full `update_topl` NON_EMPTY cury/docorner; backspace-across-wrap;
 full message/window policy incomplete; `%-2d` pad; Upolyd mh botl; 
 **`timebot` via `flags.time_botl` on `moves++`** (D-0928 #1179; tty→`bot()`; 
 VIA_WINDOWPORT `stat_update_time` / `suppress_map_output` deferred; **`gb.bot_disabled` D-1831**); 
-**`vpline`** whole-body (D-2471; C `pline.c:153–291` — `vpline_expand` no-'%'/`%s`-exact/vsnprintf arms + `vpline_truncate` BUFSZ-1 `...`last-3 + SUPPRESS-gated dumplog + `_vpline_in_pline`/window_inited raw gate + vision save-0 + NO_CURS flush + `debug_prevent` putmesg skip + BUFSZ prevmsg + SPEECH clear; variadic `pline/pline_xy/pline_mon/pline_dir/Norep/custompline/urgent_pline` + new `You/Your/You_cant/pline_The/There/You_see`; named: panic/raw_print/alloc/maybe_play_sound/putmesg-export + You_feel/You_see/You_hear prop arms)
+**`vpline`** whole-body (D-2471; C `pline.c:153–291` — `vpline_expand` no-'%'/`%s`-exact/vsnprintf arms + `vpline_truncate` BUFSZ-1 `...`last-3 + SUPPRESS-gated dumplog + `_vpline_in_pline`/window_inited raw gate + vision save-0 + NO_CURS flush + `debug_prevent` putmesg skip + BUFSZ prevmsg + SPEECH clear; variadic `pline/pline_xy/pline_mon/pline_dir/Norep/custompline/urgent_pline` + new `You/Your/You_cant/pline_The/There/You_see`; named: panic/raw_print/alloc/maybe_play_sound/putmesg-export + You_feel/You_see/You_hear prop arms; **verbatim re-scan fix D-2476** — engrave read-back keeps C `You("%s: \"%s\"%s")` format+args; rumors `pline1`→`pline('%s',line)`; pager putmixed/dowhatdoes trio via `%s` arm; zap `You`/`Your` clones deleted, single `display.js` export, 7 importer files re-pointed, interpolated sites restored to C formats)
 
 ### `win/tty/getline.c` `hooked_tty_getlin`
 
