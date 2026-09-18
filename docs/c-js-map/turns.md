@@ -2378,6 +2378,43 @@ non-docrt caller wiring (`allmain.c:432,434`, `detect.c:99,101`,
 equivalent; browser resize rides the display layer), dismiss re-arms after the
 JS-only suppression wipe, legacy `u.Underwater` vs live `u.uinwater`);
 
+### `src/glyphs.c` `parse_id` family
+
+JS: `js/glyphs.js` (new) + `js/generated/glyphsyms_data.js` (new, via
+`scripts/extract-glyphsyms.py`) + `js/display.js` predicate exports — partial
+
+**`parse_id` + cache + `glyph_find_core` + fill/dump live** (D-2487; C
+`glyphs.c:824–1162` whole body in C order: restype prologue, loadsyms
+offset scan, cache fast path, per-glyph `G_` generation for 9578 of 9624
+glyphs (46 skipped: 23 unnamed-wand/scroll ids × normal/piletop banks) —
+monster/pet/ridden/detected prefixes, body/statue piletop arms,
+object wand/spellbook/scroll/potion/ring/unset arms with
+`oc_name ?? oc_descr`, full cmap/zap/swallow/explosion chain, invisible /
+nothing / unexplored / warning tail — plus `S_` cmap/oc/pm lookup arms;
+`fix_glyphname` / `glyph_hash` / `init`+`add`+`find` cache (double-hash,
+odd step) / `glyph_find_core` fan-out / `fill_glyphid_cache` /
+`free_glyphid_cache` / `glyphid_cache_status` / `dump_all_glyphids`;
+`loadsyms[]` order from `symbols.c` + `defsym.h` PCHAR(105)/OBJCLASS(17)/
+MONSYM(60) runs via checked-in extractor; `monsdump[].nm` ≡
+`monsterNames[m].slice(3)`; C `FILE *fp` dump takes a line sink (Rule #2);
+C `glyph_is_invisible` ≡ `glyph_is_invisible_id`; display.js gains the
+missing `display.h` macro ports — `glyph_is_normal_piletop_obj`,
+`glyph_is_body_piletop`, `glyph_to_body_corpsenm`, statue fem/male ±
+piletop + `glyph_to_statue_corpsenm`, `glyph_to_swallow`,
+`glyph_to_explosion` — plus exports for the cmap-bank locals,
+`MAXPCHARS`, `S_sw_tl`, `altar_other`, and the C-missing normal-piletop
+peel in `glyph_to_obj`; faithful C quirk kept: the 17 `G_generic_*` ids
+each name two glyphs (normal + piletop banks, no `piletop_` prefix in the
+generic range), cache keeps first-inserted like C); named: `find_struct`
+callback/color/unicode consumers (`glyphrep_to_custom_map_entries`,
+`glyphrep`, `match_glyph`, `to_custom_symset_entry_callback`,
+`find_glyphid_in_cache_by_glyphnum`, `wizcustom_glyphids`,
+`shuffle_customizations`, `apply_customizations`, `add_custom_nhcolor_entry`
+— options/symbols customization subsystem, own rows), C callers of
+fill/dump (`options.c:4227/7155`, `symbols.c:1073`, `wizcmds.c:1949`,
+`earlyarg.c:808` stdout) unwired (callers unported), `parse_sym_line`
+loadsyms consumer (symbols.c row).
+
 ### `src/questpgr.c` / tty menu
 
 JS: `js/questpgr.js`, `js/quest.js`, `js/do.js`, `js/dungeon.js` — partial

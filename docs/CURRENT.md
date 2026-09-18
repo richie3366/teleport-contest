@@ -45,7 +45,7 @@ screens 93.2 %. Held-out moved 7 → 11 over 2026-09-06..17 while the local
 corpus went 48 % → 91.7 %: the corpus no longer predicts the judge.
 **Corpus fortress** (re-scored 2026-09-18 audit 1435–1443): **495 / 540
 PASS (91.7 %)** excl. 13 env-only; RNG 99.29 %, screens 99.0 % — identical
-to the prior audit, no flips across D-2476…D-2486 (every per-SHA re-run:
+to the prior audit, no flips across D-2476…D-2487 (every per-SHA re-run:
 0 regressed; role_init REACH 91/91).
 Reviews 1225–1443: 193 ACCEPT, 6 WITH-DEBT, 1 DEBT, 14 QUALITY-RISK (1 Must-fix pending).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named).
@@ -98,10 +98,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `uhitm.c` hmon_hitmon_misc_obj — coverage MISSING (C 261 L `uhitm.c:1119–1383` / JS no symbol; hops 6, callers 1, RNG 8, msg 12). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn hmon_hitmon_misc_obj` (reach regression must be 0). Measured `port-coverage.mjs --name hmon_hitmon_misc_obj` 2026-09-18 @ f8881130.
+**Next cluster:** `glyphs.c` parse_id — coverage MISSING (C 336 L `glyphs.c:824–1162` / JS no symbol; hops —, callers 3, RNG 0, msg 15; dead callees: find_glyph_in_cache, fix_glyphname, add_glyph_to_cache). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn parse_id` (reach regression must be 0). Row archived (D-2487).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2486 (index).**
+**Keep D-0845…D-2487 (index).**
 <!-- recent:begin -->
+**D-2487** `nethack-c/upstream/src/glyphs.c:824–1162` (`parse_id`, staticfn). Callers `glyph_find_cor — new `js/glyphs.js` (634 L) in C order — `zero_find`, `strcmpi` (hacklib `strncmpi` -1 idiom), `fix_glyphname`, `glyph_hash` (rotl-1/XOR uint32), double-hash cache (`init`/`add`/`find`, odd step, `free`, `status`), `parse
 **D-2486** `nethack-c/upstream/src/uhitm.c:1119–1383` (`hmon_hitmon_misc_obj`, staticfn); sole C call — `js/uhitm.js` — new module-local `async function hmon_hitmon_misc_obj(mon, obj, ctx)` (C staticfn shape, mirroring sibling `hmon_hitmon_weapon_melee`'s ctx idiom) in C order: boulder/ball/chain `:1125` dmgval; mirror `:1
 **D-2485** `nethack-c/upstream/src/mon.c:72–255` (`sanity_check_single_mon`, staticfn) — one word — `has_egd` added to the existing const.js import in `js/mon.js:25` (no new edge: `imports.mjs --can mon.js const.js has_egd` reports mon.js already statically imports const.js; same line shape as the sibling `h
 **D-2484** `nethack-c/upstream/src/zap.c:6165–6219` (`wishcmdassist`, staticfn); sole live caller `ma — `js/zap.js` only + one import — new `export async function wishcmdassist(triesleft)` in C order: `WISHCMDASSIST_INFO[]` (all 15 `wishinfo` lines verbatim, trailing 0 excluded per `SIZE - 1`), wishless-conduct line while 
@@ -109,11 +110,10 @@ revisits the picker.
 **D-2482** `nethack-c/upstream/src/uhitm.c:4296–4385` (`mhitm_ad_heal`); uhitm arm `:4300–4304` (phys — `js/mhitm.js` in C order, mirroring shipped `mhitm_ad_were` (D-2049, identical 3-arm shape) — `const AD_HEAL = 27` (monattk.h `:69`); exported `mhitm_ad_heal(magr, mattk, mdef, mhm)` (`:1321`: `is_youmonst(mdef)` guard +
 **D-2481** `nethack-c/upstream/src/role.c:1980–2117` (`role_init`); callees `plnamesuffix` `:1664–172 — `js/roles.js` (C home) in C order — `randrole` (`rn2(roles.length)` ≡ `rn2(SIZE-1)`; display arm via live `rn2_on_display_rng`), module-local `randrole_filtered` (live `ok_*` filter chain, `randrole(FALSE)` fallback), `r
 **D-2480** `nethack-c/upstream/src/cmd.c:3517–3578` (`randomkey`); callers `pgetchar` `:445–453`, `ra — `js/cmd.js` in C order — `pgetchar` (fuzzer arm returns `randomkey()`, else `await nhgetch()`; async only per Constitution §2), `randomkey` (full body: ^A/^P repeat gate on `game.program_state.input_state === commandInp`
-**D-2479** `nethack-c/upstream/src/mon.c:72–255` (`sanity_check_single_mon`); static `pet_sanity_chec — both functions added module-local in `js/mon.js` (C home, matching C `staticfn`) in C order — data-pointer range, mnum fixup, HP bounds (gremlin `m_lev` arm kept commented-out like C), dead-monster early return, genocide
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2486; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2487; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
