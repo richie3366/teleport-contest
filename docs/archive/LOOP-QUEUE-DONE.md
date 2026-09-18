@@ -5,7 +5,12 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-18
 
-- [x] `end.c` really_done — coverage THIN (C 460 L `end.c:1130–1590` / JS 189 L in js/end.js; hops 2, callers 5, RNG 1, msg 9). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn really_done` (reach regression must be 0). Measured `port-coverage.mjs --name really_done` 2026-09-18 @ a35f6369. **Addressed:** D-2435
+- [x] `polyself.c` dogaze — coverage MISSING (C 131 L `polyself.c:1642–1773` / JS no symbol; hops 1, callers 1, RNG 4, msg 14). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dogaze` (reach regression must be 0). Measured `port-coverage.mjs --name dogaze` 2026-09-18 @ a35f6369.
+- [x] `polyself.c` rehumanize — coverage THIN (C 51 L `polyself.c:1367–1418` / JS 20 L in js/polyself.js; hops 1, callers 29, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn rehumanize` (reach regression must be 0). Measured `port-coverage.mjs --name rehumanize` 2026-09-18 @ a35f6369.
+- [x] `polyself.c` dospinweb — coverage MISSING (C 124 L `polyself.c:1497–1621` / JS no symbol; hops 1, callers 1, RNG 0, msg 11). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dospinweb` (reach regression must be 0). Measured `port-coverage.mjs --name dospinweb` 2026-09-18 @ a35f6369.
+
+
+- [x] `end.c` really_done — coverage THIN (C 460 L `end.c:1130–1590` / JS 189 L in js/end.js; hops 2, callers 5, RNG 1, msg 9). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn really_done` (reach regression must be 0). Measured `port-coverage.mjs --name really_done` 2026-09-18 @ a35f6369. **Addressed:** D-2435 `3a25da21`
 
 
 - [x] `cmd.c` getdir — coverage THIN (C 161 L `cmd.c:3958–4119` / JS 60 L in js/lock.js; hops 2, callers 29, RNG 5, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn getdir` (reach regression must be 0). Measured `port-coverage.mjs --name getdir` 2026-09-18 @ a35f6369. **Addressed:** D-2434 `1d21e3be`

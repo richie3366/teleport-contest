@@ -5,27 +5,33 @@ import { game } from './gstate.js';
 import { rn2, rn1, d, rnd } from './rng.js';
 import { dist2, strstri, strsubst } from './hacklib.js';
 import {
-    pline, urgent_pline, newsym, see_monsters, impossible,
+    pline, urgent_pline, newsym, see_monsters, impossible, Hallucination,
+    canseemon,
 } from './display.js';
 import { getlin, yn_function, y_n } from './getline.js';
 import { getdir } from './lock.js';
-import { an, the, the_unique_pm, set_body_part, yname, vtense, simpleonames, makeplural, cxname, ansimpleoname, simple_typename } from './objnam.js';
+import { an, the, the_unique_pm, set_body_part, yname, vtense, simpleonames, makeplural, cxname, ansimpleoname, simple_typename, otense } from './objnam.js';
 import {
     pmname, type_is_pname, mon_nam, Monnam, s_suffix, Ugender, hliquid,
+    y_monnam, l_monnam,
 } from './do_name.js';
 import { Unaware, newuhs } from './eat.js';
 import { attacktype_fordmg, killed } from './uhitm.js';
 import {
-    AT_SPIT, AT_GAZE, AD_BLND, AD_DRST, AD_ACID,
+    AT_SPIT, AT_GAZE, AT_ENGL, AD_BLND, AD_DRST, AD_ACID,
+    AD_CONF, AD_FIRE, AD_ELEC, AD_COLD,
 } from './mhitm.js';
 import { mksobj, objects_at, maybe_adjust_light } from './mkobj.js';
 import { throwit } from './dothrow.js';
-import { ubuzz, ubreatheu } from './zap.js';
+import { ubuzz, ubreatheu, You, resists_fire, destroy_items } from './zap.js';
 import { were_summon, were_beastie, counter_were } from './were.js';
 import { unpunish } from './read.js';
 import { surface, split_mon } from './sit.js';
 import { sticks } from './engrave.js';
-import { ceiling, t_at, instapetrify } from './trap.js';
+import {
+    ceiling, t_at, instapetrify, maketrap, deltrap, feeltrap, dotrap,
+    ignite_items,
+} from './trap.js';
 import { has_ceiling } from './dungeon.js';
 import { dryup } from './fountain.js';
 import { aggravate } from './wizard.js';
@@ -33,7 +39,7 @@ import { wakeup, egg_type_from_parent } from './mon.js';
 import { Punished } from './pray.js';
 import { name_to_mon, name_to_monclass, set_mon_data } from './mondata.js';
 import {
-    exercise, acurr, A_STR, A_CON, A_WIS, adjabil, redist_attr, newhp,
+    exercise, acurr, A_STR, A_CON, A_WIS, A_DEX, adjabil, redist_attr, newhp,
 } from './attrib.js';
 import { newpw, rndexp, setuhpmax } from './exper.js';
 import { find_ac } from './u_init.js';
@@ -44,11 +50,14 @@ import {
 import { dropx, canletgo, make_blinded } from './do.js';
 import { uswapwepgone, uwepgone, could_twoweap, untwoweapon } from './wield.js';
 import { races } from './roles.js';
-import { encumber_msg, useup, weapon_descr, update_inventory, observe_object } from './invent.js';
-import { end_burn, learn_egg_type, artifact_light, arti_light_radius } from './timeout.js';
+import { encumber_msg, useup, weapon_descr, update_inventory, observe_object, Blind } from './invent.js';
+import { end_burn, learn_egg_type, artifact_light, arti_light_radius, Invis } from './timeout.js';
 import { racial_exception, has_horns, num_horns, WrappingAllowed, is_flimsy } from './worn.js';
 import { helm_simple_name, digests, set_ustuck } from './mhitu.js';
-import { losehp, nomul, is_pool, waterbody_name } from './hack.js';
+import {
+    losehp, nomul, is_pool, waterbody_name, On_stairs, in_rooms,
+    monst_to_any,
+} from './hack.js';
 import { finish_losehp_done, done } from './end.js';
 import { steed_vs_stealth } from './steed.js';
 // polymon whole-body port deps (imports.mjs --can: all SAFE, hoisted fns,
@@ -62,6 +71,9 @@ import { unmul, is_lava } from './hack.js';
 import { expels } from './mhitu.js';
 import { set_utrap, reset_utrap, selftouch } from './trap.js';
 import { can_ride, dismount_steed } from './steed.js';
+// dogaze/dospinweb/rehumanize arms (imports.mjs --can: both SAFE, hoisted fns).
+import { couldsee } from './vision.js';
+import { emits_light, del_light_source } from './light.js';
 import {
     flaming, unsolid, amorphous, likes_lava, breathless, poly_when_stoned,
     is_swimmer, MZ_HUGE,
@@ -133,6 +145,8 @@ import {
     MR_POISON,
     MR_ACID,
     MR_STONE,
+    M1_SEE_INVIS,
+    is_animal,
 } from './monsters.js';
 import { golemhp, is_home_elemental, mkclass_poly, Is_dragon_scales } from './makemon.js';
 import {
@@ -200,6 +214,12 @@ import {
     STR19,
     NO_PART, ARM, EYE, FINGER, FINGERTIP, FOOT, HAND, HANDED,
     HEAD, LEG, TOE, NOSE, HAIR,
+    NATTK, LS_MONSTER, STONING, KILLED_BY, NO_KILLER_PREFIX, IS_AIR,
+    STAIRS, SHOPBASE, SHOP_WEB_COST, NO_TRAP_FLAGS,
+    PIT, SQKY_BOARD, TELEP_TRAP, LEVEL_TELEP, MAGIC_PORTAL,
+    VIBRATING_SQUARE, WEB, HOLE, TRAPDOOR, ROLLING_BOULDER_TRAP,
+    ARROW_TRAP, DART_TRAP, BEAR_TRAP, ROCKTRAP, FIRE_TRAP, LANDMINE,
+    SLP_GAS_TRAP, RUST_TRAP, MAGIC_TRAP, ANTI_MAGIC, POLY_TRAP,
 } from './const.js';
 import {
     PM_HUMAN,
@@ -254,6 +274,8 @@ const PM_SHARK = monsterNames.indexOf('PM_SHARK');
 const PM_JELLYFISH = monsterNames.indexOf('PM_JELLYFISH');
 const PM_KRAKEN = monsterNames.indexOf('PM_KRAKEN');
 const PM_FLOATING_EYE = monsterNames.indexOf('PM_FLOATING_EYE');
+const PM_MEDUSA = monsterNames.indexOf('PM_MEDUSA');
+const AMULET_OF_UNCHANGING = objectNames.indexOf('AMULET_OF_UNCHANGING');
 const PM_GREMLIN = monsterNames.indexOf('PM_GREMLIN');
 const PM_GREEN_SLIME = monsterNames.indexOf('PM_GREEN_SLIME');
 const AMULET_OF_STRANGULATION = objectNames.indexOf('AMULET_OF_STRANGULATION');
@@ -928,31 +950,56 @@ async function newman() {
 }
 
 /**
- * C ref: polyself.c rehumanize — poly timeout / HP death while poly'd.
- * Envelope: Unchanging stuck arm deferred (caller handles timeout reset);
- * polyman return-to-race; nomul; botl/vision; encumber_msg.
- * Named omissions: emits_light del_light_source; uhp<1 done(DIED);
- * flying steed pline; retouch_equipment; selftouch; update_inventory.
+ * C ref: polyself.c rehumanize `:1367–1418` — poly timeout / HP death
+ * while poly'd, in C order: was_flying entry; Unchanging stuck arm
+ * (mh<1 done(DIED) + early return, else amulet-of-unchanging
+ * Your/observe/makeknown); emits_light del_light_source; polyman
+ * return-to-race; uhp<1 done(DIED); nomul; botl/vision; encumber_msg;
+ * update_inventory; flying-steed You; gloveless selftouch.
+ * Named omissions: retouch_equipment(2) (`artifact.c:2639`, own coverage row).
  */
 export async function rehumanize() {
     const u = game.u || {};
+    const wasFlying = Flying();
     // C: Unchanging && mh<1 → done(DIED); decline keeps creature form
-    if (Unchanging(u) && (u.mh | 0) < 1) {
-        if (!game.killer) game.killer = { name: '', format: 0 };
-        game.killer.format = 2; // NO_KILLER_PREFIX
-        game.killer.name = 'killed while stuck in creature form';
-        await done(DIED);
-        return;
+    if (Unchanging(u)) {
+        if ((u.mh | 0) < 1) {
+            if (!game.killer) game.killer = { name: '', format: 0 };
+            game.killer.format = NO_KILLER_PREFIX;
+            game.killer.name = 'killed while stuck in creature form';
+            await done(DIED);
+            return; // don't rehumanize after all
+        } else if (u.uamul && (u.uamul.otyp | 0) === AMULET_OF_UNCHANGING) {
+            await pline(`Your ${simpleonames(u.uamul)} ${otense(u.uamul, 'fail')}!`);
+            observe_object(u.uamul);
+            makeknown(AMULET_OF_UNCHANGING);
+        }
     }
 
+    if (emits_light(game.youmonst?.data))
+        del_light_source(LS_MONSTER, monst_to_any(game.youmonst));
     const race = game.urace || {};
     const adj = race.adj || race.noun || 'human';
     await polyman('You return to %s form!', adj);
+
+    if ((u.uhp | 0) < 1) {
+        // C: some bit of code reduced u.uhp instead of u.mh while poly'd
+        await pline('Your old form was not healthy enough to survive.');
+        if (!game.killer) game.killer = { name: '', format: 0 };
+        game.killer.name = `reverting to unhealthy ${adj} form`;
+        game.killer.format = KILLED_BY;
+        await done(DIED);
+    }
     nomul(0);
+
     if (game.flags) game.flags.botl = true;
     game.vision_full_recalc = 1;
     await encumber_msg();
-    // retouch_equipment / selftouch deferred
+    update_inventory();
+    if (wasFlying && !Flying() && u.usteed)
+        await You(`and ${mon_nam(u.usteed)} return gently to the ${surface(u.ux, u.uy)}.`);
+    // retouch_equipment(2) named above
+    if (!u.uarmg) await selftouch(no_longer_petrify_resistant);
 }
 
 /**
@@ -2320,13 +2367,291 @@ export async function dohide() {
 }
 
 /**
+ * C ref: polyself.c dogaze `:1642–1773` — #monster gaze attack while
+ * poly'd, in C order: AT_GAZE mattk scan (AD_CONF/AD_FIRE else
+ * impossible); Blind/Hallucination/uen<15 gates; uen-=15 + botl; per
+ * visible monster: Invis/perceives, minvis/See_invisible, mimic-appear,
+ * safe_dog tame, confirm peaceful y_n, setmangry, helpless/stun/blind/
+ * eyeless skip (looked--), AD_CONF mconf, AD_FIRE destroy+ignite+killed,
+ * floating-eye freeze (nomul/multi_reason/nomovemsg + ECMD_TIME) or
+ * stiffen, Medusa done(STONING); looked==0 pline; ECMD_TIME.
+ * `You_cant`/`Your`/`pline_The` render as prefixed pline (file idiom);
+ * `helpless` is `monst.h:251` (msleeping || !mcanmove); `perceives` is
+ * `mondata.h:81` (mflags1 & M1_SEE_INVIS).
+ * @returns {Promise<number>} ECMD_OK | ECMD_TIME
+ */
+export async function dogaze() {
+    const u = game.u || {};
+    const flags = game.flags || {};
+    const mattk = game.youmonst?.data?.mattk;
+    let adtyp = 0;
+    for (let i = 0; i < NATTK; i++) {
+        if ((mattk?.[i]?.aatyp | 0) === AT_GAZE) {
+            adtyp = mattk[i].adtyp | 0;
+            break;
+        }
+    }
+    if (adtyp !== AD_CONF && adtyp !== AD_FIRE) {
+        await impossible(`gaze attack ${adtyp}?`);
+        return ECMD_OK;
+    }
+
+    if (Blind()) {
+        await pline("You can't see anything to gaze at.");
+        return ECMD_OK;
+    } else if (Hallucination()) {
+        await pline("You can't gaze at anything you can see.");
+        return ECMD_OK;
+    }
+    if ((u.uen | 0) < 15) {
+        await You('lack the energy to use your special gaze!');
+        return ECMD_OK;
+    }
+    u.uen = (u.uen | 0) - 15;
+    flags.botl = true;
+
+    let looked = 0;
+    // C youprop.h See_invisible ≡ H || E (+ sticky flat, per-module idiom).
+    const See_invisible = !!((u.HSee_invisible | 0) || (u.ESee_invisible | 0)
+        || u.See_invisible);
+    const confused = !!((u.HConfusion | 0) || u.Confusion);
+    // C walks live fmon; snapshot preserves one-visit-per-monster order
+    // while killed() unlinks mid-loop (priest.js/monmove.js idiom).
+    for (const mtmp of [...(game.fmon || [])]) {
+        if ((mtmp.mhp | 0) < 1) continue; // DEADMONSTER
+        if (canseemon(mtmp) && couldsee(mtmp.mx, mtmp.my)) {
+            looked++;
+            if (Invis() && (((mtmp.data?.mflags1 | 0) & M1_SEE_INVIS) === 0)) {
+                await pline(`${Monnam(mtmp)} seems not to notice your gaze.`);
+            } else if (mtmp.minvis && !See_invisible) {
+                await pline(`You can't see where to gaze at ${Monnam(mtmp)}.`);
+            } else if (M_AP_TYPE(mtmp) === M_AP_FURNITURE
+                       || M_AP_TYPE(mtmp) === M_AP_OBJECT) {
+                looked--;
+                continue;
+            } else if (flags.safe_dog !== false && mtmp.mtame && !confused) {
+                await You(`avoid gazing at ${y_monnam(mtmp)}.`);
+            } else {
+                if (flags.confirm !== false && mtmp.mpeaceful && !confused) {
+                    const qbuf = `Really ${adtyp === AD_CONF ? 'confuse' : 'attack'} ${mon_nam(mtmp)}?`;
+                    if ((await y_n(qbuf)) !== 'y') continue;
+                }
+                await setmangry(mtmp, true);
+                if (mtmp.msleeping || !mtmp.mcanmove || mtmp.mstun
+                    || !mtmp.mcansee || !haseyes(mtmp.data)) {
+                    looked--;
+                    continue;
+                }
+                /* No reflection check for consistency with when a monster
+                 * gazes at *you*--only medusa gaze gets reflected then. */
+                if (adtyp === AD_CONF) {
+                    if (!mtmp.mconf)
+                        await pline(`Your gaze confuses ${mon_nam(mtmp)}!`);
+                    else
+                        await pline(`${Monnam(mtmp)} is getting more and more confused.`);
+                    mtmp.mconf = 1;
+                } else if (adtyp === AD_FIRE) {
+                    let dmg = d(2, 6);
+                    const orig_dmg = dmg;
+                    const lev = u.ulevel | 0;
+
+                    await You(`attack ${mon_nam(mtmp)} with a fiery gaze!`);
+                    if (resists_fire(mtmp)) {
+                        await pline(`The fire doesn't burn ${mon_nam(mtmp)}!`);
+                        dmg = 0;
+                    }
+                    if (lev > rn2(20)) {
+                        dmg += await destroy_items(mtmp, AD_FIRE, orig_dmg);
+                        await ignite_items(mtmp.minvent);
+                    }
+                    if (dmg) mtmp.mhp = (mtmp.mhp | 0) - dmg;
+                    if ((mtmp.mhp | 0) < 1) await killed(mtmp);
+                }
+                /* For consistency with passive() in uhitm.c, this only
+                 * affects you if the monster is still alive. */
+                if ((mtmp.mhp | 0) < 1) continue;
+
+                if (((mtmp.data?.mndx | 0) === PM_FLOATING_EYE) && !mtmp.mcan) {
+                    // C youprop.h Free_action (mhitu.js/potion.js idiom).
+                    const freeAction = !!(u.Free_action || u.HFree_action
+                        || u.EFree_action);
+                    if (!freeAction) {
+                        await You(`are frozen by ${s_suffix(mon_nam(mtmp))} gaze!`);
+                        nomul(((u.ulevel | 0) > 6 || rn2(4))
+                            ? -d((mtmp.m_lev | 0) + 1,
+                                (mtmp.data?.mattk?.[0]?.damd | 0))
+                            : -200);
+                        game.multi_reason = "frozen by a monster's gaze";
+                        game.nomovemsg = 0;
+                        return ECMD_TIME;
+                    } else {
+                        await You(`stiffen momentarily under ${s_suffix(mon_nam(mtmp))} gaze.`);
+                    }
+                }
+                /* Technically this one shouldn't affect you at all because
+                 * the Medusa gaze is an active monster attack that only
+                 * works on the monster's turn, but for it to *not* have an
+                 * effect would be too weird. */
+                if (((mtmp.data?.mndx | 0) === PM_MEDUSA) && !mtmp.mcan) {
+                    await pline(`Gazing at the awake ${l_monnam(mtmp)} is not a very good idea.`);
+                    /* as if gazing at a sleeping anything is fruitful... */
+                    await urgent_pline('You turn to stone...');
+                    if (!game.killer) game.killer = { name: '', format: 0 };
+                    game.killer.format = KILLED_BY;
+                    game.killer.name = "deliberately meeting Medusa's gaze";
+                    await done(STONING);
+                }
+            }
+        }
+    }
+    if (!looked) await You('gaze at no place in particular.');
+    return ECMD_TIME;
+}
+
+/**
+ * C ref: polyself.c dospinweb `:1497–1621` — #monster spin-a-web while
+ * poly'd, in C order: Levitation/terrain gate (is_pool_or_lava is
+ * `dbridge.c:77–83`); uswallow arm (animal expels, whirly AT_ENGL
+ * sweep, else dissolve); utrap gate; exercise DEX; trap arms
+ * (pit/bury, squeaky, teleports vanish, WEB thicken, hole/door cover,
+ * boulder jam, armed trigger via dotrap, default impossible); stairs
+ * cop-out; maketrap WEB + madeby_u + feeltrap + shop damage.
+ * add_damage rides a dynamic shk.js import (zap.js precedent, no new
+ * static edge).
+ * @returns {Promise<number>} ECMD_OK | ECMD_TIME
+ */
+export async function dospinweb() {
+    const u = game.u || {};
+    const x = u.ux, y = u.uy;
+    const ttmp = t_at(x, y);
+    /* disallow webs on water, lava, air & cloud */
+    const rejectTerrain = is_pool(x, y) || is_lava(x, y)
+        || IS_AIR(game.level?.at(x, y)?.typ);
+
+    /* [at the time this was written, it was not possible to be both a
+       webmaker and a flyer, but with the advent of amulet of flying that
+       became a possibility; at present hero can spin a web while flying] */
+    const levitation = !!(((u.HLevitation | 0) || (u.ELevitation | 0))
+        && !((u.BLevitation | 0)));
+    if (levitation || rejectTerrain) {
+        await You(`must be on ${rejectTerrain ? 'solid' : 'the'} ground to spin a web.`);
+        return ECMD_OK;
+    }
+    if (u.uswallow) {
+        await You(`release web fluid inside ${mon_nam(u.ustuck)}.`);
+        if (is_animal(u.ustuck?.data)) {
+            await expels(u.ustuck, u.ustuck?.data, true);
+            return ECMD_OK;
+        }
+        if (is_whirly(u.ustuck?.data)) {
+            const eattk = u.ustuck?.data?.mattk;
+            let i = 0;
+            for (; i < NATTK; i++)
+                if ((eattk?.[i]?.aatyp | 0) === AT_ENGL) break;
+            if (i === NATTK) {
+                await impossible('Swallower has no engulfing attack?');
+            } else {
+                let sweep = '';
+                switch ((eattk[i]?.adtyp | 0)) {
+                case AD_FIRE:
+                    sweep = 'ignites and ';
+                    break;
+                case AD_ELEC:
+                    sweep = 'fries and ';
+                    break;
+                case AD_COLD:
+                    sweep = 'freezes, shatters and ';
+                    break;
+                }
+                await pline(`The web ${sweep}is swept away!`);
+            }
+            return ECMD_OK;
+        } /* default: a nasty jelly-like creature */
+        await pline(`The web dissolves into ${mon_nam(u.ustuck)}.`);
+        return ECMD_OK;
+    }
+    if (u.utrap) {
+        await You('cannot spin webs while stuck in a trap.');
+        return ECMD_OK;
+    }
+    exercise(A_DEX, true);
+    if (ttmp) {
+        switch (ttmp.ttyp | 0) {
+        case PIT:
+        case SPIKED_PIT:
+            await You('spin a web, covering up the pit.');
+            deltrap(ttmp);
+            await bury_objs(x, y);
+            newsym(x, y);
+            return ECMD_TIME;
+        case SQKY_BOARD:
+            await pline('The squeaky board is muffled.');
+            deltrap(ttmp);
+            newsym(x, y);
+            return ECMD_TIME;
+        case TELEP_TRAP:
+        case LEVEL_TELEP:
+        case MAGIC_PORTAL:
+        case VIBRATING_SQUARE:
+            await pline('Your webbing vanishes!');
+            return ECMD_OK;
+        case WEB:
+            await You('make the web thicker.');
+            return ECMD_TIME;
+        case HOLE:
+        case TRAPDOOR:
+            await You(`web over the ${(ttmp.ttyp | 0) === TRAPDOOR ? 'trap door' : 'hole'}.`);
+            deltrap(ttmp);
+            newsym(x, y);
+            return ECMD_TIME;
+        case ROLLING_BOULDER_TRAP:
+            await You('spin a web, jamming the trigger.');
+            deltrap(ttmp);
+            newsym(x, y);
+            return ECMD_TIME;
+        case ARROW_TRAP:
+        case DART_TRAP:
+        case BEAR_TRAP:
+        case ROCKTRAP:
+        case FIRE_TRAP:
+        case LANDMINE:
+        case SLP_GAS_TRAP:
+        case RUST_TRAP:
+        case MAGIC_TRAP:
+        case ANTI_MAGIC:
+        case POLY_TRAP:
+            await You('have triggered a trap!');
+            await dotrap(ttmp, NO_TRAP_FLAGS);
+            return ECMD_TIME;
+        default:
+            await impossible(`Webbing over trap type ${(ttmp.ttyp | 0)}?`);
+            return ECMD_OK;
+        }
+    } else if (On_stairs(x, y)) {
+        /* cop out: don't let them hide the stairs */
+        await pline(`Your web fails to impede access to the ${(game.level?.at(x, y)?.typ | 0) === STAIRS ? 'stairs' : 'ladder'}.`);
+        return ECMD_TIME;
+    }
+    const web = maketrap(x, y, WEB);
+    if (web) {
+        await You('spin a web.');
+        web.madeby_u = 1;
+        feeltrap(web);
+        if (in_rooms(x, y, SHOPBASE)) {
+            const { add_damage } = await import('./shk.js');
+            add_damage(x, y, SHOP_WEB_COST);
+        }
+    }
+    return ECMD_TIME;
+}
+
+/**
  * C ref: cmd.c domonability — #monster special ability while poly'd.
  * Envelope: hide/web prompt; breathe → spit → nymph → gaze → were →
  * hide → web → mindflayer → gremlin → unicorn → shriek → vampire →
  * steed → reflexive/normal.
- * Named omissions: dogaze, dospinweb (polyself.c arms, queued);
- * steed breath via pet_ranged_attk (missing). Deferred arms keep the
- * old reflexive/normal fallthrough.
+ * Named omissions: steed breath via pet_ranged_attk (missing).
+ * Deferred arms keep the old reflexive/normal fallthrough.
  * @returns {Promise<number>} ECMD_OK | ECMD_TIME
  */
 export async function domonability() {
@@ -2358,13 +2683,13 @@ export async function domonability() {
     } else if ((uptr?.mlet) === 'S_NYMPH') {
         return doremove();
     } else if (attacktype(uptr, AT_GAZE)) {
-        return tail(); // dogaze deferred
+        return dogaze(); // C cmd.c:909
     } else if (is_were(uptr)) {
         return dosummon();
     } else if (c ? c === 'h' : might_hide) {
         return dohide();
     } else if (c ? c === 's' : webmaker(uptr)) {
-        return tail(); // dospinweb deferred
+        return dospinweb(); // C cmd.c:915
     } else if (is_mind_flayer(uptr)) {
         return domindblast();
     } else if ((u.umonnum | 0) === PM_GREMLIN) {
