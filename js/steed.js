@@ -43,7 +43,7 @@ import { getdir } from './lock.js';
 import { y_n } from './getline.js';
 import { m_at, cant_drown } from './mon.js';
 import { isok, strsubst } from './hacklib.js';
-import { Monnam, mon_nam, monverbself, pmname, Mgender, y_monnam, Hallucination, hliquid, x_monnam, minimal_monnam } from './do_name.js';
+import { Monnam, mon_nam, monverbself, pmname, Mgender, y_monnam, Hallucination, hliquid, x_monnam, minimal_monnam, YMonnam } from './do_name.js';
 import { losehp, maybe_half_phys, finish_maybe_wail, is_pool, is_lava, test_move } from './hack.js';
 import { set_wounded_legs, heal_legs, legs_in_no_shape, sokoban_guilt, mintrap } from './trap.js';
 import { finish_meating } from './dogmove.js';
@@ -442,6 +442,28 @@ export async function exercise_steed() {
         u.urideturns = 0;
         await use_skill(P_RIDING, 1);
     }
+}
+
+/**
+ * C ref: steed.c stucksteed `:878–895` — can the steed move at all.
+ * Helpless steed (asleep or paralyzed) won't move; with checkfeeding a
+ * steed in the midst of a meal is still eating. Spends the move.
+ */
+export async function stucksteed(checkfeeding) {
+    const steed = game.u?.usteed;
+    if (steed) {
+        /* check whether steed can move */
+        if (helpless_steed(steed)) {
+            await pline(`${YMonnam(steed)} won't move!`);
+            return true;
+        }
+        /* optionally check whether steed is in the midst of a meal */
+        if (checkfeeding && steed.meating) {
+            await pline(`${YMonnam(steed)} is still eating.`);
+            return true;
+        }
+    }
+    return false;
 }
 
 /**
@@ -1004,7 +1026,7 @@ export async function poly_steed(steed, oldshape) {
 }
 
 /** C hack.h helpless — msleeping || !mcanmove. */
-function helpless_steed(mtmp) {
+export function helpless_steed(mtmp) {
     return !!(mtmp.msleeping || !mtmp.mcanmove);
 }
 

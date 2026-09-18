@@ -1612,6 +1612,14 @@ dothrow `hurtle_step` D-1165; do.c `goto_level` D-1166;
 **`domove` youmonst `m_postmove_effect` after occupy before steed mx/my (D-1167; 
 C `hack.c:2877` / `monmove.c` 672–683; Hezrou/Steam trail at `u.ux0`; helper `is_u`; 
 **`allmain.c` once-per-input `m_everyturn_effect(&youmonst)` fog at `u.ux` (D-1175)**; 
+**`domove_core` missing arms (D-2453; C `hack.c:2712–2991` into live `js/cmd.js domove`;
+`air_turbulence` :2342 + `slippery_ice_fumbling` :2396 (`js/hack.js`);
+`stucksteed` `steed.c:878` (`js/steed.js`); `domove_attackmon_at` :1955 with
+displacer `displaceu` swap :2900 (`js/cmd.js`); bhitpos :2775, attack nomul
+:2789, u_on_newpos-final uundetected + `earth_sense` (`dungeon.c:1548`) :2937,
+`reset_occupations` (`cmd.c:195`, `js/do.js` export) :2939; travel upstream via
+`continue_run` findtravelpath_travel/guess; CLIPPING deferred; displaceu
+middle-skip named)**; 
 **`spoteffects`→`dotrap` (non-pit pickup then trap)** (D-0239) + 
 **`spoteffects` recursion / `in_lava_effects` / lev timeout `rn2(2)` /
 Warning ice / hidden-mon+piercer surprise** (D-1799; C `hack.c:3311–3462`;

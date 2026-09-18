@@ -5,8 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-18
 
+- [x] `hack.c` domove_core — coverage MISSING **Addressed:** D-2453 (C 279 L `hack.c:2712–2991` / JS no symbol; hops 1, callers 1, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn domove_core` (reach regression must be 0). Measured `port-coverage.mjs --name domove_core` 2026-09-18 @ e6289b5b.
+
+
 - [x] `cmd.c` yn_function — coverage PARTIAL (C 108 L `cmd.c:5471–5583` / JS 70 L in js/getline.js; hops 1, callers 40, RNG 5, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn yn_function` (reach regression must be 0). Measured `port-coverage.mjs --name yn_function` 2026-09-18 @ e6289b5b. **Stale-parked:** see Parked Stale yn_function (no js/; shipped make_blinded D-2452 in the same iteration).
-- [x] `potion.c` make_blinded — coverage PARTIAL (C 70 L `potion.c:261–331` / JS 49 L in js/do.js; hops 1, callers 39, RNG 0, msg 8). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn make_blinded` (reach regression must be 0). Measured `port-coverage.mjs --name make_blinded` 2026-09-18 @ e6289b5b. **Addressed:** D-2452
+- [x] `potion.c` make_blinded — coverage PARTIAL (C 70 L `potion.c:261–331` / JS 49 L in js/do.js; hops 1, callers 39, RNG 0, msg 8). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn make_blinded` (reach regression must be 0). Measured `port-coverage.mjs --name make_blinded` 2026-09-18 @ e6289b5b. **Addressed:** D-2452 `e19b6d0a`
 
 
 - [x] `pager.c` checkfile dbase-side `" ("` strip (charges/`(lit)`/aum, C `:977–981`) absent from `checkfile_split_names` in js/pager.js — lit/charged lookups miss where C hits (probe: `"oil lamp (lit)"` keeps suffix; reachable via objnam.c:1477–1490). Fix: truncate dbase at first `" ("` mirroring C. Verify lit-lamp lookup + `node scripts/verify.mjs --fn checkfile`. Source: reviews/loop-unattended/1402-74dc5699-checkfile-whole-body.md item 1. **Addressed:** D-2451 `c393792a`

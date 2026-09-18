@@ -45,7 +45,7 @@ import { gethungry, morehungry, is_fainted } from './eat.js';
 import { unconscious, enexto, goodpos, rloc_to } from './teleport.js';
 import { m_at, hideunder, seemimic, bad_rock, may_passwall, cant_squeeze_thru } from './mon.js';
 import { recalc_block_point } from './vision.js';
-import { is_hider, hides_under, throws_rocks, noncorporeal, metallivorous, mons, is_flyer, is_swimmer, verysmall, bigmonst, passes_bars, dmgtype, is_rider, amorphous, tunnels, needspick } from './monsters.js';
+import { is_hider, hides_under, throws_rocks, noncorporeal, metallivorous, mons, is_flyer, is_swimmer, verysmall, bigmonst, passes_bars, dmgtype, is_rider, amorphous, tunnels, needspick, is_floater, is_clinger, is_whirly } from './monsters.js';
 import {
     objects_at, sobj_at, obj_extract_self, place_object, delobj,
     peek_timer, stop_timer, start_timer, splitobj,
@@ -54,6 +54,7 @@ import { objectNames } from './generated/objects_data.js';
 import { WEAPON_CLASS, TOOL_CLASS, COIN_CLASS, is_blade, is_pick } from './objects.js';
 import { xname, the, The, makeplural, an } from './objnam.js';
 import { A_STR, A_CON, A_DEX, acurr, acurrstr, exercise, Fumbling } from './attrib.js';
+import { objdescr_is } from './apply.js';
 import { rn2, rnd, rn1 } from './rng.js';
 import { ing_suffix } from './hacklib.js';
 import { midnight } from './calendar.js';
@@ -79,13 +80,13 @@ import { surface } from './sit.js';
 import { autopick_testobj } from './pickup.js';
 import { Hello } from './roles.js';
 import { SetVoice } from './sndprocs.js';
-import { set_ustuck, Conflict } from './mhitu.js';
+import { set_ustuck, Conflict, Levitation, Flying } from './mhitu.js';
 import { sticks } from './engrave.js';
 import { revive_corpse, l_nhcore_call } from './do.js';
 import { is_db_wall } from './dbridge.js';
 import { doopen_indir } from './lock.js';
 import { use_pick_axe2 } from './dig.js';
-import { You } from './zap.js';
+import { You, is_ice, resists_cold, Cold_resistance } from './zap.js';
 import { can_ooze } from './monmove.js';
 import { worm_cross } from './worm.js';
 
@@ -2261,6 +2262,58 @@ export async function water_turbulence() {
         return true;
     }
     return false;
+}
+
+/**
+ * C hack.c air_turbulence `:2342–2360` — Air level without Levitation or
+ * flight: rn2(4) turbulence spends the move (tumble / can't control /
+ * thin air + DEX exercise).
+ * @returns {Promise<boolean>} true → lose the move
+ */
+export async function air_turbulence() {
+    const u = game.u || {};
+    if (Is_airlevel(u.uz) && rn2(4) && !Levitation() && !Flying()) {
+        switch (rn2(3)) {
+        case 0:
+            await You('tumble in place.');
+            exercise(A_DEX, false);
+            break;
+        case 1:
+            await pline("You can't control your movements very well."); // C You_cant
+            break;
+        case 2:
+            await pline("It's hard to walk in thin air.");
+            exercise(A_DEX, true);
+            break;
+        }
+        return true;
+    }
+    return false;
+}
+
+/**
+ * C hack.c slippery_ice_fumbling `:2396–2415` — standing on ice without
+ * snow boots, cold resistance, flight or skating physiology: rn2(2 or 3)
+ * sets extrinsic Fumbling so the hero slips on the next move; leaving
+ * the ice clears the FROMOUTSIDE slip. Pure state, no pline.
+ */
+export function slippery_ice_fumbling() {
+    const u = game.u || {};
+    let on_ice = !Levitation() && is_ice(u.ux | 0, u.uy | 0);
+    const iceskater = u.usteed || game.youmonst;
+    if (on_ice) {
+        if ((u.uarmf && objdescr_is(u.uarmf, 'snow boots'))
+            || resists_cold(iceskater) || Flying()
+            || is_floater(iceskater?.data) || is_clinger(iceskater?.data)
+            || is_whirly(iceskater?.data)) {
+            on_ice = false;
+        } else if (!rn2(Cold_resistance() ? 3 : 2)) {
+            u.HFumbling = (((u.HFumbling | 0) | FROMOUTSIDE) & ~TIMEOUT) + 1;
+        }
+    }
+    if (!on_ice && ((u.HFumbling | 0) & FROMOUTSIDE)) {
+        u.HFumbling = (u.HFumbling | 0) & ~FROMOUTSIDE;
+    }
 }
 
 /**
