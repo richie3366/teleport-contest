@@ -470,11 +470,6 @@ ITERATION_TIMEOUT_SEC="${ITERATION_TIMEOUT_SEC:-5400}"
 GIT_FETCH_TIMEOUT_SEC="${GIT_FETCH_TIMEOUT_SEC:-30}"
 LOOP_PROGRESS_INTERVAL_SEC="${LOOP_PROGRESS_INTERVAL_SEC:-30}"
 LOOP_PROGRESS="${LOOP_PROGRESS:-1}"
-# Silence watchdog: Muse can finish a port, print the handoff, then hang
-# on stream close (iter 3199: 16+ min of 0-byte growth, 3% CPU). 0 disables.
-# SIGTERM the agent tree so the supervisor records exit 143 and continues
-# (committed work is kept; uncommitted leftover arms continue-unfinished).
-LOOP_STALL_SEC="${LOOP_STALL_SEC:-600}"
 # Token-exhaustion detector: N consecutive agent runs shorter than this → halt.
 SHORT_ITER_SEC="${SHORT_ITER_SEC:-30}"
 SHORT_STREAK_LIMIT="${SHORT_STREAK_LIMIT:-3}"
@@ -825,28 +820,14 @@ git_fetch_origin() {
   fi
 }
 
-# SIGTERM descendants first, then the leader (python timeout wrapper does
-# not kill its muse child if we only kill the bash subshell).
-kill_pid_tree() {
-  local pid="$1" sig="${2:-TERM}"
-  local kids k
-  kids="$(pgrep -P "$pid" 2>/dev/null || true)"
-  for k in $kids; do
-    [[ -n "$k" ]] && kill_pid_tree "$k" "$sig"
-  done
-  kill -s "$sig" "$pid" 2>/dev/null || true
-}
-
 # Heartbeat while the agent runs: the supervisor redirects all agent stdout
 # to iter-*.raw, so the terminal would otherwise look frozen for minutes.
-# After LOOP_STALL_SEC of unchanged raw size, kill the agent tree.
 iter_progress_watcher() {
   local iter="$1"
   local raw="$2"
   local agent_pid="$3"
   local interval="${LOOP_PROGRESS_INTERVAL_SEC:-30}"
-  local stall_sec="${LOOP_STALL_SEC:-0}"
-  local last_stats="" last_bytes=-1 tick=0 stall_ticks=0
+  local last_stats="" last_bytes=-1 tick=0
   while kill -0 "$agent_pid" 2>/dev/null; do
     sleep "$interval"
     tick=$((tick + 1))
@@ -863,23 +844,12 @@ iter_progress_watcher() {
       echo "$(date -Iseconds) [iter $iter] $stats (${bytes} bytes raw)" | tee -a "$MASTER_LOG"
       last_stats="$stats"
       last_bytes=$bytes
-      stall_ticks=0
     elif [[ "$bytes" == "$last_bytes" ]]; then
-      stall_ticks=$((stall_ticks + 1))
       echo "$(date -Iseconds) [iter $iter] no new output (${tick}×${interval}s, ${bytes} bytes raw)..." \
         | tee -a "$MASTER_LOG"
-      if (( stall_sec > 0 && stall_ticks * interval >= stall_sec && last_bytes > 0 )); then
-        echo "$(date -Iseconds) [iter $iter] STALL: raw unchanged for ${stall_sec}s — SIGTERM agent tree pid=${agent_pid}" \
-          | tee -a "$MASTER_LOG"
-        kill_pid_tree "$agent_pid" TERM
-        sleep 8
-        kill_pid_tree "$agent_pid" KILL
-        return 0
-      fi
     else
       echo "$(date -Iseconds) [iter $iter] streaming (${bytes} bytes raw)..." | tee -a "$MASTER_LOG"
       last_bytes=$bytes
-      stall_ticks=0
     fi
   done
 }
@@ -1545,7 +1515,6 @@ fi
 echo "timeout: ${ITERATION_TIMEOUT_SEC}s per iteration"
 echo "fetch:  ${GIT_FETCH_TIMEOUT_SEC}s git fetch timeout (0 = skip fetch)"
 echo "progress: every ${LOOP_PROGRESS_INTERVAL_SEC}s while agent runs (LOOP_PROGRESS=0 disables)"
-echo "stall:   SIGTERM agent tree after ${LOOP_STALL_SEC}s of unchanged raw (0 disables)"
 echo "halt:   ${SHORT_STREAK_LIMIT}× agent runs <${SHORT_ITER_SEC}s (likely out of tokens)"
 if token_budget_active; then
   echo "budget: ${TOKEN_BUDGET_M}M tokens (${TOKEN_BUDGET}) this run only; last iter may overshoot"
