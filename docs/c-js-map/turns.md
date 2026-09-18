@@ -922,7 +922,8 @@ seven `dispfile_*` + five `hmenu_*` live as the `dohelp` items in C
 `do_screen_description` showsyms scan D-2447 (call sites rewired) +
 unlooked cmap scan Primary byte D-2449 (`:1475`: `looked ? cmap_showsym_code : DEFSYMS_CH` charCode) +
 `look_engrs` headstone/`strsubst` wiring + `sysopt.hideusage` gate +
-PORT_HELP named
+PORT_HELP named +
+**`do_look` whole body D-2468** (`pager.c:1673–1963` → `js/pager.js:2560` in C order: `click_cc` param + clicklook skips-dowhatiscmd with `have_cmdq` goto tracking, `?` arm live `mungspaces`, unconditional describe call, `!clicklook` checkfile gate; menu rows suppressed when swallowed/hallucinating + lootabc drops `y`|`n`/`^`/`"`/`` ` ``/`|` compats; module-local `do_supplemental_info` + suptext1/2 with `y_n` prompt + NHW_MENU display; `WHAT_IS_A_LOCATION`; callers `dowhatis`/`doquickwhatis` wired; named: nhwindow mechanism, `putmixed` (literal pline D-0330), `decode_mixed` (DUMPLOG retired D-1776))
 
 ### `src/getpos.c` `getpos` / `nhlua.c` `nhl_text`
 
