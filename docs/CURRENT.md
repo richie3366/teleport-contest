@@ -23,10 +23,10 @@ the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-18** — full `sessions` on the working tree
-(audit **1417–1425**).
+(audit **1426–1434**).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`60+0.47/turn` (R² 0.80).
+`47+0.30/turn` (R² 0.80).
 
 ## Score
 
@@ -43,12 +43,12 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 every audit). Rank 4/22, 2nd agentic; best agentic fork 35/44, RNG 98.5 %,
 screens 93.2 %. Held-out moved 7 → 11 over 2026-09-06..17 while the local
 corpus went 48 % → 91.7 %: the corpus no longer predicts the judge.
-**Corpus fortress** (re-scored 2026-09-18 audit 1417–1425): **495 / 540
-PASS (91.7 %)** excl. 13 env-only; RNG 99.29 %, screens 99.0 %. The 3
-`1d21e3be` getdir flips recovered via D-2440; no new flips across D-2458…D-2475
-(every per-SHA re-run: 0 regressed).
-Reviews 1225–1425: 179 ACCEPT, 5 WITH-DEBT, 1 DEBT, 11 QUALITY-RISK (0 Must-fix pending).
-Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip (all map-named).
+**Corpus fortress** (re-scored 2026-09-18 audit 1426–1434): **495 / 540
+PASS (91.7 %)** excl. 13 env-only; RNG 99.29 %, screens 99.0 % — identical
+to the prior audit, no flips across D-2467…D-2475 (every per-SHA re-run:
+0 regressed).
+Reviews 1225–1434: 185 ACCEPT, 6 WITH-DEBT, 1 DEBT, 13 QUALITY-RISK (2 Must-fix pending).
+Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named).
 Audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s) + `leaderboard.mjs`.
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -98,7 +98,7 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `topten.c` prscore — coverage MISSING (C 159 L `topten.c:1194–1353` / JS no symbol; hops —, callers 5, RNG 0, msg 7; dead callees: fopen_datafile, score_wanted, free_dungeons, free_ttlist). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn prscore` (reach regression must be 0). Measured `port-coverage.mjs --name prscore` 2026-09-18 @ 838c6b6e.
+**Next cluster:** Must-fix `vpline` re-scan of verbatim-text call sites (review 1430 — engrave.js `%s` read-back prints empty vs C `engrave.c:396` verbatim `%s` arg; same family: rumors.js `pline(line)`, pager.js `pline(outH.s)`, zap-`You` double-scan). Route each through the `%s` arm; merge duplicate `zap.js:859 You`. Source: reviews/loop-unattended/1430-01c936c3-vpline-rescan.md.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2475 (index).**
 <!-- recent:begin -->

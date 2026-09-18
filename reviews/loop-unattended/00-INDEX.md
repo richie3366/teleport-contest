@@ -1436,3 +1436,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1423-4238093f-verbalize.md](./1423-4238093f-verbalize.md) | `4238093f` | D-2464 verbalize | **ACCEPT** |
 | [1424-b0f6b7b1-fpostfx.md](./1424-b0f6b7b1-fpostfx.md) | `b0f6b7b1` | D-2465 fpostfx | **ACCEPT** |
 | [1425-c08a88b9-sink-into-lava.md](./1425-c08a88b9-sink-into-lava.md) | `c08a88b9` | D-2466 sink_into_lava | **ACCEPT** |
+| [1426-8299d47b-mkinvokearea.md](./1426-8299d47b-mkinvokearea.md) | `8299d47b` | D-2467 mkinvokearea | **ACCEPT** |
+| [1427-981a50f7-do-look.md](./1427-981a50f7-do-look.md) | `981a50f7` | D-2468 do_look | **ACCEPT** |
+| [1428-838c6b6e-fill-ordinary-room.md](./1428-838c6b6e-fill-ordinary-room.md) | `838c6b6e` | D-2469 fill_ordinary_room | **ACCEPT** |
+| [1429-3d84b5d4-trapeffect-anti-magic.md](./1429-3d84b5d4-trapeffect-anti-magic.md) | `3d84b5d4` | D-2470 trapeffect_anti_magic invent-walk | **QUALITY-RISK** |
+| [1430-01c936c3-vpline-rescan.md](./1430-01c936c3-vpline-rescan.md) | `01c936c3` | D-2471 vpline re-scan | **QUALITY-RISK** |
+| [1431-467d4280-open-levelfile.md](./1431-467d4280-open-levelfile.md) | `467d4280` | D-2472 open_levelfile | **ACCEPT** |
+| [1432-34ef28ed-retouch-object.md](./1432-34ef28ed-retouch-object.md) | `34ef28ed` | D-2473 retouch_object | **ACCEPT** |
+| [1433-d7282bed-ghod-hitsu.md](./1433-d7282bed-ghod-hitsu.md) | `d7282bed` | D-2474 ghod_hitsu buzzer-field | **ACCEPT-WITH-DEBT** |
+| [1434-f8881130-prscore.md](./1434-f8881130-prscore.md) | `f8881130` | D-2475 prscore | **ACCEPT** |

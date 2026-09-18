@@ -7,6 +7,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-18 — Audit 8299d47b..f8881130 (reviews 1426–1434: 6 ACCEPT, 1 ACCEPT-WITH-DEBT, 2 QUALITY-RISK) + cadence 44/44, proxy 495/540, held-out 11/44
+
+Review-only iteration, no `js/` edits. 1430 QUALITY-RISK: D-2471 `vpline` re-scans preformatted single-arg pline text — engraving `%s` prints empty vs C `engrave.c:396` verbatim `%s` arg (demonstrated with the shipped regex); same family: rumors `pline(line)` (C `pline1`), `pline(outH.s)`, zap-`You` + duplicate display-`You`. 1429 QUALITY-RISK (caught on re-inspection after filing ACCEPT): D-2470 hero carried-artifact scan walks `game.invent` as an nobj chain — dead on the array model (`invent.js:369`), conditional `rnd(4)` never fires. Both prepended under LOOP-QUEUE Must-fix (vpline first = Next cluster). 1433 WITH-DEBT: `ghod_hitsu` writes dead `game.buzzer`, live channel is `game._buzzer` — inert today, map-noted. Cadence: full `sessions` 44/44 (Scr 11,405/11,405, RNG 792,838/792,838, `47+0.30/turn`); `hidden-proxy score` 495/540 (91.7 %, RNG 99.29 %, screens 99.0 %, identical); held-out steady 11/44. Rule #2 clean. Refilled Open — coverage to 12 (skipped 6 parked-STALE + 2 just-verified tool rows by name, documented in commit).
 ## 2026-09-18 — D-2475 `topten.c` prscore whole-body port (score-subset display + score_wanted filter, all 7 message arms)
 
 **C locus:** `nethack-c/upstream/src/topten.c:1194–1353` (`prscore`); static `score_wanted` `:1112–1192`; callees `fopen_datafile`, `dlb_init`, `init_dungeons` (dungeon.c:1205, live), `readentry`/`newttentry`, `free_dungeons`, `dlb_cleanup`, `outheader`/`outentry`, `free_ttlist`, `raw_print`/`raw_printf`, `getuid`, `str2role`/`str2race`, `gh.hname`; caller `scores_only` (earlyarg.c:406, via `:309`).
