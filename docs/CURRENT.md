@@ -45,7 +45,7 @@ screens 93.2 %. Held-out moved 7 → 11 over 2026-09-06..17 while the local
 corpus went 48 % → 91.7 %: the corpus no longer predicts the judge.
 **Corpus fortress** (re-scored 2026-09-18 audit 1408–1416): **495 / 540
 PASS (91.7 %)** excl. 13 env-only; RNG 99.29 %, screens 99.0 %. The 3
-`1d21e3be` getdir flips recovered via D-2440; no new flips across D-2440…D-2461
+`1d21e3be` getdir flips recovered via D-2440; no new flips across D-2440…D-2462
 (every per-SHA re-run: 0 regressed).
 Reviews 1225–1416: 170 ACCEPT, 5 WITH-DEBT, 1 DEBT, 11 QUALITY-RISK (0 Must-fix pending).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip (all map-named).
@@ -98,10 +98,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `display.c` docrt_flags — coverage MISSING (C 64 L `display.c:1709–1773` / JS no symbol; hops 1, callers 3, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn docrt_flags` (reach regression must be 0). Measured `port-coverage.mjs --name docrt_flags` 2026-09-18 @ cc6372c7.
+**Next cluster:** `mhitu.c` gulpmu — coverage PARTIAL (C 298 L `mhitu.c:1289–1587` / JS 219 L in js/mhitu.js; hops 2, callers 2, RNG 8, msg 19). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn gulpmu` (reach regression must be 0). Measured `port-coverage.mjs --name gulpmu` 2026-09-18 @ cc6372c7.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2461 (index).**
+**Keep D-0845…D-2462 (index).**
 <!-- recent:begin -->
+**D-2462** `nethack-c/upstream/src/mhitu.c:1289–1587` (`gulpmu`; engulf_target `:1300`, pit+boulder ` — `js/mhitu.js` only — restart in C order: `t_at` + pit/boulder miss (`is_pit`, `sobj_at`, BOULDER const); Punished `unplacebc()`; live remove/place_monster; steed `mon_nam` buf + `urgent_pline(Some_Monnam …)` + `dismount_
 **D-2461** `nethack-c/upstream/src/display.c:1709–1773` (`docrt_flags`; flag decode `:1711–1715`, red — `js/display.js` — new exported `docrtRecalc/Refresh/MapOnly/Nocls` consts + `export async function docrt_flags(refresh_flags)` in C order (flag decode; `!u.ux`/in_docrt guard + file's `!game.level` guard; try/finally in_
 **D-2460** `nethack-c/upstream/src/weapon.c:801–934` (`mon_wield_item`; NEED_HTH `:813–815` / NEED_RA — `js/weapon.js` restart of mon_wield_item in C order — impossible('weapon_check %d for %s?') + bare return-0 in default; mwelded refuse arm (bimanual/makeplural hand, otense/mhis weld buffer, PICK_AXE Since/cannot-wield v
 **D-2459** `nethack-c/upstream/src/dog.c:419–623` (`mon_arrive`; when-enum `:15–19` Before_you 0/With — `js/dog.js` — module-local when consts + `failed_arrivals` (C dog.c:301 reset-in-losedogs) + `mon_arrive_link` head (STILL_ARRIVING/fmon/isshk→set_residency/long-worm get_wormno+initworm) shared by both helpers; With_you
@@ -109,11 +110,10 @@ revisits the picker.
 **D-2457** `nethack-c/upstream/src/timeout.c:1222–1341` (`slip_or_trip`, staticfn); caller `:906` nh_ — `js/timeout.js:176–307` restart in C order — pronoun/doname/sobj_at-rock/something chain; highc capitalize + bite/bites; uarmf+CORPSE+touch_petrifies+Stone_resistance-flat instapetrify (`tripping over <an pmname NEUTRAL>
 **D-2456** `nethack-c/upstream/src/mkmaze.c:1952–2107` (`mv_bubble`, staticfn); callers `:1677` moveb — `js/mklev.js` only — renamed `mv_bubble_move` → `mv_bubble` (module-local like C staticfn; bounds ride as params for C's file-scope gbxmin statics); added the four `:1981–1999` pline+clamp arms in C order (template-liter
 **D-2455** `nethack-c/upstream/src/dogmove.c:977–1358` (`dog_move`); `:348–360` `dog_starve`; `:362–3 — `js/dogmove.js` — DOG_HUNGRY/WEAK/STARVE 300/500/750 (`:10–12`) + AT_NONE 0; local `dog_starve` (leash-slack net-identical pline / starves / Hallu feel + `mondied`) + `dog_hunger` (non-eater push, weak/confuse/cansee-beg
-**D-2454** `nethack-c/upstream/src/zap.c:5965–6097` (destroy_items); callees `worn.c` bypass_objlist/ — `js/zap.js:1711` restart in C order — limit + unconditional `rn2(DMG_DESTROY_SCALE)` gate (`:1712–1716`), live-chain `objchn()` getter (C `:5984 obj**`), `{oid,otmp,deferred}` array (`:1722–1726`), `bypass_objlist(clear)
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2461; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2462; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
