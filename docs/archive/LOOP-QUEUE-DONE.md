@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-18
 
-- [x] `polyself.js` dospinweb PIT arm missing `bury_objs` import — ReferenceError throw (D-2436 `js/polyself.js:2584`; live `js/dig.js:450` ASYNC; edge ALREADY, add to existing `./dig.js` import). Fix: one line. Verify `node scripts/verify.mjs --fn dospinweb`. Source: reviews/loop-unattended/1395-c9f61087-dogaze-dospinweb-rehumanize.md. **Addressed:** D-2442
+- [x] `pager.c` checkfile — coverage THIN (C 295 L `pager.c:830–1129` / JS 35 L in js/pager.js; hops 1, callers 4, RNG 0, msg 5; dead callees: strip_newline). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn checkfile` (reach regression must be 0). Measured `port-coverage.mjs --name checkfile` 2026-09-18 @ a35f6369. **Addressed:** D-2443
+
+
+- [x] `polyself.js` dospinweb PIT arm missing `bury_objs` import — ReferenceError throw (D-2436 `js/polyself.js:2584`; live `js/dig.js:450` ASYNC; edge ALREADY, add to existing `./dig.js` import). Fix: one line. Verify `node scripts/verify.mjs --fn dospinweb`. Source: reviews/loop-unattended/1395-c9f61087-dogaze-dospinweb-rehumanize.md. **Addressed:** D-2442 `eebc6dc2`
 
 
 - [x] `polyself.js` dogaze missing `setmangry` import — ReferenceError throw (D-2436 `js/polyself.js:2439`, no import/local/global; live `js/mon.js:1120` ASYNC; edge ALREADY, add to existing `./mon.js` import). Fix: one line. Verify `node scripts/verify.mjs --fn dogaze`. Source: reviews/loop-unattended/1395-c9f61087-dogaze-dospinweb-rehumanize.md. **Addressed:** D-2441 `5f5f6f7a`

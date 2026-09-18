@@ -97,10 +97,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `polyself.js` dospinweb PIT arm missing `bury_objs` import — ReferenceError throw (D-2436 `js/polyself.js:2584`; live `js/dig.js:450` ASYNC; edge ALREADY, add to existing `./dig.js` import). Fix: one line. Verify `node scripts/verify.mjs --fn dospinweb`. Source: reviews/loop-unattended/1395-c9f61087-dogaze-dospinweb-rehumanize.md.
+**Next cluster:** `pager.c` checkfile — coverage THIN (C 295 L `pager.c:830–1129` / JS 35 L in js/pager.js; hops 1, callers 4, RNG 0, msg 5). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn checkfile` (reach regression must be 0). Measured `port-coverage.mjs --name checkfile` 2026-09-18 @ a35f6369. (getobj head row parked STALE same commit: body complete split across js/invent.js helpers.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2442 (index).**
+**Keep D-0845…D-2443 (index).**
 <!-- recent:begin -->
+**D-2443** `nethack-c/upstream/src/pager.c:829–1129` (checkfile, staticfn); callees lcase/strstri/cop — `js/pager.js` only — `checkfile_dbase_str` (`:867–935` all strips with C else-if chains), `checkfile_split_names` (`:944–976` incl. live supplemental_name fill from original-case inp), `checkfile_alt_for` (fruit → `slime
 **D-2442** `nethack-c/upstream/src/polyself.c:1497–1621` (dospinweb PIT arm `bury_objs(x, y)` after ` — `js/polyself.js:89` only — added `bury_objs` to the existing `./dig.js` import.
 **D-2441** `nethack-c/upstream/src/polyself.c:1642–1773` (dogaze; `setmangry(mtmp, TRUE)` after the p — `js/polyself.js:38` only — added `setmangry` to the existing `./mon.js` import.
 **D-2440** `nethack-c/upstream/src/cmd.c:3956–4119` (getdir `:4095` `else if (!(is_mov = movecmd(dirs — `js/lock.js` only — deleted the `if (!applied) { u.dz = 0; }` block.
@@ -108,11 +109,10 @@ revisits the picker.
 **D-2438** `nethack-c/upstream/src/attrib.c:117–199` (adjattrib); callees `Fixed_abil`, `Your`/`pline — `js/attrib.js` restart of the body in C order with per-arm `:line` cites: old_abase/old_amax snapshot beside old_acurr; abonflg from `u.abon.a[ndx]` (`<0` on gains, `>0` on losses); ACURR-unmoved arm with msgflg==0-exact
 **D-2437** `nethack-c/upstream/src/dungeon.c:1205–1319` (init_dungeons); callees `nhl_init`/`nhl_load — `js/dungeon.js` restart in C order: memset/re-zero cited on the pd literal; nhl_init/nhl_loadlua failure panics named omits (generated `dungeon_data.js` embed, D-0477 pattern) keeping the observable nhlib align shuffle; 
 **D-2436** `nethack-c/upstream/src/polyself.c:1642–1773` (dogaze); `:1497–1621` (dospinweb); `:1367–1 — `js/polyself.js` only, in C order. dogaze: AT_GAZE mattk scan with AD_CONF/AD_FIRE gate else impossible; Blind/Hallucination/uen<15 gates; uen-=15 + botl; snapshot fmon loop (one visit per monster while killed() unlinks)
-**D-2435** `nethack-c/upstream/src/end.c:1130–1590` (`really_done`); achievements `:1173–1183` via `i — `js/end.js` only, in C order — achievements via live `record_achievement` (ACH_BLND/NUDE gated on `uachieved[0]||!beginner`, ACH_UWIN on ASCENDED; gameover-quiet, no RNG/output); `finish_paybill` moved before grave+score
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2442; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2443; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

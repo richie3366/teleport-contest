@@ -102,6 +102,6 @@ strict · cohort · PASS. Independent re-measure on this SHA:
    over pit. Still throwing at HEAD. Fix: add `bury_objs` to the existing
    `./dig.js` import — `--can` → ALREADY, no new edge. Verify
    `verify.mjs --fn dospinweb`.
-   **Addressed:** D-2442
+   **Addressed:** D-2442 `eebc6dc2`
 
 Verdict: **QUALITY-RISK**

@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2443 — `pager.c` checkfile whole body in C order (coverage THIN → live)
+
+- **Status:** fixed (Open coverage row: checkfile THIN C 295 L `pager.c:830–1129` / JS 35 L local in `js/pager.js`; queue head getobj parked STALE same commit — body complete split across `js/invent.js` helpers).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify checkfile`: no session blocked at baseline). JS covered only lcase + named/called split + lookup/display skeleton: prefix strips missed the digit-count, partly-used/eaten, statue/figurine, ±enchantment and moist-towel arms (regex loop also broke C's else-if chains); alt fell back to null instead of fruit_from_name/makesingular (single-pass for ordinary plurals); `!yes` returned TRUE, skipping the base pass, where C continues to pass 0; miss message was "I don't recognize that." vs C "You don't have any information on those things."; ask accepted 'Y' where C tests `== 'y'`; pm + supplemental_name params absent at all four C call sites.
+- **C locus:** `nethack-c/upstream/src/pager.c:829–1129` (checkfile, staticfn); callees lcase/strstri/copynchars/pmatch/fruit_from_name/makesingular/y_n + dlb family (Rule #2: embedded DAT_TEXT, D-0477) + NHW_MENU putstr/display; callers `:813` ia_checkfile, `:1838` do_look `/i`, `:1853` `?`, `:1948` verbose glance.
+- **JS was:** `js/pager.js:780` 35-line local + `simplify_for_db`/`split_db_query` regex-strip helpers (named omits: pm dbase, fruit/singular alt, supplemental_name).
+- **Fix:** `js/pager.js` only — `checkfile_dbase_str` (`:867–935` all strips with C else-if chains), `checkfile_split_names` (`:944–976` incl. live supplemental_name fill from original-case inp), `checkfile_alt_for` (fruit → `slime mold` per obj_descr[SLIME_MOLD].oc_name, else makesingular), `checkfile(inp, pm, chkflags, supplementalHolder)` in C order (flags/open-guard/bad-buffer-impossible/pm+lcase/strips/split/alt/pass1offset-skip via entry index/y_n/display/miss-message), `ia_checkfile` rewired onto the shared sync core (lookup-only = C IaCheck arm). Live imports only (objnam/hacklib/getline/monsters/const/display — `imports.mjs --can` ALREADY on all three new edges). Deleted dead `simplify_for_db`/`split_db_query`/`lookup_data_base` wrapper + unused yn_function import. No DIAG/FORCE/seed logic; Rule #2 clean (DAT_TEXT embed, no fs).
+- **JS:** `js/pager.js:720` (`checkfile_dbase_str`), `:765` (`checkfile_split_names`), `:801` (`checkfile_alt_for`), `:827` (`checkfile`), `:895` (`ia_checkfile`); map `docs/c-js-map/turns.md:806`.
+- **Callers:** pager.c:813 ia_checkfile → `js/pager.js:895` (shared sync core, no async ripple); :1838 `/i` → `:2141`; :1853 `?` → `:2154`; :1948 verbose glance → `:2230` (supplHolder filled live). pm is NULL at all four C sites (do_look never assigns its pm local — only supplemental_pm flows to do_screen_description), so null is C-exact. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn checkfile` → PASS syntax (1 file: pager.js) · rule2 · hidden note (0 blocked at baseline) · **reach smoke 24/24 PASS, 0 regressed → REACH-OK** · green 2/2 · strict ×2 · cohort 7/7 (no shared file → full skipped) → VERIFY: PASS.
+- **Named omissions:** do_supplemental_info (`pager.c:2255`, own row — verbose-glance fill stays live); supplemental_pm out of do_screen_description (own row); dlb I/O-error arms (`? Seek error`, `bad_data_file` format impossibles — no dlb over embedded text).
+- **Next:** Open — coverage head after checkfile (`mon.c` xkilled).
+
 ## D-2442 — `polyself.js` dospinweb `bury_objs` import wired (ReferenceError deleted)
 
 - **Status:** fixed (Must-fix review 1395 QUALITY-RISK item 2 on D-2436).

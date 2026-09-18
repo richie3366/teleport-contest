@@ -18,7 +18,7 @@ import { getversionstring } from './version.js';
 import { rn2, rn2_on_display_rng } from './rng.js';
 import { nhgetch } from './input.js';
 import {
-    flush_screen, flush_topl_more, pline, docrt, more,
+    flush_screen, flush_topl_more, pline, impossible, docrt, more,
     mon_glyph, obj_glyph, look_shown_at, terrain_glyph, Hallucination,
     glyph_to_obj_at, glyph_at, glyph_is_trap, glyph_to_trap, trap_to_glyph,
     glyph_is_monster, glyph_is_object, glyph_is_statue, glyph_is_warning,
@@ -28,7 +28,7 @@ import {
     set_bot_disabled, tty_nhbell,
 } from './display.js';
 import { howmonseen, couldsee } from './vision.js';
-import { getlin, yn_function } from './getline.js';
+import { getlin, y_n } from './getline.js';
 import {
     paint_corner_nhw_menu, dismiss_nhw_menu, dfeature_at, display_inventory,
     observe_object, process_menu_search, trap_predicament,
@@ -42,12 +42,12 @@ import { mon_at, defsym_explanation } from './uhitm.js';
 import { sobj_at, mksobj, mkobj, obj_stop_timers } from './mkobj.js';
 import {
     doname, an, the, xname, singular, ansimpleoname, distant_name, simpleonames,
-    makeplural,
+    makeplural, makesingular, fruit_from_name,
 } from './objnam.js';
-import { strstri } from './hacklib.js';
+import { strstri, lcase } from './hacklib.js';
 import { distant_monnam_none, pmname, Ugender, mon_nam, rndmonnam } from './do_name.js';
 import { hides_under, is_hider, is_clinger, is_flyer, mons,
-    M2_HUMAN, M2_ELF, M2_ORC, M2_DEMON,
+    M2_HUMAN, M2_ELF, M2_ORC, M2_DEMON, pmnames, NEUTRAL,
 } from './monsters.js';
 import { mlet_class_explain } from './mondata.js';
 import { is_pool, is_lava, closed_door, waterbody_name } from './hack.js';
@@ -77,7 +77,7 @@ import {
     S_vodbridge, S_hcdbridge, MAXTCHARS, VIBRATING_SQUARE, def_warnsyms,
     POOL, MOAT, WATER, LAVAPOOL, LAVAWALL, ICE,
     HELP, SHELP, HISTORY, LICENSE, OPTIONFILE, OPTMENUHELP, USAGEHELP, DEBUGHELP,
-    ECMD_OK, BUFSZ,
+    ECMD_OK, BUFSZ, QBUFSZ,
     OBJ_FREE, OBJ_FLOOR, OBJ_BURIED, M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER,
     M_AP_TYPMASK, M_AP_F_DKNOWN,
     MCORPSENM, has_mcorpsenm, MALE, FEMALE,
@@ -711,119 +711,201 @@ function lookup_data_base_entry(query) {
 }
 
 /**
- * Parse data.base: keys → body lines (body only; see above for the match).
+ * C pager.c checkfile `:867–935` — prefix strips over the lowered lookup
+ * string, in C order with C's else-if chains (not independent patterns:
+ * `a/an/the/some/digit-count` are one chain, `tame/peaceful` one chain,
+ * `blessed/uncursed/cursed` one chain, `partly used/partly eaten` one
+ * chain, `statue/figurine` one chain).
  */
-function lookup_data_base(query) {
-    const hit = lookup_data_base_entry(query);
-    return hit ? hit.body : null;
-}
-
-function simplify_for_db(inp) {
-    let s = String(inp || '').toLowerCase();
-    const strips = [
-        /^interior of /, /^a /, /^an /, /^the /, /^some /,
-        /^pair of /, /^tame /, /^peaceful /, /^invisible /,
-        /^saddled /, /^blessed /, /^uncursed /, /^cursed /, /^empty /,
-    ];
-    for (const re of strips) s = s.replace(re, '');
-    s = s.replace(/ named .*$/, '').replace(/ called .*$/, '');
-    s = s.replace(/ \(.*$/, '').trim();
+function checkfile_dbase_str(s) {
+    if (s.startsWith('interior of ')) s = s.slice(12); // :872-873
+    if (s.startsWith('a ')) s = s.slice(2); // :874-875
+    else if (s.startsWith('an ')) s = s.slice(3); // :876-877
+    else if (s.startsWith('the ')) s = s.slice(4); // :878-879
+    else if (s.startsWith('some ')) s = s.slice(5); // :880-881
+    else if (s.length && s[0] >= '0' && s[0] <= '9') { // :882-888 count
+        let i = 0;
+        while (i < s.length && s[i] >= '0' && s[i] <= '9') i++;
+        s = s.slice(i);
+        if (s.startsWith(' ')) s = s.slice(1);
+    }
+    if (s.startsWith('pair of ')) s = s.slice(8); // :889-890
+    if (s.startsWith('tame ')) s = s.slice(5); // :891-892
+    else if (s.startsWith('peaceful ')) s = s.slice(9); // :893-894
+    if (s.startsWith('invisible ')) s = s.slice(10); // :895-896
+    if (s.startsWith('saddled ')) s = s.slice(8); // :897-898
+    if (s.startsWith('blessed ')) s = s.slice(8); // :899-900
+    else if (s.startsWith('uncursed ')) s = s.slice(9); // :901-902
+    else if (s.startsWith('cursed ')) s = s.slice(7); // :903-904
+    if (s.startsWith('empty ')) s = s.slice(6); // :905-906
+    if (s.startsWith('partly used ')) s = s.slice(12); // :907-908
+    else if (s.startsWith('partly eaten ')) s = s.slice(13); // :909-910
+    if (s.startsWith('statue of ')) s = 'statue'; // :911-912 [6]='\0'
+    else if (s.startsWith('figurine of ')) s = 'figurine'; // :913-914 [8]
+    // :918-925 — remove enchantment ("+0 aklys").
+    if (s.length > 1 && (s[0] === '+' || s[0] === '-')
+        && s[1] >= '0' && s[1] <= '9') {
+        let i = 1;
+        while (i < s.length && s[i] >= '0' && s[i] <= '9') i++;
+        s = s.slice(i);
+        if (s.startsWith(' ')) s = s.slice(1);
+    }
+    // :929-934 — "moist towel" asks about "wet towel" (memcpy over "moist").
+    if (s.startsWith('moist towel')) s = `wet${s.slice(5)}`;
     return s;
 }
 
 /**
- * C ref: pager.c checkfile — lookup + optional yn + display entry.
- * Ask path uses y_n → tty_yn_function, which more()'s when toplin is
- * NEED_MORE (look putmixed) before painting the yn prompt (D-0334).
- * Two passes (`:996–1035`): pass 1 matches the " named "/" called "
- * given name first (the "wizard" entry for "orcish barbarian called
- * wizard"), pass 0 matches the base description; pass 0 skips an entry
- * C already showed for pass 1 (same dlb offset).
- * Named omissions in this commit: pm-derived dbase (`:862–864`, needs a
- * permonst param this caller does not pass), makesingular/fruit alt
- * (`:990–996`), supplemental_name (`:956–958`).
+ * C pager.c checkfile `:944–976` — split the named/called given name off the
+ * base description. dbase is already lowered (C splits dbase_str after
+ * lcase, so indexOf matches C strstri there); supplemental_name is copied
+ * from the original-case inp (C strstri over inp, `:956–958`). Truncation
+ * `*ep = '\0'` keeps the base when the match sits past position 0.
  */
-function split_db_query(inp) {
-    // C `:862–976` — lcase, strip prefixes, then split at " named " (alt
-    // wins) unless " called " precedes it, else at " called ". The split
-    // runs on the full lowered input BEFORE simplify_for_db (which also
-    // strips " named "/" called " tails); the base piece is simplified
-    // after, matching C since C's prefix strips only anchor at the start
-    // the piece shares with the full string. C strstri is
-    // case-insensitive over already-lcased text.
-    const lowered = String(inp || '').toLowerCase();
-    let rawDbase = lowered;
+function checkfile_split_names(dbase, inp, supplementalHolder) {
     let alt = null;
-    const iNamed = lowered.indexOf(' named ');
-    const iCalled = lowered.indexOf(' called ');
-    // C `:951–958` — " named " wins the alt even when " called " precedes
-    // it (truncate at " called ", alt past " named ").
+    let ep;
+    const iNamed = dbase.indexOf(' named '); // :945-950
+    const iCalled = dbase.indexOf(' called ');
     if (iNamed >= 0) {
-        alt = lowered.slice(iNamed + 7);
-        rawDbase = lowered.slice(
-            0, (iCalled >= 0 && iCalled < iNamed) ? iCalled : iNamed);
-    } else if (iCalled >= 0) {
-        alt = lowered.slice(iCalled + 8);
-        rawDbase = lowered.slice(0, iCalled);
+        alt = dbase.slice(iNamed + 7);
+        ep = (iCalled >= 0 && iCalled < iNamed) ? iCalled : iNamed;
+    } else if (iCalled >= 0) { // :951-958
+        alt = dbase.slice(iCalled + 8);
+        if (supplementalHolder && inp != null) {
+            const tail = strstri(String(inp), ' called ');
+            if (tail) supplementalHolder.s = tail.slice(8, 8 + BUFSZ - 1);
+        }
+        ep = iCalled;
+    } else { // :959-960 ", " fallback
+        ep = dbase.indexOf(', ');
     }
-    const dbase = simplify_for_db(rawDbase);
-    // C `:967–976` — strip article + " (" suffix from the given name.
-    if (alt) {
-        alt = alt.replace(/^(a|an|the) /, '');
+    if (ep > 0) dbase = dbase.slice(0, ep); // :961-962
+    if (alt) { // :967-976 article + " (" suffix off the given name
+        if (alt.startsWith('a ') || alt.startsWith('the '))
+            alt = alt.slice(alt.indexOf(' ') + 1);
+        else if (alt.startsWith('an ')) alt = alt.slice(3);
         const pi = alt.indexOf(' (');
         if (pi > 0) alt = alt.slice(0, pi);
         alt = alt.trim();
-        if (!alt || alt === dbase) alt = null;
+        if (!alt) alt = null;
     }
     return { dbase, alt };
 }
-async function checkfile(inp, flags = 0) {
-    const userTyped = !!(flags & CHK_USR);
-    const dontAsk = !!(flags & CHK_DONT_ASK);
-    const iaChecking = !!(flags & CHK_IA_CHECK);
-    const { dbase, alt } = split_db_query(inp);
-    if (!dbase) return false;
-    // C `:996` — pass 1 (alt) first unless it equals the base, then pass 0.
-    const queries = (alt && alt !== dbase) ? [alt, dbase] : [dbase];
-    let shownIndex = -1;
-    for (let pass = 0; pass < queries.length; pass++) {
-        const q = queries[pass];
-        const hit = lookup_data_base_entry(q);
-        if (!hit || !hit.body.length) continue;
-        // C: chkfilIaCheck — found entry, skip yn/display
-        if (iaChecking) return true;
-        // C `:1052–1053` — pass 0 on the pass-1 entry is already shown.
-        if (hit.index === shownIndex) break;
-        // C `:1056–1072` — user-typed and no-ask display without asking.
-        let yes = dontAsk || userTyped;
-        if (!yes) {
-            // C: y_n("More info about \"…\"?") — ynchars + def 'n'
-            const ch = await yn_function(`More info about "${q}"?`, 'yn', 'n');
-            yes = ch === 'y' || ch === 'Y';
-        }
-        if (!yes) return true;
-        shownIndex = hit.index;
-        // C: NHW_MENU putstr + process_text_window — not NHW_TEXT fullscreen.
-        await show_nhw_menu_text(hit.body.map(l => l || ''));
-    }
-    if (shownIndex < 0) {
-        if (userTyped && !iaChecking) await pline("I don't recognize that.");
-        return false;
-    }
-    return true;
+
+/**
+ * C pager.c checkfile `:984–996` — alternate description when the name
+ * carries no given name: the player's fruit name maps to the generic
+ * slime-mold entry, else the singular of the base description.
+ */
+function checkfile_alt_for(dbase) {
+    if (fruit_from_name(dbase, true, null)) // :990-992
+        return 'slime mold'; // C obj_descr[SLIME_MOLD].oc_name
+    return makesingular(dbase); // :995-996
 }
 
 /**
- * C ref: pager.c ia_checkfile — singular(xname) lookup with chkfilIaCheck.
- * True when data.base has an entry (offers `/` in itemactions).
+ * C pager.c checkfile `:829–1129` (staticfn; callers `:813` ia_checkfile,
+ * `:1838` do_look `/i`, `:1853` `?`, `:1948` verbose glance — pm is NULL at
+ * all four sites: do_look never assigns its pm local, only supplemental_pm
+ * flows to do_screen_description).
+ * Encyclopedia lookup over the embedded data.base text (Contest Rule #2:
+ * dlb_fopen/fseek/fgets/fclose over the built `data` file become reads of
+ * the checked-in `js/generated/dat_text.js` extract (D-0477); the key scan
+ * with `~` exclusion is lookup_data_base_entry, `:1009–1040`).
+ * In C order: flags (`:839–841`), data-open guard (`:845–849`), bad-buffer
+ * impossible (`:851–856`), pm override + lcase (`:862–866`), prefix strips,
+ * named/called split + supplemental, fruit/singular alt, the alt-first
+ * two-pass pmatch loop with the pass-1 offset skip (`:998–1054`), y_n ask
+ * (`:1055–1072`, `== 'y'`), NHW_MENU display (`:1073–1103`), user-typed
+ * miss message (`:1104–1106`).
+ * Named omissions: do_supplemental_info (`pager.c:2255`, own row — the
+ * verbose-glance caller still fills supplemental_name live); dlb I/O-error
+ * arms (`? Seek error`, `bad_data_file` format impossibles — no dlb over
+ * embedded text).
+ */
+async function checkfile(inp, pm = null, chkflags = 0, supplementalHolder = null) {
+    const user_typed_name = (chkflags & CHK_USR) !== 0; // :839-841 UsrTyped
+    const without_asking = (chkflags & CHK_DONT_ASK) !== 0; // :840 DontAsk
+    const ia_checking = (chkflags & CHK_IA_CHECK) !== 0; // :841 IaCheck
+    let res = false;
+    const raw = readDat('data'); // :845-849 dlb_fopen(DATAFILE, "r")
+    if (!raw) {
+        await pline("Cannot open 'data' file!");
+        return res;
+    }
+    if (inp == null || String(inp).length > BUFSZ - 1) { // :851-856
+        await impossible(
+            'bad do_look buffer passed (%s)!', inp == null ? 'null' : 'too long');
+        return res; // C goto checkfile_done (datawin == WIN_ERR)
+    }
+    let dbase; // :862-866 pm override unless user-typed, then lcase
+    if (pm != null && !user_typed_name) {
+        const mndx = typeof pm === 'number' ? pm : pm.mndx;
+        dbase = lcase(pmnames[mndx]?.[NEUTRAL] ?? '');
+    } else {
+        dbase = lcase(String(inp));
+    }
+    dbase = checkfile_dbase_str(dbase); // :867-935
+    if (!dbase) return res; // :938 empty name skips to checkfile_done
+    const split = checkfile_split_names(dbase, inp, supplementalHolder); // :944-976
+    dbase = split.dbase;
+    let alt = split.alt;
+    if (!alt) alt = checkfile_alt_for(dbase); // :984-996
+    let pass1found_in_file = false; // :941
+    let pass1Index = -1; // C pass1offset: text offset of the pass-1 entry
+    for (let pass = alt !== dbase ? 1 : 0; pass >= 0; --pass) { // :998
+        const q = pass ? alt : dbase;
+        const hit = lookup_data_base_entry(q); // :1009-1040 key scan
+        if (hit) {
+            if (pass === 1) { // :1043-1046
+                pass1found_in_file = true;
+                pass1Index = hit.index;
+            } else if (hit.index === pass1Index) { // :1047-1049
+                break; // C goto checkfile_done (already shown)
+            }
+            let yes_to_moreinfo = false; // :1055-1072
+            if (!user_typed_name && !without_asking) {
+                let question = 'More info about "';
+                question += q.slice(0, QBUFSZ - 1 - (question.length + 2));
+                question += '"?';
+                if ((await y_n(question)) === 'y') yes_to_moreinfo = true;
+            }
+            if (user_typed_name || without_asking || yes_to_moreinfo) { // :1073+
+                res = true;
+                if (ia_checking) break; // C goto checkfile_done
+                // :1083-1103 NHW_MENU putstr + display (tab/space strip and
+                // tabexpand already applied by the lookup parser per line).
+                await show_nhw_menu_text(hit.body.map(l => l || ''));
+            }
+        } else if (user_typed_name && pass === 0 && !pass1found_in_file) { // :1104-1106
+            await pline("You don't have any information on those things.");
+        }
+    }
+    return res; // :1122-1128 checkfile_done
+}
+
+/**
+ * C pager.c ia_checkfile `:808–815` — singular(xname) lookup with
+ * chkfilIaCheck|chkfilDontAsk (offers `/` in item actions). Lookup-only:
+ * shares checkfile's sync core (strip → split → fruit/singular alt →
+ * alt-first two passes) with no yn prompt or menu display, matching C
+ * checkfile with IaCheck (found entry → res TRUE, straight to done).
  */
 export function ia_checkfile(otmp) {
     if (!otmp) return false;
     const itemnam = singular(otmp, xname);
-    const dbase = simplify_for_db(itemnam);
+    if (!itemnam || itemnam.length > BUFSZ - 1) return false;
+    const dbase = checkfile_dbase_str(lcase(itemnam));
     if (!dbase) return false;
-    const body = lookup_data_base(dbase);
-    return !!(body && body.length);
+    const split = checkfile_split_names(dbase, itemnam, null);
+    const base = split.dbase;
+    const alt = split.alt || checkfile_alt_for(base);
+    const queries = alt !== base ? [alt, base] : [base];
+    for (const q of queries) {
+        if (lookup_data_base_entry(q)) return true;
+    }
+    return false;
 }
 
 /**
@@ -2056,7 +2138,7 @@ export async function do_look(mode = 0) {
                 break;
             }
         }
-        if (name) await checkfile(name, CHK_USR | CHK_DONT_ASK);
+        if (name) await checkfile(name, null, CHK_USR | CHK_DONT_ASK, null);
         return 0;
     }
     case '?': {
@@ -2069,7 +2151,7 @@ export async function do_look(mode = 0) {
         }
         if (!out_str || out_str.charCodeAt(0) === 27) return 0;
         if (out_str.length > 1) {
-            await checkfile(out_str, CHK_USR | CHK_DONT_ASK);
+            await checkfile(out_str, null, CHK_USR | CHK_DONT_ASK, null);
             return 0;
         }
         sym = out_str.charCodeAt(0);
@@ -2140,10 +2222,14 @@ export async function do_look(mode = 0) {
                     && ans !== LOOK_ONCE
                     && (ans === LOOK_VERBOSE || (game.flags?.help !== false && !quick))
                 ) {
-                    // C `:1944–1948`: (ans == LOOK_VERBOSE) ? chkfilDontAsk
+                    // C `:1944–1951`: (ans == LOOK_VERBOSE) ? chkfilDontAsk
                     // : chkfilNone — ':' shows the entry without asking.
+                    // temp_buf + supplemental_name for do_supplemental_info
+                    // (named omit: pager.c:2255, own row — the fill stays live).
+                    const supplHolder = { s: '' };
                     await checkfile(
-                        first, ans === LOOK_VERBOSE ? CHK_DONT_ASK : 0,
+                        first, null, ans === LOOK_VERBOSE ? CHK_DONT_ASK : 0,
+                        supplHolder,
                     );
                 }
             } else {

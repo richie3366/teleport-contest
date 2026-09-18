@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-18 — D-2443 `pager.c` checkfile whole body in C order (coverage THIN → live)
+
+**C locus:** `nethack-c/upstream/src/pager.c:829–1129` (checkfile, staticfn); callees lcase/strstri/copynchars/pmatch/fruit_from_name/makesingular/y_n + dlb family (Rule #2: embedded DAT_TEXT, D-0477) + NHW_MENU putstr/display; callers `:813` ia_checkfile, `:1838` do_look `/i`, `:1853` `?`, `:1948` verbose glance.
+**JS:** `js/pager.js:720` (`checkfile_dbase_str`), `:765` (`checkfile_split_names`), `:801` (`checkfile_alt_for`), `:827` (`checkfile`), `:895` (`ia_checkfile`); map `docs/c-js-map/turns.md:806`.
+**Change:** `js/pager.js` only — `checkfile_dbase_str` (`:867–935` all strips with C else-if chains), `checkfile_split_names` (`:944–976` incl. live supplemental_name fill from original-case inp), `checkfile_alt_for` (fruit → `slime mold` per obj_descr[SLIME_MOLD].oc_name, else makesingular), `checkfile(inp, pm, chkflags, supplementalHolder)` in C order (flags/open-guard/bad-buffer-impossible/pm+lcase/strips/split/alt/pass1offset-skip via entry index/y_n/display/miss-message), `ia_checkfile` rewired onto the shared sync core (lookup-only = C IaCheck arm). Live imports only (objnam/hacklib/getline/monsters/const/display — `imports.mjs --can` ALREADY on all three new edges). Deleted dead `simplify_for_db`/`split_db_query`/`lookup_data_base` wrapper + unused yn_function import.
+**Verify:** `node scripts/verify.mjs --fn checkfile` → PASS syntax (1 file: pager.js) · rule2 · hidden note (0 blocked at baseline) · **reach smoke 24/24 PASS, 0 regressed → REACH-OK** · green 2/2 · strict ×2 · cohort 7/7 (no shared file → full skipped) → VERIFY: PASS.
+**Named:** do_supplemental_info (`pager.c:2255`, own row — verbose-glance fill stays live); supplemental_pm out of do_screen_description (own row); dlb I/O-error arms (`? Seek error`, `bad_data_file` format impossibles — no dlb over embedded text).
+**Next:** Open — coverage head after checkfile (`mon.c` xkilled).
 ## 2026-09-18 — D-2442 `polyself.js` dospinweb `bury_objs` import wired (ReferenceError deleted)
 
 **C locus:** `nethack-c/upstream/src/polyself.c:1497–1621` (dospinweb PIT arm `bury_objs(x, y)` after `deltrap`, C `:1564`); dispatched from C `cmd.c:915`.
