@@ -23,10 +23,10 @@ the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-18** — full `sessions` on the working tree
-(audit **1399–1407**).
+(audit **1408–1416**).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`58+0.36/turn` (R² 0.79).
+`71+0.49/turn` (R² 0.74).
 
 ## Score
 
@@ -43,12 +43,12 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 every audit). Rank 4/22, 2nd agentic; best agentic fork 35/44, RNG 98.5 %,
 screens 93.2 %. Held-out moved 7 → 11 over 2026-09-06..17 while the local
 corpus went 48 % → 91.7 %: the corpus no longer predicts the judge.
-**Corpus fortress** (re-scored 2026-09-18 audit 1399–1407): **495 / 540
+**Corpus fortress** (re-scored 2026-09-18 audit 1408–1416): **495 / 540
 PASS (91.7 %)** excl. 13 env-only; RNG 99.29 %, screens 99.0 %. The 3
 `1d21e3be` getdir flips recovered via D-2440; no new flips across D-2440…D-2457
 (every per-SHA re-run: 0 regressed).
-Reviews 1225–1407: 162 ACCEPT, 4 WITH-DEBT, 1 DEBT, 11 QUALITY-RISK (3 Must-fix pending).
-Live debts: 1241 SCR_MAIL, 1268 light carrier-mx (both map notes).
+Reviews 1225–1416: 170 ACCEPT, 5 WITH-DEBT, 1 DEBT, 11 QUALITY-RISK (0 Must-fix pending).
+Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip (all map-named).
 Audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s) + `leaderboard.mjs`.
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,

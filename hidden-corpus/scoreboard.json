@@ -1,6 +1,6 @@
 {
- "commit": "fd174200",
- "at": "2026-09-18T13:38:11.896Z",
+ "commit": "1363fc19",
+ "at": "2026-09-18T13:56:38.468Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -7171,7 +7171,7 @@
    "steps": 150,
    "owner": "distfleeck",
    "loc": "monmove.c:549",
-   "jsOwner": "m_move(monmove.js:1941)",
+   "jsOwner": "m_move(monmove.js:2005)",
    "cTopline": "You hear a masticating sound. You hear a masticating sound.",
    "jsTopline": "You hear a masticating sound. You hear a masticating sound.",
    "error": null
@@ -7358,7 +7358,7 @@
    "steps": 88,
    "owner": "distfleeck",
    "loc": "monmove.c:549",
-   "jsOwner": "score_targ(dogmove.js:824)",
+   "jsOwner": "score_targ(dogmove.js:948)",
    "cTopline": "You hear a chugging sound.",
    "jsTopline": "You hear a chugging sound.",
    "error": null
@@ -7443,7 +7443,7 @@
    "steps": 148,
    "owner": "newmonhp",
    "loc": "makemon.c:1042",
-   "jsOwner": "distfleeck(monmove.js:928)",
+   "jsOwner": "distfleeck(monmove.js:992)",
    "cTopline": "",
    "jsTopline": "You hear a door crash open.",
    "error": null

@@ -7,6 +7,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-18 — Audit ef8abf5a..1363fc19 (reviews 1408–1416: 8 ACCEPT, 1 ACCEPT-WITH-DEBT) + cadence 44/44, proxy 495/540
+
+All 9 JS-touching SHAs since review 1407 audited against pinned C, one file per SHA written as each finished. Every per-SHA `hidden-proxy verify --base HASH~1 --reach-all` re-run matches the D-log (0 blocked/vacuous as stated; reach 12–325/325, 0 regressed — destroy_items 55/55 and dog_move 325/325 are RNG-tagged reach, the rest smoke). No Must-fix prepended (0 pending): the three prior Must-fix rows shipped as D-2449/2450/2451, all ACCEPT. Sole debt: 1412 domove_core `if (!displaceu)` middle-skip (C `hack.c:2802–2858`) — map-named in D-2453, rare trigger, 0 reach. Nits logged in-review (1408–1412 comment cites). Cadence: full `sessions` 44/44, Scr 11,405/11,405, RNG 792,838/792,838, speed `71+0.49/turn` (R² 0.74); held-out 11/44 unchanged (5,637/11,265, RNG 26.6 %, screens 50.0 %); corpus 495/540 (91.7 %) excl. 13 env-only, RNG 99.29 %, screens 99.0 %. Open — coverage holds 9 rows (≥8, no refill).
 ## 2026-09-18 — D-2457 `timeout.c` slip_or_trip whole-body port (coverage PARTIAL → all arms live) + `rloc_to_core` STALE park
 
 **C locus:** `nethack-c/upstream/src/timeout.c:1222–1341` (`slip_or_trip`, staticfn); caller `:906` nh_timeout FUMBLING arm; callees `vobj_at`/`objects_at`, `is_pool`, `doname`, `sobj_at`, `highc`, `body_part`, `touch_petrifies`, `an`/`pmname`, `instapetrify`, `is_ice`, `rn2`, `x_monnam`/`upstart`/`vtense`, `which_armor`, `dismount_steed`, `acurr` (ACURR), `NODIAG`, `confdir`, `hurtle`, `makeplural`; consts RLOC none; PLNMSG_ONE_ITEM_HERE, DISMOUNT_FELL, W_SADDLE, ARTICLE_THE, SUPPRESS_SADDLE, NEUTRAL.

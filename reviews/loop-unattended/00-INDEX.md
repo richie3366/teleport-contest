@@ -1418,3 +1418,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1405-232ff9b1-mstatusline-whole-body.md](./1405-232ff9b1-mstatusline-whole-body.md) | `232ff9b1` | D-2446 mstatusline whole body | **ACCEPT** |
 | [1406-d32f725f-do-screen-description-whole-body.md](./1406-d32f725f-do-screen-description-whole-body.md) | `d32f725f` | D-2447 do_screen_description whole body | **QUALITY-RISK** |
 | [1407-38249822-gd-move-whole-body.md](./1407-38249822-gd-move-whole-body.md) | `38249822` | D-2448 gd_move whole body | **ACCEPT** |
+| [1408-ef8abf5a-unlooked-cmap-primary.md](./1408-ef8abf5a-unlooked-cmap-primary.md) | `ef8abf5a` | D-2449 do_screen_description unlooked cmap | **ACCEPT** |
+| [1409-ab50d349-xkilled-holder-release.md](./1409-ab50d349-xkilled-holder-release.md) | `ab50d349` | D-2450 xkilled holder-release | **ACCEPT** |
+| [1410-c393792a-checkfile-dbase-strip.md](./1410-c393792a-checkfile-dbase-strip.md) | `c393792a` | D-2451 checkfile dbase strip | **ACCEPT** |
+| [1411-e19b6d0a-make-blinded-sweep.md](./1411-e19b6d0a-make-blinded-sweep.md) | `e19b6d0a` | D-2452 make_blinded sweep | **ACCEPT** |
+| [1412-4a1a8b0f-domove-core-arms.md](./1412-4a1a8b0f-domove-core-arms.md) | `4a1a8b0f` | D-2453 domove_core arms | **ACCEPT-WITH-DEBT** |
+| [1413-cc6372c7-destroy-items.md](./1413-cc6372c7-destroy-items.md) | `cc6372c7` | D-2454 destroy_items | **ACCEPT** |
+| [1414-4cff7e98-dog-move-arms.md](./1414-4cff7e98-dog-move-arms.md) | `4cff7e98` | D-2455 dog_move arms | **ACCEPT** |
+| [1415-fd174200-mv-bubble.md](./1415-fd174200-mv-bubble.md) | `fd174200` | D-2456 mv_bubble | **ACCEPT** |
+| [1416-1363fc19-slip-or-trip.md](./1416-1363fc19-slip-or-trip.md) | `1363fc19` | D-2457 slip_or_trip | **ACCEPT** |
