@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2482 — `uhitm.c` mhitm_ad_heal whole-body port (mhitm phys arm + mdamagem AD_HEAL dispatch; mhitu arm already live)
+
+- **Status:** fixed (breadth-phase coverage row: `uhitm.c` mhitm_ad_heal MISSING, C 87 L `uhitm.c:4296–4385`, JS no symbol. `port-coverage.mjs --name mhitm_ad_heal` now resolves to `js/mhitm.js` with 9 mentions — same footprint as shipped sibling `mhitm_ad_were`; residual ratio reflects the split-arm convention, mhitu arm living as `mhitm_ad_heal_u`).
+- **Symptom:** coverage gap, not a corpus divergence — mon-vs-mon nurse (AD_HEAL) hits fell through `mdamagem` with no phys processing (no shade_miss/mwep/artifact_hit/rustm tail, no knockback envelope).
+- **C locus:** `nethack-c/upstream/src/uhitm.c:4296–4385` (`mhitm_ad_heal`); uhitm arm `:4300–4304` (phys + done), mhitu arm `:4305–4378` (D-2059), mhitm arm `:4379–4384` (phys + done); sole C caller `mhitm_adtyping` case `:4790` (`:4782`).
+- **JS was:** mhitu arm live as `mhitm_ad_heal_u` (`js/mhitu.js:2775`, wired `mhitm_adtyping_u` `:3203`); no `mhitm_ad_heal` symbol, no AD_HEAL arm in `mdamagem`, no AD_HEAL const in `mhitm.js`.
+- **Fix:** `js/mhitm.js` in C order, mirroring shipped `mhitm_ad_were` (D-2049, identical 3-arm shape) — `const AD_HEAL = 27` (monattk.h `:69`); exported `mhitm_ad_heal(magr, mattk, mdef, mhm)` (`:1321`: `is_youmonst(mdef)` guard + `mhitm_ad_phys` delegate, done via mhm); `mdamagem` AD_HEAL arm (`:4166`, C `:4790` analogue: mhm with `dieroll` for `artifact_hit` like WERE, knockback preempt, done check, HP/monkilled/grow_up tail). No new imports (`is_youmonst`, `mhitm_ad_phys`, knockback tail all file-local). No `damageum_adtyping` row — hero-polymorphed-into-nurse attacks share the phys shape per the were convention (named here, not a second dispatch).
+- **JS:** `js/mhitm.js` (+~50: 1 const, 1 export, 1 dispatch arm). No durable unit test: repo has no `tests/` harness (sessions + `verify --fn` are the maintained checks, as in D-2049).
+- **Callers:** C `:4790` case AD_HEAL wired (`js/mhitm.js:4166` in `mdamagem`, the inlined C `mhitm_adtyping` dispatch); C mhitu.c `:1191` path already wired (D-2059); C uhitm.c `:4854` hero-attacker path named (shares phys shape, no row — same as AD_WERE). No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn mhitm_ad_heal` → syntax 1 file · rule2 · hidden note (no corpus session blocked — coverage row) · reach smoke 24/24 PASS → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS.
+- **Named omissions:** uhitm arm (`:4300–4304`) has no `damageum_adtyping` row (hero-as-nurse-attacker keeps default leftover; were-precedent, vanishes with hero poly rarity); `is_youmonst(mdef)` guard mirrors `mhitm_ad_were` (mhitu routing lives in `mhitm_adtyping_u`).
+- **Next:** queue head per breadth phase (next Open coverage row).
+
 ## D-2481 — `role.c` role_init whole-body port (selection + quest-pm + pantheon arms; split u_init helpers merged)
 
 - **Status:** fixed (breadth-phase coverage row: `role.c` role_init MISSING, C 137 L `role.c:1980–2117`, JS no symbol; split helpers `role_init_*` in `js/u_init.js` covered only the pantheon/SPE_LIGHT/quest-pm/nemgend tail. `port-coverage.mjs --name role_init` now reads covered).

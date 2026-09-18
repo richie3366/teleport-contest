@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-18 — D-2482 `uhitm.c` mhitm_ad_heal whole-body port (mhitm phys arm + mdamagem AD_HEAL dispatch; mhitu arm already live)
+
+**C locus:** `nethack-c/upstream/src/uhitm.c:4296–4385` (`mhitm_ad_heal`); uhitm arm `:4300–4304` (phys + done), mhitu arm `:4305–4378` (D-2059), mhitm arm `:4379–4384` (phys + done); sole C caller `mhitm_adtyping` case `:4790` (`:4782`).
+**JS:** `js/mhitm.js` (+~50: 1 const, 1 export, 1 dispatch arm). No durable unit test: repo has no `tests/` harness (sessions + `verify --fn` are the maintained checks, as in D-2049).
+**Change:** `js/mhitm.js` in C order, mirroring shipped `mhitm_ad_were` (D-2049, identical 3-arm shape) — `const AD_HEAL = 27` (monattk.h `:69`); exported `mhitm_ad_heal(magr, mattk, mdef, mhm)` (`:1321`: `is_youmonst(mdef)` guard + `mhitm_ad_phys` delegate, done via mhm); `mdamagem` AD_HEAL arm (`:4166`, C `:4790` analogue: mhm with `dieroll` for `artifact_hit` like WERE, knockback preempt, done check, HP/monkilled/grow_up tail). No new imports (`is_youmonst`, `mhitm_ad_phys`, knockback tail all file-local). No `damageum_adtyping` row — hero-polymorphed-into-nurse attacks share the phys shape per the were convention (named here, not a second dispatch).
+**Verify:** `node scripts/verify.mjs --fn mhitm_ad_heal` → syntax 1 file · rule2 · hidden note (no corpus session blocked — coverage row) · reach smoke 24/24 PASS → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS.
+**Named:** uhitm arm (`:4300–4304`) has no `damageum_adtyping` row (hero-as-nurse-attacker keeps default leftover; were-precedent, vanishes with hero poly rarity); `is_youmonst(mdef)` guard mirrors `mhitm_ad_were` (mhitu routing lives in `mhitm_adtyping_u`).
+**Next:** queue head per breadth phase (next Open coverage row).
 ## 2026-09-18 — D-2481 `role.c` role_init whole-body port (selection + quest-pm + pantheon arms; split u_init helpers merged)
 
 **C locus:** `nethack-c/upstream/src/role.c:1980–2117` (`role_init`); callees `plnamesuffix` `:1664–1721`, `randrole_filtered` `:730–744` (staticfn), `randrole` `:718–728`, `randrace` `:786–810`, `randalign` `:915–940`, `validrole` `:712–716`, `str2role` `:746–775`, `align_gtitle` (pray.c `:2627–2649`); helpers `findword`/`strNsubst` (hacklib.c `:600–621`/`:555–597`).
