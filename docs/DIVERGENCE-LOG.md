@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2490 — `uhitm.c` mhitm_ad_legs whole-body port (mhitm mcan+phys arm + mdamagem dispatch; mhitu arm already live)
+
+- **Status:** fixed (breadth-phase coverage row: `uhitm.c` mhitm_ad_legs MISSING, C 62 L `uhitm.c:4425–4489`, JS no symbol; `hidden-proxy verify mhitm_ad_legs`: no corpus session blocked).
+- **Symptom:** none — coverage row, not a divergence. Xan leg attacks mon→mon fell through the `mdamagem` dispatch (no AD_LEGS arm); only the mon→you arm existed (`mhitm_ad_legs_u`).
+- **C locus:** `nethack-c/upstream/src/uhitm.c:4425–4489` (`mhitm_ad_legs`); sole C caller `uhitm.c:4788` (`mhitm_adtyping`, `case AD_LEGS`). Three arms in C order: uhitm `:4432–4444` (dead `#if 0` ucancelled arm, then phys + done), mhitu `:4445–4482` (side rn2(2), steed/Lev/Fly reach fail, mcan nuzzle, boots prick/scratch, set_wounded_legs + STR/DEX), mhitm `:4483–4489` (mcan zeroes, else phys + done). Callee `mhitm_ad_phys` live (local `js/mhitm.js:1489` mhitm arm + `mhitm_ad_phys_u` mhitu arm — intentional split, not clone drift).
+- **JS was:** no `mhitm_ad_legs` symbol (`port-coverage` MISSING); no `AD_LEGS` const in `js/mhitm.js` (only `js/mhitu.js:118`); `mdamagem` if-chain had AD_WERE/AD_HEAL but no AD_LEGS; mhitu `case AD_LEGS` → `mhitm_ad_legs_u` already wired (`js/mhitu.js:3155`, D-0928 #1131 + D-1240 nuzzle `pline_mon`).
+- **Fix:** `js/mhitm.js` only, no new imports (`is_youmonst`, `mhitm_ad_phys`, knockback/grow_up/monkilled all local; `imports.mjs --can` confirms display/trap/rng edges already static, attrib `exercise` hoisted-safe) — new `const AD_LEGS = 17` (`:340`, monattk.h `:59`); new `export async function mhitm_ad_legs` (`:1337`) mirroring shipped `mhitm_ad_were`/`mhitm_ad_heal` (D-2049/D-2482 identical 3-arm shape): `is_youmonst(mdef)` return, `magr.mcan` zeroes leftover, else local `mhitm_ad_phys`; new `mdamagem` AD_LEGS arm (`:4187`) mirroring the AD_WERE/AD_HEAL envelope verbatim (mhm with dieroll carried for artifact_hit, knockback preempt per mhitm.c:1061-1065, done check, leftover damage + lifesaved/grow_up tail).
+- **JS:** `js/mhitm.js` AD_LEGS const (`:340`), `mhitm_ad_legs` (`:1337`), `mdamagem` dispatch (`:4187–4217`).
+- **Callers:** C `mhitm_adtyping :4788` → JS `mdamagem` AD_LEGS arm (`js/mhitm.js:4187`). mhitu arm stays wired (`js/mhitu.js:3155` → `mhitm_ad_legs_u` `:2332`). uhitm you-as-agr arm shares the phys shape via the default hero damage path (named in the callee comment; `#if 0` ucancelled arm dead in C). No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn mhitm_ad_legs` → PASS syntax (1 file) · rule2 · hidden note (no session blocked) · reach REACH-OK (13 baseline-PASS sessions reach it, 13 run, 0 regressed) · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file). VERIFY: PASS.
+- **Named omissions:** poly `body_part` (pre-existing D-0928 #1131 name, map keeps it); uhitm-arm explicit wiring (default hero path, same as were/heal).
+- **Next:** next coverage row.
+
 ## D-2489 — `ball.c` bc_sanity_check whole-body port (Punished/ball/chain walk + caller wired)
 
 - **Status:** fixed (breadth-phase coverage row: `ball.c` bc_sanity_check MISSING, C 68 L `ball.c:1034–1102`, JS no symbol; `hidden-proxy verify bc_sanity_check`: no corpus session blocked).

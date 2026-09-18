@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-18 — D-2490 `uhitm.c` mhitm_ad_legs whole-body port (mhitm mcan+phys arm + mdamagem dispatch; mhitu arm already live)
+
+**C locus:** `nethack-c/upstream/src/uhitm.c:4425–4489` (`mhitm_ad_legs`); sole C caller `uhitm.c:4788` (`mhitm_adtyping`, `case AD_LEGS`). Three arms in C order: uhitm `:4432–4444` (dead `#if 0` ucancelled arm, then phys + done), mhitu `:4445–4482` (side rn2(2), steed/Lev/Fly reach fail, mcan nuzzle, boots prick/scratch, set_wounded_legs + STR/DEX), mhitm `:4483–4489` (mcan zeroes, else phys + done). Callee `mhitm_ad_phys` live (local `js/mhitm.js:1489` mhitm arm + `mhitm_ad_phys_u` mhitu arm — intentional split, not clone drift).
+**JS:** `js/mhitm.js` AD_LEGS const (`:340`), `mhitm_ad_legs` (`:1337`), `mdamagem` dispatch (`:4187–4217`).
+**Change:** `js/mhitm.js` only, no new imports (`is_youmonst`, `mhitm_ad_phys`, knockback/grow_up/monkilled all local; `imports.mjs --can` confirms display/trap/rng edges already static, attrib `exercise` hoisted-safe) — new `const AD_LEGS = 17` (`:340`, monattk.h `:59`); new `export async function mhitm_ad_legs` (`:1337`) mirroring shipped `mhitm_ad_were`/`mhitm_ad_heal` (D-2049/D-2482 identical 3-arm shape): `is_youmonst(mdef)` return, `magr.mcan` zeroes leftover, else local `mhitm_ad_phys`; new `mdamagem` AD_LEGS arm (`:4187`) mirroring the AD_WERE/AD_HEAL envelope verbatim (mhm with dieroll carried for artifact_hit, knockback preempt per mhitm.c:1061-1065, done check, leftover damage + lifesaved/grow_up tail).
+**Verify:** `node scripts/verify.mjs --fn mhitm_ad_legs` → PASS syntax (1 file) · rule2 · hidden note (no session blocked) · reach REACH-OK (13 baseline-PASS sessions reach it, 13 run, 0 regressed) · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file). VERIFY: PASS.
+**Named:** poly `body_part` (pre-existing D-0928 #1131 name, map keeps it); uhitm-arm explicit wiring (default hero path, same as were/heal).
+**Next:** next coverage row.
 ## 2026-09-18 — D-2489 `ball.c` bc_sanity_check whole-body port (Punished/ball/chain walk + caller wired)
 
 **C locus:** `nethack-c/upstream/src/ball.c:1034–1102` (`bc_sanity_check`); sole C caller `wizcmds.c:1476` (`sanity_check`, after light_sources, before trap). Callee `safe_typename` (`objnam.c:311–330`); `impossible` live. C `Punished` is `youprop.h:77` `(uball != 0)`, not a sticky flag.
