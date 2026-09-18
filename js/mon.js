@@ -551,7 +551,7 @@ export async function see_nearby_monsters() {
 }
 
 // C ref: hack.h NODIAG — only grid bugs
-function NODIAG(monnum) {
+export function NODIAG(monnum) {
     return monnum === PM_GRID_BUG;
 }
 

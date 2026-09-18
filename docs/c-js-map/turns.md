@@ -1527,7 +1527,7 @@ square stale and pets kept avoiding it past the kick turn);
 **`nomul`/`unmul` + afternmv** (D-0066) + **`nomul`/`unmul` `usleep=0` + nomul `uinvulnerable=FALSE`** (D-1797;
 C `hack.c:4166–4167` / `:4197`; `fall_asleep` restamps after `nomul`; named: Upolyd `"You survived that "` form `:4192–4194`) + **`nomul` clears `_cmdq_canned`** (D-0710; 
 ≡C `cmdq_clear`) + **`unmul` treats `nomovemsg==""` as no pline (not default)** (D-0695; 
-fumbling `timeout.c`); **`fall_asleep`/`usleep`/`nomovemsg`** (D-0156); 
+fumbling `timeout.c`); **`slip_or_trip` whole body C-order live D-2457** (`timeout.c:1222–1341` → `js/timeout.js:176–307`: pronoun/highc-bite/corpse-petrify/steed-vtense/unseat/`rn2(10+DEX)`-hurtle/mounted-`rn2(4)`+dismount, no omits; NODIAG exported from `js/mon.js`); **`fall_asleep`/`usleep`/`nomovemsg`** (D-0156); 
 **`overexertion`→`gethungry`+`overexert_hp`** (D-0107/D-1003); 
 **`monster_nearby`/`noattacks`** (D-0228; **`canspotmon` not `cansee`** D-0928 #1097; 
 onscary deferred; **`M_AP_TYPE` masks `M_AP_TYPMASK`** D-2066 — `monst.h:73`, raw `m_ap_type=10` (OBJECT|F_DKNOWN) skips like OBJECT; inline `& M_AP_TYPMASK` readers (hack/display/do_name/pager/uhitm) now consistent; raw readers objnam:3350/sounds:1445/music:230,305/mhitu:3506,3525/eat:1628 + `M_AP_FLAG`/`U_AP_*` still inline, named); **`domove`→`spoteffects`→`pickup`/`check_here` when `!flags.pickup`** (D-0095); 

@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-18
 
+- [x] `timeout.c` slip_or_trip — coverage PARTIAL (C 119 L `timeout.c:1222–1341` / JS 59 L in js/timeout.js; hops 1, callers 2, RNG 6, msg 12). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn slip_or_trip` (reach regression must be 0). Measured `port-coverage.mjs --name slip_or_trip` 2026-09-18 @ cc6372c7.
+
+
 - [x] `mkmaze.c` mv_bubble — coverage MISSING (C 155 L `mkmaze.c:1952–2107` / JS no symbol; hops 3, callers 3, RNG 5, msg 5). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mv_bubble` (reach regression must be 0). Measured `port-coverage.mjs --name mv_bubble` 2026-09-18 @ cc6372c7.
 
 
