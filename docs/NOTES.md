@@ -40,19 +40,20 @@ here again. Live hypotheses only:
 - **do_statusline2 residuals (D-2425 MEASURED):** W1 Healer-92107 `mhitm_ad_cold_u` extra destroy return; W2 Satiated pair = eat-progress `uhs`/botl timing — both are corpus-residual Open rows (detail in D-2425). Monk-92194 Pw = D-2161 gulpmu residual, no new row.
 ## Don't re-check (≤15)
 
-- D-1790…D-2492 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-2493 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2492.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2492.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2493.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2493.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2493: `js/display.js` only, no new imports (`suppress_map_output` is same-module `:4748`; `_flushing` module-level beside `_delay_flushing`). Named: `allmain.c:94` moveloop_preamble defer arm (`game.defer_see_monsters` is never set in JS —
 - D-2492: `js/mklev.js` only, no new static edges (`imports.mjs --can` reports the dungeon.js/mon.js edges already static) — 4 import words (`Is_special`, `Invo Named: SPLEVTYPE `getenv` endpoint (wizard-debug only; no environment in scored ESM, Rule #2); `I
 - D-2491: `js/objnam.js` — `corpse_xname` restarted in C order with `:line` cites: `:1830–1841` flag decode; `:1841` glob as `(otyp|0) !== CORPSE && globby`; `: Named: `releaseobuf`/`nextobuf`/`eos` buffer machinery (by-design strings); `obj_pmname` impossib
 - D-2490: `js/mhitm.js` only, no new imports (`is_youmonst`, `mhitm_ad_phys`, knockback/grow_up/monkilled all local; `imports.mjs --can` confirms display/trap/r Named: poly `body_part` (pre-existing D-0928 #1131 name, map keeps it); uhitm-arm explicit wiring
@@ -67,5 +68,4 @@ here again. Live hypotheses only:
 - D-2481: `js/roles.js` (C home) in C order — `randrole` (`rn2(roles.length)` ≡ `rn2(SIZE-1)`; display arm via live `rn2_on_display_rng`), module-local `randrol Named: restore-path re-derivation (above); `iflags.defer_plname`/`sysopt.genericusers` arms porte
 - D-2480: `js/cmd.js` in C order — `pgetchar` (fuzzer arm returns `randomkey()`, else `await nhgetch()`; async only per Constitution §2), `randomkey` (full body Named: `readchar_core` fuzzer arm (`cmd.c:5218`); `wintty.c:4068` tty fuzzer arm.
 - D-2479: both functions added module-local in `js/mon.js` (C home, matching C `staticfn`) in C order — data-pointer range, mnum fixup, HP bounds (gremlin `m_le Named: `panic` (own unported row; throw used); `levltyp_to_name` + all three `#if 0` arms (dead-m
-- D-2478: `js/mail.js` in C order — file-local C-macro equivalents (`Deaf`/`Blind`/`Blind_telepat`/`distu`, sibling-idiom verbatim; `mail_text` + `md_exclamatio Named: `ckmailstatus` mustgetmail/stat/broadcast variants (mailbox `stat()` is Rule #2 filesystem
 <!-- landmarks:end -->

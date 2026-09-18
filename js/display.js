@@ -5276,10 +5276,11 @@ export function see_monsters() {
     let new_warn_obj_cnt = 0;
     const warn_obj = (game.context?.warntype?.obj | 0) >>> 0;
     const warn_of_mon = Warn_of_mon();
+    // C `:1505–1518` — no position guard: every live, arrived monster is
+    // newsym'd (newsym itself no-ops off-map) and counts for Sting.
     for (const mon of game.fmon || []) {
         if (!mon || (mon.mhp != null && mon.mhp <= 0)) continue;
         if (((mon.mstate | 0) & MON_STILL_ARRIVING) !== 0) continue;
-        if (!mon.mx) continue;
         newsym(mon.mx, mon.my);
         if (mon.wormno) see_wsegs(mon);
         if (warn_of_mon
@@ -5292,7 +5293,9 @@ export function see_monsters() {
         if (_Sting_effects) _Sting_effects(new_warn_obj_cnt);
         game.warn_obj_cnt = new_warn_obj_cnt;
     }
-    if (!u?.usteed && u?.ux) newsym(u.ux, u.uy);
+    // C `:1527–1528` — no ux guard: when unmounted the hero cell is always
+    // newsym'd (newsym no-ops when the level is not ready).
+    if (!u?.usteed) newsym(u?.ux, u?.uy);
 }
 
 /**
@@ -6377,6 +6380,9 @@ function _buildScreenOutput() {
 // stay on the physical screen while level-change plines run and cls/more
 // can still paint --More-- on the stale map (Dlvl:N before redraw).
 let _delay_flushing = false;
+// C display.c flush_screen `:2227–2232` static reentrancy guard
+// (flush_screen->print_glyph->impossible->pline->flush_screen).
+let _flushing = false;
 
 // C flush_screen `:2241–2257` paints dirty spans with no blanket clear, but
 // menu/text overlays paint this same grid directly while flushes
@@ -6993,6 +6999,10 @@ export async function docorner(xmin, ymax, ystart = 0) {
 // row gated on gnew/framecolor (`:2241–2257`), then reset_glyph_bbox()
 // (`:2259`), curs() on the hero when asked, display_nhwindow(WIN_MAP).
 export async function flush_screen(mode) {
+    // C `:2220` — 5.0: no map, status or perm_invent output during
+    // save/restore or level creation (live same-module suppress_map_output,
+    // also used by newsym/show_glyph/feel_location).
+    if (suppress_map_output()) return;
     // Menu/text overlays paint the Terminal grid directly; don't clobber them.
     // C ref: invent display / NHW_MENU / NHW_TEXT stay until dismissed.
     // C process_menu_window MENU_SEARCH → tty_getlin: custompline writes
@@ -7016,16 +7026,33 @@ export async function flush_screen(mode) {
         _paintToplineOnly();
         return;
     }
-    const flags = game.flags || {};
-    // C display.c flush_screen: bot() else timebot() before map glyphs
-    if (flags.botl || flags.botlx) await bot();
-    else if (flags.time_botl) await timebot();
-    // Mid goto_level / getbones: keep stale map cells like C gbuf.
-    if (!game.level || game._stale_map_flush) {
-        _paintToplineAndStatus();
-        return;
+    // C `:2227–2232` — reentrancy guard: flush_screen->print_glyph->
+    // impossible->pline->flush_screen must not recurse (JS pline path
+    // at `:7802` calls back into flush_screen). Set synchronously so a
+    // reentrant call during an await below returns early, as in C.
+    if (_flushing) return;
+    _flushing = true;
+    // C `:2234–2238` HANGUPHANDLING (live: include/global.h:278) — return
+    // with the guard still set, exactly as C does (flushing is never
+    // cleared on this path; the game is hanging up).
+    if (game.program_state?.done_hup) return;
+    try {
+        const flags = game.flags || {};
+        // C display.c flush_screen: bot() else timebot() before map glyphs
+        if (flags.botl || flags.botlx) await bot();
+        else if (flags.time_botl) await timebot();
+        // Mid goto_level / getbones: keep stale map cells like C gbuf.
+        if (!game.level || game._stale_map_flush) {
+            _paintToplineAndStatus();
+            return;
+        }
+        // C `:2241–2265` span-gated map paint + reset_glyph_bbox +
+        // curs-on-hero + display_nhwindow(WIN_MAP) live in
+        // _buildScreenOutput (terminal-grid adaptation of print_glyph).
+        _buildScreenOutput();
+    } finally {
+        _flushing = false;
     }
-    _buildScreenOutput();
 }
 
 /**

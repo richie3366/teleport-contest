@@ -5,7 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-18
 
-- [x] `mkmaze.c` makemaz — coverage PARTIAL (C 96 L `mkmaze.c:1127–1223` / JS 51 L in js/mklev.js; hops 1, callers 5, RNG 6, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn makemaz` (reach regression must be 0). Measured `port-coverage.mjs --name makemaz` 2026-09-18 @ 6b72742e. **Addressed:** D-2492
+- [x] `display.c` see_monsters — coverage PARTIAL (C 42 L `display.c:1487–1529` / JS 26 L in js/display.js; hops 1, callers 39, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn see_monsters` (reach regression must be 0). Measured `port-coverage.mjs --name see_monsters` 2026-09-18 @ 6b72742e. **Addressed:** D-2493
+- [x] `display.c` flush_screen — coverage PARTIAL (C 59 L `display.c:2208–2267` / JS 35 L in js/display.js; hops 1, callers 36, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn flush_screen` (reach regression must be 0). Measured `port-coverage.mjs --name flush_screen` 2026-09-18 @ 6b72742e. **Addressed:** D-2493
+
+
+- [x] `mkmaze.c` makemaz — coverage PARTIAL (C 96 L `mkmaze.c:1127–1223` / JS 51 L in js/mklev.js; hops 1, callers 5, RNG 6, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn makemaz` (reach regression must be 0). Measured `port-coverage.mjs --name makemaz` 2026-09-18 @ 6b72742e. **Addressed:** D-2492 `f43f2ae7`
 
 
 - [x] `objnam.c` corpse_xname — coverage PARTIAL (C 93 L `objnam.c:1824–1920` / JS 66 L in js/objnam.js; hops 2, callers 26, RNG 0, msg 4; dead callees: releaseobuf). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn corpse_xname` (reach regression must be 0). Measured `port-coverage.mjs --name corpse_xname` 2026-09-18 @ 6b72742e. **Addressed:** D-2491 `1f5ce2fe`

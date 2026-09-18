@@ -2097,7 +2097,7 @@ no USE_GENERAL_ALTAR_COLORS); **`see_monsters` + `teleds` call** (D-0667;
 **`detect_wsegs` D-1545**; 
 DRAWBRIDGE_UP under-typ / C FIXME hero-inside-cloud still named); 
 **SPFX_WARN conferral + MATCH_WARN see_it D-1514**; 
-**`see_monsters` MON_STILL_ARRIVING skip D-1746**; **feel_location `is_worm_tail` D-1749**; **make_blinded
+**`see_monsters` MON_STILL_ARRIVING skip D-1746**; **D-2493 see_monsters guard-fidelity (invented `!mon.mx`/`u.ux` guards removed) + flush_screen suppress/reentrancy/hangup arms**; **feel_location `is_worm_tail` D-1749**; **make_blinded
 `Sting_effects(-1)` D-1755**); **`swallowed`/`docrt`/`newsym` uswallow + hallu `what_mon`** + 
 **docrt memory=`show_memory_glyph` + gulpmu `swallowed(1)`** (D-0838; underwater/buried live D-1981); 
 **DECgfx swallow `S_sw_tc/ml/mr/bc` meta-o/x/x/s** (D-0842; Primary corners `/\\`); 
