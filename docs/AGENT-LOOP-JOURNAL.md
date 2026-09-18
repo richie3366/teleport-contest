@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-18 — D-2467 `mklev.c` mkinvokearea whole-body port (invocation area + stair)
+
+**C locus:** `nethack-c/upstream/src/mklev.c:2410–2497` (`mkinvokearea`); static helpers `mkinvpos` `:2503–2598`, `mkinvk_check_wall` `:2603–2613`. Cites `mklev.c:2600` + `mkmaze.c:1060` are comments, not call sites; sole real caller `deadbook` (`spell.c:290`).
+**JS:** `js/mklev.js` only (imports + ~190 lines after `pick_vibrasquare_location`); map section `docs/c-js-map/data.md` mklev/sp_lev lspo_map.
+**Change:** `js/mklev.js` only — new `export async function mkinvokearea()` + module-local `mkinvpos`/`mkinvk_check_wall` in C order: shake pline + wall-count loop (`dist!=3` wider-than-high, skip-y-when-x-found, early stop on wallct) + crumble pline; utrap release (`TT_BURIEDBALL` → `buried_ball_to_punishment`, then `reset_utrap(false)`); center `mkinvpos(0)` + dist 1..6 rings with `flush_screen(1)` + `nh_delay_output`; `You` stairwell + local `mkstairs(ux,uy,0,null,false)` + `newsym` + `vision_full_recalc=1`. `mkinvpos`: maze-bounds clip (`maze_x_max/y_max`, `dist<5` → throw ≡ C `panic` when `!isok` else `await impossible`), deltrap, boulder fracture-or-drop (`make_rocks` unless dist 1/4/5), seenv/doormask/lit<6/waslit/horizontal + viz short-circuit, dist switch (1 fire-trap unless pool + tseen, 0/2/3/6 ROOM, 4/5 MOAT, default impossible), mimic wake + `mintrap(NO_TRAP_FLAGS)`/`minliquid`, unblock, newsym. `mkinvk_check_wall`: `!isok`→0, `IS_STWALL||IRONBARS`→1 (C asserts covered by guard).
+**Verify:** `node scripts/verify.mjs --fn mkinvokearea` → PASS syntax (1 file: js/mklev.js) · PASS rule2 · note hidden (0 blocked) · PASS reach (no RNG-tagged reach; smoke 24/24 → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) → VERIFY: PASS.
+**Named:** `display_nhwindow(WIN_MESSAGE, TRUE)` (no JS export; pline flushes); C `deadbook` caller (deferred, not live — no wire possible this commit).
+**Next:** queue head after this ships per breadth phase.
 ## 2026-09-18 — Audit 0363023b..c08a88b9 (reviews 1417–1425: 9 ACCEPT) + cadence 44/44, proxy 495/540
 
 All 9 JS-touching SHAs since review 1416 audited against pinned C;

@@ -83,6 +83,7 @@ import {
     Can_fall_thru, Can_dig_down, G_GONE,
     CORPSTAT_HISTORIC, CORPSTAT_MALE, CORPSTAT_FEMALE, CORPSTAT_NONE,
     NUM_NHCORE_CALLS,
+    TT_BURIEDBALL, IN_SIGHT, COULD_SEE, NO_TRAP_FLAGS,
 } from './const.js';
 import {
     RANDOM_CLASS, WEAPON_CLASS, ARMOR_CLASS, RING_CLASS,
@@ -94,7 +95,7 @@ import {
 } from './objects.js';
 import { shtypes, stock_room } from './shknam.js';
 import { setgemprobs } from './o_init.js';
-import { maketrap, t_at, undestroyable_trap, deltrap } from './trap.js';
+import { maketrap, t_at, undestroyable_trap, deltrap, reset_utrap, mintrap } from './trap.js';
 import {
     mkobj, mksobj, mksobj_at, mksobj_migr_to_species, mkobj_at, mkgold,
     mkcorpstat, next_ident,
@@ -110,7 +111,7 @@ import {
 } from './makemon.js';
 import { mk_mplayer } from './mplayer.js';
 import { can_saddle, put_saddle_on_mon } from './steed.js';
-import { m_at, mnearto, mnexto, elemental_clog } from './mon.js';
+import { m_at, mnearto, mnexto, elemental_clog, seemimic, minliquid } from './mon.js';
 import { enexto, rloc, goodpos, migrate_to_level } from './teleport.js';
 import { clear_wormdata, flip_worm_segs_horizontal, flip_worm_segs_vertical, remove_worm } from './worm.js';
 import { obj_resists } from './dogmove.js';
@@ -142,7 +143,10 @@ import {
     create_gas_cloud, create_gas_cloud_selection, clear_regions,
     clear_heros_fault,
 } from './region.js';
-import { Norep, newsym, impossible, pline } from './display.js';
+import { Norep, newsym, impossible, pline, flush_screen, nh_delay_output } from './display.js';
+import { buried_ball_to_punishment, fracture_rock } from './dig.js';
+import { obfree } from './shk.js';
+import { You } from './zap.js';
 import { block_point, unblock_point, does_block } from './vision.js';
 import { emits_light, new_light_source, del_light_source } from './light.js';
 import { monst_to_any, is_pool, is_lava } from './hack.js';
@@ -18127,6 +18131,225 @@ export function pick_vibrasquare_location() {
                  || occupied(x, y)));
     ip.x = x;
     ip.y = y;
+}
+
+/**
+ * C ref: mklev.c mkinvokearea `:2410–2497` — reshape the vibrating-square
+ * area on successful invocation (Book of the Dead): shake message, wall
+ * check for the crumble message, mkinvpos rings dist 0..6, down stair on
+ * the hero. C order: wall-check block, display_nhwindow, utrap release,
+ * center + dist loop with flush/delay, stair + newsym + vision recalc.
+ * C `pline_The` renders as plain pline with the The-phrase (file idiom);
+ * `display_nhwindow(WIN_MESSAGE, TRUE)` has no JS export — pline already
+ * flushes, named omit. Sole C caller `deadbook` (spell.c:290) is deferred
+ * in js/spell.js — it wires here when it ships.
+ */
+export async function mkinvokearea() {
+    const g = game;
+    const u = g.u || {};
+    let dist, wallct;
+    let xmin, xmax, ymin, ymax;
+    let i;
+
+    /* slightly odd if levitating, but not wrong */
+    await pline('The floor shakes violently under you!');
+    /* decide whether to issue the crumbling walls message */
+    {
+        const ip = svi_inv_pos();
+        xmin = xmax = ip.x;
+        ymin = ymax = ip.y;
+        wallct = mkinvk_check_wall(xmin, ymin);
+        /* this replicates the somewhat convoluted loop below, working
+           out from the stair position, except for stopping early when
+           walls are found */
+        for (dist = 1; !wallct && dist < 7; ++dist) {
+            xmin--, xmax++;
+            /* top and bottom */
+            if (dist !== 3) { /* the area is wider that it is high */
+                ymin--, ymax++;
+                for (i = xmin + 1; i < xmax; i++) {
+                    if (mkinvk_check_wall(i, ymin))
+                        ++wallct; /* we could break after finding first wall
+                                   * but it isn't a significant optimization
+                                   * for code which only executes once */
+                    if (mkinvk_check_wall(i, ymax))
+                        ++wallct;
+                }
+            }
+            /* left and right */
+            if (!wallct) { /* skip y loop if x loop found any walls */
+                for (i = ymin; i <= ymax; i++) {
+                    if (mkinvk_check_wall(xmin, i))
+                        ++wallct;
+                    if (mkinvk_check_wall(xmax, i))
+                        ++wallct;
+                }
+            }
+        }
+        /* message won't appear if the maze 'walls' on this level are lava
+           or if all the walls within range have been dug away; when it does
+           appear, it will describe iron bars as "walls" (which is ok) */
+        if (wallct)
+            await pline('The walls around you begin to bend and crumble!');
+    }
+    /* C: display_nhwindow(WIN_MESSAGE, TRUE) — no JS export; pline flushes. */
+
+    /* any trap hero is stuck in will be going away now */
+    if ((u.utrap | 0)) {
+        if ((u.utraptype | 0) === TT_BURIEDBALL)
+            await buried_ball_to_punishment();
+        reset_utrap(false);
+    }
+
+    { /* reset after the check for walls */
+        const ip = svi_inv_pos();
+        xmin = xmax = ip.x;
+        ymin = ymax = ip.y;
+    }
+    await mkinvpos(xmin, ymin, 0); /* middle, before placing stairs */
+
+    for (dist = 1; dist < 7; dist++) {
+        xmin--;
+        xmax++;
+
+        /* top and bottom */
+        if (dist !== 3) { /* the area is wider that it is high */
+            ymin--;
+            ymax++;
+            for (i = xmin + 1; i < xmax; i++) {
+                await mkinvpos(i, ymin, dist);
+                await mkinvpos(i, ymax, dist);
+            }
+        }
+
+        /* left and right */
+        for (i = ymin; i <= ymax; i++) {
+            await mkinvpos(xmin, i, dist);
+            await mkinvpos(xmax, i, dist);
+        }
+
+        await flush_screen(1); /* make sure the new glyphs shows up */
+        await nh_delay_output();
+    }
+
+    await You('are standing at the top of a stairwell leading down!');
+    mkstairs(u.ux, u.uy, 0, null, false); /* down */
+    newsym(u.ux, u.uy);
+    g.vision_full_recalc = 1; /* everything changed */
+}
+
+/**
+ * C ref: mklev.c mkinvpos `:2503–2598` (staticfn) — convert one cell of the
+ * invocation area: clip at maze borders, clear traps, fracture-or-drop
+ * boulders, fake saved state + short-circuit viz, dist switch (fire-trap
+ * ring 1, ROOM 0/2/3/6, MOAT 4/5), monster trap/liquid, unblock, newsym.
+ * C order throughout. `gx.x_maze_max/gy.y_maze_max` read the file's
+ * maze_x_max()/maze_y_max(); C `panic` is a loud throw (house idiom).
+ */
+async function mkinvpos(x, y, dist) {
+    const X_MAZE_MIN = 2;
+    const Y_MAZE_MIN = 2;
+
+    /* clip at existing map borders if necessary */
+    if (!within_bounded_area(x, y, X_MAZE_MIN, Y_MAZE_MIN,
+                             maze_x_max(), maze_y_max())) {
+        /* outermost 2 columns and/or rows may be truncated due to edge */
+        if (dist < (7 - 2)) { /* panic() or impossible() */
+            if (!isok(x, y))
+                throw new Error(`mkinvpos: <${x},${y}> (${dist}) off map edge!`);
+            await impossible('mkinvpos: <%d,%d> (%d) off map edge!', x, y, dist);
+        }
+        return;
+    }
+
+    const lev = game.level?.at?.(x, y);
+    if (!lev) return;
+
+    /* clear traps */
+    let ttmp = t_at(x, y);
+    if (ttmp)
+        deltrap(ttmp);
+
+    /* clear boulders; leave some rocks for non-{moat|trap} locations */
+    let make_rocks = (dist !== 1 && dist !== 4 && dist !== 5) ? true : false;
+    let otmp;
+    while ((otmp = sobj_at(BOULDER, x, y)) != null) {
+        if (make_rocks) {
+            fracture_rock(otmp);
+            make_rocks = false; /* don't bother with more rocks */
+        } else {
+            obj_extract_self(otmp);
+            obfree(otmp, null);
+        }
+    }
+
+    /* fake out saved state */
+    lev.seenv = 0;
+    lev.doormask = 0;
+    if (dist < 6)
+        lev.lit = true;
+    lev.waslit = true;
+    lev.horizontal = false;
+    /* short-circuit vision recalc */
+    if (game.viz_array?.[y])
+        game.viz_array[y][x] = (dist < 6) ? (IN_SIGHT | COULD_SEE) : COULD_SEE;
+
+    switch (dist) {
+    case 1: /* fire traps */
+        if (is_pool(x, y))
+            break;
+        lev.typ = ROOM;
+        ttmp = maketrap(x, y, FIRE_TRAP);
+        if (ttmp)
+            ttmp.tseen = true;
+        break;
+    case 0: /* lit room locations */
+    case 2:
+    case 3:
+    case 6: /* unlit room locations */
+        lev.typ = ROOM;
+        break;
+    case 4: /* pools (aka a wide moat) */
+    case 5:
+        lev.typ = MOAT;
+        /* No kelp! */
+        break;
+    default:
+        await impossible('mkinvpos called with dist %d', dist);
+        break;
+    }
+
+    let mon;
+    if ((mon = m_at(x, y)) != null) {
+        /* wake up mimics, don't want to deal with them blocking vision */
+        if (mon.m_ap_type)
+            seemimic(mon);
+
+        if ((ttmp = t_at(x, y)) != null)
+            await mintrap(mon, NO_TRAP_FLAGS);
+        else
+            await minliquid(mon);
+    }
+
+    if (!does_block(x, y, lev))
+        unblock_point(x, y); /* make sure vision knows location is open */
+
+    /* display new value of position; could have a monster/object on it */
+    newsym(x, y);
+}
+
+/**
+ * C ref: mklev.c mkinvk_check_wall `:2603–2613` (staticfn) — 1 when (x,y)
+ * is a stone wall or iron bars, else 0; off-map (!isok) is 0. C asserts
+ * are covered by the isok guard (house idiom).
+ */
+function mkinvk_check_wall(x, y) {
+    if (!isok(x, y))
+        return 0;
+    const lev = game.level?.at?.(x, y);
+    if (!lev) return 0;
+    const ltyp = lev.typ | 0;
+    return (IS_STWALL(ltyp) || ltyp === IRONBARS) ? 1 : 0;
 }
 
 function maze_okay(x, y, dir) {
