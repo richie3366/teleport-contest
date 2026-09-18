@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-18
 
-- [x] `uhitm.c` mhitm_ad_legs — coverage MISSING (C 62 L `uhitm.c:4425–4489` / JS no symbol; hops 4, callers 1, RNG 4, msg 6). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mhitm_ad_legs` (reach regression must be 0). Measured `port-coverage.mjs --name mhitm_ad_legs` 2026-09-18 @ f8881130. **Addressed:** D-2490
+- [x] `objnam.c` corpse_xname — coverage PARTIAL (C 93 L `objnam.c:1824–1920` / JS 66 L in js/objnam.js; hops 2, callers 26, RNG 0, msg 4; dead callees: releaseobuf). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn corpse_xname` (reach regression must be 0). Measured `port-coverage.mjs --name corpse_xname` 2026-09-18 @ 6b72742e. **Addressed:** D-2491
+
+
+- [x] `uhitm.c` mhitm_ad_legs — coverage MISSING (C 62 L `uhitm.c:4425–4489` / JS no symbol; hops 4, callers 1, RNG 4, msg 6). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mhitm_ad_legs` (reach regression must be 0). Measured `port-coverage.mjs --name mhitm_ad_legs` 2026-09-18 @ f8881130. **Addressed:** D-2490 `86faaeed`
 
 
 - [x] `ball.c` bc_sanity_check — coverage MISSING (C 68 L `ball.c:1034–1102` / JS no symbol; hops 2, callers 1, RNG 2, msg 0; dead callees: safe_typename). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn bc_sanity_check` (reach regression must be 0). Measured `port-coverage.mjs --name bc_sanity_check` 2026-09-18 @ f8881130. **Addressed:** D-2489 `655fdad6`

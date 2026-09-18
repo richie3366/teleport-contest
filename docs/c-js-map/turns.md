@@ -1110,7 +1110,7 @@ quan!=1 makeplural** (objnam.c:2432; doquiver_core/dowield plural nouns; D-2044)
 **BALL `very ` when `owt>oc_weight` + doname `(chained|attached to you)`** (D-0928 #1141) + 
 **`simpleonames`/`ansimpleoname` bare BALL never `very `** (≡C `minimal_xname` zeroobj owt; 
 D-0928 #1149) + **`doname` FOOD `oeaten`→`partly eaten ` + `greased ` prefix** (D-0928 #1150) + 
-**doname CORPSE `corpse_xname` CXN_ARTICLE|CXN_NOCORPSE + glob size/xname (D-1255)** + 
+**doname CORPSE `corpse_xname` CXN_ARTICLE|CXN_NOCORPSE + glob size/xname (D-1255)** + **`corpse_xname` whole body C-order (D-2491)**: live `an`/`the_unique_pm`; `s_suffix`/`type_is_pname`/`mungspaces` via identical file-local copies (static do_name/getline edge TDZ-faults `let _shk_owns_prefix` via shk.js:832 — reverted); nextobuf/PREFIX/eos/Sprintf/releaseobuf by-design strings; digit ASCII; `obj_pmname` impossible/glorkum fallback named; `food_xname` wired (eat.js); dothrow-bare-hand/eatcorpse-tainted/wield-cant_wield/zap-revive-unturn/trap-selftouch arms named + 
 **doname EGG** `ismnum`+`(known||MV_KNOWS_EGG)` `pmnames[NEUTRAL]` + 
 `spe==1` `(laid by you)` (D-1276) + **doname MEAT_RING** FOOD `goto ring` worn/+spe (D-1295); 
 **wizterrainwish** furniture/liquid/ice/tree/bars/cloud/floor then `switch_terrain` (D-1279); 

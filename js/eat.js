@@ -55,7 +55,7 @@ import { Soundeffect } from './sndprocs.js';
 import { se_sinister_laughter } from './generated/seffects_data.js';
 import {
     singular, xname, doname, the, makeplural, obj_is_pname, thesimpleoname,
-    an, killer_xname, yobjnam, Tobjnam,
+    an, killer_xname, yobjnam, Tobjnam, corpse_xname,
 } from './objnam.js';
 import {
     mons, acidic, poisonous, carnivorous, herbivorous, metallivorous,
@@ -98,6 +98,7 @@ import {
     CHOKING, STARVING, STARVED, A_LAWFUL, STRANGLED, PARANOID_EATING,
     POISONING, LL_CONDUCT,
     DEAF,
+    CXN_SINGULAR, CXN_PFX_THE,
     GETOBJ_EXCLUDE, GETOBJ_SUGGEST, GETOBJ_EXCLUDE_SELECTABLE,
     GETOBJ_EXCLUDE_NONINVENT, GETOBJ_NOFLAGS, GETOBJ_DOWNPLAY,
 } from './const.js';
@@ -1004,17 +1005,24 @@ function peek_at_iced_corpse_age(otmp) {
 }
 
 /**
- * C ref: eat.c food_xname — CORPSE → "[the ]newt corpse".
+ * C ref: eat.c food_xname `:217–235` — CORPSE → corpse_xname CXN_SINGULAR
+ * (+CXN_PFX_THE); pname suppresses the(); else singular(xname).
  */
 function food_xname(food, the_pfx) {
     if (!food) return 'food';
-    if (food.otyp === CORPSE) {
-        const neut = pmnames[food.corpsenm]?.[2] || 'creature';
-        const base = `${neut} corpse`;
-        return the_pfx ? `the ${base}` : base;
+    let result;
+    let thePfx = !!the_pfx;
+    if ((food.otyp | 0) === CORPSE) {
+        // C :222–224
+        result = corpse_xname(food, null, CXN_SINGULAR | (thePfx ? CXN_PFX_THE : 0));
+        // C :227: pname values are capitalized and the() is a no-op for them
+        if (type_is_pname(mons(food.corpsenm))) thePfx = false;
+    } else {
+        result = singular(food, xname);
     }
-    const base = singular(food, xname);
-    return the_pfx ? `the ${base}` : base;
+    // C :232–233
+    if (thePfx) result = the(result);
+    return result;
 }
 
 /** C ref: eat.c violated_vegetarian — Monk feels guilty + adjalign(-1). */

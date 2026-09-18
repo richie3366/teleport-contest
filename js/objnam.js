@@ -1208,11 +1208,18 @@ export function obj_pmname_corpse(obj) {
 }
 
 /**
- * C ref: objnam.c corpse_xname — unique/pname possessive + adjective
- * placement (D-1234); glob OBJ_NAME (D-1255). CXN_SINGULAR / NO_PFX /
- * PFX_THE / ARTICLE / NOCORPSE.
+ * C ref: objnam.c corpse_xname `:1824–1920` — corpse/glob name with
+ * CXN_SINGULAR / NO_PFX / PFX_THE / ARTICLE / NOCORPSE (D-1234, D-1255).
+ * Buffer arms by design: C nextobuf/PREFIX + eos/Sprintf + releaseobuf
+ * are plain JS strings (D-2483 idiom). `s_suffix`/`type_is_pname`/
+ * `mungspaces` use the file-local copies (`s_suffix_objnam`,
+ * `type_is_pname_objnam`, `mungspaces_objnam` — bodies identical to the
+ * live do_name.js/getline.js exports; local to avoid a do_name/getline
+ * cycle: a static edge reorders cycle eval past shk.js:832 and TDZ-faults
+ * `let _shk_owns_prefix` at cohort startup — reverted, this iteration).
  */
 export function corpse_xname(obj, adjective, cxn_flags) {
+    // C :1830–1841: omndx + CXN flag decode (comments verbatim in C).
     const flags = cxn_flags | 0;
     const omndx = obj?.corpsenm;
     const ignore_quan = (flags & CXN_SINGULAR) !== 0;
@@ -1221,29 +1228,39 @@ export function corpse_xname(obj, adjective, cxn_flags) {
     let any_prefix = (flags & CXN_ARTICLE) !== 0;
     const omit_corpse = (flags & CXN_NOCORPSE) !== 0;
     let possessive = false;
-    const glob = objectNames[obj?.otyp] !== 'CORPSE' && !!obj?.globby;
+    // C :1841: glob = (otmp->otyp != CORPSE && otmp->globby)
+    const glob = (obj?.otyp | 0) !== CORPSE && !!obj?.globby;
 
     let mnam;
     if (glob) {
-        // C: OBJ_NAME(objects[otmp->otyp]) — "glob of <monster>"
+        // C :1843: mnam = OBJ_NAME(objects[otmp->otyp]) — "glob of <monster>"
         mnam = objectNameStrs[obj.otyp]
             || objectNames[obj.otyp]?.toLowerCase().replace(/_/g, ' ')
             || 'glob';
-    } else if (omndx == null || omndx < 0 || omndx === NON_PM) {
+    } else if (omndx == null || (omndx | 0) < 0 || omndx === NON_PM) {
+        // C :1844–1845: omndx == NON_PM (paranoia) → "thing"; the
+        // null/negative guard is JS null-safety for unset corpsenm.
         mnam = 'thing';
     } else {
+        // C :1847: mnam = obj_pmname(otmp) — do_name.c valid arm
+        // (gender-aware pmname + aligned-cleric remap); the impossible/
+        // glorkum-seeker fallback is map-named (unreachable for CORPSE).
         mnam = obj_pmname_corpse(obj);
         const ptr = mons(omndx);
+        // C :1848: unique or pname → s_suffix possessive
         if (the_unique_pm(ptr) || type_is_pname_objnam(ptr)) {
             mnam = s_suffix_objnam(mnam);
             possessive = true;
             if (type_is_pname_objnam(ptr)) {
+                // C :1852–1853: personal name like "Medusa" takes no article
                 no_prefix = true;
             } else if (the_unique_pm(ptr) && !no_prefix) {
+                // C :1856–1857: non-personal unique like "Oracle" takes "the"
                 the_prefix = true;
             }
         }
     }
+    // C :1860–1863: prefix mutual exclusion
     if (no_prefix) {
         the_prefix = false;
         any_prefix = false;
@@ -1251,30 +1268,45 @@ export function corpse_xname(obj, adjective, cxn_flags) {
         any_prefix = false;
     }
 
+    // C :1865–1872: *nambuf = '\0'; the_prefix forces "the " (never the(),
+    // which would treat capitalized uniques as pnames — C comment).
     let nambuf = the_prefix ? 'the ' : '';
+
+    // C :1874: !adjective || !*adjective — normal case "newt corpse".
+    // JS !adjective covers C NULL/"" plus do.c's 0-for-NULL idiom.
     if (!adjective) {
         nambuf += mnam;
     } else if (possessive) {
-        // C: Medusa's cursed partly eaten corpse
+        // C :1879: "Medusa's cursed partly eaten corpse"
         nambuf += `${mnam} ${adjective}`;
+        // C :1884: squeeze a trailing-space adjective
         nambuf = mungspaces_objnam(nambuf);
-        if (/^\d/.test(adjective)) any_prefix = false;
+        // C :1887: doname() count in the adjective → no article;
+        // C digit() is ASCII '0'–'9' (hacklib.c:62–65).
+        const c0 = String(adjective).charCodeAt(0);
+        if (c0 >= 48 && c0 <= 57) any_prefix = false;
     } else {
-        // C: cursed partly eaten troll corpse
+        // C :1881: "cursed partly eaten troll corpse"
         nambuf += `${adjective} ${mnam}`;
         nambuf = mungspaces_objnam(nambuf);
-        if (/^\d/.test(adjective)) any_prefix = false;
+        const c0 = String(adjective).charCodeAt(0);
+        if (c0 >= 48 && c0 <= 57) any_prefix = false;
     }
 
     if (glob) {
-        // C: omit_corpse doesn't apply; quantity is always 1
+        // C :1890: omit_corpse doesn't apply; quantity is always 1
     } else if (!omit_corpse) {
+        // C :1892–1897: Strcat " corpse"; plural appends "s" (not
+        // makeplural); quan > 1 clears any_prefix ("a newt corpses").
         nambuf += ' corpse';
-        if ((obj?.quan || 1) > 1 && !ignore_quan) {
+        if ((obj?.quan ?? 1) > 1 && !ignore_quan) {
             nambuf += 's';
             any_prefix = false;
         }
     }
+
+    // C :1902–1908: any_prefix → an(); releaseobuf(obufp) frees the an()
+    // buffer — by-design no-op in JS (GC strings, D-2483 idiom).
     if (any_prefix) nambuf = an(nambuf);
     return nambuf;
 }
