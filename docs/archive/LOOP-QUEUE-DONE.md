@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-18
 
+- [x] `objnam.c` xname_flags — coverage MISSING (C 446 L `objnam.c:581–1029` / JS no symbol; hops 3, callers 2, RNG 0, msg 17; dead callees: releaseobuf; split? cited 29× in js/ — brief first). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn xname_flags` (reach regression must be 0). Measured `port-coverage.mjs --name xname_flags` 2026-09-18 @ f8881130. **Addressed:** D-2483
+
+
 - [x] `uhitm.c` mhitm_ad_heal — coverage MISSING (C 87 L `uhitm.c:4296–4385` / JS no symbol; hops 4, callers 1, RNG 11, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mhitm_ad_heal` (reach regression must be 0). Measured `port-coverage.mjs --name mhitm_ad_heal` 2026-09-18 @ 34ef28ed.
 
 

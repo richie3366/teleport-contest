@@ -73,6 +73,7 @@ const T_SHIRT = objectNames.indexOf('T_SHIRT');
 const HAWAIIAN_SHIRT = objectNames.indexOf('HAWAIIAN_SHIRT');
 const ALCHEMY_SMOCK = objectNames.indexOf('ALCHEMY_SMOCK');
 const CANDY_BAR = objectNames.indexOf('CANDY_BAR');
+const TOWEL = objectNames.indexOf('TOWEL');
 
 /** C objnam.c PREFIX — bytes reserved ahead of xname buf for doname. */
 const XNAME_PREFIX = 80;
@@ -873,13 +874,19 @@ function pretty_base(obj) {
             dn = 'koto';
         let buf = '';
         // C: WEAPON_CLASS only — is_poisonable && opoisoned → "poisoned "
-        // before VENOM/TOOL fallthrough (lenses/towel would overwrite).
-        // Named omission: wet-towel moist/wet; ConcUpdate (buffer mgmt).
+        // before VENOM/TOOL fallthrough (lenses/towel overwrite it per the
+        // C note; the two are never simultaneously possible).
+        // Named omission: ConcUpdate (buffer mgmt).
         if (obj.oclass === WEAPON_CLASS
             && is_poisonable(obj) && obj.opoisoned) {
             buf = 'poisoned ';
         }
+        // C ref: objnam.c xname_flags `:705–707` — LENSES → "pair of ",
+        // else is_wet_towel (obj.h `:256`: TOWEL && spe > 0) → moist/wet.
         if (n === 'LENSES') buf = 'pair of ';
+        else if (obj.otyp === TOWEL && (obj.spe | 0) > 0) {
+            buf = ((obj.spe | 0) < 3) ? 'moist ' : 'wet ';
+        }
         if (!dknown) buf += dn;
         else if (nn) buf += actual;
         else if (un) buf = xcalled_xname(buf, dn, un);
@@ -893,6 +900,10 @@ function pretty_base(obj) {
                 const pm = obj_pmname_corpse(obj);
                 buf += ` of ${just_an(pm)}${pm}`;
             }
+        } else if (obj.otyp === TOWEL && (obj.spe | 0) > 0) {
+            // C `:719–723` — wizard sees the wetness count (" (%d)").
+            // `wizard` is `flags.debug` (append_wizweight_suffix idiom).
+            if (game.flags?.debug) buf += ` (${obj.spe | 0})`;
         }
         return buf;
     }
@@ -931,6 +942,18 @@ function pretty_base(obj) {
         else buf += dn;
         return buf;
     }
+    // C ref: objnam.c xname_flags COIN_CLASS/CHAIN_CLASS `:788–791` —
+    // Strcpy(buf, actualn): bare OBJ_NAME; quan pluralize is the wrapper's.
+    if (obj.oclass === COIN_CLASS || obj.oclass === CHAIN_CLASS) {
+        let actual = objectNameStrs[obj.otyp]
+            || PRETTY[n]
+            || (n ? n.toLowerCase().replace(/_/g, ' ') : 'object');
+        if (Role_if_samurai()) {
+            const jn = Japanese_item_name(obj.otyp, null);
+            if (jn) actual = jn;
+        }
+        return actual;
+    }
     // C ref: objnam.c xname_flags BALL_CLASS —
     // "%sheavy iron ball" with "very " when owt > oc_weight (punish levy).
     if (obj.oclass === BALL_CLASS) {
@@ -947,7 +970,7 @@ function pretty_base(obj) {
 }
 
 /**
- * C ref: objnam.c xname — base name with quan pluralization (doname subset).
+ * C ref: objnam.c xname `:575–578` — `return xname_flags(obj, CXN_NORMAL)`.
  * C xname_flags: observe_object when !Blind && !gd.distantname (D-0469).
  * Distant formatting must go through distant_name so the flag suppresses
  * discovery; map generic glyphs still observe via display.map_object.
@@ -955,75 +978,121 @@ function pretty_base(obj) {
  * corpse_xname (doname CXN_ARTICLE|CXN_NOCORPSE; D-1255).
  */
 export function xname(obj) {
+    return xname_flags(obj, CXN_NORMAL);
+}
+
+/**
+ * C ref: objnam.c xname_flags `:581–1029` — full object base-name
+ * formatter. The class switch lives in pretty_base() (same file, one arm
+ * per C case, cited per arm); buffer machinery (gx.xnamep = nextobuf(),
+ * PREFIX reservation, ConcUpdate/Concat truncation, eos overflow
+ * paniclog `:941–969, :1014–1029`) is by-design JS strings (named map).
+ * Samurai Japanese_item_name + harp→koto (`:607–626`) apply per arm;
+ * !actualn → generic/object? and !dn → actualn (`:627–631`) are the
+ * per-arm `|| actual` / `if (!dn) dn = actual` fallbacks; the default
+ * glorkum arm (`:933–937`) is unreachable for a valid oclass — the
+ * fallthrough base stands in and impossible() (async in JS) is named.
+ * SLIME_MOLD impossible() on a bad fruit index is likewise named
+ * (xname/doname are sync; precedent D-1511).
+ */
+export function xname_flags(obj, cxn_flags) {
     if (!obj) return 'something';
-    // C xname_flags: !nn && oc_uses_known && oc_unique → known=0 (article leak)
+    // C `:596` — pluralize on quan != 1 unless CXN_SINGULAR.
+    const singular = ((((cxn_flags | 0) & CXN_SINGULAR)) !== 0);
+    // C `:632–636` — !nn && oc_uses_known && oc_unique → known=0
+    // (article leak).
     clear_unique_known_leak(obj);
-    // C: Role_if(PM_CLERIC) → obj->bknown = 1 (bypass set_bknown / invent update)
+    // C `:637` — Role_if(PM_CLERIC) → obj->bknown = 1 (bypass set_bknown
+    // and its update_inventory()).
     if (Role_if(PM_CLERIC)) obj.bknown = 1;
-    // C: if (!Blind && !gd.distantname) observe_object(obj);
+    // C `:638` — if (!Blind && !gd.distantname) observe_object(obj);
     // Prop Blind — sticky u.Blind misses FROMFORM molds (D-0928 #1180).
     if (!Blind() && !(game.distantname | 0) && _xname_observe) {
         _xname_observe(obj);
     }
-    // C xname_flags `:661` (`:652–672`): maybe find a previously unseen
-    // artifact. Real obj->dknown, not the override_ID variant, so wizard
-    // ^I on a blind-picked artifact does not mark it found. After
-    // observe_object (which can set dknown), before obj_is_pname.
-    if (obj?.oartifact && obj?.dknown && _find_artifact) _find_artifact(obj);
-    const n = objectNames[obj.otyp];
-    if (n === 'CORPSE') {
-        let base = 'corpse';
-        if ((obj.quan || 1) !== 1) base = makeplural(base);
+    /* C `:640–650` — iflags.override_ID forces known=dknown=bknown=TRUE
+       and nn=1 for the switch below. Arms read the obj/ocl fields, so
+       stage the C locals there and restore afterwards (sync; finally).
+       find_artifact below still gates on the real obj->dknown per the
+       C comment, so capture it first. */
+    const realDknown = !!obj.dknown;
+    const ocl = game.objects?.[obj.otyp];
+    let savedID = null;
+    if ((game.iflags?.override_ID | 0) !== 0) {
+        savedID = {
+            known: obj.known, dknown: obj.dknown, bknown: obj.bknown,
+            nn: ocl ? ocl.oc_name_known : undefined,
+        };
+        obj.known = 1; obj.dknown = 1; obj.bknown = 1;
+        if (ocl) ocl.oc_name_known = 1;
+    }
+    try {
+        // C `:652–672` — maybe find a previously unseen artifact, gated
+        // on the real dknown (not the override_ID variant) so wizard-mode
+        // ^I on a blind-picked artifact does not mark it found. After
+        // observe_object (which can set dknown), before obj_is_pname.
+        if (obj?.oartifact && realDknown && _find_artifact) _find_artifact(obj);
+        const n = objectNames[obj.otyp];
+        if (n === 'CORPSE') {
+            let base = 'corpse';
+            if (!singular && (obj.quan || 1) !== 1) base = makeplural(base);
+            return base;
+        }
+        // C `:674–676` — obj_is_pname(obj) → goto nameit (bare ONAME, no
+        // base type / poisoned prefix / pluralize / gameover suffix).
+        // Partial-ID artifacts fall through to actualn + " named ONAME".
+        // Gameover disclosure (end.c possessions identified) takes this
+        // arm for every artifact with an oname (obj_is_pname skips ID).
+        if (obj_is_pname(obj) && has_oname(obj)) {
+            let nm = String(ONAME(obj) ?? '');
+            // C `:1004–1008` — downcase "The" in "<item> named The ..."
+            // then strip leading "the " (doname re-adds its own).
+            if (obj.oartifact && nm.slice(0, 4) === 'The ') nm = `t${nm.slice(1)}`;
+            if (nm.length >= 4 && nm.slice(0, 4).toLowerCase() === 'the ') {
+                nm = nm.slice(4);
+            }
+            return nm;
+        }
+        let base = pretty_base(obj);
+        /* C ROCK_CLASS `:814–823` — BOULDER && next_boulder==1 formats
+           "next boulder" then clears to 0. Overloaded corpsenm defaults
+           to NON_PM (-1); check ==1 not !=0. D-1294. */
+        if ((obj.otyp | 0) === BOULDER && (obj.next_boulder | 0) === 1) {
+            base = `next ${base}`;
+            obj.next_boulder = 0;
+        }
+        // C FOOD SLIME_MOLD `:765–773` — if (pluralize) singular then
+        // plural, then pluralize=FALSE (already-plural fname; D-1511).
+        if ((obj.otyp | 0) === SLIME_MOLD) {
+            if (!singular && (obj.quan || 1) !== 1) base = makeplural(makesingular(base));
+        } else if (!singular && (obj.quan || 1) !== 1) {
+            base = makeplural(base);
+        }
+        // C `:971–996` — gameover disclosure after pluralize, before oname.
+        base += xname_gameover_suffix(obj);
+        // C `:998–1009` — has_oname && dknown → " named " ONAME (+The fix).
+        const onameStr = obj.oextra?.oname;
+        if (onameStr && obj.dknown) {
+            const nameStart = base.length + ' named '.length;
+            base += ` named ${onameStr}`;
+            if (obj.oartifact && base.slice(nameStart, nameStart + 4) === 'The ') {
+                base = `${base.slice(0, nameStart)}t${base.slice(nameStart + 1)}`;
+            }
+        }
+        // C `:1011–1012` — strip leading "the " (doname_base
+        // artifact_name(bp) sees this pointer; D-1521 fake_arti).
+        if (base.length >= 4 && base.slice(0, 4).toLowerCase() === 'the ') {
+            base = base.slice(4);
+        }
         return base;
-    }
-    // C xname_flags `:663–664` — obj_is_pname(obj) → goto nameit (bare
-    // ONAME, no base type / poisoned prefix / pluralize / gameover suffix).
-    // Partial-ID artifacts fall through to actualn + " named ONAME" below.
-    // Gameover disclosure (end.c possessions identified) takes this arm for
-    // every artifact with an oname (obj_is_pname skips the ID gate).
-    if (obj_is_pname(obj) && has_oname(obj)) {
-        let nm = String(ONAME(obj) ?? '');
-        // C `:1004–1008` — downcase "The" in "<item> named The ..." then
-        // C `:1011–1012` — strip leading "the " (doname re-adds its own).
-        if (obj.oartifact && nm.slice(0, 4) === 'The ') nm = `t${nm.slice(1)}`;
-        if (nm.length >= 4 && nm.slice(0, 4).toLowerCase() === 'the ') {
-            nm = nm.slice(4);
-        }
-        return nm;
-    }
-    let base = pretty_base(obj);
-    /* C objnam.c xname ROCK_CLASS :814–823 — BOULDER && next_boulder==1
-       formats "next boulder" then clears to 0. Overloaded corpsenm
-       defaults to NON_PM (-1); check ==1 not !=0. D-1294. */
-    if ((obj.otyp | 0) === BOULDER && (obj.next_boulder | 0) === 1) {
-        base = `next ${base}`;
-        obj.next_boulder = 0;
-    }
-    // C xname_flags FOOD SLIME_MOLD: if (pluralize) singular then plural
-    // then pluralize=FALSE (already-plural fname; D-1511).
-    if ((obj.otyp | 0) === SLIME_MOLD) {
-        if ((obj.quan || 1) !== 1) base = makeplural(makesingular(base));
-    } else if ((obj.quan || 1) !== 1) {
-        base = makeplural(base);
-    }
-    // C xname_flags `:971–996` after pluralize, before has_oname
-    base += xname_gameover_suffix(obj);
-    // C xname_flags: has_oname && dknown → " named " ONAME
-    const onameStr = obj.oextra?.oname;
-    if (onameStr && obj.dknown) {
-        const nameStart = base.length + ' named '.length;
-        base += ` named ${onameStr}`;
-        /* C objnam.c:1006–1008 — downcase "The" in "<item> named The ..." */
-        if (obj.oartifact && base.slice(nameStart, nameStart + 4) === 'The ') {
-            base = `${base.slice(0, nameStart)}t${base.slice(nameStart + 1)}`;
+    } finally {
+        if (savedID) {
+            obj.known = savedID.known;
+            obj.dknown = savedID.dknown;
+            obj.bknown = savedID.bknown;
+            if (ocl && savedID.nn !== undefined) ocl.oc_name_known = savedID.nn;
         }
     }
-    // C xname_flags `:1011–1012` — doname_base artifact_name(bp) sees
-    // this stripped pointer (D-1521 fake_arti).
-    if (base.length >= 4 && base.slice(0, 4).toLowerCase() === 'the ') {
-        base = base.slice(4);
-    }
-    return base;
 }
 
 /**
@@ -1220,18 +1289,15 @@ export function cxname(obj) {
 }
 
 /**
- * C ref: objnam.c cxname_singular — ignore quantity (sortloot / loot_xname).
+ * C ref: objnam.c cxname_singular `:1934–1939` — like cxname but ignores
+ * quantity (sortloot / loot_xname): corpse via corpse_xname, else
+ * xname_flags(obj, CXN_SINGULAR). C never mutates quan for this.
  */
 export function cxname_singular(obj) {
     if (obj && objectNames[obj.otyp] === 'CORPSE') {
         return corpse_xname(obj, null, CXN_SINGULAR);
     }
-    if (!obj) return xname(obj);
-    const saveq = obj.quan;
-    obj.quan = 1;
-    const nam = xname(obj);
-    obj.quan = saveq;
-    return nam;
+    return xname_flags(obj, CXN_SINGULAR);
 }
 
 /** C ref: hacklib.c strstri — case-insensitive substring. */

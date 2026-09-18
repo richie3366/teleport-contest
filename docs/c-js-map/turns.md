@@ -1175,7 +1175,7 @@ makeplural keeps singular pair** (D-0158);
 **`vtense` bare singular + ends-in-s plural** (D-0403; 
 full special_subjs/`of`/`from` polish deferred); 
 **xname WEAPON `poisoned ` + doname strip/reinsert** (D-0418; 
-`permapoisoned`/wet-towel deferred; figurine ` of <pm>` live D-2098); 
+`permapoisoned` deferred; wet-towel moist/wet + wizard spe live D-2483; figurine ` of <pm>` live D-2098); 
 **xname RING dknown+!nn → `<descr> ring` via `oc_descr_idx`; 
 `nn`=`oc_name_known` only (not `obj.known`)** (D-0420); 
 omit fruits/door/wall/drawbridge (wizterrainwish furniture D-1279; 
@@ -1211,9 +1211,15 @@ Eyes `is_plural` named; pre-existing local clones stay) + **`yname`/`shk_your`/`
 `erode_obj_text` `:88`; live in `js/objnam.js` — objnam→read/engrave is TDZ
 on `_body_part`; `wipeout_text` late-bound from `engrave.js`; attrib
 `ysimple_name` clone deleted so `from_what` uses exported `simpleonames`
-not `cxname`). Named: xname article arms; `armor_simple_name` for called
-(still `dn`); `find_artifact`; `releaseobuf`/PREFIX overflow paniclog;
-`hawaiian_design` / doread shirt-apron-hawaiian; `obj_is_pname` goto nameit +
+not `cxname`). **Whole-body `xname_flags(obj, cxn_flags)` export (D-2483)**
+(`objnam.c:581–1029`; `xname()` → CXN_NORMAL `:575–578`,
+`cxname_singular` non-corpse → CXN_SINGULAR `:1934–1939`, quan-mutate hack
+deleted; switch arms stay in `pretty_base`; new: override_ID stage/restore
+`:640–650` with `find_artifact` on the real dknown, COIN/CHAIN actualn arm).
+Named: xname article arms; `armor_simple_name` for called (still `dn`);
+`nextobuf`/`releaseobuf`/PREFIX overflow paniclog; `hawaiian_design` /
+doread shirt-apron-hawaiian; glorkum default + SLIME_MOLD-bad-fruit
+impossible() (async in JS) +
 **`mshot_xname` (D-1931; `objnam.c:1090–1102`** `xname` + `m_shot.n > 1 && o == otyp` → `"the Nth "` via canonical `hacklib.js ordin` export; wired `dothrow tmiss`, `uhitm` thrown hit, `mthrowu thitu` single path with C quan branch; named: sink/miss end-of-path `mthrowu.c:801–813`, stone-missile no-harm `uhitm.c:1402`, destroyed+multishot gate, monster-side `m_shot`, `thitu` quan>1 `doname`)
 
 **`readobjnam` post-mksobj `spe` switch + `corpsenm` writer** (D-2055;

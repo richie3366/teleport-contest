@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2483 — `objnam.c` xname_flags whole-body port (export + SINGULAR/override_ID callers wired)
+
+- **Status:** fixed (breadth-phase coverage row: `objnam.c` xname_flags MISSING, C 446 L `objnam.c:581–1029`, JS no symbol; split body already lived in `xname`/`pretty_base`/`xname_gameover_suffix`).
+- **Symptom:** none — no corpus session blocked (`hidden-proxy verify xname_flags`: nothing to verify). Coverage row, not a divergence.
+- **C locus:** `nethack-c/upstream/src/objnam.c:581–1029` (`xname_flags`); callers `xname` `:575–578`, `cxname_singular` `:1934–1939`.
+- **JS was:** `xname(obj)` (`js/objnam.js`) carried most arms under split names but had no `cxn_flags` parameter — CXN_SINGULAR unreachable (JS `cxname_singular` mutated `obj.quan`, which C never does); the `iflags.override_ID` full-ID arm (`:640–650`) absent from the xname path; wet-towel moist/wet + wizard spe a named omission; COIN/CHAIN fell through to the generic base instead of explicit actualn arms.
+- **Fix:** `js/objnam.js` only, no new imports — new `export function xname_flags(obj, cxn_flags)` holding the former `xname` body in C order (prologue `:632–650`, pname nameit `:674–676`, boulder `:814–823`, pluralize incl. slime ick, gameover `:971–996`, oname `:998–1009`, the-strip `:1011–1012`); `xname(obj)` is now `return xname_flags(obj, CXN_NORMAL)` verbatim per C; override_ID stages known/dknown/bknown + `oc_name_known` and restores in `finally`, while `find_artifact` gates on the pre-override `dknown` per the C comment; wet-towel prefix/suffix per `obj.h:256` + `:705–723` (`wizard` ≡ `flags.debug` idiom); explicit COIN_CLASS/CHAIN_CLASS actualn arm (`:788–791`).
+- **JS:** `js/objnam.js` — `xname_flags` (new export), `xname` (wrapper), `cxname_singular` (SINGULAR flag, quan hack deleted), `pretty_base` (towel + coin/chain arms), `TOWEL` const.
+- **Callers:** C `xname` → JS `xname` (`js/objnam.js`, delegates with CXN_NORMAL); C `cxname_singular` non-corpse → JS `cxname_singular` (same file, now `xname_flags(obj, CXN_SINGULAR)`).
+- **Verify:** `node scripts/verify.mjs --fn xname_flags` → PASS (syntax 1 file; rule2; hidden: none blocked; reach: no RNG tags, smoke 24/24 REACH-OK; green 2/2; strict ×2; cohort 7/7). Full `sessions`: 44/44 PASS.
+- **Named omissions:** nextobuf/PREFIX/ConcUpdate/Concat truncation + eos overflow paniclog (by-design JS strings); glorkum default + SLIME_MOLD-bad-fruit `impossible()` (async in JS); `armor_simple_name` for called (still `dn`); xname article arms; `hawaiian_design`/doread.
+- **Next:** open D-2098 (figurine) / D-1882 (statue) / D-2121 (pname) / D-1935 (find_artifact) name xname_flags arms already live here — closable by their owners, not this port.
+
 ## D-2482 — `uhitm.c` mhitm_ad_heal whole-body port (mhitm phys arm + mdamagem AD_HEAL dispatch; mhitu arm already live)
 
 - **Status:** fixed (breadth-phase coverage row: `uhitm.c` mhitm_ad_heal MISSING, C 87 L `uhitm.c:4296–4385`, JS no symbol. `port-coverage.mjs --name mhitm_ad_heal` now resolves to `js/mhitm.js` with 9 mentions — same footprint as shipped sibling `mhitm_ad_were`; residual ratio reflects the split-arm convention, mhitu arm living as `mhitm_ad_heal_u`).
