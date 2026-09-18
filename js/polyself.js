@@ -51,6 +51,31 @@ import { helm_simple_name, digests, set_ustuck } from './mhitu.js';
 import { losehp, nomul, is_pool, waterbody_name } from './hack.js';
 import { finish_losehp_done, done } from './end.js';
 import { steed_vs_stealth } from './steed.js';
+// polymon whole-body port deps (imports.mjs --can: all SAFE, hoisted fns,
+// no new cycle — pline/dig/pickup add no cycle at all).
+import { canspotmon } from './display.js';
+import { Some_Monnam, Mgender } from './do_name.js';
+import { rnl } from './rng.js';
+import { hideunder } from './mon.js';
+import { makeknown } from './invent.js';
+import { unmul, is_lava } from './hack.js';
+import { expels } from './mhitu.js';
+import { set_utrap, reset_utrap, selftouch } from './trap.js';
+import { can_ride, dismount_steed } from './steed.js';
+import {
+    flaming, unsolid, amorphous, likes_lava, breathless, poly_when_stoned,
+    is_swimmer, MZ_HUGE,
+} from './monsters.js';
+import {
+    TT_WEB, TT_BEARTRAP, TT_LAVA, TT_INFLOOR, TT_BURIEDBALL, DISMOUNT_POLY,
+    SICK_ALL, LL_CONDUCT, NECK, STRANGLED,
+} from './const.js';
+import { livelog_printf } from './pline.js';
+import {
+    make_stoned, make_sick, make_slimed, make_glib,
+} from './potion.js';
+import { buried_ball_to_freedom } from './dig.js';
+import { spoteffects } from './pickup.js';
 import {
     mons,
     polyok,
@@ -230,6 +255,10 @@ const PM_JELLYFISH = monsterNames.indexOf('PM_JELLYFISH');
 const PM_KRAKEN = monsterNames.indexOf('PM_KRAKEN');
 const PM_FLOATING_EYE = monsterNames.indexOf('PM_FLOATING_EYE');
 const PM_GREMLIN = monsterNames.indexOf('PM_GREMLIN');
+const PM_GREEN_SLIME = monsterNames.indexOf('PM_GREEN_SLIME');
+const AMULET_OF_STRANGULATION = objectNames.indexOf('AMULET_OF_STRANGULATION');
+// C ref: polyself.c:33 — file-static("No longer petrify-resistant, you").
+const no_longer_petrify_resistant = 'No longer petrify-resistant, you';
 const CORPSE = objectNames.indexOf('CORPSE');
 const STRANGE_OBJECT = objectNames.indexOf('STRANGE_OBJECT');
 const PM_GIANT_EEL = monsterNames.indexOf('PM_GIANT_EEL');
@@ -1147,15 +1176,73 @@ async function break_armor() {
 }
 
 /**
+ * C ref: polyself.c check_strangling `:167–194` (C staticfn: same-file
+ * callers only — module-local here). polymon() calls it twice: FALSE to
+ * maybe stop strangling in a form that can't be strangled, TRUE to maybe
+ * resume when the amulet constricts again.
+ * The strangleable test is the mon==&youmonst hero arm of
+ * mondata.c can_be_strangled `:590–619` (headless immune; a mindless new
+ * form that needs no breath is immune); the monster arm never applies
+ * here, so it is not copied.
+ * @param {boolean} on
+ * @returns {Promise<void>}
+ */
+async function check_strangling(on) {
+    const u = game.u || (game.u = {});
+    const youdata = game.youmonst?.data;
+    // Hero arm of can_be_strangled (mondata.c:603-616): has_head fails
+    // outright; mindless forms are safe only while Breathless.
+    const nobrainer = mindless(youdata);
+    const nonbreathing = !!((u.Breathless | 0) || (u.HBreathless | 0)
+        || (u.EBreathless | 0) || (u.HMagical_breathing | 0)
+        || (u.EMagical_breathing | 0) || breathless(youdata));
+    const strangleable = !!has_head(youdata) && (!nobrainer || !nonbreathing);
+    if (on) {
+        /* on -- maybe resume strangling */
+        const wasStrangled = ((u.Strangled | 0) !== 0)
+            || (((u.uprops?.[STRANGLED]?.intrinsic) | 0) !== 0);
+        const uamul = u.uamul;
+        /* when Strangled is already set, polymorphing from one
+           vulnerable form into another causes the counter to be reset */
+        if (uamul && ((uamul.otyp | 0) === AMULET_OF_STRANGULATION)
+            && strangleable) {
+            u.Strangled = 6;
+            if (!u.uprops) u.uprops = {};
+            if (!u.uprops[STRANGLED]) u.uprops[STRANGLED] = { intrinsic: 0, extrinsic: 0, blocked: 0 };
+            u.uprops[STRANGLED].intrinsic = 6;
+            if (game.disp) game.disp.botl = true;
+            await pline(`Your ${simpleonames(uamul)} ${wasStrangled ? 'still constricts' : 'begins constricting'} your ${body_part(NECK)}!`);
+            makeknown(AMULET_OF_STRANGULATION);
+        }
+    /* off -- maybe block strangling */
+    } else {
+        const strangled = ((u.Strangled | 0) !== 0)
+            || (((u.uprops?.[STRANGLED]?.intrinsic) | 0) !== 0);
+        if (strangled && !strangleable) {
+            u.Strangled = 0;
+            if (u.uprops?.[STRANGLED]) u.uprops[STRANGLED].intrinsic = 0;
+            if (game.disp) game.disp.botl = true;
+            await pline('You are no longer being strangled.');
+        }
+    }
+}
+
+/**
  * C ref: polyself.c polymon — become mntmp.
- * Envelope: geno abort; conduct; CON/WIS exercise; sex_change_ok rn2(10);
- * turn-into pline; rn1(500,500) mtimedone; set_uasmon; STR clamp;
- * mhmax (dragon / golem / d(mlvl,8)); break_armor; drop_weapon;
- * find_ac; newsym; botl; see_monsters; encumber_msg; verbose ability tips.
- * Named omissions: Stoned/Sick/Slimed/strangle/glib; hideunder; utrap;
- * egg learn; swallow expel; light sources;
- * livelog first-poly text; break_armor horns /
- * flimsy-helm pierce / ublindf; retouch_equipment.
+ * Envelope (whole C body :735–1071 in C order): geno abort; conduct +
+ * first-poly livelog; CON/WIS exercise; human-stat save/restore; unmul
+ * mimic stop; mimic clear; sex_change_ok rn2(10); turn-into pline;
+ * Stoned golem redirect; rn1(500,500) mtimedone; set_uasmon; STR clamp;
+ * Stone/Sick/Slime cures; check_strangling(FALSE); glib;
+ * mhmax (dragon / golem / d(mlvl,8), home-elemental x3); ulevel clamp;
+ * uskin/break_armor/drop_weapon/find_ac; hideunder; pit reset; blind;
+ * newsym; egg learn; swallow expel / ustuck release / uunstick; steed
+ * petrify/dismount; find_ac#2; pool spoteffects; Passes_walls/lava/
+ * amorphous/web arms; check_strangling(TRUE); botl; see_monsters;
+ * encumber_msg; selftouch; verbose ability tips.
+ * Named omissions: retouch_equipment(2) (artifact.c:2639, own row);
+ * light-source bookkeeping (set_uasmon map note); break_armor horns /
+ * flimsy-helm pierce / ublindf (break_armor map note).
  * @param {number} mntmp
  * @returns {Promise<number>} 1 on success, 0 on geno abort
  */
@@ -1163,10 +1250,17 @@ export async function polymon(mntmp) {
     const u = game.u || (game.u = {});
     const flags = game.flags || (game.flags = {});
     let dochange = false;
+    // C :735-739 entry locals: sticking (FROMFORM grabber holding ustuck),
+    // was_blind, was_hiding_under — all read before set_uasmon swaps form.
+    const fromdat = game.youmonst?.data;
+    const sticking = !!(sticks(fromdat) && u.ustuck && !u.uswallow);
     // C polyself.c:739 — was_blind = !!Blind at entry, before set_uasmon
     // swaps the FROMFORM eyeless bit (same shape as the polyman arm).
     const wasBlind = !!(((u.HBlinded | 0) || (u.EBlinded | 0))
         && !(u.BBlinded | 0)) || !!u.uroleplay?.blind;
+    const wasHidingUnder = !!(u.uundetected && hides_under(fromdat));
+    let wasExpelled = false;
+    let ustuckNam = '';
 
     const mv = game.mvitals?.[mntmp];
     if (mv && ((mv.mvflags | 0) & G_GENOD)) {
@@ -1176,9 +1270,14 @@ export async function polymon(mntmp) {
         return 0;
     }
 
+    // C :745-749 — KMH conduct: first-ever polyself is livelogged.
     if (!u.uconduct) u.uconduct = {};
+    if (!(u.uconduct.polyselfs | 0)) {
+        livelog_printf(LL_CONDUCT,
+            'changed form for the first time, becoming %s',
+            an(pmname(mntmp, flags.female ? FEMALE : MALE)));
+    }
     u.uconduct.polyselfs = (u.uconduct.polyselfs | 0) + 1;
-    // first-poly livelog deferred
 
     exercise(A_CON, false);
     exercise(A_WIS, true);
@@ -1193,7 +1292,13 @@ export async function polymon(mntmp) {
         flags.female = !!u.mfemale;
     }
 
-    const mdat = mons(mntmp);
+    // C :775-781 — stuck mimicking gold: stop at once; becoming a
+    // non-mimic clears any mimicry (as in polyman()).
+    if ((game.multi | 0) < 0 && ((game.youmonst?.m_ap_type | 0) === M_AP_OBJECT)
+        && fromdat?.mlet !== 'S_MIMIC') {
+        await unmul('');
+    }
+    let mdat = mons(mntmp);
     if (mdat && mdat.mlet !== 'S_MIMIC') {
         if (game.youmonst) {
             game.youmonst.m_ap_type = 0; // M_AP_NOTHING
@@ -1209,6 +1314,9 @@ export async function polymon(mntmp) {
         if (game.sex_change_ok && !rn2(10)) dochange = true;
     }
 
+    // C :797 — ustuck's name is saved before the change (seeing it may
+    // change with the new form's eyes).
+    ustuckNam = u.ustuck ? Some_Monnam(u.ustuck) : '';
     let buf = (u.umonnum | 0) !== mntmp ? '' : 'new ';
     if (dochange) {
         flags.female = !flags.female;
@@ -1220,7 +1328,13 @@ export async function polymon(mntmp) {
     const verb = (u.umonnum | 0) !== mntmp ? 'turn into' : 'feel like';
     await pline(`You ${verb} ${an(buf)}!`);
 
-    // Stoned → stone golem deferred
+    // C :810-814 — stoned into a poly_when_stoned form: become a stone
+    // golem instead (poly_when_stoned already checked golem genocide).
+    if ((u.Stoned | 0) && poly_when_stoned(mdat)) {
+        mntmp = PM_STONE_GOLEM;
+        await make_stoned(0, 'You turn to stone!', 0, null);
+        mdat = mons(mntmp);
+    }
 
     u.mtimedone = rn1(500, 500);
     u.umonnum = mntmp;
@@ -1234,6 +1348,31 @@ export async function polymon(mntmp) {
         u.amax.a[A_STR] = newMaxStr;
         if ((u.acurr.a[A_STR] | 0) > newMaxStr) u.acurr.a[A_STR] = newMaxStr;
     }
+
+    // C :831-837 — resistances read on the NEW form (after set_uasmon):
+    // petrification and sickness end at once.
+    const stoneRes = !!(u.Stone_resistance || u.HStone_resistance || u.EStone_resistance);
+    if (stoneRes && (u.Stoned | 0)) {
+        await make_stoned(0, 'You no longer seem to be petrifying.', 0, null);
+    }
+    const sickRes = !!(u.Sick_resistance || u.HSick_resistance || u.ESick_resistance);
+    if (sickRes && (u.Sick | 0)) {
+        await make_sick(0, null, false, SICK_ALL);
+        await pline('You no longer feel sick.');
+    }
+    // C :838-845 — slime on a flaming new form burns away; a new green
+    // slime keeps it silently.
+    if ((u.Slimed | 0)) {
+        if (flaming(game.youmonst?.data)) {
+            await make_slimed(0, 'The slime burns away!');
+        } else if ((u.umonnum | 0) === PM_GREEN_SLIME) {
+            /* do it silently */
+            await make_slimed(0, null);
+        }
+    }
+    await check_strangling(false); /* maybe stop strangling */
+    // C :847-848 — a handless new form starts at glib dexterity.
+    if (nohands(game.youmonst?.data)) make_glib(0);
 
     const mlvl = mdat?.mlevel | 0;
     if (mdat?.mlet === 'S_DRAGON' && mntmp >= PM_GRAY_DRAGON) {
@@ -1267,7 +1406,14 @@ export async function polymon(mntmp) {
     // RNG-free; the D-0722 gnome AC:9 capture precedes this in code order
     // on both sides, so it stays stale there as C shows it.
     find_ac();
-    // hideunder / egg / swallow / steed arms deferred
+    /* if hiding under something and can't hide anymore, unhide now;
+       but don't auto-hide when not already hiding-under */
+    if (wasHidingUnder) hideunder(game.youmonst);
+
+    // C :896-898 — pit time-to-escape resets in the new form.
+    if ((u.utrap | 0) && ((u.utraptype | 0) === TT_PIT)) {
+        set_utrap(rn1(6, 2), TT_PIT); /* time to escape resets */
+    }
     // C polyself.c:899-902 — previous form was eyeless and the new form
     // sees: set HBlinded timeout then make_blinded(0,TRUE) "can see again"
     // (same shape as the polyman arm; break_armor's Blindf_off above ran
@@ -1295,7 +1441,120 @@ export async function polymon(mntmp) {
         /* make queen bees recognize killer bee eggs */
         learn_egg_type(egg_type_from_parent(u.umonnum | 0, true));
     }
-    // spoteffects / Passes_walls / amorphous / webmaker deferred
+    // C :918-946 — swallowed: a new form that can't be held there makes
+    // the engulfer expel the hero (unsolid, huge, or too big for the
+    // holder unless the holder is a whirly accommodating it).
+    if (u.uswallow) {
+        const swdat = game.youmonst?.data;
+        const usiz = swdat?.msize | 0;
+        const holderdat = u.ustuck?.data;
+        if (unsolid(swdat) || usiz >= MZ_HUGE
+            || (((holderdat?.msize | 0) < usiz) && !is_whirly(holderdat))) {
+            let expelsMesg = true;
+            if (unsolid(swdat)) {
+                /* [see below for explanation] */
+                if (canspotmon(u.ustuck)) ustuckNam = Monnam(u.ustuck);
+                await pline(`${ustuckNam} can no longer contain you.`);
+                expelsMesg = false;
+            }
+            await expels(u.ustuck, u.ustuck?.data, expelsMesg);
+            wasExpelled = true;
+            /* FIXME? if expels() triggered rehumanize then we should
+               return early */
+        }
+    /* [note: this 'sticking' handling is only sufficient for changing from
+       grabber to engulfer or vice versa because engulfing by poly'd hero
+       always ends immediately so won't be in effect during a polymorph] */
+    } else if (u.ustuck && !sticking
+               /* being held; if now capable of holding, make holder
+                  release so that hero doesn't automagically start holding
+                  it; or, release if no longer capable of being held */
+               && (sticks(game.youmonst?.data) || unsolid(game.youmonst?.data))) {
+        /* u.ustuck name was saved above in case we're changing from can-see
+           to can't-see; but might have changed from can't-see to can-see so
+           override here if hero knows who u.ustuck is */
+        if (canspotmon(u.ustuck)) ustuckNam = Monnam(u.ustuck);
+        set_ustuck(null);
+        await pline(`${ustuckNam} loses its grip on you.`);
+    } else if (sticking && !sticks(game.youmonst?.data)) {
+        /* was holding onto u.ustuck but no longer capable of that */
+        await uunstick();
+    }
+
+    // C :948-956 — a petrifying steed unseats a newly vulnerable rider;
+    // an unrideable new form dismounts (DISMOUNT_POLY).
+    if (u.usteed) {
+        if (touch_petrifies(u.usteed?.data) && !stoneRes && rnl(3)) {
+            await pline(`${no_longer_petrify_resistant} touch ${mon_nam(u.usteed)}.`);
+            const steedbuf = `riding ${an(pmname(u.usteed?.data, Mgender(u.usteed)))}`;
+            await instapetrify(steedbuf);
+        }
+        if (!can_ride(u.usteed)) await dismount_steed(DISMOUNT_POLY);
+    }
+
+    // C :967 — second find_ac ("repeated" after :890). In C order it runs
+    // before the pool check so a --More-- there paints post-strip AC
+    // (supersedes the D-2402 site below see_monsters; verify guards it).
+    find_ac();
+    // C :968-971 — landing wet in a non-swimming new form (unless expels()
+    // already ran spoteffects above). is_pool_or_lava (dbridge.c:76) is an
+    // 8-line predicate over live is_pool/is_lava, inlined at its only site.
+    const levit = !!(((u.HLevitation | 0) || (u.ELevitation | 0)) && !(u.BLevitation | 0));
+    const swim = !!((u.HSwimming | 0) || (u.ESwimming | 0)
+        || (u.usteed && is_swimmer(u.usteed?.data)));
+    const under = !!(u.uinwater);
+    if (((!levit && !u.ustuck && !Flying() && (is_pool(u.ux, u.uy) || is_lava(u.ux, u.uy)))
+         || (under && !swim))
+        /* if expelled above, expels() already called spoteffects() */
+        && !wasExpelled) {
+        await spoteffects(true);
+        /* FIXME? if spoteffects() triggered rehumanize then we should
+           return early */
+    }
+    // C :972-979 — passing through rock frees floor-trapped heroes; a lava
+    // lover's lava trap turns soothing.
+    const passesWalls = !!(u.Passes_walls || u.HPasses_walls || u.EPasses_walls);
+    if (passesWalls && (u.utrap | 0)
+        && (((u.utraptype | 0) === TT_INFLOOR) || ((u.utraptype | 0) === TT_BURIEDBALL))) {
+        if ((u.utraptype | 0) === TT_INFLOOR) {
+            await pline('The rock seems to no longer trap you.');
+        } else {
+            await pline('The buried ball is no longer bound to you.');
+            buried_ball_to_freedom();
+        }
+        reset_utrap(true);
+    } else if (likes_lava(game.youmonst?.data) && (u.utrap | 0)
+               && ((u.utraptype | 0) === TT_LAVA)) {
+        await pline(`The ${hliquid('lava')} now feels soothing.`);
+        reset_utrap(true);
+    }
+    // C :980-986 — amorphous/whirly/unsolid new forms slip chains and balls.
+    const newdat = game.youmonst?.data;
+    if (amorphous(newdat) || is_whirly(newdat) || unsolid(newdat)) {
+        if (Punished()) {
+            await pline('You slip out of the iron chain.');
+            unpunish();
+        } else if ((u.utrap | 0) && ((u.utraptype | 0) === TT_BURIEDBALL)) {
+            await pline('You slip free of the buried ball and chain.');
+            buried_ball_to_freedom();
+        }
+    }
+    // C :987-994 — webs and bear traps can't hold the insubstantial (nor a
+    // small victim of a bear trap).
+    if ((u.utrap | 0) && (((u.utraptype | 0) === TT_WEB) || ((u.utraptype | 0) === TT_BEARTRAP))
+        && (amorphous(newdat) || is_whirly(newdat) || unsolid(newdat)
+            || (((newdat?.msize | 0) <= MZ_SMALL) && ((u.utraptype | 0) === TT_BEARTRAP)))) {
+        await pline(`You are no longer stuck in the ${((u.utraptype | 0) === TT_WEB) ? 'web' : 'bear trap'}.`);
+        /* probably should burn webs too if PM_FIRE_ELEMENTAL */
+        reset_utrap(true);
+    }
+    // C :995-998 — web spinners settle onto webs instead of being stuck.
+    if (webmaker(newdat) && (u.utrap | 0) && ((u.utraptype | 0) === TT_WEB)) {
+        await pline('You orient yourself on the web.');
+        reset_utrap(true);
+    }
+    await check_strangling(true); /* maybe start strangling */
+
     flags.botl = true;
     if (game.disp) game.disp.botl = true;
     // C: gv.vision_full_recalc = 1 before see_monsters — eyeless
@@ -1303,11 +1562,14 @@ export async function polymon(mntmp) {
     // on the next allmain/pline vision_recalc (D-0928).
     game.vision_full_recalc = 1;
     see_monsters();
-    // C polyself.c:967 — second find_ac ("repeated"), still before
-    // encumber_msg (:1019). First call sits after drop_weapon above (:890).
-    find_ac();
     await encumber_msg();
-    // retouch_equipment / selftouch deferred
+
+    /* retouch_equipment(2) stays a named omission (artifact.c:2639 — its own
+       coverage row, map-kept); the selftouch below it is live. */
+    // C :1019-1024 — bare-handed after the change: risk the touch. This may
+    // recurse into polymon() (stone golem wielding cockatrice corpse hit by
+    // stone-to-flesh); neither form uses #monster so no loop guard is added.
+    if (!u.uarmg) await selftouch(no_longer_petrify_resistant);
     // C: polyself.c:1030–1070 — flags.verbose ability tips after encumber
     // (breath tip forces --More-- on the encumber pline; D-0725).
     // Branch order matches C; the #sit arm keeps the giant/electric-eel

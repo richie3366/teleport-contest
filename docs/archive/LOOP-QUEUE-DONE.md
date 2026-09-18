@@ -3,9 +3,13 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-09-18
+
+- [x] `polyself.c` polymon — coverage PARTIAL (C 336 L `polyself.c:735–1071` / JS 201 L in js/polyself.js; hops 2, callers 26, RNG 7, msg 27; dead callees: check_strangling). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn polymon` (reach regression must be 0). Measured `port-coverage.mjs --name polymon` 2026-09-18 @ a35f6369. **Addressed:** D-2432
+
 ## 2026-09-16
 
-- [x] `mon.c` fox death/detach lifecycle Tourist (D-2420 W4) — blocks 1/553 (scen-normal-Tourist-92061 step 3/169 kind=rng flat#2785: C `rn2(5)=4`@distfleeck vs JS `rn2(3)=0`@corpse_chance, prev destroy_items matched; JS branch next_ident+rndmonst_adj creation vs C distfleeck×N; JS topline «m_detach: fox <65,14> is already detached?» (`mon.c:2792`) vs C «little dog misses newt»; MEASURED D-2420 vs JS probe). Fix: the fox mondead/mongone/`m_detach` path in C order. Verify `node scripts/verify.mjs --fn distfleeck` (recorded owner: expect Tourist → PASS or later owner). Do not re-port `distfleeck`. **Addressed:** D-2431
+- [x] `mon.c` fox death/detach lifecycle Tourist (D-2420 W4) — blocks 1/553 (scen-normal-Tourist-92061 step 3/169 kind=rng flat#2785: C `rn2(5)=4`@distfleeck vs JS `rn2(3)=0`@corpse_chance, prev destroy_items matched; JS branch next_ident+rndmonst_adj creation vs C distfleeck×N; JS topline «m_detach: fox <65,14> is already detached?» (`mon.c:2792`) vs C «little dog misses newt»; MEASURED D-2420 vs JS probe). Fix: the fox mondead/mongone/`m_detach` path in C order. Verify `node scripts/verify.mjs --fn distfleeck` (recorded owner: expect Tourist → PASS or later owner). Do not re-port `distfleeck`. **Addressed:** D-2431 `c2935846`
 
 
 - [x] `monmove.c` dochug/m_move loop C-extra-distfleeck (D-2420 W1) — blocks 2/553 (scen-tour-Rogue-92030 step 76/95 kind=rng flat#12214: C `rn2(5)=1`@distfleeck vs JS `rn2(3)=2`@m_move:1843 stalker, prev distfleeck matched; scen-intrinsic-Samurai-92239 step 96/130 kind=rng flat#2853: C `rn2(5)=0`@distfleeck vs JS `rnd(20)=1`@mattacku, prev u_maybe_impaired matched; both single-draw shifts, types align after; MEASURED D-2420: recorder step dumps — Rogue 346 draws distfleeck×76/m_move×183, Samurai 20 draws — vs JS flat/slice probe; Samurai topline «figurine writhes and shatters» → `apply.c:2398 fig_transform` lead, Rogue has no such event). Fix: the extra monster dochug (creation or JS early-skip) in C order. Verify `node scripts/verify.mjs --fn distfleeck` (recorded owner: expect both → PASS or later owner). Do not re-port `distfleeck` scared arms (parked SYMPTOM) or the `m_move` MAIL arm. **Addressed:** D-2430 `f768f270`
