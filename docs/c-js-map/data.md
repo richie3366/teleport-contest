@@ -94,6 +94,17 @@ middle famished `pline`; live `js/sounds.js`; caller `dog_hunger`
 `context.novel`; dlb; `dog_hunger`/`dog_move` wire; `peacefuls_respond` / MS_ARREST Halt;
 SND_SPEECH/`sound_verbal` body; remaining vault/priest/sit SetVoice.
 lookup_novel is D-1651. putmsghistory body is D-1588.
+**open_levelfile D-2472** (`files.c` `:673–716` + `fqname` `:354–393` +
+`init/new/free/viable_nhfile` + `set_levelfile_name` `:606–618`; live
+`js/files.js:466–724` `fqname`/`init_nhfile`/`new_nhfile`/`free_nhfile`/
+`set_levelfile_name`/`open_levelfile`, `viable_nhfile` module-local;
+`game.lock` = `gl.lock`, `game.gf?.fqn_prefix` = `gf.fqn_prefix`;
+stash probe `LFILE_EXISTS ⟺ openable`; callers `do.c:1704` →
+`js/do.js:1727`, `save.c:201` → `js/save.js:155`). Named: platform
+(macopen/setmode/`;1`/translate); nhclose/fclose/fplog writes (Rule #2);
+`close_nhfile`; `tricked_fileremoved` arms (no pline1/error);
+`save.c:376` savestateinlock (unported); `recover_savefile` (no
+SELF_RECOVER); `create_levelfile` (write side).
 
 ### `include/artilist.h`
 
