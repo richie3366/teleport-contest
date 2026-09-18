@@ -1942,7 +1942,8 @@ pass-through; dig `use_pick_axe` calls `getdir`) +
 (C `help_dir` `:4168–4296` NHW_TEXT `show_text_pages` quitchar wait + Guidebook
 `dowhatdoes_core`; `dxdy_moveok` `:3901–3907` NODIAG grid-bug; live shared
 `js/lock.js` `getdir`; `getdir_cmdassist` wraps; `doclose` / `get_adjacent_loc`
-call `getdir` with the tail inside it; named: mouse `_` getpos, fuzzer,
+call `getdir` with the tail inside it; D-2434 whole-body: mouse `_` getpos,
+fuzzer, spkeys/quitchars, cmdbind movecmd/redraw live; named:
 `cmd_from_func` keys, rhack `dxdy_moveok`; `yn_function_menu` is D-1728) +
 **D-1815 `getdir` `:4098` `iflags.cmdassist`** (optlist default On;
 Options/`O` writes `game.iflags`; `!cmdassist` skips `help_dir` for the

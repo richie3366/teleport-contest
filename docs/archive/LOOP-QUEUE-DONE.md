@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-18
 
-- [x] `mon.c` newcham — coverage THIN (C 254 L `mon.c:5278–5535` / JS 84 L in js/makemon.js; hops 2, callers 40, RNG 2, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn newcham` (reach regression must be 0). Measured `port-coverage.mjs --name newcham` 2026-09-18 @ a35f6369. **Addressed:** D-2433
+- [x] `cmd.c` getdir — coverage THIN (C 161 L `cmd.c:3958–4119` / JS 60 L in js/lock.js; hops 2, callers 29, RNG 5, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn getdir` (reach regression must be 0). Measured `port-coverage.mjs --name getdir` 2026-09-18 @ a35f6369. **Addressed:** D-2434
+
+
+- [x] `mon.c` newcham — coverage THIN (C 254 L `mon.c:5278–5535` / JS 84 L in js/makemon.js; hops 2, callers 40, RNG 2, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn newcham` (reach regression must be 0). Measured `port-coverage.mjs --name newcham` 2026-09-18 @ a35f6369. **Addressed:** D-2433 `acf54d66`
 
 
 - [x] `polyself.c` polymon — coverage PARTIAL (C 336 L `polyself.c:735–1071` / JS 201 L in js/polyself.js; hops 2, callers 26, RNG 7, msg 27; dead callees: check_strangling). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn polymon` (reach regression must be 0). Measured `port-coverage.mjs --name polymon` 2026-09-18 @ a35f6369. **Addressed:** D-2432 `3ea4873c`
