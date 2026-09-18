@@ -9,6 +9,7 @@
 // trapeffect_magic_trap /
 // trapeffect_fire_trap / trapeffect_slp_gas_trap / trapeffect_rust_trap /
 // trapeffect_web / trapeffect_landmine / blow_up_landmine /
+// trapeffect_anti_magic /
 // mu_maybe_destroy_web, b_trapped, sokoban_guilt (D-1239),
 // uteetering_at_seen_pit / uescaped_shaft (D-1073 sit OBJ_AT gate +
 // do.c flooreffects; D-1083 can_reach_floor(check_pit)),
@@ -25,7 +26,7 @@ import {
     objects_at, sobj_at, splitobj, nxtobj, add_to_migration,
     obj_ice_effects, spot_stop_timers, stop_timer, spot_time_left,
 } from './mkobj.js';
-import { find_mac, make_corpse, mon_to_stone, vamp_stone, monstone, mondead } from './mhitm.js';
+import { find_mac, make_corpse, mon_to_stone, vamp_stone, monstone, mondead, AT_MAGC, AT_BREA } from './mhitm.js';
 import { mon_explodes, scatter } from './explode.js';
 import {
     newsym, pline, pline_mon, pline_xy, urgent_pline, mon_visible, see_with_infrared,
@@ -108,7 +109,7 @@ import {
     GETOBJ_PROMPT, GETOBJ_SUGGEST, GETOBJ_EXCLUDE, GETOBJ_DOWNPLAY,
     P_RIDING, P_BASIC, M_AP_FURNITURE, M_AP_OBJECT,
     A_LAWFUL, XKILL_NOMSG, SHOP_HOLE_COST,
-    COST_BURN, COST_RUST, COST_ROT, COST_CORRODE, COST_CRACK,
+    COST_BURN, COST_RUST, COST_ROT, COST_CORRODE, COST_CRACK, COST_DECHNT,
     TEST_MOVE,
 } from './const.js';
 import {
@@ -159,8 +160,9 @@ import { killed, stumble_onto_mimic } from './uhitm.js';
 import { rider_cant_reach, dismount_steed } from './steed.js';
 import { resist, blank_novel, poly_obj, is_ice } from './zap.js';
 import { fill_pit, fillholetyp, liquid_flow, maybe_dunk_boulders, bury_an_obj } from './dig.js';
-import { u_wield_art, attacks, bare_artifactname, has_magic_key } from './artifact.js';
-import { ART_STING } from './generated/artifacts_data.js';
+import { u_wield_art, attacks, bare_artifactname, has_magic_key, is_art, defends_when_carried } from './artifact.js';
+import { ART_STING, ART_MAGICBANE } from './generated/artifacts_data.js';
+import { is_quest_artifact } from './quest.js';
 import { maybe_unhide_at, locomotion } from './monmove.js';
 import { is_waterwall, hero_Swimming, hero_Amphibious, hero_Breathless, is_drawbridge_wall, find_drawbridge, destroy_drawbridge } from './dbridge.js';
 import { surface } from './sit.js';
@@ -5100,6 +5102,148 @@ async function blow_up_landmine(trap) {
 }
 
 /**
+ * C ref: monattk.h attacktype — any mattk slot with this aatyp.
+ * File-local like muse.js/polyself.js/eat.js (no shared exporter).
+ */
+function attacktype(ptr, aatyp) {
+    const mattk = ptr?.mattk || [];
+    for (let i = 0; i < mattk.length; i++) {
+        if ((mattk[i]?.aatyp | 0) === (aatyp | 0)) return true;
+    }
+    return false;
+}
+
+/**
+ * C ref: trap.c trapeffect_anti_magic `:2322–2450` — hero + monster.
+ * C order: iron-shoes spe>0 drain (hero-only seetrap + lethargic pline +
+ * costly_alteration, both arms spe-=1 + update_inventory); hero seetrap,
+ * Antimagic implosion (Half_phys/Half_spell + Magicbane + carried
+ * defends(AD_MAGM) non-quest artifact rn2(4)s, Passes_walls quartering,
+ * torpid/lethargic/sluggish by hp quarters, losehp KILLED_BY_AN) then
+ * 2d6 drain split across uenmax (halfd = rnd(drain/2), exclaim_it punct);
+ * monster resists_magm→mspec_used d(2,6) lethargic, else Magicbane/invent
+ * rn2(4)s + passes_walls quartering, mhp damage, monkilled compression,
+ * see_it newsym. Returns trapkilled ? Killed : mtrapped ? Caught : Finished.
+ */
+async function trapeffect_anti_magic(mtmp, trap, _trflags) {
+    if (wearing_iron_shoes(mtmp)) {
+        const shoes = is_youmonst(mtmp) ? game.u?.uarmf : which_armor(mtmp, W_ARMF);
+        /* iron shoes protect against antimagic traps only if
+           positively enchanted; the trap drains the enchantment
+           rather than the wearer */
+        if (shoes && (shoes.spe | 0) > 0) {
+            /* no message if a monster does this, it isn't visible enough */
+            if (is_youmonst(mtmp)) {
+                seetrap(trap);
+                await pline(`A lethargic aura surrounds ${yname(shoes)}.`);
+                await costly_alteration(shoes, COST_DECHNT);
+            }
+            shoes.spe = (shoes.spe | 0) - 1;
+            update_inventory();
+            return Trap_Effect_Finished;
+        }
+    }
+
+    if (is_youmonst(mtmp)) {
+        const u = game.u || {};
+        let drain, halfd;
+        let exclaim_it = false;
+
+        seetrap(trap);
+        if (Antimagic_prop()) {
+            let otmp;
+            let dmgval2 = rnd(4);
+            const hp = Upolyd(u) ? u.mh : u.uhp;
+
+            /* Half_XXX_damage has opposite its usual effect (approx)
+               but isn't cumulative if hero has more than one */
+            if (!!((u.HHalf_physical_damage | 0) || (u.EHalf_physical_damage | 0))
+                || !!(u.HHalf_spell_damage || u.EHalf_spell_damage)) {
+                dmgval2 += rnd(4);
+            }
+            /* give Magicbane wielder dose of own medicine */
+            if (u_wield_art(ART_MAGICBANE)) dmgval2 += rnd(4);
+            /* having an artifact--other than own quest one--which
+               confers magic resistance simply by being carried
+               also increases the effect */
+            for (otmp = game.invent; otmp; otmp = otmp.nobj) {
+                if ((otmp.oartifact | 0) && !is_quest_artifact(otmp)
+                    && defends_when_carried(AD_MAGM, otmp)) break;
+            }
+            if (otmp) dmgval2 += rnd(4);
+            if (Passes_walls()) dmgval2 = ((dmgval2 + 3) / 4) | 0;
+
+            await You_feel(dmgval2 >= hp ? 'unbearably torpid!'
+                : dmgval2 >= ((hp / 4) | 0) ? 'very lethargic.'
+                : 'sluggish.');
+            /* opposite of magical explosion */
+            losehp(dmgval2, 'anti-magic implosion', KILLED_BY_AN);
+            if (await finish_hero_losehp()) return Trap_Effect_Finished;
+        }
+
+        /* if the drain amount is more than hero's maximum energy then up
+           to half of the amount comes directly out of maximum, the rest
+           comes out of current energy; drain_en() lowers the current
+           amount and when doing so it will take even more from maximum
+           if the new current value would drop below zero */
+        drain = d(2, 6); /* 2d6 => 2..12 */
+        halfd = rnd((drain / 2) | 0); /* 1..drain/2 (round down) */
+        if ((u.uenmax | 0) > drain) { /* [was u.uenmax > halfd] */
+            /* note: since 'halfd' is no more than half, 'drain -= halfd'
+               is at least as big, so drain_en() is never asked to remove
+               less from current than what we're removing from maximum;
+               however, it might do that anyway (via its throttle check) so
+               it needs to make sure uen doesn't end up exceeding uenmax */
+            u.uenmax = (u.uenmax | 0) - halfd; /* drain_en() will set context.botl */
+            drain -= halfd;
+            exclaim_it = true;
+        }
+        await drain_en(drain, exclaim_it);
+    } else {
+        let trapkilled = false;
+        const in_sight = !!(canseemon(mtmp) || mtmp === (game.u || {}).usteed);
+        const see_it = !!cansee(mtmp.mx, mtmp.my);
+        const mptr = mtmp.data;
+
+        /* similar to hero's case, more or less */
+        if (!resists_magm(mtmp)) { /* lose spell energy */
+            if (!mtmp.mcan && (attacktype(mptr, AT_MAGC)
+                || attacktype(mptr, AT_BREA))) {
+                mtmp.mspec_used = (mtmp.mspec_used | 0) + d(2, 6);
+                if (in_sight) {
+                    seetrap(trap);
+                    await pline_mon(mtmp, `${Monnam(mtmp)} seems lethargic.`);
+                }
+            }
+        } else { /* take some damage */
+            let otmp = MON_WEP(mtmp);
+            let dmgval2 = rnd(4);
+
+            if (otmp && is_art(otmp, ART_MAGICBANE)) dmgval2 += rnd(4);
+            for (otmp = mtmp.minvent; otmp; otmp = otmp.nobj) {
+                if ((otmp.oartifact | 0)
+                    && defends_when_carried(AD_MAGM, otmp)) break;
+            }
+            if (otmp) dmgval2 += rnd(4);
+            if (passes_walls(mptr)) dmgval2 = ((dmgval2 + 3) / 4) | 0;
+
+            if (in_sight) seetrap(trap);
+            mtmp.mhp = (mtmp.mhp | 0) - dmgval2;
+            if ((mtmp.mhp | 0) <= 0) {
+                await monkilled(mtmp,
+                    in_sight ? 'compression from an anti-magic field' : null,
+                    -AD_MAGM);
+            }
+            if ((mtmp.mhp | 0) <= 0) trapkilled = true;
+            if (see_it) newsym(trap.tx, trap.ty);
+        }
+        return trapkilled ? Trap_Killed_Mon
+            : mtmp.mtrapped ? Trap_Caught_Mon : Trap_Effect_Finished;
+    }
+    return Trap_Effect_Finished;
+}
+
+/**
  * C ref: trap.c trapeffect_poly_trap `:2453–2525` — hero + monster.
  * Hero: steed-article verb ("trigger" / "lead <steed> onto" / "<locomotion>
  * onto"), iron-shoes poly_obj arm, Antimagic/Unchanging shieldeff arm, else
@@ -5316,7 +5460,7 @@ async function trapeffect_landmine(mtmp, trap, trflags) {
         : (mtmp.mtrapped ? Trap_Caught_Mon : Trap_Effect_Finished);
 }
 
-// C ref: trap.c trapeffect_selector — dart/arrow/rock/pit/sqky/hole/magic/fire/slp/telep/bear/rust/web/landmine/poly
+// C ref: trap.c trapeffect_selector — dart/arrow/rock/pit/sqky/hole/magic/anti-magic/fire/slp/telep/bear/rust/web/landmine/poly
 async function trapeffect_selector(mtmp, trap, trflags) {
     switch (trap.ttyp) {
     case DART_TRAP:
@@ -5347,6 +5491,8 @@ async function trapeffect_selector(mtmp, trap, trflags) {
         return trapeffect_fire_trap(mtmp, trap, trflags);
     case MAGIC_TRAP:
         return trapeffect_magic_trap(mtmp, trap, trflags);
+    case ANTI_MAGIC:
+        return trapeffect_anti_magic(mtmp, trap, trflags);
     case POLY_TRAP:
         return trapeffect_poly_trap(mtmp, trap, trflags);
     case SLP_GAS_TRAP:
@@ -5360,7 +5506,6 @@ async function trapeffect_selector(mtmp, trap, trflags) {
     case STATUE_TRAP:
         return trapeffect_statue_trap(mtmp, trap, trflags);
     default:
-        // Named omission: anti-magic trap effect (arrow ported above)
         return Trap_Effect_Finished;
     }
 }
