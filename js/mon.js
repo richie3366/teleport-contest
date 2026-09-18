@@ -73,7 +73,7 @@ import {
     set_mimic_sym, newcham, pickvampshape, pm_to_cham, neweshk, newegd,
     newemin, newepri, newedog, freemcorpsenm, mpickobj, makemon, makemon_appear_msg,
 } from './makemon.js';
-import { in_your_sanctuary, p_coaligned } from './priest.js';
+import { in_your_sanctuary, p_coaligned, ghod_hitsu } from './priest.js';
 import { in_rooms, is_pool, is_lava, disturb_buried_zombies, stop_occupation } from './hack.js';
 import { inv_weight, weight_cap } from './invent.js';
 import { maybe_m_dowear_special, extract_from_minvent, update_mon_extrinsics, mon_set_minvis } from './worn.js';
@@ -1299,7 +1299,7 @@ export async function wake_msg(mtmp, interesting) {
  * C `finish_meating(mtmp)` runs unconditionally after the mimic/undetected
  * block (D-2417: hero missing the mid-meal Knight pony ends the meal via
  * missum → wakeup, so dog_invent rates the apple next turn).
- * Named omissions: ghod_hitsu.
+ * Named omissions: none on this path (ghod_hitsu live, D-2474).
  */
 export async function wakeup(mtmp, via_attack) {
     if (!mtmp) return;
@@ -1324,7 +1324,9 @@ export async function wakeup(mtmp, via_attack) {
         }
         await setmangry(mtmp, true);
         if (was_peaceful) {
-            // ghod_hitsu deferred (priest in temple)
+            // C mon.c:4357 — priest in temple: god smites (before shk arm)
+            if (mtmp.ispriest && in_rooms(mtmp.mx, mtmp.my, TEMPLE))
+                await ghod_hitsu(mtmp);
             if (mtmp.isshk && !(game.u?.ushops && String(game.u.ushops).length)) {
                 const { hot_pursuit } = await import('./shk.js');
                 hot_pursuit(mtmp);

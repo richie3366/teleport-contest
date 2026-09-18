@@ -3887,7 +3887,7 @@ STRAT_HEAL still rloc/healmon; `costly_gold`; heaven caller is D-1764;
 awaits after wallet (D-1731); live `js/shk.js`; named: dokick
 `hidden_gold_kick`; `end.c` `get_valuables` is D-1741; `artifact_score` is D-1730; botl live
 `money_cnt` vs cache; 
-`mapseen_temple`/`Is_sanctum`/`forget_temple_entry`/`priest_talk`
+`mapseen_temple`/`Is_sanctum`/`forget_temple_entry`/`priest_talk`; **`ghod_hitsu` D-2474** (`priest.c:795–874` as `export async ghod_hitsu` in `js/priest.js:191`: roomno-char + has_shrine gates, shrine/door/`rn2(4)` bolt-origin arms in C order, `rn2(3)` anger plines, wand/buzzer-null `buzz(BZ_M_SPELL(BZ_OFS_AD(AD_ELEC)))` + `exercise(A_WIS)`; callers `wakeup` mon.js:1329 + `hmon` wrapper uhitm.js:1387 wired; named: `hmon` anger_guards tail, pray.js `a_gname_at` NULL-vs-`''`)
 
 ### `src/mon.c` `mnexto`
 

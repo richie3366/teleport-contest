@@ -2038,11 +2038,12 @@ function ugod_is_angry() {
 }
 
 /**
- * C ref: pray.c a_gname_at `:2513–2520`.
+ * C ref: pray.c a_gname_at `:2513–2520` (extern.h:2570 — shared, not static;
+ * priest.c ghod_hitsu calls it; this export is the canonical home, D-2474).
  * @param {number} x
  * @param {number} y
  */
-function a_gname_at(x, y) {
+export function a_gname_at(x, y) {
     const loc = game.level?.at(x, y);
     if (!loc || !IS_ALTAR(loc.typ)) return '';
     return align_gname(game.urole, a_align(x, y));
