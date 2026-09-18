@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2451 — `pager.c` checkfile dbase-side `" ("` strip (review 1402 item 1)
+
+- **Status:** fixed (Must-fix from review 1402 item 1 on D-2443).
+- **Symptom:** a lit oil lamp (`"oil lamp (lit)"`) or charged wand (`"wand of striking (0:3)"`) looked up via `/i` or glance missed its data.base entry where C hits (silent no-display, or "You don't have any information on those things." on typed paths). No corpus session looks up a lit/charged item, so the suite cannot catch it (review 1402 re-measured 0 blocked).
+- **C locus:** `nethack-c/upstream/src/pager.c:977–981` (`/* remove charges or "(lit)" or wizmode "(N aum)" */ if ((ep = strstri(dbase_str, " (")) != 0 && ep > dbase_str) *ep = '\0';` + the alt-side twin `:980–981`); reachable because `objnam.c:1477–1490` appends `" (lit)"`/`" (%d:%d)"` to the doname strings the `/i` and glance paths feed to `checkfile`.
+- **JS was:** `checkfile_split_names` (`js/pager.js:857`) stripped `" ("` from `alt` only; `dbase` kept the suffix (`"oil lamp (lit)"` → dbase `"oil lamp (lit)"`), so the `pmatch` key scan missed. A pre-port regex had stripped it — port regression, not a named omit.
+- **Fix:** `js/pager.js` only — `checkfile_split_names` now truncates `dbase` at the first `" ("` (`indexOf`, matching C `strstri` on the already-lowered string, `> 0` matching C `ep > dbase_str`), placed after the named/called truncation per C order; helper doc now cites `:944–981`.
+- **JS:** `js/pager.js` (`checkfile_split_names` + doc only); no new module edges.
+- **Callers:** unchanged (checkfile's 4 C call sites — `:813` ia_checkfile, `:1838` do_look `/i`, `:1853` `?`, `:1948` glance — stay on the same JS functions; `ia_checkfile` takes the `xname` path which never carries the suffix, so the fix only changes the doname-fed `checkfile` path). No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn checkfile` → PASS syntax (1 file: js/pager.js) · rule2 · hidden note (0 blocked at baseline) · **reach smoke 24/24 PASS, 0 regressed → REACH-OK** · green 2/2 · strict ×2 · cohort 7/7 (no shared file → full skipped) → VERIFY: PASS. Probe `/tmp/probe-checkfile-split.mjs` (shipped function source extracted at runtime, real `strstri`): HEAD misses `"oil lamp (lit)"`/`"wand of striking (0:3)"`/`"oil lamp (10 aum)"` (PROBE-FAIL), fixed tree truncates all three + plain names unchanged + alt `" ("` strip intact (PROBE-OK).
+- **Named omissions:** none new (D-2443 omissions stand: do_supplemental_info `:2255`, dlb I/O-error arms).
+- **Next:** Must-fix head after this row (none — pop Open coverage head `cmd.c` yn_function).
+
 ## D-2450 — `mon.c` xkilled holder-release re-layered/re-ordered/gated (review 1403 item 1)
 
 - **Status:** fixed (Must-fix from review 1403 item 1 on D-2444).

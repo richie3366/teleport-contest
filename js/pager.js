@@ -848,8 +848,9 @@ function checkfile_dbase_str(s) {
 }
 
 /**
- * C pager.c checkfile `:944–976` — split the named/called given name off the
- * base description. dbase is already lowered (C splits dbase_str after
+ * C pager.c checkfile `:944–981` — split the named/called given name off the
+ * base description, then strip charges/`(lit)`/aum (`:977–981`).
+ * dbase is already lowered (C splits dbase_str after
  * lcase, so indexOf matches C strstri there); supplemental_name is copied
  * from the original-case inp (C strstri over inp, `:956–958`). Truncation
  * `*ep = '\0'` keeps the base when the match sits past position 0.
@@ -873,6 +874,10 @@ function checkfile_split_names(dbase, inp, supplementalHolder) {
         ep = dbase.indexOf(', ');
     }
     if (ep > 0) dbase = dbase.slice(0, ep); // :961-962
+    // :977-981 — remove charges or "(lit)" or wizmode "(N aum)" from the
+    // base description (dbase already lowered, so indexOf matches C strstri).
+    const qi = dbase.indexOf(' (');
+    if (qi > 0) dbase = dbase.slice(0, qi);
     if (alt) { // :967-976 article + " (" suffix off the given name
         if (alt.startsWith('a ') || alt.startsWith('the '))
             alt = alt.slice(alt.indexOf(' ') + 1);

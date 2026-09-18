@@ -110,3 +110,5 @@ catch item 1 — same blind spot as reviews 1393/1395.
    checkfile`. Two lines, one-iter fix. Must-fix prepended.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-2451
