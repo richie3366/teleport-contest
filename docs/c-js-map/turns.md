@@ -524,7 +524,7 @@ hallu + STR then CON + wounded legs (D-1411; potionhit/potionbreathe named; dip 
 **`peffect_enlightenment`** cursed `potion_unkn`+uneasy+`exercise(WIS,FALSE)` else blessed 
 `adjattrib` INT then WIS then `do_enlightenment_effect` (D-1413; artifact invoke still named)); 
 **`POT_SICKNESS`/`peffect_sickness`** blessed stale-fruit + uncursed attr/HP (D-0680; 
-D-2083 poisontell + Fixed_abil gate live; peffect hallu-clear via make_hallucinated still thin); 
+D-2083 poisontell + Fixed_abil gate live; peffect hallu-clear via live make_hallucinated(0,FALSE,0) (D-2458); 
 **`peffect_water` + potionbreathe `POT_WATER` lycan** (D-1004; blessed-cure `make_sick(0,NULL,TRUE,SICK_ALL)` live via D-2377); 
 **throwit steed `potionhit` crash/saddle/`H2Opotion_dip`/POT_WATER body D-1297 + 
 remaining otyp switch/shop unpaid D-1472** (C-commented GAIN_LEVEL/LEVITATION/FRUIT/DETECT named) + 
@@ -2076,7 +2076,7 @@ Floor `vobj_at` + class symbols + CORPSE `mon_color` (D-0022);
 `goto_level` leave restores C `vision_recalc(2)` warn burns; Scr 194→196; non-Hallu gated; 
 full ctrl=2 loop falsified; **#993 gulpmu vision_off alone falsified Scr174**; 
 **#994 warn-only×8 alone Scr174**; **#996 flush_topl_more + 
-Hallu vision_off together Scr196→201 — gulp dims match C through ~core16749**); **D-2200:** `docrt` entry `await flush_topl_more()` (C display.c cls flushes WIN_MESSAGE before clear; JS pline defers concat --More--) so the wait captures make_hallucinated see_* paint, not mid-redraw floor; `timeout.c` generic-loop HALLUC expiry arm (flat re-arm 1 + `make_hallucinated(0,TRUE,0)` + stop_occupation, CONFUSION-arm shape); `eatmupdate`/`update_inventory`/`disp.botl`/mask/clear-msgs still named in `js/potion.js` doc); 
+Hallu vision_off together Scr196→201 — gulp dims match C through ~core16749**); **D-2200:** `docrt` entry `await flush_topl_more()` (C display.c cls flushes WIN_MESSAGE before clear; JS pline defers concat --More--) so the wait captures make_hallucinated see_* paint, not mid-redraw floor; `timeout.c` generic-loop HALLUC expiry arm (flat re-arm 1 + `make_hallucinated(0,TRUE,0)` + stop_occupation, CONFUSION-arm shape); `update_inventory`/`disp.botl`/mask-sync/clear-msgs live (D-2458); `eatmupdate` gate live, call still named; artifact.c:794 SPFX_HALRES sync-inline named); 
 **`tp_sensemon`/`Unblind_telepat` + `recalc_telepat_range`** (D-0669; 
 **MATCH_WARN_OF_MON overlay D-1514**); **`altar_color` via `altarmask`/`altar_to_glyph`** (D-0666; 
 no USE_GENERAL_ALTAR_COLORS); **`see_monsters` + `teleds` call** (D-0667; 

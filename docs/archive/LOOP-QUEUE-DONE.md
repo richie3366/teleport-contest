@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-18
 
+- [x] `potion.c` make_hallucinated — coverage PARTIAL (C 66 L `potion.c:369–438` / JS 49 L in js/potion.js; hops 1, callers 15, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn make_hallucinated` (reach regression must be 0). Measured `port-coverage.mjs --name make_hallucinated` 2026-09-18 @ cc6372c7.
+
+
 - [x] `timeout.c` slip_or_trip — coverage PARTIAL (C 119 L `timeout.c:1222–1341` / JS 59 L in js/timeout.js; hops 1, callers 2, RNG 6, msg 12). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn slip_or_trip` (reach regression must be 0). Measured `port-coverage.mjs --name slip_or_trip` 2026-09-18 @ cc6372c7.
 
 
