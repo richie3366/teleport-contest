@@ -86,7 +86,7 @@ import { livelog_printf } from './pline.js';
 import {
     make_stoned, make_sick, make_slimed, make_glib,
 } from './potion.js';
-import { buried_ball_to_freedom } from './dig.js';
+import { buried_ball_to_freedom, bury_objs } from './dig.js';
 import { spoteffects } from './pickup.js';
 import {
     mons,

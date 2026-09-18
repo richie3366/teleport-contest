@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-18 — D-2442 `polyself.js` dospinweb `bury_objs` import wired (ReferenceError deleted)
+
+**C locus:** `nethack-c/upstream/src/polyself.c:1497–1621` (dospinweb PIT arm `bury_objs(x, y)` after `deltrap`, C `:1564`); dispatched from C `cmd.c:915`.
+**JS:** `js/polyself.js:89`; map `docs/c-js-map/turns.md:296`.
+**Change:** `js/polyself.js:89` only — added `bury_objs` to the existing `./dig.js` import. `node scripts/imports.mjs --can polyself.js dig.js bury_objs` → ALREADY, no new edge. Live callee `js/dig.js:450` is `export async`, call site already awaits.
+**Verify:** `node scripts/verify.mjs --fn dospinweb` → PASS syntax (1 file: polyself.js) · rule2 · hidden note (0 blocked at baseline) · **reach smoke 24/24 PASS, 0 regressed → REACH-OK** · green 2/2 · strict ×2 · cohort 7/7 (no shared file → full skipped) → VERIFY: PASS.
+**Named:** none new; review 1395 both C-wrongs now closed (item 1 D-2441, item 2 this entry).
+**Next:** Open — coverage head (`invent.c` getobj).
 ## 2026-09-18 — D-2441 `polyself.js` dogaze `setmangry` import wired (ReferenceError deleted)
 
 **C locus:** `nethack-c/upstream/src/polyself.c:1642–1773` (dogaze; `setmangry(mtmp, TRUE)` after the peaceful-confirm gate, C `:1704`); dispatched from C `cmd.c:909` AT_GAZE arm.

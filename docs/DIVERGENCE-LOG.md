@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2442 — `polyself.js` dospinweb `bury_objs` import wired (ReferenceError deleted)
+
+- **Status:** fixed (Must-fix review 1395 QUALITY-RISK item 2 on D-2436).
+- **Symptom:** `dospinweb` PIT/SPIKED_PIT arm awaited a bare `bury_objs(x, y)` with no import, local, or global — guaranteed ReferenceError on web over pit reached via the `domonability` webmaker arm. No corpus session executes dospinweb, so green/cohort/smoke never evaluated the line (review 1395 re-measured 0 blocked, vacuous).
+- **C locus:** `nethack-c/upstream/src/polyself.c:1497–1621` (dospinweb PIT arm `bury_objs(x, y)` after `deltrap`, C `:1564`); dispatched from C `cmd.c:915`.
+- **JS was:** `js/polyself.js:2584` awaited unimported `bury_objs`; the `./dig.js` import carried only `buried_ball_to_freedom` (line 89).
+- **Fix:** `js/polyself.js:89` only — added `bury_objs` to the existing `./dig.js` import. `node scripts/imports.mjs --can polyself.js dig.js bury_objs` → ALREADY, no new edge. Live callee `js/dig.js:450` is `export async`, call site already awaits. No DIAG/FORCE/seed logic; Rule #2 clean.
+- **JS:** `js/polyself.js:89`; map `docs/c-js-map/turns.md:296`.
+- **Callers:** `dospinweb` export name/signature unchanged; the `domonability` webmaker-arm wiring from D-2436 stands. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn dospinweb` → PASS syntax (1 file: polyself.js) · rule2 · hidden note (0 blocked at baseline) · **reach smoke 24/24 PASS, 0 regressed → REACH-OK** · green 2/2 · strict ×2 · cohort 7/7 (no shared file → full skipped) → VERIFY: PASS.
+- **Named omissions:** none new; review 1395 both C-wrongs now closed (item 1 D-2441, item 2 this entry).
+- **Next:** Open — coverage head (`invent.c` getobj).
+
 ## D-2441 — `polyself.js` dogaze `setmangry` import wired (ReferenceError deleted)
 
 - **Status:** fixed (Must-fix review 1395 QUALITY-RISK item 1 on D-2436).

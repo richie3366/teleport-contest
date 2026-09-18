@@ -97,10 +97,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `polyself.js` dogaze missing `setmangry` import — ReferenceError throw (D-2436 `js/polyself.js:2439`, no import/local/global; live `js/mon.js:1120` ASYNC; edge ALREADY, add to existing `./mon.js` import). Fix: one line. Verify `node scripts/verify.mjs --fn dogaze`. Source: reviews/loop-unattended/1395-c9f61087-dogaze-dospinweb-rehumanize.md.
+**Next cluster:** `polyself.js` dospinweb PIT arm missing `bury_objs` import — ReferenceError throw (D-2436 `js/polyself.js:2584`; live `js/dig.js:450` ASYNC; edge ALREADY, add to existing `./dig.js` import). Fix: one line. Verify `node scripts/verify.mjs --fn dospinweb`. Source: reviews/loop-unattended/1395-c9f61087-dogaze-dospinweb-rehumanize.md.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2441 (index).**
+**Keep D-0845…D-2442 (index).**
 <!-- recent:begin -->
+**D-2442** `nethack-c/upstream/src/polyself.c:1497–1621` (dospinweb PIT arm `bury_objs(x, y)` after ` — `js/polyself.js:89` only — added `bury_objs` to the existing `./dig.js` import.
 **D-2441** `nethack-c/upstream/src/polyself.c:1642–1773` (dogaze; `setmangry(mtmp, TRUE)` after the p — `js/polyself.js:38` only — added `setmangry` to the existing `./mon.js` import.
 **D-2440** `nethack-c/upstream/src/cmd.c:3956–4119` (getdir `:4095` `else if (!(is_mov = movecmd(dirs — `js/lock.js` only — deleted the `if (!applied) { u.dz = 0; }` block.
 **D-2439** `nethack-c/upstream/src/hack.c:991–1255` (test_move; DO_MOVE/TEST_MOVE/TEST_TRAV/TEST_TRAP — `js/hack.js:302–560` new `export async function test_move(ux, uy, dx, dy, mode)` in C order with per-arm `:line` cites: entry `door_opened=false` on all modes (`:1000`); obstructed/IRONBARS with Blind feel, Passes_walls+
@@ -108,11 +109,10 @@ revisits the picker.
 **D-2437** `nethack-c/upstream/src/dungeon.c:1205–1319` (init_dungeons); callees `nhl_init`/`nhl_load — `js/dungeon.js` restart in C order: memset/re-zero cited on the pd literal; nhl_init/nhl_loadlua failure panics named omits (generated `dungeon_data.js` embed, D-0477 pattern) keeping the observable nhlib align shuffle; 
 **D-2436** `nethack-c/upstream/src/polyself.c:1642–1773` (dogaze); `:1497–1621` (dospinweb); `:1367–1 — `js/polyself.js` only, in C order. dogaze: AT_GAZE mattk scan with AD_CONF/AD_FIRE gate else impossible; Blind/Hallucination/uen<15 gates; uen-=15 + botl; snapshot fmon loop (one visit per monster while killed() unlinks)
 **D-2435** `nethack-c/upstream/src/end.c:1130–1590` (`really_done`); achievements `:1173–1183` via `i — `js/end.js` only, in C order — achievements via live `record_achievement` (ACH_BLND/NUDE gated on `uachieved[0]||!beginner`, ACH_UWIN on ASCENDED; gameover-quiet, no RNG/output); `finish_paybill` moved before grave+score
-**D-2434** `nethack-c/upstream/src/cmd.c:3958–4119` (`getdir`); callees `movecmd :3868–3898`, `dxdy_m — `js/lock.js` only, in C order — cmdq DIR respects num_pad NDIR/SDIR + dirz `>`/`<`, non-DIR/KEY now `await impossible('getdir: command queue had no dir?')`; retry keeps `getdirInp` + in_doagain-nhgetch, adds short-circui
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2441; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2442; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
