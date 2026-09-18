@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-18 — D-2438 `attrib.c` adjattrib whole body in C order (coverage PARTIAL → live)
+
+**C locus:** `nethack-c/upstream/src/attrib.c:117–199` (adjattrib); callees `Fixed_abil`, `Your`/`pline`/`You_feel`, `rn2` (decr path), `encumber_msg`; 34 call sites (attrib.c ×7 incl. gainstr/losestr/poisoned/exerchk/vary_init_attr, eat.c ×4, end.c, fountain.c, mhitu.c ×4, potion.c ×4 incl. sickness contaminant, pray.c ×5, sit.c ×3, timeout.c, trap.c, u_init.c ×2, uhitm.c:3263 mhitu arm).
+**JS:** `js/attrib.js` (ATTRNAME const; adjattrib restart); map `docs/c-js-map/startup.md:18`.
+**Change:** `js/attrib.js` restart of the body in C order with per-arm `:line` cites: old_abase/old_amax snapshot beside old_acurr; abonflg from `u.abon.a[ndx]` (`<0` on gains, `>0` on losses); ACURR-unmoved arm with msgflg==0-exact + verbose-default-on gate printing "You're currently/already as {attrstr} as you can get" when base+peak unmoved else "Your innate {name} has improved/declined" via pline (prefix inline — no 5th Your clone per brief); new local ATTRNAME from C `:20–21`; You_feel via the existing static display.js import (dynamic import removed; `imports.mjs --can` → ALREADY, no new edge). No DIAG/FORCE/seed logic; Rule #2 clean.
+**Verify:** `node scripts/verify.mjs --fn adjattrib` → PASS syntax (1 file: attrib.js) · rule2 · hidden note (0 blocked at baseline) · **REACH smoke 24/24 PASS, 0 regressed → REACH-OK** · green 2/2 · strict ×2 · cohort 7/7 (no shared file → full skipped) → VERIFY: PASS.
+**Named:** u_init.c:933/:935 (`u_init_carry_attr_boost` STR/CON loop) — JS `js/u_init.js:1689` stub stands pending an `inv_weight` port (loop condition unported, so the calls are unreachable, not dropped); Your() renders as `pline('Your …')` (text-identical, no new file-local Your clone).
+**Next:** head is now `hack.c` test_move (MISSING).
 ## 2026-09-18 — D-2437 `dungeon.c` init_dungeons whole body in C order (coverage THIN → live)
 
 **C locus:** `nethack-c/upstream/src/dungeon.c:1205–1319` (init_dungeons); callees `nhl_init`/`nhl_loadlua`/`nhl_done` (private Lua state), `init_dungeon_dungeons` (`:997+`), `init_level`, `place_level`, `add_level`, `init_castle_tune`, `fixup_level_locations`, `free_proto_dungeon` (`:1185–1203`), `dumpit` (DEBUG); callers `allmain.c:789`, `mklev.c:1260–1263`, `topten.c:1232–1234`, `vision.c:845` (comment only).
