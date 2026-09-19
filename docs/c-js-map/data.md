@@ -787,7 +787,7 @@ tut_key/eckey/Knight jump/leave-invent/`add_to_container` merge deferred — `ma
 Nesting/Fake Delphi/Huge/… outer sizes, Lua `post_level_generate` postprocess 
 queue, `mkgrave_room` bury; **D-1533 `create_object` `o->lit` `begin_burn`** (`sp_lev.c:2425–2426` after `stackobj`, not tile.lit; `l_create_object` lit default 0; mktrap_victim is D-1519; **D-1542** themerms Light source fill); **D-1723 `lspo_object` non-merge quan do-while** (`sp_lev.c:3725–3740` `!objects[id].oc_merge`; find_objtype + argc string/coord; class-letter `def_char_to_objclass`/`mkgold`; other load_* `des.object` still hand-rolled); `Can_fall_thru` before hole→ROCKTRAP (Vlad niche); 
 **D-0906 `hellfill`+`create_maze`/`LVLINIT_MAZE`** (seed4500 **32538→49776** Scr **459**; **D-2136 hells[7] border via `selection_rect_rel`** — C `selection.rect(0,0,78,20)` takes the `get_location_coord` origin shift (`gx.xstart=1`) → frame (1,0)-(79,20), not the hand-rolled (0,0)-(78,20); `lit=0` rule explicit); 
-**hellfill Invocation_lev VS** (D-1154 `pick_vibrasquare_location`+`maketrap`); **D-2467 `mkinvokearea`+`mkinvpos`+`mkinvk_check_wall`** (`mklev.c:2410–2497`/:2503–2598/:2603–2613 → `js/mklev.js` exported `mkinvokearea`, module-local helpers; `deadbook` caller deferred in js/spell.js; `display_nhwindow` omit); 
+**hellfill Invocation_lev VS** (D-1154 `pick_vibrasquare_location`+`maketrap`; **D-2586** full `:line` cites + `:1069–1072` debugpline2 D_DEBUG named omit; `stairway_find_dir` file-local clone named); **D-2467 `mkinvokearea`+`mkinvpos`+`mkinvk_check_wall`** (`mklev.c:2410–2497`/:2503–2598/:2603–2613 → `js/mklev.js` exported `mkinvokearea`, module-local helpers; `deadbook` caller deferred in js/spell.js; `display_nhwindow` omit); 
 rnd_hell_prefab/`makemaz("")` deferred; **D-1841 `fakewiz1`/`fakewiz2`**); empty `makemaz("")`; Is_special/quest fill; 
 **minefill `fixup_special`/`place_lregion(LR_BRANCH)` + Mines mineralize gold×2/gem×3** (D-0177); 
 **`mkstairs` no-op on dunlev ends** (up on dlevel 1 / down on `Is_botlevel`; 
@@ -907,7 +907,7 @@ top-aligned map `'x'` skip + shops/temple/peaceful watch; **D-2095
 nests + chance shops + sink `pos=0` door + temple `align[1]` + watch) +
 **D-1513 town-floor `des.monster("gnome")` ×3** (lua `:155–165`; not four;
 review **465**); 
-**stolen_booty D-1363** live when proto is minetn-1; 
+**stolen_booty D-1363** live when proto is minetn-1 (**D-2586** full `:799–889` cites; `upstart_maz` clone retired → live hacklib `upstart`; C-staticfn helpers file-local); 
 cleric/stronghold graveyard else-if named); other-role quest fills; **D-0533 egg hatch timeout**; 
 **D-0534 `mktrap` WEB→`makemon(PM_GIANT_SPIDER)` before victim gate** 
 (`splev_create_trap`/`mktrap_room`/`mktrap_seen_victim`; tut-1 `nospider`); 

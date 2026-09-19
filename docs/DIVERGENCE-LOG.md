@@ -1,5 +1,33 @@
 # Divergence log
 
+## D-2586 — `mkmaze.c` pick_vibrasquare_location + stolen_booty fidelity (upstart clone, C cites)
+
+- **Status:** fixed (Open — coverage rows ``mkmaze.c`` pick_vibrasquare_location PARTIAL + same-file stolen_booty PARTIAL, measured `port-coverage.mjs --name` 2026-09-19 @ 09224e39 / @ d57c144b).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify` on both: no corpus session blocked; pick draws 2 RNG only on maze Invocation levels). Both JS bodies held the full live logic but carried sparse C cites, an un-cited D_DEBUG-only omit, and — in stolen_booty — a file-local `upstart_maz` clone of the live hacklib.js `upstart` export (D-1849 class).
+- **C locus:** `nethack-c/upstream/src/mkmaze.c:1042–1093` (pick: `:1046–1047` maze-min, `:1062–1066` margins/ranges, `:1069–1072` small-maze debugpline2, `:1073` inv_pos zero, `:1075–1086` rn1/trycnt/direct-line loop, `:1087–1088` store) + `:799–889` (stolen_booty: `:817` gang, `:818–825` candles/keys/gloves, `:826–842` food filter, `:843` blade, `:845–852` leader, `:854–870` gang-brand loop, `:874–888` extra orcs + ransacked clear); callers `:1215` makemaz Invocation arm and `sp_lev.c:1819` create_trap VIBRATING_SQUARE arm, `mkmaze.c:694–695` fixup_special mines+ransacked arm.
+- **JS was:** `pick_vibrasquare_location()` (`js/mklev.js:18145`) matched C arm-for-arm but omitted the `:1069–1072` guard silently and cited no C lines; `stolen_booty()` (`js/mklev.js:1074`) matched every RNG draw and branch in C order but capitalized via local `upstart_maz` (identical to live `upstart` on ASCII gang names — `highc` is `code & ~0x20` — but a second clone) and cited no C lines.
+- **Fix:** `js/mklev.js` — restarted `pick_vibrasquare_location` in C order with `:line` cites throughout; the small-maze guard is a named omit (D_DEBUG-only `ifdebug` pline per `lint.h:62`, condition has no RNG/state effect). `stolen_booty`: `upstart` joins the existing hacklib.js import (imports.mjs ALREADY, no new edge); file-local `upstart_maz` deleted (sole caller was `:1076`); full C-order `:line` cites; loop-fidelity notes (DEADMONSTER ≡ `(mhp|0)<1`; fmon is a JS array so C's `mtmp = christen_orc(...)` reassign is a no-op — `christen_monst` returns the same object, `js/do_name.js:418`). No RNG, draw-order, or caller change.
+- **JS:** `js/mklev.js:13` import; `pick_vibrasquare_location` doc + cites; `stolen_booty` doc + cites. Export names/signatures unchanged. C-staticfn helpers stay file-local per convention (`migr_booty_item` `:780–796`, `migrate_orc` `:717–745`, `shiny_orc_stuff` `:748–777` — all C-cited in place).
+- **Callers:** C `mkmaze.c:1215` → `js/mklev.js:1569` (makemaz Invocation arm: pick + `maketrap(ip, VIBRATING_SQUARE)`); C `sp_lev.c:1819` → `js/mklev.js:19797` (`splev_create_trap` VIBRATING_SQUARE arm: pick + maketrap + return); C `mkmaze.c:695` → `js/mklev.js:1225` (fixup_special mines + `game.ransacked` → `stolen_booty()`). No caller edits — all ride the unchanged exports.
+- **Verify:** `node scripts/verify.mjs --fn pick_vibrasquare_location` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/mklev.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify pick_vibrasquare_location: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 6.4s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing (auto: shared file changed)
+
+VERIFY: PASS
+```
+`node scripts/verify.mjs --fn stolen_booty` → VERIFY: PASS (reach: 1 baseline-PASS session reaches it, 1 PASS, 0 regressed → REACH-OK; green 2/2; strict 2/2; cohort 7/7; full 44/44).
+- **Named omissions:** pick `:1069–1072` debugpline2 (D_DEBUG-only, above); `stairway_find_dir` file-local clone (`js/mklev.js:393` vs C `stairs.c` single function — pre-existing drift, untouched); `makemaz("")` create_maze Invocation_lev caller note retired (makemaz whole-body shipped D-2492).
+- **Next:** none from this fix — both coverage rows closed.
+
 ## D-2585 — `topten.c` topten whole-body port (ordin, ubirthday, HUP gates)
 
 - **Status:** fixed (Open — coverage row ``topten.c`` topten PARTIAL, measured `port-coverage.mjs --name topten` 2026-09-19 @ 09224e39).

@@ -46,7 +46,7 @@ judge 18:47Z cached, unchanged 11/44 5,776 pts vs last audit): the corpus still 
 not predict the judge.
 **Corpus fortress** (re-scored 2026-09-19 audit 1533–1541): **494 / 540
 PASS (91.5 %)** excl. 13 env-only; RNG 99.30 %, screens 98.9 % — **+0 / −3**
-in the D-2574…D-2585 window, all worktree-bisected: Rogue-92026 → D-2574
+in the D-2574…D-2586 window, all worktree-bisected: Rogue-92026 → D-2574
 (review 1533, rehumanize not-found pline); Priest-92163 + Rogue-92221 →
 D-2577 (review 1536, Master-Key wish). Both are Must-fix rows. Per-SHA
 `--reach-all` was clean (neither fn draws tracked RNG — stale PASSes);
@@ -102,10 +102,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `topten.c` topten — coverage PARTIAL (C 298 L `topten.c:628–926` / JS 165 L in js/topten.js; hops 3, callers 4, RNG 0, msg 0; dead callees: unlock_file, writexlentry). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn topten` (reach regression must be 0). Measured `port-coverage.mjs --name topten` 2026-09-19 @ 09224e39.
+**Next cluster:** `mkmaze.c` pick_vibrasquare_location + stolen_booty — shipped D-2586 (rows archived, REACH-OK).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2585 (index).**
+**Keep D-0845…D-2586 (index).**
 <!-- recent:begin -->
+**D-2586** `nethack-c/upstream/src/mkmaze.c:1042–1093` (pick: `:1046–1047` maze-min, `:1062–1066` mar — `js/mklev.js` — restarted `pick_vibrasquare_location` in C order with `:line` cites throughout; the small-maze guard is a named omit (D_DEBUG-only `ifdebug` pline per `lint.h:62`, condition has no RNG/state effect).
 **D-2585** `nethack-c/upstream/src/topten.c:628–926` — `js/topten.js` — `ordin` joins the existing hacklib.js import (no new edge); `hup_ok = !done_hup` gates the wizard message (`:725–736`), the post-open blank (`:754`), and the didn't-beat pair (`:791–799`); `t0.uid = getu
 **D-2584** `nethack-c/upstream/src/objnam.c:4399–4404` (postparse1 "Find corpse type w/o of" six-pref — `js/readobjnam.js:1224–1241` — six caseblind `str_start_is` guards (live hacklib.js export, no new edge) around the no-"of" scan, verbatim C `:4399–4404` order with `:line` cite.
 **D-2583** `nethack-c/upstream/src/polyself.c:497` (old_light capture) + `:570–582` (wizard own-role  — `js/polyself.js` — `new_light_source` joins the existing light.js import (imports.mjs ALREADY, no new edge); `old_light` captured at entry per `:497`; `old_light = 0` after the wizard-rehumanize arm per `:581`; made_chan
@@ -113,11 +114,10 @@ revisits the picker.
 **D-2581** `nethack-c/upstream/src/read.c:1115–1290` (`seffect_enchant_armor`, staticfn) + `:2414–245 — `js/do_wear.js` — new exported `adj_abon(otmp, delta)` (`:3319–3336`: uarmg/dex + uarmh/int-wis halves, makeknown + ABON only when delta nonzero, botl unconditional; `u.abon`/`game.flags.botl` per Gloves_on).
 **D-2580** `nethack-c/upstream/src/files.c:2090–2153` (`make_converted_name`, staticfn boolean) + `:2 — ported the whole C body in C order with `:line` cites — null-filename FALSE (`:2097–2098`), prev-name drop = JS GC (`:2103–2106`), bare-vs-dir branch via live `contains_directory` (`:2113`), HACKDIR `/usr/games/lib/netha
 **D-2579** `nethack-c/upstream/src/insight.c:728–823` (HP `:738–745`; power `:748–754`; Upolyd dice ` — `js/invent.js` — no format changes (final keeps one-space `enlght_line_txt`, overlay keeps two-space prefix): new exported C-order `basics_autopickup_buf()` (`:804–822`) + `basics_ac_buf()` (`:772–777`) + `basics_hitdice
-**D-2578** `nethack-c/upstream/src/mkobj.c:1888–1976` (wt init `:1890`; quan<1 `:1892–1896`; globby ` — `js/mkobj.js` — restarted `weight()` in C order with `:line` cites.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2585; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2586; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

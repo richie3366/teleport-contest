@@ -10,7 +10,7 @@ import { GameMap } from './game.js';
 import { rn2, rnd, rn1, rnz } from './rng.js';
 import { CLR_CYAN, CLR_GRAY, CLR_BRIGHT_BLUE } from './terminal.js';
 import { init_rect, rnd_rect, get_rect, split_rects } from './rect.js';
-import { depth as depth_of_level, dist2, distmin, level_difficulty, strstri } from './hacklib.js';
+import { depth as depth_of_level, dist2, distmin, level_difficulty, strstri, upstart } from './hacklib.js';
 import { getbones } from './bones.js';
 import {
     COLNO, ROWNO, STONE, ROOM, CORR, DOOR, STAIRS,
@@ -950,12 +950,6 @@ function ledger_no_maz(lev) {
     return ((dun?.ledger_start | 0) + (lev?.dlevel | 0)) | 0;
 }
 
-/** C hacklib.c upstart — capitalize first letter. */
-function upstart_maz(str) {
-    if (!str) return str;
-    return str.charAt(0).toUpperCase() + str.slice(1);
-}
-
 /**
  * C ref: options.c fruitadd else (not user_specified) — orctown loot.
  * User-specified doset path stays in options.js (mklev↔options cycle).
@@ -1067,23 +1061,31 @@ function migr_booty_item(otyp, gang) {
 }
 
 /**
- * C ref: mkmaze.c stolen_booty — orctown loot onto migrating_objs and
- * fleeing orcs. Caller: fixup_special when mines && ransacked.
+ * C mkmaze.c stolen_booty `:799–889` (staticfn) — orctown loot onto
+ * migrating_objs and fleeing orcs. Caller: fixup_special `:694–695`
+ * when mines && ransacked (js/mklev.js fixup_special).
  * Arrival leftovers DF_ALL is D-1505. add_to_minv merge is D-1492.
+ * `upstart` is the live hacklib.js export (file-local clone removed).
  */
 export function stolen_booty() {
+    /* C `:817` gang = rndorcname(gang_name) — JS returns the string */
     const gang = rndorcname();
-    const gangCap = upstart_maz(gang);
+    const gangCap = upstart(gang);
+    /* C `:818–820` candles */
     let cnt = rnd(4);
     for (let i = 0; i < cnt; ++i)
         migr_booty_item(rn2(4) ? TALLOW_CANDLE : WAX_CANDLE, gang);
+    /* C `:821–823` skeleton keys */
     cnt = rnd(3);
     for (let i = 0; i < cnt; ++i)
         migr_booty_item(SKELETON_KEY, gang);
+    /* C `:824–825` gloves */
     const glove = rn1(
         (GAUNTLETS_OF_DEXTERITY - LEATHER_GLOVES) + 1, LEATHER_GLOVES,
     );
     migr_booty_item(glove, gang);
+    /* C `:826–842` food loop — no lembas; oc_prob!=0 (K-/C-rations kept);
+       no CORPSE/EGG/TIN (corpsenm overloaded for delivery) */
     cnt = rnd(10);
     for (let i = 0; i < cnt; ++i) {
         const otyp = rn1(TIN - TRIPE_RATION + 1, TRIPE_RATION);
@@ -1093,7 +1095,9 @@ export function stolen_booty() {
             && otyp !== CORPSE && otyp !== EGG && otyp !== TIN)
             migr_booty_item(otyp, gang);
     }
+    /* C `:843` blade */
     migr_booty_item(rn2(2) ? LONG_SWORD : SILVER_SABER, gang);
+    /* C `:845–852` gang leader */
     let mtmp = makemon(mons(PM_ORC_CAPTAIN), 0, 0, MM_NONAME);
     if (mtmp) {
         mtmp = christen_monst(mtmp, gangCap);
@@ -1102,6 +1106,10 @@ export function stolen_booty() {
         shiny_orc_stuff(mtmp);
         migrate_orc(mtmp, ORC_LEADER);
     }
+    /* C `:854–870` — gang-brand level orcs; DEADMONSTER is (mhp|0)<1;
+       fmon is a JS array (no nmon); christen_monst returns the same
+       object so C's `mtmp = christen_orc(...)` reassign is a no-op here;
+       the rival ORC_CAPTAIN keeps its own name */
     for (const mon of game.fmon || []) {
         if ((mon.mhp | 0) < 1) continue;
         if (is_orc(mon.data) && !has_mgivenname(mon) && rn2(10)) {
@@ -1109,6 +1117,7 @@ export function stolen_booty() {
                 christen_orc(mon, gangCap, '');
         }
     }
+    /* C `:874–887` — several more gang orcs */
     cnt = rn2(10) + 5;
     for (let i = 0; i < cnt; ++i) {
         const mtyp = rn2((PM_ORC_SHAMAN - PM_ORC) + 1) + PM_ORC;
@@ -1118,6 +1127,7 @@ export function stolen_booty() {
             migrate_orc(mtmp, 0);
         }
     }
+    /* C `:888` */
     game.ransacked = 0;
 }
 
@@ -18136,22 +18146,25 @@ function invocation_pos_mk(x, y) {
 }
 
 /**
- * C mkmaze.c pick_vibrasquare_location — choose svi.inv_pos away from
- * upstairs (same row/col/diagonal / distmin<=11), on SPACE_POS,
+ * C mkmaze.c pick_vibrasquare_location `:1042–1093` — choose svi.inv_pos
+ * away from upstairs (same row/col/diagonal / distmin<=11), on SPACE_POS,
  * !occupied. No-upstairs short-circuit keeps the first rn1 pair.
- * Named omit: makemaz("") create_maze Invocation_lev caller (load
- * fallback still empty); Can_dig_down !Invocation_lev.
+ * Named omit: `:1069–1072` debugpline2 small-maze guard is D_DEBUG-only
+ * (ifdebug pline, lint.h) — the condition has no RNG/state effect.
  */
 export function pick_vibrasquare_location() {
+    /* C `:1046–1047` x_maze_min/y_maze_min; `:1062–1064` margins/distance */
     const x_maze_min = 2;
     const y_maze_min = 2;
     const INVPOS_X_MARGIN = 6 - 2;
     const INVPOS_Y_MARGIN = 5 - 2;
     const INVPOS_DISTANCE = 11;
+    /* C `:1065–1066` — maze_x_max()/maze_y_max() read game.x_maze_max (gx
+       twin, restored after create_maze scale) else X_MAZE_MAX/Y_MAZE_MAX */
     const x_range = maze_x_max() - x_maze_min - 2 * INVPOS_X_MARGIN - 1;
     const y_range = maze_y_max() - y_maze_min - 2 * INVPOS_Y_MARGIN - 1;
     const ip = svi_inv_pos();
-    /* {occupied() => invocation_pos()} */
+    /* C `:1073` svi.inv_pos.x = svi.inv_pos.y = 0 {occupied() => invocation_pos()} */
     ip.x = 0;
     ip.y = 0;
     let x = 0;
@@ -18159,16 +18172,21 @@ export function pick_vibrasquare_location() {
     let stway;
     let trycnt = 0;
     do {
+        /* C `:1075–1076` */
         x = rn1(x_range, x_maze_min + INVPOS_X_MARGIN + 1);
         y = rn1(y_range, y_maze_min + INVPOS_Y_MARGIN + 1);
+        /* C `:1079–1080` */
         if (++trycnt > 1000)
             break;
+        /* C `:1081–1086` — direct line (row/col/diagonal), distmin<=11,
+           !SPACE_POS(levl[x][y].typ), occupied; abs() is Math.abs */
     } while ((stway = stairway_find_dir(true))
              && (x === stway.sx || y === stway.sy
                  || Math.abs(x - stway.sx) === Math.abs(y - stway.sy)
                  || distmin(x, y, stway.sx, stway.sy) <= INVPOS_DISTANCE
                  || !SPACE_POS(game.level.at(x, y)?.typ)
                  || occupied(x, y)));
+    /* C `:1087–1088` */
     ip.x = x;
     ip.y = y;
 }
