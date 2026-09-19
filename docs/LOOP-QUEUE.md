@@ -97,8 +97,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `options.c` all_options_strbuf BoolOpt/CompOpt loop `break`→`continue` (D-2544 follow-up) — C `options.c:9691–9721` arms use switch-`break` (skip entry, next iteration); JS `js/options.js` all_options_strbuf uses loop-`break` (aborts the whole loop at the first obsolete/non-config entry once [2/7] fills allopt → silent config truncation). Fix: two `break`→`continue`. Verify `node scripts/verify.mjs --fn all_options_strbuf` (reach regression must be 0). Source: reviews/loop-unattended/1503-f01391aa-all-options-strbuf.md.
-
 A **JS throw** in any corpus session (`hidden-proxy status` owner
 `js-throw …`, or a `ReferenceError` in `.cache/hidden/scores.json`
 `error`), and a corpus worker **hang** (`ETIMEDOUT` under `verify`), are

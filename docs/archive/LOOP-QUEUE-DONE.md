@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `polyself.c` polyman — coverage PARTIAL (C 68 L `polyself.c:200–268` / JS 41 L in js/polyself.js; hops 2, callers 3, RNG 1, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn polyman` (reach regression must be 0). Measured `port-coverage.mjs --name polyman` 2026-09-19 @ 1c1e08cc. **Addressed:** D-2546
+- [x] `options.c` all_options_strbuf BoolOpt/CompOpt loop `break`→`continue` (D-2544 follow-up) — C `options.c:9691–9721` arms use switch-`break` (skip entry, next iteration); JS `js/options.js` all_options_strbuf uses loop-`break` (aborts the whole loop at the first obsolete/non-config entry once [2/7] fills allopt → silent config truncation). Fix: two `break`→`continue`. Verify `node scripts/verify.mjs --fn all_options_strbuf` (reach regression must be 0). Source: reviews/loop-unattended/1503-f01391aa-all-options-strbuf.md.
+
+
+- [x] `polyself.c` polyman — coverage PARTIAL (C 68 L `polyself.c:200–268` / JS 41 L in js/polyself.js; hops 2, callers 3, RNG 1, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn polyman` (reach regression must be 0). Measured `port-coverage.mjs --name polyman` 2026-09-19 @ 1c1e08cc. **Addressed:** D-2546 `e07bd9bc`
 
 
 - [x] `objnam.c` readobjnam_preparse — coverage MISSING (C 209 L `objnam.c:3966–4175` / JS no symbol; hops 4, callers 1, RNG 2, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn readobjnam_preparse` (reach regression must be 0). Measured `port-coverage.mjs --name readobjnam_preparse` 2026-09-19 @ 1c1e08cc. **Addressed:** D-2545 `23cb328e`

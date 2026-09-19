@@ -46,7 +46,7 @@ judge 07:08Z, ~D-2534, +105 pts vs last audit): the corpus still does
 not predict the judge.
 **Corpus fortress** (re-scored 2026-09-19 audit 1498–1505): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — +0 / −0
-in the D-2539…D-2546 window (all eight were zero-block coverage rows;
+in the D-2539…D-2547 window (all eight were zero-block coverage rows;
 per-SHA `--reach-all` re-runs REACH-OK — ston 14/14, elec 35/35 real
 reach, rest smoke — 0 regressed).
 Reviews 1225–1505: 249 ACCEPT, 10 WITH-DEBT, 1 DEBT, 16 QUALITY-RISK (Must-fix: 1 — 1503 all_options_strbuf break/continue).
@@ -102,8 +102,9 @@ breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
 **Next cluster:** Must-fix `options.c` all_options_strbuf BoolOpt/CompOpt `break`→`continue` ×2 (C `options.c:9691–9721` switch-break = skip entry; JS loop-break aborts the loop; Source: reviews/loop-unattended/1503-f01391aa-all-options-strbuf.md). Verify `--fn all_options_strbuf`, reach regression 0 — then resume queue head `sp_lev.c` fill_special_room.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2546 (index).**
+**Keep D-0845…D-2547 (index).**
 <!-- recent:begin -->
+**D-2547** `nethack-c/upstream/src/options.c:9691–9721` (`all_options_strbuf` allopt loop); the obsol — `js/options.js` — two `break`→`continue` with `:line` cites, nothing else; export name/signature unchanged, callers untouched.
 **D-2546** `nethack-c/upstream/src/polyself.c:199–268` (`polyman`, staticfn); arms `:200–204` stickin — `js/polyself.js` — restarted `polyman` (stays file-local, mirrors staticfn) in C order with `:line` cites; new exported `ugenocided()` mirroring same-file C `:2265` (`game.mvitals` G_GENOD on urole/urace mnum); urgent_pl
 **D-2545** `nethack-c/upstream/src/objnam.c:3966–4175` (`readobjnam_preparse`, staticfn); loop `:3971 — `js/readobjnam.js` — restarted as file-local `readobjnam_preparse` (mirrors staticfn) in C order with `:line` cites: split moist/wet branches keep C check order and RNG (`wet` → `3 + rn2(3)`, `moist` → `rnd(2)`); gender 
 **D-2544** `nethack-c/upstream/src/options.c:9678–9748` (`all_options_strbuf`); arms `:9686–9689` hea — `js/options.js` — ported the whole body in C order with `:line` cites; `strbuf_init/append/reserve/empty` (`:3083–3115`, plain-string booking, NULL-empty mirrors C); `allopt`/`opt_set_in_config` empty registries + `PFX_C
@@ -111,11 +112,10 @@ revisits the picker.
 **D-2542** `nethack-c/upstream/src/uhitm.c:2684–2739` (`mhitm_ad_elec`); arms `:2688–2703` (uhitm), ` — `js/mhitm.js` — new exported `mhitm_ad_elec` (`js/mhitm.js:878`) in C order: `:2688–2703` uhitm arm new (negate gate, `!Blind_slee()` file-local youprop.h gate for both plines, resists_elec/defended zeroes leftover after
 **D-2541** `nethack-c/upstream/src/uhitm.c:4203–4262` (`mhitm_ad_ston`); arms `:4209–4214` (uhitm), `:4215–4253` (mhitu), `:4254–4261` (mhitm) — `js/mhitm.js` — restarted + exported `mhitm_ad_ston` in C order: uhitm arm new (live `munstone` cure gate + `minstapetrify`, damage=0); mhitu arm early-returns to the split `mhitm_ad_ston_u`; mhitm arm kept (`mcan` + `do_stone_mon`) — `js/uhitm.js` — `damageum_adtyping` AD_STON row wires C `:4796`.
 **D-2540** `nethack-c/upstream/src/uhitm.c:2958–3012` (`mhitm_ad_blnd`); arms `:2964–2975` (uhitm), ` — `js/mhitm.js` — restarted + exported `mhitm_ad_blnd` in C order: `:2964–2975` uhitm arm new (live `can_blnd` gate on the existing mhitm.js→uhitm.js edge; `!Blind_slee()` is the file-local youprop.h Blind gate the slee ar
-**D-2539** `nethack-c/upstream/src/version.c:374–423` (`check_version`), `:713–746` (`uptodate`); req — `js/version.js` — exported `what_datamodel_is_this` in C order (`:1006` loop starts at C row 1; DATAMODEL_TABLE holds exactly C rows 1–4 with live sizes split out, so the loop covers the whole table — first draft kept `i
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2546; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2547; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

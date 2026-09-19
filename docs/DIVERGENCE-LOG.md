@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-2547 — `options.c` all_options_strbuf BoolOpt/CompOpt loop `break`→`continue` (D-2544 follow-up, review 1503 Must-fix)
+
+- **Status:** fixed (Must-fix row `options.c` all_options_strbuf BoolOpt/CompOpt `break`→`continue`; review 1503 C-wrong 1 stamped **Addressed:** D-2547).
+- **Symptom:** C-wrong branch semantics, doubly-dead today (empty `allopt` registry + the unconditional named-callee calls below the loop) — becomes silent config truncation once [2/7] fills `allopt`: the first obsolete/non-config entry aborts the whole loop instead of skipping one entry.
+- **C locus:** `nethack-c/upstream/src/options.c:9691–9721` (`all_options_strbuf` allopt loop); the obsolete skip (`:9697–9698`, `!bool_p || == &flags.female`) and the CompOpt setwhere gate (`:9704–9706`) are `break` inside `switch (allopt[i].opttyp)` — skip entry, next `for` iteration.
+- **JS was:** `js/options.js:3247` / `:3255` (`all_options_strbuf`) — if/else chain with no `switch`, so the two bare `break`s exited the entire `for` loop (/tmp probe on the artifact: 2 bare loop-`break`s, 1 `continue`).
+- **Fix:** `js/options.js` — two `break`→`continue` with `:line` cites, nothing else; export name/signature unchanged, callers untouched.
+- **JS:** `js/options.js:3238` `all_options_strbuf` (same export).
+- **Callers:** only C caller `cfgfiles.c:200` (`do_write_config_file`, named omission [7/7]); zero JS callers — unchanged, none added.
+- **Verify:** `node scripts/verify.mjs --fn all_options_strbuf` → VERIFY: PASS (syntax 1 changed file; rule2; hidden note — 0 blocked at baseline; reach smoke 24/24 REACH-OK, 0 regressed; green 2/2 + strict ×2; cohort 7/7; full 44/44 auto on shared options.js). Post-fix probe: 0 bare loop-`break`s, 3 `continue`s. Tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/options.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify all_options_strbuf: no corpus session blocked on it at baseline
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 6.4s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing (auto: shared file changed)
+
+VERIFY: PASS
+```
+- **Named omissions:** unchanged from D-2544 — `get_option_value` + allopt table [2/7], `all_options_conds` [3/7], `get_changed_key_binds` [4/7], `parsesymbols` [5/7], `all_options_statushilites` [6/7], caller `do_write_config_file` [7/7]; palette compiled out (no row).
+- **Durable test:** none added (disclosed per skill) — behavioral coverage is infeasible until [2/7] fills the registry: `allopt`/`opt_set_in_config` are non-exported empty consts and any call to the body throws `ReferenceError` on the named bare identifiers today. Scratch probe `/tmp/breakprobe.mjs` kept in /tmp, not committed. Loop-entry coverage arrives with the [2/7] row.
+- **Next:** `sp_lev.c` fill_special_room (queue head after this pop).
+
 ## D-2546 — `polyself.c` polyman whole body in C order (coverage PARTIAL → live; 7 missing arms + same-file ugenocided, both C callers wired)
 
 - **Status:** fixed (Open coverage row `polyself.c` polyman PARTIAL, C 68 L `polyself.c:200–268` / JS 41 L in `js/polyself.js`; no Must-fix pending; row cites no review — no stamp).

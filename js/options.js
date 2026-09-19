@@ -3244,7 +3244,7 @@ export function all_options_strbuf(sbuf) {
         if (!opt_set_in_config[i]) continue;
         if (allopt[i].opttyp === BoolOpt) {
             const addr = allopt[i].addr;
-            if (!addr || (addr.obj === 'flags' && addr.key === 'female')) break; // obsolete
+            if (!addr || (addr.obj === 'flags' && addr.key === 'female')) continue; // C `:9698` switch-break = skip entry
             if (!!((game[addr.obj] || {})[addr.key]) !== !!allopt[i].initval) {
                 const cur = !!((game[addr.obj] || {})[addr.key]);
                 strbuf_append(sbuf, `OPTIONS=${cur ? '' : '!'}${name}\n`);
@@ -3252,7 +3252,7 @@ export function all_options_strbuf(sbuf) {
         } else if (allopt[i].opttyp === CompOpt) {
             if (!(allopt[i].setwhere === SET_IN_CONFIG
                 || allopt[i].setwhere === SET_GAMEVIEW
-                || allopt[i].setwhere === SET_IN_GAME)) break;
+                || allopt[i].setwhere === SET_IN_GAME)) continue; // C `:9705` switch-break = skip entry
             // C FIXME (options.c:get_option_value): menu_deselect_all &c menu
             // control keys, term_cols, term_rows.
             const buf2 = get_option_value(name, true);

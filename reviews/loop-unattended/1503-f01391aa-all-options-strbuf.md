@@ -110,3 +110,5 @@ a live verified core (the /tmp probe exercised the helpers).
    LOOP-QUEUE Must-fix, CURRENT Next cluster pointed at it.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-2547
