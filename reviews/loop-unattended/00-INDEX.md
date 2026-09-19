@@ -1499,3 +1499,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1486-ac4246db-dosinkring.md](./1486-ac4246db-dosinkring.md) | `ac4246db` | D-2527 dosinkring + teleport_sink | **ACCEPT** |
 | [1487-ca74dad2-show-menu-controls.md](./1487-ca74dad2-show-menu-controls.md) | `ca74dad2` | D-2528 show_menu_controls | **ACCEPT** |
 | [1488-25a9ad2d-amulet-off.md](./1488-25a9ad2d-amulet-off.md) | `25a9ad2d` | D-2529 Amulet_off | **ACCEPT** |
+| [1489-e900cb58-misc-stats.md](./1489-e900cb58-misc-stats.md) | `e900cb58` | D-2530 misc_stats | **ACCEPT** |
+| [1490-ecdbec66-breakobj.md](./1490-ecdbec66-breakobj.md) | `ecdbec66` | D-2531 breakobj | **ACCEPT** |
+| [1491-9406729d-dofiretrap.md](./1491-9406729d-dofiretrap.md) | `9406729d` | D-2532 dofiretrap | **ACCEPT** |
+| [1492-32ba8af0-merged.md](./1492-32ba8af0-merged.md) | `32ba8af0` | D-2533 merged | **ACCEPT** |
+| [1493-1bfac98a-getpos-menu.md](./1493-1bfac98a-getpos-menu.md) | `1bfac98a` | D-2534 getpos_menu | **ACCEPT** |
+| [1494-f152ba19-build-options.md](./1494-f152ba19-build-options.md) | `f152ba19` | D-2535 build_options | **ACCEPT** |
+| [1495-0e4e2b9b-draft-message.md](./1495-0e4e2b9b-draft-message.md) | `0e4e2b9b` | D-2536 draft_message | **ACCEPT** |
+| [1496-29318908-thrwmu.md](./1496-29318908-thrwmu.md) | `29318908` | D-2537 thrwmu | **ACCEPT** |
+| [1497-1c1e08cc-set-savefile-name.md](./1497-1c1e08cc-set-savefile-name.md) | `1c1e08cc` | D-2538 set_savefile_name | **ACCEPT** |

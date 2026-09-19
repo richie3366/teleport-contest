@@ -23,10 +23,10 @@ the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-19** — full `sessions` on the working tree
-(audit **1480–1488**).
+(audit **1489–1497**).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`49+0.30/turn` (R² 0.79).
+`69+0.47/turn` (R² 0.82).
 
 ## Score
 
@@ -41,14 +41,14 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 4/22, 2nd agentic; best agentic fork 35/44, RNG 98.5 %,
-screens 93.2 %. Held-out flat 11/44 (5,648 pts, RNG 26.6 %, screens
-50.1 %) over the breadth-phase window while the local corpus holds
-92.0 %: the corpus still does not predict the judge.
-**Corpus fortress** (re-scored 2026-09-19 audit 1480–1488): **497 / 540
+screens 93.2 %. Held-out 11/44 (5,753 pts, RNG 26.6 %, screens 51.1 %;
+judge 07:08Z, ~D-2534, +105 pts vs last audit): the corpus still does
+not predict the judge.
+**Corpus fortress** (re-scored 2026-09-19 audit 1489–1497): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — +0 / −0
-in the D-2521…D-2538 window (all nine were zero-block coverage rows;
+in the D-2530…D-2538 window (all nine were zero-block coverage rows;
 per-SHA `--reach-all` re-runs REACH-OK, 0 regressed).
-Reviews 1225–1488: 233 ACCEPT, 10 WITH-DEBT, 1 DEBT, 15 QUALITY-RISK (Must-fix: none — 1465 trio shipped D-2512).
+Reviews 1225–1497: 242 ACCEPT, 10 WITH-DEBT, 1 DEBT, 15 QUALITY-RISK (Must-fix: none — 1465 trio shipped D-2512).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone — review-debt, unqueued (detail in the review files).
 Audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s) + `leaderboard.mjs`.
 
@@ -99,7 +99,7 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `files.c` set_savefile_name — coverage THIN (C 103 L `files.c:1020–1123` / JS 4 L in js/save.js; hops 5, callers 7, RNG 0, msg 4; dead callees: fname_encode). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn set_savefile_name` (reach regression must be 0). Measured `port-coverage.mjs --name set_savefile_name` 2026-09-19 @ ca74dad2.
+**Next cluster:** `uhitm.c` mhitm_ad_slim — coverage THIN (C 72 L `uhitm.c:3526–3600` / JS 22 L in js/mhitm.js; hops 4, callers 1, RNG 2, msg 5; queue head after D-2538 shipped set_savefile_name, audit 1489–1497). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mhitm_ad_slim` (reach regression must be 0). Measured `port-coverage.mjs --name mhitm_ad_slim` 2026-09-19 @ 1bfac98a.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2538 (index).**
 <!-- recent:begin -->
