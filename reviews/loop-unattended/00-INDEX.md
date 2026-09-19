@@ -1481,3 +1481,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1468-a263d08e-record-achievement.md](./1468-a263d08e-record-achievement.md) | `a263d08e` | D-2509 record_achievement | **ACCEPT** |
 | [1469-9d045456-domove-swap-with-pet.md](./1469-9d045456-domove-swap-with-pet.md) | `9d045456` | D-2510 domove_swap_with_pet | **ACCEPT** |
 | [1470-fc62ea8a-mhitm-ad-heal-acid.md](./1470-fc62ea8a-mhitm-ad-heal-acid.md) | `fc62ea8a` | D-2511 mhitm_ad_heal + mhitm_ad_acid | **ACCEPT** |
+| [1471-3322beff-menu-colors-submenu-trio.md](./1471-3322beff-menu-colors-submenu-trio.md) | `3322beff` | D-2512 menu-colors submenu trio | **ACCEPT** |
+| [1472-ab1ae274-getrumor.md](./1472-ab1ae274-getrumor.md) | `ab1ae274` | D-2513 getrumor | **ACCEPT** |
+| [1473-02a067fe-restmon.md](./1473-02a067fe-restmon.md) | `02a067fe` | D-2514 restmon | **ACCEPT** |
+| [1474-32a1691b-bot-via-windowport.md](./1474-32a1691b-bot-via-windowport.md) | `32a1691b` | D-2515 bot_via_windowport | **ACCEPT** |
+| [1475-aa0ca8b2-wiz-map-levltyp.md](./1475-aa0ca8b2-wiz-map-levltyp.md) | `aa0ca8b2` | D-2516 wiz_map_levltyp + legend | **ACCEPT** |
+| [1476-7b5fbce5-gem-accept.md](./1476-7b5fbce5-gem-accept.md) | `7b5fbce5` | D-2517 gem_accept | **ACCEPT** |
+| [1477-ec68b067-mhitm-ad-drli.md](./1477-ec68b067-mhitm-ad-drli.md) | `ec68b067` | D-2518 mhitm_ad_drli | **ACCEPT** |
+| [1478-31bd0727-makerooms.md](./1478-31bd0727-makerooms.md) | `31bd0727` | D-2519 makerooms | **ACCEPT** |
+| [1479-95d26622-insane-object.md](./1479-95d26622-insane-object.md) | `95d26622` | D-2520 insane_object + where_name | **ACCEPT** |
