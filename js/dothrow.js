@@ -101,6 +101,7 @@ import { in_out_region, m_in_out_region } from './region.js';
 import { u_wipe_engr } from './engrave.js';
 import { getdir } from './lock.js';
 import { hard_helmet } from './do_wear.js';
+import { canletgo } from './do.js';
 
 const GLASS = 19;
 const POT_WATER = objectNames.indexOf('POT_WATER');
@@ -994,7 +995,8 @@ export async function throw_gold(obj) {
  * C ref: dothrow.c throw_obj — multishot + split + throwit.
  * getdir is done by caller (dofire/dothrow) matching JS input boundary;
  * C calls getdir inside throw_obj — same one prompt either way.
- * After self refuse: u_wipe_engr(2) (D-1374; callee D-1051).
+ * After coin gate: canletgo(obj, "throw") (`:118`); after self refuse:
+ * u_wipe_engr(2) (D-1374; callee D-1051).
  */
 export async function throw_obj(obj, shotlimit) {
     const u = game.u || {};
@@ -1007,6 +1009,11 @@ export async function throw_obj(obj, shotlimit) {
         return throw_gold(obj);
     }
 
+    // C dothrow.c:118 — canletgo(obj, "throw") before Mjollnir / too-heavy /
+    // self / wipe (C order: coin → canletgo → Mjollnir → too-heavy → self).
+    if (!(await canletgo(obj, 'throw'))) {
+        return ECMD_OK; // no time passes (unsplit_stack)
+    }
     // C ref: dothrow.c throw_obj — after getdir, self (dx=dy=dz=0) refuses
     if (!(u.dx || 0) && !(u.dy || 0) && !(u.dz || 0)) {
         await pline('You cannot throw an object at yourself.');
@@ -1015,8 +1022,8 @@ export async function throw_obj(obj, shotlimit) {
     /* C dothrow.c throw_obj `:138` — after self refuse, before petrify /
        welded / wet-towel / multishot: u_wipe_engr(2). Callee D-1051;
        no extra RNG with no engraving / HEADSTONE / BURN-on-stone /
-       Levitation. canletgo / Mjollnir / too-heavy still named (C
-       returns before this wipe). D-1374. */
+       Levitation. Mjollnir / too-heavy still named (C returns before
+       this wipe). D-1374. */
     u_wipe_engr(2);
     // C throw_obj :139–148 bare-hand cockatrice instapetrify + killer_xname
     // named omit (throwit returning-missile :1747 is D-1346).

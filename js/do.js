@@ -55,7 +55,7 @@ import {
     COIN_CLASS, SCROLL_CLASS, SPBOOK_CLASS, POTION_CLASS, objectNames,
 } from './objects.js';
 import {
-    pline, Norep, docrt, flush_screen, flush_topl_more, newsym,
+    pline, Norep, You, pline_The, docrt, flush_screen, flush_topl_more, newsym,
     assign_graphics, check_gold_symbol,
     You_feel, canseemon, canspotmon, impossible, describe_level,
     see_monsters,
@@ -100,7 +100,7 @@ import { show_getpos_tip } from './getpos.js';
 import { place_object, stackobj, weight, delobj, obj_extract_self,
     obj_nexto_xy, obj_meld, pudding_merge_message,
     save_timers, restore_timers, run_timers, splitobj,
-    save_light_sources, restore_light_sources, dobjsfree,
+    save_light_sources, restore_light_sources, dobjsfree, set_bknown,
 } from './mkobj.js';
 import { ship_object, obj_delivery, container_impact_dmg, impact_drop } from './dokick.js';
 import {
@@ -121,7 +121,7 @@ import {
 } from './pickup.js';
 import { Fumbling } from './attrib.js';
 import {
-    welded, setuwep, setuswapwep, setuqwep, set_twoweap,
+    welded, bimanual, setuwep, setuswapwep, setuqwep, set_twoweap,
 } from './wield.js';
 import { body_part } from './polyself.js';
 import {
@@ -2235,38 +2235,58 @@ export async function u_collide_m(mtmp) {
 }
 
 /**
- * C ref: do.c canletgo — shared drop/throw worn/weld/loadstone gates.
- * Named omissions: loadstone corpsenm count kludge detail; full weldmsg
- * only when word non-empty (drop path uses canletgo before setuwep).
+ * C ref: do.c canletgo `:665–711` — shared drop/throw gate: worn armor /
+ * welded uwep / cursed loadstone / leashed / saddle, in C order.
+ * `something` is c_common_strings.c_something (`decl.c:45`); `*word`
+ * (C `:668`) is the non-empty-word message gate; `plur` (`dungeon.c`)
+ * is inlined (`quan == 1 ? '' : 's'`) — no new clone.
  */
 export async function canletgo(obj, word) {
     if (!obj) return false;
+    const hasWord = typeof word === 'string' ? word.length > 0 : !!word;
     const mask = obj.owornmask || 0;
+    // C `:667–672` — worn armor or accessory.
     if (mask & (W_ARMOR | W_ACCESSORY)) {
-        if (word) {
+        if (hasWord) {
             await Norep(`You cannot ${word} something you are wearing.`);
         }
         return false;
     }
+    // C `:673–686` — welded uwep (welded() sets bknown per wield.c:1051–1058;
+    // no weldmsg() here, so bknown may set silently when word is "").
     const u = game.u || {};
     if (obj === u.uwep && welded(u.uwep)) {
-        if (word) {
-            await Norep(`You cannot ${word} something welded to your hand.`);
+        if (hasWord) {
+            let hand = body_part(HAND); // C `:677`
+            if (bimanual(u.uwep)) hand = makeplural(hand); // C `:679–680`
+            await Norep(`You cannot ${word} something welded to your ${hand}.`);
         }
         return false;
     }
-    // LOADSTONE cursed / LEASH / W_SADDLE — minimal gates
+    // C `:687–702` — cursed loadstone.
     const LOADSTONE = objectNames.indexOf('LOADSTONE');
     if (LOADSTONE >= 0 && (obj.otyp | 0) === LOADSTONE && obj.cursed) {
-        if (word) {
-            await pline(`For some reason, you cannot ${word} the stone!`);
+        if (hasWord) {
+            // C `:692–694` — getobj() throw-count kludge (throw forces 1).
+            if (word === 'throw' && (obj.quan | 0) > 1) obj.corpsenm = 1;
+            await pline(`For some reason, you cannot ${word}${obj.corpsenm ? ' any of' : ''} the stone${(obj.quan | 0) === 1 ? '' : 's'}!`);
         }
-        obj.bknown = 1;
+        obj.corpsenm = 0; // C `:698` reset
+        set_bknown(obj, 1); // C `:699`
         return false;
     }
+    // C `:703–708` — leash tied to a monster.
+    const LEASH = objectNames.indexOf('LEASH');
+    if (LEASH >= 0 && (obj.otyp | 0) === LEASH && (obj.leashmon | 0) !== 0) {
+        if (hasWord) {
+            await pline_The(`leash is tied around your ${body_part(HAND)}.`);
+        }
+        return false;
+    }
+    // C `:709–711` — saddle being sat on.
     if (mask & W_SADDLE) {
-        if (word) {
-            await pline(`You cannot ${word} something you are sitting on.`);
+        if (hasWord) {
+            await You(`cannot ${word} something you are sitting on.`);
         }
         return false;
     }

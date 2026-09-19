@@ -46,7 +46,7 @@ breadth-phase window while the local corpus holds 91.7 %: the corpus
 still does not predict the judge.
 **Corpus fortress** (re-scored 2026-09-19 audit 1471–1479): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — +2 PASS
-in the D-2512…D-2522 window (Valkyrie-92200, Samurai-92018), 0 regressed
+in the D-2512…D-2523 window (Valkyrie-92200, Samurai-92018), 0 regressed
 (per-SHA re-runs; D-2516: Valkyrie-92162 129 → 144, full RNG).
 Reviews 1225–1479: 224 ACCEPT, 10 WITH-DEBT, 1 DEBT, 15 QUALITY-RISK (Must-fix: none — 1465 trio shipped D-2512).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone — review-debt, unqueued (detail in the review files).
@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `do.c` canletgo — coverage PARTIAL (C 46 L `do.c:665–711` / JS 33 L in js/do.js; hops 2, callers 13, RNG 0, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn canletgo` (reach regression must be 0). Measured `port-coverage.mjs --name canletgo` 2026-09-19 @ 7b5fbce5.
+**Next cluster:** `sounds.c` dochat — coverage PARTIAL (C 152 L `sounds.c:1257–1409` / JS 72 L in js/sounds.js; hops 4, callers 2, RNG 1, msg 12; dead callees: shop_object). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dochat` (reach regression must be 0). Measured `port-coverage.mjs --name dochat` 2026-09-19 @ 7b5fbce5.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2522 (index).**
+**Keep D-0845…D-2523 (index).**
 <!-- recent:begin -->
+**D-2523** `nethack-c/upstream/src/do.c:665–711` (`canletgo`). Callees: `Norep` (`:669/:680`, live di — `js/do.js` — restarted `canletgo` in C order with `:line` cites: `:667–672` worn armor/accessory Norep; `:673–686` welded uwep with `body_part(HAND)` + bimanual plural; `:687–702` cursed loadstone with `throw`-count corp
 **D-2522** `nethack-c/upstream/src/sounds.c:1427–1537` (`tiphat`) + same-file staticfn `responsive_mo — `js/sounds.js` — file-local `responsive_mon_at` (`:1416` m_at cite, `:1418–1422` helpless/is_silent cites) + exported async `tiphat` in C order with `:line` cites: `:1432–1435` no-helm/res gates; `:1437–1438` cursed_chec
 **D-2521** `nethack-c/upstream/src/pager.c:2144–2228` (`look_engrs`, staticfn). Callees: `create_nhwi — `js/pager.js` — restarted `look_engrs` (`:2358`) in C order with `:line` cites: `:2155` region holder; `:2160` seenv gate; `:2166` engr_at (no gone-engraving fallback per `:2162–2165`); `:2169` headstone from `game.lasts
 **D-2520** `nethack-c/upstream/src/mkobj.c:3314–3339` (`insane_object`, staticfn). Same-file callee ` — `js/mkobj.js` — `OBJ_STATE_NAMES` verbatim in OBJ_* order (`:3289–3293`); exported `where_name` (`js/mkobj.js:1534`) in C order (`:3299–3308`: null → "nowhere", range/empty-slot → `unknown[${where}]`, else table); file-l
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2518** `nethack-c/upstream/src/uhitm.c:2445–2518` (uhitm `:2450–2477`, mhitu `:2479–2488`, mhitm  — `js/zap.js` — `resists_drli` returns `defended(mon, AD_DRLI)` per C `:210`; `defended` joins the existing mondata edge (`imports.mjs --can` ALREADY, no new edge).
 **D-2517** `nethack-c/upstream/src/dothrow.c:2309–2382` (`gem_accept`, staticfn). Callees: `Monnam`,  — `js/dothrow.js` — `export async function gem_accept` in C order with `:line` cites: `:2320–2321` buddy/gem gates (`sgn` module-local, minion/trap/makemon precedent; `GEMSTONE` local const already at file scope); `:2323–2
 **D-2516** `nethack-c/upstream/src/wizcmds.c:693–835` (`wiz_map_levltyp`); `:839–877` (`wiz_levltyp_l — `js/wizcmds.js` — `LEVLTYP_NAMES` verbatim from C `cmd.c:1072–1084` (38 names + undiggable marker + padding); restarted `wiz_map_levltyp` in C order with `:line` cites: `:698` istty (`game.windowprocs?.name ?? 'tty'`); `
-**D-2515** `nethack-c/upstream/src/botl.c:962–1279` (`bot_via_windowport`, staticfn). Same-file calle — `js/botl.js` — `conditions`/`condtests`/`terrain_descr`/`enc_stat` tables verbatim in C order with `:line` cites (+ `hu_stat`, bl-enum 0–29, `OPT_IN`/`OPT_OUT` per `global.h:576`); `rank` (via live `rank_of`), `encglyph`
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2522; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2523; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
