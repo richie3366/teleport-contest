@@ -137,7 +137,7 @@ import { yyyymmddhhmmss } from './calendar.js';
 import { getlin, mungspaces } from './getline.js';
 import { makesingular, fruit_from_name, makeplural } from './objnam.js';
 import { clr2colorname } from './artifact.js';
-import { opt_next_cond } from './botl.js';
+import { opt_next_cond, status_hilite_linestr_done, status_hilite_linestr_gather } from './botl.js';
 import { get_changed_key_binds } from './cmd.js';
 
 /** C ref: global.h PL_FSIZ — fruit name buffer. */
@@ -3109,7 +3109,8 @@ export function oclass_to_sym(oclass) {
  * Named omissions ship as campaign rows (map): get_option_value + the
  * allopt[]/opt_set_in_config[] table (live [2/7]), all_options_conds
  * (live [3/7]), get_changed_key_binds (live [4/7], js/cmd.js),
- * all_options_statushilites (+ parsesymbols producer for savedSymbols).
+ * all_options_statushilites (live [6/7], js/botl.js store + writer above;
+ * + parsesymbols producer for savedSymbols, live [5/7]).
  * all_options_palette is compiled
  * out (CHANGE_COLOR off for tty: windconf.h `:29` commented) — no row.
  */
@@ -4080,6 +4081,28 @@ export function all_options_conds(sbuf) {
 }
 
 /**
+ * C ref: botl.c all_options_statushilites `:4477–4495` [campaign 6/7] —
+ * one OPTIONS=hilite_status line per gathered linestr, in store order
+ * (`:4487–4493`); gather/done pair brackets the walk (`:4482–4485`,
+ * `:4494`). The `%.*s` precision (`:4488–4490`) is BUFSZ minus the bound
+ * literal plus NUL minus one (= 230): plain slice is exact. Sole C caller
+ * options.c all_options_strbuf `:9741` (wired below); STATUS_HILITES is on
+ * per config.h `:616`, so the `#ifdef` arm is live C, not dead config.
+ * With no threshold producer or cond_hilites configured the store gathers
+ * empty and nothing appends — same dormant shape as the sibling writers.
+ */
+export function all_options_statushilites(sbuf) {
+    status_hilite_linestr_done(); // C `:4482`
+    let hlstr = status_hilite_linestr_gather(); // C `:4483–4485` gather + hlstr = status_hilite_str
+    while (hlstr) { // C `:4487`
+        strbuf_append(sbuf, // C `:4491`
+            `OPTIONS=hilite_status: ${hlstr.str.slice(0, BUFSZ - ('OPTIONS=hilite_status:  '.length + 1) - 1)}\n`); // C `:4488–4490`
+        hlstr = hlstr.next; // C `:4492`
+    }
+    status_hilite_linestr_done(); // C `:4494`
+}
+
+/**
  * C ref: options.c all_options_strbuf `:9678–9748` — serialize changed options
  * for #saveoptions. Header (`:9686–9689`, yyyymmddhhmmss(epoch) live); allopt
  * loop (`:9691–9721`: BoolOpt changed-vs-initval with obsolete/&flags.female
@@ -4088,8 +4111,8 @@ export function all_options_conds(sbuf) {
  * compiled out — named, no row); key binds / symsets / menucolors / msgtypes /
  * apes / autocomplete (`:9734–9739`, binds named, symsets live via savedSymbols,
  * rest live);
- * STATUS_HILITES (`:9740–9742`, on per config.h `:616`, named:
- * all_options_statushilites); WIZKIT tail (`:9744–9747`, game.wizkit live per
+ * STATUS_HILITES (`:9740–9742`, on per config.h `:616`, live [6/7]
+ * all_options_statushilites above); WIZKIT tail (`:9744–9747`, game.wizkit live per
  * files.js fopen_wizkit_file). Buffer note: C Snprintf(tmp, sizeof-1)+Strcat
  * "guaranteed to fit" — plain concat is exact in JS.
  * Only C caller cfgfiles.c do_write_config_file `:200` (named omission).
@@ -4133,7 +4156,7 @@ export function all_options_strbuf(sbuf) {
     all_options_msgtypes(sbuf);
     all_options_apes(sbuf);
     all_options_autocomplete(sbuf);
-    all_options_statushilites(sbuf); // named: hilites row (STATUS_HILITES on)
+    all_options_statushilites(sbuf); // C `:9740–9742` hilites (live [6/7], STATUS_HILITES on)
     const wizkit = game.wizkit || '';
     if (wizkit) strbuf_append(sbuf, `WIZKIT=${wizkit}\n`);
 }

@@ -1,5 +1,33 @@
 # Divergence log
 
+## D-2552 — `botl.c` all_options_statushilites [campaign 6/7] (coverage MISSING → live; hilite store + gather/done chain in C order; strbuf caller wired, doset counter + [7/7] caller named)
+
+- **Status:** fixed (Open coverage row `botl.c` all_options_statushilites [campaign 6/7]; row cites review 1503, already stamped **Addressed:** D-2547 — no new stamp).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify all_options_statushilites`: no corpus session blocked at baseline — #saveoptions writer, unreachable until [7/7]).
+- **C locus:** `nethack-c/upstream/src/botl.c:4477–4495` (`all_options_statushilites`); arms: done+gather bracket `:4482–4485`, `%.*s` line walk `:4487–4493` (precision = BUFSZ − sizeof `"OPTIONS=hilite_status:  "` − 1 = 230), closing done `:4494`. Callees: `status_hilite_linestr_done` `:3448–3459`, `status_hilite_linestr_gather` `:3570–3587` (done-first `:3575`, blstats threshold walk `:3577–3582`, conditions `:3585`), `strbuf_append` (live). Gather chain: `condition_aliases` `:749–777`, `split_clridx` `:2576–2584`, `conditionbitmask2str` `:3141–3170`, `hlattr2attrname` `:3369–3399`, store + `status_hilite_linestr_add` `:3403–3445` (BL_TITLE keeps spaces, else stripchars), `status_hilite_linestr_countfield` `:3462–3474`, `status_hilite_linestr_gather_conditions` `:3488–3568`, `status_hilite2str` `:3590–3670`. Sole C caller `options.c:9741` (live below, STATUS_HILITES on per config.h:616).
+- **JS was:** no symbol anywhere (brief: NOT FOUND incl. `js/generated/`); parent `all_options_strbuf` already called bare `all_options_statushilites(sbuf)` (D-2544) — would throw if ever reached (no live caller: `do_write_config_file` unported).
+- **Fix:** `js/botl.js` — `condition_aliases` (6 rows, BL_MASK_* live), `split_clridx` (file-local; out-pair folded to return, opt_next_cond precedent), `conditionbitmask2str` (file-local; alias-then-union, fresh string for the C static buf), `hlattr2attrname` (file-local; `normal` for HL_NONE, null for 0/overlong), module-private `status_hilite_str`/`status_hilite_str_id` store (C `:3413–3414`, never in struct g), `status_hilite_linestr_add` (file-local; BL_TITLE Strcpy vs strip-spaces), exported `status_hilite_linestr_done` + `status_hilite_linestr_gather` (C staticfn, exported like opt_next_cond; head folded into gather's return), file-local `status_hilite_linestr_countfield` + `status_hilite_linestr_gather_conditions` (cond_hilites via `game.gc`, missing reads 0; same-union merge + first-free-slot in C order) + `status_hilite2str` (op/behavior switch with impossible arms as comments per the init_blstats precedent; `initblstats[].name` ≡ C fldname). `js/hacklib.js` — exported `stripchars` (`hacklib.c:499–517`, C out-buffer is the JS return). `js/options.js` — exported `all_options_statushilites(sbuf)` in C order (done, gather-head walk with the 230-char slice, done); `:9741` call site now resolves to the live export. Imports: `clr2colorname` joins the botl.js→artifact.js edge (`imports.mjs --can`: same 97-module SCC, hoisted function, cycle-safe); `stripchars` extends the existing botl.js→hacklib.js edge; gather/done extend the existing options.js→botl.js edge (no new edge).
+- **JS:** `js/botl.js` (+~250: store + 9 helpers + 2 exports, 4 extended imports); `js/options.js` (writer export + 1 extended import + 2 comment refreshes); `js/hacklib.js` (`stripchars` export); `scripts/all-options-statushilites.test.mjs` (new, 6 its).
+- **Callers:** `options.c:9741` → `js/options.js:4136` now resolves to the live export (dormant: no live #saveoptions caller until [7/7]). No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn all_options_statushilites` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   3 changed js file(s): js/botl.js js/hacklib.js js/options.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify all_options_statushilites: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 5.3s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing (auto: shared file changed)
+
+VERIFY: PASS
+```
+- **Durable test:** `scripts/all-options-statushilites.test.mjs` (node:test per repo convention, 6 its: dormant silence + empty store, threshold field/behavior/color line, same-union condition merge, BL_TITLE space keep, 230-char precision, stripchars arms) — `node --test` 6/6 PASS. Throwaway probes in /tmp (not committed) confirmed dormant + live shapes pre-verify.
+- **Named omissions:** `count_status_hilites` (`botl.c:3477–3485`, doset helper — travels with the doset row); threshold producers (parse_status_hl1/hl2 family — chains stay null); `status_hilites_viewall` + menu chain (`:4455–4475`, display sink); caller `do_write_config_file` (`cfgfiles.c:165–211`) [7/7].
+- **Next:** `cfgfiles.c` do_write_config_file [campaign 7/7] (queue head after this pop).
+
 ## D-2551 — `symbols.c` parsesymbols producer [campaign 5/7] (coverage MISSING → live; comma recursion + S_/G_ gates in C order; cfgfiles + options callers wired, customization path named)
 
 - **Status:** fixed (Open coverage row `symbols.c` parsesymbols producer [campaign 5/7]; row cites no review — no stamp).

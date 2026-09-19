@@ -368,6 +368,24 @@ export function findword(list, word, wordlen, ignorecase) {
 }
 
 /**
+ * C ref: hacklib.c stripchars `:499–517` — copy `orig` minus every char in
+ * `stuff_to_strip`, capped at BUFSZ-1 chars (`:506–512` copy gate).
+ * C writes into the caller buffer `bp` and returns it; JS strings are
+ * immutable so the result is the return value (`bp` carries no input).
+ */
+export function stripchars(bp, stuff_to_strip, orig) {
+    void bp;
+    const strip = String(stuff_to_strip ?? '');
+    const src = String(orig ?? '');
+    let out = '';
+    for (const ch of src) {
+        if (out.length >= BUFSZ - 1) break; // C `:506` i < BUFSZ-1
+        if (!strip.includes(ch)) out += ch; // C `:507` !strchr
+    }
+    return out;
+}
+
+/**
  * C ref: hacklib.c ordin — 1st/2nd/3rd/11th (teen exception).
  * Canonical home (C is one global function); dothrow.js keeps a matching
  * file-local clone used by endmultishot.

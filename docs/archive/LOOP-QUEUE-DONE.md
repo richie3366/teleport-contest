@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `symbols.c` parsesymbols producer [campaign 5/7] — C `symbols.c:773–848` absent from js/ (savedSymbols registry + savedsym_strbuf live in the [campaign 1/7] parent, always empty). Port parsesymbols in C order + wire cfgfiles `:1193`/`:1204` + options `:663` callers. Verify `node scripts/verify.mjs --fn parsesymbols` (reach regression must be 0). **Addressed:** D-2551
+- [x] `botl.c` all_options_statushilites [campaign 6/7] — C `botl.c:4477–4495` absent from js/ (no hilite gather/done store; named omit of the [campaign 1/7] parent, STATUS_HILITES on per config.h:616). Port status_hilite_linestr gather/done + all_options_statushilites in C order. Verify `node scripts/verify.mjs --fn all_options_statushilites` (reach regression must be 0). **Addressed:** D-2552
+
+
+- [x] `symbols.c` parsesymbols producer [campaign 5/7] — C `symbols.c:773–848` absent from js/ (savedSymbols registry + savedsym_strbuf live in the [campaign 1/7] parent, always empty). Port parsesymbols in C order + wire cfgfiles `:1193`/`:1204` + options `:663` callers. Verify `node scripts/verify.mjs --fn parsesymbols` (reach regression must be 0). **Addressed:** D-2551 `3ca7a5b8`
 
 
 - [x] `cmd.c` get_changed_key_binds [campaign 4/7] — C `cmd.c:2235–2287` absent from js/ (Cmd_bind userbind-delta shape differs from dokeylist map; named omit of the [campaign 1/7] parent, unconditional call there). Port in C order incl. sbuf-null display arm or name it. Verify `node scripts/verify.mjs --fn get_changed_key_binds` (reach regression must be 0). **Addressed:** D-2550 `70089ac6`
