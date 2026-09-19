@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-2578 — `mkobj.c` weight whole-body port (statue/iron-ball/candelabrum arms, C arm order, mksobj owt zero)
+
+- **Status:** fixed (Open — coverage row `mkobj.c` weight PARTIAL, C 88 L `mkobj.c:1888–1976` / JS 48 L `js/mkobj.js:276`).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify weight`: no corpus session blocked at baseline — 24-session smoke REACH is the corpus evidence). JS carried the container/BoH/CORPSE/FOOD/CANDELABRUM arms but missed the `:1892` quan<1 impossible, the `:1915` STATUE corpsenm/msize/minwt arm, the `:1970` HEAVY_IRON_BALL owt kludge, C arm order (COIN ran before CORPSE; CORPSE used `>= 0` instead of `ismnum`), and `quan || 1` masked quan 0 past the impossible arm.
+- **C locus:** `nethack-c/upstream/src/mkobj.c:1888–1976` (wt init `:1890`; quan<1 `:1892–1896`; globby `:1901–1910`; container/STATUE `:1911–1955` — statue `:1915–1933`, recursion `:1935–1937`, BoH `:1950–1954`; CORPSE `:1957–1963`; FOOD `:1964–1965`; COIN `:1966–1969`; IRON_BALL `:1970–1971`; CANDELABRUM `:1972–1973`; tail `:1975`) + `mksobj` birth `:1184–1185` (`newobj()` + `*otmp = cg.zeroobj`, so owt starts 0 before the end-of-`mksobj` `owt = weight()` finalizer) + 113 call sites, overwhelmingly `X->owt = weight(X)` reweighs (creation finalizers, invent/wield/timeout reweighs, `do.c`/`spell.c`/`objnam.c` weight comparisons, `eat.c` basenutrit).
+- **JS was:** 48 L partial (`js/mkobj.js:276`): BoH ternary (D-2422) + container recursion + CORPSE/FOOD/COIN/CANDELABRUM, but no impossible, no STATUE arm (statues weighed base `oc_weight` instead of 1.5x corpse floored at minwt), no iron-ball arm (a levied ball got clobbered to base on any reweigh; C preserves owt), COIN before CORPSE, `GOLD_PIECE` disjunct C never has. Plus `mksobj` created objects with `owt: 1` (C: 0 via zeroobj).
+- **Fix:** `js/mkobj.js` — restarted `weight()` in C order with `:line` cites. The body is one `if/else-if` chain in C `:1957–1973` order (CORPSE, FOOD, COIN, BALL, CANDELABRUM). Quan<1 impossible + return 0 (`:1892–1896`; `void impossible` fire-and-forget per the `:2616` merge precedent, `%d` carries the C `%ld` since display.js formats `%d`/`%s`); globby returns owt (`:1901–1910`); container/STATUE with the `:1915–1933` statue arm (`3*cwt/2` truncated, `minwt` floor, `x quan` kept per C `:1933`) + recursive cwt + BoH ternary (`:1950–1954`, D-2422 intact); CORPSE with live `ismnum` (dokick/dothrow statue precedent) + `LARGEST_INT` clamp + oeaten; FOOD oeaten; COIN min-1 (`:1966–1969`); iron-ball owt kludge (`:1970–1971`); candelabrum (`:1972–1973`); tail `:1975` with `|0` int casts. `ismnum` joins the existing const.js import + `HEAVY_IRON_BALL` const beside `BOULDER` (ALREADY-edges, no new module). Companion fix in the same function family: `mksobj` birth `owt: 1` → `owt: 0` per `*otmp = cg.zeroobj` (`:1184`) — the nonzero placeholder tripped the new `:1970` arm (fresh ball finalized to owt 1, self-perpetuating; first verify regressed a levied ball to 161 instead of 640, fixed by the zeroing; no `owt === 1` sentinel exists in-tree, `|| 0` readers agree with 0).
+- **JS:** `js/mkobj.js:64` (`ismnum`), `:111` (`HEAVY_IRON_BALL`), `:285–353` (`weight` restart), `:2272–2279` (`owt: 0` + zeroobj cite).
+- **Callers:** export name/signature unchanged — all in-tree `weight()` sites stay wired (reweigh `X.owt = weight(X)` is now C-exact for levied balls: preserve instead of clobber; creation finalizers now compute from a zeroed owt like C). C caller classes covered by unchanged call sites: `mkobj/mklev/mkroom/mkmaze/bones` creation finalizers, `invent/wield/timeout/apply/artifact` reweighs, `do.c` splash / `spell.c` shield / `objnam.c` shield comparisons, `eat.c` basenutrit. Reverse-checked: no new call sites added, none removed.
+- **Verify:** `node scripts/verify.mjs --fn weight --full` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/mkobj.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify weight: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 3.8s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing
+VERIFY: PASS
+```
+Mid-iteration REACH regression (fixed in-port, never parked): the first `--fn weight` run regressed one smoke session at screen@518 (`You see here a very heavy iron ball` vs `a heavy iron ball`, owner `xname_flags(objnam.c:829)`). A scratch JS probe (replay-to-N + read `u.uball`, `/tmp`, not committed) showed the ball finalized at owt 1 then levied to 161 vs baseline 480→640: root cause was the `mksobj` `owt: 1` placeholder tripping the new `:1970` arm (traced exactly one `weight(ball)` call, entry owt already 1). Zeroing per zeroobj fixed it; re-verify REACH-OK, then `--full` 44/44.
+- **Named omissions:** `pickup.c` DELTA_CWT twin resolves via this body (kept D-2422 note); `void impossible` in a sync fn (merge `:2616` precedent); JS null guard kept (C NONNULLARG1); display.js `%d` stands in for C `%ld` (formatter has no `%l`).
+- **Next:** pop the next Open — coverage row (`insight.c` basics_enlightenment).
+
 ## D-2577 — `mondata.c` name_to_monplus whole-body port (60-entry alt table, plural pre-fixes, title_to_mon) + 3 stale parks
 
 - **Status:** fixed (Open — coverage row `mondata.c` name_to_monplus THIN, C 189 L `mondata.c:893–1085` / JS 83 L `js/mondata.js:407`). Same iteration also parks 3 stale coverage rows (no `js/`): `detect.c` dump_map, `insight.c` show_achievements, `files.c` livelog_add — proofs in the Stale list.

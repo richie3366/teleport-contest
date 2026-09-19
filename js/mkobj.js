@@ -61,7 +61,7 @@ import {
     OBJ_MIGRATING, OBJ_ONBILL, OBJ_LUAFREE, OBJ_DELETED, MIGR_TO_SPECIES, W_WEP,
     W_SWAPWEP, W_QUIVER,
     G_GONE,
-    LOST_NONE, LOST_EXPLODING, LOST_THROWN, LOW_PM,
+    LOST_NONE, LOST_EXPLODING, LOST_THROWN, LOW_PM, ismnum,
     CORPSTAT_NEUTER, CORPSTAT_FEMALE, CORPSTAT_MALE,
     CXN_NO_PFX,
     Is_rogue_level, isok, ICE, DRAWBRIDGE_UP, DB_UNDER, DB_ICE,
@@ -108,6 +108,7 @@ const CANDELABRUM_OF_INVOCATION =
     objectNames.indexOf('CANDELABRUM_OF_INVOCATION');
 const TALLOW_CANDLE = objectNames.indexOf('TALLOW_CANDLE');
 const BOULDER = objectNames.indexOf('BOULDER');
+const HEAVY_IRON_BALL = objectNames.indexOf('HEAVY_IRON_BALL');
 const STATUE = objectNames.indexOf('STATUE');
 const BAG_OF_HOLDING = objectNames.indexOf('BAG_OF_HOLDING');
 const FIGURINE = objectNames.indexOf('FIGURINE');
@@ -270,56 +271,86 @@ export function add_to_minv(mon, obj) {
 }
 
 /**
- * C ref: mkobj.c weight() `:1914–1939` — containers sum cobj; BAG_OF_HOLDING
- * applies the bless/curse factor in C ternary order (D-2422).
+ * C ref: mkobj.c weight() `:1888–1976` — full body in C order.
+ * `:1890` base wt is objects[otyp].oc_weight (weight of 1 otyp);
+ * `:1892–1896` quan<1 impossible + return 0; `:1901–1910` globby returns
+ * owt as-is (mksobj/obj_absorb/shrink_glob own it); `:1911–1955` containers
+ * + STATUE (statue corpsenm/msize/minwt `:1915–1933`, BoH factor `:1950–1954`
+ * cursed x2 / blessed (x+3)/4 / uncursed (x+1)/2, D-2422); `:1957–1963`
+ * CORPSE cwt with LARGEST_INT clamp + oeaten; `:1964–1965` FOOD oeaten;
+ * `:1966–1969` COIN (5.0: always at least 1); `:1970–1971` HEAVY_IRON_BALL
+ * owt kludge; `:1972–1973` CANDELABRUM spe x tallow candle; `:1975`
+ * wt x quan, else (quan+1)>>1.
  */
 export function weight(obj) {
-    if (!obj) return 0;
+    if (!obj) return 0; // JS null guard (C marks the param NONNULLARG1)
     const objects = objs() || [];
+    // C :1890 — weight of 1 'otyp'
     let wt = objects[obj.otyp]?.oc_weight ?? 0;
-    const quan = obj.quan || 1;
-    if (quan < 1) return 0;
-    // C: globby — owt managed by mksobj/obj_absorb/shrink_glob; return as-is
-    if (obj.globby) return obj.owt | 0;
-    // C: Is_container || STATUE — contents weight, then the BoH factor
-    // (mkobj.c:1932–1934, cursed first like the C ternary chain)
+    const quan = obj.quan ?? 1;
+    // C :1892–1896
+    if (quan < 1) {
+        // sync fn while impossible() is async: fire-and-forget like `:2616`;
+        // display.js formats %d/%s (no %l), so %d carries the C %ld value
+        void impossible('Calculating weight of %d %s?', quan, simpleonames(obj));
+        return 0;
+    }
+    // C :1901–1910 — glob absorption: merging combines owt while quan stays
+    // 1; mksobj/obj_absorb/shrink_glob manage owt, nothing to do but return it
+    if (obj.globby) {
+        return obj.owt | 0;
+    }
+    // C :1911–1955
     if (Is_container(obj) || obj.otyp === STATUE) {
+        // C :1915–1933 — default statue weight is 1.5x corpse weight, floored
+        // at minwt for corpseless/tiny/insubstantial monsters
+        if (obj.otyp === STATUE && ismnum(obj.corpsenm)) {
+            const msize = mons(obj.corpsenm)?.msize ?? 0; // 0..7
+            const minwt = (msize + msize + 1) * 100;
+            wt = Math.trunc((3 * (mons(obj.corpsenm)?.cwt ?? 0)) / 2);
+            if (wt < minwt) {
+                wt = minwt;
+            }
+            // C :1933 — no effect because statues don't stack
+            wt *= (quan | 0);
+        }
+        // C :1935–1937 — contents weight
         let cwt = 0;
         for (let contents = obj.cobj; contents; contents = contents.nobj) {
             cwt += weight(contents);
         }
-        if ((obj.otyp | 0) === BAG_OF_HOLDING) {
-            cwt = obj.cursed ? cwt * 2
+        // C :1950–1954 — Bag-of-Holding factor (pickup.c DELTA_CWT twin
+        // resolves through this body); cursed first like the C ternary chain
+        if (obj.otyp === BAG_OF_HOLDING) {
+            cwt = obj.cursed ? (cwt * 2)
                 : obj.blessed ? Math.trunc((cwt + 3) / 4)
                 : Math.trunc((cwt + 1) / 2); /* uncursed */
         }
         return wt + cwt;
-    }
-    if (obj.oclass === COIN_CLASS || obj.otyp === GOLD_PIECE) {
+    } else if (obj.otyp === CORPSE && ismnum(obj.corpsenm)) {
+        // C :1957–1963 — corpse weight is quan x mons[corpsenm].cwt
+        const longWt = quan * (mons(obj.corpsenm)?.cwt ?? 0);
+        wt = (longWt > LARGEST_INT) ? LARGEST_INT : (longWt | 0);
+        if (obj.oeaten) {
+            wt = eaten_stat(wt, obj);
+        }
+        return wt;
+    } else if (obj.oclass === FOOD_CLASS && obj.oeaten) {
+        // C :1964–1965
+        return eaten_stat(((quan * wt) | 0), obj);
+    } else if (obj.oclass === COIN_CLASS) {
+        // C :1966–1969 — 5.0: always weigh at least 1 unit
         wt = Math.trunc((quan + 50) / 100);
         return Math.max(wt, 1);
+    } else if (obj.otyp === HEAVY_IRON_BALL && (obj.owt | 0) !== 0) {
+        // C :1970–1971 — kludge for "very" heavy iron ball
+        return obj.owt | 0;
+    } else if (obj.otyp === CANDELABRUM_OF_INVOCATION && (obj.spe | 0)) {
+        // C :1972–1973
+        return wt + ((obj.spe | 0) * ((objects[TALLOW_CANDLE]?.oc_weight ?? 0) | 0));
     }
-    // C ref: mkobj.c weight — CORPSE uses mons[corpsenm].cwt (not oc_weight)
-    if (obj.otyp === CORPSE && (obj.corpsenm ?? -1) >= 0) {
-        const cwt = mons(obj.corpsenm)?.cwt ?? 0;
-        let longWt = quan * cwt;
-        if (longWt > LARGEST_INT) longWt = LARGEST_INT;
-        if (obj.oeaten) return eaten_stat(longWt | 0, obj);
-        return longWt | 0;
-    }
-    // C: FOOD_CLASS && oeaten → eaten_stat(quan * oc_weight)
-    if (obj.oclass === FOOD_CLASS && obj.oeaten) {
-        return eaten_stat((quan * wt) | 0, obj);
-    }
-    // HEAVY_IRON_BALL punish-levy owt preserve deferred (C owt!=0 short-circuit);
-    // callers that must keep levy must not assign owt=weight(ball) after incr.
-    // C mkobj.c weight — candelabrum spe * tallow candle (use_candle owt)
-    if (obj.otyp === CANDELABRUM_OF_INVOCATION && (obj.spe | 0)) {
-        const cwt = objects[TALLOW_CANDLE]?.oc_weight ?? 0;
-        return wt + (obj.spe | 0) * (cwt | 0);
-    }
-    if (!wt) return Math.trunc((quan + 1) / 2);
-    return wt * quan;
+    // C :1975
+    return wt ? wt * (quan | 0) : ((quan | 0) + 1) >> 1;
 }
 
 /**
@@ -2240,7 +2271,12 @@ export function mksobj(otyp, init, artif) {
         otyp,
         oclass: objects[otyp]?.oc_class ?? 0,
         quan: 1,
-        owt: 1,
+        // C mksobj `:1184–1185` — newobj + `*otmp = cg.zeroobj`: owt starts
+        // 0 so the end-of-mksobj `owt = weight()` finalizer computes the true
+        // weight (a nonzero placeholder would trip weight's `:1970`
+        // HEAVY_IRON_BALL owt kludge and self-perpetuate, e.g. owt 1 on a
+        // fresh ball instead of base 480 — found via a corpus REACH probe)
+        owt: 0,
         cursed: false,
         blessed: false,
         olocked: false,

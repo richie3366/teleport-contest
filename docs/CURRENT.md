@@ -46,7 +46,7 @@ judge 13:05Z cached, ~D-2555, +23 pts vs last audit): the corpus still does
 not predict the judge.
 **Corpus fortress** (re-scored 2026-09-19 audit 1524–1532): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — +0 / −0
-in the D-2565…D-2577 window (all ten were zero-block coverage rows;
+in the D-2565…D-2578 window (all ten were zero-block coverage rows;
 per-SHA `--reach-all` re-runs REACH-OK — mkshop 53/53 + shkinit 82/82
 real reach, rest smoke 24/24 — 0 regressed).
 Reviews 1225–1532: 273 ACCEPT, 11 WITH-DEBT, 1 DEBT, 18 QUALITY-RISK (1503 Must-fix addressed by D-2547; 1517 strip_newline + 1520 travel_debug Must-fix shipped as D-2565/D-2566, stamped).
@@ -102,8 +102,9 @@ breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
 **Next cluster:** `mkobj.c` weight — coverage PARTIAL (C 88 L `mkobj.c:1888–1976` / JS 48 L in js/mkobj.js; hops 2, callers 104, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn weight` (reach regression must be 0). Measured `port-coverage.mjs --name weight` 2026-09-19 @ d56627bd.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2577 (index).**
+**Keep D-0845…D-2578 (index).**
 <!-- recent:begin -->
+**D-2578** `nethack-c/upstream/src/mkobj.c:1888–1976` (wt init `:1890`; quan<1 `:1892–1896`; globby ` — `js/mkobj.js` — restarted `weight()` in C order with `:line` cites.
 **D-2577** `nethack-c/upstream/src/mondata.c:893–1085` (article strip `:920–925`; vortices/ies/ves pr — `js/mondata.js` — restarted `name_to_monplus` in C order with `:line` cites: case-sensitive `a `/`an `/`the ` strip; vortices→vortex / -ies→-y (zombies-excluded) / -ves→-f truncating fixups with recomputed slen; full 60-
 **D-2576** `nethack-c/upstream/src/pickup.c:2088–2162` (null guard `:2095–2096`; locked branch `:2097 — `js/pickup.js` — restarted `do_loot_cont` in C order with `:line` cites: short-circuit `unlocktool || UNTRAP` condition (`:2121–2123`); `objects_at(ox,oy)` rescan, local null mirrors `*cobjp = 0` (both C callers re-read 
 **D-2575** `nethack-c/upstream/src/uhitm.c:4623–4748` (`pa` `:4627`; uhitm steal_it + zero `:4629–463 — `js/mhitm.js` — new exported `mhitm_ad_sedu(magr, mattk, mdef, mhm)` (`:1293`, blnd/elec precedent): uhitm arm via live `steal_it` + zero; `is_youmonst(mdef)` early-return naming the mhitu home; mhitm arm in C order (`_m
@@ -111,11 +112,10 @@ revisits the picker.
 **D-2573** `nethack-c/upstream/src/pline.c:548–583` (`raw_printf` `:548–558` + staticfn `vraw_printf` — `js/display.js` — new exported `raw_printf(fmt, ...args)` (sync like C) + file-local `vraw_printf(fmt, args)` (C staticfn → file-local, `bhit_skiprange`/`create_polymon` precedent) + module-local `_early_raw_messages` (`
 **D-2572** `nethack-c/upstream/src/dungeon.c:2026–2084` (`level_difficulty`, void; 33 refs): endgame  — `js/hacklib.js` — new exported `deepest_lev_reached(noquest)` (C order: quest-skip, ureached-0 skip, max depth) + restarted `level_difficulty(uz)` in C order with `:line` cites; amulet union `u.uhave?.amulet || u.uhave_a
 **D-2571** `nethack-c/upstream/src/zap.c:1546–1633` (`create_polymon`, staticfn; decl `:19`; sole C c — `js/zap.js` — new file-local async `create_polymon(obj, okind)` (C staticfn → file-local like `bhit_skiprange`) in C order with `:line` cites; `G_GENOD` joins the existing const.js import + `a_monnam` joins the existing 
-**D-2570** `nethack-c/upstream/src/shknam.c:628–692` (`shkinit`, staticfn; decl `:17`; sole C caller  — `js/shknam.js` — restarted `shkinit` in C order with `:line` cites: `set_malign` joins the existing makemon.js import + `mon_learns_traps` joins the existing monsters.js import + `ALL_TRAPS` joins the existing const.js i
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2577; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2578; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

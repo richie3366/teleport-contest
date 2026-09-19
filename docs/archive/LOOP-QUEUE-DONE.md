@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `mondata.c` name_to_monplus — coverage THIN (C 189 L `mondata.c:893–1085` / JS 83 L in js/mondata.js; hops 2, callers 3, RNG 0, msg 0; dead callees: title_to_mon). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn name_to_monplus` (reach regression must be 0). Measured `port-coverage.mjs --name name_to_monplus` 2026-09-19 @ d56627bd. **Addressed:** D-2577
+- [x] `mkobj.c` weight — coverage PARTIAL (C 88 L `mkobj.c:1888–1976` / JS 48 L in js/mkobj.js; hops 2, callers 104, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn weight` (reach regression must be 0). Measured `port-coverage.mjs --name weight` 2026-09-19 @ d56627bd. **Addressed:** D-2578
+
+
+- [x] `mondata.c` name_to_monplus — coverage THIN (C 189 L `mondata.c:893–1085` / JS 83 L in js/mondata.js; hops 2, callers 3, RNG 0, msg 0; dead callees: title_to_mon). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn name_to_monplus` (reach regression must be 0). Measured `port-coverage.mjs --name name_to_monplus` 2026-09-19 @ d56627bd. **Addressed:** D-2577 `1ff074ca`
 
 
 - [x] `pickup.c` do_loot_cont — coverage PARTIAL (C 71 L `pickup.c:2088–2162` / JS 32 L in js/pickup.js; hops 5, callers 3, RNG 1, msg 6). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn do_loot_cont` (reach regression must be 0). Measured `port-coverage.mjs --name do_loot_cont` 2026-09-19 @ f18ac024. **Addressed:** D-2576 `a90eb521`

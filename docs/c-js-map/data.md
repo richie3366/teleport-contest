@@ -333,7 +333,7 @@ was WAND/class-name stand-in D-0316); steal.c / muse.c callers named;
 non-stack swords); 
 **`mkbox_cnts` ICE_BOX → `mksobj(CORPSE)` + age=0/timers + `add_to_container`** (D-0361; 
 D-2265 ships BoH Is_mbag→SACK / WAN_CANCELLATION re-roll; BoH bag-weight lives in the bless/curse/unbless arms below, not this fn — body live, queue row retired STALE 2026-09-16); 
-**`weight()` BoH divisor arms live D-2422** (C `mkobj.c:1932–1934` `cursed ? cwt*2 : blessed ? (cwt+3)/4 : (cwt+1)/2` in C ternary order in `js/mkobj.js weight()`; bless-family BoH reweigh calls inherit it via `weight()`; named: STATUE corpsenm/msize/minwt arms, HEAVY_IRON_BALL owt kludge, `pickup.c delta_cwt` container paths resolve via the factored body); 
+**`weight()` whole-body restart D-2578** (C `mkobj.c:1888–1976` in C order in `js/mkobj.js weight()`: `:1892` quan<1 impossible + return 0; `:1901` globby returns owt; `:1911` containers + STATUE with the `:1915–1933` corpsenm/msize/minwt arm (1.5x cwt floored, x quan) + `:1935` recursive cwt + BoH factor `:1950–1954` in C ternary order (D-2422 intact); `:1957` CORPSE quan x cwt with `LARGEST_INT` clamp + oeaten; `:1964` FOOD oeaten; `:1966` COIN min 1; `:1970` HEAVY_IRON_BALL owt kludge; `:1972` CANDELABRUM spe x tallow; `:1975` wt x quan else (quan+1)>>1; `ismnum` joins the const.js import + `HEAVY_IRON_BALL` const (ALREADY-edges); `mksobj` birth `owt: 1`→`0` per `*otmp = cg.zeroobj` `:1184` (placeholder tripped the `:1970` arm); `pickup.c` DELTA_CWT twin resolves via this body); 
 **candle `mksobj` `age=20*oc_cost` D-1308**; 
 **`mksobj_migr_to_species` D-1363** (`:253–265` `add_to_migration` + `MIGR_TO_SPECIES` + 
 `migr_species` overlay; caller `mkmaze.c` `stolen_booty`); 
@@ -353,7 +353,7 @@ C `mkobj.c` `copy_oextra` `:416–448` / `new_omailcmd`+`free_omailcmd` `:157–
 LUAFREE normalize; `OMAILCMD`/`has_omailcmd` join `const.js`;
 `dealloc_oextra`/`extract_nobj` already live D-1743/D-1756);
 omit FIGURINE transform/timeout, `nextoid` shop-price search, `splitbill` impossible() diagnostics (flow live D-2278), 
-`obj_move_timers` live D-2280 (`timeout.c:2339–2353` + `mkobj.js` export), light split live D-2279 (`light.c:779–803` + `mkobj.c:500–501` wire), invent Array vs nobj `extract_nobj`, `oeaten`/`eaten_stat`, statue weight arms,
+`obj_move_timers` live D-2280 (`timeout.c:2339–2353` + `mkobj.js` export), light split live D-2279 (`light.c:779–803` + `mkobj.c:500–501` wire), invent Array vs nobj `extract_nobj`, `oeaten`/`eaten_stat` (statue weight arms shipped D-2578),
 zap.c `dealloc_oextra` poly; **zap `delete_contents` D-1770**;
 trap.js `delete_contents_chest` / mklev.js `create_object_delete_contents`,
 wizard `makemap_prepost` dobjsfree,
