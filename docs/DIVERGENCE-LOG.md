@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2518 — `uhitm.c` mhitm_ad_drli defended(AD_DRLI) gap closed (coverage THIN → complete)
+
+- **Status:** fixed (Open coverage row `uhitm.c` mhitm_ad_drli THIN, C 71 L `uhitm.c:2445–2518` / JS 22 L same-named; no Must-fix pending; reviews 840/1061 name mhitm_ad_drli historically, no Actionable — no stamp needed).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify mhitm_ad_drli`: no corpus session blocked at baseline). Same-named JS held only the mhitm arm; uhitm/mhitu arms live under split names (D-2091/D-1870); the last open predicate was the defended(AD_DRLI) disjunct.
+- **C locus:** `nethack-c/upstream/src/uhitm.c:2445–2518` (uhitm `:2450–2477`, mhitu `:2479–2488`, mhitm `:2489–2515` + AD_DETH redirect); `mondata.c:199–211` resists_drli (`:210 return defended(mon, AD_DRLI)`); `mondata.c:91–124` defended. Callers `:3892` (mhitm_ad_deth redirect) and `:4804` (mdamagem-table case AD_DRLI).
+- **JS was:** `resists_drli` (`js/zap.js:3715`) returned false after the species checks — the C `:210` tail was missing; `damageum_ad_drli` (`js/uhitm.js:1967`) gated on `!resists_drli` alone, so a defender with drain-defending wielded/worn gear (or adult-dragon form) was drained where C skips. The mhitm arm already OR'd defended explicitly (`js/mhitm.js:3720`), matching C's doubly-redundant caller text.
+- **Fix:** `js/zap.js` — `resists_drli` returns `defended(mon, AD_DRLI)` per C `:210`; `defended` joins the existing mondata edge (`imports.mjs --can` ALREADY, no new edge). `js/uhitm.js` — `damageum_ad_drli` mirrors the C caller exactly: `!(resists_drli(mdef) || defended(mdef, AD_DRLI))` (`defended` already imported at line 103). Both predicates are pure (no RNG), so short-circuit/RNG order is unchanged. Audited the other two arms line-by-line against C: mhitu null-mdef → `magic_negation_you` is the repo-wide `_u` convention (all `mhitm_ad_*_u` call `(mtmp, null, …)`); mhitm arm preserves the C mhp asymmetry (uhitm arm subtracts mhp + xkilled/level-0 kill, mhitm arm leaves the leftover for the mdamagem tail, level-0 → leftover = mhp).
+- **JS:** `js/zap.js` (+5/−4) + `js/uhitm.js` (+4/−5); under caps (1500 ins / 15 files).
+- **Callers:** C `:3892` → JS `mhitm_ad_deth` → `mhitm_ad_drli` (`js/mhitm.js:3751`) ✓. C `:4804` → JS mdamagem-table `adtyp === AD_DRLI ? mhitm_ad_drli` (`js/mhitm.js:4392`) ✓. damageum dispatch AD_DRLI → `damageum_ad_drli` (`js/uhitm.js:2321`) ✓. mhitm_adtyping_u AD_DRLI → `mhitm_ad_drli_u` (`js/mhitu.js:3170`) ✓. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn mhitm_ad_drli` → PASS syntax (2 changed) · rule2 · hidden note (0 blocked at baseline) · reach 8/8 PASS, 0 regressed → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. `node scripts/verify.mjs --full` → PASS full 44/44 (fortress holds). No maintained unit-test dir exists in-repo; corpus REACH + full sessions are the harness.
+- **Named omissions:** split-arm homes stay split by architecture (damageum_adtyping / mhitm_adtyping_u / mdamagem-table); polyself `resists_drli_you` keeps its C-cited uwep-suppressed local form (never calls `resists_drli`, unaffected); sibling `defended(AD_COLD)`-style omits untouched.
+- **Next:** Open head after mhitm_ad_drli (`mklev.c` makerooms).
+
 ## D-2517 — `dothrow.c` gem_accept whole body in C order (coverage MISSING → live)
 
 - **Status:** fixed (Open coverage row `dothrow.c` gem_accept MISSING, C 73 L `dothrow.c:2309–2382` / JS no symbol; no Must-fix pending; reviews 286/05/02/274 name gem_accept in thitmonst context only, no Actionable — no stamp needed).

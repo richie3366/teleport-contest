@@ -371,7 +371,7 @@ import {
     has_mcorpsenm, ERODE_CORRODE,
     LL_WISH, LL_CONDUCT, LL_ARTIFACT, ONAME_WISH, ONAME_KNOW_ARTI,
 } from './const.js';
-import { monstseesu, monstunseesu } from './mondata.js';
+import { monstseesu, monstunseesu, defended } from './mondata.js';
 
 const MZ_HUMAN = MZ_MEDIUM;
 const SPE_HEALING = objectNames.indexOf('SPE_HEALING');
@@ -3709,8 +3709,8 @@ async function miss_msg(str, mtmp) {
 
 /**
  * C ref: mondata.c resists_drli :201–211 — undead/demon/were/lycan/
- * Death/vampshifter, else defended(AD_DRLI). First caller: zap.c
- * bhitm SPE_DRAIN_LIFE (D-1436). Named omit: defended worn-item walk.
+ * Death/vampshifter, else defended(mon, AD_DRLI) (`:210`). First caller:
+ * zap.c bhitm SPE_DRAIN_LIFE (D-1436).
  */
 export function resists_drli(mon) {
     const ptr = mon?.data;
@@ -3720,7 +3720,7 @@ export function resists_drli(mon) {
         || (ptr.mndx | 0) === PM_DEATH || is_vampshifter(mon)) {
         return true;
     }
-    return false;
+    return defended(mon, AD_DRLI); /* C mondata.c:210 */
 }
 
 /**
@@ -4074,7 +4074,7 @@ export async function bhitm(mtmp, otmp) {
         // else m_lev-- + weaker pline. Does not discover the type
         // (unlike probing).
         // Callees: makemon.c monhp_per_lvl; mondata.c resists_drli
-        // (defended AD_DRLI named); mon.c shieldeff_mon; zap.c
+        // (defended AD_DRLI via resists_drli tail); mon.c shieldeff_mon; zap.c
         // resist. zapyourself SPE_DRAIN is D-1446; bhito
         // drain_item is D-1453; zap_steed SPE_DRAIN_LIFE
         // routes here (D-1464).

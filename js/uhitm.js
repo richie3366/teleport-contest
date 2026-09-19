@@ -1960,13 +1960,11 @@ async function damageum_ad_drst(mdef, mattk, mhm) {
  * Drain is d(2,6) off mhpmax (floored at m_lev+1) and mhp; a level-0
  * target dies via xkilled, else m_lev--; leftover damageum d() is zeroed
  * (already inflicted). Unlike Stormbringer, the hero heals nothing.
- * Named omissions: defended(mdef, AD_DRLI) worn-item walk (named on every
- * defended call site; zap.js resists_drli carries the same omit);
- * mhitm (mon→mon) arm (map turns.md:3379).
+ * Named omissions: mhitm (mon→mon) arm (map turns.md:3379).
  */
 async function damageum_ad_drli(mdef, mhm) {
     const magr = game.youmonst;
-    if (!rn2(3) && !resists_drli(mdef)
+    if (!rn2(3) && !(resists_drli(mdef) || defended(mdef, AD_DRLI))
         && !(await mhitm_mgc_atk_negated(magr, mdef, true))) {
         mhm.damage = d(2, 6);
         await pline(`${Monnam(mdef)} becomes weaker!`);

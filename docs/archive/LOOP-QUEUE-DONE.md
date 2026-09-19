@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `dothrow.c` gem_accept — coverage MISSING (C 73 L `dothrow.c:2309–2382` / JS no symbol; hops 5, callers 1, RNG 3, msg 10). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn gem_accept` (reach regression must be 0). Measured `port-coverage.mjs --name gem_accept` 2026-09-19 @ ab1ae274. **Addressed:** D-2517
+- [x] `uhitm.c` mhitm_ad_drli — coverage THIN **Addressed:** D-2518 (C 71 L `uhitm.c:2445–2518` / JS 22 L in js/mhitm.js; hops 4, callers 2, RNG 5, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mhitm_ad_drli` (reach regression must be 0). Measured `port-coverage.mjs --name mhitm_ad_drli` 2026-09-19 @ ab1ae274.
+
+
+- [x] `dothrow.c` gem_accept — coverage MISSING (C 73 L `dothrow.c:2309–2382` / JS no symbol; hops 5, callers 1, RNG 3, msg 10). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn gem_accept` (reach regression must be 0). Measured `port-coverage.mjs --name gem_accept` 2026-09-19 @ ab1ae274. **Addressed:** D-2517 `7b5fbce5`
 
 
 - [x] `wizcmds.c` wiz_map_levltyp — coverage MISSING (C 142 L `wizcmds.c:693–835` / JS no symbol; hops —, callers 2, RNG 0, msg 36). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn wiz_map_levltyp` (reach regression must be 0). Measured `port-coverage.mjs --name wiz_map_levltyp` 2026-09-19 @ a263d08e. **Addressed:** D-2516 `aa0ca8b2`

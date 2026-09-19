@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-19 — D-2518 `uhitm.c` mhitm_ad_drli defended(AD_DRLI) gap closed (coverage THIN → complete)
+
+**C locus:** `nethack-c/upstream/src/uhitm.c:2445–2518` (uhitm `:2450–2477`, mhitu `:2479–2488`, mhitm `:2489–2515` + AD_DETH redirect); `mondata.c:199–211` resists_drli (`:210 return defended(mon, AD_DRLI)`); `mondata.c:91–124` defended. Callers `:3892` (mhitm_ad_deth redirect) and `:4804` (mdamagem-table case AD_DRLI).
+**JS:** `js/zap.js` (+5/−4) + `js/uhitm.js` (+4/−5); under caps (1500 ins / 15 files).
+**Change:** `js/zap.js` — `resists_drli` returns `defended(mon, AD_DRLI)` per C `:210`; `defended` joins the existing mondata edge (`imports.mjs --can` ALREADY, no new edge). `js/uhitm.js` — `damageum_ad_drli` mirrors the C caller exactly: `!(resists_drli(mdef) || defended(mdef, AD_DRLI))` (`defended` already imported at line 103). Both predicates are pure (no RNG), so short-circuit/RNG order is unchanged.
+**Verify:** `node scripts/verify.mjs --fn mhitm_ad_drli` → PASS syntax (2 changed) · rule2 · hidden note (0 blocked at baseline) · reach 8/8 PASS, 0 regressed → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. `node scripts/verify.mjs --full` → PASS full 44/44 (fortress holds). No maintained unit-test dir exists in-repo; corpus REACH + full sessions are the harness.
+**Named:** split-arm homes stay split by architecture (damageum_adtyping / mhitm_adtyping_u / mdamagem-table); polyself `resists_drli_you` keeps its C-cited uwep-suppressed local form (never calls `resists_drli`, unaffected); sibling `defended(AD_COLD)`-style omits untouched.
+**Next:** Open head after mhitm_ad_drli (`mklev.c` makerooms).
 ## 2026-09-19 — D-2517 `dothrow.c` gem_accept whole body in C order (coverage MISSING → live)
 
 **C locus:** `nethack-c/upstream/src/dothrow.c:2309–2382` (`gem_accept`, staticfn). Callees: `Monnam`, `change_luck`, `rn2`, `has_oname`, `check_shop_obj`, `mpickobj`, `tele_restrict`, `rloc`; data `objects[].oc_material/oc_name_known/oc_uname`, `mon->data->maligntyp`, `u.ualign.type`, `u.ushops`. Sole caller `dothrow.c:2097` (thitmonst unicorn catch arm).
