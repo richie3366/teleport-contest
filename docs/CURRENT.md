@@ -45,7 +45,7 @@ screens 93.2 %. Held-out moved 7 → 11 over 2026-09-06..17 while the local
 corpus went 48 % → 91.7 %: the corpus no longer predicts the judge.
 **Corpus fortress** (re-scored 2026-09-19 audit 1453–1461): **495 / 540
 PASS (91.7 %)** excl. 13 env-only; RNG 99.29 %, screens 99.0 % — identical
-to the prior audit, no flips across D-2494…D-2504 (every per-SHA re-run:
+to the prior audit, no flips across D-2494…D-2505 (every per-SHA re-run:
 0 regressed; recharge reach 3/3, rest vacuous 0-blocked + smoke 24/24).
 Reviews 1225–1461: 208 ACCEPT, 9 WITH-DEBT, 1 DEBT, 14 QUALITY-RISK (0 Must-fix pending).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph (display.h:842–844 vs display.js:849), 1448 safe_typename guard (objnam.c:316) — review-debt, unqueued.
@@ -98,10 +98,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `teleport.c` rloc_to_core — coverage MISSING (C 120 L `teleport.c:1645–1768` / JS no symbol; hops 2, callers 4, RNG 0, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn rloc_to_core` (reach regression must be 0). (make_blinded STALE-parked, really_done dropped as dupe of its STALE park — both bodies + callers live, 0 blocked.)
+**Next cluster:** `do_wear.c` Amulet_on — coverage PARTIAL (C 124 L `do_wear.c:963–1087` / JS 59 L in js/do_wear.js; hops 3, callers 4, RNG 1, msg 5). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn Amulet_on` (reach regression must be 0). Measured `port-coverage.mjs --name Amulet_on` 2026-09-19 @ e131537d. (domove_core + show_glyph heads are refill dupes of Stale parks 2026-09-19/18 — removed, never re-parked.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2504 (index).**
+**Keep D-0845…D-2505 (index).**
 <!-- recent:begin -->
+**D-2505** `nethack-c/upstream/src/do_wear.c:963–1087` (`Amulet_on`, staticfn); callers `:1551` (`set — `js/do_wear.js` — restarted `Amulet_on` as the C-order switch with `:line` cites: `:972–977` no-op group; `:978–995` breathing (W_AMUL masked out for the `region_danger` test, had-guarded restore, `makeknown`+`on_msg`+`Y
 **D-2504** `nethack-c/upstream/src/teleport.c:1644–1768` (`rloc_to_core`, staticfn); callers `:1771–1 — `js/teleport.js` only, no new module edges — new `export async function rloc_to_core(mtmp, x, y, rlocflags)` composing the live helpers in C order (same-cell `:1658–1659` return first so no vanish prints; pre `:1661–1677
 **D-2503** `nethack-c/upstream/src/muse.c:59–160` (`precheck`, staticfn); C callers `:805` (`use_defe — restarted `precheck` in C order with `:line` cites.
 **D-2502** `nethack-c/upstream/src/trap.c:2106–2276` (`trapeffect_web`); sole C caller `trap.c:2972`  — restarted `trapeffect_web` in C order.
@@ -109,11 +110,10 @@ revisits the picker.
 **D-2500** `nethack-c/upstream/src/read.c:729–1008` (`recharge`) + staticfns `stripspe :651–664`, `p_ — `js/read.js` only, no new module edges (`imports.mjs --can` ALREADY on all five): `You`/`Your` (display), `Tobjnam` (objnam), `useup as useup_live` (invent), `Ring_gone`/`Ring_off`/`Ring_on` (do_wear), `end_burn` (timeou
 **D-2499** `mon.c:1392–1453` (`m_consume_obj`); `:1352–1381` (`meatbox`); `:1384–1386` (`mstoning` ma — `js/mon.js` — new `export async function meatbox` in C order (`:1356` cube-engulf test, `:1363–1367` spill pline, `:1368–1379` head-first unwrap with ICE_BOX `removed_from_icebox`, engulf `mpickobj`, else `flooreffects`→
 **D-2498** `nethack-c/upstream/src/botl.c:1621–1680` (`evaluate_and_notify_windowport`); static calle — new `js/botl.js` (~470 L) in C order with `:line` cites — `initblstats[]` (27 rows verbatim), `init_blstats` (dual buffers on `game.gb`, zeroed unions, val alloc as `''`/null, thresholds keep-chain, double-init guard kee
-**D-2497** `nethack-c/upstream/src/objnam.c:1223–1751` (`doname_base`); flags `:1217–1219` (WITH_PRIC — `js/objnam.js` — `doname` → `doname_base(obj, flags)` (existing body kept, arms in C order) + `DONAME_*` exports + `doname_vague_quan` wrapper; override_ID five-flag force `:1255`; vague `"some "` `:1283`; BoT/HoP `spe==
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2504; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2505; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

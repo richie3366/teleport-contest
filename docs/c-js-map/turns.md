@@ -1050,7 +1050,7 @@ D-0810)/`Armor_on` + delay-0 `on_msg`/`unmul`** (D-0066) +
 no getobj) + **`on_msg` → `xname` + `obj_is_pname`?`the`:`an`** (D-0463; 
 towel uses `"head"` not full `body_part`; 
 `not_fully_identified` detail deferred) + **`doputon`/`Amulet_on` + ring-hand yn + 
-amulet/eyewear put-on; GUARDING `makeknown`+`find_ac`** (D-0067/D-0810) + 
+amulet/eyewear put-on; GUARDING `makeknown`+`find_ac`** (D-0067/D-0810) + **`Amulet_on` whole-body C-order restart** (D-2505; breathing/unchanging/strangle/flying arms + `You`/`pline_The`; had-guarded extrinsic restores; `amulet_flight_now` complete Flying read; `can_be_strangled` uhitm export; livelog log-only) + 
 **`setworn`→`recalc_telepat_range`/`ETelepat`** (D-0669) + 
 **`setworn(null,W_RINGL|R)` clears uleft/uright** (D-0699) + 
 **ring put-on Glib/cursed-gloves/welded gates** (D-0699) + 
@@ -1083,7 +1083,7 @@ skin `W_ARM|I_SPECIAL`, nudist, tux_penalty, botl, `update_inventory`;
 **`set_wear` from `moveloop_preamble` → `Helmet_on` full switch** (plain-helm breaks; CAUTION `see_monsters`; BRILLIANCE inline `adj_abon` helm half; CORNUTHAUM CHA±1+botl; DUNCE glow/curse/`set_bknown`/sitting + C-order known tail; OPPOSITE deferred) (D-0596/D-2192; 
 `Ring_on` body / initial `pickup(1)` deferred; **`poly_obj` `set_wear(obj)`** D-1510); 
 **`dragon_armor_handling` + `Armor_on`/`Armor_off` + FAST `EFast` mirror / `Very_fast` uprops** (D-0636 + D-2395; gold `make_hallucinated`, red `see_monsters`, yellow `wielding_corpse`, gold-DSM `artifact_light` begin_burn/end_burn all live) + **`Gloves_off` CORPSE-gated `wielding_corpse` pair** (D-2397; C `:646–702`: `gloves` + `on_purpose` pre-clear, takeoff.mask clear, async with the `:687/696` pair on the captured gloves; callers armoroff/do_takeoff/wornarm_destroyed/polyself-break_armor/steal-remove_worn_item all await; Fumbling/Power/Dexterity/Glib/encumber arms still deferred); 
-omit amulet change/strangle/flying/breathing, ring Glib/cursed-gloves/weld, HELM_OF_OPPOSITE_ALIGNMENT arm (uchangealign live `js/attrib.js` D-2343, helm caller wiring still deferred — D-2192; canwearobj polyform/weld/trap gates live D-2123 — verysmall/nohands, cantweararm cloak-exception+racial via `worn.js` export, welded-bimanual, helm horns, shield bimanual/twoweap, boots slithy/centaur/4-trap, gloves welded/Glib; retires the getobj-catalogue `canwearobj` polyform named); **`doddoremarm`/`A` empty-worn You are not wearing anything (D-1185)**; 
+omit amulet livelog_newform (log-only, D-2505), ring Glib/cursed-gloves/weld, HELM_OF_OPPOSITE_ALIGNMENT arm (uchangealign live `js/attrib.js` D-2343, helm caller wiring still deferred — D-2192; canwearobj polyform/weld/trap gates live D-2123 — verysmall/nohands, cantweararm cloak-exception+racial via `worn.js` export, welded-bimanual, helm horns, shield bimanual/twoweap, boots slithy/centaur/4-trap, gloves welded/Glib; retires the getobj-catalogue `canwearobj` polyform named); **`doddoremarm`/`A` empty-worn You are not wearing anything (D-1185)**; 
 **ggetobj takeoff D-1602** (`doddoremarm` TRADITIONAL `select_off` + `askchain`) + 
 **`take_off` occupation D-1619** (`do_takeoff` + `takeoff_order` + `oc_delay`; 
 cloak/suit extra; `Amulet_off` ESP/`RESTFUL_SLEEP`/`GUARDING`; drown/strangle/fly named) +

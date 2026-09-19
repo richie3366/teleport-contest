@@ -2856,7 +2856,7 @@ function hug_throttles_umon() {
  * C ref: mondata.c can_be_strangled — headless immune; mindless+breathless
  * immune. AT_HUGS mdef is never youmonst; hero arm kept for C shape.
  */
-function can_be_strangled(mon) {
+export function can_be_strangled(mon) {
     if (!has_head(mon?.data)) return false;
     let nobrainer;
     let nonbreathing;
