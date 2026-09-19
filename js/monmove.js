@@ -2156,7 +2156,7 @@ export async function bee_eat_jelly(mon, obj) {
  * C ref: monmove.c gelcube_digests — cube spends a turn digesting the first
  * organic non-artifact non-prize minvent object. 0 ate, -1 nothing.
  * meatobj is D-1284. meatcorpse is D-1285.
- * m_consume_obj meatbox/poly/uball named. meatmetal is D-1271.
+ * m_consume_obj arms live (meatbox/poly/uball/grow/stone/mon_givit). meatmetal is D-1271.
  */
 export async function gelcube_digests(mtmp) {
     let otmp = mtmp.minvent;

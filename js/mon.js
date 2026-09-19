@@ -24,7 +24,7 @@ import {
     MON_LIMBO, MON_OBLITERATE, MON_ENDGAME_MIGR, MIGR_APPROX_XY, MIGR_RANDOM,
     has_emin, has_epri, has_eshk, has_egd, has_edog, EDOG, has_mcorpsenm, MCORPSENM, OBJ_AT,
     Has_contents, RLOC_MSG, RLOC_NOMSG, XKILL_NOMSG,
-    NO_MM_FLAGS, NATTK, PROT_FROM_SHAPE_CHANGERS, NO_WEAPON_WANTED, engulfing_u,
+    NO_MM_FLAGS, NO_NC_FLAGS, EXPL_FIERY, NATTK, PROT_FROM_SHAPE_CHANGERS, NO_WEAPON_WANTED, engulfing_u,
     W_SADDLE, OBJ_MINVENT,
 } from './const.js';
 import { t_at, m_harmless_trap, water_damage_chain, fire_damage_chain, fixed_tele_trap } from './trap.js';
@@ -40,7 +40,7 @@ import {
     is_rider, is_displacer, nonliving, breathless, is_giant, is_minion, is_human,
     is_elf, is_dwarf, is_gnome, is_orc, is_undead, amphibious, can_teleport, MR_FIRE,
     MR_POISON, mindless, G_UNIQ, is_watch,
-    touch_petrifies, flesh_petrifies, slimeproof, resists_ston, vegan,
+    touch_petrifies, flesh_petrifies, slimeproof, resists_ston, poly_when_stoned, vegan,
     montoostrong, monmax_difficulty,
 } from './monsters.js';
 import {
@@ -63,9 +63,9 @@ import { newsym, pline, pline_mon, pline_The, verbalize, You_feel, sensemon, can
 import { online2, level_difficulty } from './hacklib.js';
 import { worm_cross, level_mon_at, remove_worm, place_wsegs, count_wsegs } from './worm.js';
 import { On_W_tower_level, In_W_tower } from './dungeon.js';
-import { Monnam, mon_nam, hliquid, pmname, mon_pmname, Mgender } from './do_name.js';
+import { Monnam, mon_nam, hliquid, pmname, mon_pmname, Mgender, s_suffix } from './do_name.js';
 import { cansee, couldsee, does_block, is_lightblocker_mappear, unblock_point, vision_recalc } from './vision.js';
-import { fightm, mondead, mondied } from './mhitm.js';
+import { fightm, mondead, mondied, grow_up, mon_to_stone, monstone } from './mhitm.js';
 import { remove_monster, place_monster } from './steed.js';
 import { engr_at, del_engr_at } from './engrave.js';
 import { visible_region_at, is_poisoncloud_region } from './region.js';
@@ -81,7 +81,7 @@ import { maybe_m_dowear_special, extract_from_minvent, update_mon_extrinsics, mo
 import { adjalign } from './attrib.js';
 import { SetVoice } from './sndprocs.js';
 import { maybe_gasp, growl } from './sounds.js';
-import { vtense, doname, distant_name, makeplural } from './objnam.js';
+import { vtense, doname, distant_name, makeplural, xname, The } from './objnam.js';
 import { obj_resists, cursed_object_at, finish_meating, quickmimic } from './dogmove.js';
 import { touch_artifact } from './artifact.js';
 import { experience, more_experienced, newexplevel } from './exper.js';
@@ -89,6 +89,12 @@ import { hastrack } from './track.js';
 import { MON_WEP } from './weapon.js';
 import { is_axe, is_pick, GOLD } from './objects.js';
 import { get_mleash } from './apply.js';
+import { ofood, polyfood } from './eat.js';
+import { mcureblindness, removed_from_icebox } from './muse.js';
+import { unpunish } from './read.js';
+import { explode } from './explode.js';
+import { flooreffects } from './do.js';
+import { surface } from './sit.js';
 
 const PM_FLOATING_EYE = monsterNames.indexOf('PM_FLOATING_EYE');
 const PM_GREMLIN = monsterNames.indexOf('PM_GREMLIN');
@@ -100,6 +106,11 @@ const PM_WIZARD_OF_YENDOR = monsterNames.indexOf('PM_WIZARD_OF_YENDOR');
 const PM_SMALL_MIMIC = monsterNames.indexOf('PM_SMALL_MIMIC');
 const PM_LARGE_MIMIC = monsterNames.indexOf('PM_LARGE_MIMIC');
 const PM_GIANT_MIMIC = monsterNames.indexOf('PM_GIANT_MIMIC');
+const PM_GREEN_SLIME = monsterNames.indexOf('PM_GREEN_SLIME');
+const PM_WRAITH = monsterNames.indexOf('PM_WRAITH');
+const PM_NURSE = monsterNames.indexOf('PM_NURSE');
+const PM_PYROLISK = monsterNames.indexOf('PM_PYROLISK');
+const PM_GELATINOUS_CUBE = monsterNames.indexOf('PM_GELATINOUS_CUBE');
 const PM_MEDUSA = monsterNames.indexOf('PM_MEDUSA');
 const PM_ERINYS = monsterNames.indexOf('PM_ERINYS');
 const PM_PURPLE_WORM = monsterNames.indexOf('PM_PURPLE_WORM');
@@ -128,6 +139,8 @@ const AD_CORR = 42;
 const EGG = objectNames.indexOf('EGG');
 const TIN = objectNames.indexOf('TIN');
 const CORPSE = objectNames.indexOf('CORPSE');
+const CARROT = objectNames.indexOf('CARROT');
+const ICE_BOX = objectNames.indexOf('ICE_BOX');
 const GLOB_OF_GREEN_SLIME = objectNames.indexOf('GLOB_OF_GREEN_SLIME');
 const AMULET_OF_YENDOR = objectNames.indexOf('AMULET_OF_YENDOR');
 const SADDLE = objectNames.indexOf('SADDLE');
@@ -2289,28 +2302,118 @@ export function healmon(mtmp, amt, overheal) {
 }
 
 /**
- * C ref: mon.c m_consume_obj — non-pet heal by oc_weight then delobj.
- * The ispet/deadmimic quickmimic arm (`:1447`) is live (dogmove.js);
- * async only for it (Constitution §2).
- * Named omit: Has_contents meatbox; uball/uchain unpunish; polyfood/slime
- * newcham; mlevelgain grow_up; mstoning; mhealup/carrot mcureblindness;
- * pyrolisk egg explode; mon_givit.
+ * C ref: mon.c meatbox() (`:1352–1381`) — dispose of an eaten container's
+ * contents; used for pets and other monsters. A gelatinous-cube eater
+ * engulfs the contents (via mpickobj); anything else spills them onto
+ * the floor (flooreffects may consume each first). Async only for the
+ * spill message and flooreffects (Constitution §2).
+ */
+export async function meatbox(mon, otmp) {
+    // C mon.c:1356 — cube eater engulfs, everything else spills
+    const engulf_contents = mon?.data === mons(PM_GELATINOUS_CUBE);
+    const x = mon?.mx | 0, y = mon?.my | 0;
+    if (!Has_contents(otmp) || !isok(x, y)) return;
+    // C mon.c:1363-1367 — visible spill message before unwrapping
+    if (!engulf_contents && cansee(x, y)) {
+        await pline('%s contents spill out onto the %s.',
+            s_suffix(The(distant_name(otmp, xname))), surface(x, y));
+    }
+    // C mon.c:1368-1379 — unwrap head-first until the box is empty
+    let cobj;
+    while ((cobj = otmp.cobj)) {
+        obj_extract_self(cobj);
+        if ((otmp.otyp | 0) === ICE_BOX) removed_from_icebox(cobj);
+        if (engulf_contents) {
+            mpickobj(mon, cobj);
+        } else {
+            if (!(await flooreffects(cobj, x, y, ''))) place_object(cobj, x, y);
+        }
+    }
+}
+
+/**
+ * C ref: mon.c m_consume_obj() (`:1392–1453`) — monster mtmp consumes
+ * object otmp. Non-pet heals up to the object's weight in hp; container
+ * contents go through meatbox; ball/chain go through unpunish; otherwise
+ * the pre-munch snapshot drives poly/slime newcham, wraith grow_up,
+ * petrify, nurse full heal, carrot/blindness cure, pet quickmimic,
+ * pyrolisk-egg explode and corpse mon_givit. The object is extracted
+ * from any list and freed (delobj); meating is not changed.
  */
 export async function m_consume_obj(mtmp, otmp) {
     if (!mtmp || !otmp) return;
+    const u = game.u || {};
     const ispet = !!mtmp.mtame;
+    // C mon.c:1397-1399 — non-pet heals up to the object's weight in hp
     if (!ispet && (mtmp.mhp | 0) < (mtmp.mhpmax | 0)) {
-        const ocw = game.objects?.[otmp.otyp]?.oc_weight | 0;
-        healmon(mtmp, ocw, 0);
+        healmon(mtmp, game.objects?.[otmp.otyp]?.oc_weight | 0, 0);
     }
-    // C: deadmimic is computed from the pre-delobj otmp (otyp/corpsenm) and
-    // consumed after the omitted poly/grow/stone/heal/eyes arms (`:1447`).
-    const corpsenm = ((otmp.otyp | 0) === CORPSE) ? (otmp.corpsenm | 0) : NON_PM;
-    const deadmimic = ((otmp.otyp | 0) === CORPSE
-        && (corpsenm === PM_SMALL_MIMIC || corpsenm === PM_LARGE_MIMIC
-            || corpsenm === PM_GIANT_MIMIC));
-    delobj(otmp);
-    if (ispet && deadmimic) await quickmimic(mtmp);
+    // C mon.c:1400-1401 — eaten container spills/engulfs first
+    if (Has_contents(otmp)) await meatbox(mtmp, otmp);
+    // C mon.c:1402-1406 — ball/chain: unpunish frees; ball needs delobj too
+    if (otmp === u.uball) {
+        unpunish();
+        delobj(otmp);
+    } else if (otmp === u.uchain) {
+        unpunish(); // frees uchain
+    } else {
+        // C mon.c:1408-1420 — snapshot pre-munch state (delobj frees otmp)
+        const otyp = otmp.otyp | 0;
+        const vis = canseemon(mtmp);
+        const corpsenm = otyp === CORPSE ? (otmp.corpsenm | 0) : NON_PM;
+        const deadmimic = otyp === CORPSE
+            && (corpsenm === PM_SMALL_MIMIC || corpsenm === PM_LARGE_MIMIC
+                || corpsenm === PM_GIANT_MIMIC);
+        const slimer = otyp === GLOB_OF_GREEN_SLIME;
+        const poly = polyfood(otmp);
+        // C obj.h:325 mlevelgain — macro expanded (raw corpsenm, not local)
+        const grow = ofood(otmp) && ((otmp.corpsenm | 0) === PM_WRAITH);
+        // C obj.h:326 mhealup — macro expanded (raw corpsenm, not local)
+        const heal = ofood(otmp) && ((otmp.corpsenm | 0) === PM_NURSE);
+        const eyes = otyp === CARROT;
+        // C mon.c:1384-1386 mstoning — macro expanded (ismnum guards mons[])
+        const mstone = ofood(otmp) && ismnum(otmp.corpsenm | 0)
+            && flesh_petrifies(mons(otmp.corpsenm | 0));
+        delobj(otmp); // munch
+        // C mon.c:1422-1426 — polymorph (slime forces the green slime form)
+        if (poly || slimer) {
+            const ptr = slimer ? mons(PM_GREEN_SLIME) : null;
+            newcham(mtmp, ptr, vis ? NC_SHOW_MSG : NO_NC_FLAGS);
+        }
+        // C mon.c:1427-1431 — wraith level gain (pets cap at mlevel + 15)
+        if (grow) {
+            if ((ispet && (mtmp.m_lev | 0) < ((mtmp.data?.mlevel | 0) + 15))
+                || !ispet) {
+                await grow_up(mtmp, null);
+            }
+        }
+        // C mon.c:1432-1441 — petrifying corpse
+        if (mstone) {
+            if (poly_when_stoned(mtmp.data)) {
+                await mon_to_stone(mtmp);
+            } else if (!resists_ston(mtmp)) {
+                if (vis) {
+                    await pline_mon(mtmp, '%s turns to stone!', Monnam(mtmp));
+                }
+                await monstone(mtmp);
+            }
+        }
+        // C mon.c:1442-1443 — nurse corpse fully heals
+        if (heal) healmon(mtmp, mtmp.mhpmax | 0, 0);
+        // C mon.c:1444-1445 — carrot/heal cures blindness
+        if ((eyes || heal) && !mtmp.mcansee) {
+            await mcureblindness(mtmp, canseemon(mtmp));
+        }
+        // C mon.c:1446-1447 — pet mimic-food snaps back to mimic shape
+        if (ispet && deadmimic) await quickmimic(mtmp);
+        // C mon.c:1448-1449 — pyrolisk egg detonates (otyp snapshotted:
+        // delobj already freed otmp)
+        if (otyp === EGG && corpsenm === PM_PYROLISK) {
+            await explode(mtmp.mx | 0, mtmp.my | 0, -11, d(3, 6), 0, EXPL_FIERY);
+        }
+        // C mon.c:1450-1451 — corpse intrinsics for the eater
+        if (corpsenm !== NON_PM) await mon_givit(mtmp, mons(corpsenm));
+    }
 }
 
 /** C ref: pline.c You_hear — acoustics/Deaf; Unaware/Underwater deferred. */
@@ -2325,10 +2428,9 @@ async function You_hear_meat(line) {
 
 /**
  * C ref: mon.c meatmetal — non-pet eats the topmost metallic floor object
- * that is not indigestible. 0 nothing, 1 ate, 2 died (grow_up geno; not
- * reachable until m_consume_obj poly/stone is live). Caller:
+ * that is not indigestible. 0 nothing, 1 ate, 2 died. Caller:
  * monmove.c postmov OBJ_AT when metallivorous (D-1271).
- * Named omit: meatbox/poly/uball in m_consume_obj.
+ * m_consume_obj arms live (meatbox/poly/uball/grow/stone/mon_givit).
  */
 export async function meatmetal(mtmp) {
     if (!mtmp || mtmp.mtame) return 0;
@@ -2423,7 +2525,7 @@ function objdescr_is_meat(obj, descr) {
  * the rest except rocks/prizes/ball&chain/scare. 0 nothing, 1 ate or
  * engulfed, 2 died (data became null after consume). Caller:
  * monmove.c postmov OBJ_AT when PM_GELATINOUS_CUBE (D-1284).
- * Named omit: m_consume_obj meatbox/poly/uball/grow/stone/mon_givit;
+ * m_consume_obj arms live (meatbox/poly/uball/grow/stone/mon_givit);
  * rider off-level return 3 (C comments unimplemented).
  */
 export async function meatobj(mtmp) {
@@ -2529,7 +2631,7 @@ export async function meatobj(mtmp) {
  * C ref: mon.c meatcorpse — non-pet corpse_eater eats one floor CORPSE
  * (sobj_at skips globs). 0 nothing, 1 ate, 2 died (data became null after
  * consume). Caller: monmove.c postmov OBJ_AT when corpse_eater (D-1285).
- * Named omit: m_consume_obj meatbox/poly/uball/grow/stone/mon_givit;
+ * m_consume_obj arms live (meatbox/poly/uball/grow/stone/mon_givit);
  * rider off-level return 3 (C comments unimplemented).
  */
 export async function meatcorpse(mtmp) {

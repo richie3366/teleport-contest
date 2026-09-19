@@ -2829,7 +2829,7 @@ export async function mon_adjust_speed(mon, adjust, obj) {
  * C ref: pickup.c removed_from_icebox — thaw age + corpse rot/revive.
  * Named omit: ice-troll get_mtraits data pointer identity vs mndx.
  */
-function removed_from_icebox(obj) {
+export function removed_from_icebox(obj) {
     if (!obj || age_is_relative(obj)) return;
     obj.age = (game.moves | 0) - (obj.age | 0);
     if ((obj.otyp | 0) === CORPSE) {

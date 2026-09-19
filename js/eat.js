@@ -398,7 +398,7 @@ function dmgtype(ptr, adtyp) {
 const AD_POLY = 43;
 
 /** C obj.h ofood — corpse, egg, or tin. */
-function ofood(o) {
+export function ofood(o) {
     if (!o) return false;
     const t = o.otyp | 0;
     return t === CORPSE || t === EGG || t === TIN;
@@ -409,7 +409,7 @@ function ofood(o) {
  * Inlined here so Popeye does not import makemon.js pm_to_cham
  * (M2_SHAPESHIFTER is C pm_to_cham's test).
  */
-function polyfood(obj) {
+export function polyfood(obj) {
     if (!ofood(obj)) return false;
     const mndx = obj.corpsenm | 0;
     if (mndx < LOW_PM) return false;

@@ -2805,7 +2805,7 @@ other `mcast_spell` / `mattacku` AT_MAGC deferred);
 **`dochug` `mind_blast` D-1238** (`is_mind_flayer` `!rn2(20)` then body + 
 `set_apparxy`/`distfleeck`; **bee_eat_jelly D-1246**; 
 **`gelcube_digests` D-1257** (`eaten_stat` + `extract_from_minvent` + 
-`m_consume_obj` heal/`delobj`; meatbox/poly named); **`meatmetal` D-1271**; 
+`m_consume_obj` whole-body port D-2499 — meatbox + ball/chain unpunish + poly/slime newcham + grow + stone + heal/eyes + quickmimic + egg explode + mon_givit, no omits); **`meatmetal` D-1271**; 
 **`meatobj` D-1284** (cube floor engulf `mpickobj` / devour `m_consume_obj`); 
 **`meatcorpse` D-1285** (corpse_eater floor CORPSE; vegan/petrify skip; rider revive; splitobj; 
 `m_consume_obj`); **postmov IRONBARS D-1247**; 

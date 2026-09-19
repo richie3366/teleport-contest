@@ -3,9 +3,13 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-09-19
+
+- [x] `mon.c` m_consume_obj — coverage THIN (C 61 L `mon.c:1392–1453` / JS 16 L in js/mon.js; hops 2, callers 6, RNG 1, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn m_consume_obj` (reach regression must be 0). Measured `port-coverage.mjs --name m_consume_obj` 2026-09-19 @ d6cf97e2. **Addressed:** D-2499
+
 ## 2026-09-18
 
-- [x] `botl.c` evaluate_and_notify_windowport — coverage MISSING (C 57 L `botl.c:1621–1680` / JS no symbol; hops 2, callers 1, RNG 0, msg 0; dead callees: eval_notify_windowport_field). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn evaluate_and_notify_windowport` (reach regression must be 0). Measured `port-coverage.mjs --name evaluate_and_notify_windowport` 2026-09-19 @ d6cf97e2. **Addressed:** D-2498
+- [x] `botl.c` evaluate_and_notify_windowport — coverage MISSING (C 57 L `botl.c:1621–1680` / JS no symbol; hops 2, callers 1, RNG 0, msg 0; dead callees: eval_notify_windowport_field). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn evaluate_and_notify_windowport` (reach regression must be 0). Measured `port-coverage.mjs --name evaluate_and_notify_windowport` 2026-09-19 @ d6cf97e2. **Addressed:** D-2498 `e0c364ed`
 
 
 - [x] `objnam.c` doname_base — coverage MISSING (C 526 L `objnam.c:1223–1751` / JS no symbol; hops 3, callers 4, RNG 0, msg 16; dead callees: sitoa; split? cited 39× in js/ — brief first). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn doname_base` (reach regression must be 0). Measured `port-coverage.mjs --name doname_base` 2026-09-19 @ d6cf97e2. **Addressed:** D-2497 `2a0c6559`

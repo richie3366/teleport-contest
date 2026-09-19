@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2499 — `mon.c` m_consume_obj whole-body port (meatbox + all consume arms)
+
+- **Status:** fixed (breadth-phase coverage row: m_consume_obj THIN C 61 L `mon.c:1392–1453` / JS 16 L; `hidden-proxy verify m_consume_obj`: no corpus session blocked).
+- **Symptom:** no corpus block — measured coverage gap: JS `m_consume_obj` carried only the non-pet oc_weight heal + deadmimic quickmimic tail; every other consume arm was a named omit (D-2488 tail, meatmetal/meatobj/meatcorpse + gelcube_digests map notes).
+- **C locus:** `mon.c:1392–1453` (`m_consume_obj`); `:1352–1381` (`meatbox`); `:1384–1386` (`mstoning` macro); `obj.h:320–326` (`ofood`/`polyfood`/`mlevelgain`/`mhealup` macros).
+- **JS was:** `js/mon.js:2299` 16-line stub — heal + snapshot corpsenm/deadmimic + `delobj` + ispet quickmimic; doc named meatbox, uball/uchain, poly/slime, grow, stone, heal/eyes, explode, mon_givit as omits.
+- **Fix:** `js/mon.js` — new `export async function meatbox` in C order (`:1356` cube-engulf test, `:1363–1367` spill pline, `:1368–1379` head-first unwrap with ICE_BOX `removed_from_icebox`, engulf `mpickobj`, else `flooreffects`→`place_object`); `m_consume_obj` restarted in C order with `:line` cites (`:1397` heal, `:1400` meatbox, `:1402` uball+delobj vs uchain-unpunish-only, `:1408–1420` pre-munch snapshot incl. raw-corpsenm `mlevelgain`/`mhealup` + `ismnum`-guarded `mstoning` macro expansions, `:1422` newcham, `:1427` grow cap, `:1432` stone, `:1442` nurse heal, `:1444` blindness cure, `:1446` quickmimic, `:1448` pyrolisk `d(3,6)` explode, `:1450` mon_givit; post-delobj `otyp` snapshot replaces the C use-after-free read). `ofood`/`polyfood` exported from `js/eat.js` (macro homes, no clone #2), `removed_from_icebox` exported from `js/muse.js`; all six new static edges IN-SCC function bindings, call-time use (same shape as D-2226). Retired omit notes at meatmetal/meatobj/meatcorpse + gelcube_digests.
+- **JS:** 4 files (`mon.js` +~140, `eat.js`/`muse.js` 1-word exports, `monmove.js` comment), under caps. Rule #2 clean; no DIAG/FORCE/seed gates. No committed probes (repo has no unit-test dir; gates are `verify.mjs` + corpus).
+- **Callers:** `dogmove.c:341`→`js/dogmove.js:437` await ✓; `mon.c:1517/1629/1709` (meatmetal/meatobj/meatcorpse)→`js/mon.js:2503+/2575+` await ✓; `monmove.c:443` (gelcube_digests)→`js/monmove.js:2178` await ✓ (imports pre-existing).
+- **Verify:** `node scripts/verify.mjs --fn m_consume_obj` → PASS syntax (4 changed js files) · PASS rule2 · note hidden (vacuous: 0 blocked at HEAD, not claimed as corpus PASS; row cited 0 blocks so no `--base` re-run owed) · PASS reach (no RNG-tagged reach; smoke spread 24 run: 24 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS. Final verify ran after the last js/ edit (map/D-log/queue edits only after; no D-1831 gap).
+- **Named omissions:** none in the ported body — every C arm is live. (`meatbox` sole C caller is `m_consume_obj`; no other wiring owed.)
+- **Next:** do not re-pop m_consume_obj/meatbox or the D-2488 tail note. A future pet-eating divergence attributes to `dodoor`/`flooreffects`/caller RNG, not these arms.
+
 ## D-2498 — `botl.c` evaluate_and_notify_windowport whole-body port (windowport-notify path + blstats helpers)
 
 - **Status:** fixed (breadth-phase coverage row: evaluate_and_notify_windowport MISSING C 57 L `botl.c:1621–1680` / JS no symbol; `hidden-proxy verify evaluate_and_notify_windowport`: no corpus session blocked).
