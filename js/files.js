@@ -37,7 +37,7 @@ import {
 import { datamodel, what_datamodel_is_this } from './version.js';
 import { rn2 } from './rng.js';
 import { mungspaces } from './getline.js';
-import { pline, putmsghistory, You_feel, impossible, flush_topl_more } from './display.js';
+import { pline, putmsghistory, You_feel, impossible, flush_topl_more, raw_printf } from './display.js';
 import { show_nhw_menu_text } from './pager.js';
 import { TRIBUTE_TEXT } from './generated/tribute_data.js';
 import { maxledgerno } from './dungeon.js';
@@ -976,9 +976,10 @@ export async function check_version(version_data, filename, complain, utdflags) 
  * C `int *idx_1st_mismatch` → mutable `{ value }` holder or null.
  * Named omits: `:771` Sfi_char count feed and `:779–781` Sfi_uchar
  * cscbuf fill (no binary NHFILE read layer in JS — JSON VFS; Sfi_ arms
- * live as payload analogues at use sites, cf. getbones bones.js:484);
- * `:774–777` raw_printf (no pre-window stdout channel in dual-runtime
- * ESM — display.js:7749 raw_print/raw_printf omit).
+ * live as payload analogues at use sites, cf. getbones bones.js:484).
+ * `:774–777` raw_printf is live (display.js export, D-2573); only the
+ * pre-window text sink stays omit (no stdout channel in dual-runtime
+ * ESM — display.js:7749 vpline raw-path precedent).
  * @param {object} nhfp JS NHFILE handle (unread — feed omitted, cf. void)
  * @param {{ value: number }|null} idx_1st_mismatch
  * @param {number} utdflags
@@ -991,7 +992,14 @@ export function compare_critical_bytes(nhfp, idx_1st_mismatch, utdflags) {
     const quietly = (((utdflags | 0) & UTD_QUIETLY) !== 0); // `:768`
     let file_csc_count = 0; // `:771` — Sfi_char feed (named omit above)
     if (file_csc_count > cnt) { // `:772`
-        return SF_CRITICAL_BYTE_COUNT_MISMATCH; // `:778` (raw_printf omit)
+        // C `:774–777` — !quietly raw_printf (display.js export; the
+        // pre-window text sink stays a named omit; the Sfi_char feed omit
+        // above keeps file_csc_count 0 so this arm stays dead).
+        if (!quietly) {
+            raw_printf('critical byte counts do not match, file:%d, critical_sizes:%d.',
+                file_csc_count, CRITICAL_SIZES.length);
+        }
+        return SF_CRITICAL_BYTE_COUNT_MISMATCH; // `:778`
     }
     // `:779–781` — Sfi_uchar cscbuf fill loop (named omit above)
     for (let i = 1; i < cnt; i++) { // `:782`
@@ -1030,8 +1038,8 @@ export function compare_critical_bytes(nhfp, idx_1st_mismatch, utdflags) {
  * read, check_version gate, in C order. The one C caller is validate
  * `:854` (ported below).
  * Named omits: `:725` Sfi_char indicate-format feed (indicator is
- * write-never-read in C); `:730–732` raw_printf mismatch message (same
- * omit as compare); `:735` Sfi_version_info (sfbase.c:348 sfiprocs/fnidx
+ * write-never-read in C); `:730–732` raw_printf mismatch message is live
+ * (display.js export, D-2573); `:735` Sfi_version_info (sfbase.c:348 sfiprocs/fnidx
  * binary dispatch — no JS home); `:740` wait_synch (winprocs.h:140 →
  * tty_wait_synch, no live JS port).
  * @param {object} nhfp JS NHFILE handle
@@ -1053,8 +1061,11 @@ export async function uptodate(nhfp, name, utdflags) {
                                            utdflags | 0)) !== SF_UPTODATE) {
         if (sfstatus > 0 && idx_holder.value) { // `:728`
             if (!quietly) { // `:729`
-                // raw_printf omit (above): "comparison of critical bytes
-                // mismatched at %d (%s)." ucsize/nm of idx_holder.value
+                // C `:730–732` — raw_printf (display.js export; the
+                // pre-window text sink stays a named omit).
+                raw_printf('comparison of critical bytes mismatched at %d (%s).',
+                    CRITICAL_SIZES[idx_holder.value].ucsize,
+                    CRITICAL_SIZES[idx_holder.value].nm);
             }
         }
     }

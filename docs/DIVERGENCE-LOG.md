@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-2573 — `pline.c` raw_printf/vraw_printf whole-body port (version-check callers wired)
+
+- **Status:** fixed (Open — coverage row `pline.c` raw_printf MISSING, C 9 L `pline.c:549–558` + staticfn `vraw_printf` 21 L / JS no symbol). Same commit parks one stale coverage row (`spell.c` losespells — whole body live `js/spell.js:1590`, proof in `LOOP-QUEUE.md` Parked/Stale).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify raw_printf`: no corpus session blocked at baseline — 24-session smoke REACH is the corpus evidence).
+- **C locus:** `nethack-c/upstream/src/pline.c:548–583` (`raw_printf` `:548–558` + staticfn `vraw_printf` `:562–583`, decl `:546`): `%`-gated vsnprintf into pbuf, truncate to BUFSZ-1 without pline's last-3 preservation, `raw_print`, `execplinehandler`, `early_raw_messages++` twice per call pre-load (once in each function).
+- **JS was:** no symbol; `raw_print`/`raw_printf` named omit (`js/display.js:7749` vpline-doc) + `js/files.js` version-check omits (`:980–981`, `:994`, `:1033–1056`).
+- **Fix:** `js/display.js` — new exported `raw_printf(fmt, ...args)` (sync like C) + file-local `vraw_printf(fmt, args)` (C staticfn → file-local, `bhit_skiprange`/`create_polymon` precedent) + module-local `_early_raw_messages` (`ge` has no JS home — no `game.ge` anywhere; consumers `restore.c:933`/`unixmain`/`windmain` are unported platform pauses), all in C order with `:line` cites; format via live `vpline_expand` (covers the `%s`-exact verbatim arm); `raw_print` text sink stays named omit. `js/files.js` — wired `compare_critical_bytes` `:774–777` (`!quietly` gate; arm stays dead — the Sfi_char feed omit keeps `file_csc_count` 0) + `uptodate` `:730–732` (`CRITICAL_SIZES[idx].ucsize/nm`); `raw_printf` joins the existing display.js import (ALREADY-edge, `imports.mjs --can` clean).
+- **JS:** `js/display.js` `raw_printf`/`vraw_printf`/`_early_raw_messages`; `js/files.js` import line + 2 call sites + 2 doc updates (raw_printf omits retired, feed/wait_synch omits kept).
+- **Callers:** brief lists 76 C sites — wired: `version.c:774` → `js/files.js:993` (`compare_critical_bytes`), `version.c:730` → `js/files.js:1064` (`uptodate`). Named omissions (map `turns.md` pline.c section): platform/startup remainder — `sys/unix` + `sys/windows` + `wintty` + `util/sfctool.c` twin, `earlyarg` enum dumps, `decl.c` MAGICCHECK, `cfgfiles` config errors, `files.c` lock/HUP prompts + wizkit/scoreboard/save-recovery messages, `hack`/`makemon`/`o_init` debug dumps, `options.c` statushilite, `report.c`, `sounds.c`/`windows.c` decl, `topten.c` prscore/cli (D-2475 open row can now import it), `version.c` check_version/paste-buffer arms (review 1498 names it), `end.c` error-report, `cmd.c:3289` autocomplete, `pline.c:240` comment-only mention. No ported JS body contains those message texts (grep-verified).
+- **Verify:** `node scripts/verify.mjs --fn raw_printf` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   2 changed js file(s): js/display.js js/files.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify raw_printf: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 3.9s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing (auto: shared file changed)
+
+VERIFY: PASS
+```
+- **Named omissions:** the caller remainder above + `raw_print` sink + `vpline_expand` width/precision strip (hits only unported `%*s` debug tables) + `ge.early_raw_messages` consumers (unported pauses).
+- **Next:** pop the next Open — coverage row (`light.c` del_light_source).
+
 ## D-2572 — `dungeon.c` level_difficulty whole-body port (amulet arm, aggravate tail, clone retire)
 
 - **Status:** fixed (Open — coverage row `dungeon.c` level_difficulty THIN, C 57 L `dungeon.c:2027–2084` / JS 16 L). Same commit parks one stale coverage row (`uhitm.c` mhitm_ad_wrap — 3 arms complete under split names, proof in `LOOP-QUEUE.md` Parked/Stale).

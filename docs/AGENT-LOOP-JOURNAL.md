@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-19 — D-2573 `pline.c` raw_printf/vraw_printf whole-body port (version-check callers wired)
+
+**C locus:** `nethack-c/upstream/src/pline.c:548–583` (`raw_printf` `:548–558` + staticfn `vraw_printf` `:562–583`, decl `:546`): `%`-gated vsnprintf into pbuf, truncate to BUFSZ-1 without pline's last-3 preservation, `raw_print`, `execplinehandler`, `early_raw_messages++` twice per call pre-load (once in each function).
+**JS:** `js/display.js` `raw_printf`/`vraw_printf`/`_early_raw_messages`; `js/files.js` import line + 2 call sites + 2 doc updates (raw_printf omits retired, feed/wait_synch omits kept).
+**Change:** `js/display.js` — new exported `raw_printf(fmt, ...args)` (sync like C) + file-local `vraw_printf(fmt, args)` (C staticfn → file-local, `bhit_skiprange`/`create_polymon` precedent) + module-local `_early_raw_messages` (`ge` has no JS home — no `game.ge` anywhere; consumers `restore.c:933`/`unixmain`/`windmain` are unported platform pauses), all in C order with `:line` cites; format via live `vpline_expand` (covers the `%s`-exact verbatim arm); `raw_print` text sink stays named omit. `js/files.js` — wired `compare_critical_bytes` `:774–777` (`!quietly` gate; arm stays dead — the Sfi_char feed omit keeps `file_csc_count` 0) + `uptodate` `:730–732` (`CRITICAL_SIZES[idx].ucsize/nm`); `raw_printf` joins the existing display.js import (ALREADY-edge, `imports.mjs --can` clean).
+**Verify:** `node scripts/verify.mjs --fn raw_printf` → VERIFY: PASS. Tail pasted verbatim:
+**Named:** the caller remainder above + `raw_print` sink + `vpline_expand` width/precision strip (hits only unported `%*s` debug tables) + `ge.early_raw_messages` consumers (unported pauses).
+**Next:** pop the next Open — coverage row (`light.c` del_light_source).
 ## 2026-09-19 — D-2572 `dungeon.c` level_difficulty whole-body port (amulet arm, aggravate tail, clone retire)
 
 **C locus:** `nethack-c/upstream/src/dungeon.c:2026–2084` (`level_difficulty`, void; 33 refs): endgame sanctum+ulevel/2 `:2032`, amulet → `deepest_lev_reached(FALSE)` `:2034`, depth + builds_up entry climb `:2036–2042` (W_tower arm is `#if 0`, compiled out — absent by C, not an omission), `EAggravate_monster` double-or-50 `:2081`. Callee `deepest_lev_reached` `dungeon.c:1338–1371` (max depth over dunlev_ureached, noquest skips Quest).
