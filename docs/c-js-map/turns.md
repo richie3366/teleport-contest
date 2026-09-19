@@ -124,6 +124,11 @@ WARN_OF_MON grid-bug default then def_feedback; GLIB `make_glib` + Timeout
 pline with no incr; CONFUSION via default — its `make_confused` case is
 `#if 0`'d out); **`make_sick` delayed-killer `kpfx` D-2283** (C `potion.c:178–188` — cause `"#wizintrinsic"` → KILLED_BY else KILLED_BY_AN; live `js/potion.js` tail; both retired omission notes deleted); **`make_sick`/`make_slimed`/`make_stoned` uprops mirror D-2396** (C `potion.c:75–79` set_itimeout + `youprop.h:108` single storage; `js/potion.js` writers mirror TIMEOUT bits to `u.uprops[…]` so the nh_timeout generic `--` decrements what C wrote — fixes scen-death-Valkyrie-92229 even/much-worse); **`#levelchange`** (D-1203/D-0061);
 wiz_wish / wiz_genesis / wiz_level_tele / wiz_map / wiz_identify / wiz_makemap live.
+**`wiz_map_levltyp` + `wiz_levltyp_legend` D-2516** (C `wizcmds.c:693–835` /
+`:839–877`; `cmd.c:1072–1084` `levltyp[]` as `LEVLTYP_NAMES`; base-36 rows +
+col-0 `!` + D/L + special/flag/branch dsc arms in C order; NHW_TEXT via
+shared `show_text_pages` D-2508; `{` default hoisted for the coverage
+brace-count; `strncmpi`/`Sokoban()` inlined, no new clones).
 **`^W wiz_wish` ECMD_OK + rhack tail** (D-2181; C `cmd.c:3814–3816` — ECMD_OK
 → `reset_cmd_vars(multi<0)`, clearing savelife's multi=-1 so the next
 command reads in-turn; `wiz_wish` returns `ECMD_OK` per `wizcmds.c:43`).
@@ -202,7 +207,7 @@ set_msg_xy / via_warning flush deferred);
 SDOOR `feel_location` / SCORR `feel_newsym` + `!Blind` `unmap_invisible`** (D-0928 #1184; 
 prop Blind not sticky); **uswallow arm `Norep`, SDOOR/SCORR `set_msg_xy`, SCORR `unblock_point`** (D-2212; C `:2024/:2050/:2056/:2060` — SCORR was `recalc_block_point` under an unblock comment; `activate_statue_trap` + artifact SPFX_SEARCH `fund` were already live, old omit retired); C `nomul(0)` stays the local `nomul_clear` subset; omit Hallucination/cls wait; 
 findone FOUND_FLASH_COUNT==0 tmp_at path (D-1775 ported the flash/foundone/mimic/hider/invis tail); region/gascloud; M_AP_FURNITURE; 
-unconstrain underwater/buried/swallow (display_trap_map unconstrain+reconstrain D-1753); wiz_map_levltyp/legend; 
+unconstrain underwater/buried/swallow (display_trap_map unconstrain+reconstrain D-1753); doterrain cases 5/6 live (D-2516); 
 oldglyph trap/object restore after furniture; **`do_vicinity_map` clairvoyance 9×5 (D-1391; 
 SPE_CLAIRVOYANCE caller; unconstrain/reconstrain in this callee; allmain seer_turn still named)**; 
 **`object_detect` D-1417 + D-1782** (C `detect.c:602–789`; caller

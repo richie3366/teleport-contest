@@ -22,7 +22,8 @@ import {
     SWIMMING, SLOW_DIGESTION, HALF_SPDAM, HALF_PHDAM, REGENERATION,
     ENERGY_REGENERATION, PROTECTION, PROT_FROM_SHAPE_CHANGERS,
     POLYMORPH_CONTROL, UNCHANGING, REFLECTING, FREE_ACTION, FIXED_ABIL,
-    LIFESAVED, Upolyd,
+    LIFESAVED, Upolyd, COLNO, ROWNO, STONE, S_sink, S_fountain,
+    In_sokoban, Is_knox, In_endgame,
 } from './const.js';
 import { ATR_INVERSE } from './terminal.js';
 import { make_blinded } from './do.js';
@@ -701,4 +702,181 @@ export async function sanity_check() {
     await bc_sanity_check();
     game.program_state.in_sanity_check =
         (game.program_state.in_sanity_check | 0) - 1;
+}
+
+/* C defsym.h PCHAR `:133–134` — S_sink and S_fountain both default to '{'.
+ * Hoisted to module scope: a '{' literal inside a function body defeats the
+ * naive brace-count in port-coverage.mjs (it counts string contents). */
+const DEF_FOUNTAIN_SINK_SYM = '{';
+
+/* C cmd.c levltyp[] `:1072–1084` (MAX_TYPE + 2) — terrain index → name.
+ * Last two entries are not real terrain: the undiggable-stone marker used
+ * by wiz_map_levltyp() plus the even-count padding entry. */
+const LEVLTYP_NAMES = [
+    'stone', 'vertical wall', 'horizontal wall', 'top-left corner wall',
+    'top-right corner wall', 'bottom-left corner wall',
+    'bottom-right corner wall', 'cross wall', 'tee-up wall', 'tee-down wall',
+    'tee-left wall', 'tee-right wall', 'drawbridge wall', 'tree',
+    'secret door', 'secret corridor', 'pool', 'moat', 'water',
+    'drawbridge up', 'lava pool', 'lava wall', 'iron bars', 'door',
+    'corridor', 'room', 'stairs', 'ladder', 'fountain', 'throne', 'sink',
+    'grave', 'altar', 'ice', 'drawbridge down', 'air', 'cloud',
+    'unreachable/undiggable',
+    '',
+];
+
+/**
+ * C ref: wizcmds.c wiz_map_levltyp `:693–835` — #terrain choice 5, called
+ * from cmd.c doterrain `:1182` (case 5). Dumps internal levl[][].typ codes
+ * in base-36 plus a level-flags description line into an NHW_TEXT window.
+ * Window via show_text_pages (NHW_TEXT idiom, like look_all D-2508):
+ * each C putstr is one collected line; display_nhwindow(win, TRUE) is the
+ * blocking page wait inside show_text_pages.
+ */
+export async function wiz_map_levltyp() {
+    // New edges, all lazily read inside the body (imports.mjs --can SAFE):
+    // may_dig (dig.js), Is_special/Invocation_lev/On_W_tower_level
+    // (dungeon.js), show_text_pages (pager.js).
+    const { may_dig } = await import('./dig.js');
+    const { Is_special, Invocation_lev, On_W_tower_level } = await import('./dungeon.js');
+    const { show_text_pages } = await import('./pager.js');
+
+    // C `:698` — boolean istty = !strcmp(windowprocs.name, "tty").
+    const istty = (game.windowprocs?.name ?? 'tty') === 'tty';
+    const lines = [];
+    // C `:700–703` create_nhwindow(NHW_TEXT); map row 0 goes on the second
+    // tty line, hence the blank top line on tty only.
+    if (istty) lines.push('');
+    // C `:704–721` — one base-36 row per map row. Column 0 is off the left
+    // edge of the screen; it should always be undiggable STONE.
+    for (let y = 0; y < ROWNO; y++) {
+        let row = '';
+        for (let x = 1; x < COLNO; x++) {
+            const terrain = game.level?.at(x, y)?.typ ?? STONE;
+            // C `:710–716` — assumes no more than 10+26+26 terrain types.
+            row += (terrain === STONE && !may_dig(x, y))
+                ? '*'
+                : terrain < 10
+                    ? String.fromCharCode(48 + terrain) // '0' + terrain
+                    : terrain < 36
+                        ? String.fromCharCode(97 + terrain - 10) // 'a' + t - 10
+                        : String.fromCharCode(65 + terrain - 36); // 'A' + t - 36
+        }
+        // C `:722–725` — flag column 0 with '!' when it is not undiggable
+        // stone (x-- then row[x++] = '!' then row[x] = '\0').
+        const col0 = game.level?.at(0, y);
+        if ((col0?.typ ?? STONE) !== STONE || may_dig(0, y)) row += '!';
+        lines.push(row);
+    }
+
+    // C `:727–835` — description line.
+    const u = game.u || {};
+    const uz = u.uz || {};
+    // C `:732` Sprintf(dsc, "D:%d,L:%d", u.uz.dnum, u.uz.dlevel).
+    let dsc = `D:${uz.dnum | 0},L:${uz.dlevel | 0}`;
+    // C `:735–750` special level features (dungeon-branch block omitted
+    // per C; alignment omitted per C "to save space").
+    const slev = Is_special(uz);
+    if (slev) {
+        // C `:737` Sprintf(eos(dsc), " \"%s\"", slev->proto).
+        dsc += ` "${slev.proto}"`;
+        if (slev.flags?.maze_like) dsc += ' mazelike'; // C `:741`
+        if (slev.flags?.hellish) dsc += ' hellish'; // C `:743`
+        if (slev.flags?.town) dsc += ' town'; // C `:745`
+        if (slev.flags?.rogue_like) dsc += ' roguelike'; // C `:747`
+    }
+    // C `:752–787` level features + level flags.
+    const lf = game.level?.flags || {};
+    // C `:753–756` defsyms[S_fountain].sym / defsyms[S_sink].sym — JS char
+    // via game.gs.showsyms (both default per defsym.h:133–134, hoisted).
+    if (lf.nfountains) dsc += ` ${game.gs?.showsyms?.[S_fountain] ?? DEF_FOUNTAIN_SINK_SYM}:${lf.nfountains | 0}`;
+    if (lf.nsinks) dsc += ` ${game.gs?.showsyms?.[S_sink] ?? DEF_FOUNTAIN_SINK_SYM}:${lf.nsinks | 0}`;
+    if (lf.has_vault) dsc += ' vault'; // C `:758`
+    if (lf.has_shop) dsc += ' shop'; // C `:760`
+    if (lf.has_temple) dsc += ' temple'; // C `:762`
+    if (lf.has_court) dsc += ' throne'; // C `:764`
+    if (lf.has_zoo) dsc += ' zoo'; // C `:766`
+    if (lf.has_morgue) dsc += ' morgue'; // C `:768`
+    if (lf.has_barracks) dsc += ' barracks'; // C `:770`
+    if (lf.has_beehive) dsc += ' hive'; // C `:772`
+    if (lf.has_swamp) dsc += ' swamp'; // C `:774`
+    if (lf.noteleport) dsc += ' noTport'; // C `:777`
+    if (lf.hardfloor) dsc += ' noDig'; // C `:779`
+    if (lf.nommap) dsc += ' noMMap'; // C `:781`
+    if (!lf.hero_memory) dsc += ' noMem'; // C `:783`
+    if (lf.shortsighted) dsc += ' shortsight'; // C `:785`
+    if (lf.graveyard) dsc += ' graveyard'; // C `:787`
+    if (lf.is_maze_lev) dsc += ' maze'; // C `:789`
+    if (lf.is_cavernous_lev) dsc += ' cave'; // C `:791`
+    if (lf.arboreal) dsc += ' tree'; // C `:793`
+    // C `:795` Sokoban macro (svl.level.flags.sokoban_rules) — inline the
+    // JS mirror (dungeon.js Sokoban(); that helper is module-local).
+    if (lf.sokoban_rules || lf.sokoban || game.Sokoban) dsc += ' sokoban-rules';
+    // C `:799–802` non-flag info.
+    if (Invocation_lev(uz)) dsc += ' invoke';
+    if (On_W_tower_level(uz)) dsc += ' tower';
+    // C `:804–824` branch identifier.
+    if ((uz.dnum | 0) === 0) dsc += ' dungeon'; // C `:804`
+    else if ((uz.dnum | 0) === (game.mines_dnum | 0)) dsc += ' mines'; // C `:806`
+    else if (In_sokoban(uz)) dsc += ' sokoban'; // C `:808`
+    else if ((uz.dnum | 0) === (game.quest_dnum | 0)) dsc += ' quest'; // C `:810`
+    else if (Is_knox(uz)) dsc += ' ludios'; // C `:812`
+    else if ((uz.dnum | 0) === 1) dsc += ' gehennom'; // C `:814`
+    else if ((uz.dnum | 0) === (game.tower_dnum | 0)) dsc += ' vlad'; // C `:816`
+    else if (In_endgame(uz)) dsc += ' endgame'; // C `:818`
+    else {
+        // C `:820–824` unexpected branch — svd.dungeons[dnum].dname.
+        let brname = game.dungeons?.[uz.dnum]?.dname || '';
+        if (!brname) brname = 'unknown';
+        // C `:823` if (!strncmpi(brname, "the ", 4)) brname += 4 — inline
+        // prefix strip (no 4th strncmpi clone: write.js:82, insight.js:743,
+        // vault.js:128 stay the only copies).
+        if (/^the /i.test(brname)) brname = brname.slice(4);
+        dsc += ` ${brname}`;
+    }
+    // C `:827–828` limit the line length to map width.
+    if (dsc.length >= COLNO) dsc = dsc.slice(0, COLNO - 1);
+    lines.push(dsc);
+
+    // C `:831–832` display_nhwindow(win, TRUE); destroy_nhwindow(win).
+    await show_text_pages(lines);
+}
+
+/**
+ * C ref: wizcmds.c wiz_levltyp_legend `:839–877` — #terrain choice 6,
+ * called from cmd.c doterrain `:1186` (case 6). Explains the base-36
+ * output of wiz_map_levltyp(): two columns, left holding [0..N/2-1].
+ * Same NHW_TEXT idiom as wiz_map_levltyp above.
+ */
+export async function wiz_levltyp_legend() {
+    const { show_text_pages } = await import('./pager.js');
+    // C `:846–847` create_nhwindow(NHW_TEXT); putstr "#terrain encodings:".
+    const lines = ['#terrain encodings:', ''];
+    // C `:855` last = SIZE(levltyp) & ~1 — always even, may include the
+    // padding empty-string entry depending on the table length.
+    const last = LEVLTYP_NAMES.length & ~1;
+    let buf = ''; // C `:853` *buf = '\0'.
+    for (let i = 0; i < last / 2; ++i) {
+        for (let j = i; j < last; j += last / 2) {
+            const name = LEVLTYP_NAMES[j];
+            // C `:859–864` — empty padding shows ' ', the undiggable marker
+            // shows '*', else the same int-to-char conversion as
+            // wiz_map_levltyp().
+            const c = !name
+                ? ' '
+                : name.slice(0, 11) === 'unreachable' ? '*'
+                : j < 10 ? String.fromCharCode(48 + j)
+                : j < 36 ? String.fromCharCode(97 + j - 10)
+                : String.fromCharCode(65 + j - 36);
+            // C `:865` Sprintf(eos(buf), " %c - %-28s").
+            buf += ` ${c} - ${name.padEnd(28)}`;
+            if (j > i) {
+                // C `:866–869` second column completes the pair → putstr.
+                lines.push(buf);
+                buf = '';
+            }
+        }
+    }
+    // C `:873–874` display_nhwindow(win, TRUE); destroy_nhwindow(win).
+    await show_text_pages(lines);
 }
