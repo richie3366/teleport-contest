@@ -360,8 +360,9 @@ async function peffect_oil(otmp) {
 
 /**
  * C ref: objnam.c fruitname — pl_fruit (+ " juice" when juice).
+ * Exported for do.c dosinkring RIN_POISON_RESISTANCE (D-2527).
  */
-function fruitname(juice) {
+export function fruitname(juice) {
     const raw = String(game.pl_fruit || game.flags?.fruit || 'slime mold');
     const of = raw.toLowerCase().indexOf(' of ');
     const fruitNam = of >= 0 ? raw.slice(of + 4) : raw;

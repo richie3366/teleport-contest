@@ -303,7 +303,7 @@ gremlin `split_mon`/`dryup`; shriek/`aggravate`; vampire `dopoly`; **`dohide`+`y
 **`can_breathe`→`dobreathe` uen<15** (D-0725;
 getdir/ubuzz live D-2117); **`polymon` verbose ability tips full block** (D-0725 breath; D-2007 spit/nymph/gaze/hide+web/were/gremlin/unicorn/mindflayer/shriek/vampire/sit-egg with eel exclusion)); 
 **`d` → `dodrop`/`drop`/`dropx` + gold `freeinv_core` botl/`_goldCount` 
-(D-0396)/`dropy`/`canletgo`** (D-0261; whole `canletgo` body `:665–711` in C order D-2523 — worn/weld/loadstone-kludge/leash/saddle + `throw_obj` `:118` caller wired) + **`flooreffects` via `dropz`** (D-0987) + 
+(D-0396)/`dropy`/`canletgo`** (D-0261; whole `canletgo` body `:665–711` in C order D-2523 — worn/weld/loadstone-kludge/leash/saddle + `throw_obj` `:118` caller wired) + **whole `dosinkring` `:498–661` + `teleport_sink` `:459–494` bodies in C order** (D-2527 — ring/MEAT_RING-over-sink arm wired at `drop` `:753–757`; SEARCHING `goto giveback` tail; RIN_HUNGER floor walk via live `objects_at`/`delobj`; `polymorph_sink` + `dipsink_set_levltyp` exported from `fountain.js`, `fruitname` exported from `potion.js`, no clone #2; `se_drain_noises`/`se_ring_in_drain` via `sndprocs.js`) + **`flooreffects` via `dropz`** (D-0987) + 
 **`dropz` `impact_disturbs_zombies`** (D-1229; 
 `with_impact` owt/flimsy) + **`dropz`/`throwit` `container_impact_dmg`** (D-1249; 
 C `dokick.c:409–485`; throw origin `u.ux,u.uy`; **hitfloor `dropz(TRUE)` D-1263**; 
