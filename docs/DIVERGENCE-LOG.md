@@ -1,5 +1,31 @@
 # Divergence log
 
+## D-2542 — `uhitm.c` mhitm_ad_elec whole body in C order (coverage MISSING → live, uhitm+mhitm arms new, C caller wired, elec_u split completed)
+
+- **Status:** fixed (Open coverage row `uhitm.c` mhitm_ad_elec MISSING, C 53 L `uhitm.c:2684–2739` / JS no symbol; no Must-fix pending; row cites no review — no stamp).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify mhitm_ad_elec`: no corpus session blocked at baseline — hero shocking attack / monster-vs-monster shock, RNG 1 via the m_lev > rn2(20) destroy gate, msg 3).
+- **C locus:** `nethack-c/upstream/src/uhitm.c:2684–2739` (`mhitm_ad_elec`); arms `:2688–2703` (uhitm), `:2704–2723` (mhitu), `:2724–2738` (mhitm). Callees: `mhitm_mgc_atk_negated` (all three arms, TRUE — live `js/mhitm.js:2236`), `pline`/`Monnam`/`mon_nam` — live, `resists_elec` (`mondata`, MR_ELEC — file-local `js/mhitm.js:413`), `defended(mdef, AD_ELEC)` — live `js/mondata.js:135`, `golemeffects` (flesh-golem AD_ELEC heal — file-local `golemeffects_mm`, `js/mhitm.js:1871`), `shieldeff` — live, `destroy_items` (uhitm/mhitm: return added; mhitu: `(void)` discarded — live `js/zap.js:1705`), `hitmsg` + `Shock_resistance` + `monstseesu/monstunseesu(M_SEEN_ELEC)` + `rn2` (mhitu arm — live in the mhitu split). Callers: `uhitm.c:4794` (mhitm_adtyping AD_ELEC) + `uhitm.c:4854` (damageum → mhitm_adtyping, magr=you).
+- **JS was:** no symbol anywhere; uhitm path (`damageum_adtyping`, the JS `mhitm_adtyping` hero subset) had no AD_ELEC case, so hero shocking attacks kept leftover dice as physical damage; mhitu path had an incomplete split `mhitm_ad_elec_u` (`js/mhitu.js:875`) deferring the destroy body and both seesu calls; mhitm path had nothing.
+- **Fix:** `js/mhitm.js` — new exported `mhitm_ad_elec` (`js/mhitm.js:878`) in C order: `:2688–2703` uhitm arm new (negate gate, `!Blind_slee()` file-local youprop.h gate for both plines, resists_elec/defended zeroes leftover after golemeffects+shield in C order, destroy_items adds orig leftover); `:2704–2723` mhitu arm early-returns to the split; `:2724–2738` mhitm arm new (negate gate, `_mm_vis && canseemon` zapped pline, resists/defended zeroes leftover after shield+golemeffects in C order, destroy_items adds orig leftover); one hoisted dynamic `import('./zap.js')` (edge already used by the fire arm). mhitm_adtyping dispatch AD_ELEC block (`js/mhitm.js:4047`, ston-block shape, knockback/monkilled/grow_up tail) wires C `:4794`. `js/uhitm.js` — `damageum_adtyping` AD_ELEC row (`js/uhitm.js:2372`, `mhitm_ad_elec(game.youmonst, …)`) wires C `:4794`-via-`:4854`; name joins the existing uhitm.js→mhitm.js import edge. `js/mhitu.js` — completed `mhitm_ad_elec_u`: live `monstseesu(M_SEEN_ELEC)` on resist / `monstunseesu` else (fire_u pattern), live `destroy_items(you, AD_ELEC, orig_dmg)` on m_lev > rn2(20) with the return discarded per C `(void)` (cf. D-2425 cold_u residual — not added to damage).
+- **JS:** `js/mhitm.js` (+92: doc, export, dispatch block) + `js/uhitm.js` (+9: import name, AD_ELEC row) + `js/mhitu.js` (+17/−9: seesu + destroy completion) + CURRENT.md cluster line + map line — under caps (1500 ins / 15 files).
+- **Callers:** `uhitm.c:4794` (mhitm_adtyping AD_ELEC) → `js/mhitm.js:4047` dispatch ✓ wired this commit; `uhitm.c:4854` (damageum, magr=you) → `js/uhitm.js:2372` damageum_adtyping AD_ELEC row ✓ wired this commit; mhitu dispatch → `js/mhitu.js:3128` `mhitm_ad_elec_u` split ✓ pre-existing, completed this commit. No call from a site C never calls from (engulf `uhitm.js:3334` AD_ELEC crackle row and `mhitu.js:2073` ugolemeffects AD_ELEC are different bodies, untouched).
+- **Verify:** `node scripts/verify.mjs --fn mhitm_ad_elec` → PASS syntax (3 changed: js/mhitm.js js/mhitu.js js/uhitm.js) · rule2 · hidden note (0 blocked at baseline) · reach 35/35 PASS, 0 regressed → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file changed) → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   3 changed js file(s): js/mhitm.js js/mhitu.js js/uhitm.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify mhitm_ad_elec: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    35 baseline-PASS session(s) reach it (35 run, 9.4s): 35 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+VERIFY: PASS
+```
+- **Named omissions:** none in this body — every arm and callee is live or ported in this commit.
+- **Next:** Open head after mhitm_ad_elec (`rumors.c` init_CapMons).
+
 ## D-2541 — `uhitm.c` mhitm_ad_ston whole body in C order (coverage THIN → live, uhitm arm ported, both C callers wired)
 
 - **Status:** fixed (Open coverage row `uhitm.c` mhitm_ad_ston THIN, C 57 L `uhitm.c:4203–4262` / JS 5 L mhitm-only arm in js/mhitm.js; no Must-fix pending; row cites no review — no stamp; reviews 300/301/314/719 name the function for sibling arms only, no Keep'd C-wrong).
