@@ -46,7 +46,7 @@ judge 07:08Z, ~D-2534, +105 pts vs last audit): the corpus still does
 not predict the judge.
 **Corpus fortress** (re-scored 2026-09-19 audit 1489–1497): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — +0 / −0
-in the D-2530…D-2542 window (all nine were zero-block coverage rows;
+in the D-2530…D-2543 window (all nine were zero-block coverage rows;
 per-SHA `--reach-all` re-runs REACH-OK, 0 regressed).
 Reviews 1225–1497: 242 ACCEPT, 10 WITH-DEBT, 1 DEBT, 15 QUALITY-RISK (Must-fix: none — 1465 trio shipped D-2512).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone — review-debt, unqueued (detail in the review files).
@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `uhitm.c` mhitm_ad_elec whole body in C order (uhitm arm new via damageum_adtyping AD_ELEC row; mhitm arm kept; mhitu arm stays split mhitm_ad_elec_u if live, else named). Verify `--fn mhitm_ad_elec`, reach regression 0.
+**Next cluster:** `rumors.c` init_CapMons whole body in C order (two-pass + CapMonstCnt/CapBogonCnt/CapMonSiz + free_CapMons new; CapitalMon caller kept; save.c:1129 freedynamicdata caller named). Verify `--fn init_CapMons`, reach regression 0.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2542 (index).**
+**Keep D-0845…D-2543 (index).**
 <!-- recent:begin -->
+**D-2543** `nethack-c/upstream/src/rumors.c:829–935` (`init_CapMons`); arms `:834–836` sanity free, ` — `js/objnam.js` — restarted `init_CapMons` in C order: `:833` embed-as-opened-file (`bogonfile` null when the embed is missing, guarding the `:871`/`:906–907` arms); `:834–836` sanity `free_CapMons()`; `:841` pass 1-count
 **D-2542** `nethack-c/upstream/src/uhitm.c:2684–2739` (`mhitm_ad_elec`); arms `:2688–2703` (uhitm), ` — `js/mhitm.js` — new exported `mhitm_ad_elec` (`js/mhitm.js:878`) in C order: `:2688–2703` uhitm arm new (negate gate, `!Blind_slee()` file-local youprop.h gate for both plines, resists_elec/defended zeroes leftover after
 **D-2541** `nethack-c/upstream/src/uhitm.c:4203–4262` (`mhitm_ad_ston`); arms `:4209–4214` (uhitm), `:4215–4253` (mhitu), `:4254–4261` (mhitm) — `js/mhitm.js` — restarted + exported `mhitm_ad_ston` in C order: uhitm arm new (live `munstone` cure gate + `minstapetrify`, damage=0); mhitu arm early-returns to the split `mhitm_ad_ston_u`; mhitm arm kept (`mcan` + `do_stone_mon`) — `js/uhitm.js` — `damageum_adtyping` AD_STON row wires C `:4796`.
 **D-2540** `nethack-c/upstream/src/uhitm.c:2958–3012` (`mhitm_ad_blnd`); arms `:2964–2975` (uhitm), ` — `js/mhitm.js` — restarted + exported `mhitm_ad_blnd` in C order: `:2964–2975` uhitm arm new (live `can_blnd` gate on the existing mhitm.js→uhitm.js edge; `!Blind_slee()` is the file-local youprop.h Blind gate the slee ar
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2538** `nethack-c/upstream/src/files.c:1020–1123` (`set_savefile_name`). Callees: `regularize` (` — `js/save.js` — restarted `set_savefile_name(regularize_it)` in C order with `:line` cites: `:1030–1034` VMS arm named compiled out; `:1036–1053` WIN32 arm named compiled out; `:1054–1057` UNIX arm live (`save/` + `game.p
 **D-2537** `nethack-c/upstream/src/mthrowu.c:1173–1264` (`thrwmu`). Callees/macros: `mon_wield_item`  — `js/mthrowu.js` — restarted `thrwmu_body` in C order with `:line` cites: `:1186–1191` wield-gate; `:1194–1196` `select_rwep`; `:1198–1240` polearm arm (must-be-wielded return, `dist2` rang vs `MON_POLE_DIST`/`couldsee` r
 **D-2536** `nethack-c/upstream/src/dig.c:1502–1544` (`draft_message`). Callees/macros: `You_feel` (`: — `js/dig.js` — restarted + exported `draft_message` in C order with `:line` cites: `:1513–1514` plain «an unexpected draft»; `:1515–1523` hallu «like you are %s» (4-F when any of the six ACURR attrs < 6, else 1-A); `:1526
-**D-2535** `nethack-c/upstream/src/mdlib.c:669–830` (`build_options`). Callees: `build_savebones_comp — `js/version.js` (+366) — full family in C order with `:line` cites: opttext state (`:95–104`); `build_savebones_compat_string` (`:392–415`, VERSION_COMPATIBILITY arm compiled out → "5.0.0 only"); 26 contest `build_opts` 
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2542; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2543; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

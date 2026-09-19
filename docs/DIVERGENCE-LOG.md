@@ -1,5 +1,31 @@
 # Divergence log
 
+## D-2543 — `rumors.c` init_CapMons whole body in C order (coverage THIN → live, two-pass + counts + free_CapMons new, C caller wired)
+
+- **Status:** fixed (Open coverage row `rumors.c` init_CapMons THIN, C 106 L `rumors.c:829–935` / JS 32 L one-pass clone in js/objnam.js; no Must-fix pending; row cites no review — no stamp; review 319 ACCEPT-WITH-DEBT stands, this completes its named one-pass gap).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify init_CapMons`: no corpus session blocked at baseline — capitalized type/title article list, RNG 0, msg 2 via the()/CapitalMon path).
+- **C locus:** `nethack-c/upstream/src/rumors.c:829–935` (`init_CapMons`); arms `:834–836` sanity free, `:841–909` pass loop, `:852–866` mons gather, `:868–897` bogus gather, `:899–908` pass finish, `:913–932` DEBUG dump. Callees: `free_CapMons` (`:938–954`, ported), `the_unique_pm` (live same-file `js/objnam.js:2618`), `xcrypt`/`unpadline`/`bogon_is_pname` (review-319 file-local clones kept, map-named), `dupstr`/`alloc` (folded — immutable strings / `new Array`), `dlb_fopen/fseek/fgets/fclose` (folded — build-time `BOGUSMON_BUF` embed, D-0477 Rule #2), `lowc` (ASCII first-char gate via toLowerCase, review-accepted). Callers: `rumors.c:802` (CapitalMon) + `save.c:1129` (freedynamicdata, via free_CapMons).
+- **JS was:** `js/objnam.js:1492` 32 L one-pass clone — built a plain list with `push`, no `free_CapMons` (absent from all of `js/`), no CapMonstCnt/CapBogonCnt/CapMonSiz, no terminator, no sanity re-init arm, no DEBUG note; `CapitalMon` iterated the list with `for...of`.
+- **Fix:** `js/objnam.js` — restarted `init_CapMons` in C order: `:833` embed-as-opened-file (`bogonfile` null when the embed is missing, guarding the `:871`/`:906–907` arms); `:834–836` sanity `free_CapMons()`; `:841` pass 1-count/pass 2-populate loop with `:849` count reset; `:852–866` mons gather (sparse-table JS guards cited, dense in C); `:871–897` bogus gather (rewind folded into re-iteration `:874–875`, header dropped by the extractor `:876–877`, newline-strip folded into the split `:882–883`, code split `:885–888`, capitalized-type gate `:890`, dupstr folded `:892`); `:899–908` pass finish (CapMonSiz+alloc `:900–901`, null terminator `:903–904`, fclose no-op `:906–907`); `:913–932` DEBUG dump named compiled out. New exported `free_CapMons` (`js/objnam.js:1508`, C `:938–954`: release linkage, zero CapMonSiz only — counts keep stale values per C `:952`). `CapitalMon` loop is now C `:806` indexed `i < CapMonSiz - 1` (skips the terminator; identical set).
+- **JS:** `js/objnam.js` (+~100/−34: counters, free_CapMons, two-pass restart, CapitalMon bound) + CURRENT.md cluster line + map line — under caps (1500 ins / 15 files).
+- **Callers:** `rumors.c:802` (CapitalMon → init) → `js/objnam.js:1603` `if (!CapMons) init_CapMons()` ✓ pre-existing, kept; `save.c:1129` (freedynamicdata → free_CapMons) → named omission (save-freeing teardown has no JS counterpart — fortress guard, same ground as freedynamicdata refill skips). No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn init_CapMons` → PASS syntax (1 changed: js/objnam.js) · rule2 · hidden note (0 blocked at baseline) · reach smoke 24/24 PASS, 0 regressed → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file changed) → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/objnam.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify init_CapMons: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 4.0s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+VERIFY: PASS
+```
+- **Named omissions:** `free_CapMons` caller save.c freedynamicdata `:1129` (save-freeing teardown, no JS counterpart); `#ifdef DEBUG` CapMons dump `:913–932` (no DEBUGFILES window layer); `xcrypt_objnam`/`unpadline_objnam`/`bogon_is_pname_objnam` stay file-local clones of hacklib.c/rumors.c/do_name.c (review-319 debt, no new cross-module edge); dlb_* folded into the embed (D-0477).
+- **Next:** Open head after init_CapMons (`sp_lev.c` check_room).
+
 ## D-2542 — `uhitm.c` mhitm_ad_elec whole body in C order (coverage MISSING → live, uhitm+mhitm arms new, C caller wired, elec_u split completed)
 
 - **Status:** fixed (Open coverage row `uhitm.c` mhitm_ad_elec MISSING, C 53 L `uhitm.c:2684–2739` / JS no symbol; no Must-fix pending; row cites no review — no stamp).

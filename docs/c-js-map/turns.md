@@ -1148,7 +1148,7 @@ drawbridge/lava wish arms still named (`pooleffects` live D-2240);
 **doname W_WEP `!mrg_to_wielded` + AKLYS `"tethered to"` D-1322**; 
 **`killer_xname` D-1335** (dokick kickobjnam + petrify; **eat choke D-1344**; 
 **dozap self-zap D-1345**; **throwit `:1747` D-1346**; throw_obj `:147` / pickup/wield remaining); 
-**warn_obj / artifact_light W_WEP `)` rewrite D-1347**; **`the()` CapitalMon D-1357**; 
+**warn_obj / artifact_light W_WEP `)` rewrite D-1347**; **`the()` CapitalMon D-1357**; **`init_CapMons` whole body C-order D-2543** (`rumors.c:829–935` two-pass + CapMonstCnt/CapBogonCnt/CapMonSiz + null terminator + sanity free; `free_CapMons` `:938–954` exported, save.c:1129 freedynamicdata caller named save-freeing guard; `CapitalMon` C `:806` indexed bound; DEBUG dump + dlb folded into the embed named); 
 **`the()` fruit_from_name + artifact_name D-1487** (named fruit takes `"the "` unless pname 
 artifact; local artifact_name copy); **`fruit_from_indx` + xname FOOD SLIME_MOLD D-1511** 
 (`spe`→fname; missing `"fruit"`; quan ick singular then plural; `init_fruit_chain` default 
