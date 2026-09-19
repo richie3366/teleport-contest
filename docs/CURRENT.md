@@ -46,7 +46,7 @@ judge 18:47Z cached, unchanged 11/44 5,776 pts vs last audit): the corpus still 
 not predict the judge.
 **Corpus fortress** (re-scored 2026-09-19 audit 1533–1541): **494 / 540
 PASS (91.5 %)** excl. 13 env-only; RNG 99.30 %, screens 98.9 % — **+0 / −3**
-in the D-2574…D-2582 window, all worktree-bisected: Rogue-92026 → D-2574
+in the D-2574…D-2583 window, all worktree-bisected: Rogue-92026 → D-2574
 (review 1533, rehumanize not-found pline); Priest-92163 + Rogue-92221 →
 D-2577 (review 1536, Master-Key wish). Both are Must-fix rows. Per-SHA
 `--reach-all` was clean (neither fn draws tracked RNG — stale PASSes);
@@ -104,8 +104,9 @@ breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
 **Next cluster:** `light.c` del_light_source rehumanize regression (D-2574 Must-fix, review 1533) — Rogue-92026 step 164 (`not found type=2` pline displaces the message line): attach the youmonst LS_MONSTER entry per C, never silence `:135–137`. Verify `score --ids scen-poly-Rogue-92026` → PASS.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2582 (index).**
+**Keep D-0845…D-2583 (index).**
 <!-- recent:begin -->
+**D-2583** `nethack-c/upstream/src/polyself.c:497` (old_light capture) + `:570–582` (wizard own-role  — `js/polyself.js` — `new_light_source` joins the existing light.js import (imports.mjs ALREADY, no new edge); `old_light` captured at entry per `:497`; `old_light = 0` after the wizard-rehumanize arm per `:581`; made_chan
 **D-2582** `nethack-c/upstream/src/files.c:3473–3645` (`read_tribute`) + `:3647–3653` (`Death_quote`) — `js/files.js` — restarted `read_tribute` in C order with `:line` cites: `switch (ch0)` mirroring `switch (line[0])` (`:3533`) with `%`/`#`/`default`; split keeps each line's `\n` so the live `strip_newline` runs exactly 
 **D-2581** `nethack-c/upstream/src/read.c:1115–1290` (`seffect_enchant_armor`, staticfn) + `:2414–245 — `js/do_wear.js` — new exported `adj_abon(otmp, delta)` (`:3319–3336`: uarmg/dex + uarmh/int-wis halves, makeknown + ABON only when delta nonzero, botl unconditional; `u.abon`/`game.flags.botl` per Gloves_on).
 **D-2580** `nethack-c/upstream/src/files.c:2090–2153` (`make_converted_name`, staticfn boolean) + `:2 — ported the whole C body in C order with `:line` cites — null-filename FALSE (`:2097–2098`), prev-name drop = JS GC (`:2103–2106`), bare-vs-dir branch via live `contains_directory` (`:2113`), HACKDIR `/usr/games/lib/netha
@@ -113,11 +114,10 @@ revisits the picker.
 **D-2578** `nethack-c/upstream/src/mkobj.c:1888–1976` (wt init `:1890`; quan<1 `:1892–1896`; globby ` — `js/mkobj.js` — restarted `weight()` in C order with `:line` cites.
 **D-2577** `nethack-c/upstream/src/mondata.c:893–1085` (article strip `:920–925`; vortices/ies/ves pr — `js/mondata.js` — restarted `name_to_monplus` in C order with `:line` cites: case-sensitive `a `/`an `/`the ` strip; vortices→vortex / -ies→-y (zombies-excluded) / -ves→-f truncating fixups with recomputed slen; full 60-
 **D-2576** `nethack-c/upstream/src/pickup.c:2088–2162` (null guard `:2095–2096`; locked branch `:2097 — `js/pickup.js` — restarted `do_loot_cont` in C order with `:line` cites: short-circuit `unlocktool || UNTRAP` condition (`:2121–2123`); `objects_at(ox,oy)` rescan, local null mirrors `*cobjp = 0` (both C callers re-read 
-**D-2575** `nethack-c/upstream/src/uhitm.c:4623–4748` (`pa` `:4627`; uhitm steal_it + zero `:4629–463 — `js/mhitm.js` — new exported `mhitm_ad_sedu(magr, mattk, mdef, mhm)` (`:1293`, blnd/elec precedent): uhitm arm via live `steal_it` + zero; `is_youmonst(mdef)` early-return naming the mhitu home; mhitm arm in C order (`_m
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2582; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2583; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

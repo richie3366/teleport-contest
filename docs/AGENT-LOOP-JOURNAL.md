@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-19 — D-2583 `polyself.c` polyself made_change light bookkeeping (rehumanize del_light_source not-found regression)
+
+**C locus:** `nethack-c/upstream/src/polyself.c:497` (old_light capture) + `:570–582` (wizard own-role rehumanize, `:581` old_light=0) + `:720–730` (made_change) + `:1393–1394` (rehumanize del); `light.c:99–138` (del, unchanged D-2574) + `:62–65` (new_light_source, unchanged).
+**JS:** `js/polyself.js:76` import; `:1819–1821` old_light capture; `:1918–1922` rehumanize zeroing; `:2079–2095` made_change tail; header doc now lists the arm live. Export names/signatures unchanged.
+**Change:** `js/polyself.js` — `new_light_source` joins the existing light.js import (imports.mjs ALREADY, no new edge); `old_light` captured at entry per `:497`; `old_light = 0` after the wizard-rehumanize arm per `:581`; made_change tail per `:720–730` (del the stale entry when old emitted; 1→2 range bump, else undetectable; attach via `new_light_source(u.ux, u.uy, ...)`). The new entry is paint-inert (the `do_light_sources` LS_MONSTER arm reads `mx`/`my`, which youmonst lacks, so SHOW stays cleared — pre-existing D-2157 name) but identity-present, which is exactly what the del scan needs.
+**Verify:** `node scripts/verify.mjs --fn rehumanize` → VERIFY: PASS. Tail pasted verbatim:
+**Named:** `do_light_sources` youmonst/usteed identity arm (D-2157, pre-existing — hero light still paint-inert); LSF_NEEDS_FIXUP producers (D-2574 name); replmon light swap (D-2574 name); `retouch_equipment(2)` in rehumanize (pre-existing). Map: `docs/c-js-map/data.md` polyself section.
+**Next:** pop the next Must-fix row (`objnam.c` Master-Key wish regression, D-2577) — else the next Open — coverage row (`topten.c` topten PARTIAL).
 ## 2026-09-19 — Audit d56627bd..300291e5 (reviews 1533–1541: 7 ACCEPT + 2 QUALITY-RISK) + cadence 44/44, proxy 494/540, held-out 11/44
 
 **Reviews:** per-SHA C audit of all 9 JS-touching SHAs (csym body + callers, sym clone audit, imports --can, per-SHA `hidden-proxy verify --base HASH~1 --reach-all` all clean). 1533 del_light_source, 1534 mhitm_ad_sedu, 1535 do_loot_cont, 1537 weight, 1538 basics_enlightenment, 1539 make_converted_name, 1540 seffect_enchant_armor/wand_explode, 1541 read_tribute → ACCEPT; 1533 + 1536 flipped to QUALITY-RISK by the audit full re-score (below).

@@ -1,5 +1,33 @@
 # Divergence log
 
+## D-2583 — `polyself.c` polyself made_change light bookkeeping (rehumanize del_light_source not-found regression)
+
+- **Status:** fixed (Must-fix row ``light.c`` del_light_source rehumanize regression (D-2574); review 1533 QUALITY-RISK actionable #1).
+- **Symptom:** regressed 1/553: scen-poly-Rogue-92026 step 164/266 kind=screen — C `It hits! You return to human form! You can see again.` vs JS `It hits! del_light_source: not found type=2, id=...`. PASS on js@bb229073 (3094/3094 RNG, 266/266 screens), FAIL on js@8d3ce13a (D-2574 worktree-bisected).
+- **C locus:** `nethack-c/upstream/src/polyself.c:497` (old_light capture) + `:570–582` (wizard own-role rehumanize, `:581` old_light=0) + `:720–730` (made_change) + `:1393–1394` (rehumanize del); `light.c:99–138` (del, unchanged D-2574) + `:62–65` (new_light_source, unchanged).
+- **JS was:** `polyself()` never attached/detached the youmonst LS_MONSTER entry (made_change was a named omission), while `rehumanize()` (`js/polyself.js:1049`) dels it whenever the poly form emits light — so the first light-emitting poly form (here fire elemental via #polyself) left no entry and D-2574's now-faithful not-found arm (`:135–137`) fired the impossible pline, displacing the message line. Pre-D-2574 the silent identity-only body skipped invisibly (stale PASS). Measured: youmonst identity is stable (`set_uasmon` mutates `game.youmonst` in place, `monst_to_any` is identity), so the miss is the never-created entry, not a stale-identity scan miss.
+- **Fix:** `js/polyself.js` — `new_light_source` joins the existing light.js import (imports.mjs ALREADY, no new edge); `old_light` captured at entry per `:497`; `old_light = 0` after the wizard-rehumanize arm per `:581`; made_change tail per `:720–730` (del the stale entry when old emitted; 1→2 range bump, else undetectable; attach via `new_light_source(u.ux, u.uy, ...)`). The new entry is paint-inert (the `do_light_sources` LS_MONSTER arm reads `mx`/`my`, which youmonst lacks, so SHOW stays cleared — pre-existing D-2157 name) but identity-present, which is exactly what the del scan needs.
+- **JS:** `js/polyself.js:76` import; `:1819–1821` old_light capture; `:1918–1922` rehumanize zeroing; `:2079–2095` made_change tail; header doc now lists the arm live. Export names/signatures unchanged.
+- **Callers:** no caller edits — C `polyself` callers ride the unchanged export; C `del_light_source` sites (timeout.c ×3, polyself.c ×2, mkobj.c:2778, mhitm mx, mklev vibrasquare, dog.c, mon.c ×3, sp_lev.c:2104) ride the unchanged D-2574 export per review 1533's table.
+- **Verify:** `node scripts/verify.mjs --fn rehumanize` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/polyself.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+PASS  hidden   verify rehumanize: 1 PASS, 0 moved past, 0 unchanged, 0 worse → PROGRESS
+       scen-poly-Rogue-92026: PASS
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 5.6s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+
+VERIFY: PASS
+```
+`node scripts/verify.mjs --fn polyself` → VERIFY: PASS (hidden: no corpus session blocked on polyself at baseline; reach 19/19 PASS → REACH-OK; green + strict + cohort 7/7). `node scripts/hidden-proxy.mjs score --ids scen-poly-Rogue-92026` → PASS (3094/3094 RNG, 266/266 screens; rehumanize owner gone).
+- **Named omissions:** `do_light_sources` youmonst/usteed identity arm (D-2157, pre-existing — hero light still paint-inert); LSF_NEEDS_FIXUP producers (D-2574 name); replmon light swap (D-2574 name); `retouch_equipment(2)` in rehumanize (pre-existing). Map: `docs/c-js-map/data.md` polyself section.
+- **Next:** pop the next Must-fix row (`objnam.c` Master-Key wish regression, D-2577) — else the next Open — coverage row (`topten.c` topten PARTIAL).
+
 ## D-2582 — `files.c` read_tribute whole-body restart (C-order switch, live strip_newline, C-exact bufsz cap)
 
 - **Status:** fixed (Open — coverage row `files.c` read_tribute PARTIAL, C 169 L `files.c:3474–3645` / JS 122 L in js/files.js; hops 4, callers 2, RNG 0, msg 4; measured `port-coverage.mjs --name read_tribute` 2026-09-19 @ 09224e39).

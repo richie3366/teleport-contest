@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
+- [x] `light.c` del_light_source rehumanize regression (D-2574) — regressed 1/553 (scen-poly-Rogue-92026 step 164/266 kind=screen: C `It hits! You return to human form! You can see again.` vs JS `It hits! del_light_source: not found type=2, id=...`; PASS on js@bb229073 3094/3094 RNG, FAIL on js@8d3ce13a — worktree-bisected; per-SHA reach missed it: del_light_source draws no RNG so the session kept a stale PASS). Fix: the youmonst LS_MONSTER entry missing from light_base at rehumanize (polyself.c:1395) — attach it per C (new_light_source path or stale-identity scan miss), never silence the `:135–137` arm. Verify `node scripts/hidden-proxy.mjs score --ids scen-poly-Rogue-92026` → PASS on the fix. Source: reviews/loop-unattended/1533-8d3ce13a-del-light-source.md. **Addressed:** D-2583
+
+
 - [x] `files.c` read_tribute — coverage PARTIAL (C 169 L `files.c:3474–3645` / JS 122 L in js/files.js; hops 4, callers 2, RNG 0, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn read_tribute` (reach regression must be 0). Measured `port-coverage.mjs --name read_tribute` 2026-09-19 @ 09224e39.
 
 

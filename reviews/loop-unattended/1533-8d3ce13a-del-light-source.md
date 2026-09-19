@@ -146,3 +146,5 @@ and exposed the flip. Lesson: non-RNG functions with new plines need a
 screen-cohort re-run, not just smoke.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-2583

@@ -1,6 +1,6 @@
 {
- "commit": "300291e5",
- "at": "2026-09-19T20:27:10.683Z",
+ "commit": "5c946b5e",
+ "at": "2026-09-19T20:49:12.020Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6923,19 +6923,19 @@
   },
   "scen-poly-Rogue-92026": {
    "src": "corpus",
-   "passed": false,
-   "rngM": 2597,
+   "passed": true,
+   "rngM": 3094,
    "rngT": 3094,
-   "scrM": 164,
+   "scrM": 266,
    "scrT": 266,
-   "kind": "screen",
-   "step": 164,
+   "kind": null,
+   "step": null,
    "steps": 266,
-   "owner": "rehumanize",
-   "loc": "polyself.c:1395",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "It hits! You return to human form! You can see again.",
-   "jsTopline": "It hits! del_light_source: not found type=2, id=0x1--More--",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-poly-Samurai-91106": {

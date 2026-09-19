@@ -1324,7 +1324,8 @@ Unchanging skips You+call; youprop H||E flats+uprops;
 confer writes UNCHANGING to uprops not `EUnchanging`; 
 polyself.js now runs were `do_shift`, draconian `do_merge`/uskin + `skinback`,
 `POLY_REVERT`, placeholder substitutes and wizard own-role `rehumanize` (D-2262);
-`made_change` hero light-source bookkeeping stays named); 
+`made_change` hero light-source bookkeeping live (D-2583: `:497` old_light capture,
+`:581` rehumanize zeroing, `:720–730` del/new via live light.js helpers); 
 **`drinksink` case 13 `create_gas_cloud`** (D-1124; 
 C `fountain.c:696–698` / `region.c` `create_gas_cloud`; 
 size-1 poison cloud `arg=4` + ttl `rn1(3,4)`; no expand shuffle; 
