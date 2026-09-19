@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-2579 — `insight.c` basics_enlightenment missing arms (find_ac/AC_MAX, Upolyd HP/hit-dice on ^X, wallet continuation, autopickup shop/apelist)
+
+- **Status:** fixed (Open — coverage row `insight.c` basics_enlightenment MISSING, C 95 L `insight.c:728–823` / JS no same-named symbol).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify basics_enlightenment`: no corpus session blocked at baseline — 24-session smoke REACH is the corpus evidence). The body lives split across the two BASIC-mode builders in `js/invent.js` (final disclosure `enlightenment()` + ^X overlay `doattributes()`), and both were missing C arms: neither called `find_ac()` nor printed the `, the best/worst possible` AC_MAX suffix; the overlay read `u.uhp` even when poly'd (C reads `u.mh`), skipped the `hp < 0 → 0` clamp, omitted the Upolyd hit-dice line, and omitted the `hidden_gold` wallet continuation; both autopickup lines deferred the `costly_spot` shop-disable and the `ga.apelist` exceptions arms (the map's D-2564 line over-claimed them as landed).
+- **C locus:** `nethack-c/upstream/src/insight.c:728–823` (HP `:738–745`; power `:748–754`; Upolyd dice `:756–770`; `find_ac` + AC `:772–777`; wallet + hidden `:779–802`; autopickup `:804–822`) + sole C caller `:410` (`enlightenment`, `mode & BASICENLIGHTENMENT` branch).
+- **JS was:** `js/invent.js` final builder `:5457–5512` had HP/power/dice/AC-plain/wallet/autopickup but no `find_ac`, no AC_MAX suffix; `doattributes()` `:6188–6324` had HP/power from `u.uhp` + `game._goldCount` wallet with no hidden arm, no dice, no `find_ac`/suffix; both autopickup helpers had `// costly_spot shop disable deferred` + `// ga.apelist exceptions deferred`.
+- **Fix:** `js/invent.js` — no format changes (final keeps one-space `enlght_line_txt`, overlay keeps two-space prefix): new exported C-order `basics_autopickup_buf()` (`:804–822`) + `basics_ac_buf()` (`:772–777`) + `basics_hitdice_buf()` (`:756–770`), both builders call all three; both builders call live `find_ac()` before reading `u.uac`; overlay HP reads `u.mh`/`u.mhmax` when poly'd with the `< 0 → 0` clamp; overlay wallet rebuilt from `money_cnt_local()` + `hidden_gold(0)` with the `, but`/`, and` + own-line continuation; autopickup arms wired to live `costly_spot(u.ux, u.uy)` + `game.apelist != null` (C pointer check; no producer sets it yet). `find_ac`/`costly_spot`/`AC_MAX` join existing static imports (imports.mjs: no new edge). New maintained pin `scripts/basics-enlightenment.test.mjs` (8/8).
+- **JS:** `js/invent.js:62` (costly_spot), `:67` (find_ac), `:304` (AC_MAX), `:4295–4347` (three exported bufs + overlay wrapper), `:5526–5529` (final find_ac), `:5517–5519` (final dice via helper), `:6107–6120` (final autopickup via core), `:6223–6268` (overlay wallet/HP/dice/AC), `:6376–6384` (overlay push site).
+- **Callers:** export names/signature unchanged (`enlightenment`, `doattributes` — the two JS homes of the single C caller at `:410`); C callees live-called (`find_ac`, `money_cnt` via local sum, `hidden_gold`, `currency`, `costly_spot`) or by-design (`oc_to_str` `:812` — JS `pickup_types` is already the symbol string; `eos` — string concat; `doprgold` — comment-only mention, not a call).
+- **Verify:** `node scripts/verify.mjs --fn basics_enlightenment` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/invent.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify basics_enlightenment: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 4.0s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+
+VERIFY: PASS
+```
+- **Named omissions:** `money_cnt` first-match vs local sum (equivalent under the gold-merge invariant; `doprgold` keeps its own first-match loop); `game.apelist` null-check arm is live but has no producer yet (options.js notes the same); `plur`/`abs` via ternary/`Math.abs`.
+- **Next:** pop the next Open — coverage row (`files.c` make_converted_name).
+
 ## D-2578 — `mkobj.c` weight whole-body port (statue/iron-ball/candelabrum arms, C arm order, mksobj owt zero)
 
 - **Status:** fixed (Open — coverage row `mkobj.c` weight PARTIAL, C 88 L `mkobj.c:1888–1976` / JS 48 L `js/mkobj.js:276`).

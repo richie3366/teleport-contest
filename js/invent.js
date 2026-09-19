@@ -59,12 +59,12 @@ import { xprname, an, the, just_an, vtense, doname, distant_name, Japanese_item_
 import { yn_function, getlin, mungspaces } from './getline.js';
 import { get_count, pmatchi, cmdq_pop, cmdq_clear } from './cmd.js';
 import { mergable, merged, is_damageable, stop_timer, splitobj, unsplitobj, clear_splitobjs, unknwn_contnr_contents, weight, delobj } from './mkobj.js';
-import { unpaid_cost, doinvbill, gem_learned, obfree, shopper_financial_report } from './shk.js';
+import { unpaid_cost, doinvbill, gem_learned, obfree, shopper_financial_report, costly_spot } from './shk.js';
 import { hidden_gold } from './vault.js';
 import { setnotworn, dropy } from './do.js';
 import { s_suffix, a_monnam, pmname, x_monnam, hliquid } from './do_name.js';
 import { inv_cnt } from './steal.js';
-import { assigninvlet } from './u_init.js';
+import { assigninvlet, find_ac } from './u_init.js';
 import { cansee } from './vision.js';
 import {
     WEAPON_CLASS,
@@ -301,6 +301,7 @@ import {
     FIRE_RES, SHOCK_RES, TELEPAT, WARNING,
     DISPLACED, ANTIMAGIC, INVIS,
     G_GENOD,
+    AC_MAX,
     LOOKHERE_NOFLAGS,
     MSGTYP_MASK_REP_SHOW,
 } from './const.js';
@@ -4289,24 +4290,59 @@ function one_characteristic_line(attrindx) {
 }
 
 /**
- * C ref: insight.c basics_enlightenment autopickup line.
- * pickup_types in JS is already the symbol string from .nethackrc
- * (C stores class indices and uses oc_to_str).
+ * C ref: insight.c basics_enlightenment `:804–822` — autopickup buf shared
+ * by the ^X overlay and the final disclosure paths (formats differ, C order
+ * doesn't). pickup_types in JS is already the symbol string from .nethackrc
+ * (C stores class indices and uses oc_to_str `:812`, so no mapping call).
+ * C default pickup_thrown is On (JS `!== false` matches).
  */
+export function basics_autopickup_buf(pickup, ocl, pickupThrown, shopDisabled, hasExceptions) {
+    if (!pickup) return 'off'; // C `:820–821`
+    let buf = 'on'; // C `:807`
+    if (shopDisabled) {
+        // C `:808–810` — shop inhibits autopickup, even pickup_thrown.
+        return buf + ', but temporarily disabled while inside the shop';
+    }
+    buf += ` for ${ocl ? `'${ocl}'` : 'all types'}`; // C `:812–814`
+    if (pickupThrown && ocl) buf += ' plus thrown'; // C `:815–816`
+    if (hasExceptions) buf += ', with exceptions'; // C `:817–818`
+    return buf;
+}
+
+/**
+ * C ref: insight.c basics_enlightenment `:772–777` — armor class value with
+ * the AC_MAX cap suffix (find_ac `:772` enforces the cap beforehand).
+ */
+export function basics_ac_buf(uac) {
+    const v = uac | 0;
+    let buf = String(v);
+    if (Math.abs(v) === AC_MAX) {
+        buf += `, the ${v < 0 ? 'best' : 'worst'} possible`;
+    }
+    return buf;
+}
+
+/**
+ * C ref: insight.c basics_enlightenment `:756–770` — Upolyd hit dice
+ * between energy and AC (status line shows "HD:0" for mlevel 0).
+ */
+export function basics_hitdice_buf(mlevel) {
+    const mlev = mlevel | 0;
+    if (mlev === 0) return '0 hit dice (actually 1/2)';
+    if (mlev === 1) return '1 hit die';
+    return `${mlev} hit dice`;
+}
+
 function autopickup_enlightenment_line() {
     const flags = game.flags || {};
-    let buf;
-    if (flags.pickup) {
-        const ocl = String(flags.pickup_types || '');
-        buf = 'on';
-        // costly_spot shop disable deferred
-        buf += ` for ${ocl ? `'${ocl}'` : 'all types'}`;
-        // C default pickup_thrown is On
-        if ((flags.pickup_thrown !== false) && ocl) buf += ' plus thrown';
-        // ga.apelist exceptions deferred
-    } else {
-        buf = 'off';
-    }
+    const u = game.u || {};
+    const buf = basics_autopickup_buf(
+        flags.pickup,
+        String(flags.pickup_types || ''),
+        flags.pickup_thrown !== false,
+        costly_spot(u.ux, u.uy),
+        game.apelist != null,
+    );
     return `  Autopickup is ${buf}.`;
 }
 
@@ -5477,17 +5513,15 @@ export async function enlightenment(mode, final = 0) {
         lines.push(you_have(pwLine));
         // C insight.c:753-766 — Upolyd hit dice between energy and AC.
         if (Upolyd(u)) {
-            const mlev = mons(u.umonnum)?.mlevel | 0;
-            let hdBuf;
-            if (mlev === 0) hdBuf = '0 hit dice (actually 1/2)';
-            else if (mlev === 1) hdBuf = '1 hit die';
-            else hdBuf = `${mlev} hit dice`;
-            lines.push(you_have(hdBuf));
+            lines.push(you_have(basics_hitdice_buf(mons(u.umonnum)?.mlevel)));
         }
+        // C insight.c basics_enlightenment `:772–777` — find_ac enforces
+        // the AC_MAX cap before the value is read.
+        find_ac();
         lines.push(enlght_line_txt(
             'Your armor class ',
             final ? 'was ' : 'is ',
-            String(u.uac ?? 10),
+            basics_ac_buf(u.uac ?? 10),
             '',
         ));
         // C insight.c:787-808 — wallet + hidden_gold(final) continuation.
@@ -6069,15 +6103,14 @@ function money_cnt_local() {
 
 function autopickup_enlightenment_line_final(final) {
     const flags = game.flags || {};
-    let buf;
-    if (flags.pickup) {
-        const ocl = String(flags.pickup_types || '');
-        buf = 'on';
-        buf += ` for ${ocl ? `'${ocl}'` : 'all types'}`;
-        if ((flags.pickup_thrown !== false) && ocl) buf += ' plus thrown';
-    } else {
-        buf = 'off';
-    }
+    const u = game.u || {};
+    const buf = basics_autopickup_buf(
+        flags.pickup,
+        String(flags.pickup_types || ''),
+        flags.pickup_thrown !== false,
+        costly_spot(u.ux, u.uy),
+        game.apelist != null,
+    );
     return enlght_line_txt('Autopickup ', final ? 'was ' : 'is ', buf, '');
 }
 
@@ -6159,7 +6192,6 @@ export async function doattributes(enl_mode = null) {
     const align = align_str(atype);
     const turns = game.moves | 0;
     const hand = (u.uhandedness === 1 /* LEFT_HANDED */) ? 'left' : 'right';
-    const gold = game._goldCount || 0;
     // C ref: insight.c background_enlightenment — gender only when
     // !name.f AND (both genders allowed OR innategend != initgend)
     const allowGend = (game.urole?.allow ?? 0) & ROLE_GENDMASK;
@@ -6185,12 +6217,26 @@ export async function doattributes(enl_mode = null) {
     }
     opposed += '.';
 
-    const wallet = gold
-        ? `  Your wallet contains ${gold} ${currency(gold)}.`
-        : '  Your wallet is empty.';
+    // C ref: insight.c basics_enlightenment `:779–802` — gold; like doprgold
+    // but without shop billing; includes container contents (hidden_gold).
+    // Overlay format keeps this builder's two-space prefix (final=0 → "is").
+    const umoney = money_cnt_local();
+    const hmoney = hidden_gold(0);
+    let wbuf = !umoney
+        ? '  Your wallet is empty'
+        : `  Your wallet contains ${umoney} ${currency(umoney)}`;
+    wbuf += !hmoney ? '.' : !umoney ? ', but' : ', and';
+    const wallet = wbuf;
+    // C `:797–801` — contained gold on its own continuation line.
+    const walletCont = hmoney
+        ? `  You have ${hmoney} ${umoney ? 'more' : currency(hmoney)} stashed away in your pack.`
+        : '';
 
-    const hp = u.uhp | 0;
-    const hpmax = u.uhpmax | 0;
+    // C insight.c basics_enlightenment `:732–744` — poly'd HP reads u.mh;
+    // negative HP shows 0; "all" only when max > 1.
+    let hp = Upolyd(u) ? (u.mh | 0) : (u.uhp | 0);
+    const hpmax = Upolyd(u) ? (u.mhmax | 0) : (u.uhpmax | 0);
+    if (hp < 0) hp = 0;
     const pw = u.uen | 0;
     const pwmax = u.uenmax | 0;
     // C ref: insight.c basics_enlightenment — hit / energy phrasing
@@ -6206,6 +6252,15 @@ export async function doattributes(enl_mode = null) {
     } else {
         pwLine = `${pw} out of ${pwmax} ${Power}`;
     }
+    // C insight.c basics_enlightenment `:756–770` — Upolyd hit dice between
+    // energy and AC (was missing on this path; final path already had it).
+    const hdLine = Upolyd(u)
+        ? basics_hitdice_buf(mons(u.umonnum)?.mlevel)
+        : '';
+    // C insight.c basics_enlightenment `:772–777` — find_ac enforces the
+    // AC_MAX cap before the value is read.
+    find_ac();
+    const acBuf = basics_ac_buf(u.uac ?? 10);
 
     // C ref: insight.c background_enlightenment — In_endgame /
     // Is_knox / quest dunlev / rogue / bigroom (D-2564 lands the last)
@@ -6318,8 +6373,10 @@ export async function doattributes(enl_mode = null) {
             ' Basics:',
             `  You have ${hpLine}.`,
             `  You have ${pwLine}.`,
-            `  Your armor class is ${u.uac ?? 10}.`,
+            ...(hdLine ? [`  You have ${hdLine}.`] : []),
+            `  Your armor class is ${acBuf}.`,
             wallet,
+            ...(walletCont ? [walletCont] : []),
             autopickup_enlightenment_line(),
             '',
             ' Characteristics:',
