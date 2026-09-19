@@ -106,7 +106,14 @@ stash probe `LFILE_EXISTS ⟺ openable`; callers `do.c:1704` →
 (macopen/setmode/`;1`/translate); nhclose/fclose/fplog writes (Rule #2);
 `close_nhfile`; `tricked_fileremoved` arms (no pline1/error);
 `save.c:376` savestateinlock (unported); `recover_savefile` (no
-SELF_RECOVER); `create_levelfile` (write side).
+SELF_RECOVER); `create_levelfile` (write side). **set_savefile_name D-2538**
+(`files.c:1020–1123`; live `js/save.js` UNIX arm in C order — regoffset 5,
+spot 2, suffix-only `regularize` (`unixunix.c:297` ported file-local),
+SAVESIZE 53 guards, extension/indicator/postappend live no-ops;
+`game.SAVEF` = `gs.SAVEF`; `dosave0`/`try_restore_save` preset TRUE).
+Named: `getuid` digits (Rule #2 single-user VFS); VMS/WIN32/MSDOS/MICRO
+arms; `fname_encode`; SYSV truncation; RELEASED `impossible`;
+`check_panic_save`/`recover_savefile`/`get_saved_games` counterparts.
 
 ### `include/artilist.h`
 

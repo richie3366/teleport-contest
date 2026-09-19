@@ -38,20 +38,21 @@ here again. Live hypotheses only:
 - **do_statusline2 residuals (D-2425 MEASURED):** W1 Healer-92107 `mhitm_ad_cold_u` extra destroy return; W2 Satiated pair = eat-progress `uhs`/botl timing — both are corpus-residual Open rows (detail in D-2425). Monk-92194 Pw = D-2161 gulpmu residual, no new row.
 ## Don't re-check (≤15)
 
-- D-1790…D-2537 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-2538 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2537.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2537.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2538.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2538.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2538: `js/save.js` — restarted `set_savefile_name(regularize_it)` in C order with `:line` cites: `:1030–1034` VMS arm named compiled out; `:1036–1053` WIN32 Named: `getuid()` uid digits (`:1055` — Rule #2, no POSIX identity in dual-runtime ESM; single-us
 - D-2537: `js/mthrowu.js` — restarted `thrwmu_body` in C order with `:line` cites: `:1186–1191` wield-gate; `:1194–1196` `select_rwep`; `:1198–1240` polearm arm Named: none in this body — every arm and callee is live, file-local, or imported above.
 - D-2536: `js/dig.js` — restarted + exported `draft_message` in C order with `:line` cites: `:1513–1514` plain «an unexpected draft»; `:1515–1523` hallu «like y Named: none in this body — every arm and callee is live or file-local.
 - D-2535: `js/version.js` (+366) — full family in C order with `:line` cites: opttext state (`:95–104`); `build_savebones_compat_string` (`:392–415`, VERSION_CO Named: `eos` (pointer-arithmetic helper — folded into `+=`, C hacklib.c:192); `make_version`/`pop
@@ -66,5 +67,4 @@ here again. Live hypotheses only:
 - D-2526: `js/exper.js` — restarted `losexp` in C order with `:line` cites: `:212–217` #levelchange null else live `resists_drli(game.youmonst)`; `:219–224` Goo Named: `SoundAchievement(:231)` (no SND_LIB, same as pluslvl); `fuzzer_savelife` (debug-fuzz only
 - D-2525: `js/objnam.js` — restarted `vtense` in C order with `:line` cites: `:2581–2582` a/an prefix (NUL-short-safe); `:2583–2593` marker scan (first-space wa Named: none in this body — every arm and callee is live or file-local in this commit.
 - D-2524: `js/sounds.js` — restarted `dochat` in C order with `:line` cites: `:1262–1278` four gates; `:1280–1290` shop arm (`shop_object` + `price_quote`, `ECM Named: none in these bodies — every arm and callee is live or ported in this commit.
-- D-2523: `js/do.js` — restarted `canletgo` in C order with `:line` cites: `:667–672` worn armor/accessory Norep; `:673–686` welded uwep with `body_part(HAND)`  Named: `ball.js` silent clone omits loadstone/leash gates + corpsenm/`set_bknown` state (avoids d
 <!-- landmarks:end -->

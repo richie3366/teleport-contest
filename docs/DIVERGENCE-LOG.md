@@ -1,5 +1,31 @@
 # Divergence log
 
+## D-2538 — `files.c` set_savefile_name whole body in C order (coverage THIN → live, UNIX arm ported, both JS save sites wired)
+
+- **Status:** fixed (Open coverage row `files.c` set_savefile_name THIN, C 103 L `files.c:1020–1123` / JS 4 L stub in js/save.js; no Must-fix pending; row cites no review — no stamp).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify set_savefile_name`: no corpus session blocked at baseline — save-path builder, RNG 0, msg 4 via the overflow `impossible` arm, compiled out on RELEASED).
+- **C locus:** `nethack-c/upstream/src/files.c:1020–1123` (`set_savefile_name`). Callees: `regularize` (`:1087`, UNIX body `sys/unix/unixunix.c:297` ported file-local as `regularize_save_suffix`); `fname_encode` (`:1043`, WIN32-only — named, not cloned); `impossible` (`:1119`, inside `#if NH_DEVEL_STATUS != NH_STATUS_RELEASED`, contest pins RELEASED `patchlevel.h:33` — compiled out, named, never called). Constants: `SAVESIZE` (UNIX `fnamesiz.h:74` = PL_NSIZ 32 + sizeof SAVEX 12 + sizeof ext 1 + INDSIZE 8 = 53, derived in JS from the same parts); `SAVE_EXTENSION` (UNIX `fnamesiz.h:46` = `""` — `#ifdef` block live, length guard false, no-op); `SAVEX` (`save/99999.e`, shape only).
+- **JS was:** `js/save.js:63` 4 L stub `set_savefile_name(plname)` returning `` `save/${name}` `` with `/\`-only sanitization — C-wrong on five counts: non-C signature (C takes `boolean regularize_it`, reads `svp.plname`), no `gs.SAVEF` global, no `regoffset`, wrong sanitize set (C regularizes `.`/` `/`/`, keeps `\`), no `SAVESIZE` overflow guards.
+- **Fix:** `js/save.js` — restarted `set_savefile_name(regularize_it)` in C order with `:line` cites: `:1030–1034` VMS arm named compiled out; `:1036–1053` WIN32 arm named compiled out; `:1054–1057` UNIX arm live (`save/` + `game.plname`, regoffset 5, spot 2); `:1059–1064` MSDOS / `:1065–1085` MICRO+AMIGA arms named compiled out; `:1086–1087` `regularize` applied to the post-`regoffset` suffix only (the `save/` slash survives); `:1088–1093`/`:1094–1104`/`:1105–1108`/`:1109–1115` indicator-1 / SAVE_EXTENSION / indicator-2 / postappend arms live with C short-circuit (`sfindicator`/`postappend` null, extension `""` — no-ops, `overflow` stays 0); `:1116–1122` `impossible` named compiled out. Writes `game.SAVEF` (the `gs.SAVEF` analogue), returns it as a JS convenience (C returns void). Same-file callers rewired to C order: `dosave0` presets `set_savefile_name(1)` then uses `game.SAVEF`; `try_restore_save` (the `restore_saved_game :1276` analogue) presets `set_savefile_name(1)` then VFS-reads `game.SAVEF`. Probe: `Hero`→`save/Hero` both flags; `A.B C/D`→`save/A_B_C_D` (TRUE) vs untouched (FALSE); 200-char name passes through (C `Sprintf` base unbounded; guards cover appends only).
+- **JS:** `js/save.js` (+~85/−6: SAVESIZE parts, `regularize_save_suffix`, restarted body, `PL_NSIZ` import word, 2 caller arms) + CURRENT.md cluster line + map lines — under caps (1500 ins / 15 files).
+- **Callers:** `files.c:1276` (`restore_saved_game`, TRUE) → `js/save.js` `try_restore_save` (`set_savefile_name(1)`, VFS read of `game.SAVEF`) ✓ wired this commit; `files.c:1349` (`check_panic_save` TRUE reset, `CHECK_PANIC_SAVE` live on UNIX) — no JS counterpart (panic-save path unported) named; `files.c:1420` (`get_saved_games` WIN32 wildcard FALSE) compiled out — named; `files.c:1461` (`#if 0` rename arm) dead — named; `files.c:1523` (VMS wildcard FALSE) compiled out — named; `files.c:2908`/`2974` (`recover_savefile` SELF_RECOVER) — no JS counterpart, named; `windmain.c:393`/`442` (Windows startup) compiled out — named. No call from a site C never calls from (`dosave0`'s preset mirrors C's pre-set `gs.SAVEF` at save time).
+- **Verify:** `node scripts/verify.mjs --fn set_savefile_name` → PASS syntax (1 changed: js/save.js) · rule2 · hidden note (0 blocked at baseline) · reach smoke 24/24 PASS, 0 regressed → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file changed) → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/save.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify set_savefile_name: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 4.5s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+VERIFY: PASS
+```
+- **Named omissions:** `getuid()` uid digits (`:1055` — Rule #2, no POSIX identity in dual-runtime ESM; single-user VFS keeps `save/<plname>`); `fname_encode` (WIN32-only, never cloned); VMS/WIN32/MSDOS/MICRO/AMIGA arms; SYSV 14-char truncation inside `regularize`; RELEASED `impossible`; `check_panic_save`/`recover_savefile`/`get_saved_games` caller counterparts (unported recover/selectsaved paths).
+- **Next:** Open head after set_savefile_name (`uhitm.c` mhitm_ad_slim).
+
 ## D-2537 — `mthrowu.c` thrwmu whole body in C order (coverage THIN → live, polearm arm ported, the one C caller wired)
 
 - **Status:** fixed (Open coverage row `mthrowu.c` thrwmu THIN, C 90 L `mthrowu.c:1174–1264` / JS 11 L wrapper + partial body in js/mthrowu.js; no Must-fix pending; row cites no review — no stamp; reviews 1223/1324/1357/296 name thrwmu only for sibling arms, no Keep'd C-wrong).

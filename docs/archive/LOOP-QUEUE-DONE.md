@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `mthrowu.c` thrwmu — coverage THIN (C 90 L `mthrowu.c:1174–1264` / JS 11 L in js/mthrowu.js; hops 2, callers 1, RNG 1, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn thrwmu` (reach regression must be 0). Measured `port-coverage.mjs --name thrwmu` 2026-09-19 @ ca74dad2. **Addressed:** D-2537
+- [x] `files.c` set_savefile_name — coverage THIN (C 103 L `files.c:1020–1123` / JS 4 L in js/save.js; hops 5, callers 7, RNG 0, msg 4; dead callees: fname_encode). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn set_savefile_name` (reach regression must be 0). Measured `port-coverage.mjs --name set_savefile_name` 2026-09-19 @ ca74dad2. **Addressed:** D-2538.
+
+
+- [x] `mthrowu.c` thrwmu — coverage THIN (C 90 L `mthrowu.c:1174–1264` / JS 11 L in js/mthrowu.js; hops 2, callers 1, RNG 1, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn thrwmu` (reach regression must be 0). Measured `port-coverage.mjs --name thrwmu` 2026-09-19 @ ca74dad2. **Addressed:** D-2537 `29318908`
 
 
 - [x] `dig.c` draft_message — coverage THIN (C 40 L `dig.c:1504–1544` / JS 5 L in js/dig.js; hops 5, callers 3, RNG 2, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn draft_message` (reach regression must be 0). Measured `port-coverage.mjs --name draft_message` 2026-09-19 @ ca74dad2. **Addressed:** D-2536 `0e4e2b9b`
