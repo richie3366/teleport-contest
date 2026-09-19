@@ -229,7 +229,7 @@ export function hard_helmet(obj) {
     if (!obj || !is_helmet(obj)) return false;
     return (is_metallic(obj) || is_crackable(obj)) ? true : false;
 }
-function is_gloves(obj) {
+export function is_gloves(obj) {
     return obj?.oclass === ARMOR_CLASS && armcat(obj) === ARM_GLOVES;
 }
 function is_boots(obj) {

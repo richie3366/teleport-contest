@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-19 — D-2594 `apply.c` use_stethoscope whole-body port (gates/steed/swallow/dz/heartbeat/reveal/its_dead)
+
+**C locus:** `nethack-c/upstream/src/apply.c:318–470` (staticfn; sole C caller `:4328` doapply STETHOSCOPE) + same-file staticfn `its_dead` `:198–310` (callers `:365` + `:467`) + `hollow_str` `:312` + extern `init_dummyobj` (`mkobj.c:3347–3372`, sole C caller the M_AP_OBJECT arm `:414`).
+**JS:** `js/apply.js:348` HOLLOW_STR, `:358` its_dead, `:465` use_stethoscope; `js/mkobj.js:3663` init_dummyobj; export-only `js/trap.js:3360`, `js/do_wear.js:232`.
+**Change:** `js/apply.js` — restarted `use_stethoscope` in C order with `:line` cites: entry interference `uswallow && is_whirly(ustuck) && !rn2(Role_if(PM_HEALER)?10:3)` (initializer RNG order kept); nohands/`Deaf_hero()`(file convention)/freehand gates; hero_seq res; tentative bhitpos + notonhead; steed+dz / swallow+dir / swallow+interference / dz (uinwater splash, `dz<0||!can_reach_floor`→cant_reach_floor, its_dead, stronghold hellfire, `pline_The(surface)` healthy) / cursed `rn2(2)` heartbeat arms; confdir + self ustatusline; isok typing-noise ECMD_OK; m_at with C x_monnam flags, bhitpos reset first, mundetected `There`, M_AP switch via live `init_dummyobj` + `simple_typename`/`simpleonames` + `is_boots`/`is_gloves`/LENSES, `pmname(mons, Mgender)`, seemimic, verbose `There`, mstatusline + map_invisible; unmap_invisible pline_The; SDOOR/SCORR hollow reveal (cvt_sdoor_to_door/recalc_block_point/unblock_point/feel_newsym); its_dead tail with C `You`. New module-local `its_dead` (uppermost-pile rule, tiny-statue filter, hallu Jim with ECMD_TIME resp holder, Healer reviver scan, Blind glyph map_object via `obj_glyph` = C obj_to_glyph, statue person/creature vs obj_pmname+The, Healer trap/contents grade). `init_dummyobj` exported from C-home `js/mkobj.js:3663` (zeroobj wipe, amulet known, NON_PM, leash/boulder storage, fruit spe); `obj_pmname` (`js/trap.js:3360`) and `is_gloves` (`js/do_wear.js:232`) exported (import-the-export, no clones); `simple_typename_steth` clone deleted.
+**Verify:** `node scripts/verify.mjs --fn use_stethoscope --full` → VERIFY: PASS. Tail pasted verbatim:
+**Named:** M_AP_FURNITURE `defsyms[mappearance].explanation` (no JS defsyms table anywhere — keeps C default `'thing'`).
+**Next:** `lift_object` + `in_container` Open rows stay queued for their own iterations.
 ## 2026-09-19 — D-2593 `pickup.c` tipcontainer_checks whole-body port (trapped/carried/target arms)
 
 **C locus:** `nethack-c/upstream/src/pickup.c:3954–4055` (TIPCHECK enum `:3680–3684`; callers `tipcontainer` `:3724`/`:3726–3728`; entry location sync `:3697–3699`).

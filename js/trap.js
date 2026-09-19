@@ -3357,7 +3357,7 @@ export async function instapetrify(str) {
  * C ref: do_name.c obj_pmname — CORPSE/STATUE/FIGURINE pmnames subset.
  * Named omission: aligned-cleric → cleric remap; omonst traits.
  */
-function obj_pmname(obj) {
+export function obj_pmname(obj) {
     const CORPSE = objectNames.indexOf('CORPSE');
     const STATUE = objectNames.indexOf('STATUE');
     const FIGURINE = objectNames.indexOf('FIGURINE');

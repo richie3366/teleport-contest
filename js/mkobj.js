@@ -108,6 +108,8 @@ const CANDELABRUM_OF_INVOCATION =
     objectNames.indexOf('CANDELABRUM_OF_INVOCATION');
 const TALLOW_CANDLE = objectNames.indexOf('TALLOW_CANDLE');
 const BOULDER = objectNames.indexOf('BOULDER');
+const LEASH = objectNames.indexOf('LEASH');
+const SLIME_MOLD = objectNames.indexOf('SLIME_MOLD');
 const HEAVY_IRON_BALL = objectNames.indexOf('HEAVY_IRON_BALL');
 const STATUE = objectNames.indexOf('STATUE');
 const BAG_OF_HOLDING = objectNames.indexOf('BAG_OF_HOLDING');
@@ -3648,6 +3650,34 @@ export function get_mtraits(obj, copyof) {
     }
     mtmp.data = mons(mtmp.mnum | 0);
     return mtmp;
+}
+
+/**
+ * C ref: mkobj.c init_dummyobj `:3347–3372` — blank-obj probe for the
+ * stethoscope mimic-object arm (sole C caller: apply.c use_stethoscope
+ * M_AP_OBJECT `:414`). Zeroes the struct (cg.zeroobj), then otyp/oclass,
+ * known (kept for amulets — fakes & real AoY — else !oc_uses_known),
+ * quan, corpsenm=NON_PM (LEASH leashmon / BOULDER next_boulder share
+ * that storage), SLIME_MOLD spe=current_fruit.
+ */
+export function init_dummyobj(obj, otyp, oquan) {
+    if (obj) {
+        for (const k of Object.keys(obj)) delete obj[k]; /* C: *obj = cg.zeroobj */
+        obj.otyp = otyp;
+        obj.oclass = objs()[otyp]?.oc_class;
+        /* suppress known except for amulets (needed for fakes & real AoY) */
+        /* default is "on" for types which don't use it */
+        obj.known = (obj.oclass === AMULET_CLASS)
+            ? 0
+            : (objs()[otyp]?.oc_uses_known ? 0 : 1);
+        obj.quan = oquan ? oquan : 1;
+        obj.corpsenm = NON_PM; /* suppress statue and figurine details */
+        if (obj.otyp === LEASH) obj.leashmon = 0; /* overloads corpsenm */
+        if (obj.otyp === BOULDER) obj.next_boulder = 0; /* overloads corpsenm */
+        /* but suppressing fruit details leads to "bad fruit #0" */
+        if (obj.otyp === SLIME_MOLD) obj.spe = game.context?.current_fruit ?? 0;
+    }
+    return obj;
 }
 
 /**
