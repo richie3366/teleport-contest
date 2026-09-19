@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `dig.c` draft_message — coverage THIN (C 40 L `dig.c:1504–1544` / JS 5 L in js/dig.js; hops 5, callers 3, RNG 2, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn draft_message` (reach regression must be 0). Measured `port-coverage.mjs --name draft_message` 2026-09-19 @ ca74dad2. **Addressed:** D-2536
+- [x] `mthrowu.c` thrwmu — coverage THIN (C 90 L `mthrowu.c:1174–1264` / JS 11 L in js/mthrowu.js; hops 2, callers 1, RNG 1, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn thrwmu` (reach regression must be 0). Measured `port-coverage.mjs --name thrwmu` 2026-09-19 @ ca74dad2. **Addressed:** D-2537
+
+
+- [x] `dig.c` draft_message — coverage THIN (C 40 L `dig.c:1504–1544` / JS 5 L in js/dig.js; hops 5, callers 3, RNG 2, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn draft_message` (reach regression must be 0). Measured `port-coverage.mjs --name draft_message` 2026-09-19 @ ca74dad2. **Addressed:** D-2536 `0e4e2b9b`
 
 
 - [x] `mdlib.c` build_options — coverage MISSING (C 161 L `mdlib.c:669–830` / JS no symbol; hops —, callers 1, RNG 0, msg 4; dead callees: build_savebones_compat_string, datamodel, opt_out_words, count_and_validate_winopts, count_and_validate_soundlibopts). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn build_options` (reach regression must be 0). Measured `port-coverage.mjs --name build_options` 2026-09-19 @ ca74dad2. **Addressed:** D-2535 `f152ba19`

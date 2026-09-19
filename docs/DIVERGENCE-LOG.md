@@ -1,5 +1,30 @@
 # Divergence log
 
+## D-2537 — `mthrowu.c` thrwmu whole body in C order (coverage THIN → live, polearm arm ported, the one C caller wired)
+
+- **Status:** fixed (Open coverage row `mthrowu.c` thrwmu THIN, C 90 L `mthrowu.c:1174–1264` / JS 11 L wrapper + partial body in js/mthrowu.js; no Must-fix pending; row cites no review — no stamp; reviews 1223/1324/1357/296 name thrwmu only for sibling arms, no Keep'd C-wrong).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify thrwmu`: no corpus session blocked at baseline — monster polearm thrust at the hero, RNG 1, msg 1).
+- **C locus:** `nethack-c/upstream/src/mthrowu.c:1173–1264` (`thrwmu`). Callees/macros: `mon_wield_item` (`:1190`, live weapon.js edge, async → awaited); `select_rwep` (`:1194`, live weapon.js edge); `is_pole` (`:1198`, live wield.js edge, already imported); `MON_WEP` (live weapon.js edge); `dist2`/`distmin` (live mon.js edge, established); `MON_POLE_DIST` = 5 (hack.h:1435 = js/const.js:1942 — added to the existing specifier); `couldsee` (live vision.js edge); `canseemon`/`lined_up` (file-local `js/mthrowu.js:278`/:369); `xname`/`the`/`an`/`obj_is_pname` (live objnam.js edge); `Monnam` (live do_name.js edge); `mswings_verb` (live mhitu.js:354 — new static edge, `imports.mjs --can` SAFE hoisted-function in the existing 96-module SCC); `pline_mon` (live display.js:7492 — on the existing static display edge, specifier extended); `dmgval` (live weapon.js edge); `bigmonst` (live monsters.js edge); `Maybe_Half_Phys` = `maybe_half_phys` (live hack.js edge); `thitu` (same-file `js/mthrowu.js:545`, async → awaited, fresh `{ obj }` box — C passes `&local`, discarded); `stop_occupation` (live hack.js edge, async → awaited); `autoreturn_weapon` (live weapon.js edge); `mwelded` (live wield.js edge); `rn2` (live rng edge); `monshoot` (C staticfn, same-file `js/mthrowu.js:1355`); `nomul` (live hack.js edge); `URETREATING` (mthrowu.c:18–19 — pre-existing JS formula matches with `??` null-safety).
+- **JS was:** exported `thrwmu` wrapper (rogue-level guard + `mon_moving`) + `thrwmu_body` with the wield-gate, `select_rwep`, autoreturn always_toss arm, retreat-`rn2` gate and `monshoot`/`nomul` live, but the polearm `is_pole` arm (`:1198–1240`) explicitly deferred in the doc comment ("own row when a falsifier fires").
+- **Fix:** `js/mthrowu.js` — restarted `thrwmu_body` in C order with `:line` cites: `:1186–1191` wield-gate; `:1194–1196` `select_rwep`; `:1198–1240` polearm arm (must-be-wielded return, `dist2` rang vs `MON_POLE_DIST`/`couldsee` return, canseemon-gated `pline_mon '%s %s %s.'` with `mswings_verb(otmp, rang <= 2)` — bash iff adjacent, matching C `(rang <= 2) ? TRUE : FALSE` — then `dmgval(otmp, game.youmonst)`, `hitv = 3 - distmin`, `-4` clamp, `bigmonst` bump, `+ 8 + spe`, `dam < 1 → 1`, `thitu(hitv, Maybe_Half_Phys(dam))`, `stop_occupation`, return); `:1241–1247` autoreturn arm as the C `else if` (short-circuit `autoreturn_weapon` → `!mwelded`, range/`couldsee` return, `always_toss = true` set once in the body — no recompute); `:1249–1259` lined_up/URETREATING gate (`!always_toss` short-circuits before `rn2`, unchanged); `:1261–1263` `monshoot` + `nomul(0)`. Clang left-to-right arg order kept at every site (`Monnam`, `mswings_verb` maybe-`rn2(2)`, article).
+- **JS:** `js/mthrowu.js` (55 changed lines per diff --stat: 3 import words, doc-comment update, body restart) + CURRENT.md cluster line + map lines — under caps (1500 ins / 15 files).
+- **Callers:** `mhitu.c:886` (mattacku AT_WEAP `range2`, `!Is_rogue_level` guard) → `js/mhitu.js:4366` `if (!Is_rogue_level(u.uz)) await thrwmu(mtmp);` ✓ pre-existing, still wired. No call from a site C never calls from (the wrapper's duplicate rogue guard mirrors the caller; behavior unchanged).
+- **Verify:** `node scripts/verify.mjs --fn thrwmu` (+ `--reach-all` re-run, identical) → PASS syntax (1 changed: js/mthrowu.js) · rule2 · hidden note (0 blocked at baseline) · reach smoke 24/24 PASS, 0 regressed → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file changed) → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/mthrowu.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify thrwmu: no corpus session blocked on it at baseline
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 5.7s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+VERIFY: PASS
+```
+- **Named omissions:** none in this body — every arm and callee is live, file-local, or imported above.
+- **Next:** Open head after thrwmu (`files.c` set_savefile_name).
+
 ## D-2536 — `dig.c` draft_message whole body in C order (coverage THIN → live, both `zap.c` callers wired)
 
 - **Status:** fixed (Open coverage row `dig.c` draft_message THIN, C 40 L `dig.c:1504–1544` / JS 5 L thin in js/dig.js; no Must-fix pending; row cites no review Actionable — no stamp; reviews 450/404/446/437/15 name draft_message only in passing, no Keep'd C-wrong).

@@ -3214,7 +3214,7 @@ flight `observe_object`→`makeknown`/`exercise(A_WIS)`** (D-0184) **+ ray wands
 **`m_throw` `tmp_at(DISP_FLASH)` + await `potionhit` plines** (D-0284); 
 **`m_throw` `return_from_mtoss` snuff_candle D-1334** (C `:942` notcaught before 
 ship/`flooreffects("drop")`; tethered AKLYS `return_flightpath`; 
-candles/candelabrum only, not `snuff_lit`; `thrwmu` always_toss/polearm named); 
+candles/candelabrum only, not `snuff_lit`; `thrwmu` arms live D-2391/D-2537); 
 |**`m_throw` `ucatchgem` gem catch D-1947** (C `:505–529` + `:692` GEM break before `:695` catch/potionhit; unicorn-poly `otyp<=LAST` guard, glass FIRST..LAST pline×2+`makeknown`+`dropy` else `hold_another_object`, rock/gray-stone never; canonical `s_suffix`, `is_unicorn`, `makeknown`/`hold_another_object` live, `dropy` dynamic); 
 |**`m_throw` hero-hit switch + `stop_occupation` + `blindinc` tail D-2215** (C `:702–786` + `:836–841`; `js/mthrowu.js` + one-word `can_blnd` export in `js/uhitm.js`; EGG impossible/petrifier-FALLTHROUGH + pie/venom `thitu(8,0)` + default elf-bow/elven/bigmonst/acid-venom arms + poisoned + can_blnd pie/venom messages + EGG make_stoned + unconditional `stop_occupation` + `ucreamed`/`make_blinded`/`vision_clears` tail; `imports.mjs --can mthrowu.js do.js make_blinded` → SAFE hoisted-function, uhitm edge already static; **`m_throw` MT_FLIGHTCHECK IRONBARS/sink + sink/misses plines live D-2358**; named: can_blnd Blindfolded/ublindf/ucreamed/visor you-gates per the uhitm subset, `thitu` quan>1 doname, dmgval defender-null — all pre-existing); 
 |**`m_throw` `u_catch_thrown_obj` hero catch D-2399** (C `:532–550` + `:695` break; `100-ACURR(A_DEX)` −20 Monk/Rogue gate on the live form `!nohands(gy.youmonst.data)`, success `Snprintf "You catch the %s!"` + `hold_another_object` (held-prinv or catch-but-drop `dropx`); caller `await` + `break` so the loop tail (DISP_END/mesg_given/blindinc/thrownobj) runs; flight-stop half already live D-2358; canonical `freehand` imported from `js/engrave.js` (C `engrave.c:472–477`; local clone retired); named: `drop_throw` `passive_obj` arm); 
@@ -3562,7 +3562,7 @@ peaceful yn deferred); **`is_safemon` requires `canspotmon`** (D-0791);
 `possibly_unwield` + `mswingsm` live D-1919; ranged `thrwmm` live D-2257 —
 `mthrowu.c:968–1012` + `mhitm.c:393–404`; `monshoot` stays C-staticfn
 same-file, now mtarget-or-mux + `gm.m_shot` + canseemon `" at "`
-`some_mon_nam`; `thrwmu` autoreturn always_toss D-2391 (`mthrowu.c:1241–1259` canonical `autoreturn_weapon` from `js/weapon.js` over C `arwep[]` `:513–517` AKLYS-only + `!mwelded` + `rang > arw->range || !couldsee` return + `!always_toss` skipping the retreat `rn2`; 3 local clones retired; named: `thrwmu` polearm arm `:1195–1240`);
+`some_mon_nam`; `thrwmu` whole body D-2537 (`mthrowu.c:1174–1264` in C order: wield-gate + `select_rwep`, polearm arm `:1198–1240` — wielded-check, `MON_POLE_DIST`/`couldsee` range, canseemon `mswings_verb` pline, `dmgval`/`hitv`/`Maybe_Half_Phys` `thitu` + `stop_occupation`, autoreturn always_toss D-2391 + retreat-`rn2` gate + `monshoot`/`nomul`; `imports.mjs --can` mswings_verb SAFE-hoisted, pline_mon on the existing display edge);
 **`mattackm` preamble
 D-1919** (grid-bug angle MISS, mundetected clear/newsym/generic notice,
 elf-vs-orc `tmp++`; Unaware-dream + HIDE_UNDER/last_hider arms named omits —
