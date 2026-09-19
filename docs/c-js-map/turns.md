@@ -823,7 +823,7 @@ full do_screen_description cmap scan deferred);
 **`checkfile` NHW_MENU `process_text_window` + tabexpand/CR** (D-0085); 
 **checkfile data-base key match via C `pmatch` D-1954** (`strutil.c:144–148` case-sensitive over `lcase(dbase_str)` `pager.c:866`; live `js/cmd.js` export + `js/pager.js` `lookup_data_base_entry` positive/`~`-exclusion passes, RegExp clones retired, keys keep file case — measured single uppercase key `A.S*`; `sk` skip-set + `#ifdef DEBUG` debugcore retired; whole-body port D-2443 (`js/pager.js:720` strips `:867–935` with C else-if chains incl. digit-count/partly/statue/enchant/moist-towel, `:765` named/called split + live supplemental_name fill, D-2451 dbase-side `" ("` charges/`(lit)`/aum strip `:977–981`, `:801` makesingular/fruit alt, `:827` alt-first two-pass + pass-1 offset skip, `:895` ia_checkfile shared core; named: do_supplemental_info `:2255` + dlb I/O-error arms); pass-1 named/called `alt` two-pass + same-entry skip live (D-2092); 
 **`look_all`/`look_engrs` NHW_TEXT more@23 + MAP coords/glyph + `look_shown_at` + 
-statue/engr** (D-0087); **`doextversion` OPTIONS_AT_RUNTIME options/windowing/soundlib/Lua 
+statue/engr** (D-0087); **`look_all` whole body D-2508** (`pager.c:1979–2074` → `js/pager.js` in C order: glyph_at class branches, u_at&&canspotself self gate, m_at buf-half, invisexplain, def_warnsyms desc, glyph_to_obj object arm, upstart header + compass your-position split, BUFSZ guard; callers `:1860/1863/1866/1869` wired; named: compass-full coord text); **`doextversion` OPTIONS_AT_RUNTIME options/windowing/soundlib/Lua 
 license** (D-0088); **NHW_TEXT `dmore` quitchars** (D-0089); 
 **`show_text_pages` / fullscreen `show_nhw_menu_text` paint ≤cols−1** ≡ C `process_text_window` 
 `++curx < cols` (D-0933; recording `get_configfile` path string still deferred — Constitution); 
@@ -842,7 +842,7 @@ putmixed no forced more** (D-0330); **`checkfile` ask via `y_n` (NEED_MORE→mor
 **`describe_looked` DECgraphics wall ↔ swallow mid + Unicode │** (D-0425; 
 trapped_chest/door + Hallucination + full showsyms cmap scan + SDOOR deferred); 
 omit full `key2extcmddesc` misc/numpad; PORT_HELP; getpos menu-jump/hilite; lootabc true; 
-look_traps format; invis/warning glyphs; custom BIND=/number_pad; 
+look_traps format; custom BIND=/number_pad; 
 selectable `process_menu_window` path; **`self_lookat` → `pmname(umonnum,Ugender)` not male 
 `urole.name.m`** (D-0664) + **Punished `, chained to ` + `ansimpleoname(uball)`** (D-0928 #1149; 
 **utrap `, <trap_predicament>` D-2406** (`pager.c:131`, `final=0` no wizard suffix; steed/`y_monnam` still deferred) + **`brief_at` CLOUD fog/vapor** (D-0811) + 

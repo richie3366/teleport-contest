@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `mthrowu.c` ohitmon — coverage PARTIAL (C 175 L `mthrowu.c:321–502` / JS 102 L in js/mthrowu.js; hops 4, callers 4, RNG 4, msg 8). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn ohitmon` (reach regression must be 0). Measured `port-coverage.mjs --name ohitmon` 2026-09-19 @ e131537d. **Addressed:** D-2507
+- [x] `pager.c` look_all — coverage PARTIAL (C 93 L `pager.c:1979–2074` / JS 59 L in js/pager.js; hops 1, callers 4, RNG 0, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn look_all` (reach regression must be 0). Measured `port-coverage.mjs --name look_all` 2026-09-19 @ e131537d. **Addressed:** D-2508
+
+
+- [x] `mthrowu.c` ohitmon — coverage PARTIAL (C 175 L `mthrowu.c:321–502` / JS 102 L in js/mthrowu.js; hops 4, callers 4, RNG 4, msg 8). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn ohitmon` (reach regression must be 0). Measured `port-coverage.mjs --name ohitmon` 2026-09-19 @ e131537d. **Addressed:** D-2507 `e8a1702e`
 
 
 - [x] `options.c` handler_menu_colors — coverage MISSING (C 92 L `options.c:6407–6499` / JS no symbol; hops —, callers 1, RNG 0, msg 4; dead callees: count_menucolors, handle_add_list_remove, test_regex_pattern, query_color, query_attr, add_menu_coloring_parsed, …). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn handler_menu_colors` (reach regression must be 0). Measured `port-coverage.mjs --name handler_menu_colors` 2026-09-19 @ e131537d. **Addressed:** D-2506 `e27f24bf`
