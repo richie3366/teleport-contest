@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `invent.c` merged — coverage THIN (C 134 L `invent.c:814–948` / JS 40 L in js/mkobj.js; hops 3, callers 13, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn merged` (reach regression must be 0). Measured `port-coverage.mjs --name merged` 2026-09-19 @ ca74dad2. **Addressed:** D-2533
+- [x] `getpos.c` getpos_menu — coverage MISSING (C 60 L `getpos.c:665–725` / JS no symbol; hops 2, callers 2, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn getpos_menu` (reach regression must be 0). Measured `port-coverage.mjs --name getpos_menu` 2026-09-19 @ ca74dad2. **Addressed:** D-2534
+
+
+- [x] `invent.c` merged — coverage THIN (C 134 L `invent.c:814–948` / JS 40 L in js/mkobj.js; hops 3, callers 13, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn merged` (reach regression must be 0). Measured `port-coverage.mjs --name merged` 2026-09-19 @ ca74dad2. **Addressed:** D-2533 `32ba8af0`
 
 
 - [x] `trap.c` dofiretrap — coverage PARTIAL (C 80 L `trap.c:4233–4314` / JS 53 L in js/trap.js; hops 5, callers 3, RNG 7, msg 5). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dofiretrap` (reach regression must be 0). Measured `port-coverage.mjs --name dofiretrap` 2026-09-19 @ 95d26622. **Addressed:** D-2532 `9406729d`

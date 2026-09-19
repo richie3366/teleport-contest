@@ -967,12 +967,13 @@ two-pass from cursor; **`S_ss1` defsym `'0'` → Can't find…** D-0928 #1135;
 **`redraw_cmd(^R)`/`getpos_refresh` → `flush_screen` + `show_goal_msg`** D-0928 #1187; 
 **blank S_stone before typ CORR** (`auto_describe_text`) D-0928 #1188 (full glyph_is_unexplored IDs 
 deferred; full `docrt` Blind deferred; `redraw_map` body live D-1974); 
-**`NHKF_GETPOS_SHOWVALID` `'$'` / `AUTODESC` `'#'` / `LIMITVIEW` / `MENU` / `MOVESKIP` before matching** D-1845 — default `#` never reaches tree/bars feature scan; matching[] defsyms (incl. `S_rslant` `'/'` → Can't find…; `S_ss1` `'0'` D-0928 #1135); `getloc_moveskip` glyph-skip; pick_chars LOOK_QUICK/ONCE/VERBOSE; `aAzZ` cycle; restore `u.dx`; 
-`getpos_menu` / cmdq_pop start / `cmd_from_func` custom binds / mouse / do_run prefix still named; GFILTER_AREA flood live D-1941); 
+**`NHKF_GETPOS_SHOWVALID` `'$'` / `AUTODESC` `'#'` / `LIMITVIEW` / `MENU` / `MOVESKIP` before matching** D-1845 — default `#` never reaches tree/bars feature scan; matching[] defsyms (incl. `S_rslant` `'/'` → Can't find…; `S_ss1` `'0'` D-0928 #1135); `getloc_moveskip` glyph-skip; pick_chars LOOK_QUICK/ONCE/VERBOSE; `aAzZ` cycle; restore `u.dx`;
+**`getpos_menu` PICK_ONE live** (D-2534 — gather_locs + do_screen_description + coord_desc + `select_menu_pick_one`, both C callers wired);
+cmdq_pop start / `cmd_from_func` custom binds / mouse / do_run prefix still named; GFILTER_AREA flood live D-1941);
 **`?` → `getpos_help` NHW_MENU + `show_goal_msg`** (D-0819; 
 `cmd_from_func` custom binds named / **getpos_getvalid/hilite help lines + whatis multi-pick tail** D-1880; 
 S_goodpos hilite glyphs / **mMoOdDxXaAzZ `gather_locs` cycle** D-0928 #1189 / D-1845 
-(`getpos_menu` still named; GFILTER_AREA flood live D-1941; 
+(GFILTER_AREA flood live D-1941; `getpos_menu` live D-2534; 
 **GLOC_INTERESTING / GLOC_VALID FALLTHROUGH D-1217**; 
 **GLOC_MONS reads displayed `glyph_at` + worm-tail bank exclusion** D-2058 — 
 live-state reads jump to stripped monsters in #terrain browse; 
@@ -1005,8 +1006,8 @@ force-note `cmd_from_func` visctrl deferred);
 **`self_lookat_brief` gender via `pmname`/`Ugender`** (D-0664) + 
 **Punished chained suffix** (D-0928 #1149); **`cmap_defsym_explanation` TREE → `"tree"`** (D-0665; 
 iron bars/fountain/altar still deferred); 
-omit hilite, `getpos_menu`, full `gs.showsyms` / `do_screen_description` / furniture mimic
-names, cmdq_pop at getpos start (GFILTER_AREA flood live D-1941)
+omit hilite, full `gs.showsyms` / furniture mimic
+names (getpos_menu live with its `do_screen_description` arm D-2534), cmdq_pop at getpos start (GFILTER_AREA flood live D-1941)
 
 ### `src/version.c` `doextversion` / `nhlua.c` `get_lua_version`
 
