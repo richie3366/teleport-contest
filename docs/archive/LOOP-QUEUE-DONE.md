@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `rumors.c` getrumor — coverage THIN (C 71 L `rumors.c:117–191` / JS 21 L in js/rumors.js; hops 3, callers 4, RNG 1, msg 0; dead callees: init_rumors, couldnt_open_file). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn getrumor` (reach regression must be 0). Measured `port-coverage.mjs --name getrumor` 2026-09-19 @ a263d08e. **Addressed:** D-2513
+- [x] `restore.c` restmon — coverage MISSING (C 66 L `restore.c:307–373` / JS no symbol; hops 4, callers 3, RNG 1, msg 0; dead callees: newmextra, new_mgivenname, newebones). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn restmon` (reach regression must be 0). Measured `port-coverage.mjs --name restmon` 2026-09-19 @ a263d08e. **Addressed:** D-2514
+
+
+- [x] `rumors.c` getrumor — coverage THIN (C 71 L `rumors.c:117–191` / JS 21 L in js/rumors.js; hops 3, callers 4, RNG 1, msg 0; dead callees: init_rumors, couldnt_open_file). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn getrumor` (reach regression must be 0). Measured `port-coverage.mjs --name getrumor` 2026-09-19 @ a263d08e. **Addressed:** D-2513 `ab1ae274`
 
 
 - [x] `options.c` menu-colors C-wrong trio in `js/options.js` — empty-menu exit returns 1, C `options.c:9227–9231` returns 3 (`a_int++` precedes the skip); list suffix `"PAT"\\=color`, C `:6466–6477` renders `"PAT"\"=color`; PICK_ANY finish-empty returns, C `:6495` re-loops. Port the three C lines in C order. Verify `node scripts/verify.mjs --fn handler_menu_colors` (reach regression must be 0). Source: reviews/loop-unattended/1465-e27f24bf-handler-menu-colors.md. **Addressed:** D-2512 `3322beff`.

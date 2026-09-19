@@ -2643,6 +2643,19 @@ stays); **save_luadata** (`nhlua.c` `:1327–1341` `get_nh_lua_variables`
 does not second-init. `dosave0`/`try_restore_save` D-0335/D-1603.
 Binary NHFILE / SFCTOOL / `nhl_variable` / Lua NHCB `nh_callback_*` /
 full Lua VM / FREEING `discard_gamelog` named.
+**restmon D-2514** (`restore.c` `:307–373`; JSON analogue of `Sfi_monst`
+base + per-extra `Sfi_int` length gates + `Sfi_*` copies, `:line` cites in
+`js/restore.js`): `nmon = null`, null-mextra early return, fresh
+`newmextra` (`makemon.c:1064–1072`, `mcorpsenm NON_PM`), mgivenname /
+egd / epri / eshk / emin / edog / ebones gates in C order via live
+`newegd`/`newepri`/`neweshk`/`newemin`/`newedog` plus new `new_mgivenname`
+(`do_name.c:31–47`) / `newebones` (`bones.c:818–830`); edog `ogoal` snap +
+`apport <= 0 → 1` (`:358–360`) + `mtmp.edog` mirror; `mcorpsenm` always-taken
+int (`:369–371`, absent keeps `NON_PM`). Callers `restobj :210` →
+`deserObjChain` `oextra.omonst`, `restmonchn :393` → `deserMon`
+(`js/lev_json.js`). Named: NHFILE reads (JSON blob analogue, Rule #2);
+`relative_time_to_moves` pair skipped in `restmon` (absolute wire — save
+side never relativizes; live export kept for time logic).
 
 ### `src/invent.c` / `src/iactions.c`
 
