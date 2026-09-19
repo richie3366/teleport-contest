@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `insight.c` record_achievement — coverage PARTIAL (C 65 L `insight.c:2407–2472` / JS 45 L in js/insight.js; hops 2, callers 32, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn record_achievement` (reach regression must be 0). Measured `port-coverage.mjs --name record_achievement` 2026-09-19 @ e131537d. **Addressed:** D-2509
+- [x] `hack.c` domove_swap_with_pet — coverage PARTIAL (C 125 L `hack.c:2098–2225` / JS 83 L in js/hack.js; hops 2, callers 1, RNG 1, msg 8). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn domove_swap_with_pet` (reach regression must be 0). Measured `port-coverage.mjs --name domove_swap_with_pet` 2026-09-19 @ e131537d. **Addressed:** D-2510
+
+
+- [x] `insight.c` record_achievement — coverage PARTIAL (C 65 L `insight.c:2407–2472` / JS 45 L in js/insight.js; hops 2, callers 32, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn record_achievement` (reach regression must be 0). Measured `port-coverage.mjs --name record_achievement` 2026-09-19 @ e131537d. **Addressed:** D-2509 `a263d08e`
 
 
 - [x] `pager.c` look_all — coverage PARTIAL (C 93 L `pager.c:1979–2074` / JS 59 L in js/pager.js; hops 1, callers 4, RNG 0, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn look_all` (reach regression must be 0). Measured `port-coverage.mjs --name look_all` 2026-09-19 @ e131537d. **Addressed:** D-2508 `a5b15a53`

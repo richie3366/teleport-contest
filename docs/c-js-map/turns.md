@@ -1385,8 +1385,8 @@ unicorn/x-consonant; apply `l_monnam` + dothrow/mhitu/steal `Some_Monnam`
 clones rebound. Priest/minion `priestname` D-1846 (`priest.c`
 `:302–367` via `js/do_name.js`; hallu `halu_gname` pantheon RNG still named)); 
 **`uhitm` live `a_monnam` D-1544**; **`namefloorobj` getpos + vobj_at / object_from_map + Hallu unames + call_ok D-1555**; 
-**`domove` safemon swap → `x_monnam` ARTICLE + peaceful adj + frighten verb** (D-0889; 
-**seemimic/pit/NODIAG/boulder D-1299**; `goodpos` / mintrap aftermath named); 
+**`domove` safemon swap → `x_monnam` ARTICLE + peaceful adj + frighten verb** (D-0889;
+**seemimic/pit/NODIAG/boulder D-1299**; **whole `domove_swap_with_pet` body `:2098–2225` in C order D-2510** — `M_AP_TYPE` live, `goodpos(ux0,uy0)` conjunct restored, `remove_monster`+`place_monster` (not mx/my writes), minliquid/mintrap aftermath switch live (`abuse_dog`/`adjalign`/`experience`/guilt/`impossible`), 4 clones rebound (`just_an`/`YMonnam`/`mundisplaceable` live, `curr_mon_load` exported from monmove.js; `swap_nodiag` kept — C macro, no live export); `:2147` assert comment-only); 
 **`distant_monnam` ARTICLE_THE via `x_monnam` called** (D-1638);
 **`mon_nam_too` `:1189–1216` + `monverbself` `:1219–1249` D-1790** — one
 home each in `js/do_name.js`; the `js/mhitm.js` `is_neuter`/`female`
