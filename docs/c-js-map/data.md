@@ -106,7 +106,18 @@ stash probe `LFILE_EXISTS ⟺ openable`; callers `do.c:1704` →
 (macopen/setmode/`;1`/translate); nhclose/fclose/fplog writes (Rule #2);
 `close_nhfile`; `tricked_fileremoved` arms (no pline1/error);
 `save.c:376` savestateinlock (unported); `recover_savefile` (no
-SELF_RECOVER); `create_levelfile` (write side). **set_savefile_name D-2538**
+SELF_RECOVER). **create_levelfile D-2555** (`files.c` `:621–670`; live
+`js/files.js` exported, C order with `:line` cites — errbuf clear,
+`game.lock` store-back, fqname kept `void`ed, WRITING/structlevel-TRUE
+handle, stash-slot creat (fd = level token, always succeeds under VFS),
+LFILE_EXISTS OR, unreachable Sprintf arm, `viable_nhfile` gate;
+`WRITING` added to the existing const.js import). Callers named, none
+wired (wrappers unported — a call from a non-C site would be C-wrong):
+`do.c:1357` currentlevel_rewrite → `js/save.js:281`/:476 inlines;
+`restore.c:760` restlevelfile → `js/save.js:822` dorecover path;
+`save.c:390` savestateinlock → `js/save.js:456` dosave0 synthesize.
+Named: platform creat/setmode, FCMASK/errno, failure arm, bufon/savelev/
+close tails (wrapper rows). **set_savefile_name D-2538**
 (`files.c:1020–1123`; live `js/save.js` UNIX arm in C order — regoffset 5,
 spot 2, suffix-only `regularize` (`unixunix.c:297` ported file-local),
 SAVESIZE 53 guards, extension/indicator/postappend live no-ops;

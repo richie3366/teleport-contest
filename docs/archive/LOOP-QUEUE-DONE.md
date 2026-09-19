@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `do_wear.c` Helmet_off — coverage THIN (C 46 L `do_wear.c:518–564` / JS 9 L in js/do_wear.js; hops 3, callers 6, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn Helmet_off` (reach regression must be 0). Measured `port-coverage.mjs --name Helmet_off` 2026-09-19 @ e07bd9bc. **Addressed:** D-2554
+- [x] `files.c` create_levelfile — coverage MISSING (C 49 L `files.c:621–670` / JS no symbol; hops 4, callers 3, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn create_levelfile` (reach regression must be 0). Measured `port-coverage.mjs --name create_levelfile` 2026-09-19 @ e07bd9bc. **Addressed:** D-2555
+
+
+- [x] `do_wear.c` Helmet_off — coverage THIN (C 46 L `do_wear.c:518–564` / JS 9 L in js/do_wear.js; hops 3, callers 6, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn Helmet_off` (reach regression must be 0). Measured `port-coverage.mjs --name Helmet_off` 2026-09-19 @ e07bd9bc. **Addressed:** D-2554 `22c8d3f1`
 
 
 - [x] `cfgfiles.c` do_write_config_file [campaign 7/7] — C `cfgfiles.c:165–211` absent from js/ (no #saveoptions command; sole caller of the [campaign 1/7] parent). Port in C order incl. paranoid_query gate; persist via storage.js VFS (Rule #2, no fopen). Final activation of the parent family. Verify `node scripts/verify.mjs --fn do_write_config_file` (reach regression must be 0). **Addressed:** D-2553 `c90a495f`
