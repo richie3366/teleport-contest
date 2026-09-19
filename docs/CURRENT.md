@@ -46,7 +46,7 @@ judge 18:47Z cached, unchanged 11/44 5,776 pts vs last audit): the corpus still 
 not predict the judge.
 **Corpus fortress** (re-scored 2026-09-19 audit 1542–1550): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — **+3 / −0**
-in the D-2583…D-2592 window: Rogue-92026 fixed by D-2583 (review 1533
+in the D-2583…D-2593 window: Rogue-92026 fixed by D-2583 (review 1533
 Must-fix row, rehumanize light entry); Priest-92163 + Rogue-92221 fixed
 by D-2584 (review 1536 Must-fix row, Master-Key guard). Both fixes
 verified by fresh per-SHA `--reach-all` replays here (PROGRESS +
@@ -103,10 +103,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `read.c` seffect_light — coverage THIN (C 44 L `read.c:1741–1785` / JS 18 L in js/read.js; hops 5, callers 1, RNG 1, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn seffect_light` (reach regression must be 0). Measured `port-coverage.mjs --name seffect_light` 2026-09-19 @ 028f5be4.
+**Next cluster:** `pickup.c` tipcontainer_checks — coverage MISSING (C 105 L `pickup.c:3954–4055` / JS no symbol; callers 2, RNG 0, msg 3). Port the C body + wire tipcontainer call sites. Verify `node scripts/verify.mjs --fn tipcontainer_checks` (reach regression must be 0). mkgrave parked STALE (js/mklev.js:29065, rev 1428 ACCEPT).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2592 (index).**
+**Keep D-0845…D-2593 (index).**
 <!-- recent:begin -->
+**D-2593** `nethack-c/upstream/src/pickup.c:3954–4055` (TIPCHECK enum `:3680–3684`; callers `tipconta — new module-local `async tipcontainer_checks(box, targetbox, allowempty)` in C order with `:line` cites (C staticfn → module-local, `mksink`/`mkgrave` precedent): BoT-target `:3962`, lknown+carried/update_inventory `:3972
 **D-2592** `nethack-c/upstream/src/read.c:1741–1785` — `js/read.js` — restarted `seffect_light` in C order with `:line` cites: `sblessed` snapshot; confused = `u.HConfusion || u.Confusion` (seffect_teleportation sibling convention); Blind convention unchanged; G_GONE via `ga
 **D-2591** `nethack-c/upstream/src/shk.c:4556–4577` — `js/shk.js` — new file-local `find_damage(shkp, deps)` in C order with `:line` cites (deps carries m_at/t_at for the file-local `repairable_damage :1263` convention); new exported async `shk_fixes_damage(shkp)` in C orde
 **D-2590** `nethack-c/upstream/src/attrib.c:598–677` (`:602–604` exerper first; `:607–612` moves/mult — restarted `exerchk` in C order with `:line` cites throughout (`js/allmain.js` EXERTEXT + body): hilim takes `(i === A_STR && Upolyd(u)) ? uasmon_maxStr() : race.attrmax` (the arm is behaviorally convergent — both limit-g
@@ -114,11 +115,10 @@ revisits the picker.
 **D-2588** `nethack-c/upstream/src/invent.c:1356–1399` — `js/invent.js` — restarted `freeinv_core` in C order with `:line` cites; stays sync (Constitution §2.6) with async `impossible`/`curse` floating un-awaited (getrumor precedent `rumors.js:208`; mplayer/mklev precedent for
 **D-2587** `nethack-c/upstream/src/uhitm.c:2859–2955` — `js/mhitm.js` — restarted `mhitm_ad_tlpt` in C order with `:line` cites: uhitm arm first (floor, ungated negate pline, `u_saw_mon = canseemon || engulfing_u` before the teleport per `:2872`, `await u_teleport_mon(mdef, f
 **D-2586** `nethack-c/upstream/src/mkmaze.c:1042–1093` (pick: `:1046–1047` maze-min, `:1062–1066` mar — `js/mklev.js` — restarted `pick_vibrasquare_location` in C order with `:line` cites throughout; the small-maze guard is a named omit (D_DEBUG-only `ifdebug` pline per `lint.h:62`, condition has no RNG/state effect).
-**D-2585** `nethack-c/upstream/src/topten.c:628–926` — `js/topten.js` — `ordin` joins the existing hacklib.js import (no new edge); `hup_ok = !done_hup` gates the wizard message (`:725–736`), the post-open blank (`:754`), and the didn't-beat pair (`:791–799`); `t0.uid = getu
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2592; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2593; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

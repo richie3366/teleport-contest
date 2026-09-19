@@ -80,8 +80,9 @@ import {
 } from './const.js';
 import {
     t_at, dotrap, drown, lava_effects, instapetrify, float_down, ceiling,
-    back_on_ground, uteetering_at_seen_pit, uescaped_shaft,
+    back_on_ground, uteetering_at_seen_pit, uescaped_shaft, chest_trap,
 } from './trap.js';
+import { carried } from './eat.js';
 import { nhgetch } from './input.js';
 import { m_at, mnexto, hideunder, ceiling_hider } from './mon.js';
 import { oclass_to_sym, regex_match, select_menu_pick_any, select_menu_pick_one } from './options.js';
@@ -4494,60 +4495,93 @@ async function tipcontainer_gettarget(box) {
     return { target: otmp, cancelled: false };
 }
 
+// C ref: pickup.c tipcontainer_checks `:3680-3684` — TIPCHECK_foo enum,
+// file-local in C, so module-local here.
+const TIPCHECK_OK = 0;
+const TIPCHECK_LOCKED = 1;
+const TIPCHECK_TRAPPED = 2;
+const TIPCHECK_CANNOT = 3;
+const TIPCHECK_EMPTY = 4;
+
 /**
- * C ref: pickup.c tipcontainer — `:3693–3760` gettarget menu first, then
- * tipcontainer_checks, then spill/transfer.
- * highdrop = !can_reach_floor(TRUE); swallowed clears it; then
- * how_lost LOST_DROPPED + hitfloor(TRUE) (D-1273).
- * Named omissions: bag-of-holding explode; ice-box thaw; shop billing;
- * altarizing doaltarobj; cursed mbag item-gone; otrapped chest_trap;
- * dropy terse comma-list; toss_up; subfrombill after floor shop BoT/horn;
- * targetbox shop-bill per-item addtobill.
- * SchroedingersBox is observe_quantum_cat before spill.
- * @param {object} box
+ * C ref: pickup.c tipcontainer_checks `:3954-4055` — whole body in C order.
+ * Pre-tip validation for #tip: BoT-target apply, lknown discovery, locked,
+ * trapped, bag-or-horn emptying, quantum-cat, empty arms.
+ * Callers (both wired in tipcontainer below): `:3724` source box with
+ * allowempty FALSE, `:3726-3728` destination with allowempty TRUE.
+ * Returns TIPCHECK_OK (tip it), LOCKED, TRAPPED, CANNOT (already done:
+ * BoT-target applied or bag/horn emptied) or EMPTY.
+ * chest_trap joins the existing trap.js edge (no new edge); carried is the
+ * live eat.js export (imports.mjs IN-SCC verdict SAFE — hoisted function,
+ * call-time read only); get_obj_location_quantum is the file-local flags=0
+ * equivalent (identical arms: invent/floor/minvent, else null), so no new
+ * timeout.js edge. bagotricks stays a dynamic apply.js import (static edge
+ * would join the apply cycle). The quantum-cat message inlines Shk_Your's
+ * carried rule (no second Shk_Your function).
+ * Named omit: subfrombill after floor shop bag/horn (`:4029-4030`).
+ * @param {object} box container the player wants to tip
+ * @param {object|null} targetbox destination (horn of plenty)
+ * @param {boolean} allowempty TIPCHECK_OK instead of TIPCHECK_EMPTY when empty
+ * @returns {Promise<number>} TIPCHECK_* value
  */
-export async function tipcontainer(box) {
-    if (!box) return;
-    const ox = (box.ox | 0) || (game.u?.ux | 0);
-    const oy = (box.oy | 0) || (game.u?.uy | 0);
-    // C tipcontainer `:3706` — target menu before any checks, even when empty.
-    const { target: targetbox, cancelled } = await tipcontainer_gettarget(box);
-    if (cancelled) return;
-    // C pickup.c tipcontainer_checks `:3961-3966` — undiscovered BoT as the
-    // destination: apply it once (bagotricks) before tipping the source box.
-    // Known BoT never reaches here (excluded from the target menu above).
+async function tipcontainer_checks(box, targetbox, allowempty) {
+    // C `:3962-3966` — undiscovered bag of tricks as the destination: apply
+    // it once before even trying to tip the source box (D-2354: this arm
+    // runs before the lknown/lock/trap checks; review 1320 ACCEPT).
+    // Known BoT never reaches here (excluded from the target menu).
     if (targetbox && (targetbox.otyp | 0) === BAG_OF_TRICKS) {
+        const seencount = { n: 0 };
         const { bagotricks } = await import('./apply.js');
-        await bagotricks(targetbox, false, { n: 0 });
-        return; // C TIPCHECK_CANNOT — already done
+        await bagotricks(targetbox, false, seencount);
+        return TIPCHECK_CANNOT;
     }
-    // C tipcontainer_checks: discover lock, refuse locked/empty
-    if (!box.lknown) box.lknown = 1;
+    // C `:3972-3976` — discovering the lock jumps the gun on the
+    // inventory display when carried.
+    if (!box.lknown) {
+        box.lknown = 1;
+        if (carried(box)) update_inventory();
+    }
+    // C `:3978-3980`.
     if (box.olocked) {
         await pline(`${upstart(thesimpleoname(box))} is locked.`);
-        return;
+        return TIPCHECK_LOCKED;
     }
-    // C tipcontainer_checks: BAG_OF_TRICKS / HORN_OF_PLENTY empty via apply
-    if ((BAG_OF_TRICKS >= 0 && box.otyp === BAG_OF_TRICKS)
-        || (HORN_OF_PLENTY >= 0 && box.otyp === HORN_OF_PLENTY)) {
-        const bag = box.otyp === BAG_OF_TRICKS;
-        const oldSpe = box.spe | 0;
-        const maybeshopgoods = box.where !== OBJ_INVENT
-            && costly_spot(box.ox | 0, box.oy | 0);
-        const u = game.u || {};
-        let bx = u.ux | 0;
-        let by = u.uy | 0;
-        if (box.where === OBJ_FLOOR) {
-            bx = box.ox | 0;
-            by = box.oy | 0;
+    // C `:3982-3992` — not reaching inside but still handling it: the trap
+    // fires, and the turn is used even when it fails (multi >= 0 means
+    // the blast did not paralyze the hero).
+    if (box.otrapped) {
+        await chest_trap(box, HAND, false);
+        if ((game.multi | 0) >= 0) {
+            nomul(-1);
+            game.multi_reason = 'tipping a container';
+            game.nomovemsg = '';
         }
-        box.ox = bx;
-        box.oy = by;
+        return TIPCHECK_TRAPPED;
+    }
+    // C `:3993-4032` — bag of tricks / horn of plenty: apply until empty.
+    if ((box.otyp | 0) === BAG_OF_TRICKS || (box.otyp | 0) === HORN_OF_PLENTY) {
+        let res = TIPCHECK_OK;
+        const bag = (box.otyp | 0) === BAG_OF_TRICKS;
+        const oldSpe = box.spe | 0;
+        let seen = 0;
+        let totseen = 0;
+        // C: maybeshopgoods reads box->ox,oy before the location update below.
+        const maybeshopgoods = !carried(box)
+            && costly_spot(box.ox | 0, box.oy | 0);
+        // C `:4001-4003` — the horn's destination must itself tip clean.
+        if (targetbox
+            && (res = await tipcontainer_checks(targetbox, null, true)) !== TIPCHECK_OK) {
+            return res;
+        }
+        // C `:4005-4006` — a held box moves with the hero; floor is redundant.
+        const bloc = get_obj_location_quantum(box);
+        if (bloc) {
+            box.ox = bloc.x | 0;
+            box.oy = bloc.y | 0;
+        }
         if (maybeshopgoods && !box.no_charge) {
             await addtobill(box, false, false, true);
         }
-        let seen = 0;
-        let totseen = 0;
         do {
             if (bag) {
                 const seencount = { n: seen };
@@ -4558,37 +4592,73 @@ export async function tipcontainer(box) {
             } else if (!(await hornoplenty(box, true, targetbox))) {
                 break;
             }
+            // C re-adds stale seen on horn iterations (0 here — defined).
             totseen += seen;
         } while ((box.spe | 0) > 0);
+        // C `:4023-4028` — check_unpaid wants a non-zero charge count.
         if ((box.spe | 0) < oldSpe) {
             if (bag && !totseen) await pline(nothing_seems_to_happen);
-            // C pickup.c: check_unpaid wants a non-zero charge count
             box.spe = oldSpe;
             await check_unpaid_usage(box, true);
-            box.spe = 0;
+            box.spe = 0; // empty
             box.cknown = 1;
         }
-        return; // C TIPCHECK_CANNOT — already emptied
+        return TIPCHECK_CANNOT; // C: actually means 'already done'
     }
+    // C `:4034-4045` — Schroedinger's box: observe before empty/spill. A live
+    // cat leaves no contents (TIPCHECK_EMPTY); a corpse stays (TIPCHECK_OK).
     if (SchroedingersBox(box)) {
-        // C pickup.c:4034–4045 — observe before empty/spill; live cat
-        // leaves no cobj → "Your/The box is now empty." (TIPCHECK_EMPTY).
+        let empty_it = false;
         await observe_quantum_cat(box, true, true);
         if (!Has_contents(box)) {
-            const carried = box.where === OBJ_INVENT
-                || (game.invent || []).includes(box);
-            await pline(`${carried ? 'Your' : 'The'} box is now empty.`);
-            box.cknown = 1;
-            return;
+            // C: Shk_Your — 'Your ' when carried, 'The ' otherwise.
+            await pline(`${carried(box) ? 'Your' : 'The'} box is now empty.`);
+        } else {
+            empty_it = true; // holds cat corpse
         }
         box.cknown = 1;
-        // dead cat: corpse remains; fall through to spill
+        return (empty_it || allowempty) ? TIPCHECK_OK : TIPCHECK_EMPTY;
     }
-    if (!Has_contents(box)) {
+    // C `:4047-4051`.
+    if (!allowempty && !Has_contents(box)) {
         box.cknown = 1;
         await pline(`${upstart(thesimpleoname(box))} is empty.`);
-        return;
+        return TIPCHECK_EMPTY;
     }
+    return TIPCHECK_OK;
+}
+
+/**
+ * C ref: pickup.c tipcontainer — `:3693–3760` gettarget menu first, then
+ * tipcontainer_checks, then spill/transfer.
+ * highdrop = !can_reach_floor(TRUE); swallowed clears it; then
+ * how_lost LOST_DROPPED + hitfloor(TRUE) (D-1273).
+ * Named omissions: bag-of-holding explode; ice-box thaw; shop billing;
+ * altarizing doaltarobj; cursed mbag item-gone;
+ * dropy terse comma-list; toss_up; subfrombill after floor shop BoT/horn;
+ * targetbox shop-bill per-item addtobill.
+ * SchroedingersBox is observe_quantum_cat before spill.
+ * @param {object} box
+ */
+export async function tipcontainer(box) {
+    if (!box) return;
+    const ox = (box.ox | 0) || (game.u?.ux | 0);
+    const oy = (box.oy | 0) || (game.u?.uy | 0);
+    // C tipcontainer `:3697-3699` — held box moves with hero; floor redundant.
+    const bloc0 = get_obj_location_quantum(box);
+    if (bloc0) {
+        box.ox = bloc0.x | 0;
+        box.oy = bloc0.y | 0;
+    }
+    // C tipcontainer `:3706` — target menu before any checks, even when empty.
+    const { target: targetbox, cancelled } = await tipcontainer_gettarget(box);
+    if (cancelled) return;
+    // C `:3724` — the source box must tip clean.
+    if ((await tipcontainer_checks(box, targetbox, false)) !== TIPCHECK_OK) return;
+    // C `:3726-3728` — the destination must tip clean too (allowempty:
+    // an empty target is fine).
+    if (targetbox
+        && (await tipcontainer_checks(targetbox, null, true)) !== TIPCHECK_OK) return;
     box.cknown = 1;
     const u = game.u || {};
     // C pickup.c:3732–3741 — highdrop = !can_reach_floor(TRUE);

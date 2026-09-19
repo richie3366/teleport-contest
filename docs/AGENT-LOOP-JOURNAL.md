@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-19 — D-2593 `pickup.c` tipcontainer_checks whole-body port (trapped/carried/target arms)
+
+**C locus:** `nethack-c/upstream/src/pickup.c:3954–4055` (TIPCHECK enum `:3680–3684`; callers `tipcontainer` `:3724`/`:3726–3728`; entry location sync `:3697–3699`).
+**JS:** `js/pickup.js:4500` TIPCHECK enum, `:4527` `tipcontainer_checks`, `:4648` entry sync, `:4657`/`:4661` the two wired calls.
+**Change:** new module-local `async tipcontainer_checks(box, targetbox, allowempty)` in C order with `:line` cites (C staticfn → module-local, `mksink`/`mkgrave` precedent): BoT-target `:3962`, lknown+carried/update_inventory `:3972`, locked `:3978`, trapped chest_trap+nomul turn-use `:3982`, bag/horn with target recursion `:4001` + location `:4005` + spe-restore `:4023`, quantum `:4034`, empty `:4047`. `chest_trap` joins the existing trap.js edge; `carried` is the live eat.js export (imports.mjs IN-SCC verdict SAFE — hoisted, call-time only); `get_obj_location_quantum` is the file-local flags=0 equivalent (identical arms), no new timeout.js edge; `bagotricks` stays a dynamic apply.js import; the quantum message inlines Shk_Your's carried rule (no second Shk_Your function). `tipcontainer` rewired to the two C-order calls plus the entry location sync; `otrapped chest_trap` dropped from its named omits.
+**Verify:** `node scripts/verify.mjs --fn tipcontainer_checks` → PASS: syntax (1 file) · rule2 · hidden note (0 blocked — expected for a coverage row) · reach smoke 24/24 REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file per script). Tail pasted verbatim in the handoff.
+**Named:** `subfrombill` after floor shop bag/horn (C `:4029–4030`; `tipcontainer` keeps its other shop-billing omits).
+**Next:** `lift_object` + `in_container` Open rows stay queued for their own iterations (hot pickup path; missing callees `mbag_explodes`/`obj_to_any` need separate verifies).
 ## 2026-09-19 — D-2592 `read.c` seffect_light whole-body port (confused light-pets arm)
 
 **C locus:** `nethack-c/upstream/src/read.c:1741–1785` — `:1744–1746` blessed/cursed/Confusion snapshot; `:1748–1754` unconfused (seen → known, `litroom(!scursed)`, `!scursed` → `lightdamage(sobj, TRUE, 5)` → known); `:1755` confused pm = cursed ? BLACK : YELLOW light; `:1757–1758` `mvitals[pm] & G_GONE` → sparkle pline, no spawn; `:1759–1779` `numlights = rn1(2,3) + blessed*2` loop: `makemon(&mons[pm], u.ux, u.uy, MM_EDOG|NO_MINVENT|MM_NOMSG)`, null-guarded `initedog(mon, TRUE)`, `msleeping = 0`, `mcan = TRUE`, `canspotmon` → sawlights, `newsym(mx, my)`; `:1780–1784` sawlights → "Lights appear all around you!" + known. Sole C caller `:2244` seffects SCR_LIGHT.

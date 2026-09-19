@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2593 — `pickup.c` tipcontainer_checks whole-body port (trapped/carried/target arms)
+
+- **Status:** fixed (Open — coverage row `pickup.c` tipcontainer_checks MISSING (C 105 L `pickup.c:3954–4055` / JS no symbol; callers 2, RNG 0, msg 3), measured `port-coverage.mjs --name tipcontainer_checks` 2026-09-19 @ 028f5be4; head row mkgrave parked STALE in this same commit — body live `js/mklev.js:29065`, review 1428 ACCEPT).
+- **Symptom:** map-omission. No same-named JS symbol; arms inlined partial in `tipcontainer` — locked/bag-horn/quantum/empty present, but the otrapped arm, the carried→update_inventory discovery arm, the horn-target recursion, and the destination validation were all absent.
+- **C locus:** `nethack-c/upstream/src/pickup.c:3954–4055` (TIPCHECK enum `:3680–3684`; callers `tipcontainer` `:3724`/`:3726–3728`; entry location sync `:3697–3699`).
+- **JS was:** `js/pickup.js` `tipcontainer` inlined 4 of 7 arms: `if (!box.lknown) box.lknown = 1` without the carried→update_inventory jump (`:3972–3976`); no `box->otrapped` arm; no `tipcontainer_checks(targetbox, NULL, TRUE)` recursion (`:4001–4003`); no destination check (`:3726–3728`); floor-only location stamp instead of `get_obj_location`.
+- **Fix:** new module-local `async tipcontainer_checks(box, targetbox, allowempty)` in C order with `:line` cites (C staticfn → module-local, `mksink`/`mkgrave` precedent): BoT-target `:3962`, lknown+carried/update_inventory `:3972`, locked `:3978`, trapped chest_trap+nomul turn-use `:3982`, bag/horn with target recursion `:4001` + location `:4005` + spe-restore `:4023`, quantum `:4034`, empty `:4047`. `chest_trap` joins the existing trap.js edge; `carried` is the live eat.js export (imports.mjs IN-SCC verdict SAFE — hoisted, call-time only); `get_obj_location_quantum` is the file-local flags=0 equivalent (identical arms), no new timeout.js edge; `bagotricks` stays a dynamic apply.js import; the quantum message inlines Shk_Your's carried rule (no second Shk_Your function). `tipcontainer` rewired to the two C-order calls plus the entry location sync; `otrapped chest_trap` dropped from its named omits.
+- **JS:** `js/pickup.js:4500` TIPCHECK enum, `:4527` `tipcontainer_checks`, `:4648` entry sync, `:4657`/`:4661` the two wired calls.
+- **Callers:** C `:3724` → `:4657` `tipcontainer_checks(box, targetbox, false)`; C `:3726–3728` → `:4661` `tipcontainer_checks(targetbox, null, true)`; self-recursion C `:4001–4003` → `:4573`. C `:46` is the prototype (no wiring). No other C callers.
+- **Verify:** `node scripts/verify.mjs --fn tipcontainer_checks` → PASS: syntax (1 file) · rule2 · hidden note (0 blocked — expected for a coverage row) · reach smoke 24/24 REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file per script). Tail pasted verbatim in the handoff.
+- **Named omissions:** `subfrombill` after floor shop bag/horn (C `:4029–4030`; `tipcontainer` keeps its other shop-billing omits).
+- **Next:** `lift_object` + `in_container` Open rows stay queued for their own iterations (hot pickup path; missing callees `mbag_explodes`/`obj_to_any` need separate verifies).
+
 ## D-2592 — `read.c` seffect_light whole-body port (confused light-pets arm)
 
 - **Status:** fixed (Open — coverage row ``read.c`` seffect_light THIN (C 44 L `read.c:1741–1785` / JS 18 L in js/read.js; hops 5, callers 1, RNG 1, msg 2), measured `port-coverage.mjs --name seffect_light` 2026-09-19 @ 028f5be4).

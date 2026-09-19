@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `read.c` seffect_light — coverage THIN (C 44 L `read.c:1741–1785` / JS 18 L in js/read.js; hops 5, callers 1, RNG 1, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn seffect_light` (reach regression must be 0). Measured `port-coverage.mjs --name seffect_light` 2026-09-19 @ 028f5be4. **Addressed:** D-2592
+- [x] `pickup.c` tipcontainer_checks — coverage MISSING (C 98 L `pickup.c:3954–4055` / JS no symbol; hops —, callers 2, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn tipcontainer_checks` (reach regression must be 0). Measured `port-coverage.mjs --name tipcontainer_checks` 2026-09-19 @ 028f5be4.
+
+
+- [x] `read.c` seffect_light — coverage THIN (C 44 L `read.c:1741–1785` / JS 18 L in js/read.js; hops 5, callers 1, RNG 1, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn seffect_light` (reach regression must be 0). Measured `port-coverage.mjs --name seffect_light` 2026-09-19 @ 028f5be4. **Addressed:** D-2592 `d27e5a6a`
 
 
 - [x] `shk.c` shk_fixes_damage — coverage MISSING (C 21 L `shk.c:4556–4577` / JS no symbol; hops 3, callers 1, RNG 0, msg 2; dead callees: find_damage). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn shk_fixes_damage` (reach regression must be 0). Measured `port-coverage.mjs --name shk_fixes_damage` 2026-09-19 @ 028f5be4. **Addressed:** D-2591 `0a3136de`

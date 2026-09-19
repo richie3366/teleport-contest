@@ -523,7 +523,7 @@ import; **D-1598 `has_mcorpsenm`**);
 moves=0 through mklev (D-0652); **D-0751 `temperature_shift` via `pm_resistance`**; 
 other `m_initinv` bodies (mercenary armor/nymph/giant/…); hell-court `noteleport_level`; 
 **`m_initweap` S_DEMON named specials + `is_demon`→default FALLTHROUGH** (D-0472); 
-**`bagotricks` bad-bag `impossible` + empty/seen `update_inventory` + `tipcontainer` BoT-target apply** (D-2354; `js/apply.js` vs `makemon.c:2554–2601`, target arm `pickup.c:3961–3966` via `js/pickup.js` dynamic import; D-1023 core); 
+**`bagotricks` bad-bag `impossible` + empty/seen `update_inventory` + `tipcontainer` BoT-target apply** (D-2354; `js/apply.js` vs `makemon.c:2554–2601`, target arm `pickup.c:3961–3966` via `js/pickup.js` dynamic import; D-1023 core); **D-2593 `tipcontainer_checks` whole-body port** (`pickup.c:3954–4055` in C order as module-local `js/pickup.js:4527` async fn: TIPCHECK enum `:3680-3684` at `:4500`, BoT-target `:3962`, lknown+carried/update_inventory `:3972`, locked `:3978`, trapped chest_trap+nomul `:3982`, bag/horn with target recursion `:4001` + location `:4005` + spe-restore `:4023`, quantum `:4034`, empty `:4047`; callers `:3724`/`:3726-3728` wired `:4657`/`:4661` + entry sync `:3697` at `:4648`; named omit: subfrombill `:4029-4030`); 
 **`!in_mklev` `newsym` after invent (+ byyou early)** (D-0481); 
 **D-0526/D-1088 `m_initweap` MS_GUARDIAN kit (`ptr.msound` then switch mm) + 
 `in_mklev` giant-eel/ndemon/wumpus/long-worm sleep before invent**; 
