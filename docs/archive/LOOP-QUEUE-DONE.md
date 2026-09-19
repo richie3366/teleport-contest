@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `pager.js` strip_newline splice-vs-truncate (review 1517 QUALITY-RISK) **Addressed:** D-2565 — C `hacklib.c:180–190` truncates at the last `'\n'` (`*p = '\0'`, tail dropped); JS `js/pager.js` `strip_newline` splices the newline out (`slice(0,end) + slice(i+1)`, tail kept): `"a\nb"` → C `"a"`, JS `"ab"`. Fix: return `str.slice(0, end)`; extend coverage with an interior-newline case. Source: reviews/loop-unattended/1517-90ae7d1d-doextversion.md.
+- [x] `options.js` OPT_NEGATEOK_NO missing `travel_debug` (review 1520 QUALITY-RISK) — C `optlist.h:794–796` non-DEBUG arm has negateok `No` (64 negateok-No rows under the contest-linux `cc -E` set); JS `OPT_NEGATEOK_NO` lists 63. Fix: add `'travel_debug'` + a negated-`travel_debug` bad-negation case in `scripts/parseoptions.test.mjs`. Source: reviews/loop-unattended/1520-1832a9e7-parseoptions.md.
+
+
+- [x] `pager.js` strip_newline splice-vs-truncate (review 1517 QUALITY-RISK) **Addressed:** D-2565 `318ca3cd` — C `hacklib.c:180–190` truncates at the last `'\n'` (`*p = '\0'`, tail dropped); JS `js/pager.js` `strip_newline` splices the newline out (`slice(0,end) + slice(i+1)`, tail kept): `"a\nb"` → C `"a"`, JS `"ab"`. Fix: return `str.slice(0, end)`; extend coverage with an interior-newline case. Source: reviews/loop-unattended/1517-90ae7d1d-doextversion.md.
 
 
 - [x] `insight.c` show_achievements — coverage MISSING (C 159 L `insight.c:2243–2403` / JS no symbol; hops 5, callers 1, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn show_achievements` (reach regression must be 0). Measured `port-coverage.mjs --name show_achievements` 2026-09-19 @ 90ae7d1d.

@@ -95,6 +95,13 @@ describe("parseoptions port (options.c:489-691)", () => {
     assert.equal(game.program_state.in_parseoptions, before + 1);
   });
 
+  it("bad negation covers travel_debug non-DEBUG negateok-No (optlist.h:794-796, C :626-628)", () => {
+    const before = game.program_state?.in_parseoptions ?? 0;
+    assert.equal(parseoptions("!travel_debug", true, true), false);
+    // Same C :626-628 early return: no `:644` decrement, counter leaks by one.
+    assert.equal(game.program_state.in_parseoptions, before + 1);
+  });
+
   it("alias loop resolves colour->color with no throw (C :602-613)", () => {
     assert.equal(parseoptions("colour", true, true), false);
     assert.equal(parseoptions("male", true, true), false);

@@ -1,5 +1,33 @@
 # Divergence log
 
+## D-2566 — `optlist.h` travel_debug negateok-No dropped from OPT_NEGATEOK_NO (review 1520 QUALITY-RISK)
+
+- **Status:** fixed (Must-fix review row `options.js` OPT_NEGATEOK_NO missing `travel_debug`; review stamped `**Addressed:** D-2566`).
+- **Symptom:** C-wrong, not a corpus divergence (`hidden-proxy verify parseoptions`: no corpus session blocked at baseline — optfn dispatch is dormant so both gate paths return FALSE today; only the `in_parseoptions` leak differs, and it goes live the moment optfns ship).
+- **C locus:** `nethack-c/upstream/include/optlist.h:794–796` non-DEBUG arm `NHOPTB(travel_debug, Advanced, 0, opt_out, set_wizonly, Off, No, No, No, NoAlias, (boolean *) 0, Term_False, (char *)0)` — negateok `No`, so C has 64 negateok-No rows under the contest-linux `cc -E` set. JS `allopt` already carries the row (`js/options.js:3563–3564`, idx 193, SET_WIZONLY).
+- **JS was:** `js/options.js:3636` `OPT_NEGATEOK_NO` listed 63 names — `travel_debug` missing, so `parseoptions("!travel_debug", …)` missed the C `:626–628` bad-negation early return and fell through to the dormant-dispatch path.
+- **Fix:** `js/options.js` — add `'travel_debug'` after `'traps'` (64 names). `scripts/parseoptions.test.mjs` — new `it` pins `parseoptions("!travel_debug", true, true) === false` with `in_parseoptions` leaking exactly +1 per C `:628` (no `:644` decrement).
+- **JS:** `js/options.js` (one entry); `scripts/parseoptions.test.mjs` (one case); `docs/c-js-map/data.md` parseoptions row (63→64 + D-2566 note); queue row marked.
+- **Callers:** C `:626` bad-negation gate → JS `js/options.js:3923` (`OPT_NEGATEOK_NO.has(allopt[matchidx].name)`) — unchanged, no caller edits. D-2561 named parseoptions callers (recursion, cnf_line_OPTIONS/rcfile/doset family, handler_pickup_types/toggle_bool_option) unwired-or-hand-rolled as before; no call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn parseoptions` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/options.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify parseoptions: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 5.3s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing (auto: shared file changed)
+
+VERIFY: PASS
+```
+`node --test scripts/parseoptions.test.mjs` → 14/14 pass (13 existing + 1 new).
+- **Named omissions:** none new — dormant optfn dispatch still unported (D-2561 named).
+- **Next:** pop the next Open — coverage row (`engrave.c` make_engr_at).
+
 ## D-2565 — `hacklib.c` strip_newline splice-vs-truncate (review 1517 QUALITY-RISK; C truncates, JS spliced)
 
 - **Status:** fixed (Must-fix review row `pager.js` strip_newline; review stamped `**Addressed:** D-2565`).

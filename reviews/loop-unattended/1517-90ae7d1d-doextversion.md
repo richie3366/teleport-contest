@@ -123,4 +123,4 @@ one file, ~165 insertions. Right-sized per §2b.
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-2565
+**Addressed:** D-2565 `318ca3cd`

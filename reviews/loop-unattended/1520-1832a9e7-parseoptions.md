@@ -137,3 +137,5 @@ whole matching core and a pinning suite.
    bad-negation case.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-2566

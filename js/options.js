@@ -3646,7 +3646,7 @@ const OPT_NEGATEOK_NO = new Set(['windowtype', 'playmode', 'name',
     'rawio', 'roguesymset', 'scores', 'sortloot', 'soundlib',
     'status condition fields', 'status highlight rules', 'statuslines',
     'suppress_alert', 'symset', 'term_cols', 'term_rows', 'tile_file', 'traps',
-    'vary_msgcount', 'versinfo', 'warnings', 'windowcolors']);
+    'travel_debug', 'vary_msgcount', 'versinfo', 'warnings', 'windowcolors']);
 const OPT_DUPEOK_YES = new Set(['role', 'race', 'gender', 'alignment',
     'font_map', 'font_menu', 'font_message', 'font_size_map', 'font_size_menu',
     'font_size_message', 'font_size_status', 'font_size_text', 'font_status',

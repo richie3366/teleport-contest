@@ -97,8 +97,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `options.js` OPT_NEGATEOK_NO missing `travel_debug` (review 1520 QUALITY-RISK) — C `optlist.h:794–796` non-DEBUG arm has negateok `No` (64 negateok-No rows under the contest-linux `cc -E` set); JS `OPT_NEGATEOK_NO` lists 63. Fix: add `'travel_debug'` + a negated-`travel_debug` bad-negation case in `scripts/parseoptions.test.mjs`. Source: reviews/loop-unattended/1520-1832a9e7-parseoptions.md.
-
 A **JS throw** in any corpus session (`hidden-proxy status` owner
 `js-throw …`, or a `ReferenceError` in `.cache/hidden/scores.json`
 `error`), and a corpus worker **hang** (`ETIMEDOUT` under `verify`), are
