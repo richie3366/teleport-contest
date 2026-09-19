@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2546 — `polyself.c` polyman whole body in C order (coverage PARTIAL → live; 7 missing arms + same-file ugenocided, both C callers wired)
+
+- **Status:** fixed (Open coverage row `polyself.c` polyman PARTIAL, C 68 L `polyself.c:200–268` / JS 41 L in `js/polyself.js`; no Must-fix pending; row cites no review — no stamp).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify polyman`: no corpus session blocked at baseline).
+- **C locus:** `nethack-c/upstream/src/polyself.c:199–268` (`polyman`, staticfn); arms `:200–204` sticking/was_mimicking/was_blind/had_see_invis capture, `:206–211` Upolyd restore, `:212` set_uasmon, `:214–217` mh/mtimedone/skinback/uundetected, `:220–221` sticking uunstick, `:222` find_ac, `:223–227` mimic stop, `:229` newsym, `:231` urgent_pline, `:234–247` self-genocide done, `:249–250` See_invisible toggle, `:252–253` twoweap drop, `:255–257` pit reset, `:258–260` eyeless-blind revert, `:261` check_strangling, `:263–264` pool/lava spoteffects, `:266` see_monsters. Callers `:443` newman, `:1395` rehumanize. Callees: `ugenocided` (`:2265–2270`, same-file — ported here), `could_twoweap`/`untwoweapon` (live `wield.js`), `set_mimic_blocking` (live `vision.js`), `check_strangling` (file-local `:1239`), `is_pool`/`is_lava` (live `hack.js`, ≡ dbridge `is_pool_or_lava` per `trap.js:693`), `find_delayed_killer`/`dealloc_killer`/`done` (live `end.js`), `spoteffects` (live `pickup.js`), `unmul` (live `hack.js`); sticks/set_uasmon/skinback/uunstick/find_ac/newsym/urgent_pline/set_utrap/make_blinded/see_monsters pre-existing.
+- **JS was:** 41-line thin body (`js/polyself.js:822`) — Upolyd restore, set_uasmon, mh clear, skinback, sticking uunstick (D-2131), find_ac, newsym, manual `String.replace('%s')` pline, blind arm, see_monsters. Missing: was_mimicking capture + unmul/m_ap_type reset; the whole ugenocided arm; See_invisible-toggle set_mimic_blocking; twoweap drop; pit-timer reset; check_strangling(TRUE); pool/lava spoteffects (all named omissions in the old doc comment).
+- **Fix:** `js/polyself.js` — restarted `polyman` (stays file-local, mirrors staticfn) in C order with `:line` cites; new exported `ugenocided()` mirroring same-file C `:2265` (`game.mvitals` G_GENOD on urole/urace mnum); urgent_pline now passthrough `(fmt, arg)` (live `vpline` substitution) instead of the replace shim; See_invisible uses the file's H||E+sticky idiom with C `:249` XOR shape; pit arm mirrors the `:1463` newman-site shape. Imports extended on pre-existing edges only (`imports.mjs --can` ALREADY ×3): GENOCIDED/POLYMORPH (const.js), find_delayed_killer/dealloc_killer (end.js), set_mimic_blocking (vision.js).
+- **JS:** `js/polyself.js` `ugenocided` (exported, before `polyman`); `polyman` (file-local).
+- **Callers:** C `:443` newman → `js/polyself.js:943` `await polyman('You feel like a new %s!', newform)` (pre-wired, unchanged); C `:1395` rehumanize → `js/polyself.js:983` `await polyman('You return to %s form!', adj)` (pre-wired, unchanged).
+- **Verify:** `node scripts/verify.mjs --fn polyman` → VERIFY: PASS (syntax 1 file; rule2; hidden: 0 blocked; reach: no RNG-tagged reach, smoke 24/24 REACH-OK; green 2/2 + strict ×2; cohort 7/7; full skipped — no shared file changed).
+- **Named omissions:** none in this body — every arm and callee is live or ported in this commit.
+- **Next:** fill_special_room (queue head after this pop).
+
 ## D-2545 — `objnam.c` readobjnam_preparse whole body in C order (coverage MISSING → live; thin inline loop restarted, every arm + caller wired)
 
 - **Status:** fixed (Open coverage row `objnam.c` readobjnam_preparse MISSING, C 209 L `objnam.c:3966–4175` / JS no symbol; no Must-fix pending; row cites no review — no stamp).

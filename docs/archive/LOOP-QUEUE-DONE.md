@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `objnam.c` readobjnam_preparse — coverage MISSING (C 209 L `objnam.c:3966–4175` / JS no symbol; hops 4, callers 1, RNG 2, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn readobjnam_preparse` (reach regression must be 0). Measured `port-coverage.mjs --name readobjnam_preparse` 2026-09-19 @ 1c1e08cc. **Addressed:** D-2545
+- [x] `polyself.c` polyman — coverage PARTIAL (C 68 L `polyself.c:200–268` / JS 41 L in js/polyself.js; hops 2, callers 3, RNG 1, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn polyman` (reach regression must be 0). Measured `port-coverage.mjs --name polyman` 2026-09-19 @ 1c1e08cc. **Addressed:** D-2546
+
+
+- [x] `objnam.c` readobjnam_preparse — coverage MISSING (C 209 L `objnam.c:3966–4175` / JS no symbol; hops 4, callers 1, RNG 2, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn readobjnam_preparse` (reach regression must be 0). Measured `port-coverage.mjs --name readobjnam_preparse` 2026-09-19 @ 1c1e08cc. **Addressed:** D-2545 `23cb328e`
 
 
 - [x] `options.c` all_options_strbuf — coverage MISSING (C 70 L `options.c:9678–9748` / JS no symbol; hops —, callers 2, RNG 0, msg 1; dead callees: strbuf_append, get_option_value, all_options_conds, all_options_palette, get_changed_key_binds, all_options_menucolors, …). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn all_options_strbuf` (reach regression must be 0). Measured `port-coverage.mjs --name all_options_strbuf` 2026-09-19 @ 1c1e08cc. **Addressed:** D-2544 ([campaign 1/7] shipped; follow-ups queued below).
