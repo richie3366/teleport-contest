@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-2554 — `do_wear.c` Helmet_off (coverage THIN → live; full helm-doff switch in C order; async for uchangealign/impossible)
+
+- **Status:** fixed (Open coverage row `do_wear.c` Helmet_off; row cites no review — reviews 47/580/961/1452 name the symbol, all ACCEPT/no-action, no new stamp; 1452's `see_monsters` body is the callee used here). Same iteration: popped `rip.c` genl_outrip first — STALE, Parked (whole body live split-named `js/rip.js:50` `genl_outrip_lines` + caller `js/end.js:903`; sole C caller `end.c:1404` is DUMPLOG-retired; 0 blocked).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify Helmet_off`: no corpus session blocked at baseline — helm-doff arms unreachable in the corpus paths).
+- **C locus:** `nethack-c/upstream/src/do_wear.c:518–564` (`Helmet_off`) in C order: `takeoff.mask &= ~W_ARMH` `:521`; FEDORA archaeologist `change_luck(-1)` `:524–527`; plain-helm breaks `:528–533`; DUNCE_CAP `disp.botl` `:534–536`; CORNUTHAUM `ABON(A_CHA) += wizard ? -1 : +1` + botl unless `cancelled_don` `:537–542`; TELEPATHY/CAUTION `setworn(0)` then `see_monsters()` early return `:543–547`; BRILLIANCE `adj_abon(uarmh, -spe)` unless `cancelled_don` `:548–551` (helm half `adj_abon :3328–3335`: makeknown + INT/WIS only when delta nonzero, botl always); OPPOSITE_ALIGNMENT `uchangealign(ualignbase[A_CURRENT], A_CG_HELM_OFF)` `:552–557`; default `impossible(unknown_type, c_helmet, otyp)` `:558–559`; tail `setworn(0)` + `cancelled_don = FALSE` `:560–561`.
+- **JS was:** 9-line sync stub (`js/do_wear.js:754`): FEDORA luck only, `clear_worn`, no mask clear, no other arms, no cancelled_don reset.
+- **Fix:** `js/do_wear.js` — restarted async `Helmet_off` in C order with `:line` cites: mask clear first (covers the telepathy early return); null-helm graceful clear (C dereferences `uarmh` — unreachable in C); `game.flags.botl` for `disp.botl` (Helmet_on precedent); `u.abon.a[]` for ABON (Helmet_on shape); BRILLIANCE inlines the `adj_abon` helm half exactly (delta = `-spe`; makeknown iff delta; botl always; whole arm gated by `!cancelled_don`); OPPOSITE awaits live `uchangealign` (`js/attrib.js:768`, base = `ualignbase?.current ?? ualign?.type`, pray.js pattern; tail clear idempotent if the helm was dropped/destroyed); default awaits live `impossible` (`"Unknown type of helmet (%d)"` from `unknown_type`/`c_helmet`, `do_wear.c:9–13`). New imports join existing edges only (`uchangealign` → attrib.js edge; `A_CURRENT`/`A_CG_HELM_OFF` → const.js edge). Callers all await: `armoroff` `:1432` + `afternmv` ref `:1415` (unmul awaits), selective-doff `:1914`, `wornarm_destroyed` `:3561`, `js/polyself.js:1237/1262`, `js/steal.js:261`.
+- **JS:** `js/do_wear.js` (+~90/−10: restart + 2 extended imports + 3 awaits); `js/polyself.js` (+2 awaits); `js/steal.js` (+1 await).
+- **Callers:** `do_wear.c:1983` → `js/do_wear.js:1432` (+ delay-path `afternmv :1415`, run by `unmul`); `do_wear.c:2866` → `js/do_wear.js:1914`; `do_wear.c:3162` → `js/do_wear.js:3561`; `polyself.c:1243` → `js/polyself.js:1237` (horns helm-fall); `polyself.c:1269` → `js/polyself.js:1262` (nohands helm-fall); `steal.c:256` → `js/steal.js:261`. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn Helmet_off` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   3 changed js file(s): js/do_wear.js js/polyself.js js/steal.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify Helmet_off: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 5.6s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+
+VERIFY: PASS
+```
+- **Named omissions:** null-helm graceful clear (C would dereference NULL — unreachable in C; keeps the old JS no-throw path); `adj_abon` gloves half (separate `Gauntlets_of_dexterity` arm, not in this body — Gloves_on inlines it per precedent).
+- **Next:** queue head moves to `files.c` create_levelfile.
+
 ## D-2553 — `cfgfiles.c` do_write_config_file [campaign 7/7] (coverage MISSING → live; overwrite-gated VFS write; final saveoptions-family activation)
 
 - **Status:** fixed (Open coverage row `cfgfiles.c` do_write_config_file [campaign 7/7]; row cites no review — parent review 1503 already stamped **Addressed:** D-2547, no new stamp).

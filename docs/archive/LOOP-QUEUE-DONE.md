@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `cfgfiles.c` do_write_config_file [campaign 7/7] — C `cfgfiles.c:165–211` absent from js/ (no #saveoptions command; sole caller of the [campaign 1/7] parent). Port in C order incl. paranoid_query gate; persist via storage.js VFS (Rule #2, no fopen). Final activation of the parent family. Verify `node scripts/verify.mjs --fn do_write_config_file` (reach regression must be 0). **Addressed:** D-2553
+- [x] `do_wear.c` Helmet_off — coverage THIN (C 46 L `do_wear.c:518–564` / JS 9 L in js/do_wear.js; hops 3, callers 6, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn Helmet_off` (reach regression must be 0). Measured `port-coverage.mjs --name Helmet_off` 2026-09-19 @ e07bd9bc. **Addressed:** D-2554
+
+
+- [x] `cfgfiles.c` do_write_config_file [campaign 7/7] — C `cfgfiles.c:165–211` absent from js/ (no #saveoptions command; sole caller of the [campaign 1/7] parent). Port in C order incl. paranoid_query gate; persist via storage.js VFS (Rule #2, no fopen). Final activation of the parent family. Verify `node scripts/verify.mjs --fn do_write_config_file` (reach regression must be 0). **Addressed:** D-2553 `c90a495f`
 
 
 - [x] `botl.c` all_options_statushilites [campaign 6/7] — C `botl.c:4477–4495` absent from js/ (no hilite gather/done store; named omit of the [campaign 1/7] parent, STATUS_HILITES on per config.h:616). Port status_hilite_linestr gather/done + all_options_statushilites in C order. Verify `node scripts/verify.mjs --fn all_options_statushilites` (reach regression must be 0). **Addressed:** D-2552 `ac266d5e`
