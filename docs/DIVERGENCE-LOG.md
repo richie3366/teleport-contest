@@ -1,5 +1,30 @@
 # Divergence log
 
+## D-2536 — `dig.c` draft_message whole body in C order (coverage THIN → live, both `zap.c` callers wired)
+
+- **Status:** fixed (Open coverage row `dig.c` draft_message THIN, C 40 L `dig.c:1504–1544` / JS 5 L thin in js/dig.js; no Must-fix pending; row cites no review Actionable — no stamp; reviews 450/404/446/437/15 name draft_message only in passing, no Keep'd C-wrong).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify draft_message`: no corpus session blocked at baseline — secret-door/corridor draft feel, RNG 2, msg 4).
+- **C locus:** `nethack-c/upstream/src/dig.c:1502–1544` (`draft_message`). Callees/macros: `You_feel` (`:1514`/`:1523`/`:1527`/`:1542`, live display edge, async → awaited); `Hallucination` (youprop.h:120 — module-local `js/dig.js` helper, see omissions); `ACURR(x)` = `acurr(x)` (attrib.h:24 — live attrib.js edge; `A_INT`/`A_DEX`/`A_CON`/`A_CHA` consts added to the existing specifier, `A_STR`/`A_WIS` already there); `rn1` (live rng edge, already imported — one `rn2` draw each, order preserved); `sgn` (hacklib.c — module-local `js/dig.js` helper); `STRIDENT` = 4 (`:1499`, from pray.c — file-local const); `u.ualign.type`/`record` (`game.u` idiom, `:1872` pattern).
+- **JS was:** `js/dig.js:225` 5 L thin — `Hallucination` early-return dropped both hallu arms (`4-F`/`1-A`, `draft_reaction`); `zap_over_floor` inlined `You_feel('a draft.')` (hallu-blind); `zap_map` Rogue `!cansee` arm a named omission.
+- **Fix:** `js/dig.js` — restarted + exported `draft_message` in C order with `:line` cites: `:1513–1514` plain «an unexpected draft»; `:1515–1523` hallu «like you are %s» (4-F when any of the six ACURR attrs < 6, else 1-A); `:1526–1528` plain «a draft»; `:1529–1542` hallu `draft_reaction[dridx]`, `dridx = rn1(2, 1 - sgn(type))` widened by `rn1(3, sgn(type) - 1)` when `record < STRIDENT` (Lawful 0..1, Neutral 1..2, Chaotic 2..3 — all 0..3, index always in-bounds). Same commit wires `zap.c:5408` (`zap_over_floor` inline → call) and `zap.c:3746` (`zap_map` named → `else if (Is_rogue_level)` call) via the existing static dig.js edge (`imports.mjs --can` ALREADY — specifier extended, no new edge); zap header + `zap_map` doc comments updated.
+- **JS:** `js/dig.js` (+~40/−6: STRIDENT const, full body, export, 4 import words, 1 doc line) + `js/zap.js` (+5/−7: import word, two caller arms, 3 comment lines) + CURRENT.md cluster line — 2 files, under caps (1500 ins / 15 files).
+- **Callers:** `dig.c:1443` (mdig_tunnel closed-door, `!Unaware && !rn2(3)`) → `js/dig.js:1017` ✓ pre-existing; `dig.c:1451` (mdig_tunnel SCORR) → `js/dig.js:1027` ✓ pre-existing; `zap.c:3746` (zap_map SDOOR `!cansee` Rogue) → `js/zap.js:6143` ✓ wired this commit; `zap.c:5408` (zap_over_floor SDOOR `!see_it` Rogue) → `js/zap.js:1236` ✓ wired this commit. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn draft_message` → PASS syntax (2 changed: js/dig.js js/zap.js) · rule2 · hidden note (0 blocked at baseline) · reach smoke 24/24 PASS, 0 regressed → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file changed) → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   2 changed js file(s): js/dig.js js/zap.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify draft_message: no corpus session blocked on it at baseline
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 6.3s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+VERIFY: PASS
+```
+- **Named omissions:** none in this body — every arm and callee is live or file-local. Note: the module-local `Hallucination()` helper ORs H/HH/EH without the youprop.h:120 `!Halluc_resistance` conjunct — a pre-existing module pattern (used at `js/dig.js:1897/1911`), not introduced here; out of scope for this row.
+- **Next:** Open head after draft_message (`mthrowu.c` thrwmu).
+
 ## D-2535 — `mdlib.c` build_options whole body in C order (coverage MISSING → live, the one C caller wired)
 
 - **Status:** fixed (Open coverage row `mdlib.c` build_options MISSING, C 161 L `mdlib.c:669–830` / JS no symbol; no Must-fix pending; row cites no review — no stamp).

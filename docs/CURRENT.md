@@ -46,7 +46,7 @@ screens 93.2 %. Held-out flat 11/44 (5,648 pts, RNG 26.6 %, screens
 92.0 %: the corpus still does not predict the judge.
 **Corpus fortress** (re-scored 2026-09-19 audit 1480–1488): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — +0 / −0
-in the D-2521…D-2535 window (all nine were zero-block coverage rows;
+in the D-2521…D-2536 window (all nine were zero-block coverage rows;
 per-SHA `--reach-all` re-runs REACH-OK, 0 regressed).
 Reviews 1225–1488: 233 ACCEPT, 10 WITH-DEBT, 1 DEBT, 15 QUALITY-RISK (Must-fix: none — 1465 trio shipped D-2512).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone — review-debt, unqueued (detail in the review files).
@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `mdlib.c` build_options — coverage MISSING (C 161 L `mdlib.c:669–830` / JS no symbol; hops —, callers 1, RNG 0, msg 4; dead callees: build_savebones_compat_string, datamodel, opt_out_words, count_and_validate_winopts, count_and_validate_soundlibopts). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn build_options` (reach regression must be 0). Measured `port-coverage.mjs --name build_options` 2026-09-19 @ ca74dad2.
+**Next cluster:** `dig.c` draft_message — coverage THIN (C 40 L `dig.c:1504–1544` / JS 5 L in js/dig.js; hops 5, callers 3, RNG 2, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn draft_message` (reach regression must be 0). Measured `port-coverage.mjs --name draft_message` 2026-09-19 @ ca74dad2.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2535 (index).**
+**Keep D-0845…D-2536 (index).**
 <!-- recent:begin -->
+**D-2536** `nethack-c/upstream/src/dig.c:1502–1544` (`draft_message`). Callees/macros: `You_feel` (`: — `js/dig.js` — restarted + exported `draft_message` in C order with `:line` cites: `:1513–1514` plain «an unexpected draft»; `:1515–1523` hallu «like you are %s» (4-F when any of the six ACURR attrs < 6, else 1-A); `:1526
 **D-2535** `nethack-c/upstream/src/mdlib.c:669–830` (`build_options`). Callees: `build_savebones_comp — `js/version.js` (+366) — full family in C order with `:line` cites: opttext state (`:95–104`); `build_savebones_compat_string` (`:392–415`, VERSION_COMPATIBILITY arm compiled out → "5.0.0 only"); 26 contest `build_opts` 
 **D-2534** `nethack-c/upstream/src/getpos.c:665–725` (`getpos_menu`). Callees: `gather_locs` (`:677`, — `js/getpos.js` — exported async `getpos_menu` (`js/getpos.js:944`) in C order with `:line` cites: `:677` same-file gather_locs; `:679–685` count<2 → `You('cannot %s %s.')` see/detect + descr[0], FALSE; `:687–692` item li
 **D-2533** `nethack-c/upstream/src/invent.c:814–948` (`merged`). Callees: `mergable` (`:819`, live mk — `js/mkobj.js` — restarted + exported `merged` (`js/mkobj.js:2549`) in C order with `:line` cites: `:826–831` age average (lamplit/globby skip); `:833–834` quan (glob stays 1); `:835–840` coin reweigh + bknown wipe, `!Is_
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2531** `nethack-c/upstream/src/dothrow.c:2480–2574` (`breakobj`). Callees: `is_crackable` (live m — `js/dothrow.js` — restarted `breakobj` in C order with `:line` cites: `:2488–2491` crackable `erode_obj` + `ER_DESTROYED`-gated 1/0 return; `:2493` potion-class→`POT_WATER` mapping; `:2494–2497` MIRROR luck; `:2498–2521`
 **D-2530** `nethack-c/upstream/src/wizcmds.c:1284–1399` (`misc_stats`, staticfn). Callees: `engr_stat — `js/wizcmds.js` — `SIZEOF_*` LP64 constants (`:890–899`) measured from the pinned headers with gcc (`trap=32 engr=64 light=32 timer=48 damage=32 region=96 rect=8 kinfo=272 cemetery=184`; probe in /tmp, not committed) + f
 **D-2529** `nethack-c/upstream/src/do_wear.c:1090–1189` (`Amulet_off`). Callees: `setworn` (`:1100/:1 — `js/do_wear.js` — restarted `Amulet_off` in C order with `:line` cites: `:1092–1095` amul save + takeoff.mask clear; `:1098–1105` ESP early setworn/off_msg + see_monsters; `:1106–1112` six no-op amulets; `:1113–1133` BRE
-**D-2528** `nethack-c/upstream/src/options.c:9070–9174` (`show_menu_controls`). Callees: `get_menu_cm — `js/options.js` — `wc2_options` table in C order, `windowprocs_wincap2` (unset bag → contest tty 0, cf.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2535; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2536; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
