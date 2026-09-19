@@ -60,6 +60,7 @@ JS: extractor + generated rumors — partial
 Fortune path exercised
 
 **D-2513 `getrumor` whole body** (`rumors.c:117–191`; live `js/rumors.js:93` in C order — `:129` guard, `:139–143` init sizes, `:149–163` adjtruth switch + default, `:164–166` buf `get_rnd_line`, `:168–175` cookie loop + `count>=50` + exercise else, `:176–181` open-fail + cookie strip; callers `engrave.c:57` → `js/engrave.js:210`, `rumors.c:551` → `js/rumors.js:169`, `artifact.c:2289` named omit unported `arti_speak`). Named: dlb handles + `init_rumors` parse (Rule #2 embed) + `couldnt_open_file` suppression.
+**D-2556 `rumor_check` whole body** (`rumors.c:196–302`; live `js/rumors.js` in C order — open gate, embed init `start = 0` + sizes + `true_end == false_start`, `%06ld (%06lx)` stats, first/last true+false decrypted via `splitEmbedLines` + live `xcrypt` (padding kept), `no_rumors` pline + `flush_topl_more`, `others_check` (`:307–408`) ×3 into shared `lines[]` shown once via `show_text_pages`, file-local `couldnt_open_file` (`:769–782`) live; caller `wizcmds.c wiz_rumor_check` → `js/wizcmds.js:514` + runnable `#wizrumorcheck` `js/getline.js`). Named: `init_rumors` parse (build-time) + absolute START offsets (section-relative) + unreachable open-fail/comment-validation/create-fail arms + `dlb_fclose`.
 
 ### `src/files.c` `read_tribute` / `choose_passage` / `Death_quote`
 

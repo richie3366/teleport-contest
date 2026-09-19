@@ -1,5 +1,30 @@
 # Divergence log
 
+## D-2556 — `rumors.c` rumor_check (coverage MISSING → live; whole wizard-verify body in C order over Rule #2 embeds + #wizrumorcheck wired)
+
+- **Status:** fixed (Open coverage row `rumors.c` rumor_check; cites no review — no stamp needed).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify rumor_check`: no corpus session blocked at baseline — wizard-only `#wizrumorcheck` path).
+- **C locus:** `nethack-c/upstream/src/rumors.c:196–302` (`rumor_check`) in C order: `dlb_fopen` gated on `true_rumor_size >= 0` `:204`; first-use `init_rumors()` `:209–214` (header parse `:84–107`: skip comment, sizes + `end = start + size`); `create_nhwindow(NHW_TEXT)` `:215`; T/F stat lines `%06ld (%06lx)` `:228–237`; first true rumor via seek+ftell+fgets `T %06ld` `:246–253`; last-true scan while `ftell < true_end` + `  %6s` `:254–260`; first/last false `:262–276`; `dlb_fclose` `:278`; `no_rumors` pline + `display_nhwindow(WIN_MESSAGE, TRUE)` `:279–285`; first-open-failed `couldnt_open_file` + size −1 `:287–290`; unconditional `others_check` ×3 `:296–298`; show+destroy `:300–303`. Callees `others_check` `:307–408` (blank+header, comment validation, default+second entries, count rest, `(no second entry)`/`(only two entries)`/` ...`+last) and `couldnt_open_file` `:769–782` (something_worth_saving suppress/restore around `impossible`) ported in the same commit. Sole C caller `wizcmds.c` `wiz_rumor_check` (calls `rumor_check()`, returns `ECMD_OK`).
+- **JS was:** no symbol (`brief`: MISSING incl. `js/generated/`); `xcrypt`/`getrumor`/`outrumor` live (`js/rumors.js`), `ENGRAVE_BUF`/`EPITAPH_BUF`/`BOGUSMON_BUF` embeds live; `#wizrumorcheck` in the autocomplete list only (`js/getline.js:352`), no runnable entry, no `wiz_rumor_check`.
+- **Fix:** `js/rumors.js` — exported async `rumor_check()` in C order with `:line` cites: open gate as `(game.true_rumor_size ?? 0) >= 0` (embed always opens; getrumor D-2513 precedent); init sets `true_rumor_start = 0`, sizes from buffer lengths, `true_end = start + size`, `false_start = true_end` (C `:100` contiguity assert preserved); stat lines via `fmt6d`/`fmt6x` zero-pad helpers; first/last lines via file-local `splitEmbedLines` (fgets-line model) + live `xcrypt` with padding kept (C never unpadlines here); `no_rumors` arm awaits live `pline` + `flush_topl_more` (display_nhwindow(WIN_MESSAGE,TRUE) precedent, allmain.js:1173); window = collected `lines[]` shown once via live `show_text_pages` (NHW_TEXT precedent). File-local `others_check(ftype, fname, buf, lines)` (C `winid *` out-param → shared array) with the `(no second entry)`/`(only two entries)`/` ...`+last arms exact; file-local `couldnt_open_file` with the `program_state` suppress/restore + `iflags.debug_fuzzer` gate around live `impossible("Can't open '%s' file.")`. `js/wizcmds.js` — exported async `wiz_rumor_check()` (wizard gate per sibling ports, lazy `import('./rumors.js')`). `js/getline.js` — runnable EXT_CMDS `wizrumorcheck` entry (`wiz:true, autocomplete:true` per cmd.c `:1988–1990` IFBURIED|AUTOCOMPLETE|WIZMODECMD; lazy import). New static edges reuse existing module pairs only (const/generated/display/pager); no cycle risk. Smoke `/tmp/rumor_check_probe.mjs` (fake nhDisplay + queued ESC): stat hex `24924 → 00615c`, first true "A blindfold…", first false score-list, Engravings default+Elbereth+` ...`+last, init-once idempotent, no_rumors arm runs clean.
+- **JS:** `js/rumors.js` (+176: 3 functions + 3 import lines); `js/wizcmds.js` (+14); `js/getline.js` (+10).
+- **Callers:** `wizcmds.c` `wiz_rumor_check` → `js/wizcmds.js:514` `wiz_rumor_check` → `js/rumors.js` `rumor_check`; extcmd `cmd.c:1988` → `js/getline.js` runnable `wizrumorcheck` entry. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn rumor_check` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   3 changed js file(s): js/getline.js js/rumors.js js/wizcmds.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify rumor_check: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 3.8s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+```
+- **Named omissions:** `init_rumors` header parse (ran at build time in extract-rumors.py; sizes set from section buffers — byte-identical to C's pad+xcrypt sections); absolute file START offsets (embed has no "don't edit" + header bytes; section-relative with true_end == false_start); `dlb_fopen` first-failure + init-failed `goto no_rumors` + `others_check` open-fail arms (unreachable — non-empty constants; `couldnt_open_file` still ported live for the shape); `others_check` `#`-comment validation + window-create-fail arms (extractors omit headers by design and validate at build time; `lines[]` cannot fail); `dlb_fclose` (no-op).
+- **Next:** queue head moves to `spell.c` deadbook.
+
 ## D-2555 — `files.c` create_levelfile (coverage MISSING → live; write side of the level-file pair in C order)
 
 - **Status:** fixed (Open coverage row `files.c` create_levelfile; row cites review 1431 which is the D-2472 `open_levelfile` ACCEPT with no Actionable C-wrongs — no new stamp needed).
