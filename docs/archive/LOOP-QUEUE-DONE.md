@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `restore.c` restmon — coverage MISSING (C 66 L `restore.c:307–373` / JS no symbol; hops 4, callers 3, RNG 1, msg 0; dead callees: newmextra, new_mgivenname, newebones). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn restmon` (reach regression must be 0). Measured `port-coverage.mjs --name restmon` 2026-09-19 @ a263d08e. **Addressed:** D-2514
+- [x] `botl.c` bot_via_windowport — coverage MISSING (C 317 L `botl.c:962–1279` / JS no symbol; hops 1, callers 1, RNG 0, msg 0; dead callees: botl_score, weapon_status, armor_status). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn bot_via_windowport` (reach regression must be 0). Measured `port-coverage.mjs --name bot_via_windowport` 2026-09-19 @ a263d08e. **Addressed:** D-2515
+
+
+- [x] `restore.c` restmon — coverage MISSING (C 66 L `restore.c:307–373` / JS no symbol; hops 4, callers 3, RNG 1, msg 0; dead callees: newmextra, new_mgivenname, newebones). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn restmon` (reach regression must be 0). Measured `port-coverage.mjs --name restmon` 2026-09-19 @ a263d08e. **Addressed:** D-2514 `02a067fe`
 
 
 - [x] `rumors.c` getrumor — coverage THIN (C 71 L `rumors.c:117–191` / JS 21 L in js/rumors.js; hops 3, callers 4, RNG 1, msg 0; dead callees: init_rumors, couldnt_open_file). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn getrumor` (reach regression must be 0). Measured `port-coverage.mjs --name getrumor` 2026-09-19 @ a263d08e. **Addressed:** D-2513 `ab1ae274`
