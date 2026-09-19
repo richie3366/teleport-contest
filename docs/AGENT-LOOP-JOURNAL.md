@@ -7,6 +7,29 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-19 — Audit 625932f0..e07bd9bc (reviews 1498-1505: 7 ACCEPT + 1 QUALITY-RISK) + cadence 44/44, proxy 497/540, held-out 11/44.
+
+One SHA at a time against pinned C, each re-run with hidden-proxy verify
+--base HASH~1 --reach-all. 1498 check_version+uptodate: 80-row
+critical_sizes count/names/order verified vs version.c:546–664, dm rows
+1–4 exact, feeds named (CSCBUF-zeroed consequence stated). 1499 blnd /
+1500 ston: arms exact, both C callers wired, live-callee imports verified
+(munstone/minstapetrify). 1501 elec: uhitm/mhitm order asymmetry
+(golem↔shield) preserved, _u (void) discard per C, reach 35/35.
+1502 CapMons: makedefs do_rnd_access_file equivalence re-verified
+(header+default+non-# lines both sides). 1503 all_options_strbuf [1/7]:
+QUALITY-RISK — BoolOpt/CompOpt switch-break mistranslated as loop-break
+(×2, doubly-dead today, silent truncation once [2/7] lands) → Must-fix
+prepended, Next cluster pointed at it; the bare-identifier skeleton is the
+blessed campaign pattern (unreachable, rows [2/7]–[7/7] queued), not a
+stub. 1504 preparse: full ~40-arm walk, gender/save_bp emulation traced,
+strncmpi_start/strstri/strsubst semantics verified, downstream
+applications (wetness/ishistoric/mgend) confirmed live. 1505 polyman:
+whole-body arm order confirmed, urgent_pline passthrough, ugenocided exact.
+Cadence: full sessions 44/44 (Scr 11,405/11,405, RNG 792,838/792,838,
+61+0.40/turn); held-out 11/44 (5,753 pts, RNG 26.6%, screens 51.1%,
+judge 07:08Z cached); corpus 497/540 flat (+0/−0 in-window). Refill
+below: queue 7 → ~12. Scoreboard stamp is the re-score artifact.
 ## 2026-09-19 — D-2546 `polyself.c` polyman whole body in C order (coverage PARTIAL → live; 7 missing arms + same-file ugenocided, both C callers wired)
 
 **C locus:** `nethack-c/upstream/src/polyself.c:199–268` (`polyman`, staticfn); arms `:200–204` sticking/was_mimicking/was_blind/had_see_invis capture, `:206–211` Upolyd restore, `:212` set_uasmon, `:214–217` mh/mtimedone/skinback/uundetected, `:220–221` sticking uunstick, `:222` find_ac, `:223–227` mimic stop, `:229` newsym, `:231` urgent_pline, `:234–247` self-genocide done, `:249–250` See_invisible toggle, `:252–253` twoweap drop, `:255–257` pit reset, `:258–260` eyeless-blind revert, `:261` check_strangling, `:263–264` pool/lava spoteffects, `:266` see_monsters. Callers `:443` newman, `:1395` rehumanize. Callees: `ugenocided` (`:2265–2270`, same-file — ported here), `could_twoweap`/`untwoweapon` (live `wield.js`), `set_mimic_blocking` (live `vision.js`), `check_strangling` (file-local `:1239`), `is_pool`/`is_lava` (live `hack.js`, ≡ dbridge `is_pool_or_lava` per `trap.js:693`), `find_delayed_killer`/`dealloc_killer`/`done` (live `end.js`), `spoteffects` (live `pickup.js`), `unmul` (live `hack.js`); sticks/set_uasmon/skinback/uunstick/find_ac/newsym/urgent_pline/set_utrap/make_blinded/see_monsters pre-existing.

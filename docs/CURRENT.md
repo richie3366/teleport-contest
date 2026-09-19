@@ -23,20 +23,20 @@ the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-19** — full `sessions` on the working tree
-(audit **1489–1497**).
+(audit **1498–1505**).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`69+0.47/turn` (R² 0.82).
+`61+0.40/turn` (R² 0.79).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge, 2026-09-19)** | **11 / 44**, 5,648 / 11,265 pts, RNG **26.6 %**, rngSteps 81.5 %, screens **50.1 %** |
+| **Held-out (judge, 2026-09-19)** | **11 / 44**, 5,753 / 11,265 pts, RNG **26.6 %**, rngSteps 81.6 %, screens **51.1 %** |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `49+0.30/turn` (R² 0.79) |
+| Speed label | `61+0.40/turn` (R² 0.79) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
@@ -44,11 +44,12 @@ every audit). Rank 4/22, 2nd agentic; best agentic fork 35/44, RNG 98.5 %,
 screens 93.2 %. Held-out 11/44 (5,753 pts, RNG 26.6 %, screens 51.1 %;
 judge 07:08Z, ~D-2534, +105 pts vs last audit): the corpus still does
 not predict the judge.
-**Corpus fortress** (re-scored 2026-09-19 audit 1489–1497): **497 / 540
+**Corpus fortress** (re-scored 2026-09-19 audit 1498–1505): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — +0 / −0
-in the D-2530…D-2546 window (all nine were zero-block coverage rows;
-per-SHA `--reach-all` re-runs REACH-OK, 0 regressed).
-Reviews 1225–1497: 242 ACCEPT, 10 WITH-DEBT, 1 DEBT, 15 QUALITY-RISK (Must-fix: none — 1465 trio shipped D-2512).
+in the D-2539…D-2546 window (all eight were zero-block coverage rows;
+per-SHA `--reach-all` re-runs REACH-OK — ston 14/14, elec 35/35 real
+reach, rest smoke — 0 regressed).
+Reviews 1225–1505: 249 ACCEPT, 10 WITH-DEBT, 1 DEBT, 16 QUALITY-RISK (Must-fix: 1 — 1503 all_options_strbuf break/continue).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone — review-debt, unqueued (detail in the review files).
 Audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s) + `leaderboard.mjs`.
 
@@ -99,7 +100,7 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `polyself.c` polyman whole body in C order (C 68 L `polyself.c:200–268`, JS 41 L in js/polyself.js; hops 2, callers 3, RNG 1, msg 1). Verify `--fn polyman`, reach regression 0.
+**Next cluster:** Must-fix `options.c` all_options_strbuf BoolOpt/CompOpt `break`→`continue` ×2 (C `options.c:9691–9721` switch-break = skip entry; JS loop-break aborts the loop; Source: reviews/loop-unattended/1503-f01391aa-all-options-strbuf.md). Verify `--fn all_options_strbuf`, reach regression 0 — then resume queue head `sp_lev.c` fill_special_room.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2546 (index).**
 <!-- recent:begin -->

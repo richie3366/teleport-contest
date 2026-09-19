@@ -1508,3 +1508,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1495-0e4e2b9b-draft-message.md](./1495-0e4e2b9b-draft-message.md) | `0e4e2b9b` | D-2536 draft_message | **ACCEPT** |
 | [1496-29318908-thrwmu.md](./1496-29318908-thrwmu.md) | `29318908` | D-2537 thrwmu | **ACCEPT** |
 | [1497-1c1e08cc-set-savefile-name.md](./1497-1c1e08cc-set-savefile-name.md) | `1c1e08cc` | D-2538 set_savefile_name | **ACCEPT** |
+| [1498-625932f0-check-version-uptodate.md](./1498-625932f0-check-version-uptodate.md) | `625932f0` | D-2539 check_version + uptodate | **ACCEPT** |
+| [1499-c5b28b45-mhitm-ad-blnd.md](./1499-c5b28b45-mhitm-ad-blnd.md) | `c5b28b45` | D-2540 mhitm_ad_blnd | **ACCEPT** |
+| [1500-506beebe-mhitm-ad-ston.md](./1500-506beebe-mhitm-ad-ston.md) | `506beebe` | D-2541 mhitm_ad_ston | **ACCEPT** |
+| [1501-3bd853d7-mhitm-ad-elec.md](./1501-3bd853d7-mhitm-ad-elec.md) | `3bd853d7` | D-2542 mhitm_ad_elec | **ACCEPT** |
+| [1502-8b02a9f1-init-capmons.md](./1502-8b02a9f1-init-capmons.md) | `8b02a9f1` | D-2543 init_CapMons | **ACCEPT** |
+| [1503-f01391aa-all-options-strbuf.md](./1503-f01391aa-all-options-strbuf.md) | `f01391aa` | D-2544 all_options_strbuf [1/7] | **QUALITY-RISK** |
+| [1504-23cb328e-readobjnam-preparse.md](./1504-23cb328e-readobjnam-preparse.md) | `23cb328e` | D-2545 readobjnam_preparse | **ACCEPT** |
+| [1505-e07bd9bc-polyman.md](./1505-e07bd9bc-polyman.md) | `e07bd9bc` | D-2546 polyman + ugenocided | **ACCEPT** |
