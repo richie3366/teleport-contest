@@ -111,4 +111,4 @@ a live verified core (the /tmp probe exercised the helpers).
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-2547
+**Addressed:** D-2547 `a2ab86c1`

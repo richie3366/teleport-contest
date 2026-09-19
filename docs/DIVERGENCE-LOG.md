@@ -1,5 +1,33 @@
 # Divergence log
 
+## D-2548 — `options.c` get_option_value + allopt registry in C order [campaign 2/7] (coverage MISSING → live; unix OPTCOUNT 217 measured, textual 248/245 corrected; C callers wired-or-named)
+
+- **Status:** fixed (Open coverage row `options.c` get_option_value + allopt registry [campaign 2/7]; row cites no review — no stamp; review 1503 already **Addressed:** D-2547). Same commit stale-parks the popped head `sp_lev.c` fill_special_room (whole C `:2731–2804` already live `js/mklev.js:24783` — Parked Stale line).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify get_option_value`: no corpus session blocked at baseline — #saveoptions/Lua-get_config reader, unreachable until [7/7]).
+- **C locus:** `nethack-c/upstream/src/options.c:8481–8505` (`get_option_value`); arms `:8489–8492` BoolOpt addr read, `:8493–8501` CompOpt optfn call. Table: `options.c:59–67` allopt_init (optlist.h NHOPT_PARSE rows + null-name sentinel) copied live by `allopt_array_init` (`:7405`, named). Callers: `options.c:9712` (parent CompOpt arm), `nhlua.c:683` (`nhl_get_config`), `extern.h:2306` decl.
+- **JS was:** no symbol anywhere (brief: NOT FOUND incl. `js/generated/`); `allopt`/`opt_set_in_config` empty non-exported consts (D-2544).
+- **Fix:** `js/options.js` — (1) count correction: the unix tty build compiles **217** rows, not 248 (cc -E with config.h + PREV_MSGS=1 per options.c `:23–27`; compile-time asserts OPTCOUNT==217, pfx_cond_==215 — /tmp probes, not committed). 248/245 is the textual superset over all platform ifdefs (WIN32 altkeyhandling/BIOS variants, MICRO IBM_, CURSES cursesgraphics, CHANGE_COLOR palette, WIN32CON/WINCHAIN/MSDOS/VIDEOSHADES rows don't compile here). PFX_COND_IDX 245→215; [3/7] queue row text fixed to [215]. msg_window takes the PREV_MSGS=1 branch (set_in_game — an options.c-local define the first -E pass missed). (2) 217-row table in C order with idx + per-row optlist.h cites; setwhere via SET_* (added SET_HIDDEN/WIZONLY/WIZNOFUZ); initval from the macro (B incl. ascii_map_Def On / tiled_map_Def Off for tty; C/P false; O true); addr twins DOSET_BOOL_ADDR + 8 live-field extras, 18 null (C addr has no live JS field — named); every optfn null (optfn_boolean/optfn_*/pfxfn_* unported). 6 addr deviate from the DOSET twin toward the live gameplay field, agreeing with C bp (safe_pet→safe_dog, whatis_menu→getloc_usemenu, whatis_moveskip→getloc_moveskip, eight_bit_tty→wc_eight_bit_input, hilite_pet→wc_hilite_pet, hitpointbar→wc2_hitpointbar — doset toggles writing the twin field is pre-existing, out of scope). (3) `opt_set_in_config` sized OPTCOUNT, all false (writers named). (4) exported `get_option_value` in C order with `:line` cites + optn/request consts + EMPTY_OPTSTR. C sentinel omitted (JS length terminates the loops).
+- **JS:** `js/options.js` (+~480: consts, 217-row table, `get_option_value`); `allopt` stays module-local like D-2544.
+- **Callers:** `options.c:9712` → parent `all_options_strbuf` CompOpt arm already calls bare `get_option_value(name, true)` (D-2544) — live this commit, dormant (all `opt_set_in_config` false, so the parent loop emits nothing new); `nhlua.c:683` (`nhl_get_config` Lua get_config) → named omission (no JS lua binding); `extern.h:2306` decl → no action. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn get_option_value` → VERIFY: PASS (syntax 1 changed file; rule2; hidden note — 0 blocked at baseline; reach smoke 24/24 REACH-OK, 0 regressed; green 2/2 + strict ×2; cohort 7/7; full 44/44 auto on shared options.js). /tmp probe `/tmp/probe_gov.mjs`: bool true/false shape, unknown→null, CompOpt-null→null, OthrOpt fallthrough→null, parent loop runs all 217 then throws only the named `get_changed_key_binds` — ALL PASS. Tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/options.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify get_option_value: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 6.8s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing (auto: shared file changed)
+
+VERIFY: PASS
+```
+- **Named omissions:** `all_options_conds` [3/7] (unconditional-guard path stays dormant — `opt_set_in_config[215]` false); `get_changed_key_binds` [4/7]; `parsesymbols` [5/7]; `all_options_statushilites` [6/7]; caller `do_write_config_file` [7/7]; all CompOpt optfn handlers (optfn_boolean, optfn_*, pfxfn_* — CompOpt arm dormant); 18 null-addr BoolOpt rows (ascii_map, tiled_map, fullscreen, guicolor, popup_dialog, preload_tiles, softkeyboard, wraptext, timed_delay incl. macOS `&flags.nap` variant, debug_hunger, debug_overwrite_stairs, voices, travel_debug, BIOS, rawio, showscore, vt_tiledata, vt_sounddata); `nhl_get_config` lua caller; config writers (`:640` parseoptions, `:5010` pfxfn_cond_, `:8438` optfn_o_status_cond, `:8670`/`:8940` doset) + `allopt_array_init` (`:7405` memcpy/addr=initval/do_init — live-bag initvals arrive with it); Linux-judge variant of timed_delay (set_in_config + NULL addr vs macOS set_in_game + `&flags.nap` — recorder-build variant shipped).
+- **Durable test:** none added (disclosed per skill) — no maintained unit harness in repo (corpus suite is the gate, per D-2544 precedent); file probe `/tmp/probe_gov.mjs` kept in /tmp, not committed. Loop-entry coverage arrives with the [4/7]–[7/7] activation rows.
+- **Next:** `options.c` all_options_conds [campaign 3/7] (queue head after this pop).
+
 ## D-2547 — `options.c` all_options_strbuf BoolOpt/CompOpt loop `break`→`continue` (D-2544 follow-up, review 1503 Must-fix)
 
 - **Status:** fixed (Must-fix row `options.c` all_options_strbuf BoolOpt/CompOpt `break`→`continue`; review 1503 C-wrong 1 stamped **Addressed:** D-2547).

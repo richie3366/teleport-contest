@@ -46,7 +46,7 @@ judge 07:08Z, ~D-2534, +105 pts vs last audit): the corpus still does
 not predict the judge.
 **Corpus fortress** (re-scored 2026-09-19 audit 1498–1505): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — +0 / −0
-in the D-2539…D-2547 window (all eight were zero-block coverage rows;
+in the D-2539…D-2548 window (all eight were zero-block coverage rows;
 per-SHA `--reach-all` re-runs REACH-OK — ston 14/14, elec 35/35 real
 reach, rest smoke — 0 regressed).
 Reviews 1225–1505: 249 ACCEPT, 10 WITH-DEBT, 1 DEBT, 16 QUALITY-RISK (Must-fix: 1 — 1503 all_options_strbuf break/continue).
@@ -100,10 +100,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** Must-fix `options.c` all_options_strbuf BoolOpt/CompOpt `break`→`continue` ×2 (C `options.c:9691–9721` switch-break = skip entry; JS loop-break aborts the loop; Source: reviews/loop-unattended/1503-f01391aa-all-options-strbuf.md). Verify `--fn all_options_strbuf`, reach regression 0 — then resume queue head `sp_lev.c` fill_special_room.
+**Next cluster:** queue head `sp_lev.c` fill_special_room STALE-parked (whole C `:2731–2804` live `js/mklev.js:24783`, callers wired, 0 blocked) → ship next row `options.c` get_option_value + allopt registry [campaign 2/7] (C `options.c:8481–8505` + optlist.h NHOPT_PARSE table in C order; unix OPTCOUNT 217 / pfx_cond_ 215 measured, correcting textual 248/245). Verify `--fn get_option_value`, reach regression 0.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2547 (index).**
+**Keep D-0845…D-2548 (index).**
 <!-- recent:begin -->
+**D-2548** `nethack-c/upstream/src/options.c:8481–8505` (`get_option_value`); arms `:8489–8492` BoolO — `js/options.js` — (1) count correction: the unix tty build compiles **217** rows, not 248 (cc -E with config.h + PREV_MSGS=1 per options.c `:23–27`; compile-time asserts OPTCOUNT==217, pfx_cond_==215 — /tmp probes, not c
 **D-2547** `nethack-c/upstream/src/options.c:9691–9721` (`all_options_strbuf` allopt loop); the obsol — `js/options.js` — two `break`→`continue` with `:line` cites, nothing else; export name/signature unchanged, callers untouched.
 **D-2546** `nethack-c/upstream/src/polyself.c:199–268` (`polyman`, staticfn); arms `:200–204` stickin — `js/polyself.js` — restarted `polyman` (stays file-local, mirrors staticfn) in C order with `:line` cites; new exported `ugenocided()` mirroring same-file C `:2265` (`game.mvitals` G_GENOD on urole/urace mnum); urgent_pl
 **D-2545** `nethack-c/upstream/src/objnam.c:3966–4175` (`readobjnam_preparse`, staticfn); loop `:3971 — `js/readobjnam.js` — restarted as file-local `readobjnam_preparse` (mirrors staticfn) in C order with `:line` cites: split moist/wet branches keep C check order and RNG (`wet` → `3 + rn2(3)`, `moist` → `rnd(2)`); gender 
@@ -111,11 +112,10 @@ revisits the picker.
 **D-2543** `nethack-c/upstream/src/rumors.c:829–935` (`init_CapMons`); arms `:834–836` sanity free, ` — `js/objnam.js` — restarted `init_CapMons` in C order: `:833` embed-as-opened-file (`bogonfile` null when the embed is missing, guarding the `:871`/`:906–907` arms); `:834–836` sanity `free_CapMons()`; `:841` pass 1-count
 **D-2542** `nethack-c/upstream/src/uhitm.c:2684–2739` (`mhitm_ad_elec`); arms `:2688–2703` (uhitm), ` — `js/mhitm.js` — new exported `mhitm_ad_elec` (`js/mhitm.js:878`) in C order: `:2688–2703` uhitm arm new (negate gate, `!Blind_slee()` file-local youprop.h gate for both plines, resists_elec/defended zeroes leftover after
 **D-2541** `nethack-c/upstream/src/uhitm.c:4203–4262` (`mhitm_ad_ston`); arms `:4209–4214` (uhitm), `:4215–4253` (mhitu), `:4254–4261` (mhitm) — `js/mhitm.js` — restarted + exported `mhitm_ad_ston` in C order: uhitm arm new (live `munstone` cure gate + `minstapetrify`, damage=0); mhitu arm early-returns to the split `mhitm_ad_ston_u`; mhitm arm kept (`mcan` + `do_stone_mon`) — `js/uhitm.js` — `damageum_adtyping` AD_STON row wires C `:4796`.
-**D-2540** `nethack-c/upstream/src/uhitm.c:2958–3012` (`mhitm_ad_blnd`); arms `:2964–2975` (uhitm), ` — `js/mhitm.js` — restarted + exported `mhitm_ad_blnd` in C order: `:2964–2975` uhitm arm new (live `can_blnd` gate on the existing mhitm.js→uhitm.js edge; `!Blind_slee()` is the file-local youprop.h Blind gate the slee ar
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2547; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2548; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
