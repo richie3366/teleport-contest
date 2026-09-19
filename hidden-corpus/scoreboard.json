@@ -1,6 +1,6 @@
 {
- "commit": "77f5c448",
- "at": "2026-09-19T17:51:02.161Z",
+ "commit": "d56627bd",
+ "at": "2026-09-19T18:11:45.128Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -7290,7 +7290,7 @@
    "steps": 95,
    "owner": "mksobj_init",
    "loc": "mkobj.c:1086",
-   "jsOwner": "m_initinv(makemon.js:3065)",
+   "jsOwner": "m_initinv(makemon.js:3063)",
    "cTopline": "You materialize on a different level! The heat and smoke are gone.--More--",
    "jsTopline": "You materialize on a different level! The heat and smoke are gone.--More--",
    "error": null

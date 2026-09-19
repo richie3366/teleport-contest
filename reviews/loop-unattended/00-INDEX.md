@@ -1534,3 +1534,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1521-30fd2ce7-mon-catchup.md](./1521-30fd2ce7-mon-catchup.md) | `30fd2ce7` | D-2562 mon_catchup_elapsed_time | **ACCEPT** |
 | [1522-fe99f208-select-rwep.md](./1522-fe99f208-select-rwep.md) | `fe99f208` | D-2563 select_rwep | **ACCEPT** |
 | [1523-728d22ed-background-arms.md](./1523-728d22ed-background-arms.md) | `728d22ed` | D-2564 background arms + achievements spacing | **ACCEPT** |
+| [1524-318ca3cd-strip-newline-truncate.md](./1524-318ca3cd-strip-newline-truncate.md) | `318ca3cd` | D-2565 strip_newline truncate | **ACCEPT** |
+| [1525-7b8badd1-travel-debug-negateok.md](./1525-7b8badd1-travel-debug-negateok.md) | `7b8badd1` | D-2566 travel_debug negateok-No | **ACCEPT** |
+| [1526-eb5f9f62-make-engr-at.md](./1526-eb5f9f62-make-engr-at.md) | `eb5f9f62` | D-2567 make_engr_at restart | **ACCEPT** |
+| [1527-549891fb-readobjnam-postparse2.md](./1527-549891fb-readobjnam-postparse2.md) | `549891fb` | D-2568 readobjnam_postparse2 | **ACCEPT** |
+| [1528-eee66204-mkshop.md](./1528-eee66204-mkshop.md) | `eee66204` | D-2569 mkshop restart | **ACCEPT** |
+| [1529-f18ac024-shkinit.md](./1529-f18ac024-shkinit.md) | `f18ac024` | D-2570 shkinit restart | **ACCEPT** |
+| [1530-e84600e8-create-polymon.md](./1530-e84600e8-create-polymon.md) | `e84600e8` | D-2571 create_polymon | **ACCEPT** |
+| [1531-77f5c448-level-difficulty.md](./1531-77f5c448-level-difficulty.md) | `77f5c448` | D-2572 level_difficulty pair | **ACCEPT** |
+| [1532-d56627bd-raw-printf.md](./1532-d56627bd-raw-printf.md) | `d56627bd` | D-2573 raw_printf/vraw_printf | **ACCEPT** |

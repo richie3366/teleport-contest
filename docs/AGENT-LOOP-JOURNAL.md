@@ -7,6 +7,13 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-19 — Audit 1524–1532 (reviews, D-2565…D-2573) + cadence 44/44, proxy 497/540, held-out 11/44
+
+**Scope:** 9 JS-touching SHAs since review 1523 (`318ca3cd`…`d56627bd`), one SHA at a time, file written per SHA. Verdicts: **9 ACCEPT, 0 Must-fix** — no LOOP-QUEUE prepend; Next cluster stays `light.c` del_light_source.
+**Findings:** 1524 strip_newline truncate exact vs `hacklib.c:179–190` (closes 1517); 1525 travel_debug 64th negateok-No row verified against the `#else` arm + 14/14 suite (closes 1520); 1526 make_engr_at branch-exact incl. `rnd(N_ENGRAVE-1)` rename; 1527 postparse2 with the `!classWord` gate proven against postparse1's `return 1` wrp arm (19-row O_RANGES order-exact); 1528 mkshop — `wizard≡flags.debug` (flag.h:30) OR-form unobservable (ep always null), fire-and-forget `impossible` follows splev_create_monster precedent, REACH 53/53; 1529 shkinit — the 2 advertised gaps are exactly the old-body delta, `mon_learns_traps(-1)→~0` equivalent, set_malign RNG-free, REACH 82/82; 1530 create_polymon — MAT_* exact vs objclass.h, `_poly_zapped=-1` init closes the `|0` hazard, `mons[pm_index].cwt`-not-mdat kept; 1531 level_difficulty — 6 clones retired to single exports (sym-clean), E-only aggravate per youprop.h:213, union matches 10-site convention; 1532 raw_printf — double-count exact, `idx` int-vs-pointer resolved, both version.c formats verbatim. Re-ran every `hidden-proxy verify --base HASH~1 --reach-all` myself: 0 blocked everywhere, 0 regressed.
+**Cadence:** full `sessions` 44/44 (Scr 11,405/11,405, RNG 792,838/792,838, `61+0.41/turn` R² 0.85); proxy 497/540 (92.0 %), RNG 99.31 %, screens 99.1 %; leaderboard 11/44, 5,776 pts, RNG 26.6 %, screens 51.3 % (judge 13:05Z cached — no movement).
+**Refill:** queue was 4 below band; `--rows 12/60/100` all dupes, `--rows 140` yielded 8 fresh verbatim (show_achievements, livelog_add, name_to_monplus, weight, basics_enlightenment, make_converted_name, finddpos, seffect_enchant_armor) — queue back to 12.
+**Next:** pop the next Open — coverage row (`light.c` del_light_source).
 ## 2026-09-19 — D-2573 `pline.c` raw_printf/vraw_printf whole-body port (version-check callers wired)
 
 **C locus:** `nethack-c/upstream/src/pline.c:548–583` (`raw_printf` `:548–558` + staticfn `vraw_printf` `:562–583`, decl `:546`): `%`-gated vsnprintf into pbuf, truncate to BUFSZ-1 without pline's last-3 preservation, `raw_print`, `execplinehandler`, `early_raw_messages++` twice per call pre-load (once in each function).
