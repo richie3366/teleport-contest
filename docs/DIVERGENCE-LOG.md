@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-2563 — `weapon.c` select_rwep (coverage THIN → live; whole 143-line body in C order — egg/Kop pie/boulder Oselect, polearm walk, AKLYS throw-and-return, gem-sling + launcher + rwep walk; all 4 C callers wired)
+
+- **Status:** fixed (Open coverage row `weapon.c` select_rwep; cites no review — no stamp needed).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify select_rwep`: no corpus session blocked at baseline — monster ranged-weapon choice path).
+- **C locus:** `nethack-c/upstream/src/weapon.c:533–676` (`select_rwep`, extern) in C order: `gp.propellor = &hands_obj` + `Oselect(EGG)` (`:542–543`); Kop pie (`:544–545`); giant boulder (`:546–547`); `mwep`/`mweponly` (`:556–557`); dist2 ≤ 13 + couldsee gate (`:558–559`, 3²+2² past the mthrowu.c polearm range 5); wielded-Snickersnee early return (`:562–565`); `pwep[]` walk with strong/shield-bimanual + silver gates and `(otmp == mwep || !mweponly)` (`:567–587`); `arwep[]` walk with mindless/animal/mweponly/range/couldsee + shield-bimanual + silver gates (`:589–607`, one live AKLYS row at AKLYS_LIM², BOOMERANG commented out); gem-sling pre-dart arm (`:613–626`); `propellor = &hands_obj` reset (`:628`); launcher switch P_BOW (YUMI→ELVEN_BOW→BOW→ORCISH_BOW) / P_SLING / P_CROSSBOW + welded-no-launcher → 0 (`:630–651`); rwep pick with no-cursed-wielded-no-artifact gate and no mweponly gate (`:656–672`); null failure (`:675`). Callees: oselect (file-local, live), throws_rocks, mwelded, dist2, couldsee, is_art, strongmonst, mon_hates_silver, mindless, is_animal, likes_gems, m_carrying (all live).
+- **JS was:** THIN `js/weapon.js:480` sync 50 L: rwep walk only — egg/Kop/boulder Oselect arms, polearm walk, throw-and-return walk, and gem-sling arm all absent (doc said "deferred"); launcher lookup used `||`-chains (same shape) but with a cursed-only `mwelded_mon` clone instead of live `mwelded`; rwep arm carried a C-wrong extra `(otmp === mwep || !mweponly)` gate C never applies there.
+- **Fix:** `js/weapon.js` — restarted `select_rwep` in C order with `:line` cites: new `PWEP_NAMES` table (`:506–510`); Oselect arms as early returns (propellor stays `hands_obj` per the macro); polearm + AKLYS arms with live `mwelded` (wield.js export, already imported — local `mwelded_mon` clone deleted), `oc_big` for `oc_bimanual` (objclass.h:65, select_hwep precedent), `ART_SNICKERSNEE` from `js/generated/artifacts_data.js` (leaf, apply.js precedent); gem-sling arm with double `m_carrying` in C order; launcher `switch` in C shape (incl. CROSSBOW fall-out + welded-no-launcher null); rwep arm without the mweponly gate. New import names join ALREADY-edges only (`couldsee` → vision.js edge; `is_art` → artifact.js edge; `throws_rocks`/`likes_gems`/`mindless`/`is_animal` → monsters.js edge; imports.mjs confirmed, no new edge).
+- **JS:** `js/weapon.js` (restart + `PWEP_NAMES` + four import lines); `docs/c-js-map/turns.md` weapon.c section; queue row marked.
+- **Callers:** monmove.c:855 scared/trapped gate → `js/monmove.js:2439` (already calls live `select_rwep`, import at :66); mthrowu.c:984 thrwmu pick-a-weapon → `js/mthrowu.js:1414` (already wired); mthrowu.c:1192 thrwmu polearm re-pick → `js/mthrowu.js:1470` (already wired); weapon.c:814 mon_wield_item NEED_RANGED_WEAPON → `js/weapon.js:734`+ (already calls `(void) select_rwep` then reads `game._propellor`). No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn select_rwep` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/weapon.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify select_rwep: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 3.6s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+
+VERIFY: PASS
+```
+- **Named omissions:** `can_touch_safely` inside `oselect` (`mon.c:1957–1974`; `js/monmove.js:230` stub stays always-safe — select_hwep precedent, map-named).
+- **Next:** pop the next Open — coverage row (`spell.c` losespells).
+
 ## D-2562 — `dog.c` mon_catchup_elapsed_time (coverage PARTIAL → live; whole 95-line body in C order — devel guards, blind/frozen/fleet, trouble recovery, finish_meating, tameness, hungry-wild, leash, healmon, lastmove; all 3 C callers await)
 
 - **Status:** fixed (Open coverage row `dog.c` mon_catchup_elapsed_time; cites no review — no stamp needed; `uhitm.c` mhitm_ad_deth popped first, STALE-parked same iteration: 3 arms live split `js/mhitm.js:3840` + `js/mhitu.js:3076` + dispatch, uhitm goto dead per D-2033 precedent, 0 blocked).

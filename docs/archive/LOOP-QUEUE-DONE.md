@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `dog.c` mon_catchup_elapsed_time — coverage PARTIAL (C 95 L `dog.c:627–724` / JS 50 L in js/dog.js; hops 3, callers 3, RNG 4, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mon_catchup_elapsed_time` (reach regression must be 0). Measured `port-coverage.mjs --name mon_catchup_elapsed_time` 2026-09-19 @ 90ae7d1d. **Addressed:** D-2562
+- [x] `weapon.c` select_rwep — coverage THIN (C 143 L `weapon.c:533–676` / JS 50 L in js/weapon.js; hops 1, callers 4, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn select_rwep` (reach regression must be 0). Measured `port-coverage.mjs --name select_rwep` 2026-09-19 @ 90ae7d1d. **Addressed:** D-2563
+
+
+- [x] `dog.c` mon_catchup_elapsed_time — coverage PARTIAL (C 95 L `dog.c:627–724` / JS 50 L in js/dog.js; hops 3, callers 3, RNG 4, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mon_catchup_elapsed_time` (reach regression must be 0). Measured `port-coverage.mjs --name mon_catchup_elapsed_time` 2026-09-19 @ 90ae7d1d. **Addressed:** D-2562 `30fd2ce7`
 
 
 - [x] `options.c` parseoptions — coverage MISSING (C 199 L `options.c:489–691` / JS no symbol; hops —, callers 11, RNG 0, msg 0; dead callees: length_without_val, determine_ambiguities, match_optname, duplicate_opt_detection, complain_about_duplicate, string_for_opt, …). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn parseoptions` (reach regression must be 0). Measured `port-coverage.mjs --name parseoptions` 2026-09-19 @ c90a495f. **Addressed:** D-2561 `1832a9e7`
