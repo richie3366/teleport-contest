@@ -9,7 +9,7 @@ import { rn2, rnd, d } from './rng.js';
 import {
     objects_at, obj_extract_self, splitobj, weight, add_to_container,
     place_object, hornoplenty, unbless, mergable, delobj, set_corpsenm,
-    unsplitobj, spot_time_left, nxtobj,
+    unsplitobj, spot_time_left, nxtobj, stop_timer, set_bknown,
 } from './mkobj.js';
 import {
     look_here, observe_object, dfeature_at, paint_corner_nhw_menu,
@@ -20,7 +20,7 @@ import {
     splittable, will_feel_cockatrice, feel_cockatrice, is_worn,
     not_fully_identified,
     taking_off, count_unpaid, tally_BUCX, getobj, Blind, hold_another_object, currency,
-    makeknown,
+    makeknown, useup, useupf,
 } from './invent.js';
 import {
     nomul, check_special_room, set_uinwater, is_pool, is_lava, in_rooms, dosinkfall,
@@ -29,12 +29,12 @@ import {
 import {
     flush_screen, pline, newsym, newsym_force, docrt, bot, flush_topl_more, canseemon,
     canspotmon, Hallucination, clear_nhwindow_message, Norep, impossible,
-    sensemon, You,
+    sensemon, You, urgent_pline, pline_The,
 } from './display.js';
 import { addinv } from './u_init.js';
 import {
     an, doname, Doname2, makesingular, xname, cxname, cxname_singular, xprname,
-    the as theArt, The, body_part_latebound, vtense,
+    the as theArt, The, body_part_latebound,
     safe_qbuf, ansimpleoname, otense, Tobjnam,
     yname as yname_objnam, Yname2,
     thesimpleoname as thesimpleoname_objnam,
@@ -83,6 +83,16 @@ import {
     back_on_ground, uteetering_at_seen_pit, uescaped_shaft, chest_trap,
 } from './trap.js';
 import { carried } from './eat.js';
+import { obj_is_burning } from './light.js';
+import { snuff_lit } from './apply.js';
+import { age_is_relative } from './timeout.js';
+import { livelog_printf } from './pline.js';
+import { uhis } from './roles.js';
+import {
+    SELL_NORMAL, SELL_DELIBERATE, SELL_DONTSELL,
+    ROT_CORPSE, REVIVE_MON, SHRINK_GLOB, LL_ACHIEVE,
+    OMONST, has_omonst,
+} from './const.js';
 import { nhgetch } from './input.js';
 import { m_at, mnexto, hideunder, ceiling_hider } from './mon.js';
 import { oclass_to_sym, regex_match, select_menu_pick_any, select_menu_pick_one } from './options.js';
@@ -93,7 +103,7 @@ import {
 import { ATR_INVERSE } from './terminal.js';
 import {
     addtobill, costly_spot, check_unpaid_usage, is_unpaid, doname_with_price,
-    remote_burglary, shop_keeper, stolen_value, obfree,
+    remote_burglary, shop_keeper, stolen_value, obfree, sellobj, sellobj_state,
 } from './shk.js';
 import {
     nohands, nolimbs, M1_NOTAKE, touch_petrifies, poly_when_stoned, is_rider,
@@ -165,6 +175,8 @@ const CANDELABRUM_OF_INVOCATION = objectNames.indexOf('CANDELABRUM_OF_INVOCATION
 const BELL_OF_OPENING = objectNames.indexOf('BELL_OF_OPENING');
 const SPE_BOOK_OF_THE_DEAD = objectNames.indexOf('SPE_BOOK_OF_THE_DEAD');
 const LEASH = objectNames.indexOf('LEASH');
+const WAN_CANCELLATION = objectNames.indexOf('WAN_CANCELLATION');
+const PM_ICE_TROLL = monsterNames.indexOf('PM_ICE_TROLL');
 const GOLD_SYM = '$';
 const PM_STONE_GOLEM = monsterNames.indexOf('PM_STONE_GOLEM');
 const PM_HOUSECAT = monsterNames.indexOf('PM_HOUSECAT');
@@ -2955,64 +2967,100 @@ export async function boh_loss(container, held) {
 }
 
 /**
- * C ref: pickup.c in_container — move invent obj into current_container.
- * Envelope: early refusals + uwep/uswapwep/uquiver; freeinv; put pline.
- * Named omissions: snuff_lit; shop sellobj; icebox age/timers;
- * mbag explosion; botl gold-only polish beyond _goldCount.
+ * C ref: pickup.c Is_mbag — obj.h:339 BAG_OF_HOLDING || BAG_OF_TRICKS.
+ */
+function Is_mbag(obj) {
+    const t = obj?.otyp | 0;
+    return t === BAG_OF_HOLDING || t === BAG_OF_TRICKS;
+}
+
+/**
+ * C ref: pickup.c mbag_explodes `:2488–2509` (staticfn) — explosion odds
+ * 1/1, 2/2, 3/4, 4/8 … over nesting depth, recursing into contents.
+ */
+function mbag_explodes(obj, depthin) {
+    if (!obj) return false;
+    const t = obj.otyp | 0;
+    /* these won't cause an explosion when they're empty — C `:2491–2493` */
+    if ((t === WAN_CANCELLATION || t === BAG_OF_TRICKS) && (obj.spe | 0) <= 0)
+        return false;
+    /* odds: 1/1, 2/2, 3/4 … capped at 1<<7 — C `:2496–2497` */
+    if ((Is_mbag(obj) || t === WAN_CANCELLATION)
+        && rn2(1 << (depthin > 7 ? 7 : depthin)) <= depthin)
+        return true;
+    if (Has_contents(obj)) { // C `:2498–2504`
+        for (let otmp = obj.cobj; otmp; otmp = otmp.nobj)
+            if (mbag_explodes(otmp, depthin + 1)) return true;
+    }
+    return false; // C `:2505–2508`
+}
+
+/**
+ * C ref: pickup.c in_container `:2558–2712` — move invent obj into
+ * gc.current_container (JS: game._current_container). Every arm in C order.
+ * Named omissions: none — every arm and callee live (C `panic` on a lost
+ * floor bag surfaces as `impossible`: no live panic export, display.js:7747;
+ * C `obj_to_any` timer cookie is the JS obj itself: mkobj.js stop_timer
+ * takes obj; C `something` is const.js).
  * @returns {Promise<number>} 1 stashed, 0 refused, -1 stop
  */
 async function in_container(obj) {
-    const cont = game._current_container;
-    if (!cont) return 0;
-    if (!obj) return 0;
-    const u = game.u || {};
-    if (obj === u.uball || obj === u.uchain) {
-        await pline('You must be kidding.');
+    // C `:2560` — floor_container is read before freeinv() mutates invent.
+    const floor_container = !carried(game._current_container);
+    let was_unpaid = false;
+    if (!game._current_container) { // C `:2564–2567`
+        await impossible('<in> no gc.current_container?');
         return 0;
     }
-    if (obj === cont) {
+    if (!obj) return 0;
+    const cont = game._current_container;
+    const u = game.u || {};
+    if (obj === u.uball || obj === u.uchain) { // C `:2568`
+        await You('must be kidding.');
+        return 0;
+    }
+    if (obj === cont) { // C `:2571`
         await pline('That would be an interesting topological exercise.');
         return 0;
     }
-    if ((obj.owornmask || 0) & (W_ARMOR | W_ACCESSORY)) {
-        const ice = (cont.otyp | 0) === ICE_BOX;
+    if ((obj.owornmask | 0) & (W_ARMOR | W_ACCESSORY)) { // C `:2574–2576`
         await Norep(
-            `You cannot ${ice ? 'refrigerate' : 'stash'} something you are wearing.`,
+            'You cannot %s %s you are wearing.',
+            (cont.otyp | 0) === ICE_BOX ? 'refrigerate' : 'stash', something,
         );
         return 0;
     }
-    if ((obj.otyp | 0) === LOADSTONE && obj.cursed) {
-        obj.bknown = 1;
-        const s = (obj.quan || 1) !== 1 ? 's' : '';
-        await pline(`The stone${s} won't leave your person.`);
+    if ((obj.otyp | 0) === LOADSTONE && obj.cursed) { // C `:2577–2580`
+        set_bknown(obj, 1);
+        await pline_The(
+            "stone%s won't leave your person.",
+            (obj.quan | 0) !== 1 ? 's' : '',
+        );
         return 0;
     }
-    if ((obj.otyp | 0) === AMULET_OF_YENDOR
+    if ((obj.otyp | 0) === AMULET_OF_YENDOR // C `:2582–2590`
         || (obj.otyp | 0) === CANDELABRUM_OF_INVOCATION
         || (obj.otyp | 0) === BELL_OF_OPENING
         || (obj.otyp | 0) === SPE_BOOK_OF_THE_DEAD) {
-        await pline(
-            `${The(xname(obj))} cannot be confined in such trappings.`,
-        );
+        await pline('%s cannot be confined in such trappings.', The(xname(obj)));
         return 0;
     }
-    if ((obj.otyp | 0) === LEASH && obj.leashmon) {
-        const nam = xname(obj);
-        await pline(
-            `${The(nam)} ${vtense(nam, 'are')} attached to your pet.`,
-        );
+    if ((obj.otyp | 0) === LEASH && (obj.leashmon | 0) !== 0) { // C `:2591–2593`
+        await pline('%s attached to your pet.', Tobjnam(obj, 'are'));
         return 0;
     }
-    if (obj === u.uwep) {
+    if (obj === u.uwep) { // C `:2595–2605`
         if (welded(obj)) {
             await weldmsg(obj);
             return 0;
         }
         setuwep(null);
-        if (u.uwep) return 0;
-    } else if (obj === u.uswapwep) {
+        /* C: this uwep check is obsolete (3.0 Firebrand) — unwielded, died,
+           rewielded by life-saving. */
+        if (game.u?.uwep) return 0;
+    } else if (obj === u.uswapwep) { // C `:2606–2608`
         setuswapwep(null);
-    } else if (obj === u.uquiver) {
+    } else if (obj === u.uquiver) { // C `:2609–2611`
         setuqwep(null);
     }
 
@@ -3026,25 +3074,112 @@ async function in_container(obj) {
         return 0;
     }
 
-    const is_gold = obj.oclass === COIN_CLASS;
-    if (is_gold) {
+    freeinv(obj); // C `:2624`
+    /* JS display cache only (no C counterpart): C invent.c freeinv_core sets
+       disp.botl for gold and C bot() recounts invent; JS botl `$:` reads
+       game._goldCount (do.js freeinv_drop precedent), so writers decrement
+       it when gold leaves invent. */
+    if ((obj.oclass | 0) === COIN_CLASS) {
         game._goldCount = Math.max(0, (game._goldCount || 0) - (obj.quan || 0));
-        if (game.botl != null) game.botl = 1;
-        if (game.flags) game.flags.botl = true;
+        if (!game.flags) game.flags = {};
+        game.flags.botl = true;
     }
 
-    freeinv(obj);
-    // C: snuff_lit / sellobj / icebox age / mbag_explodes named.
+    if (obj_is_burning(obj)) // C `:2626–2627` (this used to be part of freeinv)
+        await snuff_lit(obj);
 
-    if (game._current_container) {
-        await pline(
-            `You put ${doname(obj)} into ${theArt(xname(cont))}.`,
+    if (floor_container && costly_spot(u.ux, u.uy)) { // C `:2629–2643`
+        /* defer gold until after put-in message */
+        if ((obj.oclass | 0) !== COIN_CLASS) {
+            /* sellobj() will take an unpaid item off the shop bill */
+            was_unpaid = !!obj.unpaid; // C `:2633`
+            if (game.sellobj_first) { // C `:2634–2640`
+                /* don't sell when putting the item into your own container,
+                   but handle billing correctly */
+                sellobj_state(cont.no_charge ? SELL_DONTSELL : SELL_DELIBERATE);
+                game.sellobj_first = false;
+            }
+            await sellobj(obj, u.ux, u.uy); // C `:2641`
+        }
+    }
+    if ((cont.otyp | 0) === ICE_BOX && !age_is_relative(obj)) { // C `:2644–2657`
+        obj.age = (game.moves | 0) - (obj.age | 0); /* actual age */
+        /* stop any corpse timeouts when frozen */
+        if ((obj.otyp | 0) === CORPSE) {
+            if (obj.timed) { // C `:2649–2651`
+                stop_timer(ROT_CORPSE, obj);
+                stop_timer(REVIVE_MON, obj);
+            }
+            /* a cancelled ice troll corpse unfreezes uncancelled */
+            if ((obj.corpsenm | 0) === PM_ICE_TROLL && has_omonst(obj)) // C `:2653–2654`
+                OMONST(obj).mcan = 0;
+        } else if (obj.globby && obj.timed) { // C `:2655–2656`
+            stop_timer(SHRINK_GLOB, obj);
+        }
+    } else if (Is_mbag(cont) && mbag_explodes(obj, 0)) { // C `:2658–2693`
+        livelog_printf(LL_ACHIEVE, 'just blew up %s bag of holding', uhis()); // C `:2659`
+        /* explicitly mention what item is triggering the explosion */
+        await urgent_pline( // C `:2661–2663`
+            'As you put %s inside, you are blasted by a magical explosion!',
+            doname(obj),
         );
-        add_to_container(cont, obj);
-        cont.owt = weight(cont);
+        /* did not actually insert obj yet */
+        if (was_unpaid) // C `:2665–2666`
+            await addtobill(obj, false, false, true);
+        if ((obj.otyp | 0) === BAG_OF_HOLDING) // C `:2667–2668`
+            await do_boh_explosion(obj, (obj.where | 0) === OBJ_FLOOR);
+        obfree(obj, null); // C `:2669` ((struct obj *)0)
+        /* carried shop goods are flagged unpaid and obfree() handles the
+           bill; floor goods need billing before deletion (non-shop items
+           are flagged no_charge) — C `:2670–2678` */
+        if (floor_container && costly_spot(cont.ox, cont.oy)) { // C `:2673–2674`
+            const save_no_charge = cont.no_charge;
+            await addtobill(cont, false, false, false); // C `:2678`
+            /* addtobill() clears no_charge; set it back so useupf()
+               doesn't double bill — C `:2679–2681` */
+            cont.no_charge = save_no_charge;
+        }
+        await do_boh_explosion(cont, floor_container); // C `:2683`
+
+        if (!floor_container) { // C `:2685–2686`
+            useup(cont);
+        } else if (obj_here_bag(cont, u.ux, u.uy)) { // C `:2687–2688`
+            useupf(cont, cont.quan);
+        } else { // C `:2690` (no live panic export — impossible)
+            await impossible('in_container:  bag not found.');
+        }
+
+        await losehp(d(6, 6), 'magical explosion', KILLED_BY_AN); // C `:2692`
+        game._current_container = null; /* baggone = TRUE; */ // C `:2693`
     }
-    await bot();
-    return game._current_container ? 1 : -1;
+
+    if (game._current_container) { // C `:2695–2704`
+        /* Strcpy(buf, the(...)): JS strings need no obuf guard. */
+        await You('put %s into %s.', doname(obj), theArt(xname(cont))); // C `:2696–2698`
+
+        /* gold in container always needs to be added to credit */
+        if (floor_container && (obj.oclass | 0) === COIN_CLASS) // C `:2701–2702`
+            await sellobj(obj, cont.ox, cont.oy);
+        add_to_container(cont, obj); // C `:2703`
+        cont.owt = weight(cont); // C `:2704`
+    }
+    /* C `:2706–2709` — gold needs this, and freeinv() many lines above may
+     * hide encumbrance from the status, so always update status now. */
+    await bot(); // C `:2710`
+    return game._current_container ? 1 : -1; // C `:2711`
+}
+
+/**
+ * C ref: mkobj.c obj_here — object present at the (x,y) floor pile, as used
+ * by in_container `:2687`. The eat.js:2513 local clone is not exported, so
+ * the 5-line scan is inlined here rather than adding clone #2.
+ */
+function obj_here_bag(bag, x, y) {
+    if (!bag) return false;
+    for (let o = objects_at(x, y); o; o = o.nexthere) {
+        if (o === bag) return true;
+    }
+    return false;
 }
 
 /**
@@ -3842,6 +3977,9 @@ export async function use_container(obj, held = false, more_containers = false) 
 
     // C: ga.abort_looting = FALSE at entry.
     game.abort_looting = false;
+    // C pickup.c:2985 — gs.sellobj_first = TRUE; in_container() consumes it
+    // on the first shop-floor put-in (one sellobj_state call).
+    game.sellobj_first = true;
 
     // C: if (!u_handsy()) return ECMD_OK;
     if (!(await u_handsy())) return ECMD_OK;
@@ -4002,6 +4140,9 @@ export async function use_container(obj, held = false, more_containers = false) 
     // Skip when mbag explosion cleared current_container.
     if (used && game._current_container) game._current_container.cknown = 1;
 
+    // C pickup.c:3219 — sellobj_state(SELL_NORMAL) in case in_container()
+    // set DELIBERATE/DONTSELL on a shop-floor put-in.
+    sellobj_state(SELL_NORMAL);
     game._current_container = null;
     void held;
     return used;

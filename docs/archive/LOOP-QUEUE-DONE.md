@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `pickup.c` lift_object — coverage PARTIAL (C 86 L `pickup.c:1705–1795` / JS 47 L in js/pickup.js; hops 3, callers 3, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn lift_object` (reach regression must be 0). Measured `port-coverage.mjs --name lift_object` 2026-09-19 @ c0bfe985. **Addressed:** D-2595
+- [x] `pickup.c` in_container — coverage PARTIAL (C 154 L `pickup.c:2558–2712` / JS 85 L in js/pickup.js; hops —, callers 7, RNG 1, msg 10). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn in_container` (reach regression must be 0). Measured `port-coverage.mjs --name in_container` 2026-09-19 @ c0bfe985. **Addressed:** D-2596
+
+
+- [x] `pickup.c` lift_object — coverage PARTIAL (C 86 L `pickup.c:1705–1795` / JS 47 L in js/pickup.js; hops 3, callers 3, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn lift_object` (reach regression must be 0). Measured `port-coverage.mjs --name lift_object` 2026-09-19 @ c0bfe985. **Addressed:** D-2595 `2cfe062a`
 
 
 - [x] `apply.c` use_stethoscope — coverage PARTIAL (C 152 L `apply.c:318–470` / JS 102 L in js/apply.js; hops —, callers 1, RNG 2, msg 14; dead callees: init_dummyobj). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn use_stethoscope` (reach regression must be 0). Measured `port-coverage.mjs --name use_stethoscope` 2026-09-19 @ c0bfe985. **Addressed:** D-2594 `86483571`
