@@ -46,7 +46,7 @@ judge 18:47Z cached, unchanged 11/44 5,776 pts vs last audit): the corpus still 
 not predict the judge.
 **Corpus fortress** (re-scored 2026-09-19 audit 1542–1550): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — **+3 / −0**
-in the D-2583…D-2599 window: Rogue-92026 fixed by D-2583 (review 1533
+in the D-2583…D-2600 window: Rogue-92026 fixed by D-2583 (review 1533
 Must-fix row, rehumanize light entry); Priest-92163 + Rogue-92221 fixed
 by D-2584 (review 1536 Must-fix row, Master-Key guard). Both fixes
 verified by fresh per-SHA `--reach-all` replays here (PROGRESS +
@@ -103,10 +103,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `mail.c` read_simplemail — coverage MISSING (C 91 L; callers 1). Verify `node scripts/verify.mjs --fn read_simplemail`.
+**Next cluster:** `worn.c` update_mon_extrinsics — coverage PARTIAL.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2599 (index).**
+**Keep D-0845…D-2600 (index).**
 <!-- recent:begin -->
+**D-2600** `nethack-c/upstream/src/objnam.c:4727–4899` (staticfn, decl `:59`); sole C caller `:4958`  — new exported `readobjnam_postparse3(d)` in C order with C return codes (0 fall through, 2 typfnd, 6 retry); new `japanese_otyp_by_name` export (case-insensitive `Japanese_items[]` walk) on the existing readobjnam→objnam 
 **D-2599** `nethack-c/upstream/src/mail.c:589–680`; callers `mail.c:696` (ck_server_admin_msg adminms — new exported async `read_simplemail(mbox, adminmsg)` (`js/mail.js`) following the SIMPLE_MAIL source-level body in C order with `:line` cites — VFS spool read for `:591` fopen (VFS miss ≡ fopen NULL; Rule #2, fopen_wizki
 **D-2598** `nethack-c/upstream/src/mhitm.c:597–640`; callers `mhitm.c:451/485/529` (AT_TUCH eel pre-c — restarted the canonical export in C order with `:line` cites — entry gate (`:605–611`), message gate (`:612–613`), tailmiss snapshot (`:616`), verb (`:617–619`), magrnam (`:624–625`), mdefnam (`:626–632`, live `some_mon_
 **D-2597** `nethack-c/upstream/src/mklev.c:1595–1656` (SPECIALIZATION off per `global.h:120`, so the  — restarted `topologize` in C order with `:line` cites — roomno via `roomnoidx + ROOMOFFSET` (`:1602`, ≡ pointer arithmetic, set by add_subroom/do_room_or_subroom); bounds (`:1603–1604`); `nsubrooms` snapshot (`:1609`); al
@@ -114,11 +115,10 @@ revisits the picker.
 **D-2595** `nethack-c/upstream/src/pickup.c:1705–1795` (staticfn; C callers `:1869` pickup_object wit — restarted `lift_object` in C order with `:line` cites — Sokoban refuse `:1714–1718` unchanged; new override arm `:1719–1737` (`inv_cnt < invlet_basic || !carrying(otyp) || merge_choice` → return 1, else `You are carrying
 **D-2594** `nethack-c/upstream/src/apply.c:318–470` (staticfn; sole C caller `:4328` doapply STETHOSC — `js/apply.js` — restarted `use_stethoscope` in C order with `:line` cites: entry interference `uswallow && is_whirly(ustuck) && !rn2(Role_if(PM_HEALER)?10:3)` (initializer RNG order kept); nohands/`Deaf_hero()`(file conv
 **D-2593** `nethack-c/upstream/src/pickup.c:3954–4055` (TIPCHECK enum `:3680–3684`; callers `tipconta — new module-local `async tipcontainer_checks(box, targetbox, allowempty)` in C order with `:line` cites (C staticfn → module-local, `mksink`/`mkgrave` precedent): BoT-target `:3962`, lknown+carried/update_inventory `:3972
-**D-2592** `nethack-c/upstream/src/read.c:1741–1785` — `js/read.js` — restarted `seffect_light` in C order with `:line` cites: `sblessed` snapshot; confused = `u.HConfusion || u.Confusion` (seffect_teleportation sibling convention); Blind convention unchanged; G_GONE via `ga
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2599; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2600; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

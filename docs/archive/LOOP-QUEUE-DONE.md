@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `mail.c` read_simplemail — coverage MISSING (C 91 L `mail.c:589–680` / JS no symbol; hops —, callers 1, RNG 0, msg 5). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn read_simplemail` (reach regression must be 0). Measured `port-coverage.mjs --name read_simplemail` 2026-09-20 @ d89bb259. **Addressed:** D-2599
+- [x] `objnam.c` readobjnam_postparse3 — coverage MISSING (C 172 L `objnam.c:4727–4899` / JS no symbol; hops 4, callers 1, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn readobjnam_postparse3` (reach regression must be 0). Measured `port-coverage.mjs --name readobjnam_postparse3` 2026-09-20 @ d89bb259. **Addressed:** D-2600
+
+
+- [x] `mail.c` read_simplemail — coverage MISSING (C 91 L `mail.c:589–680` / JS no symbol; hops —, callers 1, RNG 0, msg 5). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn read_simplemail` (reach regression must be 0). Measured `port-coverage.mjs --name read_simplemail` 2026-09-20 @ d89bb259. **Addressed:** D-2599 `98667b02`
 
 
 - [x] `mhitm.c` failed_grab — coverage PARTIAL (C 40 L `mhitm.c:597–640` / JS 28 L in js/mhitm.js; hops 2, callers 9, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn failed_grab` (reach regression must be 0). Measured `port-coverage.mjs --name failed_grab` 2026-09-20 @ d89bb259. **Addressed:** D-2598 `6e42a59a`

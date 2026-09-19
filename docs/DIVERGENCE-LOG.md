@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2600 — `objnam.c` readobjnam_postparse3 whole-body port (wish srch: Japanese / armor-retry / spinach / gated spellings)
+
+- **Status:** fixed (Open — coverage row `objnam.c` readobjnam_postparse3 MISSING (C 172 L `objnam.c:4727–4899` / JS no symbol; hops 4, callers 1, RNG 0, msg 1), measured `port-coverage.mjs --name readobjnam_postparse3` 2026-09-20 @ d89bb259).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify readobjnam_postparse3`: no corpus session blocked on it at baseline; fixed 24-session smoke spread is the evidence).
+- **C locus:** `nethack-c/upstream/src/objnam.c:4727–4899` (staticfn, decl `:59`); sole C caller `:4958` (`srch:` switch in readobjnam; `retry:` at `:4947–4955`).
+- **JS was:** no same-named symbol anywhere in `js/`. A subset (gem-exact/tin `:4731–4747`, namedesc chain `:4749–4760`, fruit loop `:4805–4870`, artifact-by-name `:4872–4881`) was inlined in `readobjnam`; the Japanese walk (`:4762–4772`), armor ` mail`-append retry (`:4776–4780`, return 6), bare-spinach (`:4782–4786`) and class-gated alt-spellings (`:4885–4895`) arms were absent (map-named deferrals under D-2180/D-2568).
+- **Fix:** new exported `readobjnam_postparse3(d)` in C order with C return codes (0 fall through, 2 typfnd, 6 retry); new `japanese_otyp_by_name` export (case-insensitive `Japanese_items[]` walk) on the existing readobjnam→objnam edge (imports.mjs: ALREADY, no new edge); `readobjnam`'s inlined subset deleted and replaced by the `srch:`/`retry:` loop (case 6 re-runs postparse2 on the extended bp per C `goto retry`; postparse2 code 3 returns otmp, d.typ set breaks to typfnd). C pointer-inequality guards on dn/origbp are value comparisons: RNG-safe (namedesc draws `rn2` only on a hit, which short-circuits the `||` chain either way).
+- **JS:** `js/readobjnam.js:1102` (`readobjnam_postparse3`); `js/objnam.js:3639` (`japanese_otyp_by_name`).
+- **Callers:** C caller `objnam.c:4958` → `js/readobjnam.js:1509` (`readobjnam` srch/retry loop). Sole C caller; no other C call site exists.
+- **Verify:** `node scripts/verify.mjs --fn readobjnam_postparse3` → VERIFY: PASS (syntax 2 files; rule2; hidden note no-blocked; reach: no RNG-tagged reach, smoke 24/24 PASS → REACH-OK; green 2/2; strict ×2; cohort 7/7). Scratch probe (`/tmp/postparse3-probe.mjs`, seeded): spinach → 2/TIN/contents-2; `plate`+ARMOR → 6/`plate mail`; `plate mail` → 2/namedesc hit; `tanko` → 2/PLATE_MAIL (namedesc misses → Japanese arm confirmed); `zzzqqq` → 0.
+- **Named omissions:** postparse1 remainder stays deferred (grey-spell `grey spell`→`gray spell` fix `:4468–4469`, wider typfnd remaps — D-2021/D-2568 map lines, not this row); `d.un` NULL path draws nothing (C `:3463` NULL/empty guard mirrored).
+- **Next:** next Open — coverage row (`worn.c` update_mon_extrinsics).
+
 ## D-2599 — `mail.c` read_simplemail whole-body port (compiled-out SIMPLE_MAIL body, VFS spool read)
 
 - **Status:** fixed (Open — coverage row `mail.c` read_simplemail MISSING (C 91 L `mail.c:589–680` / JS no symbol; hops —, callers 1, RNG 0, msg 5), measured `port-coverage.mjs --name read_simplemail` 2026-09-20 @ d89bb259).
