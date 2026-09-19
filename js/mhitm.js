@@ -118,7 +118,7 @@ import {
     obj_extract_self, add_to_minv,
 } from './mkobj.js';
 import { findgold, stealarm, unstolenarm } from './steal.js';
-import { munslime, mon_adjust_speed } from './muse.js';
+import { munslime, mon_adjust_speed, munstone } from './muse.js';
 import { Monnam, mon_nam, mon_nam_too, Adjmonnam, oname, pmname, x_monnam, hliquid, YMonnam, s_suffix, free_mgivenname, a_monnam, y_monnam, some_mon_nam, minimal_monnam } from './do_name.js';
 import { an, xname, makeplural, cxname, vtense, The, simpleonames } from './objnam.js';
 import { mon_explodes } from './explode.js';
@@ -138,7 +138,7 @@ import { mon_offmap, set_apparxy, mb_trapped } from './monmove.js';
 import { hurtle, mhurtle, will_hurtle } from './dothrow.js';
 import { make_stunned } from './potion.js';
 import { m_is_steadfast, can_blnd } from './uhitm.js';
-import { mintrap, acid_damage } from './trap.js';
+import { mintrap, acid_damage, minstapetrify } from './trap.js';
 import { breamm, spitmm, thrwmm } from './mthrowu.js';
 // C ref: mon.c mondead tail (D-row for data.md:358) — one block for the
 // death-tail family. ESM permits several import statements per module;
@@ -1433,11 +1433,22 @@ async function do_stone_mon(magr, mattk, mdef, mhm) {
 }
 
 /**
- * C ref: uhitm.c mhitm_ad_ston mhitm arm :4254–4261.
- * Cancelled keeps leftover d() from mdamagem. Else do_stone_mon.
- * uhitm munstone+minstapetrify and mhitu mhitm_ad_ston_u named.
+ * C ref: uhitm.c mhitm_ad_ston `:4203–4262` — uhitm (you→mon, `:4209–4214`)
+ * and mhitm (mon→mon, `:4254–4261`) arms in C order. uhitm: live munstone
+ * cure gate, else minstapetrify, then damage=0. mhitm: magr mcan gate,
+ * else do_stone_mon (cancelled keeps the mdamagem leftover d()).
+ * mhitu (mon→you, `:4215–4253`) arm lives in mhitu.js mhitm_ad_ston_u
+ * (hitmsg + !rn2(3) hiss/cough; !rn2(10)||NEW_MOON → do_stone_u).
  */
-async function mhitm_ad_ston(magr, mattk, mdef, mhm) {
+export async function mhitm_ad_ston(magr, mattk, mdef, mhm) {
+    if (is_youmonst(magr)) {
+        /* C `:4209–4214` uhitm (hero as attacker) */
+        if (!(await munstone(mdef, true))) await minstapetrify(mdef, true);
+        mhm.damage = 0;
+        return;
+    }
+    if (is_youmonst(mdef)) return; /* C `:4215–4253` mhitu: mhitu.js mhitm_ad_ston_u */
+    /* C `:4254–4261` mhitm */
     if (magr.mcan) return;
     await do_stone_mon(magr, mattk, mdef, mhm);
     if (mhm.done) return;

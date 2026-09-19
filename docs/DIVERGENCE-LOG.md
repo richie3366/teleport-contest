@@ -1,5 +1,31 @@
 # Divergence log
 
+## D-2541 — `uhitm.c` mhitm_ad_ston whole body in C order (coverage THIN → live, uhitm arm ported, both C callers wired)
+
+- **Status:** fixed (Open coverage row `uhitm.c` mhitm_ad_ston THIN, C 57 L `uhitm.c:4203–4262` / JS 5 L mhitm-only arm in js/mhitm.js; no Must-fix pending; row cites no review — no stamp; reviews 300/301/314/719 name the function for sibling arms only, no Keep'd C-wrong).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify mhitm_ad_ston`: no corpus session blocked at baseline — hero petrifying attack / monster-vs-monster stoning, RNG 2 via the mhitm-arm d(), msg 6).
+- **C locus:** `nethack-c/upstream/src/uhitm.c:4203–4262` (`mhitm_ad_ston`); arms `:4209–4214` (uhitm), `:4215–4253` (mhitu), `:4254–4261` (mhitm). Callees: `munstone` (`:4211`, muse.c:2883–2903 — live `js/muse.js:1419`), `minstapetrify` (`:4212`, trap.c — live `js/trap.js:3380`), `hitmsg` + `rn2` + `You_hear`/`pline`/`Monnam`/`mon_nam`/`s_suffix` + `do_stone_u` (mhitu arm — live in the mhitu split), `do_stone_mon` (`:4258`, uhitm.c:3944–3978 — live `js/mhitm.js:1406`). Callers: `uhitm.c:4796` (mhitm_adtyping AD_STON) + `uhitm.c:4854` (damageum → mhitm_adtyping, magr=you).
+- **JS was:** `js/mhitm.js:1440` 5 L mhitm-arm-only body (non-exported, cited only `:4254–4261`, `magr.mcan` gate + `do_stone_mon`); uhitm arm MISSING — `damageum_adtyping` (the JS `mhitm_adtyping` hero subset; C `damageum :4854` → `:4796`) had no AD_STON case, so hero petrifying attacks kept leftover dice as physical damage instead of C's cure-gated petrify + damage 0; mhitu arm live split as `mhitm_ad_ston_u` (`js/mhitu.js:2292`, hitmsg + hiss/cough + NEW_MOON do_stone_u).
+- **Fix:** `js/mhitm.js` — restarted + exported `mhitm_ad_ston` in C order: `:4209–4214` uhitm arm new (live `munstone(mdef, true)` cure gate on the extended mhitm.js→muse.js edge, else live `minstapetrify(mdef, true)` on the extended mhitm.js→trap.js edge, then damage=0); `:4215–4253` mhitu arm early-returns to the split `mhitm_ad_ston_u`; `:4254–4261` mhitm arm kept verbatim (`magr.mcan` gate + `do_stone_mon`, cancelled keeps the mdamagem leftover d()). `js/uhitm.js` — `damageum_adtyping` AD_STON row wires C `:4796` (`mhitm_ad_ston(game.youmonst, mattk, mdef, mhm)`; mhm never null on the damageum path); name joins the existing uhitm.js→mhitm.js import edge (same pattern as mhitm_ad_poly/slee/heal/blnd D-2540).
+- **JS:** `js/mhitm.js` (+~20: two import names, doc, export, uhitm arm, mhitu guard) + `js/uhitm.js` (+7: import name, AD_STON row) + CURRENT.md cluster line + map lines — under caps (1500 ins / 15 files).
+- **Callers:** `uhitm.c:4796` (mhitm_adtyping AD_STON) → `js/mhitm.js:3949` mhitm_adtyping dispatch ✓ pre-existing, now reaches the exported whole body (monster magr → mhitm arm); `uhitm.c:4854` (damageum, magr=you) → `js/uhitm.js` damageum_adtyping AD_STON row ✓ wired this commit; mhitu dispatch → `js/mhitu.js:3153` `mhitm_ad_ston_u` split — named, not rewired (hitmsg context outside C). No call from a site C never calls from (passive_obj `:5934` AD_STON hero-weapon touch is a different body, untouched; hmon_hitmon corpse/egg minstapetrify arms name munstone as omit per-file, untouched).
+- **Verify:** `node scripts/verify.mjs --fn mhitm_ad_ston` → PASS syntax (2 changed: js/mhitm.js js/uhitm.js) · rule2 · hidden note (0 blocked at baseline) · reach smoke 14/14 PASS, 0 regressed → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file changed) → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   2 changed js file(s): js/mhitm.js js/uhitm.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify mhitm_ad_ston: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    14 baseline-PASS session(s) reach it (14 run, 6.1s): 14 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+VERIFY: PASS
+```
+- **Named omissions:** none in this body — every arm and callee is live or ported in this commit (munstone lizard/acid-tin cure + minstapetrify golem/vamp arms all live; mhitu Soundeffect/do_stone_u make_stoned killer-string gaps stay as named in `mhitm_ad_ston_u`).
+- **Next:** Open head after mhitm_ad_ston (`uhitm.c` mhitm_ad_elec).
+
 ## D-2540 — `uhitm.c` mhitm_ad_blnd whole body in C order (coverage THIN → live, uhitm arm ported, both C callers wired)
 
 - **Status:** fixed (Open coverage row `uhitm.c` mhitm_ad_blnd THIN, C 50 L `uhitm.c:2958–3012` / JS 18 L mhitm-only arm in js/mhitm.js; no Must-fix pending; row cites no review — no stamp; review gazemm names the function for sibling arms only, no Keep'd C-wrong).

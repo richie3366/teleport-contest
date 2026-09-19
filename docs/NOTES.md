@@ -38,20 +38,21 @@ here again. Live hypotheses only:
 - **do_statusline2 residuals (D-2425 MEASURED):** W1 Healer-92107 `mhitm_ad_cold_u` extra destroy return; W2 Satiated pair = eat-progress `uhs`/botl timing — both are corpus-residual Open rows (detail in D-2425). Monk-92194 Pw = D-2161 gulpmu residual, no new row.
 ## Don't re-check (≤15)
 
-- D-1790…D-2540 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-2541 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2540.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2540.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2541.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2541.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2541: `js/mhitm.js` — restarted + exported `mhitm_ad_ston` in C order: `:4209–4214` uhitm arm new (live `munstone` + `minstapetrify`, damage=0); mhitu early-return to `mhitm_ad_ston_u`; mhitm arm kept — `js/uhitm.js` AD_STON row. Named: none in this body.
 - D-2540: `js/mhitm.js` — restarted + exported `mhitm_ad_blnd` in C order: `:2964–2975` uhitm arm new (live `can_blnd` gate on the existing mhitm.js→uhitm.js ed Named: mhitu `:2982–2983` `Your1(vision_clears)` (Eyes of the Overworld; no Your1/vision_clears s
 - D-2539: `js/version.js` — exported `what_datamodel_is_this` in C order (`:1006` loop starts at C row 1; DATAMODEL_TABLE holds exactly C rows 1–4 with live siz Named: Sfi_char/Sfi_uchar/Sfi_version_info byte feed (`:771`/`:779–781`/`:725`/`:735`, sfbase.c:3
 - D-2538: `js/save.js` — restarted `set_savefile_name(regularize_it)` in C order with `:line` cites: `:1030–1034` VMS arm named compiled out; `:1036–1053` WIN32 Named: `getuid()` uid digits (`:1055` — Rule #2, no POSIX identity in dual-runtime ESM; single-us
@@ -66,5 +67,4 @@ here again. Live hypotheses only:
 - D-2529: `js/do_wear.js` — restarted `Amulet_off` in C order with `:line` cites: `:1092–1095` amul save + takeoff.mask clear; `:1098–1105` ESP early setworn/of Named: none in this body — every arm and callee is live or ported in this commit. (`is_pool_or_la
 - D-2528: `js/options.js` — `wc2_options` table in C order, `windowprocs_wincap2` (unset bag → contest tty 0, cf. Named: `add_menu_cmd_alias` + menu-key BIND parsing (writer of `mapped_menu_*`; `game.mappedMenu`
 - D-2527: `js/do.js` — file-local `teleport_sink` (`js/do.js:2449`) in C order (`:472–473` `#else` ranges with the `#if 0` edge arm named as compiled out, `:475 Named: none in these bodies — every arm and callee is live or ported in this commit.
-- D-2526: `js/exper.js` — restarted `losexp` in C order with `:line` cites: `:212–217` #levelchange null else live `resists_drli(game.youmonst)`; `:219–224` Goo Named: `SoundAchievement(:231)` (no SND_LIB, same as pluslvl); `fuzzer_savelife` (debug-fuzz only
 <!-- landmarks:end -->

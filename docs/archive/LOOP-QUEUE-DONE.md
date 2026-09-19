@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
+- [x] `uhitm.c` mhitm_ad_ston — coverage THIN (C 57 L `uhitm.c:4203–4262` / JS 5 L in js/mhitm.js; hops 4, callers 1, RNG 2, msg 6). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mhitm_ad_ston` (reach regression must be 0). Measured `port-coverage.mjs --name mhitm_ad_ston` 2026-09-19 @ 1bfac98a.
+
+
 - [x] `uhitm.c` mhitm_ad_blnd — coverage THIN (C 50 L `uhitm.c:2958–3012` / JS 18 L in js/mhitm.js; hops 4, callers 2, RNG 1, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mhitm_ad_blnd` (reach regression must be 0). Measured `port-coverage.mjs --name mhitm_ad_blnd` 2026-09-19 @ 1bfac98a. **Addressed:** D-2540
 
 
