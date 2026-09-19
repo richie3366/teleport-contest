@@ -138,6 +138,13 @@ Named: `check_wornmask_slots`; obj/timer/mon/light/trap/engraving/`levl_sanity_c
 optfn_boolean `sanity_check` OPTIONS=; `doredraw` body; wizweight;
 `#wizintrinsic` count-prefix + unavailcmd-ecname + make_blinded-talk D-2293
 (menu counts via shared `select_menu_pick_any` wintty counting).
+**`misc_stats` + 4 stat callees D-2530** (C `wizcmds.c:1284–1399` /
+`engrave.c:1625–1640` / `light.c:500–511` / `timeout.c:2734–2745` /
+`region.c:898–922`; `template[]` `:1112` as file-local `stats_row`;
+LP64 `SIZEOF_*` gcc-measured from pinned headers; `winid` → `lines[]` +
+`{count,size}` accumulator; `plur` inlined, no clone #10).
+Named: caller `wiz_show_stats` display (future row); `gm.max_regions`
+capacity (JS array — base n*sizeof); Sprintf/Strcpy/putstr (no JS exports).
 
 ### `src/detect.c` `dosearch0`/`findit`/`do_mapping`/`reveal_terrain` + `cmd.c` `doterrain`
 

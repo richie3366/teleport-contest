@@ -34,6 +34,7 @@ import { float_vs_flight } from './polyself.js';
 import { pooleffects } from './pickup.js';
 import { mons } from './monsters.js';
 import { PM_GRID_BUG } from './generated/monsters_data.js';
+import { NUM_OBJECTS } from './objects.js';
 
 /** C timeout.c propertynames[] — wizard #wizintrinsic menu order. */
 const PROPERTYNAMES = [
@@ -879,4 +880,271 @@ export async function wiz_levltyp_legend() {
     }
     // C `:873–874` display_nhwindow(win, TRUE); destroy_nhwindow(win).
     await show_text_pages(lines);
+}
+
+/* C struct sizes for the `#stats` memory display, LP64 — measured from the
+ * pinned headers with gcc (probe in /tmp/sizeof_probe.c, not committed):
+ * trap=32 engr=64 light=32 timer=48 damage=32 region=96 rect=8 kinfo=272
+ * cemetery=184. The contest recorder builds the same LP64 layout, so these
+ * header/size constants print what C prints. */
+const SIZEOF_TRAP = 32; // struct trap (trap.h:18)
+const SIZEOF_ENGR = 64; // struct engr (engrave.h:18)
+const SIZEOF_LIGHT = 32; // light_source (hack.h:608)
+const SIZEOF_TIMER = 48; // timer_element (timeout.h:62)
+const SIZEOF_DAMAGE = 32; // struct damage (rm.h:408)
+const SIZEOF_REGION = 96; // NhRegion (region.h:37)
+const SIZEOF_RECT = 8; // NhRect (rect.h:8)
+const SIZEOF_KINFO = 272; // struct kinfo (hack.h:598)
+const SIZEOF_CEMETERY = 184; // struct cemetery (rm.h:418)
+const SIZEOF_UNSIGNED = 4; // region monsters[] element (unsigned *)
+
+/**
+ * C ref: wizcmds.c `template[]` `:1112` `"%-27s  %4ld  %6ld"` — one stats
+ * row. C `%4ld`/`%6ld` never truncate wide values; padStart matches that.
+ */
+function stats_row(hdrbuf, count, size) {
+    return `${hdrbuf.padEnd(27)}  ${String(count).padStart(4, ' ')}  ${String(size).padStart(6, ' ')}`;
+}
+
+/**
+ * C ref: engrave.c engr_stats `:1625–1640` — header + count/size of the
+ * head_engr chain into tot ({ hdr, count, size }).
+ */
+function engr_stats(tot) {
+    // C `:1630` Sprintf(hdrbuf, hdrfmt, sizeof (struct engr)).
+    tot.hdr = `engravings, size ${SIZEOF_ENGR}+text`;
+    tot.count = 0;
+    tot.size = 0;
+    // C `:1631–1634` — size per engraving is struct + text allocation.
+    for (let ep = game.head_engr; ep; ep = ep.nxt_engr) {
+        tot.count += 1;
+        tot.size += SIZEOF_ENGR + engr_text_alloc(ep);
+    }
+}
+
+/**
+ * C ref: engrave.c make_engr_at text allocation (`:417–454`, used by
+ * engr_stats `:1633` `sizeof *ep + ep->engr_alloc`): smem is max strlen+1
+ * over the text states and engr_alloc is smem * 3. JS stores the three
+ * states as actual/remembered/pristine strings (make_engr_at, engrave.js),
+ * so the allocation is 3 * (longest state + 1 NUL).
+ */
+function engr_text_alloc(ep) {
+    const t = ep.engr_txt || {};
+    const actual = String(t.actual_text ?? '');
+    const remembered = String(t.remembered_text ?? actual);
+    const pristine = String(t.pristine_text ?? actual);
+    const smem = Math.max(actual.length, remembered.length, pristine.length) + 1;
+    return 3 * smem;
+}
+
+/**
+ * C ref: light.c light_stats `:500–511` — header + count/size of the light
+ * list into tot. C walks `gl.light_base` via ->next; JS stores
+ * game.light_base as an array (new_light_core, light.js), so walk the
+ * array, with the linked shape as fallback.
+ */
+function light_stats(tot) {
+    // C `:504` Sprintf(hdrbuf, hdrfmt, sizeof (light_source)).
+    tot.hdr = `light sources, size ${SIZEOF_LIGHT}`;
+    tot.count = 0;
+    tot.size = 0;
+    // C `:505–508`.
+    const base = game.light_base;
+    if (Array.isArray(base)) {
+        for (const ls of base) {
+            if (!ls) continue;
+            tot.count += 1;
+            tot.size += SIZEOF_LIGHT;
+        }
+    } else {
+        for (let ls = base; ls; ls = ls.next) {
+            tot.count += 1;
+            tot.size += SIZEOF_LIGHT;
+        }
+    }
+}
+
+/**
+ * C ref: timeout.c timer_stats `:2734–2745` — header + count/size of the
+ * `gt.timer_base` chain (JS: game._timer_base, linked via next —
+ * print_queue, timeout.js) into tot.
+ */
+function timer_stats(tot) {
+    // C `:2738` Sprintf(hdrbuf, hdrfmt, sizeof (timer_element)).
+    tot.hdr = `timers, size ${SIZEOF_TIMER}`;
+    tot.count = 0;
+    tot.size = 0;
+    // C `:2739–2742`.
+    for (let te = game._timer_base; te; te = te.next) {
+        tot.count += 1;
+        tot.size += SIZEOF_TIMER;
+    }
+}
+
+/**
+ * C ref: region.c region_stats `:898–922` — header + count/size of the
+ * regions into tot. C `:901` formats both sizeofs into the header
+ * ("regions, size %ld+%ld*rect+N").
+ */
+function region_stats(tot) {
+    tot.hdr = `regions, size ${SIZEOF_REGION}+${SIZEOF_RECT}*rect+N`;
+    const regs = game.regions || [];
+    // C `:907` count is svn.n_regions; `:908` base size is gm.max_regions
+    // preallocated NhRegions — JS regions is a plain array with no spare
+    // capacity, so the base is n * sizeof (named adaptation).
+    tot.count = regs.length;
+    tot.size = regs.length * SIZEOF_REGION;
+    // C `:909–918` per-region rects + messages + monster slots
+    // (`sizeof *rg->monsters` is sizeof (unsigned)).
+    for (const rg of regs) {
+        if (!rg) continue;
+        tot.size += (rg.nrects | 0) * SIZEOF_RECT;
+        if (rg.enter_msg) tot.size += rg.enter_msg.length + 1;
+        if (rg.leave_msg) tot.size += rg.leave_msg.length + 1;
+        tot.size += (rg.max_monst | 0) * SIZEOF_UNSIGNED;
+    }
+}
+
+/**
+ * C ref: wizcmds.c misc_stats `:1284–1399` (staticfn) — one `#stats`
+ * "Miscellaneous" row per live list. Signature adaptation (NHW_TEXT idiom,
+ * D-2508/D-2516): `win` is the caller's collected string array; the two
+ * C out-params are the mutated `total` accumulator ({ count, size }).
+ * The caller (C wiz_show_stats `:1676`, not yet ported) displays the
+ * window; this function only appends rows, in C order.
+ *
+ * @param {string[]} lines caller-collected window lines
+ * @param {{ count: number, size: number }} total misc accumulator
+ */
+export function misc_stats(lines, total) {
+    let count, size;
+    // C `:1296–1307` — traps output unconditionally. C walks gf.ftrap via
+    // ->ntrap; JS game.ftrap is that chain (maketrap, trap.js) or, after a
+    // bones restore, an array (bones.js; dual shape like detect.js).
+    count = 0;
+    size = 0;
+    const ftrap = game.ftrap;
+    if (Array.isArray(ftrap)) {
+        for (const tt of ftrap) {
+            if (!tt) continue;
+            count += 1;
+            size += SIZEOF_TRAP;
+        }
+    } else {
+        for (let tt = ftrap; tt; tt = tt.ntrap) {
+            count += 1;
+            size += SIZEOF_TRAP;
+        }
+    }
+    total.count += count;
+    total.size += size;
+    // C `:1305–1306` Sprintf(hdrbuf, "traps, size %ld", sizeof trap).
+    lines.push(stats_row(`traps, size ${SIZEOF_TRAP}`, count, size));
+
+    // C `:1309–1314` — engravings output unconditionally via engr_stats.
+    const t = { hdr: '', count: 0, size: 0 };
+    engr_stats(t);
+    total.count += t.count;
+    total.size += t.size;
+    lines.push(stats_row(t.hdr, t.count, t.size));
+
+    // C `:1316–1323` — light sources only if nonzero.
+    t.hdr = '';
+    t.count = 0;
+    t.size = 0;
+    light_stats(t);
+    if (t.count || t.size) {
+        total.count += t.count;
+        total.size += t.size;
+        lines.push(stats_row(t.hdr, t.count, t.size));
+    }
+
+    // C `:1325–1332` — timers only if nonzero.
+    t.hdr = '';
+    t.count = 0;
+    t.size = 0;
+    timer_stats(t);
+    if (t.count || t.size) {
+        total.count += t.count;
+        total.size += t.size;
+        lines.push(stats_row(t.hdr, t.count, t.size));
+    }
+
+    // C `:1334–1345` — shop damage only if nonzero; svl.level.damagelist
+    // (JS: game.level.damagelist, linked via next — shk.js).
+    count = 0;
+    size = 0;
+    for (let sd = game.level?.damagelist; sd; sd = sd.next) {
+        count += 1;
+        size += SIZEOF_DAMAGE;
+    }
+    if (count || size) {
+        total.count += count;
+        total.size += size;
+        // C `:1341–1342` Sprintf(hdrbuf, "shop damage, size %ld", ...).
+        lines.push(stats_row(`shop damage, size ${SIZEOF_DAMAGE}`, count, size));
+    }
+
+    // C `:1347–1354` — regions only if nonzero via region_stats.
+    t.hdr = '';
+    t.count = 0;
+    t.size = 0;
+    region_stats(t);
+    if (t.count || t.size) {
+        total.count += t.count;
+        total.size += t.size;
+        lines.push(stats_row(t.hdr, t.count, t.size));
+    }
+
+    // C `:1356–1367` — delayed killers only if nonzero; svk.killer.next
+    // (JS: game.killer.next chain — delayed_killer, end.js).
+    count = 0;
+    size = 0;
+    for (let k = game.killer?.next; k; k = k.next) {
+        count += 1;
+        size += SIZEOF_KINFO;
+    }
+    if (count || size) {
+        total.count += count;
+        total.size += size;
+        // C `:1363–1364` plur(count): "s" unless exactly one (plur.c).
+        // Inlined (no new plur clone — nine local ones already exist).
+        lines.push(stats_row(`delayed killer${count === 1 ? '' : 's'}, size ${SIZEOF_KINFO}`, count, size));
+    }
+
+    // C `:1369–1379` — bones history only if nonzero;
+    // svl.level.bonesinfo (JS: game.level.bonesinfo via next — bones.js).
+    count = 0;
+    size = 0;
+    for (let bi = game.level?.bonesinfo; bi; bi = bi.next) {
+        count += 1;
+        size += SIZEOF_CEMETERY;
+    }
+    if (count || size) {
+        total.count += count;
+        total.size += size;
+        // C `:1375–1376` Sprintf(hdrbuf, "bones history, size %ld", ...).
+        lines.push(stats_row(`bones history, size ${SIZEOF_CEMETERY}`, count, size));
+    }
+
+    // C `:1381–1396` — object type names only if nonzero; user-named
+    // entries of the objects[] table (JS: game.objects, oc_uname —
+    // objects_globals_init, objects.js; objnam.js).
+    count = 0;
+    size = 0;
+    const otable = game.objects || [];
+    for (let idx = 0; idx < NUM_OBJECTS; ++idx) {
+        const uname = otable[idx]?.oc_uname;
+        if (uname) {
+            count += 1;
+            size += uname.length + 1;
+        }
+    }
+    if (count || size) {
+        total.count += count;
+        total.size += size;
+        // C `:1392` Strcpy(hdrbuf, "object type names, text").
+        lines.push(stats_row('object type names, text', count, size));
+    }
 }

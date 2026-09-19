@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2530 — `wizcmds.c` misc_stats whole body in C order (coverage MISSING → live)
+
+- **Status:** fixed (Open coverage row `wizcmds.c` misc_stats MISSING, C 113 L `wizcmds.c:1284–1399` / JS no symbol; no Must-fix pending; row cites no review Actionable, no stamp needed).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify misc_stats`: no corpus session blocked at baseline — wizard-mode `#stats` display, RNG 0).
+- **C locus:** `nethack-c/upstream/src/wizcmds.c:1284–1399` (`misc_stats`, staticfn). Callees: `engr_stats` (`engrave.c:1625–1640`, ported file-local this commit — `js/wizcmds.js:913`); `light_stats` (`light.c:500–511`, ported file-local — `:947`); `timer_stats` (`timeout.c:2734–2745`, ported file-local — `:973`); `region_stats` (`region.c:898–922`, ported file-local — `:990`); `Sprintf` (`template[]` `:1112` `"%-27s  %4ld  %6ld"` → file-local `stats_row` `:905`); `Strcpy` (header constant, inline); `putstr` (no JS export by architecture — `lines[]` sink consumed by the caller's `show_text_pages`, D-2508 idiom); `plur` (`:1363`, inline ternary — no clone #10, nine locals already exist).
+- **JS was:** no `misc_stats`/`engr_stats`/`light_stats`/`timer_stats`/`region_stats` symbol anywhere in `js/`.
+- **Fix:** `js/wizcmds.js` — `SIZEOF_*` LP64 constants (`:890–899`) measured from the pinned headers with gcc (`trap=32 engr=64 light=32 timer=48 damage=32 region=96 rect=8 kinfo=272 cemetery=184`; probe in /tmp, not committed) + file-local `engr_text_alloc` (`:932`, `make_engr_at` `:417–454` smem*3 over the three stored text states) + exported `misc_stats(lines, total)` (`:1020`) in C order with `:line` cites: `:1296–1307` traps unconditional (game.ftrap ntrap-chain or bones array, detect.js dual shape); `:1309–1314` engravings unconditional; `:1316–1323` lights gated; `:1325–1332` timers gated (`game._timer_base`, print_queue shape); `:1334–1345` shop damage gated (`game.level.damagelist`, shk.js shape); `:1347–1354` regions gated; `:1356–1367` delayed killers gated (`game.killer.next`, end.js shape); `:1369–1379` bones gated (`game.level.bonesinfo`, bones.js shape); `:1381–1396` oc_uname names gated (`game.objects`, NUM_OBJECTS bound). `winid` → caller-collected `lines[]`, out-params → mutated `{count,size}` (NHW_TEXT idiom D-2516); +1 top-level `NUM_OBJECTS` import (`imports.mjs --can`: SAFE, no cycle).
+- **JS:** `js/wizcmds.js` (+268: 1 import line + ~240 stats block); under caps (1500 ins / 15 files).
+- **Callers:** C `wizcmds.c:1676` (`wiz_show_stats`) → named omission (not yet ported — future coverage row; `misc_stats` exported for it); staticfn decl `:21` needs no wiring. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn misc_stats` → PASS syntax (1 changed: js/wizcmds.js) · rule2 · hidden note (0 blocked at baseline) · reach smoke 24/24 PASS, 0 regressed → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file changed) → VERIFY: PASS. Tail pasted verbatim. Focused `/tmp/misc_stats_probe.mjs`: 9 rows match C-template strings exactly, totals {count:12,size:1096} (throwaway probe, not committed).
+- **Named omissions:** caller `wiz_show_stats` display window (future row); `gm.max_regions` preallocation (JS array has no spare capacity — base is n*sizeof); `Sprintf`/`Strcpy`/`putstr` (no JS exports by architecture — inline shapes + lines sink).
+- **Next:** Open head after misc_stats (`dothrow.c` breakobj).
+
 ## D-2529 — `do_wear.c` Amulet_off whole body in C order (coverage PARTIAL → live)
 
 - **Status:** fixed (Open coverage row `do_wear.c` Amulet_off PARTIAL, C 99 L `do_wear.c:1090–1189` / JS 54 L thin in js/do_wear.js; no Must-fix pending; row cites no review Actionable, no stamp needed).

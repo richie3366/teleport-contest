@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
+- [x] `wizcmds.c` misc_stats — coverage MISSING (C 113 L `wizcmds.c:1284–1399` / JS no symbol; hops —, callers 1, RNG 0, msg 9; dead callees: engr_stats, light_stats, timer_stats, region_stats). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn misc_stats` (reach regression must be 0). Measured `port-coverage.mjs --name misc_stats` 2026-09-19 @ 95d26622.
+
+
 - [x] `do_wear.c` Amulet_off — coverage PARTIAL (C 99 L `do_wear.c:1090–1189` / JS 54 L in js/do_wear.js; hops 3, callers 4, RNG 0, msg 5). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn Amulet_off` (reach regression must be 0). Measured `port-coverage.mjs --name Amulet_off` 2026-09-19 @ 95d26622.
 
 
