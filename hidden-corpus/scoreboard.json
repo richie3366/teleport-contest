@@ -1,6 +1,6 @@
 {
- "commit": "e600e6c5",
- "at": "2026-09-19T00:42:02.033Z",
+ "commit": "31ee9a50",
+ "at": "2026-09-19T00:57:45.733Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6593,7 +6593,7 @@
    "steps": 114,
    "owner": "distfleeck",
    "loc": "monmove.c:549",
-   "jsOwner": "doopen_indir(lock.js:873)",
+   "jsOwner": "doopen_indir(lock.js:900)",
    "cTopline": "You feel no objects here.",
    "jsTopline": "You feel no objects here.",
    "error": null
@@ -7290,7 +7290,7 @@
    "steps": 95,
    "owner": "mksobj_init",
    "loc": "mkobj.c:1086",
-   "jsOwner": "m_initinv(makemon.js:3014)",
+   "jsOwner": "m_initinv(makemon.js:3065)",
    "cTopline": "You materialize on a different level! The heat and smoke are gone.--More--",
    "jsTopline": "You materialize on a different level! The heat and smoke are gone.--More--",
    "error": null
@@ -7400,18 +7400,18 @@
   "scen-tour-Tourist-92100": {
    "src": "corpus",
    "passed": false,
-   "rngM": 25954,
+   "rngM": 25463,
    "rngT": 27848,
-   "scrM": 133,
+   "scrM": 132,
    "scrT": 167,
-   "kind": "screen",
-   "step": 132,
+   "kind": "rng",
+   "step": 131,
    "steps": 167,
-   "owner": "level_tele",
-   "loc": "teleport.c:1427",
-   "jsOwner": null,
-   "cTopline": "You materialize on a different level!--More--",
-   "jsTopline": "You materialize on a different level!--More--",
+   "owner": "collect_coords",
+   "loc": "teleport.c:700",
+   "jsOwner": "goodpos(teleport.js:516)",
+   "cTopline": "Endgame prerequisite: p - the Amulet of Yendor.--More--",
+   "jsTopline": "Endgame prerequisite: p - the Amulet of Yendor.--More--",
    "error": null
   },
   "scen-tour-Tourist-92134": {

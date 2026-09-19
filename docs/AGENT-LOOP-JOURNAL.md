@@ -7,6 +7,13 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-19 — Audit 12fef55e..31ee9a50 (reviews 1453–1461: 8 ACCEPT, 1 ACCEPT-WITH-DEBT) + cadence 44/44, proxy 495/540
+
+**Scope:** every JS-touching commit since review 1452 (D-2494 setmangry, D-2495 help_dir, D-2496 mpickobj, D-2497 doname_base, D-2498 windowport-notify, D-2499 m_consume_obj, D-2500 recharge, D-2501 movebubbles, D-2502 trapeffect_web). One SHA at a time, file written to disk per SHA, single grouped commit.
+**Findings:** 8 ACCEPT (branch-by-branch C confirms; real fixes verified: help_dir bottom-row order caught by its own reach FAIL, doname_base AMULET gate, p_glow3/You() in recharge, pline_mon in web). 1 ACCEPT-WITH-DEBT: 1457 windowport-notify — `status_update` throws loud in live arms but is unreachable (nothing imports botl.js), test-pinned both ways, caller `bot():1277` wiring + dispatch named in `c-js-map/startup.md`. No C-wrong ⇒ no Must-fix prepend; Next cluster unchanged (`trap.c` trapeffect_web row is now done — next pop is `muse.c` precheck).
+**Cadence:** full `sessions` 44/44, Scr 11,405/11,405, RNG 792,838/792,838 (identical totals); held-out 11/44 (cached 2026-09-18); proxy 495/540 (91.7 %) RNG 99.29 % screens 99.0 % — identical, no flips. Per-SHA re-runs: recharge reach 3/3 PASS; rest 0-blocked + smoke 24/24, 0 regressed.
+**Refill:** `port-coverage --rows 12` @31ee9a50 emits 12, all 12 Stale-parked (newcham/getobj/checkfile/yn_function/getdir/mon_arrive/display_pickinv/mhitm_ad_phys/vpline/makeplural/do_look/make_corpse) — nothing appended (never re-pop Stale).
+**Check:** `check-hot-docs --fix --review 1453..1461` → All ok, no cap edits.
 ## 2026-09-19 — D-2502 `trap.c` trapeffect_web whole-body port (hero/steed/strength-tim arm, bear-roar Soundeffect, pline_mon)
 
 **C locus:** `nethack-c/upstream/src/trap.c:2106–2276` (`trapeffect_web`); sole C caller `trap.c:2972` (WEB arm of the trapeffect selector switch).

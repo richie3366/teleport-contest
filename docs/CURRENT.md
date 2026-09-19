@@ -22,11 +22,11 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-18** — full `sessions` on the working tree
-(audit **1444–1452**).
+Score last measured: **2026-09-19** — full `sessions` on the working tree
+(audit **1453–1461**).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`42+0.56/turn` (R² 0.92).
+`50+0.30/turn` (R² 0.79).
 
 ## Score
 
@@ -43,11 +43,11 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 every audit). Rank 4/22, 2nd agentic; best agentic fork 35/44, RNG 98.5 %,
 screens 93.2 %. Held-out moved 7 → 11 over 2026-09-06..17 while the local
 corpus went 48 % → 91.7 %: the corpus no longer predicts the judge.
-**Corpus fortress** (re-scored 2026-09-18 audit 1444–1452): **495 / 540
+**Corpus fortress** (re-scored 2026-09-19 audit 1453–1461): **495 / 540
 PASS (91.7 %)** excl. 13 env-only; RNG 99.29 %, screens 99.0 % — identical
-to the prior audit, no flips across D-2485…D-2502 (every per-SHA re-run:
-0 regressed; makemaz REACH 77/77, misc_obj 12/12, ad_legs 13/13).
-Reviews 1225–1452: 200 ACCEPT, 8 WITH-DEBT, 1 DEBT, 14 QUALITY-RISK (0 Must-fix pending).
+to the prior audit, no flips across D-2494…D-2502 (every per-SHA re-run:
+0 regressed; recharge reach 3/3, rest vacuous 0-blocked + smoke 24/24).
+Reviews 1225–1461: 208 ACCEPT, 9 WITH-DEBT, 1 DEBT, 14 QUALITY-RISK (0 Must-fix pending).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph (display.h:842–844 vs display.js:849), 1448 safe_typename guard (objnam.c:316) — review-debt, unqueued.
 Audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s) + `leaderboard.mjs`.
 

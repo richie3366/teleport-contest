@@ -1463,3 +1463,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1450-1f5ce2fe-corpse-xname.md](./1450-1f5ce2fe-corpse-xname.md) | `1f5ce2fe` | D-2491 corpse_xname | **ACCEPT** |
 | [1451-f43f2ae7-makemaz.md](./1451-f43f2ae7-makemaz.md) | `f43f2ae7` | D-2492 makemaz | **ACCEPT** |
 | [1452-aad9f117-see-monsters-flush-screen.md](./1452-aad9f117-see-monsters-flush-screen.md) | `aad9f117` | D-2493 see_monsters + flush_screen | **ACCEPT** |
+| [1453-12fef55e-setmangry.md](./1453-12fef55e-setmangry.md) | `12fef55e` | D-2494 setmangry | **ACCEPT** |
+| [1454-c6909a83-help-dir.md](./1454-c6909a83-help-dir.md) | `c6909a83` | D-2495 help_dir | **ACCEPT** |
+| [1455-d6cf97e2-mpickobj.md](./1455-d6cf97e2-mpickobj.md) | `d6cf97e2` | D-2496 mpickobj | **ACCEPT** |
+| [1456-2a0c6559-doname-base.md](./1456-2a0c6559-doname-base.md) | `2a0c6559` | D-2497 doname_base | **ACCEPT** |
+| [1457-e0c364ed-windowport-notify.md](./1457-e0c364ed-windowport-notify.md) | `e0c364ed` | D-2498 windowport notify | **ACCEPT-WITH-DEBT** |
+| [1458-62a8e932-m-consume-obj.md](./1458-62a8e932-m-consume-obj.md) | `62a8e932` | D-2499 m_consume_obj | **ACCEPT** |
+| [1459-4131ec6e-recharge.md](./1459-4131ec6e-recharge.md) | `4131ec6e` | D-2500 recharge | **ACCEPT** |
+| [1460-e600e6c5-movebubbles.md](./1460-e600e6c5-movebubbles.md) | `e600e6c5` | D-2501 movebubbles | **ACCEPT** |
+| [1461-31ee9a50-trapeffect-web.md](./1461-31ee9a50-trapeffect-web.md) | `31ee9a50` | D-2502 trapeffect_web | **ACCEPT** |
