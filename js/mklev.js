@@ -27930,29 +27930,49 @@ function sort_rooms() {
         }
 }
 
-// C ref: mklev.c topologize()
+// C ref: mklev.c:1595-1656 topologize() — SPECIALIZATION off per
+// global.h:120, so the 1-arg arm is live; the do_ordinary/rtype/OROOM
+// arms (:1615-1627, :1651-1652) are compiled out (named omission below).
 function topologize(croom) {
-    if (!croom || croom.irregular) return;
+    if (!croom) return; // JS guard: C takes nonnull (extern.h NONNULLARG1)
+    // C :1602 roomno from pointer arithmetic; JS rooms carry roomnoidx
+    // (add_subroom/do_room_or_subroom set it; ≡ croom - svr.rooms).
     const roomno = (croom.roomnoidx ?? -1) + ROOMOFFSET;
+    // C :1603-1604 bounds.
     const lowx = croom.lx, lowy = croom.ly;
     const hix = croom.hx, hiy = croom.hy;
-    if (!game.level || roomno < ROOMOFFSET) return;
+    if (!game.level || roomno < ROOMOFFSET) return; // JS guard: no level yet
+    // C :1609 snapshot subroom count before painting (innards may not
+    // change it, but C reads it up front).
+    const nsubrooms = croom.nsubrooms | 0;
+    // C :1612-1614 skip if already done (shop handled out of order) or
+    // non-rectangular (must be done already).
     if ((game.level.at(lowx, lowy)?.roomno ?? 0) === roomno) return;
+    if (croom.irregular) return;
+    // C :1619-1627 do innards first (SPECIALIZATION-off arm: always roomno;
+    // the rtype==OROOM → NO_ROOM arm is compiled out).
     for (let x = lowx; x <= hix; x++)
         for (let y = lowy; y <= hiy; y++) {
             const loc = game.level.at(x, y);
             if (loc) loc.roomno = roomno;
         }
+    // C :1629-1636 top and bottom edges.
     for (let x = lowx - 1; x <= hix + 1; x++)
         for (let y = lowy - 1; y <= hiy + 1; y += (hiy - lowy + 2)) {
             const loc = game.level.at(x, y);
             if (loc) { loc.edge = true; loc.roomno = loc.roomno ? SHARED : roomno; }
         }
+    // C :1638-1645 sides.
     for (let x = lowx - 1; x <= hix + 1; x += (hix - lowx + 2))
         for (let y = lowy; y <= hiy; y++) {
             const loc = game.level.at(x, y);
             if (loc) { loc.edge = true; loc.roomno = loc.roomno ? SHARED : roomno; }
         }
+    // C :1648-1654 subrooms (SPECIALIZATION-off 1-arg recursion).
+    for (let subindex = 0; subindex < nsubrooms; subindex++) {
+        const sub = croom.sbrooms?.[subindex];
+        if (sub) topologize(sub);
+    }
 }
 
 // ============================================================

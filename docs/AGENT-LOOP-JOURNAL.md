@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-19 — D-2597 `mklev.c` topologize whole-body restart (subroom recursion, C-order cites)
+
+**C locus:** `nethack-c/upstream/src/mklev.c:1595–1656` (SPECIALIZATION off per `global.h:120`, so the 1-arg arm is live); callers `mklev.c:1564/1566` level_finalize_topology, `mkroom.c:207/209` shop, `sp_lev.c:2824/2826` build_room, `sp_lev.c:5687/5689` region.
+**JS:** `js/mklev.js` only — no new imports, no new cross-module edge (`SHARED`/`ROOMOFFSET` already imported from const.js; same-file local already called from ~40 sites).
+**Change:** restarted `topologize` in C order with `:line` cites — roomno via `roomnoidx + ROOMOFFSET` (`:1602`, ≡ pointer arithmetic, set by add_subroom/do_room_or_subroom); bounds (`:1603–1604`); `nsubrooms` snapshot (`:1609`); already-done/irregular skip (`:1612–1614`); innards (`:1619–1627`); top/bottom edges (`:1629–1636`); sides (`:1638–1645`); new subroom recursion (`:1648–1654`, `sbrooms[subindex]`, null-tolerant). Null/level guards stay JS-only (C takes nonnull per extern.h NONNULLARG1); `edge = true` keeps the file's boolean convention (C bitfield `edge,1`).
+**Verify:** `node scripts/verify.mjs --fn topologize` → VERIFY: PASS. Tail verbatim:
+**Named:** SPECIALIZATION arms (`:1615–1627` `do_ordinary`/`rtype != OROOM` gate + `OROOM → NO_ROOM` innards, `:1651–1652` `(rtype != OROOM)` recursion arg — compiled out per `global.h:120`, same ground as the `js/mklev.js:24751` note).
+**Next:** queue head `mhitm.c failed_grab`.
 ## 2026-09-19 — D-2596 `pickup.c` in_container whole-body port (shop sellobj, icebox age, mbag explosion, snuff_lit)
 
 **C locus:** `nethack-c/upstream/src/pickup.c:2558–2712` (staticfn) + same-file staticfn `mbag_explodes` `:2488–2509`; contract partners `use_container` `:2985` (`gs.sellobj_first = TRUE`) and `:3219` (`sellobj_state(SELL_NORMAL)` reset).

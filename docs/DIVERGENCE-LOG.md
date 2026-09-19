@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-2597 — `mklev.c` topologize whole-body restart (subroom recursion, C-order cites)
+
+- **Status:** fixed (Open — coverage row `mklev.c` topologize THIN (C 56 L `mklev.c:1597–1656` / JS 23 L in `js/mklev.js`; hops 2, callers 8, RNG 0, msg 0), measured `port-coverage.mjs --name topologize` 2026-09-19 @ c0bfe985).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify topologize`: no corpus session blocked on it at baseline; reach smoke spread is the evidence). The thin local painted innards + edges but never recursed into subrooms, so nested des/quest rooms kept the parent's roomno on their cells.
+- **C locus:** `nethack-c/upstream/src/mklev.c:1595–1656` (SPECIALIZATION off per `global.h:120`, so the 1-arg arm is live); callers `mklev.c:1564/1566` level_finalize_topology, `mkroom.c:207/209` shop, `sp_lev.c:2824/2826` build_room, `sp_lev.c:5687/5689` region.
+- **JS was:** local `function topologize(croom)` (`js/mklev.js:27934`): innards + top/bottom + sides matched C, but the `:1648–1654` subroom loop was absent; no `:line` cites; early return fused null-guard with the irregular arm.
+- **Fix:** restarted `topologize` in C order with `:line` cites — roomno via `roomnoidx + ROOMOFFSET` (`:1602`, ≡ pointer arithmetic, set by add_subroom/do_room_or_subroom); bounds (`:1603–1604`); `nsubrooms` snapshot (`:1609`); already-done/irregular skip (`:1612–1614`); innards (`:1619–1627`); top/bottom edges (`:1629–1636`); sides (`:1638–1645`); new subroom recursion (`:1648–1654`, `sbrooms[subindex]`, null-tolerant). Null/level guards stay JS-only (C takes nonnull per extern.h NONNULLARG1); `edge = true` keeps the file's boolean convention (C bitfield `edge,1`).
+- **JS:** `js/mklev.js` only — no new imports, no new cross-module edge (`SHARED`/`ROOMOFFSET` already imported from const.js; same-file local already called from ~40 sites).
+- **Callers:** C `mklev.c:1564/1566` → `level_finalize_topology` (`js/mklev.js:29589` loop over `rooms[0..nroom)`); C `mkroom.c:207/209` → shop `sroom` site (`js/mklev.js:24821`); C `sp_lev.c:2824/2826` → `build_room` (`js/mklev.js:27620`) and the `lspo_room` create_room/create_subroom sites (`js/mklev.js:20238/20253`); C `sp_lev.c:5687/5689` → des-region add_room sites (e.g. `js/mklev.js:10116` temple region; same add_room + topologize pattern throughout); C `:1654` self-recursion → the new subroom loop in `topologize` itself.
+- **Verify:** `node scripts/verify.mjs --fn topologize` → VERIFY: PASS. Tail verbatim:
+  `PASS  syntax   1 changed js file(s): js/mklev.js`
+  `PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates`
+  `note  hidden   verify topologize: no corpus session blocked on it at baseline`
+  `PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 3.6s): 24 PASS, 0 regressed → REACH-OK`
+  `PASS  green    2/2 passing`
+  `PASS  strict   seed8000-tourist-starter.session.json`
+  `PASS  strict   seed0900-tourist-explore-actions.session.json`
+  `PASS  cohort   7/7 passing`
+  `PASS  full     44/44 passing (auto: shared file changed)`
+- **Named omissions:** SPECIALIZATION arms (`:1615–1627` `do_ordinary`/`rtype != OROOM` gate + `OROOM → NO_ROOM` innards, `:1651–1652` `(rtype != OROOM)` recursion arg — compiled out per `global.h:120`, same ground as the `js/mklev.js:24751` note).
+- **Next:** queue head `mhitm.c failed_grab`.
+
 ## D-2596 — `pickup.c` in_container whole-body port (shop sellobj, icebox age, mbag explosion, snuff_lit)
 
 - **Status:** fixed (Open — coverage row `pickup.c` in_container PARTIAL (C 154 L `pickup.c:2558–2712` / JS 85 L in `js/pickup.js`; hops —, callers 7, RNG 1, msg 10), measured `port-coverage.mjs --name in_container` 2026-09-19 @ c0bfe985).
