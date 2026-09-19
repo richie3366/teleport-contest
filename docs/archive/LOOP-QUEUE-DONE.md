@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
+- [x] `dothrow.c` breakobj — coverage PARTIAL (C 90 L `dothrow.c:2480–2574` / JS 66 L in js/dothrow.js; hops 3, callers 9, RNG 1, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn breakobj` (reach regression must be 0). Measured `port-coverage.mjs --name breakobj` 2026-09-19 @ 95d26622. **Addressed:** D-2531
+
+
 - [x] `wizcmds.c` misc_stats — coverage MISSING (C 113 L `wizcmds.c:1284–1399` / JS no symbol; hops —, callers 1, RNG 0, msg 9; dead callees: engr_stats, light_stats, timer_stats, region_stats). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn misc_stats` (reach regression must be 0). Measured `port-coverage.mjs --name misc_stats` 2026-09-19 @ 95d26622.
 
 

@@ -2787,7 +2787,15 @@ APPLIED wakeup (D-1041)**; **`find_mac` minvent ARM_BONUS/guarding (D-1042)**;
 **`thitmonst` unicorn gem catch → `gem_accept` D-2517** (C `:2309–2382` in C order: buddy/gem gates, identified +5/`rn2(7)−3` / guessed +2/`rn2(3)−1` / unknown +1/`rn2(3)−1` luck arms, non-gem nogood→nopick vs glass-noluck accept, `check_shop_obj(TRUE)` + `mpickobj`, `!Blind` pline + `!tele_restrict`→`rloc(RLOC_MSG)`; `goto nopick` as flag; caller `:2097` wired); ball/boulder/`potionhit` body; **swallow vanish pline D-1324**; 
 `cutworm` + shop `obfree` + full `is_plural` otense deferred); 
 throw_obj ACURRSTR crossbow volley gate / quest-artifact launcher / full `weapon_skills` / full 
-`movecmd` bind table
+`movecmd` bind table; 
+**`breakobj` whole body C-order D-2531** (C `:2480–2574`: crackable `erode_obj` ERODE_CRACK + 
+`ER_DESTROYED` return; MIRROR luck; potion `in_use` + lamplit-oil `explode_oil` (canonical home 
+`js/explode.js:1110`, potion.js clone retired) + next2u breath/odor/eyes/`Half_gas_damage` + 
+`potionbreathe`; camera demon; egg luck + pyrolisk `explode(x,y,-11,d(3,6),0,EXPL_FIERY)`; 
+boulder/statue fracture; hero shop billing with eshk `break_seq`/`seq_peaceful` + `stolen_value` + 
+`inside_shop` angry gate); throwit `:1780–1792` land arm wired (flash/breakmsg/breakobj + 
+VENOM_CLASS force-break); callers do.c:352/toss_up ×2/throwit/hero_breaks/breaks wired; 
+named: `fracture_rock` billable arm (zap.c:5552, sync-cascade row)
 
 ### `src/mon.c`, `src/monmove.c`
 
