@@ -5,7 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `invent.c` freeinv_core — coverage THIN (C 43 L `invent.c:1356–1399` / JS 8 L in js/invent.js; hops 3, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn freeinv_core` (reach regression must be 0). Measured `port-coverage.mjs --name freeinv_core` 2026-09-19 @ d57c144b. **Addressed:** D-2588
+- [x] `uhitm.c` mhitm_ad_rust — coverage MISSING (C 52 L `uhitm.c:2281–2335` / JS no symbol; hops 4, callers 1, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mhitm_ad_rust` (reach regression must be 0). Measured `port-coverage.mjs --name mhitm_ad_rust` 2026-09-19 @ d57c144b. **Addressed:** D-2589
+- [x] `uhitm.c` hitum_cleave — coverage MISSING (C 78 L `uhitm.c:651–731` / JS no symbol; hops 4, callers 1, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn hitum_cleave` (reach regression must be 0). Measured `port-coverage.mjs --name hitum_cleave` 2026-09-19 @ 028f5be4. **Addressed:** D-2589
+
+
+- [x] `invent.c` freeinv_core — coverage THIN (C 43 L `invent.c:1356–1399` / JS 8 L in js/invent.js; hops 3, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn freeinv_core` (reach regression must be 0). Measured `port-coverage.mjs --name freeinv_core` 2026-09-19 @ d57c144b. **Addressed:** D-2588 `8c4c1b1f`
 
 
 - [x] `uhitm.c` mhitm_ad_tlpt — coverage THIN (C 94 L `uhitm.c:2859–2955` / JS 28 L in js/mhitm.js; hops 4, callers 1, RNG 0, msg 6). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mhitm_ad_tlpt` (reach regression must be 0). Measured `port-coverage.mjs --name mhitm_ad_tlpt` 2026-09-19 @ d57c144b. **Addressed:** D-2587 `028f5be4`

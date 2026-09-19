@@ -46,7 +46,7 @@ judge 18:47Z cached, unchanged 11/44 5,776 pts vs last audit): the corpus still 
 not predict the judge.
 **Corpus fortress** (re-scored 2026-09-19 audit 1533–1541): **494 / 540
 PASS (91.5 %)** excl. 13 env-only; RNG 99.30 %, screens 98.9 % — **+0 / −3**
-in the D-2574…D-2588 window, all worktree-bisected: Rogue-92026 → D-2574
+in the D-2574…D-2589 window, all worktree-bisected: Rogue-92026 → D-2574
 (review 1533, rehumanize not-found pline); Priest-92163 + Rogue-92221 →
 D-2577 (review 1536, Master-Key wish). Both are Must-fix rows. Per-SHA
 `--reach-all` was clean (neither fn draws tracked RNG — stale PASSes);
@@ -102,10 +102,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `invent.c` freeinv_core — coverage THIN (C 43 L `invent.c:1356–1399` / JS 8 L in js/invent.js; hops 3, callers 2, RNG 0, msg 0).
+**Next cluster:** `uhitm.c` mhitm_ad_rust — coverage MISSING (C 52 L `uhitm.c:2281–2335` / JS no symbol; hops 4, callers 1, RNG 0, msg 3).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2588 (index).**
+**Keep D-0845…D-2589 (index).**
 <!-- recent:begin -->
+**D-2589** `nethack-c/upstream/src/uhitm.c:2281–2335` — `js/mhitm.js` — new exported `mhitm_ad_rust(magr, mattk, mdef, mhm)` in C order with `:line` cites (uhitm arm first with ungated pline + dynamic-import `xkilled` NOMSG — the mhitm↔uhitm static-cycle convention — plus `\|
 **D-2588** `nethack-c/upstream/src/invent.c:1356–1399` — `js/invent.js` — restarted `freeinv_core` in C order with `:line` cites; stays sync (Constitution §2.6) with async `impossible`/`curse` floating un-awaited (getrumor precedent `rumors.js:208`; mplayer/mklev precedent for
 **D-2587** `nethack-c/upstream/src/uhitm.c:2859–2955` — `js/mhitm.js` — restarted `mhitm_ad_tlpt` in C order with `:line` cites: uhitm arm first (floor, ungated negate pline, `u_saw_mon = canseemon || engulfing_u` before the teleport per `:2872`, `await u_teleport_mon(mdef, f
 **D-2586** `nethack-c/upstream/src/mkmaze.c:1042–1093` (pick: `:1046–1047` maze-min, `:1062–1066` mar — `js/mklev.js` — restarted `pick_vibrasquare_location` in C order with `:line` cites throughout; the small-maze guard is a named omit (D_DEBUG-only `ifdebug` pline per `lint.h:62`, condition has no RNG/state effect).
@@ -113,11 +114,10 @@ revisits the picker.
 **D-2584** `nethack-c/upstream/src/objnam.c:4399–4404` (postparse1 "Find corpse type w/o of" six-pref — `js/readobjnam.js:1224–1241` — six caseblind `str_start_is` guards (live hacklib.js export, no new edge) around the no-"of" scan, verbatim C `:4399–4404` order with `:line` cite.
 **D-2583** `nethack-c/upstream/src/polyself.c:497` (old_light capture) + `:570–582` (wizard own-role  — `js/polyself.js` — `new_light_source` joins the existing light.js import (imports.mjs ALREADY, no new edge); `old_light` captured at entry per `:497`; `old_light = 0` after the wizard-rehumanize arm per `:581`; made_chan
 **D-2582** `nethack-c/upstream/src/files.c:3473–3645` (`read_tribute`) + `:3647–3653` (`Death_quote`) — `js/files.js` — restarted `read_tribute` in C order with `:line` cites: `switch (ch0)` mirroring `switch (line[0])` (`:3533`) with `%`/`#`/`default`; split keeps each line's `\n` so the live `strip_newline` runs exactly 
-**D-2581** `nethack-c/upstream/src/read.c:1115–1290` (`seffect_enchant_armor`, staticfn) + `:2414–245 — `js/do_wear.js` — new exported `adj_abon(otmp, delta)` (`:3319–3336`: uarmg/dex + uarmh/int-wis halves, makeknown + ABON only when delta nonzero, botl unconditional; `u.abon`/`game.flags.botl` per Gloves_on).
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2588; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2589; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

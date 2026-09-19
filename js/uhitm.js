@@ -26,6 +26,8 @@ import {
     KILLED_BY_AN, PASSES_WALLS, SLOW_DIGESTION, MALE, FEMALE, MMOVE_DIED, CXN_ARTICLE,
     ERODE_ROT, NO_NC_FLAGS, AD_CURS, EDOG, is_pit, FACE, NEUTRAL, CXN_PFX_THE,
     EXPL_FIERY, ismnum,
+    isok, xytodir, xdir, ydir,
+    DIR_LEFT, DIR_RIGHT, DIR_LEFT2, DIR_RIGHT2, DIR_ERR,
 } from './const.js';
 import {
     WEAPON_CLASS, ARMOR_CLASS, TOOL_CLASS, FOOD_CLASS, COIN_CLASS, RANDOM_CLASS, POTION_CLASS,
@@ -35,7 +37,7 @@ import {
 import { exercise, A_STR, A_DEX, A_WIS, A_CON, acurr, adjalign, change_luck, ALIGNLIM } from './attrib.js';
 import { overexertion, nomul, losehp, is_pool, maybe_half_phys } from './hack.js';
 import { ing_suffix, upstart } from './hacklib.js';
-import { pline, pline_mon, newsym, canseemon, canspotmon, sensemon, map_invisible, unmap_object, memory_glyph_is_invisible, glyph_is_invisible_id, flush_topl_more, You_feel, tmp_at, map_location, nh_delay_output, mon_glyph, shieldeff, impossible, see_monsters, hero_Blind_telepat, You, Your, pline_The } from './display.js';
+import { pline, pline_mon, newsym, canseemon, canspotmon, sensemon, map_invisible, unmap_object, unmap_invisible, memory_glyph_is_invisible, glyph_is_invisible_id, flush_topl_more, You_feel, tmp_at, map_location, nh_delay_output, mon_glyph, shieldeff, impossible, see_monsters, hero_Blind_telepat, You, Your, pline_The } from './display.js';
 import { cansee } from './vision.js';
 import {
     dmgval, hitval, P_SKILL, weapon_hit_bonus, martial_bonus,
@@ -51,7 +53,7 @@ import { near_capacity, useup, useupall, hold_another_object, Blind, observe_obj
 import { PM_BARBARIAN, PM_MONK, PM_KNIGHT, PM_SAMURAI, PM_ARCHEOLOGIST, PM_WIZARD, PM_HUMAN, PM_HEALER, PM_ROGUE } from './generated/monsters_data.js';
 import {
     find_mac, get_mattk, make_corpse, monstone, mhitm_knockback, monkilled, mondead,
-    troll_baned, mhitm_ad_poly, mhitm_ad_slee, mhitm_ad_heal, mhitm_ad_blnd, mhitm_ad_ston, mhitm_ad_elec, mhitm_ad_sedu, mhitm_ad_tlpt, could_seduce, failed_grab, shade_miss,
+    troll_baned, mhitm_ad_poly, mhitm_ad_slee, mhitm_ad_heal, mhitm_ad_blnd, mhitm_ad_ston, mhitm_ad_elec, mhitm_ad_sedu, mhitm_ad_tlpt, mhitm_ad_rust, could_seduce, failed_grab, shade_miss,
     shade_aware, paralyze_monst,
     mhitm_mgc_atk_negated, resists_poison_mm, erode_armor,
     AT_NONE, AT_WEAP, AT_KICK, AT_CLAW, AT_SPIT, AT_HUGS,
@@ -80,7 +82,7 @@ import {
     monnear, record_mvitals_died, seemimic, wakeup, setmangry, dist2,
     wake_nearto, m_carrying, healmon, zombie_maker, zombie_form,
     mtrapped_in_pit, LEVEL_SPECIFIC_NOCORPSE, unique_corpstat,
-    iter_mons, anger_quest_guardians,
+    iter_mons, anger_quest_guardians, NODIAG,
 } from './mon.js';
 import { monflee, m_move, accessible } from './monmove.js';
 import { livelog_printf } from './pline.js';
@@ -88,7 +90,7 @@ import { experience, more_experienced, newexplevel } from './exper.js';
 import { explode, mon_explodes, adtyp_to_expltype } from './explode.js';
 import { rehumanize, body_part, mbodypart, uunstick } from './polyself.js';
 import { mon_nam, Monnam, x_monnam, x_monnam_tame, Hallucination, type_is_pname, pmname, Mgender, a_monnam, safe_oname, s_suffix } from './do_name.js';
-import { artifact_hit, youmonst, is_art, artifact_exists, shade_glare, find_artifact } from './artifact.js';
+import { artifact_hit, youmonst, is_art, artifact_exists, shade_glare, find_artifact, u_wield_art } from './artifact.js';
 import { xname, vtense, The, the, An, an, singular, makeplural, cxname, simpleonames, otense, mshot_xname, Yobjnam2, doname, corpse_xname, ysimple_name } from './objnam.js';
 import { abuse_dog, tamedog } from './dog.js';
 import { makemon, makemon_appear_msg, newcham, adj_lev, clone_mon, mpickobj } from './makemon.js';
@@ -664,9 +666,10 @@ async function xkilled_treasure_drop(mtmp, mdat, x, y, nomsg) {
  * corpse_chance → make_corpse, wasinside museum + spoteffects, newsym,
  * cleanup (murder/peaceful/unicorn luck), experience, quest/priest/tame/
  * peaceful adjalign arms, malign. C `#if 0` HARDFOUGHT livelog stays out.
- * Named omissions: mhitm_ad_rust + mhitm_ad_fire uhitm arms (C callers
- * `:2294`/`:2547`, enclosing C functions unported) and wiz_kill
- * (`wizcmds.c:315`, unported) — own coverage rows.
+ * Named omissions: mhitm_ad_fire uhitm arm (C caller `:2547`, enclosing
+ * C function unported; mhitm_ad_rust uhitm `:2294` now live via
+ * damageum_adtyping AD_RUST) and wiz_kill (`wizcmds.c:315`,
+ * unported) — own coverage rows.
  */
 export async function xkilled(mtmp, xkill_flags = XKILL_GIVEMSG) {
     // C `:3485–3498` — flag unpack; sad_feeling saved and always cleared
@@ -2378,6 +2381,14 @@ async function damageum_adtyping(mattk, mdef, mhm) {
            Routed through the shared mhitm.js arm (elec precedent);
            mhitu arm is mhitm_ad_tlpt_u in mhitu.js. */
         await mhitm_ad_tlpt(game.youmonst, mattk, mdef, mhm);
+    } else if (adtyp === AD_RUST) {
+        /* C ref: uhitm.c mhitm_adtyping `:4805` → mhitm_ad_rust `:2286–2298`
+           uhitm (hero as attacker) arm: iron-golem defender gets the
+           ungated "%s falls|starts to fall to pieces!" + xkilled(NOMSG)
+           with hitflags |= DEF_DIED, then erode_armor(RUST); leftover
+           dice zeroed either way. Routed through the shared mhitm.js
+           arm (elec precedent); mhitu arm is mhitm_ad_rust_u in mhitu.js. */
+        await mhitm_ad_rust(game.youmonst, mattk, mdef, mhm);
     }
 }
 
@@ -2821,8 +2832,81 @@ function double_punch() {
 let gt_twohits = 0;
 
 /**
+ * C ref: uhitm.c hitum_cleave `:651–731` (staticfn) — Cleaver attacks three
+ * spots: adjacent to the primary, the primary, adjacent on the other side.
+ * Swings alternate directions via the file-static clockwise flag (C order:
+ * pre-adjust by two so the loop's first step lands next to the primary,
+ * then step one per attack). Each attack is find_roll_to_hit +
+ * mon_maybe_unparalyze + rnd(20) + known_hitum + passive with bhitpos /
+ * notonhead set like do_attack; the loop breaks when the weapon is gone,
+ * the hero is paralyzed (multi < 0), or life-saving fired (umortality
+ * rose). bhitpos / notonhead are restored; returns FALSE when the primary
+ * target died, TRUE otherwise (hitum's malive shape).
+ */
+let hitum_cleave_clockwise = false;
+
+async function hitum_cleave(target, uattk) {
+    const u = game.u || {};
+    /* find the direction toward primary target */
+    let i = xytodir(u.dx | 0, u.dy | 0);
+    if (i === DIR_ERR) {
+        await impossible('hitum_cleave: unknown target direction [%d,%d,%d]?',
+            u.dx | 0, u.dy | 0, u.dz | 0);
+        return true; /* target hasn't been killed */
+    }
+    /* adjust by two so the loop's step lands next to the primary first */
+    i = hitum_cleave_clockwise ? DIR_LEFT2(i) : DIR_RIGHT2(i);
+    const umort = u.umortality | 0; /* used to detect life-saving */
+    const save_bhitpos = { x: game.bhitpos?.x | 0, y: game.bhitpos?.y | 0 };
+    const save_notonhead = !!game.notonhead;
+    const x = u.ux | 0, y = u.uy | 0;
+
+    for (let count = 3; count > 0; --count) {
+        const attknum = { v: 0 };
+        const armorpenalty = { v: 0 };
+        /* ++i, wrap 8 to 0 /or/ --i, wrap -1 to 7 */
+        i = hitum_cleave_clockwise ? DIR_RIGHT(i) : DIR_LEFT(i);
+        const tx = x + xdir[i], ty = y + ydir[i];
+        if (!isok(tx, ty))
+            continue;
+        const mtmp = m_at(tx, ty);
+        if (!mtmp) {
+            if (memory_glyph_is_invisible(game.level?.at?.(tx, ty)))
+                unmap_invisible(tx, ty);
+            continue;
+        }
+        const tmp = await find_roll_to_hit(
+            mtmp, uattk.aatyp, u.uwep || null, attknum, armorpenalty);
+        mon_maybe_unparalyze(mtmp);
+        const dieroll = rnd(20);
+        const mhit = { v: tmp > dieroll ? 1 : 0 };
+        /* normally set by do_attack() */
+        if (!game.bhitpos) game.bhitpos = {};
+        game.bhitpos.x = tx; game.bhitpos.y = ty;
+        game.notonhead = ((mtmp.mx | 0) !== tx || (mtmp.my | 0) !== ty);
+        await known_hitum(
+            mtmp, u.uwep || null, mhit, tmp, armorpenalty.v, uattk, dieroll);
+        await passive(mtmp, u.uwep || null, !!mhit.v,
+            (mtmp.mhp | 0) >= 1, AT_WEAP, !u.uwep);
+        /* stop if weapon is gone or hero got paralyzed or killed
+           (and then life-saved) by passive counter-attack */
+        if (!u.uwep || (game.multi | 0) < 0 || (u.umortality | 0) > umort)
+            break;
+    }
+    /* set up for next time */
+    hitum_cleave_clockwise = !hitum_cleave_clockwise; /* alternate */
+    if (!game.bhitpos) game.bhitpos = {};
+    game.bhitpos.x = save_bhitpos.x;
+    game.bhitpos.y = save_bhitpos.y;
+    game.notonhead = save_notonhead;
+    /* FALSE if primary target died, TRUE otherwise; a non-Null entry
+       target stays non-Null even if *target died */
+    return !(target && (target.mhp | 0) < 1);
+}
+
+/**
  * C ref: uhitm.c hitum — find_roll_to_hit, rnd(20), known_hitum, passive;
- *         twoweapon / double_punch second swing. Cleaver hitum_cleave deferred.
+ *         twoweapon / double_punch second swing.
  */
 async function hitum(mon, uattk) {
     const u = game.u || {};
@@ -2835,7 +2919,12 @@ async function hitum(mon, uattk) {
     const y = (u.uy | 0) + (u.dy | 0);
     const oldumort = u.umortality | 0;
 
-    // Cleaver: u_wield_art(ART_CLEAVER) && !twoweap → hitum_cleave deferred
+    /* Cleaver attacks three spots, 'mon' and one on either side of 'mon';
+       it can't be part of dual-wielding but we guard against that anyway;
+       cleave return value reflects status of primary target ('mon') */
+    if (u_wield_art(ART_CLEAVER) && !u.twoweap
+        && !u.uswallow && !u.ustuck && !NODIAG(u.umonnum | 0))
+        return await hitum_cleave(mon, uattk);
 
     // 0: single; 1: first of two — hmon copies into hmd.twohits
     gt_twohits = (uwep ? !!u.twoweap : double_punch()) ? 1 : 0;

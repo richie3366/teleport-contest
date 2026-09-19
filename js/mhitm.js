@@ -68,6 +68,7 @@ import {
     RLOC_MSG,
     RLOC_NOMSG,
     XKILL_GIVEMSG,
+    XKILL_NOMSG,
     XKILL_NOCORPSE,
     nothing_happens,
     AD_RBRE,
@@ -920,6 +921,64 @@ export async function mhitm_ad_elec(magr, mattk, mdef, mhm) {
     }
     mhm.damage = (mhm.damage | 0)
         + ((await destroy_items(mdef, AD_ELEC, orig_dmg)) | 0);
+}
+
+/**
+ * C ref: uhitm.c mhitm_ad_rust `:2281–2335` — uhitm (you→mon, `:2286–2298`),
+ * mhitu (mon→you, `:2299–2316`), mhitm (mon→mon, `:2317–2335`) in C order.
+ * uhitm: iron-golem defender (completelyrusts, mondata.h:227) gets the
+ * ungated "%s falls|starts to fall to pieces!" + xkilled(NOMSG) with
+ * hitflags |= DEF_DIED (lifesaver wording is hypothetical for golems),
+ * then erode_armor(RUST); leftover dice zeroed either way. mhitu arm
+ * lives split in mhitu.js mhitm_ad_rust_u (hitmsg + mcan + rust/
+ * rehumanize + erode_armor(youmonst, RUST)). mhitm: cancelled → return
+ * (leftover kept); iron-golem defender → vis-gated pline_mon falls to
+ * pieces + monkilled(null, AD_RUST) (no second kill pline), lifesaved →
+ * MISS + done, else DEF_DIED | grow_up AGR_DIED + done; otherwise
+ * erode_armor(RUST), WAITFORU clear, leftover zeroed (dcay precedent).
+ */
+export async function mhitm_ad_rust(magr, mattk, mdef, mhm) {
+    void mattk;
+    const pd = mdef?.data;
+    if (is_youmonst(magr)) {
+        /* C `:2286–2298` uhitm (hero as attacker) */
+        /* C mondata.h:227 completelyrusts(ptr) — PM_IRON_GOLEM (mndx, D-2259) */
+        if ((pd?.mndx | 0) === PM_IRON_GOLEM) {
+            /* note: the life-saved case is hypothetical because
+               life-saving doesn't work for golems */
+            await pline(`${Monnam(mdef)} ${
+                !mlifesaver(mdef) ? 'falls' : 'starts to fall'} to pieces!`);
+            /* mhitm <-> uhitm is a static cycle; dynamic import (line 636) */
+            const { xkilled } = await import('./uhitm.js');
+            await xkilled(mdef, XKILL_NOMSG);
+            mhm.hitflags = (mhm.hitflags | 0) | M_ATTK_DEF_DIED;
+        }
+        await erode_armor(mdef, ERODE_RUST);
+        mhm.damage = 0; /* damageum(), int tmp */
+        return;
+    }
+    if (is_youmonst(mdef)) return; /* C `:2299–2316` mhitu: mhitu.js mhitm_ad_rust_u */
+    /* C `:2317–2335` mhitm */
+    if (magr.mcan)
+        return;
+    if ((pd?.mndx | 0) === PM_IRON_GOLEM) { /* PM_IRON_GOLEM */
+        if (_mm_vis && canseemon(mdef))
+            await pline_mon(mdef, `${Monnam(mdef)} ${
+                !mlifesaver(mdef) ? 'falls' : 'starts to fall'} to pieces!`);
+        await monkilled(mdef, null, AD_RUST);
+        if (!deadmonster(mdef)) {
+            mhm.hitflags = M_ATTK_MISS;
+            mhm.done = true;
+            return;
+        }
+        mhm.hitflags = M_ATTK_DEF_DIED
+            | ((await grow_up(magr, mdef)) ? 0 : M_ATTK_AGR_DIED);
+        mhm.done = true;
+        return;
+    }
+    await erode_armor(mdef, ERODE_RUST);
+    mdef.mstrategy = (mdef.mstrategy | 0) & ~STRAT_WAITFORU;
+    mhm.damage = 0; /* mdamagem(), int tmp */
 }
 
 /**
@@ -4148,6 +4207,42 @@ async function mdamagem(magr, mdef, mattk, mwep, dieroll) {
             done: false,
         };
         await mhitm_ad_elec(magr, mattk, mdef, mhm);
+        // C mhitm.c:1061-1065 — knockback preempts damage on HIT/DEF_DIED/offmap
+        if (await mhitm_knockback(magr, mdef, mattk, mhm, !!mwep)
+            && (((mhm.hitflags & (M_ATTK_DEF_DIED | M_ATTK_HIT)) !== 0) || mon_offmap(mdef))) {
+            return mhm.hitflags;
+        }
+        if (mhm.done) return mhm.hitflags;
+        damage = mhm.damage | 0;
+        hitflags = mhm.hitflags | 0;
+        if (!damage) return hitflags;
+        mdef.mhp -= damage;
+        if (mdef.mhp < 1) {
+            mdef.mhp = 0;
+            await mdamagem_monkilled(magr, mdef, mattk, mwep);
+            if ((mdef.mhp | 0) > 0) return hitflags; /* lifesaved */
+            if (hitflags === M_ATTK_AGR_DIED) {
+                return M_ATTK_DEF_DIED | M_ATTK_AGR_DIED;
+            }
+            const grew = await grow_up(magr, mdef);
+            return M_ATTK_DEF_DIED | (grew ? 0 : M_ATTK_AGR_DIED);
+        }
+        return (hitflags === M_ATTK_AGR_DIED) ? M_ATTK_AGR_DIED : M_ATTK_HIT;
+    }
+
+    // C: mhitm_adtyping → mhitm_ad_rust for AD_RUST (uhitm.c:4805,
+    // mhitm arm :2317–2335). Cancelled → return (leftover kept);
+    // iron-golem defender → vis falls-to-pieces + monkilled(null),
+    // lifesaved → MISS + done, else DEF_DIED | grow_up AGR_DIED + done;
+    // else erode_armor(RUST), WAITFORU clear, leftover zeroed. uhitm arm
+    // is the damageum_adtyping row; mhitu arm is mhitm_ad_rust_u (mhitu.js).
+    if ((mattk.adtyp | 0) === AD_RUST) {
+        const mhm = {
+            damage,
+            hitflags: M_ATTK_MISS,
+            done: false,
+        };
+        await mhitm_ad_rust(magr, mattk, mdef, mhm);
         // C mhitm.c:1061-1065 — knockback preempts damage on HIT/DEF_DIED/offmap
         if (await mhitm_knockback(magr, mdef, mattk, mhm, !!mwep)
             && (((mhm.hitflags & (M_ATTK_DEF_DIED | M_ATTK_HIT)) !== 0) || mon_offmap(mdef))) {
