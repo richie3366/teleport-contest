@@ -3028,8 +3028,10 @@ begin-memorize** (D-0136); **`study_book` dull-book sleep `rnd(25)`/resume `rnd(
 too_hard nomul/`!rn2(3)` crumble** (D-0681);
 **`set_occupation(learn)` + `learn` finish `makeknown` credit_hero** (D-0907); 
 **`cursed_book` default → `rndcurse`** (D-0969; 
-lenses-speed / confused_book / deadbook / novel / `In_W_tower` / check_unpaid /
-shieldeff still deferred); **`tport_spell` hide/add/unhide/remove SPE_TELEPORT_AWAY (D-1209)**; 
+lenses-speed / confused_book / novel / `In_W_tower` / check_unpaid /
+shieldeff still deferred); **`deadbook` + `deadbook_pacify_undead`** (D-2557;
+C `:210–339`; invocation / raise-dead / pacify-omen arms; `learn` caller wired;
+callees live via one-word `export` on `mkundead`/`mdistu`/`sgn`); **`tport_spell` hide/add/unhide/remove SPE_TELEPORT_AWAY (D-1209)**; 
 **`known_spell` + `dotele` energy/spellcast + `spelleffects` SPE_TELEPORT_AWAY atme + 
 `spelleffects_check` `check_capacity` (D-1225)**; 
 **skilled SPE_FIREBALL/SPE_CONE_OF_COLD `throwspell` scatter (D-1378; 

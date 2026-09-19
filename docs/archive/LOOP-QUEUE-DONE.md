@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `rumors.c` rumor_check — coverage MISSING (C 106 L `rumors.c:196–302` / JS no symbol; hops —, callers 1, RNG 0, msg 8; dead callees: couldnt_open_file). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn rumor_check` (reach regression must be 0). Measured `port-coverage.mjs --name rumor_check` 2026-09-19 @ e07bd9bc. **Addressed:** D-2556
+- [x] `spell.c` deadbook — coverage MISSING (C 108 L `spell.c:231–339` / JS no symbol; hops —, callers 1, RNG 3, msg 9). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn deadbook` (reach regression must be 0). Measured `port-coverage.mjs --name deadbook` 2026-09-19 @ e07bd9bc. **Addressed:** D-2557
+
+
+- [x] `rumors.c` rumor_check — coverage MISSING (C 106 L `rumors.c:196–302` / JS no symbol; hops —, callers 1, RNG 0, msg 8; dead callees: couldnt_open_file). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn rumor_check` (reach regression must be 0). Measured `port-coverage.mjs --name rumor_check` 2026-09-19 @ e07bd9bc. **Addressed:** D-2556 `a689a335`
 
 
 - [x] `files.c` create_levelfile — coverage MISSING (C 49 L `files.c:621–670` / JS no symbol; hops 4, callers 3, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn create_levelfile` (reach regression must be 0). Measured `port-coverage.mjs --name create_levelfile` 2026-09-19 @ e07bd9bc. **Addressed:** D-2555 `bdd6846f`

@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-2557 — `spell.c` deadbook (coverage MISSING → live; whole invocation / raise-dead / pacify body in C order, `learn` caller wired)
+
+- **Status:** fixed (Open coverage row `spell.c` deadbook; cites review 1426 only as prior context for the already-live `mkinvokearea` callee — ACCEPT, no C-wrongs, no stamp needed).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify deadbook`: no corpus session blocked at baseline — Book-of-the-Dead path).
+- **C locus:** `nethack-c/upstream/src/spell.c:231–339` (`deadbook`) in C order: turn-pages `You` + `makeknown(SPE_BOOK_OF_THE_DEAD)` + `observe_object` + `known = 1`; invocation-pos-off-stairs gate; cursed-book `pline_The` scrambled arm; missing-bell/menorah chill + `Soundeffect(se_faint_chime, 30)` + `You_hear` + Vlad arm; invent scan (lit 7-candle candelabrum → arti1, bell rung within 5 moves → arti2, cursed either → fail); cursed-relic fail pair; success (`mkinvokearea`, `uevent.invoked`, `record_achievement(ACH_INVK)`, `uevent.udemigod = 1`, `d(2,6)` doom clock); botched `goto raise_dead`; non-invocation cursed → raise-dead (`!rn2(3)` short-circuit lich-then-nalfeshnee `makemon`, `mpeaceful = 0` + `set_malign`, `(void) unturn_dead`, `mkundead` at hero), blessed → `iter_mons(deadbook_pacify_undead)`, else `rn2(3)` omen switch. Helper `deadbook_pacify_undead` `:210–227` (seen undead/vampshifter → peaceful; co-aligned + `mdistu < 4` → tame/`mtame++` else `tamedog`, else `monflee`). Sole C caller `learn` `:386` (`deadbook(book); return 0`, spbook left set).
+- **JS was:** no symbol (MISSING incl. `js/generated/`); `js/spell.js` `learn` held a `deadbook deferred` stub that cleared `spbook.book`/`o_id` (C never clears on this path); `mkundead` file-local in `js/apply.js`, `mdistu` file-local in `js/mon.js`, `sgn` local in 18 files (all unexported).
+- **Fix:** `js/spell.js` — file-local `async deadbook_pacify_undead` + `async deadbook` in C order with `:line` cites (C staticfns stay local, `mkinvpos` precedent); `goto raise_dead` as one shared `raise_dead` closure called from the botched-invocation arm and the cursed arm; message calls await live `You`/`Your`/`pline_The`/`pline`/`You_hear`; `Blind()` is the established file-local `spell.js:402` port (not a new import); object/monster ids via file-idiom `objectNames`/`monsterNames.indexOf`; invent via `game.invent`, moves via `game.moves`, `u.uhave`/`u.uevent` with `|| {}` guards. New imports reuse live exports only: `makemon`/`set_malign`, `tamedog`, `monflee`, `mkinvokearea`, `unturn_dead`, `iter_mons`, `is_undead`/`is_vampshifter`/`mons`, `observe_object`, `invocation_pos`/`On_stairs`, `d`, `Soundeffect`/`se_faint_chime`, `something`/`ACH_INVK`/`NO_MINVENT`/`SPINE` (all IN-SCC runtime-only or cycle-free; no top-level TDZ reads). One-word `export` added to `apply.js` `mkundead`, `mon.js` `mdistu`, `eat.js` `sgn` (no clone #2/#8/#19). Caller `learn` now `await deadbook(book); return 0` with no spbook clearing, per C.
+- **JS:** `js/spell.js` (+190/−8: 2 functions + 5 consts + import lines + caller wiring); `js/apply.js`, `js/mon.js`, `js/eat.js` (+1/−1 each: `export` only).
+- **Callers:** `spell.c:386` `learn` → `js/spell.js` `learn` awaits `deadbook`. No call from a site C never calls from (sole C caller).
+- **Verify:** `node scripts/verify.mjs --fn deadbook` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   4 changed js file(s): js/apply.js js/eat.js js/mon.js js/spell.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify deadbook: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 5.9s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+
+VERIFY: PASS
+```
+- **Named omissions:** none new. `display_nhwindow` flushes ride on live `pline` (file idiom, `mkinvokearea` D-2467 precedent); `wizdeadorgone()` is a C comment only — the `udemigod = 1` set is the port.
+- **Next:** `learn` Confusion→`confused_book`, lenses `rn2(2)`, faded-blank `rn2` polish, `check_unpaid` remain named in `js/spell.js`/`turns.md` (separate rows, not this commit).
+
 ## D-2556 — `rumors.c` rumor_check (coverage MISSING → live; whole wizard-verify body in C order over Rule #2 embeds + #wizrumorcheck wired)
 
 - **Status:** fixed (Open coverage row `rumors.c` rumor_check; cites no review — no stamp needed).
