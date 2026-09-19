@@ -97,6 +97,7 @@ middle famished `pline`; live `js/sounds.js`; caller `dog_hunger`
 `context.novel`; dlb; `dog_hunger`/`dog_move` wire; `peacefuls_respond` / MS_ARREST Halt;
 SND_SPEECH/`sound_verbal` body; remaining vault/priest/sit SetVoice.
 lookup_novel is D-1651. putmsghistory body is D-1588.
+**read_tribute D-2582** (`files.c` `:3473–3645` whole-body restart in C order with `:line` cites — `switch (line[0])` `%`/`#`/`default` (`:3533`); split keeps `\n` so live `strip_newline` (`pager.js`, `hacklib.c:179–190`) runs exactly like C (`:3532`); `linect` kept for the compiled-out bad-`%` message (`:3531`, `:3589–3591`); cap C-exact `(bufsz|0) - 1` (`:3606`); `choose_passage` vs clamped explicit passage (`:3553–3556`); `%e` goto + scope pop (`:3580–3588`); attribution + `putmsghistory` (`:3629–3635`); window create deferred, `:3575–3576` WIN_ERR named infallible, `:3638` destroy owned by `show_nhw_menu_text`; `debugpline3` (`:3499–3500`) compiled out; dlb → embed (D-0477); live `js/files.js:314`, callers `spell.c:517` → `js/spell.js:1034`, `files.c:3652` → `js/files.js:1147`, `sounds.c:1210` → `js/sounds.js:1478` all wired). Named: file-local `tribute_ncmpi` (clone #4) / `tribute_copynchars` (clone #2) / `tribute_atoi` (review 594 debt); Sprintf/Strcpy/strchr/strrchr → string ops; save/rest `context.novel`.
 **open_levelfile D-2472** (`files.c` `:673–716` + `fqname` `:354–393` +
 `init/new/free/viable_nhfile` + `set_levelfile_name` `:606–618`; live
 `js/files.js:466–724` `fqname`/`init_nhfile`/`new_nhfile`/`free_nhfile`/

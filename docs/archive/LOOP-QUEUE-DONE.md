@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
+- [x] `files.c` read_tribute — coverage PARTIAL (C 169 L `files.c:3474–3645` / JS 122 L in js/files.js; hops 4, callers 2, RNG 0, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn read_tribute` (reach regression must be 0). Measured `port-coverage.mjs --name read_tribute` 2026-09-19 @ 09224e39.
+
+
 - [x] `read.c` seffect_enchant_armor — coverage PARTIAL (C 175 L `read.c:1115–1290` / JS 118 L in js/read.js; hops 5, callers 1, RNG 4, msg 7). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn seffect_enchant_armor` (reach regression must be 0). Measured `port-coverage.mjs --name seffect_enchant_armor` 2026-09-19 @ d56627bd.
 - [x] `read.c` wand_explode — coverage THIN (C 43 L `read.c:2414–2457` / JS 19 L in js/read.js; hops 5, callers 3, RNG 1, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn wand_explode` (reach regression must be 0). Measured `port-coverage.mjs --name wand_explode` 2026-09-19 @ 09224e39.
 

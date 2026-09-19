@@ -1,5 +1,33 @@
 # Divergence log
 
+## D-2582 — `files.c` read_tribute whole-body restart (C-order switch, live strip_newline, C-exact bufsz cap)
+
+- **Status:** fixed (Open — coverage row `files.c` read_tribute PARTIAL, C 169 L `files.c:3474–3645` / JS 122 L in js/files.js; hops 4, callers 2, RNG 0, msg 4; measured `port-coverage.mjs --name read_tribute` 2026-09-19 @ 09224e39).
+- **Symptom:** coverage gap — the JS body covered every arm behaviorally (review 594 ACCEPT) but carried no per-arm C cites, hand-rolled the `:3532` newline strip (`split('\n')` + trailing-`\r` cut) instead of the live `strip_newline`, dropped the debug-only `linect`, and widened the C `:3606` `bufsz - 1` cap with a BUFSZ fallback on the `bufsz<=0` arm C renders empty.
+- **C locus:** `nethack-c/upstream/src/files.c:3473–3645` (`read_tribute`) + `:3647–3653` (`Death_quote`) + `:3420–3422` (SECTIONSCOPE/TITLESCOPE/PASSAGESCOPE) + `global.h:33` (TRIBUTEFILE); callees `hacklib.c:716–734` (`strncmpi`), `:286–297` (`copynchars`), `:141–160` (`mungspaces`), `:179–190` (`strip_newline`); callers `spell.c:517`, `files.c:3652`, `sounds.c:1210` (`extern.h:1125` decl).
+- **JS was:** `js/files.js:306` if/else chain on `charAt(0)` with one header cite; `split('\n')` + `endsWith('\r')` strip; `cap = (bufsz>0 ? bufsz : BUFSZ) - 1`; no `linect`; window-create deferral and debug arms undocumented.
+- **Fix:** `js/files.js` — restarted `read_tribute` in C order with `:line` cites: `switch (ch0)` mirroring `switch (line[0])` (`:3533`) with `%`/`#`/`default`; split keeps each line's `\n` so the live `strip_newline` runs exactly like C (`:3532`); `linect++` kept for the compiled-out bad-`%` message (`:3531`, `:3589–3591`); cap is C-exact `(bufsz|0) - 1` (`:3606`, negative copies nothing like C `n>0`); `choose_passage(passagecnt, oid>>>0)` vs clamped explicit passage (`:3553–3556`); `%e` foundpassage-goto + scope pop (`:3580–3588`); attribution `strchr`/`mungspaces`-or-construct + `strrchr` `; passage #N]` (`:3629–3634`) + `putmsghistory` (`:3635`); window create deferred to the cleanup display with the `:3575–3576` WIN_ERR goto named infallible and `:3638` destroy owned by `show_nhw_menu_text`; `debugpline3` (`:3499–3500`) named compiled out; dlb open/read/close → Rule #2 `TRIBUTE_TEXT` embed (`:3502`, `:3530`, `:3614`). Export name/signature unchanged. New maintained pin `scripts/read-tribute.test.mjs` (4/4: `Death_quote` fills the one-line buffer; unknown title leaves it empty; null mandatories return FALSE; passage 9999 past the count cannot match).
+- **JS:** `js/files.js:43` import line (`strip_newline` joins the existing pager edge — imports.mjs ALREADY, no new edge), `:300–472` restarted `read_tribute` (`:314` export, `:358` strip_newline, `:360` switch, `:423` copynchars); `scripts/read-tribute.test.mjs` new.
+- **Callers:** C `spell.c:517` → `js/spell.js:1034` (`study_book` SPE_NOVEL, already wired); C `files.c:3652` → `js/files.js:1147` `Death_quote` (already wired); C `sounds.c:1210` → `js/sounds.js:1478` (MS_RIDER `Death_quote`, already wired D-1653). No caller edits needed.
+- **Verify:** `node scripts/verify.mjs --fn read_tribute` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/files.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify read_tribute: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 3.5s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+
+VERIFY: PASS
+```
+Focused pin: `node --test scripts/read-tribute.test.mjs` → 4 pass / 0 fail (first run failed honestly on unseeded ISAAC `coreCtx` — harness now `initRng(1234)` in `beforeEach`, product untouched).
+- **Named omissions:** dlb_fopen/fgets/fclose → embed (Rule #2, D-0477); `debugpline3`/`debugpline1` compiled out; `create_nhwindow` WIN_ERR arm infallible in JS; `strncmpi`/`strcmpi` → file-local `tribute_ncmpi` (clone #4, review 594 debt); `copynchars` → file-local `tribute_copynchars` (clone #2); `atoi` → file-local `tribute_atoi` (space/tab skip only — tribute `(n)`/`%passage k` fields); Sprintf/Strcpy/strchr/strrchr → string ops (no arena); save/rest `context.novel`, `lookup_novel` (D-1651), `dog_hunger`/`dog_move` wire (map-standing). Map: `docs/c-js-map/data.md` files.c read_tribute section.
+- **Next:** pop the next Open — coverage row (`topten.c` topten PARTIAL).
+
 ## D-2581 — `read.c` seffect_enchant_armor + wand_explode whole-body ports (adj_abon live, wand-explode throw fixed)
 
 - **Status:** fixed (Open — coverage rows `read.c` seffect_enchant_armor PARTIAL, C 175 L `:1115–1290` / JS 118 L + same-file `read.c` wand_explode THIN, C 43 L `:2414–2457` / JS 19 L; popped after `mklev.c` finddpos parked STALE — body complete `js/mklev.js:27995`, 10/10 callers wired — per the breadth stale rule).
