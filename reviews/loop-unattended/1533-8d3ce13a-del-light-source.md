@@ -147,4 +147,4 @@ screen-cohort re-run, not just smoke.
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-2583
+**Addressed:** D-2583 `5a8a1f73`

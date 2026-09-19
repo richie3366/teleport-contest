@@ -1269,7 +1269,7 @@ shadowing `const.js` — truncated 37-char artifact wishes so
 `is_quest_artifact` short-circuit in the deny check (D-2172; C
 `objnam.c:5371–5380` single-`if` order — quest artifacts skip the
 `rn2(nartifact_exist())` roll entirely, even in wizard mode; non-quest
-artifacts always roll; `quest.js` export reused, other 4 clones stay).
+artifacts always roll; `quest.js` export reused, other 4 clones stay). **postparse1 corpse-scan guards D-2584** (C `objnam.c:4399–4404`; `js/readobjnam.js:1224–1243` — six caseblind `str_start_is` guards around the no-"of" `name_to_monplus` block; live hacklib.js export, no new edge; `s' ` possessive arm `:4420–4421` stays in the remainder deferral).
 
 ### `src/invent.c` `hold_another_object` / `prinv` / `count_contents` / `assigninvlet`
 

@@ -97,8 +97,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `objnam.c` Master-Key wish regression (D-2577) — regressed 2/553 (scen-wish-Priest-92163 step 234/320 + scen-wish-Rogue-92221 step 92/107 kind=rng, owner next_ident mkobj.c:521: C `You are blasted by the key named the Master Key of Thievery's power!` vs JS `Nothing fitting that description exists in the game.`; both PASS on js@a90eb521, FAIL on js@1ff074ca — worktree-bisected; readobjnam-only revert does not fix). Fix: wish `cursed the Master Key of Thievery` now matches Monk rank title `Master` at the :1230 corpse block (mntmp 336, C-agreed) but the truncated bp never reaches `artifact_name` → `touch_artifact` blast; repair the postparse1→postparse3 wish flow (actualn/dn vs truncation, C `:4431–4435` + `:4872–4878`), not the matcher. Verify `node scripts/hidden-proxy.mjs score --ids scen-wish-Priest-92163,scen-wish-Rogue-92221` → both PASS on the fix. Source: reviews/loop-unattended/1536-1ff074ca-name-to-monplus.md.
-
 A **JS throw** in any corpus session (`hidden-proxy status` owner
 `js-throw …`, or a `ReferenceError` in `.cache/hidden/scores.json`
 `error`), and a corpus worker **hang** (`ETIMEDOUT` under `verify`), are

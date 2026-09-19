@@ -1221,9 +1221,24 @@ export function readobjnam(bp, no_wish, missOut) {
         }
     }
 
+    // C ref: objnam.c readobjnam_postparse1 `:4399–4404` — "Find corpse
+    // type w/o of" skips six head words that are object names or rank
+    // titles, not monsters: "samurai sword" (not the samurai monster),
+    // "wizard lock" (not the wizard monster), "death wand" ('of
+    // inversion', not the Rider), "master key" (not the Master rank),
+    // "ninja-to" (not the ninja rank), "magenta" (not the mage rank).
+    // Without the "master key" guard a wish for the Master Key of Thievery
+    // truncates bp at the Monk rank title and never reaches artifact_name
+    // (D-2577 regression: scen-wish-Priest-92163 + scen-wish-Rogue-92221).
     {
         const rem = { rest: null };
-        if (d.mntmp < LOW_PM && d.bp.length > 2) {
+        const noMonScan = str_start_is(d.bp, 'samurai sword', true)
+            || str_start_is(d.bp, 'wizard lock', true)
+            || str_start_is(d.bp, 'death wand', true)
+            || str_start_is(d.bp, 'master key', true)
+            || str_start_is(d.bp, 'ninja-to', true)
+            || str_start_is(d.bp, 'magenta', true);
+        if (!noMonScan && d.mntmp < LOW_PM && d.bp.length > 2) {
             // C objnam.c:4408 passes &d->mgend (init -1); write back even on
             // NON_PM since name_to_monplus may still set matchgend.
             const gbox = { gender: d.mgend };

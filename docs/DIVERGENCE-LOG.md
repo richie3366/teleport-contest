@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-2584 — `objnam.c` Master-Key wish regression (postparse1 corpse-scan guards)
+
+- **Status:** fixed (Must-fix row ``objnam.c`` Master-Key wish regression (D-2577); review 1536 QUALITY-RISK actionable #1).
+- **Symptom:** regressed 2/553: scen-wish-Priest-92163 step 234/320 + scen-wish-Rogue-92221 step 92/107 kind=rng, owner next_ident mkobj.c:521 — C `You are blasted by the key named the Master Key of Thievery's power!` vs JS `Nothing fitting that description exists in the game.` Both PASS on js@a90eb521, FAIL on js@1ff074ca (worktree-bisected in review 1536; readobjnam-only revert does not fix).
+- **C locus:** `nethack-c/upstream/src/objnam.c:4399–4404` (postparse1 "Find corpse type w/o of" six-prefix skip) + `:4407–4431` (name_to_monplus block + no-referent restore) + `:4872–4881` (postparse3 artifact_name arm). C skips the corpse scan when bp starts with "samurai sword" (not the samurai monster), "wizard lock" (not the wizard monster), "death wand" ('of inversion', not the Rider), "master key" (not the Master rank), "ninja-to" (not the ninja rank), or "magenta" (not the mage rank) — so `cursed the Master Key of Thievery` keeps mntmp=NON_PM and the full bp, and postparse3 reaches `artifact_name("Master Key of Thievery")` → SKELETON_KEY + oname → oartifact → touch_artifact blast. Measured in C (read here): the guard is in the caller, not the matcher — C's name_to_monplus itself agrees "Master" is the Monk title, which is why the D-2577 matcher port is correct and untouched.
+- **JS was:** the postparse1 clone in `readobjnam()` (`js/readobjnam.js:1224`) ran the `name_to_monplus` block unguarded, so the new (correct) title_to_mon fallback matched "Master", set mntmp=336 (Monk), truncated bp to "Key of Thievery", and postparse2's tail derived actualn from the truncated bp — `artifact_name("Key of Thievery")` misses → null → `Nothing fitting...`. The six guards were a pre-existing omission (missing since before D-2577), newly exposed by the faithful matcher. Measured pre-fix: unit probe `readobjnam("cursed the Master Key of Thievery")` → null; `readobjnam("blessed samurai sword")` → LONG_SWORD (truncated "sword" match).
+- **Fix:** `js/readobjnam.js:1224–1241` — six caseblind `str_start_is` guards (live hacklib.js export, no new edge) around the no-"of" scan, verbatim C `:4399–4404` order with `:line` cite. `str_start_is(s, pre, true)` ≡ `!strncmpi(s, pre, strlen(pre))` including the short-bp fallthrough (both enter the scan). No matcher, caller, RNG, or draw-order change.
+- **JS:** `js/readobjnam.js:1224` comment + `:1237–1243` guards; export name/signature unchanged. New durable test `scripts/master-key-wish.test.mjs` (3 cases: cursed Master Key → SKELETON_KEY + oartifact + cursed; uncursed → SKELETON_KEY; samurai sword → KATANA) — fails pre-fix (null / LONG_SWORD), passes post-fix.
+- **Callers:** no caller edits — all C `readobjnam` callers ride the unchanged export through the fixed body: C zap.c:6360 (makewish) → js/zap.js:7038 via `readobjnam_wish` (js/readobjnam.js:699); C files.c:2568 (bones) → js/files.js:144; js/mklev.js:27310 (Lua-replacement escape_items, fixed strings, none hits the six prefixes — unaffected). Named omissions (pre-existing): C zap.c:6366 `readobjnam(NULL)` random-wish arm (js/zap.js:7044); C nhlobj.c:360 (no JS counterpart module).
+- **Verify:** row falsifier `node scripts/hidden-proxy.mjs score --ids scen-wish-Priest-92163,scen-wish-Rogue-92221` → both PASS full: Priest 4249/4249 RNG + 320/320 screens, Rogue 3349/3349 RNG + 107/107 screens; corpus 495/540 → 497/540 with the `2x next_ident mkobj.c:521` owner gone. `node scripts/verify.mjs --fn readobjnam_postparse1` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/readobjnam.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify readobjnam_postparse1: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 3.5s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+
+VERIFY: PASS
+```
+- **Named omissions:** postparse1 `s' ` possessive arm (C `:4420–4421`, needs `d.bp > d.origbp` position info JS strings don't carry) stays in the "postparse1 remainder" deferral; matcher (D-2577) untouched by design.
+- **Next:** none from this fix — Must-fix row closed; review 1536 stamped.
+
 ## D-2583 — `polyself.c` polyself made_change light bookkeeping (rehumanize del_light_source not-found regression)
 
 - **Status:** fixed (Must-fix row ``light.c`` del_light_source rehumanize regression (D-2574); review 1533 QUALITY-RISK actionable #1).

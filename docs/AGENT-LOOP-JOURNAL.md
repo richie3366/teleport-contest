@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-19 — D-2584 `objnam.c` Master-Key wish regression (postparse1 corpse-scan guards)
+
+**C locus:** `nethack-c/upstream/src/objnam.c:4399–4404` (postparse1 "Find corpse type w/o of" six-prefix skip) + `:4407–4431` (name_to_monplus block + no-referent restore) + `:4872–4881` (postparse3 artifact_name arm). C skips the corpse scan when bp starts with "samurai sword" (not the samurai monster), "wizard lock" (not the wizard monster), "death wand" ('of inversion', not the Rider), "master key" (not the Master rank), "ninja-to" (not the ninja rank), or "magenta" (not the mage rank) — so `cursed the Master Key of Thievery` keeps mntmp=NON_PM and the full bp, and postparse3 reaches `artifact_name("Master Key of Thievery")` → SKELETON_KEY + oname → oartifact → touch_artifact blast. Measured in C (read here): the guard is in the caller, not the matcher — C's name_to_monplus itself agrees "Master" is the Monk title, which is why the D-2577 matcher port is correct and untouched.
+**JS:** `js/readobjnam.js:1224` comment + `:1237–1243` guards; export name/signature unchanged. New durable test `scripts/master-key-wish.test.mjs` (3 cases: cursed Master Key → SKELETON_KEY + oartifact + cursed; uncursed → SKELETON_KEY; samurai sword → KATANA) — fails pre-fix (null / LONG_SWORD), passes post-fix.
+**Change:** `js/readobjnam.js:1224–1241` — six caseblind `str_start_is` guards (live hacklib.js export, no new edge) around the no-"of" scan, verbatim C `:4399–4404` order with `:line` cite. `str_start_is(s, pre, true)` ≡ `!strncmpi(s, pre, strlen(pre))` including the short-bp fallthrough (both enter the scan). No matcher, caller, RNG, or draw-order change.
+**Verify:** row falsifier `node scripts/hidden-proxy.mjs score --ids scen-wish-Priest-92163,scen-wish-Rogue-92221` → both PASS full: Priest 4249/4249 RNG + 320/320 screens, Rogue 3349/3349 RNG + 107/107 screens; corpus 495/540 → 497/540 with the `2x next_ident mkobj.c:521` owner gone. `node scripts/verify.mjs --fn readobjnam_postparse1` → VERIFY: PASS. Tail pasted verbatim:
+**Named:** postparse1 `s' ` possessive arm (C `:4420–4421`, needs `d.bp > d.origbp` position info JS strings don't carry) stays in the "postparse1 remainder" deferral; matcher (D-2577) untouched by design.
+**Next:** none from this fix — Must-fix row closed; review 1536 stamped.
 ## 2026-09-19 — D-2583 `polyself.c` polyself made_change light bookkeeping (rehumanize del_light_source not-found regression)
 
 **C locus:** `nethack-c/upstream/src/polyself.c:497` (old_light capture) + `:570–582` (wizard own-role rehumanize, `:581` old_light=0) + `:720–730` (made_change) + `:1393–1394` (rehumanize del); `light.c:99–138` (del, unchanged D-2574) + `:62–65` (new_light_source, unchanged).
