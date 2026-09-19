@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-19 — D-2571 `zap.c` create_polymon whole-body port (material→golem table, bhitpile wire)
+
+**C locus:** `nethack-c/upstream/src/zap.c:1546–1633` (`create_polymon`, staticfn; decl `:19`; sole C caller `bhitpile` `:2485`): bypassed pile-head skip `:1553–1561` + lone-object refusal `:1564–1565` + material→golem switch `:1568–1620` (rn2(2) lithic fork, straw default) + genocided-mdat null `:1622–1623` + makemon MM_NOMSG `:1625` + polyuse toward cwt `:1627` + visible meld/arise pline `:1628–1632`.
+**JS:** `js/zap.js` `create_polymon` + two import names + const blocks + bhitpile wire (caller untouched otherwise).
+**Change:** `js/zap.js` — new file-local async `create_polymon(obj, okind)` (C staticfn → file-local like `bhit_skiprange`) in C order with `:line` cites; `G_GENOD` joins the existing const.js import + `a_monnam` joins the existing do_name.js import (two ALREADY-edges, no new module); new `MAT_*` material consts (`objclass.h:14–35`) beside `MAT_GEMSTONE/MINERAL` + nine `PM_*_GOLEM`/`PM_SKELETON` consts beside the golem block (`monsterNames.indexOf`, all nine verified in `js/generated/`). `mons(pm_index)?.cwt` feeds polyuse even when genocided (C `mons[pm_index].cwt`, not mdat).
+**Verify:** `node scripts/verify.mjs --fn create_polymon` → VERIFY: PASS. Tail pasted verbatim:
+**Named:** none new — every arm and callee live or ported in this commit (`recreate_pile` restack + `fill_pit` stay named omits with own rows, review 1326).
+**Next:** pop the next Open — coverage row (`uhitm.c` mhitm_ad_wrap).
 ## 2026-09-19 — D-2570 `shknam.c` shkinit restart in C order (live set_malign + mon_learns_traps)
 
 **C locus:** `nethack-c/upstream/src/shknam.c:628–692` (`shkinit`, staticfn; decl `:17`; sole C caller `stock_room` `:733`): good_shopdoor `:636` + DEBUG wizard block `:638–655` + sh<0 return; MON_AT insurance rloc `:658–660`; makemon MM_ESHK `:663–664`; ESHK `:665`; isshk/mpeaceful + set_malign + msleeping + mon_learns_traps `:666–668`; shoproom/resident/shoptype/assign_level/shd/shk `:669–675`; zeroed books `:676–680`; mkmonmoney `:681`; touchstone `:682–683`; charging `:684–687`; nameshk `:688`; return sh `:690`.

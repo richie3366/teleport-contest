@@ -1,6 +1,31 @@
 # Divergence log
 
-## D-2570 — `shknam.c` shkinit restart in C order (live set_malign + mon_learns_traps)
+## D-2571 — `zap.c` create_polymon whole-body port (material→golem table, bhitpile wire)
+
+- **Status:** fixed (Open — coverage row `zap.c` create_polymon MISSING, C 87 L `zap.c:1546–1633` / JS no symbol). Same commit parks three stale coverage rows (`uhitm.c` mhitm_ad_ench, `detect.c` food_detect, `attrib.c` newhp — bodies complete under same/split names, proofs in `LOOP-QUEUE.md` Parked/Stale).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify create_polymon`: no corpus session blocked at baseline — 24-session smoke REACH is the corpus evidence). Polymorphing a floor pile never spawned the C golem aftermath (review 1326 ACCEPT left it a named omit with its own row).
+- **C locus:** `nethack-c/upstream/src/zap.c:1546–1633` (`create_polymon`, staticfn; decl `:19`; sole C caller `bhitpile` `:2485`): bypassed pile-head skip `:1553–1561` + lone-object refusal `:1564–1565` + material→golem switch `:1568–1620` (rn2(2) lithic fork, straw default) + genocided-mdat null `:1622–1623` + makemon MM_NOMSG `:1625` + polyuse toward cwt `:1627` + visible meld/arise pline `:1628–1632`.
+- **JS was:** no symbol; `js/zap.js` `bhitpile` ended at the hidingunder tail with `create_polymon` a named omit (review 1326). Callee `polyuse` already live (`zap.js:6741`, D-1939).
+- **Fix:** `js/zap.js` — new file-local async `create_polymon(obj, okind)` (C staticfn → file-local like `bhit_skiprange`) in C order with `:line` cites; `G_GENOD` joins the existing const.js import + `a_monnam` joins the existing do_name.js import (two ALREADY-edges, no new module); new `MAT_*` material consts (`objclass.h:14–35`) beside `MAT_GEMSTONE/MINERAL` + nine `PM_*_GOLEM`/`PM_SKELETON` consts beside the golem block (`monsterNames.indexOf`, all nine verified in `js/generated/`). `mons(pm_index)?.cwt` feeds polyuse even when genocided (C `mons[pm_index].cwt`, not mdat).
+- **JS:** `js/zap.js` `create_polymon` + two import names + const blocks + bhitpile wire (caller untouched otherwise).
+- **Callers:** `zap.c:2485` `bhitpile` `create_polymon(objects[tx][ty], poly_zapped)` → `js/zap.js` `await create_polymon(objects_at(tx, ty), game._poly_zapped)` under the `(_poly_zapped|0) >= 0` gate (C never calls it from any other site — brief reference list is decl + this call).
+- **Verify:** `node scripts/verify.mjs --fn create_polymon` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/zap.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify create_polymon: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 4.5s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+
+VERIFY: PASS
+```
+- **Named omissions:** none new — every arm and callee live or ported in this commit (`recreate_pile` restack + `fill_pit` stay named omits with own rows, review 1326).
+- **Next:** pop the next Open — coverage row (`uhitm.c` mhitm_ad_wrap).
 
 - **Status:** fixed (Open — coverage row `shknam.c` shkinit PARTIAL, C 64 L `shknam.c:628–692` / JS 45 L in `js/shknam.js`).
 - **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify shkinit`: no corpus session blocked at baseline — 82-session REACH is the corpus evidence). Two genuine live-arm gaps: `set_malign` never called (keeper malign kept makemon's pre-peaceful weight) and `mon_learns_traps(ALL_TRAPS)` inlined as `mtrapseen = ~0` instead of the live export.

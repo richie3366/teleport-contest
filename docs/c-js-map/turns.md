@@ -721,7 +721,7 @@ mklev.js `create_object_delete_contents`, objnam empty/verysmall statue);
 (`polyuse` bypasses→uball/uchain→`obj_resists(0,0)`→SCR_MAIL→`rn2(minwt+1)`→bill/stolen→`delobj`;
 `mon_spell_hits_spot` MAGM/ACID wipe + `ZT_SPELL` `zap_over_floor` + `impossible` else;
 `wish_history_menu` `#ifdef DEBUG` production no-op;
-named: `create_polymon` body, mcastu call sites, `makewish` history gate).
+named: mcastu call sites, `makewish` history gate; `create_polymon` body shipped D-2571 (file-local `js/zap.js`, wired in `bhitpile`; `recreate_pile`/`fill_pit` still deferred).
 
 ### `src/read.c` `doread`/`seffects`
 
