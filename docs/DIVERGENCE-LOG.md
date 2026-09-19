@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-2567 — `engrave.c` make_engr_at restart in C order (smem/havepristine, engr_szeach/engr_alloc, N_ENGRAVE random arm)
+
+- **Status:** fixed (Open — coverage row `engrave.c` make_engr_at PARTIAL, C 44 L / JS 23 L).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify make_engr_at`: no corpus session blocked at baseline — the omitted fields only size save/restore, and the HEADSTONE/N_ENGRAVE swap is numerically identical today since both are 6).
+- **C locus:** `nethack-c/upstream/src/engrave.c:407–457` (`make_engr_at`, extern via extern.h:1016, s NONNULLARG3): smem = strlen(s)+1, widened to pristine (`:414–422`); replace-at via engr_at/del_engr (`:423–424`); newengr(smem*3) + memset + prepend + coords (`:426–431`); three text slots all start as s, pristine overwritten only when passed (`:432–438`); Elbereth → guardobjects iff in_mklev else exercise(A_WIS,TRUE) (`:439–447`); time / (xint8) type-or-`rnd(N_ENGRAVE-1)` / engr_szeach / engr_alloc (`:448–454`); eread/erevealed left for the caller (`:455–456`).
+- **JS was:** `js/engrave.js:567` — correct replace-at, three states, Elbereth arm and time/type, but no `engr_szeach`/`engr_alloc` (C `:453–454`, consumed by save/restore `:1554–1638`), no smem/havepristine structure (pristine defaulted to s, same outcome but not C order), and the random arm cited `rnd(HEADSTONE - 1)` instead of C `rnd(N_ENGRAVE - 1)`.
+- **Fix:** `js/engrave.js` — restarted `make_engr_at` in C order with `:line` cites: smem/havepristine block, replace-at (del_engr no-ops on null, matching the `!= 0` guard), record literal with `engr_szeach: smem` + `engr_alloc: smem * 3`, pristine overwrite gated on havepristine, Elbereth guardobjects/exercise after list prepend; `N_ENGRAVE` joins the existing const.js import (ALREADY-edge, numerically 6 either way). `return ep` kept (C is void) — mklev lua/des handlers depend on it.
+- **JS:** `js/engrave.js` (function restart + one import name); `docs/c-js-map/turns.md` engrave section (D-2567 note).
+- **Callers:** engrave.c:1075 → `js/engrave.js:1294` (de.buf/de.ebuf/moves/de.type); engrave.c:1461 → `js/engrave.js:1201` (buf/NULL/moves-multi/type); engrave.c:1701 make_grave → `js/engrave.js:233` (HEADSTONE); mklev.c:768 → `js/mklev.js:28499` (DUST + wipe age 5); mklev.c:1153 → `js/mklev.js:29190` (MARK via the `MARK as ENGRAVE_MARK` import alias); shknam.c:762 → `js/shknam.js:721` (DUST); sp_lev.c:3928 lspo_engraving → `js/mklev.js:6124/14362/17309/17662` (lua/des opcode handlers, guardobjects/nowipeout after); zap.c:3656 → `js/zap.js:6047` (moves, 0 → random type). No caller edits; no call from a site C never calls from (extra mklev Elbereth/Dig sites predate this commit).
+- **Verify:** `node scripts/verify.mjs --fn make_engr_at` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/engrave.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify make_engr_at: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 4.6s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+
+VERIFY: PASS
+```
+- **Named omissions:** newengr/engr_text_space arena (by design — JS strings need no arena; sizes kept on the record); `return ep` JS extension noted above. Every arm live.
+- **Next:** pop the next Open — coverage row (`objnam.c` readobjnam_postparse2).
+
 ## D-2566 — `optlist.h` travel_debug negateok-No dropped from OPT_NEGATEOK_NO (review 1520 QUALITY-RISK)
 
 - **Status:** fixed (Must-fix review row `options.js` OPT_NEGATEOK_NO missing `travel_debug`; review stamped `**Addressed:** D-2566`).

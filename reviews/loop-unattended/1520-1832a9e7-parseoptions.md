@@ -138,4 +138,4 @@ whole matching core and a pinning suite.
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-2566
+**Addressed:** D-2566 `7b8badd1`

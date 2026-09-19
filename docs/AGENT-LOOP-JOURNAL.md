@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-19 — D-2567 `engrave.c` make_engr_at restart in C order (smem/havepristine, engr_szeach/engr_alloc, N_ENGRAVE random arm)
+
+**C locus:** `nethack-c/upstream/src/engrave.c:407–457` (`make_engr_at`, extern via extern.h:1016, s NONNULLARG3): smem = strlen(s)+1, widened to pristine (`:414–422`); replace-at via engr_at/del_engr (`:423–424`); newengr(smem*3) + memset + prepend + coords (`:426–431`); three text slots all start as s, pristine overwritten only when passed (`:432–438`); Elbereth → guardobjects iff in_mklev else exercise(A_WIS,TRUE) (`:439–447`); time / (xint8) type-or-`rnd(N_ENGRAVE-1)` / engr_szeach / engr_alloc (`:448–454`); eread/erevealed left for the caller (`:455–456`).
+**JS:** `js/engrave.js` (function restart + one import name); `docs/c-js-map/turns.md` engrave section (D-2567 note).
+**Change:** `js/engrave.js` — restarted `make_engr_at` in C order with `:line` cites: smem/havepristine block, replace-at (del_engr no-ops on null, matching the `!= 0` guard), record literal with `engr_szeach: smem` + `engr_alloc: smem * 3`, pristine overwrite gated on havepristine, Elbereth guardobjects/exercise after list prepend; `N_ENGRAVE` joins the existing const.js import (ALREADY-edge, numerically 6 either way). `return ep` kept (C is void) — mklev lua/des handlers depend on it.
+**Verify:** `node scripts/verify.mjs --fn make_engr_at` → VERIFY: PASS. Tail pasted verbatim:
+**Named:** newengr/engr_text_space arena (by design — JS strings need no arena; sizes kept on the record); `return ep` JS extension noted above. Every arm live.
+**Next:** pop the next Open — coverage row (`objnam.c` readobjnam_postparse2).
 ## 2026-09-19 — D-2566 `optlist.h` travel_debug negateok-No dropped from OPT_NEGATEOK_NO (review 1520 QUALITY-RISK)
 
 **C locus:** `nethack-c/upstream/include/optlist.h:794–796` non-DEBUG arm `NHOPTB(travel_debug, Advanced, 0, opt_out, set_wizonly, Off, No, No, No, NoAlias, (boolean *) 0, Term_False, (char *)0)` — negateok `No`, so C has 64 negateok-No rows under the contest-linux `cc -E` set. JS `allopt` already carries the row (`js/options.js:3563–3564`, idx 193, SET_WIZONLY).

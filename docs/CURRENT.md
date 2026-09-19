@@ -46,7 +46,7 @@ judge 13:05Z cached, ~D-2555, +23 pts vs last audit): the corpus still does
 not predict the judge.
 **Corpus fortress** (re-scored 2026-09-19 audit 1515–1523): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — +0 / −0
-in the D-2556…D-2566 window (all nine were zero-block coverage rows;
+in the D-2556…D-2567 window (all nine were zero-block coverage rows;
 per-SHA `--reach-all` re-runs REACH-OK — dosdoor reached 497/497, rest
 smoke — 0 regressed).
 Reviews 1225–1523: 264 ACCEPT, 11 WITH-DEBT, 1 DEBT, 18 QUALITY-RISK (1503 Must-fix addressed by D-2547; 1517 strip_newline + 1520 travel_debug Must-fix live, queued first).
@@ -100,10 +100,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** Must-fix `options.js` OPT_NEGATEOK_NO missing `travel_debug` (review 1520 QUALITY-RISK) — C `optlist.h:794–796` non-DEBUG arm negateok `No`; add `'travel_debug'` + negated-`travel_debug` bad-negation case in `scripts/parseoptions.test.mjs`.
+**Next cluster:** `engrave.c` make_engr_at — coverage PARTIAL (C 44 L `engrave.c:408–457` / JS 23 L in js/engrave.js; hops 2, callers 8, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn make_engr_at` (reach regression must be 0). Measured `port-coverage.mjs --name make_engr_at` 2026-09-19 @ 90ae7d1d.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2566 (index).**
+**Keep D-0845…D-2567 (index).**
 <!-- recent:begin -->
+**D-2567** `nethack-c/upstream/src/engrave.c:407–457` (`make_engr_at`, extern via extern.h:1016, s NO — `js/engrave.js` — restarted `make_engr_at` in C order with `:line` cites: smem/havepristine block, replace-at (del_engr no-ops on null, matching the `!= 0` guard), record literal with `engr_szeach: smem` + `engr_alloc: s
 **D-2566** `nethack-c/upstream/include/optlist.h:794–796` non-DEBUG arm `NHOPTB(travel_debug, Advance — `js/options.js` — add `'travel_debug'` after `'traps'` (64 names).
 **D-2565** `nethack-c/upstream/src/hacklib.c:179–190` (`strip_newline`, extern via hacklib.h:22): `st — `js/pager.js` — return `str.slice(0, end)` (tail dropped, C `*p = '\0'`); kept in pager.js (sole in-tree caller is `doextversion`), now `export`ed for the unit test (C is extern, so export matches the linkage better than
 **D-2564** `nethack-c/upstream/src/insight.c:468–722` (`background_enlightenment`, staticfn) in C ord — `js/invent.js` — `Is_bigroom` joins the existing const.js import (ALREADY-edge, no new module); `background_dungeon_clause` gains `else if (Is_bigroom && !Blind)` in C position (doc un-names it); final builder gains the 
@@ -111,11 +112,10 @@ revisits the picker.
 **D-2562** `nethack-c/upstream/src/dog.c:626–724` (`mon_catchup_elapsed_time`, extern) in C order: de — `js/dog.js` — restarted async `mon_catchup_elapsed_time` in C order with `:line` cites: nmv<0 → loud `throw` (lev_json.js precedent — `panic` itself stays an unported own-row callee, end.js:978); nmv==0 → `await impossib
 **D-2561** `nethack-c/upstream/src/options.c:489–691` (`parseoptions`, extern) in C order: per-entry  — `js/options.js` — new `parseoptions` family after `EMPTY_OPTSTR`, no new cross-module imports (every callee already imported or module-local): optlist.h n/d/pfx/al columns as exception sets (63 negateok-No, 22 dupeok-Yes
 **D-2560** `nethack-c/upstream/src/shk.c:4880–4993` (`shk_move`) in C order: `inhishop → shk_fixes_da — `js/shk.js` — restarted `shk_move` (`:4133`) in C order with `:line` cites: `Your` added to the existing display.js import + `HAND` to the existing const.js import (both ALREADY-edges per imports.mjs, no new edge); `game
-**D-2559** `nethack-c/upstream/src/mklev.c:615–676` (`dosdoor`, staticfn) in C order: `shdoor` from ` — `js/mklev.js` — restarted `dosdoor` (`:28072`) in C order with `:line` cites: `shdoor` from the live `in_rooms` (`js/hack.js:1596`, added to the existing hack.js import — ALREADY-edge per imports.mjs, no new edge; stub d
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2566; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2567; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

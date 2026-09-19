@@ -789,6 +789,7 @@ JS: `js/engrave.js`, `js/write.js`, `js/rumors.js`, `js/generated/engrave_data.j
 `js/generated/epitaph_data.js`, `js/cmd.js` — partial
 
 **`doengrave` fingertip DUST getlin + mix-up + occupation `make_engr_at` Elbereth WIS** (D-0076); 
+**`make_engr_at` restart in C order** (D-2567: smem/havepristine, `engr_szeach`/`engr_alloc`, `rnd(N_ENGRAVE-1)`; arena by design; `return ep` JS extension); 
 **`read_engr_at` DUST/ENGRAVE/BURN/MARK/blood non-Blind** (D-0133); 
 **`read_engr_at` maxelen = BUFSZ−sizeof feel-lit (incl NUL)** (D-0282); 
 **`wipeout_text` + `wipe_engr_at` (seed==0)** (D-0134); 
