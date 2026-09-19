@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-2561 — `options.c` parseoptions (coverage MISSING → live; whole 199-line body in C order + 8 parsing-support callees, optlist flag columns extracted from the compiler, S_ fallback live)
+
+- **Status:** fixed (Open coverage row `options.c` parseoptions; cites no review — no stamp needed).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify parseoptions`: no corpus session blocked at baseline — config-line parser).
+- **C locus:** `nethack-c/upstream/src/options.c:489–691` (`parseoptions`, extern) in C order: per-entry `duplicate`/`using_alias`/`go.opt_initial`/`go.opt_from_file` reset (`:502–505`); first-comma split + tail-first recursion (`:513–521`, right-to-left); BUFSZ/2 gate (`:522–526`); blank strip (`:530–533`); empty gate (`:535–538`); `!`/`no`/`no-` negation fold (`:540–543`); value-strip (`:544–551`); pfx loop arm (`:560–563`) + minmatch name loop with the `:588` ambiguous break (`:555–591`); 14-row alias loop (`:602–613`); `in_parseoptions` bracket (`:617`, `:644–645`); duplicate gate + bad-negation gate + optfn dispatch (`:619–642`); S_ → parsesymbols/switch_symbols/check_gold_symbol fallback (`:662–668`); silenterr/disregarded/unmatched-ignored gate (`:670–673`); pfx-suffix gate (`:674–681`, colon-only split); optn_err gate (`:683–684`); `optn_ok → retval` (`:685–686`); unknown gate (`:689–690`). Callees: `string_for_opt` `:6665–6684`, `bad_negation` `:6693–6700`, `determine_ambiguities` `:6703–6737`, `length_without_val` `:6739–6758`, `match_optname` `:6760–6771` (C global), `reset_duplicate_opt_detection` `:6773–6780` (C global), `duplicate_opt_detection` `:6782–6788`, `complain_about_duplicate` `:6790–6807`; `config_unmatched_ignored` + setter/clearer (`cfgfiles.c:2014–2026`).
+- **JS was:** no symbol anywhere in `js/` (MISSING). Nearest live pieces: 217-row `allopt` registry (D-2548, no flag columns), `opt_set_in_config`, optn/REQ consts, `EMPTY_OPTSTR`, `parsesymbols` + `check_gold_symbol` (D-2551), `str_start_is` (hacklib).
+- **Fix:** `js/options.js` — new `parseoptions` family after `EMPTY_OPTSTR`, no new cross-module imports (every callee already imported or module-local): optlist.h n/d/pfx/al columns as exception sets (63 negateok-No, 22 dupeok-Yes, `cond_`/`font` pfx — `IBM_` is MICRO-only — 14 aliases incl. C's `customsymbols` self-alias; extracted from `cc -E` on config.h + NHOPT_PARSE, JS row order verified identical name-for-name); `match_optname` exported with ci-compare through live `lowc` (no 4th strncmpi clone); `determine_ambiguities` lazy-once (C runs at unported allopt_array_init; JS has no sentinel so all 217 rows covered); `duplicate_opt_detection` with `?? 0` init (`undefined++` would be NaN); the `:628` bad-negation path returns before the `:644` decrement so `in_parseoptions` leaks exactly like C (pinned by test); `allopt[-1]` on the ambiguous path range-guarded (outcome-identical — that path returns FALSE at the next gate regardless); optfn dispatch dormant (all row optfns null, C guard fails as with null optfn); S_ fallback live. Committed test `scripts/parseoptions.test.mjs` (13 tests: matcher floors, value-strip, confirm-minmatch-4 oracle, negation fold, leak pin, alias, S_ TRUE, comma recursion, pfx gate, duplicate counting scope, unmatched trio).
+- **JS:** `js/options.js` (+~330 lines, one site); `scripts/parseoptions.test.mjs` (new); `docs/c-js-map/data.md` saveoptions section; queue row marked.
+- **Callers:** options.c:519 self-recursion → wired (same function). Named (JS counterpart has no optfn dispatch or is hand-rolled): cfgfiles.c:608 `cnf_line_OPTIONS` → `parseNethackrc` OPTIONS= arm (`js/options.js:1066`, hand-rolled name/role/… applies); cfgfiles.c:1950 `rcfile` xtraopts → no JS rcfile; options.c:6119 `handler_pickup_types` → JS `handler_pickup_types` (`:1388`, menu path); options.c:8662/8929/8953 doset family → JS `doset`/`doset_simple_menu`/`doset_compound_via_getlin` (own "parseoptions arms" omission); options.c:9291 `toggle_bool_option` → no JS symbol. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn parseoptions` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/options.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify parseoptions: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 5.9s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing (auto: shared file changed)
+
+VERIFY: PASS
+```
+- **Named omissions:** `config_error_add` sink (6 sites — map precedent, no JS sink); `switch_symbols(TRUE)` application (map precedent, lazy ov_* reads); disregard/heed setters (rows read `disregarded`, never set); optfn bodies (`optfn_boolean`/optfn_*/pfxfn_* unported — dispatch dormant by C's own null guard). No live-arm stubs.
+- **Next:** queue head moves to `uhitm.c` mhitm_ad_deth.
+
 ## D-2560 — `shk.c` shk_move (coverage PARTIAL → live; whole 113-line body in C order, following/followmsg envelope + missing arms ported, the 1 C caller wired)
 
 - **Status:** fixed (Open coverage row `shk.c` shk_move; cites no review — no stamp needed).

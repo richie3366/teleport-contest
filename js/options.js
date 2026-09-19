@@ -3626,6 +3626,351 @@ const REQ_DO_NOTHING = 0, REQ_DO_INIT = 1, REQ_DO_SET = 2, REQ_DO_HANDLER = 3,
 /* C options.c empty_optstr (static char[1]) — optfn value arg. */
 const EMPTY_OPTSTR = '';
 
+/* C include/optlist.h NHOPT_* columns (n=negateok, d=dupeok, pfx, al) for the
+ * unix tty build — extracted via `cc -E -I nethack-c/upstream/include` on a
+ * probe with config.h + NHOPT_PARSE (217 rows; JS allopt order verified
+ * identical, name for name). Only the exceptional values are listed; the
+ * row defaults are negateok=true, dupeok=false, pfx=false, alias=null.
+ * `IBM_` (NHOPTP, MICRO-only) is absent on unix, so OPT_PFX has 2 entries.
+ * `customsymbols` self-alias is C's text (optlist.h `:262`). */
+const OPT_NEGATEOK_NO = new Set(['windowtype', 'playmode', 'name',
+    'align_status', 'altkeyhandling', 'autocompletions', 'autopickup exceptions',
+    'bind keys', 'BIOS', 'boulder', 'catname', 'crash_email', 'crash_name',
+    'crash_urlmax', 'dogname', 'dungeon', 'effects', 'fruit', 'glyph',
+    'horsename', 'menu_deselect_all', 'menu_deselect_page', 'menu_first_page',
+    'menu_invert_all', 'menu_invert_page', 'menu_last_page', 'menu_next_page',
+    'menu_previous_page', 'menu_search', 'menu_select_all', 'menu_select_page',
+    'menu_shift_left', 'menu_shift_right', 'menu colors', 'menuinvertmode',
+    'message types', 'monsters', 'mouse_support', 'number_pad', 'objects',
+    'packorder', 'petattr', 'pickup_burden', 'pickup_types', 'player_selection',
+    'rawio', 'roguesymset', 'scores', 'sortloot', 'soundlib',
+    'status condition fields', 'status highlight rules', 'statuslines',
+    'suppress_alert', 'symset', 'term_cols', 'term_rows', 'tile_file', 'traps',
+    'vary_msgcount', 'versinfo', 'warnings', 'windowcolors']);
+const OPT_DUPEOK_YES = new Set(['role', 'race', 'gender', 'alignment',
+    'font_map', 'font_menu', 'font_message', 'font_size_map', 'font_size_menu',
+    'font_size_message', 'font_size_status', 'font_size_text', 'font_status',
+    'font_text', 'glyph', 'hilite_status', 'paranoid_confirmation',
+    'statushilites', 'suppress_alert', 'windowcolors', 'cond_', 'font']);
+const OPT_PFX = new Set(['cond_', 'font']);
+const OPT_ALIAS = {
+    role: 'character', alignment: 'align', altkeyhandling: 'altkeyhandler',
+    blind: 'permablind', color: 'colour', customcolors: 'customcolours',
+    customsymbols: 'customsymbols', deaf: 'permadeaf', female: 'male',
+    menu_objsyms: 'use_menu_glyphs', paranoid_confirmation: 'prayconfirm',
+    pettype: 'pet', term_cols: 'termcolumns', use_truecolor: 'use_truecolour',
+};
+
+/* C options.c `:107`: static boolean duplicate, using_alias — reset at every
+ * parseoptions entry (recursion included), read by the duplicate complaint. */
+let duplicateOpt = false;
+let usingAliasOpt = false;
+
+/* C cfgfiles.c file-static `ignore_errors_on_unmatched` (default FALSE) with
+ * its setter/clearer `:2014–2018` and reader `config_unmatched_ignored`
+ * `:2020–2026` (extern.h:346). Only setter is rcfile_interface_options
+ * (unported); JS never sets it, so the reader is FALSE on every JS path —
+ * exactly C's value wherever parseoptions can run here. */
+let ignoreErrorsOnUnmatched = false;
+export function set_ignore_errors_on_unmatched() {
+    ignoreErrorsOnUnmatched = true; // C `:2014–2018`
+}
+export function clear_ignore_errors_on_unmatched() {
+    ignoreErrorsOnUnmatched = false; // C `:2014–2018`
+}
+export function config_unmatched_ignored() {
+    return ignoreErrorsOnUnmatched; // C `:2020–2026`
+}
+
+/* C ctype isspace over unsigned char — the option-text walks at `:530–533`
+ * and in length_without_val treat space/tab/newline/vertical-tab/form-feed/
+ * carriage-return as blank (C locale; no unicode folding). */
+function isOptSpace(ch) {
+    return ch === ' ' || ch === '\t' || ch === '\n' || ch === '\v'
+        || ch === '\f' || ch === '\r';
+}
+
+/* C hacklib strncmpi (NUL-terminated, ASCII case-fold) as used by the option
+ * matcher — compared through the live `lowc` import, so no new strncmpi
+ * symbol is introduced (insight/vault/write keep their local clones). Only
+ * the zero/nonzero distinction is observed, like C's `!strncmpi(...)`. */
+function optStrncasecmp(a, b, n) {
+    for (let k = 0; k < n; k++) {
+        const ca = k < a.length ? a[k] : '\0';
+        const cb = k < b.length ? b[k] : '\0';
+        const la = lowc(ca), lb = lowc(cb);
+        if (la !== lb) return la < lb ? -1 : 1;
+        if (ca === '\0') return 0;
+    }
+    return 0;
+}
+
+/* C options.c `length_without_val` `:6739–6758` (staticfn) — length of the
+ * option-name head: cut at the first ':' or '=' (whichever comes first),
+ * then back over blanks (the input may not have been mungspaced). */
+function length_without_val(userString, len) {
+    let p = userString.indexOf(':'); // C `:6743`
+    const q = userString.indexOf('=');
+    if (p < 0 || (q >= 0 && q < p)) p = q; // C `:6746–6747`
+    if (p >= 0) { // C `:6748`
+        while (p > 0 && isOptSpace(userString[p - 1])) p--; // C `:6752–6753`
+        len = p; // C `:6754`
+    }
+    return len;
+}
+
+/* C options.c `match_optname` `:6760–6771` (C global — also used by
+ * earlyarg.c, botl.c, cfgfiles.c) — proper leading-substring match with an
+ * optional `:value`/`=value` tail allowed. Exported for those callers. */
+export function match_optname(userString, optName, minLength, valAllowed) {
+    let len = userString.length; // C `:6764`
+    if (valAllowed) len = length_without_val(userString, len); // C `:6766–6767`
+    return len >= minLength // C `:6769–6770`
+        && optStrncasecmp(optName, userString, len) === 0;
+}
+
+/* C options.c `string_for_opt` `:6665–6684` (staticfn) — value tail after
+ * the first ':' (or '=' when it comes first); EMPTY_OPTSTR stands in for C's
+ * `empty_optstr`. The `:6678–6681` "Missing parameter" config_error_add is a
+ * named omission (map: no JS config-error sink). */
+function string_for_opt(opts, valOptional) {
+    let colon = opts.indexOf(':'); // C `:6669`
+    const equals = opts.indexOf('=');
+    if (colon < 0 || (equals >= 0 && equals < colon)) colon = equals; // C `:6671–6672`
+    if (colon < 0 || colon + 1 >= opts.length) { // C `:6674 !colon || !*++colon`
+        return EMPTY_OPTSTR;
+    }
+    return opts.slice(colon + 1); // C `:6683`
+}
+
+/* C options.c `bad_negation` `:6693–6700` (staticfn) — body is one
+ * config_error_add ("The %s option may not %sbe negated.", optname,
+ * with_parameter ? "both have a value and " : ""); named omission (map). */
+function bad_negation(_optname, _withParameter) {
+    // Named omission (map): config_error_add sink.
+}
+
+/* C options.c `determine_ambiguities` `:6703–6737` (staticfn) — pairwise
+ * common-prefix scan over the option names (sentinel excluded via SIZE-1 in
+ * C; JS has no sentinel row so every row is covered), minimum 3, clamped to
+ * the name length. C runs it from allopt_array_init (unported); JS computes
+ * it once ahead of the first match loop, which is the only reader. */
+let ambiguitiesComputed = false;
+function determine_ambiguities() {
+    if (ambiguitiesComputed) return;
+    ambiguitiesComputed = true;
+    const needed = new Array(allopt.length).fill(0); // C `:6707`
+    for (let i = 0; i < allopt.length; i++) { // C `:6714`
+        for (let j = 0; j < allopt.length; j++) { // C `:6715`
+            if (j === i) continue; // C `:6716–6717`
+            const p1 = allopt[i].name, p2 = allopt[j].name; // C `:6719–6720`
+            let k = 0, tmpneeded = 1; // C `:6721`
+            while (k < p1.length && k < p2.length // C `:6722`
+                && lowc(p1[k]) === lowc(p2[k])) {
+                ++tmpneeded; ++k;
+            }
+            if (tmpneeded > needed[i]) needed[i] = tmpneeded; // C `:6727–6728`
+            if (tmpneeded > needed[j]) needed[j] = tmpneeded; // C `:6729–6730`
+        }
+    }
+    for (let i = 0; i < allopt.length; i++) { // C `:6733`
+        const len = allopt[i].name.length; // C `:6734`
+        allopt[i].minmatch = (needed[i] < 3) ? 3 // C `:6735–6736`
+            : (needed[i] <= len) ? needed[i] : len;
+    }
+}
+
+/* C options.c `reset_duplicate_opt_detection` `:6773–6780` (C global —
+ * read_config_file's bracket, extern) — exported for that future caller.
+ * Per-row `dupdetected` starts undefined (C starts 0 via static init). */
+export function reset_duplicate_opt_detection() {
+    for (let k = 0; k < OPTCOUNT; ++k) allopt[k].dupdetected = 0; // C `:6777–6778`
+}
+
+/* C options.c `duplicate_opt_detection` `:6782–6788` (staticfn) — only
+ * counts during initial from-file parsing; returns the previous state
+ * (post-increment), so the first sighting is FALSE. Count storage matches
+ * C's increment; only truthiness is observed (`duplicate && !dupeok`). */
+function duplicate_opt_detection(optidx) {
+    if (game.go.opt_initial && game.go.opt_from_file) { // C `:6784`
+        // (C static init is 0; JS rows start undefined — `?? 0` is that init.)
+        const was = allopt[optidx].dupdetected ?? 0; // C `:6786` post-inc old value
+        allopt[optidx].dupdetected = was + 1;
+        return was !== 0;
+    }
+    return false; // C `:6787`
+}
+
+/* C options.c `complain_about_duplicate` `:6790–6807` (staticfn) — the
+ * MACOS9 early return is compiled out on unix; the body is one
+ * config_error_add ("%s option specified multiple times: %s%s" with
+ * "compound"/"boolean" folded exactly like C's `opttyp == CompOpt` ternary
+ * plus the " (via alias: %s)" tail); named omission (map). */
+function complain_about_duplicate(_optidx) {
+    // Named omission (map): config_error_add sink.
+}
+
+/**
+ * C ref: options.c parseoptions `:489–691` in C order (extern.h:2304).
+ * Whole comma-separated line when tinitial (right-to-left: split at the
+ * first comma, recurse on the tail, then handle the head); single option
+ * otherwise. Matching is name-prefix with per-option minmatch (alias loop
+ * second); the optfn dispatch arm is dormant — every JS allopt optfn is
+ * null, so C's `if (allopt[matchidx].optfn)` guard fails exactly like C
+ * with a null optfn. Live effects: comma recursion, negation folding,
+ * duplicate detection state, opt_set_in_config marking (fires once an optfn
+ * ships), and the S_ → parsesymbols/check_gold_symbol fallback (both live).
+ * Named omissions (map): config_error_add sink (6 sites), switch_symbols
+ * application, disregard/heed setters (rows read `disregarded`, never set
+ * here). Sync like C (no prompts in-body).
+ * Sole wired JS caller: itself (recursion `:519`); every other C caller is
+ * named in the map with its JS counterpart.
+ */
+export function parseoptions(opts, tinitial, tfromFile) {
+    let negated = false, gotMatch = false, pfxMatch = false; // C `:496`
+    let matchidx = -1, optresult = OPTN_ERR, retval = true; // C `:499`
+
+    duplicateOpt = false; // C `:502`
+    usingAliasOpt = false; // C `:503`
+    if (!game.go) game.go = {};
+    game.go.opt_initial = !!tinitial; // C `:504`
+    game.go.opt_from_file = !!tfromFile; // C `:505`
+
+    if (tinitial) { // C `:513`
+        const comma = String(opts).indexOf(','); // C `strchr(opts, ',')`
+        if (comma >= 0) { // C `:513 != 0`
+            const rest = String(opts).slice(comma + 1); // C `:514 *op++ = 0`
+            opts = String(opts).slice(0, comma);
+            if (!parseoptions(rest, game.go.opt_initial, // C `:519`
+                    game.go.opt_from_file))
+                retval = false; // C `:520`
+        }
+    }
+    opts = String(opts);
+    if (opts.length > BUFSZ / 2) { // C `:522`
+        // Named omission (map): config_error_add("Option too long, ...").
+        return false; // C `:526`
+    }
+
+    let start = 0; // C `:530–531`
+    while (start < opts.length && isOptSpace(opts[start])) start++;
+    let end = opts.length; // C `:532–533`
+    while (end > start && isOptSpace(opts[end - 1])) end--;
+    opts = opts.slice(start, end);
+
+    if (!opts) { // C `:535`
+        // Named omission (map): config_error_add("Empty statement").
+        return false; // C `:537`
+    }
+    negated = false; // C `:539`
+    for (;;) { // C `:540`
+        if (opts[0] === '!') { // C `*opts == '!'`
+            opts = opts.slice(1); negated = !negated; // C `:541–542`
+        } else if (optStrncasecmp(opts, 'no', 2) === 0) { // C `!strncmpi(opts, "no", 2)`
+            opts = opts.slice(opts[2] !== '-' ? 2 : 3); // C `:541`
+            negated = !negated; // C `:542`
+        } else break;
+    }
+    let optlen = opts.length; // C `:544`
+    const optlenWoVal = length_without_val(opts, optlen); // C `:545`
+    if (optlenWoVal < optlen) optlen = optlenWoVal; // C `:546–551`
+
+    determine_ambiguities(); // C: minmatch ready since allopt_array_init
+    for (let i = 0; i < OPTCOUNT; ++i) { // C `:555`
+        gotMatch = false; // C `:556`
+        const row = allopt[i];
+        if (OPT_PFX.has(row.name)) { // C `:560 allopt[i].pfx`
+            if (str_start_is(opts, row.name, true)) { // C `:561`
+                matchidx = i; // C `:562`
+                gotMatch = pfxMatch = true; // C `:563`
+            }
+        }
+        if (!gotMatch && row.name) // C `:580–582`
+            gotMatch = match_optname(opts, row.name, row.minmatch, true);
+        if (gotMatch) { // C `:583`
+            if (!OPT_PFX.has(row.name) && optlen < row.minmatch) { // C `:584`
+                // Named omission (map): config_error_add("Ambiguous option ...").
+                break; // C `:588` — matchidx stays -1, handled below like C
+            }
+            matchidx = i; // C `:590`
+            break; // C `:591`
+        }
+    }
+
+    if (!gotMatch) { // C `:594–599`
+        for (let i = 0; i < OPTCOUNT; ++i) { // C `:602`
+            const alias = OPT_ALIAS[allopt[i].name]; // C `:603 allopt[i].alias`
+            if (!alias) continue; // C `:603–604`
+            gotMatch = match_optname(opts, alias, alias.length, true); // C `:605–607`
+            if (gotMatch) { // C `:608`
+                matchidx = i; // C `:609`
+                usingAliasOpt = true; // C `:610`
+                break; // C `:611`
+            }
+        }
+    }
+
+    if (!game.program_state) game.program_state = {};
+    game.program_state.in_parseoptions = // C `:617`
+        (game.program_state.in_parseoptions ?? 0) + 1;
+
+    if (gotMatch && matchidx >= 0 && matchidx < OPTCOUNT // C `:619–620`
+        && !allopt[matchidx].disregarded) {
+        duplicateOpt = duplicate_opt_detection(matchidx); // C `:621`
+        if (duplicateOpt && !OPT_DUPEOK_YES.has(allopt[matchidx].name)) // C `:622`
+            complain_about_duplicate(matchidx); // C `:623`
+
+        if (negated && OPT_NEGATEOK_NO.has(allopt[matchidx].name)) { // C `:626`
+            bad_negation(allopt[matchidx].name, true); // C `:627`
+            return false; // C `:628 return optn_err (== FALSE)` — bypasses
+            // the `:644` decrement, so in_parseoptions stays elevated like C
+        }
+
+        if (allopt[matchidx].optfn) { // C `:635`
+            const op = string_for_opt(opts, true); // C `:636`
+            optresult = allopt[matchidx].optfn(allopt[matchidx].idx, // C `:637–638`
+                REQ_DO_SET, negated, opts, op);
+            if (optresult === OPTN_OK) // C `:639–640`
+                opt_set_in_config[matchidx] = true;
+        }
+    }
+
+    if (game.program_state.in_parseoptions > 0) // C `:644–645`
+        game.program_state.in_parseoptions--;
+
+    if (!gotMatch) { // C `:662–663`
+        if (opts.startsWith('S_') && parsesymbols(opts, PRIMARYSET)) { // C `:663`
+            // Named omission (map): switch_symbols(TRUE) application.
+            check_gold_symbol(); // C `:664`
+            optresult = OPTN_OK; // C `:666`
+        }
+    }
+
+    if (optresult === OPTN_SILENTERR // C `:670`
+        || (gotMatch && matchidx >= 0 && matchidx < OPTCOUNT // C `:671`
+            && allopt[matchidx].disregarded)
+        // (C reads allopt[-1] when the ambiguous `break` leaves matchidx at
+        // -1 — out-of-bounds in C; the range guard keeps the outcome: that
+        // path returns FALSE at the `got_match && optn_err` gate below.)
+        || (!gotMatch && config_unmatched_ignored())) // C `:672`
+        return false; // C `:673`
+    if (pfxMatch && optresult === OPTN_ERR) { // C `:674`
+        let pfxhead = opts; // C `:677 Snprintf(pfxbuf, ..., "%s", opts)`
+        const ci = pfxhead.indexOf(':'); // C `:678` (colon only, not '=')
+        if (ci >= 0) pfxhead = pfxhead.slice(0, ci); // C `:679`
+        void pfxhead;
+        // Named omission (map): config_error_add("bad option suffix ...").
+        return false; // C `:681`
+    }
+    if (gotMatch && optresult === OPTN_ERR) // C `:683–684`
+        return false;
+    if (optresult === OPTN_OK) // C `:685–686`
+        return retval;
+
+    // Named omission (map): config_error_add("Unknown option '%s'").
+    return false; // C `:689–690`
+}
+
 /**
  * C ref: options.c get_option_value `:8481–8505` — read back one option's
  * current value for #saveoptions (parent `:9712`, live call) and Lua
