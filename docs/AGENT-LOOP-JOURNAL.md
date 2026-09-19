@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-19 — D-2575 `uhitm.c` mhitm_ad_sedu whole-body port (uhitm steal_it + mhitm minvent theft, mhitu _u split)
+
+**C locus:** `nethack-c/upstream/src/uhitm.c:4623–4748` (`pa` `:4627`; uhitm steal_it + zero `:4629–4632`; mhitu `:4633–4691` — animal hitmsg `:4637–4640`, hero-SEDU/SSEX brag+rloc `:4642–4656`, mcan charm-fail + `rn2(3)` rloc `:4657–4667`, steal switch `:4673–4691`; mhitm `:4693–4747` — mcan return, tame/non-cursed sweep, saddle x_monnam + usteed dismount, extract, doname-before-add_to_minv, steals pline, unwield, WAITFORU, mselftouch, DEF_DIED+grow_up, nymph RLOC_NOMSG vanish) + callers `mhitm_ad_ssex` `:4756` (uhitm) / `:4770` (mhitu) / `:4775` (mhitm) + `mhitm_adtyping` AD_SITM/AD_SEDU `:4799`.
+**JS:** `js/mhitm.js:1293` (new) + `:4316` (dispatch) + 5 import lines; `js/uhitm.js:54/2088/2331–2336`; `js/mhitu.js:38/60/2180–2185/2214/2239–2246/2269/3156`.
+**Change:** `js/mhitm.js` — new exported `mhitm_ad_sedu(magr, mattk, mdef, mhm)` (`:1293`, blnd/elec precedent): uhitm arm via live `steal_it` + zero; `is_youmonst(mdef)` early-return naming the mhitu home; mhitm arm in C order (`_mm_vis` for `gv.vis`, local `deadmonster` for DEADMONSTER, `mlet === 'S_NYMPH'` string form, nymph arm sets hitflags without done like C) + `mdamagem` AD_SITM/AD_SEDU/AD_SSEX block (`:4316`, poly knockback-preempt shape; arms always zero so the tail returns hitflags; SSEX mhitm has no SYSOPT gate in C `:4773–4777`). Imports extended on ALREADY-edges (`imports.mjs --can` clean): `steal_it` (uhitm.js), `doname` (objnam.js), `extract_from_minvent` (worn.js), `mselftouch` (trap.js), `DISMOUNT_POLY` (const.js). `js/uhitm.js` — `steal_it` exported (`:2088`); damageum AD_SEDU/AD_SSEX/AD_SITM routes through the shared arm (`:2336`, poly precedent).
+**Verify:** `node scripts/verify.mjs --fn mhitm_ad_sedu` → VERIFY: PASS. Tail pasted verbatim:
+**Named:** `mhitm_ad_ssex` remainder (SYSOPT_SEDUCE/could_seduce/doseduce mhitu body + its dispatch home — own future coverage row; its uhitm/mhitm arms route through sedu exactly as C does).
+**Next:** pop the next Open — coverage row (`pickup.c` do_loot_cont).
 ## 2026-09-19 — D-2574 `light.c` del_light_source whole-body port (type switch, delete_ls, C-valued LS tags)
 
 **C locus:** `nethack-c/upstream/src/light.c:99–138` (`del_light_source`: zeroany tmp `:103`, LS_NONE/LS_OBJECT/LS_MONSTER/default switch `:108–124`, type+FIXUP-conditional scan `:125–131`, delete_ls vs not-found impossible `:132–137`) + staticfn `delete_ls` `:141–168` (prev/curr unlink, memset+free, recalc, not-found impossible). LS tags `include/vision.h:16–18` (NONE 0, OBJECT 1, MONSTER 2).

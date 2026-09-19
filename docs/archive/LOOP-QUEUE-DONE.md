@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `light.c` del_light_source — coverage THIN (C 39 L `light.c:99–138` / JS 9 L in js/light.js; hops 2, callers 14, RNG 0, msg 0; dead callees: delete_ls). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn del_light_source` (reach regression must be 0). Measured `port-coverage.mjs --name del_light_source` 2026-09-19 @ f18ac024. **Addressed:** D-2574
+- [x] `uhitm.c` mhitm_ad_sedu — coverage PARTIAL (C 123 L `uhitm.c:4623–4748` / JS 60 L in js/mhitu.js; hops 4, callers 4, RNG 1, msg 5). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mhitm_ad_sedu` (reach regression must be 0). Measured `port-coverage.mjs --name mhitm_ad_sedu` 2026-09-19 @ f18ac024. **Addressed:** D-2575
+
+
+- [x] `light.c` del_light_source — coverage THIN (C 39 L `light.c:99–138` / JS 9 L in js/light.js; hops 2, callers 14, RNG 0, msg 0; dead callees: delete_ls). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn del_light_source` (reach regression must be 0). Measured `port-coverage.mjs --name del_light_source` 2026-09-19 @ f18ac024. **Addressed:** D-2574 `8d3ce13a`
 
 
 - [x] `pline.c` raw_printf — coverage MISSING (C 9 L `pline.c:549–558` / JS no symbol; hops 3, callers 76, RNG 0, msg 0; dead callees: vraw_printf). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn raw_printf` (reach regression must be 0). Measured `port-coverage.mjs --name raw_printf` 2026-09-19 @ f18ac024. **Addressed:** D-2573 `d56627bd`

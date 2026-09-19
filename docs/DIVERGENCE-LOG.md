@@ -1,5 +1,31 @@
 # Divergence log
 
+## D-2575 — `uhitm.c` mhitm_ad_sedu whole-body port (uhitm steal_it + mhitm minvent theft, mhitu _u split)
+
+- **Status:** fixed (Open — coverage row `uhitm.c` mhitm_ad_sedu PARTIAL, C 123 L `uhitm.c:4623–4748` / JS 60 L mhitu-only local clone `js/mhitu.js:2186`).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify mhitm_ad_sedu`: no corpus session blocked at baseline — 24-session smoke REACH is the corpus evidence).
+- **C locus:** `nethack-c/upstream/src/uhitm.c:4623–4748` (`pa` `:4627`; uhitm steal_it + zero `:4629–4632`; mhitu `:4633–4691` — animal hitmsg `:4637–4640`, hero-SEDU/SSEX brag+rloc `:4642–4656`, mcan charm-fail + `rn2(3)` rloc `:4657–4667`, steal switch `:4673–4691`; mhitm `:4693–4747` — mcan return, tame/non-cursed sweep, saddle x_monnam + usteed dismount, extract, doname-before-add_to_minv, steals pline, unwield, WAITFORU, mselftouch, DEF_DIED+grow_up, nymph RLOC_NOMSG vanish) + callers `mhitm_ad_ssex` `:4756` (uhitm) / `:4770` (mhitu) / `:4775` (mhitm) + `mhitm_adtyping` AD_SITM/AD_SEDU `:4799`.
+- **JS was:** local 3-arg `mhitm_ad_sedu(mtmp, mattk, mhm)` (`js/mhitu.js:2186`, mhitu arm only, `Monnam` for C's `Adjmonnam`, animal locomotion flee pline deferred); uhitm arm inlined in `damageum_adtyping`; mhitm arm + `mdamagem` SITM/SEDU/SSEX dispatch absent.
+- **Fix:** `js/mhitm.js` — new exported `mhitm_ad_sedu(magr, mattk, mdef, mhm)` (`:1293`, blnd/elec precedent): uhitm arm via live `steal_it` + zero; `is_youmonst(mdef)` early-return naming the mhitu home; mhitm arm in C order (`_mm_vis` for `gv.vis`, local `deadmonster` for DEADMONSTER, `mlet === 'S_NYMPH'` string form, nymph arm sets hitflags without done like C) + `mdamagem` AD_SITM/AD_SEDU/AD_SSEX block (`:4316`, poly knockback-preempt shape; arms always zero so the tail returns hitflags; SSEX mhitm has no SYSOPT gate in C `:4773–4777`). Imports extended on ALREADY-edges (`imports.mjs --can` clean): `steal_it` (uhitm.js), `doname` (objnam.js), `extract_from_minvent` (worn.js), `mselftouch` (trap.js), `DISMOUNT_POLY` (const.js). `js/uhitm.js` — `steal_it` exported (`:2088`); damageum AD_SEDU/AD_SSEX/AD_SITM routes through the shared arm (`:2336`, poly precedent). `js/mhitu.js` — clone renamed `mhitm_ad_sedu_u` (`:2185`, poly `_u` precedent) with both omissions retired (`Adjmonnam(mtmp, 'plain')` `:2214`; animal `locomotion ... away with` pline_mon `:2239–2246`); 2 call sites rewired.
+- **JS:** `js/mhitm.js:1293` (new) + `:4316` (dispatch) + 5 import lines; `js/uhitm.js:54/2088/2331–2336`; `js/mhitu.js:38/60/2180–2185/2214/2239–2246/2269/3156`.
+- **Callers:** C `:4756` (ssex uhitm) → `js/uhitm.js:2336` (damageum AD_SSEX) → uhitm arm; C `:4770` (ssex mhitu) → `js/mhitu.js:2269` (ssex fallback) → `_u`; C `:4775` (ssex mhitm) → `js/mhitm.js:4327` (mdamagem AD_SSEX) → mhitm arm; C `:4799` (SITM/SEDU) → `js/uhitm.js:2336` (uhitm) + `js/mhitu.js:3156` (`mhitm_adtyping_u`) + `js/mhitm.js:4327` (mdamagem). Reverse-checked: no JS site calls it from anywhere C does not.
+- **Verify:** `node scripts/verify.mjs --fn mhitm_ad_sedu` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   3 changed js file(s): js/mhitm.js js/mhitu.js js/uhitm.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify mhitm_ad_sedu: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 5.3s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+VERIFY: PASS
+```
+- **Named omissions:** `mhitm_ad_ssex` remainder (SYSOPT_SEDUCE/could_seduce/doseduce mhitu body + its dispatch home — own future coverage row; its uhitm/mhitm arms route through sedu exactly as C does).
+- **Next:** pop the next Open — coverage row (`pickup.c` do_loot_cont).
+
 ## D-2574 — `light.c` del_light_source whole-body port (type switch, delete_ls, C-valued LS tags)
 
 - **Status:** fixed (Open — coverage row `light.c` del_light_source THIN, C 39 L `light.c:99–138` / JS 9 L).
