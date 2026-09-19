@@ -606,8 +606,9 @@ function character_race(mndx) {
 
 /**
  * C ref: polyself.c uasmon_maxStr — race attrmax STR for current umonnum.
+ * Exported for attrib.h ATTRMAX's Upolyd-Str arm (attrib.c exerchk `:629`).
  */
-function uasmon_maxStr() {
+export function uasmon_maxStr() {
     let mndx = game.u?.umonnum | 0;
     const ptr = mons(mndx);
     if (is_orc(ptr)) {

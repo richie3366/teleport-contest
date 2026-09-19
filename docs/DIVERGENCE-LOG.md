@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2590 — `attrib.c` exerchk whole-body restart (ATTRMAX Upolyd-Str arm + live You)
+
+- **Status:** fixed (Open — coverage row `attrib.c` exerchk PARTIAL, C 79 L `attrib.c:598–677` / JS 55 L; measured `port-coverage.mjs --name exerchk` 2026-09-19 @ d57c144b. Queue-head `muse.c` mreadmsg parked STALE in the same iteration — body complete `js/muse.js:1312–1347`, 4 live callers wired, `:1960` is `#if 0` dead — never re-pop).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify exerchk`: no corpus session blocked on it at baseline; exerchk draws `rn2(50)` per exercised attr + `rn1(200,800)` reschedule, so REACH is the evidence).
+- **C locus:** `nethack-c/upstream/src/attrib.c:598–677` (`:602–604` exerper first; `:607–612` moves/multi gate; `:618–624` loop + `!ax` skip; `:626` sgn; `:627–637` ATTRMIN/ATTRMAX + max/min + poly gates; `:648–659` diminishing returns, Wis special; `:661–669` adjattrib change → zero + You; `nextattrib:670–673` halve; `:674–676` reschedule) + `exertext :588–595` + `AVAL :486` + `ATTRMAX` (`include/attrib.h:43–44`: `(x == A_STR && Upolyd) ? uasmon_maxStr() : urace.attrmax[x]`).
+- **JS was:** local `exerchk` (`js/allmain.js:601`, 55 L) missed the ATTRMAX Upolyd-Str arm (always `race.attrmax`), printed the change message via `pline('You …')` instead of the live `You` export (`js/display.js:7547`), carried an invented `if (phrase)` guard around it, and had no `:line` cites. `uasmon_maxStr` (`js/polyself.js:610`) was file-local, unimportable.
+- **Fix:** restarted `exerchk` in C order with `:line` cites throughout (`js/allmain.js` EXERTEXT + body): hilim takes `(i === A_STR && Upolyd(u)) ? uasmon_maxStr() : race.attrmax` (the arm is behaviorally convergent — both limit-gate and poly-gate `goto nextattrib`, which only halves — but it is C-present and pure, so it ships); message path is unconditional `await You('%s %s.', …)` per C `:666–669` (Int/Cha `{0,0}` arms unreachable: no `exercise(A_INT/A_CHA)` caller in `src/`, and `!ax → continue` fires first). `You` joins the existing display.js edge (imports.mjs ALREADY); `uasmon_maxStr` gained one `export` keyword (imports.mjs ALREADY for the polyself.js edge). RNG order untouched (`rn2(AVAL)` per attr, `rn1(200,800)` once at the end).
+- **JS:** `js/allmain.js` EXERTEXT + `exerchk` (restarted, C-cited); `js/polyself.js:610` `export function uasmon_maxStr` (body unchanged).
+- **Callers:** sole C caller `allmain.c:356` → `js/allmain.js:1085` `await exerchk()` inside moveloop, order `gethungry → age_spells → exerchk → invault` matching C `:354–357`.
+- **Verify:** `node scripts/verify.mjs --fn exerchk` → `PASS syntax (2 changed: js/allmain.js js/polyself.js)` · `PASS rule2` · `note hidden: no corpus session blocked` · `PASS reach: 12 reach it, 12 PASS, 0 regressed → REACH-OK` · `PASS green 2/2` · `PASS strict` (both) · `PASS cohort 7/7` · `PASS full 44/44 (auto: shared file changed)` → `VERIFY: PASS`.
+- **Named omissions:** debugpline1/0/2 (`:608`, `:614`, `:646–656`, `:676` — D_DEBUG-only, D-2586 precedent); exerper Clairvoyant/Regen/Monk arms + makeknown-credit (open D-1994, tracked there); Fixed_abil/Dunce gate lives inside adjattrib.
+- **Next:** queue head is now `shk.c` shk_fixes_damage (MISSING); exerchk row done.
+
 ## D-2589 — `uhitm.c` mhitm_ad_rust + hitum_cleave whole-body ports (rust golem-kill + Cleaver 3-swing)
 
 - **Status:** fixed (Open — coverage rows ``uhitm.c`` mhitm_ad_rust MISSING, measured `port-coverage.mjs --name mhitm_ad_rust` 2026-09-19 @ d57c144b; plus same-C-file companion ``uhitm.c`` hitum_cleave MISSING, measured `--name hitum_cleave` 2026-09-19 @ 028f5be4).
