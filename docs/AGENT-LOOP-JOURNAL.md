@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-19 — D-2502 `trap.c` trapeffect_web whole-body port (hero/steed/strength-tim arm, bear-roar Soundeffect, pline_mon)
+
+**C locus:** `nethack-c/upstream/src/trap.c:2106–2276` (`trapeffect_web`); sole C caller `trap.c:2972` (WEB arm of the trapeffect selector switch).
+**JS:** `js/trap.js:4990` `async function trapeffect_web` (local, same signature); new same-edge import words only — `You` (display.js), `strongmonst` (monsters.js), `se_roar` (generated/seffects_data.js); `u_locomotion("stumble")` via existing fuller local `u_locomotion_verb` (Lev/Fly + `locomotion()` poly path); `youmonst = game.youmonst ?? mtmp` documents the C `&gy.youmonst` identity incl. the dotrap `_youmonst` stand-in.
+**Change:** restarted `trapeffect_web` in C order. Hero arm (`:2116–2202`): NOWEBMSG/FORCETRAP|FAILEDUNTRAP/VIASITTING flags, named-steed article suppression, `feeltrap`, `mu_maybe_destroy_web`, webmaker walk (`You take a walk on your web.` / `There is a spider web here.`), caught-by/lead-into/`u_locomotion("stumble")`-into `You('%s %s spider web!')`, `set_utrap(1, TT_WEB)`, mounted-steed `mintrap` pre-pass (mtrapped clear, `strongmonst` → str 17, else `reset_utrap` + return), full `ACURR(A_STR)`→`acurr(A_STR)` `rn1`/`rnd` ladder incl. str≥69 tear-through + `deltrap` + `newsym`, final `set_utrap(tim, TT_WEB)`. Monster arm: added `Soundeffect(se_roar, 60)` before the unseeing-bear `You_hear`; the three in-sight messages now call `pline_mon` per C (text-identical: `pline_mon` = `set_msg_xy` + `vpline`).
+**Verify:** `node scripts/verify.mjs --fn trapeffect_web` → VERIFY: PASS — syntax 1 file; rule2 clean; hidden `no corpus session blocked`; REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run: 24 PASS, 0 regressed); green 2/2; strict both sessions; cohort 7/7; full skipped (no shared file changed).
+**Named:** none in the ported body — every C arm is live. (Pre-existing deferrals elsewhere untouched: `u_locomotion_verb` poly-`locomotion()` path as already ported; `Soundeffect` is a display-sound no-op in JS.)
+**Next:** pop the next Open — coverage row (`muse.c` precheck).
 ## 2026-09-19 — D-2501 `mkmaze.c` movebubbles whole-body port (covet pair, cons-guard, monster grid arm, air block calls, vision_recalc)
 
 **C locus:** `nethack-c/upstream/src/mkmaze.c:1539–1685` (`movebubbles`); `ball.c:181–189` (`check_restriction` staticfn), `:222–234` (`unplacebc_and_covet_placebc`), `:236–254` (`lift_covet_and_placebc`); `hack.h:110` (`override_restriction = -1`); `youprop.h:77` (Punished ≡ uball != 0).

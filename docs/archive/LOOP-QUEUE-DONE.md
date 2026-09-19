@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `mkmaze.c` movebubbles — coverage PARTIAL (C 146 L `mkmaze.c:1539–1685` / JS 80 L in js/mklev.js; hops 2, callers 3, RNG 3, msg 0; dead callees: lift_covet_and_placebc). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn movebubbles` (reach regression must be 0). Measured `port-coverage.mjs --name movebubbles` 2026-09-19 @ e0c364ed. **Addressed:** D-2501
+- [x] `trap.c` trapeffect_web — coverage THIN (C 167 L `trap.c:2106–2276` / JS 65 L in js/trap.js; hops 4, callers 1, RNG 6, msg 7). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn trapeffect_web` (reach regression must be 0). Measured `port-coverage.mjs --name trapeffect_web` 2026-09-19 @ e0c364ed. **Addressed:** D-2502
+
+
+- [x] `mkmaze.c` movebubbles — coverage PARTIAL (C 146 L `mkmaze.c:1539–1685` / JS 80 L in js/mklev.js; hops 2, callers 3, RNG 3, msg 0; dead callees: lift_covet_and_placebc). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn movebubbles` (reach regression must be 0). Measured `port-coverage.mjs --name movebubbles` 2026-09-19 @ e0c364ed. **Addressed:** D-2501 `e600e6c5`
 
 
 - [x] `read.c` recharge — coverage PARTIAL (C 279 L `read.c:729–1008` / JS 190 L in js/read.js; hops 4, callers 3, RNG 17, msg 6). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn recharge` (reach regression must be 0). Measured `port-coverage.mjs --name recharge` 2026-09-19 @ d6cf97e2. **Addressed:** D-2500 `4131ec6e`

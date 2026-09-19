@@ -45,7 +45,7 @@ screens 93.2 %. Held-out moved 7 → 11 over 2026-09-06..17 while the local
 corpus went 48 % → 91.7 %: the corpus no longer predicts the judge.
 **Corpus fortress** (re-scored 2026-09-18 audit 1444–1452): **495 / 540
 PASS (91.7 %)** excl. 13 env-only; RNG 99.29 %, screens 99.0 % — identical
-to the prior audit, no flips across D-2485…D-2501 (every per-SHA re-run:
+to the prior audit, no flips across D-2485…D-2502 (every per-SHA re-run:
 0 regressed; makemaz REACH 77/77, misc_obj 12/12, ad_legs 13/13).
 Reviews 1225–1452: 200 ACCEPT, 8 WITH-DEBT, 1 DEBT, 14 QUALITY-RISK (0 Must-fix pending).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph (display.h:842–844 vs display.js:849), 1448 safe_typename guard (objnam.c:316) — review-debt, unqueued.
@@ -100,8 +100,9 @@ breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
 **Next cluster:** `trap.c` trapeffect_web (THIN; full row = first Open — coverage row in `LOOP-QUEUE.md`). Verify `node scripts/verify.mjs --fn trapeffect_web` (reach regression must be 0).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2501 (index).**
+**Keep D-0845…D-2502 (index).**
 <!-- recent:begin -->
+**D-2502** `nethack-c/upstream/src/trap.c:2106–2276` (`trapeffect_web`); sole C caller `trap.c:2972`  — restarted `trapeffect_web` in C order.
 **D-2501** `nethack-c/upstream/src/mkmaze.c:1539–1685` (`movebubbles`); `ball.c:181–189` (`check_rest — `js/ball.js` — new module-local `check_restriction` (literal `:181–189` mirror; `game.bcrestriction` holds the C static, init 0; override -1 per `hack.h:110`) + `export async function unplacebc_and_covet_placebc` (`rnd(4
 **D-2500** `nethack-c/upstream/src/read.c:729–1008` (`recharge`) + staticfns `stripspe :651–664`, `p_ — `js/read.js` only, no new module edges (`imports.mjs --can` ALREADY on all five): `You`/`Your` (display), `Tobjnam` (objnam), `useup as useup_live` (invent), `Ring_gone`/`Ring_off`/`Ring_on` (do_wear), `end_burn` (timeou
 **D-2499** `mon.c:1392–1453` (`m_consume_obj`); `:1352–1381` (`meatbox`); `:1384–1386` (`mstoning` ma — `js/mon.js` — new `export async function meatbox` in C order (`:1356` cube-engulf test, `:1363–1367` spill pline, `:1368–1379` head-first unwrap with ICE_BOX `removed_from_icebox`, engulf `mpickobj`, else `flooreffects`→
@@ -109,11 +110,10 @@ revisits the picker.
 **D-2497** `nethack-c/upstream/src/objnam.c:1223–1751` (`doname_base`); flags `:1217–1219` (WITH_PRIC — `js/objnam.js` — `doname` → `doname_base(obj, flags)` (existing body kept, arms in C order) + `DONAME_*` exports + `doname_vague_quan` wrapper; override_ID five-flag force `:1255`; vague `"some "` `:1283`; BoT/HoP `spe==
 **D-2496** `nethack-c/upstream/src/steal.c:618–685` (`mpickobj`; 48 C refs). Callees all live: `impos — `js/makemon.js` only — `mpickobj` restarted in C order with `:line` cites: `:622–631` null/ball+chain guards (`game.u?.uball/uchain`, chain-vs-ball label, `simpleonames`); `:634–637` thrown/kicked clear (existing `game.t
 **D-2495** `nethack-c/upstream/src/cmd.c:4171–4296` (`help_dir`, staticfn; sole code call site `cmd.c — `js/lock.js` only — `help_dir` restarted in C order with `:line` cites plus module-local `show_direction_keys(lines, centerchar, nodiag)` with verbatim Sprintf layouts (`:4129–4130` falsy-center fallback; `:4133–4146` ca
-**D-2494** `nethack-c/upstream/src/mon.c:4265–4318` (`setmangry`); 18 code call sites (`dokick.c:152, — `js/mon.js` — `setmangry` restarted in C order with `:line` cites: Elbereth arm first (`via_attack` + strict `sengr_at` inlined via live `engr_at`: exact case-insensitive `actual_text` match, `HEADSTONE` skip, `engr_time
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2501; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2502; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

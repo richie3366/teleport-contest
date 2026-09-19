@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2502 — `trap.c` trapeffect_web whole-body port (hero/steed/strength-tim arm, bear-roar Soundeffect, pline_mon)
+
+- **Status:** fixed (breadth-phase coverage row: trapeffect_web THIN C 167 L `trap.c:2106–2276` / JS 65 L in js/trap.js; `hidden-proxy verify trapeffect_web`: no corpus session blocked).
+- **Symptom:** coverage gap, not a corpus divergence. The JS body (D-0866) carried the monster arm but early-returned the hero arm, and dropped the owlbear/bugbear `Soundeffect(se_roar, 60)` plus C's `pline_mon` call sites.
+- **C locus:** `nethack-c/upstream/src/trap.c:2106–2276` (`trapeffect_web`); sole C caller `trap.c:2972` (WEB arm of the trapeffect selector switch).
+- **JS was:** `js/trap.js:4987` — `if (is_youmonst(mtmp)) return Trap_Effect_Finished` (hero/steed/strength-tim deferred); monster arm used `pline` where C uses `pline_mon`, no `Soundeffect` in the unseeing-bear arm.
+- **Fix:** restarted `trapeffect_web` in C order. Hero arm (`:2116–2202`): NOWEBMSG/FORCETRAP|FAILEDUNTRAP/VIASITTING flags, named-steed article suppression, `feeltrap`, `mu_maybe_destroy_web`, webmaker walk (`You take a walk on your web.` / `There is a spider web here.`), caught-by/lead-into/`u_locomotion("stumble")`-into `You('%s %s spider web!')`, `set_utrap(1, TT_WEB)`, mounted-steed `mintrap` pre-pass (mtrapped clear, `strongmonst` → str 17, else `reset_utrap` + return), full `ACURR(A_STR)`→`acurr(A_STR)` `rn1`/`rnd` ladder incl. str≥69 tear-through + `deltrap` + `newsym`, final `set_utrap(tim, TT_WEB)`. Monster arm: added `Soundeffect(se_roar, 60)` before the unseeing-bear `You_hear`; the three in-sight messages now call `pline_mon` per C (text-identical: `pline_mon` = `set_msg_xy` + `vpline`).
+- **JS:** `js/trap.js:4990` `async function trapeffect_web` (local, same signature); new same-edge import words only — `You` (display.js), `strongmonst` (monsters.js), `se_roar` (generated/seffects_data.js); `u_locomotion("stumble")` via existing fuller local `u_locomotion_verb` (Lev/Fly + `locomotion()` poly path); `youmonst = game.youmonst ?? mtmp` documents the C `&gy.youmonst` identity incl. the dotrap `_youmonst` stand-in.
+- **Callers:** C `trap.c:2972` WEB selector arm → JS `js/trap.js:5622` `case WEB: return trapeffect_web(mtmp, trap, trflags)` (pre-existing, in-module, unchanged).
+- **Verify:** `node scripts/verify.mjs --fn trapeffect_web` → VERIFY: PASS — syntax 1 file; rule2 clean; hidden `no corpus session blocked`; REACH-OK (no RNG-tagged reach; fixed smoke spread 24 run: 24 PASS, 0 regressed); green 2/2; strict both sessions; cohort 7/7; full skipped (no shared file changed).
+- **Named omissions:** none in the ported body — every C arm is live. (Pre-existing deferrals elsewhere untouched: `u_locomotion_verb` poly-`locomotion()` path as already ported; `Soundeffect` is a display-sound no-op in JS.)
+- **Next:** pop the next Open — coverage row (`muse.c` precheck).
+
 ## D-2501 — `mkmaze.c` movebubbles whole-body port (covet pair, cons-guard, monster grid arm, air block calls, vision_recalc)
 
 - **Status:** fixed (breadth-phase coverage row: movebubbles PARTIAL C 146 L `mkmaze.c:1539–1685` / JS 80 L in js/mklev.js; `hidden-proxy verify movebubbles`: no corpus session blocked).

@@ -2947,8 +2947,8 @@ bones `unhideable_trap` reaffirm / pit conjoined / overwrite `reset_utrap` named
 **PIT/HOLE `set_levltyp` D-1280**; **DRAWBRIDGE_UP ice D-1296**; **shop `add_damage` D-1300**); 
 **`mon_knows_traps`/`mon_learns_traps` `mtrapseen`** (D-0151); 
 **`mons_see_trap`** lit 7² / unlit 2 fan-out from `dotrap`/`mintrap` (D-0701); 
-**`trapeffect_web` mon catch/`mtrapped` + `mu_maybe_destroy_web`** (D-0866; 
-hero/steed/strength-tim deferred); **`trapeffect_fire_trap`/`dofiretrap` 
+**`trapeffect_web` whole body C order** (D-0866 mon arm; D-2502 hero/steed/
+`acurr(A_STR)` stuck-time ladder + bear `Soundeffect(se_roar,60)` + `pline_mon`); **`trapeffect_fire_trap`/`dofiretrap` 
 `burnarmor`→`destroy_items(AD_FIRE)`** (D-0928 #1120; 
 dynamic import vs zap cycle) + **`burn_floor_objects` give_feedback / smell + 
 `melt_ice`** (D-0975) + **`ignite_items`/`burn_away_slime` via fire trap** (D-0978; 
