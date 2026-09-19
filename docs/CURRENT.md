@@ -46,7 +46,7 @@ breadth-phase window while the local corpus holds 91.7 %: the corpus
 still does not predict the judge.
 **Corpus fortress** (re-scored 2026-09-19 audit 1462–1470): **495 / 540
 PASS (91.7 %)** excl. 13 env-only; RNG 99.29 %, screens 99.0 % — identical
-to the prior audit, no flips across D-2503…D-2511 (per-SHA re-runs:
+to the prior audit, no flips across D-2503…D-2512 (per-SHA re-runs:
 0 regressed).
 Reviews 1225–1470: 215 ACCEPT, 10 WITH-DEBT, 1 DEBT, 15 QUALITY-RISK (1 Must-fix pending: 1465 menu-colors trio).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone — review-debt, unqueued (detail in the review files).
@@ -101,8 +101,9 @@ breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
 **Next cluster:** Must-fix from review 1465 — `options.c` menu-colors C-wrong trio in `js/options.js` (C `options.c:9227–9231` / `:6466–6477` / `:6495`). Port the three C lines in C order. Verify `node scripts/verify.mjs --fn handler_menu_colors` (reach regression must be 0). Source: reviews/loop-unattended/1465-e27f24bf-handler-menu-colors.md.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2511 (index).**
+**Keep D-0845…D-2512 (index).**
 <!-- recent:begin -->
+**D-2512** `nethack-c/upstream/src/options.c:9207–9251` (`handle_add_list_remove`; `:9227` `any.a_int — `js/options.js` only, in C order — a_int++ moved before the skip (false cite corrected); suffix template → `` `"\\\"=..."` `` with no trailing quote (runtime now byte-equal to C, proven by node template eval: `"PAT\"=bri
 **D-2511** `nethack-c/upstream/src/uhitm.c:4296–4385` (`mhitm_ad_heal`: uhitm `:4300–4304` phys+done, — `js/uhitm.js` — `AD_HEAL = 27` const (monattk.h:69) + `mhitm_ad_heal` word on the live mhitm edge + `defended` word on the live mondata edge (`imports.mjs --can` ALREADY both) + two `damageum_adtyping` rows in C order: A
 **D-2510** `nethack-c/upstream/src/hack.c:2098–2225` (`domove_swap_with_pet`, staticfn); sole C calle — `js/hack.js` — restarted `domove_swap_with_pet` in C order with `:line` cites: `:2101–2105` guard + boulder capture; `:2107–2114` park/seemimic via live `M_AP_TYPE(mtmp)`; `:2116–2118` trap lookup + `mtrapped` clear; `:2
 **D-2509** `nethack-c/upstream/src/insight.c:2407–2472` (`record_achievement`); 32 call sites in `do. — `js/insight.js` only (same-edge import word `impossible` on the live display edge — `imports.mjs --can` ALREADY, no new edge) — restarted `record_achievement` in C order with `:line` cites: `:2414–2421` guard with `:2419
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2507** `nethack-c/upstream/src/mthrowu.c:321–502` (`ohitmon`); callers `do.c:210` (deliberate non — `js/mthrowu.js` — restarted `ohitmon` in C order with `:line` cites: `:334–339` notonhead/ismimic/vis/observe; `:341–349` tmp +marcher level +`MON_WEP` launcher `spec_abon`; `:350–360` miss arm (`distant_name`, range-0 d
 **D-2506** `nethack-c/upstream/src/options.c:6407–6499` (`handler_menu_colors`, staticfn); sole calle — `js/options.js` only (same-edge import words: hacklib `strNsubst`, display `tty_wait_synch`, invent `select_menu_pick_none`, terminal C CLR_* + `NO_COLOR`, objnam `makeplural`, const `HL_*` + `BUFSZ`/`QBUFSZ`, new `artif
 **D-2505** `nethack-c/upstream/src/do_wear.c:963–1087` (`Amulet_on`, staticfn); callers `:1551` (`set — `js/do_wear.js` — restarted `Amulet_on` as the C-order switch with `:line` cites: `:972–977` no-op group; `:978–995` breathing (W_AMUL masked out for the `region_danger` test, had-guarded restore, `makeknown`+`on_msg`+`Y
-**D-2504** `nethack-c/upstream/src/teleport.c:1644–1768` (`rloc_to_core`, staticfn); callers `:1771–1 — `js/teleport.js` only, no new module edges — new `export async function rloc_to_core(mtmp, x, y, rlocflags)` composing the live helpers in C order (same-cell `:1658–1659` return first so no vanish prints; pre `:1661–1677
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2511; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2512; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

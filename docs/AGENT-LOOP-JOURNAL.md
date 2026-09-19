@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-19 — D-2512 `options.c` menu-colors submenu trio C-wrongs (review 1465 Must-fix)
+
+**C locus:** `nethack-c/upstream/src/options.c:9207–9251` (`handle_add_list_remove`; `:9227` `any.a_int++` precedes the `:9229–9230` list/remove skip) + `:6407–6499` (`handler_menu_colors`; `:6466–6477` suffix, `:6495` `pick_cnt >= 0 → goto menucolors_again`) + `wintty.c:1604–1615` (ESC cancels = pick_cnt −1).
+**JS:** `js/options.js` (+29/−16) + `scripts/menu-colors-submenu.test.mjs` (new); under caps.
+**Change:** `js/options.js` only, in C order — a_int++ moved before the skip (false cite corrected); suffix template → `` `"\\\"=..."` `` with no trailing quote (runtime now byte-equal to C, proven by node template eval: `"PAT\"=bright-green&bold"` both sides); `select_menu_pick_any` takes optional `{ cancelValue }` (ESC arm returns it; default `[]` preserves the 6 other callers) and the remove arm passes `{ cancelValue: null }` → null returns, empty `continue`s. New `scripts/menu-colors-submenu.test.mjs`: 3 headless key-scripted tests (empty+`x` exits on one key; remove+Enter-empty re-loops through `x` with exact key consumption; remove+ESC exits intact).
+**Verify:** new test 3/3 PASS post-fix; pre-fix it fails (stash check: remove-arm test "Missing expected rejection"; /tmp probe pre-fix: empty+`x` threw Input-queue-empty via the list-arm detour, finish-empty returned early leaving `x` queued). `node scripts/verify.mjs --fn handler_menu_colors` → PASS syntax (1 file) · rule2 · hidden note (0 blocked) · **reach smoke 24/24 PASS, 0 regressed → REACH-OK** · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file changed) → VERIFY: PASS.
+**Named:** the C pick_cnt>1 arm (preselected exit + explicit pick) — the single-pick helper cannot produce it (pre-existing). List-arm PICK_NONE ESC: C `:6495` −1 → return, JS `select_menu_pick_none` returns void → re-loops (pre-existing, outside the trio's scope).
+**Next:** Open head after this Must-fix (`rumors.c` getrumor).
 ## 2026-09-19 — Audit e131537d..fc62ea8a (reviews 1462–1470) + cadence 44/44, proxy 495/540, held-out 11/44
 
 7 ACCEPT, 1 WITH-DEBT (1462: precheck body exact; `m_useup` binds the divergent muse.js:1266 clone, not the live mthrowu.js:174 export — review-debt, unqueued), 1 QUALITY-RISK (1465: menu-colors `a_int`/suffix/empty-finish trio contradicts C — Must-fix prepended, Next cluster set). Every D-log verify claim re-measured true (ohitmon reach 12/12 holds). Fortress identical (public RNG 792,838/792,838; corpus 495/540); held-out flat 11/44 (+11 pts). Next port iter pops the 1465 Must-fix first.

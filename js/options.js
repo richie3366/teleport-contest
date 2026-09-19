@@ -1547,12 +1547,13 @@ function test_regex_pattern(str, errmsg) {
 }
 
 /**
- * C ref: options.c handle_add_list_remove `:9208–9253`, common to
+ * C ref: options.c handle_add_list_remove `:9208–9251`, common to
  * msg-types, menu-colors, autopickup-exceptions — PICK_ONE add / list /
  * remove / exit (C accelerators a/l/r/x), exit preselected, cancel → 3.
- * a_int counts added rows only, so exit-with-empty returns 1 like C
- * (falls into the handler's list arm). The C pick_cnt>1 arm (preselected
- * exit + explicit pick) cannot arise from the single-pick helper.
+ * `:9227` any.a_int++ precedes the list/remove skip, so a_int counts
+ * every row including skipped ones: exit-with-empty carries 4 → 3
+ * (done). The C pick_cnt>1 arm (preselected exit + explicit pick)
+ * cannot arise from the single-pick helper.
  */
 async function handle_add_list_remove(optname, numtotal) {
     const name = String(optname ?? '');
@@ -1564,10 +1565,12 @@ async function handle_add_list_remove(optname, numtotal) {
         { letr: 'x', desc: 'exit this menu' },
     ];
     const raw = [{ text: 'Do what?', selectable: false }];
-    let a_int = 0;
+    let a_int = 0; // C: any = cg.zeroany → a_int starts 0
     for (let i = 0; i < rows.length; i++) {
-        if (!total && (i === 1 || i === 2)) continue;
-        a_int++;
+        a_int++; // :9227 any.a_int++ precedes the skip below
+        /* omit list and remove if there aren't any yet */
+        if (!total && (i === 1 || i === 2)) continue; // :9229–9230
+        // :9231–9235 Sprintf desc + add_menu with the pre-skip a_int
         raw.push({
             text: rows[i].desc,
             selectable: true,
@@ -1634,8 +1637,9 @@ export async function handler_menu_colors() {
                 const sclr = strNsubst(clr2colorname(tmp.color), ' ', '-', 0)
                     .slice(0, QBUFSZ - 1);
                 mc_idx++; // :6464 any.a_int = ++mc_idx
-                // :6466–6468 suffix; :6470 length available
-                const buf = `"\\=${sclr}${tmp.attr !== MC_ATR_NONE ? `&${sattr}` : ''}"`;
+                // :6466–6468 suffix — buf is `"` `\` `"` `=color[&attr]`
+                // (single backslash + quote, no trailing quote); :6470 length available
+                const buf = `"\\\"=${sclr}${tmp.attr !== MC_ATR_NONE ? `&${sattr}` : ''}`;
                 const ln = BUFSZ - buf.length - 1;
                 // :6471–6475 main string with '...' truncation
                 const main = `"${tmp.origstr.length > ln
@@ -1648,12 +1652,11 @@ export async function handler_menu_colors() {
                 await select_menu_pick_none(raw); // :6487
                 continue; // :6495–6496 pick_cnt >= 0 → again
             }
-            const picks = await select_menu_pick_any(raw); // :6485–6487 PICK_ANY
-            // :6495 pick_cnt == -1 (ESC) falls through to :6498 return.
-            // The helper reports ESC and finish-empty identically as [];
-            // [] maps to the ESC exit (finish-empty exiting instead of
-            // re-looping is the documented helper-mapping delta).
-            if (!picks.length) return optn_ok;
+            // :6485–6487 PICK_ANY; cancelValue keeps C's pick_cnt -1
+            // (ESC) distinct from pick_cnt 0 (finish-empty).
+            const picks = await select_menu_pick_any(raw, { cancelValue: null });
+            if (picks === null) return optn_ok; // :6495 pick_cnt == -1 → :6498 return
+            if (!picks.length) continue; // :6495 pick_cnt == 0 → menucolors_again
             for (let k = 0; k < picks.length; k++) { // :6488–6491
                 // -k: earlier removals shift later indices (filter order).
                 free_one_menu_coloring((picks[k].a_int | 0) - 1 - k);
@@ -2239,7 +2242,13 @@ function invert_pick_any_matching(items, acc, count = -1) {
  * MENU_SEARCH is D-1646.
  * Returns selected selectable items (may be empty).
  */
-export async function select_menu_pick_any(rawItems) {
+/**
+ * C ref: wintty.c process_menu_window PICK_ANY loop. Finish (Enter/space)
+ * returns the selected items (possibly none); ESC deselects all then
+ * cancels. Callers that must tell cancel apart from finish-empty
+ * (options.c `:6495` pick_cnt -1 vs 0) pass { cancelValue }.
+ */
+export async function select_menu_pick_any(rawItems, opts = {}) {
     const rows = 24;
     const lmax = Math.min(52, rows - 1);
     // C wintty.c:2611 — every menu item starts with count -1 (no count).
@@ -2318,6 +2327,10 @@ export async function select_menu_pick_any(rawItems) {
                 // menu (incl. WIN_STATUS) stay painted. docrt()+flush
                 // blanks them while bot is disabled.
                 await dismiss_nhw_menu({ keep_status: true });
+                // C wintty.c:1604–1615 — ESC cancels (C pick_cnt -1),
+                // distinct from finish-empty (pick_cnt 0). Default []
+                // keeps every other caller on its existing contract.
+                if (opts && opts.cancelValue !== undefined) return opts.cancelValue;
                 return [];
             }
             if (key === 13 || key === 10) {

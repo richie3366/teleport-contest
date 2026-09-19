@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2512 — `options.c` menu-colors submenu trio C-wrongs (review 1465 Must-fix)
+
+- **Status:** fixed (Must-fix row from review 1465-e27f24bf; review stamped **Addressed:** D-2512).
+- **Symptom:** three C-wrongs in the menu-colors submenu plumbing, all invisible to the fortress (0 blocked sessions, RNG 0, interactive-only): (1) empty-menu exit returned opt_idx 1 (list arm) instead of 3 (done); (2) list suffix rendered `"PAT\=color[&attr]"` (backslash, missing quote, spurious trailing quote) instead of C `"PAT\"=color[&attr]`; (3) PICK_ANY finish-empty returned instead of re-looping.
+- **C locus:** `nethack-c/upstream/src/options.c:9207–9251` (`handle_add_list_remove`; `:9227` `any.a_int++` precedes the `:9229–9230` list/remove skip) + `:6407–6499` (`handler_menu_colors`; `:6466–6477` suffix, `:6495` `pick_cnt >= 0 → goto menucolors_again`) + `wintty.c:1604–1615` (ESC cancels = pick_cnt −1).
+- **JS was:** `js/options.js` `handle_add_list_remove` incremented a_int after the skip (with a false "exit-with-empty returns 1 like C" cite) → exit-with-empty carried 2 → opt_idx 1; suffix template `` `"\\=..."` `` plus a trailing `"` → runtime `"PAT\=COLOR"`; `if (!picks.length) return optn_ok` conflated ESC with finish-empty (the helper returned `[]` for both).
+- **Fix:** `js/options.js` only, in C order — a_int++ moved before the skip (false cite corrected); suffix template → `` `"\\\"=..."` `` with no trailing quote (runtime now byte-equal to C, proven by node template eval: `"PAT\"=bright-green&bold"` both sides); `select_menu_pick_any` takes optional `{ cancelValue }` (ESC arm returns it; default `[]` preserves the 6 other callers) and the remove arm passes `{ cancelValue: null }` → null returns, empty `continue`s. New `scripts/menu-colors-submenu.test.mjs`: 3 headless key-scripted tests (empty+`x` exits on one key; remove+Enter-empty re-loops through `x` with exact key consumption; remove+ESC exits intact).
+- **JS:** `js/options.js` (+29/−16) + `scripts/menu-colors-submenu.test.mjs` (new); under caps.
+- **Callers:** C `:6343` (autopickup exceptions) / `:6418` (menucolor) / `:6511` (msgtype) share the one C function → all inherit the fix; JS `:6418` → `js/options.js:1603` ✓. JS has no same-named autopickup/msgtype submenu handlers yet (future coverage rows). `select_menu_pick_any` other callers (`js/invent.js:3649`, `js/options.js:1509` + `:2875`, `js/pickup.js:623` + `:810`, `js/wizcmds.js:223`) keep default `[]` — full 44/44 confirms. No call from a site C never calls from.
+- **Verify:** new test 3/3 PASS post-fix; pre-fix it fails (stash check: remove-arm test "Missing expected rejection"; /tmp probe pre-fix: empty+`x` threw Input-queue-empty via the list-arm detour, finish-empty returned early leaving `x` queued). `node scripts/verify.mjs --fn handler_menu_colors` → PASS syntax (1 file) · rule2 · hidden note (0 blocked) · **reach smoke 24/24 PASS, 0 regressed → REACH-OK** · green 2/2 · strict ×2 · cohort 7/7 · full 44/44 (auto: shared file changed) → VERIFY: PASS.
+- **Named omissions:** the C pick_cnt>1 arm (preselected exit + explicit pick) — the single-pick helper cannot produce it (pre-existing). List-arm PICK_NONE ESC: C `:6495` −1 → return, JS `select_menu_pick_none` returns void → re-loops (pre-existing, outside the trio's scope).
+- **Next:** Open head after this Must-fix (`rumors.c` getrumor).
+
 ## D-2511 — `uhitm.c` mhitm_ad_heal uhitm arm + mhitm_ad_acid uhitm/mhitm arms (coverage THIN/MISSING → live)
 
 - **Status:** fixed (Open coverage row `uhitm.c` mhitm_ad_heal THIN + same-C-file Open row `uhitm.c` mhitm_ad_acid MISSING; no Must-fix pending; reviews 1441/1213 ACCEPT with no C-wrongs, D-ids only, no stamps needed).
