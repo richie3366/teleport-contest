@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `do.c` dosinkring — coverage MISSING (C 163 L `do.c:498–661` / JS no symbol; hops —, callers 1, RNG 2, msg 10; dead callees: teleport_sink). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dosinkring` (reach regression must be 0). Measured `port-coverage.mjs --name dosinkring` 2026-09-19 @ 95d26622. **Addressed:** D-2527.
+- [x] `options.c` show_menu_controls — coverage MISSING (C 104 L `options.c:9070–9174` / JS no symbol; hops —, callers 2, RNG 0, msg 19; dead callees: get_menu_cmd_key). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn show_menu_controls` (reach regression must be 0). Measured `port-coverage.mjs --name show_menu_controls` 2026-09-19 @ 95d26622.
+
+
+- [x] `do.c` dosinkring — coverage MISSING (C 163 L `do.c:498–661` / JS no symbol; hops —, callers 1, RNG 2, msg 10; dead callees: teleport_sink). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dosinkring` (reach regression must be 0). Measured `port-coverage.mjs --name dosinkring` 2026-09-19 @ 95d26622. **Addressed:** D-2527 `ac4246db`.
 
 
 - [x] `exper.c` losexp — coverage PARTIAL (C 83 L `exper.c:207–291` / JS 62 L in js/exper.js; hops 4, callers 8, RNG 0, msg 3; dead callees: fuzzer_savelife). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn losexp` (reach regression must be 0). Measured `port-coverage.mjs --name losexp` 2026-09-19 @ 7b5fbce5. **Addressed:** D-2526 `dec0bcad`

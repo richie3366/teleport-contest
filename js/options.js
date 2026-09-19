@@ -33,6 +33,8 @@ import {
     MENU_FIRST_PAGE,
     MENU_LAST_PAGE,
     MENU_SEARCH,
+    MENU_SHIFT_RIGHT,
+    MENU_SHIFT_LEFT,
     MENU_ITEMFLAGS_SKIPINVERT,
     PICK_ONE,
     PICK_ANY,
@@ -75,6 +77,19 @@ import {
     WC_PLAYER_SELECTION,
     WC_HILITE_PET,
     WC_MOUSE_SUPPORT,
+    WC2_FULLSCREEN,
+    WC2_SOFTKEYBOARD,
+    WC2_WRAPTEXT,
+    WC2_HILITE_STATUS,
+    WC2_DARKGRAY,
+    WC2_HITPOINTBAR,
+    WC2_MENU_SHIFT,
+    WC2_STATUSLINES,
+    WC2_TERM_SIZE,
+    WC2_WINDOWBORDERS,
+    WC2_PETATTR,
+    WC2_GUICOLOR,
+    WC2_EXTRASTATUS,
     MSGTYP_NORMAL,
     MSGTYP_NOREP,
     MSGTYP_NOSHOW,
@@ -687,6 +702,93 @@ function wc_supported(optnam) {
     }
     return false;
 }
+
+/**
+ * C options.c wc2_options[] `:9823–9842` (name/bit pairs, C order).
+ * The contest tty port advertises no wincap2 bits.
+ */
+export const wc2_options = [
+    { wc_name: 'armorstatus', wc_bit: WC2_EXTRASTATUS },
+    { wc_name: 'fullscreen', wc_bit: WC2_FULLSCREEN },
+    { wc_name: 'guicolor', wc_bit: WC2_GUICOLOR },
+    { wc_name: 'hilite_status', wc_bit: WC2_HILITE_STATUS },
+    { wc_name: 'hitpointbar', wc_bit: WC2_HITPOINTBAR },
+    { wc_name: 'menu_shift', wc_bit: WC2_MENU_SHIFT },
+    { wc_name: 'petattr', wc_bit: WC2_PETATTR },
+    { wc_name: 'softkeyboard', wc_bit: WC2_SOFTKEYBOARD },
+    { wc_name: 'status hilite rules', wc_bit: WC2_HILITE_STATUS },
+    { wc_name: 'statushilites', wc_bit: WC2_HILITE_STATUS },
+    { wc_name: 'statuslines', wc_bit: WC2_STATUSLINES },
+    { wc_name: 'term_cols', wc_bit: WC2_TERM_SIZE },
+    { wc_name: 'term_rows', wc_bit: WC2_TERM_SIZE },
+    { wc_name: 'terrainstatus', wc_bit: WC2_EXTRASTATUS },
+    { wc_name: 'use_darkgray', wc_bit: WC2_DARKGRAY },
+    { wc_name: 'weaponstatus', wc_bit: WC2_EXTRASTATUS },
+    { wc_name: 'windowborders', wc_bit: WC2_WINDOWBORDERS },
+    { wc_name: 'wraptext', wc_bit: WC2_WRAPTEXT },
+];
+
+/** C `windowprocs.wincap2`; unset bag → contest tty (no wincap2 bits). */
+function windowprocs_wincap2() {
+    const wp = game.windowprocs;
+    if (wp && typeof wp === 'object' && Object.hasOwn(wp, 'wincap2')) {
+        return wp.wincap2 | 0;
+    }
+    return 0;
+}
+
+/** C options.c wc2_supported `:9965–9976`. */
+export function wc2_supported(optnam) {
+    for (let k = 0; k < wc2_options.length; k++) {
+        if (wc2_options[k].wc_name === optnam) {
+            return (windowprocs_wincap2() & wc2_options[k].wc_bit) !== 0;
+        }
+    }
+    return false;
+}
+
+/**
+ * C decl.h `gm.mapped_menu_cmds` / `gm.mapped_menu_op` + `gn.n_menu_mapped`.
+ * Fresh C has n_menu_mapped = 0, so both strings are empty and every lookup
+ * is the identity. Aliases arrive via `add_menu_cmd_alias` (menu-key BIND
+ * parsing — named omission, same as the map's mouse/menu-alias line).
+ */
+function mapped_menu_strings() {
+    const m = game.mappedMenu;
+    if (m && typeof m.cmds === 'string' && typeof m.ops === 'string') return m;
+    return { cmds: '', ops: '' };
+}
+
+/**
+ * C options.c get_menu_cmd_key `:8093–8104` — the rebound key for menu
+ * command ch (`strchr(mapped_menu_op)` → `mapped_menu_cmds[idx]`), else ch.
+ * Single-character strings carry C `char` here.
+ */
+export function get_menu_cmd_key(ch) {
+    const { cmds, ops } = mapped_menu_strings();
+    const idx = ops.indexOf(ch);
+    return idx >= 0 ? cmds[idx] : ch;
+}
+
+/**
+ * C options.c default_menu_cmd_info[] `:314–340` (menu_cmd_t name/cmd/desc,
+ * C order; the trailing `{ 0, '\0', 0 }` sentinel is the array end in JS).
+ */
+export const default_menu_cmd_info = [
+    { name: 'menu_next_page', cmd: MENU_NEXT_PAGE, desc: 'Go to next page' },
+    { name: 'menu_previous_page', cmd: MENU_PREVIOUS_PAGE, desc: 'Go to previous page' },
+    { name: 'menu_first_page', cmd: MENU_FIRST_PAGE, desc: 'Go to first page' },
+    { name: 'menu_last_page', cmd: MENU_LAST_PAGE, desc: 'Go to last page' },
+    { name: 'menu_select_all', cmd: MENU_SELECT_ALL, desc: 'Select all items in entire menu' },
+    { name: 'menu_invert_all', cmd: MENU_INVERT_ALL, desc: 'Invert selection for all items' },
+    { name: 'menu_deselect_all', cmd: MENU_UNSELECT_ALL, desc: 'Unselect all items in entire menu' },
+    { name: 'menu_select_page', cmd: MENU_SELECT_PAGE, desc: 'Select all items on current page' },
+    { name: 'menu_invert_page', cmd: MENU_INVERT_PAGE, desc: 'Invert current page\'s selections' },
+    { name: 'menu_deselect_page', cmd: MENU_UNSELECT_PAGE, desc: 'Unselect all items on current page' },
+    { name: 'menu_search', cmd: MENU_SEARCH, desc: 'Search and invert matching items' },
+    { name: 'menu_shift_right', cmd: MENU_SHIFT_RIGHT, desc: 'Pan current page to right (perm_invent only)' },
+    { name: 'menu_shift_left', cmd: MENU_SHIFT_LEFT, desc: 'Pan current page to left (perm_invent only)' },
+];
 
 /**
  * C options.c doset `:8869–8872` / `:8846–8848` WC skip.
