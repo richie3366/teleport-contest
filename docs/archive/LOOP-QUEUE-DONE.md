@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `engrave.c` make_engr_at — coverage PARTIAL (C 44 L `engrave.c:408–457` / JS 23 L in js/engrave.js; hops 2, callers 8, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn make_engr_at` (reach regression must be 0). Measured `port-coverage.mjs --name make_engr_at` 2026-09-19 @ 90ae7d1d. **Addressed:** D-2567
+- [x] `objnam.c` readobjnam_postparse2 — coverage MISSING (C 58 L `objnam.c:4666–4724` / JS no symbol; hops 4, callers 1, RNG 1, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn readobjnam_postparse2` (reach regression must be 0). Measured `port-coverage.mjs --name readobjnam_postparse2` 2026-09-19 @ 30fd2ce7. **Addressed:** D-2568
+
+
+- [x] `engrave.c` make_engr_at — coverage PARTIAL (C 44 L `engrave.c:408–457` / JS 23 L in js/engrave.js; hops 2, callers 8, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn make_engr_at` (reach regression must be 0). Measured `port-coverage.mjs --name make_engr_at` 2026-09-19 @ 90ae7d1d. **Addressed:** D-2567 `eb5f9f62`
 
 
 - [x] `options.js` OPT_NEGATEOK_NO missing `travel_debug` (review 1520 QUALITY-RISK) — C `optlist.h:794–796` non-DEBUG arm has negateok `No` (64 negateok-No rows under the contest-linux `cc -E` set); JS `OPT_NEGATEOK_NO` lists 63. Fix: add `'travel_debug'` + a negated-`travel_debug` bad-negation case in `scripts/parseoptions.test.mjs`. Source: reviews/loop-unattended/1520-1832a9e7-parseoptions.md.

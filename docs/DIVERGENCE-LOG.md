@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-2568 — `objnam.c` readobjnam_postparse2 whole-body port (o_ranges, stone/gem strip, glass arms)
+
+- **Status:** fixed (Open — coverage row `objnam.c` readobjnam_postparse2 MISSING, C 58 L / JS no symbol).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify readobjnam_postparse2`: no corpus session blocked at baseline — REACH smoke is the corpus evidence).
+- **C locus:** `nethack-c/upstream/src/objnam.c:4666–4724` (`readobjnam_postparse2`, staticfn; decl `:58`; sole C caller `readobjnam` `retry:` `:4947–4955`): o_ranges exact loop (`:4671–4675`, table `:3346–3365`); ` stone`/` gem` strip + GEM_CLASS + actualn/dn (`:4677–4683`); `looking glass` empty guard (`:4684–4685`); ` glass`/`glass` arm (`:4686–4716`: broken→null, `worthless `/`piece of `/`colored `/`coloured ` strips, bare `glass`→`FIRST_GLASS_GEM+rn2(9)` iff still GEM_CLASS else punt, else canonical `worthless piece of <color>` rebuild); actualn/dn tail (`:4719–4723`). `d.p` is `eos(d.bp)` at entry (`:4488`), so the BSTRCMPI checks are suffix matches. Postparse1 `return 1` (wrp class-word arms, glob) goes straight to `srch`, skipping postparse2.
+- **JS was:** no symbol; `js/readobjnam.js` `readobjnam` inlined postparse1 bits + the postparse3 srch subset; `o_ranges`/`glass` were named deferred in the map (turns.md D-0507/D-2021 rows).
+- **Fix:** `js/readobjnam.js` — `O_RANGES` (`:1006`, C order, indices resolved once like `ALT_SPELLINGS_RESOLVED`) + `FIRST/LAST/NUM_GLASS_GEMS` (`:1029–1031`, 9 contiguous, mhitm.js precedent) + exported `readobjnam_postparse2` (`:1041`) in C order with `:line` cites, reusing file-local `bstrcmpi_end`/`strncmpi_start` (exact for these sites: every pattern's length equals its `n`) and live `strstri`/`rn2`; `rnd_class` joins the existing mkobj.js import and `VENOM_CLASS` the existing objects.js import (both ALREADY-edges, no new module). Wired at the `retry:` site (`:1318–1329`): code 3 returns `d.otmp`, 2 leaves `d.typ` for the srch `!d.typ` gate, 0/1 run srch. First wiring ran postparse2 unconditionally and regressed 6 smoke sessions + cohort seed0383 (owner `rnd_otyp_by_namedesc` — the tail clobbered the class-words `actualn`, e.g. `spellbook of slow monster` reverted to the full bp; C `return 1` skips postparse2); gating on `!classWord` restored baseline on those paths — re-verify PASS.
+- **JS:** `js/readobjnam.js` (table + function + two import names + caller gate); `docs/c-js-map/turns.md` readobjnam section (D-2568 note; `o_ranges`/`glass` retired from the D-0507/D-2021 named lists).
+- **Callers:** objnam.c:4947 `retry:` switch → `js/readobjnam.js:1328` (`if (!d.typ && !classWord)` + code-3 return `:1329`). Postparse3 `case 6` (`goto retry`) re-entry is a named omission (postparse3 itself unported — future row).
+- **Verify:** `node scripts/verify.mjs --fn readobjnam_postparse2` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/readobjnam.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify readobjnam_postparse2: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 3.8s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+
+VERIFY: PASS
+```
+- **Named omissions:** postparse3 `case 6` retry re-entry (above); single-char class code (C postparse1 `return 4`, pre-existing gap — postparse2 no-ops on 1-char bp); `paperback`/`unlabeled`/`holy-water`/`orange`/`versus-poison` typ arms (pre-existing inline gaps — postparse2 no-ops on those strings, baseline flow kept). No new `strncmpi` clone (helpers reused). Every arm live.
+- **Next:** pop the next Open — coverage row (`mkroom.c` mkshop).
+
 ## D-2567 — `engrave.c` make_engr_at restart in C order (smem/havepristine, engr_szeach/engr_alloc, N_ENGRAVE random arm)
 
 - **Status:** fixed (Open — coverage row `engrave.c` make_engr_at PARTIAL, C 44 L / JS 23 L).
