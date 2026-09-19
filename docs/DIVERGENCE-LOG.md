@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-2570 — `shknam.c` shkinit restart in C order (live set_malign + mon_learns_traps)
+
+- **Status:** fixed (Open — coverage row `shknam.c` shkinit PARTIAL, C 64 L `shknam.c:628–692` / JS 45 L in `js/shknam.js`).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify shkinit`: no corpus session blocked at baseline — 82-session REACH is the corpus evidence). Two genuine live-arm gaps: `set_malign` never called (keeper malign kept makemon's pre-peaceful weight) and `mon_learns_traps(ALL_TRAPS)` inlined as `mtrapseen = ~0` instead of the live export.
+- **C locus:** `nethack-c/upstream/src/shknam.c:628–692` (`shkinit`, staticfn; decl `:17`; sole C caller `stock_room` `:733`): good_shopdoor `:636` + DEBUG wizard block `:638–655` + sh<0 return; MON_AT insurance rloc `:658–660`; makemon MM_ESHK `:663–664`; ESHK `:665`; isshk/mpeaceful + set_malign + msleeping + mon_learns_traps `:666–668`; shoproom/resident/shoptype/assign_level/shd/shk `:669–675`; zeroed books `:676–680`; mkmonmoney `:681`; touchstone `:682–683`; charging `:684–687`; nameshk `:688`; return sh `:690`.
+- **JS was:** `js/shknam.js:639` async 45-line body — insurance arm + books + money + naming all present (D-2418), but no `set_malign` call and `mtrapseen` set inline; DEBUG block unmentioned.
+- **Fix:** `js/shknam.js` — restarted `shkinit` in C order with `:line` cites: `set_malign` joins the existing makemon.js import + `mon_learns_traps` joins the existing monsters.js import + `ALL_TRAPS` joins the existing const.js import (three ALREADY-edges, no new module); DEBUG wizard impossible/pline block named as compiled-out omit with the same `return -1`; `assign_level` kept as the inline dnum/dlevel copy (`dungeon.c:1978` equivalent-to-dest=source; no single live export — dig/do/dungeon/potion each carry a file-local clone); ESHK `|| neweshk` kept as dead insurance (makemon allocates MM_ESHK at `makemon.js:3300`). No new RNG draws (set_malign/traps are draw-free).
+- **JS:** `js/shknam.js` `shkinit` + three import names only (caller untouched).
+- **Callers:** `shknam.c:733` `stock_room` `shkinit(shp, sroom)` → `js/shknam.js:727` `await shkinit(shp, sroom)` (async threading from D-2418; C never calls `shkinit` from any other site — brief reference list is decl + this call).
+- **Verify:** `node scripts/verify.mjs --fn shkinit --reach-all` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/shknam.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify shkinit: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    82 baseline-PASS session(s) reach it (82 run, 43.4s): 82 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+
+VERIFY: PASS
+```
+- **Named omissions:** `#ifdef DEBUG` wizard impossible/pline/display block (`:638–655`, DEBUG undefined in production); `assign_level` inline copy (above — the body, not a stub); ESHK fallback (above — dead on success). Every other arm and callee live (`good_shopdoor`/`nameshk` file-local like C staticfns; `rloc`/`makemon`/`mkmonmoney`/`mongets`/`rnd`/`rn2` live).
+- **Next:** pop the next Open — coverage row (`uhitm.c` mhitm_ad_ench).
+
 ## D-2569 — `mkroom.c` mkshop whole-body restart (wizard/ep arms, nroom impossible guard)
 
 - **Status:** fixed (Open — coverage row `mkroom.c` mkshop THIN, C 121 L `mkroom.c:95–216` / JS 44 L in `js/mklev.js`).

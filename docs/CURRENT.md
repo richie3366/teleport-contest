@@ -46,7 +46,7 @@ judge 13:05Z cached, ~D-2555, +23 pts vs last audit): the corpus still does
 not predict the judge.
 **Corpus fortress** (re-scored 2026-09-19 audit 1515–1523): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — +0 / −0
-in the D-2556…D-2569 window (all nine were zero-block coverage rows;
+in the D-2556…D-2570 window (all nine were zero-block coverage rows;
 per-SHA `--reach-all` re-runs REACH-OK — dosdoor reached 497/497, rest
 smoke — 0 regressed).
 Reviews 1225–1523: 264 ACCEPT, 11 WITH-DEBT, 1 DEBT, 18 QUALITY-RISK (1503 Must-fix addressed by D-2547; 1517 strip_newline + 1520 travel_debug Must-fix live, queued first).
@@ -100,10 +100,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `mkroom.c` mkshop — coverage THIN (C 121 L `mkroom.c:95–216` / JS 44 L in js/mklev.js; hops 2, callers 1, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mkshop` (reach regression must be 0). Measured `port-coverage.mjs --name mkshop` 2026-09-19 @ 30fd2ce7.
+**Next cluster:** `shknam.c` shkinit — coverage PARTIAL (C 64 L `shknam.c:628–692` / JS 45 L in js/shknam.js; hops 3, callers 1, RNG 3, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn shkinit` (reach regression must be 0). Measured `port-coverage.mjs --name shkinit` 2026-09-19 @ 30fd2ce7.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2569 (index).**
+**Keep D-0845…D-2570 (index).**
 <!-- recent:begin -->
+**D-2570** `nethack-c/upstream/src/shknam.c:628–692` (`shkinit`, staticfn; decl `:17`; sole C caller  — `js/shknam.js` — restarted `shkinit` in C order with `:line` cites: `set_malign` joins the existing makemon.js import + `mon_learns_traps` joins the existing monsters.js import + `ALL_TRAPS` joins the existing const.js i
 **D-2569** `nethack-c/upstream/src/mkroom.c:95–216` (`mkshop`, staticfn; decl `:23`; sole C caller `d — `js/mklev.js` — restarted `mkshop` in C order with `:line` cites: `wizard` const (`flags.debug`/`flags.wizard`, pick_room precedent); `ep = null` with the `nh_getenv("SHOPTYPE")` named-omit comment (no environment in sco
 **D-2568** `nethack-c/upstream/src/objnam.c:4666–4724` (`readobjnam_postparse2`, staticfn; decl `:58` — `js/readobjnam.js` — `O_RANGES` (`:1006`, C order, indices resolved once like `ALT_SPELLINGS_RESOLVED`) + `FIRST/LAST/NUM_GLASS_GEMS` (`:1029–1031`, 9 contiguous, mhitm.js precedent) + exported `readobjnam_postparse2` (`
 **D-2567** `nethack-c/upstream/src/engrave.c:407–457` (`make_engr_at`, extern via extern.h:1016, s NO — `js/engrave.js` — restarted `make_engr_at` in C order with `:line` cites: smem/havepristine block, replace-at (del_engr no-ops on null, matching the `!= 0` guard), record literal with `engr_szeach: smem` + `engr_alloc: s
@@ -111,11 +112,10 @@ revisits the picker.
 **D-2565** `nethack-c/upstream/src/hacklib.c:179–190` (`strip_newline`, extern via hacklib.h:22): `st — `js/pager.js` — return `str.slice(0, end)` (tail dropped, C `*p = '\0'`); kept in pager.js (sole in-tree caller is `doextversion`), now `export`ed for the unit test (C is extern, so export matches the linkage better than
 **D-2564** `nethack-c/upstream/src/insight.c:468–722` (`background_enlightenment`, staticfn) in C ord — `js/invent.js` — `Is_bigroom` joins the existing const.js import (ALREADY-edge, no new module); `background_dungeon_clause` gains `else if (Is_bigroom && !Blind)` in C position (doc un-names it); final builder gains the 
 **D-2563** `nethack-c/upstream/src/weapon.c:533–676` (`select_rwep`, extern) in C order: `gp.propello — `js/weapon.js` — restarted `select_rwep` in C order with `:line` cites: new `PWEP_NAMES` table (`:506–510`); Oselect arms as early returns (propellor stays `hands_obj` per the macro); polearm + AKLYS arms with live `mwel
-**D-2562** `nethack-c/upstream/src/dog.c:626–724` (`mon_catchup_elapsed_time`, extern) in C order: de — `js/dog.js` — restarted async `mon_catchup_elapsed_time` in C order with `:line` cites: nmv<0 → loud `throw` (lev_json.js precedent — `panic` itself stays an unported own-row callee, end.js:978); nmv==0 → `await impossib
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2569; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2570; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

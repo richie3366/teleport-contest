@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-19 — D-2570 `shknam.c` shkinit restart in C order (live set_malign + mon_learns_traps)
+
+**C locus:** `nethack-c/upstream/src/shknam.c:628–692` (`shkinit`, staticfn; decl `:17`; sole C caller `stock_room` `:733`): good_shopdoor `:636` + DEBUG wizard block `:638–655` + sh<0 return; MON_AT insurance rloc `:658–660`; makemon MM_ESHK `:663–664`; ESHK `:665`; isshk/mpeaceful + set_malign + msleeping + mon_learns_traps `:666–668`; shoproom/resident/shoptype/assign_level/shd/shk `:669–675`; zeroed books `:676–680`; mkmonmoney `:681`; touchstone `:682–683`; charging `:684–687`; nameshk `:688`; return sh `:690`.
+**JS:** `js/shknam.js` `shkinit` + three import names only (caller untouched).
+**Change:** `js/shknam.js` — restarted `shkinit` in C order with `:line` cites: `set_malign` joins the existing makemon.js import + `mon_learns_traps` joins the existing monsters.js import + `ALL_TRAPS` joins the existing const.js import (three ALREADY-edges, no new module); DEBUG wizard impossible/pline block named as compiled-out omit with the same `return -1`; `assign_level` kept as the inline dnum/dlevel copy (`dungeon.c:1978` equivalent-to-dest=source; no single live export — dig/do/dungeon/potion each carry a file-local clone); ESHK `|| neweshk` kept as dead insurance (makemon allocates MM_ESHK at `makemon.js:3300`). No new RNG draws (set_malign/traps are draw-free).
+**Verify:** `node scripts/verify.mjs --fn shkinit --reach-all` → VERIFY: PASS. Tail pasted verbatim:
+**Named:** `#ifdef DEBUG` wizard impossible/pline/display block (`:638–655`, DEBUG undefined in production); `assign_level` inline copy (above — the body, not a stub); ESHK fallback (above — dead on success). Every other arm and callee live (`good_shopdoor`/`nameshk` file-local like C staticfns; `rloc`/`makemon`/`mkmonmoney`/`mongets`/`rnd`/`rn2` live).
+**Next:** pop the next Open — coverage row (`uhitm.c` mhitm_ad_ench).
 ## 2026-09-19 — D-2569 `mkroom.c` mkshop whole-body restart (wizard/ep arms, nroom impossible guard)
 
 **C locus:** `nethack-c/upstream/src/mkroom.c:95–216` (`mkshop`, staticfn; decl `:23`; sole C caller `do_mkroom` `:55` for roomtype ≥ SHOPBASE): wizard SHOPTYPE block `:101–155` (env `:103`, single-char dispatch `:105–144`, symb loop `:145–147`, g/v arms `:148–153`); `gottype` walk `:157–178` (hx<0 sentinel return `:163`, past-nroom impossible `:165–168`, OROOM/stairs gates `:169–172`, doorct `:173–177`); light `:180–187`; `rnd(100)` pick + big-room clamp `:189–201`; rtype/topologize/needfill `:203–215` (SPECIALIZATION off per `global.h:120`, so the 1-arg `topologize` arm).

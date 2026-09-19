@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `mkroom.c` mkshop — coverage THIN (C 121 L `mkroom.c:95–216` / JS 44 L in js/mklev.js; hops 2, callers 1, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mkshop` (reach regression must be 0). Measured `port-coverage.mjs --name mkshop` 2026-09-19 @ 30fd2ce7. **Addressed:** D-2569
+- [x] `shknam.c` shkinit — coverage PARTIAL (C 64 L `shknam.c:628–692` / JS 45 L in js/shknam.js; hops 3, callers 1, RNG 3, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn shkinit` (reach regression must be 0). Measured `port-coverage.mjs --name shkinit` 2026-09-19 @ 30fd2ce7. **Addressed:** D-2570
+
+
+- [x] `mkroom.c` mkshop — coverage THIN (C 121 L `mkroom.c:95–216` / JS 44 L in js/mklev.js; hops 2, callers 1, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mkshop` (reach regression must be 0). Measured `port-coverage.mjs --name mkshop` 2026-09-19 @ 30fd2ce7. **Addressed:** D-2569 `eee66204`
 
 
 - [x] `objnam.c` readobjnam_postparse2 — coverage MISSING (C 58 L `objnam.c:4666–4724` / JS no symbol; hops 4, callers 1, RNG 1, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn readobjnam_postparse2` (reach regression must be 0). Measured `port-coverage.mjs --name readobjnam_postparse2` 2026-09-19 @ 30fd2ce7. **Addressed:** D-2568 `549891fb`
