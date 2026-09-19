@@ -1552,3 +1552,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1539-86020ad6-make-converted-name.md](./1539-86020ad6-make-converted-name.md) | `86020ad6` | D-2580 make_converted_name | **ACCEPT** |
 | [1540-d57c144b-seffect-enchant-armor.md](./1540-d57c144b-seffect-enchant-armor.md) | `d57c144b` | D-2581 seffect_enchant_armor + wand_explode | **ACCEPT** |
 | [1541-300291e5-read-tribute.md](./1541-300291e5-read-tribute.md) | `300291e5` | D-2582 read_tribute restart | **ACCEPT** |
+| [1542-5a8a1f73-polyself-light-bookkeeping.md](./1542-5a8a1f73-polyself-light-bookkeeping.md) | `5a8a1f73` | D-2583 polyself light bookkeeping | **ACCEPT** |
+| [1543-c50782ea-postparse1-corpse-guards.md](./1543-c50782ea-postparse1-corpse-guards.md) | `c50782ea` | D-2584 postparse1 corpse guards | **ACCEPT** |
+| [1544-ef4f1c76-topten-whole-body.md](./1544-ef4f1c76-topten-whole-body.md) | `ef4f1c76` | D-2585 topten whole-body | **ACCEPT** |
+| [1545-32dc9380-vibrasquare-stolen-booty.md](./1545-32dc9380-vibrasquare-stolen-booty.md) | `32dc9380` | D-2586 vibrasquare + stolen_booty | **ACCEPT** |
+| [1546-028f5be4-mhitm-ad-tlpt.md](./1546-028f5be4-mhitm-ad-tlpt.md) | `028f5be4` | D-2587 mhitm_ad_tlpt 3 arms | **ACCEPT** |
+| [1547-8c4c1b1f-freeinv-core.md](./1547-8c4c1b1f-freeinv-core.md) | `8c4c1b1f` | D-2588 freeinv_core restart | **ACCEPT** |
+| [1548-8c2867e4-rust-cleave.md](./1548-8c2867e4-rust-cleave.md) | `8c2867e4` | D-2589 mhitm_ad_rust + hitum_cleave | **ACCEPT** |
+| [1549-c0bfe985-exerchk.md](./1549-c0bfe985-exerchk.md) | `c0bfe985` | D-2590 exerchk restart | **ACCEPT** |
+| [1550-0a3136de-shk-fixes-damage.md](./1550-0a3136de-shk-fixes-damage.md) | `0a3136de` | D-2591 shk_fixes_damage + find_damage | **ACCEPT** |

@@ -23,10 +23,10 @@ the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-19** — full `sessions` on the working tree
-(audit **1533–1541**).
+(audit **1542–1550**).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`67+0.50/turn` (R² 0.84).
+`58+0.33/turn` (R² 0.78).
 
 ## Score
 
@@ -36,7 +36,7 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `67+0.50/turn` (R² 0.84) |
+| Speed label | `58+0.33/turn` (R² 0.78) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
@@ -44,14 +44,15 @@ every audit). Rank 4/22, 2nd agentic; best agentic fork 35/44, RNG 98.5 %,
 screens 93.2 %. Held-out 11/44 (5,776 pts, RNG 26.6 %, screens 51.3 %;
 judge 18:47Z cached, unchanged 11/44 5,776 pts vs last audit): the corpus still does
 not predict the judge.
-**Corpus fortress** (re-scored 2026-09-19 audit 1533–1541): **494 / 540
-PASS (91.5 %)** excl. 13 env-only; RNG 99.30 %, screens 98.9 % — **+0 / −3**
-in the D-2574…D-2591 window, all worktree-bisected: Rogue-92026 → D-2574
-(review 1533, rehumanize not-found pline); Priest-92163 + Rogue-92221 →
-D-2577 (review 1536, Master-Key wish). Both are Must-fix rows. Per-SHA
-`--reach-all` was clean (neither fn draws tracked RNG — stale PASSes);
-only the audit full `score` re-ran them.
-Reviews 1225–1541: 280 ACCEPT, 11 WITH-DEBT, 1 DEBT, 20 QUALITY-RISK (1503, 1517, 1520 stamped; 1533 + 1536 Must-fix queued above).
+**Corpus fortress** (re-scored 2026-09-19 audit 1542–1550): **497 / 540
+PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — **+3 / −0**
+in the D-2583…D-2591 window: Rogue-92026 fixed by D-2583 (review 1533
+Must-fix row, rehumanize light entry); Priest-92163 + Rogue-92221 fixed
+by D-2584 (review 1536 Must-fix row, Master-Key guard). Both fixes
+verified by fresh per-SHA `--reach-all` replays here (PROGRESS +
+REACH-OK, incl. 495/495 reach on next_ident); the audit full `score`
+confirms the count.
+Reviews 1225–1550: 289 ACCEPT, 11 WITH-DEBT, 1 DEBT, 20 QUALITY-RISK (1503, 1517, 1520 stamped; 1533 + 1536 Must-fix rows shipped as D-2583/D-2584 with `**Addressed:**` hashes filled).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem) — review-debt, unqueued (detail in the review files).
 Audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s) + `leaderboard.mjs`.
 
