@@ -1561,3 +1561,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1548-8c2867e4-rust-cleave.md](./1548-8c2867e4-rust-cleave.md) | `8c2867e4` | D-2589 mhitm_ad_rust + hitum_cleave | **ACCEPT** |
 | [1549-c0bfe985-exerchk.md](./1549-c0bfe985-exerchk.md) | `c0bfe985` | D-2590 exerchk restart | **ACCEPT** |
 | [1550-0a3136de-shk-fixes-damage.md](./1550-0a3136de-shk-fixes-damage.md) | `0a3136de` | D-2591 shk_fixes_damage + find_damage | **ACCEPT** |
+| [1551-d27e5a6a-seffect-light.md](./1551-d27e5a6a-seffect-light.md) | `d27e5a6a` | D-2592 seffect_light confused pets | **ACCEPT** |
+| [1552-d89bb259-tipcontainer-checks.md](./1552-d89bb259-tipcontainer-checks.md) | `d89bb259` | D-2593 tipcontainer_checks 6 arms | **ACCEPT** |
+| [1553-86483571-use-stethoscope.md](./1553-86483571-use-stethoscope.md) | `86483571` | D-2594 use_stethoscope + its_dead | **ACCEPT** |
+| [1554-2cfe062a-lift-object.md](./1554-2cfe062a-lift-object.md) | `2cfe062a` | D-2595 lift_object override + caller | **ACCEPT** |
+| [1555-4c7679b9-in-container.md](./1555-4c7679b9-in-container.md) | `4c7679b9` | D-2596 in_container restart | **ACCEPT** |
+| [1556-848601a7-topologize.md](./1556-848601a7-topologize.md) | `848601a7` | D-2597 topologize subroom recursion | **ACCEPT** |
+| [1557-6e42a59a-failed-grab.md](./1557-6e42a59a-failed-grab.md) | `6e42a59a` | D-2598 failed_grab clone consolidation | **ACCEPT** |
+| [1558-98667b02-read-simplemail.md](./1558-98667b02-read-simplemail.md) | `98667b02` | D-2599 read_simplemail VFS port | **ACCEPT** |
+| [1559-79669e02-readobjnam-postparse3.md](./1559-79669e02-readobjnam-postparse3.md) | `79669e02` | D-2600 readobjnam_postparse3 srch arms | **ACCEPT** |
