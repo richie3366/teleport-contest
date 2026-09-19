@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-19 — D-2503 `muse.c` precheck whole-body port (ghost/djinni occupant + cursed wand backfire)
+
+**C locus:** `nethack-c/upstream/src/muse.c:59–160` (`precheck`, staticfn); C callers `:805` (`use_defensive`), `:1837` (`use_offensive`, non-potion guard), `:2392` (`use_misc`).
+**JS:** `js/muse.js` only (1 file, +93/−48 net per diff). Same-edge import words only, all `imports.mjs --can` ALREADY on the file edge: `rndmonnam, a_monnam` (do_name), `paralyze_monst` (mhitm), `set_malign` (makemon), `Something, AD_RBRE` (const), `SetVoice` (sndprocs), `se_zap_then_explosion` (generated/seffects_data). File-local `objdescr_is`/`m_useup`/`mquaffmsg`/`mdistu` kept (same-file, pre-existing). `pline1` → `pline` (no live `pline1` export; identical `vpline` path).
+**Change:** restarted `precheck` in C order with `:line` cites. Milky `:73–101`: `G_GONE` + `POTION_OCCUPANT_CHANCE` gate, `enexto` early-0, `mquaffmsg`, `m_useup`, `makemon(MM_NOMSG)`, `pline1(empty)` → live `pline`, ghost emerge pair via `%s` args with `Hallucination() ? rndmonnam(null) : 'ghost'`, live `paralyze_monst(mon, 3)`, `return 2`. Smoky `:102–131`: same skeleton, then `pline_mon('In a cloud of smoke, %s emerges!', a_monnam)`, `pline('%s speaks.', vis ?
+**Verify:** `node scripts/verify.mjs --fn precheck` → VERIFY: PASS — syntax 1 file (`js/muse.js`); rule2 clean; hidden note (no corpus session blocked at HEAD; row cited 0 blocks so no `--base` re-run owed); REACH-OK (2 baseline-PASS reach sessions run: 2 PASS, 0 regressed); green 2/2; strict both sessions; cohort 7/7; full skipped (no shared file changed).
+**Named:** none in the ported body — every C arm is live. (Pre-existing file-local `m_useup`/`objdescr_is` clones owned by their own functions' ports, untouched.)
+**Next:** pop the next Open — coverage row (`potion.c` make_blinded).
 ## 2026-09-19 — Audit 12fef55e..31ee9a50 (reviews 1453–1461: 8 ACCEPT, 1 ACCEPT-WITH-DEBT) + cadence 44/44, proxy 495/540
 
 **Scope:** every JS-touching commit since review 1452 (D-2494 setmangry, D-2495 help_dir, D-2496 mpickobj, D-2497 doname_base, D-2498 windowport-notify, D-2499 m_consume_obj, D-2500 recharge, D-2501 movebubbles, D-2502 trapeffect_web). One SHA at a time, file written to disk per SHA, single grouped commit.

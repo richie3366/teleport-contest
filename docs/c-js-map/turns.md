@@ -3157,7 +3157,8 @@ canseemon wield pline + artifact_light begin_burn/shine** (D-0180/D-0264/D-0318;
 **`canseemon`=`cansee`/`infrared`+`mon_visible`; `thitu` `an`/`exclam`/miss; 
 `monshoot` `an(singular)`** (D-0119); **`find_defensive`/`use_defensive` healing+milky precheck**
 (D-0610) **+ mreadmsg / reveal_trap / mon_escape / `mon_consume_unstone` + lizard / stairs / traps / tele+create scrolls**
-(D-1809; named: unicorn horn, bugle, wand dig/tele/create/undead, `munstone`)
+(D-1809; named: unicorn horn, bugle, wand dig/tele/create/undead, `munstone`);
+**`muse.c precheck :59–160` whole-body live (D-2503)** — milky ghost (`Hallucination ? rndmonnam : ghost` + `paralyze_monst`), smoky djinni (smoke `pline_mon`, speaks, `SetVoice`, `rn2(2)` freed/`set_malign` vs vanish/`mongone`), cursed-wand backfire (`d(spe+2,6)` damage + `monkilled(AD_RBRE)` death path, `You_hear` nearby/distance); callers `use_defensive`/`use_offensive` (potion guard)/`use_misc` wired; named: none in body
 **+ horn/undead-turning/bugle/wand dig/tele-self/tele/create-monster select+use**
 (D-1970; `music.js awaken_soldiers` monster-bugler mlevel/dist2 export; named: tryescape Knox `m_next2m`, `munstone`);
 **`muse.c` slime/stone cures — `cures_sliming` `:3246` / `cures_stoning` `:2985` /
