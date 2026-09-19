@@ -7,6 +7,33 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-19 — Audit a2ab86c1..bdd6846f (reviews 1506-1514: 8 ACCEPT + 1 ACCEPT-WITH-DEBT) + cadence 44/44, proxy 497/540, held-out 11/44.
+
+One SHA at a time against pinned C, each re-run with hidden-proxy verify
+--base HASH~1 --reach-all (all nine 0-blocked, all smoke REACH-OK, 0
+regressed). 1506 strbuf break→continue: C switch-break verified, fix
+exact; review 1503 Must-fix closed. 1507 get_option_value: 217-row table
+spot-checked vs optlist.h (row 215 = cond_, mention_map/safe_pet bps),
+optn/request enums verified vs options.c:84/87. 1508 conds pair: 75-col
+wrap + outbuf fold exact; "lazy-only" wording slip (static import), no
+behavior at stake. 1509 key_binds: cmdbind_add in-place-rebind order
+proved ≡ Map-reverse, keys[] ≡ cmdbind_get oracle incl. nothing-unbind,
+CMD_PARAM fold forced by the verified parsebindings strip. 1510
+parsesymbols: escapes/sym_val/match_sym (len=== proof) exact, LOADSYMS
+triple regen with no stale readers, mungspaces clone→import (sym.mjs
+pasted) — WITH-DEBT: G_/u+ arms call bare match_glyph/custom-entries
+behind live RC SYMBOLS= callers (map-named, no Must-fix; next RC-symbol
+iter treats G_/u+ as throw hazard, no silent stubs). 1511 statushilites:
+all nine helpers arm-exact (HL_NONE=0x01 reachable, impossible arms
+dormant), writer live. 1512 do_write_config_file: prompt truncation +
+FEATURE_NOTICE_VER arithmetic verified, campaign closed. 1513 Helmet_off:
+adj_abon helm half inlined exactly, all 7 call sites awaited, consts
+resolved. 1514 create_levelfile: WRITING/historical/LFILE_EXISTS values
+verified vs hack.h/dungeon.h. No Must-fix prepended; Next cluster advanced
+to rumor_check (queue head). Cadence: full sessions 44/44 (Scr
+11,405/11,405, RNG 792,838/792,838, 71+0.47/turn R² 0.74); held-out 11/44
+(5,776 pts, RNG 26.6 %, screens 51.3 %, +23 vs last audit); corpus 497/540
+flat (+0/−0 in D-2547…D-2555 window). Queue 13 unchecked — no refill.
 ## 2026-09-19 — D-2555 `files.c` create_levelfile (coverage MISSING → live; write side of the level-file pair in C order)
 
 **C locus:** `nethack-c/upstream/src/files.c:621–670` (`create_levelfile`) in C order: errbuf clear `:627`; `set_levelfile_name(gl.lock, lev)` `:628`; `fqname(gl.lock, LEVELPREFIX, 0)` `:629`; `new_nhfile()` `:631`; handle fields `:633–642` (ftype NHF_LEVELFILE, WRITING, structlevel TRUE, fieldlevel FALSE, addinfo FALSE, style deflt FALSE/binary TRUE, fnidx historical, fd -1, fpdef NULL); platform creat `:643–655` (MICRO/WIN32 O_TRUNC open vs MACOS9 maccreat vs creat); fd>=0 → `LFILE_EXISTS` else `Sprintf` errbuf `:657–662`; MSDOS/WIN32 setmode `:663–667`; `viable_nhfile` + return `:668–669`.

@@ -1516,3 +1516,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1503-f01391aa-all-options-strbuf.md](./1503-f01391aa-all-options-strbuf.md) | `f01391aa` | D-2544 all_options_strbuf [1/7] | **QUALITY-RISK** |
 | [1504-23cb328e-readobjnam-preparse.md](./1504-23cb328e-readobjnam-preparse.md) | `23cb328e` | D-2545 readobjnam_preparse | **ACCEPT** |
 | [1505-e07bd9bc-polyman.md](./1505-e07bd9bc-polyman.md) | `e07bd9bc` | D-2546 polyman + ugenocided | **ACCEPT** |
+| [1506-a2ab86c1-strbuf-break-continue.md](./1506-a2ab86c1-strbuf-break-continue.md) | `a2ab86c1` | D-2547 strbuf break→continue | **ACCEPT** |
+| [1507-1da9555d-get-option-value.md](./1507-1da9555d-get-option-value.md) | `1da9555d` | D-2548 get_option_value + allopt | **ACCEPT** |
+| [1508-c9884cd8-all-options-conds.md](./1508-c9884cd8-all-options-conds.md) | `c9884cd8` | D-2549 all_options_conds + opt_next_cond | **ACCEPT** |
+| [1509-70089ac6-get-changed-key-binds.md](./1509-70089ac6-get-changed-key-binds.md) | `70089ac6` | D-2550 get_changed_key_binds | **ACCEPT** |
+| [1510-3ca7a5b8-parsesymbols.md](./1510-3ca7a5b8-parsesymbols.md) | `3ca7a5b8` | D-2551 parsesymbols producer | **ACCEPT-WITH-DEBT** |
+| [1511-ac266d5e-statushilites.md](./1511-ac266d5e-statushilites.md) | `ac266d5e` | D-2552 all_options_statushilites | **ACCEPT** |
+| [1512-c90a495f-do-write-config-file.md](./1512-c90a495f-do-write-config-file.md) | `c90a495f` | D-2553 do_write_config_file | **ACCEPT** |
+| [1513-22c8d3f1-helmet-off.md](./1513-22c8d3f1-helmet-off.md) | `22c8d3f1` | D-2554 Helmet_off | **ACCEPT** |
+| [1514-bdd6846f-create-levelfile.md](./1514-bdd6846f-create-levelfile.md) | `bdd6846f` | D-2555 create_levelfile | **ACCEPT** |
