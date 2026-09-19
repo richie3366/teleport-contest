@@ -1555,3 +1555,9 @@ special-room G_GONE** (D-0601); **`pick_room` wizard≡`flags.debug`** (D-0602;
 `gd_move`/`pri_move` bodies; `after_shk_move` bill_p; unpaid leave verbalize/rob_shop; 
 `addupbill` body; `clear_unpaid`/`mongone` full; `paygd`
 
+### `src/options.c` saveoptions writer
+
+JS: `js/options.js` — partial ([campaign 1/7])
+
+**`all_options_strbuf` whole-body port** (D-2544; `options.c:9678–9748` in C order: epoch header via live `yyyymmddhhmmss`, allopt BoolOpt/CompOpt/OthrOpt loop over the empty registry, cond guard at index 245, key-binds/symsets/menucolors/msgtypes/apes/autocomplete arms, WIZKIT tail via live `game.wizkit`); live: `strbuf_*` (`strutil.c`, plain-string booking), `msgtype2name` + `all_options_msgtypes` (`gp.plinemsg_types`), `all_options_menucolors` (oldest-first reverse like C), `all_options_apes` (no producer — always empty), `all_options_autocomplete` (no ADJ dirty-bits — empty), `savedsym_strbuf` (empty `savedSymbols`); named omits with campaign rows: `get_option_value` + allopt table [2/7], `all_options_conds` [3/7], `get_changed_key_binds` [4/7], `parsesymbols` producer [5/7], `all_options_statushilites` [6/7], caller `do_write_config_file` [7/7]; `all_options_palette` compiled out (CHANGE_COLOR off for tty) — no row; the AUTOCOMPLETE= option setter (`cmd.c:3260–3290`) + `count_autocompletions` (`:3312–3322`) travel with the future autocomplete-option row, not this family.
+

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `rumors.c` init_CapMons — coverage THIN (C 106 L `rumors.c:829–935` / JS 32 L in js/objnam.js; hops 3, callers 1, RNG 0, msg 2; dead callees: free_CapMons). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn init_CapMons` (reach regression must be 0). Measured `port-coverage.mjs --name init_CapMons` 2026-09-19 @ 1c1e08cc. **Addressed:** D-2543
+- [x] `options.c` all_options_strbuf — coverage MISSING (C 70 L `options.c:9678–9748` / JS no symbol; hops —, callers 2, RNG 0, msg 1; dead callees: strbuf_append, get_option_value, all_options_conds, all_options_palette, get_changed_key_binds, all_options_menucolors, …). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn all_options_strbuf` (reach regression must be 0). Measured `port-coverage.mjs --name all_options_strbuf` 2026-09-19 @ 1c1e08cc. **Addressed:** D-2544 ([campaign 1/7] shipped; follow-ups queued below).
+
+
+- [x] `rumors.c` init_CapMons — coverage THIN (C 106 L `rumors.c:829–935` / JS 32 L in js/objnam.js; hops 3, callers 1, RNG 0, msg 2; dead callees: free_CapMons). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn init_CapMons` (reach regression must be 0). Measured `port-coverage.mjs --name init_CapMons` 2026-09-19 @ 1c1e08cc. **Addressed:** D-2543 `8b02a9f1`
 
 
 - [x] `uhitm.c` mhitm_ad_elec — coverage MISSING (C 53 L `uhitm.c:2684–2739` / JS no symbol; hops 4, callers 1, RNG 1, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mhitm_ad_elec` (reach regression must be 0). Measured `port-coverage.mjs --name mhitm_ad_elec` 2026-09-19 @ 1c1e08cc. **Addressed:** D-2542 `3bd853d7`
