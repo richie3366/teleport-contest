@@ -16,12 +16,12 @@
 import { game } from './gstate.js';
 import {
     pline, canseemon, canspotmon, verbalize, Hallucination, map_invisible,
-    glyph_at, glyph_to_mon, You, pline_The,
+    glyph_at, glyph_to_mon, You, Your, You_cant, pline_The,
     glyph_is_invisible_id, glyph_is_statue, GLYPH_MON_OFF,
 } from './display.js';
 import { getdir } from './lock.js';
 import { mon_at } from './uhitm.js';
-import { Monnam, pmname } from './do_name.js';
+import { Monnam, mon_nam, pmname, rndmonnam } from './do_name.js';
 import { objects_at, noveltitle } from './mkobj.js';
 import { Death_quote } from './files.js';
 import { u_have_novel, currency } from './invent.js';
@@ -42,7 +42,7 @@ import {
     ANY_SHOP, ANY_TYPE, OROOM, SHOPBASE, ROOMOFFSET, VAULT,
     COURT, BEEHIVE, MORGUE, BARRACKS, ZOO, EPRI, HAIR, NECK, HEAD,
     ESHK, EMIN, has_emin, Is_astralevel, Is_sanctum, Is_oracle_level, In_endgame,
-    STRAT_WAITMASK, PLNMSG_GROWL, FULL_MOON, Upolyd, BLOOD,
+    STRAT_WAITMASK, STRANGLED, PLNMSG_GROWL, FULL_MOON, Upolyd, BLOOD,
     FEMALE, MALE, W_ARMH, M_AP_FURNITURE, M_AP_OBJECT, IRONBARS,
     BOLT_LIM, nothing_happens,
 } from './const.js';
@@ -73,7 +73,7 @@ import { halu_gname } from './pray.js';
 import { cansee, couldsee } from './vision.js';
 import { genus, perceives } from './mon.js';
 import { doconsult } from './rumors.js';
-import { shk_chat, money_cnt } from './shk.js';
+import { shk_chat, money_cnt, shop_object, price_quote } from './shk.js';
 import { is_weptool } from './wield.js';
 import { PM_HEALER } from './generated/monsters_data.js';
 
@@ -1514,25 +1514,72 @@ export async function domonnoise(mtmp) {
 }
 
 /**
- * C ref: sounds.c dochat — getdir; statue; wall/SDOOR talk;
- * adjacent monster → domonnoise.
- * Named omissions: is_silent/Strangled/uswallow/Underwater;
- * shop price_quote; usteed; priest wake; Deaf response; Hallu
- * statue rndmonnam.
+ * C ref: sounds.c dochat `:1257–1409` — #chat in C order: silent-poly /
+ * strangled / swallowed / underwater gates; shop price_quote; getdir;
+ * steed; up/down; self; statue; wall/SDOOR; mimics; sleeping; tame
+ * eating; Deaf response; adjacent monster → domonnoise.
+ * mon_at/objects_at stand in for m_at/vobj_at (D-0140 precedent).
  */
 async function dochat() {
-    // is_silent(you) / Strangled / uswallow / Underwater deferred
+    const u = game.u || {};
+    // C `:1262–1266` — is_silent(youmonst.data): silent form cannot speak
+    const yodata = game.youmonst?.data;
+    if (yodata != null && (yodata.msound | 0) === MS_SILENT) {
+        await pline(
+            `As ${an(pmname(yodata, game.flags?.female ? FEMALE : MALE))}, you cannot speak.`,
+        );
+        return ECMD_OK;
+    }
+    // C `:1267–1270` — Strangled (amulet of strangulation)
+    if ((u.uprops?.[STRANGLED]?.intrinsic | 0)) {
+        await You_cant("speak.  You're choking!");
+        return ECMD_OK;
+    }
+    // C `:1271–1274` — swallowed: nothing outside hears you
+    if (u.uswallow) {
+        await pline("They won't hear you out there.");
+        return ECMD_OK;
+    }
+    // C `:1275–1278` — youprop.h Underwater ≡ u.uinwater
+    if (u.uinwater) {
+        await Your('speech is unintelligible underwater.');
+        return ECMD_OK;
+    }
+    // C youprop.h Deaf ≡ HDeaf|EDeaf|uroleplay.deaf;
+    // Blind ≡ (HBlinded||EBlinded)&&!BBlinded
+    const Deaf = !!((u.HDeaf | 0) || (u.EDeaf | 0)
+        || u.uroleplay?.deaf || u.Deaf);
+    const Blind = !!(((u.HBlinded | 0) || (u.EBlinded | 0))
+        && !(u.BBlinded | 0));
+    // C `:1280–1290` — standing on shop goods: price quote, no chatting
+    const priced = (!Deaf && !Blind) ? shop_object(u.ux | 0, u.uy | 0) : null;
+    if (priced) {
+        await price_quote(priced);
+        return ECMD_TIME;
+    }
+
     if (!(await getdir('Talk to whom? (in what direction)'))) {
+        // C `:1292–1295` — decided not to chat
         return ECMD_CANCEL;
     }
 
-    const u = game.u || {};
+    // C `:1297–1303` — chatting at your steed
+    if (u.usteed && (u.dz | 0) > 0) {
+        if (helpless(u.usteed)) {
+            await pline(`${Monnam(u.usteed)} seems not to notice you.`);
+            return ECMD_TIME;
+        }
+        return domonnoise(u.usteed);
+    }
+
+    // C `:1305–1308` — chatting up/down with no steed
     if (u.dz) {
         await pline(
             `They won't hear you ${u.dz < 0 ? 'up' : 'down'} there.`,
         );
         return ECMD_OK;
     }
+    // C `:1310–1325` — no direction (self-talk; Ettin head deferred in C)
     if ((u.dx | 0) === 0 && (u.dy | 0) === 0) {
         await pline('Talking to yourself is a bad habit for a dungeoneer.');
         return ECMD_OK;
@@ -1540,19 +1587,26 @@ async function dochat() {
 
     const tx = (u.ux | 0) + (u.dx | 0);
     const ty = (u.uy | 0) + (u.dy | 0);
+    // C `:1330–1331`
     if (!isok(tx, ty)) return ECMD_OK;
 
     const mtmp = mon_at(tx, ty);
+
+    // C `:1335–1369` — no (visible) monster: statue, then wall/SDOOR
     if (!mtmp || mtmp.mundetected) {
-        // C: vobj_at STATUE → "The statue seems not to notice you."
+        // C `:1336–1344` — talking to a statue (Hallu: random monster name)
         const otmp = objects_at(tx, ty);
         if (otmp && (otmp.otyp | 0) === STATUE) {
             if (!u.Blind && !u.ublind) {
-                await pline('The statue seems not to notice you.');
+                await pline_The(
+                    '%s seems not to notice you.',
+                    Hallucination() ? rndmonnam(null) : 'statue',
+                );
             }
             return ECMD_OK;
         }
-        // C: !Deaf && (IS_WALL || SDOOR) — secret door stays wall-like
+        // C `:1345–1368` — !Deaf && (IS_WALL || SDOOR); secret door
+        // stays wall-like; blind hero needs the wall already mapped
         const typ = game.level?.locations?.[tx]?.[ty]?.typ | 0;
         if (!u.Deaf && (IS_WALL(typ) || typ === SDOOR)) {
             const blind = !!(u.Blind || u.ublind);
@@ -1571,25 +1625,44 @@ async function dochat() {
         }
         return ECMD_OK;
     }
-    // M_AP furniture/object deferred
-    if (mtmp.m_ap_type === 1 || mtmp.m_ap_type === 2) return ECMD_OK;
-
-    // helpless non-priest → notice pline; deferred body uses canspot
-    if ((mtmp.mfrozen || mtmp.msleeping) && !mtmp.ispriest) {
-        await pline(`${Monnam(mtmp)} seems not to notice you.`);
+    // C `:1371–1373` — mimics disguised as furniture/objects stay silent
+    if (mtmp.m_ap_type === M_AP_FURNITURE || mtmp.m_ap_type === M_AP_OBJECT) {
         return ECMD_OK;
     }
 
-    // C: mtmp->mstrategy &= ~STRAT_WAITMASK (CLOSE|WAITFORU)
-    if (mtmp.mstrategy != null) {
-        mtmp.mstrategy &= ~(0x10000000 | 0x20000000);
+    // C `:1376–1383` — sleeping monsters won't talk, except priests (who
+    // wake up); unseen monsters get no message
+    if (helpless(mtmp) && !mtmp.ispriest) {
+        if (canspotmon(mtmp)) {
+            await pline(`${Monnam(mtmp)} seems not to notice you.`);
+        }
+        return ECMD_OK;
     }
 
-    if (mtmp.mtame && mtmp.meating) {
+    // C `:1386` — prod a waiting monster into action
+    if (mtmp.mstrategy != null) {
+        mtmp.mstrategy &= ~STRAT_WAITMASK;
+    }
+
+    // C `:1388–1394` — tame monster mid-meal eats noisily (Deaf hears
+    // nothing; unseen monsters are mapped first)
+    if (!Deaf && mtmp.mtame && mtmp.meating) {
+        if (!canspotmon(mtmp)) map_invisible(mtmp.mx, mtmp.my);
         await pline(`${Monnam(mtmp)} is eating noisily.`);
         return ECMD_OK;
     }
-
+    // C `:1395–1405` — Deaf hero gets (or imagines) no response
+    if (Deaf) {
+        const xresponse = humanoid(game.youmonst?.data)
+            ? 'falls on deaf ears'
+            : 'is inaudible';
+        const spotted = canspotmon(mtmp);
+        await pline(
+            `Any response${spotted ? ' from ' : ''}${spotted ? mon_nam(mtmp) : ''} ${xresponse}.`,
+        );
+        return ECMD_OK;
+    }
+    // C `:1407–1408`
     return domonnoise(mtmp);
 }
 

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `do.c` canletgo — coverage PARTIAL (C 46 L `do.c:665–711` / JS 33 L in js/do.js; hops 2, callers 13, RNG 0, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn canletgo` (reach regression must be 0). Measured `port-coverage.mjs --name canletgo` 2026-09-19 @ 7b5fbce5. **Addressed:** D-2523
+- [x] `sounds.c` dochat — coverage PARTIAL (C 152 L `sounds.c:1257–1409` / JS 72 L in js/sounds.js; hops 4, callers 2, RNG 1, msg 12; dead callees: shop_object). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dochat` (reach regression must be 0). Measured `port-coverage.mjs --name dochat` 2026-09-19 @ 7b5fbce5.
+
+
+- [x] `do.c` canletgo — coverage PARTIAL (C 46 L `do.c:665–711` / JS 33 L in js/do.js; hops 2, callers 13, RNG 0, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn canletgo` (reach regression must be 0). Measured `port-coverage.mjs --name canletgo` 2026-09-19 @ 7b5fbce5. **Addressed:** D-2523 `4cc8a6c0`
 
 
 - [x] `sounds.c` tiphat — coverage MISSING (C 110 L `sounds.c:1427–1537` / JS no symbol; hops —, callers 1, RNG 4, msg 11; dead callees: responsive_mon_at). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn tiphat` (reach regression must be 0). Measured `port-coverage.mjs --name tiphat` 2026-09-19 @ 7b5fbce5. **Addressed:** D-2522 `f3923d8e`
