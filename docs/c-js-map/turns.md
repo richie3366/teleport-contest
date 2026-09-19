@@ -2093,7 +2093,7 @@ keepdogs stay-behind + leash is **D-1783**; grow_up leash / Hallu
 `can_blow` + `wake_nearby(petcall)` whistletime + `vault_summon_gd` + `tele_to_rnd_pet` + 
 EUCALYPTUS_LEAF whistle arms** (D-1007; Soundeffect; Hallu hcolor eucalyptus brown; 
 mintrap last_msg polish when pline unset; full is_silent msound tables); 
-**`use_saddle` via `doapply` SADDLE** (D-1008; `update_mon_extrinsics` deferred); 
+**`use_saddle` via `doapply` SADDLE** (D-1008; `update_mon_extrinsics` wired D-2601 per C `steed.c:162`); 
 **`use_stone` + dorub/doapply graystone** (D-1014; **`use_royal_jelly` full body D-2331** — canonical getobj/freeinv/unsplitobj/obfree/otense, split-cancel update_inventory); 
 **`use_grease` trailing `update_inventory` + live getobj D-1656** (C `apply.c` `:2652`;
 `getobj("grease", grease_ok, GETOBJ_PROMPT)` not clone; grease_ok COIN
@@ -3484,7 +3484,7 @@ trap transfer `:671`, steedcc enexto 3-tier `:693–698` + place_monster,
 BONES rloc `:708–713`, grounded water/lava death `:727–736`,
 teleds+boulder+mintrap, no-room killed/monkilled, float else-arm botl,
 encumber_msg, polearm unweapon `:819–820`);
-omit `update_mon_extrinsics`,
+`update_mon_extrinsics` dismount arm wired D-2601 (worn.js floated tail),
 Punished/ustuck float_down arms, teleds_simple subset (ball/chain,
 utrap clear, swallow/hideunder/drag), artifact saddle `untouchable`,
 uhitm DISMOUNT_KNOCKED `u.dx`/`u.dy` caller;

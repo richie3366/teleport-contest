@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `objnam.c` readobjnam_postparse3 — coverage MISSING (C 172 L `objnam.c:4727–4899` / JS no symbol; hops 4, callers 1, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn readobjnam_postparse3` (reach regression must be 0). Measured `port-coverage.mjs --name readobjnam_postparse3` 2026-09-20 @ d89bb259. **Addressed:** D-2600
+- [x] `worn.c` update_mon_extrinsics — coverage PARTIAL (C 129 L `worn.c:579–712` / JS 84 L in js/worn.js; hops 3, callers 6, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn update_mon_extrinsics` (reach regression must be 0). Measured `port-coverage.mjs --name update_mon_extrinsics` 2026-09-20 @ d89bb259. **Addressed:** D-2601
+
+
+- [x] `objnam.c` readobjnam_postparse3 — coverage MISSING (C 172 L `objnam.c:4727–4899` / JS no symbol; hops 4, callers 1, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn readobjnam_postparse3` (reach regression must be 0). Measured `port-coverage.mjs --name readobjnam_postparse3` 2026-09-20 @ d89bb259. **Addressed:** D-2600 `79669e02`
 
 
 - [x] `mail.c` read_simplemail — coverage MISSING (C 91 L `mail.c:589–680` / JS no symbol; hops —, callers 1, RNG 0, msg 5). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn read_simplemail` (reach regression must be 0). Measured `port-coverage.mjs --name read_simplemail` 2026-09-20 @ d89bb259. **Addressed:** D-2599 `98667b02`

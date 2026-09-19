@@ -46,7 +46,7 @@ judge 18:47Z cached, unchanged 11/44 5,776 pts vs last audit): the corpus still 
 not predict the judge.
 **Corpus fortress** (re-scored 2026-09-20 audit 1551–1559): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — **+0 / −0**
-in the D-2592…D-2600 window (all 9 ports coverage-only; every per-SHA
+in the D-2592…D-2601 window (all 9 ports coverage-only; every per-SHA
 `--reach-all` re-run here ends REACH-OK with no REGRESSED session).
 Reviews 1225–1559: 298 ACCEPT, 11 WITH-DEBT, 1 DEBT, 20 QUALITY-RISK (1503, 1517, 1520 stamped; 1533 + 1536 Must-fix rows shipped as D-2583/D-2584 with `**Addressed:**` hashes filled).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem) — review-debt, unqueued (detail in the review files).
@@ -101,8 +101,9 @@ breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
 **Next cluster:** `worn.c` update_mon_extrinsics — coverage PARTIAL.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2600 (index).**
+**Keep D-0845…D-2601 (index).**
 <!-- recent:begin -->
+**D-2601** `nethack-c/upstream/src/worn.c:579–712`; callers `steal.c:845`, `steed.c:162`, `trap.c:251 — restarted `update_mon_extrinsics` in C order with `:line` cites — unseen `:591`, early maybe_blocks `:592–593`, again-loop `:595`/`:688–690`, on-switch `:597–632`, off-switch `:634–683` (resistance rescan `:669–679` with
 **D-2600** `nethack-c/upstream/src/objnam.c:4727–4899` (staticfn, decl `:59`); sole C caller `:4958`  — new exported `readobjnam_postparse3(d)` in C order with C return codes (0 fall through, 2 typfnd, 6 retry); new `japanese_otyp_by_name` export (case-insensitive `Japanese_items[]` walk) on the existing readobjnam→objnam 
 **D-2599** `nethack-c/upstream/src/mail.c:589–680`; callers `mail.c:696` (ck_server_admin_msg adminms — new exported async `read_simplemail(mbox, adminmsg)` (`js/mail.js`) following the SIMPLE_MAIL source-level body in C order with `:line` cites — VFS spool read for `:591` fopen (VFS miss ≡ fopen NULL; Rule #2, fopen_wizki
 **D-2598** `nethack-c/upstream/src/mhitm.c:597–640`; callers `mhitm.c:451/485/529` (AT_TUCH eel pre-c — restarted the canonical export in C order with `:line` cites — entry gate (`:605–611`), message gate (`:612–613`), tailmiss snapshot (`:616`), verb (`:617–619`), magrnam (`:624–625`), mdefnam (`:626–632`, live `some_mon_
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2596** `nethack-c/upstream/src/pickup.c:2558–2712` (staticfn) + same-file staticfn `mbag_explodes — restarted `in_container` in C order with `:line` cites — entry `floor_container`/`was_unpaid` (`:2560`); `impossible` null guard (`:2564–2567`); `You must be kidding` (`:2568`); topological (`:2571`); worn `Norep` refrig
 **D-2595** `nethack-c/upstream/src/pickup.c:1705–1795` (staticfn; C callers `:1869` pickup_object wit — restarted `lift_object` in C order with `:line` cites — Sokoban refuse `:1714–1718` unchanged; new override arm `:1719–1737` (`inv_cnt < invlet_basic || !carrying(otyp) || merge_choice` → return 1, else `You are carrying
 **D-2594** `nethack-c/upstream/src/apply.c:318–470` (staticfn; sole C caller `:4328` doapply STETHOSC — `js/apply.js` — restarted `use_stethoscope` in C order with `:line` cites: entry interference `uswallow && is_whirly(ustuck) && !rn2(Role_if(PM_HEALER)?10:3)` (initializer RNG order kept); nohands/`Deaf_hero()`(file conv
-**D-2593** `nethack-c/upstream/src/pickup.c:3954–4055` (TIPCHECK enum `:3680–3684`; callers `tipconta — new module-local `async tipcontainer_checks(box, targetbox, allowempty)` in C order with `:line` cites (C staticfn → module-local, `mksink`/`mkgrave` precedent): BoT-target `:3962`, lknown+carried/update_inventory `:3972
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2600; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2601; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

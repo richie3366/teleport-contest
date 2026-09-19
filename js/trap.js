@@ -5477,7 +5477,7 @@ async function trapeffect_poly_trap(mtmp, trap, trflags) {
         if (shoes) {
             mtmp.misc_worn_check = (mtmp.misc_worn_check | 0) | W_ARMF;
             shoes.owornmask = W_ARMF;
-            update_mon_extrinsics(mtmp, shoes, true, true);
+            await update_mon_extrinsics(mtmp, shoes, true, true);
         }
     } else if (resists_magm(mtmp)) {
         /* Named omission: shieldeff_mon(mtmp) — display-only flash, no live exporter */

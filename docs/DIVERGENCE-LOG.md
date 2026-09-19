@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2601 — `worn.c` update_mon_extrinsics whole-body port (live FAST speed, saddle dismount, steed caller wired)
+
+- **Status:** fixed (Open — coverage row `worn.c` update_mon_extrinsics PARTIAL (C 129 L `worn.c:579–712` / JS 84 L in js/worn.js; hops 3, callers 6, RNG 0, msg 0), measured `port-coverage.mjs --name update_mon_extrinsics` 2026-09-20 @ d89bb259).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify update_mon_extrinsics`: no corpus session blocked on it at baseline; fixed 24-session smoke spread is the evidence).
+- **C locus:** `nethack-c/upstream/src/worn.c:579–712`; callers `steal.c:845`, `steed.c:162`, `trap.c:2514`, `worn.c:962` (m_dowear_type old), `worn.c:992` (m_dowear_type best), `worn.c:1406` (extract path).
+- **JS was:** thin `js/worn.js` body with a local `sync_mon_speed_from_boots` clone (otyp==SPEED_BOOTS only, no speed plines, no learnwand), no saddle-off-steed dismount arm, and the `steed.c:162` caller unwired (`put_saddle_on_mon` "update_mon_extrinsics deferred", turns.md D-1008 line + dismount_steed omit line).
+- **Fix:** restarted `update_mon_extrinsics` in C order with `:line` cites — unseen `:591`, early maybe_blocks `:592–593`, again-loop `:595`/`:688–690`, on-switch `:597–632`, off-switch `:634–683` (resistance rescan `:669–679` with smock altprop second pass), w_blocks INVIS `:697–704`, dismount `:706–707`, newsym `:709–711`. FAST arms (`:601–607`, `:638–644`) call the live async muse.js `mon_adjust_speed(mon, 0, obj)` under the C in_mklev guard (imports.mjs: hoisted, cycle-safe); its sync prefix applies the boots recheck in C order and only the pline tail is async — returned so async callers await exact C order, sync callers float the same-tick tail. Dismount arm calls live steed.js `dismount_steed(DISMOUNT_FELL)`, chained after any speed tail. Local clone deleted; `minvis`/`perminvis` assignments are C-direct.
+- **JS:** `js/worn.js:709` (`update_mon_extrinsics`), `js/worn.js:806` (`update_mon_maybe_blocks`); `mon_adjust_speed` import (`js/worn.js:62`).
+- **Callers:** `steal.c:845` → `js/mon.js:1838` (`mdrop_obj`, now awaited); `steed.c:162` → `js/steed.js:299` (`put_saddle_on_mon`, newly wired, sync-through no-tail); `trap.c:2514` → `js/trap.js:5480` (now awaited); `worn.c:962/992` → `js/worn.js:950/978` (`m_dowear_type`, now awaited); `worn.c:1406` → `js/worn.js:661` (`extract_from_minvent`, sync, floats the rare tail — state stays sync-through).
+- **Verify:** `node scripts/verify.mjs --fn update_mon_extrinsics` → VERIFY: PASS (syntax 4 files; rule2; hidden note no-blocked; reach: no RNG-tagged reach, smoke 24/24 PASS → REACH-OK; green 2/2; strict ×2; cohort 7/7); rerun with `--full` → PASS full 44/44 passing.
+- **Named omissions:** none new. Pre-existing, owned elsewhere: oc_oprop==FAST generality lives in `mon_adjust_speed` ("SPEED_BOOTS is the only FAST armor" data note, not this port); `extract_from_minvent` sync callers float the message/dismount tail (documented in-body).
+- **Next:** next Open — coverage row (`insight.c` fmt_elapsed_time).
+
 ## D-2600 — `objnam.c` readobjnam_postparse3 whole-body port (wish srch: Japanese / armor-retry / spinach / gated spellings)
 
 - **Status:** fixed (Open — coverage row `objnam.c` readobjnam_postparse3 MISSING (C 172 L `objnam.c:4727–4899` / JS no symbol; hops 4, callers 1, RNG 0, msg 1), measured `port-coverage.mjs --name readobjnam_postparse3` 2026-09-20 @ d89bb259).
