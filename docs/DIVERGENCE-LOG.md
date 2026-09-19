@@ -1,5 +1,33 @@
 # Divergence log
 
+## D-2564 — `insight.c` background_enlightenment + show_achievements (coverage MISSING → live; missing Background arms in C order on both builders + achievements default-arm spacing; same-file rows)
+
+- **Status:** fixed (Open coverage rows `insight.c` show_achievements + same-file `insight.c` background_enlightenment; cites no review — no stamp needed; `spell.c` losespells popped first, STALE-parked same iteration: whole body live `js/spell.js:1590`, both C callers wired `js/read.js:725` + `js/mhitu.js:2442`, 0 blocked).
+- **Symptom:** coverage gaps, not corpus divergences (`hidden-proxy verify` on both: no corpus session blocked at baseline — enlightenment/achievements disclosure paths; both RNG-free so REACH ran the fixed smoke spread).
+- **C locus:** `nethack-c/upstream/src/insight.c:468–722` (`background_enlightenment`, staticfn) in C order: innategend/role/rank (`:474–479`); separator + Background (`:481–482`); Upolyd form (`:490–506`); role/rank/gender + Upolyd `actually ` (`:511–529`); mission adverb (`:532–554`); pantheon (`:556–563`); difgend/difalgn `actually ` + started-out (`:574–587`); handed + `normally ` (`:593–594`); location incl. bigroom (`:596–629`); moves (`:631–645`); midnight/night (`:647–651`); moon (`:652–668`); friday13 (`:669–685`); experience (`:687–709`); SCORE_ON_BOTL (`:710–717`, dead). Plus `insight.c:2243–2403` (`show_achievements`, staticfn): wizard/final + count guards, en_win reuse else create, Achievement title, UWIN/AMUL reorder, full achievement switch, display/destroy when own window. Callees all live: rank_of, pmname, just_an (article-only, objnam.c), an, align_str, align_gname, u_gname, night, midnight, newuexp, endgamelevelname, depth (≡ observable_depth, helper-doc `#if0` note), Blind, genders, vampshifted, is_male/is_female/is_neuter, body_part_latebound, mons, Upolyd, N_times, enlght_line/enl_msg/you_are/you_have/you_have_X/plur (in-file both modules), count/remove/record_achievement, rank_to_xlev.
+- **JS was:** background split-live in `js/invent.js` final builder (`enlightenment`) + in-progress builder (`doattributes`) except six arms: mission adverb (both), difalgn `actually ` + started-out (both), in-progress Upolyd form + role `actually ` + handed `normally `, helper bigroom annotation; achievements split-live in `js/insight.js:413` `show_achievements_lines` + wired `show_conduct:713` except the default arm carried two leading spaces vs C one (`:2395` `Sprintf(buf, " [Unexpected…`).
+- **Fix:** `js/invent.js` — `Is_bigroom` joins the existing const.js import (ALREADY-edge, no new module); `background_dungeon_clause` gains `else if (Is_bigroom && !Blind)` in C position (doc un-names it); final builder gains the mission adverb (`:532–554`, helm currently/temporarily, conversion now/belatedly, atheist nominally via `uconduct.gnostic` + `moves>1000`) and the `:574–587` actually/started-out block after pantheon in C order (`ualignbase?.current/??original` house idiom, `genders[initgend].adj`); `doattributes` gains the same two plus the `:490–506` Upolyd form line (`currently `, current `flags.female`), the `:517` role `actually ` prefix and the `:593–594` `normally ` handedness (same Upolyd-gated expression as the final builder). Two pre-existing `:529` cites corrected to `:517`. `js/insight.js:542` — default arm to one leading space.
+- **JS:** `js/invent.js` (adverb + started-out × 2 builders, in-progress poly trio, bigroom arm + import name); `js/insight.js` (one-space fix); `docs/c-js-map/startup.md` insight.c row (un-defers started-out/bigroom, notes adverb + in-progress poly arms); queue rows marked.
+- **Callers:** C `background_enlightenment` sole caller `insight.c:408` `enlightenment()` → JS `js/invent.js:5272` `enlightenment()` (final path) + `js/invent.js:6113` `doattributes()` (in-progress `^X` path, incl. MAGIC-only potion/fountain/wand callers that skip Background per mode); C `show_achievements` sole caller `insight.c:2230` `show_conduct()` → JS `js/insight.js:585` `show_conduct()` via `show_achievements_lines:713`. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn background_enlightenment` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   2 changed js file(s): js/insight.js js/invent.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify background_enlightenment: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 3.9s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+
+VERIFY: PASS
+```
+`node scripts/verify.mjs --fn show_achievements` → VERIFY: PASS (same tail shape: syntax 2 files, rule2, hidden note, reach smoke 24 PASS REACH-OK, green 2/2, strict ×2, cohort 7/7, full skip).
+- **Named omissions:** SCORE_ON_BOTL arm (`:710–717`, `botl_score()` + `flags.showscore` — dead in this build, `config.h` commented out; `js/botl.js:967` precedent); `show_achievements` standalone-window branch (`en_win==WIN_ERR` → create/display/destroy — unreachable, sole C caller `show_conduct` always arrives with `en_win` set); `eos()` (C string-pointer idiom, no JS equivalent — inline building); `enlght_out` add_menu_str/putstr fork folded into the lines architecture (menu overlay paints them).
+- **Next:** pop the next Open — coverage row (`engrave.c` make_engr_at).
+
 ## D-2563 — `weapon.c` select_rwep (coverage THIN → live; whole 143-line body in C order — egg/Kop pie/boulder Oselect, polearm walk, AKLYS throw-and-return, gem-sling + launcher + rwep walk; all 4 C callers wired)
 
 - **Status:** fixed (Open coverage row `weapon.c` select_rwep; cites no review — no stamp needed).

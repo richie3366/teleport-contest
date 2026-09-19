@@ -5,7 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `weapon.c` select_rwep — coverage THIN (C 143 L `weapon.c:533–676` / JS 50 L in js/weapon.js; hops 1, callers 4, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn select_rwep` (reach regression must be 0). Measured `port-coverage.mjs --name select_rwep` 2026-09-19 @ 90ae7d1d. **Addressed:** D-2563
+- [x] `insight.c` show_achievements — coverage MISSING (C 159 L `insight.c:2243–2403` / JS no symbol; hops 5, callers 1, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn show_achievements` (reach regression must be 0). Measured `port-coverage.mjs --name show_achievements` 2026-09-19 @ 90ae7d1d.
+- [x] `insight.c` background_enlightenment — coverage MISSING (C 254 L `insight.c:468–722` / JS no symbol; hops 5, callers 1, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn background_enlightenment` (reach regression must be 0). Measured `port-coverage.mjs --name background_enlightenment` 2026-09-19 @ 30fd2ce7.
+
+
+- [x] `weapon.c` select_rwep — coverage THIN (C 143 L `weapon.c:533–676` / JS 50 L in js/weapon.js; hops 1, callers 4, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn select_rwep` (reach regression must be 0). Measured `port-coverage.mjs --name select_rwep` 2026-09-19 @ 90ae7d1d. **Addressed:** D-2563 `fe99f208`
 
 
 - [x] `dog.c` mon_catchup_elapsed_time — coverage PARTIAL (C 95 L `dog.c:627–724` / JS 50 L in js/dog.js; hops 3, callers 3, RNG 4, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mon_catchup_elapsed_time` (reach regression must be 0). Measured `port-coverage.mjs --name mon_catchup_elapsed_time` 2026-09-19 @ 90ae7d1d. **Addressed:** D-2562 `30fd2ce7`
