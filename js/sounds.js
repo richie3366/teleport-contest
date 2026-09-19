@@ -16,7 +16,8 @@
 import { game } from './gstate.js';
 import {
     pline, canseemon, canspotmon, verbalize, Hallucination, map_invisible,
-    glyph_at, glyph_to_mon,
+    glyph_at, glyph_to_mon, You, pline_The,
+    glyph_is_invisible_id, glyph_is_statue, GLYPH_MON_OFF,
 } from './display.js';
 import { getdir } from './lock.js';
 import { mon_at } from './uhitm.js';
@@ -26,7 +27,7 @@ import { Death_quote } from './files.js';
 import { u_have_novel, currency } from './invent.js';
 import { objectNames } from './generated/objects_data.js';
 import { COIN_CLASS, WEAPON_CLASS } from './objects.js';
-import { rn2 } from './rng.js';
+import { rn2, rn1 } from './rng.js';
 import { dist2, ucase } from './hacklib.js';
 import { vtense, an } from './objnam.js';
 import { nomul, You_hear } from './hack.js';
@@ -34,6 +35,7 @@ import {
     is_animal, is_flyer, is_lord, is_prince, is_mercenary, is_undead,
     is_mplayer, is_elf, is_dwarf, is_gnome, likes_magic, monsterNames,
     mons, G_UNIQ, carnivorous, herbivorous, is_vampshifter,
+    humanoid, haseyes,
 } from './monsters.js';
 import {
     ECMD_OK, ECMD_TIME, ECMD_CANCEL, isok, IS_WALL, SDOOR, SIZE,
@@ -41,7 +43,8 @@ import {
     COURT, BEEHIVE, MORGUE, BARRACKS, ZOO, EPRI, HAIR, NECK, HEAD,
     ESHK, EMIN, has_emin, Is_astralevel, Is_sanctum, Is_oracle_level, In_endgame,
     STRAT_WAITMASK, PLNMSG_GROWL, FULL_MOON, Upolyd, BLOOD,
-    FEMALE, MALE,
+    FEMALE, MALE, W_ARMH, M_AP_FURNITURE, M_AP_OBJECT, IRONBARS,
+    BOLT_LIM, nothing_happens,
 } from './const.js';
 import { body_part } from './polyself.js';
 import { night, midnight } from './calendar.js';
@@ -53,7 +56,11 @@ import { t_at } from './trap.js';
 import { same_race } from './mondata.js';
 import { mhis } from './fountain.js';
 import { could_seduce, SYSOPT_SEDUCE } from './mhitm.js';
-import { doseduce } from './mhitu.js';
+import { doseduce, Conflict } from './mhitu.js';
+import { which_armor } from './worn.js';
+import { cursed_check, helm_simple_name } from './do_wear.js';
+import { accessible } from './monmove.js';
+import { Invis } from './timeout.js';
 import { SetVoice, voice_death, Soundeffect } from './sndprocs.js';
 import {
     se_courtly_conversation, se_sceptor_pounding,
@@ -63,8 +70,8 @@ import {
 import { p_coaligned, priest_talk, inhistemple, temple_occupied } from './priest.js';
 import { uhis } from './roles.js';
 import { halu_gname } from './pray.js';
-import { cansee } from './vision.js';
-import { genus } from './mon.js';
+import { cansee, couldsee } from './vision.js';
+import { genus, perceives } from './mon.js';
 import { doconsult } from './rumors.js';
 import { shk_chat, money_cnt } from './shk.js';
 import { is_weptool } from './wield.js';
@@ -1589,4 +1596,153 @@ async function dochat() {
 /** C ref: sounds.c dotalk — #chat entry. */
 export async function dotalk() {
     return dochat();
+}
+
+/**
+ * C ref: sounds.c responsive_mon_at `:1413–1425` (staticfn) — monster at
+ * <x,y> that can see the hero and react; null when the monster is
+ * immobilized, blind, cannot see the unseen hero, or is a worm tail.
+ * Same-file callee of tiphat.
+ */
+function responsive_mon_at(x, y) {
+    // C `:1416`: m_at ≡ mon_at (uhitm.js; sounds.js already imports it)
+    let mtmp = isok(x, y) ? mon_at(x, y) : null;
+
+    // C `:1418–1422`: helpless ≡ msleeping || !mcanmove (monst.h:251);
+    // is_silent ≡ msound == MS_SILENT (mondata.h:62)
+    if (mtmp && ((mtmp.msleeping || !mtmp.mcanmove)
+            || !mtmp.mcansee || !haseyes(mtmp.data)
+            || (Invis() && !perceives(mtmp.data))
+            || (x !== mtmp.mx || y !== mtmp.my)))
+        mtmp = null;
+    return mtmp;
+}
+
+/**
+ * C ref: sounds.c tiphat `:1427–1537` — player chose worn helm for #tip
+ * (pickup.c dotip); visual #chat, sort of. Returns 0 (no time passes) or
+ * 1 (physical action took place); dotip maps to ECMD_OK / ECMD_TIME.
+ */
+export async function tiphat() {
+    const u = game.u || {};
+    const uarmh = u.uarmh;
+    // C `:1432–1433`: no helm worn — can't get here from there
+    if (!uarmh)
+        return 0;
+
+    // C `:1435`: res tracks whether the curse state was learned
+    let res = uarmh.bknown ? 0 : 1;
+    // C `:1437–1438`: cursed() ≡ do_wear.js cursed_check (message stored in
+    // game._cursed_takeoff_msg, bknown set — do_takeoff precedent)
+    if (cursed_check(uarmh)) {
+        await pline(game._cursed_takeoff_msg || "You can't.  It is cursed.");
+        return res; // if learned of curse, use a move
+    }
+
+    // C `:1442–1445`: bail on ESC (iffy res: past the curse test now)
+    if (!(await getdir('At whom? (in what direction)')))
+        return res;
+    res = 1; // physical action is going to take place
+
+    // C `:1450`: no extra wear/take-off delay beyond the current move
+    await You('briefly doff your %s.', helm_simple_name(uarmh));
+
+    const dx = u.dx | 0, dy = u.dy | 0, dz = u.dz | 0;
+    // C `:1452–1463`: no direction given
+    if (!dx && !dy) {
+        if (u.usteed && dz > 0) {
+            // C monst.h:251 helpless inline (mhitm.js local is not exported)
+            if (u.usteed.msleeping || !u.usteed.mcanmove)
+                await pline(`${Monnam(u.usteed)} doesn't notice.`);
+            else
+                await domonnoise(u.usteed);
+        } else if (dz) {
+            await pline(`There's no one ${dz < 0 ? 'up' : 'down'} there.`);
+        } else {
+            await pline_The("lout here doesn't acknowledge you...");
+        }
+        return res;
+    }
+
+    // C `:1465–1495`: walk the ray for something that can react
+    let mtmp = null;
+    let vismon = 0, unseen = 0, statue = 0, glyph = GLYPH_MON_OFF;
+    let x = u.ux | 0, y = u.uy | 0;
+    for (let range = 1; range <= BOLT_LIM + 1; ++range) {
+        x += dx; y += dy;
+        if (!isok(x, y) || (range > 1 && !couldsee(x, y))) {
+            // switch back to previous iteration's coordinates
+            x -= dx; y -= dy;
+            break;
+        }
+        mtmp = mon_at(x, y); // C m_at
+        vismon = (mtmp && canseemon(mtmp)) ? 1 : 0;
+        glyph = glyph_at(x, y);
+        unseen = glyph_is_invisible_id(glyph) ? 1 : 0;
+        // C `:1477–1480`: mimic/hallucinatory statue glyph, or actual statue
+        // object where no visible/invisible monster stands (vobj_at ≡
+        // objects_at — dochat precedent)
+        const vo = (!vismon && !unseen) ? objects_at(x, y) : null;
+        statue = (glyph_is_statue(glyph)
+                  || (vo && (vo.otyp | 0) === STATUE)) ? 1 : 0;
+        if (vismon && (mtmp.m_ap_type === M_AP_FURNITURE
+                       || mtmp.m_ap_type === M_AP_OBJECT))
+            vismon = 0, mtmp = null;
+        if (vismon || unseen || (statue && Hallucination())
+            // unseen adjacent monster responds if able
+            || (range === 1 && mtmp && responsive_mon_at(x, y)
+                && (mtmp.data?.msound | 0) !== MS_SILENT)
+            // accessible() after m_at() in case of a visible monster
+            // phazing through a wall here
+            || !(accessible(x, y)
+                 || (game.level?.locations?.[x]?.[y]?.typ | 0) === IRONBARS))
+            break;
+    }
+
+    // C `:1497–1534`: react
+    // C youprop.h Deaf ≡ HDeaf|EDeaf|uroleplay.deaf (dosounds :430)
+    const Deaf = !!((u.HDeaf | 0) || (u.EDeaf | 0)
+        || u.uroleplay?.deaf || u.Deaf);
+    if (unseen || (statue && Hallucination())) {
+        await pline(`That ${unseen ? 'unseen ' : ''}creature is ignoring you!`);
+    } else if (!mtmp || !responsive_mon_at(x, y)) {
+        if (vismon) // 'vismon' is only true when 'mtmp' is non-null
+            await pline(`${Monnam(mtmp)} seems not to notice you.`);
+        else
+            await pline(`${nothing_happens}`); // C nada: label
+    } else { // 'mtmp' is guaranteed non-null here
+        // if this monster is waiting for something, prod it into action
+        mtmp.mstrategy &= ~STRAT_WAITMASK;
+
+        if (vismon && humanoid(mtmp.data) && mtmp.mpeaceful && !Conflict()) {
+            const otmp = which_armor(mtmp, W_ARMH);
+            if (otmp == null) {
+                await pline(`${Monnam(mtmp)} waves.`);
+            } else if (otmp.cursed) {
+                await pline(`${Monnam(mtmp)} grasps ${mhis(mtmp)} ${helm_simple_name(otmp)} but can't remove it.`);
+                otmp.bknown = 1;
+            } else {
+                await pline(`${Monnam(mtmp)} tips ${mhis(mtmp)} ${helm_simple_name(otmp)} in response.`);
+            }
+        } else if (vismon && humanoid(mtmp.data)) {
+            // C `:1516–1525`: hostile humanoid reaction, doubled when
+            // hearing and twice-drawn
+            const reaction = [
+                'curses', 'gestures rudely', 'gestures offensively',
+            ];
+            const which = !Deaf ? rn2(3) : rn1(2, 1),
+                twice = (Deaf || which > 0 || rn2(3)) ? 0 : rn1(2, 1);
+
+            await pline(`${Monnam(mtmp)} ${reaction[which]}${twice ? ' and ' : ''}${twice ? reaction[twice] : ''} at you...`);
+        } else if (dist2(u.ux | 0, u.uy | 0, x, y) <= 2 // C you.h:558 next2u
+                && !Deaf && (await domonnoise(mtmp))) {
+            if (!vismon)
+                map_invisible(x, y);
+        } else if (vismon) {
+            await pline(`${Monnam(mtmp)} doesn't respond.`);
+        } else {
+            await pline(`${nothing_happens}`); // C nada: label
+        }
+    }
+    return res;
 }
