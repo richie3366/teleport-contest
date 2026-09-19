@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
+- [x] `pager.js` strip_newline splice-vs-truncate (review 1517 QUALITY-RISK) **Addressed:** D-2565 — C `hacklib.c:180–190` truncates at the last `'\n'` (`*p = '\0'`, tail dropped); JS `js/pager.js` `strip_newline` splices the newline out (`slice(0,end) + slice(i+1)`, tail kept): `"a\nb"` → C `"a"`, JS `"ab"`. Fix: return `str.slice(0, end)`; extend coverage with an interior-newline case. Source: reviews/loop-unattended/1517-90ae7d1d-doextversion.md.
+
+
 - [x] `insight.c` show_achievements — coverage MISSING (C 159 L `insight.c:2243–2403` / JS no symbol; hops 5, callers 1, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn show_achievements` (reach regression must be 0). Measured `port-coverage.mjs --name show_achievements` 2026-09-19 @ 90ae7d1d.
 - [x] `insight.c` background_enlightenment — coverage MISSING (C 254 L `insight.c:468–722` / JS no symbol; hops 5, callers 1, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn background_enlightenment` (reach regression must be 0). Measured `port-coverage.mjs --name background_enlightenment` 2026-09-19 @ 30fd2ce7.
 

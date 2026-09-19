@@ -1,5 +1,33 @@
 # Divergence log
 
+## D-2565 — `hacklib.c` strip_newline splice-vs-truncate (review 1517 QUALITY-RISK; C truncates, JS spliced)
+
+- **Status:** fixed (Must-fix review row `pager.js` strip_newline; review stamped `**Addressed:** D-2565`).
+- **Symptom:** C-wrong, not a corpus divergence (`hidden-proxy verify strip_newline`: no corpus session blocked at baseline — all current `do_runtime_info` inputs are trailing-newline, so output is unchanged today; pins the primitive before a multi-line entry exposes it).
+- **C locus:** `nethack-c/upstream/src/hacklib.c:179–190` (`strip_newline`, extern via hacklib.h:22): `strrchr(str, '\n')`; if found, swallow a preceding `'\r'` (`--p`); `*p = '\0'` — the tail after the last newline is dropped. In-tree C callers: files.c:3532, pager.c:1020/1090/2629, version.c:252.
+- **JS was:** `js/pager.js:2841` file-local `strip_newline` found the last `'\n'` and swallowed `'\r'` correctly, but returned `str.slice(0, end) + str.slice(i + 1)` — splicing the newline out and keeping the tail: `"a\nb"` → JS `"ab"` vs C `"a"`.
+- **Fix:** `js/pager.js` — return `str.slice(0, end)` (tail dropped, C `*p = '\0'`); kept in pager.js (sole in-tree caller is `doextversion`), now `export`ed for the unit test (C is extern, so export matches the linkage better than file-local). New `scripts/strip-newline.test.mjs` (node:test, 6 cases): no-newline passthrough, trailing `\n` cut, trailing `\r\n` CR-swallow, interior-newline tail-drop, last-newline truncation (`"a\nb\n"` → `"a\nb"`), lone `\n`/`\r\n` → `""`.
+- **JS:** `js/pager.js` (`strip_newline` one-line fix + export + doc); `scripts/strip-newline.test.mjs` (new); `docs/c-js-map/turns.md` doextversion row (un-names the file-local mirror, notes D-2565 truncate + export); queue row marked.
+- **Callers:** sole in-tree JS caller `doextversion` `js/pager.js:2939` (`buf = strip_newline(buf)`, C version.c:252) — unchanged, no caller edits needed. Other C callers (files.c:3532, pager.c:1020/1090/2629) have no live JS counterpart needing this helper yet; no call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn strip_newline` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/pager.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify strip_newline: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 5.5s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+
+VERIFY: PASS
+```
+`node --test scripts/strip-newline.test.mjs` → 6 pass; same file against the pre-fix body → fail (authentic-failure check via `git stash push -- js/pager.js`, then pop; tree restored).
+- **Named omissions:** none new — every arm live (`\r`-swallow, NULL-arm passthrough via `?? ''`).
+- **Next:** pop the next Must-fix (`options.js` OPT_NEGATEOK_NO missing `travel_debug`, review 1520), then coverage `engrave.c` make_engr_at.
+
 ## D-2564 — `insight.c` background_enlightenment + show_achievements (coverage MISSING → live; missing Background arms in C order on both builders + achievements default-arm spacing; same-file rows)
 
 - **Status:** fixed (Open coverage rows `insight.c` show_achievements + same-file `insight.c` background_enlightenment; cites no review — no stamp needed; `spell.c` losespells popped first, STALE-parked same iteration: whole body live `js/spell.js:1590`, both C callers wired `js/read.js:725` + `js/mhitu.js:2442`, 0 blocked).

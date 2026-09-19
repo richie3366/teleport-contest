@@ -38,20 +38,21 @@ here again. Live hypotheses only:
 - **do_statusline2 residuals (D-2425 MEASURED):** W1 Healer-92107 `mhitm_ad_cold_u` extra destroy return; W2 Satiated pair = eat-progress `uhs`/botl timing — both are corpus-residual Open rows (detail in D-2425). Monk-92194 Pw = D-2161 gulpmu residual, no new row.
 ## Don't re-check (≤15)
 
-- D-1790…D-2564 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-2565 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2564.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2564.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2565.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2565.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2565: `js/pager.js` — return `str.slice(0, end)` (tail dropped, C `*p = '\0'`); kept in pager.js (sole in-tree caller is `doextversion`), now `export`ed for Named: none new — every arm live (`\r`-swallow, NULL-arm passthrough via `?? ''`).
 - D-2564: `js/invent.js` — `Is_bigroom` joins the existing const.js import (ALREADY-edge, no new module); `background_dungeon_clause` gains `else if (Is_bigroom Named: SCORE_ON_BOTL arm (`:710–717`, `botl_score()` + `flags.showscore` — dead in this build, `c
 - D-2563: `js/weapon.js` — restarted `select_rwep` in C order with `:line` cites: new `PWEP_NAMES` table (`:506–510`); Oselect arms as early returns (propellor  Named: `can_touch_safely` inside `oselect` (`mon.c:1957–1974`; `js/monmove.js:230` stub stays alw
 - D-2562: `js/dog.js` — restarted async `mon_catchup_elapsed_time` in C order with `:line` cites: nmv<0 → loud `throw` (lev_json.js precedent — `panic` itself s Named: none — every arm and callee live or ported in this commit (`panic` loud-throw per preceden
@@ -66,5 +67,4 @@ here again. Live hypotheses only:
 - D-2553: `js/cfgfiles.js` (new) — exported async `do_write_config_file` in C order with `:line` cites: `get_configfile()` (live `js/options.js:359`) for the fi Named: the `:205–208` partial-write pline — atomic VFS writes report boolean, so `wrote == len` a
 - D-2552: `js/botl.js` — `condition_aliases` (6 rows, BL_MASK_* live), `split_clridx` (file-local; out-pair folded to return, opt_next_cond precedent), `conditi Named: `count_status_hilites` (`botl.c:3477–3485`, doset helper — travels with the doset row); th
 - D-2551: `js/options.js` — `escapes` (file-local, mirrors staticfn; `& 0xff` for the C `(char)` truncation, hexdd pairs from decl.c `:74`), `sym_val` (exported Named: `match_glyph` (`glyphs.c:458`) + `glyphrep_to_custom_map_entries` (`glyphs.c:112`) customi
-- D-2550: `js/cmd.js` — exported `get_changed_key_binds(sbuf)` in C order with `:line` cites. Named: NULL display arm + caller `handler_rebind_keys` (`cmd.c:2442`, unported); CMD_PARAM `(para
 <!-- landmarks:end -->

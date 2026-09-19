@@ -2833,17 +2833,19 @@ export async function doquickwhatis() {
 }
 
 /**
- * C ref: hacklib.c strip_newline `:178–190` — cut at the last '\n',
- * swallowing a preceding '\r'. File-local: hacklib.js has no export.
+ * C ref: hacklib.c strip_newline `:179–190` — truncate at the last '\n'
+ * (`*p = '\0'`, tail dropped), swallowing a preceding '\r'. C is extern
+ * (hacklib.h:22); exported for the strip-newline unit test — the only
+ * in-tree caller is doextversion below.
  * @param {string} s
  * @returns {string}
  */
-function strip_newline(s) {
+export function strip_newline(s) {
     const str = String(s ?? '');
     const i = str.lastIndexOf('\n');
     if (i < 0) return str;
     const end = (i > 0 && str[i - 1] === '\r') ? i - 1 : i;
-    return str.slice(0, end) + str.slice(i + 1);
+    return str.slice(0, end);
 }
 
 // C ref: lua.h:28 LUA_COPYRIGHT (LUA_RELEASE + two spaces + copyright)

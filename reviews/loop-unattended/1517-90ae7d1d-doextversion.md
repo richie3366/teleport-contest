@@ -122,3 +122,5 @@ one file, ~165 insertions. Right-sized per §2b.
    C before a multi-line entry exposes it).
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-2565

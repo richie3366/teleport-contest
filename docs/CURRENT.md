@@ -46,7 +46,7 @@ judge 13:05Z cached, ~D-2555, +23 pts vs last audit): the corpus still does
 not predict the judge.
 **Corpus fortress** (re-scored 2026-09-19 audit 1515–1523): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — +0 / −0
-in the D-2556…D-2564 window (all nine were zero-block coverage rows;
+in the D-2556…D-2565 window (all nine were zero-block coverage rows;
 per-SHA `--reach-all` re-runs REACH-OK — dosdoor reached 497/497, rest
 smoke — 0 regressed).
 Reviews 1225–1523: 264 ACCEPT, 11 WITH-DEBT, 1 DEBT, 18 QUALITY-RISK (1503 Must-fix addressed by D-2547; 1517 strip_newline + 1520 travel_debug Must-fix live, queued first).
@@ -102,8 +102,9 @@ breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
 **Next cluster:** Must-fix `pager.js` strip_newline (review 1517 — return `str.slice(0, end)` per `hacklib.c:180–190` + interior-newline case), then Must-fix `travel_debug` negateok-No (review 1520), then coverage `engrave.c` make_engr_at (PARTIAL, C 44 L / JS 23 L, hops 2, callers 8, RNG 1; whole body, callers wired; `verify.mjs --fn make_engr_at`, 0 regress).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2564 (index).**
+**Keep D-0845…D-2565 (index).**
 <!-- recent:begin -->
+**D-2565** `nethack-c/upstream/src/hacklib.c:179–190` (`strip_newline`, extern via hacklib.h:22): `st — `js/pager.js` — return `str.slice(0, end)` (tail dropped, C `*p = '\0'`); kept in pager.js (sole in-tree caller is `doextversion`), now `export`ed for the unit test (C is extern, so export matches the linkage better than
 **D-2564** `nethack-c/upstream/src/insight.c:468–722` (`background_enlightenment`, staticfn) in C ord — `js/invent.js` — `Is_bigroom` joins the existing const.js import (ALREADY-edge, no new module); `background_dungeon_clause` gains `else if (Is_bigroom && !Blind)` in C position (doc un-names it); final builder gains the 
 **D-2563** `nethack-c/upstream/src/weapon.c:533–676` (`select_rwep`, extern) in C order: `gp.propello — `js/weapon.js` — restarted `select_rwep` in C order with `:line` cites: new `PWEP_NAMES` table (`:506–510`); Oselect arms as early returns (propellor stays `hands_obj` per the macro); polearm + AKLYS arms with live `mwel
 **D-2562** `nethack-c/upstream/src/dog.c:626–724` (`mon_catchup_elapsed_time`, extern) in C order: de — `js/dog.js` — restarted async `mon_catchup_elapsed_time` in C order with `:line` cites: nmv<0 → loud `throw` (lev_json.js precedent — `panic` itself stays an unported own-row callee, end.js:978); nmv==0 → `await impossib
@@ -111,11 +112,10 @@ revisits the picker.
 **D-2560** `nethack-c/upstream/src/shk.c:4880–4993` (`shk_move`) in C order: `inhishop → shk_fixes_da — `js/shk.js` — restarted `shk_move` (`:4133`) in C order with `:line` cites: `Your` added to the existing display.js import + `HAND` to the existing const.js import (both ALREADY-edges per imports.mjs, no new edge); `game
 **D-2559** `nethack-c/upstream/src/mklev.c:615–676` (`dosdoor`, staticfn) in C order: `shdoor` from ` — `js/mklev.js` — restarted `dosdoor` (`:28072`) in C order with `:line` cites: `shdoor` from the live `in_rooms` (`js/hack.js:1596`, added to the existing hack.js import — ALREADY-edge per imports.mjs, no new edge; stub d
 **D-2558** `nethack-c/upstream/src/version.c:169–277` (`doextversion`) in C order: `use_dlb` FALSE un — `js/pager.js` — restarted `doextversion` in C order with `:line` cites: `use_dlb=false` const with the dead dlb arms kept as named-omission branches (fopen notice, fgets arm, fclose); version split via `lastIndexOf('(')`
-**D-2557** `nethack-c/upstream/src/spell.c:231–339` (`deadbook`) in C order: turn-pages `You` + `make — `js/spell.js` — file-local `async deadbook_pacify_undead` + `async deadbook` in C order with `:line` cites (C staticfns stay local, `mkinvpos` precedent); `goto raise_dead` as one shared `raise_dead` closure called from 
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2564; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2565; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

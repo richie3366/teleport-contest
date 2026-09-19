@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-19 — D-2565 `hacklib.c` strip_newline splice-vs-truncate (review 1517 QUALITY-RISK; C truncates, JS spliced)
+
+**C locus:** `nethack-c/upstream/src/hacklib.c:179–190` (`strip_newline`, extern via hacklib.h:22): `strrchr(str, '\n')`; if found, swallow a preceding `'\r'` (`--p`); `*p = '\0'` — the tail after the last newline is dropped. In-tree C callers: files.c:3532, pager.c:1020/1090/2629, version.c:252.
+**JS:** `js/pager.js` (`strip_newline` one-line fix + export + doc); `scripts/strip-newline.test.mjs` (new); `docs/c-js-map/turns.md` doextversion row (un-names the file-local mirror, notes D-2565 truncate + export); queue row marked.
+**Change:** `js/pager.js` — return `str.slice(0, end)` (tail dropped, C `*p = '\0'`); kept in pager.js (sole in-tree caller is `doextversion`), now `export`ed for the unit test (C is extern, so export matches the linkage better than file-local). New `scripts/strip-newline.test.mjs` (node:test, 6 cases): no-newline passthrough, trailing `\n` cut, trailing `\r\n` CR-swallow, interior-newline tail-drop, last-newline truncation (`"a\nb\n"` → `"a\nb"`), lone `\n`/`\r\n` → `""`.
+**Verify:** `node scripts/verify.mjs --fn strip_newline` → VERIFY: PASS. Tail pasted verbatim:
+**Named:** none new — every arm live (`\r`-swallow, NULL-arm passthrough via `?? ''`).
+**Next:** pop the next Must-fix (`options.js` OPT_NEGATEOK_NO missing `travel_debug`, review 1520), then coverage `engrave.c` make_engr_at.
 ## 2026-09-19 — Audit a689a335..728d22ed (reviews 1515-1523: 7 ACCEPT + 2 QUALITY-RISK) + cadence 44/44, proxy 497/540, held-out 11/44.
 
 Per-SHA hidden-proxy re-runs --reach-all, all 0-blocked (dosdoor 497/497
