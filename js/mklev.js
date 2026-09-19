@@ -10,7 +10,7 @@ import { GameMap } from './game.js';
 import { rn2, rnd, rn1, rnz } from './rng.js';
 import { CLR_CYAN, CLR_GRAY, CLR_BRIGHT_BLUE } from './terminal.js';
 import { init_rect, rnd_rect, get_rect, split_rects } from './rect.js';
-import { depth as depth_of_level, dist2, distmin, level_difficulty as level_difficulty_of, strstri } from './hacklib.js';
+import { depth as depth_of_level, dist2, distmin, level_difficulty, strstri } from './hacklib.js';
 import { getbones } from './bones.js';
 import {
     COLNO, ROWNO, STONE, ROOM, CORR, DOOR, STAIRS,
@@ -1283,10 +1283,7 @@ function oinit() {
     setgemprobs(game.u?.uz || null);
 }
 
-// C ref: dungeon.c level_difficulty — via hacklib (builds_up aware)
-function level_difficulty() {
-    return level_difficulty_of(game.u?.uz);
-}
+/* level_difficulty: canonical import from hacklib.js (dungeon.c:2026–2084). */
 
 // place_object / weight / add_to_container / dealloc_obj imported from mkobj.js
 

@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-2572 — `dungeon.c` level_difficulty whole-body port (amulet arm, aggravate tail, clone retire)
+
+- **Status:** fixed (Open — coverage row `dungeon.c` level_difficulty THIN, C 57 L `dungeon.c:2027–2084` / JS 16 L). Same commit parks one stale coverage row (`uhitm.c` mhitm_ad_wrap — 3 arms complete under split names, proof in `LOOP-QUEUE.md` Parked/Stale).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify level_difficulty`: no corpus session blocked at baseline — 24-session smoke REACH is the corpus evidence). Amulet-held difficulty read current depth instead of deepest reached; the aggravate-monster extrinsic never doubled difficulty.
+- **C locus:** `nethack-c/upstream/src/dungeon.c:2026–2084` (`level_difficulty`, void; 33 refs): endgame sanctum+ulevel/2 `:2032`, amulet → `deepest_lev_reached(FALSE)` `:2034`, depth + builds_up entry climb `:2036–2042` (W_tower arm is `#if 0`, compiled out — absent by C, not an omission), `EAggravate_monster` double-or-50 `:2081`. Callee `deepest_lev_reached` `dungeon.c:1338–1371` (max depth over dunlev_ureached, noquest skips Quest).
+- **JS was:** THIN canonical `js/hacklib.js:67` (endgame+depth+builds_up only; amulet + aggravate named omits); depth-only clone `js/fountain.js:507`; delegating clones `js/makemon.js:454` / `js/mklev.js:1287` / `js/mkobj.js:684`; `deepest_lev_reached` clones `js/end.js:444` / `js/topten.js:48`; `js/do.js:2094` passed `depth(u.uz)` where C `do.c:1962` passes `level_difficulty()`.
+- **Fix:** `js/hacklib.js` — new exported `deepest_lev_reached(noquest)` (C order: quest-skip, ureached-0 skip, max depth) + restarted `level_difficulty(uz)` in C order with `:line` cites; amulet union `u.uhave?.amulet || u.uhave_amulet` (obtain path `teleport.js:2357–2359` sets both); extrinsic-only `u.EAggravate_monster` per `youprop.h:213` (NOT the combined `Aggravate_monster()` in monmove.js — C uses E only, sole C user). Retired all 6 clones to canonical imports (no new module edges — every file already imported hacklib.js); wired the Tourist gate to `level_difficulty(u.uz)`.
+- **JS:** `js/hacklib.js` deepest + restart; import-line touches in fountain/makemon/mklev/mkobj/end/topten/do + `do.js:2093` call fix.
+- **Callers:** `do.c:1962` goto_level → `js/do.js:2093` (fixed this commit); `fountain.c:78` dowaterdemon → `js/fountain.js:599` (was depth-only clone); `makemon.c:797/832` m_initinv → `js/makemon.js:2890/3071`; `:1669` rndmonst_adj → `:600`; `:1890` mkclass_aligned → `:839`; `:2032` adj_lev → `:917`; `mklev.c:632/653/671` dosdoor → `js/mklev.js:28122/28134/28151`; `:981` fill_ordinary_room → `:29107`; `:1821` mktrap_victim → `:28874`; `:1940` traptype_rnd → `:28780`; `:2046` mktrap → `:27105` (victim-gate tail); `:2378` mkgrave → `:29057`; `mkobj.c:362` mkbox_cnts → `js/mkobj.js:851`; `:1155` mksobj_init → `:2158`; `:2010` mkgold → `:3387`; `mkroom.c:259` mk_zoo_thronemon → `js/mklev.js:24973`; `:319/379/426` fill_zoo → `:25049/25119/25157`; `:461` mkundead → `js/apply.js:3968` (pre-existing canonical import); `:480` morguemon → `js/mklev.js:24940`; `:508` antholemon → `:24868`; `:785` courtmon → `:24922`; `:821` squadmon → `:24900`; `trap.c:5802` disarm_box → `js/trap.js:7329`; `:6074` untrap → `:7554`; `:6696` b_trapped → `:3245`; `monst.h:261` macro → `js/mon.js:1463`; deepest callers `end.c`/`topten.c` → `js/end.js:1128` / `js/topten.js:389` (now canonical).
+- **Verify:** `node scripts/verify.mjs --fn level_difficulty` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   8 changed js file(s): js/do.js js/end.js js/fountain.js js/hacklib.js js/makemon.js js/mklev.js js/mkobj.js js/topten.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify level_difficulty: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 3.8s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing (auto: shared file changed)
+
+VERIFY: PASS
+```
+- **Named omissions:** `nhlua.c:961` Lua push (no JS lua runtime — no `js/*lua*` module exists); none other — every arm, every callee live or ported in this commit.
+- **Next:** pop the next Open — coverage row (`spell.c` losespells).
+
 ## D-2571 — `zap.c` create_polymon whole-body port (material→golem table, bhitpile wire)
 
 - **Status:** fixed (Open — coverage row `zap.c` create_polymon MISSING, C 87 L `zap.c:1546–1633` / JS no symbol). Same commit parks three stale coverage rows (`uhitm.c` mhitm_ad_ench, `detect.c` food_detect, `attrib.c` newhp — bodies complete under same/split names, proofs in `LOOP-QUEUE.md` Parked/Stale).

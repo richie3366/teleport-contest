@@ -1569,6 +1569,19 @@ SHOPTYPE env omit above, only doorct==1 fires);
 `gd_move`/`pri_move` bodies; `after_shk_move` bill_p; unpaid leave verbalize/rob_shop; 
 `addupbill` body; `clear_unpaid`/`mongone` full; `paygd`
 
+### `src/dungeon.c` `level_difficulty` / `deepest_lev_reached`
+
+JS: `js/hacklib.js` — ported
+
+**`deepest_lev_reached` `:1338–1371`** (D-2572; max depth over
+dunlev_ureached, noquest skips Quest; `end.js`/`topten.js` clones retired
+to this import); **`level_difficulty` `:2026–2084`** (D-2572; C order:
+endgame sanctum+ulevel/2, amulet → deepest(FALSE), depth + builds_up
+climb, extrinsic-only aggravate double-or-50; W_tower `#if 0` compiled
+out); 6 clones retired (fountain depth-only + makemon/mklev/mkobj
+delegators); 29 C call sites wired (do Tourist gate fixed from depth;
+`nhlua.c:961` Lua push named — no JS lua runtime); full 44 + cohort 7/7.
+
 ### `src/options.c` saveoptions writer
 
 JS: `js/options.js` — partial ([campaign 5/7])

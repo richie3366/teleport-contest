@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-19 — D-2572 `dungeon.c` level_difficulty whole-body port (amulet arm, aggravate tail, clone retire)
+
+**C locus:** `nethack-c/upstream/src/dungeon.c:2026–2084` (`level_difficulty`, void; 33 refs): endgame sanctum+ulevel/2 `:2032`, amulet → `deepest_lev_reached(FALSE)` `:2034`, depth + builds_up entry climb `:2036–2042` (W_tower arm is `#if 0`, compiled out — absent by C, not an omission), `EAggravate_monster` double-or-50 `:2081`. Callee `deepest_lev_reached` `dungeon.c:1338–1371` (max depth over dunlev_ureached, noquest skips Quest).
+**JS:** `js/hacklib.js` deepest + restart; import-line touches in fountain/makemon/mklev/mkobj/end/topten/do + `do.js:2093` call fix.
+**Change:** `js/hacklib.js` — new exported `deepest_lev_reached(noquest)` (C order: quest-skip, ureached-0 skip, max depth) + restarted `level_difficulty(uz)` in C order with `:line` cites; amulet union `u.uhave?.amulet || u.uhave_amulet` (obtain path `teleport.js:2357–2359` sets both); extrinsic-only `u.EAggravate_monster` per `youprop.h:213` (NOT the combined `Aggravate_monster()` in monmove.js — C uses E only, sole C user). Retired all 6 clones to canonical imports (no new module edges — every file already imported hacklib.js); wired the Tourist gate to `level_difficulty(u.uz)`.
+**Verify:** `node scripts/verify.mjs --fn level_difficulty` → VERIFY: PASS. Tail pasted verbatim:
+**Named:** `nhlua.c:961` Lua push (no JS lua runtime — no `js/*lua*` module exists); none other — every arm, every callee live or ported in this commit.
+**Next:** pop the next Open — coverage row (`spell.c` losespells).
 ## 2026-09-19 — D-2571 `zap.c` create_polymon whole-body port (material→golem table, bhitpile wire)
 
 **C locus:** `nethack-c/upstream/src/zap.c:1546–1633` (`create_polymon`, staticfn; decl `:19`; sole C caller `bhitpile` `:2485`): bypassed pile-head skip `:1553–1561` + lone-object refusal `:1564–1565` + material→golem switch `:1568–1620` (rn2(2) lithic fork, straw default) + genocided-mdat null `:1622–1623` + makemon MM_NOMSG `:1625` + polyuse toward cwt `:1627` + visible meld/arise pline `:1628–1632`.

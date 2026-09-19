@@ -60,24 +60,52 @@ export function builds_up(uz) {
 }
 
 /**
- * C ref: dungeon.c level_difficulty — depth, with builds_up adjustment.
- * Ported: In_endgame → depth(sanctum)+ulevel/2. Named omissions:
- * amulet deepest_lev_reached; W_tower #if0 arm.
+ * C ref: dungeon.c deepest_lev_reached `:1338–1371` — max depth() over
+ * dunlev_ureached; noquest skips the Quest branch (topten display).
+ * C iterates svd.dungeons[0..svn.n_dgns); JS game.dungeons is dense.
+ * Canonical home; end.js/topten.js clones retired.
+ */
+export function deepest_lev_reached(noquest) {
+    let ret = 0;
+    const dungeons = game.dungeons || [];
+    for (let i = 0; i < dungeons.length; i++) {
+        if (noquest && i === (game.quest_dnum | 0)) continue;
+        const dlevel = dungeons[i]?.dunlev_ureached | 0;
+        if (!dlevel) continue;
+        const d = depth({ dnum: i, dlevel });
+        if (d > ret) ret = d;
+    }
+    return ret;
+}
+
+/**
+ * C ref: dungeon.c level_difficulty `:2026–2084` in C order — endgame
+ * sanctum depth + ulevel/2; amulet → deepest_lev_reached(FALSE); else
+ * depth + builds_up entry climb; EAggravate_monster (extrinsic only,
+ * youprop.h:213) doubles res ≤ 25 else 50. The W_tower arm is #if 0
+ * in C (compiled out) — intentionally absent, not an omission.
+ * Canonical home; fountain/makemon/mklev/mkobj clones retired.
  */
 export function level_difficulty(uz) {
     const lev = uz || game?.u?.uz;
-    // C: if (In_endgame(&u.uz)) res = depth(&sanctum_level) + u.ulevel / 2;
-    if (In_endgame(lev)) {
+    const u = game?.u || {};
+    let res;
+    if (In_endgame(lev)) { // C `:2032`
         const sanctum = game?.sanctum_level;
         const sdepth = sanctum ? (depth(sanctum) || 1) : (depth(lev) || 1);
-        const ulev = (game?.u?.ulevel | 0) || 1;
-        return sdepth + Math.trunc(ulev / 2);
+        const ulev = (u.ulevel | 0) || 1;
+        res = sdepth + Math.trunc(ulev / 2);
+    } else if (u.uhave?.amulet || u.uhave_amulet) { // C `:2034`
+        res = deepest_lev_reached(false);
+    } else { // C `:2036`
+        res = depth(lev) || 1;
+        if (builds_up(lev)) { // C `:2042`
+            const dptr = game?.dungeons?.[lev.dnum | 0];
+            res += 2 * ((dptr?.entry_lev | 0) - (lev.dlevel | 0) + 1);
+        }
     }
-    let res = depth(lev) || 1;
-    if (builds_up(lev)) {
-        const dptr = game?.dungeons?.[lev.dnum | 0];
-        res += 2 * ((dptr?.entry_lev | 0) - (lev.dlevel | 0) + 1);
-    }
+    if ((u.EAggravate_monster | 0)) // C `:2081` ring of aggravate monster
+        res = res > 25 ? 50 : res * 2;
     return res;
 }
 

@@ -11,7 +11,7 @@
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1, rne, rnz } from './rng.js';
-import { depth as depth_of_level, level_difficulty as level_difficulty_of, strsubst, strstri } from './hacklib.js';
+import { depth as depth_of_level, level_difficulty, strsubst, strstri } from './hacklib.js';
 import {
     RANDOM_CLASS,
     WEAPON_CLASS,
@@ -681,9 +681,7 @@ export async function maybe_adjust_light(obj, old_range) {
     }
 }
 
-function level_difficulty() {
-    return level_difficulty_of(game.u?.uz) || 1;
-}
+/* level_difficulty: canonical import from hacklib.js (dungeon.c:2026–2084). */
 
 function otypByName(name) {
     const i = objectNames.indexOf(name);

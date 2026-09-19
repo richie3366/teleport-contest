@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
+- [x] `dungeon.c` level_difficulty — coverage THIN (C 57 L `dungeon.c:2027–2084` / JS 16 L in js/fountain.js; hops 2, callers 29, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn level_difficulty` (reach regression must be 0). Measured `port-coverage.mjs --name level_difficulty` 2026-09-19 @ 30fd2ce7. **Addressed:** D-2572
+
+
 - [x] `zap.c` create_polymon — coverage MISSING (C 87 L `zap.c:1546–1633` / JS no symbol; hops 5, callers 1, RNG 1, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn create_polymon` (reach regression must be 0). Measured `port-coverage.mjs --name create_polymon` 2026-09-19 @ 30fd2ce7.
 
 
