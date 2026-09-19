@@ -1418,7 +1418,7 @@ export async function getlev_catchup_monsters(elapsed) {
     for (const mtmp of list) {
         // C: if (!u.uz.dlevel || restoring==REST_LEVELS) continue
         if (!(u?.uz?.dlevel | 0) || restoring === REST_LEVELS) continue;
-        if (elapsed > 0) mon_catchup_elapsed_time(mtmp, elapsed);
+        if (elapsed > 0) await mon_catchup_elapsed_time(mtmp, elapsed);
         await restore_cham(mtmp);
         if (elapsed > 0 && elapsed > rnd(10)) hide_monst(mtmp);
     }

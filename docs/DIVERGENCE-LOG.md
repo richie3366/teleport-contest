@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-2562 — `dog.c` mon_catchup_elapsed_time (coverage PARTIAL → live; whole 95-line body in C order — devel guards, blind/frozen/fleet, trouble recovery, finish_meating, tameness, hungry-wild, leash, healmon, lastmove; all 3 C callers await)
+
+- **Status:** fixed (Open coverage row `dog.c` mon_catchup_elapsed_time; cites no review — no stamp needed; `uhitm.c` mhitm_ad_deth popped first, STALE-parked same iteration: 3 arms live split `js/mhitm.js:3840` + `js/mhitu.js:3076` + dispatch, uhitm goto dead per D-2033 precedent, 0 blocked).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify mon_catchup_elapsed_time`: no corpus session blocked at baseline — off-level pet/migrant catchup path).
+- **C locus:** `nethack-c/upstream/src/dog.c:626–724` (`mon_catchup_elapsed_time`, extern) in C order: devel nmv guards (`:632–640`: nmv<0 → panic + return, nmv==0 → impossible, imv stays 0); LARGEST_INT paranoia (`:641–644`); mblinded/mfrozen/mfleetim → 1 for the final movemon() decrement (`:645–659`); mtrapped/mconf/mstun rn2(imv+1) recovery (`:662–667`); meating → finish_meating else decrement (`:670–675`); mspec_used (`:676–679`); tameness wilder (`:682–690`); hungry-pet wild (`:694–702`: tame non-minion carni/herbi, moves > hungrytime+500 && mhp<3 or moves > hungrytime+750); leashed → impossible + m_unleash(FALSE) (`:704–709`); healmon (`:712–714`, non-regen imv/20); set_mon_lastmove tail (`:715`). Callees: panic, impossible, rn2, finish_meating, carnivorous, herbivorous, EDOG, m_unleash, regenerates, healmon (movemon/dog_move appear in comments only).
+- **JS was:** PARTIAL `js/dog.js:1233` sync 50 L: devel guards replaced by an `imv<0 → 0` clamp; meating zeroed instead of `finish_meating`; mtame branch guarded with `wilder>0`/`rn2(wilder||1)` (C-exact rn2(wilder) unreachable at wilder==0 but misordered); the whole hungry-pet wild block absent; the leash impossible/m_unleash arm absent; heal inlined (`min(max, mhp+heal)`) instead of the live `healmon`; lastmove inline (kept).
+- **Fix:** `js/dog.js` — restarted async `mon_catchup_elapsed_time` in C order with `:line` cites: nmv<0 → loud `throw` (lev_json.js precedent — `panic` itself stays an unported own-row callee, end.js:978); nmv==0 → `await impossible` (already imported); `finish_meating` (already imported, dogmove.js sync); C-exact `rn2(wilder)` (JS rn2(0) returns 0); hungry-wild via `EDOG(mtmp)?.hungrytime` (dog.js:619 idiom) + `game.moves` for `svm.moves`; leash arm `await impossible` + `await m_unleash(mtmp, false)` (already imported, `false` ≡ FALSE per dogmove.js:1330); `if (!regenerates) imv /= 20` then live `healmon(mtmp, imv, 0)`; lastmove stays inline with the `set_mon_lastmove` (mon.c) cite (no JS export — update_mlstmv idiom). New import names join ALREADY-edges only (`carnivorous`/`herbivorous` → monsters.js edge; `healmon` → mon.js edge; imports.mjs confirmed, no new edge).
+- **JS:** `js/dog.js` (restart + two import-line names); `js/wizard.js:655`; `js/do.js:1421` (one await each); `docs/c-js-map/turns.md` dog.c section; queue row marked.
+- **Callers:** dog.c:495 mon_arrive → `js/dog.js:1033` (async mon_arrive flow, now awaited); restore.c:1213 getlev → `js/do.js:1421` `getlev_catchup_monsters` (async, now awaited); wizard.c:738 resurrect → `js/wizard.js:655` (async, now awaited). No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn mon_catchup_elapsed_time` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   3 changed js file(s): js/do.js js/dog.js js/wizard.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify mon_catchup_elapsed_time: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 3.9s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing (auto: shared file changed)
+
+VERIFY: PASS
+```
+- **Named omissions:** none — every arm and callee live or ported in this commit (`panic` loud-throw per precedent; uhitm/mhitu split arms belong to mhitm_ad_deth, STALE-parked this iteration).
+- **Next:** queue head moves to `weapon.c` select_rwep.
+
 ## D-2561 — `options.c` parseoptions (coverage MISSING → live; whole 199-line body in C order + 8 parsing-support callees, optlist flag columns extracted from the compiler, S_ fallback live)
 
 - **Status:** fixed (Open coverage row `options.c` parseoptions; cites no review — no stamp needed).
