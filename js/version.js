@@ -158,6 +158,30 @@ export function datamodel(retidx) {
     return 'Unknown';
 }
 
+/**
+ * C ref: hacklib.c what_datamodel_is_this `:1000–1015` — match five
+ * recorded sizes against every named dm row (`:1006` `i = 1` skips the
+ * live row 0; DATAMODEL_TABLE above holds exactly C rows 1–4 with the
+ * live sizes split out as DATAMODEL_LIVE_SZ, so the loop covers the
+ * whole table); retidx 0 takes the model name, nonzero the platform
+ * (`:1011`); no match takes the `Unknown` arm (`:1014`). Sole C-game
+ * caller is version.c compare_critical_bytes `:786` (sfctool.c:313 is
+ * the savefile tool, not the game).
+ * @param {number} retidx 0 = model name, nonzero = platform
+ * @returns {string}
+ */
+export function what_datamodel_is_this(retidx, szshort, szint, szlong, szll, szptr) {
+    const want = [szshort | 0, szint | 0, szlong | 0, szll | 0, szptr | 0];
+    for (let i = 0; i < DATAMODEL_TABLE.length; i++) {
+        const row = DATAMODEL_TABLE[i].sz;
+        if (want[0] === row[0] && want[1] === row[1] && want[2] === row[2]
+            && want[3] === row[3] && want[4] === row[4]) {
+            return retidx === 0 ? DATAMODEL_TABLE[i].name : DATAMODEL_TABLE[i].platform;
+        }
+    }
+    return 'Unknown';
+}
+
 // C ref: mdlib.c `:95–104` — runtime option-text store. `optbuf` is the
 // scratch line (`static char optbuf[COLBUFSZ]`, COLBUFSZ == BUFSZ == 256);
 // `opttext`/`idxopttext` the capped line vector (`MAXOPT` 60).

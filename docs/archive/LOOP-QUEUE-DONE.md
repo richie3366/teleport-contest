@@ -5,7 +5,12 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `files.c` set_savefile_name — coverage THIN (C 103 L `files.c:1020–1123` / JS 4 L in js/save.js; hops 5, callers 7, RNG 0, msg 4; dead callees: fname_encode). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn set_savefile_name` (reach regression must be 0). Measured `port-coverage.mjs --name set_savefile_name` 2026-09-19 @ ca74dad2. **Addressed:** D-2538.
+- [x] `uhitm.c` mhitm_ad_slim — coverage THIN (C 72 L `uhitm.c:3526–3600` / JS 22 L in js/mhitm.js; hops 4, callers 1, RNG 2, msg 5). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mhitm_ad_slim` (reach regression must be 0). Measured `port-coverage.mjs --name mhitm_ad_slim` 2026-09-19 @ 1bfac98a. **Addressed:** D-2539 (STALE — parked, split bodies complete; see Parked Stale).
+- [x] `version.c` check_version — coverage MISSING (C 45 L `version.c:374–423` / JS no symbol; hops 4, callers 1, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn check_version` (reach regression must be 0). Measured `port-coverage.mjs --name check_version` 2026-09-19 @ 1bfac98a. **Addressed:** D-2539
+- [x] `version.c` uptodate — coverage MISSING (C 33 L `version.c:713–746` / JS no symbol; hops 3, callers 1, RNG 1, msg 0; dead callees: compare_critical_bytes, check_version). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn uptodate` (reach regression must be 0). Measured `port-coverage.mjs --name uptodate` 2026-09-19 @ 1bfac98a. **Addressed:** D-2539
+
+
+- [x] `files.c` set_savefile_name — coverage THIN (C 103 L `files.c:1020–1123` / JS 4 L in js/save.js; hops 5, callers 7, RNG 0, msg 4; dead callees: fname_encode). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn set_savefile_name` (reach regression must be 0). Measured `port-coverage.mjs --name set_savefile_name` 2026-09-19 @ ca74dad2. **Addressed:** D-2538 `1c1e08cc`.
 
 
 - [x] `mthrowu.c` thrwmu — coverage THIN (C 90 L `mthrowu.c:1174–1264` / JS 11 L in js/mthrowu.js; hops 2, callers 1, RNG 1, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn thrwmu` (reach regression must be 0). Measured `port-coverage.mjs --name thrwmu` 2026-09-19 @ ca74dad2. **Addressed:** D-2537 `29318908`

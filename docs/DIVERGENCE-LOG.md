@@ -1,5 +1,33 @@
 # Divergence log
 
+## D-2539 — `version.c` check_version + uptodate whole bodies in C order (coverage MISSING → live; compare/what_datamodel/critical_sizes ported; head row mhitm_ad_slim STALE-split)
+
+- **Status:** fixed (Open coverage rows `version.c` check_version MISSING, C 45 L `:374–423` / JS no symbol, and `version.c` uptodate MISSING, C 33 L `:713–746` / JS no symbol, same-C-file pair shipped together; queue head `uhitm.c` mhitm_ad_slim parked STALE in this commit — all three arms already complete under split names; no Must-fix pending; rows cite no review — no stamp).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify check_version` / `uptodate`: no corpus session blocked at baseline — save-validation path, RNG 0 in the ported bodies, msg 3 via the check_version complaint arms).
+- **C locus:** `nethack-c/upstream/src/version.c:374–423` (`check_version`), `:713–746` (`uptodate`); required callee `:763–822` (`compare_critical_bytes`) + `hacklib.c:1000–1015` (`what_datamodel_is_this`) + table `:546–664` (`critical_sizes`); caller `:840–862` (`validate`, ported to wire uptodate). Callees: `impossible` (`:383`, EXTRA_SANITY_CHECKS defined `config.h:637` — live), `pline` (`:402`/`:416` — live), `display_nhwindow` (`:403–404` gated / `:417` plain — live via `flush_topl_more`), `datamodel` (`:784`, live `js/version.js:150`), `what_datamodel_is_this` (`:786`, ported this commit), `magic` none. Constants: incarnation `(5<<24)|(0<<16)|(0<<8)|EDITLEVEL(0)` = `0x05000000` (`patchlevel.h:20`); features MAIL_STRUCTURES b6 (`global.h:430`) + color b17 (`mdlib.c:270`) + INSURANCE b18 (`config.h:435`) = 393280 (SCORE_ON_BOTL off, `config.h:627`); ignored `(1<<19)|SFCTOOL_BIT` (`mdlib.c:236–243`); sanity `(nart<<24)|(nobj<<12)|nmons` (`mdlib.c:285–295`) from live generated counts. VERSION_COMPATIBILITY undefined (`patchlevel.h:62`) → the `:397` != arm.
+- **JS was:** no symbol for any of check_version / uptodate / compare_critical_bytes / what_datamodel_is_this / validate / critical_sizes (all MISSING; `datamodel` and the SF_/UTD_ consts already live).
+- **Fix:** `js/version.js` — exported `what_datamodel_is_this` in C order (`:1006` loop starts at C row 1; DATAMODEL_TABLE holds exactly C rows 1–4 with live sizes split out, so the loop covers the whole table — first draft kept `i = 1` and misread x86 rows as Unknown, fixed before handoff). `js/files.js` — NHFILE-handle home (version.js must stay import-free, D-1881): nomakedefs numerics as file-local consts; `critical_sizes` 80-row table (sizes measured from pinned headers with gcc LP64, probe in /tmp; cross-checks match D-2530 trap/engr/damage/cemetery; SF_INCLUDE_SUBSTRUCTS nowhere defined → you_LO/HI + 10 spares; you=2760 → LO 200/HI 10); module `CSCBUF` (C `:666` global); `check_version` in C order (`:386` complain-off, `:388–390` SFCTOOL_BIT strip + `game.converted_savefile_loaded`, `:397` != gate with WIN_ERR-gated flush, `:409–412` feature/sanity gate with unconditional flush — the asymmetry kept); `compare_critical_bytes` in C order (count gate, uchar loop from 1, six-way datamodel ladder, `{ value }` holder for `int *`); `uptodate` in C order (local vers_info, `name != null` verbose, flag-gated wait_synch arm kept as a check); `validate` in C order (flag assembly + uptodate). Probe (`/tmp/version_smoke.mjs`, not committed): 17/17 — match→true, incarnation/sanity→false, SKIP_SANITY1 bypass→true, SFCTOOL strip+flag, null-filename, wdit all four models + Unknown, zeroed-CSCBUF→9/idx 1, validate→OUTDATED.
+- **JS:** `js/version.js` (+22: `what_datamodel_is_this`) + `js/files.js` (+~300/−6: imports incl. SAFE files→version edge, nomakedefs consts, table, CSCBUF, four bodies) + CURRENT.md cluster line + map lines — under caps (1500 ins / 15 files).
+- **Callers:** `version.c:737` (uptodate → check_version) → `js/files.js` uptodate ✓ this commit; `version.c:726` (uptodate → compare) ✓ this commit; `version.c:786` (compare → what_datamodel) → `js/files.js` compare ✓ this commit; `version.c:854` (validate → uptodate) → `js/files.js` validate ✓ this commit; `sfctool.c:312–313` (tool, not the game) named; `validate` C callers `bones.c:663` (getbones JSON analogue `bones.js:544`, no validate call), `files.c:1281`/:1379 + `restore.c:892` (unported load-save paths) named — no live JS caller yet. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn check_version` + `--fn uptodate` → both PASS syntax (2 changed: js/files.js js/version.js) · rule2 · hidden note (0 blocked at baseline) · reach smoke 24/24 PASS, 0 regressed → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file changed) → VERIFY: PASS. Tails pasted verbatim:
+```
+PASS  syntax   2 changed js file(s): js/files.js js/version.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify check_version: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 3.0s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+
+VERIFY: PASS
+```
+(uptodate tail identical except fn name and 3.1s.)
+- **Named omissions:** Sfi_char/Sfi_uchar/Sfi_version_info byte feed (`:771`/`:779–781`/`:725`/`:735`, sfbase.c:348 dispatch — no binary NHFILE read layer in JS; JSON VFS, Sfi_ arms live as payload analogues at use sites); `raw_printf` (`:730–732`/`:774–776` — no pre-window stdout channel in dual-runtime ESM, display.js:7749 omit); `wait_synch` (`:740`, winprocs.h:140 → tty_wait_synch, no live port — flag check kept); SFCTOOL `extern vers_info` / `UTD_QUIETLY` arms (tool-only, compiled out in game); `make_version`/`populate_nomakedefs`/`free_nomakedefs` (still deferred; numerics derived from their C lines); validate caller counterparts (above).
+- **Next:** Open head after check_version/uptodate (`uhitm.c` mhitm_ad_blnd).
+
 ## D-2538 — `files.c` set_savefile_name whole body in C order (coverage THIN → live, UNIX arm ported, both JS save sites wired)
 
 - **Status:** fixed (Open coverage row `files.c` set_savefile_name THIN, C 103 L `files.c:1020–1123` / JS 4 L stub in js/save.js; no Must-fix pending; row cites no review — no stamp).
