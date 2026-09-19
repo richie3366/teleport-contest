@@ -1722,8 +1722,8 @@ C `dokick.c` 1769–1851 / `do.c:1815` FALSE + `:1978` TRUE; XOR WITH_HERO;
 `obj_extract_self` OBJ_MIGRATING; `deliver_obj_to_mon` D-1193; wizkit FALSE D-1192; 
 `run_timers` D-1191; `kill_genocided_monsters` D-1190); 
 **`goto_level` `fix_shop_damage` catchup** (D-1178; C `do.c:1985–1986` `!new` after in_out_region; 
-callee `shk.c` 4849–4874 / `repair_damage` catchup; 
-`shk_fixes_damage` / allmain/bones still named); **`goto_level` `do_fall_dmg`** (D-1179; 
+callee `shk.c` 4849–4874 / `repair_damage` catchup;
+`shk_fixes_damage` live D-2591 / allmain/bones still named); **`goto_level` `do_fall_dmg`** (D-1179; 
 C `do.c:1805–1809` falling + `:1988–1994` `d(max(dist,1),6)` after shop repair before pickup; 
 Punished `ballfall` is **D-1778** (C `ball.c:42–67`: `gets_hit` `rn2(5)` is drawn 
 **before** `ballrelease`, and short-circuits when the ball is on the hero's spot or wielded; 
@@ -3934,8 +3934,9 @@ Conflict chase** (D-0604); **`intemple`/`findpriest`/`temple_occupied`/`has_shri
 **`intemple` intone uses `canseemon` (not `canspotmon`)** (D-0671; ESP→"A nearby voice"); 
 **`#chat` Arch Priest → `domonnoise` MS_LEADER `quest_chat`** (D-0640; 
 MS_PRIEST `priest_talk` deferred); **`fix_shop_damage` catchup + `repair_damage`** (D-1178; 
-`goto_level` `!new`; allmain/bones callers still named); omit `shk_fixes_damage`; 
-holetime dig follow (file-local mirror); **D-2560:** `shk_move` following customer/followmsg verbalize + `rile_shk` + Displaced `Your` + `resist_conflict`/`m_canseeu`/`Fast`+`sobj_at` arms live, `after_shk_move` wired (its `check_special_room` stays named); `m_break_boulder`/`m_move_aggress`; 
+`goto_level` `!new`; allmain/bones callers still named); **`shk_fixes_damage` + `find_damage`** (D-2591; 
+`shk_move` `:4892–4893` inhishop gate wired; unconditional unlink); omit holetime dig follow 
+(file-local mirror); **D-2560:** `shk_move` following customer/followmsg verbalize + `rile_shk` + Displaced `Your` + `resist_conflict`/`m_canseeu`/`Fast`+`sobj_at` arms live, `after_shk_move` wired (its `check_special_room` stays named); `m_break_boulder`/`m_move_aggress`; 
 `after_shk_move` bill_p; **D-0447:** `costly_spot`/`getprice`/`get_cost`/`billable`/`add_one_tobill`
 /`addtobill`/`append_honorific` + `pick_obj` robshop; 
 **D-0448:** `dopay`/`menu_pick_pay_items`/`dopayobj`/`pay`→`money2mon`/`splitobj` `next_ident` + 

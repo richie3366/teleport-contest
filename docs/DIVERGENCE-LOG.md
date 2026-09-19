@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-2591 — `shk.c` shk_fixes_damage + find_damage whole-body ports (per-turn shop repair)
+
+- **Status:** fixed (Open — coverage row ``shk.c`` shk_fixes_damage MISSING (C 21 L `shk.c:4556–4577` / JS no symbol; hops 3, callers 1, RNG 0, msg 2; dead callees: find_damage), measured `port-coverage.mjs --name shk_fixes_damage` 2026-09-19 @ 028f5be4).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify shk_fixes_damage`: no corpus session blocked on it at baseline; the function draws no RNG — reach smoke spread is the evidence).
+- **C locus:** `nethack-c/upstream/src/shk.c:4556–4577` — `:4558` find_damage; `:4561–4562` null-dam return; `:4564` shk_closeby = mdistu ≤ (BOLT_LIM/2)²; `:4566–4568` canseemon → pline whispers incantation/something; `:4569–4571` !Deaf && closeby → Soundeffect + You_hear; `:4574` (void) repair_damage FALSE; `:4576` unconditional discard_damage_struct. Callee `find_damage :4490–4506` (`:4493` damagelist head; `:4495–4496` shk_impaired → NULL; `:4498–4502` first repairable_damage hit; `:4505` NULL). Sole caller `:4892–4893` inhishop gate in shk_move.
+- **JS was:** no `shk_fixes_damage` or `find_damage` symbol anywhere; `shk_move` (`js/shk.js:4141`) carried a `shk_fixes_damage` named-omit comment and never repaired per-turn damage; `repair_damage` (`js/shk.js:1428`, file-local async with deps) and `discard_damage_struct` (`:1289`, file-local) already lived via D-1178 `fix_shop_damage`.
+- **Fix:** `js/shk.js` — new file-local `find_damage(shkp, deps)` in C order with `:line` cites (deps carries m_at/t_at for the file-local `repairable_damage :1263` convention); new exported async `shk_fixes_damage(shkp)` in C order with `:line` cites (dynamic-import deps per the fix_shop_damage precedent; `mdistu_mon` file-local for C mdistu; `hero_deaf()` for C !Deaf; `BOLT_LIM` joins the existing const.js import, `You_hear` the existing hack.js import, `se_mutter_incantation` the existing seffects_data.js import — all imports.mjs ALREADY, no new edge; catchup FALSE; discard unconditional, unlike fix_shop_damage's nonzero-gated unlink). Caller wired: `if (inhishop(shkp)) await shk_fixes_damage(shkp)` at the C `:4892–4893` site. Header + add_damage comments retired the named omit (allmain/bones fix_shop_damage callers stay named).
+- **JS:** `js/shk.js:53` hack import; `:57` const import; `:90` seffects import; `:1557–1605` find_damage + shk_fixes_damage; `:4188–4189` shk_move gate.
+- **Callers:** C `shk.c:4893` → JS `js/shk.js:4189` (new, awaited inside async shk_move). C decl `:118` needs no wiring (staticfn). No other C call site (brief: 2 refs = decl + shk_move).
+- **Verify:** `node scripts/verify.mjs --fn shk_fixes_damage` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/shk.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify shk_fixes_damage: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 5.8s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+
+VERIFY: PASS
+```
+- **Named omissions:** none new — every arm and callee live (repair_damage/discard_damage_struct/repairable_damage/shk_impaired file-local; m_at/t_at via dynamic deps) or ported in this commit (find_damage); D_DEBUG arms absent (none in this body).
+- **Next:** none from this fix — coverage row closed; queue head is now `read.c` seffect_light (THIN).
+
 ## D-2590 — `attrib.c` exerchk whole-body restart (ATTRMAX Upolyd-Str arm + live You)
 
 - **Status:** fixed (Open — coverage row `attrib.c` exerchk PARTIAL, C 79 L `attrib.c:598–677` / JS 55 L; measured `port-coverage.mjs --name exerchk` 2026-09-19 @ d57c144b. Queue-head `muse.c` mreadmsg parked STALE in the same iteration — body complete `js/muse.js:1312–1347`, 4 live callers wired, `:1960` is `#if 0` dead — never re-pop).
