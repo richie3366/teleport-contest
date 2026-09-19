@@ -46,7 +46,7 @@ judge 13:05Z cached, ~D-2555, +23 pts vs last audit): the corpus still does
 not predict the judge.
 **Corpus fortress** (re-scored 2026-09-19 audit 1524–1532): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — +0 / −0
-in the D-2565…D-2573 window (all nine were zero-block coverage rows;
+in the D-2565…D-2574 window (all ten were zero-block coverage rows;
 per-SHA `--reach-all` re-runs REACH-OK — mkshop 53/53 + shkinit 82/82
 real reach, rest smoke 24/24 — 0 regressed).
 Reviews 1225–1532: 273 ACCEPT, 11 WITH-DEBT, 1 DEBT, 18 QUALITY-RISK (1503 Must-fix addressed by D-2547; 1517 strip_newline + 1520 travel_debug Must-fix shipped as D-2565/D-2566, stamped).
@@ -100,10 +100,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `light.c` del_light_source — coverage THIN (C 39 L `light.c:99–138` / JS 9 L in js/light.js; hops 2, callers 14, RNG 0, msg 0; dead callees: delete_ls). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn del_light_source` (reach regression must be 0). Measured `port-coverage.mjs --name del_light_source` 2026-09-19 @ f18ac024.
+**Next cluster:** `uhitm.c` mhitm_ad_sedu — coverage PARTIAL (C 123 L `uhitm.c:4623–4748` / JS 60 L in js/mhitu.js; hops 4, callers 4, RNG 1, msg 5). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mhitm_ad_sedu` (reach regression must be 0). Measured `port-coverage.mjs --name mhitm_ad_sedu` 2026-09-19 @ f18ac024.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2573 (index).**
+**Keep D-0845…D-2574 (index).**
 <!-- recent:begin -->
+**D-2574** `nethack-c/upstream/src/light.c:99–138` (`del_light_source`: zeroany tmp `:103`, LS_NONE/L — `js/light.js` — restarted `del_light_source` (`:114`) in C order with `:line` cites (union unwrap: raw obj/mtmp since `monst_to_any` is identity; switch precomputes the o_id fixup key; scan honors LSF_NEEDS_FIXUP; `delet
 **D-2573** `nethack-c/upstream/src/pline.c:548–583` (`raw_printf` `:548–558` + staticfn `vraw_printf` — `js/display.js` — new exported `raw_printf(fmt, ...args)` (sync like C) + file-local `vraw_printf(fmt, args)` (C staticfn → file-local, `bhit_skiprange`/`create_polymon` precedent) + module-local `_early_raw_messages` (`
 **D-2572** `nethack-c/upstream/src/dungeon.c:2026–2084` (`level_difficulty`, void; 33 refs): endgame  — `js/hacklib.js` — new exported `deepest_lev_reached(noquest)` (C order: quest-skip, ureached-0 skip, max depth) + restarted `level_difficulty(uz)` in C order with `:line` cites; amulet union `u.uhave?.amulet || u.uhave_a
 **D-2571** `nethack-c/upstream/src/zap.c:1546–1633` (`create_polymon`, staticfn; decl `:19`; sole C c — `js/zap.js` — new file-local async `create_polymon(obj, okind)` (C staticfn → file-local like `bhit_skiprange`) in C order with `:line` cites; `G_GENOD` joins the existing const.js import + `a_monnam` joins the existing 
@@ -111,11 +112,10 @@ revisits the picker.
 **D-2569** `nethack-c/upstream/src/mkroom.c:95–216` (`mkshop`, staticfn; decl `:23`; sole C caller `d — `js/mklev.js` — restarted `mkshop` in C order with `:line` cites: `wizard` const (`flags.debug`/`flags.wizard`, pick_room precedent); `ep = null` with the `nh_getenv("SHOPTYPE")` named-omit comment (no environment in sco
 **D-2568** `nethack-c/upstream/src/objnam.c:4666–4724` (`readobjnam_postparse2`, staticfn; decl `:58` — `js/readobjnam.js` — `O_RANGES` (`:1006`, C order, indices resolved once like `ALT_SPELLINGS_RESOLVED`) + `FIRST/LAST/NUM_GLASS_GEMS` (`:1029–1031`, 9 contiguous, mhitm.js precedent) + exported `readobjnam_postparse2` (`
 **D-2567** `nethack-c/upstream/src/engrave.c:407–457` (`make_engr_at`, extern via extern.h:1016, s NO — `js/engrave.js` — restarted `make_engr_at` in C order with `:line` cites: smem/havepristine block, replace-at (del_engr no-ops on null, matching the `!= 0` guard), record literal with `engr_szeach: smem` + `engr_alloc: s
-**D-2566** `nethack-c/upstream/include/optlist.h:794–796` non-DEBUG arm `NHOPTB(travel_debug, Advance — `js/options.js` — add `'travel_debug'` after `'traps'` (64 names).
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2573; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2574; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

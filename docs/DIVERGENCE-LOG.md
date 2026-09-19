@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-2574 — `light.c` del_light_source whole-body port (type switch, delete_ls, C-valued LS tags)
+
+- **Status:** fixed (Open — coverage row `light.c` del_light_source THIN, C 39 L `light.c:99–138` / JS 9 L).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify del_light_source`: no corpus session blocked at baseline — 24-session smoke REACH is the corpus evidence).
+- **C locus:** `nethack-c/upstream/src/light.c:99–138` (`del_light_source`: zeroany tmp `:103`, LS_NONE/LS_OBJECT/LS_MONSTER/default switch `:108–124`, type+FIXUP-conditional scan `:125–131`, delete_ls vs not-found impossible `:132–137`) + staticfn `delete_ls` `:141–168` (prev/curr unlink, memset+free, recalc, not-found impossible). LS tags `include/vision.h:16–18` (NONE 0, OBJECT 1, MONSTER 2).
+- **JS was:** THIN `js/light.js:80` (identity-only findIndex+splice; missing the switch, the NEEDS_FIXUP arm, delete_ls, both impossible arms; LS_OBJECT/LS_MONSTER were 0/1 in `js/const.js`, collapsing LS_NONE/LS_OBJECT so the NONE arm was unreachable); `delete_ls` no symbol; `fmt_ptr` file-local clone `js/mkobj.js:1552`.
+- **Fix:** `js/light.js` — restarted `del_light_source` (`:114`) in C order with `:line` cites (union unwrap: raw obj/mtmp since `monst_to_any` is identity; switch precomputes the o_id fixup key; scan honors LSF_NEEDS_FIXUP; `delete_ls(curr)` vs not-found impossible with `fmt_ptr`) + file-local `delete_ls` (`:89`, C staticfn → file-local like `new_light_core`) + `LSF_NEEDS_FIXUP` (`:36`, no JS producer sets it yet — lev_json relinks at load, named in the const comment). `js/const.js` — LS_OBJECT 0→1, LS_MONSTER 2 (`:2235–2236`, vision.h values; every in-tree use is symbolic, save round-trips stay consistent). `js/mkobj.js` — `fmt_ptr` exported (`:1554`, no clone #2; light.js already imports this module — ALREADY-edge, `imports.mjs --can` clean). Sync like C; both impossible arms stay fire-and-forget `void` (mkobj merge-wmask / mon.js replmon precedent — awaiting would force the light path async; zero caller changes).
+- **JS:** `js/light.js:36/89/114` + 2 import lines; `js/const.js:2232–2236`; `js/mkobj.js:1552–1554`.
+- **Callers:** brief lists 11 real C sites + 2 comment mentions — wired: `dog.c:958` → `js/dog.js:1459`; `mkobj.c:2778` (dealloc_obj) → `js/mkobj.js:3265`; `mon.c:2745` (m_detach) → `js/mhitm.js:3285`; `mon.c:5401` (newcham) → `js/makemon.js:1732`; `polyself.c:1394` (rehumanize) → `js/polyself.js:1048`; `sp_lev.c:2104` → `js/mklev.js:19152`; `timeout.c:489` (slimed) → `js/timeout.js:819`; `timeout.c:1816` (end_burn) → `js/timeout.js:1651`; `timeout.c:1837` (cleanup_burn) → `js/mkobj.js:1121` (stop_timer BURN_OBJECT cleanup). Named omissions (pre-existing, untouched): `mon.c:2543` replmon light swap (`js/mon.js:3506` names it); `polyself.c:724` made_change bookkeeping (`js/polyself.js:2075` names it); `dog.c:985` + `mkobj.c:2772` + `light.c:338` are C comment mentions, not calls. No JS site calls it from anywhere C does not (reverse-checked all 9 JS sites).
+- **Verify:** `node scripts/verify.mjs --fn del_light_source` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   3 changed js file(s): js/const.js js/light.js js/mkobj.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify del_light_source: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 5.9s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+VERIFY: PASS
+```
+Full public suite (const.js tag change is broader than verify's shared list): `node frozen/ps_test_runner.mjs sessions` → 44/44 passing.
+- **Named omissions:** LSF_NEEDS_FIXUP producers (save/restore path relinks at load instead); replmon light swap + made_change bookkeeping (pre-existing map names above).
+- **Next:** pop the next Open — coverage row (`uhitm.c` mhitm_ad_sedu).
+
 ## D-2573 — `pline.c` raw_printf/vraw_printf whole-body port (version-check callers wired)
 
 - **Status:** fixed (Open — coverage row `pline.c` raw_printf MISSING, C 9 L `pline.c:549–558` + staticfn `vraw_printf` 21 L / JS no symbol). Same commit parks one stale coverage row (`spell.c` losespells — whole body live `js/spell.js:1590`, proof in `LOOP-QUEUE.md` Parked/Stale).

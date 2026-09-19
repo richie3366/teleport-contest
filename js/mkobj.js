@@ -1548,8 +1548,10 @@ export function where_name(obj) {
  * rotating static ptrbuf. JS has no heap pointers: render the stable
  * identity the port uses in its place (obj o_id, monst m_id;
  * timeout.js fmt_timer_arg precedent), 0x-hex.
+ * Exported for light.c del_light_source / delete_ls not-found arms
+ * (D-2574; light.js already imports this module — no new edge).
  */
-function fmt_ptr(ptr) {
+export function fmt_ptr(ptr) {
     const id = (ptr?.o_id ?? ptr?.m_id ?? 0) | 0;
     return `0x${(id >>> 0).toString(16)}`;
 }
