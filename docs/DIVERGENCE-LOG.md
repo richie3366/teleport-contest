@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-2569 — `mkroom.c` mkshop whole-body restart (wizard/ep arms, nroom impossible guard)
+
+- **Status:** fixed (Open — coverage row `mkroom.c` mkshop THIN, C 121 L `mkroom.c:95–216` / JS 44 L in `js/mklev.js`).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify mkshop`: no corpus session blocked at baseline — 53-session REACH is the corpus evidence). D-0201 shipped the non-wizard body; the wizard/`ep` multi-door arm and the rooms-not-closed guard were still absent (map data.md D-0602 line).
+- **C locus:** `nethack-c/upstream/src/mkroom.c:95–216` (`mkshop`, staticfn; decl `:23`; sole C caller `do_mkroom` `:55` for roomtype ≥ SHOPBASE): wizard SHOPTYPE block `:101–155` (env `:103`, single-char dispatch `:105–144`, symb loop `:145–147`, g/v arms `:148–153`); `gottype` walk `:157–178` (hx<0 sentinel return `:163`, past-nroom impossible `:165–168`, OROOM/stairs gates `:169–172`, doorct `:173–177`); light `:180–187`; `rnd(100)` pick + big-room clamp `:189–201`; rtype/topologize/needfill `:203–215` (SPECIALIZATION off per `global.h:120`, so the 1-arg `topologize` arm).
+- **JS was:** `js/mklev.js:24729` sync 44-line body — no wizard/`ep` scaffolding, doorct==1 only, `for i<nroom` loop with no impossible guard, `shopIdx` instead of C's reused `i`.
+- **Fix:** `js/mklev.js` — restarted `mkshop` in C order with `:line` cites: `wizard` const (`flags.debug`/`flags.wizard`, pick_room precedent); `ep = null` with the `nh_getenv("SHOPTYPE")` named-omit comment (no environment in scored ESM per Rule #2, makemaz SPLEVTYPE precedent); unbounded `gottype` walk with sentinel return + `impossible('rooms[] not closed by -1?')` fire-and-forget (splev_create_monster sync precedent) + OROOM/stairs gates + `doorct==1 || (wizard && ep && doorct!=0)` arm + `invalid_shop_shape` break; light loop; `if (i<0)` `rnd(100)` walk + `isbig` wand/book→general clamp; rtype/topologize/needfill. No new imports, no new cross-module edges, no new RNG draws (REACH-safe by construction).
+- **JS:** `js/mklev.js` `mkshop` only (caller untouched).
+- **Callers:** `mkroom.c:55` `do_mkroom` `mkshop()` → `js/mklev.js:24623` (unchanged sync call; C never calls `mkshop` from any other site — brief reference list is decl + this call).
+- **Verify:** `node scripts/verify.mjs --fn mkshop` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/mklev.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify mkshop: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    53 baseline-PASS session(s) reach it (53 run, 23.0s): 53 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing (auto: shared file changed)
+
+VERIFY: PASS
+```
+- **Named omissions:** SHOPTYPE single-char dispatch (`:104–153` — env endpoint absent per the omit above; every dispatch callee — `mkzoo` all 8 types, `mktemple`, `mkswamp` — is live in `js/mklev.js`). No new `def_oc_syms` import (only the omitted symb-match loop needed it).
+- **Next:** pop the next Open — coverage row (`shknam.c` shkinit).
+
 ## D-2568 — `objnam.c` readobjnam_postparse2 whole-body port (o_ranges, stone/gem strip, glass arms)
 
 - **Status:** fixed (Open — coverage row `objnam.c` readobjnam_postparse2 MISSING, C 58 L / JS no symbol).

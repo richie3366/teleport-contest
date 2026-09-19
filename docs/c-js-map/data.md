@@ -1559,8 +1559,9 @@ D-0643 rect roomno gate removed — C has none; door-edge skips cover overlaps;
 D-0645 hx=35 interim retired) + **put_lregion (59,14) m_at** (D-0657); **Pri-goal** (D-0646); 
 **`mktemple`/`shrine_pos`/`priestini`/`newepri`** (D-0600); 
 **`make_niches` depth/`!noteleport` + `makeniche` `Can_fall_thru` + `dosdoor` mimic + 
-special-room G_GONE** (D-0601); **`pick_room` wizard≡`flags.debug`** (D-0602; 
-`mkshop` wizard/`ep` multi-door arm still absent); 
+special-room G_GONE** (D-0601); **`pick_room` wizard≡`flags.debug`** (D-0602;
+`mkshop` wizard/`ep` multi-door arm shipped D-2569 — `ep` null per the
+SHOPTYPE env omit above, only doorct==1 fires); 
 **BEEHIVE `fill_zoo` queen/killer + royal jelly** (D-0903); 
 **COCKNEST `fill_zoo` statue + `rn2(5)` loot / ANTHOLE `antholemon`+food + BARRACKS/SWAMP `has_*`** (this D); 
 **SWAMP `mkswamp`** (D-1869); `antholemon()` do_mkroom gate; `shk_fixes_damage`; holetime follow; following verbalize; 
