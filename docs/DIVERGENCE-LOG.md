@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-2587 — `uhitm.c` mhitm_ad_tlpt whole-body port (uhitm arm + damageum wiring)
+
+- **Status:** fixed (Open — coverage row ``uhitm.c`` mhitm_ad_tlpt THIN, measured `port-coverage.mjs --name mhitm_ad_tlpt` 2026-09-19 @ d57c144b).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify mhitm_ad_tlpt`: no corpus session blocked; the function draws no RNG of its own — negate/teleport RNG lives in callees). The JS body held only the mhitm (mon→mon) arm and early-returned both hero cases; a polymorphed hero attacking with AD_TLPT fell through `damageum_adtyping` with no arm at all.
+- **C locus:** `nethack-c/upstream/src/uhitm.c:2859–2955` — `:2864–2883` uhitm (damage floor 1, mgc-negate TRUE gate with ungated "%s is not affected.", `u_teleport_mon(mdef, FALSE)` with pre-teleport Monnam saved and ungated "suddenly disappears!" when a seen defender is lost, leftover clamped below mhp with the 1-HP bump per hitmu), `:2884–2927` mhitu (hitmsg, mgc-negate FALSE gate, verbose uncertain-position line, `tele()`, non-fatal half-physical clamp with the tmphp<=1 bump), `:2928–2954` mhitm (mcan/damage>=mhp/tele_restrict short-circuit, mgc-negate TRUE gate with vis-gated pline_mon, WAITFORU-clear + rloc + vis-gated disappears, same clamp); sole dispatch `uhitm.c:4801` case AD_TLPT in `mhitm_adtyping`, reached with hero attacker via `damageum :4854` and hero defender via `mhitu.c:1191`.
+- **JS was:** `mhitm_ad_tlpt` (`js/mhitm.js:1398`) ported only the mhitm arm with `if (is_youmonst(magr)) return; if (is_youmonst(mdef)) return;` named omits; `damageum_adtyping` (`js/uhitm.js:2303`) had no AD_TLPT arm (ELEC/STON/BLND precedent arms present); the mhitu arm already lived split as file-local `mhitm_ad_tlpt_u` (`js/mhitu.js:1018`, wired at `:3146`).
+- **Fix:** `js/mhitm.js` — restarted `mhitm_ad_tlpt` in C order with `:line` cites: uhitm arm first (floor, ungated negate pline, `u_saw_mon = canseemon || engulfing_u` before the teleport per `:2872`, `await u_teleport_mon(mdef, false)`, ungated disappears, clamp), mhitu early-return pointing at `mhitm_ad_tlpt_u`, mhitm arm unchanged; `u_teleport_mon` joins the existing teleport.js import (imports.mjs ALREADY, no new edge). `js/uhitm.js` — `mhitm_ad_tlpt` joins the existing mhitm.js import (ALREADY), `AD_TLPT = 23` const (monattk.h:65), new `damageum_adtyping` AD_TLPT arm routing `game.youmonst` through the shared arm (elec precedent). Export names/signatures unchanged.
+- **JS:** `js/mhitm.js:132` import; `:1387–1449` restarted body; `:4394–4402` dispatch comment refresh. `js/uhitm.js:54` import; `:171` const; `:2374–2381` new arm.
+- **Callers:** C `uhitm.c:4801` → JS `js/mhitm.js:4402` (mhitm_adtyping AD_TLPT dispatch, unchanged export); C `uhitm.c:4854` damageum path → JS `js/uhitm.js:2381` (new damageum_adtyping AD_TLPT arm); C `mhitu.c:1191` hero-defender path → JS `js/mhitu.js:3147` (pre-existing `mhitm_ad_tlpt_u` wiring, untouched).
+- **Verify:** `node scripts/verify.mjs --fn mhitm_ad_tlpt` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   2 changed js file(s): js/mhitm.js js/uhitm.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify mhitm_ad_tlpt: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 6.1s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+
+VERIFY: PASS
+```
+- **Named omissions:** none new — every arm live or split-live (mhitu `_u` per elec/blnd/ston precedent). Pre-existing `mhitm_mgc_atk_negated` youmonst-mcan nuance (C `:82` exempts `&youmonst`; JS `magr.mcan` check does not) left untouched — shared gate, out of this body.
+- **Next:** none from this fix — coverage row closed.
+
 ## D-2586 — `mkmaze.c` pick_vibrasquare_location + stolen_booty fidelity (upstart clone, C cites)
 
 - **Status:** fixed (Open — coverage rows ``mkmaze.c`` pick_vibrasquare_location PARTIAL + same-file stolen_booty PARTIAL, measured `port-coverage.mjs --name` 2026-09-19 @ 09224e39 / @ d57c144b).

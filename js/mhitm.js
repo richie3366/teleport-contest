@@ -129,7 +129,7 @@ import { polyself } from './polyself.js';
 import { you_were, you_unwere, were_change } from './were.js';
 import { night } from './calendar.js';
 import { resists_drli } from './zap.js';
-import { rloc, tele_restrict, tele, goodpos } from './teleport.js';
+import { rloc, tele_restrict, tele, goodpos, u_teleport_mon } from './teleport.js';
 import { m_unleash } from './apply.js';
 import { update_inventory } from './invent.js';
 import { bury_an_obj } from './dig.js';
@@ -1385,20 +1385,44 @@ export async function mhitm_ad_sgld(magr, mattk, mdef, mhm) {
 }
 
 /**
- * C ref: uhitm.c mhitm_ad_tlpt `:2859–2955` — mhitm (mon→mon) arm.
- * Short-circuit first (mcan || damage>=mhp || tele_restrict: no message,
- * no RNG), then mhitm_mgc_atk_negated(TRUE) with a vis-gated
+ * C ref: uhitm.c mhitm_ad_tlpt `:2859–2955` — uhitm (you→mon, `:2864–2883`),
+ * mhitu (mon→you, `:2884–2927`), mhitm (mon→mon, `:2928–2954`) in C order.
+ * uhitm: damage floor 1, mgc-negate gate with ungated "%s is not affected.",
+ * else u_teleport_mon(FALSE) with the pre-teleport Monnam saved first and
+ * an ungated "suddenly disappears!" when a seen defender is lost, then
+ * clamp leftover damage below mhp (bumping 1-HP defenders to 2 first,
+ * as in mhitu hitmu). mhitu arm lives split in mhitu.js mhitm_ad_tlpt_u
+ * (hitmsg + tele() + half-physical-damage fatal clamp, elec precedent).
+ * mhitm: short-circuit first (mcan || damage>=mhp || tele_restrict: no
+ * message, no RNG), then mhitm_mgc_atk_negated(TRUE) with a vis-gated
  * "not affected" pline_mon, else rloc the defender (WAITFORU cleared,
- * name saved first) with a disappears pline when seen, then clamp
- * leftover damage below mhp (bumping 1-HP defenders to 2 first,
- * as in mhitu hitmu).
- * Named omissions: uhitm you-as-agr (u_teleport_mon + disappears pline);
- * mhitu you-as-def (hitmsg + tele() + half-physical-damage fatal clamp).
+ * name saved first) with a disappears pline when seen, then the same
+ * clamp below mhp.
  */
 export async function mhitm_ad_tlpt(magr, mattk, mdef, mhm) {
     void mattk;
-    if (is_youmonst(magr)) return;
-    if (is_youmonst(mdef)) return;
+    if (is_youmonst(magr)) {
+        /* C `:2864–2883` uhitm (hero as attacker) */
+        if ((mhm.damage | 0) <= 0) mhm.damage = 1;
+        if (await mhitm_mgc_atk_negated(magr, mdef, true)) {
+            await pline(`${Monnam(mdef)} is not affected.`);
+            return;
+        }
+        /* C `:2872` — record the name before losing sight of monster */
+        const u_saw_mon = !!(canseemon(mdef) || engulfing_u(mdef));
+        const nambuf = Monnam(mdef);
+        if ((await u_teleport_mon(mdef, false)) && u_saw_mon
+            && !(canseemon(mdef) || engulfing_u(mdef))) {
+            await pline(`${nambuf} suddenly disappears!`);
+        }
+        if ((mhm.damage | 0) >= (mdef.mhp | 0)) { /* see hitmu(mhitu.c) */
+            if ((mdef.mhp | 0) === 1) mdef.mhp = 2;
+            mhm.damage = (mdef.mhp | 0) - 1;
+        }
+        return;
+    }
+    if (is_youmonst(mdef)) return; /* C `:2884–2927` mhitu: mhitu.js mhitm_ad_tlpt_u */
+    /* C `:2928–2954` mhitm */
     if (magr.mcan || (mhm.damage | 0) >= (mdef.mhp | 0)
         || (await tele_restrict(mdef))) {
         return;
@@ -4367,9 +4391,8 @@ async function mdamagem(magr, mdef, mattk, mwep, dieroll) {
         return (hitflags === M_ATTK_AGR_DIED) ? M_ATTK_AGR_DIED : M_ATTK_HIT;
     }
 
-    // C: mhitm_adtyping → mhitm_ad_tlpt for AD_TLPT (uhitm.c:2859–2955
-    // mhitm arm). Defender rloc'd; leftover clamped below mhp.
-    // uhitm/mhitu arms named in the callee.
+    // C: mhitm_adtyping → mhitm_ad_tlpt for AD_TLPT (uhitm.c:2859–2955).
+    // uhitm arm live in the callee; mhitu arm split in mhitu.js _u.
     if ((mattk.adtyp | 0) === AD_TLPT) {
         const mhm = {
             damage,

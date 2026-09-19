@@ -51,7 +51,7 @@ import { near_capacity, useup, useupall, hold_another_object, Blind, observe_obj
 import { PM_BARBARIAN, PM_MONK, PM_KNIGHT, PM_SAMURAI, PM_ARCHEOLOGIST, PM_WIZARD, PM_HUMAN, PM_HEALER, PM_ROGUE } from './generated/monsters_data.js';
 import {
     find_mac, get_mattk, make_corpse, monstone, mhitm_knockback, monkilled, mondead,
-    troll_baned, mhitm_ad_poly, mhitm_ad_slee, mhitm_ad_heal, mhitm_ad_blnd, mhitm_ad_ston, mhitm_ad_elec, mhitm_ad_sedu, could_seduce, failed_grab, shade_miss,
+    troll_baned, mhitm_ad_poly, mhitm_ad_slee, mhitm_ad_heal, mhitm_ad_blnd, mhitm_ad_ston, mhitm_ad_elec, mhitm_ad_sedu, mhitm_ad_tlpt, could_seduce, failed_grab, shade_miss,
     shade_aware, paralyze_monst,
     mhitm_mgc_atk_negated, resists_poison_mm, erode_armor,
     AT_NONE, AT_WEAP, AT_KICK, AT_CLAW, AT_SPIT, AT_HUGS,
@@ -168,6 +168,7 @@ const AD_DGST = 26;
 const AD_WRAP = 28;
 const AD_ENCH = 41;
 const AD_CORR = 42;
+const AD_TLPT = 23; /* teleports victim (quantum mechanic) — monattk.h */
 const AD_SGLD = 20; /* steals gold (leprechaun) — monattk.h */
 const AD_DCAY = 34; /* decays organics (brown pudding) — monattk.h */
 const AD_SLIM = 40; /* turns victim into green slime — monattk.h */
@@ -2370,6 +2371,13 @@ async function damageum_adtyping(mattk, mdef, mhm) {
            golemheal+shield, else destroy_items adds the orig leftover.
            mhitu arm is mhitm_ad_elec_u. */
         await mhitm_ad_elec(game.youmonst, mattk, mdef, mhm);
+    } else if (adtyp === AD_TLPT) {
+        /* C ref: uhitm.c mhitm_adtyping `:4801` → mhitm_ad_tlpt `:2864–2883`
+           uhitm (hero as attacker) arm: damage floor 1, mgc-negate gate,
+           u_teleport_mon + disappears pline, leftover clamped below mhp.
+           Routed through the shared mhitm.js arm (elec precedent);
+           mhitu arm is mhitm_ad_tlpt_u in mhitu.js. */
+        await mhitm_ad_tlpt(game.youmonst, mattk, mdef, mhm);
     }
 }
 
