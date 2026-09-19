@@ -40,19 +40,20 @@ here again. Live hypotheses only:
 - **do_statusline2 residuals (D-2425 MEASURED):** W1 Healer-92107 `mhitm_ad_cold_u` extra destroy return; W2 Satiated pair = eat-progress `uhs`/botl timing — both are corpus-residual Open rows (detail in D-2425). Monk-92194 Pw = D-2161 gulpmu residual, no new row.
 ## Don't re-check (≤15)
 
-- D-1790…D-2508 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-2509 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2508.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2508.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2509.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2509.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2509: `js/insight.js` only (same-edge import word `impossible` on the live display edge — `imports.mjs --can` ALREADY, no new edge) — restarted `record_achi Named: C `spell.c:292` ACH_INVK (deadbook invocation-ritual success path — no `arti1_primed` ritu
 - D-2508: `js/pager.js` — restarted `look_all` in C order with `:line` cites: `:1989` region, `:1992–1993` buf init + `glyph_at`, `:1994–2004` do_mons monster b Named: compass-full coord text (local `coord_desc` `(here)` deferral, pre-existing — header split
 - D-2507: `js/mthrowu.js` — restarted `ohitmon` in C order with `:line` cites: `:334–339` notonhead/ismimic/vis/observe; `:341–349` tmp +marcher level +`MON_WEP Named: mon_notices unfreeze in same-file `omon_adj` (pre-existing local deferral, untouched); `#i
 - D-2506: `js/options.js` only (same-edge import words: hacklib `strNsubst`, display `tty_wait_synch`, invent `select_menu_pick_none`, terminal C CLR_* + `NO_CO Named: `config_error_add` + `regex_error_desc` (msgtype_add precedent); native `create_nhwindow`/
@@ -67,5 +68,4 @@ here again. Live hypotheses only:
 - D-2497: `js/objnam.js` — `doname` → `doname_base(obj, flags)` (existing body kept, arms in C order) + `DONAME_*` exports + `doname_vague_quan` wrapper; overri Named: obuf/xnamep/eos/Concat/strprepend/releaseobuf/sitoa + `doname_full`/paniclog overflow (D-2
 - D-2496: `js/makemon.js` only — `mpickobj` restarted in C order with `:line` cites: `:622–631` null/ball+chain guards (`game.u?.uball/uchain`, chain-vs-ball la Named: none in the ported body — every C arm is live.
 - D-2495: `js/lock.js` only — `help_dir` restarted in C order with `:line` cites plus module-local `show_direction_keys(lines, centerchar, nodiag)` with verbati Named: `:4193–4229` `#if 0` bad-prefix buf arms (compiled out in C); `:4239` `*buf` branch (dead 
-- D-2494: `js/mon.js` — `setmangry` restarted in C order with `:line` cites: Elbereth arm first (`via_attack` + strict `sengr_at` inlined via live `engr_at`: ex Named: `quest.c:479` `quest_chat` pissed_off → `setmangry` (pre-existing deferral, `js/quest.js:4
 <!-- landmarks:end -->

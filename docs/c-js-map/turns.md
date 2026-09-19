@@ -324,7 +324,15 @@ ACH_HELL/`ACH_MINE`/`ACH_SOKO` via `record_achievement` (D-0928 #1181); MICRO Mo
 (C `do.c` `:1881–1959`; callee `insight.c` `record_achievement` `:2406–2472` `achieve_msg` + 
 gameover skip; `botl.c` `describe_level` dflgs 2; live `js/do.js` + `js/insight.js`; 
 SoundAchievement named; MICRO Valley More still named; prize `context.achieveo` otyp when 
-unset is empty `OBJ_NAME`)); 
+unset is empty `OBJ_NAME`)); **D-2509 `record_achievement` whole-body restart** (C 
+`insight.c:2407–2472` in C order with `:line` cites in `js/insight.js`: `:2419` 
+out-of-range `impossible` (sync fire-and-forget, do_wear precedent), `:2423–2445` 
+scan/append incl. negated-rank abs match + 0-termination, SoundAchievement named 
+(sndprocs.h `:274` empty def active — no SND_LIB_* backend defined), `:2447–2451` 
+gameover skip, `:2453–2461` rank arm (`Role_switch` = `game.urole.mnum`), 
+`:2462–2468` prize arm (`achieve_msg[achidx]` + `OBJ_NAME` = generated oc_name), 
+`:2469–2471` plain arm; `achieve_msg[]` table verified row-identical to C `:57–91`; 
+maintained `scripts/record-achievement.test.mjs` 5/5); 
 **Rogue first-visit primitive-world pline + 
 `assign_graphics` ROGUESET/`check_gold_symbol`** (D-0805; 
 RogueIBM color sets / full showsyms stairs `%` deferred; Is_knox/ACH_BGRM is D-1644); 
