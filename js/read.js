@@ -114,7 +114,7 @@ import { study_book, can_chant, losespells } from './spell.js';
 import { scrolltele, level_tele } from './teleport.js';
 import { trycall, hcolor, Monnam, mon_nam, s_suffix, hliquid } from './do_name.js';
 import { chwepon, is_weptool } from './wield.js';
-import { destroy_arm, disintegrate_arm, some_armor, setworn, hard_helmet, Ring_gone, Ring_off, Ring_on } from './do_wear.js';
+import { destroy_arm, disintegrate_arm, some_armor, setworn, hard_helmet, Ring_gone, Ring_off, Ring_on, adj_abon } from './do_wear.js';
 import { dropy, flooreffects } from './do.js';
 import { placebc, set_bc, move_bc } from './ball.js';
 import { rn2, rnd, rn1, d } from './rng.js';
@@ -143,7 +143,7 @@ import { Soundeffect } from './sndprocs.js';
 import { se_maniacal_laughter, se_sad_wailing } from './generated/seffects_data.js';
 import { resist, cant_revive, Fire_resistance } from './zap.js';
 import { monflee } from './monmove.js';
-import { which_armor } from './worn.js';
+import { which_armor, is_elven_armor, is_shield } from './worn.js';
 import { alter_cost, costly_alteration, obfree } from './shk.js';
 import { sokoban_guilt, ceiling } from './trap.js';
 import { drain_weapon_skill, dmgval } from './weapon.js';
@@ -156,7 +156,7 @@ import { mons, NON_PM, LOW_PM, NUMMONS, amorphous, passes_walls, noncorporeal, i
     M2_PNAME, monsterNames, nonliving, weirdnonliving, PM_ACID_BLOB,
     hates_light,
 } from './monsters.js';
-import { makemon, makemon_appear_msg, rndmonst, create_critters, newcham } from './makemon.js';
+import { makemon, makemon_appear_msg, rndmonst, create_critters, newcham, Is_dragon_scales } from './makemon.js';
 import { kill_genocided_monsters, mongone, m_at, setmangry, wake_nearto, wakeup } from './mon.js';
 import { killed, light_hits_gremlin } from './uhitm.js';
 import { digests } from './mhitu.js';
@@ -686,7 +686,6 @@ function Blind_read() {
     if (u.uroleplay?.blind) return true;
     return !!(((u.HBlinded | 0) || (u.EBlinded | 0)) && !(u.BBlinded | 0));
 }
-function Yname2_read(obj) { return `Your ${xname(obj)}`; }
 
 /** C ref: read.c stripspe :652–664 / p_glow1–3 :667–685. */
 async function stripspe(obj) {
@@ -755,7 +754,13 @@ function display_stinking_cloud_positions(on_off) {
     }
 }
 
-/** C ref: read.c wand_explode :2414–2457. */
+/**
+ * C ref: read.c wand_explode `:2414–2457` in C order — chg default 2,
+ * dice count n = spe+chg (min 2), die size by wand kind, damage rolled
+ * before in_use/pline (`:2440–2443`), live Yname2, losehp via
+ * explode_losehp (Maybe_Half_Phys + wail/gameover tail), live useup,
+ * exercise STR.
+ */
 async function explode_losehp(dmg, how) {
     const { losehp, maybe_half_phys, finish_maybe_wail } = await import('./hack.js');
     losehp(maybe_half_phys(dmg), how, KILLED_BY_AN);
@@ -767,21 +772,22 @@ async function explode_losehp(dmg, how) {
 }
 export async function wand_explode(obj, chg) {
     const expl = !chg ? 'suddenly' : 'vibrates violently and';
-    if (!chg) chg = 2;
+    if (!chg) chg = 2; /* C `:2418–2419` zap/engrave adjustment */
     let n = (obj.spe | 0) + (chg | 0);
-    if (n < 2) n = 2;
+    if (n < 2) n = 2; /* C `:2421` arbitrary minimum */
     const otyp = obj.otyp | 0;
+    // C `:2423–2438` damage-die size by wand kind.
     const k = otyp === WAN_WISHING ? 12
         : (otyp === WAN_CANCELLATION || otyp === WAN_DEATH
             || otyp === WAN_POLYMORPH || otyp === WAN_UNDEAD_TURNING) ? 10
         : (otyp === WAN_COLD || otyp === WAN_FIRE
             || otyp === WAN_LIGHTNING || otyp === WAN_MAGIC_MISSILE) ? 8
         : otyp === WAN_NOTHING ? 4 : 6;
-    obj.in_use = true;
-    await pline(`${Yname2_read(obj)} ${expl} explodes!`);
-    await explode_losehp(d(n, k), 'exploding wand');
-    const { useup } = await import('./eat.js');
-    useup(obj);
+    const dmg = d(n, k);
+    obj.in_use = true; /* C `:2441` in case losehp() is fatal */
+    await pline(`${Yname2(obj)} ${expl} explodes!`);
+    await explode_losehp(dmg, 'exploding wand');
+    useup_live(obj);
     exercise(A_STR, false);
 }
 
@@ -1440,7 +1446,7 @@ async function seffect_scare_monster(sobj) {
     }
 }
 
-/** C read.c seffect_enchant_armor `:1115–1290`. Omits: adj_abon. Dragon-scale remail maybe_adjust_light wired (D-2244). */
+/** C read.c seffect_enchant_armor `:1115–1290` in C order. Callee adj_abon live (do_wear.js); dragon-scale remail maybe_adjust_light wired (D-2244). */
 async function seffect_enchant_armor(sobj) {
     const sblessed = !!sobj.blessed;
     const scursed = !!sobj.cursed;
@@ -1465,9 +1471,8 @@ async function seffect_enchant_armor(sobj) {
             await pline(`${Yobjnam2(otmp, 'feel')} warm for a moment.`);
         } else {
             otmp.rknown = 1;
-            const otyp = otmp.otyp | 0;
-            const isShield = (game.objects?.[otyp]?.oc_skill === 1);
-            await pline(`${Yobjnam2(otmp, 'are')} covered by a ${scursed ? 'mottled' : 'shimmering'} ${hcolor(scursed ? NH_BLACK : NH_GOLDEN)} ${scursed ? 'glow' : (isShield ? 'layer' : 'shield')}!`);
+            // C `:1142` is_shield(otmp) (obj.h `:280–282`).
+            await pline(`${Yobjnam2(otmp, 'are')} covered by a ${scursed ? 'mottled' : 'shimmering'} ${hcolor(scursed ? NH_BLACK : NH_GOLDEN)} ${scursed ? 'glow' : (is_shield(otmp) ? 'layer' : 'shield')}!`);
         }
         if (new_erodeproof && ((otmp.oeroded | 0) || (otmp.oeroded2 | 0))) {
             otmp.oeroded = 0;
@@ -1482,8 +1487,8 @@ async function seffect_enchant_armor(sobj) {
         return sobj;
     }
     const otyp = otmp.otyp | 0;
-    const special_armor = (otyp === ELVEN_LEATHER_HELM || otyp === ELVEN_MITHRIL_COAT
-        || otyp === ELVEN_CLOAK || otyp === ELVEN_SHIELD || otyp === ELVEN_BOOTS)
+    // C `:1165–1166` is_elven_armor (obj.h `:299–302`) + wizard cornuthaum.
+    const special_armor = is_elven_armor(otmp)
         || (Role_if(PM_WIZARD) && otyp === CORNUTHAUM);
     let same_color;
     if (scursed) {
@@ -1515,7 +1520,8 @@ async function seffect_enchant_armor(sobj) {
     }
     if (s > 11) s = 11;
     if (scursed) s = -s;
-    if (s >= 0 && otyp >= GRAY_DRAGON_SCALES && otyp <= YELLOW_DRAGON_SCALES) {
+    // C `:1225` Is_dragon_scales(otmp) (obj.h `:347–348`).
+    if (s >= 0 && Is_dragon_scales(otmp)) {
         // C read.c `:1226–1227` — capture the scales light before the otyp
         // flip (scales -> mail is a second radius increase with its own
         // message, so bless/uncurse below must not adjust).
@@ -1523,7 +1529,8 @@ async function seffect_enchant_armor(sobj) {
         const old_light = artifact_light(otmp) ? arti_light_radius(otmp) : 0;
         await pline(`${Yname2(otmp)} merges and hardens!`);
         setworn(null, W_ARM);
-        otmp.otyp = otyp + (GRAY_DRAGON_SCALE_MAIL - GRAY_DRAGON_SCALES);
+        // C `:1233` — assumes mail/scales share order.
+        otmp.otyp = (otmp.otyp | 0) + (GRAY_DRAGON_SCALE_MAIL - GRAY_DRAGON_SCALES);
         otmp.lamplit = 0;
         if (sblessed) {
             otmp.spe = (otmp.spe | 0) + 1;
@@ -1548,10 +1555,10 @@ async function seffect_enchant_armor(sobj) {
         const oldspe = otmp.spe | 0;
         otmp.spe = oldspe + s;
         cap_spe(otmp);
+        // C `:1277–1279` — cap_spe() might have throttled 's'.
         const applied = (otmp.spe | 0) - oldspe;
-        // adj_abon deferred (DEX/INT/WIS armor bonus)
-        void applied;
-        known = otmp.known ? true : known;
+        if (applied) adj_abon(otmp, applied); /* DEX/INT/WIS armor bonus */
+        known = !!otmp.known; // C `:1280` gk.known = otmp->known
         if (applied > 0 && otmp.unpaid) alter_cost(otmp, 0);
     }
     if ((otmp.spe | 0) > (special_armor ? 5 : 3) && (special_armor || !rn2(7))) {
@@ -2027,7 +2034,8 @@ export async function seffects(sobj) {
         break;
     case SCR_ENCHANT_ARMOR: {
         const kept = await seffect_enchant_armor(sobj);
-        if (!kept) return 1;
+        // C `:2288–2290` — sobj gone means useup already ran; refresh.
+        if (!kept) { update_inventory(); return 1; }
         break;
     }
     case SCR_CONFUSE_MONSTER:

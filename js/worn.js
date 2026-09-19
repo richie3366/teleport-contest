@@ -131,7 +131,8 @@ function is_suit(obj) {
 function is_cloak(obj) {
     return obj?.oclass === ARMOR_CLASS && armcat(obj) === ARM_CLOAK;
 }
-function is_shield(obj) {
+/** C ref: obj.h is_shield `:280–282` — ARMOR_CLASS with oc_armcat ARM_SHIELD. */
+export function is_shield(obj) {
     return obj?.oclass === ARMOR_CLASS && armcat(obj) === ARM_SHIELD;
 }
 function is_helmet(obj) {
@@ -150,8 +151,8 @@ export function is_flimsy(otmp) {
     return mat <= LEATHER || (otmp?.otyp | 0) === RUBBER_HOSE;
 }
 
-/** C ref: obj.h is_elven_armor */
-function is_elven_armor(otmp) {
+/** C ref: obj.h is_elven_armor `:299–302` */
+export function is_elven_armor(otmp) {
     const t = otmp?.otyp | 0;
     return t === ELVEN_LEATHER_HELM || t === ELVEN_MITHRIL_COAT
         || t === ELVEN_CLOAK || t === ELVEN_SHIELD || t === ELVEN_BOOTS;

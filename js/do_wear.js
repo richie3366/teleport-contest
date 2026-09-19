@@ -970,6 +970,35 @@ async function Armor_on() {
 }
 
 /**
+ * C ref: do_wear.c adj_abon `:3319–3336` — worn DEX/INT/WIS armor bonus.
+ * Gauntlets of dexterity (`uarmg`): makeknown + ABON(A_DEX) += delta when
+ * delta nonzero; helm of brilliance (`uarmh`): makeknown + ABON(A_INT) and
+ * ABON(A_WIS) += delta; disp.botl in both worn-match arms regardless.
+ */
+export function adj_abon(otmp, delta) {
+    const u = game.u || {};
+    if (u.uarmg && u.uarmg === otmp && (otmp.otyp | 0) === GAUNTLETS_OF_DEXTERITY) {
+        if (delta | 0) {
+            makeknown(otmp.otyp | 0);
+            if (!u.abon) u.abon = { a: [0, 0, 0, 0, 0, 0] };
+            u.abon.a[A_DEX] = (u.abon.a[A_DEX] || 0) + (delta | 0);
+        }
+        if (!game.flags) game.flags = {};
+        game.flags.botl = true;
+    }
+    if (u.uarmh && u.uarmh === otmp && (otmp.otyp | 0) === HELM_OF_BRILLIANCE) {
+        if (delta | 0) {
+            makeknown(otmp.otyp | 0);
+            if (!u.abon) u.abon = { a: [0, 0, 0, 0, 0, 0] };
+            u.abon.a[A_INT] = (u.abon.a[A_INT] || 0) + (delta | 0);
+            u.abon.a[A_WIS] = (u.abon.a[A_WIS] || 0) + (delta | 0);
+        }
+        if (!game.flags) game.flags = {};
+        game.flags.botl = true;
+    }
+}
+
+/**
  * C ref: do_wear.c Helmet_on `:434–516` — helm switch after setworn.
  * known=1 is assigned at the END (after messages) so the DUNCE_CAP glow
  * still shows the unknown "conical hat". find_ac kept (house; C relies
