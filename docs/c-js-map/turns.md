@@ -3670,7 +3670,11 @@ else-if telemsg)**; **scrolltele make_blinded D-1184**; **scrolltele W-tower Ove
 **scrolltele steed whobuf D-1206**; **`rloc_to_core` wand `makeknown(WAN_TELEPORTATION)` after 
 delivered dest msg (D-1195; C 1727–1731; Null/other otyp skip)**; 
 **`rloc_to_core` dest-msg `set_msg_xy` (D-1196; C 1708; a11y.msg_loc dest before dest plines; 
-`vpline` consume D-1207)**; **`goodpos` `accessible`/closed-door + 
+`vpline` consume D-1207)**; **`rloc_to_core` composer + mtele_trap RLOC_MSG (D-2504; 
+C `:1644–1768` whole core in C order as exported `rloc_to_core` — same-cell return, 
+pre/move/post/tail via live helpers; `rloc_to_flag` delegates; mtele_trap teledest 
+`:1988` now RLOC_MSG with vanish/appear, rloc fallback awaited; silent `rloc_to` untouched)**; 
+**`goodpos` `accessible`/closed-door + 
 occupied/`boulder`/amorph door** (D-0246); 
 **`enexto_core` far-loop buffer reuse** (D-2096; C `teleport.c:256–268` second
 collect overwrites the same candy buffer — truncate before re-collect so the
