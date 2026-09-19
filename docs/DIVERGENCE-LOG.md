@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-2585 — `topten.c` topten whole-body port (ordin, ubirthday, HUP gates)
+
+- **Status:** fixed (Open — coverage row ``topten.c`` topten PARTIAL, measured `port-coverage.mjs --name topten` 2026-09-19 @ 09224e39).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify topten`: no corpus session blocked; the function draws no RNG). The JS body held the rank/display mechanics but dropped three live C arms: the rank>10 message missed `ordin` ("13 place"), birthdate used now instead of game-start, and every print site ignored the live HANGUPHANDLING gate.
+- **C locus:** `nethack-c/upstream/src/topten.c:628–926` — `:639` uid, `:652` panicking, `:656` toptenwin create, `:659–661` HUP (HANGUPHANDLING is `#define`d for UNIX in `global.h:277`), `:670–699` entry build (`:675` points, `:683–684` observable-depth comment, `:694` formatkiller, `:695` birthdate, `:696` deathdate), `:702–718` LOGFILE/XLOGFILE, `:725–736` wizard/discover arm, `:739–754` lock/open + blank print, `:757` pointsmin, `:760–814` rank loop (`:791–799` didn't-beat HUP pair, `:806–814` entrymax cap/sentinel), `:815–842` rewrite (`:821–826` cannot-write, `:836–837` ordin message), `:843–849` skip_scores/outheader, `:850–882` display loop (`:854–856` in-place write, `:880–882` rank0>=rank), `:885–904` sentinel/TRUNCATE, `:904–906` fclose/unlock/free, showwin `:908–917`, destroywin `:919–925`.
+- **JS was:** `topten()` (`js/topten.js:355`) ranked and displayed correctly but emitted `You reached the 13 place …` (no ordin), set `birthdate = yyyymmdd(0)` (now, not game-start), printed all three message sites unconditionally (no `done_hup` gate), recorded `uid = 0` as a bare literal, and carried only sparse C cites. Pre-fix read from the removed lines: ordin case would print "13 place"; birthdate case would record today, not `yyyymmdd(ubirthday)`.
+- **Fix:** `js/topten.js` — `ordin` joins the existing hacklib.js import (no new edge); `hup_ok = !done_hup` gates the wizard message (`:725–736`), the post-open blank (`:754`), and the didn't-beat pair (`:791–799`); `t0.uid = getuid()` (file-local, still 0, now C-cited `:639`); `t0.birthdate = yyyymmdd(game.ubirthday ?? 0)` per `:695` (`u_init.js:1839` sets `ubirthday = getnow()`); full C-order `:line` cites across the body. No caller, RNG, or display-order change.
+- **JS:** `js/topten.js:7` import; `:344–366` docstring; `:367–391` HUP + wizard arm; `:403–422` entry build; `:431–490` rank loop; `:502–562` rewrite/ordin/display tail. Export name/signature unchanged. New durable test `scripts/topten-message.test.mjs` (3 cases: 13th/23rd ordin suffix; birthdate equals `yyyymmdd(1234567890)` in the VFS record; hung-up wizard prints nothing while the control prints the message) — 3/3 pass; sibling `scripts/outentry.test.mjs` 4/4 still pass.
+- **Callers:** the only real C call site `end.c:1581` `topten(how, endtime)` rides the unchanged export at `js/end.js:1203` (`topten(how, endtime, formatkiller(how, true))` — formatkiller inline per `:694`, avoiding an end↔topten cycle); the 3 other C references are comments. No caller edits.
+- **Verify:** `node scripts/verify.mjs --fn topten` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/topten.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify topten: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 5.9s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+
+VERIFY: PASS
+```
+- **Named omissions:** LOGFILE/XLOGFILE append arms (`:702–718` — no VFS consumer reads logfile/xlogfile); lock/unlock/fopen_datafile (VFS infallible; null record reads as the shipped-empty RECORD, not the `:749` missing-file arm); toptenwin create/display/destroy (`:656`, showwin/destroywin — panel is the !toptenwin path); UPDATE_RECORD_IN_PLACE fpos/sentinel/TRUNCATE (`:14`, `:885–904` — one exact VFS write of the same bytes); free_ttlist/dealloc_ttentry (GC); TOS restore_colors (platform ifdef); copynchars/observable_depth file-local clones (pre-existing debt, untouched).
+- **Next:** none from this fix — coverage row closed.
+
 ## D-2584 — `objnam.c` Master-Key wish regression (postparse1 corpse-scan guards)
 
 - **Status:** fixed (Must-fix row ``objnam.c`` Master-Key wish regression (D-2577); review 1536 QUALITY-RISK actionable #1).
