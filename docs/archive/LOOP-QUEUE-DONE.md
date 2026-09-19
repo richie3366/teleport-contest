@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `getpos.c` getpos_menu — coverage MISSING (C 60 L `getpos.c:665–725` / JS no symbol; hops 2, callers 2, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn getpos_menu` (reach regression must be 0). Measured `port-coverage.mjs --name getpos_menu` 2026-09-19 @ ca74dad2. **Addressed:** D-2534
+- [x] `mdlib.c` build_options — coverage MISSING (C 161 L `mdlib.c:669–830` / JS no symbol; hops —, callers 1, RNG 0, msg 4; dead callees: build_savebones_compat_string, datamodel, opt_out_words, count_and_validate_winopts, count_and_validate_soundlibopts). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn build_options` (reach regression must be 0). Measured `port-coverage.mjs --name build_options` 2026-09-19 @ ca74dad2. **Addressed:** D-2535
+
+
+- [x] `getpos.c` getpos_menu — coverage MISSING (C 60 L `getpos.c:665–725` / JS no symbol; hops 2, callers 2, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn getpos_menu` (reach regression must be 0). Measured `port-coverage.mjs --name getpos_menu` 2026-09-19 @ ca74dad2. **Addressed:** D-2534 `1bfac98a`
 
 
 - [x] `invent.c` merged — coverage THIN (C 134 L `invent.c:814–948` / JS 40 L in js/mkobj.js; hops 3, callers 13, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn merged` (reach regression must be 0). Measured `port-coverage.mjs --name merged` 2026-09-19 @ ca74dad2. **Addressed:** D-2533 `32ba8af0`
