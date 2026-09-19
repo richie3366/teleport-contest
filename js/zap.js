@@ -315,7 +315,7 @@ import {
     mkobj, mksobj, delobj, delobj_core, objects_at, sobj_at, replace_object, rnd_class, weight, splitobj, container_weight,
     oc_merge_of, uncurse, unbless, attach_egg_hatch_timeout, obj_extract_self,
     eaten_stat, start_timer, spot_stop_timers, spot_time_left, obj_stop_timers,
-    obj_ice_effects, place_object, stackobj, mergable, set_corpsenm, kill_egg,
+    obj_ice_effects, place_object, stackobj, mergable, merged, set_corpsenm, kill_egg,
     get_mtraits, free_omonst, free_omid, is_metallic, is_crackable,
     mksobj_at, is_flammable, is_rottable, is_rustprone, is_corrodeable,
     erosion_matters, is_damageable, fixup_oil,
@@ -4803,12 +4803,10 @@ export async function zapyourself(obj, ordinary) {
                 for (let j = i + 1; j < inv.length; j++) {
                     const onxt = inv[j];
                     if (!mergable(otmp, onxt)) continue;
-                    otmp.quan = (otmp.quan || 1) + (onxt.quan || 1);
-                    otmp.owt = weight(otmp);
-                    if (onxt.known) otmp.known = 1;
-                    if (onxt.bknown) otmp.bknown = 1;
-                    if (onxt.rknown) otmp.rknown = 1;
-                    obj_extract_self(onxt);
+                    // C `:2996` — merged() absorbs in C order (age, oname,
+                    // lights, timers, compare-learn) and frees onxt.
+                    const potmp = { obj: otmp };
+                    if (!merged(potmp, { obj: onxt })) continue;
                     didmerge = true;
                     break outer;
                 }

@@ -1303,10 +1303,9 @@ wizard `makemap_prepost` dobjsfree, invent Array vs nobj);
 xname-path observe beyond invent; **`pickup_prinv` slight/moderate/near/overload + 
 lifting/removing + `pickup_encumbrance`** (D-0456; 
 **`lift_object` yn Continue? + telekinesis silent refuse** D-1050); 
-**`addinv` merge → C `merged` age/quan/coin-`bknown=0` then known/bknown/rknown + 
-invent compare-learn pline** (D-0879/D-0882; uses `mkobj.mergable`; 
-quiver-prefer / worn-slot / oname / globby / `#adjust` `invent_merged` compare msg / addinv clear 
-`how_lost` deferred; **`addinv_core0` thrown-autoquiver fill live on fresh insert only** (pickup_thrown + empty 
+**`addinv` merge → C `merged` whole body live** (D-0879/D-0882/D-2533; exported `mkobj.merged` in C order — age, quan, coin-`bknown=0`, oname, extract, pickup_prev, lights, timers, known/rknown/bknown + discovered, worn-slot fixup, bypass, globby, compare-learn pline; `#if 0` mcarried arm compiled out; mergable worn-`obj` gate stays — D-2324); 
+`addinv` quiver-prefer + chain (u_init absorbInto), doadjust (`invent_merged` wrapper), zapyourself paranoid loop, stackobj/add_to_minv/add_to_container/unsplitobj all call it; quiver-prefer / 
+`#adjust` `invent_merged` compare msg / addinv clear `how_lost` live; addinv_before deferred; **`addinv_core0` thrown-autoquiver fill live on fresh insert only** (pickup_thrown + empty 
 quiver + throwing_weapon/is_ammo → setuqwep; D-2044; merge paths `goto added` bypass the fill — no setuqwep on merge, D-2048); \
 **`addinv_core1` live in `js/u_init.js`** (COIN botl, AMULET/CANDELABRUM/BELL/BOOK uhave+record_achievement, \
 oartifact W_ART, mines/soko prize achievement+oid-clear+nomerge=0; questart `uhave.questart=1` + `artitouch` D-2370; \

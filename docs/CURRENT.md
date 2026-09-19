@@ -46,7 +46,7 @@ screens 93.2 %. Held-out flat 11/44 (5,648 pts, RNG 26.6 %, screens
 92.0 %: the corpus still does not predict the judge.
 **Corpus fortress** (re-scored 2026-09-19 audit 1480–1488): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — +0 / −0
-in the D-2521…D-2532 window (all nine were zero-block coverage rows;
+in the D-2521…D-2533 window (all nine were zero-block coverage rows;
 per-SHA `--reach-all` re-runs REACH-OK, 0 regressed).
 Reviews 1225–1488: 233 ACCEPT, 10 WITH-DEBT, 1 DEBT, 15 QUALITY-RISK (Must-fix: none — 1465 trio shipped D-2512).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone — review-debt, unqueued (detail in the review files).
@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `trap.c` dofiretrap — coverage PARTIAL (C 80 L `trap.c:4233–4314` / JS 53 L in js/trap.js; hops 5, callers 3, RNG 7, msg 5). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dofiretrap` (reach regression must be 0). Measured `port-coverage.mjs --name dofiretrap` 2026-09-19 @ 95d26622.
+**Next cluster:** `invent.c` merged — coverage THIN (C 134 L `invent.c:814–948` / JS 40 L in js/mkobj.js; hops 3, callers 13, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn merged` (reach regression must be 0). Measured `port-coverage.mjs --name merged` 2026-09-19 @ ca74dad2.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2532 (index).**
+**Keep D-0845…D-2533 (index).**
 <!-- recent:begin -->
+**D-2533** `nethack-c/upstream/src/invent.c:814–948` (`merged`). Callees: `mergable` (`:819`, live mk — `js/mkobj.js` — restarted + exported `merged` (`js/mkobj.js:2549`) in C order with `:line` cites: `:826–831` age average (lamplit/globby skip); `:833–834` quan (glob stays 1); `:835–840` coin reweigh + bknown wipe, `!Is_
 **D-2532** `nethack-c/upstream/src/trap.c:4233–4314` (`dofiretrap`, staticfn). Callees: `Blind` (`:42 — `js/trap.js` — restarted `dofiretrap` in C order with `:line` cites: `:4241` shared `orig_dmg`/`num` init; `:4244–4253` steam arm with C short-circuit (`carried` only when box non-null) and `u.uinwater` for Underwater; `
 **D-2531** `nethack-c/upstream/src/dothrow.c:2480–2574` (`breakobj`). Callees: `is_crackable` (live m — `js/dothrow.js` — restarted `breakobj` in C order with `:line` cites: `:2488–2491` crackable `erode_obj` + `ER_DESTROYED`-gated 1/0 return; `:2493` potion-class→`POT_WATER` mapping; `:2494–2497` MIRROR luck; `:2498–2521`
 **D-2530** `nethack-c/upstream/src/wizcmds.c:1284–1399` (`misc_stats`, staticfn). Callees: `engr_stat — `js/wizcmds.js` — `SIZEOF_*` LP64 constants (`:890–899`) measured from the pinned headers with gcc (`trap=32 engr=64 light=32 timer=48 damage=32 region=96 rect=8 kinfo=272 cemetery=184`; probe in /tmp, not committed) + f
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2528** `nethack-c/upstream/src/options.c:9070–9174` (`show_menu_controls`). Callees: `get_menu_cm — `js/options.js` — `wc2_options` table in C order, `windowprocs_wincap2` (unset bag → contest tty 0, cf.
 **D-2527** `nethack-c/upstream/src/do.c:459–494` (`teleport_sink`, staticfn) + `:498–661` (`dosinkrin — `js/do.js` — file-local `teleport_sink` (`js/do.js:2449`) in C order (`:472–473` `#else` ranges with the `#if 0` edge arm named as compiled out, `:475–490` ROOM/trap/engr/sight-distance gate + old-sink removal + new-sink
 **D-2526** `nethack-c/upstream/src/exper.c:207–291` (`losexp`). Callees: `resists_drli` (`:216`, live — `js/exper.js` — restarted `losexp` in C order with `:line` cites: `:212–217` #levelchange null else live `resists_drli(game.youmonst)`; `:219–224` Goodbye message incl. level-1 fatal shape; `:226–231` level loss + adjabi
-**D-2525** `nethack-c/upstream/src/objnam.c:2563–2653` (`vtense`). Callees: `nextobuf` (return buffer — `js/objnam.js` — restarted `vtense` in C order with `:line` cites: `:2581–2582` a/an prefix (NUL-short-safe); `:2583–2593` marker scan (first-space walk, break on first marker, index-0 guard); `:2594–2596` head fallback;
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2532; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2533; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
