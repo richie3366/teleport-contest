@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-19 — D-2599 `mail.c` read_simplemail whole-body port (compiled-out SIMPLE_MAIL body, VFS spool read)
+
+**C locus:** `nethack-c/upstream/src/mail.c:589–680`; callers `mail.c:696` (ck_server_admin_msg adminmsg=TRUE, inside `#ifdef SERVER_ADMIN_MSG`) and `mail.c:710` (readmail adminmsg=FALSE, inside `#ifdef SIMPLE_MAIL`) — both compiled out.
+**JS:** `js/mail.js` only (+~100 lines: header envelope, `fgets128_chunks`, export). No caller files touched.
+**Change:** new exported async `read_simplemail(mbox, adminmsg)` (`js/mail.js`) following the SIMPLE_MAIL source-level body in C order with `:line` cites — VFS spool read for `:591` fopen (VFS miss ≡ fopen NULL; Rule #2, fopen_wizkit_file precedent); `:593` seen_one_already; `:598–599` null → bail; `:607–613` block-lock gate (lock-success path, see omits); `:615` fgets(128) loop via module-local `fgets128_chunks` (≤127-char chunks cut after `\n`, so long lines arrive as several chunks exactly like C); `:628–629` There nother-gate; `:631` first-colon split; `:632–634` colon/msglen<3 → bail; `:636–638` sender split + trailing-newline kill via slice(0, -1) (also verbatim kills the chunk tail when fgets split a long line or the file lacks a final newline); `:641–643` endpunct off the post-kill last char; `:645–653` urgent_pline voice-of (admin) vs from/reads/quoted plines; `:655` seen flag; `:671–674` flush_topl_more for display_nhwindow(WIN_MESSAGE, TRUE) (dig.js:1705 precedent) vs vfsDeleteFile for unlink. New `mail.js → storage.js` edge is `imports.mjs --can` SAFE; There/urgent_pline join the existing display.js import.
+**Verify:** `node scripts/verify.mjs --fn read_simplemail` → VERIFY: PASS. Tail verbatim:
+**Named:** `struct flock` + all fcntl F_SETLKW/F_UNLCK lock/unlock arms (`:594–596`, `:601–606`, `:611–613`, `:622–627`, `:656–662`, `:664–669` — single-threaded game loop + atomic VFS read needs no advisory locking); `getmailstatus` mailbox-global (readmail D-1958 named omit — the passed `mbox` doubles as C's global since the only FALSE caller passes mailbox itself); both C callers compiled out (above).
+**Next:** queue head `objnam.c` readobjnam_postparse3.
 ## 2026-09-19 — D-2598 `mhitm.c` failed_grab whole-body restart (live some_mon_nam tail, clone consolidation)
 
 **C locus:** `nethack-c/upstream/src/mhitm.c:597–640`; callers `mhitm.c:451/485/529` (AT_TUCH eel pre-check, AT_HUGS, AT_ENGL), `mhitu.c:808/827/1305` (melee pre-check, AT_HUGS, gulpmu), `uhitm.c:5652/5735/5779` (weaponless, AT_HUGS, AT_ENGL).

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `mhitm.c` failed_grab — coverage PARTIAL (C 40 L `mhitm.c:597–640` / JS 28 L in js/mhitm.js; hops 2, callers 9, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn failed_grab` (reach regression must be 0). Measured `port-coverage.mjs --name failed_grab` 2026-09-20 @ d89bb259. **Addressed:** D-2598
+- [x] `mail.c` read_simplemail — coverage MISSING (C 91 L `mail.c:589–680` / JS no symbol; hops —, callers 1, RNG 0, msg 5). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn read_simplemail` (reach regression must be 0). Measured `port-coverage.mjs --name read_simplemail` 2026-09-20 @ d89bb259. **Addressed:** D-2599
+
+
+- [x] `mhitm.c` failed_grab — coverage PARTIAL (C 40 L `mhitm.c:597–640` / JS 28 L in js/mhitm.js; hops 2, callers 9, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn failed_grab` (reach regression must be 0). Measured `port-coverage.mjs --name failed_grab` 2026-09-20 @ d89bb259. **Addressed:** D-2598 `6e42a59a`
 
 
 - [x] `mklev.c` topologize — coverage THIN (C 56 L `mklev.c:1597–1656` / JS 23 L in js/mklev.js; hops 2, callers 8, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn topologize` (reach regression must be 0). Measured `port-coverage.mjs --name topologize` 2026-09-19 @ c0bfe985. **Addressed:** D-2597 `848601a7`

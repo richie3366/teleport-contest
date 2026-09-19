@@ -1,5 +1,28 @@
 # Divergence log
 
+## D-2599 — `mail.c` read_simplemail whole-body port (compiled-out SIMPLE_MAIL body, VFS spool read)
+
+- **Status:** fixed (Open — coverage row `mail.c` read_simplemail MISSING (C 91 L `mail.c:589–680` / JS no symbol; hops —, callers 1, RNG 0, msg 5), measured `port-coverage.mjs --name read_simplemail` 2026-09-20 @ d89bb259).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify read_simplemail`: no corpus session blocked on it at baseline; fixed 24-session smoke spread is the evidence). The C body and both its callers sit inside `#if defined(SIMPLE_MAIL) || defined(SERVER_ADMIN_MSG)` (`:586`); both flags are commented out in unixconf.h:200/211 and neither is defined anywhere else in the build, so this build compiles none of it.
+- **C locus:** `nethack-c/upstream/src/mail.c:589–680`; callers `mail.c:696` (ck_server_admin_msg adminmsg=TRUE, inside `#ifdef SERVER_ADMIN_MSG`) and `mail.c:710` (readmail adminmsg=FALSE, inside `#ifdef SIMPLE_MAIL`) — both compiled out.
+- **JS was:** no same-named symbol anywhere in `js/` (brief `sym.mjs` NOT FOUND).
+- **Fix:** new exported async `read_simplemail(mbox, adminmsg)` (`js/mail.js`) following the SIMPLE_MAIL source-level body in C order with `:line` cites — VFS spool read for `:591` fopen (VFS miss ≡ fopen NULL; Rule #2, fopen_wizkit_file precedent); `:593` seen_one_already; `:598–599` null → bail; `:607–613` block-lock gate (lock-success path, see omits); `:615` fgets(128) loop via module-local `fgets128_chunks` (≤127-char chunks cut after `\n`, so long lines arrive as several chunks exactly like C); `:628–629` There nother-gate; `:631` first-colon split; `:632–634` colon/msglen<3 → bail; `:636–638` sender split + trailing-newline kill via slice(0, -1) (also verbatim kills the chunk tail when fgets split a long line or the file lacks a final newline); `:641–643` endpunct off the post-kill last char; `:645–653` urgent_pline voice-of (admin) vs from/reads/quoted plines; `:655` seen flag; `:671–674` flush_topl_more for display_nhwindow(WIN_MESSAGE, TRUE) (dig.js:1705 precedent) vs vfsDeleteFile for unlink. New `mail.js → storage.js` edge is `imports.mjs --can` SAFE; There/urgent_pline join the existing display.js import.
+- **JS:** `js/mail.js` only (+~100 lines: header envelope, `fgets128_chunks`, export). No caller files touched.
+- **Callers:** C `:696` → compiled out (SERVER_ADMIN_MSG undefined), no JS site; C `:710` → compiled out (SIMPLE_MAIL undefined), no JS site. Deliberately NOT wired from live `readmail`/`ck_server_admin_msg`: C never calls it from those sites in this build (D-2393 lesson), and live `readmail` already ports its own DEF_MAILREADER arm (D-1958).
+- **Verify:** `node scripts/verify.mjs --fn read_simplemail` → VERIFY: PASS. Tail verbatim:
+  `PASS  syntax   1 changed js file(s): js/mail.js`
+  `PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates`
+  `note  hidden   verify read_simplemail: no corpus session blocked on it at baseline`
+  `PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 3.6s): 24 PASS, 0 regressed → REACH-OK`
+  `PASS  green    2/2 passing`
+  `PASS  strict   seed8000-tourist-starter.session.json`
+  `PASS  strict   seed0900-tourist-explore-actions.session.json`
+  `PASS  cohort   7/7 passing`
+  `skip  full     (no shared file changed; pass --full to force)`
+  No maintained unit harness exists in the repo (no `tests/` dir), so the focused `verify --fn` gates above are the honest verification, not a new framework.
+- **Named omissions:** `struct flock` + all fcntl F_SETLKW/F_UNLCK lock/unlock arms (`:594–596`, `:601–606`, `:611–613`, `:622–627`, `:656–662`, `:664–669` — single-threaded game loop + atomic VFS read needs no advisory locking); `getmailstatus` mailbox-global (readmail D-1958 named omit — the passed `mbox` doubles as C's global since the only FALSE caller passes mailbox itself); both C callers compiled out (above).
+- **Next:** queue head `objnam.c` readobjnam_postparse3.
+
 ## D-2598 — `mhitm.c` failed_grab whole-body restart (live some_mon_nam tail, clone consolidation)
 
 - **Status:** fixed (Open — coverage row `mhitm.c` failed_grab PARTIAL (C 40 L `mhitm.c:597–640` / JS 28 L in js/mhitm.js; hops 2, callers 9, RNG 0, msg 1), measured `port-coverage.mjs --name failed_grab` 2026-09-20 @ d89bb259).
