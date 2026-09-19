@@ -45,7 +45,7 @@ screens 93.2 %. Held-out moved 7 → 11 over 2026-09-06..17 while the local
 corpus went 48 % → 91.7 %: the corpus no longer predicts the judge.
 **Corpus fortress** (re-scored 2026-09-19 audit 1453–1461): **495 / 540
 PASS (91.7 %)** excl. 13 env-only; RNG 99.29 %, screens 99.0 % — identical
-to the prior audit, no flips across D-2494…D-2506 (every per-SHA re-run:
+to the prior audit, no flips across D-2494…D-2507 (every per-SHA re-run:
 0 regressed; recharge reach 3/3, rest vacuous 0-blocked + smoke 24/24).
 Reviews 1225–1461: 208 ACCEPT, 9 WITH-DEBT, 1 DEBT, 14 QUALITY-RISK (0 Must-fix pending).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph (display.h:842–844 vs display.js:849), 1448 safe_typename guard (objnam.c:316) — review-debt, unqueued.
@@ -98,10 +98,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `options.c` handler_menu_colors — coverage MISSING (C 92 L `options.c:6407–6499` / JS no symbol; hops —, callers 1, RNG 0, msg 4; dead callees: count_menucolors, handle_add_list_remove, test_regex_pattern, query_color, query_attr, add_menu_coloring_parsed, …). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn handler_menu_colors` (reach regression must be 0). Measured `port-coverage.mjs --name handler_menu_colors` 2026-09-19 @ e131537d.
+**Next cluster:** `mthrowu.c` ohitmon — coverage PARTIAL (C 175 L `mthrowu.c:321–502` / JS 102 L in js/mthrowu.js; hops 4, callers 4, RNG 4, msg 8). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn ohitmon` (reach regression must be 0). Measured `port-coverage.mjs --name ohitmon` 2026-09-19 @ e131537d.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2506 (index).**
+**Keep D-0845…D-2507 (index).**
 <!-- recent:begin -->
+**D-2507** `nethack-c/upstream/src/mthrowu.c:321–502` (`ohitmon`); callers `do.c:210` (deliberate non — `js/mthrowu.js` — restarted `ohitmon` in C order with `:line` cites: `:334–339` notonhead/ismimic/vis/observe; `:341–349` tmp +marcher level +`MON_WEP` launcher `spec_abon`; `:350–360` miss arm (`distant_name`, range-0 d
 **D-2506** `nethack-c/upstream/src/options.c:6407–6499` (`handler_menu_colors`, staticfn); sole calle — `js/options.js` only (same-edge import words: hacklib `strNsubst`, display `tty_wait_synch`, invent `select_menu_pick_none`, terminal C CLR_* + `NO_COLOR`, objnam `makeplural`, const `HL_*` + `BUFSZ`/`QBUFSZ`, new `artif
 **D-2505** `nethack-c/upstream/src/do_wear.c:963–1087` (`Amulet_on`, staticfn); callers `:1551` (`set — `js/do_wear.js` — restarted `Amulet_on` as the C-order switch with `:line` cites: `:972–977` no-op group; `:978–995` breathing (W_AMUL masked out for the `region_danger` test, had-guarded restore, `makeknown`+`on_msg`+`Y
 **D-2504** `nethack-c/upstream/src/teleport.c:1644–1768` (`rloc_to_core`, staticfn); callers `:1771–1 — `js/teleport.js` only, no new module edges — new `export async function rloc_to_core(mtmp, x, y, rlocflags)` composing the live helpers in C order (same-cell `:1658–1659` return first so no vanish prints; pre `:1661–1677
@@ -109,11 +110,10 @@ revisits the picker.
 **D-2502** `nethack-c/upstream/src/trap.c:2106–2276` (`trapeffect_web`); sole C caller `trap.c:2972`  — restarted `trapeffect_web` in C order.
 **D-2501** `nethack-c/upstream/src/mkmaze.c:1539–1685` (`movebubbles`); `ball.c:181–189` (`check_rest — `js/ball.js` — new module-local `check_restriction` (literal `:181–189` mirror; `game.bcrestriction` holds the C static, init 0; override -1 per `hack.h:110`) + `export async function unplacebc_and_covet_placebc` (`rnd(4
 **D-2500** `nethack-c/upstream/src/read.c:729–1008` (`recharge`) + staticfns `stripspe :651–664`, `p_ — `js/read.js` only, no new module edges (`imports.mjs --can` ALREADY on all five): `You`/`Your` (display), `Tobjnam` (objnam), `useup as useup_live` (invent), `Ring_gone`/`Ring_off`/`Ring_on` (do_wear), `end_burn` (timeou
-**D-2499** `mon.c:1392–1453` (`m_consume_obj`); `:1352–1381` (`meatbox`); `:1384–1386` (`mstoning` ma — `js/mon.js` — new `export async function meatbox` in C order (`:1356` cube-engulf test, `:1363–1367` spill pline, `:1368–1379` head-first unwrap with ICE_BOX `removed_from_icebox`, engulf `mpickobj`, else `flooreffects`→
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2506; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2507; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

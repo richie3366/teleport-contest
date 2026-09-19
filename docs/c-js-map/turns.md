@@ -3260,12 +3260,15 @@ AT_ENGL gulps/lunges / **mhitu AD_DRIN D-1329**;
 **mhitu AD_WRAP D-1331** (u_slip_free / coil-or-swing / pool drown / AT_HUGS crush / verbose brush; 
 uhitm wrap D-1348 / mhitm brush D-1406); **mhitm AD_DRIN D-1330** (mattackm AT_TENT + 
 hitmm tentacles suck); `defended` / `resists_blnd_by_arti` named; 
-**`ohitmon` + `omon_adj` mon missile hit/`rnd(20)`/`dmgval`** (D-0439); 
-**`ohitmon` range==-1 drop_throw re-extract continue (D-0700)**; 
-**`ohitmon` kill → `mondied`/`xkilled(NOMSG)` + `corpse_chance`** (D-0698) + 
-**`ohitmon` `!mon_moving`→`setmangry`** (D-0928 #1099; **m_throw shade_miss D-1382**; 
-**zap `bhit` shade_miss D-1383**; poison/silver/acid/egg petrify/can_blnd/vampshifter verb 
-deferred); **MUSE_CAMERA** find+use `lightdamage` D-1376 (C `:1566–1574`/`:1938–1955` `!rn2(6)` + 
+**`ohitmon` mthrowu.c:321–502 full port (D-0439/D-0698/D-0700/D-0928/D-1382 + D-2507)** — 
+`rnd(20)`/`dmgval` (D-0439) + range==-1 drop_throw re-extract continue (D-0700) + 
+kill → `mondied`/`xkilled(NOMSG)` (D-0698) + `!mon_moving`→`setmangry` (D-0928 #1099; 
+**m_throw shade_miss D-1382**; **zap `bhit` shade_miss D-1383**) + D-2507: 
+`distant_name`/`mshot_xname`, mon_launcher `spec_abon`, stone_missile + 
+passes_rocks-macro harmless, acid-immune 0, splat sfx, egg/corpsenm msg, 
+poison/silver/acid-burn/egg-petrify (`munstone` new `js/muse.js` export + 
+`minstapetrify`), vampshifter destroy verb, `can_blnd` venom/pie; `#if 0` 
+orc/elf arm compiled out in C; named: mon_notices unfreeze in same-file `omon_adj`; **MUSE_CAMERA** find+use `lightdamage` D-1376 (C `:1566–1574`/`:1938–1955` `!rn2(6)` + 
 flash/`make_blinded`/`spe--`/return 1; callee D-1366); ray-wand/horn/SCR_EARTH D-1810; 
 mon-target `potionhit` crash/saddle/POT_WATER D-1297 (other otyps named); 
 **`hitval` blessed/spear/trident/pick D-1929** (artifact `spec_abon` D-0611; no silver arm in C hitval);
