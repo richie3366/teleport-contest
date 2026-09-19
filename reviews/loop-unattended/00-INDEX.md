@@ -1525,3 +1525,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1512-c90a495f-do-write-config-file.md](./1512-c90a495f-do-write-config-file.md) | `c90a495f` | D-2553 do_write_config_file | **ACCEPT** |
 | [1513-22c8d3f1-helmet-off.md](./1513-22c8d3f1-helmet-off.md) | `22c8d3f1` | D-2554 Helmet_off | **ACCEPT** |
 | [1514-bdd6846f-create-levelfile.md](./1514-bdd6846f-create-levelfile.md) | `bdd6846f` | D-2555 create_levelfile | **ACCEPT** |
+| [1515-a689a335-rumor-check.md](./1515-a689a335-rumor-check.md) | `a689a335` | D-2556 rumor_check + others_check | **ACCEPT** |
+| [1516-ef8921fe-deadbook.md](./1516-ef8921fe-deadbook.md) | `ef8921fe` | D-2557 deadbook + pacify_undead | **ACCEPT** |
+| [1517-90ae7d1d-doextversion.md](./1517-90ae7d1d-doextversion.md) | `90ae7d1d` | D-2558 doextversion | **QUALITY-RISK** |
+| [1518-da30a4b6-dosdoor.md](./1518-da30a4b6-dosdoor.md) | `da30a4b6` | D-2559 dosdoor + add_door | **ACCEPT** |
+| [1519-c9038a65-shk-move.md](./1519-c9038a65-shk-move.md) | `c9038a65` | D-2560 shk_move | **ACCEPT** |
+| [1520-1832a9e7-parseoptions.md](./1520-1832a9e7-parseoptions.md) | `1832a9e7` | D-2561 parseoptions family | **QUALITY-RISK** |
+| [1521-30fd2ce7-mon-catchup.md](./1521-30fd2ce7-mon-catchup.md) | `30fd2ce7` | D-2562 mon_catchup_elapsed_time | **ACCEPT** |
+| [1522-fe99f208-select-rwep.md](./1522-fe99f208-select-rwep.md) | `fe99f208` | D-2563 select_rwep | **ACCEPT** |
+| [1523-728d22ed-background-arms.md](./1523-728d22ed-background-arms.md) | `728d22ed` | D-2564 background arms + achievements spacing | **ACCEPT** |

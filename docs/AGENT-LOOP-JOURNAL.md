@@ -7,6 +7,15 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-19 — Audit a689a335..728d22ed (reviews 1515-1523: 7 ACCEPT + 2 QUALITY-RISK) + cadence 44/44, proxy 497/540, held-out 11/44.
+
+Per-SHA hidden-proxy re-runs --reach-all, all 0-blocked (dosdoor 497/497
+PASS, rest smoke, 0 regressed). Must-fix queued: 1517 `strip_newline`
+splices where C truncates (hacklib.c:180-190); 1520 `OPT_NEGATEOK_NO`
+drops `travel_debug` (cc -E recount 64 vs 63; 217 rows otherwise exact).
+1522: `mwelded_mon` clone deleted for live `mwelded` (C checks worn+weld).
+Cadence 44/44 (Scr 11405/11405, RNG 792838/792838); held-out 11/44 cached;
+corpus 497/540 flat. Next: strip_newline, travel_debug, make_engr_at.
 ## 2026-09-19 — D-2564 `insight.c` background_enlightenment + show_achievements (coverage MISSING → live; missing Background arms in C order on both builders + achievements default-arm spacing; same-file rows)
 
 **C locus:** `nethack-c/upstream/src/insight.c:468–722` (`background_enlightenment`, staticfn) in C order: innategend/role/rank (`:474–479`); separator + Background (`:481–482`); Upolyd form (`:490–506`); role/rank/gender + Upolyd `actually ` (`:511–529`); mission adverb (`:532–554`); pantheon (`:556–563`); difgend/difalgn `actually ` + started-out (`:574–587`); handed + `normally ` (`:593–594`); location incl. bigroom (`:596–629`); moves (`:631–645`); midnight/night (`:647–651`); moon (`:652–668`); friday13 (`:669–685`); experience (`:687–709`); SCORE_ON_BOTL (`:710–717`, dead). Plus `insight.c:2243–2403` (`show_achievements`, staticfn): wizard/final + count guards, en_win reuse else create, Achievement title, UWIN/AMUL reorder, full achievement switch, display/destroy when own window. Callees all live: rank_of, pmname, just_an (article-only, objnam.c), an, align_str, align_gname, u_gname, night, midnight, newuexp, endgamelevelname, depth (≡ observable_depth, helper-doc `#if0` note), Blind, genders, vampshifted, is_male/is_female/is_neuter, body_part_latebound, mons, Upolyd, N_times, enlght_line/enl_msg/you_are/you_have/you_have_X/plur (in-file both modules), count/remove/record_achievement, rank_to_xlev.
