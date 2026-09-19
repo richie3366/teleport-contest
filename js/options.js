@@ -134,6 +134,7 @@ import { yyyymmddhhmmss } from './calendar.js';
 import { getlin } from './getline.js';
 import { makesingular, fruit_from_name, makeplural } from './objnam.js';
 import { clr2colorname } from './artifact.js';
+import { opt_next_cond } from './botl.js';
 
 /** C ref: global.h PL_FSIZ — fruit name buffer. */
 const PL_FSIZ = 32;
@@ -3073,8 +3074,9 @@ export function oclass_to_sym(oclass) {
  * strbuf_* (strutil.c) + msgtypes / menucolors / apes / autocomplete arms
  * (backing stores live in this file / game bags / generated EXTCMDLIST).
  * Named omissions ship as campaign rows (map): get_option_value + the
- * allopt[]/opt_set_in_config[] table, all_options_conds, get_changed_key_binds,
- * all_options_statushilites (+ parsesymbols producer for savedSymbols).
+ * allopt[]/opt_set_in_config[] table (live [2/7]), all_options_conds
+ * (live [3/7]), get_changed_key_binds, all_options_statushilites
+ * (+ parsesymbols producer for savedSymbols).
  * all_options_palette is compiled
  * out (CHANGE_COLOR off for tty: windconf.h `:29` commented) — no row.
  */
@@ -3711,11 +3713,51 @@ export function savedsym_strbuf(sbuf) {
 }
 
 /**
+ * C ref: options.c all_options_conds `:9551–9591` [campaign 3/7] — gather
+ * non-default cond_xyz into one OPTIONS=cond_foo,!cond_bar entry, wrapped
+ * with backslash+newline past 75 columns (`:9564–9565`); defaults
+ * (cond_blind, !cond_glowhands, &c) excluded via opt_next_cond (`:9553`).
+ * C staticfn (`:9555`); exported like the sibling writer arms so the port
+ * stays testable. C NULL-empty (buf stays "OPTIONS=") appends nothing
+ * (`:9583–9589`). Plain-string concat is exact (no BUFSZ).
+ * Sole C caller options.c all_options_strbuf `:9729` (live below).
+ */
+export function all_options_conds(sbuf) {
+    let buf = ''; // C `:9562` buf[0] = '\0'
+    let idx = 0; // C `:9559`
+    let gotone = false; // C `:9560`
+    for (;;) {
+        const nextcond = opt_next_cond(idx); // C `:9563` while (opt_next_cond(...))
+        if (nextcond === null) break; // C FALSE past CONDITION_COUNT
+        if (idx === 0) {
+            buf = 'OPTIONS='; // C `:9566–9567`
+        } else if (buf.length + 1 + nextcond.length >= 75) { // C `:9568`
+            /* finish off previous line */ // C `:9569`
+            buf += ',\\\n'; // C `:9570` comma and backslash+newline
+            strbuf_append(sbuf, buf); // C `:9571`
+            /* indent continuation line */ // C `:9572`
+            buf = '        '; // C `:9573` Sprintf(buf, "%8s", " ") — 8 = strlen("OPTIONS=")
+        } else if (nextcond.length > 0 && gotone) { // C `:9574` nextcond[0] && gotone
+            buf += ','; // C `:9575`
+        }
+        if (nextcond.length > 0) { // C `:9577` nextcond[0]
+            gotone = true; // C `:9578`
+            buf += nextcond; // C `:9579`
+        }
+        ++idx; // C `:9581`
+    }
+    if (buf !== 'OPTIONS=') { // C `:9587` strcmp
+        buf += '\n'; // C `:9588`
+        strbuf_append(sbuf, buf); // C `:9589`
+    }
+}
+
+/**
  * C ref: options.c all_options_strbuf `:9678–9748` — serialize changed options
  * for #saveoptions. Header (`:9686–9689`, yyyymmddhhmmss(epoch) live); allopt
  * loop (`:9691–9721`: BoolOpt changed-vs-initval with obsolete/&flags.female
  * skip, CompOpt setwhere-gated get_option_value, OthrOpt skip); cond guard
- * (`:9727–9729`, named: all_options_conds); CHANGE_COLOR palette (`:9731–9733`,
+ * (`:9727–9729`, live all_options_conds [3/7]); CHANGE_COLOR palette (`:9731–9733`,
  * compiled out — named, no row); key binds / symsets / menucolors / msgtypes /
  * apes / autocomplete (`:9734–9739`, binds named, symsets live via savedSymbols,
  * rest live);
@@ -3756,7 +3798,7 @@ export function all_options_strbuf(sbuf) {
        so put them next; [pfx_cond_] will be set if any cond_Foo were
        present when RC file was read in or if player made any changes via
        status conditions menu; ignore opt_set_in_config[opt_o_status_cond] */
-    if (opt_set_in_config[PFX_COND_IDX]) all_options_conds(sbuf); // named: conds row
+    if (opt_set_in_config[PFX_COND_IDX]) all_options_conds(sbuf); // C `:9727–9729` cond guard (live [3/7])
     // CHANGE_COLOR all_options_palette `:9731–9733` compiled out (tty) — named, no row.
     get_changed_key_binds(sbuf); // named: key-binds row
     savedsym_strbuf(sbuf);

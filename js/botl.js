@@ -662,6 +662,27 @@ export const condtests = [
     { c: bl_holding, useroption: 'holding', opt: OPT_IN, enabled: false, choice: false, test: false },
 ];
 
+/**
+ * C ref: botl.c opt_next_cond `:1456–1490` — value of the next cond_xyz
+ * option for #saveoptions (sole C caller options.c all_options_conds
+ * `:9563`, via extern.h `:291`). C writes into a char outbuf and returns
+ * boolean; JS folds the buffer into the return: null is C FALSE
+ * (`:1463–1464`, indx past CONDITION_COUNT), otherwise the cond string —
+ * possibly '' when the entry sits at its default (`:1462` pre-clear, the
+ * `:1466–1482` internal-order note kept as-is: no sorting). Non-default
+ * gate (`:1484–1488`): opt_in+enabled or opt_out+!enabled emits
+ * `[!]cond_<useroption>` (`:1486` enabled ? '' : '!').
+ */
+export function opt_next_cond(indx) {
+    if (indx >= CONDITION_COUNT) return null; // C `:1463–1464` FALSE
+    const ct = condtests[indx];
+    if ((ct.opt === OPT_IN && ct.enabled) // C `:1484`
+        || (ct.opt === OPT_OUT && !ct.enabled)) { // C `:1485`
+        return `${ct.enabled ? '' : '!'}cond_${ct.useroption}`; // C `:1486–1487`
+    }
+    return ''; // C `:1462` default value
+}
+
 // C botl.c:860-909 terrain_descr[] — indexed by iflags.terrain_typ;
 // MAX_TYPE (37) is "" ("skipped rather than overloaded"); entries past 38
 // are classify_terrain() pseudo-types, not levl[][].typ values.

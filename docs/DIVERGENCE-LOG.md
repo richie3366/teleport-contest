@@ -1,5 +1,33 @@
 # Divergence log
 
+## D-2549 — `options.c` all_options_conds + `botl.c` opt_next_cond [campaign 3/7] (coverage MISSING → live; cond guard wired, 75-col wrap; C callers wired-or-named)
+
+- **Status:** fixed (Open coverage row `options.c` all_options_conds [campaign 3/7]; row cites no review — no stamp).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify all_options_conds`: no corpus session blocked at baseline — #saveoptions writer, unreachable until [7/7]).
+- **C locus:** `nethack-c/upstream/src/options.c:9551–9591` (`all_options_conds`, staticfn `:9555`); arms `:9566–9567` first-entry OPTIONS=, `:9568–9573` 75-col backslash wrap + 8-space indent, `:9574–9579` comma/gotone append, `:9587–9589` strcmp final. Callee `botl.c:1456–1490` (`opt_next_cond`, extern.h `:291`): `:1462` pre-clear, `:1463–1464` FALSE past CONDITION_COUNT, `:1466–1482` internal-order note kept (no sorting), `:1484–1488` non-default gate → `[!]cond_<useroption>`. Callers: `options.c:9729` (parent cond guard), `options.c:378` fwd decl, `options.c:8434` get_cnf_val comment (handled inline via the parent — no code site).
+- **JS was:** no symbol anywhere (brief: NOT FOUND incl. `js/generated/`); parent `all_options_strbuf` already called bare `all_options_conds(sbuf)` (D-2544) — would throw if ever reached (no live caller: `do_write_config_file` unported, `opt_set_in_config[215]` false).
+- **Fix:** `js/botl.js:676` — exported `opt_next_cond` in C order with `:line` cites, reading the live `condtests` table + file-local OPT_IN/OPT_OUT; C outbuf+boolean folded into the return (null = C FALSE, '' = default, token otherwise — same fold as `get_option_value`'s retbuf). `js/options.js:3725` — exported `all_options_conds` (C staticfn; exported like the sibling writer arms for testability) in C order with `:line` cites; `',\\\n'` byte-exact, `Sprintf %8s` as 8 spaces, `nextcond[0]` as length checks, `++idx` position kept; stale "named: conds row" comments updated to live [3/7]. New edge options.js→botl.js is lazy-only inside function bodies (`imports.mjs --can`: joins the existing 96-module SCC, no top-level TDZ read — options.js reads imports at top level only at `:1210` ARMOR_CLASS).
+- **JS:** `js/botl.js` opt_next_cond (export) + `js/options.js` all_options_conds (export) + 1 import line; header/caller comments refreshed.
+- **Callers:** `options.c:9729` → `js/options.js:3801` parent guard now resolves to the live function (dormant: `opt_set_in_config[215]` false); `options.c:378` decl → no action (C file-local, JS same-file); `options.c:8434` comment → no code site; `extern.h:291` decl → the botl.js export. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn all_options_conds` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   2 changed js file(s): js/botl.js js/options.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify all_options_conds: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 5.7s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing (auto: shared file changed)
+
+VERIFY: PASS
+```
+- **Durable test:** `scripts/all-options-conds.test.mjs` (node:test per repo convention, 7 its: out-of-range null, all-default empty, `[!]cond_` emission, defaults emit nothing, two-entry line, lone-late no leading comma, full-30 wrap with 8-space indent + token count) — `node --test` 7/7 PASS. Inline wrap probe (shell history, not committed): 7 physical lines, 67–74 chars + backslash, boundaries re-checked against C `:9568` by hand.
+- **Named omissions:** `get_changed_key_binds` [4/7]; `parsesymbols` producer [5/7]; `all_options_statushilites` [6/7]; caller `do_write_config_file` [7/7] (all unchanged from D-2548).
+- **Next:** `cmd.c` get_changed_key_binds [campaign 4/7] (queue head after this pop).
+
 ## D-2548 — `options.c` get_option_value + allopt registry in C order [campaign 2/7] (coverage MISSING → live; unix OPTCOUNT 217 measured, textual 248/245 corrected; C callers wired-or-named)
 
 - **Status:** fixed (Open coverage row `options.c` get_option_value + allopt registry [campaign 2/7]; row cites no review — no stamp; review 1503 already **Addressed:** D-2547). Same commit stale-parks the popped head `sp_lev.c` fill_special_room (whole C `:2731–2804` already live `js/mklev.js:24783` — Parked Stale line).

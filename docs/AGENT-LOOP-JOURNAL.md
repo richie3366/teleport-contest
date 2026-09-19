@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-19 — D-2549 `options.c` all_options_conds + `botl.c` opt_next_cond [campaign 3/7] (coverage MISSING → live; cond guard wired, 75-col wrap; C callers wired-or-named)
+
+**C locus:** `nethack-c/upstream/src/options.c:9551–9591` (`all_options_conds`, staticfn `:9555`); arms `:9566–9567` first-entry OPTIONS=, `:9568–9573` 75-col backslash wrap + 8-space indent, `:9574–9579` comma/gotone append, `:9587–9589` strcmp final. Callee `botl.c:1456–1490` (`opt_next_cond`, extern.h `:291`): `:1462` pre-clear, `:1463–1464` FALSE past CONDITION_COUNT, `:1466–1482` internal-order note kept (no sorting), `:1484–1488` non-default gate → `[!]cond_<useroption>`. Callers: `options.c:9729` (parent cond guard), `options.c:378` fwd decl, `options.c:8434` get_cnf_val comment (handled inline via the parent — no code site).
+**JS:** `js/botl.js` opt_next_cond (export) + `js/options.js` all_options_conds (export) + 1 import line; header/caller comments refreshed.
+**Change:** `js/botl.js:676` — exported `opt_next_cond` in C order with `:line` cites, reading the live `condtests` table + file-local OPT_IN/OPT_OUT; C outbuf+boolean folded into the return (null = C FALSE, '' = default, token otherwise — same fold as `get_option_value`'s retbuf). `js/options.js:3725` — exported `all_options_conds` (C staticfn; exported like the sibling writer arms for testability) in C order with `:line` cites; `',\\\n'` byte-exact, `Sprintf %8s` as 8 spaces, `nextcond[0]` as length checks, `++idx` position kept; stale "named: conds row" comments updated to live [3/7]. New edge options.js→botl.js is lazy-only inside function bodies (`imports.mjs --can`: joins the existing 96-module SCC, no top-level TDZ read — options.js reads imports at top level only at `:1210` ARMOR_CLASS).
+**Verify:** `node scripts/verify.mjs --fn all_options_conds` → VERIFY: PASS. Tail pasted verbatim:
+**Named:** `get_changed_key_binds` [4/7]; `parsesymbols` producer [5/7]; `all_options_statushilites` [6/7]; caller `do_write_config_file` [7/7] (all unchanged from D-2548).
+**Next:** `cmd.c` get_changed_key_binds [campaign 4/7] (queue head after this pop).
 ## 2026-09-19 — D-2548 `options.c` get_option_value + allopt registry in C order [campaign 2/7] (coverage MISSING → live; unix OPTCOUNT 217 measured, textual 248/245 corrected; C callers wired-or-named)
 
 **C locus:** `nethack-c/upstream/src/options.c:8481–8505` (`get_option_value`); arms `:8489–8492` BoolOpt addr read, `:8493–8501` CompOpt optfn call. Table: `options.c:59–67` allopt_init (optlist.h NHOPT_PARSE rows + null-name sentinel) copied live by `allopt_array_init` (`:7405`, named). Callers: `options.c:9712` (parent CompOpt arm), `nhlua.c:683` (`nhl_get_config`), `extern.h:2306` decl.

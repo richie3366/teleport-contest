@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
+- [x] `options.c` all_options_conds [campaign 3/7] — C `options.c:9556–9591` absent from js/options.js (no opt_next_cond/cond store; named omit of the [campaign 1/7] parent, guarded by opt_set_in_config[215] — unix OPTCOUNT is 217, the 248 count is the cross-platform textual superset). Port opt_next_cond + all_options_conds in C order. Verify `node scripts/verify.mjs --fn all_options_conds` (reach regression must be 0). **Addressed:** D-2549
+
+
 - [x] `options.c` get_option_value + allopt registry [campaign 2/7] — C `options.c:8481–8505` absent from js/options.js (no allopt[]/opt_set_in_config[] table; named omit of the all_options_strbuf [campaign 1/7] parent shipped this iteration). Port optlist.h NHOPT_PARSE table (OPTCOUNT 248, entry shape in the parent D-log entry) + get_option_value in C order; activates the parent BoolOpt/CompOpt loop (opt_set_in_config writes at `:640`/`:5010`/`:8438` come with config parsing — name or wire). Verify `node scripts/verify.mjs --fn get_option_value` (reach regression must be 0).
 
 
