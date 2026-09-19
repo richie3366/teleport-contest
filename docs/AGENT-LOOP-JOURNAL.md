@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-19 — D-2603 `rumors.c` outoracle whole-body port (C-order restart, embed open-fail arm live, doconsult caller wired)
+
+**C locus:** `nethack-c/upstream/src/rumors.c:640–693`; sole C caller `:755` (`doconsult` — `outoracle(cheapskate, TRUE)`); staticfn `init_oracles` `:576–595` (decl `:576`); file-local `couldnt_open_file` `:769–782` already live (`js/rumors.js:200`).
+**JS:** `js/rumors.js:17` (ORACLEFILE import), `js/rumors.js:373` (`init_oracles`), `js/rumors.js:388` (`outoracle`).
+**Change:** restarted `init_oracles` + `outoracle` in C order with `:line` cites — `:649–650` early return, `:652` embed-open check with the `:689–692` open-failed arm live (`couldnt_open_file(ORACLEFILE)` + `oracle_flg = -1`; unreachable under the embed, getrumor D-2513 precedent), `:655–659` first-use init + empty-deck close, `:663–664` shouldn't-happen gate, `:665` pick (`rnd(cnt-1)` is 1..cnt-1 per `js/rng.js:97`, special short-circuits the draw), `:666` seek-as-index with pre-swap `recIdx` snapshot, `:667–668` swap-remove, `:670–678` window + headers, `:680–684` record lines (`'\n'` strip subsumed by the extractor split; `xcrypt` pre-inverted at build — makedefs packs xcrypt'd at `util/makedefs.c:1469/1500`, `extract-oracles.py` stores plaintext — same visible string), `:685–688` show + fclose no-op. `ORACLEFILE` joins the existing const.js import (no new edge; `imports.mjs --can` ALREADY for rng/pager).
+**Verify:** `node scripts/verify.mjs --fn outoracle` → VERIFY: PASS (syntax 1 file: js/rumors.js; rule2; hidden note no-blocked; reach: no RNG-tagged reach, smoke 24/24 PASS → REACH-OK; green 2/2; strict ×2; cohort 7/7).
+**Named:** none new — every arm is live or build-subsumed (dlb handles/seek/close, comment-skip + offset parse, newline strip, xcrypt, close_oracles gotos).
+**Next:** next Open — coverage row (`mondata.c` can_blnd).
 ## 2026-09-19 — D-2602 `insight.c` fmt_elapsed_time whole-body port (elapsed line wired on both enlightenment builders)
 
 **C locus:** `nethack-c/upstream/src/insight.c:313–358` (staticfn, decl `:25`); sole C caller `:448` (`enlightenment` — `(void) fmt_elapsed_time(buf, final)` + `enl_msg("Total elapsed playing time ", "is", "was", buf, "")` at `:448–449`); C `:2009–2018` `doattributes` routes the in-progress path through `enlightenment(mode, ENL_GAMEINPROGRESS)`.

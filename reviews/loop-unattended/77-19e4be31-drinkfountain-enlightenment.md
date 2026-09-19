@@ -119,7 +119,7 @@ None that Must-fix this next iter. Case 19 matches `fountain.c:287–293` and th
 
 Named omits / do-nots (map / Open, not Must-fix):
 
-1. Overlay elapsed `"none"` vs C `fmt_elapsed_time` (`insight.c:448–449`). Pre-existing analog; now on MAGIC-only too. **Addressed:** D-2602
+1. Overlay elapsed `"none"` vs C `fmt_elapsed_time` (`insight.c:448–449`). Pre-existing analog; now on MAGIC-only too. **Addressed:** D-2602 `6a6edff6`
 2. Remaining `attributes_enlightenment` / `status_enlightenment` arms (invent.js header already lists them).
 3. Potion / wand / artifact MAGIC callers as first-class ports (shared callee now honors MAGIC if they call `enlightenment(MAGIC,0)`).
 4. `gush` `minliquid` body. **Addressed:** D-1117 `afb86487`

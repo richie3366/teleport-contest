@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2603 — `rumors.c` outoracle whole-body port (C-order restart, embed open-fail arm live, doconsult caller wired)
+
+- **Status:** fixed (Open — coverage row `rumors.c` outoracle PARTIAL (C 53 L `rumors.c:640–693` / JS 31 L in js/rumors.js; hops 4, callers 1, RNG 1, msg 4), measured `port-coverage.mjs --name outoracle` 2026-09-20 @ d89bb259).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify outoracle`: no corpus session blocked on it at baseline; fixed 24-session smoke spread is the evidence — no baseline-PASS session consults the oracle).
+- **C locus:** `nethack-c/upstream/src/rumors.c:640–693`; sole C caller `:755` (`doconsult` — `outoracle(cheapskate, TRUE)`); staticfn `init_oracles` `:576–595` (decl `:576`); file-local `couldnt_open_file` `:769–782` already live (`js/rumors.js:200`).
+- **JS was:** thin 31 L `outoracle` (`js/rumors.js:372`) with one docstring cite, no per-arm `:line` cites, no `dlb_fopen`-failed arm, `ORACLEFILE` unimported; module-local `init_oracles` without the header-parse rationale.
+- **Fix:** restarted `init_oracles` + `outoracle` in C order with `:line` cites — `:649–650` early return, `:652` embed-open check with the `:689–692` open-failed arm live (`couldnt_open_file(ORACLEFILE)` + `oracle_flg = -1`; unreachable under the embed, getrumor D-2513 precedent), `:655–659` first-use init + empty-deck close, `:663–664` shouldn't-happen gate, `:665` pick (`rnd(cnt-1)` is 1..cnt-1 per `js/rng.js:97`, special short-circuits the draw), `:666` seek-as-index with pre-swap `recIdx` snapshot, `:667–668` swap-remove, `:670–678` window + headers, `:680–684` record lines (`'\n'` strip subsumed by the extractor split; `xcrypt` pre-inverted at build — makedefs packs xcrypt'd at `util/makedefs.c:1469/1500`, `extract-oracles.py` stores plaintext — same visible string), `:685–688` show + fclose no-op. `ORACLEFILE` joins the existing const.js import (no new edge; `imports.mjs --can` ALREADY for rng/pager).
+- **JS:** `js/rumors.js:17` (ORACLEFILE import), `js/rumors.js:373` (`init_oracles`), `js/rumors.js:388` (`outoracle`).
+- **Callers:** C `:755` → `js/rumors.js:541` (`doconsult`, `await outoracle(cheapskate, true)` — already wired, unchanged). Sole C caller; no other C call site exists.
+- **Verify:** `node scripts/verify.mjs --fn outoracle` → VERIFY: PASS (syntax 1 file: js/rumors.js; rule2; hidden note no-blocked; reach: no RNG-tagged reach, smoke 24/24 PASS → REACH-OK; green 2/2; strict ×2; cohort 7/7).
+- **Named omissions:** none new — every arm is live or build-subsumed (dlb handles/seek/close, comment-skip + offset parse, newline strip, xcrypt, close_oracles gotos).
+- **Next:** next Open — coverage row (`mondata.c` can_blnd).
+
 ## D-2602 — `insight.c` fmt_elapsed_time whole-body port (elapsed line wired on both enlightenment builders)
 
 - **Status:** fixed (Open — coverage row `insight.c` fmt_elapsed_time MISSING (C 44 L `insight.c:314–358` / JS no symbol; hops 5, callers 1, RNG 0, msg 3), measured `port-coverage.mjs --name fmt_elapsed_time` 2026-09-20 @ d89bb259).
