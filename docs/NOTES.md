@@ -40,19 +40,20 @@ here again. Live hypotheses only:
 - **do_statusline2 residuals (D-2425 MEASURED):** W1 Healer-92107 `mhitm_ad_cold_u` extra destroy return; W2 Satiated pair = eat-progress `uhs`/botl timing — both are corpus-residual Open rows (detail in D-2425). Monk-92194 Pw = D-2161 gulpmu residual, no new row.
 ## Don't re-check (≤15)
 
-- D-1790…D-2519 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-2520 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2519.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2519.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2520.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2520.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2520: `js/mkobj.js` — `OBJ_STATE_NAMES` verbatim in OBJ_* order (`:3289–3293`); exported `where_name` (`js/mkobj.js:1534`) in C order (`:3299–3308`: null →  Named: the 7 unported C caller functions (`obj_sanity_check`, `objlist_sanity`, `shop_obj_sanity`
 - D-2519: `js/mklev.js` — restarted `makerooms` in C order with `:line` cites: `:369–370` inits; `:373` themes handle ⇔ `g._luathemes_loaded[dnum]` (marked once Named: lua runtime (`nhl_init`/`nhl_loadlua`/`nhl_done`/`nhl_pcall_handle`/`lua_getglobal` — room
 - D-2518: `js/zap.js` — `resists_drli` returns `defended(mon, AD_DRLI)` per C `:210`; `defended` joins the existing mondata edge (`imports.mjs --can` ALREADY, n Named: split-arm homes stay split by architecture (damageum_adtyping / mhitm_adtyping_u / mdamage
 - D-2517: `js/dothrow.js` — `export async function gem_accept` in C order with `:line` cites: `:2320–2321` buddy/gem gates (`sgn` module-local, minion/trap/make Named: none — every callee live (`Strcpy`/`Strcat` inline `=`/`+=`; `TRUE` → `true`; `BUFSZ` buf 
@@ -67,5 +68,4 @@ here again. Live hypotheses only:
 - D-2508: `js/pager.js` — restarted `look_all` in C order with `:line` cites: `:1989` region, `:1992–1993` buf init + `glyph_at`, `:1994–2004` do_mons monster b Named: compass-full coord text (local `coord_desc` `(here)` deferral, pre-existing — header split
 - D-2507: `js/mthrowu.js` — restarted `ohitmon` in C order with `:line` cites: `:334–339` notonhead/ismimic/vis/observe; `:341–349` tmp +marcher level +`MON_WEP Named: mon_notices unfreeze in same-file `omon_adj` (pre-existing local deferral, untouched); `#i
 - D-2506: `js/options.js` only (same-edge import words: hacklib `strNsubst`, display `tty_wait_synch`, invent `select_menu_pick_none`, terminal C CLR_* + `NO_CO Named: `config_error_add` + `regex_error_desc` (msgtype_add precedent); native `create_nhwindow`/
-- D-2505: `js/do_wear.js` — restarted `Amulet_on` as the C-order switch with `:line` cites: `:972–977` no-op group; `:978–995` breathing (W_AMUL masked out for  Named: `livelog_newform` (log-only, no live helper — map); `Flying_dw` uprops gap (reads u.* mirr
 <!-- landmarks:end -->

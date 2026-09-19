@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `mklev.c` makerooms — coverage THIN (C 69 L `mklev.c:367–436` / JS 30 L in js/mklev.js; hops 1, callers 2, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn makerooms` (reach regression must be 0). Measured `port-coverage.mjs --name makerooms` 2026-09-19 @ ab1ae274. **Addressed:** D-2519
+- [x] `mkobj.c` insane_object — coverage MISSING (C 21 L `mkobj.c:3314–3339` / JS no symbol; hops 3, callers 29, RNG 0, msg 1; dead callees: where_name). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn insane_object` (reach regression must be 0). Measured `port-coverage.mjs --name insane_object` 2026-09-19 @ ab1ae274. **Addressed:** D-2520
+
+
+- [x] `mklev.c` makerooms — coverage THIN (C 69 L `mklev.c:367–436` / JS 30 L in js/mklev.js; hops 1, callers 2, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn makerooms` (reach regression must be 0). Measured `port-coverage.mjs --name makerooms` 2026-09-19 @ ab1ae274. **Addressed:** D-2519 `31bd0727`
 
 
 - [x] `uhitm.c` mhitm_ad_drli — coverage THIN **Addressed:** D-2518 (C 71 L `uhitm.c:2445–2518` / JS 22 L in js/mhitm.js; hops 4, callers 2, RNG 5, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mhitm_ad_drli` (reach regression must be 0). Measured `port-coverage.mjs --name mhitm_ad_drli` 2026-09-19 @ ab1ae274.

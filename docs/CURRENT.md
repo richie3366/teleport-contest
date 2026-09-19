@@ -46,7 +46,7 @@ breadth-phase window while the local corpus holds 91.7 %: the corpus
 still does not predict the judge.
 **Corpus fortress** (re-scored 2026-09-19 audit 1462–1470): **495 / 540
 PASS (91.7 %)** excl. 13 env-only; RNG 99.29 %, screens 99.0 % — identical
-to the prior audit, no flips across D-2503…D-2519 (per-SHA re-runs:
+to the prior audit, no flips across D-2503…D-2520 (per-SHA re-runs:
 0 regressed).
 Reviews 1225–1470: 215 ACCEPT, 10 WITH-DEBT, 1 DEBT, 15 QUALITY-RISK (1 Must-fix pending: 1465 menu-colors trio).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone — review-debt, unqueued (detail in the review files).
@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `mklev.c` makerooms — coverage THIN (C 69 L `:367–436` / JS 30 L; RNG 1). Port whole body in C order, callers wired. Verify `--fn makerooms`, reach regression 0. Measured @ ab1ae274.
+**Next cluster:** `mkobj.c` insane_object — coverage MISSING (C 21 L `:3314–3339` / JS no symbol; RNG 0). Port whole body in C order, callers wired. Verify `--fn insane_object`, reach regression 0. Measured @ ab1ae274.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2519 (index).**
+**Keep D-0845…D-2520 (index).**
 <!-- recent:begin -->
+**D-2520** `nethack-c/upstream/src/mkobj.c:3314–3339` (`insane_object`, staticfn). Same-file callee ` — `js/mkobj.js` — `OBJ_STATE_NAMES` verbatim in OBJ_* order (`:3289–3293`); exported `where_name` (`js/mkobj.js:1534`) in C order (`:3299–3308`: null → "nowhere", range/empty-slot → `unknown[${where}]`, else table); file-l
 **D-2519** `nethack-c/upstream/src/mklev.c:366–436` (`makerooms`, staticfn). Callees: `nhl_init`/`nhl — `js/mklev.js` — restarted `makerooms` in C order with `:line` cites: `:369–370` inits; `:373` themes handle ⇔ `g._luathemes_loaded[dnum]` (marked once per branch by `makelevel_ordinary`; compiled-in THEMEROOM tables, loa
 **D-2518** `nethack-c/upstream/src/uhitm.c:2445–2518` (uhitm `:2450–2477`, mhitu `:2479–2488`, mhitm  — `js/zap.js` — `resists_drli` returns `defended(mon, AD_DRLI)` per C `:210`; `defended` joins the existing mondata edge (`imports.mjs --can` ALREADY, no new edge).
 **D-2517** `nethack-c/upstream/src/dothrow.c:2309–2382` (`gem_accept`, staticfn). Callees: `Monnam`,  — `js/dothrow.js` — `export async function gem_accept` in C order with `:line` cites: `:2320–2321` buddy/gem gates (`sgn` module-local, minion/trap/makemon precedent; `GEMSTONE` local const already at file scope); `:2323–2
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2515** `nethack-c/upstream/src/botl.c:962–1279` (`bot_via_windowport`, staticfn). Same-file calle — `js/botl.js` — `conditions`/`condtests`/`terrain_descr`/`enc_stat` tables verbatim in C order with `:line` cites (+ `hu_stat`, bl-enum 0–29, `OPT_IN`/`OPT_OUT` per `global.h:576`); `rank` (via live `rank_of`), `encglyph`
 **D-2514** `nethack-c/upstream/src/restore.c:307–373` (`restmon`, staticfn). Callees: `Sfi_monst` (`: — new `js/restore.js` — `newmextra` (`makemon.c:1064–1072`, `{ mcorpsenm: NON_PM }`), `new_mgivenname` (`do_name.c:31–47`, `free_mgivenname :50–57` inlined), `newebones` (`bones.c:818–830`, zeroed + `parentmid`), `moves_to
 **D-2513** `nethack-c/upstream/src/rumors.c:117–191` (`getrumor`); callees `dlb_fopen`/`dlb_fclose` ( — `js/rumors.js` only (same-edge import words `impossible` on the live display edge + `RUMORFILE` on the live const edge — `imports.mjs --can` ALREADY both, no new edge) — restarted `getrumor` in C order with `:line` cites
-**D-2512** `nethack-c/upstream/src/options.c:9207–9251` (`handle_add_list_remove`; `:9227` `any.a_int — `js/options.js` only, in C order — a_int++ moved before the skip (false cite corrected); suffix template → `` `"\\\"=..."` `` with no trailing quote (runtime now byte-equal to C, proven by node template eval: `"PAT\"=bri
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2519; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2520; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

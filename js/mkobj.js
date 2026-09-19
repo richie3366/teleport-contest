@@ -11,7 +11,7 @@
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1, rne, rnz } from './rng.js';
-import { depth as depth_of_level, level_difficulty as level_difficulty_of, strsubst } from './hacklib.js';
+import { depth as depth_of_level, level_difficulty as level_difficulty_of, strsubst, strstri } from './hacklib.js';
 import {
     RANDOM_CLASS,
     WEAPON_CLASS,
@@ -41,7 +41,7 @@ import {
     undead_to_corpse, can_be_hatched, dead_species, copy_mextra,
     zombie_form,
 } from './mon.js';
-import { oname, safe_oname } from './do_name.js';
+import { oname, safe_oname, x_monnam } from './do_name.js';
 import { confers_luck, nartifact_exist, mk_artifact, permapoisoned } from './artifact.js';
 import {
     mons, is_male, is_female, is_neuter, is_human, verysmall, PM_LICHEN, monsterNames,
@@ -70,6 +70,7 @@ import {
     MAX_OIL_IN_FLASK, nothing_happens, EPRI, PLNMSG_OBJ_GLOWS,
     In_quest, SPINACH_TIN, RANDOM_TIN,
     BURIED_TOO,
+    NOBJ_STATES, ARTICLE_A, EXACT_NAME,
 } from './const.js';
 import { set_tin_variety, eating_glob } from './eat.js';
 import { set_moreluck } from './attrib.js';
@@ -1515,11 +1516,78 @@ function item_on_ice(item) {
 }
 
 /**
+ * C ref: mkobj.c obj_state_names `:3289–3293` (file-static, NOBJ_STATES
+ * entries in OBJ_* order) — the where index names where_name returns.
+ */
+const OBJ_STATE_NAMES = [
+    'free', 'floor', 'contained', 'invent',
+    'minvent', 'migrating', 'buried', 'onbill',
+    'luafree', 'deleted',
+];
+
+/**
+ * C ref: mkobj.c where_name `:3296–3309` (staticfn) — obj->where index into
+ * obj_state_names; null obj → "nowhere", out-of-range or empty slot →
+ * "unknown[%d]" in the file-static buffer (returned directly here; the
+ * caller consumes it synchronously like C's impossible args).
+ */
+export function where_name(obj) {
+    if (!obj) return 'nowhere';
+    const where = obj.where | 0;
+    if (where < 0 || where >= NOBJ_STATES || !OBJ_STATE_NAMES[where]) {
+        return `unknown[${where}]`;
+    }
+    return OBJ_STATE_NAMES[where];
+}
+
+/**
+ * C ref: alloc.c fmt_ptr `:125–135` — %p/0x hex of the heap pointer into a
+ * rotating static ptrbuf. JS has no heap pointers: render the stable
+ * identity the port uses in its place (obj o_id, monst m_id;
+ * timeout.js fmt_timer_arg precedent), 0x-hex.
+ */
+function fmt_ptr(ptr) {
+    const id = (ptr?.o_id ?? ptr?.m_id ?? 0) | 0;
+    return `0x${(id >>> 0).toString(16)}`;
+}
+
+/* C ref: mkobj.c ofmt0 `:2940–2944` — pline format for insane_object(). */
+const OFMT0_SANITY = '%s obj %s %s: %s';
+
+/**
+ * C ref: mkobj.c insane_object `:3314–3339` (staticfn) — sanity-report an
+ * inconsistent object via impossible(): doname under iflags.override_ID
+ * (so the name shows fully identified), then the two-arg or the
+ * held-by-mon six-arg form. The mon arm also fires when mesg mentions
+ * "minvent" without "contained" (check_contained's nested messages).
+ * Async only because JS impossible() can reach --More--.
+ */
+export async function insane_object(obj, fmt, mesg, mon) {
+    let objnm = 'null!';
+    let monnm = 'null!';
+    if (obj) {
+        if (!game.iflags) game.iflags = {};
+        game.iflags.override_ID = (game.iflags.override_ID | 0) + 1;
+        objnm = doname(obj);
+        game.iflags.override_ID = (game.iflags.override_ID | 0) - 1;
+    }
+    if (mon || (strstri(mesg, 'minvent') && !strstri(mesg, 'contained'))) {
+        const altfmt = String(fmt) + ' held by mon %s (%s)';
+        if (mon) monnm = x_monnam(mon, ARTICLE_A, null, EXACT_NAME, true);
+        await impossible(altfmt, mesg, fmt_ptr(obj), where_name(obj),
+                         objnm, fmt_ptr(mon), monnm);
+    } else {
+        await impossible(fmt, mesg, fmt_ptr(obj), where_name(obj), objnm);
+    }
+}
+
+/**
  * C ref: mkobj.c check_glob `:3419–3443` (staticfn) — sanity: quan 1, owt
  * nonzero, GLOB range (LOWEST_GLOB GLOB_OF_GRAY_OOZE … HIGHEST_GLOB
  * GLOB_OF_BLACK_PUDDING; the `#if 0` multiple-of-20 arm stays out like C).
- * C reports via insane_object (no JS port — own row when a falsifier fires);
- * impossible() keeps the observable (a disorder pline, no state change).
+ * C reports via insane_object `:3440–3441` (ofmt0, " obj " substituted with
+ * the globbuf, carrier when MINVENT); impossible() keeps the observable
+ * (a disorder pline, no state change).
  * Missing quan reads as 1 (C always sets quan; JS-side unset convention,
  * same guard as the simpleonames clone).
  */
@@ -1527,7 +1595,8 @@ async function check_glob(obj, mesg) {
     if (((obj.quan ?? 1) | 0) !== 1 || !((obj.owt | 0))
         || (obj.otyp | 0) < GLOB_OF_GRAY_OOZE || (obj.otyp | 0) > GLOB_OF_BLACK_PUDDING) {
         const globbuf = ` glob ${obj.otyp | 0},quan=${(obj.quan ?? 1) | 0},owt=${obj.owt | 0} `;
-        await impossible(strsubst(mesg, ' obj ', globbuf));
+        await insane_object(obj, OFMT0_SANITY, strsubst(mesg, ' obj ', globbuf),
+                            ((obj.where | 0) === OBJ_MINVENT) ? obj.ocarry : null);
     }
 }
 
