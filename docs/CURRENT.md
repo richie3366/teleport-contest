@@ -46,7 +46,7 @@ judge 13:05Z cached, ~D-2555, +23 pts vs last audit): the corpus still does
 not predict the judge.
 **Corpus fortress** (re-scored 2026-09-19 audit 1506–1514): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — +0 / −0
-in the D-2547…D-2557 window (all nine were zero-block coverage rows;
+in the D-2547…D-2558 window (all nine were zero-block coverage rows;
 per-SHA `--reach-all` re-runs REACH-OK, all smoke — 0 regressed).
 Reviews 1225–1514: 257 ACCEPT, 11 WITH-DEBT, 1 DEBT, 16 QUALITY-RISK (1503 Must-fix addressed by D-2547; no live Must-fix).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem) — review-debt, unqueued (detail in the review files).
@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `spell.c` deadbook — coverage MISSING (C 108 L `spell.c:231–339` / JS no symbol; hops —, callers 1, RNG 3, msg 9). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn deadbook` (reach regression must be 0). Measured `port-coverage.mjs --name deadbook` 2026-09-19 @ e07bd9bc.
+**Next cluster:** `version.c` doextversion — coverage THIN (C 108 L `version.c:169–277` / JS 10 L in js/pager.js; hops —, callers 2, RNG 0, msg 6; dead callees: strip_newline, insert_rtoption). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn doextversion` (reach regression must be 0). Measured `port-coverage.mjs --name doextversion` 2026-09-19 @ c90a495f.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2557 (index).**
+**Keep D-0845…D-2558 (index).**
 <!-- recent:begin -->
+**D-2558** `nethack-c/upstream/src/version.c:169–277` (`doextversion`) in C order: `use_dlb` FALSE un — `js/pager.js` — restarted `doextversion` in C order with `:line` cites: `use_dlb=false` const with the dead dlb arms kept as named-omission branches (fopen notice, fgets arm, fclose); version split via `lastIndexOf('(')`
 **D-2557** `nethack-c/upstream/src/spell.c:231–339` (`deadbook`) in C order: turn-pages `You` + `make — `js/spell.js` — file-local `async deadbook_pacify_undead` + `async deadbook` in C order with `:line` cites (C staticfns stay local, `mkinvpos` precedent); `goto raise_dead` as one shared `raise_dead` closure called from 
 **D-2556** `nethack-c/upstream/src/rumors.c:196–302` (`rumor_check`) in C order: `dlb_fopen` gated on — `js/rumors.js` — exported async `rumor_check()` in C order with `:line` cites: open gate as `(game.true_rumor_size ?? 0) >= 0` (embed always opens; getrumor D-2513 precedent); init sets `true_rumor_start = 0`, sizes from
 **D-2555** `nethack-c/upstream/src/files.c:621–670` (`create_levelfile`) in C order: errbuf clear `:6 — exported `create_levelfile(lev, errbuf)` in `js/files.js` in C order with `:line` cites, mirroring the shipped `open_levelfile` (D-2472) JSON analogue: `{ s }`-or-null errbuf, `game.lock` store-back (= C `gl.lock` mutati
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2553** `nethack-c/upstream/src/cfgfiles.c:169–210` (`do_write_config_file`) in C order: empty-`co — `js/cfgfiles.js` (new) — exported async `do_write_config_file` in C order with `:line` cites: `get_configfile()` (live `js/options.js:359`) for the file-static, `?? ''` for the `:174` empty arm; `game.flags?.suppress_ale
 **D-2552** `nethack-c/upstream/src/botl.c:4477–4495` (`all_options_statushilites`); arms: done+gather — `js/botl.js` — `condition_aliases` (6 rows, BL_MASK_* live), `split_clridx` (file-local; out-pair folded to return, opt_next_cond precedent), `conditionbitmask2str` (file-local; alias-then-union, fresh string for the C s
 **D-2551** `nethack-c/upstream/src/symbols.c:773–848` (`parsesymbols`); arms: unquoted comma/colon sc — `js/options.js` — `escapes` (file-local, mirrors staticfn; `& 0xff` for the C `(char)` truncation, hexdd pairs from decl.c `:74`), `sym_val` (exported; QBUFSZ slice, isspace set, quote arms), `match_sym` (exported; retur
-**D-2550** `nethack-c/upstream/src/cmd.c:2235–2287` (`get_changed_key_binds`); arms `:2244–2246` wind — `js/cmd.js` — exported `get_changed_key_binds(sbuf)` in C order with `:line` cites.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2557; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2558; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

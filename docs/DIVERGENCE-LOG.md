@@ -1,5 +1,31 @@
 # Divergence log
 
+## D-2558 — `version.c` doextversion (coverage THIN → live; whole `#version` body in C order over live `do_runtime_info`, both C callers wired)
+
+- **Status:** fixed (Open coverage row `version.c` doextversion; cites no review — no stamp needed).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify doextversion`: no corpus session blocked at baseline — `#version` display path).
+- **C locus:** `nethack-c/upstream/src/version.c:169–277` (`doextversion`) in C order: `use_dlb` FALSE under force-defined OPTIONS_AT_RUNTIME (`:13–15`, `:182–183`); `getversionstring` + git-info split (`:191–204`: `>= COLNO` strrchr-`(` arm, `p[-1]==' ' && p[1]!='x'` guard, `*--p=' '` second putstr); dead `dlb_fopen` notice (`:206–214`); prolog loop (`:235–271`) over `do_runtime_info` with `strncpy` BUFSZ-1 cap (`:242–248`), `strip_newline` (`:252`), tabexpand (`:253–254`), outdented-header separator + prolog/blank skip (`:256–264`), `insert_rtoption` on colon lines (`:266–267`), putstr (`:269–270`); dead `dlb_fclose` (`:272–273`); display + destroy + ECMD_OK (`:274–276`). Helper `insert_rtoption` `:338–353` (C staticfn, stays file-local): lazy `get_lua_version` (`:343–344`), rt_opts `:324–330` (`:PATMATCH:`→regex_id posixregex.c:52, `:LUAVERSION:`→gl.lua_ver, `:LUACOPYRIGHT:`→gl.lua_copyright = LUA_RELEASE + copyright per lua.h:28), strstri-match/strsubst-substitute with no early break (`:346–352`). Callers: `doversion` menu_requested arm (version.c:161) and `hmenu_doextversion` (pager.c:2792).
+- **JS was:** THIN 10-line `js/pager.js:2888` `doextversion` over a hardcoded `doextversion_runtime_lines` list (build_options text baked in, `:PATMATCH:`/`:LUACOPYRIGHT:` pre-substituted, prolog line dropped by comment); `do_runtime_info`/`getversionstring` live in `js/version.js` but unwired here; no `strip_newline` export anywhere; `tabexpand` file-local `js/pager.js:147`; `:LUAVERSION:`/`insert_rtoption` absent.
+- **Fix:** `js/pager.js` — restarted `doextversion` in C order with `:line` cites: `use_dlb=false` const with the dead dlb arms kept as named-omission branches (fopen notice, fgets arm, fclose); version split via `lastIndexOf('(')` + `COLNO` (already imported); loop over live `do_runtime_info` (`{ i }` holder, `== null` exhaustion) with `slice(0, BUFSZ-1)` cap (both already imported); file-local `strip_newline` (hacklib.c:180–190 mirror — LOAD-BEARING: opttext prolog line carries a trailing `\n` from build_options `:692–693`, proven by live `do_runtime_info` dump); existing file-local `tabexpand` reused (no clone #2); file-local `insert_rtoption` with `LUA_COPYRIGHT_JS` const + live `strstri`/`strsubst` (already imported); lua init stays at entry (C-identical RNG position — no RNG between entry and the first colon line); window putstr collects into `lines[]` shown once via live `show_text_pages`; `return ECMD_OK` (0x00, already imported). `do_runtime_info` added to the existing version.js import (ALREADY-edge per imports.mjs, no new edge). Old hardcoded `doextversion_runtime_lines` deleted. New output byte-equals the old list (same separators, same substitutions — verified by arm-trace against the live 38-line opttext dump).
+- **JS:** `js/pager.js` (+114/−50: `strip_newline` + `insert_rtoption` + restarted `doextversion`, one import line; hardcoded list deleted).
+- **Callers:** version.c:161 `doversion` → `js/pager.js` `doversion` (already `return doextversion()`); pager.c:2792 `hmenu_doextversion` → `js/pager.js:3086` `hmenu_doextversion` (already awaits it, wired into the `?` About menu); extcmd `#version` → `js/getline.js:562` lazy import (unchanged). No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn doextversion` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/pager.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify doextversion: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 6.4s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+VERIFY: PASS
+```
+- **Named omissions:** `dlb_fopen`/`dlb_fgets`/`dlb_fclose` + OPTIONS_USED file arms (dead under OPTIONS_AT_RUNTIME — no JS dlb reader exists); `release_runtime_info` (no JS shutdown path); `make_version`/`populate_nomakedefs`/`free_nomakedefs` (D-2535 standing); `bannerc_string`/`status_version`/`early_version_info` (standing map names).
+- **Next:** queue head moves to `mklev.c` dosdoor.
+
 ## D-2557 — `spell.c` deadbook (coverage MISSING → live; whole invocation / raise-dead / pacify body in C order, `learn` caller wired)
 
 - **Status:** fixed (Open coverage row `spell.c` deadbook; cites review 1426 only as prior context for the already-live `mkinvokearea` callee — ACCEPT, no C-wrongs, no stamp needed).
