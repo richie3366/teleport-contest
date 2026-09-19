@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `uhitm.c` mhitm_ad_tlpt — coverage THIN (C 94 L `uhitm.c:2859–2955` / JS 28 L in js/mhitm.js; hops 4, callers 1, RNG 0, msg 6). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mhitm_ad_tlpt` (reach regression must be 0). Measured `port-coverage.mjs --name mhitm_ad_tlpt` 2026-09-19 @ d57c144b. **Addressed:** D-2587
+- [x] `invent.c` freeinv_core — coverage THIN (C 43 L `invent.c:1356–1399` / JS 8 L in js/invent.js; hops 3, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn freeinv_core` (reach regression must be 0). Measured `port-coverage.mjs --name freeinv_core` 2026-09-19 @ d57c144b. **Addressed:** D-2588
+
+
+- [x] `uhitm.c` mhitm_ad_tlpt — coverage THIN (C 94 L `uhitm.c:2859–2955` / JS 28 L in js/mhitm.js; hops 4, callers 1, RNG 0, msg 6). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mhitm_ad_tlpt` (reach regression must be 0). Measured `port-coverage.mjs --name mhitm_ad_tlpt` 2026-09-19 @ d57c144b. **Addressed:** D-2587 `028f5be4`
 
 
 - [x] `mkmaze.c` pick_vibrasquare_location — coverage PARTIAL (C 51 L `mkmaze.c:1042–1093` / JS 30 L in js/mklev.js; hops 2, callers 2, RNG 2, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn pick_vibrasquare_location` (reach regression must be 0). Measured `port-coverage.mjs --name pick_vibrasquare_location` 2026-09-19 @ 09224e39. **Addressed:** D-2586 `32dc9380`

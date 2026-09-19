@@ -1315,7 +1315,8 @@ lifting/removing + `pickup_encumbrance`** (D-0456;
 quiver + throwing_weapon/is_ammo → setuqwep; D-2044; merge paths `goto added` bypass the fill — no setuqwep on merge, D-2048); \
 **`addinv_core1` live in `js/u_init.js`** (COIN botl, AMULET/CANDELABRUM/BELL/BOOK uhave+record_achievement, \
 oartifact W_ART, mines/soko prize achievement+oid-clear+nomerge=0; questart `uhave.questart=1` + `artitouch` D-2370; \
-already-have impossible() arms stay named))
+already-have impossible() arms stay named));
+**`freeinv_core` whole body live in `js/invent.js`** (D-2588; C `invent.c` `:1356–1399` in C order — COIN botl+return, amulet/menorah/bell/book/questart uhave clears, LOADSTONE curse, luck set_moreluck+botl, FIGURINE stop_timer, tin clear; stays sync, impossible/curse float un-awaited; `is_quest_artifact` from quest.js imports.mjs-SAFE)
 
 ### `src/do_name.c` `oname` / `docallcmd`
 

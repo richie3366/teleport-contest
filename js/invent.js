@@ -58,7 +58,7 @@ import {
 import { xprname, an, the, just_an, vtense, doname, distant_name, Japanese_item_name, xname, cxname_singular, set_xname_observe, set_distant_cansee, ansimpleoname, simpleonames, set_not_fully_identified, makeplural, makesingular, body_part_latebound, corpse_xname, killer_xname } from './objnam.js';
 import { yn_function, getlin, mungspaces } from './getline.js';
 import { get_count, pmatchi, cmdq_pop, cmdq_clear } from './cmd.js';
-import { mergable, merged, is_damageable, stop_timer, splitobj, unsplitobj, clear_splitobjs, unknwn_contnr_contents, weight, delobj } from './mkobj.js';
+import { mergable, merged, is_damageable, stop_timer, splitobj, unsplitobj, clear_splitobjs, unknwn_contnr_contents, weight, delobj, curse } from './mkobj.js';
 import { unpaid_cost, doinvbill, gem_learned, obfree, shopper_financial_report, costly_spot } from './shk.js';
 import { hidden_gold } from './vault.js';
 import { setnotworn, dropy } from './do.js';
@@ -241,7 +241,7 @@ import {
 import { ATR_INVERSE, NO_COLOR } from './terminal.js';
 import {
     acurr, acurrstr, get_strength_str, exercise, Fumbling,
-    from_what, stone_luck,
+    from_what, stone_luck, set_moreluck,
     A_STR, A_INT, A_WIS, A_DEX, A_CON, A_CHA,
 } from './attrib.js';
 import { depth, ing_suffix, strstri, ordin, highc } from './hacklib.js';
@@ -322,7 +322,8 @@ import { visible_region_at, reg_damg } from './region.js';
 import { PM_SAMURAI, PM_MONK, PM_CLERIC, monsterNames } from './generated/monsters_data.js';
 import { humanoid, strongmonst, mons, touch_petrifies, poly_when_stoned, hides_under, haseyes, dmgtype, hates_silver, is_male, is_female, is_neuter, vampshifted, nonliving, weirdnonliving } from './monsters.js';
 import { hideunder } from './mon.js';
-import { set_artifact_intrinsic, undiscovered_artifact, discover_artifact } from './artifact.js';
+import { set_artifact_intrinsic, undiscovered_artifact, discover_artifact, confers_luck } from './artifact.js';
+import { is_quest_artifact } from './quest.js';
 import {
     askchain, add_valid_menu_class, collect_obj_classes,
     count_buc, count_justpicked, allow_category,
@@ -2756,6 +2757,9 @@ const EGG = objectNames.indexOf('EGG');
 const STATUE = objectNames.indexOf('STATUE');
 const FIGURINE = objectNames.indexOf('FIGURINE');
 const LOADSTONE = objectNames.indexOf('LOADSTONE');
+const BELL_OF_OPENING = objectNames.indexOf('BELL_OF_OPENING');
+const CANDELABRUM_OF_INVOCATION = objectNames.indexOf('CANDELABRUM_OF_INVOCATION');
+const SPE_BOOK_OF_THE_DEAD = objectNames.indexOf('SPE_BOOK_OF_THE_DEAD');
 
 /** C ref: obj.h is_weptool — TOOL with oc_skill != P_NONE (named fallback). */
 function is_weptool_obj(obj) {
@@ -7702,20 +7706,63 @@ export async function hold_another_object(obj, drop_fmt, drop_arg, hold_msg) {
 }
 
 /**
- * C ref: invent.c freeinv_core — figurine stop FIG_TRANSFORM; artifact
- * W_ART conferral off (D-1539; resists + PROTECT D-2378). inv_prop
- * arti_invoke on drop (`:880–885`) runs via async `revoke_invoked_property`
- * (D-2378), awaited by async W_ART-off envelopes (`dropx`, zap poly);
- * no-floor drops ride `finesse_ahriman` (own row). Named omit:
- * amulet/candelabrum/bell/book uhaves / questart; loadstone curse;
- * confers_luck set_moreluck; tin context.
+ * C ref: invent.c freeinv_core `:1356–1399` — invent-removal side effects in
+ * C order (restart of the D-1539 thin body, which kept only the W_ART +
+ * figurine arms). Sync like C: callers are sync freeinv (`:1407`) and zap
+ * poly (`:1911`), so async callees float un-awaited (Constitution §2.6;
+ * getrumor precedent for impossible, mplayer/mklev precedent for curse).
+ * inv_prop arti_invoke on drop (artifact.c `:880–885`) still runs via async
+ * `revoke_invoked_property` (D-2378), awaited by the async W_ART-off
+ * envelopes (`dropx`, zap poly) right after this call; no-floor drops ride
+ * `finesse_ahriman` (own row). Named omissions: none new.
  */
 export function freeinv_core(obj) {
     if (!obj) return;
-    // C invent.c:1377–1383 — oartifact → set_artifact_intrinsic(obj, 0, W_ART)
-    if (obj.oartifact) set_artifact_intrinsic(obj, false, W_ART);
-    if ((obj.otyp | 0) === FIGURINE && (obj.timed | 0)) {
+    const u = game.u || {};
+    if (obj.oclass === COIN_CLASS) { // C `:1358–1360` — gold: botl, return
+        if (game.flags) game.flags.botl = true;
+        if (game.disp) game.disp.botl = true;
+        return;
+    } else if ((obj.otyp | 0) === AMULET_OF_YENDOR) { // C `:1361–1364`
+        const uhave = u.uhave || (u.uhave = {});
+        if (!uhave.amulet) impossible("don't have amulet?");
+        uhave.amulet = 0;
+    } else if ((obj.otyp | 0) === CANDELABRUM_OF_INVOCATION) { // C `:1365–1368`
+        const uhave = u.uhave || (u.uhave = {});
+        if (!uhave.menorah) impossible("don't have candelabrum?");
+        uhave.menorah = 0;
+    } else if ((obj.otyp | 0) === BELL_OF_OPENING) { // C `:1369–1372`
+        const uhave = u.uhave || (u.uhave = {});
+        if (!uhave.bell) impossible("don't have silver bell?");
+        uhave.bell = 0;
+    } else if ((obj.otyp | 0) === SPE_BOOK_OF_THE_DEAD) { // C `:1373–1376`
+        const uhave = u.uhave || (u.uhave = {});
+        if (!uhave.book) impossible("don't have the book?");
+        uhave.book = 0;
+    } else if (obj.oartifact) { // C `:1377–1383`
+        if (is_quest_artifact(obj)) { // C `:1378–1382` — quest.js, live
+            const uhave = u.uhave || (u.uhave = {});
+            if (!uhave.questart) impossible("don't have quest artifact?");
+            uhave.questart = 0;
+        }
+        set_artifact_intrinsic(obj, false, W_ART); // C `:1383` — 0 = off
+    }
+    if ((obj.otyp | 0) === LOADSTONE) { // C `:1386–1387` — re-curse
+        // Async curse floats: every state flip precedes its first await and
+        // loadstones are never lamplit, so sync callers see C order.
+        curse(obj);
+    } else if (confers_luck(obj)) { // C `:1388–1390` — artifact.js, live
+        set_moreluck(); // C `:1389` — attrib.js, live
+        if (game.flags) game.flags.botl = true; // C `:1390` disp.botl
+        if (game.disp) game.disp.botl = true;
+    } else if ((obj.otyp | 0) === FIGURINE && (obj.timed | 0)) { // C `:1391–1392`
+        // C obj_to_any is identity in JS: timers key obj identity (mkobj.js).
         stop_timer(FIG_TRANSFORM, obj);
+    }
+    const tin = game.context?.tin; // C `:1395–1397` — tinning in progress
+    if (tin && obj === tin.tin) { // (game.context.tin per eat.js)
+        tin.tin = null; // C `(struct obj *) 0`
+        tin.o_id = 0;
     }
 }
 

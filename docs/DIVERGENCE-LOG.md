@@ -1,5 +1,33 @@
 # Divergence log
 
+## D-2588 — `invent.c` freeinv_core whole-body port (uhave/curse/luck/tin arms)
+
+- **Status:** fixed (Open — coverage row ``invent.c`` freeinv_core THIN, measured `port-coverage.mjs --name freeinv_core` 2026-09-19 @ d57c144b).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify freeinv_core`: no corpus session blocked; the function draws no RNG of its own). The JS body held only the oartifact W_ART-off + figurine arms; the coin early-return, four invocation-uhave clears, questart clear, loadstone re-curse, luck moreluck+botl, and tin-context clear were doc-listed named omits.
+- **C locus:** `nethack-c/upstream/src/invent.c:1356–1399` — `:1358–1360` COIN_CLASS botl + return; `:1361–1376` AMULET/menorah/bell/book uhave clears with impossible() guards; `:1377–1383` oartifact questart clear behind is_quest_artifact + set_artifact_intrinsic(obj, 0, W_ART); `:1386–1392` LOADSTONE curse / confers_luck set_moreluck + botl / FIGURINE-timed stop_timer(FIG_TRANSFORM, obj_to_any); `:1395–1397` tin-context clear. Callers `:1407` freeinv + `zap.c:1911` poly_obj.
+- **JS was:** `freeinv_core` (`js/invent.js:7713`) — 8-line thin body (D-1539 era): W_ART-off + figurine stop only; the other five arms were a doc-listed named omit.
+- **Fix:** `js/invent.js` — restarted `freeinv_core` in C order with `:line` cites; stays sync (Constitution §2.6) with async `impossible`/`curse` floating un-awaited (getrumor precedent `rumors.js:208`; mplayer/mklev precedent for curse — all curse state flips precede its first await and loadstones are never lamplit, so sync callers observe C order). `confers_luck` joins the existing artifact.js import, `set_moreluck` the existing attrib.js import, `curse` the existing mkobj.js import (all ALREADY, no new edge); `is_quest_artifact` new from quest.js (imports.mjs SAFE — hoisted fn inside the same 97-module SCC). New otyp consts BELL_OF_OPENING/CANDELABRUM_OF_INVOCATION/SPE_BOOK_OF_THE_DEAD (objectNames.indexOf precedent); AMULET_OF_YENDOR/LOADSTONE/FIGURINE/COIN_CLASS pre-existing. botl via flags+disp (`invent.js:1089` precedent); tin via game.context.tin (eat.js precedent); C obj_to_any is identity (timers key obj identity, mkobj.js). Export name/signature unchanged.
+- **JS:** `js/invent.js:61` mkobj import; `:244` attrib import; `:325–326` artifact + quest imports; `:2760–2762` consts; `:7719–7768` restarted body.
+- **Callers:** C `invent.c:1407` → JS `js/invent.js:7787` inside `freeinv` (`:7774`, unchanged export, rides the new body); C `zap.c:1911` → JS `js/zap.js:5195` poly_obj replace path (unchanged sync call). No caller edits. Pre-existing sync riders also unchanged: `steal.js:299`, `potion.js:3155` freeinv_pot, `do.js:2345` freeinv_drop, `invent.js:7629`.
+- **Verify:** `node scripts/verify.mjs --fn freeinv_core` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/invent.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify freeinv_core: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 5.9s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+
+VERIFY: PASS
+```
+Focused scratch probe (`/tmp/freeinv-probe.mjs`, not committed — no tests/ harness in repo): 18/18 — coin botl+return, amulet/menorah/bell/book clears without botl, loadstone cursed+unblessed synchronously, luck botl+moreluck, figurine no-throw, tin clear + non-tin untouched, quest questart clear.
+- **Named omissions:** none new — every arm live (obj_to_any identity noted in-body; inv_prop arti_invoke async half still via `revoke_invoked_property` envelopes per D-2378, untouched).
+- **Next:** none from this fix — coverage row closed.
+
 ## D-2587 — `uhitm.c` mhitm_ad_tlpt whole-body port (uhitm arm + damageum wiring)
 
 - **Status:** fixed (Open — coverage row ``uhitm.c`` mhitm_ad_tlpt THIN, measured `port-coverage.mjs --name mhitm_ad_tlpt` 2026-09-19 @ d57c144b).
