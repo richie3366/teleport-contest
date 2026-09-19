@@ -1,5 +1,33 @@
 # Divergence log
 
+## D-2550 — `cmd.c` get_changed_key_binds [campaign 4/7] (coverage MISSING → live; userbind-delta + unbound-defaults in C order; sbuf caller wired, NULL display arm named)
+
+- **Status:** fixed (Open coverage row `cmd.c` get_changed_key_binds [campaign 4/7]; row cites no review — no stamp).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify get_changed_key_binds`: no corpus session blocked at baseline — #saveoptions writer, unreachable until [7/7]).
+- **C locus:** `nethack-c/upstream/src/cmd.c:2235–2287` (`get_changed_key_binds`); arms `:2244–2246` window setup, `:2248–2267` userbind-delta loop over `gc.Cmd.cmdbinds` (`:2251` userbind&&cmd&&key-d differs gate, `:2253–2260` CMD_PARAM `(param)` vs plain Sprintf), `:2269–2281` unbound-defaults loop over extcmdlist (`:2273` `ec->key && !keys[]` → `:2274` `BIND=key:nothing`), `:2282–2285` display/destroy tail. List shape: `struct Cmd_bind {key,userbind,param,cmd,next}` (`func_tab.h:34–39`) — defaults with user FALSE from commands_init `:2750–2780`, user overlays from bind_key `:2662–2730` (cmdbind_add `:2152` prepends; bind_key "nothing" `:2668` removes the node). Callers: `options.c:9734` (sbuf), `cmd.c:2442` handler_rebind_keys (NULL).
+- **JS was:** no symbol anywhere (brief: NOT FOUND incl. `js/generated/`); parent `all_options_strbuf` already called bare `get_changed_key_binds(sbuf)` (D-2544) — would throw if ever reached (no live caller: `do_write_config_file` unported).
+- **Fix:** `js/cmd.js` — exported `get_changed_key_binds(sbuf)` in C order with `:line` cites. C cmdbinds list is split in JS (defaults in dokeylist build_default_cmdbinds, user binds in `game.Cmd.binds` RC overlay via parsebindings/jsmain.js): loop 1 iterates the overlay reversed (mirrors cmdbind_add prepend order incl. in-place rebind), re-matching the row bind_key-style (ef_txt + INTERNALCMD skip, same predicate as parsebindings; miss skipped defensively), emitting `BIND=key:cmd` only when `ext.key !== key`; CMD_PARAM arm folds into the plain arm (param stripped at RC parse — named omission in options.js). Loop 2 exhausts the generated EXTCMDLIST (no terminator row, so exact vs `i < extcmdlist_length`) with `!ec.key` skip and the live `cmdbind_get` oracle for `!keys[]` (same defaults+overlay mapping). Per-line `sbuf ? strbuf_append(+\\n) : winLines.push` mirrors the append/putstr dispatch; NULL tail display named (no sync NHW_TEXT primitive; `show_text_pages` is async-only). New names on existing edges only (strbuf_append joins the cmd.js→options.js import); new edge options.js→cmd.js is lazy-only inside `all_options_strbuf` (`imports.mjs --can`: same 97-module SCC, no top-level TDZ read).
+- **JS:** `js/cmd.js` get_changed_key_binds (export) + 1 extended import; `js/options.js` 1 import + caller comment live [4/7] + campaign header refreshed.
+- **Callers:** `options.c:9734` → `js/options.js:3804` now resolves to the live export (dormant: no live #saveoptions caller until [7/7]); `cmd.c:2442` handler_rebind_keys NULL arm → named omission (unported in js/, display sink named in code). No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn get_changed_key_binds` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   2 changed js file(s): js/cmd.js js/options.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify get_changed_key_binds: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 6.4s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing (auto: shared file changed)
+
+VERIFY: PASS
+```
+- **Durable test:** `scripts/get-changed-key-binds.test.mjs` (node:test per repo convention, 6 its: empty overlay silent, same-key rebind silent, diff-key `BIND=t:cast`, unbind `BIND=c:nothing`, loop order, NULL sbuf no-throw) — `node --test` 6/6 PASS. Throwaway probe in /tmp (not committed) confirmed the same shapes pre-verify.
+- **Named omissions:** NULL display arm + caller `handler_rebind_keys` (`cmd.c:2442`, unported); CMD_PARAM `(param)` text (stripped at RC parse); `parsesymbols` producer [5/7]; `all_options_statushilites` [6/7]; caller `do_write_config_file` [7/7].
+- **Next:** `symbols.c` parsesymbols producer [campaign 5/7] (queue head after this pop).
+
 ## D-2549 — `options.c` all_options_conds + `botl.c` opt_next_cond [campaign 3/7] (coverage MISSING → live; cond guard wired, 75-col wrap; C callers wired-or-named)
 
 - **Status:** fixed (Open coverage row `options.c` all_options_conds [campaign 3/7]; row cites no review — no stamp).

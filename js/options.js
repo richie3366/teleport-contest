@@ -135,6 +135,7 @@ import { getlin } from './getline.js';
 import { makesingular, fruit_from_name, makeplural } from './objnam.js';
 import { clr2colorname } from './artifact.js';
 import { opt_next_cond } from './botl.js';
+import { get_changed_key_binds } from './cmd.js';
 
 /** C ref: global.h PL_FSIZ — fruit name buffer. */
 const PL_FSIZ = 32;
@@ -3075,8 +3076,8 @@ export function oclass_to_sym(oclass) {
  * (backing stores live in this file / game bags / generated EXTCMDLIST).
  * Named omissions ship as campaign rows (map): get_option_value + the
  * allopt[]/opt_set_in_config[] table (live [2/7]), all_options_conds
- * (live [3/7]), get_changed_key_binds, all_options_statushilites
- * (+ parsesymbols producer for savedSymbols).
+ * (live [3/7]), get_changed_key_binds (live [4/7], js/cmd.js),
+ * all_options_statushilites (+ parsesymbols producer for savedSymbols).
  * all_options_palette is compiled
  * out (CHANGE_COLOR off for tty: windconf.h `:29` commented) — no row.
  */
@@ -3800,7 +3801,7 @@ export function all_options_strbuf(sbuf) {
        status conditions menu; ignore opt_set_in_config[opt_o_status_cond] */
     if (opt_set_in_config[PFX_COND_IDX]) all_options_conds(sbuf); // C `:9727–9729` cond guard (live [3/7])
     // CHANGE_COLOR all_options_palette `:9731–9733` compiled out (tty) — named, no row.
-    get_changed_key_binds(sbuf); // named: key-binds row
+    get_changed_key_binds(sbuf); // C `:9734` key binds (live [4/7], js/cmd.js)
     savedsym_strbuf(sbuf);
     all_options_menucolors(sbuf);
     all_options_msgtypes(sbuf);

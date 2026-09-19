@@ -450,7 +450,7 @@ pickup via latebound — polyself→do→pickup cycle). **`mcast_blind_you`
 (C `sounds.c` `:115–128` (msleeping||animal)+ZOO gate, `rn2(2)+hallu`; live
 `js/sounds.js` async print; file-local `get_iter_mons` async for printing bfunc;
 throne/beehive/morgue/barracks/court You_hear plines still named); \
-**`randomkey`/`pgetchar`/`random_response` D-2480** (C `cmd.c` `:3517–3578` + `:445–453` + `:3580–3597`; live `js/cmd.js` in C order (^A/^P gate, rn2(16) arms, extcmdlist cycle incl. donull sentinel, cmd_from_dir d/m draws, last_c latch); `cmd_from_dir` `:3029–3032` live `js/dokeylist.js` via `cmd_from_func_ecname` + hoisted move/run/rush tables; `readchar_core` `:5218` + `wintty.c:4068` fuzzer arms named).
+**`randomkey`/`pgetchar`/`random_response` D-2480** (C `cmd.c` `:3517–3578` + `:445–453` + `:3580–3597`; live `js/cmd.js` in C order (^A/^P gate, rn2(16) arms, extcmdlist cycle incl. donull sentinel, cmd_from_dir d/m draws, last_c latch); `cmd_from_dir` `:3029–3032` live `js/dokeylist.js` via `cmd_from_func_ecname` + hoisted move/run/rush tables; `readchar_core` `:5218` + `wintty.c:4068` fuzzer arms named); \n**`get_changed_key_binds` D-2550** (C `cmd.c` `:2235–2287` [campaign 4/7]; live `js/cmd.js` in C order — userbind-delta loop over `game.Cmd.binds` overlay reversed (cmdbind_add prepend), row re-matched bind_key-style, same-key silent, CMD_PARAM folded (param stripped at parse); unbound-defaults loop over terminator-free generated EXTCMDLIST via live `cmdbind_get`; per-line sbuf-append/putstr dispatch with `\n` only on sbuf; NULL display tail + `handler_rebind_keys` `:2442` caller named (no sync NHW_TEXT primitive); sbuf caller `options.c:9734` wired at `js/options.js` (options→cmd edge lazy-only, same SCC)).
 
 ### `src/potion.c`
 
