@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2602 — `insight.c` fmt_elapsed_time whole-body port (elapsed line wired on both enlightenment builders)
+
+- **Status:** fixed (Open — coverage row `insight.c` fmt_elapsed_time MISSING (C 44 L `insight.c:314–358` / JS no symbol; hops 5, callers 1, RNG 0, msg 3), measured `port-coverage.mjs --name fmt_elapsed_time` 2026-09-20 @ d89bb259).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify fmt_elapsed_time`: no corpus session blocked on it at baseline; fixed 24-session smoke spread is the evidence). Also resolves review-77 named omit #1 (overlay elapsed `"none"` vs C `fmt_elapsed_time`).
+- **C locus:** `nethack-c/upstream/src/insight.c:313–358` (staticfn, decl `:25`); sole C caller `:448` (`enlightenment` — `(void) fmt_elapsed_time(buf, final)` + `enl_msg("Total elapsed playing time ", "is", "was", buf, "")` at `:448–449`); C `:2009–2018` `doattributes` routes the in-progress path through `enlightenment(mode, ENL_GAMEINPROGRESS)`.
+- **JS was:** no same-named symbol anywhere in `js/`; both enlightenment builders printed a hardcoded `' none'` (`js/invent.js` final-disclosure `enlightenment` and the `doattributes` ^X overlay) — review-77 named omit, pre-existing analog.
+- **Fix:** new exported `fmt_elapsed_time(final)` (`js/insight.js:182`) in C order with `:line` cites — `:322–325` etim (+ live `timet_delta(getnow(), start_timing)` iff `!final`; game-over path already folded by really_done/end.js), `:328–331` field split (trunc-division ≡ C `long` `/`), `:332` fieldcnt, `:334` `" none"`, day/hour/minute/seconds arms `:335–354` with the C `--fieldcnt` order kept (minutes arm adds `" and"` only when seconds follow, per the C comment). C `eos()` appends are concatenation; C `plur` (`hack.h:1520`) is the file-local helper. Callees are live exports: `getnow` (calendar.js, imports.mjs SAFE) and `timet_delta` (allmain.js, hoisted function, cycle-safe). No new static invent edge: both call sites extend the existing dynamic `await import('./insight.js')` lines (file convention); `ENL_GAMEINPROGRESS` joins the static const.js import.
+- **JS:** `js/insight.js:80–82` (2 imports), `js/insight.js:182` (`fmt_elapsed_time`); `js/invent.js:5325/6095` (final path), `js/invent.js:6992/6995` (overlay path); `scripts/fmt-elapsed-time.test.mjs` (4 its: C doc shapes, and/comma joining, live-delta via fixed `game.datetime`).
+- **Callers:** C `:448` → `js/invent.js:6095` (`enlightenment` final path, `fmt_elapsed_time(final)`, tense `final ? 'was' : 'is'` ≡ `enl_msg`); via C `:2017` → `js/invent.js:6995` (`doattributes` overlay, `fmt_elapsed_time(ENL_GAMEINPROGRESS)`, tense `'is'`). Sole C caller; no other C call site exists.
+- **Verify:** `node scripts/verify.mjs --fn fmt_elapsed_time` → VERIFY: PASS (syntax 2 files: js/insight.js js/invent.js; rule2; hidden note no-blocked; reach: no RNG-tagged reach, smoke 24/24 PASS → REACH-OK; green 2/2; strict ×2; cohort 7/7); `node --test scripts/fmt-elapsed-time.test.mjs` → 4 pass, 0 fail.
+- **Named omissions:** none new.
+- **Next:** next Open — coverage row (`rumors.c` outoracle).
+
 ## D-2601 — `worn.c` update_mon_extrinsics whole-body port (live FAST speed, saddle dismount, steed caller wired)
 
 - **Status:** fixed (Open — coverage row `worn.c` update_mon_extrinsics PARTIAL (C 129 L `worn.c:579–712` / JS 84 L in js/worn.js; hops 3, callers 6, RNG 0, msg 0), measured `port-coverage.mjs --name update_mon_extrinsics` 2026-09-20 @ d89bb259).

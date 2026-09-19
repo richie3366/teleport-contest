@@ -276,6 +276,7 @@ import {
     Upolyd,
     BASICENLIGHTENMENT,
     MAGICENLIGHTENMENT,
+    ENL_GAMEINPROGRESS,
     ENL_GAMEOVERDEAD,
     TT_BURIEDBALL,
     TT_LAVA,
@@ -5321,7 +5322,7 @@ export async function enlightenment(mode, final = 0) {
     const { show_nhw_menu_text } = await import('./pager.js');
     const { newuexp } = await import('./exper.js');
     const { Searching, Fast, Very_fast } = await import('./attrib.js');
-    const { piousness, N_times } = await import('./insight.js');
+    const { piousness, N_times, fmt_elapsed_time } = await import('./insight.js');
     const {
         BASICENLIGHTENMENT, MAGICENLIGHTENMENT, ENL_GAMEOVERDEAD,
     } = await import('./const.js');
@@ -6086,10 +6087,12 @@ export async function enlightenment(mode, final = 0) {
             ));
         }
     }
+    // C insight.c:448-449 — (void) fmt_elapsed_time(buf, final); enl_msg
+    // ("Total elapsed playing time ", "is", "was", buf, "").
     lines.push(enlght_line_txt(
         'Total elapsed playing time ',
         final ? 'was' : 'is',
-        ' none',
+        fmt_elapsed_time(final),
         '',
     ));
 
@@ -6983,8 +6986,13 @@ export async function doattributes(enl_mode = null) {
                 )));
             }
         }
+        // C insight.c:448-449 via :2009-2018 — doattributes routes the
+        // in-progress (ENL_GAMEINPROGRESS) enlightenment through here, so
+        // the elapsed line is fmt_elapsed_time, not "none" (review 77 omit).
+        const { fmt_elapsed_time } = await import('./insight.js');
         lines.push(o(enlght_line_txt(
-            'Total elapsed playing time ', 'is', ' none', '',
+            'Total elapsed playing time ', 'is',
+            fmt_elapsed_time(ENL_GAMEINPROGRESS), '',
         )));
     }
 

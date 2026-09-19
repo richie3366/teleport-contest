@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-19 — D-2602 `insight.c` fmt_elapsed_time whole-body port (elapsed line wired on both enlightenment builders)
+
+**C locus:** `nethack-c/upstream/src/insight.c:313–358` (staticfn, decl `:25`); sole C caller `:448` (`enlightenment` — `(void) fmt_elapsed_time(buf, final)` + `enl_msg("Total elapsed playing time ", "is", "was", buf, "")` at `:448–449`); C `:2009–2018` `doattributes` routes the in-progress path through `enlightenment(mode, ENL_GAMEINPROGRESS)`.
+**JS:** `js/insight.js:80–82` (2 imports), `js/insight.js:182` (`fmt_elapsed_time`); `js/invent.js:5325/6095` (final path), `js/invent.js:6992/6995` (overlay path); `scripts/fmt-elapsed-time.test.mjs` (4 its: C doc shapes, and/comma joining, live-delta via fixed `game.datetime`).
+**Change:** new exported `fmt_elapsed_time(final)` (`js/insight.js:182`) in C order with `:line` cites — `:322–325` etim (+ live `timet_delta(getnow(), start_timing)` iff `!final`; game-over path already folded by really_done/end.js), `:328–331` field split (trunc-division ≡ C `long` `/`), `:332` fieldcnt, `:334` `" none"`, day/hour/minute/seconds arms `:335–354` with the C `--fieldcnt` order kept (minutes arm adds `" and"` only when seconds follow, per the C comment). C `eos()` appends are concatenation; C `plur` (`hack.h:1520`) is the file-local helper. Callees are live exports: `getnow` (calendar.js, imports.mjs SAFE) and `timet_delta` (allmain.js, hoisted function, cycle-safe).
+**Verify:** `node scripts/verify.mjs --fn fmt_elapsed_time` → VERIFY: PASS (syntax 2 files: js/insight.js js/invent.js; rule2; hidden note no-blocked; reach: no RNG-tagged reach, smoke 24/24 PASS → REACH-OK; green 2/2; strict ×2; cohort 7/7); `node --test scripts/fmt-elapsed-time.test.mjs` → 4 pass, 0 fail.
+**Named:** none new.
+**Next:** next Open — coverage row (`rumors.c` outoracle).
 ## 2026-09-19 — D-2601 `worn.c` update_mon_extrinsics whole-body port (live FAST speed, saddle dismount, steed caller wired)
 
 **C locus:** `nethack-c/upstream/src/worn.c:579–712`; callers `steal.c:845`, `steed.c:162`, `trap.c:2514`, `worn.c:962` (m_dowear_type old), `worn.c:992` (m_dowear_type best), `worn.c:1406` (extract path).
