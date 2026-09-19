@@ -447,6 +447,58 @@ export function unplacebc() {
 }
 
 /**
+ * C ref: ball.c check_restriction `:181–189` (staticfn) — the covet pin
+ * gate. `override_restriction` is `hack.h:110` (`enum bcargs`, -1), which
+ * end.c:894 passes to force the lift; a live pin matches only itself.
+ * State lives on `game.bcrestriction` (C `static int`, init 0).
+ */
+function check_restriction(pin) {
+    if (!(game.bcrestriction | 0)) return true;
+    if ((pin | 0) === -1) return true; /* C override_restriction */
+    return (game.bcrestriction | 0) === (pin | 0);
+}
+
+/**
+ * C ref: ball.c unplacebc_and_covet_placebc `:222–234` — pin a fresh
+ * `rnd(400)` restriction, then unplacebc_core, so movebubbles() pickup
+ * disregards the attached ball&chain (mkmaze.c:1563–1564). JS unplacebc()
+ * above is that core (its restriction check stays a named omission), so
+ * it runs after the pin is set. Async: the denied arm impossibles.
+ * Named omissions: BREADCRUMBS crumb variants (build uses this path).
+ */
+export async function unplacebc_and_covet_placebc() {
+    let restriction = 0;
+    if ((game.bcrestriction | 0)) {
+        await impossible('unplacebc_and_covet_placebc denied, already restricted');
+    } else {
+        restriction = game.bcrestriction = rnd(400);
+        unplacebc();
+    }
+    return restriction;
+}
+
+/**
+ * C ref: ball.c lift_covet_and_placebc `:236–254` — pin-gated
+ * placebc_core: put the attached ball&chain back after movebubbles()
+ * drift (mkmaze.c:1682–1683). `placebc()` above is that core (its rust /
+ * bglyph arms stay named there); the `bcrestriction = 0` tail runs here
+ * in C order, after the place. Async: denied/placed arms impossible.
+ * Named omissions: dev-build `paniclog` (Rule #2, no file log);
+ * end.c:894 `lift_covet_and_placebc(override_restriction)` caller.
+ */
+export async function lift_covet_and_placebc(pin) {
+    if (!check_restriction(pin | 0)) return;
+    const u = game.u || {};
+    const uchain = u.uchain;
+    if (uchain && uchain.where != null && uchain.where !== OBJ_FREE) {
+        await impossible('bc already placed?');
+        return;
+    }
+    placebc();
+    game.bcrestriction = 0; /* C placebc_core `:143` tail */
+}
+
+/**
  * C ref: ball.c move_bc `:436–556` — pick up (before) / put down
  * (after) ball&chain.
  *
