@@ -1,5 +1,31 @@
 # Divergence log
 
+## D-2559 — `mklev.c` dosdoor (coverage PARTIAL → live; whole door-creation body in C order, shop-door callee fixed, all 3 C callers wired)
+
+- **Status:** fixed (Open coverage row `mklev.c` dosdoor; cites no review — no stamp needed).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify dosdoor`: no corpus session blocked at baseline — level-gen door path).
+- **C locus:** `nethack-c/upstream/src/mklev.c:615–676` (`dosdoor`, staticfn) in C order: `shdoor` from `*in_rooms(x, y, SHOPBASE)` (`:617`); wall-guard type reset (`:619–620`); DOOR `rn2(3)` open/locked/closed/doorway split (`:623–642`, STUPID undefined → `shdoor ? D_ISOPEN : D_NODOOR`); `D_TRAPPED` gate skipping open + shop doors at difficulty ≥ 5 (`:631–633`); Rogue `D_NODOOR` override (`:646–648`); trapped→mimic at difficulty ≥ 9 with the `G_GONE` triple-viability check (`:650–660`, `makemon(mkclass(S_MIMIC, 0), …, NO_MM_FLAGS)` + `set_mimic_sym`); commented-out `newsym` (`:662`, not called); SDOOR locked/closed + trap arms (`:663–670`, `shdoor ||` short-circuit draws no RNG); `add_door` (`:673`). Helpers: `alloc_doors` `:555–571` (C staticfn, grow-by-DOORINC) and `add_door` `:573–612` (C global; dup check, fdoor anchor, shift, rooms + subrooms fdoor fixups, `doorindex++` before store). Callers: `makeniche` `:776`/`:780`, `dodoor` `:1802`.
+- **JS was:** PARTIAL `js/mklev.js:28070` `dosdoor`: arm order mostly right, but `shdoor` read a file-local `in_rooms` stub (`js/mklev.js:1302`, always `[]`) called with `0` (any-room) instead of `SHOPBASE` (shops only) — shop doors never took the C shop arms; mimic call passed raw `0` for `NO_MM_FLAGS`; redundant mid-body `doormask` write. Companion `add_door` clone skipped `alloc_doors`, carried a non-C `hx <= 0` room guard, and never named the subrooms loop.
+- **Fix:** `js/mklev.js` — restarted `dosdoor` (`:28072`) in C order with `:line` cites: `shdoor` from the live `in_rooms` (`js/hack.js:1596`, added to the existing hack.js import — ALREADY-edge per imports.mjs, no new edge; stub deleted); `SHOPBASE` (already imported); RNG order untouched (was C-ordered); mimic via live `makemon`/`mkclass`/`set_mimic_sym` with `NO_MM_FLAGS` (already imported); `Is_rogue_level`/file-local `level_difficulty` wrapper unchanged; single end `loc.doormask = loc.flags` sync per `rm.h:213` (`doormask` IS `flags`). File-local `alloc_doors` added (`:28133`; table-ensure only — JS arrays self-grow) and called first by `add_door` (`:28140`) per C `:580`; `add_door` re-ported in C order with the rooms+subrooms loops folded into one (JS keeps subrooms inside `level.rooms` past MAXNROFROOMS+1 — see `add_subroom`), the non-C `hx` guard dropped, `doorindex++` before store per C `:607–609`.
+- **JS:** `js/mklev.js` (one file; dosdoor restart + alloc_doors/add_door + import line + stub deletion).
+- **Callers:** mklev.c:776 `makeniche` SDOOR → `js/mklev.js:28504` (`dosdoor(xx, yy, aroom, SDOOR)`); mklev.c:780 `makeniche` `rn2(5) ? SDOOR : DOOR` → `js/mklev.js:28508`; mklev.c:1802 `dodoor` → `js/mklev.js:28126` `dodoor` (`js/mklev.js:28127` `dosdoor(x, y, aroom, maybe_sdoor(8) ? SDOOR : DOOR)`). No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn dosdoor --reach-all` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/mklev.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify dosdoor: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    497 baseline-PASS session(s) reach it (497 run, 83.6s): 497 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing (auto: shared file changed)
+VERIFY: PASS
+```
+- **Named omissions:** none new — every arm and callee live or ported in this commit (`newsym` stays uncalled per the C `:662` comment; the STUPID `#ifdef` arm not compiled per the shipped `#else`).
+- **Next:** queue head moves to `shk.c` shk_move.
+
 ## D-2558 — `version.c` doextversion (coverage THIN → live; whole `#version` body in C order over live `do_runtime_info`, both C callers wired)
 
 - **Status:** fixed (Open coverage row `version.c` doextversion; cites no review — no stamp needed).

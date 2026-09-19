@@ -149,7 +149,7 @@ import { buried_ball_to_punishment, fracture_rock } from './dig.js';
 import { obfree } from './shk.js';
 import { block_point, unblock_point, does_block, recalc_block_point, vision_recalc } from './vision.js';
 import { emits_light, new_light_source, del_light_source } from './light.js';
-import { monst_to_any, is_pool, is_lava } from './hack.js';
+import { monst_to_any, is_pool, is_lava, in_rooms } from './hack.js';
 import { begin_burn } from './timeout.js';
 import { nexttodoor } from './fountain.js';
 import { ndemon } from './minion.js';
@@ -1298,8 +1298,7 @@ trap_engravings[TRAPDOOR] = 'Vlad was here';
 trap_engravings[TELEP_TRAP] = 'ad aerarium';
 trap_engravings[LEVEL_TELEP] = 'ad aerarium';
 
-// in_rooms stub
-function in_rooms(x, y, rtype) { return []; }
+// in_rooms: live export from hack.js (C hack.c in_rooms) — no local stub.
 
 // ============================================================
 // Core mklev functions (ported from main project's mklev.js)
@@ -28066,71 +28065,95 @@ export function dig_corridor(org, dest, npoints_out, nxcor, ftyp, btyp) {
     return true;
 }
 
-// C ref: mklev.c dosdoor()
+// C ref: mklev.c dosdoor() :615–676 — full body in C order.
+// shdoor (:617): *in_rooms(x, y, SHOPBASE) — shop rooms only (C hack.c
+// goodtype: rtype == SHOPBASE or > SHOPBASE); the live hack.js export
+// returns '' when no room matches, so length > 0 is C *ptr != 0.
 function dosdoor(x, y, aroom, type) {
     const map = game.level;
     const loc = map.at(x, y);
     if (!loc) return;
-    const shdoor = in_rooms(x, y, 0).length > 0;
-    if (!IS_WALL(loc.typ)) type = DOOR;
+    const shdoor = in_rooms(x, y, SHOPBASE).length > 0;
+    if (!IS_WALL(loc.typ)) type = DOOR; // C :619–620 — no S-doors on made doors
     loc.typ = type;
     if (type === DOOR) {
-            if (!rn2(3)) {
-                if (!rn2(5)) loc.flags = D_ISOPEN;
-                else if (!rn2(6)) loc.flags = D_LOCKED;
-                else loc.flags = D_CLOSED;
-                if (loc.flags !== D_ISOPEN && !shdoor
-                    && level_difficulty() >= 5 && !rn2(25))
-                    loc.flags |= D_TRAPPED;
-            } else {
-                loc.flags = shdoor ? D_ISOPEN : D_NODOOR;
-            }
-            // C mklev.c :647–648 — Rogue first so trapped-door mimics skip
-            if (Is_rogue_level(game.u?.uz)) loc.flags = D_NODOOR;
-            if (loc.flags & D_TRAPPED) {
-                // C ref: mklev.c dosdoor — trapped door may become mimic
-                if (level_difficulty() >= 9 && !rn2(5)
-                    && !((((game.mvitals?.[PM_SMALL_MIMIC]?.mvflags ?? 0) & G_GONE))
-                        && (((game.mvitals?.[PM_LARGE_MIMIC]?.mvflags ?? 0) & G_GONE))
-                        && (((game.mvitals?.[PM_GIANT_MIMIC]?.mvflags ?? 0) & G_GONE)))) {
-                    loc.flags = D_NODOOR;
-                    loc.doormask = D_NODOOR;
-                    const mtmp = makemon(mkclass('S_MIMIC', 0), x, y, 0);
-                    if (mtmp) set_mimic_sym(mtmp);
-                }
-            }
-        } else {
-            if (shdoor || !rn2(5)) loc.flags = D_LOCKED;
-            else loc.flags = D_CLOSED;
-            if (!shdoor && level_difficulty() >= 4 && !rn2(20))
+        if (!rn2(3)) { // C :623 — locked, closed, or doorway?
+            if (!rn2(5)) // C :624
+                loc.flags = D_ISOPEN;
+            else if (!rn2(6)) // C :626
+                loc.flags = D_LOCKED;
+            else // C :628
+                loc.flags = D_CLOSED;
+            // C :631–633 — trap gate skips open and shop doors
+            if (loc.flags !== D_ISOPEN && !shdoor
+                && level_difficulty() >= 5 && !rn2(25))
                 loc.flags |= D_TRAPPED;
+        } else {
+            // C :636–642 — STUPID undefined: shdoor ? open : doorway
+            loc.flags = shdoor ? D_ISOPEN : D_NODOOR;
         }
-        // C: struct rm flags/doormask are a union — keep JS mirrors in sync
-        loc.doormask = loc.flags;
-    add_door(x, y, aroom);
+        // C :646–648 — Rogue first so trapped-door mimics are skipped
+        // (also done in roguecorr)
+        if (Is_rogue_level(game.u?.uz)) loc.flags = D_NODOOR;
+        if (loc.flags & D_TRAPPED) { // C :650
+            let mtmp;
+            // C :652–654 — deep mimic classes still viable?
+            if (level_difficulty() >= 9 && !rn2(5)
+                && !(((game.mvitals?.[PM_SMALL_MIMIC]?.mvflags ?? 0) & G_GONE)
+                    && ((game.mvitals?.[PM_LARGE_MIMIC]?.mvflags ?? 0) & G_GONE)
+                    && ((game.mvitals?.[PM_GIANT_MIMIC]?.mvflags ?? 0) & G_GONE))) {
+                // C :656–660 — a mimic instead of the trapped door
+                loc.flags = D_NODOOR;
+                mtmp = makemon(mkclass('S_MIMIC', 0), x, y, NO_MM_FLAGS);
+                if (mtmp) set_mimic_sym(mtmp);
+            }
+        }
+        // C :662 — newsym(x,y) stays commented out in C; not called.
+    } else { // C :663 — SDOOR
+        if (shdoor || !rn2(5)) // C :664–665 — short-circuit: no draw on shdoor
+            loc.flags = D_LOCKED;
+        else // C :666–667
+            loc.flags = D_CLOSED;
+        // C :669–670
+        if (!shdoor && level_difficulty() >= 4 && !rn2(20))
+            loc.flags |= D_TRAPPED;
+    }
+    // C rm.h:213 — doormask IS flags (union); keep the JS mirrors in sync.
+    loc.doormask = loc.flags;
+    add_door(x, y, aroom); // C :673
 }
 
 export function dodoor(x, y, aroom) {
     dosdoor(x, y, aroom, maybe_sdoor(8) ? SDOOR : DOOR);
 }
 
+// C ref: mklev.c alloc_doors() :555–571 — staticfn; grows svd.doors by
+// DOORINC when full. JS arrays grow on indexed assignment, so this only
+// ensures the table exists.
+function alloc_doors() {
+    if (!game.level.doors) game.level.doors = [];
+}
+
+// C ref: mklev.c add_door() :573–612 — full body in C order. The two C
+// loops (rooms :596–600, subrooms :601–605) fold into one: JS stores
+// subrooms in level.rooms past MAXNROFROOMS+1 (see add_subroom).
 function add_door(x, y, aroom) {
     const g = game;
-    if (!g.level.doors) g.level.doors = [];
-    for (let i = 0; i < aroom.doorct; i++) {
+    alloc_doors(); // C :580
+    for (let i = 0; i < aroom.doorct; i++) { // C :582–587 — dup check
         const d = g.level.doors[aroom.fdoor + i];
         if (d && d.x === x && d.y === y) return;
     }
-    if (aroom.doorct === 0) aroom.fdoor = g.level.doorindex;
-    aroom.doorct++;
-    for (let tmp = g.level.doorindex; tmp > aroom.fdoor; tmp--)
+    if (aroom.doorct === 0) aroom.fdoor = g.level.doorindex; // C :589–590
+    aroom.doorct++; // C :592
+    for (let tmp = g.level.doorindex; tmp > aroom.fdoor; tmp--) // C :594–595
         g.level.doors[tmp] = g.level.doors[tmp - 1];
-    for (const broom of g.level.rooms || []) {
-        if (!broom || broom.hx <= 0 || broom === aroom || !(broom.doorct > 0)) continue;
+    for (const broom of g.level.rooms || []) { // C :596–605
+        if (!broom || broom === aroom || !(broom.doorct > 0)) continue;
         if ((broom.fdoor ?? 0) >= aroom.fdoor) broom.fdoor++;
     }
-    g.level.doors[aroom.fdoor] = { x, y };
-    g.level.doorindex++;
+    g.level.doorindex++; // C :607
+    g.level.doors[aroom.fdoor] = { x, y }; // C :608–609
 }
 
 function bydoor(x, y) {
