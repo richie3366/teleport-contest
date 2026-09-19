@@ -1,5 +1,31 @@
 # Divergence log
 
+## D-2576 — `pickup.c` do_loot_cont whole-body port (UNTRAP/FORCE autounlock, destroyed-box scan, Bag of Tricks)
+
+- **Status:** fixed (Open — coverage row `pickup.c` do_loot_cont PARTIAL, C 71 L `pickup.c:2088–2162` / JS 32 L `js/pickup.js:3966`).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify do_loot_cont`: no corpus session blocked at baseline — 24-session smoke REACH is the corpus evidence).
+- **C locus:** `nethack-c/upstream/src/pickup.c:2088–2162` (null guard `:2095–2096`; locked branch `:2097–2147` — `The`/`the` lock plines `:2106–2110`, `#if 0` pile copy compiled out `:2100–2105`, `u.dz = 0` `:2116–2117`, APPLY_KEY `autokey(TRUE)` setup + UNTRAP null-tool `:2121–2123`, `pick_lock` → `ECMD_TIME` `:2125–2126`, destroyed-box floor rescan + `*cobjp = 0` `:2127–2135`, FORCE queue + abort `:2137–2144`; unlocked `lknown = 1` `:2148`; Bag of Tricks `:2150–2160` — `rnd(10)` `losehp(Maybe_Half_Phys, KILLED_BY_AN)` + `makeknown` + abort; `use_container(cindex < ccount)` `:2161`) + callers `:2262` (multi-menu loop) / `:2279` (single-box walk).
+- **JS was:** locked-only 32 L body (`js/pickup.js:3966`): APPLY_KEY + non-null-tool gate only (UNTRAP-only configs never reached `pick_lock`); no destroyed-box rescan; no FORCE arm (`AUTOUNLOCK_FORCE` sat in `doloot_core`'s named omissions); no unlocked-path `lknown = 1`; no Bag-of-Tricks arm; `pick_lock`/`autokey` via lazy `await import` despite the static lock.js edge.
+- **Fix:** `js/pickup.js` — restarted `do_loot_cont` in C order with `:line` cites: short-circuit `unlocktool || UNTRAP` condition (`:2121–2123`); `objects_at(ox,oy)` rescan, local null mirrors `*cobjp = 0` (both C callers re-read their own refs, so no caller effect — same as C); FORCE arm via live `u_have_forceable_weapon` + `cmdq_add_ec(CQ_CANNED, doforce)` + `game.abort_looting`; unlocked `lknown = 1`; Bag-of-Tricks arm via live `You`/`rnd`/`maybe_half_phys`/`losehp`/`makeknown` (`KILLED_BY_AN`), death path `finish_losehp_done()` then `ECMD_TIME` (C `done()` noreturn; apply.js precedent). `doloot_core` comment retires the `AUTOUNLOCK_FORCE` omission. `js/lock.js` — `u_have_forceable_weapon` exported (body already C-cited, `lock.c:660`); `js/cmd.js` — canonical `cmdq_add_ec` exported (no 6th clone). Static imports extend ALREADY-edges (pickup→lock; pickup→cmd joins the existing cmd⇄lock/pickup cycle, runtime-only use).
+- **JS:** `js/pickup.js:29–34/70–71/125–129` (imports) + `:3961–4039` (restart) + `:4232–4234` (comment); `js/lock.js:1815` (`export`); `js/cmd.js:203` (`export`).
+- **Callers:** C `:2262` (multi `pick_list` loop) → `js/pickup.js:4132` (`loot_floor_containers` PICK_ANY loop, `do_loot_cont(pick.list[i-1], i, pick.n)` + `abort_looting` check); C `:2279` (single walk) → `js/pickup.js:4144` (`do_loot_cont(o, 1, 1)` + `abort_looting` check). Reverse-checked: no other JS site calls it.
+- **Verify:** `node scripts/verify.mjs --fn do_loot_cont` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   3 changed js file(s): js/cmd.js js/lock.js js/pickup.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify do_loot_cont: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 5.7s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+VERIFY: PASS
+```
+- **Named omissions:** none new — every arm and callee live or ported in this commit (UNTRAP mechanics inside `pick_lock` stay as previously ported; `#if 0` copy omitted by C itself).
+- **Next:** pop the next Open — coverage row (`detect.c` dump_map).
+
 ## D-2575 — `uhitm.c` mhitm_ad_sedu whole-body port (uhitm steal_it + mhitm minvent theft, mhitu _u split)
 
 - **Status:** fixed (Open — coverage row `uhitm.c` mhitm_ad_sedu PARTIAL, C 123 L `uhitm.c:4623–4748` / JS 60 L mhitu-only local clone `js/mhitu.js:2186`).

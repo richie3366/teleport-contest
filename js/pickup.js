@@ -20,15 +20,16 @@ import {
     splittable, will_feel_cockatrice, feel_cockatrice, is_worn,
     not_fully_identified,
     taking_off, count_unpaid, tally_BUCX, getobj, Blind, hold_another_object, currency,
+    makeknown,
 } from './invent.js';
 import {
     nomul, check_special_room, set_uinwater, is_pool, is_lava, in_rooms, dosinkfall,
-    SURFACE_AT, switch_terrain, maybe_half_phys, waterbody_name,
+    SURFACE_AT, switch_terrain, maybe_half_phys, waterbody_name, losehp,
 } from './hack.js';
 import {
     flush_screen, pline, newsym, newsym_force, docrt, bot, flush_topl_more, canseemon,
     canspotmon, Hallucination, clear_nhwindow_message, Norep, impossible,
-    sensemon,
+    sensemon, You,
 } from './display.js';
 import { addinv } from './u_init.js';
 import {
@@ -65,7 +66,8 @@ import {
     MENU_TRADITIONAL, MENU_COMBINATION, MENU_FULL,
     SHOPBASE,
     SLT_ENCUMBER, MOD_ENCUMBER, HVY_ENCUMBER, EXT_ENCUMBER,
-    AUTOUNLOCK_APPLY_KEY,
+    AUTOUNLOCK_APPLY_KEY, AUTOUNLOCK_UNTRAP, AUTOUNLOCK_FORCE,
+    CQ_CANNED, KILLED_BY_AN,
     nothing_seems_to_happen, nothing_happens, something, engulfing_u,
     HAND, FOOT, NO_MINVENT, MM_ADJACENTOK, MM_NOMSG, ONAME_NO_FLAGS,
     ARTICLE_A, ARTICLE_THE, RLOC_NOMSG, TIMEOUT, I_SPECIAL, FAILEDUNTRAP,
@@ -119,7 +121,10 @@ import { is_ice } from './zap.js';
 import { incr_itimeout_HLevitation } from './potion.js';
 import { which_armor, extract_from_minvent } from './worn.js';
 import { unconscious } from './teleport.js';
-import { get_adjacent_loc } from './lock.js';
+import {
+    get_adjacent_loc, pick_lock, autokey, doforce, u_have_forceable_weapon,
+} from './lock.js';
+import { cmdq_add_ec } from './cmd.js';
 import { scatter } from './explode.js';
 
 /** C ref: mondata.h notake — M1_NOTAKE. */
@@ -3956,7 +3961,7 @@ export async function use_container(obj, held = false, more_containers = false) 
 }
 
 /**
- * C ref: pickup.c do_loot_cont — floor container; locked → autounlock.
+ * C ref: pickup.c do_loot_cont `:2088–2162` — one floor container for #loot.
  * cindex/ccount (1..N) → use_container more_containers (cindex < ccount).
  * @param {object} cobj
  * @param {number} [cindex=1]
@@ -3964,35 +3969,72 @@ export async function use_container(obj, held = false, more_containers = false) 
  * @returns {Promise<number>} ECMD_*
  */
 async function do_loot_cont(cobj, cindex = 1, ccount = 1) {
-    if (!cobj) return ECMD_OK;
-    if (cobj.olocked) {
-        let res = ECMD_OK;
-        if (cobj.lknown)
-            await pline(`${upstart(theArt(xname(cobj)))} is locked.`);
-        else
-            await pline(`Hmmm, ${theArt(xname(cobj))} turns out to be locked.`);
-        cobj.lknown = 1;
+    // C `:2095` — cobj = *cobjp.
+    if (!cobj) return ECMD_OK; // C `:2095–2096`
+    if (cobj.olocked) { // C `:2097`
+        let res = ECMD_OK; // C `:2098`
+        // C `:2100–2105` — the #if 0 floor-pile "It is/Hmmm locked" copy is
+        // compiled out upstream; only the live pair below runs.
+        if (cobj.lknown) // C `:2106`
+            await pline(`${upstart(theArt(xname(cobj)))} is locked.`); // C `:2107` The(xname)
+        else // C `:2108`
+            await pline(`Hmmm, ${theArt(xname(cobj))} turns out to be locked.`); // C `:2109` the(xname)
+        cobj.lknown = 1; // C `:2110`
 
         if (!game.flags) game.flags = {};
-        const au = game.flags.autounlock ?? AUTOUNLOCK_APPLY_KEY;
+        const au = game.flags.autounlock ?? AUTOUNLOCK_APPLY_KEY; // C `:2112`
         if (au) {
-            const ox = cobj.ox | 0;
-            const oy = cobj.oy | 0;
+            const ox = cobj.ox | 0; // C `:2114`
+            const oy = cobj.oy | 0; // C `:2114`
+
+            // C `:2116–2117` — u.dz = 0 (#loot isn't a move command).
             if (game.u) game.u.dz = 0;
-            // C: APPLY_KEY | UNTRAP arm; UNTRAP / FORCE deferred
-            if ((au & AUTOUNLOCK_APPLY_KEY) !== 0) {
-                const { pick_lock, autokey } = await import('./lock.js');
-                const unlocktool = autokey(true);
-                if (unlocktool) {
-                    const pl = await pick_lock(unlocktool, ox, oy, cobj);
-                    if (pl) res = ECMD_TIME;
-                    return res;
+            // C `:2118–2123` — APPLY_KEY arm sets up unlocktool (kept even
+            // when untrap runs first); UNTRAP arm passes a null tool.
+            let unlocktool = 0;
+            if ((au & AUTOUNLOCK_APPLY_KEY) !== 0) unlocktool = autokey(true);
+            if (unlocktool || (au & AUTOUNLOCK_UNTRAP) !== 0) {
+                // C `:2124` — ox/oy passed to avoid a direction prompt.
+                if (await pick_lock(unlocktool, ox, oy, cobj)) res = ECMD_TIME; // C `:2125–2126`
+                // C `:2127–2134` — untrap/unlock may trigger a trap that
+                // destroys cobj; rescan the floor pile to find out.
+                let stillthere = false;
+                for (let otmp = objects_at(ox, oy); otmp; otmp = otmp.nexthere) {
+                    if (otmp === cobj) { stillthere = true; break; }
                 }
+                if (!stillthere) cobj = null; // C `:2133–2134` — *cobjp = 0
+                return res; // C `:2135`
+            }
+            // C `:2137–2139` — single box + forceable weapon queues #force
+            // (res is still ECMD_OK here; the check mirrors C order).
+            if ((au & AUTOUNLOCK_FORCE) !== 0
+                && res !== ECMD_TIME
+                && ccount === 1 && u_have_forceable_weapon()) {
+                // C `:2140–2141` — doforce asks for confirmation.
+                cmdq_add_ec(CQ_CANNED, doforce); // C `:2142`
+                game.abort_looting = true; // C `:2143`
             }
         }
-        return res;
+        return res; // C `:2146`
     }
-    // C: use_container(cobjp, FALSE, (boolean) (cindex < ccount))
+    cobj.lknown = 1; // C `:2148` — floor container needs no update_inventory()
+
+    if ((cobj.otyp | 0) === BAG_OF_TRICKS) { // C `:2150`
+        await You(`carefully open ${theArt(xname(cobj))}...`); // C `:2153`
+        await pline('It develops a huge set of teeth and bites you!'); // C `:2154`
+        const tmp = rnd(10); // C `:2155`
+        losehp(maybe_half_phys(tmp), 'carnivorous bag', KILLED_BY_AN); // C `:2156`
+        if (game._losehp_needs_done || game.program_state?.gameover) {
+            // C done() is noreturn; ECMD_TIME is this arm's value.
+            const { finish_losehp_done } = await import('./end.js');
+            await finish_losehp_done();
+            return ECMD_TIME;
+        }
+        makeknown(BAG_OF_TRICKS); // C `:2157`
+        game.abort_looting = true; // C `:2158`
+        return ECMD_TIME; // C `:2159`
+    }
+    // C `:2161` — use_container(cobjp, FALSE, (cindex < ccount)).
     return use_container(cobj, false, cindex < ccount);
 }
 
@@ -4187,8 +4229,9 @@ export async function doloot() {
 
 /**
  * C ref: pickup.c doloot_core `:2178–2346` — lootcont then lootmon.
- * Named omissions: Confusion reverse_loot; AUTOUNLOCK_FORCE;
+ * Named omissions: Confusion reverse_loot;
  * PICK_ANY @ invert / pages / >26 containers.
+ * (AUTOUNLOCK_FORCE lives in do_loot_cont `:2137–2144`, wired.)
  */
 async function doloot_core() {
     const u = game.u;
