@@ -1,5 +1,33 @@
 # Divergence log
 
+## D-2551 — `symbols.c` parsesymbols producer [campaign 5/7] (coverage MISSING → live; comma recursion + S_/G_ gates in C order; cfgfiles + options callers wired, customization path named)
+
+- **Status:** fixed (Open coverage row `symbols.c` parsesymbols producer [campaign 5/7]; row cites no review — no stamp).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify parsesymbols`: no corpus session blocked at baseline — #saveoptions producer, live on RC SYMBOLS lines).
+- **C locus:** `nethack-c/upstream/src/symbols.c:773–848` (`parsesymbols`); arms: unquoted comma/colon scan `:781–800` (quoted/escaped skip, `!*postch` break), comma cut + tail-first recursion `:804–807`, `S_sample:string` split `:810–819` (colon preferred, else first `=`), mungspaces `:820–822`, `match_sym` `:823`, G_ gate `:824–826`, reject `:829`, range gate `:830`, H_UTF8/`u+` `:833–835`, Snprintf + custom-map entries `:837`, `sym_val` + ov updates `:839–844`, `savedsym_add` `:847`, TRUE `:848`. Callees: `match_sym` `:852–901` (G_ never-match `:871–873`, cut `:876–882`, main run `:884–888`, alternates `:889–899`), `sym_val` (`options.c:9385–9426`, `escapes` `:6896–6966`), `match_glyph` (`glyphs.c:458`), `glyphrep_to_custom_map_entries` (`glyphs.c:112`), `update_ov_primary/rogue_symset` (`:295–304`), `savedsym_add` (`:739–754` + find `:726–737`), `savedsym_free` (`:712–724`, extern.h:3178). Callers: `cfgfiles.c:1193` ROGUESET (body `:1190–1199`), `cfgfiles.c:1204` PRIMARYSET (body `:1201–1211`), `options.c:663` S_ fallback (negation stripped `:540–543`).
+- **JS was:** no symbol anywhere (brief: NOT FOUND incl. `js/generated/`); parent `savedSymbols`/`savedsym_strbuf` (D-2544) always empty; seed2600's `SYMBOLS=S_pool:~,S_fountain:{` RC line parsed-and-dropped by `parseNethackrc`.
+- **Fix:** `js/options.js` — `escapes` (file-local, mirrors staticfn; `& 0xff` for the C `(char)` truncation, hexdd pairs from decl.c `:74`), `sym_val` (exported; QBUFSZ slice, isspace set, quote arms), `match_sym` (exported; returns { range, idx, name } — no symparse struct, cf. display.js idx-based `update_ov_*`; `len === name.length` + ASCII-fold whole-name hit ≡ the `len >= strlen` + strncmpi pair), `savedsym_add` (file-local onto live `savedSymbols`, prepend ≡ C), `savedsym_free` (exported extern, registry clear ≡ chain free), `parsesymbols` + `parsesymbolsSeg` (exported extern; shared char array — not substrings — because C's tail recursion cuts cells the outer frame's strval still spans). `game.gs?.symset[]?.handling` read for the H_UTF8 arm (game store, like the display readers); `lowc` (`strval[0]`) live from hacklib.js (new export mirroring `hacklib.c:83`, next to `highc`). G_ / H_UTF8 / `u+` arms call bare `match_glyph` / `glyphrep_to_custom_map_entries` (named omits, never stubbed). `scripts/extract-glyphsyms.py` now emits `[range, idx, name]` (PCHAR sym value; OBJCLASS +105; MONSYM +123; OTH 190+; CONTROL literals; density asserts) and `js/generated/glyphsyms_data.js` regenerated (196 entries, names byte-identical); `js/glyphs.js` name readers moved `[1]`→`[2]` (5 sites + 1 destructure — parse_id shape preserved). `js/options.js:1780` local `mungspaces` clone deleted in favor of the live `getline.js` import (brief: 8 clones, import-don't-clone).
+- **JS:** `js/options.js` (port block `:3757–4040`, 3 caller arms, 5 extended imports, 1 clone deleted); `js/generated/glyphsyms_data.js` (regen); `js/glyphs.js` (6 index fixes); `js/hacklib.js` (`lowc` export); `scripts/extract-glyphsyms.py` (idx emission); `scripts/parsesymbols.test.mjs` (new, 9 its).
+- **Callers:** `cfgfiles.c:1193` → `js/options.js:1050` ROGUESYMBOLS arm; `cfgfiles.c:1204` → `js/options.js:1059` SYMBOLS arm (both: result only selects `continue` — `switch_symbols` application + `config_error_add` sink named, unported); `options.c:663` → `js/options.js:1169` colon-arm S_ fallback (case-sensitive `startsWith` ≡ strstr, `check_gold_symbol` live) + `js/options.js:1227` boolean-arm pure call (valueless ⇒ always FALSE, pre-write check — C call order kept). No call from a site C never calls from. seed2600's live SYMBOLS line now parses (ov slots 38/37 + registry) with no screen/RNG movement — full 44/44 proves it.
+- **Verify:** `node scripts/verify.mjs --fn parsesymbols` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   4 changed js file(s): js/generated/glyphsyms_data.js js/glyphs.js js/hacklib.js js/options.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify parsesymbols: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 5.6s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing (auto: shared file changed)
+
+VERIFY: PASS
+```
+- **Durable test:** `scripts/parsesymbols.test.mjs` (node:test per repo convention, 9 its: PCHAR row + C idx, alternates→canonical, G_/unknown/trailing-space rejects, CONTROL row, sym_val quote/escape arms, comma-list ov slots + registry order, ROGUESET routing, valueless/unknown reject, upsert) — `node --test` 9/9 PASS. Throwaway probe in /tmp (not committed) confirmed the same shapes pre-verify.
+- **Named omissions:** `match_glyph` (`glyphs.c:458`) + `glyphrep_to_custom_map_entries` (`glyphs.c:112`) customization-write subsystem (G_ names, H_UTF8 handling, `u+` values); `switch_symbols` application step (`symbols.c:253`) at all three wired callers (JS reads ov_* lazily at render; `reset_glyphmap` stays untouched per the fortress guard); `config_error_add` (`cfgfiles.c:1865`) + `config_unmatched_ignored` error sink (no JS sink; parse continues like C); `savedsym_free`'s C caller `freedynamicdata` (save-freeing teardown, NOTES guard).
+- **Next:** `botl.c` all_options_statushilites [campaign 6/7] (queue head after this pop).
+
 ## D-2550 — `cmd.c` get_changed_key_binds [campaign 4/7] (coverage MISSING → live; userbind-delta + unbound-defaults in C order; sbuf caller wired, NULL display arm named)
 
 - **Status:** fixed (Open coverage row `cmd.c` get_changed_key_binds [campaign 4/7]; row cites no review — no stamp).

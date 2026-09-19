@@ -96,7 +96,9 @@ import {
     MSGTYP_STOP,
     AUTOCOMPLETE,
     AUTOCOMP_ADJ,
+    PRIMARYSET,
     ROGUESET,
+    H_UTF8,
     HL_NONE,
     HL_BOLD,
     HL_DIM,
@@ -111,10 +113,10 @@ import {
 import { game } from './gstate.js';
 import { sanitize_name } from './bones.js';
 import { rnd } from './rng.js';
-import { str_end_is, str_start_is, highc, strstri, strsubst, strNsubst } from './hacklib.js';
+import { str_end_is, str_start_is, highc, lowc, strstri, strsubst, strNsubst } from './hacklib.js';
 import { name_to_mon } from './mondata.js';
 import { nhgetch } from './input.js';
-import { flush_screen, pline, docrt, check_gold_symbol, clear_committed_status, set_bot_disabled, tty_wait_synch } from './display.js';
+import { flush_screen, pline, docrt, check_gold_symbol, clear_committed_status, set_bot_disabled, tty_wait_synch, update_ov_primary_symset, update_ov_rogue_symset } from './display.js';
 import { paint_corner_nhw_menu, dismiss_nhw_menu, collect_menu_gacc, process_menu_search, toggle_menu_curr, menu_digit_is_gacc, reassign, update_inventory, invlet_constant, perm_invent_toggled, select_menu_pick_none } from './invent.js';
 import {
     ATR_INVERSE,
@@ -130,8 +132,9 @@ import {
     objectNames, objectNameStrs, objects,
 } from './objects.js';
 import { EXTCMDLIST, INTERNALCMD } from './generated/extcmdlist_data.js';
+import { LOADSYMS, SYM_CONTROL } from './generated/glyphsyms_data.js';
 import { yyyymmddhhmmss } from './calendar.js';
-import { getlin } from './getline.js';
+import { getlin, mungspaces } from './getline.js';
 import { makesingular, fruit_from_name, makeplural } from './objnam.js';
 import { clr2colorname } from './artifact.js';
 import { opt_next_cond } from './botl.js';
@@ -1037,6 +1040,26 @@ export function parseNethackrc(rc) {
             continue;
         }
 
+        // C cfgfiles.c cnf_line_ROGUESYMBOLS `:1190–1199` — top-level
+        // ROGUESYMBOLS=. C TRUE→switch_symbols (named: no JS apply step,
+        // ov_* tables are read lazily at render) / FALSE→config_error_add
+        // (named: no JS config-error sink); game-state effect is fully in
+        // parsesymbols, so the result only selects `continue`.
+        const rsymMatch = line.match(/^ROGUESYMBOLS=(.+)/i);
+        if (rsymMatch) {
+            parsesymbols(rsymMatch[1], ROGUESET);
+            continue;
+        }
+
+        // C cfgfiles.c cnf_line_SYMBOLS `:1201–1211` — top-level SYMBOLS=,
+        // same shape as ROGUESYMBOLS (PRIMARYSET; the unmatched-ignored
+        // error gate is likewise named, not wired).
+        const symbolsMatch = line.match(/^SYMBOLS=(.+)/i);
+        if (symbolsMatch) {
+            parsesymbols(symbolsMatch[1], PRIMARYSET);
+            continue;
+        }
+
         const optMatch = line.match(/^OPTIONS=(.+)/i);
         if (!optMatch) continue;
 
@@ -1143,6 +1166,15 @@ export function parseNethackrc(rc) {
                         do_set, negated, val, null, result.iflags, true, null,
                     );
                 }
+                else if (stripped.startsWith('S_')
+                    && parsesymbols(stripped, PRIMARYSET)) {
+                    // C options.c `:663–667` !got_match S_ fallback (C strips
+                    // '!'/'no' at `:540–543`, so negation-free `stripped` is
+                    // the operand; startsWith is case-sensitive like strstr).
+                    // switch_symbols(TRUE) application step named (no JS
+                    // apply step; ov_* tables are read lazily at render).
+                    check_gold_symbol();
+                }
                 else result.flags[key] = val;
             } else {
                 // Boolean flag
@@ -1188,6 +1220,11 @@ export function parseNethackrc(rc) {
                         do_set, negated, '', null, result.iflags, true, null,
                     );
                 } else {
+                    // C options.c `:663` S_ gate on unmatched valueless
+                    // options: without ':'/'=' parsesymbols always returns
+                    // FALSE (pure — the strval check precedes every write),
+                    // kept for C call order.
+                    if (stripped.startsWith('S_')) parsesymbols(stripped, PRIMARYSET);
                     const eqIdx = stripped.indexOf('=');
                     if (eqIdx >= 0
                         && stripped.slice(0, eqIdx).trim().toLowerCase()
@@ -1773,11 +1810,6 @@ export async function handler_menu_colors() {
             // :6495–6496 pick_cnt >= 0 → again
         }
     }
-}
-
-/** C ref: hacklib.c mungspaces — trim ends, compress internal spaces. */
-function mungspaces(s) {
-    return String(s || '').trim().replace(/\s+/g, ' ');
 }
 
 // sanitize_name: bones.c — imported from bones.js (read lazily in bodies).
@@ -3697,8 +3729,8 @@ export function all_options_autocomplete(sbuf) {
 }
 
 /* C saved_symbols chain (symbols.c savedsym_strbuf `:757–769`): entries
- * { which_set, name, val } in C prepend order. No producer yet (SYMBOLS=
- * parsesymbols unported) so this is always empty; the producer row fills it. */
+ * { which_set, name, val } in C prepend order. Producer is parsesymbols
+ * below ([campaign 5/7]); empty until an RC SYMBOLS=/S_ line parses. */
 const savedSymbols = [];
 
 /**
@@ -3711,6 +3743,300 @@ export function savedsym_strbuf(sbuf) {
             sbuf, `${tmp.which_set === ROGUESET ? 'ROGUE' : ''}SYMBOLS=${tmp.name}:${tmp.val}\n`
         );
     }
+}
+
+/**
+ * C ref: options.c escapes `:6896–6966` (staticfn) — in-place C-escape
+ * decoder (`\n \t \b \r \\`, `^X`, decimal, `\o` octal, `\x` hex,
+ * `\M` meta bit); result never longer than input. JS strings are
+ * immutable, so this takes the input and returns the decoded string;
+ * the C `*tp++ = (char) cval` truncation is `& 0xff` (same low byte as
+ * display.js update_ov_* use for nhsym values). hexdd pairs from
+ * decl.c `:74`.
+ */
+function escapes(cp) {
+    const HEXDD = '00112233445566778899aAbBcCdDeEfF';
+    let tp = '';
+    let i = 0;
+    while (i < cp.length) {
+        // C `:6910–6912` \M must be followed by something for meta conv.
+        let meta = false;
+        if (cp[i] === '\\' && (cp[i + 1] === 'm' || cp[i + 1] === 'M')
+            && i + 2 < cp.length) {
+            meta = true;
+            i += 2;
+        }
+        let cval = 0, dcount = 0;
+        const nx = i + 1 < cp.length ? cp[i + 1] : '';
+        if ((cp[i] !== '\\' && cp[i] !== '^') || nx === '') {
+            // C `:6915–6916` simple character, or nothing left to escape.
+            cval = cp.charCodeAt(i);
+            i++;
+        } else if (cp[i] === '^') {
+            // C `:6917–6919` control-character syntax.
+            cval = cp.charCodeAt(i + 1) & 0x1f;
+            i += 2;
+        } else if (nx >= '0' && nx <= '9') {
+            // C `:6923–6926` decimal, up to 3 digits past the first.
+            i++;
+            for (;;) {
+                cval = cval * 10 + (cp.charCodeAt(i) - 48);
+                i++;
+                if (!(i < cp.length && cp[i] >= '0' && cp[i] <= '9'
+                    && ++dcount < 3)) break;
+            }
+        } else if ((nx === 'o' || nx === 'O') && i + 2 < cp.length
+            && cp[i + 2] >= '0' && cp[i + 2] <= '7') {
+            // C `:6928–6931` \o octal, up to 3 digits past the first.
+            i += 2;
+            for (;;) {
+                cval = cval * 8 + (cp.charCodeAt(i) - 48);
+                i++;
+                if (!(i < cp.length && cp[i] >= '0' && cp[i] <= '7'
+                    && ++dcount < 3)) break;
+            }
+        } else if ((nx === 'x' || nx === 'X') && i + 2 < cp.length
+            && HEXDD.indexOf(cp[i + 2]) !== -1) {
+            // C `:6933–6937` \x hex, up to 2 digits past the first
+            // ((dp - hexdd) / 2 truncates the pair index to the value).
+            i += 2;
+            for (;;) {
+                cval = cval * 16 + Math.trunc(HEXDD.indexOf(cp[i]) / 2);
+                i++;
+                if (i >= cp.length) break;
+                if (HEXDD.indexOf(cp[i]) === -1) break;
+                if (++dcount >= 2) break;
+            }
+        } else {
+            // C `:6939–6959` C-style character escapes, default = the char.
+            i++;
+            const e = cp[i];
+            if (e === '\\') cval = 92;
+            else if (e === 'n') cval = 10;
+            else if (e === 't') cval = 9;
+            else if (e === 'b') cval = 8;
+            else if (e === 'r') cval = 13;
+            else cval = cp.charCodeAt(i);
+            i++;
+        }
+        if (meta) cval |= 0x80; // C `:6961–6962`
+        tp += String.fromCharCode(cval & 0xff); // C `:6963`
+    }
+    return tp;
+}
+
+/**
+ * C ref: options.c sym_val `:9385–9426` — one display byte from a SYMBOLS
+ * value: empty/single char (`:9391–9394`, whitespace-only stays empty via
+ * C isspace), `'x'` / `'\\'` quotes (`:9395–9406`), else strip one closing
+ * quote and run escapes (`:9409–9417`); bare values go straight through
+ * escapes (`:9419–9423`). QBUFSZ truncation (`:9412`/`:9420`, const.js 128)
+ * via slice. Returns `(int) *buf (`:9425`): 0 when empty.
+ */
+export function sym_val(strval) {
+    strval = String(strval ?? '');
+    let buf = '';
+    if (strval.length < 2) {
+        if (strval.length && !' \t\n\v\f\r'.includes(strval[0])) buf = strval[0];
+    } else if (strval[0] === "'") {
+        if (strval.length === 3 && strval[2] === "'") {
+            buf = strval[1];
+        } else if (strval.length === 4 && strval[1] === '\\' && strval[3] === "'"
+            && '\'"\\'.includes(strval[2])) {
+            buf = strval[2];
+        } else {
+            const tmp = strval.slice(1, 1 + QBUFSZ - 1);
+            const p = tmp.lastIndexOf("'");
+            buf = p !== -1 ? escapes(tmp.slice(0, p)) : '';
+        }
+    } else {
+        buf = escapes(strval.slice(0, QBUFSZ - 1));
+    }
+    return buf.length ? buf.charCodeAt(0) : 0;
+}
+
+/* C symbols.c match_sym `:853–867` alternate spellings (phone key/button
+ * layout for the explosion names). */
+const SYM_ALTERNATES = [
+    ['S_armour', 'S_armor'],
+    ['S_explode1', 'S_expl_tl'],
+    ['S_explode2', 'S_expl_tc'], ['S_explode3', 'S_expl_tr'],
+    ['S_explode4', 'S_expl_ml'], ['S_explode5', 'S_expl_mc'],
+    ['S_explode6', 'S_expl_mr'], ['S_explode7', 'S_expl_bl'],
+    ['S_explode8', 'S_expl_bc'], ['S_explode9', 'S_expl_br'],
+];
+
+/* C strncmpi on NUL-terminated strings, ASCII-only fold like C tolower.
+ * match_sym calls it with len = cut position; len past the name compares
+ * buf chars against the name's NUL, so a match needs len === name length
+ * plus a case-insensitive prefix hit (the `len >= strlen` + strncmpi pair
+ * at `:885`/`:890`). */
+function symNameCiEq(a, b) {
+    if (a.length !== b.length) return false;
+    for (let i = 0; i < a.length; i++) {
+        let ca = a.charCodeAt(i), cb = b.charCodeAt(i);
+        if (ca >= 65 && ca <= 90) ca |= 0x20;
+        if (cb >= 65 && cb <= 90) cb |= 0x20;
+        if (ca !== cb) return false;
+    }
+    return true;
+}
+
+/**
+ * C ref: symbols.c match_sym `:852–901` — resolve a config symbol name to
+ * its loadsyms row. G_ lines never match (`:871–873`); a trailing space
+ * before the cut is skipped (`:878–882`); the main run is a
+ * case-insensitive whole-name hit (`:884–888`), then the alternates table
+ * with an exact (`strcmp`) canonical re-resolve (`:889–899`). Returns
+ * { range, idx, name } — no symparse struct in JS (display.js
+ * update_ov_* take idx directly); null when nothing matches (`:900`).
+ * idx comes from the generated LOADSYMS triple (checked-in extractor).
+ */
+export function match_sym(buf) {
+    buf = String(buf ?? '');
+    // C `:871–873` G_ lines will never match here.
+    if ((buf[0] === 'G' || buf[0] === 'g') && buf[1] === '_') return null;
+    const p = buf.indexOf(':');
+    const q = buf.indexOf('=');
+    let cut = p;
+    if (p === -1 || (q !== -1 && q < p)) cut = q; // C `:876`
+    let len = buf.length;
+    if (cut !== -1) {
+        if (cut > 0 && buf[cut - 1] === ' ') cut--; // C `:880–881`
+        len = cut; // C `:882`
+    }
+    // C `:884–888` while (sp->range); array length terminates (no fencepost
+    // in LOADSYMS, per the generated header).
+    for (let i = 0; i < LOADSYMS.length && LOADSYMS[i][0]; i++) {
+        const name = LOADSYMS[i][2];
+        if (len === name.length && symNameCiEq(buf.slice(0, len), name)) {
+            return { range: LOADSYMS[i][0], idx: LOADSYMS[i][1], name };
+        }
+    }
+    // C `:889–899` alternates, then exact strcmp on the canonical name.
+    for (const [altnm, nm] of SYM_ALTERNATES) {
+        if (len === altnm.length && symNameCiEq(buf.slice(0, len), altnm)) {
+            for (let i = 0; i < LOADSYMS.length && LOADSYMS[i][0]; i++) {
+                if (nm === LOADSYMS[i][2]) {
+                    return {
+                        range: LOADSYMS[i][0], idx: LOADSYMS[i][1],
+                        name: LOADSYMS[i][2],
+                    };
+                }
+            }
+        }
+    }
+    return null;
+}
+
+/**
+ * C ref: symbols.c savedsym_free `:712–724` — free the whole saved_symbols
+ * chain (extern.h:3178). JS is GC'd: clearing the live savedSymbols
+ * registry is the equivalent effect. Exported for the RC-parse tests.
+ */
+export function savedsym_free() {
+    savedSymbols.length = 0;
+}
+
+/**
+ * C ref: symbols.c savedsym_add `:739–754` (staticfn) + savedsym_find
+ * `:726–737` — upsert { name, val } for which_set, prepending new nodes
+ * (C `tmp->next = saved_symbols`). Operates on the live savedSymbols
+ * registry the [campaign 1/7] parent added for savedsym_strbuf.
+ */
+function savedsym_add(name, val, which_set) {
+    const found = savedSymbols.find(
+        (e) => e.which_set === which_set && e.name === name
+    );
+    if (found) {
+        found.val = val; // C: free + dupstr
+    } else {
+        savedSymbols.unshift({ which_set, name, val }); // C: prepend
+    }
+}
+
+/* C symbols.c parsesymbols `:773–848` recursion core. C mutates one char
+ * buffer across the comma recursion (`*comma = '\0'`, then the tail parse
+ * may cut deeper cells the outer frame's strval still spans), so the
+ * buffer is a shared char array here, not substrings; NUL (`'\0'`) marks
+ * cut cells and `at()` reads past-end as NUL like C pointer reads. */
+function parsesymbolsSeg(buf, start, which_set) {
+    const NUL = '\0';
+    const at = (i) => (i < buf.length ? buf[i] : NUL);
+    // C `:781–800` first unquoted comma/colon scan (quoted ','/':' skipped
+    // at `:787–793`; `!*postch` break at `:786`).
+    let firstComma = -1, firstColon = -1;
+    for (let ch = start + 1; at(ch) !== NUL; ch++) {
+        if (at(ch + 1) === NUL) break;
+        if (at(ch) === ',') {
+            if (buf[ch - 1] === "'" && at(ch + 1) === "'") continue;
+            if (buf[ch - 1] === '\\') continue;
+        }
+        if (at(ch) === ':') {
+            if (buf[ch - 1] === "'" && at(ch + 1) === "'") continue;
+        }
+        if (at(ch) === ',' && firstComma === -1) firstComma = ch;
+        if (at(ch) === ':' && firstColon === -1) firstColon = ch;
+    }
+    if (firstComma !== -1) {
+        // C `:804–807` cut + recurse on the tail first.
+        buf[firstComma] = NUL;
+        if (!parsesymbolsSeg(buf, firstComma + 1, which_set)) return false;
+    }
+    // C `:810–819` S_sample:string — colon preferred, else first '='.
+    let svIdx = firstColon;
+    if (svIdx === -1) {
+        svIdx = -1;
+        for (let i = start; at(i) !== NUL; i++) {
+            if (at(i) === '=') { svIdx = i; break; }
+        }
+    }
+    if (svIdx === -1) return false;
+    buf[svIdx] = NUL;
+    const readSeg = (from) => {
+        let s = '';
+        for (let i = from; at(i) !== NUL; i++) s += at(i);
+        return s;
+    };
+    const symname = mungspaces(readSeg(start)); // C `:820–821`
+    const strval = mungspaces(readSeg(svIdx + 1)); // C `:822`
+    const symp = match_sym(symname); // C `:823`
+    let is_glyph = false;
+    if (!symp && symname[0] === 'G' && symname[1] === '_') { // C `:824–826`
+        is_glyph = match_glyph(symname); // bare: glyphs.c:458, named omit
+    }
+    if (!symp && !is_glyph) return false; // C `:829`
+    if (symp) { // C `:830`
+        if (symp.range && symp.range !== SYM_CONTROL) { // C `:830`
+            if (game.gs?.symset?.[which_set]?.handling === H_UTF8 // C `:833–835`
+                || (lowc(strval[0]) === 'u' && strval[1] === '+')) {
+                // C `:837` Snprintf + custom-map entries (bare: glyphs.c:112,
+                // named omit — the customization-write subsystem).
+                glyphrep_to_custom_map_entries(`${symname}:${strval}`);
+            } else { // C `:839–844`
+                const val = sym_val(strval);
+                if (which_set === ROGUESET) update_ov_rogue_symset(symp.idx, val);
+                else update_ov_primary_symset(symp.idx, val);
+            }
+        }
+    }
+    savedsym_add(symname, strval, which_set); // C `:847`
+    return true; // C `:848`
+}
+
+/**
+ * C ref: symbols.c parsesymbols `:773–848` [campaign 5/7] — parse one
+ * SYMBOLS/ROGUESYMBOLS value (or OPTIONS S_ item) into the override tables
+ * + the savedSymbols registry, in C order. Exported (C extern,
+ * extern.h:3180). Named omissions (map): match_glyph + the
+ * glyphrep_to_custom_map_entries customization path (G_ names, H_UTF8
+ * handling, u+ values) and the switch_symbols application step at the
+ * wired callers (JS reads ov_* lazily at render; reset_glyphmap stays
+ * untouched per the fortress guard).
+ */
+export function parsesymbols(opts, which_set) {
+    const buf = [...String(opts ?? '')];
+    return parsesymbolsSeg(buf, 0, which_set);
 }
 
 /**

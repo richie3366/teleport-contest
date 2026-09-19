@@ -117,6 +117,15 @@ function ascii_lowc_ch(code) {
     return (code >= 65 && code <= 90) ? (code | 0x20) : code;
 }
 
+/** C hacklib.c lowc — ASCII A-Z |= 040. */
+export function lowc(c) {
+    if (c == null || c === '') return c;
+    const ch = typeof c === 'string' ? c.charAt(0) : String.fromCharCode(c);
+    const code = ch.charCodeAt(0);
+    if (code >= 65 && code <= 90) return String.fromCharCode(code | 0x20);
+    return ch;
+}
+
 /** C hacklib.c highc — ASCII a-z → A-Z. */
 export function highc(c) {
     if (c == null || c === '') return c;

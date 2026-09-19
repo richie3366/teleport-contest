@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `cmd.c` get_changed_key_binds [campaign 4/7] — C `cmd.c:2235–2287` absent from js/ (Cmd_bind userbind-delta shape differs from dokeylist map; named omit of the [campaign 1/7] parent, unconditional call there). Port in C order incl. sbuf-null display arm or name it. Verify `node scripts/verify.mjs --fn get_changed_key_binds` (reach regression must be 0). **Addressed:** D-2550
+- [x] `symbols.c` parsesymbols producer [campaign 5/7] — C `symbols.c:773–848` absent from js/ (savedSymbols registry + savedsym_strbuf live in the [campaign 1/7] parent, always empty). Port parsesymbols in C order + wire cfgfiles `:1193`/`:1204` + options `:663` callers. Verify `node scripts/verify.mjs --fn parsesymbols` (reach regression must be 0). **Addressed:** D-2551
+
+
+- [x] `cmd.c` get_changed_key_binds [campaign 4/7] — C `cmd.c:2235–2287` absent from js/ (Cmd_bind userbind-delta shape differs from dokeylist map; named omit of the [campaign 1/7] parent, unconditional call there). Port in C order incl. sbuf-null display arm or name it. Verify `node scripts/verify.mjs --fn get_changed_key_binds` (reach regression must be 0). **Addressed:** D-2550 `70089ac6`
 
 
 - [x] `options.c` all_options_conds [campaign 3/7] — C `options.c:9556–9591` absent from js/options.js (no opt_next_cond/cond store; named omit of the [campaign 1/7] parent, guarded by opt_set_in_config[215] — unix OPTCOUNT is 217, the 248 count is the cross-platform textual superset). Port opt_next_cond + all_options_conds in C order. Verify `node scripts/verify.mjs --fn all_options_conds` (reach regression must be 0). **Addressed:** D-2549 `c9884cd8`

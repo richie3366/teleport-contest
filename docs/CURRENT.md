@@ -46,7 +46,7 @@ judge 07:08Z, ~D-2534, +105 pts vs last audit): the corpus still does
 not predict the judge.
 **Corpus fortress** (re-scored 2026-09-19 audit 1498–1505): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — +0 / −0
-in the D-2539…D-2550 window (all eight were zero-block coverage rows;
+in the D-2539…D-2551 window (all eight were zero-block coverage rows;
 per-SHA `--reach-all` re-runs REACH-OK — ston 14/14, elec 35/35 real
 reach, rest smoke — 0 regressed).
 Reviews 1225–1505: 249 ACCEPT, 10 WITH-DEBT, 1 DEBT, 16 QUALITY-RISK (Must-fix: 1 — 1503 all_options_strbuf break/continue).
@@ -100,10 +100,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `cmd.c` get_changed_key_binds [campaign 4/7] — C `cmd.c:2235–2287` absent from js/ (Cmd_bind userbind-delta shape differs from dokeylist map; named omit of the [campaign 1/7] parent, unconditional call there). Port in C order incl. sbuf-null display arm or name it. Verify `node scripts/verify.mjs --fn get_changed_key_binds` (reach regression must be 0).
+**Next cluster:** `symbols.c` parsesymbols producer [campaign 5/7] — C `symbols.c:773–848` absent from js/ (savedSymbols registry + savedsym_strbuf live in the [campaign 1/7] parent, always empty). Port parsesymbols in C order + wire cfgfiles `:1193`/`:1204` + options `:663` callers. Verify `node scripts/verify.mjs --fn parsesymbols` (reach regression must be 0).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2550 (index).**
+**Keep D-0845…D-2551 (index).**
 <!-- recent:begin -->
+**D-2551** `nethack-c/upstream/src/symbols.c:773–848` (`parsesymbols`); arms: unquoted comma/colon sc — `js/options.js` — `escapes` (file-local, mirrors staticfn; `& 0xff` for the C `(char)` truncation, hexdd pairs from decl.c `:74`), `sym_val` (exported; QBUFSZ slice, isspace set, quote arms), `match_sym` (exported; retur
 **D-2550** `nethack-c/upstream/src/cmd.c:2235–2287` (`get_changed_key_binds`); arms `:2244–2246` wind — `js/cmd.js` — exported `get_changed_key_binds(sbuf)` in C order with `:line` cites.
 **D-2549** `nethack-c/upstream/src/options.c:9551–9591` (`all_options_conds`, staticfn `:9555`); arms — `js/botl.js:676` — exported `opt_next_cond` in C order with `:line` cites, reading the live `condtests` table + file-local OPT_IN/OPT_OUT; C outbuf+boolean folded into the return (null = C FALSE, '' = default, token othe
 **D-2548** `nethack-c/upstream/src/options.c:8481–8505` (`get_option_value`); arms `:8489–8492` BoolO — `js/options.js` — (1) count correction: the unix tty build compiles **217** rows, not 248 (cc -E with config.h + PREV_MSGS=1 per options.c `:23–27`; compile-time asserts OPTCOUNT==217, pfx_cond_==215 — /tmp probes, not c
@@ -111,11 +112,10 @@ revisits the picker.
 **D-2546** `nethack-c/upstream/src/polyself.c:199–268` (`polyman`, staticfn); arms `:200–204` stickin — `js/polyself.js` — restarted `polyman` (stays file-local, mirrors staticfn) in C order with `:line` cites; new exported `ugenocided()` mirroring same-file C `:2265` (`game.mvitals` G_GENOD on urole/urace mnum); urgent_pl
 **D-2545** `nethack-c/upstream/src/objnam.c:3966–4175` (`readobjnam_preparse`, staticfn); loop `:3971 — `js/readobjnam.js` — restarted as file-local `readobjnam_preparse` (mirrors staticfn) in C order with `:line` cites: split moist/wet branches keep C check order and RNG (`wet` → `3 + rn2(3)`, `moist` → `rnd(2)`); gender 
 **D-2544** `nethack-c/upstream/src/options.c:9678–9748` (`all_options_strbuf`); arms `:9686–9689` hea — `js/options.js` — ported the whole body in C order with `:line` cites; `strbuf_init/append/reserve/empty` (`:3083–3115`, plain-string booking, NULL-empty mirrors C); `allopt`/`opt_set_in_config` empty registries + `PFX_C
-**D-2543** `nethack-c/upstream/src/rumors.c:829–935` (`init_CapMons`); arms `:834–836` sanity free, ` — `js/objnam.js` — restarted `init_CapMons` in C order: `:833` embed-as-opened-file (`bogonfile` null when the embed is missing, guarding the `:871`/`:906–907` arms); `:834–836` sanity `free_CapMons()`; `:841` pass 1-count
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2550; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2551; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
