@@ -3102,8 +3102,8 @@ export function oclass_to_sym(oclass) {
 }
 
 /* ===== C ref: options.c all_options_strbuf() family `:9678–9748` [campaign 1/7] =====
- * #saveoptions writer (cfgfiles.c do_write_config_file `:165–211`, not yet
- * ported — the only C caller, named omission below). Live in this commit:
+ * #saveoptions writer (cfgfiles.c do_write_config_file `:169–210`, live in
+ * js/cfgfiles.js [7/7] — the only C caller). Live in this commit:
  * strbuf_* (strutil.c) + msgtypes / menucolors / apes / autocomplete arms
  * (backing stores live in this file / game bags / generated EXTCMDLIST).
  * Named omissions ship as campaign rows (map): get_option_value + the
@@ -4115,7 +4115,7 @@ export function all_options_statushilites(sbuf) {
  * all_options_statushilites above); WIZKIT tail (`:9744–9747`, game.wizkit live per
  * files.js fopen_wizkit_file). Buffer note: C Snprintf(tmp, sizeof-1)+Strcat
  * "guaranteed to fit" — plain concat is exact in JS.
- * Only C caller cfgfiles.c do_write_config_file `:200` (named omission).
+ * Only C caller cfgfiles.c do_write_config_file `:200` (live js/cfgfiles.js [7/7]).
  */
 export function all_options_strbuf(sbuf) {
     strbuf_init(sbuf);

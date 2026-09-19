@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-2553 — `cfgfiles.c` do_write_config_file [campaign 7/7] (coverage MISSING → live; overwrite-gated VFS write; final saveoptions-family activation)
+
+- **Status:** fixed (Open coverage row `cfgfiles.c` do_write_config_file [campaign 7/7]; row cites no review — parent review 1503 already stamped **Addressed:** D-2547, no new stamp).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify do_write_config_file`: no corpus session blocked at baseline — #saveoptions path, unreachable until now).
+- **C locus:** `nethack-c/upstream/src/cfgfiles.c:169–210` (`do_write_config_file`) in C order: empty-`configfile` pline + `ECMD_OK` `:174–176`; `suppress_alert < FEATURE_NOTICE_VER(3,7,0)` warning trio with `wait_synch` pacing `:178–185` (game build: `wintty.c:3623` `tty_wait_synch`); `%.*s` overwrite truncate `N = BUFSZ − sizeof(prompt) − 2` `:187–190`; `paranoid_query(TRUE, tmp)` gate `:191–192`; `fopen "w"` + `strbuf_init`/`all_options_strbuf`/`strlen`/`fwrite`/`fclose`/`strbuf_empty` + partial-write pline `:194–208`; `ECMD_OK` `:209`. Sole C caller `cmd.c:1843–1845` extcmdlist "saveoptions" (IFBURIED | GENERALCMD | NOFUZZERCMD, no AUTOCOMPLETE).
+- **JS was:** no symbol anywhere (brief: NOT FOUND incl. `js/generated/`); parent `all_options_strbuf` fully live after [1/7]–[6/7] but unreachable — no `#saveoptions` command (EXT_CMDS had no entry; the generated `extcmdlist_data.js` row existed but undispatched).
+- **Fix:** `js/cfgfiles.js` (new) — exported async `do_write_config_file` in C order with `:line` cites: `get_configfile()` (live `js/options.js:359`) for the file-static, `?? ''` for the `:174` empty arm; `game.flags?.suppress_alert ?? 0` (C zero-init; no JS setter) vs `(3<<24)|(7<<16)` (`hack.h:1504–1506`); three plines each followed by live `tty_wait_synch` (`js/display.js:7303`); `BUFSZ − (prompt.length+1) − 2` slice (C `sizeof` incl. NUL); live `paranoid_query` (`js/getline.js:1351`); `strbuf_init`/`all_options_strbuf`/`strbuf_empty` (live `js/options.js`); VFS boolean for `fp` (`vfsWriteFile`, `js/storage.js:36`). `js/getline.js` — EXT_CMDS `saveoptions` entry (dynamic `import('./cfgfiles.js')`, sibling pattern; `wiz:false, autocomplete:false` per C flags). `js/options.js` — two "not yet ported" comment refreshes (family header + `:9741` caller note).
+- **JS:** `js/cfgfiles.js` (new, ~85 lines); `js/getline.js` (+7: EXT_CMDS entry); `js/options.js` (2 comment lines).
+- **Callers:** `cmd.c:1843` → `js/getline.js` EXT_CMDS `saveoptions` entry (dispatched via `extcmd_run_by_txt`; /tmp probe: export function + dispatch function + generated row flags 41 match → PROBE-OK). `js/generated/extcmdlist_data.js:77` row pre-existed (extractor output, untouched). No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn do_write_config_file` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   3 changed js file(s): js/getline.js js/options.js js/cfgfiles.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify do_write_config_file: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 5.6s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+PASS  full     44/44 passing (auto: shared file changed)
+
+VERIFY: PASS
+```
+- **Named omissions:** the `:205–208` partial-write pline — atomic VFS writes report boolean, so `wrote == len` always (no representable trigger); the silent `fopen`-failure path is preserved (false → skip block → `ECMD_OK`).
+- **Next:** campaign complete ([1/7]–[7/7] all live); queue head moves to `rip.c` genl_outrip.
+
 ## D-2552 — `botl.c` all_options_statushilites [campaign 6/7] (coverage MISSING → live; hilite store + gather/done chain in C order; strbuf caller wired, doset counter + [7/7] caller named)
 
 - **Status:** fixed (Open coverage row `botl.c` all_options_statushilites [campaign 6/7]; row cites review 1503, already stamped **Addressed:** D-2547 — no new stamp).

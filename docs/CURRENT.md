@@ -46,7 +46,7 @@ judge 07:08Z, ~D-2534, +105 pts vs last audit): the corpus still does
 not predict the judge.
 **Corpus fortress** (re-scored 2026-09-19 audit 1498–1505): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — +0 / −0
-in the D-2539…D-2552 window (all eight were zero-block coverage rows;
+in the D-2539…D-2553 window (all eight were zero-block coverage rows;
 per-SHA `--reach-all` re-runs REACH-OK — ston 14/14, elec 35/35 real
 reach, rest smoke — 0 regressed).
 Reviews 1225–1505: 249 ACCEPT, 10 WITH-DEBT, 1 DEBT, 16 QUALITY-RISK (Must-fix: 1 — 1503 all_options_strbuf break/continue).
@@ -100,10 +100,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `botl.c` all_options_statushilites [campaign 6/7] — C `botl.c:4477–4495` absent from js/ (no hilite gather/done store; named omit of the [campaign 1/7] parent, STATUS_HILITES on per config.h:616). Port status_hilite_linestr gather/done + all_options_statushilites in C order. Verify `node scripts/verify.mjs --fn all_options_statushilites` (reach regression must be 0).
+**Next cluster:** `cfgfiles.c` do_write_config_file [campaign 7/7] — C `cfgfiles.c:165–211` absent from js/ (no #saveoptions command; sole caller of the [campaign 1/7] parent). Port in C order incl. paranoid_query gate; persist via storage.js VFS (Rule #2, no fopen). Final activation of the parent family. Verify `node scripts/verify.mjs --fn do_write_config_file` (reach regression must be 0).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2552 (index).**
+**Keep D-0845…D-2553 (index).**
 <!-- recent:begin -->
+**D-2553** `nethack-c/upstream/src/cfgfiles.c:169–210` (`do_write_config_file`) in C order: empty-`co — `js/cfgfiles.js` (new) — exported async `do_write_config_file` in C order with `:line` cites: `get_configfile()` (live `js/options.js:359`) for the file-static, `?? ''` for the `:174` empty arm; `game.flags?.suppress_ale
 **D-2552** `nethack-c/upstream/src/botl.c:4477–4495` (`all_options_statushilites`); arms: done+gather — `js/botl.js` — `condition_aliases` (6 rows, BL_MASK_* live), `split_clridx` (file-local; out-pair folded to return, opt_next_cond precedent), `conditionbitmask2str` (file-local; alias-then-union, fresh string for the C s
 **D-2551** `nethack-c/upstream/src/symbols.c:773–848` (`parsesymbols`); arms: unquoted comma/colon sc — `js/options.js` — `escapes` (file-local, mirrors staticfn; `& 0xff` for the C `(char)` truncation, hexdd pairs from decl.c `:74`), `sym_val` (exported; QBUFSZ slice, isspace set, quote arms), `match_sym` (exported; retur
 **D-2550** `nethack-c/upstream/src/cmd.c:2235–2287` (`get_changed_key_binds`); arms `:2244–2246` wind — `js/cmd.js` — exported `get_changed_key_binds(sbuf)` in C order with `:line` cites.
@@ -111,11 +112,10 @@ revisits the picker.
 **D-2548** `nethack-c/upstream/src/options.c:8481–8505` (`get_option_value`); arms `:8489–8492` BoolO — `js/options.js` — (1) count correction: the unix tty build compiles **217** rows, not 248 (cc -E with config.h + PREV_MSGS=1 per options.c `:23–27`; compile-time asserts OPTCOUNT==217, pfx_cond_==215 — /tmp probes, not c
 **D-2547** `nethack-c/upstream/src/options.c:9691–9721` (`all_options_strbuf` allopt loop); the obsol — `js/options.js` — two `break`→`continue` with `:line` cites, nothing else; export name/signature unchanged, callers untouched.
 **D-2546** `nethack-c/upstream/src/polyself.c:199–268` (`polyman`, staticfn); arms `:200–204` stickin — `js/polyself.js` — restarted `polyman` (stays file-local, mirrors staticfn) in C order with `:line` cites; new exported `ugenocided()` mirroring same-file C `:2265` (`game.mvitals` G_GENOD on urole/urace mnum); urgent_pl
-**D-2545** `nethack-c/upstream/src/objnam.c:3966–4175` (`readobjnam_preparse`, staticfn); loop `:3971 — `js/readobjnam.js` — restarted as file-local `readobjnam_preparse` (mirrors staticfn) in C order with `:line` cites: split moist/wet branches keep C check order and RNG (`wet` → `3 + rn2(3)`, `moist` → `rnd(2)`); gender 
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2552; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2553; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
