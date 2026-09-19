@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `mklev.c` dosdoor — coverage PARTIAL (C 61 L `mklev.c:615–676` / JS 42 L in js/mklev.js; hops 3, callers 3, RNG 7, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dosdoor` (reach regression must be 0). Measured `port-coverage.mjs --name dosdoor` 2026-09-19 @ c90a495f. **Addressed:** D-2559
+- [x] `shk.c` shk_move — coverage PARTIAL (C 113 L `shk.c:4880–4993` / JS 81 L in js/shk.js; hops 2, callers 1, RNG 1, msg 5). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn shk_move` (reach regression must be 0). Measured `port-coverage.mjs --name shk_move` 2026-09-19 @ c90a495f. **Addressed:** D-2560
+
+
+- [x] `mklev.c` dosdoor — coverage PARTIAL (C 61 L `mklev.c:615–676` / JS 42 L in js/mklev.js; hops 3, callers 3, RNG 7, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dosdoor` (reach regression must be 0). Measured `port-coverage.mjs --name dosdoor` 2026-09-19 @ c90a495f. **Addressed:** D-2559 `da30a4b6`
 
 
 - [x] `version.c` doextversion — coverage THIN (C 108 L `version.c:169–277` / JS 10 L in js/pager.js; hops —, callers 2, RNG 0, msg 6; dead callees: strip_newline, insert_rtoption). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn doextversion` (reach regression must be 0). Measured `port-coverage.mjs --name doextversion` 2026-09-19 @ c90a495f. **Addressed:** D-2558 `90ae7d1d`

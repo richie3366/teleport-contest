@@ -46,7 +46,7 @@ judge 13:05Z cached, ~D-2555, +23 pts vs last audit): the corpus still does
 not predict the judge.
 **Corpus fortress** (re-scored 2026-09-19 audit 1506–1514): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — +0 / −0
-in the D-2547…D-2559 window (all nine were zero-block coverage rows;
+in the D-2547…D-2560 window (all nine were zero-block coverage rows;
 per-SHA `--reach-all` re-runs REACH-OK, all smoke — 0 regressed).
 Reviews 1225–1514: 257 ACCEPT, 11 WITH-DEBT, 1 DEBT, 16 QUALITY-RISK (1503 Must-fix addressed by D-2547; no live Must-fix).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem) — review-debt, unqueued (detail in the review files).
@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `mklev.c` dosdoor — coverage PARTIAL (C 61 L `mklev.c:615–676` / JS 42 L in js/mklev.js; hops 3, callers 3, RNG 7, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dosdoor` (reach regression must be 0). Measured `port-coverage.mjs --name dosdoor` 2026-09-19 @ c90a495f.
+**Next cluster:** `shk.c` shk_move — coverage PARTIAL (C 113 L `shk.c:4880–4993` / JS 81 L in js/shk.js; hops 2, callers 1, RNG 1, msg 5). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn shk_move` (reach regression must be 0). Measured `port-coverage.mjs --name shk_move` 2026-09-19 @ c90a495f.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2559 (index).**
+**Keep D-0845…D-2560 (index).**
 <!-- recent:begin -->
+**D-2560** `nethack-c/upstream/src/shk.c:4880–4993` (`shk_move`) in C order: `inhishop → shk_fixes_da — `js/shk.js` — restarted `shk_move` (`:4133`) in C order with `:line` cites: `Your` added to the existing display.js import + `HAND` to the existing const.js import (both ALREADY-edges per imports.mjs, no new edge); `game
 **D-2559** `nethack-c/upstream/src/mklev.c:615–676` (`dosdoor`, staticfn) in C order: `shdoor` from ` — `js/mklev.js` — restarted `dosdoor` (`:28072`) in C order with `:line` cites: `shdoor` from the live `in_rooms` (`js/hack.js:1596`, added to the existing hack.js import — ALREADY-edge per imports.mjs, no new edge; stub d
 **D-2558** `nethack-c/upstream/src/version.c:169–277` (`doextversion`) in C order: `use_dlb` FALSE un — `js/pager.js` — restarted `doextversion` in C order with `:line` cites: `use_dlb=false` const with the dead dlb arms kept as named-omission branches (fopen notice, fgets arm, fclose); version split via `lastIndexOf('(')`
 **D-2557** `nethack-c/upstream/src/spell.c:231–339` (`deadbook`) in C order: turn-pages `You` + `make — `js/spell.js` — file-local `async deadbook_pacify_undead` + `async deadbook` in C order with `:line` cites (C staticfns stay local, `mkinvpos` precedent); `goto raise_dead` as one shared `raise_dead` closure called from 
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2555** `nethack-c/upstream/src/files.c:621–670` (`create_levelfile`) in C order: errbuf clear `:6 — exported `create_levelfile(lev, errbuf)` in `js/files.js` in C order with `:line` cites, mirroring the shipped `open_levelfile` (D-2472) JSON analogue: `{ s }`-or-null errbuf, `game.lock` store-back (= C `gl.lock` mutati
 **D-2554** `nethack-c/upstream/src/do_wear.c:518–564` (`Helmet_off`) in C order: `takeoff.mask &= ~W_ — `js/do_wear.js` — restarted async `Helmet_off` in C order with `:line` cites: mask clear first (covers the telepathy early return); null-helm graceful clear (C dereferences `uarmh` — unreachable in C); `game.flags.botl` 
 **D-2553** `nethack-c/upstream/src/cfgfiles.c:169–210` (`do_write_config_file`) in C order: empty-`co — `js/cfgfiles.js` (new) — exported async `do_write_config_file` in C order with `:line` cites: `get_configfile()` (live `js/options.js:359`) for the file-static, `?? ''` for the `:174` empty arm; `game.flags?.suppress_ale
-**D-2552** `nethack-c/upstream/src/botl.c:4477–4495` (`all_options_statushilites`); arms: done+gather — `js/botl.js` — `condition_aliases` (6 rows, BL_MASK_* live), `split_clridx` (file-local; out-pair folded to return, opt_next_cond precedent), `conditionbitmask2str` (file-local; alias-then-union, fresh string for the C s
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2559; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2560; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

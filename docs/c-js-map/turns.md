@@ -3932,7 +3932,7 @@ Conflict chase** (D-0604); **`intemple`/`findpriest`/`temple_occupied`/`has_shri
 **`#chat` Arch Priest → `domonnoise` MS_LEADER `quest_chat`** (D-0640; 
 MS_PRIEST `priest_talk` deferred); **`fix_shop_damage` catchup + `repair_damage`** (D-1178; 
 `goto_level` `!new`; allmain/bones callers still named); omit `shk_fixes_damage`; 
-holetime dig follow; following verbalize/`rile_shk`; `m_break_boulder`/`m_move_aggress`; 
+holetime dig follow (file-local mirror); **D-2560:** `shk_move` following customer/followmsg verbalize + `rile_shk` + Displaced `Your` + `resist_conflict`/`m_canseeu`/`Fast`+`sobj_at` arms live, `after_shk_move` wired (its `check_special_room` stays named); `m_break_boulder`/`m_move_aggress`; 
 `after_shk_move` bill_p; **D-0447:** `costly_spot`/`getprice`/`get_cost`/`billable`/`add_one_tobill`
 /`addtobill`/`append_honorific` + `pick_obj` robshop; 
 **D-0448:** `dopay`/`menu_pick_pay_items`/`dopayobj`/`pay`→`money2mon`/`splitobj` `next_ident` + 

@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-2560 — `shk.c` shk_move (coverage PARTIAL → live; whole 113-line body in C order, following/followmsg envelope + missing arms ported, the 1 C caller wired)
+
+- **Status:** fixed (Open coverage row `shk.c` shk_move; cites no review — no stamp needed).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify shk_move`: no corpus session blocked at baseline — shopkeeper-follow path).
+- **C locus:** `nethack-c/upstream/src/shk.c:4880–4993` (`shk_move`) in C order: `inhishop → shk_fixes_damage` (`:4892–4893`); `distu < 3` + GRID_BUG row/col gate (`:4895–4896`, `distu ≡ dist2` per `hack.h:1531`); ANGRY/`Conflict`/`resist_conflict` + Displaced `Your` (`:4897–4899`); `mattacku` (`:4900`); following customer `strncmp` + Deaf/`muteshk`/`SetVoice`/looking-for verbalize (`:4903–4911`); followmsg `moves > followmsg + 4` + forget-to-pay verbalize / upturned-HAND pline + `rn2(9)` + `rile_shk` (`:4913–4927`); `udist < 2` (`:4930–4931`); goal pick + fenced-in comment (`:4935–4946`); ANGRY `mcansee && m_canseeu` chase (`:4951–4957`); Invis/usteed, `u_at(shd)`, `carrying || carrying || (Fast && sobj_at || sobj_at)` badinv (`:4960–4973`); GDIST < 3 + `onlineu` + satdoor zero (`:4976–4981`); `move_special` + `z > 0 → after_shk_move` (`:4987–4990`).
+- **JS was:** PARTIAL `js/shk.js:4135` `shk_move`: goal-pick skeleton right, but the ANGRY arm dropped `!resist_conflict` (Conflict always engaged) and the Displaced `Your`; the whole following customer/followmsg envelope was one `udist < 2` stub (no strncmp, no verbalize/pline, no `followmsg`, no `rn2(9)`/`rile_shk`); the ANGRY chase dropped `m_canseeu`; badinv dropped the `Fast && sobj_at` pickaxe arm; `after_shk_move` never called (plain `return z`).
+- **Fix:** `js/shk.js` — restarted `shk_move` (`:4133`) in C order with `:line` cites: `Your` added to the existing display.js import + `HAND` to the existing const.js import (both ALREADY-edges per imports.mjs, no new edge); `game.Conflict && !resist_conflict(shkp)` (live `js/mondata.js:110`, short-circuit keeps the C RNG order — no draw when ANGRY); `Displaced()` (file-local `:4271`) + `Your("displaced image doesn't fool %s!", shkname)` (`Your` %s precedent do_wear.js:2790); customer `strncmp` as `slice(0, PL_NSIZ)` compare (`game.plname`, `eshkp.customer` ≤ 32 by the hot_pursuit/u_entered_shop writers); `hero_deaf()` (file-local `:1566`) for Deaf + `muteshk` (file-local `:217`) + `SetVoice` (already imported) + `Hello`/`verbalize`/`Shknam`/`noit_mhis` (already imported); `mbodypart(shkp, HAND)` via lazy `await import('./polyself.js')` (u_entered_shop `:646` precedent — same 97-module SCC, no new static edge); `game.moves` for `svm.moves`, `game.flags.followmsg` (created on demand, allmain.js:255 precedent) for `gf.followmsg`; `rn2(9)` + file-local `rile_shk` (`:4465`, verified C-equal: `(price+2)/3` bump); `m_canseeu` (already imported); `Fast()` (already imported, attrib.js function form) + `sobj_at` (already imported, same arg order); `if (z > 0) after_shk_move(shkp)` wired to the file-local `:4594` (C `:4997` body minus `check_special_room`, still map-named).
+- **JS:** `js/shk.js` only (shk_move restart + two import-line names + header omit-list trim).
+- **Callers:** shk.c:1807 `monmove.c` isshk dispatch → `js/monmove.js:1836` `xm = await shk_move(mtmp)` (already wired, untouched). `extern.h:2949` is the declaration, not a call.
+- **Verify:** `node scripts/verify.mjs --fn shk_move` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/shk.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify shk_move: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 3.9s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+
+VERIFY: PASS
+```
+- **Named omissions:** `shk_fixes_damage` (`shk.c:4556`, damage-list subsystem — map turns.md shk_move section + file header); `after_shk_move` `check_special_room(FALSE)` occupancy arm (map-named, file header). No new live-arm stubs: every other callee is live or file-local C-equal.
+- **Next:** queue head moves to `options.c` parseoptions.
+
 ## D-2559 — `mklev.c` dosdoor (coverage PARTIAL → live; whole door-creation body in C order, shop-door callee fixed, all 3 C callers wired)
 
 - **Status:** fixed (Open coverage row `mklev.c` dosdoor; cites no review — no stamp needed).
