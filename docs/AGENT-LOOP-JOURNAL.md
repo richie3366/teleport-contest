@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-19 — D-2595 `pickup.c` lift_object whole-body port (loadstone override, gold hint, removing verb, container caller)
+
+**C locus:** `nethack-c/upstream/src/pickup.c:1705–1795` (staticfn; C callers `:1869` pickup_object with container NULL, `:2748` out_container with `gc.current_container`; `files.c:2546` is a comment-only mention).
+**JS:** `js/pickup.js` — `throws_rocks` joins the existing monsters.js import, `carrying` joins the existing hack.js import (both imports.mjs ALREADY, no new edge); new local `GOLD_PIECE` const (objectNames convention); `nxtobj`/`near_capacity`/`calc_capacity`/`safe_qbuf`/`yn_function`/`flags_pickup_burden` already imported/local.
+**Change:** restarted `lift_object` in C order with `:line` cites — Sokoban refuse `:1714–1718` unchanged; new override arm `:1719–1737` (`inv_cnt < invlet_basic || !carrying(otyp) || merge_choice` → return 1, else `You are carrying too much stuff…another/more…`); carry_count `:1739–1740`; `cnt<1` → `result=-1` falling through (no early return); slot refuse `:1743–1756` with the gold-hint suffix; encumbrance rise `:1757–1786` with `!container ? lifting : removing` and `ynq` → `yn_function(qbuf,'ynq','q')` + `WIN_MESSAGE` clear; scare-spe clear gated on `result<=0 && !container` `:1791–1792`. New signature `lift_object(obj, container, cntRef, telekinesis)` (module-local staticfn; no other importers).
+**Verify:** `node scripts/verify.mjs --fn lift_object` → VERIFY: PASS (syntax 1 file; rule2; hidden note: no session blocked; reach smoke 24/24 REACH-OK; green 2/2; strict both; cohort 7/7; full skipped — `js/pickup.js` only, non-shared). Re-ran with `--reach-all`: same PASS (no RNG-tagged reach — function draws no RNG — smoke 24 PASS, 0 regressed).
+**Named:** container carry_count `delta_cwt` weights (floor weights; carry_count doc + map); shop no_charge merge_choice (merge_choice_invent doc); out_container artifact-touch / fatal-corpse / icebox / shop-bill / pick_pick (out_container doc, pre-existing).
+**Next:** none for this function; queue head moves to `pickup.c` in_container.
 ## 2026-09-19 — D-2594 `apply.c` use_stethoscope whole-body port (gates/steed/swallow/dz/heartbeat/reveal/its_dead)
 
 **C locus:** `nethack-c/upstream/src/apply.c:318–470` (staticfn; sole C caller `:4328` doapply STETHOSCOPE) + same-file staticfn `its_dead` `:198–310` (callers `:365` + `:467`) + `hollow_str` `:312` + extern `init_dummyobj` (`mkobj.c:3347–3372`, sole C caller the M_AP_OBJECT arm `:414`).

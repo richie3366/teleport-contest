@@ -24,7 +24,7 @@ import {
 } from './invent.js';
 import {
     nomul, check_special_room, set_uinwater, is_pool, is_lava, in_rooms, dosinkfall,
-    SURFACE_AT, switch_terrain, maybe_half_phys, waterbody_name, losehp,
+    SURFACE_AT, switch_terrain, maybe_half_phys, waterbody_name, losehp, carrying,
 } from './hack.js';
 import {
     flush_screen, pline, newsym, newsym_force, docrt, bot, flush_topl_more, canseemon,
@@ -97,7 +97,7 @@ import {
 } from './shk.js';
 import {
     nohands, nolimbs, M1_NOTAKE, touch_petrifies, poly_when_stoned, is_rider,
-    mons,
+    mons, throws_rocks,
     monsterNames,
     is_floater, is_swimmer, is_clinger, likes_lava, amphibious, grounded, is_flyer, breathless, hides_under,
 } from './monsters.js';
@@ -157,6 +157,7 @@ const CORPSE = objectNames.indexOf('CORPSE');
 const SCR_SCARE_MONSTER = objectNames.indexOf('SCR_SCARE_MONSTER');
 const LOADSTONE = objectNames.indexOf('LOADSTONE');
 const BOULDER = objectNames.indexOf('BOULDER');
+const GOLD_PIECE = objectNames.indexOf('GOLD_PIECE');
 const ICE_BOX = objectNames.indexOf('ICE_BOX');
 const STATUE = objectNames.indexOf('STATUE');
 const AMULET_OF_YENDOR = objectNames.indexOf('AMULET_OF_YENDOR');
@@ -1217,14 +1218,20 @@ async function carry_count(obj, count, telekinesis, wts) {
 }
 
 /**
- * C ref: pickup.c lift_object — willing/able to carry. telekinesis
- * skips the ynq Continue? and refuses when encumbrance would rise.
+ * C ref: pickup.c lift_object `:1705–1795` — able and willing to carry obj.
+ * Branch envelope (C order): Sokoban boulder refuse; LOADSTONE /
+ * giant-boulder weight override (lift regardless while a slot is free);
+ * carry_count; 52-slot refuse with gold exception; encumbrance rise →
+ * telekinesis silent refuse else ynq Continue? (`lifting`/`removing`);
+ * scare-scroll spe clear on floor refuse.
  * Sokoban boulder uses body_part(HAND) (latebound; polyself→do→pickup cycle).
- * Named omit: LOADSTONE/giant-boulder weight override; container path;
- * shop no_charge merge_choice.
+ * Named omit: container carry_count delta_cwt (floor weights; carry_count
+ * doc); shop no_charge merge_choice (merge_choice_invent doc).
+ * Callers: pickup_object `:1869` (container NULL); out_container `:2748`.
  */
-async function lift_object(obj, cntRef, telekinesis) {
-    // C: #define Sokoban svl.level.flags.sokoban_rules — not In_sokoban.
+async function lift_object(obj, container, cntRef, telekinesis) {
+    let result;
+    // C `:1714–1718`: #define Sokoban svl.level.flags.sokoban_rules.
     const Sokoban = !!(game.level?.flags?.sokoban_rules || game.Sokoban);
     if ((obj.otyp | 0) === BOULDER && Sokoban) {
         await pline(
@@ -1232,42 +1239,69 @@ async function lift_object(obj, cntRef, telekinesis) {
         );
         return -1;
     }
-    cntRef.count = await carry_count(obj, cntRef.count, telekinesis, cntRef);
-    if (cntRef.count < 1) return -1;
-    if (obj.oclass !== COIN_CLASS
-        && inv_cnt(false) >= INVLET_BASIC
-        && !merge_choice_invent(obj)) {
-        await pline('Your knapsack cannot accommodate any more items.');
+    // C `:1719–1737`: override weight consideration for loadstone picked up
+    // by anybody and for boulder picked up by a hero poly'd into a giant;
+    // override slot availability iff not already carrying one.
+    if ((obj.otyp | 0) === LOADSTONE
+        || ((obj.otyp | 0) === BOULDER && throws_rocks(game.youmonst?.data))) {
+        if (inv_cnt(false) < INVLET_BASIC || !carrying(obj.otyp | 0)
+            || merge_choice_invent(obj)) {
+            return 1; // C `:1726` — lift regardless of current situation
+        }
+        await pline(
+            `You are carrying too much stuff to pick up ${(obj.quan || 1) === 1 ? 'another' : 'more'} ${xname(obj)}.`,
+        );
         return -1;
     }
-    let result = 1;
-    let prev_encumbr = near_capacity();
-    const burden = flags_pickup_burden();
-    if (prev_encumbr < burden) prev_encumbr = burden;
-    const next_encumbr = calc_capacity(cntRef.after - cntRef.before);
-    if (next_encumbr > prev_encumbr) {
-        if (telekinesis) {
-            result = 0;
-        } else {
-            const pfx = next_encumbr >= EXT_ENCUMBER ? overloadpfx
-                : next_encumbr >= HVY_ENCUMBER ? nearloadpfx
-                    : next_encumbr >= MOD_ENCUMBER ? moderateloadpfx
-                        : slightloadpfx;
-            const savequan = obj.quan;
-            obj.quan = cntRef.count;
-            // C: Sprintf prefix then safe_qbuf(qbuf, qbuf, ".  Continue?",
-            // doname, ansimpleoname, something). Container "removing" named.
-            let qbuf = `${pfx} lifting `;
-            qbuf = safe_qbuf(qbuf, qbuf, '.  Continue?', obj, doname,
-                ansimpleoname, something);
-            obj.quan = savequan;
-            const ans = await yn_function(qbuf, 'ynq', 'q');
-            if (ans === 'q') result = -1;
-            else if (ans === 'n') result = 0;
-            clear_nhwindow_message();
+    // C `:1739–1740`
+    cntRef.count = await carry_count(obj, cntRef.count, telekinesis, cntRef);
+    if (cntRef.count < 1) {
+        result = -1; // C `:1741–1742` — nothing lifted (falls to scare arm)
+    } else if (obj.oclass !== COIN_CLASS
+               && inv_cnt(false) >= INVLET_BASIC
+               && !merge_choice_invent(obj)) {
+        // C `:1743–1756`: gold here varies the message; caller and
+        // grandcaller can't skip-then-gold, so refuse with a hint instead.
+        const exceptGold = nxtobj(obj, GOLD_PIECE, (obj.where | 0) === OBJ_FLOOR)
+            ? ' (except gold)'
+            : '';
+        await pline(`Your knapsack cannot accommodate any more items${exceptGold}.`);
+        result = -1; // C `:1755` — nothing lifted
+    } else {
+        result = 1;
+        // C `:1757–1760`
+        let prev_encumbr = near_capacity();
+        const burden = flags_pickup_burden();
+        if (prev_encumbr < burden) prev_encumbr = burden;
+        const next_encumbr = calc_capacity(cntRef.after - cntRef.before);
+        if (next_encumbr > prev_encumbr) {
+            if (telekinesis) {
+                result = 0; // C `:1762–1763` — don't lift
+            } else {
+                // C `:1765–1786`: Sprintf prefix then safe_qbuf(qbuf, qbuf,
+                // ".  Continue?", doname, ansimpleoname, something).
+                const pfx = next_encumbr >= EXT_ENCUMBER ? overloadpfx
+                    : next_encumbr >= HVY_ENCUMBER ? nearloadpfx
+                        : next_encumbr >= MOD_ENCUMBER ? moderateloadpfx
+                            : slightloadpfx;
+                const savequan = obj.quan;
+                obj.quan = cntRef.count;
+                let qbuf = `${pfx} ${!container ? 'lifting' : 'removing'} `;
+                qbuf = safe_qbuf(qbuf, qbuf, '.  Continue?', obj, doname,
+                    ansimpleoname, something);
+                obj.quan = savequan;
+                // C `:1775–1783` ynq: 'q' quit, 'n' don't lift, 'y' lifts.
+                const ans = await yn_function(qbuf, 'ynq', 'q');
+                if (ans === 'q') result = -1;
+                else if (ans === 'n') result = 0;
+                clear_nhwindow_message(); // C `:1784` WIN_MESSAGE
+            }
         }
     }
-    if ((obj.otyp | 0) === SCR_SCARE_MONSTER && result <= 0) obj.spe = 0;
+    // C `:1791–1792`
+    if ((obj.otyp | 0) === SCR_SCARE_MONSTER && result <= 0 && !container) {
+        obj.spe = 0;
+    }
     return result;
 }
 
@@ -1276,8 +1310,9 @@ async function lift_object(obj, cntRef, telekinesis) {
  * Branch envelope: observe_object; telekinesis through corpse/scare/
  * lift_object (D-1050); gold disp.botl; splitobj; pick_obj + prinv.
  * Named omissions: LOADSTONE no-split already honored; ghostly
- * fix_ghostly_obj; LOADSTONE/giant-boulder weight override;
- * container carry_count; Death/Pestilence revive suffixes.
+ * fix_ghostly_obj; LOADSTONE/giant-boulder weight override (live in
+ * lift_object); container carry_count delta_cwt; Death/Pestilence
+ * revive suffixes.
  */
 export async function pickup_object(obj, count, telekinesis) {
     if (!obj) return 0;
@@ -1324,8 +1359,9 @@ export async function pickup_object(obj, count, telekinesis) {
         }
     }
 
+    // C `:1869` lift_object(obj, NULL, &count, telekinesis).
     const lifted = { count, before: 0, after: 0 };
-    const res = await lift_object(obj, lifted, remotely);
+    const res = await lift_object(obj, null, lifted, remotely);
     if (res <= 0) return res;
     count = lifted.count;
 
@@ -2311,19 +2347,29 @@ async function use_container_traditional_prompt(
 
 /**
  * C ref: pickup.c out_container — remove one object from current_container
- * into invent. Branch envelope: gold / ordinary; lift always ok. Named
- * omissions: container `lift_object`/`delta_cwt` (floor path is D-1050);
- * artifact touch; fatal corpse; split count; icebox; shop bill; pick_pick.
+ * into invent. Branch envelope: gold weigh; lift_object `:2748` (encumbrance
+ * / slot prompt says "removing"); split; extract; addinv + prinv; gold bot.
+ * Named omissions: container carry_count `delta_cwt` (floor weights;
+ * carry_count doc); artifact touch; fatal corpse; icebox; shop bill;
+ * pick_pick.
  * @returns {number} -1 stop, 1 removed, 0 not removed
  */
 async function out_container(obj) {
     if (!obj || !game._current_container) return -1;
+    const container = game._current_container;
     const is_gold = obj.oclass === COIN_CLASS;
     if (is_gold) obj.owt = weight(obj);
 
-    // lift_object deferred — always allow
+    // C `:2747–2751` lift_object(obj, current_container, &count, FALSE);
+    // split unless the lifted count covers the stack (never for LOADSTONE).
     // C: count before addinv merge (gold may grow; prinv total_of needs it)
-    const count = obj.quan || 1;
+    const lifted = { count: obj.quan || 1, before: 0, after: 0 };
+    const res = await lift_object(obj, container, lifted, false);
+    if (res <= 0) return res;
+    const count = lifted.count;
+    if ((obj.quan || 1) !== count && (obj.otyp | 0) !== LOADSTONE) {
+        obj = splitobj(obj, count);
+    }
     obj_extract_self(obj);
     game._current_container.owt = weight(game._current_container);
 
