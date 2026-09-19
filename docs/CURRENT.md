@@ -23,32 +23,33 @@ the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-19** — full `sessions` on the working tree
-(audit **1453–1461**).
+(audit **1462–1470**).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`50+0.30/turn` (R² 0.79).
+`49+0.30/turn` (R² 0.79).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge, 2026-09-18)** | **11 / 44**, 5,637 / 11,265 pts, RNG **26.6 %**, rngSteps 81.5 %, screens **50.0 %** |
+| **Held-out (judge, 2026-09-19)** | **11 / 44**, 5,648 / 11,265 pts, RNG **26.6 %**, rngSteps 81.5 %, screens **50.1 %** |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `42+0.56/turn` (R² 0.92) |
+| Speed label | `49+0.30/turn` (R² 0.79) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 4/22, 2nd agentic; best agentic fork 35/44, RNG 98.5 %,
-screens 93.2 %. Held-out moved 7 → 11 over 2026-09-06..17 while the local
-corpus went 48 % → 91.7 %: the corpus no longer predicts the judge.
-**Corpus fortress** (re-scored 2026-09-19 audit 1453–1461): **495 / 540
+screens 93.2 %. Held-out flat 11/44 (+11 pts, +0.1 screens) over the
+breadth-phase window while the local corpus holds 91.7 %: the corpus
+still does not predict the judge.
+**Corpus fortress** (re-scored 2026-09-19 audit 1462–1470): **495 / 540
 PASS (91.7 %)** excl. 13 env-only; RNG 99.29 %, screens 99.0 % — identical
-to the prior audit, no flips across D-2494…D-2511 (every per-SHA re-run:
-0 regressed; recharge reach 3/3, rest vacuous 0-blocked + smoke 24/24).
-Reviews 1225–1461: 208 ACCEPT, 9 WITH-DEBT, 1 DEBT, 14 QUALITY-RISK (0 Must-fix pending).
-Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph (display.h:842–844 vs display.js:849), 1448 safe_typename guard (objnam.c:316) — review-debt, unqueued.
+to the prior audit, no flips across D-2503…D-2511 (per-SHA re-runs:
+0 regressed).
+Reviews 1225–1470: 215 ACCEPT, 10 WITH-DEBT, 1 DEBT, 15 QUALITY-RISK (1 Must-fix pending: 1465 menu-colors trio).
+Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone — review-debt, unqueued (detail in the review files).
 Audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s) + `leaderboard.mjs`.
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -98,7 +99,7 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `uhitm.c` mhitm_ad_heal — coverage THIN (C 87 L `uhitm.c:4296–4385` / JS 4 L in js/mhitm.js; hops 4, callers 1, RNG 11, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mhitm_ad_heal` (reach regression must be 0). Measured `port-coverage.mjs --name mhitm_ad_heal` 2026-09-19 @ e131537d.
+**Next cluster:** Must-fix from review 1465 — `options.c` menu-colors C-wrong trio in `js/options.js` (C `options.c:9227–9231` / `:6466–6477` / `:6495`). Port the three C lines in C order. Verify `node scripts/verify.mjs --fn handler_menu_colors` (reach regression must be 0). Source: reviews/loop-unattended/1465-e27f24bf-handler-menu-colors.md.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2511 (index).**
 <!-- recent:begin -->

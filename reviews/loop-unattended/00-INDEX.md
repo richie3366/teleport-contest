@@ -1472,3 +1472,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1459-4131ec6e-recharge.md](./1459-4131ec6e-recharge.md) | `4131ec6e` | D-2500 recharge | **ACCEPT** |
 | [1460-e600e6c5-movebubbles.md](./1460-e600e6c5-movebubbles.md) | `e600e6c5` | D-2501 movebubbles | **ACCEPT** |
 | [1461-31ee9a50-trapeffect-web.md](./1461-31ee9a50-trapeffect-web.md) | `31ee9a50` | D-2502 trapeffect_web | **ACCEPT** |
+| [1462-e131537d-precheck.md](./1462-e131537d-precheck.md) | `e131537d` | D-2503 precheck | **ACCEPT-WITH-DEBT** |
+| [1463-52eaabd8-rloc-to-core.md](./1463-52eaabd8-rloc-to-core.md) | `52eaabd8` | D-2504 rloc_to_core | **ACCEPT** |
+| [1464-a66b03ae-amulet-on.md](./1464-a66b03ae-amulet-on.md) | `a66b03ae` | D-2505 Amulet_on | **ACCEPT** |
+| [1465-e27f24bf-handler-menu-colors.md](./1465-e27f24bf-handler-menu-colors.md) | `e27f24bf` | D-2506 handler_menu_colors | **QUALITY-RISK** |
+| [1466-e8a1702e-ohitmon-munstone.md](./1466-e8a1702e-ohitmon-munstone.md) | `e8a1702e` | D-2507 ohitmon + munstone | **ACCEPT** |
+| [1467-a5b15a53-look-all.md](./1467-a5b15a53-look-all.md) | `a5b15a53` | D-2508 look_all | **ACCEPT** |
+| [1468-a263d08e-record-achievement.md](./1468-a263d08e-record-achievement.md) | `a263d08e` | D-2509 record_achievement | **ACCEPT** |
+| [1469-9d045456-domove-swap-with-pet.md](./1469-9d045456-domove-swap-with-pet.md) | `9d045456` | D-2510 domove_swap_with_pet | **ACCEPT** |
+| [1470-fc62ea8a-mhitm-ad-heal-acid.md](./1470-fc62ea8a-mhitm-ad-heal-acid.md) | `fc62ea8a` | D-2511 mhitm_ad_heal + mhitm_ad_acid | **ACCEPT** |

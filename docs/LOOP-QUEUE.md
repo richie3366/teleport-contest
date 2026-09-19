@@ -103,6 +103,8 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 always Must-fix rows: they forfeit every later screen of that session
 (Constitution §10.14).
 
+- [ ] `options.c` menu-colors C-wrong trio in `js/options.js` — empty-menu exit returns 1, C `options.c:9227–9231` returns 3 (`a_int++` precedes the skip); list suffix `"PAT"\\=color`, C `:6466–6477` renders `"PAT"\"=color`; PICK_ANY finish-empty returns, C `:6495` re-loops. Port the three C lines in C order. Verify `node scripts/verify.mjs --fn handler_menu_colors` (reach regression must be 0). Source: reviews/loop-unattended/1465-e27f24bf-handler-menu-colors.md.
+
 ## Open — coverage (breadth phase — pop first after Must-fix)
 
 Rows below are `port-coverage.mjs --rows` output (score = reach × call

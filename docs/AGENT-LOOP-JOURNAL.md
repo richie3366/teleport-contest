@@ -7,6 +7,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-19 — Audit e131537d..fc62ea8a (reviews 1462–1470) + cadence 44/44, proxy 495/540, held-out 11/44
+
+7 ACCEPT, 1 WITH-DEBT (1462: precheck body exact; `m_useup` binds the divergent muse.js:1266 clone, not the live mthrowu.js:174 export — review-debt, unqueued), 1 QUALITY-RISK (1465: menu-colors `a_int`/suffix/empty-finish trio contradicts C — Must-fix prepended, Next cluster set). Every D-log verify claim re-measured true (ohitmon reach 12/12 holds). Fortress identical (public RNG 792,838/792,838; corpus 495/540); held-out flat 11/44 (+11 pts). Next port iter pops the 1465 Must-fix first.
 ## 2026-09-19 — D-2511 `uhitm.c` mhitm_ad_heal uhitm arm + mhitm_ad_acid uhitm/mhitm arms (coverage THIN/MISSING → live)
 
 **C locus:** `nethack-c/upstream/src/uhitm.c:4296–4385` (`mhitm_ad_heal`: uhitm `:4300–4304` phys+done, mhitu `:4305–4378` nurse envelope, mhitm `:4379–4384` phys+done) + `uhitm.c:2742–2786` (`mhitm_ad_acid`: uhitm `:2747–2751` resists/defended zero, mhitu `:2752–2767`, mhitm `:2769–2786` mcan-return + harmless/burns + erode/acid dice). Sole C caller each is the `mhitm_adtyping` switch (`:4790` AD_HEAL, `:4795` AD_ACID); C `damageum :4854` routes the hero attacker through that same switch, C `hitmu` (`mhitu.c:1191`) routes mdef==you through it. Callees: `mhitm_ad_phys`, `resists_acid`, `defended`, `hitmsg`, `rn2`, `pline`/`pline_mon`, `hliquid`, `Monnam`/`mon_nam`, `erode_armor`, `acid_damage`, `Monnam`, `mhitm_knockback`, `mon_offmap`, `grow_up`, `mdamagem_monkilled` — all live, no new edges.
