@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `objnam.c` vtense — coverage THIN (C 90 L `objnam.c:2563–2653` / JS 27 L in js/objnam.js; hops 2, callers 87, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn vtense` (reach regression must be 0). Measured `port-coverage.mjs --name vtense` 2026-09-19 @ 7b5fbce5. **Addressed:** D-2525
+- [x] `exper.c` losexp — coverage PARTIAL (C 83 L `exper.c:207–291` / JS 62 L in js/exper.js; hops 4, callers 8, RNG 0, msg 3; dead callees: fuzzer_savelife). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn losexp` (reach regression must be 0). Measured `port-coverage.mjs --name losexp` 2026-09-19 @ 7b5fbce5. **Addressed:** D-2526
+
+
+- [x] `objnam.c` vtense — coverage THIN (C 90 L `objnam.c:2563–2653` / JS 27 L in js/objnam.js; hops 2, callers 87, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn vtense` (reach regression must be 0). Measured `port-coverage.mjs --name vtense` 2026-09-19 @ 7b5fbce5. **Addressed:** D-2525 `d9247324`
 
 
 - [x] `sounds.c` dochat — coverage PARTIAL (C 152 L `sounds.c:1257–1409` / JS 72 L in js/sounds.js; hops 4, callers 2, RNG 1, msg 12; dead callees: shop_object). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dochat` (reach regression must be 0). Measured `port-coverage.mjs --name dochat` 2026-09-19 @ 7b5fbce5.

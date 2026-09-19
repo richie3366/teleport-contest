@@ -130,7 +130,7 @@ import { observe_object, encumber_msg, near_capacity, makeknown, update_inventor
 import { makemon, rndmonnum_adj, mpickobj, set_malign, newcham } from './makemon.js';
 import {
     A_CHA, A_STR, A_DEX, A_CON, A_WIS, adjattrib, exercise, adjalign,
-    poisoned, change_luck, Fumbling, acurr,
+    poisoned, change_luck, Fumbling, acurr, minuhpmax,
 } from './attrib.js';
 import { tamedog, wary_dog, abuse_dog } from './dog.js';
 import { welded, uwepgone, uswapwepgone } from './wield.js';
@@ -155,10 +155,10 @@ import { unplacebc, placebc, ballfall, drag_ball, move_bc } from './ball.js';
 import { carried, is_fainted, reset_faint } from './eat.js';
 import { inv_cnt, remove_worn_item } from './steal.js';
 import { ynq } from './getline.js';
-import { more_experienced, newexplevel } from './exper.js';
+import { more_experienced, newexplevel, losexp, setuhpmax } from './exper.js';
 import { killed, stumble_onto_mimic } from './uhitm.js';
 import { rider_cant_reach, dismount_steed } from './steed.js';
-import { resist, blank_novel, poly_obj, is_ice } from './zap.js';
+import { resist, blank_novel, poly_obj, is_ice, Drain_resistance } from './zap.js';
 import { fill_pit, fillholetyp, liquid_flow, maybe_dunk_boulders, bury_an_obj } from './dig.js';
 import { u_wield_art, attacks, bare_artifactname, has_magic_key, is_art, defends_when_carried } from './artifact.js';
 import { ART_STING, ART_MAGICBANE } from './generated/artifacts_data.js';
@@ -4670,7 +4670,7 @@ export async function self_invis_message() {
  * ordinary second d(2,4)+uhpmax rn2; losehp; burnarmor||rn2(3) →
  * destroy_items + ignite_items; burn_away_slime; burn_floor.
  * Named omissions: box/carried; shieldeff/monstseesu; Upolyd golem alts;
- * minuhpmax/setuhpmax/losexp; surface().
+ * surface(). Floor-path minuhpmax/setuhpmax/losexp gate live (trap.c:4285–4297).
  */
 async function dofiretrap(box) {
     const u = game.u || (game.u = {});
@@ -4692,11 +4692,17 @@ async function dofiretrap(box) {
     } else if (Upolyd(u)) {
         num = orig_dmg;
     } else {
+        // C trap.c:4285–4297 — floor-trap burn on max HP + drain gate.
+        const uhpmin = minuhpmax(1);
+        const olduhpmax = u.uhpmax | 0;
         num = d(2, 4);
-        const uhpmin = 1;
         if ((u.uhpmax | 0) > uhpmin) {
             u.uhpmax = (u.uhpmax | 0) - rn2(Math.min(u.uhpmax | 0, num + 1));
             if (game.flags) game.flags.botl = true;
+        } /* note: no 'else' here */
+        if ((u.uhpmax | 0) < uhpmin) {
+            setuhpmax(Math.min(olduhpmax, uhpmin), false); /* sets disp.botl */
+            if (!Drain_resistance()) await losexp(null); /* never fatal, drainer Null */
         }
         if ((u.uhp | 0) > (u.uhpmax | 0)) {
             u.uhp = u.uhpmax;
