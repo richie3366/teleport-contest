@@ -1224,7 +1224,11 @@ export function readobjnam(bp, no_wish, missOut) {
     {
         const rem = { rest: null };
         if (d.mntmp < LOW_PM && d.bp.length > 2) {
-            const mndx = name_to_monplus(d.bp, rem);
+            // C objnam.c:4408 passes &d->mgend (init -1); write back even on
+            // NON_PM since name_to_monplus may still set matchgend.
+            const gbox = { gender: d.mgend };
+            const mndx = name_to_monplus(d.bp, rem, gbox);
+            d.mgend = gbox.gender;
             if (mndx >= LOW_PM) {
                 d.mntmp = mndx;
                 let rest = rem.rest || '';

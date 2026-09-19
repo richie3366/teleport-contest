@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `pickup.c` do_loot_cont — coverage PARTIAL (C 71 L `pickup.c:2088–2162` / JS 32 L in js/pickup.js; hops 5, callers 3, RNG 1, msg 6). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn do_loot_cont` (reach regression must be 0). Measured `port-coverage.mjs --name do_loot_cont` 2026-09-19 @ f18ac024. **Addressed:** D-2576
+- [x] `mondata.c` name_to_monplus — coverage THIN (C 189 L `mondata.c:893–1085` / JS 83 L in js/mondata.js; hops 2, callers 3, RNG 0, msg 0; dead callees: title_to_mon). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn name_to_monplus` (reach regression must be 0). Measured `port-coverage.mjs --name name_to_monplus` 2026-09-19 @ d56627bd. **Addressed:** D-2577
+
+
+- [x] `pickup.c` do_loot_cont — coverage PARTIAL (C 71 L `pickup.c:2088–2162` / JS 32 L in js/pickup.js; hops 5, callers 3, RNG 1, msg 6). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn do_loot_cont` (reach regression must be 0). Measured `port-coverage.mjs --name do_loot_cont` 2026-09-19 @ f18ac024. **Addressed:** D-2576 `a90eb521`
 
 
 - [x] `uhitm.c` mhitm_ad_sedu — coverage PARTIAL (C 123 L `uhitm.c:4623–4748` / JS 60 L in js/mhitu.js; hops 4, callers 4, RNG 1, msg 5). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mhitm_ad_sedu` (reach regression must be 0). Measured `port-coverage.mjs --name mhitm_ad_sedu` 2026-09-19 @ f18ac024. **Addressed:** D-2575 `e4cd69b0`

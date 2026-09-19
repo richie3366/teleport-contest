@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-2577 — `mondata.c` name_to_monplus whole-body port (60-entry alt table, plural pre-fixes, title_to_mon) + 3 stale parks
+
+- **Status:** fixed (Open — coverage row `mondata.c` name_to_monplus THIN, C 189 L `mondata.c:893–1085` / JS 83 L `js/mondata.js:407`). Same iteration also parks 3 stale coverage rows (no `js/`): `detect.c` dump_map, `insight.c` show_achievements, `files.c` livelog_add — proofs in the Stale list.
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify name_to_monplus`: no corpus session blocked at baseline — 24-session smoke REACH is the corpus evidence). JS matched only 2 of C's 60 alt spellings, had no plural pre-fixes, no `title_to_mon` fallback, case-insensitive article strip, and the `objnam.c:4408` caller dropped the gender out-param.
+- **C locus:** `nethack-c/upstream/src/mondata.c:893–1085` (article strip `:920–925`; vortices/ies/ves pre-fixes `:930–940`; 60-entry alt_spl `:937–999`; prefix scan `:1001–1017`; pmnames longest-match `:1019–1069`; `title_to_mon` fallback `:1073–1075`; remainder `:1076–1077`; gender tail `:1078–1083`) + `botl.c:367–399` (`title_to_mon`) + callers `mondata.c:885` (`name_to_mon`), `objnam.c:4408`, `sp_lev.c:3150` (`find_montype`).
+- **JS was:** 83 L partial (`js/mondata.js:407`): 2-entry alt table; no pre-fixes; no title fallback (`title_to_mon` no symbol); `toLowerCase` article strip (C `strncmp` is case-sensitive); remainder as processed-tail string; `readobjnam.js:1227` passed no gender box.
+- **Fix:** `js/mondata.js` — restarted `name_to_monplus` in C order with `:line` cites: case-sensitive `a `/`an `/`the ` strip; vortices→vortex / -ies→-y (zombies-excluded) / -ves→-f truncating fixups with recomputed slen; full 60-entry `ALT_NAMES` (`pm` label + genderhint, index resolved at scan); alt scan with end/space/apostrophe boundary + immediate return; pmnames `LOW_PM..NUMMONS` longest-match with exact-break; `title_to_mon` fallback via live import; remainder as `inStr.slice(skip + len)` (C's `in_str + (&str[len] - buf)` pointer arithmetic — reproduces C's own "wolves"→rest-`"es"` quirk, verified); gender tail with the neuter no-override rule. `js/botl.js` — new exported `title_to_mon(str, rankBox, lenBox)` (C home; roles[] sentinel loop, 9 slots, male-then-female caseblind `str_start_is`, `roles[].title` per `rank_of` precedent; `roles`/`str_start_is`/`NON_PM` join existing imports, call-time use only). `js/readobjnam.js:1227` — passes `{ gender: d.mgend }` through per `objnam.c:4408` (writes back even on NON_PM, matching C's unconditional call).
+- **JS:** `js/mondata.js` (imports + table + restart, net +155); `js/botl.js:787–823` (`title_to_mon` + 3 import names); `js/readobjnam.js:1224–1230` (gender box).
+- **Callers:** C `mondata.c:885` → `js/mondata.js` `name_to_mon` (passes null remainder, unchanged — matches C's `(const char **) 0`); C `objnam.c:4408` → `js/readobjnam.js:1227` (now with gender box); C `sp_lev.c:3150` → `js/mklev.js:25985` (`find_montype_gender`, already passed `genderVar`, unchanged). Reverse-checked: no other JS site calls `name_to_monplus`; `title_to_mon`'s sole C caller (`mondata.c:1075`) is the new call site.
+- **Verify:** `node scripts/verify.mjs --fn name_to_monplus` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   3 changed js file(s): js/botl.js js/mondata.js js/readobjnam.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify name_to_monplus: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 6.2s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+VERIFY: PASS
+```
+Behavioral probes (independent of the port logic): `ettin zombie corpse`→245/` corpse`, `grey dragon`/`elf lady`(F)/`incubi`(M)/`cavemen`(M) all hit; `vortices`/`knives`/`foobar`→NON_PM like C; `energy vortices`→109/rest-`"es"` (C pointer arithmetic, not a bug); `Digger`→331 via titles; `A gnome`→NON_PM (case-sensitive strip, like C).
+- **Named omissions:** none new — every arm and callee live or ported in this commit (`strstri`/`strcmpi`/`strncmpi` folded as lowercase compares per existing house style, not new clones).
+- **Next:** pop the next Open — coverage row (`mkobj.c` weight).
+
 ## D-2576 — `pickup.c` do_loot_cont whole-body port (UNTRAP/FORCE autounlock, destroyed-box scan, Bag of Tricks)
 
 - **Status:** fixed (Open — coverage row `pickup.c` do_loot_cont PARTIAL, C 71 L `pickup.c:2088–2162` / JS 32 L `js/pickup.js:3966`).

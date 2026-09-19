@@ -232,10 +232,11 @@ DRLI arm still deferred there (BEHEAD live D-2144)
 
 ### `src/mondata.c` `name_to_monplus` / `monstseesu`
 
-JS: `js/mondata.js` — partial
+JS: `js/mondata.js` — complete (D-2577); `title_to_mon` home `js/botl.js`
 
 **pmnames[MALE/FEMALE/NEUTRAL] longest match + gender out** (D-0173); 
-grey dragon alt_spl subset (D-0064); **`name_to_monclass` letter/explain/truematch then 
+full 60-entry alt_spl + vortices/ies/ves pre-fixes + case-sensitive article strip + `title_to_mon` rank fallback (D-2577; remainder is the C `in_str` offset); 
+grey dragon subset was D-0064; **`name_to_monclass` letter/explain/truematch then 
 `name_to_mon`** (D-1098; `create_particular` class-letter still named); 
 **`monstseesu`/`monstunseesu`/`m_seenres` + makemon `seen_resistance`** (D-0235; 
 D-2233: `monstunseesu_prop` fully wired — `setworn` removal path (do_wear.js:561) + 
