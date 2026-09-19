@@ -7,7 +7,7 @@
 
 import { game } from './gstate.js';
 import {
-    flush_topl_more, pline, You, You_feel, mark_topline_prompt,
+    flush_topl_more, pline, You, Your, You_feel, mark_topline_prompt,
     newsym, see_monsters, urgent_pline, impossible, Hallucination, pline_The,
 } from './display.js';
 import { yn_function, paranoid_ynq } from './getline.js';
@@ -16,7 +16,7 @@ import { find_ac } from './u_init.js';
 import {
     A_STR, A_INT, A_WIS, A_CON, A_CHA, A_DEX, acurr, extremeattr, change_luck, Fast, Very_fast,
 } from './attrib.js';
-import { nomul, unmul, stop_occupation } from './hack.js';
+import { nomul, unmul, stop_occupation, is_pool, is_lava } from './hack.js';
 import { retouch_object, set_artifact_intrinsic } from './artifact.js';
 import {
     welded, bimanual, setuwep, setuswapwep, setuqwep, empty_handed, is_weptool,
@@ -33,6 +33,7 @@ import { monstunseesu_prop } from './mondata.js';
 import {
     add_valid_menu_class, menu_class_present, query_category, query_objlist,
     is_worn_by_type, u_safe_from_fatal_corpse, st_corpse, st_petrifies,
+    spoteffects,
 } from './pickup.js';
 import { obj_resists } from './dogmove.js';
 import { toggle_blindness, dropx, canletgo, setnotworn } from './do.js';
@@ -56,14 +57,15 @@ import {
     ALL_FINISHED, ALL_TYPES_SELECTED, ALL_TYPES, WORN_TYPES, UNPAID_TYPES,
     BUCX_TYPES, SIGNAL_NOMENU, USE_INVLET, INVORDER_SORT, PICK_ANY,
     CXN_ARTICLE,
-    HAND, FOOT, FINGER, TT_BEARTRAP, TT_INFLOOR, TT_LAVA, TT_BURIEDBALL, P_SHORT_SWORD, P_SABER,
+    HAND, FOOT, FINGER, NECK, TT_BEARTRAP, TT_INFLOOR, TT_LAVA, TT_BURIEDBALL, P_SHORT_SWORD, P_SABER,
+    Is_waterlevel, Is_airlevel,
     rightleftchars, RIGHT_HANDED,
     GETOBJ_EXCLUDE, GETOBJ_EXCLUDE_INACCESS, GETOBJ_DOWNPLAY, GETOBJ_SUGGEST,
     GETOBJ_NOFLAGS, Upolyd,
 } from './const.js';
-import { x_monnam, trycall, hcolor } from './do_name.js';
+import { x_monnam, trycall, hcolor, hliquid } from './do_name.js';
 import { PM_CLERIC } from './generated/monsters_data.js';
-import { change_sex, poly_gender, Unchanging, float_vs_flight } from './polyself.js';
+import { change_sex, poly_gender, Unchanging, float_vs_flight, body_part } from './polyself.js';
 import {
     ARMOR_CLASS, RING_CLASS, AMULET_CLASS, WEAPON_CLASS, TOOL_CLASS,
     objectNames, objectNameStrs, objectDescrs, is_sword,
@@ -73,13 +75,14 @@ import {
     is_flammable, is_rustprone, is_rottable, is_corrodeable, is_crackable,
     erosion_matters, is_damageable, is_metallic, curse, set_bknown,
 } from './mkobj.js';
-import { erode_obj, selftouch, instapetrify } from './trap.js';
+import { erode_obj, selftouch, instapetrify, drown } from './trap.js';
 import { artifact_light, begin_burn, end_burn } from './timeout.js';
 import { strsubst } from './hacklib.js';
 import { make_hallucinated, make_slimed } from './potion.js';
 import { rn2, rnd } from './rng.js';
 import { set_mimic_blocking } from './vision.js';
-import { restartcham, rescham } from './mon.js';
+import { restartcham, rescham, cant_drown } from './mon.js';
+import { hero_Swimming, hero_Breathless } from './dbridge.js';
 import { gulp_blnd_check } from './mhitu.js';
 import { region_danger } from './region.js';
 import { can_be_strangled } from './uhitm.js';
@@ -2619,12 +2622,28 @@ function amulet_flight_now() {
 }
 
 /**
- * C do_wear.c Amulet_off `:1089–1189`. setworn + off_msg; ESP
- * see_monsters; RESTFUL_SLEEP clear HSleepy TIMEOUT; GUARDING find_ac.
- * Named omit: MAGICAL_BREATHING drown/region_danger; STRANGULATION
- * Breathless; FLYING land/spoteffects; CHANGE.
+ * C ref: dbridge.c is_pool_or_lava — is_pool || is_lava. Same one-line
+ * shape as the dig/eat/trap file-locals; C keeps a single function and
+ * there is no live export, so this file carries its own copy.
+ */
+function is_pool_or_lava(x, y) {
+    return is_pool(x, y) || is_lava(x, y);
+}
+
+/**
+ * C ref: do_wear.c Amulet_off `:1090–1189` — takeoff mask clear, then the
+ * uamul->otyp switch in C order: ESP early setworn + off_msg +
+ * see_monsters; LIFE_SAVING/VERSUS_POISON/REFLECTION/CHANGE/UNCHANGING/
+ * FAKE_YENDOR no-op; MAGICAL_BREATHING early off + underwater drown +
+ * poison-gas region_danger; STRANGULATION early off + Strangled release;
+ * RESTFUL_SLEEP early setworn + HSleepy TIMEOUT clear (FROMOUTSIDE-safe);
+ * FLYING early off + float_vs_flight + land/stop-flying + spoteffects;
+ * GUARDING find_ac; YENDOR no-op; trailing setworn + off_msg unless an
+ * arm already showed it; makeknown when an arm set mkn.
  */
 export async function Amulet_off() {
+    // C `:1092–1095` — keep the object for off_msg after it is unworn;
+    // take the amulet out of the takeoff mask up front.
     const u = game.u || {};
     const amul = u.uamul;
     if (!amul) return;
@@ -2636,6 +2655,8 @@ export async function Amulet_off() {
 
     switch (otyp) {
     case AMULET_OF_ESP:
+        // C `:1098–1105` — unwear first so the ESP ability drops before
+        // see_monsters() repaints what the hero can still sense.
         setworn(null, W_AMUL);
         await off_msg(amul);
         early_off_msg = true;
@@ -2647,33 +2668,100 @@ export async function Amulet_off() {
     case AMULET_OF_CHANGE:
     case AMULET_OF_UNCHANGING:
     case FAKE_AMULET_OF_YENDOR:
+        // C `:1106–1112` — worn-effect amulets with no doff action.
         break;
-    case AMULET_OF_MAGICAL_BREATHING:
-        /* drown / region_danger named omit — still setworn below */
+    case AMULET_OF_MAGICAL_BREATHING: {
+        // C `:1113–1133` — the amulet is still on here; take it off and
+        // show off_msg before the drowning/gas messages ('uamul' is Null
+        // past setworn, so the saved amul is passed).
+        setworn(null, W_AMUL);
+        await off_msg(amul);
+        early_off_msg = true;
+
+        // C Underwater ≡ u.uinwater (youprop.h:279); cant_drown ≡
+        // is_swimmer/amphibious/breathless of the hero's form.
+        if ((u.uinwater | 0)) {
+            if (!cant_drown(game.youmonst?.data) && !hero_Swimming()) {
+                await You('suddenly inhale an unhealthy amount of %s!',
+                    hliquid('water'));
+                mkn = true; /* in case of life-saving */
+                await drown(); /* C: (void) — return discarded */
+            }
+        }
+        if (region_danger()) {
+            /* C: "breathing": wouldn't get here otherwise */
+            await You('are breathing poison gas!');
+            mkn = true;
+        }
         break;
+    }
     case AMULET_OF_STRANGULATION:
-        /* Strangled / Breathless named omit — still setworn below */
+        // C `:1134–1148` — early off; Strangled ≡ uprops[STRANGLED]
+        // intrinsic (youprop.h:110); the u.Strangled mirror is this
+        // file's Amulet_on convention, cleared alongside.
+        setworn(null, W_AMUL);
+        await off_msg(amul);
+        early_off_msg = true;
+
+        if ((u.Strangled | 0) || ((u.uprops?.[STRANGLED]?.intrinsic) | 0)) {
+            u.Strangled = 0;
+            if (u.uprops?.[STRANGLED]) u.uprops[STRANGLED].intrinsic = 0;
+            if (game.disp) game.disp.botl = true;
+            if (game.flags) game.flags.botl = true;
+            if (hero_Breathless())
+                await Your('%s is no longer constricted!', body_part(NECK));
+            else
+                await You('can breathe more easily!');
+            mkn = true;
+        }
         break;
     case AMULET_OF_RESTFUL_SLEEP:
+        // C `:1149–1154` — early setworn; HSleepy = 0L would clobber a
+        // FROMOUTSIDE bit a previously eaten amulet may have set, so
+        // only the TIMEOUT bits are cleared, and only when no extrinsic
+        // sleepiness (ESleepy ≡ uprops[SLEEPY].extrinsic) remains.
         setworn(null, W_AMUL);
-        /* HSleepy = 0L would clobber FROMOUTSIDE */
         if (!((u.ESleepy | 0) || (u.uprops?.[SLEEPY]?.extrinsic | 0))
             && !((u.HSleepy | 0) & ~TIMEOUT)) {
             u.HSleepy = (u.HSleepy | 0) & ~TIMEOUT;
         }
         break;
-    case AMULET_OF_FLYING:
-        /* float_vs_flight / land / spoteffects named omit */
+    case AMULET_OF_FLYING: {
+        // C `:1155–1175` — read Flying before removal, remove early
+        // (also in case spoteffects() touches the amulet), then
+        // float_vs_flight() in case levitation blocks the fall.
+        const was_flying = !!amulet_flight_now();
+
+        setworn(null, W_AMUL);
+        await off_msg(amul);
+        early_off_msg = true;
+
+        float_vs_flight(); /* probably not needed here */
+        if (was_flying && !amulet_flight_now()) {
+            if (game.disp) game.disp.botl = true;
+            if (game.flags) game.flags.botl = true;
+            await You('%s.', (is_pool_or_lava(u.ux, u.uy)
+                        || Is_waterlevel(u.uz) || Is_airlevel(u.uz))
+                          ? 'stop flying'
+                          : 'land');
+            mkn = true; /* makeknown(AMULET_OF_FLYING) */
+            await spoteffects(true);
+        }
         break;
+    }
     case AMULET_OF_GUARDING:
+        // C `:1176–1178` — AC changes on removal; setworn found it.
         find_ac();
         break;
     case AMULET_OF_YENDOR:
+        // C `:1179–1180` — no effect on doff.
         break;
     default:
         break;
     }
 
+    // C `:1183–1188` — trailing setworn (no-op for arms that removed
+    // early) + off_msg unless already shown; identify when mkn.
     setworn(null, W_AMUL);
     if (!early_off_msg) await off_msg(amul);
     if (mkn) makeknown(amul.otyp);

@@ -1099,7 +1099,7 @@ skin `W_ARM|I_SPECIAL`, nudist, tux_penalty, botl, `update_inventory`;
 omit amulet livelog_newform (log-only, D-2505), ring Glib/cursed-gloves/weld, HELM_OF_OPPOSITE_ALIGNMENT arm (uchangealign live `js/attrib.js` D-2343, helm caller wiring still deferred — D-2192; canwearobj polyform/weld/trap gates live D-2123 — verysmall/nohands, cantweararm cloak-exception+racial via `worn.js` export, welded-bimanual, helm horns, shield bimanual/twoweap, boots slithy/centaur/4-trap, gloves welded/Glib; retires the getobj-catalogue `canwearobj` polyform named); **`doddoremarm`/`A` empty-worn You are not wearing anything (D-1185)**; 
 **ggetobj takeoff D-1602** (`doddoremarm` TRADITIONAL `select_off` + `askchain`) + 
 **`take_off` occupation D-1619** (`do_takeoff` + `takeoff_order` + `oc_delay`; 
-cloak/suit extra; `Amulet_off` ESP/`RESTFUL_SLEEP`/`GUARDING`; drown/strangle/fly named) +
+cloak/suit extra; `Amulet_off` ESP/`RESTFUL_SLEEP`/`GUARDING`; drown/strangle/fly named) + **Amulet_off whole-body C-order restart** (D-2529; MAGICAL_BREATHING uinwater/cant_drown/hero_Swimming + drown + region_danger; STRANGULATION Strangled-intrinsic release + hero_Breathless + body_part(NECK); FLYING was_flying/amulet_flight_now + float_vs_flight + land/stop-flying + spoteffects(TRUE); file-local is_pool_or_lava ≡ dig/eat/trap shape; steal.c:265 caller wired) +
 **`cancel_doff`** (D-1766; C `do_wear.c` `:1643–1659` skip `cancel_don` when
 `I_SPECIAL` then `takeoff.mask &= ~slotmask`; `setworn`/`setnotworn` callers;
 `doffing` `:1600–1640` accessory/wep `takeoff.what`; named: setnotworn

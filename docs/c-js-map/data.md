@@ -1413,7 +1413,7 @@ named); **D-1089** sit `Antimagic()` ≡ `youprop.h` `uprops[ANTIMAGIC]` intrins
 (invent.js `hero_Antimagic` + mcastu.js reader D-2090; confer cloak-of-MR / gray DSM never writes `EAntimagic`); 
 Half_spell_damage sit clone vs uprops still named; 
 `update_inventory` / Hallucination `hcolor` still named on rndcurse; donning/`cancel_don`; 
-`in_use`; uskin `skinback`; `Amulet_off`; `Ring_gone`/`Blindf_off` still setworn;
+`in_use`; uskin `skinback`; `Amulet_off` wired D-2529; `Ring_gone`/`Blindf_off` still setworn;
 **`body_part`** imports `polyself.js` (exact-name clone retired);
 **`eyecount` D-1652** (C `mondata.h` via `js/monsters.js`;
 `throne_sit_effect` Blind case 10 0 HEAD / 1 singular / 2+ plural
