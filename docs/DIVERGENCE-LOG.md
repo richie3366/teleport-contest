@@ -1,5 +1,31 @@
 # Divergence log
 
+## D-2540 — `uhitm.c` mhitm_ad_blnd whole body in C order (coverage THIN → live, uhitm arm ported, both C callers wired)
+
+- **Status:** fixed (Open coverage row `uhitm.c` mhitm_ad_blnd THIN, C 50 L `uhitm.c:2958–3012` / JS 18 L mhitm-only arm in js/mhitm.js; no Must-fix pending; row cites no review — no stamp; review gazemm names the function for sibling arms only, no Keep'd C-wrong).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify mhitm_ad_blnd`: no corpus session blocked at baseline — hero blinding attack / monster-vs-monster blind, RNG 1 via the mhitm-arm d(), msg 3).
+- **C locus:** `nethack-c/upstream/src/uhitm.c:2958–3012` (`mhitm_ad_blnd`); arms `:2964–2975` (uhitm), `:2976–2985` (mhitu), `:2986–3011` (mhitm). Callees: `can_blnd` (`:2966`/`:2978`/`:2988`, mondata.c:305–398 — live `js/uhitm.js:316`), `pline` — live, `Monnam` — live, `make_blinded`+`BlindedTimeout` (mhitu arm — live in the mhitu split), `Your1(vision_clears)` (`:2982–2983` — no JS symbol, named), `d` — live, `canspotmon`/`canseemon` — live, `mon_nam`/`s_suffix` — live, `eos` (pointer helper folded into `+=`). Callers: `mhitm.c:792` (gazemm) + `uhitm.c:4802` (mhitm_adtyping AD_BLND).
+- **JS was:** `js/mhitm.js:822` 18 L mhitm-arm-only body (non-exported, cited only `:2986–3011`, gated by file-local `can_blnd_mm`); uhitm arm MISSING — `damageum_adtyping` (the JS `mhitm_adtyping` hero subset; C `damageum :4854` → `:4802`) had no AD_BLND case, so hero blinding attacks kept leftover dice as physical damage instead of C's blind + damage 0; mhitu arm live split as `mhitm_ad_blnd_u` (`js/mhitu.js:746`, D-0926).
+- **Fix:** `js/mhitm.js` — restarted + exported `mhitm_ad_blnd` in C order: `:2964–2975` uhitm arm new (live `can_blnd` gate on the existing mhitm.js→uhitm.js edge; `!Blind_slee()` is the file-local youprop.h Blind gate the slee arm uses; `"%s is blinded."`, mcansee=0, damage += mblinded clamped 127 back into mblinded, damage=0); `:2976–2985` mhitu arm early-returns to the split `mhitm_ad_blnd_u`; `:2986–3011` mhitm arm kept verbatim (file-local `can_blnd_mm` light-attack gate: magr mcan + resists_blnd_mm per mondata.c `:331–339`, which the live export does not cover). `js/uhitm.js` — `damageum_adtyping` AD_BLND row wires C `:4802` (`mhitm_ad_blnd(game.youmonst, mattk, mdef, mhm)`; mhm never null on the damageum path); name joins the existing uhitm.js→mhitm.js import edge (same pattern as mhitm_ad_poly/slee/heal).
+- **JS:** `js/mhitm.js` (+~30: import name, doc, export, uhitm arm, mhitu guard) + `js/uhitm.js` (+9: import name, AD_BLND row) + CURRENT.md cluster line + map lines — under caps (1500 ins / 15 files).
+- **Callers:** `mhitm.c:792` (gazemm Archon extra, mhm=null) → `js/mhitm.js:4955` ✓ pre-existing, now reaches the exported whole body (monster magr → mhitm arm); `mhitm.c` mdamagem AD_BLND dispatch → `js/mhitm.js:3860` ✓ pre-existing; `uhitm.c:4802` (mhitm_adtyping AD_BLND, magr=you) → `js/uhitm.js` damageum_adtyping AD_BLND row ✓ wired this commit; mhitu dispatch → `js/mhitu.js:3150` `mhitm_ad_blnd_u` split (D-0926) — named, not rewired (sets M_ATTK_HIT, mhitu-dispatch context outside C). No call from a site C never calls from (gulpum `:3313` «can't see in there!» is C `uhitm.c:5129–5140` engulf, untouched; explum `:3034` flash-of-light is C `:4891–4928`, untouched).
+- **Verify:** `node scripts/verify.mjs --fn mhitm_ad_blnd` → PASS syntax (2 changed: js/mhitm.js js/uhitm.js) · rule2 · hidden note (0 blocked at baseline) · reach smoke 24/24 PASS, 0 regressed → REACH-OK · green 2/2 · strict ×2 · cohort 7/7 · full skipped (no shared file changed) → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   2 changed js file(s): js/mhitm.js js/uhitm.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify mhitm_ad_blnd: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 3.0s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+VERIFY: PASS
+```
+- **Named omissions:** mhitu `:2982–2983` `Your1(vision_clears)` (Eyes of the Overworld; no Your1/vision_clears symbol in js/ — same standing omit as D-0926); live `can_blnd` gaps reused by the uhitm arm (AT_CLAW uswallow/visor `:373–378` + `:389–394`, AT_TUCH/STNG mcan `:380–384`, POT_BLINDNESS `:353`, Blindfolded/ublindf you-gates — a mondata.c full-body port is its own row); `mon_perma_blind`/raven-vs-raven (`:318–328`, both JS can_blnd variants); mhitm-arm `gv.vis`→`_mm_vis`, `Snprintf/eos`→concat (established file convention).
+- **Next:** Open head after mhitm_ad_blnd (`uhitm.c` mhitm_ad_ston).
+
 ## D-2539 — `version.c` check_version + uptodate whole bodies in C order (coverage MISSING → live; compare/what_datamodel/critical_sizes ported; head row mhitm_ad_slim STALE-split)
 
 - **Status:** fixed (Open coverage rows `version.c` check_version MISSING, C 45 L `:374–423` / JS no symbol, and `version.c` uptodate MISSING, C 33 L `:713–746` / JS no symbol, same-C-file pair shipped together; queue head `uhitm.c` mhitm_ad_slim parked STALE in this commit — all three arms already complete under split names; no Must-fix pending; rows cite no review — no stamp).

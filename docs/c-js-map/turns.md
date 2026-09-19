@@ -3668,7 +3668,7 @@ live `rn2(3)` COLD/FIRE/ELEC/PLYS/STUN; no zombify;
 gulpmm snuff_lit D-1242 / **gulpmm !goodpos return-home D-1243**; 
 AD_DGST eat / drain_item ABON / golem MSLOW named; **arti_reflects D-1342**); 
 **`special_obj_hits_leader` predicate D-1044; catch/`finish_quest` D-1312**; 
-chat_with_leader got_thanks/questart still named
+chat_with_leader got_thanks/questart still named; **uhitm AD_BLND D-2540** (`uhitm.c:2958–3012` whole body: uhitm arm `:2964–2975` new in exported `mhitm_ad_blnd` via `damageum_adtyping` AD_BLND row wiring C `:4802`, mhitm arm `:2986–3011` kept with file-local light gate, mhitu arm `:2976–2985` stays split `mhitm_ad_blnd_u`; mhitm.c:792 gazemm + mdamagem dispatch pre-wired; named: vision_clears, live-can_blnd AT_CLAW/TUCH/STNG/visor gaps)
 
 ### `src/teleport.c`
 

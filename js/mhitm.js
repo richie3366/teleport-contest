@@ -137,7 +137,7 @@ import { mswings_verb, Conflict, unstuck } from './mhitu.js';
 import { mon_offmap, set_apparxy, mb_trapped } from './monmove.js';
 import { hurtle, mhurtle, will_hurtle } from './dothrow.js';
 import { make_stunned } from './potion.js';
-import { m_is_steadfast } from './uhitm.js';
+import { m_is_steadfast, can_blnd } from './uhitm.js';
 import { mintrap, acid_damage } from './trap.js';
 import { breamm, spitmm, thrwmm } from './mthrowu.js';
 // C ref: mon.c mondead tail (D-row for data.md:358) — one block for the
@@ -816,10 +816,36 @@ function can_blnd_mm(magr, mdef, aatyp) {
 }
 
 /**
- * C ref: uhitm.c mhitm_ad_blnd mhitm arm :2986–3011.
+ * C ref: uhitm.c mhitm_ad_blnd `:2958–3012` — uhitm (you→mon, `:2964–2975`)
+ * and mhitm (mon→mon, `:2986–3011`) arms in C order. uhitm: can_blnd gate,
+ * !Blind "%s is blinded.", mcansee=0, damage += mblinded clamped to 127
+ * back into mblinded, then damage=0. mhitm: vis&&mcansee&&canspotmon
+ * "is blinded[ by <magr> radiance]" (Archon extra, seen only), fresh
+ * d(damn,damd)+mblinded clamped to 127, mcansee=0, clear WAITFORU;
  * gazemm Archon extra passes mhm=null; mdamagem leftover zeros dice.
+ * mhitu (mon→you, `:2976–2985`) arm lives in mhitu.js mhitm_ad_blnd_u
+ * (D-0926; Eyes-of-the-Overworld vision_clears named there).
+ * The mhitm arm keeps the file-local light-attack gate (magr mcan +
+ * resists_blnd_mm) that the live can_blnd export does not cover
+ * (mondata.c `:331–339`); the uhitm arm uses live can_blnd.
  */
-async function mhitm_ad_blnd(magr, mattk, mdef, mhm) {
+export async function mhitm_ad_blnd(magr, mattk, mdef, mhm) {
+    if (is_youmonst(magr)) {
+        /* C `:2964–2975` uhitm (hero as attacker) */
+        if (can_blnd(magr, mdef, mattk.aatyp | 0, null)) {
+            if (!Blind_slee() && (mdef.mcansee | 0)) {
+                await pline(`${Monnam(mdef)} is blinded.`);
+            }
+            mdef.mcansee = 0;
+            mhm.damage = (mhm.damage | 0) + (mdef.mblinded | 0);
+            if (mhm.damage > 127) mhm.damage = 127;
+            mdef.mblinded = mhm.damage;
+        }
+        mhm.damage = 0;
+        return;
+    }
+    if (is_youmonst(mdef)) return; /* C `:2976–2985` mhitu: mhitu.js mhitm_ad_blnd_u */
+    /* C `:2986–3011` mhitm */
     if (can_blnd_mm(magr, mdef, mattk?.aatyp)) {
         if (_mm_vis && (mdef.mcansee | 0) && canspotmon(mdef)) {
             let buf = `${Monnam(mdef)} is blinded`;
