@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `mkobj.c` insane_object — coverage MISSING (C 21 L `mkobj.c:3314–3339` / JS no symbol; hops 3, callers 29, RNG 0, msg 1; dead callees: where_name). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn insane_object` (reach regression must be 0). Measured `port-coverage.mjs --name insane_object` 2026-09-19 @ ab1ae274. **Addressed:** D-2520
+- [x] `pager.c` look_engrs — coverage PARTIAL (C 84 L `pager.c:2144–2228` / JS 59 L in js/pager.js; hops 1, callers 2, RNG 0, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn look_engrs` (reach regression must be 0). Measured `port-coverage.mjs --name look_engrs` 2026-09-19 @ ab1ae274. **Addressed:** D-2521
+
+
+- [x] `mkobj.c` insane_object — coverage MISSING (C 21 L `mkobj.c:3314–3339` / JS no symbol; hops 3, callers 29, RNG 0, msg 1; dead callees: where_name). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn insane_object` (reach regression must be 0). Measured `port-coverage.mjs --name insane_object` 2026-09-19 @ ab1ae274. **Addressed:** D-2520 `95d26622`
 
 
 - [x] `mklev.c` makerooms — coverage THIN (C 69 L `mklev.c:367–436` / JS 30 L in js/mklev.js; hops 1, callers 2, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn makerooms` (reach regression must be 0). Measured `port-coverage.mjs --name makerooms` 2026-09-19 @ ab1ae274. **Addressed:** D-2519 `31bd0727`

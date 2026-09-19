@@ -49,7 +49,7 @@ import {
     distant_name, simpleonames,
     makeplural, makesingular, fruit_from_name,
 } from './objnam.js';
-import { strstri, lcase, upstart } from './hacklib.js';
+import { strstri, lcase, upstart, strsubst } from './hacklib.js';
 import { distant_monnam, coyotename, PM_COYOTE, pmname, Mgender, Ugender, mon_nam, rndmonnam } from './do_name.js';
 import { hides_under, is_hider, is_clinger, is_flyer, is_orc, mons,
     M2_HUMAN, M2_ELF, M2_ORC, M2_DEMON, pmnames, NEUTRAL,
@@ -76,7 +76,7 @@ import {
 import {
     BOLT_LIM, COLNO, ROWNO, STAIRS, LA_DOWN, ROOM, CORR, STONE, SCORR, SDOOR,
     GPCOORDS_NONE, GPCOORDS_MAP, GPCOORDS_COMPASS, GPCOORDS_SCREEN,
-    STRAT_WAITMASK, IS_WALL, Upolyd, Is_airlevel, Is_waterlevel, Is_astralevel,
+    STRAT_WAITMASK, IS_WALL, IS_GRAVE, Upolyd, Is_airlevel, Is_waterlevel, Is_astralevel,
     Is_rogue_level,
     u_at, TER_MON, TER_OBJ, TER_MAP, TER_DETECT,
     Amask2align, AM_SANCTUM, AM_MASK, D_BROKEN, D_TRAPPED,
@@ -2333,64 +2333,105 @@ async function look_traps(nearby) {
 }
 
 /**
- * C ref: pager.c look_engrs — NHW_TEXT; seenv + eread remembered text;
- * covered by hero/mon/obj → ", obscured by <glyph>" and engraving_to_glyph
- * '`' (S_engroom). Grave/headstone and S_engrcorr deferred.
+ * C ref: pager.c look_engrs `:2144–2228` — `/e` (nearby) / `/E` (level)
+ * list of seen or remembered engravings, in C order. NHW_TEXT window
+ * (`:2154`; JS `show_text_pages`, the D-2508 look_all idiom);
+ * `look_region_nearby` window (`:2155`); per-cell `seenv` gate
+ * (`:2159–2161`); `engr_at` (`:2166–2168`, no fallback scan for
+ * remembered-but-gone engravings per `:2162–2165`); headstone via
+ * `IS_GRAVE(svl.lastseentyp[x][y])` (`:2169`, JS `game.lastseentyp`);
+ * `" (grave"` / `" (engraving"` prefix (`:2170`) + `add_quoted_engraving`
+ * (`:2171`, force TRUE); the paren-stripping `strsubst` rewrites
+ * (`:2174–2180`); `glyph_at` + cmap→`SYM_NOTHING` (`:2182–2183`); shown
+ * (`is_cmap_engraving(sym) || sym == S_grave`, `sym.h:108`, `:2184–2186`)
+ * vs covered (`", obscured by <covering>"` + re-point at
+ * `cmap_to_glyph(S_grave)` / `engraving_to_glyph(e)` =
+ * `cmap_to_glyph` of the CORR/room defsym, `display.h`, `:2187–2193`);
+ * `upstart` header + `"    "` separator (`:2200–2208`); coord prefix
+ * (`%s/%8s/%12s` via `look_coord_prefix`, `:2210–2214`) + rendered glyph
+ * char (`%s ` via `encglyph` as the tty renders it — `rendered_glyph_char`
+ * for the live map glyph, `glyph_showsym_code` for the re-pointed one,
+ * `:2215`); BUFSZ guard (`:2216–2218`); `display_nhwindow` vs
+ * `pline("No engravings...")` (`:2223–2227`).
+ * Callers `pager.c:1878/1881` → `dowhatis` `e`/`E` arms below.
  */
 async function look_engrs(nearby) {
-    const { lo_x, lo_y, hi_x, hi_y } = look_region(nearby);
+    const region = {}; // C :2155 look_region_nearby(&lo_x, &lo_y, &hi_x, &hi_y)
+    look_region_nearby(region, nearby);
+    const { lo_x, lo_y, hi_x, hi_y } = region;
     const lines = [];
-    let count = 0;
-    const cmode = look_getpos_cmode();
-    for (let y = lo_y; y <= hi_y; y++) {
-        for (let x = lo_x; x <= hi_x; x++) {
-            const loc = game.level?.at?.(x, y);
-            if (!loc?.seenv) continue;
-            const e = engr_at(x, y);
-            if (!e) continue;
-            const txt = e.engr_txt;
-            const remembered =
-                (typeof txt === 'string'
-                    ? txt
-                    : txt?.remembered_text || txt?.actual_text || '') || '';
-            // After C strsubst("(engraving with " → ""): leading space retained
-            let lookbuf = e.eread
-                ? ` remembered text: "${remembered}"`
-                : ' that you haven\'t read';
-
-            const shown = look_shown_at(x, y);
-            // Engraving cmap shown only when nothing covers; else obscured.
-            // JS map rarely paints S_engroom; treat cover as hero/mon/obj.
-            let glyphCh = '`'; // S_engroom / engraving_to_glyph
-            if (shown?.kind === 'hero') {
-                lookbuf += ', obscured by @';
-            } else if (shown?.kind === 'mon') {
-                lookbuf += `, obscured by ${mon_glyph(shown.mtmp).ch || '?'}`;
-            } else if (shown?.kind === 'obj') {
-                lookbuf += `, obscured by ${obj_glyph(shown.obj).ch || '?'}`;
+    let count = 0; // C :2152
+    const cmode = look_getpos_cmode(); // C :2198-2199 (helper: iflags or MAP)
+    for (let y = lo_y; y <= hi_y; y++) { // C :2157
+        for (let x = lo_x; x <= hi_x; x++) { // C :2158
+            let lookbuf = ''; // C :2159 lookbuf[0] = '\0'
+            if (!game.level?.at?.(x, y)?.seenv) continue; // C :2160-2161
+            const e = engr_at(x, y); // C :2166
+            if (!e) continue; // C :2167-2168
+            const is_headstone = IS_GRAVE(game.lastseentyp?.[x]?.[y] | 0); // C :2169
+            const quoted = { s: is_headstone ? ' (grave' : ' (engraving' }; // C :2170
+            add_quoted_engraving(x, y, quoted, true); // C :2171 (void) TRUE
+            lookbuf = quoted.s;
+            /* C :2172-2173 — the paren is farlook's, not ours */
+            if (is_headstone) { // C :2174
+                lookbuf = strsubst(lookbuf, '(grave with ', ''); // C :2175
+                lookbuf = strsubst(lookbuf, '(grave whose ', ''); // C :2176
+            } else { // C :2177
+                lookbuf = strsubst(lookbuf, '(engraving with ', ''); // C :2178
+                lookbuf = strsubst(lookbuf, '(engraving ', 'engraving '); // C :2179
             }
 
-            count++;
-            if (count === 1) {
-                lines.push(
-                    `${nearby ? 'Nearby seen or remembered engravings' : 'Seen or remembered engravings on this level'}:`,
-                );
-                lines.push('    ');
+            let glyph = glyph_at(x, y); // C :2182
+            const sym = glyph_is_cmap(glyph) ? glyph_to_cmap(glyph) : SYM_NOTHING; // C :2183
+            let glyphCh;
+            if (sym === S_engroom || sym === S_engrcorr || sym === S_grave) { // C :2184 (sym.h:108)
+                /* C :2185 — engraving or grave+headstone shown on the map */
+                glyphCh = rendered_glyph_char(x, y); // C :2215 encglyph, tty-rendered
+                ++count; // C :2186
+            } else { // C :2187
+                /* C :2188 — engraving or grave covered by object(s) */
+                lookbuf += `, obscured by ${rendered_glyph_char(x, y)}`; // C :2189-2190 encglyph
+                glyph = is_headstone ? cmap_to_glyph(S_grave) // C :2191-2192
+                    : cmap_to_glyph( // C display.h engraving_to_glyph
+                        (game.level?.at?.(e.engr_x, e.engr_y)?.typ === CORR)
+                            ? S_engrcorr : S_engroom);
+                glyphCh = String.fromCharCode(glyph_showsym_code(glyph) & 0xFF);
+                ++count; // C :2193
             }
-            // look_engrs: no y<10 kitten on coord_desc (unlike look_all)
-            const raw = `<${x},${y}>`;
-            const prefix =
-                cmode === GPCOORDS_SCREEN
-                    ? `${coord_desc(x, y, cmode)}  `
+            if (lookbuf) { /* C :2195 (redundant) */
+                if (count === 1) { // C :2200
+                    lines.push( // C :2201-2204 Sprintf + upstart
+                        upstart(
+                            `${nearby ? 'nearby ' : ''}seen or remembered engravings${nearby ? '' : ' on this level'}:`,
+                        ),
+                    );
+                    lines.push('    '); // C :2208 separator
+                }
+                /* C :2210-2215 — prefix: "coords  C  " + rendered glyph + ' '.
+                   C coord_desc MAP is bare `<x,y>` (getpos.c); the local
+                   coord_desc's y<10 kitten would break the `%8s` pad, so
+                   MAP formats raw here (SCREEN/COMPASS keep the helper). */
+                const coord = cmode === GPCOORDS_MAP
+                    ? `<${x},${y}>`
+                    : coord_desc(x, y, cmode);
+                const cprefix = cmode === GPCOORDS_SCREEN
+                    ? `${coord}  `
                     : cmode === GPCOORDS_MAP
-                      ? `${raw.padStart(8, ' ')}  `
-                      : `${raw.padStart(12, ' ')}  `;
-            // C: "%s " after encglyph (one space); lookbuf already has leading space
-            lines.push(`${prefix}${glyphCh} ${lookbuf}`);
+                        ? `${coord.padStart(8, ' ')}  `
+                        : `${coord.padStart(12, ' ')}  `;
+                const head = `${cprefix}${glyphCh} `;
+                // C :2216-2218 guard against potential overflow
+                const maxLook = BUFSZ - 1 - head.length;
+                if (lookbuf.length > maxLook) {
+                    lookbuf = lookbuf.slice(0, Math.max(maxLook, 0));
+                }
+                lines.push(`${head}${lookbuf}`); // C :2218-2219 Strcat + putmixed
+            }
         }
     }
-    if (count) await show_text_pages(lines);
-    else {
+    if (count) { // C :2223
+        await show_text_pages(lines, { moreAtEnd: true }); // C :2224 display_nhwindow
+    } else { // C :2225-2226
         await pline(
             `No engravings seen or remembered${nearby ? ' nearby' : ''}.`,
         );
