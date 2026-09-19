@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2500 — `read.c` recharge whole-body port (live namers, static Ring/shop imports, awaited BUC)
+
+- **Status:** fixed (breadth-phase coverage row: recharge PARTIAL C 279 L `read.c:729–1008` / JS 190 L `js/read.js`; `hidden-proxy verify recharge`: no corpus session blocked).
+- **Symptom:** coverage gap — the body was present but carried clone drift inside live arms: wrong glow fn on the wishing arm, clone namers on ring/lamp messages, dynamic-import callees, an `eat.js`-clone `useup`, and three un-awaited async BUC calls.
+- **C locus:** `nethack-c/upstream/src/read.c:729–1008` (`recharge`) + staticfns `stripspe :651–664`, `p_glow1–3 :666–685`, `cap_spe :78–86` (null-safe, matches JS guard).
+- **JS was:** `js/read.js` `recharge` called `p_glow2(obj, NH_BLUE, true)` for the wishing `lim==1` arm (C calls `p_glow3` there); ring-explode message via local `Yobjnam2_read` + `vtense(xname(obj))` (C: `Yobjnam2` + `otense`); `Ring_gone`/`Ring_off`/`Ring_on`, `costly_alteration`/`alter_cost`, `end_burn` via per-call `await import`; ring-explode `useup` via the `eat.js` clone; crystal-ball `curse`/`bless`/`uncurse` un-awaited (all async in `js/mkobj.js`); lamp message via `Tobjnam_read`; feeling-of-loss via hardcoded `pline`.
+- **Fix:** `js/read.js` only, no new module edges (`imports.mjs --can` ALREADY on all five): `You`/`Your` (display), `Tobjnam` (objnam), `useup as useup_live` (invent), `Ring_gone`/`Ring_off`/`Ring_on` (do_wear), `end_burn` (timeout) added to existing static imports. Wand `lim==1` → `p_glow3`; invented `feeble` param removed from local `p_glow2` (C 2-arg `:673`); `stripspe`/`p_glow1–3` internals → live `Yobjnam2` + static `costly_alteration`; ring-explode → live `Yobjnam2`/`otense` + static `Ring_gone` + `useup_live`; ring-spin → live `Yname2` + static `costly_alteration`/`Ring_off`/`setworn`/`Ring_on`/`alter_cost`; marker dried-out → live `Your`; lamp → live `Tobjnam` + static `end_burn`; crystal-ball → awaited `curse`/`bless`/`uncurse` + live `Yobjnam2`; default/else → live `You`. Dead `Yobjnam2_read`/`Tobjnam_read` removed (`Yname2_read` stays for `wand_explode`). Arms otherwise unchanged and in C order.
+- **JS:** `js/read.js:815` `export async function recharge` (+ helpers `:693–722`).
+- **Callers:** `artifact.c:1861` → `js/artifact.js:1881` (`await recharge(otmp, b_effect ? 1 : …)`); `read.c:1826` (`seffect_charging`) → `js/read.js:1332`; `zap.c:5890` → `js/zap.js:1557` (`await recharge(obj, 0)`). All three wired, unchanged.
+- **Verify:** `node scripts/verify.mjs --fn recharge` → PASS syntax (1 changed: `js/read.js`) · PASS rule2 · hidden note (no corpus session blocked) · REACH-OK 3/3 baseline-PASS reach sessions, 0 regressed · green 2/2 · strict both · cohort 7/7 · VERIFY: PASS.
+- **Named omissions:** local `useup` clone (`js/read.js`, used by other read fns) and `Yname2_read` (`wand_explode`) stay — pre-existing drift owned by other functions' ports; `explode_losehp` kept for the ring-explode `losehp` (file idiom: `Maybe_Half_Phys` + wail/done lifecycle, same as `wand_explode`).
+- **Next:** pop the next Open — coverage row (`mkmaze.c` movebubbles).
+
 ## D-2499 — `mon.c` m_consume_obj whole-body port (meatbox + all consume arms)
 
 - **Status:** fixed (breadth-phase coverage row: m_consume_obj THIN C 61 L `mon.c:1392–1453` / JS 16 L; `hidden-proxy verify m_consume_obj`: no corpus session blocked).

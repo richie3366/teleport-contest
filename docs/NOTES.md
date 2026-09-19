@@ -40,19 +40,20 @@ here again. Live hypotheses only:
 - **do_statusline2 residuals (D-2425 MEASURED):** W1 Healer-92107 `mhitm_ad_cold_u` extra destroy return; W2 Satiated pair = eat-progress `uhs`/botl timing — both are corpus-residual Open rows (detail in D-2425). Monk-92194 Pw = D-2161 gulpmu residual, no new row.
 ## Don't re-check (≤15)
 
-- D-1790…D-2499 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-2500 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2499.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2499.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2500.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2500.
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2500: `js/read.js` only, no new module edges (`imports.mjs --can` ALREADY on all five): `You`/`Your` (display), `Tobjnam` (objnam), `useup as useup_live` (i Named: local `useup` clone (`js/read.js`, used by other read fns) and `Yname2_read` (`wand_explod
 - D-2499: `js/mon.js` — new `export async function meatbox` in C order (`:1356` cube-engulf test, `:1363–1367` spill pline, `:1368–1379` head-first unwrap with  Named: none in the ported body — every C arm is live. (`meatbox` sole C caller is `m_consume_obj`
 - D-2498: new `js/botl.js` (~470 L) in C order with `:line` cites — `initblstats[]` (27 rows verbatim), `init_blstats` (dual buffers on `game.gb`, zeroed unions Named: `status_update` windowport dispatch (`winprocs.h:186`); `get_hilite :2364` + `hilite_reset
 - D-2497: `js/objnam.js` — `doname` → `doname_base(obj, flags)` (existing body kept, arms in C order) + `DONAME_*` exports + `doname_vague_quan` wrapper; overri Named: obuf/xnamep/eos/Concat/strprepend/releaseobuf/sitoa + `doname_full`/paniclog overflow (D-2
@@ -67,5 +68,4 @@ here again. Live hypotheses only:
 - D-2488: `js/dogmove.js` — `qm[]` (9 rows verbatim: 7 same-pet/same-symbol monster rows, `S_DOG`/sink furniture row, tripe-ration end row) + `export async func Named: `m_consume_obj` tail stays stub (meatbox, uball/uchain unpunish, poly/slime newcham, grow_
 - D-2487: new `js/glyphs.js` (634 L) in C order — `zero_find`, `strcmpi` (hacklib `strncmpi` -1 idiom), `fix_glyphname`, `glyph_hash` (rotl-1/XOR uint32), doubl Named: `find_struct` callback/color/unicode consumers — `glyphrep_to_custom_map_entries`, `glyphr
 - D-2486: `js/uhitm.js` — new module-local `async function hmon_hitmon_misc_obj(mon, obj, ctx)` (C staticfn shape, mirroring sibling `hmon_hitmon_weapon_melee`' Named: `munstone` (`muse.c:2884`, treat FALSE — mhitm.js `do_stone_mon` idiom); `hmon_hitmon_msg_
-- D-2485: one word — `has_egd` added to the existing const.js import in `js/mon.js:25` (no new edge: `imports.mjs --can mon.js const.js has_egd` reports mon.js  Named: none new (D-2479 `panic`/`levltyp_to_name`/`#if 0` arms + unwired `mon_sanity_check` calle
 <!-- landmarks:end -->

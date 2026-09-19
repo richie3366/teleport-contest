@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `mon.c` m_consume_obj — coverage THIN (C 61 L `mon.c:1392–1453` / JS 16 L in js/mon.js; hops 2, callers 6, RNG 1, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn m_consume_obj` (reach regression must be 0). Measured `port-coverage.mjs --name m_consume_obj` 2026-09-19 @ d6cf97e2. **Addressed:** D-2499
+- [x] `read.c` recharge — coverage PARTIAL (C 279 L `read.c:729–1008` / JS 190 L in js/read.js; hops 4, callers 3, RNG 17, msg 6). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn recharge` (reach regression must be 0). Measured `port-coverage.mjs --name recharge` 2026-09-19 @ d6cf97e2. **Addressed:** D-2500
+
+
+- [x] `mon.c` m_consume_obj — coverage THIN (C 61 L `mon.c:1392–1453` / JS 16 L in js/mon.js; hops 2, callers 6, RNG 1, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn m_consume_obj` (reach regression must be 0). Measured `port-coverage.mjs --name m_consume_obj` 2026-09-19 @ d6cf97e2. **Addressed:** D-2499 `62a8e932`
 
 ## 2026-09-18
 

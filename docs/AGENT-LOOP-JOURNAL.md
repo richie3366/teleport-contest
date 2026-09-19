@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-19 — D-2500 `read.c` recharge whole-body port (live namers, static Ring/shop imports, awaited BUC)
+
+**C locus:** `nethack-c/upstream/src/read.c:729–1008` (`recharge`) + staticfns `stripspe :651–664`, `p_glow1–3 :666–685`, `cap_spe :78–86` (null-safe, matches JS guard).
+**JS:** `js/read.js:815` `export async function recharge` (+ helpers `:693–722`).
+**Change:** `js/read.js` only, no new module edges (`imports.mjs --can` ALREADY on all five): `You`/`Your` (display), `Tobjnam` (objnam), `useup as useup_live` (invent), `Ring_gone`/`Ring_off`/`Ring_on` (do_wear), `end_burn` (timeout) added to existing static imports. Wand `lim==1` → `p_glow3`; invented `feeble` param removed from local `p_glow2` (C 2-arg `:673`); `stripspe`/`p_glow1–3` internals → live `Yobjnam2` + static `costly_alteration`; ring-explode → live `Yobjnam2`/`otense` + static `Ring_gone` + `useup_live`; ring-spin → live `Yname2` + static `costly_alteration`/`Ring_off`/`setworn`/`Ring_on`/`alter_cost`; marker dried-out → live `Your`; lamp → live `Tobjnam` + static `end_burn`; crystal-ball → awaited `curse`/`bless`/`uncurse` + live `Yobjnam2`; default/else → live `You`. Dead `Yobjnam2_read`/`Tobjnam_read` removed (`Yname2_read` stays for `wand_explode`).
+**Verify:** `node scripts/verify.mjs --fn recharge` → PASS syntax (1 changed: `js/read.js`) · PASS rule2 · hidden note (no corpus session blocked) · REACH-OK 3/3 baseline-PASS reach sessions, 0 regressed · green 2/2 · strict both · cohort 7/7 · VERIFY: PASS.
+**Named:** local `useup` clone (`js/read.js`, used by other read fns) and `Yname2_read` (`wand_explode`) stay — pre-existing drift owned by other functions' ports; `explode_losehp` kept for the ring-explode `losehp` (file idiom: `Maybe_Half_Phys` + wail/done lifecycle, same as `wand_explode`).
+**Next:** pop the next Open — coverage row (`mkmaze.c` movebubbles).
 ## 2026-09-19 — D-2499 `mon.c` m_consume_obj whole-body port (meatbox + all consume arms)
 
 **C locus:** `mon.c:1392–1453` (`m_consume_obj`); `:1352–1381` (`meatbox`); `:1384–1386` (`mstoning` macro); `obj.h:320–326` (`ofood`/`polyfood`/`mlevelgain`/`mhealup` macros).

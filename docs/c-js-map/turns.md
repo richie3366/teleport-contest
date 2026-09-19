@@ -759,7 +759,8 @@ omit other `seffect_*` (punishment done D-0908; create is D-1401;
 mapping is D-1407; fire is D-2032 (confused/underwater/blessed-getpos + tower/burn_away_slime + explode; doread allowlist + nodisappear); blank-paper live D-2169 (`seffect_blank_paper` read.c:2005-2012 Blind/pline + known, seffects case + doread time-taking)), fortune/shirt/credit/marker/coin/orb/candy-read, their Braille arms, Rogue 
 `unblock_point` on blessed SDOOR, `can_chant` poly silent/headless/buzz/burble; 
 **`doread` Blind formula/book gate (`:561–576`) + mail illiterate-conduct/confused envelope (`:579–597`) + `pickup_prev` (`:359`) + SCR_TAMING allowlist** (D-2080; taming dispatch + `maybe_tame` were D-1502; mail `readmail` D-1958); 
-**`doread` `check_capacity` EXT_ENCUMBER→ECMD_OK** (D-0928 #1104)
+**`doread` `check_capacity` EXT_ENCUMBER→ECMD_OK** (D-0928 #1104) +
+**`recharge` `:729–1008`** (D-2500; wand/ring/tool arms in C order with `:line` cites — `lim==1` → `p_glow3`, ring explode/spin via live `Yobjnam2`/`otense`/`Yname2` + static `Ring_gone`/`Ring_off`/`Ring_on` + live `useup`, crystal-ball awaited `curse`/`bless`/`uncurse`, lamp live `Tobjnam` + static `end_burn`, default/else live `You`; callees `stripspe`/`p_glow1–3`/`cap_spe` local C-order; callers `artifact.js:1881` / `read.js:1332` / `zap.js:1557` wired; local `useup` clone + `Yname2_read` stay named)
 
 ### `src/engrave.c` `doengrave`/`make_engr_at`/`read_engr_at`/`wipeout_text`/`random_engraving`/`
 make_grave`/`can_reach_floor` + `hack.c` `maybe_smudge_engr` + `write.c` `dowrite`
