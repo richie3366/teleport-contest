@@ -5089,8 +5089,22 @@ function engulf_blocked(x, y, whirlyPtr) {
 }
 
 /**
- * C ref: mhitm.c failed_grab — unsolid / notonhead grab miss (no RNG).
- * Named omit: some_mon_nam tail wording (uses s_suffix(mon_nam)+" tail").
+ * C ref: mhitm.c failed_grab `:597–640` — unsolid / notonhead grab miss
+ * (no RNG). C order throughout.
+ * `:605–611` entry gate: (unsolid(mdef) || notonhead) && (AT_HUGS ||
+ * AD_WRAP || AD_STCK || AD_DGST) — hug holders, wrap damage, stick-to,
+ * digestion; else FALSE (`:640`).
+ * `:612–613` message gate: (vis && canspotmon(mdef)) || magr/mdef is
+ * youmonst (mon-vs-mon needs visibility; hero involvement always plines).
+ * `:616` tailmiss snapshots notonhead (long-worm-tail wording); `:617–619`
+ * verb gulp/adhere/grab; `:624–625` magrnam ("Your" vs s_suffix(Monnam));
+ * `:626–632` mdefnam ("you"/mon_nam vs s_suffix(some_mon_nam)+" tail" —
+ * hero poly'd into a long worm needs no youmonst handling); `:636–637`
+ * pline "passes right through" / "fails to hold"; `:639` return TRUE.
+ * C Strcpy's magrnam/mdefnam copies beat s_suffix's single static buffer
+ * (`:620–623`); JS strings are values so evaluation order (magr first,
+ * then mdef) is the whole fix. `%.99s` truncation has no JS convention
+ * (no slice(0,99) anywhere in js/) so full names print, as elsewhere.
  */
 async function failed_grab(magr, mdef, mattk) {
     if (!(unsolid(mdef?.data) || game.notonhead)
@@ -5102,19 +5116,20 @@ async function failed_grab(magr, mdef, mattk) {
     }
     if ((_mm_vis && canspotmon(mdef))
         || magr === game.youmonst || mdef === game.youmonst) {
+        const tailmiss = !!game.notonhead;
         const verb = (mattk.adtyp | 0) === AD_DGST ? 'gulp'
             : (mattk.adtyp | 0) === AD_STCK ? 'adhere' : 'grab';
         const magrnam = magr === game.youmonst
-            ? 'Your' : s_suffix_mm(Monnam(magr));
+            ? 'Your' : s_suffix(Monnam(magr));
         let mdefnam;
-        if (!game.notonhead) {
+        if (!tailmiss) {
             mdefnam = mdef === game.youmonst ? 'you' : mon_nam(mdef);
         } else {
-            mdefnam = `${s_suffix_mm(mon_nam(mdef))} tail`;
+            mdefnam = `${s_suffix(some_mon_nam(mdef))} tail`;
         }
         await pline(
             `${magrnam} ${verb} attempt ${
-                game.notonhead ? 'fails to hold' : 'passes right through'
+                tailmiss ? 'fails to hold' : 'passes right through'
             } ${mdefnam}!`,
         );
     }

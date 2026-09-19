@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-19 — D-2598 `mhitm.c` failed_grab whole-body restart (live some_mon_nam tail, clone consolidation)
+
+**C locus:** `nethack-c/upstream/src/mhitm.c:597–640`; callers `mhitm.c:451/485/529` (AT_TUCH eel pre-check, AT_HUGS, AT_ENGL), `mhitu.c:808/827/1305` (melee pre-check, AT_HUGS, gulpmu), `uhitm.c:5652/5735/5779` (weaponless, AT_HUGS, AT_ENGL).
+**JS:** `js/mhitm.js` (restart), `js/mhitu.js` (clone deleted, import + 3 call sites), `js/uhitm.js` (delegate). No new cross-module edges. `%.99s` truncation stays unimplemented — no `slice(0,99)` convention anywhere in `js/`, full names print as elsewhere.
+**Change:** restarted the canonical export in C order with `:line` cites — entry gate (`:605–611`), message gate (`:612–613`), tailmiss snapshot (`:616`), verb (`:617–619`), magrnam (`:624–625`), mdefnam (`:626–632`, live `some_mon_nam`), pline (`:636–637`), TRUE/FALSE (`:639–640`); live `s_suffix`/`Monnam`/`mon_nam`/`some_mon_nam` (all already imported in mhitm.js). Deleted the mhitu clone → canonical import (mhitu already imports mhitm.js; `imports.mjs --can` ALREADY, no new edge); 3 call sites now pass `(mtmp, game.youmonst, mattk)` — identical behavior since mdef == youmonst makes the message gate always true. `failed_grab_you` is now a thin `failed_grab(game.youmonst, mdef, mattk)` delegate (symbol + hugs/ENGL call sites kept per map; gate/magrnam identical for the same reason).
+**Verify:** `node scripts/verify.mjs --fn failed_grab` → VERIFY: PASS. Tail verbatim:
+**Named:** none — every arm and callee live (`s_suffix`/`some_mon_nam` imported; `%.99s` follows the codebase-wide full-name convention).
+**Next:** queue head `mail.c read_simplemail`.
 ## 2026-09-19 — D-2597 `mklev.c` topologize whole-body restart (subroom recursion, C-order cites)
 
 **C locus:** `nethack-c/upstream/src/mklev.c:1595–1656` (SPECIALIZATION off per `global.h:120`, so the 1-arg arm is live); callers `mklev.c:1564/1566` level_finalize_topology, `mkroom.c:207/209` shop, `sp_lev.c:2824/2826` build_room, `sp_lev.c:5687/5689` region.

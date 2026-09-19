@@ -3036,33 +3036,16 @@ function set_ustuck(mtmp) {
 }
 
 /**
- * C ref: mhitm.c failed_grab — unsolid / notonhead grab miss (no RNG).
- * hmonas magr is always youmonst so the vis||youmonst arm always plines.
- * Named omit: some_mon_nam tail (s_suffix(mon_nam)+" tail" like mhitm).
+ * C ref: mhitm.c failed_grab `:597–640` with magr = youmonst (uhitm.c
+ * `:5652–5779` callers). Thin delegate to the canonical `mhitm.js` export:
+ * with magr fixed to youmonst the `:612–613` message gate is always true
+ * and magrnam is always "Your", so behavior is identical — including the
+ * `:626–632` s_suffix(some_mon_nam)+" tail" arm the inline body here
+ * used to approximate with mon_nam. Kept as a named symbol for the
+ * hugs/ENGL callers (map).
  */
 async function failed_grab_you(mdef, mattk) {
-    if (!(unsolid(mdef?.data) || game.notonhead)
-        || !((mattk.aatyp | 0) === AT_HUGS
-            || (mattk.adtyp | 0) === AD_WRAP
-            || (mattk.adtyp | 0) === AD_STCK
-            || (mattk.adtyp | 0) === AD_DGST)) {
-        return false;
-    }
-    const verb = (mattk.adtyp | 0) === AD_DGST ? 'gulp'
-        : (mattk.adtyp | 0) === AD_STCK ? 'adhere' : 'grab';
-    let mdefnam;
-    if (!game.notonhead) {
-        mdefnam = mon_nam(mdef);
-    } else {
-        const n = mon_nam(mdef);
-        mdefnam = `${/s$/i.test(n) ? `${n}'` : `${n}'s`} tail`;
-    }
-    await pline(
-        `Your ${verb} attempt ${
-            game.notonhead ? 'fails to hold' : 'passes right through'
-        } ${mdefnam}!`,
-    );
-    return true;
+    return failed_grab(game.youmonst, mdef, mattk);
 }
 
 /**

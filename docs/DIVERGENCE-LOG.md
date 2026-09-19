@@ -1,5 +1,27 @@
 # Divergence log
 
+## D-2598 — `mhitm.c` failed_grab whole-body restart (live some_mon_nam tail, clone consolidation)
+
+- **Status:** fixed (Open — coverage row `mhitm.c` failed_grab PARTIAL (C 40 L `mhitm.c:597–640` / JS 28 L in js/mhitm.js; hops 2, callers 9, RNG 0, msg 1), measured `port-coverage.mjs --name failed_grab` 2026-09-20 @ d89bb259).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify failed_grab`: no corpus session blocked on it at baseline; reach smoke spread is the evidence). C has one function; JS had three bodies: the canonical export plus a 2-arg `mhitu.js` clone (dropped message gate, `mon_nam` tail stand-in) and a `uhitm.js` `failed_grab_you` (inline possessive tail, `mon_nam` instead of live `some_mon_nam`).
+- **C locus:** `nethack-c/upstream/src/mhitm.c:597–640`; callers `mhitm.c:451/485/529` (AT_TUCH eel pre-check, AT_HUGS, AT_ENGL), `mhitu.c:808/827/1305` (melee pre-check, AT_HUGS, gulpmu), `uhitm.c:5652/5735/5779` (weaponless, AT_HUGS, AT_ENGL).
+- **JS was:** `failed_grab(magr, mdef, mattk)` (`js/mhitm.js:5095`): all arms present but no `:line` cites, `s_suffix_mm` clone instead of the live `s_suffix` import, `mon_nam` in the `:626–632` tail arm instead of `s_suffix(some_mon_nam)` (named omit), `game.notonhead` re-read instead of the `:616` tailmiss snapshot. `js/mhitu.js:1634` 2-arg clone and `js/uhitm.js:3043` `failed_grab_you` duplicated the body with the same tail gap.
+- **Fix:** restarted the canonical export in C order with `:line` cites — entry gate (`:605–611`), message gate (`:612–613`), tailmiss snapshot (`:616`), verb (`:617–619`), magrnam (`:624–625`), mdefnam (`:626–632`, live `some_mon_nam`), pline (`:636–637`), TRUE/FALSE (`:639–640`); live `s_suffix`/`Monnam`/`mon_nam`/`some_mon_nam` (all already imported in mhitm.js). Deleted the mhitu clone → canonical import (mhitu already imports mhitm.js; `imports.mjs --can` ALREADY, no new edge); 3 call sites now pass `(mtmp, game.youmonst, mattk)` — identical behavior since mdef == youmonst makes the message gate always true. `failed_grab_you` is now a thin `failed_grab(game.youmonst, mdef, mattk)` delegate (symbol + hugs/ENGL call sites kept per map; gate/magrnam identical for the same reason).
+- **JS:** `js/mhitm.js` (restart), `js/mhitu.js` (clone deleted, import + 3 call sites), `js/uhitm.js` (delegate). No new cross-module edges. `%.99s` truncation stays unimplemented — no `slice(0,99)` convention anywhere in `js/`, full names print as elsewhere.
+- **Callers:** C `mhitm.c:451` → `js/mhitm.js:5502` (eel pre-check + strike=0/break); C `:485` → `js/mhitm.js:5540` (AT_HUGS auto); C `:529` → `js/mhitm.js:5569` (AT_ENGL gulpmm gate); C `mhitu.c:808` → `js/mhitu.js:4300` (melee `continue`); C `:827` → `js/mhitu.js:4323` (AT_HUGS hitmu gate); C `:1305` → `js/mhitu.js:1881` (gulpmu M_ATTK_MISS); C `uhitm.c:5652` → `js/uhitm.js:3669` (canonical, weaponless `break`); C `:5735` → `js/uhitm.js:3115` via `failed_grab_you` (hmonas_hugs); C `:5779` → `js/uhitm.js:3708` via `failed_grab_you` (AT_ENGL gulpum gate).
+- **Verify:** `node scripts/verify.mjs --fn failed_grab` → VERIFY: PASS. Tail verbatim:
+  `PASS  syntax   3 changed js file(s): js/mhitm.js js/mhitu.js js/uhitm.js`
+  `PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates`
+  `note  hidden   verify failed_grab: no corpus session blocked on it at baseline`
+  `PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 3.6s): 24 PASS, 0 regressed → REACH-OK`
+  `PASS  green    2/2 passing`
+  `PASS  strict   seed8000-tourist-starter.session.json`
+  `PASS  strict   seed0900-tourist-explore-actions.session.json`
+  `PASS  cohort   7/7 passing`
+  `skip  full     (no shared file changed; pass --full to force)`
+- **Named omissions:** none — every arm and callee live (`s_suffix`/`some_mon_nam` imported; `%.99s` follows the codebase-wide full-name convention).
+- **Next:** queue head `mail.c read_simplemail`.
+
 ## D-2597 — `mklev.c` topologize whole-body restart (subroom recursion, C-order cites)
 
 - **Status:** fixed (Open — coverage row `mklev.c` topologize THIN (C 56 L `mklev.c:1597–1656` / JS 23 L in `js/mklev.js`; hops 2, callers 8, RNG 0, msg 0), measured `port-coverage.mjs --name topologize` 2026-09-19 @ c0bfe985).
