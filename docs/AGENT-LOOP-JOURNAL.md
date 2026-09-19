@@ -7,6 +7,13 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-19 — Audit d56627bd..300291e5 (reviews 1533–1541: 7 ACCEPT + 2 QUALITY-RISK) + cadence 44/44, proxy 494/540, held-out 11/44
+
+**Reviews:** per-SHA C audit of all 9 JS-touching SHAs (csym body + callers, sym clone audit, imports --can, per-SHA `hidden-proxy verify --base HASH~1 --reach-all` all clean). 1533 del_light_source, 1534 mhitm_ad_sedu, 1535 do_loot_cont, 1537 weight, 1538 basics_enlightenment, 1539 make_converted_name, 1540 seffect_enchant_armor/wand_explode, 1541 read_tribute → ACCEPT; 1533 + 1536 flipped to QUALITY-RISK by the audit full re-score (below).
+**Regressions (worktree-bisected, deterministic):** corpus 497/540 → 494/540. (1) scen-poly-Rogue-92026 step 164 → D-2574: youmonst LS_MONSTER entry missing from light_base at rehumanize, new `impossible(not found)` pline displaces the message line (PASS js@bb229073 3094/3094, FAIL js@8d3ce13a). (2) scen-wish-Priest-92163 step 234 + scen-wish-Rogue-92221 step 92 → D-2577: wish `cursed the Master Key of Thievery` now matches Monk title `Master` at the :1230 block (C-agreed 336/6) but the truncated bp never reaches artifact_name→blast (PASS js@a90eb521, FAIL js@1ff074ca; readobjnam-only revert does not fix). Both are Must-fix rows (2 prepended); Next cluster = del_light_source rehumanize row.
+**Staleness lesson:** every committed scoreboard in the window carried stale PASSes for all three — neither function draws tracked RNG, so per-SHA reach ran smoke-only and never re-ran them. Non-RNG functions with new plines need a screen-cohort re-run.
+**Cadence:** full `sessions` 44/44 (Scr 11,405/11,405, RNG 792,838/792,838, `67+0.50/turn` R² 0.84); corpus 494/540 excl. 13 env-only (RNG 99.30 %, screens 98.9 %); held-out 11/44 5,776 pts RNG 26.6 % screens 51.3 % (judge 18:47Z cached, unchanged).
+**Next:** pop Must-fix head (`light.c` del_light_source rehumanize regression).
 ## 2026-09-19 — D-2582 `files.c` read_tribute whole-body restart (C-order switch, live strip_newline, C-exact bufsz cap)
 
 **C locus:** `nethack-c/upstream/src/files.c:3473–3645` (`read_tribute`) + `:3647–3653` (`Death_quote`) + `:3420–3422` (SECTIONSCOPE/TITLESCOPE/PASSAGESCOPE) + `global.h:33` (TRIBUTEFILE); callees `hacklib.c:716–734` (`strncmpi`), `:286–297` (`copynchars`), `:141–160` (`mungspaces`), `:179–190` (`strip_newline`); callers `spell.c:517`, `files.c:3652`, `sounds.c:1210` (`extern.h:1125` decl).

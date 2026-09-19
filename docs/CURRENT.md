@@ -23,10 +23,10 @@ the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-19** — full `sessions` on the working tree
-(audit **1524–1532**).
+(audit **1533–1541**).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`61+0.41/turn` (R² 0.85).
+`67+0.50/turn` (R² 0.84).
 
 ## Score
 
@@ -36,20 +36,22 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `74+0.41/turn` (R² 0.75) |
+| Speed label | `67+0.50/turn` (R² 0.84) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 4/22, 2nd agentic; best agentic fork 35/44, RNG 98.5 %,
 screens 93.2 %. Held-out 11/44 (5,776 pts, RNG 26.6 %, screens 51.3 %;
-judge 13:05Z cached, ~D-2555, +23 pts vs last audit): the corpus still does
+judge 18:47Z cached, unchanged 11/44 5,776 pts vs last audit): the corpus still does
 not predict the judge.
-**Corpus fortress** (re-scored 2026-09-19 audit 1524–1532): **497 / 540
-PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — +0 / −0
-in the D-2565…D-2582 window (all ten were zero-block coverage rows;
-per-SHA `--reach-all` re-runs REACH-OK — mkshop 53/53 + shkinit 82/82
-real reach, rest smoke 24/24 — 0 regressed).
-Reviews 1225–1532: 273 ACCEPT, 11 WITH-DEBT, 1 DEBT, 18 QUALITY-RISK (1503 Must-fix addressed by D-2547; 1517 strip_newline + 1520 travel_debug Must-fix shipped as D-2565/D-2566, stamped).
+**Corpus fortress** (re-scored 2026-09-19 audit 1533–1541): **494 / 540
+PASS (91.5 %)** excl. 13 env-only; RNG 99.30 %, screens 98.9 % — **+0 / −3**
+in the D-2574…D-2582 window, all worktree-bisected: Rogue-92026 → D-2574
+(review 1533, rehumanize not-found pline); Priest-92163 + Rogue-92221 →
+D-2577 (review 1536, Master-Key wish). Both are Must-fix rows. Per-SHA
+`--reach-all` was clean (neither fn draws tracked RNG — stale PASSes);
+only the audit full `score` re-ran them.
+Reviews 1225–1541: 280 ACCEPT, 11 WITH-DEBT, 1 DEBT, 20 QUALITY-RISK (1503, 1517, 1520 stamped; 1533 + 1536 Must-fix queued above).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem) — review-debt, unqueued (detail in the review files).
 Audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s) + `leaderboard.mjs`.
 
@@ -100,7 +102,7 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `files.c` read_tribute — coverage PARTIAL (C 169 L `files.c:3474–3645` / JS 122 L in js/files.js; hops 4, callers 2, RNG 0, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn read_tribute` (reach regression must be 0). Measured `port-coverage.mjs --name read_tribute` 2026-09-19 @ 09224e39.
+**Next cluster:** `light.c` del_light_source rehumanize regression (D-2574 Must-fix, review 1533) — Rogue-92026 step 164 (`not found type=2` pline displaces the message line): attach the youmonst LS_MONSTER entry per C, never silence `:135–137`. Verify `score --ids scen-poly-Rogue-92026` → PASS.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2582 (index).**
 <!-- recent:begin -->

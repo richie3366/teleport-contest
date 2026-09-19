@@ -1543,3 +1543,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1530-e84600e8-create-polymon.md](./1530-e84600e8-create-polymon.md) | `e84600e8` | D-2571 create_polymon | **ACCEPT** |
 | [1531-77f5c448-level-difficulty.md](./1531-77f5c448-level-difficulty.md) | `77f5c448` | D-2572 level_difficulty pair | **ACCEPT** |
 | [1532-d56627bd-raw-printf.md](./1532-d56627bd-raw-printf.md) | `d56627bd` | D-2573 raw_printf/vraw_printf | **ACCEPT** |
+| [1533-8d3ce13a-del-light-source.md](./1533-8d3ce13a-del-light-source.md) | `8d3ce13a` | D-2574 del_light_source + delete_ls | **QUALITY-RISK** |
+| [1534-e4cd69b0-mhitm-ad-sedu.md](./1534-e4cd69b0-mhitm-ad-sedu.md) | `e4cd69b0` | D-2575 mhitm_ad_sedu 3 arms | **ACCEPT** |
+| [1535-a90eb521-do-loot-cont.md](./1535-a90eb521-do-loot-cont.md) | `a90eb521` | D-2576 do_loot_cont | **ACCEPT** |
+| [1536-1ff074ca-name-to-monplus.md](./1536-1ff074ca-name-to-monplus.md) | `1ff074ca` | D-2577 name_to_monplus + title_to_mon | **QUALITY-RISK** |
+| [1537-09224e39-weight.md](./1537-09224e39-weight.md) | `09224e39` | D-2578 weight + mksobj owt | **ACCEPT** |
+| [1538-c5d8dfce-basics-enlightenment.md](./1538-c5d8dfce-basics-enlightenment.md) | `c5d8dfce` | D-2579 basics_enlightenment arms | **ACCEPT** |
+| [1539-86020ad6-make-converted-name.md](./1539-86020ad6-make-converted-name.md) | `86020ad6` | D-2580 make_converted_name | **ACCEPT** |
+| [1540-d57c144b-seffect-enchant-armor.md](./1540-d57c144b-seffect-enchant-armor.md) | `d57c144b` | D-2581 seffect_enchant_armor + wand_explode | **ACCEPT** |
+| [1541-300291e5-read-tribute.md](./1541-300291e5-read-tribute.md) | `300291e5` | D-2582 read_tribute restart | **ACCEPT** |
