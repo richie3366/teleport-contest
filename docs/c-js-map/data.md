@@ -1104,7 +1104,7 @@ boulder-chain/`ship_object`/post-switch flooreffects (D-2318) + closed_door cras
 **monster `trapeffect_hole`/TRAPDOOR → `mlevel_tele_trap`/`migrate_to_level` `Trap_Moved_Mon`** 
 (D-0250); **`thitm` hit → `dmgval` clamp≥1** (D-0252); 
 **monster `trapeffect_magic_trap` `rn2(21)`→`trapeffect_fire_trap` + FIRE_TRAP selector** (D-0254; **D-2431** xtradmg + AD_FIRE monkilled under `!DEADMONSTER` `trap.c:1800–1806` — no re-kill of a thitm-killed mon); 
-**hero MAGIC_TRAP `rn2(30)`/`domagictrap` + `steedintrap` + fate-13 `body_part(SPINE)` / fate-15 qstart prodigal / fate-20 `seffects(SPE_REMOVE_CURSE)`** (D-0266; **D-2258** full `steedintrap` `:3101–3168` replaces the PIT-only clone; explosion still returns before steed; `dofiretrap` null-box + hero FIRE_TRAP→`dofiretrap` D-0266); 
+**hero MAGIC_TRAP `rn2(30)`/`domagictrap` + `steedintrap` + fate-13 `body_part(SPINE)` / fate-15 qstart prodigal / fate-20 `seffects(SPE_REMOVE_CURSE)`** (D-0266; **D-2258** full `steedintrap` `:3101–3168` replaces the PIT-only clone; explosion still returns before steed; **full `dofiretrap` `:4233–4314` D-2532** (box/carried-pool steam + `the(xname/surface)` spray, `shieldeff`/`monstseesu`, Upolyd golem `mhmax` alts + `mlevel` burn, unconditional `melt_ice`; hero FIRE_TRAP/magic-fate-12/chest-fire callers pre-wired); 
 **monster `trapeffect_slp_gas_trap`/`sleep_monst(rnd(25),-1)` + 
 `breathless`/`resists_sleep`/`mr_bit` + SLP_GAS selector** (D-0256); **`trapeffect_bear_trap` hero+monster + 
 `floor_trigger` BEAR/LANDMINE/SLP/RUST/FIRE + `set_utrap`/`set_wounded_legs`** (D-0398); 
