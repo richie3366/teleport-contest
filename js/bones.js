@@ -31,6 +31,7 @@ import { tended_shop } from './sounds.js';
 import { mongone } from './mon.js';
 import { no_bones_level, done } from './end.js';
 import { sanitize_engravings } from './engrave.js';
+import { delete_convertedfile } from './files.js';
 
 const BONES_VFS_PREFIX = 'bones/';
 const SLIME_MOLD = objectNames.indexOf('SLIME_MOLD');
@@ -203,10 +204,15 @@ export function bones_file_exists(lev) {
     return vfsReadFile(vfsPath(filename)) != null;
 }
 
-/** C ref: files.c delete_bonesfile — VFS unlink. */
+/** C ref: files.c delete_bonesfile `:993–1001` — VFS unlink + converted cleanup.
+ * C passes `fqname(gb.bones, BONESPREFIX, 0)` to both arms; with unconfigured
+ * prefixes that is the bare base (fqname precedent), so the bare filename
+ * goes to delete_convertedfile here too. */
 export function delete_bonesfile(lev) {
     const { filename } = set_bonesfile_name(lev);
-    return vfsDeleteFile(vfsPath(filename));
+    const reslt = vfsDeleteFile(vfsPath(filename)); // `:998`
+    delete_convertedfile(filename); // `:999`
+    return reslt; // `:1000` !(reslt < 0)
 }
 
 /**

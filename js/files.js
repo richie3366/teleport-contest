@@ -6,6 +6,8 @@
 // fqname / init_nhfile / new_nhfile / free_nhfile / set_levelfile_name /
 // open_levelfile / create_levelfile (JSON analogue; VFS stash probe,
 // no POSIX open/creat).
+// make_converted_name / contains_directory / delete_convertedfile
+// (external-conversion names; unlink named omit, Rule #2).
 // Callers: allmain.c newgame after u_init_skills_discoveries (D-1192);
 // spell.c study_book SPE_NOVEL; sounds.c Death_quote live (D-1653).
 // Rule #2: VFS only — no fs / getenv / HOME fopen. Tribute text is
@@ -1117,5 +1119,104 @@ export async function Death_quote(buf, bufsz = BUFSZ) {
         'Death', 'Death Quotes', 0, holder,
         (bufsz | 0) || BUFSZ, death_oid,
     );
+}
+
+/* ---------- BEGIN EXTERNAL CONVERSION HANDLING ----------- */
+/* C ref: files.c make_converted_name `:2090–2153` + contains_directory
+ * `:2179–2191` + delete_convertedfile `:2156–2165`.
+ * Rule #2 throughout: the computed names only ever feed C `unlink` /
+ * `alloc`/`free`, which have no scored-ESM analogue (delete_levelfile /
+ * fqname precedent) — the strings are computed faithfully, never read
+ * from disk. */
+
+/** C config.h:447 (`#ifdef CHDIR`) HACKDIR — contest UNIX playground default. */
+const HACKDIR_PATH = '/usr/games/lib/nethackdir';
+
+/** C files.c:2056 — `static char *unconverted_filename` (game build;
+ * `#else SFCTOOL` externs named in the map). JS strings need no arena. */
+let unconverted_filename = null;
+/** C files.c:2056 — `static char *converted_filename` (same). */
+let converted_filename = null;
+
+/**
+ * C ref: files.c contains_directory `:2179–2191` (extern via extern.h:1130;
+ * sole C caller is make_converted_name `:2113`).
+ * Returns non-zero when s holds a directory separator, not just a filespec.
+ * @param {string} s
+ * @returns {boolean}
+ */
+export function contains_directory(s) {
+    const str = String(s ?? ''); // `:2181` slen/cp setup
+    for (let i = 0; i < str.length; i++) { // `:2183`
+        const ch = str[i]; // `:2184` *cp
+        if (ch === '\\' || ch === '/' || ch === ':') return true; // `:2185–2186`
+    }
+    return false; // `:2190`
+}
+
+/**
+ * C ref: files.c make_converted_name `:2090–2153` (staticfn boolean),
+ * in C order. Builds the `.exportascii` converted name beside the
+ * unconverted one for the external save converter.
+ * @param {string} filename
+ * @returns {boolean}
+ */
+export function make_converted_name(filename) {
+    let dir = null; // `:2092`
+    let needsep = false; // `:2093`
+
+    if (filename == null) return false; // `:2097–2098` !filename → FALSE
+
+    /* C `:2103–2106` free both previous names (JS GC — drop the refs). */
+    unconverted_filename = null;
+    converted_filename = null;
+
+    /* C `:2108–2110` `#ifndef SHORT_FILENAMES` ms-dos note — comment only. */
+
+    let ln = String(filename).length; // `:2112`
+    if (!contains_directory(filename)) { // `:2113`
+        /* C `:2114–2130` UNIX/WIN32 dir resolution:
+         * `nh_getenv("NETHACKDIR")` / `nh_getenv("HACKDIR")` (options.c:6848)
+         * — named omit: scored ESM has no process env (Rule #2 dual
+         * runtime; SHOPTYPE precedent). WIN32 `get_user_home_folder` +
+         * `\AppData\Local\NetHack\5.0\` suffix — named omit (platform).
+         * `#ifdef HACKDIR` compile-time fallback — live below. */
+        dir = HACKDIR_PATH; // `:2118–2120` HACKDIR arm
+        if (dir != null) { // `:2131`
+            /* C `:2132–2133` `finaldirchar = c_eos(dir); finaldirchar--`
+             * (hacklib.c:203); JS strings need no end-pointer helper —
+             * read the last char directly. */
+            const finaldirchar = dir[dir.length - 1];
+            if (finaldirchar !== '/' && finaldirchar !== '\\' // `:2134–2135`
+                && finaldirchar !== ':') {
+                needsep = true; // `:2136`
+                ln += 1; // `:2137`
+            }
+            ln += dir.length; // `:2139`
+        }
+    }
+    /* C `:2142–2145` alloc + Snprintf "%s%s%s" (JS: plain concat). */
+    unconverted_filename =
+        (dir ?? '') + ((dir && needsep) ? '/' : '') + String(filename);
+    const xtra = '.exportascii'; // `:2147`
+    ln += xtra.length; // `:2148`
+    /* C `:2149–2151` alloc + Strcpy + Strcat. */
+    converted_filename = unconverted_filename + xtra;
+    return true; // `:2152`
+}
+
+/**
+ * C ref: files.c delete_convertedfile `:2156–2165` — the sole C caller of
+ * make_converted_name (`:2160`).
+ * @param {string} basefilename
+ * @returns {number}
+ */
+export function delete_convertedfile(basefilename) {
+    if (!converted_filename) make_converted_name(basefilename); // `:2159–2160`
+    if (converted_filename) {
+        /* C `:2162` unlink(converted_filename) — named omit: no fs unlink
+         * in scored ESM (Rule #2; delete_levelfile precedent). */
+    }
+    return 0; // `:2164`
 }
 

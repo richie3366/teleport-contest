@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `insight.c` basics_enlightenment — coverage MISSING (C 95 L `insight.c:728–823` / JS no symbol; hops 5, callers 1, RNG 0, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn basics_enlightenment` (reach regression must be 0). Measured `port-coverage.mjs --name basics_enlightenment` 2026-09-19 @ d56627bd. **Addressed:** D-2579
+- [x] `files.c` make_converted_name — coverage MISSING (C 63 L `files.c:2090–2153` / JS no symbol; hops 4, callers 1, RNG 0, msg 1; dead callees: contains_directory, c_eos). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn make_converted_name` (reach regression must be 0). Measured `port-coverage.mjs --name make_converted_name` 2026-09-19 @ d56627bd. **Addressed:** D-2580
+
+
+- [x] `insight.c` basics_enlightenment — coverage MISSING (C 95 L `insight.c:728–823` / JS no symbol; hops 5, callers 1, RNG 0, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn basics_enlightenment` (reach regression must be 0). Measured `port-coverage.mjs --name basics_enlightenment` 2026-09-19 @ d56627bd. **Addressed:** D-2579 `c5d8dfce`
 
 
 - [x] `mkobj.c` weight — coverage PARTIAL (C 88 L `mkobj.c:1888–1976` / JS 48 L in js/mkobj.js; hops 2, callers 104, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn weight` (reach regression must be 0). Measured `port-coverage.mjs --name weight` 2026-09-19 @ d56627bd. **Addressed:** D-2578 `09224e39`

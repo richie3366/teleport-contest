@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2580 — `files.c` make_converted_name whole-body port (conversion names + bones caller)
+
+- **Status:** fixed (Open — coverage row `files.c` make_converted_name MISSING, C 63 L `files.c:2090–2153` / JS no symbol).
+- **Symptom:** coverage gap — held-out wizard-mode tours reaching external-conversion filename handling had no JS body; no corpus session blocked (fortress guard only).
+- **C locus:** `nethack-c/upstream/src/files.c:2090–2153` (`make_converted_name`, staticfn boolean) + `:2179–2191` (`contains_directory`, extern) + `:2156–2165` (`delete_convertedfile`, sole C caller at `:2160`).
+- **JS was:** no symbol anywhere (`brief.mjs`: make_converted_name / contains_directory / nh_getenv / c_eos / alloc all NOT FOUND); `js/bones.js:207` `delete_bonesfile` did the VFS unlink but skipped the C `:999` converted cleanup.
+- **Fix:** ported the whole C body in C order with `:line` cites — null-filename FALSE (`:2097–2098`), prev-name drop = JS GC (`:2103–2106`), bare-vs-dir branch via live `contains_directory` (`:2113`), HACKDIR `/usr/games/lib/nethackdir` fallback live (config.h:447 under CHDIR) with needsep + `ln` size arithmetic (`:2131–2139`), `unconverted` concat (`:2142–2145`) + `.exportascii` converted (`:2147–2151`), TRUE (`:2152`).
+- **JS:** `js/files.js` — exported `contains_directory`, `make_converted_name`, `delete_convertedfile` + module-local `unconverted/converted_filename` (`:2056` file-statics) + `HACKDIR_PATH`; `js/bones.js:207–213` `delete_bonesfile` now calls `delete_convertedfile(filename)` in C order (`:998–1000`).
+- **Callers:** C `files.c:2160` → `js/files.js delete_convertedfile`; C `files.c:999` delete_bonesfile → `js/bones.js:211` (bare base = fqname with unconfigured prefixes, fqname precedent).
+- **Verify:** `node scripts/verify.mjs --fn make_converted_name` → VERIFY: PASS — syntax 2 files, Rule #2 clean, hidden `no corpus session blocked` (expected for a coverage row), REACH-OK (no RNG-tagged reach; smoke 24/24 PASS, 0 regressed), green 2/2 + strict both, cohort 7/7; no shared file → full skipped. Smoke `/tmp/smoke-mcn.mjs`: null/undef FALSE, separator arms, bare-vs-dir TRUE, delconv 0, bones path runs.
+- **Named omissions:** `nh_getenv` NETHACKDIR/HACKDIR (Rule #2 no env, SHOPTYPE precedent); `c_eos` inlined as last-char index; `alloc`/`free` (GC); `unlink` (no fs); WIN32 `get_user_home_folder` (platform); SHORT_FILENAMES comment-only; `#else SFCTOOL` externs; `free_convert_filenames` sibling (caller `save.c:1168` free_everything = FREE_ALL_MEMORY infra, guarded); `delete_savefile :1258` converted arm (unported wrapper row). Map: `docs/c-js-map/data.md` files.c section.
+- **Next:** queue head moves to `mklev.c` finddpos PARTIAL; same-file `files.c` read_tribute row stays queued (non-consecutive, own verify gate).
+
 ## D-2579 — `insight.c` basics_enlightenment missing arms (find_ac/AC_MAX, Upolyd HP/hit-dice on ^X, wallet continuation, autopickup shop/apelist)
 
 - **Status:** fixed (Open — coverage row `insight.c` basics_enlightenment MISSING, C 95 L `insight.c:728–823` / JS no same-named symbol).

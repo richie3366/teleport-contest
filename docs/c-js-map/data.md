@@ -126,6 +126,22 @@ SAVESIZE 53 guards, extension/indicator/postappend live no-ops;
 Named: `getuid` digits (Rule #2 single-user VFS); VMS/WIN32/MSDOS/MICRO
 arms; `fname_encode`; SYSV truncation; RELEASED `impossible`;
 `check_panic_save`/`recover_savefile`/`get_saved_games` counterparts.
+**make_converted_name D-2580** (`files.c:2090–2153` + `contains_directory`
+`:2179–2191` + `delete_convertedfile` `:2156–2165`; live `js/files.js` in C
+order with `:line` cites — null-filename FALSE, prev-name drop (JS GC),
+bare-vs-dir branch via live exported `contains_directory`, HACKDIR
+`/usr/games/lib/nethackdir` fallback (config.h:447) with needsep + `ln`
+size arithmetic, `unconverted` concat + `.exportascii` converted, TRUE;
+module-local `unconverted/converted_filename` = `:2056` file-statics).
+Callers wired: `files.c:2160` → `js/files.js delete_convertedfile`;
+`files.c:999` delete_bonesfile → `js/bones.js:211` (bare base = fqname with
+unconfigured prefixes). Named: `nh_getenv` NETHACKDIR/HACKDIR (Rule #2 no
+env, SHOPTYPE precedent) + `c_eos` inlined as last-char index (JS strings
+need no end-pointer) + `alloc`/`free` (GC) + `unlink` (no fs) + WIN32
+`get_user_home_folder` (platform) + SHORT_FILENAMES comment-only block +
+`#else SFCTOOL` externs + `free_convert_filenames` sibling (caller
+`save.c:1168` free_everything is FREE_ALL_MEMORY infra, guarded) +
+`delete_savefile :1258` converted arm (unported wrapper row).
 
 ### `include/artilist.h`
 
