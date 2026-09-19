@@ -2778,7 +2778,7 @@ armor/non-special throw; `mshot_xname`→`xname`;
 APPLIED wakeup (D-1041)**; **`find_mac` minvent ARM_BONUS/guarding (D-1042)**; 
 **`should_mulch_missile` hero blessed `!rnl(4)` (D-1043)**; 
 **`special_obj_hits_leader` `is_quest_artifact` via `urole.questarti` not `u.questarti` (D-1044)**; 
-ball/boulder/`potionhit`/`gem_accept` body; **swallow vanish pline D-1324**; 
+**`thitmonst` unicorn gem catch → `gem_accept` D-2517** (C `:2309–2382` in C order: buddy/gem gates, identified +5/`rn2(7)−3` / guessed +2/`rn2(3)−1` / unknown +1/`rn2(3)−1` luck arms, non-gem nogood→nopick vs glass-noluck accept, `check_shop_obj(TRUE)` + `mpickobj`, `!Blind` pline + `!tele_restrict`→`rloc(RLOC_MSG)`; `goto nopick` as flag; caller `:2097` wired); ball/boulder/`potionhit` body; **swallow vanish pline D-1324**; 
 `cutworm` + shop `obfree` + full `is_plural` otense deferred); 
 throw_obj ACURRSTR crossbow volley gate / quest-artifact launcher / full `weapon_skills` / full 
 `movecmd` bind table

@@ -46,7 +46,7 @@ breadth-phase window while the local corpus holds 91.7 %: the corpus
 still does not predict the judge.
 **Corpus fortress** (re-scored 2026-09-19 audit 1462–1470): **495 / 540
 PASS (91.7 %)** excl. 13 env-only; RNG 99.29 %, screens 99.0 % — identical
-to the prior audit, no flips across D-2503…D-2516 (per-SHA re-runs:
+to the prior audit, no flips across D-2503…D-2517 (per-SHA re-runs:
 0 regressed).
 Reviews 1225–1470: 215 ACCEPT, 10 WITH-DEBT, 1 DEBT, 15 QUALITY-RISK (1 Must-fix pending: 1465 menu-colors trio).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone — review-debt, unqueued (detail in the review files).
@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `wizcmds.c` wiz_map_levltyp — coverage MISSING (C 142 L `wizcmds.c:693–835` / JS no symbol; hops —, callers 2, RNG 0, msg 36). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn wiz_map_levltyp` (reach regression must be 0). Measured `port-coverage.mjs --name wiz_map_levltyp` 2026-09-19 @ a263d08e.
+**Next cluster:** `dothrow.c` gem_accept — SHIPPED D-2517 (was MISSING, C 73 L `dothrow.c:2309–2382`; verify REACH-OK). Next head: `uhitm.c` mhitm_ad_drli.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2516 (index).**
+**Keep D-0845…D-2517 (index).**
 <!-- recent:begin -->
+**D-2517** `nethack-c/upstream/src/dothrow.c:2309–2382` (`gem_accept`, staticfn). Callees: `Monnam`,  — `js/dothrow.js` — `export async function gem_accept` in C order with `:line` cites: `:2320–2321` buddy/gem gates (`sgn` module-local, minion/trap/makemon precedent; `GEMSTONE` local const already at file scope); `:2323–2
 **D-2516** `nethack-c/upstream/src/wizcmds.c:693–835` (`wiz_map_levltyp`); `:839–877` (`wiz_levltyp_l — `js/wizcmds.js` — `LEVLTYP_NAMES` verbatim from C `cmd.c:1072–1084` (38 names + undiggable marker + padding); restarted `wiz_map_levltyp` in C order with `:line` cites: `:698` istty (`game.windowprocs?.name ?? 'tty'`); `
 **D-2515** `nethack-c/upstream/src/botl.c:962–1279` (`bot_via_windowport`, staticfn). Same-file calle — `js/botl.js` — `conditions`/`condtests`/`terrain_descr`/`enc_stat` tables verbatim in C order with `:line` cites (+ `hu_stat`, bl-enum 0–29, `OPT_IN`/`OPT_OUT` per `global.h:576`); `rank` (via live `rank_of`), `encglyph`
 **D-2514** `nethack-c/upstream/src/restore.c:307–373` (`restmon`, staticfn). Callees: `Sfi_monst` (`: — new `js/restore.js` — `newmextra` (`makemon.c:1064–1072`, `{ mcorpsenm: NON_PM }`), `new_mgivenname` (`do_name.c:31–47`, `free_mgivenname :50–57` inlined), `newebones` (`bones.c:818–830`, zeroed + `parentmid`), `moves_to
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2512** `nethack-c/upstream/src/options.c:9207–9251` (`handle_add_list_remove`; `:9227` `any.a_int — `js/options.js` only, in C order — a_int++ moved before the skip (false cite corrected); suffix template → `` `"\\\"=..."` `` with no trailing quote (runtime now byte-equal to C, proven by node template eval: `"PAT\"=bri
 **D-2511** `nethack-c/upstream/src/uhitm.c:4296–4385` (`mhitm_ad_heal`: uhitm `:4300–4304` phys+done, — `js/uhitm.js` — `AD_HEAL = 27` const (monattk.h:69) + `mhitm_ad_heal` word on the live mhitm edge + `defended` word on the live mondata edge (`imports.mjs --can` ALREADY both) + two `damageum_adtyping` rows in C order: A
 **D-2510** `nethack-c/upstream/src/hack.c:2098–2225` (`domove_swap_with_pet`, staticfn); sole C calle — `js/hack.js` — restarted `domove_swap_with_pet` in C order with `:line` cites: `:2101–2105` guard + boulder capture; `:2107–2114` park/seemimic via live `M_AP_TYPE(mtmp)`; `:2116–2118` trap lookup + `mtrapped` clear; `:2
-**D-2509** `nethack-c/upstream/src/insight.c:2407–2472` (`record_achievement`); 32 call sites in `do. — `js/insight.js` only (same-edge import word `impossible` on the live display edge — `imports.mjs --can` ALREADY, no new edge) — restarted `record_achievement` in C order with `:line` cites: `:2414–2421` guard with `:2419
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2516; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2517; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

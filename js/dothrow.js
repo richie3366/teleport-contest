@@ -43,7 +43,7 @@ import {
     BOLT_LIM, AKLYS_LIM, HAND, THROWN_WEAPON, THROWN_TETHERED_WEAPON,
     xdir, ydir, xytodir, N_DIRS, RIGHT_HANDED, IS_SINK, HI_WOOD, OBJ_MINVENT,
     DISP_FLASH, DISP_CHANGE, DISP_END, DISP_TETHER, BACKTRACK,
-    ARTICLE_A, SUPPRESS_SADDLE, AUGMENT_IT, has_mgivenname,
+    ARTICLE_A, SUPPRESS_SADDLE, AUGMENT_IT, has_mgivenname, has_oname, RLOC_MSG,
     W_ARMU, W_ARM, W_ARMC,
     ECMD_OK, ECMD_TIME, LARGEST_INT, CQ_CANNED,
     DEAF, SHOPBASE, Is_waterlevel,
@@ -92,7 +92,7 @@ import { hmon, passive_obj } from './uhitm.js';
 import { cutworm } from './worm.js';
 import { potionbreathe, potionhit } from './potion.js';
 import { body_part, polymon } from './polyself.js';
-import { goodpos, rloc_to } from './teleport.js';
+import { goodpos, rloc_to, tele_restrict, rloc } from './teleport.js';
 import {
     mintrap, t_at, Trap_Killed_Mon, Trap_Caught_Mon, Trap_Moved_Mon,
     minstapetrify, instapetrify,
@@ -456,6 +456,111 @@ function Deaf_youprop() {
         || u.uroleplay?.deaf);
 }
 
+/** C: global.h sgn — sign of an alignment value (-1, 0, 1). */
+function sgn(n) {
+    const x = n | 0;
+    return (x > 0) - (x < 0);
+}
+
+/**
+ * C ref: dothrow.c gem_accept `:2309–2382` (staticfn) — unicorn catches a
+ * thrown gem or glass (sole C caller thitmonst `:2097`, reached only when
+ * the missile is GEM_CLASS, the monster is a unicorn, the material is not
+ * MINERAL and the hero is not slinging). Pacifies the monster, adjusts
+ * Luck by identification state, then either takes the object via mpickobj
+ * (C `ret = 1`) or leaves it (C `nopick`, `ret = 0`). C is sync; async
+ * here for check_shop_obj / tele_restrict / rloc.
+ * @returns {boolean} true when the monster took the object
+ */
+export async function gem_accept(mon, obj) {
+    // C `:2312–2316` message fragments
+    const nogood = ' is not interested in your junk.';
+    const acceptgift = ' accepts your gift.';
+    const maybeluck = ' hesitatingly';
+    const noluck = ' graciously';
+    const addluck = ' gratefully';
+    const u = game.u || {};
+    const objects = game.objects || {};
+    // C `:2320–2321`
+    const is_buddy = sgn(mon.data?.maligntyp) === sgn(u.ualign?.type);
+    const is_gem = (objects[obj.otyp]?.oc_material | 0) === GEMSTONE;
+    let ret = false;
+
+    // C `:2323–2324`
+    let buf = Monnam(mon);
+    mon.mpeaceful = 1;
+    mon.mavenge = 0;
+
+    // C `goto nopick` skips the accept block below
+    let nopick = false;
+    // C `:2327` — object properly identified
+    if (obj.dknown && objects[obj.otyp]?.oc_name_known) {
+        if (is_gem) {
+            if (is_buddy) {
+                // C `:2330–2331`
+                buf += addluck;
+                change_luck(5);
+            } else {
+                // C `:2333–2334`
+                buf += maybeluck;
+                change_luck(rn2(7) - 3);
+            }
+        } else {
+            // C `:2337–2339`
+            buf += nogood;
+            nopick = true;
+        }
+    // C `:2343` — making guesses (wrote a name or called it something)
+    } else if (has_oname(obj) || objects[obj.otyp]?.oc_uname) {
+        if (is_gem) {
+            if (is_buddy) {
+                // C `:2346–2347`
+                buf += addluck;
+                change_luck(2);
+            } else {
+                // C `:2349–2350`
+                buf += maybeluck;
+                change_luck(rn2(3) - 1);
+            }
+        } else {
+            // C `:2353–2355`
+            buf += nogood;
+            nopick = true;
+        }
+    // C `:2359` — value completely unknown to @
+    } else {
+        if (is_gem) {
+            if (is_buddy) {
+                // C `:2362–2363`
+                buf += addluck;
+                change_luck(1);
+            } else {
+                // C `:2365–2366`
+                buf += maybeluck;
+                change_luck(rn2(3) - 1);
+            }
+        } else {
+            // C `:2369–2371` — worthless glass doesn't anger them
+            buf += noluck;
+        }
+    }
+    if (!nopick) {
+        // C `:2373–2377`
+        buf += acceptgift;
+        if ((u.ushops && u.ushops[0]) || obj.unpaid) {
+            const { check_shop_obj } = await import('./shk.js');
+            await check_shop_obj(obj, mon.mx | 0, mon.my | 0, true);
+        }
+        mpickobj(mon, obj); /* may merge and free obj */
+        ret = true;
+    }
+
+    // C `nopick:` `:2379–2381` — C pline1: no format interpretation
+    if (!Blind()) await pline(buf);
+    if (!(await tele_restrict(mon))) await rloc(mon, RLOC_MSG);
+    return ret;
+}
+
 /**
  * C ref: dothrow.c thitmonst — mon-hit after bhit / use_pole / kick.
  * Ported: tmp (Luck/DEX/distmin/bow-gloves/omon_adj/elf-orc);
@@ -463,7 +568,7 @@ function Deaf_youprop() {
  * tmiss; APPLIED miss wakeup; pie/egg/venom DEX; food tamedog;
  * leader catch / finish_quest (D-1312); swallow vanish pline
  * (D-1324; entrails/currents + cockatrice minstapetrify/delobj).
- * Deferred: gem_accept luck/mpickobj; iron ball / boulder hit;
+ * gem_accept luck/mpickobj (D-2517); deferred: iron ball / boulder hit;
  * potionhit; check_shop_obj on mulch; mshot_xname.
  * @returns {boolean} true if obj was consumed / taken care of
  */
@@ -526,8 +631,7 @@ export async function thitmonst(mon, obj) {
             return false;
         } else {
             await pline(`${Monnam(mon)} catches ${the(xname(obj))}.`);
-            // gem_accept luck / mpickobj deferred
-            return false;
+            return await gem_accept(mon, obj);
         }
     }
 

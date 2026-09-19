@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2517 — `dothrow.c` gem_accept whole body in C order (coverage MISSING → live)
+
+- **Status:** fixed (Open coverage row `dothrow.c` gem_accept MISSING, C 73 L `dothrow.c:2309–2382` / JS no symbol; no Must-fix pending; reviews 286/05/02/274 name gem_accept in thitmonst context only, no Actionable — no stamp needed).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify gem_accept`: no corpus session blocked at baseline). No same-named JS symbol anywhere; the thitmonst unicorn-catch else-arm printed "catches" then returned false with luck/mpickobj deferred (`js/dothrow.js:529`).
+- **C locus:** `nethack-c/upstream/src/dothrow.c:2309–2382` (`gem_accept`, staticfn). Callees: `Monnam`, `change_luck`, `rn2`, `has_oname`, `check_shop_obj`, `mpickobj`, `tele_restrict`, `rloc`; data `objects[].oc_material/oc_name_known/oc_uname`, `mon->data->maligntyp`, `u.ualign.type`, `u.ushops`. Sole caller `dothrow.c:2097` (thitmonst unicorn catch arm).
+- **JS was:** no `gem_accept` symbol in `js/`; caller arm returned false, so a caught gem never pacified-adjusted luck, never entered monster invent, and the monster never relocated.
+- **Fix:** `js/dothrow.js` — `export async function gem_accept` in C order with `:line` cites: `:2320–2321` buddy/gem gates (`sgn` module-local, minion/trap/makemon precedent; `GEMSTONE` local const already at file scope); `:2323–2324` buf + pacify; `:2327–2341` identified arm (+5 buddy else `rn2(7)−3`, non-gem `nogood` → nopick); `:2343–2357` guessed arm (`has_oname`/`oc_uname`, +2 buddy else `rn2(3)−1`, non-gem → nopick); `:2359–2372` unknown arm (+1 buddy else `rn2(3)−1`, non-gem `noluck` falls through to accept); `:2373–2377` accept (`ushops[0]`/`unpaid` → `check_shop_obj(..., TRUE)` via dynamic shk import, file line-557 precedent; sync `mpickobj`; C `goto nopick` is a `nopick` flag); `:2379–2381` `pline1` → `pline(buf)` (apply.js precedent), `!tele_restrict` → `rloc(mon, RLOC_MSG)`. C sync → async for the three async callees. New import words all same-edge (`imports.mjs --can` ALREADY: `has_oname`/`RLOC_MSG` on const, `tele_restrict`/`rloc` on teleport).
+- **JS:** `js/dothrow.js` (+~100/−3); under caps (1500 ins / 15 files).
+- **Callers:** C `dothrow.c:2097` → JS `js/dothrow.js` thitmonst unicorn else-arm → `return await gem_accept(mon, obj)` ✓ (C int → JS consumed-boolean: `ret 1` = true). No other C callers; no call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn gem_accept` → PASS syntax (1 changed) · rule2 · hidden note (0 blocked at baseline) · **reach smoke 24/24 PASS, 0 regressed → REACH-OK** · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. `/tmp/probe-gem-accept.mjs` PROBE-OK (identified non-gem: ret false, pacified, luck 0; buddy identified gem: ret true, luck +5; cross-aligned unknown gem: ret true, luck `rn2(3)−1` = −1; mpickobj/rloc/tele_restrict/pline all run without throw).
+- **Named omissions:** none — every callee live (`Strcpy`/`Strcat` inline `=`/`+=`; `TRUE` → `true`; `BUFSZ` buf inline string).
+- **Next:** Open head after gem_accept (`uhitm.c` mhitm_ad_drli).
+
 ## D-2516 — `wizcmds.c` wiz_map_levltyp + wiz_levltyp_legend whole bodies in C order (coverage MISSING → live)
 
 - **Status:** fixed (Open coverage row `wizcmds.c` wiz_map_levltyp MISSING, C 142 L `wizcmds.c:693–835` / JS no symbol; same-C-file companion `wizcmds.c` wiz_levltyp_legend `:839–877`, the Open corpus-residual row blocking scen-tour-Valkyrie-92162; no Must-fix pending; no review cites either).
