@@ -7,6 +7,28 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-19 — Review iter 1480–1488 (9 ACCEPT) + cadence 44/44, proxy 497/540, held-out 11/44
+
+Audit of `23771238..25a9ad2d` (D-2521…D-2529, one file per SHA written
+as each SHA finished, single grouped commit): look_engrs (MAP-raw coord =
+C `getpos.c:613`, macro inlines verified), tiphat (cursed()/Deaf/RNG
+short-circuit exact; Glib arm unreachable for helms), canletgo (all 14 C
+caller refs accounted; ball/muse silent clones equivalent/named on live
+paths), dochat + shop_object/price_quote/shk_embellish (RNG call-for-call;
+focused test 8/8), vtense (marker/BSTRNCMPI/special_subjs/`sing:` arms
+exact; `if (subj)` guard closes the empty-head read), losexp (divergent
+clone deleted for the live import; trap `minuhpmax(1)` fix), dosinkring +
+teleport_sink (goto-giveback duplicated; buried path ≡ freeinv),
+show_menu_controls (rebound-map keys replace hardcoded chars; focused
+test 5/5), Amulet_off (async audit clean; Strangled/Flight mirrors match
+Amulet_on). Per-SHA `hidden-proxy verify --base …~1 --reach-all` re-runs:
+all 0-blocked + smoke 24/24 REACH-OK, matching the D-logs. No Must-fix;
+no CURRENT Next-cluster change.
+Cadence: full `sessions` 44/44 (Scr 11,405/11,405, RNG 792,838/792,838,
+`49+0.30/turn` R² 0.79); `leaderboard.mjs` 11/44, 5,648 pts, RNG 26.6 %,
+screens 50.1 % (flat); `hidden-proxy score` 497/540 (92.0 %) excl.
+13 env-only, RNG 99.31 %, screens 99.1 % (+0/−0 in-window).
+`check-hot-docs.mjs --fix --review 1480…1488`: all ok, no cap edits.
 ## 2026-09-19 — D-2529 `do_wear.c` Amulet_off whole body in C order (coverage PARTIAL → live)
 
 **C locus:** `nethack-c/upstream/src/do_wear.c:1090–1189` (`Amulet_off`). Callees: `setworn` (`:1100/:1116/:1135/:1150/:1160/:1183`, live same-file); `off_msg` (`:1101/:1117/:1136/:1161/:1185`, live same-file async); `see_monsters` (`:1104`, live display edge); `cant_drown` (`:1121`, `mondata.h:28` is_swimmer/amphibious/breathless — live `js/mon.js:2273`, extends the ALREADY edge); `Swimming` (`:1121`, youprop.h H||E||steed — live `hero_Swimming` dbridge edge, imports.mjs SAFE hoisted); `You`/`Your` (`:1122/:1130/:1143/:1145/:1167`, live display edge); `hliquid` (`:1123`, live do_name edge); `drown` (`:1125`, live trap edge, `(void)` return discarded); `region_danger` (`:1128`, live region edge); `Breathless` (`:1142`, youprop.h — live `hero_Breathless` dbridge edge, same SAFE verdict); `body_part(NECK)` (`:1143`, live polyself edge); `float_vs_flight` (`:1164`, live polyself edge); `is_pool_or_lava` (`:1167`, dbridge.c one-liner — file-local copy, same shape as the dig/eat/trap locals, no live export); `Is_waterlevel`/`Is_airlevel` (`:1168`, live const edge); `spoteffects(TRUE)` (`:1172`, live pickup edge); `find_ac` (`:1177`, live u_init edge); `makeknown` (`:1187`, live invent edge). Macros: `Underwater` ≡ `u.uinwater` (youprop.h:279); `Strangled` ≡ uprops[STRANGLED].intrinsic (youprop.h:110); `Flying` ≡ amulet_flight_now() (pre-existing local, D-1085).

@@ -23,10 +23,10 @@ the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-19** — full `sessions` on the working tree
-(audit **1471–1479**).
+(audit **1480–1488**).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`50+0.31/turn` (R² 0.77).
+`49+0.30/turn` (R² 0.79).
 
 ## Score
 
@@ -41,14 +41,14 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 4/22, 2nd agentic; best agentic fork 35/44, RNG 98.5 %,
-screens 93.2 %. Held-out flat 11/44 (+11 pts, +0.1 screens) over the
-breadth-phase window while the local corpus holds 91.7 %: the corpus
-still does not predict the judge.
-**Corpus fortress** (re-scored 2026-09-19 audit 1471–1479): **497 / 540
-PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — +2 PASS
-in the D-2512…D-2529 window (Valkyrie-92200, Samurai-92018), 0 regressed
-(per-SHA re-runs; D-2516: Valkyrie-92162 129 → 144, full RNG).
-Reviews 1225–1479: 224 ACCEPT, 10 WITH-DEBT, 1 DEBT, 15 QUALITY-RISK (Must-fix: none — 1465 trio shipped D-2512).
+screens 93.2 %. Held-out flat 11/44 (5,648 pts, RNG 26.6 %, screens
+50.1 %) over the breadth-phase window while the local corpus holds
+92.0 %: the corpus still does not predict the judge.
+**Corpus fortress** (re-scored 2026-09-19 audit 1480–1488): **497 / 540
+PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — +0 / −0
+in the D-2521…D-2529 window (all nine were zero-block coverage rows;
+per-SHA `--reach-all` re-runs REACH-OK, 0 regressed).
+Reviews 1225–1488: 233 ACCEPT, 10 WITH-DEBT, 1 DEBT, 15 QUALITY-RISK (Must-fix: none — 1465 trio shipped D-2512).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone — review-debt, unqueued (detail in the review files).
 Audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s) + `leaderboard.mjs`.
 

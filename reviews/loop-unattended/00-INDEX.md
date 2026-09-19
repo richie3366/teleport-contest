@@ -1490,3 +1490,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1477-ec68b067-mhitm-ad-drli.md](./1477-ec68b067-mhitm-ad-drli.md) | `ec68b067` | D-2518 mhitm_ad_drli | **ACCEPT** |
 | [1478-31bd0727-makerooms.md](./1478-31bd0727-makerooms.md) | `31bd0727` | D-2519 makerooms | **ACCEPT** |
 | [1479-95d26622-insane-object.md](./1479-95d26622-insane-object.md) | `95d26622` | D-2520 insane_object + where_name | **ACCEPT** |
+| [1480-8d4ef240-look-engrs.md](./1480-8d4ef240-look-engrs.md) | `8d4ef240` | D-2521 look_engrs | **ACCEPT** |
+| [1481-f3923d8e-tiphat.md](./1481-f3923d8e-tiphat.md) | `f3923d8e` | D-2522 tiphat | **ACCEPT** |
+| [1482-4cc8a6c0-canletgo.md](./1482-4cc8a6c0-canletgo.md) | `4cc8a6c0` | D-2523 canletgo | **ACCEPT** |
+| [1483-4ef9d444-dochat.md](./1483-4ef9d444-dochat.md) | `4ef9d444` | D-2524 dochat | **ACCEPT** |
+| [1484-d9247324-vtense.md](./1484-d9247324-vtense.md) | `d9247324` | D-2525 vtense | **ACCEPT** |
+| [1485-dec0bcad-losexp.md](./1485-dec0bcad-losexp.md) | `dec0bcad` | D-2526 losexp | **ACCEPT** |
+| [1486-ac4246db-dosinkring.md](./1486-ac4246db-dosinkring.md) | `ac4246db` | D-2527 dosinkring + teleport_sink | **ACCEPT** |
+| [1487-ca74dad2-show-menu-controls.md](./1487-ca74dad2-show-menu-controls.md) | `ca74dad2` | D-2528 show_menu_controls | **ACCEPT** |
+| [1488-25a9ad2d-amulet-off.md](./1488-25a9ad2d-amulet-off.md) | `25a9ad2d` | D-2529 Amulet_off | **ACCEPT** |
