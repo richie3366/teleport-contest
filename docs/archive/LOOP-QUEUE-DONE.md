@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-19
 
-- [x] `do_wear.c` Amulet_on — coverage PARTIAL (C 124 L `do_wear.c:963–1087` / JS 59 L in js/do_wear.js; hops 3, callers 4, RNG 1, msg 5). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn Amulet_on` (reach regression must be 0). Measured `port-coverage.mjs --name Amulet_on` 2026-09-19 @ e131537d. **Addressed:** D-2505
+- [x] `options.c` handler_menu_colors — coverage MISSING (C 92 L `options.c:6407–6499` / JS no symbol; hops —, callers 1, RNG 0, msg 4; dead callees: count_menucolors, handle_add_list_remove, test_regex_pattern, query_color, query_attr, add_menu_coloring_parsed, …). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn handler_menu_colors` (reach regression must be 0). Measured `port-coverage.mjs --name handler_menu_colors` 2026-09-19 @ e131537d. **Addressed:** D-2506
+
+
+- [x] `do_wear.c` Amulet_on — coverage PARTIAL (C 124 L `do_wear.c:963–1087` / JS 59 L in js/do_wear.js; hops 3, callers 4, RNG 1, msg 5). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn Amulet_on` (reach regression must be 0). Measured `port-coverage.mjs --name Amulet_on` 2026-09-19 @ e131537d. **Addressed:** D-2505 `a66b03ae`
 
 
 - [x] `teleport.c` rloc_to_core — coverage MISSING (C 120 L `teleport.c:1645–1768` / JS no symbol; hops 2, callers 4, RNG 0, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn rloc_to_core` (reach regression must be 0). Measured `port-coverage.mjs --name rloc_to_core` 2026-09-19 @ 4131ec6e. **Addressed:** D-2504 `52eaabd8`
