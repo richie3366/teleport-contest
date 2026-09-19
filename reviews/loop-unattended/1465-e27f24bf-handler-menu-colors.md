@@ -35,7 +35,7 @@ Re-ran `hidden-proxy.mjs verify handler_menu_colors --base e27f24bf~1 --reach-al
 
 ## Actionable C-wrongs
 
-1. Menu-colors submenu trio (one iter, `js/options.js` only): move `a_int++` before the list/remove skip so empty-menu exit returns 3 per C `:9227–9231`; fix the suffix to `\"` (single backslash + quote) per C `:6466–6477`; make PICK_ANY finish-empty re-loop per C `:6495` (or distinguish ESC from empty in the helper). Source: this review. **Addressed:** D-2512.
+1. Menu-colors submenu trio (one iter, `js/options.js` only): move `a_int++` before the list/remove skip so empty-menu exit returns 3 per C `:9227–9231`; fix the suffix to `\"` (single backslash + quote) per C `:6466–6477`; make PICK_ANY finish-empty re-loop per C `:6495` (or distinguish ESC from empty in the helper). Source: this review. **Addressed:** D-2512 `3322beff`.
 
 ## Evidence appendix
 

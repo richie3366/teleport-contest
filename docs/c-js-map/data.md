@@ -59,6 +59,8 @@ JS: extractor + generated rumors — partial
 
 Fortune path exercised
 
+**D-2513 `getrumor` whole body** (`rumors.c:117–191`; live `js/rumors.js:93` in C order — `:129` guard, `:139–143` init sizes, `:149–163` adjtruth switch + default, `:164–166` buf `get_rnd_line`, `:168–175` cookie loop + `count>=50` + exercise else, `:176–181` open-fail + cookie strip; callers `engrave.c:57` → `js/engrave.js:210`, `rumors.c:551` → `js/rumors.js:169`, `artifact.c:2289` named omit unported `arti_speak`). Named: dlb handles + `init_rumors` parse (Rule #2 embed) + `couldnt_open_file` suppression.
+
 ### `src/files.c` `read_tribute` / `choose_passage` / `Death_quote`
 
 JS: `js/files.js` + `js/generated/tribute_data.js` + `js/spell.js` study_book — partial

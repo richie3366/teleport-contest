@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2513 — `rumors.c` getrumor whole body in C order (coverage THIN → live)
+
+- **Status:** fixed (Open coverage row `rumors.c` getrumor THIN, C 71 L `rumors.c:117–191` / JS 21 L; no Must-fix pending; no review cites it).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify getrumor`: no corpus session blocked at baseline). The thin JS body dropped the `:129` failed-open guard, the `:139–143` first-call init + error-string arm, the `:161–163` default-truth `impossible` + `Oops...` arm, and the `:172–173` cookie-exhaustion `impossible`; retried on empty rumor (`!rumor`) instead of C's cookie-prefix loop test, and exercised WIS unconditionally instead of under C's `:174–175` else.
+- **C locus:** `nethack-c/upstream/src/rumors.c:117–191` (`getrumor`); callees `dlb_fopen`/`dlb_fclose` (`:132`/`:171`), `init_rumors` (`:94–107`, via `:139–143`), `rn2`, `get_rnd_line` (`:164–166`), `impossible` (`:162`/`:173`), `exercise` (`:175`), `couldnt_open_file` (`:770–782`, via `:176–178`). Callers `artifact.c:2289` (`arti_speak`), `engrave.c:57` (`random_engraving`), `rumors.c:551` (`outrumor`).
+- **JS was:** `js/rumors.js:88` — no open-guard/init arms, ternary true/false select (default fell into false), `if (cookie) rumor=''` + `while (... && !rumor)` (retried empties C would return), no `count>=50` arm, unconditional `if (!game.in_mklev) exercise`.
+- **Fix:** `js/rumors.js` only (same-edge import words `impossible` on the live display edge + `RUMORFILE` on the live const edge — `imports.mjs --can` ALREADY both, no new edge) — restarted `getrumor` in C order with `:line` cites: `:125` buf init; `:129` failed-open guard on new transient `game.true_rumor_size` (decl.c `:752` zero-init via `?? 0`); `:132` dlb open = embed present; `:139–143` first-call init sets true/false sizes from the split buffers (`:104`/` :141–142` error-string + return kept for a missing embed); `:149–163` adjtruth switch with `2/1` true, `0/-1` false, default `impossible` + `return 'Oops...'` (sync fire-and-forget, do_wear precedent); `:164–166` live buf-section `get_rnd_line`; `:168–170` cookie-prefix loop test (no empty retry); `:171` close no-op; `:172–175` `count>=50` impossible else `!in_mklev` exercise; `:176–178` open-fail else records `-1`; `:180–190` cookie strip as slice (= memmove loop).
+- **JS:** `js/rumors.js` (+63/−23, 1 file), under caps.
+- **Callers:** C `engrave.c:57` → JS `js/engrave.js:210` `getrumor(0, true)` ✓ (pre-existing, signature unchanged). C `rumors.c:551` → JS `js/rumors.js:169` `getrumor(truth, reading ? false : true)` ✓ (pre-existing). C `artifact.c:2289` → no JS site: `arti_speak` is unported (no same-named symbol in `js/`; wield `ready_weapon` names the `arti_speak` omit) — named omission, not a new call. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn getrumor --reach-all` → PASS syntax (1 file: js/rumors.js) · rule2 · hidden note (0 blocked at baseline) · **reach 129/129 PASS, 0 regressed → REACH-OK** · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS.
+- **Named omissions:** `dlb_fopen`/`dlb_fclose` handles (Rule #2 embed D-0477 — buffers always present); `init_rumors` header parse (ran at build time in `extract-rumors.py`; starts/ends subsumed by the TRUE/FALSE split); `couldnt_open_file` something_worth_saving suppression (unreachable under embed; the `impossible` + `-1` effect is coded); C `artifact.c:2289` caller (unported `arti_speak`, above).
+- **Next:** Open head after getrumor (`restore.c` restmon).
+
 ## D-2512 — `options.c` menu-colors submenu trio C-wrongs (review 1465 Must-fix)
 
 - **Status:** fixed (Must-fix row from review 1465-e27f24bf; review stamped **Addressed:** D-2512).
