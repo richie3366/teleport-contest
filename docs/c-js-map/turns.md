@@ -1248,12 +1248,13 @@ impossible() (async in JS) +
 **`mshot_xname` (D-1931; `objnam.c:1090–1102`** `xname` + `m_shot.n > 1 && o == otyp` → `"the Nth "` via canonical `hacklib.js ordin` export; wired `dothrow tmiss`, `uhitm` thrown hit, `mthrowu thitu` single path with C quan branch; named: sink/miss end-of-path `mthrowu.c:801–813`, stone-missile no-harm `uhitm.c:1402`, destroyed+multishot gate, monster-side `m_shot`, `thitu` quan>1 `doname`)
 
 **`readobjnam` post-mksobj `spe` switch + `corpsenm` writer** (D-2055;
-`objnam.c:5119–5370`: TIN spe=0 (+EMPTY/SPINACH contents arms, contents
-never parsed); TOWEL wetness (never parsed, C-default 0); SLIME_MOLD
+`objnam.c:5119–5370`: TIN spe=0 (+EMPTY/SPINACH contents arms; `empty `
+parsed by preparse D-2545); TOWEL wetness (preparse `wet `/`moist ` D-2545);
+SLIME_MOLD
 `spe=ftype` deferred — no current_fruit plumbing, retains mksobj spe;
 KEY/CHEST/BOX/BALL/CHAIN retain; STATUE/FIGURINE/CORPSE gender
 (`is_neuter`→NEUTER else mgend-honor else RANDOM→`is_male`/`is_female`/
-`rn2(2)`; `ishistoric` never parsed); SCR_MAIL spe=1 (MAIL on);
+`rn2(2)`; preparse `historic ` D-2545); SCR_MAIL spe=1 (MAIL on);
 venoms spe=1; WAN_WISHING non-wizard `rn2(10)` else `d.spe`;
 LONG_WORM_TAIL remap + were→human `counter_were` + TIN
 (`dead_species`/uniq/nocorpse/cnutrit) + CORPSE (`set_corpsenm`,
@@ -1261,7 +1262,7 @@ guardian `genus`) + EGG (`can_be_hatched`) + FIGURINE
 (uniq/human/were/MAIL_DAEMON) + STATUE direct corpsenm; dragon-scale
 stays in its hunk); **do_name `oname` `PL_PSIZ` 63** (was a local 32
 shadowing `const.js` — truncated 37-char artifact wishes so
-`artifact_exists` never matched; C `global.h:404`). **postparse1 `tin of`/`of`-split D-2084** (C `objnam.c:4381–4397` + init `:3946–3949` + tin-variety tail `:5342–5344`; `js/readobjnam.js` — wand/spellbook/gauntlets/gloves/finger guards, spinach `contents`, `tin_variety_txt` offset + `name_to_mon` `mgend` box, `*p = 0` truncation, typfnd `set_tin_variety` on `tvariety >= 0` with C `||` draw order; gold `isGold` block `!d.typ`-guarded D-2089 — C tin arm `return 2` skips it, so `tin of gold piece` makes a tin). Named: `of spinach` strip + `ishistoric`/`wetness`/`ftype`/`zombify` wish-prefix parsing; CORPSE zombify `start_timer`
+`artifact_exists` never matched; C `global.h:404`). **postparse1 `tin of`/`of`-split D-2084** (C `objnam.c:4381–4397` + init `:3946–3949` + tin-variety tail `:5342–5344`; `js/readobjnam.js` — wand/spellbook/gauntlets/gloves/finger guards, spinach `contents`, `tin_variety_txt` offset + `name_to_mon` `mgend` box, `*p = 0` truncation, typfnd `set_tin_variety` on `tvariety >= 0` with C `||` draw order; gold `isGold` block `!d.typ`-guarded D-2089 — C tin arm `return 2` skips it, so `tin of gold piece` makes a tin). **`readobjnam_preparse` whole body C-order live** (D-2545; `objnam.c:3966–4175` as file-local `readobjnam_preparse` in `js/readobjnam.js` — every arm in C order incl. erodeproof octet, lit/unlit, wet/moist RNG, unlabeled trio, box/door sextet, looted/disturbed, greased, zombifying, very/thoroughly, erosion ladders, halfeaten, historic, diluted, empty, glob-size guards, real/fake, gender strsubst, corpse/statue/figurine-of backtrack + `:4928` caller wired to `any`; `strsubst`/`NEUTRAL` reuse live exports, no new edge). Named: `of spinach` strip; readobjnam-body applications of `erodeproof`/`eroded`/`eroded2`/`isgreased`/`unlabeled`/`isdiluted`/`very`/`gsize`/`islit`; CORPSE zombify `start_timer`
 (`obj_to_any` missing); STATUE verysmall `delete_contents`;
 `is_quest_artifact` short-circuit in the deny check (D-2172; C
 `objnam.c:5371–5380` single-`if` order — quest artifacts skip the

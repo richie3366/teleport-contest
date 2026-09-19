@@ -46,7 +46,7 @@ judge 07:08Z, ~D-2534, +105 pts vs last audit): the corpus still does
 not predict the judge.
 **Corpus fortress** (re-scored 2026-09-19 audit 1489–1497): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — +0 / −0
-in the D-2530…D-2544 window (all nine were zero-block coverage rows;
+in the D-2530…D-2545 window (all nine were zero-block coverage rows;
 per-SHA `--reach-all` re-runs REACH-OK, 0 regressed).
 Reviews 1225–1497: 242 ACCEPT, 10 WITH-DEBT, 1 DEBT, 15 QUALITY-RISK (Must-fix: none — 1465 trio shipped D-2512).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone — review-debt, unqueued (detail in the review files).
@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `options.c` all_options_strbuf whole body in C order (C 70 L `options.c:9678–9748`, JS no symbol; hops —, callers 2, RNG 0, msg 1). Verify `--fn all_options_strbuf`, reach regression 0.
+**Next cluster:** `objnam.c` readobjnam_preparse whole body in C order (C 209 L `objnam.c:3966–4175`, JS no symbol; hops 4, callers 1, RNG 2, msg 0). Verify `--fn readobjnam_preparse`, reach regression 0.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2544 (index).**
+**Keep D-0845…D-2545 (index).**
 <!-- recent:begin -->
+**D-2545** `nethack-c/upstream/src/objnam.c:3966–4175` (`readobjnam_preparse`, staticfn); loop `:3971 — `js/readobjnam.js` — restarted as file-local `readobjnam_preparse` (mirrors staticfn) in C order with `:line` cites: split moist/wet branches keep C check order and RNG (`wet` → `3 + rn2(3)`, `moist` → `rnd(2)`); gender 
 **D-2544** `nethack-c/upstream/src/options.c:9678–9748` (`all_options_strbuf`); arms `:9686–9689` hea — `js/options.js` — ported the whole body in C order with `:line` cites; `strbuf_init/append/reserve/empty` (`:3083–3115`, plain-string booking, NULL-empty mirrors C); `allopt`/`opt_set_in_config` empty registries + `PFX_C
 **D-2543** `nethack-c/upstream/src/rumors.c:829–935` (`init_CapMons`); arms `:834–836` sanity free, ` — `js/objnam.js` — restarted `init_CapMons` in C order: `:833` embed-as-opened-file (`bogonfile` null when the embed is missing, guarding the `:871`/`:906–907` arms); `:834–836` sanity `free_CapMons()`; `:841` pass 1-count
 **D-2542** `nethack-c/upstream/src/uhitm.c:2684–2739` (`mhitm_ad_elec`); arms `:2688–2703` (uhitm), ` — `js/mhitm.js` — new exported `mhitm_ad_elec` (`js/mhitm.js:878`) in C order: `:2688–2703` uhitm arm new (negate gate, `!Blind_slee()` file-local youprop.h gate for both plines, resists_elec/defended zeroes leftover after
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2540** `nethack-c/upstream/src/uhitm.c:2958–3012` (`mhitm_ad_blnd`); arms `:2964–2975` (uhitm), ` — `js/mhitm.js` — restarted + exported `mhitm_ad_blnd` in C order: `:2964–2975` uhitm arm new (live `can_blnd` gate on the existing mhitm.js→uhitm.js edge; `!Blind_slee()` is the file-local youprop.h Blind gate the slee ar
 **D-2539** `nethack-c/upstream/src/version.c:374–423` (`check_version`), `:713–746` (`uptodate`); req — `js/version.js` — exported `what_datamodel_is_this` in C order (`:1006` loop starts at C row 1; DATAMODEL_TABLE holds exactly C rows 1–4 with live sizes split out, so the loop covers the whole table — first draft kept `i
 **D-2538** `nethack-c/upstream/src/files.c:1020–1123` (`set_savefile_name`). Callees: `regularize` (` — `js/save.js` — restarted `set_savefile_name(regularize_it)` in C order with `:line` cites: `:1030–1034` VMS arm named compiled out; `:1036–1053` WIN32 arm named compiled out; `:1054–1057` UNIX arm live (`save/` + `game.p
-**D-2537** `nethack-c/upstream/src/mthrowu.c:1173–1264` (`thrwmu`). Callees/macros: `mon_wield_item`  — `js/mthrowu.js` — restarted `thrwmu_body` in C order with `:line` cites: `:1186–1191` wield-gate; `:1194–1196` `select_rwep`; `:1198–1240` polearm arm (must-be-wielded return, `dist2` rang vs `MON_POLE_DIST`/`couldsee` r
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2544; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2545; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
