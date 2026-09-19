@@ -734,7 +734,7 @@ SCR_TELEPORTATION → `scrolltele`/`safe_teleds` + learnscroll→`makeknown`+XP*
 Teleport_control getpos deferred) + **`doread` confused mispronounce/`can_chant` silently** 
 (D-0580; poly silent/headless deferred); **SCR_LIGHT → `seffect_light`/`litroom`/`set_lit` + 
 `lightdamage` gremlin body D-1366** (D-0431;
-confused yellow/black-light pets;
+confused yellow/black-light pets live D-2592 (`mvitals` G_GONE gate + `rn1(2,3)`+blessed spawn via live `makemon`/`initedog`/`canspotmon`/`newsym`);
 **Sunsword radius-0 D-1377**; invent-loop snuff_lit/`impact_arti_light` D-2250;
 set_lit `snuff_light_source` (live `js/light.js`) + gremlin queue/drain via
 `light_hits_gremlin`, Punished `move_bc` pick-up/re-place, engulfer-lit plines D-2263); **SCR_REMOVE_CURSE → `seffect_remove_curse` + cursed `nodisappear` + 

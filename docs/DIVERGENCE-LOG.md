@@ -1,5 +1,32 @@
 # Divergence log
 
+## D-2592 — `read.c` seffect_light whole-body port (confused light-pets arm)
+
+- **Status:** fixed (Open — coverage row ``read.c`` seffect_light THIN (C 44 L `read.c:1741–1785` / JS 18 L in js/read.js; hops 5, callers 1, RNG 1, msg 2), measured `port-coverage.mjs --name seffect_light` 2026-09-19 @ 028f5be4).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify seffect_light`: no corpus session blocked on it at baseline; reach smoke spread is the evidence).
+- **C locus:** `nethack-c/upstream/src/read.c:1741–1785` — `:1744–1746` blessed/cursed/Confusion snapshot; `:1748–1754` unconfused (seen → known, `litroom(!scursed)`, `!scursed` → `lightdamage(sobj, TRUE, 5)` → known); `:1755` confused pm = cursed ? BLACK : YELLOW light; `:1757–1758` `mvitals[pm] & G_GONE` → sparkle pline, no spawn; `:1759–1779` `numlights = rn1(2,3) + blessed*2` loop: `makemon(&mons[pm], u.ux, u.uy, MM_EDOG|NO_MINVENT|MM_NOMSG)`, null-guarded `initedog(mon, TRUE)`, `msleeping = 0`, `mcan = TRUE`, `canspotmon` → sawlights, `newsym(mx, my)`; `:1780–1784` sawlights → "Lights appear all around you!" + known. Sole C caller `:2244` seffects SCR_LIGHT.
+- **JS was:** thin `seffect_light` (`js/read.js:530`, 18 L): unconfused arm live (D-1366) but confused arm collapsed to an unconditional sparkle pline — G_GONE gate, `rn1` spawn loop, `makemon`/`initedog`/`canspotmon`/`newsym` all absent; `sblessed` unread; confusion read flat `game.u?.Confusion` instead of the file's `HConfusion || Confusion` sibling convention (D-1048).
+- **Fix:** `js/read.js` — restarted `seffect_light` in C order with `:line` cites: `sblessed` snapshot; confused = `u.HConfusion || u.Confusion` (seffect_teleportation sibling convention); Blind convention unchanged; G_GONE via `game.mvitals?.[pm]?.mvflags` (apply.js precedent); `rn1(2, 3) + (sblessed ? 2 : 0)` (C `rn1(x,y) = rn2(x)+y`, hack.h:1535 — identical); `makemon(mons(pm), u.ux, u.uy, MM_EDOG|NO_MINVENT|MM_NOMSG)` (both already imported); static `initedog` from `js/dog.js` (imports.mjs SAFE, hoisted-fn shape); `mcan = 1` (C TRUE; mhitm/mhitu/mon precedent); `PM_YELLOW/BLACK_LIGHT` via `monsterNames.indexOf` (PM_WIZARD precedent); `MM_EDOG`/`G_GONE` join the existing const.js import (no new edge). Header omit lines retired (both envelope copies).
+- **JS:** `js/read.js:125` const import; `:145` dog import; `:216–217` PM consts; `:531–585` seffect_light.
+- **Callers:** C `read.c:2244` seffects SCR_LIGHT → JS `js/read.js:2023` `case SCR_LIGHT: await seffect_light(sobj)` (pre-existing, verified still wired). C decl `:34` needs no wiring (staticfn). No other C call site (brief: 2 refs).
+- **Verify:** `node scripts/verify.mjs --fn seffect_light` → VERIFY: PASS. Tail pasted verbatim:
+```
+PASS  syntax   1 changed js file(s): js/read.js
+PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates
+note  hidden   verify seffect_light: no corpus session blocked on it at baseline
+               (not a corpus PASS; if the queue row cited N corpus blocks: node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>)
+PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 3.7s): 24 PASS, 0 regressed → REACH-OK
+PASS  green    2/2 passing
+PASS  strict   seed8000-tourist-starter.session.json
+PASS  strict   seed0900-tourist-explore-actions.session.json
+PASS  cohort   7/7 passing
+skip  full     (no shared file changed; pass --full to force)
+
+VERIFY: PASS
+```
+- **Named omissions:** none new — every arm and callee live (litroom, lightdamage via existing dynamic import, makemon, mons, initedog, canspotmon, newsym, pline, rn1) or ported in this commit; D_DEBUG arms absent (none in this body).
+- **Next:** none from this fix — coverage row closed; queue head is now `mklev.c` mkgrave (PARTIAL).
+
 ## D-2591 — `shk.c` shk_fixes_damage + find_damage whole-body ports (per-turn shop repair)
 
 - **Status:** fixed (Open — coverage row ``shk.c`` shk_fixes_damage MISSING (C 21 L `shk.c:4556–4577` / JS no symbol; hops 3, callers 1, RNG 0, msg 2; dead callees: find_damage), measured `port-coverage.mjs --name shk_fixes_damage` 2026-09-19 @ 028f5be4).

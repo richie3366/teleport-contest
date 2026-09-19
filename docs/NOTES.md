@@ -38,20 +38,21 @@ here again. Live hypotheses only:
 - **do_statusline2 residuals (D-2425 MEASURED):** W1 Healer-92107 `mhitm_ad_cold_u` extra destroy return; W2 Satiated pair = eat-progress `uhs`/botl timing — both are corpus-residual Open rows (detail in D-2425). Monk-92194 Pw = D-2161 gulpmu residual, no new row.
 ## Don't re-check (≤15)
 
-- D-1790…D-2591 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-2592 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2591.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2591.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2592.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2592.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2592: `js/read.js` — restarted `seffect_light` in C order with `:line` cites: `sblessed` snapshot; confused = `u.HConfusion || u.Confusion` (seffect_telepor Named: none new — every arm and callee live (litroom, lightdamage via existing dynamic import, ma
 - D-2591: `js/shk.js` — new file-local `find_damage(shkp, deps)` in C order with `:line` cites (deps carries m_at/t_at for the file-local `repairable_damage :12 Named: none new — every arm and callee live (repair_damage/discard_damage_struct/repairable_damag
 - D-2590: restarted `exerchk` in C order with `:line` cites throughout (`js/allmain.js` EXERTEXT + body): hilim takes `(i === A_STR && Upolyd(u)) ? uasmon_maxSt Named: debugpline1/0/2 (`:608`, `:614`, `:646–656`, `:676` — D_DEBUG-only, D-2586 precedent); exe
 - D-2589: `js/mhitm.js` — new exported `mhitm_ad_rust(magr, mattk, mdef, mhm)` in C order with `:line` cites (uhitm arm first with ungated pline + dynamic-impor Named: none new — every arm live (mhitu rust stays split `mhitm_ad_rust_u` by architecture, elec/
@@ -66,5 +67,4 @@ here again. Live hypotheses only:
 - D-2580: ported the whole C body in C order with `:line` cites — null-filename FALSE (`:2097–2098`), prev-name drop = JS GC (`:2103–2106`), bare-vs-dir branch  Named: `nh_getenv` NETHACKDIR/HACKDIR (Rule #2 no env, SHOPTYPE precedent); `c_eos` inlined as la
 - D-2579: `js/invent.js` — no format changes (final keeps one-space `enlght_line_txt`, overlay keeps two-space prefix): new exported C-order `basics_autopickup_ Named: `money_cnt` first-match vs local sum (equivalent under the gold-merge invariant; `doprgold
 - D-2578: `js/mkobj.js` — restarted `weight()` in C order with `:line` cites. Named: `pickup.c` DELTA_CWT twin resolves via this body (kept D-2422 note); `void impossible` in 
-- D-2577: `js/mondata.js` — restarted `name_to_monplus` in C order with `:line` cites: case-sensitive `a `/`an `/`the ` strip; vortices→vortex / -ies→-y (zombie Named: none new — every arm and callee live or ported in this commit (`strstri`/`strcmpi`/`strncm
 <!-- landmarks:end -->

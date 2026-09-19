@@ -41,7 +41,7 @@
 // headless/buzz/burble;
 // SPE_REMOVE_CURSE seffects
 // arm (throne fake book D-1033; #cast still deferred);
-// Teleport_control getpos; confused light yellow/black-light pets;
+// Teleport_control getpos;
 // litroom invent-loop snuff_lit/impact_arti_light (D-2250); set_lit
 // snuff_light_source + gremlin queue/drain, move_bc pick-up/re-place,
 // engulfer-lit plines (D-2263);
@@ -75,7 +75,7 @@
 // headless/buzz/burble;
 // SPE_REMOVE_CURSE seffects
 // arm (throne fake book D-1033; #cast still deferred);
-// Teleport_control getpos; confused light yellow/black-light pets;
+// Teleport_control getpos;
 // litroom invent-loop snuff_lit/impact_arti_light (D-2250); set_lit
 // snuff_light_source + gremlin queue/drain, move_bc pick-up/re-place,
 // engulfer-lit plines (D-2263);
@@ -122,7 +122,7 @@ import {
     COLNO, ROWNO, SDOOR, CORR, ROOMOFFSET, Is_rogue_level, Is_waterlevel,
     HEAD, HAND, STOMACH, isok, ACCESSIBLE,
     W_BALL, W_CHAIN, W_ART, W_ARTI, W_SADDLE, W_ARM, W_ARMH, P_SLING, SPE_LIM, MM_NOEXCLAM,
-    MM_MALE, MM_FEMALE,
+    MM_MALE, MM_FEMALE, MM_EDOG, G_GONE,
     NO_MM_FLAGS, NO_NC_FLAGS, WT_IRON_BALL_INCR, thats_enough_tries, EXT_ENCUMBER,
     GENOCIDED, KILLED_BY, KILLED_BY_AN, LL_CONDUCT, LL_GENOCIDE, NO_MINVENT, MM_NOMSG, Upolyd,
     nothing_happens, G_GENOD, G_EXTINCT, UNCHANGING,
@@ -142,6 +142,7 @@ import { You_hear, closed_door, maybe_half_phys } from './hack.js';
 import { Soundeffect } from './sndprocs.js';
 import { se_maniacal_laughter, se_sad_wailing } from './generated/seffects_data.js';
 import { resist, cant_revive, Fire_resistance } from './zap.js';
+import { initedog } from './dog.js';
 import { monflee } from './monmove.js';
 import { which_armor, is_elven_armor, is_shield } from './worn.js';
 import { alter_cost, costly_alteration, obfree } from './shk.js';
@@ -212,6 +213,8 @@ const ELVEN_LEATHER_HELM = _on('ELVEN_LEATHER_HELM'), ELVEN_MITHRIL_COAT = _on('
 const BLACK_DRAGON_SCALE_MAIL = _on('BLACK_DRAGON_SCALE_MAIL'), BLACK_DRAGON_SCALES = _on('BLACK_DRAGON_SCALES'), SILVER_DRAGON_SCALE_MAIL = _on('SILVER_DRAGON_SCALE_MAIL'), SILVER_DRAGON_SCALES = _on('SILVER_DRAGON_SCALES'), SHIELD_OF_REFLECTION = _on('SHIELD_OF_REFLECTION');
 const GRAY_DRAGON_SCALES = _on('GRAY_DRAGON_SCALES'), YELLOW_DRAGON_SCALES = _on('YELLOW_DRAGON_SCALES'), GRAY_DRAGON_SCALE_MAIL = _on('GRAY_DRAGON_SCALE_MAIL');
 const PM_WIZARD = monsterNames.indexOf('PM_WIZARD');
+const PM_YELLOW_LIGHT = monsterNames.indexOf('PM_YELLOW_LIGHT');
+const PM_BLACK_LIGHT = monsterNames.indexOf('PM_BLACK_LIGHT');
 const PM_LONG_WORM_TAIL = monsterNames.indexOf('PM_LONG_WORM_TAIL');
 const NH_RED = 'red', NH_GOLDEN = 'golden', NH_SILVER = 'silver', NH_PURPLE = 'purple';
 const WAN_WISHING = _on('WAN_WISHING'), WAN_CANCELLATION = _on('WAN_CANCELLATION');
@@ -523,16 +526,26 @@ export async function litroom(on, obj) {
 }
 
 /**
- * C ref: read.c seffect_light
- * Unconfused: litroom(!cursed) + lightdamage when !cursed (D-1366).
- * Confused yellow/black-light pets deferred (named omission).
+ * C ref: read.c seffect_light `:1741–1785` in C order.
+ * Unconfused (`:1748–1754`): gk.known when seen + litroom(!cursed) +
+ * lightdamage when !cursed (D-1366). Confused (`:1755–1784`): cursed
+ * summons black lights else yellow (`:1755`); G_GONE lights just
+ * sparkle (`:1757–1758`); else rn1(2,3)+blessed*2 tame cancelled
+ * lights via makemon (MM_EDOG|NO_MINVENT|MM_NOMSG) + initedog +
+ * msleeping=0/mcan, sawlights pline + known (`:1759–1784`).
+ * Callers: seffects SCR_LIGHT (C read.c:2244 → js/read.js seffects).
  */
 async function seffect_light(sobj) {
+    const u = game.u || {};
+    const sblessed = !!sobj.blessed;
     const scursed = !!sobj.cursed;
-    const confused = !!(game.u?.Confusion);
-    const Blind = !!(game.u?.Blind || game.u?.ublind);
+    // C `:1746` — Confusion ≡ HConfusion (youprop.h, D-1048;
+    // seffect_teleportation sibling convention keeps the flat flag).
+    const confused = !!(u.HConfusion || u.Confusion);
+    const Blind = !!(u.Blind || u.ublind);
 
     if (!confused) {
+        // C `:1748–1754`
         if (!Blind) known = true;
         await litroom(!scursed, sobj);
         if (!scursed) {
@@ -541,8 +554,33 @@ async function seffect_light(sobj) {
             if (await lightdamage(sobj, true, 5)) known = true;
         }
     } else {
-        // confused PM_YELLOW_LIGHT / PM_BLACK_LIGHT swarm deferred
-        await pline('Tiny lights sparkle in the air momentarily.');
+        // C `:1755` — cursed summons black lights, else yellow
+        const pm = scursed ? PM_BLACK_LIGHT : PM_YELLOW_LIGHT;
+        // C `:1757–1758` — geno'd/extinct lights just sparkle, no spawn
+        if ((((game.mvitals?.[pm]?.mvflags ?? 0) & G_GONE) !== 0)) {
+            await pline('Tiny lights sparkle in the air momentarily.');
+        } else {
+            // C `:1759–1779` — surround with cancelled tame lights
+            // which won't explode
+            let sawlights = false;
+            const numlights = rn1(2, 3) + (sblessed ? 2 : 0);
+            for (let i = 0; i < numlights; ++i) {
+                const mon = makemon(mons(pm), u.ux, u.uy,
+                    MM_EDOG | NO_MINVENT | MM_NOMSG);
+                if (mon) {
+                    initedog(mon, true);
+                    mon.msleeping = 0;
+                    mon.mcan = 1;
+                    if (canspotmon(mon)) sawlights = true;
+                    newsym(mon.mx, mon.my);
+                }
+            }
+            // C `:1780–1784`
+            if (sawlights) {
+                await pline('Lights appear all around you!');
+                known = true;
+            }
+        }
     }
 }
 
