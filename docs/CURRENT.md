@@ -46,7 +46,7 @@ screens 93.2 %. Held-out 11/44, unchanged vs last audit (5,972 pts, RNG
 predict the judge.
 **Corpus fortress** (re-scored 2026-09-20 audit 1604–1612): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — **+0 / −0**
-in the D-2645…D-2654 window (8 ACCEPTs + 1 WITH-DEBT;
+in the D-2645…D-2655 window (8 ACCEPTs + 1 WITH-DEBT;
 every per-SHA `--reach-all` re-run here ends REACH-OK with no REGRESSED).
 Reviews 1225–1612: 345 ACCEPT, 15 WITH-DEBT, 1 DEBT, 22 QUALITY-RISK (1503, 1517, 1520 stamped; Must-fix 1533/1536 → D-2583/D-2584, 1568 → D-2610, 1592 → D-2636 `271ceca1`; hashes filled).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`) — review-debt, unqueued (detail in the review files).
@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `mkobj.c` check_contained — coverage MISSING (C 42 L `mkobj.c:3374–3416` / JS no symbol; hops 4, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn check_contained` (reach regression must be 0). Measured `port-coverage.mjs --name check_contained` 2026-09-20 @ c2b834cd.
+**Next cluster:** `mondata.c` same_race — coverage PARTIAL (C 100 L `mondata.c:771–871` / JS 63 L in js/mondata.js; hops 3, callers 5, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn same_race` (reach regression must be 0). Measured `port-coverage.mjs --name same_race` 2026-09-20 @ c2b834cd.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2654 (index).**
+**Keep D-0845…D-2655 (index).**
 <!-- recent:begin -->
+**D-2655** ``nethack-c/upstream/src/mondata.c:771–871`` (same_race) + caller ``dog.c:1080–1083`` (dog — restarted the export in C order with per-arm ``:line`` cites — letters ``:773`` up front (null guard stays first, JS-only, C takes NONNULLARG12); exact ``:775–776`` (``pm1 === pm2`` + mndx equality for fresh mons() wrapp
 **D-2654** ``nethack-c/upstream/src/mkobj.c:3374–3416`` (check_contained; staticfn decl ``:26``) + ca — exported ``async check_contained`` in C order with per-arm ``:line`` cites — ``Has_contents`` joins the const.js import (same-module edge, live const.js:3191); ``strstri``/``impossible`` already imported; ``OFMT0_SANITY`
 **D-2653** ``nethack-c/upstream/src/date.c:52–131`` (populate_nomakedefs) + caller ``mdlib.c:842`` (r — new C-home `js/date.js` in C order with per-arm `:line` cites — file-local `extract_field` (`:44–49`), `case_insensitive_comp`, `md_ignored_features` (`(1<<19)|SFCTOOL_BIT`, live const.js import), `bannerc_string` (C out
 **D-2652** ``nethack-c/upstream/src/earlyarg.c:404–441`` (scores_only; ATTRNORETURN staticfn) + calle — new C-home ``js/earlyarg.js`` (Constitution §3.1 1:1) in C order with per-arm ``:line`` cites — exported ``async scores_only(argc, argv, dir)`` (async only because live ``prscore`` must be awaited; C ATTRNORETURN unrepre
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2650** ``nethack-c/upstream/src/topten.c:340–391`` (writexlentry; staticfn decl ``:71``) + static — new exports in C-home ``js/topten.js`` in C order with per-arm ``:line`` cites — ``writexlentry(tt, how)`` returns the full tab-separated line (C FILE* becomes the return; out-param ``char *buf`` callees return their str
 **D-2649** ``nethack-c/upstream/src/botl.c:2814–3106`` (parse_status_hl2; staticfn decl ``:650``) + s — new exports ``parse_status_hl2(s, from_configfile)`` + ``parse_status_hl1(op, from_configfile)`` in C-home ``js/botl.js`` in C order with per-arm ``:line`` cites, plus file-local ports of every static callee (``s_to_anyt
 **D-2648** ``nethack-c/upstream/src/topten.c:220–298`` (readentry; staticfn decl ``:68``) + callees ` — restarted as exported ``readentry(line)`` in C order with per-arm ``:line`` cites — 13-field fscanf regex (``:238–245``), SCANBUFSZ remainder cut (``:246–257``; SCANBUFSZ const from topten.c:59), pre-3.3 fmt32 arm with o
-**D-2647** ``nethack-c/upstream/src/pickup.c:1225–1508`` (query_category) + ``decl.h:167–168`` / ``de — in C order with per-arm ``:line`` cites — ``PARANOID_CONFIRM``/``PARANOID_AUTOALL`` joined the existing ``./const.js`` import (same module, no new edge); ``paranoid_ynq`` joined the existing ``./getline.js`` import (``im
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2654; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2655; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

@@ -470,6 +470,18 @@ JS: `js/mondata.js` — partial
 
 **`little_to_big`/`big_to_little`** grownups table (D-0068); name_to_mon;
 **`big_little_match`** full both-direction multi-step walks (D-1772; live `js/mondata.js:296`, sole caller `mon.c:4240` wired `js/mon.js:1095`)
+**`same_race`** (C `mondata.c:771–871`) restarted whole-body in C order
+(D-2655; live `js/mondata.js:404`, per-arm `:line` cites) — exact `:775–776`
+(mndx equality for fresh wrappers); races `:778–787`; giant/golem/flayer
+`:789–794`; kobold `:795–798`; ogre→naga `:799–810`; rider/minion
+`:812–815`; tengu `:817–818`; imp `:819–823`; demon `:824–825`; undead
+`:826–840` with C's fallthrough (no terminal return — prior early
+`return false` removed); growth `:843–857` via live `monsndx()`;
+gargoyle/bee `:859–863`; longworm `:865–866`. Callers:
+`dog.c:1080` wired `js/dogmove.js:216` (new cannibal arm), `eat.c:776`
+→ `js/eat.js:3421`, `muse.c:255` → `js/muse.js:1341`,
+`sounds.c:706–707` → `js/sounds.js:1001–1002`. Named: dogfood
+polyfood/rider/petrify tails (deferred `js/dogmove.js:199–201`)
 
 ### `src/mondata.c` `can_blnd` / `resists_blnd` / `resists_blnd_by_arti`
 

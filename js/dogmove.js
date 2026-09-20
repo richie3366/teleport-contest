@@ -40,7 +40,8 @@ import {
 import { FOOD_CLASS, BALL_CLASS, CHAIN_CLASS, ROCK_CLASS, COIN_CLASS, objectNames, is_pick, objectDescrs, objectNameStrs } from './objects.js';
 import {
     monsterNames, mons, carnivorous, herbivorous, vegan, acidic, poisonous,
-    is_swimmer, likes_lava, throws_rocks, is_rider,
+    is_swimmer, likes_lava, throws_rocks, is_rider, humanoid,
+    is_undead, is_elf,
     unsolid, nolimbs, has_head, LOW_PM, NUMMONS,
     PM_LICHEN, MZ_TINY, MZ_SMALL, MZ_MEDIUM, MZ_LARGE, MZ_HUGE,
     is_animal, mindless, tunnels, needspick, nohands, verysmall,
@@ -51,7 +52,7 @@ import { which_armor } from './worn.js';
 import { m_cansee, couldsee, cansee, do_clear_area } from './vision.js';
 import { Monnam, noit_Monnam, y_monnam, pmname, Mgender } from './do_name.js';
 import { gettrack } from './track.js';
-import { hero_conflict, resist_conflict, monsndx } from './mondata.js';
+import { hero_conflict, resist_conflict, monsndx, same_race } from './mondata.js';
 import { is_pool, is_lava, stop_occupation } from './hack.js';
 import { m_unleash } from './apply.js';
 import { lose_guardian_angel } from './minion.js';
@@ -197,7 +198,7 @@ export function dogfood(mon, obj) {
             case CORPSE: {
                 // C ref: dog.c dogfood CORPSE — age/poison/acid → POISON;
                 // vegan(fptr) → herbi?CADAVER:MANFOOD (lichen etc.).
-                // polyfood / humanoid cannibalism / rider / petrify deferred.
+                // polyfood / rider / petrify deferred.
                 const moves = game.moves ?? 1;
                 const corpseAge = obj.age ?? moves;
                 const agePoison = corpseAge + 50 <= moves
@@ -210,6 +211,13 @@ export function dogfood(mon, obj) {
                     return POISON;
                 }
                 if (vegan(fptr)) return herbi ? CADAVER : MANFOOD;
+                // C `:1080-1083` — most humanoids avoid cannibalism unless
+                // starving; elves won't eat other elves even then.
+                if (humanoid(mptr) && same_race(mptr, fptr)
+                    && (!is_undead(mptr) && fptr?.mlet !== 'S_KOBOLD'
+                        && fptr?.mlet !== 'S_ORC' && fptr?.mlet !== 'S_OGRE')) {
+                    return (starving && carni && !is_elf(mptr)) ? ACCFOOD : TABU;
+                }
                 return carni ? CADAVER : MANFOOD;
             }
             case APPLE:
