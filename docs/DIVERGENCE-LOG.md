@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2676 — `lock.c` chest_shatter_msg whole-body port (potion You hear/see + bottlename + potionbreathe; C-order switch + An)
+
+- Status: ACCEPT — breadth-phase coverage row (PARTIAL C 42 L `lock.c:1276–1318` / JS 29 L in js/lock.js; hops —, callers 1, RNG 0, msg 2; no corpus session blocked).
+- Symptom: coverage PARTIAL — the JS body carried the Blind-forced `singular(xname)` + material dispositions but deferred the whole potion arm: it printed `pline("You see …")` with `an(xname(otmp))` (wrong noun — C names the shatter `an(bottlename())`), never varied hear-vs-see on `Blind`, and never called `potionbreathe`; the disposition chain was an if/else ladder ending in a manual `an`+capitalize instead of C's `An(thing)` pline.
+- C locus: `nethack-c/upstream/src/lock.c:1276–1318` (POTION_CLASS `:1283–1289` — `You("%s %s shatter!", Blind?"hear":"see", an(bottlename()))` + `!breathless||haseyes → potionbreathe`; Blind-forced `singular(otmp,xname)` `:1292–1296`; `oc_material` switch PAPER/WAX/VEGGY/FLESH/GLASS/WOOD/default `:1297–1316`; `pline("%s %s!", An(thing), disposition)` `:1317`) + caller `lock.c:187` (`breakchestlock` destroy loop `!rn2(3)||POTION_CLASS`).
+- JS was: `js/lock.js:1661` 29 L — pline-only potion arm with xname noun; if/else dispositions; local-`an` capitalize.
+- Fix: restarted the file-local (C `staticfn`) body in C order with per-arm `:line` cites — potion arm via live `You` (display.js, `%s`-args form) + canonical `an as canon_an`/`An` (objnam.js) + newly-exported `bottlename` (potion.js `export function`, hoisted const tables) + `breathless`/`haseyes` (monsters.js) guarding live `potionbreathe` (potion.js, awaited); non-potion arm keeps the D-0878 Blind save/force/restore (incl. sticky `u.Blind` for JS xname) and `game.objects` material read, rewritten as a C-order `switch` (WAX=2/VEGGY=3/FLESH=4/PAPER=5/WOOD=8/GLASS=19 per `objclass.h:15–32`) ending in `pline('%s %s!', An(thing), disposition)`. Local `Blind()` is the per-file youprop idiom (body-identical to invent.js `Blind`); local `an`/`the`/`simple_typename` stay for the other lock.js sites — only aliased canonical imports added (no top-level reads; same 98-module SCC, hoisted fns).
+- JS: js/lock.js (+import `You`, `An`/`an as canon_an`, `breathless`/`haseyes`, `potionbreathe`/`bottlename`; restarted body); js/potion.js (`bottlename` exported); docs/c-js-map/turns.md (chest_shatter_msg deferral retired → D-2676).
+- Callers: C lock.c:187 → JS js/lock.js:1720 `await chest_shatter_msg(otmp)` inside `breakchestlock` destroy loop (unchanged, same file — no new call site, none invented per reviews 1359/1361).
+- Verify: `node scripts/verify.mjs --fn chest_shatter_msg` → PASS syntax (2 changed js files) · PASS rule2 · note hidden (0 blocked at baseline — normal for a coverage row) · PASS reach (no RNG-tagged reach; smoke 24 run: 24 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 → VERIFY: PASS.
+- Named omissions: none — every arm, callee, and caller is live. Pre-existing lock.js `an`/`the`/`simple_typename` locals remain for non-chest_shatter_msg sites (import-the-export cleanup, out of scope).
+- Next: next Open — coverage row (`dogmove.c` find_friends) unless refilled.
+
 ## D-2675 — `wield.c` doswapweapon whole-body port (cantwield arm + live prinv/You)
 
 - Status: ACCEPT — breadth-phase coverage row (PARTIAL C 40 L `wield.c:461–501` / JS 29 L in js/wield.js; hops —, callers 2, RNG 0, msg 2; no corpus session blocked).

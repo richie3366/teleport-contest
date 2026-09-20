@@ -2041,9 +2041,7 @@ blade erosion break / shop bill / ice-box corpse age deferred);
 caller `zap.c` `bhit` `:4056–4074`) + **WAN_LOCKING/SPE_WIZARD_LOCK D-1475** (Rogue hide / 
 obstructed / trap-in-doorway / lock-shut) + 
 **WAN_STRIKING/SPE_FORCE_BOLT D-1482** (SDOOR appear then smash/explode; loudness wake_nearto; 
-muse.c mbhit named; bhito boxlock is D-1467) + **`chest_shatter_msg` Blind+`singular` + 
-`objclass.h` PAPER/GLASS/WOOD mats** (D-0878; 
-potionbreathe / Blind hear-vs-see deferred) + **doforce ynq def `'q'`** (D-0727); 
+muse.c mbhit named; bhito boxlock is D-1467) + **`chest_shatter_msg` whole C body** (D-0878 Blind+`singular`+mats; D-2676 retires the potionbreathe/hear-vs-see deferral — POTION_CLASS `You hear/see + an(bottlename())` via live `You`/`canon_an`/newly-exported `potion.js bottlename`, breathless/haseyes-guarded live `potionbreathe`, C-order oc_material switch + `An` pline; local an/the/simple_typename clones stay for other lock.js sites) + **doforce ynq def `'q'`** (D-0727); 
 **`o`/`doopen` → `doopen_indir(0,0)` getdir** (D-0727; **loot-at-feet `u_at` → `doloot` D-1837**;
 **!IS_DOOR envelope: Confusion/Stunned TIME + mapseen/newsym res + portcullis/drawbridge + container Feels/Seems + Blind feel/see** (D-2167; `container_at` newly exported from `pickup.js`; glyph half dead — no `lev->glyph` in JS cells);
 pit "Open where?" / pit-reach / mimic / set_msg_xy / AUTOUNLOCK_KICK deferred); 
