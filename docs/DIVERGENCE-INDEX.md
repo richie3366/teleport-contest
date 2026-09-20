@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-2699 | fixed |  — `u_init.c` pauper_reinit whole C body |  |
 | D-2698 | fixed |  — `cmd.c` domouseaction + dotoggleoption whole C bodies (wearsot Stale-parked) |  |
 | D-2697 | fixed |  — `sp_lev.c` sel_set_door `:4659` orientation in all remaining coord-form des.door sites |  |
 | D-2696 | fixed |  — `selvar.c` selection_recalc_bounds whole-body restart (dirty protocol + getbounds wiring) |  |

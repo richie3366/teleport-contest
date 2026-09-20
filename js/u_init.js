@@ -56,6 +56,7 @@ import {
     P_ENCHANTMENT_SPELL, P_CLERIC_SPELL, P_ESCAPE_SPELL, P_MATTER_SPELL,
     P_RIDING, P_TWO_WEAPON_COMBAT, P_BARE_HANDED_COMBAT, P_MARTIAL_ARTS,
     P_BASIC, P_SKILLED, P_EXPERT, P_MASTER, P_GRAND_MASTER,
+    P_UNSKILLED, P_NUM_SKILLS,
     NOT_HUNGRY,
     LL_CONDUCT,
     INTRINSIC,
@@ -72,7 +73,7 @@ import {
     NON_PM,
 } from './generated/monsters_data.js';
 import { mons } from './monsters.js';
-import { skill_init } from './weapon.js';
+import { skill_init, P_SKILL } from './weapon.js';
 import { set_artifact_intrinsic } from './artifact.js';
 import { record_achievement } from './insight.js';
 import { reset_justpicked } from './pickup.js';
@@ -1920,12 +1921,72 @@ export async function u_init_inventory_attrs() {
     u_init_carry_attr_boost();
 }
 
+// C ref: u_init.c pauper_reinit() — pauper conduct: wipe role skills, grant
+// two weapon slots, discover the role's key item.
+function pauper_reinit() {
+    const u = game.u || {};
+    let preknown = otypByName('STRANGE_OBJECT');
+
+    if (!u.uroleplay?.pauper)
+        return;
+
+    for (let skill = 0; skill < P_NUM_SKILLS; skill++)
+        if (P_SKILL(skill) > P_UNSKILLED) {
+            u.weapon_skills[skill].skill = P_UNSKILLED;
+            u.weapon_skills[skill].advance = 0;
+        }
+    /* pauper has lost out on initial skills, but provide some unspent skill
+       credits to make up for that */
+    u.weapon_slots = 2;
+
+    /* paupers don't know any spells yet, but several roles will recognize
+       the spellbook for a key spell (not necessarily that role's special
+       spell); "supply chests" on the first few levels provide a fairly
+       high chance to find the book; some other roles know a non-book item */
+    switch (game.urole?.mnum) {
+    case PM_HEALER:
+        preknown = otypByName('SPE_HEALING');
+        break;
+    case PM_CLERIC:
+    case PM_KNIGHT:
+    case PM_MONK:
+        preknown = otypByName('SPE_PROTECTION');
+        break;
+    case PM_WIZARD:
+        preknown = otypByName('SPE_FORCE_BOLT');
+        break;
+    case PM_ARCHEOLOGIST:
+        preknown = otypByName('TOUCHSTONE');
+        break;
+    case PM_CAVE_DWELLER:
+        preknown = otypByName('FLINT');
+        break;
+    case PM_ROGUE:
+    case PM_TOURIST:
+        preknown = otypByName('SACK');
+        break;
+    case PM_SAMURAI:
+        /* food ration isn't interesting to discover, but put "gunyoki" into
+           discoveries list for players who might not recognize what it is */
+        preknown = otypByName('FOOD_RATION');
+        break;
+    default:
+    case PM_BARBARIAN:
+    case PM_RANGER:
+    case PM_VALKYRIE:
+        break;
+    }
+    if (preknown !== otypByName('STRANGE_OBJECT'))
+        knows_object(preknown, true);
+}
+
 // C ref: u_init.c u_init_skills_discoveries() — wear/wield/discover + skill_init.
 export function u_init_skills_discoveries() {
     for (const otmp of game.invent || [])
         ini_inv_use_obj(otmp);
-    // C: skill_init(skills_for_role()); pauper_reinit deferred
     skill_init(skills_for_role());
+    // C: u_init.c — if (u.uroleplay.pauper) pauper_reinit()
+    if (game.u?.uroleplay?.pauper) pauper_reinit();
     // C: if num_spells && uenmax < SPELL_LEV_PW(1) → bump starter Pw
     const u = game.u || (game.u = {});
     const minPw = SPELL_LEV_PW(1);

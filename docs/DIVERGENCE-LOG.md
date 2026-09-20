@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2699 — `u_init.c` pauper_reinit whole C body
+
+- Status: SHIPPED (breadth phase). Popped the first Open — coverage row; no Must-fix live, no review cites it, no corpus session blocked (RNG 0 draws — pauper is opt-in conduct no session exercises).
+- Symptom: coverage MISSING — no JS symbol for `pauper_reinit` (C 55 L `u_init.c:870–925`; callers 3, RNG 0, msg 0).
+- C locus: `nethack-c/upstream/src/u_init.c:867–925` `pauper_reinit` (staticfn) — pauper guard, `P_SKILL>P_UNSKILLED`→Unskilled + advance 0 loop, `weapon_slots=2`, 13-role `Role_switch` preknown table, `knows_object(preknown,TRUE)`; sole live caller `:1406` in `u_init_skills_discoveries` (`:29` fwd decl, `:663`/`:735` comments).
+- JS was: no symbol; `u_init_skills_discoveries` (`js/u_init.js:1924`) carried a `pauper_reinit deferred` comment after `skill_init`; `js/weapon.js:1592` already anticipated `weapon_slots = 2`.
+- Fix: `pauper_reinit` ported in C order as file-local `function pauper_reinit()` (`js/u_init.js:1926`) — guard on `game.u.uroleplay.pauper`, skill loop reading live `P_SKILL` (`weapon.js`, import extended — `imports.mjs --can` ALREADY, no new edge) with C-lvalue direct writes to `weapon_skills[].skill/.advance`, `weapon_slots = 2`, `switch (game.urole?.mnum)` with all 13 role arms in C order (`default:` first like C), otyp constants via existing `otypByName` (all 8 names verified: SPE_HEALING 374, SPE_PROTECTION 403, SPE_FORCE_BOLT 376, TOUCHSTONE 472, FLINT 473, SACK 217, FOOD_RATION 293, STRANGE_OBJECT 0), `knows_object(preknown,true)` to the same-file local (`js/u_init.js:1173`).
+- JS: `js/u_init.js` (+65/−2: `P_UNSKILLED`/`P_NUM_SKILLS` added to the live `const.js` import, `P_SKILL` added to the live `weapon.js` import, new body, caller line).
+- Callers: C `:1406` → JS `u_init_skills_discoveries` (`js/u_init.js:1989`, in C order post-`skill_init`, replacing the deferred comment; its own caller `js/allmain.js:827` unchanged). `:29` decl covered by hoisting; `:663`/`:735` are comments.
+- Verify: `node scripts/verify.mjs --fn pauper_reinit` → syntax 1 file / rule2 / hidden note (0 blocked — normal for a coverage row) / REACH-OK (no RNG tags; smoke 24/24, 0 regressed) / green 2/2 / strict ×2 / cohort 7/7 — VERIFY: PASS.
+- Named omissions: `knows_object` pauper-override guard drift — C `:575` returns early when `u.uroleplay.pauper && !override_pauper`, the JS local (`js/u_init.js:1173`) ignores its 2nd arg and always discovers. Behavior-identical for this port's `TRUE` call; fixing the guard would change every `ini_inv` FALSE call for paupers — own row later, not this commit.
+- Next: `mondata.c` mstrength (next Open row).
+
 ## D-2698 — `cmd.c` domouseaction + dotoggleoption whole C bodies (wearsot Stale-parked)
 
 - Status: SHIPPED (breadth phase). Popped the `worn.c` wearslot row first: the brief showed every C arm already complete in `js/worn.js:356` (amulet/ring/7-armcat/weapon+merge/tool/food-meat-ring/gem/ball/chain/default; `oc_skill` is the tree-wide oc_armcat stand-in; local `is_weptool` + live `oc_merge_of` match C; sole C caller `zap.c:1929` wired at `js/zap.js:5210`) with 0 blocked → one Parked **Stale** line, shipped this same-file pair instead. No review cited either row (review 498's domouseaction mention is a quoted table, Addressed D-1537).
