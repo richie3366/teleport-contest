@@ -244,7 +244,7 @@ import {
     from_what, stone_luck, set_moreluck,
     A_STR, A_INT, A_WIS, A_DEX, A_CON, A_CHA,
 } from './attrib.js';
-import { depth, ing_suffix, strstri, ordin, highc } from './hacklib.js';
+import { depth, ing_suffix, strstri, ordin, highc, lcase } from './hacklib.js';
 import { visctrl } from './dokeylist.js';
 import { select_menu_pick_any, hide_unhide_msgtypes } from './options.js';
 import { rn2 } from './rng.js';
@@ -331,6 +331,8 @@ import {
     query_category, query_objlist,
 } from './pickup.js';
 import { is_ammo } from './wield.js';
+import { is_wet_towel, can_advance } from './weapon.js';
+import { shield_simple_name } from './do_wear.js';
 import { learn_egg_type } from './timeout.js';
 
 // C monflag.h MZ_HUMAN ≡ MZ_MEDIUM
@@ -348,6 +350,7 @@ export function Blind() {
     return !!(((u.HBlinded | 0) || (u.EBlinded | 0)) && !(u.BBlinded | 0));
 }
 
+const OTYP_SHIELD_OF_REFLECTION = objectNames.indexOf('SHIELD_OF_REFLECTION');
 const OTYP_LEASH = objectNames.indexOf('LEASH');
 const OTYP_CORPSE = objectNames.indexOf('CORPSE');
 const OTYP_GOLD_PIECE = objectNames.indexOf('GOLD_PIECE');
@@ -4464,7 +4467,8 @@ function insight_skill_level_name(skill) {
  * switch, returned through makesingular. P_NONE → OBJ_NAME specials /
  * globby "glob" / def_oc_syms[oclass].name. Named omissions: none in this
  * function (weapon_insight's wet-towel / shield-of-reflection arms live in
- * the enlightenment callers at status/final disclosure).
+ * weapon_insight() below, which also handles the an()/makeplural wield
+ * phrasing).
  */
 const OTYP_TIN = objectNames.indexOf('TIN');
 const OTYP_BOULDER = objectNames.indexOf('BOULDER');
@@ -4517,17 +4521,6 @@ export function weapon_descr(obj) {
         break;
     }
     return makesingular(descr);
-}
-
-/**
- * C ref: insight.c weapon_insight wield line — an(weapon_descr(uwep)).
- */
-function pretty_weapon_descr(obj) {
-    const what = weapon_descr(obj);
-    const quan = obj.quan || 1;
-    if (quan !== 1) return `${quan} ${what}s`;
-    const article = 'aeiou'.includes((what[0] || 'x').toLowerCase()) ? 'an' : 'a';
-    return `${article} ${what}`;
 }
 
 /**
@@ -5296,6 +5289,182 @@ function status_core_lines(final = 0, opts = {}) {
 }
 
 /**
+ * C ref: insight.c weapon_insight `:1270–1465` — current weapon(s) and
+ * corresponding skill level(s) inside status_enlightenment (`:1249`).
+ * Sole C caller is status_enlightenment; both JS builders (final
+ * disclosure in enlightenment() below, in-progress overlay in
+ * doattributes()) call this. Overlay (^X) lines need one extra leading
+ * space vs enlght_line, and keep the D-0347 COLNO `.` clip.
+ * @param {number} final ENL_GAMEINPROGRESS / GAMEOVERALIVE / GAMEOVERDEAD
+ * @param {{ overlay?: boolean }} opts
+ */
+export function weapon_insight(final = 0, opts = {}) {
+    const overlay = !!opts.overlay;
+    const u = game.u || {};
+    const You_ = 'You ';
+    const are = 'are ';
+    const were = 'were ';
+    const have = 'have ';
+    const had = 'had ';
+    const out = [];
+    // C enlght_line `:135–137` — " %s%s%s%s." + contractions (shared
+    // enlght_line_txt); overlay adds one more leading space (D-0347 clip).
+    const emit = (start, middle, end, ps = '') => {
+        let line = enlght_line_txt(start, middle, end, ps);
+        if (overlay) {
+            line = ` ${line}`;
+            if (line.length >= 80 && line.endsWith('.')) line = line.slice(0, -1);
+        }
+        out.push(line);
+    };
+    // C `:107` you_are / `:108` you_have over enl_msg `:105` (final tense).
+    const you_are = (attr, ps = '') => emit(You_, final ? were : are, attr, ps);
+    const you_have = (attr, ps = '') => emit(You_, final ? had : have, attr, ps);
+
+    const uwep = u.uwep || game.u?.uwep;
+    const twoweap = !!(u.twoweap || game.u?.twoweap);
+    // C `:1277–1305` — weaponless / two-weaponing / wield line.
+    if (!uwep) {
+        you_are(empty_handed(), '');
+    } else if (twoweap) {
+        you_are('wielding two weapons at once', '');
+    } else {
+        // C `:1294–1299` — skill-class descr, shield/towel specials.
+        let what = weapon_descr(uwep);
+        if ((uwep.otyp | 0) === OTYP_SHIELD_OF_REFLECTION) {
+            what = shield_simple_name(uwep);
+        } else if (is_wet_towel(uwep)) {
+            what = 'wet towel';
+        }
+        let buf;
+        // C `:1301–1303` — strcmpi armor/food/venom take "some", no article.
+        const wlow = (what || '').toLowerCase();
+        if (wlow === 'armor' || wlow === 'food' || wlow === 'venom') {
+            buf = `wielding some ${what}`;
+        } else {
+            // C `:1306–1308` — quan==1 an(), else bare makeplural().
+            buf = `wielding ${((uwep.quan ?? 1) === 1) ? an(what) : makeplural(what)}`;
+        }
+        you_are(buf, '');
+    }
+
+    // C `:1311` — skill applies unless P_NONE, or wielded ammo.
+    const wtype = weapon_type(uwep);
+    if (wtype !== P_NONE && (!uwep || !is_ammo(uwep))) {
+        let sklvlbuf;
+        const sklvl = insight_P_SKILL(wtype);
+        // C `:1315–1318` — restricted reads "no".
+        if (sklvl === P_ISRESTRICTED) sklvlbuf = 'no';
+        else sklvlbuf = lcase(insight_skill_level_name(wtype));
+        const hav = sklvl !== P_UNSKILLED && sklvl !== P_SKILLED;
+        let buf = `${sklvlbuf} ${hav ? 'skill with' : 'in'} ${skill_name(wtype)}`;
+
+        if (!twoweap) {
+            // C `:1325–1327` — enhance suffix before the have/are split.
+            if (can_advance(wtype, false)) {
+                buf += ` and ${!final ? 'can enhance' : 'could have enhanced'} that`;
+            }
+            if (hav) you_have(buf, '');
+            else you_are(buf, '');
+        } else {
+            // C `:1330–1339` — two-weapon skill reads.
+            const uswapwep = u.uswapwep || game.u?.uswapwep;
+            const wtype2 = weapon_type(uswapwep);
+            const sklvl2 = insight_P_SKILL(wtype2);
+            let twoskl = insight_P_SKILL(P_TWO_WEAPON_COMBAT);
+            const hav2 = sklvl2 !== P_UNSKILLED && sklvl2 !== P_SKILLED;
+            let twobuf;
+            // C `:1343–1350` — restricted two-weapon reads unskilled/"restricted".
+            if (twoskl === P_ISRESTRICTED) {
+                twoskl = P_UNSKILLED;
+                twobuf = 'restricted';
+            } else {
+                twobuf = lcase(insight_skill_level_name(P_TWO_WEAPON_COMBAT));
+            }
+
+            // C `:1352–1374` — primary vs two-weapon compare.
+            let pfx = '';
+            let sfx = '';
+            let also = '';
+            let also2 = '';
+            let also3 = null;
+            if (twoskl < sklvl) {
+                pfx = `Your skill in ${skill_name(wtype)} `;
+                sfx = `limited by being ${twobuf} with two weapons`;
+                also = 'also ';
+            } else if (twoskl > sklvl) {
+                pfx = 'Your two weapon skill ';
+                // C `:1361–1365` — eos() appends are plain concat.
+                sfx = 'limited by ';
+                if (sklvl > P_ISRESTRICTED) sfx += `being ${sklvlbuf}`;
+                else sfx += 'having no skill';
+                sfx += ` with ${skill_name(wtype)}`;
+                also2 = 'also ';
+            } else {
+                buf += ' and two weapons';
+                also3 = 'also ';
+            }
+            if (pfx) emit(pfx, final ? 'was' : 'is', sfx, '');
+            else if (hav) you_have(buf, '');
+            else you_are(buf, '');
+
+            // C `:1379–1421` — secondary compare unless same skill.
+            if (wtype2 !== wtype) {
+                const sknambuf2 = skill_name(wtype2);
+                // C `:1381` — plain lcase (no restricted→"no" mapping here).
+                const sklvlbuf2 = lcase(insight_skill_level_name(wtype2));
+                let verb_present = 'is';
+                let verb_past = 'was';
+                pfx = '';
+                sfx = '';
+                buf = '';
+                if (twoskl < sklvl2) {
+                    pfx = `Your skill in ${sknambuf2} `;
+                    sfx = ` ${also}limited by being ${twobuf} with two weapons`;
+                } else if (twoskl > sklvl2) {
+                    pfx = 'Your two weapon skill ';
+                    sfx = ` ${also2}limited by `;
+                    if (sklvl2 > P_ISRESTRICTED) sfx += `being ${sklvlbuf2}`;
+                    else sfx += 'having no skill';
+                    sfx += ` with ${sknambuf2}`;
+                } else {
+                    buf = `${sklvlbuf2} ${hav2 ? 'skill with' : 'in'} ${sknambuf2}`;
+                    buf += ' and two weapons';
+                    if (also3) {
+                        pfx = 'You also ';
+                        sfx = ` ${buf}`;
+                        buf = '';
+                        verb_present = hav2 ? 'have' : 'are';
+                        verb_past = hav2 ? 'had' : 'were';
+                    }
+                }
+                if (pfx) emit(pfx, final ? verb_past : verb_present, sfx, '');
+                else if (hav2) you_have(buf, '');
+                else you_are(buf, '');
+            }
+
+            // C `:1423–1459` — enhance tips for primary/secondary/two-weapon.
+            const a1 = can_advance(wtype, false);
+            const a2 = (wtype2 !== wtype) ? can_advance(wtype2, false) : false;
+            const ab = can_advance(P_TWO_WEAPON_COMBAT, false);
+            if (a1 || a2 || ab) {
+                // C `:1432–1442` — 1/2/3-way "skills with …" phrasing.
+                let esfx = ` skill${((a1 | 0) + (a2 | 0) + (ab | 0) > 1) ? 's' : ''}`
+                    + ` with ${a1 ? skill_name(wtype) : ''}`;
+                esfx += (a1 && a2 && ab) ? ', '
+                    : (a1 && (a2 || ab)) ? ' and also with ' : '';
+                esfx += a2 ? skill_name(wtype2) : '';
+                esfx += (a1 && a2 && ab) ? ', and '
+                    : (a2 && ab) ? ' and also with ' : '';
+                esfx += ab ? 'two weapons' : '';
+                emit(You_, final ? 'could have enhanced' : 'can enhance', esfx, '');
+            }
+        }
+    }
+    return out;
+}
+
+/**
  * C ref: insight.c enlightenment — BASIC|MAGIC; final → putstr NHW_MENU
  * (--More-- pages), not ^X menu "(k of n)".
  * Named omissions: night/midnight; SCORE_ON_BOTL; most
@@ -5565,23 +5734,8 @@ export async function enlightenment(mode, final = 0) {
         overlay: false,
         magic: !!(mode & MAGICENLIGHTENMENT),
     }));
-    const uwep = u.uwep || game.u?.uwep;
-    if (!uwep) {
-        lines.push(you_are(empty_handed()));
-    } else {
-        lines.push(you_are(`wielding ${pretty_weapon_descr(uwep)}`));
-    }
-    const wtype = weapon_type(uwep);
-    if (wtype !== P_NONE) {
-        const sklvl = insight_P_SKILL(wtype);
-        let sklvlbuf;
-        if (sklvl === P_ISRESTRICTED) sklvlbuf = 'no';
-        else sklvlbuf = insight_skill_level_name(wtype).toLowerCase();
-        const hav = sklvl !== P_UNSKILLED && sklvl !== P_SKILLED;
-        const buf = `${sklvlbuf} ${hav ? 'skill with' : 'in'} ${skill_name(wtype)}`;
-        if (hav) lines.push(you_have(buf));
-        else lines.push(you_are(buf));
-    }
+    // C ref: insight.c weapon_insight `:1270–1465` via status_enlightenment `:1249`.
+    lines.push(...weapon_insight(final));
     if (!wearing_armor()) {
         lines.push(you_are('not wearing any armor'));
     }
@@ -6400,108 +6554,9 @@ export async function doattributes(enl_mode = null) {
     // C ref: insight.c status_enlightenment — Deaf/Sleepy before hunger;
     // Sleepy needs magic || cause_known; wizard hunger/weight suffixes.
     lines.push(...status_core_lines(0, { overlay: true, magic }));
-    // C ref: insight.c weapon_insight — empty_handed / P_SKILL / skill_name
-    const uwep = u.uwep || game.u?.uwep;
-    if (!uwep) {
-        lines.push(`  You are ${empty_handed()}.`);
-    } else if (u.twoweap || game.u?.twoweap) {
-        lines.push('  You are wielding two weapons at once.');
-    } else {
-        const wname = pretty_weapon_descr(uwep);
-        lines.push(`  You are wielding ${wname}.`);
-    }
-    // C ref: insight.c weapon_insight skill lines; can_advance enhance suffix deferred.
-    const wtype = weapon_type(uwep);
-    if (wtype !== P_NONE) {
-        // ammo check deferred — start weapons rarely quiver-as-uwep
-        const sklvl = insight_P_SKILL(wtype);
-        let sklvlbuf;
-        if (sklvl === P_ISRESTRICTED) sklvlbuf = 'no';
-        else sklvlbuf = insight_skill_level_name(wtype).toLowerCase();
-        const hav = sklvl !== P_UNSKILLED && sklvl !== P_SKILLED;
-        let buf = `${sklvlbuf} ${hav ? 'skill with' : 'in'} ${skill_name(wtype)}`;
-        const twoweap = !!(u.twoweap || game.u?.twoweap);
-        if (!twoweap) {
-            if (hav) lines.push(`  You have ${buf}.`);
-            else lines.push(`  You are ${buf}.`);
-        } else {
-            // C: two-weapon comparison vs primary / uswapwep / P_TWO_WEAPON_COMBAT
-            const uswapwep = u.uswapwep || game.u?.uswapwep;
-            const wtype2 = weapon_type(uswapwep);
-            const sklvl2 = insight_P_SKILL(wtype2);
-            let twoskl = insight_P_SKILL(P_TWO_WEAPON_COMBAT);
-            let twobuf;
-            if (twoskl === P_ISRESTRICTED) {
-                twoskl = P_UNSKILLED;
-                twobuf = 'restricted';
-            } else {
-                twobuf = insight_skill_level_name(P_TWO_WEAPON_COMBAT).toLowerCase();
-            }
-            const hav2 = sklvl2 !== P_UNSKILLED && sklvl2 !== P_SKILLED;
-            let also = '';
-            let also2 = '';
-            let also3 = null;
-            // C enlght_line adds " %s%s%s%s." then menu pad; at COLNO the
-            // trailing '.' is clipped — bake two spaces and drop '.' at 80.
-            const enl = (body) => {
-                const withDot = `  ${body}.`;
-                return withDot.length >= 80 ? `  ${body}` : withDot;
-            };
-            if (twoskl < sklvl) {
-                lines.push(enl(
-                    `Your skill in ${skill_name(wtype)}`
-                    + ` is limited by being ${twobuf} with two weapons`,
-                ));
-                also = 'also ';
-            } else if (twoskl > sklvl) {
-                let lim = sklvl > P_ISRESTRICTED
-                    ? `being ${sklvlbuf}`
-                    : 'having no skill';
-                lines.push(enl(
-                    `Your two weapon skill is limited by ${lim}`
-                    + ` with ${skill_name(wtype)}`,
-                ));
-                also2 = 'also ';
-            } else {
-                buf += ' and two weapons';
-                also3 = 'also ';
-                if (hav) lines.push(enl(`You have ${buf}`));
-                else lines.push(enl(`You are ${buf}`));
-            }
-            if (wtype2 !== wtype) {
-                const sknambuf2 = skill_name(wtype2);
-                let sklvlbuf2;
-                if (sklvl2 === P_ISRESTRICTED) sklvlbuf2 = 'no';
-                else sklvlbuf2 = insight_skill_level_name(wtype2).toLowerCase();
-                if (twoskl < sklvl2) {
-                    lines.push(enl(
-                        `Your skill in ${sknambuf2}`
-                        + ` is ${also}limited by being ${twobuf} with two weapons`,
-                    ));
-                } else if (twoskl > sklvl2) {
-                    let lim = sklvl2 > P_ISRESTRICTED
-                        ? `being ${sklvlbuf2}`
-                        : 'having no skill';
-                    lines.push(enl(
-                        `Your two weapon skill is ${also2}limited by ${lim}`
-                        + ` with ${sknambuf2}`,
-                    ));
-                } else {
-                    let buf2 = `${sklvlbuf2} ${hav2 ? 'skill with' : 'in'} ${sknambuf2}`
-                        + ' and two weapons';
-                    if (also3) {
-                        const verb = hav2 ? 'have' : 'are';
-                        lines.push(enl(`You also ${verb} ${buf2}`));
-                    } else if (hav2) {
-                        lines.push(enl(`You have ${buf2}`));
-                    } else {
-                        lines.push(enl(`You are ${buf2}`));
-                    }
-                }
-            }
-            // can_advance primary/secondary/twoweap enhance tips deferred
-        }
-    }
+    // C ref: insight.c weapon_insight `:1270–1465` via status_enlightenment
+    // `:1249` — overlay (^X) is ENL_GAMEINPROGRESS, present tense.
+    lines.push(...weapon_insight(0, { overlay: true }));
     // C ref: insight.c status_enlightenment — report nudity after
     // weapon_insight (+ tux_penalty deferred).
     if (!wearing_armor()) {

@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
+- [x] `insight.c` weapon_insight — coverage MISSING (C 195 L `insight.c:1270–1465` / JS no symbol; hops 6, callers 1, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn weapon_insight` (reach regression must be 0). Measured `port-coverage.mjs --name weapon_insight` 2026-09-20 @ 79669e02. **Addressed:** D-2609
+
+
 - [x] `display.c` wall_angle — coverage THIN **Addressed:** D-2608 (C 274 L `display.c:3513–3787` / JS 37 L in js/display.js; hops 2, callers 2, RNG 0, msg 0; dead callees: t_warn). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn wall_angle` (reach regression must be 0). Measured `port-coverage.mjs --name wall_angle` 2026-09-20 @ 79669e02.
 
 

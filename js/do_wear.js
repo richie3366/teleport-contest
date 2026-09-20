@@ -1444,7 +1444,7 @@ function boots_simple_name(boots) {
  * reflection reads silver once known, smooth before; else shield.
  * (The `#if 0` heavy/light split stays cut, as in C.)
  */
-function shield_simple_name(shield) {
+export function shield_simple_name(shield) {
     if (shield && shield.otyp === SHIELD_OF_REFLECTION) {
         return shield.dknown ? 'silver shield' : 'smooth shield';
     }
