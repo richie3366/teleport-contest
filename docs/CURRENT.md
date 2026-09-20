@@ -23,32 +23,33 @@ the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-20** — full `sessions` on the working tree
-(audit **1629–1637**).
+(audit **1638–1646**).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`76+0.48/turn` (R² 0.80).
+`72+0.40/turn` (R² 0.72).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge, 2026-09-20)** | **11 / 44**, 5,972 / 11,265 pts, RNG **26.7 %**, rngSteps 81.7 %, screens **53.0 %** |
+| **Held-out (judge, 2026-09-20)** | **12 / 44**, 5,976 / 11,265 pts, RNG **26.7 %**, rngSteps 81.8 %, screens **53.0 %** |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `67+0.42/turn` (R² 0.78) |
+| Speed label | `72+0.40/turn` (R² 0.72) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 4/22, 2nd agentic; best agentic fork 35/44, RNG 98.5 %,
-screens 93.2 %. Held-out 11/44, unchanged vs last audit (5,972 pts, RNG
-26.7 %, screens 53.0 %; totals in table): the corpus still does not
+screens 93.2 %. Held-out 12/44, +1 vs last audit (+4 pts to 5,976, RNG
+26.7 %, rngSteps 81.8 %, screens 53.0 %; totals in table): first held-out
+movement in the breadth phase, but tiny — the corpus still does not
 predict the judge.
-**Corpus fortress** (re-scored 2026-09-20 audit 1629–1637): **497 / 540
+**Corpus fortress** (re-scored 2026-09-20 audit 1638–1646): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — **+0 / −0**
-in the D-2670…D-2687 window (9 ACCEPTs;
+in the D-2679…D-2687 window (9 ACCEPTs;
 every per-SHA `--reach-all` re-run here ends REACH-OK with no REGRESSED).
-Reviews 1225–1637: 369 ACCEPT, 15 WITH-DEBT, 1 DEBT, 23 QUALITY-RISK (1503, 1517, 1520 stamped; Must-fix 1533/1536 → D-2583/D-2584, 1568 → D-2610, 1592 → D-2636 `271ceca1`, 1617 → magic_negation floor Must-fix (addressed D-2661, review 1620 ACCEPT); hashes filled).
+Reviews 1225–1646: 378 ACCEPT, 15 WITH-DEBT, 1 DEBT, 23 QUALITY-RISK (1503, 1517, 1520 stamped; Must-fix 1533/1536 → D-2583/D-2584, 1568 → D-2610, 1592 → D-2636 `271ceca1`, 1617 → magic_negation floor Must-fix (addressed D-2661, review 1620 ACCEPT); hashes filled).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`) — review-debt, unqueued (detail in the review files).
 Audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s) + `leaderboard.mjs`.
 
@@ -99,7 +100,7 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `sounds.c` growl mx==0 wake arm + permadeaf Deaf arm — two missing arms in js/sounds.js:growl (`sounds.c:404–425` tail): (1) C `:421` `wake_nearto(mx, my, mlevel*18)` unconditional inside `if (growl_verb)` vs JS `if (mtmp.mx)` guard skipping mx 0; (2) C `Deaf = HDeaf || EDeaf || u.uroleplay.deaf` (`youprop.h:125`) vs JS local Deaf missing `uroleplay`. Port both in C order. Verify `node scripts/verify.mjs --fn growl` (reach regression must be 0).
+**Next cluster:** queue head `nhmd4.c` nhmd4_body — coverage MISSING (C 94 L `nhmd4.c:83–180` / JS no symbol; 0 callees, 4 intra-file callers; only external consumer is report.c submit_web_report — port the nhmd4 family calls with it). Port the whole C body in C order. Verify `node scripts/verify.mjs --fn nhmd4_body` (reach regression must be 0). (Prior growl cluster shipped D-2687, review 1646 ACCEPT.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2687 (index).**
 <!-- recent:begin -->

@@ -1647,3 +1647,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1635-6319ffdd-chest-shatter-msg.md](./1635-6319ffdd-chest-shatter-msg.md) | `6319ffdd` | D-2676 chest_shatter_msg restart | **ACCEPT** |
 | [1636-c9e4449a-find-friends.md](./1636-c9e4449a-find-friends.md) | `c9e4449a` | D-2677 find_friends restart | **ACCEPT** |
 | [1637-14d94914-hmon-hitmon-dmg-recalc.md](./1637-14d94914-hmon-hitmon-dmg-recalc.md) | `14d94914` | D-2678 hmon_hitmon_dmg_recalc port | **ACCEPT** |
+| [1638-ffe4bffa-corpsenm-price-adj.md](./1638-ffe4bffa-corpsenm-price-adj.md) | `ffe4bffa` | D-2679 corpsenm_price_adj port | **ACCEPT** |
+| [1639-ef7739c1-out-container.md](./1639-ef7739c1-out-container.md) | `ef7739c1` | D-2680 out_container + pick_pick port | **ACCEPT** |
+| [1640-793d8311-rigid-role-checks.md](./1640-793d8311-rigid-role-checks.md) | `793d8311` | D-2681 rigid_role_checks fallback fix | **ACCEPT** |
+| [1641-7e004acf-dodiscovered.md](./1641-7e004acf-dodiscovered.md) | `7e004acf` | D-2682 dodiscovered + sortloot_descr port | **ACCEPT** |
+| [1642-26e9fbcf-fixup-level-locations.md](./1642-26e9fbcf-fixup-level-locations.md) | `26e9fbcf` | D-2683 fixup_level_locations port | **ACCEPT** |
+| [1643-92dd436d-selection-do-gradient.md](./1643-92dd436d-selection-do-gradient.md) | `92dd436d` | D-2684 selection_do_gradient port | **ACCEPT** |
+| [1644-40ce1e84-m-balks-at-approaching.md](./1644-40ce1e84-m-balks-at-approaching.md) | `40ce1e84` | D-2685 m_balks_at_approaching port | **ACCEPT** |
+| [1645-fc32ff23-blocked-boulder.md](./1645-fc32ff23-blocked-boulder.md) | `fc32ff23` | D-2686 blocked_boulder port | **ACCEPT** |
+| [1646-681d8a68-growl-tail.md](./1646-681d8a68-growl-tail.md) | `681d8a68` | D-2687 growl tail arms port | **ACCEPT** |
