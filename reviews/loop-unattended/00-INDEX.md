@@ -1665,3 +1665,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1653-3e86b108-ini-inv-whole-body.md](./1653-3e86b108-ini-inv-whole-body.md) | `3e86b108` | D-2694 ini_inv whole-body port | **ACCEPT** |
 | [1654-471b8f58-set-door-orientation-wiring.md](./1654-471b8f58-set-door-orientation-wiring.md) | `471b8f58` | D-2695 set_door_orientation wiring | **QUALITY-RISK** |
 | [1655-8ed1abd3-selection-recalc-bounds.md](./1655-8ed1abd3-selection-recalc-bounds.md) | `8ed1abd3` | D-2696 selection_recalc_bounds restart | **ACCEPT-WITH-DEBT** |
+| [1656-3de22e5b-sel-set-door-remaining.md](./1656-3de22e5b-sel-set-door-remaining.md) | `3de22e5b` | D-2697 sel_set_door remaining coord-form sites | **ACCEPT** |
+| [1657-eb298d17-domouseaction-toggleoption.md](./1657-eb298d17-domouseaction-toggleoption.md) | `eb298d17` | D-2698 domouseaction + dotoggleoption bodies | **ACCEPT** |
+| [1658-befd3a1a-pauper-reinit.md](./1658-befd3a1a-pauper-reinit.md) | `befd3a1a` | D-2699 pauper_reinit whole-body port | **ACCEPT** |
+| [1659-a3547b34-mstrength.md](./1659-a3547b34-mstrength.md) | `a3547b34` | D-2700 mstrength whole-body port | **ACCEPT** |
+| [1660-be681815-set-wallprop-in-selection.md](./1660-be681815-set-wallprop-in-selection.md) | `be681815` | D-2701 set_wallprop_in_selection port | **ACCEPT** |
+| [1661-2dfc3677-key2extcmddesc-movecmd.md](./1661-2dfc3677-key2extcmddesc-movecmd.md) | `2dfc3677` | D-2702 key2extcmddesc + live movecmd | **ACCEPT** |
+| [1662-ac5113fe-reroll-menu.md](./1662-ac5113fe-reroll-menu.md) | `ac5113fe` | D-2703 reroll_menu + allmain loop | **ACCEPT** |
+| [1663-1e6811b7-add-skills-to-menu.md](./1663-1e6811b7-add-skills-to-menu.md) | `1e6811b7` | D-2704 add_skills_to_menu restart | **ACCEPT** |
+| [1664-51e65db7-query-annotation-trimspaces.md](./1664-51e65db7-query-annotation-trimspaces.md) | `51e65db7` | D-2705 query_annotation + trimspaces | **ACCEPT** |

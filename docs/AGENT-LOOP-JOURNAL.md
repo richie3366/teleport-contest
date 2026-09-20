@@ -1,5 +1,17 @@
 # Agent loop journal
 
+## 2026-09-21 — Audit 3de22e5b..51e65db7 (reviews 1656-1664: 9 ACCEPT, 0 Must-fix) + cadence 44/44.
+
+Reviews audit D-2697..D-2705 against pinned C (csym bodies + callers,
+sym.mjs, per-SHA hidden-proxy --reach-all re-runs: all 0-blocked
+vacuous + REACH-OK, no REGRESSED). 1656 closes the 1654 Must-fix
+(43 remaining coord-form sites wired, 15+43+3=61 arithmetic shuts).
+Notable: 1661 movecmd txt-vs-funct equivalence + stale lock.js:128
+comment; 1664 trimspaces leading-strip justified via describe_level
+formats. Cadence: public 44/44 (Scr 11405/11405, RNG 792838/792838);
+held-out 12/44 (+0); corpus 497/540 (+0/-0). Queue 8 unchecked, no
+refill (at band). Rule #2 clean.
+
 Append-only crumbs for `scripts/agent-port-loop.sh` iterations.
 Each agent process should add a short dated entry **at the top** (after
 this header) before exiting. Keep entries tight; detailed hypothesis
