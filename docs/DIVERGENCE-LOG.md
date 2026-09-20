@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2681 — `role.c` rigid_role_checks whole-body port (ROLE_RANDOM fallback now randrole_filtered)
+
+- Status: ACCEPT — breadth-phase coverage row (PARTIAL C 46 L `role.c:1235–1281` / JS 33 L in js/player_selection.js; hops —, callers 2, RNG 0, msg 0; no corpus session blocked).
+- Symptom: coverage PARTIAL / clone drift — the ROLE_RANDOM failure fallback rolled a bare `rn2(roles.length)` instead of honoring the role-filter masks (`set[rn2(n)]`, else `randrole(FALSE)`); every other arm already matched C in C order, so the port is one live-callee wiring.
+- C locus: `nethack-c/upstream/src/role.c:1235–1281` (RANDOM role pick `:1247–1255` incl. `randrole_filtered` fallback; RACE/ALIGN/GEND PICK_RANDOM narrowing `:1256–1267`; PICK_RIGID fill `:1269–1280`) + callee `randrole_filtered` `role.c:730–744` (staticfn; filter-mask set + `set[rn2(n)]` + `randrole(FALSE)` fallback) + C callers `genl_player_setup` `:2243`, `plsel_startmenu` `:2814`.
+- JS was: `js/player_selection.js:556` — full C-order body but `if (flags.initrole < 0) flags.initrole = rn2(roles.length)`; the faithful `randrole_filtered` lived module-local in `js/roles.js:1031`, uncalled from player_selection.
+- Fix: exported `randrole_filtered` from `js/roles.js` (same body, now a named export; its `ok_*` already import from player_selection.js, so no second clone per the brief) and wired it as the `:1255` fallback; restarted `rigid_role_checks` with per-arm C cites. No new import edge (`imports.mjs --can` ALREADY on player_selection→roles; roles→player_selection back-edge pre-exists, call-time use only, no top-level TDZ read).
+- JS: js/player_selection.js (import +1 name, restarted body `js/player_selection.js:567`), js/roles.js (export +1 name + comment `js/roles.js:1033`).
+- Callers: C `:2243` genl_player_setup → JS `genl_player_setup` `js/player_selection.js:1535` `rigid_role_checks()` (now hits the full body); C `:2814` plsel_startmenu → JS split into pick_role_menu/pick_race_menu/pick_gend_menu/pick_align_menu, each opening with `rigid_role_checks()` (`js/player_selection.js:1144/:1232/:1313/:1394`) — one rigid call per menu open, exactly matching C's one call per plsel_startmenu invocation. None invented per reviews 1359/1361.
+- Verify: `node scripts/verify.mjs --fn rigid_role_checks --full` → PASS syntax (2 changed js files) · PASS rule2 · note hidden (0 blocked at baseline — normal for a coverage row) · PASS reach (no RNG-tagged reach; smoke 24 run: 24 PASS, 0 regressed → REACH-OK) · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 → VERIFY: PASS.
+- Named omissions: none in this body. Adjacent note (different function, untouched): `genl_player_setup` pick4u arm C `:2302–2304` prints `pline("Incompatible role!")` before the `randrole(FALSE)` fallback — JS `js/player_selection.js` pick4u/menu arms inline `rn2(roles.length)` (RNG-equivalent to `randrole(false)`) with no pline; candidate Open row with this evidence, not queued (refill only via port-coverage).
+- Next: queue head `o_init.c` dodiscovered (Open — coverage).
+
 ## D-2680 — `pickup.c` out_container whole-body port (impossible gate + artifact/corpse/icebox/bill/pick arms + shk pick_pick)
 
 - Status: ACCEPT — breadth-phase coverage row (PARTIAL C 50 L `pickup.c:2727–2777` / JS 28 L in js/pickup.js; hops —, callers 2, RNG 0, msg 0; no corpus session blocked). Same iteration parked `dungeon.c` interest_mapseen STALE (whole C body live js/dungeon.js:1254–1277, sole C caller :3359 wired :2371; 0 blocked).
