@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2621 — `invent.c` loot_xname whole-body port (sort-key suppress/restore + grouping suffixes)
+
+- **Status:** fixed (Open — coverage row ``invent.c`` loot_xname THIN (C 78 L ``invent.c:309–387`` / JS 3 L in js/invent.js; hops 5, callers 2, RNG 0, msg 2). Measured ``port-coverage.mjs --name loot_xname`` 2026-09-20 @ c7e7e767). Popped ``mkobj.c`` obj_timer_checks first; parked STALE in the same iteration (whole body live js/mkobj.js:2925, 4/4 C callers wired, debugpline3 empty non-DEBUG, 0 blocked).
+- **Symptom:** coverage row — JS was a 3-line stub (``cxname_singular(obj) || ''``, Diluted/towel/glob/oname/wizard deferred); every C arm absent.
+- **C locus:** ``nethack-c/upstream/src/invent.c:308–387`` (loot_xname, staticfn); callers ``:490``/``:496`` (sortloot_cmp SORTLOOT_LOOT name path); ``flag.h:30`` (``wizard`` ≡ flags.debug).
+- **JS was:** ``js/invent.js:1124`` file-local stub returning the bare singular name.
+- **Fix:** ported the whole body in C order with per-arm ``:line`` cites — save odiluted/blessed/cursed/spe/owt + oname + flags.debug (``:320–325``); potion dilute + water holy/unholy suppress (``:328–332``); towel spe=0 (``:335–336``); glob owt=20 fresh-glob weight (``:339–340``); oname suppress except artifacts (``:342–343``); wizard-debug off + something_worth_saving=0 (``:345–350``); cxname_singular (``:352``); debug restore (``:354–357``); potion restore (``:359–363``); towel spe-restore-then wet-x/moist-y/dry-z (``:364–370``, restore before is_wet_towel per C order); glob owt-restore-then size a/b/c/d (``:371–382``, restore before suffix per C order); oname restore (``:383–384``). Callees: has_oname/ONAME (live const.js, already imported), cxname_singular (live objnam.js, already imported), is_wet_towel (live weapon.js, already imported), POT_WATER (added to the existing objects.js import — imports.mjs ALREADY, no new edge), TOWEL via file-local OTYP_TOWEL index; C Strcat into the cxname buffer is ``+=`` (JS strings are values); ``ONAME(obj)=0`` is ``oextra.oname=null`` (do_name.js:1408 idiom).
+- **JS:** ``js/invent.js:1124`` ``loot_xname`` (file-local, staticfn like C) + 1 import line (POT_WATER).
+- **Callers:** C sortloot_cmp ``:490`` → JS sortloot ``js/invent.js:2265``; C ``:496`` → JS ``js/invent.js:2266`` (both sites already called the stub; they now get full suppress/restore + suffix semantics).
+- **Verify:** ``node scripts/verify.mjs --fn loot_xname`` → VERIFY: PASS (syntax 1 file; rule2 clean; hidden ``no corpus session is blocked`` — coverage row, no cited blocks; reach smoke 24/24 PASS 0 regressed → REACH-OK; green 2/2; strict seed8000+seed0900; cohort 7/7; full skipped — no shared file per gate). No committed unit test: repo has no tests/ layout (D-2606 precedent); loot_xname is module-local like its C staticfn.
+- **Named omissions:** sortloot_cmp body (own queued Open row — BUCX/grease/erosion tail, strcmpi shape, dupstr/maybereleaseobuf buffer idiom all live in that caller, not here); ``hack.h:836`` sortloot_item.str field (plain JS ``sli.str``, already wired in sortloot).
+- **Next:** pop the next Open — coverage row.
+
 ## D-2620 — `cmd.c` act_on_act whole-body port (menu-action queueing, cmdq DIR/USERINPUT, doclicklook)
 
 - **Status:** fixed (Open — coverage row ``cmd.c`` act_on_act MISSING (C 178 L ``cmd.c:4658–4838`` / JS no symbol; hops —, callers 2, RNG 0, msg 0; dead callees: there_cmd_menu_far, cmdq_add_userinput, cmdq_add_dir). Measured ``port-coverage.mjs --name act_on_act`` 2026-09-20 @ 28b6f89f).

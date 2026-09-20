@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-20 — D-2621 `invent.c` loot_xname whole-body port (sort-key suppress/restore + grouping suffixes)
+
+**C locus:** ``nethack-c/upstream/src/invent.c:308–387`` (loot_xname, staticfn); callers ``:490``/``:496`` (sortloot_cmp SORTLOOT_LOOT name path); ``flag.h:30`` (``wizard`` ≡ flags.debug).
+**JS:** ``js/invent.js:1124`` ``loot_xname`` (file-local, staticfn like C) + 1 import line (POT_WATER).
+**Change:** ported the whole body in C order with per-arm ``:line`` cites — save odiluted/blessed/cursed/spe/owt + oname + flags.debug (``:320–325``); potion dilute + water holy/unholy suppress (``:328–332``); towel spe=0 (``:335–336``); glob owt=20 fresh-glob weight (``:339–340``); oname suppress except artifacts (``:342–343``); wizard-debug off + something_worth_saving=0 (``:345–350``); cxname_singular (``:352``); debug restore (``:354–357``); potion restore (``:359–363``); towel spe-restore-then wet-x/moist-y/dry-z (``:364–370``, restore before is_wet_towel per C order); glob owt-restore-then size a/b/c/d (``:371–382``, restore before suffix per C order); oname restore (``:383–384``). Callees: has_oname/ONAME (live const.js, already imported), cxname_singular (live objnam.js, already imported), is_wet_towel (live weapon.js, already imported), POT_WATER (added to the existing objects.js import — imports.mjs ALREADY, no new edge), TOWEL via file-local OTYP_TOWEL index; C Strcat into the cxname buffer is ``+=`` (JS strings are values); ``ONAME(obj)=0`` is ``oextra.oname=null`` (do_name.js:1408 idiom).
+**Verify:** ``node scripts/verify.mjs --fn loot_xname`` → VERIFY: PASS (syntax 1 file; rule2 clean; hidden ``no corpus session is blocked`` — coverage row, no cited blocks; reach smoke 24/24 PASS 0 regressed → REACH-OK; green 2/2; strict seed8000+seed0900; cohort 7/7; full skipped — no shared file per gate). No committed unit test: repo has no tests/ layout (D-2606 precedent); loot_xname is module-local like its C staticfn.
+**Named:** sortloot_cmp body (own queued Open row — BUCX/grease/erosion tail, strcmpi shape, dupstr/maybereleaseobuf buffer idiom all live in that caller, not here); ``hack.h:836`` sortloot_item.str field (plain JS ``sli.str``, already wired in sortloot).
+**Next:** pop the next Open — coverage row.
 ## 2026-09-20 — D-2620 `cmd.c` act_on_act whole-body port (menu-action queueing, cmdq DIR/USERINPUT, doclicklook)
 
 **C locus:** ``nethack-c/upstream/src/cmd.c:4658–4838`` (act_on_act, staticfn) + ``:294–311`` (cmdq_add_dir) + ``:316–331`` (cmdq_add_userinput) + ``:5381–5392`` (doclicklook, same-file staticfn) + ``:2070–2078`` (move_funcs table) + ``:4379–4418`` (menucmd enum); callers ``:4880`` (there_cmd_menu K==1 fast path) + ``:4892`` (menu pick).

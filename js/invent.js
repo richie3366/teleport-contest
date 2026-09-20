@@ -94,6 +94,7 @@ import {
     objectDescrs,
     objects,
     is_graystone,
+    POT_WATER,
 } from './objects.js';
 import { interesting_to_discover, disco_append_typename } from './o_init.js';
 import {
@@ -1118,11 +1119,78 @@ export async function encumber_msg() {
 }
 
 /**
- * C ref: invent.c loot_xname → objnam.c cxname_singular.
- * Diluted/towel/glob/oname/wizard deferred.
+ * C ref: invent.c loot_xname `:308–387` — sort-key name: suppress the
+ * xname prefixes that would perturb alphabetical order, call
+ * cxname_singular, restore the object, then append grouping suffixes.
+ * Callers sortloot_cmp `:490`/`:496` → js sortloot `:2265`/`:2266`
+ * (sortloot_cmp itself ships as its own Open row).
+ * `wizard` is flag.h:30 `flags.debug`; C Strcat into the cxname buffer
+ * is `+=` here (JS strings are values); TOWEL is the file-local
+ * OTYP_TOWEL index.
  */
 function loot_xname(obj) {
-    return cxname_singular(obj) || '';
+    if (!obj) return '';
+    // C `:320–325` — remember the object's current settings.
+    const save_odiluted = obj.odiluted | 0;
+    const save_blessed = obj.blessed | 0;
+    const save_cursed = obj.cursed | 0;
+    const save_spe = obj.spe | 0;
+    const save_owt = obj.owt | 0;
+    const save_oname = has_oname(obj) ? ONAME(obj) : null;
+    const save_debug = !!game.flags?.debug;
+    // C `:326–332` — suppress "diluted" for potions and "holy/unholy"
+    // for water; sortloot deals with them by other criteria than name.
+    if ((obj.oclass | 0) === POTION_CLASS) {
+        obj.odiluted = 0;
+        if ((obj.otyp | 0) === POT_WATER) obj.blessed = 0, obj.cursed = 0;
+    }
+    // C `:333–336` — "wet"/"moist towel" format as "towel" for grouping.
+    if ((obj.otyp | 0) === OTYP_TOWEL) obj.spe = 0;
+    // C `:337–340` — group globs by monster type: fresh-glob weight.
+    if (obj.globby) obj.owt = 20;
+    // C `:341–343` — suppress user-assigned name (never on artifacts).
+    if (save_oname && !obj.oartifact && obj.oextra) obj.oextra.oname = null;
+    // C `:344–350` — avoid wizard-mode formatting variations (paranoia:
+    // an xname panic must not write a normal-mode panic save file).
+    if (save_debug) {
+        if (game.program_state) game.program_state.something_worth_saving = 0;
+        if (game.flags) game.flags.debug = false;
+    }
+
+    // C `:352`
+    let res = cxname_singular(obj) || '';
+
+    // C `:354–357` — restore wizard state.
+    if (save_debug) {
+        if (game.flags) game.flags.debug = true;
+        if (game.program_state) game.program_state.something_worth_saving = 1;
+    }
+    // C `:358–363` — restore the object: potion flags.
+    if ((obj.oclass | 0) === POTION_CLASS) {
+        obj.odiluted = save_odiluted;
+        if ((obj.otyp | 0) === POT_WATER) {
+            obj.blessed = save_blessed, obj.cursed = save_cursed;
+        }
+    }
+    // C `:364–370` — restore spe first, then suffix wet-x / moist-y /
+    // dry-z regardless of spe-known state.
+    if ((obj.otyp | 0) === OTYP_TOWEL) {
+        obj.spe = save_spe;
+        res += is_wet_towel(obj) ? ((obj.spe | 0) >= 3 ? 'x' : 'y') : 'z';
+    }
+    // C `:371–382` — restore owt first, then suffix size a/b/c/d so
+    // same-type globs that failed to merge sort small-first.
+    if (obj.globby) {
+        obj.owt = save_owt;
+        res += (obj.owt | 0) <= 100 ? 'a'
+            : (obj.owt | 0) <= 300 ? 'b'
+            : (obj.owt | 0) <= 500 ? 'c' : 'd';
+    }
+    // C `:383–384` — restore user-assigned name.
+    if (save_oname && !obj.oartifact && obj.oextra) obj.oextra.oname = save_oname;
+
+    // C `:386`
+    return res;
 }
 
 /**
