@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
+- [x] `date.c` populate_nomakedefs — coverage MISSING (C 79 L `date.c:52–131` / JS no symbol; hops —, callers 2, RNG 0, msg 0; dead callees: case_insensitive_comp, bannerc_string). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn populate_nomakedefs` (reach regression must be 0). Measured `port-coverage.mjs --name populate_nomakedefs` 2026-09-20 @ c2b834cd. **Addressed:** D-2653
+
+
 - [x] `earlyarg.c` scores_only — coverage MISSING (C 35 L `earlyarg.c:406–441` / JS no symbol; hops —, callers 4, RNG 0, msg 0; dead callees: config_error_done, panictrace_setsignals, opt_terminate). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn scores_only` (reach regression must be 0). Measured `port-coverage.mjs --name scores_only` 2026-09-20 @ c2b834cd.
 
 

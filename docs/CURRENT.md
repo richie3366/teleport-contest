@@ -46,7 +46,7 @@ screens 93.2 %. Held-out 11/44, unchanged vs last audit (5,972 pts, RNG
 predict the judge.
 **Corpus fortress** (re-scored 2026-09-20 audit 1595–1603): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — **+0 / −0**
-in the D-2636…D-2652 window (9 ACCEPTs;
+in the D-2636…D-2653 window (9 ACCEPTs;
 every per-SHA `--reach-all` re-run here ends REACH-OK with no REGRESSED).
 Reviews 1225–1603: 337 ACCEPT, 14 WITH-DEBT, 1 DEBT, 22 QUALITY-RISK (1503, 1517, 1520 stamped; Must-fix 1533/1536 → D-2583/D-2584, 1568 → D-2610, 1592 → D-2636 `271ceca1`; hashes filled).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`) — review-debt, unqueued (detail in the review files).
@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `earlyarg.c` scores_only — coverage MISSING (C 35 L). New C-home `js/earlyarg.js`. Verify `--fn scores_only`.
+**Next cluster:** `date.c` populate_nomakedefs — coverage MISSING (C 79 L `date.c:52–131` / JS no symbol; hops —, callers 2, RNG 0, msg 0; dead callees: case_insensitive_comp, bannerc_string). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn populate_nomakedefs` (reach regression must be 0). Measured `port-coverage.mjs --name populate_nomakedefs` 2026-09-20 @ c2b834cd.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2652 (index).**
+**Keep D-0845…D-2653 (index).**
 <!-- recent:begin -->
+**D-2653** ``nethack-c/upstream/src/date.c:52–131`` (populate_nomakedefs) + caller ``mdlib.c:842`` (r — new C-home `js/date.js` in C order with per-arm `:line` cites — file-local `extract_field` (`:44–49`), `case_insensitive_comp`, `md_ignored_features` (`(1<<19)|SFCTOOL_BIT`, live const.js import), `bannerc_string` (C out
 **D-2652** ``nethack-c/upstream/src/earlyarg.c:404–441`` (scores_only; ATTRNORETURN staticfn) + calle — new C-home ``js/earlyarg.js`` (Constitution §3.1 1:1) in C order with per-arm ``:line`` cites — exported ``async scores_only(argc, argv, dir)`` (async only because live ``prscore`` must be awaited; C ATTRNORETURN unrepre
 **D-2651** ``nethack-c/upstream/src/options.c:2052–2074`` (shared_menu_optfn; staticfn decl ``:362``) — C-home ``js/options.js`` in C order with per-arm ``:line`` cites — exported ``shared_menu_optfn`` (do_init no-op, do_set resolve-then-delegate, get_val ``to_be_done``, get_cnf_val clear); file-local ``check_misc_menu_com
 **D-2650** ``nethack-c/upstream/src/topten.c:340–391`` (writexlentry; staticfn decl ``:71``) + static — new exports in C-home ``js/topten.js`` in C order with per-arm ``:line`` cites — ``writexlentry(tt, how)`` returns the full tab-separated line (C FILE* becomes the return; out-param ``char *buf`` callees return their str
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2648** ``nethack-c/upstream/src/topten.c:220–298`` (readentry; staticfn decl ``:68``) + callees ` — restarted as exported ``readentry(line)`` in C order with per-arm ``:line`` cites — 13-field fscanf regex (``:238–245``), SCANBUFSZ remainder cut (``:246–257``; SCANBUFSZ const from topten.c:59), pre-3.3 fmt32 arm with o
 **D-2647** ``nethack-c/upstream/src/pickup.c:1225–1508`` (query_category) + ``decl.h:167–168`` / ``de — in C order with per-arm ``:line`` cites — ``PARANOID_CONFIRM``/``PARANOID_AUTOALL`` joined the existing ``./const.js`` import (same module, no new edge); ``paranoid_ynq`` joined the existing ``./getline.js`` import (``im
 **D-2646** ``nethack-c/upstream/src/objnam.c:2707–2779`` (singplur_lookup; staticfn decl ``:43``) + s — three arms inserted in C order between special_subjs and one_off-reverse with per-arm ``:line`` cites (craft ``:2732`` via in-file ``eqCI`` tail; slice/mongoose ``:2736–2743`` whole-word; men-keep ``:2758–2762`` via live
-**D-2645** ``nethack-c/upstream/src/sp_lev.c:3214–3400`` (lspo_monster: defaults :3223–3244, string f — new unpacked bindings in C-home ``js/mklev.js`` in C order with per-arm ``:line`` cites (mirroring ``l_create_object``): file-local ``get_table_align_unpacked`` (:3113–3128 7-string table, default random), ``lspo_bool_op
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2652; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2653; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
@@ -126,13 +126,7 @@ paniclog filesystem; extend §1.2 (D-0933); chase LB in-loop.
 
 ## Parked (diagnose only — do not implement)
 
-The full index is `LOOP-QUEUE.md` **Parked** (one line each; proofs in
-`docs/archive/LOOP-QUEUE-PARKED.md`). Two never re-pop without C state:
-
-| ID | Why parked |
-|----|------------|
-| **D-0006** | seed1800 pet movement — needs C state/candidate capture |
-| **dog_invent** | misattributed `"%s picks up %s."`; both hits are `mpickstuff`. Needs C `movement[]`. Do not pop |
+Full index: `LOOP-QUEUE.md` **Parked**. Never re-pop without C state: **D-0006** (seed1800 pet movement) and **dog_invent** (both hits are `mpickstuff`; needs C `movement[]`).
 
 ## Pointers
 
