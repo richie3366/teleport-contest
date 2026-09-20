@@ -1681,7 +1681,7 @@ D-0190); fulll `end_running`/`cmdq_clear`;
 Passes_walls/autodig/chew; Blind `feel_location`/`autopick` arms; 
 full `back_to_glyph`/`wall_angle`→S_stone / OOB mention_walls; floor TRADITIONAL query_classes is D-1620 (hideunder/newsym_force/engulfer minvent traditional; `safe_qbuf` is D-1654); 
 **`pickup_object` telekinesis / `lift_object` / `carry_count` / scare raise-vs-pick / corpse 
-remote** (D-1050); shop bill; **Sokoban boulder `body_part(HAND)` D-1508**; **`lift_object` whole body live** (D-2595: LOADSTONE/giant-boulder override + gold-hint slot refuse + `removing` verb + `out_container` `:2748` caller wired); **`carry_count` + `delta_cwt` whole body live** (D-2617: container param, adjust_wt arms, gold 100-coin re-weigh, You/There messages; both C callers wired); ghostly; furniture nothing msgs; engulfer loot_mon; Deafness/Hear_again; Rogue `doorless_door`; 
+remote** (D-1050); shop bill; **Sokoban boulder `body_part(HAND)` D-1508**; **`lift_object` whole body live** (D-2595: LOADSTONE/giant-boulder override + gold-hint slot refuse + `removing` verb + `out_container` `:2748` caller wired); **`carry_count` + `delta_cwt` whole body live** (D-2617: container param, adjust_wt arms, gold 100-coin re-weigh, You/There messages; both C callers wired); **`out_container` whole body live** (D-2680: impossible gate, gold weigh, artifact touch, fatal corpse, lift `:2748`, LOADSTONE split, extract + re-weigh, icebox, shop bill, pick_pick via new js/shk.js export, addinv + prinv removing, gold bot; C caller :3376 wired :4098, menu take-out :2899); ghostly; furniture nothing msgs; engulfer loot_mon; Deafness/Hear_again; Rogue `doorless_door`; 
 shop `block_door`/`block_entry`; full `test_move` NODIAG/boulder 
 **`swim_move_danger`/`handle_tip(TIP_SWIM)` + `m`→nopick; 
 `pooleffects`→`drown`/`lava_effects`→`done(BURNING)`** (D-0357; Known_wwalking, full invent burn); 
@@ -4002,7 +4002,7 @@ leave-boundary verbalize then `rob_shop`/`call_kops`; `wizard.c`
 `:88–96` stair swarm (`builds_up` / ladder / branch / opposite);
 live `js/shk.js` + `js/wizard.js` + `js/mklev.js`; **SetVoice D-1752**
 (`u_entered_shop` / `u_left_shop` / `addtobill` `set_voice` / `dopay`);
-named: remaining shk `pick_pick` / kops / pay-bill SetVoice;
+named: remaining shk kops / pay-bill SetVoice (`pick_pick` whole body live js/shk.js D-2680);
 STRAT_HEAL still rloc/healmon; `costly_gold`; heaven caller is D-1764;
 **D-1740:** `shop_debt` `:989–999` + `shopper_financial_report`
 `:1002–1035` two-pass `next_shkp(fmon, FALSE)` xor; `doprgold`

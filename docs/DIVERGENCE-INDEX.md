@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-2680 | fixed |  — `pickup.c` out_container whole-body port (impossible gate + artifact/corpse/icebox/bill/pick arms + shk pic |  |
 | D-2679 | fixed |  — `shk.c` corpsenm_price_adj whole-body port (tin/egg/corpse intrinsic-table surcharge wired into getprice) |  |
 | D-2678 | fixed |  — `uhitm.c` hmon_hitmon_dmg_recalc whole-body port (get_dmg_bonus gate + PROJECTILE skillwep + uwep_skill_typ |  |
 | D-2677 | fixed |  — `dogmove.c` find_friends whole-body port (perceives invis-tame arm + isok call) |  |

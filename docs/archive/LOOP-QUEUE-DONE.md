@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
+- [x] `pickup.c` out_container — coverage PARTIAL (C 50 L `pickup.c:2727–2777` / JS 28 L in js/pickup.js; hops —, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn out_container` (reach regression must be 0). Measured `port-coverage.mjs --name out_container` 2026-09-20 @ 4307ede7. **Addressed:** D-2680
+
+
 - [x] `shk.c` corpsenm_price_adj — coverage MISSING (C 41 L `shk.c:4275–4316` / JS no symbol; hops 6, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn corpsenm_price_adj` (reach regression must be 0). Measured `port-coverage.mjs --name corpsenm_price_adj` 2026-09-20 @ 14d94914.
 
 

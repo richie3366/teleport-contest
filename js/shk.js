@@ -79,7 +79,7 @@ import {
     WEAPON_CLASS, TOOL_CLASS, GEM_CLASS, SCROLL_CLASS, SPBOOK_CLASS,
     AMULET_CLASS, RING_CLASS,
     BALL_CLASS, CHAIN_CLASS, FIRST_REAL_GEM, LAST_REAL_GEM, objects,
-    POT_WATER,
+    POT_WATER, is_pick,
 } from './objects.js';
 import {
     newsym, pline, Norep, verbalize, Your, You_feel, docrt, flush_screen,
@@ -108,7 +108,7 @@ import {
 } from './objnam.js';
 import {
     is_human, is_demon, is_watch, nolimbs, is_floater, is_flyer, amorphous,
-    M1_SLITHY, passes_walls, mons, monsterNames,
+    M1_SLITHY, passes_walls, mons, monsterNames, haseyes,
 } from './monsters.js';
 import { nhgetch } from './input.js';
 import {
@@ -752,6 +752,31 @@ export function inhishop(shkp) {
     if (!eshk || shkp.mx == null) return false;
     const loc = game.level?.at?.(shkp.mx, shkp.my);
     return !!loc && ((loc.roomno | 0) === (eshk.shoproom | 0));
+}
+
+/** C shk.c pick_pick — last moves tick that drew pick feedback. */
+let pickmovetime = 0;
+
+/**
+ * C ref: shk.c pick_pick `:919–947` — called when removing a pick-axe or
+ * mattock from a container; shopkeeper feedback, at most once per moves tick.
+ */
+export async function pick_pick(obj) {
+    if (obj.unpaid || !is_pick(obj)) return;
+    const shkp = shop_keeper(game.u?.ushops || '');
+    if (shkp && inhishop(shkp)) {
+        if ((game.moves | 0) !== pickmovetime) {
+            if (!hero_deaf() && !muteshk(shkp)) {
+                SetVoice(shkp, 0, 80, 0);
+                await verbalize(
+                    `You sneaky ${cad(false)}!  Get out of here with that pick!`);
+            } else {
+                await pline(
+                    `${Shknam(shkp)} ${haseyes(shkp.data) ? 'glares at' : 'is dismayed because of'} your pick!`);
+            }
+        }
+        pickmovetime = game.moves | 0;
+    }
 }
 
 /** C mextra.h BILLSZ */

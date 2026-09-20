@@ -7,6 +7,13 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-20 — D-2680 `pickup.c` out_container whole-body port (impossible gate + artifact/corpse/icebox/bill/pick arms + shk pick_pick)
+
+**C locus:** 
+**JS:** 
+**Change:** 
+**Verify:** 
+**Next:** (see LOOP-QUEUE)
 ## 2026-09-20 — D-2679 `shk.c` corpsenm_price_adj whole-body port (tin/egg/corpse intrinsic-table surcharge wired into getprice)
 
 **C locus:** 

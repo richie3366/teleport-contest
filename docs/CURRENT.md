@@ -46,7 +46,7 @@ screens 93.2 %. Held-out 11/44, unchanged vs last audit (5,972 pts, RNG
 predict the judge.
 **Corpus fortress** (re-scored 2026-09-20 audit 1629–1637): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — **+0 / −0**
-in the D-2670…D-2679 window (9 ACCEPTs;
+in the D-2670…D-2680 window (9 ACCEPTs;
 every per-SHA `--reach-all` re-run here ends REACH-OK with no REGRESSED).
 Reviews 1225–1637: 369 ACCEPT, 15 WITH-DEBT, 1 DEBT, 23 QUALITY-RISK (1503, 1517, 1520 stamped; Must-fix 1533/1536 → D-2583/D-2584, 1568 → D-2610, 1592 → D-2636 `271ceca1`, 1617 → magic_negation floor Must-fix (addressed D-2661, review 1620 ACCEPT); hashes filled).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`) — review-debt, unqueued (detail in the review files).
@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `shk.c` corpsenm_price_adj — coverage MISSING (C 41 L `shk.c:4275–4316` / JS no symbol; hops 6, callers 1, RNG 0, msg 0; same-file companion of the popped head). Head `cost_per_charge` parked STALE (whole body live js/shk.js:3387–3413, caller wired :3432, 0 blocked); `do_wear.c` equip_ok parked STALE (whole body live js/do_wear.js:2471–2494, 4 wrappers + getobj sites wired, 0 blocked). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn corpsenm_price_adj` (reach regression must be 0). Measured `port-coverage.mjs --name corpsenm_price_adj` 2026-09-20 @ 14d94914.
+**Next cluster:** `pickup.c` out_container — coverage PARTIAL (C 50 L `pickup.c:2727–2777` / JS 28 L in js/pickup.js; hops —, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn out_container` (reach regression must be 0). Measured `port-coverage.mjs --name out_container` 2026-09-20 @ 4307ede7. Head `interest_mapseen` parked STALE (whole C body live js/dungeon.js:1254–1277, sole C caller :3359 wired :2371, 0 blocked).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2679 (index).**
+**Keep D-0845…D-2680 (index).**
 <!-- recent:begin -->
+**D-2680**  — 
 **D-2679**  — 
 **D-2678**  — 
 **D-2677**  — 
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2675**  — 
 **D-2674**  — 
 **D-2673**  — 
-**D-2672**  — 
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2679; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2680; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
