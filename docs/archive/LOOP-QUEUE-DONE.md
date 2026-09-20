@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
-- [x] `mkobj.c` obj_meld — coverage PARTIAL (C 46 L `mkobj.c:3768–3814` / JS 29 L in js/mkobj.js; hops 4, callers 2, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn obj_meld` (reach regression must be 0). Measured `port-coverage.mjs --name obj_meld` 2026-09-20 @ c7e7e767. **Addressed:** D-2622
+- [x] `quest.c` chat_with_leader — coverage PARTIAL (C 86 L `quest.c:282–368` / JS 42 L in js/quest.js; hops 3, callers 2, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn chat_with_leader` (reach regression must be 0). Measured `port-coverage.mjs --name chat_with_leader` 2026-09-20 @ c7e7e767. **Addressed:** D-2623
+
+
+- [x] `mkobj.c` obj_meld — coverage PARTIAL (C 46 L `mkobj.c:3768–3814` / JS 29 L in js/mkobj.js; hops 4, callers 2, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn obj_meld` (reach regression must be 0). Measured `port-coverage.mjs --name obj_meld` 2026-09-20 @ c7e7e767. **Addressed:** D-2622 `17b44606`
 
 
 - [x] `invent.c` loot_xname — coverage THIN (C 78 L `invent.c:309–387` / JS 3 L in js/invent.js; hops 5, callers 2, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn loot_xname` (reach regression must be 0). Measured `port-coverage.mjs --name loot_xname` 2026-09-20 @ c7e7e767. **Addressed:** D-2621 `e1a1ff90`
