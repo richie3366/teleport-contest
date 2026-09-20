@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-20 — D-2610 `insight.c` weapon_insight primary two-weapon compare leading-space restore (review 1568 Must-fix)
+
+**C locus:** `nethack-c/upstream/src/insight.c:1355–1369` — `Sprintf(sfx, " limited by being %s with two weapons", twobuf)` (`twoskl < sklvl`) and `Strcpy(sfx, " limited by ")` (`twoskl > sklvl`); `enlght_line` is plain ` %s%s%s%s.` concat (verified against JS `enlght_line_txt`), so the space must come from `sfx`.
+**JS:** `js/invent.js` (+2 chars); `scripts/weapon-insight-twoweapon.test.mjs` (new).
+**Change:** restored the leading space in both primary `sfx` literals (`js/invent.js:5393,5398`). No caller, control-flow, or RNG change. New focused regression test `scripts/weapon-insight-twoweapon.test.mjs` (3 its: both primary arms at final=0 + `was` tense at final=1, each asserting the spaced phrasing present and `islimited`/`waslimited` absent).
+**Verify:** `node scripts/verify.mjs --fn weapon_insight` → VERIFY: PASS (syntax 1 file; rule2 clean; hidden note — 0 blocked at baseline, expected for an RNG-0 function; reach smoke 24/24 PASS → REACH-OK; green 2/2; strict seed8000+seed0900; cohort 7/7; full skipped, no shared file per gate). Focused test 3/3 PASS (fails on the pre-fix body — confirmed via stash). Breach session `seed0107-samurai-twoweapon-enhance` re-run: PASS (RNG 2902/2902, screens 98/98) → fortress back to 44/44.
+**Named:** none.
+**Next:** queue head after this Must-fix (first Open — coverage row).
 ## 2026-09-20 — D-2609 `insight.c` weapon_insight whole-body port (new export, both enlightenment builders wired, shield/towel/ammo/can_advance arms live)
 
 **C locus:** `nethack-c/upstream/src/insight.c:1270–1465` (wield line `:1277–1310` incl. `weapon_descr :1292`, shield `:1295–1296`, towel `:1297–1298`, strcmpi-some `:1301–1303`, quan an/makeplural `:1304–1308`; skill guard `:1311`; sklvlbuf `:1315–1322`; non-twoweap + enhance suffix `:1324–1329`; twoweap reads `:1330–1339`, restricted→unskilled `:1343–1350`, primary compare `:1352–1377`, secondary compare `:1379–1421` incl. also3 You-also `:1404–1412`, enhance tips `:1423–1460` with 5-case phrasing comment). Sole C caller `:1249` (`status_enlightenment`, itself called from `enlightenment()` for both `doattributes` final=0 and final disclosure).

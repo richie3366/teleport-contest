@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
-- [x] `insight.c` weapon_insight — coverage MISSING (C 195 L `insight.c:1270–1465` / JS no symbol; hops 6, callers 1, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn weapon_insight` (reach regression must be 0). Measured `port-coverage.mjs --name weapon_insight` 2026-09-20 @ 79669e02. **Addressed:** D-2609
+- [x] `insight.c` weapon_insight primary two-weapon compare drops C's leading space **Addressed:** D-2610 — C `insight.c:1355–1369` builds sfx `" limited by ..."` but `js/invent.js:5391–5401` builds `` `limited by ...` `` (two literals), printing `islimited/waslimited by` on both enlightenment builders whenever the primary compare arm is taken (overlay regressed: the deleted inline code had the space). Fix: restore the leading space in both primary sfx literals (secondary arms + enhance esfx already have theirs). Verify `node scripts/verify.mjs --fn weapon_insight` + a two-weapon enlightenment text probe. Fortress breach at this SHA: full `sessions` 43/44, `seed0107-samurai-twoweapon-enhance` screens 97/98 with RNG 2902/2902 (expected `is limited`, JS prints `islimited`; parent dba7a580 was 44/44). Source: reviews/loop-unattended/1568-28b6f89f-weapon-insight.md.
+
+
+- [x] `insight.c` weapon_insight — coverage MISSING (C 195 L `insight.c:1270–1465` / JS no symbol; hops 6, callers 1, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn weapon_insight` (reach regression must be 0). Measured `port-coverage.mjs --name weapon_insight` 2026-09-20 @ 79669e02. **Addressed:** D-2609 `28b6f89f`
 
 
 - [x] `display.c` wall_angle — coverage THIN **Addressed:** D-2608 (C 274 L `display.c:3513–3787` / JS 37 L in js/display.js; hops 2, callers 2, RNG 0, msg 0; dead callees: t_warn). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn wall_angle` (reach regression must be 0). Measured `port-coverage.mjs --name wall_angle` 2026-09-20 @ 79669e02.

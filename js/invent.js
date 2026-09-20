@@ -5390,12 +5390,12 @@ export function weapon_insight(final = 0, opts = {}) {
             let also3 = null;
             if (twoskl < sklvl) {
                 pfx = `Your skill in ${skill_name(wtype)} `;
-                sfx = `limited by being ${twobuf} with two weapons`;
+                sfx = ` limited by being ${twobuf} with two weapons`;
                 also = 'also ';
             } else if (twoskl > sklvl) {
                 pfx = 'Your two weapon skill ';
                 // C `:1361–1365` — eos() appends are plain concat.
-                sfx = 'limited by ';
+                sfx = ' limited by ';
                 if (sklvl > P_ISRESTRICTED) sfx += `being ${sklvlbuf}`;
                 else sfx += 'having no skill';
                 sfx += ` with ${skill_name(wtype)}`;

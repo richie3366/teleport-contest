@@ -97,8 +97,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `insight.c` weapon_insight primary two-weapon compare drops C's leading space — C `insight.c:1355–1369` builds sfx `" limited by ..."` but `js/invent.js:5391–5401` builds `` `limited by ...` `` (two literals), printing `islimited/waslimited by` on both enlightenment builders whenever the primary compare arm is taken (overlay regressed: the deleted inline code had the space). Fix: restore the leading space in both primary sfx literals (secondary arms + enhance esfx already have theirs). Verify `node scripts/verify.mjs --fn weapon_insight` + a two-weapon enlightenment text probe. Fortress breach at this SHA: full `sessions` 43/44, `seed0107-samurai-twoweapon-enhance` screens 97/98 with RNG 2902/2902 (expected `is limited`, JS prints `islimited`; parent dba7a580 was 44/44). Source: reviews/loop-unattended/1568-28b6f89f-weapon-insight.md.
-
 A **JS throw** in any corpus session (`hidden-proxy status` owner
 `js-throw …`, or a `ReferenceError` in `.cache/hidden/scores.json`
 `error`), and a corpus worker **hang** (`ETIMEDOUT` under `verify`), are

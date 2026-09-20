@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2610 — `insight.c` weapon_insight primary two-weapon compare leading-space restore (review 1568 Must-fix)
+
+- **Status:** fixed (Must-fix from review 1568, QUALITY-RISK verdict on D-2609: the two primary-compare `sfx` literals dropped C's leading space, printing `islimited`/`waslimited by` on both enlightenment builders whenever the primary arm is taken; the deleted overlay inline code had the space, so the overlay path regressed).
+- **Symptom:** fortress breach at D-2609 SHA: full `sessions` 43/44 — `seed0107-samurai-twoweapon-enhance` screens 97/98 with RNG 2902/2902 (C expects `Your skill in long sword is limited by being unskilled with two weapons.`, JS printed `islimited`); parent dba7a580 was 44/44.
+- **C locus:** `nethack-c/upstream/src/insight.c:1355–1369` — `Sprintf(sfx, " limited by being %s with two weapons", twobuf)` (`twoskl < sklvl`) and `Strcpy(sfx, " limited by ")` (`twoskl > sklvl`); `enlght_line` is plain ` %s%s%s%s.` concat (verified against JS `enlght_line_txt`), so the space must come from `sfx`.
+- **JS was:** `js/invent.js:5391–5401` built `` `limited by being ${twobuf} with two weapons` `` and `'limited by '` (no leading space). Secondary arms (` ${also}limited ...`) and enhance-tips `esfx` already had theirs — only these two literals were wrong.
+- **Fix:** restored the leading space in both primary `sfx` literals (`js/invent.js:5393,5398`). No caller, control-flow, or RNG change. New focused regression test `scripts/weapon-insight-twoweapon.test.mjs` (3 its: both primary arms at final=0 + `was` tense at final=1, each asserting the spaced phrasing present and `islimited`/`waslimited` absent).
+- **JS:** `js/invent.js` (+2 chars); `scripts/weapon-insight-twoweapon.test.mjs` (new).
+- **Callers:** unchanged from D-2609 — both builders already call `weapon_insight` (final disclosure `js/invent.js` enlightenment Status section; overlay `doattributes` Status section). No new wiring.
+- **Verify:** `node scripts/verify.mjs --fn weapon_insight` → VERIFY: PASS (syntax 1 file; rule2 clean; hidden note — 0 blocked at baseline, expected for an RNG-0 function; reach smoke 24/24 PASS → REACH-OK; green 2/2; strict seed8000+seed0900; cohort 7/7; full skipped, no shared file per gate). Focused test 3/3 PASS (fails on the pre-fix body — confirmed via stash). Breach session `seed0107-samurai-twoweapon-enhance` re-run: PASS (RNG 2902/2902, screens 98/98) → fortress back to 44/44.
+- **Named omissions:** none.
+- **Next:** queue head after this Must-fix (first Open — coverage row).
+
 ## D-2609 — `insight.c` weapon_insight whole-body port (new export, both enlightenment builders wired, shield/towel/ammo/can_advance arms live)
 
 - **Status:** fixed (Open — coverage row `insight.c` weapon_insight MISSING (C 195 L `insight.c:1270–1465` / JS no symbol; hops 6, callers 1, RNG 0, msg 3). Measured `port-coverage.mjs --name weapon_insight` 2026-09-20 @ 79669e02).

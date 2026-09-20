@@ -109,3 +109,5 @@ compare, twoskl < sklvl) while this SHA prints `islimited`. The parent
 queued Must-fix row now cites this session. No other session moved.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-2610
