@@ -5,7 +5,7 @@ import { game } from './gstate.js';
 import { vfsReadFile, vfsWriteFile } from './storage.js';
 import { yyyymmdd } from './calendar.js';
 import { deepest_lev_reached, depth, ordin } from './hacklib.js';
-import { genders, aligns, str2role, str2race } from './roles.js';
+import { genders, aligns, roles, str2role, str2race } from './roles.js';
 import {
     BUFSZ, COLNO, VERSION_MAJOR, VERSION_MINOR, PATCHLEVEL,
     PERSMAX, POINTSMIN, ENTRYMAX, PERS_IS_UID,
@@ -81,14 +81,45 @@ function writeentry_line(tt) {
         + `${name},${tt.death}\n`;
 }
 
-function readentry_line(line) {
+/* SCANBUFSZ (C topten.c:59) — room for every string field at once, plus a
+   separating space or trailing newline and the string terminator. */
+const SCANBUFSZ = 4 * (ROLESZ + 1) + (NAMSZ + 1) + (DTHSZ + 1) + 1;
+
+/**
+ * C ref: topten.c readentry `:220–298` — whole body in C order.
+ *
+ * C streams (FILE *rfile, struct toptenentry *tt); the VFS record is
+ * already split into lines by read_record_entries, so one call parses one
+ * record line into a fresh (newttentry-zeroed) entry: `:238–245` fscanf of
+ * the 13 numeric fields (mismatch → points = 0); `:246–257` fgets of the
+ * remainder with the SCANBUFSZ implicit length limit (overlong remainder
+ * is cut at SCANBUFSZ-2 + newline); `:259–276` pre-3.3 fmt32 two-char
+ * role/gender + name,death with the str2role→roles filecode fixup and the
+ * Mal/Fem + "?" defaults; `:277–287` fmt33 six-field modern arm (fail →
+ * points = 0); `:293–297` Y2K birthdate/deathdate fixup.
+ *
+ * Live callees: newttentry (file-local), copynchars (file-local clone of
+ * hacklib.c:286 — fields never carry '\n' post-split, so the slice equals
+ * C's newline stop), str2role + roles[].filecode (roles.js, same module
+ * as the pre-existing edge — no new import edge).
+ * Named omissions: discardexcess (topten.c:207 — FILE-streaming only; a
+ * VFS line carries no excess past its newline, and every fail arm still
+ * sets points = 0); UPDATE_RECORD_IN_PLACE fpos (`:235–237`, VMS-only —
+ * no fpos field in this build; whole-record VFS writes per D-2585);
+ * NO_SCAN_BRACK fmts + nsb_unmung_line (`:225–233`, `:283–292` — ifdef
+ * never defined in this build; unmunging '|'→' ' would corrupt modern
+ * record text); alloc (GC — fresh object per call).
+ */
+export function readentry(line) {
     const tt = newttentry();
     if (!line || !String(line).trim()) {
         tt.points = 0;
         return tt;
     }
+    // C `:238–245` — fscanf(fmt, 13 fields) != TTFIELDS(13) → points = 0
+    // (C's discardexcess of the rest of the line is the named omit above).
     const m = String(line).match(
-        /^(\d+)\.(\d+)\.(\d+) (-?\d+) (-?\d+) (-?\d+) (-?\d+) (-?\d+) (-?\d+) (-?\d+) (-?\d+) (-?\d+) (-?\d+) (.+)$/,
+        /^(\d+)\.(\d+)\.(\d+) (-?\d+) (-?\d+) (-?\d+) (-?\d+) (-?\d+) (-?\d+) (-?\d+) (-?\d+) (-?\d+) (-?\d+) ?(.*)$/,
     );
     if (!m) {
         tt.points = 0;
@@ -107,20 +138,55 @@ function readentry_line(line) {
     tt.deathdate = +m[11];
     tt.birthdate = +m[12];
     tt.uid = +m[13];
-    const sm = m[14].match(/^(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+([^,]*),(.*)$/);
-    if (!sm) {
-        tt.points = 0;
-        return tt;
+    // C `:246–257` — fgets remainder into inbuf[SCANBUFSZ]; a remainder
+    // with no newline in SCANBUFSZ is cut at [SCANBUFSZ-2] + '\n' and the
+    // excess discarded (same named omit as discardexcess).
+    let inbuf = `${m[14] ?? ''}\n`;
+    if (inbuf.length > SCANBUFSZ - 1) inbuf = `${inbuf.slice(0, SCANBUFSZ - 2)}\n`;
+    // C `:259–276` — backwards-compatibility arm (ver < 3.3):
+    // fmt32 "%c%c %[^,],%[^\n]" (the two role/gender chars read via %c).
+    if (tt.ver_major < 3 || (tt.ver_major === 3 && tt.ver_minor < 3)) {
+        const om = inbuf.match(/^(.)(.) ([^,]*),([^\n]*)\n?$/);
+        if (om) {
+            // C `:264` — plrole[1] = plgend[1] = '\0' (one char each).
+            tt.plrole = om[1];
+            tt.plgend = om[2];
+            tt.name = copynchars(om[3], NAMSZ);
+            tt.death = copynchars(om[4], DTHSZ);
+        } else {
+            tt.points = 0;
+        }
+        // C `:267–276` — unconditional: re-truncate role, str2role fixup
+        // to roles[].filecode, race "?", gender Mal/Fem, align "?".
+        const i = str2role(tt.plrole);
+        if (i >= 0) tt.plrole = copynchars(roles[i].filecode, ROLESZ);
+        tt.plrace = '?';
+        tt.plgend = tt.plgend[0] === 'M' ? 'Mal' : 'Fem';
+        tt.plalign = '?';
+    } else {
+        // C `:277–287` — fmt33 "%s %s %s %s %[^,],%[^\n]"; fail → 0.
+        const sm = inbuf.match(/^(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+([^,]*),([^\n]*)\n?$/);
+        if (!sm) {
+            tt.points = 0;
+            return tt;
+        }
+        tt.plrole = copynchars(sm[1], ROLESZ);
+        tt.plrace = copynchars(sm[2], ROLESZ);
+        tt.plgend = copynchars(sm[3], ROLESZ);
+        tt.plalign = copynchars(sm[4], ROLESZ);
+        tt.name = copynchars(sm[5], NAMSZ);
+        tt.death = copynchars(sm[6], DTHSZ);
     }
-    tt.plrole = copynchars(sm[1], ROLESZ);
-    tt.plrace = copynchars(sm[2], ROLESZ);
-    tt.plgend = copynchars(sm[3], ROLESZ);
-    tt.plalign = copynchars(sm[4], ROLESZ);
-    tt.name = copynchars(sm[5], NAMSZ);
-    tt.death = copynchars(String(sm[6] || '').replace(/\r?\n$/, ''), DTHSZ);
-    if (tt.birthdate < 19000000) tt.birthdate += 19000000;
-    if (tt.deathdate < 19000000) tt.deathdate += 19000000;
+    // C `:293–297` — Y2K fixup on old score entries with points.
+    if (tt.points > 0) {
+        if (tt.birthdate < 19000000) tt.birthdate += 19000000;
+        if (tt.deathdate < 19000000) tt.deathdate += 19000000;
+    }
     return tt;
+}
+
+function readentry_line(line) {
+    return readentry(line);
 }
 
 function read_record_entries() {
@@ -129,7 +195,7 @@ function read_record_entries() {
     const entries = [];
     for (const line of String(raw).split('\n')) {
         if (!line) continue;
-        const tt = readentry_line(line);
+        const tt = readentry(line);
         entries.push(tt);
         if (!(tt.points > 0)) break;
     }
@@ -350,7 +416,7 @@ function outentry(rank, t1, so, emit) {
  *
  * Live callees: deepest_lev_reached + ordin (hacklib.js), yyyymmdd
  * (calendar.js), formatkiller (end.js, via deathStr), outheader/outentry +
- * newttentry/readentry/writeentry file-local analogues below, copynchars /
+ * newttentry/writeentry file-local analogues + exported readentry below, copynchars /
  * observable_depth pre-existing file-local clones.
  * Named omissions: LOGFILE/XLOGFILE append arms (`:702–718`, unix
  * config.h default — no VFS consumer reads logfile/xlogfile);
@@ -725,7 +791,7 @@ export async function prscore(argc, argv) {
     raw_print('');
 
     // C :1279–1291 — read the whole record (readentry/newttentry mechanics
-    // live as read_record_entries/readentry_line above: same zeroed shape,
+    // live as read_record_entries/readentry above: same zeroed shape,
     // same points==0 terminator); note the first wanted entry.
     const tt_head = [];
     let match_found = false;

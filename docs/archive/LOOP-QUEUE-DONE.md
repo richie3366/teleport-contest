@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
+- [x] `topten.c` readentry — coverage MISSING (C 78 L `topten.c:220–298` / JS no symbol; hops 4, callers 3, RNG 0, msg 0; dead callees: discardexcess). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn readentry` (reach regression must be 0). Measured `port-coverage.mjs --name readentry` 2026-09-20 @ d76b7205. **Addressed:** D-2648
+
+
 - [x] `pickup.c` query_category — coverage PARTIAL (C 277 L `pickup.c:1226–1508` / JS 198 L in js/pickup.js; hops 4, callers 4, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn query_category` (reach regression must be 0). Measured `port-coverage.mjs --name query_category` 2026-09-20 @ d76b7205. **Addressed:** D-2647 — coverage PARTIAL (C 277 L `pickup.c:1226–1508` / JS 198 L in js/pickup.js; hops 4, callers 4, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn query_category` (reach regression must be 0). Measured `port-coverage.mjs --name query_category` 2026-09-20 @ d76b7205.
 
 
