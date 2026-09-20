@@ -46,7 +46,7 @@ screens 93.2 %. Held-out 11/44, unchanged vs last audit (5,972 pts, RNG
 predict the judge.
 **Corpus fortress** (re-scored 2026-09-20 audit 1578–1586): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — **+0 / −0**
-in the D-2619…D-2627 window (9 ACCEPTs;
+in the D-2619…D-2628 window (9 ACCEPTs;
 every per-SHA `--reach-all` re-run here ends REACH-OK, including
 init_objects at 497/497).
 Reviews 1225–1586: 321 ACCEPT, 14 WITH-DEBT, 1 DEBT, 21 QUALITY-RISK (1503, 1517, 1520 stamped; Must-fix 1533/1536 → D-2583/D-2584, 1568 → D-2610, hashes filled).
@@ -102,8 +102,9 @@ breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
 **Next cluster:** `pickup.c` pick_obj (Open PARTIAL; C 45 L, 2 callers).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2627 (index).**
+**Keep D-0845…D-2628 (index).**
 <!-- recent:begin -->
+**D-2628** ``nethack-c/upstream/src/pickup.c:1897–1942`` (pick_obj); caller ``:1879`` (pickup_object  — restarted the export in C order with per-arm ``:line`` cites — ``fromfloor`` sampled before extract mutates ``where`` (``:1900``, ``|0`` int compare); ``(void) get_obj_location(otmp, &ox, &oy, 0)`` via the live ``timeout
 **D-2627** ``nethack-c/upstream/src/o_init.c:151–234`` (init_objects); callees ``setgemprobs :54–83`` — restarted the export in C order with per-arm ``:line`` cites — bases zero + generic-class panic as throw with the C message (``:156–162``; botl.js compare_blstats precedent — JS has no sync abort); name/descr identity in
 **D-2626** ``nethack-c/upstream/src/invent.c:403–547`` (sortloot_cmp, staticfn); caller ``:634`` (sor — exported ``sortloot_cmp(sli1, sli2)`` in C order with per-arm ``:line`` cites — INUSE classify-once + bigger-first + indx tiebreak (``:412–428``); PACK|INVLET class gate (``:430–432``), loot_classify-once + orderclass/su
 **D-2625** ``nethack-c/upstream/src/cmd.c:5213–5272`` (readchar_core, staticfn) + ``:5159–5181`` (han — ported the whole C body in C order, async only because pgetchar/nhgetch await input — fuzzer arm ``:5217–5220`` via live ``randomkey()``, still landing on the ``input_state=otherInp`` tail; ``readchar_queue`` ``:153`` as
@@ -111,11 +112,10 @@ revisits the picker.
 **D-2623** ``nethack-c/upstream/src/quest.c:282–368`` (chat_with_leader, staticfn); callers ``:390``  — restarted the export in C order with per-arm ``:line`` cites — Rule 0 cheater (``:287–289``, ``u.uhave?.questart`` per zap.js/trap.js precedent, ``qs.met_nemesis``/``qs.cheater`` new quest_status keys); got_thanks Rule 1
 **D-2622** ``nethack-c/upstream/src/mkobj.c:3768–3814`` (obj_meld); callers ``do.c:312`` (flooreffect — restarted the export in C order with per-arm ``:line`` cites — ``result = null`` (``:3771``); holder-level ``if (p1 && p2)`` guard (``:3774`` — the ``struct obj **``, not the pointees); pointee ``otmp1 && otmp2 && !==`` 
 **D-2621** ``nethack-c/upstream/src/invent.c:308–387`` (loot_xname, staticfn); callers ``:490``/``:49 — ported the whole body in C order with per-arm ``:line`` cites — save odiluted/blessed/cursed/spe/owt + oname + flags.debug (``:320–325``); potion dilute + water holy/unholy suppress (``:328–332``); towel spe=0 (``:335–33
-**D-2620** ``nethack-c/upstream/src/cmd.c:4658–4838`` (act_on_act, staticfn) + ``:294–311`` (cmdq_add — ported the whole body in C order with per-arm ``:line`` cites — sgn clamp keeping throw/travel/look deltas raw (``:4666–4677``, live eat.js ``sgn`` ≡ ``hacklib.c:650``); TRAVEL travelcc+u.tx/ty stamp (``:4680–4688``, gam
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2627; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2628; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

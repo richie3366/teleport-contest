@@ -86,7 +86,7 @@ import {
 import { carried } from './eat.js';
 import { obj_is_burning } from './light.js';
 import { snuff_lit } from './apply.js';
-import { age_is_relative } from './timeout.js';
+import { age_is_relative, get_obj_location } from './timeout.js';
 import { livelog_printf } from './pline.js';
 import { uhis } from './roles.js';
 import {
@@ -992,33 +992,56 @@ export async function check_here(picked_some) {
 }
 
 /**
- * C ref: pickup.c pick_obj — extract from floor/minvent, addinv.
- * Shop robshop: temporary ushops → addtobill → restore; remote_burglary
- * when unpaid from outside the shop (D-1717).
- * Named omissions: engulfer minvent path (get_obj_location swallow).
+ * C ref: pickup.c pick_obj :1897–1942 — lift a floor/engulfer object into
+ * inventory with shop billing. Whole body in C order.
+ * :1900 fromfloor sampled before extract mutates where; :1901–1905 ox,oy
+ * via live get_obj_location (engulfer MINVENT → carrier mx,my; migrating
+ * carrier → 0,0; return ignored like C's (void) cast); :1907 robshop gate;
+ * :1908–1910 extract + newsym when fromfloor; :1921–1935 shop arm (fake
+ * ushops → addtobill sets unpaid → restore → recompute off restored
+ * ushops); :1937 addinv; :1938–1940 remote_burglary when robbed from
+ * outside the shop.
+ * JS engine: u.uball is the C global uball (module precedent :3102);
+ * addtobill/addinv/remote_burglary awaited (async engine, sync in C).
  */
 export async function pick_obj(otmp) {
-    if (!otmp) return otmp;
     const u = game.u;
-    const ox = otmp.ox | 0;
-    const oy = otmp.oy | 0;
-    const fromfloor = otmp.where === OBJ_FLOOR;
-    let robshop = !!(u && !u.uswallow && otmp !== u.uball && costly_spot(ox, oy));
+    // C :1900 — sampled before obj_extract_self mutates where.
+    const fromfloor = (otmp.where | 0) === OBJ_FLOOR;
+    // C :1901–1905 — (void) get_obj_location(otmp, &ox, &oy, 0).
+    const loc = get_obj_location(otmp, 0);
+    const ox = loc ? loc.x | 0 : 0;
+    const oy = loc ? loc.y | 0 : 0;
+    // C :1907 — robshop = (!u.uswallow && otmp != uball && costly_spot(ox, oy)).
+    let robshop = !u.uswallow && otmp !== u.uball && costly_spot(ox, oy);
 
+    // C :1908–1910
     obj_extract_self(otmp);
     if (fromfloor) newsym(ox, oy);
 
+    /* C :1912–1920 — for shop items, addinv() needs to be after
+       addtobill() (so that object merger can take otmp->unpaid into
+       account) but before remote_robbery() (which calls rob_shop() which
+       calls setpaid() after moving costs of unpaid items to shop debt). */
     if (robshop) {
+        // C :1924–1929 — addtobill cares about your location, not the
+        // object's (telekinesis/grappling hook); fake ushops for the call.
         const saveushops = u.ushops || '';
-        const fakeshop = in_rooms(ox, oy, SHOPBASE).charAt(0) || '';
+        const fakeshop = (in_rooms(ox, oy, SHOPBASE) || '').charAt(0) || '';
         u.ushops = fakeshop;
+        /* C :1931 — sets obj->unpaid if necessary */
         await addtobill(otmp, true, false, false);
         u.ushops = saveushops;
+        // C :1934 — robshop = otmp->unpaid && !strchr(u.ushops, *fakeshop)
+        // ('\0' shop char strchrs the terminator → false; '' models '\0').
         robshop = !!(otmp.unpaid && fakeshop && !saveushops.includes(fakeshop));
     }
 
+    // C :1937
     const result = await addinv(otmp);
+    /* C :1938–1940 — taking a shop item from outside the shop: shk notices. */
     if (robshop) await remote_burglary(ox, oy);
+
     return result;
 }
 

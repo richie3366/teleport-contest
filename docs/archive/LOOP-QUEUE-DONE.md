@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
-- [x] `o_init.c` init_objects — coverage PARTIAL (C 84 L `o_init.c:151–235` / JS 39 L in js/o_init.js; hops —, callers 3, RNG 2, msg 0; dead callees: shuffle_tiles). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn init_objects` (reach regression must be 0). Measured `port-coverage.mjs --name init_objects` 2026-09-20 @ 7e80d890. **Addressed:** D-2627
+- [x] `pickup.c` pick_obj — coverage PARTIAL (C 45 L `pickup.c:1897–1942` / JS 24 L in js/pickup.js; hops 3, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn pick_obj` (reach regression must be 0). Measured `port-coverage.mjs --name pick_obj` 2026-09-20 @ 7e80d890.
+
+
+- [x] `o_init.c` init_objects — coverage PARTIAL (C 84 L `o_init.c:151–235` / JS 39 L in js/o_init.js; hops —, callers 3, RNG 2, msg 0; dead callees: shuffle_tiles). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn init_objects` (reach regression must be 0). Measured `port-coverage.mjs --name init_objects` 2026-09-20 @ 7e80d890. **Addressed:** D-2627 `f6b591c3`
 
 
 - [x] `invent.c` sortloot_cmp **Addressed:** D-2626 — coverage MISSING (C 144 L `invent.c:403–547` / JS no symbol; hops 4, callers 1, RNG 0, msg 0; dead callees: maybereleaseobuf). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn sortloot_cmp` (reach regression must be 0). Measured `port-coverage.mjs --name sortloot_cmp` 2026-09-20 @ 7e80d890.
