@@ -110,4 +110,4 @@ queued Must-fix row now cites this session. No other session moved.
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-2610
+**Addressed:** D-2610 `30ca950e`

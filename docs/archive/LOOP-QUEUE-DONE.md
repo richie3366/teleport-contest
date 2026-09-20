@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
+- [x] `mon.c` vamp_stone — coverage PARTIAL (C 64 L `mon.c:3766–3830` / JS 32 L in js/mhitm.js; hops 4, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn vamp_stone` (reach regression must be 0). Measured `port-coverage.mjs --name vamp_stone` 2026-09-20 @ 79669e02. **Addressed:** D-2611
+
+
 - [x] `insight.c` weapon_insight primary two-weapon compare drops C's leading space **Addressed:** D-2610 — C `insight.c:1355–1369` builds sfx `" limited by ..."` but `js/invent.js:5391–5401` builds `` `limited by ...` `` (two literals), printing `islimited/waslimited by` on both enlightenment builders whenever the primary compare arm is taken (overlay regressed: the deleted inline code had the space). Fix: restore the leading space in both primary sfx literals (secondary arms + enhance esfx already have theirs). Verify `node scripts/verify.mjs --fn weapon_insight` + a two-weapon enlightenment text probe. Fortress breach at this SHA: full `sessions` 43/44, `seed0107-samurai-twoweapon-enhance` screens 97/98 with RNG 2902/2902 (expected `is limited`, JS prints `islimited`; parent dba7a580 was 44/44). Source: reviews/loop-unattended/1568-28b6f89f-weapon-insight.md.
 
 

@@ -47,7 +47,7 @@ judge 18:47Z cached, unchanged 11/44 5,776 pts vs last audit): the corpus still 
 not predict the judge.
 **Corpus fortress** (re-scored 2026-09-20 audit 1560–1568): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — **+0 / −0**
-in the D-2601…D-2610 window (8 coverage-only ACCEPTs + 1 QUALITY-RISK;
+in the D-2601…D-2611 window (8 coverage-only ACCEPTs + 1 QUALITY-RISK;
 every per-SHA `--reach-all` re-run here ends REACH-OK with no REGRESSED
 corpus session; the one public move is seed0107, caught by the audit).
 Reviews 1225–1568: 304 ACCEPT, 13 WITH-DEBT, 1 DEBT, 21 QUALITY-RISK (1503, 1517, 1520 stamped; 1533 + 1536 Must-fix rows shipped as D-2583/D-2584 with `**Addressed:**` hashes filled; new Must-fix: review 1568 weapon_insight spacing).
@@ -103,10 +103,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** Must-fix `insight.c` weapon_insight primary two-weapon compare spacing (review 1568 — C `insight.c:1355–1369` sfx leading space dropped in `js/invent.js:5391–5401`, prints `islimited/waslimited by`). One-iter fix + `verify.mjs --fn weapon_insight` + two-weapon text probe.
+**Next cluster:** `mon.c` vamp_stone — coverage PARTIAL (C 64 L `mon.c:3766–3830` / JS 32 L in js/mhitm.js; hops 4, callers 2, RNG 0, msg 0). Port the whole C body in C order. Verify `node scripts/verify.mjs --fn vamp_stone` (reach regression must be 0).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2610 (index).**
+**Keep D-0845…D-2611 (index).**
 <!-- recent:begin -->
+**D-2611** `nethack-c/upstream/src/mon.c:3766–3830` (is_vampshifter gate `:3769`, cham snapshot `:377 — restarted the export in C order with per-arm `:line` cites — buf built before transformation (`x_monnam` ARTICLE_NONE + SUPPRESS_SADDLE|SUPPRESS_HALLUCINATION|SUPPRESS_INVISIBLE|SUPPRESS_IT, amorphous "coalesces on the" 
 **D-2610** `nethack-c/upstream/src/insight.c:1355–1369` — restored the leading space in both primary `sfx` literals (`js/invent.js:5393,5398`).
 **D-2609** `nethack-c/upstream/src/insight.c:1270–1465` (wield line `:1277–1310` incl. `weapon_descr  — new exported `weapon_insight(final, opts)` in `js/invent.js` in C order with per-arm `:line` cites — `eos()` appends as concat, `Sprintf/Strcpy` as string ops, `enl_msg/you_are/you_have` (`:105–108`) over shared `enlght_
 **D-2608** `nethack-c/upstream/src/display.c:3511–3787` (`wall_angle`: seenv entry `:3514`, `only` ma — restarted the block in C order with per-arm `:line` cites — `t_warn` (`:3079`) ported live with the exact C typ→name switch; its `impossible` report stays a `// C:` cite because `impossible()` is async in JS (`:7992`) an
@@ -114,11 +115,10 @@ revisits the picker.
 **D-2606** `nethack-c/upstream/src/bones.c:50–193`. Save arm in C order: known-strip `:103–112` (`oc_ — restarted the save arm in C order with `:line` cites.
 **D-2605** `nethack-c/upstream/src/eat.c:3579–3731`. Audited arm-by-arm against the brief: `getobj_el — in C order per loop — `:3688–3691` cockatrice arm (`otyp==CORPSE && will_feel_cockatrice(otmp,FALSE)` → `await feel_cockatrice` + return null, before any question so blind bare-handed probing stays fatal); `:3696–3702` q
 **D-2604** `nethack-c/upstream/src/mondata.c:305–398`; callees `resists_blnd` `:247–272` + `resists_b — restarted `can_blnd` in C order with `:line` cites — `:316–317` haseyes, `:320–321` perma-blind, `:327–328` raven-vs-raven (`mons(PM_RAVEN)` identity, gulpmu precedent), `:337–339` light arm (`magr.mcan` + canonical `!re
-**D-2603** `nethack-c/upstream/src/rumors.c:640–693`; sole C caller `:755` (`doconsult` — restarted `init_oracles` + `outoracle` in C order with `:line` cites — `:649–650` early return, `:652` embed-open check with the `:689–692` open-failed arm live (`couldnt_open_file(ORACLEFILE)` + `oracle_flg = -1`; unrea
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2610; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2611; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
