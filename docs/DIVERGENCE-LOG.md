@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2654 — `mkobj.c` check_contained whole-body port (live `js/mkobj.js` export)
+
+- **Status:** fixed (Open — coverage row ``mkobj.c`` check_contained MISSING (C 42 L ``mkobj.c:3374–3416`` / JS no symbol; hops 4, callers 2, RNG 0, msg 0). Measured ``port-coverage.mjs --name check_contained`` 2026-09-20 @ c2b834cd.)
+- **Symptom:** coverage row — no same-named JS symbol; container sanity recursion had no port (review 1479 ACCEPT named its callers as unported with a wire-up-on-ship rule).
+- **C locus:** ``nethack-c/upstream/src/mkobj.c:3374–3416`` (check_contained; staticfn decl ``:26``) + callers ``objlist_sanity :3051`` / ``mon_obj_sanity :3226`` + callees obj.h:334 (Has_contents), hacklib.c:287 (copynchars), ``insane_object :3314`` / ``check_glob :3420`` (same file). Decisive C facts: ``:3380`` early return when no cobj; ``:3384–3386`` "contained " prefix via mesgbuf[40] only when mesg lacks "contained"; ``:3390`` direct-cycle panic; ``:3392`` wrong-where → insane_object(ofmt0-equivalent literal, null mon); ``:3394–3398`` wrong-owner → impossible with three fmt_ptr identities; ``:3399`` globby → check_glob; ``:3404`` holds-parent panic; ``:3408–3410`` Strcpy "nested " + copynchars (≤112 chars, newline-stop, always terminated; eos = append point); ``:3413`` self-recursion.
+- **JS was:** no symbol (brief: NOT FOUND; review 1479 §Callee-closure listed check_contained among the 7 unwired callers of insane_object).
+- **Fix:** exported ``async check_contained`` in C order with per-arm ``:line`` cites — ``Has_contents`` joins the const.js import (same-module edge, live const.js:3191); ``strstri``/``impossible`` already imported; ``OFMT0_SANITY``/``fmt_ptr``/``insane_object`` same-file; file-local ``check_glob`` awaited (hoisted declaration, no new edge); panics → loud throws (dealloc_obj precedent); mesgbuf/nestedmesg as plain strings with the 112-char newline-stop inline (no second copynchars clone — topten.js:44 stays the only one); async only because the three report callees can reach --More--.
+- **JS:** ``check_contained`` js/mkobj.js:1640.
+- **Callers:** C ``objlist_sanity :3051`` / ``mon_obj_sanity :3226`` both unported (review-1479 wire-up-on-ship rule — they wire when they ship); self-recursion ``:3413`` awaited in-body. No new JS caller added (no live caller exists yet).
+- **Verify:** ``node scripts/verify.mjs --fn check_contained`` → syntax 1 file · rule2 · hidden note (0 blocked, coverage row) · REACH smoke 24/24 REACH-OK · green 2/2 · strict ×2 · cohort 7/7 → VERIFY: PASS. Probe /tmp/probe-check-contained.mjs: empty early-return, both cycle throws with C messages, well-formed silent, nested recursion silent; /tmp/probe-cc-report.mjs: wrong-where (insane_object) + wrong-owner (impossible) arms run headless with no crash.
+- **Named omissions:** ``objlist_sanity`` (mkobj.c:3032) + ``mon_obj_sanity`` (mkobj.c:3204) caller wiring (unported, own rows); ``copynchars`` export (inline port of the one call site; topten clone untouched); ``panic`` (no JS abort — loud throw); ``eos``/``Strcpy`` (string ops, no helper).
+- **Next:** objlist_sanity / mon_obj_sanity rows (each wires one check_contained call site on ship).
+
 ## D-2653 — `date.c` populate_nomakedefs whole-body port (new C-home `js/date.js`) + `mdlib.c:842` caller wired
 
 - **Status:** fixed (Open — coverage row ``date.c`` populate_nomakedefs MISSING (C 79 L ``date.c:52–131`` / JS no symbol; hops —, callers 2, RNG 0, msg 0; dead callees: case_insensitive_comp, bannerc_string). Measured ``port-coverage.mjs --name populate_nomakedefs`` 2026-09-20 @ c2b834cd.)
