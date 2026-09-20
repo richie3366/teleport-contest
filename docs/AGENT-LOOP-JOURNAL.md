@@ -7,6 +7,13 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-20 — D-2675 `wield.c` doswapweapon whole-body port (cantwield arm + live prinv/You)
+
+**C locus:** 
+**JS:** 
+**Change:** 
+**Verify:** 
+**Next:** (see LOOP-QUEUE)
 ## 2026-09-20 — D-2674 `invent.c` dfeature_at whole-body port (throne/lava/ice/pool/drawbridge/altar arms; invented STAIRS arm removed)
 
 **C locus:** 

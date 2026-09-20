@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2675 — `wield.c` doswapweapon whole-body port (cantwield arm + live prinv/You)
+
+- Status: ACCEPT — breadth-phase coverage row (PARTIAL C 40 L `wield.c:461–501` / JS 29 L in js/wield.js; hops —, callers 2, RNG 0, msg 2; no corpus session blocked).
+- Symptom: coverage PARTIAL — the JS body carried every C arm except three C facts: the `:466–469` cantwield guard (comment-deferred "set_uasmon"), so a nohands/verysmall form pressing `x` fell through to the swap instead of `pline("Don't be ridiculous!")` + ECMD_FAIL; the `:490` secondary message used inline `pline(xprname(obj, undefined, true))` instead of C's `prinv(NULL, uswapwep, 0L)`; the `:492` empty-secondary message used hardcoded `pline('You have no …')` instead of C's `You("have no secondary weapon readied.")`.
+- C locus: `nethack-c/upstream/src/wield.c:461–501` (multi=0 `:464`; cantwield `:466–469`; welded→weldmsg `:470–473`; stash `:476–478`; ready_weapon(oldswap) `:481`; uwep==oldwep restore `:484–486` vs setuswapwep(oldwep)+prinv/You `:487–492`; twoweap tail `:494–495`) + callers `wield.c:408` (dowield wep==uswapwep) / `:733` (wield_tool uswapwep==obj).
+- JS was: `js/wield.js:391` 29 L — C order except the missing cantwield arm; inline xprname/pline messages.
+- Fix: restarted the export in C order with per-arm `:line` cites — cantwield guard via the same-file local `:171` (`nohands||verysmall`, null-safe) + `game.youmonst?.data` (wield_tool `:245` precedent); guard arms `return 0` (C ECMD_FAIL=0x04 carries no ECMD_TIME bit — a truthy 4 would wrongly cost a turn at the `swapRes ? 1 : 0` cmd dispatch); secondary message via live `prinv(null, obj, 0)` from invent.js (output-identical: null prefix + quan 0 → bare xprname+invlet, C `invent.c:2875–2890` shape); empty-secondary via live `You` from display.js; both join existing import edges (no new module edge).
+- JS: js/wield.js (+26/−12: 2 import names, restarted body); docs/c-js-map/turns.md (doswapweapon cantwield/message deferrals retired → D-2675).
+- Callers: C wield.c:408 → JS js/wield.js:680 `return await doswapweapon()` (dowield wep==uswapwep arm, unchanged); C wield.c:733 → JS js/wield.js:257 `(void)` + `uswapwep==obj → FALSE` (wield_tool, unchanged). Key `x` (cmd.js:3036/3602), IA_SWAPWEAPON (iactions.js:257), dothrow auto-swap ×3, getline run — dispatch sites, unchanged, none invented (reviews 1359/1361).
+- Verify: `node scripts/verify.mjs --fn doswapweapon` → PASS syntax (1 file) · PASS rule2 · note hidden (0 blocked at baseline — normal for a coverage row) · PASS reach (no RNG-tagged reach; smoke 24 run: 24 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 → VERIFY: PASS.
+- Named omissions: none — every arm, callee, and caller is live. `ready_weapon` stays the same-file local (`:444`, single C function — no clone #2); the `cantwield` locals in eat.js/polyself.js/uhitm.js are pre-existing drift, untouched.
+- Next: next Open — coverage row (`lock.c` chest_shatter_msg) unless refilled.
+
 ## D-2674 — `invent.c` dfeature_at whole-body port (throne/lava/ice/pool/drawbridge/altar arms; invented STAIRS arm removed)
 
 - Status: ACCEPT — breadth-phase coverage row (PARTIAL C 62 L `invent.c:4037–4099` / JS 45 L in js/invent.js; hops 3, callers 2, RNG 0, msg 0; no corpus session blocked).

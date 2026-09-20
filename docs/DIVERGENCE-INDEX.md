@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-2675 | fixed |  — `wield.c` doswapweapon whole-body port (cantwield arm + live prinv/You) |  |
 | D-2674 | fixed |  — `invent.c` dfeature_at whole-body port (throne/lava/ice/pool/drawbridge/altar arms; invented STAIRS arm rem |  |
 | D-2673 | fixed |  — `uhitm.c` find_roll_to_hit role/race arms (monk spelarmr/bare-hand + orc-vs-elf; mtele_trap STALE-parked sa |  |
 | D-2672 | fixed |  — `role.c` role_selection_prolog whole-body port (five-line prolog as line array; windowport-only callers) |  |
