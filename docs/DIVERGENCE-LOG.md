@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2703 — `invent.c` reroll_menu whole C body + allmain reroll loop
+
+- Status: SHIPPED (breadth phase). Popped head Open — coverage row `count_feat_lastseentyp` → STALE (whole C body live `js/dungeon.js:1467`, caller wired), then `spellretention` → STALE (`js/spell.js:1277`), `set_crosswall` → STALE (`js/mklev.js:30494`), `more_than_one` → STALE (C 5-arg macro, `js/mklev.js:30459`); all 4 parked with 0 blocked. Refilled `--rows 600` @2dfc3677 (6 fresh: reroll_menu/add_skills_to_menu/query_annotation/there_cmd_menu_common/skills_for_role/create_drawbridge) and shipped the head. No Must-fix live, no review cited, no corpus session blocked (RNG 0, msg 0).
+- Symptom: coverage MISSING — no `reroll_menu` symbol in `js/` vs C 64 L `invent.c:2552–2616`; the `allmain.c:820` reroll loop was also absent from `js/allmain.js` newgame (reroll-option characters could never reroll).
+- C locus: `invent.c:2552–2616` `reroll_menu(void)` — NHW_MENU PICK_ONE: start/reroll rows (a_char n/y, accelerators p/r unless `flags.lootabc`), blank separator, `gi.invent` walk (`obj_to_glyph(otmp, rn2_on_display_rng)` + `map_glyphinfo` + `doname`, under `++gd.distantname`/`++iflags.override_ID`), blank, `St:%s Dx:%-1d ...` stat line, `end_menu` "Reroll this character?", `select_menu` PICK_ONE → `option = pick_list[0].item.a_char`, else `y_n` fallback; `'y'` → `++u.uroleplay.numrerolls`, TRUE. Sole caller `allmain.c:820` `while (u.uroleplay.reroll && reroll_menu()) { u_init_inventory_attrs(); bot(); }`.
+- JS was: nothing — no symbol, no loop.
+- Fix: new exported `reroll_menu` in `js/invent.js` in C order — entries via `select_menu_pick_one` (prompt as ATR_INVERSE heading row, identify-menu precedent; lootabc-gated p/r selectors per do_name `acc = lootabc ? 0 : a_char`; fillers selectable with a_char 0 since C tty letters every added item and such a pick returns FALSE; `game.distantname`/`game.iflags.override_ID` guard with symmetric restore; `obj_glyph` display-RNG burn; stat line mirrors the `do_statusline1` expression; cancel → `await y_n(...)`; `numrerolls` bump). Tile `map_glyphinfo` slot + create/destroy_nhwindow lifecycle named (owned by menu helper, dospellmenu/doextlist precedent). Wired the caller: newgame reroll loop between `bot()` and `u_init_skills_discoveries`. Imports added on ALREADY edges (getline `y_n`, options `select_menu_pick_one`, invent in allmain).
+- JS: `js/invent.js` `reroll_menu` export (~75 L); `js/allmain.js` 5-line loop + 1-name import extension.
+- Callers: C `allmain.c:820` → JS `js/allmain.js` newgame (only C caller; only JS site).
+- Verify: `node scripts/verify.mjs --fn reroll_menu` → PASS (syntax 2 files; rule2; hidden: none blocked; reach: no RNG reach, smoke 24/24 REACH-OK; green 2/2; strict both; cohort 7/7; full 44/44 auto — shared files changed).
+- Named omissions: map_glyphinfo tile slot (no tty consumer); explicit create/destroy_nhwindow (menu-helper lifecycle); none behavioral.
+- Next: next Open — coverage row (`weapon.c` add_skills_to_menu).
+
 ## D-2702 — `cmd.c` key2extcmddesc whole C body + live movecmd
 
 - Status: SHIPPED (breadth phase). Popped the first Open — coverage row; no Must-fix live, row cites no review, no corpus session blocked (RNG 0, msg 0).

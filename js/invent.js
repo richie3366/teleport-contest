@@ -56,7 +56,7 @@ import {
     docorner, dxdy_to_dist_descr,
 } from './display.js';
 import { xprname, an, the, just_an, vtense, doname, distant_name, Japanese_item_name, xname, cxname_singular, set_xname_observe, set_distant_cansee, ansimpleoname, simpleonames, set_not_fully_identified, makeplural, makesingular, body_part_latebound, corpse_xname, killer_xname } from './objnam.js';
-import { yn_function, getlin, mungspaces } from './getline.js';
+import { yn_function, y_n, getlin, mungspaces } from './getline.js';
 import { get_count, pmatchi, cmdq_pop, cmdq_clear } from './cmd.js';
 import { mergable, merged, is_damageable, stop_timer, splitobj, unsplitobj, clear_splitobjs, unknwn_contnr_contents, weight, delobj, curse } from './mkobj.js';
 import { unpaid_cost, doinvbill, gem_learned, obfree, shopper_financial_report, costly_spot } from './shk.js';
@@ -248,7 +248,7 @@ import {
 } from './attrib.js';
 import { depth, ing_suffix, strstri, ordin, highc, lcase } from './hacklib.js';
 import { visctrl } from './dokeylist.js';
-import { select_menu_pick_any, hide_unhide_msgtypes } from './options.js';
+import { select_menu_pick_any, select_menu_pick_one, hide_unhide_msgtypes } from './options.js';
 import { rn2 } from './rng.js';
 import { newuexp } from './exper.js';
 import {
@@ -2937,6 +2937,89 @@ export async function dismiss_nhw_menu(opts = null) {
     // docorner no-ops while gb.bot_disabled, so leftover WIN_STATUS stays.
     const maxrow = (g.maxrow > 0 ? g.maxrow : (g.endRow | 0) + 1);
     await docorner(g.offx | 0, maxrow + 1, 0);
+}
+
+/**
+ * C ref: invent.c reroll_menu `:2552–2616` — "Reroll this character?"
+ * PICK_ONE over the fresh character: start/reroll rows (fixed 'p'/'r'
+ * accelerators unless flags.lootabc, when tty auto-assigns — do_name
+ * `acc = lootabc ? 0 : a_char` precedent), then the starting inventory
+ * (doname lines) and the St/Dx/Co/In/Wi/Ch stat line. gd.distantname +
+ * iflags.override_ID guard the invent walk so menu names stay out of
+ * discoveries and fully identified. obj_to_glyph burns display RNG even
+ * on tty menus (obj_glyph); map_glyphinfo's tile slot has no tty consumer
+ * (dospellmenu precedent: text-only entries). The end_menu prompt is the
+ * ATR_INVERSE heading row (identify-menu precedent). Window lifecycle is
+ * owned by select_menu_pick_one (doextlist precedent: no explicit
+ * create/destroy_nhwindow). Returns true (and bumps uroleplay.numrerolls)
+ * iff the 'y' row is picked.
+ */
+export async function reroll_menu() {
+    // C `:2558–2576`: start/reroll rows + blank separator. Fillers below
+    // stay selectable with a_char 0: C tty letters every added item and a
+    // pick there returns a_char 0 → FALSE, same outcome.
+    const lootabc = !!(game.flags && game.flags.lootabc);
+    const entries = [
+        { text: 'Reroll this character?', attr: ATR_INVERSE },
+        {
+            text: 'start the game with this character',
+            attr: 0,
+            selectable: true,
+            selector: lootabc ? undefined : 'p',
+            a_char: 'n',
+        },
+        {
+            text: 'reroll another character',
+            attr: 0,
+            selectable: true,
+            selector: lootabc ? undefined : 'r',
+            a_char: 'y',
+        },
+        { text: '', attr: 0, selectable: true, a_char: 0 },
+    ];
+    // C `:2578–2589`: keep menu names out of discoveries + identified.
+    game.distantname = (game.distantname | 0) + 1;
+    game.iflags = game.iflags || {};
+    game.iflags.override_ID = (game.iflags.override_ID | 0) + 1;
+    try {
+        for (const otmp of game.invent || []) {
+            // C: obj_to_glyph(otmp, rn2_on_display_rng) then doname(otmp).
+            obj_glyph(otmp);
+            entries.push({
+                text: doname(otmp),
+                attr: 0,
+                selectable: true,
+                a_char: 0,
+            });
+        }
+    } finally {
+        game.iflags.override_ID = (game.iflags.override_ID | 0) - 1;
+        game.distantname = (game.distantname | 0) - 1;
+    }
+    entries.push({ text: '', attr: 0, selectable: true, a_char: 0 });
+    // C `:2592–2597`: "St:%s Dx:%-1d ..." (%-1d ≡ the bare number).
+    entries.push({
+        text: `St:${get_strength_str()} Dx:${acurr(A_DEX)} Co:${acurr(A_CON)} In:${acurr(A_INT)} Wi:${acurr(A_WIS)} Ch:${acurr(A_CHA)}`,
+        attr: 0,
+        selectable: true,
+        a_char: 0,
+    });
+    // C `:2599–2610`: PICK_ONE; menu closed without a pick → y_n fallback.
+    const picked = await select_menu_pick_one(entries);
+    let option;
+    if (picked.kind === 'pick') {
+        option = picked.item?.a_char ?? 0;
+    } else {
+        option = await y_n('Reroll this character?');
+    }
+    // C `:2612–2616`: ++u.uroleplay.numrerolls on 'y'.
+    if (option === 'y') {
+        const rp = (game.u && game.u.uroleplay) || {};
+        rp.numrerolls = (rp.numrerolls | 0) + 1;
+        if (game.u) game.u.uroleplay = rp;
+        return true;
+    }
+    return false;
 }
 
 /**

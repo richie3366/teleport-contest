@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-2703 | fixed |  — `invent.c` reroll_menu whole C body + allmain reroll loop |  |
 | D-2702 | fixed |  — `cmd.c` key2extcmddesc whole C body + live movecmd |  |
 | D-2701 | fixed |  — `sp_lev.c` set_wallprop_in_selection whole C body |  |
 | D-2700 | fixed |  — `mondata.c` mstrength whole C body |  |
