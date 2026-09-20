@@ -46,7 +46,7 @@ screens 93.2 %. Held-out 11/44, unchanged vs last audit (5,972 pts, RNG
 predict the judge.
 **Corpus fortress** (re-scored 2026-09-20 audit 1613–1619): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — **+0 / −0**
-in the D-2654…D-2661 window (6 ACCEPTs + 1 QUALITY-RISK;
+in the D-2654…D-2662 window (6 ACCEPTs + 1 QUALITY-RISK;
 every per-SHA `--reach-all` re-run here ends REACH-OK with no REGRESSED).
 Reviews 1225–1619: 351 ACCEPT, 15 WITH-DEBT, 1 DEBT, 23 QUALITY-RISK (1503, 1517, 1520 stamped; Must-fix 1533/1536 → D-2583/D-2584, 1568 → D-2610, 1592 → D-2636 `271ceca1`, 1617 → magic_negation floor Must-fix (queued, unaddressed); hashes filled).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`) — review-debt, unqueued (detail in the review files).
@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `mklev.c` join — coverage PARTIAL (C 79 L `mklev.c:439–518` / JS 46 L in js/mklev.js; hops 2, callers 4, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn join` (reach regression must be 0). Measured `port-coverage.mjs --name join` 2026-09-20 @ 4559dcf9.
+**Next cluster:** `spell.c` propagate_chain_lightning — coverage PARTIAL (C 46 L `spell.c:952–1000` / JS 33 L in js/spell.js; hops 6, callers 4, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn propagate_chain_lightning` (reach regression must be 0). Measured `port-coverage.mjs --name propagate_chain_lightning` 2026-09-20 @ 4559dcf9. (popped 2026-09-20 after `mklev.c` join parked STALE — body already complete js/mklev.js:28662; in progress)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2661 (index).**
+**Keep D-0845…D-2662 (index).**
 <!-- recent:begin -->
+**D-2662** ``nethack-c/upstream/src/spell.c:951–1000`` (propagate_chain_lightning) + callees ``m_at`` — restarted the function in C order with per-arm ``:line`` cites — ``defended`` joins the existing import set via new ``import { defended } from './mondata.js'`` (``imports.mjs --can`` SAFE: hoisted fn, same 98-module SCC,
 **D-2661** ``nethack-c/upstream/src/mhitu.c:1089–1137`` (magic_negation), decisive arm ``:1126–1134`` — single C-order `if` with per-arm ``:line`` cites — ``const form = is_you ? (mon?.data ?? game.youmonst?.data) : mon.data`` (null is the JS hero-defender idiom; ``monsndx``/``is_minion`` are both null-safe, mondata.js:129
 **D-2660** ``nethack-c/upstream/src/mon.c:1726–1774`` (mon_give_prop) + callees ``res_to_mr`` (prop.h — restarted the export in C order with per-arm ``:line`` cites — ``msg`` stays a ``'%s …'`` format string per arm; live ``res_to_mr`` (exported from worn.js — ``imports.mjs --can`` ALREADY, mon.js already statically import
 **D-2659** ``nethack-c/upstream/src/dogmove.c:156–214`` (dog_nutrition) + callee ``eat.c:3788`` (eate — restarted the export in C order with per-arm ``:line`` cites — single if/else-if/else with one tail return; corpse reads the ``mons[]`` table direct (helpers ``mons_cwt``/``mons_cnutrit`` kept with their JS-only fallback
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2657** ``nethack-c/upstream/src/uhitm.c:3729–3774`` — hoisted negated above hitmsg in C order with ``|| !!mtmp.mspec_used``; ``You("aren't transformed.")`` via same-module display.js import (output-identical); per-arm ``:line`` cites on both bodies.
 **D-2656** ``nethack-c/upstream/src/dothrow.c:1852–1909`` (return_throw_to_inv, staticfn) + callers ` — ported the missing arm in C order with per-arm ``:line`` cites — ``otmp = null`` ``:1862``; parent/child oid gate on live ``game.context.objsplit`` (``mkobj.js:431`` writer, ``:463`` ctx); where-gate relink (C chain-prep
 **D-2655** ``nethack-c/upstream/src/mondata.c:771–871`` (same_race) + caller ``dog.c:1080–1083`` (dog — restarted the export in C order with per-arm ``:line`` cites — letters ``:773`` up front (null guard stays first, JS-only, C takes NONNULLARG12); exact ``:775–776`` (``pm1 === pm2`` + mndx equality for fresh mons() wrapp
-**D-2654** ``nethack-c/upstream/src/mkobj.c:3374–3416`` (check_contained; staticfn decl ``:26``) + ca — exported ``async check_contained`` in C order with per-arm ``:line`` cites — ``Has_contents`` joins the const.js import (same-module edge, live const.js:3191); ``strstri``/``impossible`` already imported; ``OFMT0_SANITY`
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2661; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2662; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

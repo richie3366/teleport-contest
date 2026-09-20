@@ -98,6 +98,6 @@ Diff grep: 0 hits for FORCE/DIAG/getRngLog/fastforward.
    evaluate `monsndx(data) === PM_ALIGNED_CLERIC ||
    is_minion(data)` on the hero's form when `is_you`
    (null → `game.youmonst.data`), per C `:1130–1134`.
-   **Addressed:** D-2661
+   **Addressed:** D-2661 `d19d4373`
 
 Verdict: **QUALITY-RISK**

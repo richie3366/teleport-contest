@@ -3063,9 +3063,11 @@ blocked cornuthaum hat; allmain seer_turn still named)**;
 callee `potion.c` `healup` `make_vomiting`+`make_sick(SICK_ALL)` + `make_slimed`)**; 
 **SPE_CURE_BLINDNESS `healup(0,0,FALSE,TRUE)` (D-1399; C `:1549–1551`; 
 callee `potion.c` cream + `make_blinded` + `make_deaf`)**; 
-**SPE_CHAIN_LIGHTNING `cast_chain_lightning` (D-1400; C `:1588–1590` / `:1002–1100`; 
+**SPE_CHAIN_LIGHTNING `cast_chain_lightning` (D-1400; C `:1588–1590` / `:1002–1100`;
 callee `zap.c` `zhitm` `BZ_U_SPELL(AD_ELEC-1)` nd=2 (LIGHTNING bonus live D-2127); peaceful skip; swallow TODO;
-`defended` / zhitm MM/FIRE/COLD `spell_damage_bonus` still named)**; **SPE_CREATE_MONSTER `seffects` (D-1401; 
+`propagate_chain_lightning` `:951–1000` C-order restart (D-2662; live `defended` wired `:975`,
+callers `:1023`/`:1082`/`:1089`/`:1092` wired; zhitm MM/FIRE/COLD `spell_damage_bonus` +
+zhitm defended/shieldeff still named))**; **SPE_CREATE_MONSTER `seffects` (D-1401; 
 C `:1528–1531`; no skilled bless; callee `read.c` `seffect_create_monster` `:1608–1624` → 
 `create_critters`)**; **SPE_MAGIC_MAPPING `seffects` (D-1407; same C `:1528–1531`; 
 callee `read.c` `seffect_magic_mapping` `:2102–2153`; nommap `make_confused` + `notice_mon_off/on`; 

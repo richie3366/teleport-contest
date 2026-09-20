@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2662 — `spell.c` propagate_chain_lightning whole-body restart (live defended + join STALE park)
+
+- **Status:** fixed (Open — coverage row ``spell.c`` propagate_chain_lightning PARTIAL (C 46 L ``spell.c:952–1000`` / JS 33 L in js/spell.js; hops 6, callers 4, RNG 0, msg 0). Measured ``port-coverage.mjs --name propagate_chain_lightning`` 2026-09-20 @ 4559dcf9. Popped after the queue head ``mklev.c`` join parked STALE in the same iteration — whole C body ``:439–518`` already complete same-name js/mklev.js:28662, 0 blocked.)
+- **Symptom:** coverage PARTIAL — the JS body carried every arm in C order except ``!defended(mon, AD_ELEC)`` in the ``:975`` strength arm (commented out as a named omit, D-1400/review 360, when ``defended`` was not live); a shock-resistant-via-artifact monster wrongly regained strength 3 and chained further. No per-arm C cites.
+- **C locus:** ``nethack-c/upstream/src/spell.c:951–1000`` (propagate_chain_lightning) + callees ``m_at`` (live js/mon.js) / ``resists_elec`` (live js/zap.js) / ``defended`` (live js/mondata.js:140) / ``CHAIN_LIGHTNING_POS`` (live local js/spell.js:1981) / ``zapdir_to_glyph`` + ``tmp_at`` (live js/display.js) + callers ``spell.c:1023`` (8-dir seed) / ``:1082`` (forward) / ``:1089`` (DIR_LEFT) / ``:1092`` (DIR_RIGHT2). Decisive C facts: step mutates the by-value copy ``:958–959``; ``!defended`` joins ``!resists_elec`` with short-circuit ``:975``; a resisted hit still enqueues (shield effect shows in zhitm) but with strength 0 ``:977–978``.
+- **JS was:** ``propagate_chain_lightning`` js/spell.js:1994 (33 L) — ``if (mon && !resists_elec(mon) /* && !defended(mon, AD_ELEC) */)`` with the defended disjunct commented out.
+- **Fix:** restarted the function in C order with per-arm ``:line`` cites — ``defended`` joins the existing import set via new ``import { defended } from './mondata.js'`` (``imports.mjs --can`` SAFE: hoisted fn, same 98-module SCC, no top-level TDZ read); ``:975`` arm is now ``if (mon && !resists_elec(mon) && !defended(mon, AD_ELEC))`` with C short-circuit order; ``else if (mon) strength = 0`` restored to unbraced C shape. Local (C staticfn) name/signature kept.
+- **JS:** ``propagate_chain_lightning`` js/spell.js:1995 (restart, +~20/-~15 with cites); import js/spell.js:163 (+1 line).
+- **Callers:** C ``spell.c:1023`` → wired js/spell.js:2054 ``cast_chain_lightning`` 8-dir loop (pre-existing, strength 2); C ``:1082`` → wired js/spell.js:2104 forward propagate (pre-existing); C ``:1089`` → wired js/spell.js:2112 DIR_LEFT (pre-existing); C ``:1092`` → wired js/spell.js:2115 DIR_RIGHT2 (pre-existing). None missed (reviews 1359/1361).
+- **Verify:** ``node scripts/verify.mjs --fn propagate_chain_lightning`` → VERIFY: PASS — syntax 1 file (js/spell.js), Rule #2, hidden note (no corpus session blocked — normal for a coverage row), REACH-OK (no RNG-tagged reach; smoke 24/24, 0 regressed), green 2/2 + strict ×2, cohort 7/7. Tail pasted per rule.
+- **Named omissions:** none new — every callee live; zhitm's own defended/shieldeff/``spell_damage_bonus`` omits stay named on their row (D-1400/review 360); ``| 0`` int casts + ``loc?.`` guards are the JS data-model idiom (C takes non-null).
+- **Next:** pop the next Open — coverage row.
+
 ## D-2661 — `mhitu.c` magic_negation intrinsic floor hero-polyform disjunct (review 1617 Must-fix)
 
 - **Status:** fixed (Must-fix from review 1617 — Keep'd C-wrong on the D-2658 whole-body port: JS narrowed the C `:1130–1134` single `if`, dropping the hero-polyform disjunct.)

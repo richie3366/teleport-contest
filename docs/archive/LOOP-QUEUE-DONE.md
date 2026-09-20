@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
+- [x] `spell.c` propagate_chain_lightning — coverage PARTIAL (C 46 L `spell.c:952–1000` / JS 33 L in js/spell.js; hops 6, callers 4, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn propagate_chain_lightning` (reach regression must be 0). Measured `port-coverage.mjs --name propagate_chain_lightning` 2026-09-20 @ 4559dcf9.
+
+
 - [x] `mhitu.c` magic_negation intrinsic floor drops the hero-polyform disjunct — C `:1130–1134` applies `mon->data == &mons[PM_ALIGNED_CLERIC] || is_minion(mon->data)` to the hero too (mon == &youmonst, data == polyform); JS `if (is_you) {HProtection-only} else if (aligned||minion)` gives mc 0 where C gives 1 for a hero poly'd into couatl/Aleax (M2_MINION, polyok). Fix: evaluate the aligned/minion disjunct on the hero's form when is_you. Verify `node scripts/verify.mjs --fn magic_negation` (reach regression must be 0). Source: reviews/loop-unattended/1617-2a8be1e7-magic-negation.md.
 
 

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-20 — D-2662 `spell.c` propagate_chain_lightning whole-body restart (live defended + join STALE park)
+
+**C locus:** ``nethack-c/upstream/src/spell.c:951–1000`` (propagate_chain_lightning) + callees ``m_at`` (live js/mon.js) / ``resists_elec`` (live js/zap.js) / ``defended`` (live js/mondata.js:140) / ``CHAIN_LIGHTNING_POS`` (live local js/spell.js:1981) / ``zapdir_to_glyph`` + ``tmp_at`` (live js/display.js) + callers ``spell.c:1023`` (8-dir seed) / ``:1082`` (forward) / ``:1089`` (DIR_LEFT) / ``:1092`` (DIR_RIGHT2). Decisive C facts: step mutates the by-value copy ``:958–959``; ``!defended`` joins ``!resists_elec`` with short-circuit ``:975``; a resisted hit still enqueues (shield effect shows in zhitm) but with strength 0 ``:977–978``.
+**JS:** ``propagate_chain_lightning`` js/spell.js:1995 (restart, +~20/-~15 with cites); import js/spell.js:163 (+1 line).
+**Change:** restarted the function in C order with per-arm ``:line`` cites — ``defended`` joins the existing import set via new ``import { defended } from './mondata.js'`` (``imports.mjs --can`` SAFE: hoisted fn, same 98-module SCC, no top-level TDZ read); ``:975`` arm is now ``if (mon && !resists_elec(mon) && !defended(mon, AD_ELEC))`` with C short-circuit order; ``else if (mon) strength = 0`` restored to unbraced C shape. Local (C staticfn) name/signature kept.
+**Verify:** ``node scripts/verify.mjs --fn propagate_chain_lightning`` → VERIFY: PASS — syntax 1 file (js/spell.js), Rule #2, hidden note (no corpus session blocked — normal for a coverage row), REACH-OK (no RNG-tagged reach; smoke 24/24, 0 regressed), green 2/2 + strict ×2, cohort 7/7. Tail pasted per rule.
+**Named:** none new — every callee live; zhitm's own defended/shieldeff/``spell_damage_bonus`` omits stay named on their row (D-1400/review 360); ``| 0`` int casts + ``loc?.`` guards are the JS data-model idiom (C takes non-null).
+**Next:** pop the next Open — coverage row.
 ## 2026-09-20 — D-2661 `mhitu.c` magic_negation intrinsic floor hero-polyform disjunct (review 1617 Must-fix)
 
 **C locus:** ``nethack-c/upstream/src/mhitu.c:1089–1137`` (magic_negation), decisive arm ``:1126–1134``: ``else if (mc < 1)`` + one `if` — ``(is_you && ((HProtection && u.ublessed > 0) || u.uspellprot)) || (mon->data == &mons[PM_ALIGNED_CLERIC] || is_minion(mon->data))`` — so the aligned/minion disjunct reads ``mon->data`` even when ``mon == &youmonst`` (the hero's polyform). No RNG either side.
