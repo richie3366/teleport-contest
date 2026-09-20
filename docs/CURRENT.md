@@ -46,7 +46,7 @@ screens 93.2 %. Held-out 11/44, unchanged vs last audit (5,972 pts, RNG
 predict the judge.
 **Corpus fortress** (re-scored 2026-09-20 audit 1613–1619): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — **+0 / −0**
-in the D-2654…D-2665 window (6 ACCEPTs + 1 QUALITY-RISK;
+in the D-2654…D-2666 window (6 ACCEPTs + 1 QUALITY-RISK;
 every per-SHA `--reach-all` re-run here ends REACH-OK with no REGRESSED).
 Reviews 1225–1619: 351 ACCEPT, 15 WITH-DEBT, 1 DEBT, 23 QUALITY-RISK (1503, 1517, 1520 stamped; Must-fix 1533/1536 → D-2583/D-2584, 1568 → D-2610, 1592 → D-2636 `271ceca1`, 1617 → magic_negation floor Must-fix (queued, unaddressed); hashes filled).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`) — review-debt, unqueued (detail in the review files).
@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `selvar.c` selection_floodfill — coverage PARTIAL (C 54 L `selvar.c:395–452` / JS 32 L in js/mklev.js; hops 4, callers 6, RNG 0, msg 0; dead callees: sel_flood_havepoint). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn selection_floodfill` (reach regression must be 0). Measured `port-coverage.mjs --name selection_floodfill` 2026-09-20 @ a505c4ce. (popped 2026-09-20; in progress)
+**Next cluster:** `light.c` write_ls — coverage MISSING (C 68 L `light.c:634–702` / JS no symbol; hops 6, callers 1, RNG 0, msg 0; dead callees: whereis_mon). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn write_ls` (reach regression must be 0). Measured `port-coverage.mjs --name write_ls` 2026-09-20 @ a505c4ce. (popped 2026-09-20; in progress)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2665 (index).**
+**Keep D-0845…D-2666 (index).**
 <!-- recent:begin -->
+**D-2666**  — 
 **D-2665**  — 
 **D-2664**  — 
 **D-2663** ``nethack-c/upstream/src/worn.c:1359–1373`` (racial_exception) + callee ``mondata.c:1359–1 — new live ``raceptr(mtmp)`` export in C-home js/mondata.js with per-arm cites — hero idiom ``=== game.youmonst || _youmonst`` (worn.js:409 / mondata.js:142), ``!Upolyd(game.u)`` (polyself.js:735 precedent), ``mons(urace.m
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2661** ``nethack-c/upstream/src/mhitu.c:1089–1137`` (magic_negation), decisive arm ``:1126–1134`` — single C-order `if` with per-arm ``:line`` cites — ``const form = is_you ? (mon?.data ?? game.youmonst?.data) : mon.data`` (null is the JS hero-defender idiom; ``monsndx``/``is_minion`` are both null-safe, mondata.js:129
 **D-2660** ``nethack-c/upstream/src/mon.c:1726–1774`` (mon_give_prop) + callees ``res_to_mr`` (prop.h — restarted the export in C order with per-arm ``:line`` cites — ``msg`` stays a ``'%s …'`` format string per arm; live ``res_to_mr`` (exported from worn.js — ``imports.mjs --can`` ALREADY, mon.js already statically import
 **D-2659** ``nethack-c/upstream/src/dogmove.c:156–214`` (dog_nutrition) + callee ``eat.c:3788`` (eate — restarted the export in C order with per-arm ``:line`` cites — single if/else-if/else with one tail return; corpse reads the ``mons[]`` table direct (helpers ``mons_cwt``/``mons_cnutrit`` kept with their JS-only fallback
-**D-2658** ``nethack-c/upstream/src/mhitu.c:1089–1137`` (magic_negation) + callee ``artifact.c:697–70 — new exported ``magic_negation(mon)`` (``js/mhitm.js:2412``) in C order with per-arm ``:line`` cites — null (JS hero-defender idiom) or ``game.youmonst`` takes the is_you path, else the mon path with ``monsndx(mon.data) =
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2665; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2666; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

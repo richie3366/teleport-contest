@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-2666 | fixed |  — `light.c` write_ls whole-body port (save pointer→id fixup + chain verification, wired into serLight) |  |
 | D-2665 | fixed |  — `selvar.c` selection_floodfill whole-body restart (generic C predicate replaces two clones) |  |
 | D-2664 | fixed |  — `artifact.c` invoke_create_portal whole-body restart (import hoist + per-arm cites) |  |
 | D-2663 | open | nethack-c/upstream/src/worn.c:1359–1373 — `worn.c` racial_exception race-vs-form fix (dead callee raceptr port | coverage THIN — the JS body carried the hobbit/elven arm but read ``mon.data`` where C ``:1362`` reads ``raceptr(mon)`` (dead callee, mondata.c:1359, nowhere in ``js/``). A non-polymorphed hobbit hero (urace hobbit, role form in mon.data) got 0 where C gives 1 — elven armor wrongly refused in canwearobj, wrongly dropped in break_armor sliparm, wrongly skipped in m_dowear.; fix: new live ``raceptr(mtmp)`` export in C-home js/mondata.js with per-arm cites — hero idiom ``=== game.youmonst \|\| _youmonst`` (worn.js:409 / mondata.js:142), ``!Upolyd(game.u)`` (polyself.js:735 precedent), ``mons(urace.mnum)`` race table; ``Upolyd`` joins the existing const.js import (same edge); ``racial_exception`` restarted in C order with ``:line`` cites reading ``raceptr(mon)``; ``raceptr`` joins the existing mondata import in worn.js (``imports.mjs --can`` ALREADY on both edges — no new edge; hoisted fns,  |
