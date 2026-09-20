@@ -969,6 +969,7 @@ mimic-Wizard disguise vs cham/vamp `set_mon_data` + light + perminvis, NOTHING /
 default impossibles, `does_block`→`block_point` tail; `opts.appear`/`appear_as`,
 no caller passes them yet; FURNITURE/OBJECT generic arms stay named — live
 levels use hand-rolled Rog-strt/soko/juiblex/minend/themerms paths); 
+**D-2645 `lspo_monster` des.monster binding + `create_altar`** (``sp_lev.c:3214–3400`` + ``:2446–2486``; ``js/mklev.js`` ``l_create_monster``/``splev_create_altar`` + file-local ``get_table_align_unpacked``/``lspo_bool_opt``/``lspo_monster_appear``/``lspo_monster_from_string``/``lspo_monster_normalize_table``; ``set_levltyp`` now exported from ``js/trap.js``); string/class forms delegate to live ``splev_create_monster`` (single gender burn replayed); table post-spawn arms christen/female-override/9 status flags/%127/waiting-vamp-newcham/m_lev_adj/invent-drop/CUSTOM-global/inventFn+spo_end_moninvent; altar via live room/coords/in_rooms/priestini; live fills not rewired; named: ``lspo_altar`` binding, Lua argc dispatch, seentraps list, G_UNIQ/G_GONE, FURNITURE/OBJECT appear; 
 **D-0537 `mineralize` In_quest goldprob/=4 gemprob/=6**; 
 **D-0539 `bigrm-8` load_special** (percent F-replace + flip); 
 **D-0621 `bigrm-7` load_special** (L→{L,T,{,.} replace + flip); 

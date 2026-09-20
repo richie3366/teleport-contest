@@ -5,7 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
-- [x] `light.c` relink_light_sources — coverage MISSING (C 46 L `light.c:517–563` / JS no symbol; hops 3, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn relink_light_sources` (reach regression must be 0). Measured `port-coverage.mjs --name relink_light_sources` 2026-09-20 @ d012b82b. **Addressed:** D-2644
+- [x] `sp_lev.c` lspo_monster — coverage MISSING (C 186 L `sp_lev.c:3214–3400` / JS no symbol; hops —, callers 0, RNG 3, msg 0; dead callees: get_table_montype, get_table_monclass). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn lspo_monster` (reach regression must be 0). Measured `port-coverage.mjs --name lspo_monster` 2026-09-20 @ d012b82b.
+- [x] `sp_lev.c` create_altar — coverage MISSING (C 40 L `sp_lev.c:2446–2486` / JS no symbol; hops —, callers 1, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn create_altar` (reach regression must be 0). Measured `port-coverage.mjs --name create_altar` 2026-09-20 @ d012b82b.
+
+
+- [x] `light.c` relink_light_sources — coverage MISSING (C 46 L `light.c:517–563` / JS no symbol; hops 3, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn relink_light_sources` (reach regression must be 0). Measured `port-coverage.mjs --name relink_light_sources` 2026-09-20 @ d012b82b. **Addressed:** D-2644 `c1f00cd4`
 
 
 - [x] `sp_lev.c` sp_level_coder_init — coverage MISSING (C 40 L `sp_lev.c:6336–6376` / JS no symbol; hops 3, callers 1, RNG 0, msg 0; dead callees: update_croom). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn sp_level_coder_init` (reach regression must be 0). Measured `port-coverage.mjs --name sp_level_coder_init` 2026-09-20 @ d012b82b. **Addressed:** D-2643 `d76b7205`.
