@@ -23,10 +23,10 @@ the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-20** — full `sessions` on the working tree
-(audit **1595–1603**).
+(audit **1604–1612**).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`59+0.34/turn` (R² 0.77).
+`86+0.61/turn` (R² 0.78).
 
 ## Score
 
@@ -36,7 +36,7 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `57+0.34/turn` (R² 0.79) |
+| Speed label | `86+0.61/turn` (R² 0.78) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
@@ -44,11 +44,11 @@ every audit). Rank 4/22, 2nd agentic; best agentic fork 35/44, RNG 98.5 %,
 screens 93.2 %. Held-out 11/44, unchanged vs last audit (5,972 pts, RNG
 26.7 %, screens 53.0 %; totals in table): the corpus still does not
 predict the judge.
-**Corpus fortress** (re-scored 2026-09-20 audit 1595–1603): **497 / 540
+**Corpus fortress** (re-scored 2026-09-20 audit 1604–1612): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — **+0 / −0**
-in the D-2636…D-2653 window (9 ACCEPTs;
+in the D-2645…D-2653 window (8 ACCEPTs + 1 WITH-DEBT;
 every per-SHA `--reach-all` re-run here ends REACH-OK with no REGRESSED).
-Reviews 1225–1603: 337 ACCEPT, 14 WITH-DEBT, 1 DEBT, 22 QUALITY-RISK (1503, 1517, 1520 stamped; Must-fix 1533/1536 → D-2583/D-2584, 1568 → D-2610, 1592 → D-2636 `271ceca1`; hashes filled).
+Reviews 1225–1612: 345 ACCEPT, 15 WITH-DEBT, 1 DEBT, 22 QUALITY-RISK (1503, 1517, 1520 stamped; Must-fix 1533/1536 → D-2583/D-2584, 1568 → D-2610, 1592 → D-2636 `271ceca1`; hashes filled).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`) — review-debt, unqueued (detail in the review files).
 Audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s) + `leaderboard.mjs`.
 

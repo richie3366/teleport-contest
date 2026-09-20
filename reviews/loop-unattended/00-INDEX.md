@@ -1614,3 +1614,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1601-b582bb36-change-sex.md](./1601-b582bb36-change-sex.md) | `b582bb36` | D-2642 change_sex restart | **ACCEPT** |
 | [1602-d76b7205-sp-level-coder-init.md](./1602-d76b7205-sp-level-coder-init.md) | `d76b7205` | D-2643 sp_level_coder_init port | **ACCEPT** |
 | [1603-c1f00cd4-relink-light-sources.md](./1603-c1f00cd4-relink-light-sources.md) | `c1f00cd4` | D-2644 relink_light_sources port | **ACCEPT** |
+| [1604-f61d60a9-lspo-monster-create-altar.md](./1604-f61d60a9-lspo-monster-create-altar.md) | `f61d60a9` | D-2645 lspo_monster + create_altar | **ACCEPT** |
+| [1605-d2132aa7-singplur-lookup-singular-arms.md](./1605-d2132aa7-singplur-lookup-singular-arms.md) | `d2132aa7` | D-2646 singplur_lookup singular arms | **ACCEPT** |
+| [1606-b2908a8e-query-category-paranoidautoall.md](./1606-b2908a8e-query-category-paranoidautoall.md) | `b2908a8e` | D-2647 query_category ParanoidAutoAll | **ACCEPT** |
+| [1607-c2b834cd-readentry.md](./1607-c2b834cd-readentry.md) | `c2b834cd` | D-2648 readentry restart | **ACCEPT** |
+| [1608-85f84b7b-parse-status-hl2.md](./1608-85f84b7b-parse-status-hl2.md) | `85f84b7b` | D-2649 parse_status_hl2 + hl1 | **ACCEPT-WITH-DEBT** |
+| [1609-6f7dcc63-writexlentry-xlog.md](./1609-6f7dcc63-writexlentry-xlog.md) | `6f7dcc63` | D-2650 writexlentry + XLOGFILE family | **ACCEPT** |
+| [1610-e3df8cae-shared-menu-optfn.md](./1610-e3df8cae-shared-menu-optfn.md) | `e3df8cae` | D-2651 shared_menu_optfn family | **ACCEPT** |
+| [1611-a9b0ff62-scores-only.md](./1611-a9b0ff62-scores-only.md) | `a9b0ff62` | D-2652 scores_only + 2 stale parks | **ACCEPT** |
+| [1612-12de9b19-populate-nomakedefs.md](./1612-12de9b19-populate-nomakedefs.md) | `12de9b19` | D-2653 populate_nomakedefs | **ACCEPT** |
