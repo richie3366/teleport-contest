@@ -958,39 +958,67 @@ function assign_level(destName, dlevel) {
     game[destName] = { dnum: dlevel.dnum, dlevel: dlevel.dlevel };
 }
 
-// C ref: dungeon.c fixup_level_locations()
-function fixup_level_locations() {
-    for (const [lev_name, field] of LEVEL_MAP) {
-        const x = find_level(lev_name);
-        if (x) {
-            assign_level(field, x.dlevel);
-            if (lev_name.startsWith('x-')) {
+// C ref: dungeon.c fixup_level_locations() `:1122–1182` — whole-body port
+// in C order. Finds the special levels so their locations are reachable
+// quickly: every level_map[] name resolves against the live chain, the
+// quest-dungeon names are stamped with the role filecode, the Knox branch
+// floats, the five topology dnums pin, and the dummy surface level shifts
+// depth_start. Static in C; exported here as the headless test pin
+// (seffect_destroy_armor precedent, D-2416). Caller: init_dungeons() below
+// (C `:1313`).
+export function fixup_level_locations() {
+    // C `:1132–1162`: `for (lev_map = level_map; lev_map->lev_name[0];
+    // lev_map++)` — the `""` sentinel ends the C table; the JS array ends
+    // instead (LEVEL_MAP above matches level_map[] entry-for-entry).
+    for (const [lev_name, field] of LEVEL_MAP) { // C `:1132`
+        const x = find_level(lev_name); // C `:1133`
+        if (x) { // C `:1134`
+            assign_level(field, x.dlevel); // C `:1135`
+            // C `:1136–1141`: `!strncmp(lev_name, "x-", 2)` — the name
+            // substitution on the quest-dungeon levels happens here.
+            if (lev_name.startsWith('x-')) { // C `:1136`
+                // C `:1140`: `Sprintf(x->proto, "%s%s", gu.urole.filecode,
+                // &lev_map->lev_name[1])`. The 'Tou' default never fires on
+                // the live path — allmain sets role/race before
+                // init_dungeons — and matches the filecode idiom in
+                // end.js/mklev.js/questpgr.js.
                 const code = game.urole?.filecode || 'Tou';
                 x.proto = code + lev_name.slice(1);
-            } else if (field === 'knox_level') {
-                const br = (game.branches || []).find(b =>
-                    b.end2.dnum === game.knox_level.dnum
-                    && b.end2.dlevel === game.knox_level.dlevel);
-                if (br) {
-                    br.end1.dnum = game.n_dgns;
+            // C `:1142`: `else if (lev_map->lev_spec == &knox_level)` — the
+            // pointer comparison is the field-name comparison here.
+            } else if (field === 'knox_level') { // C `:1142`
+                // C `:1144–1152`: kludge for the floating Knox entrance —
+                // the branch whose end2 is on the Knox level carries a bogus
+                // end1 dnum, namely n_dgns.
+                const br = (game.branches || []).find( // C `:1149–1152`
+                    (b) => on_level(b.end2, game.knox_level),
+                );
+                if (br) { // C `:1154`
+                    br.end1.dnum = game.n_dgns; // C `:1155`
+                    // C `:1157`: adjust the branch's position on the list.
                     insert_branch(br, true);
                 }
             }
         }
     }
-    game.quest_dnum = dname_to_dnum('The Quest');
-    game.sokoban_dnum = dname_to_dnum('Sokoban');
-    game.mines_dnum = dname_to_dnum('The Gnomish Mines');
-    game.tower_dnum = dname_to_dnum("Vlad's Tower");
-    game.tutorial_dnum = dname_to_dnum('The Tutorial');
-
-    const dummy = find_level('dummy');
+    // C `:1164–1168`: hardwired dungeon-name lookups ("I hate hardwiring
+    // these names. :-(").
+    game.quest_dnum = dname_to_dnum('The Quest'); // C `:1164`
+    game.sokoban_dnum = dname_to_dnum('Sokoban'); // C `:1165`
+    game.mines_dnum = dname_to_dnum('The Gnomish Mines'); // C `:1166`
+    game.tower_dnum = dname_to_dnum("Vlad's Tower"); // C `:1167`
+    game.tutorial_dnum = dname_to_dnum('The Tutorial'); // C `:1168`
+    // C `:1171–1180`: one special fixup for the dummy surface level — the
+    // table puts earth one above dungeon level 1, but the dummy exists so
+    // earth reads depth -1 instead of 0.
+    const dummy = find_level('dummy'); // C `:1171`
     if (dummy) {
-        const i = dummy.dlevel.dnum;
-        const dun = game.dungeons[i];
-        if (dun.num_dunlevs > 1 - dun.depth_start) {
-            dun.depth_start -= 1;
-        }
+        const i = dummy.dlevel.dnum; // C `:1172`
+        // C `:1177`: `dunlevs_in_dungeon(&x->dlevel) > 1 - depth_start`.
+        if (dunlevs_in_dungeon(dummy.dlevel) > 1 - game.dungeons[i].depth_start)
+            game.dungeons[i].depth_start -= 1; // C `:1178`
+        // C `:1179`: the "strip dummy from wizwhere" TODO stays open — C
+        // never did it either.
     }
 }
 

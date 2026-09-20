@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
-- [x] `o_init.c` dodiscovered — coverage THIN (C 109 L `o_init.c:764–873` / JS 45 L in js/invent.js; hops —, callers 0, RNG 0, msg 8). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dodiscovered` (reach regression must be 0). Measured `port-coverage.mjs --name dodiscovered` 2026-09-20 @ 14d94914. **Addressed:** D-2682
+- [x] `dungeon.c` fixup_level_locations — coverage PARTIAL (C 60 L `dungeon.c:1122–1182` / JS 34 L in js/dungeon.js; hops 2, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn fixup_level_locations` (reach regression must be 0). Measured `port-coverage.mjs --name fixup_level_locations` 2026-09-20 @ 14d94914. **Addressed:** D-2683
+
+
+- [x] `o_init.c` dodiscovered — coverage THIN (C 109 L `o_init.c:764–873` / JS 45 L in js/invent.js; hops —, callers 0, RNG 0, msg 8). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dodiscovered` (reach regression must be 0). Measured `port-coverage.mjs --name dodiscovered` 2026-09-20 @ 14d94914. **Addressed:** D-2682 `7e004acf`
 
 
 - [x] `role.c` rigid_role_checks — coverage PARTIAL (C 46 L `role.c:1235–1281` / JS 33 L in js/player_selection.js; hops —, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn rigid_role_checks` (reach regression must be 0). Measured `port-coverage.mjs --name rigid_role_checks` 2026-09-20 @ 4307ede7. **Addressed:** D-2681 `793d8311`

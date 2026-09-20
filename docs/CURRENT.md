@@ -46,7 +46,7 @@ screens 93.2 %. Held-out 11/44, unchanged vs last audit (5,972 pts, RNG
 predict the judge.
 **Corpus fortress** (re-scored 2026-09-20 audit 1629–1637): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — **+0 / −0**
-in the D-2670…D-2682 window (9 ACCEPTs;
+in the D-2670…D-2683 window (9 ACCEPTs;
 every per-SHA `--reach-all` re-run here ends REACH-OK with no REGRESSED).
 Reviews 1225–1637: 369 ACCEPT, 15 WITH-DEBT, 1 DEBT, 23 QUALITY-RISK (1503, 1517, 1520 stamped; Must-fix 1533/1536 → D-2583/D-2584, 1568 → D-2610, 1592 → D-2636 `271ceca1`, 1617 → magic_negation floor Must-fix (addressed D-2661, review 1620 ACCEPT); hashes filled).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`) — review-debt, unqueued (detail in the review files).
@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `o_init.c` dodiscovered — coverage THIN (C 109 L `o_init.c:764–873` / JS 45 L in js/invent.js; hops —, callers 0, RNG 0, msg 8). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dodiscovered` (reach regression must be 0). Measured `port-coverage.mjs --name dodiscovered` 2026-09-20 @ 14d94914.
+**Next cluster:** `dungeon.c` fixup_level_locations — coverage PARTIAL (C 60 L `dungeon.c:1122–1182` / JS 34 L in js/dungeon.js; hops 2, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn fixup_level_locations` (reach regression must be 0). Measured `port-coverage.mjs --name fixup_level_locations` 2026-09-20 @ 14d94914.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2682 (index).**
+**Keep D-0845…D-2683 (index).**
 <!-- recent:begin -->
+**D-2683**  — 
 **D-2682**  — 
 **D-2681**  — 
 **D-2680**  — 
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2678**  — 
 **D-2677**  — 
 **D-2676**  — 
-**D-2675**  — 
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2682; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2683; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

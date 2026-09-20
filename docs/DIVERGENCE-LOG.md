@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2683 — `dungeon.c` fixup_level_locations whole-body port (C-order cites + live-callee wiring + headless pin)
+
+- Status: ACCEPT — breadth-phase coverage row (PARTIAL C 60 L `dungeon.c:1122–1182` / JS 34 L in js/dungeon.js; hops 2, callers 1, RNG 0, msg 0; no corpus session blocked).
+- Symptom: coverage PARTIAL — the JS body was semantically complete but citation-free, with two inlined clones of live same-file callees (the Knox scan duplicated `on_level`'s dnum/dlevel compare; the dummy arm read `dun.num_dunlevs` instead of calling `dunlevs_in_dungeon`); the C-staticfn was unexported, so no headless pin existed.
+- C locus: `nethack-c/upstream/src/dungeon.c:1122–1182` + `level_map[]` `:707–735` (26 entries + `""` sentinel; JS `LEVEL_MAP` matches entry-for-entry) + callees `dname_to_dnum` `:284` (strcmp + panic≡throw), `find_level` `:300` (strcmpi chain walk), `assign_level` `:1978` (dest = src), `on_level` `:1439`, `dunlevs_in_dungeon` `:1332` + C caller `init_dungeons` `:1313`.
+- JS was: `js/dungeon.js:962` local 34 L — no cites, inline Knox compare, direct `num_dunlevs` read.
+- Fix: restarted the body in C order with per-arm cites (`:1132` sentinel loop, `:1133–1135` find/assign, `:1136–1141` x- filecode stamp, `:1142–1158` Knox float, `:1164–1168` five topology dnums, `:1171–1178` dummy depth_start, `:1179` wizwhere TODO noted as C-open); the Knox scan now calls the live same-file `on_level`, the dummy arm calls the live `dunlevs_in_dungeon`; exported (C static, test pin per D-2416 precedent); no new cross-module edge. The `'Tou'` filecode default is kept — allmain sets role/race before `init_dungeons`, so it never fires on the live path, and it matches the `end.js`/`mklev.js`/`questpgr.js` idiom.
+- JS: `js/dungeon.js:969` restarted `fixup_level_locations` (same signature); new `scripts/fixup-level-locations.test.mjs` (6 its: level_map resolve, quest proto stamp, Knox float + re-sort, five topology dnums, dummy depth_start, absent-level skip).
+- Callers: C `dungeon.c:1313` `init_dungeons` → JS `js/dungeon.js:1176` (pre-existing, D-2437; unchanged). None invented per reviews 1359/1361.
+- Verify: focused `node --test scripts/fixup-level-locations.test.mjs` → 6/6 pre-restart (pin holds — old body equivalent on C-reachable inputs) and 6/6 post-restart; `node scripts/verify.mjs --fn fixup_level_locations` → PASS syntax (1 changed js file) · PASS rule2 · note hidden (0 blocked at baseline — normal for a coverage row) · PASS reach (no RNG-tagged reach; smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 → VERIFY: PASS.
+- Named omissions: `assign_level` / `dname_to_dnum` local clones in `dig.js` / `do.js` / `potion.js` (pre-existing clone drift, own rows if queued); C `:1179` dummy-strip TODO (C-open, never implemented upstream).
+- Next: queue head `sounds.c` growl_sound (Open — coverage).
+
 ## D-2682 — `o_init.c` dodiscovered whole-body port (discosort o/c/a/s + relic/artifact pseudo-classes + sortloot_descr key)
 
 - Status: ACCEPT — breadth-phase coverage row (THIN C 109 L `o_init.c:764–873` / JS 45 L in js/invent.js; hops —, callers 0, RNG 0, msg 8; no corpus session blocked).

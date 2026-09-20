@@ -1673,7 +1673,18 @@ panic precedent, unlink `:476–479` ⇔ splice; `next = null` `:481`;
 `new_val` `:494`, guarded scan + insertAt `:495–500`, link `:501–507` ⇔
 splice; `.next` stays null — no JS reader, save.js JSON-copies);
 callers wired: `:534` add_branch `js/dungeon.js:355`, `:1156` fixup Knox
-`:964`, `mklev.c:2655` mk_knox_portal `js/mklev.js:25247`; named: none.
+`js/dungeon.js:994`, `mklev.c:2655` mk_knox_portal `js/mklev.js:25247`; named: none.
+
+**`fixup_level_locations` `:1122–1182`** (D-2683; C order with per-arm
+cites: `:1132` sentinel loop, `:1133–1135` find/assign, `:1136–1141` x-
+filecode stamp, `:1142–1158` Knox float via live `on_level` +
+`insert_branch`, `:1164–1168` five topology dnums, `:1171–1178` dummy
+depth_start via live `dunlevs_in_dungeon`; `:1179` wizwhere TODO C-open);
+`LEVEL_MAP` matches `level_map[]` entry-for-entry; exported as headless pin
+(C static; D-2416 precedent) — `scripts/fixup-level-locations.test.mjs`
+6/6; caller `:1313` `init_dungeons` `js/dungeon.js:1176` (D-2437,
+unchanged); named: `assign_level`/`dname_to_dnum` clones in
+dig/do/potion (pre-existing drift).
 
 ### `src/options.c` saveoptions writer
 
