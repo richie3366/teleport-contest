@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
-- [x] `objnam.c` singplur_lookup — coverage MISSING (C 68 L `objnam.c:2708–2779` / JS no symbol; hops 2, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn singplur_lookup` (reach regression must be 0). Measured `port-coverage.mjs --name singplur_lookup` 2026-09-20 @ d76b7205. **Addressed:** D-2646
+- [x] `pickup.c` query_category — coverage PARTIAL (C 277 L `pickup.c:1226–1508` / JS 198 L in js/pickup.js; hops 4, callers 4, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn query_category` (reach regression must be 0). Measured `port-coverage.mjs --name query_category` 2026-09-20 @ d76b7205. **Addressed:** D-2647 — coverage PARTIAL (C 277 L `pickup.c:1226–1508` / JS 198 L in js/pickup.js; hops 4, callers 4, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn query_category` (reach regression must be 0). Measured `port-coverage.mjs --name query_category` 2026-09-20 @ d76b7205.
+
+
+- [x] `objnam.c` singplur_lookup — coverage MISSING (C 68 L `objnam.c:2708–2779` / JS no symbol; hops 2, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn singplur_lookup` (reach regression must be 0). Measured `port-coverage.mjs --name singplur_lookup` 2026-09-20 @ d76b7205. **Addressed:** D-2646 `d2132aa7`
 
 
 - [x] `sp_lev.c` lspo_monster — coverage MISSING (C 186 L `sp_lev.c:3214–3400` / JS no symbol; hops —, callers 0, RNG 3, msg 0; dead callees: get_table_montype, get_table_monclass). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn lspo_monster` (reach regression must be 0). Measured `port-coverage.mjs --name lspo_monster` 2026-09-20 @ d012b82b.
