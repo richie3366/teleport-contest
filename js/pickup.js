@@ -29,7 +29,7 @@ import {
 import {
     flush_screen, pline, newsym, newsym_force, docrt, bot, flush_topl_more, canseemon,
     canspotmon, Hallucination, clear_nhwindow_message, Norep, impossible,
-    sensemon, You, urgent_pline, pline_The,
+    sensemon, You, There, urgent_pline, pline_The,
 } from './display.js';
 import { addinv } from './u_init.js';
 import {
@@ -105,6 +105,7 @@ import { ATR_INVERSE } from './terminal.js';
 import {
     addtobill, costly_spot, check_unpaid_usage, is_unpaid, doname_with_price,
     remote_burglary, shop_keeper, stolen_value, obfree, sellobj, sellobj_state,
+    money_cnt,
 } from './shk.js';
 import {
     nohands, nolimbs, M1_NOTAKE, touch_petrifies, poly_when_stoned, is_rider,
@@ -1053,14 +1054,6 @@ function GOLD_CAPACITY(w, n) {
     return (Number(w) * -100) - (Number(n) + 50) - 1;
 }
 
-function money_cnt_invent() {
-    let n = 0;
-    for (const otmp of game.invent || []) {
-        if (otmp.oclass === COIN_CLASS) n += otmp.quan || 0;
-    }
-    return n;
-}
-
 function otense_pickup(obj, verb) {
     const singular = (obj?.quan || 1) === 1;
     if (verb === 'are') return singular ? 'is' : 'are';
@@ -1159,78 +1152,165 @@ export async function rider_corpse_revival(obj, remotely) {
 }
 
 /**
- * C ref: pickup.c carry_count — how many of obj can we lift.
- * Floor path only (container/delta_cwt named omit — pickup_object
- * always passes container NULL).
+ * C ref: pickup.c delta_cwt `:1544–1568` (staticfn) — how much the given
+ * container's carried weight drops when obj is removed from it. Non-BoH
+ * containers weigh contents at face value (`:1549–1550`); a Bag of Holding
+ * unlinks obj, re-weighs, and links it back (`:1560–1564`). C `panic` on a
+ * missing link aborts the game — JS throws with the C message (the
+ * botl.js compare_blstats convention: loud, never silent).
  */
-async function carry_count(obj, count, telekinesis, wts) {
-    const is_gold = obj.oclass === COIN_CLASS;
-    const savequan = obj.quan || 1;
-    const saveowt = obj.owt | 0;
-    const umoney = money_cnt_invent();
-    let iw = max_capacity();
-    let wt;
+function delta_cwt(container, obj) {
+    // C `:1549–1550` — ordinary containers: face-value contents weight
+    if ((container.otyp | 0) !== BAG_OF_HOLDING) return (obj.owt | 0);
+    const owt = (container.owt | 0);
+    let nwt = owt;
+    // C `:1552–1554` — find the object so that we can remove it
+    let prev = null;
+    let found = false;
+    for (let cur = container.cobj; cur; cur = cur.nobj) {
+        if (cur === obj) { found = true; break; }
+        prev = cur;
+    }
+    if (!found) {
+        throw new Error('delta_cwt: obj not inside container?'); // C `:1557–1558`
+    } else {
+        // C `:1560–1563` — temporarily remove, weigh, put back
+        if (prev) prev.nobj = obj.nobj;
+        else container.cobj = obj.nobj;
+        nwt = weight(container);
+        if (prev) prev.nobj = obj;
+        else container.cobj = obj; // C: obj->nobj is still valid
+    }
+    return owt - nwt; // C `:1565`
+}
 
+/**
+ * C ref: pickup.c carry_count `:1570–1701` (staticfn) — could we carry
+ * obj? if not, how many of them? Whole body in C order: provisional weigh
+ * with the carried-container delta and the merged-gold correction
+ * (`:1589–1601`); full-lift early return (`:1606–1607`); gold arms —
+ * plain GOLD_CAPACITY vs the carried-container 100-coin re-weigh loop
+ * (`:1610–1635`); stack lift loop (`:1636–1654`); single unliftable
+ * (`:1655–1656`); partial `You can only…` (`:1661–1682`); zero-lift
+ * `There…` (`:1685–1697`). Out-params ride the shared `wts` object
+ * (`before`/`after`); JS has no `int *` out-params.
+ */
+async function carry_count(obj, container, count, telekinesis, wts) {
+    const adjust_wt = !!(container && carried(container)); // C `:1576`
+    const is_gold = obj.oclass === COIN_CLASS; // C `:1577`
+    let wt, iw, ow, oow;
+    let qq;
+    let verb, prefx1, prefx2, suffx, obj_nambuf, where;
+
+    const savequan = obj.quan || 1; // C `:1584`
+    const saveowt = obj.owt | 0; // C `:1585`
+    const umoney = money_cnt(game.invent); // C `:1586`
+    iw = max_capacity(); // C `:1587`
+
+    // C `:1589–1591`
     if (count !== savequan) {
         obj.quan = count;
         obj.owt = weight(obj);
     }
-    wt = iw + (obj.owt | 0);
-    if (is_gold) {
+    wt = iw + (obj.owt | 0); // C `:1593`
+    if (adjust_wt) wt -= delta_cwt(container, obj); // C `:1594–1595`
+    /* This will go with silver+copper & new gold weight */
+    if (is_gold) /* merged gold might affect cumulative weight */ // C `:1596–1598`
         wt -= (GOLD_WT(umoney) + GOLD_WT(count) - GOLD_WT(umoney + count));
-    }
-    if (count !== savequan) {
+    if (count !== savequan) { // C `:1599–1601`
         obj.quan = savequan;
         obj.owt = saveowt;
     }
-    wts.before = iw;
-    wts.after = wt;
-    if (wt < 0) return count;
+    wts.before = iw; // C `:1603`
+    wts.after = wt; // C `:1604`
+    if (wt < 0) return count; // C `:1606–1607`
 
-    let qq;
-    if (is_gold) {
-        iw -= GOLD_WT(umoney) | 0;
-        qq = GOLD_CAPACITY(iw, umoney);
-        if (qq < 0) qq = 0;
-        else if (qq > count) qq = count;
-        wt = iw + GOLD_WT(umoney + qq);
-    } else if (count > 1 || count < (obj.quan || 1)) {
-        qq = 1;
-        for (; qq <= count; qq++) {
-            obj.quan = qq;
-            const ow = weight(obj);
-            obj.owt = ow;
-            if (iw + ow >= 0) break;
-            wt = iw + ow;
+    /* see how many we can lift */
+    if (is_gold) { // C `:1610`
+        iw -= GOLD_WT(umoney) | 0; // C `:1611`
+        if (!adjust_wt) {
+            qq = GOLD_CAPACITY(iw, umoney); // C `:1613`
+        } else {
+            // C `:1615–1628` — re-weigh each 100-coin boundary
+            oow = 0;
+            qq = 50 - (umoney % 100) - 1; // C `:1616`
+            if (qq < 0) qq += 100; // C `:1617–1618`
+            for (; qq <= count; qq += 100) { // C `:1619`
+                obj.quan = qq; // C `:1620`
+                obj.owt = GOLD_WT(qq); // C `:1621`
+                ow = GOLD_WT(umoney + qq); // C `:1622`
+                ow -= delta_cwt(container, obj); // C `:1623`
+                if (iw + ow >= 0) break; // C `:1624–1625`
+                oow = ow; // C `:1626`
+            }
+            iw -= oow; // C `:1628`
+            qq -= 100; // C `:1629`
         }
-        qq -= 1;
+        if (qq < 0) qq = 0; // C `:1631–1632`
+        else if (qq > count) qq = count; // C `:1633–1634`
+        wt = iw + GOLD_WT(umoney + qq); // C `:1635`
+    } else if (count > 1 || count < (obj.quan || 1)) { // C `:1636`
+        /*
+         * Ugh. Calc num to lift by changing the quan of the
+         * object and calling weight.
+         *
+         * This works for containers only because containers
+         * don't merge.  -dean
+         */
+        for (qq = 1; qq <= count; qq++) { // C `:1644`
+            obj.quan = qq; // C `:1645`
+            obj.owt = ow = weight(obj); // C `:1646`
+            if (adjust_wt) ow -= delta_cwt(container, obj); // C `:1647–1648`
+            if (iw + ow >= 0) break; // C `:1649–1650`
+            wt = iw + ow; // C `:1651`
+        }
+        --qq; // C `:1653`
     } else {
-        qq = 0;
+        /* there's only one, and we can't lift it */
+        qq = 0; // C `:1656`
     }
-    obj.quan = savequan;
-    obj.owt = saveowt;
+    obj.quan = savequan; // C `:1658`
+    obj.owt = saveowt; // C `:1659`
 
-    if (qq < count) {
-        const obj_nambuf = doname(obj);
-        const where = 'lying here';
-        const verb = telekinesis ? 'acquire' : 'lift';
-        if (qq > 0) {
-            await pline(
-                `You can only ${verb} ${qq === 1 ? 'one' : 'some'} of the ${obj_nambuf} ${where}.`,
-            );
-            wts.after = wt;
-            return qq;
+    if (qq < count) { // C `:1661`
+        /* some message will be given */
+        obj_nambuf = doname(obj); // C `:1663`
+        if (container) { // C `:1664–1666`
+            where = `in ${theArt(xname(container))}`;
+            verb = 'carry';
+        } else {
+            where = 'lying here'; // C `:1668`
+            verb = telekinesis ? 'acquire' : 'lift'; // C `:1669`
         }
-        const inventOrGold = (game.invent && game.invent.length) || umoney;
-        const prefx1 = inventOrGold ? 'you cannot ' : ((obj.quan || 1) === 1 ? 'it ' : 'even one ');
-        const prefx2 = inventOrGold ? '' : 'is too heavy for you to ';
-        const suffx = inventOrGold ? ' any more' : '';
-        await pline(
-            `There ${otense_pickup(obj, 'are')} ${obj_nambuf} here, but ${prefx1}${prefx2}${verb}${suffx}.`,
-        );
-        return 0;
+    } else {
+        /* lint suppression */
+        obj_nambuf = where = ''; // C `:1672`
+        verb = ''; // C `:1674`
     }
-    return qq;
+    /* we can carry qq of them */
+    if (qq > 0) { // C `:1677`
+        if (qq < count) // C `:1678`
+            await You('can only %s %s of the %s %s.', verb, // C `:1679–1680`
+                (qq === 1) ? 'one' : 'some', obj_nambuf, where);
+        wts.after = wt; // C `:1681`
+        return qq;
+    }
+
+    if (!container) where = 'here'; /* slightly shorter form */ // C `:1685–1686`
+    if (game.invent || umoney) { // C `:1687`
+        prefx1 = 'you cannot '; // C `:1688`
+        prefx2 = ''; // C `:1689`
+        suffx = ' any more'; // C `:1690`
+    } else {
+        prefx1 = ((obj.quan || 1) === 1) ? 'it ' : 'even one '; // C `:1692`
+        prefx2 = 'is too heavy for you to '; // C `:1693`
+        suffx = ''; // C `:1694`
+    }
+    await There('%s %s %s, but %s%s%s%s.', otense(obj, 'are'), obj_nambuf, // C `:1696–1697`
+        where, prefx1, prefx2, verb, suffx);
+
+    /* *wt_after = iw; */
+    return 0; // C `:1700`
 }
 
 /**
@@ -1241,8 +1321,8 @@ async function carry_count(obj, count, telekinesis, wts) {
  * telekinesis silent refuse else ynq Continue? (`lifting`/`removing`);
  * scare-scroll spe clear on floor refuse.
  * Sokoban boulder uses body_part(HAND) (latebound; polyself→do→pickup cycle).
- * Named omit: container carry_count delta_cwt (floor weights; carry_count
- * doc); shop no_charge merge_choice (merge_choice_invent doc).
+ * Named omit: shop no_charge merge_choice (merge_choice_invent doc).
+ * carry_count + delta_cwt whole body live (D-2617).
  * Callers: pickup_object `:1869` (container NULL); out_container `:2748`.
  */
 async function lift_object(obj, container, cntRef, telekinesis) {
@@ -1269,8 +1349,8 @@ async function lift_object(obj, container, cntRef, telekinesis) {
         );
         return -1;
     }
-    // C `:1739–1740`
-    cntRef.count = await carry_count(obj, cntRef.count, telekinesis, cntRef);
+    // C `:1736–1737` — container rides through for the delta_cwt arms
+    cntRef.count = await carry_count(obj, container, cntRef.count, telekinesis, cntRef);
     if (cntRef.count < 1) {
         result = -1; // C `:1741–1742` — nothing lifted (falls to scare arm)
     } else if (obj.oclass !== COIN_CLASS
@@ -1327,8 +1407,8 @@ async function lift_object(obj, container, cntRef, telekinesis) {
  * lift_object (D-1050); gold disp.botl; splitobj; pick_obj + prinv.
  * Named omissions: LOADSTONE no-split already honored; ghostly
  * fix_ghostly_obj; LOADSTONE/giant-boulder weight override (live in
- * lift_object); container carry_count delta_cwt; Death/Pestilence
- * revive suffixes.
+ * lift_object); carry_count + delta_cwt whole body live (D-2617);
+ * Death/Pestilence revive suffixes.
  */
 export async function pickup_object(obj, count, telekinesis) {
     if (!obj) return 0;
@@ -1357,7 +1437,8 @@ export async function pickup_object(obj, count, telekinesis) {
     } else if ((obj.otyp | 0) === SCR_SCARE_MONSTER) {
         const scareWts = { before: 0, after: 0 };
         // C scare carry_count always FALSE even on telekinesis pickup.
-        count = await carry_count(obj, count, false, scareWts);
+        // C `:1839–1841` — NULL container; count already quan-filled above.
+        count = await carry_count(obj, null, count, false, scareWts);
         if (count < 1) return -1;
         if (count > 0 && count < (obj.quan || 1)) obj = splitobj(obj, count);
         if (obj.blessed) {
@@ -2365,9 +2446,8 @@ async function use_container_traditional_prompt(
  * C ref: pickup.c out_container — remove one object from current_container
  * into invent. Branch envelope: gold weigh; lift_object `:2748` (encumbrance
  * / slot prompt says "removing"); split; extract; addinv + prinv; gold bot.
- * Named omissions: container carry_count `delta_cwt` (floor weights;
- * carry_count doc); artifact touch; fatal corpse; icebox; shop bill;
- * pick_pick.
+ * Named omissions: carry_count + `delta_cwt` whole body live (D-2617);
+ * artifact touch; fatal corpse; icebox; shop bill; pick_pick.
  * @returns {number} -1 stop, 1 removed, 0 not removed
  */
 async function out_container(obj) {

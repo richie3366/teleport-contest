@@ -1678,8 +1678,7 @@ D-0190); fulll `end_running`/`cmdq_clear`;
 Passes_walls/autodig/chew; Blind `feel_location`/`autopick` arms; 
 full `back_to_glyph`/`wall_angle`→S_stone / OOB mention_walls; floor TRADITIONAL query_classes is D-1620 (hideunder/newsym_force/engulfer minvent traditional; `safe_qbuf` is D-1654); 
 **`pickup_object` telekinesis / `lift_object` / `carry_count` / scare raise-vs-pick / corpse 
-remote** (D-1050); shop bill; **Sokoban boulder `body_part(HAND)` D-1508**; **`lift_object` whole body live** (D-2595: LOADSTONE/giant-boulder override + gold-hint slot refuse + `removing` verb + `out_container` `:2748` caller wired); ghostly / container carry_count 
-`delta_cwt`; furniture nothing msgs; engulfer loot_mon; Deafness/Hear_again; Rogue `doorless_door`; 
+remote** (D-1050); shop bill; **Sokoban boulder `body_part(HAND)` D-1508**; **`lift_object` whole body live** (D-2595: LOADSTONE/giant-boulder override + gold-hint slot refuse + `removing` verb + `out_container` `:2748` caller wired); **`carry_count` + `delta_cwt` whole body live** (D-2617: container param, adjust_wt arms, gold 100-coin re-weigh, You/There messages; both C callers wired); ghostly; furniture nothing msgs; engulfer loot_mon; Deafness/Hear_again; Rogue `doorless_door`; 
 shop `block_door`/`block_entry`; full `test_move` NODIAG/boulder 
 **`swim_move_danger`/`handle_tip(TIP_SWIM)` + `m`→nopick; 
 `pooleffects`→`drown`/`lava_effects`→`done(BURNING)`** (D-0357; Known_wwalking, full invent burn); 

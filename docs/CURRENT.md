@@ -47,7 +47,7 @@ judge 18:47Z cached, unchanged 11/44 5,776 pts vs last audit): the corpus still 
 not predict the judge.
 **Corpus fortress** (re-scored 2026-09-20 audit 1560–1568): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — **+0 / −0**
-in the D-2601…D-2616 window (8 coverage-only ACCEPTs + 1 QUALITY-RISK;
+in the D-2601…D-2617 window (8 coverage-only ACCEPTs + 1 QUALITY-RISK;
 every per-SHA `--reach-all` re-run here ends REACH-OK with no REGRESSED
 corpus session; the one public move is seed0107, caught by the audit).
 Reviews 1225–1568: 304 ACCEPT, 13 WITH-DEBT, 1 DEBT, 21 QUALITY-RISK (1503, 1517, 1520 stamped; 1533 + 1536 Must-fix rows shipped as D-2583/D-2584 with `**Addressed:**` hashes filled; new Must-fix: review 1568 weapon_insight spacing).
@@ -103,10 +103,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `invent.c` loot_classify — coverage MISSING (C 156 L `invent.c:149–305` / JS no symbol; hops 5, callers 3, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn loot_classify` (reach regression must be 0). Measured `port-coverage.mjs --name loot_classify` 2026-09-20 @ 28b6f89f.
+**Next cluster:** `pickup.c` carry_count — coverage PARTIAL (C 127 L `pickup.c:1570–1701` / JS 69 L in js/pickup.js; hops 3, callers 2, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn carry_count` (reach regression must be 0). Measured `port-coverage.mjs --name carry_count` 2026-09-20 @ 28b6f89f.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2616 (index).**
+**Keep D-0845…D-2617 (index).**
 <!-- recent:begin -->
+**D-2617** ``nethack-c/upstream/src/pickup.c:1570–1701`` (carry_count, staticfn) + ``:1544–1568`` (de — restarted the export in C order with per-arm ``:line`` cites — ``adjust_wt = container && carried(container)`` (``:1576``, live eat.js export of the ``obj.h:332`` macro); provisional weigh + ``delta_cwt`` subtract (``:15
 **D-2616** ``nethack-c/upstream/src/invent.c:149–305`` (loot_classify); callers ``:436``/``:438`` (so — new exported ``loot_classify(sort_item, obj)`` (``js/invent.js:2075``) in C order with per-arm ``:line`` cites — def_srt_order table (`:155`); persistent module-level armcat (`:160`); discovered read before observe (`:16
 **D-2615** ``nethack-c/upstream/src/dothrow.c:87–293`` (throw_obj); callers ``:375`` (dothrow) and `` — restarted the export in C order with per-arm ``:line`` cites — ``let res = ECMD_TIME`` (`:93`); objsplit snapshot + ``unsplit_stack()`` closure on every early return (`:94`, `:274–292`, via live ``unsplitobj``); Mjollnir
 **D-2614** ``nethack-c/upstream/src/mcastu.c:801–897`` (dispatcher); callees ``:466`` (weaken), ``:50 — ``js/mcastu.js`` — dispatcher now passes C shapes (WEAKEN/STUN/GEYSER ``dmg``; FIRE_PILLAR/LIGHTNING ``(mtmp, dmg)``); callees take the params and overwrite per C; geyser pline moved inside the callee per C order (now as
@@ -114,11 +115,10 @@ revisits the picker.
 **D-2612** `nethack-c/upstream/src/pickup.c:3688–3841` (hero-start ox/oy + `get_obj_location` stamp ` — restarted the export in C order with per-arm `:line` cites — `let ox/oy` hero-start + `get_obj_location_quantum` stamp; `maybeshopgoods` before checks; `IS_ALTAR(game.level.at(ox,oy).typ)`; file-local `Is_mbag` for curse
 **D-2611** `nethack-c/upstream/src/mon.c:3766–3830` (is_vampshifter gate `:3769`, cham snapshot `:377 — restarted the export in C order with per-arm `:line` cites — buf built before transformation (`x_monnam` ARTICLE_NONE + SUPPRESS_SADDLE|SUPPRESS_HALLUCINATION|SUPPRESS_INVISIBLE|SUPPRESS_IT, amorphous "coalesces on the" 
 **D-2610** `nethack-c/upstream/src/insight.c:1355–1369` — restored the leading space in both primary `sfx` literals (`js/invent.js:5393,5398`).
-**D-2609** `nethack-c/upstream/src/insight.c:1270–1465` (wield line `:1277–1310` incl. `weapon_descr  — new exported `weapon_insight(final, opts)` in `js/invent.js` in C order with per-arm `:line` cites — `eos()` appends as concat, `Sprintf/Strcpy` as string ops, `enl_msg/you_are/you_have` (`:105–108`) over shared `enlght_
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2616; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2617; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
