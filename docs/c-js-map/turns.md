@@ -1968,7 +1968,8 @@ save/restore dance);
 `{tinvariety}` out-idiom; caller wiring WIRED by D-2084: `objnam.c:4386`
 readobjnam "tin of " arm — spinach contents / tvariety / `name_to_mon`
 offset parse / typ=TIN / downstream spe-corpsenm+`set_tin_variety`
-(`js/readobjnam.js` postparse1 arm + `:5342–5344` tail))
+(`js/readobjnam.js` postparse1 arm + `:5342–5344` tail)); 
+**`consume_oeaten` whole-body restart** (D-2631; C `eat.c:3808–3872` in C order in `js/eat.js:1044`: 0-nutrition itembuf (corpse/egg/tin `[corpsenm]` vs otyp decimal `:3814–3821`) + sync fire-and-forget impossible `:3822–3825` (setworn `:618` precedent; oeaten untouched); unsigned `>>>` shift/add `:3854–3863`; zero-clamp `victual.reqtime=usedtime` when obj==piece `:3865–3871`; callers `eat.c:1970`→`:2486`, `:3036`→`:4306`, `:3149/:3154`→`bite()` `:1527/:1530`, `objnam.c:5392`→`readobjnam.js:1777`; named: none)
 
 ### `src/apply.c` / `src/lock.c` / `src/music.c`
 

@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2631 — `eat.c` consume_oeaten whole-body port (impossible arm, unsigned shift, victual reqtime)
+
+- **Status:** fixed (Open — coverage row ``eat.c`` consume_oeaten THIN (C 64 L ``eat.c:3808–3872`` / JS 15 L in js/eat.js; hops 3, callers 7, RNG 0, msg 0). Measured ``port-coverage.mjs --name consume_oeaten`` 2026-09-20 @ a5342d8b.)
+- **Symptom:** coverage row — JS had a 15-line partial that silently zeroed oeaten on the 0-nutrition arm (C reports impossible and touches nothing) and dropped the victual reqtime=usedtime clamp arm.
+- **C locus:** ``nethack-c/upstream/src/eat.c:3808–3872`` (consume_oeaten, decl ``extern.h:974``); callers ``eat.c:1970`` (eatcorpse rotten ``otmp, 2``), ``:3036`` (doeat rotten ``otmp, 1``), ``:3149``/``:3154`` (bite ``piece, nmod`` / ``piece, -1``), ``objnam.c:5392`` (readobjnam halfeaten ``d.otmp, 1``); comment refs ``:3879``, ``:3907``.
+- **JS was:** ``js/eat.js:1044`` 15-line partial — 0-nutrition arm did ``obj.oeaten = 0`` with no impossible; signed ``>>``/``|0`` instead of unsigned shift; zero-clamp missed ``reqtime = usedtime`` when obj==piece.
+- **Fix:** restarted the export in C order with per-arm ``:line`` cites — itembuf build (corpse/egg/tin ``[corpsenm]`` vs otyp decimal, ``:3814–3821``) + sync fire-and-forget impossible (``:3822–3825``, do_wear.js setworn ``:618`` precedent); unsigned ``>>>`` shift/add (``:3854–3863``, oeaten unsigned per ``:3849``); zero-clamp sets ``game.context.victual.reqtime = usedtime`` when obj===piece (``:3865–3871``).
+- **JS:** ``js/eat.js:1044`` (whole body); no new imports — impossible/game/CORPSE/EGG/TIN already in scope.
+- **Callers:** ``eat.c:1970``→``js/eat.js:2486``; ``:3036``→``:4306``; ``:3149``→``:1527`` (bite), ``:3154``→``:1530``; ``objnam.c:5392``→``js/readobjnam.js:1777``; ``:3879``/``:3907`` comment cites already at ``js/eat.js:2241``/``:2229``.
+- **Verify:** ``node scripts/verify.mjs --fn consume_oeaten`` → VERIFY: PASS — syntax (1 changed: js/eat.js); rule2; hidden note (no corpus session blocked); reach (no RNG tags, smoke 24/24 → REACH-OK); green 2/2; strict ×2; cohort 7/7; full skipped (no shared file changed).
+- **Named omissions:** none — done_eating/food_disappears appear only in C's "better solution" comment (``:3832–3834``); both live elsewhere, no stub. ``!obj`` null guard kept (C NONNULLARG1; defensive, same class as live obj_nutrition ``!otmp`` guard).
+- **Next:** pop the next Open — coverage row (litter_scatter head).
+
 ## D-2630 — `dungeon.c` insert_branch whole-body port (extract panic, prev_val sort guard, callers wired)
 
 - **Status:** fixed (Open — coverage row ``dungeon.c`` insert_branch THIN (C 45 L ``dungeon.c:463–508`` / JS 18 L in js/dungeon.js; hops 2, callers 3, RNG 0, msg 0). Measured ``port-coverage.mjs --name insert_branch`` 2026-09-20 @ a5342d8b.)

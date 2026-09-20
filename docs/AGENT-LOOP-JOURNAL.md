@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-20 — D-2631 `eat.c` consume_oeaten whole-body port (impossible arm, unsigned shift, victual reqtime)
+
+**C locus:** ``nethack-c/upstream/src/eat.c:3808–3872`` (consume_oeaten, decl ``extern.h:974``); callers ``eat.c:1970`` (eatcorpse rotten ``otmp, 2``), ``:3036`` (doeat rotten ``otmp, 1``), ``:3149``/``:3154`` (bite ``piece, nmod`` / ``piece, -1``), ``objnam.c:5392`` (readobjnam halfeaten ``d.otmp, 1``); comment refs ``:3879``, ``:3907``.
+**JS:** ``js/eat.js:1044`` (whole body); no new imports — impossible/game/CORPSE/EGG/TIN already in scope.
+**Change:** restarted the export in C order with per-arm ``:line`` cites — itembuf build (corpse/egg/tin ``[corpsenm]`` vs otyp decimal, ``:3814–3821``) + sync fire-and-forget impossible (``:3822–3825``, do_wear.js setworn ``:618`` precedent); unsigned ``>>>`` shift/add (``:3854–3863``, oeaten unsigned per ``:3849``); zero-clamp sets ``game.context.victual.reqtime = usedtime`` when obj===piece (``:3865–3871``).
+**Verify:** ``node scripts/verify.mjs --fn consume_oeaten`` → VERIFY: PASS — syntax (1 changed: js/eat.js); rule2; hidden note (no corpus session blocked); reach (no RNG tags, smoke 24/24 → REACH-OK); green 2/2; strict ×2; cohort 7/7; full skipped (no shared file changed).
+**Named:** none — done_eating/food_disappears appear only in C's "better solution" comment (``:3832–3834``); both live elsewhere, no stub. ``!obj`` null guard kept (C NONNULLARG1; defensive, same class as live obj_nutrition ``!otmp`` guard).
+**Next:** pop the next Open — coverage row (litter_scatter head).
 ## 2026-09-20 — D-2630 `dungeon.c` insert_branch whole-body port (extract panic, prev_val sort guard, callers wired)
 
 **C locus:** ``nethack-c/upstream/src/dungeon.c:462–508`` (insert_branch, decl ``extern.h:869``); callers ``:534`` (add_branch ``insert_branch(new_branch, FALSE)``), ``:1156`` (fixup Knox ``insert_branch(br, TRUE)``), ``mklev.c:2655`` (mk_knox_portal ``insert_branch(br, TRUE)``).
