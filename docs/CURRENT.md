@@ -23,10 +23,11 @@ the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-20** — full `sessions` on the working tree
-(audit **1551–1559**).
-Fortress **44/44** (no throws).
-Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`55+0.36/turn` (R² 0.78).
+(audit **1560–1568**).
+Fortress **43/44** (no throws; seed0107 screen@98 — D-2609 spacing
+regression, Must-fix queued in review 1568).
+Scr **11,404**/11,405, RNG **792,838**/792,838, speed
+`59+0.33/turn` (R² 0.78).
 
 ## Score
 
@@ -44,25 +45,28 @@ every audit). Rank 4/22, 2nd agentic; best agentic fork 35/44, RNG 98.5 %,
 screens 93.2 %. Held-out 11/44 (5,776 pts, RNG 26.6 %, screens 51.3 %;
 judge 18:47Z cached, unchanged 11/44 5,776 pts vs last audit): the corpus still does
 not predict the judge.
-**Corpus fortress** (re-scored 2026-09-20 audit 1551–1559): **497 / 540
+**Corpus fortress** (re-scored 2026-09-20 audit 1560–1568): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — **+0 / −0**
-in the D-2592…D-2609 window (all 9 ports coverage-only; every per-SHA
-`--reach-all` re-run here ends REACH-OK with no REGRESSED session).
-Reviews 1225–1559: 298 ACCEPT, 11 WITH-DEBT, 1 DEBT, 20 QUALITY-RISK (1503, 1517, 1520 stamped; 1533 + 1536 Must-fix rows shipped as D-2583/D-2584 with `**Addressed:**` hashes filled).
-Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem) — review-debt, unqueued (detail in the review files).
+in the D-2601…D-2609 window (8 coverage-only ACCEPTs + 1 QUALITY-RISK;
+every per-SHA `--reach-all` re-run here ends REACH-OK with no REGRESSED
+corpus session; the one public move is seed0107, caught by the audit).
+Reviews 1225–1568: 304 ACCEPT, 13 WITH-DEBT, 1 DEBT, 21 QUALITY-RISK (1503, 1517, 1520 stamped; 1533 + 1536 Must-fix rows shipped as D-2583/D-2584 with `**Addressed:**` hashes filled; new Must-fix: review 1568 weapon_insight spacing).
+Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable — review-debt, unqueued (detail in the review files).
 Audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s) + `leaderboard.mjs`.
 
-**PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
+**PASS (43):** seed8000, seed0900, seed1500, seed1800, seed0060,
 seed0102, seed0700, seed1150, seed0017, seed0077, seed0106, seed0501,
 seed0105, seed0016, seed0015, seed0200, seed0101, seed0103, seed0104,
-seed0013-rogue, seed0013-friday13-restore, seed0107,
+seed0013-rogue, seed0013-friday13-restore,
 seed0012, seed0004, seed0002, seed0006, seed0007, seed0009, seed0398,
 seed0373, seed5006, seed0116, seed0361, seed0367, seed0108, seed5002,
 seed0360, seed0399, seed2600, seed2200, seed0383,
 seed0014-dequa-fountain-explore, seed0030-ten-diverse-deaths,
 seed4500-knight-coverage.
 
-**Notable non-PASS:** none — 44/44.
+**Notable non-PASS:** seed0107-samurai-twoweapon-enhance — screens 97/98,
+RNG 2902/2902 (D-2609 `islimited` spacing regression; Must-fix queued,
+review 1568). 43/44.
 
 ## Green gate
 
@@ -99,7 +103,7 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `insight.c` weapon_insight — coverage MISSING (C 195 L `insight.c:1270–1465` / JS no symbol; hops 6, callers 1, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn weapon_insight` (reach regression must be 0). Measured `port-coverage.mjs --name weapon_insight` 2026-09-20 @ 79669e02.
+**Next cluster:** Must-fix `insight.c` weapon_insight primary two-weapon compare spacing (review 1568 — C `insight.c:1355–1369` sfx leading space dropped in `js/invent.js:5391–5401`, prints `islimited/waslimited by`). One-iter fix + `verify.mjs --fn weapon_insight` + two-weapon text probe.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2609 (index).**
 <!-- recent:begin -->

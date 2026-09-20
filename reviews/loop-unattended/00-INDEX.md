@@ -1570,3 +1570,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1557-6e42a59a-failed-grab.md](./1557-6e42a59a-failed-grab.md) | `6e42a59a` | D-2598 failed_grab clone consolidation | **ACCEPT** |
 | [1558-98667b02-read-simplemail.md](./1558-98667b02-read-simplemail.md) | `98667b02` | D-2599 read_simplemail VFS port | **ACCEPT** |
 | [1559-79669e02-readobjnam-postparse3.md](./1559-79669e02-readobjnam-postparse3.md) | `79669e02` | D-2600 readobjnam_postparse3 srch arms | **ACCEPT** |
+| [1560-fe944357-update-mon-extrinsics.md](./1560-fe944357-update-mon-extrinsics.md) | `fe944357` | D-2601 update_mon_extrinsics restart | **ACCEPT-WITH-DEBT** |
+| [1561-6a6edff6-fmt-elapsed-time.md](./1561-6a6edff6-fmt-elapsed-time.md) | `6a6edff6` | D-2602 fmt_elapsed_time + callers | **ACCEPT** |
+| [1562-7a1bbc96-outoracle.md](./1562-7a1bbc96-outoracle.md) | `7a1bbc96` | D-2603 outoracle restart | **ACCEPT** |
+| [1563-ae6f9027-can-blnd.md](./1563-ae6f9027-can-blnd.md) | `ae6f9027` | D-2604 can_blnd + resists pair | **ACCEPT-WITH-DEBT** |
+| [1564-d46334a6-floorfood.md](./1564-d46334a6-floorfood.md) | `d46334a6` | D-2605 floorfood 3 arms | **ACCEPT** |
+| [1565-a1eb50e1-resetobjs.md](./1565-a1eb50e1-resetobjs.md) | `a1eb50e1` | D-2606 resetobjs save arm | **ACCEPT** |
+| [1566-72bfcc06-remove-object.md](./1566-72bfcc06-remove-object.md) | `72bfcc06` | D-2607 remove_object + urealtime | **ACCEPT** |
+| [1567-dba7a580-wall-angle.md](./1567-dba7a580-wall-angle.md) | `dba7a580` | D-2608 wall_angle completion | **ACCEPT** |
+| [1568-28b6f89f-weapon-insight.md](./1568-28b6f89f-weapon-insight.md) | `28b6f89f` | D-2609 weapon_insight port | **QUALITY-RISK** |
