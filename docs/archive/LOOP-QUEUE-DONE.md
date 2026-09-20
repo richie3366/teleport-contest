@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
-- [x] `mkobj.c` remove_object — coverage MISSING (C 13 L `mkobj.c:2508–2521` / JS no symbol; hops 3, callers 14, RNG 0, msg 0; dead callees: extract_nexthere). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn remove_object` (reach regression must be 0). Measured `port-coverage.mjs --name remove_object` 2026-09-20 @ 79669e02. **Addressed:** D-2607
+- [x] `display.c` wall_angle — coverage THIN **Addressed:** D-2608 (C 274 L `display.c:3513–3787` / JS 37 L in js/display.js; hops 2, callers 2, RNG 0, msg 0; dead callees: t_warn). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn wall_angle` (reach regression must be 0). Measured `port-coverage.mjs --name wall_angle` 2026-09-20 @ 79669e02.
+
+
+- [x] `mkobj.c` remove_object — coverage MISSING (C 13 L `mkobj.c:2508–2521` / JS no symbol; hops 3, callers 14, RNG 0, msg 0; dead callees: extract_nexthere). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn remove_object` (reach regression must be 0). Measured `port-coverage.mjs --name remove_object` 2026-09-20 @ 79669e02. **Addressed:** D-2607 `72bfcc06`
 
 
 - [x] `bones.c` resetobjs — coverage THIN (C 142 L `bones.c:51–193` / JS 52 L in js/bones.js; hops 2, callers 6, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn resetobjs` (reach regression must be 0). Measured `port-coverage.mjs --name resetobjs` 2026-09-20 @ d89bb259. **Addressed:** D-2606 `a1eb50e1`

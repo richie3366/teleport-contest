@@ -2111,7 +2111,7 @@ IS_FURNITURE so stairs misread — stub deleted, all 7 sites use the D-2008 impo
 JS: `js/display.js` — partial
 
 Floor `vobj_at` + class symbols + CORPSE `mon_color` (D-0022); 
-**live `mon_glyph` uses `mcolors[mnum]`** (D-0036; newt yellow); **`wall_angle` + seenv** (D-0038); 
+**live `mon_glyph` uses `mcolors[mnum]`** (D-0036; newt yellow); **`wall_angle` + seenv** (D-0038; D-2608 completes the whole `display.c:3511–3787` body in C order with `:line` cites — T rotations + `do_twall` modes + `t_warn` live at `:3548`/`:3563`, SDOOR arboreal `S_tree` arm `:3600–3602`, vwall/hwall literal cases 1/2, `set_corner` macro, crosswall mode-0 + `do_crwall` + TLBR/BLTR; `impossible` default arms stay `// C:` cites per the sync-display convention since `impossible()` is async); 
 **STAIRS `known_branch_stairs`→CLR_YELLOW else CLR_GRAY** (D-0162; tty gray→NO_COLOR); 
 **`see_with_infrared`/`mon_visible` when `!cansee`** (D-0039; race Infravision via `mons[urace]`); 
 **`mon_warning`/`display_warning` + `context.warnlevel=1`** (D-0663; 
