@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
-- [x] `mondata.c` can_blnd — coverage THIN (C 89 L `mondata.c:305–398` / JS 20 L in js/uhitm.js; hops 3, callers 11, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn can_blnd` (reach regression must be 0). Measured `port-coverage.mjs --name can_blnd` 2026-09-20 @ d89bb259. **Addressed:** D-2604
+- [x] `eat.c` floorfood — coverage THIN (C 150 L `eat.c:3579–3731` / JS 6 L in js/eat.js; hops —, callers 4, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn floorfood` (reach regression must be 0). Measured `port-coverage.mjs --name floorfood` 2026-09-20 @ d89bb259. **Addressed:** D-2605
+
+
+- [x] `mondata.c` can_blnd — coverage THIN (C 89 L `mondata.c:305–398` / JS 20 L in js/uhitm.js; hops 3, callers 11, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn can_blnd` (reach regression must be 0). Measured `port-coverage.mjs --name can_blnd` 2026-09-20 @ d89bb259. **Addressed:** D-2604 `ae6f9027`
 
 ## 2026-09-19
 

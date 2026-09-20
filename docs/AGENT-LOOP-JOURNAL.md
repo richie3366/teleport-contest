@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-20 — D-2605 `eat.c` floorfood whole-body completion (cockatrice touch + otense/safe_qbuf questions + impossible tail, 3 C callers wired)
+
+**C locus:** `nethack-c/upstream/src/eat.c:3579–3731`. Audited arm-by-arm against the brief: `getobj_else=0` + skipfloor gate (`iflags.menu_requested || !can_reach_floor || feeding&&usteed || pool/lava+Wwalking/clinger/Flying&&!Breathless`) pre-existing; metallivore beartrap (`check_capacity(qbuf)` ≡ `near_capacity()>=EXT_ENCUMBER`, verified `hack.c:4399–4409` returns 1 when over-encumbered) / IRONBARS / non-rust gold pre-existing; floor-loop filter (corpsecheck?CORPSE+tinnable : feeding?non-coin+edible : FOOD_CLASS) pre-existing; post-getobj `You_cant("%s that!")` validation pre-existing (text-identical pline).
+**JS:** `js/eat.js` — `floorfood_eat` loop (:1266), `floorfood_tin` loop (:3888), `floorfood_sacrifice(verb)` loop (:3954), `floorfood` dispatcher (:3985).
+**Change:** in C order per loop — `:3688–3691` cockatrice arm (`otyp==CORPSE && will_feel_cockatrice(otmp,FALSE)` → `await feel_cockatrice` + return null, before any question so blind bare-handed probing stays fatal); `:3696–3702` question via otense + `safe_qbuf(null,…,qsfx,otmp,doname,ansimpleoname,one?'something':'things')` with `qsfx=" here; <verb> it/one?"`; `:3718` dispatcher tail `await impossible('floorfood: unknown request (%s)',verb)` (unreachable from the three live callers). Imports only extend existing edges (objnam/invent/display already imported by `js/eat.js`).
+**Verify:** `node scripts/verify.mjs --fn floorfood` → VERIFY: PASS — syntax 1 file; rule2 clean; hidden note (0 blocked at baseline, expected for a coverage row); reach smoke 24/24 PASS REACH-OK; green 2/2; strict seed8000+seed0900; cohort 7/7.
+**Named:** none new — every arm and callee live (`will/feel_cockatrice` from `js/invent.js`; `otense`/`safe_qbuf`/`ansimpleoname` from `js/objnam.js`; `impossible` from `js/display.js`). `is_pool_or_lava` drawbridge-under deferral and IRONBARS wall_info read stay as D-0953/D-0937 left them.
+**Next:** queue head is now `bones.c` resetobjs.
 ## 2026-09-20 — D-2604 `mondata.c` can_blnd whole-body port (C-order restart + canonical resists_blnd/resists_blnd_by_arti, 11 C callers wired)
 
 **C locus:** `nethack-c/upstream/src/mondata.c:305–398`; callees `resists_blnd` `:247–272` + `resists_blnd_by_arti` `:275–298` (same file, ported in this commit), `haseyes` (`mondata.h:46` macro, live), `mon_perma_blind` (`monst.h:253` macro, inlined), `objdescr_is` (live). 11 C callers: `apply.c:3584`, `dothrow.c:1297`, `mhitu.c:1279,1472`, `mthrowu.c:471,755`, `uhitm.c:1268,2966,2978,2988,5128`.

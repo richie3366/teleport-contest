@@ -1945,7 +1945,7 @@ sellobj_state invent-full dropy / COST_BITE deferred);
 **D-0928 #1113:** seed4500 @103155 — JS `floorfood`/getobj sees floor apples + 
 invent food while C `e` is nothing-to-eat (key desync into Count:20 `.`); 
 invent/floor provenance open; do not ship inediate `is_edible` FOOD reject; 
-omit metallivore·pool floorfood / sacrifice·tin arms / **cprefx rider `revive_corpse` after 
+`floorfood` whole-body live D-2605 (cockatrice touch `:3688–3691` + otense/safe_qbuf `:3696–3702` + impossible tail `:3718`; metallivore·pool D-0937/D-0953, sacrifice·tin D-1027/D-1665); omit **cprefx rider `revive_corpse` after 
 lifesave** (D-1081) / polymon stone-golem failure polish / tainted Sick / slime·stone / `?`/`*` 
 menu; `is_edible` ghoul/cube/fire/metal arms vs JS FOOD-only; 
 `oc_nutrition` still local FOOD map until extract; `addinv` often omits `where=OBJ_INVENT`; 
