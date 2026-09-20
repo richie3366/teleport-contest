@@ -1623,3 +1623,9 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1610-e3df8cae-shared-menu-optfn.md](./1610-e3df8cae-shared-menu-optfn.md) | `e3df8cae` | D-2651 shared_menu_optfn family | **ACCEPT** |
 | [1611-a9b0ff62-scores-only.md](./1611-a9b0ff62-scores-only.md) | `a9b0ff62` | D-2652 scores_only + 2 stale parks | **ACCEPT** |
 | [1612-12de9b19-populate-nomakedefs.md](./1612-12de9b19-populate-nomakedefs.md) | `12de9b19` | D-2653 populate_nomakedefs | **ACCEPT** |
+| [1613-2a7efc6b-check-contained.md](./1613-2a7efc6b-check-contained.md) | `2a7efc6b` | D-2654 check_contained port | **ACCEPT** |
+| [1614-4559dcf9-same-race.md](./1614-4559dcf9-same-race.md) | `4559dcf9` | D-2655 same_race restart + dogfood arm | **ACCEPT** |
+| [1615-dccf43f5-return-throw-to-inv.md](./1615-dccf43f5-return-throw-to-inv.md) | `dccf43f5` | D-2656 return_throw_to_inv unsplit arm | **ACCEPT** |
+| [1616-8affcbef-mhitm-ad-poly.md](./1616-8affcbef-mhitm-ad-poly.md) | `8affcbef` | D-2657 mhitm_ad_poly split arms | **ACCEPT** |
+| [1617-2a8be1e7-magic-negation.md](./1617-2a8be1e7-magic-negation.md) | `2a8be1e7` | D-2658 magic_negation unification | **QUALITY-RISK** |
+| [1619-ff9ae02a-mon-give-prop.md](./1619-ff9ae02a-mon-give-prop.md) | `ff9ae02a` | D-2660 mon_give_prop restart | **ACCEPT** |

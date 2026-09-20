@@ -1,6 +1,6 @@
 {
- "commit": "e34aa845",
- "at": "2026-09-20T15:27:36.531Z",
+ "commit": "ff9ae02a",
+ "at": "2026-09-20T15:44:25.836Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -7358,7 +7358,7 @@
    "steps": 88,
    "owner": "distfleeck",
    "loc": "monmove.c:549",
-   "jsOwner": "score_targ(dogmove.js:959)",
+   "jsOwner": "score_targ(dogmove.js:1000)",
    "cTopline": "You hear a chugging sound.",
    "jsTopline": "You hear a chugging sound.",
    "error": null

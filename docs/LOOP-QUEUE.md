@@ -97,6 +97,8 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
+- [ ] `mhitu.c` magic_negation intrinsic floor drops the hero-polyform disjunct — C `:1130–1134` applies `mon->data == &mons[PM_ALIGNED_CLERIC] || is_minion(mon->data)` to the hero too (mon == &youmonst, data == polyform); JS `if (is_you) {HProtection-only} else if (aligned||minion)` gives mc 0 where C gives 1 for a hero poly'd into couatl/Aleax (M2_MINION, polyok). Fix: evaluate the aligned/minion disjunct on the hero's form when is_you. Verify `node scripts/verify.mjs --fn magic_negation` (reach regression must be 0). Source: reviews/loop-unattended/1617-2a8be1e7-magic-negation.md.
+
 A **JS throw** in any corpus session (`hidden-proxy status` owner
 `js-throw …`, or a `ReferenceError` in `.cache/hidden/scores.json`
 `error`), and a corpus worker **hang** (`ETIMEDOUT` under `verify`), are
