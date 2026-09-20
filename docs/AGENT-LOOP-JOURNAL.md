@@ -7,6 +7,13 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-20 — D-2664 `artifact.c` invoke_create_portal whole-body restart (import hoist + per-arm cites)
+
+**C locus:** 
+**JS:** 
+**Change:** 
+**Verify:** 
+**Next:** (see LOOP-QUEUE)
 ## 2026-09-20 — D-2663 `worn.c` racial_exception race-vs-form fix (dead callee raceptr ported live)
 
 **C locus:** ``nethack-c/upstream/src/worn.c:1359–1373`` (racial_exception) + callee ``mondata.c:1359–1365`` (raceptr: hero && !Upolyd → ``&mons[urace.mnum]``, else ``mtmp->data``) + ``is_elven_armor`` (obj.h:299–302; live js/worn.js:156) + callers ``worn.c:887`` (m_dowear W_ARM racialexception gate) / ``do_wear.c:2053`` (canwearobj which-gate) / ``polyself.c:1199`` (break_armor sliparm uarm).

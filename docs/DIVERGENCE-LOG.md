@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2664 — `artifact.c` invoke_create_portal whole-body restart (import hoist + per-arm cites)
+
+- Status: ACCEPT — breadth-phase coverage row (review 463 ACCEPT-WITH-DEBT already matched every arm; semantics unchanged).
+- Symptom: coverage PARTIAL (C 64 L / JS 46 L); 5 per-call `await import()` incl. a redundant terminal.js re-import (ATR_INVERSE already static); one range cite, no per-arm cites.
+- C locus: nethack-c/upstream/src/artifact.c:1866–1931 (`invoke_create_portal`, staticfn; Eye of the Aethiopica CREATE_PORTAL special).
+- JS was: js/artifact.js:1906 live local async fn, arm-complete but dynamically importing `depth`/`goto_level`/`next_to_u`/`select_menu_pick_one`/ATR_INVERSE on every call.
+- Fix: restarted the body in C order with per-arm `:line` cites; hoisted `depth` (hacklib.js:34, sync) into the existing hacklib edge and `goto_level` (do.js:1490, async) into the existing do edge; added static `next_to_u` (apply.js:1574, async) and `select_menu_pick_one` (options.js:2309, async) edges (`imports.mjs --can`: SAFE, hoisted fns, runtime-only awaited calls); dropped the redundant dynamic terminal.js import.
+- JS: js/artifact.js `invoke_create_portal` (restarted, per-arm cites); imports at js/artifact.js:127 (depth), js/artifact.js:146–154 (goto_level/next_to_u/select_menu_pick_one).
+- Callers: C artifact.c:2161 `case CREATE_PORTAL: res = invoke_create_portal(obj); break;` → JS js/artifact.js:2168 `case CREATE_PORTAL: return invoke_create_portal(obj);` — cost-then-switch envelope identical, res-vs-return equivalent. Sole C caller; wired.
+- Verify: `node scripts/verify.mjs --fn invoke_create_portal` → PASS syntax (1 file) · PASS rule2 · hidden note (no corpus session blocked — expected for a coverage row) · PASS reach (no RNG-tagged reach; smoke 24 run: 24 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · VERIFY: PASS.
+- Named omissions: C `select_menu`(PICK_ONE)/create_nhwindow/destroy_nhwindow/start_menu/add_menu/end_menu/`any.zeroany`/`free(selected)` have no same-named JS symbols — menu-model adaptation via live `select_menu_pick_one` (window lifecycle + teardown picker-owned; end_menu prompt as header rows; a_int plain field; GC); C `You()` shimmering arm via output-identical pline literal (bare You not imported in module); `u.uhave_amulet` fallback disjunct is the established JS idiom (allmain/do/eat precedent).
+- Next: next Open — coverage row (`selvar.c` selection_floodfill) unless refilled.
+
 ## D-2663 — `worn.c` racial_exception race-vs-form fix (dead callee raceptr ported live)
 
 - **Status:** fixed (Open — coverage row ``worn.c`` racial_exception THIN (C 13 L ``worn.c:1360–1373`` / JS 5 L in js/worn.js; hops 4, callers 3, RNG 0, msg 0; dead callees: raceptr). Measured ``port-coverage.mjs --name racial_exception`` 2026-09-20 @ 4559dcf9.)

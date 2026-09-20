@@ -223,7 +223,12 @@ live HEALING/ENERGY_BOOST/UNTRAP/LEV_TELE/ENLIGHTENING/CREATE_AMMO/FLING_POISON/
 + CONFLICT/LEVITATION/INVIS; cost then switch); 
 **`invoke_healing` first You_feel Blinded 0/1 D-1494** (C `youprop.h:92` / `artifact.c:1787`; 
 not the HBlinded word; BlindedTimeout gates unchanged); 
-**TAMING/CHARGE_OBJ/CREATE_PORTAL/BANISH D-1502** (C `invoke_taming`/`charge_obj`/`create_portal`/`banish` 
+**TAMING/CHARGE_OBJ/CREATE_PORTAL/BANISH D-1502; `invoke_create_portal` whole-body restart D-2664** (C `invoke_create_portal`
+`:1866–1931` in C order with per-arm cites; 5 per-call dynamic imports hoisted static — `depth`/`goto_level` into existing
+hacklib/do edges, `next_to_u`/`select_menu_pick_one` new SAFE edges, redundant dynamic terminal.js re-import dropped
+(ATR_INVERSE already static); C `select_menu`(PICK_ONE)/window/end_menu/`any.zeroany`/`free` named menu-model adaptations
+via live `select_menu_pick_one` (js/options.js:2309); `nothing_special` staticfn-local `:1761–1766`;
+caller C `:2161` → js/artifact.js:2168 wired; C `invoke_taming`/`charge_obj`/`banish`
 `:1768–2019` + switch; Palantir TAMING artilist `#if 0` still has the arm; 
 zeroobj pseudo has no `oclass` so `tamedog` does not null the scroll path; 
 callees `read.c` `seffect_taming`/`charge_ok`/`recharge`, `mon.c` `migrate_mon`, 
