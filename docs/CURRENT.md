@@ -46,7 +46,7 @@ screens 93.2 %. Held-out 11/44, unchanged vs last audit (5,972 pts, RNG
 predict the judge.
 **Corpus fortress** (re-scored 2026-09-20 audit 1587–1594): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — **+0 / −0**
-in the D-2628…D-2640 window (7 ACCEPTs + 1 QUALITY-RISK;
+in the D-2628…D-2641 window (7 ACCEPTs + 1 QUALITY-RISK;
 every per-SHA `--reach-all` re-run here ends REACH-OK with no REGRESSED).
 Reviews 1225–1594: 328 ACCEPT, 14 WITH-DEBT, 1 DEBT, 22 QUALITY-RISK (1503, 1517, 1520 stamped; Must-fix 1533/1536 → D-2583/D-2584, 1568 → D-2610, 1592 open; hashes filled).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`) — review-debt, unqueued (detail in the review files).
@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `exper.c` experience (queue head; D-2640 shipped seffect_destroy_armor).
+**Next cluster:** `polyself.c` change_sex (queue head; D-2641 shipped experience).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2640 (index).**
+**Keep D-0845…D-2641 (index).**
 <!-- recent:begin -->
+**D-2641** ``nethack-c/upstream/src/exper.c:85–166`` (experience, decl ``extern.h:1038``). Decisive C — restarted the export in C order with per-arm ``:line`` cites — eel ``:125–126`` via file-local ``Amphibious_hero`` (youprop.h:272 macro expansion in the teleport.js/mhitu.js uprop-read shape, not exported so no third ``A
 **D-2640** ``nethack-c/upstream/src/read.c:1324–1396`` (seffect_destroy_armor, decl ``:26``) + same-f — restarted the export in C order with per-arm ``:line`` cites — confused ``:1333–1352`` via file-local ``p_glow2(otmp, NH_PURPLE)`` + live ``costly_alteration`` COST_DEGRD; cursed ``:1354–1371`` via live ``Yobjnam2(otmp,'
 **D-2639** ``nethack-c/upstream/src/region.c:798–892`` (rest_regions, decl ``extern.h:2691``); static — new ``rest_regions(stored, elapsed, ghostly)`` in ``js/region.js:700`` in C order with per-arm ``:line`` cites — clear_regions security wipe (``:806``); ghostly⇒0 tick else elapsed (``:807–811``); fresh object per record
 **D-2638** ``nethack-c/upstream/src/hack.c:2513–2582`` (avoid_trap_andor_region, staticfn decl ``:41` — deleted all three clones → live imports (``imports.mjs --can hack.js region.js visible_region_at``: SAFE — hoisted function decls in the existing 98-module SCC, runtime-only calls; ``upstart`` joins the existing hacklib.
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2636** ``nethack-c/upstream/src/role.c:1840–1844`` (RS_ROLE filter loop inside role_menu_extra `` — one-line ``i !== f`` → ``i !== fsel`` (the correctly-renamed local, already used at ``:891``/``:909``/``:935``/``:953``); exported ``menu_extra_lines`` + ``rfilter`` (additive, no caller change) so the arm is testable; n
 **D-2635** ``nethack-c/upstream/src/botl.c:1376–1454`` (cond_menu) + ``:1332–1342`` (cond_cmp) + ``:1 — new async export ``cond_menu`` in ``js/botl.js`` (C home) in C order with per-arm ``:line`` cites — file-local ``strcmpi_fold`` (toLowerCase shape, invent.js sortloot_cmp precedent), ``cond_cmp`` (ranking asc + alpha tie
 **D-2634** ``nethack-c/upstream/src/muse.c:1299–1340`` (m_use_undead_turning, staticfn) + ``:1293–129 — restarted the export in C order with per-arm ``:line`` cites — ported ``linedup_chk_corpse`` as a muse.js local (``sobj_at(CORPSE,x,y) !== null``; sobj_at returns obj|null per ``js/mkobj.js:2704``); exported ``linedup_ca
-**D-2633** ``nethack-c/upstream/src/role.c:1816–1960`` (role_menu_extra, static); all 24 call sites i — restarted the body in C order with per-arm ``:line`` cites — RS_NAME (``:1834``, ``f`` stays 0 → "Pick another name first" like C); RS_ROLE filter loop (``:1840–1844``, sparse ``rfilter.roles`` ≡ C zero-init); RACE (``:1
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2640; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2641; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
