@@ -3279,7 +3279,7 @@ small-monster otyp switch** (D-0189); **`dmgval` shade/`shade_glare` D-1354**;
 **`dmgval` large switch / thick-skin / iron ball / blessed·axe·silver·`artifact_light` `rnd()` / `spec_dbon` half / `greatest_erosion` D-1793** 
 (`weapon.c` `:215–356`; `obj.h` `is_axe` one export in `objects.js`; `mondata.h` `is_wooden`/`hates_light`; 
 **`hitval` blessed/spear/trident/pick D-1929** (`obj.h` `is_spear` one export in `objects.js`; `kebabable[]`; `is_pool`; no silver arm in C hitval — silver is the dmgval bonus; `spec_abon` is D-0611); 
-**`skill_init` + `#enhance`/`add_skills_to_menu` PICK_NONE paged** (D-0122); 
+**`skill_init` + `#enhance`/`add_skills_to_menu` PICK_NONE paged** (D-0122); **whole-body restart + `show_skills`** (D-2704; pass-indexed ranges, gameover-gated heading, all four Snprintf arms incl. both menu_tab_sep tabs, single skill_level_name call; callers enhance `:1166` + new show_skills; dump_everything caller stays DUMPLOG-retired); 
 **spelspec `unrestrict_weapon_skill` + `skill_based_spellbook_id`** (D-0132); 
 **`weapon_hit_bonus` (b.h. unskilled +1; martial/twoweapon/riding)** (D-0187); 
 **`dbon` + `weapon_dam_bonus` in `hmon_hitmon_dmg_recalc`** (D-0363; Basic martial +3; 

@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2704 — `weapon.c` add_skills_to_menu whole-body restart + show_skills
+
+- Status: SHIPPED (breadth phase). Popped head Open — coverage row (PARTIAL: C 73 L `weapon.c:1229–1302` / JS 46 L). No Must-fix live, no review cited, no corpus session blocked (RNG 0, msg 0).
+- Symptom: coverage PARTIAL — JS `js/weapon.js:1521` covered only the two non-tab Snprintf arms; both `iflags.menu_tab_sep` tab arms absent, heading hardcoded ATR_INVERSE (C `add_menu_heading` is ATR_NONE when gameover), `skill_level_name` called twice on the non-wizard path, and the second C caller `show_skills` had no JS symbol.
+- C locus: `weapon.c:1229–1302` `add_skills_to_menu` — longest-name scan, skill_ranges pass loop with per-range heading before the P_RESTRICTED skip, prefix order (!selectable / can_advance / could_advance `*` / peaked `#` / blank), `skill_level_name` once, 4 Snprintf arms (wizard/non-wizard × tab/plain), `any.a_int = selectable && can_advance(i, speedy) ? i + 1 : 0` + `add_menu` ATR_NONE/NO_COLOR. Callers `weapon.c:1314` `show_skills` and `:1380` `enhance_weapon_skill`.
+- JS was: entries[]-model port with correct default-path strings but `for (const range …)` loop, no tabsep read, double `skill_level_name` call on the non-wizard path, `attr: 0` literals.
+- Fix: restarted the body in C order — pass-indexed SIZE loop, gameover-gated heading attr (windows.c `:1815–1828`), single `skill_level_name` call, all four format arms with per-arm C-format cites (`" %s%s\t%s\t%5d(%4d)"`, `" %s%s\t[%s]"`), ATR_NONE import on the existing terminal.js edge, `skill: i`/selectable contract unchanged. New exported `show_skills` (`:1304–1318`: pline "Skills:" + add_skills_to_menu FALSE/FALSE + PICK_NONE, enhance-path map shape).
+- JS: `js/weapon.js` `add_skills_to_menu` restart + `show_skills` export (~30 net lines); 1-name import extension.
+- Callers: C `enhance_weapon_skill` → JS `js/weapon.js:1166` (pre-existing, unchanged); C `show_skills` → JS `js/weapon.js` `show_skills` (new). `show_skills`'s C caller end.c:602 dump_everything stays DUMPLOG-retired (D-1776).
+- Verify: `node scripts/verify.mjs --fn add_skills_to_menu` → PASS (syntax 1 file; rule2; hidden: none blocked; reach: no RNG reach, smoke 24/24 REACH-OK; green 2/2; strict both; cohort 7/7). Default-path strings byte-identical by construction (tabsep false, non-gameover).
+- Named omissions: winid/create_nhwindow lifecycle (menu-helper owned, enhance precedent); nul_glyphinfo/MENU_ITEMFLAGS_NONE (no JS carrier); painter-assigned selection letters (pre-existing entries contract).
+- Next: next Open — coverage row (`dungeon.c` query_annotation).
+
 ## D-2703 — `invent.c` reroll_menu whole C body + allmain reroll loop
 
 - Status: SHIPPED (breadth phase). Popped head Open — coverage row `count_feat_lastseentyp` → STALE (whole C body live `js/dungeon.js:1467`, caller wired), then `spellretention` → STALE (`js/spell.js:1277`), `set_crosswall` → STALE (`js/mklev.js:30494`), `more_than_one` → STALE (C 5-arg macro, `js/mklev.js:30459`); all 4 parked with 0 blocked. Refilled `--rows 600` @2dfc3677 (6 fresh: reroll_menu/add_skills_to_menu/query_annotation/there_cmd_menu_common/skills_for_role/create_drawbridge) and shipped the head. No Must-fix live, no review cited, no corpus session blocked (RNG 0, msg 0).

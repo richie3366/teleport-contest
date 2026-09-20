@@ -7,6 +7,13 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-20 — D-2704 `weapon.c` add_skills_to_menu whole-body restart + show_skills
+
+**C locus:** 
+**JS:** 
+**Change:** 
+**Verify:** 
+**Next:** (see LOOP-QUEUE)
 ## 2026-09-20 — D-2703 `invent.c` reroll_menu whole C body + allmain reroll loop
 
 **C locus:** 
@@ -72,48 +79,6 @@ stated) + REACH-OK, no REGRESSED. Cadence: public 44/44 (Scr
 cross-checked, pool exhausted (options-class only), nothing appended.
 Rule #2 clean. Next: pop the sel_set_door Must-fix first.
 ## 2026-09-20 — D-2696 `selvar.c` selection_recalc_bounds whole-body restart (dirty protocol + getbounds wiring)
-
-**C locus:** 
-**JS:** 
-**Change:** 
-**Verify:** 
-**Next:** (see LOOP-QUEUE)
-## 2026-09-20 — D-2695 `sp_lev.c` set_door_orientation sel_set_door-caller wiring + 2 Stale parks
-
-**C locus:** 
-**JS:** 
-**Change:** 
-**Verify:** 
-**Next:** (see LOOP-QUEUE)
-## 2026-09-20 — D-2694 `u_init.c` ini_inv whole-body port (pauper/nudist/addinv-return arms)
-
-**C locus:** 
-**JS:** 
-**Change:** 
-**Verify:** 
-**Next:** (see LOOP-QUEUE)
-## 2026-09-20 — D-2693 `spell.c` percent_success C-order restart (int-otyp consts)
-
-**C locus:** 
-**JS:** 
-**Change:** 
-**Verify:** 
-**Next:** (see LOOP-QUEUE)
-## 2026-09-20 — D-2692 `mon.c` adj_erinys restore-caller wiring (corrects D-2691 Stale park)
-
-**C locus:** 
-**JS:** 
-**Change:** 
-**Verify:** 
-**Next:** (see LOOP-QUEUE)
-## 2026-09-20 — D-2691 `explode.c` explosionmask remainder (impossible defaults + canonical resists_magm)
-
-**C locus:** 
-**JS:** 
-**Change:** 
-**Verify:** 
-**Next:** (see LOOP-QUEUE)
-## 2026-09-20 — D-2690 `eat.c` edibility_prompts remainder arms (iced-corpse age + defended-AD_DISE)
 
 **C locus:** 
 **JS:** 
