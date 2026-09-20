@@ -1629,3 +1629,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1616-8affcbef-mhitm-ad-poly.md](./1616-8affcbef-mhitm-ad-poly.md) | `8affcbef` | D-2657 mhitm_ad_poly split arms | **ACCEPT** |
 | [1617-2a8be1e7-magic-negation.md](./1617-2a8be1e7-magic-negation.md) | `2a8be1e7` | D-2658 magic_negation unification | **QUALITY-RISK** |
 | [1619-ff9ae02a-mon-give-prop.md](./1619-ff9ae02a-mon-give-prop.md) | `ff9ae02a` | D-2660 mon_give_prop restart | **ACCEPT** |
+| [1620-d19d4373-magic-negation-floor.md](./1620-d19d4373-magic-negation-floor.md) | `d19d4373` | D-2661 magic_negation polyform floor | **ACCEPT** |
+| [1621-a505c4ce-propagate-chain-lightning.md](./1621-a505c4ce-propagate-chain-lightning.md) | `a505c4ce` | D-2662 propagate_chain_lightning restart | **ACCEPT** |
+| [1622-18f68dac-racial-exception-raceptr.md](./1622-18f68dac-racial-exception-raceptr.md) | `18f68dac` | D-2663 racial_exception + raceptr | **ACCEPT** |
+| [1623-5991cc78-invoke-create-portal.md](./1623-5991cc78-invoke-create-portal.md) | `5991cc78` | D-2664 invoke_create_portal restart | **ACCEPT** |
+| [1624-f0f09e81-selection-floodfill.md](./1624-f0f09e81-selection-floodfill.md) | `f0f09e81` | D-2665 selection_floodfill restart | **ACCEPT** |
+| [1625-0c0acef3-write-ls.md](./1625-0c0acef3-write-ls.md) | `0c0acef3` | D-2666 write_ls port | **ACCEPT** |
+| [1626-873be5f1-paydoname.md](./1626-873be5f1-paydoname.md) | `873be5f1` | D-2667 paydoname restart | **ACCEPT** |
+| [1627-f0550a81-table-region-corridor.md](./1627-f0550a81-table-region-corridor.md) | `f0550a81` | D-2668 table-region readers + corridor | **ACCEPT** |
+| [1628-f6d363e1-buried-ball-trapmove.md](./1628-f6d363e1-buried-ball-trapmove.md) | `f6d363e1` | D-2669 buried_ball trapmove wiring | **ACCEPT** |
