@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
-- [x] `cmd.c` readchar_core — coverage MISSING (C 59 L `cmd.c:5213–5272` / JS no symbol; hops 3, callers 2, RNG 0, msg 0; dead callees: click_to_cmd). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn readchar_core` (reach regression must be 0). Measured `port-coverage.mjs --name readchar_core` 2026-09-20 @ 7e80d890. **Addressed:** D-2625
+- [x] `invent.c` sortloot_cmp **Addressed:** D-2626 — coverage MISSING (C 144 L `invent.c:403–547` / JS no symbol; hops 4, callers 1, RNG 0, msg 0; dead callees: maybereleaseobuf). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn sortloot_cmp` (reach regression must be 0). Measured `port-coverage.mjs --name sortloot_cmp` 2026-09-20 @ 7e80d890.
+
+
+- [x] `cmd.c` readchar_core — coverage MISSING (C 59 L `cmd.c:5213–5272` / JS no symbol; hops 3, callers 2, RNG 0, msg 0; dead callees: click_to_cmd). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn readchar_core` (reach regression must be 0). Measured `port-coverage.mjs --name readchar_core` 2026-09-20 @ 7e80d890. **Addressed:** D-2625 `a5342d8b`
 
 
 - [x] `trap.c` trapeffect_hole — coverage PARTIAL (C 51 L `trap.c:2013–2067` / JS 30 L in js/trap.js; hops 4, callers 2, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn trapeffect_hole` (reach regression must be 0). Measured `port-coverage.mjs --name trapeffect_hole` 2026-09-20 @ c7e7e767. **Addressed:** D-2624 `355a663e`

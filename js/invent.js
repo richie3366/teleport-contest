@@ -2251,15 +2251,158 @@ export function loot_classify(sort_item, obj) {
     sort_item.inuse = 0;
 }
 
+// C ref: obj.h greatest_erosion — max(oeroded, oeroded2) as int.
+// File-local macro mirror (dig.js/lock.js/u_init.js/weapon.js precedent;
+// avoids an invent↔u_init import edge).
+function greatest_erosion(obj) {
+    const a = obj.oeroded | 0;
+    const b = obj.oeroded2 | 0;
+    return a > b ? a : b;
+}
+
+// C ref: decl.h:873 — gs.sortlootmode, extra input for sortloot_cmp().
+// sortloot() sets it around the sort and resets it after (invent.c:634/636).
+let sortlootmode = 0;
+
+/**
+ * C ref: invent.c sortloot_cmp `:403–547` — qsort comparator for sortloot().
+ * Reads the module sortlootmode (C gs.sortlootmode). Tie paths return the
+ * original-index difference directly (C `goto tiebreak` `:543–546`).
+ * dupstr/maybereleaseobuf are no-ops here: JS strings are immutable
+ * values, so the loot_xname result is already an owned copy and there is
+ * no static obuf to release.
+ */
+export function sortloot_cmp(sli1, sli2) {
+    const obj1 = sli1.obj;
+    const obj2 = sli2.obj;
+    let val1, val2;
+
+    /* in-use takes precedence over all others */ // :412
+    if ((sortlootmode & SORTLOOT_INUSE) !== 0) { // :413
+        /* Classify each object at most once no matter how many
+           comparisons it is involved in. */ // :414-416
+        if (!sli1.orderclass) inuse_classify(sli1, obj1); // :417-418
+        if (!sli2.orderclass) inuse_classify(sli2, obj2); // :419-420
+
+        val1 = sli1.inuse; // :422
+        val2 = sli2.inuse; // :423
+        if (val1 !== val2) return val2 - val1; /* bigger value comes before smaller */ // :424-425
+        /* neither item in use (or both are lit lamps/candles or both are
+           attached leashes; items using owornmask don't produce ties) */ // :426-428
+        return sli1.indx - sli2.indx; // tiebreak :543-546
+    }
+
+    /* order by object class unless we're doing by-invlet without sortpack */ // :430
+    if ((sortlootmode & (SORTLOOT_PACK | SORTLOOT_INVLET)) // :431
+        !== SORTLOOT_INVLET) { // :432
+        /* Classify each object at most once no matter how many
+           comparisons it is involved in. */ // :433-434
+        if (!sli1.orderclass) loot_classify(sli1, obj1); // :435-436
+        if (!sli2.orderclass) loot_classify(sli2, obj2); // :437-438
+
+        /* Sort by class. */ // :440
+        val1 = sli1.orderclass; // :441
+        val2 = sli2.orderclass; // :442
+        if (val1 !== val2) return val1 - val2; // :443-444
+
+        /* skip sub-classes when ordering by sortpack+invlet */ // :446
+        if ((sortlootmode & SORTLOOT_INVLET) === 0) { // :447
+            /* Class matches; sort by subclass. */ // :448
+            val1 = sli1.subclass; // :449
+            val2 = sli2.subclass; // :450
+            if (val1 !== val2) return val1 - val2; // :451-452
+
+            /* Class and subclass match; sort by discovery status:
+             * first unseen, then seen but not named or discovered,
+             * then named, lastly discovered. */ // :454-464
+            val1 = sli1.disco; // :465
+            val2 = sli2.disco; // :466
+            if (val1 !== val2) return val1 - val2; // :467-468
+        }
+    }
+
+    /* order by assigned inventory letter */ // :471
+    if ((sortlootmode & SORTLOOT_INVLET) !== 0) { // :472
+        val1 = invletter_value(obj1.invlet); // :473
+        val2 = invletter_value(obj2.invlet); // :474
+        if (val1 !== val2) return val1 - val2; // :475-476
+    }
+
+    if ((sortlootmode & SORTLOOT_LOOT) === 0) // :478
+        return sli1.indx - sli2.indx; // tiebreak :543-546
+
+    /*
+     * Sort object names in lexicographical order, ignoring quantity.
+     *
+     * Each obj gets formatted at most once (per sort) no matter how many
+     * comparisons it gets subjected to. // :481-486
+     */
+    if (!sli1.str) { // :487
+        // C: tmpstr = loot_xname(obj1); sli1->str = dupstr(tmpstr);
+        // maybereleaseobuf(tmpstr) — both no-ops per the doc comment. // :488-491
+        sli1.str = loot_xname(obj1);
+    }
+    if (!sli2.str) { // :493
+        sli2.str = loot_xname(obj2); // :494-497
+    }
+    // C: strcmpi = hacklib strncmpi A-Z fold; loot names are ASCII so
+    // lowercase ordering equals the C byte order. // :498-499
+    const nam1 = sli1.str.toLowerCase();
+    const nam2 = sli2.str.toLowerCase();
+    if (nam1 < nam2) return -1;
+    if (nam1 > nam2) return 1;
+
+    /* Sort by BUCX. */ // :501
+    val1 = obj1.bknown ? (obj1.blessed ? 3 : !obj1.cursed ? 2 : 1) : 0; // :502
+    val2 = obj2.bknown ? (obj2.blessed ? 3 : !obj2.cursed ? 2 : 1) : 0; // :503
+    if (val1 !== val2) return val2 - val1; /* bigger is better */ // :504
+
+    /* Sort by greasing.  This will put the objects in degreasing order. */ // :506
+    val1 = obj1.greased | 0; // :507
+    val2 = obj2.greased | 0; // :508
+    if (val1 !== val2) return val2 - val1; /* bigger is better */ // :509-510
+
+    /* Sort by erosion.  The effective amount is what matters. */ // :512
+    val1 = greatest_erosion(obj1); // :513
+    val2 = greatest_erosion(obj2); // :514
+    if (val1 !== val2) return val1 - val2; /* bigger is WORSE */ // :515-516
+
+    /* Sort by erodeproofing.  Map known-invulnerable to 1, and both
+       known-vulnerable and unknown-vulnerability to 0, because that's
+       how they're displayed. */ // :517-519
+    val1 = (obj1.rknown && obj1.oerodeproof) ? 1 : 0; // :520
+    val2 = (obj2.rknown && obj2.oerodeproof) ? 1 : 0; // :521
+    if (val1 !== val2) return val2 - val1; /* bigger is better */ // :522-523
+
+    /* Sort by enchantment.  Map unknown to -1000, which is comfortably
+       below the range of obj->spe.  oc_uses_known means that obj->known
+       matters, which usually indirectly means that obj->spe is relevant.
+       Lots of objects use obj->spe for some other purpose (see obj.h). */ // :525-529
+    if (game.objects?.[obj1.otyp]?.oc_uses_known // :530
+        /* exclude eggs (laid by you) and tins (homemade, pureed, &c) */ // :531
+        && obj1.oclass !== FOOD_CLASS) { // :532
+        val1 = obj1.known ? (obj1.spe | 0) : -1000; // :533
+        val2 = obj2.known ? (obj2.spe | 0) : -1000; // :534
+        if (val1 !== val2) return val2 - val1; /* bigger is better */ // :535-536
+    }
+
+    /* They're identical, as far as we're concerned.  We want
+       to force a deterministic order, and do so by producing a
+       stable sort: maintain the original order of equal items. */ // :544-546
+    return sli1.indx - sli2.indx;
+}
+
 /**
  * C ref: invent.c sortloot `:592–643` — Loot[] view; does not relink.
  * Branch envelope: SORTLOOT_PACK class + SORTLOOT_INVLET + SORTLOOT_LOOT
  * + SORTLOOT_INUSE (inuse_classify; bigger inuse first) + optional
  * filterfunc (display_pickinv is_inuse) + SORTLOOT_PETRIFY (keep
  * touch_petrifies CORPSE even when filterfunc rejects FOOD).
- * Named: BUCX/grease/erosion/erodeproof/enchant (sortloot_cmp `:503–541`
- * tail); subclass/disco compares + loot_classify armor/weapon/tool
- * container/instrument/food/gem detail live.
+ * sortloot_cmp `:403–547` is the in-file exported comparator (BUCX /
+ * grease / erosion / erodeproof / enchant tail live). The `#if 0` 3.6.0
+ * revamp direct caller (`:657–671`) is dead — never wired. Post-sort
+ * str free (`:638–640`) is GC. subclass/disco compares + loot_classify
+ * armor/weapon/tool container/instrument/food/gem detail live.
  * @param {object|object[]|null} olist nobj/nexthere head or invent Array
  * @param {number} mode SORTLOOT_* flags
  * @param {boolean} [by_nexthere=false]
@@ -2293,55 +2436,11 @@ export function sortloot(olist, mode, by_nexthere = false, filterfunc = null) {
     }
     if (!mode || items.length <= 1) return items;
 
-    items.sort((sli1, sli2) => {
-        const obj1 = sli1.obj;
-        const obj2 = sli2.obj;
-        // C sortloot_cmp: in-use takes precedence over all others
-        if ((mode & SORTLOOT_INUSE) !== 0) {
-            if (!sli1.orderclass) inuse_classify(sli1, obj1);
-            if (!sli2.orderclass) inuse_classify(sli2, obj2);
-            if (sli1.inuse !== sli2.inuse) {
-                return sli2.inuse - sli1.inuse;
-            }
-            return sli1.indx - sli2.indx;
-        }
-        // C sortloot_cmp `:430–468` — order by class unless
-        // SORTLOOT_INVLET alone; classify once (orderclass 0 = unclassified).
-        if ((mode & (SORTLOOT_PACK | SORTLOOT_INVLET)) !== SORTLOOT_INVLET) {
-            if (!sli1.orderclass) loot_classify(sli1, obj1);
-            if (!sli2.orderclass) loot_classify(sli2, obj2);
-            if (sli1.orderclass !== sli2.orderclass) {
-                return sli1.orderclass - sli2.orderclass;
-            }
-            // C `:446–467` — skip sub-classes when ordering by sortpack+invlet.
-            if ((mode & SORTLOOT_INVLET) === 0) {
-                if (sli1.subclass !== sli2.subclass) {
-                    return sli1.subclass - sli2.subclass;
-                }
-                if (sli1.disco !== sli2.disco) {
-                    return sli1.disco - sli2.disco;
-                }
-            }
-        }
-        // C: order by assigned inventory letter when SORTLOOT_INVLET
-        if (mode & SORTLOOT_INVLET) {
-            const v1 = invletter_value(obj1.invlet);
-            const v2 = invletter_value(obj2.invlet);
-            if (v1 !== v2) return v1 - v2;
-        }
-        if (mode & SORTLOOT_LOOT) {
-            if (!sli1.str) sli1.str = loot_xname(obj1);
-            if (!sli2.str) sli2.str = loot_xname(obj2);
-            // C strcmpi
-            const nam1 = sli1.str.toLowerCase();
-            const nam2 = sli2.str.toLowerCase();
-            if (nam1 < nam2) return -1;
-            if (nam1 > nam2) return 1;
-            // BUCX / grease / erosion deferred
-        }
-        // C tiebreak: stable by original index
-        return sli1.indx - sli2.indx;
-    });
+    // C sortloot `:634–640` — mode is extra input for sortloot_cmp via
+    // gs.sortlootmode; reset after the sort (str free is GC here).
+    sortlootmode = mode;
+    items.sort((sli1, sli2) => sortloot_cmp(sli1, sli2));
+    sortlootmode = 0;
     return items;
 }
 
