@@ -1638,3 +1638,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1626-873be5f1-paydoname.md](./1626-873be5f1-paydoname.md) | `873be5f1` | D-2667 paydoname restart | **ACCEPT** |
 | [1627-f0550a81-table-region-corridor.md](./1627-f0550a81-table-region-corridor.md) | `f0550a81` | D-2668 table-region readers + corridor | **ACCEPT** |
 | [1628-f6d363e1-buried-ball-trapmove.md](./1628-f6d363e1-buried-ball-trapmove.md) | `f6d363e1` | D-2669 buried_ball trapmove wiring | **ACCEPT** |
+| [1629-8f5cd3c6-worm-cross.md](./1629-8f5cd3c6-worm-cross.md) | `8f5cd3c6` | D-2670 worm_cross restart | **ACCEPT** |
+| [1630-5dcb0beb-flip-encoded-dir-bits.md](./1630-5dcb0beb-flip-encoded-dir-bits.md) | `5dcb0beb` | D-2671 flip_encoded_dir_bits port | **ACCEPT** |
+| [1631-4307ede7-role-selection-prolog.md](./1631-4307ede7-role-selection-prolog.md) | `4307ede7` | D-2672 role_selection_prolog port | **ACCEPT** |
+| [1632-231e4785-find-roll-to-hit.md](./1632-231e4785-find-roll-to-hit.md) | `231e4785` | D-2673 find_roll_to_hit role/race arms | **ACCEPT** |
+| [1633-1c867f31-dfeature-at.md](./1633-1c867f31-dfeature-at.md) | `1c867f31` | D-2674 dfeature_at restart | **ACCEPT** |
+| [1634-d0c80b36-doswapweapon.md](./1634-d0c80b36-doswapweapon.md) | `d0c80b36` | D-2675 doswapweapon restart | **ACCEPT** |
+| [1635-6319ffdd-chest-shatter-msg.md](./1635-6319ffdd-chest-shatter-msg.md) | `6319ffdd` | D-2676 chest_shatter_msg restart | **ACCEPT** |
+| [1636-c9e4449a-find-friends.md](./1636-c9e4449a-find-friends.md) | `c9e4449a` | D-2677 find_friends restart | **ACCEPT** |
+| [1637-14d94914-hmon-hitmon-dmg-recalc.md](./1637-14d94914-hmon-hitmon-dmg-recalc.md) | `14d94914` | D-2678 hmon_hitmon_dmg_recalc port | **ACCEPT** |

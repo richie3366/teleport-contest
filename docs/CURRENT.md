@@ -23,10 +23,10 @@ the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-20** — full `sessions` on the working tree
-(audit **1620–1628**).
+(audit **1629–1637**).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`67+0.42/turn` (R² 0.78).
+`76+0.48/turn` (R² 0.80).
 
 ## Score
 
@@ -44,11 +44,11 @@ every audit). Rank 4/22, 2nd agentic; best agentic fork 35/44, RNG 98.5 %,
 screens 93.2 %. Held-out 11/44, unchanged vs last audit (5,972 pts, RNG
 26.7 %, screens 53.0 %; totals in table): the corpus still does not
 predict the judge.
-**Corpus fortress** (re-scored 2026-09-20 audit 1620–1628): **497 / 540
+**Corpus fortress** (re-scored 2026-09-20 audit 1629–1637): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — **+0 / −0**
-in the D-2661…D-2678 window (9 ACCEPTs;
+in the D-2670…D-2678 window (9 ACCEPTs;
 every per-SHA `--reach-all` re-run here ends REACH-OK with no REGRESSED).
-Reviews 1225–1628: 360 ACCEPT, 15 WITH-DEBT, 1 DEBT, 23 QUALITY-RISK (1503, 1517, 1520 stamped; Must-fix 1533/1536 → D-2583/D-2584, 1568 → D-2610, 1592 → D-2636 `271ceca1`, 1617 → magic_negation floor Must-fix (addressed D-2661, review 1620 ACCEPT); hashes filled).
+Reviews 1225–1637: 369 ACCEPT, 15 WITH-DEBT, 1 DEBT, 23 QUALITY-RISK (1503, 1517, 1520 stamped; Must-fix 1533/1536 → D-2583/D-2584, 1568 → D-2610, 1592 → D-2636 `271ceca1`, 1617 → magic_negation floor Must-fix (addressed D-2661, review 1620 ACCEPT); hashes filled).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`) — review-debt, unqueued (detail in the review files).
 Audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s) + `leaderboard.mjs`.
 
@@ -99,7 +99,7 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `uhitm.c` hmon_hitmon_dmg_recalc — coverage PARTIAL (C 71 L `uhitm.c:1436–1507` / JS 32 L in js/uhitm.js; hops 5, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn hmon_hitmon_dmg_recalc` (reach regression must be 0). Measured `port-coverage.mjs --name hmon_hitmon_dmg_recalc` 2026-09-20 @ 4307ede7. (anything_to_s parked STALE same iteration: body + caller already live js/botl.js:274/:692.)
+**Next cluster:** `shk.c` cost_per_charge — coverage PARTIAL (C 48 L `shk.c:5627–5678` / JS 27 L in js/shk.js; hops 6, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn cost_per_charge` (reach regression must be 0). Measured `port-coverage.mjs --name cost_per_charge` 2026-09-20 @ 4307ede7.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2678 (index).**
 <!-- recent:begin -->

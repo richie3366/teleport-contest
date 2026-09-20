@@ -1,6 +1,6 @@
 {
- "commit": "c9e4449a",
- "at": "2026-09-20T18:40:53.732Z",
+ "commit": "14d94914",
+ "at": "2026-09-20T18:56:11.604Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6593,7 +6593,7 @@
    "steps": 114,
    "owner": "distfleeck",
    "loc": "monmove.c:549",
-   "jsOwner": "doopen_indir(lock.js:900)",
+   "jsOwner": "doopen_indir(lock.js:901)",
    "cTopline": "You feel no objects here.",
    "jsTopline": "You feel no objects here.",
    "error": null
@@ -7358,7 +7358,7 @@
    "steps": 88,
    "owner": "distfleeck",
    "loc": "monmove.c:549",
-   "jsOwner": "score_targ(dogmove.js:1000)",
+   "jsOwner": "score_targ(dogmove.js:1019)",
    "cTopline": "You hear a chugging sound.",
    "jsTopline": "You hear a chugging sound.",
    "error": null
