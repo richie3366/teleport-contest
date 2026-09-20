@@ -1131,6 +1131,29 @@ function rank() {
 }
 
 /**
+ * C ref: botl.c max_rank_sz `:402–415` — widest role rank-title string
+ * into gm.mrank_sz (C reads gu.urole.rank[9]; JS game.urole.title, with the
+ * rank_of fallback when the shape is thin). C's in-tree callers are
+ * u_init.c:1033, restore.c:908 and polyself.c change_sex :287.
+ */
+export function max_rank_sz() {
+    let role = game.urole || null; // C: gu.urole
+    if (!role?.name?.m) role = roles.find(r => r.mnum === (game.urole?.mnum | 0)) || null;
+    const titles = role?.title || role?.rank;
+    const list = Array.isArray(titles) ? titles
+        : (titles ? [titles] : (role?.name ? [{ m: role.name.m, f: role.name.f }] : []));
+    let maxr = 0; // C: size_t maxr = 0
+    for (let i = 0; i < 9; i++) { // C :407
+        const t = list[i];
+        if (!t) continue;
+        if (t.m && t.m.length > maxr) maxr = t.m.length; // C :408-409 strlen
+        if (t.f && t.f.length > maxr) maxr = t.f.length; // C :410-411 strlen
+    }
+    if (!game.gm) game.gm = {};
+    game.gm.mrank_sz = maxr | 0; // C :413 (int) maxr
+}
+
+/**
  * C ref: botl.c title_to_mon `:367–399` — match a rank title prefix.
  * Loops roles[] (sentinel: missing name.m), 9 rank slots each, male then
  * female title, ASCII-caseblind prefix (str_start_is TRUE). Out-params are

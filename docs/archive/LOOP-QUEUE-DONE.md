@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
-- [x] `exper.c` experience — coverage PARTIAL (C 81 L `exper.c:85–166` / JS 46 L in js/exper.js; hops 2, callers 4, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn experience` (reach regression must be 0). Measured `port-coverage.mjs --name experience` 2026-09-20 @ d62c8935. **Addressed:** D-2641
+- [x] `polyself.c` change_sex — coverage THIN (C 30 L `polyself.c:273–303` / JS 12 L in js/polyself.js; hops 4, callers 3, RNG 0, msg 0; dead callees: max_rank_sz). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn change_sex` (reach regression must be 0). Measured `port-coverage.mjs --name change_sex` 2026-09-20 @ d62c8935. **Addressed:** D-2642
+
+
+- [x] `exper.c` experience — coverage PARTIAL (C 81 L `exper.c:85–166` / JS 46 L in js/exper.js; hops 2, callers 4, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn experience` (reach regression must be 0). Measured `port-coverage.mjs --name experience` 2026-09-20 @ d62c8935. **Addressed:** D-2641 `4171e6d7`
 
 
 - [x] `read.c` seffect_destroy_armor — coverage PARTIAL (C 72 L `read.c:1324–1396` / JS 51 L in js/read.js; hops 5, callers 1, RNG 1, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn seffect_destroy_armor` (reach regression must be 0). Measured `port-coverage.mjs --name seffect_destroy_armor` 2026-09-20 @ d62c8935. **Addressed:** D-2640 `01b46bc9`
