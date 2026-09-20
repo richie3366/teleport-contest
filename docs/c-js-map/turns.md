@@ -1506,7 +1506,7 @@ alone); **`domove_core` ParanoidTrap → `avoid_trap_andor_region`** (D-1187;
 C `hack.c:2515–2581` / `:2825–2828` after rooted before `u.utrap`; 
 `into_vs_onto` + `immune_to_trap` hero MAGIC_PORTAL `TRAP_NOT_IMMUNE`; full `test_move` TEST_MOVE (D-2439 — was the `test_move_viable` silent subset); 
 gas-region yn; Hallu `rnd(TRAPNUM-1)`; **FIRE invent-burn / 
-POLY `resists_magm` still named**); **`domove` swallowed → `u_on_newpos(ustuck)` + 
+POLY `resists_magm` still named**); **`avoid_trap_andor_region` whole-body restart** (D-2638; C `:2513–2582` per-arm cites `:2527–2552`/`:2553–2580`; clones deleted → live `visible_region_at`/`reg_damg` (region.js, SAFE same-SCC) + `upstart` (hacklib.js, no new edge); trap prompt `trapname(traptype, true)` ≡ C `:2571` defsym explanation — pre-fix hallu re-roll asked about display-RNG garbage; `u_locomotion` exported live from C-home hack.js, capitalize + `locomotion()` poly fallback still named; caller cmd.js:4130 verified; `scripts/avoid-trap-hallu.test.mjs` 2 its); **`domove` swallowed → `u_on_newpos(ustuck)` + 
 attack engulfer** (D-0833; skip impaired/`m_at` walk; 
 air_turbulence/slippery_ice still deferred; 
 **`water_friction`/`water_turbulence` D-1800**); 
