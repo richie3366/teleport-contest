@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2700 — `mondata.c` mstrength whole C body
+
+- Status: SHIPPED (breadth phase). Popped the first Open — coverage row; no Must-fix live, no review cites it, no corpus session blocked (RNG 0, msg 0).
+- Symptom: coverage MISSING — no JS symbol for `mstrength` (C 69 L `mondata.c:428–497`; callers 1, RNG 0, msg 0); dead callee `mstrength_ranged_attk` (`:501–512`, static) also absent.
+- C locus: `nethack-c/upstream/src/mondata.c:428–497` `mstrength` (level clamp, group bits, ranged arm, AC arms, speed arm, per-attack loop, per-damage loop, leprechaun/bee/ant specials, level adjust) + `:501–512` static `mstrength_ranged_attk` (AT_BREA/SPIT/GAZE mask, `>= AT_WEAP` gate); sole code caller `wizcmds.c:1807` (`extern.h:1919` decl + `:419` comment only).
+- JS was: no symbol for either (brief `sym.mjs` NOT FOUND, no map section, no D-index rows).
+- Fix: both ported whole-body in C order (`js/mondata.js`): `mstrength_ranged_attk` file-local like C's `static`, `mstrength` exported. Constants reuse live edges only (no new module pair, runtime-use so no TDZ): `AT_SPIT/AT_BREA/AT_WEAP/AT_MAGC` + `AD_PHYS/AD_DRLI/AD_STON/AD_DRDX/AD_DRCO/AD_WERE` added to the existing `mhitm.js` import (values verified vs `monattk.h`: 10/12/254/255, 0/15/18/30/31/29); `AD_FIRE/AD_COLD/AD_ELEC/AD_DRST` reuse the file-local `monattk.h` consts (`js/mondata.js:51–58`, values match C); `G_SGROUP/G_LGROUP/M2_STRONG` added to the existing `monsters.js` import; `NATTK` to the existing `const.js` import. C integer division (`2*(tmp-6)/4`, `n/3`, `n/2` — operands non-negative throughout) via `Math.trunc`; `!!(geno & …)` via ternary; `strcmp(pmnames[NEUTRAL],…)` arms via `===`/`!==` on the neutral name read struct-field-first then `pmnames[mndx]?.[NEUTRAL]` (`js/mon.js:485` shape; `ptr` never mutated so the hoist is exact).
+- JS: `js/mondata.js` (+101/−4: 3 extended imports + 2 bodies).
+- Callers: C `wizcmds.c:1807` (`wiz_mon_diff`, wizard `#mondifficulty` debug command) → **named omission**: `wiz_mon_diff` is not ported (`js/wizcmds.js` has no symbol); `mstrength` is exported for wiring when it lands. No call invented at any other site (reviews 1359/1361).
+- Verify: `node scripts/verify.mjs --fn mstrength` → syntax 1 file / rule2 / hidden note (0 blocked — normal for a coverage row) / REACH-OK (no RNG tags; smoke 24/24, 0 regressed) / green 2/2 / strict ×2 / cohort 7/7 — VERIFY: PASS. Throwaway probe `/tmp/mstr-check.mjs`: 11 monsters run; 5 hand-computed from C rules match exactly (killer bee 6, grid bug 1, freezing sphere 9, shocking sphere 10, role-wizard 13 — incl. the M2_STRONG AT_WEAP arm and the +5 shocking-sphere arm).
+- Named omissions: `wiz_mon_diff` caller wiring (above). No arm omitted, no stub in a live arm.
+- Next: `sp_lev.c` set_wallprop_in_selection (next Open row).
+
 ## D-2699 — `u_init.c` pauper_reinit whole C body
 
 - Status: SHIPPED (breadth phase). Popped the first Open — coverage row; no Must-fix live, no review cites it, no corpus session blocked (RNG 0 draws — pauper is opt-in conduct no session exercises).

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
-- [x] `u_init.c` pauper_reinit — coverage MISSING (C 55 L `u_init.c:870–925` / JS no symbol; hops —, callers 3, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn pauper_reinit` (reach regression must be 0). Measured `port-coverage.mjs --name pauper_reinit` 2026-09-21 @ 471b8f58. **Addressed:** D-2699
+- [x] `mondata.c` mstrength — coverage MISSING (C 69 L `mondata.c:428–497` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: mstrength_ranged_attk). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mstrength` (reach regression must be 0). Measured `port-coverage.mjs --name mstrength` 2026-09-21 @ 471b8f58.
+
+
+- [x] `u_init.c` pauper_reinit — coverage MISSING (C 55 L `u_init.c:870–925` / JS no symbol; hops —, callers 3, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn pauper_reinit` (reach regression must be 0). Measured `port-coverage.mjs --name pauper_reinit` 2026-09-21 @ 471b8f58. **Addressed:** D-2699 `befd3a1a`
 
 
 - [x] `cmd.c` domouseaction — coverage MISSING (C 90 L `cmd.c:4916–5006` / JS no symbol; hops —, callers 0, RNG 0, msg 0; dead callees: On_stairs_up, On_stairs_dn). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn domouseaction` (reach regression must be 0). Measured `port-coverage.mjs --name domouseaction` 2026-09-21 @ 3e86b108. **Addressed:** D-2698 `eb298d17`

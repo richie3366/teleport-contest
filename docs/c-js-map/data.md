@@ -527,6 +527,27 @@ not rewired): `resists_blnd_mm` (`js/mhitm.js:793`),
 `trap.js:4652` resists clones; `dmgtype_fromattack` clones in
 `js/mhitu.js:655` (kept file-local).
 
+### `src/mondata.c` `mstrength` / `mstrength_ranged_attk`
+
+JS: `js/mondata.js:mstrength` (exported) + file-local `mstrength_ranged_attk` — complete (D-2700)
+
+**`mstrength`** (C `mondata.c:428–497`) ported whole-body in C order —
+mlevel clamp `:434–435` (`Math.trunc`, operands non-negative), group bits
+`:438–439` (live `G_SGROUP`/`G_LGROUP`), ranged arm `:442–443` (file-local
+`mstrength_ranged_attk`, C `:501–512`: AT_BREA/SPIT/GAZE mask,
+`>= AT_WEAP` gate), AC arms `:446–447`, speed arm `:450`, per-attack loop
+`:453–465` (AT_MAGC, AT_WEAP+M2_STRONG, AT_EXPL sphere +3/+5/0),
+per-damage loop `:468–476` (drain sextet +2, grid-bug strcmp guard,
+heavy-damage `damd*damn > 23`), leprechaun −2 `:480–481`, bee/ant +2
+`:485–487`, level adjust `:490–496` (`Math.trunc`). Constants via live
+edges only: `AT_*`/`AD_PHYS/AD_DRLI/AD_STON/AD_DRDX/AD_DRCO/AD_WERE` from
+`js/mhitm.js`, `AD_FIRE/AD_COLD/AD_ELEC/AD_DRST` file-local
+(`js/mondata.js:51–58`), `G_SGROUP/G_LGROUP/M2_STRONG` from
+`js/monsters.js`, `NATTK` from `js/const.js`; neutral name struct-field
+first then `pmnames[mndx]?.[NEUTRAL]`. Named: sole C caller
+`wizcmds.c:1807` `wiz_mon_diff` (wizard `#mondifficulty`, unported —
+wire when it lands; no call invented elsewhere).
+
 ### `src/makemon.c`
 
 JS: `js/makemon.js` — partial
