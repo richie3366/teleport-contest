@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
-- [x] `dungeon.c` fixup_level_locations — coverage PARTIAL (C 60 L `dungeon.c:1122–1182` / JS 34 L in js/dungeon.js; hops 2, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn fixup_level_locations` (reach regression must be 0). Measured `port-coverage.mjs --name fixup_level_locations` 2026-09-20 @ 14d94914. **Addressed:** D-2683
+- [x] `selvar.c` selection_do_gradient — coverage MISSING (C 47 L `selvar.c:570–622` / JS no symbol; hops —, callers 0, RNG 2, msg 0; dead callees: line_dist_coord). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn selection_do_gradient` (reach regression must be 0). Measured `port-coverage.mjs --name selection_do_gradient` 2026-09-20 @ 14d94914.
+
+
+- [x] `dungeon.c` fixup_level_locations — coverage PARTIAL (C 60 L `dungeon.c:1122–1182` / JS 34 L in js/dungeon.js; hops 2, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn fixup_level_locations` (reach regression must be 0). Measured `port-coverage.mjs --name fixup_level_locations` 2026-09-20 @ 14d94914. **Addressed:** D-2683 `26e9fbcf`
 
 
 - [x] `o_init.c` dodiscovered — coverage THIN (C 109 L `o_init.c:764–873` / JS 45 L in js/invent.js; hops —, callers 0, RNG 0, msg 8). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dodiscovered` (reach regression must be 0). Measured `port-coverage.mjs --name dodiscovered` 2026-09-20 @ 14d94914. **Addressed:** D-2682 `7e004acf`

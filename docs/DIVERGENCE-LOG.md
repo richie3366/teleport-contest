@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2684 — `selvar.c` selection_do_gradient whole-body port (+ staticfn line_dist_coord; growl_sound parked STALE)
+
+- Status: ACCEPT — breadth-phase coverage row (MISSING C 47 L `selvar.c:570–622` / JS no symbol; hops —, callers 0, RNG 2, msg 0; no corpus session blocked). Queue head `sounds.c` growl_sound parked STALE in the same iteration (whole C body live `js/sounds.js:799`, both C callers wired `js/sounds.js:843` + `js/mhitu.js:3579`, 0 blocked).
+- Symptom: coverage MISSING — no JS symbol for selection_do_gradient or its staticfn callee line_dist_coord.
+- C locus: `nethack-c/upstream/src/selvar.c:569–622` (`/* guts of l_selection_gradient */`) + callee line_dist_coord `:541–566` (degenerate→dist2 `:550-551`, clamped float projection `:553-557`, truncating long assignment `:559-560`) + C caller `nhlsel.c:912` l_selection_gradient (Lua selection.gradient).
+- JS was: nothing (MISSING).
+- Fix: ported in C order into `js/mklev.js` beside the other selection_do_* helpers. File-local line_dist_coord (C staticfn → module-local, sel_flood_havepoint precedent) with Math.trunc for the C long assignment (gradient endpoints may sit off-map, so trunc≠floor); exported selection_do_gradient with mind/maxd swap `:579-583`, dofs floor `:585-587`, default→impossible→radial fallthrough `:590-594`, C short-circuit rn2 gates `:599-601`/`:615-617`, Math.min/max composition in the square arm `:613`; SEL_GRADIENT_RADIAL/SQUARE added to the existing const.js import (values match sp_lev.h 0/1 — no new cross-module edge). impossible called sync-style without await per the create_monster precedent (`js/mklev.js:19268`).
+- JS: `js/mklev.js` (const import +2 names; `line_dist_coord` `:26986`; `selection_do_gradient` `:27014`); new `scripts/selection-do-gradient.test.mjs` (6 its, all deterministic — mind==maxd never reaches rn2 by C short-circuit; swap arm seeds initRng).
+- Callers: C `nhlsel.c:912` l_selection_gradient → no JS Lua bridge exists (named omission in data.md; function exported for it). None invented per reviews 1359/1361.
+- Verify: `node --test scripts/selection-do-gradient.test.mjs` → 6/6; `node scripts/verify.mjs --fn selection_do_gradient` → PASS syntax (1 changed js file) · PASS rule2 · note hidden (0 blocked at baseline — normal for a coverage row) · PASS reach (no RNG-tagged reach; smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) → VERIFY: PASS.
+- Named omissions: Lua selection.gradient binding (`nhlsel.c` l_selection_gradient — no JS Lua bridge); C float32-vs-double lu rounding (coordinate magnitudes stay exactly representable; no fround precedent in the tree).
+- Next: queue head `monmove.c` m_balks_at_approaching (Open — coverage).
+
 ## D-2683 — `dungeon.c` fixup_level_locations whole-body port (C-order cites + live-callee wiring + headless pin)
 
 - Status: ACCEPT — breadth-phase coverage row (PARTIAL C 60 L `dungeon.c:1122–1182` / JS 34 L in js/dungeon.js; hops 2, callers 1, RNG 0, msg 0; no corpus session blocked).

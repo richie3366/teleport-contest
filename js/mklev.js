@@ -49,6 +49,7 @@ import {
     WM_T_LONG, WM_T_BL, WM_T_BR,
     WM_X_TL, WM_X_TR, WM_X_BL, WM_X_BR, WM_X_TLBR, WM_X_BLTR,
     BOOL_RANDOM,
+    SEL_GRADIENT_RADIAL, SEL_GRADIENT_SQUARE,
     SET_LIT_RANDOM, SET_LIT_NOCHANGE,
     LVLINIT_NONE, LVLINIT_SOLIDFILL, LVLINIT_MAZEGRID, LVLINIT_MAZE,
     LVLINIT_MINES, LVLINIT_ROGUE, LVLINIT_SWAMP,
@@ -26971,6 +26972,84 @@ function selection_do_randline(x1, y1, x2, y2, rough, rec, ov) {
     selection_do_randline(x1, y1, mx, my, r, rec, ov);
     selection_do_randline(mx, my, x2, y2, r, rec, ov);
     selection_setpoint(x2, y2, ov, 1);
+}
+
+/**
+ * C ref: selvar.c line_dist_coord `:541-566` (staticfn, file-local here too)
+ * — squared distance from (x3,y3) to the segment (x1,y1)-(x2,y2).
+ * Degenerate segment falls back to dist2 (`:550-551`); otherwise the
+ * projection factor lu is clamped to [0,1] (`:554-557`) and the projected
+ * point truncates toward zero on the C long assignment (`:559-560` —
+ * Math.trunc, not floor, since gradient endpoints may sit off-map).
+ * Only caller: selection_do_gradient (all 6 C sites).
+ */
+function line_dist_coord(x1, y1, x2, y2, x3, y3) {
+    x1 |= 0; y1 |= 0; x2 |= 0; y2 |= 0; x3 |= 0; y3 |= 0;
+    const px = (x2 - x1) | 0; // C `:544`
+    const py = (y2 - y1) | 0; // C `:545`
+    const s = (px * px + py * py) | 0; // C `:546`
+    if (x1 === x2 && y1 === y2) return dist2(x1, y1, x3, y3); // C `:550-551`
+    // C `:553` float division; coordinate magnitudes stay exactly
+    // representable, so double arithmetic matches the C float here.
+    let lu = (((x3 - x1) * px + (y3 - y1) * py) / s);
+    if (lu > 1) lu = 1; // C `:554-555`
+    else if (lu < 0) lu = 0; // C `:556-557`
+    const x = Math.trunc(x1 + lu * px); // C `:559`
+    const y = Math.trunc(y1 + lu * py); // C `:560`
+    const dx = (x - x3) | 0; // C `:561`
+    const dy = (y - y3) | 0; // C `:562`
+    return (dx * dx + dy * dy) | 0; // C `:563-565`
+}
+
+/**
+ * C ref: selvar.c selection_do_gradient `:569-622` (`/* guts of
+ * l_selection_gradient *\/`) — radial/square probability gradient over the
+ * whole COLNO×ROWNO map. mind/maxd swap (`:579-583`), dofs floor at 1
+ * (`:585-587`); unknown type impossibles then falls through to radial
+ * (`:590-594`); the setpoint gate keeps C short-circuit so rn2 fires only
+ * past mind and within maxd (`:599-601`, `:615-617`).
+ * C caller: nhlsel.c:912 l_selection_gradient (Lua selection.gradient —
+ * no JS Lua bridge yet; exported here for it — named in data.md).
+ */
+export function selection_do_gradient(ov, x, y, x2, y2, gtyp, mind, maxd) {
+    x |= 0; y |= 0; x2 |= 0; y2 |= 0; gtyp |= 0; mind |= 0; maxd |= 0;
+    if (mind > maxd) { // C `:579-583`
+        const tmp = mind;
+        mind = maxd;
+        maxd = tmp;
+    }
+    let dofs = (maxd * maxd - mind * mind) | 0; // C `:585`
+    if (dofs < 1) dofs = 1; // C `:586-587`
+    switch (gtyp) { // C `:589`
+    default:
+        impossible('Unrecognized gradient type! Defaulting to radial...'); // C `:591`
+        /* FALLTHRU */ // C `:592-593`
+    case SEL_GRADIENT_RADIAL: { // C `:594`
+        for (let dx = 0; dx < COLNO; dx++) // C `:595`
+            for (let dy = 0; dy < ROWNO; dy++) { // C `:596`
+                const d0 = line_dist_coord(x, y, x2, y2, dx, dy); // C `:597`
+                if (d0 <= mind * mind // C `:599`
+                    || (d0 <= maxd * maxd && (d0 - mind * mind) < rn2(dofs))) // C `:600`
+                    selection_setpoint(dx, dy, ov, 1); // C `:601`
+            }
+        break; // C `:603`
+    }
+    case SEL_GRADIENT_SQUARE: { // C `:605`
+        for (let dx = 0; dx < COLNO; dx++) // C `:606`
+            for (let dy = 0; dy < ROWNO; dy++) { // C `:607`
+                const d1 = line_dist_coord(x, y, x2, y2, x, dy); // C `:608`
+                const d2 = line_dist_coord(x, y, x2, y2, dx, y); // C `:609`
+                const d3 = line_dist_coord(x, y, x2, y2, x2, dy); // C `:610`
+                const d4 = line_dist_coord(x, y, x2, y2, dx, y2); // C `:611`
+                const d5 = line_dist_coord(x, y, x2, y2, dx, dy); // C `:612`
+                const d0 = Math.min(d5, Math.min(Math.max(d1, d2), Math.max(d3, d4))); // C `:613`
+                if (d0 <= mind * mind // C `:615`
+                    || (d0 <= maxd * maxd && (d0 - mind * mind) < rn2(dofs))) // C `:616`
+                    selection_setpoint(dx, dy, ov, 1); // C `:617`
+            }
+        break; // C `:619`
+    } /*case*/ // C `:620`
+    } /*switch*/ // C `:621`
 }
 
 // C ref: sp_lev.c get_location with croom → somexy for random room place

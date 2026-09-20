@@ -7,6 +7,13 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-20 — D-2684 `selvar.c` selection_do_gradient whole-body port (+ staticfn line_dist_coord; growl_sound parked STALE)
+
+**C locus:** 
+**JS:** 
+**Change:** 
+**Verify:** 
+**Next:** (see LOOP-QUEUE)
 ## 2026-09-20 — D-2683 `dungeon.c` fixup_level_locations whole-body port (C-order cites + live-callee wiring + headless pin)
 
 **C locus:** 
