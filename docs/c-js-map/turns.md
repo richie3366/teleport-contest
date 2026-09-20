@@ -2898,7 +2898,7 @@ bars/poison-gas `visible_region_at` (**D-0597:** `mfndpos` pool/lava/waterwall +
 `distfleeck` `rn2(6)`); **D-0710 fixed:** seed0108 missing `#rub`→SE `n` desynced pet nearby (not 
 dochug geometry); **S_LEPRECHAUN findgold arm D-1798** in want_move OR; 
 **`m_balks_at_approaching`** launcher/pole/aklys/`ranged_attk_available` + `appr==-2` (D-0253; 
-`m_seenres` in ranged_attk deferred); shortsighted / wired `m_avoid_kicked_loc` / **`m_move` 
+`m_seenres` in ranged_attk wired D-2685); shortsighted / wired `m_avoid_kicked_loc` / **`m_move` 
 post-select `chi` + `itsstuck` + `ALLOW_U`→mux + 
 `nix==mux`→`m_move_aggress` (empty image → DONE)** (D-0790; 
 **`mdisplacem` swap + `update_monster_region` both after defender tail (D-1174)** / 

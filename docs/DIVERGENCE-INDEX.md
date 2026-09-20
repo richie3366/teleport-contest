@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-2685 | fixed |  — `monmove.c` m_balks_at_approaching whole-body port (live `ranged_attk_available` with the m_seenres gate) |  |
 | D-2684 | fixed |  — `selvar.c` selection_do_gradient whole-body port (+ staticfn line_dist_coord; growl_sound parked STALE) |  |
 | D-2683 | fixed |  — `dungeon.c` fixup_level_locations whole-body port (C-order cites + live-callee wiring + headless pin) |  |
 | D-2682 | fixed |  — `o_init.c` dodiscovered whole-body port (discosort o/c/a/s + relic/artifact pseudo-classes + sortloot_descr |  |

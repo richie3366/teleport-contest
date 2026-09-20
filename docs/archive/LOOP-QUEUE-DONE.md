@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
+- [x] `monmove.c` m_balks_at_approaching — coverage PARTIAL (C 42 L `monmove.c:1181–1224` / JS 31 L in js/monmove.js; hops 2, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn m_balks_at_approaching` (reach regression must be 0). Measured `port-coverage.mjs --name m_balks_at_approaching` 2026-09-20 @ 14d94914. **Addressed:** D-2685
+
+
 - [x] `selvar.c` selection_do_gradient — coverage MISSING (C 47 L `selvar.c:570–622` / JS no symbol; hops —, callers 0, RNG 2, msg 0; dead callees: line_dist_coord). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn selection_do_gradient` (reach regression must be 0). Measured `port-coverage.mjs --name selection_do_gradient` 2026-09-20 @ 14d94914.
 
 

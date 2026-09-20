@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2685 — `monmove.c` m_balks_at_approaching whole-body port (live `ranged_attk_available` with the m_seenres gate)
+
+- Status: ACCEPT — breadth-phase coverage row (PARTIAL C 42 L `monmove.c:1181–1224` / JS 31 L in js/monmove.js; hops 2, callers 1, RNG 0, msg 0; no corpus session blocked).
+- Symptom: coverage PARTIAL — the JS body carried every arm but its local `ranged_attk_available` clone dropped C's damage-type + seen-resistance gates (doc: "m_seenres gate deferred (treat distance AD as available)"), so any monster with a distance attack counted as ranged even after the hero had seen-resisted that damage type.
+- C locus: `nethack-c/upstream/src/monmove.c:1181–1224` + callee `ranged_attk_available` `mhitu.c:2411–2425` (DISTANCE_ATTK_TYPE `monattk.h:31` = AT_SPIT/BREA/MAGC/GAZE; `get_atkdam_type` `mondata.c:1660` AD_RBRE→`ROLL_FROM` 8-table else identity; `m_seenres` `monst.h` masked bits `== 0`) + C caller `monmove.c:1878` + second `ranged_attk_available` call site `monmove.c:946`.
+- JS was: `js/monmove.js:1676` clone tested aatyp only (no `get_atkdam_type`, no `m_seenres`); `m_balks_at_approaching` `:1693` uncited with cached-mwep pole check and split declaration.
+- Fix: restarted both functions in C order with line cites. `ranged_attk_available` now aatyp-gates first (C short-circuit preserved, so the AD_RBRE `rn2` fires only for distance attacks), then `typ >= 0 && !m_seenres(mtmp, cvt_adtyp_to_mseenres(typ))` with all three helpers imported live from `./mondata.js` (no new module edge — `imports.mjs --can` ALREADY). `m_balks_at_approaching` keeps name/signature (`pdist` = C's two out-params; sole C caller passes &preferredrange_min/max); pole arm re-reads `MON_WEP(mtmp)` per C (pure `mon->mw` both sides, `monst.h:210` vs `js/weapon.js:88`); hp arm keeps `Math.trunc` for C int division. Constants verified equal: AT_SPIT 10 / AT_BREA 12 / AT_GAZE 15 / AT_MAGC 255 / NATTK 6.
+- JS: `js/monmove.js` (mondata import +3 names; `ranged_attk_available` `:1676`; `m_balks_at_approaching` `:1693`).
+- Callers: C `monmove.c:1878` → wired `js/monmove.js:1911` (`preferredrange` {min,max} object); C `monmove.c:946` move-then-shoot gate → wired `js/monmove.js:2528-2530` (same local callee, now stricter per C). None invented per reviews 1359/1361.
+- Verify: `node scripts/verify.mjs --fn m_balks_at_approaching` → PASS syntax (1 changed js file) · PASS rule2 · note hidden (0 blocked at baseline — normal for a coverage row) · PASS reach (no RNG-tagged reach; smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) → VERIFY: PASS.
+- Named omissions: JS `i < mattk.length` + `!mattk` guards kept (C indexes a fixed `mattk[NATTK]`; NONNULLARG1 — defensive JS contract predates this port).
+- Next: queue head `pray.c` blocked_boulder (Open — coverage).
+
 ## D-2684 — `selvar.c` selection_do_gradient whole-body port (+ staticfn line_dist_coord; growl_sound parked STALE)
 
 - Status: ACCEPT — breadth-phase coverage row (MISSING C 47 L `selvar.c:570–622` / JS no symbol; hops —, callers 0, RNG 2, msg 0; no corpus session blocked). Queue head `sounds.c` growl_sound parked STALE in the same iteration (whole C body live `js/sounds.js:799`, both C callers wired `js/sounds.js:843` + `js/mhitu.js:3579`, 0 blocked).
