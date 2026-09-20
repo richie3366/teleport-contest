@@ -23,11 +23,10 @@ the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-20** — full `sessions` on the working tree
-(audit **1569–1577**).
-Fortress **44/44** (no throws; seed0107 back to 98/98 — D-2610 healed the
-D-2609 spacing breach reviewed in 1568).
+(audit **1578–1586**).
+Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`58+0.34/turn` (R² 0.79).
+`57+0.33/turn` (R² 0.80).
 
 ## Score
 
@@ -42,14 +41,15 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 4/22, 2nd agentic; best agentic fork 35/44, RNG 98.5 %,
-screens 93.2 %. Held-out 11/44 (+196 pts / +1.7 pp screens vs last
-audit; totals in table): the corpus still does not predict the judge.
-**Corpus fortress** (re-scored 2026-09-20 audit 1569–1577): **497 / 540
+screens 93.2 %. Held-out 11/44, unchanged vs last audit (5,972 pts, RNG
+26.7 %, screens 53.0 %; totals in table): the corpus still does not
+predict the judge.
+**Corpus fortress** (re-scored 2026-09-20 audit 1578–1586): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — **+0 / −0**
-in the D-2610…D-2627 window (8 ACCEPTs + 1 WITH-DEBT;
-every per-SHA `--reach-all` re-run here ends REACH-OK;
-the one public move is seed0107 restored by D-2610).
-Reviews 1225–1577: 312 ACCEPT, 14 WITH-DEBT, 1 DEBT, 21 QUALITY-RISK (1503, 1517, 1520 stamped; Must-fix 1533/1536 → D-2583/D-2584, 1568 → D-2610, hashes filled).
+in the D-2619…D-2627 window (9 ACCEPTs;
+every per-SHA `--reach-all` re-run here ends REACH-OK, including
+init_objects at 497/497).
+Reviews 1225–1586: 321 ACCEPT, 14 WITH-DEBT, 1 DEBT, 21 QUALITY-RISK (1503, 1517, 1520 stamped; Must-fix 1533/1536 → D-2583/D-2584, 1568 → D-2610, hashes filled).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`) — review-debt, unqueued (detail in the review files).
 Audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s) + `leaderboard.mjs`.
 

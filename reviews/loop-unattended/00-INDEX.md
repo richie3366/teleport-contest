@@ -1588,3 +1588,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1575-c7e7e767-loot-classify.md](./1575-c7e7e767-loot-classify.md) | `c7e7e767` | D-2616 loot_classify port | **ACCEPT** |
 | [1576-aea3bb71-carry-count.md](./1576-aea3bb71-carry-count.md) | `aea3bb71` | D-2617 carry_count restart | **ACCEPT-WITH-DEBT** |
 | [1577-7e80d890-doorganize-core.md](./1577-7e80d890-doorganize-core.md) | `7e80d890` | D-2618 doorganize_core restart | **ACCEPT** |
+| [1578-84e0e295-get-hilite.md](./1578-84e0e295-get-hilite.md) | `84e0e295` | D-2619 get_hilite rule engine | **ACCEPT** |
+| [1579-d0319e92-act-on-act.md](./1579-d0319e92-act-on-act.md) | `d0319e92` | D-2620 act_on_act dispatcher | **ACCEPT** |
+| [1580-e1a1ff90-loot-xname.md](./1580-e1a1ff90-loot-xname.md) | `e1a1ff90` | D-2621 loot_xname sort key | **ACCEPT** |
+| [1581-17b44606-obj-meld.md](./1581-17b44606-obj-meld.md) | `17b44606` | D-2622 obj_meld restart | **ACCEPT** |
+| [1582-868f140c-chat-with-leader.md](./1582-868f140c-chat-with-leader.md) | `868f140c` | D-2623 chat_with_leader restart | **ACCEPT** |
+| [1583-355a663e-trapeffect-hole.md](./1583-355a663e-trapeffect-hole.md) | `355a663e` | D-2624 trapeffect_hole restart | **ACCEPT** |
+| [1584-a5342d8b-readchar-core.md](./1584-a5342d8b-readchar-core.md) | `a5342d8b` | D-2625 readchar_core port | **ACCEPT** |
+| [1585-ebc7b1ce-sortloot-cmp.md](./1585-ebc7b1ce-sortloot-cmp.md) | `ebc7b1ce` | D-2626 sortloot_cmp port | **ACCEPT** |
+| [1586-f6b591c3-init-objects.md](./1586-f6b591c3-init-objects.md) | `f6b591c3` | D-2627 init_objects restart | **ACCEPT** |

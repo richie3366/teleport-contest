@@ -7,6 +7,10 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-20 — Audit 1578–1586 (reviews 84e0e295..f6b591c3: D-2619…D-2627, 9 ACCEPT, 0 Must-fix) + cadence 44/44
+
+9 JS-touching SHAs since audit 564ba152, each reviewed one-at-a-time against pinned C with per-arm cites: get_hilite (rule engine exact; LONG_MAX→MAX_SAFE_INTEGER cited), act_on_act (36 arms exact; doidtrap/auto_describe OMIT, map-cited, currently unreachable — bare-TypeError hardening note, no Must-fix), loot_xname (80 L exact; D-2626 closes the sortloot_cmp wiring note), obj_meld (4 boundary fixes + 2 awaited callers), chat_with_leader (Rules 0–3 + re-gated banished + livelogs), trapeffect_hole (5 arms; wormno>5→count_wsegs fix), readchar_core (all 4 ifdefs verified live in unix headers), sortloot_cmp (full tail; greatest_erosion macro-exact clone, no export exists), init_objects (repair loop present; shuffle_tiles compiled out — TTY_TILES_ESCCODES off). Every per-SHA `hidden-proxy verify --base HASH~1 --reach-all` re-run ends REACH-OK, no REGRESSED session. Cadence: public 44/44 (Scr 11,405/11,405, RNG 792,838/792,838, 57+0.33/turn), held-out 11/44 unchanged (5,972 pts, RNG 26.7 %, screens 53.0 %), corpus 497/540 (92.0 %, RNG 99.31 %, screens 99.1 %) +0/−0. Refill @f6b591c3: 5 fresh rows verbatim (role_menu_extra/m_use_undead_turning/mon_givit/gather_locs/cond_menu), queue back to 12 coverage.
+**Next:** pop `pickup.c` pick_obj (Open PARTIAL, queue head).
 ## 2026-09-20 — D-2627 `o_init.c` init_objects whole-body restart (generic-class panic, oc_name_known repair, callee sanity arms, tiles named)
 
 **C locus:** ``nethack-c/upstream/src/o_init.c:151–234`` (init_objects); callees ``setgemprobs :54–83``, ``init_oclass_probs :240–267``; callers ``allmain.c:783`` (newgame, must precede u_init), ``hack.c:4430`` (dump_weights), ``options.c:7281`` (comment only).
