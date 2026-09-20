@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-20 — D-2624 `trap.c` trapeffect_hole whole-body restart (impossible arms, tt local, count_wsegs, forcetrap/yank messages, level_telep tail)
+
+**C locus:** ``nethack-c/upstream/src/trap.c:2013–2067`` (trapeffect_hole, staticfn); callers ``:2964`` (trapeffect_selector HOLE/TRAPDOOR arm) and ``uhitm.c:1857`` (comment only, no call).
+**JS:** ``js/trap.js:4046`` ``async function trapeffect_hole`` (file-local, staticfn like C) + map line; header doc updated (prior named omissions resolved).
+**Change:** restarted the export in C order with per-arm ``:line`` cites — hero ``:2018–2024`` (seetrap + ``await impossible('dotrap: %ss cannot exist on this level.', trapname(trap.ttyp, true))`` + Finished; else ``fall_through(true, TOOKPLUNGE)``); monster locals ``:2026–2031`` (``tt`` first, then mptr/in_sight/forcetrap/Sokoban/inescapable); bad-level ``:2033–2036`` (``await impossible('mintrap: …', trapname(tt, true))`` — ``%s`` substitution is the live display.js impossible envelope); big/floater arm ``:2037–2061`` with ``count_wsegs(mtmp) > 5`` (already top-level imported from worm.js), forcetrap ``:2042–2055`` seetrap-then-``pline_mon`` TRAPDOOR/HOLE pair in C message order, inescapable ``:2056–2061`` yank ``pline_mon``-then-seetrap with the ``else return Finished`` restored; tail ``:2062`` ``return trapeffect_level_telep(mtmp, trap, trflags)`` (file-local, monster path identical — recomputes the same in_sight/forcetrap). No new imports; no cycle (imports.mjs untouched).
+**Verify:** ``node scripts/verify.mjs --fn trapeffect_hole`` → VERIFY: PASS (syntax 1 file js/trap.js; rule2 clean; hidden ``no corpus session is blocked`` — coverage row, no cited blocks; reach smoke 24/24 PASS 0 regressed → REACH-OK; green 2/2; strict seed8000+seed0900; cohort 7/7; full skipped — no shared file per gate). No committed unit test: repo has no tests/ layout (D-2606 precedent); the function is file-local like its C staticfn and is covered by the fortress gates.
+**Named:** none new — every arm and callee is live (seetrap/impossible/pline_mon display.js, trapname file-local, fall_through file-local, count_wsegs worm.js, grounded/monsters.js, Monnam/mon_nam do_name.js, trapeffect_level_telep file-local).
+**Next:** pop the next Open — coverage row.
 ## 2026-09-20 — D-2623 `quest.c` chat_with_leader whole-body restart (cheater, got_thanks/questart, banished gate, livelogs)
 
 **C locus:** ``nethack-c/upstream/src/quest.c:282–368`` (chat_with_leader, staticfn); callers ``:390`` (leader_speaks, peaceful ``!pissed_off`` gate) and ``:476`` (quest_chat, leader ``m_id`` arm + setmangry tail).
