@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
-- [x] `player_selection.js:875` RS_ROLE loop `i !== f` (module fn, always true) kills `"filter forces role"` vs C `role.c:1840–1844`. Fix: `→ i !== fsel`. Source: reviews/loop-unattended/1592-d62c8935-role-menu-extra.md. **Addressed:** D-2636
+- [x] `monmove.c` onscary — coverage PARTIAL (C 62 L `monmove.c:241–303` / JS 37 L in js/mon.js; hops 2, callers 20, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn onscary` (reach regression must be 0). Measured `port-coverage.mjs --name onscary` 2026-09-20 @ d62c8935.
+
+
+- [x] `player_selection.js:875` RS_ROLE loop `i !== f` (module fn, always true) kills `"filter forces role"` vs C `role.c:1840–1844`. Fix: `→ i !== fsel`. Source: reviews/loop-unattended/1592-d62c8935-role-menu-extra.md. **Addressed:** D-2636 `271ceca1`
 
 
 - [x] `botl.c` cond_menu — coverage MISSING (C 78 L `botl.c:1376–1454` / JS no symbol; hops —, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn cond_menu` (reach regression must be 0). Measured `port-coverage.mjs --name cond_menu` 2026-09-20 @ f6b591c3. **Addressed:** D-2635 `fe53547d`

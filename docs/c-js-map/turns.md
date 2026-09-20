@@ -1568,7 +1568,7 @@ C `hack.c:4166–4167` / `:4197`; `fall_asleep` restamps after `nomul`; named: U
 fumbling `timeout.c`); **`slip_or_trip` whole body C-order live D-2457** (`timeout.c:1222–1341` → `js/timeout.js:176–307`: pronoun/highc-bite/corpse-petrify/steed-vtense/unseat/`rn2(10+DEX)`-hurtle/mounted-`rn2(4)`+dismount, no omits; NODIAG exported from `js/mon.js`); **`fall_asleep`/`usleep`/`nomovemsg`** (D-0156); 
 **`overexertion`→`gethungry`+`overexert_hp`** (D-0107/D-1003); 
 **`monster_nearby`/`noattacks`** (D-0228; **`canspotmon` not `cansee`** D-0928 #1097; 
-onscary deferred; **`M_AP_TYPE` masks `M_AP_TYPMASK`** D-2066 — `monst.h:73`, raw `m_ap_type=10` (OBJECT|F_DKNOWN) skips like OBJECT; inline `& M_AP_TYPMASK` readers (hack/display/do_name/pager/uhitm) now consistent; raw readers objnam:3350/sounds:1445/music:230,305/mhitu:3506,3525/eat:1628 + `M_AP_FLAG`/`U_AP_*` still inline, named); **`domove`→`spoteffects`→`pickup`/`check_here` when `!flags.pickup`** (D-0095); 
+onscary live via the mon.js export (D-2637); **`M_AP_TYPE` masks `M_AP_TYPMASK`** D-2066 — `monst.h:73`, raw `m_ap_type=10` (OBJECT|F_DKNOWN) skips like OBJECT; inline `& M_AP_TYPMASK` readers (hack/display/do_name/pager/uhitm) now consistent; raw readers objnam:3350/sounds:1445/music:230,305/mhitu:3506,3525/eat:1628 + `M_AP_FLAG`/`U_AP_*` still inline, named); **`domove`→`spoteffects`→`pickup`/`check_here` when `!flags.pickup`** (D-0095); 
 **`check_special_room`/`move_update`/`in_rooms` + shop enter** (D-0307) + 
 **special-room enter plines ZOO/SWAMP/COURT(+throne)/MORGUE/… + DELPHI oracle + rtype→OROOM wake `rn2(3)`** (D-0660; D-2054 COURT `furniture_present(THRONE)` suffix via mklev `inside_room` export + DELPHI `monstinroom(PM_ORACLE)` verbalize/room_discovered; 
 BARRACKS monstinroom / wake_msg text still deferred); **`,` → `dopickup`/`pickup_checks`/`pickup_object`/`pick_obj` one-object AUTOSELECT** 
@@ -2867,7 +2867,7 @@ flee/dig/tele/create invent + blindness healing deferred);
 `wake_msg` live D-2088); **`dochug` `wipe_engr_at(mx,my,1)` before apparxy/fleeck** (D-0369; 
 mconf/mstun/flee-teleport/**m_respond D-1314**/courage between wipe and apparxy (gazemu named); 
 **`dochug` STRAT_ARRIVE `m_arrival` + MS_BRIBE mux-mismatch D-1798** (`demon_talk` paid-off still named / `cuss` `!rn2(5)` live D-2090)); 
-**`dochugw` occupation threat → `stop_occupation`** (D-0392; `onscary` stub; **visibility is the display `canspotmon` macro D-2102** — the door-feedback stub misread infravision-seen bats); 
+**`dochugw` occupation threat → `stop_occupation`** (D-0392; `onscary` gate live via the mon.js export D-2637; **visibility is the display `canspotmon` macro D-2102** — the door-feedback stub misread infravision-seen bats); 
 **hostile `m_move`→`postmov` + `mfndpos` known-trap skip** (D-0151); 
 **`set_apparxy` Displacement/Invis/Underwater** (D-0154; cloak otyp for EDisplaced; 
 **`can_fog` vampshifter** D-0799; omit `oc_oprop`/DRAWBRIDGE 
@@ -2879,7 +2879,7 @@ optlist addr / `worm_move` named; **mind_blast D-1238**; **bee_eat_jelly D-1246*
 **`gelcube_digests` D-1257**); **`m_move` meating countdown before `dog_move`/approach + 
 pet `mtrapped`** (D-0169); **`mcalcdistress`/`mon_regen` mfrozen/mblinded/mfleetim** (D-0257); 
 **`were_change`/`new_were`/`counter_were`** in `js/were.js` from `m_calcdistress` (D-0523; 
-unseen-howl arm live D-2113 — `!Deaf && !canseemon` → monsndx wolf/jackal → `Soundeffect` (no-op) + `You_hear` + `wake_nearto` 4*4, `async` (sole caller `mon.js:840` already awaits); omit `monflee` onscary (`possibly_unwield` D-1744; **`mon_break_armor` C `:129`-before-unwield wired D-1917**, canonical `js/worn.js` export); 
+unseen-howl arm live D-2113 — `!Deaf && !canseemon` → monsndx wolf/jackal → `Soundeffect` (no-op) + `You_hear` + `wake_nearto` 4*4, `async` (sole caller `mon.js:840` already awaits); `monflee` onscary tail wired D-2637 (`possibly_unwield` D-1744; **`mon_break_armor` C `:129`-before-unwield wired D-1917**, canonical `js/worn.js` export); 
 cham `decide_to_shapeshift` regular+vamp (D-0623/D-0659; minliquid via D-0775); 
 **`newcham` NC_SHOW_MSG `pline_mon`/`usmellmon`/`noname_monnam` D-1586**; **`normal_shape` await `NC_SHOW_MSG` D-1594** (Protection cancel 
 D-1573; **getlev `restore_cham` D-1637**; **newcham mleashed `m_unleash` TRUE/`update_inventory` + Elbereth `set_apparxy`/`monflee` D-1645**; **await remaining async NO_NC_FLAGS `newcham` D-1648**; `possibly_unwield`/`mon_break_armor`/`poly_steed`/boulder live; ustuck `:5413–5450` + W_ARMG `mselftouch` `:5486–5488` wired D-2433 (vampire cham + check_gear moved to C order after the pline); sync makemon/`load_tower1` named); 
@@ -3804,7 +3804,7 @@ imports it);
 clamp + invoked gate; omit bymenu=FALSE `print_dungeon`; debug_fuzzer;
 water/earth/astral `load_special`; `SURFACE_AT` drawbridge; 
 **`goodpos_onscary` altar S_VAMPIRE / SCR_SCARE_MONSTER / strict Elbereth (D-1102; 
-local `sengr_at` HEADSTONE/time; Inhell/endgame Elbereth off; vampshifter altar is onscary-only)**; 
+canonical `sengr_at` exported from engrave.js D-2637 (teleport keeps its local: D-1110 cycle); Inhell/endgame Elbereth off; vampshifter altar is onscary-only)**; 
 **`goodpos` pool/lava `is_swimmer`/`m_in_air`/`likes_lava` + eel `rn2(13)` (D-0653)** + 
 **`goodpos` `is_pool()`/`is_lava()` not `IS_POOL`/`IS_LAVA` (D-1091)** + 
 **`u_at` allowed for youmonst/ustuck-swallow/usteed** (D-0928 #1102; 
@@ -3815,7 +3815,7 @@ form flag, not youprop Passes_walls)**; **`goodpos` `GP_AVOID_MONPOS`
 `is_exclusion_zone(LR_MONGEN)` after boulder (D-1101; wallwalk/pool/lava skip; 
 clone of `mkmaze.c`)**; **`goodpos` live-mon `onscary` when `m_id != 0` (D-1110; 
 local `monmove.c` clone — vampshifter altar, hero/image/guardobjects Elbereth, 
-`is_lminion`/`inhishop`/`inhistemple`; mfndpos still uses `mon.js` partial)**; 
+`is_lminion`/`inhishop`/`inhistemple`; mfndpos uses the full `mon.js` body since D-2637)**; 
 **`teleok` VIBRATING_SQUARE + pit/hole iff Levitation||Flying (D-1111)** + 
 **`teleok` `tele_jump_ok`/`in_out_region` (D-1119; **enter_msg/leave_msg `pline1` D-1143**; 
 force-field callbacks still named; hack.c walk D-1157; dothrow `hurtle_step` D-1165; 
