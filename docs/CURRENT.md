@@ -46,14 +46,14 @@ screens 93.2 %. Held-out 11/44, unchanged vs last audit (5,972 pts, RNG
 predict the judge.
 **Corpus fortress** (re-scored 2026-09-20 audit 1578–1586): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — **+0 / −0**
-in the D-2619…D-2632 window (9 ACCEPTs;
+in the D-2619…D-2633 window (9 ACCEPTs;
 every per-SHA `--reach-all` re-run here ends REACH-OK, including
 init_objects at 497/497).
 Reviews 1225–1586: 321 ACCEPT, 14 WITH-DEBT, 1 DEBT, 21 QUALITY-RISK (1503, 1517, 1520 stamped; Must-fix 1533/1536 → D-2583/D-2584, 1568 → D-2610, hashes filled).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`) — review-debt, unqueued (detail in the review files).
 Audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s) + `leaderboard.mjs`.
 
-**PASS (43):** seed8000, seed0900, seed1500, seed1800, seed0060,
+**PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
 seed0102, seed0700, seed1150, seed0017, seed0077, seed0106, seed0501,
 seed0105, seed0016, seed0015, seed0200, seed0101, seed0103, seed0104,
 seed0013-rogue, seed0013-friday13-restore,
@@ -100,10 +100,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `pager.c` whatdoes_cond — MISSING (C 115 L `pager.c:2458–2573`; callers 1). Whole body in C order. Verify `node scripts/verify.mjs --fn whatdoes_cond`.
+**Next cluster:** `muse.c` m_use_undead_turning — THIN, 1 caller (`--fn m_use_undead_turning`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2632 (index).**
+**Keep D-0845…D-2633 (index).**
 <!-- recent:begin -->
+**D-2633** ``nethack-c/upstream/src/role.c:1816–1960`` (role_menu_extra, static); all 24 call sites i — restarted the body in C order with per-arm ``:line`` cites — RS_NAME (``:1834``, ``f`` stays 0 → "Pick another name first" like C); RS_ROLE filter loop (``:1840–1844``, sparse ``rfilter.roles`` ≡ C zero-init); RACE (``:1
 **D-2632** ``nethack-c/upstream/src/do_wear.c:3340–3400`` (inaccessible_equipment, decl extern); call — ``js/potion.js`` ``dodip`` — ``await (import './apply.js').inaccessible_equipment(obj, 'dip', false) → ECMD_OK`` in C ``:2282`` position (dynamic import: apply.js already imports potion.js); ``js/do_wear.js`` — deleted t
 **D-2631** ``nethack-c/upstream/src/eat.c:3808–3872`` (consume_oeaten, decl ``extern.h:974``); caller — restarted the export in C order with per-arm ``:line`` cites — itembuf build (corpse/egg/tin ``[corpsenm]`` vs otyp decimal, ``:3814–3821``) + sync fire-and-forget impossible (``:3822–3825``, do_wear.js setworn ``:618`` 
 **D-2630** ``nethack-c/upstream/src/dungeon.c:462–508`` (insert_branch, decl ``extern.h:869``); calle — restarted the export in C order with per-arm ``:line`` cites — extract identity scan (``:469–472`` ⇔ ``indexOf``); missing → ``throw new Error('insert_branch: not found')`` (``:474–475`` panic; throw ≡ C panic per botl.j
@@ -111,11 +112,10 @@ revisits the picker.
 **D-2628** ``nethack-c/upstream/src/pickup.c:1897–1942`` (pick_obj); caller ``:1879`` (pickup_object  — restarted the export in C order with per-arm ``:line`` cites — ``fromfloor`` sampled before extract mutates ``where`` (``:1900``, ``|0`` int compare); ``(void) get_obj_location(otmp, &ox, &oy, 0)`` via the live ``timeout
 **D-2627** ``nethack-c/upstream/src/o_init.c:151–234`` (init_objects); callees ``setgemprobs :54–83`` — restarted the export in C order with per-arm ``:line`` cites — bases zero + generic-class panic as throw with the C message (``:156–162``; botl.js compare_blstats precedent — JS has no sync abort); name/descr identity in
 **D-2626** ``nethack-c/upstream/src/invent.c:403–547`` (sortloot_cmp, staticfn); caller ``:634`` (sor — exported ``sortloot_cmp(sli1, sli2)`` in C order with per-arm ``:line`` cites — INUSE classify-once + bigger-first + indx tiebreak (``:412–428``); PACK|INVLET class gate (``:430–432``), loot_classify-once + orderclass/su
-**D-2625** ``nethack-c/upstream/src/cmd.c:5213–5272`` (readchar_core, staticfn) + ``:5159–5181`` (han — ported the whole C body in C order, async only because pgetchar/nhgetch await input — fuzzer arm ``:5217–5220`` via live ``randomkey()``, still landing on the ``input_state=otherInp`` tail; ``readchar_queue`` ``:153`` as
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2632; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2633; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
@@ -141,7 +141,6 @@ The full index is `LOOP-QUEUE.md` **Parked** (one line each; proofs in
 
 ## Handoff rule
 
-Update **this file** when score, green gate, or primary objective changes.
-On every 10th global iteration, write the C-fidelity review **and**
-refresh Score from a full `sessions` run.
-Journal; divergence + index; one C-JS-MAP section. No completed D-lists.
+Update **this file** on score/gate/objective changes (audit cadence:
+Public score cadence above). Journal; divergence + index; one C-JS-MAP
+section. No completed D-lists.
