@@ -46,7 +46,7 @@ screens 93.2 %. Held-out 11/44 (+196 pts / +1.7 pp screens vs last
 audit; totals in table): the corpus still does not predict the judge.
 **Corpus fortress** (re-scored 2026-09-20 audit 1569–1577): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — **+0 / −0**
-in the D-2610…D-2626 window (8 ACCEPTs + 1 WITH-DEBT;
+in the D-2610…D-2627 window (8 ACCEPTs + 1 WITH-DEBT;
 every per-SHA `--reach-all` re-run here ends REACH-OK;
 the one public move is seed0107 restored by D-2610).
 Reviews 1225–1577: 312 ACCEPT, 14 WITH-DEBT, 1 DEBT, 21 QUALITY-RISK (1503, 1517, 1520 stamped; Must-fix 1533/1536 → D-2583/D-2584, 1568 → D-2610, hashes filled).
@@ -100,10 +100,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `invent.c` sortloot_cmp (Open MISSING; erosion-words row parked STALE).
+**Next cluster:** `pickup.c` pick_obj (Open PARTIAL; C 45 L, 2 callers).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2626 (index).**
+**Keep D-0845…D-2627 (index).**
 <!-- recent:begin -->
+**D-2627** ``nethack-c/upstream/src/o_init.c:151–234`` (init_objects); callees ``setgemprobs :54–83`` — restarted the export in C order with per-arm ``:line`` cites — bases zero + generic-class panic as throw with the C message (``:156–162``; botl.js compare_blstats precedent — JS has no sync abort); name/descr identity in
 **D-2626** ``nethack-c/upstream/src/invent.c:403–547`` (sortloot_cmp, staticfn); caller ``:634`` (sor — exported ``sortloot_cmp(sli1, sli2)`` in C order with per-arm ``:line`` cites — INUSE classify-once + bigger-first + indx tiebreak (``:412–428``); PACK|INVLET class gate (``:430–432``), loot_classify-once + orderclass/su
 **D-2625** ``nethack-c/upstream/src/cmd.c:5213–5272`` (readchar_core, staticfn) + ``:5159–5181`` (han — ported the whole C body in C order, async only because pgetchar/nhgetch await input — fuzzer arm ``:5217–5220`` via live ``randomkey()``, still landing on the ``input_state=otherInp`` tail; ``readchar_queue`` ``:153`` as
 **D-2624** ``nethack-c/upstream/src/trap.c:2013–2067`` (trapeffect_hole, staticfn); callers ``:2964`` — restarted the export in C order with per-arm ``:line`` cites — hero ``:2018–2024`` (seetrap + ``await impossible('dotrap: %ss cannot exist on this level.', trapname(trap.ttyp, true))`` + Finished; else ``fall_through(tru
@@ -111,11 +112,10 @@ revisits the picker.
 **D-2622** ``nethack-c/upstream/src/mkobj.c:3768–3814`` (obj_meld); callers ``do.c:312`` (flooreffect — restarted the export in C order with per-arm ``:line`` cites — ``result = null`` (``:3771``); holder-level ``if (p1 && p2)`` guard (``:3774`` — the ``struct obj **``, not the pointees); pointee ``otmp1 && otmp2 && !==`` 
 **D-2621** ``nethack-c/upstream/src/invent.c:308–387`` (loot_xname, staticfn); callers ``:490``/``:49 — ported the whole body in C order with per-arm ``:line`` cites — save odiluted/blessed/cursed/spe/owt + oname + flags.debug (``:320–325``); potion dilute + water holy/unholy suppress (``:328–332``); towel spe=0 (``:335–33
 **D-2620** ``nethack-c/upstream/src/cmd.c:4658–4838`` (act_on_act, staticfn) + ``:294–311`` (cmdq_add — ported the whole body in C order with per-arm ``:line`` cites — sgn clamp keeping throw/travel/look deltas raw (``:4666–4677``, live eat.js ``sgn`` ≡ ``hacklib.c:650``); TRAVEL travelcc+u.tx/ty stamp (``:4680–4688``, gam
-**D-2619** ``nethack-c/upstream/src/botl.c:2363–2570`` (get_hilite, staticfn) + ``:2333–2344`` (noneo — ported the whole body in C order with per-arm ``:line`` cites — out-of-range early return without touching colorptr (``:2374–2375``); has_hilite macro inlined (``:2377``); best-fit trackers (``:2380–2388``, LARGEST_INT l
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2626; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2627; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
