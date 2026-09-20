@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2686 — `pray.c` blocked_boulder whole-body port (count-2 pool/lava sink arm + live sobj_at/is_pool/is_lava)
+
+- Status: ACCEPT — breadth-phase coverage row (PARTIAL C 42 L `pray.c:2677–2719` / JS 26 L in js/pray.js; hops 2, callers 1, RNG 0, msg 0; no corpus session blocked).
+- Symptom: coverage PARTIAL — JS collapsed C's count switch to `count >= 2 → blocked`, dropping the count==2 pool/lava exception (C `:2696–2701`: two boulders might sink, so a pool/lava landing still runs the Sokoban/isok/obstruct checks below); hand-rolled boulder scan at the landing spot instead of the live `sobj_at`.
+- C locus: `nethack-c/upstream/src/pray.c:2677–2719` + callee `is_pool_or_lava` `dbridge.c:77–83` (`is_pool || is_lava`, own isok check) + `Sokoban` `rm.h:538` (level.flags.sokoban_rules) + C caller `pray.c:176` in `stuck_in_wall`.
+- JS was: `js/pray.js:391` thin body with `count >= 2 → true` + manual landing-spot boulder loop + stale "Sokoban diagonal + pool sink nuance" omit (diagonal was already live; review 83 named the pool thin as assumed).
+- Fix: restarted the function in C order with line cites — `switch (count)` case 0/1/2/default (case 2 breaks through only when `is_pool(nx,ny) || is_lava(nx,ny)`), Sokoban diagonal with the do.js house idiom (`sokoban_rules || sokoban || game.Sokoban`), then isok / IS_OBSTRUCTED / live `sobj_at(BOULDER, nx, ny)`. Added `is_pool, is_lava` to the existing hack.js import and `sobj_at` to the existing mkobj.js import (`imports.mjs --can`: both ALREADY, no new edge); retired the stale file-header omit word.
+- JS: `js/pray.js` (hack import +2 names; mkobj import +1; `blocked_boulder` `:397`; `sobj_at` use `:434`).
+- Callers: C `pray.c:176` → wired `js/pray.js:454` (`stuck_in_wall`, same file, `throws_rocks` gate unchanged). None invented per reviews 1359/1361.
+- Verify: `node scripts/verify.mjs --fn blocked_boulder` → PASS syntax (1 changed js file) · PASS rule2 · note hidden (0 blocked at baseline — normal for a coverage row) · PASS reach (no RNG-tagged reach; smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 (full skipped: no shared file changed) → VERIFY: PASS.
+- Named omissions: none — whole C body live; `is_pool_or_lava` composed from its two live C arms (dig.js keeps its own file-local clone, untouched).
+- Next: queue head `sounds.c` growl mx==0 wake arm (Open — coverage).
+
 ## D-2685 — `monmove.c` m_balks_at_approaching whole-body port (live `ranged_attk_available` with the m_seenres gate)
 
 - Status: ACCEPT — breadth-phase coverage row (PARTIAL C 42 L `monmove.c:1181–1224` / JS 31 L in js/monmove.js; hops 2, callers 1, RNG 0, msg 0; no corpus session blocked).
