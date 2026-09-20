@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
+- [x] `shk.c` corpsenm_price_adj — coverage MISSING (C 41 L `shk.c:4275–4316` / JS no symbol; hops 6, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn corpsenm_price_adj` (reach regression must be 0). Measured `port-coverage.mjs --name corpsenm_price_adj` 2026-09-20 @ 14d94914.
+
+
 - [x] `uhitm.c` hmon_hitmon_dmg_recalc — coverage PARTIAL (C 71 L `uhitm.c:1436–1507` / JS 32 L in js/uhitm.js; hops 5, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn hmon_hitmon_dmg_recalc` (reach regression must be 0). Measured `port-coverage.mjs --name hmon_hitmon_dmg_recalc` 2026-09-20 @ 4307ede7.
 
 

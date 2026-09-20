@@ -1560,8 +1560,9 @@ async function eye_of_newt_buzz() {
 
 /**
  * C ref: eat.c intrinsic_possible — true iff corpse can convey `type`.
+ * Exported for shk.c corpsenm_price_adj (tin/egg/corpse price loop).
  */
-function intrinsic_possible(type, ptr) {
+export function intrinsic_possible(type, ptr) {
     if (!ptr) return 0;
     const mc = ptr.mconveys | 0;
     switch (type | 0) {

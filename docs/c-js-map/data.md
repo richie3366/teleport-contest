@@ -1650,7 +1650,8 @@ SHOPTYPE env omit above, only doorct==1 fires);
 **COCKNEST `fill_zoo` statue + `rn2(5)` loot / ANTHOLE `antholemon`+food + BARRACKS/SWAMP `has_*`** (this D); 
 **SWAMP `mkswamp`** (D-1869); `antholemon()` do_mkroom gate; `shk_fixes_damage`; holetime follow; following verbalize; 
 `gd_move`/`pri_move` bodies; `after_shk_move` bill_p; unpaid leave verbalize/rob_shop; 
-`addupbill` body; `clear_unpaid`/`mongone` full; `paygd`
+`addupbill` body; `clear_unpaid`/`mongone` full; `paygd`;
+**`getprice` FOOD_CLASS `corpsenm_price_adj`** (D-2679; tin/egg/corpse intrinsic-conveyance table + unique +50, level/nutrition base, wired first in the arm in C order; `intrinsic_possible` exported from `js/eat.js`, `unique_corpstat`/`ismnum` live imports; review-680 named debt retired); **`cost_per_charge` whole body live `js/shk.js:3387` (caller `check_unpaid_usage` :3432 wired)**
 
 ### `src/dungeon.c` `level_difficulty` / `deepest_lev_reached`
 

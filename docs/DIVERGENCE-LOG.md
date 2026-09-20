@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2679 — `shk.c` corpsenm_price_adj whole-body port (tin/egg/corpse intrinsic-table surcharge wired into getprice)
+
+- Status: ACCEPT — breadth-phase coverage row (MISSING C 41 L `shk.c:4275–4316` / JS no symbol; hops 6, callers 1, RNG 0, msg 0; no corpus session blocked). Same-file companion of the popped head: `shk.c` cost_per_charge parked STALE (whole body live js/shk.js:3387–3413, sole C caller wired :3432); next-row `do_wear.c` equip_ok parked STALE (whole body live js/do_wear.js:2471–2494, 4 wrappers + getobj sites wired).
+- Symptom: coverage MISSING — the `getprice` FOOD_CLASS arm never added the corpse-species surcharge (getprice doc named `corpsenm_price_adj` as omission; review 680 named it as ACCEPT-WITH-DEBT): tins/eggs/corpses of intrinsically rich, high-level, or unique monsters priced at bare `oc_cost`.
+- C locus: `nethack-c/upstream/src/shk.c:4275–4316` (TIN/EGG/CORPSE + `ismnum` gate `:4279–4280`; 11-row `icost` table `:4287–4299`; `intrinsic_possible` loop `:4301–4303`; `unique_corpstat` +50 `:4304–4305`; `max(1,(mlevel-1)*2)` `:4308`; CORPSE-only `max(1,cnutrit/30)` `:4309–4310`; `val*tmp` `:4312`) + caller `getprice` FOOD_CLASS `:4328–4337` (`tmp += corpsenm_price_adj(obj)` first in the arm).
+- JS was: `js/shk.js` getprice FOOD_CLASS arm (hunger multiplier + `oeaten` only); no same-named symbol anywhere in `js/**` incl. generated (brief: NOT FOUND).
+- Fix: new module-local `corpsenm_price_adj` in C order with per-arm cites — TIN/EGG/CORPSE via the file's `objectNames.indexOf` idiom; `mons(corpsenm)` permonst accessor for `&mons[]`; `Math.max`/`Math.trunc` for C `max`/long-division; `intrinsic_possible` newly exported from `js/eat.js` (same 98-module SCC, hoisted function declaration, call-time use — `imports.mjs --can` TDZ-clean); `unique_corpstat`/`ismnum`/FIRE_RES…TELEPORT_CONTROL live imports; wired first in the FOOD_CLASS arm per C order; getprice doc omission retired to full-candle only.
+- JS: js/shk.js (+imports, 3 otyp consts, new body, 1-line wiring, doc), js/eat.js (+1 export line + doc); docs/c-js-map/data.md (shk section stamped D-2679; cost_per_charge live noted).
+- Callers: C shk.c:4330 → JS getprice FOOD_CLASS `tmp += corpsenm_price_adj(obj)` first statement (all getprice callers — get_cost, price quotes — inherit; none invented per reviews 1359/1361). C forward decl `:101` → hoisted function declaration.
+- Verify: `node scripts/verify.mjs --fn corpsenm_price_adj` → PASS syntax (2 changed js files) · PASS rule2 · note hidden (0 blocked at baseline — normal for a coverage row) · PASS reach (no RNG-tagged reach; smoke 24 run: 24 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) → VERIFY: PASS.
+- Named omissions: none — every arm, callee, and caller is live. getprice's remaining doc omit (full-candle `Is_candle` /2) untouched, own scope.
+- Next: queue head `dungeon.c` interest_mapseen (Open — coverage).
+
 ## D-2678 — `uhitm.c` hmon_hitmon_dmg_recalc whole-body port (get_dmg_bonus gate + PROJECTILE skillwep + uwep_skill_type export)
 
 - Status: ACCEPT — breadth-phase coverage row (PARTIAL C 71 L `uhitm.c:1436–1507` / JS 32 L in js/uhitm.js; hops 5, callers 1, RNG 0, msg 0; no corpus session blocked). Same iteration parked `botl.c` anything_to_s STALE (whole C body `:1886–1926` + sole caller already live js/botl.js:274/:692; 0 blocked).

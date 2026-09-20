@@ -62,6 +62,8 @@ import {
     DISPLACED, LOW_PM, Has_contents, Is_container, has_omid, OMID, MAXULEV, ECMD_OK, ECMD_TIME, ECMD_CANCEL,
     EYE, M_AP_NOTHING, M_AP_MONSTER, M_AP_TYPE, HAND,
     COST_CONTENTS, COST_SINGLEOBJ, COST_UNBLSS, COST_UNCURS, TELEPAT,
+    FIRE_RES, SLEEP_RES, COLD_RES, DISINT_RES, SHOCK_RES, POISON_RES,
+    ACID_RES, STONE_RES, TELEPORT, TELEPORT_CONTROL, ismnum,
     MENU_TRADITIONAL, MENU_FULL,
     W_SWAPWEP, W_QUIVER, TT_PIT, MIGR_APPROX_XY, MON_FLOOR,
     SELL_NORMAL, SELL_DELIBERATE, SELL_DONTSELL, CANDLESHOP,
@@ -116,7 +118,8 @@ import {
 import { ATR_INVERSE } from './terminal.js';
 import { yn_function } from './getline.js';
 import { getpos } from './getpos.js';
-import { m_at, angry_guards } from './mon.js';
+import { m_at, angry_guards, unique_corpstat } from './mon.js';
+import { intrinsic_possible } from './eat.js';
 import { Soundeffect, se_alarm, SetVoice } from './sndprocs.js';
 import { livelog_printf } from './pline.js';
 import { enexto, rloc_to_flag, migrate_to_level } from './teleport.js';
@@ -150,6 +153,9 @@ const CAN_OF_GREASE = objectNames.indexOf('CAN_OF_GREASE');
 const TINNING_KIT = objectNames.indexOf('TINNING_KIT');
 const EXPENSIVE_CAMERA = objectNames.indexOf('EXPENSIVE_CAMERA');
 const POT_OIL = objectNames.indexOf('POT_OIL');
+const TIN = objectNames.indexOf('TIN');
+const EGG = objectNames.indexOf('EGG');
+const CORPSE = objectNames.indexOf('CORPSE');
 /** C objects.h STRANGE_OBJECT — otyp 0; gem_learned all-gems sentinel. */
 const STRANGE_OBJECT = objectNames.indexOf('STRANGE_OBJECT');
 /** C objects.h MARKER FIRST_GLASS_GEM = WORTHLESS_WHITE_GLASS (after JADE). */
@@ -3241,8 +3247,46 @@ export function doname_with_price(obj) {
 set_doname_shop_suffix(append_doname_unpaid_suffix);
 
 /**
+ * C ref: shk.c corpsenm_price_adj `:4275–4316` — tin/egg/corpse surcharge.
+ * Intrinsic-conveyance table (tmp starts at 1) times a level/nutrition
+ * base; unique corpse +50. Caller: getprice FOOD_CLASS arm.
+ * @param {object} obj
+ * @returns {number} surcharge, 0 when not tin/egg/corpse
+ */
+function corpsenm_price_adj(obj) {
+    let val = 0;
+    const otyp = obj?.otyp | 0;
+    if ((otyp === TIN || otyp === EGG || otyp === CORPSE)
+        && ismnum(obj.corpsenm)) {
+        const ptr = mons(obj.corpsenm);
+        let tmp = 1;
+        const icost = [
+            [FIRE_RES, 2],
+            [SLEEP_RES, 3],
+            [COLD_RES, 2],
+            [DISINT_RES, 5],
+            [SHOCK_RES, 4],
+            [POISON_RES, 2],
+            [ACID_RES, 1],
+            [STONE_RES, 3],
+            [TELEPORT, 2],
+            [TELEPORT_CONTROL, 3],
+            [TELEPAT, 5],
+        ];
+        for (const [trinsic, cost] of icost) {
+            if (intrinsic_possible(trinsic, ptr)) tmp += cost;
+        }
+        if (unique_corpstat(ptr)) tmp += 50;
+        val = Math.max(1, (((ptr?.mlevel | 0) - 1) * 2));
+        if (otyp === CORPSE) val += Math.max(1, Math.trunc((ptr?.cnutrit | 0) / 30));
+        val = val * tmp;
+    }
+    return val;
+}
+
+/**
  * C ref: shk.c getprice — base oc_cost + class tweaks.
- * Named omissions: corpsenm_price_adj; full candle Is_candle.
+ * Named omissions: full candle Is_candle.
  */
 function getprice(obj, shk_buying) {
     const oc = objects()?.[obj?.otyp | 0];
@@ -3253,6 +3297,7 @@ function getprice(obj, shk_buying) {
     }
     switch (obj?.oclass | 0) {
     case FOOD_CLASS: {
+        tmp += corpsenm_price_adj(obj);
         const u = game.u;
         if ((u?.uhs | 0) >= HUNGRY && !shk_buying) tmp *= (u.uhs | 0);
         if (obj.oeaten) tmp = 0;
