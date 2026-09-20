@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-2701 | fixed |  — `sp_lev.c` set_wallprop_in_selection whole C body |  |
 | D-2700 | fixed |  — `mondata.c` mstrength whole C body |  |
 | D-2699 | fixed |  — `u_init.c` pauper_reinit whole C body |  |
 | D-2698 | fixed |  — `cmd.c` domouseaction + dotoggleoption whole C bodies (wearsot Stale-parked) |  |

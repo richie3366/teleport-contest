@@ -3222,6 +3222,65 @@ function splev_irregular_oroom(dx1, dy1, rlit) {
     return troom;
 }
 
+/**
+ * C ref: sp_lev.c sel_set_wall_property `:986-996` — OR prop into
+ * wall_info on stone walls, trees and iron bars (C `:990-995`, incl. the
+ * 3.6.2 iron-bars note checked by chewing/zap_over_floor). The isok + null
+ * guards stand in for C selection_iterate's isok gate (`selvar.c:736`);
+ * the JS same-file selection_iterate (x-outer/y-inner, C order) has none,
+ * cf. sel_set_ter's guards. prop passes by value (C takes genericptr arg).
+ */
+function sel_set_wall_property(x, y, prop) {
+    if (!isok(x, y)) return;
+    const loc = game.level.at(x, y);
+    if (!loc) return;
+    if (IS_STWALL(loc.typ) || IS_TREE(loc.typ) || loc.typ === IRONBARS)
+        loc.wall_info = (loc.wall_info || 0) | prop;
+}
+
+/**
+ * C ref: sp_lev.c set_wallprop_in_selection `:5911-5932` — whole body in
+ * C order. create_des_coder() first; then the lua-arity dispatch: argc==1
+ * iterates the caller's selection (C `l_selection_check(L, -1)` errors on
+ * a non-selection, so sel is non-null there), argc==0 builds a fresh full
+ * selection (selection_new + selection_clear(sel, 1), freed after the
+ * iterate), any other arity leaves sel null and does nothing (C `if (sel)`
+ * gate). No Lua stack exists in scored ESM, so sel is explicit: a
+ * selection object selects the argc==1 arm, null/undefined selects the
+ * argc==0 whole-map arm. selection_iterate order is C order (x-outer).
+ */
+export function set_wallprop_in_selection(sel, prop) {
+    create_des_coder();
+    let freesel = false;
+    if (sel == null) {
+        freesel = true;
+        sel = selection_new();
+        selection_clear(sel, 1);
+    }
+    if (sel) {
+        selection_iterate(sel, (x, y) => sel_set_wall_property(x, y, prop));
+        if (freesel) selection_free(sel, true);
+    }
+}
+
+/**
+ * C ref: sp_lev.c lspo_non_diggable `:5936-5942` — des.non_diggable:
+ * set_wallprop_in_selection(L, W_NONDIGGABLE). sel-or-nothing mirrors the
+ * C stack dispatch (selection arm vs no-arg whole-map arm).
+ */
+export function lspo_non_diggable(sel) {
+    set_wallprop_in_selection(sel, W_NONDIGGABLE);
+}
+
+/**
+ * C ref: sp_lev.c lspo_non_passwall `:5945-5951` — des.non_passwall:
+ * set_wallprop_in_selection(L, W_NONPASSWALL). sel-or-nothing mirrors the
+ * C stack dispatch (selection arm vs no-arg whole-map arm).
+ */
+export function lspo_non_passwall(sel) {
+    set_wallprop_in_selection(sel, W_NONPASSWALL);
+}
+
 /** C ref: sp_lev.c sel_set_wall_property via lspo_non_diggable(selection). */
 function medusa_mark_nondig(mx, my, x1, y1, x2, y2) {
     for (let y = my + y1; y <= my + y2 && y < ROWNO; y++) {
@@ -26676,6 +26735,36 @@ export function selection_free(sel, freesel) {
     sel.hx = 0;
     sel.hy = 0;
     sel.bounds_dirty = false; // C `:61` bounds_dirty=FALSE (`:42` zeroes it)
+}
+
+// C ref: selvar.c selection_clear `:48-64` — set every cell to val.
+// val truthy fills the whole map (C memsets map to 1+val so getpoint reads
+// 1; bounds become the full 0..COLNO-1 / 0..ROWNO-1); val falsy empties
+// (bounds reset to the selection_new empty shape). Always clears
+// bounds_dirty (C `:63`). Retires the D-2696 "mutating selection_clear"
+// named deferral for this arm.
+export function selection_clear(sel, val) {
+    if (!sel) return;
+    if (val) {
+        if (!sel.pts) sel.pts = new Set();
+        else sel.pts.clear();
+        for (let y = 0; y < ROWNO; y++) {
+            for (let x = 0; x < COLNO; x++) {
+                sel.pts.add(`${x},${y}`);
+            }
+        }
+        sel.lx = 0; // C `:52-55`
+        sel.ly = 0;
+        sel.hx = COLNO - 1;
+        sel.hy = ROWNO - 1;
+    } else {
+        if (sel.pts) sel.pts.clear();
+        sel.lx = COLNO; // C `:57-60` empty shape (cf. selection_new)
+        sel.ly = ROWNO;
+        sel.hx = 0;
+        sel.hy = 0;
+    }
+    sel.bounds_dirty = false; // C `:63`
 }
 
 /**

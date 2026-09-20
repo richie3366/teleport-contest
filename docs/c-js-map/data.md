@@ -1592,8 +1592,8 @@ lighting-only (litstate_rnd(-1)) + blank-paper pair + '.'-minus-shops
 Tou-goal.lua:112; D-2696: `selection_recalc_bounds` C-complete in C order
 (`js/mklev.js:26868`, exported — dirty guard/reset/4 scans/clear) +
 dirty protocol in new/setpoint/free/clone + `region.js:1146` getbounds
-wired (C `selvar.c:82`); named deferred: `l_selection_xor`, mutating
-`selection_clear`, ellipse/gradient/circle) + Platinum Yendorian Express Card + Kops + des.wallify();
+wired (C `selvar.c:82`); named deferred: `l_selection_xor`,
+ellipse/gradient/circle; `selection_clear` shipped D-2701) + Platinum Yendorian Express Card + Kops + des.wallify();
 fila/filb mines no-lit-key; strt has Twoflower CUSTOM_INVENT
 (walking shoes +3, hawaiian shirt +3) + chest + branch levregion cell);
 **Ran-strt/loca/goal/fila/filb** (D-1889; Ranger quest 5/5: arboreal
@@ -1636,7 +1636,8 @@ exclusion_zones save/rest deferred;
 asleep wood nymphs via `splev_room_monster` default-random `induced_align`,
 `percent(30)` DRY `des.feature` fountain, grown-sel walls→TREE +
 SDOOR-kept `arboreal_sdoor` per-cell `rn2(100)`; `cvt_sdoor_to_door` clears it);
-**des-coder lifecycle** (D-2643; `sp_lev.c:6336–6376` + `:6323–6333` + `:6443–6448` + `load_special :6454–6501`): exported `sp_level_coder_init` in C-home `js/mklev.js` (coder object in C order — allow_flips 3, n_subroom 1, 6+6 room arrays, statics, prior-coder `update_croom`, container zero, invent NULL, SpLev_Map clear, level flags with hellish≡In_hell, `reset_xystart_size`); exported `update_croom` (live-coder croom track); local `create_des_coder` guard; `load_special_proto` wrapper = create-at-entry + Free+NULL `finally` over the dispatch body. Named: `alloc` (GC); load_special post-lua epilogue reads (per-loader omits stand); defensive `create_des_coder` sites in unported lspo_* writers + room/subroom `update_croom` sites (future rows))
+**des-coder lifecycle** (D-2643; `sp_lev.c:6336–6376` + `:6323–6333` + `:6443–6448` + `load_special :6454–6501`): exported `sp_level_coder_init` in C-home `js/mklev.js` (coder object in C order — allow_flips 3, n_subroom 1, 6+6 room arrays, statics, prior-coder `update_croom`, container zero, invent NULL, SpLev_Map clear, level flags with hellish≡In_hell, `reset_xystart_size`); exported `update_croom` (live-coder croom track); local `create_des_coder` guard; `load_special_proto` wrapper = create-at-entry + Free+NULL `finally` over the dispatch body. Named: `alloc` (GC); load_special post-lua epilogue reads (per-loader omits stand); defensive `create_des_coder` sites in unported lspo_* writers + room/subroom `update_croom` sites (future rows));
+**`set_wallprop_in_selection` family** (D-2701; `sp_lev.c:5911–5932` whole body in C order + `:986–996` `sel_set_wall_property` + `:5936–5951` `lspo_non_diggable`/`lspo_non_passwall` forwarders + `selvar.c:48–64` exported `selection_clear`, retiring the D-2696 mutating-selection_clear deferral; sel-or-nothing mirrors the C lua-arity dispatch, `wall_info` OR per C)
 
 ### `src/mkroom.c` `mkshop` / `src/shknam.c` `stock_room` / `src/shk.c`
 

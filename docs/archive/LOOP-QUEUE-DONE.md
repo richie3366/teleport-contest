@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
+- [x] `sp_lev.c` set_wallprop_in_selection — coverage MISSING (C 21 L `sp_lev.c:5911–5932` / JS no symbol; hops —, callers 2, RNG 0, msg 0; dead callees: selection_clear). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn set_wallprop_in_selection` (reach regression must be 0). Measured `port-coverage.mjs --name set_wallprop_in_selection` 2026-09-21 @ 471b8f58.
+
+
 - [x] `mondata.c` mstrength — coverage MISSING (C 69 L `mondata.c:428–497` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: mstrength_ranged_attk). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mstrength` (reach regression must be 0). Measured `port-coverage.mjs --name mstrength` 2026-09-21 @ 471b8f58.
 
 
