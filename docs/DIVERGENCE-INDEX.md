@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-2682 | fixed |  — `o_init.c` dodiscovered whole-body port (discosort o/c/a/s + relic/artifact pseudo-classes + sortloot_descr |  |
 | D-2681 | fixed |  — `role.c` rigid_role_checks whole-body port (ROLE_RANDOM fallback now randrole_filtered) |  |
 | D-2680 | fixed |  — `pickup.c` out_container whole-body port (impossible gate + artifact/corpse/icebox/bill/pick arms + shk pic |  |
 | D-2679 | fixed |  — `shk.c` corpsenm_price_adj whole-body port (tin/egg/corpse intrinsic-table surcharge wired into getprice) |  |
