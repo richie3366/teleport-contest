@@ -46,7 +46,7 @@ screens 93.2 %. Held-out 11/44, unchanged vs last audit (5,972 pts, RNG
 predict the judge.
 **Corpus fortress** (re-scored 2026-09-20 audit 1595–1603): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — **+0 / −0**
-in the D-2636…D-2648 window (9 ACCEPTs;
+in the D-2636…D-2649 window (9 ACCEPTs;
 every per-SHA `--reach-all` re-run here ends REACH-OK with no REGRESSED).
 Reviews 1225–1603: 337 ACCEPT, 14 WITH-DEBT, 1 DEBT, 22 QUALITY-RISK (1503, 1517, 1520 stamped; Must-fix 1533/1536 → D-2583/D-2584, 1568 → D-2610, 1592 → D-2636 `271ceca1`; hashes filled).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`) — review-debt, unqueued (detail in the review files).
@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `topten.c` readentry — coverage MISSING (C 78 L `topten.c:220–298` / JS no symbol; callers 3).
+**Next cluster:** `topten.c` writexlentry — coverage MISSING (C 51 L). Brief + verify `--fn writexlentry`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2648 (index).**
+**Keep D-0845…D-2649 (index).**
 <!-- recent:begin -->
+**D-2649** ``nethack-c/upstream/src/botl.c:2814–3106`` (parse_status_hl2; staticfn decl ``:650``) + s — new exports ``parse_status_hl2(s, from_configfile)`` + ``parse_status_hl1(op, from_configfile)`` in C-home ``js/botl.js`` in C order with per-arm ``:line`` cites, plus file-local ports of every static callee (``s_to_anyt
 **D-2648** ``nethack-c/upstream/src/topten.c:220–298`` (readentry; staticfn decl ``:68``) + callees ` — restarted as exported ``readentry(line)`` in C order with per-arm ``:line`` cites — 13-field fscanf regex (``:238–245``), SCANBUFSZ remainder cut (``:246–257``; SCANBUFSZ const from topten.c:59), pre-3.3 fmt32 arm with o
 **D-2647** ``nethack-c/upstream/src/pickup.c:1225–1508`` (query_category) + ``decl.h:167–168`` / ``de — in C order with per-arm ``:line`` cites — ``PARANOID_CONFIRM``/``PARANOID_AUTOALL`` joined the existing ``./const.js`` import (same module, no new edge); ``paranoid_ynq`` joined the existing ``./getline.js`` import (``im
 **D-2646** ``nethack-c/upstream/src/objnam.c:2707–2779`` (singplur_lookup; staticfn decl ``:43``) + s — three arms inserted in C order between special_subjs and one_off-reverse with per-arm ``:line`` cites (craft ``:2732`` via in-file ``eqCI`` tail; slice/mongoose ``:2736–2743`` whole-word; men-keep ``:2758–2762`` via live
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2644** ``nethack-c/upstream/src/light.c:517–563`` (relink_light_sources). Decisive C facts: walk  — new exported ``relink_light_sources(ghostly)`` in C-home ``js/light.js`` in C order with per-arm ``:line`` cites — array walk ``:538``, flag gate ``:539``, type arms ``:540``, bare-numeric ``nid :541`` (deserLightList sh
 **D-2643** ``nethack-c/upstream/src/sp_lev.c:6336–6376`` (sp_level_coder_init) + ``:6323–6333`` (upda — new exported ``sp_level_coder_init`` in C-home ``js/mklev.js`` in C order with per-arm ``:line`` cites — object literal for ``alloc :6339`` (GC, no live alloc export), ``MAX_NESTED_ROOMS + 1`` arrays (const.js import ext
 **D-2642** ``nethack-c/upstream/src/polyself.c:273–303`` (change_sex). Decisive C facts: the ``!Upoly — restarted the export in C order with per-arm ``:line`` cites — sexless-form first flip ``:281–284``, mfemale ``:285–286``, live ``max_rank_sz()`` ``:287``, pl_character rename ``:288–291`` (``String(name).slice(0, PL_CSI
-**D-2641** ``nethack-c/upstream/src/exper.c:85–166`` (experience, decl ``extern.h:1038``). Decisive C — restarted the export in C order with per-arm ``:line`` cites — eel ``:125–126`` via file-local ``Amphibious_hero`` (youprop.h:272 macro expansion in the teleport.js/mhitu.js uprop-read shape, not exported so no third ``A
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2648; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2649; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
