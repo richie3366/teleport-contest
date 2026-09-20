@@ -33,6 +33,7 @@ import {
 } from './dungeon.js';
 import { rest_track } from './track.js';
 import { open_levelfile } from './files.js';
+import { rest_regions } from './region.js';
 import { restore_timers, restore_light_sources, run_timers, dobjsfree } from './mkobj.js';
 import { vision_reset } from './vision.js';
 import { setworn } from './do_wear.js';
@@ -867,7 +868,10 @@ export async function try_restore_save() {
     game.head_engr = info.head_engr;
     game.stairs = info.stairs;
     game.lastseentyp = info.lastseentyp;
-    game.regions = info.regions || [];
+    // C restore.c getlev `:1225` rest_regions — rebuild live regions from
+    // the save (ttl rebased on elapsed moves, expired dropped); save-file
+    // restore is never ghostly (ghostly ⇔ bones → getlev_bones, D-2639).
+    rest_regions(info.regions || [], (game.moves | 0) - (info.omoves | 0), false);
     if (info.updest) game.updest = { ...info.updest };
     if (info.dndest) game.dndest = { ...info.dndest };
     // C restore.c rest_bubbles after rest_regions

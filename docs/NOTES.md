@@ -38,20 +38,21 @@ here again. Live hypotheses only:
 - **do_statusline2 residuals (D-2425 MEASURED):** W1 Healer-92107 `mhitm_ad_cold_u` extra destroy return; W2 Satiated pair = eat-progress `uhs`/botl timing — both are corpus-residual Open rows (detail in D-2425). Monk-92194 Pw = D-2161 gulpmu residual, no new row.
 ## Don't re-check (≤15)
 
-- D-1790…D-2638 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-2639 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2638.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2638.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2639.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2639.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2639: new ``rest_regions(stored, elapsed, ghostly)`` in ``js/region.js:700`` in C order with per-arm ``:line`` cites — clear_regions security wipe (``:806`` Named: binary ``save_regions`` format (stash/JSON architecture, data.md line stands + extended); 
 - D-2638: deleted all three clones → live imports (``imports.mjs --can hack.js region.js visible_region_at``: SAFE — hoisted function decls in the existing 98-m Named: ``u_locomotion`` capitalize path + ``locomotion(youmonst.data, def)`` poly fallback (C ``:
 - D-2637: restarted the ``mon.js`` export in C order with per-arm ``:line`` cites — live ``is_lminion``/``Inhell`` (teleport.js; ``Inhell`` newly exported, hell Named: ``monmove.c:559`` distfleeck sawscary — ``js/monmove.js:990`` distfleeck is a documented `
 - D-2636: one-line ``i !== f`` → ``i !== fsel`` (the correctly-renamed local, already used at ``:891``/``:909``/``:935``/``:953``); exported ``menu_extra_lines` Named: none new — D-2633's list stands (add_menu/add_menu_str ⇒ menu_pick line objects; cg.zeroan
@@ -66,5 +67,4 @@ here again. Live hypotheses only:
 - D-2627: restarted the export in C order with per-arm ``:line`` cites — bases zero + generic-class panic as throw with the C message (``:156–162``; botl.js com Named: ``shuffle_tiles`` (both the ``:232`` init site and the ``restnames :434`` restore site are
 - D-2626: exported ``sortloot_cmp(sli1, sli2)`` in C order with per-arm ``:line`` cites — INUSE classify-once + bigger-first + indx tiebreak (``:412–428``); PAC Named: ``dupstr`` (identity — JS strings are immutable values, the loot_xname result is already a
 - D-2625: ported the whole C body in C order, async only because pgetchar/nhgetch await input — fuzzer arm ``:5217–5220`` via live ``randomkey()``, still landin Named: ``nhwindows_hangup`` (windowport teardown — no JS windows layer, same class as end_of_inpu
-- D-2624: restarted the export in C order with per-arm ``:line`` cites — hero ``:2018–2024`` (seetrap + ``await impossible('dotrap: %ss cannot exist on this lev Named: none new — every arm and callee is live (seetrap/impossible/pline_mon display.js, trapname
 <!-- landmarks:end -->
