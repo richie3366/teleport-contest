@@ -46,7 +46,7 @@ screens 93.2 %. Held-out 11/44, unchanged vs last audit (5,972 pts, RNG
 predict the judge.
 **Corpus fortress** (re-scored 2026-09-20 audit 1578–1586): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — **+0 / −0**
-in the D-2619…D-2633 window (9 ACCEPTs;
+in the D-2619…D-2634 window (9 ACCEPTs;
 every per-SHA `--reach-all` re-run here ends REACH-OK, including
 init_objects at 497/497).
 Reviews 1225–1586: 321 ACCEPT, 14 WITH-DEBT, 1 DEBT, 21 QUALITY-RISK (1503, 1517, 1520 stamped; Must-fix 1533/1536 → D-2583/D-2584, 1568 → D-2610, hashes filled).
@@ -102,8 +102,9 @@ breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
 **Next cluster:** `muse.c` m_use_undead_turning — THIN, 1 caller (`--fn m_use_undead_turning`).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2633 (index).**
+**Keep D-0845…D-2634 (index).**
 <!-- recent:begin -->
+**D-2634** ``nethack-c/upstream/src/muse.c:1299–1340`` (m_use_undead_turning, staticfn) + ``:1293–129 — restarted the export in C order with per-arm ``:line`` cites — ported ``linedup_chk_corpse`` as a muse.js local (``sobj_at(CORPSE,x,y) !== null``; sobj_at returns obj|null per ``js/mkobj.js:2704``); exported ``linedup_ca
 **D-2633** ``nethack-c/upstream/src/role.c:1816–1960`` (role_menu_extra, static); all 24 call sites i — restarted the body in C order with per-arm ``:line`` cites — RS_NAME (``:1834``, ``f`` stays 0 → "Pick another name first" like C); RS_ROLE filter loop (``:1840–1844``, sparse ``rfilter.roles`` ≡ C zero-init); RACE (``:1
 **D-2632** ``nethack-c/upstream/src/do_wear.c:3340–3400`` (inaccessible_equipment, decl extern); call — ``js/potion.js`` ``dodip`` — ``await (import './apply.js').inaccessible_equipment(obj, 'dip', false) → ECMD_OK`` in C ``:2282`` position (dynamic import: apply.js already imports potion.js); ``js/do_wear.js`` — deleted t
 **D-2631** ``nethack-c/upstream/src/eat.c:3808–3872`` (consume_oeaten, decl ``extern.h:974``); caller — restarted the export in C order with per-arm ``:line`` cites — itembuf build (corpse/egg/tin ``[corpsenm]`` vs otyp decimal, ``:3814–3821``) + sync fire-and-forget impossible (``:3822–3825``, do_wear.js setworn ``:618`` 
@@ -111,11 +112,10 @@ revisits the picker.
 **D-2629** ``nethack-c/upstream/src/end.c:1823–1859`` (build_english_list, extern ``extern.h:1003``); — ported the whole C body in C order with per-arm ``:line`` cites — ``wordcount`` blank/word run counting (``:1797–1803``); ``bel_copy1`` skip-blanks + copy-word + advance-cursor (``:1813–1818``; cursor object stands in fo
 **D-2628** ``nethack-c/upstream/src/pickup.c:1897–1942`` (pick_obj); caller ``:1879`` (pickup_object  — restarted the export in C order with per-arm ``:line`` cites — ``fromfloor`` sampled before extract mutates ``where`` (``:1900``, ``|0`` int compare); ``(void) get_obj_location(otmp, &ox, &oy, 0)`` via the live ``timeout
 **D-2627** ``nethack-c/upstream/src/o_init.c:151–234`` (init_objects); callees ``setgemprobs :54–83`` — restarted the export in C order with per-arm ``:line`` cites — bases zero + generic-class panic as throw with the C message (``:156–162``; botl.js compare_blstats precedent — JS has no sync abort); name/descr identity in
-**D-2626** ``nethack-c/upstream/src/invent.c:403–547`` (sortloot_cmp, staticfn); caller ``:634`` (sor — exported ``sortloot_cmp(sli1, sli2)`` in C order with per-arm ``:line`` cites — INUSE classify-once + bigger-first + indx tiebreak (``:412–428``); PACK|INVLET class gate (``:430–432``), loot_classify-once + orderclass/su
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2633; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2634; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

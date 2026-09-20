@@ -3218,7 +3218,7 @@ arms live; named: `munstone`+`mon_consume_unstone` stoning-TRUE envelope,
 `mhitm_ad_slim` callers (uhitm.c row), MUSE_BUGLE select+use (monster-bugler
 `awaken_soldiers`)); **`find_offensive`/`use_offensive` MUSE_POT_* throw + 
 `m_throw` POTION→`potionhit`/`bottlename`/`potionbreathe` + 
-flight `observe_object`→`makeknown`/`exercise(A_WIS)`** (D-0184) **+ ray wands / fire·frost horns / WAN_TELE·UNDEAD `mbhitm` / SCR_EARTH drop_boulder** (D-1810; named: `linedup_callback` floor-corpse, `fhito_loc`/`bhito`, destroy_drawbridge, SCR_FIRE `#if 0`, sanctuary/AD_HEAL); 
+flight `observe_object`→`makeknown`/`exercise(A_WIS)`** (D-0184) **+ ray wands / fire·frost horns / WAN_TELE·UNDEAD `mbhitm` / SCR_EARTH drop_boulder** (D-1810; named: `fhito_loc`/`bhito`, destroy_drawbridge, SCR_FIRE `#if 0`, sanctuary/AD_HEAL) **+ `m_use_undead_turning` floor-corpse ray D-2634** (`muse.c:1293–1340`: local `linedup_chk_corpse` + `mthrowu.js` `linedup_callback` export reusing live `blocking_terrain`; `find_offensive` caller wired; `necrophiliac` C-comment-only); 
 **`m_throw` `tmp_at(DISP_FLASH)` + await `potionhit` plines** (D-0284); 
 **`m_throw` `return_from_mtoss` snuff_candle D-1334** (C `:942` notcaught before 
 ship/`flooreffects("drop")`; tethered AKLYS `return_flightpath`; 

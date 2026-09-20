@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2634 — `muse.c` m_use_undead_turning whole-body port (floor-corpse ray via new linedup_callback export)
+
+- **Status:** fixed (Open — coverage row ``muse.c`` m_use_undead_turning THIN (C 40 L ``muse.c:1300–1340`` / JS 8 L in js/muse.js; hops 2, callers 1, RNG 0, msg 0; dead callees: necrophiliac). Measured ``port-coverage.mjs --name m_use_undead_turning`` 2026-09-20 @ f6b591c3.)
+- **Symptom:** coverage row — JS had the invent-corpse arm only; the floor-corpse ray arm (``|| linedup_callback(...)``) was a named omit (review 779 ACCEPT-WITH-DEBT), so a wand considered with only a ground corpse in line never set offensive/has_offense.
+- **C locus:** ``nethack-c/upstream/src/muse.c:1299–1340`` (m_use_undead_turning, staticfn) + ``:1293–1297`` (linedup_chk_corpse, staticfn) + ``mthrowu.c:1294–1327`` (linedup_callback, extern); caller ``find_offensive :1499–1500`` (nomore MUSE_WAN_UNDEAD_TURNING). Decisive C facts: ax/ay = hero + sgn(mux−mx)*3 (``:1302–1303``); guard is a negated conjunction (``:1306``); ``necrophiliac`` is comment-only (``:1309``, never called); linedup_callback sets gt.tbx/tby then walks bx,by→ax,ay stopping FALSE on blocking_terrain, TRUE on fnc (``:1305–1326``).
+- **JS was:** ``js/muse.js:599`` 8-line partial — guard + carrying(CORPSE) arm only, no ax/ay/bx/by computation, no ray.
+- **Fix:** restarted the export in C order with per-arm ``:line`` cites — ported ``linedup_chk_corpse`` as a muse.js local (``sobj_at(CORPSE,x,y) !== null``; sobj_at returns obj|null per ``js/mkobj.js:2704``); exported ``linedup_callback`` from its C home ``js/mthrowu.js`` reusing the live local ``blocking_terrain`` + ``sgn``/``distmin``/``BOLT_LIM`` + ``game._tbx``/``_tby`` (``linedup`` precedent, ``Math.abs`` ≡ C ``abs``); muse.js extends its existing mthrowu.js/mkobj.js imports (``imports.mjs --can``: ALREADY, no new edge). Retires review 779's named floor-corpse debt.
+- **JS:** ``js/muse.js`` (restart + local + 2 import names); ``js/mthrowu.js`` (+34-line export).
+- **Callers:** ``muse.c:1500``→``js/muse.js:685`` (find_offensive wand loop, already wired, unchanged; reviews 1359/1361 — no new call sites).
+- **Verify:** ``node scripts/verify.mjs --fn m_use_undead_turning`` → VERIFY: PASS — syntax (2 changed: js/mthrowu.js js/muse.js); rule2; hidden note (no corpus session blocked); reach (no RNG-tagged reach, smoke 24/24 → REACH-OK); green 2/2; strict ×2; cohort 7/7; full skipped (no shared file changed).
+- **Named omissions:** none — every callee live (carrying hack.js, sobj_at mkobj.js, blocking_terrain mthrowu.js local) or ported here (linedup_callback, linedup_chk_corpse); necrophiliac is C-comment-only, not a call.
+- **Next:** pop the next Open — coverage row.
+
 ## D-2633 — `role.c` role_menu_extra whole-body port (filter arms, RS_NAME, impossible tail) + `pager.c` whatdoes_cond compiled-out park
 
 - **Status:** fixed (Open — coverage row ``role.c`` role_menu_extra MISSING (C 144 L ``role.c:1816–1960`` / JS no symbol; hops —, callers 24, RNG 0, msg 0). Measured ``port-coverage.mjs --name role_menu_extra`` 2026-09-20 @ f6b591c3. Queue head ``pager.c`` whatdoes_cond proved COMPILED-OUT same iteration — whole body + prototype + ``wd_stack_frame`` + sole call site all inside C ``#if 0`` (``pager.c:2447–2574``, ``:2580–2585``, ``:2598+``); 0 live refs; JS ``dowhatdoes_core`` ports the live part only — parked, next row shipped.)
