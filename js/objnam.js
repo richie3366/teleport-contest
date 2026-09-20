@@ -1882,9 +1882,12 @@ function singplur_compound(str) {
 
 /**
  * C ref: objnam.c makesingular — wish/plural → canonical object name.
- * Compound via singplur_compound singularizes the head only; as_is;
- * one_off reverse; -ies/-ves/-es/-s. Named omissions: pronoun genders;
- * craft/mongoose; badman men→man; full Strcasecpy case polish.
+ * Compound via singplur_compound singularizes the head only; as_is +
+ * special_subjs + craft + slice/mongoose + badman-men keep
+ * (singplur_lookup `:2719–2762` singular arms); one_off reverse;
+ * -ies/-ves/-es/-s; men→man (badman gate); matzot/ae/eaux.
+ * Named omissions: pronoun they/them/their block; ia→ium
+ * (balactherium `:3149–3153`, own row); full Strcasecpy case polish.
  */
 export function makesingular(oldstr) {
     if (oldstr == null) return '';
@@ -1917,6 +1920,23 @@ export function makesingular(oldstr) {
             && bp[bp.length - sl.length - 1] === ' ')) {
             return bp + excess;
         }
+    }
+    /* C objnam.c singplur_lookup `:2732` — "craft" suffix stays as-is
+       (aircraft, hovercraft); bare "craft" (len 5) falls through. */
+    if (bp.length > 5 && eqCI(bp.slice(bp.length - 5), 'craft')) {
+        return bp + excess;
+    }
+    /* C `:2736–2743` — whole-word only (strcmpi, not suffix): "slice"
+       and "mongoose" stay (avoids the one_off lice/goose false hits
+       below); the singular arm performs no transform. */
+    if (eqCI(bp, 'slice') || eqCI(bp, 'mongoose')) {
+        return bp + excess;
+    }
+    /* C `:2758–2762` men arm — *men with a no_man prefix (abdomen,
+       specimen, omen) is already singular: keep, skip all stripping. */
+    if (bp.length > 2 && eqCI(bp.slice(bp.length - 3), 'men')
+        && badman(bp, false)) {
+        return bp + excess;
     }
 
     // C: singplur_lookup one_off reverse (plur → sing)
@@ -1975,8 +1995,9 @@ export function makesingular(oldstr) {
         return bp + excess;
     }
 
-    // C: men → man (badman defer — leave men as-is when badman)
-    if (/men$/i.test(bp) && bp.length >= 3) {
+    /* C `:3137–3140` (singplur_lookup `:2758–2762` men arm converse):
+       *men → *man unless badman (abdomen/specimen/omen kept above). */
+    if (/men$/i.test(bp) && bp.length >= 3 && !badman(bp, false)) {
         bp = bp.slice(0, -2) + (bp[bp.length - 2] === 'E' ? 'AN' : 'an');
         return bp + excess;
     }
