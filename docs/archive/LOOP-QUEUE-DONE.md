@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
+- [x] `worn.c` racial_exception — coverage THIN (C 13 L `worn.c:1360–1373` / JS 5 L in js/worn.js; hops 4, callers 3, RNG 0, msg 0; dead callees: raceptr). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn racial_exception` (reach regression must be 0). Measured `port-coverage.mjs --name racial_exception` 2026-09-20 @ 4559dcf9. **Addressed:** D-2663
+
+
 - [x] `spell.c` propagate_chain_lightning — coverage PARTIAL (C 46 L `spell.c:952–1000` / JS 33 L in js/spell.js; hops 6, callers 4, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn propagate_chain_lightning` (reach regression must be 0). Measured `port-coverage.mjs --name propagate_chain_lightning` 2026-09-20 @ 4559dcf9.
 
 

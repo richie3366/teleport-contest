@@ -369,7 +369,7 @@ trap/steed/mthrowu sticky Fumbling still);
 **`break_armor` nohands/verysmall gloves(+drop_weapon)/helm/shield + boots** (D-0928 #1116;
 D-1991: breakarm uarm/shirt `useup` destroy + `end_burn` lamplit + `Armor_gone`,
 cloak 3-way (wrapping tears/smock knot/clasp) via `cloak_simple_name` +
-`Cloak_off`, sliparm `racial_exception` gate, horns flimsy-pierce vs
+`Cloak_off`, sliparm `racial_exception` gate (D-2663: reads live `raceptr` js/mondata.js:68 — non-poly hero uses mons[urace], not the role form; m_dowear :887 / canwearobj :2053+silent-split / break_armor :1199 all wired), horns flimsy-pierce vs
 `helm_simple_name`+`surface()` fall (D-2008: stairs arm live via `sit.js` full-`surface` in C order — SURFACE_AT/`db_under_typ`, air-bubble, pool, ice, lava, bridge, SDOOR, earthlevel gate; swallow maw/husk named; D-2327: dig clone retired to the shared `sit.js` import — drawbridge-under water/lava/ice on the D-2323 cop-out; dokick/engrave clones stay), `helm_simple_name`/`has_horns`/`num_horns`/
 `WrappingAllowed` one-word exports (mhitu/worn) + `Blindf_off` Null `nooffmsg`
 (do_wear.c:1498), `ublindf` eyewear arm; donning/`cancel_don` still deferred); **`polyself(POLY_NOFLAGS)` system-shock `rn2(20)` +

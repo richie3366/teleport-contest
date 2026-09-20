@@ -26,6 +26,7 @@ import {
     SHOCK_RES, ACID_RES, REFLECTING,
     W_ARM, W_ARMOR, W_ACCESSORY, W_WEP, W_SWAPWEP,
     BLND_RES,
+    Upolyd,
 } from './const.js';
 import { defends, defends_when_carried, Is_dragon_armor } from './artifact.js';
 import { MON_WEP } from './weapon.js';
@@ -56,6 +57,20 @@ const AD_ELEC = 6;
 const AD_DRST = 7;
 const AD_ACID = 8;
 const AD_RBRE = 242;
+
+/**
+ * C ref: mondata.c raceptr `:1359-1365` — race pointer of a monster: the
+ * hero while not polymorphed reads the race table (`&mons[urace]`),
+ * otherwise the current form (`mtmp->data`). Fresh `mons()` objects
+ * carry `mndx`, so callers compare that (C compares the pointer).
+ * @param {object} mtmp
+ */
+export function raceptr(mtmp) {
+    if ((mtmp === game.youmonst || !!mtmp?._youmonst) && !Upolyd(game.u)) {
+        return mons(game.urace?.mnum);
+    }
+    return mtmp?.data;
+}
 
 /**
  * C ref: mondata.c set_mon_data — assign data/mnum; when new form is
