@@ -3137,8 +3137,12 @@ Half_spell_damage in castmu + **mcast_spell remaining 14 arms + `touch_of_death`
 **`mhitm_ad_legs` whole body** (mhitu D-0928 #1131 + mhitm D-2490; seed4500 **107470→107645** RNG **107645** Scr **939**; 
 nuzzle `pline_mon` D-1240; mhitm arm + `mdamagem` AD_LEGS dispatch live in `js/mhitm.js` (mcan + phys, dieroll carried); uhitm arm shares phys shape + poly `body_part` deferred); 
 **`mon_poly` youmonst + monster-defender + `mhitm_ad_poly` mhitu/mhitm AD_POLY** (D-1004/D-1006; 
-`newcham` null-mdat non-cham + mbirth_limit; uhitm damageum poly'd-hero path deferred; 
-shieldeff/ANTIMAGIC gear scan deferred); **`castmu` SUMMON_MONS → `nasty`** (D-0928 #1129; 
+`newcham` null-mdat non-cham + mbirth_limit; D-2657: `mhitm_ad_poly` whole C body
+(`uhitm.c:3729–3774`) live — uhitm+mhitm arms `js/mhitm.js:693` (negated `:3734`
+incl. mspec_used), split mhitu arm `js/mhitu.js:2367` (negated hoisted pre-hitmsg,
+`You("aren't transformed.")` `:3759`); C caller `mhitm_adtyping :4821` wired via
+`mdamagem js/mhitm.js:4064` + `damageum_adtyping js/uhitm.js:2390` +
+`mhitm_adtyping_u js/mhitu.js:3147`; no new omissions); **`castmu` SUMMON_MONS → `nasty`** (D-0928 #1129; 
 seed4500 **106852→107304** RNG **107335** Scr **941**; 
 `wizard.c` nasty Inhell/`pick_nasty` juvenile gate live (D-2027; rogue monsym retry still named)/`enexto`/`makemon`; unmakemon full defer → mhp=0; 
 other mcast_spell bodies are D-1825 (`mon_spell_hits_spot` / `has_aggravatables` still named); 

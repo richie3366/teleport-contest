@@ -687,8 +687,13 @@ export async function mon_poly(magr, mdef, dmg) {
 }
 
 /**
- * C ref: uhitm.c mhitm_ad_poly — mhitm (mon→mon) and uhitm (you→mon) arms.
- * Named omissions: uhitm weaponless poly'd-hero path (damageum); shieldeff.
+ * C ref: uhitm.c mhitm_ad_poly `:3729–3774` — uhitm (`:3739–3752`,
+ * weaponless + damage < mhp; Monnam pline `:3743` / mon_poly + DEF_DIED
+ * `:3745–3749`) and mhitm (`:3764–3772`) arms in C order; negated
+ * `:3734–3735` incl. magr->mspec_used. mhitu arm (`:3753–3763`) lives in
+ * mhitu.js mhitm_ad_poly_u (split by attacker/defender architecture).
+ * Named omissions: none — every callee live (prior shieldeff/damageum
+ * note retired: C body calls neither).
  */
 export async function mhitm_ad_poly(magr, mattk, mdef, mhm) {
     void mattk;

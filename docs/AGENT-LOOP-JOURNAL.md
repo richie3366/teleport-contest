@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-20 — D-2657 `uhitm.c` mhitm_ad_poly whole-body port (split mhitu arm: negated hoist + mspec_used + You)
+
+**C locus:** ``nethack-c/upstream/src/uhitm.c:3729–3774`` — ``negated = mhitm_mgc_atk_negated(magr, mdef, FALSE) || magr->mspec_used`` at ``:3734–3735`` (fn top, draws rn2(10) unconditionally); uhitm arm ``:3739–3752``; mhitu arm ``:3753–3763`` (hitmsg, ``Maybe_Half_Phys(dmg) < (Upolyd ? u.mh : u.uhp)``, mcan-gated ``You("aren't transformed.")``, else mon_poly + HIT/done, no DEF_DIED); mhitm arm ``:3764–3772``. Sole C caller ``mhitm_adtyping :4821`` (itself called from mhitm.c:1059 mon→mon, mhitu.c:1191 mon→you, uhitm.c:4854 you→mon).
+**JS:** ``js/mhitu.js:2367`` (``mhitm_ad_poly_u``), ``js/mhitm.js:693`` (doc cites), ``js/mhitu.js:33`` (``You`` import).
+**Change:** hoisted negated above hitmsg in C order with ``|| !!mtmp.mspec_used``; ``You("aren't transformed.")`` via same-module display.js import (output-identical); per-arm ``:line`` cites on both bodies. Null-mdef idiom kept: it routes to ``magic_negation_you()``, which is C ``magic_negation(&gy.youmonst)`` (mhitu.c:1089). Retired the stale "shieldeff/damageum" omission on the main export (C body calls neither).
+**Verify:** ``node scripts/verify.mjs --fn mhitm_ad_poly`` → VERIFY: PASS — syntax 2 files, Rule #2, hidden note (no corpus session blocked), REACH-OK (no RNG-tagged reach; smoke 24/24), green 2/2 + strict, cohort 7/7. Tail pasted per rule.
+**Named:** none new — every callee live (``mhitm_mgc_atk_negated`` js/mhitm.js:2454, ``mon_poly`` :599, ``hitmsg`` js/mhitu.js:415, ``You``/``pline``/``Monnam``). Pre-existing note (not this port): JS ``mhitm_mgc_atk_negated`` short-circuits ``magr.mcan`` even for youmonst while C exempts the hero (``magr != &youmonst``); owned by that helper, untouched here.
+**Next:** pop the next Open — coverage row.
 ## 2026-09-20 — D-2656 `dothrow.c` return_throw_to_inv whole-body port (objsplit unsplit arm live)
 
 **C locus:** ``nethack-c/upstream/src/dothrow.c:1852–1909`` (return_throw_to_inv, staticfn) + callers ``:1587`` (throwit ceiling-return) / ``:1608`` (boomerang-caught). Decisive C facts: the split arm checks ``obj->o_id`` against ``svc.context.objsplit`` parent/child oids (set by ``splitobj`` at ``:255–257``, still live at return — nothing clears it mid-flight); relink is ``obj->nobj = gi.invent; gi.invent = obj; where = OBJ_INVENT`` before ``unsplitobj`` (C ``mkobj.c`` refuses OBJ_FREE, so the link must come first); failure unlinks (``gi.invent = obj->nobj; nobj = 0; where = OBJ_FREE``) and falls to the nomerge ``addinv_before`` path; the re-wield/twoweap arms run only in the ``!otmp`` branch; ``encumber_msg`` always runs.

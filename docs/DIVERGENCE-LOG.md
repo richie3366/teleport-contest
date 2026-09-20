@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2657 — `uhitm.c` mhitm_ad_poly whole-body port (split mhitu arm: negated hoist + mspec_used + You)
+
+- **Status:** fixed (Open — coverage row ``uhitm.c`` mhitm_ad_poly PARTIAL (C 43 L ``uhitm.c:3729–3774`` / JS 29 L in js/mhitm.js; hops 4, callers 1, RNG 0, msg 2). Measured ``port-coverage.mjs --name mhitm_ad_poly`` 2026-09-20 @ a9b0ff62.)
+- **Symptom:** coverage PARTIAL — whole C body present across two JS sites but the split mhitu arm diverged from C in RNG order and one predicate.
+- **C locus:** ``nethack-c/upstream/src/uhitm.c:3729–3774`` — ``negated = mhitm_mgc_atk_negated(magr, mdef, FALSE) || magr->mspec_used`` at ``:3734–3735`` (fn top, draws rn2(10) unconditionally); uhitm arm ``:3739–3752``; mhitu arm ``:3753–3763`` (hitmsg, ``Maybe_Half_Phys(dmg) < (Upolyd ? u.mh : u.uhp)``, mcan-gated ``You("aren't transformed.")``, else mon_poly + HIT/done, no DEF_DIED); mhitm arm ``:3764–3772``. Sole C caller ``mhitm_adtyping :4821`` (itself called from mhitm.c:1059 mon→mon, mhitu.c:1191 mon→you, uhitm.c:4854 you→mon).
+- **JS was:** uhitm + mhitm arms complete in ``js/mhitm.js:693``; mhitu arm split as ``mhitm_ad_poly_u`` (``js/mhitu.js:2367``) computed negated *inside* the HP gate with no ``mspec_used`` term (C draws rn2(10) at fn top even when the gate fails → RNG-order divergence; a poly-cooldown attacker would re-poly the hero), and used ``pline("You ...")`` instead of C ``You(...)``.
+- **Fix:** hoisted negated above hitmsg in C order with ``|| !!mtmp.mspec_used``; ``You("aren't transformed.")`` via same-module display.js import (output-identical); per-arm ``:line`` cites on both bodies. Null-mdef idiom kept: it routes to ``magic_negation_you()``, which is C ``magic_negation(&gy.youmonst)`` (mhitu.c:1089). Retired the stale "shieldeff/damageum" omission on the main export (C body calls neither).
+- **JS:** ``js/mhitu.js:2367`` (``mhitm_ad_poly_u``), ``js/mhitm.js:693`` (doc cites), ``js/mhitu.js:33`` (``You`` import).
+- **Callers:** C ``mhitm_adtyping :4821`` → JS ``mdamagem js/mhitm.js:4064`` (mon→mon, C mhitm.c:1059) + ``damageum_adtyping js/uhitm.js:2390`` (you→mon with game.youmonst, C uhitm.c:4854) + ``mhitm_adtyping_u js/mhitu.js:3147`` (mon→you via split, C mhitu.c:1191).
+- **Verify:** ``node scripts/verify.mjs --fn mhitm_ad_poly`` → VERIFY: PASS — syntax 2 files, Rule #2, hidden note (no corpus session blocked), REACH-OK (no RNG-tagged reach; smoke 24/24), green 2/2 + strict, cohort 7/7. Tail pasted per rule.
+- **Named omissions:** none new — every callee live (``mhitm_mgc_atk_negated`` js/mhitm.js:2454, ``mon_poly`` :599, ``hitmsg`` js/mhitu.js:415, ``You``/``pline``/``Monnam``). Pre-existing note (not this port): JS ``mhitm_mgc_atk_negated`` short-circuits ``magr.mcan`` even for youmonst while C exempts the hero (``magr != &youmonst``); owned by that helper, untouched here.
+- **Next:** pop the next Open — coverage row.
+
 ## D-2656 — `dothrow.c` return_throw_to_inv whole-body port (objsplit unsplit arm live)
 
 - **Status:** fixed (Open — coverage row ``dothrow.c`` return_throw_to_inv THIN (C 50 L ``dothrow.c:1855–1909`` / JS 16 L in js/dothrow.js; hops 3, callers 2, RNG 0, msg 0). Measured ``port-coverage.mjs --name return_throw_to_inv`` 2026-09-20 @ a9b0ff62.)
