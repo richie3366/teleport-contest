@@ -5,6 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
+- [x] `dbridge.c` e_died — coverage PARTIAL (C 76 L `dbridge.c:402–480` / JS 56 L in js/dbridge.js; hops 4, callers 6, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn e_died` (reach regression must be 0). Measured `port-coverage.mjs --name e_died` 2026-09-20 @ 28b6f89f. **Stale-parked:** body already live `js/dbridge.js:462`, see Parked Stale.
+- [x] `invent.c` loot_classify — coverage MISSING (C 156 L `invent.c:149–305` / JS no symbol; hops 5, callers 3, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn loot_classify` (reach regression must be 0). Measured `port-coverage.mjs --name loot_classify` 2026-09-20 @ 28b6f89f. **Addressed:** D-2616
+
+
 - [x] `dothrow.c` throw_obj — coverage PARTIAL (C 206 L `dothrow.c:87–293` / JS 134 L in js/dothrow.js; hops —, callers 2, RNG 2, msg 6). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn throw_obj` (reach regression must be 0). Measured `port-coverage.mjs --name throw_obj` 2026-09-20 @ 28b6f89f.
 
 

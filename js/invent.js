@@ -91,6 +91,7 @@ import {
     def_char_to_objclass,
     objectNames,
     objectNameStrs,
+    objectDescrs,
     objects,
     is_graystone,
 } from './objects.js';
@@ -330,7 +331,7 @@ import {
     count_buc, count_justpicked, allow_category,
     query_category, query_objlist,
 } from './pickup.js';
-import { is_ammo } from './wield.js';
+import { is_ammo, is_pole } from './wield.js';
 import { is_wet_towel, can_advance } from './weapon.js';
 import { shield_simple_name } from './do_wear.js';
 import { learn_egg_type } from './timeout.js';
@@ -2016,14 +2017,181 @@ export async function feel_cockatrice(otmp, force_touch = false) {
     await instapetrify(`touching ${killer_xname(otmp)} bare-handed`);
 }
 
+// C invent.c loot_classify def_srt_order `:155` — sortloot class order
+// used when sortpack is off (differs from DEF_INV_ORDER, the inv_order
+// default used by the inventory display).
+const LOOT_DEF_SRT_ORDER = [
+    COIN_CLASS, AMULET_CLASS, RING_CLASS, WAND_CLASS, POTION_CLASS,
+    SCROLL_CLASS, SPBOOK_CLASS, GEM_CLASS, FOOD_CLASS, TOOL_CLASS,
+    WEAPON_CLASS, ARMOR_CLASS, ROCK_CLASS, BALL_CLASS, CHAIN_CLASS,
+];
+
+/** C invent.c loot_classify armcat `:160` — one-time init, persists across calls. */
+const loot_armcat = new Array(8).fill(0);
+
+// C objclass.h enum obj_armor_types — loot_classify's armcat order differs.
+const ARM_SUIT = 0;
+const ARM_SHIELD = 1;
+const ARM_HELM = 2;
+const ARM_GLOVES = 3;
+const ARM_BOOTS = 4;
+const ARM_CLOAK = 5;
+const ARM_SHIRT = 6;
+
+// C objclass.h `:19–21` — loot_classify GEM arm materials.
+const MAT_GLASS = 19;
+const MAT_GEMSTONE = 20;
+const MAT_MINERAL = 21;
+
+const OTYP_BAG_OF_TRICKS = objectNames.indexOf('BAG_OF_TRICKS');
+const OTYP_HORN_OF_PLENTY = objectNames.indexOf('HORN_OF_PLENTY');
+const OTYP_WOODEN_FLUTE = objectNames.indexOf('WOODEN_FLUTE');
+const OTYP_MAGIC_FLUTE = objectNames.indexOf('MAGIC_FLUTE');
+const OTYP_TOOLED_HORN = objectNames.indexOf('TOOLED_HORN');
+const OTYP_FROST_HORN = objectNames.indexOf('FROST_HORN');
+const OTYP_FIRE_HORN = objectNames.indexOf('FIRE_HORN');
+const OTYP_WOODEN_HARP = objectNames.indexOf('WOODEN_HARP');
+const OTYP_MAGIC_HARP = objectNames.indexOf('MAGIC_HARP');
+const OTYP_BUGLE = objectNames.indexOf('BUGLE');
+const OTYP_LEATHER_DRUM = objectNames.indexOf('LEATHER_DRUM');
+const OTYP_DRUM_OF_EARTHQUAKE = objectNames.indexOf('DRUM_OF_EARTHQUAKE');
+const OTYP_SLIME_MOLD = objectNames.indexOf('SLIME_MOLD');
+
+/**
+ * C ref: invent.c loot_classify `:149–305` — classify one object for
+ * sortloot_cmp: class order (`:174–180`, sortpack ? inv_order :
+ * def_srt_order; VENOM sorts after the listed classes), subclass
+ * (`:184–296`: armor armcat table, weapon skill groups, tool
+ * container/instrument groups, food kinds, gem material × seen ×
+ * discovered), discovery status (`:298–302`: unseen 1, undiscovered 2,
+ * named 3, discovered-or-undescribable 4) and inuse 0 (`:304`).
+ * Lower values sort first. observe_object runs when !Blind (`:171`,
+ * xname does this — wanted sooner); seen is read after it (`:172`).
+ * oc_armcat overloads oc_subtyp (guarded to 0–6, else 7) and JS stores
+ * it in oc_skill (`:197–202`); oc_skill likewise for weapons (`:204`).
+ * @param {object} sort_item Loot record (orderclass/subclass/disco/inuse)
+ * @param {object} obj game object
+ */
+export function loot_classify(sort_item, obj) {
+    const otyp = obj.otyp | 0;
+    const oclass = obj.oclass;
+    const oc = game.objects?.[otyp];
+    const discovered = !!oc?.oc_name_known;
+    if (!Blind()) observe_object(obj);
+    const seen = !!obj.dknown;
+    const classorder = sortpack_on() ? inv_order_classes() : LOOT_DEF_SRT_ORDER;
+    const ix = classorder.indexOf(oclass);
+    let k;
+    if (ix >= 0) k = ix + 1;
+    else k = classorder.length + 1 + (oclass !== VENOM_CLASS ? 1 : 0);
+    sort_item.orderclass = k;
+    switch (oclass) {
+    case ARMOR_CLASS:
+        if (!loot_armcat[7]) {
+            loot_armcat[ARM_HELM] = 1;
+            loot_armcat[ARM_GLOVES] = 2;
+            loot_armcat[ARM_BOOTS] = 3;
+            loot_armcat[ARM_SHIELD] = 4;
+            loot_armcat[ARM_CLOAK] = 5;
+            loot_armcat[ARM_SHIRT] = 6;
+            loot_armcat[ARM_SUIT] = 7;
+            loot_armcat[7] = 8;
+        }
+        k = oc?.oc_skill | 0;
+        if (k < 0 || k >= 7) k = 7;
+        k = loot_armcat[k];
+        break;
+    case WEAPON_CLASS:
+        k = oc?.oc_skill | 0;
+        k = (k < 0)
+            ? ((k >= -P_CROSSBOW && k <= -P_BOW) ? 1 : 3)
+            : ((k >= P_BOW && k <= P_CROSSBOW) ? 2
+                : (k === P_SPEAR || k === P_DAGGER || k === P_KNIFE) ? 4
+                : !is_pole(obj) ? 5 : 6);
+        break;
+    case TOOL_CLASS:
+        if (seen && discovered
+            && (otyp === OTYP_BAG_OF_TRICKS || otyp === OTYP_HORN_OF_PLENTY)) {
+            k = 2;
+        } else if (Is_container(obj)) {
+            k = 1;
+        } else {
+            switch (otyp) {
+            case OTYP_WOODEN_FLUTE:
+            case OTYP_MAGIC_FLUTE:
+            case OTYP_TOOLED_HORN:
+            case OTYP_FROST_HORN:
+            case OTYP_FIRE_HORN:
+            case OTYP_WOODEN_HARP:
+            case OTYP_MAGIC_HARP:
+            case OTYP_BUGLE:
+            case OTYP_LEATHER_DRUM:
+            case OTYP_DRUM_OF_EARTHQUAKE:
+            case OTYP_HORN_OF_PLENTY:
+                k = 3;
+                break;
+            default:
+                k = 4;
+                break;
+            }
+        }
+        break;
+    case FOOD_CLASS:
+        switch (otyp) {
+        case OTYP_SLIME_MOLD:
+            k = 1;
+            break;
+        case OTYP_TIN:
+            k = 3;
+            break;
+        case EGG:
+            k = 4;
+            break;
+        case OTYP_CORPSE:
+            k = 5;
+            break;
+        default:
+            k = obj.globby ? 6 : 2;
+            break;
+        }
+        break;
+    case GEM_CLASS:
+        switch (oc?.oc_material) {
+        case MAT_GEMSTONE:
+            k = !seen ? 1 : !discovered ? 2 : 3;
+            break;
+        case MAT_GLASS:
+            k = !seen ? 1 : !discovered ? 2 : 4;
+            break;
+        default:
+            k = !seen ? 5 : (otyp !== OTYP_ROCK) ? (!discovered ? 6 : 7) : 8;
+            break;
+        }
+        break;
+    default:
+        k = 1;
+        break;
+    }
+    sort_item.subclass = k;
+    const di = oc?.oc_descr_idx ?? otyp;
+    const hasDescr = !!(objectDescrs[di] || oc?.oc_descr);
+    k = !seen ? 1
+        : (discovered || !hasDescr) ? 4
+        : oc?.oc_uname ? 3
+        : 2;
+    sort_item.disco = k;
+    sort_item.inuse = 0;
+}
+
 /**
  * C ref: invent.c sortloot `:592–643` — Loot[] view; does not relink.
  * Branch envelope: SORTLOOT_PACK class + SORTLOOT_INVLET + SORTLOOT_LOOT
  * + SORTLOOT_INUSE (inuse_classify; bigger inuse first) + optional
  * filterfunc (display_pickinv is_inuse) + SORTLOOT_PETRIFY (keep
  * touch_petrifies CORPSE even when filterfunc rejects FOOD).
- * Named: subclass/disco/BUCX/erosion; loot_classify armor/weapon/tool
- * detail.
+ * Named: BUCX/grease/erosion/erodeproof/enchant (sortloot_cmp `:503–541`
+ * tail); subclass/disco compares + loot_classify armor/weapon/tool
+ * container/instrument/food/gem detail live.
  * @param {object|object[]|null} olist nobj/nexthere head or invent Array
  * @param {number} mode SORTLOOT_* flags
  * @param {boolean} [by_nexthere=false]
@@ -2057,9 +2225,6 @@ export function sortloot(olist, mode, by_nexthere = false, filterfunc = null) {
     }
     if (!mode || items.length <= 1) return items;
 
-    // C: flags.sortpack ? flags.inv_order : def_srt_order — inv_order subset
-    const classorder = DEF_INV_ORDER;
-
     items.sort((sli1, sli2) => {
         const obj1 = sli1.obj;
         const obj2 = sli2.obj;
@@ -2072,20 +2237,23 @@ export function sortloot(olist, mode, by_nexthere = false, filterfunc = null) {
             }
             return sli1.indx - sli2.indx;
         }
-        // C: order by class unless SORTLOOT_INVLET alone
+        // C sortloot_cmp `:430–468` — order by class unless
+        // SORTLOOT_INVLET alone; classify once (orderclass 0 = unclassified).
         if ((mode & (SORTLOOT_PACK | SORTLOOT_INVLET)) !== SORTLOOT_INVLET) {
-            if (!sli1.orderclass) {
-                const ix = classorder.indexOf(obj1.oclass);
-                sli1.orderclass = ix >= 0 ? ix + 1 : classorder.length + 2;
-            }
-            if (!sli2.orderclass) {
-                const ix = classorder.indexOf(obj2.oclass);
-                sli2.orderclass = ix >= 0 ? ix + 1 : classorder.length + 2;
-            }
+            if (!sli1.orderclass) loot_classify(sli1, obj1);
+            if (!sli2.orderclass) loot_classify(sli2, obj2);
             if (sli1.orderclass !== sli2.orderclass) {
                 return sli1.orderclass - sli2.orderclass;
             }
-            // subclass / disco deferred (all ice-box corpses share FOOD/CORPSE)
+            // C `:446–467` — skip sub-classes when ordering by sortpack+invlet.
+            if ((mode & SORTLOOT_INVLET) === 0) {
+                if (sli1.subclass !== sli2.subclass) {
+                    return sli1.subclass - sli2.subclass;
+                }
+                if (sli1.disco !== sli2.disco) {
+                    return sli1.disco - sli2.disco;
+                }
+            }
         }
         // C: order by assigned inventory letter when SORTLOOT_INVLET
         if (mode & SORTLOOT_INVLET) {

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-20 — D-2616 `invent.c` loot_classify whole-body port (class order, armor/weapon/tool/food/gem subclasses, discovery status)
+
+**C locus:** ``nethack-c/upstream/src/invent.c:149–305`` (loot_classify); callers ``:436``/``:438`` (sortloot_cmp) and ``o_init.c:587`` (sortloot_descr).
+**JS:** ``js/invent.js:2075`` ``export function loot_classify(sort_item, obj)``; callers at ``js/invent.js:2243–2256`` (sortloot comparator).
+**Change:** new exported ``loot_classify(sort_item, obj)`` (``js/invent.js:2075``) in C order with per-arm ``:line`` cites — def_srt_order table (`:155`); persistent module-level armcat (`:160`); discovered read before observe (`:164`); observe when !Blind, seen after (`:171–172`); sortpack?inv_order:def_srt_order with VENOM +1 (`:174–180`); armor armcat via oc_skill (`:184–202`, JS stores oc_armcat in oc_skill); weapon skill groups + is_pole (`:204`, is_pole added to the existing wield.js import — ALREADY edge); tool known pseudo-container vs container vs 11 instruments (`:214`); food kinds + globby (`:240`); gem GEMSTONE/GLASS/MINERAL × seen × discovered (`:261–289`); default subclass 1 (`:290–294`); disco unseen 1 / undiscovered 2 / named 3 / discovered-or-undescribable 4 (`:298–302`, OBJ_DESCR via the do_name.js ``objectDescrs[di] || oc_descr`` idiom — objectDescrs added to the existing objects.js import); inuse 0 (`:304`). Wired ``:436``/``:438`` by replacing the inline orderclass with classify-once ``loot_classify`` calls plus the `:446–467` subclass/disco compares (INVLET-gated) in the sortloot comparator.
+**Verify:** ``node scripts/verify.mjs --fn loot_classify`` → VERIFY: PASS — syntax 1 file · Rule #2 clean · hidden ``no corpus session is blocked`` (coverage row, 0 cited blocks) · REACH-OK (RNG-0 function: fixed 24-session smoke spread 24/24 PASS, 0 regressed) · green 2/2 + strict · cohort 7/7; full sessions skipped (no shared file per gate). /tmp scratch probe (10 synthetic objects: weapon groups 5/4/2, armor helm 1 vs suit 7, container 1, gem glass/mineral, rock 8, sortpack-on/off orders) matches C by hand-read. No committed unit test: repo has no tests/ layout (D-2605 precedent).
+**Named:** ``o_init.c:587`` sortloot_descr ('s' discosort path — review 921 ACCEPT-WITH-DEBT row); sortloot_cmp BUCX/grease/erosion/erodeproof/enchant tail (``:503–541``); sortloot_cmp LOOT-name arms stay as-is.
+**Next:** carry_count (`pickup.c:1570–1701`) is the next Open — coverage row.
 ## 2026-09-20 — D-2615 `dothrow.c` throw_obj whole-body restart in C order (Mjollnir / petrify / welded / wet-towel / multishot extras / unsplit)
 
 **C locus:** ``nethack-c/upstream/src/dothrow.c:87–293`` (throw_obj); callers ``:375`` (dothrow) and ``:582`` (dofire).
