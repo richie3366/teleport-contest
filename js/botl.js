@@ -57,8 +57,9 @@ import {
     BL_MASK_STONE, BL_MASK_STRNGL, BL_MASK_STUN, BL_MASK_SUBMERGED,
     BL_MASK_TERMILL, BL_MASK_TETHERED, BL_MASK_TRAPPED, BL_MASK_UNCONSC,
     BL_MASK_WOUNDEDL, BL_MASK_HOLDING,
+    MENU_ITEMFLAGS_SKIPINVERT,
 } from './const.js';
-import { NO_COLOR, ATR_NONE } from './terminal.js';
+import { NO_COLOR, ATR_NONE, ATR_INVERSE } from './terminal.js';
 import { newuexp } from './exper.js';
 import {
     A_STR, A_DEX, A_CON, A_INT, A_WIS, A_CHA,
@@ -908,6 +909,125 @@ export function opt_next_cond(indx) {
         return `${ct.enabled ? '' : '!'}cond_${ct.useroption}`; // C `:1486–1487`
     }
     return ''; // C `:1462` default value
+}
+
+// C hacklib strcmpi — A-Z fold; useroption strings are ASCII so lowercase
+// ordering equals the C byte order (invent.js sortloot_cmp `:498–499`
+// precedent).
+function strcmpi_fold(a, b) {
+    const x = (a || '').toLowerCase();
+    const y = (b || '').toLowerCase();
+    if (x < y) return -1;
+    if (x > y) return 1;
+    return 0;
+}
+
+// C botl.c cond_cmp `:1332–1342` — qsort callback sorting condition
+// indices: conditions[] ranking ascending, useroption-alpha tiebreak.
+function cond_cmp(a, b) {
+    const c1 = conditions[a].ranking;
+    const c2 = conditions[b].ranking;
+    if (c1 !== c2) return c1 - c2; // C `:1338–1339`
+    return strcmpi_fold(condtests[a].useroption, condtests[b].useroption); // C `:1341`
+}
+
+// C botl.c menualpha_cmp `:1344–1351` — qsort callback sorting condition
+// indices alphabetically by useroption.
+function menualpha_cmp(a, b) {
+    return strcmpi_fold(condtests[a].useroption, condtests[b].useroption); // C `:1350`
+}
+
+/**
+ * C ref: botl.c cond_menu `:1376–1454` — status-conditions toggle menu.
+ * Toggles condtests[].enabled via a PICK_ANY menu (sort-change row first,
+ * then one row per condition, preselected when enabled); returns true iff
+ * any change was made. The create/start/select/destroy window layer maps
+ * to one select_menu_pick_any call (getpos_menu precedent); free(picks)
+ * and cg.zeroany have no JS carrier (a_int rides each row).
+ * C callers: options.c pfxfn_cond_ do_handler `:5032` ("not used" in C —
+ * no JS site); options.c optfn_o_status_cond do_handler `:8436–8439`
+ * (wired in js/options.js doset).
+ */
+export async function cond_menu() {
+    // options.js statically imports botl.js, so the menu layer comes in
+    // lazily here (mon_givit/eat.js + wiz_intrinsic precedents).
+    const { select_menu_pick_any } = await import('./options.js');
+    if (!game.gc) game.gc = {}; // C decl.h:223 instance_globals_c (cmd.js precedent)
+    const menutitle = ['alphabetically', 'by ranking']; // C `:1378–1380`
+    let changed = false; // C `:1390`
+    let showmenu = true; // C `:1389`
+    let idx = 0; // C `:1383`
+    let res = -1;
+    do {
+        const order = (game.gc.condmenu_sortorder | 0) ? 1 : 0; // C decl.h:229, init 0 `:1315`
+        const sequence = [];
+        for (let i = 0; i < CONDITION_COUNT; ++i) sequence.push(i); // C `:1392–1394`
+        // C `:1395–1397` qsort; useroptions are unique so no tie survives
+        // either comparator — the contest stable sort (Constitution §4)
+        // matches C on every input here.
+        sequence.sort(order ? cond_cmp : menualpha_cmp);
+        const raw = [
+            // C `:1422` end_menu prompt rides the title row (wiz_intrinsic precedent).
+            { text: 'Choose status conditions to toggle', selectable: false, attr: ATR_INVERSE },
+            { text: '', selectable: false },
+            // C `:1402–1408` sort-change row: any.a_int 1, 'S'
+            // accelerator, SKIPINVERT.
+            {
+                text: `change sort order from "${menutitle[order]}" to "${menutitle[1 - order]}"`,
+                selectable: true,
+                selector: 'S',
+                a_int: 1,
+                itemflags: MENU_ITEMFLAGS_SKIPINVERT,
+            },
+            // C `:1409–1411` add_menu_heading.
+            { text: `sorted ${menutitle[order]}`, selectable: false },
+        ];
+        for (let i = 0; i < condtests.length; i++) { // C `:1412` SIZE(condtests)
+            idx = sequence[i];
+            condtests[idx].choice = false; // C `:1417`
+            // C `:1413–1420` — `cond_%-14s`; every useroption is under 14
+            // chars so padEnd is exact (C never truncates either).
+            raw.push({
+                text: `cond_${condtests[idx].useroption.padEnd(14, ' ')}`,
+                selectable: true,
+                selected: !!condtests[idx].enabled, // C `:1419–1420` SELECTED
+                a_int: idx + 2, // C `:1416` avoid zero and the sort-change pick
+            });
+        }
+        // C `:1424–1427` select + destroy; cancelValue -1 tells ESC
+        // (C res -1, final loop skipped) apart from finish-empty (C res 0,
+        // final loop disables everything still unpicked).
+        const picked = await select_menu_pick_any(raw, { cancelValue: -1 });
+        res = picked === -1 ? -1 : picked.length;
+        showmenu = false; // C `:1427`
+        if (res > 0) { // C `:1428`
+            for (let i = 0; i < res; i++) { // C `:1429`
+                idx = (picked[i].a_int | 0); // C `:1430`
+                if (idx === 1) { // C `:1431–1435` sort change requested
+                    game.gc.condmenu_sortorder = 1 - order;
+                    showmenu = true;
+                    break; // C `:1435` for loop
+                }
+                idx -= 2; // C `:1437`
+                condtests[idx].choice = true; // C `:1438`
+            }
+            // C `:1441` free(picks) is GC here.
+        }
+    } while (showmenu); // C `:1443`
+    if (res >= 0) { // C `:1445`
+        for (let i = 0; i < CONDITION_COUNT; ++i) { // C `:1446`
+            if (!!condtests[i].enabled !== !!condtests[i].choice) { // C `:1447`
+                condtests[i].enabled = condtests[i].choice; // C `:1448`
+                // C `:1449` clears test on the leftover idx, not i.
+                condtests[idx].test = false;
+                // C `:1450` disp.botl (hack.js:2932 precedent sets both flags).
+                if (game.flags) game.flags.botl = true;
+                if (game.disp) game.disp.botl = true;
+                changed = true; // C `:1450`
+            }
+        }
+    }
+    return changed; // C `:1452`
 }
 
 // C botl.c:860-909 terrain_descr[] — indexed by iflags.terrain_typ;

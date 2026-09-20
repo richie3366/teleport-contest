@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
-- [x] `muse.c` m_use_undead_turning — coverage THIN (C 40 L `muse.c:1300–1340` / JS 8 L in js/muse.js; hops 2, callers 1, RNG 0, msg 0; dead callees: necrophiliac). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn m_use_undead_turning` (reach regression must be 0). Measured `port-coverage.mjs --name m_use_undead_turning` 2026-09-20 @ f6b591c3. **Addressed:** D-2634
+- [x] `botl.c` cond_menu — coverage MISSING (C 78 L `botl.c:1376–1454` / JS no symbol; hops —, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn cond_menu` (reach regression must be 0). Measured `port-coverage.mjs --name cond_menu` 2026-09-20 @ f6b591c3. **Addressed:** D-2635
+
+
+- [x] `muse.c` m_use_undead_turning — coverage THIN (C 40 L `muse.c:1300–1340` / JS 8 L in js/muse.js; hops 2, callers 1, RNG 0, msg 0; dead callees: necrophiliac). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn m_use_undead_turning` (reach regression must be 0). Measured `port-coverage.mjs --name m_use_undead_turning` 2026-09-20 @ f6b591c3. **Addressed:** D-2634 `b358bb84`
 
 
 - [x] `role.c` role_menu_extra — coverage MISSING (C 144 L `role.c:1816–1960` / JS no symbol; hops —, callers 24, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn role_menu_extra` (reach regression must be 0). Measured `port-coverage.mjs --name role_menu_extra` 2026-09-20 @ f6b591c3. **Addressed:** D-2633 `d62c8935`
