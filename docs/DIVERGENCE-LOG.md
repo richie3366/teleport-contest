@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-2673 — `uhitm.c` find_roll_to_hit role/race arms (monk spelarmr/bare-hand + orc-vs-elf; mtele_trap STALE-parked same iteration)
+
+- Status: ACCEPT — breadth-phase coverage row (PARTIAL C 57 L `uhitm.c:365–427` / JS 37 L in js/uhitm.js; hops 4, callers 7, RNG 0, msg 0; no corpus session blocked).
+- Symptom: coverage PARTIAL — the JS body carried every C arm except the `:396–406` role/race block, explicitly deferred in the doc comment and map ("monk/orc-elf deferred"): a Monk hero in body armor lost nothing (C: `tmp -= spelarmr`, kept in `*role_roll_penalty` for the miss-message tail); an unarmored bare-handed non-poly Monk gained nothing (C: `+(ulevel/3)+2`); an elf hero (or elf-form poly) vs an orc target missed the C +1.
+- C locus: `nethack-c/upstream/src/uhitm.c:396–406` (role/race comment `:396`; Monk `Role_if && !Upolyd` `:397`, `uarm → tmp -= (penalty = spelarmr)` `:398–399`, bare-hand `+(ulevel/3)+2` `:400–401`; orc-vs-elf `maybe_polyd(is_elf, Race_if)` `:403–405`) + 7 call sites (`dokick.c:187`; `uhitm.c:706/778/801/5518/5568/5770`).
+- JS was: `js/uhitm.js:585` complete except the two arms; the `role_roll_penalty.v` plumbing into `known_hitum`/`missum` was already live at all 7 sites but always fed 0.
+- Fix: C-order insert between the `!mcanmove` block and encumbrance (per-arm `:396–406` cites in comment): Monk arm via live `Role_if(PM_MONK)` + `Upolyd(u)` + `u.uarm`/`u.uwep`/`u.uarms` fields, `game.urole?.spelarmr | 0` into `role_roll_penalty.v`, C integer division via `Math.trunc`; orc arm via live null-safe `is_orc`/`is_elf` + `Upolyd(u) ? form : Race_if(PM_ELF)` spelling of `maybe_polyd`. New file-local `Race_if` beside `Role_if` (`game.urace?.mnum ?? -1`, dig.js/artifact.js precedent — no live export exists to import); `PM_ELF` + `is_orc`/`is_elf` join existing monsters_data/monsters import edges (no new module edge).
+- JS: js/uhitm.js (+22/−3: 2 import names, 1 local, 2 arms + doc); docs/c-js-map/turns.md (monk/orc-elf deferral retired → D-2673).
+- Callers: C dokick.c:187 → JS js/dokick.js:959; C uhitm.c:706 → JS js/uhitm.js:2954; :778 → :3008; :801 → :3029; :5518 → :3630; :5568 → :3661; :5770 → :3759. All 7 already pass `{ v: 0 }` penalty objects into the live `known_hitum`/`missum` tails — no call-site change, none unwired (reviews 1359/1361).
+- Verify: `node scripts/verify.mjs --fn find_roll_to_hit` → PASS syntax (1 file) · PASS rule2 · note hidden (0 blocked at baseline — normal for a coverage row) · PASS reach (no RNG-tagged reach — RNG-free fn; smoke 24 run: 24 PASS, 0 regressed → REACH-OK; `--reach-all` identical) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 → VERIFY: PASS.
+- Named omissions: none — every arm, callee, and caller is live. `| 0`/`Math.trunc` are the JS int-semantics adaptations; `role_roll_penalty.v` is the established out-param idiom; file-local `Race_if` mirrors file-local `Role_if` (no exported `Race_if` exists).
+- Next: next Open — coverage row (`invent.c` dfeature_at) unless refilled.
+- Stale parked same iteration: `teleport.c` mtele_trap — whole C body (`:1962–2002`) already live split across the `mtele_trap` move arms (`js/teleport.js:1368`) + its sole C caller `trapeffect_telep_trap` (`js/trap.js:5004–5015`: pre-move `in_sight`/`Monnam`, post-move `canseemon` plines + `seetrap`; C `trap.c:2081` wired); the 18 L same-name count misread the split; 0 blocked.
+
 ## D-2672 — `role.c` role_selection_prolog whole-body port (five-line prolog as line array; windowport-only callers)
 
 - Status: ACCEPT — breadth-phase coverage row (MISSING C 86 L `role.c:1726–1812` / JS no symbol; hops —, callers 0, RNG 0, msg 10; no corpus session blocked).

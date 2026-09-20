@@ -50,7 +50,7 @@ import {
     is_pole, drop_uswapwep, uwepgone,
 } from './wield.js';
 import { near_capacity, useup, useupall, hold_another_object, Blind, observe_object } from './invent.js';
-import { PM_BARBARIAN, PM_MONK, PM_KNIGHT, PM_SAMURAI, PM_ARCHEOLOGIST, PM_WIZARD, PM_HUMAN, PM_HEALER, PM_ROGUE } from './generated/monsters_data.js';
+import { PM_BARBARIAN, PM_MONK, PM_KNIGHT, PM_SAMURAI, PM_ARCHEOLOGIST, PM_WIZARD, PM_HUMAN, PM_HEALER, PM_ROGUE, PM_ELF } from './generated/monsters_data.js';
 import {
     find_mac, get_mattk, make_corpse, monstone, mhitm_knockback, monkilled, mondead,
     troll_baned, mhitm_ad_poly, mhitm_ad_slee, mhitm_ad_heal, mhitm_ad_blnd, mhitm_ad_ston, mhitm_ad_elec, mhitm_ad_sedu, mhitm_ad_tlpt, mhitm_ad_rust, could_seduce, failed_grab, shade_miss,
@@ -70,7 +70,7 @@ import {
     flaming, touch_petrifies, is_neuter, is_vampshifter, is_animal, amphibious,
     is_swimmer, slithy,
     amorphous, noncorporeal, is_whirly, passes_walls, hates_silver, mon_hates_silver, humanoid,
-    is_human, always_hostile, is_unicorn, slimeproof,
+    is_human, is_orc, is_elf, always_hostile, is_unicorn, slimeproof,
     MR_FIRE, MR_COLD, MR_ELEC, MR_ACID,
     resists_ston, resists_acid, mon_hates_blessings,
 } from './monsters.js';
@@ -575,8 +575,8 @@ export async function check_caitiff(mtmp) {
 /**
  * C ref: uhitm.c find_roll_to_hit — to-hit threshold before rnd(20).
  * dokick poly AT_KICK loop is a caller (D-1310).
- * monk armor / orc-vs-elf deferred (RNG-free; no corpus session has
- * demanded them yet). Encumbrance + utrap live (uhitm.c:407-411):
+ * Role/race arms live (uhitm.c:396-406): monk spelarmr / bare-hand
+ * bonus + orc-vs-elf +1 (RNG-free). Encumbrance + utrap live (uhitm.c:407-411):
  * scen-poly-Archeologist-92226 drew C miss at tmp 11 vs JS hit at 16.
  * maybe_polyd live: poly form's mlevel, not ulevel (uhitm.c:378-379).
  * weapon_hit_bonus from weapon.c (bare-hand unskilled = +1; AT_KICK
@@ -606,6 +606,23 @@ export async function find_roll_to_hit(mtmp, aatyp, weapon, attk_count, role_rol
     if (mtmp.mflee) tmp += 2;
     if (mtmp.msleeping) tmp += 2;
     if (!mtmp.mcanmove) tmp += 4;
+    // C uhitm.c:396-406 — role/race adjustments. Monk in body armor
+    // loses the role's spelarmr (kept in role_roll_penalty for the
+    // armor-penalty message tail); unarmored bare-handed monk gains
+    // (ulevel/3)+2 with C integer division. Orc target vs elf-form (or
+    // elf race unpolyed) hero is +1 via maybe_polyd = Upolyd ? form : race.
+    if (Role_if(PM_MONK) && !Upolyd(u)) {
+        if (u.uarm) {
+            role_roll_penalty.v = game.urole?.spelarmr | 0;
+            tmp -= role_roll_penalty.v;
+        } else if (!u.uwep && !u.uarms) {
+            tmp += Math.trunc((u.ulevel | 0) / 3) + 2;
+        }
+    }
+    if (is_orc(mtmp.data)
+        && (Upolyd(u) ? is_elf(game.youmonst?.data) : Race_if(PM_ELF))) {
+        tmp++;
+    }
     // C uhitm.c:407-411 — encumbrance dulls agility; being trapped
     // costs 3. near_capacity is 0 while unencumbered (no-op then).
     const cap = near_capacity();
@@ -4225,6 +4242,11 @@ function cantwield(ptr) {
 /** C ref: role.h Role_if — urole.mnum match. */
 function Role_if(pm) {
     return (game.urole?.mnum ?? -1) === pm;
+}
+
+/** C ref: role.h Race_if — urace.mnum match. */
+function Race_if(pm) {
+    return (game.urace?.mnum ?? -1) === pm;
 }
 
 /** C ref: objnam.c yname — invent → "your ", else "the ". */

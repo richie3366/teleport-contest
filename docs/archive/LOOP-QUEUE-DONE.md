@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
+- [x] `uhitm.c` find_roll_to_hit — coverage PARTIAL (C 57 L `uhitm.c:365–427` / JS 37 L in js/uhitm.js; hops 4, callers 7, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn find_roll_to_hit` (reach regression must be 0). Measured `port-coverage.mjs --name find_roll_to_hit` 2026-09-20 @ f0550a81. **Addressed:** D-2673
+
+
 - [x] `role.c` role_selection_prolog — coverage MISSING (C 86 L `role.c:1726–1812` / JS no symbol; hops —, callers 0, RNG 0, msg 10). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn role_selection_prolog` (reach regression must be 0). Measured `port-coverage.mjs --name role_selection_prolog` 2026-09-20 @ f0550a81.
 
 
