@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2688 — `nhmd4.c` nhmd4_body whole-family port (new C-home `js/nhmd4.js`)
+
+- Status: ACCEPT — breadth-phase coverage row (MISSING C 94 L `nhmd4.c:83–180` / JS no symbol; 0 callees, 4 intra-file callers; no corpus session blocked — normal for a coverage row).
+- Symptom: no JS symbol for `nhmd4_body` (or `nhmd4_init/update/final`); the MD4 digest behind the crash-report binary ID had no port.
+- C locus: `nethack-c/upstream/src/nhmd4.c:82–180` (`nhmd4_body`) + `:182–193` (`nhmd4_init`) + `:195–232` (`nhmd4_update`) + `:234–287` (`nhmd4_final`) + struct `nethack-c/upstream/include/nhmd4.h:22–27`; the only external consumer is `report.c` `crashreport_init` via the `HASH_*` macros (`:65–87`, `:118–174`).
+- JS was: nothing — `sym.mjs` no export/local, no map section.
+- Fix: new import-free C-home `js/nhmd4.js` in C order with per-arm `:line` cites — context factory `new_nhmd4_context` (C stack struct → GC object, `nhmd4.h:22–27` field order); `md4F/md4G/md4H` (`:43–45`), `md4Step` (`:53–55`), portable-branch `md4Set/md4Get` (`:65–76` `#else` arm — values equal the x86_64 direct-read arm; `block` unread after the body); `nhmd4_body` (`:82–180`, all 48 STEPs in order, `left -= 64` loop, `return data.subarray(size)` for the C `return ptr` advance); `nhmd4_init` (`:182–193`, buffer/block zeroed — unobservable, update writes before reading and body SETs before GETs); `nhmd4_update` (`:195–232`, `0x1fffffff` lo mask + carry, `size >> 29` as `Math.floor(size / 0x20000000)`, subarray views for pointer arithmetic, `memcpy` as `TypedArray.set`); `nhmd4_final` (`:234–287`, `0x80` pad, `free < 8` two-block arm, `lo <<= 3` bit-length LE at `[56..63]`, LE result words, `memset(ctx,0)` tail). `nhmd4_body` exported although C marks it staticfn (coverage + testability). No cross-module edge (module is import-free; `imports.mjs --can` not needed).
+- JS: `js/nhmd4.js` (`nhmd4_body` body/rounds, `nhmd4_init`, `nhmd4_update`, `nhmd4_final`).
+- Callers: all 4 C intra-file sites wired same-file — `:223` → `nhmd4_update` (`js/nhmd4.js` used-arm), `:227` → `nhmd4_update` (bulk arm), `:250` → `nhmd4_final` (two-block arm), `:267` → `nhmd4_final` (digest arm). None invented per reviews 1359/1361.
+- Verify: `node scripts/verify.mjs --fn nhmd4_body` → PASS syntax (1 changed js file) · PASS rule2 · note hidden (0 blocked at baseline — normal for a coverage row) · PASS reach (no RNG-tagged reach; smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 (full skipped: no shared file changed) → VERIFY: PASS. Independent evidence: pinned C compiled standalone (`-DCRASHREPORT` + stub `hack.h`, /tmp scratch) agrees bit-for-bit with the JS on 7 inputs; a fresh RFC-1320 Python implementation agrees with both (25/25 probe checks: 7 digests + 7 byte-incremental + 10 split-boundary 1/55/56/57/63/64/65/100/128/200 + body-advance + post-final ctx zeroing). `port-coverage.mjs --name nhmd4_body` now reads covered (was MISSING). No `tests/` dir exists in-repo, so per durable-test-collateral the `/tmp/nhmd4-probe.mjs` probe + `verify --fn` REACH-OK is the kept evidence, not a new framework.
+- Named omissions: `report.c` `crashreport_init`/`crashreport_bidshow`/`submit_web_report` consumer (file/binary I/O — `open`/`read` of `/proc/self/exe`, `readlink`, `execve` of `CRASHREPORT` — Rule #2 class; no JS report module exists; own future row, not this family).
+- Next: queue head `trap.c` immune_to_trap (Open — coverage).
+
 ## D-2687 — `sounds.c` growl tail port (unconditional mx==0 wake + uroleplay permadeaf Deaf)
 
 - Status: ACCEPT — breadth-phase missing-arm rows (mx==0 wake + permadeaf Deaf, both in `sounds.c:404–425`; no corpus session blocked — normal for a coverage row).

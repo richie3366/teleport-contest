@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
+- [x] `nhmd4.c` nhmd4_body — coverage MISSING (C 94 L `nhmd4.c:83–180` / JS no symbol; hops —, callers 4, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn nhmd4_body` (reach regression must be 0). Measured `port-coverage.mjs --name nhmd4_body` 2026-09-20 @ 92dd436d. **Addressed:** D-2688
+
+
 - [x] `sounds.c` growl mx==0 wake arm — absent from js/sounds.js:growl: C `sounds.c:421` `wake_nearto(mtmp->mx, mtmp->my, mtmp->data->mlevel * 18)` unconditional inside `if (growl_verb)` vs `js/sounds.js:854-856` `if (mtmp.mx)` guard that skips the wake at mx 0 (verified reading both bodies 2026-09-20; sides: `brief.mjs growl_sound` + `sed -n '400,470p' sounds.c`). Port the C `:404–425` tail in C order. Verify `node scripts/verify.mjs --fn growl` (reach regression must be 0).
 - [x] `sounds.c` growl permadeaf Deaf arm — absent from js/sounds.js:growl: C `Deaf` is `HDeaf || EDeaf || u.uroleplay.deaf` (`youprop.h:125`, OPTIONS=permadeaf `optlist.h:268`) vs `js/sounds.js:846` local `Deaf` (`u.Deaf/HDeaf/EDeaf`, no uroleplay read; zero `.Deaf =` writes in `js/`; house idiom `js/hack.js:173` includes `u.uroleplay?.deaf`) — permadeaf hero sees growl plines C suppresses (verified reading both bodies 2026-09-20). Port the C `:404–425` Deaf gate in C order. Verify `node scripts/verify.mjs --fn growl` (reach regression must be 0).
 
