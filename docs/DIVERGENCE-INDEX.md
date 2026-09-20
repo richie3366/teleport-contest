@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-2672 | fixed |  — `role.c` role_selection_prolog whole-body port (five-line prolog as line array; windowport-only callers) |  |
 | D-2671 | fixed |  — `sp_lev.c` flip_encoded_dir_bits whole-body port (+ hacklib swapbits; conjoined-pit flip arms wired) |  |
 | D-2670 | fixed |  — `worm.c` worm_cross whole-body restart (impossible arm + live distmin, C-order cites) |  |
 | D-2669 | fixed |  — `dig.c` buried_ball: wire last C caller (trapmove radius-1 + wriggle_free); dist2 clone → live hacklib expo |  |

@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
+- [x] `role.c` role_selection_prolog — coverage MISSING (C 86 L `role.c:1726–1812` / JS no symbol; hops —, callers 0, RNG 0, msg 10). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn role_selection_prolog` (reach regression must be 0). Measured `port-coverage.mjs --name role_selection_prolog` 2026-09-20 @ f0550a81.
+
+
 - [x] `sp_lev.c` flip_encoded_dir_bits — coverage MISSING (C 15 L `sp_lev.c:499–514` / JS no symbol; hops 5, callers 2, RNG 0, msg 0; dead callees: swapbits). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn flip_encoded_dir_bits` (reach regression must be 0). Measured `port-coverage.mjs --name flip_encoded_dir_bits` 2026-09-20 @ f0550a81.
 
 

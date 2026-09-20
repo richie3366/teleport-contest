@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2672 — `role.c` role_selection_prolog whole-body port (five-line prolog as line array; windowport-only callers)
+
+- Status: ACCEPT — breadth-phase coverage row (MISSING C 86 L `role.c:1726–1812` / JS no symbol; hops —, callers 0, RNG 0, msg 10; no corpus session blocked).
+- Symptom: coverage MISSING — `role_selection_prolog` existed nowhere in `js/` (brief sym.mjs: no export, no local), so the five-line role-selection prolog (name/role/race/gender/alignment status with role→race/gender/align and race→align narrowing) had no JS counterpart; its C-order sibling `role_menu_extra` already lives as `menu_extra_lines` (D-2633).
+- C locus: `nethack-c/upstream/src/role.c:1726–1812` (NEARDATA choosing/not_yet/rand_choice `:1728–1730`; flags.init* reads `:1734–1737`; role-narrowing `:1738–1756` incl. human-only→races[human] `:1741–1742`, barred-race→ROLE_RANDOM `:1743–1745`, male/female force `:1746–1749`, align force `:1750–1755`; race-narrowing `:1757–1767` incl. never-forces-gender `:1766`; g/a constrain nothing `:1768–1769`; name line `:1771–1774`; role line + female replace/slash arms `:1775–1791`; race/gender/alignment lines `:1792–1811`) + options.c `:7193` init-facet defaults (ROLE_NONE) + zero pinned-C call sites (extern.h declaration only — callers live in windowport code outside the pinned tree).
+- JS was: no symbol; chargen menus (`pick_*_menu`) head their bodies with the one-line `aspect_header`, untouched.
+- Fix: new live `role_selection_prolog(which)` export in `js/player_selection.js` ahead of `menu_extra_lines` (C order), every arm in C order with per-arm `:line` cites. `putstr(where, 0, buf)` ×5 becomes a five-string return in putstr order — the C `where` winid has no corner-menu counterpart (setup_*menu precedent: win/add_menu stay with callers). Narrowing assigns display locals only, never flags. `"%12s "` ≡ `padStart(12)+' '`; `strchr(buf,':')` replace ≡ slice-to-first-colon; `eos` append ≡ `+=`; `!*svp.plname` ≡ `!game.plname`. Proven: /tmp probe of 11 hand-computed C strings (fresh/choosing, plname, caveman female-replace + slash-append, orc→chaotic, ROLE_RANDOM, valkyrie→female, samurai→human) ALL PASS.
+- JS: js/player_selection.js (+92/−0: 1 export, no new imports — flags/data/consts already live; no `imports.mjs --can` edge needed).
+- Callers: C has none in the pinned tree (extern.h decl only) → no JS call-site change, none unwired. Threading it into `pick_*_menu` bodies would invent a call C never makes and repaint chargen screens (reviews 1359/1361).
+- Verify: `node scripts/verify.mjs --fn role_selection_prolog` → PASS syntax (1 file) · PASS rule2 · note hidden (0 blocked at baseline — normal for a coverage row) · PASS reach (no RNG-tagged reach; smoke 24 run: 24 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 → VERIFY: PASS.
+- Named omissions: C `where` winid (no corner-menu counterpart — line-array return is the named adaptation); C `assert(IndexOkT…)` ×4 (NDEBUG no-ops, cited in header, sibling precedent carries no asserts).
+- Next: next Open — coverage row (`teleport.c` mtele_trap) unless refilled.
+
 ## D-2671 — `sp_lev.c` flip_encoded_dir_bits whole-body port (+ hacklib swapbits; conjoined-pit flip arms wired)
 
 - Status: ACCEPT — breadth-phase coverage row (MISSING C 15 L `sp_lev.c:499–514` / JS no symbol; hops 5, callers 2, RNG 0, msg 0; no corpus session blocked).
