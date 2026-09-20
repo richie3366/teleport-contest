@@ -799,21 +799,23 @@ function levregion_add(lregion) {
  * by hand (earth/fire/air/hell) rather than this helper.
  */
 export function l_teleport_region(opts) {
-    const region = opts.region;
-    const exclude = opts.exclude;
+    // C l_get_lregion (sp_lev.c:5410–5441): required "region", optional
+    // "exclude" over pre-set -1s; del_islev forced when exclude x1 < 0.
+    const region = get_table_region_unpacked(opts, 'region', false); // :5414
+    const exclude = get_table_region_unpacked(opts, 'exclude', true); // :5421
     const dir = opts.dir || 'both';
     const rtype = dir === 'up' ? LR_UPTELE
         : dir === 'down' ? LR_DOWNTELE
         : LR_TELE;
     const lregion = {
         inarea: {
-            x1: region[0] | 0, y1: region[1] | 0,
-            x2: region[2] | 0, y2: region[3] | 0,
+            x1: region[0], y1: region[1],
+            x2: region[2], y2: region[3],
         },
         delarea: exclude
             ? {
-                x1: exclude[0] | 0, y1: exclude[1] | 0,
-                x2: exclude[2] | 0, y2: exclude[3] | 0,
+                x1: exclude[0], y1: exclude[1],
+                x2: exclude[2], y2: exclude[3],
             }
             : { x1: -1, y1: -1, x2: -1, y2: -1 },
         in_islev: !!opts.region_islev,
@@ -822,7 +824,7 @@ export function l_teleport_region(opts) {
         padding: 0,
         rname: { str: null },
     };
-    if (!exclude || (exclude[0] | 0) < 0)
+    if (!exclude || exclude[0] < 0)
         lregion.del_islev = true;
     levregion_add(lregion);
 }
@@ -842,18 +844,20 @@ const LREGION_TYPES = {
 };
 
 export function l_levregion(opts) {
-    const region = opts.region;
-    const exclude = opts.exclude;
+    // C l_get_lregion (sp_lev.c:5410–5441): required "region", optional
+    // "exclude" over pre-set -1s; del_islev forced when exclude x1 < 0.
+    const region = get_table_region_unpacked(opts, 'region', false); // :5414
+    const exclude = get_table_region_unpacked(opts, 'exclude', true); // :5421
     const rtype = LREGION_TYPES[opts.type || 'stair-down'] ?? LR_DOWNSTAIR;
     const lregion = {
         inarea: {
-            x1: region[0] | 0, y1: region[1] | 0,
-            x2: region[2] | 0, y2: region[3] | 0,
+            x1: region[0], y1: region[1],
+            x2: region[2], y2: region[3],
         },
         delarea: exclude
             ? {
-                x1: exclude[0] | 0, y1: exclude[1] | 0,
-                x2: exclude[2] | 0, y2: exclude[3] | 0,
+                x1: exclude[0], y1: exclude[1],
+                x2: exclude[2], y2: exclude[3],
             }
             : { x1: -1, y1: -1, x2: -1, y2: -1 },
         in_islev: !!opts.region_islev,
@@ -862,7 +866,7 @@ export function l_levregion(opts) {
         padding: opts.padding | 0,
         rname: { str: opts.name ?? null },
     };
-    if (!exclude || (exclude[0] | 0) < 0)
+    if (!exclude || exclude[0] < 0)
         lregion.del_islev = true;
     levregion_add(lregion);
 }
@@ -886,11 +890,12 @@ const EZ_TYPES = {
 export function lspo_exclusion(opts) {
     const typeName = opts?.type ?? 'teleport';
     const zonetype = EZ_TYPES[typeName] ?? LR_TELE;
-    const region = opts.region;
+    // C sp_lev.c:5514 get_table_region(L, "region", …, FALSE).
+    const region = get_table_region_unpacked(opts ?? {}, 'region', false);
     const croom = opts.croom ?? null;
-    const a = get_location(region[0] | 0, region[1] | 0,
+    const a = get_location(region[0], region[1],
         ANY_LOC | NO_LOC_WARN, croom);
-    const b = get_location(region[2] | 0, region[3] | 0,
+    const b = get_location(region[2], region[3],
         ANY_LOC | NO_LOC_WARN, croom);
     const ez = {
         zonetype,
@@ -19847,6 +19852,51 @@ function lspo_bool_opt(v, dflt) {
 }
 
 /**
+ * C ref: sp_lev.c get_table_intarray_entry :5260–5280 (unpacked; not
+ * lua_State). 1-based entry read: a number truncates like lua_tointeger
+ * (Math.trunc — no ToInt32 wrap); a numeric string coerces like
+ * lua_isnumber/lua_tointeger. Anything else throws like C nhl_error
+ * ("Array entry #… is %s, expected number" — C prints a hardcoded 1).
+ */
+function get_table_intarray_entry_unpacked(arr, entrynum) {
+    const v = arr[entrynum - 1]; // C :5267–5268 lua_pushinteger + lua_gettable
+    if (typeof v === 'number' && Number.isFinite(v)) return Math.trunc(v); // :5270
+    if (typeof v === 'string' && v.trim() !== '' && !Number.isNaN(Number(v)))
+        return Math.trunc(Number(v)); // C lua_isnumber coerces numeric strings
+    const typename = v == null ? 'nil' : (Array.isArray(v) ? 'table' : typeof v);
+    throw new Error(`Array entry #1 is ${typename}, expected number`); // :5272–5276
+}
+
+/**
+ * C ref: sp_lev.c get_table_region :5282–5316 (unpacked; not lua_State).
+ * Reads tab[name] as a 4-entry {x1,y1,x2,y2} array. Optional-absent
+ * returns null (C :5292–5295 returns 1 leaving the outs untouched — the
+ * caller keeps its pre-set values); a missing required field or a
+ * non-table throws like luaL_checktype (:5297); a non-4 length throws
+ * C's own "Not a region" (:5303–5308; the lua_pop/return-0 after
+ * nhl_error is NOTREACHED). Entries come from get_table_intarray_entry
+ * (:5309–5312).
+ */
+function get_table_region_unpacked(tab, name, optional) {
+    const v = tab?.[name]; // C :5291 lua_getfield(L, 1, name)
+    if (v == null) {
+        if (optional) return null; // :5292–5295
+        throw new Error(`bad argument '${name}' (table expected, got nil)`); // :5297
+    }
+    if (!Array.isArray(v)) { // C :5297 luaL_checktype(L, -1, LUA_TTABLE)
+        const typename = v === null ? 'nil' : (typeof v === 'object' ? 'table' : typeof v);
+        throw new Error(`bad argument '${name}' (table expected, got ${typename})`);
+    }
+    if (v.length !== 4) throw new Error('Not a region'); // :5303–5308
+    return [
+        get_table_intarray_entry_unpacked(v, 1), // :5309
+        get_table_intarray_entry_unpacked(v, 2), // :5310
+        get_table_intarray_entry_unpacked(v, 3), // :5311
+        get_table_intarray_entry_unpacked(v, 4), // :5312
+    ];
+}
+
+/**
  * C ref: sp_lev.c lspo_monster :3326–3344 appear_as prefix parse (unpacked).
  * "obj:"/"mon:"/"ter:" (C strncmp, case-sensitive) select M_AP_OBJECT /
  * M_AP_MONSTER / M_AP_FURNITURE and strip the prefix; an unknown prefix
@@ -28523,6 +28573,117 @@ function maybe_sdoor(chance) {
 }
 
 // C ref: sp_lev.c dig_corridor()
+/**
+ * C ref: sp_lev.c search_door :2492–2539 (unpacked room; not lua_State).
+ * Scan the wall-adjacent row for doors; cnt is the 0-based door index
+ * (C assigns *x/*y per door found and returns on cnt-- <= 0).
+ * Default arm is C panic :2526 (loud throw, house idiom).
+ * Returns {x, y} or null (C boolean + out params).
+ */
+export function search_door(croom, wall, cnt) {
+    let dx, dy, xx, yy;
+    switch (wall) { // C :2501–2527
+        case W_SOUTH:
+            dy = 0;
+            dx = 1;
+            xx = croom.lx;
+            yy = croom.hy + 1;
+            break;
+        case W_NORTH:
+            dy = 0;
+            dx = 1;
+            xx = croom.lx;
+            yy = croom.ly - 1;
+            break;
+        case W_EAST:
+            dy = 1;
+            dx = 0;
+            xx = croom.hx + 1;
+            yy = croom.ly;
+            break;
+        case W_WEST:
+            dy = 1;
+            dx = 0;
+            xx = croom.lx - 1;
+            yy = croom.ly;
+            break;
+        default:
+            throw new Error('search_door: Bad wall!'); // :2526 panic
+            /*NOTREACHED*/
+    }
+    while (xx <= croom.hx + 1 && yy <= croom.hy + 1) { // :2529
+        const loc = game.level.at(xx, yy);
+        if (loc && (IS_DOOR(loc.typ) || loc.typ === SDOOR)) { // :2530
+            if (cnt-- <= 0) return { x: xx, y: yy }; // :2531–2534
+        }
+        xx += dx;
+        yy += dy;
+    }
+    return null; // :2538 FALSE
+}
+
+/**
+ * C ref: sp_lev.c create_corridor :2671–2725. c is { src: { room, door,
+ * wall }, dest: { room, door, wall } }. Async: the W_ANY/W_RANDOM guard
+ * reports via impossible (async, continues like C) then returns.
+ * The dig_corridor return is discarded like C's (void) cast (:2723).
+ * Named omissions: lspo_corridor table-form (sp_lev.c:4551 — no
+ * des.corridor table call in the compiled levels); lspo_random_corridors
+ * (:4571) stays inline as makecorridors() at the loader sites.
+ */
+export async function create_corridor(c) {
+    if (c.src.room === -1) { // :2675–2678
+        makecorridors(); /*makecorridors(c.src.door);*/
+        return;
+    }
+
+    /* Safety railings - if there's ever a case where des.corridor() needs
+     * to be called with src/destwall="random", that logic first needs to be
+     * implemented in search_door. */
+    if (c.src.wall === W_ANY || c.src.wall === W_RANDOM // :2684–2688
+        || c.dest.wall === W_ANY || c.dest.wall === W_RANDOM) {
+        await impossible('create_corridor to/from a random wall');
+        return;
+    }
+    const org = search_door(game.level.rooms[c.src.room], c.src.wall, // :2689–2691
+        c.src.door);
+    if (!org) return;
+    if (c.dest.room !== -1) { // :2692
+        const dest = search_door(game.level.rooms[c.dest.room], // :2693–2695
+            c.dest.wall, c.dest.door);
+        if (!dest) return;
+        switch (c.src.wall) { // :2696–2707
+            case W_NORTH:
+                org.y--;
+                break;
+            case W_SOUTH:
+                org.y++;
+                break;
+            case W_WEST:
+                org.x--;
+                break;
+            case W_EAST:
+                org.x++;
+                break;
+        }
+        switch (c.dest.wall) { // :2708–2719
+            case W_NORTH:
+                dest.y--;
+                break;
+            case W_SOUTH:
+                dest.y++;
+                break;
+            case W_WEST:
+                dest.x--;
+                break;
+            case W_EAST:
+                dest.x++;
+                break;
+        }
+        dig_corridor(org, dest, null, false, CORR, STONE); // :2723 (void)
+    }
+}
+
 export function dig_corridor(org, dest, npoints_out, nxcor, ftyp, btyp) {
     const map = game.level;
     let dx = 0, dy = 0;

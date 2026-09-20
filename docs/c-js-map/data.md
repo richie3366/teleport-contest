@@ -908,6 +908,7 @@ temperate → hot; valley still overrides temperate);
 **D-1490 `minetn-1`** + **D-1503 `minetn-6`** + **D-1504 `minetn-7`** +
 **D-1513 minetn-7 town-floor three gnomes**; **D-1841 `fakewiz1`/`fakewiz2`** (hellfill D-0906); 
 **D-2336 quest-start/soko branch levregions stored pre-flip for flip_level remap**; 
+**D-2668 `get_table_region` + `get_table_intarray_entry` unpacked** (`sp_lev.c:5282–5316` + `:5260–5280`; file-local `get_table_region_unpacked`/`get_table_intarray_entry_unpacked` js/mklev.js; optional-absent → null keeping caller -1s, non-table/non-4 throws incl. C's "Not a region") wired into `l_teleport_region`/`l_levregion` (`:5414/:5421` via l_get_lregion) + `lspo_exclusion` (`:5514`); **same-file `search_door` (`:2492–2539`, panic ≡ throw) + `create_corridor` (`:2671–2725`, async for impossible, dig return discarded) new exports**; named: `lspo_corridor` table-form (`:4551`, no des.corridor caller in tree), `lspo_random_corridors` (`:4571`) ≡ inline `makecorridors()` at loader sites, `lspo_replace_terrain`/`lspo_region`/`lspo_wall_property` table-form region arms (`:5094`/`:5607`/`:5889` — unpacking compiled into loader constants, no runtime region-field read); 
 **D-0608 `minend-1` `des.object("(")`→TOOL not WEAPON** (defsym `'('`=TOOL_CLASS); 
 **D-0543 `soko1-2` load_special** (map/reward percent(25); soko1-1 + soko4-1 loaders live js/mklev.js:12307/12839, soko4-1 D-0756 fixed — remainder claim retired STALE 2026-09-16); 
 **D-0547 `soko2-1` + `is_ok_location_dry` boulder reject**; **D-1820 `soko2-2`**; 

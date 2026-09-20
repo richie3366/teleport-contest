@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-2668 | fixed |  — `sp_lev.c` get_table_region + intarray-entry unpacked ports wired into lregion/exclusion callers; same-file |  |
 | D-2667 | fixed |  — `objnam.c` paydoname whole-body restart (doname_base direct + BUFSZ-PREFIX guard, per-arm cites) |  |
 | D-2666 | fixed |  — `light.c` write_ls whole-body port (save pointer→id fixup + chain verification, wired into serLight) |  |
 | D-2665 | fixed |  — `selvar.c` selection_floodfill whole-body restart (generic C predicate replaces two clones) |  |
