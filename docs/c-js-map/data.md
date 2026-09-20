@@ -321,7 +321,7 @@ starting SACK/`mkbox_cnts` (D-0013); **`splitobj`** quan/owt + floor chain +
 seed0002; invent slot via touchfood freeinv+`addinv_nomerge`); 
 **`mergable` FOOD `oeaten`/`orotten`** (D-0923) + **unpaid/erosion/candle/price/name/mail/artifact arms** (D-2324; `#if 0` bypass non-gate) + **otmp-worn merge + quiver-prefer addinv** (D-2207; obj-worn combine still deferred — merged setworn fixup unported); 
 **`obj_extract_self` preserves ox/oy like C `remove_object`** (D-0911; 
-was zeroing → false `drag_ball` cause_delay); **`obj_extract_self` MINVENT** (D-0029); 
+was zeroing → false `drag_ball` cause_delay); **`remove_object` + `extract_nexthere` named exports** (D-2607; C `mkobj.c:2508–2521` + `:2623–2640` in C order with `:line` cites — where-gate/object-lost panics are throws, `game._objects_at` is `level.objects[x][y]`, `extract_nobj` sets FREE; floor arm routes OBJ_FLOOR through it, legacy unset-where keeps the tolerant inline path; 14 C callers wired — recreate_pile_at + splev monster-invent/saddle stay named omits, moverock relink subsumed by dopush→movobj); **`obj_extract_self` MINVENT** (D-0029); 
 **`SPBOOK_no_NOVEL` → `rnd_class`…`SPE_BLANK_PAPER`** (D-0055); 
 **CORPSE `undead_to_corpse` + `G_NOCORPSE` retry** (D-0057); 
 **EGG `can_be_hatched` multi-retry** (D-0068); **Samurai lacquered `SPLINT_MAIL`** (D-0079); 

@@ -3138,6 +3138,55 @@ export function extract_nobj(obj, head) {
 }
 
 /**
+ * C ref: mkobj.c extract_nexthere `:2623–2640` — unlink obj from a
+ * nexthere pile chain. Returns the new head (JS has no `struct obj **`
+ * out-param; mirrors extract_nobj above). C `:2637–2638` panics when
+ * obj is not on the list; the house panic stand-in is a throw, same as
+ * extract_nobj. C `:2639` clears `obj->nexthere`.
+ * Callers: remove_object (floor pile `level.objects[x][y]`).
+ */
+export function extract_nexthere(obj, head) {
+    let curr = head || null;
+    let prev = null;
+    for (; curr; prev = curr, curr = curr.nexthere) {
+        if (curr === obj) {
+            if (prev) prev.nexthere = curr.nexthere || null;
+            else head = curr.nexthere || null;
+            break;
+        }
+    }
+    if (!curr) {
+        throw new Error('extract_nexthere: object lost');
+    }
+    obj.nexthere = null;
+    return head;
+}
+
+/**
+ * C ref: mkobj.c remove_object `:2508–2521` — extract a floor object from
+ * both the level pile (`level.objects[x][y]`, JS `game._objects_at`) and
+ * the floor chain (`fobj`), then the boulder vision + timed arms, in C
+ * order. C `:2513–2514` panics unless `where == OBJ_FLOOR` (throw here);
+ * C `:2516` extract_nobj sets `where = OBJ_FREE`. Sync like C.
+ */
+export function remove_object(otmp) {
+    const x = otmp.ox | 0; // C `:2511–2512`
+    const y = otmp.oy | 0;
+    if ((otmp.where | 0) !== OBJ_FLOOR) // C `:2513–2514`
+        throw new Error(`remove_object: obj where=${otmp.where}, not on floor`);
+    // C `level.objects` is always live; JS builds the pile map lazily.
+    if (!game._objects_at) game._objects_at = new Map();
+    const key = `${x},${y}`;
+    game._objects_at.set( // C `:2515`
+        key, extract_nexthere(otmp, game._objects_at.get(key) || null));
+    game.fobj = extract_nobj(otmp, game.fobj); // C `:2516`
+    if (otmp.otyp === BOULDER)
+        recalc_block_point(x, y); /* vision */ // C `:2517–2518`
+    if (otmp.timed | 0)
+        obj_timer_checks(otmp, x, y, 0); // C `:2519–2520`
+}
+
+/**
  * C ref: mkobj.c container_weight `:2731–2738` — owt = weight(object),
  * then recurse while OBJ_CONTAINED.
  */
@@ -3159,6 +3208,14 @@ export function obj_extract_self(obj) {
     if (obj.where === OBJ_FLOOR
         || (obj.where == null && obj.ox != null && obj.oy != null
             && !(obj.ox === 0 && obj.oy === 0))) {
+        // C remove_object body lives under its own name now; the floor
+        // arm routes through it. Legacy unset-where objs keep the
+        // tolerant inline path below (C has no such objects — where is
+        // always set there — so remove_object's panic must not see them).
+        if (obj.where === OBJ_FLOOR) {
+            remove_object(obj);
+            return;
+        }
         const ox = obj.ox | 0;
         const oy = obj.oy | 0;
         const wasBoulder = obj.otyp === BOULDER;
