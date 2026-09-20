@@ -18,7 +18,7 @@ import {
     CROSSWALL, TUWALL, TDWALL, TLWALL, TRWALL,
     D_NODOOR, D_CLOSED, D_ISOPEN, D_LOCKED, D_TRAPPED, D_BROKEN,
     In_V_tower, Is_oracle_level, BURN, OBJ_CONTAINED, OBJ_FREE,
-    OROOM, VAULT, THEMEROOM, ROOMOFFSET, MAXNROFROOMS, SHARED, NO_ROOM,
+    OROOM, VAULT, THEMEROOM, ROOMOFFSET, MAXNROFROOMS, MAX_NESTED_ROOMS, SHARED, NO_ROOM,
     SDOOR, SCORR, IRONBARS, FOUNTAIN, SINK, ALTAR, GRAVE, DELPHI,
     SHOPBASE, COURT, ZOO, BEEHIVE, MORGUE, BARRACKS, SWAMP, TEMPLE,
     LEPREHALL, COCKNEST, ANTHOLE,
@@ -1469,6 +1469,75 @@ function sp_level_coder_init_statics() {
 }
 
 /**
+ * C ref: sp_lev.c update_croom `:6323–6333` — whole-body port in C order.
+ * `:6326–6327` no coder → return; `:6329–6330` nonzero n_subroom → croom
+ * tracks tmproomlist[n_subroom-1]; `:6331–6332` else NULL. Reads the live
+ * coder (game.gc.coder ≡ C `gc.coder`, decl.h:294); `?? null` maps an
+ * out-of-range slot to C NULL. Called from sp_level_coder_init `:6358`
+ * (where it still sees the prior coder — NULL on first load) and, in C,
+ * the room/subroom writers (`:4091`, `:4110`, `:4133` — future rows).
+ */
+export function update_croom() {
+    const coder = game.gc?.coder ?? null; // C :6326 `if (!gc.coder) return`
+    if (!coder) return; // C :6327
+    if (coder.n_subroom) coder.croom = coder.tmproomlist[coder.n_subroom - 1] ?? null; // C :6329–6330
+    else coder.croom = null; // C :6331–6332
+}
+
+/**
+ * C ref: sp_lev.c sp_level_coder_init `:6336–6376` — whole-body port in C
+ * order. Struct shape per sp_lev.h:87–98 (`struct sp_coder`); statics per
+ * sp_lev.c:192–198. `alloc` (:6339) is a GC object literal (no live alloc
+ * export — allocation, not semantics). The `:6358` update_croom() call reads
+ * the prior game.gc.coder, not the local `coder` under construction, like C
+ * reads `gc.coder` before the caller assigns the return value.
+ */
+export function sp_level_coder_init() {
+    // C :6339 — coder = alloc(sizeof *coder)
+    const coder = {
+        premapped: false, // C :6341 — int, FALSE
+        solidify: false, // C :6342
+        check_inaccessibles: false, // C :6343
+        allow_flips: 3, // C :6344 — allow flipping level horiz/vert
+        croom: null, // C :6345
+        n_subroom: 1, // C :6346
+        lvl_is_joined: false, // C :6347
+        room_stack: 0, // C :6348
+        // C :6353–6356 — tmproomlist/failed_room over 0..MAX_NESTED_ROOMS
+        tmproomlist: new Array(MAX_NESTED_ROOMS + 1).fill(null),
+        failed_room: new Array(MAX_NESTED_ROOMS + 1).fill(false),
+    };
+    sp_level_coder_init_statics(); // C :6350–6351 splev_init_present/icedpools
+    update_croom(); // C :6358
+    // C :6360–6362 — container stack zero
+    for (let tmpi = 0; tmpi < MAX_CONTAINMENT; tmpi++) container_obj[tmpi] = null;
+    container_idx = 0;
+    invent_carrying_monster = null; // C :6364
+    game.SpLev_Map = new Set(); // C :6366 — memset SpLev_Map zero
+    // C :6368–6371 — svl.level.flags
+    const lf = game.level.flags;
+    lf.is_maze_lev = false; // C :6368 = 0
+    lf.temperature = game.dungeons?.[game.u?.uz?.dnum | 0]?.flags?.hellish ? 1 : 0; // C :6369 In_hell(&u.uz)
+    lf.rndmongen = true; // C :6370 = 1
+    lf.deathdrops = true; // C :6371 = 1
+    reset_xystart_size(); // C :6373
+    return coder; // C :6375
+}
+
+/**
+ * C ref: sp_lev.c create_des_coder `:6443–6448` — guarded coder install.
+ * Sole sp_level_coder_init caller in C (`:6447`); the guard re-fires every
+ * load because load_special frees + NULLs at give_up (`:6497–6499`, mirrored
+ * in load_special_proto's `finally`). Defensive create_des_coder() calls in
+ * the unported lspo_* writers (`:3090`, `:3222`, `:3583`, `:3764`, `:3848`,
+ * `:3898`, `:3943`, `:4030`, `:4159`) wire up with those rows.
+ */
+function create_des_coder() {
+    if (!game.gc) game.gc = {}; // C gc ≡ JS game.gc (cmd.js precedent)
+    if (!game.gc.coder) game.gc.coder = sp_level_coder_init(); // C :6446–6447
+}
+
+/**
  * C ref: mkmaze.c makemaz `:1127-1223` — whole-body port in C order.
  * `:1133-1157` protofile build: `*s` → `%s-%d` with `rnd(rndlevs)`;
  * dungeon proto + `dunlev` (`dungeon.c:1325` returns dlevel) with an `rnd`
@@ -1589,13 +1658,27 @@ function makemaz_maze_fallback() {
 }
 
 /**
+ * C ref: sp_lev.c load_special `:6454–6501` — entry creates the des coder
+ * (`:6459`), `give_up` frees it and NULLs it on every path (`:6497–6499`).
+ * The dispatch body below holds only the `load_lua` half (named omits:
+ * link/edge epilogue, wallification/flip/solidify/fixup/premap reads of the
+ * coder fields); the Free+NULL half lives in the `finally` here so the next
+ * level's create_des_coder guard re-inits fresh state exactly like C.
+ */
+async function load_special_proto(protofile) {
+    create_des_coder(); // C :6459 at load_special entry (full init inside)
+    try {
+        return await load_special_proto_body(protofile);
+    } finally {
+        if (game.gc) game.gc.coder = null; // C :6498–6499 Free + NULL
+    }
+}
+
+/**
  * C ref: sp_lev.c load_special — dispatch known JS-ported .lua specials.
  * @returns {boolean} true if loaded (C load_special success)
  */
-async function load_special_proto(protofile) {
-    // C ref: sp_lev.c create_des_coder / reset_xystart_size at load start
-    reset_xystart_size();
-    sp_level_coder_init_statics();
+async function load_special_proto_body(protofile) {
     if (protofile === 'minefill') {
         await load_minefill();
         return true;
@@ -19206,6 +19289,10 @@ function splev_create_monster_appear_fixup(mtmp, appear, appear_as) {
 
 // C ref: sp_lev.c — static container_obj[MAX_CONTAINMENT] / container_idx
 const MAX_CONTAINMENT = 10;
+// C ref: sp_lev.c:198 `static struct monst *invent_carrying_monster` —
+// the monster receiving CUSTOM_INVENT (lspo_monster `:2184`) or saddle
+// (create_object `:2318–2321`); reset per coder in sp_level_coder_init `:6364`.
+let invent_carrying_monster = null;
 let container_idx = 0;
 const container_obj = new Array(MAX_CONTAINMENT).fill(null);
 

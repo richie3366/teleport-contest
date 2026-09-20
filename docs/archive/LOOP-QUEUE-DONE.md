@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
-- [x] `polyself.c` change_sex — coverage THIN (C 30 L `polyself.c:273–303` / JS 12 L in js/polyself.js; hops 4, callers 3, RNG 0, msg 0; dead callees: max_rank_sz). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn change_sex` (reach regression must be 0). Measured `port-coverage.mjs --name change_sex` 2026-09-20 @ d62c8935. **Addressed:** D-2642
+- [x] `sp_lev.c` sp_level_coder_init — coverage MISSING (C 40 L `sp_lev.c:6336–6376` / JS no symbol; hops 3, callers 1, RNG 0, msg 0; dead callees: update_croom). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn sp_level_coder_init` (reach regression must be 0). Measured `port-coverage.mjs --name sp_level_coder_init` 2026-09-20 @ d012b82b. **Addressed:** D-2643.
+
+
+- [x] `polyself.c` change_sex — coverage THIN (C 30 L `polyself.c:273–303` / JS 12 L in js/polyself.js; hops 4, callers 3, RNG 0, msg 0; dead callees: max_rank_sz). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn change_sex` (reach regression must be 0). Measured `port-coverage.mjs --name change_sex` 2026-09-20 @ d62c8935. **Addressed:** D-2642 `b582bb36`
 
 
 - [x] `exper.c` experience — coverage PARTIAL (C 81 L `exper.c:85–166` / JS 46 L in js/exper.js; hops 2, callers 4, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn experience` (reach regression must be 0). Measured `port-coverage.mjs --name experience` 2026-09-20 @ d62c8935. **Addressed:** D-2641 `4171e6d7`

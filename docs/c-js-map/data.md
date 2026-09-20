@@ -1589,7 +1589,8 @@ exclusion_zones save/rest deferred;
 **Garden fill + `make_garden_walls` postprocess** (D-1861; numpoints/6
 asleep wood nymphs via `splev_room_monster` default-random `induced_align`,
 `percent(30)` DRY `des.feature` fountain, grown-sel walls→TREE +
-SDOOR-kept `arboreal_sdoor` per-cell `rn2(100)`; `cvt_sdoor_to_door` clears it)
+SDOOR-kept `arboreal_sdoor` per-cell `rn2(100)`; `cvt_sdoor_to_door` clears it);
+**des-coder lifecycle** (D-2643; `sp_lev.c:6336–6376` + `:6323–6333` + `:6443–6448` + `load_special :6454–6501`): exported `sp_level_coder_init` in C-home `js/mklev.js` (coder object in C order — allow_flips 3, n_subroom 1, 6+6 room arrays, statics, prior-coder `update_croom`, container zero, invent NULL, SpLev_Map clear, level flags with hellish≡In_hell, `reset_xystart_size`); exported `update_croom` (live-coder croom track); local `create_des_coder` guard; `load_special_proto` wrapper = create-at-entry + Free+NULL `finally` over the dispatch body. Named: `alloc` (GC); load_special post-lua epilogue reads (per-loader omits stand); defensive `create_des_coder` sites in unported lspo_* writers + room/subroom `update_croom` sites (future rows))
 
 ### `src/mkroom.c` `mkshop` / `src/shknam.c` `stock_room` / `src/shk.c`
 

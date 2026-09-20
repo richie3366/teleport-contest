@@ -38,20 +38,21 @@ here again. Live hypotheses only:
 - **do_statusline2 residuals (D-2425 MEASURED):** W1 Healer-92107 `mhitm_ad_cold_u` extra destroy return; W2 Satiated pair = eat-progress `uhs`/botl timing — both are corpus-residual Open rows (detail in D-2425). Monk-92194 Pw = D-2161 gulpmu residual, no new row.
 ## Don't re-check (≤15)
 
-- D-1790…D-2642 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-2643 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
 - seed0014 I-glyph/findone-tail (D-1774/1775); H2344/offx 72, g≠Unknown, PREFIXCMD (D-1185/1186/1582).
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2642.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2642.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2643.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2643.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2643: new exported ``sp_level_coder_init`` in C-home ``js/mklev.js`` in C order with per-arm ``:line`` cites — object literal for ``alloc :6339`` (GC, no li Named: ``alloc`` (GC object — allocation, not semantics); ``load_special`` post-``load_lua`` epil
 - D-2642: restarted the export in C order with per-arm ``:line`` cites — sexless-form first flip ``:281–284``, mfemale ``:285–286``, live ``max_rank_sz()`` ``:2 Named: none new — every callee is live; the ``:296–300`` swap stays a comment (disabled in C); nu
 - D-2641: restarted the export in C order with per-arm ``:line`` cites — eel ``:125–126`` via file-local ``Amphibious_hero`` (youprop.h:272 macro expansion in t Named: pre-existing null-data guard (C takes NONNULLARG1 and would deref; JS returns 1 — kept, ou
 - D-2640: restarted the export in C order with per-arm ``:line`` cites — confused ``:1333–1352`` via file-local ``p_glow2(otmp, NH_PURPLE)`` + live ``costly_alt Named: file-local ``strange_feeling_scroll`` stays (pre-existing clone of live detect.js strange_
@@ -66,5 +67,4 @@ here again. Live hypotheses only:
 - D-2631: restarted the export in C order with per-arm ``:line`` cites — itembuf build (corpse/egg/tin ``[corpsenm]`` vs otyp decimal, ``:3814–3821``) + sync fi Named: none — done_eating/food_disappears appear only in C's "better solution" comment (``:3832–3
 - D-2630: restarted the export in C order with per-arm ``:line`` cites — extract identity scan (``:469–472`` ⇔ ``indexOf``); missing → ``throw new Error('insert Named: none — every callee is live or file-local (``branch_val``); C next-pointer surgery ⇔ array
 - D-2629: ported the whole C body in C order with per-arm ``:line`` cites — ``wordcount`` blank/word run counting (``:1797–1803``); ``bel_copy1`` skip-blanks +  Named: ``alloc`` length precompute (GC strings); ``cnf_line_WIZARDS`` caller + ``fmtd_wizard_list
-- D-2628: restarted the export in C order with per-arm ``:line`` cites — ``fromfloor`` sampled before extract mutates ``where`` (``:1900``, ``|0`` int compare); Named: none new — every true callee is live (``get_obj_location`` timeout.js, ``costly_spot``/``a
 <!-- landmarks:end -->
