@@ -1656,3 +1656,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1644-40ce1e84-m-balks-at-approaching.md](./1644-40ce1e84-m-balks-at-approaching.md) | `40ce1e84` | D-2685 m_balks_at_approaching port | **ACCEPT** |
 | [1645-fc32ff23-blocked-boulder.md](./1645-fc32ff23-blocked-boulder.md) | `fc32ff23` | D-2686 blocked_boulder port | **ACCEPT** |
 | [1646-681d8a68-growl-tail.md](./1646-681d8a68-growl-tail.md) | `681d8a68` | D-2687 growl tail arms port | **ACCEPT** |
+| [1647-ea9e272a-nhmd4-body-family.md](./1647-ea9e272a-nhmd4-body-family.md) | `ea9e272a` | D-2688 nhmd4_body whole-family port | **ACCEPT** |
+| [1648-1c6afce8-immune-to-trap-arms.md](./1648-1c6afce8-immune-to-trap-arms.md) | `1c6afce8` | D-2689 immune_to_trap remainder arms | **ACCEPT** |
+| [1649-fd3686f4-edibility-prompts-remainder.md](./1649-fd3686f4-edibility-prompts-remainder.md) | `fd3686f4` | D-2690 edibility_prompts remainder arms | **ACCEPT-WITH-DEBT** |
+| [1650-597fb4f9-explosionmask-remainder.md](./1650-597fb4f9-explosionmask-remainder.md) | `597fb4f9` | D-2691 explosionmask remainder | **ACCEPT** |
+| [1651-bddd66f8-adj-erinys-restore-caller.md](./1651-bddd66f8-adj-erinys-restore-caller.md) | `bddd66f8` | D-2692 adj_erinys restore-caller wiring | **ACCEPT** |
+| [1652-f913dcee-percent-success-restart.md](./1652-f913dcee-percent-success-restart.md) | `f913dcee` | D-2693 percent_success restart | **ACCEPT** |
+| [1653-3e86b108-ini-inv-whole-body.md](./1653-3e86b108-ini-inv-whole-body.md) | `3e86b108` | D-2694 ini_inv whole-body port | **ACCEPT** |
+| [1654-471b8f58-set-door-orientation-wiring.md](./1654-471b8f58-set-door-orientation-wiring.md) | `471b8f58` | D-2695 set_door_orientation wiring | **QUALITY-RISK** |
+| [1655-8ed1abd3-selection-recalc-bounds.md](./1655-8ed1abd3-selection-recalc-bounds.md) | `8ed1abd3` | D-2696 selection_recalc_bounds restart | **ACCEPT-WITH-DEBT** |

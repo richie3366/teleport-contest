@@ -48,15 +48,15 @@ here again. Live hypotheses only:
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
-- D-2696: 
-- D-2695: 
-- D-2694: 
-- D-2693: 
-- D-2692: 
-- D-2691: 
-- D-2690: 
-- D-2689: 
-- D-2688: 
+- D-2696: selvar recalc restart (dirty protocol + getbounds :82; review 1655 WITH-DEBT: rndcoord-removeit raw delete).
+- D-2695: set_door_orientation wired 15/41 closures (review 1654 QUALITY-RISK: Must-fix queued for the rest).
+- D-2694: ini_inv whole-body (pauper/nudist/addinv-return; review 1653 ACCEPT).
+- D-2693: percent_success C-order restart, int-otyp consts (review 1652 ACCEPT).
+- D-2692: adj_erinys restore-caller wiring, corrects D-2691 Stale park (review 1651 ACCEPT).
+- D-2691: explosionmask impossible-defaults + canonical resists_magm (review 1650 ACCEPT).
+- D-2690: edibility_prompts iced-age + defended-AD_DISE (review 1649 WITH-DEBT: eatcorpse Sick debt).
+- D-2689: immune_to_trap TELEP/POLY/ANTI_MAGIC/FIRE arms (review 1648 ACCEPT).
+- D-2688: nhmd4_body whole-family port, new js/nhmd4.js (review 1647 ACCEPT).
 - D-2687: 
 - D-2686: 
 - D-2685: 

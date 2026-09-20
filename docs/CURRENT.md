@@ -22,11 +22,11 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-20** — full `sessions` on the working tree
-(audit **1638–1646**).
+Score last measured: **2026-09-21** — full `sessions` on the working tree
+(audit **1647–1655**).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`72+0.40/turn` (R² 0.72).
+`55+0.36/turn` (R² 0.79).
 
 ## Score
 
@@ -41,15 +41,14 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 4/22, 2nd agentic; best agentic fork 35/44, RNG 98.5 %,
-screens 93.2 %. Held-out 12/44, +1 vs last audit (+4 pts to 5,976, RNG
-26.7 %, rngSteps 81.8 %, screens 53.0 %; totals in table): first held-out
-movement in the breadth phase, but tiny — the corpus still does not
-predict the judge.
-**Corpus fortress** (re-scored 2026-09-20 audit 1638–1646): **497 / 540
+screens 93.2 %. Held-out 12/44, +0 vs last audit (5,976 / 11,265 pts, RNG
+26.7 %, rngSteps 81.8 %, screens 53.0 %; totals in table): no movement
+this window — the corpus still does not predict the judge.
+**Corpus fortress** (re-scored 2026-09-21 audit 1647–1655): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — **+0 / −0**
-in the D-2679…D-2696 window (9 ACCEPTs;
+in the D-2688…D-2696 window (6 ACCEPT, 2 WITH-DEBT, 1 QUALITY-RISK;
 every per-SHA `--reach-all` re-run here ends REACH-OK with no REGRESSED).
-Reviews 1225–1646: 378 ACCEPT, 15 WITH-DEBT, 1 DEBT, 23 QUALITY-RISK (1503, 1517, 1520 stamped; Must-fix 1533/1536 → D-2583/D-2584, 1568 → D-2610, 1592 → D-2636 `271ceca1`, 1617 → magic_negation floor Must-fix (addressed D-2661, review 1620 ACCEPT); hashes filled).
+Reviews 1225–1655: 384 ACCEPT, 17 WITH-DEBT, 1 DEBT, 24 QUALITY-RISK (1503, 1517, 1520 stamped; Must-fix 1533/1536 → D-2583/D-2584, 1568 → D-2610, 1592 → D-2636 `271ceca1`, 1617 → magic_negation floor Must-fix (addressed D-2661, review 1620 ACCEPT); 1654 → sel_set_door wiring Must-fix (queued, pops first); hashes filled).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`) — review-debt, unqueued (detail in the review files).
 Audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s) + `leaderboard.mjs`.
 
@@ -100,7 +99,7 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** queue head `worn.c` wearslot — coverage PARTIAL (C 69 L `worn.c:282–351` / JS 45 L in js/worn.js; hops 6, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn wearslot` (reach regression must be 0). Measured `port-coverage.mjs --name wearslot` 2026-09-20 @ bddd66f8.
+**Next cluster:** Must-fix `sp_lev.c` sel_set_door `:4659` orientation in the remaining coord-form des.door closures (review 1654 — D-2695 wired 15 of 41, claimed "each"; castle/quest/gehennom/minetn loaders lack epilogue recompute so `horizontal` diverges on door glyphs). Wire the C `:4659` one-liner per closure, wall-form excluded. Verify `node scripts/verify.mjs --fn set_door_orientation` (reach regression must be 0) + full 44.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2696 (index).**
 <!-- recent:begin -->
