@@ -13,7 +13,7 @@ import {
 } from './mkobj.js';
 import {
     look_here, observe_object, dfeature_at, paint_corner_nhw_menu,
-    dismiss_nhw_menu, sortloot, update_inventory,
+    dismiss_nhw_menu, sortloot, update_inventory, encumber_msg,
     let_to_name, DEF_INV_ORDER, prinv, near_capacity, calc_capacity,
     max_capacity, compactify_invlets, getobj_take_count, getobj_apply_count,
     getobj_from_cmdq, getobj_display_pickinv, freeinv, display_inventory,
@@ -73,6 +73,7 @@ import {
     ARTICLE_A, ARTICLE_THE, RLOC_NOMSG, TIMEOUT, I_SPECIAL, FAILEDUNTRAP,
     NO_TRAP,
     MELT_ICE_AWAY, LEVITATION, WARNING, u_at, FUMBLING, PLNMSG_BACK_ON_GROUND,
+    PLNMSG_OBJNAM_ONLY,
     IS_GRAVE, W_SADDLE, SUPPRESS_SADDLE, ynqchars,
     P_RIDING, P_BASIC, Is_waterlevel, Is_airlevel, Upolyd, WWALKING, FLYING, SWIMMING,
     MAGICAL_BREATHING, DISMOUNT_FELL, DISMOUNT_GENERIC,
@@ -137,6 +138,9 @@ import {
 } from './lock.js';
 import { cmdq_add_ec } from './cmd.js';
 import { scatter } from './explode.js';
+import { doaltarobj, dropy } from './do.js';
+import { surface } from './sit.js';
+import { removed_from_icebox } from './muse.js';
 
 /** C ref: mondata.h notake — M1_NOTAKE. */
 function notake(ptr) {
@@ -4816,97 +4820,196 @@ async function tipcontainer_checks(box, targetbox, allowempty) {
 }
 
 /**
- * C ref: pickup.c tipcontainer — `:3693–3760` gettarget menu first, then
- * tipcontainer_checks, then spill/transfer.
- * highdrop = !can_reach_floor(TRUE); swallowed clears it; then
- * how_lost LOST_DROPPED + hitfloor(TRUE) (D-1273).
- * Named omissions: bag-of-holding explode; ice-box thaw; shop billing;
- * altarizing doaltarobj; cursed mbag item-gone;
- * dropy terse comma-list; toss_up; subfrombill after floor shop BoT/horn;
- * targetbox shop-bill per-item addtobill.
- * SchroedingersBox is observe_quantum_cat before spill.
+ * C ref: pickup.c tipcontainer `:3688–3841` — whole body in C order.
+ * `:3691` hero-start ox/oy + get_obj_location stamp; `:3706` gettarget menu
+ * (cancelled returns); `:3722` maybeshopgoods snapshot; `:3724` source
+ * checks; `:3726–3728` destination checks (allowempty); `:3732–3735`
+ * highdrop/altarizing/cursed_mbag/loss; `:3736–3737` srcheld/dstheld;
+ * `:3739–3741` swallow clears + terse; `:3742` cknown; `:3748–3756` header;
+ * `:3758–3825` per-item loop (prefetch nobj; icebox thaw; cursed-mbag loss;
+ * per-item shop bill; targetbox transfer incl. BoH explosion; highdrop
+ * hitfloor; altar/doaltarobj else drop pline comma-list + dropy);
+ * `:3827–3828` loss bill; `:3829–3834` owt/encumber; `:3837–3838` inventory.
+ * C callers (all wired): `:3552` choose_tip_container_menu invent row,
+ * `:3614` dotip floor-container ynq arm, `:3630` dotip getobj container arm.
+ * get_obj_location_quantum is the file-local flags=0 equivalent (identical
+ * arms; timeout.js edge would join the pickup→trap→timeout→do→pickup
+ * cycle); hitfloor stays a dynamic dothrow.js import for the same reason;
+ * doaltarobj/dropy (do.js), surface (sit.js), removed_from_icebox (muse.js)
+ * are static (imports.mjs IN-SCC SAFE — hoisted, call-time read only).
+ * Named omissions: none — every arm and callee is live or file-local.
+ * Display sync (not in C): one newsym(ox, oy) after the loop; C leaves the
+ * redraw to dropy→dropz per item and the transfer arm moves no floor glyph.
  * @param {object} box
  */
 export async function tipcontainer(box) {
     if (!box) return;
-    const ox = (box.ox | 0) || (game.u?.ux | 0);
-    const oy = (box.oy | 0) || (game.u?.uy | 0);
-    // C tipcontainer `:3697-3699` — held box moves with hero; floor redundant.
+    const u = game.u || {};
+    // C `:3691` — ox/oy start at the hero; a locatable box overwrites them
+    // and stamps box->ox,oy (held moves with hero; floor is redundant).
+    let ox = u.ux | 0, oy = u.uy | 0;
     const bloc0 = get_obj_location_quantum(box);
     if (bloc0) {
-        box.ox = bloc0.x | 0;
-        box.oy = bloc0.y | 0;
+        ox = bloc0.x | 0;
+        oy = bloc0.y | 0;
+        box.ox = ox;
+        box.oy = oy;
     }
-    // C tipcontainer `:3706` — target menu before any checks, even when empty.
-    const { target: targetbox, cancelled } = await tipcontainer_gettarget(box);
-    if (cancelled) return;
+    // C `:3706` — target menu before any checks, even when empty.
+    let targetbox = null;
+    {
+        const picked = await tipcontainer_gettarget(box);
+        if (picked.cancelled) return;
+        targetbox = picked.target;
+    }
+    // C `:3722` — shop-goods snapshot before the checks run.
+    const maybeshopgoods = !carried(box)
+        && costly_spot(box.ox | 0, box.oy | 0);
     // C `:3724` — the source box must tip clean.
     if ((await tipcontainer_checks(box, targetbox, false)) !== TIPCHECK_OK) return;
-    // C `:3726-3728` — the destination must tip clean too (allowempty:
+    // C `:3726–3728` — the destination must tip clean too (allowempty:
     // an empty target is fine).
     if (targetbox
         && (await tipcontainer_checks(targetbox, null, true)) !== TIPCHECK_OK) return;
-    box.cknown = 1;
-    const u = game.u || {};
-    // C pickup.c:3732–3741 — highdrop = !can_reach_floor(TRUE);
-    // swallowed clears highdrop (and altarizing, still named).
+    // C `:3732–3735`.
     let highdrop = !can_reach_floor(true);
-    if (u.uswallow) highdrop = false;
-    const multi = !!(box.cobj?.nobj);
-    // C tipcontainer `:3748–3756` — targetbox header vs floor spill header.
-    // C: terse = !(highdrop || altarizing || costly_spot). Altar/shop
-    // named, so highdrop is the live terse-breaker. Non-highdrop keeps
-    // fortress colon + per-item doname (C comma-list still named).
+    const levtyp = game.level?.at?.(ox, oy)?.typ | 0;
+    let altarizing = IS_ALTAR(levtyp);
+    const cursed_mbag = !!(Is_mbag(box) && box.cursed);
+    let loss = 0;
+    // C `:3736–3737`.
+    const srcheld = carried(box);
+    const dstheld = !!(targetbox && carried(targetbox));
+    // C `:3739–3740` — swallowed clears both.
+    if (u.uswallow) {
+        highdrop = false;
+        altarizing = false;
+    }
+    // C `:3741`.
+    let terse = !(highdrop || altarizing || costly_spot(box.ox | 0, box.oy | 0));
+    // C `:3742`.
+    box.cknown = 1;
+    // C `:3748–3756` — targetbox header vs floor spill header.
     if (targetbox) {
         await pline(
-            `${box.cobj?.nobj ? 'Objects tumble' : 'An object tumbles'} into ${theArt(xname(targetbox))}.`,
+            '%s into %s.',
+            box.cobj?.nobj ? 'Objects tumble' : 'An object tumbles',
+            theArt(xname(targetbox)),
         );
     } else {
         await pline(
-            `${multi ? 'Objects spill' : 'An object spills'} out${
-                highdrop ? '.' : ':'
-            }`,
+            '%s out%c',
+            box.cobj?.nobj ? 'Objects spill' : 'An object spills',
+            terse ? ':' : '.',
         );
     }
-    if (targetbox) {
-        // C tipcontainer `:3796–3803` container-to-container arm:
-        // add_to_container per item (BoH explode/shop billing still named).
-        let nxt = box.cobj;
-        while (nxt) {
-            const otmp = nxt;
-            nxt = otmp.nobj;
-            obj_extract_self(otmp);
-            otmp.ox = box.ox | 0;
-            otmp.oy = box.oy | 0;
-            add_to_container(targetbox, otmp);
-        }
-        box.cobj = null;
-        if (typeof box.owt === 'number') box.owt = weight(box);
-        if (typeof targetbox.owt === 'number') targetbox.owt = weight(targetbox);
-        newsym(ox, oy);
-        return;
-    }
-    let next = box.cobj;
-    while (next) {
-        const otmp = next;
-        next = otmp.nobj;
+    // C iflags is always present; mirror it with one guarded handle.
+    const iflags = game.iflags ?? (game.iflags = {});
+    // C `:3758–3825` — nobj prefetched per item; the BoH arm stops the loop
+    // by clearing nobj so it exits 'normally'.
+    let nobj = null;
+    for (let otmp = box.cobj; otmp; otmp = nobj) {
+        nobj = otmp.nobj || null;
         obj_extract_self(otmp);
-        if (highdrop) {
-            // C pickup.c:3807–3810 — might break or fall down stairs;
-            // hitfloor handles altars itself.
-            otmp.ox = (box.ox | 0) || (u.ux | 0);
-            otmp.oy = (box.oy | 0) || (u.uy | 0);
+        otmp.ox = box.ox | 0;
+        otmp.oy = box.oy | 0;
+        if ((box.otyp | 0) === ICE_BOX) {
+            // C `:3764–3766` — resume rotting for corpses.
+            removed_from_icebox(otmp);
+        } else if (cursed_mbag && is_boh_item_gone()) {
+            // C `:3767–3772` — item vanishes; terse no longer appropriate.
+            loss += await mbag_item_gone(srcheld, otmp, false);
+            terse = false;
+            continue;
+        }
+        if (maybeshopgoods) {
+            // C `:3774–3777` — bill each item; doname runs price-suppressed.
+            await addtobill(otmp, false, false, true);
+            iflags.suppress_price = (iflags.suppress_price | 0) + 1;
+        }
+        if (targetbox) {
+            // C `:3780–3805` — container-to-container transfer.
+            if (Is_mbag(targetbox) && mbag_explodes(otmp, 0)) {
+                livelog_printf(
+                    LL_ACHIEVE,
+                    'just blew up %s bag of holding via tipping',
+                    uhis(),
+                );
+                await urgent_pline(
+                    'As %s %s inside, you are blasted by a magical explosion!',
+                    doname(otmp),
+                    otense(otmp, 'tumble'),
+                );
+                // C: a bag of holding going in blows up first, then the
+                // one it went into (targetbox is assumed carried, else
+                // shop-bill handling would be needed here).
+                if ((otmp.otyp | 0) === BAG_OF_HOLDING) {
+                    await do_boh_explosion(otmp, !srcheld);
+                }
+                obfree(otmp, null);
+                await do_boh_explosion(targetbox, !dstheld);
+                if (dstheld) {
+                    useup(targetbox);
+                } else {
+                    useupf(targetbox, targetbox.quan);
+                }
+                targetbox = null;
+                nobj = null;
+                losehp(d(6, 6), 'magical explosion', KILLED_BY_AN);
+            } else {
+                add_to_container(targetbox, otmp);
+            }
+        } else if (highdrop) {
+            // C `:3807–3810` — might break or fall down stairs; hitfloor
+            // handles altars itself.
             otmp.how_lost = LOST_DROPPED;
             const { hitfloor } = await import('./dothrow.js');
             await hitfloor(otmp, true);
         } else {
-            place_object(otmp, ox, oy);
-            await pline(`${doname(otmp)}.`);
+            // C `:3812–3823` — altar offering, verbose drop, or terse
+            // comma-list (doname; last_msg marks the uninterrupted run).
+            if (altarizing) {
+                await doaltarobj(otmp);
+            } else if (!terse) {
+                await pline(
+                    '%s %s to the %s.',
+                    Doname2(otmp),
+                    otense(otmp, 'drop'),
+                    surface(ox, oy),
+                );
+            } else {
+                await pline('%s%c', doname(otmp), nobj ? ',' : '.');
+                iflags.last_msg = PLNMSG_OBJNAM_ONLY;
+            }
+            otmp.how_lost = LOST_DROPPED;
+            await dropy(otmp);
+            if (iflags.last_msg !== PLNMSG_OBJNAM_ONLY) {
+                terse = false;
+            }
+        }
+        if (maybeshopgoods) {
+            iflags.suppress_price = (iflags.suppress_price | 0) - 1;
         }
     }
-    box.cobj = null;
-    if (typeof box.owt === 'number') box.owt = weight(box);
+    // C `:3827–3828` — magic bag lost some shop goods.
+    if (loss) {
+        await You('owe %ld %s for lost merchandise.', loss, currency(loss));
+    }
+    // C `:3829–3832` — mbag_item_gone() doesn't update these.
+    box.owt = weight(box);
+    if (targetbox) {
+        targetbox.owt = weight(targetbox);
+    }
+    // C `:3833–3834`.
+    if (srcheld || dstheld) {
+        await encumber_msg();
+    }
+    // Display sync (not in C): the spill site glyph changed.
     newsym(ox, oy);
+    // C `:3837–3838`.
+    if (srcheld || dstheld) {
+        update_inventory();
+    }
 }
 
 /**
