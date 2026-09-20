@@ -5,7 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
-- [x] `pray.c` blocked_boulder — coverage PARTIAL (C 42 L `pray.c:2677–2719` / JS 26 L in js/pray.js; hops 2, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn blocked_boulder` (reach regression must be 0). Measured `port-coverage.mjs --name blocked_boulder` 2026-09-20 @ 14d94914. **Addressed:** D-2686
+- [x] `sounds.c` growl mx==0 wake arm — absent from js/sounds.js:growl: C `sounds.c:421` `wake_nearto(mtmp->mx, mtmp->my, mtmp->data->mlevel * 18)` unconditional inside `if (growl_verb)` vs `js/sounds.js:854-856` `if (mtmp.mx)` guard that skips the wake at mx 0 (verified reading both bodies 2026-09-20; sides: `brief.mjs growl_sound` + `sed -n '400,470p' sounds.c`). Port the C `:404–425` tail in C order. Verify `node scripts/verify.mjs --fn growl` (reach regression must be 0).
+- [x] `sounds.c` growl permadeaf Deaf arm — absent from js/sounds.js:growl: C `Deaf` is `HDeaf || EDeaf || u.uroleplay.deaf` (`youprop.h:125`, OPTIONS=permadeaf `optlist.h:268`) vs `js/sounds.js:846` local `Deaf` (`u.Deaf/HDeaf/EDeaf`, no uroleplay read; zero `.Deaf =` writes in `js/`; house idiom `js/hack.js:173` includes `u.uroleplay?.deaf`) — permadeaf hero sees growl plines C suppresses (verified reading both bodies 2026-09-20). Port the C `:404–425` Deaf gate in C order. Verify `node scripts/verify.mjs --fn growl` (reach regression must be 0).
+
+
+- [x] `pray.c` blocked_boulder — coverage PARTIAL (C 42 L `pray.c:2677–2719` / JS 26 L in js/pray.js; hops 2, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn blocked_boulder` (reach regression must be 0). Measured `port-coverage.mjs --name blocked_boulder` 2026-09-20 @ 14d94914. **Addressed:** D-2686 `fc32ff23`
 
 
 - [x] `monmove.c` m_balks_at_approaching — coverage PARTIAL (C 42 L `monmove.c:1181–1224` / JS 31 L in js/monmove.js; hops 2, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn m_balks_at_approaching` (reach regression must be 0). Measured `port-coverage.mjs --name m_balks_at_approaching` 2026-09-20 @ 14d94914. **Addressed:** D-2685 `40ce1e84`

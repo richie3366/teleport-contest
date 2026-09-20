@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2687 — `sounds.c` growl tail port (unconditional mx==0 wake + uroleplay permadeaf Deaf)
+
+- Status: ACCEPT — breadth-phase missing-arm rows (mx==0 wake + permadeaf Deaf, both in `sounds.c:404–425`; no corpus session blocked — normal for a coverage row).
+- Symptom: two C arms absent from `js/sounds.js:growl`: (1) C `sounds.c:421` `wake_nearto(mtmp->mx, mtmp->my, mtmp->data->mlevel * 18)` runs unconditionally inside `if (growl_verb)` — JS guarded it with `if (mtmp.mx)`, skipping the wake when the growling monster sits at mx 0; (2) C `Deaf` is `HDeaf || EDeaf || u.uroleplay.deaf` (`youprop.h:125`, OPTIONS=permadeaf `optlist.h:268`) — JS local `Deaf` read only `u.Deaf/HDeaf/EDeaf`, so a permadeaf hero saw growl plines C suppresses.
+- C locus: `nethack-c/upstream/src/sounds.c:401–423` (whole `growl` body; `:404–425` tail per the rows) + `Deaf` `youprop.h:125` + C callers `apply.c:979`, `dog.c:1384`, `mon.c:4243/4308/4354`, `shk.c:5087/5289/5342`.
+- JS was: `js/sounds.js:845–857` — full C-order body except the `if (mtmp.mx)` wake guard and the uroleplay-blind `Deaf` (`house idiom js/hack.js:173` `You_hear` already includes `u.uroleplay?.deaf`; zero `.Deaf =` writes in `js/`).
+- Fix: removed the `if (mtmp.mx)` guard — `await wake_nearto(mtmp.mx, mtmp.my, (mtmp.data?.mlevel | 0) * 18)` now unconditional inside `if (growl_verb)` in C order (local `wake_nearto` `js/sounds.js:214` does pure dist2 math, safe at mx 0; no new import); extended `Deaf` with `|| game.u?.uroleplay?.deaf` with a `youprop.h:125` cite. No new cross-module edge (same-file callee + property read).
+- JS: `js/sounds.js` `growl` `:837` (Deaf `:846`, wake `:853–855`).
+- Callers: all 7 C sites already wired, verified by grep — `apply.c:979` → `js/apply.js:1630`, `dog.c:1384` → `js/dog.js:1430`, `mon.c:4243` → `js/mon.js:1333`, `mon.c:4308` → `js/mon.js:1444`, `mon.c:4354` → `js/mon.js:1632`, `shk.c:5087` → `js/shk.js:2045`, `shk.c:5289` → `js/shk.js:2101`, `shk.c:5342` → `js/shk.js:2197`. None invented per reviews 1359/1361.
+- Verify: `node scripts/verify.mjs --fn growl` → PASS syntax (1 changed js file) · PASS rule2 · note hidden (0 blocked at baseline — normal for a coverage row) · PASS reach (no RNG-tagged reach; smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 (full skipped: no shared file changed) → VERIFY: PASS.
+- Named omissions: none — whole C `growl` body live (`helpless`/`canseemon`/`Monnam`/`vtense`/`pline`/`nomul`/`growl_sound`/`H_SOUNDS` all live; file-local `wake_nearto` is the mon.c port). No maintained unit harness exists in-repo (no `tests/` dir), so per durable-test-collateral the focused `verify --fn growl` (REACH-OK + cohort) is the kept evidence, not a new framework.
+- Next: queue head `nhmd4.c` nhmd4_body (Open — coverage).
+
 ## D-2686 — `pray.c` blocked_boulder whole-body port (count-2 pool/lava sink arm + live sobj_at/is_pool/is_lava)
 
 - Status: ACCEPT — breadth-phase coverage row (PARTIAL C 42 L `pray.c:2677–2719` / JS 26 L in js/pray.js; hops 2, callers 1, RNG 0, msg 0; no corpus session blocked).
