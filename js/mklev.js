@@ -3864,6 +3864,7 @@ function load_medusa_2() {
         const loc = g.level.at(mx + 71, my + 7);
         if (loc) {
             if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+            set_door_orientation(mx + 71, my + 7); // C sel_set_door :4659
             loc.doormask = D_LOCKED;
             loc.flags = D_LOCKED;
         }
@@ -6534,6 +6535,7 @@ async function load_kni_strt() {
         const loc = g.level.at(mx + rx, my + ry);
         if (!loc) return;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = mask;
         loc.flags = mask;
     };
@@ -7093,6 +7095,7 @@ function load_rog_strt() {
         const loc = g.level.at(mx + rx, my + ry);
         if (!loc) return;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = mask;
         loc.flags = mask;
     };
@@ -7555,6 +7558,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         const loc = g.level.at(mx + rx, my + ry);
         if (!loc) continue;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = D_LOCKED;
         loc.flags = D_LOCKED;
     }
@@ -7996,6 +8000,7 @@ function load_sam_strt() {
         const loc = g.level.at(mx + rx, my + ry);
         if (!loc) return;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = mask;
         loc.flags = mask;
     };
@@ -8135,6 +8140,7 @@ function load_sam_loca() {
         const loc = g.level.at(mx + rx, my + ry);
         if (!loc) return;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = mask;
         loc.flags = mask;
     };
@@ -8287,6 +8293,7 @@ ${' '.repeat(45)}
         const loc = g.level.at(mx + rx, my + ry);
         if (!loc) continue;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = D_CLOSED;
         loc.flags = D_CLOSED;
     }
@@ -8438,6 +8445,7 @@ function load_sam_filb() {
         const loc = g.level.at(mx + rx, my + ry);
         if (!loc) continue;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = D_CLOSED;
         loc.flags = D_CLOSED;
     }
@@ -8534,6 +8542,7 @@ PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
         const loc = g.level.at(mx + rx, my + ry);
         if (!loc) return;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = mask;
         loc.flags = mask;
     };
@@ -8680,6 +8689,7 @@ PPPPPPPPPPP........PPPPPPPPPPPP
         const loc = g.level.at(mx + rx, my + ry);
         if (!loc) return;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = mask;
         loc.flags = mask;
     };
@@ -9033,6 +9043,7 @@ function load_tou_strt() {
         const loc = g.level.at(mx + rx, my + ry);
         if (!loc) return;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = mask;
         loc.flags = mask;
     };
@@ -9247,6 +9258,7 @@ function load_tou_loca() {
         const loc = g.level.at(mx + rx, my + ry);
         if (!loc) return;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = mask;
         loc.flags = mask;
     };
@@ -9438,6 +9450,7 @@ function load_tou_goal() {
         const loc = g.level.at(mx + rx, my + ry);
         if (!loc) return;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = mask;
         loc.flags = mask;
     };
@@ -10012,6 +10025,7 @@ function load_ran_goal() {
         const loc = g.level.at(mx + rx, my + ry);
         if (!loc) return;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = mask;
         loc.flags = mask;
     };
@@ -10248,6 +10262,7 @@ function load_mon_strt() {
         const loc = g.level.at(mx + rx, my + ry);
         if (!loc) return;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = mask;
         loc.flags = mask;
     };
@@ -10831,6 +10846,7 @@ function load_cav_strt() {
         const loc = g.level.at(mx + 19, my + 6);
         if (loc) {
             if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+            set_door_orientation(mx + 19, my + 6); // C sel_set_door :4659
             loc.doormask = D_LOCKED;
             loc.flags = D_LOCKED;
         }
@@ -11010,6 +11026,7 @@ function load_cav_loca() {
         const loc = g.level.at(mx + 28, my + 11);
         if (loc) {
             if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+            set_door_orientation(mx + 28, my + 11); // C sel_set_door :4659
             loc.doormask = D_LOCKED;
             loc.flags = D_LOCKED;
         }
@@ -11446,6 +11463,7 @@ function load_knox() {
         const loc = g.level.at(mx + rx, my + ry);
         if (!loc) return;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = mask;
         loc.flags = mask;
     };
@@ -11723,6 +11741,7 @@ function load_bar_goal() {
         const loc = g.level.at(mx + rx, my + ry);
         if (!loc) return;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = mask;
         loc.flags = mask;
     };
@@ -11966,6 +11985,7 @@ function load_tower1() {
         const loc = g.level.at(mx + rx, my + ry);
         if (!loc) return;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = mask;
         loc.flags = mask;
     };
@@ -12139,6 +12159,7 @@ function load_tower2() {
         const loc = g.level.at(mx + rx, my + ry);
         if (!loc) return;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = mask;
         loc.flags = mask;
     };
@@ -12338,6 +12359,7 @@ function load_tower3() {
         const loc = g.level.at(mx + 14, my + 5);
         if (loc) {
             if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+            set_door_orientation(mx + 14, my + 5); // C sel_set_door :4659
             loc.doormask = D_LOCKED;
             loc.flags = D_LOCKED;
         }
@@ -12542,6 +12564,7 @@ function load_soko1_1() {
         const loc = g.level.at(xstart + mx, ystart + my);
         if (!loc) return;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        set_door_orientation(xstart + mx, ystart + my); // C sel_set_door :4659
         loc.doormask = mask;
         loc.flags = mask;
     };
@@ -12707,6 +12730,7 @@ function load_soko1_2() {
         const loc = g.level.at(xstart + mx, ystart + my);
         if (!loc) return;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        set_door_orientation(xstart + mx, ystart + my); // C sel_set_door :4659
         loc.doormask = mask;
         loc.flags = mask;
     };
@@ -12804,6 +12828,7 @@ function load_soko3_1() {
         const loc = g.level.at(xstart + 27, ystart + 9);
         if (loc) {
             if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+            set_door_orientation(xstart + 27, ystart + 9); // C sel_set_door :4659
             loc.doormask = D_LOCKED;
             loc.flags = D_LOCKED;
         }
@@ -12905,6 +12930,7 @@ function load_soko3_2() {
         const loc = g.level.at(xstart + 24, ystart + 9);
         if (loc) {
             if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+            set_door_orientation(xstart + 24, ystart + 9); // C sel_set_door :4659
             loc.doormask = D_LOCKED;
             loc.flags = D_LOCKED;
         }
@@ -14022,6 +14048,7 @@ function load_astral() {
         const loc = g.level.at(mx + rx, my + ry);
         if (!loc) return;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = mask;
         loc.flags = mask;
     };
@@ -14398,6 +14425,7 @@ function load_minend_2() {
             const loc = g.level.at(mx + 52, my + 5);
             if (loc) {
                 if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+                set_door_orientation(mx + 52, my + 5); // C sel_set_door :4659
                 loc.doormask = D_LOCKED;
                 loc.flags = D_LOCKED;
             }
@@ -14920,6 +14948,7 @@ async function load_minetn_1() {
         const loc = g.level.at(mx + rx, my + ry);
         if (!loc) return;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = mask;
         loc.flags = mask;
     };
@@ -15574,6 +15603,7 @@ function load_minetn_5() {
         const loc = g.level.at(mx + rx, my + ry);
         if (!loc) return;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = mask;
         loc.flags = mask;
     };
@@ -15805,6 +15835,7 @@ xxxx-------xxxxxxxxxxxxxxx--------------
         const loc = g.level.at(mx + rx, my + ry);
         if (!loc) return;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = mask;
         loc.flags = mask;
     };
@@ -16712,6 +16743,7 @@ function load_soko2_1() {
         const loc = g.level.at(xstart + 18, ystart + 8);
         if (loc) {
             if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+            set_door_orientation(xstart + 18, ystart + 8); // C sel_set_door :4659
             loc.doormask = D_LOCKED;
             loc.flags = D_LOCKED;
         }
@@ -16814,6 +16846,7 @@ function load_soko2_2() {
         const loc = g.level.at(xstart + dx, ystart + dy);
         if (loc) {
             if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+            set_door_orientation(xstart + dx, ystart + dy); // C sel_set_door :4659
             loc.doormask = D_LOCKED;
             loc.flags = D_LOCKED;
         }
@@ -16897,7 +16930,14 @@ function IS_DOORJOIN(typ) {
  * C ref: sp_lev.c set_door_orientation :1041–1085 — MAP '+'/'S' door
  * axis from adjacent walls. C callers: link_doors_rooms :1133 (wired
  * in that function) + sel_set_door :4659 (wired at each des.door
- * coord-form closure: medDoor/barDoor/wizDoor/meDoor/priDoor/arcDoor).
+ * coord-form closure: medDoor/barDoor/wizDoor/meDoor/priDoor/arcDoor
+ * (D-2695) + kniDoor/rogDoor/samDoor/heaDoor/heaLocaDoor/touStrtDoor/
+ * touLocaDoor/touGoalDoor/ranGoalDoor/monDoor/knoxDoor/barGoalDoor/
+ * twDoor/astralDoor/tnDoor/castleDoor/valleyDoor/asmoDoor/orcusDoor/
+ * wiz2Door/sanctDoor/sokoDoor/tut1_door + coord-form inline sites
+ * (medusa-2/val-strt/sam-goal/sam-filb/cav-strt/cav-loca/tower3/
+ * soko3/soko2/minend-2/asmodeus/baalz/wizard3); wall-form create_door
+ * sites (incl. sanctum/wiz-loca secret-wall doors) excluded per C.
  */
 function set_door_orientation(x, y) {
     const lev = (xx, yy) => game.level.at(xx, yy);
@@ -17468,6 +17508,7 @@ function load_tut1() {
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) {
             loc.typ = DOOR;
         }
+        set_door_orientation(xstart + mx, ystart + my); // C sel_set_door :4659
         loc.doormask = mask;
         loc.flags = mask;
     };
@@ -21045,6 +21086,7 @@ function load_castle() {
         const loc = g.level.at(mx + rx, my + ry);
         if (!loc) return;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = mask;
         loc.flags = mask;
     };
@@ -21428,6 +21470,7 @@ function load_valley() {
         const loc = g.level.at(mx + rx, my + ry);
         if (!loc) return;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = mask;
         loc.flags = mask;
     };
@@ -21738,6 +21781,7 @@ function load_asmodeus() {
         const loc = g.level.at(mx1 + rx, my1 + ry);
         if (!loc) return;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        set_door_orientation(mx1 + rx, my1 + ry); // C sel_set_door :4659
         loc.doormask = mask;
         loc.flags = mask;
     };
@@ -21878,6 +21922,7 @@ function load_asmodeus() {
         const loc = g.level.at(mx2 + 32, my2 + 2);
         if (loc) {
             if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+            set_door_orientation(mx2 + 32, my2 + 2); // C sel_set_door :4659
             loc.doormask = D_CLOSED;
             loc.flags = D_CLOSED;
         }
@@ -22308,6 +22353,7 @@ function load_baalz() {
         const loc = g.level.at(mx + 0, my + 6);
         if (loc) {
             if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+            set_door_orientation(mx + 0, my + 6); // C sel_set_door :4659
             loc.doormask = D_LOCKED;
             loc.flags = D_LOCKED;
         }
@@ -22493,6 +22539,7 @@ function load_orcus() {
         const loc = g.level.at(mx + rx, my + ry);
         if (!loc) return;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = mask;
         loc.flags = mask;
     };
@@ -23129,6 +23176,7 @@ function load_wizard2() {
         const loc = g.level.at(mx + rx, my + ry);
         if (!loc) return;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = mask;
         loc.flags = mask;
     };
@@ -23434,6 +23482,7 @@ function load_wizard3() {
         const loc = g.level.at(mx + 18, my + 5);
         if (loc) {
             if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+            set_door_orientation(mx + 18, my + 5); // C sel_set_door :4659
             loc.doormask = D_CLOSED;
             loc.flags = D_CLOSED;
         }
@@ -23920,6 +23969,7 @@ function load_sanctum() {
         const loc = g.level.at(mx + rx, my + ry);
         if (!loc) return;
         if (!IS_DOOR(loc.typ) && loc.typ !== SDOOR) loc.typ = DOOR;
+        set_door_orientation(mx + rx, my + ry); // C sel_set_door :4659
         loc.doormask = mask;
         loc.flags = mask;
     };

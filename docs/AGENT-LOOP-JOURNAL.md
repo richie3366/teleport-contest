@@ -7,6 +7,13 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-20 — D-2697 `sp_lev.c` sel_set_door `:4659` orientation in all remaining coord-form des.door sites
+
+**C locus:** 
+**JS:** 
+**Change:** 
+**Verify:** 
+**Next:** (see LOOP-QUEUE)
 ## 2026-09-21 — Audit reviews 1647–1655 (D-2688…D-2696) + cadence 44/44
 
 Reviews: 6 ACCEPT (1647 nhmd4, 1648 immune_to_trap, 1650 explosionmask,

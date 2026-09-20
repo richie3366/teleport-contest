@@ -97,8 +97,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `sp_lev.c` sel_set_door `:4659` orientation missing from remaining coord-form des.door closures — C `sp_lev.c:4659` (`set_door_orientation(x, y)`) absent after the typ write in `js/mklev.js` kniDoor/rogDoor/samDoor×2/heaDoor/heaLocaDoor/touStrtDoor/touLocaDoor/touGoalDoor/ranGoalDoor/monDoor/knoxDoor/barGoalDoor/twDoor×2/astralDoor/tnDoor×3/castleDoor/valleyDoor/asmoDoor/orcusDoor/wiz2Door/sanctDoor (+tower3/medusa-2/val_strt/cav_strt/tut2 inline sites); D-2695 wired 15 of 41, claimed "each". No-epilogue loaders (castle/quests/gehennom/minetn) leave `horizontal` unset where C writes 0/1 (door-glyph path). Fix: same one-liner in C `:4659` position per closure; wall-form create_door sites excluded per C. Verify `node scripts/verify.mjs --fn set_door_orientation` (reach regression must be 0) + full 44 (shared file). Source: reviews/loop-unattended/1654-471b8f58-set-door-orientation-wiring.md.
-
 A **JS throw** in any corpus session (`hidden-proxy status` owner
 `js-throw …`, or a `ReferenceError` in `.cache/hidden/scores.json`
 `error`), and a corpus worker **hang** (`ETIMEDOUT` under `verify`), are

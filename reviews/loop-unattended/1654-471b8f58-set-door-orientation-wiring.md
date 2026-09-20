@@ -134,3 +134,5 @@ don't gate corpus RNG), which is exactly why the audit-against-C
    loaders must stay byte-identical (recompute no-op proof).
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-2697

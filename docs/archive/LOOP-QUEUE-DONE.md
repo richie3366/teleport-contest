@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
-- [x] `selvar.c` selection_recalc_bounds — coverage THIN (C 66 L `selvar.c:99–165` / JS 19 L in js/mklev.js; hops —, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn selection_recalc_bounds` (reach regression must be 0). Measured `port-coverage.mjs --name selection_recalc_bounds` 2026-09-20 @ bddd66f8. **Addressed:** D-2696
+- [x] `sp_lev.c` sel_set_door `:4659` orientation missing from remaining coord-form des.door closures — C `sp_lev.c:4659` (`set_door_orientation(x, y)`) absent after the typ write in `js/mklev.js` kniDoor/rogDoor/samDoor×2/heaDoor/heaLocaDoor/touStrtDoor/touLocaDoor/touGoalDoor/ranGoalDoor/monDoor/knoxDoor/barGoalDoor/twDoor×2/astralDoor/tnDoor×3/castleDoor/valleyDoor/asmoDoor/orcusDoor/wiz2Door/sanctDoor (+tower3/medusa-2/val_strt/cav_strt/tut2 inline sites); D-2695 wired 15 of 41, claimed "each". No-epilogue loaders (castle/quests/gehennom/minetn) leave `horizontal` unset where C writes 0/1 (door-glyph path). Fix: same one-liner in C `:4659` position per closure; wall-form create_door sites excluded per C. Verify `node scripts/verify.mjs --fn set_door_orientation` (reach regression must be 0) + full 44 (shared file). Source: reviews/loop-unattended/1654-471b8f58-set-door-orientation-wiring.md.
+
+
+- [x] `selvar.c` selection_recalc_bounds — coverage THIN (C 66 L `selvar.c:99–165` / JS 19 L in js/mklev.js; hops —, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn selection_recalc_bounds` (reach regression must be 0). Measured `port-coverage.mjs --name selection_recalc_bounds` 2026-09-20 @ bddd66f8. **Addressed:** D-2696 `8ed1abd3`
 
 
 - [x] `sp_lev.c` set_door_orientation — coverage PARTIAL (C 43 L `sp_lev.c:1042–1085` / JS 27 L in js/mklev.js; hops 4, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn set_door_orientation` (reach regression must be 0). Measured `port-coverage.mjs --name set_door_orientation` 2026-09-20 @ 1c6afce8.
