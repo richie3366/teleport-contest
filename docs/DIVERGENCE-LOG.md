@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2614 — `mcastu.c` mcast_spell dispatcher C-exact args + FIRE_PILLAR/LIGHTNING floor effects + LIGHTNING sound
+
+- **Status:** fixed (Open — coverage row ``mcastu.c`` mcast_spell PARTIAL (C 96 L ``mcastu.c:801–897`` / JS 64 L in js/mcastu.js; hops 2, callers 1, RNG 0, msg 2). Measured ``port-coverage.mjs --name mcast_spell`` 2026-09-20 @ 28b6f89f).
+- **Symptom:** dispatcher dropped C call shapes in 5 of 20 arms; FIRE_PILLAR/LIGHTNING skipped floor-item/terrain effects; LIGHTNING skipped its sound effect.
+- **C locus:** ``nethack-c/upstream/src/mcastu.c:801–897`` (dispatcher); callees ``:466`` (weaken), ``:504`` (stun), ``:523`` (geyser), ``:540`` (fire_pillar), ``:566`` (lightning).
+- **JS was:** ``js/mcastu.js:722`` passed ``mcast_weaken_you(mtmp)``, ``mcast_stun_you()``, ``mcast_geyser()`` (pline hoisted to dispatcher), ``mcast_fire_pillar()`` / ``mcast_lightning()`` (no ``mtmp``/``dmg``); no ``mon_spell_hits_spot`` in either damage arm; no ``Soundeffect`` in lightning. Incoming ``dmg`` is overwritten inside every one of these callees per C, so behavior delta is the two floor-effect calls + the sound, not the args.
+- **Fix:** ``js/mcastu.js`` — dispatcher now passes C shapes (WEAKEN/STUN/GEYSER ``dmg``; FIRE_PILLAR/LIGHTNING ``(mtmp, dmg)``); callees take the params and overwrite per C; geyser pline moved inside the callee per C order (now async); ``mon_spell_hits_spot(mtmp, AD_FIRE/AD_ELEC, u.ux, u.uy)`` wired after ignite/destroy-items per C (live ``js/zap.js:6897``, already imported); ``Soundeffect(se_bolt_of_lightning, 80)`` first in lightning (const live ``js/generated/seffects_data.js:23``, binding added to existing import — no new module edge).
+- **JS:** ``js/mcastu.js`` weaken/stun/geyser/fire_pillar/lightning + 5 dispatcher arms; map ``docs/c-js-map/turns.md`` (D-1825 named-omit line now live).
+- **Callers:** the only C caller ``mcastu.c:298`` (``castmu`` AD_SPEL/AD_CLRC) is wired at ``js/mcastu.js:963`` (``await mcast_spell(mtmp, dmg, spellnum); dmg = 0``) — unchanged, verified in place.
+- **Verify:** ``node scripts/verify.mjs --fn mcast_spell`` → PASS — syntax 1 file, rule2 clean, hidden ``no corpus session blocked`` (coverage row, no cited blocks), reach smoke spread 24/24 PASS 0 regressed → REACH-OK, green 2/2, strict 2/2, cohort 7/7; full sessions skipped (no shared file changed).
+- **Named omissions:** ``has_aggravatables`` (chooser-only, D-1825/D-2253); ``mcast_geyser`` ``#if 0`` water-damage (omitted per C); ``uhitm.c:3863`` ``touch_of_death`` caller (D-1825, untouched).
+- **Next:** none from this row (queue head moves to ``dothrow.c`` throw_obj).
+
 ## D-2613 — `mhitm.c` fightm whole-body port (ustuck/itsstuck gate, uswallow release pline, nmon-chain walk, bhitpos/notonhead stamps)
 
 - **Status:** fixed (Open — coverage row `mhitm.c` fightm THIN (C 66 L `mhitm.c:106–172` / JS 29 L in js/mhitm.js; hops —, callers 2, RNG 3, msg 1). Measured `port-coverage.mjs --name fightm` 2026-09-20 @ dba7a580).
