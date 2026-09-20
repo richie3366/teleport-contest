@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-2677 | fixed |  — `dogmove.c` find_friends whole-body port (perceives invis-tame arm + isok call) |  |
 | D-2676 | fixed |  — `lock.c` chest_shatter_msg whole-body port (potion You hear/see + bottlename + potionbreathe; C-order switc |  |
 | D-2675 | fixed |  — `wield.c` doswapweapon whole-body port (cantwield arm + live prinv/You) |  |
 | D-2674 | fixed |  — `invent.c` dfeature_at whole-body port (throne/lava/ice/pool/drawbridge/altar arms; invented STAIRS arm rem |  |

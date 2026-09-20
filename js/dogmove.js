@@ -894,26 +894,45 @@ function find_targ(mtmp, dx, dy, maxdist) {
     return targ;
 }
 
-// C ref: dogmove.c find_friends() — hero/ally beyond target on the same ray
+// C ref: dogmove.c find_friends() `:694–735` — hero/ally beyond target on
+// the same ray. Restart in C order: sgn ray from the target square,
+// distmin start distance, then isok / m_cansee / mux-muy / m_at arms.
 function find_friends(mtmp, mtarg, maxdist) {
+    // C: mtarg->mx/my; mtarg may be &youmonst, whose mx/my are the hero
+    // position — the JS sentinel carries no mx/my, so read game.u instead.
     const tmx = mtarg._youmonst ? game.u.ux : mtarg.mx;
     const tmy = mtarg._youmonst ? game.u.uy : mtarg.my;
-    const dx = sgn(tmx - mtmp.mx);
-    const dy = sgn(tmy - mtmp.my);
+    const dx = sgn(tmx - mtmp.mx),
+        dy = sgn(tmy - mtmp.my);
     let curx = tmx, cury = tmy;
     let dist = distmin(tmx, tmy, mtmp.mx, mtmp.my);
-    for (; dist <= maxdist; dist++) {
+
+    for (; dist <= maxdist; ++dist) {
         curx += dx;
         cury += dy;
-        if (curx < 1 || curx >= COLNO || cury < 0 || cury >= ROWNO) return 0;
-        if (!m_cansee(mtmp, curx, cury)) return 0;
-        if (mtmp.mux === curx && mtmp.muy === cury) return 1;
+
+        if (!isok(curx, cury))
+            return 0;
+
+        /* If the pet can't see beyond this point, don't
+         * check any farther
+         */
+        if (!m_cansee(mtmp, curx, cury))
+            return 0;
+
+        /* Does pet think you're here? */
+        if (mtmp.mux === curx && mtmp.muy === cury)
+            return 1;
+
         const pal = m_at(curx, cury);
+
         if (pal) {
             if (pal.mtame) {
-                if (!pal.minvis) return 1;
+                /* Pet won't notice invisible pets */
+                if (!pal.minvis || perceives(mtmp.data))
+                    return 1;
             } else {
-                // C: quest leaders and guardians are always seen
+                /* Quest leaders and guardians are always seen */
                 const ms = pal.data?.msound | 0;
                 if (ms === MS_LEADER || ms === MS_GUARDIAN)
                     return 1;

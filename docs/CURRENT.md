@@ -46,7 +46,7 @@ screens 93.2 %. Held-out 11/44, unchanged vs last audit (5,972 pts, RNG
 predict the judge.
 **Corpus fortress** (re-scored 2026-09-20 audit 1620–1628): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — **+0 / −0**
-in the D-2661…D-2676 window (9 ACCEPTs;
+in the D-2661…D-2677 window (9 ACCEPTs;
 every per-SHA `--reach-all` re-run here ends REACH-OK with no REGRESSED).
 Reviews 1225–1628: 360 ACCEPT, 15 WITH-DEBT, 1 DEBT, 23 QUALITY-RISK (1503, 1517, 1520 stamped; Must-fix 1533/1536 → D-2583/D-2584, 1568 → D-2610, 1592 → D-2636 `271ceca1`, 1617 → magic_negation floor Must-fix (addressed D-2661, review 1620 ACCEPT); hashes filled).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`) — review-debt, unqueued (detail in the review files).
@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `lock.c` chest_shatter_msg — coverage PARTIAL (C 42 L `lock.c:1276–1318` / JS 29 L in js/lock.js; hops —, callers 1, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn chest_shatter_msg` (reach regression must be 0). Measured `port-coverage.mjs --name chest_shatter_msg` 2026-09-20 @ f0550a81.
+**Next cluster:** `dogmove.c` find_friends — coverage PARTIAL (C 41 L `dogmove.c:694–735` / JS 27 L in js/dogmove.js; hops 4, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn find_friends` (reach regression must be 0). Measured `port-coverage.mjs --name find_friends` 2026-09-20 @ 4307ede7.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2676 (index).**
+**Keep D-0845…D-2677 (index).**
 <!-- recent:begin -->
+**D-2677**  — 
 **D-2676**  — 
 **D-2675**  — 
 **D-2674**  — 
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2672**  — 
 **D-2671**  — 
 **D-2670**  — 
-**D-2669**  — 
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2676; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2677; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

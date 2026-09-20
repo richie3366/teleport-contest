@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2677 — `dogmove.c` find_friends whole-body port (perceives invis-tame arm + isok call)
+
+- Status: ACCEPT — breadth-phase coverage row (PARTIAL C 41 L `dogmove.c:694–735` / JS 27 L in js/dogmove.js; hops 4, callers 1, RNG 0, msg 0; no corpus session blocked).
+- Symptom: coverage PARTIAL / clone drift — the JS body carried every C arm except one C fact: the `:723–726` tame arm read `if (!pal.minvis) return 1`, dropping C's `|| perceives(mtmp->data)`, so a pet that sees invisible never noticed an invisible tame pal beyond the target; the `:709` bounds arm was an inline `curx < 1 || curx >= COLNO || …` comparison instead of C's `isok(curx, cury)` call.
+- C locus: `nethack-c/upstream/src/dogmove.c:694–735` (sgn ray `:698–701`; distmin start `:702`; loop `:704–733`: isok `:709`, m_cansee `:714`, mux/muy `:718`, m_at `:721`, mtame + minvis/perceives `:723–726`, MS_LEADER/GUARDIAN `:728–732`) + caller `dogmove.c:787` (score_targ `find_friends(mtmp, mtarg, 15)`).
+- JS was: `js/dogmove.js:898` 27 L — same shape, minus the perceives disjunct; inline bounds.
+- Fix: restarted the file-local (C `staticfn`) body in C order with per-arm cites — `isok()` via the file-local `isok` (`js/dogmove.js:265`, same predicate); `perceives(mtmp.data)` via the already-imported live `perceives` (mon.js — same call shape as `find_targ` `:889`); `sgn`/`distmin`/`m_cansee`/`m_at`/MS_LEADER/GUARDIAN unchanged; `_youmonst` → `game.u` sentinel glue kept (C `&youmonst` mx/my are the hero position; the JS sentinel carries no mx/my).
+- JS: js/dogmove.js (restarted body only; no new imports — perceives/distmin/m_at from mon.js, m_cansee from vision.js, MS_* file-local consts per D-1093); docs/c-js-map/turns.md (dogmove section stamped D-2677).
+- Callers: C dogmove.c:787 → JS js/dogmove.js score_targ `:966` `if (find_friends(mtmp, mtarg, 15))` (unchanged, same file — no new call site, none invented per reviews 1359/1361). C forward decl `:19` → hoisted function declaration.
+- Verify: `node scripts/verify.mjs --fn find_friends` → PASS syntax (1 changed js file) · PASS rule2 · note hidden (0 blocked at baseline — normal for a coverage row) · PASS reach (no RNG-tagged reach; smoke 24 run: 24 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 → VERIFY: PASS.
+- Named omissions: none — every arm, callee, and caller is live. File-local `sgn`/`isok` clones remain (shared by 6+ dogmove.js sites; import-the-export cleanup out of scope).
+- Next: next Open — coverage row (`botl.c` anything_to_s) unless refilled.
+
 ## D-2676 — `lock.c` chest_shatter_msg whole-body port (potion You hear/see + bottlename + potionbreathe; C-order switch + An)
 
 - Status: ACCEPT — breadth-phase coverage row (PARTIAL C 42 L `lock.c:1276–1318` / JS 29 L in js/lock.js; hops —, callers 1, RNG 0, msg 2; no corpus session blocked).

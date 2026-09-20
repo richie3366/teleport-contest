@@ -3343,7 +3343,7 @@ JS: `js/dog.js`, `js/dogmove.js` — partial
 
 Starting-pet subset; **`find_friends`/`score_targ`/`dog_move` pal/target `ptr.msound` numeric 
 MS_LEADER/GUARDIAN** (D-1093; string `'MS_LEADER'` was dead after D-1053; 
-`perceives` invis-tame pal + `find_targ` perceives gate live (D-2455); `score_targ` conf-gate/`Is_qstart`/faith/AT_NONE/lichen/vampshifter/stronger-foe live (D-2455); melee `haseyes`/`perceives`/`mon_reflects`/`touch_petrifies`/`resists_ston` live (D-2455)); 
+`perceives` invis-tame pal + `find_targ` perceives gate live (D-2455); `find_friends` perceives arm restored + `isok()` call in C order (D-2677); `score_targ` conf-gate/`Is_qstart`/faith/AT_NONE/lichen/vampshifter/stronger-foe live (D-2455); melee `haseyes`/`perceives`/`mon_reflects`/`touch_petrifies`/`resists_ston` live (D-2455)); 
 **`obj_resists` invocation/rider items skip `rn2(100)`** + 
 **`dogfood` `is_quest_artifact` short-circuit** (D-0864; seed0399 **10309→10382**); 
 **`abuse_dog` mtame-- / `rn2(mtame)` → yelp/growl** (D-0836; 

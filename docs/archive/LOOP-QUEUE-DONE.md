@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
-- [x] `lock.c` chest_shatter_msg — coverage PARTIAL (C 42 L `lock.c:1276–1318` / JS 29 L in js/lock.js; hops —, callers 1, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn chest_shatter_msg` (reach regression must be 0). Measured `port-coverage.mjs --name chest_shatter_msg` 2026-09-20 @ f0550a81. **Addressed:** D-2676
+- [x] `dogmove.c` find_friends — coverage PARTIAL (C 41 L `dogmove.c:694–735` / JS 27 L in js/dogmove.js; hops 4, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn find_friends` (reach regression must be 0). Measured `port-coverage.mjs --name find_friends` 2026-09-20 @ 4307ede7. **Addressed:** D-2677
+
+
+- [x] `lock.c` chest_shatter_msg — coverage PARTIAL (C 42 L `lock.c:1276–1318` / JS 29 L in js/lock.js; hops —, callers 1, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn chest_shatter_msg` (reach regression must be 0). Measured `port-coverage.mjs --name chest_shatter_msg` 2026-09-20 @ f0550a81. **Addressed:** D-2676 `6319ffdd`
 
 
 - [x] `wield.c` doswapweapon — coverage PARTIAL (C 40 L `wield.c:461–501` / JS 29 L in js/wield.js; hops —, callers 2, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn doswapweapon` (reach regression must be 0). Measured `port-coverage.mjs --name doswapweapon` 2026-09-20 @ f0550a81. **Addressed:** D-2675 `d0c80b36`.
