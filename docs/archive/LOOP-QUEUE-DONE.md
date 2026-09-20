@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
-- [x] `spell.c` percent_success — coverage PARTIAL (C 119 L `spell.c:2173–2292` / JS 80 L in js/spell.js; hops 6, callers 3, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn percent_success` (reach regression must be 0). Measured `port-coverage.mjs --name percent_success` 2026-09-20 @ 40ce1e84. **Addressed:** D-2693
+- [x] `u_init.c` ini_inv — coverage PARTIAL (C 65 L `u_init.c:1301–1366` / JS 40 L in js/u_init.js; hops —, callers 36, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn ini_inv` (reach regression must be 0). Measured `port-coverage.mjs --name ini_inv` 2026-09-20 @ 1c6afce8. **Addressed:** D-2694
+
+
+- [x] `spell.c` percent_success — coverage PARTIAL (C 119 L `spell.c:2173–2292` / JS 80 L in js/spell.js; hops 6, callers 3, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn percent_success` (reach regression must be 0). Measured `port-coverage.mjs --name percent_success` 2026-09-20 @ 40ce1e84. **Addressed:** D-2693 `f913dcee`
 
 
 - [x] `mon.c` adj_erinys — coverage PARTIAL (C 44 L `mon.c:5922–5966` / JS 29 L in js/monsters.js; hops 4, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn adj_erinys` (reach regression must be 0). Measured `port-coverage.mjs --name adj_erinys` 2026-09-20 @ 40ce1e84. **Addressed:** D-2692 `bddd66f8`

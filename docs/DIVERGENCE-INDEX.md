@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-2694 | fixed |  — `u_init.c` ini_inv whole-body port (pauper/nudist/addinv-return arms) |  |
 | D-2693 | fixed |  — `spell.c` percent_success C-order restart (int-otyp consts) |  |
 | D-2692 | fixed |  — `mon.c` adj_erinys restore-caller wiring (corrects D-2691 Stale park) |  |
 | D-2691 | fixed |  — `explode.c` explosionmask remainder (impossible defaults + canonical resists_magm) |  |

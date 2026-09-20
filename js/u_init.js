@@ -8,7 +8,7 @@
 
 import { game } from './gstate.js';
 import { rn2, rnd, rn1, rne } from './rng.js';
-import { mksobj, mkobj, weight, mergable, merged, carry_obj_effects, is_mines_prize, is_soko_prize } from './mkobj.js';
+import { mksobj, mkobj, dealloc_obj, weight, mergable, merged, carry_obj_effects, is_mines_prize, is_soko_prize } from './mkobj.js';
 import {
     WEAPON_CLASS,
     ARMOR_CLASS,
@@ -1340,8 +1340,20 @@ export function find_ac() {
     }
 }
 
-// C ref: u_init.c ini_inv()
+// C ref: u_init.c ini_inv() `:1301–1366` — whole body in C order.
+// C: `if (u.uroleplay.pauper) return` — pauper gets no items.
+// C: `quan = trquan(trop)` before the loop; `while (trop->trclass)`.
+// C: defined trotyp → mksobj; UNDEF_TYP → ini_inv_mkobj_filter +
+// poly/poly-control nocreate wiring (wands before rings before
+// spellbooks) + nocreate4 for a second same ring/spellbook.
+// C: `otyp = ini_inv_obj_substitution(trop, obj); nhUse(otyp)`.
+// C: nudist gets no armor — dealloc_obj + trop++ + continue (quan is
+// NOT recomputed on that path, matching C's carried-over quan).
+// C: `if (ini_inv_adjust_obj(trop, obj)) quan = 1`; `obj = addinv(obj)`
+// (merged-stack return feeds the level-1 spellbook check);
+// `if (--quan) continue; trop++; quan = trquan(trop)`.
 async function ini_inv(tropArr) {
+    if (game.u?.uroleplay?.pauper) return; /* pauper gets no items */
     let ti = 0;
     let trop = tropArr[ti];
     let quan = trquan(trop);
@@ -1351,31 +1363,54 @@ async function ini_inv(tropArr) {
         let obj;
         if (otyp !== UNDEF_TYP) {
             obj = mksobj(otyp, true, false);
-        } else {
+        } else { /* UNDEF_TYP */
             obj = ini_inv_mkobj_filter(trop.trclass, got_sp1);
             otyp = obj.otyp;
-            // C: poly / poly-control nocreate wiring (wand before ring before book)
-            if (otyp === otypByName('WAN_POLYMORPH')
-                || otyp === otypByName('RIN_POLYMORPH')
-                || otyp === otypByName('POT_POLYMORPH')) {
+            /* Heavily relies on the facts that 1) we create wands
+             * before rings, that 2) we create rings before
+             * spellbooks, and that 3) not more than 1 object of a
+             * particular symbol is to be prohibited.  (For more
+             * objects, we need more nocreate variables...)
+             */
+            switch (otyp) {
+            case otypByName('WAN_POLYMORPH'):
+            case otypByName('RIN_POLYMORPH'):
+            case otypByName('POT_POLYMORPH'):
                 game.nocreate = otypByName('RIN_POLYMORPH_CONTROL');
-            } else if (otyp === otypByName('RIN_POLYMORPH_CONTROL')) {
+                break;
+            case otypByName('RIN_POLYMORPH_CONTROL'):
                 game.nocreate = otypByName('RIN_POLYMORPH');
                 game.nocreate2 = otypByName('SPE_POLYMORPH');
                 game.nocreate3 = otypByName('POT_POLYMORPH');
+                break;
             }
+            /* Don't have 2 of the same ring or spellbook */
             if (obj.oclass === RING_CLASS || obj.oclass === SPBOOK_CLASS) {
                 game.nocreate4 = otyp;
             }
         }
-        ini_inv_obj_substitution(trop, obj);
+        /* Put post-creation object adjustments that don't depend on whether
+         * it was UNDEF_TYP or not after this. */
+        otyp = ini_inv_obj_substitution(trop, obj);
+        void otyp; /* C: nhUse(otyp) */
+
+        /* nudist gets no armor */
+        if (game.u?.uroleplay?.nudist && obj.oclass === ARMOR_CLASS) {
+            dealloc_obj(obj);
+            ti++;
+            trop = tropArr[ti];
+            continue;
+        }
+
         if (ini_inv_adjust_obj(trop, obj)) quan = 1;
-        await addinv(obj);
+        obj = await addinv(obj);
+
+        /* First spellbook should be level 1 - did we get it? */
         if (obj.oclass === SPBOOK_CLASS
             && (game.objects?.[obj.otyp]?.oc_level ?? 0) === 1) {
             got_sp1 = true;
         }
-        if (--quan) continue;
+        if (--quan) continue; /* make a similar object */
         ti++;
         trop = tropArr[ti];
         quan = trquan(trop);

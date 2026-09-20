@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2694 — `u_init.c` ini_inv whole-body port (pauper/nudist/addinv-return arms)
+
+- Status: ACCEPT — breadth-phase coverage row (PARTIAL C 65 L `u_init.c:1301–1366` / JS 40 L in `js/u_init.js`; hops —, callers 36, RNG 0, msg 0; no corpus session blocked — normal for a coverage row).
+- Symptom: the live `ini_inv` body (`js/u_init.js:1344`) matched C on the defined/UNDEF_TYP split, nocreate wiring and got_sp1 tail but silently dropped four C behaviors: the pauper early-return (`:1308`), the `ini_inv_obj_substitution` return + `nhUse(otyp)` (`:1346`), the nudist armor-discard path (`:1349–1353`), and the merged `addinv` return feeding the level-1-spellbook check (`:1358`).
+- C locus: `nethack-c/upstream/src/u_init.c:1301–1366` (`ini_inv` staticfn) + callees `trquan` (`:1109–1114`, already faithful), `ini_inv_mkobj_filter` / `ini_inv_obj_substitution` / `ini_inv_adjust_obj` (local clones, unchanged), `mksobj` / `dealloc_obj` (live `js/mkobj.js:2324` / `:3405`).
+- JS was: `ini_inv_obj_substitution(trop, obj)` return discarded; `await addinv(obj)` return discarded (merged-stack identity lost before the SPBOOK check); no `u.uroleplay.pauper` guard; no `u.uroleplay.nudist` + `ARMOR_CLASS` dealloc path; `if/else-if` poly wiring instead of C's switch.
+- Fix: `js/u_init.js` only — restarted `ini_inv` in C order with `:line` citations: pauper guard via `game.u?.uroleplay?.pauper` (dog.js:322 convention); UNDEF_TYP arm as C's `switch` (incl. the verbatim rely-on-order comment + `break`s); substitution return assigned + `void otyp` for `nhUse`; nudist path via newly imported `dealloc_obj` (same-module `mkobj.js` edge, no new cycle) with C's carried-over quan (no recompute on that `continue`); `obj = await addinv(obj)` so the SPBOOK check reads the merged stack. Fresh `mksobj` objects carry `where: OBJ_FREE`, so the nudist `dealloc_obj` cannot throw. No DIAG/FORCE/seed gates (Rule #2 clean).
+- JS: 1 js file (`js/u_init.js`: +1 import, restarted body), under the 1500/15 caps.
+- Callers: all 36 C sites wired in `js/u_init.js` — Archeologist/Tinopener/Lamp/Magicmarker `:1439–1442`, Barbarian_0/1/Lamp `:1454–1456`, Cave_man `:1468`, Tourist/Tinopener/Leash/Towel/Magicmarker `:1477–1481`, Rogue/Blindfold `:1492–1493`, Wizard/Blindfold `:1504–1505`, Priest/Magicmarker/Lamp `:1514–1516`, Knight `:1526`, Samurai/Blindfold `:1539–1540`, Healer/Lamp `:1558–1559`, Valkyrie/Lamp `:1569–1570`, Ranger `:1581`, Monk/M_spell/Magicmarker/Lamp `:1593–1596`, Instrument `:1638`, Xtra_food `:1669`, Wishing `:1914`, Money `:1916` (all pre-existing, signature unchanged). None invented per reviews 1359/1361.
+- Verify: `node scripts/verify.mjs --fn ini_inv` → PASS syntax (1 changed js file) · PASS rule2 · note hidden (0 blocked at baseline — normal for a coverage row) · PASS reach (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 (full skipped: no shared file changed) → VERIFY: PASS. Pre-change `node scripts/verify.mjs --no-cohort` on the clean tree → VERIFY: PASS.
+- Named omissions: none in this function — every arm, every callee live or named, every C caller wired.
+- Next: queue `count_surround_traps` / `set_door_orientation` per @1c6afce8. Do not re-pop `ini_inv`. Falsifier: a rescore or fresh `verify ini_inv` showing a session blocked with it as owner.
+
 ## D-2693 — `spell.c` percent_success C-order restart (int-otyp consts)
 
 - Status: ACCEPT — breadth-phase coverage row (PARTIAL C 119 L `spell.c:2173–2292` / JS 80 L in `js/spell.js`; hops 6, callers 3, RNG 0, msg 0; no corpus session blocked — normal for a coverage row).
