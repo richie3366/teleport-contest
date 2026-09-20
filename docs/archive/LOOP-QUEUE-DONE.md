@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
-- [x] `light.c` write_ls — coverage MISSING (C 68 L `light.c:634–702` / JS no symbol; hops 6, callers 1, RNG 0, msg 0; dead callees: whereis_mon). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn write_ls` (reach regression must be 0). Measured `port-coverage.mjs --name write_ls` 2026-09-20 @ a505c4ce. **Addressed:** D-2666
+- [x] `objnam.c` paydoname — coverage PARTIAL (C 42 L `objnam.c:2313–2355` / JS 26 L in js/objnam.js; hops 6, callers 5, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn paydoname` (reach regression must be 0). Measured `port-coverage.mjs --name paydoname` 2026-09-20 @ a505c4ce. **Addressed:** D-2667
+
+
+- [x] `light.c` write_ls — coverage MISSING (C 68 L `light.c:634–702` / JS no symbol; hops 6, callers 1, RNG 0, msg 0; dead callees: whereis_mon). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn write_ls` (reach regression must be 0). Measured `port-coverage.mjs --name write_ls` 2026-09-20 @ a505c4ce. **Addressed:** D-2666 `0c0acef3`
 
 
 - [x] `selvar.c` selection_floodfill — coverage PARTIAL (C 54 L `selvar.c:395–452` / JS 32 L in js/mklev.js; hops 4, callers 6, RNG 0, msg 0; dead callees: sel_flood_havepoint). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn selection_floodfill` (reach regression must be 0). Measured `port-coverage.mjs --name selection_floodfill` 2026-09-20 @ a505c4ce. **Addressed:** D-2665 `f0f09e81`

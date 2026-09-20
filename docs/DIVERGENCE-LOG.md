@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2667 — `objnam.c` paydoname whole-body restart (doname_base direct + BUFSZ-PREFIX guard, per-arm cites)
+
+- Status: ACCEPT — breadth-phase coverage row (PARTIAL C 42 L `objnam.c:2313–2355` / JS 26 L in js/objnam.js; hops 6, callers 5, RNG 0, msg 1; no corpus session blocked).
+- Symptom: coverage PARTIAL — the JS body carried every arm in C order except two C facts: it called `doname(obj)` where C `:2326` calls `doname_base(obj, 0U)`, and it appended `" and its contents"` unconditionally where C `:2347–2350` guards on `strlen(p) + sizeof(and_contents)-1 < BUFSZ - PREFIX`. No per-arm C cites.
+- C locus: `nethack-c/upstream/src/objnam.c:2313–2355` (paydoname) + `doname :1754–1756` (`doname_base(obj, 0)` — proves the callee spelling is behavior-identical) + callers `shk.c:1712` (itemized bill menu) / `shk.c:2477` (insufficient-funds) / `shk.c:3435` (shk_names_obj) + `PREFIX 80` (`objnam.c:9`) / `BUFSZ 256` (const.js, XNAME_PREFIX = 80 in objnam.js:83).
+- JS was: `paydoname` js/objnam.js:3568 — `let p = doname(obj)`; `if (obj.unpaid) p += ' and its contents'` with no length guard; one range cite.
+- Fix: restarted the export in C order with per-arm `:line` cites — `AND_CONTENTS` const (`:2316`), save cknown/wizweight (`:2319–2320`), Has_contents zero (`:2322–2323`), wizweight FALSE (`:2325`), suppress_price++/-- around direct `doname_base(obj, 0)` (`:2326–2328`, with the doname-equivalence noted in-body), no_charge article strip + "an unpaid "/"your " prepend (`:2336–2343`), unpaid append under `p.length + 17 < BUFSZ - XNAME_PREFIX` (`:2347–2350`; 17 = sizeof and_contents - 1), paid "the contents of " prepend (`:2352`), cknown restore (`:2354`). Same-module `doname_base`/live `Has_contents`/imported `BUFSZ` — no new cross-module import, no `imports.mjs --can` needed. Export name/signature kept.
+- JS: js/objnam.js `paydoname` only (+~30/-~10, cites + guard + callee spelling).
+- Callers: C `shk.c:1712` → JS js/shk.js:5224 `paydoname(otmp)` (pre-existing, bill menu); C `shk.c:2477` → JS js/shk.js:5310 `paydoname(item)` (pre-existing, insufficient-funds); C `shk.c:3435` → JS js/shk.js:2635 `paydoname(obj)` in `shk_names_obj` (pre-existing). `shk.c:2395/2398` are comments, not call sites. No C caller left unwired (reviews 1359/1361).
+- Verify: `node scripts/verify.mjs --fn paydoname` → PASS syntax (1 file: js/objnam.js) · PASS rule2 · note hidden (no corpus session blocked — normal for a coverage row) · PASS reach (no RNG-tagged reach; smoke 24 run: 24 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · VERIFY: PASS.
+- Named omissions: none new — C strncmp/strprepend/Strcat/strlen are plain JS string ops (inlined, noted in-body); null/iflags guards are JS-only (C takes NONNULLARG1); `doname` wrapper untouched (still live for its own callers).
+- Next: next Open — coverage row (`sp_lev.c` get_table_region) unless refilled.
+
 ## D-2666 — `light.c` write_ls whole-body port (save pointer→id fixup + chain verification, wired into serLight)
 
 - Status: ACCEPT — breadth-phase coverage row (MISSING C 68 L / JS no symbol; dead callee whereis_mon; no corpus session blocked).
