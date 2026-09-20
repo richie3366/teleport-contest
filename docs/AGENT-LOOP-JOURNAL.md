@@ -7,6 +7,13 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-20 — D-2693 `spell.c` percent_success C-order restart (int-otyp consts)
+
+**C locus:** 
+**JS:** 
+**Change:** 
+**Verify:** 
+**Next:** (see LOOP-QUEUE)
 ## 2026-09-20 — D-2692 `mon.c` adj_erinys restore-caller wiring (corrects D-2691 Stale park)
 
 **C locus:** 
@@ -68,48 +75,6 @@ nhmd4_body.
 **Verify:** 
 **Next:** (see LOOP-QUEUE)
 ## 2026-09-20 — D-2685 `monmove.c` m_balks_at_approaching whole-body port (live `ranged_attk_available` with the m_seenres gate)
-
-**C locus:** 
-**JS:** 
-**Change:** 
-**Verify:** 
-**Next:** (see LOOP-QUEUE)
-## 2026-09-20 — D-2684 `selvar.c` selection_do_gradient whole-body port (+ staticfn line_dist_coord; growl_sound parked STALE)
-
-**C locus:** 
-**JS:** 
-**Change:** 
-**Verify:** 
-**Next:** (see LOOP-QUEUE)
-## 2026-09-20 — D-2683 `dungeon.c` fixup_level_locations whole-body port (C-order cites + live-callee wiring + headless pin)
-
-**C locus:** 
-**JS:** 
-**Change:** 
-**Verify:** 
-**Next:** (see LOOP-QUEUE)
-## 2026-09-20 — D-2682 `o_init.c` dodiscovered whole-body port (discosort o/c/a/s + relic/artifact pseudo-classes + sortloot_descr key)
-
-**C locus:** 
-**JS:** 
-**Change:** 
-**Verify:** 
-**Next:** (see LOOP-QUEUE)
-## 2026-09-20 — D-2681 `role.c` rigid_role_checks whole-body port (ROLE_RANDOM fallback now randrole_filtered)
-
-**C locus:** 
-**JS:** 
-**Change:** 
-**Verify:** 
-**Next:** (see LOOP-QUEUE)
-## 2026-09-20 — D-2680 `pickup.c` out_container whole-body port (impossible gate + artifact/corpse/icebox/bill/pick arms + shk pick_pick)
-
-**C locus:** 
-**JS:** 
-**Change:** 
-**Verify:** 
-**Next:** (see LOOP-QUEUE)
-## 2026-09-20 — D-2679 `shk.c` corpsenm_price_adj whole-body port (tin/egg/corpse intrinsic-table surcharge wired into getprice)
 
 **C locus:** 
 **JS:** 

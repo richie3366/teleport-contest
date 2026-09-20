@@ -3028,6 +3028,7 @@ JS: `js/spell.js` — partial
 
 **`initialspell` + `spl_book` + `age_spells` + 
 `dovspell` VIEW** (Fail%/Retention via `percent_success`/`spellretention`; D-0129); 
+**`percent_success` C-order restart (D-2693; C `:2172–2292` all arms in order; int-otyp ROBE/QUARTERSTAFF/SMALL_SHIELD/SPE_* consts; callers `:1371`/`:2122` wired); 
 **wizard `dospellmenu` turns / `spellknow(i)`** (D-0586); 
 **`dospellmenu` dismiss via `dismiss_nhw_menu`** (corner gbuf-flush ≠ docrt; D-0857); 
 **`skill_based_spellbook_id`** (D-0132); **`Z`/`docast`/`getspell` CAST + `spelleffects_check` + 
