@@ -3334,7 +3334,7 @@ weld/artifact_light wield msgs, knockback hurtle; `mshot_xname` Nth; `obj_is_pna
 enhance `lose_weapon_skill` may-advance (`add_weapon_skill`/`use_skill` wired);
 other `mhitm_ad_*` (uhitm/mhitm arms + ACID/DGST/… mhitu); potionbreathe/were destroy_items deferrals;
 `mswingsm` mon-mon  **`wildmiss` Displaced/Invis/Underwater + `!foundyou` skipnonmagc** (D-0816; 
-could_seduce SEDU smile live; **nolimbs lunge + set_msg_xy D-1291**; **mhitu Invis (H||E)&&!B + uinwater Underwater D-2067**; Some_Monnam impossible named)
+could_seduce SEDU smile live; **nolimbs lunge + set_msg_xy D-1291**; **mhitu Invis (H||E)&&!B + uinwater Underwater D-2067**; Some_Monnam impossible named); **`magic_negation` whole-body + hero-polyform floor (D-2658/D-2661; C `mhitu.c:1089–1137` — canonical export `js/mhitm.js:2412`, one-line `magic_negation_you`/`_mon` delegates; callee `protects` `js/artifact.js:631`; intrinsic floor is one C if — aligned-cleric/minion disjunct reads mon->data on the hero path too, null → `game.youmonst.data`; callers `insight.c:1800` → `js/invent.js:6323`/:7166, `uhitm.c:86` → `js/mhitm.js:2511-2512`; no omissions)
 
 ### `src/dog.c`, `src/dogmove.c` (+ `steal.c` relobj)
 

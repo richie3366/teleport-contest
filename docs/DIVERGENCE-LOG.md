@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2661 — `mhitu.c` magic_negation intrinsic floor hero-polyform disjunct (review 1617 Must-fix)
+
+- **Status:** fixed (Must-fix from review 1617 — Keep'd C-wrong on the D-2658 whole-body port: JS narrowed the C `:1130–1134` single `if`, dropping the hero-polyform disjunct.)
+- **Symptom:** hero poly'd into couatl/Aleax (M2_MINION, polyok) with mc<1, no gotprot, no HProtection/spellprot gets mc 0 where C gives 1 (changed `rn2(10) >= 3*armpro` odds downstream in `mhitm_mgc_atk_negated`).
+- **C locus:** ``nethack-c/upstream/src/mhitu.c:1089–1137`` (magic_negation), decisive arm ``:1126–1134``: ``else if (mc < 1)`` + one `if` — ``(is_you && ((HProtection && u.ublessed > 0) || u.uspellprot)) || (mon->data == &mons[PM_ALIGNED_CLERIC] || is_minion(mon->data))`` — so the aligned/minion disjunct reads ``mon->data`` even when ``mon == &youmonst`` (the hero's polyform). No RNG either side.
+- **JS was:** ``magic_negation`` js/mhitm.js:2465 — split ``if (is_you) {HProtection-only} else if (aligned||minion)``, unreachable for the hero path (D-2658 ``:2473``).
+- **Fix:** single C-order `if` with per-arm ``:line`` cites — ``const form = is_you ? (mon?.data ?? game.youmonst?.data) : mon.data`` (null is the JS hero-defender idiom; ``monsndx``/``is_minion`` are both null-safe, mondata.js:129 / monsters.js:615), then ``(is_you && (hprot…)) || (monsndx(form) === PM_ALIGNED_CLERIC || is_minion(form))`` — short-circuit order matches C. Export name/signature kept; no new imports (all names already in scope). Doc comment updated (floor reads mon->data on both paths).
+- **JS:** ``magic_negation`` js/mhitm.js:2412 (floor arm :2465–2477, +7/-6 net); doc :2407–2409 (+2/-1).
+- **Callers:** C ``insight.c:1800`` (``magic_negation(&gy.youmonst)``) → wired js/invent.js:6323 + :7166 via ``magic_negation_you()`` (pre-existing delegates, now reach the fixed floor); C ``uhitm.c:86`` (``magic_negation(mdef)``) → wired js/mhitm.js:2511-2512 dispatch in ``mhitm_mgc_atk_negated`` (pre-existing). None missed (reviews 1359/1361).
+- **Verify:** ``node scripts/verify.mjs --fn magic_negation`` → VERIFY: PASS — syntax 1 file (js/mhitm.js), Rule #2, hidden note (no corpus session blocked — the C-wrong is a narrow polyform state no smoke session covers, per review 1617), REACH-OK (no RNG-tagged reach; smoke 24/24, 0 regressed), green 2/2 + strict ×2, cohort 7/7. Tail pasted per rule.
+- **Named omissions:** none — every callee live (``protects`` D-2658); ``form`` fallback is the data-model adaptation (C ``mon->data`` with ``mon == &youmonst`` vs JS null hero idiom), noted in-body.
+- **Next:** pop the next Open — coverage row.
+
 ## D-2660 — `mon.c` mon_give_prop whole-body restart (live res_to_mr + format-arg Monnam order)
 
 - **Status:** fixed (Open — coverage row ``mon.c`` mon_give_prop PARTIAL (C 48 L ``mon.c:1726–1774`` / JS 31 L in js/mon.js; hops 4, callers 2, RNG 0, msg 1). Measured ``port-coverage.mjs --name mon_give_prop`` 2026-09-20 @ 4559dcf9.)

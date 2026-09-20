@@ -2404,8 +2404,9 @@ const PM_ALIGNED_CLERIC = monsterNames.indexOf('PM_ALIGNED_CLERIC');
  * armor (a_can max), extrinsic Protection (+1, +2 via amulet of guarding,
  * cap 3) and the intrinsic floor (mc 1). mon null (the JS hero-defender
  * idiom; C `mon == &gy.youmonst`) takes the is_you path; a monster takes
- * the mon path (high priests start protected, protects() scan,
- * aligned-cleric/minion floor). oc_level packs oc_oc2 ≡ a_can for armor
+ * the mon path (high priests start protected, protects() scan).
+ * The intrinsic aligned-cleric/minion floor reads mon->data on both
+ * paths (hero polyform included). oc_level packs oc_oc2 ≡ a_can for armor
  * (scripts/extract-objects.py; objclass.h:103). Unifies D-2347 (hero arm)
  * and D-1405 (mon arm — its amulet/protects/cleric·minion omits retired).
  */
@@ -2464,16 +2465,18 @@ export function magic_negation(mon) {
         if (mc > 3) mc = 3;
     } else if (mc < 1) {
         // C: intrinsic Protection is weaker ... it confers minimum mc 1 `:1126–1128`
-        if (is_you) {
-            // C: (is_you && ((HProtection && u.ublessed > 0) || u.uspellprot)) `:1130`
-            const u = game.u || {};
-            const hprot = (((u.HProtection | 0)
-                || (u.uprops?.[PROTECTION]?.intrinsic | 0)) !== 0);
-            if ((hprot && (((u.ublessed | 0) > 0))) || (((u.uspellprot | 0) !== 0))) mc = 1;
-        } else if (monsndx(mon.data) === PM_ALIGNED_CLERIC || is_minion(mon.data)) {
-            // C: aligned priests and angels have innate intrinsic Protection `:1131–1134`
-            mc = 1;
-        }
+        // C: if ((is_you && ((HProtection && u.ublessed > 0) || u.uspellprot)) `:1130`
+        //        || (mon->data == &mons[PM_ALIGNED_CLERIC] `:1131–1132`
+        //            || is_minion(mon->data))) `:1133–1134`
+        // (one C if: the aligned/minion disjunct reads mon->data even when
+        // mon == &youmonst, i.e. the hero's polyform; null — the JS
+        // hero-defender idiom — reads game.youmonst.data instead.)
+        const u = game.u || {};
+        const hprot = (((u.HProtection | 0)
+            || (u.uprops?.[PROTECTION]?.intrinsic | 0)) !== 0);
+        const form = is_you ? (mon?.data ?? game.youmonst?.data) : mon.data;
+        if ((is_you && ((hprot && (((u.ublessed | 0) > 0))) || (((u.uspellprot | 0) !== 0))))
+            || (monsndx(form) === PM_ALIGNED_CLERIC || is_minion(form))) mc = 1;
     }
     return mc;
 }

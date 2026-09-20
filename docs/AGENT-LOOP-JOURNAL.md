@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-20 — D-2661 `mhitu.c` magic_negation intrinsic floor hero-polyform disjunct (review 1617 Must-fix)
+
+**C locus:** ``nethack-c/upstream/src/mhitu.c:1089–1137`` (magic_negation), decisive arm ``:1126–1134``: ``else if (mc < 1)`` + one `if` — ``(is_you && ((HProtection && u.ublessed > 0) || u.uspellprot)) || (mon->data == &mons[PM_ALIGNED_CLERIC] || is_minion(mon->data))`` — so the aligned/minion disjunct reads ``mon->data`` even when ``mon == &youmonst`` (the hero's polyform). No RNG either side.
+**JS:** ``magic_negation`` js/mhitm.js:2412 (floor arm :2465–2477, +7/-6 net); doc :2407–2409 (+2/-1).
+**Change:** single C-order `if` with per-arm ``:line`` cites — ``const form = is_you ? (mon?.data ?? game.youmonst?.data) : mon.data`` (null is the JS hero-defender idiom; ``monsndx``/``is_minion`` are both null-safe, mondata.js:129 / monsters.js:615), then ``(is_you && (hprot…)) || (monsndx(form) === PM_ALIGNED_CLERIC || is_minion(form))`` — short-circuit order matches C. Export name/signature kept; no new imports (all names already in scope). Doc comment updated (floor reads mon->data on both paths).
+**Verify:** ``node scripts/verify.mjs --fn magic_negation`` → VERIFY: PASS — syntax 1 file (js/mhitm.js), Rule #2, hidden note (no corpus session blocked — the C-wrong is a narrow polyform state no smoke session covers, per review 1617), REACH-OK (no RNG-tagged reach; smoke 24/24, 0 regressed), green 2/2 + strict ×2, cohort 7/7. Tail pasted per rule.
+**Named:** none — every callee live (``protects`` D-2658); ``form`` fallback is the data-model adaptation (C ``mon->data`` with ``mon == &youmonst`` vs JS null hero idiom), noted in-body.
+**Next:** pop the next Open — coverage row.
 ## 2026-09-20 — Audit 2a7efc6b..ff9ae02a (reviews 1613–1619: 6 ACCEPT, 1 QUALITY-RISK) + cadence 44/44
 
 Review-only iteration (no js/ edits). Re-audited all 7 SHAs since 12de9b19 against pinned C with per-SHA `--reach-all` re-runs (all REACH-OK, no REGRESSED). Keep: review 1617 QUALITY-RISK — unified `magic_negation` splits C's single `:1130–1134` floor `if` into `if (is_you)/else if`, dropping the aligned/minion disjunct for hero polyforms (couatl/Aleax are M2_MINION + polyok; C gives mc 1, JS 0) → Must-fix prepended, Next cluster set. Cadence: public 44/44 (RNG 792,838/792,838, Scr 11,405/11,405, `83+0.53/turn` R² 0.79); held-out 11/44 unchanged (5,972 pts, RNG 26.7 %, screens 53.0 %); corpus 497/540 (92.0 %) +0/−0.
