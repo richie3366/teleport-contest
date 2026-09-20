@@ -7,6 +7,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-20 — Audit 94148365..fe53547d (reviews 1587–1594: 7 ACCEPT, 1 QUALITY-RISK) + cadence 44/44
+
+D-2628…D-2635 audited vs pinned C (per-SHA `--reach-all` REACH-OK, no REGRESSED): 7 exact; D-2633 QUALITY-RISK (`player_selection.js:875` `i !== f`), Must-fix prepended, Next cluster set. Cadence 44/44, held-out 11/44, corpus 497/540 +0/−0.
 ## 2026-09-20 — D-2635 `botl.c` cond_menu whole-body port (status-conditions PICK_ANY menu + doset caller) + 2 stale parks
 
 **C locus:** ``nethack-c/upstream/src/botl.c:1376–1454`` (cond_menu) + ``:1332–1342`` (cond_cmp) + ``:1344–1351`` (menualpha_cmp) + ``decl.h:229`` (gc.condmenu_sortorder, init 0 ``:1315``); callers ``options.c:5032`` (pfxfn_cond_ do_handler, "not used") + ``:8436–8439`` (optfn_o_status_cond do_handler). Decisive C facts: sort row a_int 1 + 'S' accelerator + SKIPINVERT (``:1402–1408``); rows ``cond_%-14s`` a_int idx+2 preselected iff enabled (``:1412–1420``); ESC res -1 skips the enable/disable loop while finish-empty res 0 runs it (``:1428`` vs ``:1445``); final loop clears test on leftover idx not i (``:1449``); disp.botl + changed on any flip (``:1450``).

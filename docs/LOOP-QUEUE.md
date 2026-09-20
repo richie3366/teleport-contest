@@ -97,6 +97,8 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
+- [ ] `player_selection.js:875` RS_ROLE loop `i !== f` (module fn, always true) kills `"filter forces role"` vs C `role.c:1840–1844`. Fix: `→ i !== fsel`. Source: reviews/loop-unattended/1592-d62c8935-role-menu-extra.md.
+
 A **JS throw** in any corpus session (`hidden-proxy status` owner
 `js-throw …`, or a `ReferenceError` in `.cache/hidden/scores.json`
 `error`), and a corpus worker **hang** (`ETIMEDOUT` under `verify`), are
