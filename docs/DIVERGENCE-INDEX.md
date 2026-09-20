@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-2671 | fixed |  — `sp_lev.c` flip_encoded_dir_bits whole-body port (+ hacklib swapbits; conjoined-pit flip arms wired) |  |
 | D-2670 | fixed |  — `worm.c` worm_cross whole-body restart (impossible arm + live distmin, C-order cites) |  |
 | D-2669 | fixed |  — `dig.c` buried_ball: wire last C caller (trapmove radius-1 + wriggle_free); dist2 clone → live hacklib expo |  |
 | D-2668 | fixed |  — `sp_lev.c` get_table_region + intarray-entry unpacked ports wired into lregion/exclusion callers; same-file |  |

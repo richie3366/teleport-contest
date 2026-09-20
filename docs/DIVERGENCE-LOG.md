@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2671 — `sp_lev.c` flip_encoded_dir_bits whole-body port (+ hacklib swapbits; conjoined-pit flip arms wired)
+
+- Status: ACCEPT — breadth-phase coverage row (MISSING C 15 L `sp_lev.c:499–514` / JS no symbol; hops 5, callers 2, RNG 0, msg 0; no corpus session blocked).
+- Symptom: coverage MISSING — neither `flip_encoded_dir_bits` nor its callee `swapbits` existed anywhere in `js/` (brief sym.mjs: no export, no local), and the live `flip_level` trap loop in `js/mklev.js` carried the ROLLING_BOULDER_TRAP launch arms but dropped both C `else if (is_pit && conjoined)` arms, so conjoined-pit direction bits never flipped on level transpose.
+- C locus: `nethack-c/upstream/src/sp_lev.c:498–514` (flip_encoded_dir_bits: `flp&1` swaps bits 1↔7, 2↔6, 3↔5 `:503–505`; `flp&2` swaps 1↔3, 0↔4, 7↔5 `:508–510`; order depends on xdir[]/ydir[] — verified identical in C `decl.c:77–78` vs `js/mklev.js:332–333`) + callers `sp_lev.c:603–604` (vertical arm) / `:612–613` (horizontal arm), each passing the full `flp` mask + callee `hacklib.c:830–837` swapbits (`tmp` xor-swap, 32-bit int semantics ≡ JS `|0` bitwise).
+- JS was: no symbol; `flip_level` trap arms (`js/mklev.js:17110–17123`) had no pit/conjoined branch.
+- Fix: new live `swapbits(val, bita, bitb)` export in C-home `js/hacklib.js` (C `:834–836` in order; joins the existing hacklib import edge in mklev.js — `imports.mjs --can` → ALREADY, no new edge); new C-order `flip_encoded_dir_bits(flp, val)` local in `js/mklev.js` (C staticfn stays module-local; per-arm `:line` cites) reading live `swapbits`; both trap arms wired in C order with the full-`flp` call exactly like C (incl. C's double-application when `flp&3==3` — replicated, not "fixed"). Bit logic proven: swapbits involution + same-bit no-op, flip involution under masks 1/2/3 over all 256 byte values (node probe).
+- JS: js/hacklib.js (+7) + js/mklev.js (+30/−1: 1 import name, 1 function, 2 caller arms).
+- Callers: C sp_lev.c:604 → JS js/mklev.js trap-loop vertical arm (new `else if (is_pit && conjoined)`); C sp_lev.c:613 → JS horizontal arm (same). C sp_lev.c:27 is the forward declaration, not a call site. No C caller left unwired (reviews 1359/1361).
+- Verify: `node scripts/verify.mjs --fn flip_encoded_dir_bits` → PASS syntax (2 files) · PASS rule2 · note hidden (0 blocked at baseline — normal for a coverage row) · PASS reach (no RNG-tagged reach; smoke 24 run: 24 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared hacklib.js changed) → VERIFY: PASS.
+- Named omissions: none — every arm, callee, and caller is live. `|0` coercions are the JS int-semantics adaptation (C takes int); xdir/ydir-order comment cites both tables.
+- Next: next Open — coverage row (`role.c` role_selection_prolog) unless refilled.
+
 ## D-2670 — `worm.c` worm_cross whole-body restart (impossible arm + live distmin, C-order cites)
 
 - Status: ACCEPT — breadth-phase coverage row (PARTIAL C 44 L `worm.c:898–942` / JS 22 L in js/worm.js; hops 3, callers 3, RNG 0, msg 0; no corpus session blocked).

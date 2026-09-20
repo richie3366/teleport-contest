@@ -46,7 +46,7 @@ screens 93.2 %. Held-out 11/44, unchanged vs last audit (5,972 pts, RNG
 predict the judge.
 **Corpus fortress** (re-scored 2026-09-20 audit 1620–1628): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — **+0 / −0**
-in the D-2661…D-2670 window (9 ACCEPTs;
+in the D-2661…D-2671 window (9 ACCEPTs;
 every per-SHA `--reach-all` re-run here ends REACH-OK with no REGRESSED).
 Reviews 1225–1628: 360 ACCEPT, 15 WITH-DEBT, 1 DEBT, 23 QUALITY-RISK (1503, 1517, 1520 stamped; Must-fix 1533/1536 → D-2583/D-2584, 1568 → D-2610, 1592 → D-2636 `271ceca1`, 1617 → magic_negation floor Must-fix (addressed D-2661, review 1620 ACCEPT); hashes filled).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`) — review-debt, unqueued (detail in the review files).
@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `worm.c` worm_cross — coverage PARTIAL (C 44 L `worm.c:898–942` / JS 22 L in js/worm.js; hops 3, callers 3, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn worm_cross` (reach regression must be 0). Measured `port-coverage.mjs --name worm_cross` 2026-09-20 @ 4559dcf9. (buried_ball shipped D-2669, review 1628 ACCEPT — cluster rotated to the queue head; no Must-fix this audit.)
+**Next cluster:** `sp_lev.c` flip_encoded_dir_bits — coverage MISSING (C 15 L `sp_lev.c:499–514` / JS no symbol; hops 5, callers 2, RNG 0, msg 0; dead callees: swapbits). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn flip_encoded_dir_bits` (reach regression must be 0). Measured `port-coverage.mjs --name flip_encoded_dir_bits` 2026-09-20 @ f0550a81.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2670 (index).**
+**Keep D-0845…D-2671 (index).**
 <!-- recent:begin -->
+**D-2671**  — 
 **D-2670**  — 
 **D-2669**  — 
 **D-2668**  — 
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2666**  — 
 **D-2665**  — 
 **D-2664**  — 
-**D-2663** ``nethack-c/upstream/src/worn.c:1359–1373`` (racial_exception) + callee ``mondata.c:1359–1 — new live ``raceptr(mtmp)`` export in C-home js/mondata.js with per-arm cites — hero idiom ``=== game.youmonst || _youmonst`` (worn.js:409 / mondata.js:142), ``!Upolyd(game.u)`` (polyself.js:735 precedent), ``mons(urace.m
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2670; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2671; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

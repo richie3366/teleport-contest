@@ -10,7 +10,7 @@ import { GameMap } from './game.js';
 import { rn2, rnd, rn1, rnz } from './rng.js';
 import { CLR_CYAN, CLR_GRAY, CLR_BRIGHT_BLUE } from './terminal.js';
 import { init_rect, rnd_rect, get_rect, split_rects } from './rect.js';
-import { depth as depth_of_level, dist2, distmin, level_difficulty, strstri, upstart } from './hacklib.js';
+import { depth as depth_of_level, dist2, distmin, level_difficulty, strstri, upstart, swapbits } from './hacklib.js';
 import { getbones } from './bones.js';
 import {
     COLNO, ROWNO, STONE, ROOM, CORR, DOOR, STAIRS,
@@ -17042,6 +17042,29 @@ function m_bad_boulder_spot(x, y) {
 /**
  * C ref: sp_lev.c flip_level_rnd — rn2 per allowed axis then flip_level.
  */
+/**
+ * C ref: sp_lev.c:498-514 — transpose an encoded direction.
+ * Bit swaps depend on xdir[]/ydir[] order (C decl.c:77-78; JS tables
+ * above match: [-1,-1,0,1,1,1,0,-1] / [0,-1,-1,-1,0,1,1,1]).
+ * C staticfn; swapbits lives in hacklib.js (C hacklib.c:830-837).
+ */
+function flip_encoded_dir_bits(flp, val) {
+    flp |= 0; val |= 0;
+    /* C sp_lev.c:502 — these depend on xdir[] and ydir[] order */
+    if (flp & 1) {
+        val = swapbits(val, 1, 7); /* C :503 */
+        val = swapbits(val, 2, 6); /* C :504 */
+        val = swapbits(val, 3, 5); /* C :505 */
+    }
+    if (flp & 2) {
+        val = swapbits(val, 1, 3); /* C :508 */
+        val = swapbits(val, 0, 4); /* C :509 */
+        val = swapbits(val, 7, 5); /* C :510 */
+    }
+
+    return val | 0;
+}
+
 function flip_level_rnd(flp, extras) {
     let c = 0;
     if ((flp & 1) && rn2(2)) c |= 1;
@@ -17112,6 +17135,9 @@ function flip_level(flp, _extras) {
             if (ttmp.ttyp === ROLLING_BOULDER_TRAP) {
                 if (ttmp.launch) ttmp.launch.y = FlipY(ttmp.launch.y);
                 if (ttmp.launch2) ttmp.launch2.y = FlipY(ttmp.launch2.y);
+            } else if (is_pit(ttmp.ttyp) && ttmp.conjoined) {
+                // C ref: sp_lev.c:603-604 — full flp mask, like C.
+                ttmp.conjoined = flip_encoded_dir_bits(flp, ttmp.conjoined) | 0;
             }
         }
         if (flp & 2) {
@@ -17119,6 +17145,9 @@ function flip_level(flp, _extras) {
             if (ttmp.ttyp === ROLLING_BOULDER_TRAP) {
                 if (ttmp.launch) ttmp.launch.x = FlipX(ttmp.launch.x);
                 if (ttmp.launch2) ttmp.launch2.x = FlipX(ttmp.launch2.x);
+            } else if (is_pit(ttmp.ttyp) && ttmp.conjoined) {
+                // C ref: sp_lev.c:612-613 — full flp mask, like C.
+                ttmp.conjoined = flip_encoded_dir_bits(flp, ttmp.conjoined) | 0;
             }
         }
     }

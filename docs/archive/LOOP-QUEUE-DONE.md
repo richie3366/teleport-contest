@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
-- [x] `worm.c` worm_cross — coverage PARTIAL (C 44 L `worm.c:898–942` / JS 22 L in js/worm.js; hops 3, callers 3, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn worm_cross` (reach regression must be 0). Measured `port-coverage.mjs --name worm_cross` 2026-09-20 @ 4559dcf9. **Addressed:** D-2670
+- [x] `sp_lev.c` flip_encoded_dir_bits — coverage MISSING (C 15 L `sp_lev.c:499–514` / JS no symbol; hops 5, callers 2, RNG 0, msg 0; dead callees: swapbits). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn flip_encoded_dir_bits` (reach regression must be 0). Measured `port-coverage.mjs --name flip_encoded_dir_bits` 2026-09-20 @ f0550a81.
+
+
+- [x] `worm.c` worm_cross — coverage PARTIAL (C 44 L `worm.c:898–942` / JS 22 L in js/worm.js; hops 3, callers 3, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn worm_cross` (reach regression must be 0). Measured `port-coverage.mjs --name worm_cross` 2026-09-20 @ 4559dcf9. **Addressed:** D-2670 `8f5cd3c6`
 
 
 - [x] `dig.c` buried_ball — coverage PARTIAL (C 47 L `dig.c:1885–1932` / JS 23 L in js/dig.js; hops 3, callers 5, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn buried_ball` (reach regression must be 0). Measured `port-coverage.mjs --name buried_ball` 2026-09-20 @ 4559dcf9. **Addressed:** D-2669 `f6d363e1`
