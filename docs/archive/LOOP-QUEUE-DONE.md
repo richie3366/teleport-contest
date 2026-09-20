@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
+- [x] `selvar.c` selection_floodfill — coverage PARTIAL (C 54 L `selvar.c:395–452` / JS 32 L in js/mklev.js; hops 4, callers 6, RNG 0, msg 0; dead callees: sel_flood_havepoint). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn selection_floodfill` (reach regression must be 0). Measured `port-coverage.mjs --name selection_floodfill` 2026-09-20 @ a505c4ce. **Addressed:** D-2665
+
+
 - [x] `artifact.c` invoke_create_portal — coverage PARTIAL (C 64 L `artifact.c:1867–1931` / JS 46 L in js/artifact.js; hops 5, callers 1, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn invoke_create_portal` (reach regression must be 0). Measured `port-coverage.mjs --name invoke_create_portal` 2026-09-20 @ a505c4ce.
 
 

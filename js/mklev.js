@@ -4586,8 +4586,9 @@ function load_bar_strt() {
         const fx = mx + 37;
         const fy = my + 7;
         const flood = selection_new();
-        const matchTyp = g.level.at(fx, fy)?.typ ?? ROOM;
-        selection_floodfill(flood, fx, fy, false, matchTyp);
+        // C: nhlsel.c l_selection_flood `:750-751` — match-under seed typ, flood.
+        set_floodfillchk_match_under(g.level.at(fx, fy)?.typ ?? ROOM);
+        selection_floodfill(flood, fx, fy, false);
         const area = selection_fillrect(mx + 40, my + 3, mx + 45, my + 20);
         const ogrelocs = selection_and(flood, area);
         // for i = 0, 11 do des.monster({ id="ogre", coord=rndcoord(1), peaceful=0 })
@@ -5392,11 +5393,12 @@ function load_pri_strt() {
     sel_set_ter(mx + 5, my + 4, ROOM, SET_LIT_NOCHANGE);
 
     // local spacelocs = selection.floodfill(05,04)
+    // C: nhlsel.c l_selection_flood `:750-751` — match-under seed typ, flood.
     const spacelocs = selection_new();
     {
         const fx = mx + 5, fy = my + 4;
-        const matchTyp = g.level.at(fx, fy)?.typ ?? ROOM;
-        selection_floodfill(spacelocs, fx, fy, false, matchTyp);
+        set_floodfillchk_match_under(g.level.at(fx, fy)?.typ ?? ROOM);
+        selection_floodfill(spacelocs, fx, fy, false);
     }
 
     // des.stair("down", 52,09)
@@ -7050,8 +7052,9 @@ function load_rog_strt() {
     const streets = selection_new();
     {
         const fx = mx + 0, fy = my + 12;
-        const matchTyp = g.level.at(fx, fy)?.typ ?? ROOM;
-        selection_floodfill(streets, fx, fy, false, matchTyp);
+        // C: nhlsel.c l_selection_flood `:750-751` — match-under seed typ, flood.
+        set_floodfillchk_match_under(g.level.at(fx, fy)?.typ ?? ROOM);
+        selection_floodfill(streets, fx, fy, false);
     }
 
     // local place = { {33,0}, {0,12}, {25,20}, {75,05} }; shuffle(place)
@@ -10209,11 +10212,12 @@ function load_mon_strt() {
     // local spacelocs = selection.floodfill(05,04) — Mon lua order runs the
     // floodfill BEFORE des.terrain; the seed cell is already "." (ROOM), so
     // the match typ is ROOM either way
+    // C: nhlsel.c l_selection_flood `:750-751` — match-under seed typ, flood.
     const spacelocs = selection_new();
     {
         const fx = mx + 5, fy = my + 4;
-        const matchTyp = g.level.at(fx, fy)?.typ ?? ROOM;
-        selection_floodfill(spacelocs, fx, fy, false, matchTyp);
+        set_floodfillchk_match_under(g.level.at(fx, fy)?.typ ?? ROOM);
+        selection_floodfill(spacelocs, fx, fy, false);
     }
 
     // des.terrain({05,04}, ".") — portal/floodfill seed
@@ -13906,8 +13910,9 @@ function load_astral() {
             hall = selection_new();
             {
                 const fx = mx + 30, fy = my + 16;
-                const matchTyp = g.level.at(fx, fy)?.typ ?? ROOM;
-                selection_floodfill(hall, fx, fy, false, matchTyp);
+                // C: nhlsel.c l_selection_flood `:750-751` — match-under seed typ, flood.
+                set_floodfillchk_match_under(g.level.at(fx, fy)?.typ ?? ROOM);
+                selection_floodfill(hall, fx, fy, false);
             }
             terCell(33, 18, ROOM);
         } else {
@@ -13917,8 +13922,9 @@ function load_astral() {
             hall = selection_new();
             {
                 const fx = mx + 44, fy = my + 16;
-                const matchTyp = g.level.at(fx, fy)?.typ ?? ROOM;
-                selection_floodfill(hall, fx, fy, false, matchTyp);
+                // C: nhlsel.c l_selection_flood `:750-751` — match-under seed typ, flood.
+                set_floodfillchk_match_under(g.level.at(fx, fy)?.typ ?? ROOM);
+                selection_floodfill(hall, fx, fy, false);
             }
             terCell(41, 18, ROOM);
         }
@@ -15015,8 +15021,9 @@ async function load_minetn_1() {
     const inside = selection_new();
     {
         const fx = mx + 18, fy = my + 8;
-        const matchTyp = g.level.at(fx, fy)?.typ ?? ROOM;
-        selection_floodfill(inside, fx, fy, false, matchTyp);
+        // C: nhlsel.c l_selection_flood `:750-751` — match-under seed typ, flood.
+        set_floodfillchk_match_under(g.level.at(fx, fy)?.typ ?? ROOM);
+        selection_floodfill(inside, fx, fy, false);
     }
     const near_temple = selection_and(
         selection_fillrect(mx + 17, my + 8, mx + 23, my + 14),
@@ -26184,9 +26191,10 @@ function selection_from_mkroom(croom) {
 }
 
 /**
- * C ref: sp_lev.c floodfillchk_match_accessible — ACCESSIBLE terrain plus
- * secret doors and corridors (the predicate ensure_way_out installs with
- * set_selection_floodfillchk before each selection_floodfill below).
+ * C ref: sp_lev.c floodfillchk_match_accessible `:4599-4605` — ACCESSIBLE
+ * terrain plus secret doors and corridors (the predicate ensure_way_out
+ * installs once with set_selection_floodfillchk, sp_lev.c:5225, covering
+ * every selection_floodfill below including generate_way_out_method's).
  */
 function floodfillchk_match_accessible(x, y) {
     const loc = game.level.at(x, y);
@@ -26194,44 +26202,22 @@ function floodfillchk_match_accessible(x, y) {
     return ACCESSIBLE(loc.typ) || loc.typ === SDOOR || loc.typ === SCORR;
 }
 
-/**
- * C ref: selvar.c selection_floodfill walked with the accessible check —
- * C stack shape verbatim: the seed is pushed without a predicate check,
- * neighbours need isok + predicate + not-visited-this-call (C `tmp`,
- * here `seen`); diagonal neighbours only when asked. ensure_way_out and
- * generate_way_out_method always pass diagonals=TRUE.
- */
-function selection_floodfill_accessible(ov, x0, y0, diagonals) {
-    if (!ov) return;
-    const seen = new Set([`${x0},${y0}`]);
-    const stackX = [x0];
-    const stackY = [y0];
-    while (stackX.length) {
-        const x = stackX.pop();
-        const y = stackY.pop();
-        if (isok(x, y)) {
-            selection_setpoint(x, y, ov, 1);
-            const chkdir = (mx, my) => {
-                if (!isok(mx, my)) return;
-                if (!floodfillchk_match_accessible(mx, my)) return;
-                const key = `${mx},${my}`;
-                if (seen.has(key)) return;
-                seen.add(key);
-                stackX.push(mx);
-                stackY.push(my);
-            };
-            chkdir(x + 1, y);
-            chkdir(x - 1, y);
-            chkdir(x, y + 1);
-            chkdir(x, y - 1);
-            if (diagonals) {
-                chkdir(x + 1, y + 1);
-                chkdir(x - 1, y - 1);
-                chkdir(x - 1, y + 1);
-                chkdir(x + 1, y - 1);
-            }
-        }
-    }
+// C ref: sp_lev.c:4584 — predicate typ for floodfillchk_match_under.
+let floodfillchk_match_under_typ = 0;
+
+// C ref: sp_lev.c floodfillchk_match_under `:4586-4590` — cell matches the
+// seed terrain (callers only reach here through isok-gated CHKDIR; the
+// null guard is JS-only, C indexes levl direct).
+function floodfillchk_match_under(x, y) {
+    const loc = game.level.at(x, y);
+    if (!loc) return false;
+    return floodfillchk_match_under_typ === loc.typ;
+}
+
+// C ref: sp_lev.c set_floodfillchk_match_under `:4592-4597`
+export function set_floodfillchk_match_under(typ) {
+    floodfillchk_match_under_typ = typ;
+    set_selection_floodfillchk(floodfillchk_match_under);
 }
 
 /**
@@ -26250,7 +26236,9 @@ function generate_way_out_method(nx, ny, ov) {
     ];
     const ov2 = selection_new();
 
-    selection_floodfill_accessible(ov2, nx, ny, true);
+    // C sp_lev.c:5158 — the global still holds floodfillchk_match_accessible
+    // (installed once by ensure_way_out, sp_lev.c:5225).
+    selection_floodfill(ov2, nx, ny, true);
     let ov3 = selection_clone(ov2);
 
     /* try to make a secret door */
@@ -26325,9 +26313,12 @@ function ensure_way_out() {
     const ov = selection_new();
     let ret = true;
 
+    // C sp_lev.c:5225 — one install covers every flood below.
+    set_selection_floodfillchk(floodfillchk_match_accessible);
+
     for (let stway = g.stairs; stway; stway = stway.next) {
         if ((stway.tolev?.dnum | 0) === (g.u?.uz?.dnum | 0))
-            selection_floodfill_accessible(ov, stway.sx, stway.sy, true);
+            selection_floodfill(ov, stway.sx, stway.sy, true); // C sp_lev.c:5229
     }
 
     const traps = g.level?.traps;
@@ -26336,7 +26327,7 @@ function ensure_way_out() {
             if (!ttmp) continue;
             if ((undestroyable_trap(ttmp.ttyp) || is_hole(ttmp.ttyp))
                 && !selection_getpoint(ttmp.tx, ttmp.ty, ov))
-                selection_floodfill_accessible(ov, ttmp.tx, ttmp.ty, true);
+                selection_floodfill(ov, ttmp.tx, ttmp.ty, true); // C sp_lev.c:5236
         }
     }
 
@@ -26348,7 +26339,7 @@ function ensure_way_out() {
                 if (loc && ACCESSIBLE(loc.typ)
                     && !selection_getpoint(x, y, ov)) {
                     if (generate_way_out_method(x, y, ov))
-                        selection_floodfill_accessible(ov, x, y, true);
+                        selection_floodfill(ov, x, y, true); // C sp_lev.c:5247
                     ret = false;
                     break outer;
                 }
@@ -26481,41 +26472,98 @@ export function selection_setpoint(x, y, sel, c) {
     }
 }
 
-/**
- * C ref: selvar.c selection_floodfill + sp_lev floodfillchk_match_under.
- * Stack walk; matchTyp is terrain under the seed cell.
- */
-function selection_floodfill(ov, x0, y0, diagonals, matchTyp) {
-    if (!ov || !isok(x0, y0)) return;
-    const stackX = [];
-    const stackY = [];
-    const queued = new Set();
-    const enqueue = (nx, ny) => {
-        if (!isok(nx, ny)) return;
-        const key = `${nx},${ny}`;
-        if (queued.has(key) || selection_getpoint(nx, ny, ov)) return;
-        const loc = game.level.at(nx, ny);
-        if (!loc || loc.typ !== matchTyp) return;
-        queued.add(key);
-        stackX.push(nx);
-        stackY.push(ny);
-    };
-    enqueue(x0, y0);
-    while (stackX.length) {
-        const x = stackX.pop();
-        const y = stackY.pop();
-        selection_setpoint(x, y, ov, 1);
-        enqueue(x + 1, y);
-        enqueue(x - 1, y);
-        enqueue(x, y + 1);
-        enqueue(x, y - 1);
-        if (diagonals) {
-            enqueue(x + 1, y + 1);
-            enqueue(x - 1, y - 1);
-            enqueue(x - 1, y + 1);
-            enqueue(x + 1, y - 1);
-        }
+// C ref: selvar.c:369 — floodfill predicate installed by
+// set_selection_floodfillchk; null until a caller installs one.
+let selection_flood_check_func = null;
+
+// C ref: selvar.c set_selection_floodfillchk `:371-375`
+export function set_selection_floodfillchk(f) {
+    selection_flood_check_func = f;
+}
+
+// C ref: selvar.c sel_flood_havepoint `:377-392` — linear scan of the live
+// stack for <x,y> (C scans xs[0..n); array suffix past idx holds popped
+// cells, never scanned).
+function sel_flood_havepoint(x, y, xs, ys, n) {
+    while (n > 0) {
+        --n;
+        if (xs[n] === x && ys[n] === y) return true;
     }
+    return false;
+}
+
+// C ref: selvar.c selection_free `:32-44` — release the map; freesel only
+// drops the struct itself (GC here), else C memsets it to zero. JS
+// selections are Set-backed, so both arms reset to the empty shape.
+export function selection_free(sel, freesel) {
+    if (!sel) return;
+    if (sel.pts) sel.pts.clear();
+    sel.lx = COLNO;
+    sel.ly = ROWNO;
+    sel.hx = 0;
+    sel.hy = 0;
+}
+
+/**
+ * C ref: selvar.c selection_floodfill `:394-452` — generic flood over the
+ * installed selection_flood_check_func predicate. The seed is pushed with
+ * no predicate check (C `:428`) and always joins ov when in bounds; each
+ * neighbour needs isok + predicate + not-visited-this-call (C `tmp`) +
+ * not-already-stacked, in C `&&` order (C `:411-418`); the stack overrun
+ * is C panic (loud throw ≡ C panic, house idiom).
+ */
+export function selection_floodfill(ov, x, y, diagonals) {
+    const tmp = selection_new(); // C `:400`
+    // C `:401` #define SEL_FLOOD_STACK (COLNO * ROWNO)
+    const SEL_FLOOD_STACK = COLNO * ROWNO;
+    let idx = 0; // C `:420`
+    const dx = new Array(SEL_FLOOD_STACK); // C `:421-422`
+    const dy = new Array(SEL_FLOOD_STACK);
+    // C SEL_FLOOD `:402-410` — push with stack-overrun panic
+    const SEL_FLOOD = (nx, ny) => {
+        if (idx < SEL_FLOOD_STACK) {
+            dx[idx] = nx;
+            dy[idx] = ny;
+            idx++;
+        } else {
+            // C: panic(floodfill_stack_overrun)
+            throw new Error('floodfill stack overrun');
+        }
+    };
+    // C SEL_FLOOD_CHKDIR `:411-418`
+    const SEL_FLOOD_CHKDIR = (mx, my, sel) => {
+        if (isok(mx, my) // C `:413`
+            && selection_flood_check_func(mx, my) // C `:414`
+            && !selection_getpoint(mx, my, sel) // C `:415`
+            && !sel_flood_havepoint(mx, my, dx, dy, idx)) // C `:416`
+            SEL_FLOOD(mx, my); // C `:417`
+    };
+
+    if (selection_flood_check_func == null) { // C `:424`
+        selection_free(tmp, true); // C `:425`
+        return; // C `:426`
+    }
+    SEL_FLOOD(x, y); // C `:428`
+    do { // C `:429`
+        idx--; // C `:430`
+        x = dx[idx]; // C `:431`
+        y = dy[idx]; // C `:432`
+        if (isok(x, y)) { // C `:433`
+            selection_setpoint(x, y, ov, 1); // C `:434`
+            selection_setpoint(x, y, tmp, 1); // C `:435`
+        }
+        SEL_FLOOD_CHKDIR(x + 1, y, tmp); // C `:437`
+        SEL_FLOOD_CHKDIR(x - 1, y, tmp); // C `:438`
+        SEL_FLOOD_CHKDIR(x, y + 1, tmp); // C `:439`
+        SEL_FLOOD_CHKDIR(x, y - 1, tmp); // C `:440`
+        if (diagonals) { // C `:441`
+            SEL_FLOOD_CHKDIR(x + 1, y + 1, tmp); // C `:442`
+            SEL_FLOOD_CHKDIR(x - 1, y - 1, tmp); // C `:443`
+            SEL_FLOOD_CHKDIR(x - 1, y + 1, tmp); // C `:444`
+            SEL_FLOOD_CHKDIR(x + 1, y - 1, tmp); // C `:445`
+        }
+    } while (idx > 0); // C `:447`
+    selection_free(tmp, true); // C `:451`
 }
 
 /** C ref: nhlsel.c l_selection_fillrect / selection.area — absolute rect. */

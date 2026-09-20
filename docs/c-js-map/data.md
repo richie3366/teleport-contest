@@ -958,9 +958,12 @@ percent terrain + shops/temple/watch; seed0360 prefix **41777→43248**) +
 seed0360 Scr **589→616**; prefix **180→231**; **D-1490 `minetn-1` Orcish Town**; 
 **D-1503 `minetn-6` Bustling Town** (solidfill then mines lit=1 bg HWALL + 
 top-aligned map `'x'` skip + shops/temple/peaceful watch; **D-2095
-`ensure_way_out`/`generate_way_out_method` live** — `floodfillchk_match_accessible` + 
+`ensure_way_out`/`generate_way_out_method` live** — `floodfillchk_match_accessible` +
 `selection_floodfill_accessible`, called pre-wallification per C `load_special`
-`inaccessibles` arm; **D-2101** driver rescan is C-faithful (`break outer` = `goto outhere` `sp_lev.c:5241-5251`, rescan from x=1)); 
+`inaccessibles` arm; **D-2665 `selvar.c` selection_floodfill generic live**
+(`set_selection_floodfillchk` + `sel_flood_havepoint` + `selection_free` exports;
+accessible clone retired → installer + generic call per C `sp_lev.c:5225/5158/5229/5236/5247`;
+7 Lua-`selection.floodfill` sites via `set_floodfillchk_match_under` per `nhlsel.c:750-751`); **D-2101** driver rescan is C-faithful (`break outer` = `goto outhere` `sp_lev.c:5241-5251`, rescan from x=1)); 
 **D-1504 `minetn-7` Bazaar Town** (nested `des.room` 30×15 + `percent(75)` 
 nests + chance shops + sink `pos=0` door + temple `align[1]` + watch) +
 **D-1513 town-floor `des.monster("gnome")` ×3** (lua `:155–165`; not four;
