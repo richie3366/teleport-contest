@@ -1642,6 +1642,15 @@ out); 6 clones retired (fountain depth-only + makemon/mklev/mkobj
 delegators); 29 C call sites wired (do Tourist gate fixed from depth;
 `nhlua.c:961` Lua push named — no JS lua runtime); full 44 + cohort 7/7.
 
+**`insert_branch` `:462–508`** (D-2630; C order: extract identity scan
+`:469–472`, missing → throw with the C message `:474–475` per botl.js
+panic precedent, unlink `:476–479` ⇔ splice; `next = null` `:481`;
+`branch_val` macro `:484–487` existing helper; `prev_val = -1` `:493`,
+`new_val` `:494`, guarded scan + insertAt `:495–500`, link `:501–507` ⇔
+splice; `.next` stays null — no JS reader, save.js JSON-copies);
+callers wired: `:534` add_branch `js/dungeon.js:355`, `:1156` fixup Knox
+`:964`, `mklev.c:2655` mk_knox_portal `js/mklev.js:25247`; named: none.
+
 ### `src/options.c` saveoptions writer
 
 JS: `js/options.js` — partial ([campaign 5/7])
