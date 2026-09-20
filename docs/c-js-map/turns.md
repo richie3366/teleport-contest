@@ -865,7 +865,7 @@ putmixed no forced more** (D-0330); **`checkfile` ask via `y_n` (NEED_MORE→mor
 **`brief_at`/`describe_looked` tseen trap → `trapname`** (D-0424) + **trap-glyph `a trap (lookat)`** (D-1874; `do_screen_description` `:1220` first-match + didlook `:1611–1614` parenthetical; vibrating-square `an(x_str)` arm still deferred); 
 **`describe_looked` DECgraphics wall ↔ swallow mid + Unicode │** (D-0425; 
 trapped_chest/door + Hallucination + full showsyms cmap scan + SDOOR deferred); 
-omit full `key2extcmddesc` misc/numpad; PORT_HELP; getpos menu-jump/hilite; lootabc true; 
+**`key2extcmddesc` whole body D-2702** (C `cmd.c:2561–2621` → `js/pager.js` in C order: movecmd WALK/RUSH/RUN probe with C fall-through, digit/num_pad count arms incl. M5/M0 pcHack_compat, misc_keys loop via live spkeys+defaults, cmdbind "desc (#txt)" + reqmenu two-line rewrite + " (##)" strip; live `movecmd` `js/dokeylist.js` via txt-identity vs MOVE_* tables + down/up, C xdir/ydir/zdir, `!u.dz`; caller `pager.c:2588` wired `dowhatdoes_core`; named: rest_on_space/number_pad layouts, getdir MV_ANY site keeps inline handling); PORT_HELP; getpos menu-jump/hilite; lootabc true; 
 look_traps format; custom BIND=/number_pad; 
 selectable `process_menu_window` path; **`self_lookat` → `pmname(umonnum,Ugender)` not male 
 `urole.name.m`** (D-0664) + **Punished `, chained to ` + `ansimpleoname(uball)`** (D-0928 #1149; 

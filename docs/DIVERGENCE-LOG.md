@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2702 — `cmd.c` key2extcmddesc whole C body + live movecmd
+
+- Status: SHIPPED (breadth phase). Popped the first Open — coverage row; no Must-fix live, row cites no review, no corpus session blocked (RNG 0, msg 0).
+- Symptom: coverage PARTIAL — JS 36 L hardcoded ~24-letter table (`js/pager.js:2994`, no moves/digits/prefixes/overlays) vs C 60 L `cmd.c:2561–2621`; callee `movecmd` had no JS symbol (brief NOT FOUND).
+- C locus: `cmd.c:2561–2621` `key2extcmddesc(uchar key)` — movecmd WALK→"move"/RUSH→"rush"/RUN→"run" probe with fall-through (no return: a bound move key is re-described by the cmdbind arm, so the probe's effect is the dx/dy/dz set); `digit \|\| (num_pad && digit(unmeta))` count arms (`'5'`/M5 run-vs-rush prefix via `!!pcHack_compat ^ (key == M_5)`; `'0'`/M0 synonym for 'i'; buffer reset on entry, return only if non-empty); misc_keys loop (ESC always, COUNT only if `iflags.num_pad`; `gc.Cmd.spkeys` with `spkeys_binds` defaults); cmdbind `"desc (#txt)"` + reqmenu two-line prefix rewrite (`:1826`) + `" (##)"` strip; else NULL. Callees: `movecmd` `:3868–3898` (move_funcs ef_funct compare rows 0–9, `u.dx/dy/dz` set, `!u.dz` return), `cmdbind_get` `:2109–2123`, misc_keys `:2088–2094`, spkeys_binds `:3161`, `digit` (`hacklib.c:62–66`), `unmeta` (`global.h:490`), `M` (`global.h:480`).
+- JS was: thin local `key2extcmddesc` (`js/pager.js:2994`, hardcoded binds, null for moves/digits/prefixes); no `movecmd` anywhere in `js/`.
+- Fix: restarted `key2extcmddesc` in C order with the fall-through preserved; ported `movecmd` as a live export in `js/dokeylist.js` (ef_funct identity via extcmd txt: `MOVE_WALK/RUN/RUSH_ECNAMES` rows 0–7 + `down`/`up` rows 8–9, high-to-low scan, C `xdir/ydir/zdir` from `decl.c:77–79`); exported `MISC_KEYS`/`SPKEYS_DEFAULT` (shared table, no clone); num_pad reads `game.Cmd?.num_pad \|\| game.iflags?.num_pad` per tree convention (C fields mirror, `hack.h:249`); strncmpi/strcmpi as inline lower-compares, `strsubst` live.
+- JS: `js/pager.js` `key2extcmddesc` (~70 L); `js/dokeylist.js` `movecmd` export + `MISC_KEYS`/`SPKEYS_DEFAULT` exports; pager imports extended on ALREADY edges (dokeylist, const MV_*).
+- Callers: C `pager.c:2588` dowhatdoes → JS `js/pager.js:3058` `dowhatdoes_core` (already wired, unchanged); `cmd.c:1826` is a comment. `movecmd`'s other C caller `cmd.c:4095` getdir MV_ANY keeps its inline dir-key handling (D-1038/D-2434) — named, not re-wired.
+- Verify: `node scripts/verify.mjs --fn key2extcmddesc` → PASS (syntax 2 files; rule2; hidden: none blocked; reach: no RNG reach, smoke 24/24 REACH-OK; green 2/2; strict both; cohort 7/7; full skipped — no shared file). Probe: `h`→"move west (screen left) (#movewest)." dx=-1; `m`→two-line reqmenu; `#`→stripped; ` `(space)→null (C `#if 0`s space→wait by default, `commands_init`); M('5')→"prefix: rush … (#rush)" (always bound, `commands_init`).
+- Named omissions: rest_on_space wait binding (pre-existing `js/dokeylist.js` omit, inherited via `cmdbind_get`); number_pad/swap_yz/phone dir layouts (same); getdir MV_ANY site (above); BIND= overlay on walk keys (pre-existing).
+- Next: next Open — coverage row (`dungeon.c` count_feat_lastseentyp).
+
 ## D-2701 — `sp_lev.c` set_wallprop_in_selection whole C body
 
 - Status: SHIPPED (breadth phase). Popped the first Open — coverage row; no Must-fix live, no review cites it, no corpus session blocked (RNG 0, msg 0).

@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
+- [x] `cmd.c` key2extcmddesc — coverage PARTIAL (C 60 L `cmd.c:2561–2621` / JS 36 L in js/pager.js; hops 3, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn key2extcmddesc` (reach regression must be 0). Measured `port-coverage.mjs --name key2extcmddesc` 2026-09-21 @ 3de22e5b. **Addressed:** D-2702
+
+
 - [x] `sp_lev.c` set_wallprop_in_selection — coverage MISSING (C 21 L `sp_lev.c:5911–5932` / JS no symbol; hops —, callers 2, RNG 0, msg 0; dead callees: selection_clear). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn set_wallprop_in_selection` (reach regression must be 0). Measured `port-coverage.mjs --name set_wallprop_in_selection` 2026-09-21 @ 471b8f58.
 
 
