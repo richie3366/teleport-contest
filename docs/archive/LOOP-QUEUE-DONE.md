@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
-- [x] `eat.c` consume_oeaten — coverage THIN (C 64 L `eat.c:3808–3872` / JS 15 L in js/eat.js; hops 3, callers 7, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn consume_oeaten` (reach regression must be 0). Measured `port-coverage.mjs --name consume_oeaten` 2026-09-20 @ a5342d8b. **Addressed:** D-2631.
+- [x] `do_wear.c` inaccessible_equipment — coverage PARTIAL (C 54 L `do_wear.c:3342–3400` / JS 31 L in js/apply.js; hops —, callers 6, RNG 0, msg 6). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn inaccessible_equipment` (reach regression must be 0). Measured `port-coverage.mjs --name inaccessible_equipment` 2026-09-20 @ a5342d8b. **Addressed:** D-2632
+
+
+- [x] `eat.c` consume_oeaten — coverage THIN (C 64 L `eat.c:3808–3872` / JS 15 L in js/eat.js; hops 3, callers 7, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn consume_oeaten` (reach regression must be 0). Measured `port-coverage.mjs --name consume_oeaten` 2026-09-20 @ a5342d8b. **Addressed:** D-2631 `0c7ee796`.
 
 
 - [x] `dungeon.c` insert_branch — coverage THIN (C 45 L `dungeon.c:463–508` / JS 18 L in js/dungeon.js; hops 2, callers 3, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn insert_branch` (reach regression must be 0). Measured `port-coverage.mjs --name insert_branch` 2026-09-20 @ a5342d8b. **Addressed:** D-2630 `c2f1d178`
