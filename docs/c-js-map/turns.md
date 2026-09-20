@@ -3440,7 +3440,8 @@ Tobjnam stop / big_corpse catch named);
 **edible `newdogpos`→`dog_eat` (re-`dogfood` + `delobj`)** (D-0168); 
 **`finish_meating` stub** (D-0169); **`mnum_leashable` PM-index leashable predicate** (D-1959; C `dogmove.c:1460–1469` in C order after `finish_meating`, `NUMMONS-1` for HIGH_PM); **`quickmimic` whole-body port + `qm[]`** (D-2488; C `dogmove.c:1429–1445` table + `:1472–1541` in C order — Protection/meating guard, DISMOUNT_POLY dismount, 5-try rn2 picks + tripe fallback, what-chain via `defsym_explanation`/OBJ strings/`pmname`, leash-slack, `more()` WIN_MAP flush; caller `mon.c:1447` wired via async `m_consume_obj` deadmimic arm); **`dog_nutrition` uses extracted `cwt`/`cnutrit`** (D-0193); 
 **`dog_nutrition` FOOD `objects[].oc_delay` + nutrition map + msize× + non-food `owt/20`** (D-0364; 
-`oeaten`/extractor `oc_nutrition` deferred); 
+whole-body restart D-2659: C-order `oeaten`/`eaten_stat` arm live, exact msize switch incl `MZ_GIGANTIC` 7, C-exact COIN `< 0` guards, unclamped else arm; 
+extractor `oc_nutrition` still via `FOOD_NUTRITION` fallback); 
 **`droppables` tool-keeping envelope live** (D-2401; C `dogmove.c:27–136` dummy/GOLD_PIECE sentinel, animal/mindless + tunnels/needspick + nohands/verysmall gates, `MON_WEP` canonical, mattock/W_ARMS + pick/horn/key artifact-preference FALLTHROUGH chain); omit bee jelly/rust spit/unpaid shop, `dog_invent` eat-return path (DOGFOOD/CADAVER/starving
 ACCFOOD→`dog_eat`, D-0223), pet-path `mdrop_obj` `flooreffects` still omitted (death-drop `relobj_on_death` flooreffects live D-2407), vault-guard gold, worn/shop extrinsics, 
 **`m_in_out_region` before `newdogpos` place**; `see_monster_closeup`; 
