@@ -3632,9 +3632,12 @@ self-kill NOMSG arm, grabbed/grabbing double-damage (`next2u`/`dist2`),
 `do_hallu` `rndmonnam` renames, `Invulnerable` unharmed,
 `monstseesu_ad`/`monstunseesu_ad`, `last_msg` CAUGHT_IN_EXPLOSION +
 It/The fatal, TRAP_EXPLODE `uhim` killer + own-blast `uhim`/`uhis`,
-`impossible()` diagnostics; named: You_hear Underwater/Unaware (no live
-Unaware export), `ugolemeffects`/`golemeffects` (no JS port), Upolyd
-`rehumanize` fatal path, `resists_magm` worn/artifact scan;
+`impossible()` diagnostics (incl. `explosionmask` hero+mon default arms, live
+this D via the existing display.js edge; `explode()` awaits both call sites);
+`explosionmask` monster-MAGM via canonical `resists_magm` (`js/mondata.js:183`,
+wielded/worn ANTIMAGIC scan — species-only `explode.js` clone retired);
+named: You_hear Underwater/Unaware (no live Unaware export),
+`ugolemeffects`/`golemeffects` (no JS port), Upolyd `rehumanize` fatal path;
 explosion_to_glyph is D-1738); 
 **`xkilled` treasure `mkobj(RANDOM_CLASS)` + food/size filters** (D-0229); 
 **`xkilled` final `newsym` after treasure/corpse** (D-0304); 

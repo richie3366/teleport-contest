@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-2691 | fixed |  — `explode.c` explosionmask remainder (impossible defaults + canonical resists_magm) |  |
 | D-2690 | fixed |  — `eat.c` edibility_prompts remainder arms (iced-corpse age + defended-AD_DISE) |  |
 | D-2689 | fixed |  — `trap.c` immune_to_trap whole-body port (TELEP/POLY/ANTI_MAGIC/FIRE arms) |  |
 | D-2688 | fixed |  — `nhmd4.c` nhmd4_body whole-family port (new C-home `js/nhmd4.js`) |  |

@@ -47,7 +47,7 @@ movement in the breadth phase, but tiny — the corpus still does not
 predict the judge.
 **Corpus fortress** (re-scored 2026-09-20 audit 1638–1646): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — **+0 / −0**
-in the D-2679…D-2690 window (9 ACCEPTs;
+in the D-2679…D-2691 window (9 ACCEPTs;
 every per-SHA `--reach-all` re-run here ends REACH-OK with no REGRESSED).
 Reviews 1225–1646: 378 ACCEPT, 15 WITH-DEBT, 1 DEBT, 23 QUALITY-RISK (1503, 1517, 1520 stamped; Must-fix 1533/1536 → D-2583/D-2584, 1568 → D-2610, 1592 → D-2636 `271ceca1`, 1617 → magic_negation floor Must-fix (addressed D-2661, review 1620 ACCEPT); hashes filled).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`) — review-debt, unqueued (detail in the review files).
@@ -100,10 +100,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** queue head `eat.c` edibility_prompts — coverage PARTIAL (C 104 L `eat.c:2627–2731` / JS 70 L in js/eat.js; hops —, callers 1, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn edibility_prompts` (reach regression must be 0). Measured `port-coverage.mjs --name edibility_prompts` 2026-09-20 @ 40ce1e84.
+**Next cluster:** queue head `explode.c` explosionmask — coverage PARTIAL (C 86 L `explode.c:26–115` / JS 58 L in js/explode.js; hops 4, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn explosionmask` (reach regression must be 0). Measured `port-coverage.mjs --name explosionmask` 2026-09-20 @ 40ce1e84. (Popped `mon.c` adj_erinys first: brief shows the whole C body already live in `js/monsters.js:265` with 0 blocked → Parked Stale, shipping explosionmask in the same iteration.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2690 (index).**
+**Keep D-0845…D-2691 (index).**
 <!-- recent:begin -->
+**D-2691**  — 
 **D-2690**  — 
 **D-2689**  — 
 **D-2688**  — 
@@ -111,11 +112,10 @@ revisits the picker.
 **D-2686**  — 
 **D-2685**  — 
 **D-2684**  — 
-**D-2683**  — 
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2690; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2691; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
