@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2689 — `trap.c` immune_to_trap whole-body port (TELEP/POLY/ANTI_MAGIC/FIRE arms)
+
+- Status: ACCEPT — breadth-phase coverage row (PARTIAL C 151 L `trap.c:2783–2934` / JS 111 L in js/trap.js; hops 3, callers 1, RNG 0, msg 0; no corpus session blocked — normal for a coverage row).
+- Symptom: four C arms absent or thinned in `js/trap.js:immune_to_trap`: TELEP walked a hand-inlined amulet loop instead of the live export; POLY tested hero-only `Antimagic_prop`, missing the monster `resists_magm` → CLEARLY arm; ANTI_MAGIC had no monster arm at all; FIRE/MAGIC skipped the carried-fuel invent walk (fire-resistant hero with scrolls returned HIDDEN without checking fuel).
+- C locus: `nethack-c/upstream/src/trap.c:2783–2934` + callees `mon_has_amulet` `wizard.c:105–114` (minvent walk), `resists_magm` `mondata.c:214–244` (covers Antimagic for player), `attacktype` `monattk.h` (AT_MAGC/AT_BREA) + C caller `hack.c:2561` (`avoid_trap_andor_region`).
+- JS was: `js/trap.js:1648` — C-order body with the four gaps above, documented as named omissions in the doc comment.
+- Fix: TELEP arm calls canonical `apply.js` `mon_has_amulet(mon)` (`imports.mjs --can` ALREADY — trap.js imports apply.js since line 152; inlined loop removed, module `AMULET_OF_YENDOR` const removed as now unused); POLY arm is C-exact `resists_magm(mon)` → `is_you ? HIDDEN : CLEARLY` (already imported from mondata.js); ANTI_MAGIC monster arm `!resists_magm(mon) && (mon.mcan || (!attacktype(pm, AT_MAGC) && !attacktype(pm, AT_BREA)))` → CLEARLY (file-local `attacktype`, muse/polyself/eat idiom, no shared exporter — no clone added); FIRE/MAGIC invent walk via file-local `firetrap_fuel(obj, is_you)` (scroll/potion/spbook or worn-`is_flammable`, known-fire-SCR/SPE exemption with hero `dknown && game.objects oc_name_known`; hero `(game.invent || [])` array vs monster `minvent` nobj chain per D-2477; new module consts `SCR_FIRE`/`SPE_FIREBALL` via `objectNames.indexOf`, lava-arm idiom).
+- JS: `js/trap.js` (`mon_has_amulet` import, `firetrap_fuel`, `immune_to_trap` TELEP/POLY/ANTI_MAGIC/FIRE arms, doc comment).
+- Callers: sole C caller `hack.c:2561` → wired `js/hack.js:1999` (`immune_to_trap(game.youmonst, trap.ttyp) !== TRAP_CLEARLY_IMMUNE`). None invented per reviews 1359/1361.
+- Verify: `node scripts/verify.mjs --fn immune_to_trap` → PASS syntax (1 changed js file) · PASS rule2 · note hidden (0 blocked at baseline — normal for a coverage row) · PASS reach (no RNG-tagged reach; fixed smoke spread 24 run: 24 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 (full skipped: no shared file changed) → VERIFY: PASS.
+- Named omissions: C's two impossible() paths (null-mon `:2789`, default bad-ttype `:2930`) stay out — sync port keeps no impossible path, per D-1868 review (same precedent as `m_harmless_trap` above it in file).
+- Next: queue head `eat.c` edibility_prompts (Open — coverage).
+
 ## D-2688 — `nhmd4.c` nhmd4_body whole-family port (new C-home `js/nhmd4.js`)
 
 - Status: ACCEPT — breadth-phase coverage row (MISSING C 94 L `nhmd4.c:83–180` / JS no symbol; 0 callees, 4 intra-file callers; no corpus session blocked — normal for a coverage row).

@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-2689 | fixed |  — `trap.c` immune_to_trap whole-body port (TELEP/POLY/ANTI_MAGIC/FIRE arms) |  |
 | D-2688 | fixed |  — `nhmd4.c` nhmd4_body whole-family port (new C-home `js/nhmd4.js`) |  |
 | D-2687 | fixed |  — `sounds.c` growl tail port (unconditional mx==0 wake + uroleplay permadeaf Deaf) |  |
 | D-2686 | fixed |  — `pray.c` blocked_boulder whole-body port (count-2 pool/lava sink arm + live sobj_at/is_pool/is_lava) |  |
