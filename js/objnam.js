@@ -2815,6 +2815,32 @@ export function simpleonames(obj) {
 }
 
 /**
+ * C ref: objnam.c actualoname `:2488–2498` — minimal_xname with override_ID
+ * (iflags.override_ID=TRUE): true type name even when oc_name_known is
+ * unset. Mirrors C's save/force/restore on the oc table (`:1045–1052`):
+ * suppress oc_uname, force oc_name_known + dknown, xname a singular
+ * bknown-0 copy, restore, strip the cleric-forced "uncursed " prefix
+ * (`:1084–1086`).
+ * Named omissions: bareobj field subset (corpsenm/known/owt/AMULET known —
+ * dead arms for the scroll/call use-case; simpleonames above documents the
+ * same minimal_xname subset); SLIME_MOLD spe copy (pretty_base reads live
+ * spe); distant_name wrapper (identity for carried objects).
+ */
+export function actualoname(obj) {
+    const oc = game.objects?.[obj.otyp | 0];
+    const save_uname = oc ? oc.oc_uname : undefined;
+    const save_name_known = oc ? oc.oc_name_known : undefined;
+    const save_dknown = obj.dknown;
+    if (oc) { oc.oc_uname = 0; oc.oc_name_known = 1; }
+    obj.dknown = 1;
+    let res = xname({ ...obj, quan: 1, bknown: 0 });
+    obj.dknown = save_dknown;
+    if (oc) { oc.oc_uname = save_uname; oc.oc_name_known = save_name_known; }
+    if (res.startsWith('uncursed ')) res = res.slice('uncursed '.length);
+    return res;
+}
+
+/**
  * C ref: objnam.c ansimpleoname — an()/the() + simpleonames.
  * Unique named items → "the …"; quan==1 → an(); else bare plural.
  * Named: FAKE_AMULET→AMULET unique remap deferred (uses otyp as-is).

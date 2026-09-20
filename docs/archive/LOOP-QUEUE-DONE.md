@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
-- [x] `region.c` rest_regions — coverage MISSING (C 93 L `region.c:799–892` / JS no symbol; hops 3, callers 1, RNG 0, msg 0; dead callees: reset_region_mids). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn rest_regions` (reach regression must be 0). Measured `port-coverage.mjs --name rest_regions` 2026-09-20 @ d62c8935. **Addressed:** D-2639
+- [x] `read.c` seffect_destroy_armor — coverage PARTIAL (C 72 L `read.c:1324–1396` / JS 51 L in js/read.js; hops 5, callers 1, RNG 1, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn seffect_destroy_armor` (reach regression must be 0). Measured `port-coverage.mjs --name seffect_destroy_armor` 2026-09-20 @ d62c8935. **Addressed:** D-2640
+
+
+- [x] `region.c` rest_regions — coverage MISSING (C 93 L `region.c:799–892` / JS no symbol; hops 3, callers 1, RNG 0, msg 0; dead callees: reset_region_mids). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn rest_regions` (reach regression must be 0). Measured `port-coverage.mjs --name rest_regions` 2026-09-20 @ d62c8935. **Addressed:** D-2639 `c48fc89f`
 
 
 - [x] `hack.c` avoid_trap_andor_region — coverage PARTIAL (C 67 L `hack.c:2515–2582` / JS 49 L in js/hack.js; hops 2, callers 1, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn avoid_trap_andor_region` (reach regression must be 0). Measured `port-coverage.mjs --name avoid_trap_andor_region` 2026-09-20 @ d62c8935. **Addressed:** D-2638 `d012b82b`

@@ -100,3 +100,101 @@ describe("seffect_destroy_armor cursed arm (read.c:1380-1383)", () => {
     assert.equal(gloves.spe, -1);
   });
 });
+
+// C ref: read.c seffect_destroy_armor `:1333–1352, :1372–1395` — whole-body
+// arms added by D-2640: confused naked (bones itch), confused erodeproof
+// swap, uncursed destroy_arm failure (skin itch), vibrate stun.
+describe("seffect_destroy_armor whole-body arms (read.c:1324-1396)", () => {
+  let saved;
+  beforeEach(() => {
+    saved = {
+      u: game.u,
+      invent: game.invent,
+      context: game.context,
+      flags: game.flags,
+      moves: game.moves,
+      objects: game.objects,
+    };
+  });
+  afterEach(() => {
+    game.u = saved.u;
+    game.invent = saved.invent;
+    game.context = saved.context;
+    game.flags = saved.flags;
+    game.moves = saved.moves;
+    game.objects = saved.objects;
+  });
+
+  const mkGloves = (over = {}) => ({
+    otyp: LEATHER_GLOVES,
+    o_id: 4243,
+    cursed: false,
+    blessed: false,
+    oerodeproof: false,
+    oartifact: 0,
+    spe: 0,
+    quan: 1,
+    owt: 10,
+    owornmask: W_ARMG,
+    ...over,
+  });
+
+  // C `:1334–1339` — confused, nothing worn: bones itch, scroll used up.
+  it("confused naked → bones-itch strange_feeling, scroll used up", async () => {
+    initRng(92173);
+    clear_nhwindow_message();
+    game.moves = 12;
+    game.u = { HConfusion: 5, uwep: null, twoweap: false };
+    const scroll = { otyp: -1, cursed: false, blessed: false, quan: 1 };
+    game.invent = [scroll];
+    game.context = {};
+    game.flags = {};
+    assert.equal(await seffect_destroy_armor(scroll), null);
+    assert.ok(!game.invent.includes(scroll));
+  });
+
+  // C `:1340–1349` — confused erodeproof swap with shop-charge restore.
+  it("confused erodeproof swap restores proof, scroll survives", async () => {
+    initRng(92173);
+    clear_nhwindow_message();
+    game.moves = 12;
+    const gloves = mkGloves({ oerodeproof: 1 });
+    game.u = { HConfusion: 5, uarmg: gloves, uwep: null, twoweap: false };
+    game.invent = [gloves];
+    const scroll = { otyp: -1, cursed: false, blessed: false, quan: 1 };
+    game.context = {};
+    game.flags = {};
+    assert.equal(await seffect_destroy_armor(scroll), scroll);
+    // uncursed scroll → new_erodeproof FALSE → COST_DEGRD arm ran, final 0
+    assert.equal(gloves.oerodeproof, 0);
+  });
+
+  // C `:1392–1393` — uncursed, nothing worn: destroy_arm fails, skin itch.
+  it("uncursed with no armor → destroy_arm fails → skin-itch null", async () => {
+    initRng(92173);
+    clear_nhwindow_message();
+    game.moves = 12;
+    game.u = { uwep: null, twoweap: false };
+    const scroll = { otyp: -1, cursed: false, blessed: false, quan: 1 };
+    game.invent = [scroll];
+    game.context = {};
+    game.flags = {};
+    assert.equal(await seffect_destroy_armor(scroll), null);
+    assert.ok(!game.invent.includes(scroll));
+  });
+
+  // C `:1363` — vibrate arm stuns: (HStun & TIMEOUT) + rn1(10,10).
+  it("vibrate arm sets HStun via make_stunned", async () => {
+    initRng(92173);
+    clear_nhwindow_message();
+    game.moves = 12;
+    const gloves = mkGloves({ cursed: true });
+    game.u = { uarmg: gloves, uwep: null, twoweap: false, HStun: 0 };
+    game.invent = [gloves];
+    const scroll = { cursed: true, quan: 1 };
+    game.context = {};
+    game.flags = {};
+    assert.equal(await seffect_destroy_armor(scroll), scroll);
+    assert.ok((game.u.HStun | 0) > 0, "HStun must be set by make_stunned");
+  });
+});
