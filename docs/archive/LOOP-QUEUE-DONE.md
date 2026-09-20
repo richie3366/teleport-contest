@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
-- [x] `options.c` shared_menu_optfn — coverage MISSING (C 21 L `options.c:2052–2074` / JS no symbol; hops —, callers 13, RNG 0, msg 0; dead callees: check_misc_menu_command, spcfn_misc_menu_cmd). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn shared_menu_optfn` (reach regression must be 0). Measured `port-coverage.mjs --name shared_menu_optfn` 2026-09-20 @ d2132aa7. **Addressed:** D-2651
+- [x] `earlyarg.c` scores_only — coverage MISSING (C 35 L `earlyarg.c:406–441` / JS no symbol; hops —, callers 4, RNG 0, msg 0; dead callees: config_error_done, panictrace_setsignals, opt_terminate). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn scores_only` (reach regression must be 0). Measured `port-coverage.mjs --name scores_only` 2026-09-20 @ c2b834cd.
+
+
+- [x] `options.c` shared_menu_optfn — coverage MISSING (C 21 L `options.c:2052–2074` / JS no symbol; hops —, callers 13, RNG 0, msg 0; dead callees: check_misc_menu_command, spcfn_misc_menu_cmd). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn shared_menu_optfn` (reach regression must be 0). Measured `port-coverage.mjs --name shared_menu_optfn` 2026-09-20 @ d2132aa7. **Addressed:** D-2651 `e3df8cae`
 
 
 - [x] `topten.c` writexlentry — coverage MISSING (C 51 L `topten.c:340–391` / JS no symbol; hops 4, callers 1, RNG 0, msg 0; dead callees: encodeconduct, encodeachieve, encode_extended_achievements, encode_extended_conducts, timet_to_seconds, encodexlogflags). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn writexlentry` (reach regression must be 0). Measured `port-coverage.mjs --name writexlentry` 2026-09-20 @ d2132aa7. **Addressed:** D-2650 `6f7dcc63`
