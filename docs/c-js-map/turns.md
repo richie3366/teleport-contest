@@ -1677,7 +1677,7 @@ D-0190); fulll `end_running`/`cmdq_clear`;
 **`overexert_hp` + melee `overexertion` HVY_ENCUMBER** (D-1003); pool/trap/sink; 
 **`describe_decor` mention_decor** (D-0356; D-1835 Fumbling defer / waterhere `waterbody_name` / ice `Norep` / `back_on_ground` full matrix + `ice_descr` shipped D-2384 (`js/trap.js`; other ice_descr callers keep local wording) / `force_decor` / `deferred_decor` timeout catch-up; 
 **`waterbody_name` Medusa/juiblex/samurai/ICE/waterlevel** D-0928 #1163; 
-**SURFACE_AT/`db_under_typ` D-1103**; ice_descr / `dfeature_at` ice/pool/lava/throne/drawbridge still named); 
+**SURFACE_AT/`db_under_typ` D-1103**; ice_descr + `dfeature_at` whole body live (D-2674); 
 Passes_walls/autodig/chew; Blind `feel_location`/`autopick` arms; 
 full `back_to_glyph`/`wall_angle`→S_stone / OOB mention_walls; floor TRADITIONAL query_classes is D-1620 (hideunder/newsym_force/engulfer minvent traditional; `safe_qbuf` is D-1654); 
 **`pickup_object` telekinesis / `lift_object` / `carry_count` / scare raise-vs-pick / corpse 
@@ -2513,7 +2513,7 @@ upstairs/dnstairs wrappers; `goto_level` newdungeon awaits;
 **#1151/#1156 overlay:** `look_here` passes `keep_message_leftover` so getpos WIN_MESSAGE leftovers 
 stay left of offx (C `display_nhwindow(WIN_MESSAGE,FALSE)` then no-op clear); 
 ordinary corner menus clear (D-0929 fixed); teleds placebc stays; 
-**`dfeature_at` D_BROKEN + `describe_decor` mention path** (D-0356); 
+**`dfeature_at` whole body live** (D-2674: door switch + drawbridge override, throne/lava/ice/pool, sink, altar wording, stairs/drawbridge/grave/tree/bars, cmap explanations, buf out-param; invented STAIRS arm removed; look_here Underwater/article wiring; `describe_decor` mention path D-0356); 
 **`observe_object` before `doname`** (D-0399; C xname_flags path — pile gems get color); 
 **`doname_with_price` for-sale via `get_cost_of_shop_item`** (D-0460); 
 **`doname` unpaid via `is_unpaid`/`unpaid_cost`** (D-0461); **feel_cockatrice D-1599** (skip/single/multi floor; pickup FEEL abort); engulfer stomach minvent feel named; 
