@@ -46,7 +46,7 @@ screens 93.2 %. Held-out 11/44, unchanged vs last audit (5,972 pts, RNG
 predict the judge.
 **Corpus fortress** (re-scored 2026-09-20 audit 1587–1594): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — **+0 / −0**
-in the D-2628…D-2635 window (7 ACCEPTs + 1 QUALITY-RISK;
+in the D-2628…D-2636 window (7 ACCEPTs + 1 QUALITY-RISK;
 every per-SHA `--reach-all` re-run here ends REACH-OK with no REGRESSED).
 Reviews 1225–1594: 328 ACCEPT, 14 WITH-DEBT, 1 DEBT, 22 QUALITY-RISK (1503, 1517, 1520 stamped; Must-fix 1533/1536 → D-2583/D-2584, 1568 → D-2610, 1592 open; hashes filled).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`) — review-debt, unqueued (detail in the review files).
@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** Must-fix `player_selection.js:875` (review 1592); then Open head.
+**Next cluster:** Must-fix review 1592 shipped as D-2636; then Open head.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2635 (index).**
+**Keep D-0845…D-2636 (index).**
 <!-- recent:begin -->
+**D-2636** ``nethack-c/upstream/src/role.c:1840–1844`` (RS_ROLE filter loop inside role_menu_extra `` — one-line ``i !== f`` → ``i !== fsel`` (the correctly-renamed local, already used at ``:891``/``:909``/``:935``/``:953``); exported ``menu_extra_lines`` + ``rfilter`` (additive, no caller change) so the arm is testable; n
 **D-2635** ``nethack-c/upstream/src/botl.c:1376–1454`` (cond_menu) + ``:1332–1342`` (cond_cmp) + ``:1 — new async export ``cond_menu`` in ``js/botl.js`` (C home) in C order with per-arm ``:line`` cites — file-local ``strcmpi_fold`` (toLowerCase shape, invent.js sortloot_cmp precedent), ``cond_cmp`` (ranking asc + alpha tie
 **D-2634** ``nethack-c/upstream/src/muse.c:1299–1340`` (m_use_undead_turning, staticfn) + ``:1293–129 — restarted the export in C order with per-arm ``:line`` cites — ported ``linedup_chk_corpse`` as a muse.js local (``sobj_at(CORPSE,x,y) !== null``; sobj_at returns obj|null per ``js/mkobj.js:2704``); exported ``linedup_ca
 **D-2633** ``nethack-c/upstream/src/role.c:1816–1960`` (role_menu_extra, static); all 24 call sites i — restarted the body in C order with per-arm ``:line`` cites — RS_NAME (``:1834``, ``f`` stays 0 → "Pick another name first" like C); RS_ROLE filter loop (``:1840–1844``, sparse ``rfilter.roles`` ≡ C zero-init); RACE (``:1
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2631** ``nethack-c/upstream/src/eat.c:3808–3872`` (consume_oeaten, decl ``extern.h:974``); caller — restarted the export in C order with per-arm ``:line`` cites — itembuf build (corpse/egg/tin ``[corpsenm]`` vs otyp decimal, ``:3814–3821``) + sync fire-and-forget impossible (``:3822–3825``, do_wear.js setworn ``:618`` 
 **D-2630** ``nethack-c/upstream/src/dungeon.c:462–508`` (insert_branch, decl ``extern.h:869``); calle — restarted the export in C order with per-arm ``:line`` cites — extract identity scan (``:469–472`` ⇔ ``indexOf``); missing → ``throw new Error('insert_branch: not found')`` (``:474–475`` panic; throw ≡ C panic per botl.j
 **D-2629** ``nethack-c/upstream/src/end.c:1823–1859`` (build_english_list, extern ``extern.h:1003``); — ported the whole C body in C order with per-arm ``:line`` cites — ``wordcount`` blank/word run counting (``:1797–1803``); ``bel_copy1`` skip-blanks + copy-word + advance-cursor (``:1813–1818``; cursor object stands in fo
-**D-2628** ``nethack-c/upstream/src/pickup.c:1897–1942`` (pick_obj); caller ``:1879`` (pickup_object  — restarted the export in C order with per-arm ``:line`` cites — ``fromfloor`` sampled before extract mutates ``where`` (``:1900``, ``|0`` int compare); ``(void) get_obj_location(otmp, &ox, &oy, 0)`` via the live ``timeout
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2635; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2636; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

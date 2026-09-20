@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-20 — D-2636 `role.c` role_menu_extra RS_ROLE filter-loop compare fix (`i !== f` → `i !== fsel`) + committed regression test
+
+**C locus:** ``nethack-c/upstream/src/role.c:1840–1844`` (RS_ROLE filter loop inside role_menu_extra ``:1816–1960``); ``f = r`` (``:1839``) is ``flags.initrole``.
+**JS:** ``js/player_selection.js`` (1-line fix + 2 export keywords); ``scripts/role-menu-extra.test.mjs`` (new, 2 its).
+**Change:** one-line ``i !== f`` → ``i !== fsel`` (the correctly-renamed local, already used at ``:891``/``:909``/``:935``/``:953``); exported ``menu_extra_lines`` + ``rfilter`` (additive, no caller change) so the arm is testable; new ``scripts/role-menu-extra.test.mjs`` (node:test, cond-menu.test.mjs precedent) drives RS_ROLE headless: filter-all-but-selected → ``filter forces role``; no filter → ``Pick another role first``.
+**Verify:** focused ``node --test scripts/role-menu-extra.test.mjs`` FAILED before the fix (``'? - Pick another role first'`` vs ``/filter forces role/``), 2/2 after. ``node scripts/verify.mjs --fn role_menu_extra`` → VERIFY: PASS — syntax (1 changed: js/player_selection.js); rule2; hidden note (no corpus session blocked); reach (no RNG-tagged reach, smoke 24 run → 24 PASS, 0 regressed → REACH-OK); green 2/2; strict ×2; cohort 7/7; full ``sessions`` 44/44 (shared startup file, re-ran like D-2633).
+**Named:** none new — D-2633's list stands (add_menu/add_menu_str ⇒ menu_pick line objects; cg.zeroany/nul_glyphinfo subsumed; Random preselect text kept).
+**Next:** pop the next Open — coverage row.
 ## 2026-09-20 — Audit 94148365..fe53547d (reviews 1587–1594: 7 ACCEPT, 1 QUALITY-RISK) + cadence 44/44
 
 D-2628…D-2635 audited vs pinned C (per-SHA `--reach-all` REACH-OK, no REGRESSED): 7 exact; D-2633 QUALITY-RISK (`player_selection.js:875` `i !== f`), Must-fix prepended, Next cluster set. Cadence 44/44, held-out 11/44, corpus 497/540 +0/−0.

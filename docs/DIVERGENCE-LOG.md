@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2636 — `role.c` role_menu_extra RS_ROLE filter-loop compare fix (`i !== f` → `i !== fsel`) + committed regression test
+
+- **Status:** fixed (Must-fix review 1592 — Keep'd C-wrong on D-2633's restart: ``js/player_selection.js:875`` RS_ROLE loop ``i !== f`` where ``f`` is the module-level ``function f()`` (``:51``, returns the flags object), not C's local ``f`` (= initrole, renamed ``fsel`` at ``:872``). Number-vs-function compares always-true, so the scan breaks at the selected role itself and the ``"filter forces role"`` constrainer arm (C ``:1842–1844``) can never trigger when only the selected role passes the filter.)
+- **Symptom:** C-wrong, not coverage — common-case outcome identical (both break before the end), so every gate stayed green; the arm contradicts C on the filtered-role chargen path no corpus session exercises (review 1592 verification was genuine but blind to it).
+- **C locus:** ``nethack-c/upstream/src/role.c:1840–1844`` (RS_ROLE filter loop inside role_menu_extra ``:1816–1960``); ``f = r`` (``:1839``) is ``flags.initrole``.
+- **JS was:** ``js/player_selection.js:875`` ``if (i !== f && !rfilter.roles[i]) break;`` — ``f`` resolves to the module function, always true for numeric ``i``.
+- **Fix:** one-line ``i !== f`` → ``i !== fsel`` (the correctly-renamed local, already used at ``:891``/``:909``/``:935``/``:953``); exported ``menu_extra_lines`` + ``rfilter`` (additive, no caller change) so the arm is testable; new ``scripts/role-menu-extra.test.mjs`` (node:test, cond-menu.test.mjs precedent) drives RS_ROLE headless: filter-all-but-selected → ``filter forces role``; no filter → ``Pick another role first``.
+- **JS:** ``js/player_selection.js`` (1-line fix + 2 export keywords); ``scripts/role-menu-extra.test.mjs`` (new, 2 its).
+- **Callers:** unchanged — the 8 awaited pick_*_menu sites from D-2633 (``js/player_selection.js:1050–1058`` / ``:1137–1143`` / ``:1217–1223`` / ``:1297–1303``) already call the fixed body (reviews 1359/1361 — no new call sites, none missed).
+- **Verify:** focused ``node --test scripts/role-menu-extra.test.mjs`` FAILED before the fix (``'? - Pick another role first'`` vs ``/filter forces role/``), 2/2 after. ``node scripts/verify.mjs --fn role_menu_extra`` → VERIFY: PASS — syntax (1 changed: js/player_selection.js); rule2; hidden note (no corpus session blocked); reach (no RNG-tagged reach, smoke 24 run → 24 PASS, 0 regressed → REACH-OK); green 2/2; strict ×2; cohort 7/7; full ``sessions`` 44/44 (shared startup file, re-ran like D-2633).
+- **Named omissions:** none new — D-2633's list stands (add_menu/add_menu_str ⇒ menu_pick line objects; cg.zeroany/nul_glyphinfo subsumed; Random preselect text kept).
+- **Next:** pop the next Open — coverage row.
+
 ## D-2635 — `botl.c` cond_menu whole-body port (status-conditions PICK_ANY menu + doset caller) + 2 stale parks
 
 - **Status:** fixed (Open — coverage row ``botl.c`` cond_menu MISSING (C 78 L ``botl.c:1376–1454`` / JS no symbol; hops —, callers 2, RNG 0, msg 0). Measured ``port-coverage.mjs --name cond_menu`` 2026-09-20 @ f6b591c3. Queue heads ``mon.c`` mon_givit + ``getpos.c`` gather_locs proved STALE same iteration — mon_givit whole body live ``js/mon.js:2735`` in C order (all callees live incl. canseemon/canspotmon display.js imports; callers ``js/mhitm.js:3883`` + ``js/mon.js:2415`` wired; 0 blocked; 0.57 ratio is the 17-line C comment); gather_locs whole body live ``js/getpos.js:911`` (filter_init, x1..COLNO scan, u_at||interesting, distu sort, filter_done; alloc=GC; callers getpos_menu ``:946`` + cycle ``:1549`` wired; 0 blocked) — parked, next row shipped.)

@@ -46,7 +46,7 @@ import {
 import { ATR_INVERSE, NO_COLOR } from './terminal.js';
 
 /** C: gr.rfilter — role/race/gend/align exclusion masks for chargen. */
-const rfilter = { roles: [], mask: 0 };
+export const rfilter = { roles: [], mask: 0 };
 
 function f() {
     return game.flags || (game.flags = {});
@@ -852,7 +852,7 @@ function aspect_header() {
  * C `:1834` RS_NAME leaves `f = 0`, so the label reads "Pick another name
  * first" exactly like C. Bad-arg arm awaits live `display.js impossible`.
  */
-async function menu_extra_lines(which, preselectRandom = false) {
+export async function menu_extra_lines(which, preselectRandom = false) {
     const flags = f();
     const lines = [];
     const r = flags.initrole; // C `:1829`
@@ -872,7 +872,7 @@ async function menu_extra_lines(which, preselectRandom = false) {
         fsel = r;
         let i = 0;
         for (; i < roles.length; ++i)
-            if (i !== f && !rfilter.roles[i]) break;
+            if (i !== fsel && !rfilter.roles[i]) break;
         if (i === roles.length) {
             constrainer = 'filter';
             forcedvalue = 'role';
