@@ -135,4 +135,4 @@ don't gate corpus RNG), which is exactly why the audit-against-C
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-2697
+**Addressed:** D-2697 `3de22e5b`

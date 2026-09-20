@@ -391,6 +391,18 @@ export function On_ladder(x, y) {
     return !!(stway && stway.isladder);
 }
 
+/** C ref: stairs.c On_stairs_up `:162-167` — stairway_at != NULL && up. */
+export function On_stairs_up(x, y) {
+    const stway = stairway_at(x | 0, y | 0);
+    return !!(stway && stway.up);
+}
+
+/** C ref: stairs.c On_stairs_dn `:170-175` — stairway_at != NULL && !up. */
+export function On_stairs_dn(x, y) {
+    const stway = stairway_at(x | 0, y | 0);
+    return !!(stway && !stway.up);
+}
+
 /** C ref: stairs.c stairway_find_dir — first stairway with matching up. */
 function stairway_find_dir(up) {
     const want = !!up;
