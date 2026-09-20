@@ -3,9 +3,13 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-09-20
+
+- [x] `mondata.c` can_blnd — coverage THIN (C 89 L `mondata.c:305–398` / JS 20 L in js/uhitm.js; hops 3, callers 11, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn can_blnd` (reach regression must be 0). Measured `port-coverage.mjs --name can_blnd` 2026-09-20 @ d89bb259. **Addressed:** D-2604
+
 ## 2026-09-19
 
-- [x] `rumors.c` outoracle — coverage PARTIAL (C 53 L `rumors.c:640–693` / JS 31 L in js/rumors.js; hops 4, callers 1, RNG 1, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn outoracle` (reach regression must be 0). Measured `port-coverage.mjs --name outoracle` 2026-09-20 @ d89bb259. **Addressed:** D-2603
+- [x] `rumors.c` outoracle — coverage PARTIAL (C 53 L `rumors.c:640–693` / JS 31 L in js/rumors.js; hops 4, callers 1, RNG 1, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn outoracle` (reach regression must be 0). Measured `port-coverage.mjs --name outoracle` 2026-09-20 @ d89bb259. **Addressed:** D-2603 `7a1bbc96`
 
 
 - [x] `insight.c` fmt_elapsed_time — coverage MISSING (C 44 L `insight.c:314–358` / JS no symbol; hops 5, callers 1, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn fmt_elapsed_time` (reach regression must be 0). Measured `port-coverage.mjs --name fmt_elapsed_time` 2026-09-20 @ d89bb259. **Addressed:** D-2602 `6a6edff6`

@@ -46,7 +46,7 @@ judge 18:47Z cached, unchanged 11/44 5,776 pts vs last audit): the corpus still 
 not predict the judge.
 **Corpus fortress** (re-scored 2026-09-20 audit 1551–1559): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — **+0 / −0**
-in the D-2592…D-2603 window (all 9 ports coverage-only; every per-SHA
+in the D-2592…D-2604 window (all 9 ports coverage-only; every per-SHA
 `--reach-all` re-run here ends REACH-OK with no REGRESSED session).
 Reviews 1225–1559: 298 ACCEPT, 11 WITH-DEBT, 1 DEBT, 20 QUALITY-RISK (1503, 1517, 1520 stamped; 1533 + 1536 Must-fix rows shipped as D-2583/D-2584 with `**Addressed:**` hashes filled).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem) — review-debt, unqueued (detail in the review files).
@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `rumors.c` outoracle — coverage PARTIAL (C 53 L `rumors.c:640–693` / JS 31 L in js/rumors.js; hops 4, callers 1, RNG 1, msg 4). Measured `port-coverage.mjs --name outoracle` 2026-09-20 @ d89bb259.
+**Next cluster:** `mondata.c` can_blnd — coverage THIN (C 89 L `mondata.c:305–398` / JS 20 L in js/uhitm.js; hops 3, callers 11, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn can_blnd` (reach regression must be 0). Measured `port-coverage.mjs --name can_blnd` 2026-09-20 @ d89bb259.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2603 (index).**
+**Keep D-0845…D-2604 (index).**
 <!-- recent:begin -->
+**D-2604** `nethack-c/upstream/src/mondata.c:305–398`; callees `resists_blnd` `:247–272` + `resists_b — restarted `can_blnd` in C order with `:line` cites — `:316–317` haseyes, `:320–321` perma-blind, `:327–328` raven-vs-raven (`mons(PM_RAVEN)` identity, gulpmu precedent), `:337–339` light arm (`magr.mcan` + canonical `!re
 **D-2603** `nethack-c/upstream/src/rumors.c:640–693`; sole C caller `:755` (`doconsult` — restarted `init_oracles` + `outoracle` in C order with `:line` cites — `:649–650` early return, `:652` embed-open check with the `:689–692` open-failed arm live (`couldnt_open_file(ORACLEFILE)` + `oracle_flg = -1`; unrea
 **D-2602** `nethack-c/upstream/src/insight.c:313–358` (staticfn, decl `:25`); sole C caller `:448` (` — new exported `fmt_elapsed_time(final)` (`js/insight.js:182`) in C order with `:line` cites — `:322–325` etim (+ live `timet_delta(getnow(), start_timing)` iff `!final`; game-over path already folded by really_done/end.js
 **D-2601** `nethack-c/upstream/src/worn.c:579–712`; callers `steal.c:845`, `steed.c:162`, `trap.c:251 — restarted `update_mon_extrinsics` in C order with `:line` cites — unseen `:591`, early maybe_blocks `:592–593`, again-loop `:595`/`:688–690`, on-switch `:597–632`, off-switch `:634–683` (resistance rescan `:669–679` with
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2599** `nethack-c/upstream/src/mail.c:589–680`; callers `mail.c:696` (ck_server_admin_msg adminms — new exported async `read_simplemail(mbox, adminmsg)` (`js/mail.js`) following the SIMPLE_MAIL source-level body in C order with `:line` cites — VFS spool read for `:591` fopen (VFS miss ≡ fopen NULL; Rule #2, fopen_wizki
 **D-2598** `nethack-c/upstream/src/mhitm.c:597–640`; callers `mhitm.c:451/485/529` (AT_TUCH eel pre-c — restarted the canonical export in C order with `:line` cites — entry gate (`:605–611`), message gate (`:612–613`), tailmiss snapshot (`:616`), verb (`:617–619`), magrnam (`:624–625`), mdefnam (`:626–632`, live `some_mon_
 **D-2597** `nethack-c/upstream/src/mklev.c:1595–1656` (SPECIALIZATION off per `global.h:120`, so the  — restarted `topologize` in C order with `:line` cites — roomno via `roomnoidx + ROOMOFFSET` (`:1602`, ≡ pointer arithmetic, set by add_subroom/do_room_or_subroom); bounds (`:1603–1604`); `nsubrooms` snapshot (`:1609`); al
-**D-2596** `nethack-c/upstream/src/pickup.c:2558–2712` (staticfn) + same-file staticfn `mbag_explodes — restarted `in_container` in C order with `:line` cites — entry `floor_container`/`was_unpaid` (`:2560`); `impossible` null guard (`:2564–2567`); `You must be kidding` (`:2568`); topological (`:2571`); worn `Norep` refrig
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2603; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2604; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

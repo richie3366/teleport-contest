@@ -101,8 +101,9 @@ import { which_armor, is_flimsy, extract_from_minvent } from './worn.js';
 import { obj_resists } from './dogmove.js';
 import { u_wipe_engr } from './engrave.js';
 import { cutworm } from './worm.js';
-import { m_unleash } from './apply.js';
-import { mhe, mhis, defended } from './mondata.js';
+import { m_unleash, objdescr_is } from './apply.js';
+import { mhe, mhis, defended, resists_blnd } from './mondata.js';
+import { Unaware } from './eat.js';
 import { hard_helmet } from './do_wear.js';
 import { findgold, inv_cnt } from './steal.js';
 import { mselftouch, instapetrify, minstapetrify, t_at } from './trap.js';
@@ -206,6 +207,7 @@ const HEAVY_IRON_BALL = objectNames.indexOf('HEAVY_IRON_BALL');
 const TOWEL = objectNames.indexOf('TOWEL');
 const CREAM_PIE = objectNames.indexOf('CREAM_PIE');
 const BLINDING_VENOM = objectNames.indexOf('BLINDING_VENOM');
+const POT_BLINDNESS = objectNames.indexOf('POT_BLINDNESS');
 const MIRROR = objectNames.indexOf('MIRROR');
 const EXPENSIVE_CAMERA = objectNames.indexOf('EXPENSIVE_CAMERA');
 const EGG = objectNames.indexOf('EGG');
@@ -311,30 +313,104 @@ export function m_is_steadfast(mtmp) {
 }
 
 /**
- * C ref: mondata.c can_blnd — cream pie / blinding venom AT_WEAP|AT_SPIT subset
- * plus AT_ENGL sleep gate for gulpum (D-1264).
- * Named omissions: mon_perma_blind; raven-vs-raven; Blindfolded/ublindf you
- * arms; visored helmet scan; other aatyp (gaze/claw).
+ * C ref: mondata.c can_blnd :305–398, in C order — the whole body.
+ * `:313` decls; `:316–317` no-eyes gate; `:320–321` perma-blind gate
+ * (monst.h:253 `!mcansee && !mblinded`, inlined); `:327–328`
+ * raven-vs-raven; `:330–339` light arm (magr mcan + !resists_blnd);
+ * `:341–364` WEAP/SPIT/NONE obj arm (cream pie Blindfolded gate, venom
+ * ublindf/ucreamed gate + visor, blindness potion no-defense TRUE, other
+ * objs FALSE; hero-swallowed gate); `:366–372` ENGL arm (you:
+ * Blindfolded||Unaware||ucreamed; monster: sleeping); `:374–382` CLAW
+ * arm (you ublindf incl. lenses; hero-swallowed; visor);
+ * `:384–389` TUCH/STNG arm (magr mcan); `:394–396` visor tail over hero
+ * invent / monster minvent (W_ARMH + "visored helmet"); `:398` TRUE.
+ * Blindfolded ≡ EBlinded (youprop.h:96); ublindf ≡ game.u.ublindf
+ * (decl.h:96 worn face cover); Unaware ← eat.js (youprop.h:399).
+ * Restarted from the D-1264 thin subset (cream/venom + ENGL sleep only).
  */
 export function can_blnd(magr, mdef, aatyp, obj) {
+    const u = game.u || {};
+    const is_you = mdef === game.youmonst; // C :313
+    let check_visor = false; // C :313
+    // C :316–317 — no eyes protect against all attacks for now
     if (!haseyes(mdef?.data)) return false;
-    const is_you = mdef === game.youmonst;
-    if (aatyp === AT_WEAP || aatyp === AT_SPIT || aatyp === AT_NONE) {
-        const otyp = obj?.otyp | 0;
-        if (otyp === CREAM_PIE) {
-            // Blindfolded you-defense deferred
-            void is_you;
-        } else if (otyp === BLINDING_VENOM) {
-            // ublindf / ucreamed / visor deferred
-            void is_you;
+    // C :320–321 — permanently blinded already: deed done (monst.h:253)
+    if (!is_you && !(mdef.mcansee | 0) && !(mdef.mblinded | 0)) return false;
+    // C :327–328 — crow will not pluck out the eye of another crow
+    const raven = mons(monsterNames.indexOf('PM_RAVEN'));
+    if (magr && raven && magr.data === raven && mdef.data === raven) {
+        return false;
+    }
+    switch (aatyp | 0) { // C :330
+    case AT_EXPL:
+    case AT_BOOM:
+    case AT_GAZE:
+    case AT_MAGC:
+    case AT_BREA: // C :335 — assumed to be lightning
+        // C :337–339 — light-based attacks may be cancelled or resisted
+        if (magr && magr.mcan) return false;
+        return !resists_blnd(mdef);
+    case AT_WEAP:
+    case AT_SPIT:
+    case AT_NONE:
+        // C :343–354 — an object is used (thrown/spit/other)
+        if (obj && (obj.otyp | 0) === CREAM_PIE) {
+            if (is_you && (u.EBlinded | 0)) return false; // C :344–346
+        } else if (obj && (obj.otyp | 0) === BLINDING_VENOM) {
+            // C :347–351 — all ublindf, including LENSES, protect
+            if (is_you && (u.ublindf || (u.ucreamed | 0))) return false;
+            check_visor = true;
+        } else if (obj && (obj.otyp | 0) === POT_BLINDNESS) {
+            return true; // C :352–353 — no defense
         } else {
+            return false; // C :354 — other objects cannot blind yet
+        }
+        // C :356–357 — can't affect eyes while inside monster
+        if (magr === game.youmonst && u.uswallow) return false;
+        break;
+    case AT_ENGL:
+        // C :367–368
+        if (is_you && ((u.EBlinded | 0) || Unaware() || (u.ucreamed | 0))) {
             return false;
         }
-        if (magr === game.youmonst && game.u?.uswallow) return false;
-        return true;
+        // C :369–370
+        if (!is_you && mdef.msleeping) return false;
+        break;
+    case AT_CLAW:
+        // C :375–377 — e.g. raven: all ublindf, including LENSES, protect
+        if (is_you && u.ublindf) return false;
+        // C :378–379 — can't affect eyes while inside monster
+        if (magr === game.youmonst && u.uswallow) return false;
+        check_visor = true;
+        break;
+    case AT_TUCH:
+    case AT_STNG:
+        // C :386–387 — some physical blind-inducing attacks can cancel
+        if (magr && magr.mcan) return false;
+        break;
+    default:
+        break;
     }
-    if (aatyp === AT_ENGL) return !(!is_you && mdef.msleeping);
-    return true;
+    // C :394–396 — visor check, only when an arm set check_visor
+    if (check_visor) {
+        if (is_you) {
+            // hero: game.invent array (+ uarmh alias — worn helm may not
+            // be in the array in JS; mhitu.js visored_helmet_worn pattern)
+            for (const o of game.invent || []) {
+                if ((((o?.owornmask | 0) & W_ARMH) !== 0)
+                    && objdescr_is(o, 'visored helmet')) return false;
+            }
+            const helm = u.uarmh;
+            if (helm && (((helm.owornmask | 0) & W_ARMH) !== 0)
+                && objdescr_is(helm, 'visored helmet')) return false;
+        } else {
+            for (let o = mdef?.minvent; o; o = o.nobj) {
+                if ((((o.owornmask | 0) & W_ARMH) !== 0)
+                    && objdescr_is(o, 'visored helmet')) return false;
+            }
+        }
+    }
+    return true; // C :398
 }
 
 /** C ref: zap.c exclam — punctuation by damage force. */

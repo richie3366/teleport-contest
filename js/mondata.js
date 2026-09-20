@@ -15,7 +15,7 @@ import {
     is_human, is_elf, is_dwarf, is_gnome, is_orc, is_giant, is_golem,
     is_mind_flayer, is_minion, is_demon, is_undead, is_rider,
     is_unicorn, is_longworm,
-    breathless, dmgtype, verysmall, has_head,
+    breathless, dmgtype, verysmall, has_head, haseyes,
     is_neuter, humanoid, G_UNIQ,
 } from './monsters.js';
 import {
@@ -25,6 +25,7 @@ import {
     ANTIMAGIC, FIRE_RES, COLD_RES, SLEEP_RES, DISINT_RES, POISON_RES,
     SHOCK_RES, ACID_RES, REFLECTING,
     W_ARM, W_ARMOR, W_ACCESSORY, W_WEP, W_SWAPWEP,
+    BLND_RES,
 } from './const.js';
 import { defends, defends_when_carried, Is_dragon_armor } from './artifact.js';
 import { MON_WEP } from './weapon.js';
@@ -34,7 +35,10 @@ import { mon_msound } from './sounds.js';
 import { makesingular } from './objnam.js';
 import { genders } from './roles.js';
 import { type_is_pname } from './do_name.js';
-import { canspotmon, Hallucination } from './display.js';
+import { canspotmon, Hallucination, impossible } from './display.js';
+import { Blind } from './invent.js';
+import { Unaware } from './eat.js';
+import { dmgtype_fromattack, AT_EXPL, AT_GAZE, AD_BLND } from './mhitm.js';
 import { title_to_mon } from './botl.js';
 
 const RIN_CONFLICT = objectNames.indexOf('RIN_CONFLICT');
@@ -194,6 +198,75 @@ export function resists_magm(mon) {
         for (let it = mon.minvent; it; it = it.nobj) {
             if (grants(it)) return true;
         }
+    }
+    return false;
+}
+
+/**
+ * C ref: mondata.c resists_blnd_by_arti :275–298 — wielded artifact with
+ * defends(AD_BLND) (Sunsword); then the whole invent/minvent chain for
+ * defends_when_carried(AD_BLND). C :293–298 `#if 0` Eyes of the Overworld
+ * arm is omitted upstream (no carry property; worn blocks without
+ * resisting) — no JS.
+ * Caller: resists_blnd below.
+ */
+export function resists_blnd_by_arti(mon) {
+    const u = game.u || {};
+    const isYou = mon === game.youmonst;
+    // C :281–283 — wielded magical equipment (uwep hero / MON_WEP monster)
+    let o = isYou ? (u.uwep || null) : MON_WEP(mon);
+    if (o && o.oartifact && defends(AD_BLND, o)) return true;
+    // C :284–286 — worn-or-carried scan (hero: invent array; monster chain)
+    if (isYou) {
+        for (const it of game.invent || []) {
+            if (defends_when_carried(AD_BLND, it)) return true;
+        }
+    } else {
+        for (let it = mon?.minvent; it; it = it.nobj) {
+            if (defends_when_carried(AD_BLND, it)) return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * C ref: mondata.c resists_blnd :247–272, in C order — hero arm
+ * `:251` Blind||Unaware; monster arm `:252–256` mblinded||!mcansee||
+ * !haseyes||msleeping (temporary sleep sets mfrozen, uncheckable — C
+ * comment); `:258–260` yellow light / Archon / dust-vortex-cobra-raven
+ * exclusions via dmgtype AD_BLND AT_EXPL/AT_GAZE; `:262–263` Sunsword
+ * via resists_blnd_by_arti; `:265–269` hero Blnd_resist catchall with
+ * the upstream impossible() (data inconsistency, kept: it is C output).
+ * Canonical port; the species-only file-local subsets in mhitm.js
+ * (resists_blnd_mm), mhitu.js (resists_blnd_you), detect.js and trap.js
+ * predate it (drift, named in the map).
+ * Caller: can_blnd light-attack arm (uhitm.js).
+ */
+export function resists_blnd(mon) {
+    const ptr = mon?.data;
+    const isYou = mon === game.youmonst;
+    // C :251–256
+    if (isYou
+        ? (Blind() || Unaware())
+        : ((mon.mblinded | 0) || !(mon.mcansee | 0) || !haseyes(ptr)
+            || (mon.msleeping | 0))) {
+        return true;
+    }
+    // C :258–260
+    if (dmgtype_fromattack(ptr, AD_BLND, AT_EXPL)
+        || dmgtype_fromattack(ptr, AD_BLND, AT_GAZE)) {
+        return true;
+    }
+    // C :262–263
+    if (resists_blnd_by_arti(mon)) return true;
+    // C :265–269 — catchall
+    const u = game.u || {};
+    if (isYou
+        && (((u.HBlnd_resist | 0) || (u.uprops?.[BLND_RES]?.intrinsic | 0)
+            || (u.EBlnd_resist | 0)
+            || (u.uprops?.[BLND_RES]?.extrinsic | 0)))) {
+        impossible("'Blnd_resist' but not resists_blnd()?");
+        return true;
     }
     return false;
 }

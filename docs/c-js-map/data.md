@@ -470,6 +470,45 @@ JS: `js/mondata.js` — partial
 **`little_to_big`/`big_to_little`** grownups table (D-0068); name_to_mon;
 **`big_little_match`** full both-direction multi-step walks (D-1772; live `js/mondata.js:296`, sole caller `mon.c:4240` wired `js/mon.js:1095`)
 
+### `src/mondata.c` `can_blnd` / `resists_blnd` / `resists_blnd_by_arti`
+
+JS: `js/uhitm.js:can_blnd` + `js/mondata.js:resists_blnd,resists_blnd_by_arti` — complete (D-2604)
+
+**`can_blnd`** (C `mondata.c:305–398`) restarted whole-body in C order —
+haseyes, perma-blind (`monst.h:253` inlined), raven-vs-raven, light arm
+(`magr.mcan` + canonical `resists_blnd`), WEAP/SPIT/NONE obj arm (cream
+pie EBlinded gate, venom ublindf/ucreamed gate + visor, POT_BLINDNESS
+no-defense TRUE, other objs FALSE, hero-swallowed gate), ENGL arm
+(you EBlinded/Unaware/ucreamed; monster sleeping), CLAW arm (you
+ublindf + swallowed + visor), TUCH/STNG mcan arm, visor tail (hero
+`game.invent` + `u.uarmh` alias; monster `minvent` chain; W_ARMH +
+`objdescr_is` "visored helmet"). Callees: `haseyes` live
+(`js/monsters.js`), `mon_perma_blind` macro inlined, `resists_blnd`
+ported here, `objdescr_is` live (`js/apply.js`). Callers: `apply.c:3584`
+via `can_blnd_cream_self` subset (`js/apply.js:1043`, called `:1098`);
+`dothrow.c:1297` via `can_blnd_toss_self` subset (`js/dothrow.js:1257`,
+used `:1628`); `mhitu.c:1279` canonical (`js/mhitu.js:1804`);
+`mhitu.c:1472` via `gulpmu_can_blnd` subset (`js/mhitu.js:1727`, called
+`:2028`); `mthrowu.c:471` canonical (`js/mthrowu.js:889`);
+`mthrowu.c:755` canonical (`js/mthrowu.js:1234`); `uhitm.c:1268`
+canonical (`js/uhitm.js:1272`,`:1383`); `uhitm.c:2966` canonical
+(`js/mhitm.js:837`); `uhitm.c:2978` via `can_blnd_u` subset
+(`js/mhitu.js:723`, called `:747`); `uhitm.c:2988` via `can_blnd_mm`
+subset (`js/mhitm.js:809`, called `:851`); `uhitm.c:5128` canonical
+(`js/uhitm.js:3412`).
+**`resists_blnd`** (C `:247–272`) canonical: you Blind||Unaware, monster
+mblinded||!mcansee||!haseyes||msleeping, dmgtype AD_BLND AT_EXPL/GAZE
+(live `dmgtype_fromattack`, newly exported from `js/mhitm.js`), Sunsword
+via `resists_blnd_by_arti`, you Blnd_resist catchall with upstream
+`impossible()`. **`resists_blnd_by_arti`** (C `:275–298`): wielded
+artifact `defends(AD_BLND)` + whole invent/minvent
+`defends_when_carried` scan; C `#if 0` Eyes-of-the-Overworld arm omitted
+upstream, no JS. Pre-existing file-local subsets stay as drift (named,
+not rewired): `resists_blnd_mm` (`js/mhitm.js:793`),
+`resists_blnd_you` (`js/mhitu.js:670`), `detect.js:282`,
+`trap.js:4652` resists clones; `dmgtype_fromattack` clones in
+`js/mhitu.js:655` (kept file-local).
+
 ### `src/makemon.c`
 
 JS: `js/makemon.js` — partial
