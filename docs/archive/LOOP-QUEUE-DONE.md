@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
-- [x] `u_init.c` ini_inv — coverage PARTIAL (C 65 L `u_init.c:1301–1366` / JS 40 L in js/u_init.js; hops —, callers 36, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn ini_inv` (reach regression must be 0). Measured `port-coverage.mjs --name ini_inv` 2026-09-20 @ 1c6afce8. **Addressed:** D-2694
+- [x] `sp_lev.c` set_door_orientation — coverage PARTIAL (C 43 L `sp_lev.c:1042–1085` / JS 27 L in js/mklev.js; hops 4, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn set_door_orientation` (reach regression must be 0). Measured `port-coverage.mjs --name set_door_orientation` 2026-09-20 @ 1c6afce8.
+
+
+- [x] `u_init.c` ini_inv — coverage PARTIAL (C 65 L `u_init.c:1301–1366` / JS 40 L in js/u_init.js; hops —, callers 36, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn ini_inv` (reach regression must be 0). Measured `port-coverage.mjs --name ini_inv` 2026-09-20 @ 1c6afce8. **Addressed:** D-2694 `3e86b108`
 
 
 - [x] `spell.c` percent_success — coverage PARTIAL (C 119 L `spell.c:2173–2292` / JS 80 L in js/spell.js; hops 6, callers 3, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn percent_success` (reach regression must be 0). Measured `port-coverage.mjs --name percent_success` 2026-09-20 @ 40ce1e84. **Addressed:** D-2693 `f913dcee`
