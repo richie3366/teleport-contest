@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-2696 | fixed |  — `selvar.c` selection_recalc_bounds whole-body restart (dirty protocol + getbounds wiring) |  |
 | D-2695 | fixed |  — `sp_lev.c` set_door_orientation sel_set_door-caller wiring + 2 Stale parks |  |
 | D-2694 | fixed |  — `u_init.c` ini_inv whole-body port (pauper/nudist/addinv-return arms) |  |
 | D-2693 | fixed |  — `spell.c` percent_success C-order restart (int-otyp consts) |  |

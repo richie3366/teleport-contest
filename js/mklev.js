@@ -26543,9 +26543,15 @@ function selection_iterate(sel, fn) {
     }
 }
 
-// C ref: selvar.c selection_new — empty COLNO×ROWNO selection (Set-backed)
+// C ref: selvar.c selection_new `:14-30` — empty COLNO×ROWNO selection
+// (Set-backed). sel.lx..hy is the JS store for C sel->bounds.*; wid/hei
+// scope the recalc scans and bounds_dirty gates selection_recalc_bounds
+// (C `:19-24`: wid=COLNO, hei=ROWNO, dirty=FALSE, empty bounds shape).
 export function selection_new() {
-    return { pts: new Set(), lx: COLNO, ly: ROWNO, hx: 0, hy: 0 };
+    return {
+        pts: new Set(), lx: COLNO, ly: ROWNO, hx: 0, hy: 0,
+        wid: COLNO, hei: ROWNO, bounds_dirty: false,
+    };
 }
 
 // C ref: selvar.c selection_getpoint
@@ -26554,18 +26560,26 @@ export function selection_getpoint(x, y, sel) {
     return sel.pts.has(`${x},${y}`) ? 1 : 0;
 }
 
-// C ref: selvar.c selection_setpoint — set/clear; update bounds on set
+// C ref: selvar.c selection_setpoint `:181-208` — set/clear. A set onto
+// clean bounds expands them live (C `:191-199`); a set onto dirty bounds
+// leaves them for the recalc (C `:191` guard fails, `:203` re-dirties).
+// Every clear dirties (C `:201-205`: the map cell is never literal 0, so
+// any 0-write sets bounds_dirty — including 0-writes onto fresh cells,
+// which is what makes the recalc load-bearing in l_selection_sub/xor).
 export function selection_setpoint(x, y, sel, c) {
     if (!sel || x < 0 || y < 0 || x >= COLNO || y >= ROWNO) return;
     const key = `${x},${y}`;
     if (c) {
-        sel.pts.add(key);
-        if (x < sel.lx) sel.lx = x;
-        if (y < sel.ly) sel.ly = y;
-        if (x > sel.hx) sel.hx = x;
-        if (y > sel.hy) sel.hy = y;
+        if (!sel.bounds_dirty) { // C `:191`
+            if (x < sel.lx) sel.lx = x; // C `:192-199`
+            if (y < sel.ly) sel.ly = y;
+            if (x > sel.hx) sel.hx = x;
+            if (y > sel.hy) sel.hy = y;
+        }
+        sel.pts.add(key); // C `:207` map = c + 1
     } else {
-        sel.pts.delete(key);
+        sel.bounds_dirty = true; // C `:203-204`
+        sel.pts.delete(key); // C `:207` map = c + 1
     }
 }
 
@@ -26599,6 +26613,7 @@ export function selection_free(sel, freesel) {
     sel.ly = ROWNO;
     sel.hx = 0;
     sel.hy = 0;
+    sel.bounds_dirty = false; // C `:61` bounds_dirty=FALSE (`:42` zeroes it)
 }
 
 /**
@@ -26798,14 +26813,23 @@ function selection_and(sela, selb) {
     return selr;
 }
 
-/** C ref: selvar.c selection_clone — shallow copy of set-backed selection. */
+/**
+ * C ref: selvar.c selection_clone `:64-73` — struct copy (`*tmps = *sel`)
+ * plus map duplicate: bounds AND bounds_dirty come over verbatim, so a
+ * dirty source stays dirty (its recalc restores tightness) instead of
+ * being silently tightened by re-adding points one by one.
+ */
 function selection_clone(sel) {
     const out = selection_new();
-    if (!sel?.pts?.size) return out;
-    for (const key of sel.pts) {
-        const comma = key.indexOf(',');
-        selection_setpoint(Number(key.slice(0, comma)), Number(key.slice(comma + 1)), out, 1);
-    }
+    if (!sel) return out;
+    if (sel.pts) for (const key of sel.pts) out.pts.add(key); // C `:70` dupstr
+    out.lx = sel.lx; // C `:69` *tmps = *sel
+    out.ly = sel.ly;
+    out.hx = sel.hx;
+    out.hy = sel.hy;
+    if (sel.wid !== undefined) out.wid = sel.wid;
+    if (sel.hei !== undefined) out.hei = sel.hei;
+    out.bounds_dirty = !!sel.bounds_dirty;
     return out;
 }
 
@@ -26833,31 +26857,84 @@ function selection_not(sel) {
 }
 
 /**
- * C ref: selvar.c selection_recalc_bounds — recompute the tight boundary
- * rect from membership (C scans left/right/top/bottom columns and rows).
- * C returns early when bounds_dirty is false; the JS Set model has no
- * dirty flag (set expands bounds, delete never shrinks), so recompute
- * unconditionally — the endpoints are identical either way. Empty keeps
- * the C reset shape (lx=COLNO, ly=ROWNO, hx=hy=0).
+ * C ref: selvar.c selection_recalc_bounds `:98-165` — recalc the boundary
+ * of the selection when dirty, in C order. sel.lx..hy is the JS store for
+ * C sel->bounds.* (a missing bounds_dirty on hand-built literals reads as
+ * clean, and those literals already carry tight bounds). Empty keeps the
+ * C reset shape (lx=COLNO, ly=ROWNO, hx=hy=0); the scans find exactly the
+ * membership min/max. Exported: region.js selection_getbounds (C selvar.c
+ * `:82`) calls it, as does selection_sub (C nhlsel.c `:380`).
  */
-function selection_recalc_bounds(sel) {
+export function selection_recalc_bounds(sel) {
     if (!sel) return;
-    let lx = COLNO, ly = ROWNO, hx = 0, hy = 0;
-    if (sel.pts?.size) {
-        for (const key of sel.pts) {
-            const comma = key.indexOf(',');
-            const x = Number(key.slice(0, comma));
-            const y = Number(key.slice(comma + 1));
-            if (x < lx) lx = x;
-            if (y < ly) ly = y;
-            if (x > hx) hx = x;
-            if (y > hy) hy = y;
+    if (!sel.bounds_dirty) // C `:104-105`
+        return;
+
+    const wid = sel.wid ?? COLNO;
+    const hei = sel.hei ?? ROWNO;
+
+    sel.lx = COLNO; // C `:107-109` reset (empty keeps this shape)
+    sel.ly = ROWNO;
+    sel.hx = 0;
+    sel.hy = 0;
+
+    let lx = -1, ly = -1, hx = -1, hy = -1; // C `:111` NhRect r
+
+    /* left */ // C `:113-123`
+    for (let x = 0; x < wid; x++) {
+        for (let y = 0; y < hei; y++) {
+            if (selection_getpoint(x, y, sel)) {
+                lx = x;
+                break;
+            }
         }
+        if (lx > -1)
+            break;
     }
-    sel.lx = lx;
-    sel.ly = ly;
-    sel.hx = hx;
-    sel.hy = hy;
+
+    if (lx > -1) { // C `:125`
+        /* right */ // C `:127-136`
+        for (let x = wid - 1; x >= lx; x--) {
+            for (let y = 0; y < hei; y++) {
+                if (selection_getpoint(x, y, sel)) {
+                    hx = x;
+                    break;
+                }
+            }
+            if (hx > -1)
+                break;
+        }
+
+        /* top */ // C `:139-148`
+        for (let y = 0; y < hei; y++) {
+            for (let x = lx; x <= hx; x++) {
+                if (selection_getpoint(x, y, sel)) {
+                    ly = y;
+                    break;
+                }
+            }
+            if (ly > -1)
+                break;
+        }
+
+        /* bottom */ // C `:151-160`
+        for (let y = hei - 1; y >= ly; y--) {
+            for (let x = lx; x <= hx; x++) {
+                if (selection_getpoint(x, y, sel)) {
+                    hy = y;
+                    break;
+                }
+            }
+            if (hy > -1)
+                break;
+        }
+        sel.lx = lx; // C `:161` sel->bounds = r
+        sel.ly = ly;
+        sel.hx = hx;
+        sel.hy = hy;
+    }
+
+    sel.bounds_dirty = false; // C `:164`
 }
 
 /**

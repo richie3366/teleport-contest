@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
+- [x] `selvar.c` selection_recalc_bounds — coverage THIN (C 66 L `selvar.c:99–165` / JS 19 L in js/mklev.js; hops —, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn selection_recalc_bounds` (reach regression must be 0). Measured `port-coverage.mjs --name selection_recalc_bounds` 2026-09-20 @ bddd66f8. **Addressed:** D-2696
+
+
 - [x] `sp_lev.c` set_door_orientation — coverage PARTIAL (C 43 L `sp_lev.c:1042–1085` / JS 27 L in js/mklev.js; hops 4, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn set_door_orientation` (reach regression must be 0). Measured `port-coverage.mjs --name set_door_orientation` 2026-09-20 @ 1c6afce8.
 
 

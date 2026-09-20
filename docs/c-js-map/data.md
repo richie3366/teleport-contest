@@ -1568,7 +1568,10 @@ priestini + Staff of Aesculapius + Cyclops; ';'→S_EEL class fix);
 morgue/shop/barracks/zoo/temple FILL_NORMAL rects + ordinary-rect
 lighting-only (litstate_rnd(-1)) + blank-paper pair + '.'-minus-shops
 `selection_sub` rndcoord traps (D-1944; Tou-loca.lua:131 sub-of-or +
-Tou-goal.lua:112; named deferred: `l_selection_xor`, mutating
+Tou-goal.lua:112; D-2696: `selection_recalc_bounds` C-complete in C order
+(`js/mklev.js:26868`, exported — dirty guard/reset/4 scans/clear) +
+dirty protocol in new/setpoint/free/clone + `region.js:1146` getbounds
+wired (C `selvar.c:82`); named deferred: `l_selection_xor`, mutating
 `selection_clear`, ellipse/gradient/circle) + Platinum Yendorian Express Card + Kops + des.wallify();
 fila/filb mines no-lit-key; strt has Twoflower CUSTOM_INVENT
 (walking shoes +3, hawaiian shirt +3) + chest + branch levregion cell);
