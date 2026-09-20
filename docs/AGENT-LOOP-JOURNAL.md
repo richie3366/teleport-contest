@@ -7,6 +7,13 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-20 — D-2670 `worm.c` worm_cross whole-body restart (impossible arm + live distmin, C-order cites)
+
+**C locus:** 
+**JS:** 
+**Change:** 
+**Verify:** 
+**Next:** (see LOOP-QUEUE)
 ## 2026-09-20 — Audit d19d4373..f6d363e1 (reviews 1620–1628: 9 ACCEPT, 0 Must-fix) + cadence 44/44
 
 Review-only iteration (no js/ edits). Re-audited all 9 SHAs since bbba58ec against pinned C, one SHA at a time, each file written to disk as its SHA finished. 1620 D-2661 magic_negation polyform floor (single C if restored, form reads hero polyform; monsndx/is_minion null-safe LIVE). 1621 D-2662 propagate_chain_lightning (defended live in :975 arm, C short-circuit order). 1622 D-2663 racial_exception + live raceptr (race-vs-form; 3 C callers pre-wired; new test 4/4 run here). 1623 D-2664 invoke_create_portal (4 dynamic→static hoists; --can ALREADY on both new edges; tutorial_dnum always valid so the null guard is adaptation). 1624 D-2665 selection_floodfill generic restart (both clones deleted, 11 call sites on the 4-arg form; generate_way_out_method relies on the :5225 install — sole C caller is ensure_way_out; new test 5/5 run here). 1625 D-2666 write_ls + whereis_mon (FM flags byte-equal; fixup/verify/restore arms verbatim; lev_json edge ALREADY). 1626 D-2667 paydoname (article-strip + BUFSZ−PREFIX guard; XNAME_PREFIX 80 = C PREFIX; doname ≡ doname_base(obj,0)). 1627 D-2668 table-region readers + search_door/create_corridor (create_corridor unwired in JS — its 2 C callers map-named in-commit). 1628 D-2669 buried_ball trapmove wiring (all 5 C callers wired; dist2 → C-home hacklib despite the pre-existing mon.js duplicate). Every per-SHA --reach-all re-run: 0 blocked (honest vacuous) + REACH-OK, no REGRESSED. Rule #2 clean. Cadence: public 44/44 (RNG 792,838/792,838, Scr 11,405/11,405, 67+0.42/turn R² 0.78); held-out 11/44 unchanged (5,972 pts, RNG 26.7%, screens 53.0%); corpus 497/540 (92.0%) +0/−0. Next cluster rotated to worm_cross (buried_ball shipped).

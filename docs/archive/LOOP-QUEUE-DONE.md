@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
-- [x] `dig.c` buried_ball — coverage PARTIAL (C 47 L `dig.c:1885–1932` / JS 23 L in js/dig.js; hops 3, callers 5, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn buried_ball` (reach regression must be 0). Measured `port-coverage.mjs --name buried_ball` 2026-09-20 @ 4559dcf9. **Addressed:** D-2669
+- [x] `worm.c` worm_cross — coverage PARTIAL (C 44 L `worm.c:898–942` / JS 22 L in js/worm.js; hops 3, callers 3, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn worm_cross` (reach regression must be 0). Measured `port-coverage.mjs --name worm_cross` 2026-09-20 @ 4559dcf9. **Addressed:** D-2670
+
+
+- [x] `dig.c` buried_ball — coverage PARTIAL (C 47 L `dig.c:1885–1932` / JS 23 L in js/dig.js; hops 3, callers 5, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn buried_ball` (reach regression must be 0). Measured `port-coverage.mjs --name buried_ball` 2026-09-20 @ 4559dcf9. **Addressed:** D-2669 `f6d363e1`
 
 
 - [x] `sp_lev.c` get_table_region — coverage MISSING (C 29 L `sp_lev.c:5282–5316` / JS no symbol; hops —, callers 5, RNG 0, msg 0; dead callees: get_table_intarray_entry). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn get_table_region` (reach regression must be 0). Measured `port-coverage.mjs --name get_table_region` 2026-09-20 @ a505c4ce. **Addressed:** D-2668 `f0550a81`

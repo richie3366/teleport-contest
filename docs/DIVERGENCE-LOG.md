@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2670 — `worm.c` worm_cross whole-body restart (impossible arm + live distmin, C-order cites)
+
+- Status: ACCEPT — breadth-phase coverage row (PARTIAL C 44 L `worm.c:898–942` / JS 22 L in js/worm.js; hops 3, callers 3, RNG 0, msg 0; no corpus session blocked).
+- Symptom: coverage PARTIAL — the JS body carried every arm except two C facts: the `:913–916` non-adjacent arm returned FALSE without C's `impossible("worm_cross checking for non-adjacent location?")`, and the `:913` guard inlined `Math.max(...)` beside the live `distmin` export (`js/hacklib.js:19`); no per-arm C cites, plus a non-C `!wnum` early-out and head-stepping loop.
+- C locus: `nethack-c/upstream/src/worm.c:898–942` (worm_cross: distmin!=1 impossible+FALSE `:913–916`, diagonal-only `:917–919`, same-monster flank cells `:921–924`, `wtails[wormno]` consecutive-seg walk `:928–939`, tail FALSE `:940–941`) + callers `hack.c:1172` (test_move diagonal `:1188–1192`) / `mon.c:2253` (mfndpos diagonal) / `steed.c:265` (comment only, no call) + callees `hacklib.c` distmin, `display.c` impossible.
+- JS was: `export function worm_cross` js/worm.js:656 — file-local `const distmin = Math.max(...)` shadow, no impossible call, `!wnum` early return, `for (...; curr = curr.nseg)` stepping instead of C's head-advance `curr = wnxt`.
+- Fix: restarted the export in C order with per-arm `:line` cites — live `distmin` import (`imports.mjs --can worm.js hacklib.js distmin` → SAFE, no cycle; `impossible` already imported :20), `void impossible(...)` on the non-adjacent arm (sync-fn precedent js/worm.js:200 wormgone), flank gate folded to one C-order `if`, loop head-advance `curr = wnxt` with C-style `wnxt` declaration, `!wnum` early-out dropped (`wtails[0]` always null — get_wormno starts at 1 — so the loop yields FALSE exactly like C). C `m_at` ≡ `worm_mon_at || _fmon_at` (level_monsters seg occupancy + wormno arm + fmon heads; mon.js unimportable here — cycle, worm.js:374 precedent). Export name/signature kept; both callers untouched (still sync).
+- JS: js/worm.js only (1 import line + restarted body, +~30/−~24).
+- Callers: C hack.c:1172 → JS js/hack.js:511 `worm_cross(ux, uy, x, y)` (pre-existing, sync — unchanged); C mon.c:2253 → JS js/mon.js:3184 `worm_cross(x, y, nx, ny)` (pre-existing mfndpos diagonal arm — unchanged); C steed.c:265 is a comment, not a call site — no wiring. cmd.js travel-path `worm_cross deferred` comments are pre-existing named omissions (C has no travel caller). No C caller left unwired (reviews 1359/1361).
+- Verify: `node scripts/verify.mjs --fn worm_cross` → PASS syntax (1 file: js/worm.js) · PASS rule2 · note hidden (0 blocked at baseline — normal for a coverage row) · PASS reach (no RNG-tagged reach; smoke 24 run: 24 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 → VERIFY: PASS.
+- Named omissions: none new — `m_at` occupancy split (worm_mon_at/_fmon_at) is the pre-existing cycle-avoiding equivalent, noted in-body; `boolean` return ≡ JS boolean; wormno-0 falls out of the loop (wtails[0]-null proof in-body).
+- Next: next Open — coverage row (`sp_lev.c` flip_encoded_dir_bits) unless refilled.
+
 ## D-2669 — `dig.c` buried_ball: wire last C caller (trapmove radius-1 + wriggle_free); dist2 clone → live hacklib export; 2 stale parks
 
 - Status: ACCEPT — breadth-phase coverage row (PARTIAL C 47 L `dig.c:1885–1932` / JS 23 L in js/dig.js; no corpus session blocked on it).

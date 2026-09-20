@@ -785,7 +785,7 @@ omit save/rest wsegs, muse/mhitu
 `worm_move` callers; feel_location
 `is_worm_tail`; Detect_monsters cansee; MON_STILL_ARRIVING;
 map_monst head `pet_to_glyph` / `detected_mon_to_glyph` (plain `mon_glyph`); 
-`worm_cross` live; `howmonseen` is D-1562; `worm_known` is D-1548; cutworm is D-1570; non-worm `level.monsters[][]` still fmon-only
+**D-2670 `worm_cross`** (`worm.c:898–942` restart in C order with per-arm cites; `:913–916` impossible arm via `void impossible` sync precedent, live `distmin` import replacing the `Math.max` shadow, `!wnum` early-out dropped — `wtails[0]` null falls out FALSE like C; callers `hack.c:1172`→js/hack.js:511 + `mon.c:2253`→js/mon.js:3184 pre-existing wired, `steed.c:265` comment-only); `howmonseen` is D-1562; `worm_known` is D-1548; cutworm is D-1570; non-worm `level.monsters[][]` still fmon-only
 
 ### `src/extralev.c`
 
