@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
-- [x] `pickup.c` tipcontainer — coverage PARTIAL (C 153 L `pickup.c:3688–3841` / JS 81 L in js/pickup.js; hops —, callers 3, RNG 1, msg 7). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn tipcontainer` (reach regression must be 0). Measured `port-coverage.mjs --name tipcontainer` 2026-09-20 @ 79669e02. **Addressed:** D-2612
+- [x] `mhitm.c` fightm — coverage THIN (C 66 L `mhitm.c:106–172` / JS 29 L in js/mhitm.js; hops —, callers 2, RNG 3, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn fightm` (reach regression must be 0). Measured `port-coverage.mjs --name fightm` 2026-09-20 @ dba7a580. **Addressed:** D-2613
+
+
+- [x] `pickup.c` tipcontainer — coverage PARTIAL (C 153 L `pickup.c:3688–3841` / JS 81 L in js/pickup.js; hops —, callers 3, RNG 1, msg 7). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn tipcontainer` (reach regression must be 0). Measured `port-coverage.mjs --name tipcontainer` 2026-09-20 @ 79669e02. **Addressed:** D-2612 `b615180f`
 
 
 - [x] `mon.c` vamp_stone — coverage PARTIAL (C 64 L `mon.c:3766–3830` / JS 32 L in js/mhitm.js; hops 4, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn vamp_stone` (reach regression must be 0). Measured `port-coverage.mjs --name vamp_stone` 2026-09-20 @ 79669e02. **Addressed:** D-2611 `a51e30dc`

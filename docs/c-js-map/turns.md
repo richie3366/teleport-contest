@@ -3579,8 +3579,7 @@ iron/metal pudding division via `clone_mon`+`mintrap`); **`mattackm`
 epilogue D-1919** (`M_ATTK_AGR_DONE`/helpless/`mon_offmap` returns); **`mattackm` sets `magr.mlstmv = moves`** (D-0739; 
 out-of-sequence attack counts as move); **`max_passive_dmg` AD_ACID/FIRE/COLD/ELEC + 
 AD_PHYS** (D-0730; `completelyburns`/`rots`/`rusts` deferred); 
-**`fightm` Conflict mon-vs-mon + always `resist_conflict`** (D-0413; 
-ustuck/itsstuck release deferred); **`known_hitum` flee → `monflee(!rn2(3)?rnd(100):0)`** 
+**`fightm` Conflict mon-vs-mon whole body** (D-0413 + D-2613 `mhitm.c:105–172` in C order: resist_conflict, ustuck/itsstuck gate, nmon-chain walk, uswallow release+pline, bhitpos/notonhead stamps, retaliation; caller `mon.c:1317` → mon.js:3363 wired); **`known_hitum` flee → `monflee(!rn2(3)?rnd(100):0)`** 
 (D-0404/D-0635; ustuck/`sticks` release deferred); 
 **`do_attack` safemon in-the-way leaves `context.move` (turn spends) + 
 tame `monflee(rnd(6))` incl. `mon_track_clear`** (D-0442/D-0459/D-0860; 

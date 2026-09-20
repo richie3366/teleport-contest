@@ -138,8 +138,8 @@ import { m_unleash } from './apply.js';
 import { update_inventory } from './invent.js';
 import { bury_an_obj } from './dig.js';
 import { is_pole, is_weptool } from './wield.js';
-import { mswings_verb, Conflict, unstuck } from './mhitu.js';
-import { mon_offmap, set_apparxy, mb_trapped } from './monmove.js';
+import { mswings_verb, Conflict, unstuck, set_ustuck } from './mhitu.js';
+import { mon_offmap, set_apparxy, mb_trapped, itsstuck } from './monmove.js';
 import { hurtle, mhurtle, will_hurtle } from './dothrow.js';
 import { make_stunned } from './potion.js';
 import { m_is_steadfast, can_blnd, steal_it } from './uhitm.js';
@@ -5702,36 +5702,84 @@ export async function mattackm(magr, mdef) {
 }
 
 /**
- * C ref: mhitm.c fightm — Conflict-induced mon-vs-mon.
- * Always rolls resist_conflict first. ustuck/itsstuck release deferred.
+ * C ref: mhitm.c fightm `:105–172` — Conflict-induced mon-vs-mon.
  * Returns 1 if mtmp made an attack (movemon skips dochug); 0 otherwise.
+ * Async only because this port's pline/mattackm are async — C is sync
+ * throughout — so every arm keeps C order and C short-circuit.
  */
 export async function fightm(mtmp) {
+    const u = game.u || {};
+    // C `:110–111` — perhaps the monster will resist Conflict.
     if (resist_conflict(mtmp)) return 0;
 
-    // C: u.ustuck == mtmp → itsstuck / maybe release — deferred
+    // C `:112–116` — perhaps we're holding it (itsstuck plines via pline_mon).
+    if (u.ustuck === mtmp) {
+        if (await itsstuck(mtmp)) return 0;
+    }
+    // C `:117` — snapshot before the loop (mtmp may digest the hero after).
     const has_u_swallowed = engulfing_u(mtmp);
-    const fmon = game.fmon || [];
 
-    for (let i = 0; i < fmon.length; i++) {
-        const mon = fmon[i];
-        if (!mon || mon === mtmp || (mon.mhp | 0) < 1) continue;
-        if (!monnear(mtmp, mon.mx, mon.my)) continue;
-
-        // C: grabber release rn2(4) when mtmp == ustuck && !uswallow — deferred
-        const result = await mattackm(mtmp, mon);
-        if (result & M_ATTK_AGR_DIED) return 1;
-        if (has_u_swallowed) return 0;
-
-        // allow attacked monsters a chance to hit back
-        if ((result & (M_ATTK_HIT | M_ATTK_DEF_DIED)) === M_ATTK_HIT
-            && rn2(4)
-            && (mon.movement | 0) > rn2(NORMAL_SPEED)) {
-            if ((mon.movement | 0) > NORMAL_SPEED) mon.movement -= NORMAL_SPEED;
-            else mon.movement = 0;
-            await mattackm(mon, mtmp);
+    // C `:119–124` — walk the live chain with the next link captured up
+    // front (JS has no `struct monst *` out-link, so the live array index
+    // stands in for `mon->nmon`); a next link equal to mtmp is skipped past,
+    // since mtmp occurs exactly once in fmon.
+    for (let mon = (game.fmon || [])[0] ?? null, nmon = null; mon; mon = nmon) {
+        const live = game.fmon || [];
+        const at = live.indexOf(mon);
+        nmon = at < 0 ? null : (live[at + 1] ?? null);
+        if (nmon === mtmp) {
+            const jt = live.indexOf(mtmp);
+            nmon = jt < 0 ? null : (live[jt + 1] ?? null);
         }
-        return (result & M_ATTK_HIT) ? 1 : 0;
+        // C `:125–129` — ignore mtmp itself and the already-dead (fightm can
+        // run before cleanup, e.g. a bare-handed cockatrice attack);
+        // DEADMONSTER ≡ mhp < 1 (monst.h:214).
+        if (mon && mon !== mtmp && (mon.mhp | 0) >= 1) {
+            // C `:130`
+            if (monnear(mtmp, mon.mx, mon.my)) {
+                // C `:131–137` — grabbed hero: 1-in-4 release with pline,
+                // else break out of the loop (falls through to return 0).
+                if (!u.uswallow && mtmp === u.ustuck) {
+                    if (!rn2(4)) {
+                        set_ustuck(null);
+                        await pline(`${Monnam(mtmp)} releases you!`);
+                    } else {
+                        break;
+                    }
+                }
+
+                // C `:139–143` — mtmp can be killed; stamp the globals its
+                // attack reads (bhitpos `:379`, notonhead/failed_grab
+                // `:602`) before striking.
+                if (!game.bhitpos) game.bhitpos = {};
+                game.bhitpos.x = mon.mx;
+                game.bhitpos.y = mon.my;
+                game.notonhead = false;
+                const result = await mattackm(mtmp, mon);
+
+                // C `:145–146` — mtmp died.
+                if (result & M_ATTK_AGR_DIED) return 1;
+                // C `:147–151` — mtmp has the hero swallowed: report no
+                // attack so it can digest the hero.
+                if (has_u_swallowed) return 0;
+
+                // C `:153–164` — attacked monsters get a chance to hit back,
+                // primarily so conflict-resisters can respond.
+                if ((result & (M_ATTK_HIT | M_ATTK_DEF_DIED)) === M_ATTK_HIT
+                    && rn2(4) && (mon.movement | 0) > rn2(NORMAL_SPEED)) {
+                    if ((mon.movement | 0) > NORMAL_SPEED) mon.movement -= NORMAL_SPEED;
+                    else mon.movement = 0;
+                    if (!game.bhitpos) game.bhitpos = {};
+                    game.bhitpos.x = mtmp.mx;
+                    game.bhitpos.y = mtmp.my;
+                    game.notonhead = false;
+                    await mattackm(mon, mtmp); // C: (void) return attack
+                }
+
+                // C `:166`
+                return (result & M_ATTK_HIT) ? 1 : 0;
+            }
+        }
     }
     return 0;
 }

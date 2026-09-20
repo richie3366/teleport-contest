@@ -1744,7 +1744,7 @@ export function sticks(ptr) {
  * C ref: monmove.c itsstuck — stuck grabber cannot walk away.
  * C pline_mon (D-1227); You_hear/You_see arms elsewhere stay pline.
  */
-async function itsstuck(mtmp) {
+export async function itsstuck(mtmp) {
     const u = game.u;
     if (sticks(game.youmonst?.data) && mtmp === u?.ustuck && !u?.uswallow) {
         await pline_mon(mtmp, `${Monnam(mtmp)} cannot escape from you!`);
