@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
-- [x] `explode.c` explosionmask — coverage PARTIAL (C 86 L `explode.c:26–115` / JS 58 L in js/explode.js; hops 4, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn explosionmask` (reach regression must be 0). Measured `port-coverage.mjs --name explosionmask` 2026-09-20 @ 40ce1e84. **Addressed:** D-2691
+- [x] `mon.c` adj_erinys — coverage PARTIAL (C 44 L `mon.c:5922–5966` / JS 29 L in js/monsters.js; hops 4, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn adj_erinys` (reach regression must be 0). Measured `port-coverage.mjs --name adj_erinys` 2026-09-20 @ 40ce1e84. **Addressed:** D-2692
+
+
+- [x] `explode.c` explosionmask — coverage PARTIAL (C 86 L `explode.c:26–115` / JS 58 L in js/explode.js; hops 4, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn explosionmask` (reach regression must be 0). Measured `port-coverage.mjs --name explosionmask` 2026-09-20 @ 40ce1e84. **Addressed:** D-2691 `597fb4f9`
 
 
 - [x] `eat.c` edibility_prompts — coverage PARTIAL (C 104 L `eat.c:2627–2731` / JS 70 L in js/eat.js; hops —, callers 1, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn edibility_prompts` (reach regression must be 0). Measured `port-coverage.mjs --name edibility_prompts` 2026-09-20 @ 40ce1e84. **Addressed:** D-2690 `fd3686f4`.

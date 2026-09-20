@@ -2809,6 +2809,9 @@ named: `fracture_rock` billable arm (zap.c:5552, sync-cascade row);
 
 JS: `js/mon.js`, `js/monmove.js` — partial
 
+**`adj_erinys` mon.c:5922–5966 live** (D-2692; `js/monsters.js:265` 9 threshold
+arms + mlevel/difficulty in C order; callers `attrib.c:1309` → `js/attrib.js:752`
+adjalign, `restore.c:727` → `js/save.js` restore flow after relink_light_sources);
 **`decide_to_shapeshift`/`newcham` same-form via mndx** (D-0928 #1130; 
 `mons()` allocates — do not `!== mon.data`; seed4500 **107304→107470** RNG **107498** Scr **941**); 
 Early ordinary movement; pet `postmov`→`mintrap` (D-0018); mfndpos `ALLOW_TRAPS` (D-0019); 
