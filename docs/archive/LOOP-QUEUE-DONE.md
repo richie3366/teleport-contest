@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
-- [x] `pickup.c` carry_count — coverage PARTIAL (C 127 L `pickup.c:1570–1701` / JS 69 L in js/pickup.js; hops 3, callers 2, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn carry_count` (reach regression must be 0). Measured `port-coverage.mjs --name carry_count` 2026-09-20 @ 28b6f89f. **Addressed:** D-2617
+- [x] `invent.c` doorganize_core — coverage PARTIAL (C 218 L `invent.c:5068–5286` / JS 157 L in js/invent.js; hops —, callers 3, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn doorganize_core` (reach regression must be 0). Measured `port-coverage.mjs --name doorganize_core` 2026-09-20 @ 28b6f89f. **Addressed:** D-2618
+
+
+- [x] `pickup.c` carry_count — coverage PARTIAL (C 127 L `pickup.c:1570–1701` / JS 69 L in js/pickup.js; hops 3, callers 2, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn carry_count` (reach regression must be 0). Measured `port-coverage.mjs --name carry_count` 2026-09-20 @ 28b6f89f. **Addressed:** D-2617 `aea3bb71`
 
 
 - [x] `dbridge.c` e_died — coverage PARTIAL (C 76 L `dbridge.c:402–480` / JS 56 L in js/dbridge.js; hops 4, callers 6, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn e_died` (reach regression must be 0). Measured `port-coverage.mjs --name e_died` 2026-09-20 @ 28b6f89f. **Stale-parked:** body already live `js/dbridge.js:462`, see Parked Stale.

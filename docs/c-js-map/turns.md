@@ -2701,7 +2701,7 @@ no botl flush under `in_role_selection`** (D-0111);
 **`display_inventory`/`display_pickinv_reply` npages>1 → `(N of M)` + Space page** (D-0426; 
 **D-1872** `wintty.c` `process_menu_window` `:1621–1649` page keys `>`/`<`/`^`/`|` in `select_menu_pick_none` + `display_pickinv_reply` + `display_used_invlets` (PICK_NONE included; `>` never finishes; PICK_NONE `:`/default bell); 
 other NHW_MENU callers still single-page); 
-**`doorganize`/`#adjust` getobj + destination cancel/move/collect/swap/merge** (D-0127); 
+**`doorganize`/`#adjust` getobj + destination cancel/move/collect/swap/merge** (D-0127); **`doorganize_core` whole-body restart D-2618** (`invent.c` `:5068–5286` in C order, live `js/invent.js` `doorganize_core`; callers `doorganize` `:5003` + `adjust_split` `:5064` wired; first-predecessor split detect `:5092–5096`, floating-invlet truncate `:5109–5110` via `invlet_constant`+`inv_cnt`, `letter()` → file-local `is_c_letter` (C `hacklib.c` `:69`), `compactify` → `compactify_invlets`, `reorder_invent` → `reorder_invent_adjust`, `extract_nobj` → `extract_invent` (array-model), `Your('pack is too full.')` `:5249`, `obj/bumped->nobj` head-link `:5262–5274`); 
 **`paint_corner_nhw_menu`/`select_menu_pick_none` flush NEED_MORE** (D-0195); 
 **drop getobj `compactify` when suggested>5** (D-0332); 
 **friday13 `doattributes` two-space body indent** (D-0333); 

@@ -48,7 +48,7 @@
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import {
-    flush_screen, flush_topl_more, pline, docrt, status_line_2, message_menu,
+    flush_screen, flush_topl_more, pline, Your, docrt, status_line_2, message_menu,
     endgamelevelname, obj_glyph, suppress_map_output,
     putmsghistory, impossible, tty_nhbell, tty_wait_synch,
     clear_nhwindow_message, Hallucination, set_bot_disabled,
@@ -9101,92 +9101,142 @@ export async function display_used_invlets(avoidlet = 0) {
 }
 
 /**
- * C invent.c doorganize_core `:5067–5286` — destination pick +
- * move/collect/swap/merge, plus nobj split from splitobj (adjust_split
- * / getobj ALLOWCNT). display_used_invlets is D-1591.
- * check_invent_gold dest `$` is D-1641. Named: invlet_constant truncate.
+ * C hacklib.c letter `:69–73` — '@'..'Z' + 'a'..'z' class as letters
+ * (doorganize_core's `:5171` dest-letter gate classifies '@' as one,
+ * then excludes it explicitly).
+ */
+function is_c_letter(ch) {
+    if (typeof ch !== 'string' || ch.length !== 1) return false;
+    const c = ch.charCodeAt(0);
+    return (0x40 <= c && c <= 0x5a) || (0x61 <= c && c <= 0x7a);
+}
+
+/**
+ * C invent.c doorganize_core `:5068–5286` — full #adjust destination pick
+ * + move/collect/swap/merge in C order. C callers: doorganize `:5003`,
+ * adjust_split `:5064` (both wired below). display_used_invlets is
+ * D-1591; check_invent_gold dest `$` is D-1641; adjust_split split-amount
+ * is D-1621; fixinv reassign is D-1655.
+ * Callee map: mergable/merged/unsplitobj/clear_splitobjs live (mkobj.js);
+ * inv_cnt live (steal.js); assigninvlet live (u_init.js); prinv/Your live
+ * (display.js); yn_function live (getline.js); display_used_invlets live
+ * (same file, D-1591); compactify → compactify_invlets (`:8086`,
+ * C invent.c `:1627`); reorder_invent → reorder_invent_adjust (`:8898`,
+ * C `:739`); extract_nobj → extract_invent (`:8888`, array-model unlink,
+ * C mkobj.c `:2596`); eos() → string concat; letter() → is_c_letter
+ * above (C hacklib.c `:69`).
  */
 async function doorganize_core(obj) {
+    // C `:5084–5086` — no 'from' object cancels.
     if (!obj) return ECMD_CANCEL;
 
-    // C `:5089` — gold 'from' only when check_invent_gold found a problem
+    // C `:5089–5090` — gold 'from' only when check_invent_gold found
+    // multiple '$' stacks and/or gold in some other slot (D-1641).
     const isgold = obj.oclass === COIN_CLASS;
 
-    // C `:5089–5096` — splitobj left parent.nobj==child, same invlet.
+    // C `:5092–5096` — splitobj() leaves parent.nobj == child with the
+    // same invlet; break at the FIRST predecessor even when invlets
+    // differ (then this is an ordinary adjust, splitting stays null).
     let splitting = null;
+    let bumped = null;
     for (const otmp of game.invent || []) {
-        if (otmp.nobj === obj && otmp.invlet === obj.invlet) {
-            splitting = otmp;
+        if (otmp.nobj === obj) {
+            if (otmp.invlet === obj.invlet) splitting = otmp;
             break;
         }
     }
 
-    // Build candidate destination letters (C lets[] then blank used + compactify)
+    // C `:5101–5113` — lets[] = '$' (gold 'from' only) + a-zA-Z;
+    // overflow '#' slot defaults off (`:5106–5112`).
     const letsArr = new Array(1 + INVLET_BASIC + 1).fill(' ');
     letsArr[0] = obj.oclass === COIN_CLASS ? GOLD_SYM_ADJ : ' ';
     for (let i = 0; i < 26; i++) letsArr[1 + i] = String.fromCharCode(97 + i);
     for (let i = 0; i < 26; i++) letsArr[27 + i] = String.fromCharCode(65 + i);
-    letsArr[1 + INVLET_BASIC] = ' '; // overflow slot off by default
-
+    letsArr[1 + INVLET_BASIC] = ' ';
+    let lets = letsArr.join('');
+    // C `:5109–5110` — floating invlets: truncate after the first open
+    // slot (a split leaves one extra stack, hence +1 vs +2).
+    if (!invlet_constant()) {
+        const nlet = inv_cnt(false);
+        if (nlet < INVLET_BASIC) lets = lets.slice(0, nlet + (splitting ? 1 : 2));
+    }
+    // C `:5114–5129` — blank letters in use except obj's own and mergable
+    // stacks; a NOINVSYM stack switches overflow on (writes past a `:5110`
+    // truncation stay past the NUL, so indices past it are dropped here).
+    const blankArr = lets.split('');
     for (const otmp of game.invent || []) {
         if (otmp === obj || mergable(otmp, obj)) continue;
-        const let_ = otmp.invlet;
-        if (let_ >= 'a' && let_ <= 'z') letsArr[1 + (let_.charCodeAt(0) - 97)] = ' ';
-        else if (let_ >= 'A' && let_ <= 'Z') {
-            letsArr[1 + (let_.charCodeAt(0) - 65) + 26] = ' ';
-        } else if (let_ === NOINVSYM) letsArr[1 + INVLET_BASIC] = NOINVSYM;
+        const used = otmp.invlet;
+        if (used >= 'a' && used <= 'z') {
+            const i = 1 + (used.charCodeAt(0) - 97);
+            if (i < blankArr.length) blankArr[i] = ' ';
+        } else if (used >= 'A' && used <= 'Z') {
+            const i = 1 + (used.charCodeAt(0) - 65) + 26;
+            if (i < blankArr.length) blankArr[i] = ' ';
+        } else if (used === NOINVSYM) {
+            if (1 + INVLET_BASIC < blankArr.length) blankArr[1 + INVLET_BASIC] = NOINVSYM;
+        }
     }
-
-    let lets = letsArr.filter((c) => c !== ' ').join('');
+    // C `:5131–5136` — compact blanks, dash runs over 5 via compactify.
+    lets = blankArr.filter((c) => c !== ' ').join('');
     if (lets.length > 5) lets = compactify_invlets(lets);
 
-    // C `:5137–5142` — "Split N" when nobj-split, else "Adjust letter"
-    let qbuf = splitting
-        ? `Split ${obj.quan}`
-        : 'Adjust letter';
-    qbuf += ` to what [${lets}]`;
-    if (game.invent?.length) qbuf += ' (? see used letters)';
-    qbuf += '?';
+    // C `:5138–5142` — "Split N" for an nobj-split, else "Adjust letter"
+    // (Sprintf(eos(qbuf)) append is concat in JS).
+    let qbuf = splitting ? `Split ${obj.quan}` : 'Adjust letter';
+    qbuf += ` to what [${lets}]${(game.invent || []).length ? ' (? see used letters)' : ''}?`;
 
+    // C `:5157–5162` noadjust: undo the getobj split, pline Never_mind
+    // unless a message was already shown (ever_mind).
     let ever_mind = false;
-    let let_;
     const noadjust = async () => {
         if (splitting) unsplitobj(obj);
         if (!ever_mind) await pline(Never_mind);
         return ECMD_OK;
     };
+    // C `:5143–5177` destination prompt loop (yn 4th arg TRUE = addcmdq,
+    // the JS default).
+    let let_;
     for (let trycnt = 1; ; ++trycnt) {
-        // C `:5143` — gold 'from' forces dest '$' (no yn_function)
+        // C `:5144` — gold 'from' forces dest '$' with no prompt.
         let_ = !isgold ? await yn_function(qbuf, null, '\0') : GOLD_SYM_ADJ;
+        // C `:5145–5151` — '?'/'*' lists used letters (split source as
+        // avoidlet); empty pick re-prompts, ESC cancels.
         if (let_ === '?' || let_ === '*') {
-            // C `:5144–5150` — splitting ? obj->invlet : 0
             let_ = await display_used_invlets(splitting ? obj.invlet : 0);
             if (!let_) continue;
             if (let_ === '\x1b') return noadjust();
         }
-        if (QUITCHARS.includes(let_)
-            || (splitting && let_ === obj.invlet)) {
+        // C `:5152–5162` — quit chars, or split-to-same-slot, cancel.
+        if (QUITCHARS.includes(let_) || (splitting && let_ === obj.invlet)) {
             return noadjust();
         }
+        // C `:5164–5168` — only gold may take the '$' slot.
         if (let_ === GOLD_SYM_ADJ && obj.oclass !== COIN_CLASS) {
             await pline(`Only gold coins may be moved into the '${GOLD_SYM_ADJ}' slot.`);
             ever_mind = true;
             return noadjust();
         }
-        const isLetter = /[a-zA-Z]/.test(let_) && let_ !== '@';
-        if (isLetter || (lets.includes(let_) && let_ !== '-')) break;
+        // C `:5169–5176` — letter() takes '@'..'Z'+'a'..'z'
+        // (is_c_letter), '@' excluded here; '-' only counts from the lets
+        // menu (compactify dash); five bad tries give up quietly.
+        if ((is_c_letter(let_) && let_ !== '@') || (lets.includes(let_) && let_ !== '-')) break;
         if (trycnt === 5) return noadjust();
         await pline('Select an inventory slot letter.');
     }
 
+    // C `:5179–5183` — same-slot adjust collects; split moves by default.
     const collect = let_ === obj.invlet;
     let adj_type = collect ? 'Collecting:'
         : !splitting ? 'Moving:'
             : 'Splitting:';
-    let bumped = null;
 
+    // C `:5185–5192` — extract by hand: freeinv/addinv would
+    // double-touch artifacts, douse lamps, lose luck, curse loadstones.
     extract_invent(obj);
 
+    // C `:5194–5259` — walk the pack for the 'to' slot (array snapshot,
+    // stale entries skipped — the JS array-model read of the nobj walk).
     const invSnap = [...(game.invent || [])];
     for (let i = 0; i < invSnap.length; ) {
         const otmp = invSnap[i];
@@ -9195,27 +9245,32 @@ async function doorganize_core(obj) {
             continue;
         }
         if (collect) {
+            // C `:5197–5211` — keep obj in its slot, merge other
+            // compatible stacks into it (a named 'from' only into
+            // unnamed or same-named candidates).
             if (names_ok_for_adjust_merge(otmp, obj) && invent_merged(otmp, obj)) {
                 obj = otmp;
                 extract_invent(obj);
-                // invent_merged removed obj (old); otmp survived then extracted
-                // refresh snap cursor: continue from same index with new invent order
                 invSnap.splice(0, invSnap.length, ...(game.invent || []));
                 i = 0;
                 continue;
             }
         } else if (otmp.invlet === let_) {
+            // C `:5212–5221` — 'to' slot merges when compatible.
             if (names_ok_for_adjust_merge(otmp, obj) && invent_merged(otmp, obj)) {
                 adj_type = 'Merging:';
                 obj = otmp;
                 extract_invent(obj);
                 break;
             }
+            // C `:5222–5228` — moving swaps letters with the occupant...
             if (!splitting) {
                 adj_type = 'Swapping:';
                 otmp.invlet = obj.invlet;
             } else {
-                // C `:5205–5239` — strip from-name, merge or bump / pack-full
+                // C `:5229–5259` — splitting: strip the 'from' name,
+                // merge or bump the occupant, or fail when the pack is
+                // full (undo the split first, no split-context reset).
                 const objname = invent_obj_name(obj);
                 if (objname && !obj.oartifact) {
                     if (!obj.oextra) obj.oextra = {};
@@ -9233,7 +9288,7 @@ async function doorganize_core(obj) {
                     extract_invent(obj);
                 } else if (inv_cnt(false) >= INVLET_BASIC) {
                     unsplitobj(obj);
-                    await pline('Your pack is too full.');
+                    await Your('pack is too full.');
                     return ECMD_OK;
                 } else {
                     bumped = otmp;
@@ -9245,18 +9300,24 @@ async function doorganize_core(obj) {
         i++;
     }
 
+    // C `:5261–5269` — inline addinv at the head of the pack, then sort
+    // (C links obj->nobj onto the head first).
     obj.invlet = let_;
-    obj.where = OBJ_INVENT;
     if (!game.invent) game.invent = [];
+    obj.nobj = game.invent[0] || null;
+    obj.where = OBJ_INVENT;
     game.invent.unshift(obj);
     reorder_invent_adjust();
     if (bumped) {
+        // C `:5270–5277` — the bumped occupant takes an open slot.
         assigninvlet(bumped);
+        bumped.nobj = game.invent[0] || null;
         bumped.where = OBJ_INVENT;
         game.invent.unshift(bumped);
         reorder_invent_adjust();
     }
 
+    // C `:5279–5285` — messages only after the pack is reestablished.
     await prinv_adjust(adj_type, obj);
     if (bumped) await prinv_adjust('Moving:', bumped);
     if (splitting) clear_splitobjs();
