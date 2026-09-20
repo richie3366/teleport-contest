@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
-- [x] `mondata.c` same_race — coverage PARTIAL (C 100 L `mondata.c:771–871` / JS 63 L in js/mondata.js; hops 3, callers 5, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn same_race` (reach regression must be 0). Measured `port-coverage.mjs --name same_race` 2026-09-20 @ c2b834cd. **Addressed:** D-2655
+- [x] `dothrow.c` return_throw_to_inv — coverage THIN (C 50 L `dothrow.c:1855–1909` / JS 16 L in js/dothrow.js; hops 3, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn return_throw_to_inv` (reach regression must be 0). Measured `port-coverage.mjs --name return_throw_to_inv` 2026-09-20 @ a9b0ff62. **Addressed:** D-2656
+
+
+- [x] `mondata.c` same_race — coverage PARTIAL (C 100 L `mondata.c:771–871` / JS 63 L in js/mondata.js; hops 3, callers 5, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn same_race` (reach regression must be 0). Measured `port-coverage.mjs --name same_race` 2026-09-20 @ c2b834cd. **Addressed:** D-2655 `4559dcf9`
 
 
 - [x] `mkobj.c` check_contained — coverage MISSING (C 42 L `mkobj.c:3374–3416` / JS no symbol; hops 4, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn check_contained` (reach regression must be 0). Measured `port-coverage.mjs --name check_contained` 2026-09-20 @ c2b834cd. **Addressed:** D-2654 `2a7efc6b`

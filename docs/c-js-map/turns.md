@@ -2803,7 +2803,9 @@ throw_obj full `weapon_skills` table / full `movecmd` bind table (crossbow gate 
 boulder/statue fracture; hero shop billing with eshk `break_seq`/`seq_peaceful` + `stolen_value` + 
 `inside_shop` angry gate); throwit `:1780–1792` land arm wired (flash/breakmsg/breakobj + 
 VENOM_CLASS force-break); callers do.c:352/toss_up ×2/throwit/hero_breaks/breaks wired; 
-named: `fracture_rock` billable arm (zap.c:5552, sync-cascade row)
+named: `fracture_rock` billable arm (zap.c:5552, sync-cascade row);
+**`return_throw_to_inv` whole body C-order D-2656** (C `:1852–1909`: objsplit parent/child unsplit arm via live `unsplitobj` + where-gate relink, nomerge `addinv_before_throw`, autoquiver clear, W_WEP/SWAPWEP/QUIVER re-wield, twoweap reinstate, encumber_msg; callers throwit `:1587`/`:1608` wired js/dothrow.js:2348/:2374);
+**`walk_path` whole Bresenham body live js/dothrow.js:2793** (D-2656 stale park: both dx<dy arms, early-exit dest rewrite; check_jump ×2 + spell_aim_step wired; hurtle/mhurtle async-manual-drive per D-1038, hurtle_jump always-true stub named in `jump` doc)
 
 ### `src/mon.c`, `src/monmove.c`
 
