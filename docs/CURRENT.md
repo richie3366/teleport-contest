@@ -47,7 +47,7 @@ judge 18:47Z cached, unchanged 11/44 5,776 pts vs last audit): the corpus still 
 not predict the judge.
 **Corpus fortress** (re-scored 2026-09-20 audit 1560–1568): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — **+0 / −0**
-in the D-2601…D-2614 window (8 coverage-only ACCEPTs + 1 QUALITY-RISK;
+in the D-2601…D-2615 window (8 coverage-only ACCEPTs + 1 QUALITY-RISK;
 every per-SHA `--reach-all` re-run here ends REACH-OK with no REGRESSED
 corpus session; the one public move is seed0107, caught by the audit).
 Reviews 1225–1568: 304 ACCEPT, 13 WITH-DEBT, 1 DEBT, 21 QUALITY-RISK (1503, 1517, 1520 stamped; 1533 + 1536 Must-fix rows shipped as D-2583/D-2584 with `**Addressed:**` hashes filled; new Must-fix: review 1568 weapon_insight spacing).
@@ -103,10 +103,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `mcastu.c` mcast_spell — coverage PARTIAL (C 96 L `mcastu.c:801–897` / JS 64 L in js/mcastu.js; hops 2, callers 1, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mcast_spell` (reach regression must be 0). Measured `port-coverage.mjs --name mcast_spell` 2026-09-20 @ 28b6f89f.
+**Next cluster:** `dothrow.c` throw_obj — coverage PARTIAL (C 206 L `dothrow.c:87–293` / JS 134 L in js/dothrow.js; hops —, callers 2, RNG 2, msg 6). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn throw_obj` (reach regression must be 0). Measured `port-coverage.mjs --name throw_obj` 2026-09-20 @ 28b6f89f.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2614 (index).**
+**Keep D-0845…D-2615 (index).**
 <!-- recent:begin -->
+**D-2615** ``nethack-c/upstream/src/dothrow.c:87–293`` (throw_obj); callers ``:375`` (dothrow) and `` — restarted the export in C order with per-arm ``:line`` cites — ``let res = ECMD_TIME`` (`:93`); objsplit snapshot + ``unsplit_stack()`` closure on every early return (`:94`, `:274–292`, via live ``unsplitobj``); Mjollnir
 **D-2614** ``nethack-c/upstream/src/mcastu.c:801–897`` (dispatcher); callees ``:466`` (weaken), ``:50 — ``js/mcastu.js`` — dispatcher now passes C shapes (WEAKEN/STUN/GEYSER ``dmg``; FIRE_PILLAR/LIGHTNING ``(mtmp, dmg)``); callees take the params and overwrite per C; geyser pline moved inside the callee per C order (now as
 **D-2613** `nethack-c/upstream/src/mhitm.c:105–172` (resist_conflict `:110–111`; ustuck/itsstuck `:11 — restarted the export in C order with per-arm `:line` cites — `u.ustuck === mtmp → await itsstuck` (exported from `js/monmove.js:1747`, body already C-exact: `sticks(youmonst.data)` + pline_mon "cannot escape from you!");
 **D-2612** `nethack-c/upstream/src/pickup.c:3688–3841` (hero-start ox/oy + `get_obj_location` stamp ` — restarted the export in C order with per-arm `:line` cites — `let ox/oy` hero-start + `get_obj_location_quantum` stamp; `maybeshopgoods` before checks; `IS_ALTAR(game.level.at(ox,oy).typ)`; file-local `Is_mbag` for curse
@@ -114,11 +115,10 @@ revisits the picker.
 **D-2610** `nethack-c/upstream/src/insight.c:1355–1369` — restored the leading space in both primary `sfx` literals (`js/invent.js:5393,5398`).
 **D-2609** `nethack-c/upstream/src/insight.c:1270–1465` (wield line `:1277–1310` incl. `weapon_descr  — new exported `weapon_insight(final, opts)` in `js/invent.js` in C order with per-arm `:line` cites — `eos()` appends as concat, `Sprintf/Strcpy` as string ops, `enl_msg/you_are/you_have` (`:105–108`) over shared `enlght_
 **D-2608** `nethack-c/upstream/src/display.c:3511–3787` (`wall_angle`: seenv entry `:3514`, `only` ma — restarted the block in C order with per-arm `:line` cites — `t_warn` (`:3079`) ported live with the exact C typ→name switch; its `impossible` report stays a `// C:` cite because `impossible()` is async in JS (`:7992`) an
-**D-2607** `nethack-c/upstream/src/mkobj.c:2508–2521` (`remove_object`: ox/oy snapshot `:2511–2512`,  — new `extract_nexthere(obj, head)` (`js/mkobj.js:3148`) returning the new head (JS has no `struct obj **` out-param; mirrors `extract_nobj`), throw for C `:2637–2638`; new `remove_object(otmp)` (`:3172`) in C order with `
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2614; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2615; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

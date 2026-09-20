@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
+- [x] `dothrow.c` throw_obj — coverage PARTIAL (C 206 L `dothrow.c:87–293` / JS 134 L in js/dothrow.js; hops —, callers 2, RNG 2, msg 6). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn throw_obj` (reach regression must be 0). Measured `port-coverage.mjs --name throw_obj` 2026-09-20 @ 28b6f89f.
+
+
 - [x] `mcastu.c` mcast_spell — coverage PARTIAL **Addressed:** D-2614 (C 96 L `mcastu.c:801–897` / JS 64 L in js/mcastu.js; hops 2, callers 1, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mcast_spell` (reach regression must be 0). Measured `port-coverage.mjs --name mcast_spell` 2026-09-20 @ 28b6f89f.
 
 

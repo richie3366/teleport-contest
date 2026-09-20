@@ -2754,7 +2754,8 @@ petrify checks, wake_nearto; `#if 0` mundetected exceptions stay excluded);
 endmultishot/drag_ball/drown/trap pass-over/check_special_room/steed 
 `u_on_newpos`/`place_monster` vs rloc deferred)**; 
 **`help_dir` More = `xwaitforspace(quitchars)` only** (D-0451; non-quitchar `tty_nhbell` D-1631); 
-**`throw_obj` multishot + `multishot_class_bonus` + `rnd(multishot)`** (D-0093; **PM_NINJA shuriken/dart + SAMURAI fallthrough D-2111**; named: `monmulti` mplayer +1 `mthrowu.c:220`, racial elf/orc/gnome bow bonus); 
+**`throw_obj` multishot + `multishot_class_bonus` + `rnd(multishot)`** (D-0093; **PM_NINJA shuriken/dart + SAMURAI fallthrough D-2111**; named: `monmulti` mplayer +1 `mthrowu.c:220`; racial elf/orc/gnome otyp bonus + quest-artifact launcher + ACURRSTR crossbow gate live D-2615); 
+**`throw_obj` whole-body restart D-2615** (C `:87–293` in C order: `res` ECMD_TIME, objsplit snapshot + `unsplit_stack` closure on every early return, canletgo, Mjollnir wielded/too-heavy, self refuse, `u_wipe_engr(2)`, `:139–148` petrify live, welded→`weldmsg`, wet-towel→`dry_a_towel`, volley loop ending `return unsplit_stack()`; getdir stays in dofire/dothrow callers; `The`/`is_quest_artifact`/`multishot_class_bonus` clones retired for canonical imports; `weapon_type`/`freeinv` clones + array-successor `oldslot` retained as JS-architecture adaptations); 
 **`throwit`→`stackobj`** (D-0094); **`throwit` land `cansee`→`newsym`** (D-0427; 
 **`flooreffects` pool/lava/pit/shaft + Splash/Plop** D-0987; 
 **`fire_damage`/altar/hot potion** D-0992; **`hits_bars`/`hit_bars`** D-0990; 
@@ -2791,8 +2792,7 @@ APPLIED wakeup (D-1041)**; **`find_mac` minvent ARM_BONUS/guarding (D-1042)**;
 **`special_obj_hits_leader` `is_quest_artifact` via `urole.questarti` not `u.questarti` (D-1044)**; 
 **`thitmonst` unicorn gem catch → `gem_accept` D-2517** (C `:2309–2382` in C order: buddy/gem gates, identified +5/`rn2(7)−3` / guessed +2/`rn2(3)−1` / unknown +1/`rn2(3)−1` luck arms, non-gem nogood→nopick vs glass-noluck accept, `check_shop_obj(TRUE)` + `mpickobj`, `!Blind` pline + `!tele_restrict`→`rloc(RLOC_MSG)`; `goto nopick` as flag; caller `:2097` wired); ball/boulder/`potionhit` body; **swallow vanish pline D-1324**; 
 `cutworm` + shop `obfree` + full `is_plural` otense deferred); 
-throw_obj ACURRSTR crossbow volley gate / quest-artifact launcher / full `weapon_skills` / full 
-`movecmd` bind table; 
+throw_obj full `weapon_skills` table / full `movecmd` bind table (crossbow gate + quest-artifact launcher live D-2615); 
 **`breakobj` whole body C-order D-2531** (C `:2480–2574`: crackable `erode_obj` ERODE_CRACK + 
 `ER_DESTROYED` return; MIRROR luck; potion `in_use` + lamplit-oil `explode_oil` (canonical home 
 `js/explode.js:1110`, potion.js clone retired) + next2u breath/odor/eyes/`Half_gas_damage` + 
