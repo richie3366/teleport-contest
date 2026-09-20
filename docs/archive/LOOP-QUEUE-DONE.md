@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
-- [x] `botl.c` get_hilite — coverage THIN (C 202 L `botl.c:2364–2570` / JS 3 L in js/botl.js; hops 4, callers 2, RNG 0, msg 0; dead callees: noneoftheabove). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn get_hilite` (reach regression must be 0). Measured `port-coverage.mjs --name get_hilite` 2026-09-20 @ 28b6f89f. **Addressed:** D-2619
+- [x] `cmd.c` act_on_act — coverage MISSING (C 178 L `cmd.c:4658–4838` / JS no symbol; hops —, callers 2, RNG 0, msg 0; dead callees: there_cmd_menu_far, cmdq_add_userinput, cmdq_add_dir). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn act_on_act` (reach regression must be 0). Measured `port-coverage.mjs --name act_on_act` 2026-09-20 @ 28b6f89f. **Addressed:** D-2620
+
+
+- [x] `botl.c` get_hilite — coverage THIN (C 202 L `botl.c:2364–2570` / JS 3 L in js/botl.js; hops 4, callers 2, RNG 0, msg 0; dead callees: noneoftheabove). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn get_hilite` (reach regression must be 0). Measured `port-coverage.mjs --name get_hilite` 2026-09-20 @ 28b6f89f. **Addressed:** D-2619 `84e0e295`
 
 
 - [x] `invent.c` doorganize_core — coverage PARTIAL (C 218 L `invent.c:5068–5286` / JS 157 L in js/invent.js; hops —, callers 3, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn doorganize_core` (reach regression must be 0). Measured `port-coverage.mjs --name doorganize_core` 2026-09-20 @ 28b6f89f. **Addressed:** D-2618 `7e80d890`

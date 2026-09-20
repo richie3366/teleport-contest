@@ -2045,6 +2045,7 @@ potionbreathe / Blind hear-vs-see deferred) + **doforce ynq def `'q'`** (D-0727)
 pit "Open where?" / pit-reach / mimic / set_msg_xy / AUTOUNLOCK_KICK deferred); 
 **`#herecmdmenu`/`doherecmdmenu` self menu** (D-0728; 
 `#therecmdmenu` / next2u/far / K==0 travel / CMDQ_KEY·DIR follow-ups / glyph≠hero Look deferred); 
+**`act_on_act` whole C body D-2620** (C `cmd.c:4658–4838` in C order as the module-local `js/cmd.js:1122` fn — sgn clamp, TRAVEL stamp, all 36 MCMD arms with C ec/key/dir/userinput nodes; + live `cmdq_add_dir:225`/`cmdq_add_userinput:238` (`:294–331`), file-local `doclicklook:1089` (`:5381–5392`), `move_funcs_walk` (`:2070` MV_WALK column), completed menucmd enum; C callers `:4880`/:4892 unwired until next2u/far builders land — self picks keep `act_on_act_here`; named: `doidtrap` pager.c:2336 / `auto_describe` getpos.c:640 lazy-imported from their 1:1 homes); 
 **`#tip`/`dotip` floor ynq (def q) + basic floor `tipcontainer`** (D-0719; 
 **highdrop `hitfloor(TRUE)` D-1273**; **getobj invent tip D-1665**; 
 **`choose_tip_container_menu` boxes>1 PICK_ONE D-1679** (C `pickup.c` `:3500–3558` dummy 

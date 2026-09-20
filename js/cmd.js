@@ -24,7 +24,7 @@ import { COLNO, ROWNO, STONE, DOOR, CORR, ROOM, IRONBARS, TREE, SDOOR,
          IS_FOUNTAIN, IS_SINK, IS_THRONE, IS_ALTAR, IS_ROOM, IS_WATERWALL,
          ACCESSIBLE, isok, Upolyd, Is_container, CLICK_1,
          ECMD_OK, ECMD_TIME, ECMD_CANCEL, ECMD_FAIL, DOMOVE_RUSH, DOMOVE_WALK,
-         CMDQ_EXTCMD, CMDQ_KEY, CQ_CANNED, CQ_REPEAT,
+         CMDQ_EXTCMD, CMDQ_KEY, CMDQ_DIR, CMDQ_USER_INPUT, CQ_CANNED, CQ_REPEAT,
          IFBURIED, WIZMODECMD, NOFUZZERCMD, PREFIXCMD, MOVEMENTCMD,
          AUTOCOMPLETE, CMD_NOT_AVAILABLE, INTERNALCMD, GENERALCMD,
          CMD_M_PREFIX, CMD_gGF_PREFIX, CMD_INSANE, QBUFSZ,
@@ -55,9 +55,10 @@ import { vision_recalc, couldsee, cansee } from './vision.js';
 import {
     ddoinv, dodiscovered, doattributes, dolook, doprgold, doprwep, doprarm,
     doprring, dopramulet, doprtool, doprinuse, doperminv, dotypeinv,
+    cmdq_add_key,
 } from './invent.js';
 import { dovspell, docast, num_spells } from './spell.js';
-import { doeat } from './eat.js';
+import { doeat, sgn } from './eat.js';
 import { dodrink } from './potion.js';
 import { dozap } from './zap.js';
 import { doread } from './read.js';
@@ -85,13 +86,14 @@ import { dowield, dowieldquiver, doswapweapon } from './wield.js';
 import { dowhatis, doquickwhatis, dohelp, dowhatdoes, doversion } from './pager.js';
 import { visctrl, key2txt, cmdbind_get, cmd_from_dir } from './dokeylist.js';
 import { an, doname, makeplural } from './objnam.js';
-import { m_monnam, mon_nam, YMonnam, Hallucination } from './do_name.js';
+import { m_monnam, mon_nam, YMonnam, Hallucination, docallcmd } from './do_name.js';
 import { spoteffects, dopickup, doloot, dotip } from './pickup.js';
 import { objects_at } from './mkobj.js';
 import { stairway_at, u_on_newpos, maybe_adjust_hero_bubble, selection_new, selection_getpoint, selection_setpoint } from './mklev.js';
 import { In_tutorial } from './dungeon.js';
 import { ATR_INVERSE } from './terminal.js';
 import { dopay } from './shk.js';
+import { dotalk } from './sounds.js';
 import { getpos, getpos_menu, gather_locs_interesting, auto_describe_text } from './getpos.js';
 import {
     nomul, moverock, boulder_at, swim_move_danger, trapmove,
@@ -209,6 +211,34 @@ export function cmdq_add_ec(q, fn, tab = null) {
         txt: tab?.txt || '',
         flags: tab?.flags | 0,
     });
+}
+
+/**
+ * C ref: cmd.c cmdq_add_dir(q, dx, dy, dz) `:294–311` — typ CMDQ_DIR.
+ * Same tail-append shape as cmdq_add_ec; consumed by getdir
+ * (lock.js getdir_read_dirsym reads dirx/diry/dirz).
+ * @param {number} q
+ * @param {number} dx
+ * @param {number} dy
+ * @param {number} dz
+ */
+export function cmdq_add_dir(q, dx, dy, dz) {
+    const name = cmdq_qname(q);
+    if (!game[name]) game[name] = [];
+    game[name].push({ typ: CMDQ_DIR, dirx: dx | 0, diry: dy | 0, dirz: dz | 0 });
+}
+
+/**
+ * C ref: cmd.c cmdq_add_userinput(q) `:316–331` — typ CMDQ_USER_INPUT.
+ * Same tail-append shape as cmdq_add_ec; lets getlin/getobj take live
+ * user input mid-queue (getline.js/invent.js USERINPUT arms; key '\0'
+ * matches the getline.js node shape).
+ * @param {number} q
+ */
+export function cmdq_add_userinput(q) {
+    const name = cmdq_qname(q);
+    if (!game[name]) game[name] = [];
+    game[name].push({ typ: CMDQ_USER_INPUT, key: '\0' });
 }
 
 /**
@@ -953,8 +983,21 @@ async function rhack_dispatch_bound(key, prefix_seen, was_m_prefix) {
     return { done: true };
 }
 
-/* C ref: cmd.c enum menucmd — [t]herecmdmenu action ids */
+/* C ref: cmd.c enum menucmd `:4379–4418` — [t]herecmdmenu action ids */
 const MCMD_NOTHING = 0;
+const MCMD_OPEN_DOOR = 1;
+const MCMD_LOCK_DOOR = 2;
+const MCMD_UNTRAP_DOOR = 3;
+const MCMD_KICK_DOOR = 4;
+const MCMD_CLOSE_DOOR = 5;
+const MCMD_LOOK_TRAP = 7;
+const MCMD_UNTRAP_TRAP = 8;
+const MCMD_MOVE_DIR = 9;
+const MCMD_RIDE = 10;
+const MCMD_REMOVE_SADDLE = 11;
+const MCMD_APPLY_SADDLE = 12;
+const MCMD_TALK = 13;
+const MCMD_NAME = 14;
 const MCMD_QUAFF = 15;
 const MCMD_DIP = 16;
 const MCMD_SIT = 17;
@@ -970,11 +1013,20 @@ const MCMD_DROP = 26;
 const MCMD_REST = 27;
 const MCMD_LOOK_HERE = 28;
 const MCMD_LOOK_AT = 29;
+const MCMD_ATTACK_NEXT2U = 30;
 const MCMD_UNTRAP_HERE = 31;
 const MCMD_OFFER = 32;
 const MCMD_INVENTORY = 33;
 const MCMD_CAST_SPELL = 34;
+const MCMD_THROW_OBJ = 35;
+const MCMD_TRAVEL = 36;
 const MCMD_SEARCH = 6;
+
+/* C ref: act_on_act `:4698–4710` key chain + `:4749–4755` saddle (otyp ids). */
+const SKELETON_KEY_OTYP = objectNames.indexOf('SKELETON_KEY');
+const LOCK_PICK_OTYP = objectNames.indexOf('LOCK_PICK');
+const CREDIT_CARD_OTYP = objectNames.indexOf('CREDIT_CARD');
+const SADDLE_OTYP = objectNames.indexOf('SADDLE');
 
 /**
  * C ref: cmd.c act_on_act — self / here actions (queue CQ_CANNED).
@@ -1024,6 +1076,251 @@ function act_on_act_here(act) {
         // C: doclicklook via clicklook_cc — deferred with therecmdmenu
         break;
     default:
+        break;
+    }
+}
+
+/**
+ * C ref: cmd.c doclicklook `:5381–5392` (staticfn → module-local) — look at
+ * gc.clicklook_cc. Named: auto_describe (getpos.c:640) is not yet ported —
+ * lazy import from its 1:1 home, resolves when the callee lands.
+ * @returns {Promise<number>} ECMD_*
+ */
+async function doclicklook() {
+    const cc = game.gc?.clicklook_cc;
+    if (!cc || !isok(cc.x | 0, cc.y | 0)) return ECMD_OK; // `:5384–5385`
+    if (!game.context) game.context = {};
+    game.context.move = 0; // `:5387` svc.context.move = FALSE
+    const { auto_describe } = await import('./getpos.js'); // `:5388`
+    await auto_describe(cc.x | 0, cc.y | 0);
+    return ECMD_OK; // `:5390`
+}
+
+/* C ref: cmd.c move_funcs `:2070–2078` [MV_WALK] column — xytodir order. */
+const move_funcs_walk = [
+    do_move_west, do_move_northwest, do_move_north, do_move_northeast,
+    do_move_east, do_move_southeast, do_move_south, do_move_southwest,
+];
+
+/**
+ * C ref: cmd.c act_on_act `:4658–4838` (staticfn → module-local) — queue
+ * CQ_CANNED input for a [t]herecmdmenu action at adjacent (dx,dy).
+ * C order kept arm by arm; sgn clamp `:4666–4677` (live eat.js sgn ≡
+ * hacklib.c:650); MCMD_* ids are the cmd.c:4379 enum.
+ * Named: doidtrap (pager.c:2336) not yet ported — lazy import from its 1:1
+ * home, resolves when the callee lands. dountrap/dodip/dosit/doride/
+ * domonability/dosacrifice use the file's dynamic-import idiom (same as
+ * act_on_act_here) to avoid static cycles.
+ * C callers cmd.c:4880 (there_cmd_menu K==1 fast path) + :4892 (menu pick):
+ * JS there_cmd_menu below is self+common only (next2u/far builders not yet
+ * ported), so no wired caller yet — self picks keep act_on_act_here with
+ * its deliberate KEY/DIR omissions.
+ * @param {number} act MCMD_* action
+ * @param {number} dx delta to target (sgn-clamped unless throw/travel/look)
+ * @param {number} dy delta to target
+ */
+function act_on_act(act, dx, dy) {
+    let otmp = null; // `:4662`
+    let dir = 0; // `:4663`
+
+    /* a few there_cmd_menu_far() actions use dx,dy differently `:4665` */
+    switch (act) { // `:4666–4677`
+    case MCMD_THROW_OBJ:
+    case MCMD_TRAVEL:
+    case MCMD_LOOK_AT:
+        /* keep dx,dy as-is */
+        break;
+    default:
+        /* force dx and dy to be +1, 0, or -1 */
+        dx = sgn(dx);
+        dy = sgn(dy);
+        break;
+    }
+
+    switch (act) { // `:4679–4837`
+    case MCMD_TRAVEL: // `:4680–4688`
+        /* FIXME: explicit travel works even when flags.travelcmd is off */
+        if (!game.iflags) game.iflags = {};
+        if (!game.iflags.travelcc) game.iflags.travelcc = { x: 0, y: 0 };
+        game.iflags.travelcc.x = game.u.tx = game.u.ux + dx;
+        game.iflags.travelcc.y = game.u.ty = game.u.uy + dy;
+        cmdq_add_ec(CQ_CANNED, dotravel_target);
+        break;
+    case MCMD_THROW_OBJ: // `:4689–4693`
+        cmdq_add_ec(CQ_CANNED, dothrow);
+        cmdq_add_userinput(CQ_CANNED);
+        cmdq_add_dir(CQ_CANNED, dx, dy, 0);
+        break;
+    case MCMD_OPEN_DOOR: // `:4694–4697`
+        cmdq_add_ec(CQ_CANNED, doopen);
+        cmdq_add_dir(CQ_CANNED, dx, dy, 0);
+        break;
+    case MCMD_LOCK_DOOR: // `:4698–4710`
+        otmp = carrying(SKELETON_KEY_OTYP);
+        if (!otmp) otmp = carrying(LOCK_PICK_OTYP);
+        if (!otmp) otmp = carrying(CREDIT_CARD_OTYP);
+        if (otmp) {
+            cmdq_add_ec(CQ_CANNED, doapply);
+            cmdq_add_key(CQ_CANNED, otmp.invlet);
+            cmdq_add_dir(CQ_CANNED, dx, dy, 0);
+            cmdq_add_key(CQ_CANNED, 'y'); /* "Lock it?" */
+        }
+        break;
+    case MCMD_UNTRAP_DOOR: // `:4711–4714`
+        cmdq_add_ec(CQ_CANNED, async () => {
+            const { dountrap } = await import('./trap.js');
+            return dountrap();
+        });
+        cmdq_add_dir(CQ_CANNED, dx, dy, 0);
+        break;
+    case MCMD_KICK_DOOR: // `:4715–4718`
+        cmdq_add_ec(CQ_CANNED, dokick);
+        cmdq_add_dir(CQ_CANNED, dx, dy, 0);
+        break;
+    case MCMD_CLOSE_DOOR: // `:4719–4722`
+        cmdq_add_ec(CQ_CANNED, doclose);
+        cmdq_add_dir(CQ_CANNED, dx, dy, 0);
+        break;
+    case MCMD_SEARCH: // `:4723–4725`
+        cmdq_add_ec(CQ_CANNED, dosearch);
+        break;
+    case MCMD_LOOK_TRAP: // `:4726–4729`
+        cmdq_add_ec(CQ_CANNED, async () => {
+            const { doidtrap } = await import('./pager.js');
+            return doidtrap();
+        });
+        cmdq_add_dir(CQ_CANNED, dx, dy, 0);
+        break;
+    case MCMD_UNTRAP_TRAP: // `:4730–4733`
+        cmdq_add_ec(CQ_CANNED, async () => {
+            const { dountrap } = await import('./trap.js');
+            return dountrap();
+        });
+        cmdq_add_dir(CQ_CANNED, dx, dy, 0);
+        break;
+    case MCMD_MOVE_DIR: // `:4734–4737`
+        dir = xytodir(dx, dy);
+        cmdq_add_ec(CQ_CANNED, move_funcs_walk[dir]);
+        break;
+    case MCMD_RIDE: // `:4738–4741`
+        cmdq_add_ec(CQ_CANNED, async () => {
+            const { doride } = await import('./steed.js');
+            return doride();
+        });
+        cmdq_add_dir(CQ_CANNED, dx, dy, 0);
+        break;
+    case MCMD_REMOVE_SADDLE: // `:4742–4748`
+        /* m-prefix for #loot: skip any floor containers */
+        cmdq_add_ec(CQ_CANNED, do_reqmenu);
+        cmdq_add_ec(CQ_CANNED, doloot);
+        cmdq_add_dir(CQ_CANNED, dx, dy, 0);
+        cmdq_add_key(CQ_CANNED, 'y'); /* "Do you want to remove saddle? */
+        break;
+    case MCMD_APPLY_SADDLE: // `:4749–4755`
+        if ((otmp = carrying(SADDLE_OTYP)) != null) {
+            cmdq_add_ec(CQ_CANNED, doapply);
+            cmdq_add_key(CQ_CANNED, otmp.invlet);
+            cmdq_add_dir(CQ_CANNED, dx, dy, 0);
+        }
+        break;
+    case MCMD_ATTACK_NEXT2U: // `:4756–4759`
+        dir = xytodir(dx, dy);
+        cmdq_add_ec(CQ_CANNED, move_funcs_walk[dir]);
+        break;
+    case MCMD_TALK: // `:4760–4763`
+        cmdq_add_ec(CQ_CANNED, dotalk);
+        cmdq_add_dir(CQ_CANNED, dx, dy, 0);
+        break;
+    case MCMD_NAME: // `:4764–4768`
+        cmdq_add_ec(CQ_CANNED, docallcmd);
+        cmdq_add_key(CQ_CANNED, 'm'); /* name a monster */
+        cmdq_add_dir(CQ_CANNED, dx, dy, 0); /* getpos() uses u.ux+dx,u.uy+dy */
+        break;
+    case MCMD_QUAFF: // `:4769–4772`
+        cmdq_add_ec(CQ_CANNED, dodrink);
+        cmdq_add_key(CQ_CANNED, 'y'); /* "Drink from the fountain?" */
+        break;
+    case MCMD_DIP: // `:4773–4777`
+        cmdq_add_ec(CQ_CANNED, async () => {
+            const { dodip } = await import('./potion.js');
+            return dodip();
+        });
+        cmdq_add_userinput(CQ_CANNED);
+        cmdq_add_key(CQ_CANNED, 'y'); /* "Dip foo into the fountain?" */
+        break;
+    case MCMD_SIT: // `:4778–4780`
+        cmdq_add_ec(CQ_CANNED, async () => {
+            const { dosit } = await import('./sit.js');
+            return dosit();
+        });
+        break;
+    case MCMD_UP: // `:4781–4783`
+        cmdq_add_ec(CQ_CANNED, doup);
+        break;
+    case MCMD_DOWN: // `:4784–4786`
+        cmdq_add_ec(CQ_CANNED, dodown);
+        break;
+    case MCMD_DISMOUNT: // `:4787–4789`
+        cmdq_add_ec(CQ_CANNED, async () => {
+            const { doride } = await import('./steed.js');
+            return doride();
+        });
+        break;
+    case MCMD_MONABILITY: // `:4790–4792`
+        cmdq_add_ec(CQ_CANNED, async () => {
+            const { domonability } = await import('./polyself.js');
+            return domonability();
+        });
+        break;
+    case MCMD_PICKUP: // `:4793–4795`
+        cmdq_add_ec(CQ_CANNED, dopickup);
+        break;
+    case MCMD_LOOT: // `:4796–4798`
+        cmdq_add_ec(CQ_CANNED, doloot);
+        break;
+    case MCMD_TIP: // `:4799–4802`
+        cmdq_add_ec(CQ_CANNED, dotip);
+        cmdq_add_key(CQ_CANNED, 'y'); /* "There is foo here; tip it?" */
+        break;
+    case MCMD_EAT: // `:4803–4806`
+        cmdq_add_ec(CQ_CANNED, doeat);
+        cmdq_add_key(CQ_CANNED, 'y'); /* "There is foo here; eat it?" */
+        break;
+    case MCMD_DROP: // `:4807–4809`
+        cmdq_add_ec(CQ_CANNED, dodrop);
+        break;
+    case MCMD_INVENTORY: // `:4810–4812`
+        cmdq_add_ec(CQ_CANNED, ddoinv);
+        break;
+    case MCMD_REST: // `:4813–4815`
+        cmdq_add_ec(CQ_CANNED, donull);
+        break;
+    case MCMD_LOOK_HERE: // `:4816–4818`
+        cmdq_add_ec(CQ_CANNED, dolook);
+        break;
+    case MCMD_LOOK_AT: // `:4819–4823`
+        if (!game.gc) game.gc = {};
+        game.gc.clicklook_cc = { x: game.u.ux + dx, y: game.u.uy + dy };
+        cmdq_add_ec(CQ_CANNED, doclicklook);
+        break;
+    case MCMD_UNTRAP_HERE: // `:4824–4827`
+        cmdq_add_ec(CQ_CANNED, async () => {
+            const { dountrap } = await import('./trap.js');
+            return dountrap();
+        });
+        cmdq_add_dir(CQ_CANNED, 0, 0, 1);
+        break;
+    case MCMD_OFFER: // `:4828–4831`
+        cmdq_add_ec(CQ_CANNED, async () => {
+            const { dosacrifice } = await import('./pray.js');
+            return dosacrifice();
+        });
+        cmdq_add_userinput(CQ_CANNED);
+        break;
+    case MCMD_CAST_SPELL: // `:4832–4834`
+        cmdq_add_ec(CQ_CANNED, docast);
+        break;
+    default: // `:4835–4837`
         break;
     }
 }
