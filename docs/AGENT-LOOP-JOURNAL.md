@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-20 — D-2629 `end.c` build_english_list whole-body port (SYSCF WIZARDS English list + wordcount/bel_copy1)
+
+**C locus:** ``nethack-c/upstream/src/end.c:1823–1859`` (build_english_list, extern ``extern.h:1003``); static callees ``wordcount :1793–1806``, ``bel_copy1 :1809–1820``; callers ``cfgfiles.c:806`` (cnf_line_WIZARDS) + ``sys/unix/unixmain.c:659`` (platform main).
+**JS:** ``js/end.js`` ``export async function build_english_list`` (same name/signature, returns the string) + file-local ``wordcount``/``bel_copy1``/``isEndSpace`` (staticfns stay file-local); ``impossible`` joins the existing display.js import (``imports.mjs --can``: no new edge). No other files touched.
+**Change:** ported the whole C body in C order with per-arm ``:line`` cites — ``wordcount`` blank/word run counting (``:1797–1803``); ``bel_copy1`` skip-blanks + copy-word + advance-cursor (``:1813–1818``; cursor object stands in for ``char **inp``, return accumulation for ``out += strlen(out)``); ``build_english_list`` case 0 ``impossible`` (``:1835``), case 1 single (``:1839``), 2-word ``"first or second"`` (``:1842–1844``), N-word ``"first, second, or third"`` do/while (``:1846–1849``), trailing ``"or "`` + last word (``:1852–1853``). ``alloc``/sizing arithmetic (``:1827–1832``) has no representable effect on growing JS strings (map-named). ``isspace((uchar))`` is the file-local six-blank C-locale set (options.js ``isOptSpace`` precedent).
+**Verify:** ``node scripts/verify.mjs --fn build_english_list`` → VERIFY: PASS (syntax 1 file js/end.js; rule2 clean; hidden ``no corpus session is blocked`` — coverage row, no cited blocks; reach smoke 24/24 PASS 0 regressed → REACH-OK; green 2/2; strict seed8000+seed0900; cohort 7/7; full skipped — no shared file per gate). Throwaway probe ``/tmp/bel-probe.mjs`` (not committed): 1/2/3/4-word, padded/multi-blank/tab/newline, ``*`` wildcard, and blank→``''`` arms all match C-derived expectations 9/9.
+**Named:** ``alloc`` length precompute (GC strings); ``cnf_line_WIZARDS`` caller + ``fmtd_wizard_list`` consumers (no JS SYSCF layer); ``unixmain.c`` caller (platform main).
+**Next:** pop the next Open — coverage row.
 ## 2026-09-20 — D-2628 `pickup.c` pick_obj whole-body restart (get_obj_location engulfer path, fromfloor/ushops fidelity)
 
 **C locus:** ``nethack-c/upstream/src/pickup.c:1897–1942`` (pick_obj); caller ``:1879`` (pickup_object ``obj = pick_obj(obj)``); ``shk.c:3008`` is a comment naming the function, not a call; decl ``extern.h:2451``.

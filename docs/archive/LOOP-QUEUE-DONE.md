@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
+- [x] `end.c` build_english_list — coverage MISSING (C 36 L `end.c:1823–1859` / JS no symbol; hops —, callers 1, RNG 0, msg 3; dead callees: wordcount, bel_copy1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn build_english_list` (reach regression must be 0). Measured `port-coverage.mjs --name build_english_list` 2026-09-20 @ a5342d8b. **Addressed:** D-2629
+
+
 - [x] `pickup.c` pick_obj — coverage PARTIAL (C 45 L `pickup.c:1897–1942` / JS 24 L in js/pickup.js; hops 3, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn pick_obj` (reach regression must be 0). Measured `port-coverage.mjs --name pick_obj` 2026-09-20 @ 7e80d890.
 
 
