@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2678 — `uhitm.c` hmon_hitmon_dmg_recalc whole-body port (get_dmg_bonus gate + PROJECTILE skillwep + uwep_skill_type export)
+
+- Status: ACCEPT — breadth-phase coverage row (PARTIAL C 71 L `uhitm.c:1436–1507` / JS 32 L in js/uhitm.js; hops 5, callers 1, RNG 0, msg 0; no corpus session blocked). Same iteration parked `botl.c` anything_to_s STALE (whole C body `:1886–1926` + sole caller already live js/botl.js:274/:692; 0 blocked).
+- Symptom: coverage PARTIAL / clone drift — three C facts missing from the JS body: the `:1447 get_dmg_bonus` gate (udaminc+strength applied unconditionally), the `:1487–1488 PROJECTILE→launcher skillwep` swap (map-named deferred), and the `:1496–1497 uwep_skill_type()` train call (inlined ternary; callee only a file-local clone in js/apply.js:3286).
+- C locus: `nethack-c/upstream/src/uhitm.c:1435–1507` (decl `:1438`; gate `:1447`; udaminc `:1450`; propellor gate `:1460–1461`; dbon/abs `:1462–1463`; twohits 3/4 `:1464–1465`; bimanual 3/2 `:1466–1467`; skill gate `:1484`; PROJECTILE swap `:1487–1488` via macro `:72`; dam_bonus `:1489`; train `:1494–1498`; apply `:1503`; floor `:1505–1506`) + caller `uhitm.c:1806–1807` (`if (hmd.dmg > 0)`) + init `:1778` + misc_obj FALSE arms `:1137/:1190/:1316/:1339/:1349` + shade bump `:1817`.
+- JS was: `js/uhitm.js:1093` 32 L — same shape minus the gate (dmgbonus seeded from udaminc outside any `if`), PROJECTILE swap deferred, train arm inlined.
+- Fix: restarted the file-local (C `staticfn`) body in C order with per-arm cites — new `get_dmg_bonus` param gating the udaminc+strength block; `if (obj && is_ammo(obj) && ammo_and_launcher(obj, u.uwep)) skillwep = u.uwep` (PROJECTILE = `((obj) && is_ammo(obj))` per `:72`; both helpers already imported); train arm calls the new `uwep_skill_type()` export (C-home js/weapon.js:1317, identical to the retired apply.js clone); `Math.trunc` keeps C truncation, inline sgn kept.
+- JS: js/uhitm.js (restarted body js/uhitm.js:1093; caller threads `get_dmg_bonus`: local init TRUE per `:1778`, melee ctx init TRUE + copy-back, mctx copy-back, potion/gem/ranged/barehand keep TRUE — C's only FALSE arms are the five misc_obj sites, all live in misc_obj), js/weapon.js (+6 L export), js/apply.js (clone retired to the import; 3 call sites unchanged); docs/c-js-map/turns.md (both D-0363 lines stamped D-2678).
+- Callers: C uhitm.c:1806–1807 → JS js/uhitm.js hmon `:1654–1658` `if (dmg > 0) { dmg = await …(…, get_dmg_bonus); }` (single C caller; none invented per reviews 1359/1361). C forward decl `:40` → hoisted function declaration.
+- Verify: `node scripts/verify.mjs --fn hmon_hitmon_dmg_recalc --full` → PASS syntax (3 changed js files) · PASS rule2 · note hidden (0 blocked at baseline — normal for a coverage row) · PASS reach (smoke 24 run: 24 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 → VERIFY: PASS.
+- Named omissions: gloves/silver `special_dmgval` (map-named, D-0363); shade bump `:1817` non-shade bump-to-1 (different function `hmon_hitmon`, own row); file-local `bimanual` clone (pre-existing drift, untouched).
+- Next: queue head `shk.c` cost_per_charge (Open — coverage).
+
 ## D-2677 — `dogmove.c` find_friends whole-body port (perceives invis-tame arm + isok call)
 
 - Status: ACCEPT — breadth-phase coverage row (PARTIAL C 41 L `dogmove.c:694–735` / JS 27 L in js/dogmove.js; hops 4, callers 1, RNG 0, msg 0; no corpus session blocked).

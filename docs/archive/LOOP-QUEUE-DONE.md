@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
-- [x] `dogmove.c` find_friends — coverage PARTIAL (C 41 L `dogmove.c:694–735` / JS 27 L in js/dogmove.js; hops 4, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn find_friends` (reach regression must be 0). Measured `port-coverage.mjs --name find_friends` 2026-09-20 @ 4307ede7. **Addressed:** D-2677
+- [x] `uhitm.c` hmon_hitmon_dmg_recalc — coverage PARTIAL (C 71 L `uhitm.c:1436–1507` / JS 32 L in js/uhitm.js; hops 5, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn hmon_hitmon_dmg_recalc` (reach regression must be 0). Measured `port-coverage.mjs --name hmon_hitmon_dmg_recalc` 2026-09-20 @ 4307ede7.
+
+
+- [x] `dogmove.c` find_friends — coverage PARTIAL (C 41 L `dogmove.c:694–735` / JS 27 L in js/dogmove.js; hops 4, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn find_friends` (reach regression must be 0). Measured `port-coverage.mjs --name find_friends` 2026-09-20 @ 4307ede7. **Addressed:** D-2677 `c9e4449a`
 
 
 - [x] `lock.c` chest_shatter_msg — coverage PARTIAL (C 42 L `lock.c:1276–1318` / JS 29 L in js/lock.js; hops —, callers 1, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn chest_shatter_msg` (reach regression must be 0). Measured `port-coverage.mjs --name chest_shatter_msg` 2026-09-20 @ f0550a81. **Addressed:** D-2676 `6319ffdd`

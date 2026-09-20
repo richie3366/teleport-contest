@@ -41,7 +41,7 @@ import { pline, pline_mon, newsym, canseemon, canspotmon, sensemon, map_invisibl
 import { cansee } from './vision.js';
 import {
     dmgval, hitval, P_SKILL, weapon_hit_bonus, martial_bonus,
-    dbon, weapon_dam_bonus, use_skill, weapon_type,
+    dbon, weapon_dam_bonus, use_skill, weapon_type, uwep_skill_type,
     special_dmgval, silver_sears, MON_WEP, setmnotwielded, possibly_unwield,
     is_wet_towel, dry_a_towel,
 } from './weapon.js';
@@ -1085,42 +1085,52 @@ function hmonas_toggle_altwep(u) {
 }
 
 /**
- * C ref: uhitm.c hmon_hitmon_dmg_recalc — udaminc + dbon + weapon_dam_bonus.
+ * C ref: uhitm.c hmon_hitmon_dmg_recalc :1435–1507 — udaminc + dbon +
+ * weapon_dam_bonus on the hmd, floored at 1.
  * Async for the `use_skill` may-advance arm (single caller `hmon` is async).
- * Named omissions: PROJECTILE→launcher
- * skillwep swap (ammo uses weapon_type(obj) until shot path ports).
+ * JS shape: destructured scalars in, adjusted dmg out (C mutates hmd->dmg).
  */
 async function hmon_hitmon_dmg_recalc(dmg, obj, thrown, twohits, use_weapon_skill,
-    train_weapon_skill) {
-    let dmgbonus = game.u?.udaminc | 0;
+    train_weapon_skill, get_dmg_bonus) {
+    let dmgbonus = 0; // C :1438
     const u = game.u || {};
-    // thrown launcher ammo: udaminc yes, dbon no
-    if (thrown !== HMON_THROWN
-        || !obj || !u.uwep || !ammo_and_launcher(obj, u.uwep)) {
-        let strbonus = dbon();
-        const absbonus = Math.abs(strbonus);
-        const sgn = strbonus < 0 ? -1 : (strbonus > 0 ? 1 : 0);
-        if (twohits) {
-            strbonus = Math.trunc((3 * absbonus + 2) / 4) * sgn;
-        } else if (thrown === HMON_MELEE && u.uwep && bimanual(u.uwep)) {
-            strbonus = Math.trunc((3 * absbonus + 1) / 2) * sgn;
-        }
-        dmgbonus += strbonus;
-    }
-    if (use_weapon_skill) {
-        let skillwep = obj;
-        // C: PROJECTILE(obj) && ammo_and_launcher → skillwep = uwep deferred
-        dmgbonus += weapon_dam_bonus(skillwep);
-        if (train_weapon_skill) {
-            // C: thrown ? weapon_type(skillwep) : uwep_skill_type()
-            const wtype = thrown
-                ? weapon_type(skillwep)
-                : (u.twoweap ? P_TWO_WEAPON_COMBAT : weapon_type(u.uwep));
-            await use_skill(wtype, 1);
+    // C :1447–1470 — ring/increase-damage + strength bonus (dual-attack 3/4,
+    // two-handed 3/2); thrown launcher ammo keeps udaminc, skips strength.
+    if (get_dmg_bonus) { // C :1447
+        // C :1448–1449 — dual attacks take udaminc on both, two-handed as-is
+        dmgbonus = u.udaminc | 0; // C :1450
+        // C :1460–1461 — throwing with a propellor skips the strength bonus
+        if (thrown !== HMON_THROWN
+            || !obj || !u.uwep || !ammo_and_launcher(obj, u.uwep)) {
+            let strbonus = dbon(); // C :1462
+            const absbonus = Math.abs(strbonus); // C :1463 abs()
+            const sgn = strbonus < 0 ? -1 : (strbonus > 0 ? 1 : 0); // C sgn()
+            if (twohits) // C :1464–1465
+                strbonus = Math.trunc((3 * absbonus + 2) / 4) * sgn;
+            else if (thrown === HMON_MELEE && u.uwep && bimanual(u.uwep)) // C :1466–1467
+                strbonus = Math.trunc((3 * absbonus + 1) / 2) * sgn;
+            dmgbonus += strbonus; // C :1468
         }
     }
-    dmg += dmgbonus;
-    if (dmg < 1) dmg = 1;
+    // C :1484–1500 — weapon-skill bonus + training.
+    if (use_weapon_skill) { // C :1484
+        let skillwep = obj; // C :1485
+        if (obj && is_ammo(obj) // C :1487 PROJECTILE(obj) (uhitm.c:72)
+            && ammo_and_launcher(obj, u.uwep))
+            skillwep = u.uwep; // C :1488
+        dmgbonus += weapon_dam_bonus(skillwep); // C :1489
+        // C :1491–1493 — a more-than-minimal hit trains the skill
+        if (train_weapon_skill) { // C :1494
+            /* [this assumes that `!thrown' implies wielded...] */ // C :1495
+            const wtype = thrown ? weapon_type(skillwep) // C :1496–1497
+                : uwep_skill_type();
+            await use_skill(wtype, 1); // C :1498
+        }
+    }
+    // C :1502–1503 — apply combined damage+strength and skill bonuses
+    dmg += dmgbonus; // C :1503
+    /* don't let penalty, if bonus is negative, turn a hit into a miss */ // C :1504
+    if (dmg < 1) dmg = 1; // C :1505–1506
     return dmg;
 }
 
@@ -1233,8 +1243,8 @@ async function hmon_hitmon_weapon_melee(mon, obj, ctx) {
  * Named: muse.c munstone :2884 (monster eats a cure; treat as FALSE, the
  * mhitm.js do_stone_mon idiom) so petrify arms always minstapetrify;
  * hmon_hitmon_msg_silver :1876 (silvermsg/silverobj set, no plumbing —
- * same as the ranged arm); get_dmg_bonus consumers (recalc gate :1447,
- * shade bump :1817 — pre-existing named, see hmon_hitmon_dmg_recalc);
+ * same as the ranged arm); get_dmg_bonus recalc gate :1447 now live
+ * (hmon_hitmon_dmg_recalc), shade bump :1817 still pre-existing named;
  * C's commented-out learn_egg_type (:1206) stays commented out.
  * Caller: hmon_hitmon's non-weapon branch (C hmon_hitmon_do_hit :1429).
  * The pie/venom arms are ported here in full, but hmon_hitmon's D-0693
@@ -1518,6 +1528,7 @@ async function hmon_hitmon(mon, obj, thrown, _dieroll) {
     let dmg = 0;
     let use_weapon_skill = false;
     let train_weapon_skill = false;
+    let get_dmg_bonus = true; // C hmon_hitmon :1778 hmd.get_dmg_bonus = TRUE
     let hittxt = false;
     let dryit = false; // C hmd.dryit :1790 (wet towel; applied at :1872)
     if (!obj) {
@@ -1586,6 +1597,7 @@ async function hmon_hitmon(mon, obj, thrown, _dieroll) {
                 use_weapon_skill,
                 train_weapon_skill,
                 hittxt,
+                get_dmg_bonus: true, // C :1778 (no melee arm clears it)
                 doreturn: false,
                 retval: true,
                 dieroll: _dieroll | 0,
@@ -1597,6 +1609,7 @@ async function hmon_hitmon(mon, obj, thrown, _dieroll) {
             use_weapon_skill = ctx.use_weapon_skill;
             train_weapon_skill = ctx.train_weapon_skill;
             hittxt = ctx.hittxt;
+            get_dmg_bonus = ctx.get_dmg_bonus; // C: melee keeps the :1778 TRUE
             // C hmon_hitmon :1797 — artifact doreturn (killed → FALSE,
             // dmg-zeroed → TRUE) skips recalc/pet/msg entirely.
             if (ctx.doreturn) return !!ctx.retval;
@@ -1622,7 +1635,7 @@ async function hmon_hitmon(mon, obj, thrown, _dieroll) {
             material: game.objects?.[obj.otyp]?.oc_material | 0, // C :1774
             dmg: 0,
             hittxt,
-            get_dmg_bonus: true, // C :1778 (consumers pre-existing named)
+            get_dmg_bonus: true, // C :1778 (recalc gate wired; :1817 bump still named)
             unarmed: false,
             doreturn: false,
             retval: true,
@@ -1636,11 +1649,12 @@ async function hmon_hitmon(mon, obj, thrown, _dieroll) {
         dmg = mctx.dmg | 0;
         hittxt = mctx.hittxt;
         dryit = mctx.dryit;
+        get_dmg_bonus = mctx.get_dmg_bonus; // C misc_obj FALSE arms :1137/:1190/:1316/:1339/:1349
     }
-    // C: if (hmd.dmg > 0) hmon_hitmon_dmg_recalc — before stagger
+    // C hmon_hitmon :1806–1807 — if (hmd.dmg > 0) recalc, before stagger
     if (dmg > 0) {
         dmg = await hmon_hitmon_dmg_recalc(dmg, obj, thrown, twohits,
-            use_weapon_skill, train_weapon_skill);
+            use_weapon_skill, train_weapon_skill, get_dmg_bonus);
     }
 
     // C uhitm.c hmon_hitmon :1812–1822 — dmg<1 shade melee/applied

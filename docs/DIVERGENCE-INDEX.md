@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-2678 | fixed |  — `uhitm.c` hmon_hitmon_dmg_recalc whole-body port (get_dmg_bonus gate + PROJECTILE skillwep + uwep_skill_typ |  |
 | D-2677 | fixed |  — `dogmove.c` find_friends whole-body port (perceives invis-tame arm + isok call) |  |
 | D-2676 | fixed |  — `lock.c` chest_shatter_msg whole-body port (potion You hear/see + bottlename + potionbreathe; C-order switc |  |
 | D-2675 | fixed |  — `wield.c` doswapweapon whole-body port (cantwield arm + live prinv/You) |  |
