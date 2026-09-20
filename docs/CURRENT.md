@@ -46,7 +46,7 @@ screens 93.2 %. Held-out 11/44, unchanged vs last audit (5,972 pts, RNG
 predict the judge.
 **Corpus fortress** (re-scored 2026-09-20 audit 1604–1612): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — **+0 / −0**
-in the D-2645…D-2657 window (8 ACCEPTs + 1 WITH-DEBT;
+in the D-2645…D-2658 window (8 ACCEPTs + 1 WITH-DEBT;
 every per-SHA `--reach-all` re-run here ends REACH-OK with no REGRESSED).
 Reviews 1225–1612: 345 ACCEPT, 15 WITH-DEBT, 1 DEBT, 22 QUALITY-RISK (1503, 1517, 1520 stamped; Must-fix 1533/1536 → D-2583/D-2584, 1568 → D-2610, 1592 → D-2636 `271ceca1`; hashes filled).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`) — review-debt, unqueued (detail in the review files).
@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `uhitm.c` mhitm_ad_poly — coverage PARTIAL (C 43 L `uhitm.c:3729–3774` / JS 29 L in js/mhitm.js; hops 4, callers 1, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mhitm_ad_poly` (reach regression must be 0). Measured `port-coverage.mjs --name mhitm_ad_poly` 2026-09-20 @ a9b0ff62.
+**Next cluster:** `mhitu.c` magic_negation — coverage MISSING (C 48 L `mhitu.c:1089–1137` / JS no symbol; hops 6, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn magic_negation` (reach regression must be 0). Measured `port-coverage.mjs --name magic_negation` 2026-09-20 @ a9b0ff62.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2657 (index).**
+**Keep D-0845…D-2658 (index).**
 <!-- recent:begin -->
+**D-2658** ``nethack-c/upstream/src/mhitu.c:1089–1137`` (magic_negation) + callee ``artifact.c:697–70 — new exported ``magic_negation(mon)`` (``js/mhitm.js:2412``) in C order with per-arm ``:line`` cites — null (JS hero-defender idiom) or ``game.youmonst`` takes the is_you path, else the mon path with ``monsndx(mon.data) =
 **D-2657** ``nethack-c/upstream/src/uhitm.c:3729–3774`` — hoisted negated above hitmsg in C order with ``|| !!mtmp.mspec_used``; ``You("aren't transformed.")`` via same-module display.js import (output-identical); per-arm ``:line`` cites on both bodies.
 **D-2656** ``nethack-c/upstream/src/dothrow.c:1852–1909`` (return_throw_to_inv, staticfn) + callers ` — ported the missing arm in C order with per-arm ``:line`` cites — ``otmp = null`` ``:1862``; parent/child oid gate on live ``game.context.objsplit`` (``mkobj.js:431`` writer, ``:463`` ctx); where-gate relink (C chain-prep
 **D-2655** ``nethack-c/upstream/src/mondata.c:771–871`` (same_race) + caller ``dog.c:1080–1083`` (dog — restarted the export in C order with per-arm ``:line`` cites — letters ``:773`` up front (null guard stays first, JS-only, C takes NONNULLARG12); exact ``:775–776`` (``pm1 === pm2`` + mndx equality for fresh mons() wrapp
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2653** ``nethack-c/upstream/src/date.c:52–131`` (populate_nomakedefs) + caller ``mdlib.c:842`` (r — new C-home `js/date.js` in C order with per-arm `:line` cites — file-local `extract_field` (`:44–49`), `case_insensitive_comp`, `md_ignored_features` (`(1<<19)|SFCTOOL_BIT`, live const.js import), `bannerc_string` (C out
 **D-2652** ``nethack-c/upstream/src/earlyarg.c:404–441`` (scores_only; ATTRNORETURN staticfn) + calle — new C-home ``js/earlyarg.js`` (Constitution §3.1 1:1) in C order with per-arm ``:line`` cites — exported ``async scores_only(argc, argv, dir)`` (async only because live ``prscore`` must be awaited; C ATTRNORETURN unrepre
 **D-2651** ``nethack-c/upstream/src/options.c:2052–2074`` (shared_menu_optfn; staticfn decl ``:362``) — C-home ``js/options.js`` in C order with per-arm ``:line`` cites — exported ``shared_menu_optfn`` (do_init no-op, do_set resolve-then-delegate, get_val ``to_be_done``, get_cnf_val clear); file-local ``check_misc_menu_com
-**D-2650** ``nethack-c/upstream/src/topten.c:340–391`` (writexlentry; staticfn decl ``:71``) + static — new exports in C-home ``js/topten.js`` in C order with per-arm ``:line`` cites — ``writexlentry(tt, how)`` returns the full tab-separated line (C FILE* becomes the return; out-param ``char *buf`` callees return their str
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2657; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2658; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

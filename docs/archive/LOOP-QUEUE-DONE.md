@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
-- [x] `uhitm.c` mhitm_ad_poly — coverage PARTIAL (C 43 L `uhitm.c:3729–3774` / JS 29 L in js/mhitm.js; hops 4, callers 1, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mhitm_ad_poly` (reach regression must be 0). Measured `port-coverage.mjs --name mhitm_ad_poly` 2026-09-20 @ a9b0ff62. **Addressed:** D-2657
+- [x] `mhitu.c` magic_negation — coverage MISSING (C 48 L `mhitu.c:1089–1137` / JS no symbol; hops 6, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn magic_negation` (reach regression must be 0). Measured `port-coverage.mjs --name magic_negation` 2026-09-20 @ a9b0ff62. **Addressed:** D-2658
+
+
+- [x] `uhitm.c` mhitm_ad_poly — coverage PARTIAL (C 43 L `uhitm.c:3729–3774` / JS 29 L in js/mhitm.js; hops 4, callers 1, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mhitm_ad_poly` (reach regression must be 0). Measured `port-coverage.mjs --name mhitm_ad_poly` 2026-09-20 @ a9b0ff62. **Addressed:** D-2657 `8affcbef`
 
 
 - [x] `dothrow.c` return_throw_to_inv — coverage THIN (C 50 L `dothrow.c:1855–1909` / JS 16 L in js/dothrow.js; hops 3, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn return_throw_to_inv` (reach regression must be 0). Measured `port-coverage.mjs --name return_throw_to_inv` 2026-09-20 @ a9b0ff62. **Addressed:** D-2656 `dccf43f5`

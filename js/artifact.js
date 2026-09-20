@@ -623,6 +623,25 @@ export function get_artifact(obj) {
 }
 
 /**
+ * C ref: artifact.c protects `:697–709` — worn PROTECTION-oprop or a
+ * protective artifact. Callee of mhitu.c magic_negation `:1115`.
+ * `objects[otyp].oc_oprop` via game.objects; non-artifact is
+ * `list[ART_NONARTIFACT]` (touch_artifact arm precedent).
+ */
+export function protects(otmp, being_worn) {
+    // C: if (being_worn && objects[otmp->otyp].oc_oprop == PROTECTION) `:701`
+    if (being_worn && ((game.objects?.[otmp?.otyp]?.oc_oprop | 0) === PROTECTION))
+        return true;
+    // C: arti = get_artifact(otmp); non-artifact → FALSE `:703–706`
+    const list = artilist();
+    const arti = get_artifact(otmp);
+    if (arti === list[ART_NONARTIFACT]) return false;
+    // C: cspfx always counts; spfx only when worn `:707–708`
+    return ((((arti.cspfx | 0) & SPFX_PROTECT) !== 0)
+        || (!!being_worn && ((((arti.spfx | 0) & SPFX_PROTECT) !== 0))));
+}
+
+/**
  * C ref: artifact.c spec_m2 `:1065–1072` — artifact->mtype, else 0.
  * Extracted m2/num is a bit mask (Sting/Orcrist M2_ORC, Grimtooth M2_ELF).
  * Class-letter mtype (DCLAS S_*) is not a long in JS; those arts have no
