@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2669 — `dig.c` buried_ball: wire last C caller (trapmove radius-1 + wriggle_free); dist2 clone → live hacklib export; 2 stale parks
+
+- Status: ACCEPT — breadth-phase coverage row (PARTIAL C 47 L `dig.c:1885–1932` / JS 23 L in js/dig.js; no corpus session blocked on it).
+- Symptom: coverage PARTIAL — the `buried_ball` body was already live and C-complete, but its 5th C caller (`hack.c:1639` trapmove) sat behind two `deferred` comments in `js/hack.js` (radius-1 free-move arm + wriggle_free re-punish), and `js/dig.js` carried a file-local `dist2` clone beside two live exports.
+- C locus: `nethack-c/upstream/src/dig.c:1884–1932` (buried_ball: `!u.utrap || utraptype==TT_BURIEDBALL` gate, HEAVY_IRON_BALL scan of `buriedobjlist`, exact-spot return, dist2≤8 nearest-neighbour, cc rewrite to ball cell) + callers `dig.c:1942` (buried_ball_to_punishment) / `:1965` (buried_ball_to_freedom) / `:2094` (unearth_objs) / `hack.c:1633–1647` (trapmove anchored radius arm; ugly-hack Norep `:1640–1645`) + `:1677–1678` (wriggle_free `if (anchored) buried_ball_to_punishment()`) / `trap.c:3957` (dotrap `(void)` discard) + callee `hacklib.c:673` dist2 (squared Euclidean; `odist<=8` grid 0/1/2/4/5/8 in the C comment).
+- JS was: `export function buried_ball` js/dig.js:551 complete (`bdist=0` ≡ C `COLNO` — `!ball` short-circuits the first store, so the init never reads); trapmove TT_BURIEDBALL js/hack.js:2117 went straight to `u.utrap-1` with `// buried_ball radius-1 free-move arm deferred`, and the wrench-free arm kept `// buried_ball_to_punishment deferred`; `buried_ball` resolved `dist2` to the file-local js/dig.js:159 clone.
+- Fix: trapmove in C order — `if (anchored) { cc={ux,uy}; if (buried_ball(cc) && dist2(x,y,cc.x,cc.y)<=2) { verbose→Norep("You move within the chain's reach."); return true; } }` before the `u.utrap-1` line (js/hack.js:2120); wrench-free arm → `await buried_ball_to_punishment()` (C `:1677–1678`; steed variants stay deferred as before); both names join pre-existing static edges (`./dig.js` in hack.js:93, `./hacklib.js` in both files — hoisted fns, `imports.mjs --can` SAFE/ALREADY, no new edge); dig.js:159 `dist2` clone deleted for the C-locus `hacklib.js:23` export (byte-identical body; sole in-file user was `:561`).
+- JS: `js/hack.js` (2 import names + radius arm + punish call + doc envelope) · `js/dig.js` (1 import name + clone deletion + doc cite).
+- Callers: dig.c:1942→js/dig.js:584 · :1965→js/dig.js:602 · :2094→js/dig.js:521 · hack.c:1639→js/hack.js:2120–2131 (NEW this entry) · trap.c:3957→js/trap.js:2973 (dynamic import, C `(void)` discard).
+- Verify: `node scripts/verify.mjs --fn buried_ball` → PASS syntax (2 changed files) · PASS rule2 · note hidden (0 blocked at baseline) · PASS reach (no RNG-tagged reach; fixed smoke spread 24 run: 24 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) → VERIFY: PASS.
+- Named omissions: trapmove steed / Sting / `surface()` culprit-text arms (pre-existing deferrals, kept in the doc envelope); digactualhole `buried_ball_to_punishment` comment (js/dig.js:701, pre-existing); engrave `surface` clone + Blind-feel (map-named turns.md:820-824).
+- Next: `worm.c` worm_cross (next Open — coverage row).
+
 ## D-2668 — `sp_lev.c` get_table_region + intarray-entry unpacked ports wired into lregion/exclusion callers; same-file search_door + create_corridor
 
 - Status: ACCEPT — breadth-phase coverage rows (MISSING C 29 L `sp_lev.c:5282–5316` / JS no symbol + same-file MISSING C 54 L `sp_lev.c:2671–2725` / JS no symbol; no corpus session blocked on either).

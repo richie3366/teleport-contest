@@ -7,6 +7,13 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-20 — D-2669 `dig.c` buried_ball: wire last C caller (trapmove radius-1 + wriggle_free); dist2 clone → live hacklib export; 2 stale parks
+
+**C locus:** 
+**JS:** 
+**Change:** 
+**Verify:** 
+**Next:** (see LOOP-QUEUE)
 ## 2026-09-20 — D-2668 `sp_lev.c` get_table_region + intarray-entry unpacked ports wired into lregion/exclusion callers; same-file search_door + create_corridor
 
 **C locus:** 

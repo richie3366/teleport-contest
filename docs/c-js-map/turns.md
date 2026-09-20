@@ -1876,7 +1876,7 @@ LANDMINE/BEAR_TRAP; callee D-1051; uteetering/uescaped_shaft / Underwater still 
 **`zap_dig` swallowed pierce** (D-2322; C `:1569-1582`: non-whirly pierce pline + unique-halve/else-1 mhp + `expels`);
 **`dighole` magical-trap explode + DRAWBRIDGE_UP fluid + by_magic trap-convert** (D-2323; C `:885-1024`: `is_magical_trap` explode/deltrap/newsym, DRAWBRIDGE_UP fillholetyp + drawbridgemask + liquid_flow, LANDMINE/BEAR_TRAP cnv_trap_obj; spot_checks still named);
 **`draft_message` whole body** (D-2536; `:1504–1544` in C order — unexpected + plain arms, hallu 4-F/1-A via live `acurr`, `draft_reaction` via `rn1`/`sgn` on ualign with file-local `STRIDENT` 4; `mdig_tunnel` `:1443`/`:1451` pre-existing wires kept, `zap_map` `:3746` + `zap_over_floor` `:5408` Rogue arms wired via the existing dig.js edge);
-crush/entity + iron-chain scatter; impact shop `stolen_value`
+crush/entity + iron-chain scatter; impact shop `stolen_value`; **`buried_ball` last-caller wiring** (D-2669: body js/dig.js:551 pre-existing complete — gate/scan/exact-return/dist2≤8/cc-rewrite; `bdist=0`≡C `COLNO` via `!ball` short-circuit; trapmove radius-1 `:1633–1647` + wriggle_free `:1677–1678` wired js/hack.js:2120/:2143 via extended pre-existing dig.js edge; `dist2` clone → live C-locus hacklib.js:23; callers `:1942`/`:1965`/`:2094`→dig.js:584/:602/:521, trap.c:3957→trap.js:2973; trapmove steed/Sting/surface-culprit still named)
 
 ### `src/eat.c`
 

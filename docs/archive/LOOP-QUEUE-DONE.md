@@ -5,8 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
-- [x] `sp_lev.c` get_table_region — coverage MISSING (C 29 L `sp_lev.c:5282–5316` / JS no symbol; hops —, callers 5, RNG 0, msg 0; dead callees: get_table_intarray_entry). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn get_table_region` (reach regression must be 0). Measured `port-coverage.mjs --name get_table_region` 2026-09-20 @ a505c4ce. **Addressed:** D-2668
-- [x] `sp_lev.c` create_corridor — coverage MISSING (C 54 L `sp_lev.c:2671–2725` / JS no symbol; hops —, callers 2, RNG 0, msg 0; dead callees: search_door). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn create_corridor` (reach regression must be 0). Measured `port-coverage.mjs --name create_corridor` 2026-09-20 @ 4559dcf9. **Addressed:** D-2668
+- [x] `dig.c` buried_ball — coverage PARTIAL (C 47 L `dig.c:1885–1932` / JS 23 L in js/dig.js; hops 3, callers 5, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn buried_ball` (reach regression must be 0). Measured `port-coverage.mjs --name buried_ball` 2026-09-20 @ 4559dcf9. **Addressed:** D-2669
+
+
+- [x] `sp_lev.c` get_table_region — coverage MISSING (C 29 L `sp_lev.c:5282–5316` / JS no symbol; hops —, callers 5, RNG 0, msg 0; dead callees: get_table_intarray_entry). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn get_table_region` (reach regression must be 0). Measured `port-coverage.mjs --name get_table_region` 2026-09-20 @ a505c4ce. **Addressed:** D-2668 `f0550a81`
+- [x] `sp_lev.c` create_corridor — coverage MISSING (C 54 L `sp_lev.c:2671–2725` / JS no symbol; hops —, callers 2, RNG 0, msg 0; dead callees: search_door). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn create_corridor` (reach regression must be 0). Measured `port-coverage.mjs --name create_corridor` 2026-09-20 @ 4559dcf9. **Addressed:** D-2668 `f0550a81`
 
 
 - [x] `objnam.c` paydoname — coverage PARTIAL (C 42 L `objnam.c:2313–2355` / JS 26 L in js/objnam.js; hops 6, callers 5, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn paydoname` (reach regression must be 0). Measured `port-coverage.mjs --name paydoname` 2026-09-20 @ a505c4ce. **Addressed:** D-2667 `873be5f1`
