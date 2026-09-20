@@ -1605,3 +1605,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1592-d62c8935-role-menu-extra.md](./1592-d62c8935-role-menu-extra.md) | `d62c8935` | D-2633 role_menu_extra restart | **QUALITY-RISK** |
 | [1593-b358bb84-m-use-undead-turning.md](./1593-b358bb84-m-use-undead-turning.md) | `b358bb84` | D-2634 m_use_undead_turning port | **ACCEPT** |
 | [1594-fe53547d-cond-menu.md](./1594-fe53547d-cond-menu.md) | `fe53547d` | D-2635 cond_menu port | **ACCEPT** |
+| [1595-271ceca1-role-menu-extra-fix.md](./1595-271ceca1-role-menu-extra-fix.md) | `271ceca1` | D-2636 role_menu_extra RS_ROLE fix | **ACCEPT** |
+| [1596-74da96a1-onscary.md](./1596-74da96a1-onscary.md) | `74da96a1` | D-2637 onscary restart | **ACCEPT** |
+| [1597-d012b82b-avoid-trap-region.md](./1597-d012b82b-avoid-trap-region.md) | `d012b82b` | D-2638 avoid_trap_andor_region port | **ACCEPT** |
+| [1598-c48fc89f-rest-regions.md](./1598-c48fc89f-rest-regions.md) | `c48fc89f` | D-2639 rest_regions port | **ACCEPT** |
+| [1599-01b46bc9-seffect-destroy-armor.md](./1599-01b46bc9-seffect-destroy-armor.md) | `01b46bc9` | D-2640 seffect_destroy_armor restart | **ACCEPT** |
+| [1600-4171e6d7-experience.md](./1600-4171e6d7-experience.md) | `4171e6d7` | D-2641 experience restart | **ACCEPT** |
+| [1601-b582bb36-change-sex.md](./1601-b582bb36-change-sex.md) | `b582bb36` | D-2642 change_sex restart | **ACCEPT** |
+| [1602-d76b7205-sp-level-coder-init.md](./1602-d76b7205-sp-level-coder-init.md) | `d76b7205` | D-2643 sp_level_coder_init port | **ACCEPT** |
+| [1603-c1f00cd4-relink-light-sources.md](./1603-c1f00cd4-relink-light-sources.md) | `c1f00cd4` | D-2644 relink_light_sources port | **ACCEPT** |
