@@ -30,7 +30,7 @@ import { COLNO, ROWNO, STONE, DOOR, CORR, ROOM, IRONBARS, TREE, SDOOR,
          CMD_M_PREFIX, CMD_gGF_PREFIX, CMD_INSANE, QBUFSZ,
          xdir, ydir, zdir, xytodir, N_DIRS, DIR_W, DIR_N, DIR_E, DIR_S,
          DIR_NW, DIR_NE, DIR_SE, DIR_SW,
-         MV_WALK, MV_RUN, MV_RUSH, commandInp,
+         MV_WALK, MV_RUN, MV_RUSH, commandInp, otherInp, getposInp,
          GFILTER_VIEW, GLOC_INTERESTING,
          M_AP_TYPE, M_AP_FURNITURE, M_AP_OBJECT, VIBRATING_SQUARE,
          PARANOID_TRAP, GP_ALLOW_U, NO_TRAP_FLAGS, FOOT, Something,
@@ -623,6 +623,171 @@ export function random_response(sz) {
             out += String.fromCharCode(c & 0xff);
     }
     return out;
+}
+
+/**
+ * C ref: cmd.c readchar_queue `:153` — file-static pushback consumed by
+ * readchar_core (`:5221–5222`) and the ALTMETA second read (`:5255`).
+ * Upstream has no writer (these are the only read sites), so it is always
+ * empty here; the shape stays so a future pushback port has its home.
+ * JS string + cursor for C's `*readchar_queue++` pointer bump.
+ */
+let _readchar_queue = '';
+let _readchar_queue_pos = 0;
+
+/**
+ * C ref: cmd.c `*readchar_queue` — next queued byte, 0 when empty.
+ * charCodeAt out of range is NaN, and `NaN || 0` is 0, which mirrors the
+ * NUL terminator C sees at the end of its string.
+ * @returns {number}
+ */
+function readchar_queue_peek() {
+    return _readchar_queue.charCodeAt(_readchar_queue_pos) || 0;
+}
+
+/**
+ * C ref: cmd.c hangup `:5159–5181` (#ifdef HANGUPHANDLING — live via
+ * include/global.h:278; SAFERHANGUP live via unixconf.h:301;
+ * NOSAVEONHANGUP off). C order: exiting → in_moveloop=0,
+ * nhwindows_hangup, done_hup++, defer while in_moveloop with something
+ * worth saving, else end_of_input. Named: nhwindows_hangup (windowport
+ * teardown — same class as end_of_input's exit_nhwindows/clearlocks
+ * omits). Caller: readchar_core EOF arm (`:5245`).
+ * @param {number} [sig_unused] C signal-handler arg, unused
+ */
+export function hangup(sig_unused = 0) {
+    if (!game.program_state) game.program_state = {};
+    const ps = game.program_state;
+    if (ps.exiting)
+        ps.in_moveloop = 0;
+    ps.done_hup = (ps.done_hup | 0) + 1;
+    if (ps.in_moveloop && ps.something_worth_saving)
+        return;
+    end_of_input();
+}
+
+/**
+ * C ref: cmd.c click_to_cmd `:4905–4913` — stamp clicklook_cc, then queue
+ * the bound mouse-button command. Caller: readchar_core click arm
+ * (`:5264`). Named: bind_mousebtn (cmd.c:2624 — no JS port, so
+ * game.Cmd.mousebtn stays undefined and the queue arm is inert); the
+ * entry shape below (run + tab) matches cmdq_add_ec's live call shapes.
+ * @param {number} x
+ * @param {number} y
+ * @param {number} mod CLICK_1 / CLICK_2
+ */
+export function click_to_cmd(x, y, mod) {
+    if (!game.gc) game.gc = {};
+    game.gc.clicklook_cc = { x: x | 0, y: y | 0 };
+    const entry = game.Cmd?.mousebtn?.[(mod | 0) - 1];
+    if (entry)
+        cmdq_add_ec(CQ_CANNED, entry.run ?? entry, entry);
+}
+
+/**
+ * C ref: cmd.c readchar_core `:5213–5272` in C order. Async only because
+ * pgetchar / nhgetch await input (Constitution §2); C callers see a plain
+ * key read. Key codes are numbers (pgetchar/nhgetch convention); C's
+ * `(char)` return cast is a no-op on this range. parse/get_count/getpos/
+ * getdir appear only in the ALTMETA comment (`:5251–5254`), not as calls.
+ * @param {{ x: number, y: number, mod: number }} pos in/out mouse coords
+ * @returns {Promise<number>} key code (0 = click, handled via click_to_cmd)
+ */
+export async function readchar_core(pos) {
+    const EOF = -1; /* C stdio EOF */
+    const ESC = 27; /* '\033' */
+    let sym;
+
+    if (game.iflags?.debug_fuzzer) {
+        /* C `:5217–5220` — randomkey then goto readchar_done (the
+           input_state reset below still runs). */
+        sym = randomkey();
+    } else {
+        if (readchar_queue_peek()) /* C `:5221–5222` */
+            sym = _readchar_queue.charCodeAt(_readchar_queue_pos++);
+        else if (game.in_doagain) /* C `:5223–5224` */
+            sym = await pgetchar();
+        else /* C `:5225–5226` — nh_poskey is tty_nhgetch on unix
+                (wintty.c tty_nh_poskey: `i = tty_nhgetch()`; the WIN32CON
+                NUL/EOF→ESC map does not apply). input.js nhgetch is the
+                tty_nhgetch equivalent; mouse coords have no key-stream
+                source here (clicks arrive via cmdq/clicklook_cc), so pos
+                passes through. */
+            sym = await nh_poskey_read(pos);
+
+        /* C `:5228–5241` NR_OF_EOFS=20 (cmd.c:15); clearerr(stdin)
+           omitted — no stdio (C itself says omit if undefined). */
+        if (sym === EOF) {
+            let cnt = 20; /* NR_OF_EOFS */
+            do {
+                sym = await pgetchar();
+            } while (--cnt && sym === EOF);
+        }
+
+        if (sym === EOF) { /* C `:5243–5247` */
+            hangup(0);
+            sym = ESC;
+        } else if (sym === ESC /* C `:5248–5260` ALTMETA (unixconf.h:224) */
+                   && game.iflags?.altmeta
+                   && game.program_state?.input_state !== otherInp) {
+            /* C `:5255` — queue first, else blocking read. */
+            sym = readchar_queue_peek()
+                ? _readchar_queue.charCodeAt(_readchar_queue_pos++)
+                : await pgetchar();
+            if (sym === EOF || sym === 0) /* C `:5256–5257` */
+                sym = ESC;
+            else if (sym !== ESC) /* C `:5258–5259` force 8th bit on */
+                sym |= 0x80; /* C `0200` */
+        } else if (sym === 0) { /* C `:5261–5265` click event */
+            if (!game.gc) game.gc = {};
+            game.gc.clicklook_cc = { x: -1, y: -1 };
+            click_to_cmd(pos.x | 0, pos.y | 0, pos.mod | 0);
+        }
+    }
+
+    /* C readchar_done `:5267–5271` — the goto lands here, so the reset
+       runs on every path including the fuzzer arm; parse() sets it back
+       when it needs a non-ordinary next read. */
+    if (!game.program_state) game.program_state = {};
+    game.program_state.input_state = otherInp;
+    return sym | 0;
+}
+
+/**
+ * C ref: wintty.c tty_nh_poskey — `i = tty_nhgetch()`; input.js nhgetch
+ * is that equivalent. String-tolerant like lock.js nhgetch_to_dirsym
+ * (browser readKey may hand a string); pos passes through — see
+ * readchar_core.
+ * @param {{ x: number, y: number, mod: number }} pos
+ * @returns {Promise<number>} key code
+ */
+async function nh_poskey_read(pos) {
+    const k = await nhgetch();
+    return (typeof k === 'string') ? (k.length ? k.charCodeAt(0) : 0) : (k | 0);
+}
+
+/**
+ * C ref: cmd.c readchar `:5275–5284` — hero-position read for ordinary
+ * keys (x/y/mod only matter when nh_poskey reports a mouse click).
+ * This is C's first readchar_core call site (`:5282`).
+ * @returns {Promise<number>} key code
+ */
+export async function readchar() {
+    const pos = { x: game.u?.ux | 0, y: game.u?.uy | 0, mod: 0 };
+    return readchar_core(pos);
+}
+
+/**
+ * C ref: cmd.c readchar_poskey `:5286–5295` — getpos()'s mouse-aware read
+ * (input_state=getposInp, so ALTMETA treats `ESC c` as M-c for Alt+digit).
+ * This is C's second readchar_core call site (`:5293`).
+ * @param {{ x: number, y: number, mod: number }} pos
+ * @returns {Promise<number>} key code
+ */
+export async function readchar_poskey(pos) {
+    if (!game.program_state) game.program_state = {};
+    game.program_state.input_state = getposInp;
+    return readchar_core(pos);
 }
 
 const DOEXTLIST_HEADINGS = [

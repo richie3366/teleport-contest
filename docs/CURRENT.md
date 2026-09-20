@@ -42,15 +42,14 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 4/22, 2nd agentic; best agentic fork 35/44, RNG 98.5 %,
-screens 93.2 %. Held-out 11/44 (5,972 pts, RNG 26.7 %, screens 53.0 %;
-+196 pts / +1.7 pp screens vs last audit): the corpus still does
-not predict the judge.
+screens 93.2 %. Held-out 11/44 (+196 pts / +1.7 pp screens vs last
+audit; totals in table): the corpus still does not predict the judge.
 **Corpus fortress** (re-scored 2026-09-20 audit 1569–1577): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — **+0 / −0**
-in the D-2610…D-2624 window (8 ACCEPTs + 1 WITH-DEBT;
-every per-SHA `--reach-all` re-run here ends REACH-OK with no REGRESSED
-corpus session; the one public move is seed0107 restored by D-2610).
-Reviews 1225–1577: 312 ACCEPT, 14 WITH-DEBT, 1 DEBT, 21 QUALITY-RISK (1503, 1517, 1520 stamped; 1533 + 1536 Must-fix rows shipped as D-2583/D-2584 with `**Addressed:**` hashes filled; 1568 Must-fix shipped as D-2610 with `**Addressed:**` hash filled).
+in the D-2610…D-2625 window (8 ACCEPTs + 1 WITH-DEBT;
+every per-SHA `--reach-all` re-run here ends REACH-OK;
+the one public move is seed0107 restored by D-2610).
+Reviews 1225–1577: 312 ACCEPT, 14 WITH-DEBT, 1 DEBT, 21 QUALITY-RISK (1503, 1517, 1520 stamped; Must-fix 1533/1536 → D-2583/D-2584, 1568 → D-2610, hashes filled).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`) — review-debt, unqueued (detail in the review files).
 Audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s) + `leaderboard.mjs`.
 
@@ -101,10 +100,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `cmd.c` readchar_core (Open — coverage MISSING; next head after D-2624 shipped trapeffect_hole).
+**Next cluster:** `objnam.c` add_erosion_words (Open — coverage PARTIAL; next head after D-2625 shipped readchar_core).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2624 (index).**
+**Keep D-0845…D-2625 (index).**
 <!-- recent:begin -->
+**D-2625** ``nethack-c/upstream/src/cmd.c:5213–5272`` (readchar_core, staticfn) + ``:5159–5181`` (han — ported the whole C body in C order, async only because pgetchar/nhgetch await input — fuzzer arm ``:5217–5220`` via live ``randomkey()``, still landing on the ``input_state=otherInp`` tail; ``readchar_queue`` ``:153`` as
 **D-2624** ``nethack-c/upstream/src/trap.c:2013–2067`` (trapeffect_hole, staticfn); callers ``:2964`` — restarted the export in C order with per-arm ``:line`` cites — hero ``:2018–2024`` (seetrap + ``await impossible('dotrap: %ss cannot exist on this level.', trapname(trap.ttyp, true))`` + Finished; else ``fall_through(tru
 **D-2623** ``nethack-c/upstream/src/quest.c:282–368`` (chat_with_leader, staticfn); callers ``:390``  — restarted the export in C order with per-arm ``:line`` cites — Rule 0 cheater (``:287–289``, ``u.uhave?.questart`` per zap.js/trap.js precedent, ``qs.met_nemesis``/``qs.cheater`` new quest_status keys); got_thanks Rule 1
 **D-2622** ``nethack-c/upstream/src/mkobj.c:3768–3814`` (obj_meld); callers ``do.c:312`` (flooreffect — restarted the export in C order with per-arm ``:line`` cites — ``result = null`` (``:3771``); holder-level ``if (p1 && p2)`` guard (``:3774`` — the ``struct obj **``, not the pointees); pointee ``otmp1 && otmp2 && !==`` 
@@ -112,11 +112,10 @@ revisits the picker.
 **D-2620** ``nethack-c/upstream/src/cmd.c:4658–4838`` (act_on_act, staticfn) + ``:294–311`` (cmdq_add — ported the whole body in C order with per-arm ``:line`` cites — sgn clamp keeping throw/travel/look deltas raw (``:4666–4677``, live eat.js ``sgn`` ≡ ``hacklib.c:650``); TRAVEL travelcc+u.tx/ty stamp (``:4680–4688``, gam
 **D-2619** ``nethack-c/upstream/src/botl.c:2363–2570`` (get_hilite, staticfn) + ``:2333–2344`` (noneo — ported the whole body in C order with per-arm ``:line`` cites — out-of-range early return without touching colorptr (``:2374–2375``); has_hilite macro inlined (``:2377``); best-fit trackers (``:2380–2388``, LARGEST_INT l
 **D-2618** `nethack-c/upstream/src/invent.c:5068–5286` (`doorganize_core`); `hacklib.c:69–73` (`lette — restarted the export in C order with per-arm `:line` cites — first-predecessor split detect (`:5092–5096`); full `lets[]` layout + `:5110` truncate via `invlet_constant()`/`inv_cnt(false)` before blanking, with past-trun
-**D-2617** ``nethack-c/upstream/src/pickup.c:1570–1701`` (carry_count, staticfn) + ``:1544–1568`` (de — restarted the export in C order with per-arm ``:line`` cites — ``adjust_wt = container && carried(container)`` (``:1576``, live eat.js export of the ``obj.h:332`` macro); provisional weigh + ``delta_cwt`` subtract (``:15
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2624; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2625; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

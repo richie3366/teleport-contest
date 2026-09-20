@@ -8659,8 +8659,9 @@ async function getobj_filter_prompt(obj_ok, ctrlflags) {
 
 /**
  * C invent.c getobj `:1921–1922` — gi.in_doagain → readchar(), no yn
- * prompt. readchar_core fuzzer / readchar_queue / ALTMETA / click are
- * cmd.c named omits; nhgetch matches getdir_read_dirsym.
+ * prompt. readchar_core whole body is live (`js/cmd.js` D-2625 —
+ * fuzzer/queue/ALTMETA/click in C order); nhgetch matches
+ * getdir_read_dirsym.
  */
 async function getobj_readchar() {
     const key = await nhgetch();

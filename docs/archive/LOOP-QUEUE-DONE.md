@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
-- [x] `trap.c` trapeffect_hole — coverage PARTIAL (C 51 L `trap.c:2013–2067` / JS 30 L in js/trap.js; hops 4, callers 2, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn trapeffect_hole` (reach regression must be 0). Measured `port-coverage.mjs --name trapeffect_hole` 2026-09-20 @ c7e7e767. **Addressed:** D-2624
+- [x] `cmd.c` readchar_core — coverage MISSING (C 59 L `cmd.c:5213–5272` / JS no symbol; hops 3, callers 2, RNG 0, msg 0; dead callees: click_to_cmd). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn readchar_core` (reach regression must be 0). Measured `port-coverage.mjs --name readchar_core` 2026-09-20 @ 7e80d890. **Addressed:** D-2625
+
+
+- [x] `trap.c` trapeffect_hole — coverage PARTIAL (C 51 L `trap.c:2013–2067` / JS 30 L in js/trap.js; hops 4, callers 2, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn trapeffect_hole` (reach regression must be 0). Measured `port-coverage.mjs --name trapeffect_hole` 2026-09-20 @ c7e7e767. **Addressed:** D-2624 `355a663e`
 
 
 - [x] `quest.c` chat_with_leader — coverage PARTIAL (C 86 L `quest.c:282–368` / JS 42 L in js/quest.js; hops 3, callers 2, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn chat_with_leader` (reach regression must be 0). Measured `port-coverage.mjs --name chat_with_leader` 2026-09-20 @ c7e7e767. **Addressed:** D-2623 `868f140c`
