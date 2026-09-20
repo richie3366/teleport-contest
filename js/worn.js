@@ -238,8 +238,8 @@ export function find_mac(mon) {
     return base | 0;
 }
 
-/** C ref: prop.h res_to_mr */
-function res_to_mr(r) {
+/** C ref: prop.h res_to_mr — live for mon.js mon_give_prop (mon.c:1757). */
+export function res_to_mr(r) {
     if (r >= FIRE_RES && r <= STONE_RES) return 1 << (r - 1);
     return 0;
 }
