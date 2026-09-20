@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-20 — D-2606 `bones.c` resetobjs save-arm completion (known/name strip + SLIME_MOLD/SCR_MAIL/EGG/TIN/corpse/invocation arms, 6 C callers wired)
+
+**C locus:** `nethack-c/upstream/src/bones.c:50–193`. Save arm in C order: known-strip `:103–112` (`oc_uses_known` gate, dknown/bknown/rknown/lknown/cknown/tknown/invlet/no_charge/how_lost); name strip `:123–128` (artifact/STATUE/SPE_NOVEL/unique-corpse keep); SLIME_MOLD `:131–132`; SCR_MAIL `:134–138` (MAIL_STRUCTURES defined, global.h:430); EGG `:140–141`; TIN `:142–145`; CORPSE/STATUE `:147–165` (cant_revive box + doppelganger set_corpsenm); mines/soko prize `:166–169`; AMULET `:170–173`; CANDELABRUM `:174–183`; BELL `:184–186`; BOOK `:187–189`.
+**JS:** `js/bones.js` — `resetobjs` (:108), otyp/PM consts (:40–55).
+**Change:** restarted the save arm in C order with `:line` cites. `cant_revive` takes an inout `{ mtype }` box (zap.js:2960) — `mnumBox` carries `corpsenm` in and the remap out; `null` from_obj matches C `(struct obj *) 0`, `false` the shopkeeper revival flag. Bare `curse(otmp)` follows the mkobj mksobj sync precedent (state changes precede its first await; amulet/bell/book unlit, candelabrum `end_burn`d first).
+**Verify:** `node scripts/verify.mjs --fn resetobjs` → VERIFY: PASS — syntax 1 file; rule2 clean; hidden note (0 blocked at baseline, expected for a coverage row); reach smoke 24/24 PASS REACH-OK; green 2/2; strict seed8000+seed0900; cohort 7/7.
+**Named:** none new — every arm and callee live. (No committed unit test: repo has no tests/ layout and sessions/** is frozen; verify.mjs --fn + REACH is the gate.)
+**Next:** queue head is now `mkobj.c` remove_object.
 ## 2026-09-20 — D-2605 `eat.c` floorfood whole-body completion (cockatrice touch + otense/safe_qbuf questions + impossible tail, 3 C callers wired)
 
 **C locus:** `nethack-c/upstream/src/eat.c:3579–3731`. Audited arm-by-arm against the brief: `getobj_else=0` + skipfloor gate (`iflags.menu_requested || !can_reach_floor || feeding&&usteed || pool/lava+Wwalking/clinger/Flying&&!Breathless`) pre-existing; metallivore beartrap (`check_capacity(qbuf)` ≡ `near_capacity()>=EXT_ENCUMBER`, verified `hack.c:4399–4409` returns 1 when over-encumbered) / IRONBARS / non-rust gold pre-existing; floor-loop filter (corpsecheck?CORPSE+tinnable : feeding?non-coin+edible : FOOD_CLASS) pre-existing; post-getobj `You_cant("%s that!")` validation pre-existing (text-identical pline).

@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2606 — `bones.c` resetobjs save-arm completion (known/name strip + SLIME_MOLD/SCR_MAIL/EGG/TIN/corpse/invocation arms, 6 C callers wired)
+
+- **Status:** fixed (Open — coverage row `bones.c` resetobjs THIN (C 142 L `bones.c:51–193` / JS 52 L in js/bones.js; hops 2, callers 6, RNG 0, msg 0). Measured `port-coverage.mjs --name resetobjs` 2026-09-20 @ d89bb259).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify resetobjs`: no corpus session blocked on it at baseline; fixed 24-session smoke spread is the evidence). The restore arm was already exact; the save arm carried only SLIME_MOLD goodfruit.
+- **C locus:** `nethack-c/upstream/src/bones.c:50–193`. Save arm in C order: known-strip `:103–112` (`oc_uses_known` gate, dknown/bknown/rknown/lknown/cknown/tknown/invlet/no_charge/how_lost); name strip `:123–128` (artifact/STATUE/SPE_NOVEL/unique-corpse keep); SLIME_MOLD `:131–132`; SCR_MAIL `:134–138` (MAIL_STRUCTURES defined, global.h:430); EGG `:140–141`; TIN `:142–145`; CORPSE/STATUE `:147–165` (cant_revive box + doppelganger set_corpsenm); mines/soko prize `:166–169`; AMULET `:170–173`; CANDELABRUM `:174–183`; BELL `:184–186`; BOOK `:187–189`.
+- **JS was:** `js/bones.js:91` local `resetobjs` — restore arm exact, save arm only `goodfruit` on SLIME_MOLD; the rest map-named (D-2255/D-1523 sections).
+- **Fix:** restarted the save arm in C order with `:line` cites. `cant_revive` takes an inout `{ mtype }` box (zap.js:2960) — `mnumBox` carries `corpsenm` in and the remap out; `null` from_obj matches C `(struct obj *) 0`, `false` the shopkeeper revival flag. Bare `curse(otmp)` follows the mkobj mksobj sync precedent (state changes precede its first await; amulet/bell/book unlit, candelabrum `end_burn`d first). New imports extend existing edges (mkobj/const/timeout/mon) except `mons, monsterNames, SPECIAL_PM` (monsters.js — `imports.mjs --can` SAFE, no cycle) and `cant_revive` (zap.js — same 98-module SCC, hoisted export, cycle-safe). otyp/PM consts are `objectNames`/`monsterNames.indexOf` locals (mkobj.js:116 / timeout.js:1386 pattern).
+- **JS:** `js/bones.js` — `resetobjs` (:108), otyp/PM consts (:40–55).
+- **Callers:** `bones.c:543` (savebones minvent FALSE → `js/bones.js:372` write_bonesfile loop) · `:556` (fobj FALSE → `:375`) · `:558` (buried FALSE → `:377/:379` array-or-chain branch) · `:727` (getbones minvent TRUE → `:712`) · `:729` (fobj TRUE → `:715`) · `:730` (buried TRUE → `:716`) — all wired, unchanged; plus self-recursion `:58` → `:112`. `obj.h:149` decl-comment only.
+- **Verify:** `node scripts/verify.mjs --fn resetobjs` → VERIFY: PASS — syntax 1 file; rule2 clean; hidden note (0 blocked at baseline, expected for a coverage row); reach smoke 24/24 PASS REACH-OK; green 2/2; strict seed8000+seed0900; cohort 7/7.
+- **Named omissions:** none new — every arm and callee live. (No committed unit test: repo has no tests/ layout and sessions/** is frozen; verify.mjs --fn + REACH is the gate.)
+- **Next:** queue head is now `mkobj.c` remove_object.
+
 ## D-2605 — `eat.c` floorfood whole-body completion (cockatrice touch + otense/safe_qbuf questions + impossible tail, 3 C callers wired)
 
 - **Status:** fixed (Open — coverage row `eat.c` floorfood THIN (C 150 L `eat.c:3579–3731` / JS 6 L in js/eat.js; hops —, callers 4, RNG 0, msg 3). Measured `port-coverage.mjs --name floorfood` 2026-09-20 @ d89bb259).
