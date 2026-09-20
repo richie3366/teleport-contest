@@ -47,7 +47,7 @@ screens 93.2 %. Held-out 11/44 (5,972 pts, RNG 26.7 %, screens 53.0 %;
 not predict the judge.
 **Corpus fortress** (re-scored 2026-09-20 audit 1569–1577): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — **+0 / −0**
-in the D-2610…D-2621 window (8 ACCEPTs + 1 WITH-DEBT;
+in the D-2610…D-2622 window (8 ACCEPTs + 1 WITH-DEBT;
 every per-SHA `--reach-all` re-run here ends REACH-OK with no REGRESSED
 corpus session; the one public move is seed0107 restored by D-2610).
 Reviews 1225–1577: 312 ACCEPT, 14 WITH-DEBT, 1 DEBT, 21 QUALITY-RISK (1503, 1517, 1520 stamped; 1533 + 1536 Must-fix rows shipped as D-2583/D-2584 with `**Addressed:**` hashes filled; 1568 Must-fix shipped as D-2610 with `**Addressed:**` hash filled).
@@ -101,10 +101,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `invent.c` loot_xname whole-body port (THIN stub → C order; `mkobj.c` obj_timer_checks popped first, parked STALE — body live js/mkobj.js:2925).
+**Next cluster:** D-2622 shipped `mkobj.c` obj_meld (REACH-OK, full 44/44) — next pop: `quest.c` chat_with_leader (Open — coverage).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2621 (index).**
+**Keep D-0845…D-2622 (index).**
 <!-- recent:begin -->
+**D-2622** ``nethack-c/upstream/src/mkobj.c:3768–3814`` (obj_meld); callers ``do.c:312`` (flooreffect — restarted the export in C order with per-arm ``:line`` cites — ``result = null`` (``:3771``); holder-level ``if (p1 && p2)`` guard (``:3774`` — the ``struct obj **``, not the pointees); pointee ``otmp1 && otmp2 && !==`` 
 **D-2621** ``nethack-c/upstream/src/invent.c:308–387`` (loot_xname, staticfn); callers ``:490``/``:49 — ported the whole body in C order with per-arm ``:line`` cites — save odiluted/blessed/cursed/spe/owt + oname + flags.debug (``:320–325``); potion dilute + water holy/unholy suppress (``:328–332``); towel spe=0 (``:335–33
 **D-2620** ``nethack-c/upstream/src/cmd.c:4658–4838`` (act_on_act, staticfn) + ``:294–311`` (cmdq_add — ported the whole body in C order with per-arm ``:line`` cites — sgn clamp keeping throw/travel/look deltas raw (``:4666–4677``, live eat.js ``sgn`` ≡ ``hacklib.c:650``); TRAVEL travelcc+u.tx/ty stamp (``:4680–4688``, gam
 **D-2619** ``nethack-c/upstream/src/botl.c:2363–2570`` (get_hilite, staticfn) + ``:2333–2344`` (noneo — ported the whole body in C order with per-arm ``:line`` cites — out-of-range early return without touching colorptr (``:2374–2375``); has_hilite macro inlined (``:2377``); best-fit trackers (``:2380–2388``, LARGEST_INT l
@@ -112,11 +113,10 @@ revisits the picker.
 **D-2617** ``nethack-c/upstream/src/pickup.c:1570–1701`` (carry_count, staticfn) + ``:1544–1568`` (de — restarted the export in C order with per-arm ``:line`` cites — ``adjust_wt = container && carried(container)`` (``:1576``, live eat.js export of the ``obj.h:332`` macro); provisional weigh + ``delta_cwt`` subtract (``:15
 **D-2616** ``nethack-c/upstream/src/invent.c:149–305`` (loot_classify); callers ``:436``/``:438`` (so — new exported ``loot_classify(sort_item, obj)`` (``js/invent.js:2075``) in C order with per-arm ``:line`` cites — def_srt_order table (`:155`); persistent module-level armcat (`:160`); discovered read before observe (`:16
 **D-2615** ``nethack-c/upstream/src/dothrow.c:87–293`` (throw_obj); callers ``:375`` (dothrow) and `` — restarted the export in C order with per-arm ``:line`` cites — ``let res = ECMD_TIME`` (`:93`); objsplit snapshot + ``unsplit_stack()`` closure on every early return (`:94`, `:274–292`, via live ``unsplitobj``); Mjollnir
-**D-2614** ``nethack-c/upstream/src/mcastu.c:801–897`` (dispatcher); callees ``:466`` (weaken), ``:50 — ``js/mcastu.js`` — dispatcher now passes C shapes (WEAKEN/STUN/GEYSER ``dmg``; FIRE_PILLAR/LIGHTNING ``(mtmp, dmg)``); callees take the params and overwrite per C; geyser pline moved inside the callee per C order (now as
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2621; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2622; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

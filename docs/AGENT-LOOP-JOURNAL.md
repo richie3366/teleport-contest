@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-20 — D-2622 `mkobj.c` obj_meld whole-body restart (holder guards, cansee/newsym, maybe_unhide_at, impossible)
+
+**C locus:** ``nethack-c/upstream/src/mkobj.c:3768–3814`` (obj_meld); callers ``do.c:312`` (flooreffects, ``(void)`` discard) and ``mon.c:727`` (make_corpse pudding→GLOB loop, ``obj =`` assign).
+**JS:** ``js/mkobj.js:2821`` ``export async function obj_meld`` + 1-line ``await`` at each caller (``js/do.js:861``, ``js/mhitm.js:2943`` — both already async).
+**Change:** restarted the export in C order with per-arm ``:line`` cites — ``result = null`` (``:3771``); holder-level ``if (p1 && p2)`` guard (``:3774`` — the ``struct obj **``, not the pointees); pointee ``otmp1 && otmp2 && !==`` gate (``:3777``, null/same falls through returning null); ``:3789`` floor+free veto + ``:3791–3792`` heavier-or-``rn2(2)`` tiebreak; absorbed-away floor coords (``:3793–3794`` / ``:3797–3798``); ``if (ox)`` tail with the ``cansee`` gate (``:3803–3805``) and awaited ``maybe_unhide_at`` (``:3809``); ``else impossible(...)`` misuse arm (``:3811–3813``). The ``:3779–3788`` FIXME (mid-drop free glob, shore/pool) is ported as-is — C handles neither. Async: ``maybe_unhide_at`` (monmove home) and ``impossible`` (display home) are async exports, both already top-level imported in mkobj.js — no new cross-module edge, no imports.mjs change.
+**Verify:** ``node scripts/verify.mjs --fn obj_meld`` → VERIFY: PASS (syntax 3 files; rule2 clean; hidden ``no corpus session is blocked`` — coverage row, no cited blocks; reach smoke 24/24 PASS 0 regressed → REACH-OK; green 2/2; strict seed8000+seed0900; cohort 7/7; full 44/44 passing — shared file changed). No committed unit test: repo has no tests/ layout (D-2606 precedent); both live callers are async and covered by the fortress.
+**Named:** none new — every arm and callee is live and cited (cansee vision.js, newsym/impossible display.js, maybe_unhide_at monmove.js, obj_absorb file-local, rn2 rng.js).
+**Next:** pop the next Open — coverage row.
 ## 2026-09-20 — D-2621 `invent.c` loot_xname whole-body port (sort-key suppress/restore + grouping suffixes)
 
 **C locus:** ``nethack-c/upstream/src/invent.c:308–387`` (loot_xname, staticfn); callers ``:490``/``:496`` (sortloot_cmp SORTLOOT_LOOT name path); ``flag.h:30`` (``wizard`` ≡ flags.debug).

@@ -2940,7 +2940,7 @@ export async function make_corpse(mtmp, corpseflags = CORPSTAT_NONE) {
                 await pudding_merge_message(obj, otmp);
                 const r1 = { obj };
                 const r2 = { obj: otmp };
-                obj = obj_meld(r1, r2);
+                obj = await obj_meld(r1, r2);
             }
             free_mgivenname(mtmp);
             newsym(x, y);
