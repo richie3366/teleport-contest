@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
-- [x] `sp_lev.c` sp_level_coder_init — coverage MISSING (C 40 L `sp_lev.c:6336–6376` / JS no symbol; hops 3, callers 1, RNG 0, msg 0; dead callees: update_croom). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn sp_level_coder_init` (reach regression must be 0). Measured `port-coverage.mjs --name sp_level_coder_init` 2026-09-20 @ d012b82b. **Addressed:** D-2643.
+- [x] `light.c` relink_light_sources — coverage MISSING (C 46 L `light.c:517–563` / JS no symbol; hops 3, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn relink_light_sources` (reach regression must be 0). Measured `port-coverage.mjs --name relink_light_sources` 2026-09-20 @ d012b82b. **Addressed:** D-2644
+
+
+- [x] `sp_lev.c` sp_level_coder_init — coverage MISSING (C 40 L `sp_lev.c:6336–6376` / JS no symbol; hops 3, callers 1, RNG 0, msg 0; dead callees: update_croom). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn sp_level_coder_init` (reach regression must be 0). Measured `port-coverage.mjs --name sp_level_coder_init` 2026-09-20 @ d012b82b. **Addressed:** D-2643 `d76b7205`.
 
 
 - [x] `polyself.c` change_sex — coverage THIN (C 30 L `polyself.c:273–303` / JS 12 L in js/polyself.js; hops 4, callers 3, RNG 0, msg 0; dead callees: max_rank_sz). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn change_sex` (reach regression must be 0). Measured `port-coverage.mjs --name change_sex` 2026-09-20 @ d62c8935. **Addressed:** D-2642 `b582bb36`
