@@ -23,35 +23,35 @@ the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-20** — full `sessions` on the working tree
-(audit **1560–1568**).
-Fortress **43/44** (no throws; seed0107 screen@98 — D-2609 spacing
-regression, Must-fix queued in review 1568).
-Scr **11,404**/11,405, RNG **792,838**/792,838, speed
-`59+0.33/turn` (R² 0.78).
+(audit **1569–1577**).
+Fortress **44/44** (no throws; seed0107 back to 98/98 — D-2610 healed the
+D-2609 spacing breach reviewed in 1568).
+Scr **11,405**/11,405, RNG **792,838**/792,838, speed
+`58+0.34/turn` (R² 0.79).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge, 2026-09-19)** | **11 / 44**, 5,776 / 11,265 pts, RNG **26.6 %**, rngSteps 81.6 %, screens **51.3 %** |
+| **Held-out (judge, 2026-09-19)** | **11 / 44**, 5,972 / 11,265 pts, RNG **26.7 %**, rngSteps 81.7 %, screens **53.0 %** |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `58+0.33/turn` (R² 0.78) |
+| Speed label | `58+0.34/turn` (R² 0.79) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 4/22, 2nd agentic; best agentic fork 35/44, RNG 98.5 %,
-screens 93.2 %. Held-out 11/44 (5,776 pts, RNG 26.6 %, screens 51.3 %;
-judge 18:47Z cached, unchanged 11/44 5,776 pts vs last audit): the corpus still does
+screens 93.2 %. Held-out 11/44 (5,972 pts, RNG 26.7 %, screens 53.0 %;
++196 pts / +1.7 pp screens vs last audit): the corpus still does
 not predict the judge.
-**Corpus fortress** (re-scored 2026-09-20 audit 1560–1568): **497 / 540
+**Corpus fortress** (re-scored 2026-09-20 audit 1569–1577): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — **+0 / −0**
-in the D-2601…D-2618 window (8 coverage-only ACCEPTs + 1 QUALITY-RISK;
+in the D-2610…D-2618 window (8 ACCEPTs + 1 WITH-DEBT;
 every per-SHA `--reach-all` re-run here ends REACH-OK with no REGRESSED
-corpus session; the one public move is seed0107, caught by the audit).
-Reviews 1225–1568: 304 ACCEPT, 13 WITH-DEBT, 1 DEBT, 21 QUALITY-RISK (1503, 1517, 1520 stamped; 1533 + 1536 Must-fix rows shipped as D-2583/D-2584 with `**Addressed:**` hashes filled; new Must-fix: review 1568 weapon_insight spacing).
-Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable — review-debt, unqueued (detail in the review files).
+corpus session; the one public move is seed0107 restored by D-2610).
+Reviews 1225–1577: 312 ACCEPT, 14 WITH-DEBT, 1 DEBT, 21 QUALITY-RISK (1503, 1517, 1520 stamped; 1533 + 1536 Must-fix rows shipped as D-2583/D-2584 with `**Addressed:**` hashes filled; 1568 Must-fix shipped as D-2610 with `**Addressed:**` hash filled).
+Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`) — review-debt, unqueued (detail in the review files).
 Audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s) + `leaderboard.mjs`.
 
 **PASS (43):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -62,11 +62,9 @@ seed0012, seed0004, seed0002, seed0006, seed0007, seed0009, seed0398,
 seed0373, seed5006, seed0116, seed0361, seed0367, seed0108, seed5002,
 seed0360, seed0399, seed2600, seed2200, seed0383,
 seed0014-dequa-fountain-explore, seed0030-ten-diverse-deaths,
-seed4500-knight-coverage.
+seed4500-knight-coverage, seed0107-samurai-twoweapon-enhance.
 
-**Notable non-PASS:** seed0107-samurai-twoweapon-enhance — screens 97/98,
-RNG 2902/2902 (D-2609 `islimited` spacing regression; Must-fix queued,
-review 1568). 43/44.
+**Notable non-PASS:** none — 44/44 (seed0107 restored to 98/98 by D-2610).
 
 ## Green gate
 

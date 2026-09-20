@@ -7,6 +7,12 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-20 — Audit 30ca950e..7e80d890 (reviews 1569–1577: 8 ACCEPT, 1 WITH-DEBT) + cadence 44/44
+
+**Scope:** every `js/`-touching SHA since review 1568 (D-2610 leading-space fix + D-2611…D-2618 whole-body ports), one SHA at a time, each re-measured with `hidden-proxy verify <fn> --base HASH~1 --reach-all` + `csym`/`sym` + diff grep + Rule #2.
+**Findings:** 8 ACCEPT (1569–1575, 1577). 1576 carry_count ACCEPT-WITH-DEBT: zero-lift `if (game.invent || umoney)` takes the wrong message branch for a naked-and-broke hero (empty array truthy vs C NULL `gi.invent`); return/state identical, message-only — review-debt, unqueued, one-line fix `(game.invent?.length || umoney)`. Notable confirmations: 1574 throw_obj real reach set (22 baseline-PASS reach it, 22 PASS 0 regressed — mid-iter PM_HUMAN ReferenceError fully healed); 1575 weapon_type retained clone proven behaviorally C-exact (all non-P_NONE skills live in W/T/G macros, P_NONE=0); 1577 noadjust unsplitobj-vs-merged predates this window (untouched, not queued).
+**Cadence:** full `sessions` 44/44 (seed0107 back to 98/98 — D-2610 breach healed); Scr 11,405/11,405, RNG 792,838/792,838, speed `58+0.34/turn` (R² 0.79). Held-out 11/44, 5,972 pts, RNG 26.7 %, screens 53.0 % (+196 pts / +1.7 pp screens vs last audit). Corpus 497/540 PASS (92.0 %) excl. 13 env-only — +0/−0 in the D-2610…D-2618 window.
+**Next:** pop the live Open — coverage head (queue refilled to ~12 below).
 ## 2026-09-20 — D-2618 `invent.c` doorganize_core whole-body restart (split detect, floating truncate, C letter(), Your pack-full, nobj head-link)
 
 **C locus:** `nethack-c/upstream/src/invent.c:5068–5286` (`doorganize_core`); `hacklib.c:69–73` (`letter`); `hack.c:4496` (`inv_cnt`); `mkobj.c:2596` (`extract_nobj`); `invent.c:739` (`reorder_invent`); `invent.c:1627` (`compactify`); `cmd.c:5471` (`yn_function` 4th arg TRUE = addcmdq).

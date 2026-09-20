@@ -1579,3 +1579,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1566-72bfcc06-remove-object.md](./1566-72bfcc06-remove-object.md) | `72bfcc06` | D-2607 remove_object + urealtime | **ACCEPT** |
 | [1567-dba7a580-wall-angle.md](./1567-dba7a580-wall-angle.md) | `dba7a580` | D-2608 wall_angle completion | **ACCEPT** |
 | [1568-28b6f89f-weapon-insight.md](./1568-28b6f89f-weapon-insight.md) | `28b6f89f` | D-2609 weapon_insight port | **QUALITY-RISK** |
+| [1569-30ca950e-weapon-insight-space.md](./1569-30ca950e-weapon-insight-space.md) | `30ca950e` | D-2610 weapon_insight leading-space restore | **ACCEPT** |
+| [1570-a51e30dc-vamp-stone.md](./1570-a51e30dc-vamp-stone.md) | `a51e30dc` | D-2611 vamp_stone restart | **ACCEPT** |
+| [1571-b615180f-tipcontainer.md](./1571-b615180f-tipcontainer.md) | `b615180f` | D-2612 tipcontainer restart | **ACCEPT** |
+| [1572-e4f72681-fightm.md](./1572-e4f72681-fightm.md) | `e4f72681` | D-2613 fightm restart | **ACCEPT** |
+| [1573-1ac018aa-mcast-spell.md](./1573-1ac018aa-mcast-spell.md) | `1ac018aa` | D-2614 mcast_spell dispatcher args | **ACCEPT** |
+| [1574-2ac5ba76-throw-obj.md](./1574-2ac5ba76-throw-obj.md) | `2ac5ba76` | D-2615 throw_obj restart | **ACCEPT** |
+| [1575-c7e7e767-loot-classify.md](./1575-c7e7e767-loot-classify.md) | `c7e7e767` | D-2616 loot_classify port | **ACCEPT** |
+| [1576-aea3bb71-carry-count.md](./1576-aea3bb71-carry-count.md) | `aea3bb71` | D-2617 carry_count restart | **ACCEPT-WITH-DEBT** |
+| [1577-7e80d890-doorganize-core.md](./1577-7e80d890-doorganize-core.md) | `7e80d890` | D-2618 doorganize_core restart | **ACCEPT** |
