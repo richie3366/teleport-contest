@@ -143,7 +143,7 @@ import {
     VISITED,
     In_V_tower,
 } from './const.js';
-import { builds_up } from './hacklib.js';
+import { builds_up, strsubst, trimspaces } from './hacklib.js';
 import { align_gname } from './roles.js';
 import { altarmask_at } from './pray.js';
 import { is_drawbridge_wall } from './dbridge.js';
@@ -2429,22 +2429,27 @@ export async function print_level_annotation() {
 }
 
 /**
- * C ref: dungeon.c query_annotation :2499-2567.
- * config.h:655 EDIT_GETLIN is commented out — live #else:
- * existing custom → Replace annotation "…" with? then getlin (empty
- * buffer). No custom → What do you want to call %s? with
- * this dungeon level or describe_level (other-level, dflgs 0 or 2).
- * The #ifdef would strncpy custom into nbuf and skip the replace prompt.
- * find_mapseen miss → return (not init_mapseen). PICK_ONE overview
- * caller is show_overview why==-1 (dooverview m-prefix / m#annotate).
+ * C ref: dungeon.c query_annotation `:2499–2567` (staticfn — file-local,
+ * so this stays unexported; in-file callers donamelevel `:2575` and
+ * show_overview `:3336` wire it directly).
+ * config.h:655 EDIT_GETLIN is commented out — live #else: existing
+ * custom → Replace annotation "…" with? then getlin on an empty buffer;
+ * no custom → What do you want to call %s? over this dungeon level or
+ * describe_level (other-level, dflgs 0 or 2). The #ifdef would strncpy
+ * custom into nbuf and skip the replace prompt (dead).
+ * find_mapseen miss → return (lookup only, never init_mapseen).
  */
 async function query_annotation(lev) {
-    const { getlin } = await import('./getline.js');
-    const mptr = find_mapseen(lev);
+    const { getlin, mungspaces } = await import('./getline.js');
+    // C: find_mapseen(lev ? lev : &u.uz) — JS find_mapseen already
+    // defaults a falsy lev to u.uz (dungeon.js:1184); same lookup.
+    const mptr = find_mapseen(lev ? lev : game.u?.uz);
     if (!mptr) return;
 
     let nbuf;
     if (mptr.custom) {
+        // C: Sprintf(tmpbuf, "Replace annotation \"%.30s%s\" with?",
+        //     mptr->custom, strlen > 30 ? "..." : ""); getlin(tmpbuf, nbuf).
         const custom = String(mptr.custom);
         const shown = custom.length > 30 ? `${custom.slice(0, 30)}...` : custom;
         nbuf = await getlin(`Replace annotation "${shown}" with?`);
@@ -2455,25 +2460,44 @@ async function query_annotation(lev) {
             lbuf = 'this dungeon level';
         } else {
             const { describe_level } = await import('./display.js');
+            // C: dflgs = same dnum ? 0 : 2; save u.uz, u.uz = *lev,
+            // describe_level(lbuf, dflgs), restore. d_level is exactly
+            // { dnum, dlevel } (dungeon.h:9-12), so two fields are whole.
             const dflgs = ((lev.dnum | 0) === (uuz?.dnum | 0)) ? 0 : 2;
-            const save = { dnum: uuz?.dnum | 0, dlevel: uuz?.dlevel | 0 };
+            const save_dnum = uuz?.dnum | 0;
+            const save_dlevel = uuz?.dlevel | 0;
             if (uuz) {
                 uuz.dnum = lev.dnum | 0;
                 uuz.dlevel = lev.dlevel | 0;
             }
             lbuf = describe_level(dflgs);
             if (uuz) {
-                uuz.dnum = save.dnum;
-                uuz.dlevel = save.dlevel;
+                uuz.dnum = save_dnum;
+                uuz.dlevel = save_dlevel;
             }
-            lbuf = lbuf.replace('Dlvl:', 'level ').trim();
+            // C: (void) strsubst(lbuf, "Dlvl:", "level ");
+            // (void) trimspaces(lbuf) — return discarded, so only the
+            // trailing strip is observable; describe_level never emits
+            // leading space/tab, so using the return is identical.
+            lbuf = trimspaces(strsubst(lbuf, 'Dlvl:', 'level '));
         }
+        // C: Snprintf(qbuf, "What do you want to call %s?", lbuf);
+        // getlin(qbuf, nbuf).
         nbuf = await getlin(`What do you want to call ${lbuf}?`);
     }
-    if (!nbuf || nbuf === '\x1b') return;
-    nbuf = nbuf.trim().replace(/\s+/g, ' ');
+
+    // C: empty input or ESC means don't change; space-only discards.
+    // First-char ESC check (C `*nbuf == '\033'`).
+    if (!nbuf || nbuf.charCodeAt(0) === 27) return;
+    // C: (void) mungspaces(nbuf) — strip/compress spaces (live export).
+    nbuf = mungspaces(nbuf);
+
+    // C: discard old annotation, if any.
     mptr.custom = null;
     mptr.custom_lth = 0;
+    // C: add dupstr(nbuf) unless empty/all-spaces (mungspaces already
+    // reduced those to ""); custom_lth excludes the trailing NUL.
+    // dupstr is a GC no-op in JS: assigning the string copies the value.
     if (nbuf && nbuf !== ' ') {
         mptr.custom = nbuf;
         mptr.custom_lth = nbuf.length;

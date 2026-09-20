@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-2705 | fixed |  — `dungeon.c` query_annotation whole-body restart on live callees + `trimspaces` port |  |
 | D-2704 | fixed |  — `weapon.c` add_skills_to_menu whole-body restart + show_skills |  |
 | D-2703 | fixed |  — `invent.c` reroll_menu whole C body + allmain reroll loop |  |
 | D-2702 | fixed |  — `cmd.c` key2extcmddesc whole C body + live movecmd |  |

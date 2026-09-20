@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-20
 
-- [x] `weapon.c` add_skills_to_menu — coverage PARTIAL (C 73 L `weapon.c:1229–1302` / JS 46 L in js/weapon.js; hops 5, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn add_skills_to_menu` (reach regression must be 0). Measured `port-coverage.mjs --name add_skills_to_menu` 2026-09-21 @ 2dfc3677. **Addressed:** D-2704
+- [x] `dungeon.c` query_annotation — coverage PARTIAL (C 67 L `dungeon.c:2500–2567` / JS 41 L in js/dungeon.js; hops 5, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn query_annotation` (reach regression must be 0). Measured `port-coverage.mjs --name query_annotation` 2026-09-21 @ 2dfc3677. **Addressed:** D-2705
+
+
+- [x] `weapon.c` add_skills_to_menu — coverage PARTIAL (C 73 L `weapon.c:1229–1302` / JS 46 L in js/weapon.js; hops 5, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn add_skills_to_menu` (reach regression must be 0). Measured `port-coverage.mjs --name add_skills_to_menu` 2026-09-21 @ 2dfc3677. **Addressed:** D-2704 `1e6811b7`
 
 
 - [x] `invent.c` reroll_menu — coverage MISSING (C 64 L `invent.c:2552–2616` / JS no symbol; hops —, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn reroll_menu` (reach regression must be 0). Measured `port-coverage.mjs --name reroll_menu` 2026-09-21 @ 2dfc3677.

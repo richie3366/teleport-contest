@@ -1711,6 +1711,17 @@ depth_start via live `dunlevs_in_dungeon`; `:1179` wizwhere TODO C-open);
 unchanged); named: `assign_level`/`dname_to_dnum` clones in
 dig/do/potion (pre-existing drift).
 
+**`query_annotation` `:2499–2567`** (D-2705; C order, staticfn stays
+file-local in `js/dungeon.js:2442`: custom → Replace `%.30s` prompt else
+this-level/`describe_level` (dflgs 0/2, whole-`u.uz` swap — `d_level` is
+`{ dnum, dlevel }`), live `strsubst` + new `trimspaces` (`js/hacklib.js:340`,
+`:162–176` space/tab-only; C void-discards the return — identical since
+`describe_level` never emits leading space/tab), first-char ESC check,
+live `mungspaces`, free→null/0, `dupstr`→assign idiom;
+`scripts/trimspaces.test.mjs` 5/5); callers wired: `:2575` donamelevel
+`js/dungeon.js:2513`, `:3336` show_overview `js/dungeon.js:2554`; named:
+EDIT_GETLIN `#ifdef` dead (`config.h:655`, D-1624), `dupstr` alloc.
+
 ### `src/options.c` saveoptions writer
 
 JS: `js/options.js` — partial ([campaign 5/7])

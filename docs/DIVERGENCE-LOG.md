@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2705 — `dungeon.c` query_annotation whole-body restart on live callees + `trimspaces` port
+
+- Status: SHIPPED (breadth phase). Popped head Open — coverage row (PARTIAL: C 67 L `dungeon.c:2500–2567` / JS 41 L in `js/dungeon.js`). No Must-fix live, no review cited, no corpus session blocked (RNG 0, msg 0).
+- Symptom: coverage gap, not a divergence — thin JS body carried three fidelity nits (whole-string ESC check, inline regex/replace/trim clones, no `trimspaces`/`dupstr` symbol) vs pinned C.
+- C locus: `nethack-c/upstream/src/dungeon.c:2499–2567` (`query_annotation`, staticfn); callers `:2575` `donamelevel`, `:3336` `show_overview`; callees `find_mapseen`/`getlin`/`on_level`/`describe_level`/`strsubst`/`trimspaces` (`hacklib.c:162–176`)/`mungspaces` (`hacklib.c:142–160`)/`dupstr`; EDIT_GETLIN off (`config.h:655`, D-1624).
+- JS was: `js/dungeon.js:2441` local clone — `nbuf === '\x1b'` (C checks first char `*nbuf == '\033'`), inline `trim().replace(/\s+/g,' ')` instead of live `mungspaces`, inline `.replace('Dlvl:','level ').trim()` instead of live `strsubst` + `trimspaces` (space/tab-only; C void-discards the return).
+- Fix: restarted the body in C order, kept name/signature/file-local (C staticfn); new `export function trimspaces` at its C home `js/hacklib.js:340`; extended the existing static hacklib import (`imports.mjs --can`: edge already present); `mungspaces` joins the existing dynamic `getline.js` import (no new edge).
+- JS: `js/dungeon.js:2442` (cited per arm); `find_mapseen(lev ? lev : u.uz)` ≡ local default; `%.30s`+`...` prompt; `dflgs` 0/2 with two-field `u.uz` save/restore (whole `d_level` per `dungeon.h:9-12`); `trimspaces(strsubst(...))`; `charCodeAt(0) === 27`; live `mungspaces`; free→null/0; `dupstr`→assign; `custom_lth = length`.
+- Callers: C `:2575` → `donamelevel` `js/dungeon.js:2513` (`query_annotation(null)`); C `:3336` → `show_overview` `js/dungeon.js:2554` (ledger→`{ dnum, dlevel }`). No C caller left unwired; no new call site C never calls from.
+- Verify: `node scripts/verify.mjs --fn query_annotation` → PASS (syntax 2 files; Rule #2; hidden: none blocked; REACH smoke 24/24 REACH-OK; green 2/2; strict both; cohort 7/7). Focused `node --test scripts/trimspaces.test.mjs` 5/5.
+- Named omissions: EDIT_GETLIN `#ifdef` arm dead (map); `dupstr` alloc — GC assign idiom (map). Live `mungspaces` `js/getline.js:1318` imported as-is (its own `\n`-truncate C gap travels with its row, not this one).
+- Next: queue head moves to `there_cmd_menu_common`; same-C-file (`dungeon.c`) Must-fix/Open companion: none live.
+
 ## D-2704 — `weapon.c` add_skills_to_menu whole-body restart + show_skills
 
 - Status: SHIPPED (breadth phase). Popped head Open — coverage row (PARTIAL: C 73 L `weapon.c:1229–1302` / JS 46 L). No Must-fix live, no review cited, no corpus session blocked (RNG 0, msg 0).
