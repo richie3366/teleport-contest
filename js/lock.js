@@ -4,7 +4,7 @@
 
 import { game } from './gstate.js';
 import { nhgetch } from './input.js';
-import { pline, You, newsym, canseemon, clear_nhwindow_message, verbalize, feel_location, impossible, flush_screen, docrt_flags, docrtRefresh } from './display.js';
+import { pline, You, newsym, feel_newsym, canseemon, clear_nhwindow_message, verbalize, feel_location, impossible, flush_screen, docrt_flags, docrtRefresh } from './display.js';
 import { yn_function } from './getline.js';
 import { vision_recalc, recalc_block_point, cansee } from './vision.js';
 import { stop_occupation, in_rooms, closed_door, confdir } from './hack.js';
@@ -787,7 +787,8 @@ export async function doopen() {
  * Autoopen callers pass door coordinates (x > 0). Interactive `o`
  * uses get_adjacent_loc → getdir ("In what direction?").
  * Named omissions: pit "Open where? [.>]" dirprompt + pit-reach gate;
- * set_msg_xy on the This-door arm; AUTOUNLOCK_KICK canned dokick.
+ * set_msg_xy on the This-door arm; AUTOUNLOCK_KICK canned dokick;
+ * trapped-shop-door SHOP_DOOR_COST add_damage (lock.c:911).
  * Returns true when C would return ECMD_TIME (open attempt / lock setup).
  */
 export async function doopen_indir(x, y) {
@@ -901,14 +902,16 @@ export async function doopen_indir(x, y) {
     if (rnl(20) < chance) {
         await pline('The door opens.');
         if (mask & D_TRAPPED) {
-            // C: b_trapped("door", FINGER) → D_NODOOR
-            loc.doormask = D_NODOOR;
+            // C lock.c:908-911 — b_trapped BEFORE D_NODOOR (shop
+            // SHOP_DOOR_COST add_damage named omission, map-kept).
             await b_trapped('door', FINGER);
+            loc.doormask = D_NODOOR;
         } else {
             loc.doormask = D_ISOPEN;
         }
-        newsym(x, y);
-        // C: feel_location + recalc_block_point(cc) then vision via full recalc
+        // C lock.c:914 — feel_newsym: the hero knows she opened it
+        // (Blind feel_location, else newsym).
+        feel_newsym(x, y);
         recalc_block_point(x, y);
         vision_recalc(1);
     } else {

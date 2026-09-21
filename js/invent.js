@@ -101,6 +101,7 @@ import {
     Never_mind,
     silly_thing_to,
     ECMD_OK,
+    ECMD_TIME,
     ECMD_CANCEL,
     ECMD_FAIL,
     WIN_ERR,
@@ -8008,10 +8009,14 @@ function dfeatureExplanation(cmap) {
  * "Things that are/you feel here:" via display_nhwindow(WIN_MESSAGE)+putstr
  * (D-0220); **observe_object before doname** (D-0399; C xname_flags).
  * **doname_with_price** (D-0460). **feel_cockatrice** D-1599 (skip_objects
- * / single / multi `doname...` then feel). Named omissions: altar/ice
- * Blind variants beyond floor, engulfer stomach minvent feel; blanket
- * xname observe / distant_name. Furniture with ct==0 uses
- * pickup.describe_decor (D-0356), not this path.
+ * / single / multi `doname...` then feel). **Return contract**
+ * (invent.c:4216/4248/4314): Blind feel costs a turn (ECMD_TIME), sight is
+ * free (ECMD_OK); can't-reach is ECMD_OK even when Blind. Named omissions:
+ * altar/ice Blind variants beyond floor, engulfer stomach minvent feel
+ * (incl. its :4160 Blind-gated return); blanket xname observe /
+ * distant_name. Furniture with ct==0 uses pickup.describe_decor (D-0356),
+ * not this path.
+ * @returns {Promise<number>} ECMD_TIME when Blind, else ECMD_OK
  */
 export async function look_here(obj_cnt = 0, lookhere_flags = 0) {
     // Dynamic import avoids invent↔shk cycle (shk imports paint_corner).
@@ -8073,9 +8078,10 @@ export async function look_here(obj_cnt = 0, lookhere_flags = 0) {
             if (dfeature && !drift && dfeature === surf) skip_dfeature = true;
         }
         // C: !can_reach_floor(pit) → "But you can't reach it!" (pit trap deferred)
+        // C returns ECMD_OK here even when Blind (invent.c:4216).
         if (!can_reach_floor(false)) {
             await pline("But you can't reach it!");
-            return;
+            return ECMD_OK;
         }
     }
 
@@ -8102,7 +8108,8 @@ export async function look_here(obj_cnt = 0, lookhere_flags = 0) {
         // C: (!skip_objects && (Blind || !dfeature))
         if (!skip_objects && (blind || !dfeature))
             await pline(`You ${verb} no objects here.`);
-        return;
+        // C invent.c:4248 — feeling (Blind) costs a turn, sight is free.
+        return blind ? ECMD_TIME : ECMD_OK;
     }
 
     if (skip_objects) {
@@ -8136,7 +8143,9 @@ export async function look_here(obj_cnt = 0, lookhere_flags = 0) {
                 break;
             }
         }
-        return;
+        // C invent.c:4314 tail — skip/single/multi arms share the Blind-gated
+        // `!!Blind ? ECMD_TIME : ECMD_OK` return.
+        return blind ? ECMD_TIME : ECMD_OK;
     }
 
     if (!otmp.nexthere) {
@@ -8154,7 +8163,8 @@ export async function look_here(obj_cnt = 0, lookhere_flags = 0) {
         // C: You("%s here %s.", verb, doname_with_price(otmp))
         await pline(`You ${verb} here ${doname_with_price(otmp)}.`);
         if ((otmp.otyp | 0) === OTYP_CORPSE) await feel_cockatrice(otmp, false);
-        return;
+        // C invent.c:4314 tail (see skip arm above).
+        return blind ? ECMD_TIME : ECMD_OK;
     }
 
     // C: display_nhwindow(WIN_MESSAGE, FALSE) then NHW_MENU putstr list.
@@ -8192,6 +8202,8 @@ export async function look_here(obj_cnt = 0, lookhere_flags = 0) {
         const { read_engr_at } = await import('./engrave.js');
         await read_engr_at(u?.ux, u?.uy);
     }
+    // C invent.c:4314 tail (see skip arm above).
+    return blind ? ECMD_TIME : ECMD_OK;
 }
 
 /** C ref: invent.c dolook() — hide MSGTYPE norep/noshow around look_here. */

@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-2714 | fixed | invent.c:4248 — `invent.c` look_here Blind→ECMD_TIME return + `:` wiring; doopen_indir feel arm (Wizard-92127  | scen-normal-Wizard-92127 step 101/114 kind=rng flat#3271: C `rn2(5)=3`@distfleeck vs JS `rnl(20)=3`@doopen_indir, prev moveloop_core matched; toplines identical («You feel no objects here.»). Post-fix the session is PASS (RNG 3352/3352, screens 114/114).; fix: `js/invent.js` only — `ECMD_TIME` joins the existing `./const.js` import (`imports.mjs --can` ALREADY, no new edge); can't-reach arm → `return ECMD_OK` (C `:4216`); no-object/skip/single/multi-falloff arms → `return blind ? ECMD_TIME : ECMD_OK` (C `:4248`/`:4314`); doc records the contract + remaining omissions.; verify: `node scripts/verify.mjs --fn distfleeck --full` → `PASS syntax (3 changed: js/cmd.js js/invent.js js/lock.js)` · `PASS rule2` · `PASS hidden: 1 PASS, 0 moved past, 3 unchanged, 0 worse → PROGRESS` (scen-normal-Wizard-92127: PASS; Caveman-92202 still distfleeck@116 under its own overload-gate row; Healer-92055@104  |
 | D-2713 | fixed |  — `sp_lev.c` lspo_wall_property + lspo_level_flags + lspo_engraving whole-body ports (des entries, unpacked-o |  |
 | D-2712 | fixed |  — `sp_lev.c` lspo_feature whole-body port (4-arity dispatch + sel_set_feature + feature-flag callees) |  |
 | D-2711 | fixed |  — `shk.c` unpaid_cost whole-body restart (impossible arm + quan) + dog_eat caller wired |  |

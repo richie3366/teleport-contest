@@ -2518,7 +2518,9 @@ ordinary corner menus clear (D-0929 fixed); teleds placebc stays;
 **`doname_with_price` for-sale via `get_cost_of_shop_item`** (D-0460); 
 **`doname` unpaid via `is_unpaid`/`unpaid_cost`** (D-0461); **feel_cockatrice D-1599** (skip/single/multi floor; pickup FEEL abort); engulfer stomach minvent feel named; 
 **`distant_name`/doname observe** (D-0469); 
-**`On_ladder` D-1950** (C `stairs.c:154–159`; `stairway_at` + `isladder`; sole C caller `dig.c:1812` `adj_pit_checks` ladder arm still named omitted in `js/dig.js` — function live, unwired)
+**`On_ladder` D-1950** (C `stairs.c:154–159`; `stairway_at` + `isladder`; sole C caller `dig.c:1812` `adj_pit_checks` ladder arm still named omitted in `js/dig.js` — function live, unwired); 
+**`look_here` Blind→ECMD_TIME return contract + `dolook` `:` wiring** (D-2714; C `invent.c:4216` can't-reach ECMD_OK / `:4248` no-object / `:4314` tail; uswallow `:4160` still named; `:` arm `cmd.js` ECMD_TIME→move, canned/extcmd via generic path; pickup `(void)` sites discard); 
+**`doopen_indir` success arm C order** (D-2714; `b_trapped` before D_NODOOR + `feel_newsym`, C `lock.c:908–914`; trapped-shop SHOP_DOOR_COST `add_damage` still named)
 
 ### `src/pline.c` / tty message behavior
 

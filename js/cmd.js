@@ -3907,9 +3907,10 @@ export async function rhack(key) {
         await wiz_map();
         game.context.move = 0;
     } else if (ch === ':') {
-        // C ref: invent.c dolook / lookat
-        await dolook();
-        game.context.move = 0;
+        // C ref: invent.c dolook / lookat — dolook returns look_here's
+        // Blind-gated ECMD_TIME (invent.c:4319-4327); a blind feel takes
+        // the turn just like any timed command (sibling ECMD_TIME pattern).
+        game.context.move = ((await dolook()) & ECMD_TIME) ? 1 : 0;
     } else if (ch === '&') {
         // C ref: cmd.c '&' → dowhatdoes (IFBURIED|GENERALCMD) — ECMD_OK, no turn
         await dowhatdoes();
