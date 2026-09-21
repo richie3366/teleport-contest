@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-21
 
-- [x] `dogmove.c` dog_eat — coverage PARTIAL (C 123 L `dogmove.c:218–345` / JS 75 L in js/dogmove.js; hops 3, callers 4, RNG 0, msg 5). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dog_eat` (reach regression must be 0). Measured `port-coverage.mjs --name dog_eat` 2026-09-21 @ 6fc07aef5. **Addressed:** D-2728
+- [x] `rumors.c` outrumor — coverage PARTIAL (C 43 L `rumors.c:529–574` / JS 23 L in js/rumors.js; hops 4, callers 5, RNG 3, msg 5). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn outrumor` (reach regression must be 0). Measured `port-coverage.mjs --name outrumor` 2026-09-21 @ 6fc07aef5.
+
+
+- [x] `dogmove.c` dog_eat — coverage PARTIAL (C 123 L `dogmove.c:218–345` / JS 75 L in js/dogmove.js; hops 3, callers 4, RNG 0, msg 5). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dog_eat` (reach regression must be 0). Measured `port-coverage.mjs --name dog_eat` 2026-09-21 @ 6fc07aef5. **Addressed:** D-2728 `d61cfd75f`
 
 
 - [x] `shknam.c` shkname — coverage THIN (C 41 L `shknam.c:856–897` / JS 15 L in js/shknam.js; hops 3, callers 37, RNG 2, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn shkname` (reach regression must be 0). Measured `port-coverage.mjs --name shkname` 2026-09-21 @ 6fc07aef5. **Addressed:** D-2727 `e381a6676`

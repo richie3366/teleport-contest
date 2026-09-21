@@ -3275,8 +3275,9 @@ gain-level/invis/bullwhip `rn2(5)`/`rn2(4)` yank +
 **poly trap/wand/potion + bag `mloot_container` / `muse_newcham_mon` / `you_aggravate`** D-1811
 (C `use_misc` `:2382` / `find_misc` `:2094` / `muse_newcham_mon` `:2248` /
 `mloot_container` `:2263` / `you_aggravate` `:2630`; JS default-0 plus
-`!m.misc` early-out skipped POLY_TRAP; now those arms; named: cursed
-mbag FIXME, CLIPPING `cliparound`); **`you_aggravate` WIN_MAP block → `more()` D-2178**
+`!m.misc` early-out skipped POLY_TRAP; now those arms; named: CLIPPING
+`cliparound` (`mloot_container` whole body verified live `js/muse.js:2948`
+incl cursed-mbag early-0 — FIXME retired, STALE-parked 2026-09-21); **`you_aggravate` WIN_MAP block → `more()` D-2178**
 (C `wintty.c` `:1889` NHW_MAP blocking sets NEED_MORE + runs `more()`;
 flush+nhgetch never painted `--More--`; Wizard-92048 88→113);
 **`MUSE_POT_GAIN_LEVEL` `trycall` + live `grow_up` D-2072** (C `muse.c`
