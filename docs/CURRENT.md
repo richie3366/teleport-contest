@@ -46,7 +46,7 @@ screens 93.2 %. Held-out 12/44, +0 vs last audit (5,976 / 11,265 pts, RNG
 this window — the corpus still does not predict the judge.
 **Corpus fortress** (re-scored 2026-09-21 audit 1656–1664): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — **+0 / −0**
-in the D-2697…D-2706 window (9 ACCEPT;
+in the D-2697…D-2707 window (9 ACCEPT;
 every per-SHA `--reach-all` re-run here ends REACH-OK with no REGRESSED).
 Reviews 1225–1664: 393 ACCEPT, 17 WITH-DEBT, 1 DEBT, 24 QUALITY-RISK (1503, 1517, 1520 stamped; Must-fix 1533/1536 → D-2583/D-2584, 1568 → D-2610, 1592 → D-2636 `271ceca1`, 1617 → magic_negation floor Must-fix (addressed D-2661, review 1620 ACCEPT); 1654 → sel_set_door wiring Must-fix (addressed D-2697, review 1656 ACCEPT); hashes filled).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`) — review-debt, unqueued (detail in the review files).
@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `cmd.c` there_cmd_menu_common — coverage MISSING (C 11 L `cmd.c:4639–4654` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: mcmd_addmenu). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn there_cmd_menu_common` (reach regression must be 0). Measured `port-coverage.mjs --name there_cmd_menu_common` 2026-09-21 @ 2dfc3677.
+**Next cluster:** `u_init.c` skills_for_role — coverage THIN (C 50 L `u_init.c:1040–1090` / JS 16 L in js/u_init.js; hops —, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn skills_for_role` (reach regression must be 0). Measured `port-coverage.mjs --name skills_for_role` 2026-09-21 @ 2dfc3677.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2706 (index).**
+**Keep D-0845…D-2707 (index).**
 <!-- recent:begin -->
+**D-2707**  — 
 **D-2706**  — 
 **D-2705**  — 
 **D-2704**  — 
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2702**  — 
 **D-2701**  — 
 **D-2700**  — 
-**D-2699**  — 
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2706; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2707; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

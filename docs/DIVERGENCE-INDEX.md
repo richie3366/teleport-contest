@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-2707 | fixed |  — `u_init.c` skills_for_role whole-body restart in C order + panic-as-throw default |  |
 | D-2706 | fixed |  — `cmd.c` there_cmd_menu_common whole C body: missing glyph arm + same-name export |  |
 | D-2705 | fixed |  — `dungeon.c` query_annotation whole-body restart on live callees + `trimspaces` port |  |
 | D-2704 | fixed |  — `weapon.c` add_skills_to_menu whole-body restart + show_skills |  |

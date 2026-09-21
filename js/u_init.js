@@ -688,20 +688,56 @@ function trquan(trop) {
 
 // C ref: u_init.c skills_for_role()
 function skills_for_role() {
-    if (game.urole?.mnum === PM_TOURIST) return Skill_T;
-    if (game.urole?.mnum === PM_ROGUE) return Skill_R;
-    if (game.urole?.mnum === PM_WIZARD) return Skill_W;
-    if (game.urole?.mnum === PM_CLERIC) return Skill_P;
-    if (game.urole?.mnum === PM_KNIGHT) return Skill_K;
-    if (game.urole?.mnum === PM_SAMURAI) return Skill_S;
-    if (game.urole?.mnum === PM_HEALER) return Skill_H;
-    if (game.urole?.mnum === PM_VALKYRIE) return Skill_V;
-    if (game.urole?.mnum === PM_RANGER) return Skill_Ran;
-    if (game.urole?.mnum === PM_MONK) return Skill_Mon;
-    if (game.urole?.mnum === PM_ARCHEOLOGIST) return Skill_A;
-    if (game.urole?.mnum === PM_BARBARIAN) return Skill_B;
-    if (game.urole?.mnum === PM_CAVE_DWELLER) return Skill_C;
-    return null;
+    // C: switch (Role_switch) — Role_switch ≡ game.urole.mnum (you.h:248)
+    let skills;
+    switch (game.urole?.mnum) {
+    case PM_ARCHEOLOGIST:
+        skills = Skill_A;
+        break;
+    case PM_BARBARIAN:
+        skills = Skill_B;
+        break;
+    case PM_CAVE_DWELLER:
+        skills = Skill_C;
+        break;
+    case PM_HEALER:
+        skills = Skill_H;
+        break;
+    case PM_KNIGHT:
+        skills = Skill_K;
+        break;
+    case PM_MONK:
+        skills = Skill_Mon;
+        break;
+    case PM_CLERIC:
+        skills = Skill_P;
+        break;
+    case PM_RANGER:
+        skills = Skill_Ran;
+        break;
+    case PM_ROGUE:
+        skills = Skill_R;
+        break;
+    case PM_SAMURAI:
+        skills = Skill_S;
+        break;
+    case PM_TOURIST:
+        skills = Skill_T;
+        break;
+    case PM_VALKYRIE:
+        skills = Skill_V;
+        break;
+    case PM_WIZARD:
+        skills = Skill_W;
+        break;
+    default:
+        // C: panic("No skills found for role") — loud throw ≡ C panic
+        // (js/dungeon.js:250, js/mklev.js:29777 precedent); C's trailing
+        // break after panic is unreachable, so none here.
+        throw new Error('No skills found for role');
+    }
+
+    return skills;
 }
 
 // C ref: spell.c spell_skilltype() — objects[].oc_skill

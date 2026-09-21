@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2707 — `u_init.c` skills_for_role whole-body restart in C order + panic-as-throw default
+
+- Status: SHIPPED (breadth phase). Popped head Open — coverage row (THIN: C 50 L `u_init.c:1040–1090` / JS 16 L in `js/u_init.js`; 2 callers, RNG 0, msg 0). No Must-fix live. Review 1658 names it only as caller context (ACCEPT, no C-wrongs — no stamp). No corpus session blocked.
+- Symptom: coverage gap with one real missing arm — the thin if-chain carried all 13 role→Skill table mappings but in non-C order and returned `null` on default where C `panic("No skills found for role")`.
+- C locus: `nethack-c/upstream/src/u_init.c:1039–1090` (`skills_for_role`, staticfn); callers `:1096` `restricted_spell_discipline`, `:1404` `u_init_skills_discoveries` (via `skill_init`); zero callees (pure table select on `Role_switch`).
+- JS was: `js/u_init.js:690` local `skills_for_role()` — 13 `if (game.urole?.mnum === PM_*) return Skill_*` in Tourist-first order, `return null` default.
+- Fix: restart as C-order assign+break switch on `game.urole?.mnum` (`Role_switch` ≡ `game.urole.mnum` per `you.h:248`, review 1658) — Archeologist…Wizard with Monk-before-Cleric per C; default is loud `throw new Error('No skills found for role')` ≡ C panic (`js/dungeon.js:250`, `js/mklev.js:29777` precedent); C's trailing break after panic is unreachable so omitted. All 13 `Skill_*` tables pre-existing live. No new imports (same-file locals + `PM_*` already in scope); no export change (both callers in-file).
+- JS: `js/u_init.js:690` `skills_for_role` (~50 L, cited per arm).
+- Callers: C `:1096` → JS `restricted_spell_discipline` `js/u_init.js:749` (calls `:750`; `if (!skills)` guard kept, mirroring C's `while (skills && ...)`); C `:1404` → JS `u_init_skills_discoveries` `js/u_init.js:2020` (calls `:2023`). No C caller left unwired; no new call site C never calls from.
+- Verify: `node scripts/verify.mjs --fn skills_for_role` → PASS (syntax 1 file; Rule #2; hidden: none blocked; REACH smoke 24/24 REACH-OK; green 2/2; strict both; cohort 7/7) + `--full` 44/44 PASS.
+- Named omissions: none — whole body live, zero callees, both callers wired.
+- Next: queue head moves to `create_drawbridge` (`dbridge.c`); same-C-file (`u_init.c`) Must-fix/Open companion: none live.
+
 ## D-2706 — `cmd.c` there_cmd_menu_common whole C body: missing glyph arm + same-name export
 
 - Status: SHIPPED (breadth phase). Popped head Open — coverage row (MISSING: C 11 L `cmd.c:4639–4654` / JS no symbol; 1 caller, RNG 0, msg 0; dead callee `mcmd_addmenu`). No Must-fix live, no review cited, no corpus session blocked.
