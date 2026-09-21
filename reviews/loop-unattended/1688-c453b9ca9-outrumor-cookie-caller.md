@@ -62,4 +62,4 @@ Vacuous note stated, not sold; smoke REACH-OK. Green/strict/cohort per D-log. Ru
 
 Verdict: **QUALITY-RISK**
 
-**Addressed:** D-2741
+**Addressed:** D-2741 `d44374fc8`
