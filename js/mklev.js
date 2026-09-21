@@ -139,7 +139,7 @@ import { make_engr_at, make_grave, wipe_engr_at, random_engraving, del_engr_at, 
 import { cmd_from_ecname } from './dokeylist.js';
 import {
     find_level, dungeon_branch, at_dgn_entrance, insert_branch, get_level,
-    on_level, init_dungeons, Is_special, Invocation_lev,
+    on_level, init_dungeons, Is_special, Invocation_lev, In_W_tower,
 } from './dungeon.js';
 import { premap_detect } from './detect.js';
 import {
@@ -160,6 +160,10 @@ import { readobjnam, rnd_otyp_by_namedesc } from './readobjnam.js';
 // C mkmap.c envelope lives in ./mkmap.js; splev_initlev MINES awaits it.
 // Cycle-safe: mkmap only calls back into mklev function declarations.
 import { mkmap } from './mkmap.js';
+// C sp_lev.c lspo_finalize_level awaits makemap_prepost(FALSE, wtower).
+// Cycle-safe per scripts/imports.mjs: same 98-module SCC, hoisted function
+// used only at runtime (no top-level TDZ read).
+import { makemap_prepost } from './wizcmds.js';
 
 const GOLD_PIECE = objectNames.indexOf('GOLD_PIECE');
 const ROCK = objectNames.indexOf('ROCK');
@@ -328,6 +332,9 @@ const SPLEV_CENTER = 3;
 const SPLEV_RIGHT = 5;
 const SPLEV_TOP = 1;
 const SPLEV_BOTTOM = 5;
+// C ref: sp_lev.c:167,169 half-step aligns (lspo_room xalign table)
+const SPLEV_H_LEFT = 2;
+const SPLEV_H_RIGHT = 4;
 
 // Direction deltas
 const xdir = [-1, -1, 0, 1, 1, 1, 0, -1];
@@ -947,6 +954,281 @@ export async function lspo_gas_cloud(opts) {
         : await create_gas_cloud(x, y, 1, damage);
     if (ttl > -2) reg.ttl = ttl;
     return reg;
+}
+
+/**
+ * C ref: nhlua.c get_table_int_opt — nil field → defval, else integer.
+ * Unpacked-table form: plain-object field read (des tables are trusted
+ * content, so `| 0` coercion stands in for luaL_checkinteger).
+ */
+function splev_opt_int(v, defval) {
+    return v == null ? defval : v | 0;
+}
+
+/**
+ * C ref: nhlua.c get_table_option — luaL_checkoption index into the option
+ * table; absent field → default string; no match → nhl_error (fatal).
+ * luaL_checkoption matches exactly (case-sensitive).
+ */
+function splev_opt_index(v, defval, opts) {
+    const s = v ?? defval;
+    const i = opts.indexOf(s);
+    if (i < 0) throw new Error(`lspo: bad option '${s}'`);
+    return i;
+}
+
+/**
+ * C ref: nhlua.c get_table_boolean_opt / get_table_boolean — nil field →
+ * defval; "true"/"false"/"yes"/"no" (exact), boolean, or 0/1; else
+ * nhl_error (fatal — the JS guard throws likewise).
+ */
+function splev_opt_boolean(v, defval) {
+    if (v == null) return defval;
+    if (typeof v === 'boolean') return v ? 1 : 0;
+    if (typeof v === 'number') {
+        if (v === 0 || v === 1) return v;
+        throw new Error('lspo: Expected a boolean');
+    }
+    if (typeof v === 'string') {
+        const i = ['true', 'false', 'yes', 'no'].indexOf(v);
+        if (i >= 0) return [1, 0, 1, 0][i];
+    }
+    throw new Error('lspo: Expected a boolean');
+}
+
+/**
+ * C ref: mklev.c count_level_features `:828–841` — recount fountains and
+ * sinks over x 1..COLNO-1, y 0..ROWNO-1 (x = 1 lower bound like C).
+ */
+function count_level_features() {
+    const flags = game.level.flags || (game.level.flags = {});
+    flags.nfountains = 0; // C :832
+    flags.nsinks = 0;
+    for (let y = 0; y < ROWNO; y++)
+        for (let x = 1; x < COLNO; x++) {
+            const typ = game.level.at(x, y)?.typ;
+            if (typ === FOUNTAIN) flags.nfountains++;
+            else if (typ === SINK) flags.nsinks++;
+        }
+}
+
+/**
+ * C ref: sp_lev.c spo_endroom — pop one coder subroom level (or, when
+ * leaving the outermost room, reset the map bounds so content created
+ * outside it with no MAP still has something sensible), then update_croom.
+ * Callers guarantee game.gc.coder like C guarantees gc.coder.
+ */
+function spo_endroom(_coder) {
+    const coder = game.gc.coder; // C: gc.coder (struct sp_coder * arg is UNUSED)
+    if (coder.n_subroom > 1) {
+        coder.n_subroom--;
+        coder.tmproomlist[coder.n_subroom] = null;
+        coder.failed_room[coder.n_subroom] = true;
+    } else {
+        // no subroom, get out of top-level room; gx.xsize/gx.ysize bounds
+        if ((game.splev_xsize | 0) <= 1 && (game.splev_ysize | 0) <= 1)
+            reset_xystart_size();
+    }
+    update_croom();
+}
+
+/**
+ * C ref: sp_lev.c build_room `:2807–2830` — chance-gated rtype, subroom
+ * under the coder parent else top-level room, topologize + fill/join flags.
+ * (splev_build_room is the unpacked-opts twin used by direct JS builders;
+ * this coder form keeps C's layering: no irregular marking here — lspo_room
+ * marks the parent like C `:4081–4082`.)
+ */
+function splev_coder_build_room(r, parent) {
+    const rtype = (!r.chance || rn2(100) < r.chance) ? r.rtype : OROOM; // C :2811
+    let aroom = null;
+    if (parent) {
+        if (!create_subroom(parent, r.x, r.y, r.w, r.h, rtype, r.rlit)) return null; // C :2814-2815
+        aroom = game.level.rooms[MAXNROFROOMS + 1 + ((game.level.nsubroom | 0) - 1)] ?? null;
+    } else {
+        if (!create_room(r.x, r.y, r.w, r.h, r.xalign, r.yalign, rtype, r.rlit)) return null; // C :2817-2819
+        aroom = game.level.rooms[(game.level.nroom | 0) - 1] ?? null;
+    }
+    if (!aroom) return null;
+    topologize(aroom); // C :2824 (set roomno)
+    aroom.needfill = r.needfill; // C :2826
+    aroom.needjoining = r.joined; // C :2827
+    return aroom;
+}
+
+// C ref: sp_lev.c lspo_drawbridge static tables `:5722–5733`.
+const LSPO_MWDIRS = ['north', 'south', 'west', 'east', 'random'];
+const LSPO_MWDIRS2I = [DB_NORTH, DB_SOUTH, DB_WEST, DB_EAST, -1];
+const LSPO_DBOPENS = ['open', 'closed', 'random'];
+const LSPO_DBOPENS2I = [1, 0, -1];
+
+/**
+ * C ref: sp_lev.c lspo_drawbridge `:5720–5763` — des.drawbridge entry in C
+ * order. Unpacked-table form (opts object; lcheck_param_table ≡ table-or-
+ * empty). dir "random" maps to -1 and flows into create_drawbridge like C
+ * `:5745` (default arm: impossible + WEST fallthrough — dbridge.c:253-260).
+ * isok guards the raw table coords like C `:5751`; SpLev_Map mark mirrors
+ * the lspo_map `SpLev_Map.add` idiom (C `SpLev_Map[x][y] = 1`).
+ */
+export function lspo_drawbridge(opts) {
+    create_des_coder(); // C :5739
+    const o = opts ?? {}; // C :5741 lcheck_param_table
+    const mm = get_table_xy_or_coord(o); // C :5743
+    const dir = LSPO_MWDIRS2I[splev_opt_index(o.dir, 'random', LSPO_MWDIRS)]; // C :5745
+    const coder = game.gc.coder;
+    let db_open = LSPO_DBOPENS2I[splev_opt_index(o.state, 'random', LSPO_DBOPENS)]; // C :5747
+    const pos = get_location_coord(DRY | WET | HOT, coder?.croom ?? null, mm.x, mm.y); // C :5750
+    if (!isok(mm.x, mm.y)) throw new Error('lspo_drawbridge: drawbridge coord not ok'); // C :5751-5754 nhl_error
+    if (db_open === -1) db_open = !rn2(2) ? 1 : 0; // C :5756-5757 db_open = !rn2(2)
+    if (!create_drawbridge(pos.x, pos.y, dir, db_open !== 0)) // C :5758-5759
+        impossible('Cannot create drawbridge.');
+    if (game.SpLev_Map) game.SpLev_Map.add(`${pos.x},${pos.y}`); // C :5761
+    return 0;
+}
+
+/**
+ * C ref: sp_lev.c lspo_gold `:4480–4522` — des.gold entry in C order.
+ * C dispatches on the Lua stack shape; JS takes the unpacked equivalents:
+ * (amount, x, y) triple, (amount, coord) pair, or (opts?) table form
+ * (amount/x/y/coord fields). Anything else throws like C `:4510`
+ * nhl_error("Wrong parameters"). x=y=-1 packs RANDOM like C `:4515`.
+ */
+export function lspo_gold(a, b, c) {
+    let amount, x, y;
+    const argc = arguments.length;
+    if (argc === 3) { // C :4489-4492
+        amount = a | 0;
+        x = b | 0;
+        y = c | 0;
+    } else if (argc === 2 && b !== null && typeof b === 'object') { // C :4493-4496
+        amount = a | 0;
+        const cc = get_coord_unpacked(b); // C get_coord(L, 2, ...)
+        x = cc.x;
+        y = cc.y;
+    } else if (argc === 0 || (argc === 1 && a !== null && typeof a === 'object')) { // C :4497-4501
+        create_des_coder();
+        const o = a ?? {}; // C lcheck_param_table
+        amount = splev_opt_int(o.amount, -1); // C :4499
+        const xy = get_table_xy_or_coord(o); // C :4500
+        x = xy.x;
+        y = xy.y;
+    } else {
+        throw new Error('lspo_gold: Wrong parameters'); // C :4503-4506 nhl_error
+    }
+    const coder = game.gc?.coder ?? null; // C :4520 gc.coder->croom (table form created it above)
+    const pos = get_location_coord(DRY, coder?.croom ?? null, x, y); // C :4520 (RANDOM when x=y=-1)
+    if (amount < 0) amount = rnd(200); // C :4521-4522
+    mkgold(amount, pos.x, pos.y); // C :4523
+    return 0;
+}
+
+/**
+ * C ref: sp_lev.c lspo_room `:4028–4116` — des.room entry in C order.
+ * Unpacked-table form (opts object; contents callback replaces the Lua
+ * "contents" function + l_push_mkroom_table/nhl_pcall_handle plumbing, cf.
+ * splev_des_room). Align tables map exactly like C `:4040–4051` (exact
+ * match; "none"/"random" → -1); unknown type impossibles like C
+ * get_table_roomtype_opt (splev_roomtype for the strcmpi match); nesting
+ * overflow throws like C `:4059` panic; x/y and w/h half-absence throws
+ * like C nhl_error.
+ */
+export function lspo_room(opts, contentsFn) {
+    create_des_coder(); // C :4030
+    const coder = game.gc.coder;
+    if (game.in_mk_themerooms && game.themeroom_failed) return 0; // C :4032-4033
+    const o = opts ?? {}; // C :4035 lcheck_param_table
+    if (coder.n_subroom > MAX_NESTED_ROOMS) // C :4038-4039 panic
+        throw new Error('lspo_room: Too deeply nested rooms?!');
+    const left_or_right = ['left', 'half-left', 'center', 'half-right', 'right', 'none', 'random']; // C :4041-4044
+    const l_or_r2i = [SPLEV_LEFT, SPLEV_H_LEFT, SPLEV_CENTER, SPLEV_H_RIGHT, SPLEV_RIGHT, -1, -1]; // C :4045-4048
+    const top_or_bot = ['top', 'center', 'bottom', 'none', 'random']; // C :4049-4051
+    const t_or_b2i = [SPLEV_TOP, SPLEV_CENTER, SPLEV_BOTTOM, -1, -1]; // C :4051-4052
+    const xy = get_table_xy_or_coord(o); // C :4057
+    const tmproom = { x: xy.x, y: xy.y }; // C :4058
+    if ((tmproom.x === -1 || tmproom.y === -1) && tmproom.x !== tmproom.y) // C :4059-4060
+        throw new Error('lspo_room: Room must have both x and y');
+    tmproom.w = splev_opt_int(o.w, -1); // C :4062
+    tmproom.h = splev_opt_int(o.h, -1); // C :4063
+    if ((tmproom.w === -1 || tmproom.h === -1) && tmproom.w !== tmproom.h) // C :4065-4066
+        throw new Error('lspo_room: Room must have both w and h');
+    tmproom.xalign = l_or_r2i[splev_opt_index(o.xalign, 'random', left_or_right)]; // C :4068-4069
+    tmproom.yalign = t_or_b2i[splev_opt_index(o.yalign, 'random', top_or_bot)]; // C :4070-4071
+    tmproom.rtype = OROOM; // C :4072 get_table_roomtype_opt defval
+    if (o.type) { // C: non-empty roomstr searches room_types (strcmpi)
+        const mapped = splev_roomtype(o.type, -1);
+        if (mapped === -1) impossible(`Unknown room type '${o.type}'`); // C: impossible, keeps defval
+        else tmproom.rtype = mapped;
+    }
+    tmproom.chance = splev_opt_int(o.chance, 100); // C :4073
+    tmproom.rlit = splev_opt_int(o.lit, -1); // C :4074
+    // theme rooms default to unfilled (C :4075-4077)
+    tmproom.needfill = splev_opt_int(o.filled, game.in_mk_themerooms ? 0 : 1);
+    tmproom.joined = splev_opt_boolean(o.joined, true); // C :4078 (TRUE)
+    if (!coder.failed_room[coder.n_subroom - 1]) { // C :4080
+        const tmpcr = splev_coder_build_room(tmproom, coder.croom); // C :4081 build_room
+        if (tmpcr) {
+            const n = coder.n_subroom; // C :4083
+            coder.tmproomlist[n] = tmpcr; // C :4085
+            coder.failed_room[n] = false; // C :4086
+            // added a subroom, make parent room irregular (C :4087-4089)
+            if (coder.tmproomlist[n - 1]) coder.tmproomlist[n - 1].irregular = true;
+            coder.n_subroom++; // C :4090
+            update_croom(); // C :4091
+            if (typeof contentsFn === 'function') contentsFn(tmpcr); // C :4092-4098 contents pcall
+            spo_endroom(coder); // C :4099
+            add_doors_to_room(tmpcr); // C :4100
+            return 0;
+        }
+        if (game.in_mk_themerooms) game.themeroom_failed = true; // C :4103-4104 gt.themeroom_failed
+    } // failed to create parent room, so fail this too (C :4106)
+    coder.tmproomlist[coder.n_subroom] = null; // C :4108
+    coder.failed_room[coder.n_subroom] = true; // C :4109
+    coder.n_subroom++; // C :4110
+    update_croom(); // C :4111
+    spo_endroom(coder); // C :4112
+    if (game.in_mk_themerooms) game.themeroom_failed = true; // C :4113-4114 gt.themeroom_failed
+    return 0;
+}
+
+
+/**
+ * C ref: sp_lev.c lspo_finalize_level `:6014–6064` — des finalize in C
+ * order. fromDes ≡ C `L` non-null (des interpreter context); false is the
+ * C NULL form (wizard-debug wiz_load_splua, unported — arm kept for it).
+ * The FIXME corrmaze overload and the premap branch-stairs ordering comment
+ * are C's own. fill_special_room/makemap_prepost are async, so this is
+ * async (C is sync Lua).
+ */
+export async function lspo_finalize_level(fromDes = true) {
+    const wtower = In_W_tower(game.u?.ux, game.u?.uy, game.u?.uz); // C :6017
+    if (fromDes) create_des_coder(); // C :6019-6020
+    const coder = fromDes ? game.gc.coder : null;
+    link_doors_rooms(); // C :6022
+    remove_boundary_syms(); // C :6023
+    // TODO: ensure_way_out() needs rewrite (C's own note — ported, live)
+    if (fromDes && coder.check_inaccessibles) ensure_way_out(); // C :6026-6027
+    map_cleanup(); // C :6029
+    /* FIXME: Ideally, we want this call to only cover areas of the map
+     * which were not inserted directly by the special level file (see
+     * the insect legs on Baalzebub's level, for instance). Since that
+     * is currently not possible, we overload the corrmaze flag for this
+     * purpose. */
+    if (!game.level.flags.corrmaze) // C :6037
+        wallification(1, 0, COLNO - 1, ROWNO - 1); // C :6038
+    if (fromDes) flip_level_rnd(coder.allow_flips, false); // C :6040-6041
+    count_level_features(); // C :6043
+    if (fromDes && coder.solidify) solidify_map(); // C :6045-6046
+    /* This must be done before premap_detect(),
+     * otherwise branch stairs won't be premapped. */
+    fixup_special(); // C :6051
+    if (fromDes && coder.premapped) premap_detect(); // C :6053-6054
+    level_finalize_topology(); // C :6056
+    for (let i = 0; i < (game.level?.nroom | 0); i++) // C :6058-6060
+        await fill_special_room(game.level.rooms[i]);
+    await makemap_prepost(false, wtower); // C :6062
+    if (!game.iflags) game.iflags = {};
+    game.iflags.lua_testing = false; // C :6063
+    return 0;
 }
 
 /** C ref: dungeon.c free_exclusions — drop the list on clear_level_structures. */

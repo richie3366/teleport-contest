@@ -5,6 +5,12 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-21
 
+- [x] `sp_lev.c` lspo_drawbridge — coverage MISSING (C 43 L `sp_lev.c:5720–5763` / JS no symbol; hops —, callers 0, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn lspo_drawbridge` (reach regression must be 0). Measured `port-coverage.mjs --name lspo_drawbridge` 2026-09-21 @ 6f93ac06.
+- [x] `sp_lev.c` lspo_finalize_level — coverage MISSING (C 50 L `sp_lev.c:6014–6064` / JS no symbol; hops —, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn lspo_finalize_level` (reach regression must be 0). Measured `port-coverage.mjs --name lspo_finalize_level` 2026-09-21 @ c3da9d13.
+- [x] `sp_lev.c` lspo_gold — coverage MISSING (C 42 L `sp_lev.c:4480–4522` / JS no symbol; hops —, callers 0, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn lspo_gold` (reach regression must be 0). Measured `port-coverage.mjs --name lspo_gold` 2026-09-21 @ c3da9d13.
+- [x] `sp_lev.c` lspo_room — coverage MISSING (C 88 L `sp_lev.c:4028–4116` / JS no symbol; hops —, callers 0, RNG 0, msg 0; dead callees: spo_endroom). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn lspo_room` (reach regression must be 0). Measured `port-coverage.mjs --name lspo_room` 2026-09-21 @ c3da9d13.
+
+
 - [x] `selvar.c` selection_do_grow — coverage PARTIAL (C 46 L `selvar.c:321–367` / JS 29 L in js/mklev.js; hops —, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn selection_do_grow` (reach regression must be 0). Measured `port-coverage.mjs --name selection_do_grow` 2026-09-21 @ 1e6811b7.
 - [x] `selvar.c` selection_do_ellipse — coverage MISSING (C 78 L `selvar.c:456–538` / JS no symbol; hops —, callers 0, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn selection_do_ellipse` (reach regression must be 0). Measured `port-coverage.mjs --name selection_do_ellipse` 2026-09-21 @ 29baae20.
 

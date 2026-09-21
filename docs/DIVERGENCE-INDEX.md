@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-2710 | fixed |  — `sp_lev.c` lspo_drawbridge/lspo_gold/lspo_room/lspo_finalize_level entries live (unpacked-opts) + build_roo |  |
 | D-2709 | fixed |  — `selvar.c` selection_do_grow whole-body restart (getbounds recalc + free) + selection_do_ellipse live |  |
 | D-2708 | fixed |  — `dbridge.c` create_drawbridge whole-body restart in C order (impossible arm + wall_info assign) |  |
 | D-2707 | fixed |  — `u_init.c` skills_for_role whole-body restart in C order + panic-as-throw default |  |
