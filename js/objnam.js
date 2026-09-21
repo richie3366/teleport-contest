@@ -2976,15 +2976,22 @@ export function short_oname(obj, func, altfunc, lenlimit) {
 }
 
 /**
- * C ref: objnam.c safe_qbuf `:5623–5698` — prefix + object name + suffix
- * guaranteed to fit in QBUFSZ-1. `func` then `altfunc` via short_oname;
- * lastR when the formatted name still overruns. qprefix null → empty
- * start. C dest==qprefix means the prefix is already in dest; JS starts
- * from qprefix (first arg unused except as that dest).
- * Named omit: impossible() prefix/suffix/filler diagnostics (async
- * pline; C continues after them).
+ * C ref: objnam.c safe_qbuf `:5624–5698` — prefix + object name + suffix
+ * guaranteed to fit in QBUFSZ-1, in C order: unsigned lens (`:5635–5638`)
+ * + lenlimit (`:5640`); prefix/suffix/filler impossible() diagnostics
+ * (`:5646–5653`, named omit below); prefix arms (`:5657–5667`);
+ * last-resort truncation (`:5670–5681`); short_oname format with lastR
+ * fallback (`:5682–5695`); return (`:5697`).
+ * Named omits: (1) impossible() prefix/suffix/filler diagnostics — async
+ * in JS (display.js) while safe_qbuf is sync at 25 call sites, and C
+ * continues after them, so they change nothing observable (same omit
+ * class as sync doname's impossible note in this file); (2)
+ * releaseobuf(bufp) (`:5691`) — GC no-op: short_oname returns a JS
+ * string, no obuf pool exists in js/, nothing to release.
+ * C lastR is never NULL at the 25 call sites (all pass literals); the
+ * null-tolerance below is a harmless JS extension.
  *
- * @param {string|null} [_qbuf] C dest; ignored when qprefix is given
+ * @param {string|null} [_qbuf] C dest; only its identity matters (alias arm)
  * @param {string|null} qprefix
  * @param {string|null} qsuffix
  * @param {object} obj
@@ -2994,6 +3001,8 @@ export function short_oname(obj, func, altfunc, lenlimit) {
  * @returns {string}
  */
 export function safe_qbuf(_qbuf, qprefix, qsuffix, obj, func, altfunc, lastR) {
+    // C `:5635–5640` — unsigned lens; lenlimit is QBUFSZ-1. len_qpfx folds
+    // into buf.length after the prefix arms (`:5668` len = strlen(qbuf)).
     const lenlimit = QBUFSZ - 1;
     const last = lastR == null ? '' : String(lastR);
     const sfx = qsuffix == null ? '' : String(qsuffix);
@@ -3001,32 +3010,48 @@ export function safe_qbuf(_qbuf, qprefix, qsuffix, obj, func, altfunc, lastR) {
     const len_lastR = last.length;
 
     let buf;
-    if (qprefix == null) {
-        buf = '';
-    } else {
-        // C strncpy(..., lenlimit) then *endp='\0' at qbuf[lenlimit]
+    if (_qbuf === qprefix && qprefix != null) {
+        // C `:5657–5659` — dest aliases the prefix: it is already in the
+        // buffer; `*endp = '\0'` truncates at lenlimit. Callers pass the
+        // same string twice (e.g. safe_qbuf(qbuf, qbuf, ...)), so this
+        // converges with the copy arm; the branch is kept for C order.
         buf = String(qprefix).slice(0, lenlimit);
+    } else if (qprefix != null) {
+        // C `:5660–5663` — strncpy(qbuf, qprefix, lenlimit) + `*endp='\0'`.
+        buf = String(qprefix).slice(0, lenlimit);
+    } else {
+        // C `:5664–5666` — no prefix; output buffer starts out empty.
+        buf = '';
     }
+    // C `:5668` — len = strlen(qbuf).
     let len = buf.length;
 
     if (len + len_lastR + len_qsfx > lenlimit) {
+        // C `:5670–5681` — too long; skip formatting, truncated last resort.
         if (len < lenlimit) {
+            // C `:5673–5675` — strncpy(&qbuf[len], lastR, lenlimit - len).
             buf = (buf + last).slice(0, lenlimit);
             len = buf.length;
-            if (sfx && len < lenlimit) {
+            // C `:5676–5679` — strncpy(&qbuf[len], qsuffix, lenlimit - len).
+            if (qsuffix != null && len < lenlimit) {
                 buf = (buf + sfx).slice(0, lenlimit);
             }
         }
     } else {
-        len += len_qsfx;
+        // C `:5682–5695` — suffix and last resort are guaranteed to fit.
+        len += len_qsfx; // C `:5684` — include the pending suffix.
+        // C `:5686` — format the object; live short_oname (same module).
         const bufp = short_oname(obj, func, altfunc, lenlimit - len);
         if (len + String(bufp).length <= lenlimit) {
-            buf += bufp;
+            buf += bufp; // C `:5687–5688` — formatted name fits.
         } else {
-            buf += last;
+            buf += last; // C `:5689–5690` — use last resort.
         }
-        if (sfx) buf += sfx;
+        // C `:5691` releaseobuf(bufp) — GC no-op (see doc); C `:5693–5694`
+        // Strcat(qbuf, qsuffix) — pointer check, empty append is a no-op.
+        if (qsuffix != null) buf += sfx;
     }
+    // C `:5696–5697` — assert(strlen(qbuf) < QBUFSZ); return qbuf.
     return buf;
 }
 

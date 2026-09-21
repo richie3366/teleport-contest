@@ -1234,7 +1234,13 @@ whole-body paydoname restart D-2667 — doname_base(obj, 0) direct `:2326`, BUFS
 **`short_oname` + `simpleonames`/`thesimpleoname`** (D-0881; 
 **`safe_qbuf` + `Yname2`/`ysimple_name`/`Ysimple_name2` D-1654**; 
 apply/do_name/eat/invent/lock/mhitu/shk/trap callers named; 
-pre-existing yname clones stay) + **`otense` export D-1544** (C `objnam.c:2531–2546`; 
+pre-existing yname clones stay) + **`safe_qbuf` whole-body restart D-2743**
+(C `objnam.c:5624–5698` in C order with per-arm cites — `:5657–5659`
+alias arm, `:5676`/`:5693` qsuffix pointer checks, live same-module
+`short_oname`; impossible() `:5646–5653` named async-omit,
+releaseobuf `:5691` GC no-op; 13 C sites wired to the live export,
+9 caller-side inlines owned by their ports, lock.c:474/495 owned by
+the pick_lock row, potion.c:2290 C-bypass by design) + **`otense` export D-1544** (C `objnam.c:2531–2546`; 
 Eyes `is_plural` named; pre-existing local clones stay) + **`yname`/`shk_your`/`the_unique_pm` (D-1045; 
 `mon_owns` via `y_monnam`; `shk_owns` shop unpaid/floor costly deferred)** +
 **`xname_flags` `xcalled` + gameover T_SHIRT/`apron_text`/`hawaiian_motif`/CANDY_BAR

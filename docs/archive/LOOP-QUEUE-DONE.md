@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-21
 
-- [x] `mon.c` monstone — coverage PARTIAL (C 86 L `mon.c:3287–3373` / JS 60 L in js/mhitm.js; hops 3, callers 8, RNG 1, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn monstone` (reach regression must be 0). Measured `port-coverage.mjs --name monstone` 2026-09-21 @ e975f7583. **Addressed:** D-2742
+- [x] `objnam.c` safe_qbuf — coverage PARTIAL (C 67 L `objnam.c:5624–5698` / JS 36 L in js/objnam.js; hops 2, callers 25, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn safe_qbuf` (reach regression must be 0). Measured `port-coverage.mjs --name safe_qbuf` 2026-09-21 @ e975f7583. **Addressed:** D-2743
+
+
+- [x] `mon.c` monstone — coverage PARTIAL (C 86 L `mon.c:3287–3373` / JS 60 L in js/mhitm.js; hops 3, callers 8, RNG 1, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn monstone` (reach regression must be 0). Measured `port-coverage.mjs --name monstone` 2026-09-21 @ e975f7583. **Addressed:** D-2742 `09e6ef90d`
 
 
 - [x] doread FORTUNE_COOKIE arm calls the divergent local `useup` clone (`js/read.js:260` — drops C `update_inventory()` + `useupall` `setnotworn`/`freeinv`/`obfree`) while live `useup` is already imported as `useup_live` in the same file: call `useup_live(scroll)`. Source: reviews/loop-unattended/1688-c453b9ca9-outrumor-cookie-caller.md **Addressed:** D-2741 `d44374fc8`
