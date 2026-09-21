@@ -900,8 +900,10 @@ async function mhitm_ad_elec_u(mtmp, mattk, mhm) {
 }
 
 /**
- * C ref: uhitm.c mhitm_ad_cold mhitu branch (mdef == youmonst).
- * destroy_items when m_lev > rn2(20); monstseesu / monstunseesu deferred.
+ * C ref: uhitm.c mhitm_ad_cold mhitu branch (mdef == youmonst, `:2654–2667`).
+ * hitmsg, mgc_negated(TRUE) gate, frost pline, Cold_resistance zero,
+ * m_lev > rn2(20) → (void) destroy_items (return discarded).
+ * monstseesu / monstunseesu deferred (elec_u body deferred, keep).
  */
 async function mhitm_ad_cold_u(mtmp, mattk, mhm) {
     const orig_dmg = mhm.damage;
@@ -915,10 +917,12 @@ async function mhitm_ad_cold_u(mtmp, mattk, mhm) {
             await pline("The frost doesn't seem cold!");
             mhm.damage = 0;
         }
-        // C: if ((int) magr->m_lev > rn2(20)) destroy_items(&youmonst, AD_COLD, …)
+        // C uhitm.c:2661: if ((int) magr->m_lev > rn2(20))
+        // (void) destroy_items(&gy.youmonst, AD_COLD, orig_dmg) — return
+        // discarded (hero already losehps inside); cf. fire_u mhitu.js:961.
         if ((mtmp.m_lev | 0) > rn2(20)) {
             const you = game.youmonst || { _youmonst: true };
-            mhm.damage += await destroy_items(you, AD_COLD, orig_dmg);
+            await destroy_items(you, AD_COLD, orig_dmg);
         }
     } else {
         mhm.damage = 0;

@@ -1,6 +1,6 @@
 {
- "commit": "12e8b259",
- "at": "2026-09-21T02:23:37.251Z",
+ "commit": "f72cbdb1",
+ "at": "2026-09-21T02:31:05.029Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6686,18 +6686,18 @@
   "scen-poly-Healer-92107": {
    "src": "corpus",
    "passed": false,
-   "rngM": 3154,
+   "rngM": 3409,
    "rngT": 3588,
-   "scrM": 166,
+   "scrM": 298,
    "scrT": 321,
-   "kind": "screen",
-   "step": 126,
+   "kind": "rng",
+   "step": 298,
    "steps": 321,
-   "owner": "do_statusline2",
-   "loc": "botl.c:130",
-   "jsOwner": null,
-   "cTopline": "One of your potions of extra healing freezes and shatters!--More--",
-   "jsTopline": "One of your potions of extra healing freezes and shatters!--More--",
+   "owner": "retouch_object",
+   "loc": "artifact.c:2552",
+   "jsOwner": "tactics(wizard.js:558)",
+   "cTopline": "You turn into a succubus! You can't handle your silver ring anymore!",
+   "jsTopline": "You turn into a succubus!",
    "error": null
   },
   "scen-poly-Healer-92109": {

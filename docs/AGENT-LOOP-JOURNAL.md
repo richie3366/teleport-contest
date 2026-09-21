@@ -33,6 +33,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-21 — D-2718 `uhitm.c` mhitm_ad_cold mhitu `(void)`-discard (Healer-92107 W1)
+
+**C locus:** `nethack-c/upstream/src/uhitm.c:2626–2681` (`mhitm_ad_cold`); mhitu arm `:2654–2667` — `hitmsg`, `!mhitm_mgc_atk_negated(TRUE)` gate, frost pline, `Cold_resistance` seesu + zero else unseesu, `magr->m_lev > rn2(20)` → `(void) destroy_items(&gy.youmonst, AD_COLD, orig_dmg)` (return discarded, hero already losehps inside); negated → damage 0. Uhitm arm `:2632–2652` (`damage += destroy_items`, correctly kept) and mhitm arm `:2668–2680` (likewise `+=`, deferred pre-existing) contrast with the mhitu `(void)`. Sole C caller `:4793` (`case AD_COLD`); declaration `extern.h:3388`.
+**JS:** `js/mhitu.js:902–906` (doc), `:918–925` (discard).
+**Change:** `js/mhitu.js` only — discard the return (`await destroy_items(you, AD_COLD, orig_dmg)`, C `:2661` cited inline); doc comment now cites the mhitu arm range and the discarded-return contract. No new import (all callees pre-existing edges); no DIAG/FORCE/seed gates; Rule #2 clean.
+**Verify:** `node scripts/verify.mjs --fn do_statusline2` → PASS syntax (1 changed: js/mhitu.js) · PASS rule2 · hidden PROGRESS (scen-poly-Healer-92107 moved 126 → later owner `retouch_object` at step 298; wish-Healer-92092@59 + wish-Tourist-91125@83 unchanged under their own lembas-pair row; wish-Monk-92194@88 unchanged, D-2161 residual) · PASS reach (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 → VERIFY: PASS.
+**Named:** `monstseesu`/`monstunseesu(M_SEEN_COLD)` (deferred, same as elec_u — row keeps); `mhitm.js` monster-defender destroy arms (deferred pre-existing, row scope); `do_statusline1/2` re-port (row forbids).
+**Next:** W1 shipped; remaining do_statusline2 writers are W2 (eatfood lembas pair, live Open row) and Monk-92194 Pw (D-2161 residual, no row).
 ## 2026-09-21 — D-2717 `uhitm.c` do_attack overload/pacifist gate (Caveman-92202 W6)
 
 **C locus:** `nethack-c/upstream/src/uhitm.c:525–534` (`Upolyd && noattacks` → «no way to attack» + `goto atk_done`; `check_capacity("You cannot fight while so heavily loaded.") || overexertion()` → `goto atk_done`), `atk_done` `:577–586` (forcefight `map_invisible` plant, `return TRUE`); `check_capacity` `hack.c:4399–4409` (`near_capacity() >= EXT_ENCUMBER`); `noattacks` `mondata.c:61–76` (AT_BOOM-skipping mattk scan); `overexertion` `hack.c:3051–3061` (`gethungry`, moves%3 + `>= HVY_ENCUMBER` → `overexert_hp`, `multi < 0`).

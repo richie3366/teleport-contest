@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2718 — `uhitm.c` mhitm_ad_cold mhitu `(void)`-discard (Healer-92107 W1)
+
+- **Status:** fixed (corpus-residual row: `uhitm.c` mhitm_ad_cold `:2661` (void)-discard Healer, D-2425 W1; blocks 1/553 scen-poly-Healer-92107).
+- **Symptom:** step 126/321 kind=screen: C `HP:7(33)` vs JS `HP:2(33)`, toplines identical. MEASURED D-2425: one lich-touch turn spans captures s123–s126 — to-hit `rnd(20)=3` + base `d(3,6)=10` identical both sides; destroy-A quan-1 `rnd(4)=3` losehp 22→19; destroy-B quan-3 `rnd(4)=2` losehp 19→17; recorder s126 dump (knockback×2+passiveum+spell-choice) identical both sides; instrumented /tmp copy: JS `mdamageu(10+5=15)`@hitmu after `losehp(2)`@maybe_destroy_item vs C `mdamageu(10+0)` — Δ5 = destroy total 3+2; only adjacent monster = master lich (38,18 vs hero-owlbear 37,17).
+- **C locus:** `nethack-c/upstream/src/uhitm.c:2626–2681` (`mhitm_ad_cold`); mhitu arm `:2654–2667` — `hitmsg`, `!mhitm_mgc_atk_negated(TRUE)` gate, frost pline, `Cold_resistance` seesu + zero else unseesu, `magr->m_lev > rn2(20)` → `(void) destroy_items(&gy.youmonst, AD_COLD, orig_dmg)` (return discarded, hero already losehps inside); negated → damage 0. Uhitm arm `:2632–2652` (`damage += destroy_items`, correctly kept) and mhitm arm `:2668–2680` (likewise `+=`, deferred pre-existing) contrast with the mhitu `(void)`. Sole C caller `:4793` (`case AD_COLD`); declaration `extern.h:3388`.
+- **JS was:** `js/mhitu.js:921` `mhitm_ad_cold_u` ran `mhm.damage += await destroy_items(you, AD_COLD, orig_dmg)` — adding the destroy return (3+2=5) on top of the in-destroy losehp, so `mdamageu` saw 10+5 instead of C's 10+0. Sibling `mhitm_ad_fire_u` (`:961`) already discarded per C; `mhitm_ad_elec_u` already discards with an explicit D-2425 comment.
+- **Fix:** `js/mhitu.js` only — discard the return (`await destroy_items(you, AD_COLD, orig_dmg)`, C `:2661` cited inline); doc comment now cites the mhitu arm range and the discarded-return contract. No new import (all callees pre-existing edges); no DIAG/FORCE/seed gates; Rule #2 clean.
+- **JS:** `js/mhitu.js:902–906` (doc), `:918–925` (discard).
+- **Callers:** C `:4793` → JS `mhitm_adtyping_u` `js/mhitu.js:3120–3122` (`case AD_COLD: await mhitm_ad_cold_u(...)`, pre-existing wiring, unchanged). Uhitm arm stays `damageum_ad_cold` (`js/uhitm.js:2169`, `+=` per C, untouched); mhitm arms untouched per the row's do-not-touch scope.
+- **Verify:** `node scripts/verify.mjs --fn do_statusline2` → PASS syntax (1 changed: js/mhitu.js) · PASS rule2 · hidden PROGRESS (scen-poly-Healer-92107 moved 126 → later owner `retouch_object` at step 298; wish-Healer-92092@59 + wish-Tourist-91125@83 unchanged under their own lembas-pair row; wish-Monk-92194@88 unchanged, D-2161 residual) · PASS reach (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 → VERIFY: PASS.
+- **Named omissions:** `monstseesu`/`monstunseesu(M_SEEN_COLD)` (deferred, same as elec_u — row keeps); `mhitm.js` monster-defender destroy arms (deferred pre-existing, row scope); `do_statusline1/2` re-port (row forbids).
+- **Next:** W1 shipped; remaining do_statusline2 writers are W2 (eatfood lembas pair, live Open row) and Monk-92194 Pw (D-2161 residual, no row).
+
 ## D-2717 — `uhitm.c` do_attack overload/pacifist gate (Caveman-92202 W6)
 
 - **Status:** fixed (corpus-residual row: hero overload attack-gate Caveman, D-2420 W6; blocks 1/553 scen-poly-Caveman-92202).
