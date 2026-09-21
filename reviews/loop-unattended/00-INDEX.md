@@ -1683,3 +1683,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1671-a673b5e4-lspo-feature.md](./1671-a673b5e4-lspo-feature.md) | `a673b5e4` | D-2712 lspo_feature port | **ACCEPT** |
 | [1672-0b705b5f-wall-property-level-flags-engraving.md](./1672-0b705b5f-wall-property-level-flags-engraving.md) | `0b705b5f` | D-2713 wall_property + level_flags + engraving | **ACCEPT** |
 | [1673-70a4bf39-look-here-dopen-feel.md](./1673-70a4bf39-look-here-dopen-feel.md) | `70a4bf39` | D-2714 look_here returns + doopen feel | **ACCEPT** |
+| [1674-2a3c61e5d-autokey-whole-body.md](./1674-2a3c61e5d-autokey-whole-body.md) | `2a3c61e5d` | D-2715 autokey whole body | **ACCEPT** |
+| [1675-12e8b259f-traptype-rnd-whole-body.md](./1675-12e8b259f-traptype-rnd-whole-body.md) | `12e8b259f` | D-2716 traptype_rnd whole body | **ACCEPT** |
+| [1676-f72cbdb10-do-attack-overload-gate.md](./1676-f72cbdb10-do-attack-overload-gate.md) | `f72cbdb10` | D-2717 do_attack overload/pacifist gate | **ACCEPT** |
+| [1677-546f6b39b-mhitm-ad-cold-void-discard.md](./1677-546f6b39b-mhitm-ad-cold-void-discard.md) | `546f6b39b` | D-2718 mhitm_ad_cold mhitu void-discard | **ACCEPT** |
+| [1678-a13b86e4e-monhp-per-lvl-pluslvl.md](./1678-a13b86e4e-monhp-per-lvl-pluslvl.md) | `a13b86e4e` | D-2719 monhp_per_lvl + pluslvl Upolyd arm | **ACCEPT** |
+| [1679-54325651d-stop-occupation-lembas.md](./1679-54325651d-stop-occupation-lembas.md) | `54325651d` | D-2720 stop_occupation gate + lembas race | **ACCEPT** |
+| [1680-1204bc94c-destroy-arm-hits-draw.md](./1680-1204bc94c-destroy-arm-hits-draw.md) | `1204bc94c` | D-2721 destroy_arm C-order hits draw | **ACCEPT** |
+| [1681-43540888a-losedogs-kops-head.md](./1681-43540888a-losedogs-kops-head.md) | `43540888a` | D-2722 losedogs kops-dismiss head | **ACCEPT** |
+| [1682-f6f4a0b26-dokick-whole-body.md](./1682-f6f4a0b26-dokick-whole-body.md) | `f6f4a0b26` | D-2723 dokick whole body | **ACCEPT-WITH-DEBT** |

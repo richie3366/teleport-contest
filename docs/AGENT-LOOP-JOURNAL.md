@@ -1,4 +1,25 @@
 # Agent loop journal
+## 2026-09-21 — Audit 2a3c61e5..f6f4a0b2 (reviews 1674-1682: 8 ACCEPT + 1 WITH-DEBT, 0 Must-fix) + cadence 44/44.
+
+Reviews audit D-2715..D-2723 against pinned C (csym bodies + callers,
+sym.mjs, per-SHA hidden-proxy --reach-all re-runs: 4× 0-blocked
+vacuous + REACH-OK; 5 genuine PROGRESS — 1676 distfleeck Caveman-92202
+PASS at HEAD (later owner fixed by D-2719), 1677/1679 do_statusline2
+Healer-92107→retouch_object@298 / Healer-92092 PASS, 1678 monhp_per_lvl
+Caveman PASS, 1680 destroy_arm Caveman PASS; 0 REGRESSED anywhere).
+Notable: 1674 null-mon `is_magic_key` + zero-questarti nuances
+pre-existing, unreachable from autokey; 1676 `mstrategy != null` guard
+null-safe rendering; 1679 `cmdq_clear` pre-existing house rendering;
+1682 WITH-DEBT solely for the `!oldmem` map line (display-only corner,
+commit-disclosed) + "`digests` new edge" message imprecise (`--can`
+ALREADY, no new module edge). No Must-fix prepend; CURRENT Next cluster
+unchanged (shipped dokick; next port pops queue head
+done_object_cleanup). Cadence: public 44/44 (Scr 11405/11405, RNG
+792838/792838, speed 60+0.33 R² 0.78); held-out 12/44 (+0);
+corpus 500/540 (+2 Caveman-92202 via D-2721, Healer-92092 via D-2720).
+Queue 2 Open, pool exhausted (`--rows 600`: 74 machine-fresh all
+class-deferred; hidden-proxy queue 0 untagged-eligible) — no refill.
+Rule #2 clean.
 ## 2026-09-21 — Audit 29baae20..70a4bf39 (reviews 1665-1673: 9 ACCEPT, 0 Must-fix) + cadence 44/44.
 
 Reviews audit D-2706..D-2714 against pinned C (csym bodies + callers,
