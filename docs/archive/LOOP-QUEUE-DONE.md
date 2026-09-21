@@ -5,7 +5,12 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-21
 
-- [x] `sp_lev.c` lspo_feature — coverage MISSING (C 79 L `sp_lev.c:4844–4923` / JS no symbol; hops —, callers 0, RNG 0, msg 0; dead callees: l_table_getset_feature_flag). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn lspo_feature` (reach regression must be 0). Measured `port-coverage.mjs --name lspo_feature` 2026-09-21 @ ee23c6dc. **Addressed:** D-2712
+- [x] `sp_lev.c` lspo_wall_property — coverage MISSING (C 32 L `sp_lev.c:5876–5908` / JS no symbol; hops —, callers 0, RNG 0, msg 0; dead callees: get_table_coords_or_region). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn lspo_wall_property` (reach regression must be 0). Measured `port-coverage.mjs --name lspo_wall_property` 2026-09-21 @ ee23c6dc.
+- [x] `sp_lev.c` lspo_level_flags — coverage MISSING (C 72 L `sp_lev.c:3759–3831` / JS no symbol; hops —, callers 0, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn lspo_level_flags` (reach regression must be 0). Measured `port-coverage.mjs --name lspo_level_flags` 2026-09-21 @ ee23c6dc.
+- [x] `sp_lev.c` lspo_engraving — coverage MISSING (C 55 L `sp_lev.c:3881–3936` / JS no symbol; hops —, callers 0, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn lspo_engraving` (reach regression must be 0). Measured `port-coverage.mjs --name lspo_engraving` 2026-09-21 @ ee23c6dc.
+
+
+- [x] `sp_lev.c` lspo_feature — coverage MISSING (C 79 L `sp_lev.c:4844–4923` / JS no symbol; hops —, callers 0, RNG 0, msg 0; dead callees: l_table_getset_feature_flag). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn lspo_feature` (reach regression must be 0). Measured `port-coverage.mjs --name lspo_feature` 2026-09-21 @ ee23c6dc. **Addressed:** D-2712 `a673b5e4`
 
 
 - [x] `shk.c` unpaid_cost — coverage PARTIAL (C 43 L `shk.c:3260–3305` / JS 23 L in js/shk.js; hops 4, callers 8, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn unpaid_cost` (reach regression must be 0). Measured `port-coverage.mjs --name unpaid_cost` 2026-09-21 @ c3da9d13. **Addressed:** D-2711 `a8cd211c`

@@ -5,6 +5,7 @@ Lookup by ID, then open **one** matching `## D-NNNN` section in
 
 | ID | Status | Area | Short result |
 |---|---|---|---|
+| D-2713 | fixed |  — `sp_lev.c` lspo_wall_property + lspo_level_flags + lspo_engraving whole-body ports (des entries, unpacked-o |  |
 | D-2712 | fixed |  — `sp_lev.c` lspo_feature whole-body port (4-arity dispatch + sel_set_feature + feature-flag callees) |  |
 | D-2711 | fixed |  — `shk.c` unpaid_cost whole-body restart (impossible arm + quan) + dog_eat caller wired |  |
 | D-2710 | fixed |  — `sp_lev.c` lspo_drawbridge/lspo_gold/lspo_room/lspo_finalize_level entries live (unpacked-opts) + build_roo |  |

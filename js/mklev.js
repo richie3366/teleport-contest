@@ -65,7 +65,7 @@ import {
     Is_medusa_level,
     Is_baal_level,
     RLOC_ERR,
-    DUST, MARK as ENGRAVE_MARK, M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER, M_AP_NOTHING, ENGRAVE,
+    DUST, MARK as ENGRAVE_MARK, M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER, M_AP_NOTHING, ENGRAVE, ENGR_BLOOD,
     LS_MONSTER, ismnum,
     S_dnstair,
     MM_ASLEEP, MM_NOCOUNTBIRTH, MM_NOMSG, IS_TREE, G_GENOD,
@@ -1263,6 +1263,73 @@ export function lspo_feature(a, b, c) {
         break;
     }
 
+    return 0;
+}
+
+// C ref: sp_lev.c lspo_engraving static tables `:3883–3888`.
+const LSPO_ENGRTYPES = ['dust', 'engrave', 'burn', 'mark', 'blood'];
+const LSPO_ENGRTYPES2I = [DUST, ENGRAVE, BURN, ENGRAVE_MARK, ENGR_BLOOD]; // C MARK ≡ ENGRAVE_MARK (const.js import alias)
+
+/**
+ * C ref: sp_lev.c lspo_engraving `:3881–3936` — des.engraving entry in C
+ * order, unpacked-args idiom like lspo_feature (arguments.length dispatch).
+ * argc==1 is the table form (lcheck_param_table: no arg ≡ {}, extra args
+ * dropped, non-table throws); argc==3 is (coord, type, text); anything else
+ * throws like C nhl_error `:3919`. x=y=-1 packs SP_COORD_PACK_RANDOM(0)
+ * `:3922-3923` and explicit coords SP_COORD_PACK `:3925` — both round-trip
+ * through get_unpacked_coord to (x, y) + DRY humidity, so JS passes x, y
+ * straight to get_location_coord like lspo_feature does. croom is read
+ * post-dispatch like C `:3927` (gc.coder->croom after create_des_coder).
+ * Free(txt) `:3929` is a no-op (JS strings need no free). The ep tail
+ * `:3930-3934` writes both fields unconditionally, even in the 3-arity form
+ * (guardobjects=FALSE→0, nowipeout=!TRUE→0).
+ */
+export function lspo_engraving(a, b, c) {
+    let etyp = DUST; // C :3889
+    let txt = null; // C :3890
+    let x = -1, y = -1; // C :3892
+    let guardobjs = false; // C :3894
+    let wipeout = true; // C :3895
+    create_des_coder(); // C :3898
+    const argc = arguments.length; // C :3893
+    if (argc === 1) { // C :3900-3910
+        if (a == null || typeof a !== 'object') // C :3902 lcheck_param_table
+            throw new Error('bad argument #1 (table expected)');
+        const o = a;
+        const xy = get_table_xy_or_coord(o); // C :3904
+        x = xy.x;
+        y = xy.y;
+        etyp = LSPO_ENGRTYPES2I[splev_opt_index(o.type, 'engrave', LSPO_ENGRTYPES)]; // C :3907
+        if (typeof o.text !== 'string') // C :3908 get_table_str luaL_checkstring
+            throw new Error("bad argument 'text' (string expected)");
+        txt = o.text;
+        // C :3909-3910 get_table_boolean_opt (nil → default, else shared
+        // C nhlua.c get_table_boolean raw-index semantics via
+        // splev_feature_boolopt; nonzero → true like C's boolean assignment).
+        wipeout = (o.degrade == null ? 1 : splev_feature_boolopt(o.degrade, 'degrade')) !== 0;
+        guardobjs = (o.guardobjects == null ? 0 : splev_feature_boolopt(o.guardobjects, 'guardobjects')) !== 0;
+    } else if (argc === 3) { // C :3911-3917
+        const cc = get_coord_unpacked(a); // C :3913 (void) get_coord
+        x = cc.x;
+        y = cc.y;
+        etyp = LSPO_ENGRTYPES2I[splev_opt_index(b, 'engrave', LSPO_ENGRTYPES)]; // C :3916
+        if (typeof c !== 'string') // C :3917 dupstr(luaL_checkstring)
+            throw new Error('bad argument #3 (string expected)');
+        txt = c;
+    } else {
+        throw new Error('Wrong parameters'); // C :3919
+    }
+
+    const coder = game.gc?.coder ?? null;
+    const pos = get_location_coord(DRY, coder?.croom ?? null, x, y); // C :3927
+    x = pos.x;
+    y = pos.y;
+    make_engr_at(x, y, txt, null, 0, etyp); // C :3928
+    const ep = engr_at(x, y); // C :3930
+    if (ep) { // C :3931-3934
+        ep.guardobjects = guardobjs ? 1 : 0;
+        ep.nowipeout = wipeout ? 0 : 1;
+    }
     return 0;
 }
 
@@ -3705,6 +3772,68 @@ export function lspo_non_diggable(sel) {
  */
 export function lspo_non_passwall(sel) {
     set_wallprop_in_selection(sel, W_NONPASSWALL);
+}
+
+// C ref: sp_lev.c lspo_wall_property static tables `:5878–5881`.
+const LSPO_WPROPS = ['nondiggable', 'nonpasswall'];
+const LSPO_WPROPS2I = [W_NONDIGGABLE, W_NONPASSWALL, -1];
+
+/**
+ * C ref: sp_lev.c set_wall_property `:1001–1013` — clamp the rectangle to
+ * x 1..COLNO-1, y 0..ROWNO-1 (`:1005–1008`), then sel_set_wall_property
+ * over it in C order (y-outer/x-inner `:1009–1012`; the per-cell
+ * stone/tree/bars gate lives in sel_set_wall_property).
+ */
+function set_wall_property(x1, y1, x2, y2, prop) {
+    x1 = Math.max(x1, 1); // C :1005
+    x2 = Math.min(x2, COLNO - 1); // C :1006
+    y1 = Math.max(y1, 0); // C :1007
+    y2 = Math.min(y2, ROWNO - 1); // C :1008
+    for (let y = y1; y <= y2; y++) // C :1009-1012
+        for (let x = x1; x <= x2; x++)
+            sel_set_wall_property(x, y, prop);
+}
+
+/**
+ * C ref: sp_lev.c lspo_wall_property `:5876–5908` — des.wall_property entry
+ * in C order (table form only: lcheck_param_table `:5887` — no arg ≡ {},
+ * non-table throws). x1/y1/x2/y2 default -1 (C
+ * get_table_coords_or_region `:5561–5577` ≡ get_table_int_opt -1); the
+ * region subtable is consulted only when all four are -1, required there
+ * (optional=FALSE). Unset ends fall back to the full map extent
+ * `:5893–5900` (gx/gy ≡ game.splev_* with the reset_xystart_size defaults),
+ * then both corners go through get_location ANY_LOC `:5902–5903` before
+ * set_wall_property `:5905`.
+ */
+export function lspo_wall_property(o) {
+    create_des_coder(); // C :5885
+    if (arguments.length < 1) o = {}; // C lcheck_param_table :228-230
+    if (o == null || typeof o !== 'object') // C :232 luaL_checktype
+        throw new Error('bad argument #1 (table expected)');
+    let dx1 = o.x1 != null ? (o.x1 | 0) : -1; // C :5889 get_table_int_opt -1
+    let dy1 = o.y1 != null ? (o.y1 | 0) : -1;
+    let dx2 = o.x2 != null ? (o.x2 | 0) : -1;
+    let dy2 = o.y2 != null ? (o.y2 | 0) : -1;
+    if (dx1 === -1 && dy1 === -1 && dx2 === -1 && dy2 === -1) {
+        const r = get_table_region_unpacked(o, 'region', false); // C :5571-5576
+        dx1 = r[0];
+        dy1 = r[1];
+        dx2 = r[2];
+        dy2 = r[3];
+    }
+    const wprop = LSPO_WPROPS2I[splev_opt_index(o.property, 'nondiggable', LSPO_WPROPS)]; // C :5891
+    const xs = game.splev_xstart ?? 1; // C gx.xstart
+    const ys = game.splev_ystart ?? 0; // C gy.ystart
+    const xsz = game.splev_xsize ?? COLNO - 1; // C gx.xsize
+    const ysz = game.splev_ysize ?? ROWNO; // C gy.ysize
+    if (dx1 === -1) dx1 = xs - 1; // C :5893-5894
+    if (dy1 === -1) dy1 = ys - 1; // C :5895-5896
+    if (dx2 === -1) dx2 = xs + xsz + 1; // C :5897-5898
+    if (dy2 === -1) dy2 = ys + ysz + 1; // C :5899-5900
+    const p1 = get_location(dx1, dy1, ANY_LOC, null); // C :5902
+    const p2 = get_location(dx2, dy2, ANY_LOC, null); // C :5903
+    set_wall_property(p1.x, p1.y, p2.x, p2.y, wprop); // C :5905
+    return 0;
 }
 
 /** C ref: sp_lev.c sel_set_wall_property via lspo_non_diggable(selection). */
@@ -18702,6 +18831,61 @@ function lvlfill_swamp(fg, bg, lit) {
             }
         }
     }
+}
+
+/**
+ * C ref: sp_lev.c lspo_level_flags `:3759–3831` — des.level_flags entry in
+ * C order. C takes N Lua string params (`:3761–3770`, non-string throws
+ * like luaL_checkstring); JS takes them as rest args. strcmpi per arm
+ * (`:3772–3821`) ≡ one lowercase compare. C int targets map to the file's
+ * JS conventions: bool flags → true, temperature → 0/1/-1, nomongen →
+ * rndmongen=false and nodeathdrops → deathdrops=false (compiled-loader
+ * precedent `:17934–17936`). Sokoban ≡ flags.sokoban_rules (rm.h:538);
+ * the file's triple alias (sokoban + sokoban_rules + g.Sokoban) mirrors
+ * the soko loaders. coder arms write game.gc.coder (live after
+ * create_des_coder). Unknown flag throws like C `:3825–3826`.
+ */
+export function lspo_level_flags(...args) {
+    create_des_coder(); // C :3764
+    if (args.length < 1) // C :3766-3767
+        throw new Error('expected string params');
+    const flags = game.level.flags || (game.level.flags = {});
+    const coder = game.gc.coder;
+    for (const a of args) { // C :3769-3828
+        if (typeof a !== 'string') // C :3770 luaL_checkstring
+            throw new Error('bad argument (string expected)');
+        const s = a.toLowerCase(); // C strcmpi per arm
+        if (s === 'noteleport') flags.noteleport = true; // C :3772-3773
+        else if (s === 'hardfloor') flags.hardfloor = true; // C :3774-3775
+        else if (s === 'nommap') flags.nommap = true; // C :3776-3777
+        else if (s === 'shortsighted') flags.shortsighted = true; // C :3778-3779
+        else if (s === 'arboreal') flags.arboreal = true; // C :3780-3781
+        else if (s === 'mazelevel') flags.is_maze_lev = true; // C :3782-3783
+        else if (s === 'shroud') flags.hero_memory = true; // C :3784-3785
+        else if (s === 'graveyard') flags.graveyard = true; // C :3786-3787
+        else if (s === 'icedpools') icedpools = true; // C :3788-3789
+        else if (s === 'corrmaze') flags.corrmaze = true; // C :3790-3791
+        else if (s === 'premapped') coder.premapped = true; // C :3792-3793
+        else if (s === 'solidify') coder.solidify = true; // C :3794-3795
+        else if (s === 'sokoban') { // C :3796-3797
+            flags.sokoban_rules = true;
+            flags.sokoban = true;
+            game.Sokoban = true;
+        } else if (s === 'inaccessibles') coder.check_inaccessibles = true; // C :3798-3799
+        else if (s === 'noflipx') coder.allow_flips &= ~2; // C :3800-3801
+        else if (s === 'noflipy') coder.allow_flips &= ~1; // C :3802-3803
+        else if (s === 'noflip') coder.allow_flips = 0; // C :3804-3805
+        else if (s === 'temperate') flags.temperature = 0; // C :3806-3807
+        else if (s === 'hot') flags.temperature = 1; // C :3808-3809
+        else if (s === 'cold') flags.temperature = -1; // C :3810-3811
+        else if (s === 'nomongen') flags.rndmongen = false; // C :3812-3813
+        else if (s === 'nodeathdrops') flags.deathdrops = false; // C :3814-3815
+        else if (s === 'noautosearch') flags.noautosearch = true; // C :3816-3817
+        else if (s === 'fumaroles') flags.fumaroles = true; // C :3818-3819
+        else if (s === 'stormy') flags.stormy = true; // C :3820-3821
+        else throw new Error(`Unknown level flag ${a}`); // C :3822-3826
+    }
+    return 0;
 }
 
 /**
