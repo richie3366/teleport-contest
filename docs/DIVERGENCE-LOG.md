@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2722 — `dog.c` losedogs kops-dismiss head `:310–356` (doc-named omission → live)
+
+- **Status:** fixed (coverage row: `dog.c` losedogs kops-dismiss head, brief-verified missing arm queued 2026-09-21 @1204bc94; 0 corpus sessions blocked — coverage completion, not a divergence).
+- **Symptom:** none on the corpus — the JS `losedogs` (`js/dog.js:1170`) ported only `:366–415` (Before_you / mydogs / After_you / failed_arrivals drain) and carried the head as a doc-named omission, so a shopkeeper chased to another level and paid off there never dismissed his summoned kops on return (C `dog.c:352–356` `make_happy_shoppers(TRUE)` unreachable).
+- **C locus:** `nethack-c/upstream/src/dog.c:303–415` — `failed_arrivals = 0`; migrating_mons scan `:324–338` (mux/muy match u.uz; isshk: dismiss_kops set → vote once + reset, else unpacified → veto `-1` but keep looping for later ESHK resets); mydogs scan `:340–350` (loop while `dismissKops >= 0`; hostile isshk → veto); `dismissKops > 0` → `make_happy_shoppers(TRUE)` `:352–356`. Callers: `do.c:1816` (goto_level), `cmd.c:1047` (makemap `u_on_rndspot` path).
+- **JS was:** head entirely absent; doc named it («Named omissions: kops-dismiss scan … `:310–356`»).
+- **Fix:** `js/dog.js` only — port the head in C order ahead of the live `:366` block (vote/reset/veto/keep-looping/mydogs-break/`make_happy_shoppers(true)`; `ESHK(mtmp)?.dismiss_kops` nullable per file convention, `mpeaceful|0` int reads, C loop condition folded to break); `make_happy_shoppers` joins the existing static `./shk.js` import (`imports.mjs --can` ALREADY, no new edge); doc now cites the full `:303–415` contract + both wired callers. `js/shk.js` only — `make_happy_shoppers` doc «Caller losedogs still named» → wired. No DIAG/FORCE/seed gates; Rule #2 clean.
+- **JS:** `js/dog.js:55` (import), `:1163–1215` (doc + head); `js/shk.js:1850–1852` (doc); `scripts/losedogs-kops-head.test.mjs` (new, 4 tests).
+- **Callers:** `do.c:1816` → `js/do.js:1952` (`await losedogs()` after obj_delivery, pre-wired, unchanged); `cmd.c:1047` → `js/wizcmds.js:610` (makemap post-`u_on_rndspot`, pre-wired, unchanged). No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn losedogs` → PASS syntax (2 changed: js/dog.js js/shk.js) · PASS rule2 · hidden note (0 blocked at baseline — normal for a coverage row, not a PASS) · PASS reach (no RNG-tagged reach; smoke spread 24 run, 24 PASS → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 → VERIFY: PASS. `node --test scripts/losedogs-kops-head.test.mjs` 4/4 (pre-fix shape: 2/4 — vote + keep-looping cases fail, veto cases pass).
+- **Named omissions:** none new — whole C body now live; every callee live (`make_happy_shoppers` `js/shk.js:1853`, `mon_arrive` same-file `:1158`, `m_into_limbo` `js/mon.js:1924`; module-local `relmon` `js/dog.js:734` kept, no second clone). D-2459 (mon_arrive whole-body, parked) keeps its remaining names (full mnearto yank, SetVoice).
+- **Next:** queue holds 0 Open after archive (pool exhausted per refill — tool rows all Stale/class-deferred, hidden-proxy 0 untagged-eligible); next iteration refills from the same ladder.
+
 ## D-2721 — `do_wear.c` destroy_arm C-order hits draw (Caveman-92202 → PASS)
 
 - **Status:** fixed (corpus-residual row: `do_wear.c` destroy_arm, queued from `hidden-proxy queue --limit 30` 2026-09-21 @D-2719; blocks 1/553 scen-poly-Caveman-92202).
