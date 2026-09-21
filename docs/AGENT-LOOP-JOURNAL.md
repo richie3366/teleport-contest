@@ -1,4 +1,19 @@
 # Agent loop journal
+## 2026-09-21 — Audit 29baae20..70a4bf39 (reviews 1665-1673: 9 ACCEPT, 0 Must-fix) + cadence 44/44.
+
+Reviews audit D-2706..D-2714 against pinned C (csym bodies + callers,
+sym.mjs, per-SHA hidden-proxy --reach-all re-runs: 8× 0-blocked
+vacuous + REACH-OK; 1673 distfleeck genuine PROGRESS — Wizard-92127
+PASS, 3 unchanged at own writer rows, 475-session reach 475 PASS, 0
+REGRESSED). Notable: 1667 impossible() fire-and-forget in sync loaders
+(pre-existing precedent, disclosed); 1669 TOP/BOTTOM==SPLEV_TOP/BOTTOM
+verified at sp_lev.c:172-173; 1671 raw-index "true"→0 clears-flag quirk
+preserved exactly; 1672 MARK=4 alias via const import; 1673 no RNG
+call touched — the missing Blind-look turn re-aligns rnl(20). Cadence:
+public 44/44 (Scr 11405/11405, RNG 792838/792838); held-out 12/44
+(+0); corpus 498/540 (+1 Wizard-92127 via D-2714). Queue 5 unchecked,
+pool exhausted (78 machine-fresh all class-deferred; queue owners all
+tagged) — no refill. Rule #2 clean.
 ## 2026-09-21 — Audit 3de22e5b..51e65db7 (reviews 1656-1664: 9 ACCEPT, 0 Must-fix) + cadence 44/44.
 
 Reviews audit D-2697..D-2705 against pinned C (csym bodies + callers,
@@ -69,48 +84,6 @@ archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 **Verify:** 
 **Next:** (see LOOP-QUEUE)
 ## 2026-09-21 — D-2707 `u_init.c` skills_for_role whole-body restart in C order + panic-as-throw default
-
-**C locus:** 
-**JS:** 
-**Change:** 
-**Verify:** 
-**Next:** (see LOOP-QUEUE)
-## 2026-09-20 — D-2706 `cmd.c` there_cmd_menu_common whole C body: missing glyph arm + same-name export
-
-**C locus:** 
-**JS:** 
-**Change:** 
-**Verify:** 
-**Next:** (see LOOP-QUEUE)
-## 2026-09-20 — D-2705 `dungeon.c` query_annotation whole-body restart on live callees + `trimspaces` port
-
-**C locus:** 
-**JS:** 
-**Change:** 
-**Verify:** 
-**Next:** (see LOOP-QUEUE)
-## 2026-09-20 — D-2704 `weapon.c` add_skills_to_menu whole-body restart + show_skills
-
-**C locus:** 
-**JS:** 
-**Change:** 
-**Verify:** 
-**Next:** (see LOOP-QUEUE)
-## 2026-09-20 — D-2703 `invent.c` reroll_menu whole C body + allmain reroll loop
-
-**C locus:** 
-**JS:** 
-**Change:** 
-**Verify:** 
-**Next:** (see LOOP-QUEUE)
-## 2026-09-20 — D-2702 `cmd.c` key2extcmddesc whole C body + live movecmd
-
-**C locus:** 
-**JS:** 
-**Change:** 
-**Verify:** 
-**Next:** (see LOOP-QUEUE)
-## 2026-09-20 — D-2701 `sp_lev.c` set_wallprop_in_selection whole C body
 
 **C locus:** 
 **JS:** 

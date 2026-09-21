@@ -1674,3 +1674,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1662-ac5113fe-reroll-menu.md](./1662-ac5113fe-reroll-menu.md) | `ac5113fe` | D-2703 reroll_menu + allmain loop | **ACCEPT** |
 | [1663-1e6811b7-add-skills-to-menu.md](./1663-1e6811b7-add-skills-to-menu.md) | `1e6811b7` | D-2704 add_skills_to_menu restart | **ACCEPT** |
 | [1664-51e65db7-query-annotation-trimspaces.md](./1664-51e65db7-query-annotation-trimspaces.md) | `51e65db7` | D-2705 query_annotation + trimspaces | **ACCEPT** |
+| [1665-29baae20-there-cmd-menu-common.md](./1665-29baae20-there-cmd-menu-common.md) | `29baae20` | D-2706 there_cmd_menu_common glyph arm | **ACCEPT** |
+| [1666-6f93ac06-skills-for-role.md](./1666-6f93ac06-skills-for-role.md) | `6f93ac06` | D-2707 skills_for_role restart | **ACCEPT** |
+| [1667-c3da9d13-create-drawbridge.md](./1667-c3da9d13-create-drawbridge.md) | `c3da9d13` | D-2708 create_drawbridge restart | **ACCEPT** |
+| [1668-ee23c6dc-selection-do-grow-ellipse.md](./1668-ee23c6dc-selection-do-grow-ellipse.md) | `ee23c6dc` | D-2709 selection_do_grow + ellipse | **ACCEPT** |
+| [1669-f1fce922-lspo-entries-four.md](./1669-f1fce922-lspo-entries-four.md) | `f1fce922` | D-2710 four lspo entries + helpers | **ACCEPT** |
+| [1670-a8cd211c-unpaid-cost-dog-eat.md](./1670-a8cd211c-unpaid-cost-dog-eat.md) | `a8cd211c` | D-2711 unpaid_cost + dog_eat caller | **ACCEPT** |
+| [1671-a673b5e4-lspo-feature.md](./1671-a673b5e4-lspo-feature.md) | `a673b5e4` | D-2712 lspo_feature port | **ACCEPT** |
+| [1672-0b705b5f-wall-property-level-flags-engraving.md](./1672-0b705b5f-wall-property-level-flags-engraving.md) | `0b705b5f` | D-2713 wall_property + level_flags + engraving | **ACCEPT** |
+| [1673-70a4bf39-look-here-dopen-feel.md](./1673-70a4bf39-look-here-dopen-feel.md) | `70a4bf39` | D-2714 look_here returns + doopen feel | **ACCEPT** |

@@ -1,6 +1,6 @@
 {
- "commit": "0b705b5f",
- "at": "2026-09-21T01:31:18.740Z",
+ "commit": "70a4bf39",
+ "at": "2026-09-21T01:59:52.543Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6482,9 +6482,9 @@
   "scen-normal-Tourist-92061": {
    "src": "corpus",
    "passed": false,
-   "rngM": 3455,
+   "rngM": 3943,
    "rngT": 4466,
-   "scrM": 21,
+   "scrM": 63,
    "scrT": 169,
    "kind": "screen",
    "step": 17,
