@@ -1220,6 +1220,32 @@ export async function mhitm_ad_fire(magr, mattk, mdef, mhm) {
 }
 
 /**
+ * C ref: uhitm.c mhitm_ad_cold `:2626–2683` mhitm (mon→mon) arm `:2664–2680`.
+ * uhitm arm is damageum_ad_cold (uhitm.js); mhitu arm is mhitm_ad_cold_u
+ * (mhitu.js). negate gate, vis frost pline, resists/defended → chill
+ * pline + shield + golemeffects + zero, destroy(orig) rides on leftover.
+ */
+export async function mhitm_ad_cold(magr, mattk, mdef, mhm) {
+    const { destroy_items } = await import('./zap.js'); // fire-arm precedent
+    const orig_dmg = mhm.damage | 0; // C `:2630`
+    if (await mhitm_mgc_atk_negated(magr, mdef, true)) { // C `:2666–2669`
+        mhm.damage = 0;
+        return;
+    }
+    if (_mm_vis && canseemon(mdef)) // C `:2670–2671`
+        await pline_mon(mdef, `${Monnam(mdef)} is covered in frost!`);
+    if (resists_cold(mdef) || defended(mdef, AD_COLD)) { // C `:2672`
+        if (_mm_vis && canseemon(mdef)) // C `:2673–2674`
+            await pline(`The frost doesn't seem to chill ${mon_nam(mdef)}!`);
+        await shieldeff(mdef.mx, mdef.my); // C `:2675`
+        await golemeffects_mm(mdef, AD_COLD, mhm.damage | 0); // C `:2676`
+        mhm.damage = 0; // C `:2677`
+    }
+    mhm.damage = (mhm.damage | 0)
+        + ((await destroy_items(mdef, AD_COLD, orig_dmg)) | 0); // C `:2679`
+}
+
+/**
  * C ref: do_name.c some_mon_nam — x_monnam ARTICLE_THE + AUGMENT_IT.
  * Visible → mon_nam. Unseen stand-in matches mhitu Some_Monnam
  * (is_animal something/someone). AUGMENT_IT in x_monnam (humanoid
@@ -2139,23 +2165,32 @@ export function paralyze_monst(mon, amt) {
 }
 
 /**
- * C ref: mon.c golemeffects — flesh/iron heal arms only.
- * Named omit: MSLOW via muse.c mon_adjust_speed (mhitm→muse→zap cycle).
+ * C ref: mon.c golemeffects `:5680–5707` — flesh golem ELEC heal /
+ * FIRE+COLD slow; iron golem ELEC slow / FIRE heal; else return.
+ * slow via live muse.js mon_adjust_speed (existing static edge; the
+ * damageum_ad_slow precedent calls it the same way); heal via live
+ * healmon + cansee pline. Callers: mhitm_ad_elec/fire/cold, passivemm,
+ * damageum_ad_cold, gulpum (all await — async for pline/mon_adjust_speed).
  */
-async function golemeffects_mm(mon, damtype, dam) {
-    let heal = 0;
-    const mndx = mon?.data?.mndx ?? mon?.mnum ?? -1;
-    if (mndx === PM_FLESH_GOLEM) {
-        if ((damtype | 0) === AD_ELEC) heal = Math.trunc(((dam | 0) + 5) / 6);
-        // AD_FIRE / AD_COLD slow named
-    } else if (mndx === PM_IRON_GOLEM) {
-        if ((damtype | 0) === AD_FIRE) heal = dam | 0;
-        // AD_ELEC slow named
+export async function golemeffects_mm(mon, damtype, dam) {
+    let heal = 0, slow = 0; // C `:5683`
+    const mndx = mon?.data?.mndx ?? mon?.mnum ?? -1; // ≡ mon->data == &mons[PM_*]
+    if (mndx === PM_FLESH_GOLEM) { // C `:5685`
+        if ((damtype | 0) === AD_ELEC) heal = Math.trunc(((dam | 0) + 5) / 6); // C `:5686–5687`
+        else if ((damtype | 0) === AD_FIRE || (damtype | 0) === AD_COLD) slow = 1; // C `:5688–5689`
+    } else if (mndx === PM_IRON_GOLEM) { // C `:5690`
+        if ((damtype | 0) === AD_ELEC) slow = 1; // C `:5691–5692`
+        else if ((damtype | 0) === AD_FIRE) heal = dam | 0; // C `:5693–5694`
     } else {
-        return;
+        return; // C `:5695–5697`
     }
-    if (heal && healmon(mon, heal, 0) && cansee(mon.mx, mon.my)) {
-        await pline_mon(mon, `${Monnam(mon)} seems healthier.`);
+    if (slow) { // C `:5698`
+        if ((mon.mspeed | 0) !== MSLOW) // C `:5699`
+            await mon_adjust_speed(mon, -1, null); // C `:5700`
+    }
+    if (heal) { // C `:5702`
+        if (healmon(mon, heal, 0) && cansee(mon.mx, mon.my)) // C `:5703–5704`
+            await pline_mon(mon, `${Monnam(mon)} seems healthier.`); // C `:5705`
     }
 }
 
@@ -4489,6 +4524,40 @@ async function mdamagem(magr, mdef, mattk, mwep, dieroll) {
             done: false,
         };
         await mhitm_ad_fire(magr, mattk, mdef, mhm);
+        // C mhitm.c:1061-1065 — knockback preempts damage on HIT/DEF_DIED/offmap
+        if (await mhitm_knockback(magr, mdef, mattk, mhm, !!mwep)
+            && (((mhm.hitflags & (M_ATTK_DEF_DIED | M_ATTK_HIT)) !== 0) || mon_offmap(mdef))) {
+            return mhm.hitflags;
+        }
+        if (mhm.done) return mhm.hitflags;
+        damage = mhm.damage | 0;
+        hitflags = mhm.hitflags | 0;
+        if (!damage) return hitflags;
+        mdef.mhp -= damage;
+        if (mdef.mhp < 1) {
+            mdef.mhp = 0;
+            await mdamagem_monkilled(magr, mdef, mattk, mwep);
+            if ((mdef.mhp | 0) > 0) return hitflags; /* lifesaved */
+            if (hitflags === M_ATTK_AGR_DIED) {
+                return M_ATTK_DEF_DIED | M_ATTK_AGR_DIED;
+            }
+            const grew = await grow_up(magr, mdef);
+            return M_ATTK_DEF_DIED | (grew ? 0 : M_ATTK_AGR_DIED);
+        }
+        return (hitflags === M_ATTK_AGR_DIED) ? M_ATTK_AGR_DIED : M_ATTK_HIT;
+    }
+
+    // C: mhitm_adtyping → mhitm_ad_cold for AD_COLD (uhitm.c:4796). MC zeros
+    // leftover. Resist zeros leftover then destroy_items(orig).
+    // uhitm arm is damageum_ad_cold (uhitm.js); mhitu arm is mhitm_ad_cold_u
+    // (mhitu.js); this row wires the mhitm (mon→mon) arm above.
+    if ((mattk.adtyp | 0) === AD_COLD) {
+        const mhm = {
+            damage,
+            hitflags: M_ATTK_MISS,
+            done: false,
+        };
+        await mhitm_ad_cold(magr, mattk, mdef, mhm);
         // C mhitm.c:1061-1065 — knockback preempts damage on HIT/DEF_DIED/offmap
         if (await mhitm_knockback(magr, mdef, mattk, mhm, !!mwep)
             && (((mhm.hitflags & (M_ATTK_DEF_DIED | M_ATTK_HIT)) !== 0) || mon_offmap(mdef))) {

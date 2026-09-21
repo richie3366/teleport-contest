@@ -91,6 +91,7 @@ import { burn_away_slime } from './timeout.js';
 import {
     get_mattk, mhitm_knockback, mhitm_mgc_atk_negated, mattackm, rustm,
     could_seduce, failed_grab, SYSOPT_SEDUCE, mon_poly, mondead, erode_armor,
+    golemeffects_mm,
     AT_NONE, AT_CLAW, AT_KICK, AT_BITE, AT_STNG, AT_TUCH, AT_BUTT, AT_WEAP,
     AT_ENGL, AT_GAZE, AT_SPIT, AT_BREA, AT_EXPL, AT_BOOM, AT_TENT, AT_MAGC,
     AT_HUGS,
@@ -3359,10 +3360,11 @@ async function passiveum(olduasmon, mtmp, mattk) {
                 return M_ATTK_AGR_DONE;
             }
             return M_ATTK_HIT;
-        case AD_COLD:
+        case AD_COLD: // C mhitu.c passiveum :2561–2571
             if (resists_mr(mtmp, MR_COLD)) {
-                // shieldeff / golemeffects deferred
-                await pline(`${Monnam(mtmp)} is mildly chilly.`);
+                await shieldeff(mtmp.mx | 0, mtmp.my | 0); // C `:2563`
+                await pline(`${Monnam(mtmp)} is mildly chilly.`); // C `:2564`
+                await golemeffects_mm(mtmp, AD_COLD, tmp); // C `:2565`
                 tmp = 0;
                 break;
             }
@@ -3381,17 +3383,21 @@ async function passiveum(olduasmon, mtmp, mattk) {
             }
             tmp = 0;
             break;
-        case AD_FIRE:
+        case AD_FIRE: // C mhitu.c passiveum :2584–2592
             if (resists_mr(mtmp, MR_FIRE)) {
-                await pline(`${Monnam(mtmp)} is mildly warm.`);
+                await shieldeff(mtmp.mx | 0, mtmp.my | 0); // C `:2586`
+                await pline(`${Monnam(mtmp)} is mildly warm.`); // C `:2587`
+                await golemeffects_mm(mtmp, AD_FIRE, tmp); // C `:2588`
                 tmp = 0;
                 break;
             }
             await pline(`${Monnam(mtmp)} is suddenly very hot!`);
             break;
-        case AD_ELEC:
+        case AD_ELEC: // C mhitu.c passiveum :2594–2602
             if (resists_mr(mtmp, MR_ELEC)) {
-                await pline(`${Monnam(mtmp)} is slightly tingled.`);
+                await shieldeff(mtmp.mx | 0, mtmp.my | 0); // C `:2596`
+                await pline(`${Monnam(mtmp)} is slightly tingled.`); // C `:2597`
+                await golemeffects_mm(mtmp, AD_ELEC, tmp); // C `:2598`
                 tmp = 0;
                 break;
             }

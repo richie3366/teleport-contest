@@ -55,7 +55,7 @@ import {
     find_mac, get_mattk, make_corpse, monstone, mhitm_knockback, monkilled, mondead,
     troll_baned, mhitm_ad_poly, mhitm_ad_slee, mhitm_ad_heal, mhitm_ad_blnd, mhitm_ad_ston, mhitm_ad_elec, mhitm_ad_sedu, mhitm_ad_tlpt, mhitm_ad_rust, mhitm_ad_fire, could_seduce, failed_grab, shade_miss,
     shade_aware, paralyze_monst,
-    mhitm_mgc_atk_negated, resists_poison_mm, erode_armor,
+    mhitm_mgc_atk_negated, resists_poison_mm, erode_armor, golemeffects_mm,
     AT_NONE, AT_WEAP, AT_KICK, AT_CLAW, AT_SPIT, AT_HUGS,
     AT_TUCH, AT_BITE, AT_BUTT, AT_STNG, AT_MAGC, AT_TENT,
     AT_EXPL, AT_ENGL, AT_BREA, AT_GAZE, AD_PHYS, AD_POLY, AD_DRIN, AD_SLEE,
@@ -2145,8 +2145,8 @@ async function damageum_ad_slow(mdef, mhm) {
  * after shieldeff + "The frost doesn't chill <mon>!"; leftover +=
  * destroy_items(AD_COLD, orig). Named omissions: defended(mdef, AD_COLD)
  * worn walk (no JS export; same omit on every defended call site);
- * golemeffects(mdef, AD_COLD, damage) is slow-only for flesh golem
- * (no heal; slow named with golemeffects_mm).
+ * golemeffects(mdef, AD_COLD, damage) via live golemeffects_mm
+ * (C uhitm.c:2644 — heal-or-slow, flesh COLD slows).
  */
 async function damageum_ad_cold(mdef, mhm) {
     const magr = game.youmonst;
@@ -2163,6 +2163,7 @@ async function damageum_ad_cold(mdef, mhm) {
         if (!Blind_that()) {
             await pline(`The frost doesn't chill ${mon_nam(mdef)}!`);
         }
+        await golemeffects_mm(mdef, AD_COLD, mhm.damage | 0); // C uhitm.c:2644
         mhm.damage = 0;
     }
     mhm.damage = (mhm.damage | 0) + ((await destroy_items(mdef, AD_COLD, orig_dmg)) | 0);
@@ -3333,19 +3334,6 @@ async function xdrainenergym(mon, givemsg) {
         if (givemsg) await pline_mon(mon, `${Monnam(mon)} seems lethargic.`);
     }
 }
-async function golemeffects_you(mon, damtype, dam) {
-    const mndx = mon?.data?.mndx ?? mon?.mnum ?? -1;
-    let heal = 0;
-    if (mndx === PM_FLESH_GOLEM && (damtype | 0) === AD_ELEC) {
-        heal = Math.trunc(((dam | 0) + 5) / 6);
-    } else if (mndx === PM_IRON_GOLEM && (damtype | 0) === AD_FIRE) {
-        heal = dam | 0;
-    } else return;
-    if (heal && healmon(mon, heal, 0) && cansee(mon.mx, mon.my)) {
-        await pline_mon(mon, `${Monnam(mon)} seems healthier.`);
-    }
-}
-
 /** C mhitm.c engulf_target — youmonst magr (uatk / !udef). */
 function engulf_blocked_you(x, y, whirlyPtr) {
     const lev = game.level?.at?.(x, y);
@@ -3554,7 +3542,7 @@ export async function gulpum(mdef, mattk) {
                         ad === AD_COLD ? 'is freezing to death!' : 'is burning to a crisp!'
                     }`);
                 }
-                await golemeffects_you(mdef, ad, dam);
+                await golemeffects_mm(mdef, ad, dam); // C uhitm.c:5148/:5159/:5170 (gulpum ELEC/COLD/FIRE)
                 break;
             }
             case AD_DREN:
