@@ -1462,7 +1462,7 @@ named: wiz `migr` list caller, `mongone` FALSE-caller body D-1149).
 
 ### `src/dokick.c`
 
-JS: `js/dokick.js` — partial
+JS: `js/dokick.js` — partial (`dokick` whole body D-2723; `kick_door` residuals D-2320 stay)
 
 `dokick` + `kick_dumb` (D-0031); `kickedloc` (D-0032); **`kick_ouch` → `losehp`** (D-0035); 
 **`kick_door` CLOSED/LOCKED `rnl(35)` bust** (D-0104); 
@@ -1470,7 +1470,7 @@ JS: `js/dokick.js` — partial
 **`dokick` `Wounded_legs` → `legs_in_no_shape` + `flush_topl_more`** (D-0786); 
 **`dokick` no_kick poly/steed/lizard/uinwater/utrap/boulder D-1362** (`:1265–1310`; 
 `kick_steed` callee; steed `by_steed` / `monverbself` vtense / swallow+pit-brace+Lev after getdir 
-still named); **`maybe_kick_monster`/`kick_monster`/`kickdmg` + `martial()`** (D-0706; 
+live D-2723); **`dokick` whole body D-2723** (`:1330–1468`: boots-99 avrg; swallow rn2(3) via `digests` mhitu; pit side-kick; Levitation brace; oldglyph + DEADMONSTER memory-cell restore / `map_invisible` / cwt recoil; `unmap_invisible`; `is_pool` + `hliquid`; Levitation-gated `kick_object` + air `hurtle`; `kick_nondoor` return-through; callers cmd.c:37 → js/cmd.js:3655 + js/getline.js:1015); **`maybe_kick_monster`/`kick_monster`/`kickdmg` + `martial()`** (D-0706; 
 **`kickdmg`→`check_caitiff` awaited** D-0928 #1100, D-2042 (C `dokick.c:68` sync; tenth site, other nine D-2036); **poly AT_KICK D-1310**; 
 **kickdmg `special_dmgval(W_ARMF)` D-1332**; **`maybe_mnexto` evade D-1336**; **`kickstr` D-1343**; 
 **`kickdmg` `abuse_dog`/`monflee` D-1349**; **martial knockback D-1350**; 
@@ -1478,7 +1478,7 @@ still named); **`maybe_kick_monster`/`kick_monster`/`kickdmg` + `martial()`** (D
 **`kick_ouch` drawbridge `find_drawbridge` remap D-1361**; 
 **`kick_ouch`/`kick_dumb` air/Lev `hurtle` D-1370** (`:876–877` `rn2(2)` range 1; 
 `:904–905` `rn1(2,4)`; youprop `(H||E)&&!B`; losehp noreturn skip); shop-town watchman deferred; 
-dokick monster recoil / `kick_object` air `hurtle` still named); 
+dokick monster recoil / `kick_object` air `hurtle` live D-2723); 
 **`kick_nondoor` SDOOR/SCORR + altar/fountain/grave/bars/sink** (D-0985); 
 **throne/`fall_through` + tree scatter/swarm** (D-0986); 
 **`ship_object`/`impact_drop`** (D-0984/D-0961; D-2318 launch_obj ROLL gate-drop/post-switch/boulder-chain + remove_worn_item/maybe_unhide_at); **`obj_delivery`** (D-1177; 

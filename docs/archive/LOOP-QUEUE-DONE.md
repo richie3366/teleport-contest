@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-21
 
-- [x] `dog.c` losedogs kops-dismiss head — C `dog.c:310–356` absent from `js/dog.js:1170` losedogs (dismissKops migrating_mons/mydogs scans + `make_happy_shoppers(TRUE)`; remainder live per `brief.mjs losedogs` 2026-09-21, doc-named omission, no DONE/PARKED disposition). Port the head in C order; callers `do.c:1816`→`js/do.js:1952` + `cmd.c:1047`→`js/wizcmds.js:610` already wired. Verify `node scripts/verify.mjs --fn losedogs` (reach regression must be 0). **Addressed:** D-2722
+- [x] `dokick.c` dokick — coverage PARTIAL (C 213 L `dokick.c:1257–1470` / JS 141 L in js/dokick.js; hops —, callers 0, RNG 2, msg 15). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dokick` (reach regression must be 0). Measured `port-coverage.mjs --name dokick` 2026-09-21 @ 1204bc94.
+
+
+- [x] `dog.c` losedogs kops-dismiss head — C `dog.c:310–356` absent from `js/dog.js:1170` losedogs (dismissKops migrating_mons/mydogs scans + `make_happy_shoppers(TRUE)`; remainder live per `brief.mjs losedogs` 2026-09-21, doc-named omission, no DONE/PARKED disposition). Port the head in C order; callers `do.c:1816`→`js/do.js:1952` + `cmd.c:1047`→`js/wizcmds.js:610` already wired. Verify `node scripts/verify.mjs --fn losedogs` (reach regression must be 0). **Addressed:** D-2722 `43540888a`
 
 
 - [x] `do_wear.c` destroy_arm — blocks 1/553 (scen-poly-Caveman-92202 step 240/265 kind=rng: C draws `rn2(4)=0` in destroy_arm vs JS `rn2(5)=2` from distfleeck(monmove.js:992)). Later owner: the monhp_per_lvl handoff's `verify --fn` moved the same session 197 → 240 this iteration. Fix: the C destroy_arm body in C order. Verify `node scripts/verify.mjs --fn destroy_arm` (recorded owner: expect Caveman → PASS or later owner). Queued from `hidden-proxy queue --limit 30` 2026-09-21 (1 untagged-eligible of 24; rest open/parked/archived). **Addressed:** D-2721 `1204bc94`
