@@ -1,6 +1,6 @@
 {
- "commit": "546f6b39",
- "at": "2026-09-21T02:40:45.034Z",
+ "commit": "a13b86e4",
+ "at": "2026-09-21T02:58:19.950Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -7790,19 +7790,19 @@
   },
   "scen-wish-Healer-92092": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 3078,
    "rngT": 3078,
-   "scrM": 141,
+   "scrM": 144,
    "scrT": 144,
-   "kind": "screen",
-   "step": 59,
+   "kind": null,
+   "step": null,
    "steps": 144,
-   "owner": "do_statusline2",
-   "loc": "botl.c:130",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "You're having a hard time getting all of it down.--More--",
-   "jsTopline": "You're having a hard time getting all of it down.--More--",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-wish-Healer-92125": {
@@ -8522,18 +8522,18 @@
   "scen-wish-Tourist-91125": {
    "src": "corpus",
    "passed": false,
-   "rngM": 2745,
+   "rngM": 2971,
    "rngT": 3232,
-   "scrM": 83,
+   "scrM": 162,
    "scrT": 189,
    "kind": "screen",
-   "step": 83,
+   "step": 162,
    "steps": 189,
-   "owner": "do_statusline2",
-   "loc": "botl.c:130",
+   "owner": "lesshungry",
+   "loc": "eat.c:3314",
    "jsOwner": null,
    "cTopline": "You're having a hard time getting all of it down.--More--",
-   "jsTopline": "You're having a hard time getting all of it down.--More--",
+   "jsTopline": "Your movements are now unencumbered.--More--",
    "error": null
   },
   "scen-wish-Tourist-92067": {

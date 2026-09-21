@@ -33,6 +33,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-21 — D-2720 `allmain.c` stop_occupation maybe_finished_meal gate + `adj_victual_nutrition` lembas race (Satiated pair)
+
+**C locus:** `nethack-c/upstream/src/allmain.c:685–699` (`stop_occupation`: `maybe_finished_meal(TRUE)` first — completable meal finishes via eatfood→done_eating with no "stop" message — then occupation=0, `disp.botl = TRUE` in case u.uhs changed, `nomul(0)`); `eat.c:3877–3889` (`maybe_finished_meal`: occupation==eatfood && usedtime>=reqtime → stopping-clear + `(void) eatfood()`); `eat.c:335–356` (`adj_victual_nutrition`: lembas elf +/orc −`(nut+2)/4`, cram dwarf +`(nut+3)/6`, ≥1 clamp; sole caller bite `:3148`).
+**JS:** `js/hack.js:46` (import), `:1372–1395` (doc + gate + disp.botl); `js/eat.js:64` (is_dwarf import), `:1498–1524` (adj + bite), `:2265–2267` (doc).
+**Change:** `js/hack.js` only — C-order gate (`if (!(await maybe_finished_meal(true)))` around the «stop» pline), then occupation=null, flags.botl + disp.botl (house convention, botl.js:753), nomul(0); `maybe_finished_meal` joins the existing static `./eat.js` import (`imports.mjs --can` ALREADY, no new edge). `js/eat.js` only — port `adj_victual_nutrition` in C order (`maybe_polyd` as `Upolyd ? form : Race_if` via `hero_form_data()`; `is_dwarf` joins the existing `./monsters.js` import, no new edge); `bite` calls it for nmod<0 (named omit retired); `maybe_finished_meal` doc now names the hack.js wiring. No DIAG/FORCE/seed gates; Rule #2 clean.
+**Verify:** `node scripts/verify.mjs --fn do_statusline2` → PASS syntax (2 changed: js/eat.js js/hack.js) · PASS rule2 · hidden PROGRESS (scen-wish-Healer-92092 → PASS; scen-wish-Tourist-91125 moved 83 → later owner `lesshungry` at step 162; scen-wish-Monk-92194 still do_statusline2@88 — D-2161 gulpmu residual per D-2425, untouched) · PASS reach (no RNG-tagged reach; fixed smoke spread 24 run, 24 PASS → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) → VERIFY: PASS.
+**Named:** `do_statusline1/2` re-port (row forbids; painter untouched); none new.
+**Next:** Tourist-91125's new `lesshungry`@162 owner is a later-owner writer candidate (needs its own brief + measurement, not opened here); Monk-92194 stays with D-2161. Parked `botl.c` do_statusline2 lembas pair retires with this ship (its falsifier — maybe_finished_meal wiring + verify — fired).
 ## 2026-09-21 — D-2719 `makemon.c` monhp_per_lvl whole body + `pluslvl` Upolyd arm (Caveman-92202)
 
 **C locus:** `nethack-c/upstream/src/makemon.c:986–1007` — `int hp = rnd(8)` default drawn unconditionally; `is_golem` `:993` (`golemhp/mlevel`, no RNG); `mlevel > 49` `:996` (`4+rnd(4)`); adult dragon (`S_DRAGON`, `>= PM_GRAY_DRAGON`) `:999` (`4+rn2(5)`); `!mon->m_lev` `:1002–1004` (`rnd(4)`). Callers: `artifact.c:1653` (Stormbringer drain), `exper.c:283` (`losexp` Upolyd), `exper.c:320` (`pluslvl` Upolyd `:319–323`: `monhp_per_lvl` → `u.mh +=` → `setuhpmax(u.mhmax, FALSE)` acts as setmhmax, then `newhp()` `:324`), `zap.c:524` (bhitm drain), `zap.c:755` (drain-life mhpmax); `uhitm.c:2497` is a comment, not a call; decl `extern.h:1478`.
@@ -82,48 +90,6 @@ archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 **Named:** `look_here` `u.uswallow` arm incl. its `:4160` Blind-gated return (pre-existing «engulfer stomach minvent feel», kept); altar/ice Blind variants beyond floor (kept); pit «can't reach» arg (`trap && is_pit` → `false`, kept); `doopen_indir` pit dirprompt + pit-reach gate, This-door `set_msg_xy`, AUTOUNLOCK_KICK canned dokick (all pre-existing), trapped-shop-door `SHOP_DOOR_COST` `add_damage` (`lock.c:911`, newly named); `doopen_indir` verysmall/not-closed `return res` vs JS `false` (latent turn-cost, unmeasured — future missing-arm row, not touched here).
 **Next:** W6 Caveman overload-gate row stays open (still distfleeck@116, own row); Healer-92055 W2 + Samurai-92161 W3 stay under their writer rows. Falsified — do not re-check: D-2420 W5 «JS-extra-single-draw» (C log proves C draws the 18-turn Blind look at step 101 AND `rnl(20)=5`@doopen_indir `lock.c:904` at step 103 — JS had skipped the look turn, shifting its `rnl` into the distfleeck slot), `distfleeck` scared/`onscary`/`monflee` re-port, MAIL arm, seed/step/coordinate logic.
 ## 2026-09-21 — D-2713 `sp_lev.c` lspo_wall_property + lspo_level_flags + lspo_engraving whole-body ports (des entries, unpacked-opts idiom)
-
-**C locus:** 
-**JS:** 
-**Change:** 
-**Verify:** 
-**Next:** (see LOOP-QUEUE)
-## 2026-09-21 — D-2712 `sp_lev.c` lspo_feature whole-body port (4-arity dispatch + sel_set_feature + feature-flag callees)
-
-**C locus:** 
-**JS:** 
-**Change:** 
-**Verify:** 
-**Next:** (see LOOP-QUEUE)
-## 2026-09-21 — D-2711 `shk.c` unpaid_cost whole-body restart (impossible arm + quan) + dog_eat caller wired
-
-**C locus:** 
-**JS:** 
-**Change:** 
-**Verify:** 
-**Next:** (see LOOP-QUEUE)
-## 2026-09-21 — D-2710 `sp_lev.c` lspo_drawbridge/lspo_gold/lspo_room/lspo_finalize_level entries live (unpacked-opts) + build_room/spo_endroom/count_level_features
-
-**C locus:** 
-**JS:** 
-**Change:** 
-**Verify:** 
-**Next:** (see LOOP-QUEUE)
-## 2026-09-21 — D-2709 `selvar.c` selection_do_grow whole-body restart (getbounds recalc + free) + selection_do_ellipse live
-
-**C locus:** 
-**JS:** 
-**Change:** 
-**Verify:** 
-**Next:** (see LOOP-QUEUE)
-## 2026-09-21 — D-2708 `dbridge.c` create_drawbridge whole-body restart in C order (impossible arm + wall_info assign)
-
-**C locus:** 
-**JS:** 
-**Change:** 
-**Verify:** 
-**Next:** (see LOOP-QUEUE)
-## 2026-09-21 — D-2707 `u_init.c` skills_for_role whole-body restart in C order + panic-as-throw default
 
 **C locus:** 
 **JS:** 

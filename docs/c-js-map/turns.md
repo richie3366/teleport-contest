@@ -1914,9 +1914,13 @@ eatfood-completion predicate + `steal.c:371` call-site wiring** (D-2230; C
 usedtime>=reqtime gate, stopping-clear to 0/null for do_reset_eat,
 `await eatfood()` for C `(void) eatfood()`; lives in `js/eat.js` after
 `cant_finish_meal` for the module-local `eatfood` identity; `steal()`
-awaits it in C position after `Some_Monnam`, before `inv_cnt`; named:
-`allmain.c:687` `stop_occupation(TRUE)` gate stays deferred per the
-lembas park); 
+awaits it in C position after `Some_Monnam`, before `inv_cnt`;
+**`allmain.c:687` `stop_occupation(TRUE)` gate wired** (D-2720; C
+`allmain.c:685–699` order in `js/hack.js` stop_occupation:
+maybe_finished_meal first — completable eatfood finishes via
+eatfood→done_eating with no "stop" message — then occupation=null,
+flags+disp botl, nomul; Healer-92092 lembas Satiated paints on time);
+named: none); 
 **getobj missing-letter `continue` + empty early-return** (D-0142); 
 **CORPSE `eatcorpse`/`start_eating`/`eatfood` occupation + extracted `cwt`/`cnutrit`** (D-0193;
 **rot `(moves-age)/(10+rn2(20))` live — seed0014 @43789 was D-1774 I-glyph
@@ -1960,7 +1964,11 @@ C web-destroy TODO before ice still named;
 coins `"very rich meal"` / null `"quick snack"`; dozap D-1345; throwit D-1346; 
 throw_obj `:147` remaining); **`lesshungry`/`bite` choke+fullwarn D-1356** (C 
 `eat.c:3289–3333`/`3133–3158`; `doeat` canchoke SATIATED snapshot; 
-adj_victual_nutrition lembas/cram / `do_reset_eat` touchfood named); 
+**`adj_victual_nutrition` lembas/cram race ported D-2720** (C
+`eat.c:335–356`: elf +/orc −`(nut+2)/4`, dwarf cram +`(nut+3)/6`,
+≥1 clamp; `maybe_polyd` as `Upolyd ? form : Race_if` via
+`hero_form_data()`; sole caller bite `:3148`); named:
+`do_reset_eat` touchfood); 
 **`done_eating` nomovemsg+`consuming` D-2026** (C `eat.c:543–573`;
 stored nomovemsg wins + always cleared; fire-elemental `consuming` via
 canonical umonnum; named: `start_eating` `:2048–2062` nomovemsg
