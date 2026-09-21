@@ -3604,6 +3604,7 @@ inshop/isshk dopay/frozen-helpless/longworm/`passes_walls`/Vrock deferred);
 **`do_attack` hostile → `attack_checks` Wait! `!canspotmon` (D-0705) + 
 `overexertion`/`hitum`/`known_hitum`/`hmon`/`xkilled`** (D-0107; 
 peaceful yn/warning glyph/hides_under deferred); 
+**`do_attack` overload/pacifist gate D-2717** (`uhitm.c:525–534` in C order: Upolyd `noattacks` → «no way to attack» + atk_done; `near_capacity() >= EXT_ENCUMBER` → «cannot fight heavily loaded» + atk_done, short-circuiting `overexertion`/`gethungry` RNG; all three arms run atk_done forcefight map_invisible; twoweapon still named); 
 **`hmon_hitmon_msg_hit` skip melee hit when destroyed** (D-0119); 
 **`mondead`→`relobj_on_death` minvent + death-drop `distant_name` disco** (D-0108/D-0632); 
 **`mvitals.died++`** (D-0126); **`xkilled` → `experience`/`more_experienced`/`newexplevel`** 

@@ -1,6 +1,6 @@
 {
- "commit": "2a3c61e5",
- "at": "2026-09-21T02:15:40.124Z",
+ "commit": "12e8b259",
+ "at": "2026-09-21T02:23:37.251Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6669,18 +6669,18 @@
   "scen-poly-Caveman-92202": {
    "src": "corpus",
    "passed": false,
-   "rngM": 6772,
+   "rngM": 9957,
    "rngT": 10999,
-   "scrM": 153,
+   "scrM": 197,
    "scrT": 265,
    "kind": "rng",
-   "step": 116,
+   "step": 197,
    "steps": 265,
-   "owner": "distfleeck",
-   "loc": "monmove.c:549",
-   "jsOwner": "gethungry(eat.js:732)",
-   "cTopline": "You cannot fight while so heavily loaded. The grid bug bites!--More--",
-   "jsTopline": "You miss Slasher. Slasher misses the grid bug. The grid bug misses!--More--",
+   "owner": "monhp_per_lvl",
+   "loc": "makemon.c:1004",
+   "jsOwner": "newhp(attrib.js:658)",
+   "cTopline": "You engulf it! It is burning to a crisp! You kill it!--More--",
+   "jsTopline": "You engulf it! It is burning to a crisp! You kill it!--More--",
    "error": null
   },
   "scen-poly-Healer-92107": {

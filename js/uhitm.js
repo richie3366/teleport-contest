@@ -25,7 +25,7 @@ import {
     MON_EXPLODE, NO_MM_FLAGS, NO_TRAP_FLAGS, DISP_ALWAYS, DISP_END, STOMACH, DIED, NO_KILLER_PREFIX, ERODE_CORRODE, ERODE_BURN, EF_GREASE, EF_NONE,
     KILLED_BY_AN, PASSES_WALLS, SLOW_DIGESTION, MALE, FEMALE, MMOVE_DIED, CXN_ARTICLE,
     ERODE_ROT, NO_NC_FLAGS, AD_CURS, EDOG, is_pit, FACE, NEUTRAL, CXN_PFX_THE,
-    EXPL_FIERY, ismnum,
+    EXPL_FIERY, ismnum, EXT_ENCUMBER,
     isok, xytodir, xdir, ydir,
     DIR_LEFT, DIR_RIGHT, DIR_LEFT2, DIR_RIGHT2, DIR_ERR,
 } from './const.js';
@@ -35,7 +35,7 @@ import {
     objectNameStrs, objectNames,
 } from './objects.js';
 import { exercise, A_STR, A_DEX, A_WIS, A_CON, acurr, adjalign, change_luck, ALIGNLIM } from './attrib.js';
-import { overexertion, nomul, losehp, is_pool, maybe_half_phys } from './hack.js';
+import { overexertion, nomul, losehp, is_pool, maybe_half_phys, noattacks } from './hack.js';
 import { ing_suffix, upstart } from './hacklib.js';
 import { pline, pline_mon, newsym, canseemon, canspotmon, sensemon, map_invisible, unmap_object, unmap_invisible, memory_glyph_is_invisible, glyph_is_invisible_id, flush_topl_more, You_feel, tmp_at, map_location, nh_delay_output, mon_glyph, shieldeff, impossible, see_monsters, hero_Blind_telepat, You, Your, pline_The } from './display.js';
 import { cansee } from './vision.js';
@@ -4273,8 +4273,8 @@ function yname(obj) {
  * C ref: uhitm.c do_attack — safemon displace, else attack → hitum.
  * attack_checks: invis Wait + mimic stumble before overexertion.
  * After STR exercise: u_wipe_engr(3) (D-1373; callee D-1051).
- * Leprechaun evade `!rn2(7)` then m_move (D-1381). check_capacity /
- * twoweapon still named.
+ * Leprechaun evade `!rn2(7)` then m_move (D-1381). check_capacity gate
+ * live in C order (D-2420 W6); twoweapon still named.
  */
 export async function do_attack(mtmp) {
     if (!mtmp) return false;
@@ -4334,8 +4334,40 @@ export async function do_attack(mtmp) {
         return true;
     }
 
-    // check_capacity / overexertion
+    // C uhitm.c do_attack `:525–534` — Upolyd pacifist gate, then the
+    // check_capacity || overexertion short-circuit to atk_done. check_capacity
+    // is hack.c near_capacity() >= EXT_ENCUMBER printing
+    // "You cannot fight while so heavily loaded."; when it blocks,
+    // overexertion (and its gethungry RNG) must NOT run — C `||`
+    // short-circuit. All three arms fall through to atk_done (forcefight
+    // map_invisible plant) and return TRUE. Container/cursed-bag state
+    // resolves through live weight()/inv_weight() (mkobj.c BoH ternary
+    // chain); BoH-blessed divisor falsified D-2420, not re-checked.
+    const attack_atk_done = () => {
+        const u = game.u || {};
+        const ix = (u.ux | 0) + (u.dx | 0);
+        const iy = (u.uy | 0) + (u.dy | 0);
+        if (game.context?.forcefight
+            && (mtmp.mhp | 0) > 0
+            && !canspotmon(mtmp)
+            && !memory_glyph_is_invisible(game.level?.at?.(ix, iy))
+            && !engulfing_u(mtmp)) {
+            map_invisible(ix, iy);
+        }
+    };
+    if (Upolyd(game.u) && noattacks(game.youmonst?.data)) {
+        await pline('You have no way to attack monsters physically.');
+        if (mtmp.mstrategy != null) mtmp.mstrategy &= ~STRAT_WAITMASK;
+        attack_atk_done();
+        return true;
+    }
+    if (near_capacity() >= EXT_ENCUMBER) {
+        await pline('You cannot fight while so heavily loaded.');
+        attack_atk_done();
+        return true;
+    }
     if (await overexertion()) {
+        attack_atk_done();
         return true; // fainted
     }
 

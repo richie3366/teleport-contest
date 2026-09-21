@@ -33,6 +33,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-21 — D-2717 `uhitm.c` do_attack overload/pacifist gate (Caveman-92202 W6)
+
+**C locus:** `nethack-c/upstream/src/uhitm.c:525–534` (`Upolyd && noattacks` → «no way to attack» + `goto atk_done`; `check_capacity("You cannot fight while so heavily loaded.") || overexertion()` → `goto atk_done`), `atk_done` `:577–586` (forcefight `map_invisible` plant, `return TRUE`); `check_capacity` `hack.c:4399–4409` (`near_capacity() >= EXT_ENCUMBER`); `noattacks` `mondata.c:61–76` (AT_BOOM-skipping mattk scan); `overexertion` `hack.c:3051–3061` (`gethungry`, moves%3 + `>= HVY_ENCUMBER` → `overexert_hp`, `multi < 0`).
+**JS:** `js/uhitm.js:38` (noattacks import), `:28` (EXT_ENCUMBER import), `:4340–4373` (gates + `attack_atk_done`).
+**Change:** `js/uhitm.js` only, in C order — Upolyd + live `noattacks` (`js/hack.js:1211`, C-identical incl. AT_BOOM skip) → pline + `atk_done`; `near_capacity() >= EXT_ENCUMBER` (live `js/invent.js:1068`, `EXT_ENCUMBER` joins the existing `./const.js` import) → pline + `atk_done`, short-circuiting `overexertion`/`gethungry` RNG exactly like C `||`; faint path now also runs `atk_done`. Local `attack_atk_done` closure mirrors the existing end-of-function plant (no behavior change there).
+**Verify:** `node scripts/verify.mjs --fn distfleeck` → PASS syntax (1 changed: js/uhitm.js) · PASS rule2 · hidden PROGRESS (scen-poly-Caveman-92202 moved 116 → later owner `monhp_per_lvl` at step 197; Healer-92055 s104 + Samurai-92161 s37 unchanged — separate W2/W3 writers) · PASS reach `--reach-all` (476 baseline-PASS sessions reach it, 476 run, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 → VERIFY: PASS.
+**Named:** `u.twoweap && !can_twoweapon() → untwoweapon()` (pre-existing named deferral, kept); `inv_weight` boulder/`throws_rocks` arm and `weight_cap` strong-steed MAX branch (pre-existing named omissions, untouched per the row's do-not-re-port scope); `distfleeck` scared/`onscary`/`monflee` arms (map-deferred, untouched).
+**Next:** W6 shipped; remaining distfleeck writers are W1 (m_move-loop), W2 (mfndpos-family), W3 (dog score_targ), W4 (fox lifecycle), W5 (doopen_indir) per D-2420.
 ## 2026-09-21 — D-2716 `mklev.c` traptype_rnd whole C body (LEVEL_TELEP Knox gate + live Inhell)
 
 **C locus:** `nethack-c/upstream/src/mklev.c:1938–1998` (body in C order: `lvl = level_difficulty()`, `kind = rnd(TRAPNUM-1)`, 12 switch arms); sole C caller `:2075` (`mktrap` `do/while NO_TRAP` retry loop); declaration `:32`. Callees read in C: `level_difficulty` (`hacklib`), `rnd`/`rn2` (`rng`), `single_level_branch` (`dungeon.c` — Is_knox only), `Inhell` (`dungeon.h:140` ≡ `In_hell(&u.uz)` ≡ dungeon hellish flag, `dungeon.c:1942–1946`).

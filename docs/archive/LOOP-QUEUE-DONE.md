@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-21
 
-- [x] `mklev.c` traptype_rnd — coverage PARTIAL (C 60 L `mklev.c:1938–1998` / JS 36 L in js/mklev.js; hops —, callers 0, RNG 2, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn traptype_rnd` (reach regression must be 0). Measured `port-coverage.mjs --name traptype_rnd` 2026-09-21 @ 0b705b5f. **Addressed:** D-2716
+- [x] hero overload attack-gate Caveman (D-2420 W6) — blocks 1/553 (scen-poly-Caveman-92202 step 116/265 kind=rng flat#6619: C `rn2(5)=3`@distfleeck vs JS `rn2(20)=18`@gethungry, prev makemon matched; C «You cannot fight while so heavily loaded» + m_lined_up/m_move vs JS hmonas/passive combat «You miss Slasher…»; C step 65 draws; MEASURED D-2420 vs JS probe; BoH-blessed row is the opposite direction — check cursed-bag/container state first). Fix: the inv_weight/capacity attack gate in C order. Verify `node scripts/verify.mjs --fn distfleeck` (recorded owner: expect Caveman → PASS or later owner). Do not re-port `distfleeck` or `inv_weight` beyond the gate. **Addressed:** D-2717
+
+
+- [x] `mklev.c` traptype_rnd — coverage PARTIAL (C 60 L `mklev.c:1938–1998` / JS 36 L in js/mklev.js; hops —, callers 0, RNG 2, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn traptype_rnd` (reach regression must be 0). Measured `port-coverage.mjs --name traptype_rnd` 2026-09-21 @ 0b705b5f. **Addressed:** D-2716 `12e8b259`
 
 
 - [x] `lock.c` autokey — coverage THIN (C 55 L `lock.c:289–344` / JS 17 L in js/lock.js; hops 4, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn autokey` (reach regression must be 0). Measured `port-coverage.mjs --name autokey` 2026-09-21 @ 0b705b5f. **Addressed:** D-2715 `2a3c61e5`
