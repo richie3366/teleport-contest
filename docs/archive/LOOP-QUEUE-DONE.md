@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-21
 
-- [x] `allmain.c` welcome remainder — C `allmain.c:856` l_nhcore_call + `:865–874` doomed-restore early return + `:878–880` Hallu + `:920–927` restore tail (hellish_smoke_mesg + print_level_annotation) absent from js/allmain.js:673; `restore.c:948` welcome(FALSE) unwired (no JS caller; `allmain.c:843` wired `js/allmain.js:865`). Port the arms in C order, wire the restore caller. Verify `node scripts/verify.mjs --fn welcome` (reach regression must be 0). **Addressed:** D-2725
+- [x] `sp_lev.c` create_object — C `sp_lev.c:2284–2285` recharged + `:2294–2295` tknown + `:2304–2341` invent_carrying_monster/saddle + container-NULL artifact-uncreate + `:2356–2389` Medusa statue fill + `:2391–2420` achievement prizes + `:2428–2437` buried bury_an_obj absent from `js/mklev.js:20203` create_object (128 L vs C 247 L; doc-named omits, both bodies read 2026-09-21). Port the arms in C order. Verify `node scripts/verify.mjs --fn create_object` (reach regression must be 0). **Addressed:** D-2726
+
+
+- [x] `allmain.c` welcome remainder — C `allmain.c:856` l_nhcore_call + `:865–874` doomed-restore early return + `:878–880` Hallu + `:920–927` restore tail (hellish_smoke_mesg + print_level_annotation) absent from js/allmain.js:673; `restore.c:948` welcome(FALSE) unwired (no JS caller; `allmain.c:843` wired `js/allmain.js:865`). Port the arms in C order, wire the restore caller. Verify `node scripts/verify.mjs --fn welcome` (reach regression must be 0). **Addressed:** D-2725 `360259cf5`
 
 
 - [x] `end.c` done_object_cleanup remainder — C `end.c:854` inven_inuse(TRUE) + `:886–890` uchain placebc (`lift_covet_and_placebc`) + `:894–897` perm_invent clear absent from js/end.js:517 local clone (doc-named omissions; thrown/kicked arms live); unexported; `save.c:98` + `save.c:1111` callers unwired (`js/save.js:722` named omit), `end.c:1157` wired `js/end.js:984`. Export + port the arms in C order, wire all three callers. Verify `node scripts/verify.mjs --fn done_object_cleanup` (reach regression must be 0). **Addressed:** D-2724 `1f40ed0e3`

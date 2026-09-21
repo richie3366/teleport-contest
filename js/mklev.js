@@ -38,7 +38,7 @@ import {
     MM_EPRI, MM_EMIN, MM_ADJACENTOK, MM_NOTAIL, MM_IGNOREWATER, NO_MM_FLAGS,
     N_DIRS, W_ARMC, RLOC_NOMSG,
     MON_BUBBLEMOVE, CONS_OBJ, CONS_MON, CONS_HERO, CONS_TRAP, u_at,
-    FILL_LVFLAGS, STRAT_WAITFORU, NON_PM, ONAME_LEVEL_DEF,
+    FILL_LVFLAGS, STRAT_WAITFORU, NON_PM, ONAME_LEVEL_DEF, ONAME_NO_FLAGS,
     MM_NONAME, MIGR_LEFTOVERS, MIGR_RANDOM, has_mgivenname,
     LR_DOWNSTAIR, LR_UPSTAIR, LR_PORTAL, LR_BRANCH,
     LR_TELE, LR_UPTELE, LR_DOWNTELE, LR_MONGEN,
@@ -105,7 +105,7 @@ import {
     mkcorpstat, next_ident,
     curse, bless, uncurse, blessorcurse, place_object, add_to_buried, weight, OBJ,
     set_corpsenm, obj_stop_timers, start_timer, spot_stop_timers,
-    obj_extract_self, is_organic,
+    obj_extract_self, is_organic, remove_object,
     add_to_container, objects_at, sobj_at, stackobj, oc_merge_of, dealloc_obj,
 } from './mkobj.js';
 import {
@@ -134,8 +134,8 @@ import {
     is_vampshifter, vampshifted,
 } from './monsters.js';
 import { name_to_monplus, name_to_mon, set_mon_data } from './mondata.js';
-import { fruit_from_name } from './objnam.js';
-import { christen_monst, christen_orc, rndorcname, new_oname, oname, lookup_novel } from './do_name.js';
+import { fruit_from_name, simpleonames } from './objnam.js';
+import { christen_monst, christen_orc, rndorcname, new_oname, oname, lookup_novel, safe_oname } from './do_name.js';
 import { makeroguerooms, makerogueghost } from './extralev.js';
 import { make_engr_at, make_grave, wipe_engr_at, random_engraving, del_engr_at, engr_at, del_engr } from './engrave.js';
 import { cmd_from_ecname } from './dokeylist.js';
@@ -148,13 +148,16 @@ import {
     create_gas_cloud, create_gas_cloud_selection, clear_regions,
     clear_heros_fault,
 } from './region.js';
-import { Norep, newsym, impossible, pline, You, flush_screen, nh_delay_output, monsym } from './display.js';
+import { Norep, newsym, impossible, pline, You, flush_screen, nh_delay_output, monsym, describe_level } from './display.js';
 import { buried_ball_to_punishment, fracture_rock } from './dig.js';
 import { obfree } from './shk.js';
 import { block_point, unblock_point, does_block, recalc_block_point, vision_recalc } from './vision.js';
 import { emits_light, new_light_source, del_light_source } from './light.js';
 import { monst_to_any, is_pool, is_lava, in_rooms } from './hack.js';
-import { begin_burn } from './timeout.js';
+import { begin_burn, end_burn } from './timeout.js';
+import { o_unleash } from './apply.js';
+import { is_ice } from './zap.js';
+import { artifact_exists } from './artifact.js';
 import { nexttodoor } from './fountain.js';
 import { ndemon } from './minion.js';
 import { m_dowear } from './worn.js'; // C: sp_lev.c spo_end_moninvent → m_dowear(TRUE); creation path runs sync-through (no await), same as makemon.js
@@ -305,6 +308,8 @@ const SPLINT_MAIL = objectNames.indexOf('SPLINT_MAIL');
 const KATANA = objectNames.indexOf('KATANA');
 const TSURUGI = objectNames.indexOf('TSURUGI');
 const SADDLE = objectNames.indexOf('SADDLE');
+const LEASH = objectNames.indexOf('LEASH');
+const POT_OIL = objectNames.indexOf('POT_OIL');
 const SILVER_SABER = objectNames.indexOf('SILVER_SABER');
 const SKELETON_KEY = objectNames.indexOf('SKELETON_KEY');
 const LEATHER_ARMOR = objectNames.indexOf('LEATHER_ARMOR');
@@ -20190,15 +20195,28 @@ function get_location_coord(humidity, croom, rx, ry) {
     return { x, y };
 }
 
+/* C ref: dungeon.h Is_mineend_level `:136` — Lcheck(x, &mineend_level);
+ * const.js Is_medusa_level idiom (dnum + dlevel match). */
+function Is_mineend_level(uz) {
+    const m = game.mineend_level;
+    return !!m && ((uz?.dnum | 0) === (m.dnum | 0) && (uz?.dlevel | 0) === (m.dlevel | 0));
+}
+
+/* C ref: dungeon.h Is_sokoend_level `:137` — Lcheck(x, &sokoend_level). */
+function Is_sokoend_level(uz) {
+    const m = game.sokoend_level;
+    return !!m && ((uz?.dnum | 0) === (m.dnum | 0) && (uz?.dlevel | 0) === (m.dlevel | 0));
+}
+
 /**
  * C ref: sp_lev.c create_object (~2193–2439).
- * Named omit: recharged; tknown;
- * invent_carrying_monster / saddle; artifact uncreate when container_obj
- * is NULL; Medusa statue fill; achievement prizes; buried bury_an_obj.
  * themerms Light source fill (D-1542) is the production lua that sets
  * lit=true; this arm is the callee.
  * oname + lookup_novel when `o.name` (D-1651).
  * quan>0 && oc_merge (D-1712); lspo_object non-merge repeat is D-1723.
+ * Named omit: bury-inline uball arm (dig.c:1991–1995 unpunish/set_utrap/
+ * pline) — fresh otmp is never u.uball by identity, and pline is
+ * async-only in JS; the uchain identity check stays in the guard.
  */
 function create_object(o, croom) {
     const named = !!(o.name);
@@ -20281,6 +20299,8 @@ function create_object(o, croom) {
         otmp.oeroded2 = 0;
         otmp.oerodeproof = 0;
     }
+    // C sp_lev.c create_object :2284–2285
+    if ((o.recharged | 0)) otmp.recharged = (o.recharged | 0) % 8;
     if (o.locked === 0 || o.locked === 1) {
         otmp.olocked = o.locked;
     } else if (o.broken) {
@@ -20288,6 +20308,8 @@ function create_object(o, croom) {
         otmp.olocked = 0;
     }
     if (o.trapped === 0 || o.trapped === 1) otmp.otrapped = o.trapped;
+    // C sp_lev.c create_object :2294–2295
+    if (o.trapped && (o.tknown === 0 || o.tknown === 1)) otmp.tknown = o.tknown;
     otmp.greased = o.greased ? 1 : 0;
 
     // C sp_lev.c create_object :2298–2301 — quan only when oc_merge
@@ -20297,16 +20319,35 @@ function create_object(o, croom) {
     }
 
     const containment = o.containment | 0;
-    if (containment & SP_OBJ_CONTENT) {
-        if (container_idx) {
+    // C sp_lev.c create_object :2304–2341 — contents of a container or of
+    // invent_carrying_monster's inventory. obj_extract_self is the file
+    // idiom for C's remove_object on this path (cf. :12637).
+    if ((containment & SP_OBJ_CONTENT) || invent_carrying_monster) {
+        if (!container_idx) {
+            if (!invent_carrying_monster) {
+                /* C: impossible() commented out; otmp remains on floor */
+            } else {
+                // C :2317–2321
+                remove_object(otmp);
+                if (otmp.otyp === SADDLE && can_saddle(invent_carrying_monster))
+                    put_saddle_on_mon(otmp, invent_carrying_monster);
+                else
+                    mpickobj(invent_carrying_monster, otmp);
+            }
+        } else {
             const cobj = container_obj[container_idx - 1];
             obj_extract_self(otmp);
             if (cobj) {
                 otmp = add_to_container(cobj, otmp);
                 cobj.owt = weight(cobj);
             } else {
-                otmp.quan = 0;
-                otmp.where = OBJ_FREE;
+                // C :2330–2339 — uncreate a random artifact made in a
+                // container (FIXME in C: it could be intentional)
+                obj_extract_self(otmp);
+                if (otmp.oartifact)
+                    artifact_exists(otmp, safe_oname(otmp), false,
+                                    ONAME_NO_FLAGS);
+                obfree(otmp, null);
                 return null;
             }
         }
@@ -20319,12 +20360,128 @@ function create_object(o, croom) {
         }
     }
 
+    // C sp_lev.c create_object :2356–2389 — Medusa statues are petrified
+    // monsters: not stone-resistant, with monster inventory. mongone is
+    // the sync fmon unlink (file idiom, cf. :4032).
+    if (id === STATUE && Is_medusa_level(game.u?.uz) && cn === NON_PM) {
+        let was = null;
+        let wastyp = otmp.corpsenm | 0;
+        for (let i = 0; i < 1000; i++, wastyp = rndmonnum()) {
+            // C: makemon without rndmonst() might create a group
+            was = makemon(mons(wastyp), 0, 0, MM_NOCOUNTBIRTH | MM_NOMSG);
+            if (was) {
+                if (!resists_ston(was)
+                    && !poly_when_stoned(mons(wastyp), game.mvitals)) {
+                    propagate(wastyp, true, false);
+                    break;
+                }
+                const gone = game.fmon;
+                if (Array.isArray(gone)) {
+                    const ix = gone.indexOf(was);
+                    if (ix >= 0) gone.splice(ix, 1);
+                }
+                was.mx = 0;
+                was.my = 0;
+                was.minvent = null;
+                was = null;
+            }
+        }
+        if (was) {
+            set_corpsenm(otmp, wastyp);
+            while (was.minvent) {
+                const obj = was.minvent;
+                obj.owornmask = 0;
+                obj_extract_self(obj);
+                add_to_container(otmp, obj);
+            }
+            otmp.owt = weight(otmp);
+            const gone = game.fmon;
+            if (Array.isArray(gone)) {
+                const ix = gone.indexOf(was);
+                if (ix >= 0) gone.splice(ix, 1);
+            }
+            was.mx = 0;
+            was.my = 0;
+        }
+    }
+
+    // C sp_lev.c create_object :2391–2420 — mines/sokoban prize record.
+    if (o.achievement) {
+        const prize_warning = 'multiple prizes on %s level';
+        if (Is_mineend_level(game.u?.uz)) {
+            if (!game.context) game.context = {};
+            if (!game.context.achieveo) game.context.achieveo = {};
+            const ao = game.context.achieveo;
+            if (!ao.mines_prize_oid) {
+                ao.mines_prize_oid = otmp.o_id;
+                ao.mines_prize_otyp = otmp.otyp;
+                // C: prevent stacking; cleared when recorded (addinv_core1)
+                otmp.nomerge = 1;
+            } else {
+                impossible(prize_warning, 'mines end');
+            }
+        } else if (Is_sokoend_level(game.u?.uz)) {
+            if (!game.context) game.context = {};
+            if (!game.context.achieveo) game.context.achieveo = {};
+            const ao = game.context.achieveo;
+            if (!ao.soko_prize_oid) {
+                ao.soko_prize_oid = otmp.o_id;
+                ao.soko_prize_otyp = otmp.otyp;
+                // C: redundant; Sokoban prizes don't stack (addinv_core1)
+                otmp.nomerge = 1;
+            } else {
+                impossible(prize_warning, 'sokoban end');
+            }
+        } else if (!game.iflags?.lua_testing) {
+            impossible('create_object: unknown achievement (%s"%s")',
+                       describe_level(1 | 2), simpleonames(otmp));
+        }
+    }
+
     if (!(containment & SP_OBJ_CONTENT)) {
         stackobj(otmp);
         // C sp_lev.c create_object :2425–2426 — after stackobj, not
         // levl[x][y].lit (mktrap_victim is D-1519).
         if (o.lit)
             begin_burn(otmp, false);
+
+        // C sp_lev.c :2428–2437 — bury_an_obj (dig.c:1984–2047) inline
+        // sync: dig.js bury_an_obj is async-only, and this function stays
+        // sync (load_wiz_goal/load_bar_goal/lspo_object/themeroom callers).
+        if (o.buried) {
+            let dealloced = false;
+            const bu = game.u || {};
+            if (!(otmp === bu.uchain || obj_resists(otmp, 0, 0))) {
+                if (otmp.otyp === LEASH && (otmp.leashmon | 0) !== 0)
+                    o_unleash(otmp);
+                if (otmp.lamplit && otmp.otyp !== POT_OIL)
+                    end_burn(otmp, true);
+                obj_extract_self(otmp);
+                const under_ice = is_ice(otmp.ox | 0, otmp.oy | 0);
+                if ((otmp.otyp === ROCK && !under_ice)
+                    || otmp.otyp === BOULDER) {
+                    // C: merges into burying material
+                    dealloced = true;
+                    otmp.quan = 0;
+                    otmp.where = OBJ_FREE;
+                    otmp.timed = 0;
+                } else if (otmp.otyp !== CORPSE
+                    && (under_ice
+                        ? (otmp.oclass === POTION_CLASS)
+                        : is_organic(otmp))
+                    && !obj_resists(otmp, 5, 95)) {
+                    start_timer((under_ice ? 0 : 250) + rnd(250),
+                                TIMER_OBJECT, ROT_ORGANIC, otmp);
+                }
+                // C: CORPSE arm is a C TODO (cancel timer if under_ice).
+                if (!dealloced) add_to_buried(otmp);
+            }
+            if (dealloced) {
+                if (container_idx)
+                    container_obj[container_idx - 1] = null;
+                otmp = null;
+            }
+        }
     }
     return otmp;
 }

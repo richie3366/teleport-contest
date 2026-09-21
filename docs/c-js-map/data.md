@@ -845,7 +845,7 @@ JS: `js/mklev.js` — partial
 
 Ordinary level path substantial; **`fill_ordinary_room` nsubrooms recursion before needfill**
 (D-0917) + **D-2469 `fill_ordinary_room` whole-body restart** (`mklev.c:939–1171` in C order: amulet-or-rn2(3) sleeper + spider-WEB, live `mktrap(0,NOFLAGS)` loop, `Is_rogue_level` skip, `mksink`/`mkgrave` live as same-file locals, 3 `impossible` arms; named omit: `count_level_features` recount quirk, incremental nsinks); mineralize bury-vs-place (D-0014); 
-`mktrap_victim` place_object ammo/possessions (D-0016) + **D-1519 floor gnome candle `begin_burn`** (`mklev.c:1918–1919` after `place_object`, `!levl[x][y].lit` → live `timeout.js` `begin_burn`; not `m_initinv` D-1506; **D-1533** `create_object` `o->lit`); 
+`mktrap_victim` place_object ammo/possessions (D-0016) + **D-1519 floor gnome candle `begin_burn`** (`mklev.c:1918–1919` after `place_object`, `!levl[x][y].lit` → live `timeout.js` `begin_burn`; not `m_initinv` D-1506; **D-1533** `create_object` `o->lit`); **D-2726 `create_object` whole-body completion** (`sp_lev.c:2193–2440` in C order: `:2284` recharged, `:2294` tknown, `:2304–2341` invent_carrying_monster/saddle + container-NULL artifact-uncreate via live `artifact_exists`/`safe_oname`/`obfree`, `:2356–2389` Medusa statue fill via live makemon/propagate + fmon-unlink idiom, `:2391–2420` achievement prizes via local `Is_mineend_level`/`Is_sokoend_level` (dungeon.h:136–137), `:2428–2437` buried via sync bury_an_obj inline; uball arm named omit — fresh otmp never uball + async pline); 
 **`set_wall_state`/`xy_set_wall_state`** (D-0038); 
 **`makeniche` → real `mkclass(S_HUMAN)`** (D-0053); 
 supply-chest **`SPBOOK_no_NOVEL`** (D-0055) + **`add_to_container` fill + 
