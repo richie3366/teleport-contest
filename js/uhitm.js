@@ -53,7 +53,7 @@ import { near_capacity, useup, useupall, hold_another_object, Blind, observe_obj
 import { PM_BARBARIAN, PM_MONK, PM_KNIGHT, PM_SAMURAI, PM_ARCHEOLOGIST, PM_WIZARD, PM_HUMAN, PM_HEALER, PM_ROGUE, PM_ELF } from './generated/monsters_data.js';
 import {
     find_mac, get_mattk, make_corpse, monstone, mhitm_knockback, monkilled, mondead,
-    troll_baned, mhitm_ad_poly, mhitm_ad_slee, mhitm_ad_heal, mhitm_ad_blnd, mhitm_ad_ston, mhitm_ad_elec, mhitm_ad_sedu, mhitm_ad_tlpt, mhitm_ad_rust, could_seduce, failed_grab, shade_miss,
+    troll_baned, mhitm_ad_poly, mhitm_ad_slee, mhitm_ad_heal, mhitm_ad_blnd, mhitm_ad_ston, mhitm_ad_elec, mhitm_ad_sedu, mhitm_ad_tlpt, mhitm_ad_rust, mhitm_ad_fire, could_seduce, failed_grab, shade_miss,
     shade_aware, paralyze_monst,
     mhitm_mgc_atk_negated, resists_poison_mm, erode_armor,
     AT_NONE, AT_WEAP, AT_KICK, AT_CLAW, AT_SPIT, AT_HUGS,
@@ -759,10 +759,9 @@ async function xkilled_treasure_drop(mtmp, mdat, x, y, nomsg) {
  * corpse_chance → make_corpse, wasinside museum + spoteffects, newsym,
  * cleanup (murder/peaceful/unicorn luck), experience, quest/priest/tame/
  * peaceful adjalign arms, malign. C `#if 0` HARDFOUGHT livelog stays out.
- * Named omissions: mhitm_ad_fire uhitm arm (C caller `:2547`, enclosing
- * C function unported; mhitm_ad_rust uhitm `:2294` now live via
- * damageum_adtyping AD_RUST) and wiz_kill (`wizcmds.c:315`,
- * unported) — own coverage rows.
+ * Named omissions: wiz_kill (`wizcmds.c:315`, unported) — own coverage
+ * row. (mhitm_ad_fire uhitm `:2529–2560` and mhitm_ad_rust uhitm `:2294`
+ * are live via damageum_adtyping AD_FIRE / AD_RUST.)
  */
 export async function xkilled(mtmp, xkill_flags = XKILL_GIVEMSG) {
     // C `:3485–3498` — flag unpack; sad_feeling saved and always cleared
@@ -2496,6 +2495,15 @@ async function damageum_adtyping(mattk, mdef, mhm) {
            dice zeroed either way. Routed through the shared mhitm.js
            arm (elec precedent); mhitu arm is mhitm_ad_rust_u in mhitu.js. */
         await mhitm_ad_rust(game.youmonst, mattk, mdef, mhm);
+    } else if (adtyp === AD_FIRE) {
+        /* C ref: uhitm.c mhitm_adtyping `:4792` → mhitm_ad_fire `:2529–2560`
+           uhitm (hero as attacker) arm: mgc-negate gate, !Blind on_fire
+           pline, paper/straw completelyburns + xkilled(NOMSG|NOCORPSE),
+           resists_fire/defended zeroes the leftover after
+           golemeffects+shield, else destroy_items adds the orig leftover +
+           ignite_items(minvent). Routed through the shared mhitm.js arm
+           (elec precedent); mhitu arm is mhitm_ad_fire_u in mhitu.js. */
+        await mhitm_ad_fire(game.youmonst, mattk, mdef, mhm);
     }
 }
 

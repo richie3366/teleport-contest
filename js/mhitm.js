@@ -9,7 +9,7 @@ import {
     mtrapped_in_pit, LEVEL_SPECIFIC_NOCORPSE,
 } from './mon.js';
 import { game } from './gstate.js';
-import { pline, pline_mon, newsym, canspotmon, canseemon, map_invisible, unmap_object, memory_glyph_is_invisible, You_feel, flush_screen, flush_topl_more, verbalize, sensemon, shieldeff, mon_visible } from './display.js';
+import { pline, pline_mon, newsym, canspotmon, canseemon, map_invisible, unmap_object, memory_glyph_is_invisible, You, You_feel, flush_screen, flush_topl_more, verbalize, sensemon, shieldeff, mon_visible } from './display.js';
 import { cansee } from './vision.js';
 import { dist2, isok } from './hacklib.js';
 import { resist_conflict, set_mon_data, on_fire, mhis, mhe, little_to_big, defended, monsndx } from './mondata.js';
@@ -1118,18 +1118,69 @@ async function mhitm_ad_stun(magr, mattk, mdef, mhm) {
 }
 
 /**
- * C ref: uhitm.c mhitm_ad_fire mhitm arm :2588–2621.
- * MC zeros leftover and returns (unlike STUN, which keeps d()).
- * vis+canseemon on_fire pline; paper/straw completelyburns then
- * monkilled + grow_up and done. resists_fire zeros leftover after
- * shield/golemeffects; destroy_items uses orig leftover then
- * ignite_items(minvent).
- * Named omit: uhitm you-as-agr; mhitu you-as-def (hitmsg +
- * Fire_resistance / rn2(20) destroy / burn_away_slime);
- * defended(AD_FIRE) artifact/dragon-scale; golem FIRE slow.
+ * C ref: uhitm.c mhitm_ad_fire `:2521–2623` — uhitm (you→mon, `:2529–2560`),
+ * mhitu (mon→you, `:2561–2587`), mhitm (mon→mon, `:2588–2621`) in C order.
+ * uhitm: mgc-negate gate, !Blind "%s is %s!" (plain pline, no vis gate),
+ * paper/straw completelyburns → burns/engulfed pline (or, when Blind,
+ * You smell burning paper/straw) + xkilled(NOMSG|NOCORPSE), then
+ * resists_fire/defended zeroes the leftover after golemeffects+shield
+ * (C order), else destroy_items adds the orig leftover + ignite(minvent).
+ * mhitu arm lives split in mhitu.js mhitm_ad_fire_u (hitmsg +
+ * Fire_resistance / rn2(20) destroy / burn_away_slime). mhitm: negate
+ * gate (MC zeros leftover and returns, unlike STUN which keeps d()),
+ * vis+canseemon on_fire pline_mon; paper/straw monkilled + grow_up and
+ * done; resists_fire/defended zeroes the leftover after
+ * shield+golemeffects (C order); destroy_items uses orig leftover then
+ * ignite_items(minvent). mhitm arm leftover is D-1405.
  */
-async function mhitm_ad_fire(magr, mattk, mdef, mhm) {
+export async function mhitm_ad_fire(magr, mattk, mdef, mhm) {
     const orig_dmg = mhm.damage | 0;
+    const { destroy_items } = await import('./zap.js');
+    const { ignite_items } = await import('./trap.js');
+    if (is_youmonst(magr)) {
+        /* C `:2529–2560` uhitm (hero as attacker) */
+        if (await mhitm_mgc_atk_negated(magr, mdef, true)) {
+            mhm.damage = 0;
+            return;
+        }
+        const pd = mdef?.data;
+        if (!Blind_slee()) {
+            await pline(`${Monnam(mdef)} is ${on_fire(pd, mattk)}!`);
+        }
+        if (completelyburns_mm(pd)) {
+            /* note: the life-saved case is hypothetical because
+               life-saving doesn't work for golems */
+            if (!Blind_slee()) {
+                const how = !mlifesaver(mdef)
+                    ? 'burns completely' : 'is totally engulfed in flames';
+                await pline(`${Monnam(mdef)} ${how}!`);
+            } else {
+                const what = (pd?.mndx | 0) === PM_PAPER_GOLEM ? ' paper'
+                    : (pd?.mndx | 0) === PM_STRAW_GOLEM ? ' straw' : '';
+                await You('smell burning%s.', what);
+            }
+            /* mhitm <-> uhitm is a static cycle; dynamic import (line 636) */
+            const { xkilled } = await import('./uhitm.js');
+            await xkilled(mdef, XKILL_NOMSG | XKILL_NOCORPSE);
+            mhm.damage = 0;
+            return;
+            /* Don't return yet; keep hp<1 and mhm.damage=0 for pet msg */
+        }
+        if (resists_fire(mdef) || defended(mdef, AD_FIRE)) {
+            if (!Blind_slee()) {
+                await pline(`The fire doesn't heat ${mon_nam(mdef)}!`);
+            }
+            await golemeffects_mm(mdef, AD_FIRE, mhm.damage | 0);
+            await shieldeff(mdef.mx, mdef.my);
+            mhm.damage = 0;
+        }
+        mhm.damage = (mhm.damage | 0)
+            + ((await destroy_items(mdef, AD_FIRE, orig_dmg)) | 0);
+        await ignite_items(mdef.minvent);
+        return;
+    }
+    if (is_youmonst(mdef)) return; /* C `:2561–2587` mhitu: mhitu.js mhitm_ad_fire_u */
+    /* C `:2588–2621` mhitm (D-1405) */
     if (await mhitm_mgc_atk_negated(magr, mdef, true)) {
         mhm.damage = 0;
         return;
@@ -1155,7 +1206,7 @@ async function mhitm_ad_fire(magr, mattk, mdef, mhm) {
         mhm.done = true;
         return;
     }
-    if (resists_fire(mdef) /* || defended(mdef, AD_FIRE) */) {
+    if (resists_fire(mdef) || defended(mdef, AD_FIRE)) {
         if (_mm_vis && canseemon(mdef)) {
             await pline(`The fire doesn't seem to burn ${mon_nam(mdef)}!`);
         }
@@ -1163,10 +1214,8 @@ async function mhitm_ad_fire(magr, mattk, mdef, mhm) {
         await golemeffects_mm(mdef, AD_FIRE, mhm.damage | 0);
         mhm.damage = 0;
     }
-    const { destroy_items } = await import('./zap.js');
     mhm.damage = (mhm.damage | 0)
         + ((await destroy_items(mdef, AD_FIRE, orig_dmg)) | 0);
-    const { ignite_items } = await import('./trap.js');
     await ignite_items(mdef.minvent);
 }
 
@@ -4431,7 +4480,8 @@ async function mdamagem(magr, mdef, mattk, mwep, dieroll) {
 
     // C: mhitm_adtyping → mhitm_ad_fire for AD_FIRE (D-1405). MC zeros
     // leftover. Resist zeros leftover then destroy_items(orig).
-    // Paper/straw completelyburns done. uhitm/mhitu named.
+    // Paper/straw completelyburns done. uhitm arm live in mhitm_ad_fire;
+    // mhitu arm is mhitm_ad_fire_u (mhitu.js, via mhitm_adtyping_u).
     if ((mattk.adtyp | 0) === AD_FIRE) {
         const mhm = {
             damage,
