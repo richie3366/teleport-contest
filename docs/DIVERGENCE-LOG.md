@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2745 — `objnam.c` distant_name gameover o_id wipe arm + `weapon.c` possibly_unwield STALE park
+
+- **Status:** fixed (missing-arm row: C `objnam.c:382–383` + `:406` absent from `js/objnam.js:1125`; 0 corpus sessions blocked — coverage completion, not a divergence. Queue-head `weapon.c` possibly_unwield retired STALE in the same commit: whole C body already live under this name + helper, 6/6 real C callers wired.)
+- **Symptom:** none on the fortress — gameover is set only at end-of-game disclosure, which no corpus session reaches through distant_name; hidden note 0 blocked, smoke REACH-OK.
+- **C locus:** `nethack-c/upstream/src/objnam.c:345–409` (`:360–378` r/neardist from xray_range; `:373–384` o_id comment + `save_oid`/`o_id = 0` wipe; `:385–389` near gate; `:391–395` near format with observe side-effects; `:397–400` far `gd.distantname++/--`; `:406` restore).
+- **JS was:** `js/objnam.js:1125` live body with near/far + `game.distantname` counter in C order (D-0469) but no wipe — `xname_gameover_suffix` (`js/objnam.js:622`) gates suppressed text on `o_id|0`, so gameover names via distant_name leaked T-shirt/apron/Hawaiian/candy text the wipe suppresses; "gameover o_id wipe" sat in the doc Named omissions.
+- **Fix:** added the wipe in C order — `save_oid` captured, `obj.o_id = 0` under `game.program_state?.gameover` (the live gameover flag, cf. `js/hack.js:1773`), before location lookup; one outer try/finally restoring `o_id` (`:406`) around both near and far paths (C has no early return between; finally is strictly safer given the JS-local null guard). No new import (game-only), no caller rewiring. Doc comment now cites per-arm `:line`s; wipe struck from Named omissions. Helpers re-verified live and C-equal: `object_neardist` (`:1142`, max(xray,2) + `(r*r)*2-r`), `distu_xy` (== distu), `cansee_xy` (late-bound cansee), `get_obj_loc_for_distant` (`:1163`, zap.c locflags=0 subset).
+- **JS:** `js/objnam.js` distant_name (+14/−6).
+- **Callers:** no edge changed — every JS call site already imports the live export (artifact/dogmove/dokick/invent/mkobj/mon/monmove/mthrowu/muse/pager/weapon/wizard/worn/zap; e.g. C `weapon.c:766` → `js/weapon.js:170` inside possibly_unwield_drop). Named omissions, each owned elsewhere: C `priest.c:131` move_special (no JS port — own future row); C `steal.c:823` mdrop_obj (D-2197 map item); C `objnam.c:1077` minimal_xname (JS stand-in `simpleonames`, D-0881).
+- **Verify:** `node scripts/verify.mjs --fn distant_name` → VERIFY: PASS (syntax 1 changed file; Rule #2; hidden note 0 blocked — normal for a coverage row; reach: no RNG-tagged reach, fixed smoke 24/24 REACH-OK 0 regressed; green 2/2; strict 2/2; cohort 7/7; full skipped — objnam.js not shared).
+- **Named omissions:** get_obj_location buried/contained locflags arms (helper covers locflags=0 only); artifact-find side effects ride on observe/dknown (D-0469-carried).
+- **Next:** pop next Open — coverage row (`do_wear.c` Boots_off head).
+
 ## D-2744 — `lock.c` pick_lock whole-body port (dummy/resume/box/door arms, clone purge to live imports)
 
 - **Status:** fixed (coverage row: `lock.c` pick_lock PARTIAL (C 294 L `lock.c:358–656` / JS 218 L in js/lock.js; hops 4, callers 4, RNG 0, msg 18); 0 corpus sessions blocked — coverage completion, not a divergence.)

@@ -54,6 +54,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-21 — D-2745 `objnam.c` distant_name gameover o_id wipe arm + `weapon.c` possibly_unwield STALE park
+
+**C locus:** `nethack-c/upstream/src/objnam.c:345–409` (`:360–378` r/neardist from xray_range; `:373–384` o_id comment + `save_oid`/`o_id = 0` wipe; `:385–389` near gate; `:391–395` near format with observe side-effects; `:397–400` far `gd.distantname++/--`; `:406` restore).
+**JS:** `js/objnam.js` distant_name (+14/−6).
+**Change:** added the wipe in C order — `save_oid` captured, `obj.o_id = 0` under `game.program_state?.gameover` (the live gameover flag, cf. `js/hack.js:1773`), before location lookup; one outer try/finally restoring `o_id` (`:406`) around both near and far paths (C has no early return between; finally is strictly safer given the JS-local null guard). No new import (game-only), no caller rewiring.
+**Verify:** `node scripts/verify.mjs --fn distant_name` → VERIFY: PASS (syntax 1 changed file; Rule #2; hidden note 0 blocked — normal for a coverage row; reach: no RNG-tagged reach, fixed smoke 24/24 REACH-OK 0 regressed; green 2/2; strict 2/2; cohort 7/7; full skipped — objnam.js not shared).
+**Named:** get_obj_location buried/contained locflags arms (helper covers locflags=0 only); artifact-find side effects ride on observe/dknown (D-0469-carried).
+**Next:** pop next Open — coverage row (`do_wear.c` Boots_off head).
 ## 2026-09-21 — D-2744 `lock.c` pick_lock whole-body port (dummy/resume/box/door arms, clone purge to live imports)
 
 **C locus:** `nethack-c/upstream/src/lock.c:358–656` (`:373–377` null-pick dummy (STRANGE_OBJECT); `:380–401` resume (pick/key/card wording, uswallow/box-reach gates, `is_magic_key(&gy.youmonst)`); `:405–411` nohands/uswallow gates; `:414–417` impossible() tool check; `:422–426` autounlock coords vs get_adjacent_loc; `:429–545` underfoot box path (`:435` stale-dz, `:439–444` lava/pool, `:461–469` fix/lock/unlock/pick verb+it, `:470–481` AUTOUNLOCK_UNTRAP could_untrap+safe_qbuf trap prompt, `:482–503` APPLY_KEY vs interactive safe_qbuf menu with lknown, `:506–518` obroken/card/touch_artifact, `:520–534` box chance 1/4/75+DEX rogue bonuses + cursed halve, `:536–545` xlock + decided-against-boxes); `:547–646` door path (`:551–555` pit rim DID_NOTHING, `:559–576` visible-monster shk/Oracle credit arm + door-mimic stumble, `:578–593` !IS_DOOR feel/mapseen + Blind feel/see + drawbridge, `:594–603` NODOOR/ISOPEN/BROKEN, `:605–630` door UNTRAP + card-only-unlock + Lock/Unlock ynq + touch_artifact, `:632–646` door chance 2/3/70+DEX); `:649–655` move=0 + chance/picktyp/magic_key/usedtime + picklock occupation).

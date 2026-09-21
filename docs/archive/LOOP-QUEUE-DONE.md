@@ -5,7 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-21
 
-- [x] `lock.c` pick_lock — coverage PARTIAL (C 294 L `lock.c:358–656` / JS 218 L in js/lock.js; hops 4, callers 4, RNG 0, msg 18). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn pick_lock` (reach regression must be 0). Measured `port-coverage.mjs --name pick_lock` 2026-09-21 @ e975f7583. **Addressed:** D-2744
+- [x] `weapon.c` possibly_unwield — coverage THIN (C 48 L `weapon.c:747–795` / JS 21 L in js/weapon.js; hops 3, callers 7, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn possibly_unwield` (reach regression must be 0). Measured `port-coverage.mjs --name possibly_unwield` 2026-09-21 @ e975f7583. **Addressed:** D-2745 (STALE-parked: body live js/weapon.js:141+164, 6 callers wired).
+- [x] `objnam.c` distant_name gameover o_id wipe — missing arm: C `objnam.c:382–383` C `objnam.c:382–383` (`save_oid = obj->o_id; if (program_state.gameover) obj->o_id = 0;`) + `:406` (`obj->o_id = save_oid;` restore) absent from js/objnam.js (`distant_name` 1125–1139; near/far + distantname counter live, wipe named but unwired). JS xname reads o_id for T-shirt/apron/hawaiian/candy text (objnam.js:562–623), so gameover names leak suppressed text. Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn distant_name` (reach regression must be 0). Brief-verified 2026-09-21 @ 289e5ec2c (C + JS bodies read this session). **Addressed:** D-2745.
+
+
+- [x] `lock.c` pick_lock — coverage PARTIAL (C 294 L `lock.c:358–656` / JS 218 L in js/lock.js; hops 4, callers 4, RNG 0, msg 18). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn pick_lock` (reach regression must be 0). Measured `port-coverage.mjs --name pick_lock` 2026-09-21 @ e975f7583. **Addressed:** D-2744 `51018d7f6`
 
 
 - [x] `objnam.c` safe_qbuf — coverage PARTIAL (C 67 L `objnam.c:5624–5698` / JS 36 L in js/objnam.js; hops 2, callers 25, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn safe_qbuf` (reach regression must be 0). Measured `port-coverage.mjs --name safe_qbuf` 2026-09-21 @ e975f7583. **Addressed:** D-2743 `8eb4bf416`

@@ -1224,7 +1224,7 @@ non-display tin_variety/set_tin_variety + tinning kit deferred);
 SCR_MAIL/amulet uncursed exclusions; blanket `observe_object` in `xname`/`doname` when `!Blind && 
 !distantname` + **prop Blind not sticky `u.Blind`** (FROMFORM molds; 
 D-0928 #1180 / D-0716) + **`distant_name`** (D-0469; 
-monmove callers / gameover o_id wipe deferred); 
+monmove callers / gameover o_id wipe D-2745); 
 **`doname` unpaid suffix + `paydoname` suppress_price** (D-0461; 
 container paydoname rewrite D-1702 / `contained_cost` via unpaid_cost COST_CONTENTS; 
 whole-body paydoname restart D-2667 — doname_base(obj, 0) direct `:2326`, BUFSZ-PREFIX append guard `:2347–2350`, per-arm cites); 

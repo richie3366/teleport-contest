@@ -1117,24 +1117,36 @@ export function mshot_xname(obj) {
 }
 
 /**
- * C ref: objnam.c distant_name — format via func; near+cansee uses ordinary
- * xname/doname (observe side-effects); far sets gd.distantname.
- * Named omissions: gameover o_id wipe; artifact find via near path only
- * covered by observe/dknown; get_obj_location buried.
+ * C ref: objnam.c distant_name `:345–409` — r/neardist (`:360–378`;
+ * xray_range>2 else 2, neardist=(r*r)*2-r); gameover o_id wipe (`:382–383`,
+ * restored `:406`); near (get_obj_location+cansee+(oartifact||distu<=neardist))
+ * formats directly with observe side-effects; far wraps func in
+ * gd.distantname++/-- (`:397–400`, D-2745).
+ * Named omissions: artifact find via near path only covered by
+ * observe/dknown; get_obj_location buried/contained locflags.
  */
 export function distant_name(obj, func) {
     if (!obj || typeof func !== 'function') return func ? func(obj) : '';
-    const loc = get_obj_loc_for_distant(obj);
-    const canSeeLoc = loc && cansee_xy(loc.x, loc.y);
-    const near = canSeeLoc && (obj.oartifact || distu_xy(loc.x, loc.y) <= object_neardist());
-    if (near) {
-        return func(obj);
-    }
-    game.distantname = (game.distantname | 0) + 1;
+    /* C `:373–383` — setting o_id to 0 prevents xname() from adding
+       T-shirt/apron slogan, Hawaiian motif, or candy label when
+       program_state.gameover is set (html-dump/map-tooltip guard). */
+    const save_oid = obj.o_id;
+    if (game.program_state?.gameover) obj.o_id = 0;
     try {
-        return func(obj);
+        const loc = get_obj_loc_for_distant(obj);
+        const canSeeLoc = loc && cansee_xy(loc.x, loc.y);
+        const near = canSeeLoc && (obj.oartifact || distu_xy(loc.x, loc.y) <= object_neardist());
+        if (near) {
+            return func(obj);
+        }
+        game.distantname = (game.distantname | 0) + 1;
+        try {
+            return func(obj);
+        } finally {
+            game.distantname = (game.distantname | 0) - 1;
+        }
     } finally {
-        game.distantname = (game.distantname | 0) - 1;
+        obj.o_id = save_oid; /* C `:406` reset to normal */
     }
 }
 
