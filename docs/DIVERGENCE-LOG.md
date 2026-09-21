@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2716 — `mklev.c` traptype_rnd whole C body (LEVEL_TELEP Knox gate + live Inhell)
+
+- **Status:** fixed (coverage row: PARTIAL C 60 L `mklev.c:1938–1998` / JS 36 L; no corpus session blocked).
+- **Symptom:** coverage gap, not a corpus divergence — JS `traptype_rnd` matched C on 11 of 12 switch arms but the LEVEL_TELEP arm dropped the third C disjunct `single_level_branch(&u.uz)` (Knox/Ludios single-level branch) behind a "deferred" comment, so a LEVEL_TELEP roll on Knox could return a live level-teleport trap C maps to NO_TRAP; the FIRE_TRAP arm also carried a file-local inline of the dungeon hellish-flag read instead of the live export.
+- **C locus:** `nethack-c/upstream/src/mklev.c:1938–1998` (body in C order: `lvl = level_difficulty()`, `kind = rnd(TRAPNUM-1)`, 12 switch arms); sole C caller `:2075` (`mktrap` `do/while NO_TRAP` retry loop); declaration `:32`. Callees read in C: `level_difficulty` (`hacklib`), `rnd`/`rn2` (`rng`), `single_level_branch` (`dungeon.c` — Is_knox only), `Inhell` (`dungeon.h:140` ≡ `In_hell(&u.uz)` ≡ dungeon hellish flag, `dungeon.c:1942–1946`).
+- **JS was:** `js/mklev.js:30553` local `traptype_rnd` — LEVEL_TELEP `:30564` checked only `lvl < 5 || noteleport` with the Knox gate deferred; FIRE_TRAP inlined `game.dungeons?.[dnum]?.flags?.hellish` (semantically identical to C, verified against `dungeon.c:1942`, but a clone of the live export).
+- **Fix:** `js/mklev.js` only — LEVEL_TELEP arm → `lvl < 5 || noteleport || single_level_branch(game.u?.uz)` in C short-circuit order (C `:1961–1965`); FIRE_TRAP arm → live `Inhell()` (C `:1974–1977`); both names join the existing `./teleport.js` static import (`imports.mjs --can` ALREADY, no new edge — same pattern as the sibling `random_teleport_level` consumer). No DIAG/FORCE/seed gates; Rule #2 clean.
+- **JS:** `js/mklev.js:120` (import), `:30553–30591` (`traptype_rnd`; LEVEL_TELEP `:30565–30568`, FIRE_TRAP `:30579–30584`).
+- **Callers:** C `:2075` → JS `mktrap` `js/mklev.js:30757` (`kind = traptype_rnd(mktrapflags)`, pre-existing wiring, unchanged). Other JS call sites are pre-existing routing outside this row's C caller table (C routes des-traps through `mktrap`, `sp_lev.c:1845`): `load_pri_loca` (`:6355`), `load_tou_loca` (`:9951`), `load_tou_goal` (`:10134`), `load_tower3` (`:13038`) `do/while NO_TRAP` loops mirroring C's `mktrap` retry shape, `splev_create_trap` (`:21108`), `splev_room_trap` (`:21270`) — untouched.
+- **Verify:** `node scripts/verify.mjs --fn traptype_rnd --reach-all` → PASS syntax (1 changed: js/mklev.js) · PASS rule2 · note hidden (no corpus session blocked) · PASS reach (377 baseline-PASS sessions reach it, 377 run, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) → VERIFY: PASS.
+- **Named omissions:** none — whole body ported; every callee live (`level_difficulty` `js/hacklib.js:96`, `rnd`/`rn2` `js/rng.js:97/:89`, `single_level_branch`/`Inhell` `js/teleport.js:2231/:2241`).
+- **Next:** queue head moves past traptype_rnd; refill `@D-2716` found the `--rows 600` pool exhausted (524 known dupes vs live queue + DONE + PARKED; 76 machine-fresh all class-deferred on eyeball: optfn_/handler_/parse_conf/rcfile options-config, sfo_/sfi_ save-infra, coloratt/sound/glyphs/status_hilite customization, wizcmds-debug, fopen_config_file file-infra) — nothing appended, queue holds 0 coverage + 3 residuals.
+
 ## D-2715 — `lock.c` autokey whole C body (quest-artifact ranking + magic-key displacement)
 
 - **Status:** fixed (coverage row: THIN C 55 L `lock.c:289–344` / JS 17 L; no corpus session blocked).

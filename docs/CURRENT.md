@@ -46,7 +46,7 @@ screens 93.2 %. Held-out 12/44, +0 vs last audit (5,976 / 11,265 pts, RNG
 this window — the corpus still does not predict the judge.
 **Corpus fortress** (re-scored 2026-09-21 audit 1665–1673): **498 / 540
 PASS (92.2 %)** excl. 13 env-only; RNG 99.32 %, screens 99.1 % — **+1 / −0**
-in the D-2706…D-2715 window (9 ACCEPT; +1 is scen-normal-Wizard-92127
+in the D-2706…D-2716 window (9 ACCEPT; +1 is scen-normal-Wizard-92127
 moved PASS by D-2714;
 every per-SHA `--reach-all` re-run here ends REACH-OK with no REGRESSED).
 Reviews 1225–1673: 402 ACCEPT, 17 WITH-DEBT, 1 DEBT, 24 QUALITY-RISK (1503, 1517, 1520 stamped; Must-fix 1533/1536 → D-2583/D-2584, 1568 → D-2610, 1592 → D-2636 `271ceca1`, 1617 → magic_negation floor Must-fix (addressed D-2661, review 1620 ACCEPT); 1654 → sel_set_door wiring Must-fix (addressed D-2697, review 1656 ACCEPT); hashes filled).
@@ -100,10 +100,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `lock.c` autokey — coverage THIN (C 55 L `lock.c:289–344` / JS 17 L in js/lock.js; hops 4, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn autokey` (reach regression must be 0). Measured `port-coverage.mjs --name autokey` 2026-09-21 @ 0b705b5f. — blocks 1/553 (scen-normal-Wizard-92127 step 101/114 kind=rng flat#3271: C `rn2(5)=3`@distfleeck vs JS `rnl(20)=3`@doopen_indir, prev moveloop_core matched; JS-extra-single-draw proven; C step 18 draws; MEASURED D-2420 vs JS probe). Fix: the open-action RNG gate in C order. Verify `node scripts/verify.mjs --fn distfleeck` (recorded owner: expect Wizard → PASS or later owner). Do not re-port `distfleeck`. **Addressed:** D-2714
+**Next cluster:** `mklev.c` traptype_rnd — coverage PARTIAL (C 60 L `mklev.c:1938–1998` / JS 36 L in js/mklev.js; hops —, callers 0, RNG 2, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn traptype_rnd` (reach regression must be 0). Measured `port-coverage.mjs --name traptype_rnd` 2026-09-21 @ 0b705b5f.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2715 (index).**
+**Keep D-0845…D-2716 (index).**
 <!-- recent:begin -->
+**D-2716** `nethack-c/upstream/src/mklev.c:1938–1998` (body in C order: `lvl = level_difficulty()`, ` — `js/mklev.js` only — LEVEL_TELEP arm → `lvl < 5 || noteleport || single_level_branch(game.u?.uz)` in C short-circuit order (C `:1961–1965`); FIRE_TRAP arm → live `Inhell()` (C `:1974–1977`); both names join the existing 
 **D-2715** `lock.c:289–344` (body in C order); callers `:881` (doopen_indir autounlock APPLY_KEY) + ` — restarted `autokey` from C — akey/apick/acard split for other-role quest artifacts, `is_magic_key(game.youmonst, o)` displacement, `!opening` drops card+acard, C-order fallbacks (`!key&&!pick&&!card→key=akey`, `!pick&&!c
 **D-2714** `invent.c:4248` (no-object `!!Blind ? ECMD_TIME : ECMD_OK`), `:4216` (can't-reach `ECMD_OK — `js/invent.js` only — `ECMD_TIME` joins the existing `./const.js` import (`imports.mjs --can` ALREADY, no new edge); can't-reach arm → `return ECMD_OK` (C `:4216`); no-object/skip/single/multi-falloff arms → `return blin
 **D-2713**  — 
@@ -111,11 +112,10 @@ revisits the picker.
 **D-2711**  — 
 **D-2710**  — 
 **D-2709**  — 
-**D-2708**  — 
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2715; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2716; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

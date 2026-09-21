@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-21
 
-- [x] `lock.c` autokey — coverage THIN (C 55 L `lock.c:289–344` / JS 17 L in js/lock.js; hops 4, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn autokey` (reach regression must be 0). Measured `port-coverage.mjs --name autokey` 2026-09-21 @ 0b705b5f. **Addressed:** D-2715
+- [x] `mklev.c` traptype_rnd — coverage PARTIAL (C 60 L `mklev.c:1938–1998` / JS 36 L in js/mklev.js; hops —, callers 0, RNG 2, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn traptype_rnd` (reach regression must be 0). Measured `port-coverage.mjs --name traptype_rnd` 2026-09-21 @ 0b705b5f. **Addressed:** D-2716
+
+
+- [x] `lock.c` autokey — coverage THIN (C 55 L `lock.c:289–344` / JS 17 L in js/lock.js; hops 4, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn autokey` (reach regression must be 0). Measured `port-coverage.mjs --name autokey` 2026-09-21 @ 0b705b5f. **Addressed:** D-2715 `2a3c61e5`
 
 
 - [x] `doopen_indir` extra rnl Wizard (D-2420 W5) — blocks 1/553 (scen-normal-Wizard-92127 step 101/114 kind=rng flat#3271: C `rn2(5)=3`@distfleeck vs JS `rnl(20)=3`@doopen_indir, prev moveloop_core matched; JS-extra-single-draw proven; C step 18 draws; MEASURED D-2420 vs JS probe). Fix: the open-action RNG gate in C order. Verify `node scripts/verify.mjs --fn distfleeck` (recorded owner: expect Wizard → PASS or later owner). Do not re-port `distfleeck`. **Addressed:** D-2714 `70a4bf39`

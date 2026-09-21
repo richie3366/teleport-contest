@@ -117,7 +117,7 @@ import { mk_mplayer } from './mplayer.js';
 import { can_saddle, put_saddle_on_mon, remove_monster } from './steed.js';
 import { unplacebc_and_covet_placebc, lift_covet_and_placebc } from './ball.js';
 import { m_at, mnearto, mnexto, elemental_clog, seemimic, minliquid, dmonsfree, discard_minvent, mdrop_special_objs } from './mon.js';
-import { enexto, rloc, goodpos, migrate_to_level } from './teleport.js';
+import { enexto, rloc, goodpos, migrate_to_level, single_level_branch, Inhell } from './teleport.js';
 import { clear_wormdata, flip_worm_segs_horizontal, flip_worm_segs_vertical, remove_worm } from './worm.js';
 import { obj_resists } from './dogmove.js';
 import {
@@ -30551,7 +30551,8 @@ export function mazexy(cc) {
 // ============================================================
 
 function traptype_rnd(mktrapflags = 0) {
-    // C ref: mklev.c traptype_rnd — uses level_difficulty(), not dunlev
+    // C ref: mklev.c:1938-1998 traptype_rnd, whole body in C order —
+    // lvl = level_difficulty(), kind = rnd(TRAPNUM-1), per-kind NO_TRAP arms
     const lvl = level_difficulty();
     let kind = rnd(TRAPNUM - 1);
     switch (kind) {
@@ -30562,8 +30563,9 @@ function traptype_rnd(mktrapflags = 0) {
     case ROLLING_BOULDER_TRAP: case SLP_GAS_TRAP:
         if (lvl < 2) kind = NO_TRAP; break;
     case LEVEL_TELEP:
-        // single_level_branch (Knox) deferred — ordinary/quest branches false
-        if (lvl < 5 || game.level?.flags?.noteleport) kind = NO_TRAP; break;
+        // C mklev.c:1961-1965: lvl < 5 || noteleport || single_level_branch
+        if (lvl < 5 || game.level?.flags?.noteleport
+            || single_level_branch(game.u?.uz)) kind = NO_TRAP; break;
     case SPIKED_PIT:
         if (lvl < 5) kind = NO_TRAP; break;
     case LANDMINE:
@@ -30575,8 +30577,9 @@ function traptype_rnd(mktrapflags = 0) {
     case STATUE_TRAP: case POLY_TRAP:
         if (lvl < 8) kind = NO_TRAP; break;
     case FIRE_TRAP:
-        // C: if (!Inhell) kind = NO_TRAP — allow fire traps in Gehennom
-        if (!game.dungeons?.[game.u?.uz?.dnum | 0]?.flags?.hellish)
+        // C mklev.c:1974-1977: if (!Inhell) — dungeon.h:140 In_hell(&u.uz)
+        // reads the dungeon hellish flag (dungeon.c:1942-1946)
+        if (!Inhell())
             kind = NO_TRAP;
         break;
     case TELEP_TRAP:

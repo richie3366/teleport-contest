@@ -33,6 +33,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-21 — D-2716 `mklev.c` traptype_rnd whole C body (LEVEL_TELEP Knox gate + live Inhell)
+
+**C locus:** `nethack-c/upstream/src/mklev.c:1938–1998` (body in C order: `lvl = level_difficulty()`, `kind = rnd(TRAPNUM-1)`, 12 switch arms); sole C caller `:2075` (`mktrap` `do/while NO_TRAP` retry loop); declaration `:32`. Callees read in C: `level_difficulty` (`hacklib`), `rnd`/`rn2` (`rng`), `single_level_branch` (`dungeon.c` — Is_knox only), `Inhell` (`dungeon.h:140` ≡ `In_hell(&u.uz)` ≡ dungeon hellish flag, `dungeon.c:1942–1946`).
+**JS:** `js/mklev.js:120` (import), `:30553–30591` (`traptype_rnd`; LEVEL_TELEP `:30565–30568`, FIRE_TRAP `:30579–30584`).
+**Change:** `js/mklev.js` only — LEVEL_TELEP arm → `lvl < 5 || noteleport || single_level_branch(game.u?.uz)` in C short-circuit order (C `:1961–1965`); FIRE_TRAP arm → live `Inhell()` (C `:1974–1977`); both names join the existing `./teleport.js` static import (`imports.mjs --can` ALREADY, no new edge — same pattern as the sibling `random_teleport_level` consumer). No DIAG/FORCE/seed gates; Rule #2 clean.
+**Verify:** `node scripts/verify.mjs --fn traptype_rnd --reach-all` → PASS syntax (1 changed: js/mklev.js) · PASS rule2 · note hidden (no corpus session blocked) · PASS reach (377 baseline-PASS sessions reach it, 377 run, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) → VERIFY: PASS.
+**Named:** none — whole body ported; every callee live (`level_difficulty` `js/hacklib.js:96`, `rnd`/`rn2` `js/rng.js:97/:89`, `single_level_branch`/`Inhell` `js/teleport.js:2231/:2241`).
+**Next:** queue head moves past traptype_rnd; refill `@D-2716` found the `--rows 600` pool exhausted (524 known dupes vs live queue + DONE + PARKED; 76 machine-fresh all class-deferred on eyeball: optfn_/handler_/parse_conf/rcfile options-config, sfo_/sfi_ save-infra, coloratt/sound/glyphs/status_hilite customization, wizcmds-debug, fopen_config_file file-infra) — nothing appended, queue holds 0 coverage + 3 residuals.
 ## 2026-09-21 — D-2715 `lock.c` autokey whole C body (quest-artifact ranking + magic-key displacement)
 
 **C locus:** `lock.c:289–344` (body in C order); callers `:881` (doopen_indir autounlock APPLY_KEY) + `pickup.c:2122` (box autounlock); declaration `extern.h:1442`. Callees: `any_quest_artifact` (`obj.h:271` macro `oartifact >= ART_ORB_OF_DETECTION`), `is_quest_artifact` (`questpgr.c:67`), `is_magic_key` (`artifact.c:2774–2786`).
