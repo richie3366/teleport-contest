@@ -46,7 +46,7 @@ screens 93.2 %. Held-out 12/44, +0 vs last audit (5,976 / 11,265 pts, RNG
 this window — the corpus still does not predict the judge.
 **Corpus fortress** (re-scored 2026-09-21 audit 1674–1682): **500 / 540
 PASS (92.6 %)** excl. 13 env-only; RNG 99.37 %, screens 99.4 % — **+2 / −0**
-in the D-2715…D-2738 window (8 ACCEPT + 1 WITH-DEBT; +2 are
+in the D-2715…D-2739 window (8 ACCEPT + 1 WITH-DEBT; +2 are
 scen-poly-Caveman-92202 moved PASS by D-2721 and scen-wish-Healer-92092
 moved PASS by D-2720;
 every per-SHA `--reach-all` re-run here ends REACH-OK with no REGRESSED).
@@ -101,10 +101,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `polyself.c` newman — refilled 9 tool-verbatim coverage rows this iter (no DONE-coverage/PARKED-own-row/Stale each; xname_flags parked STALE) — ship newman whole body, then archive.
+**Next cluster:** `hack.c` moverock_core — coverage PARTIAL (C 290 L `hack.c:348–638` / JS 138 L in js/hack.js; hops 4, callers 1, RNG 1, msg 14; dead callees: rock_disappear_msg). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn moverock_core` (reach regression must be 0). Measured `port-coverage.mjs --name moverock_core` 2026-09-21 @ e975f7583.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2738 (index).**
+**Keep D-0845…D-2739 (index).**
 <!-- recent:begin -->
+**D-2739** `nethack-c/upstream/src/hack.c:348–638` (`:358–363` Blind feel; `:365–372` next_boulder; ` — `js/trap.js` — exported `blow_up_landmine` + `launch_obj` (same-SCC edge, no new module edge: hack.js already imports trap.js).
 **D-2738** `nethack-c/upstream/src/polyself.c:414–466` (`:415–416` Sick→make_sick; `:417–418` Stoned→ — `js/polyself.js` only (no new cross-module edge — `Your` joins the existing display.js import, runtime-called like `You`/`pline` per the imports check; `LL_MINORAC` joins the const.js import): module-local `newman_dead_e
 **D-2737** `lspo_map :6075–6319` (`:6099` coder; `:6101–6102` themeroom-fail return; `:6105–6130` str — `js/mklev.js` only, after `lspo_room` (same-file locals throughout — no new cross-module edge): file-local `sel_set_lit` (C staticfn shape, numeric lit), `mapfrag_error` (NULL/odd/center arms, truncating center index), `
 **D-2736** `nethack-c/upstream/src/sp_lev.c:4397–4470` (`:4402` create_des_coder; `:4404–4406` defaul — `js/mklev.js` only (same-file locals — no new cross-module edge; `maketrap` already imported from `./trap.js`): `LSPO_TRAPTYPES` table (C `:4322–4347`); file-local `lspo_traptype_byname` (C staticfn shape, strcmpi → lowe
@@ -112,11 +113,10 @@ revisits the picker.
 **D-2734** `nethack-c/upstream/src/do.c:893–920` (`:895–896` null return; `:897–902` `Has_contents` c — `js/mkobj.js` only — module-local `place_object_no_longer_held` replicating do.c:893–920 in C order (`Has_contents` joins the existing const.js import; `rn2` the rng.js edge; `game.context?.mon_moving` / `game.program_st
 **D-2733** `nethack-c/upstream/src/invent.c:2750–2775` — restarted `learn_unseen_invent` in C order as `export async function` (async: live `addinv_core2` awaits pline on its decipher arm): role gates via the same-file `urole.mnum` convention (`PM_CLERIC` already imported; `PM
 **D-2732** `nethack-c/upstream/src/mkobj.c:2305–2366` — `js/mkobj.js` only — restarted `place_object` in C order with per-arm cites: isok gate (OOB throws — no live JS panic export, mklev.js:19190 precedent; x=0 warns via floating impossible(), do_wear.js:619 precedent, then 
-**D-2731** `nethack-c/upstream/src/questpgr.c:468–621` — `js/questpgr.js` only — restarted `com_pager_core` in C order with per-arm cites: entry-miss → silent FALSE; rawtext arm before the array arm (`rawOut.text = text`, TRUE even when null); array arm via new `QUEST_CUSS_ARR
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2738; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2739; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

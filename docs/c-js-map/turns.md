@@ -1505,7 +1505,7 @@ test_move`/`moverock` / `timeout.c` `fall_asleep` / `pickup.c`
 
 JS: `js/hack.js`, `js/pickup.js`, `js/cmd.js`, `js/mon.js`, `js/monmove.js` — partial
 
-**`domove` `u_rooted` when `youmonst.data.mmove==0`** (brown mold etc.; 
+**`moverock_core` whole-body port** (D-2739; C `hack.c:348–638` per-arm cites; local `rock_disappear_msg` `:315–324` + `Deaf_mr` youprop idiom; `dopush` costly + `:220–243` bill arms; trap.js `blow_up_landmine`/`launch_obj` exported live, no new module edge; caller C `:342`→js/hack.js `moverock` + `moverock_done`, unchanged; named: unmap_object trap/engr arms); **`domove` `u_rooted` when `youmonst.data.mmove==0`** (brown mold etc.; 
 spend turn, no step) (D-0928 #1106; Is_airlevel/Is_waterlevel "in place" deferred — Levitation 
 alone); **`domove_core` ParanoidTrap → `avoid_trap_andor_region`** (D-1187; 
 C `hack.c:2515–2581` / `:2825–2828` after rooted before `u.utrap`; 
