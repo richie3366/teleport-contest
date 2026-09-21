@@ -355,7 +355,7 @@ simple_typename (C safe_typename async in JS); `:2325–2327` not-free throws
 `:2332–2351` boulder gate + under-last-boulder threading; `:2353–2356`
 ox/oy/OBJ_FLOOR; `:2358–2361` no_charge lapse via live shk.js
 costly_spot/costly_adjacent/find_objowner; `:2363–2366` fobj chain + timed;
-named: `:2330` obj_no_longer_held (async costly_alteration chain — own row);
+`:2330` obj_no_longer_held live (D-2734: sync core `place_object_no_longer_held` — do.c:893–920 in C order, COST_DEGRD billing floated void);
 `!otmp` guard kept (C NONNULLARG1); `_objects_at` Map stands in for
 svl.level.objects); **`clear_dknown` in `mksobj` (dknowns[] + shield-range)** (D-0292); 
 **`Is_pudding`/`globby` mksobj init + `obj_nexto_xy`/`obj_absorb`/`obj_meld`/`pudding_merge_message`

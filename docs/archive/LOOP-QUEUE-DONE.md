@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-21
 
+- [x] `mkobj.c` place_object obj_no_longer_held arm — missing arm: C `mkobj.c:2330` obj_no_longer_held(otmp) (Has_contents recursion + CRYSKNIFE costly_alteration/revert, do.c:893–920) absent from js/mkobj.js place_object (named omit in the c-js-map data.md place_object line + the top divergence-log entry; async costly_alteration chain blocks a sync port — 91 sites in 32 files; both bodies read via `brief.mjs place_object` 2026-09-21 @ addccb0a7, no DONE/PARKED/live hit). Port the arm — every callee live or named in the map, every affected caller wired. Verify `node scripts/verify.mjs --fn place_object` (reach regression must be 0). **Addressed:** D-2734
+
+
 - [x] `invent.c` learn_unseen_invent — missing arm: C `invent.c:2750–2775` cleric-bknown + archeologist-scroll skip gates, per-item `addinv_core2` and `invupdated`/`update_inventory` tail — C `invent.c:2750–2775` absent from js/invent.js:3176 (Blind gate + dknown-only skip + observe_object only; both bodies read via `brief.mjs learn_unseen_invent` 2026-09-21 @ 6fc07aef5, no DONE/PARKED/live hit). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn learn_unseen_invent` (reach regression must be 0).
 
 

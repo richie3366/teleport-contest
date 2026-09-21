@@ -74,13 +74,14 @@ import {
     In_quest, SPINACH_TIN, RANDOM_TIN,
     BURIED_TOO,
     NOBJ_STATES, ARTICLE_A, EXACT_NAME,
+    COST_DEGRD,
 } from './const.js';
 import { set_tin_variety, eating_glob } from './eat.js';
 import { set_moreluck } from './attrib.js';
 import { recalc_block_point, cansee } from './vision.js';
 import { del_light_source, discard_flashes, obj_sheds_light, obj_adjust_light_radius } from './light.js';
 import { arti_light_radius, get_obj_location, obj_split_light_source, Is_candle, obj_merge_light_sources } from './timeout.js';
-import { obfree, splitbill, same_price, globby_bill_fixup, costly_spot, costly_adjacent, find_objowner } from './shk.js';
+import { obfree, splitbill, same_price, globby_bill_fixup, costly_spot, costly_adjacent, find_objowner, costly_alteration } from './shk.js';
 import { hands_obj, MON_WEP, setmnotwielded } from './weapon.js';
 /* C invent.c merged `:878–913` worn-slot fixup (imports.mjs --can SAFE,
    hoisted cycle-safe, same 96-module SCC). */
@@ -110,6 +111,8 @@ const CANDELABRUM_OF_INVOCATION =
     objectNames.indexOf('CANDELABRUM_OF_INVOCATION');
 const TALLOW_CANDLE = objectNames.indexOf('TALLOW_CANDLE');
 const BOULDER = objectNames.indexOf('BOULDER');
+const CRYSKNIFE = objectNames.indexOf('CRYSKNIFE');
+const WORM_TOOTH = objectNames.indexOf('WORM_TOOTH');
 const LEASH = objectNames.indexOf('LEASH');
 const SLIME_MOLD = objectNames.indexOf('SLIME_MOLD');
 const HEAVY_IRON_BALL = objectNames.indexOf('HEAVY_IRON_BALL');
@@ -2445,6 +2448,37 @@ export function mkobj_at(oclass, x, y, artif) {
     return otmp;
 }
 
+// C ref: do.c obj_no_longer_held `:893–920` — sync core for the
+// place_object `:2330` arm (D-2734). The live export (do.js:690) is async
+// over the costly_alteration await chain and cannot be awaited here (91
+// sync call sites in 32 files), so the C body is replicated in C order:
+// null return; Has_contents (cobj non-null) recursion over the cobj/nobj
+// chain; CRYSKNIFE arm with `!oerodeproof || !rn2(10)` short-circuit
+// (a normal crysknife draws no RNG; a fixed one draws one rn2(10)). The
+// `!mon_moving && !gameover` costly_alteration(COST_DEGRD) runs in C
+// position, before the revert, floated (void — invent.js:652 precedent;
+// its sync prefix returns before the first await unless obj is unpaid
+// shop goods, shk.js:2288); then otyp=WORM_TOOTH + oerodeproof=0.
+function place_object_no_longer_held(obj) {
+    if (!obj) return; // C `:895–896`
+    if (Has_contents(obj)) { // C `:897–902` — else-if ≡ sequential if after return
+        for (let contents = obj.cobj; contents; contents = contents.nobj)
+            place_object_no_longer_held(contents);
+    }
+    if ((obj.otyp | 0) === CRYSKNIFE) { // C `:904–919`
+        // C comment: a normal crysknife reverts to worm tooth when no
+        // longer held; a fixed one reverts with 10% chance; no stack
+        // splitting here either.
+        if (!obj.oerodeproof || !rn2(10)) {
+            // C `:913–914`
+            if (!game.context?.mon_moving && !game.program_state?.gameover)
+                void costly_alteration(obj, COST_DEGRD);
+            obj.otyp = WORM_TOOTH;
+            obj.oerodeproof = 0;
+        }
+    }
+}
+
 // C ref: mkobj.c place_object `:2305–2366` — whole body in C order (D-2732).
 export function place_object(otmp, x, y) {
     if (!otmp) return; // pre-existing JS guard; C NONNULLARG1 (extern.h:1709)
@@ -2471,9 +2505,10 @@ export function place_object(otmp, x, y) {
     // C `:2329` assert() is debug-only — dropped (no asserts in js/).
     if (!game._objects_at) game._objects_at = new Map();
     const key = `${x},${y}`;
-    // C `:2330` obj_no_longer_held(otmp) — NAMED OMISSION (map): async in
-    // JS (costly_alteration await chain — do.js:690); awaiting it here
-    // would force async across 91 sites in 32 files. Follow-up row.
+    // C `:2330` obj_no_longer_held(otmp) — sync core above (do.c:893–920
+    // in C order); the live async export (do.js:690) stays for its awaited
+    // callers (apply whip, throwit landing, bones drop_upon_death).
+    place_object_no_longer_held(otmp);
     let otmp2 = game._objects_at.get(key) || null;
     // C `:2332–2336` — boulder vision gate before threading; JS rebuilds
     // via recalc_block_point after place (D-0270 pattern, kept).
