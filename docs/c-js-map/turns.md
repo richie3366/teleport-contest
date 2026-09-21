@@ -3960,7 +3960,7 @@ cmd `p`; **D-0928 #1182:** `dopay` `canspotmon` seensk + Blind/`Blind_telepat` +
 **D-0462:** `money2mon` decrements `game._goldCount` (JS botl `$:` cache; C `money_cnt`); 
 **D-0460:** `get_cost_of_shop_item`/`doname_with_price` + C-shaped `inside_shop` roomno; 
 **D-0461:** `is_unpaid`/`unpaid_cost`/`count_unpaid` + doname unpaid + 
-`paydoname` in pay menu/`dopayobj`; **D-1684:** `pay_billed_items`
+`paydoname` in pay menu/`dopayobj`; **D-2711:** `unpaid_cost` `:3260–3305` whole-body restart (impossible arm + quan, `#if 0` search compiled out) + `dog_eat` `:264–265/:296–299/:332–337` arms wired; **D-1684:** `pay_billed_items`
 via_menu always `menu_pick_pay_items` (deleted invented
 `pay_take_canned_billed`; leftover IA_BUY_OBJ KEY is next `rhack`
 `cmd.c:3642–3651`); **D-1688:** `cheapest_item` `:1521–1539` min

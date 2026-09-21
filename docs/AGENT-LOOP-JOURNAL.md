@@ -18,6 +18,13 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-21 — D-2711 `shk.c` unpaid_cost whole-body restart (impossible arm + quan) + dog_eat caller wired
+
+**C locus:** 
+**JS:** 
+**Change:** 
+**Verify:** 
+**Next:** (see LOOP-QUEUE)
 ## 2026-09-21 — D-2710 `sp_lev.c` lspo_drawbridge/lspo_gold/lspo_room/lspo_finalize_level entries live (unpacked-opts) + build_room/spo_endroom/count_level_features
 
 **C locus:** 

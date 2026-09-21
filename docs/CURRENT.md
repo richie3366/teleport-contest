@@ -46,7 +46,7 @@ screens 93.2 %. Held-out 12/44, +0 vs last audit (5,976 / 11,265 pts, RNG
 this window — the corpus still does not predict the judge.
 **Corpus fortress** (re-scored 2026-09-21 audit 1656–1664): **497 / 540
 PASS (92.0 %)** excl. 13 env-only; RNG 99.31 %, screens 99.1 % — **+0 / −0**
-in the D-2697…D-2710 window (9 ACCEPT;
+in the D-2697…D-2711 window (9 ACCEPT;
 every per-SHA `--reach-all` re-run here ends REACH-OK with no REGRESSED).
 Reviews 1225–1664: 393 ACCEPT, 17 WITH-DEBT, 1 DEBT, 24 QUALITY-RISK (1503, 1517, 1520 stamped; Must-fix 1533/1536 → D-2583/D-2584, 1568 → D-2610, 1592 → D-2636 `271ceca1`, 1617 → magic_negation floor Must-fix (addressed D-2661, review 1620 ACCEPT); 1654 → sel_set_door wiring Must-fix (addressed D-2697, review 1656 ACCEPT); hashes filled).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`) — review-debt, unqueued (detail in the review files).
@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `sp_lev.c` lspo_drawbridge + same-file lspo_gold/lspo_room/lspo_finalize_level — coverage MISSING (C 43+42+88+50 L / JS no symbol; callers 0/0/0/1, RNG 1/1/0/0, msg 0). Port the whole C bodies in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn <each>` (reach regression must be 0). Measured `port-coverage.mjs --name` 2026-09-21 @ 6f93ac06/c3da9d13. (`spell.c` sortspells row parked STALE this iteration: body complete js/spell.js:1433, caller dovspell wired.)
+**Next cluster:** `shk.c` unpaid_cost — coverage PARTIAL (C 43 L `shk.c:3260–3305` / JS 23 L in js/shk.js; hops 4, callers 8, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn unpaid_cost` (reach regression must be 0). Measured `port-coverage.mjs --name unpaid_cost` 2026-09-21 @ c3da9d13.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2710 (index).**
+**Keep D-0845…D-2711 (index).**
 <!-- recent:begin -->
+**D-2711**  — 
 **D-2710**  — 
 **D-2709**  — 
 **D-2708**  — 
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2706**  — 
 **D-2705**  — 
 **D-2704**  — 
-**D-2703**  — 
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2710; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2711; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

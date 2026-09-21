@@ -1018,22 +1018,31 @@ export function is_unpaid(obj) {
 }
 
 /**
- * C ref: shk.c unpaid_cost — bill price for unpaid invent / contents.
- * Named omissions: impossible() when unpaid but not on bill.
+ * C ref: shk.c unpaid_cost `:3260–3305` — bill price for an unpaid object.
+ * Walks u.ushops in order; per shop with a live shopkeeper, onbill()
+ * supplies bp and amt = bp->price (*= quan unless COST_SINGLEOBJ —
+ * glob weight already sits in the price, hence quan not
+ * get_pricing_units); COST_CONTENTS with contents folds in
+ * contained_cost(). Breaks on bp, or on amt for a paid object.
+ * Sync: impossible() is fire-and-forget (as in same_price below).
+ * The `#if 0` get_obj_location/in_rooms/next_shkp search is compiled
+ * out in C, so those callees stay unwired here.
  */
 export function unpaid_cost(unp_obj, cost_type) {
-    let amt = 0;
-    let shkp = null;
     let bp = null;
+    let shkp = null;
+    let amt = 0;
+    // C: for (shop = u.ushops; *shop; shop++)
     const ushops = game.u?.ushops || '';
     for (let i = 0; i < ushops.length; i++) {
+        // C: if ((shkp = shop_keeper(*shop)) != 0)
         shkp = shop_keeper(ushops.charCodeAt(i));
         if (!shkp) continue;
         bp = onbill(unp_obj, shkp, true);
         if (bp) {
             amt = bp.price | 0;
             if (cost_type !== COST_SINGLEOBJ) {
-                amt *= (unp_obj.quan | 0) || 1;
+                amt *= (unp_obj.quan | 0);
             }
         }
         if (cost_type === COST_CONTENTS && Has_contents(unp_obj)) {
@@ -1041,7 +1050,10 @@ export function unpaid_cost(unp_obj, cost_type) {
         }
         if (bp || (!unp_obj.unpaid && amt)) break;
     }
-    // C: if (!shkp || (unp_obj->unpaid && !bp)) impossible(...);
+    // C: onbill() gave no message if unexpected problem occurred
+    if (!shkp || (unp_obj.unpaid && !bp)) {
+        impossible("unpaid_cost: object wasn't on any bill.");
+    }
     return amt;
 }
 
