@@ -1597,7 +1597,7 @@ needs_unlit `rm.lit==false`; callee D-1533 `o->lit` `begin_burn`; not
 y-outer; Ice `set_levltyp` ICE + `percent(25)` `nhl_start_timer_at` melt-ice;
 Boulder `percent(50)` boulder vs rolling-boulder trap; Spider `difficulty>8`
 `and percent(80)` spider_on_web; Trap shuffle eight kinds then `traps[1]`;
-`splev_create_trap_coord` `get_free_room_loc` + `mktrap` tm); **Kni-goal** (D-0928 #1134) + **Kni-strt/loca/fila/filb** (D-1829; Camelot
+`splev_create_trap_coord` `get_free_room_loc` + `mktrap` tm); **D-2736 `lspo_trap` des.trap binding + `create_trap`** (`sp_lev.c:4397–4470` + `:1812–1846`; `js/mklev.js` unpacked `lspo_trap`/`create_trap` + file-local `lspo_traptype_byname`/`lspo_traptype_opt` + `LSPO_TRAPTYPES` table; string/coord-pair/triple/table dispatch, NO_TRAP throw, teledest-wins launchplace + reset, vib arm, STAIRS/LADDER retry; named: Lua argc dispatch, lcheck_param_table, nhl_push_obj count); **Kni-goal** (D-0928 #1134) + **Kni-strt/loca/fila/filb** (D-1829; Camelot
 mines-kludge + Isle of Glass swamp mines + fillers); **Rog-strt/loca/goal/fila/filb** (D-1830; Rogue quest 5/5:
 shuffle-exit mimics `S_dnstair` + floodfill streets + Master Key);
 **Val-strt/loca/goal/fila/filb** (D-1852; Valkyrie quest 5/5: lava-ringed ice

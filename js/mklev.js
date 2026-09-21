@@ -1129,6 +1129,154 @@ export function lspo_gold(a, b, c) {
     return 0;
 }
 
+// C ref: sp_lev.c trap_types static table `:4322–4347`.
+const LSPO_TRAPTYPES = [
+    ['arrow', ARROW_TRAP], ['dart', DART_TRAP],
+    ['falling rock', ROCKTRAP], ['board', SQKY_BOARD],
+    ['bear', BEAR_TRAP], ['land mine', LANDMINE],
+    ['rolling boulder', ROLLING_BOULDER_TRAP],
+    ['sleep gas', SLP_GAS_TRAP], ['rust', RUST_TRAP],
+    ['fire', FIRE_TRAP], ['pit', PIT], ['spiked pit', SPIKED_PIT],
+    ['hole', HOLE], ['trap door', TRAPDOOR], ['teleport', TELEP_TRAP],
+    ['level teleport', LEVEL_TELEP], ['magic portal', MAGIC_PORTAL],
+    ['web', WEB], ['statue', STATUE_TRAP], ['magic', MAGIC_TRAP],
+    ['anti magic', ANTI_MAGIC], ['polymorph', POLY_TRAP],
+    ['vibrating square', VIBRATING_SQUARE], ['random', -1],
+];
+
+/**
+ * C ref: sp_lev.c get_traptype_byname `:4379–4389` (staticfn) — strcmpi
+ * over trap_types; no match is NO_TRAP (C `:4388`).
+ */
+function lspo_traptype_byname(trapname) {
+    const want = String(trapname).toLowerCase();
+    for (const [nm, typ] of LSPO_TRAPTYPES) {
+        if (want === nm) return typ;
+    }
+    return NO_TRAP;
+}
+
+/**
+ * C ref: sp_lev.c get_table_traptype_opt `:4350–4364` — empty/missing
+ * "type" field yields defval; a non-matching name also yields defval
+ * (C `:4355–4362` keeps res); only a table match overrides.
+ */
+function lspo_traptype_opt(o, defval) {
+    const s = o.type;
+    if (s == null || s === '') return defval; // C :4355 emptystr default
+    const want = String(s).toLowerCase();
+    for (const [nm, typ] of LSPO_TRAPTYPES) {
+        if (want === nm) return typ; // C :4357-4360
+    }
+    return defval;
+}
+
+/**
+ * C ref: sp_lev.c create_trap `:1812–1846` — VIBRATING_SQUARE arm resolves
+ * via pick_vibrasquare_location + maketrap at svi.inv_pos like C
+ * `:1819–1823`; croom arm takes get_free_room_loc_coord like C `:1824`
+ * (unpacked twin of get_free_room_loc with t->coord); else the DRY
+ * get_location_coord loop skipping STAIRS/LADDER up to 100 tries like C
+ * `:1826–1835` (C `(A || B) && ++trycnt <= 100` order kept verbatim).
+ * Flags start MKTRAP_MAZEFLAG like C `:1816`; mktrap takes NULL croom
+ * and the tm coord like C `:1844`.
+ */
+export function create_trap(tmp, croom) {
+    const t = tmp ?? {};
+    let mktrap_flags = MKTRAP_MAZEFLAG; // C :1816
+    if (t.type === VIBRATING_SQUARE) { // C :1819-1823
+        pick_vibrasquare_location();
+        const ip = game.svi?.inv_pos ?? { x: 0, y: 0 };
+        maketrap(ip.x | 0, ip.y | 0, VIBRATING_SQUARE);
+        return;
+    }
+    let x, y;
+    if (croom) { // C :1824-1825
+        const pos = get_free_room_loc_coord(croom, t.rx ?? -1, t.ry ?? -1);
+        x = pos.x;
+        y = pos.y;
+    } else { // C :1826-1835
+        let trycnt = 0;
+        do {
+            const pos = get_location_coord(DRY, croom, t.rx ?? -1, t.ry ?? -1);
+            x = pos.x;
+            y = pos.y;
+        } while ((game.level?.at(x, y)?.typ === STAIRS
+            || game.level?.at(x, y)?.typ === LADDER) && ++trycnt <= 100);
+        if (trycnt > 100) return; // C :1834-1835
+    }
+    if (!t.spider_on_web) mktrap_flags |= MKTRAP_NOSPIDERONWEB; // C :1837-1838
+    if (t.seen) mktrap_flags |= MKTRAP_SEEN; // C :1839-1840
+    if (t.novictim) mktrap_flags |= MKTRAP_NOVICTIM; // C :1841-1842
+    mktrap(t.type, mktrap_flags, null, { x, y }); // C :1844-1846
+}
+
+/**
+ * C ref: sp_lev.c lspo_trap `:4397–4470` — des.trap entry in C order.
+ * C dispatches on the Lua stack shape; JS takes the unpacked equivalents
+ * like lspo_gold: (typeStr) string-only, (typeStr, coord) pair,
+ * (typeStr, x, y) triple, or (opts?) table form (type/x/y/coord plus
+ * spider_on_web/seen/victim/launchfrom/teledest fields; absent opts ≡
+ * empty table per lcheck_param_table, so argc 0 is the table form too).
+ * Anything else throws like C nhl_error. The table-form launchfrom AND
+ * teledest both write game.launchplace like C `:4443–4460` (teledest
+ * wins when both are present); launchplace resets to 0,0 after
+ * create_trap like C `:4470`. NO_TRAP throws like C `:4463–4464`.
+ * x=y=-1 packs RANDOM inside the create path like C `:4466`.
+ * Named: Lua-stack callback (lspo_trap takes no function arg — the
+ * contentsFn pattern does not apply); Lua argc dispatch itself.
+ */
+export function lspo_trap(a, b, c) {
+    create_des_coder(); // C :4402
+    const tmp = { spider_on_web: true, seen: false, novictim: false }; // C :4404-4406
+    let x = -1, y = -1;
+    const argc = arguments.length;
+    if (argc === 1 && typeof a === 'string') { // C :4408-4413
+        tmp.type = lspo_traptype_byname(a);
+    } else if (argc === 2 && typeof a === 'string' // C :4414-4420
+        && b !== null && typeof b === 'object') {
+        tmp.type = lspo_traptype_byname(a);
+        const cc = get_coord_unpacked(b); // C :4419 get_coord
+        x = cc.x;
+        y = cc.y;
+    } else if (argc === 3) { // C :4421-4427 (C checks argc only)
+        if (typeof a !== 'string') throw new Error('lspo_trap: Wrong parameters'); // C :4423 checkstring
+        tmp.type = lspo_traptype_byname(a);
+        x = b | 0; // C :4425 checkinteger
+        y = c | 0; // C :4426 checkinteger
+    } else { // C :4428-4461 table form
+        const o = argc === 0 ? {} : a; // C lcheck_param_table: table-or-empty
+        if (o === null || typeof o !== 'object') throw new Error('lspo_trap: Wrong parameters');
+        const xy = get_table_xy_or_coord(o); // C :4431
+        x = xy.x;
+        y = xy.y;
+        tmp.type = lspo_traptype_opt(o, -1); // C :4432
+        tmp.spider_on_web = !!splev_opt_boolean(o.spider_on_web, 1); // C :4433
+        tmp.seen = !!splev_opt_boolean(o.seen, 0); // C :4434
+        tmp.novictim = !splev_opt_boolean(o.victim, 1); // C :4435
+        if (o.launchfrom != null && typeof o.launchfrom === 'object') { // C :4437-4446
+            const lc = get_coord_unpacked(o.launchfrom);
+            const lp = game.launchplace ?? (game.launchplace = { x: 0, y: 0 });
+            lp.x = lc.x;
+            lp.y = lc.y;
+        }
+        if (o.teledest != null && typeof o.teledest === 'object') { // C :4448-4460
+            const lc = get_coord_unpacked(o.teledest);
+            const lp = game.launchplace ?? (game.launchplace = { x: 0, y: 0 });
+            lp.x = lc.x;
+            lp.y = lc.y;
+        }
+    }
+    if (tmp.type === NO_TRAP) throw new Error('lspo_trap: Unknown trap type'); // C :4463-4464
+    tmp.rx = x;
+    tmp.ry = y;
+    const coder = game.gc?.coder ?? null;
+    create_trap(tmp, coder?.croom ?? null); // C :4469 gc.coder->croom
+    const lp = game.launchplace;
+    if (lp) { lp.x = 0; lp.y = 0; } // C :4470
+    return 0;
+}
+
 // C ref: sp_lev.c lspo_feature static tables `:4847–4850`.
 const LSPO_FEATURES = ['fountain', 'sink', 'pool', 'throne', 'tree'];
 const LSPO_FEATURES2I = [FOUNTAIN, SINK, POOL, THRONE, TREE, STONE];

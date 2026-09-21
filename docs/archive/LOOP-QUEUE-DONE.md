@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-21
 
-- [x] `mon.c` golemeffects — C `mon.c:5680–5707` whole body split-cloned heal-only (`js/mhitm.js:2145` golemeffects_mm + `js/uhitm.js:3336` golemeffects_you); slow arms (flesh FIRE/COLD, iron ELEC via mon_adjust_speed) absent — review 365 named; mhitm cold arm deferred D-2718. Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn golemeffects` (reach regression must be 0). **Addressed:** D-2735
+- [x] `sp_lev.c` lspo_trap — coverage MISSING (C 73 L `sp_lev.c:4397–4470` / JS no symbol; hops —, callers 0, RNG 0, msg 0; dead callees: get_traptype_byname, get_table_traptype_opt). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn lspo_trap` (reach regression must be 0). Measured `port-coverage.mjs --name lspo_trap` 2026-09-21 @ 88cc54b29.
+
+
+- [x] `mon.c` golemeffects — C `mon.c:5680–5707` whole body split-cloned heal-only (`js/mhitm.js:2145` golemeffects_mm + `js/uhitm.js:3336` golemeffects_you); slow arms (flesh FIRE/COLD, iron ELEC via mon_adjust_speed) absent — review 365 named; mhitm cold arm deferred D-2718. Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn golemeffects` (reach regression must be 0). **Addressed:** D-2735 `88cc54b29`
 
 
 - [x] `mkobj.c` place_object obj_no_longer_held arm — missing arm: C `mkobj.c:2330` obj_no_longer_held(otmp) (Has_contents recursion + CRYSKNIFE costly_alteration/revert, do.c:893–920) absent from js/mkobj.js place_object (named omit in the c-js-map data.md place_object line + the top divergence-log entry; async costly_alteration chain blocks a sync port — 91 sites in 32 files; both bodies read via `brief.mjs place_object` 2026-09-21 @ addccb0a7, no DONE/PARKED/live hit). Port the arm — every callee live or named in the map, every affected caller wired. Verify `node scripts/verify.mjs --fn place_object` (reach regression must be 0). **Addressed:** D-2734 `4a4497a0c`
