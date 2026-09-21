@@ -46,7 +46,7 @@ screens 93.2 %. Held-out 12/44, +0 vs last audit (5,976 / 11,265 pts, RNG
 this window — the corpus still does not predict the judge.
 **Corpus fortress** (re-scored 2026-09-21 audit 1683–1699): **501 / 540
 PASS (92.8 %)** excl. 13 env-only; RNG 99.37 %, screens 99.4 % — **+1 / −0**
-in the D-2724…D-2743 window (16 ACCEPT + 1 QUALITY-RISK; +1 is
+in the D-2724…D-2744 window (16 ACCEPT + 1 QUALITY-RISK; +1 is
 explore-seed0116-wizard-wear-shop-cfabc006 → PASS, ex-owner dopush
 hack.c:194 step-127 screen — only D-2739 touches dopush, bill/message
 completion; unclaimed by any iteration, found by this audit's re-score;
@@ -103,10 +103,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `objnam.c` safe_qbuf — coverage PARTIAL (C 67 L `objnam.c:5624–5698` / JS 36 L in js/objnam.js; hops 2, callers 25, RNG 0, msg 3). Port the whole C body in C order. Verify `node scripts/verify.mjs --fn safe_qbuf` (reach regression must be 0). Measured @ e975f7583.
+**Next cluster:** `lock.c` pick_lock — coverage PARTIAL (C 294 L `lock.c:358–656` / JS 218 L in js/lock.js; hops 4, callers 4, RNG 0, msg 18). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn pick_lock` (reach regression must be 0). Measured `port-coverage.mjs --name pick_lock` 2026-09-21 @ e975f7583.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2743 (index).**
+**Keep D-0845…D-2744 (index).**
 <!-- recent:begin -->
+**D-2744** `nethack-c/upstream/src/lock.c:358–656` (`:373–377` null-pick dummy (STRANGE_OBJECT); `:38 — restarted the body in C order (`js/lock.js:1134–1399`) with per-arm `:line` cites; all async message calls use the C wrapper (`You_cant`/`There`/`pline_The`/`You` with `%s` args — rendered text byte-identical to the old 
 **D-2743** `nethack-c/upstream/src/objnam.c:5624–5698` (`:5635–5638` unsigned lens; `:5640` lenlimit; — restarted the body in C order with per-arm `:line` cites: lens block (`:5635–5640`, len_qpfx folds into buf.length per `:5668`); explicit `_qbuf === qprefix` alias arm (`:5657–5659`, converges with the copy arm for immut
 **D-2742** `nethack-c/upstream/src/mon.c:3286–3373` (`:3290` x/y before vamp_stone; `:3295` vamp_ston — restarted monstone in C order with per-arm `:line` cites.
 **D-2741** `nethack-c/upstream/src/read.c:365–377` (cookie arm; `:377 useup(scroll)`) + live `useup`  — the cookie arm now calls `useup_live(scroll)` (live `useup` `js/invent.js:4596`, already imported at `js/read.js:107`) with a C-cite comment; no new cross-module edge.
@@ -114,11 +115,10 @@ revisits the picker.
 **D-2739** `nethack-c/upstream/src/hack.c:348–638` (`:358–363` Blind feel; `:365–372` next_boulder; ` — `js/trap.js` — exported `blow_up_landmine` + `launch_obj` (same-SCC edge, no new module edge: hack.js already imports trap.js).
 **D-2738** `nethack-c/upstream/src/polyself.c:414–466` (`:415–416` Sick→make_sick; `:417–418` Stoned→ — `js/polyself.js` only (no new cross-module edge — `Your` joins the existing display.js import, runtime-called like `You`/`pline` per the imports check; `LL_MINORAC` joins the const.js import): module-local `newman_dead_e
 **D-2737** `lspo_map :6075–6319` (`:6099` coder; `:6101–6102` themeroom-fail return; `:6105–6130` str — `js/mklev.js` only, after `lspo_room` (same-file locals throughout — no new cross-module edge): file-local `sel_set_lit` (C staticfn shape, numeric lit), `mapfrag_error` (NULL/odd/center arms, truncating center index), `
-**D-2736** `nethack-c/upstream/src/sp_lev.c:4397–4470` (`:4402` create_des_coder; `:4404–4406` defaul — `js/mklev.js` only (same-file locals — no new cross-module edge; `maketrap` already imported from `./trap.js`): `LSPO_TRAPTYPES` table (C `:4322–4347`); file-local `lspo_traptype_byname` (C staticfn shape, strcmpi → lowe
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2743; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2744; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

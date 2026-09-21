@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-21
 
-- [x] `objnam.c` safe_qbuf — coverage PARTIAL (C 67 L `objnam.c:5624–5698` / JS 36 L in js/objnam.js; hops 2, callers 25, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn safe_qbuf` (reach regression must be 0). Measured `port-coverage.mjs --name safe_qbuf` 2026-09-21 @ e975f7583. **Addressed:** D-2743
+- [x] `lock.c` pick_lock — coverage PARTIAL (C 294 L `lock.c:358–656` / JS 218 L in js/lock.js; hops 4, callers 4, RNG 0, msg 18). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn pick_lock` (reach regression must be 0). Measured `port-coverage.mjs --name pick_lock` 2026-09-21 @ e975f7583. **Addressed:** D-2744
+
+
+- [x] `objnam.c` safe_qbuf — coverage PARTIAL (C 67 L `objnam.c:5624–5698` / JS 36 L in js/objnam.js; hops 2, callers 25, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn safe_qbuf` (reach regression must be 0). Measured `port-coverage.mjs --name safe_qbuf` 2026-09-21 @ e975f7583. **Addressed:** D-2743 `8eb4bf416`
 
 
 - [x] `mon.c` monstone — coverage PARTIAL (C 86 L `mon.c:3287–3373` / JS 60 L in js/mhitm.js; hops 3, callers 8, RNG 1, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn monstone` (reach regression must be 0). Measured `port-coverage.mjs --name monstone` 2026-09-21 @ e975f7583. **Addressed:** D-2742 `09e6ef90d`

@@ -2050,7 +2050,7 @@ getobj missing-letter `continue`+`flush_topl_more` (D-0025);
 `if (Confusion || Stunned) res = ECMD_TIME`; tail centralized in `getdir`
 D-2430, so a confused no-door close costs the C turn); 
 **`get_adjacent_loc` → shared `getdir` (D-1806); `MAGIC_MARKER` → `dowrite`** (D-0742); 
-**`doopen_indir`/`kick_door` `recalc_block_point`; `pick_lock` NODOOR/ISOPEN/BROKEN** (D-0113); **`pick_lock` direction-arm occupied square: pit rim, visible-monster (`mon_nam` + credit-card shk/Oracle `verbalize`), door-mimic reveal (`is_door_mappear` inline, `stumble_onto_mimic`), !IS_DOOR feel/mapseen + Blind feel/see + drawbridge** (D-2002; `maybe_absorb_item` named; !IS_DOOR return stays LEARNED — no `lev->glyph` in JS cells); 
+**`doopen_indir`/`kick_door` `recalc_block_point`; `pick_lock` NODOOR/ISOPEN/BROKEN** (D-0113); **`pick_lock` whole C body D-2744** (`lock.c:358–656` in C order — null-pick dummy, resume pick/key/card + uswallow/box-reach, nohands/uswallow, impossible() tool check, box path stale-dz/lava/pool + verb/it menu + UNTRAP/APPLY_KEY + touch + 1/4/75+DEX chance, door path pit-rim/monster/mimic + UNTRAP/card/qbuf/touch + 2/3/70+DEX chance, move=0 tail; direction-arm occupied square D-2002 subsumed; 4 local clones purged to live objnam exports, all new names same-SCC ALREADY edges; callers `apply.c:4288`/`lock.c:882`/`pickup.c:2125` wired; named: `maybe_absorb_item`, !IS_DOOR DID_NOTHING half (own row — cell/shown-tuple compares miss C's glyph-id trigger, always-LEARNED stands)); 
 **`doopen_indir` locked → autounlock APPLY_KEY + `autokey`/`pick_lock` ynq + 
 `picklock` occupation `rn2(100)`** (D-0487); 
 **`#loot`/`do_loot_cont` locked box → `pick_lock`/`picklock` box arm (4*DEX+25 rogue)** (D-0489) + 
@@ -2064,7 +2064,7 @@ blade erosion break / shop bill / ice-box corpse age deferred);
 caller `zap.c` `bhit` `:4056–4074`) + **WAN_LOCKING/SPE_WIZARD_LOCK D-1475** (Rogue hide / 
 obstructed / trap-in-doorway / lock-shut) + 
 **WAN_STRIKING/SPE_FORCE_BOLT D-1482** (SDOOR appear then smash/explode; loudness wake_nearto; 
-muse.c mbhit named; bhito boxlock is D-1467) + **`chest_shatter_msg` whole C body** (D-0878 Blind+`singular`+mats; D-2676 retires the potionbreathe/hear-vs-see deferral — POTION_CLASS `You hear/see + an(bottlename())` via live `You`/`canon_an`/newly-exported `potion.js bottlename`, breathless/haseyes-guarded live `potionbreathe`, C-order oc_material switch + `An` pline; local an/the/simple_typename clones stay for other lock.js sites) + **doforce ynq def `'q'`** (D-0727); 
+muse.c mbhit named; bhito boxlock is D-1467) + **`chest_shatter_msg` whole C body** (D-0878 Blind+`singular`+mats; D-2676 retires the potionbreathe/hear-vs-see deferral — POTION_CLASS `You hear/see + an(bottlename())` via live `You`/`canon_an`/newly-exported `potion.js bottlename`, breathless/haseyes-guarded live `potionbreathe`, C-order oc_material switch + `An` pline; D-2744 deleted the local an/the/simple_typename/yname clones — all lock.js sites read the live objnam exports) + **doforce ynq def `'q'`** (D-0727); 
 **`o`/`doopen` → `doopen_indir(0,0)` getdir** (D-0727; **loot-at-feet `u_at` → `doloot` D-1837**;
 **!IS_DOOR envelope: Confusion/Stunned TIME + mapseen/newsym res + portcullis/drawbridge + container Feels/Seems + Blind feel/see** (D-2167; `container_at` newly exported from `pickup.js`; glyph half dead — no `lev->glyph` in JS cells);
 pit "Open where?" / pit-reach / mimic / set_msg_xy / AUTOUNLOCK_KICK deferred); 
