@@ -5,10 +5,13 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-21
 
+- [x] `invent.c` learn_unseen_invent — missing arm: C `invent.c:2750–2775` cleric-bknown + archeologist-scroll skip gates, per-item `addinv_core2` and `invupdated`/`update_inventory` tail — C `invent.c:2750–2775` absent from js/invent.js:3176 (Blind gate + dknown-only skip + observe_object only; both bodies read via `brief.mjs learn_unseen_invent` 2026-09-21 @ 6fc07aef5, no DONE/PARKED/live hit). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn learn_unseen_invent` (reach regression must be 0).
+
+
 - [x] `mkobj.c` place_object — coverage PARTIAL (C 61 L `mkobj.c:2305–2366` / JS 28 L in js/mkobj.js; hops 2, callers 89, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn place_object` (reach regression must be 0). Measured `port-coverage.mjs --name place_object` 2026-09-21 @ 6fc07aef5. **Addressed:** D-2732
 
 
-- [x] `questpgr.c` com_pager_core — coverage THIN (C 149 L `questpgr.c:468–621` / JS 39 L in js/questpgr.js; hops 3, callers 5, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn com_pager_core` (reach regression must be 0). Measured `port-coverage.mjs --name com_pager_core` 2026-09-21 @ 6fc07aef5. **Addressed:** D-2731
+- [x] `questpgr.c` com_pager_core — coverage THIN (C 149 L `questpgr.c:468–621` / JS 39 L in js/questpgr.js; hops 3, callers 5, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn com_pager_core` (reach regression must be 0). Measured `port-coverage.mjs --name com_pager_core` 2026-09-21 @ 6fc07aef5. **Addressed:** D-2731 `addccb0a7`
 
 
 - [x] `uhitm.c` mhitm_ad_fire — coverage THIN (C 100 L `uhitm.c:2521–2623` / JS 41 L in js/mhitm.js; hops 4, callers 1, RNG 1, msg 7). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mhitm_ad_fire` (reach regression must be 0). Measured `port-coverage.mjs --name mhitm_ad_fire` 2026-09-21 @ 6fc07aef5. **Addressed:** D-2730 `dd14f257f`

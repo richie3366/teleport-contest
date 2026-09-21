@@ -46,7 +46,7 @@ screens 93.2 %. Held-out 12/44, +0 vs last audit (5,976 / 11,265 pts, RNG
 this window — the corpus still does not predict the judge.
 **Corpus fortress** (re-scored 2026-09-21 audit 1674–1682): **500 / 540
 PASS (92.6 %)** excl. 13 env-only; RNG 99.37 %, screens 99.4 % — **+2 / −0**
-in the D-2715…D-2732 window (8 ACCEPT + 1 WITH-DEBT; +2 are
+in the D-2715…D-2733 window (8 ACCEPT + 1 WITH-DEBT; +2 are
 scen-poly-Caveman-92202 moved PASS by D-2721 and scen-wish-Healer-92092
 moved PASS by D-2720;
 every per-SHA `--reach-all` re-run here ends REACH-OK with no REGRESSED).
@@ -101,10 +101,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `hack.c` classify_terrain — coverage PARTIAL (C 82 L `hack.c:3090–3172` / JS 55 L in js/hack.js; hops 2, callers 5, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn classify_terrain` (reach regression must be 0). Measured `port-coverage.mjs --name classify_terrain` 2026-09-21 @ 6fc07aef5.
+**Next cluster:** `invent.c` learn_unseen_invent — missing arm: C `invent.c:2750–2775` cleric-bknown + archeologist-scroll skip gates, per-item `addinv_core2` and `invupdated`/`update_inventory` tail absent from js/invent.js:3176. Port the whole C body in C order. Verify `node scripts/verify.mjs --fn learn_unseen_invent` (reach regression must be 0). (Queue head `hack.c` classify_terrain + `mon.c` m_detach both brief-verified STALE this session — full bodies live, 0 blocked — parked, next row shipped.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2732 (index).**
+**Keep D-0845…D-2733 (index).**
 <!-- recent:begin -->
+**D-2733** `nethack-c/upstream/src/invent.c:2750–2775` — restarted `learn_unseen_invent` in C order as `export async function` (async: live `addinv_core2` awaits pline on its decipher arm): role gates via the same-file `urole.mnum` convention (`PM_CLERIC` already imported; `PM
 **D-2732** `nethack-c/upstream/src/mkobj.c:2305–2366` — `js/mkobj.js` only — restarted `place_object` in C order with per-arm cites: isok gate (OOB throws — no live JS panic export, mklev.js:19190 precedent; x=0 warns via floating impossible(), do_wear.js:619 precedent, then 
 **D-2731** `nethack-c/upstream/src/questpgr.c:468–621` — `js/questpgr.js` only — restarted `com_pager_core` in C order with per-arm cites: entry-miss → silent FALSE; rawtext arm before the array arm (`rawOut.text = text`, TRUE even when null); array arm via new `QUEST_CUSS_ARR
 **D-2730** `nethack-c/upstream/src/uhitm.c:2521–2623` — `js/mhitm.js` — restarted `mhitm_ad_fire` as an exported three-arm port in C order with C cites inline: uhitm arm via live `mhitm_mgc_atk_negated` (same-file `:2558`), `!Blind_slee()` (C `Blind`, elec precedent `:1309`),
@@ -112,11 +113,10 @@ revisits the picker.
 **D-2728** `nethack-c/upstream/src/dogmove.c:217–345` — `js/dogmove.js` only — missing arms added in C order with C cites inline, function stays async (all five call sites already await): `:257–261` via live `bee_eat_jelly` (joins the existing `./monmove.js` import — `imports
 **D-2727** `nethack-c/upstream/src/shknam.c:856–897` — `js/shknam.js` only — whole body restarted in C order with C cites inline, stays sync (30+ sync call sites, no signature change): `:859–863` via live `noit_mon_nam` (new `./do_name.js` edge — `imports.mjs --can` SAFE, ho
 **D-2726** `nethack-c/upstream/src/sp_lev.c:2193–2440` — `js/mklev.js` — arms added in C order with C cites inline, function stays sync (all four callers sync): recharged/tknown two-liners; CONTENT branch widened with `|| invent_carrying_monster`, monster arm via live `remove_
-**D-2725** `nethack-c/upstream/src/allmain.c:854–929` — `js/allmain.js` — whole body restarted in C order with C cites inline: currentgend via live `Upolyd(u)` (`js/const.js:3184`) + `u.mfemale`; `:860` via `l_nhcore_call` (joins the existing static `./do.js` import); doomed 
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2732; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2733; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

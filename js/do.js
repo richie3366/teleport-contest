@@ -3083,7 +3083,7 @@ export async function toggle_blindness() {
         await Sting_effects(-1);
     }
     if (!Blind()) {
-        learn_unseen_invent();
+        await learn_unseen_invent();
     }
 }
 

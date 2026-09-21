@@ -64,7 +64,7 @@ import { hidden_gold } from './vault.js';
 import { setnotworn, dropy } from './do.js';
 import { s_suffix, a_monnam, pmname, x_monnam, hliquid } from './do_name.js';
 import { inv_cnt } from './steal.js';
-import { assigninvlet, find_ac } from './u_init.js';
+import { assigninvlet, find_ac, addinv_core2 } from './u_init.js';
 import { cansee } from './vision.js';
 import {
     WEAPON_CLASS,
@@ -332,7 +332,7 @@ import { a_gname_at } from './pray.js';
 import { sticks } from './engrave.js';
 import { surface } from './sit.js';
 import { visible_region_at, reg_damg } from './region.js';
-import { PM_SAMURAI, PM_MONK, PM_CLERIC, monsterNames } from './generated/monsters_data.js';
+import { PM_SAMURAI, PM_MONK, PM_CLERIC, PM_ARCHEOLOGIST, monsterNames } from './generated/monsters_data.js';
 import { humanoid, strongmonst, mons, touch_petrifies, poly_when_stoned, hides_under, haseyes, dmgtype, hates_silver, is_male, is_female, is_neuter, vampshifted, nonliving, weirdnonliving } from './monsters.js';
 import { hideunder } from './mon.js';
 import { set_artifact_intrinsic, undiscovered_artifact, discover_artifact, confers_luck, disp_artifact_discoveries } from './artifact.js';
@@ -3169,19 +3169,44 @@ export function u_carried_gloves() {
 }
 
 /**
- * C ref: invent.c learn_unseen_invent — on regaining sight, mark invent
- * picked up while Blind as seen (xname/observe). addinv_core2 /
- * update_inventory / cleric bknown / archeologist scroll polish deferred.
+ * C ref: invent.c learn_unseen_invent `:2750–2775` — on regaining sight,
+ * mark everything picked up while Blind as seen. C order: Blind sanity
+ * return `:2755–2756`; per-item skip when dknown && (bknown || !Cleric)
+ * && (non-scroll || !Archeologist) `:2759–2761`; else invupdated=TRUE,
+ * maybereleaseobuf(xname(otmp)) `:2764–2765` (xname sets dknown, cleric
+ * bknown — objnam.js `:637`; the release is a GC no-op; xname also runs
+ * observe_object when !Blind — objnam.js `:638` via set_xname_observe),
+ * addinv_core2 `:2766` (Archeologist scroll-label decipher; luckstone
+ * set_moreluck is addinv_core2's named omit); eknown-deferred comment
+ * `:2770–2774` stands (learnwand live, zap.js); invupdated tail
+ * `:2776–2777` via live update_inventory (same file). Async: addinv_core2
+ * awaits pline on the decipher arm; sole caller toggle_blindness (do.js)
+ * is async and awaits. C caller potion.c:363 cures via make_blinded →
+ * toggle_blindness (potion.js:2194).
  */
-export function learn_unseen_invent() {
-    if (Blind()) return;
+export async function learn_unseen_invent() {
+    if (Blind()) return; /* C :2755–2756 sanity check */
+    /* C Role_if gates (same-file urole.mnum convention, :1267) */
+    const cleric = (game.urole?.mnum | 0) === PM_CLERIC;
+    const archeologist = (game.urole?.mnum | 0) === PM_ARCHEOLOGIST;
+    let invupdated = false;
     for (const otmp of game.invent || []) {
         if (!otmp) continue;
-        // C: skip when already dknown (+ role bknown/scroll gates deferred)
-        if (otmp.dknown) continue;
-        // C: xname(otmp) → observe_object when !Blind
-        observe_object(otmp);
+        /* C :2759–2761 — already seen */
+        if (otmp.dknown && (otmp.bknown || !cleric)
+            && (((otmp.oclass | 0) !== SCROLL_CLASS) || !archeologist))
+            continue; /* already seen */
+        invupdated = true;
+        /* C :2762–2765 — xname() will set dknown, perhaps bknown (for
+           priest[ess]); result immediately released for re-use */
+        xname(otmp);
+        await addinv_core2(otmp); /* C :2766 you react to seeing the object */
+        /*
+         * C :2770–2774 — If object->eknown gets implemented (see
+         * learnwand(zap.c)), handle deferred discovery here.
+         */
     }
+    if (invupdated) update_inventory(); /* C :2776–2777 */
 }
 
 const SCR_MAIL = objectNames.indexOf('SCR_MAIL');
