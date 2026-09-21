@@ -3604,8 +3604,7 @@ tame `adjalign(-15)` before experience** (D-0836; human-murder/unicorn/quest arm
 **`xkilled` msg: `!canspotmon`→`it` / tame→`x_monnam(...,"poor",...)`** (D-0850); **`xkilled` wasinside → museum copy + `spoteffects(TRUE)`** (D-2204; release-square describe via live pickup→check_here→describe_decor; scen-poly-Healer-92109 208→do_statusline2@241); 
 **`mondead`/`m_detach` keeps dead on `fmon` until `dmonsfree`** (D-0828; was immediate splice); 
 **`attack_checks` `engulfing_u` early-out** (D-0833; allow melee on engulfer before Wait!); 
-**`attack_checks` clears `STRAT_WAITMASK` first** (D-0791; kick/cancel still disturb; 
-peaceful yn deferred); **`is_safemon` requires `canspotmon`** (D-0791); 
+**`attack_checks` clears `STRAT_WAITMASK` first** (D-0791; kick/cancel still disturb); **`attack_checks` whole body D-2747** (`uhitm.c:189–327` in C order: WAITMASK, engulfing_u, forcefight, bhitpos glyph_at, Wait! + map_invisible + mimic AD_STCK ustuck + wakeup, PfSC/sensemon/warning-glyph mimic arms with seemimic lucky-strike, mundetected hide/eel reveal + newsym + hallu/pool/object messages, sensemon wakeup, Stormbringer + ParanoidHit confirm; local set_ustuck clone retired to the live mhitu.js export); **`is_safemon` requires `canspotmon`** (D-0791); 
 **`mundisplaceable` + `domove` refuse leader/Oracle/priest/shk/gd swap** (D-0792; 
 `goodpos`/trap-on-dest deferred); **`mattackm` AT_WEAP `mon_wield_item`→`M_ATTK_MISS`** (D-0743;
 `possibly_unwield` + `mswingsm` live D-1919; ranged `thrwmm` live D-2257 —
@@ -3627,8 +3626,7 @@ AD_PHYS** (D-0730; `completelyburns`/`rots`/`rusts` deferred);
 tame `monflee(rnd(6))` incl. `mon_track_clear`** (D-0442/D-0459/D-0860; 
 inshop/isshk dopay/frozen-helpless/longworm/`passes_walls`/Vrock deferred); 
 **`do_attack` hostile → `attack_checks` Wait! `!canspotmon` (D-0705) + 
-`overexertion`/`hitum`/`known_hitum`/`hmon`/`xkilled`** (D-0107; 
-peaceful yn/warning glyph/hides_under deferred); 
+`overexertion`/`hitum`/`known_hitum`/`hmon`/`xkilled`** (D-0107; whole body D-2747); 
 **`do_attack` overload/pacifist gate D-2717** (`uhitm.c:525–534` in C order: Upolyd `noattacks` → «no way to attack» + atk_done; `near_capacity() >= EXT_ENCUMBER` → «cannot fight heavily loaded» + atk_done, short-circuiting `overexertion`/`gethungry` RNG; all three arms run atk_done forcefight map_invisible; twoweapon still named); 
 **`hmon_hitmon_msg_hit` skip melee hit when destroyed** (D-0119); 
 **`mondead`→`relobj_on_death` minvent + death-drop `distant_name` disco** (D-0108/D-0632); 
@@ -3690,8 +3688,7 @@ trapped-chest cmap on `M_AP_OBJECT` / Eyes `is_plural` named); **`mondied` undea
 **`xkilled` `nonliving` → `"destroy"`** (D-0327; 
 `is_golem`/`weirdnonliving`/`nonliving` in `monsters.js`); 
 omit `seemimic`/`mundetected` unhide+showit; 
-omit stun pline/`mhurtle_to_doom`, `special_dmgval` gloves/silver, `attack_checks` 
-Blind/hallu/invis-marker/peaceful yn, Cleaver `hitum_cleave`, full AD_PLYS/`erode_obj`/`done_in_by` 
+omit stun pline/`mhurtle_to_doom`, `special_dmgval` gloves/silver, Cleaver `hitum_cleave`, full AD_PLYS/`erode_obj`/`done_in_by` 
 stone/`dokick` passive callers; **D-1095** `passive` AD_COLD `healmon`+`split_mon`; 
 mhitu/mhitm AD_COLD still named; thrown multishot hit-when-destroyed; `hit()` thrown path; 
 vault-guard gold / flooreffects on death-drop; flooreffects non-floor treasure arms; 

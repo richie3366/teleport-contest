@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-21
 
-- [x] `do_wear.c` Boots_off property arms — missing arm: C `do_wear.c:274–306` (SPEED_BOOTS slow-down, WATER_WALKING_BOOTS drown-check + spoteffects, FUMBLE_BOOTS clear, LEVITATION_BOOTS float_down) absent from js/do_wear.js (`Boots_off` 922–945; setworn + ELVEN toggle_stealth live, rest `// deferred` at :940). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn Boots_off` (reach regression must be 0). Brief-verified 2026-09-21 @ 289e5ec2c (C + JS bodies read this session). **Addressed:** D-2746
+- [x] `uhitm.c` attack_checks — coverage PARTIAL (C 136 L `uhitm.c:189–327` / JS 63 L in js/uhitm.js; hops 3, callers 9, RNG 0, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn attack_checks` (reach regression must be 0). Measured `port-coverage.mjs --name attack_checks` 2026-09-21 @ e975f7583. **Addressed:** D-2747
+
+
+- [x] `do_wear.c` Boots_off property arms — missing arm: C `do_wear.c:274–306` (SPEED_BOOTS slow-down, WATER_WALKING_BOOTS drown-check + spoteffects, FUMBLE_BOOTS clear, LEVITATION_BOOTS float_down) absent from js/do_wear.js (`Boots_off` 922–945; setworn + ELVEN toggle_stealth live, rest `// deferred` at :940). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn Boots_off` (reach regression must be 0). Brief-verified 2026-09-21 @ 289e5ec2c (C + JS bodies read this session). **Addressed:** D-2746 `09c5d65ab`
 
 
 - [x] `weapon.c` possibly_unwield — coverage THIN (C 48 L `weapon.c:747–795` / JS 21 L in js/weapon.js; hops 3, callers 7, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn possibly_unwield` (reach regression must be 0). Measured `port-coverage.mjs --name possibly_unwield` 2026-09-21 @ e975f7583. **Addressed:** D-2745 (STALE-parked: body live js/weapon.js:141+164, 6 callers wired).
