@@ -345,8 +345,19 @@ flooreffects / vault-gold / pet `droppables` deferred);
 **FOOD `CANDY_BAR`→`assign_candy_wrapper` `rn2(12)`** (D-0196); 
 **`weight(CORPSE)` → `mons[corpsenm].cwt`** (D-0230); 
 **FIGURINE `rndmonnum_adj(5,10)` + `is_human` retry + `blessorcurse(4)`** (D-0244); 
-**`place_object` first-boulder / floor extract → `recalc_block_point` + 
-under-boulder pile** (D-0270); **`clear_dknown` in `mksobj` (dknowns[] + shield-range)** (D-0292); 
+**`place_object` first-boulder / floor extract → `recalc_block_point` +
+under-boulder pile** (D-0270); **D-2732 `place_object` whole-body completion**
+(`mkobj.c:2305–2366` in C order: `:2309–2323` isok gate — OOB throws (no live
+panic export, mklev.js:19190 precedent), x=0 warns via floating impossible()
+(do_wear.js:619 precedent) then falls through, message via sync
+simple_typename (C safe_typename async in JS); `:2325–2327` not-free throws
+(`|0` treats unset where as OBJ_FREE); `:2329` assert dropped (debug-only);
+`:2332–2351` boulder gate + under-last-boulder threading; `:2353–2356`
+ox/oy/OBJ_FLOOR; `:2358–2361` no_charge lapse via live shk.js
+costly_spot/costly_adjacent/find_objowner; `:2363–2366` fobj chain + timed;
+named: `:2330` obj_no_longer_held (async costly_alteration chain — own row);
+`!otmp` guard kept (C NONNULLARG1); `_objects_at` Map stands in for
+svl.level.objects); **`clear_dknown` in `mksobj` (dknowns[] + shield-range)** (D-0292); 
 **`Is_pudding`/`globby` mksobj init + `obj_nexto_xy`/`obj_absorb`/`obj_meld`/`pudding_merge_message`
  + full `shrink_glob`** (D-0993 thin retired by D-2376: exported `shrink_glob(obj, expire_time)` in C order — off-level catch-up delta/moddelta, ice-thirds/buried/eating skips, halve-threshold invent + container-in-invent messages, floor cansee "fades away", `partly_eaten_hack` Yname2 with the reader in the `pretty_base` globby arm; file-local `item_on_ice`/`check_glob`/`shrinking_glob_gone`, `eating_glob` in `eat.js`; D-2374 ships full `globby_bill_fixup` + globby `get_pricing_units` weight arm; named: `start_glob_timeout` non-glob impossible; `insane_object` + `where_name` LIVE D-2520 (`js/mkobj.js:1534`/`1565`, `check_glob` wired `:1598`); `check_contained` LIVE D-2654 (`js/mkobj.js:1640`, C `:3374–3416` in order — Has_contents joins the const.js import, panics→throws, nestedmesg 112-char newline-stop inline; callers objlist_sanity `:3051` / mon_obj_sanity `:3226` unported wire-up-on-ship); D-2622 restarts `obj_meld` whole-body async in C order — holder-level `p1 && p2` guard (`:3774`) + null/same-pointee NULL fallthrough (`:3777`, old body returned the survivor), floor+free veto + heavier/`rn2(2)` tiebreak (`:3789–3792`), `ox` tail with the `cansee` gate + awaited `maybe_unhide_at` (`:3803–3809`, old floating lazy import retired), `else impossible(...)` (`:3811–3813`); callers `do.c:312`→`js/do.js:861` + `mon.c:727`→`js/mhitm.js:2943` both awaited; `:3779–3788` FIXME shore/pool as-is per C); 
 **`mksobj` `unknow_object` `known` from `oc_uses_known`** (D-1674;

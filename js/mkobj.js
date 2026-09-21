@@ -49,7 +49,7 @@ import {
 } from './monsters.js';
 import { PM_CLERIC, PM_SAMURAI } from './generated/monsters_data.js';
 import { update_inventory, Blind, near_capacity, encumber_msg, useupall } from './invent.js';
-import { distant_name, doname, cxname, The, vtense, corpse_xname, Yname2, otense, simpleonames } from './objnam.js';
+import { distant_name, doname, cxname, The, vtense, corpse_xname, Yname2, otense, simpleonames, simple_typename } from './objnam.js';
 import {
     ROT_AGE, TAINT_AGE, TROLL_REVIVE_CHANCE,
     ROT_ORGANIC, ROT_CORPSE, REVIVE_MON, ZOMBIFY_MON,
@@ -65,6 +65,7 @@ import {
     LOST_NONE, LOST_EXPLODING, LOST_THROWN, LOW_PM, ismnum,
     CORPSTAT_NEUTER, CORPSTAT_FEMALE, CORPSTAT_MALE,
     CXN_NO_PFX,
+    COLNO, ROWNO,
     Is_rogue_level, isok, ICE, DRAWBRIDGE_UP, DB_UNDER, DB_ICE,
     LS_OBJECT, LS_MONSTER, ONAME, has_oname, OMONST, has_omonst, OMID, has_omid,
     OMAILCMD, has_omailcmd, ONAME_SKIP_INVUPD, MON_DETACH,
@@ -79,7 +80,7 @@ import { set_moreluck } from './attrib.js';
 import { recalc_block_point, cansee } from './vision.js';
 import { del_light_source, discard_flashes, obj_sheds_light, obj_adjust_light_radius } from './light.js';
 import { arti_light_radius, get_obj_location, obj_split_light_source, Is_candle, obj_merge_light_sources } from './timeout.js';
-import { obfree, splitbill, same_price, globby_bill_fixup } from './shk.js';
+import { obfree, splitbill, same_price, globby_bill_fixup, costly_spot, costly_adjacent, find_objowner } from './shk.js';
 import { hands_obj, MON_WEP, setmnotwielded } from './weapon.js';
 /* C invent.c merged `:878–913` worn-slot fixup (imports.mjs --can SAFE,
    hoisted cycle-safe, same 96-module SCC). */
@@ -2444,33 +2445,67 @@ export function mkobj_at(oclass, x, y, artif) {
     return otmp;
 }
 
-// C ref: mkobj.c place_object — thread onto fobj + level.objects[x][y]
+// C ref: mkobj.c place_object `:2305–2366` — whole body in C order (D-2732).
 export function place_object(otmp, x, y) {
-    if (!otmp) return;
+    if (!otmp) return; // pre-existing JS guard; C NONNULLARG1 (extern.h:1709)
+    if (!isok(x, y)) { // C `:2309–2323` — validate location
+        // C picks panic for out-of-array-bounds, impossible for the x=0
+        // column, then falls through and keeps going. No live JS panic
+        // export: throw for the fatal arm (mklev.js:19190 precedent),
+        // floating impossible() for the warn arm (do_wear.js:619
+        // precedent); message via sync simple_typename (C safe_typename
+        // is async in JS — objnam.js:3832).
+        const tn = simple_typename(otmp.otyp | 0);
+        if (x < 0 || y < 0 || x > COLNO - 1 || y > ROWNO - 1)
+            throw new Error(
+                `place_object: "${tn}" [${otmp.where}] off map <${x},${y}>`);
+        impossible(
+            `place_object: "${tn}" [${otmp.where}] off map <${x},${y}>`);
+    }
+    // C `:2325–2327` — a non-free obj panics (throw: no live panic
+    // export). `|0` treats an unset JS where as OBJ_FREE (mksobj births
+    // `where: OBJ_FREE`).
+    if ((otmp.where | 0) !== OBJ_FREE)
+        throw new Error(
+            `place_object: obj "${simple_typename(otmp.otyp | 0)}" [${otmp.where}] not free`);
+    // C `:2329` assert() is debug-only — dropped (no asserts in js/).
     if (!game._objects_at) game._objects_at = new Map();
     const key = `${x},${y}`;
+    // C `:2330` obj_no_longer_held(otmp) — NAMED OMISSION (map): async in
+    // JS (costly_alteration await chain — do.js:690); awaiting it here
+    // would force async across 91 sites in 32 files. Follow-up row.
     let otmp2 = game._objects_at.get(key) || null;
+    // C `:2332–2336` — boulder vision gate before threading; JS rebuilds
+    // via recalc_block_point after place (D-0270 pattern, kept).
     const firstBoulder = otmp.otyp === BOULDER
         && (!otmp2 || otmp2.otyp !== BOULDER);
-    otmp.ox = x;
-    otmp.oy = y;
-    otmp.where = OBJ_FLOOR;
-    otmp.nobj = game.fobj || null;
-    game.fobj = otmp;
-    // C: non-boulder goes under last consecutive boulder
+    // C `:2338–2351` — non-boulder goes under the last consecutive
+    // boulder so the map shows boulder; else on top of the pile
     if (otmp2 && otmp2.otyp === BOULDER && otmp.otyp !== BOULDER) {
+        // C 3.6.3: under the last consecutive boulder, not just the first
         while (otmp2.nexthere && otmp2.nexthere.otyp === BOULDER) {
             otmp2 = otmp2.nexthere;
         }
         otmp.nexthere = otmp2.nexthere || null;
         otmp2.nexthere = otmp;
     } else {
+        // put on top of current pile
         otmp.nexthere = otmp2;
         game._objects_at.set(key, otmp);
     }
-    // C block_point is incremental; JS rebuilds via does_block after place
+    // C `:2353–2356` — set the object's new location
+    otmp.ox = x;
+    otmp.oy = y;
+    otmp.where = OBJ_FLOOR;
+    // C `:2358–2361` — outside a shop, no_charge no longer applies
+    if (otmp.no_charge && !costly_spot(x, y)
+            && !costly_adjacent(find_objowner(otmp, x, y), x, y))
+        otmp.no_charge = 0;
+    // C `:2363–2364` — add to floor chain
+    otmp.nobj = game.fobj || null;
+    game.fobj = otmp;
     if (firstBoulder) recalc_block_point(x, y);
-    // C: if (otmp->timed) obj_timer_checks(otmp, x, y, 0);
+    // C `:2365–2366` — timed objects join the timer system
     if (otmp.timed) obj_timer_checks(otmp, x, y, 0);
 }
 

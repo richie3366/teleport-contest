@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-21
 
+- [x] `mkobj.c` place_object — coverage PARTIAL (C 61 L `mkobj.c:2305–2366` / JS 28 L in js/mkobj.js; hops 2, callers 89, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn place_object` (reach regression must be 0). Measured `port-coverage.mjs --name place_object` 2026-09-21 @ 6fc07aef5. **Addressed:** D-2732
+
+
 - [x] `questpgr.c` com_pager_core — coverage THIN (C 149 L `questpgr.c:468–621` / JS 39 L in js/questpgr.js; hops 3, callers 5, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn com_pager_core` (reach regression must be 0). Measured `port-coverage.mjs --name com_pager_core` 2026-09-21 @ 6fc07aef5. **Addressed:** D-2731
 
 
