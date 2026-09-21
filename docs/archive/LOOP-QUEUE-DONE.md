@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-21
 
-- [x] `shknam.c` shkname — coverage THIN (C 41 L `shknam.c:856–897` / JS 15 L in js/shknam.js; hops 3, callers 37, RNG 2, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn shkname` (reach regression must be 0). Measured `port-coverage.mjs --name shkname` 2026-09-21 @ 6fc07aef5. **Addressed:** D-2727
+- [x] `dogmove.c` dog_eat — coverage PARTIAL (C 123 L `dogmove.c:218–345` / JS 75 L in js/dogmove.js; hops 3, callers 4, RNG 0, msg 5). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dog_eat` (reach regression must be 0). Measured `port-coverage.mjs --name dog_eat` 2026-09-21 @ 6fc07aef5. **Addressed:** D-2728
+
+
+- [x] `shknam.c` shkname — coverage THIN (C 41 L `shknam.c:856–897` / JS 15 L in js/shknam.js; hops 3, callers 37, RNG 2, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn shkname` (reach regression must be 0). Measured `port-coverage.mjs --name shkname` 2026-09-21 @ 6fc07aef5. **Addressed:** D-2727 `e381a6676`
 
 
 - [x] `sp_lev.c` create_object — C `sp_lev.c:2284–2285` recharged + `:2294–2295` tknown + `:2304–2341` invent_carrying_monster/saddle + container-NULL artifact-uncreate + `:2356–2389` Medusa statue fill + `:2391–2420` achievement prizes + `:2428–2437` buried bury_an_obj absent from `js/mklev.js:20203` create_object (128 L vs C 247 L; doc-named omits, both bodies read 2026-09-21). Port the arms in C order. Verify `node scripts/verify.mjs --fn create_object` (reach regression must be 0). **Addressed:** D-2726 `6fc07aef5`

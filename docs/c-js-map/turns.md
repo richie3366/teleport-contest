@@ -3448,7 +3448,7 @@ hero_memory glyph + `distant_name`/`vtense`-locomotion/flyer-over what-name live
 **`dog_move` newdogpos `ALLOW_U`→`mattacku`/`MMOVE_DONE`** (D-0414; 
 **ALLOW_U `m_unleash` FALSE D-1609**; `pet_ranged_attk` full body incl youmonst→`mattacku` live D-2455); 
 **`dog_move` whole-body D-2455** (C `dogmove.c:977–1358`; `dog_hunger`/`dog_starve`, `should_displace` + ALLOW_MDISP/`undesirable_disp` (`monmove.js` exports), leashed/guardian gates, bhitpos/notonhead, trap `whimper`, `m_in_out_region` + `m_digweapon_check`, leashed goodpos kludge, j==1 goto-newdogpos; named: direct mx/my set, `dog_goal`/`dog_invent` clones, `mhis` inline); 
-**`dog_eat` message gate C order — `sawpet` is `cansee`+`mon_visible`, second arm `canspotmon`** (D-1875; queue owner `glibr` was a `corpse`-substring misattribution, `glibr()` untouched);
+**`dog_eat` whole-body C order `:217–345`** (D-1875 message gate — `sawpet` is `cansee`+`mon_visible`, second arm `canspotmon`, queue owner `glibr` was a `corpse`-substring misattribution, `glibr()` untouched; D-2728: killer-bee royal-jelly bypass via live `bee_eat_jelly` (`monmove.js`), pool-silence `is_pool`+`uinwater`, `tunnels` digs-in, `distant_name(obj,doname)`, rust-monster spit via live `costly_alteration`+`COST_DEGRD`, apport `impossible` arm; callers dog.c:1212/1265 + dogmove.c:441/1319 wired);
 **`tamedog` already-tame thrown food → `dogfood`/`dog_eat`** (D-0415; 
 **blessed scroll/spell +2 clamp 10 D-1532**; new-tame food devour polish /
 Tobjnam stop / big_corpse catch named); 
@@ -3464,7 +3464,7 @@ Tobjnam stop / big_corpse catch named);
 **`dog_nutrition` FOOD `objects[].oc_delay` + nutrition map + msize× + non-food `owt/20`** (D-0364; 
 whole-body restart D-2659: C-order `oeaten`/`eaten_stat` arm live, exact msize switch incl `MZ_GIGANTIC` 7, C-exact COIN `< 0` guards, unclamped else arm; 
 extractor `oc_nutrition` still via `FOOD_NUTRITION` fallback); 
-**`droppables` tool-keeping envelope live** (D-2401; C `dogmove.c:27–136` dummy/GOLD_PIECE sentinel, animal/mindless + tunnels/needspick + nohands/verysmall gates, `MON_WEP` canonical, mattock/W_ARMS + pick/horn/key artifact-preference FALLTHROUGH chain); omit bee jelly/rust spit/unpaid shop, `dog_invent` eat-return path (DOGFOOD/CADAVER/starving
+**`droppables` tool-keeping envelope live** (D-2401; C `dogmove.c:27–136` dummy/GOLD_PIECE sentinel, animal/mindless + tunnels/needspick + nohands/verysmall gates, `MON_WEP` canonical, mattock/W_ARMS + pick/horn/key artifact-preference FALLTHROUGH chain); omit unpaid shop, `dog_invent` eat-return path (DOGFOOD/CADAVER/starving
 ACCFOOD→`dog_eat`, D-0223), pet-path `mdrop_obj` `flooreffects` still omitted (death-drop `relobj_on_death` flooreffects live D-2407), vault-guard gold, worn/shop extrinsics, 
 **`m_in_out_region` before `newdogpos` place**; `see_monster_closeup`; 
 seed1500 RNG complete (D-0021); **`dog_goal` gettrack/ogoal** (D-0099); 
