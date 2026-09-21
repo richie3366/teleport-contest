@@ -46,7 +46,7 @@ screens 93.2 %. Held-out 12/44, +0 vs last audit (5,976 / 11,265 pts, RNG
 this window — the corpus still does not predict the judge.
 **Corpus fortress** (re-scored 2026-09-21 audit 1665–1673): **498 / 540
 PASS (92.2 %)** excl. 13 env-only; RNG 99.32 %, screens 99.1 % — **+1 / −0**
-in the D-2706…D-2718 window (9 ACCEPT; +1 is scen-normal-Wizard-92127
+in the D-2706…D-2719 window (9 ACCEPT; +1 is scen-normal-Wizard-92127
 moved PASS by D-2714;
 every per-SHA `--reach-all` re-run here ends REACH-OK with no REGRESSED).
 Reviews 1225–1673: 402 ACCEPT, 17 WITH-DEBT, 1 DEBT, 24 QUALITY-RISK (1503, 1517, 1520 stamped; Must-fix 1533/1536 → D-2583/D-2584, 1568 → D-2610, 1592 → D-2636 `271ceca1`, 1617 → magic_negation floor Must-fix (addressed D-2661, review 1620 ACCEPT); 1654 → sel_set_door wiring Must-fix (addressed D-2697, review 1656 ACCEPT); hashes filled).
@@ -100,10 +100,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `uhitm.c` mhitm_ad_cold `:2661` (void)-discard Healer (D-2425 W1) — blocks 1/553 (scen-poly-Healer-92107 step 126/321 kind=screen: C `HP:7(33)` vs JS `HP:2(33)`). Fix: discard the destroy_items return in `mhitm_ad_cold_u` per C `(void)` (fire_u already discards; elec_u deferred, keep). Verify `node scripts/verify.mjs --fn do_statusline2` (recorded owner: expect Healer → PASS or later owner).
+**Next cluster:** `makemon.c` monhp_per_lvl — blocks 1/553 (scen-poly-Caveman-92202 step 197/265 kind=rng: C draws `rnd(4)=3` in monhp_per_lvl vs JS `rnd(1)=1` from newhp(attrib.js:658)). Same session previously blocked at distfleeck@116 behind the overload gate; now the later owner. Fix: the poly level-up HP writer in C order (C `monhp_per_lvl` vs JS `newhp` path). Verify `node scripts/verify.mjs --fn monhp_per_lvl` (recorded owner: expect Caveman → PASS or later owner).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2718 (index).**
+**Keep D-0845…D-2719 (index).**
 <!-- recent:begin -->
+**D-2719** `nethack-c/upstream/src/makemon.c:986–1007` — `js/makemon.js` only — C-order restart (`let hp = rnd(8)`, `else-if` arm chain, C comments `:993–1004` cited inline); stale «Named omit» doc replaced with the arm/draw contract + caller list.
 **D-2718** `nethack-c/upstream/src/uhitm.c:2626–2681` (`mhitm_ad_cold`); mhitu arm `:2654–2667` — `js/mhitu.js` only — discard the return (`await destroy_items(you, AD_COLD, orig_dmg)`, C `:2661` cited inline); doc comment now cites the mhitu arm range and the discarded-return contract.
 **D-2717** `nethack-c/upstream/src/uhitm.c:525–534` (`Upolyd && noattacks` → «no way to attack» + `go — `js/uhitm.js` only, in C order — Upolyd + live `noattacks` (`js/hack.js:1211`, C-identical incl.
 **D-2716** `nethack-c/upstream/src/mklev.c:1938–1998` (body in C order: `lvl = level_difficulty()`, ` — `js/mklev.js` only — LEVEL_TELEP arm → `lvl < 5 || noteleport || single_level_branch(game.u?.uz)` in C short-circuit order (C `:1961–1965`); FIRE_TRAP arm → live `Inhell()` (C `:1974–1977`); both names join the existing 
@@ -111,11 +112,10 @@ revisits the picker.
 **D-2714** `invent.c:4248` (no-object `!!Blind ? ECMD_TIME : ECMD_OK`), `:4216` (can't-reach `ECMD_OK — `js/invent.js` only — `ECMD_TIME` joins the existing `./const.js` import (`imports.mjs --can` ALREADY, no new edge); can't-reach arm → `return ECMD_OK` (C `:4216`); no-object/skip/single/multi-falloff arms → `return blin
 **D-2713**  — 
 **D-2712**  — 
-**D-2711**  — 
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2718; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2719; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

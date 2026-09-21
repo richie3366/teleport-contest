@@ -696,6 +696,16 @@ live `makemon` NO_MM_FLAGS + `tamedog` null FALSE);
 retired); prince/`mpickobj` already live);
 **D-1584 `mk_mplayer`** live `js/mplayer.js` (C `mplayer.c`; not this file) |
 **D-2107 `makemon` birth knowledge** (`makemon.c:1283–1294` after `female`, before `mpeaceful`: `In_sokoban && !mindless` → `mon_learns_traps(PIT/HOLE)`; `Is_stronghold && !mindless` → `(TRAPDOOR)`; `MS_LEADER/MS_NEMESIS` → `(ALL_TRAPS)`; `Is_stronghold||Is_knox||In_endgame||In_hell||In_V_tower||In_quest` → `mwandexp=TRUE` so first wand uses `buzz` not `buzz_force_miss`; `In_hell` = hellish flag idiom; **D-2294** `mpeaceful` MM_ANGRY arm (`:1297` verbatim ternary, `js/makemon.js:3208`) + `mwandexp` zeromonst template field (`monst.h:166`; `save.c`/`restore.c` whole-struct `savemon`/`restmon` analogue is `lev_json.js` `serMon` key-copy, probe-verified both ways));
+**D-2719 `monhp_per_lvl` whole C body** (`:986–1007` in C order; default
+`rnd(8)` drawn unconditionally, then golem (`golemhp/mlevel`, no RNG) /
+`mlevel>49` (`4+rnd(4)`) / adult-dragon (`4+rn2(5)`) / level-0 (`rnd(4)`)
+arms overwrite; live `js/makemon.js:962`; stale «named omit» doc removed).
+Caller `exper.c:320` (`pluslvl` Upolyd arm) wired `js/exper.js:187–191`
+(`monhp_per_lvl(youmonst)` → `mh +=` → `setuhpmax(mhmax,FALSE)` before
+`newhp()`); `losexp :283` was already live (`js/exper.js:393`);
+`artifact.c:1653` (`js/artifact.js:2950`), `zap.c:524` (`js/zap.js:4105`),
+`zap.c:755` (`js/zap.js:2892`) pre-wired; `uhitm.c:2497` is a comment,
+not a call. Named: none — whole body ported.
 
 ### `src/minion.c`
 

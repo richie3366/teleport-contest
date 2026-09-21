@@ -1,6 +1,6 @@
 {
- "commit": "f72cbdb1",
- "at": "2026-09-21T02:31:05.029Z",
+ "commit": "546f6b39",
+ "at": "2026-09-21T02:40:45.034Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -6669,18 +6669,18 @@
   "scen-poly-Caveman-92202": {
    "src": "corpus",
    "passed": false,
-   "rngM": 9957,
+   "rngM": 10885,
    "rngT": 10999,
-   "scrM": 197,
+   "scrM": 240,
    "scrT": 265,
    "kind": "rng",
-   "step": 197,
+   "step": 240,
    "steps": 265,
-   "owner": "monhp_per_lvl",
-   "loc": "makemon.c:1004",
-   "jsOwner": "newhp(attrib.js:658)",
-   "cTopline": "You engulf it! It is burning to a crisp! You kill it!--More--",
-   "jsTopline": "You engulf it! It is burning to a crisp! You kill it!--More--",
+   "owner": "destroy_arm",
+   "loc": "do_wear.c:3282",
+   "jsOwner": "distfleeck(monmove.js:992)",
+   "cTopline": "The ki-rin casts a spell at you! Your skin itches.",
+   "jsTopline": "The ki-rin casts a spell at you! Your skin itches.",
    "error": null
   },
   "scen-poly-Healer-92107": {
