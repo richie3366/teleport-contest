@@ -46,7 +46,7 @@ screens 93.2 %. Held-out 12/44, +0 vs last audit (5,976 / 11,265 pts, RNG
 this window — the corpus still does not predict the judge.
 **Corpus fortress** (re-scored 2026-09-21 audit 1674–1682): **500 / 540
 PASS (92.6 %)** excl. 13 env-only; RNG 99.37 %, screens 99.4 % — **+2 / −0**
-in the D-2715…D-2724 window (8 ACCEPT + 1 WITH-DEBT; +2 are
+in the D-2715…D-2725 window (8 ACCEPT + 1 WITH-DEBT; +2 are
 scen-poly-Caveman-92202 moved PASS by D-2721 and scen-wish-Healer-92092
 moved PASS by D-2720;
 every per-SHA `--reach-all` re-run here ends REACH-OK with no REGRESSED).
@@ -101,10 +101,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `end.c` done_object_cleanup remainder — C `end.c:854` inven_inuse(TRUE) + `:886–890` uchain placebc (`lift_covet_and_placebc`) + `:894–897` perm_invent clear absent from js/end.js:517 local clone (doc-named omissions; thrown/kicked arms live); unexported; `save.c:98` + `save.c:1111` callers unwired (`js/save.js:722` named omit), `end.c:1157` wired `js/end.js:984`. Export + port the arms in C order, wire all three callers. Verify `node scripts/verify.mjs --fn done_object_cleanup` (reach regression must be 0).
+**Next cluster:** `allmain.c` welcome remainder — C `allmain.c:856` l_nhcore_call + `:865–874` doomed-restore early return + `:878–880` Hallu + `:920–927` restore tail (hellish_smoke_mesg + print_level_annotation) absent from js/allmain.js:673; `restore.c:948` welcome(FALSE) unwired (no JS caller; `allmain.c:843` wired `js/allmain.js:865`). Port the arms in C order, wire the restore caller. Verify `node scripts/verify.mjs --fn welcome` (reach regression must be 0).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2724 (index).**
+**Keep D-0845…D-2725 (index).**
 <!-- recent:begin -->
+**D-2725** `nethack-c/upstream/src/allmain.c:854–929` — `js/allmain.js` — whole body restarted in C order with C cites inline: currentgend via live `Upolyd(u)` (`js/const.js:3184`) + `u.mfemale`; `:860` via `l_nhcore_call` (joins the existing static `./do.js` import); doomed 
 **D-2724** `nethack-c/upstream/src/end.c:850–903` — `js/end.js` — whole body restarted in C order as `export async function` with C cites inline: `:854` via dynamically-imported `inven_inuse(true)` (imports.mjs end→save is CHECK, lazy like the allmain.js edge); missile ar
 **D-2723** `nethack-c/upstream/src/dokick.c:1257–1470` — `js/dokick.js` only — whole body re-ported in C order with C cited inline: boots-99 (`u.uarmf` vs local `KICKING_BOOTS` const); swallow switch with `digests` (`./mhitu.js`, new edge — `imports.mjs --can` IN-SCC/hoisted, 
 **D-2722** `nethack-c/upstream/src/dog.c:303–415` — `js/dog.js` only — port the head in C order ahead of the live `:366` block (vote/reset/veto/keep-looping/mydogs-break/`make_happy_shoppers(true)`; `ESHK(mtmp)?.dismiss_kops` nullable per file convention, `mpeaceful|0` in
@@ -112,11 +113,10 @@ revisits the picker.
 **D-2720** `nethack-c/upstream/src/allmain.c:685–699` (`stop_occupation`: `maybe_finished_meal(TRUE)` — `js/hack.js` only — C-order gate (`if (!(await maybe_finished_meal(true)))` around the «stop» pline), then occupation=null, flags.botl + disp.botl (house convention, botl.js:753), nomul(0); `maybe_finished_meal` joins th
 **D-2719** `nethack-c/upstream/src/makemon.c:986–1007` — `js/makemon.js` only — C-order restart (`let hp = rnd(8)`, `else-if` arm chain, C comments `:993–1004` cited inline); stale «Named omit» doc replaced with the arm/draw contract + caller list.
 **D-2718** `nethack-c/upstream/src/uhitm.c:2626–2681` (`mhitm_ad_cold`); mhitu arm `:2654–2667` — `js/mhitu.js` only — discard the return (`await destroy_items(you, AD_COLD, orig_dmg)`, C `:2661` cited inline); doc comment now cites the mhitu arm range and the discarded-return contract.
-**D-2717** `nethack-c/upstream/src/uhitm.c:525–534` (`Upolyd && noattacks` → «no way to attack» + `go — `js/uhitm.js` only, in C order — Upolyd + live `noattacks` (`js/hack.js:1211`, C-identical incl.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2724; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2725; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

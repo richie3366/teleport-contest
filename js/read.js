@@ -2365,7 +2365,7 @@ function upstart(str) {
 }
 
 /** C ref: polyself.c udeadinside — dead / condemned / empty. */
-function udeadinside() {
+export function udeadinside() {
     const data = game.youmonst?.data;
     if (!nonliving(data)) return 'dead';
     if (!weirdnonliving(data)) return 'condemned';

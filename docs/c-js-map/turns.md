@@ -73,7 +73,7 @@ named)); **`mvitals.mvflags = geno & G_NOCORPSE` at newgame** (D-0057);
 **`multi < 0` occupation + `unmul`/`afternmv` + 
 `unmul`→`deferred_goto` when utotype** (D-0066/D-0719); 
 **`go.occupation` tick before rhack** (D-0076); 
-**`welcome` enter-dungeon `livelog_printf`** (D-0124); 
+**`welcome` enter-dungeon `livelog_printf`** (D-0124); **`welcome` whole body `:854–929` in C order** (D-2725; `:860` `l_nhcore_call` START/RESTORE via do.js; `:862–866` doomed-restore early return via `ugenocided` + `udeadinside` (read.js export, no clone #2); `:869–870` Hallu arm via `Hallucination()` call; `#if 0` A_ORIGINAL dead; `:922–927` restore tail via `hellish_smoke_mesg` (do.js export, no clone #2) + `print_level_annotation`; `Upolyd(u) ? u.mfemale` currentgend; callers `allmain.c:843` → allmain.js:865, `restore.c:948` → jsmain.js:252 (pre-wired since D-0335)); 
 **`await dosounds` vault `You_hear`** (D-0204/D-0298); 
 **fountain/sink `You_hear` msg tables** (D-0303); **shop `You_hear` `shop_msg`** (D-0306); 
 **`mcalcdistress` before EOT movement reallocation** (D-0257); 

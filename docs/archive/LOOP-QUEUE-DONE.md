@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-21
 
-- [x] `end.c` done_object_cleanup remainder — C `end.c:854` inven_inuse(TRUE) + `:886–890` uchain placebc (`lift_covet_and_placebc`) + `:894–897` perm_invent clear absent from js/end.js:517 local clone (doc-named omissions; thrown/kicked arms live); unexported; `save.c:98` + `save.c:1111` callers unwired (`js/save.js:722` named omit), `end.c:1157` wired `js/end.js:984`. Export + port the arms in C order, wire all three callers. Verify `node scripts/verify.mjs --fn done_object_cleanup` (reach regression must be 0). **Addressed:** D-2724
+- [x] `allmain.c` welcome remainder — C `allmain.c:856` l_nhcore_call + `:865–874` doomed-restore early return + `:878–880` Hallu + `:920–927` restore tail (hellish_smoke_mesg + print_level_annotation) absent from js/allmain.js:673; `restore.c:948` welcome(FALSE) unwired (no JS caller; `allmain.c:843` wired `js/allmain.js:865`). Port the arms in C order, wire the restore caller. Verify `node scripts/verify.mjs --fn welcome` (reach regression must be 0). **Addressed:** D-2725
+
+
+- [x] `end.c` done_object_cleanup remainder — C `end.c:854` inven_inuse(TRUE) + `:886–890` uchain placebc (`lift_covet_and_placebc`) + `:894–897` perm_invent clear absent from js/end.js:517 local clone (doc-named omissions; thrown/kicked arms live); unexported; `save.c:98` + `save.c:1111` callers unwired (`js/save.js:722` named omit), `end.c:1157` wired `js/end.js:984`. Export + port the arms in C order, wire all three callers. Verify `node scripts/verify.mjs --fn done_object_cleanup` (reach regression must be 0). **Addressed:** D-2724 `1f40ed0e3`
 
 
 - [x] `dokick.c` dokick — coverage PARTIAL (C 213 L `dokick.c:1257–1470` / JS 141 L in js/dokick.js; hops —, callers 0, RNG 2, msg 15). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dokick` (reach regression must be 0). Measured `port-coverage.mjs --name dokick` 2026-09-21 @ 1204bc94.
