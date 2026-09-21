@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-21
 
-- [x] `uhitm.c` mhitm_ad_fire — coverage THIN (C 100 L `uhitm.c:2521–2623` / JS 41 L in js/mhitm.js; hops 4, callers 1, RNG 1, msg 7). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mhitm_ad_fire` (reach regression must be 0). Measured `port-coverage.mjs --name mhitm_ad_fire` 2026-09-21 @ 6fc07aef5. **Addressed:** D-2730
+- [x] `questpgr.c` com_pager_core — coverage THIN (C 149 L `questpgr.c:468–621` / JS 39 L in js/questpgr.js; hops 3, callers 5, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn com_pager_core` (reach regression must be 0). Measured `port-coverage.mjs --name com_pager_core` 2026-09-21 @ 6fc07aef5. **Addressed:** D-2731
+
+
+- [x] `uhitm.c` mhitm_ad_fire — coverage THIN (C 100 L `uhitm.c:2521–2623` / JS 41 L in js/mhitm.js; hops 4, callers 1, RNG 1, msg 7). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mhitm_ad_fire` (reach regression must be 0). Measured `port-coverage.mjs --name mhitm_ad_fire` 2026-09-21 @ 6fc07aef5. **Addressed:** D-2730 `dd14f257f`
 
 
 - [x] `rumors.c` outrumor — coverage PARTIAL (C 43 L `rumors.c:529–574` / JS 23 L in js/rumors.js; hops 4, callers 5, RNG 3, msg 5). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn outrumor` (reach regression must be 0). Measured `port-coverage.mjs --name outrumor` 2026-09-21 @ 6fc07aef5.
