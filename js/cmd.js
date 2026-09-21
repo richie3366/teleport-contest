@@ -143,6 +143,11 @@ export function end_of_input() {
         ps.something_worth_saving = 0;
     }
     if (ps.something_worth_saving) {
+        // C cmd.c end_of_input → dosave0 is sync; JS dosave0 awaits the
+        // async done_object_cleanup, so here it floats — end_of_input
+        // and its hangup callers (hangup, moveloop_core, rhack) have no
+        // await point. The in-process VFS write still lands on microtask
+        // flush before any later awaited work reads it back.
         dosave0();
     }
     ps.in_moveloop = 0;

@@ -1787,8 +1787,14 @@ impossible pline / age shift named); resetobjs save arm live since D-2606 (known
 `savelife` + `hidden_gold`** (D-0581; seed5006 Scr 230→246); 
 **getbones yn leave-level gbuf mon→memory + dirty Terminal paint** (D-0583; seed5006 **PASS**; 
 ordinary `vision_recalc(2)` newsym loop deferred); 
-**`done_object_cleanup` places limbo `_thrownobj`/`_kickedobj`** (D-0275; 
-48→49 entities, seg9 16630→16635); **`serMon`/bones getlev persist `mtrack[MTSZ]`** (D-0276; 
+**`done_object_cleanup` whole C body live** (D-0275 thrown/kicked; D-2724
+adds `:854` inven_inuse(TRUE) via exported save.js clone — incl. its
+`./eat.js`→`./invent.js` useup source fix — `:886–890` uchain
+`lift_covet_and_placebc(-1)` under the C OBJ_FREE guard, `:894–897`
+perm_invent clear + `perm_invent_toggled(true)`; exported async, wired at
+end.c:1157 really_done + save.c:98 dosave0 — dosave0/dosave now async,
+end_of_input floats it — save.c:1111 freedynamicdata has no JS
+counterpart, named); **`serMon`/bones getlev persist `mtrack[MTSZ]`** (D-0276; 
 C `savemon`/`restmon`; seg9 16635→16683); 
 **ghostly `peace_minded`/`set_malign` + savebones pet untame** (D-0277; C `restore.c` getlev; 
 seg9 16683→16836); **`savebones` clear seenv/waslit/glyph + load strip remembered/disp (D-0328)**; 
