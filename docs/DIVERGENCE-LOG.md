@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2738 — `polyself.c` newman missing arms (Sick/Stoned, PolyControl uhp, livelog, Slimed, selftouch)
+
+- **Status:** fixed (coverage row: `polyself.c` newman PARTIAL (C 130 L `polyself.c:336–466` / JS 79 L in js/polyself.js; hops 3, callers 7, RNG 6, msg 3); 0 corpus sessions blocked — coverage completion, not a divergence. Same-iteration Stale park: xname_flags (D-2483 whole-body port, FIGURINE-of verified live js/objnam.js:901, 0 blocked) — moved to the Stale list, never re-pop; queue refilled first, 9 tool-verbatim rows, this D pops the head.)
+- **Symptom:** none on the corpus — the five arms fire only on rare newman states (Sick/Stoned/Slimed set across the poly, post-rebuild uhp≤0 without control, any level change for livelog, gloveless form for selftouch), so no baseline-PASS session painted them; the always-wrong hunk was the uhp≤0 clamp (C kills without Polymorph_control, JS kept 1 hp).
+- **C locus:** `nethack-c/upstream/src/polyself.c:414–466` (`:415–416` Sick→make_sick; `:417–418` Stoned→make_stoned; `:419–422` uhp≤0 PolyControl clamp else dead; `:423–432` dead label — urgent_pline/killer/done(DIED)/newuhs/encumber; `:436` newuhs; `:438–443` newform + polyman; `:445` newgend; `:449–451` level-change livelog_printf; `:452–453` livelog_newform; `:455–458` Slimed Your + make_slimed; `:460–462` botl/see/encumber; `:464` retouch_equipment(2); `:465–466` gloveless selftouch). Callers `:692` werecritter, `:714` polymon force.
+- **JS was:** local `newman()` js/polyself.js:961 (79 L) with the five arms as named omissions in its doc; uhp≤0 unconditionally clamped to 1; oldgend voided; dead-arm 8-line block inline at the level gate only.
+- **Fix:** `js/polyself.js` only (no new cross-module edge — `Your` joins the existing display.js import, runtime-called like `You`/`pline` per the imports check; `LL_MINORAC` joins the const.js import): module-local `newman_dead_end()` (`:423–432` single definition, C goto shape; both gates call it then return); `:360` oldgend captured; `:415–418` Sick/Stoned clears via live make_sick/make_stoned; `:419–422` PolyControl arm via local `Polymorph_control(u)` else dead; `:445` newgend captured; `:449–451` livelog_printf on level change; `:455–458` Slimed Your + make_slimed; `:465–466` gloveless selftouch via live selftouch + file `no_longer_petrify_resistant`. No DIAG/FORCE/seed gates; Rule #2 clean.
+- **JS:** `js/polyself.js` (+~60: 1 local + 5 arms + 2 import names; 36 importers).
+- **Callers:** C `:692`→js/polyself.js:2069 werecritter (awaited), C `:714`→js:2091 polymon force (awaited). No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn newman` → PASS syntax (1 changed) · PASS rule2 · hidden note (0 blocked — normal for a coverage row) · PASS reach (3 reach it, 3 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 → VERIFY: PASS; `--full` → PASS full 44/44 → VERIFY: PASS. Preflight `verify --no-cohort` before edits likewise PASS.
+- **Named omissions:** retouch_equipment(2) (`:464` — not in js/**, own coverage row, rehumanize precedent); livelog_newform (`:307` non-static C fn, own row) on the no-level-change arm.
+- **Next:** queue holds 8 Open after archive — pop moverock_core next.
+
 ## D-2737 — `sp_lev.c` lspo_map + lspo_replace_terrain + lspo_region whole bodies (des.map/replace_terrain/region bindings)
 
 - **Status:** fixed (coverage rows: all three MISSING in the same C file — lspo_map C 244 L `sp_lev.c:6075–6319`, lspo_replace_terrain C 92 L `sp_lev.c:5051–5143`, lspo_region C 131 L `sp_lev.c:5584–5715`; 0 corpus sessions blocked on each — coverage completion, not a divergence. Not stale: the 43/44 split mentions are fragment idioms, not the bodies.)

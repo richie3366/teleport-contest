@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-21
 
+- [x] `polyself.c` newman — coverage PARTIAL (C 130 L `polyself.c:336–466` / JS 79 L in js/polyself.js; hops 3, callers 7, RNG 6, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn newman` (reach regression must be 0). Measured `port-coverage.mjs --name newman` 2026-09-21 @ e975f7583. **Addressed:** D-2738.
+
+
 - [x] `sp_lev.c` lspo_map — coverage MISSING (C 244 L `sp_lev.c:6075–6319` / JS no symbol; hops —, callers 0, RNG 2, msg 0; dead callees: mapfrag_free, l_push_wid_hei_table; split? cited 43× in js/ — brief first). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn lspo_map` (reach regression must be 0). Measured `port-coverage.mjs --name lspo_map` 2026-09-21 @ 88cc54b29.
 - [x] `sp_lev.c` lspo_replace_terrain — coverage MISSING (C 92 L `sp_lev.c:5051–5143` / JS no symbol; hops —, callers 0, RNG 2, msg 0; dead callees: mapfrag_error, mapfrag_free; split? cited 44× in js/ — brief first). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn lspo_replace_terrain` (reach regression must be 0). Measured `port-coverage.mjs --name lspo_replace_terrain` 2026-09-21 @ 88cc54b29.
 - [x] `sp_lev.c` lspo_region — coverage MISSING (C 131 L `sp_lev.c:5584–5715` / JS no symbol; hops —, callers 0, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn lspo_region` (reach regression must be 0). Measured `port-coverage.mjs --name lspo_region` 2026-09-21 @ 88cc54b29.
