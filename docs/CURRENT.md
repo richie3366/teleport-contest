@@ -46,7 +46,7 @@ screens 93.2 %. Held-out 12/44, +0 vs last audit (5,976 / 11,265 pts, RNG
 this window — the corpus still does not predict the judge.
 **Corpus fortress** (re-scored 2026-09-21 audit 1674–1682): **500 / 540
 PASS (92.6 %)** excl. 13 env-only; RNG 99.37 %, screens 99.4 % — **+2 / −0**
-in the D-2715…D-2739 window (8 ACCEPT + 1 WITH-DEBT; +2 are
+in the D-2715…D-2740 window (8 ACCEPT + 1 WITH-DEBT; +2 are
 scen-poly-Caveman-92202 moved PASS by D-2721 and scen-wish-Healer-92092
 moved PASS by D-2720;
 every per-SHA `--reach-all` re-run here ends REACH-OK with no REGRESSED).
@@ -101,10 +101,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `hack.c` moverock_core — coverage PARTIAL (C 290 L `hack.c:348–638` / JS 138 L in js/hack.js; hops 4, callers 1, RNG 1, msg 14; dead callees: rock_disappear_msg). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn moverock_core` (reach regression must be 0). Measured `port-coverage.mjs --name moverock_core` 2026-09-21 @ e975f7583.
+**Next cluster:** `apply.c` jump — coverage PARTIAL (C 176 L `apply.c:1988–2164` / JS 85 L in js/apply.js; hops 5, callers 3, RNG 7, msg 23). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn jump` (reach regression must be 0). Measured `port-coverage.mjs --name jump` 2026-09-21 @ e975f7583.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2739 (index).**
+**Keep D-0845…D-2740 (index).**
 <!-- recent:begin -->
+**D-2740** `nethack-c/upstream/src/apply.c:1988–2164` (`:1993–1995` known_spell #jump fallback; `:199 — restarted `jump` in C order with per-arm `:line` cites; new same-SCC runtime edges (imports.mjs SAFE) `known_spell`/`spe_Fresh`/`spelleffects` (+ exported `SPE_JUMPING` js/spell.js:282), `stucksteed`, `slithy`, `Flying`,
 **D-2739** `nethack-c/upstream/src/hack.c:348–638` (`:358–363` Blind feel; `:365–372` next_boulder; ` — `js/trap.js` — exported `blow_up_landmine` + `launch_obj` (same-SCC edge, no new module edge: hack.js already imports trap.js).
 **D-2738** `nethack-c/upstream/src/polyself.c:414–466` (`:415–416` Sick→make_sick; `:417–418` Stoned→ — `js/polyself.js` only (no new cross-module edge — `Your` joins the existing display.js import, runtime-called like `You`/`pline` per the imports check; `LL_MINORAC` joins the const.js import): module-local `newman_dead_e
 **D-2737** `lspo_map :6075–6319` (`:6099` coder; `:6101–6102` themeroom-fail return; `:6105–6130` str — `js/mklev.js` only, after `lspo_room` (same-file locals throughout — no new cross-module edge): file-local `sel_set_lit` (C staticfn shape, numeric lit), `mapfrag_error` (NULL/odd/center arms, truncating center index), `
@@ -112,11 +113,10 @@ revisits the picker.
 **D-2735** `nethack-c/upstream/src/mon.c:5680–5707` (`:5683` heal/slow init; `:5685–5689` flesh ELEC- — `js/mhitm.js` — completed + exported `golemeffects_mm` in full C order (slow block before heal block, per-arm `:line` cites); slow calls live `mon_adjust_speed` (pre-existing static `./muse.js` edge, damageum_ad_slow pre
 **D-2734** `nethack-c/upstream/src/do.c:893–920` (`:895–896` null return; `:897–902` `Has_contents` c — `js/mkobj.js` only — module-local `place_object_no_longer_held` replicating do.c:893–920 in C order (`Has_contents` joins the existing const.js import; `rn2` the rng.js edge; `game.context?.mon_moving` / `game.program_st
 **D-2733** `nethack-c/upstream/src/invent.c:2750–2775` — restarted `learn_unseen_invent` in C order as `export async function` (async: live `addinv_core2` awaits pline on its decipher arm): role gates via the same-file `urole.mnum` convention (`PM_CLERIC` already imported; `PM
-**D-2732** `nethack-c/upstream/src/mkobj.c:2305–2366` — `js/mkobj.js` only — restarted `place_object` in C order with per-arm cites: isok gate (OOB throws — no live JS panic export, mklev.js:19190 precedent; x=0 warns via floating impossible(), do_wear.js:619 precedent, then 
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2739; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2740; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

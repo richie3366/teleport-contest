@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-21
 
-- [x] `hack.c` moverock_core — coverage PARTIAL (C 290 L `hack.c:348–638` / JS 138 L in js/hack.js; hops 4, callers 1, RNG 1, msg 14; dead callees: rock_disappear_msg). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn moverock_core` (reach regression must be 0). Measured `port-coverage.mjs --name moverock_core` 2026-09-21 @ e975f7583. **Addressed:** D-2739
+- [x] `apply.c` jump — coverage PARTIAL (C 176 L `apply.c:1988–2164` / JS 85 L in js/apply.js; hops 5, callers 3, RNG 7, msg 23). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn jump` (reach regression must be 0). Measured `port-coverage.mjs --name jump` 2026-09-21 @ e975f7583. **Addressed:** D-2740
+
+
+- [x] `hack.c` moverock_core — coverage PARTIAL (C 290 L `hack.c:348–638` / JS 138 L in js/hack.js; hops 4, callers 1, RNG 1, msg 14; dead callees: rock_disappear_msg). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn moverock_core` (reach regression must be 0). Measured `port-coverage.mjs --name moverock_core` 2026-09-21 @ e975f7583. **Addressed:** D-2739 `289e5ec2c`
 
 
 - [x] `polyself.c` newman — coverage PARTIAL (C 130 L `polyself.c:336–466` / JS 79 L in js/polyself.js; hops 3, callers 7, RNG 6, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn newman` (reach regression must be 0). Measured `port-coverage.mjs --name newman` 2026-09-21 @ e975f7583. **Addressed:** D-2738 `03aaa7573`.

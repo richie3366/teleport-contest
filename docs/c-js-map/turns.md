@@ -1998,8 +1998,8 @@ JS: `js/apply.js`, `js/lock.js`, `js/insight.js`, `js/music.js`, `js/write.js` �
 EXT_ENCUMBER `check_capacity` before getobj** (D-0928 #1186; 
 retouch/wand-break/flip_book/coin still deferred); 
 **`#jump`/`dojump`/`jump` physical + knight chess `distu==5` + `walk_path`/`check_jump` (D-0899; 
-SPE_JUMPING spell is D-1397; #jump known_spell fallback / hurtle_step / steed·trap-escape; 
-S_goodpos tmp_at D-1051)**; **`#rub`/`dorub`/`wield_tool` re-queue** (D-0710; 
+SPE_JUMPING spell is D-1397; whole body live D-2740 — known_spell fallback, hurtle_jump via
+walk_path_async, steed·trap-escape; S_goodpos tmp_at D-1051)**; **`#rub`/`dorub`/`wield_tool` re-queue** (D-0710; 
 **`use_stone` graystone** D-1014; jelly full body D-2331; **`djinni_from_bottle`** MAGIC_LAMP (D-1144); **`wield_tool` guard arms D-2333**); 
 **`splash_lit` D-1337**; **`use_cream_pie`** immerse+`rnd(25)`+ucreamed/`make_blinded`+delobj 
 (D-0711) + **`make_blinded` toggle → `vision_recalc(0)`** (D-0721; 
@@ -3080,7 +3080,7 @@ callee `find_ac` + `timeout.c` `:652–661` usptime tick)**;
 blocked cornuthaum hat; allmain seer_turn still named)**; 
 **SPE_JUMPING `jump(max(role_skill,1))` (D-1397; C `:1584–1587`; callee `apply.c` `jump`; 
 !TIME → nothing_happens; magic ustuck writhe + tame pull-free + air/waterlevel; 
-#jump known_spell fallback still named)**; 
+#jump known_spell fallback live D-2740)**; 
 **SPE_CURE_SICKNESS `healup(0,0,TRUE,FALSE)` then ill/slime (D-1398; C `:1552–1567`; 
 callee `potion.c` `healup` `make_vomiting`+`make_sick(SICK_ALL)` + `make_slimed`)**; 
 **SPE_CURE_BLINDNESS `healup(0,0,FALSE,TRUE)` (D-1399; C `:1549–1551`; 
