@@ -82,6 +82,8 @@ import {
     Is_earthlevel,
     DRY, WET, HOT, SOLID, ANY_LOC, NO_LOC_WARN, SPACELOC,
     SP_OBJ_CONTENT, SP_OBJ_CONTAINER,
+    F_LOOTED, F_WARNED, S_LPUDDING, S_LDWASHER, S_LRING,
+    T_LOOTED, TREE_LOOTED, TREE_SWARM,
     Can_fall_thru, Can_dig_down, G_GONE,
     CORPSTAT_HISTORIC, CORPSTAT_MALE, CORPSTAT_FEMALE, CORPSTAT_NONE,
     NUM_NHCORE_CALLS,
@@ -1119,6 +1121,148 @@ export function lspo_gold(a, b, c) {
     const pos = get_location_coord(DRY, coder?.croom ?? null, x, y); // C :4520 (RANDOM when x=y=-1)
     if (amount < 0) amount = rnd(200); // C :4521-4522
     mkgold(amount, pos.x, pos.y); // C :4523
+    return 0;
+}
+
+// C ref: sp_lev.c lspo_feature static tables `:4847–4850`.
+const LSPO_FEATURES = ['fountain', 'sink', 'pool', 'throne', 'tree'];
+const LSPO_FEATURES2I = [FOUNTAIN, SINK, POOL, THRONE, TREE, STONE];
+
+/**
+ * C ref: sp_lev.c sel_set_feature `:4633–4644` — isok gate, IS_FURNITURE
+ * guard, typ only (no lit change, no nfountains/nsinks recount — that
+ * lives in set_levltyp, not here). C takes typ by genericptr; JS passes
+ * the int. The EXTRA_SANITY_CHECKS impossible is compiled out upstream.
+ */
+function sel_set_feature(x, y, typ) {
+    if (!isok(x, y)) return; // C :4636-4641
+    const loc = game.level.at(x, y);
+    if (!loc) return;
+    if (IS_FURNITURE(loc.typ)) return; // C :4642-4643
+    loc.typ = typ; // C :4644
+}
+
+/**
+ * C ref: nhlua.c get_table_boolean `:1079–1104` — string arm returns the
+ * raw luaL_checkoption index ("true"→0, "false"→1, "yes"→2, "no"→3;
+ * no match throws like nhl_error); boolean → 1/0; number must be an
+ * integer 0/1 else throw ("Expected a boolean").
+ */
+function splev_feature_boolopt(v, name) {
+    if (typeof v === 'string') {
+        const i = ['true', 'false', 'yes', 'no'].indexOf(v);
+        if (i < 0) throw new Error(`lspo_feature: Expected a boolean for '${name}'`);
+        return i;
+    }
+    if (typeof v === 'boolean') return v ? 1 : 0;
+    if (typeof v === 'number') {
+        if (!Number.isInteger(v) || v < 0 || v > 1)
+            throw new Error(`lspo_feature: Expected a boolean for '${name}'`);
+        return v;
+    }
+    throw new Error(`lspo_feature: Expected a boolean for '${name}'`);
+}
+
+/**
+ * C ref: sp_lev.c l_table_getset_feature_flag `:4739–4756` — absent field
+ * (get_table_boolean_opt defval -2) skips; else set/clear flag on the
+ * cell. C writes levl[x][y].flags, which rm.h aliases (`#define looted
+ * flags` for throne/tree/fountain/sink/door); JS cells carry `.looted`
+ * (fountain.js/dokick.js). The `val == -1 → rn2(2)` arm is dead in C
+ * (get_table_boolean throws on -1) and is kept verbatim for C order.
+ */
+function l_table_getset_feature_flag(o, x, y, name, flag) {
+    if (o[name] == null) return; // C :4746 get_table_boolean_opt -2
+    let val = splev_feature_boolopt(o[name], name);
+    if (val === -1) val = rn2(2); // C :4748-4749
+    const loc = game.level.at(x, y);
+    if (!loc) return;
+    if (val) loc.looted = (loc.looted | 0) | flag; // C :4750-4751
+    else loc.looted = (loc.looted | 0) & ~flag; // C :4752-4753
+}
+
+/**
+ * C ref: sp_lev.c lspo_feature `:4844–4923` — des.feature entry in C
+ * order. C dispatches on the Lua stack shape; JS takes the unpacked
+ * equivalents like lspo_gold: (typeStr) string-only, (typeStr, coord)
+ * pair, (typeStr, x, y) triple, or (opts?) table form (type/x/y/coord
+ * fields plus flag fields; absent opts ≡ empty table per
+ * lcheck_param_table, so table-form type is required). Anything else
+ * throws like C nhl_error. x=y=-1 packs RANDOM/DRY like C `:4881`;
+ * explicit coords pack ANY_LOC like C `:4885`. STONE impossibles like C
+ * `:4891` (unreachable via the 5-entry option table, kept verbatim).
+ * Flag arms only run when the cell now has typ AND the table form was
+ * used (C `:4895`); POOL has no flags (default arm).
+ */
+export function lspo_feature(a, b, c) {
+    let typ, x, y;
+    let can_have_flags = false;
+    let o = null;
+    create_des_coder(); // C :4855
+    const argc = arguments.length;
+    if (argc === 1 && typeof a === 'string') { // C :4857-4860
+        typ = LSPO_FEATURES2I[splev_opt_index(a, null, LSPO_FEATURES)];
+        x = y = -1;
+    } else if (argc === 2 && typeof a === 'string' // C :4861-4867
+        && b !== null && typeof b === 'object') {
+        typ = LSPO_FEATURES2I[splev_opt_index(a, null, LSPO_FEATURES)];
+        const cc = get_coord_unpacked(b); // C get_coord(L, 2, ...)
+        x = cc.x;
+        y = cc.y;
+    } else if (argc === 3) { // C :4868-4872
+        typ = LSPO_FEATURES2I[splev_opt_index(a, null, LSPO_FEATURES)];
+        x = b | 0;
+        y = c | 0;
+    } else { // C :4873-4880 table form (lcheck_param_table: argc<1 ≡ {})
+        o = a ?? {};
+        const xy = get_table_xy_or_coord(o); // C :4877
+        x = xy.x;
+        y = xy.y;
+        typ = LSPO_FEATURES2I[splev_opt_index(o.type, null, LSPO_FEATURES)]; // C :4878
+        can_have_flags = true; // C :4879
+    }
+
+    let humidity;
+    if (x === -1 && y === -1) {
+        humidity = DRY; // C :4882-4883 SP_COORD_PACK_RANDOM(0)
+    } else {
+        humidity = ANY_LOC; // C :4886 SP_COORD_PACK(x, y)
+    }
+    const coder = game.gc?.coder ?? null;
+    const pos = get_location_coord(humidity, coder?.croom ?? null, x, y); // C :4888
+    x = pos.x;
+    y = pos.y;
+
+    if (typ === STONE) // C :4890-4891
+        impossible('feature has unknown type param.');
+    else
+        sel_set_feature(x, y, typ); // C :4893 (genericptr_t)&typ
+
+    const loc = game.level.at(x, y);
+    if (!loc || loc.typ !== typ || !can_have_flags) // C :4895-4896
+        return 0;
+
+    switch (typ) { // C :4898-4920
+    default:
+        break;
+    case FOUNTAIN:
+        l_table_getset_feature_flag(o, x, y, 'looted', F_LOOTED); // C :4905
+        l_table_getset_feature_flag(o, x, y, 'warned', F_WARNED); // C :4906
+        break;
+    case SINK:
+        l_table_getset_feature_flag(o, x, y, 'pudding', S_LPUDDING); // C :4909
+        l_table_getset_feature_flag(o, x, y, 'dishwasher', S_LDWASHER); // C :4910
+        l_table_getset_feature_flag(o, x, y, 'ring', S_LRING); // C :4911
+        break;
+    case THRONE:
+        l_table_getset_feature_flag(o, x, y, 'looted', T_LOOTED); // C :4914
+        break;
+    case TREE:
+        l_table_getset_feature_flag(o, x, y, 'looted', TREE_LOOTED); // C :4917
+        l_table_getset_feature_flag(o, x, y, 'swarm', TREE_SWARM); // C :4918
+        break;
+    }
+
     return 0;
 }
 

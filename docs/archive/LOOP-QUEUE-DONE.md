@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-21
 
-- [x] `shk.c` unpaid_cost — coverage PARTIAL (C 43 L `shk.c:3260–3305` / JS 23 L in js/shk.js; hops 4, callers 8, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn unpaid_cost` (reach regression must be 0). Measured `port-coverage.mjs --name unpaid_cost` 2026-09-21 @ c3da9d13. **Addressed:** D-2711
+- [x] `sp_lev.c` lspo_feature — coverage MISSING (C 79 L `sp_lev.c:4844–4923` / JS no symbol; hops —, callers 0, RNG 0, msg 0; dead callees: l_table_getset_feature_flag). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn lspo_feature` (reach regression must be 0). Measured `port-coverage.mjs --name lspo_feature` 2026-09-21 @ ee23c6dc. **Addressed:** D-2712
+
+
+- [x] `shk.c` unpaid_cost — coverage PARTIAL (C 43 L `shk.c:3260–3305` / JS 23 L in js/shk.js; hops 4, callers 8, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn unpaid_cost` (reach regression must be 0). Measured `port-coverage.mjs --name unpaid_cost` 2026-09-21 @ c3da9d13. **Addressed:** D-2711 `a8cd211c`
 
 
 - [x] `sp_lev.c` lspo_drawbridge — coverage MISSING (C 43 L `sp_lev.c:5720–5763` / JS no symbol; hops —, callers 0, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn lspo_drawbridge` (reach regression must be 0). Measured `port-coverage.mjs --name lspo_drawbridge` 2026-09-21 @ 6f93ac06.
