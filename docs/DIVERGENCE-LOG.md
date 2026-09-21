@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2706 — `cmd.c` there_cmd_menu_common whole C body: missing glyph arm + same-name export
+
+- Status: SHIPPED (breadth phase). Popped head Open — coverage row (MISSING: C 11 L `cmd.c:4639–4654` / JS no symbol; 1 caller, RNG 0, msg 0; dead callee `mcmd_addmenu`). No Must-fix live, no review cited, no corpus session blocked.
+- Symptom: coverage gap with a real missing arm — JS `js/cmd.js` carried the body only as local `there_cmd_menu_common_items`, covering the CLICK gate + `!u_at`/`Upolyd` disjuncts but dropping C's third disjunct `glyph_at(x,y) != hero_glyph` (self shown as non-hero: steed/invisible w/o see-invisible/?), and no same-named symbol existed for the coverage tool or stale checks.
+- C locus: `nethack-c/upstream/src/cmd.c:4638–4654` (`there_cmd_menu_common`, staticfn); caller `:4862` `there_cmd_menu`; callee `mcmd_addmenu` (`:4421–4432`, add_menu+MCMD_LOOK_AT); macros `u_at` (you.h:562), `Upolyd` (you.h:554), `hero_glyph` (display.h:654 int monnum_to_glyph), `glyph_at` (display.c:2478 gbuf read).
+- JS was: `js/cmd.js:1705` local `there_cmd_menu_common_items(x, y, mod)` — `mod !== CLICK_1 && mod !== 2` gate, `!atSelf || Upolyd(u)` only; comment marked the glyph arm deferred.
+- Fix: renamed to exported `there_cmd_menu_common` (same items-array architecture; `mcmd_addmenu`→push by architecture, `act` UNUSED dropped), added the third disjunct `glyph_at(x, y) !== hero_glyph().glyph` in C short-circuit order (C int vs JS descriptor — `.glyph` is the int, per `display.js:3915` precedent), imported `hero_glyph` on the existing display.js edge (no new edge per `imports.mjs --can`) + `CLICK_2` replacing the literal `2`.
+- JS: `js/cmd.js` `there_cmd_menu_common` (cited per arm); new `scripts/there-cmd-menu-common.test.mjs` 5/5 (mod gate, !u_at, Upolyd, glyph-equal absent, glyph-differ present); file fails to load on pre-fix tree (no export), 5/5 post-fix.
+- Callers: C `:4862` → JS `there_cmd_menu` `js/cmd.js:1731` (concat call site, updated to the new name). No C caller left unwired; no new call site C never calls from.
+- Verify: `node scripts/verify.mjs --fn there_cmd_menu_common` → PASS (syntax 1 file; Rule #2; hidden: none blocked; REACH smoke 24/24 REACH-OK; green 2/2; strict both; cohort 7/7). `port-coverage.mjs --name there_cmd_menu_common` now reads live.
+- Named omissions: winid/add_menu window lifecycle (menu-helper owned, `there_cmd_menu` precedent); next2u/far builders + K==0/K==1 paths (pre-existing `there_cmd_menu` deferrals, map turns.md).
+- Next: queue head moves to `skills_for_role`; same-C-file (`cmd.c`) Must-fix/Open companion: none live.
+
 ## D-2705 — `dungeon.c` query_annotation whole-body restart on live callees + `trimspaces` port
 
 - Status: SHIPPED (breadth phase). Popped head Open — coverage row (PARTIAL: C 67 L `dungeon.c:2500–2567` / JS 41 L in `js/dungeon.js`). No Must-fix live, no review cited, no corpus session blocked (RNG 0, msg 0).

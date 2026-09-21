@@ -12,7 +12,7 @@ import {
     newsym, flush_screen, pline, You, pline_dir, pline_xy, set_msg_xy,
     see_nearby_objects,
     clear_nhwindow_message,
-    mon_visible, sensemon, canspotmon, glyph_at, glyph_is_invisible_id,
+    mon_visible, sensemon, canspotmon, glyph_at, hero_glyph, glyph_is_invisible_id,
     glyph_is_warning, unmap_object, map_object,
     look_shown_at, glyph_to_obj_at, Norep, tty_doprev_message, putmsghistory,
     unmap_invisible, map_invisible, custompline,
@@ -22,7 +22,7 @@ import { COLNO, ROWNO, STONE, DOOR, CORR, ROOM, IRONBARS, TREE, SDOOR,
          DRAWBRIDGE_UP, ROOMOFFSET,
          IS_DOOR, IS_OBSTRUCTED, IS_FURNITURE, IS_STWALL, IS_WALL, IS_TREE,
          IS_FOUNTAIN, IS_SINK, IS_THRONE, IS_ALTAR, IS_ROOM, IS_WATERWALL,
-         ACCESSIBLE, isok, Upolyd, Is_container, CLICK_1,
+         ACCESSIBLE, isok, Upolyd, Is_container, CLICK_1, CLICK_2,
          ECMD_OK, ECMD_TIME, ECMD_CANCEL, ECMD_FAIL, DOMOVE_RUSH, DOMOVE_WALK,
          CMDQ_EXTCMD, CMDQ_KEY, CMDQ_DIR, CMDQ_USER_INPUT, CQ_CANNED, CQ_REPEAT,
          IFBURIED, WIZMODECMD, NOFUZZERCMD, PREFIXCMD, MOVEMENTCMD,
@@ -1699,16 +1699,25 @@ function there_cmd_menu_self_items(x, y) {
 }
 
 /**
- * C ref: cmd.c there_cmd_menu_common — "Look at map symbol" for self when
- * Upolyd (glyph≠hero_glyph / steed arms deferred).
+ * C ref: cmd.c there_cmd_menu_common `:4638–4654` in C order — append the
+ * shared "Look at map symbol" entry on CLICK_1/CLICK_2 (C ignores
+ * iflags.clicklook here). JS builds an items array where C calls
+ * mcmd_addmenu(win, MCMD_LOOK_AT, ...) + ++K (add_menu on a window is
+ * display-stream plumbing; the menu assembly in there_cmd_menu below is
+ * the live caller). C's `int *act` is UNUSED. Short-circuit order kept:
+ * `!u_at(x,y) || Upolyd || glyph_at(x,y) != hero_glyph` — the glyph arm
+ * covers self shown as non-hero (invisible w/o see-invisible, ?).
+ * C hero_glyph is an int (display.h:654 monnum_to_glyph); JS hero_glyph()
+ * returns its descriptor, so compare against `.glyph`.
+ * @returns {{act:number, text:string}[]}
  */
-function there_cmd_menu_common_items(x, y, mod) {
+export function there_cmd_menu_common(x, y, mod) {
     const items = [];
-    if (mod !== CLICK_1 && mod !== 2 /* CLICK_2 */) return items;
+    if (mod !== CLICK_1 && mod !== CLICK_2) return items;
     const u = game.u;
     const atSelf = u && (u.ux | 0) === (x | 0) && (u.uy | 0) === (y | 0);
-    // C: !u_at || Upolyd || glyph_at != hero_glyph
-    if (!atSelf || Upolyd(u)) {
+    // C `:4649–4651`: !u_at || Upolyd || glyph_at != hero_glyph
+    if (!atSelf || Upolyd(u) || glyph_at(x, y) !== hero_glyph().glyph) {
         items.push({ act: MCMD_LOOK_AT, text: 'Look at map symbol' });
     }
     return items;
@@ -1728,7 +1737,7 @@ async function there_cmd_menu(x, y, mod) {
         items = items.concat(there_cmd_menu_self_items(x, y));
     }
     // next2u / far deferred
-    items = items.concat(there_cmd_menu_common_items(x, y, mod));
+    items = items.concat(there_cmd_menu_common(x, y, mod));
 
     if (!items.length) return '\0';
 

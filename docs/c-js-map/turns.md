@@ -2048,7 +2048,7 @@ muse.c mbhit named; bhito boxlock is D-1467) + **`chest_shatter_msg` whole C bod
 **!IS_DOOR envelope: Confusion/Stunned TIME + mapseen/newsym res + portcullis/drawbridge + container Feels/Seems + Blind feel/see** (D-2167; `container_at` newly exported from `pickup.js`; glyph half dead — no `lev->glyph` in JS cells);
 pit "Open where?" / pit-reach / mimic / set_msg_xy / AUTOUNLOCK_KICK deferred); 
 **`#herecmdmenu`/`doherecmdmenu` self menu** (D-0728; 
-`#therecmdmenu` / next2u/far / K==0 travel / CMDQ_KEY·DIR follow-ups / glyph≠hero Look deferred); 
+`#therecmdmenu` / next2u/far / K==0 travel / CMDQ_KEY·DIR follow-ups deferred; **D-2706 `there_cmd_menu_common` whole C body** (`cmd.c:4639–4654` in C order as exported `js/cmd.js` items-builder — CLICK_1/2 gate, `!u_at || Upolyd || glyph_at != hero_glyph` with live `glyph_at`/`hero_glyph().glyph`, `mcmd_addmenu`→items.push by architecture; C caller `:4862` wired via `there_cmd_menu`; `act` UNUSED dropped); 
 **`act_on_act` whole C body D-2620** (C `cmd.c:4658–4838` in C order as the module-local `js/cmd.js:1122` fn — sgn clamp, TRAVEL stamp, all 36 MCMD arms with C ec/key/dir/userinput nodes; + live `cmdq_add_dir:225`/`cmdq_add_userinput:238` (`:294–331`), file-local `doclicklook:1089` (`:5381–5392`), `move_funcs_walk` (`:2070` MV_WALK column), completed menucmd enum; C callers `:4880`/:4892 unwired until next2u/far builders land — self picks keep `act_on_act_here`; named: `doidtrap` pager.c:2336 / `auto_describe` getpos.c:640 lazy-imported from their 1:1 homes); 
 **`#tip`/`dotip` floor ynq (def q) + basic floor `tipcontainer`** (D-0719; 
 **highdrop `hitfloor(TRUE)` D-1273**; **getobj invent tip D-1665**; 

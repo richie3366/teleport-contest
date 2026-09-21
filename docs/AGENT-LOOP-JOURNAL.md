@@ -19,6 +19,13 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-20 — D-2706 `cmd.c` there_cmd_menu_common whole C body: missing glyph arm + same-name export
+
+**C locus:** 
+**JS:** 
+**Change:** 
+**Verify:** 
+**Next:** (see LOOP-QUEUE)
 ## 2026-09-20 — D-2705 `dungeon.c` query_annotation whole-body restart on live callees + `trimspaces` port
 
 **C locus:** 
