@@ -33,6 +33,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-21 — D-2715 `lock.c` autokey whole C body (quest-artifact ranking + magic-key displacement)
+
+**C locus:** `lock.c:289–344` (body in C order); callers `:881` (doopen_indir autounlock APPLY_KEY) + `pickup.c:2122` (box autounlock); declaration `extern.h:1442`. Callees: `any_quest_artifact` (`obj.h:271` macro `oartifact >= ART_ORB_OF_DETECTION`), `is_quest_artifact` (`questpgr.c:67`), `is_magic_key` (`artifact.c:2774–2786`).
+**JS:** `js/lock.js:64–66` (imports), `:392–448` (`autokey`).
+**Change:** restarted `autokey` from C — akey/apick/acard split for other-role quest artifacts, `is_magic_key(game.youmonst, o)` displacement, `!opening` drops card+acard, C-order fallbacks (`!key&&!pick&&!card→key=akey`, `!pick&&!card→pick=apick`, `!card→card=acard`), key›pick›card return. Imports the live exports (`artifact.js:2426`, `quest.js:277`, `generated/artifacts_data.js`) — `imports.mjs --can` hoisted/cycle-safe — and deletes the clone, so the `pick_lock` sites get the real bless/curse body too (ordinary tools still read false, fortress-neutral).
+**Verify:** `node scripts/verify.mjs --fn autokey` → PASS syntax (1 file) · PASS rule2 · note hidden (no corpus session blocked) · PASS reach (no RNG-tagged reach; smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 → VERIFY: PASS.
+**Named:** none — whole body ported; `any_quest_artifact` inlined as the macro comparison (no JS export exists; sym-confirmed).
+**Next:** `mklev.c` traptype_rnd head; refill `--rows 600` + `hidden-proxy queue` both exhausted (75 tool-fresh all class-deferred: optfn/handler/config-cfgfiles, sfi_/sfo_ save-infra, coloratt/sound/glyphs/utf8map/status_hilite customization, wizcmds-debug, 0-caller leaves; queue 22 owners all tagged) — nothing appended.
 ## 2026-09-21 — D-2714 `invent.c` look_here Blind→ECMD_TIME return + `:` wiring; doopen_indir feel arm (Wizard-92127 PASS)
 
 **C locus:** `invent.c:4248` (no-object `!!Blind ? ECMD_TIME : ECMD_OK`), `:4216` (can't-reach `ECMD_OK` even when Blind), `:4314` (shared tail return for skip/single/multi), `:4319–4327` (`dolook` propagates `look_here`); `cmd.c:1758` (`:` → `dolook`); `lock.c:904` (`rnl(20)` gate), `:908–914` (trapped arm order + `feel_newsym`). C `look_here` callers: `invent.c:4327` (`dolook`), `pickup.c:452`/`:1114` (both `(void)` discards).

@@ -61,6 +61,9 @@ import { visctrl, cmdbind_get, cmd_from_dir } from './dokeylist.js';
 import { getpos } from './getpos.js';
 import { highc } from './hacklib.js';
 import { doloot, container_at } from './pickup.js';
+import { is_magic_key } from './artifact.js';
+import { is_quest_artifact } from './quest.js';
+import { ART_ORB_OF_DETECTION } from './generated/artifacts_data.js';
 
 /** C ref: decl.c:96 quitchars — `getdir :4098` skips help when set. */
 const QUITCHARS = ' \r\n\x1b';
@@ -379,33 +382,60 @@ function lock_action() {
 }
 
 /**
- * C ref: lock.c autokey — invent key/pick/card for autounlock.
- * Quest-artifact preference / is_magic_key ranking deferred.
+ * C ref: lock.c autokey :289–344 — invent key/pick/card for autounlock.
+ * Other-role quest artifacts (any_quest_artifact, obj.h:271, but not own —
+ * is_quest_artifact, questpgr.c:67) rank last via akey/apick/acard; a magic
+ * Master Key of Thievery (artifact.c is_magic_key :2774–2786) displaces an
+ * ordinary skeleton key. `!opening` drops card/acard (C `= 0`); fallbacks
+ * apply in C order and the return prefers key, then pick, then card.
  */
 export function autokey(opening) {
     let key = null;
     let pick = null;
     let card = null;
+    // C: other role's quest artifact (Rogue's Key or Tourist's Credit Card)
+    let akey = null;
+    let apick = null;
+    let acard = null;
     for (const o of game.invent || []) {
         if (!o) continue;
-        if (o.otyp === SKELETON_KEY) {
-            if (!key) key = o;
-        } else if (o.otyp === LOCK_PICK) {
-            if (!pick) pick = o;
-        } else if (o.otyp === CREDIT_CARD) {
-            if (!card) card = o;
+        // C: any_quest_artifact(o) && !is_quest_artifact(o)
+        if (((o.oartifact | 0) >= ART_ORB_OF_DETECTION) && !is_quest_artifact(o)) {
+            switch (o.otyp) {
+            case SKELETON_KEY:
+                if (!akey) akey = o;
+                break;
+            case LOCK_PICK:
+                if (!apick) apick = o;
+                break;
+            case CREDIT_CARD:
+                if (!acard) acard = o;
+                break;
+            default:
+                break;
+            }
+        } else {
+            switch (o.otyp) {
+            case SKELETON_KEY:
+                if (!key || is_magic_key(game.youmonst, o)) key = o;
+                break;
+            case LOCK_PICK:
+                if (!pick) pick = o;
+                break;
+            case CREDIT_CARD:
+                if (!card) card = o;
+                break;
+            default:
+                break;
+            }
         }
     }
-    if (!opening) card = null;
-    return key || pick || card || null;
-}
-
-/**
- * C ref: lock.c is_magic_key — Master Key bless/curse; ordinary tools false.
- * Full artifact Master Key body deferred (no oartifact check here).
- */
-function is_magic_key(_mon, _obj) {
-    return false;
+    if (!opening) card = acard = null;
+    /* only resort to other role's quest artifact if no other choice */
+    if (!key && !pick && !card) key = akey;
+    if (!pick && !card) pick = apick;
+    if (!card) card = acard;
+    return key ? key : pick ? pick : card ? card : null;
 }
 
 /**
