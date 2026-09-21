@@ -61,3 +61,5 @@ Vacuous note stated, not sold; smoke REACH-OK. Green/strict/cohort per D-log. Ru
 1. doread FORTUNE_COOKIE arm consumes via the divergent `js/read.js:260` local `useup` clone (drops C `update_inventory()` + `useupall` `setnotworn/freeinv/obfree`) while live `useup` is already imported as `useup_live` in the same file: call `useup_live(scroll)` (one-line), or inline-equivalent. Source: this review.
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-2741

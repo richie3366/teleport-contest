@@ -46,7 +46,7 @@ screens 93.2 %. Held-out 12/44, +0 vs last audit (5,976 / 11,265 pts, RNG
 this window — the corpus still does not predict the judge.
 **Corpus fortress** (re-scored 2026-09-21 audit 1683–1699): **501 / 540
 PASS (92.8 %)** excl. 13 env-only; RNG 99.37 %, screens 99.4 % — **+1 / −0**
-in the D-2724…D-2740 window (16 ACCEPT + 1 QUALITY-RISK; +1 is
+in the D-2724…D-2741 window (16 ACCEPT + 1 QUALITY-RISK; +1 is
 explore-seed0116-wizard-wear-shop-cfabc006 → PASS, ex-owner dopush
 hack.c:194 step-127 screen — only D-2739 touches dopush, bill/message
 completion; unclaimed by any iteration, found by this audit's re-score;
@@ -105,8 +105,9 @@ breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
 **Next cluster:** Must-fix from review 1688 — doread FORTUNE_COOKIE arm calls the divergent local `useup` clone (`js/read.js:260`); call live `useup` (already imported as `useup_live`). Verify `node scripts/verify.mjs --fn doread` + `outrumor` (reach regression must be 0). Source: reviews/loop-unattended/1688-c453b9ca9-outrumor-cookie-caller.md.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2740 (index).**
+**Keep D-0845…D-2741 (index).**
 <!-- recent:begin -->
+**D-2741** `nethack-c/upstream/src/read.c:365–377` (cookie arm; `:377 useup(scroll)`) + live `useup`  — the cookie arm now calls `useup_live(scroll)` (live `useup` `js/invent.js:4596`, already imported at `js/read.js:107`) with a C-cite comment; no new cross-module edge.
 **D-2740** `nethack-c/upstream/src/apply.c:1988–2164` (`:1993–1995` known_spell #jump fallback; `:199 — restarted `jump` in C order with per-arm `:line` cites; new same-SCC runtime edges (imports.mjs SAFE) `known_spell`/`spe_Fresh`/`spelleffects` (+ exported `SPE_JUMPING` js/spell.js:282), `stucksteed`, `slithy`, `Flying`,
 **D-2739** `nethack-c/upstream/src/hack.c:348–638` (`:358–363` Blind feel; `:365–372` next_boulder; ` — `js/trap.js` — exported `blow_up_landmine` + `launch_obj` (same-SCC edge, no new module edge: hack.js already imports trap.js).
 **D-2738** `nethack-c/upstream/src/polyself.c:414–466` (`:415–416` Sick→make_sick; `:417–418` Stoned→ — `js/polyself.js` only (no new cross-module edge — `Your` joins the existing display.js import, runtime-called like `You`/`pline` per the imports check; `LL_MINORAC` joins the const.js import): module-local `newman_dead_e
@@ -114,11 +115,10 @@ revisits the picker.
 **D-2736** `nethack-c/upstream/src/sp_lev.c:4397–4470` (`:4402` create_des_coder; `:4404–4406` defaul — `js/mklev.js` only (same-file locals — no new cross-module edge; `maketrap` already imported from `./trap.js`): `LSPO_TRAPTYPES` table (C `:4322–4347`); file-local `lspo_traptype_byname` (C staticfn shape, strcmpi → lowe
 **D-2735** `nethack-c/upstream/src/mon.c:5680–5707` (`:5683` heal/slow init; `:5685–5689` flesh ELEC- — `js/mhitm.js` — completed + exported `golemeffects_mm` in full C order (slow block before heal block, per-arm `:line` cites); slow calls live `mon_adjust_speed` (pre-existing static `./muse.js` edge, damageum_ad_slow pre
 **D-2734** `nethack-c/upstream/src/do.c:893–920` (`:895–896` null return; `:897–902` `Has_contents` c — `js/mkobj.js` only — module-local `place_object_no_longer_held` replicating do.c:893–920 in C order (`Has_contents` joins the existing const.js import; `rn2` the rng.js edge; `game.context?.mon_moving` / `game.program_st
-**D-2733** `nethack-c/upstream/src/invent.c:2750–2775` — restarted `learn_unseen_invent` in C order as `export async function` (async: live `addinv_core2` awaits pline on its decipher arm): role gates via the same-file `urole.mnum` convention (`PM_CLERIC` already imported; `PM
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2740; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2741; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

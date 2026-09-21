@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2741 — `read.c` doread FORTUNE_COOKIE arm consume via live `useup` (review 1688 Must-fix)
+
+- **Status:** fixed (Must-fix from review 1688 QUALITY-RISK on D-2729: one-line callee wiring, no new import.)
+- **Symptom:** none on the corpus — no session reads a fortune cookie; `verify --fn outrumor` records 0 blocked (as in review 1688). The single `doread`-blocked session (scen-normal-Tourist-92061 step 17) is an unrelated arm (see Verify).
+- **C locus:** `nethack-c/upstream/src/read.c:365–377` (cookie arm; `:377 useup(scroll)`) + live `useup` `invent.c:1320–1333` (quan>1 → `update_inventory()`, else `useupall` = `setnotworn` + `freeinv` + `obfree`).
+- **JS was:** `js/read.js:2204` called the local `useup` clone (`js/read.js:260`), which drops `update_inventory()` on the quan>1 path and replaces `useupall` with a bare invent splice — no `setnotworn` (a wielded cookie leaves `uwep` dangling), no `freeinv`/`obfree` teardown.
+- **Fix:** the cookie arm now calls `useup_live(scroll)` (live `useup` `js/invent.js:4596`, already imported at `js/read.js:107`) with a C-cite comment; no new cross-module edge.
+- **JS:** `js/read.js:2204–2208`.
+- **Callers:** C `read.c:368` → JS `js/read.js:2191` cookie arm (only C caller of this path; outrumor's other callers untouched). No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn outrumor` → VERIFY: PASS (syntax, Rule #2, hidden note 0 blocked, smoke 24/24 REACH-OK, green 2/2, strict 2/2, cohort 7/7). `node scripts/verify.mjs --fn doread` → syntax PASS, Rule #2 PASS, green 2/2, strict 2/2, cohort 7/7, smoke 24/24 REACH-OK; hidden NO MOVEMENT on 1 pre-existing block (scen-normal-Tourist-92061 step 17/169 screen-first at read.c:622: C «As you pronounce the formula…» vs J «As you read the scroll…» — C's Blind arm vs JS non-Blind, i.e. a Blind-state writer upstream of doread, symptom-owner class, phase 2; identical at baseline, 0 worse). No shared file changed → full skipped.
+- **Named omissions:** remaining local-clone `useup` call sites in `js/read.js` (seffects tails) stay named clone debt; other `doread` deferred arms per the map section (shirt/credit/marker/coin/orb/candy reads, Braille arms).
+- **Next:** pop next Open — coverage row.
+
 ## D-2740 — `apply.c` jump whole body (known_spell fallback, guard chain, utrap switch, hurtle_jump path)
 
 - **Status:** fixed (coverage row: `apply.c` jump PARTIAL (C 176 L `apply.c:1988–2164` / JS 85 L in js/apply.js; hops 5, callers 3, RNG 7, msg 23); 0 corpus sessions blocked — coverage completion, not a divergence.)

@@ -54,6 +54,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-21 — D-2741 `read.c` doread FORTUNE_COOKIE arm consume via live `useup` (review 1688 Must-fix)
+
+**C locus:** `nethack-c/upstream/src/read.c:365–377` (cookie arm; `:377 useup(scroll)`) + live `useup` `invent.c:1320–1333` (quan>1 → `update_inventory()`, else `useupall` = `setnotworn` + `freeinv` + `obfree`).
+**JS:** `js/read.js:2204–2208`.
+**Change:** the cookie arm now calls `useup_live(scroll)` (live `useup` `js/invent.js:4596`, already imported at `js/read.js:107`) with a C-cite comment; no new cross-module edge.
+**Verify:** `node scripts/verify.mjs --fn outrumor` → VERIFY: PASS (syntax, Rule #2, hidden note 0 blocked, smoke 24/24 REACH-OK, green 2/2, strict 2/2, cohort 7/7). `node scripts/verify.mjs --fn doread` → syntax PASS, Rule #2 PASS, green 2/2, strict 2/2, cohort 7/7, smoke 24/24 REACH-OK; hidden NO MOVEMENT on 1 pre-existing block (scen-normal-Tourist-92061 step 17/169 screen-first at read.c:622: C «As you pronounce the formula…» vs J «As you read the scroll…» — C's Blind arm vs JS non-Blind, i.e. a Blind-state writer upstream of doread, symptom-owner class, phase 2; identical at baseline, 0 worse). No shared file changed → full skipped.
+**Named:** remaining local-clone `useup` call sites in `js/read.js` (seffects tails) stay named clone debt; other `doread` deferred arms per the map section (shirt/credit/marker/coin/orb/candy reads, Braille arms).
+**Next:** pop next Open — coverage row.
 ## 2026-09-21 — D-2740 `apply.c` jump whole body (known_spell fallback, guard chain, utrap switch, hurtle_jump path)
 
 **C locus:** `nethack-c/upstream/src/apply.c:1988–2164` (`:1993–1995` known_spell #jump fallback; `:1997–2006` nolimbs/slithy + !Jumping; `:2007–2010` stucksteed; `:2011–2038` uswallow/uinwater/ustuck; `:2039–2045` Levitation/air/water; `:2046–2057` encumbrance, hunger/strength, Wounded_legs, steed trap; `:2059–2069` getpos prompt + is_valid_jump_pos + steed in-place; `:2075–2112` utrap escape switch + reset_utrap; `:2116–2136` same-spot arms; `:2138–2163` range + walk_path hurtle_jump + teleds/nomul/morehungry) + callee `dothrow.c:742–752` hurtle_jump (EWwalking I_SPECIAL around hurtle_step). C callers: `:1850` dojump, `spell.c:1585` spelleffects SPE_JUMPING (`dothrow.c:756` comment-only, `dbridge.c:549` debugpline — no call).
