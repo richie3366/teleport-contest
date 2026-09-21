@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2746 — `do_wear.c` Boots_off whole-body restart (SPEED/water/FUMBLE/LEVITATION arms)
+
+- **Status:** fixed (missing-arm row: C `do_wear.c:274–306` absent from `js/do_wear.js` Boots_off 922–945; 0 corpus sessions blocked — coverage completion, not a divergence.)
+- **Symptom:** none on the fortress — booted-property doffs are rare on corpus paths; hidden note 0 blocked, smoke REACH-OK.
+- **C locus:** `nethack-c/upstream/src/do_wear.c:261–323` (`:265` oldprop; `:267` takeoff.mask clear; `:271` setworn(NULL) before the levitation case; `:273–279` SPEED slow-down unless Very_fast; `:280–298` WATER_WALKING pool/lava + !Levitation/!Flying + !clinger-ceiling + !cancelled_don + !in_lava_effects → makeknown + spoteffects(TRUE); `:299–301` ELVEN toggle_stealth; `:302–305` FUMBLE clear when !oldprop and no non-timeout half; `:306–317` LEVITATION float_down unless a source remains, else float_vs_flight; `:318–322` plain-boot breaks; `:323` default impossible; `:324` cancelled_don reset).
+- **JS was:** `js/do_wear.js:922` thin body — mask clear + clear_worn + ELVEN toggle_stealth only, rest `// deferred`; 7 boot otyp consts missing.
+- **Fix:** restarted the body in C order with per-arm `:line` cites: SPEED `makeknown` + `You_feel slow down{ a bit}` on `Fast()` (attrib.js live, dragon-armor slow-down precedent); WATER_WALKING pool/lava via live hack.js imports + file-local `Levitation_dw()`/`Flying_dw()` + new `is_clinger` (monsters.js existing edge) + new `has_ceiling` (dungeon.js, imports.mjs SAFE — hoisted fn, same 98-module SCC) + `spoteffects(true)` (pickup.js live); FUMBLE clear of flat `HFumbling`/`EFumbling` + uprops sync (Boots_on convention); LEVITATION `float_down(0,0)` (trap.js existing edge) + `makeknown`, else live `float_vs_flight()`; plain-boot breaks; default impossible literal (Helmet_off D-2554 convention — no unknown_type/c_boots consts in JS). Added 7 `objectNames.indexOf` boot consts (all resolve, verified). Null-uarmf graceful clear kept (C dereferences; Helmet_off precedent).
+- **JS:** `js/do_wear.js` Boots_off restart + consts/imports (+~110/−~25).
+- **Callers:** every C site already awaits the live export, none invented — C `do_wear.c:1989` (armoroff) → `js/do_wear.js:1607` afternmv + `:1625`; C `:2858` (do_takeoff) → `js/do_wear.js:2098`; C `:3166` (wornarm_destroyed) → `js/do_wear.js:3737`; C `hack.c:912` → `js/hack.js:3769` (levitation keep-alive; stale LEVITATION omission comment there struck); C `polyself.c:1283` → `js/polyself.js:1332`; C `steal.c:252` → `js/steal.js:259`; C `trap.c:6864` → `js/trap.js:6532` (lava_effects, in_lava_effects guard now load-bearing there).
+- **Verify:** `node scripts/verify.mjs --fn Boots_off` → VERIFY: PASS (syntax 2 changed files; Rule #2; hidden note 0 blocked — normal for a coverage row; reach: no RNG-tagged reach, fixed smoke 24/24 REACH-OK 0 regressed; green 2/2; strict 2/2; cohort 7/7; full 44/44 PASS — auto, hack.js shared).
+- **Named omissions:** none new — whole C body live; every callee live (11/11 brief list: setworn, You_feel, is_pool, is_lava, has_ceiling, spoteffects, toggle_stealth, float_down, float_vs_flight, makeknown, impossible).
+- **Next:** pop next Open — coverage row (`uhitm.c` attack_checks head).
+
 ## D-2745 — `objnam.c` distant_name gameover o_id wipe arm + `weapon.c` possibly_unwield STALE park
 
 - **Status:** fixed (missing-arm row: C `objnam.c:382–383` + `:406` absent from `js/objnam.js:1125`; 0 corpus sessions blocked — coverage completion, not a divergence. Queue-head `weapon.c` possibly_unwield retired STALE in the same commit: whole C body already live under this name + helper, 6/6 real C callers wired.)

@@ -3681,8 +3681,8 @@ function is_weptool_hack(obj) {
  * Branch envelope: innate/blocked wobble vs flight control vs crash
  * (rn1 dmg + floor weapons + exercise); stop_donning; strip arti/timeout
  * lev + RIN_LEVITATION / LEVITATION_BOOTS; float_vs_flight.
- * Named omissions: Boots_off LEVITATION float_down
- * side-effect (HLevitation++ bracket still prevents mid-strip land).
+ * Named omissions: none — Boots_off LEVITATION float_down is live
+ * (D-2746); the HLevitation++ bracket still prevents mid-strip land.
  */
 export async function dosinkfall() {
     const fell_on_sink = 'fell onto a sink';

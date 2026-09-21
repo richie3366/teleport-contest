@@ -46,7 +46,7 @@ screens 93.2 %. Held-out 12/44, +0 vs last audit (5,976 / 11,265 pts, RNG
 this window — the corpus still does not predict the judge.
 **Corpus fortress** (re-scored 2026-09-21 audit 1683–1699): **501 / 540
 PASS (92.8 %)** excl. 13 env-only; RNG 99.37 %, screens 99.4 % — **+1 / −0**
-in the D-2724…D-2745 window (16 ACCEPT + 1 QUALITY-RISK; +1 is
+in the D-2724…D-2746 window (16 ACCEPT + 1 QUALITY-RISK; +1 is
 explore-seed0116-wizard-wear-shop-cfabc006 → PASS, ex-owner dopush
 hack.c:194 step-127 screen — only D-2739 touches dopush, bill/message
 completion; unclaimed by any iteration, found by this audit's re-score;
@@ -103,10 +103,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `objnam.c` distant_name gameover o_id wipe — missing arm: C `objnam.c:382–383` (`save_oid = obj->o_id; if (program_state.gameover) obj->o_id = 0;`) + `:406` (`obj->o_id = save_oid;` restore) ported into js/objnam.js (D-2745); queue-head `weapon.c` possibly_unwield parked STALE (whole C body live js/weapon.js:141+164, 6/6 real C callers wired, 0 blocked). Verify `node scripts/verify.mjs --fn distant_name` → PASS, REACH-OK.
+**Next cluster:** `do_wear.c` Boots_off arms — C `:274–306` (SPEED slow-down, WATER_WALKING drown-check, FUMBLE clear, LEVITATION float_down) absent from js/do_wear.js Boots_off (only ELVEN live). Port whole body in C order, all callees/callers. Verify `--fn Boots_off` REACH-OK. Brief-verified 2026-09-21 @ 289e5ec2c.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2745 (index).**
+**Keep D-0845…D-2746 (index).**
 <!-- recent:begin -->
+**D-2746** `nethack-c/upstream/src/do_wear.c:261–323` (`:265` oldprop; `:267` takeoff.mask clear; `:2 — restarted the body in C order with per-arm `:line` cites: SPEED `makeknown` + `You_feel slow down{ a bit}` on `Fast()` (attrib.js live, dragon-armor slow-down precedent); WATER_WALKING pool/lava via live hack.js imports 
 **D-2745** `nethack-c/upstream/src/objnam.c:345–409` (`:360–378` r/neardist from xray_range; `:373–38 — added the wipe in C order — `save_oid` captured, `obj.o_id = 0` under `game.program_state?.gameover` (the live gameover flag, cf.
 **D-2744** `nethack-c/upstream/src/lock.c:358–656` (`:373–377` null-pick dummy (STRANGE_OBJECT); `:38 — restarted the body in C order (`js/lock.js:1134–1399`) with per-arm `:line` cites; all async message calls use the C wrapper (`You_cant`/`There`/`pline_The`/`You` with `%s` args — rendered text byte-identical to the old 
 **D-2743** `nethack-c/upstream/src/objnam.c:5624–5698` (`:5635–5638` unsigned lens; `:5640` lenlimit; — restarted the body in C order with per-arm `:line` cites: lens block (`:5635–5640`, len_qpfx folds into buf.length per `:5668`); explicit `_qbuf === qprefix` alias arm (`:5657–5659`, converges with the copy arm for immut
@@ -114,11 +115,10 @@ revisits the picker.
 **D-2741** `nethack-c/upstream/src/read.c:365–377` (cookie arm; `:377 useup(scroll)`) + live `useup`  — the cookie arm now calls `useup_live(scroll)` (live `useup` `js/invent.js:4596`, already imported at `js/read.js:107`) with a C-cite comment; no new cross-module edge.
 **D-2740** `nethack-c/upstream/src/apply.c:1988–2164` (`:1993–1995` known_spell #jump fallback; `:199 — restarted `jump` in C order with per-arm `:line` cites; new same-SCC runtime edges (imports.mjs SAFE) `known_spell`/`spe_Fresh`/`spelleffects` (+ exported `SPE_JUMPING` js/spell.js:282), `stucksteed`, `slithy`, `Flying`,
 **D-2739** `nethack-c/upstream/src/hack.c:348–638` (`:358–363` Blind feel; `:365–372` next_boulder; ` — `js/trap.js` — exported `blow_up_landmine` + `launch_obj` (same-SCC edge, no new module edge: hack.js already imports trap.js).
-**D-2738** `nethack-c/upstream/src/polyself.c:414–466` (`:415–416` Sick→make_sick; `:417–418` Stoned→ — `js/polyself.js` only (no new cross-module edge — `Your` joins the existing display.js import, runtime-called like `You`/`pline` per the imports check; `LL_MINORAC` joins the const.js import): module-local `newman_dead_e
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2745; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2746; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

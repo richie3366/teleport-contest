@@ -1067,7 +1067,7 @@ FUMBLING `incr_itimeout`** (D-0783; DEX `adj_abon` deferred) +
 **`Cloak_on` full otyp switch in C order** (plain-cloak breaks; PROTECTION `makeknown`; ELVEN `toggle_stealth`; DISPLACEMENT `toggle_displacement`; MUMMY_WRAPPING newsym + `You can …!`; CLOAK_OF_INVISIBILITY `makeknown` + newsym + `Suddenly you can… yourself.`; OILSKIN `Tobjnam(fit)` + `very tightly.`; ALCHEMY_SMOCK `EAcid_resistance |= WORN_CLOAK`; default `impossible`; known + `update_inventory` tail; 
 no `find_ac`** (D-0783/D-0810/D-2267; **`toggle_stealth` RIN_STEALTH/ELVEN_CLOAK/ELVEN_BOOTS on+off + 
 `EStealth` mirror** (D-0970); Cloak_off DISPLACEMENT off; 
-Cloak_off MUMMY/INVIS/ALCHEMY + Boots_off SPEED/water/levitation deferred; 
+Cloak_off MUMMY/INVIS/ALCHEMY deferred + **Boots_off whole-body C-order restart** (D-2746; `:261–323`: mask clear, setworn-then-switch, SPEED slow-down, WATER_WALKING spoteffects drown-check, ELVEN toggle_stealth, FUMBLE clear, LEVITATION float_down/float_vs_flight, plain breaks, default impossible, cancelled_don tail; `has_ceiling` dungeon.js imports-SAFE, `is_clinger`/`float_down` on existing edges); 
 **`nh_timeout` FUMBLING `slip_or_trip` D-0692**) + **`dotakeoff`** (D-0063) + **`ia_dotakeoff` "alttakeoff" canned takeoff (D-1934)** + 
 **`getobj_takeoff` missing-letter `continue`+`--More--`** (D-0634) + 
 **`getobj_takeoff` → `yn_function` leave `gt.toplines`** (D-0928 #1148; 

@@ -54,6 +54,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-21 — D-2746 `do_wear.c` Boots_off whole-body restart (SPEED/water/FUMBLE/LEVITATION arms)
+
+**C locus:** `nethack-c/upstream/src/do_wear.c:261–323` (`:265` oldprop; `:267` takeoff.mask clear; `:271` setworn(NULL) before the levitation case; `:273–279` SPEED slow-down unless Very_fast; `:280–298` WATER_WALKING pool/lava + !Levitation/!Flying + !clinger-ceiling + !cancelled_don + !in_lava_effects → makeknown + spoteffects(TRUE); `:299–301` ELVEN toggle_stealth; `:302–305` FUMBLE clear when !oldprop and no non-timeout half; `:306–317` LEVITATION float_down unless a source remains, else float_vs_flight; `:318–322` plain-boot breaks; `:323` default impossible; `:324` cancelled_don reset).
+**JS:** `js/do_wear.js` Boots_off restart + consts/imports (+~110/−~25).
+**Change:** restarted the body in C order with per-arm `:line` cites: SPEED `makeknown` + `You_feel slow down{ a bit}` on `Fast()` (attrib.js live, dragon-armor slow-down precedent); WATER_WALKING pool/lava via live hack.js imports + file-local `Levitation_dw()`/`Flying_dw()` + new `is_clinger` (monsters.js existing edge) + new `has_ceiling` (dungeon.js, imports.mjs SAFE — hoisted fn, same 98-module SCC) + `spoteffects(true)` (pickup.js live); FUMBLE clear of flat `HFumbling`/`EFumbling` + uprops sync (Boots_on convention); LEVITATION `float_down(0,0)` (trap.js existing edge) + `makeknown`, else live `float_vs_flight()`; plain-boot breaks; default impossible literal (Helmet_off D-2554 convention — no unknown_type/c_boots consts in JS). Added 7 `objectNames.indexOf` boot consts (all resolve, verified). Null-uarmf graceful clear kept (C dereferences; Helmet_off precedent).
+**Verify:** `node scripts/verify.mjs --fn Boots_off` → VERIFY: PASS (syntax 2 changed files; Rule #2; hidden note 0 blocked — normal for a coverage row; reach: no RNG-tagged reach, fixed smoke 24/24 REACH-OK 0 regressed; green 2/2; strict 2/2; cohort 7/7; full 44/44 PASS — auto, hack.js shared).
+**Named:** none new — whole C body live; every callee live (11/11 brief list: setworn, You_feel, is_pool, is_lava, has_ceiling, spoteffects, toggle_stealth, float_down, float_vs_flight, makeknown, impossible).
+**Next:** pop next Open — coverage row (`uhitm.c` attack_checks head).
 ## 2026-09-21 — D-2745 `objnam.c` distant_name gameover o_id wipe arm + `weapon.c` possibly_unwield STALE park
 
 **C locus:** `nethack-c/upstream/src/objnam.c:345–409` (`:360–378` r/neardist from xray_range; `:373–384` o_id comment + `save_oid`/`o_id = 0` wipe; `:385–389` near gate; `:391–395` near format with observe side-effects; `:397–400` far `gd.distantname++/--`; `:406` restore).
