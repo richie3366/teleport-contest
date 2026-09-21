@@ -27155,38 +27155,165 @@ function random_wdir() {
     return wdirs[rn2(4)];
 }
 
+// C ref: selvar.c selection_getbounds `:76-95` — recalc first (C `:82`),
+// then empty (lx >= wid) reads as the full map (`:84-89`), else the
+// stored bounds (`:90-94`). region.js:1146 holds the region-side copy;
+// this one serves the selvar grow family in this module.
+function selvar_getbounds_rect(sel) {
+    selection_recalc_bounds(sel); // C `:82`
+    const wid = sel.wid ?? COLNO;
+    if ((sel.lx | 0) >= wid) // C `:84` empty
+        return { lx: 0, ly: 0, hx: COLNO - 1, hy: ROWNO - 1 }; // C `:85-89`
+    return { // C `:90-94`
+        lx: sel.lx | 0,
+        ly: sel.ly | 0,
+        hx: sel.hx | 0,
+        hy: sel.hy | 0,
+    };
+}
+
 /**
- * C ref: selvar.c selection_do_grow — expand selection by dir mask.
- * Mutates ov in place (caller clones first for Lua grow semantics).
+ * C ref: selvar.c selection_do_grow `:321-367` — expand every set cell
+ * by the dir mask into a scratch selection, then OR the scratch back
+ * into ov. Whole-body restart in C order: guard (`:328-329`), scratch
+ * (`:331`), W_RANDOM roll (`:333-334`), getbounds recalc + empty→full
+ * arm (`:336` via `:82-94`), clamped ±1 scan with the 8 C arms in C
+ * order (`:338-358`), second getbounds (`:361`), copy-back loop with
+ * the getpoint gate (`:363-366`), free (`:368`). The recalc is
+ * load-bearing: a set onto dirty bounds skips the live expand (C
+ * `:191`), so cached lx..hy can be a subset of the true points and the
+ * old cached-only scan missed grown cells. Mutates ov in place (Lua
+ * callers clone first).
  */
-function selection_do_grow(ov, dir) {
-    if (!ov) return;
+export function selection_do_grow(ov, dir) {
+    if (!ov) return; // C `:328-329`
+    const tmp = selection_new(); // C `:331`
     let d = dir | 0;
-    if (d === W_RANDOM) d = random_wdir();
-    const tmp = selection_new();
-    const lx = Math.max(0, (ov.lx | 0) - 1);
-    const ly = Math.max(0, (ov.ly | 0) - 1);
-    const hx = Math.min(COLNO - 1, (ov.hx | 0) + 1);
-    const hy = Math.min(ROWNO - 1, (ov.hy | 0) + 1);
-    for (let x = lx; x <= hx; x++) {
-        for (let y = ly; y <= hy; y++) {
-            if (((d & W_WEST) && selection_getpoint(x + 1, y, ov))
-                || (((d & (W_WEST | W_NORTH)) === (W_WEST | W_NORTH))
+    if (d === W_RANDOM) // C `:333-334`
+        d = random_wdir();
+    let rect = selvar_getbounds_rect(ov); // C `:336`
+    for (let x = Math.max(0, rect.lx - 1); // C `:338-339`
+         x <= Math.min(COLNO - 1, rect.hx + 1); x++)
+        for (let y = Math.max(0, rect.ly - 1);
+             y <= Math.min(ROWNO - 1, rect.hy + 1); y++) {
+            /* C `:340-343` note: dir is a mask of multiple directions,
+               but the only way to specify diagonals is by including the
+               two adjacent orthogonal directions, which effectively
+               specifies three-way growth
+               [WEST|NORTH => WEST plus WEST|NORTH plus NORTH] */
+            if (((d & W_WEST) && selection_getpoint(x + 1, y, ov)) // C `:344`
+                || (((d & (W_WEST | W_NORTH)) === (W_WEST | W_NORTH)) // C `:345-346`
                     && selection_getpoint(x + 1, y + 1, ov))
-                || ((d & W_NORTH) && selection_getpoint(x, y + 1, ov))
-                || (((d & (W_NORTH | W_EAST)) === (W_NORTH | W_EAST))
+                || ((d & W_NORTH) && selection_getpoint(x, y + 1, ov)) // C `:347`
+                || (((d & (W_NORTH | W_EAST)) === (W_NORTH | W_EAST)) // C `:348-349`
                     && selection_getpoint(x - 1, y + 1, ov))
-                || ((d & W_EAST) && selection_getpoint(x - 1, y, ov))
-                || (((d & (W_EAST | W_SOUTH)) === (W_EAST | W_SOUTH))
+                || ((d & W_EAST) && selection_getpoint(x - 1, y, ov)) // C `:350`
+                || (((d & (W_EAST | W_SOUTH)) === (W_EAST | W_SOUTH)) // C `:351-352`
                     && selection_getpoint(x - 1, y - 1, ov))
-                || ((d & W_SOUTH) && selection_getpoint(x, y - 1, ov))
-                || (((d & (W_SOUTH | W_WEST)) === (W_SOUTH | W_WEST))
+                || ((d & W_SOUTH) && selection_getpoint(x, y - 1, ov)) // C `:353`
+                || (((d & (W_SOUTH | W_WEST)) === (W_SOUTH | W_WEST)) // C `:354-355`
                     && selection_getpoint(x + 1, y - 1, ov))) {
-                selection_setpoint(x, y, tmp, 1);
+                selection_setpoint(x, y, tmp, 1); // C `:358`
+            }
+        }
+    rect = selvar_getbounds_rect(tmp); // C `:361`
+    for (let x = rect.lx; x <= rect.hx; x++) // C `:363-364`
+        for (let y = rect.ly; y <= rect.hy; y++)
+            if (selection_getpoint(x, y, tmp)) // C `:365`
+                selection_setpoint(x, y, ov, 1); // C `:366`
+    selection_free(tmp, true); // C `:368`
+}
+
+/**
+ * C ref: selvar.c selection_do_ellipse `:456-538` — midpoint-ellipse
+ * rasterization into ov. e(x,y) = b²x² + a²y² − a²b² (C `:462`); the
+ * crit/t/dxt/dyt increments are C `long` arithmetic, exact here in
+ * float64 (radii < COLNO). `a2/4`, `b2/4` are C integer division
+ * (Math.trunc); `a % 2` matches C for the non-negative radii the Lua
+ * callers pass. `filled = !filled` (C `:480`) keeps the double
+ * negation with the callers (`nhlsel.c:799,850` pass `!filled`), so the
+ * `if (!filled)` arm is the outline and the else arm is the scanline
+ * fill. Out-of-range setpoints clip per selection_setpoint
+ * (C `selvar.c:189-190` early return), same as C.
+ * C callers `nhlsel.c:799` l_selection_circle /
+ * `:850` l_selection_ellipse have no JS Lua bridge yet (no dat/*.lua
+ * level uses selection.circle/ellipse) — named omission in the map.
+ */
+export function selection_do_ellipse(ov, xc, yc, a, b, filled) {
+    /* C `:462` e(x,y) = b^2*x^2 + a^2*y^2 - a^2*b^2 */
+    let x = 0, y = b; // C `:466`
+    const a2 = a * a, b2 = b * b; // C `:467` (long) a * a
+    const crit1 = -(Math.trunc(a2 / 4) + (a % 2) + b2); // C `:468`
+    const crit2 = -(Math.trunc(b2 / 4) + (b % 2) + a2); // C `:469`
+    const crit3 = -(Math.trunc(b2 / 4) + (b % 2)); // C `:470`
+    let t = -a2 * y; // C `:471` e(x+1/2,y-1/2) - (a^2+b^2)/4
+    let dxt = 2 * b2 * x, dyt = -2 * a2 * y; // C `:472`
+    const d2xt = 2 * b2, d2yt = 2 * a2; // C `:473`
+    let width = 1; // C `:474`
+    let i; // C `:475`
+    if (!ov) // C `:477-478`
+        return;
+    filled = !filled; // C `:480`
+    if (!filled) { // C `:482` outline
+        while (y >= 0 && x <= a) { // C `:483`
+            selection_setpoint(xc + x, yc + y, ov, 1); // C `:484`
+            if (x !== 0 || y !== 0) // C `:485`
+                selection_setpoint(xc - x, yc - y, ov, 1); // C `:486`
+            if (x !== 0 && y !== 0) { // C `:487`
+                selection_setpoint(xc + x, yc - y, ov, 1); // C `:488`
+                selection_setpoint(xc - x, yc + y, ov, 1); // C `:489`
+            }
+            if (t + b2 * x <= crit1 // C `:491` e(x+1,y-1/2) <= 0
+                || t + a2 * y <= crit3) { // C `:492` e(x+1/2,y) <= 0
+                x++; // C `:493`
+                dxt += d2xt; // C `:494`
+                t += dxt; // C `:495`
+            } else if (t - a2 * y > crit2) { // C `:496` e(x+1/2,y-1) > 0
+                y--; // C `:497`
+                dyt += d2yt; // C `:498`
+                t += dyt; // C `:499`
+            } else { // C `:500`
+                x++; // C `:501`
+                dxt += d2xt; // C `:502`
+                t += dxt; // C `:503`
+                y--; // C `:504`
+                dyt += d2yt; // C `:505`
+                t += dyt; // C `:506`
+            }
+        }
+    } else { // C `:509` filled
+        while (y >= 0 && x <= a) { // C `:510`
+            if (t + b2 * x <= crit1 // C `:511` e(x+1,y-1/2) <= 0
+                || t + a2 * y <= crit3) { // C `:512` e(x+1/2,y) <= 0
+                x++; // C `:513`
+                dxt += d2xt; // C `:514`
+                t += dxt; // C `:515`
+                width += 2; // C `:516`
+            } else if (t - a2 * y > crit2) { // C `:517` e(x+1/2,y-1) > 0
+                for (i = 0; i < width; i++) // C `:518-519`
+                    selection_setpoint(xc - x + i, yc - y, ov, 1);
+                if (y !== 0) // C `:520`
+                    for (i = 0; i < width; i++) // C `:521-522`
+                        selection_setpoint(xc - x + i, yc + y, ov, 1);
+                y--; // C `:523`
+                dyt += d2yt; // C `:524`
+                t += dyt; // C `:525`
+            } else { // C `:526`
+                for (i = 0; i < width; i++) // C `:527-528`
+                    selection_setpoint(xc - x + i, yc - y, ov, 1);
+                if (y !== 0) // C `:529`
+                    for (i = 0; i < width; i++) // C `:530-531`
+                        selection_setpoint(xc - x + i, yc + y, ov, 1);
+                x++; // C `:532`
+                dxt += d2xt; // C `:533`
+                t += dxt; // C `:534`
+                y--; // C `:535`
+                dyt += d2yt; // C `:536`
+                t += dyt; // C `:537`
+                width += 2; // C `:538`
             }
         }
     }
-    selection_iterate(tmp, (x, y) => selection_setpoint(x, y, ov, 1));
 }
 
 /** C ref: nhlsel.c l_selection_grow — clone then selection_do_grow. */

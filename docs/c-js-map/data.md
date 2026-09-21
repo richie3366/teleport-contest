@@ -1593,7 +1593,11 @@ Tou-goal.lua:112; D-2696: `selection_recalc_bounds` C-complete in C order
 (`js/mklev.js:26868`, exported — dirty guard/reset/4 scans/clear) +
 dirty protocol in new/setpoint/free/clone + `region.js:1146` getbounds
 wired (C `selvar.c:82`); named deferred: `l_selection_xor`,
-ellipse/gradient/circle; `selection_clear` shipped D-2701) + Platinum Yendorian Express Card + Kops + des.wallify();
+circle (`selection_do_ellipse` + `selection_do_grow` restart shipped D-2709:
+getbounds recalc/empty→full arms, copy-back gate, free; grow exported per
+C `extern.h:2861`; ellipse callers `nhlsel.c:799,850` have no JS Lua bridge
+yet — no dat level uses selection.circle/ellipse); `selection_clear`
+shipped D-2701) + Platinum Yendorian Express Card + Kops + des.wallify();
 fila/filb mines no-lit-key; strt has Twoflower CUSTOM_INVENT
 (walking shoes +3, hawaiian shirt +3) + chest + branch levregion cell);
 **Ran-strt/loca/goal/fila/filb** (D-1889; Ranger quest 5/5: arboreal
