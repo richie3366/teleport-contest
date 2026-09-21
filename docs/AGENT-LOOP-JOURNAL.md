@@ -19,6 +19,13 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-21 — D-2708 `dbridge.c` create_drawbridge whole-body restart in C order (impossible arm + wall_info assign)
+
+**C locus:** 
+**JS:** 
+**Change:** 
+**Verify:** 
+**Next:** (see LOOP-QUEUE)
 ## 2026-09-21 — D-2707 `u_init.c` skills_for_role whole-body restart in C order + panic-as-throw default
 
 **C locus:** 

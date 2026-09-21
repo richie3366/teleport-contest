@@ -7858,12 +7858,15 @@ xxxxxxxxx..................xxxxxxxx
 
     // des.drawbridge south random, then percent(75) open else random north
     // C lspo_drawbridge state random → db_open = !rn2(2)
-    create_drawbridge(mx + 17, my + 2, DB_SOUTH, !rn2(2));
+    if (!create_drawbridge(mx + 17, my + 2, DB_SOUTH, !rn2(2)))
+        impossible('Cannot create drawbridge.');
     if (g.SpLev_Map) g.SpLev_Map.add(`${mx + 17},${my + 2}`);
     if (percent(75)) {
-        create_drawbridge(mx + 17, my + 14, DB_NORTH, true);
+        if (!create_drawbridge(mx + 17, my + 14, DB_NORTH, true))
+            impossible('Cannot create drawbridge.');
     } else {
-        create_drawbridge(mx + 17, my + 14, DB_NORTH, !rn2(2));
+        if (!create_drawbridge(mx + 17, my + 14, DB_NORTH, !rn2(2)))
+            impossible('Cannot create drawbridge.');
     }
     if (g.SpLev_Map) g.SpLev_Map.add(`${mx + 17},${my + 14}`);
 
@@ -19031,35 +19034,61 @@ function splev_mazewalk(rx, ry, dir, stocked = true, typ = ROOM) {
 }
 
 /**
- * C ref: dbridge.c create_drawbridge — closed → DRAWBRIDGE_UP + DBWALL.
+ * C ref: dbridge.c:235-283 create_drawbridge — whole body in C order.
+ * dir picks the portal cell (NORTH/SOUTH → horiz arm, EAST/WEST → vertical
+ * arm); a bad dir calls impossible() then falls through to the WEST arm
+ * (C default FALLTHROUGH). flag open → DRAWBRIDGE_DOWN + DOOR/D_NODOOR;
+ * closed → DRAWBRIDGE_UP + DBWALL with wall_info = W_NONDIGGABLE (plain
+ * assign, not OR). drawbridgemask = dir, OR'd with DB_LAVA when the
+ * pre-morph cell is LAVAPOOL. FALSE unless the portal cell IS_WALL.
+ * JS-only: OOB at() misses return FALSE (C assumes an initialized map).
  */
 function create_drawbridge(x, y, dir, isOpen) {
     let x2 = x, y2 = y;
     let horiz;
-    const lava = game.level.at(x, y)?.typ === LAVAPOOL;
+    const lava = game.level.at(x, y)?.typ === LAVAPOOL; /* assume initialized map */
     switch (dir) {
-    case DB_NORTH: horiz = true; y2--; break;
-    case DB_SOUTH: horiz = true; y2++; break;
-    case DB_EAST: horiz = false; x2++; break;
+    case DB_NORTH:
+        horiz = true;
+        y2--;
+        break;
+    case DB_SOUTH:
+        horiz = true;
+        y2++;
+        break;
+    case DB_EAST:
+        horiz = false;
+        x2++;
+        break;
+    default:
+        impossible('bad direction in create_drawbridge');
+        /*FALLTHRU*/
     case DB_WEST:
-    default: horiz = false; x2--; break;
+        horiz = false;
+        x2--;
+        break;
     }
     const wall = game.level.at(x2, y2);
-    if (!wall || !IS_WALL(wall.typ)) return false;
+    if (!wall || !IS_WALL(wall.typ))
+        return false;
     const bridge = game.level.at(x, y);
-    if (!bridge) return false;
-    if (isOpen) {
+    if (!bridge)
+        return false;
+    if (isOpen) { /* We want the bridge open */
         bridge.typ = DRAWBRIDGE_DOWN;
         wall.typ = DOOR;
         wall.doormask = D_NODOOR;
     } else {
         bridge.typ = DRAWBRIDGE_UP;
         wall.typ = DBWALL;
-        wall.wall_info = (wall.wall_info || 0) | W_NONDIGGABLE;
+        /* Drawbridges are non-diggable. */
+        wall.wall_info = W_NONDIGGABLE;
     }
     bridge.horizontal = !horiz;
     wall.horizontal = horiz;
-    bridge.drawbridgemask = dir | (lava ? DB_LAVA : 0);
+    bridge.drawbridgemask = dir;
+    if (lava)
+        bridge.drawbridgemask |= DB_LAVA;
     return true;
 }
 
@@ -21181,7 +21210,9 @@ function load_castle() {
     castleDoor(55, 13, D_CLOSED);
 
     // des.drawbridge({ dir="east", state="closed", x=05,y=08})
-    create_drawbridge(mx + 5, my + 8, DB_EAST, false);
+    // C lspo_drawbridge FALSE-arm → impossible("Cannot create drawbridge.")
+    if (!create_drawbridge(mx + 5, my + 8, DB_EAST, false))
+        impossible('Cannot create drawbridge.');
     if (g.SpLev_Map) g.SpLev_Map.add(`${mx + 5},${my + 8}`);
 
     const placeClassObj = (ch, rx, ry) => {

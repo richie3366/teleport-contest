@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-21
 
-- [x] `u_init.c` skills_for_role — coverage THIN (C 50 L `u_init.c:1040–1090` / JS 16 L in js/u_init.js; hops —, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn skills_for_role` (reach regression must be 0). Measured `port-coverage.mjs --name skills_for_role` 2026-09-21 @ 2dfc3677. **Addressed:** D-2707
+- [x] `dbridge.c` create_drawbridge — coverage PARTIAL (C 48 L `dbridge.c:235–283` / JS 29 L in js/mklev.js; hops —, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn create_drawbridge` (reach regression must be 0). Measured `port-coverage.mjs --name create_drawbridge` 2026-09-21 @ 2dfc3677. **Addressed:** D-2708
+
+
+- [x] `u_init.c` skills_for_role — coverage THIN (C 50 L `u_init.c:1040–1090` / JS 16 L in js/u_init.js; hops —, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn skills_for_role` (reach regression must be 0). Measured `port-coverage.mjs --name skills_for_role` 2026-09-21 @ 2dfc3677. **Addressed:** D-2707 `6f93ac06`
 
 ## 2026-09-20
 

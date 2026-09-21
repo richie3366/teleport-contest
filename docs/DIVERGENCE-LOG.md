@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2708 — `dbridge.c` create_drawbridge whole-body restart in C order (impossible arm + wall_info assign)
+
+- Status: SHIPPED (breadth phase). Popped head Open — coverage row (PARTIAL: C 48 L `dbridge.c:235–283` / JS 29 L in `js/mklev.js`; 1 caller, RNG 0, msg 0). No Must-fix live, no review cited (reviews 38/822 name it only as mask-writer context, no C-wrongs — no stamp), no corpus session blocked.
+- Symptom: coverage gap with two real fidelity nits — the thin clone merged C's `default:` into `DB_WEST` and dropped the `impossible("bad direction in create_drawbridge")` call, and wrote `wall_info` with `|=` where C assigns `= W_NONDIGGABLE`.
+- C locus: `nethack-c/upstream/src/dbridge.c:235–283` (`create_drawbridge`); caller `:5758` `lspo_drawbridge` (Lua `drawbridge({...})` binding: `db_open == -1 → !rn2(2)`, then `impossible("Cannot create drawbridge.")` on FALSE); zero missing callees (`IS_WALL` macro, `impossible` both live).
+- JS was: `js/mklev.js:19036` local `create_drawbridge` — `case DB_WEST: default:` merge with no impossible call; `wall.wall_info = (wall.wall_info || 0) | W_NONDIGGABLE`; single-expr `drawbridgemask = dir | (lava ? DB_LAVA : 0)`.
+- Fix: restarted the body in C order, same name/signature/file-local (C callers are the des-content loaders in-file). `default:` now calls live `impossible('bad direction in create_drawbridge')` (sync fire-and-forget per `js/mklev.js:19398` precedent — `load_castle` is sync so no new async edge) then `/*FALLTHRU*/` to `DB_WEST`; `wall.wall_info = W_NONDIGGABLE` plain assign (open/close `wall_info` assign precedent, D-2316); `drawbridgemask = dir` + `if (lava) |= DB_LAVA` two-step in C order (same value as before). No new imports (all consts + `impossible` already in scope); no export change.
+- JS: `js/mklev.js:19033` `create_drawbridge` (~60 L with per-arm C cites).
+- Callers: C `sp_lev.c:5758` `lspo_drawbridge` has no same-named JS binding (des files port as hardcoded loaders); its runtime equivalents are wired in-file — `load_val_goal` `js/mklev.js:7861` (`DB_SOUTH`, `!rn2(2)` ≡ C `db_open == -1` arm), `:7864` / `:7866` (`DB_NORTH`, open / `!rn2(2)` ≡ des percent(75) open-else-random), `load_castle` `js/mklev.js:21184` (`DB_EAST`, closed). `SpLev_Map` marks + `impossible("Cannot create drawbridge.")` FALSE-arm are inlined at those sites per the des ports (unchanged). No C caller left unwired; no new call site C never calls from.
+- Verify: `node scripts/verify.mjs --fn create_drawbridge` → PASS (syntax 1 file; Rule #2; hidden: none blocked; REACH smoke 24/24 REACH-OK; green 2/2; strict both; cohort 7/7; full 44/44). `port-coverage.mjs --name create_drawbridge` now reads covered.
+- Named omissions: JS-only OOB guards (`!wall`/`!bridge` → FALSE; C assumes an initialized map); generic `lspo_drawbridge` Lua binding (no JS des-command dispatcher — des content ships as hardcoded loaders).
+- Next: queue head moves to `selection_do_grow` (`selvar.c`); same-C-file (`dbridge.c`) Must-fix/Open companion: none live.
+
 ## D-2707 — `u_init.c` skills_for_role whole-body restart in C order + panic-as-throw default
 
 - Status: SHIPPED (breadth phase). Popped head Open — coverage row (THIN: C 50 L `u_init.c:1040–1090` / JS 16 L in `js/u_init.js`; 2 callers, RNG 0, msg 0). No Must-fix live. Review 1658 names it only as caller context (ACCEPT, no C-wrongs — no stamp). No corpus session blocked.
