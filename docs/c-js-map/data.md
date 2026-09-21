@@ -1672,7 +1672,7 @@ shopkeeper `m_initinv`/`rnd_misc_item`/`MM_ESHK` + tribute novel** (D-0203);
 **`shk_move`/`move_special`/`inhishop` + m_move isshk dispatch** (D-0205); 
 **`u_entered_shop` welcome + `move_update`/`ushops_entered` via `check_special_room`** (D-0307; 
 **deserted/angry/surcharge/robbed/Invis + pickaxe/steed/Fast doorway `dochug` D-1080**; 
-SetVoice D-1752; Soundeffect + bill_p poison + Hallu shkname D-2218); **`shkname` export + Hallu random-name arm** (D-0307; D-2218); 
+SetVoice D-1752; Soundeffect + bill_p poison + Hallu shkname D-2218); **`shkname` whole body live in C order** (D-2727; isshk save/clear + noit_mon_nam fallback `:859–863`, `!isshk` fallthrough, `!has_eshk` panic→throw, Hallu `:870–890`, strip `:892–893`; `:866` impossible message named — async, unreachable for valid input, xname_flags precedent; was export + Hallu arm only, D-0307/D-2218); 
 **`paybill`/`inherits`/`money2mon`/`set_repo_loc` death loot** (D-0311; 
 angry takes-all + peaceful inherit); **`shkveg`/`mkveggy_at` + HEALTHY_TIN** (D-0902); 
 **Izchak minetown light-shk `nameshk` arm** (D-2234); **veggy_item obj-path tin/corpse species** (D-0994); omit wizard SHOPTYPE (nh_getenv — Rule #2, same class as the SPLEVTYPE getenv deferral); 

@@ -46,7 +46,7 @@ screens 93.2 %. Held-out 12/44, +0 vs last audit (5,976 / 11,265 pts, RNG
 this window — the corpus still does not predict the judge.
 **Corpus fortress** (re-scored 2026-09-21 audit 1674–1682): **500 / 540
 PASS (92.6 %)** excl. 13 env-only; RNG 99.37 %, screens 99.4 % — **+2 / −0**
-in the D-2715…D-2726 window (8 ACCEPT + 1 WITH-DEBT; +2 are
+in the D-2715…D-2727 window (8 ACCEPT + 1 WITH-DEBT; +2 are
 scen-poly-Caveman-92202 moved PASS by D-2721 and scen-wish-Healer-92092
 moved PASS by D-2720;
 every per-SHA `--reach-all` re-run here ends REACH-OK with no REGRESSED).
@@ -101,10 +101,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `sp_lev.c` create_object missing arms — C `sp_lev.c:2284–2285` recharged + `:2294–2295` tknown + `:2304–2341` invent_carrying_monster/saddle + container-NULL artifact-uncreate + `:2356–2389` Medusa statue fill + `:2391–2420` achievement prizes + `:2428–2437` buried bury_an_obj absent from js/mklev.js:20203 (128 L vs C 247 L). Port the arms in C order. Verify `node scripts/verify.mjs --fn create_object` (reach regression must be 0).
+**Next cluster:** `shknam.c` shkname — coverage THIN (C 41 L `shknam.c:856–897` / JS 15 L in js/shknam.js; hops 3, callers 37, RNG 2, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn shkname` (reach regression must be 0).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2726 (index).**
+**Keep D-0845…D-2727 (index).**
 <!-- recent:begin -->
+**D-2727** `nethack-c/upstream/src/shknam.c:856–897` — `js/shknam.js` only — whole body restarted in C order with C cites inline, stays sync (30+ sync call sites, no signature change): `:859–863` via live `noit_mon_nam` (new `./do_name.js` edge — `imports.mjs --can` SAFE, ho
 **D-2726** `nethack-c/upstream/src/sp_lev.c:2193–2440` — `js/mklev.js` — arms added in C order with C cites inline, function stays sync (all four callers sync): recharged/tknown two-liners; CONTENT branch widened with `|| invent_carrying_monster`, monster arm via live `remove_
 **D-2725** `nethack-c/upstream/src/allmain.c:854–929` — `js/allmain.js` — whole body restarted in C order with C cites inline: currentgend via live `Upolyd(u)` (`js/const.js:3184`) + `u.mfemale`; `:860` via `l_nhcore_call` (joins the existing static `./do.js` import); doomed 
 **D-2724** `nethack-c/upstream/src/end.c:850–903` — `js/end.js` — whole body restarted in C order as `export async function` with C cites inline: `:854` via dynamically-imported `inven_inuse(true)` (imports.mjs end→save is CHECK, lazy like the allmain.js edge); missile ar
@@ -112,11 +113,10 @@ revisits the picker.
 **D-2722** `nethack-c/upstream/src/dog.c:303–415` — `js/dog.js` only — port the head in C order ahead of the live `:366` block (vote/reset/veto/keep-looping/mydogs-break/`make_happy_shoppers(true)`; `ESHK(mtmp)?.dismiss_kops` nullable per file convention, `mpeaceful|0` in
 **D-2721** `nethack-c/upstream/src/do_wear.c:3278–3316` — `js/do_wear.js` only — C-order restart of the whole body: `hits` drawn before the gather/early-return (C `:3282` cited inline), dead null guard dropped; gather order, predicate short-circuit, erode flags, ret/break, stop
 **D-2720** `nethack-c/upstream/src/allmain.c:685–699` (`stop_occupation`: `maybe_finished_meal(TRUE)` — `js/hack.js` only — C-order gate (`if (!(await maybe_finished_meal(true)))` around the «stop» pline), then occupation=null, flags.botl + disp.botl (house convention, botl.js:753), nomul(0); `maybe_finished_meal` joins th
-**D-2719** `nethack-c/upstream/src/makemon.c:986–1007` — `js/makemon.js` only — C-order restart (`let hp = rnd(8)`, `else-if` arm chain, C comments `:993–1004` cited inline); stale «Named omit» doc replaced with the arm/draw contract + caller list.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2726; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2727; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
