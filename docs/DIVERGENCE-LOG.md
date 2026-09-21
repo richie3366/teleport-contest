@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2721 — `do_wear.c` destroy_arm C-order hits draw (Caveman-92202 → PASS)
+
+- **Status:** fixed (corpus-residual row: `do_wear.c` destroy_arm, queued from `hidden-proxy queue --limit 30` 2026-09-21 @D-2719; blocks 1/553 scen-poly-Caveman-92202).
+- **Symptom:** step 240/265 kind=rng: C `rn2(4)=0` @ `destroy_arm(do_wear.c:3282)` vs JS `rn2(5)=2` @ `distfleeck(monmove.js:992)`, toplines identical («The ki-rin casts a spell at you! Your skin itches.»). Same session previously blocked at distfleeck@116 (D-2717 W6) then monhp_per_lvl@197 (D-2719); destroy_arm was the later owner.
+- **C locus:** `nethack-c/upstream/src/do_wear.c:3278–3316` — `int i, idx = 0, hits = rn2(4) + 1` draws at declaration, before the gather (`uarm…uarmu`, non-erodeable included) and the `!idx` early return; loop over `armors[rn2(idx)]` with `erosion_matters && is_damageable && !oerodeproof` → `obj_erode_type` → `erode_obj(otmp, xname, erosion, EF_PAY|EF_DESTROY)`; `ret` on `!= ER_NOTHING`, break on `ER_DESTROYED`; `stop_occupation()` if ret. Callers: `mcastu.c:456` (`mcast_destroy_armor`: `!destroy_arm()` → «skin itches»), `read.c:1387` (`seffect_destroy_armor`).
+- **JS was:** `js/do_wear.js:3732` drew `hits = rn2(4) + 1` only after the `!idx` early return, and carried a dead `if (!otmp) continue` guard C never has (armors[] densely packed). A naked hero therefore drew nothing in JS while C always draws — the exact one-draw shift recorded (polymorphed Caveman wears no armor at step 240; both sides take the `!destroy_arm()` «skin itches» arm, RNG off by one).
+- **Fix:** `js/do_wear.js` only — C-order restart of the whole body: `hits` drawn before the gather/early-return (C `:3282` cited inline), dead null guard dropped; gather order, predicate short-circuit, erode flags, ret/break, stop_occupation tail unchanged. No new imports (rn2/erosion_matters/is_damageable/erode_obj/stop_occupation/xname/ERODE_NONE/EF_*/ER_* all pre-existing edges); no DIAG/FORCE/seed gates; Rule #2 clean.
+- **JS:** `js/do_wear.js:3726–3766` (doc + body).
+- **Callers:** `mcastu.c:456` → `js/mcastu.js:493` (`!await destroy_arm()`; mcast_destroy_armor arms verified C-identical incl. Antimagic/shieldeff/monstseesu, unchanged); `read.c:1387` → `js/read.js:1306` (pre-wired, unchanged). No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn destroy_arm` → PASS syntax (1 changed: js/do_wear.js) · PASS rule2 · hidden PROGRESS (scen-poly-Caveman-92202 → PASS; 1 PASS, 0 moved, 0 worse) · PASS reach (2 baseline-PASS sessions reach it, 2 run, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 → VERIFY: PASS.
+- **Named omissions:** none — whole 38-line body ported; every callee live (rn2 `js/rng.js:89`; erosion_matters/is_damageable `js/mkobj.js:78–79`; obj_erode_type file-local `js/do_wear.js:3097`, verified C-identical `:3260–3273` incl. arm order, no second clone; erode_obj `js/trap.js:4237`; stop_occupation `js/hack.js:1380`). D-2640 (read.c seffect_destroy_armor whole-body) stays open for read.c, untouched here.
+- **Next:** Caveman-92202 PASS — session leaves the blocked set. Refill this handoff: `--rows 600` head all Stale-parked never-re-pop, 239 machine survivors ALL class-deferred on eyeball; `hidden-proxy queue --limit 30`: 24 owners, 0 untagged-eligible → nothing appended; queue holds 0 Open after archive (below band, pool exhausted).
+
 ## D-2720 — `allmain.c` stop_occupation maybe_finished_meal gate + `adj_victual_nutrition` lembas race (Satiated pair)
 
 - **Status:** fixed (corpus-residual row: `eat.c` eatfood meal-progress uhs/botl timing lembas pair, D-2425 W2; blocks 2/553 scen-wish-Healer-92092 + scen-wish-Tourist-91125).
