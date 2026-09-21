@@ -103,6 +103,8 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 always Must-fix rows: they forfeit every later screen of that session
 (Constitution §10.14).
 
+- [ ] doread FORTUNE_COOKIE arm calls the divergent local `useup` clone (`js/read.js:260` — drops C `update_inventory()` + `useupall` `setnotworn`/`freeinv`/`obfree`) while live `useup` is already imported as `useup_live` in the same file: call `useup_live(scroll)`. Source: reviews/loop-unattended/1688-c453b9ca9-outrumor-cookie-caller.md
+
 ## Open — coverage (breadth phase — pop first after Must-fix)
 
 Rows below are `port-coverage.mjs --rows` output (score = reach × call

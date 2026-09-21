@@ -1692,3 +1692,20 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1680-1204bc94c-destroy-arm-hits-draw.md](./1680-1204bc94c-destroy-arm-hits-draw.md) | `1204bc94c` | D-2721 destroy_arm C-order hits draw | **ACCEPT** |
 | [1681-43540888a-losedogs-kops-head.md](./1681-43540888a-losedogs-kops-head.md) | `43540888a` | D-2722 losedogs kops-dismiss head | **ACCEPT** |
 | [1682-f6f4a0b26-dokick-whole-body.md](./1682-f6f4a0b26-dokick-whole-body.md) | `f6f4a0b26` | D-2723 dokick whole body | **ACCEPT-WITH-DEBT** |
+| [1683-1f40ed0e3-done-object-cleanup-remainder.md](./1683-1f40ed0e3-done-object-cleanup-remainder.md) | `1f40ed0e3` | D-2724 done_object_cleanup remainder | **ACCEPT** |
+| [1684-360259cf5-welcome-remainder.md](./1684-360259cf5-welcome-remainder.md) | `360259cf5` | D-2725 welcome remainder | **ACCEPT** |
+| [1685-6fc07aef5-create-object-missing-arms.md](./1685-6fc07aef5-create-object-missing-arms.md) | `6fc07aef5` | D-2726 create_object missing arms | **ACCEPT** |
+| [1686-e381a6676-shkname-whole-body.md](./1686-e381a6676-shkname-whole-body.md) | `e381a6676` | D-2727 shkname whole body | **ACCEPT** |
+| [1687-d61cfd75f-dog-eat-whole-body.md](./1687-d61cfd75f-dog-eat-whole-body.md) | `d61cfd75f` | D-2728 dog_eat whole body | **ACCEPT** |
+| [1688-c453b9ca9-outrumor-cookie-caller.md](./1688-c453b9ca9-outrumor-cookie-caller.md) | `c453b9ca9` | D-2729 outrumor + cookie caller | **QUALITY-RISK** |
+| [1689-dd14f257f-mhitm-ad-fire-whole-body.md](./1689-dd14f257f-mhitm-ad-fire-whole-body.md) | `dd14f257f` | D-2730 mhitm_ad_fire whole body | **ACCEPT** |
+| [1690-addccb0a7-com-pager-core-whole-body.md](./1690-addccb0a7-com-pager-core-whole-body.md) | `addccb0a7` | D-2731 com_pager_core whole body | **ACCEPT** |
+| [1691-673004346-place-object-whole-body.md](./1691-673004346-place-object-whole-body.md) | `673004346` | D-2732 place_object whole body | **ACCEPT** |
+| [1692-0f9ce645a-learn-unseen-invent.md](./1692-0f9ce645a-learn-unseen-invent.md) | `0f9ce645a` | D-2733 learn_unseen_invent whole body | **ACCEPT** |
+| [1693-4a4497a0c-place-object-revert-core.md](./1693-4a4497a0c-place-object-revert-core.md) | `4a4497a0c` | D-2734 place_object :2330 revert core | **ACCEPT** |
+| [1694-88cc54b29-golemeffects-cold-mhitm.md](./1694-88cc54b29-golemeffects-cold-mhitm.md) | `88cc54b29` | D-2735 golemeffects + cold mhitm arm | **ACCEPT** |
+| [1695-dc067a31e-lspo-trap-create-trap.md](./1695-dc067a31e-lspo-trap-create-trap.md) | `dc067a31e` | D-2736 lspo_trap + create_trap | **ACCEPT** |
+| [1696-e975f7583-lspo-map-region-terrain.md](./1696-e975f7583-lspo-map-region-terrain.md) | `e975f7583` | D-2737 lspo_map + region + terrain | **ACCEPT** |
+| [1697-03aaa7573-newman-missing-arms.md](./1697-03aaa7573-newman-missing-arms.md) | `03aaa7573` | D-2738 newman missing arms | **ACCEPT** |
+| [1698-289e5ec2c-moverock-core-whole-body.md](./1698-289e5ec2c-moverock-core-whole-body.md) | `289e5ec2c` | D-2739 moverock_core whole body | **ACCEPT** |
+| [1699-acefaa812-jump-whole-body.md](./1699-acefaa812-jump-whole-body.md) | `acefaa812` | D-2740 jump whole body | **ACCEPT** |

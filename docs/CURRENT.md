@@ -36,7 +36,7 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `60+0.33/turn` (R² 0.78) |
+| Speed label | `62+0.36/turn` (R² 0.77) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
@@ -44,13 +44,15 @@ every audit). Rank 4/22, 2nd agentic; best agentic fork 35/44, RNG 98.5 %,
 screens 93.2 %. Held-out 12/44, +0 vs last audit (5,976 / 11,265 pts, RNG
 26.7 %, rngSteps 81.8 %, screens 53.0 %; totals in table): no movement
 this window — the corpus still does not predict the judge.
-**Corpus fortress** (re-scored 2026-09-21 audit 1674–1682): **500 / 540
-PASS (92.6 %)** excl. 13 env-only; RNG 99.37 %, screens 99.4 % — **+2 / −0**
-in the D-2715…D-2740 window (8 ACCEPT + 1 WITH-DEBT; +2 are
-scen-poly-Caveman-92202 moved PASS by D-2721 and scen-wish-Healer-92092
-moved PASS by D-2720;
+**Corpus fortress** (re-scored 2026-09-21 audit 1683–1699): **501 / 540
+PASS (92.8 %)** excl. 13 env-only; RNG 99.37 %, screens 99.4 % — **+1 / −0**
+in the D-2724…D-2740 window (16 ACCEPT + 1 QUALITY-RISK; +1 is
+explore-seed0116-wizard-wear-shop-cfabc006 → PASS, ex-owner dopush
+hack.c:194 step-127 screen — only D-2739 touches dopush, bill/message
+completion; unclaimed by any iteration, found by this audit's re-score;
+D-2740 excluded by mechanism, session never jumps;
 every per-SHA `--reach-all` re-run here ends REACH-OK with no REGRESSED).
-Reviews 1225–1682: 410 ACCEPT, 18 WITH-DEBT, 1 DEBT, 24 QUALITY-RISK (1503, 1517, 1520 stamped; Must-fix 1533/1536 → D-2583/D-2584, 1568 → D-2610, 1592 → D-2636 `271ceca1`, 1617 → magic_negation floor Must-fix (addressed D-2661, review 1620 ACCEPT); 1654 → sel_set_door wiring Must-fix (addressed D-2697, review 1656 ACCEPT); hashes filled).
+Reviews 1225–1699: 426 ACCEPT, 18 WITH-DEBT, 1 DEBT, 25 QUALITY-RISK (1503, 1517, 1520 stamped; Must-fix 1533/1536 → D-2583/D-2584, 1568 → D-2610, 1592 → D-2636 `271ceca1`, 1617 → magic_negation floor Must-fix (addressed D-2661, review 1620 ACCEPT); 1654 → sel_set_door wiring Must-fix (addressed D-2697, review 1656 ACCEPT); 1688 → doread useup-clone Must-fix (queued, Next cluster); hashes filled).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending — review-debt, unqueued (detail in the review files).
 Audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s) + `leaderboard.mjs`.
 
@@ -101,7 +103,7 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `apply.c` jump — coverage PARTIAL (C 176 L `apply.c:1988–2164` / JS 85 L in js/apply.js; hops 5, callers 3, RNG 7, msg 23). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn jump` (reach regression must be 0). Measured `port-coverage.mjs --name jump` 2026-09-21 @ e975f7583.
+**Next cluster:** Must-fix from review 1688 — doread FORTUNE_COOKIE arm calls the divergent local `useup` clone (`js/read.js:260`); call live `useup` (already imported as `useup_live`). Verify `node scripts/verify.mjs --fn doread` + `outrumor` (reach regression must be 0). Source: reviews/loop-unattended/1688-c453b9ca9-outrumor-cookie-caller.md.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2740 (index).**
 <!-- recent:begin -->
