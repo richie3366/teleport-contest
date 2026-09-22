@@ -46,7 +46,7 @@ screens 93.2 %. Held-out 12/44, +0 vs last audit (5,976 / 11,265 pts, RNG
 this window — the corpus still does not predict the judge.
 **Corpus fortress** (re-scored 2026-09-21 audit 1683–1699): **501 / 540
 PASS (92.8 %)** excl. 13 env-only; RNG 99.37 %, screens 99.4 % — **+1 / −0**
-in the D-2724…D-2747 window (16 ACCEPT + 1 QUALITY-RISK; +1 is
+in the D-2724…D-2748 window (16 ACCEPT + 1 QUALITY-RISK; +1 is
 explore-seed0116-wizard-wear-shop-cfabc006 → PASS, ex-owner dopush
 hack.c:194 step-127 screen — only D-2739 touches dopush, bill/message
 completion; unclaimed by any iteration, found by this audit's re-score;
@@ -105,8 +105,9 @@ breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
 **Next cluster:** `steal.c` steal — coverage PARTIAL (C 271 L `steal.c:343–614` / JS 178 L in js/steal.js; hops 3, callers 2, RNG 5, msg 8). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn steal` (reach regression must be 0). Measured `port-coverage.mjs --name steal` 2026-09-21 @ d44374fc8.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2747 (index).**
+**Keep D-0845…D-2748 (index).**
 <!-- recent:begin -->
+**D-2748** `nethack-c/upstream/src/steal.c:343–614` (`:348–355` entry snapshot + monnear gate; `:357– — restarted the body in C order with per-arm `:line` cites: nothing_to_steal closure (C goto re-entry from inv gate + empty pick); cant_take closure (how[] + ROLL_FROM + armor_simple_name/yname + `!rn2(inv_cnt/5+2)` stay-o
 **D-2747** `nethack-c/upstream/src/uhitm.c:189–327` (`:194` STRAT_WAITMASK clear; `:196–197` engulfin — restarted the body in C order with per-arm `:line` cites: glyph from live `glyph_at(game.bhitpos)` (all 4 JS call paths set bhitpos: do_attack/polearm/whip/kick); Wait! via `%s` + live `something` const with the warning-
 **D-2746** `nethack-c/upstream/src/do_wear.c:261–323` (`:265` oldprop; `:267` takeoff.mask clear; `:2 — restarted the body in C order with per-arm `:line` cites: SPEED `makeknown` + `You_feel slow down{ a bit}` on `Fast()` (attrib.js live, dragon-armor slow-down precedent); WATER_WALKING pool/lava via live hack.js imports 
 **D-2745** `nethack-c/upstream/src/objnam.c:345–409` (`:360–378` r/neardist from xray_range; `:373–38 — added the wipe in C order — `save_oid` captured, `obj.o_id = 0` under `game.program_state?.gameover` (the live gameover flag, cf.
@@ -114,11 +115,10 @@ revisits the picker.
 **D-2743** `nethack-c/upstream/src/objnam.c:5624–5698` (`:5635–5638` unsigned lens; `:5640` lenlimit; — restarted the body in C order with per-arm `:line` cites: lens block (`:5635–5640`, len_qpfx folds into buf.length per `:5668`); explicit `_qbuf === qprefix` alias arm (`:5657–5659`, converges with the copy arm for immut
 **D-2742** `nethack-c/upstream/src/mon.c:3286–3373` (`:3290` x/y before vamp_stone; `:3295` vamp_ston — restarted monstone in C order with per-arm `:line` cites.
 **D-2741** `nethack-c/upstream/src/read.c:365–377` (cookie arm; `:377 useup(scroll)`) + live `useup`  — the cookie arm now calls `useup_live(scroll)` (live `useup` `js/invent.js:4596`, already imported at `js/read.js:107`) with a C-cite comment; no new cross-module edge.
-**D-2740** `nethack-c/upstream/src/apply.c:1988–2164` (`:1993–1995` known_spell #jump fallback; `:199 — restarted `jump` in C order with per-arm `:line` cites; new same-SCC runtime edges (imports.mjs SAFE) `known_spell`/`spe_Fresh`/`spelleffects` (+ exported `SPE_JUMPING` js/spell.js:282), `stucksteed`, `slithy`, `Flying`,
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2747; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2748; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
