@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-23
 
-- [x] `dog.c` dogfood — coverage PARTIAL (C 139 L `dog.c:995–1134` / JS 75 L in js/dogmove.js; hops 3, callers 10, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dogfood` (reach regression must be 0). Measured `port-coverage.mjs --name dogfood` 2026-09-23 @ 6080165a9. **Addressed:** D-2760
+- [x] `pager.c` waterbody_name — coverage PARTIAL (C 50 L `pager.c:561–611` / JS 31 L in js/hack.js; hops 3, callers 14, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn waterbody_name` (reach regression must be 0). Measured `port-coverage.mjs --name waterbody_name` 2026-09-23 @ 6080165a9. **Addressed:** D-2761
+
+
+- [x] `dog.c` dogfood — coverage PARTIAL (C 139 L `dog.c:995–1134` / JS 75 L in js/dogmove.js; hops 3, callers 10, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dogfood` (reach regression must be 0). Measured `port-coverage.mjs --name dogfood` 2026-09-23 @ 6080165a9. **Addressed:** D-2760 `666cb5405`
 
 
 - [x] `hack.c` lookaround — coverage PARTIAL (C 161 L `hack.c:3898–4059` / JS 110 L in js/cmd.js; hops 2, callers 1, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn lookaround` (reach regression must be 0). Measured `port-coverage.mjs --name lookaround` 2026-09-23 @ 6080165a9. **Addressed:** D-2759 `22b0e07c3`
