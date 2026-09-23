@@ -1837,9 +1837,9 @@ inven_inuse / ball-chain placebc; accessible closed_door; shk name-based peace;
 `hide_monst` after ghostly; `unleash_all` in finish_paybill; 
 `done_in_by` G_UNIQ "the "+KILLED_BY w/ imitator/High-Cleric gates (D-2145; `type_is_pname`;
 `pmname(Mgender)` gendered name + "called"/"of" mgivenname (`has_ebones`); minvis +
-hallucinogen-distorted prefixes)/ghost arms still named (D-2341 retires
+hallucinogen-distorted prefixes) (D-2341 retires
 imitator+vampshifter "imitating/in-form/disguised" + priest|minion m_monnam +
-killer multi_reason trim (D-2348: imitator predicate compares mndx indices — mons() factory breaks object identity; D-2351: vampshifter bat arm fires on `=== 'vampire bat'` per C `!strcmp`, not `!==`); monhealthdescr is exact-omit, `#if 0` no-op); enlightenment poly/remaining resistance catalogue; set_uasmon FROMRACE; 
+killer multi_reason trim (D-2348: imitator predicate compares mndx indices — mons() factory breaks object identity; D-2351: vampshifter bat arm fires on `=== 'vampire bat'` per C `!strcmp`, not `!==`); D-2770 retires the ghost arms (named-ghost "the " `:212–216` + "ghost of" `:260–263` via mptrNdx, live `You` `:195`, whole C body live); monhealthdescr is exact-omit, `#if 0` no-op; mark_synch `:196` platform no-op); enlightenment poly/remaining resistance catalogue; set_uasmon FROMRACE; 
 **`paygd`/`clearpriests`/`fixup_death`/`force_launch_placement`/`clearlocks`/
 `free_pickinv_cache`/`timet_delta` D-1812** (C `end.c` `really_done`
 `:1165` / `:1203` / `:1232` / `:1239–1244` / `:1378`; `vault.c` `paygd`
@@ -3706,8 +3706,8 @@ trapped-chest cmap on `M_AP_OBJECT` / Eyes `is_plural` named); **`mondied` undea
 **`xkilled` `nonliving` → `"destroy"`** (D-0327; 
 `is_golem`/`weirdnonliving`/`nonliving` in `monsters.js`); 
 omit `seemimic`/`mundetected` unhide+showit; 
-omit stun pline/`mhurtle_to_doom`, `special_dmgval` gloves/silver, Cleaver `hitum_cleave`, full AD_PLYS/`erode_obj`/`done_in_by` 
-stone/`dokick` passive callers; **D-1095** `passive` AD_COLD `healmon`+`split_mon`; 
+omit stun pline/`mhurtle_to_doom`, `special_dmgval` gloves/silver, Cleaver `hitum_cleave`, full AD_PLYS/`erode_obj`/
+`dokick` passive callers (D-2770 wires AD_STON touch-petrify + `done_in_by` STONING, `uhitm.c:5930–5956`); **D-1095** `passive` AD_COLD `healmon`+`split_mon`; 
 mhitu/mhitm AD_COLD still named; thrown multishot hit-when-destroyed; `hit()` thrown path; 
 vault-guard gold / flooreffects on death-drop; flooreffects non-floor treasure arms; 
 uhitm/mhitm `mhitm_ad_elec` branches; Protection/amulet MC; 

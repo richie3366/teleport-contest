@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-23
 
-- [x] `insight.c` list_vanquished — coverage PARTIAL (C 165 L `insight.c:2784–2949` / JS 91 L in js/insight.js; hops 4, callers 4, RNG 0, msg 15). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn list_vanquished` (reach regression must be 0). Measured `port-coverage.mjs --name list_vanquished` 2026-09-23 @ 22b0e07c3. **Addressed:** D-2769
+- [x] `end.c` done_in_by — coverage PARTIAL (C 159 L `end.c:185–344` / JS 119 L in js/end.js; hops 3, callers 6, RNG 0, msg 8). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn done_in_by` (reach regression must be 0). Measured `port-coverage.mjs --name done_in_by` 2026-09-23 @ 22b0e07c3. **Addressed:** D-2770
+
+
+- [x] `insight.c` list_vanquished — coverage PARTIAL (C 165 L `insight.c:2784–2949` / JS 91 L in js/insight.js; hops 4, callers 4, RNG 0, msg 15). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn list_vanquished` (reach regression must be 0). Measured `port-coverage.mjs --name list_vanquished` 2026-09-23 @ 22b0e07c3. **Addressed:** D-2769 `66cce8590`
 
 
 - [x] `pickup.c` reverse_loot — coverage MISSING (C 76 L `pickup.c:2350–2426` / JS no symbol; hops 6, callers 1, RNG 4, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn reverse_loot` (reach regression must be 0). Measured `port-coverage.mjs --name reverse_loot` 2026-09-23 @ 22b0e07c3. **Addressed:** D-2768 `72249caf4`

@@ -98,10 +98,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `insight.c` list_vanquished — coverage PARTIAL (C 165 L `insight.c:2784–2949` / JS 91 L in js/insight.js; hops 4, callers 4, RNG 0, msg 15). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn list_vanquished` (reach regression must be 0). Measured `port-coverage.mjs --name list_vanquished` 2026-09-23 @ 22b0e07c3.
+**Next cluster:** `end.c` done_in_by — coverage PARTIAL (C 159 L `end.c:185–344` / JS 119 L in js/end.js; hops 3, callers 6, RNG 0, msg 8). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn done_in_by` (reach regression must be 0). Measured `port-coverage.mjs --name done_in_by` 2026-09-23 @ 22b0e07c3.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2769 (index).**
+**Keep D-0845…D-2770 (index).**
 <!-- recent:begin -->
+**D-2770** `nethack-c/upstream/src/end.c:185–344` (`done_in_by`); caller `nethack-c/upstream/src/uhit — `js/end.js` — live `await You(...)` at `:1286` (output-identical: `You`=vpline('You '+fmt), `pline`=vpline); named-ghost "the "+KILLED_BY at `:1314` via mptrNdx (=== mptr, imitator arm has not run yet); "ghost of" at `:1
 **D-2769** `nethack-c/upstream/src/insight.c:2784–2949` (`list_vanquished`). Arms: `:2796–2811` force — restarted the whole body in C order with per-arm `:line` cites: `(void) await set_vanq_order(true)` at `:2805`, cancel-return `if ((await set_vanq_order(true)) < 0) return` at `:2854–2855`; live class_header (`VANQ_MCLS_
 **D-2768** `nethack-c/upstream/src/pickup.c:2350–2426` (`reverse_loot`, staticfn); sole C caller `pic — ported the whole body in C order into `js/pickup.js` (1:1 C home, module-local like C staticfn and the `doloot_core` precedent): `!rn2(3)` + inv_cnt(true) walk of the invlet-sorted invent array (C nobj order — both sides
 **D-2767** `nethack-c/upstream/src/uhitm.c:4425–4489` (`mhitm_ad_legs`); uhitm arm `:4432–4444` (dead — `js/uhitm.js` only for behavior — new `const AD_LEGS = 17` (monattk.h:59) + new `damageum_adtyping` AD_LEGS arm calling live same-file `damageum_ad_phys(mdef, mattk, mhm)` (the `:3988–4024` port; sync, no await, like the
@@ -109,11 +110,10 @@ revisits the picker.
 **D-2765** `nethack-c/upstream/src/options.c` — ported all bodies in C order into `js/options.js` (1:1 C home): `optfn_msg_window` empty-optstr negated→'s'/else-'f' (`:2477–2478`), negated-with-value bad_negation+err (`:2480–2482`), lowc-first-char s/c/f/r switch (`:2
 **D-2764** `nethack-c/upstream/src/cfgfiles.c:551–582` (`handle_config_section`); callees `is_config_section :522–549`, `free_config_sections :506–517` — ported all three bodies in C order into `js/cfgfiles.js`: `!== null` pointer test (empty `"[]"` takes the section arm), current freed before the CHOOSE check, `Section "[%s]" without CHOOSE` sink, `*sect`-gated dupstr vs free, strcmp-`!==` filter; gameconfig fields on `game`
 **D-2763** `nethack-c/upstream/src/coloratt.c:616–660` (`add_menu_coloring`). Every `:line` cite veri — ported the whole body in C order into `js/options.js` (home of the coloratt family): BUFSZ−1 copy (`:623-624`), first-'=' split with Malformed→FALSE (`:626-629`, sink named per file precedent), mungspace-then-first-'&' s
-**D-2762** `nethack-c/upstream/src/cmd.c:2407–2446` (`handler_rebind_keys`) + `:2290–2405` (`handler_ — ported all six bodies in C order: `handler_rebind_keys` redo PICK_ONE menu via live `select_menu_pick_one` (auto-letters ≡ tty_end_menu; `end_menu` prompts as header rows per the `handle_add_list_remove` precedent); item
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2769; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2770; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
