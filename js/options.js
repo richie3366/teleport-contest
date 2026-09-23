@@ -130,6 +130,11 @@ import {
     WARNCOUNT,
     def_warnsyms,
     gp,
+    GPCOORDS_NONE,
+    GPCOORDS_MAP,
+    GPCOORDS_COMPASS,
+    GPCOORDS_COMFULL,
+    GPCOORDS_SCREEN,
 } from './const.js';
 import { game } from './gstate.js';
 import { sanitize_name } from './bones.js';
@@ -1401,6 +1406,116 @@ function optfn_paranoid_confirmation_get_val(req, opts) {
 }
 
 /**
+ * C options.c optfn_whatis_coord `:4702–4745` (staticfn; NHOPT_PARSE wires
+ * &optfn_whatis_coord into the whatis_coord allopt row, optlist.h `:868`).
+ * do_handler (`:4741–4743`) returns handler_whatis_coord() — async in JS
+ * (menu), so doset calls it through doset_optfn_do_handler.
+ * @param {number} optidx C optidx
+ * @param {number} req REQ_DO_INIT / REQ_DO_SET / REQ_GET_VAL / REQ_GET_CNF_VAL
+ * @param {boolean} negated
+ * @param {{buf:string}|string} opts get_val holder / do_set full option string
+ * @param {string} _op C reassigns op from opts at `:4714`
+ * @param {object|null} [iflagsBag] iflags home (result.iflags at rc parse; game.iflags in game)
+ * @param {boolean} [optInitial] C go.opt_initial for the string_for_env_opt gate
+ */
+export function optfn_whatis_coord(optidx, req, negated, opts, _op, iflagsBag, optInitial) {
+    const iflags = iflagsBag || game.iflags || (game.iflags = {});
+    if (req === REQ_DO_INIT) { // C `:4707`
+        return OPTN_OK; // C `:4708`
+    }
+    if (req === REQ_DO_SET) { // C `:4710`
+        if (negated) { // C `:4711`
+            iflags.getpos_coords = GPCOORDS_NONE; // C `:4712`
+            return OPTN_OK; // C `:4713`
+        }
+        const op = string_for_env_opt(allopt_name(optidx), String(opts), false, optInitial); // C `:4714`
+        if (op !== EMPTY_OPTSTR) { // C `:4715`
+            const gpcoords = [GPCOORDS_NONE, GPCOORDS_COMPASS, // C `:4716–4718`
+                GPCOORDS_COMFULL, GPCOORDS_MAP, GPCOORDS_SCREEN];
+            const c = op.length ? lowc(op[0]) : ''; // C `:4719`
+            if (c && gpcoords.includes(c)) // C `:4721`
+                iflags.getpos_coords = c; // C `:4722`
+            else {
+                // Named omission (map): config_error_add("Unknown %s parameter '%s'")
+                // — no JS config-error sink (file precedent).
+                return OPTN_ERR; // C `:4726`
+            }
+        } else
+            return OPTN_ERR; // C `:4729`
+        return OPTN_OK; // C `:4730`
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C `:4732`
+        const g = iflags.getpos_coords;
+        set_optbuf(opts, (g === GPCOORDS_MAP) ? 'map' // C `:4733–4738`
+            : (g === GPCOORDS_COMPASS) ? 'compass'
+            : (g === GPCOORDS_COMFULL) ? 'full compass'
+            : (g === GPCOORDS_SCREEN) ? 'screen'
+            : 'none');
+        return OPTN_OK; // C `:4739`
+    }
+    return OPTN_OK; // C `:4744`
+}
+
+/**
+ * C options.c handler_whatis_coord `:6205–6276` (staticfn) — 'O' menu
+ * picker for iflags.getpos_coords. Sole C caller is the
+ * optfn_whatis_coord do_handler arm (`:4742`), reached from doset `:8935`
+ * through doset_optfn_do_handler.
+ */
+export async function handler_whatis_coord() {
+    if (!game.iflags) game.iflags = {};
+    const gpc = game.iflags.getpos_coords; // C `:6213`
+    const verbose = game.flags?.verbose !== false; // C flags.verbose (default on)
+    const COLNO = 80, ROWNO = 21; // C global.h
+    // C `:6216–6218` create_nhwindow/start_menu/zeroany — raw menu below.
+    // C `:6264–6265` end_menu prompt painted as header (D-2762 precedent).
+    const raw = [{
+        text: 'Select coordinate display when auto-describing a map position:',
+        selectable: false,
+    }];
+    // C `:6219–6245` five add_menu rows: a_char + letter = GPCOORDS_*, gacc 0,
+    // nul_glyphinfo, ATR_NONE/NO_COLOR; MENU_ITEMFLAGS_SELECTED on gpc.
+    for (const [ch, text] of [
+        [GPCOORDS_COMPASS, "compass ('east' or '3s' or '2n,4w')"], // C `:6219–6225`
+        [GPCOORDS_COMFULL, "full compass ('east' or '3south' or '2north,4west')"], // C `:6226–6231`
+        [GPCOORDS_MAP, 'map <x,y>'], // C `:6232–6236`
+        [GPCOORDS_SCREEN, 'screen [row,column]'], // C `:6237–6241`
+        [GPCOORDS_NONE, 'none (no coordinates displayed)'], // C `:6242–6246`
+    ]) {
+        raw.push({ text, selectable: true, selected: gpc === ch, a_char: ch, selector: ch });
+    }
+    raw.push({ text: '', selectable: false }); // C `:6246` add_menu_str ""
+    raw.push({ // C `:6247–6250`
+        text: `map: upper-left: <${1},${0}>, lower-right: <${COLNO - 1},${ROWNO - 1}>${
+            verbose ? '; column 0 unused, off left edge' : ''}`,
+        selectable: false,
+    });
+    if (!windowport_tty()) // C `:6251` strcmp(windowprocs.name, "tty") — only show for non-tty
+        raw.push({ // C `:6252–6253`
+            text: "screen: row is offset to accommodate tty interface's use of top line",
+            selectable: false,
+        });
+    // C `:6254–6258` COL80ARG (COLNO == 80): verbose ? "; column 80 is not used"
+    raw.push({ // C `:6259–6262` "[%02d,%02d], lower-right: [%d,%d]%s"
+        text: `screen: upper-left: [${String(0 + 2).padStart(2, '0')},${String(1).padStart(2, '0')}], lower-right: [${
+            ROWNO - 1 + 2},${COLNO - 1}]${verbose ? '; column 80 is not used' : ''}`,
+        selectable: false,
+    });
+    raw.push({ text: '', selectable: false }); // C `:6263` add_menu_str ""
+    const res = await select_menu_pick_one(raw); // C `:6264–6266` end/select (destroy inside the helper)
+    if (res.kind === 'pick') { // C `:6266` pick_cnt > 0
+        game.iflags.getpos_coords = res.item.a_char; // C `:6267`
+        /* PICK_ONE doesn't unselect preselected entry when
+           selecting another one */
+        // C `:6270–6271` pick_cnt > 1 && == gpc → window_pick[1]: the helper
+        // returns the one new pick, which is the entry C chooses.
+        // C `:6272` free — GC
+    }
+    // C `:6274` destroy_nhwindow — inside the helper
+    return OPTN_OK; // C `:6275`
+}
+
+/**
  * C options.c `(*allopt[k].optfn)(idx, do_handler, …)` for the three
  * has_handler compounds (optlist.h `:509`/`:556`/`:816`) — the do_handler
  * arms of optfn_msg_window `:2516–2518`, optfn_paranoid_confirmation
@@ -1418,6 +1533,9 @@ async function doset_optfn_do_handler(name) {
     }
     if (name === 'paranoid_confirmation') {
         return handler_paranoid_confirmation(); // C `:3040`
+    }
+    if (name === 'whatis_coord') {
+        return handler_whatis_coord(); // C `:4742`
     }
     if (name === 'versinfo') {
         const optname = allopt_name(allopt_idx('versinfo')); // C `:4476`
@@ -1618,8 +1736,8 @@ export function warning_opts(opts, optype) {
 }
 
 /* C options.c string_for_env_opt `:6682–6690` (staticfn). */
-function string_for_env_opt(optname, opts, valOptional) {
-    if (!game.go?.opt_initial) { // C `:6685`
+function string_for_env_opt(optname, opts, valOptional, initial = game.go?.opt_initial) {
+    if (!initial) { // C `:6685`
         rejectoption(optname); // C `:6686`
         return EMPTY_OPTSTR; // C `:6687`
     }
@@ -1883,6 +2001,7 @@ export function parseNethackrc(rc) {
     };
     // C options.c `:7426–7430` optfn(do_init) pass before the rc file.
     optfn_menu_objsyms(allopt_idx('menu_objsyms'), REQ_DO_INIT, false, '', EMPTY_OPTSTR, result.iflags);
+    result.iflags.getpos_coords = GPCOORDS_NONE; // C initoptions_init `:7190`
     if (!rc) return result;
 
     for (const rawLine of rc.split('\n')) {
@@ -1981,6 +2100,12 @@ export function parseNethackrc(rc) {
                     // C optfn_menu_objsyms do_set (opt_initial) on result.iflags.
                     optfn_menu_objsyms(
                         allopt_idx('menu_objsyms'), REQ_DO_SET, negated, stripped, val, result.iflags,
+                    );
+                }
+                else if (key === 'whatis_coord') {
+                    // C optfn_whatis_coord do_set (opt_initial) on result.iflags.
+                    optfn_whatis_coord(
+                        allopt_idx('whatis_coord'), REQ_DO_SET, negated, stripped, val, result.iflags, true,
                     );
                 }
                 else if (key === 'menuinvertmode') {
@@ -2082,6 +2207,13 @@ export function parseNethackrc(rc) {
                     // opts starts with the name, so use_menu_glyphs → entries.
                     optfn_menu_objsyms(
                         allopt_idx('menu_objsyms'), REQ_DO_SET, negated, lname, EMPTY_OPTSTR, result.iflags,
+                    );
+                }
+                else if (lname === 'whatis_coord') {
+                    // C optfn_whatis_coord do_set, valueless (opt_initial):
+                    // negated → none, else string_for_env_opt empty → optn_err.
+                    optfn_whatis_coord(
+                        allopt_idx('whatis_coord'), REQ_DO_SET, negated, lname, EMPTY_OPTSTR, result.iflags, true,
                     );
                 }
                 else if (lname === 'accessiblemsg') {
@@ -3932,7 +4064,7 @@ export async function doset() {
         { name: 'suppress_alert', val: '(none)' },
         { name: 'symset', val: 'DECgraphics, active, handler=DEC' },
         { name: 'versinfo', get_val: () => doset_compopt_get_val(optfn_versinfo, 'versinfo'), handler: true },
-        { name: 'whatis_coord', val: 'none' },
+        { name: 'whatis_coord', get_val: () => doset_compopt_get_val(optfn_whatis_coord, 'whatis_coord'), handler: true },
         { name: 'whatis_filter', val: 'none' },
     ];
     for (const c of compounds) {
@@ -4554,7 +4686,7 @@ const allopt = [
     // optlist.h:865 NHOPTB(weaponstatus)
     { name: 'weaponstatus', opttyp: BoolOpt, idx: 205, setwhere: SET_IN_GAME, initval: false, addr: { obj: 'flags', key: 'weaponstatus' }, optfn: null },
     // optlist.h:868 NHOPTC(whatis_coord)
-    { name: 'whatis_coord', opttyp: CompOpt, idx: 206, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: null },
+    { name: 'whatis_coord', opttyp: CompOpt, idx: 206, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_whatis_coord },
     // optlist.h:871 NHOPTC(whatis_filter)
     { name: 'whatis_filter', opttyp: CompOpt, idx: 207, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: null },
     // optlist.h:874 NHOPTB(whatis_menu)

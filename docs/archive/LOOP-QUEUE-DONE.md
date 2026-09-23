@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-23
 
+- [x] `options.c` handler_whatis_coord — coverage MISSING (C 70 L `options.c:6206–6276` / JS no symbol; hops —, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn handler_whatis_coord` (reach regression must be 0). Measured `port-coverage.mjs --name handler_whatis_coord` 2026-09-23 @ d0dce8186. **Addressed:** D-2775
+
+
 - [x] `options.c` handler_menu_objsyms — coverage MISSING (C 34 L `options.c:5795–5829` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: set_menuobjsyms_flags). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn handler_menu_objsyms` (reach regression must be 0). Measured `port-coverage.mjs --name handler_menu_objsyms` 2026-09-23 @ d0dce8186.
 
 

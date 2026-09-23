@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2775 — `options.c` handler_whatis_coord + optfn_whatis_coord ported (whatis_coord option live)
+
+- **Status:** fixed (coverage MISSING row; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** JS had no `handler_whatis_coord` or `optfn_whatis_coord`; the whatis_coord allopt row had optfn null, the doset row showed a literal `none` without a handler, rc `whatis_coord:` fell through to `result.flags.whatis_coord` (never reaching `iflags.getpos_coords`, which the getpos/pager/display/makemon readers use), and `iflags.getpos_coords` was never initialized (C `initoptions_init :7190` sets GPCOORDS_NONE).
+- **C locus:** `options.c` handler_whatis_coord `:6205–6276`; optfn_whatis_coord `:4702–4745` (do_init `:4707`, do_set negated → NONE / `string_for_env_opt` + `lowc(*op)` in `{n,c,f,m,s}` else optn_err `:4710–4730`, get_val/get_cnf_val names `:4732–4739`, do_handler `:4741–4743`); init `:7190`; allopt row optlist.h `:868`.
+- **JS was:** no symbol; allopt row `optfn: null`; doset literal row.
+- **Fix:** whole C bodies in C order with `:line` cites. `optfn_whatis_coord(optidx, req, negated, opts, _op, iflagsBag, optInitial)`; `handler_whatis_coord` — PICK_ONE menu, prompt as header row, five rows with selector = a_char = GPCOORDS_* and the current value preselected, blank + `map: upper-left: <1,0>, lower-right: <79,20>` (+ verbose tail), the non-tty `screen: row is offset…` line gated on `!windowport_tty()`, `screen: upper-left: [02,01], lower-right: [22,79]` (+ COL80ARG verbose tail), blank; pick → `iflags.getpos_coords = a_char`. `string_for_env_opt` gains an optional `initial` arg (defaults to `go.opt_initial`) so the rc parser, which does not set `go.opt_initial`, reaches the C opt_initial path.
+- **JS:** `js/options.js` `optfn_whatis_coord :1421`, `handler_whatis_coord :1465`, GPCOORDS_* import from const.js (~110 insertions).
+- **Callers:** C optfn do_handler `:4742` (from doset `:8935`) → `doset_optfn_do_handler` `js/options.js:1537`; doset value column `:9040` → row `:4067` get_val + `handler: true`; parseoptions `:637` / `get_option_value :8496` → allopt row `:4689` optfn; init `:7190` → parseNethackrc `:2004`; rc do_set → parseNethackrc `:2105` (valued) and `:2212` (valueless/negated boolean form).
+- **Verify:** `node scripts/verify.mjs --fn handler_whatis_coord` → PASS syntax (js/options.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 · VERIFY: PASS. Parser spot-check: '' → n, `map` → m, `Screen` → s, `!whatis_coord` → n, `x` → err (n kept), `f` → f; get_val renders map/compass/full compass/screen/none.
+- **Named omissions:** `config_error_add("Unknown %s parameter")` sink (file precedent); `nul_glyphinfo`/NO_COLOR menu glyph columns (helper paints text only); `pick_cnt > 1` disambiguation `:6270–6271` folded — the pick-one helper returns the single new pick, which is the entry C chooses.
+- **Next:** next Open — coverage row.
+
 ## D-2774 — `options.c` handler_menu_objsyms + optfn_menu_objsyms + set_menuobjsyms_flags ported (menu_objsyms option live)
 
 - **Status:** fixed (coverage MISSING row; `hidden-proxy verify` reports no corpus session blocked).
