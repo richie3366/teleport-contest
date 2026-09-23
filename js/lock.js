@@ -1120,6 +1120,12 @@ export async function doclose() {
     return true; // C: return ECMD_TIME after open-door arm
 }
 
+/** C levl[x][y].glyph — remembered integer id, not the tty ch/color. */
+function cellGlyph(loc) {
+    const g = loc?.remembered_glyph?.glyph;
+    return typeof g === 'number' ? g | 0 : 0;
+}
+
 /**
  * C ref: lock.c pick_lock `:358–656` — whole C body in C order.
  * Named omissions: `maybe_absorb_item` (steal.c:772, no JS port — map).
@@ -1313,20 +1319,23 @@ export async function pick_lock(pick, rx = 0, ry = 0, container = null) {
             return PICKLOCK_LEARNED_SOMETHING;
         }
         if (!door || !IS_DOOR(door.typ)) { // C `:578–593`
-            // NAMED OMISSION (map): C's DID_NOTHING half (`:579–586` — return
-            // stays DID_NOTHING when feel_location changes neither lev->glyph
-            // nor mapseen). The trigger lives in C's glyph-id layer: C takes
-            // the turn with no JS-visible delta (cell-glyph and shown-tuple
-            // compares both miss it, D-2744), so JS keeps the historical
-            // always-LEARNED here (own queue row).
-            update_mapseen_for(cc.x, cc.y); // C `:580`
+            // C `:579–586` — DID_NOTHING unless feel_location changes
+            // lev->glyph or lastseentyp. The promoting write is the
+            // integer id (S_room → S_darkroom), not the tty symbol.
+            let res = PICKLOCK_DID_NOTHING;
+            const oldGlyph = cellGlyph(door); // C `:579` oldglyph = door->glyph
+            const oldlastseentyp = update_mapseen_for(cc.x, cc.y); // C `:580`
             /* C `:582` this is probably only relevant when blind */
             feel_location(cc.x, cc.y); // C `:583`
+            if (cellGlyph(door) !== oldGlyph // C `:584–586`
+                || (game.lastseentyp?.[cc.x]?.[cc.y] | 0) !== (oldlastseentyp | 0)) {
+                res = PICKLOCK_LEARNED_SOMETHING;
+            }
             if (is_drawbridge_wall(cc.x, cc.y) >= 0) // C `:588–589`
                 await You('%s no lock on the drawbridge.', Blind() ? 'feel' : 'see');
             else // C `:590–591`
                 await You('%s no door there.', Blind() ? 'feel' : 'see');
-            return PICKLOCK_LEARNED_SOMETHING;
+            return res;
         }
 
         // C `:594` switch (door->doormask)

@@ -86,6 +86,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-23 — D-2755 `lock.c` pick_lock !IS_DOOR keeps the turn when lev->glyph changes
+
+**C locus:** `nethack-c/upstream/src/lock.c:578–593`. `res` starts `PICKLOCK_DID_NOTHING`. `oldglyph = door->glyph`, `oldlastseentyp = update_mapseen_for`, then `feel_location`. LEARNED iff `door->glyph != oldglyph` or `lastseentyp` changed. Measured on the recorder at `lock.c:583`/`584` (ASLR-off, seed 1500, the "see no door there" pick): cell (71,13), `typ` 25 (`ROOM`), flags `0xC0` (`lit|waslit`), `lastseentyp` 25→25, `lev->glyph` 3992→3993 (`S_room`→`S_darkroom`, consecutive cmap-A ids). The room was already lit; `flags.dark_room && iflags.use_color` still rewrites the id (`display.c:894–897`).
+**JS:** `js/lock.js` `cellGlyph` + `pick_lock` `:1321–1338`; `js/display.js` `feel_location` `:4955–4973`.
+**Change:** `feel_location` still paints when the tty matches. When only the integer matches `cmap(S_room)`, it stores `cmap(dark_room ? S_darkroom : S_stone)` on `remembered_glyph.glyph` (C `lev->glyph`) and does not mark the cell dirty.
+**Verify:** `node scripts/verify.mjs --fn pick_lock` → PASS syntax (2 files `js/display.js` `js/lock.js`) · PASS rule2 · note hidden 0 blocked (row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (shared `display.js`) · VERIFY: PASS. `seed1500-rogue-explore-move` 2768/2768 RNG, 40/40 screens (the session the reverted half broke).
+**Named:** `maybe_absorb_item` (`steal.c:772`) stays a named omission (no JS port). The id-only `feel_location` arm does not raise `show_glyph`'s gbuf dirty bit; `S_darkroom` shares the room-floor symbol and the captured tty already matched.
+**Next:** `dungeon.c` `u_on_newpos` steed-share/visibility tail.
 ## 2026-09-23 — D-2754 `mhitm.c` mdamagem touch-petrify head calls monstone
 
 **C locus:** `nethack-c/upstream/src/mhitm.c:1032–1055` — `touch_petrifies(pd)` or (`AD_DGST` and Medusa), `!resists_ston(magr)`, then `attk_protection` (`mhitm.c:1473–1512`) against `misc_worn_check` with `mwep` OR'd as `W_ARMG`; unprotected `poly_when_stoned` → `mon_to_stone` else vis `pline_mon` + `monstone(magr)`.

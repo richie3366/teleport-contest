@@ -98,10 +98,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `lock.c` pick_lock `!IS_DOOR` DID_NOTHING half — C `lock.c:578–593` (`res` stays DID_NOTHING when feel_location changes neither lev->glyph nor mapseen) absent from `js/lock.js` pick_lock. Needs a C-side glyph-id measurement before porting (two prior ports falsified). Verify `node scripts/verify.mjs --fn pick_lock`. First Open row in `docs/LOOP-QUEUE.md`.
+**Next cluster:** `dungeon.c` u_on_newpos steed-share/visibility tail — C `dungeon.c:1567–1601` absent from `js/mklev.js` (`u_on_newpos` sets ux/uy only). Verify `node scripts/verify.mjs --fn u_on_newpos`. Next Open row in `docs/LOOP-QUEUE.md` after D-2755.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2754 (index).**
+**Keep D-0845…D-2755 (index).**
 <!-- recent:begin -->
+**D-2755** `nethack-c/upstream/src/lock.c:578–593`. `res` starts `PICKLOCK_DID_NOTHING`. `oldglyph =  — `feel_location` still paints when the tty matches.
 **D-2754** `nethack-c/upstream/src/mhitm.c:1032–1055` — The head runs after the opening `d()` and before the adtyp dispatch.
 **D-2753** `nethack-c/upstream/src/mon.c:3358` `glyph_is_invisible(levl[x][y].glyph)` — the arm calls `memory_glyph_is_invisible(loc)`, the same predicate `mondead` uses for `levl.glyph`.
 **D-2752** `nethack-c/upstream/src/uhitm.c:289` `Blind || (is_pool(mtmp->mx, mtmp->my) && !Underwater — the arm tests `!(u.uinwater | 0)`.
@@ -109,11 +110,10 @@ revisits the picker.
 **D-2750** `nethack-c/upstream/src/dothrow.c:1004–1007` (`remove_monster` then `newsym` of the old ce — `mon_at_display` skips `MON_OFFMAP`, the same predicate `m_at` uses.
 **D-2749** `nethack-c/upstream/src/dothrow.c:992–1068` (`:997–998` isok; `:1000` will_hurtle && m_in_ — restarted the body in C order with per-arm `:line` cites; same-file caller `mhurtle` doc updated (petrify/steed-vision omit retired, NODIAG/minliquid omits stand).
 **D-2748** `nethack-c/upstream/src/steal.c:343–614` (`:348–355` entry snapshot + monnear gate; `:357– — restarted the body in C order with per-arm `:line` cites: nothing_to_steal closure (C goto re-entry from inv gate + empty pick); cant_take closure (how[] + ROLL_FROM + armor_simple_name/yname + `!rn2(inv_cnt/5+2)` stay-o
-**D-2747** `nethack-c/upstream/src/uhitm.c:189–327` (`:194` STRAT_WAITMASK clear; `:196–197` engulfin — restarted the body in C order with per-arm `:line` cites: glyph from live `glyph_at(game.bhitpos)` (all 4 JS call paths set bhitpos: do_attack/polearm/whip/kick); Wait! via `%s` + live `something` const with the warning-
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2754; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2755; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

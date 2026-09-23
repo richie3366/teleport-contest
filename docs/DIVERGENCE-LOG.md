@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2755 — `lock.c` pick_lock !IS_DOOR keeps the turn when lev->glyph changes
+
+- **Status:** fixed (Open row: C `lock.c:578–593` DID_NOTHING half absent from `pick_lock`; always returned LEARNED. 0 corpus blocks.)
+- **Symptom:** none on the fortress after the fix. Two earlier ports of this half returned `PICKLOCK_DID_NOTHING` on a "You see no door there." pick where C takes the turn (pet moves, later RNG shifts). Cell-glyph and shown-tuple snapshots did not move, so the half was reverted (D-2744).
+- **C locus:** `nethack-c/upstream/src/lock.c:578–593`. `res` starts `PICKLOCK_DID_NOTHING`. `oldglyph = door->glyph`, `oldlastseentyp = update_mapseen_for`, then `feel_location`. LEARNED iff `door->glyph != oldglyph` or `lastseentyp` changed. Measured on the recorder at `lock.c:583`/`584` (ASLR-off, seed 1500, the "see no door there" pick): cell (71,13), `typ` 25 (`ROOM`), flags `0xC0` (`lit|waslit`), `lastseentyp` 25→25, `lev->glyph` 3992→3993 (`S_room`→`S_darkroom`, consecutive cmap-A ids). The room was already lit; `flags.dark_room && iflags.use_color` still rewrites the id (`display.c:894–897`).
+- **JS was:** `js/lock.js` `pick_lock` `!IS_DOOR` always returned `PICKLOCK_LEARNED_SOMETHING`. `feel_location`'s floor rewrite (`display.c:894`) tested the tty symbol via `remembered_matches_cmap`. A DECgraphics room floor is meta-`~`, so it did not match the ASCII '.' cmap and the integer id stayed `S_room`.
+- **Fix:** `feel_location` still paints when the tty matches. When only the integer matches `cmap(S_room)`, it stores `cmap(dark_room ? S_darkroom : S_stone)` on `remembered_glyph.glyph` (C `lev->glyph`) and does not mark the cell dirty. `pick_lock` snapshots that id and `lastseentyp`, calls `feel_location`, and returns LEARNED only if either changed.
+- **JS:** `js/lock.js` `cellGlyph` + `pick_lock` `:1321–1338`; `js/display.js` `feel_location` `:4955–4973`.
+- **Callers:** every C site already wired, none added — `apply.c:4288` → `js/apply.js:2514`; `lock.c:882` → `js/lock.js:907` (`doopen_indir`); `pickup.c:2125` → `js/pickup.js:4376`.
+- **Verify:** `node scripts/verify.mjs --fn pick_lock` → PASS syntax (2 files `js/display.js` `js/lock.js`) · PASS rule2 · note hidden 0 blocked (row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (shared `display.js`) · VERIFY: PASS. `seed1500-rogue-explore-move` 2768/2768 RNG, 40/40 screens (the session the reverted half broke).
+- **Named omissions:** `maybe_absorb_item` (`steal.c:772`) stays a named omission (no JS port). The id-only `feel_location` arm does not raise `show_glyph`'s gbuf dirty bit; `S_darkroom` shares the room-floor symbol and the captured tty already matched.
+- **Next:** `dungeon.c` `u_on_newpos` steed-share/visibility tail.
+
 ## D-2754 — `mhitm.c` mdamagem touch-petrify head calls monstone
 
 - **Status:** fixed (Must-fix review 1701: C `mhitm.c:1032–1055` absent from `mdamagem`. 0 corpus blocks — the row named a missing caller, not N blocks.)
