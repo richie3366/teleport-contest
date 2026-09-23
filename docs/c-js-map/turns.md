@@ -3152,11 +3152,15 @@ zap_steed via bhitm)**; **`dovspell` VIEW swap/sort + sort cluster
 `spell_cmp`/`sortspells`/`spellsortmenu` (D-2369; C `:1842–2053`;
 orderindx display, preselect-decline, CURRENT/RETAIN arms; tty
 de-select self-swap + sort preselect marker + `SPELLMENU_DUMP` named)**;
+**`getspell` C-order restart (D-2758; C `:714–783`; cmdq KEY replay +
+traditional yn prompt with retry cap + `spell_let_to_idx :114–126`;
+sole caller `docast :824` wired; rejectcasting-message placement +
+CQ_REPEAT still named)**;
 omit other `spelleffects` otyps (remaining peffects 
 mix/potionhit/potionbreathe; remaining scroll-duplicate REMOVE_CURSE /
 CONFUSE_MONSTER / CAUSE_FEAR / IDENTIFY / CHARM_MONSTER — DETECT_FOOD is D-1788;
 SPE_DRAIN_LIFE bhitm D-1436 / self-dir zapyourself D-1446), 
-doorlock/zap_updown/steed, traditional getspell yn, CQ_REPEAT/amulet drain
+doorlock/zap_updown/steed, CQ_REPEAT/amulet drain
 
 ### `src/mhitu.c` / `src/mthrowu.c` / `src/weapon.c` / `src/muse.c` / `src/potion.c`
 

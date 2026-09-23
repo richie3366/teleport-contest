@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2758 — `spell.c` getspell: cmdq replay + traditional yn prompt
+
+- **Status:** fixed (Open row: `getspell` coverage THIN. 0 corpus blocks.)
+- **Symptom:** none on the fortress (contest default is menu style; cmdq is empty at cast time). Coverage gap: C `getspell` is 68 lines, JS had 21 — the cmdq-replay arm and the whole MENU_TRADITIONAL yn prompt were absent, and `spell_let_to_idx` had no JS body.
+- **C locus:** `nethack-c/upstream/src/spell.c:714–783` (`getspell`); callee `spell_let_to_idx :114–126`; `quitchars` `decl.c:96`; sole caller `docast :824`.
+- **JS was:** `js/spell.js` `getspell` (21 L) had only the no-spells guard, the rejectcasting guard (both via `pline` with preformatted strings), and the CAST-menu fallback with "Traditional yn-path deferred". No cmdq arm, no traditional prompt, no `spell_let_to_idx`.
+- **Fix:** restarted the body in C order with per-arm `:line` cites: no-spells `You("don't know any spells right now.")` guard; rejectcasting guard — C prints inside `rejectcasting`, the JS clone is a sync predicate so the same three messages print here via `You`/`Your` with C's exact format strings (output-identical to the old `pline` strings); `cmdq_pop` replay arm accepting `CMDQ_KEY` plus the legacy `'key'` tag (still pushed by apply/dig/iactions), bounds-checked by the new `spell_let_to_idx`; MENU_TRADITIONAL arm with `lets`/`qbuf` construction, retry cap 10 (`"That's enough tries."`), `yn_function(qbuf, null, '\0', true)` (NULL resp = accept-any-key via the tty path), `*`/`?` break to menu, quitchars → `pline(Never_mind)` (`pline1` ≡ `pline`, no `%`), unknown letter → `You("don't know that spell.")` retry; CAST-menu fallback unchanged.
+- **JS:** `js/spell.js` `spell_let_to_idx :1703`, `getspell :1720–1791`. Imports: `cmdq_pop` from `cmd.js` (hoisted, cycle-safe per `imports.mjs --can`), `QUITCHARS` from `lock.js` (one-word `export`, existing edge), `MENU_TRADITIONAL`/`MENU_FULL`/`CMDQ_KEY`/`Never_mind` from `const.js` (existing edge). `js/lock.js:69` QUITCHARS export.
+- **Callers:** C `spell.c:824` (`docast`) → `js/spell.js:2732` (already called `getspell()`; unchanged). No other C call sites (`:39` prototype, `:1229`/`:1234` comments).
+- **Verify:** `node scripts/verify.mjs --fn getspell` → PASS syntax (2 files `js/lock.js` `js/spell.js`) · PASS rule2 · note hidden 0 blocked (row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · VERIFY: PASS. Null-resp safety read in `yn_menuable_resp` (null → tty accept-any path, no throw).
+- **Named omissions:** none new. Pre-existing, still map-named: `rejectcasting` messages print at the getspell call site instead of inside the clone (observable-identical; restructuring the clone is its own row); `docast` CQ_REPEAT `cmdq_add_key` line still deferred; `can_chant` poly silent/headless subset.
+- **Next:** `pline.c` execplinehandler (next Open row); queue stays in the 8–12 band, no refill.
+
 ## D-2757 — `botl.c` status hilite up/down chooser and the field menu
 
 - **Status:** fixed (Open rows: `status_hilite_menu_choose_updownboth`, `status_hilite_remove`, `status_hilite_menu`. 0 corpus blocks.)

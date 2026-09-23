@@ -66,7 +66,7 @@ import { is_quest_artifact } from './quest.js';
 import { ART_ORB_OF_DETECTION } from './generated/artifacts_data.js';
 
 /** C ref: decl.c:96 quitchars — `getdir :4098` skips help when set. */
-const QUITCHARS = ' \r\n\x1b';
+export const QUITCHARS = ' \r\n\x1b';
 
 /** C cmd.c number_pad dirchars (only when iflags.num_pad / Cmd.num_pad). */
 const NUMPAD_DIR = {
