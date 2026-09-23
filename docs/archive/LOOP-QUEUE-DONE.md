@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-23
 
+- [x] `options.c` handler_menu_objsyms — coverage MISSING (C 34 L `options.c:5795–5829` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: set_menuobjsyms_flags). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn handler_menu_objsyms` (reach regression must be 0). Measured `port-coverage.mjs --name handler_menu_objsyms` 2026-09-23 @ d0dce8186.
+
+
 - [x] `options.c` doset do_handler for msg_window / paranoid_confirmation / versinfo — **Addressed:** D-2773 — C `optlist.h:509/556/816` declare all three `has_handler`; C `doset` calls `allopt[k].optfn(idx, do_handler, …)` (csym `doset` body line 179–180), reaching `handler_msg_window` `:5831–5890`, `handler_paranoid_confirmation` `:5952–6008`, `handler_versinfo` `:6572–6617` + the `optfn_versinfo` `:4513–4516` "changed to / not changed, still %u" pline. JS `doset` pushes the three rows without `handler: true` and with hardcoded values (`js/options.js:3688/3691/3709`), so picks are dropped at `:3751`; the three D-2765 handlers have no JS caller. Wire them in the handler loop (`:3766`, perminv_mode precedent) and render msg_window/versinfo values via their REQ_GET_VAL. Verify `node scripts/verify.mjs --fn handler_msg_window`. Source: reviews/loop-unattended/1724-1b02bce10-optfn-msg-window-family.md
 
 

@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2774 — `options.c` handler_menu_objsyms + optfn_menu_objsyms + set_menuobjsyms_flags ported (menu_objsyms option live)
+
+- **Status:** fixed (coverage MISSING row; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** JS had no `handler_menu_objsyms`, `optfn_menu_objsyms`, `set_menuobjsyms_flags` or `objsymvals`; the menu_objsyms allopt row had optfn null, the doset row showed a literal `conditional` without a handler, rc `menu_objsyms`/`use_menu_glyphs` were ignored, and `iflags.menuobjsyms`/`use_menu_glyphs` were never initialized (C do_init sets 4 / TRUE).
+- **C locus:** `options.c` handler_menu_objsyms `:5794–5829`; optfn_menu_objsyms `:2224–2287` (do_init `:2230–2235`, do_set negated/boolean/digit/name-match arms `:2237–2277`, get_val `:2279–2281`, do_handler `:2283–2285`); set_menuobjsyms_flags `:7443–7451`; objsymvals `:273–280`; do_init pass `:7426–7430`; allopt row optlist.h `:451` (alias `use_menu_glyphs`).
+- **JS was:** no symbol; allopt row `optfn: null`; doset literal row.
+- **Fix:** whole C bodies in C order with `:line` cites: `objsymvals` table; `set_menuobjsyms_flags(n, iflagsBag)` (bit 1 → menu_head_objsym, bits 2|4 → use_menu_glyphs); `optfn_menu_objsyms` — do_init 4, do_set (`!` → 0, valueless → `use_menu_glyphs` prefix ? 2 : 1, digit via atoi with `>= SIZE` → optn_err, else name loop with the `k >= 4` prefix length rule and the `one-or-the-other` alt for index 5, default 0), get_val/get_cnf_val name; `handler_menu_objsyms` — PICK_ONE menu with prompt as header, `%-12.12s%c%.60s` rows, selector `'0'+i`, gacc `*buf` (`gselector`), current value preselected, pick → `set_menuobjsyms_flags(a_int-1)`.
+- **JS:** `js/options.js` `objsymvals :1197`, `set_menuobjsyms_flags :1215`, `optfn_menu_objsyms :1236`, `handler_menu_objsyms :1299` (~164 insertions).
+- **Callers:** C optfn do_handler `:2284` (from doset `:8935`) → `doset_optfn_do_handler` `js/options.js:1414`; doset value column `:9040` → row `:3910` get_val + `handler: true`; parseoptions `:637` → allopt row `:4341` optfn (also serves `get_option_value :8496`); do_init pass `:7428` → parseNethackrc `:1885` before the rc lines; rc do_set → parseNethackrc `:1982` (valued) and `:2083` (boolean, incl. alias). set_menuobjsyms_flags callers `:2234`/`:2276`/`:5824` all wired inside the ported bodies.
+- **Verify:** `node scripts/verify.mjs --fn handler_menu_objsyms` → PASS syntax (js/options.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 · VERIFY: PASS. Parser spot-check: '' → 4, `menu_objsyms` → 1, `use_menu_glyphs` → 2, `!menu_objsyms` → 0, `both` → 3, `one-or-the-other`/`5` → 5, `9` → err (4 kept), `ent` → 0.
+- **Named omissions:** `config_error_add("Illegal %s parameter")` sink (file precedent); `nul_glyphinfo`/NO_COLOR menu glyph columns (helper paints text only); `n > 1` two-pick disambiguation `:5822–5823` folded — the helper returns the single new pick, which is the non-preselected entry C chooses; readers of `use_menu_glyphs` (invent.js dash-slot) still named there.
+- **Next:** next Open — coverage row.
+
 ## D-2773 — `options.c` doset do_handler wired for msg_window / paranoid_confirmation / versinfo (+ recorder versinfo default)
 
 - **Status:** fixed (Must-fix from review 1724 QUALITY-RISK; `hidden-proxy verify` reports no corpus session blocked).

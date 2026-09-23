@@ -1187,6 +1187,148 @@ export async function handler_msg_window() {
     return OPTN_OK; // C `:5889`
 }
 
+/*
+ * C options.c objsymvals[] `:273–280` (struct objsymopt `:242–246`) — the
+ * values of the menu_objsyms option. num is the iflags.menuobjsyms value;
+ * bit 1 = object symbol in menu header lines, bits 2|4 = symbol in the
+ * entries (4 only when no header is shown). 4' and 5' (!sortpack, no
+ * headers) produce the same inventory display (`:248–272`).
+ */
+const objsymvals = [
+    { num: 0, nam: 'none', descr: "don't show object symbols in menus" },
+    { num: 1, nam: 'headers', descr: 'show object symbols in menu header lines' },
+    { num: 2, nam: 'entries', descr: 'show object symbols in individual menu entries' },
+    { num: 3, nam: 'both', descr: 'show object symbols in headers and menu entries' },
+    { num: 4, nam: 'conditional', descr: 'show objsyms in entries if no headers are shown' },
+    { num: 5, nam: 'one-or-other', descr: 'show objsyms in header, in entries if no header' },
+];
+
+/**
+ * C options.c set_menuobjsyms_flags `:7443–7451` (staticfn) —
+ * iflags.menuobjsyms also controls iflags.menu_head_objsym and
+ * iflags.use_menu_glyphs; they affect execution but are no longer options.
+ * C callers: optfn_menu_objsyms do_init `:2234` and do_set `:2276`,
+ * handler_menu_objsyms `:5824`.
+ * @param {number} newobjsyms objsymvals index
+ * @param {object|null} [iflagsBag] iflags home (result.iflags at rc parse; game.iflags in game)
+ */
+function set_menuobjsyms_flags(newobjsyms, iflagsBag) {
+    const iflags = iflagsBag || game.iflags || (game.iflags = {});
+    iflags.menuobjsyms = newobjsyms; // C `:7448`
+    iflags.menu_head_objsym = (newobjsyms & 1) !== 0; // C `:7449`
+    iflags.use_menu_glyphs = (newobjsyms & (2 | 4)) !== 0; // C `:7450`
+}
+
+/**
+ * C options.c optfn_menu_objsyms `:2224–2287` (staticfn; NHOPT_PARSE wires
+ * &optfn_menu_objsyms into the menu_objsyms allopt row, optlist.h `:451`,
+ * alias "use_menu_glyphs"). do_handler (`:2283–2285`) returns
+ * handler_menu_objsyms() — async in JS (menu), so doset calls the handler
+ * through doset_optfn_do_handler (optfn_msg_window precedent); no
+ * do_handler branch here.
+ * @param {number} optidx C optidx (feeds the config_error_add text only)
+ * @param {number} req REQ_DO_INIT / REQ_DO_SET / REQ_GET_VAL / REQ_GET_CNF_VAL
+ * @param {boolean} negated
+ * @param {{buf:string}|string} opts get_val holder / do_set option string (read-only)
+ * @param {string} op value tail (EMPTY_OPTSTR when valueless)
+ * @param {object|null} [iflagsBag] iflags home (result.iflags at rc parse; game.iflags in game)
+ */
+export function optfn_menu_objsyms(optidx, req, negated, opts, op, iflagsBag) {
+    const iflags = iflagsBag || game.iflags || (game.iflags = {});
+    if (req === REQ_DO_INIT) { // C `:2230`
+        /* set iflags.menu_objsyms to 4, "conditional"; also sets
+           iflags.menu_head_objsym to False and
+           iflags.use_menu_glyphs True */
+        set_menuobjsyms_flags(4, iflags); // C `:2234`
+        return OPTN_OK; // C `:2235`
+    }
+    if (req === REQ_DO_SET) { // C `:2237`
+        let osyms; // C `:2239`
+        if (negated) { // C `:2241`
+            /* allow '!menu_objsyms' (and '!use_menu_glyphs') as
+               'menu_objsyms:none' (0) */
+            osyms = 0; // C `:2244`
+        } else if (op === EMPTY_OPTSTR) { // C `:2245`
+            /* treat boolean 'menu_objsyms' as 'menu_objsyms:headers' (1)
+               accept obsolete boolean 'use_menu_glyphs' as a synonym
+               for 'menu_objsyms:entries' (2) */
+            osyms = String(opts).startsWith('use_menu_glyphs') ? 2 : 1; // C `:2249` !strncmp(opts, …, 15)
+        } else if (op[0] >= '0' && op[0] <= '9') { // C `:2250` digit(*op)
+            const i = Number.parseInt(op, 10); // C `:2251` atoi
+            if (i >= objsymvals.length) { // C `:2252`
+                // Named omission (map): config_error_add("Illegal %s parameter '%s'",
+                // allopt[optidx].name, op) — no JS config-error sink (file precedent).
+                void optidx;
+                return OPTN_ERR; // C `:2255`
+            }
+            osyms = i; // C `:2257`
+        } else {
+            /* stilted "one-or-other" is used to compress the menu width */
+            const alt5 = 'one-or-the-other'; // C `:2260`
+            const l5 = alt5.length; // C `:2261` sizeof alt5 - sizeof ""
+
+            osyms = 0; // C `:2263`
+            const k = op.length; // C `:2264`
+            for (let i = 0; i < objsymvals.length; ++i) { // C `:2265`
+                let l = objsymvals[i].nam.length; // C `:2266`
+                if (k >= 4) // C `:2267`
+                    l = k; // C `:2268`
+                if (!optStrncasecmp(objsymvals[i].nam, op, l) // C `:2269`
+                    || (i === 5 && !optStrncasecmp(alt5, op, l5))) { // C `:2270`
+                    osyms = i; // C `:2271`
+                    break; // C `:2272`
+                }
+            }
+        }
+        set_menuobjsyms_flags(osyms, iflags); // C `:2276`
+        return OPTN_OK; // C `:2277`
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C `:2279`
+        set_optbuf(opts, objsymvals[iflags.menuobjsyms].nam); // C `:2280`
+        return OPTN_OK; // C `:2281`
+    }
+    return OPTN_OK; // C `:2286`
+}
+
+/**
+ * C options.c handler_menu_objsyms `:5794–5829` (staticfn) — 'O' menu
+ * picker for the menu_objsyms value. Sole C caller is the
+ * optfn_menu_objsyms do_handler arm (`:2284`), async-split into
+ * doset_optfn_do_handler.
+ */
+export async function handler_menu_objsyms() {
+    if (!game.iflags) game.iflags = {};
+    const sep = game.iflags.menu_tab_sep ? '\t' : ' '; // C `:5801`
+    // C `:5804–5806` create_nhwindow/start_menu/zeroany — raw menu below.
+    // C `:5818` end_menu prompt painted as header (D-2762 precedent).
+    const raw = [{ text: 'Set object symbols in menus to what?', selectable: false }];
+    for (let i = 0; i < objsymvals.length; ++i) { // C `:5807`
+        const buf = `${objsymvals[i].nam.slice(0, 12).padEnd(12, ' ')}${sep}${objsymvals[i].descr.slice(0, 60)}`; // C `:5808–5809` "%-12.12s%c%.60s"
+        const j = objsymvals[i].num; // C `:5811`
+        // C `:5812–5816` a_int i+1, letter '0'+i, gacc *buf, nul_glyphinfo,
+        // ATR_NONE/NO_COLOR; MENU_ITEMFLAGS_SELECTED on the current value.
+        raw.push({
+            text: buf,
+            selectable: true,
+            selected: j === game.iflags.menuobjsyms,
+            a_int: i + 1,
+            selector: String.fromCharCode(48 + i),
+            gselector: buf[0],
+        });
+    }
+    const res = await select_menu_pick_one(raw); // C `:5818–5819` end/select (destroy inside the helper)
+    if (res.kind === 'pick') { // C `:5820` n > 0
+        const i = res.item.a_int - 1; // C `:5821`
+        /* if there are two picks, use the one that wasn't pre-selected */
+        // C `:5822–5823` n > 1 disambiguation: the helper returns the one
+        // new pick, which is the non-preselected entry C chooses.
+        set_menuobjsyms_flags(i); // C `:5824`
+        // C `:5825` free — GC
+    }
+    // C `:5827` destroy_nhwindow — inside the helper
+    return OPTN_OK; // C `:5828`
+}
+
 /**
  * C options.c handler_paranoid_confirmation `:5952–6008` (staticfn) — 'O'
  * menu picker for the paranoia_bits confirmation set. Sole C caller is the
@@ -1268,6 +1410,9 @@ function optfn_paranoid_confirmation_get_val(req, opts) {
  * @returns {Promise<number>} optn_* result
  */
 async function doset_optfn_do_handler(name) {
+    if (name === 'menu_objsyms') {
+        return handler_menu_objsyms(); // C `:2284`
+    }
     if (name === 'msg_window') {
         return handler_msg_window(); // C `:2517`
     }
@@ -1736,6 +1881,8 @@ export function parseNethackrc(rc) {
         // C: cfgfiles.c BINDINGS → parsebindings → Cmd.cmdbinds overlays
         binds: new Map(),
     };
+    // C options.c `:7426–7430` optfn(do_init) pass before the rc file.
+    optfn_menu_objsyms(allopt_idx('menu_objsyms'), REQ_DO_INIT, false, '', EMPTY_OPTSTR, result.iflags);
     if (!rc) return result;
 
     for (const rawLine of rc.split('\n')) {
@@ -1830,6 +1977,12 @@ export function parseNethackrc(rc) {
                         allopt_idx('msg_window'), REQ_DO_SET, negated, trimmed, val, result.iflags,
                     );
                 }
+                else if (key === 'menu_objsyms' || key === 'use_menu_glyphs') {
+                    // C optfn_menu_objsyms do_set (opt_initial) on result.iflags.
+                    optfn_menu_objsyms(
+                        allopt_idx('menu_objsyms'), REQ_DO_SET, negated, stripped, val, result.iflags,
+                    );
+                }
                 else if (key === 'menuinvertmode') {
                     // C options.c optfn_menuinvertmode do_set: atoi(op),
                     // 0-2 else config error (prior value kept).
@@ -1922,6 +2075,13 @@ export function parseNethackrc(rc) {
                     // C optfn_msg_window do_set, valueless (opt_initial).
                     optfn_msg_window(
                         allopt_idx('msg_window'), REQ_DO_SET, negated, stripped, EMPTY_OPTSTR, result.iflags,
+                    );
+                }
+                else if (lname === 'menu_objsyms' || lname === 'use_menu_glyphs') {
+                    // C optfn_menu_objsyms do_set, valueless (opt_initial);
+                    // opts starts with the name, so use_menu_glyphs → entries.
+                    optfn_menu_objsyms(
+                        allopt_idx('menu_objsyms'), REQ_DO_SET, negated, lname, EMPTY_OPTSTR, result.iflags,
                     );
                 }
                 else if (lname === 'accessiblemsg') {
@@ -3747,7 +3907,7 @@ export async function doset() {
         { name: 'glyph', val: '(to be done)' },
         { name: 'hilite_status', val: '(none)' },
         { name: 'menu_headings', val: 'no-color&inverse' },
-        { name: 'menu_objsyms', val: 'conditional' },
+        { name: 'menu_objsyms', get_val: () => doset_compopt_get_val(optfn_menu_objsyms, 'menu_objsyms'), handler: true },
         { name: 'menuinvertmode', val: '1' },
         { name: 'menustyle', val: 'full' },
         { name: 'msg_window', get_val: () => doset_compopt_get_val(optfn_msg_window, 'msg_window'), handler: true },
@@ -4178,7 +4338,7 @@ const allopt = [
     // optlist.h:449 NHOPTC(menu_next_page)
     { name: 'menu_next_page', opttyp: CompOpt, idx: 97, setwhere: SET_IN_CONFIG, initval: false, addr: null, optfn: optfn_menu_next_page },
     // optlist.h:451 NHOPTC(menu_objsyms)
-    { name: 'menu_objsyms', opttyp: CompOpt, idx: 98, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: null },
+    { name: 'menu_objsyms', opttyp: CompOpt, idx: 98, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_menu_objsyms },
     // optlist.h:455 NHOPTB(menu_overlay)
     { name: 'menu_overlay', opttyp: BoolOpt, idx: 99, setwhere: SET_IN_GAME, initval: true, addr: { obj: 'iflags', key: 'menu_overlay' }, optfn: null },
     // optlist.h:463 NHOPTC(menu_previous_page)
