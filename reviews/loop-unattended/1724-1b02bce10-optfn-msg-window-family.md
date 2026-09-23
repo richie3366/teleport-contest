@@ -117,3 +117,5 @@ picks these rows in `doset`.
    (`optlist.h:509/556/816` has_handler).
 
 Verdict: **QUALITY-RISK**
+
+**Addressed:** D-2773 (55da228b3)
