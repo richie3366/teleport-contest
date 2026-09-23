@@ -108,6 +108,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-23 — D-2767 `uhitm.c` mhitm_ad_legs uhitm arm + damageum caller wired (poly'd-xan hero attacks)
+
+**C locus:** `nethack-c/upstream/src/uhitm.c:4425–4489` (`mhitm_ad_legs`); uhitm arm `:4432–4444` (dead `#if 0` ucancelled arm, then `mhitm_ad_phys` + done check). The phys call lands in the phys uhitm arm `:3988–4024` (shade zero, `+= specialdmg`, AT_WEAP zero, KICK/ClAW/TUCH/HUGS thick_skinned halve + udaminc rings). Dispatch `mhitm_adtyping :4781–4832` has three C callers: `uhitm.c:4854` (`damageum`), `mhitu.c:1191`, `mhitm.c:1059`.
+**JS:** `js/uhitm.js` AD_LEGS const (`:182`), `damageum_adtyping` AD_LEGS arm (`:2465`); `js/mhitm.js` doc lines (`:1689`, `:4866`).
+**Change:** `js/uhitm.js` only for behavior — new `const AD_LEGS = 17` (monattk.h:59) + new `damageum_adtyping` AD_LEGS arm calling live same-file `damageum_ad_phys(mdef, mattk, mhm)` (the `:3988–4024` port; sync, no await, like the AD_PHYS arm; done propagates via mhm and `damageum` already checks it per C `:4856–4858`). No new import (same-file local, no cycle). Acid precedent: the shared-fn docs now point at the dispatch row.
+**Verify:** `node scripts/verify.mjs --fn mhitm_ad_legs` → PASS syntax (2 files: mhitm.js uhitm.js) · PASS rule2 · note hidden (no session blocked) · PASS reach (13 baseline-PASS reach, 13 run, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file) · VERIFY: PASS.
+**Named:** poly `body_part` (pre-existing D-0928 #1131 name, map keeps it); `damageum_ad_phys` shade `impossible("bad shade attack function flow?")` (pre-existing gap in that live callee, not this arm).
+**Next:** next coverage row.
 ## 2026-09-23 — D-2766 `wizcmds.c` wiz_smell: whole-body port (#wizsmell cursor-pick sniff loop, EXT_CMDS wired)
 
 **C locus:** `nethack-c/upstream/src/wizcmds.c:885–939` (`wiz_smell`); caller `cmd.c:1994–1995` extcmdlist "wizsmell" row (`IFBURIED|AUTOCOMPLETE|WIZMODECMD`). Every `:line` cite verified by direct read of pinned C.

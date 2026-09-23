@@ -179,6 +179,7 @@ const AD_SGLD = 20; /* steals gold (leprechaun) — monattk.h */
 const AD_DCAY = 34; /* decays organics (brown pudding) — monattk.h */
 const AD_SLIM = 40; /* turns victim into green slime — monattk.h */
 const AD_HEAL = 27; /* heals opponent's wounds (nurse) — monattk.h */
+const AD_LEGS = 17; /* damages legs (xan) — monattk.h:59 */
 /* C hack.h invlet_basic — a-zA-Z invent slots. */
 const invlet_basic = 52;
 
@@ -2461,6 +2462,14 @@ async function damageum_adtyping(mattk, mdef, mhm) {
            attacker, poly'd nurse) arm: mhitm_ad_phys + done via mhm
            (damageum checks, like C damageum `:4856–4858`). */
         await mhitm_ad_heal(game.youmonst, mattk, mdef, mhm);
+    } else if (adtyp === AD_LEGS) {
+        /* C ref: uhitm.c mhitm_adtyping `:4788` → mhitm_ad_legs `:4432–4444`
+           uhitm (hero as attacker, poly'd xan) arm: the `#if 0`
+           ucancelled arm is dead in C; live behavior is mhitm_ad_phys
+           uhitm arm (`:3988–4024`) + done via mhm (damageum checks,
+           like C damageum `:4856–4858`). mhitu arm is mhitm_ad_legs_u
+           in mhitu.js; mhitm arm is mhitm_ad_legs in mhitm.js. */
+        damageum_ad_phys(mdef, mattk, mhm);
     } else if (adtyp === AD_ACID) {
         /* C ref: uhitm.c mhitm_ad_acid `:2747–2751` — uhitm (hero as
            attacker) arm: resists_acid/defended zeroes the leftover

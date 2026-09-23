@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2767 — `uhitm.c` mhitm_ad_legs uhitm arm + damageum caller wired (poly'd-xan hero attacks)
+
+- **Status:** fixed (breadth-phase coverage row: `uhitm.c` mhitm_ad_legs THIN, C 62 L `uhitm.c:4425–4489` / JS 8 L same-named; `hidden-proxy verify mhitm_ad_legs`: no corpus session blocked).
+- **Symptom:** none on the fortress — coverage completion, not a divergence. Hero polymorphed into a xan attacking fell through `damageum_adtyping` (no AD_LEGS arm): the raw d() leftover stood with no specialdmg/shade/AT_WEAP/ring handling. mhitm arm (D-2490, review 1449 ACCEPT) + mhitu arm (`mhitm_ad_legs_u`, D-0928 #1131 + D-1240 nuzzle) were already live; only the uhitm arm + its caller were missing (D-2490's own named omission).
+- **C locus:** `nethack-c/upstream/src/uhitm.c:4425–4489` (`mhitm_ad_legs`); uhitm arm `:4432–4444` (dead `#if 0` ucancelled arm, then `mhitm_ad_phys` + done check). The phys call lands in the phys uhitm arm `:3988–4024` (shade zero, `+= specialdmg`, AT_WEAP zero, KICK/ClAW/TUCH/HUGS thick_skinned halve + udaminc rings). Dispatch `mhitm_adtyping :4781–4832` has three C callers: `uhitm.c:4854` (`damageum`), `mhitu.c:1191`, `mhitm.c:1059`.
+- **JS was:** `damageum_adtyping` (`js/uhitm.js:2417`) dispatched AD_PHYS/AD_HEAL/AD_ACID/… but no AD_LEGS; no `AD_LEGS` const in `js/uhitm.js` (present in `js/mhitm.js:340`, `js/mhitu.js:118`). `mhitm_ad_legs` doc + `mdamagem` dispatch comment said the uhitm arm "shares the phys shape".
+- **Fix:** `js/uhitm.js` only for behavior — new `const AD_LEGS = 17` (monattk.h:59) + new `damageum_adtyping` AD_LEGS arm calling live same-file `damageum_ad_phys(mdef, mattk, mhm)` (the `:3988–4024` port; sync, no await, like the AD_PHYS arm; done propagates via mhm and `damageum` already checks it per C `:4856–4858`). No new import (same-file local, no cycle). Acid precedent: the shared-fn docs now point at the dispatch row. `js/mhitm.js` doc-only: `mhitm_ad_legs` header + `mdamagem` AD_LEGS comment name the uhitm row (D-2767).
+- **JS:** `js/uhitm.js` AD_LEGS const (`:182`), `damageum_adtyping` AD_LEGS arm (`:2465`); `js/mhitm.js` doc lines (`:1689`, `:4866`).
+- **Callers:** C `uhitm.c:4854` → JS `damageum_adtyping` AD_LEGS arm (`js/uhitm.js:2465`) — NEW this iteration. C `mhitu.c:1191` → `js/mhitu.js:3155` (`case AD_LEGS` → `mhitm_ad_legs_u`, pre-existing). C `mhitm.c:1059` → `js/mhitm.js:4874` (`mdamagem` arm, D-2490). No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn mhitm_ad_legs` → PASS syntax (2 files: mhitm.js uhitm.js) · PASS rule2 · note hidden (no session blocked) · PASS reach (13 baseline-PASS reach, 13 run, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file) · VERIFY: PASS.
+- **Named omissions:** poly `body_part` (pre-existing D-0928 #1131 name, map keeps it); `damageum_ad_phys` shade `impossible("bad shade attack function flow?")` (pre-existing gap in that live callee, not this arm).
+- **Next:** next coverage row.
+
 ## D-2766 — `wizcmds.c` wiz_smell: whole-body port (#wizsmell cursor-pick sniff loop, EXT_CMDS wired)
 
 - **Status:** fixed (Open row: `wiz_smell` coverage MISSING → live. 0 corpus blocks.)

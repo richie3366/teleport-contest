@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-23
 
-- [x] `wizcmds.c` wiz_smell — coverage MISSING (C 54 L `wizcmds.c:885–939` / JS no symbol; hops —, callers 0, RNG 0, msg 6). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn wiz_smell` (reach regression must be 0). Measured `port-coverage.mjs --name wiz_smell` 2026-09-23 @ ed9d7b7ad. **Addressed:** D-2766
+- [x] `uhitm.c` mhitm_ad_legs — coverage THIN (C 62 L `uhitm.c:4425–4489` / JS 8 L in js/mhitm.js; hops 4, callers 1, RNG 4, msg 6). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mhitm_ad_legs` (reach regression must be 0). Measured `port-coverage.mjs --name mhitm_ad_legs` 2026-09-23 @ 22b0e07c3. **Addressed:** D-2767
+
+
+- [x] `wizcmds.c` wiz_smell — coverage MISSING (C 54 L `wizcmds.c:885–939` / JS no symbol; hops —, callers 0, RNG 0, msg 6). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn wiz_smell` (reach regression must be 0). Measured `port-coverage.mjs --name wiz_smell` 2026-09-23 @ ed9d7b7ad. **Addressed:** D-2766 `40908907f`
 
 
 - [x] `options.c` optfn_msg_window — coverage MISSING (C 62 L `options.c:2456–2520` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: handler_msg_window). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn optfn_msg_window` (reach regression must be 0). Measured `port-coverage.mjs --name optfn_msg_window` 2026-09-23 @ ed9d7b7ad.

@@ -3183,7 +3183,7 @@ Half_spell_damage in castmu + **mcast_spell remaining 14 arms + `touch_of_death`
 (D-0928 #1146; seed4500 Scr **1001→1120** prefix **@630→@707**; 
 `lose_weapon_skill` may-advance msg deferred (`add_weapon_skill`/`use_skill` wired); 
 **`mhitm_ad_legs` whole body** (mhitu D-0928 #1131 + mhitm D-2490; seed4500 **107470→107645** RNG **107645** Scr **939**; 
-nuzzle `pline_mon` D-1240; mhitm arm + `mdamagem` AD_LEGS dispatch live in `js/mhitm.js` (mcan + phys, dieroll carried); uhitm arm shares phys shape + poly `body_part` deferred); 
+nuzzle `pline_mon` D-1240; mhitm arm + `mdamagem` AD_LEGS dispatch live in `js/mhitm.js` (mcan + phys, dieroll carried); uhitm arm D-2767 (`damageum_adtyping` AD_LEGS → `damageum_ad_phys`, dead `#if 0` noted) + poly `body_part` deferred); 
 **`mon_poly` youmonst + monster-defender + `mhitm_ad_poly` mhitu/mhitm AD_POLY** (D-1004/D-1006; 
 `newcham` null-mdat non-cham + mbirth_limit; D-2657: `mhitm_ad_poly` whole C body
 (`uhitm.c:3729–3774`) live — uhitm+mhitm arms `js/mhitm.js:693` (negated `:3734`
