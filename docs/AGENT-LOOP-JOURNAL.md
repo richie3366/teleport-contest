@@ -71,6 +71,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-23 — D-2750 `dothrow.c` mhurtle_step vacated cell kept the chickatrice glyph
+
+**C locus:** `nethack-c/upstream/src/dothrow.c:1004–1007` (`remove_monster` then `newsym` of the old cell, then `place_monster` then `newsym` of the new cell). `remove_monster` (`rm.h:526`) clears `level.monsters[x][y]` and does not change `mx`/`my`. `newsym` (`display.c:969`) reads `m_at`, which is that grid. After the clear the old cell is floor.
+**JS:** `js/display.js` `mon_at_display` (`:426–445`); `MON_OFFMAP` added to the existing `const.js` import. `hidden-corpus/scoreboard.json` row for this session flipped to PASS (186/186, 6017/6017).
+**Change:** `mon_at_display` skips `MON_OFFMAP`, the same predicate `m_at` uses. The vacated `newsym` then takes the empty-cell `map_location` arm. `place_monster` sets `MON_FLOOR` and the grid, so the destination `newsym` still draws the monster.
+**Verify:** `node scripts/verify.mjs --fn mhurtle_step` → PASS syntax (1 file `js/display.js`) · PASS rule2 · note hidden 0 blocked on `mhurtle_step` (the row named a screen owner `mhitm_knockback`, not N blocks on this function; the cited session was re-run directly: 186/186 screens, 6017/6017 RNG) · PASS reach (no RNG-tagged reach; smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: `display.js` shared) · VERIFY: PASS.
+**Named:** none new. `u_on_newpos` still writes `ux`/`uy` only; the steed-share tail stays the existing Open row (review 1708: not this failure).
+**Next:** `steal.c` `steal` `Blind` predicate (review 1707 Must-fix).
 ## 2026-09-23 — D-2749 `dothrow.c` mhurtle_step whole-body port (move/petrify/hero-touch arms) + `apply.c` use_whip STALE park
 
 **C locus:** `nethack-c/upstream/src/dothrow.c:992–1068` (`:997–998` isok; `:1000` will_hurtle && m_in_out_region gate (D-1176); `:1003–1007` remove_monster/place_monster + newsyms; `:1009–1014` steed u_on_newpos + newsym(old) + vision_recalc; `:1015–1017` flush_screen/nh_delay_output/set_apparxy; `:1018–1019` is_waterwall stop; `:1020–1025` mintrap HURTLING + Trap_* stops; `:1027–1030` m_at bump + Monnam/a_monnam + wakeup(!mon_moving); `:1031–1042` touch_petrifies both directions + minstapetrify + newsym; `:1044–1047` u_at hero bump Some_Monnam + stop_occupation; `:1048–1054` Upolyd poly-hero credit minstapetrify(mon,TRUE); `:1055–1066` hero instapetrify with x_monnam ARTICLE_YOUR/A + "hurtling" + EXACT_NAME|SUPPRESS_NAME killer + newsym).

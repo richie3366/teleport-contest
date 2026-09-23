@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-23
 
+- [x] `uhitm.c` mhitm_knockback / `dothrow.c` mhurtle_step — `scen-genesis-Archeologist-91135` PASS at scoreboard `49fb30909` → FAIL screen step 178 (RNG still 6017/6017; owner `mhitm_knockback` `uhitm.c:5357`; both toplines `You knock the chickatrice backward with a powerful strike!`). The only `js/` commit after that stamp is `1b2e6cd12` (`mhurtle_step` `rloc_to` → `remove_monster`/`place_monster` plus petrify arms). Fix the hurtle so this session matches again. Verify `node scripts/verify.mjs --fn mhurtle_step`. Source: reviews/loop-unattended/1708-1b2e6cd12-mhurtle-step-whole-body.md **Addressed:** D-2750
+
+
 - [x] `dothrow.c` mhurtle_step move/bump arms — missing arm: C `dothrow.c:1003–1019` (remove_monster/place_monster + newsyms, steed u_on_newpos + vision_recalc, set_apparxy, is_waterwall stop) + `:1027–1066` (touch_petrifies both directions, Some_Monnam hero bump, stop_occupation, Upolyd/instapetrify hero-petrify) absent from js/dothrow.js (`mhurtle_step` 3149–3179; rloc_to thin + Monnam bump + wakeup live, rest named-deferred at :3144). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mhurtle_step` (reach regression must be 0). Brief-verified 2026-09-21 @ 09e6ef90d (C + JS bodies read this session).
 
 ## 2026-09-22

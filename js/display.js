@@ -99,6 +99,7 @@ import {
     HI_DOMESTIC,
     SYM_HERO_OVERRIDE,
     MALE,
+    MON_OFFMAP,
     FEMALE,
     BOTL_NSIZ,
     CORPSTAT_GENDER,
@@ -426,11 +427,17 @@ function mon_at_display(x, y) {
     const steed = game.u?.usteed;
     // C m_at: level.monsters[][] includes worm segs (place_worm_seg)
     // and heads from place_monster (D-1565). Stale heads ignored.
+    // remove_monster (rm.h) clears that grid cell and leaves mx/my.
+    // JS marks MON_OFFMAP so m_at skips the head (D-1231). This lookup
+    // is what newsym uses (display.c:969); skipping the bit too keeps
+    // the vacated cell empty. The fmon scan is only for heads whose
+    // grid slot was never written.
     const seg = level_mon_at(x, y);
     if (seg && seg !== steed) return seg;
     for (const m of game.fmon || []) {
         // C: remove_monster while mounted — steed not on the map grid
         if (steed && m === steed) continue;
+        if ((m?.mstate | 0) & MON_OFFMAP) continue;
         if (m && m.mx === x && m.my === y && (m.mhp == null || m.mhp > 0))
             return m;
     }

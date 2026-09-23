@@ -2,6 +2,8 @@
 
 Metadata: commit `1b2e6cd12`, D-2749, `js/dothrow.js` `mhurtle_step` only (`use_whip` is a Stale line, no `js/` edit). Missing-arm row, 0 corpus blocks. No prior review claimed closed.
 
+**Addressed:** D-2750
+
 ## Intent vs deliverable
 
 Subject promises the move, petrify, and hero-touch arms, and a Stale park of `use_whip`. The diff replaces `rloc_to` with `remove_monster` / `place_monster`, adds the steed `u_on_newpos` path, `set_apparxy`, waterwall stop, both `touch_petrifies` directions, `Some_Monnam`, `stop_occupation`, and the `x_monnam` killer. The bump text changes from `mon_nam` to `a_monnam`. That is the C body. `u_on_newpos` itself is still the two-line `ux`/`uy` writer.

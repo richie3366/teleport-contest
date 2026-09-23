@@ -44,12 +44,10 @@ every audit). Rank 4/22, 2nd agentic; best agentic fork 35/44, RNG 98.5 %,
 screens 93.2 %. Held-out 12/44, +0 vs last audit (5,976 / 11,265 pts, RNG
 26.7 %, rngSteps 81.8 %, screens 53.0 %; judge stamp 2026-09-23T07:13Z):
 no movement — the corpus still does not predict the judge.
-**Corpus fortress** (re-scored 2026-09-23 audit 1700–1708): **500 / 540
-PASS (92.6 %)** excl. 13 env-only; RNG 99.37 %, screens 99.4 % — **−1 / +0**
-vs the prior 501/540 (`scen-genesis-Archeologist-91135` PASS→FAIL, screen
-step 178, owner `mhitm_knockback` `uhitm.c:5357`; scoreboard at `49fb30909`
-passed; only later `js/` change is `1b2e6cd12` `mhurtle_step` — review 1708
-Must-fix).
+**Corpus fortress** (audit 1700–1708, plus this session re-scored
+2026-09-23): **501 / 540 PASS (92.8 %)** excl. 13 env-only; RNG 99.37 %,
+screens 99.4 %. `scen-genesis-Archeologist-91135` restored (186/186 screens,
+RNG 6017/6017) by D-2750 — the step-178 stale chickatrice glyph.
 Reviews 1225–1708: 429 ACCEPT, 20 WITH-DEBT, 1 DEBT, 29 QUALITY-RISK (1688 useup addressed D-2741 `d44374fc8`; Must-fix 1701 monstone glyph + mdamagem head, 1706 attack_checks `u.uinwater`, 1707 steal `Blind`, 1708 knockback regression).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending — review-debt, unqueued (detail in the review files).
 Audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s) + `leaderboard.mjs`.
@@ -101,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `uhitm.c` mhitm_knockback — `scen-genesis-Archeologist-91135` PASS→FAIL step 178 after `1b2e6cd12` `mhurtle_step` (review 1708 Must-fix). Then steal `Blind` (review 1707), attack_checks `u.uinwater` (review 1706), monstone invisible-unmap and `mdamagem` touch-petrify (review 1701).
+**Next cluster:** `steal.c` nothing_to_steal Blind — C `steal.c:384` `else if (Blind)` absent from `js/steal.js` `steal` (file-local `Blind_steal`). Use `Blind()`. Verify `node scripts/verify.mjs --fn steal`. Source: reviews/loop-unattended/1707-49fb30909-steal-whole-body.md. Then attack_checks `u.uinwater` (review 1706), monstone invisible-unmap and `mdamagem` touch-petrify (review 1701).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2749 (index).**
+**Keep D-0845…D-2750 (index).**
 <!-- recent:begin -->
+**D-2750** `nethack-c/upstream/src/dothrow.c:1004–1007` (`remove_monster` then `newsym` of the old ce — `mon_at_display` skips `MON_OFFMAP`, the same predicate `m_at` uses.
 **D-2749** `nethack-c/upstream/src/dothrow.c:992–1068` (`:997–998` isok; `:1000` will_hurtle && m_in_ — restarted the body in C order with per-arm `:line` cites; same-file caller `mhurtle` doc updated (petrify/steed-vision omit retired, NODIAG/minliquid omits stand).
 **D-2748** `nethack-c/upstream/src/steal.c:343–614` (`:348–355` entry snapshot + monnear gate; `:357– — restarted the body in C order with per-arm `:line` cites: nothing_to_steal closure (C goto re-entry from inv gate + empty pick); cant_take closure (how[] + ROLL_FROM + armor_simple_name/yname + `!rn2(inv_cnt/5+2)` stay-o
 **D-2747** `nethack-c/upstream/src/uhitm.c:189–327` (`:194` STRAT_WAITMASK clear; `:196–197` engulfin — restarted the body in C order with per-arm `:line` cites: glyph from live `glyph_at(game.bhitpos)` (all 4 JS call paths set bhitpos: do_attack/polearm/whip/kick); Wait! via `%s` + live `something` const with the warning-
@@ -112,11 +111,10 @@ revisits the picker.
 **D-2745** `nethack-c/upstream/src/objnam.c:345–409` (`:360–378` r/neardist from xray_range; `:373–38 — added the wipe in C order — `save_oid` captured, `obj.o_id = 0` under `game.program_state?.gameover` (the live gameover flag, cf.
 **D-2744** `nethack-c/upstream/src/lock.c:358–656` (`:373–377` null-pick dummy (STRANGE_OBJECT); `:38 — restarted the body in C order (`js/lock.js:1134–1399`) with per-arm `:line` cites; all async message calls use the C wrapper (`You_cant`/`There`/`pline_The`/`You` with `%s` args — rendered text byte-identical to the old 
 **D-2743** `nethack-c/upstream/src/objnam.c:5624–5698` (`:5635–5638` unsigned lens; `:5640` lenlimit; — restarted the body in C order with per-arm `:line` cites: lens block (`:5635–5640`, len_qpfx folds into buf.length per `:5668`); explicit `_qbuf === qprefix` alias arm (`:5657–5659`, converges with the copy arm for immut
-**D-2742** `nethack-c/upstream/src/mon.c:3286–3373` (`:3290` x/y before vamp_stone; `:3295` vamp_ston — restarted monstone in C order with per-arm `:line` cites.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2749; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2750; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

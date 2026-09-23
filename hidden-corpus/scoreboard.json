@@ -1,6 +1,6 @@
 {
- "commit": "cc5059beb",
- "at": "2026-09-23T09:14:38.646Z",
+ "commit": "fca6b4457",
+ "at": "2026-09-23T09:31:06.591Z",
  "sessions": {
   "explore-seed0013-friday13-save-then-fullmoon-restore-132c6988": {
    "src": "corpus",
@@ -4458,19 +4458,19 @@
   },
   "scen-genesis-Archeologist-91135": {
    "src": "corpus",
-   "passed": false,
+   "passed": true,
    "rngM": 6017,
    "rngT": 6017,
-   "scrM": 183,
+   "scrM": 186,
    "scrT": 186,
-   "kind": "screen",
-   "step": 178,
+   "kind": null,
+   "step": null,
    "steps": 186,
-   "owner": "mhitm_knockback",
-   "loc": "uhitm.c:5357",
+   "owner": null,
+   "loc": null,
    "jsOwner": null,
-   "cTopline": "You knock the chickatrice backward with a powerful strike!",
-   "jsTopline": "You knock the chickatrice backward with a powerful strike!",
+   "cTopline": "",
+   "jsTopline": "",
    "error": null
   },
   "scen-genesis-Archeologist-92084": {

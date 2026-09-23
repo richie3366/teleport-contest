@@ -2197,6 +2197,11 @@ youprop.h H||E; live `js/display.js` + `cell_shows_displayed_monster`);
 `see_it ? 0 : DETECTED` — 0 is not PHYSICALLY_SEEN; occupancy
 `!mimic || sensed`; live `js/display.js`; pet/detected glyphs are
 D-1748; `show_mon_or_warn` I-glyph is D-1747);
+**`mon_at_display` skips `MON_OFFMAP`** (D-2750; C `display.c:969` `m_at`
+is the grid `rm.h` `remove_monster` clears while `mx`/`my` stay;
+JS `m_at` already skips the bit (D-1231) but `newsym`'s fmon fallback
+did not, so `mhurtle_step`'s `remove_monster`+`newsym` redrew the
+monster on the cell it had just left);
 **`see_monsters` MON_STILL_ARRIVING skip** (D-1746; C `:1508–1509`
 `continue`; `monst.h` `:67` 0x100; `dog.c` `mon_arrive` `:430` set,
 `:479` With_you clear, `:622` After_you clear, usteed return leaves

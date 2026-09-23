@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2750 — `dothrow.c` mhurtle_step vacated cell kept the chickatrice glyph
+
+- **Status:** fixed (Must-fix review 1708: `scen-genesis-Archeologist-91135` PASS at `49fb30909` → FAIL screen step 178 after `1b2e6cd12` replaced `rloc_to` with `remove_monster`/`place_monster`. RNG stayed 6017/6017.)
+- **Symptom:** map/menu row 4 col 34, one cell. C `│··am│` / JS `│·cam│`. Row 5 `│c····` matched on both sides, so the chickatrice did move; JS also left `c` on the cell it had just left. Measured by replaying the recorded session and decoding both screens (one differing cell in the whole frame).
+- **C locus:** `nethack-c/upstream/src/dothrow.c:1004–1007` (`remove_monster` then `newsym` of the old cell, then `place_monster` then `newsym` of the new cell). `remove_monster` (`rm.h:526`) clears `level.monsters[x][y]` and does not change `mx`/`my`. `newsym` (`display.c:969`) reads `m_at`, which is that grid. After the clear the old cell is floor.
+- **JS was:** `mhurtle_step` (`js/dothrow.js:3163–3166`) already calls `remove_monster` then `newsym` then `place_monster` in that order (D-2749). `remove_monster` (`js/steed.js:1161`) deletes the grid key and sets `MON_OFFMAP` while leaving `mx`/`my`. `m_at` skips that bit (D-1231). `newsym`'s `mon_at_display` (`js/display.js`) did not: after `level_mon_at` returned null it scanned `fmon` by `mx`/`my` and redrew the monster on the vacated cell. The pre-`1b2e6cd12` `rloc_to` path zeroed `mx`/`my` before `newsym`, so the same fallback missed the head and the session matched.
+- **Fix:** `mon_at_display` skips `MON_OFFMAP`, the same predicate `m_at` uses. The vacated `newsym` then takes the empty-cell `map_location` arm. `place_monster` sets `MON_FLOOR` and the grid, so the destination `newsym` still draws the monster. No change to `mhurtle_step` control flow.
+- **JS:** `js/display.js` `mon_at_display` (`:426–445`); `MON_OFFMAP` added to the existing `const.js` import. `hidden-corpus/scoreboard.json` row for this session flipped to PASS (186/186, 6017/6017).
+- **Callers:** C `dothrow.c:1170` `walk_path(..., mhurtle_step, mon)` → `js/dothrow.js:3275` (unchanged). The vacated-cell `newsym` is `js/dothrow.js:3164`. No new call site and no caller C does not have. Other `newsym` sites that set `MON_OFFMAP` and then redraw (dokick knockback, `js/dokick.js:902–903`) use this same lookup.
+- **Verify:** `node scripts/verify.mjs --fn mhurtle_step` → PASS syntax (1 file `js/display.js`) · PASS rule2 · note hidden 0 blocked on `mhurtle_step` (the row named a screen owner `mhitm_knockback`, not N blocks on this function; the cited session was re-run directly: 186/186 screens, 6017/6017 RNG) · PASS reach (no RNG-tagged reach; smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: `display.js` shared) · VERIFY: PASS.
+- **Named omissions:** none new. `u_on_newpos` still writes `ux`/`uy` only; the steed-share tail stays the existing Open row (review 1708: not this failure).
+- **Next:** `steal.c` `steal` `Blind` predicate (review 1707 Must-fix).
+
 ## D-2749 — `dothrow.c` mhurtle_step whole-body port (move/petrify/hero-touch arms) + `apply.c` use_whip STALE park
 
 - **Status:** fixed (coverage row: `dothrow.c` mhurtle_step move/bump arms — missing arm C `dothrow.c:1003–1019` + `:1027–1066` absent from `js/dothrow.js` thin body; 0 corpus sessions blocked — coverage completion, not a divergence.) use_whip row parked STALE in the same commit (body complete since D-1022, archive proof `docs/archive/LOOP-QUEUE-PARKED.md:295`).
