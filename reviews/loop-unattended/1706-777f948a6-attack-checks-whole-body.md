@@ -2,7 +2,7 @@
 
 Metadata: commit `777f948a6`, D-2747, `js/uhitm.js` only. Coverage row (C 136 L / JS was 63 L), 0 corpus blocks. No prior review claimed closed.
 
-**Addressed:** D-2752
+**Addressed:** D-2752 `937267d19`
 
 ## Intent vs deliverable
 

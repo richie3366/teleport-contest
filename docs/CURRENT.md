@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `mon.c` monstone invisible-unmap — C `mon.c:3358` `glyph_is_invisible(levl[x][y].glyph)` (`display.h:773`) absent as that predicate from `js/mhitm.js` `monstone` (`glyph_is_invisible(loc)` also matches `disp_glyph` and `remembered_glyph.invisible`). Use `memory_glyph_is_invisible(loc)` or `glyph_is_invisible_id` on the memory glyph. Verify `node scripts/verify.mjs --fn monstone`. Source: reviews/loop-unattended/1701-09e6ef90d-monstone-whole-body.md. Then `mdamagem` touch-petrify head (same review).
+**Next cluster:** `mhitm.c` mdamagem touch-petrify head — C `mhitm.c:1032–1055` (`touch_petrifies(pd)` or `AD_DGST`+Medusa, `attk_protection`/wornitems, then `monstone(magr)`) absent from `js/mhitm.js` `mdamagem` (`:4193` starts at `AD_STCK`/`AD_POLY`). D-2742 labeled this site `mhitm.js:1717`, which is `do_stone_mon` (`uhitm.c:3963`). Wire the head. Verify `node scripts/verify.mjs --fn mdamagem`. Source: reviews/loop-unattended/1701-09e6ef90d-monstone-whole-body.md.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2752 (index).**
+**Keep D-0845…D-2753 (index).**
 <!-- recent:begin -->
+**D-2753** `nethack-c/upstream/src/mon.c:3358` `glyph_is_invisible(levl[x][y].glyph)` — the arm calls `memory_glyph_is_invisible(loc)`, the same predicate `mondead` uses for `levl.glyph`.
 **D-2752** `nethack-c/upstream/src/uhitm.c:289` `Blind || (is_pool(mtmp->mx, mtmp->my) && !Underwater — the arm tests `!(u.uinwater | 0)`.
 **D-2751** `nethack-c/upstream/src/steal.c:384` `else if (Blind)` — the arm calls exported `Blind()` from `js/invent.js` (the macro, plus `uroleplay.blind`).
 **D-2750** `nethack-c/upstream/src/dothrow.c:1004–1007` (`remove_monster` then `newsym` of the old ce — `mon_at_display` skips `MON_OFFMAP`, the same predicate `m_at` uses.
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2748** `nethack-c/upstream/src/steal.c:343–614` (`:348–355` entry snapshot + monnear gate; `:357– — restarted the body in C order with per-arm `:line` cites: nothing_to_steal closure (C goto re-entry from inv gate + empty pick); cant_take closure (how[] + ROLL_FROM + armor_simple_name/yname + `!rn2(inv_cnt/5+2)` stay-o
 **D-2747** `nethack-c/upstream/src/uhitm.c:189–327` (`:194` STRAT_WAITMASK clear; `:196–197` engulfin — restarted the body in C order with per-arm `:line` cites: glyph from live `glyph_at(game.bhitpos)` (all 4 JS call paths set bhitpos: do_attack/polearm/whip/kick); Wait! via `%s` + live `something` const with the warning-
 **D-2746** `nethack-c/upstream/src/do_wear.c:261–323` (`:265` oldprop; `:267` takeoff.mask clear; `:2 — restarted the body in C order with per-arm `:line` cites: SPEED `makeknown` + `You_feel slow down{ a bit}` on `Fast()` (attrib.js live, dragon-armor slow-down precedent); WATER_WALKING pool/lava via live hack.js imports 
-**D-2745** `nethack-c/upstream/src/objnam.c:345–409` (`:360–378` r/neardist from xray_range; `:373–38 — added the wipe in C order — `save_oid` captured, `obj.o_id = 0` under `game.program_state?.gameover` (the live gameover flag, cf.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2752; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2753; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

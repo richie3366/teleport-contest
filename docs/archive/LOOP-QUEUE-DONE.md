@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-23
 
-- [x] `uhitm.c` attack_checks pool reveal — C `uhitm.c:289` `Blind || (is_pool && !Underwater)` with `youprop.h:279` `Underwater` ≡ `u.uinwater` absent as that test from `js/uhitm.js` `attack_checks` (`:4247` uses `!game.u.Underwater`, the field `trap.js:3597` records as never written). Use `u.uinwater`. Verify `node scripts/verify.mjs --fn attack_checks`. Source: reviews/loop-unattended/1706-777f948a6-attack-checks-whole-body.md **Addressed:** D-2752
+- [x] `mon.c` monstone invisible-unmap — C `mon.c:3358` `glyph_is_invisible(levl[x][y].glyph)` (`display.h:773`, `(glyph)==GLYPH_INVISIBLE`) absent as that predicate from `js/mhitm.js` `monstone` (`:3304` calls `glyph_is_invisible(loc)`, `display.js:1366`, which also matches `disp_glyph` and `remembered_glyph.invisible`; D-1774). Use `memory_glyph_is_invisible(loc)` or `glyph_is_invisible_id` on the memory glyph; keep the `x>0` removal. Verify `node scripts/verify.mjs --fn monstone`. Source: reviews/loop-unattended/1701-09e6ef90d-monstone-whole-body.md **Addressed:** D-2753
+
+
+- [x] `uhitm.c` attack_checks pool reveal — C `uhitm.c:289` `Blind || (is_pool && !Underwater)` with `youprop.h:279` `Underwater` ≡ `u.uinwater` absent as that test from `js/uhitm.js` `attack_checks` (`:4247` uses `!game.u.Underwater`, the field `trap.js:3597` records as never written). Use `u.uinwater`. Verify `node scripts/verify.mjs --fn attack_checks`. Source: reviews/loop-unattended/1706-777f948a6-attack-checks-whole-body.md **Addressed:** D-2752 `937267d19`
 
 
 - [x] `steal.c` nothing_to_steal Blind — C `steal.c:384` `else if (Blind)` (`youprop.h:103` `(HBlinded || EBlinded) && !BBlinded`) absent as that predicate from `js/steal.js` `steal` (`:381` calls file-local `Blind_steal` `:813`, `u.Blind || u.ublind`). `Blind` is already exported from `js/invent.js:359` and `steal.js` already imports `invent.js`. Use `Blind()`. Verify `node scripts/verify.mjs --fn steal`. Source: reviews/loop-unattended/1707-49fb30909-steal-whole-body.md **Addressed:** D-2751 `c5539a510`

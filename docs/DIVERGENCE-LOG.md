@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2753 — `mon.c` monstone unmap tests the memory glyph
+
+- **Status:** fixed (Must-fix review 1701: C `mon.c:3358` `glyph_is_invisible(levl[x][y].glyph)` vs `glyph_is_invisible(loc)`. 0 corpus blocks — the row named a C-wrong predicate, not N blocks.)
+- **Symptom:** `unmap_object` before the statue `newsym` could run when the screen glyph or `remembered_glyph.invisible` was I, even though `levl[x][y].glyph` was not `GLYPH_INVISIBLE`. The inverse (memory id I, display buffer cleared) is the case the memory helper already matches. No fortress session hits that arm.
+- **C locus:** `nethack-c/upstream/src/mon.c:3358` `glyph_is_invisible(levl[x][y].glyph)` — `display.h:773` `#define glyph_is_invisible(glyph) ((glyph) == GLYPH_INVISIBLE)`.
+- **JS was:** `js/mhitm.js` `monstone` called `glyph_is_invisible(loc)` (`display.js:1366`), true for the memory id or `disp_glyph === GLYPH_INVISIBLE` or `remembered_glyph.invisible`. D-2742 had dropped the non-C `x > 0` guard and left this wider helper.
+- **Fix:** the arm calls `memory_glyph_is_invisible(loc)`, the same predicate `mondead` uses for `levl.glyph`. Dropped the now-unused `glyph_is_invisible` import. The `x > 0` guard stays absent.
+- **JS:** `js/mhitm.js` `monstone` (`:3306`).
+- **Callers:** every real C call stays wired, none added — `eat.c:646` → `js/eat.js:3319`; `mhitm.c:237` → `js/mhitm.js:2069` (displace); `mhitm.c:786` → `js/mhitm.js:5520` (gaze); `mon.c:1439` → `js/mon.js:2409`; `mon.c:3547` → `js/uhitm.js:846` (`xkilled`); `trap.c:3879` → `js/trap.js:3449`; `uhitm.c:3963` → `js/mhitm.js:1720` (`do_stone_mon`). `mhitm.c:1050` (`mdamagem` touch-petrify head) is unwired — next Must-fix, not `do_stone_mon`. `extern.h:1797` is the decl.
+- **Verify:** `node scripts/verify.mjs --fn monstone --reach-all` → PASS syntax (1 file `js/mhitm.js`) · PASS rule2 · note hidden 0 blocked on `monstone` (row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (`mhitm.js` not shared) · VERIFY: PASS.
+- **Named omissions:** none new on this predicate. `mhitm.c:1050` stays the next Must-fix. The `#if 0` carried-STATUE arm stays compiled out.
+- **Next:** `mhitm.c` mdamagem touch-petrify head — wire `monstone(magr)` (review 1701 Must-fix).
+
 ## D-2752 — `uhitm.c` attack_checks pool reveal uses `u.uinwater`
 
 - **Status:** fixed (Must-fix review 1706: C `uhitm.c:289` `!Underwater` vs `game.u.Underwater`. 0 corpus blocks — the row named a C-wrong field, not N blocks.)

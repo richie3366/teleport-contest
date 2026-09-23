@@ -2,6 +2,8 @@
 
 Metadata: commit `09e6ef90d`, D-2742, `js/mhitm.js` + one-word `export` on `js/mon.js` `unlink_minvent`. Coverage row (C 86 L / JS was 60 L), 0 corpus blocks. Also Stale-parks `mhitm_ad_drin`. No prior review claimed closed.
 
+**Addressed:** D-2753
+
 ## Intent vs deliverable
 
 Subject promises a C-order restart of `monstone` (statue/rock, eject `flooreffects`, lamplit `end_burn`, engulf `digests` pline) and a stale park of `mhitm_ad_drin`. The body restart is in the diff. The invisible-unmap predicate does not match C, and one of the eight claimed callers is a different function. Promise does not fully match deliverable.

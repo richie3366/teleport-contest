@@ -103,7 +103,6 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 always Must-fix rows: they forfeit every later screen of that session
 (Constitution §10.14).
 
-- [ ] `mon.c` monstone invisible-unmap — C `mon.c:3358` `glyph_is_invisible(levl[x][y].glyph)` (`display.h:773`, `(glyph)==GLYPH_INVISIBLE`) absent as that predicate from `js/mhitm.js` `monstone` (`:3304` calls `glyph_is_invisible(loc)`, `display.js:1366`, which also matches `disp_glyph` and `remembered_glyph.invisible`; D-1774). Use `memory_glyph_is_invisible(loc)` or `glyph_is_invisible_id` on the memory glyph; keep the `x>0` removal. Verify `node scripts/verify.mjs --fn monstone`. Source: reviews/loop-unattended/1701-09e6ef90d-monstone-whole-body.md
 - [ ] `mhitm.c` mdamagem touch-petrify head — C `mhitm.c:1032–1055` (`touch_petrifies(pd)` or `AD_DGST`+Medusa, `attk_protection`/wornitems, then `monstone(magr)`) absent from `js/mhitm.js` `mdamagem` (`:4193` starts at `AD_STCK`/`AD_POLY`). D-2742 labeled this site `mhitm.js:1717`, which is `do_stone_mon` (`uhitm.c:3963`). Wire the head. Verify `node scripts/verify.mjs --fn mdamagem`. Source: reviews/loop-unattended/1701-09e6ef90d-monstone-whole-body.md
 
 ## Open — coverage (breadth phase — pop first after Must-fix)
