@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2764 — `cfgfiles.c` handle_config_section: whole-body port (section filter + is_config_section/free_config_sections)
+
+- **Status:** fixed (Open row: `handle_config_section` coverage MISSING → live. 0 corpus blocks.)
+- **Symptom:** coverage gap, not a corpus divergence. C's 30-line config-section filter plus its two staticfn callees had no JS symbol; no config-file line could be section-filtered.
+- **C locus:** `nethack-c/upstream/src/cfgfiles.c:551–582` (`handle_config_section`); callees `is_config_section` `:522–549`, `free_config_sections` `:506–517`. Every `:line` cite verified by direct read of pinned C.
+- **JS was:** no `handle_config_section`/`is_config_section`/`free_config_sections` symbol; `config_error_add` live sink (`js/botl.js:1152`), `trimspaces` live (`js/hacklib.js:340`).
+- **Fix:** ported all three bodies in C order into `js/cfgfiles.js` (1:1 C home): `is_config_section` trim/`[`/first-`]`/spaces-only-then-`#`/cut+retrim (`:530–548`); `handle_config_section` `!== null` pointer test (empty `"[]"` is non-null in C — truthiness would misroute to the filter arm), current-freed-before-CHOOSE-check (`:557–558`), `Section "[%s]" without CHOOSE` sink call (`:561`), `*sect`-gated dupstr vs `free_config_sections` (`:564–571`), strcmp-`!==` filter (`:575–580`); `free_config_sections` both-field NULL (`:509–516`). gameconfig fields on `game` (currentgraphics precedent); dupstr/free GC no-ops; debugpline0/1 D_DEBUG-only.
+- **JS:** `js/cfgfiles.js` — exports `handle_config_section`, `is_config_section`, `free_config_sections`; new edges hacklib.js `trimspaces`, botl.js `config_error_add` (no cycle: botl never imports cfgfiles).
+- **Callers:** sole C caller `parse_conf_buf` `:1768` → no JS read_config_file dispatch exists yet (map-named in startup.md; function exported for that future caller). No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn handle_config_section` → PASS syntax (1 file: cfgfiles.js) · PASS rule2 · note hidden 0 blocked (row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (cfgfiles.js not shared) · VERIFY: PASS. Plus a 9-case parser smoke + 6-step state-flow smoke (no-CHOOSE guard, choose/switch/filter arms, `[]` end-of-sections) → all C-exact.
+- **Named omissions:** `parse_conf_buf` caller (no JS read_config_file dispatch); `is_config_section` C input mutation (trailing-strip + `]` cut) owed to that future caller's FALSE path; debugpline0/1 (D_DEBUG-only); `config_error_add` text (live named sink).
+- **Next:** none on this body — whole C body live; callees 4/4 live or named (is_config_section/free_config_sections new, trimspaces/config_error_add pre-existing).
+
 ## D-2763 — `coloratt.c` add_menu_coloring: whole-body port (config MENUCOLOR line parse, quote-strip, match_* exports)
 
 - **Status:** fixed (Open row: `add_menu_coloring` coverage MISSING → live. 0 corpus blocks.)

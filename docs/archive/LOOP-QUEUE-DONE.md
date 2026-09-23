@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-23
 
+- [x] `cfgfiles.c` handle_config_section — coverage MISSING (C 30 L `cfgfiles.c:552–582` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: is_config_section, free_config_sections). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn handle_config_section` (reach regression must be 0). Measured `port-coverage.mjs --name handle_config_section` 2026-09-23 @ ed9d7b7ad.
+
+
 - [x] `coloratt.c` add_menu_coloring — coverage MISSING (C 43 L `coloratt.c:617–660` / JS no symbol; hops —, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn add_menu_coloring` (reach regression must be 0). Measured `port-coverage.mjs --name add_menu_coloring` 2026-09-23 @ ed9d7b7ad. **Addressed:** D-2763
 
 
