@@ -92,6 +92,6 @@ a phase-2 matter and is not queued here.
    `S_*` string), the `punctclasses` remap past `S_ZOMBIE`, the
    Riders-before-demons tie rule, `mlevel` low→high negated for HTOL,
    then the mndx tiebreak — so the D-2769 class/Rider headers group
-   the way C does. **Addressed:** D-2772
+   the way C does. **Addressed:** D-2772 `2254700ea`
 
 Verdict: **QUALITY-RISK**

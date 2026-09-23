@@ -1144,8 +1144,8 @@ export function optfn_msg_window(optidx, req, negated, opts, op, iflagsBag) {
 /**
  * C options.c handler_msg_window `:5831–5890` (staticfn) — 'O' menu picker
  * for the ^P message-history display type. Sole C caller is the
- * optfn_msg_window do_handler arm (`:2517`); async-split, so doset calls
- * this directly (named map omission).
+ * optfn_msg_window do_handler arm (`:2517`), async-split into
+ * doset_optfn_do_handler.
  */
 export async function handler_msg_window() {
     const is_tty = windowport_tty(), is_curses = windowport_curses(); // C `:5837`
@@ -1190,9 +1190,8 @@ export async function handler_msg_window() {
 /**
  * C options.c handler_paranoid_confirmation `:5952–6008` (staticfn) — 'O'
  * menu picker for the paranoia_bits confirmation set. Sole C caller is the
- * optfn_paranoid_confirmation do_handler arm (`:3040`); that optfn is
- * unported (named map omission), and doset calls this handler directly
- * once its compound dispatch exists (named).
+ * optfn_paranoid_confirmation do_handler arm (`:3039–3041`), reached from
+ * doset `:8935`; JS doset's handler loop awaits it for that arm.
  */
 export async function handler_paranoid_confirmation() {
     if (!game.flags) game.flags = {};
@@ -1231,6 +1230,75 @@ export async function handler_paranoid_confirmation() {
     }
     // C `:6006` destroy — inside the helper
     return OPTN_OK; // C `:6007`
+}
+
+/**
+ * C options.c optfn_paranoid_confirmation get_val / get_cnf_val arm
+ * `:3021–3037` — space-separated argnames of the set paranoia_bits, or
+ * "none". The do_set token parser (`:2837–3020`) is a named map omission
+ * (allopt row keeps optfn null, so rc paranoid_confirmation stays
+ * unparsed); do_handler (`:3039–3041`) is dispatched from doset.
+ * @param {number} req REQ_GET_VAL / REQ_GET_CNF_VAL
+ * @param {{buf:string}} opts get_val holder
+ */
+function optfn_paranoid_confirmation_get_val(req, opts) {
+    if (!game.flags) game.flags = {};
+    const wizard = !!(game.flags.wizard || game.flags.debug); // C `wizard` (handler precedent)
+    let tmpbuf = ''; // C `:3024`
+    for (let i = 0; paranoia[i].flagmask !== 0; ++i) { // C `:3025`
+        if (((game.flags.paranoia_bits | 0) & paranoia[i].flagmask) !== 0 // C `:3026`
+            /* hide paranoid_confirm:bones during play except for wizard
+               mode; keep it for any mode if rewriting the config file */
+            && (paranoia[i].flagmask !== PARANOID_BONES // C `:3029–3030`
+                || wizard || req === REQ_GET_CNF_VAL))
+            tmpbuf += ` ${paranoia[i].argname}`; // C `:3031–3032` Snprintf(eos, " %s")
+    }
+    /* note: always leaves enough room for caller to tack on '\n' */
+    set_optbuf(opts, tmpbuf ? tmpbuf.slice(1) : 'none'); // C `:3035–3036` (BUFSZ-1 cap unreachable: 11 short argnames)
+    return OPTN_OK; // C `:3037`
+}
+
+/**
+ * C options.c `(*allopt[k].optfn)(idx, do_handler, …)` for the three
+ * has_handler compounds (optlist.h `:509`/`:556`/`:816`) — the do_handler
+ * arms of optfn_msg_window `:2516–2518`, optfn_paranoid_confirmation
+ * `:3039–3041` and optfn_versinfo `:4511–4516` (+ its `:4530` redraw
+ * tail). Async split of the sync optfns; sole C caller is doset `:8935`.
+ * @param {string} name allopt row name
+ * @returns {Promise<number>} optn_* result
+ */
+async function doset_optfn_do_handler(name) {
+    if (name === 'msg_window') {
+        return handler_msg_window(); // C `:2517`
+    }
+    if (name === 'paranoid_confirmation') {
+        return handler_paranoid_confirmation(); // C `:3040`
+    }
+    if (name === 'versinfo') {
+        const optname = allopt_name(allopt_idx('versinfo')); // C `:4476`
+        if (!game.flags) game.flags = {};
+        const vi = game.flags.versinfo >>> 0; // C `:4477`
+        /* return handler_versinfo(); */
+        await handler_versinfo(); // C `:4513` (void)
+        const now = game.flags.versinfo >>> 0;
+        await pline(`'${optname}' ${now === vi ? 'not changed, still' : 'changed to'} ${now}.`); // C `:4514–4516`
+        if (now !== vi && !game.go?.opt_initial) // C `:4530`
+            mark_opt_need_redraw(); // C `:4531`
+        return OPTN_OK; // C `:4533`
+    }
+    return OPTN_OK;
+}
+
+/**
+ * C doset_add_menu `:9038–9042` optfn(idx, get_val, …) value column for a
+ * compound row whose optfn is live.
+ * @param {Function} optfn sync optfn_* with the C (optidx, req, negated, opts, op) shape
+ * @param {string} name allopt row name
+ */
+function doset_compopt_get_val(optfn, name) {
+    const holder = { buf: '' };
+    optfn(allopt_idx(name), REQ_GET_VAL, false, holder, EMPTY_OPTSTR);
+    return holder.buf;
 }
 
 /**
@@ -1297,8 +1365,7 @@ export function optfn_symset(_optidx, req, _negated, opts, op, store, optInitial
 /**
  * C options.c handler_versinfo `:6572–6617` (staticfn) — 'O' menu picker
  * for the flags.versinfo bitmask. Sole C caller is the optfn_versinfo
- * do_handler arm (`:4513`, live below); async-split, so doset calls this
- * directly (named map omission).
+ * do_handler arm (`:4513`), async-split into doset_optfn_do_handler.
  */
 export async function handler_versinfo() {
     const gb = game.nomakedefs?.git_branch;
@@ -1333,10 +1400,8 @@ export async function handler_versinfo() {
  * C options.c optfn_versinfo `:4471–4534` (staticfn; NHOPT_PARSE wires
  * &optfn_versinfo into the versinfo allopt row, optlist.h `:816`).
  * do_handler (`:4511–4516`, handler_versinfo + changed/still pline) is async
- * in JS; doset calls the handler directly (named map omission — the
- * `:4514–4516` pline text is owed to that dispatch). No do_handler branch
- * here (optfn_perminv_mode precedent); the if/else-if chain is otherwise
- * in C order.
+ * in JS and lives in doset_optfn_do_handler; the if/else-if chain is
+ * otherwise in C order.
  */
 export function optfn_versinfo(optidx, req, negated, opts, op) {
     const optname = allopt_name(optidx); // C `:4476`
@@ -3685,10 +3750,10 @@ export async function doset() {
         { name: 'menu_objsyms', val: 'conditional' },
         { name: 'menuinvertmode', val: '1' },
         { name: 'menustyle', val: 'full' },
-        { name: 'msg_window', val: 'single' },
+        { name: 'msg_window', get_val: () => doset_compopt_get_val(optfn_msg_window, 'msg_window'), handler: true },
         { name: 'number_pad', val: '0=off' },
         { name: 'packorder', val: '$")[%?+!=/(*`0_' },
-        { name: 'paranoid_confirmation', val: 'pray trap swim' },
+        { name: 'paranoid_confirmation', get_val: () => { const h = { buf: '' }; optfn_paranoid_confirmation_get_val(REQ_GET_VAL, h); return h.buf; }, handler: true },
         // C optlist.h NHOPTC perminv_mode set_in_game before petattr.
         // doset_skip_unsupported when !WC_PERM_INVENT (contest tty).
         { name: 'perminv_mode', get_val: optfn_perminv_mode_get_val_display, handler: true },
@@ -3706,7 +3771,7 @@ export async function doset() {
         { name: 'statuslines', val: '2' },
         { name: 'suppress_alert', val: '(none)' },
         { name: 'symset', val: 'DECgraphics, active, handler=DEC' },
-        { name: 'versinfo', val: '1: number (5.0.0)' },
+        { name: 'versinfo', get_val: () => doset_compopt_get_val(optfn_versinfo, 'versinfo'), handler: true },
         { name: 'whatis_coord', val: 'none' },
         { name: 'whatis_filter', val: 'none' },
     ];
@@ -3768,6 +3833,11 @@ export async function doset() {
             await handler_pickup_types();
         } else if (name === 'perminv_mode') {
             await handler_perminv_mode();
+        } else {
+            // C doset `:8935–8939`: optfn do_handler; optn_ok marks the row
+            // for a later options save.
+            const reslt = await doset_optfn_do_handler(name);
+            if (reslt === OPTN_OK) opt_set_in_config[allopt_idx(name)] = true;
         }
     }
     // C options.c doset Othr rows → optfn do_handler; bind keys

@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2773 — `options.c` doset do_handler wired for msg_window / paranoid_confirmation / versinfo (+ recorder versinfo default)
+
+- **Status:** fixed (Must-fix from review 1724 QUALITY-RISK; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** JS `doset` pushed the three `has_handler` compounds (optlist.h `:509`/`:556`/`:816`) without `handler: true` and with literal values (`'single'`, `'pray trap swim'`, `'1: number (5.0.0)'`), so an O-menu pick was dropped and the D-2765 handlers had no caller; the value column never followed the live state.
+- **C locus:** `options.c` doset `:8933–8939` (`allopt[k].optfn(idx, do_handler, FALSE, empty_optstr, empty_optstr)`, `optn_ok` → `opt_set_in_config[k]`); do_handler arms `optfn_msg_window :2516–2518`, `optfn_paranoid_confirmation :3039–3041`, `optfn_versinfo :4511–4516` (+ `:4530` redraw); value column `doset_add_menu :9038–9042` get_val; `optfn_paranoid_confirmation` get_val/get_cnf_val `:3021–3037`. Default `flags.versinfo = have_branch ? 4 : 1` exists only in the **recorder** C (`nethack-c/recorder/src/options.c:7174` initoptions_init) — pinned upstream leaves it 0, which cannot produce the recorded `[1: number (5.0.0)]` (seed0007 O menu).
+- **JS was:** literal rows at `js/options.js:3688/3691/3709`; handler loop only knew `pickup_types`/`perminv_mode`; `flags.versinfo` never initialized.
+- **Fix:** new async `doset_optfn_do_handler(name)` = the three do_handler arms in C order (versinfo: snapshot `vi`, await `handler_versinfo`, `'%s' %s %u.` changed-to / not-changed-still pline, `:4530` redraw gate); `doset_compopt_get_val` renders msg_window/versinfo via their live REQ_GET_VAL; new `optfn_paranoid_confirmation_get_val` (`:3021–3037`: argnames of set bits, BONES hidden unless wizard or get_cnf_val, "none" fallback); rows marked `handler: true`; handler loop `else` arm awaits the dispatch and marks `opt_set_in_config` on `OPTN_OK` (allopt idx == array position, checked). `js/jsmain.js` flags default `versinfo` per recorder `:7174` (`nomakedefs.git_branch` null → `VI_NUMBER`). Stale "doset calls directly (named)" doc comments on the three handlers/optfn_versinfo updated.
+- **JS:** `js/options.js` (~80 lines: `optfn_paranoid_confirmation_get_val :1244`, `doset_optfn_do_handler :1270`, `doset_compopt_get_val :1298`, rows `:3753/:3756/:3774`, loop `:3839`); `js/jsmain.js:125` (+ VI_* import).
+- **Callers:** C doset `:8935` → `js/options.js:3839` (handler loop) for all three; C `doset_add_menu :9040` get_val → `:3753/:3756/:3774` row `get_val`. Existing `pickup_types`/`perminv_mode` arms unchanged (they do not mark `opt_set_in_config` — pre-existing, named). No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn handler_msg_window --reach-all --full` → PASS syntax (js/jsmain.js js/options.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 · VERIFY: PASS.
+- **Named omissions:** `optfn_paranoid_confirmation` do_set token parser `:2837–3020` (allopt row keeps optfn null; rc `paranoid_confirmation`/`prayconfirm` unparsed); `opt_set_in_config` marking for the pickup_types/perminv_mode handler arms.
+- **Next:** first Open — coverage row.
+
 ## D-2772 — `insight.c` vanqsort_cmp: MCLS_LTOH/HTOL arms ported (class order, punctclasses remap, Riders first)
 
 - **Status:** fixed (Must-fix from review 1728 QUALITY-RISK; whole C body of `vanqsort_cmp` `insight.c:2620–2714` now live — every sortmode arm; `hidden-proxy verify` reports no corpus session blocked).
@@ -8,7 +21,7 @@
 - **JS was:** `js/insight.js` `vanqsort_cmp` MCLS case returned `res = 0` ("deferred; fall back to mndx") because JS `mlet` is the `S_*` name string.
 - **Fix:** C-order port: numeric mlet = index in live `DEF_MONSYM_MLET` (`js/mondata.js`, defsym.h enum order, `S_ANT == 1`, so the signed compare is exact); `punctclasses` array remap to `S_ZOMBIE + 1 + k` under the both-punct guard; Rider tie via live `is_rider` (reads `ptr.mndx`, verified present on `mons()` entries); mlevel compare with HTOL negation. Retired the stale stub note in the `list_vanquished` doc comment.
 - **JS:** `js/insight.js` — `vanqsort_cmp` MCLS case (~22 lines); new import `DEF_MONSYM_MLET` from `./mondata.js` (`imports.mjs --can` CHECK: const read lazily inside the comparator only, no top-level TDZ read).
-- **Callers:** C sole caller (`qsort` in `list_vanquished`) → `js/insight.js` `list_vanquished` `mindx.sort(vanqsort_cmp)` — already wired (D-2769). JS `list_genocided` also sorts with it, matching C list_genocided's qsort — pre-existing, unchanged. No call from a site C never calls from.
+- **Callers:** C `insight.c:2867` (`qsort` in `list_vanquished`) → `js/insight.js:1117` `mindx.sort(vanqsort_cmp)` — already wired (D-2769); C `insight.c:3065–3066` (`qsort` in `list_genocided`, COUNT modes swapped to ALPHA_MIX) → `js/insight.js:1311` — already wired, unchanged. No call from a site C never calls from.
 - **Verify:** `node scripts/verify.mjs --fn vanqsort_cmp --reach-all` → PASS syntax (1 file: insight.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file) · VERIFY: PASS.
 - **Named omissions:** none — whole C body live.
 - **Next:** Must-fix `options.c` doset do_handler (review 1724).

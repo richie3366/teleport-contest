@@ -103,8 +103,6 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 always Must-fix rows: they forfeit every later screen of that session
 (Constitution §10.14).
 
-- [ ] `options.c` doset do_handler for msg_window / paranoid_confirmation / versinfo — C `optlist.h:509/556/816` declare all three `has_handler`; C `doset` calls `allopt[k].optfn(idx, do_handler, …)` (csym `doset` body line 179–180), reaching `handler_msg_window` `:5831–5890`, `handler_paranoid_confirmation` `:5952–6008`, `handler_versinfo` `:6572–6617` + the `optfn_versinfo` `:4513–4516` "changed to / not changed, still %u" pline. JS `doset` pushes the three rows without `handler: true` and with hardcoded values (`js/options.js:3688/3691/3709`), so picks are dropped at `:3751`; the three D-2765 handlers have no JS caller. Wire them in the handler loop (`:3766`, perminv_mode precedent) and render msg_window/versinfo values via their REQ_GET_VAL. Verify `node scripts/verify.mjs --fn handler_msg_window`. Source: reviews/loop-unattended/1724-1b02bce10-optfn-msg-window-family.md
-
 ## Open — coverage (breadth phase — pop first after Must-fix)
 
 Rows below are `port-coverage.mjs --rows` output (score = reach × call
