@@ -6882,9 +6882,9 @@ export async function newclipping(x, y) {
  * to resend the map (`redraw_map(TRUE)` `:3840`) when the origin moved.
  * Async only because redraw_map awaits flush_screen (nhgetch reach),
  * same shape as redraw_map D-1974.
- * Named: core call sites (allmain.c:546 moveloop, dungeon.c:1580
- * u_on_newpos, getpos.c:851/1146, muse.c:2637, restore.c:629) —
- * function live, unwired.
+ * Named: core call sites still unwired — allmain.c:546 moveloop,
+ * getpos.c:851/1146, muse.c:2637, restore.c:629. dungeon.c:1580
+ * u_on_newpos calls cliparound (js/mklev.js).
  * @param {number} x map x, C `int x`
  * @param {number} y map y, C `int y`
  */

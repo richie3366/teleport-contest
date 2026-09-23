@@ -86,6 +86,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-23 — D-2756 `dungeon.c` u_on_newpos places, shares the steed, and senses
+
+**C locus:** `nethack-c/upstream/src/dungeon.c:1568–1601`. `!isok` (`cmd.c:4326`: `x>=1`) panics when `x<0 || y<0 || x>COLNO-1 || y>ROWNO-1` (NORETURN) and `impossible`s on `x==0` then still places. Then `ux`/`uy`, `cliparound` (CLIPPING on, `config.h:538`), `uundetected=0`, steed `mx`/`my`, and `!on_level(&u.uz,&u.uz0)` sets `ux0`/`uy0`, `map_location(..., FALSE)`, `iflags.terrain_typ = MAX_TYPE`; else `!Blind && !Hallucination && !u.uswallow` calls `see_nearby_objects`. `earth_sense` last. `switch_terrain` in the comment is not a call. `allmain.c:97` copies `u.uz0.dlevel = u.uz.dlevel` after `encumber_msg` so later moves are same-level. Opening `u_on_upstairs` in `newgame` still runs before that copy.
+**JS:** `js/mklev.js` `u_on_newpos` `:525–563`; `js/allmain.js` `moveloop_preamble` `:296–302`.
+**Change:** the function is the C body in that order. Off-map throws and does not place; `x==0` calls `impossible` and places. Same-level sight uses `Blind()` / `Hallucination()`.
+**Verify:** `node scripts/verify.mjs --fn u_on_newpos` → PASS syntax (9 files `js/allmain.js` `js/cmd.js` `js/display.js` `js/do.js` `js/dothrow.js` `js/mklev.js` `js/monmove.js` `js/teleport.js` `js/trap.js`) · PASS rule2 · note hidden 0 blocked (row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (shared files) · VERIFY: PASS. An earlier run failed cohort `seed0004-feeding-pony` (screens 405/409, the yellow `*`); the `uz0.dlevel` copy fixed it (409/409) and this re-run is the recorded gate.
+**Named:** `panic()` NORETURN has no JS body (`paniclog` is Rule #2); the off-map arm throws and does not place. `switch_terrain` inside `u_on_newpos` is a comment.
+**Next:** `botl.c` `status_hilite_menu_choose_updownboth` (`botl.c:3811–3887`).
 ## 2026-09-23 — D-2755 `lock.c` pick_lock !IS_DOOR keeps the turn when lev->glyph changes
 
 **C locus:** `nethack-c/upstream/src/lock.c:578–593`. `res` starts `PICKLOCK_DID_NOTHING`. `oldglyph = door->glyph`, `oldlastseentyp = update_mapseen_for`, then `feel_location`. LEARNED iff `door->glyph != oldglyph` or `lastseentyp` changed. Measured on the recorder at `lock.c:583`/`584` (ASLR-off, seed 1500, the "see no door there" pick): cell (71,13), `typ` 25 (`ROOM`), flags `0xC0` (`lit|waslit`), `lastseentyp` 25→25, `lev->glyph` 3992→3993 (`S_room`→`S_darkroom`, consecutive cmap-A ids). The room was already lit; `flags.dark_room && iflags.use_color` still rewrites the id (`display.c:894–897`).

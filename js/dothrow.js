@@ -101,8 +101,9 @@ import {
     minstapetrify, instapetrify, erode_obj,
 } from './trap.js';
 import { in_out_region, m_in_out_region } from './region.js';
-// imports.mjs --can: steed/monmove/dbridge hoisted-function SAFE; mklev
-// u_on_newpos CHECK (const-bound — read lazily inside mhurtle_step only).
+// imports.mjs --can: steed/monmove/dbridge hoisted-function SAFE.
+// u_on_newpos is `export async function` (hoisted); called from
+// hurtle_step and mhurtle_step only.
 import { remove_monster, place_monster } from './steed.js';
 import { u_on_newpos } from './mklev.js';
 import { set_apparxy } from './monmove.js';
@@ -3065,12 +3066,8 @@ export async function hurtle_step(rangeArg, x, y) {
     /* C dothrow.c:907–917 — u_on_newpos then newsym/vision/flush, then
      * switch_terrain iff dest typ differs from the origin cell. */
     const originTyp = game.level?.at?.(ox, oy)?.typ | 0;
-    u.ux = x;
-    u.uy = y;
-    if (u.usteed) {
-        u.usteed.mx = x;
-        u.usteed.my = y;
-    }
+    // C dothrow.c:909 — u_on_newpos then newsym/vision/flush.
+    await u_on_newpos(x, y);
     newsym(ox, oy);
     vision_recalc(1);
     flush_screen(1);
@@ -3165,15 +3162,10 @@ async function mhurtle_step(mon, x, y) {
             place_monster(mon, x, y); // C :1006
             newsym(mon.mx | 0, mon.my | 0); // C :1007
         } else {
-            // C :1009–1014 — steed hurtles: move hero which also moves steed.
-            // Live u_on_newpos (mklev.js) sets ux/uy only; the steed sync is
-            // C's u_on_newpos steed share, split caller-side (cmd.js pattern).
+            // C dothrow.c:1009–1014 — steed hurtles via u_on_newpos
+            // (ux/uy, cliparound, steed share, see_nearby, earth_sense).
             u.ux0 = u.ux; u.uy0 = u.uy;
-            u_on_newpos(x, y);
-            if (u.usteed) {
-                u.usteed.mx = u.ux;
-                u.usteed.my = u.uy;
-            }
+            await u_on_newpos(x, y);
             newsym(u.ux0, u.uy0); // C :1012 update old position
             vision_recalc(0); // C :1013 new location => different sight lines
         }

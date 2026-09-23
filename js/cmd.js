@@ -10,7 +10,6 @@ import { nhgetch } from './input.js';
 import { rn2, rn1, rnd } from './rng.js';
 import {
     newsym, flush_screen, pline, You, pline_dir, pline_xy, set_msg_xy,
-    see_nearby_objects,
     clear_nhwindow_message,
     mon_visible, sensemon, canspotmon, glyph_at, hero_glyph, glyph_is_invisible_id,
     glyph_is_warning, unmap_object, map_object,
@@ -4144,7 +4143,7 @@ async function domove(dx, dy) {
         u.dy = 0;
         newx = u.ustuck.mx | 0;
         newy = u.ustuck.my | 0;
-        u_on_newpos(newx, newy);
+        await u_on_newpos(newx, newy); // C hack.c:2736
         mtmp = u.ustuck;
     } else {
         // C ref: hack.c domove_core `:2742–2745` — air turbulence, then
@@ -4554,13 +4553,10 @@ async function domove(dx, dy) {
         smudgeCoords = { oldx, oldy, newx, newy };
     }
 
-    // C hack.c:2937 dungeon.c u_on_newpos — the tentative occupy above
-    // skipped the full re-position: moving unhides the hero and lets
-    // dwarves earth-sense buried goods. CLIPPING stays deferred (wintty
-    // cliparound singleton, Deferred list); see_nearby_objects below is
-    // the same call's same-level arm.
-    u.uundetected = 0;
-    await earth_sense();
+    // C hack.c:2934 — full re-position after the tentative occupy
+    // (cliparound, uundetected, steed, see_nearby or level-change
+    // map_location, earth_sense). Not gated on did_step.
+    await u_on_newpos(u.ux, u.uy);
     // C hack.c:2939 cmd.c reset_occupations — stepping clears any
     // remarm/pick/trapset occupation (doddrop re-arms its own).
     await reset_occupations();
@@ -4568,12 +4564,6 @@ async function domove(dx, dy) {
     // C ref: hack.c domove — check_leash(u.ux0, u.uy0) after place, before
     // newsym/vision (D-1005). Runs even when swap bounced.
     await check_leash(u.ux0 | 0, u.uy0 | 0);
-
-    // C ref: dungeon.c u_on_newpos — same-level → see_nearby_objects
-    // (upgrade generic potion/gem/spellbook glyphs when within neardist).
-    if (did_step && !u.Blind && !u.Hallucination && !u.uswallow) {
-        see_nearby_objects();
-    }
 
     // C ref: hack.c domove :2708 — kickedloc clears unconditionally at
     // domove() end (finally block below), even on bumps/failed steps.
