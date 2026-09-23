@@ -1,4 +1,21 @@
 # Agent loop journal
+## 2026-09-23 — Audit d44374fc8..1b2e6cd12 (reviews 1700-1708: 3 ACCEPT + 2 WITH-DEBT + 4 QUALITY-RISK, 5 Must-fix) + cadence 44/44.
+
+Reviews audit D-2741..D-2749 against pinned C (csym bodies + callers,
+sym.mjs, per-SHA hidden-proxy --reach-all). 1700 doread cookie
+useup_live closes review 1688. 1702/1703 WITH-DEBT: safe_qbuf unwired
+inlines already named; pick_lock !IS_DOOR stays the existing Open row.
+QUALITY-RISK Must-fix: 1701 monstone `glyph_is_invisible(loc)` plus
+unwired `mdamagem` touch-petrify head; 1706 attack_checks `!u.Underwater`
+(field never written; C is `u.uinwater`); 1707 steal `Blind_steal`
+(`u.Blind || u.ublind`) instead of live `Blind()`; 1708 mhurtle_step
+smoke reach was 0 REGRESSED, but the cadence re-score moved
+scen-genesis-Archeologist-91135 PASS (scoreboard `49fb30909`) to FAIL
+screen step 178, owner mhitm_knockback uhitm.c:5357 — the only later
+js/ commit. Next cluster is that regression. Cadence: public 44/44
+(Scr 11405/11405, RNG 792838/792838, speed 69+0.43 R² 0.79); held-out
+12/44 (+0, judge stamp 2026-09-23T07:13Z); corpus 500/540 (−1 that
+session). `--rows 20` is the stale head; nothing appended. Rule #2 clean.
 ## 2026-09-21 — Audit 2a3c61e5..f6f4a0b2 (reviews 1674-1682: 8 ACCEPT + 1 WITH-DEBT, 0 Must-fix) + cadence 44/44.
 
 Reviews audit D-2715..D-2723 against pinned C (csym bodies + callers,

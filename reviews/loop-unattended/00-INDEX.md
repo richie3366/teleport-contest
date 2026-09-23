@@ -1709,3 +1709,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1697-03aaa7573-newman-missing-arms.md](./1697-03aaa7573-newman-missing-arms.md) | `03aaa7573` | D-2738 newman missing arms | **ACCEPT** |
 | [1698-289e5ec2c-moverock-core-whole-body.md](./1698-289e5ec2c-moverock-core-whole-body.md) | `289e5ec2c` | D-2739 moverock_core whole body | **ACCEPT** |
 | [1699-acefaa812-jump-whole-body.md](./1699-acefaa812-jump-whole-body.md) | `acefaa812` | D-2740 jump whole body | **ACCEPT** |
+| [1700-d44374fc8-doread-cookie-useup.md](./1700-d44374fc8-doread-cookie-useup.md) | `d44374fc8` | D-2741 doread cookie useup_live | **ACCEPT** |
+| [1701-09e6ef90d-monstone-whole-body.md](./1701-09e6ef90d-monstone-whole-body.md) | `09e6ef90d` | D-2742 monstone whole body | **QUALITY-RISK** |
+| [1702-8eb4bf416-safe-qbuf-restart.md](./1702-8eb4bf416-safe-qbuf-restart.md) | `8eb4bf416` | D-2743 safe_qbuf restart | **ACCEPT-WITH-DEBT** |
+| [1703-51018d7f6-pick-lock-whole-body.md](./1703-51018d7f6-pick-lock-whole-body.md) | `51018d7f6` | D-2744 pick_lock whole body | **ACCEPT-WITH-DEBT** |
+| [1704-db6e0c3f6-distant-name-gameover-wipe.md](./1704-db6e0c3f6-distant-name-gameover-wipe.md) | `db6e0c3f6` | D-2745 distant_name gameover wipe | **ACCEPT** |
+| [1705-09c5d65ab-boots-off-whole-body.md](./1705-09c5d65ab-boots-off-whole-body.md) | `09c5d65ab` | D-2746 Boots_off whole body | **ACCEPT** |
+| [1706-777f948a6-attack-checks-whole-body.md](./1706-777f948a6-attack-checks-whole-body.md) | `777f948a6` | D-2747 attack_checks whole body | **QUALITY-RISK** |
+| [1707-49fb30909-steal-whole-body.md](./1707-49fb30909-steal-whole-body.md) | `49fb30909` | D-2748 steal whole body | **QUALITY-RISK** |
+| [1708-1b2e6cd12-mhurtle-step-whole-body.md](./1708-1b2e6cd12-mhurtle-step-whole-body.md) | `1b2e6cd12` | D-2749 mhurtle_step whole body | **QUALITY-RISK** |

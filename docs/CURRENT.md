@@ -22,37 +22,35 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-21** — full `sessions` on the working tree
-(audit **1674–1682**).
+Score last measured: **2026-09-23** — full `sessions` on the working tree
+(audit **1700–1708**).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`60+0.33/turn` (R² 0.78).
+`69+0.43/turn` (R² 0.79).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge, 2026-09-20)** | **12 / 44**, 5,976 / 11,265 pts, RNG **26.7 %**, rngSteps 81.8 %, screens **53.0 %** |
+| **Held-out (judge, 2026-09-23)** | **12 / 44**, 5,976 / 11,265 pts, RNG **26.7 %**, rngSteps 81.8 %, screens **53.0 %** |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `62+0.36/turn` (R² 0.77) |
+| Speed label | `69+0.43/turn` (R² 0.79) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 4/22, 2nd agentic; best agentic fork 35/44, RNG 98.5 %,
 screens 93.2 %. Held-out 12/44, +0 vs last audit (5,976 / 11,265 pts, RNG
-26.7 %, rngSteps 81.8 %, screens 53.0 %; totals in table): no movement
-this window — the corpus still does not predict the judge.
-**Corpus fortress** (re-scored 2026-09-21 audit 1683–1699): **501 / 540
-PASS (92.8 %)** excl. 13 env-only; RNG 99.37 %, screens 99.4 % — **+1 / −0**
-in the D-2724…D-2749 window (16 ACCEPT + 1 QUALITY-RISK; +1 is
-explore-seed0116-wizard-wear-shop-cfabc006 → PASS, ex-owner dopush
-hack.c:194 step-127 screen — only D-2739 touches dopush, bill/message
-completion; unclaimed by any iteration, found by this audit's re-score;
-D-2740 excluded by mechanism, session never jumps;
-every per-SHA `--reach-all` re-run here ends REACH-OK with no REGRESSED).
-Reviews 1225–1699: 426 ACCEPT, 18 WITH-DEBT, 1 DEBT, 25 QUALITY-RISK (1503, 1517, 1520 stamped; Must-fix 1533/1536 → D-2583/D-2584, 1568 → D-2610, 1592 → D-2636 `271ceca1`, 1617 → magic_negation floor Must-fix (addressed D-2661, review 1620 ACCEPT); 1654 → sel_set_door wiring Must-fix (addressed D-2697, review 1656 ACCEPT); 1688 → doread useup-clone Must-fix (queued, Next cluster); hashes filled).
+26.7 %, rngSteps 81.8 %, screens 53.0 %; judge stamp 2026-09-23T07:13Z):
+no movement — the corpus still does not predict the judge.
+**Corpus fortress** (re-scored 2026-09-23 audit 1700–1708): **500 / 540
+PASS (92.6 %)** excl. 13 env-only; RNG 99.37 %, screens 99.4 % — **−1 / +0**
+vs the prior 501/540 (`scen-genesis-Archeologist-91135` PASS→FAIL, screen
+step 178, owner `mhitm_knockback` `uhitm.c:5357`; scoreboard at `49fb30909`
+passed; only later `js/` change is `1b2e6cd12` `mhurtle_step` — review 1708
+Must-fix).
+Reviews 1225–1708: 429 ACCEPT, 20 WITH-DEBT, 1 DEBT, 29 QUALITY-RISK (1688 useup addressed D-2741 `d44374fc8`; Must-fix 1701 monstone glyph + mdamagem head, 1706 attack_checks `u.uinwater`, 1707 steal `Blind`, 1708 knockback regression).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending — review-debt, unqueued (detail in the review files).
 Audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s) + `leaderboard.mjs`.
 
@@ -103,7 +101,7 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `dothrow.c` mhurtle_step — missing arm C `dothrow.c:1003–1019` + `:1027–1066` ported whole-body in C order (D-2749); use_whip head row parked STALE (body complete since D-1022). Remainder: `lock.c` pick_lock DID_NOTHING-half row (C-side measurement first) + coverage refill.
+**Next cluster:** `uhitm.c` mhitm_knockback — `scen-genesis-Archeologist-91135` PASS→FAIL step 178 after `1b2e6cd12` `mhurtle_step` (review 1708 Must-fix). Then steal `Blind` (review 1707), attack_checks `u.uinwater` (review 1706), monstone invisible-unmap and `mdamagem` touch-petrify (review 1701).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2749 (index).**
 <!-- recent:begin -->
