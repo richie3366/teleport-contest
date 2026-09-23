@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2763 — `coloratt.c` add_menu_coloring: whole-body port (config MENUCOLOR line parse, quote-strip, match_* exports)
+
+- **Status:** fixed (Open row: `add_menu_coloring` coverage MISSING → live. 0 corpus blocks.)
+- **Symptom:** coverage gap, not a corpus divergence. C's 45-line MENUCOLOR config-line parser had no JS symbol; the O-menu path (`add_menu_coloring_parsed`) was live but no config-file line could reach it.
+- **C locus:** `nethack-c/upstream/src/coloratt.c:616–660` (`add_menu_coloring`). Every `:line` cite verified by direct read of pinned C.
+- **JS was:** no `add_menu_coloring` symbol; `match_str2clr`/`match_str2attr` faithful but file-local in `js/botl.js`; `add_menu_coloring_parsed` rejected `''` while C `:595` guards NULL only.
+- **Fix:** ported the whole body in C order into `js/options.js` (home of the coloratt family): BUFSZ−1 copy (`:623-624`), first-'=' split with Malformed→FALSE (`:626-629`, sink named per file precedent), mungspace-then-first-'&' split (`:631-634`), color validated before the attr arm runs (`:636-645`, suppress FALSE / complain TRUE preserved), regexp half truncated at '=' unmungspaced (`:648-649`), quote-strip backing over ASCII isspace before matching the closer (`:650-658`, `mc_isspace` mirrors the `(uchar)` cast). Exported the two botl.js clones (verified arm-for-arm against C: fuzzy loop, digit+atoi tail, CLR_MAX/−1 rejects) and narrowed the parsed guard to NULL-only (empty pattern compiles match-everything like C; existing callers never pass '' — O-menu pre-filters via test_regex_pattern, basic_menu_colors passes color names).
+- **JS:** `js/options.js` — exports `add_menu_coloring`; file-local `mc_isspace`; `CLR_MAX` + `match_str2clr`/`match_str2attr` on existing const/botl edges; `add_menu_coloring_parsed` NULL-only guard. `js/botl.js` — `export` on `match_str2clr`/`match_str2attr`.
+- **Callers:** sole C caller `cfgfiles.c:1166` cnf_line_MENUCOLOR → no JS read_config_file dispatch exists yet (map-named in startup.md; function exported for that future caller, reset_duplicate_opt_detection precedent). `options.c:9599` is a comment, not a call. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn add_menu_coloring` → PASS syntax (2 files: botl.js options.js) · PASS rule2 · note hidden 0 blocked (row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (shared options.js/botl.js) · VERIFY: PASS. Plus an 18-case node smoke (every arm incl. unbalanced/empty quotes, fuzzy/digit colors, bad color/attr rejects) → 18/18.
+- **Named omissions:** `config_error_add("Malformed MENUCOLOR")` sink (msgtype_add precedent); `cnf_line_MENUCOLOR` caller (no JS read_config_file dispatch).
+- **Next:** none on this body — whole C body live; callees 4/5 live (mungspaces/match_str2clr/match_str2attr/add_menu_coloring_parsed) + `config_error_add` named sink per file precedent.
+
 ## D-2762 — `cmd.c` handler_rebind_keys: whole-body port (rebind menu + bind_key/count writers, doset wired)
 
 - **Status:** fixed (Open row: `handler_rebind_keys` coverage MISSING → live. 0 corpus blocks.)

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-23
 
-- [x] `cmd.c` handler_rebind_keys — coverage MISSING (C 38 L `cmd.c:2408–2446` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: count_bind_keys, handler_rebind_keys_add). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn handler_rebind_keys` (reach regression must be 0). Measured `port-coverage.mjs --name handler_rebind_keys` 2026-09-23 @ ed9d7b7ad. **Addressed:** D-2762
+- [x] `coloratt.c` add_menu_coloring — coverage MISSING (C 43 L `coloratt.c:617–660` / JS no symbol; hops —, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn add_menu_coloring` (reach regression must be 0). Measured `port-coverage.mjs --name add_menu_coloring` 2026-09-23 @ ed9d7b7ad. **Addressed:** D-2763
+
+
+- [x] `cmd.c` handler_rebind_keys — coverage MISSING (C 38 L `cmd.c:2408–2446` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: count_bind_keys, handler_rebind_keys_add). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn handler_rebind_keys` (reach regression must be 0). Measured `port-coverage.mjs --name handler_rebind_keys` 2026-09-23 @ ed9d7b7ad. **Addressed:** D-2762 `9ecb98fe8`
 
 
 - [x] `pager.c` waterbody_name — coverage PARTIAL (C 50 L `pager.c:561–611` / JS 31 L in js/hack.js; hops 3, callers 14, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn waterbody_name` (reach regression must be 0). Measured `port-coverage.mjs --name waterbody_name` 2026-09-23 @ 6080165a9. **Addressed:** D-2761 `f846d399b`

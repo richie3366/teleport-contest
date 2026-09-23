@@ -109,6 +109,7 @@ import {
     HL_BLINK,
     HL_INVERSE,
     BUFSZ,
+    CLR_MAX,
     QBUFSZ,
     gp,
 } from './const.js';
@@ -143,6 +144,7 @@ import { clr2colorname } from './artifact.js';
 import {
     opt_next_cond, cond_menu, status_hilite_menu,
     status_hilite_linestr_done, status_hilite_linestr_gather,
+    match_str2clr, match_str2attr,
 } from './botl.js';
 import { get_changed_key_binds, handler_rebind_keys, count_bind_keys } from './cmd.js';
 
@@ -1752,9 +1754,11 @@ export function free_one_menu_coloring(idx) {
  * C ref: coloratt.c add_menu_coloring_parsed `:585–613` — validated
  * callers only (test_regex_pattern ran first); recompile can still fail,
  * then FALSE. config_error_add paths named (msgtype_add precedent).
+ * C `:595` guards NULL only: an empty pattern compiles (match-everything),
+ * reachable from add_menu_coloring's `MENUCOLOR==color` / `""` arms.
  */
 export function add_menu_coloring_parsed(str, c, a) {
-    if (!str) return false;
+    if (str === null || str === undefined) return false; // C :595 !str (NULL only)
     const match = regex_init();
     if (!regex_compile(String(str), match)) {
         regex_free(match);
@@ -1770,6 +1774,58 @@ export function add_menu_coloring_parsed(str, c, a) {
     if (!game.iflags) game.iflags = {};
     game.iflags.use_menu_color = true;
     return true;
+}
+
+/* C ctype isspace() as coloratt.c `:652` uses it (`(uchar)` cast: bytes
+ * >= 0x80 never match in the C locale, so the test is the six ASCII
+ * whitespace chars only). */
+function mc_isspace(ch) {
+    return ch === ' ' || ch === '\t' || ch === '\n'
+        || ch === '\v' || ch === '\f' || ch === '\r';
+}
+
+/**
+ * C ref: coloratt.c add_menu_coloring `:616–660` — parse
+ * `'"regex_string"=color&attr'` (C `:615` header comment) from a config-file
+ * MENUCOLOR line and prepend it via add_menu_coloring_parsed. C order below:
+ * copy-then-split at the first '=' (the regexp half is never mungspaced,
+ * C `:647`), mungspaced color[&attr] with the color validated before the
+ * attr arm runs, then the quote-strip which backs over isspace before
+ * matching the closer. Sole C caller is cfgfiles.c cnf_line_MENUCOLOR
+ * (`:1166`); no JS read_config_file dispatch exists yet (map-named), so
+ * this is wired for that future caller like reset_duplicate_opt_detection.
+ */
+export function add_menu_coloring(tmpstr) {
+    let c = NO_COLOR, a = MC_ATR_NONE; // C :619 (C ATR_NONE=0, wintype.h:128)
+    // C :623-624 strncpy + forced NUL: copy truncated to BUFSZ-1.
+    const str = String(tmpstr ?? '').slice(0, BUFSZ - 1);
+    const eq = str.indexOf('='); // C :626 strchr(str, '=')
+    if (eq === -1) {
+        // Named omission (map): config_error_add("Malformed MENUCOLOR") sink.
+        return false; // C :627-628
+    }
+    // C :631-634: mungspace past '=', split at the first '&'.
+    let colorPart = mungspaces(str.slice(eq + 1)); // C :631-632
+    const amp = colorPart.indexOf('&'); // C :633 strchr(tmps, '&')
+    let attrPart = null;
+    if (amp !== -1) { // C :633-634 *amp = '\0'
+        attrPart = colorPart.slice(amp + 1);
+        colorPart = colorPart.slice(0, amp);
+    }
+    c = match_str2clr(colorPart, false); // C :636
+    if (c >= CLR_MAX) return false; // C :637-638
+    if (attrPart !== null) { // C :640 if (amp)
+        a = match_str2attr(attrPart, true); // C :641-642 advance past '&'
+        if (a === -1) return false; // C :643-644
+    }
+    // C :648-649: truncate at '='; the regexp half kept its spaces.
+    let pattern = str.slice(0, eq);
+    if (pattern[0] === '"' || pattern[0] === "'") { // C :650
+        let j = pattern.length - 1; // C :651 cs--
+        while (j >= 0 && mc_isspace(pattern[j])) j--; // C :652-653
+        if (j >= 0 && pattern[j] === pattern[0]) pattern = pattern.slice(1, j); // C :654-657
+    }
+    return add_menu_coloring_parsed(pattern, c, a); // C :659
 }
 
 /**
