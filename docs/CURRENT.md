@@ -98,10 +98,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `uhitm.c` mhitm_ad_legs — coverage THIN (C 62 L `uhitm.c:4425–4489` / JS 8 L in js/mhitm.js; hops 4, callers 1, RNG 4, msg 6). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mhitm_ad_legs` (reach regression must be 0). Measured `port-coverage.mjs --name mhitm_ad_legs` 2026-09-23 @ 22b0e07c3.
+**Next cluster:** `pickup.c` reverse_loot — coverage MISSING (C 76 L `pickup.c:2350–2426` / JS no symbol; hops 6, callers 1, RNG 4, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn reverse_loot` (reach regression must be 0). Measured `port-coverage.mjs --name reverse_loot` 2026-09-23 @ 22b0e07c3.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2767 (index).**
+**Keep D-0845…D-2768 (index).**
 <!-- recent:begin -->
+**D-2768** `nethack-c/upstream/src/pickup.c:2350–2426` (`reverse_loot`, staticfn); sole C caller `pic — ported the whole body in C order into `js/pickup.js` (1:1 C home, module-local like C staticfn and the `doloot_core` precedent): `!rn2(3)` + inv_cnt(true) walk of the invlet-sorted invent array (C nobj order — both sides
 **D-2767** `nethack-c/upstream/src/uhitm.c:4425–4489` (`mhitm_ad_legs`); uhitm arm `:4432–4444` (dead — `js/uhitm.js` only for behavior — new `const AD_LEGS = 17` (monattk.h:59) + new `damageum_adtyping` AD_LEGS arm calling live same-file `damageum_ad_phys(mdef, mattk, mhm)` (the `:3988–4024` port; sync, no await, like the
 **D-2766** `nethack-c/upstream/src/wizcmds.c:885–939` (`wiz_smell`); caller `cmd.c:1994–1995` extcmdl — ported the whole body in C order into `js/wizcmds.js` (1:1 C home): hero-start cursor (`:893–894`); olfaction gate with ECMD_OK (`:895–898`); once-only cursor message (`:900`); do/while pick loop (`:901–937`) as `for (;;
 **D-2765** `nethack-c/upstream/src/options.c` — ported all bodies in C order into `js/options.js` (1:1 C home): `optfn_msg_window` empty-optstr negated→'s'/else-'f' (`:2477–2478`), negated-with-value bad_negation+err (`:2480–2482`), lowc-first-char s/c/f/r switch (`:2
@@ -109,11 +110,10 @@ revisits the picker.
 **D-2763** `nethack-c/upstream/src/coloratt.c:616–660` (`add_menu_coloring`). Every `:line` cite veri — ported the whole body in C order into `js/options.js` (home of the coloratt family): BUFSZ−1 copy (`:623-624`), first-'=' split with Malformed→FALSE (`:626-629`, sink named per file precedent), mungspace-then-first-'&' s
 **D-2762** `nethack-c/upstream/src/cmd.c:2407–2446` (`handler_rebind_keys`) + `:2290–2405` (`handler_ — ported all six bodies in C order: `handler_rebind_keys` redo PICK_ONE menu via live `select_menu_pick_one` (auto-letters ≡ tty_end_menu; `end_menu` prompts as header rows per the `handle_add_list_remove` precedent); item
 **D-2761** `nethack-c/upstream/src/pager.c:561–611` (`waterbody_name`); 14 code call sites: `do.c:59` — restarted the body in C order with per-arm `:line` cites: `:565` hallucinate before the `:567-568` drink guard; `:569` `ltyp` via SURFACE_AT (D-1103); `:571-574` molten lava; `:574-579` ice/frozen; `:579-582` pool of; `:
-**D-2760** `nethack-c/upstream/src/dog.c:995–1133` (`dogfood`); callers `dog.c:1197,1247` (tamedog),  — restarted the body in C order with per-arm `:line` cites: opoisoned + `resists_poison` head; quest-arti/obj_resists short-circuit; fx/fptr via LOW_PM/NUMMONS bounds (null = the NUMMONS entry, all predicates null-safe); r
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2767; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2768; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
