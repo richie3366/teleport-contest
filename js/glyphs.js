@@ -722,6 +722,61 @@ export function add_custom_nhcolor_entry(customization_name, glyphidx, nhcolor, 
     return 1;
 }
 
+/**
+ * C glyphs.c purge_all_custom_entries `:751–758` (global; extern.h:1184) —
+ * drop every set's customization details, sets 0..NUM_GRAPHICS inclusive
+ * (the +1 row is UNICODESET, cf. the grid above). Sole C caller is
+ * freedynamicdata (save.c:1090, save-freeing infra, unported — map-named).
+ */
+export function purge_all_custom_entries() {
+    for (let i = 0; i < NUM_GRAPHICS + 1; ++i) {
+        purge_custom_entries(i);
+    }
+}
+
+/**
+ * C glyphs.c purge_custom_entries `:761–794` (staticfn; glyphs.c:50) —
+ * free one set's customization detail chains and reset each cell to the
+ * BSS end state (null name, 0 count, null details chain). Module-local
+ * like C (cf. find_glyphid_in_cache_by_glyphnum above). C `free` ≡ unlink
+ * (JS GC collects); the per-arm payload clearing still runs in C order
+ * under the `gdc.custtype` guard (urep utf8str / sym symparse+val /
+ * ccolor nhcolor+glyphidx) so the end state matches C once the
+ * add_custom_symbols/ureps writers land. C callers: the export above
+ * (wired) + clear_symsetentry (symbols.c:347, unported — map-named).
+ */
+function purge_custom_entries(which_set) {
+    const set = which_set | 0;
+    for (let custtype = CUSTOM_NONE; custtype < CUSTOM_COUNT; ++custtype) {
+        const gdc = sym_customizations[set][custtype];
+        let details = gdc.details;
+        while (details) {
+            const next = details.next;
+            if (gdc.custtype === CUSTOM_UREPS) {
+                if (details.content && details.content.urep
+                    && details.content.urep.u)
+                    details.content.urep.u.utf8str = null;
+            } else if (gdc.custtype === CUSTOM_SYMBOLS) {
+                if (details.content && details.content.sym) {
+                    details.content.sym.symparse = null;
+                    details.content.sym.val = 0;
+                }
+            } else if (gdc.custtype === CUSTOM_NHCOLOR) {
+                if (details.content && details.content.ccolor) {
+                    details.content.ccolor.nhcolor = 0;
+                    details.content.ccolor.glyphidx = 0;
+                }
+            }
+            details = next;
+        }
+        gdc.details = null;
+        gdc.details_end = null;
+        if (gdc.customization_name !== null)
+            gdc.customization_name = null;
+        gdc.count = 0;
+    }
+}
+
 /* C glyphs.c find_glyphid_in_cache_by_glyphnum `:418–432` (staticfn) —
    linear scan for the first bucket holding glyphnum; null id ≡ C `id==0`. */
 function find_glyphid_in_cache_by_glyphnum(glyphnum) {

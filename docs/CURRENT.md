@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `wizcmds.c` wiz_show_seenv — coverage MISSING (C 41 L `wizcmds.c:576–617` / JS no symbol; hops —, callers 0, RNG 0, msg 1) + same-file `wizcmds.c` wiz_migrate_mons (C 57 L `:1873–1930`). Port the whole C bodies in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn wiz_show_seenv` + `--fn wiz_migrate_mons` (reach regression must be 0).
+**Next cluster:** `glyphs.c` purge_all_custom_entries — coverage MISSING (C 7 L `glyphs.c:751–758` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: purge_custom_entries). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn purge_all_custom_entries` (reach regression must be 0).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2779 (index).**
+**Keep D-0845…D-2780 (index).**
 <!-- recent:begin -->
+**D-2780** `nethack-c/upstream/src/glyphs.c:751–758` (purge_all_custom_entries: `i < NUM_GRAPHICS + 1 — whole C bodies in C order with `:line` cites.
 **D-2779** `nethack-c/upstream/src/wizcmds.c:576–617` (wiz_show_seenv: `:583` create, `:588–592` hero — whole C bodies in C order with `:line` cites.
 **D-2778** `options.c` handler_number_pad `:5893–5950` (npchoices `:5898–5903`, create/start/zeroany  — whole C bodies in C order with `:line` cites.
 **D-2777** `nethack-c/upstream/src/coloratt.c:978–994` (color_distance) + `:996–1021` (closest_color) — `js/options.js` (+256/−0) — table + hexdd + four exports in C order with `:line` cites.
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2775** `options.c` handler_whatis_coord `:6205–6276`; optfn_whatis_coord `:4702–4745` (do_init `: — whole C bodies in C order with `:line` cites.
 **D-2774** `options.c` handler_menu_objsyms `:5794–5829`; optfn_menu_objsyms `:2224–2287` (do_init `: — whole C bodies in C order with `:line` cites: `objsymvals` table; `set_menuobjsyms_flags(n, iflagsBag)` (bit 1 → menu_head_objsym, bits 2|4 → use_menu_glyphs); `optfn_menu_objsyms` — do_init 4, do_set (`!` → 0, valueless
 **D-2773** `options.c` doset `:8933–8939` (`allopt[k].optfn(idx, do_handler, FALSE, empty_optstr, emp — new async `doset_optfn_do_handler(name)` = the three do_handler arms in C order (versinfo: snapshot `vi`, await `handler_versinfo`, `'%s' %s %u.` changed-to / not-changed-still pline, `:4530` redraw gate); `doset_compopt
-**D-2772** `nethack-c/upstream/src/insight.c:2658–2699` (VANQ_MCLS_HTOL/LTOH arm of `vanqsort_cmp :26 — C-order port: numeric mlet = index in live `DEF_MONSYM_MLET` (`js/mondata.js`, defsym.h enum order, `S_ANT == 1`, so the signed compare is exact); `punctclasses` array remap to `S_ZOMBIE + 1 + k` under the both-punct gua
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2779; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2780; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

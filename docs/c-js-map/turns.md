@@ -2518,6 +2518,15 @@ glyphmap[]/reset_glyphmap), sole C callers unported
 (`to_custom_symset_entry_callback` glyphs.c:94, `wiz_custom`
 wizcmds.c:1967 #wizcustom), `sym_customizations` saveload (transient).
 
+**`purge_all_custom_entries` + `purge_custom_entries` live** (D-2780; C
+`glyphs.c:751–758` + staticfn `:761–794` whole bodies in C order:
+inclusive `NUM_GRAPHICS + 1` loop; per-custtype `next`-saved chain walk
+with the three `gdc.custtype` payload arms null-guarded, C `free` ≡
+unlink, cells reset to the BSS end state); named: C callers
+`freedynamicdata` (save.c:1090, save-freeing infra) + `clear_symsetentry`
+(symbols.c:347, own row), both unported; add_custom_symbols/ureps writers
+(arms guarded until they land).
+
 ### `src/questpgr.c` / tty menu
 
 JS: `js/questpgr.js`, `js/quest.js`, `js/do.js`, `js/dungeon.js` — partial
