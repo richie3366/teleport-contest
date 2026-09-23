@@ -3,9 +3,13 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-09-23
+
+- [x] `dothrow.c` mhurtle_step move/bump arms — missing arm: C `dothrow.c:1003–1019` (remove_monster/place_monster + newsyms, steed u_on_newpos + vision_recalc, set_apparxy, is_waterwall stop) + `:1027–1066` (touch_petrifies both directions, Some_Monnam hero bump, stop_occupation, Upolyd/instapetrify hero-petrify) absent from js/dothrow.js (`mhurtle_step` 3149–3179; rloc_to thin + Monnam bump + wakeup live, rest named-deferred at :3144). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mhurtle_step` (reach regression must be 0). Brief-verified 2026-09-21 @ 09e6ef90d (C + JS bodies read this session).
+
 ## 2026-09-22
 
-- [x] `steal.c` steal — coverage PARTIAL (C 271 L `steal.c:343–614` / JS 178 L in js/steal.js; hops 3, callers 2, RNG 5, msg 8). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn steal` (reach regression must be 0). Measured `port-coverage.mjs --name steal` 2026-09-21 @ d44374fc8. **Addressed:** D-2748
+- [x] `steal.c` steal — coverage PARTIAL (C 271 L `steal.c:343–614` / JS 178 L in js/steal.js; hops 3, callers 2, RNG 5, msg 8). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn steal` (reach regression must be 0). Measured `port-coverage.mjs --name steal` 2026-09-21 @ d44374fc8. **Addressed:** D-2748 `49fb30909`
 
 ## 2026-09-21
 

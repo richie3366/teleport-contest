@@ -2773,7 +2773,8 @@ canletgo/Mjollnir/too-heavy/welded/wet-towel / petrify `:139–148`; dig is D-13
 **`getdir_cmdassist` CQ_REPEAT** (D-1729; shared `getdir_read_dirsym`); 
 **`hurtle`/`hurtle_step` Punished tug + trap-anchor + nomul(-range) + wall/`m_at` stop + 
 `u_on_newpos` (D-1038; not `teleds`; **`hurtle_step` `in_out_region` after isok before 
-`*range==0`** D-1165; **`mhurtle_step` `will_hurtle && m_in_out_region` before place** D-1176; 
+`*range==0`** D-1165; **`mhurtle_step` `will_hurtle && m_in_out_region` before place** D-1176;
+**`mhurtle_step` whole-body D-2749** (C `:992–1068` in C order `js/dothrow.js`: remove/place_monster + newsyms, steed u_on_newpos + caller-side steed share + newsym + vision_recalc, set_apparxy, waterwall stop, mintrap HURTLING, a_monnam bump, petrify both directions + Upolyd/hero instapetrify arms; caller `mhurtle` `:1170` → `js:3224`); 
 **`hurtle_step` dest-typ `switch_terrain` after flush** D-1277; 
 **`hurtle_step` monster-bump arm** D-2188 (C `:855–905`: glyph read, x_monnam ARTICLE_A + 
 AUGMENT_IT, find-by-bumping branch, wakeup, canspotmon→map_invisible, setmangry, both 
