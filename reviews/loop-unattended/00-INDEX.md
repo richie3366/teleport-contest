@@ -1718,3 +1718,8 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1706-777f948a6-attack-checks-whole-body.md](./1706-777f948a6-attack-checks-whole-body.md) | `777f948a6` | D-2747 attack_checks whole body | **QUALITY-RISK** |
 | [1707-49fb30909-steal-whole-body.md](./1707-49fb30909-steal-whole-body.md) | `49fb30909` | D-2748 steal whole body | **QUALITY-RISK** |
 | [1708-1b2e6cd12-mhurtle-step-whole-body.md](./1708-1b2e6cd12-mhurtle-step-whole-body.md) | `1b2e6cd12` | D-2749 mhurtle_step whole body | **QUALITY-RISK** |
+| [1709-14f1ff816-mhurtle-vacated-glyph.md](./1709-14f1ff816-mhurtle-vacated-glyph.md) | `14f1ff816` | D-2750 mhurtle vacated glyph | **ACCEPT** |
+| [1710-c5539a510-steal-blind.md](./1710-c5539a510-steal-blind.md) | `c5539a510` | D-2751 steal Blind | **ACCEPT** |
+| [1711-937267d19-attack-checks-uinwater.md](./1711-937267d19-attack-checks-uinwater.md) | `937267d19` | D-2752 attack_checks u.uinwater | **ACCEPT** |
+| [1712-4bd644114-monstone-memory-glyph.md](./1712-4bd644114-monstone-memory-glyph.md) | `4bd644114` | D-2753 monstone memory glyph | **ACCEPT** |
+| [1713-a4348216d-mdamagem-touch-petrify.md](./1713-a4348216d-mdamagem-touch-petrify.md) | `a4348216d` | D-2754 mdamagem touch-petrify head | **ACCEPT** |

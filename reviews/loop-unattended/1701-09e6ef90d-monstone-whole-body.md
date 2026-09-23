@@ -4,7 +4,7 @@ Metadata: commit `09e6ef90d`, D-2742, `js/mhitm.js` + one-word `export` on `js/m
 
 **Addressed:** D-2753 `4bd644114`
 
-**Addressed:** D-2754
+**Addressed:** D-2754 `a4348216d`
 
 ## Intent vs deliverable
 

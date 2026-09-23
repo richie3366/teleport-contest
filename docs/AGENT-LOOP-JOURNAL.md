@@ -1,4 +1,19 @@
 # Agent loop journal
+## 2026-09-23 — Audit 14f1ff816..a4348216d (reviews 1709–1713: 5 ACCEPT, 0 Must-fix) + cadence 44/44.
+
+Reviews audit D-2750..D-2754 against pinned C (csym bodies + callers,
+sym.mjs, per-SHA hidden-proxy --reach-all). All five close the prior
+Must-fixes: 1709 mon_at_display skips MON_OFFMAP; 1710 steal calls
+exported Blind(); 1711 attack_checks reads u.uinwater; 1712 monstone
+uses memory_glyph_is_invisible; 1713 mdamagem touch-petrify head plus
+attk_protection. Cite slip steal.c:391 vs the logged :384 is not a
+C-wrong. Named deferrals stay named (resists_ston worn/artifact,
+attk_protection callers mhitu.c:2484 and uhitm.c:5936). Each verify
+0 REGRESSED. Cadence: public 44/44 (Scr 11405/11405, RNG 792838/792838,
+speed 51+0.31 R² 0.78); held-out 12/44 (+0, judge stamp
+2026-09-23T07:13Z); corpus 501/540 (0 PASS→FAIL vs HEAD). Next cluster
+is the pick_lock !IS_DOOR measurement row. Queue holds 8 Open; no
+refill. Rule #2 clean.
 ## 2026-09-23 — Audit d44374fc8..1b2e6cd12 (reviews 1700-1708: 3 ACCEPT + 2 WITH-DEBT + 4 QUALITY-RISK, 5 Must-fix) + cadence 44/44.
 
 Reviews audit D-2741..D-2749 against pinned C (csym bodies + callers,

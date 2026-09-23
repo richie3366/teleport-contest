@@ -23,10 +23,10 @@ the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-23** — full `sessions` on the working tree
-(audit **1700–1708**).
+(audit **1709–1713**).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`69+0.43/turn` (R² 0.79).
+`51+0.31/turn` (R² 0.78).
 
 ## Score
 
@@ -36,7 +36,7 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `69+0.43/turn` (R² 0.79) |
+| Speed label | `51+0.31/turn` (R² 0.78) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
@@ -44,11 +44,10 @@ every audit). Rank 4/22, 2nd agentic; best agentic fork 35/44, RNG 98.5 %,
 screens 93.2 %. Held-out 12/44, +0 vs last audit (5,976 / 11,265 pts, RNG
 26.7 %, rngSteps 81.8 %, screens 53.0 %; judge stamp 2026-09-23T07:13Z):
 no movement — the corpus still does not predict the judge.
-**Corpus fortress** (audit 1700–1708, plus this session re-scored
-2026-09-23): **501 / 540 PASS (92.8 %)** excl. 13 env-only; RNG 99.37 %,
-screens 99.4 %. `scen-genesis-Archeologist-91135` restored (186/186 screens,
-RNG 6017/6017) by D-2750 — the step-178 stale chickatrice glyph.
-Reviews 1225–1708: 429 ACCEPT, 20 WITH-DEBT, 1 DEBT, 29 QUALITY-RISK (1688 useup addressed D-2741 `d44374fc8`; Must-fix 1701 monstone glyph + mdamagem head, 1706 attack_checks `u.uinwater`, 1707 steal `Blind`, 1708 knockback regression).
+**Corpus fortress** (audit 1709–1713 re-score 2026-09-23, 0 PASS→FAIL
+vs HEAD): **501 / 540 PASS (92.8 %)** excl. 13 env-only; RNG 99.37 %,
+screens 99.4 %. `scen-genesis-Archeologist-91135` still PASS after D-2750.
+Reviews 1225–1713: 434 ACCEPT, 20 WITH-DEBT, 1 DEBT, 29 QUALITY-RISK (1688 useup addressed D-2741 `d44374fc8`; 1701/1706/1707/1708 Must-fixes closed by D-2750..D-2754, this audit ACCEPT, 0 new Must-fix).
 Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending — review-debt, unqueued (detail in the review files).
 Audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s) + `leaderboard.mjs`.
 
@@ -99,7 +98,7 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `mhitm.c` mdamagem touch-petrify head — C `mhitm.c:1032–1055` (`touch_petrifies(pd)` or `AD_DGST`+Medusa, `attk_protection`/wornitems, then `monstone(magr)`) absent from `js/mhitm.js` `mdamagem` (`:4193` starts at `AD_STCK`/`AD_POLY`). D-2742 labeled this site `mhitm.js:1717`, which is `do_stone_mon` (`uhitm.c:3963`). Wire the head. Verify `node scripts/verify.mjs --fn mdamagem`. Source: reviews/loop-unattended/1701-09e6ef90d-monstone-whole-body.md.
+**Next cluster:** `lock.c` pick_lock `!IS_DOOR` DID_NOTHING half — C `lock.c:578–593` (`res` stays DID_NOTHING when feel_location changes neither lev->glyph nor mapseen) absent from `js/lock.js` pick_lock. Needs a C-side glyph-id measurement before porting (two prior ports falsified). Verify `node scripts/verify.mjs --fn pick_lock`. First Open row in `docs/LOOP-QUEUE.md`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2754 (index).**
 <!-- recent:begin -->
