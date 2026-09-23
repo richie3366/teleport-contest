@@ -2479,12 +2479,25 @@ each name two glyphs (normal + piletop banks, no `piletop_` prefix in the
 generic range), cache keeps first-inserted like C); named: `find_struct`
 callback/color/unicode consumers (`glyphrep_to_custom_map_entries`,
 `glyphrep`, `match_glyph`, `to_custom_symset_entry_callback`,
-`find_glyphid_in_cache_by_glyphnum`, `wizcustom_glyphids`,
-`shuffle_customizations`, `apply_customizations`, `add_custom_nhcolor_entry`
+`shuffle_customizations`, `apply_customizations`
 — options/symbols customization subsystem, own rows), C callers of
 fill/dump (`options.c:4227/7155`, `symbols.c:1073`, `wizcmds.c:1949`,
 `earlyarg.c:808` stdout) unwired (callers unported), `parse_sym_line`
 loadsyms consumer (symbols.c row).
+
+**`add_custom_nhcolor_entry` + `wizcustom_glyphids` live** (D-2771; C
+`glyphs.c:484–528` + `:807–821` whole bodies in C order with
+`find_matching_customization :736–747` (exported) and
+`find_glyphid_in_cache_by_glyphnum :418–432` (module-local, C staticfn):
+lazy gdc init, update-or-append with `details_end`, `count++`, return 1;
+`dupstr`≡assign, `alloc`≡literal, `>>> 0` uint32, `:523–524` urep/ccolor
+union overlap folded with cite; MAX_GLYPH loop + live cache scan + id
+gate; module-local `sym_customizations[3][5]` grid + `CUSTOM_*` /
+`PRIMARYSET`/`ROGUESET`/`NUM_GRAPHICS` consts); named:
+`wizcustom_callback` (`wizcmds.c:1987`, own row — needs deferred
+glyphmap[]/reset_glyphmap), sole C callers unported
+(`to_custom_symset_entry_callback` glyphs.c:94, `wiz_custom`
+wizcmds.c:1967 #wizcustom), `sym_customizations` saveload (transient).
 
 ### `src/questpgr.c` / tty menu
 

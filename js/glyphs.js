@@ -632,3 +632,126 @@ export function dump_all_glyphids(writeLine) {
     dump_find.restype = RES_DUMP_GLYPHIDS;
     parse_id(null, dump_find);
 }
+
+/* C sym.h:125–130 — `enum graphics_sets` (NUM_GRAPHICS counts
+   PRIMARY+ROGUE; UNICODESET aliases NUM_GRAPHICS, hence the +1 row). */
+const PRIMARYSET = 0, ROGUESET = 1, NUM_GRAPHICS = 2, UNICODESET = 2;
+/* C sym.h:138–139 — `enum customization_types`. */
+const CUSTOM_NONE = 0, CUSTOM_SYMBOLS = 1, CUSTOM_UREPS = 2,
+    CUSTOM_NHCOLOR = 3, CUSTOM_COUNT = 4;
+
+/*
+ * C decl.h:857–860 — `gs.sym_customizations[NUM_GRAPHICS+1][custom_count]`
+ * (BSS-zeroed: null name, 0 count, custom_none, null details chain).
+ * Module-local like glyphidCache above; saveload stays unported (map-named,
+ * no scored reach — the sole live writers are the add_custom_*_entry ports).
+ */
+function newSymsetCustomization() {
+    return {
+        customization_name: null, count: 0, custtype: CUSTOM_NONE,
+        details: null, details_end: null,
+    };
+}
+const sym_customizations = [];
+for (let _s = 0; _s < NUM_GRAPHICS + 1; _s++) {
+    const _row = [];
+    for (let _t = 0; _t < CUSTOM_COUNT; _t++) _row.push(newSymsetCustomization());
+    sym_customizations.push(_row);
+}
+
+/**
+ * C glyphs.c find_matching_customization `:736–747` (global;
+ * extern.h:1168) — return the details chain for (name, custtype, set) or
+ * null. `strcmp` ≡ `===` (ASCII symset names); the name check is
+ * `!== null` (C tests the pointer — an empty name is still non-null).
+ */
+export function find_matching_customization(customization_name, custtype, which_set) {
+    const gdc = sym_customizations[which_set | 0][custtype | 0];
+    if (gdc.custtype === (custtype | 0) && gdc.customization_name !== null
+        && String(customization_name) === gdc.customization_name)
+        return gdc.details;
+    return null;
+}
+
+/**
+ * C glyphs.c add_custom_nhcolor_entry `:484–528` (global; extern.h:1165) —
+ * record an nhcolor customization for one glyph of one symset: update the
+ * existing detail for glyphidx, else append a new detail. Returns 1.
+ * `dupstr` ≡ String assignment (JS strings are immutable); `alloc` ≡ object
+ * literal (JS GC frees, cf. free_glyphid_cache above). Sole C caller is the
+ * unported to_custom_symset_entry_callback (glyphs.c:94, map-named).
+ */
+export function add_custom_nhcolor_entry(customization_name, glyphidx, nhcolor, which_set) {
+    const gdc = sym_customizations[which_set | 0][CUSTOM_NHCOLOR];
+    const glyph = glyphidx | 0;
+    const color = nhcolor >>> 0;
+    let details, newdetails = null;
+
+    if (!gdc.details) {
+        gdc.customization_name = String(customization_name);
+        gdc.custtype = CUSTOM_NHCOLOR;
+        gdc.details = null;
+        gdc.details_end = null;
+    }
+    details = find_matching_customization(
+        customization_name, CUSTOM_NHCOLOR, which_set);
+    if (details) {
+        while (details) {
+            if (details.content.ccolor.glyphidx === glyph) {
+                details.content.ccolor.nhcolor = color;
+                return 1;
+            }
+            details = details.next;
+        }
+    }
+    /* create new details entry */
+    /* C `:523–524` writes glyphidx through the urep arm and nhcolor through
+       the ccolor arm of `union customization_content` (sym.h:153–157) — the
+       same storage; JS keeps the one ccolor record. */
+    newdetails = {
+        content: { ccolor: { glyphidx: glyph, nhcolor: color } },
+        next: null,
+    };
+    if (gdc.details === null) {
+        gdc.details = newdetails;
+    } else {
+        gdc.details_end.next = newdetails;
+    }
+    gdc.details_end = newdetails;
+    gdc.count++;
+    return 1;
+}
+
+/* C glyphs.c find_glyphid_in_cache_by_glyphnum `:418–432` (staticfn) —
+   linear scan for the first bucket holding glyphnum; null id ≡ C `id==0`. */
+function find_glyphid_in_cache_by_glyphnum(glyphnum) {
+    if (!glyphidCache) return null;
+    for (let idx = 0; idx < glyphidCacheSize; ++idx) {
+        if (glyphidCache[idx].glyphnum === (glyphnum | 0)
+            && glyphidCache[idx].id !== null) {
+            /* Match found */
+            return glyphidCache[idx].id;
+        }
+    }
+    return null;
+}
+
+/**
+ * C glyphs.c wizcustom_glyphids `:807–821` (global; extern.h:1177) —
+ * `#wizcustom` menu fill (sole C caller wiz_custom, wizcmds.c:1967,
+ * unported): every cached glyph id goes through wizcustom_callback.
+ * Named omission: wizcustom_callback (wizcmds.c:1987, own coverage row —
+ * reads the deferred glyphmap[]/reset_glyphmap table); the guard, loop,
+ * cache scan and id gate below are live, in C order.
+ */
+export function wizcustom_glyphids(win) {
+    let id;
+    if (!glyphidCache) return;
+    for (let glyphnum = 0; glyphnum < MAX_GLYPH; ++glyphnum) {
+        id = find_glyphid_in_cache_by_glyphnum(glyphnum);
+        if (id) {
+            /* C `:818` wizcustom_callback(win, glyphnum, id) — named above;
+               win passes through untouched when that row wires it. */
+        }
+    }
+}
