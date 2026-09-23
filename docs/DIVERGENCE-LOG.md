@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2751 — `steal.c` nothing_to_steal Blind uses youprop.h Blind
+
+- **Status:** fixed (Must-fix review 1707: C `steal.c:384` `else if (Blind)` vs file-local `Blind_steal`. 0 corpus blocks — the row named a C-wrong predicate, not N blocks.)
+- **Symptom:** an empty-inventory theft while the hero is blind by `(HBlinded || EBlinded) && !BBlinded` but not by sticky `u.Blind`/`u.ublind` took the gold-only or generic pline instead of "Somebody tries to rob you, but finds nothing to steal." The inverse (sticky true while Eyes block blindness) took the Somebody line. No fortress session hits that arm.
+- **C locus:** `nethack-c/upstream/src/steal.c:384` `else if (Blind)` — `youprop.h:103` `#define Blind ((HBlinded || EBlinded) && !BBlinded)`.
+- **JS was:** `js/steal.js` `nothing_to_steal` called file-local `Blind_steal` (`u.Blind || u.ublind`). `u.Blind` is the sticky copy `do.js` writes after `make_blinded`; that is not the macro.
+- **Fix:** the arm calls exported `Blind()` from `js/invent.js` (the macro, plus `uroleplay.blind`). Deleted `Blind_steal`. Same invent.js import; `imports.mjs --can` ALREADY.
+- **JS:** `js/steal.js` `steal` nothing_to_steal (`:382`).
+- **Callers:** the only real C call stays wired — `uhitm.c:4673` → `js/mhitu.js:2208`. `do_wear.c:1600` and `:1686` and `trap.c:6827` are comments; `extern.h:3127` is the decl. No new caller.
+- **Verify:** `node scripts/verify.mjs --fn steal --reach-all` → PASS syntax (1 file `js/steal.js`) · PASS rule2 · note hidden 0 blocked on `steal` (row cited 0 blocks) · PASS reach (24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (steal.js not shared) · VERIFY: PASS.
+- **Named omissions:** none new on this arm. `invent.js` `Blind()` also returns true for `u.uroleplay.blind` before the macro (live helper width, same as other callers). C `assert(uball)` and the o_id-null stealoid guard stay the D-2748 names.
+- **Next:** `uhitm.c` attack_checks pool reveal — `u.uinwater` (review 1706 Must-fix).
+
 ## D-2750 — `dothrow.c` mhurtle_step vacated cell kept the chickatrice glyph
 
 - **Status:** fixed (Must-fix review 1708: `scen-genesis-Archeologist-91135` PASS at `49fb30909` → FAIL screen step 178 after `1b2e6cd12` replaced `rloc_to` with `remove_monster`/`place_monster`. RNG stayed 6017/6017.)

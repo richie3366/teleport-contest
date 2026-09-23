@@ -71,6 +71,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-23 — D-2751 `steal.c` nothing_to_steal Blind uses youprop.h Blind
+
+**C locus:** `nethack-c/upstream/src/steal.c:384` `else if (Blind)` — `youprop.h:103` `#define Blind ((HBlinded || EBlinded) && !BBlinded)`.
+**JS:** `js/steal.js` `steal` nothing_to_steal (`:382`).
+**Change:** the arm calls exported `Blind()` from `js/invent.js` (the macro, plus `uroleplay.blind`). Deleted `Blind_steal`. Same invent.js import; `imports.mjs --can` ALREADY.
+**Verify:** `node scripts/verify.mjs --fn steal --reach-all` → PASS syntax (1 file `js/steal.js`) · PASS rule2 · note hidden 0 blocked on `steal` (row cited 0 blocks) · PASS reach (24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (steal.js not shared) · VERIFY: PASS.
+**Named:** none new on this arm. `invent.js` `Blind()` also returns true for `u.uroleplay.blind` before the macro (live helper width, same as other callers).
+**Next:** `uhitm.c` attack_checks pool reveal — `u.uinwater` (review 1706 Must-fix).
 ## 2026-09-23 — D-2750 `dothrow.c` mhurtle_step vacated cell kept the chickatrice glyph
 
 **C locus:** `nethack-c/upstream/src/dothrow.c:1004–1007` (`remove_monster` then `newsym` of the old cell, then `place_monster` then `newsym` of the new cell). `remove_monster` (`rm.h:526`) clears `level.monsters[x][y]` and does not change `mx`/`my`. `newsym` (`display.c:969`) reads `m_at`, which is that grid. After the clear the old cell is floor.

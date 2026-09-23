@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `steal.c` nothing_to_steal Blind — C `steal.c:384` `else if (Blind)` absent from `js/steal.js` `steal` (file-local `Blind_steal`). Use `Blind()`. Verify `node scripts/verify.mjs --fn steal`. Source: reviews/loop-unattended/1707-49fb30909-steal-whole-body.md. Then attack_checks `u.uinwater` (review 1706), monstone invisible-unmap and `mdamagem` touch-petrify (review 1701).
+**Next cluster:** `uhitm.c` attack_checks pool reveal — C `uhitm.c:289` `Blind || (is_pool && !Underwater)` (`youprop.h:279` `Underwater` ≡ `u.uinwater`) absent from `js/uhitm.js` `attack_checks` (`!game.u.Underwater`). Use `u.uinwater`. Verify `node scripts/verify.mjs --fn attack_checks`. Source: reviews/loop-unattended/1706-777f948a6-attack-checks-whole-body.md. Then monstone invisible-unmap and `mdamagem` touch-petrify (review 1701).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2750 (index).**
+**Keep D-0845…D-2751 (index).**
 <!-- recent:begin -->
+**D-2751** `nethack-c/upstream/src/steal.c:384` `else if (Blind)` — the arm calls exported `Blind()` from `js/invent.js` (the macro, plus `uroleplay.blind`).
 **D-2750** `nethack-c/upstream/src/dothrow.c:1004–1007` (`remove_monster` then `newsym` of the old ce — `mon_at_display` skips `MON_OFFMAP`, the same predicate `m_at` uses.
 **D-2749** `nethack-c/upstream/src/dothrow.c:992–1068` (`:997–998` isok; `:1000` will_hurtle && m_in_ — restarted the body in C order with per-arm `:line` cites; same-file caller `mhurtle` doc updated (petrify/steed-vision omit retired, NODIAG/minliquid omits stand).
 **D-2748** `nethack-c/upstream/src/steal.c:343–614` (`:348–355` entry snapshot + monnear gate; `:357– — restarted the body in C order with per-arm `:line` cites: nothing_to_steal closure (C goto re-entry from inv gate + empty pick); cant_take closure (how[] + ROLL_FROM + armor_simple_name/yname + `!rn2(inv_cnt/5+2)` stay-o
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2746** `nethack-c/upstream/src/do_wear.c:261–323` (`:265` oldprop; `:267` takeoff.mask clear; `:2 — restarted the body in C order with per-arm `:line` cites: SPEED `makeknown` + `You_feel slow down{ a bit}` on `Fast()` (attrib.js live, dragon-armor slow-down precedent); WATER_WALKING pool/lava via live hack.js imports 
 **D-2745** `nethack-c/upstream/src/objnam.c:345–409` (`:360–378` r/neardist from xray_range; `:373–38 — added the wipe in C order — `save_oid` captured, `obj.o_id = 0` under `game.program_state?.gameover` (the live gameover flag, cf.
 **D-2744** `nethack-c/upstream/src/lock.c:358–656` (`:373–377` null-pick dummy (STRANGE_OBJECT); `:38 — restarted the body in C order (`js/lock.js:1134–1399`) with per-arm `:line` cites; all async message calls use the C wrapper (`You_cant`/`There`/`pline_The`/`You` with `%s` args — rendered text byte-identical to the old 
-**D-2743** `nethack-c/upstream/src/objnam.c:5624–5698` (`:5635–5638` unsigned lens; `:5640` lenlimit; — restarted the body in C order with per-arm `:line` cites: lens block (`:5635–5640`, len_qpfx folds into buf.length per `:5668`); explicit `_qbuf === qprefix` alias arm (`:5657–5659`, converges with the copy arm for immut
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2750; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2751; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

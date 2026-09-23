@@ -2,6 +2,8 @@
 
 Metadata: commit `49fb30909`, D-2748, `js/steal.js` `steal` plus `export` on the existing `doffing` in `js/do_wear.js`. Coverage row, 0 corpus blocks. No prior review claimed closed.
 
+**Addressed:** D-2751
+
 ## Intent vs deliverable
 
 Subject promises a C-order restart of nothing_to_steal, cant_take, monkey stickiness, leash, doffing, armor charm, unpaid billing, and petrify. The diff is that body (`js/steal.js:347–623`) and a one-word `export` on `doffing`. Promise matches the functions added. The Blind arm does not match the macro it cites.

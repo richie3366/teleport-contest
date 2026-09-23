@@ -2,7 +2,7 @@
 
 Metadata: commit `1b2e6cd12`, D-2749, `js/dothrow.js` `mhurtle_step` only (`use_whip` is a Stale line, no `js/` edit). Missing-arm row, 0 corpus blocks. No prior review claimed closed.
 
-**Addressed:** D-2750
+**Addressed:** D-2750 `14f1ff816`
 
 ## Intent vs deliverable
 
