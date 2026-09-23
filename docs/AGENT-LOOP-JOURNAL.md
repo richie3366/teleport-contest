@@ -1,4 +1,23 @@
 # Agent loop journal
+## 2026-09-23 — Audit d0dce8186..385103f98 (reviews 1723–1730: 5 ACCEPT, 1 WITH-DEBT, 2 QUALITY-RISK → 2 Must-fix) + cadence 44/44.
+
+Reviews audit D-2764..D-2771 against pinned C (csym bodies + callers,
+sym.mjs, per-SHA hidden-proxy --reach-all). 1724 QUALITY-RISK: the three
+D-2765 option handlers (msg_window / paranoid_confirmation / versinfo)
+have no JS caller — `optlist.h` marks them has_handler and C doset calls
+do_handler, but JS doset lists the rows without `handler` and with
+hardcoded values, so picks are dropped. 1728 QUALITY-RISK: D-2769 made
+list_vanquished class/Rider headers live while `vanqsort_cmp` MCLS arms
+still return 0 (mndx order), so class modes mis-order and can repeat the
+demon header. 1730 WITH-DEBT: `wizcustom_glyphids` loop has an empty
+callback site (glyphmap-blocked; docs say `[3][5]`, code is the correct
+`[3][4]`). 1723/1725/1726/1727/1729 ACCEPT. Every re-measure 0 REGRESSED;
+list_vanquished NO MOVEMENT matches its D-log (map-cell first diff, not
+this function). Cadence at `385103f98`: public 44/44, Scr 11,405, RNG
+792,838, speed 53+0.32 (R² 0.78); held-out 12/44 (+0, judge stamp
+13:08Z unchanged); corpus 501/540, per-session identical to audit
+1714–1722. Rule #2 clean. Next: Must-fix vanqsort_cmp, then doset
+handlers.
 ## 2026-09-23 — D-2764 `cfgfiles.c` handle_config_section: whole-body port (section filter + is_config_section/free_config_sections)
 
 **C locus:** `nethack-c/upstream/src/cfgfiles.c:551–582` (`handle_config_section`); callees `is_config_section` `:522–549`, `free_config_sections` `:506–517`. Every `:line` cite verified by direct read of pinned C.

@@ -23,10 +23,10 @@ the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-23** — full `sessions` on the working tree
-(audit **1714–1722**).
+(audit **1723–1730**, commit `385103f98`).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`69+0.42/turn` (R² 0.77).
+`53+0.32/turn` (R² 0.78).
 
 ## Score
 
@@ -36,19 +36,20 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `69+0.42/turn` (R² 0.77) |
+| Speed label | `53+0.32/turn` (R² 0.78) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 4/22, 2nd agentic; best agentic fork 35/44, RNG 98.5 %,
 screens 93.2 %. Held-out 12/44, +0 vs last audit (5,976 / 11,265 pts, RNG
-26.7 %, rngSteps 81.8 %, screens 53.0 %; judge stamp 2026-09-23T13:08Z):
+26.7 %, rngSteps 81.8 %, screens 53.0 %; judge stamp 2026-09-23T13:08Z,
+re-read at audit 1723–1730 — the judge has not re-scored since):
 no movement — the corpus still does not predict the judge.
-**Corpus fortress** (audit 1714–1722 re-score 2026-09-23, 0 PASS→FAIL
-vs HEAD): **501 / 540 PASS (92.8 %)** excl. 13 env-only; RNG 99.37 %,
-screens 99.4 %. `scen-genesis-Archeologist-91135` still PASS after D-2750.
-Reviews 1225–1722: 443 ACCEPT, 20 WITH-DEBT, 1 DEBT, 29 QUALITY-RISK (this audit 1714–1722 ACCEPT, 0 new Must-fix).
-Live debts: 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending — review-debt, unqueued (detail in the review files).
+**Corpus fortress** (audit 1723–1730 re-score 2026-09-23 at `385103f98`,
+per-session statuses identical to audit 1714–1722, 0 PASS→FAIL):
+**501 / 540 PASS (92.8 %)** excl. 13 env-only; RNG 99.37 %, screens 99.4 %.
+Reviews 1225–1730: 448 ACCEPT, 21 WITH-DEBT, 1 DEBT, 31 QUALITY-RISK (audit 1723–1730: 1724 doset handler dispatch unwired + 1728 vanqsort_cmp MCLS stub → 2 new Must-fix).
+Live debts: 1730 `wizcustom_glyphids` empty `wizcustom_callback` site (glyphmap-blocked, map-named); 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending — review-debt, unqueued (detail in the review files).
 Audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s) + `leaderboard.mjs`.
 
 **PASS (44):** seed8000, seed0900, seed1500, seed1800, seed0060,
@@ -98,7 +99,7 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `glyphs.c` add_custom_nhcolor_entry — coverage MISSING (C 40 L `:484–528` / JS no symbol; callee find_matching_customization); verify `--fn add_custom_nhcolor_entry`. + same-file wizcustom_glyphids — MISSING (C 13 L `:808–821`; callees find_glyphid_in_cache_by_glyphnum, wizcustom_callback); verify `--fn wizcustom_glyphids`. Full row texts in LOOP-QUEUE-DONE.md.
+**Next cluster:** Must-fix `insight.c` vanqsort_cmp MCLS arms (`insight.c:2658–2699`: numeric mlet + punctclasses remap, Riders before demons, mlevel LTOH/HTOL) under the D-2769 class/Rider headers; verify `--fn vanqsort_cmp`. Then Must-fix `options.c` doset do_handler for msg_window/paranoid_confirmation/versinfo (review 1724). Full texts in `LOOP-QUEUE.md` Must-fix.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2771 (index).**
 <!-- recent:begin -->

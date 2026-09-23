@@ -1732,3 +1732,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1720-f846d399b-waterbody-name-restart.md](./1720-f846d399b-waterbody-name-restart.md) | `f846d399b` | D-2761 waterbody_name restart | **ACCEPT** |
 | [1721-9ecb98fe8-handler-rebind-keys.md](./1721-9ecb98fe8-handler-rebind-keys.md) | `9ecb98fe8` | D-2762 handler_rebind_keys + writers | **ACCEPT** |
 | [1722-c959009f8-add-menu-coloring.md](./1722-c959009f8-add-menu-coloring.md) | `c959009f8` | D-2763 add_menu_coloring whole body | **ACCEPT** |
+| [1723-d0dce8186-handle-config-section.md](./1723-d0dce8186-handle-config-section.md) | `d0dce8186` | D-2764 handle_config_section whole body | **ACCEPT** |
+| [1724-1b02bce10-optfn-msg-window-family.md](./1724-1b02bce10-optfn-msg-window-family.md) | `1b02bce10` | D-2765 msg_window/paranoid/symset/versinfo/warnings optfns | **QUALITY-RISK** |
+| [1725-40908907f-wiz-smell.md](./1725-40908907f-wiz-smell.md) | `40908907f` | D-2766 wiz_smell whole body | **ACCEPT** |
+| [1726-8f6ef128e-mhitm-ad-legs-uhitm.md](./1726-8f6ef128e-mhitm-ad-legs-uhitm.md) | `8f6ef128e` | D-2767 mhitm_ad_legs uhitm arm | **ACCEPT** |
+| [1727-72249caf4-reverse-loot.md](./1727-72249caf4-reverse-loot.md) | `72249caf4` | D-2768 reverse_loot + Confusion arm | **ACCEPT** |
+| [1728-66cce8590-list-vanquished.md](./1728-66cce8590-list-vanquished.md) | `66cce8590` | D-2769 list_vanquished restart | **QUALITY-RISK** |
+| [1729-af4f4ca65-done-in-by.md](./1729-af4f4ca65-done-in-by.md) | `af4f4ca65` | D-2770 done_in_by + passive AD_STON | **ACCEPT** |
+| [1730-385103f98-custom-nhcolor-wizcustom.md](./1730-385103f98-custom-nhcolor-wizcustom.md) | `385103f98` | D-2771 add_custom_nhcolor_entry + wizcustom_glyphids | **ACCEPT-WITH-DEBT** |
