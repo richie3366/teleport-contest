@@ -103,8 +103,6 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 always Must-fix rows: they forfeit every later screen of that session
 (Constitution §10.14).
 
-- [ ] `mhitm.c` mdamagem touch-petrify head — C `mhitm.c:1032–1055` (`touch_petrifies(pd)` or `AD_DGST`+Medusa, `attk_protection`/wornitems, then `monstone(magr)`) absent from `js/mhitm.js` `mdamagem` (`:4193` starts at `AD_STCK`/`AD_POLY`). D-2742 labeled this site `mhitm.js:1717`, which is `do_stone_mon` (`uhitm.c:3963`). Wire the head. Verify `node scripts/verify.mjs --fn mdamagem`. Source: reviews/loop-unattended/1701-09e6ef90d-monstone-whole-body.md
-
 ## Open — coverage (breadth phase — pop first after Must-fix)
 
 Rows below are `port-coverage.mjs --rows` output (score = reach × call
@@ -231,6 +229,8 @@ Refill 2026-09-23 @D-2751 (queue 7 below band after archiving the Blind Must-fix
 - [ ] `spell.c` getspell — coverage THIN (C 68 L `spell.c:715–783` / JS 21 L in js/spell.js; hops 6, callers 3, RNG 0, msg 3; dead callees: spell_let_to_idx). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn getspell` (reach regression must be 0). Measured `port-coverage.mjs --name getspell` 2026-09-23 @ 14f1ff816.
 - [ ] `pline.c` execplinehandler — coverage THIN (C 45 L `pline.c:641–686` / JS 5 L in js/display.js; hops 3, callers 2, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn execplinehandler` (reach regression must be 0). Measured `port-coverage.mjs --name execplinehandler` 2026-09-23 @ 14f1ff816.
 - [ ] `botl.c` status_hilite_menu — coverage MISSING (C 80 L `botl.c:4498–4578` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: status_hilites_viewall, status_hilite_menu_fld, reset_status_hilites). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn status_hilite_menu` (reach regression must be 0). Measured `port-coverage.mjs --name status_hilite_menu` 2026-09-23 @ 14f1ff816.
+Refill 2026-09-23 @D-2754 (queue 7 below band after archiving the touch-petrify Must-fix): `--rows 900` (pool 632) @ 4bd644114. Head is the stale never-re-pop set. 99 names never mentioned in the live queue, DONE, or PARKED are options/config/wiz/sound/color/save-infra (class-deferred, not pasted) except one botl row, appended verbatim:
+- [ ] `botl.c` status_hilite_linestr_gather_conditions — coverage PARTIAL (C 79 L `botl.c:3488–3567` / JS 53 L in js/botl.js; hops —, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn status_hilite_linestr_gather_conditions` (reach regression must be 0). Measured `port-coverage.mjs --name status_hilite_linestr_gather_conditions` 2026-09-23 @ 4bd644114.
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
 

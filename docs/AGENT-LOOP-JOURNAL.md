@@ -71,6 +71,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-23 — D-2754 `mhitm.c` mdamagem touch-petrify head calls monstone
+
+**C locus:** `nethack-c/upstream/src/mhitm.c:1032–1055` — `touch_petrifies(pd)` or (`AD_DGST` and Medusa), `!resists_ston(magr)`, then `attk_protection` (`mhitm.c:1473–1512`) against `misc_worn_check` with `mwep` OR'd as `W_ARMG`; unprotected `poly_when_stoned` → `mon_to_stone` else vis `pline_mon` + `monstone(magr)`.
+**JS:** `js/mhitm.js` `attk_protection` (`:4203`) and `mdamagem` (`:4240–4275`, `monstone` at `:4265`).
+**Change:** The head runs after the opening `d()` and before the adtyp dispatch. It calls exported `attk_protection`, then `mon_to_stone` or `monstone(magr)`. Unseen tame death uses `You(brief_feeling, "peculiarly sad")`.
+**Verify:** `node scripts/verify.mjs --fn mdamagem --reach-all` → PASS syntax (1 file `js/mhitm.js`) · PASS rule2 · note hidden 0 blocked on `mdamagem` (row cited 0 blocks) · PASS reach (124/124, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (`mhitm.js` not shared) · VERIFY: PASS.
+**Named:** `attk_protection` callers `mhitu.c:2484` (`passiveum` AD_STON, `js/mhitu.js:3305`) and `uhitm.c:5936` (`passivemm` AD_STON, `js/uhitm.js:2789`) stay the pre-existing worn-check deferrals. `resists_ston` worn/artifact `STONE_RES` stays the callee's named omit.
+**Next:** `lock.c` pick_lock `!IS_DOOR` DID_NOTHING half (`lock.c:578–593`).
 ## 2026-09-23 — D-2753 `mon.c` monstone unmap tests the memory glyph
 
 **C locus:** `nethack-c/upstream/src/mon.c:3358` `glyph_is_invisible(levl[x][y].glyph)` — `display.h:773` `#define glyph_is_invisible(glyph) ((glyph) == GLYPH_INVISIBLE)`.

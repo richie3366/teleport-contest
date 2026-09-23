@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2754 — `mhitm.c` mdamagem touch-petrify head calls monstone
+
+- **Status:** fixed (Must-fix review 1701: C `mhitm.c:1032–1055` absent from `mdamagem`. 0 corpus blocks — the row named a missing caller, not N blocks.)
+- **Symptom:** a monster whose attack touches a cockatrice, chickatrice, or (when digesting) Medusa never turned to stone. D-2742 counted `do_stone_mon` (`uhitm.c:3963`) as this site. `mdamagem` started at the `AD_STCK` / `AD_POLY` dispatch and never called `monstone(magr)`.
+- **C locus:** `nethack-c/upstream/src/mhitm.c:1032–1055` — `touch_petrifies(pd)` or (`AD_DGST` and Medusa), `!resists_ston(magr)`, then `attk_protection` (`mhitm.c:1473–1512`) against `misc_worn_check` with `mwep` OR'd as `W_ARMG`; unprotected `poly_when_stoned` → `mon_to_stone` else vis `pline_mon` + `monstone(magr)`.
+- **JS was:** `js/mhitm.js` `mdamagem` had no head. `attk_protection` had no JS body. The `monstone` map line pointed this caller at `do_stone_mon` (`mhitm.js:1720`).
+- **Fix:** The head runs after the opening `d()` and before the adtyp dispatch. It calls exported `attk_protection`, then `mon_to_stone` or `monstone(magr)`. Unseen tame death uses `You(brief_feeling, "peculiarly sad")`. `~0L` is JS `~0` (-1); the only compares are `== 0` and `!= ~0`.
+- **JS:** `js/mhitm.js` `attk_protection` (`:4203`) and `mdamagem` (`:4240–4275`, `monstone` at `:4265`).
+- **Callers:** every real C call of `mdamagem` stays wired, none added — `mhitm.c:731` → `js/mhitm.js:5318` (`hitmm`); `mhitm.c:802` → `js/mhitm.js:5611` (`gazemm`); `mhitm.c:910` → `js/mhitm.js:5488` (`gulpmm`); `mhitm.c:989` → `js/mhitm.js:5645` (`explmm`). `mhitm.c:20` is the decl. `mhitm.c:642`, `:661`, `:734`, `:887`, `:918` and `uhitm.c:2333` are comments. `attk_protection` is wired at `mhitm.c:1035` → `js/mhitm.js:4251`.
+- **Verify:** `node scripts/verify.mjs --fn mdamagem --reach-all` → PASS syntax (1 file `js/mhitm.js`) · PASS rule2 · note hidden 0 blocked on `mdamagem` (row cited 0 blocks) · PASS reach (124/124, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (`mhitm.js` not shared) · VERIFY: PASS.
+- **Named omissions:** `attk_protection` callers `mhitu.c:2484` (`passiveum` AD_STON, `js/mhitu.js:3305`) and `uhitm.c:5936` (`passivemm` AD_STON, `js/uhitm.js:2789`) stay the pre-existing worn-check deferrals. `resists_ston` worn/artifact `STONE_RES` stays the callee's named omit. The per-adtyp tail of `mdamagem` stays the existing split dispatch.
+- **Next:** `lock.c` pick_lock `!IS_DOOR` DID_NOTHING half (`lock.c:578–593`).
+
 ## D-2753 — `mon.c` monstone unmap tests the memory glyph
 
 - **Status:** fixed (Must-fix review 1701: C `mon.c:3358` `glyph_is_invisible(levl[x][y].glyph)` vs `glyph_is_invisible(loc)`. 0 corpus blocks — the row named a C-wrong predicate, not N blocks.)

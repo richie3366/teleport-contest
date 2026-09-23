@@ -4192,9 +4192,89 @@ async function mhitm_ad_deth(magr, mattk, mdef, mhm) {
     await mhitm_ad_drli(magr, mattk, mdef, mhm);
 }
 
+/**
+ * C ref: mhitm.c attk_protection `:1473–1512` — armor mask that keeps
+ * this attack type from touching. `~0` (`~0L`) means the attack does
+ * not touch, so no defense is required. Bite/sting/engulf/tentacle
+ * (and default) return 0: nothing worn protects.
+ * Callers: mdamagem `:1035`. Named: mhitu.c passiveum `:2484`,
+ * uhitm.c passivemm `:5936` (those arms still defer the worn check).
+ */
+export function attk_protection(aatyp) {
+    /* C `~0L`. JS bitwise `~0` is -1; callers only test == 0 and != ~0. */
+    const NO_TOUCH = ~0;
+    switch (aatyp | 0) {
+    case AT_NONE:
+    case AT_SPIT:
+    case AT_EXPL:
+    case AT_BOOM:
+    case AT_GAZE:
+    case AT_BREA:
+    case AT_MAGC:
+        return NO_TOUCH;
+    case AT_CLAW:
+    case AT_TUCH:
+    case AT_WEAP:
+        return W_ARMG; /* caller ORs a wielded weapon in as gloves */
+    case AT_KICK:
+        return W_ARMF;
+    case AT_BUTT:
+        return W_ARMH;
+    case AT_HUGS:
+        return (W_ARMC | W_ARMG); /* both */
+    case AT_BITE:
+    case AT_STNG:
+    case AT_ENGL:
+    case AT_TENT:
+    default:
+        return 0;
+    }
+}
+
+/**
+ * C ref: mhitm.c mdamagem `:1016–1119`. Touch-petrify head `:1032–1055`
+ * runs after the opening `d()` and before `mhitm_adtyping`. The per-adtyp
+ * dispatch below is that adtyping plus the knockback / done / HP tail
+ * (`:1059–1118`), still split by damage type.
+ */
 async function mdamagem(magr, mdef, mattk, mwep, dieroll) {
+    const pa = magr.data;
+    const pd = mdef.data;
+    /* C `:1025` — dice burn even when the head returns before damage. */
     let damage = d(mattk.damn || 0, mattk.damd || 0);
     let hitflags = M_ATTK_MISS;
+
+    /* C `:1032–1056` — defender touch-petrifies, or digesting Medusa. */
+    if ((touch_petrifies(pd)
+            || ((mattk.adtyp | 0) === AD_DGST && (pd?.mndx | 0) === PM_MEDUSA))
+        && !resists_ston(magr)) {
+        const protector = attk_protection(mattk.aatyp | 0);
+        let wornitems = magr.misc_worn_check | 0;
+        /* wielded weapon gives the same protection as gloves */
+        if (mwep) wornitems |= W_ARMG;
+        const noTouch = ~0;
+        if (protector === 0
+            || (protector !== noTouch && (wornitems & protector) !== protector)) {
+            if (poly_when_stoned(pa, game.mvitals)) {
+                await mon_to_stone(magr);
+                return M_ATTK_HIT; /* no damage during the polymorph */
+            }
+            if (_mm_vis && canspotmon(magr)) {
+                await pline_mon(magr, '%s turns to stone!', Monnam(magr));
+            }
+            await monstone(magr);
+            if (!deadmonster(magr)) {
+                return M_ATTK_HIT; /* lifesaved */
+            } else if (magr.mtame && !_mm_vis) {
+                /* mhitm.c:9 brief_feeling */
+                await You(
+                    'have a %s feeling for a moment, then it passes.',
+                    'peculiarly sad',
+                );
+            }
+            return M_ATTK_AGR_DIED;
+        }
+    }
 
     if (mattk.adtyp === AD_STCK) {
         damage = 0;

@@ -2,7 +2,9 @@
 
 Metadata: commit `09e6ef90d`, D-2742, `js/mhitm.js` + one-word `export` on `js/mon.js` `unlink_minvent`. Coverage row (C 86 L / JS was 60 L), 0 corpus blocks. Also Stale-parks `mhitm_ad_drin`. No prior review claimed closed.
 
-**Addressed:** D-2753
+**Addressed:** D-2753 `4bd644114`
+
+**Addressed:** D-2754
 
 ## Intent vs deliverable
 
