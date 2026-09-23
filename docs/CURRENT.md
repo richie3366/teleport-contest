@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `options.c` handler_whatis_coord — coverage MISSING (C 70 L `options.c:6206–6276` / JS no symbol; callers 1); port whole body + optfn_whatis_coord caller; verify `--fn handler_whatis_coord`. Then first Open — coverage row.
+**Next cluster:** `sounds.c` add_sound_mapping + base_soundname_to_filename — coverage MISSING pair (C 70 L `sounds.c:1556–1626` USER_SOUNDS-compiled-out + C 64 L `sounds.c:2084–2152` live; JS no symbols); port both whole bodies in C order (D-2599 precedent: live export, compiled-out caller deliberately unwired); verify `--fn add_sound_mapping` + `--fn base_soundname_to_filename`. Then first Open — coverage row.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2775 (index).**
+**Keep D-0845…D-2776 (index).**
 <!-- recent:begin -->
+**D-2776** `nethack-c/upstream/src/sounds.c:1556–1626` + `:2084–2152`; sff enum `include/sndprocs.h:2 — `js/sounds.js` (+261/−1) — both bodies in C order with `:line` cites.
 **D-2775** `options.c` handler_whatis_coord `:6205–6276`; optfn_whatis_coord `:4702–4745` (do_init `: — whole C bodies in C order with `:line` cites.
 **D-2774** `options.c` handler_menu_objsyms `:5794–5829`; optfn_menu_objsyms `:2224–2287` (do_init `: — whole C bodies in C order with `:line` cites: `objsymvals` table; `set_menuobjsyms_flags(n, iflagsBag)` (bit 1 → menu_head_objsym, bits 2|4 → use_menu_glyphs); `optfn_menu_objsyms` — do_init 4, do_set (`!` → 0, valueless
 **D-2773** `options.c` doset `:8933–8939` (`allopt[k].optfn(idx, do_handler, FALSE, empty_optstr, emp — new async `doset_optfn_do_handler(name)` = the three do_handler arms in C order (versinfo: snapshot `vi`, await `handler_versinfo`, `'%s' %s %u.` changed-to / not-changed-still pline, `:4530` redraw gate); `doset_compopt
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2771** `nethack-c/upstream/src/glyphs.c:484–528` (`add_custom_nhcolor_entry`) + `:736–747` (`find — `js/glyphs.js` — module-local `sym_customizations[3][5]` grid (BSS-zeroed shape) + `PRIMARYSET`/`ROGUESET`/`NUM_GRAPHICS`/`UNICODESET` + `CUSTOM_*` consts; exported `find_matching_customization` (strcmp≡`===`, `!== null`
 **D-2770** `nethack-c/upstream/src/end.c:185–344` (`done_in_by`); caller `nethack-c/upstream/src/uhit — `js/end.js` — live `await You(...)` at `:1286` (output-identical: `You`=vpline('You '+fmt), `pline`=vpline); named-ghost "the "+KILLED_BY at `:1314` via mptrNdx (=== mptr, imitator arm has not run yet); "ghost of" at `:1
 **D-2769** `nethack-c/upstream/src/insight.c:2784–2949` (`list_vanquished`). Arms: `:2796–2811` force — restarted the whole body in C order with per-arm `:line` cites: `(void) await set_vanq_order(true)` at `:2805`, cancel-return `if ((await set_vanq_order(true)) < 0) return` at `:2854–2855`; live class_header (`VANQ_MCLS_
-**D-2768** `nethack-c/upstream/src/pickup.c:2350–2426` (`reverse_loot`, staticfn); sole C caller `pic — ported the whole body in C order into `js/pickup.js` (1:1 C home, module-local like C staticfn and the `doloot_core` precedent): `!rn2(3)` + inv_cnt(true) walk of the invlet-sorted invent array (C nobj order — both sides
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2775; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2776; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

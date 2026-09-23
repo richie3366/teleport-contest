@@ -259,11 +259,13 @@ function posix_class_pat(s) {
         .replace(/\[:xdigit:\]/g, '0-9A-Fa-f');
 }
 
-function regex_init() {
+/** Exported for sounds.js add_sound_mapping (sounds.c `:1590`). */
+export function regex_init() {
     return { jsre: null, err: 0 };
 }
 
-function regex_compile(s, re) {
+/** Exported for sounds.js add_sound_mapping (sounds.c `:1596`). */
+export function regex_compile(s, re) {
     if (!re) return false;
     try {
         re.jsre = new RegExp(posix_class_pat(s));
@@ -287,7 +289,8 @@ export function regex_match(s, re) {
     return re.jsre.test(String(s));
 }
 
-function regex_free(re) {
+/** Exported for sounds.js add_sound_mapping (sounds.c `:1601`). */
+export function regex_free(re) {
     if (re) {
         re.jsre = null;
         re.err = 0;
