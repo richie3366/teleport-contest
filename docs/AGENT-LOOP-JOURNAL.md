@@ -127,6 +127,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-23 — D-2777 `coloratt.c` closest_color + color_distance + alt_color_spec + color_attr_parse_str whole-body ports (256-color table, menu_headings parser)
+
+**C locus:** `nethack-c/upstream/src/coloratt.c:978–994` (color_distance) + `:996–1021` (closest_color) + `:885–970` (color_256_definitions) + `:1110–1165` (alt_color_spec) + `:260–301` (color_attr_parse_str); hexdd `nethack-c/upstream/src/decl.c:74`; callers `:878` (set_map_customcolor), `:1085` (alternative_palette), options.c `:2204` (optfn_menu_headings).
+**JS:** `js/options.js` `color_distance :2762`, `closest_color :2784`, `alt_color_spec :2819`, `color_attr_parse_str :2883` (module-local `color_256_definitions` + `hexdd` directly above).
+**Change:** `js/options.js` (+256/−0) — table + hexdd + four exports in C order with `:line` cites. `color_256_definitions` module-local like C (240 entries, 16–255); `hexdd` module-local (`decl.c:74`); `color_distance` — `>>>` for the C uint32_t shifts, `| 0` for the non-negative `:988` division, `>> 8` on non-negative terms; `closest_color` — exact-match break + redmean-closest scan, `0x7fffffff` INT_MAX (no const.js INT_MAX), `{ v }` out-boxes (s_to_anything precedent), null boxes → FALSE no-write `:1015`; `alt_color_spec` — index-walked cp, `!!`-coerced `:1122–1126` escape tests (JS `&&` is not boolean), assignment-in-condition hidx mirroring `:1155` dp, no-else skip preserved, `""` returns -1 (C `strchr(dec,NUL)` matches then reads OOB — UB, cited); `color_attr_parse_str` — BUFSZ−1 slice, first-`&` split, FIXME retry-swapped arm `:279–283` verbatim, `{ attr, color }` written only on success. `ATR_NONE` added to the existing terminal.js import (0 = C wintype.h:128; weapon.js precedent) — zero new cross-module edges.
+**Verify:** `node scripts/verify.mjs --fn closest_color` → VERIFY: PASS. Tail verbatim:
+**Named:** callers set_map_customcolor / alternative_palette / optfn_menu_headings (none ported; CHANGE_COLOR compiled-out for the middle); `get_nhcolor_from_256_index` (table's other C reader); `""` strchr-NUL+OOB edge (returns -1); config_error_add message text (botl.js sink precedent — the live matchers sink it themselves).
+**Next:** queue head `options.c` handler_number_pad.
 ## 2026-09-23 — D-2776 `sounds.c` add_sound_mapping + base_soundname_to_filename whole-body ports (USER_SOUNDS source-level body, measured sscanf emulation)
 
 **C locus:** `nethack-c/upstream/src/sounds.c:1556–1626` + `:2084–2152`; sff enum `include/sndprocs.h:296–301`; `can_read_file` `nethack-c/upstream/src/cfgfiles.c:1442–1446`; regex engine `nethack-c/upstream/sys/share/posixregex.c` (`regex_error_desc` `:76`, `regex_free` `:108`); caller `nethack-c/upstream/src/cfgfiles.c:1233`.

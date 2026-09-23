@@ -146,6 +146,7 @@ import { flush_screen, pline, docrt, check_gold_symbol, clear_committed_status, 
 import { paint_corner_nhw_menu, dismiss_nhw_menu, collect_menu_gacc, process_menu_search, toggle_menu_curr, menu_digit_is_gacc, reassign, update_inventory, invlet_constant, perm_invent_toggled, select_menu_pick_none } from './invent.js';
 import {
     ATR_INVERSE,
+    ATR_NONE,
     CLR_BLACK, CLR_RED, CLR_GREEN, CLR_BROWN, CLR_BLUE, CLR_MAGENTA,
     CLR_CYAN, CLR_GRAY, CLR_ORANGE, CLR_BRIGHT_GREEN, CLR_YELLOW,
     CLR_BRIGHT_BLUE, CLR_BRIGHT_MAGENTA, CLR_BRIGHT_CYAN, CLR_WHITE,
@@ -2656,6 +2657,261 @@ export function add_menu_coloring(tmpstr) {
         if (j >= 0 && pattern[j] === pattern[0]) pattern = pattern.slice(1, j); // C :654-657
     }
     return add_menu_coloring_parsed(pattern, c, a); // C :659
+}
+
+/* C coloratt.c:885-970 color_256_definitions[] — file-static {index,value}
+ * table (values from UnNetHack, C `:889` comment): the xterm 256-color
+ * cube 16-231 plus grayscale 232-255. Module-local like C; readers are
+ * closest_color below and the unported get_nhcolor_from_256_index
+ * (map-named). Transcription cross-checked against the xterm formula
+ * (cube steps 0/95/135/175/215/255, gray 8+10k) in the D-2777 smoke test. */
+const color_256_definitions = [
+    { index: 16, value: 0x000000 }, { index: 17, value: 0x00005f }, { index: 18, value: 0x000087 },
+    { index: 19, value: 0x0000af }, { index: 20, value: 0x0000d7 }, { index: 21, value: 0x0000ff },
+    { index: 22, value: 0x005f00 }, { index: 23, value: 0x005f5f }, { index: 24, value: 0x005f87 },
+    { index: 25, value: 0x005faf }, { index: 26, value: 0x005fd7 }, { index: 27, value: 0x005fff },
+    { index: 28, value: 0x008700 }, { index: 29, value: 0x00875f }, { index: 30, value: 0x008787 },
+    { index: 31, value: 0x0087af }, { index: 32, value: 0x0087d7 }, { index: 33, value: 0x0087ff },
+    { index: 34, value: 0x00af00 }, { index: 35, value: 0x00af5f }, { index: 36, value: 0x00af87 },
+    { index: 37, value: 0x00afaf }, { index: 38, value: 0x00afd7 }, { index: 39, value: 0x00afff },
+    { index: 40, value: 0x00d700 }, { index: 41, value: 0x00d75f }, { index: 42, value: 0x00d787 },
+    { index: 43, value: 0x00d7af }, { index: 44, value: 0x00d7d7 }, { index: 45, value: 0x00d7ff },
+    { index: 46, value: 0x00ff00 }, { index: 47, value: 0x00ff5f }, { index: 48, value: 0x00ff87 },
+    { index: 49, value: 0x00ffaf }, { index: 50, value: 0x00ffd7 }, { index: 51, value: 0x00ffff },
+    { index: 52, value: 0x5f0000 }, { index: 53, value: 0x5f005f }, { index: 54, value: 0x5f0087 },
+    { index: 55, value: 0x5f00af }, { index: 56, value: 0x5f00d7 }, { index: 57, value: 0x5f00ff },
+    { index: 58, value: 0x5f5f00 }, { index: 59, value: 0x5f5f5f }, { index: 60, value: 0x5f5f87 },
+    { index: 61, value: 0x5f5faf }, { index: 62, value: 0x5f5fd7 }, { index: 63, value: 0x5f5fff },
+    { index: 64, value: 0x5f8700 }, { index: 65, value: 0x5f875f }, { index: 66, value: 0x5f8787 },
+    { index: 67, value: 0x5f87af }, { index: 68, value: 0x5f87d7 }, { index: 69, value: 0x5f87ff },
+    { index: 70, value: 0x5faf00 }, { index: 71, value: 0x5faf5f }, { index: 72, value: 0x5faf87 },
+    { index: 73, value: 0x5fafaf }, { index: 74, value: 0x5fafd7 }, { index: 75, value: 0x5fafff },
+    { index: 76, value: 0x5fd700 }, { index: 77, value: 0x5fd75f }, { index: 78, value: 0x5fd787 },
+    { index: 79, value: 0x5fd7af }, { index: 80, value: 0x5fd7d7 }, { index: 81, value: 0x5fd7ff },
+    { index: 82, value: 0x5fff00 }, { index: 83, value: 0x5fff5f }, { index: 84, value: 0x5fff87 },
+    { index: 85, value: 0x5fffaf }, { index: 86, value: 0x5fffd7 }, { index: 87, value: 0x5fffff },
+    { index: 88, value: 0x870000 }, { index: 89, value: 0x87005f }, { index: 90, value: 0x870087 },
+    { index: 91, value: 0x8700af }, { index: 92, value: 0x8700d7 }, { index: 93, value: 0x8700ff },
+    { index: 94, value: 0x875f00 }, { index: 95, value: 0x875f5f }, { index: 96, value: 0x875f87 },
+    { index: 97, value: 0x875faf }, { index: 98, value: 0x875fd7 }, { index: 99, value: 0x875fff },
+    { index: 100, value: 0x878700 }, { index: 101, value: 0x87875f }, { index: 102, value: 0x878787 },
+    { index: 103, value: 0x8787af }, { index: 104, value: 0x8787d7 }, { index: 105, value: 0x8787ff },
+    { index: 106, value: 0x87af00 }, { index: 107, value: 0x87af5f }, { index: 108, value: 0x87af87 },
+    { index: 109, value: 0x87afaf }, { index: 110, value: 0x87afd7 }, { index: 111, value: 0x87afff },
+    { index: 112, value: 0x87d700 }, { index: 113, value: 0x87d75f }, { index: 114, value: 0x87d787 },
+    { index: 115, value: 0x87d7af }, { index: 116, value: 0x87d7d7 }, { index: 117, value: 0x87d7ff },
+    { index: 118, value: 0x87ff00 }, { index: 119, value: 0x87ff5f }, { index: 120, value: 0x87ff87 },
+    { index: 121, value: 0x87ffaf }, { index: 122, value: 0x87ffd7 }, { index: 123, value: 0x87ffff },
+    { index: 124, value: 0xaf0000 }, { index: 125, value: 0xaf005f }, { index: 126, value: 0xaf0087 },
+    { index: 127, value: 0xaf00af }, { index: 128, value: 0xaf00d7 }, { index: 129, value: 0xaf00ff },
+    { index: 130, value: 0xaf5f00 }, { index: 131, value: 0xaf5f5f }, { index: 132, value: 0xaf5f87 },
+    { index: 133, value: 0xaf5faf }, { index: 134, value: 0xaf5fd7 }, { index: 135, value: 0xaf5fff },
+    { index: 136, value: 0xaf8700 }, { index: 137, value: 0xaf875f }, { index: 138, value: 0xaf8787 },
+    { index: 139, value: 0xaf87af }, { index: 140, value: 0xaf87d7 }, { index: 141, value: 0xaf87ff },
+    { index: 142, value: 0xafaf00 }, { index: 143, value: 0xafaf5f }, { index: 144, value: 0xafaf87 },
+    { index: 145, value: 0xafafaf }, { index: 146, value: 0xafafd7 }, { index: 147, value: 0xafafff },
+    { index: 148, value: 0xafd700 }, { index: 149, value: 0xafd75f }, { index: 150, value: 0xafd787 },
+    { index: 151, value: 0xafd7af }, { index: 152, value: 0xafd7d7 }, { index: 153, value: 0xafd7ff },
+    { index: 154, value: 0xafff00 }, { index: 155, value: 0xafff5f }, { index: 156, value: 0xafff87 },
+    { index: 157, value: 0xafffaf }, { index: 158, value: 0xafffd7 }, { index: 159, value: 0xafffff },
+    { index: 160, value: 0xd70000 }, { index: 161, value: 0xd7005f }, { index: 162, value: 0xd70087 },
+    { index: 163, value: 0xd700af }, { index: 164, value: 0xd700d7 }, { index: 165, value: 0xd700ff },
+    { index: 166, value: 0xd75f00 }, { index: 167, value: 0xd75f5f }, { index: 168, value: 0xd75f87 },
+    { index: 169, value: 0xd75faf }, { index: 170, value: 0xd75fd7 }, { index: 171, value: 0xd75fff },
+    { index: 172, value: 0xd78700 }, { index: 173, value: 0xd7875f }, { index: 174, value: 0xd78787 },
+    { index: 175, value: 0xd787af }, { index: 176, value: 0xd787d7 }, { index: 177, value: 0xd787ff },
+    { index: 178, value: 0xd7af00 }, { index: 179, value: 0xd7af5f }, { index: 180, value: 0xd7af87 },
+    { index: 181, value: 0xd7afaf }, { index: 182, value: 0xd7afd7 }, { index: 183, value: 0xd7afff },
+    { index: 184, value: 0xd7d700 }, { index: 185, value: 0xd7d75f }, { index: 186, value: 0xd7d787 },
+    { index: 187, value: 0xd7d7af }, { index: 188, value: 0xd7d7d7 }, { index: 189, value: 0xd7d7ff },
+    { index: 190, value: 0xd7ff00 }, { index: 191, value: 0xd7ff5f }, { index: 192, value: 0xd7ff87 },
+    { index: 193, value: 0xd7ffaf }, { index: 194, value: 0xd7ffd7 }, { index: 195, value: 0xd7ffff },
+    { index: 196, value: 0xff0000 }, { index: 197, value: 0xff005f }, { index: 198, value: 0xff0087 },
+    { index: 199, value: 0xff00af }, { index: 200, value: 0xff00d7 }, { index: 201, value: 0xff00ff },
+    { index: 202, value: 0xff5f00 }, { index: 203, value: 0xff5f5f }, { index: 204, value: 0xff5f87 },
+    { index: 205, value: 0xff5faf }, { index: 206, value: 0xff5fd7 }, { index: 207, value: 0xff5fff },
+    { index: 208, value: 0xff8700 }, { index: 209, value: 0xff875f }, { index: 210, value: 0xff8787 },
+    { index: 211, value: 0xff87af }, { index: 212, value: 0xff87d7 }, { index: 213, value: 0xff87ff },
+    { index: 214, value: 0xffaf00 }, { index: 215, value: 0xffaf5f }, { index: 216, value: 0xffaf87 },
+    { index: 217, value: 0xffafaf }, { index: 218, value: 0xffafd7 }, { index: 219, value: 0xffafff },
+    { index: 220, value: 0xffd700 }, { index: 221, value: 0xffd75f }, { index: 222, value: 0xffd787 },
+    { index: 223, value: 0xffd7af }, { index: 224, value: 0xffd7d7 }, { index: 225, value: 0xffd7ff },
+    { index: 226, value: 0xffff00 }, { index: 227, value: 0xffff5f }, { index: 228, value: 0xffff87 },
+    { index: 229, value: 0xffffaf }, { index: 230, value: 0xffffd7 }, { index: 231, value: 0xffffff },
+    { index: 232, value: 0x080808 }, { index: 233, value: 0x121212 }, { index: 234, value: 0x1c1c1c },
+    { index: 235, value: 0x262626 }, { index: 236, value: 0x303030 }, { index: 237, value: 0x3a3a3a },
+    { index: 238, value: 0x444444 }, { index: 239, value: 0x4e4e4e }, { index: 240, value: 0x585858 },
+    { index: 241, value: 0x626262 }, { index: 242, value: 0x6c6c6c }, { index: 243, value: 0x767676 },
+    { index: 244, value: 0x808080 }, { index: 245, value: 0x8a8a8a }, { index: 246, value: 0x949494 },
+    { index: 247, value: 0x9e9e9e }, { index: 248, value: 0xa8a8a8 }, { index: 249, value: 0xb2b2b2 },
+    { index: 250, value: 0xbcbcbc }, { index: 251, value: 0xc6c6c6 }, { index: 252, value: 0xd0d0d0 },
+    { index: 253, value: 0xdadada }, { index: 254, value: 0xe4e4e4 }, { index: 255, value: 0xeeeeee },
+];
+
+/* C decl.c:74 hexdd[] — "used by coloratt.c, options.c, utf8map.c,
+ * windows.c". Doubled digits so (index of ch)/2 is the hex value
+ * (alt_color_spec `:1156`). Module-local until a second user arrives. */
+const hexdd = '00112233445566778899aAbBcCdDeEfF';
+
+/**
+ * C ref: coloratt.c color_distance `:978–994` — redmean color distance
+ * (UnNetHack via compuphase.com/cmetric, C `:973–976` comment). `>>>`
+ * keeps the C uint32_t shifts exact; both `>> 8` terms stay
+ * non-negative so JS `>>` is the C `>>`.
+ */
+export function color_distance(rgb1, rgb2) {
+    const r1 = (rgb1 >>> 16) & 0xFF; // C :981
+    const g1 = (rgb1 >>> 8) & 0xFF; // C :982
+    const b1 = rgb1 & 0xFF; // C :983
+    const r2 = (rgb2 >>> 16) & 0xFF; // C :984
+    const g2 = (rgb2 >>> 8) & 0xFF; // C :985
+    const b2 = rgb2 & 0xFF; // C :986
+    const rmean = ((r1 + r2) / 2) | 0; // C :988 int division, non-negative
+    const r = r1 - r2; // C :989
+    const g = g1 - g2; // C :990
+    const b = b1 - b2; // C :991
+    return ((((512 + rmean) * r * r) >> 8) + 4 * g * g // C :992-993
+        + (((767 - rmean) * b * b) >> 8));
+}
+
+/**
+ * C ref: coloratt.c closest_color `:996–1021` — exact match over the
+ * 256-color table, else the redmean-closest entry. Out-params use the
+ * `{ v }` box convention (botl.js s_to_anything precedent); null boxes
+ * mean FALSE with no write (C `:1015`). Sole C caller is
+ * set_map_customcolor `:878` (unported — map-named).
+ */
+export function closest_color(lcolor, closecolor, clridx) {
+    const lcol = (lcolor ?? 0) >>> 0; // C uint32 lcolor
+    let color_index = -1, similar = 0x7fffffff, current; // C :999 (INT_MAX, limits.h)
+    let retbool = false; // C :1000
+    for (let i = 0; i < color_256_definitions.length; i++) { // C :1002 SIZE
+        /* look for an exact match */ // C :1003
+        if (lcol === color_256_definitions[i].value) { // C :1004
+            color_index = i; // C :1005
+            break; // C :1006
+        }
+        /* find a close color match */ // C :1008
+        current = color_distance(lcol, color_256_definitions[i].value); // C :1009
+        if (current < similar) { // C :1010
+            color_index = i; // C :1011
+            similar = current; // C :1012
+        }
+    }
+    if (closecolor && clridx && color_index >= 0) { // C :1015
+        closecolor.v = color_256_definitions[color_index].value; // C :1016
+        clridx.v = color_256_definitions[color_index].index; // C :1017
+        retbool = true; // C :1018
+    }
+    return retbool; // C :1020
+}
+
+/**
+ * C ref: coloratt.c alt_color_spec `:1110–1165` (staticfn; inside
+ * `#ifdef CHANGE_COLOR`, which the contest unix build does not define —
+ * amiconf.h:165 only — so contest C never compiles the sole caller
+ * alternative_palette `:1085`; live export on the D-2599 precedent).
+ * Parses `\x…`/`\o…` escapes, `#…` hex, bare decimal runs and single
+ * digits into an int32 rgb value, -1 past the digit limit. The cp
+ * pointer walk is the index `p`; unmatched chars are skipped but still
+ * counted (C has no else arm, `:1157`).
+ */
+export function alt_color_spec(str) {
+    const oct = '01234567', dec = '0123456789'; // C :1113 function-static
+    const s = String(str ?? ''); // C :1116 cp = str
+    let hidx = -1; // C :1116 dp (strchr result offset)
+    let cval = -1; // C :1117
+    let dcount, dlimit = 6; // C :1118
+    let hexescape = false, octescape = false; // C :1119
+    let p = 0; // C cp
+
+    dcount = 0; // C :1121
+    hexescape = s[p] === '\\' && !!s[p + 1] // C :1122-1123
+        && (s[p + 1] === 'x' || s[p + 1] === 'X') && !!s[p + 2];
+    if (!hexescape) { // C :1124
+        octescape = s[p] === '\\' && !!s[p + 1] // C :1125-1126
+            && (s[p + 1] === 'o' || s[p + 1] === 'O') && !!s[p + 2];
+    }
+
+    if (hexescape || octescape) { // C :1129
+        cval = 0; // C :1130
+        p += 2; // C :1131
+        if (octescape) dlimit = 8; // C :1132-1133
+    } else if (s[p] === '#' && s[p + 1]) { // C :1134
+        hexescape = true; // C :1135
+        cval = 0; // C :1136
+        p += 1; // C :1137
+    } else if (s[p + 1]) { // C :1138
+        cval = 0; // C :1139
+        dlimit = 8; // C :1140
+    } else if (!s[p + 1]) { // C :1141
+        // C :1142 — strchr(dec, NUL) matches the terminator, so C reads
+        // past "" (UB); JS returns -1 for the empty single-char arm.
+        if (s[p] !== undefined && dec.includes(s[p])) {
+            /* simple val, or nothing left for \ to escape */ // C :1143
+            cval = s[p].charCodeAt(0) - 48; // C :1144 (*cp - '0')
+        }
+        dlimit = 1; // C :1146
+        p++; // C :1147
+    }
+
+    while (s[p]) { // C :1150
+        if (!hexescape && !octescape && dec.includes(s[p])) { // C :1151
+            cval = (cval * 10) + (s[p].charCodeAt(0) - 48); // C :1152
+        } else if (octescape && oct.includes(s[p])) { // C :1153
+            cval = (cval * 8) + (s[p].charCodeAt(0) - 48); // C :1154
+        } else if (hexescape && (hidx = hexdd.indexOf(s[p])) !== -1) { // C :1155
+            cval = (cval * 16) + (hidx >> 1); // C :1156 (dp - hexdd)/2
+        }
+        ++p; // C :1158
+        if (++dcount > dlimit) { // C :1159
+            cval = -1; // C :1160
+            break; // C :1161
+        }
+    }
+    return cval; // C :1164
+}
+
+/**
+ * C ref: coloratt.c color_attr_parse_str `:260–301` — parse a
+ * `color&attr` pair (either order, C `:279–283` retry) or a single
+ * color-or-attr token into the C `color_attr` struct (JS
+ * `{ attr, color }`). Writes `ca` only on success; FALSE leaves it
+ * untouched. Sole C caller is options.c optfn_menu_headings `:2204`
+ * (unported — map-named).
+ */
+export function color_attr_parse_str(ca, str) {
+    let tmp, c = NO_COLOR, a = ATR_NONE; // C :265 (C ATR_NONE=0, wintype.h:128)
+    // C :267-268 strncpy + forced NUL: copy truncated to BUFSZ-1.
+    const buf = String(str ?? '').slice(0, BUFSZ - 1);
+    const ampIdx = buf.indexOf('&'); // C :270 strchr(buf, '&')
+    if (ampIdx !== -1) { // C :273 if (amp)
+        const colorPart = buf.slice(0, ampIdx); // C :271 buf half (*amp = NUL)
+        const attrPart = buf.slice(ampIdx + 1); // C :274 amp++
+        c = match_str2clr(colorPart, false); // C :275
+        a = match_str2attr(attrPart, true); // C :276
+        /* FIXME: match_str2clr & match_str2attr give config_error_add(),
+           so this is useless */ // C :277-278
+        if (c >= CLR_MAX && a === -1) { // C :279
+            /* try other way around */ // C :280
+            c = match_str2clr(attrPart, false); // C :281
+            a = match_str2attr(colorPart, true); // C :282
+        }
+        if (c >= CLR_MAX || a === -1) return false; // C :284-285
+    } else {
+        /* one param only */ // C :287
+        tmp = match_str2attr(buf, false); // C :288
+        if (tmp === -1) { // C :289
+            tmp = match_str2clr(buf, false); // C :290
+            if (tmp >= CLR_MAX) return false; // C :291-292
+            c = tmp; // C :293
+        } else {
+            a = tmp; // C :295
+        }
+    }
+    ca.attr = a; // C :298
+    ca.color = c; // C :299
+    return true; // C :300
 }
 
 /**

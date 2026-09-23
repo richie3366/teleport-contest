@@ -1,5 +1,28 @@
 # Divergence log
 
+## D-2777 — `coloratt.c` closest_color + color_distance + alt_color_spec + color_attr_parse_str whole-body ports (256-color table, menu_headings parser)
+
+- **Status:** fixed (Open — coverage trio `coloratt.c` closest_color MISSING (C 24 L `:997–1021`) + alt_color_spec MISSING (C 54 L `:1111–1165`) + color_attr_parse_str MISSING (C 40 L `:261–301`), each measured `port-coverage.mjs --name` 2026-09-23 @ 66cce8590; same-C-file rows ship together; callee color_distance `:979–994` ported in-commit).
+- **Symptom:** coverage gap, not a corpus divergence (`hidden-proxy verify`: no corpus session blocked on any of the three at baseline; fixed 24-session smoke spread is the evidence for each). `alt_color_spec` and its sole caller `alternative_palette` sit inside `#ifdef CHANGE_COLOR` (coloratt.c `:1032–1167`); the contest unix build never defines it (amiconf.h:165 only; windconf.h commented out; unixconf silent), so contest C compiles neither — live export on the D-2599/D-2776 precedent, caller deliberately unwired.
+- **C locus:** `nethack-c/upstream/src/coloratt.c:978–994` (color_distance) + `:996–1021` (closest_color) + `:885–970` (color_256_definitions) + `:1110–1165` (alt_color_spec) + `:260–301` (color_attr_parse_str); hexdd `nethack-c/upstream/src/decl.c:74`; callers `:878` (set_map_customcolor), `:1085` (alternative_palette), options.c `:2204` (optfn_menu_headings).
+- **JS was:** no same-named symbols anywhere in `js/` (brief `sym.mjs` NOT FOUND all four); options.js already hosted the coloratt family (add_menu_coloring `:2628`, D-2763) with live match_str2clr/match_str2attr imports from botl.js.
+- **Fix:** `js/options.js` (+256/−0) — table + hexdd + four exports in C order with `:line` cites. `color_256_definitions` module-local like C (240 entries, 16–255); `hexdd` module-local (`decl.c:74`); `color_distance` — `>>>` for the C uint32_t shifts, `| 0` for the non-negative `:988` division, `>> 8` on non-negative terms; `closest_color` — exact-match break + redmean-closest scan, `0x7fffffff` INT_MAX (no const.js INT_MAX), `{ v }` out-boxes (s_to_anything precedent), null boxes → FALSE no-write `:1015`; `alt_color_spec` — index-walked cp, `!!`-coerced `:1122–1126` escape tests (JS `&&` is not boolean), assignment-in-condition hidx mirroring `:1155` dp, no-else skip preserved, `""` returns -1 (C `strchr(dec,NUL)` matches then reads OOB — UB, cited); `color_attr_parse_str` — BUFSZ−1 slice, first-`&` split, FIXME retry-swapped arm `:279–283` verbatim, `{ attr, color }` written only on success. `ATR_NONE` added to the existing terminal.js import (0 = C wintype.h:128; weapon.js precedent) — zero new cross-module edges.
+- **JS:** `js/options.js` `color_distance :2762`, `closest_color :2784`, `alt_color_spec :2819`, `color_attr_parse_str :2883` (module-local `color_256_definitions` + `hexdd` directly above).
+- **Callers:** C `:878` set_map_customcolor → unported (no JS symbol), named; C `:1085` alternative_palette → compiled out + unported, named; options.c `:2204` optfn_menu_headings → unported (own coverage row when emitted), named. No JS call sites added: wiring from a site C never calls from is a C-wrong (D-2393).
+- **Verify:** `node scripts/verify.mjs --fn closest_color` → VERIFY: PASS. Tail verbatim:
+  `PASS  syntax   1 changed js file(s): js/options.js`
+  `PASS  rule2    no fs/path/url/node: imports, no DIAG/FORCE/seed gates`
+  `note  hidden   verify closest_color: no corpus session blocked on it at baseline`
+  `PASS  reach    no RNG-tagged reach; fixed smoke spread (24 run, 2.9s): 24 PASS, 0 regressed → REACH-OK`
+  `PASS  green    2/2 passing`
+  `PASS  strict   seed8000-tourist-starter.session.json`
+  `PASS  strict   seed0900-tourist-explore-actions.session.json`
+  `PASS  cohort   7/7 passing`
+  `PASS  full     44/44 passing (auto: shared file changed)`
+  `--fn alt_color_spec` → VERIFY: PASS (identical gates, smoke 24/24 in 3.1s). `--fn color_attr_parse_str` → VERIFY: PASS (identical gates, smoke 24/24 in 2.9s). Throwaway /tmp node check (not committed — no tests/ dir in repo; the verify gates above are the evidence): 274/274 — all 240 table entries exact-match with correct clridx against the independent xterm formula, hand-computed redmean values, escape/decimal/limit arms, pair both orders + failures leave ca untouched.
+- **Named omissions:** callers set_map_customcolor / alternative_palette / optfn_menu_headings (none ported; CHANGE_COLOR compiled-out for the middle); `get_nhcolor_from_256_index` (table's other C reader); `""` strchr-NUL+OOB edge (returns -1); config_error_add message text (botl.js sink precedent — the live matchers sink it themselves).
+- **Next:** queue head `options.c` handler_number_pad.
+
 ## D-2776 — `sounds.c` add_sound_mapping + base_soundname_to_filename whole-body ports (USER_SOUNDS source-level body, measured sscanf emulation)
 
 - **Status:** fixed (Open — coverage pair `sounds.c` add_sound_mapping MISSING (C 70 L `sounds.c:1556–1626` / JS no symbol; callers 1, RNG 0, msg 0) + base_soundname_to_filename MISSING (C 64 L `sounds.c:2084–2152` / JS no symbol; callers 0, RNG 0, msg 3), measured `port-coverage.mjs --name` 2026-09-23 @ d0dce8186; same-C-file rows ship together).
