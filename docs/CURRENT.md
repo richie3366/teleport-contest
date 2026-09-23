@@ -98,10 +98,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `botl.c` status_hilite_menu_choose_updownboth — coverage MISSING (C 73 L `botl.c:3811–3887` / JS no symbol). Verify `node scripts/verify.mjs --fn status_hilite_menu_choose_updownboth`. First unchecked Open row in `docs/LOOP-QUEUE.md` after D-2756.
+**Next cluster:** `spell.c` getspell — coverage THIN (C 68 L `spell.c:715–783` / JS 21 L in js/spell.js). First unchecked Open row after D-2757.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2756 (index).**
+**Keep D-0845…D-2757 (index).**
 <!-- recent:begin -->
+**D-2757** `nethack-c/upstream/src/botl.c:3811–3887` (`status_hilite_menu_choose_updownboth`), `:4305 — the menus are the C bodies in that order.
 **D-2756** `nethack-c/upstream/src/dungeon.c:1568–1601`. `!isok` (`cmd.c:4326`: `x>=1`) panics when ` — the function is the C body in that order.
 **D-2755** `nethack-c/upstream/src/lock.c:578–593`. `res` starts `PICKLOCK_DID_NOTHING`. `oldglyph =  — `feel_location` still paints when the tty matches.
 **D-2754** `nethack-c/upstream/src/mhitm.c:1032–1055` — The head runs after the opening `d()` and before the adtyp dispatch.
@@ -109,11 +110,10 @@ revisits the picker.
 **D-2752** `nethack-c/upstream/src/uhitm.c:289` `Blind || (is_pool(mtmp->mx, mtmp->my) && !Underwater — the arm tests `!(u.uinwater | 0)`.
 **D-2751** `nethack-c/upstream/src/steal.c:384` `else if (Blind)` — the arm calls exported `Blind()` from `js/invent.js` (the macro, plus `uroleplay.blind`).
 **D-2750** `nethack-c/upstream/src/dothrow.c:1004–1007` (`remove_monster` then `newsym` of the old ce — `mon_at_display` skips `MON_OFFMAP`, the same predicate `m_at` uses.
-**D-2749** `nethack-c/upstream/src/dothrow.c:992–1068` (`:997–998` isok; `:1000` will_hurtle && m_in_ — restarted the body in C order with per-arm `:line` cites; same-file caller `mhurtle` doc updated (petrify/steed-vision omit retired, NODIAG/minliquid omits stand).
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2756; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2757; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

@@ -4062,6 +4062,19 @@ was silent `rloc_to`); **failed `enexto` → `deal_with_overcrowding` D-1148**;
 no montelecontrol; dokick evade caller); OPTIONS=`montelecontrol` doset / `mnearto` overcrowding 
 still named 
 
+### `src/botl.c` status hilite menus
+
+JS: `js/botl.js` — partial (D-2757)
+
+**`status_hilite_menu_choose_updownboth`** (D-2757; C `botl.c:3811–3887` → `js/botl.js:2647`; LT/LE only when `ltok`, GE only when `str` is non-NULL, EQ always, GT when `gtok`; AC uses "Better (lower)" / "Worse (higher)"; `a_int = 10 + rel`; cancel returns `NO_LTEQGT`; `select_menu_pick_one`);
+**`status_hilite_remove`** (D-2757; C `:4305–4354` → `:2714`; condition clears `cond_hilites` bits and leaves the linestr; other fields unlink `hilite_s` by identity and clear `hilite_rule`/`time` on both rows);
+**`status_hilite_menu_fld`** (D-2757; C `:4356–4453` → `:2814`; PICK_ANY, X removes, Z is suppressed for `BL_SCORE` because `SCORE_ON_BOTL` is off);
+**`status_hilites_viewall`** (D-2757; C `:4455–4474` → `:2889`; `show_text_pages`, precision `BUFSZ - sizeof prefix - 1`);
+**`reset_status_hilites`** (D-2757; C `:2320–2331` → `:2774`; `flags.botlx` is the store `bot()` reads);
+**`status_hilite_menu`** (D-2757; C `:4498–4578` → `:2916`; caller `options.c:8465` → `js/options.js:3261`).
+Named: `status_hilite_menu_add` (`:3889–4302`, both chooser call sites plus the add arms); `preference_update("hilite_status")` (`options.c:8469`); `optfn_statushilites` `do_set` (`options.c:4035`); `count_status_hilites` (`:3477`).
+`status_hilite_linestr_gather_conditions` (`:3488–3567`) was already the C body at `:2476`.
+
 Production comments in several of these files still describe behavior as
 "enough for seedXXXX" or "not needed for seedXXXX." Treat those as explicit
 evidence of `partial`, and generalize them from C when touching the function.
