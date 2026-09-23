@@ -857,6 +857,16 @@ const EXT_CMDS = [
         },
     },
     {
+        // C: cmd.c "wizsmell" IFBURIED|AUTOCOMPLETE|WIZMODECMD → wiz_smell (D-2766)
+        name: 'wizsmell',
+        wiz: true,
+        autocomplete: true,
+        run: async () => {
+            const { wiz_smell } = await import('./wizcmds.js');
+            return wiz_smell();
+        },
+    },
+    {
         name: 'monster',
         wiz: false,
         autocomplete: true,

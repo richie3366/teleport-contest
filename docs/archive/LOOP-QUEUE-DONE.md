@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-23
 
+- [x] `wizcmds.c` wiz_smell — coverage MISSING (C 54 L `wizcmds.c:885–939` / JS no symbol; hops —, callers 0, RNG 0, msg 6). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn wiz_smell` (reach regression must be 0). Measured `port-coverage.mjs --name wiz_smell` 2026-09-23 @ ed9d7b7ad. **Addressed:** D-2766
+
+
 - [x] `options.c` optfn_msg_window — coverage MISSING (C 62 L `options.c:2456–2520` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: handler_msg_window). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn optfn_msg_window` (reach regression must be 0). Measured `port-coverage.mjs --name optfn_msg_window` 2026-09-23 @ ed9d7b7ad.
 - [x] `options.c` handler_paranoid_confirmation — coverage MISSING (C 55 L `options.c:5953–6008` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: cmdname_from_func). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn handler_paranoid_confirmation` (reach regression must be 0). Measured `port-coverage.mjs --name handler_paranoid_confirmation` 2026-09-23 @ f2293766c.
 - [x] `options.c` optfn_symset — coverage MISSING (C 67 L `options.c:4167–4236` / JS no symbol; hops —, callers 0, RNG 0, msg 1; dead callees: read_sym_file, handler_symset, apply_customizations). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn optfn_symset` (reach regression must be 0). Measured `port-coverage.mjs --name optfn_symset` 2026-09-23 @ f2293766c.

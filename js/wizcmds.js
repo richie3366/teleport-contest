@@ -2,14 +2,14 @@
 // C ref: wizcmds.c
 
 import { game } from './gstate.js';
-import { pline, docrt, impossible, flush_topl_more, Warn_of_mon } from './display.js';
+import { pline, You, docrt, impossible, flush_topl_more, Warn_of_mon, glyph_at, glyph_is_monster, glyph_is_invisible_id, map_invisible, unmap_invisible } from './display.js';
 import { getlin } from './getline.js';
 import { pluslvl, losexp } from './exper.js';
 import { makewish } from './zap.js';
 import { create_particular } from './read.js';
 import { level_tele } from './teleport.js';
 import {
-    ECMD_OK, MAXULEV, TIMEOUT, KILLED_BY, SICK_VOMITABLE, SICK_NONVOMITABLE,
+    ECMD_OK, ECMD_CANCEL, MAXULEV, TIMEOUT, KILLED_BY, SICK_VOMITABLE, SICK_NONVOMITABLE,
     INVULNERABLE, STONED, SLIMED, STRANGLED, SICK, STUNNED, CONFUSION,
     HALLUC, HALLUC_RES, BLINDED, DEAF, VOMITING, GLIB, WOUNDED_LEGS,
     SLEEPY, TELEPORT, POLYMORPH, LEVITATION, FAST, CLAIRVOYANT,
@@ -23,16 +23,18 @@ import {
     ENERGY_REGENERATION, PROTECTION, PROT_FROM_SHAPE_CHANGERS,
     POLYMORPH_CONTROL, UNCHANGING, REFLECTING, FREE_ACTION, FIXED_ABIL,
     LIFESAVED, Upolyd, COLNO, ROWNO, STONE, S_sink, S_fountain,
-    In_sokoban, Is_knox, In_endgame,
+    In_sokoban, Is_knox, In_endgame, ARM, u_at,
 } from './const.js';
 import { ATR_INVERSE } from './terminal.js';
 import { make_blinded } from './do.js';
 import { m_at, rescham } from './mon.js';
+import { getpos } from './getpos.js';
+import { usmellmon } from './makemon.js';
 import { check_invent_gold } from './invent.js';
 import { rn2 } from './rng.js';
-import { float_vs_flight } from './polyself.js';
+import { float_vs_flight, body_part } from './polyself.js';
 import { pooleffects } from './pickup.js';
-import { mons } from './monsters.js';
+import { mons, olfaction } from './monsters.js';
 import { PM_GRID_BUG } from './generated/monsters_data.js';
 import { NUM_OBJECTS } from './objects.js';
 
@@ -1160,5 +1162,76 @@ export function misc_stats(lines, total) {
         total.size += size;
         // C `:1392` Strcpy(hdrbuf, "object type names, text").
         lines.push(stats_row('object type names, text', count, size));
+    }
+}
+
+/**
+ * C ref: wizcmds.c wiz_smell `:885–939` — #wizsmell wizard command
+ * (D-2766). Cursor-pick loop: sniff the hero (own form, or the steed's
+ * when mounted) or the monster at the picked cell; map a remembered but
+ * unseen monster, unmap stale invisible memory on an empty pick.
+ * Caller: cmd.c extcmdlist "wizsmell" `:1994–1995` → EXT_CMDS runnable
+ * entry in getline.js (dynamic import, like the other wiz* rows).
+ * @returns {Promise<number>} ECMD_OK, or ECMD_CANCEL when getpos aborts.
+ */
+export async function wiz_smell() {
+    const u = game.u || {};
+    // C `:893–894` — the pick cursor starts on the hero.
+    const cc = { x: u.ux | 0, y: u.uy | 0 };
+    // C `:895–898` — this form cannot smell: message + ECMD_OK (no turn).
+    if (!olfaction(game.youmonst?.data)) {
+        await You('are incapable of detecting odors in your present form.');
+        return ECMD_OK;
+    }
+    // C `:900` — once, before the pick loop.
+    await You('can move the cursor to a monster that you want to smell.');
+    // C `:901–937` — do { … } while (TRUE): pick until getpos cancels.
+    for (;;) {
+        // C `:902–903` — prompt then getpos(TRUE, "a monster").
+        await pline('Pick a monster to smell.');
+        const ans = await getpos(cc, true, 'a monster');
+        // C `:904–906` — cancel: ans < 0 or the cursor aborted (cc.x < 0).
+        if (ans < 0 || (cc.x | 0) < 0) {
+            return ECMD_CANCEL; /* done */
+        }
+        let is_you = false;
+        let mptr = null;
+        // C `:907–918` — hero cell: the steed's data when mounted, else
+        // youmonst (self sniff); monster cell: m_at data; else none.
+        // (mptr pre-nulled: the `:917–918` else arm; m_at runs only when
+        // !u_at, as in the C else-if.)
+        if (u_at(cc.x, cc.y)) {
+            if (u.usteed) {
+                mptr = u.usteed.data;
+            } else {
+                mptr = game.youmonst?.data;
+                is_you = true;
+            }
+        } else {
+            const mtmp = m_at(cc.x, cc.y);
+            if (mtmp) mptr = mtmp.data;
+        }
+        // C `:922` — glyph read before the monster test; the `:919–921`
+        // buglet note (no turn elapses for the wizmode map/unmap) holds:
+        // map_invisible/unmap_invisible below take no turn.
+        const glyph = glyph_at(cc.x, cc.y);
+        // C `:923–931` — a monster (or self/steed) was picked.
+        if (mptr) {
+            // C `:925–926` — self sniff goes under your ARM.
+            if (is_you) {
+                await You('surreptitiously sniff under your %s.', body_part(ARM));
+            }
+            // C `:927–929` — usmellmon FALSE: the no-smell message.
+            if (!(await usmellmon(mptr))) {
+                await pline('%s to not give off any smell.',
+                    is_you ? 'You seem' : 'That monster seems');
+            }
+            // C `:930–931` — remembered, unseen monster: map it.
+            if (!glyph_is_monster(glyph)) map_invisible(cc.x, cc.y);
+        } else {
+            // C `:932–936` — empty pick: message + clear stale I memory.
+            await You("don't smell any monster there.");
+            if (glyph_is_invisible_id(glyph)) unmap_invisible(cc.x, cc.y);
+        }
     }
 }

@@ -145,6 +145,14 @@ LP64 `SIZEOF_*` gcc-measured from pinned headers; `winid` → `lines[]` +
 `{count,size}` accumulator; `plur` inlined, no clone #10).
 Named: caller `wiz_show_stats` display (future row); `gm.max_regions`
 capacity (JS array — base n*sizeof); Sprintf/Strcpy/putstr (no JS exports).
+**`#wizsmell` `wiz_smell` D-2766** (C `wizcmds.c:885–939`; caller
+`cmd.c:1994–1995` extcmdlist row → EXT_CMDS runnable entry
+`js/getline.js:861`, wiz+autocomplete per the C flags; hero-start cursor,
+olfaction gate + ECMD_OK, do/while pick loop as `for(;;)`,
+`ans<0||cc.x<0` → ECMD_CANCEL, steed-data/youmonst/m_at arms,
+glyph_at + self-ARM/usmellmon/map_invisible + empty-pick
+unmap_invisible; C int-glyph `glyph_is_invisible` →
+`glyph_is_invisible_id`).
 
 ### `src/detect.c` `dosearch0`/`findit`/`do_mapping`/`reveal_terrain` + `cmd.c` `doterrain`
 
