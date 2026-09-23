@@ -78,6 +78,7 @@ import {
     VANQ_COUNT_L_H,
 } from './const.js';
 import { pline, impossible } from './display.js';
+import { DEF_MONSYM_MLET } from './mondata.js';
 import { getnow } from './calendar.js';
 import { timet_delta } from './allmain.js';
 import { livelog_printf } from './pline.js';
@@ -842,9 +843,28 @@ function vanqsort_cmp(indx1, indx2) {
     }
     case VANQ_MCLS_HTOL:
     case VANQ_MCLS_LTOH: {
-        // mlet is symbolic string in JS ("S_KOBOLD"); class-header modes
-        // need numeric mlet order — deferred; fall back to mndx.
-        res = 0;
+        /* C `:2658–2699`; JS mlet is the S_* name, its defsym.h enum
+           ordinal is the DEF_MONSYM_MLET index (S_ANT == 1). */
+        let mcls1 = DEF_MONSYM_MLET.indexOf(p1?.mlet);
+        let mcls2 = DEF_MONSYM_MLET.indexOf(p2?.mlet);
+        const S_ZOMBIE = DEF_MONSYM_MLET.indexOf('S_ZOMBIE');
+        if (mcls1 > S_ZOMBIE && mcls2 > S_ZOMBIE) {
+            const punctclasses = [
+                'S_LIZARD', 'S_EEL', 'S_GOLEM', 'S_GHOST', 'S_DEMON', 'S_HUMAN',
+            ];
+            let punct = punctclasses.indexOf(p1?.mlet);
+            if (punct >= 0) mcls1 = S_ZOMBIE + 1 + punct;
+            punct = punctclasses.indexOf(p2?.mlet);
+            if (punct >= 0) mcls2 = S_ZOMBIE + 1 + punct;
+        }
+        res = mcls1 - mcls2; /* class */
+        if (res === 0) {
+            /* force Riders to be sorted before demons */
+            res = (is_rider(p2) ? 1 : 0) - (is_rider(p1) ? 1 : 0);
+            if (res) break;
+            res = (p1?.mlevel | 0) - (p2?.mlevel | 0); /* mlevel low to high */
+            if (mode === VANQ_MCLS_HTOL) res = -res; /* mlevel high to low */
+        }
         break;
     }
     case VANQ_COUNT_H_L:
@@ -1017,8 +1037,7 @@ const MLET_EXPLAIN = {
  * precedent); uniq `:2888–2895`, non-uniq `:2896–2907`, pfx `:2910–2917`,
  * tally `:2923–2927`. Named: DUMPLOG-only `putstr(0, ...)` "No creatures
  * were vanquished." (`:2944–2947` — compiled out, config.h; DUMPLOG
- * retired, D-1776); vanqsort_cmp MCLS_* arms still fall back to mndx order
- * (pre-existing stub — class runs follow mndx order in those modes).
+ * retired, D-1776).
  * @param {string} defquery 'y'|'a'|'A'|'d'|...
  * @param {boolean} ask end-of-game disclose yn
  */

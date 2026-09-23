@@ -127,6 +127,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-23 — D-2772 `insight.c` vanqsort_cmp: MCLS_LTOH/HTOL arms ported (class order, punctclasses remap, Riders first)
+
+**C locus:** `nethack-c/upstream/src/insight.c:2658–2699` (VANQ_MCLS_HTOL/LTOH arm of `vanqsort_cmp :2620–2714`): signed `schar` mlet; `punctclasses` remap only when both > S_ZOMBIE; `res = mcls1 - mcls2`; Riders before demons `is_rider(2) - is_rider(1)`; mlevel low→high, negated for HTOL; mndx tiebreak (already live).
+**JS:** `js/insight.js` — `vanqsort_cmp` MCLS case (~22 lines); new import `DEF_MONSYM_MLET` from `./mondata.js` (`imports.mjs --can` CHECK: const read lazily inside the comparator only, no top-level TDZ read).
+**Change:** C-order port: numeric mlet = index in live `DEF_MONSYM_MLET` (`js/mondata.js`, defsym.h enum order, `S_ANT == 1`, so the signed compare is exact); `punctclasses` array remap to `S_ZOMBIE + 1 + k` under the both-punct guard; Rider tie via live `is_rider` (reads `ptr.mndx`, verified present on `mons()` entries); mlevel compare with HTOL negation. Retired the stale stub note in the `list_vanquished` doc comment.
+**Verify:** `node scripts/verify.mjs --fn vanqsort_cmp --reach-all` → PASS syntax (1 file: insight.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file) · VERIFY: PASS.
+**Named:** none — whole C body live.
+**Next:** Must-fix `options.c` doset do_handler (review 1724).
 ## 2026-09-23 — D-2771 `glyphs.c` customization entries: add_custom_nhcolor_entry + wizcustom_glyphids whole-body ports
 
 **C locus:** `nethack-c/upstream/src/glyphs.c:484–528` (`add_custom_nhcolor_entry`) + `:736–747` (`find_matching_customization`) + `:418–432` (`find_glyphid_in_cache_by_glyphnum`, staticfn) + `:807–821` (`wizcustom_glyphids`); state `decl.h:857–860` (`gs.sym_customizations[NUM_GRAPHICS+1][custom_count]`), `sym.h:125–130` (`graphics_sets`: PRIMARYSET 0, ROGUESET 1, NUM_GRAPHICS 2), `sym.h:138–139` (`customization_types`), `sym.h:153–157` (content union). Callers: `glyphs.c:94` (`to_custom_symset_entry_callback`, unported), `wizcmds.c:1967` (`wiz_custom` #wizcustom, unported). Every `:line` cite verified by direct read of pinned C.

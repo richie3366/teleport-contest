@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2772 — `insight.c` vanqsort_cmp: MCLS_LTOH/HTOL arms ported (class order, punctclasses remap, Riders first)
+
+- **Status:** fixed (Must-fix from review 1728 QUALITY-RISK; whole C body of `vanqsort_cmp` `insight.c:2620–2714` now live — every sortmode arm; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** none on the fortress. In `#vanquished`/disclose 'v' with `vanq_sortmode` by-class (low→high or high→low), JS sorted by mndx only, so the D-2769 class/Rider header machine in `list_vanquished` ran on top of mndx order: class runs were not in C's class order, the punctuation classes were not remapped, and a Rider interleaved with major demons could emit the demon header twice.
+- **C locus:** `nethack-c/upstream/src/insight.c:2658–2699` (VANQ_MCLS_HTOL/LTOH arm of `vanqsort_cmp :2620–2714`): signed `schar` mlet; `punctclasses` remap only when both > S_ZOMBIE; `res = mcls1 - mcls2`; Riders before demons `is_rider(2) - is_rider(1)`; mlevel low→high, negated for HTOL; mndx tiebreak (already live).
+- **JS was:** `js/insight.js` `vanqsort_cmp` MCLS case returned `res = 0` ("deferred; fall back to mndx") because JS `mlet` is the `S_*` name string.
+- **Fix:** C-order port: numeric mlet = index in live `DEF_MONSYM_MLET` (`js/mondata.js`, defsym.h enum order, `S_ANT == 1`, so the signed compare is exact); `punctclasses` array remap to `S_ZOMBIE + 1 + k` under the both-punct guard; Rider tie via live `is_rider` (reads `ptr.mndx`, verified present on `mons()` entries); mlevel compare with HTOL negation. Retired the stale stub note in the `list_vanquished` doc comment.
+- **JS:** `js/insight.js` — `vanqsort_cmp` MCLS case (~22 lines); new import `DEF_MONSYM_MLET` from `./mondata.js` (`imports.mjs --can` CHECK: const read lazily inside the comparator only, no top-level TDZ read).
+- **Callers:** C sole caller (`qsort` in `list_vanquished`) → `js/insight.js` `list_vanquished` `mindx.sort(vanqsort_cmp)` — already wired (D-2769). JS `list_genocided` also sorts with it, matching C list_genocided's qsort — pre-existing, unchanged. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn vanqsort_cmp --reach-all` → PASS syntax (1 file: insight.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file) · VERIFY: PASS.
+- **Named omissions:** none — whole C body live.
+- **Next:** Must-fix `options.c` doset do_handler (review 1724).
+
 ## D-2771 — `glyphs.c` customization entries: add_custom_nhcolor_entry + wizcustom_glyphids whole-body ports
 
 - **Status:** fixed (breadth-phase coverage rows: `glyphs.c` add_custom_nhcolor_entry MISSING, C 40 L `glyphs.c:484–528`; `glyphs.c` wizcustom_glyphids MISSING, C 13 L `glyphs.c:808–821` — same-C-file rows shipped together; whole C bodies now live — `hidden-proxy verify` reports no corpus session blocked on either. Queue-head `artifact.c` Mb_hit parked Stale in this commit: D-2146/review-1112 ACCEPT, 0 C-wrongs, 0.72 ratio is comments.)
