@@ -377,7 +377,7 @@ if [[ "$USE_MUSE" == "1" ]]; then
 elif [[ "$USE_CLAUDE" == "1" ]]; then
   MODEL="${MODEL:-claude-opus-5}"
 else
-  MODEL="${MODEL:-grok-4.7-xhigh}"
+  MODEL="${MODEL:-grok-4.7-xhigh-fast}"
 fi
 # Advisory navigation overlay (see arm_nav_discipline_prompt). 1 disables.
 LOOP_NAV_GATE_OFF="${LOOP_NAV_GATE_OFF:-0}"
