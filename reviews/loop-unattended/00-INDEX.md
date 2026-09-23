@@ -1723,3 +1723,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1711-937267d19-attack-checks-uinwater.md](./1711-937267d19-attack-checks-uinwater.md) | `937267d19` | D-2752 attack_checks u.uinwater | **ACCEPT** |
 | [1712-4bd644114-monstone-memory-glyph.md](./1712-4bd644114-monstone-memory-glyph.md) | `4bd644114` | D-2753 monstone memory glyph | **ACCEPT** |
 | [1713-a4348216d-mdamagem-touch-petrify.md](./1713-a4348216d-mdamagem-touch-petrify.md) | `a4348216d` | D-2754 mdamagem touch-petrify head | **ACCEPT** |
+| [1714-7cd2543a4-pick-lock-glyph-turn.md](./1714-7cd2543a4-pick-lock-glyph-turn.md) | `7cd2543a4` | D-2755 pick_lock glyph turn-keep | **ACCEPT** |
+| [1715-ed9d7b7ad-u-on-newpos-whole-body.md](./1715-ed9d7b7ad-u-on-newpos-whole-body.md) | `ed9d7b7ad` | D-2756 u_on_newpos whole body | **ACCEPT** |
+| [1716-41ea307c3-status-hilite-chooser-menu.md](./1716-41ea307c3-status-hilite-chooser-menu.md) | `41ea307c3` | D-2757 status hilite chooser + menu | **ACCEPT** |
+| [1717-a93c20957-getspell-cmdq-traditional.md](./1717-a93c20957-getspell-cmdq-traditional.md) | `a93c20957` | D-2758 getspell cmdq + traditional | **ACCEPT** |
+| [1718-22b0e07c3-lookaround-whole-body.md](./1718-22b0e07c3-lookaround-whole-body.md) | `22b0e07c3` | D-2759 lookaround whole body | **ACCEPT** |
+| [1719-666cb5405-dogfood-whole-body.md](./1719-666cb5405-dogfood-whole-body.md) | `666cb5405` | D-2760 dogfood whole body | **ACCEPT** |
+| [1720-f846d399b-waterbody-name-restart.md](./1720-f846d399b-waterbody-name-restart.md) | `f846d399b` | D-2761 waterbody_name restart | **ACCEPT** |
+| [1721-9ecb98fe8-handler-rebind-keys.md](./1721-9ecb98fe8-handler-rebind-keys.md) | `9ecb98fe8` | D-2762 handler_rebind_keys + writers | **ACCEPT** |
+| [1722-c959009f8-add-menu-coloring.md](./1722-c959009f8-add-menu-coloring.md) | `c959009f8` | D-2763 add_menu_coloring whole body | **ACCEPT** |
