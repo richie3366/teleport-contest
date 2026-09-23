@@ -5,7 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-23
 
-- [x] `options.c` handler_number_pad — coverage MISSING (C 57 L `options.c:5893–5950` / JS no symbol; hops —, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn handler_number_pad` (reach regression must be 0). Measured `port-coverage.mjs --name handler_number_pad` 2026-09-23 @ 66cce8590. **Addressed:** D-2778
+- [x] `wizcmds.c` wiz_show_seenv — coverage MISSING (C 41 L `wizcmds.c:576–617` / JS no symbol; hops —, callers 0, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn wiz_show_seenv` (reach regression must be 0). Measured `port-coverage.mjs --name wiz_show_seenv` 2026-09-23 @ 66cce8590. **Addressed:** D-2779
+- [x] `wizcmds.c` wiz_migrate_mons — coverage MISSING (C 57 L `wizcmds.c:1873–1930` / JS no symbol; hops —, callers 0, RNG 0, msg 1; dead callees: list_migrating_mons). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn wiz_migrate_mons` (reach regression must be 0). Measured `port-coverage.mjs --name wiz_migrate_mons` 2026-09-23 @ 181b4b4ff. **Addressed:** D-2779
+
+
+- [x] `options.c` handler_number_pad — coverage MISSING (C 57 L `options.c:5893–5950` / JS no symbol; hops —, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn handler_number_pad` (reach regression must be 0). Measured `port-coverage.mjs --name handler_number_pad` 2026-09-23 @ 66cce8590. **Addressed:** D-2778 `1adad9065`
 
 
 - [x] `coloratt.c` closest_color — coverage MISSING (C 24 L `coloratt.c:997–1021` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: color_distance). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn closest_color` (reach regression must be 0). Measured `port-coverage.mjs --name closest_color` 2026-09-23 @ 66cce8590. **Addressed:** D-2777 `b7046f564`

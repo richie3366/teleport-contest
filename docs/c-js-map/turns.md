@@ -153,6 +153,24 @@ olfaction gate + ECMD_OK, do/while pick loop as `for(;;)`,
 glyph_at + self-ARM/usmellmon/map_invisible + empty-pick
 unmap_invisible; C int-glyph `glyph_is_invisible` →
 `glyph_is_invisible_id`).
+**`#wizseenv` `wiz_show_seenv` + `#migratemons` `wiz_migrate_mons` D-2779**
+(C `wizcmds.c:576–617` / `:1873–1930` + staticfns `:1505–1610`
+`list_migrating_mons` / `:1484–1501` `migrsort_cmp`; callers
+`cmd.c:1990–1991` "wizseenv" + `:1764–1770` "migratemons" extcmdlist rows →
+EXT_CMDS runnable entries `js/getline.js:871` / `:881`, wiz+autocomplete
+per the C flags; the `:574` `#seenv` comment is stale, registered name
+rules). Seenv: hero-centered startx/stopx + 80-col guard, `@@`/blank/`%02x`
+cells, trailing-space trim, lines[] + show_text_pages for display TRUE.
+Migratemons: valley/next/(0,0) tolevel (assign_level 2-field inline, not
+clone #5), prmpt + ESC-hidden letters verbatim to live yn_function (JS
+accepts post-ESC — "None." arm reachable), collect + stable migrsort_cmp
+(dnum, dlevel, m_id), `  <mon>` rows with strsubst/MGIVENNAME/`to`/`at`
+arms. DEBUG_MIGRATING_MONS block live (patchlevel.h:35-37 defines DEBUG →
+config.h:620): getlin count, parseInt-atoi, random/fmon-head migrate loop,
+debug_mongen save/restore.
+Named: `:1603` display FALSE → blocking pager (no scrollback vehicle);
+extcmdlist_data "migratemons" desc is the #else string (extractor gap,
+generated not hand-edited).
 
 ### `src/detect.c` `dosearch0`/`findit`/`do_mapping`/`reveal_terrain` + `cmd.c` `doterrain`
 
