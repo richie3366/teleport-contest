@@ -2,7 +2,7 @@
 
 Metadata: commit `49fb30909`, D-2748, `js/steal.js` `steal` plus `export` on the existing `doffing` in `js/do_wear.js`. Coverage row, 0 corpus blocks. No prior review claimed closed.
 
-**Addressed:** D-2751
+**Addressed:** D-2751 `c5539a510`
 
 ## Intent vs deliverable
 

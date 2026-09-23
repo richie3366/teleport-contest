@@ -2,6 +2,8 @@
 
 Metadata: commit `777f948a6`, D-2747, `js/uhitm.js` only. Coverage row (C 136 L / JS was 63 L), 0 corpus blocks. No prior review claimed closed.
 
+**Addressed:** D-2752
+
 ## Intent vs deliverable
 
 Subject promises the warning-glyph, hides_under, mimic, mundetected, and sensemon arms, and retirement of the local `set_ustuck` clone. Those arms are in the diff. The pool reveal tests `u.Underwater` instead of `u.uinwater`. Promise matches the rest.

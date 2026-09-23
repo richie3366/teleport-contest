@@ -71,6 +71,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-23 — D-2752 `uhitm.c` attack_checks pool reveal uses `u.uinwater`
+
+**C locus:** `nethack-c/upstream/src/uhitm.c:289` `Blind || (is_pool(mtmp->mx, mtmp->my) && !Underwater)` — `youprop.h:279` `#define Underwater (u.uinwater)` (`you.h:431` one-bit field).
+**JS:** `js/uhitm.js` `attack_checks` (`:4249`).
+**Change:** the arm tests `!(u.uinwater | 0)`. Same short-circuit as C: `is_pool` runs only when the hero is not blind. No new import (two file-local `Underwater()` clones already exist; this site reads the field).
+**Verify:** `node scripts/verify.mjs --fn attack_checks --reach-all` → PASS syntax (1 file `js/uhitm.js`) · PASS rule2 · note hidden 0 blocked on `attack_checks` (row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (`uhitm.js` not shared) · VERIFY: PASS.
+**Named:** none new on this arm. The rest of `attack_checks` stays the D-2747 body.
+**Next:** `mon.c` monstone invisible-unmap — `memory_glyph_is_invisible` (review 1701 Must-fix). Then `mhitm.c` `mdamagem` touch-petrify head.
 ## 2026-09-23 — D-2751 `steal.c` nothing_to_steal Blind uses youprop.h Blind
 
 **C locus:** `nethack-c/upstream/src/steal.c:384` `else if (Blind)` — `youprop.h:103` `#define Blind ((HBlinded || EBlinded) && !BBlinded)`.

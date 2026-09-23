@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-23
 
-- [x] `steal.c` nothing_to_steal Blind — C `steal.c:384` `else if (Blind)` (`youprop.h:103` `(HBlinded || EBlinded) && !BBlinded`) absent as that predicate from `js/steal.js` `steal` (`:381` calls file-local `Blind_steal` `:813`, `u.Blind || u.ublind`). `Blind` is already exported from `js/invent.js:359` and `steal.js` already imports `invent.js`. Use `Blind()`. Verify `node scripts/verify.mjs --fn steal`. Source: reviews/loop-unattended/1707-49fb30909-steal-whole-body.md **Addressed:** D-2751
+- [x] `uhitm.c` attack_checks pool reveal — C `uhitm.c:289` `Blind || (is_pool && !Underwater)` with `youprop.h:279` `Underwater` ≡ `u.uinwater` absent as that test from `js/uhitm.js` `attack_checks` (`:4247` uses `!game.u.Underwater`, the field `trap.js:3597` records as never written). Use `u.uinwater`. Verify `node scripts/verify.mjs --fn attack_checks`. Source: reviews/loop-unattended/1706-777f948a6-attack-checks-whole-body.md **Addressed:** D-2752
+
+
+- [x] `steal.c` nothing_to_steal Blind — C `steal.c:384` `else if (Blind)` (`youprop.h:103` `(HBlinded || EBlinded) && !BBlinded`) absent as that predicate from `js/steal.js` `steal` (`:381` calls file-local `Blind_steal` `:813`, `u.Blind || u.ublind`). `Blind` is already exported from `js/invent.js:359` and `steal.js` already imports `invent.js`. Use `Blind()`. Verify `node scripts/verify.mjs --fn steal`. Source: reviews/loop-unattended/1707-49fb30909-steal-whole-body.md **Addressed:** D-2751 `c5539a510`
 
 
 - [x] `uhitm.c` mhitm_knockback / `dothrow.c` mhurtle_step — `scen-genesis-Archeologist-91135` PASS at scoreboard `49fb30909` → FAIL screen step 178 (RNG still 6017/6017; owner `mhitm_knockback` `uhitm.c:5357`; both toplines `You knock the chickatrice backward with a powerful strike!`). The only `js/` commit after that stamp is `1b2e6cd12` (`mhurtle_step` `rloc_to` → `remove_monster`/`place_monster` plus petrify arms). Fix the hurtle so this session matches again. Verify `node scripts/verify.mjs --fn mhurtle_step`. Source: reviews/loop-unattended/1708-1b2e6cd12-mhurtle-step-whole-body.md **Addressed:** D-2750 `14f1ff816`

@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2752 — `uhitm.c` attack_checks pool reveal uses `u.uinwater`
+
+- **Status:** fixed (Must-fix review 1706: C `uhitm.c:289` `!Underwater` vs `game.u.Underwater`. 0 corpus blocks — the row named a C-wrong field, not N blocks.)
+- **Symptom:** a hiding monster in a pool, with the hero submerged (`u.uinwater` set) and not blind, took "Wait! There's a hidden monster there!" and never the following "hiding under %s" line. `u.Underwater` is never written (`trap.js` ceiling already records that), so the pool arm always fired whenever `is_pool` was true.
+- **C locus:** `nethack-c/upstream/src/uhitm.c:289` `Blind || (is_pool(mtmp->mx, mtmp->my) && !Underwater)` — `youprop.h:279` `#define Underwater (u.uinwater)` (`you.h:431` one-bit field).
+- **JS was:** `js/uhitm.js` `attack_checks` tested `!((game.u || {}).Underwater)` on that arm (D-2747 whole body otherwise live).
+- **Fix:** the arm tests `!(u.uinwater | 0)`. Same short-circuit as C: `is_pool` runs only when the hero is not blind. No new import (two file-local `Underwater()` clones already exist; this site reads the field).
+- **JS:** `js/uhitm.js` `attack_checks` (`:4249`).
+- **Callers:** every real C call stays wired, none added — `apply.c:3493` → `js/apply.js:3831` (polearm); `apply.c:3835` → `js/apply.js:4006` (whip pull-in); `apply.c:3845` → `js/apply.js:4016` (whip yank); `dokick.c:138` → `js/dokick.js:829` (`maybe_kick_monster`); `uhitm.c:521` → `js/uhitm.js:4382` (`do_attack`). `dokick.c:1412` is the comment at `js/dokick.js:1737`. `uhitm.c:516` is the bhitpos comment at `js/uhitm.js:4373`. `uhitm.c:572–573` is the atk_done note at `js/uhitm.js:4474`. `extern.h:3366` is the decl.
+- **Verify:** `node scripts/verify.mjs --fn attack_checks --reach-all` → PASS syntax (1 file `js/uhitm.js`) · PASS rule2 · note hidden 0 blocked on `attack_checks` (row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (`uhitm.js` not shared) · VERIFY: PASS.
+- **Named omissions:** none new on this arm. The rest of `attack_checks` stays the D-2747 body.
+- **Next:** `mon.c` monstone invisible-unmap — `memory_glyph_is_invisible` (review 1701 Must-fix). Then `mhitm.c` `mdamagem` touch-petrify head.
+
 ## D-2751 — `steal.c` nothing_to_steal Blind uses youprop.h Blind
 
 - **Status:** fixed (Must-fix review 1707: C `steal.c:384` `else if (Blind)` vs file-local `Blind_steal`. 0 corpus blocks — the row named a C-wrong predicate, not N blocks.)
