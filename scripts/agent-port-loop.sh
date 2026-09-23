@@ -367,7 +367,7 @@ if [[ -n "$dirty" ]]; then
   fi
 fi
 
-# Default: Cursor Grok 4.6 Extra High, non-fast
+# Default: Cursor Grok 4.7 Extra High, non-fast
 # (list: agent --list-models | rg grok)
 # --muse: Muse spark contributor at reasoning-effort xhigh.
 # --claude: Claude Opus 5 at --effort high.
@@ -376,7 +376,7 @@ if [[ "$USE_MUSE" == "1" ]]; then
 elif [[ "$USE_CLAUDE" == "1" ]]; then
   MODEL="${MODEL:-claude-opus-5}"
 else
-  MODEL="${MODEL:-cursor-grok-4.6-xhigh}"
+  MODEL="${MODEL:-cursor-grok-4.7-xhigh}"
 fi
 # Advisory navigation overlay (see arm_nav_discipline_prompt). 1 disables.
 LOOP_NAV_GATE_OFF="${LOOP_NAV_GATE_OFF:-0}"
