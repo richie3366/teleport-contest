@@ -98,10 +98,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `spell.c` getspell — coverage THIN (C 68 L `spell.c:715–783` / JS 21 L in js/spell.js; hops 6, callers 3, RNG 0, msg 3; dead callees: spell_let_to_idx). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn getspell` (reach regression must be 0). Measured `port-coverage.mjs --name getspell` 2026-09-23 @ 14f1ff816.
+**Next cluster:** `hack.c` lookaround — coverage PARTIAL (C 161 L `hack.c:3898–4059` / JS 110 L in js/cmd.js; hops 2, callers 1, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn lookaround` (reach regression must be 0). Measured `port-coverage.mjs --name lookaround` 2026-09-23 @ 6080165a9. (execplinehandler + peace_minded parked Stale — bodies already live; see Parked index.)
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2758 (index).**
+**Keep D-0845…D-2759 (index).**
 <!-- recent:begin -->
+**D-2759** `nethack-c/upstream/src/hack.c:3898–4058` (`lookaround`); sole caller `allmain.c:516` (mov — restarted the body in C order with per-arm `:line` cites: NODIAG head (`You("cannot move diagonally.")` + nomul, grid-bug `umonnum==PM_GRID_BUG` idiom); `Blind() || run==0` gate (live invent.js macro); per-cell NODIAG sk
 **D-2758** `nethack-c/upstream/src/spell.c:714–783` (`getspell`); callee `spell_let_to_idx :114–126`; — restarted the body in C order with per-arm `:line` cites: no-spells `You("don't know any spells right now.")` guard; rejectcasting guard — C prints inside `rejectcasting`, the JS clone is a sync predicate so the same thr
 **D-2757** `nethack-c/upstream/src/botl.c:3811–3887` (`status_hilite_menu_choose_updownboth`), `:4305 — the menus are the C bodies in that order.
 **D-2756** `nethack-c/upstream/src/dungeon.c:1568–1601`. `!isok` (`cmd.c:4326`: `x>=1`) panics when ` — the function is the C body in that order.
@@ -109,11 +110,10 @@ revisits the picker.
 **D-2754** `nethack-c/upstream/src/mhitm.c:1032–1055` — The head runs after the opening `d()` and before the adtyp dispatch.
 **D-2753** `nethack-c/upstream/src/mon.c:3358` `glyph_is_invisible(levl[x][y].glyph)` — the arm calls `memory_glyph_is_invisible(loc)`, the same predicate `mondead` uses for `levl.glyph`.
 **D-2752** `nethack-c/upstream/src/uhitm.c:289` `Blind || (is_pool(mtmp->mx, mtmp->my) && !Underwater — the arm tests `!(u.uinwater | 0)`.
-**D-2751** `nethack-c/upstream/src/steal.c:384` `else if (Blind)` — the arm calls exported `Blind()` from `js/invent.js` (the macro, plus `uroleplay.blind`).
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2758; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2759; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

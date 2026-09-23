@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-23
 
-- [x] `spell.c` getspell — coverage THIN (C 68 L `spell.c:715–783` / JS 21 L in js/spell.js; hops 6, callers 3, RNG 0, msg 3; dead callees: spell_let_to_idx). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn getspell` (reach regression must be 0). Measured `port-coverage.mjs --name getspell` 2026-09-23 @ 14f1ff816. **Addressed:** D-2758
+- [x] `hack.c` lookaround — coverage PARTIAL (C 161 L `hack.c:3898–4059` / JS 110 L in js/cmd.js; hops 2, callers 1, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn lookaround` (reach regression must be 0). Measured `port-coverage.mjs --name lookaround` 2026-09-23 @ 6080165a9. **Addressed:** D-2759
+
+
+- [x] `spell.c` getspell — coverage THIN (C 68 L `spell.c:715–783` / JS 21 L in js/spell.js; hops 6, callers 3, RNG 0, msg 3; dead callees: spell_let_to_idx). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn getspell` (reach regression must be 0). Measured `port-coverage.mjs --name getspell` 2026-09-23 @ 14f1ff816. **Addressed:** D-2758 `a93c20957`
 
 
 - [x] `botl.c` status_hilite_menu_choose_updownboth — coverage MISSING (C 73 L `botl.c:3811–3887` / JS no symbol; hops —, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn status_hilite_menu_choose_updownboth` (reach regression must be 0). Measured `port-coverage.mjs --name status_hilite_menu_choose_updownboth` 2026-09-23 @ fca6b4457. **Addressed:** D-2757 `41ea307c3`

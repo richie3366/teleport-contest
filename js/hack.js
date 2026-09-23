@@ -2564,7 +2564,7 @@ export function slippery_ice_fumbling() {
  * C hack.c avoid_moving_on_trap `:2443–2460` — seen non-VS trap.
  * mention_walls pline only when msg (run>=2).
  */
-async function avoid_moving_on_trap(x, y, msg) {
+export async function avoid_moving_on_trap(x, y, msg) {
     const trap = t_at(x, y);
     if (trap && trap.tseen && (trap.ttyp | 0) !== VIBRATING_SQUARE) {
         if (msg && game.flags?.mention_walls) {
@@ -2580,7 +2580,7 @@ async function avoid_moving_on_trap(x, y, msg) {
  * C hack.c avoid_moving_on_liquid `:2462–2490`. Known_wwalking /
  * Known_lwalking stay omitted (treat as unknown), matching swim_move_danger.
  */
-async function avoid_moving_on_liquid(x, y, msg) {
+export async function avoid_moving_on_liquid(x, y, msg) {
     const u = game.u || {};
     const in_air = !!(Levitation_st() || Flying_st());
     const dest = game.level?.at(x, y);

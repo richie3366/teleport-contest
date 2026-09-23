@@ -276,7 +276,7 @@ getobj `:2049–2054` INT+KEY; `cmdq_pop` REPEAT when `in_doagain`; Ctrl-A / `#r
 PREFIXCMD / `cmdq_shift` is D-1582); 
 `custompline(SUPPRESS_HISTORY)` named; **`sanity_no_check` D-1664** (`CMD_INSANE` ^P if/else + 
 bound tlist + canned EXTCMD; `wizcmds.c` `sanity_check`)**; 
-**`lookaround` `mon_visible` gate** (D-0705; Blind/traps/mention_walls deferred); 
+**`lookaround`** whole-body (D-2759; C `hack.c:3898–4058` — NODIAG head + Blind/run gate, per-cell NODIAG skip + visible-monster pline_xy stop + STONE/away + trap arm (run==1 bcorr / infront stop / else fall-through) + obstructed/room/air/ice skip + closed-door-or-mimic mention/stop/bcorr + corridor + pool/lava + objects else (mtmp + diagonally-behind continues), bcorr counting, run==2 widen pline_The, rush/travel auto-turn; `stop:` is live `nomul(0)`; bcorr flag; async for the You/pline arms; D-0705 mon_visible gate kept); 
 **`#lookaround`/`dolookaround`** (D-1217; 
 C `cmd.c:1261–1368` floodfill/seen/`lookaround_known_room` + 
 `#lookaround` EXT_CMDS no AUTOCOMPLETE + newgame glyph_updates then-arm; 
