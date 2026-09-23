@@ -1520,6 +1520,165 @@ export async function handler_whatis_coord() {
 }
 
 /**
+ * C options.c optfn_number_pad `:2574–2645` (staticfn; NHOPT_PARSE wires
+ * &optfn_number_pad into the number_pad allopt row, optlist.h `:535`).
+ * do_handler (`:2641–2643`) returns handler_number_pad() — async in JS
+ * (menu), so doset calls the handler through doset_optfn_do_handler and
+ * doset_simple through doset_compound_via_getlin (optfn_perminv_mode
+ * precedent); no do_handler branch here.
+ * @param {number} optidx C optidx (feeds the bad_negation text only)
+ * @param {number} req REQ_DO_INIT / REQ_DO_SET / REQ_GET_VAL / REQ_GET_CNF_VAL
+ * @param {boolean} negated
+ * @param {{buf:string}|string} opts get_val holder / do_set option string (read-only; C re-derives op from it)
+ * @param {string} _op C reassigns op from opts at `:2585`
+ * @param {object|null} [iflagsBag] iflags home (result.iflags at rc parse; game.iflags in game)
+ * @param {boolean} [optInitial] C go.opt_initial for the empty-value gate
+ */
+export function optfn_number_pad(optidx, req, negated, opts, _op, iflagsBag, optInitial) {
+    const iflags = iflagsBag || game.iflags || (game.iflags = {});
+    const optInit = optInitial ?? game.go?.opt_initial; // C go.opt_initial
+    if (req === REQ_DO_INIT) { // C `:2580`
+        return OPTN_OK; // C `:2581`
+    }
+    if (req === REQ_DO_SET) { // C `:2583`
+        const optstr = String(opts);
+        const compat = (optstr.length <= 10); // C `:2584` ("number_pad" is 10 chars)
+        const op = string_for_opt(optstr, (compat || !optInit)); // C `:2585` (reassigns op)
+        if (op === EMPTY_OPTSTR) { // C `:2586`
+            if (compat || negated || optInit) { // C `:2587`
+                /* for backwards compatibility, "number_pad" without a
+                   value is a synonym for number_pad:1 */
+                iflags.num_pad = !negated; // C `:2590`
+                iflags.num_pad_mode = 0; // C `:2591`
+            }
+        } else if (negated) { // C `:2593`
+            bad_negation(allopt_name(optidx), true); // C `:2594`
+            return OPTN_ERR; // C `:2595`
+        } else {
+            const mode = Number.parseInt(op, 10); // C `:2597` atoi
+            if (Number.isNaN(mode) || mode < -1 || mode > 4 // C `:2599`
+                || (mode === 0 && op[0] !== '0')) {
+                // Named omission (map): config_error_add("Illegal %s parameter '%s'",
+                // allopt[optidx].name, op) — no JS config-error sink (file precedent).
+                void optidx;
+                return OPTN_ERR; // C `:2602`
+            } else if (mode <= 0) { // C `:2603`
+                iflags.num_pad = false; // C `:2604`
+                /* German keyboard; y and z keys swapped */
+                iflags.num_pad_mode = (mode < 0) ? 1 : 0; // C `:2606` (mode < 0), 0 or 1
+            } else { // C `:2607` mode > 0
+                iflags.num_pad = true; // C `:2608`
+                iflags.num_pad_mode = 0; // C `:2609`
+                /* PC Hack / MSDOS compatibility */
+                if (mode === 2 || mode === 4) // C `:2611`
+                    iflags.num_pad_mode |= 1; // C `:2612`
+                /* phone keypad layout */
+                if (mode === 3 || mode === 4) // C `:2614`
+                    iflags.num_pad_mode |= 2; // C `:2615`
+            }
+        }
+        /* Named (map): reset_commands(FALSE) `:2618` (cmd.c `:3344–3476`,
+           own coverage row — cmdbind key-rebinding unported) and
+           number_pad(iflags.num_pad ? 1 : 0) `:2619` (winprocs.h `:161`
+           tty platform no-op, mark_synch precedent). */
+        return OPTN_OK; // C `:2620`
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C `:2622`
+        const numpadmodes = [ // C `:2623–2628`
+            '0=off', '1=on', '2=on, MSDOS compatible',
+            '3=on, phone-style layout',
+            '4=on, phone layout, MSDOS compatible',
+            '-1=off, y & z swapped', /*[5]*/
+        ];
+        /* C `:2629–2632` reads gc.Cmd.*, which reset_commands syncs from
+           iflags after every change (`:3377`/`:3384`/`:3397`/`:3416` — pure
+           functions of (num_pad, num_pad_mode)), so the index below is
+           output-identical; switch to game.Cmd when reset_commands ports. */
+        const numPad = !!iflags.num_pad;
+        const npm = iflags.num_pad_mode | 0;
+        const phone = ((npm & 2) !== 0) ? numPad : false; // C `:3416`
+        const pcHack = ((npm & 1) !== 0) ? numPad : false; // C `:3397`
+        const swapYz = ((npm & 1) !== 0) ? !numPad : false; // C `:3384`
+        const indx = numPad // C `:2629–2632`
+            ? (phone ? (pcHack ? 4 : 3) : (pcHack ? 2 : 1))
+            : swapYz ? 5 : 0;
+        if (req === REQ_GET_VAL) // C `:2634`
+            set_optbuf(opts, numpadmodes[indx]); // C `:2635`
+        else {
+            set_optbuf(opts, String((indx === 5) ? -1 : indx)); // C `:2637` %i
+        }
+        return OPTN_OK; // C `:2639`
+    }
+    return OPTN_OK; // C `:2644`
+}
+
+/**
+ * C options.c handler_number_pad `:5893–5950` (staticfn) — 'O' menu
+ * picker for (iflags.num_pad, iflags.num_pad_mode). Sole C caller is the
+ * optfn_number_pad do_handler arm (`:2642`), async-split into
+ * doset_optfn_do_handler (doset `:8935`) and doset_compound_via_getlin
+ * (doset_simple).
+ */
+export async function handler_number_pad() {
+    if (!game.iflags) game.iflags = {};
+    const npchoices = [ // C `:5898–5903`
+        ' 0 (off)', ' 1 (on)', ' 2 (on, MSDOS compatible)',
+        ' 3 (on, phone-style digit layout)',
+        ' 4 (on, phone-style layout, MSDOS compatible)',
+        "-1 (off, 'z' to move upper-left, 'y' to zap wands)",
+    ];
+    // C `:5907–5909` create_nhwindow/start_menu/zeroany — raw menu below.
+    // C `:5915` end_menu prompt painted as header (D-2762 precedent).
+    const raw = [{ text: 'Select number_pad mode:', selectable: false }];
+    for (let i = 0; i < npchoices.length; ++i) { // C `:5910`
+        // C `:5911–5913` a_int i+1, letter 'a'+i, gacc '0'+i,
+        // nul_glyphinfo, ATR_NONE/NO_COLOR, MENU_ITEMFLAGS_NONE (no preselect).
+        raw.push({
+            text: npchoices[i],
+            selectable: true,
+            a_int: i + 1,
+            selector: String.fromCharCode(97 + i),
+            gselector: String.fromCharCode(48 + i),
+        });
+    }
+    const res = await select_menu_pick_one(raw); // C `:5915–5916` end/select (destroy inside the helper)
+    if (res.kind === 'pick') { // C `:5916` > 0
+        switch (res.item.a_int - 1) { // C `:5917`
+        case 0: // C `:5918`
+            game.iflags.num_pad = false; // C `:5919`
+            game.iflags.num_pad_mode = 0; // C `:5920`
+            break;
+        case 1: // C `:5922`
+            game.iflags.num_pad = true; // C `:5923`
+            game.iflags.num_pad_mode = 0; // C `:5924`
+            break;
+        case 2: // C `:5926`
+            game.iflags.num_pad = true; // C `:5927`
+            game.iflags.num_pad_mode = 1; // C `:5928`
+            break;
+        case 3: // C `:5930`
+            game.iflags.num_pad = true; // C `:5931`
+            game.iflags.num_pad_mode = 2; // C `:5932`
+            break;
+        case 4: // C `:5934`
+            game.iflags.num_pad = true; // C `:5935`
+            game.iflags.num_pad_mode = 3; // C `:5936`
+            break;
+        /* last menu choice: number_pad == -1 */ // C `:5938`
+        case 5: // C `:5939`
+            game.iflags.num_pad = false; // C `:5940`
+            game.iflags.num_pad_mode = 1; // C `:5941`
+            break;
+        }
+        /* Named (map): reset_commands(FALSE) `:5944` (own coverage row) and
+           number_pad(iflags.num_pad ? 1 : 0) `:5945` (tty platform no-op). */
+        // C `:5946` free — GC
+    }
+    // C `:5948` destroy_nhwindow — inside the helper
+    return OPTN_OK; // C `:5949`
+}
+
+/**
  * C options.c `(*allopt[k].optfn)(idx, do_handler, …)` for the three
  * has_handler compounds (optlist.h `:509`/`:556`/`:816`) — the do_handler
  * arms of optfn_msg_window `:2516–2518`, optfn_paranoid_confirmation
@@ -1534,6 +1693,9 @@ async function doset_optfn_do_handler(name) {
     }
     if (name === 'msg_window') {
         return handler_msg_window(); // C `:2517`
+    }
+    if (name === 'number_pad') {
+        return handler_number_pad(); // C `:2642`
     }
     if (name === 'paranoid_confirmation') {
         return handler_paranoid_confirmation(); // C `:3040`
@@ -2112,6 +2274,15 @@ export function parseNethackrc(rc) {
                         allopt_idx('whatis_coord'), REQ_DO_SET, negated, stripped, val, result.iflags, true,
                     );
                 }
+                else if (key === 'number_pad') {
+                    // C optfn_number_pad do_set (opt_initial) on result.iflags.
+                    // Negated number_pad is rejected by C parseoptions `:626`
+                    // (optlist.h negateok-No) — skip, prior value kept.
+                    if (negated) continue;
+                    optfn_number_pad(
+                        allopt_idx('number_pad'), REQ_DO_SET, false, stripped, val, result.iflags, true,
+                    );
+                }
                 else if (key === 'menuinvertmode') {
                     // C options.c optfn_menuinvertmode do_set: atoi(op),
                     // 0-2 else config error (prior value kept).
@@ -2218,6 +2389,15 @@ export function parseNethackrc(rc) {
                     // negated → none, else string_for_env_opt empty → optn_err.
                     optfn_whatis_coord(
                         allopt_idx('whatis_coord'), REQ_DO_SET, negated, lname, EMPTY_OPTSTR, result.iflags, true,
+                    );
+                }
+                else if (lname === 'number_pad') {
+                    // C optfn_number_pad do_set, valueless (opt_initial):
+                    // bare "number_pad" → (on, mode 0); "!number_pad" is
+                    // rejected by C parseoptions `:626` (negateok-No).
+                    if (negated) continue;
+                    optfn_number_pad(
+                        allopt_idx('number_pad'), REQ_DO_SET, false, lname, EMPTY_OPTSTR, result.iflags, true,
                     );
                 }
                 else if (lname === 'accessiblemsg') {
@@ -3307,8 +3487,10 @@ async function doset_compound_via_getlin(opt) {
             await handler_perminv_mode();
         } else if (name === 'menu colors') {
             await handler_menu_colors();
+        } else if (name === 'number_pad') {
+            await handler_number_pad(); // C optfn_number_pad do_handler `:2642`
         }
-        // Other hasHandler compounds deferred (number_pad/symset/…).
+        // Other hasHandler compounds deferred (symset/…).
         return;
     }
     const abuf = await getlin(`Set ${name} to what?`);
@@ -3335,9 +3517,9 @@ function currently_set_val(n) {
 
 /**
  * C ref: options.c optfn_* get_val for doset_simple_menu compound/othr rows.
- * Named omissions: full handlers for fruit/number_pad/autounlock/symset/
+ * Named omissions: full handlers for fruit/autounlock/symset/
  * statuslines/exceptions/status rules — display values only until those
- * handlers are ported (menu colors handler is live: handler_menu_colors).
+ * handlers are ported (menu colors and number_pad handlers are live).
  */
 function simple_opt_get_val(opt) {
     const name = opt.name;
@@ -3345,16 +3527,8 @@ function simple_opt_get_val(opt) {
         return String(game.pl_fruit || game.flags?.fruit || 'slime mold');
     }
     if (name === 'number_pad') {
-        // C: Cmd.num_pad / phone / pcHack / swap_yz → numpadmodes[]
-        const numPad = !!(game.iflags?.num_pad || game.Cmd?.num_pad);
-        if (!numPad) {
-            return game.Cmd?.swap_yz ? '-1=off, y & z swapped' : '0=off';
-        }
-        const phone = !!(game.Cmd?.phone_layout);
-        const pc = !!(game.Cmd?.pcHack_compat);
-        if (phone) return pc ? '4=on, phone layout, MSDOS compatible' : '3=on, phone-style layout';
-        if (pc) return '2=on, MSDOS compatible';
-        return '1=on';
+        // C optfn_number_pad get_val — live (delegates so both O-menus agree).
+        return doset_compopt_get_val(optfn_number_pad, 'number_pad');
     }
     if (name === 'autounlock') {
         // C: flags.autounlock default AUTOUNLOCK_APPLY_KEY; get_val joins names
@@ -4302,7 +4476,7 @@ export async function doset() {
         { name: 'menuinvertmode', val: '1' },
         { name: 'menustyle', val: 'full' },
         { name: 'msg_window', get_val: () => doset_compopt_get_val(optfn_msg_window, 'msg_window'), handler: true },
-        { name: 'number_pad', val: '0=off' },
+        { name: 'number_pad', get_val: () => doset_compopt_get_val(optfn_number_pad, 'number_pad'), handler: true },
         { name: 'packorder', val: '$")[%?+!=/(*`0_' },
         { name: 'paranoid_confirmation', get_val: () => { const h = { buf: '' }; optfn_paranoid_confirmation_get_val(REQ_GET_VAL, h); return h.buf; }, handler: true },
         // C optlist.h NHOPTC perminv_mode set_in_game before petattr.
@@ -4425,7 +4599,7 @@ export async function doset() {
 
 /**
  * C ref: options.c doset_simple — loop doset_simple_menu until no pick.
- * Named omissions: number_pad/autounlock/symset/status handlers;
+ * Named omissions: autounlock/symset/status handlers;
  * help descr lines under simple_options_help; fruitadd bones/restore
  * ghostfruit else is D-1541 (clone in bones.js).
  */
@@ -4777,7 +4951,7 @@ const allopt = [
     // optlist.h:532 NHOPTB(null)
     { name: 'null', opttyp: BoolOpt, idx: 121, setwhere: SET_IN_GAME, initval: true, addr: { obj: 'flags', key: 'null' }, optfn: null },
     // optlist.h:535 NHOPTC(number_pad)
-    { name: 'number_pad', opttyp: CompOpt, idx: 122, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: null },
+    { name: 'number_pad', opttyp: CompOpt, idx: 122, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_number_pad },
     // optlist.h:538 NHOPTC(objects)
     { name: 'objects', opttyp: CompOpt, idx: 123, setwhere: SET_IN_CONFIG, initval: false, addr: null, optfn: null },
     // optlist.h:541 NHOPTC(packorder)

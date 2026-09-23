@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `coloratt.c` closest_color — coverage MISSING (C 24 L `coloratt.c:997–1021` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: color_distance). Port the whole C body in C order + callee color_distance (`:979–994`) + same-C-file alt_color_spec (`:1111–1165`) + color_attr_parse_str (`:261–301`), every arm, every callee live or named in the map, every C caller wired. Verify `--fn closest_color` + `--fn alt_color_spec` + `--fn color_attr_parse_str` (reach regression must be 0).
+**Next cluster:** `options.c` handler_number_pad — coverage MISSING (C 57 L `options.c:5893–5950` / JS no symbol; hops —, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn handler_number_pad` (reach regression must be 0).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2777 (index).**
+**Keep D-0845…D-2778 (index).**
 <!-- recent:begin -->
+**D-2778** `options.c` handler_number_pad `:5893–5950` (npchoices `:5898–5903`, create/start/zeroany  — whole C bodies in C order with `:line` cites.
 **D-2777** `nethack-c/upstream/src/coloratt.c:978–994` (color_distance) + `:996–1021` (closest_color) — `js/options.js` (+256/−0) — table + hexdd + four exports in C order with `:line` cites.
 **D-2776** `nethack-c/upstream/src/sounds.c:1556–1626` + `:2084–2152`; sff enum `include/sndprocs.h:2 — `js/sounds.js` (+261/−1) — both bodies in C order with `:line` cites.
 **D-2775** `options.c` handler_whatis_coord `:6205–6276`; optfn_whatis_coord `:4702–4745` (do_init `: — whole C bodies in C order with `:line` cites.
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2773** `options.c` doset `:8933–8939` (`allopt[k].optfn(idx, do_handler, FALSE, empty_optstr, emp — new async `doset_optfn_do_handler(name)` = the three do_handler arms in C order (versinfo: snapshot `vi`, await `handler_versinfo`, `'%s' %s %u.` changed-to / not-changed-still pline, `:4530` redraw gate); `doset_compopt
 **D-2772** `nethack-c/upstream/src/insight.c:2658–2699` (VANQ_MCLS_HTOL/LTOH arm of `vanqsort_cmp :26 — C-order port: numeric mlet = index in live `DEF_MONSYM_MLET` (`js/mondata.js`, defsym.h enum order, `S_ANT == 1`, so the signed compare is exact); `punctclasses` array remap to `S_ZOMBIE + 1 + k` under the both-punct gua
 **D-2771** `nethack-c/upstream/src/glyphs.c:484–528` (`add_custom_nhcolor_entry`) + `:736–747` (`find — `js/glyphs.js` — module-local `sym_customizations[3][5]` grid (BSS-zeroed shape) + `PRIMARYSET`/`ROGUESET`/`NUM_GRAPHICS`/`UNICODESET` + `CUSTOM_*` consts; exported `find_matching_customization` (strcmp≡`===`, `!== null`
-**D-2770** `nethack-c/upstream/src/end.c:185–344` (`done_in_by`); caller `nethack-c/upstream/src/uhit — `js/end.js` — live `await You(...)` at `:1286` (output-identical: `You`=vpline('You '+fmt), `pline`=vpline); named-ghost "the "+KILLED_BY at `:1314` via mptrNdx (=== mptr, imitator arm has not run yet); "ghost of" at `:1
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2777; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2778; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
