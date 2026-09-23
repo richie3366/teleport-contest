@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-23
 
-- [x] `hack.c` lookaround — coverage PARTIAL (C 161 L `hack.c:3898–4059` / JS 110 L in js/cmd.js; hops 2, callers 1, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn lookaround` (reach regression must be 0). Measured `port-coverage.mjs --name lookaround` 2026-09-23 @ 6080165a9. **Addressed:** D-2759
+- [x] `dog.c` dogfood — coverage PARTIAL (C 139 L `dog.c:995–1134` / JS 75 L in js/dogmove.js; hops 3, callers 10, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dogfood` (reach regression must be 0). Measured `port-coverage.mjs --name dogfood` 2026-09-23 @ 6080165a9. **Addressed:** D-2760
+
+
+- [x] `hack.c` lookaround — coverage PARTIAL (C 161 L `hack.c:3898–4059` / JS 110 L in js/cmd.js; hops 2, callers 1, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn lookaround` (reach regression must be 0). Measured `port-coverage.mjs --name lookaround` 2026-09-23 @ 6080165a9. **Addressed:** D-2759 `22b0e07c3`
 
 
 - [x] `spell.c` getspell — coverage THIN (C 68 L `spell.c:715–783` / JS 21 L in js/spell.js; hops 6, callers 3, RNG 0, msg 3; dead callees: spell_let_to_idx). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn getspell` (reach regression must be 0). Measured `port-coverage.mjs --name getspell` 2026-09-23 @ 14f1ff816. **Addressed:** D-2758 `a93c20957`
