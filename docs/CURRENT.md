@@ -98,10 +98,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `cfgfiles.c` handle_config_section — coverage MISSING (C 30 L `cfgfiles.c:552–582` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: is_config_section, free_config_sections). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn handle_config_section` (reach regression must be 0). Measured `port-coverage.mjs --name handle_config_section` 2026-09-23 @ ed9d7b7ad.
+**Next cluster:** `options.c` optfn_msg_window — coverage MISSING (C 62 L `options.c:2456–2520` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: handler_msg_window). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn optfn_msg_window` (reach regression must be 0). Measured `port-coverage.mjs --name optfn_msg_window` 2026-09-23 @ ed9d7b7ad.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2764 (index).**
+**Keep D-0845…D-2765 (index).**
 <!-- recent:begin -->
+**D-2765** `nethack-c/upstream/src/options.c` — ported all bodies in C order into `js/options.js` (1:1 C home): `optfn_msg_window` empty-optstr negated→'s'/else-'f' (`:2477–2478`), negated-with-value bad_negation+err (`:2480–2482`), lowc-first-char s/c/f/r switch (`:2
 **D-2764** `nethack-c/upstream/src/cfgfiles.c:551–582` (`handle_config_section`); callees `is_config_section :522–549`, `free_config_sections :506–517` — ported all three bodies in C order into `js/cfgfiles.js`: `!== null` pointer test (empty `"[]"` takes the section arm), current freed before the CHOOSE check, `Section "[%s]" without CHOOSE` sink, `*sect`-gated dupstr vs free, strcmp-`!==` filter; gameconfig fields on `game`
 **D-2763** `nethack-c/upstream/src/coloratt.c:616–660` (`add_menu_coloring`). Every `:line` cite veri — ported the whole body in C order into `js/options.js` (home of the coloratt family): BUFSZ−1 copy (`:623-624`), first-'=' split with Malformed→FALSE (`:626-629`, sink named per file precedent), mungspace-then-first-'&' s
 **D-2762** `nethack-c/upstream/src/cmd.c:2407–2446` (`handler_rebind_keys`) + `:2290–2405` (`handler_ — ported all six bodies in C order: `handler_rebind_keys` redo PICK_ONE menu via live `select_menu_pick_one` (auto-letters ≡ tty_end_menu; `end_menu` prompts as header rows per the `handle_add_list_remove` precedent); item
@@ -109,11 +110,10 @@ revisits the picker.
 **D-2760** `nethack-c/upstream/src/dog.c:995–1133` (`dogfood`); callers `dog.c:1197,1247` (tamedog),  — restarted the body in C order with per-arm `:line` cites: opoisoned + `resists_poison` head; quest-arti/obj_resists short-circuit; fx/fptr via LOW_PM/NUMMONS bounds (null = the NUMMONS entry, all predicates null-safe); r
 **D-2759** `nethack-c/upstream/src/hack.c:3898–4058` (`lookaround`); sole caller `allmain.c:516` (mov — restarted the body in C order with per-arm `:line` cites: NODIAG head (`You("cannot move diagonally.")` + nomul, grid-bug `umonnum==PM_GRID_BUG` idiom); `Blind() || run==0` gate (live invent.js macro); per-cell NODIAG sk
 **D-2758** `nethack-c/upstream/src/spell.c:714–783` (`getspell`); callee `spell_let_to_idx :114–126`; — restarted the body in C order with per-arm `:line` cites: no-spells `You("don't know any spells right now.")` guard; rejectcasting guard — C prints inside `rejectcasting`, the JS clone is a sync predicate so the same thr
-**D-2757** `nethack-c/upstream/src/botl.c:3811–3887` (`status_hilite_menu_choose_updownboth`), `:4305 — the menus are the C bodies in that order.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2764; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2765; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
