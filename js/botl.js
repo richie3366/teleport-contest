@@ -1146,8 +1146,10 @@ const statusHungerTxt = [
 
 /* C options.c config_error_add() — config-error sink. bad_negation
  * (options.js) precedent: the message text is a named omission (map);
- * FALSE propagation at every call site below is kept. */
-function config_error_add(_fmt, ..._args) {
+ * FALSE propagation at every call site below is kept. Exported for the
+ * bind_key `:2698`/`:2704`/`:2712` arms (cmd.js; same 98-module SCC,
+ * called only inside function bodies). */
+export function config_error_add(_fmt, ..._args) {
     // Named omission (map): config_error_add sink.
 }
 

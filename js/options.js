@@ -144,7 +144,7 @@ import {
     opt_next_cond, cond_menu, status_hilite_menu,
     status_hilite_linestr_done, status_hilite_linestr_gather,
 } from './botl.js';
-import { get_changed_key_binds } from './cmd.js';
+import { get_changed_key_binds, handler_rebind_keys, count_bind_keys } from './cmd.js';
 
 /** C ref: global.h PL_FSIZ — fruit name buffer. */
 const PL_FSIZ = 32;
@@ -3198,7 +3198,8 @@ export async function doset() {
     for (const t of [
         { name: 'autocompletions', val: '(0 currently set)' },
         { name: 'autopickup exceptions', val: '(0 currently set)' },
-        { name: 'bind keys', val: '(0 currently set)' },
+        // C options.c:8336 optfn_o_bind_keys get_val (n_currently_set).
+        { name: 'bind keys', val: currently_set_val(count_bind_keys()) },
         { name: 'menu colors', val: currently_set_val(count_menucolors()) },
         { name: 'message types', val: '(0 currently set)' },
         { name: 'status condition fields', val: '(16 currently set)' },
@@ -3243,13 +3244,17 @@ export async function doset() {
             await handler_perminv_mode();
         }
     }
-    // C options.c doset Othr rows → optfn do_handler; menu colors
+    // C options.c doset Othr rows → optfn do_handler; bind keys
+    // (handler_rebind_keys, C `:8340`), menu colors
     // (handler_menu_colors, C `:8383`), status condition fields
     // (cond_menu, C optfn_o_status_cond `:8436–8439`), and status
     // highlight rules (status_hilite_menu, C optfn_o_status_hilites
     // `:8464–8471`) have live handlers.
     for (const name of othrPicks) {
-        if (name === 'menu colors') {
+        // C options.c:8340 optfn_o_bind_keys do_handler.
+        if (name === 'bind keys') {
+            await handler_rebind_keys();
+        } else if (name === 'menu colors') {
             await handler_menu_colors();
         } else if (name === 'status condition fields') {
             if (await cond_menu()) opt_set_in_config[PFX_COND_IDX] = true;

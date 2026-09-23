@@ -58,8 +58,8 @@ describe("saveoptions key-binds writer port (cmd.c)", () => {
     assert.equal(sbuf.str, "BIND=t:cast\nBIND=c:nothing\n");
   });
 
-  it("null sbuf (display arm) does not throw (C :2282–2285 named omission)", () => {
+  it("null sbuf (display arm) returns putstr lines (C :2282–2285; D-2762 drains via show_text_pages)", () => {
     game.Cmd = { binds: new Map([[116, "cast"]]) };
-    assert.equal(get_changed_key_binds(null), undefined);
+    assert.deepEqual(get_changed_key_binds(null), ["BIND=t:cast"]);
   });
 });
