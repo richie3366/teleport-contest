@@ -147,6 +147,15 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-24 — D-2781 `options.c` doset_simple hasHandler arms mark `opt_set_in_config` (review-1737 Must-fix)
+
+**C locus:** `nethack-c/upstream/src/options.c:8664–8670` (doset_simple_menu: optfn do_handler, `optn_ok` → `opt_set_in_config[k]`); handler returns all `optn_ok` (`:6120` / `:6082` / `:6430`+`:6498` / `:5949`).
+**JS:** `js/options.js` `doset_compound_via_getlin :3482`, `handler_pickup_types :2591`.
+**Change:** capture `reslt` from the four hasHandler arms (D-2773 pattern), mark on `OPTN_OK`; `handler_pickup_types` returns `optn_ok`. No `:8669` pfx_cond_ guard (PFX_COND_IDX 215; the four are ordinary rows).
+**Verify:** `node scripts/verify.mjs --fn handler_number_pad` → PASS syntax (1 file) · PASS rule2 · note hidden (0 blocked, vacuous) · PASS reach (smoke 24/24 → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 · VERIFY: PASS.
+**Named:** full-doset pickup_types/perminv_mode marking (D-2773 remainder); other hasHandler compounds (symset/…).
+**Next:** next Must-fix — review-1733 `stripped` row.
+
 ## 2026-09-23 — D-2780 `glyphs.c` purge_all_custom_entries + purge_custom_entries whole-body ports (customization teardown live)
 
 **C locus:** `nethack-c/upstream/src/glyphs.c:751–758` (purge_all_custom_entries: `i < NUM_GRAPHICS + 1` loop, global, extern.h:1184) + `:761–794` (purge_custom_entries: staticfn, glyphs.c:50; per-custtype chain walk with per-arm payload clearing under the `gdc.custtype` guard, details/details_end/name/count reset); enum `customization_types` sym.h:138–139 (none/symbols/ureps/nhcolor/count ≡ JS CUSTOM_* 0–4, D-2771).

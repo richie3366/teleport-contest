@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2781 — `options.c` doset_simple hasHandler arms mark `opt_set_in_config` on optn_ok (review-1737 Must-fix)
+
+- **Status:** fixed (Must-fix — review 1737 QUALITY-RISK on D-2778 (`reviews/loop-unattended/1737-1adad9065-number-pad.md`): `doset_compound_via_getlin` never marks `opt_set_in_config`; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** JS `doset_compound_via_getlin` awaited the four `hasHandler` compounds (pickup_types, perminv_mode, menu colors, number_pad) and dropped the result, so a simple-menu pick never marked `opt_set_in_config` and a later options save would omit the row. C `doset_simple_menu :8664–8670` marks `opt_set_in_config[k]` whenever the do_handler call returns `optn_ok` — on every pick including cancel, since all four handlers return `optn_ok` on every path.
+- **C locus:** `nethack-c/upstream/src/options.c:8664–8670` (doset_simple_menu compound arm: has_handler+optfn → do_handler call, `reslt == optn_ok && idx != pfx_cond_` → mark); handler returns all `optn_ok`: handler_pickup_types `:6120`, handler_perminv_mode `:6082` (sole return, body `:6011–6083`), handler_menu_colors `:6430` (menucolors_done) + `:6498` (pick_cnt<0 fallthrough), handler_number_pad `:5949`.
+- **JS was:** four `await handler_*()` arms with dropped results in `doset_compound_via_getlin`; `handler_pickup_types` fell off the end (undefined) while the other three already returned `optn_ok`/`OPTN_OK` (both 1).
+- **Fix:** capture `reslt` from the four arms (D-2773 full-doset else-arm pattern), mark `opt_set_in_config[allopt_idx(name)]` on `OPTN_OK`; `handler_pickup_types` returns `optn_ok` per `:6120`. No `:8669` pfx_cond_ guard — PFX_COND_IDX is 215 and none of the four named rows is the cond row.
+- **JS:** `js/options.js` `doset_compound_via_getlin :3482` (arms `:3489–3497`, mark `:3498`), `handler_pickup_types :2591` (+10/−4, single file, zero new cross-module edges).
+- **Callers:** C doset_simple_menu `:8665–8667` do_handler call → the four `reslt = await handler_*()` arms `js/options.js:3490–3496` (this commit). No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn handler_number_pad` → PASS syntax (1 changed js file: js/options.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 · VERIFY: PASS.
+- **Named omissions:** full-doset pickup_types/perminv_mode `opt_set_in_config` marking (D-2773 remainder — `:4564`/`:4566` still drop those two results); other hasHandler compounds (symset/…).
+- **Next:** next Must-fix — review-1733 `stripped` row.
+
 ## D-2780 — `glyphs.c` purge_all_custom_entries + purge_custom_entries whole-body ports (customization teardown live)
 
 - **Status:** fixed (Open — coverage row `glyphs.c` purge_all_custom_entries MISSING (C 7 L `glyphs.c:751–758` / JS no symbol; callers 1, RNG 0, msg 0; dead callees: purge_custom_entries; measured `port-coverage.mjs --name purge_all_custom_entries` 2026-09-23 @ 181b4b4ff); staticfn callee purge_custom_entries (C 33 L `:761–794`) ported in-commit; `hidden-proxy verify` reports no corpus session blocked).

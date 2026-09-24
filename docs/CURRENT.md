@@ -100,10 +100,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `js/options.js` doset_compound_via_getlin — mark `opt_set_in_config` on OPTN_OK handler results (Must-fix from review 1737; C `options.c:8668–8669`), then the review-1733 `stripped` Must-fix.
+**Next cluster:** `js/options.js` parseNethackrc valueless `menu_objsyms` arm — pass case-preserved `stripped` as `opts` (Must-fix from review 1733; C `options.c:2249`), then next Open coverage row.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2780 (index).**
+**Keep D-0845…D-2781 (index).**
 <!-- recent:begin -->
+**D-2781** `options.c:8664–8670` (doset_simple_menu hasHandler: optfn do_handler, optn_ok → mark — capture `reslt` from the four arms, mark `opt_set_in_config` on OPTN_OK; `handler_pickup_types` returns optn_ok.
 **D-2780** `nethack-c/upstream/src/glyphs.c:751–758` (purge_all_custom_entries: `i < NUM_GRAPHICS + 1 — whole C bodies in C order with `:line` cites.
 **D-2779** `nethack-c/upstream/src/wizcmds.c:576–617` (wiz_show_seenv: `:583` create, `:588–592` hero — whole C bodies in C order with `:line` cites.
 **D-2778** `options.c` handler_number_pad `:5893–5950` (npchoices `:5898–5903`, create/start/zeroany  — whole C bodies in C order with `:line` cites.
@@ -111,11 +112,10 @@ revisits the picker.
 **D-2776** `nethack-c/upstream/src/sounds.c:1556–1626` + `:2084–2152`; sff enum `include/sndprocs.h:2 — `js/sounds.js` (+261/−1) — both bodies in C order with `:line` cites.
 **D-2775** `options.c` handler_whatis_coord `:6205–6276`; optfn_whatis_coord `:4702–4745` (do_init `: — whole C bodies in C order with `:line` cites.
 **D-2774** `options.c` handler_menu_objsyms `:5794–5829`; optfn_menu_objsyms `:2224–2287` (do_init `: — whole C bodies in C order with `:line` cites: `objsymvals` table; `set_menuobjsyms_flags(n, iflagsBag)` (bit 1 → menu_head_objsym, bits 2|4 → use_menu_glyphs); `optfn_menu_objsyms` — do_init 4, do_set (`!` → 0, valueless
-**D-2773** `options.c` doset `:8933–8939` (`allopt[k].optfn(idx, do_handler, FALSE, empty_optstr, emp — new async `doset_optfn_do_handler(name)` = the three do_handler arms in C order (versinfo: snapshot `vi`, await `handler_versinfo`, `'%s' %s %u.` changed-to / not-changed-still pline, `:4530` redraw gate); `doset_compopt
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2780; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2781; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
