@@ -5,11 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-24
 
-- [x] `js/options.js` doset_compound_via_getlin number_pad arm never marks `opt_set_in_config` — C `doset_simple_menu` (`options.c:8668–8669`) marks `opt_set_in_config[k]=TRUE` on `optn_ok` (handler returns OPTN_OK even on cancel, so C marks on every pick). Capture the result and mark `opt_set_in_config[allopt_idx('number_pad')]` on OPTN_OK (D-2773 full-doset else-arm pattern; same one line suits the three sibling hasHandler arms). Source: reviews/loop-unattended/1737-1adad9065-number-pad.md. Verify `node scripts/verify.mjs --fn handler_number_pad` (reach regression must be 0). **Addressed:** D-2781
+- [x] `js/options.js` doset_compound_via_getlin number_pad arm never marks `opt_set_in_config` — C `doset_simple_menu` (`options.c:8668–8669`) marks `opt_set_in_config[k]=TRUE` on `optn_ok` (handler returns OPTN_OK even on cancel, so C marks on every pick). Capture the result and mark `opt_set_in_config[allopt_idx('number_pad')]` on OPTN_OK (D-2773 full-doset else-arm pattern; same one line suits the three sibling hasHandler arms). Source: reviews/loop-unattended/1737-1adad9065-number-pad.md. Verify `node scripts/verify.mjs --fn handler_number_pad` (reach regression must be 0). **Addressed:** D-2781 `47eba199b`
 
 ## 2026-09-23
 
-- [x] `glyphs.c` purge_all_custom_entries — coverage MISSING (C 7 L `glyphs.c:751–758` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: purge_custom_entries). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn purge_all_custom_entries` (reach regression must be 0). Measured `port-coverage.mjs --name purge_all_custom_entries` 2026-09-23 @ 181b4b4ff. **Addressed:** D-2780
+- [x] `glyphs.c` purge_all_custom_entries — coverage MISSING (C 7 L `glyphs.c:751–758` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: purge_custom_entries). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn purge_all_custom_entries` (reach regression must be 0). Measured `port-coverage.mjs --name purge_all_custom_entries` 2026-09-23 @ 181b4b4ff. **Addressed:** D-2780 `35cb25d77`
 
 
 - [x] `wizcmds.c` wiz_show_seenv — coverage MISSING (C 41 L `wizcmds.c:576–617` / JS no symbol; hops —, callers 0, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn wiz_show_seenv` (reach regression must be 0). Measured `port-coverage.mjs --name wiz_show_seenv` 2026-09-23 @ 66cce8590. **Addressed:** D-2779 `e93d269e7`

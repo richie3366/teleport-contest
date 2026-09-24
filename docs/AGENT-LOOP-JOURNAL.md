@@ -1,4 +1,16 @@
 # Agent loop journal
+## 2026-09-24 — Audit 47eba199b (review 1740: ACCEPT) + cadence 44/44.
+
+Review 1740 audits D-2781 against pinned C. The four
+`doset_compound_via_getlin` hasHandler arms now keep the handler
+result and mark `opt_set_in_config` on OPTN_OK. allopt `idx` equals
+the array slot (0 mismatches / 217), so the flag is the slot
+`all_options_strbuf` reads. Each handler's only returns are
+`optn_ok`, including cancel. Re-measure: 0 blocked, smoke 24/24
+REACH-OK, 0 REGRESSED. Cadence at `47eba199b`: public 44/44, Scr
+11,405, RNG 792,838, speed 76+0.46 (R² 0.79); held-out 12/44 (+0,
+last scored 2026-09-24T13:10Z, values identical); corpus 501/540,
+0 PASS→FAIL. Rule #2 clean. Next: Must-fix menu_objsyms `stripped`.
 ## 2026-09-24 — Audit 2254700ea..35cb25d77 (reviews 1731–1739: 7 ACCEPT, 2 QUALITY-RISK → 2 Must-fix) + cadence 44/44.
 
 Reviews audit D-2772..D-2780 against pinned C (csym bodies + callers,

@@ -1749,3 +1749,4 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1737-1adad9065-number-pad.md](./1737-1adad9065-number-pad.md) | `1adad9065` | D-2778 number_pad option | **QUALITY-RISK** |
 | [1738-e93d269e7-wiz-seenv-migrate.md](./1738-e93d269e7-wiz-seenv-migrate.md) | `e93d269e7` | D-2779 wiz seenv + migrate | **ACCEPT** |
 | [1739-35cb25d77-purge-custom-entries.md](./1739-35cb25d77-purge-custom-entries.md) | `35cb25d77` | D-2780 purge custom entries | **ACCEPT** |
+| [1740-47eba199b-doset-simple-mark.md](./1740-47eba199b-doset-simple-mark.md) | `47eba199b` | D-2781 doset_simple hasHandler mark | **ACCEPT** |
