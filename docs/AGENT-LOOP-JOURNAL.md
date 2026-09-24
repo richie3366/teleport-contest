@@ -1,4 +1,24 @@
 # Agent loop journal
+## 2026-09-24 — Audit 2254700ea..35cb25d77 (reviews 1731–1739: 7 ACCEPT, 2 QUALITY-RISK → 2 Must-fix) + cadence 44/44.
+
+Reviews audit D-2772..D-2780 against pinned C (csym bodies + callers,
+sym.mjs, per-SHA hidden-proxy --reach-all). 1733 QUALITY-RISK: D-2774
+passes lowercased `lname` (with `!` stripped) as optfn `opts`, but C
+`strncmp` is case-sensitive, so `USE_MENU_GLYPHS` menus render entries
+instead of headers (own smoke: 2 vs C 1) — pass `stripped` instead.
+1737 QUALITY-RISK: D-2778's number_pad arm routes through
+doset_compound_via_getlin which never marks `opt_set_in_config`, while
+C doset_simple_menu marks on optn_ok even for cancel — compound path
+needs the same mark. 1731/1732 ACCEPT close the 1728/1724 Must-fix rows
+(1732 nit: comment says `:7174` absent from pinned upstream, but it is
+present — behavior correct). 1734/1735/1736/1738/1739 ACCEPT (1735
+sscanf hand-proof, 1736 240-entry table script-verified, 1738
+DEBUG_MIGRATING_MONS wishlist live re-verified). Every re-measure 0
+REGRESSED. Cadence at `35cb25d77`: public 44/44, Scr 11,405, RNG
+792,838, speed 52+0.32 (R² 0.80); held-out 12/44 (+0, judge stamp
+2026-09-24T01:23Z, values identical); corpus 501/540, per-session
+identical to audit 1723–1730. Rule #2 clean. Next: the two Must-fix
+rows (compound mark first, then `stripped`).
 ## 2026-09-23 — Audit d0dce8186..385103f98 (reviews 1723–1730: 5 ACCEPT, 1 WITH-DEBT, 2 QUALITY-RISK → 2 Must-fix) + cadence 44/44.
 
 Reviews audit D-2764..D-2771 against pinned C (csym bodies + callers,

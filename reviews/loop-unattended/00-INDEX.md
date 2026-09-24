@@ -1740,3 +1740,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1728-66cce8590-list-vanquished.md](./1728-66cce8590-list-vanquished.md) | `66cce8590` | D-2769 list_vanquished restart | **QUALITY-RISK** |
 | [1729-af4f4ca65-done-in-by.md](./1729-af4f4ca65-done-in-by.md) | `af4f4ca65` | D-2770 done_in_by + passive AD_STON | **ACCEPT** |
 | [1730-385103f98-custom-nhcolor-wizcustom.md](./1730-385103f98-custom-nhcolor-wizcustom.md) | `385103f98` | D-2771 add_custom_nhcolor_entry + wizcustom_glyphids | **ACCEPT-WITH-DEBT** |
+| [1731-2254700ea-vanqsort-cmp-mcls.md](./1731-2254700ea-vanqsort-cmp-mcls.md) | `2254700ea` | D-2772 vanqsort_cmp MCLS arms | **ACCEPT** |
+| [1732-55da228b3-doset-do-handler.md](./1732-55da228b3-doset-do-handler.md) | `55da228b3` | D-2773 doset do_handler dispatch | **ACCEPT** |
+| [1733-d61d9e62a-menu-objsyms.md](./1733-d61d9e62a-menu-objsyms.md) | `d61d9e62a` | D-2774 menu_objsyms option | **QUALITY-RISK** |
+| [1734-93090310b-whatis-coord.md](./1734-93090310b-whatis-coord.md) | `93090310b` | D-2775 whatis_coord option | **ACCEPT** |
+| [1735-181b4b4ff-sound-mapping.md](./1735-181b4b4ff-sound-mapping.md) | `181b4b4ff` | D-2776 sound mapping + filename | **ACCEPT** |
+| [1736-b7046f564-color-distance-spec.md](./1736-b7046f564-color-distance-spec.md) | `b7046f564` | D-2777 color distance/spec parsers | **ACCEPT** |
+| [1737-1adad9065-number-pad.md](./1737-1adad9065-number-pad.md) | `1adad9065` | D-2778 number_pad option | **QUALITY-RISK** |
+| [1738-e93d269e7-wiz-seenv-migrate.md](./1738-e93d269e7-wiz-seenv-migrate.md) | `e93d269e7` | D-2779 wiz seenv + migrate | **ACCEPT** |
+| [1739-35cb25d77-purge-custom-entries.md](./1739-35cb25d77-purge-custom-entries.md) | `35cb25d77` | D-2780 purge custom entries | **ACCEPT** |
