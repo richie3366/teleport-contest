@@ -222,8 +222,20 @@ CONTINUE_PROMPT_FILE="${CONTINUE_PROMPT_FILE:-$ROOT/scripts/agent-port-loop.cont
 # stop latch so a mistaken second launch cannot restart an existing loop.
 LOCK_DIR="${LOCK_DIR:-$LOG_DIR/.lock}"
 if ! mkdir "$LOCK_DIR" 2>/dev/null; then
-  echo "error: agent port loop already running (lock: $LOCK_DIR)" >&2
-  exit 1
+  # A killed terminal skips the EXIT trap and leaves the lock behind; reclaim
+  # it only when its pid is gone or now belongs to some other program.
+  lock_pid="$(cat "$LOCK_DIR/pid" 2>/dev/null || true)"
+  if [[ -z "$lock_pid" ]] \
+    || ps -p "$lock_pid" -o command= 2>/dev/null | grep -q 'agent-port-loop'; then
+    echo "error: agent port loop already running (pid ${lock_pid:-unknown}, lock: $LOCK_DIR)" >&2
+    exit 1
+  fi
+  echo "warning: removing stale lock $LOCK_DIR (pid $lock_pid is not a running loop)" >&2
+  rm -rf "$LOCK_DIR"
+  if ! mkdir "$LOCK_DIR" 2>/dev/null; then
+    echo "error: agent port loop already running (lock: $LOCK_DIR)" >&2
+    exit 1
+  fi
 fi
 printf '%s\n' "$$" >"$LOCK_DIR/pid"
 cleanup() { rm -rf "$LOCK_DIR"; }
