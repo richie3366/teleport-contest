@@ -2321,8 +2321,8 @@ RogueIBM/`load_symset` / full showsyms deferred);
 **POOL/MOAT/WATER/LAVAPOOL/LAVAWALL/ICE `terrain_glyph` + 
 scoring grid keeps raw DEC `` ` ``** (D-0355; Primary `}`/`.` + colors); 
 **`obj_is_piletop` + `hilite_pile`/`use_inverse` → ATR_INVERSE on map objects** (D-0386; 
-MG_DETECT/BW_* deferred); **`mon_map_attr` hilite_pet/`wc2_petattr` ATR_INVERSE on tame `newsym`** 
-(D-0478; accessibility SYM_PET_OVERRIDE + remembered MG_PET when pet left deferred); 
+MG_DETECT/BW_* deferred); **`mon_map_attr` hilite_pet/`wc2_petattr` via `petattr_to_tty`** 
+(D-0478; D-2799 maps wintype none/bold/underline/inverse onto terminal 0/2/4/1, dim/italic/blink → 0; accessibility SYM_PET_OVERRIDE + remembered MG_PET when pet left deferred); 
 **`unmap_object`/`unmap_invisible` + `mondead` clears remembered `I`** (D-0479) + 
 **`unmap_object` ≡ C trap/engraving/`map_background` (not `map_location`)** (D-0928 #1166; 
 **`set_bc` is D-1769**; Blind `move_bc` glyph / `feel_location` still deferred); omit ladder glyphs; 

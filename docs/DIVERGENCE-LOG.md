@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2799 — `petattr_to_tty` maps wintype attrs onto the terminal bitfield
+
+- **Status:** fixed (Must-fix from review 1751; `petattr_to_tty` passed wintype attribute numbers through the terminal bitfield. `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** A stored pet highlight of bold (wintype `ATR_BOLD` 1) painted terminal inverse (bit 1). Dim (2) painted terminal bold. Italic (3) painted inverse|bold. Blink (5) painted inverse|underline. Stored none (0) also painted inverse.
+- **C locus:** `nethack-c/upstream/include/wintype.h:128–134` (`ATR_NONE` 0, `ATR_BOLD` 1, `ATR_DIM` 2, `ATR_ITALIC` 3, `ATR_ULINE` 4, `ATR_BLINK` 5, `ATR_INVERSE` 7). `options.c:3163` stores `match_str2attr`'s value in `iflags.wc2_petattr`. Paint is `wintty.c:3928` `term_start_attr(iflags.wc2_petattr)` → `termcap.c:1339–1376` `s_atr2str`. `initoptions` `:7264` stores `ATR_INVERSE` when the field is unset.
+- **JS was:** `js/display.js` `petattr_to_tty` returned terminal `ATR_INVERSE` for null, 0, and 7, and returned every other stored value unchanged.
+- **Fix:** Map none → 0, bold → terminal `ATR_BOLD` (2), underline → `ATR_UNDERLINE` (4), inverse → `ATR_INVERSE` (1). Dim, italic, and blink return 0 so they are not passed through. An unset field still paints inverse (the `initoptions` default; that assignment is not a JS function).
+- **JS:** `js/display.js` `petattr_to_tty :311`, called from `mon_map_attr :330` and `glyph_tty_attr :343`.
+- **Callers:** C `wintty.c:3928` is the pet paint. JS sites: `js/display.js:618` (worm `mon_map_attr`), `:1350` (monster `newsym`), `:1911` and `:1974` (`glyph_tty_attr`), `js/detect.js:1221` (`glyph_tty_attr`). C `wintty.c:3960` `term_end_attr` is the matching end; the cell stores one attr and has no separate end call. Other `term_start_attr` sites (`wintty.c:1186`, `:1318`, `:1807`, `:2338`, `:2350`, `:4959–4969`, `:5170`) pass menu or status attributes, not `wc2_petattr`. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn optfn_petattr` → PASS syntax (1 changed js file: js/display.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 · VERIFY: PASS.
+- **Named omissions:** `s_atr2str` italic falls through to underline when `ZH` is empty, and blink falls through to bold when `MB` is empty (`termcap.c:1343–1364`). This terminal has no italic or blink bit, so those enums paint as 0. Dim already returns empty when `MH` is empty, which matches. `config_error_add` / `bad_negation` sinks and the non-tty `#else` (`options.c:3165`) stay as in D-2792.
+- **Next:** next Must-fix (`js/do.js` `dodown` local `Flying` drops the steed-flyer, review 1752).
+
 ## D-2798 — `zap.c` fracture_rock whole-body port
 
 - **Status:** fixed (Open — coverage row `fracture_rock` PARTIAL, measured `port-coverage.mjs --name fracture_rock` 2026-09-25 @ 75144e146; `hidden-proxy verify` reports no corpus session blocked). `find_ac` was the queue head and is already the live C body (`#if 0` achievements compiled out), so it was parked Stale and this row shipped instead.

@@ -134,7 +134,7 @@ import {
     NO_COLOR, CLR_GRAY, CLR_BLACK, CLR_BROWN, CLR_WHITE, CLR_YELLOW,
     CLR_BLUE, CLR_BRIGHT_BLUE, CLR_RED, CLR_ORANGE, CLR_CYAN, CLR_GREEN,
     CLR_MAGENTA, CLR_BRIGHT_MAGENTA, CLR_BRIGHT_GREEN,
-    DEC_TO_UNICODE, ATR_INVERSE,
+    DEC_TO_UNICODE, ATR_INVERSE, ATR_BOLD, ATR_UNDERLINE,
 } from './terminal.js';
 import { update_lastseentyp, In_tutorial, cmap_to_type, ensure_lastseentyp, on_level } from './dungeon.js';
 import { stairway_at, known_branch_stairs } from './mklev.js';
@@ -290,15 +290,39 @@ function hilite_pet_opt() {
 }
 
 /**
- * C wintype.h ATR_INVERSE is 7; frozen terminal.js ATR_INVERSE is 1.
- * null and 0 stay terminal inverse (the pre-existing reader). Any other
- * stored value is passed through, so a 1 left by an older enable arm
- * is still inverse. 7 (optfn_petattr and the hilite_pet enable arm)
- * maps to terminal inverse.
+ * C ref: wintype.h `:128–134` enum, stored by options.c optfn_petattr
+ * `:3163` (`match_str2attr`). Paint is wintty.c tty_print_glyph
+ * `:3928` `term_start_attr(iflags.wc2_petattr)`.
+ *
+ * Frozen terminal.js is a bitfield, not that enum. wintype ATR_BOLD
+ * is 1 and terminal ATR_INVERSE is 1, so a stored bold must not pass
+ * through. Map none → 0, bold → ATR_BOLD (2), underline →
+ * ATR_UNDERLINE (4), inverse → ATR_INVERSE (1). Dim (2), italic (3),
+ * and blink (5) have no terminal bit and return 0.
+ *
+ * An unset field stands in for initoptions `:7264` (ATR_INVERSE).
+ * A stored 0 is ATR_NONE and paints nothing.
+ *
+ * Named: termcap.c s_atr2str `:1339–1376` falls italic through to
+ * underline when ZH is empty, and blink through to bold when MB is
+ * empty. Those capability fallbacks are not applied; this terminal
+ * has no italic or blink bit.
  */
 function petattr_to_tty(a) {
-    if (a == null || a === 0 || (a | 0) === 7) return ATR_INVERSE;
-    return a | 0;
+    if (a == null) return ATR_INVERSE;
+    switch (a | 0) {
+    case 0: // wintype ATR_NONE
+        return 0;
+    case 1: // wintype ATR_BOLD
+        return ATR_BOLD;
+    case 4: // wintype ATR_ULINE
+        return ATR_UNDERLINE;
+    case 7: // wintype ATR_INVERSE
+        return ATR_INVERSE;
+    default:
+        // ATR_DIM 2, ATR_ITALIC 3, ATR_BLINK 5, and any other value.
+        return 0;
+    }
 }
 
 function mon_map_attr(mtmp) {

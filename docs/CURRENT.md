@@ -102,10 +102,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `js/display.js` `petattr_to_tty` — wintype `ATR_BOLD` (1) passes through and paints terminal `ATR_INVERSE` (1); dim (2) paints terminal bold. Map none→0, bold→2, underline→4, inverse→1; dim/italic/blink must not pass through. Source: reviews/loop-unattended/1751-75144e146-optfn-petattr.md. Verify `node scripts/verify.mjs --fn optfn_petattr`.
+**Next cluster:** `js/do.js` `dodown` ceiling-hider and `u_locomotion` call the local `Flying()` (`do.js:449`) which drops the steed-flyer. `youprop.h` `Flying` is `(HFlying || EFlying || (u.usteed && is_flyer(u.usteed->data))) && !BFlying`. `mhitu.js` `Flying` already has that arm and `do.js` already imports `mhitu.js`. Source: reviews/loop-unattended/1752-f176b8c0a-dodown.md. Verify `node scripts/verify.mjs --fn dodown`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2798 (index).**
+**Keep D-0845…D-2799 (index).**
 <!-- recent:begin -->
+**D-2799** `nethack-c/upstream/include/wintype.h:128–134` (`ATR_NONE` 0, `ATR_BOLD` 1, `ATR_DIM` 2, ` — Map none → 0, bold → terminal `ATR_BOLD` (2), underline → `ATR_UNDERLINE` (4), inverse → `ATR_INVERSE` (1).
 **D-2798** `nethack-c/upstream/src/zap.c:5536–5578` `fracture_rock`. Callees: `get_obj_location`, `co — Restart of `fracture_rock` in C order, async because `You` and `breakobj` can reach `--More--`.
 **D-2797** `nethack-c/upstream/src/uhitm.c:3122–3165` `mhitm_ad_drst`. Callees: `mhitm_mgc_atk_negate — One exported `mhitm_ad_drst` in C order.
 **D-2796** `nethack-c/upstream/src/mthrowu.c:75–155` `thitu`. Callees: `doname`, `mshot_xname`, `kill — Restart of `thitu` in C order.
@@ -113,11 +114,10 @@ revisits the picker.
 **D-2794** `nethack-c/upstream/src/timeout.c:2247–2292` `start_timer`. Callees: `kind_name` `:1994–20 — Restart of `start_timer` in C order.
 **D-2793** `nethack-c/upstream/src/do.c:1131–1294` `dodown`. Same commit: `u_stuck_cannot_go` `:1110– — Restart of `dodown` in C order.
 **D-2792** `nethack-c/upstream/src/options.c:3138–3194` `optfn_petattr` and `:6152–6164` `handler_pet — `optfn_petattr` and `handler_petattr` in C order.
-**D-2791** `nethack-c/upstream/src/options.c:621` (`duplicate = duplicate_opt_detection(matchidx)` in — `rc_do_set_role_family` sets `go.opt_initial` and `go.opt_from_file` (the `TRUE, TRUE` pair) and `duplicateOpt` from `duplicate_opt_detection` before the optfn, then restores both so a leftover TRUE is not left for a lat
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2798; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2799; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
