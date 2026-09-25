@@ -82,7 +82,7 @@ import { erode_obj, selftouch, instapetrify, drown, float_down, float_up } from 
 import { has_ceiling } from './dungeon.js';
 import { artifact_light, begin_burn, end_burn } from './timeout.js';
 import { strsubst } from './hacklib.js';
-import { make_hallucinated, make_slimed } from './potion.js';
+import { make_hallucinated, make_slimed, incr_itimeout } from './potion.js';
 import { rn2, rnd } from './rng.js';
 import { set_mimic_blocking } from './vision.js';
 import { restartcham, rescham, cant_drown } from './mon.js';
@@ -1416,10 +1416,12 @@ async function Gloves_on() {
         });
         const hCur = (u.HFumbling | 0) | (prop.intrinsic | 0);
         if (!oldprop && !(hCur & ~TIMEOUT)) {
-            const next = (hCur & TIMEOUT) + rnd(20);
-            const hNext = (hCur & ~TIMEOUT) | (next & TIMEOUT);
-            u.HFumbling = hNext;
-            prop.intrinsic = hNext;
+            /* C do_wear.c:584–586 — incr_itimeout(&HFumbling, rnd(20)).
+               potion.c:55–85 saturates at TIMEOUT. Seed the slot from the
+               merged flat (C has one long), then mirror HFumbling back. */
+            prop.intrinsic = hCur;
+            incr_itimeout(prop, rnd(20));
+            u.HFumbling = prop.intrinsic | 0;
         }
     } else if (o.otyp === GAUNTLETS_OF_POWER) {
         // C: makeknown(uarmg->otyp); botl = TRUE
@@ -1503,10 +1505,13 @@ async function Boots_on() {
         });
         const hCur = (u.HFumbling | 0) | (prop.intrinsic | 0);
         if (!oldprop && !(hCur & ~TIMEOUT)) {
-            const next = (hCur & TIMEOUT) + rnd(20);
-            const hNext = (hCur & ~TIMEOUT) | (next & TIMEOUT);
-            u.HFumbling = hNext;
-            prop.intrinsic = hNext;
+            /* C do_wear.c:231–234 — incr_itimeout(&HFumbling, rnd(20)).
+               potion.c:55–85 itimeout saturates at TIMEOUT (0x00FFFFFF).
+               `(sum & TIMEOUT)` wraps a sum past that. incr_itimeout
+               writes the slot only; mirror the flat from that slot. */
+            prop.intrinsic = hCur;
+            incr_itimeout(prop, rnd(20));
+            u.HFumbling = prop.intrinsic | 0;
         }
         break;
     }

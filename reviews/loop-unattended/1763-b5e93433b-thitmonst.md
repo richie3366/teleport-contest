@@ -6,7 +6,7 @@
 - Banned grep: 0 hits in the hunk. `imports.mjs --rulecheck` on this SHA: "Rule #2 clean".
 - `imports.mjs --can dothrow.js shk.js obfree` → `ALREADY`. Same for `s_suffix` (`do_name.js`) and `impossible` (`display.js`).
 
-**Addressed:** D-2808
+**Addressed:** D-2808 `79c71b903`
 
 ## Intent vs deliverable
 

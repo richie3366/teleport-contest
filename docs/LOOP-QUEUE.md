@@ -103,7 +103,6 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 always Must-fix rows: they forfeit every later screen of that session
 (Constitution §10.14).
 
-- [ ] `js/do_wear.js` `Boots_on` `FUMBLE_BOOTS` adds `rnd(20)` with `(sum & TIMEOUT)`. C `incr_itimeout` (`potion.c:55–85`) saturates at `TIMEOUT` (`0x00FFFFFF`) via `itimeout`. A sum past `0x00FFFFFF` wraps. `js/potion.js` `incr_itimeout` already clamps; mirror `HFumbling` from the slot. Source: reviews/loop-unattended/1762-a48dbe85b-cloak-boots.md. Verify `node scripts/verify.mjs --fn Boots_on` (reach regression must be 0).
 - [ ] `js/display.js` `petattr_to_tty` returns 0 for wintype `ATR_ITALIC` (3) and `ATR_BLINK` (5). `s_atr2str` (`termcap.c:1343–1364`) with `ZH`/`MB`/`MD` null and `nh_US`/`nh_HI` set (`termcap.c:157–158`) paints italic as underline and blink as bold. Dim stays 0 (`:1370–1374`). Source: reviews/loop-unattended/1758-7a4911ae6-petattr-to-tty.md. Verify `node scripts/verify.mjs --fn optfn_petattr` (reach regression must be 0).
 
 ## Open — coverage (breadth phase — pop first after Must-fix)

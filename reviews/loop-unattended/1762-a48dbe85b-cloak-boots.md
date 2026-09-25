@@ -6,6 +6,8 @@
 - Banned grep: 0 hits in the hunk. `imports.mjs --rulecheck` on this SHA: "Rule #2 clean".
 - `imports.mjs --can do_wear.js potion.js incr_itimeout` → `ALREADY` (do_wear already imports potion). The fumble arm does not call that export.
 
+**Addressed:** D-2809
+
 ## Intent vs deliverable
 
 Subject promises both switches in C order: cloak plain / elven / displacement / mummy / invisibility / alchemy / impossible, and boots plain / water-walking / speed / elven / fumble / levitation / impossible, plus the post-switch `known` tail and the `wasinwater` snapshot. The diff does that. `find_ac` is gone from `Boots_on`.

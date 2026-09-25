@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2809 — `Boots_on` fumble timeout saturates at TIMEOUT
+
+- **Status:** fixed (Must-fix from review 1762; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** Putting on fumble boots added `rnd(20)` and then kept only `(sum & TIMEOUT)`. A sum at or above `0x01000000` wrapped into the low 24 bits. C `itimeout` sticks at `TIMEOUT` (`0x00FFFFFF`). The same mask was on fumble gauntlets.
+- **C locus:** `nethack-c/upstream/src/do_wear.c:231–234` `Boots_on` `FUMBLE_BOOTS` `incr_itimeout(&HFumbling, rnd(20))`. `do_wear.c:584–586` `Gloves_on` is the same call. `potion.c:55–85` `itimeout` saturates at `TIMEOUT` and floors below 1; `incr_itimeout` stores that through `set_itimeout`.
+- **JS was:** `js/do_wear.js` `Boots_on` and `Gloves_on` computed `(hCur & TIMEOUT) + rnd(20)` and stored `(next & TIMEOUT)` on both the flat and the slot. `js/potion.js` `incr_itimeout` already clamps, and it writes only the slot object's `.intrinsic`.
+- **Fix:** Seed the slot from the merged flat (C `HFumbling` is one long), call `incr_itimeout(prop, rnd(20))`, then set `u.HFumbling` from `prop.intrinsic`. A timeout already at `TIMEOUT` plus 20 stays `TIMEOUT`. The old mask turned that sum into 19. A timeout of 3 plus 7 stays 10.
+- **JS:** `js/do_wear.js` `Boots_on` `:1513`. `Gloves_on` `:1423`. `incr_itimeout` is `js/potion.js:540` (`imports.mjs --can`: already imported).
+- **Callers:** C `do_wear.c:1560` `set_wear` → `js/do_wear.js:1586`. C `do_wear.c:2385` `afternmv` → `js/do_wear.js:3218`. C `do_wear.c:26`, `:2405`, and `hack.c:881` are comments. `Gloves_on` is the same `incr_itimeout` at `do_wear.c:586`, not a caller of `Boots_on`. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn Boots_on` → PASS syntax (1 changed js file: js/do_wear.js) · PASS rule2 · note hidden (no corpus session blocked at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (verifier: do_wear.js is outside the auto shared set) · VERIFY: PASS. Probe: slot at `TIMEOUT` plus 20 stays 16777215 (old mask was 19); `TIMEOUT-5` plus 20 stays `TIMEOUT` (old mask 14); 3 plus 7 stays 10.
+- **Named omissions:** A null `uarmf` still returns before the switch (C would dereference).
+- **Next:** `js/display.js` `petattr_to_tty` italic and blink (next Must-fix, review 1758).
+
 ## D-2808 — `unstuck` places the ball and chain on a swallowed exit
 
 - **Status:** fixed (review 1763 C-wrong; `hidden-proxy verify` reports no corpus session blocked).

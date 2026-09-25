@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-25 — D-2809 `Boots_on` fumble timeout saturates at TIMEOUT
+
+**C locus:** `nethack-c/upstream/src/do_wear.c:231–234` `Boots_on` `FUMBLE_BOOTS` `incr_itimeout(&HFumbling, rnd(20))`. `do_wear.c:584–586` `Gloves_on` is the same call. `potion.c:55–85` `itimeout` saturates at `TIMEOUT` and floors below 1; `incr_itimeout` stores that through `set_itimeout`.
+**JS:** `js/do_wear.js` `Boots_on` `:1513`. `Gloves_on` `:1423`. `incr_itimeout` is `js/potion.js:540` (`imports.mjs --can`: already imported).
+**Change:** Seed the slot from the merged flat (C `HFumbling` is one long), call `incr_itimeout(prop, rnd(20))`, then set `u.HFumbling` from `prop.intrinsic`. A timeout already at `TIMEOUT` plus 20 stays `TIMEOUT`. The old mask turned that sum into 19.
+**Verify:** `node scripts/verify.mjs --fn Boots_on` → PASS syntax (1 changed js file: js/do_wear.js) · PASS rule2 · note hidden (no corpus session blocked at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (verifier: do_wear.js is outside the auto shared set) · VERIFY: PASS. Probe: slot at `TIMEOUT` plus 20 stays 16777215 (old mask was 19); `TIMEOUT-5` plus 20 stays `TIMEOUT` (old mask 14); 3 plus 7 stays 10.
+**Named:** A null `uarmf` still returns before the switch (C would dereference).
+**Next:** `js/display.js` `petattr_to_tty` italic and blink (next Must-fix, review 1758).
 ## 2026-09-25 — D-2808 `unstuck` places the ball and chain on a swallowed exit
 
 **C locus:** `nethack-c/upstream/src/mon.c:3438–3467` `unstuck`. Swallowed exit `:3448–3456`: clear `mswallower`, set `u.ux`/`u.uy` from the engulfer, `placebc` when `Punished && uchain->where != OBJ_FLOOR` (`:3451–3452`), then `vision_full_recalc` and `docrt`. Re-engulf `mspec_used = rnd(2)` `:3458–3465`.
