@@ -100,11 +100,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `cfgfiles.c` rcfile_interface_options — coverage MISSING (C 16 L `cfgfiles.c:1960–1976` / JS no symbol; hops —, callers 0, RNG 0, msg 0; dead callees: disregard_all_options, disregard_all_config_statements, heed_all_config_statements, heed_all_options). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn rcfile_interface_options` (reach regression must be 0). Measured `port-coverage.mjs --name rcfile_interface_options` 2026-09-23 @ e93d269e7. Same-file Open row parse_conf_str ships with it.
+**Next cluster:** `options.c` optfn_disclose — coverage MISSING (C 116 L `options.c:1442–1560` / JS no symbol; hops —, callers 0, RNG 0, msg 0; dead callees: handler_disclose). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn optfn_disclose` (reach regression must be 0). Measured `port-coverage.mjs --name optfn_disclose` 2026-09-23 @ e93d269e7. Queue row left unchecked (continue-unfinished did not pop).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2787 (index).**
 <!-- recent:begin -->
-**D-2787** `nethack-c/upstream/src/cfgfiles.c:1960–1976` `rcfile_interface_options`. Same commit: `rc — the sequence and the parser in `js/cfgfiles.js` in C order, UNIX `fopen_config_file` via `vfsReadFile`, `config_line_stmt` table with live handlers for OPTIONS/NAME/ROLE/pet names/MSGTYPE/MENUCOLOR/HILITE_STATUS/SYMBOLS/
+**D-2787** `cfgfiles.c:1960–1976` `rcfile_interface_options` — rc parser in `js/cfgfiles.js`. Caller `rcfile()` is `:966`.
 **D-2786** `nethack-c/upstream/src/options.c:1777–1812` `optfn_gender` (NHOPTC, optlist.h `:132`). Sa — the four optfns plus `parse_role_opt`, `saveoptstr`, `getoptstr`, `opt2roleopt`, `get_cnf_role_opt`, and `rolestring` in `js/options.js`, in C order with `:line` cites.
 **D-2785** `nethack-c/upstream/src/options.c:3824–3860` (staticfn; NHOPTC wires `&optfn_soundlib`, op — restart as `optfn_soundlib` in C order with `:line` cites.
 **D-2784** `nethack-c/upstream/src/options.c:3958–4010` (staticfn; NHOPTC wires `&optfn_sortvanquishe — restart as `optfn_sortvanquished` in C order with `:line` cites.

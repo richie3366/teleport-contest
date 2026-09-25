@@ -159,6 +159,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-25 — D-2787 caller cite `rcfile()` is `js/cfgfiles.js:966`
+
+**Change:** the divergence-log caller line pointed at `:964` (`set_ignore_errors_on_unmatched`). `rcfile()` is `:966`. No `js/` change. Queue row already archived; not popped.
+**Verify:** `node scripts/verify.mjs --fn rcfile_interface_options` → PASS syntax 0 · PASS rule2 · note hidden (queue row cited callers 0, not N corpus blocks) · PASS reach 24/24 REACH-OK · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full · VERIFY: PASS.
+**Next:** next Open — coverage row (`options.c` optfn_disclose).
 ## 2026-09-25 — D-2787 `cfgfiles.c` rcfile_interface_options whole-body port (rc parser)
 
 **C locus:** `nethack-c/upstream/src/cfgfiles.c:1960–1976` `rcfile_interface_options`. Same commit: `rcfile :1892–1957`, `read_config_file :1623–1647`, `parse_conf_file :1843–1860` (VFS text), `parse_conf_buf :1692–1807`, `parse_conf_str :1809–1837`, `cnf_parser_init/done`, `parse_config_line :1388–1438`, `config_error_init :1469–1490`, `config_error_nextline :1492–1512`, `config_erradd :1543–1589`, `config_error_done :1591–1621`, heed/disregard config lines `:1978–1995`, and `options.c` `allopt_array_init :7404–7433` plus heed/disregard options `:10182–10211`.
