@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-25 — D-2797 `uhitm.c` mhitm_ad_drst whole-body port
+
+**C locus:** `nethack-c/upstream/src/uhitm.c:3122–3165` `mhitm_ad_drst`. Callees: `mhitm_mgc_atk_negated` (FALSE), `rn2`, `Your`, `mpoisons_subj`, `resists_poison`, `pline_The`, `mon_nam`, `rn1`, `hitmsg`, `s_suffix`, `Monnam`, `poisoned`, `pmname`, `Mgender`, `mhitm_really_poison` (`:3104–3118`). The only C call is `mhitm_adtyping` `:4809–4811` (`AD_DRST`/`AD_DRDX`/`AD_DRCO`). That switch is reached from `damageum` (`uhitm.c:4854`), `mdamagem` (`mhitm.c:1059`), and `hitmu` (`mhitu.c:1191`).
+**JS:** `js/mhitm.js` `mhitm_ad_drst :1860`, `mpoisons_subj_mm :1798`, `mdamagem` dispatch `:5195`.
+**Change:** One exported `mhitm_ad_drst` in C order. The magic-cancellation gate runs first. youmonst attacker: `!rn2(8)`, then resist message or `!rn2(10)` deadly (`damage = mhp`) else `rn1(10, 6)`. youmonst defender: strength/dexterity/constitution switch, `hitmsg`, then `poisoned(..., 30, FALSE)`. Otherwise `!rn2(8)` calls `mhitm_really_poison`.
+**Verify:** `node scripts/verify.mjs --fn mhitm_ad_drst` → PASS syntax (3 changed js files: js/mhitm.js js/mhitu.js js/uhitm.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (verifier: no shared file changed) · VERIFY: PASS.
+**Named:** `resists_poison_mm` still omits artifact and worn poison resistance (same gap as `js/zap.js` `resists_poison`). A youmonst defender is passed to `mhitm_mgc_atk_negated` as null, the existing hero-MC idiom.
+**Next:** next Open — coverage row (`do_wear.c` find_ac). Seven measured coverage rows remain. `port-coverage.mjs --rows 8` head is the Stale never-re-pop set (newcham/getobj/yn_function/getdir/mon_arrive/checkfile/make_blinded/really_done); not re-queued.
 ## 2026-09-25 — D-2796 `mthrowu.c` thitu whole-body port
 
 **C locus:** `nethack-c/upstream/src/mthrowu.c:75–155` `thitu`. Callees: `doname`, `mshot_xname`, `killer_xname`, `strncmpi` (three article prefixes, inlined), `obj_is_pname`, `the`, `an`, `rnd`, `pline`, `upstart`, `vtense`, `You`, `exclam`, `Acid_resistance`, `monstseesu`, `stone_missile`, `passes_rocks`, `potionhit`, `pline_The`, `exercise`, `monstunseesu`, `losehp`. `named` is the caller's original name pointer, taken before the null-name arm overwrites it.

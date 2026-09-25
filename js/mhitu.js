@@ -89,7 +89,7 @@ import {
 } from './invent.js';
 import { burn_away_slime } from './timeout.js';
 import {
-    get_mattk, mhitm_knockback, mhitm_mgc_atk_negated, mattackm, rustm,
+    get_mattk, mhitm_knockback, mhitm_mgc_atk_negated, mhitm_ad_drst, mattackm, rustm,
     could_seduce, failed_grab, SYSOPT_SEDUCE, mon_poly, mondead, erode_armor,
     golemeffects_mm,
     AT_NONE, AT_CLAW, AT_KICK, AT_BITE, AT_STNG, AT_TUCH, AT_BUTT, AT_WEAP,
@@ -1072,31 +1072,6 @@ function s_suffix_poison(s) {
         return `${s}'`;
     }
     return `${s}'s`;
-}
-
-/**
- * C ref: uhitm.c mhitm_ad_drst mhitu branch (AD_DRST/DRDX/DRCO).
- * Always rolls mhitm_mgc_atk_negated(FALSE) before hitmsg; poison via
- * poisoned() when !negated && !rn2(8).
- */
-async function mhitm_ad_drst_u(mtmp, mattk, mhm) {
-    const negated = await mhitm_mgc_atk_negated(mtmp, null, false);
-    let ptmp = A_STR;
-    switch (mattk.adtyp | 0) {
-    case AD_DRST: ptmp = A_STR; break;
-    case AD_DRDX: ptmp = A_DEX; break;
-    case AD_DRCO: ptmp = A_CON; break;
-    }
-    await hitmsg(mtmp, mattk);
-    if (!negated && !rn2(8)) {
-        // C: Sprintf(buf, "%s %s", s_suffix(Monnam(magr)), mpoisons_subj(...));
-        //    poisoned(buf, ptmp, pmname(pa, Mgender(magr)), 30, FALSE);
-        const reason = `${s_suffix_poison(Monnam(mtmp))} ${mpoisons_subj(mtmp, mattk)}`;
-        const g = mtmp?.female ? FEMALE : MALE;
-        const killer = pmname(mtmp?.data || mtmp?.mnum, g);
-        await poisoned(reason, ptmp, killer, 30, false);
-    }
-    void mhm;
 }
 
 /**
@@ -3137,7 +3112,9 @@ async function mhitm_adtyping_u(mtmp, mattk, mhm) {
     case AD_DRST:
     case AD_DRDX:
     case AD_DRCO:
-        await mhitm_ad_drst_u(mtmp, mattk, mhm);
+        /* C ref: uhitm.c mhitm_adtyping `:4809–4811` → mhitm_ad_drst
+           mhitu arm (mdef is youmonst). */
+        await mhitm_ad_drst(mtmp, mattk, game.youmonst, mhm);
         break;
     case AD_SITM:
     case AD_SEDU:

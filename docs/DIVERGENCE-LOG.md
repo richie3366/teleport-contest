@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2797 — `uhitm.c` mhitm_ad_drst whole-body port
+
+- **Status:** fixed (Open — coverage row `mhitm_ad_drst` MISSING, measured `port-coverage.mjs --name mhitm_ad_drst` 2026-09-25 @ 75144e146; re-measure after the port: covered. `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** coverage gap, not a corpus divergence. There was no `mhitm_ad_drst` symbol. The you→mon arm lived as `damageum_ad_drst` and the monster→you arm as `mhitm_ad_drst_u`. Monster→monster `AD_DRST`/`AD_DRDX`/`AD_DRCO` never called the 1-in-8 poison gate, so `mhitm_really_poison` ran only from the physical poisoned-weapon leftover.
+- **C locus:** `nethack-c/upstream/src/uhitm.c:3122–3165` `mhitm_ad_drst`. Callees: `mhitm_mgc_atk_negated` (FALSE), `rn2`, `Your`, `mpoisons_subj`, `resists_poison`, `pline_The`, `mon_nam`, `rn1`, `hitmsg`, `s_suffix`, `Monnam`, `poisoned`, `pmname`, `Mgender`, `mhitm_really_poison` (`:3104–3118`). The only C call is `mhitm_adtyping` `:4809–4811` (`AD_DRST`/`AD_DRDX`/`AD_DRCO`). That switch is reached from `damageum` (`uhitm.c:4854`), `mdamagem` (`mhitm.c:1059`), and `hitmu` (`mhitu.c:1191`).
+- **JS was:** `js/uhitm.js` `damageum_ad_drst` (you→mon only; `AD_DRDX`/`AD_DRCO` fell through with the opening dice). `js/mhitu.js` `mhitm_ad_drst_u` (monster→you; `s_suffix` clone with extra z/x/sh/ch). `js/mhitm.js` `mdamagem` had no poison dispatch.
+- **Fix:** One exported `mhitm_ad_drst` in C order. The magic-cancellation gate runs first. youmonst attacker: `!rn2(8)`, then resist message or `!rn2(10)` deadly (`damage = mhp`) else `rn1(10, 6)`. youmonst defender: strength/dexterity/constitution switch, `hitmsg`, then `poisoned(..., 30, FALSE)`. Otherwise `!rn2(8)` calls `mhitm_really_poison`. `mpoisons_subj_mm` uses `uwep` when the attacker is youmonst. The three party dispatchers call this function. The split bodies are gone.
+- **JS:** `js/mhitm.js` `mhitm_ad_drst :1860`, `mpoisons_subj_mm :1798`, `mdamagem` dispatch `:5195`.
+- **Callers:** C `uhitm.c:4811` is the only call. JS sites of that switch: `js/uhitm.js:2389` (`damageum` / youmonst attacker, including `AD_DRDX` and `AD_DRCO`), `js/mhitu.js:3117` (`hitmu` / youmonst defender), `js/mhitm.js:5207` (`mdamagem` / monster vs monster). C `uhitm.c:3098` is a comment. C `extern.h:3403` is a declaration. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn mhitm_ad_drst` → PASS syntax (3 changed js files: js/mhitm.js js/mhitu.js js/uhitm.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (verifier: no shared file changed) · VERIFY: PASS.
+- **Named omissions:** `resists_poison_mm` still omits artifact and worn poison resistance (same gap as `js/zap.js` `resists_poison`). A youmonst defender is passed to `mhitm_mgc_atk_negated` as null, the existing hero-MC idiom. `mhitu.js` `mpoisons_subj` remains for the physical poisoned-weapon leftover and does not handle youmonst `uwep`.
+- **Next:** next Open — coverage row (`do_wear.c` find_ac). Eight measured coverage rows (Boots_on appended; `--rows` head through the next 70 is the Stale/DONE set or save/compressor/glyphmap class-deferred, not re-queued).
+
 ## D-2796 — `mthrowu.c` thitu whole-body port
 
 - **Status:** fixed (Open — coverage row `thitu` PARTIAL, measured `port-coverage.mjs --name thitu` 2026-09-25 @ 75144e146; `hidden-proxy verify` reports no corpus session blocked). `badman` was the queue head and is already the whole C body, so it was parked Stale and this row shipped instead.

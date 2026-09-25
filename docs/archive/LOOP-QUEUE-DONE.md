@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-25
 
-- [x] `mthrowu.c` thitu — coverage PARTIAL (C 76 L `mthrowu.c:75–155` / JS 48 L in js/mthrowu.js; hops 3, callers 9, RNG 1, msg 8). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn thitu` (reach regression must be 0). Measured `port-coverage.mjs --name thitu` 2026-09-25 @ 75144e146. **Addressed:** D-2796
+- [x] `uhitm.c` mhitm_ad_drst — coverage MISSING (C 41 L `uhitm.c:3122–3165` / JS no symbol; hops 4, callers 1, RNG 5, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mhitm_ad_drst` (reach regression must be 0). Measured `port-coverage.mjs --name mhitm_ad_drst` 2026-09-25 @ 75144e146. **Addressed:** D-2797
+
+
+- [x] `mthrowu.c` thitu — coverage PARTIAL (C 76 L `mthrowu.c:75–155` / JS 48 L in js/mthrowu.js; hops 3, callers 9, RNG 1, msg 8). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn thitu` (reach regression must be 0). Measured `port-coverage.mjs --name thitu` 2026-09-25 @ 75144e146. **Addressed:** D-2796 `84dbed10c`
 
 
 - [x] `mkobj.c` mkcorpstat — coverage PARTIAL (C 46 L `mkobj.c:2067–2118` / JS 30 L in js/mkobj.js; hops 2, callers 14, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mkcorpstat` (reach regression must be 0). Measured `port-coverage.mjs --name mkcorpstat` 2026-09-25 @ 38d6c8a36. **Addressed:** D-2795 `5f09ad2ca`

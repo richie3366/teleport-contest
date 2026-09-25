@@ -9,7 +9,7 @@ import {
     mtrapped_in_pit, LEVEL_SPECIFIC_NOCORPSE, unlink_minvent,
 } from './mon.js';
 import { game } from './gstate.js';
-import { pline, pline_mon, newsym, canspotmon, canseemon, map_invisible, unmap_object, memory_glyph_is_invisible, You, You_feel, flush_screen, flush_topl_more, verbalize, sensemon, shieldeff, mon_visible } from './display.js';
+import { pline, pline_mon, newsym, canspotmon, canseemon, map_invisible, unmap_object, memory_glyph_is_invisible, You, Your, pline_The, You_feel, flush_screen, flush_topl_more, verbalize, sensemon, shieldeff, mon_visible } from './display.js';
 import { cansee } from './vision.js';
 import { dist2, isok } from './hacklib.js';
 import { resist_conflict, set_mon_data, on_fire, mhis, mhe, little_to_big, defended, monsndx } from './mondata.js';
@@ -129,7 +129,7 @@ import { flooreffects } from './do.js';
 import { end_burn } from './timeout.js';
 import { obj_resists } from './dogmove.js';
 import { munslime, mon_adjust_speed, munstone } from './muse.js';
-import { Monnam, mon_nam, mon_nam_too, Adjmonnam, Amonnam, oname, pmname, x_monnam, hliquid, YMonnam, s_suffix, free_mgivenname, a_monnam, y_monnam, some_mon_nam, minimal_monnam } from './do_name.js';
+import { Monnam, mon_nam, mon_nam_too, Adjmonnam, Amonnam, oname, pmname, x_monnam, hliquid, YMonnam, s_suffix, Mgender, free_mgivenname, a_monnam, y_monnam, some_mon_nam, minimal_monnam } from './do_name.js';
 import { an, xname, makeplural, cxname, vtense, The, simpleonames, doname } from './objnam.js';
 import { mon_explodes } from './explode.js';
 import { makemon, newcham, pm_to_cham, is_home_elemental, clone_mon } from './makemon.js';
@@ -138,12 +138,13 @@ import { polyself } from './polyself.js';
 import { you_were, you_unwere, were_change } from './were.js';
 import { night } from './calendar.js';
 import { resists_drli } from './zap.js';
+import { poisoned, A_STR, A_DEX, A_CON } from './attrib.js';
 import { rloc, tele_restrict, tele, goodpos, u_teleport_mon, enexto, rloc_to } from './teleport.js';
 import { m_unleash } from './apply.js';
 import { update_inventory } from './invent.js';
 import { bury_an_obj } from './dig.js';
 import { is_pole, is_weptool } from './wield.js';
-import { mswings_verb, Conflict, unstuck, set_ustuck, digests } from './mhitu.js';
+import { mswings_verb, Conflict, unstuck, set_ustuck, digests, hitmsg } from './mhitu.js';
 import { mon_offmap, set_apparxy, mb_trapped, itsstuck } from './monmove.js';
 import { hurtle, mhurtle, will_hurtle } from './dothrow.js';
 import { make_stunned } from './potion.js';
@@ -1788,13 +1789,17 @@ export async function rustm(mdef, obj) {
 
 /**
  * C ref: mhitu.c mpoisons_subj :145–158.
- * AT_WEAP uses MON_WEP opoisoned (not permapoisoned). Other aatyps
- * are contact/gaze/bite else sting. Local: mhitu.js is a cycle.
+ * AT_WEAP uses uwep when the attacker is youmonst, else MON_WEP
+ * opoisoned (not permapoisoned). Other aatyps are contact/gaze/bite
+ * else sting. Local: mhitu.js is a cycle (same body as mhitu.js
+ * mpoisons_subj, plus the youmonst uwep arm).
  */
 function mpoisons_subj_mm(mtmp, mattk) {
     const aatyp = mattk?.aatyp | 0;
     if (aatyp === AT_WEAP) {
-        const mwep = MON_WEP(mtmp);
+        /* C `:150` — youmonst reads uwep, not MON_WEP. null is not you. */
+        const you = mtmp === game.youmonst || !!(mtmp && mtmp._youmonst);
+        const mwep = you ? (game.u?.uwep || null) : MON_WEP(mtmp);
         return (!mwep || !mwep.opoisoned) ? 'attack' : 'weapon';
     }
     if (aatyp === AT_TUCH) return 'contact';
@@ -1819,8 +1824,8 @@ export function resists_poison_mm(mtmp) {
 /**
  * C ref: uhitm.c mhitm_really_poison :3104–3118.
  * m-vs-m only — not subject to mcan or the AD_DRST 1/8. vis uses gv.vis
- * (`_mm_vis`). Caller mhitm_ad_phys leftover `:4184–4189` after rustm
- * (D-1447). mhitm_ad_drst mhitm 1/8 still named.
+ * (`_mm_vis`). Callers: mhitm_ad_drst mhitm arm; mhitm_ad_phys leftover
+ * `:4184–4189` after rustm (D-1447).
  */
 async function mhitm_really_poison(magr, mattk, mdef, mhm) {
     if (_mm_vis && canspotmon(magr)) {
@@ -1844,6 +1849,61 @@ async function mhitm_really_poison(magr, mattk, mdef, mhm) {
 }
 
 /**
+ * C ref: uhitm.c mhitm_ad_drst :3122–3165.
+ * Gate (FALSE) always, before the three arms. uhitm: !rn2(8) then
+ * resists_poison message, else !rn2(10) deadly (damage = mhp) or
+ * damage += rn1(10, 6). mhitu: adtyp → A_STR/A_DEX/A_CON, hitmsg,
+ * then !rn2(8) poisoned(..., 30, FALSE). mhitm: !rn2(8) then
+ * mhitm_really_poison (no second gate).
+ * resists_poison_mm omits artifact/worn grants (zap.js resists_poison).
+ */
+export async function mhitm_ad_drst(magr, mattk, mdef, mhm) {
+    // C uhitm.c:3127 — FALSE: no "avoids harm" pline. rn2(10) unless mcan.
+    // JS mhitm_mgc_atk_negated treats mdef null as &youmonst (the hero
+    // MC path). A youmonst defender is passed as null so that path runs;
+    // magic_negation(game.youmonst) is the same is_you body.
+    const negated = await mhitm_mgc_atk_negated(
+        magr, is_youmonst(mdef) ? null : mdef, false,
+    );
+    const pa = magr?.data;
+
+    if (is_youmonst(magr)) {
+        /* uhitm — C :3130–3142 */
+        if (!negated && !rn2(8)) {
+            await Your(`${mpoisons_subj_mm(magr, mattk)} was poisoned!`);
+            if (resists_poison_mm(mdef)) {
+                await pline_The(
+                    `poison doesn't seem to affect ${mon_nam(mdef)}.`,
+                );
+            } else if (!rn2(10)) {
+                await Your('poison was deadly...');
+                mhm.damage = mdef.mhp | 0;
+            } else {
+                mhm.damage = (mhm.damage | 0) + rn1(10, 6);
+            }
+        }
+    } else if (is_youmonst(mdef)) {
+        /* mhitu — C :3143–3160. Leftover d() stays for mdamageu. */
+        let ptmp = A_STR;
+        switch (mattk?.adtyp | 0) {
+        case AD_DRST: ptmp = A_STR; break;
+        case AD_DRDX: ptmp = A_DEX; break;
+        case AD_DRCO: ptmp = A_CON; break;
+        }
+        await hitmsg(magr, mattk);
+        if (!negated && !rn2(8)) {
+            // C: Sprintf(buf, "%s %s", s_suffix(Monnam(magr)), mpoisons_subj);
+            //    poisoned(buf, ptmp, pmname(pa, Mgender(magr)), 30, FALSE);
+            const reason = `${s_suffix(Monnam(magr))} ${mpoisons_subj_mm(magr, mattk)}`;
+            await poisoned(reason, ptmp, pmname(pa, Mgender(magr)), 30, false);
+        }
+    } else if (!negated && !rn2(8)) {
+        /* mhitm — C :3161–3164 */
+        await mhitm_really_poison(magr, mattk, mdef, mhm);
+    }
+}
+
+/**
  * C ref: uhitm.c mhitm_ad_phys mhitm arm :4128–4198 (D-1394 shade;
  * D-1402 mwep dmgval; D-1403 AT_KICK thick_skinned; D-1415 artifact_hit;
  * D-1442 rustm; D-1447 poison leftover).
@@ -1854,7 +1914,7 @@ async function mhitm_really_poison(magr, mattk, mdef, mhm) {
  * rustm callee is mhitm.c :1260–1280.
  * Named omit: youmonst is damageum_ad_phys; mhitu is mhitm_ad_phys_u
  * (corpse/stone/GOP/artifact/silver/soak/split/rustm/poison ported);
- * mhitm_ad_drst 1/8; purple worm vs shrieker cap.
+ * purple worm vs shrieker cap. AD_DRST 1/8 is mhitm_ad_drst.
  */
 async function mhitm_ad_phys(magr, mattk, mdef, mhm) {
     let mwep = MON_WEP(magr);
@@ -5123,6 +5183,28 @@ async function mdamagem(magr, mdef, mattk, mwep, dieroll) {
             done: false,
         };
         await mhitm_ad_slow(magr, mattk, mdef, mhm);
+        damage = mhm.damage | 0;
+        hitflags = mhm.hitflags | 0;
+        if (mhm.done || !damage) {
+            // C mhitm.c:1061 — knockback still runs; every path here returns hitflags
+            await mhitm_knockback(magr, mdef, mattk, mhm, !!mwep);
+            return mhm.hitflags;
+        }
+    }
+
+    // C: mhitm_adtyping `:4809–4811` → mhitm_ad_drst for AD_DRST/DRDX/DRCO.
+    // The arm never sets done. Zero leftover returns after knockback;
+    // a remaining dice/poison total falls through to the shared tail.
+    if ((mattk.adtyp | 0) === AD_DRST
+        || (mattk.adtyp | 0) === AD_DRDX
+        || (mattk.adtyp | 0) === AD_DRCO) {
+        const mhm = {
+            damage,
+            hitflags: M_ATTK_MISS,
+            done: false,
+            dieroll: dieroll | 0,
+        };
+        await mhitm_ad_drst(magr, mattk, mdef, mhm);
         damage = mhm.damage | 0;
         hitflags = mhm.hitflags | 0;
         if (mhm.done || !damage) {

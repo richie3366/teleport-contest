@@ -100,10 +100,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `uhitm.c` mhitm_ad_drst — coverage MISSING (C 41 L `uhitm.c:3122–3165` / JS no symbol). Port the whole C body in C order. Verify `node scripts/verify.mjs --fn mhitm_ad_drst`.
+**Next cluster:** `do_wear.c` find_ac — coverage PARTIAL (C 52 L `do_wear.c:2473–2525` / JS 37 L in js/u_init.js). Port the whole C body in C order. Verify `node scripts/verify.mjs --fn find_ac`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2796 (index).**
+**Keep D-0845…D-2797 (index).**
 <!-- recent:begin -->
+**D-2797** `nethack-c/upstream/src/uhitm.c:3122–3165` `mhitm_ad_drst`. Callees: `mhitm_mgc_atk_negate — One exported `mhitm_ad_drst` in C order.
 **D-2796** `nethack-c/upstream/src/mthrowu.c:75–155` `thitu`. Callees: `doname`, `mshot_xname`, `kill — Restart of `thitu` in C order.
 **D-2795** `nethack-c/upstream/src/mkobj.c:2067–2118` `mkcorpstat`. Callees: `impossible` (does not r — Restart of `mkcorpstat` in C order.
 **D-2794** `nethack-c/upstream/src/timeout.c:2247–2292` `start_timer`. Callees: `kind_name` `:1994–20 — Restart of `start_timer` in C order.
@@ -111,11 +112,10 @@ revisits the picker.
 **D-2792** `nethack-c/upstream/src/options.c:3138–3194` `optfn_petattr` and `:6152–6164` `handler_pet — `optfn_petattr` and `handler_petattr` in C order.
 **D-2791** `nethack-c/upstream/src/options.c:621` (`duplicate = duplicate_opt_detection(matchidx)` in — `rc_do_set_role_family` sets `go.opt_initial` and `go.opt_from_file` (the `TRUE, TRUE` pair) and `duplicateOpt` from `duplicate_opt_detection` before the optfn, then restores both so a leftover TRUE is not left for a lat
 **D-2790** `nethack-c/upstream/src/options.c:6859–6871` `nmcpy`. `for (count = 1; count < maxlen; cou — Restart of `nmcpy` in C order: copy while `count < maxlen`, stop before a comma or NUL, return the bounded string (JS strings are immutable; callers assign).
-**D-2789** `nethack-c/upstream/src/coloratt.c:530–580` `basic_menu_colors`. load_colors saves `iflags — restart of `basic_menu_colors` in C order with `:line` cites.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2796; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2797; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
