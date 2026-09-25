@@ -30,6 +30,23 @@ npm run observe-loop
 # or: node loop-observer/server.mjs [--no-open]
 ```
 
+## CLI
+
+Same transcript, printed in the terminal. Useful over SSH. Does not
+open a port and does not start the loop.
+
+```bash
+npm run observe-loop-cli
+node loop-observer/cli.mjs --once          # current iter, then exit
+node loop-observer/cli.mjs --list          # last 10 logs
+node loop-observer/cli.mjs --iter 3588     # pin one global iteration
+node loop-observer/cli.mjs --no-think      # hide thought lines
+```
+
+Default follows the live `.raw` (`iteration-count`, else newest file)
+and switches when the next iteration starts. Ctrl-C stops it.
+`--file` accepts a repo-relative log, or a path under `/tmp`.
+
 The process prints `Loop observer: http://127.0.0.1:<port>/` and
 opens that URL unless you pass `--no-open`. Ctrl-C stops it.
 
@@ -142,6 +159,7 @@ Log names accepted from the UI/WS are
 | Path | Role |
 |------|------|
 | `server.mjs` | HTTP + WebSocket, catalog, tail, pin / live |
+| `cli.mjs` | Terminal follow of the same transcript |
 | `parse.mjs` | NDJSON → coalesced messages; unified-diff parse for Edit/Write |
 | `ws.mjs` | Minimal RFC 6455 (text / ping / pong / close) |
 | `public/` | Conversation UI (`index.html`, `app.css`, `app.js`) |

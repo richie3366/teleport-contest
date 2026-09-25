@@ -6,7 +6,8 @@
   "scripts": {
     "score": "bash frozen/score.sh",
     "play": "echo 'Open index.html in a browser to play'",
-    "observe-loop": "node loop-observer/server.mjs"
+    "observe-loop": "node loop-observer/server.mjs",
+    "observe-loop-cli": "node loop-observer/cli.mjs"
   },
   "engines": {
     "node": ">=22.0.0"
