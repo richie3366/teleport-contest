@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "special",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0016?\nk   \u0006_ \u001b<.#chat\nnsm.  sm. sm. Pi\u001b#twoweapon\n#levelchange\n20\n     \u0016?\nh\u000620ssy.m.sm.20s20shlhh<z,"
+ },
+ "segments": [
+  {
+   "seed": 94317,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=sortloot:none\nOPTIONS=fruit:lychee\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0016?\nk   \u0006_ \u001b<.#chat\nnsm.  sm. sm. Pi\u001b#twoweapon\n#levelchange\n20\n     \u0016?\nh\u000620ssy.m.sm.20s20shlhh<z,"
+  }
+ ]
+}

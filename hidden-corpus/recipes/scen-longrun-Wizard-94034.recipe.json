@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "longrun",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "   FhFhFhFk FhFbFj ss#force\n100s50snju150s\\   _ \u001b>.>__.s100s100s50s\u0018\u001bbul100s100s_>.>kyhFhFh20s#tip\n\u001b\u001b150sFhFhs50s100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+ },
+ "segments": [
+  {
+   "seed": 94034,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=playmode:explore\n",
+   "moves": "   FhFhFhFk FhFbFj ss#force\n100s50snju150s\\   _ \u001b>.>__.s100s100s50s\u0018\u001bbul100s100s_>.>kyhFhFh20s#tip\n\u001b\u001b150sFhFhs50s100seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+  }
+ ]
+}

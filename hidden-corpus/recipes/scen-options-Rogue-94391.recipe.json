@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "  mO>>hng\n tbyOfk\n#sit\nf by b Ojkh\nh\\ mOecd\n E- Elbereth\n#ride\njs20s   Oaj\nj\n#jump\nwb mO>am\n#enhance\n\u001bymO>>>>>>klh\nb\nb\na\n\u001b\u001b\u001b\u001b#twoweapon\nmO>>r\n#tip\nf\u001bafi\nOdo\ne\n10s#conduct\n mO>>>>e\n1\nW#dip\nc\u001bss"
+ },
+ "segments": [
+  {
+   "seed": 94391,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=runmode:run\nOPTIONS=playmode:explore\n",
+   "moves": "  mO>>hng\n tbyOfk\n#sit\nf by b Ojkh\nh\\ mOecd\n E- Elbereth\n#ride\njs20s   Oaj\nj\n#jump\nwb mO>am\n#enhance\n\u001bymO>>>>>>klh\nb\nb\na\n\u001b\u001b\u001b\u001b#twoweapon\nmO>>r\n#tip\nf\u001bafi\nOdo\ne\n10s#conduct\n mO>>>>e\n1\nW#dip\nc\u001bss"
+  }
+ ]
+}

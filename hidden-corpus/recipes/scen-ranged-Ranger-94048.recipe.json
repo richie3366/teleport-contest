@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u0017elven bow\nwi\u001720 elven arrows\nQj\u0007jackal\nky fbfb  fh20ss\u0017potion of speed\ntdu\u0007yellow mold\njbfkfbfufkss\u0017potion of fruit juice\ntclx #twoweapon\n20s.nyb,#levelchange\n10\n         \u0017yumi\nwm\u001720 ya\nQn\u0007giant rat\nkkfjfhfjFj Fj\u0017glaive\nwo\u0007newt\nhao \u001b@.jkb,#enhance\nys\ng\n\u001b"
+ },
+ "segments": [
+  {
+   "seed": 94048,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017elven bow\nwi\u001720 elven arrows\nQj\u0007jackal\nky fbfb  fh20ss\u0017potion of speed\ntdu\u0007yellow mold\njbfkfbfufkss\u0017potion of fruit juice\ntclx #twoweapon\n20s.nyb,#levelchange\n10\n         \u0017yumi\nwm\u001720 ya\nQn\u0007giant rat\nkkfjfhfjFj Fj\u0017glaive\nwo\u0007newt\nhao \u001b@.jkb,#enhance\nys\ng\n\u001b"
+  }
+ ]
+}

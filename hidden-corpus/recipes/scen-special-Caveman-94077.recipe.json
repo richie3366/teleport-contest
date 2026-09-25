@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "special",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  \u001760 gold pieces\n\u0016?\nc \u0006_ \u001b<.#chat\ny_mm. Fy _.#chat\ny_m,Fy_,#chat\nh_{. Fk   yy\u001by  y y y\u001by  _"
+ },
+ "segments": [
+  {
+   "seed": 94077,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=fruit:lychee\nOPTIONS=playmode:debug\n",
+   "moves": "  \u001760 gold pieces\n\u0016?\nc \u0006_ \u001b<.#chat\ny_mm. Fy _.#chat\ny_m,Fy_,#chat\nh_{. Fk   yy\u001by  y y y\u001by  _"
+  }
+ ]
+}

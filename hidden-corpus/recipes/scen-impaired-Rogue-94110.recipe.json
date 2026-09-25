@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "  #wizintrinsic\nmh\n  \u0017towel\nag\u0017scroll of blank paper\nrh\u0017blessed wand of magic missile\nzih \u0017glob of green slime\nej  yy\u001by   y y y\u001by  s"
+ },
+ "segments": [
+  {
+   "seed": 94110,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=fruit:lychee\nOPTIONS=playmode:debug\n",
+   "moves": "  #wizintrinsic\nmh\n  \u0017towel\nag\u0017scroll of blank paper\nrh\u0017blessed wand of magic missile\nzih \u0017glob of green slime\nej  yy\u001by   y y y\u001by  s"
+  }
+ ]
+}

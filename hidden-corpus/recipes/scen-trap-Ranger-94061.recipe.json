@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trap",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " khb\u0017sleeping gas trap\nu^b#untrap\nby\u0017polymorph trap\nb^uu ..E- Elbereth Elbereth\nef#twoweapon\n#levelchange\n20\n                   lb nu\u0017magic trap\nyn ssy\u0017hole\nlhy s.jk\u0017rolling boulder trap\nb#untrap\nu\u0017beartrap\nah knzZl"
+ },
+ "segments": [
+  {
+   "seed": 94061,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": " khb\u0017sleeping gas trap\nu^b#untrap\nby\u0017polymorph trap\nb^uu ..E- Elbereth Elbereth\nef#twoweapon\n#levelchange\n20\n                   lb nu\u0017magic trap\nyn ssy\u0017hole\nlhy s.jk\u0017rolling boulder trap\nb#untrap\nu\u0017beartrap\nah knzZl"
+  }
+ ]
+}

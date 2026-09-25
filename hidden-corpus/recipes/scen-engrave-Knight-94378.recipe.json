@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engrave",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "yj\u0017wand of digging\nEi  Vlad was here\n\u0017wand of enlightenment\nEj \u001b : \u0017wand of undead turning\nEk: \u0017wand of locking\nElu\u0017ruby\nEm Elbereth\nSy\u001b y#ride\nlyyzi.#rub\n#force\nakny\\   #terrain\n\u001b",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 94378,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=fruit:slime mold\nOPTIONS=playmode:debug\n",
+   "moves": "yj\u0017wand of digging\nEi  Vlad was here\n\u0017wand of enlightenment\nEj \u001b : \u0017wand of undead turning\nEk: \u0017wand of locking\nElu\u0017ruby\nEm Elbereth\nSy\u001b"
+  },
+  {
+   "seed": 594378,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=fruit:slime mold\nOPTIONS=playmode:debug\n",
+   "moves": " y#ride\nlyyzi.#rub\n#force\nakny\\   #terrain\n\u001b"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "quest",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0016?\n>y  _ \u001bm.#chat\nl;>._mm.#chat\nu_m.#chat\nj_mmm,#chat\nj\u0006_>, _.;;>_>.Fl_.:>_>._.>\u0016?\n>A#wipe\nwa#twoweapon\n"
+ },
+ "segments": [
+  {
+   "seed": 94216,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0016?\n>y  _ \u001bm.#chat\nl;>._mm.#chat\nu_m.#chat\nj_mmm,#chat\nj\u0006_>, _.;;>_>.Fl_.:>_>._.>\u0016?\n>A#wipe\nwa#twoweapon\n"
+  }
+ ]
+}

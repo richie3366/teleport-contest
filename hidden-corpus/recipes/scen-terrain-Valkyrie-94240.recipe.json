@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " jyyl\u0017ice\nkjjjnb\u0017chaotic altar\ndadd\u0017dwarf corpse\n #offer\ne            n #pray\ny y      : #terrain\ne\n#twoweapon\n#wipe\n    yy\u001by   y y\u001by  #"
+ },
+ "segments": [
+  {
+   "seed": 94240,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " jyyl\u0017ice\nkjjjnb\u0017chaotic altar\ndadd\u0017dwarf corpse\n #offer\ne            n #pray\ny y      : #terrain\ne\n#twoweapon\n#wipe\n    yy\u001by   y y\u001by  #"
+  }
+ ]
+}

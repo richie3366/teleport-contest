@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engulf",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0007ice vortex\nFbFl FkFk  sm.   yny  y ny\u001b  2"
+ },
+ "segments": [
+  {
+   "seed": 94192,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007ice vortex\nFbFl FkFk  sm.   yny  y ny\u001b  2"
+  }
+ ]
+}

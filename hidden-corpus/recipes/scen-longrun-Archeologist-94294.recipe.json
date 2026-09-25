@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "longrun",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " FuFu shnl150s_ \u001b.>hub#loot\n50s100s\u0004kFns20sujhhku100s_>.>150sFjs.#untrap\nh_>,>njk_>.>#name\nm\n50s50s150s50skhb\u0004b\u000f\u001b__.20s \u0018\u001b_>.>\u0004ynlh#rub\ng\u001b\\ ynh100sFls.100s l _>.>_>,>150s50sFn20sslky150sed FjFjs_>,>nky10s50sljk100sFjss150s\\ 100sFjFjFjFjFj20sjjj150s_>.>100s#twoweapon\n150sFjFjFjFjFjs100s50s100s150s100skkj100sFjFjFjFjs.10"
+ },
+ "segments": [
+  {
+   "seed": 94294,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:horse\n",
+   "moves": " FuFu shnl150s_ \u001b.>hub#loot\n50s100s\u0004kFns20sujhhku100s_>.>150sFjs.#untrap\nh_>,>njk_>.>#name\nm\n50s50s150s50skhb\u0004b\u000f\u001b__.20s \u0018\u001b_>.>\u0004ynlh#rub\ng\u001b\\ ynh100sFls.100s l _>.>_>,>150s50sFn20sslky150sed FjFjs_>,>nky10s50sljk100sFjss150s\\ 100sFjFjFjFjFj20sjjj150s_>.>100s#twoweapon\n150sFjFjFjFjFjs100s50s100s150s100skkj100sFjFjFjFjs.10"
+  }
+ ]
+}

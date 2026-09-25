@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u00176 javelins\nQi\u0007gnome\nhfyfu fl  \u0017potion of extra healing\ntcl uyj,#enhance\nyd\nc\n\u001bSy\u001b y#dip\nbc wb #wipe\n#loot\nn\u000f\u001b\u0017cloak of magic resistance\nW\u001b.ssT  \u0007ape\nFh FlFn Fl  yy\u001by   y y y\u001by  F",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 94168,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showrace\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "\u00176 javelins\nQi\u0007gnome\nhfyfu fl  \u0017potion of extra healing\ntcl uyj,#enhance\nyd\nc\n\u001bSy\u001b"
+  },
+  {
+   "seed": 594168,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showrace\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": " y#dip\nbc wb #wipe\n#loot\nn\u000f\u001b\u0017cloak of magic resistance\nW\u001b.ssT  \u0007ape\nFh FlFn Fl  yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

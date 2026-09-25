@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0017saddle\nafj\u0017lance\nwg#ride\njy\u0007tame saddled horse\n#ride\nlyy\u0007tame saddled warhorse\n#ride\nlj\u0006_ \u001b;>Fh s_>>,     Fn_,Fj>Fl  Fn_>>. Fj_.  Fl >Fn  Fl\u0004u,#levelchange\n14\n            \u0007tame gray unicorn\n\u0017saddle\nahl\u0017lance\nwi#ride\nny\u0007warhorse\n\u0017scroll of taming\nrj  \u001b   \u0017saddle\nakn    #ride\njy\u0007tame saddled pony\n#ride\njy.j   sm.   #rid"
+ },
+ "segments": [
+  {
+   "seed": 94414,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=fruit:durian\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017saddle\nafj\u0017lance\nwg#ride\njy\u0007tame saddled horse\n#ride\nlyy\u0007tame saddled warhorse\n#ride\nlj\u0006_ \u001b;>Fh s_>>,     Fn_,Fj>Fl  Fn_>>. Fj_.  Fl >Fn  Fl\u0004u,#levelchange\n14\n            \u0007tame gray unicorn\n\u0017saddle\nahl\u0017lance\nwi#ride\nny\u0007warhorse\n\u0017scroll of taming\nrj  \u001b   \u0017saddle\nakn    #ride\njy\u0007tame saddled pony\n#ride\njy.j   sm.   #rid"
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #wizintrinsic\nl\n \u0017scroll of light\nri \u0017lizard corpse\nej ;. \u001b;.20s20s Sy\u001b y#loot\n: W#invoke\n\u001b,a\nP#enhance\nyp\ne\n\u001b#wipe\n#turn\n #levelchange\n6\n    kluh\u0017rust trap\nj^kk ..m.hj\u0017falling rock",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 94170,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\nl\n \u0017scroll of light\nri \u0017lizard corpse\nej ;. \u001b;.20s20s Sy\u001b"
+  },
+  {
+   "seed": 594170,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " y#loot\n: W#invoke\n\u001b,a\nP#enhance\nyp\ne\n\u001b#wipe\n#turn\n #levelchange\n6\n    kluh\u0017rust trap\nj^kk ..m.hj\u0017falling rock"
+  }
+ ]
+}

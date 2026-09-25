@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engulf",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n6\n    \u0007hostile ochre jelly\nFk.m. s\u001bFkFkFjFj#pray\ny y Fj   n  20sFy #pray\ny y #levelchange\n10\n    \u0007dust vortex\nFjFj  .#pray\ny y    #pray\ny y     Fu FkFkFk FnFnFh"
+ },
+ "segments": [
+  {
+   "seed": 94332,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n6\n    \u0007hostile ochre jelly\nFk.m. s\u001bFkFkFjFj#pray\ny y Fj   n  20sFy #pray\ny y #levelchange\n10\n    \u0007dust vortex\nFjFj  .#pray\ny y    #pray\ny y     Fu FkFkFk FnFnFh"
+  }
+ ]
+}

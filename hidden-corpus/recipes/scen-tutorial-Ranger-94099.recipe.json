@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tutorial",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "  y   jnlubyW#rub\n;_. \u001b;cj#invoke\n\u001b#pray\ny  _<,buhohhyyunjnjusblk:,#chat\nu#rub\n::>_d,s:z_<,"
+ },
+ "segments": [
+  {
+   "seed": 94099,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=lit_corridor\n",
+   "moves": "  y   jnlubyW#rub\n;_. \u001b;cj#invoke\n\u001b#pray\ny  _<,buhohhyyunjnjusblk:,#chat\nu#rub\n::>_d,s:z_<,"
+  }
+ ]
+}

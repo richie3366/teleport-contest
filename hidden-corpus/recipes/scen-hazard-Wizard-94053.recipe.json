@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hazard",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n10\n        \u0017lance\nwpFj Fls\u0007cockatrice\nFhFh Fh FhFh20ssu\u0007giant mimic\n.sFh  sm.20s  #pray\ny y    \u0007lich\nFhFhFh   Fnsb  .m.  yny   nny  #"
+ },
+ "segments": [
+  {
+   "seed": 94053,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=sortloot:loot\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n10\n        \u0017lance\nwpFj Fls\u0007cockatrice\nFhFh Fh FhFh20ssu\u0007giant mimic\n.sFh  sm.20s  #pray\ny y    \u0007lich\nFhFhFh   Fnsb  .m.  yny   nny  #"
+  }
+ ]
+}

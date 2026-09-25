@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "descend",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b>.>_>._.@.>_>._.m.>\u0006_>.Fl _.<.>_>._,m,>_>,Fl_.Fl>Fl20s\u0006_>,_.<.>_>._.@.>_>._,<.>\u0006_>>,_,>.>_>>._.@.>_>>._,m,>\u0006_>._,,>_>,_,;:   >_>._.>.>\u0006_>._.,>_>._.:>_>,_,;,>\u000f\u001bSy\u001b nn>;>.;m.#offer\n20s,#levelchange\n14\n             \u0007green mold\nFlss.ss..\u0007chameleon\nFlFl Fl sm..m.",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 94107,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:none\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0006_ \u001b>.>_>._.@.>_>._.m.>\u0006_>.Fl _.<.>_>._,m,>_>,Fl_.Fl>Fl20s\u0006_>,_.<.>_>._.@.>_>._,<.>\u0006_>>,_,>.>_>>._.@.>_>>._,m,>\u0006_>._,,>_>,_,;:   >_>._.>.>\u0006_>._.,>_>._.:>_>,_,;,>\u000f\u001bSy\u001b"
+  },
+  {
+   "seed": 594107,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:none\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " nn>;>.;m.#offer\n20s,#levelchange\n14\n             \u0007green mold\nFlss.ss..\u0007chameleon\nFlFl Fl sm..m."
+  }
+ ]
+}

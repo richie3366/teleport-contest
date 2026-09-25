@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tutorial",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "  y   jhb,:hknuhjohylk#pray\ny <:ljlr\u001byuu::,jjjnky#twoweapon\n#terrain\nb\n\u001bm,<::Pjll<_<,#wipe\n<_<.#invoke\n\u001bkbnyuy<a_d._d,__.:khhlhn_>,,#chat\nb__.t\u001bnujkbl:<\u0004y:_d.#force\nr\u001bjhn"
+ },
+ "segments": [
+  {
+   "seed": 94259,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\n",
+   "moves": "  y   jhb,:hknuhjohylk#pray\ny <:ljlr\u001byuu::,jjjnky#twoweapon\n#terrain\nb\n\u001bm,<::Pjll<_<,#wipe\n<_<.#invoke\n\u001bkbnyuy<a_d._d,__.:khhlhn_>,,#chat\nb__.t\u001bnujkbl:<\u0004y:_d.#force\nr\u001bjhn"
+  }
+ ]
+}

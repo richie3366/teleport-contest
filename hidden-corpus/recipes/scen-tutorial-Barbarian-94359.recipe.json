@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tutorial",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "   y   nlukbb>_ \u001b:blu\u0014jhynyulylubnhkhuhn>klhd\u001b:lhlbuj_m..,kbn:ykl#chat\nujyb:_d.lbujuhujh#wipe\nbky:bhujbh>unh:w\u001b<#jump\n<:<<:yul:_<,#untrap\nn::nnkyhbPyju"
+ },
+ "segments": [
+  {
+   "seed": 94359,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=pettype:none\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "   y   nlukbb>_ \u001b:blu\u0014jhynyulylubnhkhuhn>klhd\u001b:lhlbuj_m..,kbn:ykl#chat\nujyb:_d.lbujuhujh#wipe\nbky:bhujbh>unh:w\u001b<#jump\n<:<<:yul:_<,#untrap\nn::nnkyhbPyju"
+  }
+ ]
+}

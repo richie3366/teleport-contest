@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engrave",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "  bj\u0017wand of undead turning\nEg Elbereth Elbereth\n: \u0017wand of slow monster\nEhy X marks the spot\n \u0017wand of cold\nEin  Vlad was here\n: \u0017wand of stasis\nEjn  Vlad was here\n: E-n  X marks the spot\n\u0007minotaur\nsl20s  n  yy\u001by  y y\u001bn  s"
+ },
+ "segments": [
+  {
+   "seed": 94358,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=fruit:kumquat\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "  bj\u0017wand of undead turning\nEg Elbereth Elbereth\n: \u0017wand of slow monster\nEhy X marks the spot\n \u0017wand of cold\nEin  Vlad was here\n: \u0017wand of stasis\nEjn  Vlad was here\n: E-n  X marks the spot\n\u0007minotaur\nsl20s  n  yy\u001by  y y\u001bn  s"
+  }
+ ]
+}

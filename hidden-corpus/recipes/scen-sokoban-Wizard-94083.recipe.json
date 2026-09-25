@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>C\u0017wand of digging\nzphFk \u0017scroll of earth\nrq khuuhuuuujkhkunkklylylllyllyjuuuuuuuu10suuuuuuuluu10sukukkjjh\u0016?\n>Enkbukkykyykbllljululub\u0017wand of striking\nzrk\u0017scroll of earth\nrs hkknnkkkkkkkn\u0017wand of striking\nztj nnnkb\u0017scroll of earth\nru kulunukhykyyukuy"
+ },
+ "segments": [
+  {
+   "seed": 94083,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=mention_walls\nOPTIONS=fruit:kumquat\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>C\u0017wand of digging\nzphFk \u0017scroll of earth\nrq khuuhuuuujkhkunkklylylllyllyjuuuuuuuu10suuuuuuuluu10sukukkjjh\u0016?\n>Enkbukkykyykbllljululub\u0017wand of striking\nzrk\u0017scroll of earth\nrs hkknnkkkkkkkn\u0017wand of striking\nztj nnnkb\u0017scroll of earth\nru kulunukhykyyukuy"
+  }
+ ]
+}

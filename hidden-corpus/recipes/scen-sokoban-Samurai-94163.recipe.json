@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>BFl nbhjjhnnnnnnbkyll\u0017wand of digging\nzglb\u0017wand of striking\nzhk\u0017wand of striking\nzi>luuklbujll jjllbhhhhhl\u0017wand of striking\nzjkk\u0017wand of striking\nzkj\u0017scroll of earth\nrl \u0017scroll of earth\nrm   yy\u001bny ny\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 94163,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>BFl nbhjjhnnnnnnbkyll\u0017wand of digging\nzglb\u0017wand of striking\nzhk\u0017wand of striking\nzi>luuklbujll jjllbhhhhhl\u0017wand of striking\nzjkk\u0017wand of striking\nzkj\u0017scroll of earth\nrl \u0017scroll of earth\nrm   yy\u001bny ny\u001b  F"
+  }
+ ]
+}

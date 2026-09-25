@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "longrun",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " Fk ss100sFk20s.100sFkss#sit\n\u0018\u001bq100sFks.100s \u000f\u001b100sFk20ss100s150s\u000f\u001b50s100s_ \u001b;>150s50sFk.s50sed ed 100s100skkh\u0018\u001bunh150sllkli\u001bbbk\u0018\u001b150seeSy\u001b  y#dip\nb #chat\nl#force\n\u0018\u001baeny<#wipe\n#force\ncl#name\nf\n#twoweapon\n;",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 94274,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=pettype:cat\nOPTIONS=playmode:explore\n",
+   "moves": " Fk ss100sFk20s.100sFkss#sit\n\u0018\u001bq100sFks.100s \u000f\u001b100sFk20ss100s150s\u000f\u001b50s100s_ \u001b;>150s50sFk.s50sed ed 100s100skkh\u0018\u001bunh150sllkli\u001bbbk\u0018\u001b150seeSy\u001b"
+  },
+  {
+   "seed": 594274,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=pettype:cat\nOPTIONS=playmode:explore\n",
+   "moves": "  y#dip\nb #chat\nl#force\n\u0018\u001baeny<#wipe\n#force\ncl#name\nf\n#twoweapon\n;"
+  }
+ ]
+}

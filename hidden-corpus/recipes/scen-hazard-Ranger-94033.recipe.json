@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hazard",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0007chickatrice\nFnFj FnFlsm.su\u0007brown pudding\nFnFlFyFhFb  Fn20s  sh \u0007gray ooze\nFb Fn Fn FnFh 20s.u#levelchange\n14\n     \u0007cobra\nFj FnFyFy 20ss\u0007incubus\nFyFy   FbFy.s#pray\ny y  Sy\u001b y #conduct\n #loot\nb\u0018\u001bsP;b; \u001b@.okoj<nn#offer\n",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 94033,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0007chickatrice\nFnFj FnFlsm.su\u0007brown pudding\nFnFlFyFhFb  Fn20s  sh \u0007gray ooze\nFb Fn Fn FnFh 20s.u#levelchange\n14\n     \u0007cobra\nFj FnFyFy 20ss\u0007incubus\nFyFy   FbFy.s#pray\ny y  Sy\u001b"
+  },
+  {
+   "seed": 594033,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": " y #conduct\n #loot\nb\u0018\u001bsP;b; \u001b@.okoj<nn#offer\n"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engrave",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "  un\u0017wand of lightning\nEk  I am a fish\nb\u0017wand of stasis\nEl ad aerarium\nl\u0017wand of magic missile\nEm Elbereth\nE- Elbereth Elbereth\n\u0007gnome lord\ns.20s  u  y\u0017diamond\nEn Vlad was here\n : \u0017wand of cold\nEo: \u0017wand of opening\nEp: b\u0017wand of lwand of enlighte"
+ },
+ "segments": [
+  {
+   "seed": 94338,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "  un\u0017wand of lightning\nEk  I am a fish\nb\u0017wand of stasis\nEl ad aerarium\nl\u0017wand of magic missile\nEm Elbereth\nE- Elbereth Elbereth\n\u0007gnome lord\ns.20s  u  y\u0017diamond\nEn Vlad was here\n : \u0017wand of cold\nEo: \u0017wand of opening\nEp: b\u0017wand of lwand of enlighte"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tutorial",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " y   : h:#turn\n:#untrap\nbukllnkhljjkh<hkh:nylw\u001blljyny_ \u001b;cj:njjyljbhhyby:ulb#twoweapon\n:<<>\u0018\u001bhjl<\u0018\u001blkn>#jump\n10syhh#untrap\nh::\u0004u:<#turn\nuylknj;.__,jly_d.jnk__.#chat\nu"
+ },
+ "segments": [
+  {
+   "seed": 94179,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:crawl\n",
+   "moves": " y   : h:#turn\n:#untrap\nbukllnkhljjkh<hkh:nylw\u001blljyny_ \u001b;cj:njjyljbhhyby:ulb#twoweapon\n:<<>\u0018\u001bhjl<\u0018\u001blkn>#jump\n10syhh#untrap\nh::\u0004u:<#turn\nuylknj;.__,jly_d.jnk__.#chat\nu"
+  }
+ ]
+}

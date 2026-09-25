@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "  #wizintrinsic\nj\n \u0017blessed scroll of earth\nrg  \u0017blessed scroll of food detection\nrh  \u001b,\u0017potion of hallucination\nqinbh\u0017wand of nothing\nzjjzjj20s20ss#wizintrinsic\nf\n \u0017blindfold\nak\u0017potion of speed\nql#dip\naZ\u0017blessed potion of enlightenment\nqm \u001b#dip\na;_.sss"
+ },
+ "segments": [
+  {
+   "seed": 94130,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "  #wizintrinsic\nj\n \u0017blessed scroll of earth\nrg  \u0017blessed scroll of food detection\nrh  \u001b,\u0017potion of hallucination\nqinbh\u0017wand of nothing\nzjjzjj20s20ss#wizintrinsic\nf\n \u0017blindfold\nak\u0017potion of speed\nql#dip\naZ\u0017blessed potion of enlightenment\nqm \u001b#dip\na;_.sss"
+  }
+ ]
+}

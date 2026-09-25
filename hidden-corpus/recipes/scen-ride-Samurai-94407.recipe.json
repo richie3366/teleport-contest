@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "  \u0007red dragon\n\u0017scroll of taming\nrf \u0017saddle\nagl#ride\nlyy\u0007tame saddled pony\n#ride\n\u0007tame saddled warhorse\n#ride\nhyy,\u0006_ \u001b<.>Fu Fu_>._,>_>._,Fn>FnFj,\u0007yellow mold\nFjFl    Fn\u0006_>.Fj_,>_>,Fl_.Fb>Fb  Fb_>.Fn_,Fn >"
+ },
+ "segments": [
+  {
+   "seed": 94407,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=runmode:run\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0007red dragon\n\u0017scroll of taming\nrf \u0017saddle\nagl#ride\nlyy\u0007tame saddled pony\n#ride\n\u0007tame saddled warhorse\n#ride\nhyy,\u0006_ \u001b<.>Fu Fu_>._,>_>._,Fn>FnFj,\u0007yellow mold\nFjFl    Fn\u0006_>.Fj_,>_>,Fl_.Fb>Fb  Fb_>.Fn_,Fn >"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "pet",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "  \u0007housecat\n\u0017tripe ration\n t$ldd20s  yny  y y\u001by  s"
+ },
+ "segments": [
+  {
+   "seed": 94385,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0007housecat\n\u0017tripe ration\n t$ldd20s  yny  y y\u001by  s"
+  }
+ ]
+}

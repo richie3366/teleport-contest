@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tutorial",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " n>:tbbkkjklnjhk>lbu#terrain\nc\n\u001bm.\u000f\u001ba:hnhkuyojljb#enhance\n\u001b#invoke\n\u001b:yunbhui\u001bhynnjy :\u000f\u001bkbk:"
+ },
+ "segments": [
+  {
+   "seed": 94019,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=showrace\n",
+   "moves": " n>:tbbkkjklnjhk>lbu#terrain\nc\n\u001bm.\u000f\u001ba:hnhkuyojljb#enhance\n\u001b#invoke\n\u001b:yunbhui\u001bhynnjy :\u000f\u001bkbk:"
+  }
+ ]
+}

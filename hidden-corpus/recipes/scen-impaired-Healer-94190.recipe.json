@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " #wizintrinsic\nhl\n  \u0017blindfold\nal Za\n\u0017cursed scroll of remove curse\nrm\u0017blessed scroll of stinking cloud\nrn\u0017cursed scroll of magic mapping\nro.ss#wizintrinsic\nim\n \u0017cursed potion of object detection\nqp \u001b<.#dip\nhd\u0017blessed scroll of gold detection\nrq\u0017banana\nerss."
+ },
+ "segments": [
+  {
+   "seed": 94190,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=showrace\nOPTIONS=autodig\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\nhl\n  \u0017blindfold\nal Za\n\u0017cursed scroll of remove curse\nrm\u0017blessed scroll of stinking cloud\nrn\u0017cursed scroll of magic mapping\nro.ss#wizintrinsic\nim\n \u0017cursed potion of object detection\nqp \u001b<.#dip\nhd\u0017blessed scroll of gold detection\nrq\u0017banana\nerss."
+  }
+ ]
+}

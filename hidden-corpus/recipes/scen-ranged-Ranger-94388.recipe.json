@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u00176 javelins\nQg\u0007gnome lord\nyfj fn\u0007jackal\nkflfj f c          fj   Fj Fj \u0017potion of oil\ntcj  \u00073 soldier\nhkfj fu  fl  Fj  Fl \u0017bardiche\nwi   yy\u001by   y y y\u001by  \u0007"
+ },
+ "segments": [
+  {
+   "seed": 94388,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u00176 javelins\nQg\u0007gnome lord\nyfj fn\u0007jackal\nkflfj f c          fj   Fj Fj \u0017potion of oil\ntcj  \u00073 soldier\nhkfj fu  fl  Fj  Fl \u0017bardiche\nwi   yy\u001by   y y y\u001by  \u0007"
+  }
+ ]
+}

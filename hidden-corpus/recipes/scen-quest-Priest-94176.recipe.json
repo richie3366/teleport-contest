@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "quest",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>y _ \u001b@.#chat\ny;u._mmmm,#chat\nh_mmmmm.Fu_.#chat\nu_mm,Fh_.Fk#chat\nkz10sch#levelchange\n14\n            \u0016?\n>y_m,Fk_,#chat\nk_mm.Fl_.#chat\nk_mmmmm,Fl _.Fk#chat\nj _mmmm.Fl _,#chat\nu;u:  \u0014;k   yy\u001by  nnn   \\"
+ },
+ "segments": [
+  {
+   "seed": 94176,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>y _ \u001b@.#chat\ny;u._mmmm,#chat\nh_mmmmm.Fu_.#chat\nu_mm,Fh_.Fk#chat\nkz10sch#levelchange\n14\n            \u0016?\n>y_m,Fk_,#chat\nk_mm.Fl_.#chat\nk_mmmmm,Fl _.Fk#chat\nj _mmmm.Fl _,#chat\nu;u:  \u0014;k   yy\u001by  nnn   \\"
+  }
+ ]
+}

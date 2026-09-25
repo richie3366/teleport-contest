@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "caster",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n6\n     \u0017blessed spellbook of create monster\nrf s\u0017blessed spellbook of detect treasure\nrg 20s\u0017blessed spellbook of confuse monster\nrh 20s\u0017blessed spellbook of wizard lock\nri  sm.+\u001b\u0007kobold\nZa\nZb\nZc\nZa\nZb\n"
+ },
+ "segments": [
+  {
+   "seed": 94229,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n6\n     \u0017blessed spellbook of create monster\nrf s\u0017blessed spellbook of detect treasure\nrg 20s\u0017blessed spellbook of confuse monster\nrh 20s\u0017blessed spellbook of wizard lock\nri  sm.+\u001b\u0007kobold\nZa\nZb\nZc\nZa\nZb\n"
+  }
+ ]
+}

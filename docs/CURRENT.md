@@ -48,7 +48,7 @@ identical values, so still no movement):
 no movement — the corpus still does not predict the judge.
 **Corpus fortress** (audit 1740 re-score 2026-09-24 at `47eba199b`,
 per-session statuses identical to audit 1731–1739, 0 PASS→FAIL):
-**501 / 540 PASS (92.8 %)** excl. 13 env-only; RNG 99.37 %, screens 99.4 %.
+**501 / 540 PASS (92.8 %)** excl. 13 env-only; RNG 99.37 %, screens 99.4 %. Grown 2026-09-25 by 400 `scen-*` sessions (20 new families; 113 / 400 PASS at `9d6d893ca`) → **614 / 940**.
 Reviews 1225–1740: 456 ACCEPT, 21 WITH-DEBT, 1 DEBT, 33 QUALITY-RISK (audit 1740: 1 ACCEPT, no new Must-fix).
 Live debts: 1730 `wizcustom_glyphids` empty `wizcustom_callback` site (glyphmap-blocked, map-named); 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending — review-debt, unqueued (detail in the review files).
 Audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s) + `leaderboard.mjs`.

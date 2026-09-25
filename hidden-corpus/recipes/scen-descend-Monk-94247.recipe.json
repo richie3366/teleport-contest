@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "descend",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001b<.>Fn 20s_>.Fl_.>_>,_,>\u0006_>._.>_>._.>_>,_.>\u0006_>>._.>_>>._,>_>>._,>\u0006_>._,>_>,_.>_>._.>\u0006_>>._.>_>>._.>_>>._,>\u0006_>._.>_>,_,>_>._.>\u0006_>>._.>_>>._.>_>>._.>#loot\n#chat\nh\u0006_>>._.>_>>,_.>_>>._.>\u0006_>,_,>_>,_.>_>,_,>\u0006_>,_.>_>._.>_>._.>"
+ },
+ "segments": [
+  {
+   "seed": 94247,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0006_ \u001b<.>Fn 20s_>.Fl_.>_>,_,>\u0006_>._.>_>._.>_>,_.>\u0006_>>._.>_>>._,>_>>._,>\u0006_>._,>_>,_.>_>._.>\u0006_>>._.>_>>._.>_>>._,>\u0006_>._.>_>,_,>_>._.>\u0006_>>._.>_>>._.>_>>._.>#loot\n#chat\nh\u0006_>>._.>_>>,_.>_>>._.>\u0006_>,_,>_>,_.>_>,_,>\u0006_>,_.>_>._.>_>._.>"
+  }
+ ]
+}

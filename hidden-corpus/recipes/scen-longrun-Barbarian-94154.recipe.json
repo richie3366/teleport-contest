@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "longrun",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "   FnFn s150sFlFlFlblh50sFlFlFlFlFlFl100s100sFyFyFy100skbyFlss_ \u001b;>100s100sFuss150s150s_>,>50sFussnlki\u001b_>.>100sFy..150s_>.>100sFyFy.100sFysFy100sFlFls100sed50s jhl100s "
+ },
+ "segments": [
+  {
+   "seed": 94154,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=fruit:slime mold\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:explore\n",
+   "moves": "   FnFn s150sFlFlFlblh50sFlFlFlFlFlFl100s100sFyFyFy100skbyFlss_ \u001b;>100s100sFuss150s150s_>,>50sFussnlki\u001b_>.>100sFy..150s_>.>100sFyFy.100sFysFy100sFlFls100sed50s jhl100s "
+  }
+ ]
+}

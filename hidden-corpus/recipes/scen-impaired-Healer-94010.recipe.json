@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\njl\n  \u0017blessed potion of booze\nql \u001bnhl\u0017blessed wand of magic missile\nzmy\u0017scroll of identify\nrn Zc\nss.#wizintrinsic\nih\n  Zc\nE- ad aerarium\n\u0017potion of speed\nqo \u0017wraith corpse\nep\u0017blessed wand of make invisible\nzqnzqbss.Sy\u001b  y E- Vlad was here\noj#twoweapon\ns#chat\nk#twoweapon\nu#enhance\nyf\nl\n\u001bE- Vlad was here\n#pray\ny ynbju\u0017level tele",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 94010,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\njl\n  \u0017blessed potion of booze\nql \u001bnhl\u0017blessed wand of magic missile\nzmy\u0017scroll of identify\nrn Zc\nss.#wizintrinsic\nih\n  Zc\nE- ad aerarium\n\u0017potion of speed\nqo \u0017wraith corpse\nep\u0017blessed wand of make invisible\nzqnzqbss.Sy\u001b"
+  },
+  {
+   "seed": 594010,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "  y E- Vlad was here\noj#twoweapon\ns#chat\nk#twoweapon\nu#enhance\nyf\nl\n\u001bE- Vlad was here\n#pray\ny ynbju\u0017level tele"
+  }
+ ]
+}

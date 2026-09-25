@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "pet",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " nhbhlt\u001b20s10sdgs..h"
+ },
+ "segments": [
+  {
+   "seed": 94025,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=pushweapon\nOPTIONS=fruit:mango\n",
+   "moves": " nhbhlt\u001b20s10sdgs..h"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engulf",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " #polyself\nochre jelly\n  s20s\u0007sewer rat\nFl  Fn FlFn\u0007gnome\nFn FnFnFn#levelchange\n10\n         \u0007steam vortex\n#pray\ny y   Fk            Fk     #pray\ny y      #pray\ny y       Fn   Fh Fl  FjFk s\u001bFj "
+ },
+ "segments": [
+  {
+   "seed": 94312,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=fruit:lychee\nOPTIONS=playmode:debug\n",
+   "moves": " #polyself\nochre jelly\n  s20s\u0007sewer rat\nFl  Fn FlFn\u0007gnome\nFn FnFnFn#levelchange\n10\n         \u0007steam vortex\n#pray\ny y   Fk            Fk     #pray\ny y      #pray\ny y       Fn   Fh Fl  FjFk s\u001bFj "
+  }
+ ]
+}

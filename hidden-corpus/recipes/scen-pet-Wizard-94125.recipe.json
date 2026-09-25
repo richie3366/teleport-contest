@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "pet",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #chat\nut\u001b20s  jt\u001bdkss20s    Sy\u001b  yzo wand of speed monster\nPdlckW\u001b#ride\nlch#force\nPe#chat\nk20s20sk k  10s#name\nm\n ,",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 94125,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:explore\n",
+   "moves": " #chat\nut\u001b20s  jt\u001bdkss20s    Sy\u001b"
+  },
+  {
+   "seed": 594125,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:explore\n",
+   "moves": "  yzo wand of speed monster\nPdlckW\u001b#ride\nlch#force\nPe#chat\nk20s20sk k  10s#name\nm\n ,"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " uybu\u0017melting ice\nhhll:b\u0017cloud\nynny:yb\u0017fountain\nqyqy\u0017long sword\n#dip\njy y#pray\ny y z#enhance\nyq\nc\n\u001bkbn\u0017altar\ndi\u0017lichen corpse\n#offer\nk  y\u0017magic fountain\nqy qy\u0017long sword\n#dip\nlywe #enhance\nyo\no\n\u001b\u0018\u001b"
+ },
+ "segments": [
+  {
+   "seed": 94100,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " uybu\u0017melting ice\nhhll:b\u0017cloud\nynny:yb\u0017fountain\nqyqy\u0017long sword\n#dip\njy y#pray\ny y z#enhance\nyq\nc\n\u001bkbn\u0017altar\ndi\u0017lichen corpse\n#offer\nk  y\u0017magic fountain\nqy qy\u0017long sword\n#dip\nlywe #enhance\nyo\no\n\u001b\u0018\u001b"
+  }
+ ]
+}

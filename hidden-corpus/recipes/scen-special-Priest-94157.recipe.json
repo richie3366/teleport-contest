@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "special",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u001760 gold pieces\n\u0016?\nc\u0006_ \u001b:#chat\nh_m,Fh_.#chat\nl_mmm.#chat\nh_{,Fb_.Fh  yy\u001by  y y y\u001by  q"
+ },
+ "segments": [
+  {
+   "seed": 94157,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\n",
+   "moves": "\u001760 gold pieces\n\u0016?\nc\u0006_ \u001b:#chat\nh_m,Fh_.#chat\nl_mmm.#chat\nh_{,Fb_.Fh  yy\u001by  y y y\u001by  q"
+  }
+ ]
+}

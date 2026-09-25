@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "descend",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "L BJH_ \u001bm.>Fl ssLUBH_>,>zi the Bell of Opening\n#rub\ng\u001bUUUK_>,>YLHL_>,>HBHL_>.><YHJN_>,>:q"
+ },
+ "segments": [
+  {
+   "seed": 94047,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:horse\nOPTIONS=playmode:explore\n",
+   "moves": "L BJH_ \u001bm.>Fl ssLUBH_>,>zi the Bell of Opening\n#rub\ng\u001bUUUK_>,>YLHL_>,>HBHL_>.><YHJN_>,>:q"
+  }
+ ]
+}

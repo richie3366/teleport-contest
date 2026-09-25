@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engulf",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " \u0007hostile fog cloud\n#pray\ny y   FuFuFuFk #pray\ny y Fu#pray\ny y Fu#pray\ny y   #pray\ny y    Fu#polyself\ndust vortex\n #monster\nss\u0007newt\nsFjFjFj\u0007jackal\nFjFjFlFj"
+ },
+ "segments": [
+  {
+   "seed": 94272,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=pushweapon\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " \u0007hostile fog cloud\n#pray\ny y   FuFuFuFk #pray\ny y Fu#pray\ny y Fu#pray\ny y   #pray\ny y    Fu#polyself\ndust vortex\n #monster\nss\u0007newt\nsFjFjFj\u0007jackal\nFjFjFlFj"
+  }
+ ]
+}

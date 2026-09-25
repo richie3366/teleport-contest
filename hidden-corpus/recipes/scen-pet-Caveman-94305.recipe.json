@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "pet",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  kntbbt\u001bdes20ss#chat\njubjkSy\u001b  nn_m, \u001bm.20sojZ10sZ#dip\ndlyk\u0017lhs20s  h\u0017l^h\u0007ssss\u0017ZW\\ ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 94305,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=playmode:explore\n",
+   "moves": "  kntbbt\u001bdes20ss#chat\njubjkSy\u001b"
+  },
+  {
+   "seed": 594305,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=playmode:explore\n",
+   "moves": "  nn_m, \u001bm.20sojZ10sZ#dip\ndlyk\u0017lhs20s  h\u0017l^h\u0007ssss\u0017ZW\\ "
+  }
+ ]
+}

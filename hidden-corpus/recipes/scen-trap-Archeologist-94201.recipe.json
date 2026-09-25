@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trap",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "ykl\u0017anti-magic field\nn^yyy.sl\u0017web\nlhs20snj\u0017dart trap\nn^y#untrap\nyju\u0017polymorph trap\nn#untrap\ny#terrain\ne\nWed   \u0004jllkk\u0017fire trap\nj^kk 20s20shb\u0017pit\nk\u0007kobold\nsyss20sh\u0017statue trap\nl^hhsb20s#offer\nt\u001b#sit\n  "
+ },
+ "segments": [
+  {
+   "seed": 94201,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=runmode:teleport\nOPTIONS=fruit:mango\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "ykl\u0017anti-magic field\nn^yyy.sl\u0017web\nlhs20snj\u0017dart trap\nn^y#untrap\nyju\u0017polymorph trap\nn#untrap\ny#terrain\ne\nWed   \u0004jllkk\u0017fire trap\nj^kk 20s20shb\u0017pit\nk\u0007kobold\nsyss20sh\u0017statue trap\nl^hhsb20s#offer\nt\u001b#sit\n  "
+  }
+ ]
+}

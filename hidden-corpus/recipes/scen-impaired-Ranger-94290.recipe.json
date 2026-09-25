@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " #wizintrinsic\nf\n \u0017blindfold\nag\u0017fortune cookie\neh  \u0017cursed wand of lightning\nzib  n  kjk\u0017cockatrice egg\nejsm.20s  yny   ny y\u001bn  s"
+ },
+ "segments": [
+  {
+   "seed": 94290,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=!verbose\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\nf\n \u0017blindfold\nag\u0017fortune cookie\neh  \u0017cursed wand of lightning\nzib  n  kjk\u0017cockatrice egg\nejsm.20s  yny   ny y\u001bn  s"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n10\n         \u0017yumi\nwg\u001720 ya\nQh\u0007giant rat\nh kfjflfy\u0017bullwhip\nwi\u0007jackal\nbailuj n,\u00176 javelins\nQj\u0007yellow mold\njbfufufbfk\u0007giant rat\nkfk flflssx #twoweapon\nFuFujyu,"
+ },
+ "segments": [
+  {
+   "seed": 94268,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=!verbose\nOPTIONS=autodig\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n10\n         \u0017yumi\nwg\u001720 ya\nQh\u0007giant rat\nh kfjflfy\u0017bullwhip\nwi\u0007jackal\nbailuj n,\u00176 javelins\nQj\u0007yellow mold\njbfufufbfk\u0007giant rat\nkfk flflssx #twoweapon\nFuFujyu,"
+  }
+ ]
+}

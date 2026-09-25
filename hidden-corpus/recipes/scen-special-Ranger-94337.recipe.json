@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "special",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "\u0016?\nj\u0006\u0017magic flute\nagnGosBCCAnDEADteBeAEEtDFnCtEEtnoAeGAoeeGEACCC\njnagnFDseeGtCBGsFneDDsDoEotseABADEnCBeBeeFoAGDBE\nykwcyZ\u0004h  n#levelchange\n20\n                   \u001760 gold pieces\n\u0016?\nc\u0006_ \u001bm,#chat\nn_mmm.#chat\nn_mmm,#chat\nb_{.Fl_.Flq#enhance\nya\ne\n\u001b20s\u0014."
+ },
+ "segments": [
+  {
+   "seed": 94337,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=autodig\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\nj\u0006\u0017magic flute\nagnGosBCCAnDEADteBeAEEtDFnCtEEtnoAeGAoeeGEACCC\njnagnFDseeGtCBGsFneDDsDoEotseABADEnCBeBeeFoAGDBE\nykwcyZ\u0004h  n#levelchange\n20\n                   \u001760 gold pieces\n\u0016?\nc\u0006_ \u001bm,#chat\nn_mmm.#chat\nn_mmm,#chat\nb_{.Fl_.Flq#enhance\nya\ne\n\u001b20s\u0014."
+  }
+ ]
+}

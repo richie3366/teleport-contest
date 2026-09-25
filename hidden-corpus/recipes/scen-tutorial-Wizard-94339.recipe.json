@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tutorial",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "   y   ,lnkbbkhkjP:>:<:kkl>><llujbh,:>r\u001bn:uhh_ \u001b:nkn>>:#monster\nyjkjuj:khljylbjuhlj_<.kjy:uyhjbjhylhblynk:buykjn_<.>#twoweapon\n_>.ykunkn::#loot\n"
+ },
+ "segments": [
+  {
+   "seed": 94339,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=autodig\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=pettype:cat\n",
+   "moves": "   y   ,lnkbbkhkjP:>:<:kkl>><llujbh,:>r\u001bn:uhh_ \u001b:nkn>>:#monster\nyjkjuj:khljylbjuhlj_<.kjy:uyhjbjhylhblynk:buykjn_<.>#twoweapon\n_>.ykunkn::#loot\n"
+  }
+ ]
+}

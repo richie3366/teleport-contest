@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             \u001720 darts\nQf\u00074 lichen\nyfhfl  fnfh fn\u00072 sewer rat\nllfjfjfh FhFb\u0007troll\nnfh fk fk fhlhu,#enhance\nn\u001b\u0017orcish bow\nwg \u001720 orcish arrows\nQh\u0007dwarf\njkflfh fl    yy  f"
+ },
+ "segments": [
+  {
+   "seed": 94188,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             \u001720 darts\nQf\u00074 lichen\nyfhfl  fnfh fn\u00072 sewer rat\nllfjfjfh FhFb\u0007troll\nnfh fk fk fhlhu,#enhance\nn\u001b\u0017orcish bow\nwg \u001720 orcish arrows\nQh\u0007dwarf\njkflfh fl    yy  f"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "dig",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "\u0017wand of digging\nzikkunk\u0017grave\nzi>  sm.sziuuhl\u0017wand of digging\nzjyyzj> 20snjzj<_ \u001b<.zj> zj>  yy  s"
+ },
+ "segments": [
+  {
+   "seed": 94315,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=fruit:lychee\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017wand of digging\nzikkunk\u0017grave\nzi>  sm.sziuuhl\u0017wand of digging\nzjyyzj> 20snjzj<_ \u001b<.zj> zj>  yy  s"
+  }
+ ]
+}

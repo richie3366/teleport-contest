@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engulf",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " \u0007dust vortex\nFlFl FkFk FyFuFuFbFy.FkFb#levelchange\n10\n         \u0007hostile Juiblex\nyy#pray\ny yFlFlFkFk  FkFj snFu sm.Fu#pray\ny y Sy\u001b yy#chat\nhee #twoweapon\n#loot\n#loot\n#conduct\n w\u001b\u001b",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 94032,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": " \u0007dust vortex\nFlFl FkFk FyFuFuFbFy.FkFb#levelchange\n10\n         \u0007hostile Juiblex\nyy#pray\ny yFlFlFkFk  FkFj snFu sm.Fu#pray\ny y Sy\u001b"
+  },
+  {
+   "seed": 594032,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=pushweapon\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": " yy#chat\nhee #twoweapon\n#loot\n#loot\n#conduct\n w\u001b\u001b"
+  }
+ ]
+}

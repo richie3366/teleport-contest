@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engulf",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n30\n                             #polyself\ndust vortex\n ss\u0007kobold\nFj20s s.\u0007jackal\nsFl FlFl#polyself\ndust vortex\n20s  .\u0007grid bug\n20s FjFjFj\u0007yellow mold\nFjFjFjFj"
+ },
+ "segments": [
+  {
+   "seed": 94132,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "  #levelchange\n30\n                             #polyself\ndust vortex\n ss\u0007kobold\nFj20s s.\u0007jackal\nsFl FlFl#polyself\ndust vortex\n20s  .\u0007grid bug\n20s FjFjFj\u0007yellow mold\nFjFjFjFj"
+  }
+ ]
+}

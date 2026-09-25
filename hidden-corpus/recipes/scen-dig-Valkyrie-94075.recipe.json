@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "dig",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0017dwarvish mattock\n_ \u001b:aejyaesaeaesae_<,_.ae_>.ae\u0017pick-axe\n_>.af >jyafll_<.af>Sy\u001b yf by n,#jump\n#invoke\n\u001btbntel#turn\ni\u001b",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 94075,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017dwarvish mattock\n_ \u001b:aejyaesaeaesae_<,_.ae_>.ae\u0017pick-axe\n_>.af >jyafll_<.af>Sy\u001b"
+  },
+  {
+   "seed": 594075,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=mention_walls\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " yf by n,#jump\n#invoke\n\u001btbntel#turn\ni\u001b"
+  }
+ ]
+}

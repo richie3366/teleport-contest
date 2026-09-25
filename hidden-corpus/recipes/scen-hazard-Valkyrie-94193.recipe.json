@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hazard",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u0017water walking boots\nWess.\u0007gremlin\nFyFk   FyFy Fy20s.\u0007incubus\nFyFyFy   y   20s.\u0007cockatrice\nFlFlFlFl20s Fhsm. sm. \u0007vampire lord\nFk  FkFk   FhFk  Fk.s"
+ },
+ "segments": [
+  {
+   "seed": 94193,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n             \u0017water walking boots\nWess.\u0007gremlin\nFyFk   FyFy Fy20s.\u0007incubus\nFyFyFy   y   20s.\u0007cockatrice\nFlFlFlFl20s Fhsm. sm. \u0007vampire lord\nFk  FkFk   FhFk  Fk.s"
+  }
+ ]
+}

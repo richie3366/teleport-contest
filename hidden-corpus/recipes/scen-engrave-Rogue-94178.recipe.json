@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engrave",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "  uu\u0017wand of teleportation\nEg X marks the spot\n\u0017towel\nEh:\u0017wand of make invisible\nEi I am a fish\n: \u0017wand of speed monster\nEjy Elbereth Elbereth\n: \u0017wand of magic missile\nEky Elbereth Elbereth\n:  uSy\u001b ny:\u000f\u001bqdi\u001b,<#name\nf\nm,#turn\n#terrain\nc\n",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 94178,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!verbose\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\n",
+   "moves": "  uu\u0017wand of teleportation\nEg X marks the spot\n\u0017towel\nEh:\u0017wand of make invisible\nEi I am a fish\n: \u0017wand of speed monster\nEjy Elbereth Elbereth\n: \u0017wand of magic missile\nEky Elbereth Elbereth\n:  uSy\u001b"
+  },
+  {
+   "seed": 594178,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!verbose\nOPTIONS=runmode:run\nOPTIONS=playmode:debug\n",
+   "moves": " ny:\u000f\u001bqdi\u001b,<#name\nf\nm,#turn\n#terrain\nc\n"
+  }
+ ]
+}

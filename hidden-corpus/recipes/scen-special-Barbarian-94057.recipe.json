@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "special",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " \u001760 gold pieces\n\u0016?\nc\u0006_ \u001bm,#chat\nn_mmm,#chat\nh_m.Fl_.;,Fl#chat\nn_{.Fn_.@.Flq\u0014,#monster\nwb "
+ },
+ "segments": [
+  {
+   "seed": 94057,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=lit_corridor\nOPTIONS=runmode:walk\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " \u001760 gold pieces\n\u0016?\nc\u0006_ \u001bm,#chat\nn_mmm,#chat\nh_m.Fl_.;,Fl#chat\nn_{.Fn_.@.Flq\u0014,#monster\nwb "
+  }
+ ]
+}

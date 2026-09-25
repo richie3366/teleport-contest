@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engulf",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n10\n         \u0007air elemental\nsFuFj   20s Fl   Fj  sj Fj   20s .l   yy\u001bny ny\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 94372,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n10\n         \u0007air elemental\nsFuFj   20s Fl   Fj  sj Fj   20s .l   yy\u001bny ny\u001b  F"
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "container",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " \u0017ice box\n\u0017scroll of confuse monster\n\u0017scroll of charging\n\u0017potion of enlightenment\naor\n#tip\no\u001b\u0017credit card\ndoas.s20s   20s#loot\ns\n#tip\ny\u001bdl n\u0004y  \u0017locked large box\n\u0017ice box\n\u0017cursed bag of holding\n\u0017ring of polymorph control\navr\ndtk\u0004jSy\u001b nyqr \u001b#conduct\n #untrap\n.W\u001bqhPwr#rub\n#force\n<#jump\ni\u001b",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 94186,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017ice box\n\u0017scroll of confuse monster\n\u0017scroll of charging\n\u0017potion of enlightenment\naor\n#tip\no\u001b\u0017credit card\ndoas.s20s   20s#loot\ns\n#tip\ny\u001bdl n\u0004y  \u0017locked large box\n\u0017ice box\n\u0017cursed bag of holding\n\u0017ring of polymorph control\navr\ndtk\u0004jSy\u001b"
+  },
+  {
+   "seed": 594186,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": " nyqr \u001b#conduct\n #untrap\n.W\u001bqhPwr#rub\n#force\n<#jump\ni\u001b"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "special",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "\u0017shield of reflection\nWg \u0016?\nh\u0006FnFhFjFhFhFhn n  y  h"
+ },
+ "segments": [
+  {
+   "seed": 94237,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017shield of reflection\nWg \u0016?\nh\u0006FnFhFjFhFhFhn n  y  h"
+  }
+ ]
+}

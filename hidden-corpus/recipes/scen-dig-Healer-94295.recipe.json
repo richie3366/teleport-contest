@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "dig",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": " \u0017dwarvish mattock\n_ \u001b,ak >\u0006_ooo.ak>  ak>20sak>_<.ak>ak>s\u0017pick-axe\nj\u0017grave\nals._>,Fn_.Fjalalsal_<._,alSy\u001b yy#loot\n\u0018\u001bZ>ai ch\u0004y#twoweapon\n#jump\n#terrain\n\u001b#twoweapon\n",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 94295,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017dwarvish mattock\n_ \u001b,ak >\u0006_ooo.ak>  ak>20sak>_<.ak>ak>s\u0017pick-axe\nj\u0017grave\nals._>,Fn_.Fjalalsal_<._,alSy\u001b"
+  },
+  {
+   "seed": 594295,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": " yy#loot\n\u0018\u001bZ>ai ch\u0004y#twoweapon\n#jump\n#terrain\n\u001b#twoweapon\n"
+  }
+ ]
+}

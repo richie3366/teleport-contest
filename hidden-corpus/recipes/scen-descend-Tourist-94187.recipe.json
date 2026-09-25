@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "descend",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "L NHU _ \u001b>.>Fjss\u000f\u001bqhKYUY_>.>YYBH_>,>BUNN_>.>Fl.20sBJHN_>.>FlssL YBL_>.>FlFkFlri\\ NKHL_>._.><UHLK_>,_.>YYNL_>,_,><#terrain\nc\n."
+ },
+ "segments": [
+  {
+   "seed": 94187,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=fruit:slime mold\nOPTIONS=pettype:horse\n",
+   "moves": "L NHU _ \u001b>.>Fjss\u000f\u001bqhKYUY_>.>YYBH_>,>BUNN_>.>Fl.20sBJHN_>.>FlssL YBL_>.>FlFkFlri\\ NKHL_>._.><UHLK_>,_.>YYNL_>,_,><#terrain\nc\n."
+  }
+ ]
+}

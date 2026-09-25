@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "dig",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u0017pick-axe\naf < af> .af>_ \u001b>.af>nu_>.af>af<kyaf<yy\u0017dwarvish mattock\n\u0016?\n>w\u0006_ooo,ag > \u0006_oo.ag> _>,_,Fhag>kl_>,Fh_,Fhag>ag<ubSy\u001b ny#enhance\nyo\nm\n\u001btajtdjz#jump\n#sit\n #enhance\nya\na\n\u001b: #levelchange\n6\n   \u0007gelatinous cube\nFu  FbFu     Fu      ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 94155,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017pick-axe\naf < af> .af>_ \u001b>.af>nu_>.af>af<kyaf<yy\u0017dwarvish mattock\n\u0016?\n>w\u0006_ooo,ag > \u0006_oo.ag> _>,_,Fhag>kl_>,Fh_,Fhag>ag<ubSy\u001b"
+  },
+  {
+   "seed": 594155,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": " ny#enhance\nyo\nm\n\u001btajtdjz#jump\n#sit\n #enhance\nya\na\n\u001b: #levelchange\n6\n   \u0007gelatinous cube\nFu  FbFu     Fu      "
+  }
+ ]
+}

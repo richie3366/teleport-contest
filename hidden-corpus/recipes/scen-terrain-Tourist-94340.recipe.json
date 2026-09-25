@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             jbu\u0017grave\n: \u0017wand of digging\nzn> sm.sm.:h\u0017cloud\nubbb:y\u0017melting ice\njkjkall10s#rub\nybk\u0017pool\nlh bu\u0017neutral altar\ndh\u0017jackal corpse\n#offer\no #pray\ny y #terrain\nd\n\u001b@.dc#turn\nPSy\u001b n#name\na\n10s#enhance\nyk\nm\n\u001b#turn\n#wipe\nzn.\\ <ohk",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 94340,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             jbu\u0017grave\n: \u0017wand of digging\nzn> sm.sm.:h\u0017cloud\nubbb:y\u0017melting ice\njkjkall10s#rub\nybk\u0017pool\nlh bu\u0017neutral altar\ndh\u0017jackal corpse\n#offer\no #pray\ny y #terrain\nd\n\u001b@.dc#turn\nPSy\u001b"
+  },
+  {
+   "seed": 594340,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=mention_walls\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\n",
+   "moves": " n#name\na\n10s#enhance\nyk\nm\n\u001b#turn\n#wipe\nzn.\\ <ohk"
+  }
+ ]
+}

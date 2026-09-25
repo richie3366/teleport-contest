@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u001715 shuriken\nQi\u0007jackal\njjfy fkfbfufusshlj,#enhance\nyo\np\n\u001b#levelchange\n14\n \u00178 spears\nQj\u0007gnome lord\nhhfnfnFnFn\u0007hill orc\nknfb  fj\u0017potion of oil\ntbb \u0017bardiche\nwl \u0007grid bug\nhal \u001b<.ku  h,#enhance\nyd\nd \u001bSy\u001b yn  #force\n >#conduct\n #invoke\n\u001by#turn\nWqd  #twoweapon\n<",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 94008,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u001715 shuriken\nQi\u0007jackal\njjfy fkfbfufusshlj,#enhance\nyo\np\n\u001b#levelchange\n14\n \u00178 spears\nQj\u0007gnome lord\nhhfnfnFnFn\u0007hill orc\nknfb  fj\u0017potion of oil\ntbb \u0017bardiche\nwl \u0007grid bug\nhal \u001b<.ku  h,#enhance\nyd\nd \u001bSy\u001b"
+  },
+  {
+   "seed": 594008,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " yn  #force\n >#conduct\n #invoke\n\u001by#turn\nWqd  #twoweapon\n<"
+  }
+ ]
+}

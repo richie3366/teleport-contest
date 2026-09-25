@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "  \u0007horse\n\u0017scroll of taming\nrf \u0017saddle\nagn#ride\nhy\u0007tame saddled warhorse\n#ride\nhy\u0007tame saddled horse\n#ride\njyy,\u0006_ \u001b@.>Fl  Fj_>,Fn_.>_>._.Fn>ss\u0007yellow mold\nFlFn Fn"
+ },
+ "segments": [
+  {
+   "seed": 94419,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=fruit:durian\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0007horse\n\u0017scroll of taming\nrf \u0017saddle\nagn#ride\nhy\u0007tame saddled warhorse\n#ride\nhy\u0007tame saddled horse\n#ride\njyy,\u0006_ \u001b@.>Fl  Fj_>,Fn_.>_>._.Fn>ss\u0007yellow mold\nFlFn Fn"
+  }
+ ]
+}

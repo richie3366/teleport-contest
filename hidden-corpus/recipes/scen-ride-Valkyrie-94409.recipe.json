@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n6\n     \u0017saddle\naej#ride\njy\u0007pony\n\u0017scroll of taming\nrf \u0017saddle\nagy#ride\nhy\u0007tame saddled pony\n#ride\nhyjykknyk\u0006_ \u001b;>Fj  Fj _>._.>_>,Fh_.>\u0004j\u0007newt\nFh 20sFhhhlh"
+ },
+ "segments": [
+  {
+   "seed": 94409,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autodig\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n6\n     \u0017saddle\naej#ride\njy\u0007pony\n\u0017scroll of taming\nrf \u0017saddle\nagy#ride\nhy\u0007tame saddled pony\n#ride\nhyjykknyk\u0006_ \u001b;>Fj  Fj _>._.>_>,Fh_.>\u0004j\u0007newt\nFh 20sFhhhlh"
+  }
+ ]
+}

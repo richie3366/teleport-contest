@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "  \u0017saddle\n ain#ride\nly\u0007horse\n\u0017scroll of taming\nrj  \u001b\u0017saddle\nakn  #ride\n   \u0007tame saddled pony\n#ride\nuy \u0007gnome\nFy   yy\u001by   y y y\u001by  F"
+ },
+ "segments": [
+  {
+   "seed": 94404,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017saddle\n ain#ride\nly\u0007horse\n\u0017scroll of taming\nrj  \u001b\u0017saddle\nakn  #ride\n   \u0007tame saddled pony\n#ride\nuy \u0007gnome\nFy   yy\u001by   y y y\u001by  F"
+  }
+ ]
+}

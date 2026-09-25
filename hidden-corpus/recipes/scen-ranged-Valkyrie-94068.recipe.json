@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u001715 shuriken\nQf\u00074 newt\nkfn fb  nlk,#levelchange\n14\n \u001720 darts\nQg\u0007jackal\nbfk fl fl\u0017potion of full healing\ntbh \u0007troll\nufh fh fj \u0017potion of healing\ntfh  \u0017ranseur\nwj\u0007grid bug\nbajx   #twoweapon\nFh   Fl   n u lh ,#enhance\nn\u001b"
+ },
+ "segments": [
+  {
+   "seed": 94068,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u001715 shuriken\nQf\u00074 newt\nkfn fb  nlk,#levelchange\n14\n \u001720 darts\nQg\u0007jackal\nbfk fl fl\u0017potion of full healing\ntbh \u0007troll\nufh fh fj \u0017potion of healing\ntfh  \u0017ranseur\nwj\u0007grid bug\nbajx   #twoweapon\nFh   Fl   n u lh ,#enhance\nn\u001b"
+  }
+ ]
+}

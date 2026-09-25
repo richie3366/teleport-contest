@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "nhl\u0017throne\n#sit\n y#sit\n\u001b#sit\nkb\u0017unaligned altar\ndb\u0017human corpse\n lu\u0017moat\n#dip\ney yn:#wipe\nE- ad aerarium\noj#levelchange\n6\n    jju j\u0017throne\n#sit\n:jh \u0017neutral altar\ndade\u0017newt corpse\n#offer\nng   : #name\nd\n#ride\nky#twoweapon\n"
+ },
+ "segments": [
+  {
+   "seed": 94380,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": "nhl\u0017throne\n#sit\n y#sit\n\u001b#sit\nkb\u0017unaligned altar\ndb\u0017human corpse\n lu\u0017moat\n#dip\ney yn:#wipe\nE- ad aerarium\noj#levelchange\n6\n    jju j\u0017throne\n#sit\n:jh \u0017neutral altar\ndade\u0017newt corpse\n#offer\nng   : #name\nd\n#ride\nky#twoweapon\n"
+  }
+ ]
+}

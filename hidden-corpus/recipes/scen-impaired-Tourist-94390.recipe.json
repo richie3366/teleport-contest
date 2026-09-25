@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\ni\n E- Elbereth\n\u0017lump of royal jelly\nemj kk\u0017scroll of scare monster\nrn;m, \u001b.jkj20s    ss#wizintrinsic\nm\n \u0017cursed potion of extra healing\nqo\u0017potion of hallucination\nqp#dip\nhhE- Elbereth\nshsm..m."
+ },
+ "segments": [
+  {
+   "seed": 94390,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\ni\n E- Elbereth\n\u0017lump of royal jelly\nemj kk\u0017scroll of scare monster\nrn;m, \u001b.jkj20s    ss#wizintrinsic\nm\n \u0017cursed potion of extra healing\nqo\u0017potion of hallucination\nqp#dip\nhhE- Elbereth\nshsm..m."
+  }
+ ]
+}

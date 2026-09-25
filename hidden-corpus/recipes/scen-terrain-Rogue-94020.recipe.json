@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             llbu\u0017sink\nqy   \u0017ring of see invisible\ndi \u001b n\u0004y  :by\u0017tree\nl\u0004h\u0004h:n\u0017chaotic altar\ndbda\u0017jackal corpse\n#offer\nj #untrap\nh\u0004 #terrain\nf\n"
+ },
+ "segments": [
+  {
+   "seed": 94020,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n30\n                             llbu\u0017sink\nqy   \u0017ring of see invisible\ndi \u001b n\u0004y  :by\u0017tree\nl\u0004h\u0004h:n\u0017chaotic altar\ndbda\u0017jackal corpse\n#offer\nj #untrap\nh\u0004 #terrain\nf\n"
+  }
+ ]
+}

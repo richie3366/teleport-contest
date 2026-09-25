@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "longrun",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "  jul_ \u001b@.>hbu_>.>100s100sjjj100si\u001b50s_>,>uyk\u000f\u001b100s\u000f\u001b100sohljh100s100sed_>,>\u0018\u001b150s100sFlFlFlhnk_>.>100s_>.>jyl150si\u001b#tip\n\u001bhubnjk_>.>jklda100s\u00164\njhj50skyh100s_>,>100sFhsslhllhl,150sFlFlFl\u000f\u001b100s50sFhFhFh\u0018\u001b50seeeeeeeeeeeeeeeeeeeeee"
+ },
+ "segments": [
+  {
+   "seed": 94074,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=runmode:walk\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  jul_ \u001b@.>hbu_>.>100s100sjjj100si\u001b50s_>,>uyk\u000f\u001b100s\u000f\u001b100sohljh100s100sed_>,>\u0018\u001b150s100sFlFlFlhnk_>.>100s_>.>jyl150si\u001b#tip\n\u001bhubnjk_>.>jklda100s\u00164\njhj50skyh100s_>,>100sFhsslhllhl,150sFlFlFl\u000f\u001b100s50sFhFhFh\u0018\u001b50seeeeeeeeeeeeeeeeeeeeee"
+  }
+ ]
+}

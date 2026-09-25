@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "  ukjj\u0017altar\ndadj  \u0017gnome corpse\n #offer\nk   k\u0017throne\n#sit\n :\u001bln\u0017qqh\u0017#terrain\n \u001bm, nn#name\nm\n,Puykj\u0017unaligned altar\ndadf\u0017newt corpse\n#offer\nl  : nb\u0017fountain\nqy   wand of death\n:l\u0017melting ice\nlhhh:#terrain\nc\n;WE#jump\nSy\u001b n#tip\n\u001b#dip\nbyw\u001bu  >\u000f\u001b;u;",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 94060,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=sortloot:full\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": "  ukjj\u0017altar\ndadj  \u0017gnome corpse\n #offer\nk   k\u0017throne\n#sit\n :\u001bln\u0017qqh\u0017#terrain\n \u001bm, nn#name\nm\n,Puykj\u0017unaligned altar\ndadf\u0017newt corpse\n#offer\nl  : nb\u0017fountain\nqy   wand of death\n:l\u0017melting ice\nlhhh:#terrain\nc\n;WE#jump\nSy\u001b"
+  },
+  {
+   "seed": 594060,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=sortloot:full\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " n#tip\n\u001b#dip\nbyw\u001bu  >\u000f\u001b;u;"
+  }
+ ]
+}

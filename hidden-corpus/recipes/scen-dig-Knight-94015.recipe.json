@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "dig",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0017wand of digging\n\u00169\nzi> 20s   _ \u001b@.zi> h \u0017grave\nzi>        nsm.   sm.   ynnny\u001bn  u"
+ },
+ "segments": [
+  {
+   "seed": 94015,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017wand of digging\n\u00169\nzi> 20s   _ \u001b@.zi> h \u0017grave\nzi>        nsm.   sm.   ynnny\u001bn  u"
+  }
+ ]
+}

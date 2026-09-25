@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engulf",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " #polyself\ntrapper\n #monster\n20s     s\u0007acid blob\nFjFnFnFn\u0007newt\nFbFbFbFb#levelchange\n6\n    \u0007fire vortex\nFbFy  FkFj   Fj  n Fj  Fn Fn Fj  Fy  n  Fy    Fl "
+ },
+ "segments": [
+  {
+   "seed": 94092,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=runmode:teleport\nOPTIONS=fruit:slime mold\nOPTIONS=playmode:debug\n",
+   "moves": " #polyself\ntrapper\n #monster\n20s     s\u0007acid blob\nFjFnFnFn\u0007newt\nFbFbFbFb#levelchange\n6\n    \u0007fire vortex\nFbFy  FkFj   Fj  n Fj  Fn Fn Fj  Fy  n  Fy    Fl "
+  }
+ ]
+}

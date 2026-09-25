@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "quest",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>y  _ \u001b:#chat\nb_m.Fl _.#chat\nb;b._m,#chat\nb_mm.#chat\nb;b,#conduct\n #pray\ny y #offer\n#levelchange\n16\n               \u0016?\n>y_m.#chat\nb_mmmmm.#chat\nb_mmmm.#chat\nb#offer\n#enhance\nyh\na\n\u001bZ"
+ },
+ "segments": [
+  {
+   "seed": 94136,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>y  _ \u001b:#chat\nb_m.Fl _.#chat\nb;b._m,#chat\nb_mm.#chat\nb;b,#conduct\n #pray\ny y #offer\n#levelchange\n16\n               \u0016?\n>y_m.#chat\nb_mmmmm.#chat\nb_mmmm.#chat\nb#offer\n#enhance\nyh\na\n\u001bZ"
+  }
+ ]
+}

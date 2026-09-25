@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "container",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u0017bag of holding\n\u0017ice box\n\u0017ring of cold resistance\n\u0017potion of fruit juice\n\u0017wand of cancellation\ndf#loot\nb\no\n,b\nndd#loot\na\ni\n,a\najy    yy\u001by  y y y\u001by  #"
+ },
+ "segments": [
+  {
+   "seed": 94386,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017bag of holding\n\u0017ice box\n\u0017ring of cold resistance\n\u0017potion of fruit juice\n\u0017wand of cancellation\ndf#loot\nb\no\n,b\nndd#loot\na\ni\n,a\najy    yy\u001by  y y y\u001by  #"
+  }
+ ]
+}

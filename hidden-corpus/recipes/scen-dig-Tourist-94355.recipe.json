@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "dig",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "  \u0017pick-axe\nal j   ju\u0017grave\nal> .sal>  sm. aln n  n \u0017pick-axe\nam nnam>sm.u bam>  yy\u001by  y y y\u001by  2"
+ },
+ "segments": [
+  {
+   "seed": 94355,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017pick-axe\nal j   ju\u0017grave\nal> .sal>  sm. aln n  n \u0017pick-axe\nam nnam>sm.u bam>  yy\u001by  y y y\u001by  2"
+  }
+ ]
+}

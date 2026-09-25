@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trap",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " jjj\u0017level teleporter\nj\u0007jackal\nshssslj\u0017magic trap\nb#untrap\nulj\u0017statue trap\nhl 20s   y\u001b   n  s"
+ },
+ "segments": [
+  {
+   "seed": 94121,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=mention_walls\nOPTIONS=fruit:slime mold\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": " jjj\u0017level teleporter\nj\u0007jackal\nshssslj\u0017magic trap\nb#untrap\nulj\u0017statue trap\nhl 20s   y\u001b   n  s"
+  }
+ ]
+}

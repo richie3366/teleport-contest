@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "quest",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n16\n               \u0016?\n>y  _ \u001b@.#chat\nh_mmm. Fh  _.Fl#chat\nk_mm.Fl                 _,#chat\nb  _mmm.#chat\n\u0016?\n>Aaaj#untrap\n\u0014: #levelchange\n20\n   \u0016?\n>y_mm.#chat\nl_mmmm.#chat\ny_mm.#chat\nn\u0006_>,Fk _.> _m.sm.#monster\nPSy\u001b ny#force\nJ#rub\ng\u001bKch#sit\n #conduct\n ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 94096,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n16\n               \u0016?\n>y  _ \u001b@.#chat\nh_mmm. Fh  _.Fl#chat\nk_mm.Fl                 _,#chat\nb  _mmm.#chat\n\u0016?\n>Aaaj#untrap\n\u0014: #levelchange\n20\n   \u0016?\n>y_mm.#chat\nl_mmmm.#chat\ny_mm.#chat\nn\u0006_>,Fk _.> _m.sm.#monster\nPSy\u001b"
+  },
+  {
+   "seed": 594096,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": " ny#force\nJ#rub\ng\u001bKch#sit\n #conduct\n "
+  }
+ ]
+}

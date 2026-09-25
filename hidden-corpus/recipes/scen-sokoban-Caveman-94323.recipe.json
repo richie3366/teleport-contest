@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>BFhFh bh\u0017wand of digging\nzfl10sh\u0017scroll of earth\nrg llyll10syllyllyyylylu\u0017wand of digging\nzhjjjjjjbllubyy\u0017wand of digging\nzil10syyy\u0017scroll of earth\nrj   yy\u001by  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 94323,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\n>BFhFh bh\u0017wand of digging\nzfl10sh\u0017scroll of earth\nrg llyll10syllyllyyylylu\u0017wand of digging\nzhjjjjjjbllubyy\u0017wand of digging\nzil10syyy\u0017scroll of earth\nrj   yy\u001by  y y y\u001b  F"
+  }
+ ]
+}

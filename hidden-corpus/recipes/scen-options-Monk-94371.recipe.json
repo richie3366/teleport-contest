@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "  mO>>>o\nPmO>>>>hic\n _<. \u001b>.sO>pg\np\n\u0004ny  mO>>>>i\nf \u001bsmO>m\n#conduct\n Pss"
+ },
+ "segments": [
+  {
+   "seed": 94371,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "  mO>>>o\nPmO>>>>hic\n _<. \u001b>.sO>pg\np\n\u0004ny  mO>>>>i\nf \u001bsmO>m\n#conduct\n Pss"
+  }
+ ]
+}

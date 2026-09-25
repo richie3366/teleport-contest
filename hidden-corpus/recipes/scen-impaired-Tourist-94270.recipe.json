@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " #wizintrinsic\nm\n \u0017eucalyptus leaf\nen\u0017scroll of taming\nro  \u001bE- X marks the spot\n.20s 20s Sy\u001b y#conduct\n t$k  #untrap\nh,di   ;y, \u001b>.ef  s\u0007pony\n\u0017banana\ntay\u0007tame wolf\n\u0017carrot\ntay  yy\u001by  y y ny  d",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 94270,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": " #wizintrinsic\nm\n \u0017eucalyptus leaf\nen\u0017scroll of taming\nro  \u001bE- X marks the spot\n.20s 20s Sy\u001b"
+  },
+  {
+   "seed": 594270,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": " y#conduct\n t$k  #untrap\nh,di   ;y, \u001b>.ef  s\u0007pony\n\u0017banana\ntay\u0007tame wolf\n\u0017carrot\ntay  yy\u001by  y y ny  d"
+  }
+ ]
+}

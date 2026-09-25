@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "longrun",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "  yuyuhh100sjny100sFj20s20s\u000f\u001b\u000f\u001b100s50s100s\\   Z_ \u001b,>ljntby50skbb50s_>.>150sFl20s20s100sklb50suun#rub\n100sed 10s150s150s100s   50sFh.20s100s100sFhs.50s150s100sFbFb20s150seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+ },
+ "segments": [
+  {
+   "seed": 94334,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:none\n",
+   "moves": "  yuyuhh100sjny100sFj20s20s\u000f\u001b\u000f\u001b100s50s100s\\   Z_ \u001b,>ljntby50skbb50s_>.>150sFl20s20s100sklb50suun#rub\n100sed 10s150s150s100s   50sFh.20s100s100sFhs.50s150s100sFbFb20s150seeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+  }
+ ]
+}

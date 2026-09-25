@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " mO>>>>ef\n1\n1\nzsO>pgf\na\ne\neg10sO>hpd\ni\u001bO>l\n#conduct\n f  slsOd\n\u0004j#pray\ny   O>f\n#sit\n,Og\no\no\ni\n\u001b#monster\nzmO>>>c\n#turn\n mO>>>>>va\nlychee\n 1\n#force\n20s20s"
+ },
+ "segments": [
+  {
+   "seed": 94331,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:none\n",
+   "moves": " mO>>>>ef\n1\n1\nzsO>pgf\na\ne\neg10sO>hpd\ni\u001bO>l\n#conduct\n f  slsOd\n\u0004j#pray\ny   O>f\n#sit\n,Og\no\no\ni\n\u001b#monster\nzmO>>>c\n#turn\n mO>>>>>va\nlychee\n 1\n#force\n20s20s"
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "pet",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " #name\nm\n @.ddss.tbhujjb10sSy\u001b#name\ni\n#tip\n\u001bq#monster\n#enhance\n\u001b#force\n20s\u0017\u0007Fl 20s20sFhssss\u000720s.s.20sss20s",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 94265,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:horse\n",
+   "moves": " #name\nm\n @.ddss.tbhujjb10sSy\u001b"
+  },
+  {
+   "seed": 594265,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:horse\n",
+   "moves": "#name\ni\n#tip\n\u001bq#monster\n#enhance\n\u001b#force\n20s\u0017\u0007Fl 20s20sFhssss\u000720s.s.20sss20s"
+  }
+ ]
+}

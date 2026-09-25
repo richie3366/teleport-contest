@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "Ok\n#offer\nr\u001bOfg\nj\n#chat\njOlc\n\u0014 \u001b;_>.smO>>a\n q:mO>>>>>o\n$\")[%?+!=/(*`0_\n#offer\n.sOl\n>mO>>miq\n r\u001bzOcen\n_>,20sqmO>>>>>sp\na\nj\n#ride\nlys."
+ },
+ "segments": [
+  {
+   "seed": 94151,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": "Ok\n#offer\nr\u001bOfg\nj\n#chat\njOlc\n\u0014 \u001b;_>.smO>>a\n q:mO>>>>>o\n$\")[%?+!=/(*`0_\n#offer\n.sOl\n>mO>>miq\n r\u001bzOcen\n_>,20sqmO>>>>>sp\na\nj\n#ride\nlys."
+  }
+ ]
+}

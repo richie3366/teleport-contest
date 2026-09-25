@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engulf",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "#polyself\nochre jelly\n  #monster\ns20s      \u0007lichen\nFlFlFlFl\u0007lichen\nFlFlFlFl#levelchange\n10\n         \u0007purple worm\nFl Fb Fl  Fk20s s\u001bs20s FkFkFk  yny  y y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 94352,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "#polyself\nochre jelly\n  #monster\ns20s      \u0007lichen\nFlFlFlFl\u0007lichen\nFlFlFlFl#levelchange\n10\n         \u0007purple worm\nFl Fb Fl  Fk20s s\u001bs20s FkFkFk  yny  y y y\u001b  F"
+  }
+ ]
+}

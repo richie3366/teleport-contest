@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engrave",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " hu\u0017wand of light\nEg  Elbereth\n: b\u0017wand of death\nEh Elbereth Elbereth\n : b\u0017wand of lightning\nEi  Elbereth\nk\u0017wand of teleportation\nEj Elbereth\n: E- Elbereth Elbereth\n\u0007minotaur\ns.  yny   y nny  2"
+ },
+ "segments": [
+  {
+   "seed": 94298,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\n",
+   "moves": " hu\u0017wand of light\nEg  Elbereth\n: b\u0017wand of death\nEh Elbereth Elbereth\n : b\u0017wand of lightning\nEi  Elbereth\nk\u0017wand of teleportation\nEj Elbereth\n: E- Elbereth Elbereth\n\u0007minotaur\ns.  yny   y nny  2"
+  }
+ ]
+}

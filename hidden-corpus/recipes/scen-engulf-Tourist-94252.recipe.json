@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engulf",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                             \u0007hostile dust vortex\nFbsm. Fjs FjFb Fk . Fj#pray\ny yFjFjSy\u001b yy #invoke\n\u001b\u001b\\ 10s Elqj  E- Vlad was here\n #tip\n\u001b\u001b#twoweapon\nw-\u0007disenchanter\nFkFkFj FbFj Fk . 20s \u0007nurse\nFl  ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 94252,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                             \u0007hostile dust vortex\nFbsm. Fjs FjFb Fk . Fj#pray\ny yFjFjSy\u001b"
+  },
+  {
+   "seed": 594252,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " yy #invoke\n\u001b\u001b\\ 10s Elqj  E- Vlad was here\n #tip\n\u001b\u001b#twoweapon\nw-\u0007disenchanter\nFkFkFj FbFj Fk . 20s \u0007nurse\nFl  "
+  }
+ ]
+}

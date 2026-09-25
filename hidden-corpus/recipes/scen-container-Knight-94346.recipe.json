@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "container",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "  \u0017locked large box\n \u0017bag of tricks\n\u0017wand of cancellation\n\u0017wand of fire\n\u0017wand of cancellation\ndi#loot\n, \u0017mace\nwndi#force\ny ...ajdb#loot\nl,b\nao   #tip\nj\u001bi\u001b\u0017cursed bag of holding\n\u0017ice box\n\u0017ring of searching\n\u0017potion of sleeping\n\u0017wand of cancellation\napi\naps\napb\nU\n\u001b\u0017lock pick\ndpau..s20s#loot\nb\nb\nc\n\u001baly      yy\u001by  y y y\u001by  "
+ },
+ "segments": [
+  {
+   "seed": 94346,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017locked large box\n \u0017bag of tricks\n\u0017wand of cancellation\n\u0017wand of fire\n\u0017wand of cancellation\ndi#loot\n, \u0017mace\nwndi#force\ny ...ajdb#loot\nl,b\nao   #tip\nj\u001bi\u001b\u0017cursed bag of holding\n\u0017ice box\n\u0017ring of searching\n\u0017potion of sleeping\n\u0017wand of cancellation\napi\naps\napb\nU\n\u001b\u0017lock pick\ndpau..s20s#loot\nb\nb\nc\n\u001baly      yy\u001by  y y y\u001by  "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "descend",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "J JYK_ \u001b,>Fl ssi\u001b>KLHH_>.><HHKN_>,>JLHJ_>,>JHYB_>.>Za\n#ride\ny<NKNB_>,>YNNK_>.>W#offer\nLLHN_>.>LKKY_>.><\\  "
+ },
+ "segments": [
+  {
+   "seed": 94387,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\n",
+   "moves": "J JYK_ \u001b,>Fl ssi\u001b>KLHH_>.><HHKN_>,>JLHJ_>,>JHYB_>.>Za\n#ride\ny<NKNB_>,>YNNK_>.>W#offer\nLLHN_>.>LKKY_>.><\\  "
+  }
+ ]
+}

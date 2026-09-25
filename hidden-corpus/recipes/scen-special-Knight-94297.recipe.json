@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "special",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0017towel\nPi\u0016?\nh\u0006sFl20s   Fl FuFuhnlh#jump\n \u001b>.i\u001b#force\n#levelchange\n20\n\u0016?\ne\u0006sFjFjFj   Fj   Fy   n   n  ub  n \u0014:,\\   Sy\u001b n dh :   20s   yy\u001bny nny  \u000f",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 94297,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0017towel\nPi\u0016?\nh\u0006sFl20s   Fl FuFuhnlh#jump\n \u001b>.i\u001b#force\n#levelchange\n20\n\u0016?\ne\u0006sFjFjFj   Fj   Fy   n   n  ub  n \u0014:,\\   Sy\u001b"
+  },
+  {
+   "seed": 594297,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": " n dh :   20s   yy\u001bny nny  \u000f"
+  }
+ ]
+}

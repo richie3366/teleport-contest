@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "pet",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "\u0007kitten\n\u0017lichen corpse\ntbude sm. 20s20s\u0007newt\n\u0017scroll of taming\nrg \u0007acid blob\n\u0017scroll of taming\nrh \u0017tripe ration\nt\u001b\u0007yellow mold\n\u0017scroll of taming\nrj \u0007tame soldier ant\n\u0007tame kitten\n\u0007acid blob\n\u0017scroll of taming\nrk \u0017tin whistle\nlkkaldfs20s20s\u0007grid bug\n.m.sm.sm..m..l   .\u0017magic whistle\njbjam      \u0017huge chunk of meat\nt\u001bu "
+ },
+ "segments": [
+  {
+   "seed": 94105,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=autodig\nOPTIONS=runmode:teleport\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007kitten\n\u0017lichen corpse\ntbude sm. 20s20s\u0007newt\n\u0017scroll of taming\nrg \u0007acid blob\n\u0017scroll of taming\nrh \u0017tripe ration\nt\u001b\u0007yellow mold\n\u0017scroll of taming\nrj \u0007tame soldier ant\n\u0007tame kitten\n\u0007acid blob\n\u0017scroll of taming\nrk \u0017tin whistle\nlkkaldfs20s20s\u0007grid bug\n.m.sm.sm..m..l   .\u0017magic whistle\njbjam      \u0017huge chunk of meat\nt\u001bu "
+  }
+ ]
+}

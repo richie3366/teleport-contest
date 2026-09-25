@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "pet",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "   #chat\nukd$s20sstal#chat\nn#chat\nn#chat\nl#chat\nk#name\no\n#name\no\n20s  10s tak#chat\nhh"
+ },
+ "segments": [
+  {
+   "seed": 94205,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:teleport\nOPTIONS=playmode:explore\n",
+   "moves": "   #chat\nukd$s20sstal#chat\nn#chat\nn#chat\nl#chat\nk#name\no\n#name\no\n20s  10s tak#chat\nhh"
+  }
+ ]
+}

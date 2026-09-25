@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "longrun",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "  FyFb FjFb  Fy20sybb150s\\    100sFhFhs100s150s50s50sFlss100sFhFh.100sjhy100s100s100s#ride\nbhnh\u000f\u001b\u000f\u001b\\    150s150shlk150sFlFlFlFlss100sybh\u000f\u001b100snkn100s\u0018\u001b50s#dip\ne ulb"
+ },
+ "segments": [
+  {
+   "seed": 94214,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:explore\n",
+   "moves": "  FyFb FjFb  Fy20sybb150s\\    100sFhFhs100s150s50s50sFlss100sFhFh.100sjhy100s100s100s#ride\nbhnh\u000f\u001b\u000f\u001b\\    150s150shlk150sFlFlFlFlss100sybh\u000f\u001b100snkn100s\u0018\u001b50s#dip\ne ulb"
+  }
+ ]
+}

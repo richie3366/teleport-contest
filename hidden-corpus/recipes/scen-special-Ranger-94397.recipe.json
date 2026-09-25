@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "special",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n10\n         \u0017800 gold pieces\n\u0016?\nc\u0006_ \u001b,#chat\nn_m.Fl _,#chat\nh_m.Fh_,m.Fh#chat\nh_{,Fj_.>.Fjqli\u001b>#levelchange\n6\n \u0016?\nk   \u0006__,Fk_,#chat\nu20sm. sm.20s  yy\u001by   y nny  #"
+ },
+ "segments": [
+  {
+   "seed": 94397,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:elf,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n10\n         \u0017800 gold pieces\n\u0016?\nc\u0006_ \u001b,#chat\nn_m.Fl _,#chat\nh_m.Fh_,m.Fh#chat\nh_{,Fj_.>.Fjqli\u001b>#levelchange\n6\n \u0016?\nk   \u0006__,Fk_,#chat\nu20sm. sm.20s  yy\u001by   y nny  #"
+  }
+ ]
+}

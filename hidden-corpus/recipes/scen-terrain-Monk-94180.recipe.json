@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                      uhbk\u0017chaotic altar\ndddc\u0017elf corpse\n #offer\nk uy\u0017sink\nqy\u0017ring of levitation\ndl  \u001bn\u0004y\u0004y:j\u0017grave\n: \u0017wand of digging\nzm> .s#terrain\nb\n\u001b.#jump\ni\u001b#ride\njy"
+ },
+ "segments": [
+  {
+   "seed": 94180,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                      uhbk\u0017chaotic altar\ndddc\u0017elf corpse\n #offer\nk uy\u0017sink\nqy\u0017ring of levitation\ndl  \u001bn\u0004y\u0004y:j\u0017grave\n: \u0017wand of digging\nzm> .s#terrain\nb\n\u001b.#jump\ni\u001b#ride\njy"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "descend",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0006_ \u001bm.>_>.Fl_.@.> \u0006_>.Fj_.m.>_>.Fh_.>.Fh>Fhs_>._.@.>\u0006_>>._..>_>>._..>_>>._,:>\u0006_>,_.>.>_>._,.>_>._.@.>i\u001bE- ad aerarium\n\u0006_>,_.m,>_>._.>.>_>._.<.>W#loot\n\u0006_>._.>.>_>._.;;>_>._.@.>\u0006_>,_.<.>_>,_.>.>_>._.,>>#wipe\n\u0006_>>._,>.>_>>._.m,>_>>._,@.>\u0006_>._.m.>_>._.m.>_>,_,,><\u0006_>._,<.>_>._,m.>_>,_.,><"
+ },
+ "segments": [
+  {
+   "seed": 94367,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "\u0006_ \u001bm.>_>.Fl_.@.> \u0006_>.Fj_.m.>_>.Fh_.>.Fh>Fhs_>._.@.>\u0006_>>._..>_>>._..>_>>._,:>\u0006_>,_.>.>_>._,.>_>._.@.>i\u001bE- ad aerarium\n\u0006_>,_.m,>_>._.>.>_>._.<.>W#loot\n\u0006_>._.>.>_>._.;;>_>._.@.>\u0006_>,_.<.>_>,_.>.>_>._.,>>#wipe\n\u0006_>>._,>.>_>>._.m,>_>>._,@.>\u0006_>._.m.>_>._.m.>_>,_,,><\u0006_>._,<.>_>._,m.>_>,_.,><"
+  }
+ ]
+}

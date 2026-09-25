@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "caster",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n10\n        \u0017blessed spellbook of detect unseen\nro .\u0017blessed spellbook of drain life\nrp .+\u001b\u0007jackal\nZa\n \u0007hill orc\nZa\nZd\nZa\nFbZa\nZc\n#enhance\nyj\ne\n\u001b#levelchange\n20\n          \u0017spellbook of cancellation\nrqy sm.\u0017blessed spellbook of teleport away\nrr sm.\u0017blessed spellbook of magic mapping\nrs .m.+d\n\u0007jackal\nZc\n\u0007new"
+ },
+ "segments": [
+  {
+   "seed": 94109,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n10\n        \u0017blessed spellbook of detect unseen\nro .\u0017blessed spellbook of drain life\nrp .+\u001b\u0007jackal\nZa\n \u0007hill orc\nZa\nZd\nZa\nFbZa\nZc\n#enhance\nyj\ne\n\u001b#levelchange\n20\n          \u0017spellbook of cancellation\nrqy sm.\u0017blessed spellbook of teleport away\nrr sm.\u0017blessed spellbook of magic mapping\nrs .m.+d\n\u0007jackal\nZc\n\u0007new"
+  }
+ ]
+}

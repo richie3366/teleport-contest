@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "quest",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n20\n                   \u0016?\n>y  _ \u001b.#chat\nh_mm,#chat\nh_mmm.Fj \u001b_.#chat\ny;<._m,_.#chat\nl;<.\u0016?\n>>\u001b#jump\n#conduct\n _<.20s"
+ },
+ "segments": [
+  {
+   "seed": 94296,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n20\n                   \u0016?\n>y  _ \u001b.#chat\nh_mm,#chat\nh_mmm.Fj \u001b_.#chat\ny;<._m,_.#chat\nl;<.\u0016?\n>>\u001b#jump\n#conduct\n _<.20s"
+  }
+ ]
+}

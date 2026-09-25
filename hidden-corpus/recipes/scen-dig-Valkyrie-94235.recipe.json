@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "dig",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "\u0017dwarvish mattock\naebaesaeaellae.\u0017dwarvish mattock\naf\u0006_ \u001b.afaf.afSy\u001b y#turn\n\u0018\u001b\u0014.\u0014m,,>#levelchange\n10\n         \u0007gremlin\nFhFh Fhss\u0007mountain nymph\nFh FhFh  20ss\u0007quantum mechanic\nFuF",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 94235,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017dwarvish mattock\naebaesaeaellae.\u0017dwarvish mattock\naf\u0006_ \u001b.afaf.afSy\u001b"
+  },
+  {
+   "seed": 594235,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=playmode:debug\n",
+   "moves": " y#turn\n\u0018\u001b\u0014.\u0014m,,>#levelchange\n10\n         \u0007gremlin\nFhFh Fhss\u0007mountain nymph\nFh FhFh  20ss\u0007quantum mechanic\nFuF"
+  }
+ ]
+}

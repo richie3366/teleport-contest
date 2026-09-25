@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tutorial",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "   y   jyhyjnlnkjlhhhu#monster\nlju_ \u001b;jkjt\u001bLyhjhky:#name\nf\n>nhkW:uyhhljlby_>,Zlbjuuybjk>unk:hbn>:hkjkunknb\\ ck\u000f\u001b<hjblhkuuubll<>ulh#jump\n<_>,lhjjbk<:nbu_<,"
+ },
+ "segments": [
+  {
+   "seed": 94059,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:kumquat\n",
+   "moves": "   y   jyhyjnlnkjlhhhu#monster\nlju_ \u001b;jkjt\u001bLyhjhky:#name\nf\n>nhkW:uyhhljlby_>,Zlbjuuybjk>unk:hbn>:hkjkunknb\\ ck\u000f\u001b<hjblhkuuubll<>ulh#jump\n<_>,lhjjbk<:nbu_<,"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "dig",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0017wand of digging\nzjllzj<nhn\u0017grave\nzj> s20syk\u0017dwarvish mattock\n\u00169\nk\u0017grave\nak >sysak>sm.ak> k  yy  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 94035,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!verbose\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017wand of digging\nzjllzj<nhn\u0017grave\nzj> s20syk\u0017dwarvish mattock\n\u00169\nk\u0017grave\nak >sysak>sm.ak> k  yy  \u0017"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " O>c\nch\u0014mO>>>>d\noff\n\\ #jump\nmO>>v\nkHO>jpb\ne\nWOcn\n\\ cjs.O>hab\nm\n#name\no\nshiny\n__, \u001b.20sOcl\n#tip\n\u001b\u001b#sit\n\u001bmOa\n#rub\n#sit\n\u001bmO>>>>>of\noff\n5\n#pray\ny     #offer\nmO>>>>>>ikj\na\na\na\n\u001b\u001b\u001b>mO>>>uge\n  #name\ni\nshiny\n#untrap\nl.m.su "
+ },
+ "segments": [
+  {
+   "seed": 94351,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!verbose\nOPTIONS=playmode:explore\n",
+   "moves": " O>c\nch\u0014mO>>>>d\noff\n\\ #jump\nmO>>v\nkHO>jpb\ne\nWOcn\n\\ cjs.O>hab\nm\n#name\no\nshiny\n__, \u001b.20sOcl\n#tip\n\u001b\u001b#sit\n\u001bmOa\n#rub\n#sit\n\u001bmO>>>>>of\noff\n5\n#pray\ny     #offer\nmO>>>>>>ikj\na\na\na\n\u001b\u001b\u001b>mO>>>uge\n  #name\ni\nshiny\n#untrap\nl.m.su "
+  }
+ ]
+}

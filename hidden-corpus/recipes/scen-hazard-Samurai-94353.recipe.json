@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hazard",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n6\n    \u0017mummy wrapping\nWf.nsm.sm.\u0007gremlin\nFhFhFk  FhFk  Fk .m. sn#pray\ny y    \u0007wererat\nFu Fh   yy  F"
+ },
+ "segments": [
+  {
+   "seed": 94353,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n6\n    \u0017mummy wrapping\nWf.nsm.sm.\u0007gremlin\nFhFhFk  FhFk  Fk .m. sn#pray\ny y    \u0007wererat\nFu Fh   yy  F"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "caster",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n10\n         \u0017blessed spellbook of chain lightning\nrg 20s\u0017blessed spellbook of drain life\nrh 20s  \u0017spellbook of create monster\nri   .+\u001b\u0007sewer rat\nZb\n Fh Zb\nZb\n\u0007giant rat\nZb\nZb\n#pray\ny y        "
+ },
+ "segments": [
+  {
+   "seed": 94029,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n10\n         \u0017blessed spellbook of chain lightning\nrg 20s\u0017blessed spellbook of drain life\nrh 20s  \u0017spellbook of create monster\nri   .+\u001b\u0007sewer rat\nZb\n Fh Zb\nZb\n\u0007giant rat\nZb\nZb\n#pray\ny y        "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "terrain",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  jbn\u0017cloud\nlllh:k\u0017moat\n#dip\ndy      kj#monster\n#untrap\nbZ\u001bnju\u0017fountain\nqyqyl\u0017neutral altar\ndk\u0017lichen corpse\n#offer\np  #pray\ny y : #terrain\n\u001b#tip\n\u001b#invoke\n\u001bn"
+ },
+ "segments": [
+  {
+   "seed": 94360,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=fruit:mango\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": "  jbn\u0017cloud\nlllh:k\u0017moat\n#dip\ndy      kj#monster\n#untrap\nbZ\u001bnju\u0017fountain\nqyqyl\u0017neutral altar\ndk\u0017lichen corpse\n#offer\np  #pray\ny y : #terrain\n\u001b#tip\n\u001b#invoke\n\u001bn"
+  }
+ ]
+}

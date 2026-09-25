@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "special",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": " \u0016?\nj\u0006\u0017tooled horn\nafnnFCtntoEsnooCBGoeCEACDoeEEEtBooteFACoBDEBAF\nykafneBstAAooeeAAEtDAeoeAtDEeGAtteDEFCnFtsGDEBAF\nku\u0017wand of locking\nzgl#chat\nh#rub\ncd#sit\n\u0017blindfold\nPh\u0016?\nh\u000620s     FkFkFkFk  yy\u001by  y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 94257,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " \u0016?\nj\u0006\u0017tooled horn\nafnnFCtntoEsnooCBGoeCEACDoeEEEtBooteFACoBDEBAF\nykafneBstAAooeeAAEtDAeoeAtDEeGAtteDEFCnFtsGDEBAF\nku\u0017wand of locking\nzgl#chat\nh#rub\ncd#sit\n\u0017blindfold\nPh\u0016?\nh\u000620s     FkFkFkFk  yy\u001by  y y\u001b  F"
+  }
+ ]
+}

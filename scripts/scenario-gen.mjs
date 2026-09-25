@@ -13,7 +13,12 @@
  *
  *   node scripts/scenario-gen.mjs --n 60 [--seed 91000] [--jobs 6]
  *        [--family mixed|wish|genesis|poly|intrinsic|death|kit|tour|normal]
- *        [--out hidden-corpus/recipes] [--probe]
+ *        [--family broad|terrain|trap|town|sokoban|ride|pet|container|descend|
+ *                  ranged|caster|impaired|options|engulf|hazard|longrun|dig]
+ *        [--out hidden-corpus/recipes] [--probe [--index i]]
+ *
+ * `broad` rotates evenly through the second-wave families (terrain … dig);
+ * about a quarter of those save mid-game and restore in a second segment.
  *
  * Output: one `scen-<family>-<Role>-<seed>.recipe.json` per session in
  * hidden-corpus/recipes (only the recipe is committed) plus the canonical
@@ -166,15 +171,15 @@ function bracketLetters(top) {
 
 /* ------------------------------------------------------------------ game */
 class Game {
-    constructor({ seg, binary, installDir, homeDir, rngLogPath, tz, maxKeys = MAX_KEYS, trace = false }) {
-        Object.assign(this, { seg, binary, installDir, homeDir, rngLogPath, tz, maxKeys, trace });
+    constructor({ seg, binary, installDir, homeDir, rngLogPath, tz, maxKeys = MAX_KEYS, trace = false, wipeSave = true }) {
+        Object.assign(this, { seg, binary, installDir, homeDir, rngLogPath, tz, maxKeys, trace, wipeSave });
         this.moves = ''; this.steps = 0; this.ended = false; this.s = null; this.lastMap = null;
     }
     async start() {
         await fs.mkdir(this.homeDir, { recursive: true });
         await fs.writeFile(path.join(this.homeDir, '.nethackrc'), this.seg.nethackrc || '');
         await fs.writeFile(this.rngLogPath, '');
-        await clearStaleState(this.installDir, { wipeSave: true });
+        await clearStaleState(this.installDir, { wipeSave: this.wipeSave });
         const env = {
             ...process.env, NETHACKDIR: this.installDir, HACKDIR: this.installDir, HOME: this.homeDir,
             TERM: 'xterm-256color', TZ: this.tz, NETHACK_NO_DELAY: '1', NETHACK_SEED: String(this.seg.seed),
@@ -245,7 +250,7 @@ async function answer(g, rng, ctx = {}) {
             }
             await g.send(ESC); continue;
         }
-        if (/in what direction/i.test(top)) { await g.send(ctx.dir || monsterDir(s, rng) || pick(rng, 'hjklyubn.')); continue; }
+        if (/in what direction/i.test(top)) { await g.send(ctx.dir || monsterDir(g.lastMap || s, rng) || pick(rng, 'hjklyubn.')); continue; }
         if (/Really attack|Are you sure you want to pray|Really quit|Die\?|Really |Continue\?|Are you sure/.test(top) && /\[yn/.test(top)) { await g.send(ctx.yn || (chance(rng, 0.7) ? 'y' : 'n')); continue; }
         if (/Which ring-finger/.test(top)) { await g.send(pick(rng, 'rl')); continue; }
         if (/type the name|what kind of monster|genocide|What monster do you want/i.test(top)) { await g.send((ctx.name || pick(rng, MONSTERS)) + '\n'); continue; }
@@ -255,7 +260,12 @@ async function answer(g, rng, ctx = {}) {
         if (/What do you want to call|What do you want to name|Call .* :|What do you want to say/.test(top)) { await g.send(pick(rng, ['Fido', 'foo', 'blessed', 'shiny']) + '\n'); continue; }
         if (/For instructions type a|Where do you want to|Pick an object|Pick a monster|Select a position|Move cursor to|Please move the cursor/.test(top)) { await g.send(pick(rng, ['.', ',', ';', ':', 'm.', 'm,', '<.', '>.', '@.'])); continue; }
         if (/\[yn/.test(top) || /\[ynq/.test(top)) { await g.send(ctx.yn || pick(rng, 'yyn')); continue; }
+        if (/For what do you wish/.test(top)) { await g.send(pick(rng, WISH_POOL)[0] + '\n'); continue; }
+        if (/How much will you offer/.test(top)) { await g.send(pick(rng, ['0', '50', '200', '400', '600', '1000', '2500']) + '\n'); continue; }
         if (/How many|how much|Amount|count/i.test(top) && /\?\s*$/.test(top)) { await g.send(String(1 + Math.floor(rng() * 5)) + '\n'); continue; }
+        if (/^Set \S+ to what\?/.test(top)) { await g.send(optionValue(rng, /^Set (\S+)/.exec(top)[1]) + '\n'); continue; }
+        if (/What new (autopickup exception|menucolor|message) pattern\?/.test(top)) { await g.send(pick(rng, ['<*arrow', '>*corpse', '"blessed"=green', '"cursed"=red', 'You hear*', '"uncursed"=cyan']) + '\n'); continue; }
+        if (/What type of (scroll|spellbook) do you want to write/.test(top)) { await g.send(pick(rng, /scroll/.test(top) ? SCROLLS : SPELLBOOKS)[0].replace(/^(scroll|spellbook) of /, '') + '\n'); continue; }
         const letters = bracketLetters(top);
         if (letters.length && /\?\s*\[/.test(top)) { await g.send(ctx.letter && letters.includes(ctx.letter) ? ctx.letter : pick(rng, letters)); ctx.letter = null; continue; }
         if (/\?\s*\[[^\]]*\]\s*(\([^)]*\))?\s*$/.test(top)) { await g.send(ESC); continue; }
@@ -586,7 +596,706 @@ async function runScenario(g, rng, family) {
     if (chance(rng, 0.25)) await die(g, rng);
 }
 
+/* ------------------------------------------------------------------ second-wave families
+   Each one aims at a subsystem the first eight only brush by chance:
+   dungeon features and traps built by wizard wishes, Minetown shops and
+   temple, Sokoban boulders, riding, pets, containers, stair descents that
+   generate levels in sequence, launchers and thrown objects, spellcasting,
+   acting while confused/stunned/hallucinating/blind, the options menus,
+   engulfers, special monster attacks, long hunger-driven games, digging.
+   They also vary the rc the way the public sessions do, and a quarter of
+   them save and restore in a second segment. */
+const WAVE2 = ['terrain', 'trap', 'town', 'sokoban', 'ride', 'pet', 'container', 'descend', 'ranged', 'caster', 'impaired', 'options', 'engulf', 'hazard', 'longrun', 'dig', 'quest', 'special', 'engrave', 'tutorial'];
+const NORMAL_OK = new Set(['descend', 'longrun', 'pet', 'options']);
+const ROLE_BIAS = {
+    caster: ['Wizard', 'Priest', 'Healer', 'Monk'],
+    ride: ['Knight', 'Knight', 'Valkyrie', 'Samurai'],
+    ranged: ['Ranger', 'Samurai', 'Rogue'],
+    dig: ['Archeologist', 'Valkyrie'],
+    town: ['Tourist', 'Healer', 'Priest'],
+};
+const DIRS = { h: [-1, 0], j: [0, 1], k: [0, -1], l: [1, 0], y: [-1, -1], u: [1, -1], b: [-1, 1], n: [1, 1] };
+const OPP = { h: 'l', l: 'h', j: 'k', k: 'j', y: 'n', n: 'y', u: 'b', b: 'u' };
+const WALL_CH = /[│─┌┐└┘├┤┬┴┼]/;
+const FEATURES = ['fountain', 'magic fountain', 'sink', 'throne', 'lawful altar', 'neutral altar', 'chaotic altar', 'unaligned altar', 'altar', 'grave', 'tree', 'pool', 'moat', 'ice', 'melting ice', 'iron bars', 'cloud'];
+const TRAPS = ['arrow trap', 'dart trap', 'falling rock trap', 'squeaky board', 'rolling boulder trap', 'sleeping gas trap', 'rust trap', 'fire trap', 'pit', 'spiked pit', 'hole', 'trap door', 'teleportation trap', 'level teleporter', 'magic portal', 'web', 'statue trap', 'magic trap', 'anti-magic field', 'polymorph trap'];
+const STEEDS = ['pony', 'pony', 'horse', 'warhorse', 'white unicorn', 'gray unicorn', 'black unicorn', 'baby red dragon', 'red dragon', 'mumak', 'titanothere', 'jackal', 'little dog'];
+const PETS = ['kitten', 'little dog', 'pony', 'housecat', 'large dog', 'jackal', 'wolf', 'dingo', 'gnome lord', 'soldier ant', 'lichen', 'winter wolf cub', 'hill orc'];
+const PREY = ['newt', 'jackal', 'grid bug', 'sewer rat', 'kobold', 'lichen', 'gnome', 'giant rat', 'acid blob', 'yellow mold'];
+const CONTAINERS = ['sack', 'bag of holding', 'oilskin sack', 'large box', 'chest', 'ice box', 'bag of tricks', 'cursed bag of holding', 'locked large box', 'locked chest', 'blessed bag of holding'];
+const LAUNCH = [['bow', '20 arrows'], ['elven bow', '20 elven arrows'], ['orcish bow', '20 orcish arrows'], ['yumi', '20 ya'], ['crossbow', '15 crossbow bolts'], ['sling', '20 flint stones'], [null, '10 daggers'], [null, '20 darts'], [null, '15 shuriken'], [null, '5 boomerangs'], [null, '8 spears'], [null, '6 javelins'], [null, '4 cream pies'], [null, '6 eggs'], [null, '8 rocks']];
+const POLEARMS = ['glaive', 'halberd', 'bardiche', 'ranseur', 'spetum', 'lance', 'bullwhip', 'grappling hook'];
+const ENGULFERS = ['fog cloud', 'dust vortex', 'ice vortex', 'energy vortex', 'steam vortex', 'fire vortex', 'purple worm', 'lurker above', 'trapper', 'air elemental', 'Juiblex', 'ochre jelly'];
+const HAZARDS = ['floating eye', 'cockatrice', 'chickatrice', 'water nymph', 'wood nymph', 'mountain nymph', 'leprechaun', 'succubus', 'incubus', 'rust monster', 'disenchanter', 'gray ooze', 'black pudding', 'brown pudding', 'mind flayer', 'gelatinous cube', 'werewolf', 'wererat', 'quantum mechanic', 'chameleon', 'cobra', 'yellow light', 'gas spore', 'green slime', 'lich', 'soldier ant', 'giant mimic', 'nurse', 'Medusa', 'green mold', 'gremlin', 'owlbear', 'vampire lord', 'shrieker', 'ape'];
+const DIG_TOOLS = ['pick-axe', 'dwarvish mattock', 'wand of digging'];
+const FOOD_TOSS = ['tripe ration', 'meatball', 'food ration', 'apple', 'carrot', 'huge chunk of meat', 'lichen corpse', 'newt corpse', 'banana', 'fortune cookie'];
+const IMPAIR = [['g', 'confused'], ['f', 'stunned'], ['h', 'hallucinating'], ['i', 'blinded'], ['j', 'deafness'], ['l', 'slippery fingers'], ['m', 'wounded legs']];
+const OPTION_WORDS = { fruit: ['mango', 'durian', 'kumquat', 'slime mold', 'lychee'], dogname: ['Rex', 'Fido'], catname: ['Tom', 'Morris'], horsename: ['Silver', 'Trigger'] };
+
+function optionValue(rng, name) {
+    if (OPTION_WORDS[name]) return pick(rng, OPTION_WORDS[name]);
+    if (/limit|amount|margin|history|lines|size|width|height|turns|threshold|count/.test(name)) return String(1 + Math.floor(rng() * 9));
+    if (/pickup_types/.test(name)) return pick(rng, ['$?!/="+', '$', '%', 'all', '?!']);
+    if (/packorder/.test(name)) return '$")[%?+!=/(*`0_';
+    return pick(rng, ['on', 'off', 'yes', '1', 'mango']);
+}
+
+function makeRc2(rng, role, { mode, pet, tutorial = false }) {
+    const [name, r, races, aligns] = role;
+    const race = pick(rng, races), align = pick(rng, aligns), gender = pick(rng, ['male', 'female']);
+    const lines = [
+        `OPTIONS=name:${name},role:${r},race:${race},gender:${gender},align:${align}`,
+        tutorial ? 'OPTIONS=!legacy,!splash_screen' : 'OPTIONS=!legacy,!splash_screen,!tutorial',
+        `OPTIONS=suppress_alert:${chance(rng, 0.85) ? '3.4.3' : '3.3.1'}`,
+        'OPTIONS=symset:DECgraphics',
+    ];
+    const opts = [];
+    if (chance(rng, 0.55)) opts.push('!autopickup');
+    else if (chance(rng, 0.5)) opts.push('autopickup', `pickup_types:${pick(rng, ['$', '$?!/="+', '%', '$?'])}`);
+    if (chance(rng, 0.35)) opts.push('showexp', 'time');
+    if (chance(rng, 0.2)) opts.push('pushweapon');
+    if (chance(rng, 0.25)) opts.push('lit_corridor');
+    if (chance(rng, 0.1)) opts.push('showrace');
+    if (chance(rng, 0.1)) opts.push('!verbose');
+    if (chance(rng, 0.1)) opts.push('mention_walls');
+    if (chance(rng, 0.1)) opts.push('autodig');
+    if (chance(rng, 0.1)) opts.push(`sortloot:${pick(rng, ['full', 'loot', 'none'])}`);
+    if (chance(rng, 0.12)) opts.push(`runmode:${pick(rng, ['walk', 'crawl', 'run', 'teleport'])}`);
+    if (chance(rng, 0.12)) opts.push(`fruit:${pick(rng, OPTION_WORDS.fruit)}`);
+    if (chance(rng, 0.2)) opts.push(`disclose:${pick(rng, ['-i -a -v -g -c -o', 'yi ya yv yg yc yo', '+i +a -v -g +c -o'])}`);
+    if (chance(rng, 0.1)) opts.push('msg_window:reversed');
+    if (pet) opts.push(`pettype:${pet}`);
+    if (mode === 'debug') opts.push('playmode:debug');
+    if (mode === 'explore') opts.push('playmode:explore');
+    for (const o of opts) lines.push(`OPTIONS=${o}`);
+    if (chance(rng, 0.06)) lines.push('SYMBOLS=S_pool:~,S_fountain:{');
+    return lines.join('\n') + '\n';
+}
+
+function dirWhere(s, rng, re) {
+    if (!s || s.cy < 1 || s.cy > 21) return null;
+    const m = neighbors(s).filter((n) => re.test(n.ch));
+    return m.length ? pick(rng, m).k : null;
+}
+/* direction of a monster up to 8 squares away in a straight line */
+function lineMonsterDir(s, rng) {
+    if (!s || s.cy < 1 || s.cy > 21) return null;
+    const hits = [];
+    for (const [k, [dx, dy]] of Object.entries(DIRS)) {
+        for (let r = 1; r <= 8; r++) {
+            const x = s.cx + dx * r, y = s.cy + dy * r;
+            if (y < 1 || y > 21 || x < 0 || x >= COLS_80) break;
+            const ch = renderCell(s.grid[y][x]);
+            if (MON_CH.test(ch)) { hits.push(k); break; }
+            if (WALL_CH.test(ch) || ch === ' ') break;
+        }
+    }
+    return hits.length ? pick(rng, hits) : null;
+}
+const screenText = (g) => g.s.rows.join('\n');
+async function steps(g, rng, n, re = /[·#]/) {
+    for (let i = 0; i < n && !g.full; i++) {
+        await settle(g, rng);
+        await g.send(dirWhere(g.s, rng, re) || pick(rng, 'hjklyubn'));
+        await answer(g, rng);
+    }
+}
+/* step to an adjacent floor square; returns the direction back */
+async function stepAway(g, rng) {
+    await settle(g, rng);
+    const d = dirWhere(g.s, rng, /[·#]/);
+    if (!d) return null;
+    await g.send(d);
+    await answer(g, rng);
+    return OPP[d];
+}
+/* travel with getpos jumps; `_` + `.` again resumes toward the remembered
+   destination when a monster interrupted the first leg */
+async function travelTo(g, rng, jumps, again = 1) {
+    for (let leg = 0; leg <= again && !g.full; leg++) {
+        await settle(g, rng);
+        await g.send('_');
+        for (let i = 0; i < 3 && g.s.more && !g.full; i++) await g.send(' ');
+        if (!/instructions|travel|Where/i.test(g.s.top)) { await settle(g, rng); return; }
+        await g.send((leg ? '' : jumps) + pick(rng, ['.', '.', ',']));
+        await settle(g, rng);
+        if (/already here|Can't find dungeon feature/.test(g.s.top)) return;
+        if (monsterDir(g.s, rng)) await fight(g, rng, 1);
+    }
+}
+async function mapLevel(g, rng) { await settle(g, rng); await g.send(CTRL('f')); await settle(g, rng); }
+async function shoot(g, rng, verb, ctx = {}) {
+    const dir = lineMonsterDir(g.s, rng) || monsterDir(g.s, rng) || pick(rng, 'hjklyubn');
+    await typeCmd(g, rng, verb, { ...ctx, dir });
+}
+function statusRows(g) { return g.s.rows.slice(22).join(' '); }
+function lowHp(g) { const m = /HP:(\d+)\((\d+)\)/.exec(statusRows(g)); return m && Number(m[1]) * 3 < Number(m[2]); }
+async function sit(g, rng) { await ext(g, rng, 'sit', { menuPick: true }); }
+async function goDown(g, rng, { mapped }) {
+    if (mapped) await mapLevel(g, rng);
+    const jumps = '>'.repeat(1 + (chance(rng, 0.25) ? 1 : 0));
+    for (let t = 0; t < 3 && !g.full; t++) {
+        await travelTo(g, rng, jumps);
+        await typeCmd(g, rng, '>');
+        if (!/can't go down here/.test(g.s.top)) break;
+        if (monsterDir(g.s, rng)) await fight(g, rng, 2);
+    }
+}
+
+async function runWave2(g, rng, family, { debug }) {
+    const strong = () => ext(g, rng, 'levelchange', { level: String(pick(rng, [6, 10, 14, 20, 30])) });
+    switch (family) {
+    case 'terrain': {
+        if (chance(rng, 0.4)) await strong();
+        await steps(g, rng, 2);
+        for (const feat of shuffle(rng, FEATURES).slice(0, 2 + Math.floor(rng() * 3))) {
+            if (g.full) break;
+            await steps(g, rng, 1 + Math.floor(rng() * 2));
+            await wish(g, rng, feat);
+            if (/fountain/.test(feat)) {
+                for (let i = 0; i < 1 + Math.floor(rng() * 3); i++) await typeCmd(g, rng, 'q', { yn: 'y' });
+                if (chance(rng, 0.6)) {
+                    if (chance(rng, 0.4)) { const l = await wish(g, rng, 'long sword'); if (l) await typeCmd(g, rng, '#dip\n', { letter: l, yn: 'y' }); }
+                    else await ext(g, rng, 'dip', { yn: 'y' });
+                }
+            } else if (feat === 'sink') {
+                await typeCmd(g, rng, 'q', { yn: 'y' });
+                if (chance(rng, 0.5)) { const [rn] = pick(rng, RINGS); const l = await wish(g, rng, rn); if (l) await typeCmd(g, rng, 'd', { letter: l }); }
+                const back = await stepAway(g, rng);
+                for (let i = 0; back && i < 1 + Math.floor(rng() * 4); i++) await typeCmd(g, rng, K_KICK, { dir: back });
+            } else if (feat === 'throne') {
+                for (let i = 0; i < 1 + Math.floor(rng() * 4); i++) await sit(g, rng);
+            } else if (/altar/.test(feat)) {
+                for (let i = 0; i < 1 + Math.floor(rng() * 2); i++) await typeCmd(g, rng, 'd');
+                const corpse = pick(rng, ['newt corpse', 'jackal corpse', 'lichen corpse', 'floating eye corpse', 'human corpse', 'dwarf corpse', 'elf corpse', 'gnome corpse']);
+                const l = await wish(g, rng, corpse);
+                if (l) await ext(g, rng, 'offer', { letter: l, yn: 'n' });
+                if (chance(rng, 0.5)) await ext(g, rng, 'pray', { yn: 'y' });
+            } else if (feat === 'grave') {
+                await typeCmd(g, rng, ':');
+                const tool = pick(rng, ['wand of digging', 'pick-axe']);
+                const l = await wish(g, rng, tool);
+                if (l) await typeCmd(g, rng, tool === 'pick-axe' ? 'a' : 'z', { letter: l, dir: '>' });
+                await wait(g, rng, 2);
+            } else if (feat === 'tree') {
+                const back = await stepAway(g, rng);
+                for (let i = 0; back && i < 1 + Math.floor(rng() * 3); i++) await typeCmd(g, rng, K_KICK, { dir: back });
+                if (back && chance(rng, 0.4)) { const l = await wish(g, rng, 'axe'); if (l) await typeCmd(g, rng, 'a', { letter: l, dir: back, yn: 'y' }); }
+            } else if (/pool|moat/.test(feat)) {
+                if (chance(rng, 0.5)) await ext(g, rng, 'dip', { yn: 'y' });
+                const back = await stepAway(g, rng);
+                if (back) { await g.send(back); await answer(g, rng); }
+            } else if (/ice|cloud|bars/.test(feat)) {
+                const back = await stepAway(g, rng);
+                for (let i = 0; back && i < 3; i++) { await g.send(pick(rng, [back, back, OPP[back]])); await answer(g, rng); }
+            }
+            if (chance(rng, 0.3)) await typeCmd(g, rng, ':');
+        }
+        if (chance(rng, 0.4)) await ext(g, rng, 'terrain', { menuPick: true });
+        await ordinary(g, rng, 3);
+        break;
+    }
+    case 'trap': {
+        if (chance(rng, 0.4)) await strong();
+        await steps(g, rng, 2);
+        for (const tr of shuffle(rng, TRAPS).slice(0, 2 + Math.floor(rng() * 3))) {
+            if (g.full) break;
+            await steps(g, rng, 1 + Math.floor(rng() * 2));
+            await wish(g, rng, tr);
+            const back = await stepAway(g, rng);
+            if (!back) continue;
+            if (chance(rng, 0.3)) await typeCmd(g, rng, '^', { dir: back });
+            const act = pick(rng, ['step', 'step', 'step', 'untrap', 'lure']);
+            if (act === 'untrap') await ext(g, rng, 'untrap', { dir: back, yn: 'y' });
+            else if (act === 'lure') { await genesis(g, rng, pick(rng, PREY)); await wait(g, rng, 4); }
+            else { await g.send(back); await answer(g, rng, { yn: 'y' }); await wait(g, rng, 2); }
+        }
+        if (chance(rng, 0.3)) { const t = pick(rng, ['beartrap', 'land mine']); const l = await wish(g, rng, t); if (l) { await typeCmd(g, rng, 'a', { letter: l, yn: 'y' }); await steps(g, rng, 2); } }
+        if (chance(rng, 0.4)) await ext(g, rng, 'terrain', { menuPick: true });
+        await ordinary(g, rng, 3);
+        break;
+    }
+    case 'town': {
+        if (chance(rng, 0.5)) await strong();
+        if (chance(rng, 0.75)) await wish(g, rng, pick(rng, ['2000 gold pieces', '500 gold pieces', '5000 gold pieces']));
+        if (!(await levelport(g, rng, 'minetn'))) await levelport(g, rng, 5 + Math.floor(rng() * 4));
+        await mapLevel(g, rng);
+        if (chance(rng, 0.9)) { const l = await wish(g, rng, 'blessed potion of object detection'); if (l) await typeCmd(g, rng, 'q', { letter: l }); }
+        for (let i = 0; i < 4 + Math.floor(rng() * 4) && !g.full; i++) {
+            const what = pick(rng, ['shop', 'shop', 'shop', 'shop', 'temple', 'fountain', 'watch', 'door']);
+            if (what === 'shop') {
+                await travelTo(g, rng, 'o'.repeat(2 + Math.floor(rng() * 8)));
+                if (chance(rng, 0.3)) await travelTo(g, rng, 'o'.repeat(1 + Math.floor(rng() * 3)));
+                await typeCmd(g, rng, ',', { menuPick: true, yn: 'y' });
+                const after = pick(rng, ['pay', 'pay', 'sell', 'chat', 'look', 'steal', 'price']);
+                if (after === 'pay') await typeCmd(g, rng, 'p', { yn: 'y' });
+                else if (after === 'sell') await typeCmd(g, rng, 'd', { yn: pick(rng, 'yn') });
+                else if (after === 'chat') await chat(g, rng);
+                else if (after === 'look') await typeCmd(g, rng, ':');
+                else if (after === 'price') await typeCmd(g, rng, '$');
+                else await typeCmd(g, rng, K_TELE, { yn: 'n' });
+            } else if (what === 'temple') {
+                await travelTo(g, rng, '_');
+                await chat(g, rng);
+                if (chance(rng, 0.4)) await ext(g, rng, 'pray', { yn: 'y' });
+                if (chance(rng, 0.4)) await typeCmd(g, rng, 'd');
+            } else if (what === 'fountain') {
+                await travelTo(g, rng, '{');
+                await typeCmd(g, rng, 'q', { yn: 'y' });
+                if (chance(rng, 0.4)) await ext(g, rng, 'dip', { yn: 'y' });
+            } else if (what === 'watch') {
+                await travelTo(g, rng, 'm'.repeat(1 + Math.floor(rng() * 4)));
+                await chat(g, rng);
+            } else {
+                await travelTo(g, rng, 'd'.repeat(1 + Math.floor(rng() * 5)));
+                await typeCmd(g, rng, K_KICK, { dir: pick(rng, 'hjkl') });
+            }
+        }
+        await ordinary(g, rng, 3);
+        break;
+    }
+    case 'sokoban': {
+        if (chance(rng, 0.3)) await strong();
+        await levelport(g, rng, pick(rng, ['soko4', 'soko4', 'soko3', 'soko2', 'soko1']));
+        if (chance(rng, 0.15)) { const l = await wish(g, rng, 'blessed ring of levitation'); if (l) await typeCmd(g, rng, 'P', { letter: l }); }
+        for (let i = 0; i < 60 && !g.full; i++) {
+            await settle(g, rng);
+            const r = rng();
+            const mon = monsterDir(g.s, rng);
+            if (mon && r < 0.5) { await g.send('F' + mon); await answer(g, rng); continue; }
+            const boulder = dirWhere(g.s, rng, /`/);
+            if (boulder && r < 0.7) { await g.send(boulder); await answer(g, rng, { yn: 'y' }); continue; }
+            if (r < 0.74) {
+                const item = pick(rng, ['scroll of earth', 'wand of striking', 'wand of digging']);
+                const l = await wish(g, rng, item);
+                if (l && item.startsWith('scroll')) await typeCmd(g, rng, 'r', { letter: l });
+                else if (l) await typeCmd(g, rng, 'z', { letter: l, dir: boulder || pick(rng, 'hjkl>') });
+                continue;
+            }
+            if (r < 0.78) { await g.send('10s'); await settle(g, rng); continue; }
+            await g.send(dirWhere(g.s, rng, /[·^]/) || pick(rng, 'hjklyubn'));
+            await answer(g, rng, { yn: pick(rng, 'yyn') });
+        }
+        break;
+    }
+    case 'ride': {
+        if (chance(rng, 0.5)) await strong();
+        const steed = pick(rng, STEEDS);
+        const own = g.seg.nethackrc.includes('pettype:horse') || (g.seg.nethackrc.includes('role:Knight') && !g.seg.nethackrc.includes('pettype:'));
+        const tameBy = async (name) => {
+            await genesis(g, rng, name);
+            const t = await wish(g, rng, 'scroll of taming');
+            if (t) await typeCmd(g, rng, 'r', { letter: t });
+        };
+        const saddleUp = async () => {
+            const l = await wish(g, rng, 'saddle');
+            if (l) await typeCmd(g, rng, 'a', { letter: l, yn: 'y' });
+        };
+        if (own && chance(rng, 0.6)) await saddleUp();
+        else if (chance(rng, 0.5)) { await tameBy(steed); await saddleUp(); }
+        else if (chance(rng, 0.5)) await genesis(g, rng, `tame saddled ${steed}`);
+        else { await genesis(g, rng, `tame ${steed}`); await saddleUp(); }
+        if (chance(rng, 0.3)) { const l = await wish(g, rng, 'lance'); if (l) await typeCmd(g, rng, 'w', { letter: l, yn: 'y' }); }
+        await ext(g, rng, 'ride', { yn: 'y' });
+        for (let t = 0; t < 2 && !/You mount|riding/.test(screenText(g)) && !g.full; t++) {
+            const horse = pick(rng, ['pony', 'horse', 'warhorse']);
+            if (chance(rng, 0.5)) { await tameBy(horse); await saddleUp(); } else await genesis(g, rng, `tame saddled ${horse}`);
+            await ext(g, rng, 'ride', { yn: 'y' });
+        }
+        for (let i = 0; i < 4 + Math.floor(rng() * 4) && !g.full; i++) {
+            const act = pick(rng, ['walk', 'walk', 'fight', 'kick', 'pickup', 'stairs', 'dismount', 'wait']);
+            if (act === 'walk') await steps(g, rng, 2 + Math.floor(rng() * 4));
+            else if (act === 'fight') { await genesis(g, rng, pick(rng, PREY)); await fight(g, rng, 3); }
+            else if (act === 'kick') await typeCmd(g, rng, K_KICK, { dir: pick(rng, 'hjklyubn') });
+            else if (act === 'pickup') await typeCmd(g, rng, ',', { menuPick: true });
+            else if (act === 'stairs') await goDown(g, rng, { mapped: true });
+            else if (act === 'dismount') { await ext(g, rng, 'ride', { yn: 'y' }); await wait(g, rng, 1); await ext(g, rng, 'ride', { yn: 'y' }); }
+            else await wait(g, rng, 2);
+        }
+        break;
+    }
+    case 'pet': {
+        if (debug) {
+            for (let i = 0; i < 1 + Math.floor(rng() * 2); i++) {
+                if (chance(rng, 0.5)) { await genesis(g, rng, `tame ${pick(rng, PETS)}`); continue; }
+                /* domestic animals are tamed by thrown food (dogfood/tamedog) */
+                await genesis(g, rng, pick(rng, ['kitten', 'little dog', 'pony', 'housecat', 'large dog', 'horse']));
+                const l = await wish(g, rng, pick(rng, FOOD_TOSS));
+                if (l) await typeCmd(g, rng, 't', { letter: l, dir: monsterDir(g.s, rng) || pick(rng, 'hjklyubn') });
+            }
+        }
+        for (let i = 0; i < 5 + Math.floor(rng() * 4) && !g.full; i++) {
+            const act = pick(rng, debug
+                ? ['feed', 'feed', 'leash', 'chat', 'name', 'swap', 'hunt', 'drop', 'whistle', 'tame', 'stairs', 'rest']
+                : ['swap', 'swap', 'drop', 'chat', 'name', 'rest', 'rest', 'walk', 'throw']);
+            if (act === 'feed') { const f = pick(rng, FOOD_TOSS); const l = await wish(g, rng, f); if (l) await typeCmd(g, rng, 't', { letter: l, dir: monsterDir(g.s, rng) || pick(rng, 'hjklyubn') }); }
+            else if (act === 'leash') { const l = await wish(g, rng, 'leash'); if (l) { await typeCmd(g, rng, 'a', { letter: l }); await steps(g, rng, 4); await typeCmd(g, rng, 'a', { letter: l }); } }
+            else if (act === 'chat') await chat(g, rng);
+            else if (act === 'name') await ext(g, rng, 'name', { menuPick: true });
+            else if (act === 'swap') { const d = monsterDir(g.s, rng); if (d) { await g.send(d); await answer(g, rng); } else await steps(g, rng, 2); }
+            else if (act === 'hunt') { await genesis(g, rng, pick(rng, PREY)); await wait(g, rng, 6); }
+            else if (act === 'drop') { await typeCmd(g, rng, 'd'); await wait(g, rng, 3); }
+            else if (act === 'whistle') { const l = await wish(g, rng, pick(rng, ['magic whistle', 'tin whistle'])); if (l) { await steps(g, rng, 3); await typeCmd(g, rng, 'a', { letter: l }); } }
+            else if (act === 'tame') { await genesis(g, rng, pick(rng, PREY)); const l = await wish(g, rng, 'scroll of taming'); if (l) await typeCmd(g, rng, 'r', { letter: l }); }
+            else if (act === 'stairs') await goDown(g, rng, { mapped: true });
+            else if (act === 'throw') await typeCmd(g, rng, 't', { dir: monsterDir(g.s, rng) || pick(rng, 'hjklyubn') });
+            else if (act === 'walk') await steps(g, rng, 4);
+            else { await g.send(pick(rng, ['10s', '20s'])); await settle(g, rng); }
+        }
+        break;
+    }
+    case 'container': {
+        const held = [];
+        for (const c of shuffle(rng, CONTAINERS).slice(0, 1 + Math.floor(rng() * 3))) { const l = await wish(g, rng, c); if (l) held.push([l, c]); }
+        for (let i = 0; i < 1 + Math.floor(rng() * 3); i++) { const [n] = pick(rng, [...POTIONS, ...SCROLLS, ...GEMS, ...WANDS, ...RINGS]); await wish(g, rng, n); }
+        if (chance(rng, 0.15)) await wish(g, rng, 'wand of cancellation');
+        for (let i = 0; i < 4 + Math.floor(rng() * 4) && !g.full && held.length; i++) {
+            const [l, c] = pick(rng, held);
+            const act = pick(rng, ['apply', 'apply', 'apply', 'floor', 'tip', 'unlock', 'force', 'kick']);
+            if (act === 'apply') await typeCmd(g, rng, 'a', { letter: l, menuPick: true, yn: 'y' });
+            else if (act === 'tip') await ext(g, rng, 'tip', { letter: l, menuPick: true, yn: 'y' });
+            else if (act === 'floor') { await typeCmd(g, rng, 'd', { letter: l }); await ext(g, rng, 'loot', { menuPick: true, yn: 'y' }); await typeCmd(g, rng, ',', { menuPick: true }); }
+            else if (act === 'unlock') { const k = await wish(g, rng, pick(rng, ['skeleton key', 'lock pick', 'credit card'])); await typeCmd(g, rng, 'd', { letter: l }); if (k) { await typeCmd(g, rng, 'a', { letter: k, dir: '.', yn: 'y' }); await wait(g, rng, 3); } await ext(g, rng, 'loot', { menuPick: true, yn: 'y' }); }
+            else if (act === 'force') { const w = await wish(g, rng, pick(rng, ['dagger', 'long sword', 'mace'])); if (w) await typeCmd(g, rng, 'w', { letter: w }); await typeCmd(g, rng, 'd', { letter: l }); await ext(g, rng, 'force', { yn: 'y' }); await wait(g, rng, 3); }
+            else { await typeCmd(g, rng, 'd', { letter: l }); const back = await stepAway(g, rng); if (back) await typeCmd(g, rng, K_KICK, { dir: back }); }
+            if (/bag of tricks/.test(c) && chance(rng, 0.5)) await fight(g, rng, 2);
+        }
+        if (chance(rng, 0.4)) await typeCmd(g, rng, 'i');
+        break;
+    }
+    case 'descend': {
+        const levels = 3 + Math.floor(rng() * 5);
+        for (let i = 0; i < levels && !g.full; i++) {
+            if (debug) await goDown(g, rng, { mapped: true });
+            else {
+                for (let j = 0; j < 4 && !g.full; j++) { await g.send(pick(rng, 'HJKLYUBN')); await answer(g, rng); }
+                await travelTo(g, rng, '>');
+                await typeCmd(g, rng, '>');
+            }
+            const mon = monsterDir(g.s, rng);
+            if (mon) await fight(g, rng, 3);
+            if (chance(rng, 0.3)) await ordinary(g, rng, 2);
+            if (chance(rng, 0.1)) await typeCmd(g, rng, '<');
+        }
+        if (chance(rng, 0.4)) await typeCmd(g, rng, CTRL('o'));
+        break;
+    }
+    case 'ranged': {
+        if (chance(rng, 0.4)) await strong();
+        const [launcher, ammo] = pick(rng, LAUNCH);
+        if (launcher) { const l = await wish(g, rng, launcher); if (l) await typeCmd(g, rng, 'w', { letter: l, yn: 'y' }); }
+        const a = await wish(g, rng, ammo);
+        if (a) await typeCmd(g, rng, 'Q', { letter: a, yn: 'y' });
+        for (let r = 0; r < 1 + Math.floor(rng() * 3) && !g.full; r++) {
+            await genesis(g, rng, (chance(rng, 0.15) ? `${2 + Math.floor(rng() * 3)} ` : '') + pick(rng, [...PREY, 'hill orc', 'soldier', 'gnome lord', 'dwarf', 'owlbear', 'troll']));
+            await steps(g, rng, 1 + Math.floor(rng() * 2));
+            for (let i = 0; i < 2 + Math.floor(rng() * 4) && !g.full; i++) await shoot(g, rng, 'f', { yn: 'y' });
+            if (chance(rng, 0.4)) await fight(g, rng, 2);
+            if (chance(rng, 0.3)) { const [p] = pick(rng, POTIONS); const l = await wish(g, rng, p); if (l) await shoot(g, rng, 't', { letter: l }); }
+        }
+        if (chance(rng, 0.4)) { const p = pick(rng, POLEARMS); const l = await wish(g, rng, p); if (l) { await typeCmd(g, rng, 'w', { letter: l, yn: 'y' }); await genesis(g, rng, pick(rng, PREY)); await steps(g, rng, 1); await typeCmd(g, rng, 'a', { letter: l, dir: monsterDir(g.s, rng) || pick(rng, 'hjkl') }); } }
+        if (chance(rng, 0.3)) { await typeCmd(g, rng, 'x'); await ext(g, rng, 'twoweapon'); await fight(g, rng, 2); }
+        await steps(g, rng, 3, /[·#)(]/);
+        await typeCmd(g, rng, ',', { menuPick: true });
+        if (chance(rng, 0.5)) await ext(g, rng, 'enhance', { menuPick: true });
+        break;
+    }
+    case 'caster': {
+        if (chance(rng, 0.6)) await strong();
+        for (const [book] of shuffle(rng, SPELLBOOKS).slice(0, 2 + Math.floor(rng() * 3))) {
+            if (g.full) break;
+            const l = await wish(g, rng, (chance(rng, 0.7) ? 'blessed ' : '') + book);
+            if (l) { await typeCmd(g, rng, 'r', { letter: l, yn: 'y' }); await wait(g, rng, 1); }
+        }
+        await typeCmd(g, rng, '+', { menuPick: chance(rng, 0.3) });
+        for (let i = 0; i < 4 + Math.floor(rng() * 5) && !g.full; i++) {
+            if (chance(rng, 0.3)) await genesis(g, rng, pick(rng, [...PREY, 'hill orc', 'zombie', 'ghoul', 'gnome lord']));
+            await typeCmd(g, rng, 'Z', { menuPick: true, dir: lineMonsterDir(g.s, rng) || monsterDir(g.s, rng) || pick(rng, 'hjklyubn.'), yn: 'y' });
+            if (chance(rng, 0.2)) await fight(g, rng, 1);
+        }
+        if (chance(rng, 0.4)) await ext(g, rng, 'turn', { yn: 'y' });
+        if (chance(rng, 0.4)) await ext(g, rng, 'pray', { yn: 'y' });
+        if (chance(rng, 0.4)) await ext(g, rng, 'enhance', { menuPick: true });
+        break;
+    }
+    case 'impaired': {
+        const pickd = shuffle(rng, IMPAIR).slice(0, 1 + Math.floor(rng() * 2));
+        await intrinsic(g, rng, pickd.map((r) => r[0]), 0);
+        if (chance(rng, 0.3)) { const l = await wish(g, rng, pick(rng, ['blindfold', 'towel'])); if (l) await typeCmd(g, rng, 'a', { letter: l }); }
+        for (let i = 0; i < 3 + Math.floor(rng() * 4) && !g.full; i++) {
+            const kind = pick(rng, ['scroll', 'scroll', 'scroll', 'potion', 'wand', 'walk', 'look', 'engrave', 'eat', 'spell']);
+            if (kind === 'walk') await steps(g, rng, 3);
+            else if (kind === 'look') await look(g, rng);
+            else if (kind === 'engrave') await typeCmd(g, rng, 'E', { letter: '-' });
+            else if (kind === 'eat') { const [f] = pick(rng, FOOD); const l = await wish(g, rng, f); if (l) await typeCmd(g, rng, 'e', { letter: l, yn: 'y' }); }
+            else if (kind === 'spell') await typeCmd(g, rng, 'Z', { menuPick: true, dir: pick(rng, 'hjkl.') });
+            else {
+                const [n, cls] = pick(rng, kind === 'scroll' ? SCROLLS : kind === 'potion' ? POTIONS : WANDS);
+                const l = await wish(g, rng, pick(rng, ['', '', 'blessed ', 'cursed ']) + n);
+                if (l) await useItem(g, rng, l, cls, n);
+            }
+        }
+        await wait(g, rng, 3);
+        break;
+    }
+    case 'options': {
+        for (let i = 0; i < 4 + Math.floor(rng() * 4) && !g.full; i++) {
+            await settle(g, rng);
+            const full = chance(rng, 0.4);
+            await g.send(full ? 'mO' : 'O');
+            if (!g.s.menu) { await settle(g, rng); continue; }
+            for (let p = Math.floor(rng() * (full ? 7 : 2)); p > 0 && g.s.menu; p--) await g.send('>');
+            const items = menuItems(g.s).filter((it) => !/number_pad|symset|statuslines|^\?/.test(it.text) && it.letter !== '?');
+            for (const it of shuffle(rng, items).slice(0, 1 + Math.floor(rng() * 3))) await g.send(it.letter);
+            await g.send('\n');
+            await answer(g, rng, { menuPick: true });
+            await ordinary(g, rng, 1 + Math.floor(rng() * 2));
+        }
+        await wait(g, rng, 2);
+        break;
+    }
+    case 'engulf': {
+        if (chance(rng, 0.6)) await strong();
+        if (chance(rng, 0.3)) {
+            await polyself(g, rng, pick(rng, ['fog cloud', 'purple worm', 'air elemental', 'dust vortex', 'fire vortex', 'trapper', 'ochre jelly']));
+            for (let i = 0; i < 2 && !g.full; i++) { await genesis(g, rng, pick(rng, PREY)); await fight(g, rng, 4); }
+        } else {
+            await genesis(g, rng, `${chance(rng, 0.3) ? 'hostile ' : ''}${pick(rng, ENGULFERS)}`);
+            for (let i = 0; i < 12 && !g.full; i++) {
+                const inside = /engulf|swallow|You are (surrounded|hit)|stomach|pulsating|whirling/.test(screenText(g));
+                const r = rng();
+                if (inside && r < 0.2) { const [n, cls] = pick(rng, [['wand of digging', 'wand'], ['wand of fire', 'wand'], ['scroll of fire', 'scroll'], ['potion of acid', 'potion']]); const l = await wish(g, rng, n); if (l) await useItem(g, rng, l, cls, n); }
+                else if (r < 0.7) { await g.send('F' + (monsterDir(g.s, rng) || pick(rng, 'hjklyubn'))); await answer(g, rng); }
+                else if (r < 0.8) await ext(g, rng, 'pray', { yn: 'y' });
+                else await wait(g, rng, 1);
+            }
+        }
+        break;
+    }
+    case 'hazard': {
+        if (chance(rng, 0.5)) await strong();
+        if (chance(rng, 0.4)) { const [n, cls] = pick(rng, [...ARMOR, ...WEAPONS]); const l = await wish(g, rng, n); if (l) await useItem(g, rng, l, cls, n); }
+        for (const m of shuffle(rng, HAZARDS).slice(0, 2 + Math.floor(rng() * 2))) {
+            if (g.full) break;
+            if (/cockatrice|chickatrice/.test(m) && chance(rng, 0.4)) {
+                if (chance(rng, 0.5)) { const gl = await wish(g, rng, 'leather gloves'); if (gl) await typeCmd(g, rng, 'W', { letter: gl }); }
+                const c = await wish(g, rng, `${m} corpse`);
+                if (c) await typeCmd(g, rng, 'w', { letter: c, yn: 'y' });
+                await genesis(g, rng, pick(rng, PREY));
+                await fight(g, rng, 3);
+                continue;
+            }
+            if (/leprechaun/.test(m)) await wish(g, rng, '300 gold pieces');
+            await genesis(g, rng, m);
+            await fight(g, rng, 3 + Math.floor(rng() * 5));
+            await wait(g, rng, 2);
+            if (lowHp(g)) await ext(g, rng, 'pray', { yn: 'y' });
+        }
+        break;
+    }
+    case 'longrun': {
+        const deep = debug && chance(rng, 0.5);
+        if (deep) await levelport(g, rng, 2 + Math.floor(rng() * 6));
+        for (let i = 0; i < 40 && !g.full; i++) {
+            await settle(g, rng);
+            const st = statusRows(g);
+            if (/Weak|Fainting|Fainted/.test(st) && chance(rng, 0.5)) { await ext(g, rng, 'pray', { yn: 'y' }); continue; }
+            if (/Hungry|Weak/.test(st)) { await typeCmd(g, rng, 'e', { yn: 'y' }); continue; }
+            if (lowHp(g) && chance(rng, 0.5)) { await ext(g, rng, 'pray', { yn: 'y' }); continue; }
+            const mon = monsterDir(g.s, rng);
+            if (mon) { await fight(g, rng, 3); continue; }
+            const r = rng();
+            if (r < 0.5) { await g.send(pick(rng, ['50s', '100s', '100s', '150s'])); await settle(g, rng); }
+            else if (r < 0.7) await steps(g, rng, 3);
+            else if (r < 0.8) await ordinary(g, rng, 1);
+            else if (r < 0.88) { await travelTo(g, rng, '>'); await typeCmd(g, rng, '>'); }
+            else await typeCmd(g, rng, pick(rng, [CTRL('x'), 'i', CTRL('o'), '\\']));
+        }
+        break;
+    }
+    case 'dig': {
+        const tool = pick(rng, DIG_TOOLS);
+        const l = await wish(g, rng, tool);
+        if (!l) { await ordinary(g, rng, 6); break; }
+        const verb = tool.startsWith('wand') ? 'z' : 'a';
+        if (chance(rng, 0.3)) await levelport(g, rng, pick(rng, ['minetn', 'oracle', 'bigrm', 5, 9]));
+        for (let i = 0; i < 3 + Math.floor(rng() * 4) && !g.full; i++) {
+            const act = pick(rng, ['down', 'down', 'wall', 'wall', 'stairs', 'grave', 'up', 'shop']);
+            if (act === 'down') { await typeCmd(g, rng, verb, { letter: l, dir: '>', yn: 'y' }); await wait(g, rng, 1); if (verb === 'a' && chance(rng, 0.6)) await typeCmd(g, rng, verb, { letter: l, dir: '>', yn: 'y' }); }
+            else if (act === 'wall') { const d = dirWhere(g.s, rng, /[│─┌┐└┘├┤┬┴┼ ]/) || pick(rng, 'hjkl'); await typeCmd(g, rng, verb, { letter: l, dir: d, yn: 'y' }); await g.send(d); await answer(g, rng); }
+            else if (act === 'stairs') { await travelTo(g, rng, pick(rng, ['<', '>'])); await typeCmd(g, rng, verb, { letter: l, dir: '>' }); }
+            else if (act === 'grave') { await steps(g, rng, 1); await wish(g, rng, 'grave'); await typeCmd(g, rng, verb, { letter: l, dir: '>' }); await wait(g, rng, 2); }
+            else if (act === 'up') await typeCmd(g, rng, verb, { letter: l, dir: '<' });
+            else { await mapLevel(g, rng); await travelTo(g, rng, 'o'.repeat(1 + Math.floor(rng() * 4))); await typeCmd(g, rng, verb, { letter: l, dir: '>', yn: 'y' }); }
+            if (chance(rng, 0.3)) await steps(g, rng, 2);
+        }
+        break;
+    }
+    case 'quest': {
+        if (chance(rng, 0.7)) await ext(g, rng, 'levelchange', { level: String(pick(rng, [14, 16, 20])) });
+        if (!(await levelport(g, rng, '-strt'))) await levelport(g, rng, 14);
+        for (let i = 0; i < 3 + Math.floor(rng() * 3) && !g.full; i++) {
+            await travelTo(g, rng, 'm'.repeat(1 + Math.floor(rng() * 5)));
+            await chat(g, rng);
+            if (chance(rng, 0.3)) await look(g, rng);
+        }
+        if (chance(rng, 0.4)) await goDown(g, rng, { mapped: true });
+        if (chance(rng, 0.3)) await levelport(g, rng, pick(rng, ['-loca', '-goal', '-fila']));
+        await ordinary(g, rng, 3);
+        break;
+    }
+    case 'special': {
+        if (chance(rng, 0.6)) await strong();
+        const where = pick(rng, ['oracle', 'oracle', 'castle', 'castle', 'bigrm', 'valley', 'medusa']);
+        if (where === 'oracle') await wish(g, rng, pick(rng, ['2000 gold pieces', '800 gold pieces', '60 gold pieces']));
+        if (where === 'medusa' && chance(rng, 0.6)) { const l = await wish(g, rng, pick(rng, ['blindfold', 'shield of reflection', 'towel'])); if (l) await typeCmd(g, rng, /shield/.test(g.s.top) ? 'W' : 'P', { letter: l }); }
+        const tune = await levelportTune(g, rng, where);
+        await mapLevel(g, rng);
+        if (where === 'oracle') {
+            for (let i = 0; i < 3 && !g.full; i++) { await travelTo(g, rng, 'm'.repeat(1 + Math.floor(rng() * 3))); await chat(g, rng); }
+            await travelTo(g, rng, '{');
+            await typeCmd(g, rng, 'q', { yn: 'y' });
+        } else if (where === 'castle') {
+            const inst = pick(rng, ['wooden flute', 'magic flute', 'tooled horn', 'wooden harp', 'bugle', 'leather drum']);
+            const l = await wish(g, rng, inst);
+            if (l) {
+                for (let i = 0; i < 2 && !g.full; i++) {
+                    await typeCmd(g, rng, 'a', { letter: l, yn: 'n' });
+                    if (/What tune are you playing/.test(g.s.top)) { await g.send((tune && chance(rng, 0.6) ? tune : shuffle(rng, 'ABCDEFG'.split('')).slice(0, 5).join('')) + '\n'); await settle(g, rng); }
+                    await steps(g, rng, 2);
+                }
+            }
+            if (chance(rng, 0.5)) { const w = await wish(g, rng, pick(rng, ['wand of striking', 'wand of opening', 'wand of locking'])); if (w) await typeCmd(g, rng, 'z', { letter: w, dir: pick(rng, 'hjkl') }); }
+        } else if (where === 'valley') {
+            await travelTo(g, rng, '_');
+            await chat(g, rng);
+            await wait(g, rng, 3);
+        } else {
+            await fight(g, rng, 6);
+            await steps(g, rng, 4);
+        }
+        await ordinary(g, rng, 3);
+        break;
+    }
+    case 'engrave': {
+        await steps(g, rng, 2);
+        const tools = shuffle(rng, [...WANDS.map((w) => w[0]), 'athame', 'diamond', 'ruby', 'magic marker', 'towel', '-']).slice(0, 3 + Math.floor(rng() * 3));
+        for (const t of tools) {
+            if (g.full) break;
+            const l = t === '-' ? '-' : await wish(g, rng, t);
+            if (!l) continue;
+            await typeCmd(g, rng, 'E', { letter: l, yn: pick(rng, 'nny') });
+            if (chance(rng, 0.6)) await typeCmd(g, rng, ':');
+            if (chance(rng, 0.3)) await steps(g, rng, 1);
+        }
+        if (chance(rng, 0.6)) {
+            await typeCmd(g, rng, 'E', { letter: '-', yn: 'n' });
+            await genesis(g, rng, pick(rng, ['jackal', 'hill orc', 'gnome lord', 'soldier ant', 'minotaur']));
+            await wait(g, rng, 3);
+            if (chance(rng, 0.5)) await fight(g, rng, 2);
+        }
+        break;
+    }
+    case 'tutorial': {
+        for (let i = 0; i < 12 && !g.full; i++) {
+            if (/Do you want a tutorial/.test(screenText(g))) { await g.send(chance(rng, 0.85) ? 'y' : 'n'); break; }
+            if (g.s.more) await g.send(' '); else break;
+        }
+        for (let i = 0; i < 28 && !g.full; i++) {
+            const r = rng();
+            if (r < 0.4) await steps(g, rng, 3);
+            else if (r < 0.55) await typeCmd(g, rng, ':');
+            else if (r < 0.65) { await travelTo(g, rng, pick(rng, ['>', '<', '_', 'd'])); }
+            else if (r < 0.75) await typeCmd(g, rng, pick(rng, ['>', '<']));
+            else await ordinary(g, rng, 1);
+        }
+        break;
+    }
+    default: await ordinary(g, rng, 10);
+    }
+    await settle(g, rng);
+}
+
+/* ^V ? by name; returns the castle tune when the menu shows one */
+async function levelportTune(g, rng, target) {
+    await settle(g, rng);
+    await g.send(K_LEVPORT);
+    if (!/To what level/.test(g.s.top)) { await settle(g, rng); return null; }
+    await g.send('?\n');
+    let tune = null;
+    for (let page = 0; page < 4 && g.s.menu; page++) {
+        for (const r of g.s.rows) { const m = /\(tune ([A-G]{5})\)/.exec(r); if (m) tune = m[1]; }
+        const hit = menuItems(g.s).find((it) => it.text.toLowerCase().includes(target.toLowerCase()));
+        if (hit) { await g.send(hit.letter); await settle(g, rng); return tune; }
+        if (/\(\d+ of \d+\)/.test(g.s.rows.join('\n')) && !/\((\d+) of \1\)/.test(g.s.rows.join('\n'))) { await g.send('>'); continue; }
+        break;
+    }
+    await settle(g, rng);
+    return tune;
+}
+
 /* ------------------------------------------------------------------ driver */
+async function authorWave2({ seed, family, inst, trace }) {
+    const rng = mulberry32(seed ^ 0x5eed2);
+    const fam = family;
+    const bias = ROLE_BIAS[fam];
+    const want = bias && chance(rng, 0.6) ? pick(rng, bias) : null;
+    const role = want ? ROLES.find((r) => r[1] === want) : pick(rng, ROLES);
+    const mode = fam === 'tutorial' ? 'normal'
+        : !NORMAL_OK.has(fam) ? 'debug'
+            : pick(rng, fam === 'longrun' ? ['normal', 'normal', 'explore', 'debug'] : ['debug', 'debug', 'normal', 'explore']);
+    let pet = chance(rng, 0.3) ? pick(rng, ['none', 'cat', 'dog', 'horse']) : null;
+    if (fam === 'pet' && pet === 'none') pet = null;
+    if (fam === 'ride' && chance(rng, 0.5)) pet = 'horse';
+    const nethackrc = makeRc2(rng, role, { mode, pet, tutorial: fam === 'tutorial' });
+    const datetime = pick(rng, DATETIMES);
+    const seg = { seed, datetime, timezone: PIN_TZ, nethackrc, moves: '' };
+    const split = fam !== 'options' && chance(rng, 0.25);
+    const tmp = await fs.mkdtemp(path.join(os.tmpdir(), 'nh-sg-'));
+    const segs = [];
+    const mk = (s, opts) => new Game({ seg: s, binary: inst.binary, installDir: inst.installDir, homeDir: path.join(tmp, 'home'), rngLogPath: path.join(tmp, 'rng.log'), tz: PIN_TZ, trace, ...opts });
+    const g = mk(seg, { maxKeys: split ? 230 : MAX_KEYS });
+    let saved = false;
+    try {
+        await g.start();
+        await runWave2(g, rng, fam, { debug: mode === 'debug' });
+        if (!g.full && g.moves.length < 160 && chance(rng, 0.75)) await runWave2(g, rng, fam, { debug: mode === 'debug' });
+        if (split && !g.ended) {
+            g.maxKeys += 16;
+            await settle(g, rng);
+            await g.send('S');
+            if (/Really save/.test(g.s.top)) await g.send('y');
+            for (let i = 0; i < 4 && !g.ended; i++) await g.send(g.s.more ? ' ' : ESC);
+            saved = g.ended && /S.*y/.test(g.moves.slice(-6));
+        } else if (chance(rng, 0.2)) await die(g, rng);
+    } catch (e) {
+        if (trace) console.error('driver stopped:', e.message);
+    } finally {
+        await g.stop();
+    }
+    segs.push({ ...seg, moves: g.moves });
+    let steps2 = 0;
+    if (saved) {
+        const seg2 = { seed: seed + 500000, datetime: pick(rng, DATETIMES), timezone: PIN_TZ, nethackrc, moves: '' };
+        const g2 = mk(seg2, { maxKeys: 110, wipeSave: false });
+        try {
+            await g2.start();
+            await settle(g2, rng);
+            await ordinary(g2, rng, 6 + Math.floor(rng() * 6));
+            if (chance(rng, 0.5)) await runWave2(g2, rng, pick(rng, ['terrain', 'trap', 'ranged', 'hazard', 'pet']), { debug: mode === 'debug' });
+        } catch (e) {
+            if (trace) console.error('driver stopped (restore):', e.message);
+        } finally {
+            await g2.stop();
+        }
+        if (g2.moves.length) segs.push({ ...seg2, moves: g2.moves });
+        steps2 = g2.steps;
+    }
+    await fs.rm(tmp, { recursive: true, force: true }).catch(() => {});
+    const moves = segs.map((s) => s.moves).join('');
+    return { id: `scen-${fam}-${role[1]}-${seed}`, fam, role: role[1], moves, steps: g.steps + steps2, ended: g.ended, exit: g.exit, segs };
+}
+
 async function author({ seed, family, inst, trace }) {
     const rng = mulberry32(seed);
     const fam = planFamily(rng, family);
@@ -640,11 +1349,17 @@ async function main() {
     const jobs = Number(val('jobs', 6));
     const family = val('family', 'mixed');
     const outDir = path.resolve(ROOT, val('out', 'hidden-corpus/recipes'));
-    if (family !== 'mixed' && !FAMILIES.includes(family)) { console.error(`unknown family ${family}; one of mixed|${FAMILIES.join('|')}`); process.exit(2); }
+    const known = ['mixed', 'broad', ...FAMILIES, ...WAVE2];
+    if (!known.includes(family)) { console.error(`unknown family ${family}; one of ${known.join('|')}`); process.exit(2); }
+    /* `broad` rotates through the second-wave families so each gets n/16 */
+    const famFor = (i) => (family === 'broad' ? WAVE2[i % WAVE2.length] : family);
+    const run = (seed, i, inst, trace) => (WAVE2.includes(famFor(i))
+        ? authorWave2({ seed, family: famFor(i), inst, trace })
+        : author({ seed, family, inst, trace }));
     const installs = prepareInstalls(flag('probe') ? 1 : jobs);
     try {
         if (flag('probe')) {
-            const r = await author({ seed: base, family, inst: installs[0], trace: true });
+            const r = await run(base, Number(val('index', 0)), installs[0], true);
             console.log(`\n${r.id}: ${r.moves.length} keys, ${r.steps} steps, ended=${r.ended} exit=${JSON.stringify(r.exit)}\nmoves: ${JSON.stringify(r.moves)}`);
             return;
         }
@@ -652,13 +1367,14 @@ async function main() {
         mkdirSync(SESSIONS, { recursive: true });
         const seeds = Array.from({ length: n }, (_, i) => base + i);
         const t0 = Date.now();
-        const res = await pool(seeds, jobs, async (seed, _i, wid) => {
-            const r = await author({ seed, family, inst: installs[wid], trace: false });
+        const res = await pool(seeds, jobs, async (seed, i, wid) => {
+            const r = await run(seed, i, installs[wid], false);
             if (r.moves.length < 12) return { ...r, skipped: 'too short' };
             const recipePath = path.join(outDir, `${r.id}.recipe.json`);
             const sessionPath = path.join(SESSIONS, `${r.id}.session.json`);
             if (existsSync(recipePath)) return { ...r, skipped: 'exists' };
-            const recipe = { version: 5, timezone: PIN_TZ, fuzz: { mode: 'scenario', family: r.fam, role: r.role, prefixMoves: '', suffix: r.moves }, segments: [r.seg] };
+            const segments = r.segs || [r.seg];
+            const recipe = { version: 5, timezone: PIN_TZ, fuzz: { mode: 'scenario', family: r.fam, role: r.role, prefixMoves: '', suffix: r.moves, ...(segments.length > 1 ? { restore: true } : {}) }, segments };
             writeFileSync(recipePath, JSON.stringify(recipe, null, 1) + '\n');
             const rec = recordCanonical(recipePath, sessionPath, installs[wid]);
             if (!rec.ok) { rmSync(recipePath, { force: true }); return { ...r, skipped: `record failed: ${rec.err}` }; }

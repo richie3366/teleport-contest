@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "mOa\n#sit\nO>h\nZmO>>frw\n  #terrain\nc\n\u001b,olmO>>>>fib\n  #conduct\n 20ssOhaj\nd\n#jump\nOdja\nd\n#loot\nf \u001bOn\n10s#jump\nO>mhp\nj\nkOhdg\nk\ned 20sOifo\nn\n#untrap\nhmO>>>>>>qb\n7\na\na\n\u001b#untrap\nh;h;s."
+ },
+ "segments": [
+  {
+   "seed": 94231,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "mOa\n#sit\nO>h\nZmO>>frw\n  #terrain\nc\n\u001b,olmO>>>>fib\n  #conduct\n 20ssOhaj\nd\n#jump\nOdja\nd\n#loot\nf \u001bOn\n10s#jump\nO>mhp\nj\nkOhdg\nk\ned 20sOifo\nn\n#untrap\nhmO>>>>>>qb\n7\na\na\n\u001b#untrap\nh;h;s."
+  }
+ ]
+}

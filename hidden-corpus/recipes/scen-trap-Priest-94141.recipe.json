@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trap",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n30\n                             ylbk\u0017web\nub20s 20s j k \u0017statue trap\nkj  s20s  ;k; \u001bm.eeE- Elbereth Elbereth\n juk\u0017web\nh^llssn\u0017pit\nh^l#untrap\nlln\u0017dart trap\nyns20sb\u0017sleeping gas trap\nl#untrap\nh#sit\n\u001b#force\n#twoweapon\n"
+ },
+ "segments": [
+  {
+   "seed": 94141,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=autodig\nOPTIONS=sortloot:full\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "#levelchange\n30\n                             ylbk\u0017web\nub20s 20s j k \u0017statue trap\nkj  s20s  ;k; \u001bm.eeE- Elbereth Elbereth\n juk\u0017web\nh^llssn\u0017pit\nh^l#untrap\nlln\u0017dart trap\nyns20sb\u0017sleeping gas trap\nl#untrap\nh#sit\n\u001b#force\n#twoweapon\n"
+  }
+ ]
+}

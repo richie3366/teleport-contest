@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "special",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "\u0016?\nh\u0006Fk 20s  FbFk FkFb  yy\u001by  y y y\u001b  h"
+ },
+ "segments": [
+  {
+   "seed": 94117,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0016?\nh\u0006Fk 20s  FbFk FkFb  yy\u001by  y y y\u001b  h"
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hazard",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                              \u0007brown pudding\nFyFk Fk Fj   Fu.m.20s \u0007chameleon\nFuFk  Fh  Fy sm. 20s #levelchange\n14\n     \u0017jumping boots\nWk     sm.  sh    n  20s\u0007owlbear\nFuFlFn Fn .m. sm.#pray\ny y    \u0007black pudding\nSy\u001b n20s rh y W#sit\n#enhance\nyf\nb\n\u001brh   #terrain\ne\n#dip\nc\u001b#chat\nyf \u001b#levelchange\n20\n     \u0017orcish bow\nwl \u001720 orcis",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 94213,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=autodig\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n30\n                              \u0007brown pudding\nFyFk Fk Fj   Fu.m.20s \u0007chameleon\nFuFk  Fh  Fy sm. 20s #levelchange\n14\n     \u0017jumping boots\nWk     sm.  sh    n  20s\u0007owlbear\nFuFlFn Fn .m. sm.#pray\ny y    \u0007black pudding\nSy\u001b"
+  },
+  {
+   "seed": 594213,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=autodig\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": " n20s rh y W#sit\n#enhance\nyf\nb\n\u001brh   #terrain\ne\n#dip\nc\u001b#chat\nyf \u001b#levelchange\n20\n     \u0017orcish bow\nwl \u001720 orcis"
+  }
+ ]
+}

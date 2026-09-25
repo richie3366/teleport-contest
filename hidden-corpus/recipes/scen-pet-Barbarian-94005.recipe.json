@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "pet",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " \u0007housecat\n\u0017fortune cookie\ntbl\u0007kitten\n\u0017newt corpse\nt\u001b\u001b\u0007sewer rat\nsm. sm.  n  sm.  n  20s   yy\u001bny y\u001bn  s"
+ },
+ "segments": [
+  {
+   "seed": 94005,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=runmode:walk\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " \u0007housecat\n\u0017fortune cookie\ntbl\u0007kitten\n\u0017newt corpse\nt\u001b\u001b\u0007sewer rat\nsm. sm.  n  sm.  n  20s   yy\u001bny y\u001bn  s"
+  }
+ ]
+}

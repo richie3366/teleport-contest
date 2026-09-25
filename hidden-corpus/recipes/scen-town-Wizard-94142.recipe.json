@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "town",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "  \u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqo \u001b;_mmm,Fk _.#chat\nn_oooooooo._.m,,$_mmm,#chat\nh_oo._,m.,:_mmm,#chat\nn#untrap\ny#rub\ndm#levelchange\n30\n                             \u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqp._oooo._.;;,#chat\ny_oooooo,_,>.Fl ,p_ooooooooo.Fl_.Fl,p_m.#chat\n"
+ },
+ "segments": [
+  {
+   "seed": 94142,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:gnome,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "  \u00175000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqo \u001b;_mmm,Fk _.#chat\nn_oooooooo._.m,,$_mmm,#chat\nh_oo._,m.,:_mmm,#chat\nn#untrap\ny#rub\ndm#levelchange\n30\n                             \u0017500 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqp._oooo._.;;,#chat\ny_oooooo,_,>.Fl ,p_ooooooooo.Fl_.Fl,p_m.#chat\n"
+  }
+ ]
+}

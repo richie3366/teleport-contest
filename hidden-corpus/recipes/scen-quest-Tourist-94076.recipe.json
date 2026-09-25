@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "quest",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0016?\n>y  _ \u001b;#chat\nu_m, _.#chat\nu_mmm.    Fu     _,   Fl  #chat\nu     ynny ny\u001b  J"
+ },
+ "segments": [
+  {
+   "seed": 94076,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0016?\n>y  _ \u001b;#chat\nu_m, _.#chat\nu_mmm.    Fu     _,   Fl  #chat\nu     ynny ny\u001b  J"
+  }
+ ]
+}

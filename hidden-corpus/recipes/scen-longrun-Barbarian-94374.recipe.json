@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "longrun",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " Fl s.50snlb_ \u001bm.>Fh.s50snyb#turn\n150sFu.20s150s100sFhs20slul100s f by lkhy50s  jnb100s FuFuFu150s100si\u001b100sFk20s20sFkFks50sllk;m.100s50sFhFh.100slhuujh100sFksslby150s "
+ },
+ "segments": [
+  {
+   "seed": 94374,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:none\nOPTIONS=runmode:crawl\nOPTIONS=pettype:horse\n",
+   "moves": " Fl s.50snlb_ \u001bm.>Fh.s50snyb#turn\n150sFu.20s150s100sFhs20slul100s f by lkhy50s  jnb100s FuFuFu150s100si\u001b100sFk20s20sFkFks50sllk;m.100s50sFhFh.100slhuujh100sFksslby150s "
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "quest",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>y  _ \u001b@.#chat\nb_mmmm.#chat\nu_mmmm.#chat\nb;_.ol,da#levelchange\n14\n            \u0016?\n>y_mmmm.#chat\nn_mmm.#chat\nn;m._mmmm.#chat\nn\u0006_>._.>.>_>,_.;:  >_>,_.,>\u0016?\n>A#invoke\n\u001baodn"
+ },
+ "segments": [
+  {
+   "seed": 94196,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>y  _ \u001b@.#chat\nb_mmmm.#chat\nu_mmmm.#chat\nb;_.ol,da#levelchange\n14\n            \u0016?\n>y_mmmm.#chat\nn_mmm.#chat\nn;m._mmmm.#chat\nn\u0006_>._.>.>_>,_.;:  >_>,_.,>\u0016?\n>A#invoke\n\u001baodn"
+  }
+ ]
+}

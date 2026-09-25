@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "hazard",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n10\n         \u0017javelin\nwgFbs20s\u0007wood nymph\nFnFn  ss.m.\u0007gray ooze\nFnFnFnFnFnFnFl.m.sy\u0017dagger\nwh FjFjFn  yy\u001by  y y y\u001by  X"
+ },
+ "segments": [
+  {
+   "seed": 94073,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=mention_walls\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n10\n         \u0017javelin\nwgFbs20s\u0007wood nymph\nFnFn  ss.m.\u0007gray ooze\nFnFnFnFnFnFnFl.m.sy\u0017dagger\nwh FjFjFn  yy\u001by  y y y\u001by  X"
+  }
+ ]
+}

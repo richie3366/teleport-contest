@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "longrun",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": " Fl s.\u000f\u001b150si\u001b100s100s100s50sFhFhs150syhb100sFksslul\u0018\u001b\u000f\u001b150s150s#twoweapon\nljyFyss50sFhss#turn\n100s 100sFhs20si\u001b\u0018\u001b_ \u001b:>100s150s150s \u000f\u001bnkn50sFh.s_>.>100sE- Elbereth Elbereth\n"
+ },
+ "segments": [
+  {
+   "seed": 94174,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:gnome,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=playmode:explore\n",
+   "moves": " Fl s.\u000f\u001b150si\u001b100s100s100s50sFhFhs150syhb100sFksslul\u0018\u001b\u000f\u001b150s150s#twoweapon\nljyFyss50sFhss#turn\n100s 100sFhs20si\u001b\u0018\u001b_ \u001b:>100s150s150s \u000f\u001bnkn50sFh.s_>.>100sE- Elbereth Elbereth\n"
+  }
+ ]
+}

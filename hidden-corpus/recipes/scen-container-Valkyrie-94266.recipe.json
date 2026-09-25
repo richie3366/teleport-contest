@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "container",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " \u0017ice box\n\u0017bag of holding\n\u0017blessed bag of holding\n\u0017wand of undead turning\n\u0017mace\nwjdg#force\n20s 20ssae\u0017dagger\nwbdf#force\ns20s20s\u0017lock pick\ndhak.s20ss#loot\nb\ni\ndi#loot\nc\ns\n,c\ni\u001bSy\u001b y#conduct\n E- I am a fish\n#monster\nE-n  ad aerarium\ndjE-n  Elbereth Elbereth\n>\u0004kP",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 94266,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=sortloot:full\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017ice box\n\u0017bag of holding\n\u0017blessed bag of holding\n\u0017wand of undead turning\n\u0017mace\nwjdg#force\n20s 20ssae\u0017dagger\nwbdf#force\ns20s20s\u0017lock pick\ndhak.s20ss#loot\nb\ni\ndi#loot\nc\ns\n,c\ni\u001bSy\u001b"
+  },
+  {
+   "seed": 594266,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=sortloot:full\nOPTIONS=fruit:durian\nOPTIONS=playmode:debug\n",
+   "moves": " y#conduct\n E- I am a fish\n#monster\nE-n  ad aerarium\ndjE-n  Elbereth Elbereth\n>\u0004kP"
+  }
+ ]
+}

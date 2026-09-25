@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "\u0017yumi\nwi\u001720 ya\nQj\u0007soldier\nh hfn  fn  fn  yy\u001by  y y y\u001by  \u0017"
+ },
+ "segments": [
+  {
+   "seed": 94288,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017yumi\nwi\u001720 ya\nQj\u0007soldier\nh hfn  fn  fn  yy\u001by  y y y\u001by  \u0017"
+  }
+ ]
+}

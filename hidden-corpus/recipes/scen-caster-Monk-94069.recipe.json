@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "caster",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "  #levelchange\n6\n     \u0017spellbook of clairvoyance\nrk s\u0017blessed spellbook of detect monsters\nrl s+\u001bZb\nFjZa\n\u0007lichen\nZa\nZb\n"
+ },
+ "segments": [
+  {
+   "seed": 94069,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": "  #levelchange\n6\n     \u0017spellbook of clairvoyance\nrk s\u0017blessed spellbook of detect monsters\nrl s+\u001bZb\nFjZa\n\u0007lichen\nZa\nZb\n"
+  }
+ ]
+}

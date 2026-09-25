@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trap",
+  "role": "Healer",
+  "prefixMoves": "",
+  "suffix": "  jnk\u0017sleeping gas trap\nkj.20sbu\u0017rust trap\nlj\u0017magic trap\n\u0017land mine\nalhb  yy\u001by  y y\u001by  d"
+ },
+ "segments": [
+  {
+   "seed": 94161,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Hippocrates,role:Healer,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=runmode:teleport\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "  jnk\u0017sleeping gas trap\nkj.20sbu\u0017rust trap\nlj\u0017magic trap\n\u0017land mine\nalhb  yy\u001by  y y\u001by  d"
+  }
+ ]
+}

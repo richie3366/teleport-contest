@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "caster",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n             \u0017spellbook of dig\nrpy s\u0017blessed spellbook of wizard lock\nrq .+a\nZd\n\u0007newt\nZc\n Zd\nZc\n#turn\n\u0017blessed spellbook of charm monster\nrr .\u0017blessed spellbook of wizard lock\nrs y 20s\u0017blessed spellbook of extra healing\nrt y s\u0017blessed spellbook of jumping\nru s+\u001bZb\nZb\nZb\nZc\nZc\n#enhance\nya\nj\n\u001b"
+ },
+ "segments": [
+  {
+   "seed": 94289,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n             \u0017spellbook of dig\nrpy s\u0017blessed spellbook of wizard lock\nrq .+a\nZd\n\u0007newt\nZc\n Zd\nZc\n#turn\n\u0017blessed spellbook of charm monster\nrr .\u0017blessed spellbook of wizard lock\nrs y 20s\u0017blessed spellbook of extra healing\nrt y s\u0017blessed spellbook of jumping\nru s+\u001bZb\nZb\nZb\nZc\nZc\n#enhance\nya\nj\n\u001b"
+  }
+ ]
+}

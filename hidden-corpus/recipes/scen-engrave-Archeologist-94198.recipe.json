@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engrave",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": "  un\u0017towel\nEi \u0017diamond\nEj Elbereth Elbereth\n \u0017wand of probing\nEklll\u0017wand of fire\nEl  Elbereth\nl\u0017wand of locking\nEm I am a fish\n: \u0017wand of nothing\nEnn  X marks the spot\nE-n  Vlad was here\n\u0007hill orc\n20ssysSy\u001b y aky  #monster\n<ahr\njLed  yy\u001by  y y y\u001by  #",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 94198,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=fruit:slime mold\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "  un\u0017towel\nEi \u0017diamond\nEj Elbereth Elbereth\n \u0017wand of probing\nEklll\u0017wand of fire\nEl  Elbereth\nl\u0017wand of locking\nEm I am a fish\n: \u0017wand of nothing\nEnn  X marks the spot\nE-n  Vlad was here\n\u0007hill orc\n20ssysSy\u001b"
+  },
+  {
+   "seed": 594198,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:gnome,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=fruit:slime mold\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " y aky  #monster\n<ahr\njLed  yy\u001by  y y y\u001by  #"
+  }
+ ]
+}

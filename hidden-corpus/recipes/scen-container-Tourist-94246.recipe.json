@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "container",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": " \u0017sack\n\u0017ring of poison resistance\n\u0017potion of invisibility\n\u0017ruby\ndnu\u0004b\u0017long sword\nwrdb#force\n20s20ss\u0017credit card\ndfas. 20s  sm.s#loot\nl\u0017credit card\ndaat.20sss#loot\nhSy\u001b ny#invoke\n\u001bdk#twoweapon\n#twoweapon\ncjf $ k#invoke\n\u001b#terrain\nd\n\u001b.#rub\nz#name\no\n",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 94246,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017sack\n\u0017ring of poison resistance\n\u0017potion of invisibility\n\u0017ruby\ndnu\u0004b\u0017long sword\nwrdb#force\n20s20ss\u0017credit card\ndfas. 20s  sm.s#loot\nl\u0017credit card\ndaat.20sss#loot\nhSy\u001b"
+  },
+  {
+   "seed": 594246,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " ny#invoke\n\u001bdk#twoweapon\n#twoweapon\ncjf $ k#invoke\n\u001b#terrain\nd\n\u001b.#rub\nz#name\no\n"
+  }
+ ]
+}

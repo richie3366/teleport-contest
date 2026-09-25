@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " \u0017saddle\naib#ride\nby\u0007tame saddled warhorse\n#ride\nhyy\u0007tame saddled horse\n#ride\n\u0004y\u0006_ \u001b;>FjFj_>>.Fk_.>_>>,Fl_,Fu>FuFljj\u0007jackal\nFjFjFj\u0004u bnb#levelchange\n20\n                   \u0007titanothere\n\u0017scroll of taming\n rj \u0017saddle\nakj#ride\nky y \u0007hshopkeeper\n brow"
+ },
+ "segments": [
+  {
+   "seed": 94400,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=pushweapon\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017saddle\naib#ride\nby\u0007tame saddled warhorse\n#ride\nhyy\u0007tame saddled horse\n#ride\n\u0004y\u0006_ \u001b;>FjFj_>>.Fk_.>_>>,Fl_,Fu>FuFljj\u0007jackal\nFjFjFj\u0004u bnb#levelchange\n20\n                   \u0007titanothere\n\u0017scroll of taming\n rj \u0017saddle\nakj#ride\nky y \u0007hshopkeeper\n brow"
+  }
+ ]
+}

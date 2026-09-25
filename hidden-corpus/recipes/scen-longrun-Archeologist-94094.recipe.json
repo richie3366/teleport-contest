@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "longrun",
+  "role": "Archeologist",
+  "prefixMoves": "",
+  "suffix": " FkFk.#sit\nFkss100sFjFhsbkn150s  Fh .20sFk s20syyj50s50s150s50sFh.s100s100s100s50s50s_ \u001b@.>ybb100sedyuj50s\\ 100s\u000f\u001b_>.>\u000f\u001b_>.>i\u001b100s150shujkllnyluuh100s100sFhFhs150s\u000f\u001b100sblk150sFbFbFhFh.20scj100s100snhhhbk150s ed#offer\n100suhhlnl100s100snjj100s50sFhss_>.>_>.>,lhyi\u001b100si\u001b50s150s_>.>\\ 100s\\ P"
+ },
+ "segments": [
+  {
+   "seed": 94094,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Indiana,role:Archeologist,race:dwarf,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " FkFk.#sit\nFkss100sFjFhsbkn150s  Fh .20sFk s20syyj50s50s150s50sFh.s100s100s100s50s50s_ \u001b@.>ybb100sedyuj50s\\ 100s\u000f\u001b_>.>\u000f\u001b_>.>i\u001b100s150shujkllnyluuh100s100sFhFhs150s\u000f\u001b100sblk150sFbFbFhFh.20scj100s100snhhhbk150s ed#offer\n100suhhlnl100s100snjj100s50sFhss_>.>_>.>,lhyi\u001b100si\u001b50s150s_>.>\\ 100s\\ P"
+  }
+ ]
+}

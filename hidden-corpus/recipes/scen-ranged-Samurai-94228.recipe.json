@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u00176 eggs\nQby\u0007hill orc\njjfk f \u001b\u001bFhFy \u0007gnome\nnf \u001b\u001bf \u001b\u001bf \u001b\u001bf \u001b\u001bkyn,#enhance\nn\u001b\u001715 shuriken\nQg\u0007owlbear\nyn  yy  f"
+ },
+ "segments": [
+  {
+   "seed": 94228,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=!verbose\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": " \u00176 eggs\nQby\u0007hill orc\njjfk f \u001b\u001bFhFy \u0007gnome\nnf \u001b\u001bf \u001b\u001bf \u001b\u001bf \u001b\u001bkyn,#enhance\nn\u001b\u001715 shuriken\nQg\u0007owlbear\nyn  yy  f"
+  }
+ ]
+}

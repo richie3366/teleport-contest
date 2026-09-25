@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "pet",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "  db20s .20stchbhlhtdb10slhhl20sb#chat\njlhtdk#name\nm\n ;"
+ },
+ "segments": [
+  {
+   "seed": 94225,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:$?!/=\"+\nOPTIONS=fruit:kumquat\nOPTIONS=playmode:explore\n",
+   "moves": "  db20s .20stchbhlhtdb10slhhl20sb#chat\njlhtdk#name\nm\n ;"
+  }
+ ]
+}

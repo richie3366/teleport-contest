@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "town",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " \u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqe \u001b@._oooooo.Fy_.  yy\u001bny nn  F"
+ },
+ "segments": [
+  {
+   "seed": 94362,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=showrace\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\n",
+   "moves": " \u00172000 gold pieces\n\u0016?\n>w\u0006\u0017blessed potion of object detection\nqe \u001b@._oooooo.Fy_.  yy\u001bny nn  F"
+  }
+ ]
+}

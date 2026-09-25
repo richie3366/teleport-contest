@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engrave",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "yb\u0017wand of magic missile\nEo Vlad was here\n : u\u0017wand of locking\nEp I am a fish\n: \u0017wand of stasis\nEqy Elbereth\n: E-n  Elbereth Elbereth\n\u0007soldier ant\nsm.sm. .m.  n  Fh  n  s"
+ },
+ "segments": [
+  {
+   "seed": 94218,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:loot\nOPTIONS=playmode:debug\n",
+   "moves": "yb\u0017wand of magic missile\nEo Vlad was here\n : u\u0017wand of locking\nEp I am a fish\n: \u0017wand of stasis\nEqy Elbereth\n: E-n  Elbereth Elbereth\n\u0007soldier ant\nsm.sm. .m.  n  Fh  n  s"
+  }
+ ]
+}

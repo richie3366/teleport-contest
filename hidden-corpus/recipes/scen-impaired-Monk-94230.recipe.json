@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nf\n \u0017towel\naj\u0017cursed scroll of punishment\nrk \u0017potion of levitation\nqlZ\u0017fortune cookie\n eh  ;j: \u001b:    E-ss.#wizintrinsic\ngf\n \u0017lizard corpse\nen  \u0017newt corpse\neo  ;l:  \u0017slime mold\neps.20s  "
+ },
+ "segments": [
+  {
+   "seed": 94230,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nf\n \u0017towel\naj\u0017cursed scroll of punishment\nrk \u0017potion of levitation\nqlZ\u0017fortune cookie\n eh  ;j: \u001b:    E-ss.#wizintrinsic\ngf\n \u0017lizard corpse\nen  \u0017newt corpse\neo  ;l:  \u0017slime mold\neps.20s  "
+  }
+ ]
+}

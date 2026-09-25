@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "mO>qt\nl#invoke\n\u001bO>dhm\n>#terrain\nc\n\u001b;Ojp\n#terrain\nc\n:f \u001bmO>>>>jaf\nu\n g\n\u001b\u001b,.sOi\nc\ni\u001bPdlmO>>>>>gob\nt\nb\nri w-Ohac\nc\n#untrap\nbO>ka\na\na\na\n\u001b\u001b#enhance\n\u001b,Ojna\na\nh\nqf \u0018\u001bO>ej\n#chat\nyclss"
+ },
+ "segments": [
+  {
+   "seed": 94291,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:yi ya yv yg yc yo\n",
+   "moves": "mO>qt\nl#invoke\n\u001bO>dhm\n>#terrain\nc\n\u001b;Ojp\n#terrain\nc\n:f \u001bmO>>>>jaf\nu\n g\n\u001b\u001b,.sOi\nc\ni\u001bPdlmO>>>>>gob\nt\nb\nri w-Ohac\nc\n#untrap\nbO>ka\na\na\na\n\u001b\u001b#enhance\n\u001b,Ojna\na\nh\nqf \u0018\u001bO>ej\n#chat\nyclss"
+  }
+ ]
+}

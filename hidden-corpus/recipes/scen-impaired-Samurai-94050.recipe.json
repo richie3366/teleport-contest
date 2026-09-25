@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nfg\n \u0017potion of levitation\nqf;l. \u001b.;l.\u0017wand of fire\nzgl  yy  z"
+ },
+ "segments": [
+  {
+   "seed": 94050,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nfg\n \u0017potion of levitation\nqf;l. \u001b.;l.\u0017wand of fire\nzgl  yy  z"
+  }
+ ]
+}

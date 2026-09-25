@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "  \u0007mumak\n\u0017scroll of taming\nrk \u0017saddle\nalj#ride\nly\u0007horse\n\u0017scroll of taming\nrm \u0017saddle\nanl#ride\nuy\u0007horse\n\u0017scroll of taming\nro \u0017saddle\n apj#ride\njykk#ride\nnys#ride\nlynlhbss"
+ },
+ "segments": [
+  {
+   "seed": 94411,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0007mumak\n\u0017scroll of taming\nrk \u0017saddle\nalj#ride\nly\u0007horse\n\u0017scroll of taming\nrm \u0017saddle\nanl#ride\nuy\u0007horse\n\u0017scroll of taming\nro \u0017saddle\n apj#ride\njykk#ride\nnys#ride\nlynlhbss"
+  }
+ ]
+}

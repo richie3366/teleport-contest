@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "quest",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n20\n                   \u0016?\n>y  _ \u001b@.#chat\nk_mmm,Fl_.#chat\nb_mm.#chat\nl_mmmmm._.#chat\nh#force\n#sit\n\u001bf  \u0016?\n>y_m,_.#chat\nk_mmm,Fy _.#chat\ny;m._mm,#chat\nn#name\ni\ns#turn\n Sy\u001b yn#ride\nly#sit\n\u001bda20s \u001b#loot\njy #enhance\nyn\np\n\u001br\u001bH",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 94336,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n20\n                   \u0016?\n>y  _ \u001b@.#chat\nk_mmm,Fl_.#chat\nb_mm.#chat\nl_mmmmm._.#chat\nh#force\n#sit\n\u001bf  \u0016?\n>y_m,_.#chat\nk_mmm,Fy _.#chat\ny;m._mm,#chat\nn#name\ni\ns#turn\n Sy\u001b"
+  },
+  {
+   "seed": 594336,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": " yn#ride\nly#sit\n\u001bda20s \u001b#loot\njy #enhance\nyn\np\n\u001br\u001bH"
+  }
+ ]
+}

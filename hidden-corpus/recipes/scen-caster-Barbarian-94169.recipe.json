@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "caster",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0017blessed spellbook of extra healing\nre  s\u0017blessed spellbook of confuse monster\nrf s\u0017blessed spellbook of detect treasure\nrg s\u0017blessed spellbook of detect monsters\nrh s+\u001bZa\nZc\nFk Zb\nZb\n\u0007gnome lord\nZb\nZc\n#turn\n#pray\ny y    "
+ },
+ "segments": [
+  {
+   "seed": 94169,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=runmode:walk\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0017blessed spellbook of extra healing\nre  s\u0017blessed spellbook of confuse monster\nrf s\u0017blessed spellbook of detect treasure\nrg s\u0017blessed spellbook of detect monsters\nrh s+\u001bZa\nZc\nFk Zb\nZb\n\u0007gnome lord\nZb\nZc\n#turn\n#pray\ny y    "
+  }
+ ]
+}

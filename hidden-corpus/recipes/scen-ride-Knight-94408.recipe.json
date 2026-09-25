@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n6\n    \u0007tame saddled warhorse\n\u0017lance\nwi#ride\nky\u0007tame saddled warhorse\n#ride\n \u0007tame saddled horse\n#ride\nby .s, ,,\u0017saddle\nakn #ride\n   \u0007warhorse\n\u0017scroll of taming\nrl    \u0017saddle\n#ride\njy  \u0007warhorse\n\u0017scroll of taming\nrn  \u0017saddle\naok #ride\n      \u0004 \u0006_ \u001b,>Fu     Fk    _>>.                               Fl _,> #ri"
+ },
+ "segments": [
+  {
+   "seed": 94408,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n6\n    \u0007tame saddled warhorse\n\u0017lance\nwi#ride\nky\u0007tame saddled warhorse\n#ride\n \u0007tame saddled horse\n#ride\nby .s, ,,\u0017saddle\nakn #ride\n   \u0007warhorse\n\u0017scroll of taming\nrl    \u0017saddle\n#ride\njy  \u0007warhorse\n\u0017scroll of taming\nrn  \u0017saddle\naok #ride\n      \u0004 \u0006_ \u001b,>Fu     Fk    _>>.                               Fl _,> #ri"
+  }
+ ]
+}

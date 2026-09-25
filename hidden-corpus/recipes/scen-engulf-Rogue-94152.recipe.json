@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engulf",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "  #polyself\nair elemental\n #monster\nss\u0007kobold\nFl20s    Fh20s   \u0007sewer rat\nFksFl 20s"
+ },
+ "segments": [
+  {
+   "seed": 94152,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=playmode:debug\n",
+   "moves": "  #polyself\nair elemental\n #monster\nss\u0007kobold\nFl20s    Fh20s   \u0007sewer rat\nFksFl 20s"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "tutorial",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "  y   : nhb#jump\n::>uhl<buu#ride\nujkyyhnkjynun_ \u001bm,ybj_>.khu_d,<hnu__.#sit\n\u001b:ihjuh<"
+ },
+ "segments": [
+  {
+   "seed": 94239,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=msg_window:reversed\nOPTIONS=pettype:horse\n",
+   "moves": "  y   : nhb#jump\n::>uhl<buu#ride\nujkyyhnkjynun_ \u001bm,ybj_>.khu_d,<hnu__.#sit\n\u001b:ihjuh<"
+  }
+ ]
+}

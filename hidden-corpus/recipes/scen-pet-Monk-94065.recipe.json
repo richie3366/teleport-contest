@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "pet",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": "\u0007large dog\n\u0017newt corpse\nt\u001b#name\nd\n#name\no\n#chat\nj\u0017meatball\nt\u001b10s \u0007kitten\n\u0017food ration\n t\u001b\u0017magic whistle\nby bam  \u0007newt\n\u0017scroll of taming\nrn  \u001b\u0007jackal\n.k sl   yny   y nny  ."
+ },
+ "segments": [
+  {
+   "seed": 94065,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showrace\nOPTIONS=fruit:slime mold\nOPTIONS=playmode:debug\n",
+   "moves": "\u0007large dog\n\u0017newt corpse\nt\u001b#name\nd\n#name\no\n#chat\nj\u0017meatball\nt\u001b10s \u0007kitten\n\u0017food ration\n t\u001b\u0017magic whistle\nby bam  \u0007newt\n\u0017scroll of taming\nrn  \u001b\u0007jackal\n.k sl   yny   y nny  ."
+  }
+ ]
+}

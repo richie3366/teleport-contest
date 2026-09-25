@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engrave",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " ln\u0017diamond\nEf X marks the spot\n h\u0017wand of striking\nEg X marks the spot\n \u0017wand of opening\nEhy Elbereth\n: h\u0017wand of nothing\nEi ad aerarium\n: \u0017wand of enlightenment\nEj \u001b y Elbereth\n: "
+ },
+ "segments": [
+  {
+   "seed": 94038,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=playmode:debug\n",
+   "moves": " ln\u0017diamond\nEf X marks the spot\n h\u0017wand of striking\nEg X marks the spot\n \u0017wand of opening\nEhy Elbereth\n: h\u0017wand of nothing\nEi ad aerarium\n: \u0017wand of enlightenment\nEj \u001b y Elbereth\n: "
+  }
+ ]
+}

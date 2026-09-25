@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engrave",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": " jn\u0017wand of magic missile\nEf ad aerarium\n\u0017wand of undead turning\nEgn  ad aerarium\n: \u0017wand of lightning\nEh   X marks the spot\n :  k\u0017wand of locking\nEi ad aerarium\nE- Elbereth Elbereth\n\u0007gnome lord\n.s20sFlFb"
+ },
+ "segments": [
+  {
+   "seed": 94318,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": " jn\u0017wand of magic missile\nEf ad aerarium\n\u0017wand of undead turning\nEgn  ad aerarium\n: \u0017wand of lightning\nEh   X marks the spot\n :  k\u0017wand of locking\nEi ad aerarium\nE- Elbereth Elbereth\n\u0007gnome lord\n.s20sFlFb"
+  }
+ ]
+}

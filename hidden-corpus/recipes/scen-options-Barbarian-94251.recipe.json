@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "options",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " mOa\n:smO>>>>>cpq\nmango\n$\")[%?+!=/(*`0_\nw\n#enhance\nyg\nk\n\u001b#jump\nmOa\n#ride\njyO>j\n#twoweapon\n#chat\njmO>hr\n\u0014 \u001b,O>m\np\n#sit\n\u0018\u001bs.O>p\n#conduct\n O>c\n#enhance\nya\nd\n\u001b,mO>>>>>>pgo\nn\nk\n#chat\njmO>>>>hc\nE- I am a fish\n#offer\nOo\nk\ni\u001bmO>>i\nqOo\nm\nq20ss"
+ },
+ "segments": [
+  {
+   "seed": 94251,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:orc,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=disclose:yi ya yv yg yc yo\nOPTIONS=playmode:debug\n",
+   "moves": " mOa\n:smO>>>>>cpq\nmango\n$\")[%?+!=/(*`0_\nw\n#enhance\nyg\nk\n\u001b#jump\nmOa\n#ride\njyO>j\n#twoweapon\n#chat\njmO>hr\n\u0014 \u001b,O>m\np\n#sit\n\u0018\u001bs.O>p\n#conduct\n O>c\n#enhance\nya\nd\n\u001b,mO>>>>>>pgo\nn\nk\n#chat\njmO>>>>hc\nE- I am a fish\n#offer\nOo\nk\ni\u001bmO>>i\nqOo\nm\nq20ss"
+  }
+ ]
+}

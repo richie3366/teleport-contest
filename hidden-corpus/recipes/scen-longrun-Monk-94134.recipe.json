@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "longrun",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " 150sFkss100s100shkkkyb#wipe\n\u0018\u001blyk50sFjFj.100st\u001b100sFl20s.100s150sFls.100s100s50s150snjnzj potion of invisibility\n#loot\ni\u001b\\  100s100sjhnykjFyFh.20s100s100s100sFkFuFkFls.jyy150s"
+ },
+ "segments": [
+  {
+   "seed": 94134,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pushweapon\nOPTIONS=showrace\nOPTIONS=pettype:none\nOPTIONS=playmode:explore\n",
+   "moves": " 150sFkss100s100shkkkyb#wipe\n\u0018\u001blyk50sFjFj.100st\u001b100sFl20s.100s150sFls.100s100s50s150snjnzj potion of invisibility\n#loot\ni\u001b\\  100s100sjhnykjFyFh.20s100s100s100sFkFuFkFls.jyy150s"
+  }
+ ]
+}

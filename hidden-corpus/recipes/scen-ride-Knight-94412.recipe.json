@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ride",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "  \u0017saddle\n aik#ride\nly\u0007tame saddled warhorse\n#ride\n  \u0007tame saddled horse\n#ride\nuy\u0006_ \u001b>. >_>._.> \u0007yellow mold\nFyFyFyhll#ride\n s #ride\njy,\u0004h"
+ },
+ "segments": [
+  {
+   "seed": 94412,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.3.1\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=pushweapon\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017saddle\n aik#ride\nly\u0007tame saddled warhorse\n#ride\n  \u0007tame saddled horse\n#ride\nuy\u0006_ \u001b>. >_>._.> \u0007yellow mold\nFyFyFyhll#ride\n s #ride\njy,\u0004h"
+  }
+ ]
+}

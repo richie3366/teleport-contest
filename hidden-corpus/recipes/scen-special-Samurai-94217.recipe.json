@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "special",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": " \u0016?\nj\u0006\u0017leather drum\naf luafy h;. \u001b,zi\u001b#levelchange\n30\n                             \u0017800 gold pieces\n\u0016?\nc\u0006_mmm.Fu_,;m,Fu #chat\n_mm.#chat\n_m,#chat\n_{,Fk_.Fjq#ride\nky#offer\n#conduct\n Sy\u001b ytcl20s q#twoweapon\n#conduct\n \u0004y\u001710 daggers\nQc\u00072 lichen\ny fjfj  fuFks\u0007giant rat\nhlfnfu\u0017lance\nwh \u0007newt\nhah:x #",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 94217,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\nj\u0006\u0017leather drum\naf luafy h;. \u001b,zi\u001b#levelchange\n30\n                             \u0017800 gold pieces\n\u0016?\nc\u0006_mmm.Fu_,;m,Fu #chat\n_mm.#chat\n_m,#chat\n_{,Fk_.Fjq#ride\nky#offer\n#conduct\n Sy\u001b"
+  },
+  {
+   "seed": 594217,
+   "datetime": "20000206000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=lit_corridor\nOPTIONS=playmode:debug\n",
+   "moves": " ytcl20s q#twoweapon\n#conduct\n \u0004y\u001710 daggers\nQc\u00072 lichen\ny fjfj  fuFks\u0007giant rat\nhlfnfu\u0017lance\nwh \u0007newt\nhah:x #"
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engrave",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "  bk\u0017wand of undead turning\nEm ad aerarium\n\u0017wand of speed monster\nEnn  Vlad was here\n: \u0017diamond\nEo  I am a fish\n: hE- ad aerarium\n\u0007minotaur\n20s  yny  y y y\u001by  ."
+ },
+ "segments": [
+  {
+   "seed": 94258,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "  bk\u0017wand of undead turning\nEm ad aerarium\n\u0017wand of speed monster\nEnn  Vlad was here\n: \u0017diamond\nEo  I am a fish\n: hE- ad aerarium\n\u0007minotaur\n20s  yny  y y y\u001by  ."
+  }
+ ]
+}

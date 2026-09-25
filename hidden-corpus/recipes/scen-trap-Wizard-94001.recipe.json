@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trap",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n            kkjb\u0017rolling boulder trap\nu ^bby20s20sh\u0017level teleporter\nyns20sy\u0017statue trap\nj^kk.. jk\u0017pit\nkjs20s#terrain\nc\nu#loot\nj#chat\nj ukbu\u0017anti-magic field\nh^lls.jh\u0017rolling boulder trap\nl^hh .sm.#sit\n w-10sSy\u001b  y #name\no\n,#twoweapon\n20s:#ride\nly10s#conduct\n ",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 94001,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n            kkjb\u0017rolling boulder trap\nu ^bby20s20sh\u0017level teleporter\nyns20sy\u0017statue trap\nj^kk.. jk\u0017pit\nkjs20s#terrain\nc\nu#loot\nj#chat\nj ukbu\u0017anti-magic field\nh^lls.jh\u0017rolling boulder trap\nl^hh .sm.#sit\n w-10sSy\u001b"
+  },
+  {
+   "seed": 594001,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "  y #name\no\n,#twoweapon\n20s:#ride\nly10s#conduct\n "
+  }
+ ]
+}

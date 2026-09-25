@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "caster",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n30\n                              \u0017spellbook of detect food\nrj y s\u0017blessed spellbook of cure sickness\nrk  s\u0017blessed spellbook of drain life\nrl  .+\u001bZb\n\u001bm.s\u0007lichen\nZd\nZc\nZa\n#turn\n#pray\ny y   #enhance\nym\nd\n\u001b"
+ },
+ "segments": [
+  {
+   "seed": 94049,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:elf,gender:male,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=autopickup\nOPTIONS=pickup_types:%\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": " #levelchange\n30\n                              \u0017spellbook of detect food\nrj y s\u0017blessed spellbook of cure sickness\nrk  s\u0017blessed spellbook of drain life\nrl  .+\u001bZb\n\u001bm.s\u0007lichen\nZd\nZc\nZa\n#turn\n#pray\ny y   #enhance\nym\nd\n\u001b"
+  }
+ ]
+}

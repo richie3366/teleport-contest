@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "trap",
+  "role": "Valkyrie",
+  "prefixMoves": "",
+  "suffix": "  luk\u0017fire trap\nbus.u\u0017web\nn\u0007newt\n20s    sss:#rub\n#sit\n\u001bnun\u0017polymorph trap\nn^yy     ssyy\u0017rolling boulder trap\nhl s.#wipe\n#untrap\nb\u0004b"
+ },
+ "segments": [
+  {
+   "seed": 94041,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Astrid,role:Valkyrie,race:dwarf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=playmode:debug\n",
+   "moves": "  luk\u0017fire trap\nbus.u\u0017web\nn\u0007newt\n20s    sss:#rub\n#sit\n\u001bnun\u0017polymorph trap\nn^yy     ssyy\u0017rolling boulder trap\nhl s.#wipe\n#untrap\nb\u0004b"
+  }
+ ]
+}

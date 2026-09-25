@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nil\n  \u0017blindfold\nah\u0017blessed wand of death\nzij yy\u001by   nny  E"
+ },
+ "segments": [
+  {
+   "seed": 94030,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=pettype:horse\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nil\n  \u0017blindfold\nah\u0017blessed wand of death\nzij yy\u001by   nny  E"
+  }
+ ]
+}

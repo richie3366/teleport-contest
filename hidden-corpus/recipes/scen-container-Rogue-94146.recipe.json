@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "container",
+  "role": "Rogue",
+  "prefixMoves": "",
+  "suffix": " \u0017bag of holding\n\u0017potion of restore ability\n\u0017touchstone\ndh#loot\ni\n,\u0017credit card\ndhak.20ss20s#loot\nb\nd\ni\n\u0017long sword\nwlda#force\ns20s20s#tip\nyf\n"
+ },
+ "segments": [
+  {
+   "seed": 94146,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:robin,role:Rogue,race:human,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=runmode:crawl\nOPTIONS=playmode:debug\n",
+   "moves": " \u0017bag of holding\n\u0017potion of restore ability\n\u0017touchstone\ndh#loot\ni\n,\u0017credit card\ndhak.20ss20s#loot\nb\nd\ni\n\u0017long sword\nwlda#force\ns20s20s#tip\nyf\n"
+  }
+ ]
+}

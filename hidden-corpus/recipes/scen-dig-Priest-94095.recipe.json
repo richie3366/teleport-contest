@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "dig",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0017wand of digging\n\u0006_ \u001b:zi> uyzi>  20s jjzi<ll\u0017dwarvish mattock\n\u00165\n\u0006_oo.ajaj\u0006_oooo,ajll_<,_,ajajjnn"
+ },
+ "segments": [
+  {
+   "seed": 94095,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017wand of digging\n\u0006_ \u001b:zi> uyzi>  20s jjzi<ll\u0017dwarvish mattock\n\u00165\n\u0006_oo.ajaj\u0006_oooo,ajll_<,_,ajajjnn"
+  }
+ ]
+}

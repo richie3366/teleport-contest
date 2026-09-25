@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "ranged",
+  "role": "Samurai",
+  "prefixMoves": "",
+  "suffix": "\u0017orcish bow\nwf\u001720 orcish arrows\nQg\u0007kobold\nyfufufuflflFl Fu\u0007soldier\nhkfnfn fn   yy\u001by  y y y\u001by  f"
+ },
+ "segments": [
+  {
+   "seed": 94108,
+   "datetime": "20000704150000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Musashi,role:Samurai,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=pettype:cat\nOPTIONS=playmode:debug\n",
+   "moves": "\u0017orcish bow\nwf\u001720 orcish arrows\nQg\u0007kobold\nyfufufuflflFl Fu\u0007soldier\nhkfnfn fn   yy\u001by  y y y\u001by  f"
+  }
+ ]
+}

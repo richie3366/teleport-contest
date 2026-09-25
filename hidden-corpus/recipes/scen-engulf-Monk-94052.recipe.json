@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "engulf",
+  "role": "Monk",
+  "prefixMoves": "",
+  "suffix": " #levelchange\n14\n               \u0007hostile Juiblex\nyFh #pray\ny y  Fysm.  FkFj.m.FkFj FyFyFy  #levelchange\n14\n\u0007purple worm\n20s  Fk    FyFk    yy\u001bny y y\u001b  F"
+ },
+ "segments": [
+  {
+   "seed": 94052,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Kira,role:Monk,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=lit_corridor\nOPTIONS=pettype:dog\nOPTIONS=playmode:debug\n",
+   "moves": " #levelchange\n14\n               \u0007hostile Juiblex\nyFh #pray\ny y  Fysm.  FkFj.m.FkFj FyFyFy  #levelchange\n14\n\u0007purple worm\n20s  Fk    FyFk    yy\u001bny y y\u001b  F"
+  }
+ ]
+}

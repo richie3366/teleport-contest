@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "quest",
+  "role": "Barbarian",
+  "prefixMoves": "",
+  "suffix": " \u0016?\n>y _ \u001b>.#chat\ny_mm,#chat\ny_mm,#chat\nu\u0016?\n>zi\u001b#force\n#offer\n#levelchange\n14\n             \u0016?\n>y_mm.#chat\nl_mmmmm,Fk _.#chat\nn_mmm,#chat\nj_mmm.#chat\nl_mmm,#chat\nu\u0006_>,Fh_. Fk>FlFn   _>, Fn       yy\u001by   y y y\u001b  _"
+ },
+ "segments": [
+  {
+   "seed": 94356,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Conan,role:Barbarian,race:human,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=!verbose\nOPTIONS=playmode:debug\n",
+   "moves": " \u0016?\n>y _ \u001b>.#chat\ny_mm,#chat\ny_mm,#chat\nu\u0016?\n>zi\u001b#force\n#offer\n#levelchange\n14\n             \u0016?\n>y_mm.#chat\nl_mmmmm,Fk _.#chat\nn_mmm,#chat\nj_mmm.#chat\nl_mmm,#chat\nu\u0006_>,Fh_. Fk>FlFn   _>, Fn       yy\u001by   y y y\u001b  _"
+  }
+ ]
+}

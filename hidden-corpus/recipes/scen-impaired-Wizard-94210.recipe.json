@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "impaired",
+  "role": "Wizard",
+  "prefixMoves": "",
+  "suffix": "#wizintrinsic\nlm\n  hby\u0017cursed wand of nothing\nzppzpZa\n\u0017scroll of blank paper\nrq.m.sm.  yy\u001by   ny\u001bn  ."
+ },
+ "segments": [
+  {
+   "seed": 94210,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:merlin,role:Wizard,race:elf,gender:male,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:none\nOPTIONS=playmode:debug\n",
+   "moves": "#wizintrinsic\nlm\n  hby\u0017cursed wand of nothing\nzppzpZa\n\u0017scroll of blank paper\nrq.m.sm.  yy\u001by   ny\u001bn  ."
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "town",
+  "role": "Tourist",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n6\n    \u0016?\n>w\u0006\u0017blessed potion of object detection\nql \u001b:_ooooooooo.Fk_. ,$_mmmm,#chat\nh_dddd,Fn _.@.\u0004k _d.Fn _. Fy     \u0004h     _dd.    n   Fl     _,     Fn   n     \u0004h      n  #ride\nyy y\u0004l     #untrap\njSy\u001b yn       yn  q",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 94062,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n6\n    \u0016?\n>w\u0006\u0017blessed potion of object detection\nql \u001b:_ooooooooo.Fk_. ,$_mmmm,#chat\nh_dddd,Fn _.@.\u0004k _d.Fn _. Fy     \u0004h     _dd.    n   Fl     _,     Fn   n     \u0004h      n  #ride\nyy y\u0004l     #untrap\njSy\u001b"
+  },
+  {
+   "seed": 594062,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Touristo,role:Tourist,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=disclose:-i -a -v -g -c -o\nOPTIONS=playmode:debug\n",
+   "moves": " yn       yn  q"
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "descend",
+  "role": "Knight",
+  "prefixMoves": "",
+  "suffix": "U  HBU_ \u001b:>Fj Fh Fh NBYK_>,>FlFn.NKYN_>,>Fb ssy>KHHN_>,>#sit\n\u001bdeHB KN_>.>JBUY_>.>KKL U_>.>#ride\ny#ride\nlKNLJ_>.>JLNY_>.>JYLK_>.>Sy\u001b  yH#pray\ny  #chat\nkeh \\   ok#sit\n\u001b:tbb#chat\nj10skjjbbuyn",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 94127,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=pettype:dog\nOPTIONS=playmode:explore\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "U  HBU_ \u001b:>Fj Fh Fh NBYK_>,>FlFn.NKYN_>,>Fb ssy>KHHN_>,>#sit\n\u001bdeHB KN_>.>JBUY_>.>KKL U_>.>#ride\ny#ride\nlKNLJ_>.>JLNY_>.>JYLK_>.>Sy\u001b"
+  },
+  {
+   "seed": 594127,
+   "datetime": "20000121000000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Florian,role:Knight,race:human,gender:male,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=lit_corridor\nOPTIONS=!verbose\nOPTIONS=pettype:dog\nOPTIONS=playmode:explore\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "  yH#pray\ny  #chat\nkeh \\   ok#sit\n\u001b:tbb#chat\nj10skjjbbuyn"
+  }
+ ]
+}

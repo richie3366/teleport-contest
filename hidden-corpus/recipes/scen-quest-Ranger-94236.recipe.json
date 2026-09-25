@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "quest",
+  "role": "Ranger",
+  "prefixMoves": "",
+  "suffix": "#levelchange\n14\n             \u0016?\n>y  _ \u001bm.#chat\nn_mm,#chat\nu_m,Fu_.#chat\nu_mmm.Fh_.#chat\nu;u;\u0016?\n>Aef#terrain\ne\n#untrap\nu\u0016?\n>y_mmmm,#chat\nu_mmmm.#chat\nu_m.Fl_.#chat\nb;l,_mmm. \u001bFl_.#chat\nl;l,Pz#loot\nSy\u001b y \u0014m.    E- Vlad was here\n \u001b q#conduct\n w-  za\u0004n  #sit\n  #turn\n\u001720 darts\nQi\u00074 acid blob\nhufl  yy\u001by   y y\u001b  f",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 94236,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": "#levelchange\n14\n             \u0016?\n>y  _ \u001bm.#chat\nn_mm,#chat\nu_m,Fu_.#chat\nu_mmm.Fh_.#chat\nu;u;\u0016?\n>Aef#terrain\ne\n#untrap\nu\u0016?\n>y_mmmm,#chat\nu_mmmm.#chat\nu_m.Fl_.#chat\nb;l,_mmm. \u001bFl_.#chat\nl;l,Pz#loot\nSy\u001b"
+  },
+  {
+   "seed": 594236,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:ricky,role:Ranger,race:orc,gender:female,align:chaotic\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=sortloot:full\nOPTIONS=playmode:debug\n",
+   "moves": " y \u0014m.    E- Vlad was here\n \u001b q#conduct\n w-  za\u0004n  #sit\n  #turn\n\u001720 darts\nQi\u00074 acid blob\nhufl  yy\u001by   y y\u001b  f"
+  }
+ ]
+}

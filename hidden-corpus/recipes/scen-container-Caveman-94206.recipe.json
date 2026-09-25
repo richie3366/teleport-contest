@@ -1,0 +1,28 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "container",
+  "role": "Caveman",
+  "prefixMoves": "",
+  "suffix": "  \u0017sack\n\u0017bag of holding\n\u0017potion of enlightenment\n\u0017scroll of teleportation\n#tip\nfg\n dg #loot\nr\n,afr\ndgh\u0004lda#loot\nl,\u0017long sword\nwjdi#force\n.s20si\u001bSy\u001b y #pray\ny y f  h#monster\n#force\n#monster\n#name\nd\n#force\nqh \u001b",
+  "restore": true
+ },
+ "segments": [
+  {
+   "seed": 94206,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:slime mold\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": "  \u0017sack\n\u0017bag of holding\n\u0017potion of enlightenment\n\u0017scroll of teleportation\n#tip\nfg\n dg #loot\nr\n,afr\ndgh\u0004lda#loot\nl,\u0017long sword\nwjdi#force\n.s20si\u001bSy\u001b"
+  },
+  {
+   "seed": 594206,
+   "datetime": "20001013090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Grok,role:Caveman,race:human,gender:female,align:neutral\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=fruit:slime mold\nOPTIONS=disclose:+i +a -v -g +c -o\nOPTIONS=msg_window:reversed\nOPTIONS=playmode:debug\n",
+   "moves": " y #pray\ny y f  h#monster\n#force\n#monster\n#name\nd\n#force\nqh \u001b"
+  }
+ ]
+}

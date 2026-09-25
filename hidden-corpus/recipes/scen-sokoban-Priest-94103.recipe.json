@@ -1,0 +1,20 @@
+{
+ "version": 5,
+ "timezone": "America/New_York",
+ "fuzz": {
+  "mode": "scenario",
+  "family": "sokoban",
+  "role": "Priest",
+  "prefixMoves": "",
+  "suffix": "\u0016?\n>E\u0017wand of striking\nzik\u0017wand of digging\nzjk\u0017wand of digging\nzk>j\u0017wand of digging\nzlh\u0017wand of striking\nzmk\u0017wand of striking\nzn>\u0017wand of digging\nzoj\u0017wand of digging\nzp>\u0017wand of striking\nzq>\u0017wand of striking\nzr>\u0017scroll of earth\nrs  hyyyyhnhuuuulkjnhukkynkuhn\u0017scroll of earth\nrt \u0017wand of digging\nzuhhl\u0017scroll of earth\nrv "
+ },
+ "segments": [
+  {
+   "seed": 94103,
+   "datetime": "20000110090000",
+   "timezone": "America/New_York",
+   "nethackrc": "OPTIONS=name:Caspar,role:Priest,race:human,gender:female,align:lawful\nOPTIONS=!legacy,!splash_screen,!tutorial\nOPTIONS=suppress_alert:3.4.3\nOPTIONS=symset:DECgraphics\nOPTIONS=!autopickup\nOPTIONS=showexp\nOPTIONS=time\nOPTIONS=sortloot:full\nOPTIONS=pettype:none\nOPTIONS=playmode:debug\nSYMBOLS=S_pool:~,S_fountain:{\n",
+   "moves": "\u0016?\n>E\u0017wand of striking\nzik\u0017wand of digging\nzjk\u0017wand of digging\nzk>j\u0017wand of digging\nzlh\u0017wand of striking\nzmk\u0017wand of striking\nzn>\u0017wand of digging\nzoj\u0017wand of digging\nzp>\u0017wand of striking\nzq>\u0017wand of striking\nzr>\u0017scroll of earth\nrs  hyyyyhnhuuuulkjnhukkynkuhn\u0017scroll of earth\nrt \u0017wand of digging\nzuhhl\u0017scroll of earth\nrv "
+  }
+ ]
+}
