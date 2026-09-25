@@ -2345,10 +2345,54 @@ function parse_iflags_wizmgender(result, value) {
     result.iflags.wizmgender = !!value;
 }
 
+/**
+ * C `cnf_line_OPTIONS` (`cfgfiles.c:608`) calls `parseoptions(buf, TRUE, TRUE)`.
+ * That sets `go.opt_initial` / `go.opt_from_file` (`options.c:504–505`) and
+ * `duplicate = duplicate_opt_detection(matchidx)` (`:621`) before the optfn.
+ * Role/race/gender/alignment are dupeok, so `:622` does not complain;
+ * `parse_role_opt` `:7987–7990` still reads the flag and rejects a positive
+ * value when the same-phase saved string starts with `'!'`.
+ * The boolean is restored after the call: this reader is not the full
+ * `parseoptions` loop, so a leftover TRUE would not be cleared by a later
+ * non-role option the way C clears it. The per-row counter is what persists
+ * across lines in one file.
+ * @param {string} canonName allopt name (`alignment` for the `align` alias,
+ *   `role` for `character`)
+ * @param {Function} optfn
+ * @param {boolean} negated
+ * @param {string} opts
+ * @param {string} op
+ * @returns {number} optn_* result
+ */
+function rc_do_set_role_family(canonName, optfn, negated, opts, op) {
+    const matchidx = allopt_idx(canonName); // C parseoptions matchidx
+    if (!game.go) game.go = {};
+    const savedInitial = game.go.opt_initial;
+    const savedFromFile = game.go.opt_from_file;
+    const savedDup = duplicateOpt;
+    game.go.opt_initial = true; // C `:504` tinitial TRUE
+    game.go.opt_from_file = true; // C `:505` tfrom_file TRUE
+    duplicateOpt = duplicate_opt_detection(matchidx); // C `:621`
+    if (duplicateOpt && matchidx >= 0 && matchidx < allopt.length
+        && !OPT_DUPEOK_YES.has(allopt[matchidx].name)) // C `:622`
+        complain_about_duplicate(matchidx); // C `:623`
+    const reslt = optfn(matchidx, REQ_DO_SET, negated, opts, op, true);
+    duplicateOpt = savedDup;
+    game.go.opt_initial = savedInitial;
+    game.go.opt_from_file = savedFromFile;
+    return reslt;
+}
+
 export function parseNethackrc(rc) {
     // C cfgfiles.c cnf_line_MSGTYPE → msgtype_parse_add onto gp.plinemsg_types.
     // Free first so a reused Node process does not keep the previous rc list.
     msgtype_free();
+    // C read_config_file `:1633` clears dupdetected before the file is read.
+    // Startup calls this function, not rcfile(), so the bracket lives here.
+    // A reused Node process would otherwise treat the next file's first
+    // role/race/gender/align as a duplicate of the previous file.
+    reset_duplicate_opt_detection();
+    duplicateOpt = false; // C options.c:502, fresh file
     const result = {
         name: '', role: -1, race: -1, gender: -1, align: -1,
         flags: {}, iflags: {},
@@ -2441,30 +2485,42 @@ export function parseNethackrc(rc) {
                 else if (key === 'role') {
                     // C optfn_role do_set (opt_initial). result.role stays the
                     // raw spelling so init_role_flags_from_rc still str2role's it.
-                    result.role = val;
-                    optfn_role(allopt_idx('role'), REQ_DO_SET, negated, stripped, val, true);
-                    result.flags.initrole = game.flags?.initrole;
-                    if (game.pl_character != null) result.pl_character = game.pl_character;
+                    // parseoptions `:621` sets duplicate first. OPTN_SILENTERR
+                    // (parse_role_opt `:7987–7990`) keeps the previous spelling.
+                    const reslt = rc_do_set_role_family(
+                        'role', optfn_role, negated, stripped, val);
+                    if (reslt !== OPTN_SILENTERR) {
+                        result.role = val;
+                        result.flags.initrole = game.flags?.initrole;
+                        if (game.pl_character != null) result.pl_character = game.pl_character;
+                    }
                 }
                 else if (key === 'race') {
-                    result.race = val;
-                    optfn_race(allopt_idx('race'), REQ_DO_SET, negated, stripped, val, true);
-                    result.flags.initrace = game.flags?.initrace;
-                    if (game.gp?.pl_race != null) result.pl_race = game.gp.pl_race;
+                    const reslt = rc_do_set_role_family(
+                        'race', optfn_race, negated, stripped, val);
+                    if (reslt !== OPTN_SILENTERR) {
+                        result.race = val;
+                        result.flags.initrace = game.flags?.initrace;
+                        if (game.gp?.pl_race != null) result.pl_race = game.gp.pl_race;
+                    }
                 }
                 else if (key === 'gender') {
-                    result.gender = val;
-                    optfn_gender(allopt_idx('gender'), REQ_DO_SET, negated, stripped, val, true);
-                    result.flags.initgend = game.flags?.initgend;
-                    if (game.flags && 'female' in game.flags)
-                        result.flags.female = game.flags.female;
+                    const reslt = rc_do_set_role_family(
+                        'gender', optfn_gender, negated, stripped, val);
+                    if (reslt !== OPTN_SILENTERR) {
+                        result.gender = val;
+                        result.flags.initgend = game.flags?.initgend;
+                        if (game.flags && 'female' in game.flags)
+                            result.flags.female = game.flags.female;
+                    }
                 }
                 else if (key === 'align' || key === 'alignment') {
-                    result.align = val;
-                    optfn_alignment(
-                        allopt_idx('alignment'), REQ_DO_SET, negated, stripped, val, true,
-                    );
-                    result.flags.initalign = game.flags?.initalign;
+                    const reslt = rc_do_set_role_family(
+                        'alignment', optfn_alignment, negated, stripped, val);
+                    if (reslt !== OPTN_SILENTERR) {
+                        result.align = val;
+                        result.flags.initalign = game.flags?.initalign;
+                    }
                 }
                 else if (key === 'playmode') {
                     // C ref: options.c optfn_playmode — sets wizard/discover;
@@ -2676,21 +2732,22 @@ export function parseNethackrc(rc) {
                     );
                 }
                 else if (lname === 'role' || lname === 'character') {
-                    // C optfn_role do_set, valueless (opt_initial).
-                    optfn_role(allopt_idx('role'), REQ_DO_SET, negated, stripped, EMPTY_OPTSTR, true);
+                    // C optfn_role do_set, valueless (opt_initial). `character`
+                    // is the role alias, so the counter is the role row.
+                    rc_do_set_role_family(
+                        'role', optfn_role, negated, stripped, EMPTY_OPTSTR);
                 }
                 else if (lname === 'race') {
-                    optfn_race(allopt_idx('race'), REQ_DO_SET, negated, stripped, EMPTY_OPTSTR, true);
+                    rc_do_set_role_family(
+                        'race', optfn_race, negated, stripped, EMPTY_OPTSTR);
                 }
                 else if (lname === 'gender') {
-                    optfn_gender(
-                        allopt_idx('gender'), REQ_DO_SET, negated, stripped, EMPTY_OPTSTR, true,
-                    );
+                    rc_do_set_role_family(
+                        'gender', optfn_gender, negated, stripped, EMPTY_OPTSTR);
                 }
                 else if (lname === 'align' || lname === 'alignment') {
-                    optfn_alignment(
-                        allopt_idx('alignment'), REQ_DO_SET, negated, stripped, EMPTY_OPTSTR, true,
-                    );
+                    rc_do_set_role_family(
+                        'alignment', optfn_alignment, negated, stripped, EMPTY_OPTSTR);
                 }
                 else if (lname === 'disclose') {
                     // C optfn_disclose do_set, valueless (opt_initial):

@@ -103,8 +103,6 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 always Must-fix rows: they forfeit every later screen of that session
 (Constitution §10.14).
 
-- [ ] `js/options.js` `parseNethackrc` role/race/gender/align do_set arms never set `duplicateOpt` — C `parseoptions` `:621` sets `duplicate` before the optfn, and `parse_role_opt` `:7987–7990` then rejects a positive value when the same-phase saved string starts with `'!'`. Source: reviews/loop-unattended/1745-6864eb3d8-optfn-gender-family.md. Verify `node scripts/verify.mjs --fn optfn_gender` (reach regression must be 0).
-
 ## Open — coverage (breadth phase — pop first after Must-fix)
 
 Rows below are `port-coverage.mjs --rows` output (score = reach × call

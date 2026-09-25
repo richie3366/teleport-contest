@@ -176,6 +176,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-25 — D-2791 rc role/race/gender/align set `duplicate` before the optfn
+
+**C locus:** `nethack-c/upstream/src/options.c:621` (`duplicate = duplicate_opt_detection(matchidx)` inside `parseoptions`, after `cnf_line_OPTIONS` calls `parseoptions(buf, TRUE, TRUE)` at `cfgfiles.c:608`). `parse_role_opt` `:7987–7990` rejects the positive. The saved filter comes from `rolefilterstring` (`role.c:1321–1354`), whose return is `&outbuf[1]` so the string starts with `'!'`. `read_config_file` `:1633` clears `dupdetected` before the file.
+**JS:** `js/options.js` `rc_do_set_role_family :2367`, `duplicate_opt_detection` call `:2375`, `parseNethackrc` reset `:2394`, `parse_role_opt` `:4295`. `js/player_selection.js` `rolefilterstring :120` (`:154` drop the leading space).
+**Change:** `rc_do_set_role_family` sets `go.opt_initial` and `go.opt_from_file` (the `TRUE, TRUE` pair) and `duplicateOpt` from `duplicate_opt_detection` before the optfn, then restores both so a leftover TRUE is not left for a later non-role option this reader never re-parses. `OPTN_SILENTERR` does not write `result.role` / `race` / `gender` / `align`. `parseNethackrc` clears `dupdetected` and `duplicateOpt` at entry, the `read_config_file` bracket, because startup does not call `rcfile`.
+**Verify:** `node scripts/verify.mjs --fn optfn_gender` → PASS syntax (2 changed js files: js/options.js js/player_selection.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke 1/1, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 · VERIFY: PASS.
+**Named:** `config_error_add` and `complain_about_duplicate` message text (existing no-op sinks). `using_alias` is not set on the `character` / `align` aliases (the complaint text only).
+**Next:** next Open — coverage row (`options.c` optfn_petattr).
 ## 2026-09-25 — D-2790 `options.c` nmcpy stops before a comma
 
 **C locus:** `nethack-c/upstream/src/options.c:6859–6871` `nmcpy`. `for (count = 1; count < maxlen; count++)` breaks when `*src` is `','` or `'\0'`, then writes the terminating NUL.

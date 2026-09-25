@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2791 — rc role/race/gender/align set `duplicate` before the optfn
+
+- **Status:** fixed (Must-fix from review 1745; `parseNethackrc` do_set arms never set `duplicateOpt`. `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** A later positive `role` / `race` / `gender` / `align` in the same rc phase after a `!` filter was accepted. C `parseoptions` sets `duplicate` before the optfn, and `parse_role_opt` returns false when that flag is set and the same-phase saved string starts with `'!'`.
+- **C locus:** `nethack-c/upstream/src/options.c:621` (`duplicate = duplicate_opt_detection(matchidx)` inside `parseoptions`, after `cnf_line_OPTIONS` calls `parseoptions(buf, TRUE, TRUE)` at `cfgfiles.c:608`). `parse_role_opt` `:7987–7990` rejects the positive. The saved filter comes from `rolefilterstring` (`role.c:1321–1354`), whose return is `&outbuf[1]` so the string starts with `'!'`. `read_config_file` `:1633` clears `dupdetected` before the file.
+- **JS was:** The eight `parseNethackrc` do_set arms called `optfn_role` / `optfn_race` / `optfn_gender` / `optfn_alignment` directly and never assigned `duplicateOpt`. `parseoptions` itself already did (`:621`). `rolefilterstring` pre-seeded a space and then appended `" !token"`, so `&outbuf[1]` left a leading space (`" !Cav"`). `*preval == '!'` was false even after the flag was set, and a second same-phase negation cleared the filter instead of merging.
+- **Fix:** `rc_do_set_role_family` sets `go.opt_initial` and `go.opt_from_file` (the `TRUE, TRUE` pair) and `duplicateOpt` from `duplicate_opt_detection` before the optfn, then restores both so a leftover TRUE is not left for a later non-role option this reader never re-parses. `OPTN_SILENTERR` does not write `result.role` / `race` / `gender` / `align`. `parseNethackrc` clears `dupdetected` and `duplicateOpt` at entry, the `read_config_file` bracket, because startup does not call `rcfile`. `rolefilterstring` starts empty and returns `out.slice(1)`, so a filter starts with `'!'`.
+- **JS:** `js/options.js` `rc_do_set_role_family :2367`, `duplicate_opt_detection` call `:2375`, `parseNethackrc` reset `:2394`, `parse_role_opt` `:4295`. `js/player_selection.js` `rolefilterstring :120` (`:154` drop the leading space).
+- **Callers:** C `options.c:621` is the set. JS rc valued role `:2490`, race `:2499`, gender `:2508`, alignment `:2518` (`align` alias uses the alignment row). JS rc valueless role/character `:2737`, race `:2741`, gender `:2745`, alignment `:2749` (`character` uses the role row). Existing `parseoptions` `:6570` already set the flag for the real `parseoptions` entry. C `parse_role_opt` callers `options.c:897` / `:1789` / `:3519` / `:3601` stay the four optfns. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn optfn_gender` → PASS syntax (2 changed js files: js/options.js js/player_selection.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke 1/1, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 · VERIFY: PASS.
+- **Named omissions:** `config_error_add` and `complain_about_duplicate` message text (existing no-op sinks). `using_alias` is not set on the `character` / `align` aliases (the complaint text only). A comma-separated `OPTIONS=` list is still walked left to right; C `parseoptions` with `tinitial` recurses on the tail first (`:513–519`).
+- **Next:** next Open — coverage row (`options.c` optfn_petattr).
+
 ## D-2790 — `options.c` nmcpy stops before a comma
 
 - **Status:** fixed (Must-fix from review 1742; `nmcpy` local clone diverged from `options.c:6859–6871`. `hidden-proxy verify` reports no corpus session blocked).

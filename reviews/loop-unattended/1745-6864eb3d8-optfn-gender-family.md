@@ -5,6 +5,8 @@
 - Queue row: Open coverage, 0 corpus blocks cited
 - Banned grep: 0 hits. `imports.mjs --rulecheck`: "Rule #2 clean" (this audit).
 
+**Addressed:** D-2791
+
 ## Intent vs deliverable
 
 Subject promises the four optfns plus `parse_role_opt`, `saveoptstr`,

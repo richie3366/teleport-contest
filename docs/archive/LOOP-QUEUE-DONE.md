@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-25
 
-- [x] `js/options.js` `nmcpy` copies `slice(0, maxlen-1)` and keeps commas — C `options.c:6859–6871` stops before `','` or `'\0'` and does not store the comma (`fruit:apple,banana` → `apple`). Callers `optfn_fruit` (`:1748`, `:1753`) and `optfn_role` (`:3610` `pl_character`). Source: reviews/loop-unattended/1742-40c2ca295-optfn-fruit.md. Verify `node scripts/verify.mjs --fn optfn_fruit` (reach regression must be 0). **Addressed:** D-2790
+- [x] `js/options.js` `parseNethackrc` role/race/gender/align do_set arms never set `duplicateOpt` — C `parseoptions` `:621` sets `duplicate` before the optfn, and `parse_role_opt` `:7987–7990` then rejects a positive value when the same-phase saved string starts with `'!'`. Source: reviews/loop-unattended/1745-6864eb3d8-optfn-gender-family.md. Verify `node scripts/verify.mjs --fn optfn_gender` (reach regression must be 0). **Addressed:** D-2791
+
+
+- [x] `js/options.js` `nmcpy` copies `slice(0, maxlen-1)` and keeps commas — C `options.c:6859–6871` stops before `','` or `'\0'` and does not store the comma (`fruit:apple,banana` → `apple`). Callers `optfn_fruit` (`:1748`, `:1753`) and `optfn_role` (`:3610` `pl_character`). Source: reviews/loop-unattended/1742-40c2ca295-optfn-fruit.md. Verify `node scripts/verify.mjs --fn optfn_fruit` (reach regression must be 0). **Addressed:** D-2790 `167912450`
 
 
 - [x] `coloratt.c` basic_menu_colors — coverage PARTIAL (C 47 L `coloratt.c:530–580` / JS 22 L in js/options.js; hops —, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn basic_menu_colors` (reach regression must be 0). Measured `port-coverage.mjs --name basic_menu_colors` 2026-09-23 @ e93d269e7. **Addressed:** D-2789 `309d58ccc`

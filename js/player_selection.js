@@ -118,7 +118,10 @@ export function setrolefilter(bufp) {
  * @returns {string}
  */
 export function rolefilterstring(which) {
-    let out = ' '; // C `:1321` outbuf[0] = outbuf[1] = '\0', then leading space via Sprintf
+    // C `:1321` outbuf[0] = outbuf[1] = '\0' (empty). Each hit appends
+    // " !token" via Sprintf. The return is `&outbuf[1]`, which drops the
+    // one leading space so a non-empty filter starts with '!'.
+    let out = '';
     switch (which) { // C `:1322`
     case RS_ROLE: // C `:1323`
         for (let i = 0; i < roles.length; ++i) { // C `:1324` SIZE(roles)-1 (no JS sentinel)
@@ -146,7 +149,7 @@ export function rolefilterstring(which) {
         break;
     default: // C `:1347`
         impossible('rolefilterstring: bad role aspect (%d)', which); // C `:1348`
-        return ' ?'; // C `:1349` Strcpy " ?" then `&outbuf[1]`
+        return '?'; // C `:1349` Strcpy " ?" then `&outbuf[1]`
     }
     return out.slice(1); // C `:1353–1354` drop the leading space
 }
