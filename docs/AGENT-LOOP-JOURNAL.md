@@ -159,6 +159,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-25 — D-2783 `options.c` optfn_fruit whole-body port (fruit option live)
+
+**C locus:** `nethack-c/upstream/src/options.c:1706–1774` (staticfn; NHOPTC wires `&optfn_fruit`, optlist.h `:339`). do_init → optn_ok. do_set: `string_for_opt(opts, negated || !opt_initial)`; negated with a value → `bad_negation` + optn_err; negated with no value → empty then goodfruit; missing value → optn_err; else `mungspaces`, and when `!opt_initial` `fruit_from_name` (highest fid) / `made_fruit` / `fnum >= 100` config error (still optn_ok). goodfruit: `nmcpy` + `sanitize_name`, empty → `"slime mold"`, then `!opt_initial` → `fruitadd` and `give_opt_msg` pline. get_val and get_cnf_val Sprintf `pl_fruit`. Any other req → optn_ok (no do_handler).
+**JS:** `js/options.js` `nmcpy :3472`, `optfn_fruit :3496`. allopt fruit row `optfn: optfn_fruit` `:4929`.
+**Change:** restart as `optfn_fruit` in C order with `:line` cites. Local `nmcpy` (hack.h strncpy `n-1` + NUL; no JS symbol). `string_for_opt` / `bad_negation` are the existing options.js locals (not cloned).
+**Verify:** `node scripts/verify.mjs --fn optfn_fruit` → PASS syntax (1 changed js file: js/options.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 · VERIFY: PASS.
+**Named:** `config_error_add` message text (existing no-op sink). `pline` not awaited (sync optfn result).
+**Next:** next Open — coverage row (`optfn_sortvanquished`).
 ## 2026-09-25 — D-2782 parseNethackrc valueless menu_objsyms passes case-preserved opts (review-1733 Must-fix)
 
 **C locus:** `nethack-c/upstream/src/options.c:2245–2249` (`op == empty_optstr` → `!strncmp(opts, "use_menu_glyphs", 15) ? 2 : 1`); name match is case-insensitive (`match_optname` / `strncmpi`) and does not rewrite `opts`.

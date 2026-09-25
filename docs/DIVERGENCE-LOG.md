@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2783 — `options.c` optfn_fruit whole-body port (fruit option live)
+
+- **Status:** fixed (Open — coverage row `options.c` optfn_fruit MISSING (C 66 L `options.c:1706–1774` / JS no symbol; callers 0, RNG 0, msg 1; measured `port-coverage.mjs --name optfn_fruit` 2026-09-23 @ 181b4b4ff); `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** coverage gap, not a corpus divergence. The fruit option had a thin in-game helper (`optfn_fruit_set`) that always `fruitadd`ed and skipped negation, the empty-value error, `opt_initial` (rc copies the name only), and get_val. The allopt row's `optfn` was null, so `parseoptions` and `get_option_value` never entered the C function-pointer arm.
+- **C locus:** `nethack-c/upstream/src/options.c:1706–1774` (staticfn; NHOPTC wires `&optfn_fruit`, optlist.h `:339`). do_init → optn_ok. do_set: `string_for_opt(opts, negated || !opt_initial)`; negated with a value → `bad_negation` + optn_err; negated with no value → empty then goodfruit; missing value → optn_err; else `mungspaces`, and when `!opt_initial` `fruit_from_name` (highest fid) / `made_fruit` / `fnum >= 100` config error (still optn_ok). goodfruit: `nmcpy` + `sanitize_name`, empty → `"slime mold"`, then `!opt_initial` → `fruitadd` and `give_opt_msg` pline. get_val and get_cnf_val Sprintf `pl_fruit`. Any other req → optn_ok (no do_handler).
+- **JS was:** `optfn_fruit_set` (`js/options.js`, deleted) — mungspaces/sanitize/fruitadd only, called from doset getlin. get_val read `pl_fruit` directly. rc `OPTIONS=fruit:` fell through to `result.flags.fruit`.
+- **Fix:** restart as `optfn_fruit` in C order with `:line` cites. Local `nmcpy` (hack.h strncpy `n-1` + NUL; no JS symbol). `string_for_opt` / `bad_negation` are the existing options.js locals (not cloned). `config_error_add` is the live botl export (body still the named no-op sink). `fruit_from_name`'s third out-box is highest fid, which is what C's `&fnum` receives. `pline` is started and not awaited: parseoptions compares the optfn result to `OPTN_OK` synchronously, and doset sets `give_opt_msg` false so that path does not pline. C `give_opt_msg` static-init TRUE → `game.give_opt_msg !== false`.
+- **JS:** `js/options.js` `nmcpy :3472`, `optfn_fruit :3496`. allopt fruit row `optfn: optfn_fruit` `:4929`.
+- **Callers:** C has no direct call (function pointer only). JS sites now wired: allopt → `parseoptions :5503` and `get_option_value :5570` (existing `if (optfn)` arms); rc valued `parseNethackrc :2287` (`opt_initial` true); rc valueless `:2414`; doset getlin `:3588` (`opt_initial` false); simple-menu get_val `:3613`. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn optfn_fruit` → PASS syntax (1 changed js file: js/options.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 · VERIFY: PASS.
+- **Named omissions:** `config_error_add` message text (existing no-op sink). `pline` not awaited (sync optfn result). Remaining Comp getlin → parseoptions arms in `doset_compound_via_getlin`.
+- **Next:** next Open — coverage row (`optfn_sortvanquished`).
+
 ## D-2782 — parseNethackrc valueless menu_objsyms passes case-preserved opts (review-1733 Must-fix)
 
 - **Status:** fixed (Must-fix — review 1733 QUALITY-RISK on D-2774 (`reviews/loop-unattended/1733-d61d9e62a-menu-objsyms.md`): valueless `menu_objsyms` arm passed lowercased `lname`; `hidden-proxy verify` reports no corpus session blocked).

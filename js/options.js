@@ -169,6 +169,7 @@ import {
     opt_next_cond, cond_menu, status_hilite_menu,
     status_hilite_linestr_done, status_hilite_linestr_gather,
     match_str2clr, match_str2attr, status_version,
+    config_error_add,
 } from './botl.js';
 import { get_changed_key_binds, handler_rebind_keys, count_bind_keys } from './cmd.js';
 
@@ -2283,6 +2284,13 @@ export function parseNethackrc(rc) {
                         allopt_idx('number_pad'), REQ_DO_SET, false, stripped, val, result.iflags, true,
                     );
                 }
+                else if (key === 'fruit') {
+                    // C optfn_fruit do_set (opt_initial): nmcpy pl_fruit only;
+                    // fruitadd waits for initoptions_finish.
+                    optfn_fruit(
+                        allopt_idx('fruit'), REQ_DO_SET, negated, stripped, val, true,
+                    );
+                }
                 else if (key === 'menuinvertmode') {
                     // C options.c optfn_menuinvertmode do_set: atoi(op),
                     // 0-2 else config error (prior value kept).
@@ -2401,6 +2409,13 @@ export function parseNethackrc(rc) {
                     if (negated) continue;
                     optfn_number_pad(
                         allopt_idx('number_pad'), REQ_DO_SET, false, lname, EMPTY_OPTSTR, result.iflags, true,
+                    );
+                }
+                else if (lname === 'fruit') {
+                    // C optfn_fruit do_set, valueless (opt_initial): !fruit
+                    // with no value resets pl_fruit to "slime mold".
+                    optfn_fruit(
+                        allopt_idx('fruit'), REQ_DO_SET, negated, stripped, EMPTY_OPTSTR, true,
                     );
                 }
                 else if (lname === 'accessiblemsg') {
@@ -3447,35 +3462,95 @@ export function init_fruit_chain() {
 }
 
 /**
- * C ref: options.c optfn_fruit do_set (!opt_initial) after doset getlin.
- * give_opt_msg is false inside doset_simple so no "Fruit is now" pline.
+ * C hack.h `nmcpy(dst, src, n)` — `strncpy` of `n - 1` bytes, then a
+ * forced NUL at `[n - 1]`. JS strings are immutable, so this returns the
+ * bounded copy (PL_FSIZ includes the NUL).
+ * @param {string} src
+ * @param {number} n
+ * @returns {string}
  */
-function optfn_fruit_set(op) {
-    let s = mungspaces(op);
-    if (!s) s = 'slime mold';
-    s = sanitize_name(s);
-    if (!s) s = 'slime mold';
-    if (s.length > PL_FSIZ - 1) s = s.slice(0, PL_FSIZ - 1);
+function nmcpy(src, n) {
+    const s = src == null ? '' : String(src);
+    const max = (n | 0) - 1;
+    return max > 0 ? s.slice(0, max) : '';
+}
 
-    // C: fruit_from_name(op, FALSE, &fnum) — fnum is max fid, not count
-    const fnum = { fid: 0 };
-    const exists = fruit_from_name(s, false, fnum);
-    let forig = null;
-    if (!exists) {
-        if (!game.flags?.made_fruit) {
-            forig = fruit_from_name(
-                game.pl_fruit || 'slime mold', false, null,
-            );
-        }
-        if (!forig && fnum.fid >= 100) {
-            // C: config_error_add fruitful — silent ok return
-            return;
-        }
+/**
+ * C options.c optfn_fruit `:1706–1774` (staticfn; NHOPTC wires
+ * `&optfn_fruit` into the fruit allopt row, optlist.h `:339`).
+ * do_init is optn_ok. do_set copies into `pl_fruit` (mungspaces,
+ * nmcpy, sanitize_name; empty becomes "slime mold"); fruitadd and the
+ * "Fruit is now" pline run only when `!opt_initial`. get_val and
+ * get_cnf_val Sprintf `pl_fruit`. No do_handler arm — falls through
+ * to optn_ok.
+ * `pline` is async, but parseoptions compares the optfn result to
+ * OPTN_OK synchronously, so the message is started and not awaited
+ * (doset keeps `give_opt_msg` false, so that path does not pline).
+ * @param {number} optidx C optidx (UNUSED)
+ * @param {number} req
+ * @param {boolean} negated
+ * @param {string|{buf:string}} opts
+ * @param {string} _op C reassigns op from string_for_opt
+ * @param {boolean} [optInitial] C go.opt_initial; default game.go.opt_initial
+ */
+export function optfn_fruit(optidx, req, negated, opts, _op, optInitial) {
+    void optidx;
+    const optInit = optInitial ?? !!game.go?.opt_initial; // C go.opt_initial
+    let forig = null; // C `:1711`
+
+    if (req === REQ_DO_INIT) { // C `:1713`
+        return OPTN_OK; // C `:1714`
     }
-    game.pl_fruit = s;
-    fruitadd(game.pl_fruit, forig);
-    // C: if (give_opt_msg) pline("Fruit is now \"%s\".", …) —
-    // doset_simple keeps give_opt_msg false.
+    if (req === REQ_DO_SET) { // C `:1716`
+        const valOptional = negated || !optInit; // C `:1717`
+        const optstr = typeof opts === 'string' ? opts : String(opts ?? '');
+        let op = string_for_opt(optstr, valOptional); // C `:1717`
+        // C string_for_opt `:6678` — JS helper omits the sink; this caller
+        // still fires it when the value is required.
+        if (!valOptional && op === EMPTY_OPTSTR)
+            config_error_add("Missing parameter for '%s'", optstr);
+        if (negated) { // C `:1718`
+            if (op !== EMPTY_OPTSTR) { // C `:1719`
+                bad_negation('fruit', true); // C `:1720`
+                return OPTN_ERR; // C `:1721`
+            }
+            op = EMPTY_OPTSTR; // C `:1723` then goto goodfruit `:1724`
+        } else if (op === EMPTY_OPTSTR) { // C `:1726`
+            return OPTN_ERR; // C `:1727`
+        } else {
+            op = mungspaces(op); // C `:1729` in place; JS returns the copy
+            if (!optInit) { // C `:1730`
+                const fnum = { fid: 0 }; // C `:1732` — objnam highest fid
+                const f = fruit_from_name(op, false, fnum); // C `:1736`
+                if (!f) { // C `:1737`
+                    if (!game.flags?.made_fruit) // C `:1738`
+                        forig = fruit_from_name(String(game.pl_fruit || ''), false, null); // C `:1739`
+                    if (!forig && (fnum.fid | 0) >= 100) { // C `:1741`
+                        config_error_add( // C `:1742–1743`
+                            "Doing that so many times isn't very fruitful.");
+                        return OPTN_OK; // C `:1744`
+                    }
+                }
+            }
+        }
+        // goodfruit `:1748`
+        game.pl_fruit = nmcpy(op, PL_FSIZ); // C `:1749`
+        game.pl_fruit = sanitize_name(game.pl_fruit || ''); // C `:1750`
+        if (!game.pl_fruit) // C `:1753` !*svp.pl_fruit
+            game.pl_fruit = nmcpy('slime mold', PL_FSIZ); // C `:1754`
+        if (!optInit) { // C `:1755`
+            fruitadd(game.pl_fruit, forig); // C `:1759`
+            // C `:1760` give_opt_msg static-init TRUE (options.c `:108`).
+            if (game.give_opt_msg !== false)
+                void pline('Fruit is now "%s".', game.pl_fruit); // C `:1761`
+        }
+        return OPTN_OK; // C `:1768`
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C `:1770`
+        set_optbuf(opts, String(game.pl_fruit || '')); // C `:1771` Sprintf
+        return OPTN_OK; // C `:1772`
+    }
+    return OPTN_OK; // C `:1774`
 }
 
 /**
@@ -3507,9 +3582,10 @@ async function doset_compound_via_getlin(opt) {
         // C: ESC still counts as pickedone — caller returns 1
         return;
     }
-    // C: parseoptions("%s:%s") — fruit via optfn_fruit; other Comp deferred
+    // C: parseoptions("%s:%s") — fruit via optfn_fruit; other Comp deferred.
+    // In-game: !opt_initial so fruitadd runs. doset has give_opt_msg false.
     if (name === 'fruit') {
-        optfn_fruit_set(abuf);
+        optfn_fruit(allopt_idx('fruit'), REQ_DO_SET, false, `fruit:${abuf}`, abuf, false);
     }
     // Named omission: remaining Comp/Othr getlin → parseoptions arms
 }
@@ -3526,14 +3602,16 @@ function currently_set_val(n) {
 
 /**
  * C ref: options.c optfn_* get_val for doset_simple_menu compound/othr rows.
- * Named omissions: full handlers for fruit/autounlock/symset/
+ * Named omissions: full handlers for autounlock/symset/
  * statuslines/exceptions/status rules — display values only until those
  * handlers are ported (menu colors and number_pad handlers are live).
  */
 function simple_opt_get_val(opt) {
     const name = opt.name;
     if (name === 'fruit') {
-        return String(game.pl_fruit || game.flags?.fruit || 'slime mold');
+        const holder = { buf: '' };
+        optfn_fruit(allopt_idx('fruit'), REQ_GET_VAL, false, holder, EMPTY_OPTSTR);
+        return holder.buf || 'slime mold';
     }
     if (name === 'number_pad') {
         // C optfn_number_pad get_val — live (delegates so both O-menus agree).
@@ -4848,7 +4926,7 @@ const allopt = [
     // optlist.h:336 NHOPTB(force_invmenu)
     { name: 'force_invmenu', opttyp: BoolOpt, idx: 65, setwhere: SET_IN_GAME, initval: false, addr: { obj: 'flags', key: 'force_invmenu' }, optfn: null },
     // optlist.h:339 NHOPTC(fruit)
-    { name: 'fruit', opttyp: CompOpt, idx: 66, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: null },
+    { name: 'fruit', opttyp: CompOpt, idx: 66, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_fruit },
     // optlist.h:341 NHOPTB(fullscreen)
     { name: 'fullscreen', opttyp: BoolOpt, idx: 67, setwhere: SET_IN_CONFIG, initval: false, addr: null /* C: &iflags.wc2_fullscreen, no live field */, optfn: null },
     // optlist.h:345 NHOPTC(glyph)
