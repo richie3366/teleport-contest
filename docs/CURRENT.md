@@ -102,10 +102,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `polyself.c` `mbodypart` — coverage THIN (C 168 L `polyself.c:1972–2140` / JS 72 L in js/polyself.js). Verify `node scripts/verify.mjs --fn mbodypart`.
+**Next cluster:** `dothrow.c` `thitmonst` — coverage PARTIAL (C 291 L `dothrow.c:2011–2304` / JS 210 L). Verify `node scripts/verify.mjs --fn thitmonst`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2802 (index).**
+**Keep D-0845…D-2803 (index).**
 <!-- recent:begin -->
+**D-2803** `nethack-c/upstream/src/do_wear.c:383–431` `Cloak_off`. `do_wear.c:186–259` `Boots_on`. `d — Both functions restarted in C order.
 **D-2802** `nethack-c/upstream/include/monst.h:277` `resists_poison(mon)` is `Resists_Elem(mon, POISO — `Resists_Elem` in `js/mondata.js` in that C order.
 **D-2801** `nethack-c/upstream/include/timeout.h:37–48` `MELT_ICE_AWAY` is the ninth `timeout_types`  — `MELT_ICE_AWAY` is `SHRINK_GLOB + 1` (8).
 **D-2800** `nethack-c/upstream/include/youprop.h:253–255` `Flying`. `do.c:1206` ceiling hider. `do.c: — Import `Flying` from `mhitu.js` and delete the local clone.
@@ -113,11 +114,10 @@ revisits the picker.
 **D-2798** `nethack-c/upstream/src/zap.c:5536–5578` `fracture_rock`. Callees: `get_obj_location`, `co — Restart of `fracture_rock` in C order, async because `You` and `breakobj` can reach `--More--`.
 **D-2797** `nethack-c/upstream/src/uhitm.c:3122–3165` `mhitm_ad_drst`. Callees: `mhitm_mgc_atk_negate — One exported `mhitm_ad_drst` in C order.
 **D-2796** `nethack-c/upstream/src/mthrowu.c:75–155` `thitu`. Callees: `doname`, `mshot_xname`, `kill — Restart of `thitu` in C order.
-**D-2795** `nethack-c/upstream/src/mkobj.c:2067–2118` `mkcorpstat`. Callees: `impossible` (does not r — Restart of `mkcorpstat` in C order.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2802; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2803; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

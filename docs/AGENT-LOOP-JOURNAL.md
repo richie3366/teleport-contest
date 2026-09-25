@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-25 — D-2803 `Cloak_off` and `Boots_on` follow the C otyp switches
+
+**C locus:** `nethack-c/upstream/src/do_wear.c:383–431` `Cloak_off`. `do_wear.c:186–259` `Boots_on`. `do_wear.c:2375` `gw.wasinwater = u.uinwater` in `accessory_or_armor_on`, read by the water-walking arm.
+**JS:** `js/do_wear.js` `Cloak_off` `:883`. `Boots_on` `:1457`. `game.wasinwater` `:3208`.
+**Change:** Both functions restarted in C order. `Cloak_off` keeps `oldprop` from before `setworn`, then the plain-cloak breaks, elven, displacement, mummy `Invis && !Blind` `newsym` + `You`, invisibility `!oldprop && !HInvis` `makeknown` + `pline`, alchemy `EAcid_resistance &= ~WORN_CLOAK`, and the default `impossible`. `Boots_on` adds the plain-boot breaks, water-walking `spoteffects(TRUE)` plus the snapshot, levitation `float_up` / `spoteffects(FALSE)` or `float_vs_flight`, the default `impossible`, and the `known` + `update_inventory` tail.
+**Verify:** `node scripts/verify.mjs --fn Cloak_off` → VERIFY: PASS (syntax 1 changed js file `do_wear.js`; Rule #2; hidden note 0 blocked — normal for a coverage row; reach: no RNG-tagged reach, fixed smoke 12/12 REACH-OK 0 regressed; green 2/2; strict 2/2; cohort 7/7; full skipped — `do_wear.js` is outside the auto shared set). `node scripts/verify.mjs --fn Boots_on` → same PASS, smoke 12/12 REACH-OK.
+**Named:** A null `uarmc` / `uarmf` still returns after `clear_worn` (C would dereference). `incr_itimeout(&HFumbling, rnd(20))` stays the dual-write of the flat and `uprops` slot (`potion.js` `incr_itimeout` writes only the slot object).
+**Next:** `dothrow.c` `thitmonst`.
 ## 2026-09-25 — D-2802 `resists_poison` follows `Resists_Elem`
 
 **C locus:** `nethack-c/upstream/include/monst.h:277` `resists_poison(mon)` is `Resists_Elem(mon, POISON_RES)`. `mondata.c:129–197` `Resists_Elem`: for property 1..8, hero `u.uprops` intrinsic||extrinsic, else `mon_resistancebits` (`monst.h:270–271`) `& (1 << (prop-1))`; then wielded artifact `defends(prop+1)`; then worn `oc_oprop`, worn alchemy smock for poison and acid, and `defends_when_carried`. `prop+1` is the damage type (`:152`): poison is `AD_DRST` (7). Stone is `AD_SPC1` (9), not `AD_STON`.

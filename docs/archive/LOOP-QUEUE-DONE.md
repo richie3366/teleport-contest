@@ -5,7 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-25
 
-- [x] `js/mhitm.js` `resists_poison_mm` is only `mresists|mextrinsics|mintrinsics`. `mhitm_ad_drst` (you→mon and `mhitm_really_poison`) calls it. C `resists_poison` is `Resists_Elem` (`mondata.c:127–197`): those bits, then wielded artifact `defends`, worn/carried `oc_oprop`, alchemy smock, and `defends_when_carried`. A smock or poison-defending artifact does not resist. Source: reviews/loop-unattended/1756-5df2d266b-mhitm-ad-drst.md. Verify `node scripts/verify.mjs --fn mhitm_ad_drst` (reach regression must be 0). **Addressed:** D-2802
+- [x] `do_wear.c` Cloak_off — coverage PARTIAL (C 48 L `do_wear.c:383–431` / JS 23 L in js/do_wear.js; hops 3, callers 10, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn Cloak_off` (reach regression must be 0). Measured `port-coverage.mjs --name Cloak_off` 2026-09-25 @ 75144e146. **Addressed:** D-2803
+- [x] `do_wear.c` Boots_on — coverage PARTIAL (C 72 L `do_wear.c:187–259` / JS 39 L in js/do_wear.js; hops 3, callers 4, RNG 1, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn Boots_on` (reach regression must be 0). Measured `port-coverage.mjs --name Boots_on` 2026-09-25 @ 84dbed10c. **Addressed:** D-2803
+
+
+- [x] `js/mhitm.js` `resists_poison_mm` is only `mresists|mextrinsics|mintrinsics`. `mhitm_ad_drst` (you→mon and `mhitm_really_poison`) calls it. C `resists_poison` is `Resists_Elem` (`mondata.c:127–197`): those bits, then wielded artifact `defends`, worn/carried `oc_oprop`, alchemy smock, and `defends_when_carried`. A smock or poison-defending artifact does not resist. Source: reviews/loop-unattended/1756-5df2d266b-mhitm-ad-drst.md. Verify `node scripts/verify.mjs --fn mhitm_ad_drst` (reach regression must be 0). **Addressed:** D-2802 `8af23c12b`
 
 
 - [x] `js/mkobj.js` `start_timer` stores string `MELT_ICE_AWAY` as func_index 0 (`action | 0`), which is `ROT_ORGANIC`. C `timeout_funcs` index 8 is `melt_ice_away` (`timeout.c:1978–1990`). `run_timers` then calls `rot_organic` on a level timer (`mkobj.js:1545`) and the string compare never runs. Store index 8 and call `melt_ice_away` on the packed long. Source: reviews/loop-unattended/1753-2b10e06e1-start-timer.md. Verify `node scripts/verify.mjs --fn start_timer` (reach regression must be 0). **Addressed:** D-2801 `67ccc0b33`

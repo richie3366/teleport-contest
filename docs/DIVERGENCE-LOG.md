@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2803 — `Cloak_off` and `Boots_on` follow the C otyp switches
+
+- **Status:** fixed (coverage; `hidden-proxy verify` reports no corpus session blocked). `mbodypart`, `pet_ranged_attk`, `list_genocided`, and `dowhatdoes_core` were already the live C body and are parked Stale.
+- **Symptom:** Taking off a mummy wrapping, a cloak of invisibility, or an alchemy smock only cleared the worn slot. Putting on water-walking boots never called `spoteffects` and never learned the boots from the pre-`setworn` water snapshot. Putting on levitation boots never called `float_up`. `Boots_on` always ran `find_ac`, which C does not.
+- **C locus:** `nethack-c/upstream/src/do_wear.c:383–431` `Cloak_off`. `do_wear.c:186–259` `Boots_on`. `do_wear.c:2375` `gw.wasinwater = u.uinwater` in `accessory_or_armor_on`, read by the water-walking arm.
+- **JS was:** `Cloak_off` handled elven stealth and displacement only. `Boots_on` handled fumble, speed, and elven, then `find_ac`. There was no `wasinwater` snapshot.
+- **Fix:** Both functions restarted in C order. `Cloak_off` keeps `oldprop` from before `setworn`, then the plain-cloak breaks, elven, displacement, mummy `Invis && !Blind` `newsym` + `You`, invisibility `!oldprop && !HInvis` `makeknown` + `pline`, alchemy `EAcid_resistance &= ~WORN_CLOAK`, and the default `impossible`. `Boots_on` adds the plain-boot breaks, water-walking `spoteffects(TRUE)` plus the snapshot, levitation `float_up` / `spoteffects(FALSE)` or `float_vs_flight`, the default `impossible`, and the `known` + `update_inventory` tail. `float_up` joins the existing `trap.js` import.
+- **JS:** `js/do_wear.js` `Cloak_off` `:883`. `Boots_on` `:1457`. `game.wasinwater` `:3208`.
+- **Callers:** C `do_wear.c:1992` armoroff → `js/do_wear.js:1753` (delay `afternmv` `:1740`). C `do_wear.c:2854` → `:2227`. C `do_wear.c:3156` `wornarm_destroyed` → `:3868`. C `polyself.c:1182/1186/1190/1217` → `js/polyself.js:1230/1234/1238/1267`. C `steal.c:250` → `js/steal.js:282`. C `do_wear.c:3248` and `trap.c:327` are comments. C `do_wear.c:1560` `set_wear` → `Boots_on` `:1581`. C `do_wear.c:2385` `afternmv` → `:3213`. C `do_wear.c:26`, `:2405`, and `hack.c:881` are comments. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn Cloak_off` → VERIFY: PASS (syntax 1 changed js file `do_wear.js`; Rule #2; hidden note 0 blocked — normal for a coverage row; reach: no RNG-tagged reach, fixed smoke 12/12 REACH-OK 0 regressed; green 2/2; strict 2/2; cohort 7/7; full skipped — `do_wear.js` is outside the auto shared set). `node scripts/verify.mjs --fn Boots_on` → same PASS, smoke 12/12 REACH-OK.
+- **Named omissions:** A null `uarmc` / `uarmf` still returns after `clear_worn` (C would dereference). `incr_itimeout(&HFumbling, rnd(20))` stays the dual-write of the flat and `uprops` slot (`potion.js` `incr_itimeout` writes only the slot object). `cmd.c:941` steed breath stays the named omit at `js/polyself.js:2879`. `mbodypart`'s bad-part `impossible` is the only uncalled debug sink on that parked body. `dowhatdoes_core`'s cmdhelp scan is `#if 0`.
+- **Next:** `dothrow.c` `thitmonst`.
+
 ## D-2802 — `resists_poison` follows `Resists_Elem`
 
 - **Status:** fixed (Must-fix from review 1756; `resists_poison_mm` was the bit test only. `hidden-proxy verify` reports no corpus session blocked).
