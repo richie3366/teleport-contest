@@ -3592,6 +3592,21 @@ uhitm DISMOUNT_KNOCKED `u.dx`/`u.dy` caller;
 (`:185`; `wizard && y_n("Force the mount to succeed?")` short-circuit
 before `mount_steed(m_at, forcemount)`; static `y_n` from getline.js,
 hoisted cycle-safe);
+**`mount_steed` whole body D-2813** (`steed.c:197–383` in C order,
+`js/steed.js` `mount_steed`; caller `steed.c:187` → `doride`
+`js/steed.js`). Live: Hallucination / Wounded_legs wizard `heal_legs(0)`,
+Upolyd+slithy saddle fit, Blind/AP/`mundetected`, long-worm tail before
+`test_move`, `body_part(LEG)`, `which_armor(W_SADDLE)`, touch-petrify
+`instapetrify`, trapped `mhe`+`trapname`, non-Knight `--mtame` leash
+`m_unleash(FALSE)`, `uinwater`+`hliquid`, eroded metallic `uarm`,
+`Lev_at_will`, slip `x_monnam` + `losehp`/`finish_losehp_done`,
+`maybewakesteed` wake pline, polearm `gu.unweapon = FALSE`,
+Stealth edge via `steed_vs_stealth` (`Flying()` includes a flyer steed),
+`remove_monster` then `teleds(TELEDS_ALLOW_DRAG)`. Named: a `mtrapped`
+monster with no `t_at` record says "a trap" (C would dereference);
+`which_armor_saddle` remains for `use_saddle` / `dismount_steed`;
+`landing_spot` still walks `game.ftrap` rather than `trap.c` `t_at`;
+`steed_vs_stealth` writes flat `BStealth` (not `uprops[STEALTH].blocked`);
 **`poly_steed` D-2243**
 (`:851–873`; `!can_saddle || !can_ride` → `dismount_steed(DISMOUNT_FELL)`,
 else `x_monnam(ARTICLE_YOUR, SUPPRESS_SADDLE)` + shape-change `"your " →

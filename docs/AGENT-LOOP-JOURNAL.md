@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-25 — D-2813 `mount_steed` rides in C order through `teleds`
+
+**C locus:** `nethack-c/upstream/src/steed.c:197–383` `mount_steed`. Already riding `:206–209`. Hallucination `:213–216`. Wounded legs and wizard `heal_legs(0)` `:228–238`. Poly form including `slithy` `:241–246`. Burden `:247–250`. Unseen / `M_AP_*` `:253–259`. Long-worm tail before `test_move` `:262–270`. Stuck / `Punished` / `test_move` `:271–280`. Saddle `:283–287`. `touch_petrifies` `:290–298`. Tame / minion `:299–302`. Trapped `:303–309`. Non-Knight `--mtame` and `m_unleash(FALSE)` `:312–319`. Underwater `:320–324`. `can_saddle` / `can_ride` `:325–328`. Levitation reach `:331–336`. Eroded metallic armor `:337–342`. Slip `rnd` then `x_monnam` / `losehp` `:343–360`. Success `:362–381`: `maybewakesteed`, float and flight lines, polearm `unweapon = FALSE`, `u.usteed`, stealth edge, `remove_monster`, `teleds(TELEDS_ALLOW_DRAG)`, `disp.botl`.
+**JS:** `js/steed.js` `mount_steed` `:607`. `maybewakesteed` `:464`. `steed_vs_stealth` `:409`.
+**Change:** One `mount_steed` in that C order. Property gates are the C macros (`Hallucination`, `Blind`, `Upolyd`, `Levitation`, `Flying`, `Fumbling`, `Glib`, `Punished`) with flat/uprops OR where this port stores the same long in either place. `Lev_at_will` is the `I_SPECIAL` / `W_ARTI` test.
+**Verify:** `node scripts/verify.mjs --fn mount_steed` → PASS syntax (1 changed js file: js/steed.js) · PASS rule2 · note hidden (no corpus session blocked at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (verifier: steed.js is outside the auto shared set) · VERIFY: PASS.
+**Named:** A `mtrapped` monster with no `t_at` record says "a trap" (C would dereference `t->ttyp`). `which_armor_saddle` remains for `use_saddle` and `dismount_steed`.
+**Next:** `pickup.c` `allow_category` (next Open — coverage row).
 ## 2026-09-25 — D-2812 `remove_worn_item` unwields through the C off-functions
 
 **C locus:** `nethack-c/upstream/src/steal.c:213–290` `remove_worn_item`. `donning` then `cancel_don` (`:218`). Return when `owornmask` is clear (`:219`). Save `in_use`, set it, and restore it (`:242–243`, `:289`) so `emergency_disrobe` and `lava_effects` leave the object alone. Armor dispatches `skinback(TRUE)` then `*_off` or `setworn` (`:246–261`). Amulet, ring, tool, and weapons call `Amulet_off`, `Ring_gone`, `Blindf_off`, and `*gone` (`:263–275`). Ball and chain call `unpunish` only when `unchain_ball` (`:277–279`); any other leftover mask calls `setnotworn` (`:280–282`). `debugpline1` on `OBJ_DELETED` is the non-DEBUG empty macro (`include/lint.h`).
