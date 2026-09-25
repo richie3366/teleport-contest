@@ -619,6 +619,18 @@ export function arti_cost(otmp) {
     return 100 * oc_cost;
 }
 
+/**
+ * C ref: artifact.c artifact_has_invprop `:2299–2305`.
+ * Non-artifact is artilist[ART_NONARTIFACT]; then inv_prop equality.
+ * Sole C caller is dodown's controlled-levitation age bump.
+ */
+export function artifact_has_invprop(otmp, inv_prop) {
+    const list = artilist();
+    const arti = get_artifact(otmp);
+    return arti !== list[ART_NONARTIFACT]
+        && (arti?.inv_prop | 0) === (inv_prop | 0);
+}
+
 /** C ref: artifact.c get_artifact */
 export function get_artifact(obj) {
     const list = artilist();

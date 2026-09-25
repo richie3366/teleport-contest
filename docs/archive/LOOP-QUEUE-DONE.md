@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-25
 
-- [x] `options.c` optfn_petattr — coverage MISSING (C 54 L `options.c:3138–3194` / JS no symbol; hops —, callers 0, RNG 0, msg 0; dead callees: handler_petattr). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn optfn_petattr` (reach regression must be 0). Measured `port-coverage.mjs --name optfn_petattr` 2026-09-23 @ e93d269e7. **Addressed:** D-2792
+- [x] `do.c` dodown — coverage THIN (C 163 L `do.c:1131–1294` / JS 48 L in js/do.js; hops —, callers 0, RNG 3, msg 13; dead callees: artifact_has_invprop, goto_hell). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dodown` (reach regression must be 0). Measured `port-coverage.mjs --name dodown` 2026-09-25 @ 38d6c8a36. **Addressed:** D-2793
+
+
+- [x] `options.c` optfn_petattr — coverage MISSING (C 54 L `options.c:3138–3194` / JS no symbol; hops —, callers 0, RNG 0, msg 0; dead callees: handler_petattr). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn optfn_petattr` (reach regression must be 0). Measured `port-coverage.mjs --name optfn_petattr` 2026-09-23 @ e93d269e7. **Addressed:** D-2792 `75144e146`
 
 
 - [x] `js/options.js` `parseNethackrc` role/race/gender/align do_set arms never set `duplicateOpt` — C `parseoptions` `:621` sets `duplicate` before the optfn, and `parse_role_opt` `:7987–7990` then rejects a positive value when the same-phase saved string starts with `'!'`. Source: reviews/loop-unattended/1745-6864eb3d8-optfn-gender-family.md. Verify `node scripts/verify.mjs --fn optfn_gender` (reach regression must be 0). **Addressed:** D-2791 `38d6c8a36`

@@ -176,6 +176,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-25 — D-2793 `do.c` dodown whole-body port
+
+**C locus:** `nethack-c/upstream/src/do.c:1131–1294` `dodown`. Same commit: `u_stuck_cannot_go` `:1110–1127` (callers `:1221` and `doup` `:1321`), `dungeon.c` `goto_hell` `:1957–1963` (sole caller `:1282`), `artifact.c` `artifact_has_invprop` `:2299–2305` (sole caller `:1162`).
+**JS:** `js/do.js` `u_stuck_cannot_go :2944`, `goto_hell :2965`, `dodown :2977`, `doup` stuck call `:3170`. `js/artifact.js` `artifact_has_invprop :627`. `js/cmd.js` `set_move_cmd :283`, `u_rooted :4432`. `js/const.js` `DIR_DOWN :230`.
+**Change:** Restart of `dodown` in C order. `set_move_cmd(DIR_DOWN, 0)` with `DIR_DOWN` restored to 8 (`zdir[8]` is +1). Controlled levitation walks `game.invent` (the hero's top-level list, C's `invent` nobj chain), ages a levitation artifact, then `float_down`.
+**Verify:** `node scripts/verify.mjs --fn dodown` → PASS syntax (4 changed js files: js/artifact.js js/cmd.js js/const.js js/do.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 · VERIFY: PASS.
+**Named:** `doup` still omits `set_move_cmd(DIR_UP)`, `u_rooted`, `stucksteed`, and `near_capacity() > SLT_ENCUMBER` (`do.c:1302–1328`). `Flying()` still omits the steed-flyer arm, so the lurker "fly out of hiding" test is hero H/E/B only.
+**Next:** next Open — coverage row (`timeout.c` start_timer). Nine measured coverage rows were pasted under that head.
 ## 2026-09-25 — D-2792 `options.c` optfn_petattr whole-body port
 
 **C locus:** `nethack-c/upstream/src/options.c:3138–3194` `optfn_petattr` and `:6152–6164` `handler_petattr`. NHOPTC wires the function pointer (`optlist.h:568`). do_init returns `optn_ok`. do_set takes the value with `string_for_opt(opts, negated)`, rejects a negated value, matches a tty/curses attribute name (`match_str2attr`, complain FALSE) or stores `ATR_NONE` when negated and empty, then sets `hilite_pet` from `wc2_petattr != ATR_NONE` and requests a redraw outside init. get_val / get_cnf_val copy `attr2attrname` on tty/curses. do_handler is `query_attr`.
