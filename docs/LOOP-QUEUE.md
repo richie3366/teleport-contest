@@ -103,6 +103,10 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 always Must-fix rows: they forfeit every later screen of that session
 (Constitution §10.14).
 
+- [ ] `js/mhitu.js` `unstuck` skips `placebc` when a swallowed iron ball kills the engulfer. C `mon.c:3448–3453`: after `set_ustuck(0)`, if swallowed and `Punished && uchain->where != OBJ_FLOOR`, `placebc()` before `vision_full_recalc`. `thitmonst` (`dothrow.c:2240–2241`, `js/dothrow.js:758`) then returns 1 so the caller does not place `uball` again. JS sets `ux`/`uy` and `docrt` and leaves the ball unplaced. Source: reviews/loop-unattended/1763-b5e93433b-thitmonst.md. Verify `node scripts/verify.mjs --fn unstuck` (reach regression must be 0).
+- [ ] `js/do_wear.js` `Boots_on` `FUMBLE_BOOTS` adds `rnd(20)` with `(sum & TIMEOUT)`. C `incr_itimeout` (`potion.c:55–85`) saturates at `TIMEOUT` (`0x00FFFFFF`) via `itimeout`. A sum past `0x00FFFFFF` wraps. `js/potion.js` `incr_itimeout` already clamps; mirror `HFumbling` from the slot. Source: reviews/loop-unattended/1762-a48dbe85b-cloak-boots.md. Verify `node scripts/verify.mjs --fn Boots_on` (reach regression must be 0).
+- [ ] `js/display.js` `petattr_to_tty` returns 0 for wintype `ATR_ITALIC` (3) and `ATR_BLINK` (5). `s_atr2str` (`termcap.c:1343–1364`) with `ZH`/`MB`/`MD` null and `nh_US`/`nh_HI` set (`termcap.c:157–158`) paints italic as underline and blink as bold. Dim stays 0 (`:1370–1374`). Source: reviews/loop-unattended/1758-7a4911ae6-petattr-to-tty.md. Verify `node scripts/verify.mjs --fn optfn_petattr` (reach regression must be 0).
+
 ## Open — coverage (breadth phase — pop first after Must-fix)
 
 Rows below are `port-coverage.mjs --rows` output (score = reach × call

@@ -7,6 +7,21 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — Audit e1ef155a9 (reviews 1758–1766) + cadence 44/44.
+
+Reviews audit D-2799..D-2807 against pinned C (csym bodies + callers,
+sym.mjs, per-SHA `hidden-proxy verify --reach-all`). 1759/1760/1761/1764/1765/1766
+ACCEPT. 1758 QUALITY-RISK: `petattr_to_tty` returns 0 for italic and blink;
+`s_atr2str` paints those as underline and bold. 1762 QUALITY-RISK:
+`Boots_on` fumble adds `rnd(20)` with `& TIMEOUT` and wraps. 1763
+QUALITY-RISK: a swallowed iron ball returns 1 from `thitmonst` while
+`unstuck` still skips `placebc`. Every re-measure was 0 blocked on the
+12-row board, smoke REACH-OK, 0 REGRESSED. Cadence at `e1ef155a9`:
+public 44/44, Scr 11,405, RNG 792,838, speed `252+1.58/turn` (R² 0.767);
+held-out 12/44 (+0, last scored 2026-09-25T19:01Z). `hidden-proxy score`
+12/12 PASS; `.cache/hidden/sessions` is empty (941 recipes), so the
+614/940 fortress was not re-run and no PASS→FAIL row was opened. Rule #2
+clean. Next: Must-fix `unstuck` `placebc`.
 ## 2026-09-25 — D-2807 `bhito` follows the wand-on-object switch in C order
 
 **C locus:** `nethack-c/upstream/src/zap.c:2119–2424` `bhito`. Self-hit `:2130`. Bypass `:2133–2170`. Floor check `:2178–2179`. Ball and chain `:2181–2188`. Polymorph conduct and cover `:2191–2220`. Probing `:2222–2274`. Striking `:2275–2312`. Cancel `:2313–2317`. Drain `:2318–2320`. Teleport `:2321–2329`. Make-invisible `:2330–2331`. Undead turning `:2332–2392`. Opening and locking `:2393–2403`. No-effect objects `:2404–2410`. Stone to flesh `:2412–2414`. Default `:2415–2417`. `learnwand` `:2421–2422`.

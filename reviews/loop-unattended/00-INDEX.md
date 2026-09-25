@@ -1767,3 +1767,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1755-84dbed10c-thitu.md](./1755-84dbed10c-thitu.md) | `84dbed10c` | D-2796 thitu | **ACCEPT** |
 | [1756-5df2d266b-mhitm-ad-drst.md](./1756-5df2d266b-mhitm-ad-drst.md) | `5df2d266b` | D-2797 mhitm_ad_drst | **QUALITY-RISK** |
 | [1757-0cf2f655d-fracture-rock.md](./1757-0cf2f655d-fracture-rock.md) | `0cf2f655d` | D-2798 fracture_rock | **ACCEPT** |
+| [1758-7a4911ae6-petattr-to-tty.md](./1758-7a4911ae6-petattr-to-tty.md) | `7a4911ae6` | D-2799 petattr_to_tty | **QUALITY-RISK** |
+| [1759-24d4c0ac1-dodown-flying.md](./1759-24d4c0ac1-dodown-flying.md) | `24d4c0ac1` | D-2800 dodown Flying steed | **ACCEPT** |
+| [1760-67ccc0b33-melt-ice-index.md](./1760-67ccc0b33-melt-ice-index.md) | `67ccc0b33` | D-2801 MELT_ICE_AWAY index | **ACCEPT** |
+| [1761-8af23c12b-resists-elem.md](./1761-8af23c12b-resists-elem.md) | `8af23c12b` | D-2802 Resists_Elem poison | **ACCEPT** |
+| [1762-a48dbe85b-cloak-boots.md](./1762-a48dbe85b-cloak-boots.md) | `a48dbe85b` | D-2803 Cloak_off Boots_on | **QUALITY-RISK** |
+| [1763-b5e93433b-thitmonst.md](./1763-b5e93433b-thitmonst.md) | `b5e93433b` | D-2804 thitmonst ball/potion | **QUALITY-RISK** |
+| [1764-7215d8d6a-arti-invoke.md](./1764-7215d8d6a-arti-invoke.md) | `7215d8d6a` | D-2805 arti_invoke | **ACCEPT** |
+| [1765-7041ab3e4-addinv-core0.md](./1765-7041ab3e4-addinv-core0.md) | `7041ab3e4` | D-2806 addinv_core0 | **ACCEPT** |
+| [1766-e1ef155a9-bhito.md](./1766-e1ef155a9-bhito.md) | `e1ef155a9` | D-2807 bhito | **ACCEPT** |
