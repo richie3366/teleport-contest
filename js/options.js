@@ -175,6 +175,17 @@ import {
     config_error_add,
 } from './botl.js';
 import { get_changed_key_binds, handler_rebind_keys, count_bind_keys } from './cmd.js';
+import {
+    ROLE_NONE, ROLE_RANDOM, PL_NSIZ,
+    RS_ROLE, RS_RACE, RS_GENDER, RS_ALGNMNT, RS_filter,
+} from './const.js';
+import {
+    roles, races, aligns, genders,
+    str2role, str2race, str2gend, str2align,
+} from './roles.js';
+import {
+    clearrolefilter, setrolefilter, rolefilterstring,
+} from './player_selection.js';
 
 /** C ref: global.h PL_FSIZ — fruit name buffer. */
 const PL_FSIZ = 32;
@@ -2180,6 +2191,12 @@ export function parseNethackrc(rc) {
     result.flags.vanq_sortmode = game.flags.vanq_sortmode;
     // C allopt_array_init `:7428` optfn(do_init). soundlib's init is optn_ok.
     optfn_soundlib(allopt_idx('soundlib'), REQ_DO_INIT, false, '', EMPTY_OPTSTR);
+    // C allopt_array_init `:7428` do_init. gender/race/role/alignment
+    // inits are optn_ok (no flag write).
+    optfn_gender(allopt_idx('gender'), REQ_DO_INIT, false, '', EMPTY_OPTSTR);
+    optfn_race(allopt_idx('race'), REQ_DO_INIT, false, '', EMPTY_OPTSTR);
+    optfn_role(allopt_idx('role'), REQ_DO_INIT, false, '', EMPTY_OPTSTR);
+    optfn_alignment(allopt_idx('alignment'), REQ_DO_INIT, false, '', EMPTY_OPTSTR);
     result.iflags.getpos_coords = GPCOORDS_NONE; // C initoptions_init `:7190`
     if (!rc) return result;
 
@@ -2244,10 +2261,34 @@ export function parseNethackrc(rc) {
                 const val = stripped.slice(colonIdx + 1).trim();
 
                 if (key === 'name') result.name = val;
-                else if (key === 'role') result.role = val;
-                else if (key === 'race') result.race = val;
-                else if (key === 'gender') result.gender = val;
-                else if (key === 'align') result.align = val;
+                else if (key === 'role') {
+                    // C optfn_role do_set (opt_initial). result.role stays the
+                    // raw spelling so init_role_flags_from_rc still str2role's it.
+                    result.role = val;
+                    optfn_role(allopt_idx('role'), REQ_DO_SET, negated, stripped, val, true);
+                    result.flags.initrole = game.flags?.initrole;
+                    if (game.pl_character != null) result.pl_character = game.pl_character;
+                }
+                else if (key === 'race') {
+                    result.race = val;
+                    optfn_race(allopt_idx('race'), REQ_DO_SET, negated, stripped, val, true);
+                    result.flags.initrace = game.flags?.initrace;
+                    if (game.gp?.pl_race != null) result.pl_race = game.gp.pl_race;
+                }
+                else if (key === 'gender') {
+                    result.gender = val;
+                    optfn_gender(allopt_idx('gender'), REQ_DO_SET, negated, stripped, val, true);
+                    result.flags.initgend = game.flags?.initgend;
+                    if (game.flags && 'female' in game.flags)
+                        result.flags.female = game.flags.female;
+                }
+                else if (key === 'align' || key === 'alignment') {
+                    result.align = val;
+                    optfn_alignment(
+                        allopt_idx('alignment'), REQ_DO_SET, negated, stripped, val, true,
+                    );
+                    result.flags.initalign = game.flags?.initalign;
+                }
                 else if (key === 'playmode') {
                     // C ref: options.c optfn_playmode — sets wizard/discover;
                     // set_playmode() later renames plname to "wizard".
@@ -2452,6 +2493,23 @@ export function parseNethackrc(rc) {
                     if (negated) continue;
                     optfn_soundlib(
                         allopt_idx('soundlib'), REQ_DO_SET, false, stripped, EMPTY_OPTSTR, true,
+                    );
+                }
+                else if (lname === 'role' || lname === 'character') {
+                    // C optfn_role do_set, valueless (opt_initial).
+                    optfn_role(allopt_idx('role'), REQ_DO_SET, negated, stripped, EMPTY_OPTSTR, true);
+                }
+                else if (lname === 'race') {
+                    optfn_race(allopt_idx('race'), REQ_DO_SET, negated, stripped, EMPTY_OPTSTR, true);
+                }
+                else if (lname === 'gender') {
+                    optfn_gender(
+                        allopt_idx('gender'), REQ_DO_SET, negated, stripped, EMPTY_OPTSTR, true,
+                    );
+                }
+                else if (lname === 'align' || lname === 'alignment') {
+                    optfn_alignment(
+                        allopt_idx('alignment'), REQ_DO_SET, negated, stripped, EMPTY_OPTSTR, true,
                     );
                 }
                 else if (lname === 'fruit') {
@@ -3772,6 +3830,371 @@ export function optfn_soundlib(optidx, req, _negated, opts, _op, optInitial) {
     return OPTN_OK; // C `:3859`
 }
 
+/* C include/global.h option_phases `:592–601`. phase_not_set is 0. */
+const BUILTIN_OPT = 1, SYSCF_OPT = 2, RC_FILE_OPT = 3, ENVIRON_OPT = 4,
+    CMDLINE_OPT = 5, PLAY_OPT = 6, NUM_OPT_PHASES = 7;
+/* C options.c `:110` MAX_ROLEOPT — role, race, gender, alignment. */
+const MAX_ROLEOPT = 4;
+/* C optlist.h enum opt ordinals (unix allopt idx). */
+const OPT_ROLE = 3, OPT_RACE = 4, OPT_GENDER = 5, OPT_ALIGNMENT = 6;
+/* C options.c `:124` none[] / randomrole[]. */
+const ROLEOPT_NONE = '(none)', ROLEOPT_RANDOM = 'random';
+/** C options.c `:112` roleoptvals[MAX_ROLEOPT][num_opt_phases], BSS null. */
+const roleoptvals = Array.from({ length: MAX_ROLEOPT }, () => (
+    Array.from({ length: NUM_OPT_PHASES }, () => null)
+));
+
+/**
+ * Phase slot for saveoptstr / getoptstr. C stores `go.opt_phase` (cfgfiles
+ * sets `rc_file_opt` while reading the rc file). JS parseNethackrc passes
+ * optInitial instead of writing that global; in-game falls through to
+ * play_opt. An explicit `game.go.opt_phase` wins.
+ * @param {boolean} [optInitial]
+ * @returns {number}
+ */
+function roleOptPhase(optInitial) {
+    const p = game.go?.opt_phase;
+    if (typeof p === 'number' && p > 0) return p | 0;
+    if (optInitial ?? !!game.go?.opt_initial) return RC_FILE_OPT;
+    return PLAY_OPT;
+}
+
+/** C options.c rolestring `:72–73`. `field` is `adj` / `noun` / `name.m`. */
+function rolestring(val, array, field) {
+    const v = val | 0;
+    if (v >= 0) { // C `:73` val >= 0
+        const row = array[v];
+        if (!row) return ROLEOPT_NONE;
+        if (field === 'name.m') return row.name?.m ?? ROLEOPT_NONE;
+        return row[field] ?? ROLEOPT_NONE;
+    }
+    if (v === ROLE_RANDOM) return ROLEOPT_RANDOM; // C randomrole
+    return ROLEOPT_NONE; // C none[]
+}
+
+/** C options.c opt2roleopt `:714–730`. */
+function opt2roleopt(roleopt) {
+    switch (roleopt | 0) { // C `:717`
+    case OPT_ROLE: return 0; // C `:718–719`
+    case OPT_RACE: return 1; // C `:720–721`
+    case OPT_GENDER: return 2; // C `:722–723`
+    case OPT_ALIGNMENT: return 3; // C `:724–725`
+    default: break; // C `:726–727`
+    }
+    return 0; // C `:729`
+}
+
+/**
+ * C options.c getoptstr `:733–754`. `ophase == num_opt_phases` scans for
+ * any non-null slot, newest phase first.
+ * @param {number} optidx
+ * @param {number} ophase
+ * @returns {string|null}
+ */
+function getoptstr(optidx, ophase) {
+    const roleoptindx = opt2roleopt(optidx); // C `:735`
+    let phaseSlot = ophase | 0;
+    if (phaseSlot === NUM_OPT_PHASES) { // C `:738`
+        for (let phase = NUM_OPT_PHASES - 1; phase >= 0; --phase) { // C `:743`
+            if (roleoptvals[roleoptindx][phase]) { // C `:744`
+                phaseSlot = phase; // C `:745`
+                break; // C `:746`
+            }
+        }
+    }
+    if (roleoptindx >= 0 && roleoptindx < MAX_ROLEOPT // C `:749–750`
+        && phaseSlot >= 0 && phaseSlot < NUM_OPT_PHASES)
+        return roleoptvals[roleoptindx][phaseSlot]; // C `:751`
+    throw new Error(`bad index roleoptvals[${roleoptindx}][${phaseSlot}]`); // C `:752`
+}
+
+/**
+ * C options.c saveoptstr `:757–772`. Strips a leading `name:` / `name=`
+ * and replaces the phase slot (C free + dupstr).
+ * @param {number} optidx
+ * @param {string} optstr
+ * @param {number} [phase]
+ */
+function saveoptstr(optidx, optstr, phase) {
+    const ph = (phase == null) ? roleOptPhase() : (phase | 0); // C `:760` go.opt_phase
+    const roleoptindx = opt2roleopt(optidx); // C `:760`
+    let s = optstr == null ? '' : String(optstr);
+    const colon = s.indexOf(':'); // C `:761` strchr ':'
+    const eq = s.indexOf('='); // C `:761` strchr '='
+    let cut = colon;
+    if (cut < 0 || (eq >= 0 && eq < cut)) cut = eq; // C `:764–765`
+    if (cut >= 0) s = s.slice(cut + 1); // C `:766–767`
+    roleoptvals[roleoptindx][ph] = s; // C `:769–771` free + dupstr
+}
+
+/**
+ * C options.c get_cnf_role_opt `:8019–8033`. Newest phase that is not
+ * cmdline, environ, or builtin.
+ * @param {number} optidx
+ * @returns {string|null}
+ */
+function get_cnf_role_opt(optidx) {
+    let op = null; // C `:8024`
+    for (let phase = NUM_OPT_PHASES - 1; phase >= 0 && !op; --phase) { // C `:8026`
+        if (phase === CMDLINE_OPT || phase === ENVIRON_OPT // C `:8027–8028`
+            || phase === BUILTIN_OPT)
+            continue; // C `:8029`
+        op = getoptstr(optidx, phase); // C `:8030`
+    }
+    return op; // C `:8032`
+}
+
+/** C strncmpi(op, "no", 2) == 0. */
+function optStartsWithNo(op) {
+    return op.length >= 2 && op.slice(0, 2).toLowerCase() === 'no';
+}
+
+/**
+ * C options.c parse_role_opt `:7904–8016`. Writes the value the caller
+ * should keep into `opp.op` (`"!"` when the list is a negation filter).
+ * @param {number} optidx
+ * @param {boolean} negated
+ * @param {string} fullname
+ * @param {string} opts
+ * @param {{op:string}} opp
+ * @param {boolean} [optInitial]
+ * @returns {boolean}
+ */
+function parse_role_opt(optidx, negated, fullname, opts, opp, optInitial) {
+    const which = (optidx === OPT_ROLE) ? RS_ROLE // C `:7912–7916`
+        : (optidx === OPT_RACE) ? RS_RACE
+        : (optidx === OPT_GENDER) ? RS_GENDER
+        : (optidx === OPT_ALIGNMENT) ? RS_ALGNMNT
+        : RS_filter;
+    let ok = false; // C `:7917`
+    const optstr = typeof opts === 'string' ? opts : String(opts ?? '');
+    let op = string_for_env_opt(fullname, optstr, false, optInitial); // C `:7932`
+    if (op !== EMPTY_OPTSTR) { // C `:7932`
+        op = mungspaces(op); // C `:7936` in place; JS returns the copy
+        let prevNegated = false, first = true; // C `:7934`
+        while (op.length > 0) { // C `:7937` while (*op)
+            while (op.startsWith(' ')) op = op.slice(1); // C `:7938–7939`
+            let valNegated = false; // C `:7940`
+            while (op.startsWith('!') || optStartsWithNo(op)) { // C `:7941`
+                valNegated = !valNegated; // C `:7942`
+                // C `:7943` '!' skips 1; "no-" skips 3; "no" skips 2.
+                op = op.startsWith('!')
+                    ? op.slice(1)
+                    : op.slice(op.charAt(2) !== '-' ? 2 : 3);
+            }
+            if (!op || op.startsWith(' ')) { // C `:7945`
+                config_error_add("Negated nothing for '%s'", fullname); // C `:7946`
+                return false; // C `:7947`
+            }
+            if (!first) { // C `:7949`
+                if ((valNegated !== prevNegated) // C `:7950` xor
+                    || (negated && valNegated)) { // C `:7951`
+                    config_error_add("Invalid mixed negation for '%s%s'", // C `:7952–7953`
+                        negated ? '!' : '', fullname);
+                    return false; // C `:7954`
+                } else if (!negated && !valNegated) { // C `:7955`
+                    config_error_add( // C `:7956–7957`
+                        'Multiple role values only allowed when list is negated');
+                    return false; // C `:7958`
+                }
+            }
+            first = false; // C `:7960`
+            prevNegated = valNegated; // C `:7961`
+            const sp = op.indexOf(' '); // C `:7964` strchr
+            const token = sp >= 0 ? op.slice(0, sp) : op; // C `:7965–7966` *sp = 0
+            const phase = roleOptPhase(optInitial);
+            const preval = getoptstr(optidx, phase); // C `:7968`
+            if (valNegated || negated) { // C `:7969`
+                if (!preval || preval.charAt(0) !== '!') // C `:7974`
+                    clearrolefilter(which); // C `:7975`
+                if (!setrolefilter(token)) { // C `:7976`
+                    config_error_add("Invalid %s '%s'", fullname, token); // C `:7977`
+                    return false; // C `:7978`
+                }
+                saveoptstr(optidx, rolefilterstring(which), phase); // C `:7980`
+                opp.op = '!'; // C `:7981` *opp = neg_opt
+            } else {
+                if (duplicateOpt) { // C `:7987`
+                    if (preval && preval.charAt(0) === '!') { // C `:7988`
+                        complain_about_duplicate(optidx); // C `:7989`
+                        return false; // C `:7990`
+                    }
+                }
+                saveoptstr(optidx, token, phase); // C `:7995`
+                opp.op = token; // C `:7996` *opp = op
+            }
+            if (sp >= 0) op = op.slice(sp + 1); // C `:8003–8005`
+            else op = ''; // C `:8007` op += strlen(op)
+        }
+        ok = true; // C `:8011`
+    }
+    return ok; // C `:8013`
+}
+
+/**
+ * C options.c optfn_gender `:1777–1812` (staticfn; NHOPTC wires
+ * `&optfn_gender`, optlist.h `:132`). do_init is optn_ok. do_set parses
+ * via parse_role_opt; a positive value stores flags.initgend / female
+ * and the canonical adjective. get_val is rolestring; get_cnf_val is
+ * the config-file slot or "none".
+ * @param {number} optidx
+ * @param {number} req
+ * @param {boolean} negated
+ * @param {string|{buf:string}} opts
+ * @param {string} _op C reassigns op from parse_role_opt
+ * @param {boolean} [optInitial]
+ */
+export function optfn_gender(optidx, req, negated, opts, _op, optInitial) {
+    const optInit = optInitial ?? !!game.go?.opt_initial;
+    if (req === REQ_DO_INIT) { // C `:1785`
+        return OPTN_OK; // C `:1786`
+    }
+    if (req === REQ_DO_SET) { // C `:1788`
+        const opp = { op: '' };
+        if (!parse_role_opt(optidx, negated, allopt_name(optidx), opts, opp, optInit)) // C `:1790`
+            return OPTN_SILENTERR; // C `:1791`
+        if (opp.op.charAt(0) !== '!') { // C `:1793` *op != '!'
+            if (!game.flags) game.flags = {};
+            game.flags.initgend = str2gend(opp.op); // C `:1794`
+            if (game.flags.initgend === ROLE_NONE) { // C `:1794`
+                config_error_add("Unknown %s '%s'", allopt_name(optidx), opp.op); // C `:1795`
+                return OPTN_ERR; // C `:1796`
+            }
+            game.flags.female = game.flags.initgend; // C `:1798`
+            saveoptstr(optidx, rolestring(game.flags.initgend, genders, 'adj'), // C `:1799`
+                roleOptPhase(optInit));
+        }
+        return OPTN_OK; // C `:1801`
+    }
+    if (req === REQ_GET_VAL) { // C `:1803`
+        const g = game.flags?.initgend;
+        set_optbuf(opts, rolestring(g == null ? 0 : (g | 0), genders, 'adj')); // C `:1804`
+        return OPTN_OK; // C `:1805`
+    }
+    if (req === REQ_GET_CNF_VAL) { // C `:1807`
+        const op = get_cnf_role_opt(optidx); // C `:1808`
+        set_optbuf(opts, op ? op : 'none'); // C `:1809` literal "none", not none[]
+        return OPTN_OK; // C `:1810`
+    }
+    return OPTN_OK; // C `:1812`
+}
+
+/**
+ * C options.c optfn_race `:3507–3542`. Same envelope as optfn_gender.
+ * Positive values also store `gp.pl_race` as the first character.
+ */
+export function optfn_race(optidx, req, negated, opts, _op, optInitial) {
+    const optInit = optInitial ?? !!game.go?.opt_initial;
+    if (req === REQ_DO_INIT) { // C `:3515`
+        return OPTN_OK; // C `:3516`
+    }
+    if (req === REQ_DO_SET) { // C `:3518`
+        const opp = { op: '' };
+        if (!parse_role_opt(optidx, negated, allopt_name(optidx), opts, opp, optInit)) // C `:3520`
+            return OPTN_SILENTERR; // C `:3521`
+        if (opp.op.charAt(0) !== '!') { // C `:3523`
+            if (!game.flags) game.flags = {};
+            game.flags.initrace = str2race(opp.op); // C `:3524`
+            if (game.flags.initrace === ROLE_NONE) { // C `:3524`
+                config_error_add("Unknown %s '%s'", allopt_name(optidx), opp.op); // C `:3525`
+                return OPTN_ERR; // C `:3526`
+            }
+            if (!game.gp) game.gp = {};
+            game.gp.pl_race = opp.op.charAt(0); // C `:3528` *op
+            saveoptstr(optidx, rolestring(game.flags.initrace, races, 'noun'), // C `:3529`
+                roleOptPhase(optInit));
+        }
+        return OPTN_OK; // C `:3531`
+    }
+    if (req === REQ_GET_VAL) { // C `:3533`
+        const g = game.flags?.initrace;
+        set_optbuf(opts, rolestring(g == null ? 0 : (g | 0), races, 'noun')); // C `:3534`
+        return OPTN_OK; // C `:3535`
+    }
+    if (req === REQ_GET_CNF_VAL) { // C `:3537`
+        const op = get_cnf_role_opt(optidx); // C `:3538`
+        set_optbuf(opts, op ? op : 'none'); // C `:3539`
+        return OPTN_OK; // C `:3540`
+    }
+    return OPTN_OK; // C `:3542`
+}
+
+/**
+ * C options.c optfn_role `:3589–3624`. Positive values also nmcpy into
+ * `pl_character` (backwards compatibility).
+ */
+export function optfn_role(optidx, req, negated, opts, _op, optInitial) {
+    const optInit = optInitial ?? !!game.go?.opt_initial;
+    if (req === REQ_DO_INIT) { // C `:3597`
+        return OPTN_OK; // C `:3598`
+    }
+    if (req === REQ_DO_SET) { // C `:3600`
+        const opp = { op: '' };
+        if (!parse_role_opt(optidx, negated, allopt_name(optidx), opts, opp, optInit)) // C `:3602`
+            return OPTN_SILENTERR; // C `:3603`
+        if (opp.op.charAt(0) !== '!') { // C `:3605`
+            if (!game.flags) game.flags = {};
+            game.flags.initrole = str2role(opp.op); // C `:3606`
+            if (game.flags.initrole === ROLE_NONE) { // C `:3606`
+                config_error_add("Unknown %s '%s'", allopt_name(optidx), opp.op); // C `:3607`
+                return OPTN_ERR; // C `:3608`
+            }
+            game.pl_character = nmcpy(opp.op, PL_NSIZ); // C `:3610`
+            saveoptstr(optidx, rolestring(game.flags.initrole, roles, 'name.m'), // C `:3611`
+                roleOptPhase(optInit));
+        }
+        return OPTN_OK; // C `:3613`
+    }
+    if (req === REQ_GET_VAL) { // C `:3615`
+        const g = game.flags?.initrole;
+        set_optbuf(opts, rolestring(g == null ? 0 : (g | 0), roles, 'name.m')); // C `:3616`
+        return OPTN_OK; // C `:3617`
+    }
+    if (req === REQ_GET_CNF_VAL) { // C `:3619`
+        const op = get_cnf_role_opt(optidx); // C `:3620`
+        set_optbuf(opts, op ? op : 'none'); // C `:3621`
+        return OPTN_OK; // C `:3622`
+    }
+    return OPTN_OK; // C `:3624`
+}
+
+/**
+ * C options.c optfn_alignment `:885–919`. Same envelope; no pl_* side write.
+ */
+export function optfn_alignment(optidx, req, negated, opts, _op, optInitial) {
+    const optInit = optInitial ?? !!game.go?.opt_initial;
+    if (req === REQ_DO_INIT) { // C `:893`
+        return OPTN_OK; // C `:894`
+    }
+    if (req === REQ_DO_SET) { // C `:896`
+        const opp = { op: '' };
+        if (!parse_role_opt(optidx, negated, allopt_name(optidx), opts, opp, optInit)) // C `:898`
+            return OPTN_SILENTERR; // C `:899`
+        if (opp.op.charAt(0) !== '!') { // C `:901`
+            if (!game.flags) game.flags = {};
+            game.flags.initalign = str2align(opp.op); // C `:902`
+            if (game.flags.initalign === ROLE_NONE) { // C `:902`
+                config_error_add("Unknown %s '%s'", allopt_name(optidx), opp.op); // C `:903`
+                return OPTN_ERR; // C `:904`
+            }
+            saveoptstr(optidx, rolestring(game.flags.initalign, aligns, 'adj'), // C `:906`
+                roleOptPhase(optInit));
+        }
+        return OPTN_OK; // C `:908`
+    }
+    if (req === REQ_GET_VAL) { // C `:910`
+        const g = game.flags?.initalign;
+        set_optbuf(opts, rolestring(g == null ? 0 : (g | 0), aligns, 'adj')); // C `:911`
+        return OPTN_OK; // C `:912`
+    }
+    if (req === REQ_GET_CNF_VAL) { // C `:914`
+        const op = get_cnf_role_opt(optidx); // C `:915`
+        set_optbuf(opts, op ? op : 'none'); // C `:916`
+        return OPTN_OK; // C `:917`
+    }
+    return OPTN_OK; // C `:919`
+}
+
 /**
  * C options.c optfn_sortvanquished do_handler `:3997–4008`.
  * Async split: set_vanq_order and pline. Callers are doset `:8935`
@@ -4789,8 +5212,15 @@ export async function doset() {
         if (doset_skip_unsupported(name)) continue;
         // C doset_add_menu `:9038` get_val. soundlib is set_gameview
         // (non-selectable); the column is the active library name.
-        const shown = name === 'soundlib'
-            ? doset_compopt_get_val(optfn_soundlib, 'soundlib')
+        const roleOptfn = name === 'soundlib' ? optfn_soundlib
+            : name === 'gender' ? optfn_gender
+            : name === 'race' ? optfn_race
+            : name === 'role' ? optfn_role
+            : name === 'alignment' ? optfn_alignment
+            : null;
+        // C doset_add_menu `:9038` get_val for a live optfn.
+        const shown = roleOptfn
+            ? doset_compopt_get_val(roleOptfn, name)
             : val;
         raw.push(doset_add_menu(name, shown, 0));
     }
@@ -5046,13 +5476,13 @@ const allopt = [
     // optlist.h:123 NHOPTC(name)
     { name: 'name', opttyp: CompOpt, idx: 2, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: null },
     // optlist.h:126 NHOPTC(role)
-    { name: 'role', opttyp: CompOpt, idx: 3, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: null },
+    { name: 'role', opttyp: CompOpt, idx: 3, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: optfn_role },
     // optlist.h:129 NHOPTC(race)
-    { name: 'race', opttyp: CompOpt, idx: 4, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: null },
+    { name: 'race', opttyp: CompOpt, idx: 4, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: optfn_race },
     // optlist.h:132 NHOPTC(gender)
-    { name: 'gender', opttyp: CompOpt, idx: 5, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: null },
+    { name: 'gender', opttyp: CompOpt, idx: 5, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: optfn_gender },
     // optlist.h:135 NHOPTC(alignment)
-    { name: 'alignment', opttyp: CompOpt, idx: 6, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: null },
+    { name: 'alignment', opttyp: CompOpt, idx: 6, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: optfn_alignment },
     // optlist.h:140 NHOPTB(accessiblemsg)
     { name: 'accessiblemsg', opttyp: BoolOpt, idx: 7, setwhere: SET_IN_GAME, initval: false, addr: { obj: 'a11y', key: 'accessiblemsg' }, optfn: null },
     // optlist.h:143 NHOPTB(acoustics)
