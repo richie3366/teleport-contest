@@ -142,10 +142,10 @@ import { set_vanq_order, vanqorders } from './insight.js';
 import { game } from './gstate.js';
 import { sanitize_name } from './bones.js';
 import { rnd } from './rng.js';
-import { str_end_is, str_start_is, highc, lowc, strstri, strsubst, strNsubst } from './hacklib.js';
+import { str_end_is, str_start_is, highc, lowc, strstri, strsubst, strNsubst, strkitten } from './hacklib.js';
 import { name_to_mon } from './mondata.js';
 import { nhgetch } from './input.js';
-import { flush_screen, pline, docrt, check_gold_symbol, clear_committed_status, set_bot_disabled, tty_wait_synch, update_ov_primary_symset, update_ov_rogue_symset } from './display.js';
+import { flush_screen, pline, docrt, check_gold_symbol, clear_committed_status, set_bot_disabled, tty_wait_synch, update_ov_primary_symset, update_ov_rogue_symset, impossible } from './display.js';
 import { paint_corner_nhw_menu, dismiss_nhw_menu, collect_menu_gacc, process_menu_search, toggle_menu_curr, menu_digit_is_gacc, reassign, update_inventory, invlet_constant, perm_invent_toggled, select_menu_pick_none } from './invent.js';
 import {
     ATR_INVERSE,
@@ -201,48 +201,214 @@ const DISCLOSE_VALID_PREFIX = new Set([
     DISCLOSE_SPECIAL_WITHOUT_PROMPT,
 ]);
 
+/** C decl.c:54 disclosure_options — order matches disclosure_names. */
+const disclosure_names = [
+    'inventory', 'attributes', 'vanquished',
+    'genocides', 'conduct', 'overview',
+];
+
 /**
- * C ref: options.c optfn_disclose do_set — fill flags.end_disclose[6].
- * @returns {string} length-6 string of disclose mode chars
+ * flags.end_disclose is char[NUM_DISCLOSURE_OPTIONS+1] (flag.h:116).
+ * JS stores the six mode chars as a string. Missing/short reads as the
+ * initoptions default 'n' (options.c:7210–7211) so a partial do_set
+ * leaves unspecified categories alone, the way C does.
+ * @param {object|null|undefined} flags
  */
-export function parseDiscloseOption(val, negated = false) {
-    const out = Array(NUM_DISCLOSURE_OPTIONS).fill(DISCLOSE_PROMPT_DEFAULT_NO);
-    const op = String(val ?? '').trim();
-    if (!op || op.toLowerCase() === 'all' || op.toLowerCase() === 'none') {
-        const none = negated || op.toLowerCase() === 'none';
-        const fill = none
-            ? DISCLOSE_NO_WITHOUT_PROMPT
-            : DISCLOSE_PROMPT_DEFAULT_YES;
-        return fill.repeat(NUM_DISCLOSURE_OPTIONS);
+function disclose_home(flags) {
+    const f = flags || game.flags || (game.flags = {});
+    let s = typeof f.end_disclose === 'string' ? f.end_disclose : '';
+    if (s.length < NUM_DISCLOSURE_OPTIONS) {
+        s = (s + DISCLOSE_PROMPT_DEFAULT_NO.repeat(NUM_DISCLOSURE_OPTIONS))
+            .slice(0, NUM_DISCLOSURE_OPTIONS);
+        f.end_disclose = s;
+    } else if (s.length > NUM_DISCLOSURE_OPTIONS) {
+        f.end_disclose = s.slice(0, NUM_DISCLOSURE_OPTIONS);
     }
-    let prefix = null;
-    for (let i = 0; i < op.length; i++) {
-        let c = op[i].toLowerCase();
-        if (c === 'k') c = 'v';
-        if (c === 'd') c = 'o';
-        const idx = DISCLOSURE_OPTIONS.indexOf(c);
-        if (idx >= 0) {
-            if (prefix != null) {
-                let pv = prefix;
-                if (c !== 'v' && c !== 'g') {
-                    if (pv === DISCLOSE_PROMPT_DEFAULT_SPECIAL) {
-                        pv = DISCLOSE_PROMPT_DEFAULT_YES;
-                    }
-                    if (pv === DISCLOSE_SPECIAL_WITHOUT_PROMPT) {
-                        pv = DISCLOSE_YES_WITHOUT_PROMPT;
-                    }
-                }
-                out[idx] = pv;
-                prefix = null;
-            } else {
-                out[idx] = DISCLOSE_YES_WITHOUT_PROMPT;
-            }
-        } else if (DISCLOSE_VALID_PREFIX.has(c)) {
-            prefix = c;
+    return f;
+}
+
+function disclose_put(flags, idx, ch) {
+    const f = disclose_home(flags);
+    const arr = f.end_disclose.split('');
+    arr[idx] = ch;
+    f.end_disclose = arr.join('');
+}
+
+/** C strcmpi — ASCII case-fold, zero iff equal. Uses live lowc. */
+function disclose_strcmpi(a, b) {
+    const as = String(a ?? '');
+    const bs = String(b ?? '');
+    const n = Math.max(as.length, bs.length);
+    for (let i = 0; i < n; i++) {
+        const ca = i < as.length ? as[i] : '\0';
+        const cb = i < bs.length ? bs[i] : '\0';
+        const la = lowc(ca);
+        const lb = lowc(cb);
+        if (la !== lb) return la < lb ? -1 : 1;
+        if (ca === '\0' || cb === '\0') return 0;
+    }
+    return 0;
+}
+
+/**
+ * C options.c optfn_disclose `:1442–1560` (staticfn; NHOPTC wires
+ * &optfn_disclose, optlist.h `:284`). do_handler (`:1556–1557`) is
+ * async in JS and lives in doset_optfn_do_handler → handler_disclose.
+ * @param {number} optidx
+ * @param {number} req
+ * @param {boolean} negated
+ * @param {string|{buf:string}} opts
+ * @param {string} op
+ * @param {object|null} [flags] rc result.flags; omitted → game.flags
+ */
+export function optfn_disclose(optidx, req, negated, opts, op, flags) {
+    if (req === REQ_DO_INIT) { // C `:1450–1451`
+        return OPTN_OK;
+    }
+    if (req === REQ_DO_SET) { // C `:1452`
+        const optstr = typeof opts === 'string' ? opts : '';
+        op = string_for_opt(optstr, true); // C `:1482` empty_optstr when valueless
+        if (op !== EMPTY_OPTSTR && negated) { // C `:1483–1485`
+            bad_negation(allopt_name(optidx), true);
+            return OPTN_ERR; // C `:1485`
         }
-        // spaces ignored (C); other chars skipped
+        /* "disclose" without a value means "all with prompting"
+           and negated means "none without prompting" */
+        if (op === EMPTY_OPTSTR || disclose_strcmpi(op, 'all') === 0
+            || disclose_strcmpi(op, 'none') === 0) { // C `:1488–1489`
+            if (op !== EMPTY_OPTSTR && disclose_strcmpi(op, 'none') === 0) // C `:1490`
+                negated = true;
+            const fill = negated
+                ? DISCLOSE_NO_WITHOUT_PROMPT
+                : DISCLOSE_PROMPT_DEFAULT_YES; // C `:1492–1494`
+            const f = disclose_home(flags);
+            f.end_disclose = fill.repeat(NUM_DISCLOSURE_OPTIONS); // C `:1491–1494`
+            return OPTN_OK; // C `:1495`
+        }
+
+        /* C `:1498–1500` num is never incremented, so
+           `num < sizeof flags.end_disclose - 1` (7-1) stays true and the
+           walk ends only on NUL. Kept as written. */
+        let num = 0; // C `:1498`
+        let prefixVal = -1; // C `:1499`
+        const bound = (NUM_DISCLOSURE_OPTIONS + 1) - 1; // sizeof end_disclose - 1
+        while (op.length > 0 && num < bound) { // C `:1500`
+            let c = lowc(op[0]); // C `:1511`
+            if (c === 'k') c = 'v'; // C `:1512–1513` killed -> vanquished
+            if (c === 'd') c = 'o'; // C `:1514–1515` dungeon -> overview
+            const idx = DISCLOSURE_OPTIONS.indexOf(c); // C `:1516` strchr
+            if (idx >= 0) { // C `:1517`
+                if (idx > NUM_DISCLOSURE_OPTIONS - 1) { // C `:1518–1521`
+                    void impossible(`bad disclosure index ${idx} ${c}`);
+                    continue; // C continue skips op++ (unreachable for "iavgco")
+                }
+                if (prefixVal !== -1) { // C `:1522`
+                    let pv = prefixVal;
+                    const dop = DISCLOSURE_OPTIONS[idx];
+                    if (dop !== 'v' && dop !== 'g') { // C `:1523`
+                        if (pv === DISCLOSE_PROMPT_DEFAULT_SPECIAL) // C `:1524–1525`
+                            pv = DISCLOSE_PROMPT_DEFAULT_YES;
+                        if (pv === DISCLOSE_SPECIAL_WITHOUT_PROMPT) // C `:1526–1527`
+                            pv = DISCLOSE_YES_WITHOUT_PROMPT;
+                    }
+                    disclose_put(flags, idx, pv); // C `:1529`
+                    prefixVal = -1; // C `:1530`
+                } else {
+                    disclose_put(flags, idx, DISCLOSE_YES_WITHOUT_PROMPT); // C `:1532`
+                }
+            } else if (DISCLOSE_VALID_PREFIX.has(c)) { // C `:1533` strchr(valid_settings)
+                prefixVal = c; // C `:1534`
+            } else if (c === ' ') { // C `:1535–1536`
+                /* do nothing */
+            } else {
+                config_error_add( // C `:1538–1539`
+                    `Unknown ${allopt_name(optidx)} parameter '${op[0]}'`);
+                return OPTN_ERR; // C `:1540`
+            }
+            op = op.slice(1); // C `:1542`
+        }
+        return OPTN_OK; // C `:1544`
     }
-    return out.join('');
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C `:1546`
+        const ed = disclose_home(flags).end_disclose;
+        let buf = ''; // C `:1547` opts[0] = '\0'
+        for (let i = 0; i < NUM_DISCLOSURE_OPTIONS; i++) { // C `:1548`
+            if (i) buf = strkitten(buf, ' '); // C `:1549–1550`
+            buf = strkitten(buf, ed[i]); // C `:1551`
+            buf = strkitten(buf, DISCLOSURE_OPTIONS[i]); // C `:1552`
+        }
+        set_optbuf(opts, buf);
+        return OPTN_OK; // C `:1554`
+    }
+    /* do_handler `:1556–1557` is handler_disclose(), async-split into
+       doset_optfn_do_handler (optfn_msg_window precedent). */
+    return OPTN_OK; // C `:1559`
+}
+
+/**
+ * C options.c handler_disclose `:5674–5777` (staticfn). Sole C caller is
+ * optfn_disclose do_handler (`:1557`), reached from doset `:8935`.
+ * @returns {Promise<number>}
+ */
+export async function handler_disclose() {
+    const ed0 = disclose_home(null).end_disclose;
+    const discCat = new Array(NUM_DISCLOSURE_OPTIONS).fill(0); // C `:5688`
+    const raw = [{ text: 'Change which disclosure options categories:', selectable: false }];
+    for (let i = 0; i < NUM_DISCLOSURE_OPTIONS; i++) { // C `:5696`
+        const buf = `${disclosure_names[i].padEnd(12, ' ')}[${ed0[i]}${DISCLOSURE_OPTIONS[i]}]`; // C `:5697–5698`
+        raw.push({
+            text: buf,
+            selectable: true,
+            selector: DISCLOSURE_OPTIONS[i], // C `:5700` letter
+            a_int: i + 1, // C `:5699`
+        });
+        discCat[i] = 0; // C `:5703`
+    }
+    const picks = await select_menu_pick_any(raw, { cancelValue: null }); // C `:5705–5706`
+    if (picks && picks.length > 0) { // C `:5707` pick_cnt > 0
+        for (let pickIdx = 0; pickIdx < picks.length; ++pickIdx) { // C `:5708`
+            const optIdx = (picks[pickIdx].a_int | 0) - 1; // C `:5709`
+            if (optIdx >= 0 && optIdx < NUM_DISCLOSURE_OPTIONS)
+                discCat[optIdx] = 1; // C `:5710`
+        }
+        // C `:5712–5713` free — GC
+    }
+    for (let i = 0; i < NUM_DISCLOSURE_OPTIONS; i++) { // C `:5717`
+        if (!discCat[i]) continue; // C `:5718`
+        const c = disclose_home(null).end_disclose[i]; // C `:5719`
+        const prompt = `Disclosure options for ${disclosure_names[i]}:`; // C `:5720–5721`
+        const sub = [{ text: prompt, selectable: false }];
+        const pushMode = (mode, text) => {
+            sub.push({
+                text,
+                selectable: true,
+                selected: c === mode, // C MENU_ITEMFLAGS_SELECTED
+                a_char: mode,
+                gselector: mode, // C letter 0, accelerator a_char
+            });
+        };
+        pushMode(DISCLOSE_NO_WITHOUT_PROMPT, 'Never disclose, without prompting'); // C `:5725–5730`
+        pushMode(DISCLOSE_YES_WITHOUT_PROMPT, 'Always disclose, without prompting'); // C `:5731–5736`
+        const special = disclosure_names[i][0] === 'v' || disclosure_names[i][0] === 'g'; // C `:5737`
+        if (special) {
+            pushMode(DISCLOSE_SPECIAL_WITHOUT_PROMPT, // C `:5738–5743`
+                'Always disclose, pick sort order from menu');
+        }
+        pushMode(DISCLOSE_PROMPT_DEFAULT_NO, 'Prompt, with default answer of "No"'); // C `:5745–5750`
+        pushMode(DISCLOSE_PROMPT_DEFAULT_YES, 'Prompt, with default answer of "Yes"'); // C `:5751–5756`
+        if (special) {
+            pushMode(DISCLOSE_PROMPT_DEFAULT_SPECIAL, // C `:5757–5764`
+                'Prompt, with default answer of "Ask" to request sort menu');
+        }
+        const res = await select_menu_pick_one(sub); // C `:5765–5766`
+        if (res.kind === 'pick') { // C `:5767` n > 0
+            disclose_put(null, i, res.item.a_char); // C `:5768`
+            /* C `:5769–5770` n > 1 keeps the second pick when the first
+               equals the previous mode. select_menu_pick_one returns one
+               item (msg_window precedent) — named. */
+        }
+    }
+    return OPTN_OK; // C `:5776`
 }
 
 /**
@@ -1703,6 +1869,9 @@ export async function handler_number_pad() {
  * @returns {Promise<number>} optn_* result
  */
 async function doset_optfn_do_handler(name) {
+    if (name === 'disclose') {
+        return handler_disclose(); // C `:1557`
+    }
     if (name === 'menu_objsyms') {
         return handler_menu_objsyms(); // C `:2284`
     }
@@ -2369,7 +2538,10 @@ export function parseNethackrc(rc) {
                     }
                 }
                 else if (key === 'disclose') {
-                    result.flags.end_disclose = parseDiscloseOption(val, negated);
+                    // C optfn_disclose do_set (opt_initial) on result.flags.
+                    optfn_disclose(
+                        allopt_idx('disclose'), REQ_DO_SET, negated, stripped, val, result.flags,
+                    );
                 }
                 else if (key === 'accessiblemsg') {
                     // C optfn_boolean: negated boolean must not have a
@@ -2510,6 +2682,13 @@ export function parseNethackrc(rc) {
                 else if (lname === 'align' || lname === 'alignment') {
                     optfn_alignment(
                         allopt_idx('alignment'), REQ_DO_SET, negated, stripped, EMPTY_OPTSTR, true,
+                    );
+                }
+                else if (lname === 'disclose') {
+                    // C optfn_disclose do_set, valueless (opt_initial):
+                    // disclose → prompt-yes; !disclose → never, no prompt.
+                    optfn_disclose(
+                        allopt_idx('disclose'), REQ_DO_SET, negated, stripped, EMPTY_OPTSTR, result.flags,
                     );
                 }
                 else if (lname === 'fruit') {
@@ -5230,7 +5409,7 @@ export async function doset() {
         { name: 'crash_email', val: 'unknown' },
         { name: 'crash_name', val: 'unknown' },
         { name: 'crash_urlmax', val: '-1' },
-        { name: 'disclose', val: 'ni na nv ng nc no' },
+        { name: 'disclose', get_val: () => doset_compopt_get_val(optfn_disclose, 'disclose'), handler: true },
         { name: 'fruit', val: 'slime mold' },
         { name: 'glyph', val: '(to be done)' },
         { name: 'hilite_status', val: '(none)' },
@@ -5560,7 +5739,7 @@ const allopt = [
     // optlist.h:281 NHOPTB(debug_overwrite_stairs)
     { name: 'debug_overwrite_stairs', opttyp: BoolOpt, idx: 44, setwhere: SET_WIZNOFUZ, initval: false, addr: null /* C: &iflags.debug_overwrite_stairs, no live field */, optfn: null },
     // optlist.h:284 NHOPTC(disclose)
-    { name: 'disclose', opttyp: CompOpt, idx: 45, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: null },
+    { name: 'disclose', opttyp: CompOpt, idx: 45, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_disclose },
     // optlist.h:288 NHOPTC(dogname)
     { name: 'dogname', opttyp: CompOpt, idx: 46, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: null },
     // optlist.h:291 NHOPTB(dropped_nopick)

@@ -159,6 +159,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-25 — D-2788 `options.c` optfn_disclose whole-body port
+
+**C locus:** `nethack-c/upstream/src/options.c:1442–1560` `optfn_disclose` (NHOPTC, optlist.h `:284`). do_init → optn_ok. do_set → `string_for_opt` (`:6665`); a value plus negation is `bad_negation` + optn_err; empty / `all` / `none` fills every `flags.end_disclose[]` slot (`!` or `none` → `DISCLOSE_NO_WITHOUT_PROMPT`, else `DISCLOSE_PROMPT_DEFAULT_YES`); otherwise a prefix walk (`k`→`v`, `d`→`o`, special prefixes coerced off `v`/`g`). get_val and get_cnf_val append mode+letter via `strkitten` (`hacklib.c:275`). do_handler → `handler_disclose` (`:5674–5777`).
+**JS:** `js/options.js` `optfn_disclose :264`, `handler_disclose :353`. `js/hacklib.js` `strkitten :171`. allopt `optfn` idx 45 `:5742`.
+**Change:** `optfn_disclose` and `handler_disclose` in `js/options.js` in C order with `:line` cites. Unspecified categories stay as they are (`'n'` when the string is missing, matching `initoptions` `:7210–7211`). `strkitten` is the one live export in `js/hacklib.js`. do_handler is async because the menus await input, split into `doset_optfn_do_handler` the way `optfn_msg_window` is.
+**Verify:** `node scripts/verify.mjs --fn optfn_disclose` → PASS syntax (2 changed js files: js/hacklib.js js/options.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 · VERIFY: PASS.
+**Named:** `config_error_add` and `bad_negation` sinks (no-op). `handler_disclose` `n > 1` second pick (`:5769–5770`) folded into `select_menu_pick_one`.
+**Next:** next Open — coverage row (`coloratt.c` basic_menu_colors).
 ## 2026-09-25 — D-2787 caller cite `rcfile()` is `js/cfgfiles.js:966`
 
 **Change:** the divergence-log caller line pointed at `:964` (`set_ignore_errors_on_unmatched`). `rcfile()` is `:966`. No `js/` change. Queue row already archived; not popped.

@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2788 — `options.c` optfn_disclose whole-body port
+
+- **Status:** fixed (Open — coverage row `optfn_disclose` MISSING, measured `port-coverage.mjs --name optfn_disclose` 2026-09-23 @ e93d269e7; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** coverage gap, not a corpus divergence. End-of-game disclosure had no JS optfn. allopt `optfn` was null, so `parseoptions` and `get_option_value` skipped the function-pointer arm. rc `OPTIONS=disclose` went through `parseDiscloseOption`, which reset unspecified categories and skipped unknown characters.
+- **C locus:** `nethack-c/upstream/src/options.c:1442–1560` `optfn_disclose` (NHOPTC, optlist.h `:284`). do_init → optn_ok. do_set → `string_for_opt` (`:6665`); a value plus negation is `bad_negation` + optn_err; empty / `all` / `none` fills every `flags.end_disclose[]` slot (`!` or `none` → `DISCLOSE_NO_WITHOUT_PROMPT`, else `DISCLOSE_PROMPT_DEFAULT_YES`); otherwise a prefix walk (`k`→`v`, `d`→`o`, special prefixes coerced off `v`/`g`). get_val and get_cnf_val append mode+letter via `strkitten` (`hacklib.c:275`). do_handler → `handler_disclose` (`:5674–5777`).
+- **JS was:** no `optfn_disclose` or `handler_disclose`. allopt idx 45 `optfn: null`. `parseDiscloseOption` (`js/options.js`) covered only the do_set overlay and always started from `'n'`. doset showed the hardcoded `ni na nv ng nc no`. No `strkitten`.
+- **Fix:** `optfn_disclose` and `handler_disclose` in `js/options.js` in C order with `:line` cites. Unspecified categories stay as they are (`'n'` when the string is missing, matching `initoptions` `:7210–7211`). `strkitten` is the one live export in `js/hacklib.js`. do_handler is async because the menus await input, split into `doset_optfn_do_handler` the way `optfn_msg_window` is. `parseDiscloseOption` is gone.
+- **JS:** `js/options.js` `optfn_disclose :264`, `handler_disclose :353`. `js/hacklib.js` `strkitten :171`. allopt `optfn` idx 45 `:5742`.
+- **Callers:** C has no direct call (function pointer only). JS sites now wired: allopt → `parseoptions :6481` (`:635–638`) and `get_option_value :6550` (`:8496`); `allopt_array_init :6305` do_init (`:7428`); rc valued `:2540` and valueless `:2687` write `result.flags`; doset `:1872` (`:8935`) and the value column `:5412`. `handler_disclose` sole C caller is the do_handler arm, wired at `:1872`. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn optfn_disclose` → PASS syntax (2 changed js files: js/hacklib.js js/options.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 · VERIFY: PASS.
+- **Named omissions:** `config_error_add` and `bad_negation` sinks (no-op). `handler_disclose` `n > 1` second pick (`:5769–5770`) folded into `select_menu_pick_one`. Menu glyph columns (`nul_glyphinfo`).
+- **Next:** next Open — coverage row (`coloratt.c` basic_menu_colors).
+
 ## D-2787 — `cfgfiles.c` rcfile_interface_options whole-body port (rc parser)
 
 - **Status:** fixed (Open — coverage rows `rcfile_interface_options` and same-file `parse_conf_str` MISSING, measured `port-coverage.mjs --name rcfile_interface_options` 2026-09-23 @ e93d269e7; `hidden-proxy verify` reports no corpus session blocked).
