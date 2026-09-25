@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-25 — D-2796 `mthrowu.c` thitu whole-body port
+
+**C locus:** `nethack-c/upstream/src/mthrowu.c:75–155` `thitu`. Callees: `doname`, `mshot_xname`, `killer_xname`, `strncmpi` (three article prefixes, inlined), `obj_is_pname`, `the`, `an`, `rnd`, `pline`, `upstart`, `vtense`, `You`, `exclam`, `Acid_resistance`, `monstseesu`, `stone_missile`, `passes_rocks`, `potionhit`, `pline_The`, `exercise`, `monstunseesu`, `losehp`. `named` is the caller's original name pointer, taken before the null-name arm overwrites it.
+**JS:** `js/mthrowu.js` `thitu :622` (`thitu_ci_prefix :575`, `thitu_blind :592`, `thitu_acid_resistance :599`, `thitu_passes_rocks :607`). `m_throw` copies `*objp` back at `:1350`.
+**Change:** Restart of `thitu` in C order. A null name formats with `doname` when `quan > 1`, else `mshot_xname`, and the death reason is `killer_xname` with `KILLED_BY`. A caller-supplied name that starts with `the ` / `an ` / `a ` also uses `KILLED_BY`; otherwise `KILLED_BY_AN`.
+**Verify:** `node scripts/verify.mjs --fn thitu` → PASS syntax (1 changed js file: js/mthrowu.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (verifier: no shared file changed) · VERIFY: PASS.
+**Named:** `apply.c:3197–3205` is inside `#if 0` and is not a live caller. `panic` is a throw with the C string; there is no paniclog.
+**Next:** next Open — coverage row (`uhitm.c` mhitm_ad_drst). `badman` is parked Stale. Eight measured coverage rows remain (band still full; no refill).
 ## 2026-09-25 — D-2795 `mkobj.c` mkcorpstat whole-body port
 
 **C locus:** `nethack-c/upstream/src/mkobj.c:2067–2118` `mkcorpstat`. Callees: `impossible` (does not return), `mksobj` / `mksobj_at`, `rloco` (`:2082`, named), `save_mtraits`, `is_rider`, `monsndx`, `weight`, `special_corpse`, `obj_stop_timers`, `start_corpse_timeout`. `CORPSTAT_INIT` is `0x08`; `CORPSTAT_SPE_VAL` is `0x07`. The header comment says `<0,0>` but the test is `x == 0 && y == 0`.

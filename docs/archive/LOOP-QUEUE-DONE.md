@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-25
 
-- [x] `mkobj.c` mkcorpstat — coverage PARTIAL (C 46 L `mkobj.c:2067–2118` / JS 30 L in js/mkobj.js; hops 2, callers 14, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mkcorpstat` (reach regression must be 0). Measured `port-coverage.mjs --name mkcorpstat` 2026-09-25 @ 38d6c8a36. **Addressed:** D-2795
+- [x] `mthrowu.c` thitu — coverage PARTIAL (C 76 L `mthrowu.c:75–155` / JS 48 L in js/mthrowu.js; hops 3, callers 9, RNG 1, msg 8). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn thitu` (reach regression must be 0). Measured `port-coverage.mjs --name thitu` 2026-09-25 @ 75144e146. **Addressed:** D-2796
+
+
+- [x] `mkobj.c` mkcorpstat — coverage PARTIAL (C 46 L `mkobj.c:2067–2118` / JS 30 L in js/mkobj.js; hops 2, callers 14, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mkcorpstat` (reach regression must be 0). Measured `port-coverage.mjs --name mkcorpstat` 2026-09-25 @ 38d6c8a36. **Addressed:** D-2795 `5f09ad2ca`
 
 
 - [x] `timeout.c` start_timer — coverage PARTIAL (C 41 L `timeout.c:2247–2292` / JS 29 L in js/mkobj.js; hops 2, callers 15, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn start_timer` (reach regression must be 0). Measured `port-coverage.mjs --name start_timer` 2026-09-25 @ 38d6c8a36. **Addressed:** D-2794 `2b10e06e1`
