@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-25 — D-2811 `coord_desc` compass text and autodescribe suffix
+
+**C locus:** `nethack-c/upstream/src/getpos.c:595–635` `coord_desc`. `dxdy_to_dist_descr` is `getpos.c:557–589`. MAP is `<%d,%d>` (`:612–615`). SCREEN is `[%02d,%02d]` of `y+2,x` when `ROWNO`/`COLNO` stay under 100 (`:625–631`). COMPASS and COMFULL are `(dxdy_to_dist_descr)` with full words only for COMFULL (`:604–610`). Unknown `cmode` leaves the buffer empty (`:600–603`). The look_all kitten is `pager.c:2052–2053`, after `coord_desc`, and only there.
+**JS:** `js/display.js` `coord_desc` `:7530`. `js/pager.js` `look_coord_prefix` `:345`. `js/getpos.js` autodescribe `:1339`.
+**Change:** Delete the pager clone and call the `display.js` export. `look_coord_prefix` kittens only when `look_all` asks. `look_traps` and `look_engrs` pass the bare `coord_desc` string into the same `%s` / `%8s` / `%12s` widths.
+**Verify:** `node scripts/verify.mjs --fn coord_desc` → PASS syntax (2 changed js file(s): js/getpos.js js/pager.js) · PASS rule2 · note hidden (no corpus session blocked at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (verifier: no shared file changed) · VERIFY: PASS.
+**Named:** `auto_describe_text` still returns firstmatch only (`show_glyph` / lookaround). `doname_with_price`, `doname_vague_quan`, and buried/embedded suffixes stay off autodescribe.
+**Next:** `steal.c` `remove_worn_item` (next Open — coverage row).
 ## 2026-09-25 — D-2810 `petattr_to_tty` paints italic as underline and blink as bold
 
 **C locus:** `nethack-c/upstream/win/tty/termcap.c:1339–1376` `s_atr2str`, called from `term_start_attr` `:1434`. ANSI default (`termcap.c:157–160`) sets `nh_HI`, `nh_US`, and `MR`. `ZH`, `MB`, `MD`, and `MH` stay null (`:46–47`). Italic falls through the empty `ZH` test into underline (`:1343–1356`). Blink finds `MB` null and falls through to bold (`:1349–1364`). Dim stays `nulstr` (`:1370–1374`). The pet site is `wintty.c:3928` `term_start_attr(iflags.wc2_petattr)`.

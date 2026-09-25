@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-25
 
-- [x] `js/display.js` `petattr_to_tty` returns 0 for wintype `ATR_ITALIC` (3) and `ATR_BLINK` (5). `s_atr2str` (`termcap.c:1343–1364`) with `ZH`/`MB`/`MD` null and `nh_US`/`nh_HI` set (`termcap.c:157–158`) paints italic as underline and blink as bold. Dim stays 0 (`:1370–1374`). Source: reviews/loop-unattended/1758-7a4911ae6-petattr-to-tty.md. Verify `node scripts/verify.mjs --fn optfn_petattr` (reach regression must be 0). **Addressed:** D-2810
+- [x] `getpos.c` coord_desc — coverage PARTIAL (C 40 L `getpos.c:595–635` / JS 22 L in js/display.js; hops 2, callers 8, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn coord_desc` (reach regression must be 0). Measured `port-coverage.mjs --name coord_desc` 2026-09-25 @ 7215d8d6a. **Addressed:** D-2811
+
+
+- [x] `js/display.js` `petattr_to_tty` returns 0 for wintype `ATR_ITALIC` (3) and `ATR_BLINK` (5). `s_atr2str` (`termcap.c:1343–1364`) with `ZH`/`MB`/`MD` null and `nh_US`/`nh_HI` set (`termcap.c:157–158`) paints italic as underline and blink as bold. Dim stays 0 (`:1370–1374`). Source: reviews/loop-unattended/1758-7a4911ae6-petattr-to-tty.md. Verify `node scripts/verify.mjs --fn optfn_petattr` (reach regression must be 0). **Addressed:** D-2810 `302f02151`
 
 
 - [x] `js/do_wear.js` `Boots_on` `FUMBLE_BOOTS` adds `rnd(20)` with `(sum & TIMEOUT)`. C `incr_itimeout` (`potion.c:55–85`) saturates at `TIMEOUT` (`0x00FFFFFF`) via `itimeout`. A sum past `0x00FFFFFF` wraps. `js/potion.js` `incr_itimeout` already clamps; mirror `HFumbling` from the slot. Source: reviews/loop-unattended/1762-a48dbe85b-cloak-boots.md. Verify `node scripts/verify.mjs --fn Boots_on` (reach regression must be 0). **Addressed:** D-2809 `27a017b11`

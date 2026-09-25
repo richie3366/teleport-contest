@@ -6,7 +6,7 @@
 - Banned grep: 0 hits in the hunk (`FORCE` / `DIAG` / `getRngLog` / seed names / `fastforward` / coordinates). `imports.mjs --rulecheck` on this SHA: "Rule #2 clean".
 - No symbol was deleted or re-pointed from a local clone to an import. New names are bit constants already imported from frozen `terminal.js`.
 
-**Addressed:** D-2810
+**Addressed:** D-2810 `302f02151`
 
 ## Intent vs deliverable
 

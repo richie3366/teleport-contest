@@ -1017,7 +1017,7 @@ OBJS/DOOR/EXPLORE live-vs-displayed hybrids still named);
 Medusa/juiblex/samurai/waterlevel (D-0626/D-0928 #1163; 
 **waterbody_name SURFACE_AT/`db_under_typ` D-1103**; 
 DRAWBRIDGE_UP cmap still typ-gated vs C glyph S_pool; 
-altar/engraving + coord_desc deferred) + **shown floor object → 
+altar/engraving deferred; `coord_desc` live at getpos autodescribe `getpos.js` (D-2811; `js/display.js` export; pager look_all/traps/engrs import it, look_all-only y<10 kitten)) + **shown floor object → 
 `look_at_object` / fakeobj D-1547** (`pager.c` lookat `glyph_is_object`; 
 `map_object` stores otyp so remembered-gone piles fake; unsensed 
 `M_AP_OBJECT` mappearance; displayed monster glyph wins over memory; 

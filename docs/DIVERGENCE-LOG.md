@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2811 — `coord_desc` compass text and autodescribe suffix
+
+- **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** `/m` `/t` `/e` lists and getpos autodescribe went through a pager-local `coord_desc` that returned `(here)` for compass and full compass, and that appended the look_all `y < 10` space inside the formatter. `getpos` autodescribe printed firstmatch with no coordinate token.
+- **C locus:** `nethack-c/upstream/src/getpos.c:595–635` `coord_desc`. `dxdy_to_dist_descr` is `getpos.c:557–589`. MAP is `<%d,%d>` (`:612–615`). SCREEN is `[%02d,%02d]` of `y+2,x` when `ROWNO`/`COLNO` stay under 100 (`:625–631`). COMPASS and COMFULL are `(dxdy_to_dist_descr)` with full words only for COMFULL (`:604–610`). Unknown `cmode` leaves the buffer empty (`:600–603`). The look_all kitten is `pager.c:2052–2053`, after `coord_desc`, and only there.
+- **JS was:** `js/display.js:7530` already had that switch. `js/pager.js` kept a second `coord_desc` used by `look_all`, `look_traps`, and `look_engrs`. Compass and `'f'` (COMFULL) returned `(here)`. The `y < 10` space lived in that clone, so `look_traps` kitten'd and `look_engrs` special-cased MAP to avoid it. `getpos` autodescribe (`js/getpos.js`) appended only the invalid/travel suffixes.
+- **Fix:** Delete the pager clone and call the `display.js` export. `look_coord_prefix` kittens only when `look_all` asks. `look_traps` and `look_engrs` pass the bare `coord_desc` string into the same `%s` / `%8s` / `%12s` widths. Autodescribe appends ` ${coord_desc}` when the mode is not `GPCOORDS_NONE`, then the existing suffixes.
+- **JS:** `js/display.js` `coord_desc` `:7530`. `js/pager.js` `look_coord_prefix` `:345`. `js/getpos.js` autodescribe `:1339`.
+- **Callers:** `getpos.c:651` `auto_describe` → `js/getpos.js:1339`. `getpos.c:702` `getpos_menu` → `js/getpos.js:975`. `mon.c:5086` `wiz_force_cham_form` → `js/makemon.js:1312`. `pager.c:2032` `look_all` header → `js/pager.js:2217`. `pager.c:2043` `look_all` prefix → `js/pager.js:2229` via `look_coord_prefix`. `pager.c:2125` `look_traps` → `js/pager.js:2314`. `pager.c:2214` `look_engrs` → `js/pager.js:2411`. `pline.c:180` `vpline` → `js/display.js:7658`. `extern.h:1150` is the declaration. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn coord_desc` → PASS syntax (2 changed js file(s): js/getpos.js js/pager.js) · PASS rule2 · note hidden (no corpus session blocked at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (verifier: no shared file changed) · VERIFY: PASS.
+- **Named omissions:** `auto_describe_text` still returns firstmatch only (`show_glyph` / lookaround). `doname_with_price`, `doname_vague_quan`, and buried/embedded suffixes stay off autodescribe. Altar/engraving text in `auto_describe_text` stays deferred. Whatis still prefers `brief_at` over `do_screen_description` when `terrainmode` is off; the coordinate token is appended to that brief.
+- **Next:** `steal.c` `remove_worn_item` (next Open — coverage row).
+
 ## D-2810 — `petattr_to_tty` paints italic as underline and blink as bold
 
 - **Status:** fixed (Must-fix from review 1758; `hidden-proxy verify` reports no corpus session blocked).

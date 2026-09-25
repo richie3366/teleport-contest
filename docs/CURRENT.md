@@ -103,8 +103,9 @@ breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
 **Next cluster:** `getpos.c` `coord_desc` — coverage PARTIAL (C 40 L `getpos.c:595–635` / JS 22 L in js/display.js). Verify `node scripts/verify.mjs --fn coord_desc`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2810 (index).**
+**Keep D-0845…D-2811 (index).**
 <!-- recent:begin -->
+**D-2811** `nethack-c/upstream/src/getpos.c:595–635` `coord_desc`. `dxdy_to_dist_descr` is `getpos.c: — Delete the pager clone and call the `display.js` export.
 **D-2810** `nethack-c/upstream/win/tty/termcap.c:1339–1376` `s_atr2str`, called from `term_start_attr — Same switch order as `s_atr2str` for those capabilities.
 **D-2809** `nethack-c/upstream/src/do_wear.c:231–234` `Boots_on` `FUMBLE_BOOTS` `incr_itimeout(&HFumb — Seed the slot from the merged flat (C `HFumbling` is one long), call `incr_itimeout(prop, rnd(20))`, then set `u.HFumbling` from `prop.intrinsic`.
 **D-2808** `nethack-c/upstream/src/mon.c:3438–3467` `unstuck`. Swallowed exit `:3448–3456`: clear `ms — After `ux`/`uy` and before `vision_full_recalc`, call `placebc` when `Punished()` and `uchain.where` is not `OBJ_FLOOR`.
@@ -112,11 +113,10 @@ revisits the picker.
 **D-2806** `nethack-c/upstream/src/invent.c:1056–1148` `addinv_core0`. `OBJ_FREE` panic `:1063`. `LOS — One `addinv_core0` in that C order.
 **D-2805** `nethack-c/upstream/src/artifact.c:2130–2232` `arti_invoke`. Null `:2136–2138`. No `inv_pr — One `arti_invoke` in that C order.
 **D-2804** `nethack-c/upstream/src/dothrow.c:2011–2304` `thitmonst`. After the weapon arm (`:2155–223 — Restart of the hit chain in C order.
-**D-2803** `nethack-c/upstream/src/do_wear.c:383–431` `Cloak_off`. `do_wear.c:186–259` `Boots_on`. `d — Both functions restarted in C order.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2810; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2811; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
