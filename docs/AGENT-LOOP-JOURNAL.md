@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-25 — D-2815 `safe_teleds` reads Passes_walls and t_at
+
+**C locus:** `nethack-c/upstream/src/teleport.c:717–770` `safe_teleds`. Forty `rnd(COLNO-1)` / `rn2(ROWNO)` tries, `teleok(FALSE)` then `teleds` (`:736–743`). `CC_RING_PAIRS|CC_SKIP_MONS`, plus `CC_SKIP_INACCS` unless `Passes_walls` (`youprop.h:286` `HPasses_walls || EPasses_walls`) (`:747–751`). `collect_coords` from the hero, maxradius 0 (`:750`). First `t_at` spot that `teleok(TRUE)` accepts is the backup (`:755–763`); that spot is used only when no open cell remains (`:765–768`); else false (`:769`). `teleok` (`:419–445`) also calls `t_at` (`:425`).
+**JS:** `js/teleport.js` `safe_teleds` `:1652`. `teleok` `:1391`. `Passes_walls_prop` `js/hack.js:237`. `t_at` `js/trap.js:1063`.
+**Change:** One `safe_teleds` in that C order. `Passes_walls_prop` is the youprop macro (flat H/E or the uprops slot). The backup calls `t_at` and only then `teleok(TRUE)`, so a null trap does not accept the cell.
+**Verify:** `node scripts/verify.mjs --fn safe_teleds` → PASS syntax (1 changed js file: js/teleport.js) · PASS rule2 · note hidden (no corpus session blocked at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (verifier: teleport.js is outside the auto shared set) · VERIFY: PASS.
+**Named:** `do.c:1566` stays inside the deferred Gehennom amulet mysteryforce arm (`js/do.js:1544`), so same-level `safe_teleds` + `next_to_u` is not reached. `collect_coords` omits `debugpline4` (`teleport.c:711`).
+**Next:** `sp_lev.c` `dig_corridor` (next Open — coverage row).
 ## 2026-09-25 — D-2814 `allow_category` keeps cleric BUC and filters every loot class
 
 **C locus:** `nethack-c/upstream/src/pickup.c:523–592` `allow_category`. Empty filters return false unless `ParanoidAutoAll` (`:526–529`). Coins with a class filter return before the priest force (`:535–536`). `Role_if(PM_CLERIC)` `set_bknown` (`:538–539`). Class (`:561–562`), unpaid or `count_unpaid(cobj)` (`:565–567`), BUC with `flags.goldX` on coins (`:569–587`), just-picked (`:588–589`), else true (`:591`). Callers: `do.c:1057` and the `:1074` function pointer, `invent.c:2139` `ckvalidcat` (askchain `:2448`), `pickup.c:611`, `:834`, `:843`, `menu_loot` `:3335` and `:3365`.

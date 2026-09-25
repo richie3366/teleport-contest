@@ -3865,6 +3865,7 @@ D-0374 premature sync was harmful for TEMPLE entry);
 **`teleds` TELEDS_TELEPORT+verbose materialize pline + `spoteffects(TRUE)`** (D-0393) + 
 **`see_monsters` before vision** (D-0667); 
 **`scrolltele`/`safe_teleds`/`tele` + learnscroll credit** (D-0407); 
+**`safe_teleds` whole body (D-2815)** (`teleport.c:717–770` — 40× `rnd`/`rn2` then `teleok(FALSE)`; `collect_coords` `CC_RING_PAIRS|CC_SKIP_MONS` and `CC_SKIP_INACCS` unless `Passes_walls`; first `t_at` + `teleok(TRUE)` backup; `Passes_walls_prop` and `trap.c` `t_at`, not the sticky flat or local `trap_at`; `teleok` uses that `t_at`; `do.c:1566` stays in the deferred Gehennom mysteryforce arm); 
 **wizard/`Teleport_control` controlled `getpos` + `^T` `dotelecmd`/`dotele`** (D-0590; 
 **`dotele` clears `travelcc` before `tele` + scrolltele clears on land-at-travelcc** D-0789; 
 **scrolltele `make_blinded(0,FALSE)` when `!Blinded` (D-1184)**; 

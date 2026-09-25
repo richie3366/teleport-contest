@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2815 — `safe_teleds` reads Passes_walls and t_at
+
+- **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** Uncontrolled teleport already walked forty random spots and then a ring-pair list, but `Passes_walls` was a sticky `u.Passes_walls` or flat H/E test and never `uprops[PASSES_WALLS]`. The backup trap and `teleok` used a local `trap_at` that also walks `game.ftrap`, not `trap.c` `t_at`.
+- **C locus:** `nethack-c/upstream/src/teleport.c:717–770` `safe_teleds`. Forty `rnd(COLNO-1)` / `rn2(ROWNO)` tries, `teleok(FALSE)` then `teleds` (`:736–743`). `CC_RING_PAIRS|CC_SKIP_MONS`, plus `CC_SKIP_INACCS` unless `Passes_walls` (`youprop.h:286` `HPasses_walls || EPasses_walls`) (`:747–751`). `collect_coords` from the hero, maxradius 0 (`:750`). First `t_at` spot that `teleok(TRUE)` accepts is the backup (`:755–763`); that spot is used only when no open cell remains (`:765–768`); else false (`:769`). `teleok` (`:419–445`) also calls `t_at` (`:425`).
+- **JS was:** `js/teleport.js` `safe_teleds` had that control flow. The wall test was `u.Passes_walls || u.HPasses_walls || u.EPasses_walls`. The backup and `teleok` called local `trap_at`.
+- **Fix:** One `safe_teleds` in that C order. `Passes_walls_prop` is the youprop macro (flat H/E or the uprops slot). The backup calls `t_at` and only then `teleok(TRUE)`, so a null trap does not accept the cell. `teleok` uses the same `t_at`. `imports.mjs --can` for both names: already imported, call-time only.
+- **JS:** `js/teleport.js` `safe_teleds` `:1652`. `teleok` `:1391`. `Passes_walls_prop` `js/hack.js:237`. `t_at` `js/trap.js:1063`.
+- **Callers:** `teleport.c:914` `scrolltele` → `js/teleport.js:1796`. `pray.c:399` `TROUBLE_LAVA` → `js/pray.js:670`. `pray.c:463` `TROUBLE_STUCK_IN_WALL` → `js/pray.js:734`. `region.c:1387` `region_safety` → `js/region.js:1237`. `trap.c:5189` `drown` → `js/trap.js:6404`. `trap.c:6936` `lava_effects` → `js/trap.js:6618`. `trap.c:7021` `sink_into_lava` → `js/trap.js:6720`. `cmd.c:1043` is the comment that `#wizmakemap` uses `u_on_rndspot` (`js/wizcmds.js:613`). `timeout.c:522` is a comment on the phasing timeout, not a call. `do.c:1566` is named below. `extern.h` declaration is not a call. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn safe_teleds` → PASS syntax (1 changed js file: js/teleport.js) · PASS rule2 · note hidden (no corpus session blocked at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (verifier: teleport.js is outside the auto shared set) · VERIFY: PASS.
+- **Named omissions:** `do.c:1566` stays inside the deferred Gehennom amulet mysteryforce arm (`js/do.js:1544`), so same-level `safe_teleds` + `next_to_u` is not reached. `collect_coords` omits `debugpline4` (`teleport.c:711`). Local `trap_at` remains for `occupied`.
+- **Next:** `sp_lev.c` `dig_corridor` (next Open — coverage row).
+
 ## D-2814 — `allow_category` keeps cleric BUC and filters every loot class
 
 - **Status:** fixed (coverage THIN; `hidden-proxy verify` reports no corpus session blocked).
