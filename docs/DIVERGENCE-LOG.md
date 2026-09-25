@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2784 — `options.c` optfn_sortvanquished whole-body port (sortvanquished option live)
+
+- **Status:** fixed (Open — coverage row `options.c` optfn_sortvanquished MISSING (C 50 L `options.c:3958–4010` / JS no symbol; callers 0, RNG 0, msg 1; measured `port-coverage.mjs --name optfn_sortvanquished` 2026-09-23 @ 181b4b4ff); `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** coverage gap, not a corpus divergence. The sortvanquished compound option had no JS symbol. The allopt row's `optfn` was null, so `parseoptions` and `get_option_value` never entered the function-pointer arm, and the doset row showed a hardcoded `'t: traditional: by monster level'` with no handler.
+- **C locus:** `nethack-c/upstream/src/options.c:3958–4010` (staticfn; NHOPTC wires `&optfn_sortvanquished`, optlist.h `:690`, has_handler Yes). do_init sets `flags.vanq_sortmode = VANQ_MLVL_MNDX`. do_set: `string_for_env_opt` (config/NETHACKOPTIONS only); negated → mode 0; else one character of `vanqmodes` `"tdaACcnz"` or `'0'`–`'7'`; unknown → `config_error_add` + optn_silenterr; empty → optn_err. get_val copies `vanqorders[mode][0]` and appends `": "` + `[1]`; get_cnf_val is the key alone. do_handler saves the previous mode, calls `set_vanq_order(TRUE)`, then plines changed / not changed. Any other req → optn_ok.
+- **JS was:** no `optfn_sortvanquished`. allopt idx 165 `optfn: null`. doset compounds row a fixed string, not a handler. rc `OPTIONS=sortvanquished:` fell through to `result.flags.sortvanquished` as a string. `vanqorders` lived only as a module-local `VANQORDERS` in `js/insight.js`.
+- **Fix:** restart as `optfn_sortvanquished` in C order with `:line` cites. `string_for_env_opt` is the existing options.js local (not cloned). `vanqorders` is the insight.c table, now exported. do_handler is `optfn_sortvanquished_do_handler` because `set_vanq_order` and `pline` are async and parseoptions compares the optfn result synchronously. do_init's write is copied onto the rc flags bag because jsmain replaces `game.flags`.
+- **JS:** `js/options.js` `optfn_sortvanquished :3595`, `optfn_sortvanquished_do_handler :3646`. allopt row `optfn: optfn_sortvanquished` `:5232`. `js/insight.js` `vanqorders :888`.
+- **Callers:** C has no direct call (function pointer only). JS sites now wired: allopt → `parseoptions :5686` and `get_option_value :5753` (existing `if (optfn)` arms); `allopt_array_init :7428` do_init → `parseNethackrc :2178` (mode also on `result.flags`); rc valued `:2298`; rc valueless `:2433`; doset `:8935` → `doset_optfn_do_handler :1709`; doset_simple hasHandler → `doset_compound_via_getlin :3679`; doset value column `:4686`. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn optfn_sortvanquished` → PASS syntax (2 changed js files: js/insight.js js/options.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 · VERIFY: PASS.
+- **Named omissions:** `config_error_add` message text (existing no-op sink). `eos(opts)` is string concat. do_handler is the async sibling, not a branch inside the sync optfn.
+- **Next:** next Open — coverage row (`optfn_soundlib`).
+
 ## D-2783 — `options.c` optfn_fruit whole-body port (fruit option live)
 
 - **Status:** fixed (Open — coverage row `options.c` optfn_fruit MISSING (C 66 L `options.c:1706–1774` / JS no symbol; callers 0, RNG 0, msg 1; measured `port-coverage.mjs --name optfn_fruit` 2026-09-23 @ 181b4b4ff); `hidden-proxy verify` reports no corpus session blocked).

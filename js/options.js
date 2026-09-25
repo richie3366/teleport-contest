@@ -135,7 +135,9 @@ import {
     GPCOORDS_COMPASS,
     GPCOORDS_COMFULL,
     GPCOORDS_SCREEN,
+    VANQ_MLVL_MNDX,
 } from './const.js';
+import { set_vanq_order, vanqorders } from './insight.js';
 import { game } from './gstate.js';
 import { sanitize_name } from './bones.js';
 import { rnd } from './rng.js';
@@ -1704,6 +1706,9 @@ async function doset_optfn_do_handler(name) {
     if (name === 'whatis_coord') {
         return handler_whatis_coord(); // C `:4742`
     }
+    if (name === 'sortvanquished') {
+        return optfn_sortvanquished_do_handler(allopt_idx(name)); // C `:4001–4007`
+    }
     if (name === 'versinfo') {
         const optname = allopt_name(allopt_idx('versinfo')); // C `:4476`
         if (!game.flags) game.flags = {};
@@ -2168,6 +2173,10 @@ export function parseNethackrc(rc) {
     };
     // C options.c `:7426–7430` optfn(do_init) pass before the rc file.
     optfn_menu_objsyms(allopt_idx('menu_objsyms'), REQ_DO_INIT, false, '', EMPTY_OPTSTR, result.iflags);
+    // C allopt_array_init `:7428` optfn(do_init). The flags object built in
+    // jsmain replaces game.flags, so the mode is also stored on the rc result.
+    optfn_sortvanquished(allopt_idx('sortvanquished'), REQ_DO_INIT, false, '', EMPTY_OPTSTR);
+    result.flags.vanq_sortmode = game.flags.vanq_sortmode;
     result.iflags.getpos_coords = GPCOORDS_NONE; // C initoptions_init `:7190`
     if (!rc) return result;
 
@@ -2283,6 +2292,13 @@ export function parseNethackrc(rc) {
                     optfn_number_pad(
                         allopt_idx('number_pad'), REQ_DO_SET, false, stripped, val, result.iflags, true,
                     );
+                }
+                else if (key === 'sortvanquished') {
+                    // C optfn_sortvanquished do_set (opt_initial).
+                    optfn_sortvanquished(
+                        allopt_idx('sortvanquished'), REQ_DO_SET, negated, stripped, val, true,
+                    );
+                    result.flags.vanq_sortmode = game.flags.vanq_sortmode;
                 }
                 else if (key === 'fruit') {
                     // C optfn_fruit do_set (opt_initial): nmcpy pl_fruit only;
@@ -2410,6 +2426,14 @@ export function parseNethackrc(rc) {
                     optfn_number_pad(
                         allopt_idx('number_pad'), REQ_DO_SET, false, lname, EMPTY_OPTSTR, result.iflags, true,
                     );
+                }
+                else if (lname === 'sortvanquished') {
+                    // C optfn_sortvanquished do_set, valueless (opt_initial):
+                    // !sortvanquished resets vanq_sortmode to 't'.
+                    optfn_sortvanquished(
+                        allopt_idx('sortvanquished'), REQ_DO_SET, negated, stripped, EMPTY_OPTSTR, true,
+                    );
+                    result.flags.vanq_sortmode = game.flags.vanq_sortmode;
                 }
                 else if (lname === 'fruit') {
                     // C optfn_fruit do_set, valueless (opt_initial): !fruit
@@ -3554,6 +3578,85 @@ export function optfn_fruit(optidx, req, negated, opts, _op, optInitial) {
 }
 
 /**
+ * C options.c optfn_sortvanquished `:3958–4010` (staticfn; NHOPTC wires
+ * `&optfn_sortvanquished`, optlist.h `:690`, has_handler Yes).
+ * do_init stores VANQ_MLVL_MNDX. do_set parses one character of the
+ * env/config value (`tdaACcnz` or `0`–`7`); negation resets to mode 0.
+ * get_val appends ": " + the short description; get_cnf_val is the key
+ * alone. do_handler is async (set_vanq_order menu + pline) and lives in
+ * optfn_sortvanquished_do_handler so parseoptions stays synchronous.
+ * @param {number} optidx
+ * @param {number} req
+ * @param {boolean} negated
+ * @param {string|{buf:string}} opts
+ * @param {string} _op C reassigns op from string_for_env_opt
+ * @param {boolean} [optInitial] C go.opt_initial; default game.go.opt_initial
+ */
+export function optfn_sortvanquished(optidx, req, negated, opts, _op, optInitial) {
+    const optname = allopt_name(optidx); // C `:3963`
+    const optInit = optInitial ?? !!game.go?.opt_initial;
+    if (!game.flags) game.flags = {};
+
+    if (req === REQ_DO_INIT) { // C `:3965`
+        game.flags.vanq_sortmode = VANQ_MLVL_MNDX; // C `:3966` 0 => 't'
+        return OPTN_OK; // C `:3967`
+    }
+    if (req === REQ_DO_SET) { // C `:3969`
+        const optstr = typeof opts === 'string' ? opts : String(opts ?? '');
+        const op = string_for_env_opt(optname, optstr, false, optInit); // C `:3970`
+        if (negated) { // C `:3971`
+            game.flags.vanq_sortmode = VANQ_MLVL_MNDX; // C `:3972`
+        } else if (op !== EMPTY_OPTSTR) { // C `:3973`
+            const ch = op.charAt(0); // C `*op`
+            const letter = 'tdaACcnz'.indexOf(ch); // C `:3978` strchr(vanqmodes)
+            let vndx = 0; // C `:3976`
+            if (letter >= 0) { // C `:3978` p != 0
+                vndx = letter; // C `:3979` p - vanqmodes
+            } else if ('01234567'.includes(ch)) { // C `:3980`
+                vndx = ch.charCodeAt(0) - 48; // C `:3981` *op - '0'
+            } else { // C `:3982`
+                config_error_add("Unknown %s parameter '%s'", optname, op); // C `:3983`
+                return OPTN_SILENTERR; // C `:3984`
+            }
+            game.flags.vanq_sortmode = vndx & 0xff; // C `:3986` (uchar)
+        } else {
+            return OPTN_ERR; // C `:3988`
+        }
+        return OPTN_OK; // C `:3989`
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C `:3991`
+        const mode = (game.flags.vanq_sortmode ?? VANQ_MLVL_MNDX) & 0xff;
+        const row = vanqorders[mode];
+        let text = row ? row[0] : ''; // C `:3992` vanqorders[][0]
+        if (req === REQ_GET_VAL && row) // C `:3993–3994` Sprintf(eos, ": %s", [1])
+            text = `${text}: ${row[1]}`;
+        set_optbuf(opts, text);
+        return OPTN_OK; // C `:3995`
+    }
+    return OPTN_OK; // C `:4009` (do_handler is the async sibling)
+}
+
+/**
+ * C options.c optfn_sortvanquished do_handler `:3997–4008`.
+ * Async split: set_vanq_order and pline. Callers are doset `:8935`
+ * (doset_optfn_do_handler) and doset_simple_menu (doset_compound_via_getlin).
+ * @param {number} optidx
+ * @returns {Promise<number>}
+ */
+export async function optfn_sortvanquished_do_handler(optidx) {
+    if (!game.flags) game.flags = {};
+    const prev = (game.flags.vanq_sortmode ?? VANQ_MLVL_MNDX) & 0xff; // C `:3998`
+    await set_vanq_order(true); // C `:4001` (void)
+    const mode = (game.flags.vanq_sortmode ?? VANQ_MLVL_MNDX) & 0xff;
+    const row = vanqorders[mode] || vanqorders[VANQ_MLVL_MNDX];
+    const optname = allopt_name(optidx); // C `:3963`
+    await pline("'%s' %s \"%s: %s\".", optname, // C `:4002–4007`
+        mode === prev ? 'not changed, still' : 'changed to',
+        row[0], row[1]);
+    return OPTN_OK; // C `:4009`
+}
+
+/**
  * C ref: options.c doset_simple_menu compound arm — getlin + parseoptions.
  * Handlers (hasHandler) call optfn do_handler; else "Set %s to what?".
  */
@@ -3572,6 +3675,8 @@ async function doset_compound_via_getlin(opt) {
             reslt = await handler_menu_colors();
         } else if (name === 'number_pad') {
             reslt = await handler_number_pad(); // C optfn_number_pad do_handler `:2642`
+        } else if (name === 'sortvanquished') {
+            reslt = await optfn_sortvanquished_do_handler(allopt_idx(name)); // C `:4001–4007`
         }
         if (reslt === OPTN_OK) opt_set_in_config[allopt_idx(name)] = true;
         // Other hasHandler compounds deferred (symset/…).
@@ -4578,7 +4683,7 @@ export async function doset() {
         { name: 'scores', val: '3 top/2 around' },
         { name: 'sortdiscoveries', val: 'by order of discovery within each class' },
         { name: 'sortloot', val: 'loot' },
-        { name: 'sortvanquished', val: 't: traditional: by monster level' },
+        { name: 'sortvanquished', get_val: () => doset_compopt_get_val(optfn_sortvanquished, 'sortvanquished'), handler: true },
         { name: 'statushilites', val: '0 (off: don\'t highlight status fields)' },
         { name: 'statuslines', val: '2' },
         { name: 'suppress_alert', val: '(none)' },
@@ -5124,7 +5229,7 @@ const allopt = [
     // optlist.h:687 NHOPTB(sortpack)
     { name: 'sortpack', opttyp: BoolOpt, idx: 164, setwhere: SET_IN_GAME, initval: true, addr: { obj: 'flags', key: 'sortpack' }, optfn: null },
     // optlist.h:690 NHOPTC(sortvanquished)
-    { name: 'sortvanquished', opttyp: CompOpt, idx: 165, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: null },
+    { name: 'sortvanquished', opttyp: CompOpt, idx: 165, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_sortvanquished },
     // optlist.h:693 NHOPTC(soundlib)
     { name: 'soundlib', opttyp: CompOpt, idx: 166, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: null },
     // optlist.h:701 NHOPTB(sounds)
