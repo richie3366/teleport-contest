@@ -118,7 +118,7 @@ import { Monnam, Amonnam, Adjmonnam, mon_nam, hliquid, rndmonnam, trycall } from
 import { revive } from './zap.js';
 import {
     near_capacity, learn_unseen_invent, encumber_msg,
-    freeinv_core, getobj, ggetobj, useup,
+    freeinv_core, getobj, ggetobj, useup, useupall,
 } from './invent.js';
 import { can_reach_floor, set_occupation, engr_at, sticks } from './engrave.js';
 import {
@@ -138,7 +138,7 @@ import {
 import { bypass_objlist, nxt_unbypassed_obj, w_blocks } from './worn.js';
 import { monstunseesu_prop } from './mondata.js';
 import { reset_pick } from './lock.js';
-import { Unaware } from './eat.js';
+import { Unaware, carried } from './eat.js';
 import { addinv_nomerge } from './u_init.js';
 import {
     set_artifact_intrinsic, revoke_invoked_property, Sting_effects,
@@ -651,7 +651,7 @@ export async function fire_damage(obj, force, x, y) {
 
 /**
  * C ref: trap.c lava_damage — soft materials burn up; hard → fire_damage.
- * Named omit: carried useupall / remove_worn_item.
+ * Carried arm (C `:4607–4609`, "shouldn't happen") unwears then useupall.
  * @returns {Promise<boolean>} true if object destroyed
  */
 async function lava_damage(obj, x, y) {
@@ -676,7 +676,14 @@ async function lava_damage(obj, x, y) {
                 await pline(`You see ${doname(obj)} hit lava and burn up!`);
             }
         }
-        delobj(obj);
+        /* C trap.c:4607–4611 — carried is not expected; still unwear. */
+        if (carried(obj)) {
+            const { remove_worn_item } = await import('./steal.js');
+            await remove_worn_item(obj, true);
+            useupall(obj);
+        } else {
+            delobj(obj);
+        }
         return true;
     }
     return fire_damage(obj, true, x, y);

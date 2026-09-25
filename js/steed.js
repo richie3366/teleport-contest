@@ -16,7 +16,7 @@ import {
     M1_HUMANOID, MZ_MEDIUM,
 } from './monsters.js';
 import {
-    W_SADDLE, W_WEP, W_SWAPWEP, W_QUIVER,
+    W_SADDLE,
     ECMD_OK, ECMD_TIME, ECMD_CANCEL,
     MAXULEV, NO_KILLER_PREFIX, SLT_ENCUMBER,
     DISMOUNT_BYCHOICE, DISMOUNT_THROWN, DISMOUNT_KNOCKED,
@@ -61,6 +61,7 @@ import { welded, is_pole } from './wield.js';
 import { level_mon_at } from './worm.js';
 import { mhe } from './mondata.js';
 import { mpickobj } from './makemon.js';
+import { remove_worn_item } from './steal.js';
 
 const SADDLE = objectNames.indexOf('SADDLE');
 const BOULDER = objectNames.indexOf('BOULDER');
@@ -213,28 +214,6 @@ function freeinv(otmp) {
     const inv = game.invent || [];
     const idx = inv.indexOf(otmp);
     if (idx >= 0) inv.splice(idx, 1);
-}
-
-/**
- * C worn.c remove_worn_item — clear weapon/quiver slots before freeinv.
- * Full prop/artifact/light paths deferred.
- */
-function remove_worn_item(obj) {
-    if (!obj) return;
-    const u = game.u || {};
-    const mask = obj.owornmask || 0;
-    if (mask & W_WEP) {
-        if (u.uwep === obj) u.uwep = null;
-        obj.owornmask &= ~W_WEP;
-    }
-    if (mask & W_SWAPWEP) {
-        if (u.uswapwep === obj) u.uswapwep = null;
-        obj.owornmask &= ~W_SWAPWEP;
-    }
-    if (mask & W_QUIVER) {
-        if (u.uquiver === obj) u.uquiver = null;
-        obj.owornmask &= ~W_QUIVER;
-    }
 }
 
 /** C ref: steed.c can_ride */
@@ -403,7 +382,7 @@ export async function use_saddle(otmp) {
 
     if (rn2(100) < chance) {
         await pline(`You put the saddle on ${mon_nam(mtmp)}.`);
-        if (otmp.owornmask) remove_worn_item(otmp);
+        if (otmp.owornmask) await remove_worn_item(otmp, false); /* C steed.c:132 */
         freeinv(otmp);
         put_saddle_on_mon(otmp, mtmp);
     } else {

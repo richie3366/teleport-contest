@@ -468,8 +468,8 @@ export async function animate_statue(statue, x, y, cause, fail_reason = null) {
     }
     m_dowear(mon, true);
     if (statue.owornmask) {
-        // remove_worn_item polish deferred — clear mask before delobj
-        statue.owornmask = 0;
+        /* C trap.c:888 — hero-worn statue (wielded figurine) before delobj. */
+        await remove_worn_item(statue, true);
     }
     delobj(statue);
 

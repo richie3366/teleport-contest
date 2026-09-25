@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-25 — D-2812 `remove_worn_item` unwields through the C off-functions
+
+**C locus:** `nethack-c/upstream/src/steal.c:213–290` `remove_worn_item`. `donning` then `cancel_don` (`:218`). Return when `owornmask` is clear (`:219`). Save `in_use`, set it, and restore it (`:242–243`, `:289`) so `emergency_disrobe` and `lava_effects` leave the object alone. Armor dispatches `skinback(TRUE)` then `*_off` or `setworn` (`:246–261`). Amulet, ring, tool, and weapons call `Amulet_off`, `Ring_gone`, `Blindf_off`, and `*gone` (`:263–275`). Ball and chain call `unpunish` only when `unchain_ball` (`:277–279`); any other leftover mask calls `setnotworn` (`:280–282`). `debugpline1` on `OBJ_DELETED` is the non-DEBUG empty macro (`include/lint.h`).
+**JS:** `js/steal.js` `remove_worn_item` `:271`. `donning` `js/do_wear.js:3759`. `cancel_don` `js/do_wear.js:3711`.
+**Change:** One `remove_worn_item` in that C order. `donning` and `cancel_don` are exported from `do_wear.js` and called before the mask test. `in_use` is 1 across the body and then restored.
+**Verify:** `node scripts/verify.mjs --fn remove_worn_item` → PASS syntax (6 changed js file(s): js/do.js js/do_wear.js js/muse.js js/steal.js js/steed.js js/trap.js) · PASS rule2 · note hidden (no corpus session blocked at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+**Named:** `shk.c:173` `money2mon` stays synchronous at `js/shk.js:4533`, so quivered gold still skips `remove_worn_item`. `steal.c:784` `maybe_absorb_item` has no JS function (already named from `lock.js`).
+**Next:** `steed.c` `mount_steed` (next Open — coverage row).
 ## 2026-09-25 — D-2811 `coord_desc` compass text and autodescribe suffix
 
 **C locus:** `nethack-c/upstream/src/getpos.c:595–635` `coord_desc`. `dxdy_to_dist_descr` is `getpos.c:557–589`. MAP is `<%d,%d>` (`:612–615`). SCREEN is `[%02d,%02d]` of `y+2,x` when `ROWNO`/`COLNO` stay under 100 (`:625–631`). COMPASS and COMFULL are `(dxdy_to_dist_descr)` with full words only for COMFULL (`:604–610`). Unknown `cmode` leaves the buffer empty (`:600–603`). The look_all kitten is `pager.c:2052–2053`, after `coord_desc`, and only there.

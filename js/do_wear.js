@@ -11,7 +11,7 @@ import {
     newsym, see_monsters, urgent_pline, impossible, Hallucination, pline_The,
 } from './display.js';
 import { yn_function, paranoid_ynq } from './getline.js';
-import { an, doname, the, xname, xprname, vtense, makeplural, makesingular, otense, gloves_simple_name, obj_pmname_corpse, simpleonames, body_part_latebound, Tobjnam, Yname2, corpse_xname, killer_xname, arti_light_description, set_doffing_predicates } from './objnam.js';
+import { an, doname, the, xname, xprname, vtense, makeplural, makesingular, otense, gloves_simple_name, obj_pmname_corpse, simpleonames, body_part_latebound, Tobjnam, Yname2, corpse_xname, killer_xname, arti_light_description, set_doffing_predicates, safe_typename } from './objnam.js';
 import { find_ac } from './u_init.js';
 import {
     A_STR, A_INT, A_WIS, A_CON, A_CHA, A_DEX, acurr, extremeattr, change_luck, Fast, Very_fast,
@@ -90,6 +90,7 @@ import { hero_Swimming, hero_Breathless } from './dbridge.js';
 import { gulp_blnd_check } from './mhitu.js';
 import { region_danger } from './region.js';
 import { can_be_strangled } from './uhitm.js';
+import { remove_worn_item } from './steal.js';
 
 const FEDORA = objectNames.indexOf('FEDORA');
 const HELMET = objectNames.indexOf('HELMET');
@@ -445,10 +446,8 @@ function set_extrinsic_bit(propIdx, flatField, mask, on) {
  * protection is lost (yellow-DSM doff, gloves doff, resist timeout).
  * C order: null/non-corpse/gloved early return; wielded-or-twoweap-alt
  * gate; touch_petrifies + !Stone_resistance You/instapetrify/remove_worn_item.
- * The final remove_worn_item uses the file-local weapon-thin helper (review
- * 47): obj here is always a wielded corpse (W_WEP), so the armor/amulet/ring
- * arms of the steal.js canonical export are unreachable; unchain_ball FALSE
- * is irrelevant for a weapon.
+ * The final remove_worn_item is do_wear.c:641 (unchain_ball FALSE): a
+ * wielded corpse takes the W_WEAPONS *gone arm.
  * @param {object|null} obj uwep/uswapwep candidate
  * @param {object|null} how gloves/dragon armor/Null
  * @param {boolean} voluntary taking protection off on purpose
@@ -477,7 +476,7 @@ export async function wielding_corpse(obj, how, voluntary) {
         const kbuf = `${hbuf} while wielding ${killer_xname(obj)}`;
         await instapetrify(kbuf);
         // life-saved or poly'd into stone golem; can't keep wielding unless resistant now
-        if (!stoneRes(game.u)) remove_worn_item(obj);
+        if (!stoneRes(game.u)) await remove_worn_item(obj, false);
     }
 }
 
@@ -671,28 +670,6 @@ export function setworn(obj, mask, opts = null) {
     // must paint stale u.uac until allmain find_ac.
     update_inventory();
     recalc_telepat_range();
-}
-
-/**
- * C ref: worn.c remove_worn_item — clear weapon/quiver wear before accessory don.
- * Full prop/artifact/light paths deferred.
- */
-function remove_worn_item(obj) {
-    if (!obj) return;
-    const u = game.u || {};
-    const mask = obj.owornmask || 0;
-    if (mask & W_WEP) {
-        if (u.uwep === obj) u.uwep = null;
-        obj.owornmask &= ~W_WEP;
-    }
-    if (mask & W_SWAPWEP) {
-        if (u.uswapwep === obj) u.uswapwep = null;
-        obj.owornmask &= ~W_SWAPWEP;
-    }
-    if (mask & W_QUIVER) {
-        if (u.uquiver === obj) u.uquiver = null;
-        obj.owornmask &= ~W_QUIVER;
-    }
 }
 
 /** Clear a worn slot (C setworn(NULL, mask) subset). */
@@ -1783,7 +1760,7 @@ function Blind() {
  */
 export async function Blindf_on(otmp) {
     const already_blind = Blind();
-    remove_worn_item(otmp);
+    await remove_worn_item(otmp, false); /* C do_wear.c:1466 */
     setworn(otmp, W_TOOL);
     await on_msg(otmp);
 
@@ -1905,7 +1882,13 @@ async function armor_or_accessory_off(obj) {
         await Blindf_off(obj);
         return 1;
     }
-    return 0;
+    /* C do_wear.c:1823–1826 — not a ring, amulet, or eyewear. */
+    await impossible(
+        'removing strange accessory: %s',
+        await safe_typename(obj.otyp | 0),
+    );
+    if (obj.owornmask) await remove_worn_item(obj, false);
+    return 1;
 }
 
 /**
@@ -2779,7 +2762,7 @@ function takeoff_ok(obj) {
  */
 async function Amulet_on(amul) {
     // C `:968–969` — unwield/unquiver before wearing, then wear the amulet.
-    remove_worn_item(amul);
+    await remove_worn_item(amul, false);
     setworn(amul, W_AMUL);
     const u = game.u || (game.u = {});
     const otyp = (amul?.otyp | 0);
@@ -3205,7 +3188,7 @@ async function accessory_or_armor_on(obj) {
     if (armor) {
         // Release from weapon slots if needed
         if ((obj.owornmask || 0) & W_WEAPONS) {
-            remove_worn_item(obj);
+            await remove_worn_item(obj, false); /* C do_wear.c:2364 */
         }
 
         /* C `:2375` — snapshot before setworn. Boots_on runs from afternmv
@@ -3725,7 +3708,7 @@ export function cancel_doff(obj, slotmask) {
  * C ref: do_wear.c cancel_don — clear afternmv / multi / takeoff delay.
  * Applies to donning and doffing (C comment).
  */
-function cancel_don() {
+export function cancel_don() {
     const af = game.afternmv;
     if (!game.context) game.context = {};
     if (!game.context.takeoff) game.context.takeoff = {};
@@ -3773,7 +3756,7 @@ export function doffing(otmp) {
 /**
  * C ref: do_wear.c donning — put-on or take-off in progress for otmp.
  */
-function donning(otmp) {
+export function donning(otmp) {
     if (!otmp) return false;
     if (doffing(otmp)) return true;
     const u = game.u || {};
@@ -3794,9 +3777,8 @@ set_doffing_predicates(doffing, donning);
 
 /**
  * C ref: do_wear.c stop_donning — interrupt multi-turn armor don/doff.
- * Called from hack.c dosinkfall (and steal). Named omissions: full
- * remove_worn_item armor prop polish beyond setworn clear; accessory
- * takeoff.what-only arms; thesimpleoname vs doname wording.
+ * Called from hack.c dosinkfall (and steal). Putting-on interrupt calls
+ * steal.c remove_worn_item(FALSE). Named: thesimpleoname vs doname wording.
  * @param {object|null} stolenobj no mesg when already doffing this
  * @returns {Promise<number>} 0, or -multi when silently stopping doff
  */
@@ -3824,9 +3806,8 @@ export async function stop_donning(stolenobj) {
     }
     await unmul(buf);
     if (putting_on) {
-        // C: remove_worn_item(otmp, FALSE) — clear slot; setworn handles props
-        const mask = (otmp.owornmask | 0) & W_ARMOR;
-        if (mask) setworn(null, mask);
+        /* C do_wear.c:1724 — side effects never ran; unworn via *_off. */
+        await remove_worn_item(otmp, false);
     }
     return result;
 }
