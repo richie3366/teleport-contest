@@ -6,7 +6,7 @@
 - Banned grep: 0 hits in the hunk. `imports.mjs --rulecheck` on this SHA: "Rule #2 clean".
 - `imports.mjs --can do_wear.js potion.js incr_itimeout` → `ALREADY` (do_wear already imports potion). The fumble arm does not call that export.
 
-**Addressed:** D-2809
+**Addressed:** D-2809 `27a017b11`
 
 ## Intent vs deliverable
 

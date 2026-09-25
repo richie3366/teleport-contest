@@ -101,10 +101,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `js/display.js` `petattr_to_tty` — italic and blink stay 0; `s_atr2str` (`termcap.c:1343–1364`) paints italic as underline and blink as bold. Review 1758. Verify `node scripts/verify.mjs --fn optfn_petattr`.
+**Next cluster:** `getpos.c` `coord_desc` — coverage PARTIAL (C 40 L `getpos.c:595–635` / JS 22 L in js/display.js). Verify `node scripts/verify.mjs --fn coord_desc`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2809 (index).**
+**Keep D-0845…D-2810 (index).**
 <!-- recent:begin -->
+**D-2810** `nethack-c/upstream/win/tty/termcap.c:1339–1376` `s_atr2str`, called from `term_start_attr — Same switch order as `s_atr2str` for those capabilities.
 **D-2809** `nethack-c/upstream/src/do_wear.c:231–234` `Boots_on` `FUMBLE_BOOTS` `incr_itimeout(&HFumb — Seed the slot from the merged flat (C `HFumbling` is one long), call `incr_itimeout(prop, rnd(20))`, then set `u.HFumbling` from `prop.intrinsic`.
 **D-2808** `nethack-c/upstream/src/mon.c:3438–3467` `unstuck`. Swallowed exit `:3448–3456`: clear `ms — After `ux`/`uy` and before `vision_full_recalc`, call `placebc` when `Punished()` and `uchain.where` is not `OBJ_FLOOR`.
 **D-2807** `nethack-c/upstream/src/zap.c:2119–2424` `bhito`. Self-hit `:2130`. Bypass `:2133–2170`. F — One `bhito` in that C order.
@@ -112,11 +113,10 @@ revisits the picker.
 **D-2805** `nethack-c/upstream/src/artifact.c:2130–2232` `arti_invoke`. Null `:2136–2138`. No `inv_pr — One `arti_invoke` in that C order.
 **D-2804** `nethack-c/upstream/src/dothrow.c:2011–2304` `thitmonst`. After the weapon arm (`:2155–223 — Restart of the hit chain in C order.
 **D-2803** `nethack-c/upstream/src/do_wear.c:383–431` `Cloak_off`. `do_wear.c:186–259` `Boots_on`. `d — Both functions restarted in C order.
-**D-2802** `nethack-c/upstream/include/monst.h:277` `resists_poison(mon)` is `Resists_Elem(mon, POISO — `Resists_Elem` in `js/mondata.js` in that C order.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2809; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2810; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

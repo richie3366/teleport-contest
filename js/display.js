@@ -292,35 +292,39 @@ function hilite_pet_opt() {
 /**
  * C ref: wintype.h `:128–134` enum, stored by options.c optfn_petattr
  * `:3163` (`match_str2attr`). Paint is wintty.c tty_print_glyph
- * `:3928` `term_start_attr(iflags.wc2_petattr)`.
+ * `:3928` `term_start_attr(iflags.wc2_petattr)`, which calls
+ * termcap.c `s_atr2str` `:1339–1376` (`term_start_attr` `:1434`).
  *
  * Frozen terminal.js is a bitfield, not that enum. wintype ATR_BOLD
  * is 1 and terminal ATR_INVERSE is 1, so a stored bold must not pass
- * through. Map none → 0, bold → ATR_BOLD (2), underline →
- * ATR_UNDERLINE (4), inverse → ATR_INVERSE (1). Dim (2), italic (3),
- * and blink (5) have no terminal bit and return 0.
+ * through. The ANSI default tty (`termcap.c:157–160`) sets `nh_HI`,
+ * `nh_US`, and `MR`. `ZH`, `MB`, `MD`, and `MH` stay null (`:46–47`).
+ * `s_atr2str` then emits underline for italic, bold for blink, and
+ * nothing for dim. Those strings are the terminal bits below.
  *
- * An unset field stands in for initoptions `:7264` (ATR_INVERSE).
- * A stored 0 is ATR_NONE and paints nothing.
- *
- * Named: termcap.c s_atr2str `:1339–1376` falls italic through to
- * underline when ZH is empty, and blink through to bold when MB is
- * empty. Those capability fallbacks are not applied; this terminal
- * has no italic or blink bit.
+ * An unset field stands in for initoptions `:7264` (wintype ATR_INVERSE).
+ * A stored 0 is ATR_NONE: `term_start_attr` `:1433` skips attr 0.
  */
 function petattr_to_tty(a) {
     if (a == null) return ATR_INVERSE;
-    switch (a | 0) {
-    case 0: // wintype ATR_NONE
-        return 0;
-    case 1: // wintype ATR_BOLD
-        return ATR_BOLD;
+    const n = a | 0;
+    // termcap.c s_atr2str :1340–1375. Capability tests are the ANSI
+    // default: ZH/MB/MD/MH null, nh_US/nh_HI/MR set.
+    switch (n) {
+    case 3: // wintype ATR_ITALIC — ZH null, fall through (:1343–1347)
+    case 5: // wintype ATR_BLINK
     case 4: // wintype ATR_ULINE
-        return ATR_UNDERLINE;
-    case 7: // wintype ATR_INVERSE
+        // Blink: MB is null, so this arm does not return (:1349–1351).
+        // Italic and underline: nh_US is set (:1352–1356).
+        if (n !== 5) return ATR_UNDERLINE;
+        // FALLTHROUGH — blink only.
+    case 1: // wintype ATR_BOLD — MD null, nh_HI set (:1359–1364)
+        return ATR_BOLD;
+    case 7: // wintype ATR_INVERSE — MR set (:1366–1368)
         return ATR_INVERSE;
-    default:
-        // ATR_DIM 2, ATR_ITALIC 3, ATR_BLINK 5, and any other value.
+    case 2: // wintype ATR_DIM — MH null, no fallthrough (:1370–1374)
+        return 0;
+    default: // wintype ATR_NONE and any other value → nulstr
         return 0;
     }
 }

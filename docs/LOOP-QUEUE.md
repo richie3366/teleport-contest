@@ -103,8 +103,6 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 always Must-fix rows: they forfeit every later screen of that session
 (Constitution §10.14).
 
-- [ ] `js/display.js` `petattr_to_tty` returns 0 for wintype `ATR_ITALIC` (3) and `ATR_BLINK` (5). `s_atr2str` (`termcap.c:1343–1364`) with `ZH`/`MB`/`MD` null and `nh_US`/`nh_HI` set (`termcap.c:157–158`) paints italic as underline and blink as bold. Dim stays 0 (`:1370–1374`). Source: reviews/loop-unattended/1758-7a4911ae6-petattr-to-tty.md. Verify `node scripts/verify.mjs --fn optfn_petattr` (reach regression must be 0).
-
 ## Open — coverage (breadth phase — pop first after Must-fix)
 
 Rows below are `port-coverage.mjs --rows` output (score = reach × call

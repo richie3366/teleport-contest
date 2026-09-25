@@ -6,6 +6,8 @@
 - Banned grep: 0 hits in the hunk (`FORCE` / `DIAG` / `getRngLog` / seed names / `fastforward` / coordinates). `imports.mjs --rulecheck` on this SHA: "Rule #2 clean".
 - No symbol was deleted or re-pointed from a local clone to an import. New names are bit constants already imported from frozen `terminal.js`.
 
+**Addressed:** D-2810
+
 ## Intent vs deliverable
 
 Subject promises a wintype→terminal map: none → 0, bold → terminal `ATR_BOLD` (2), underline → `ATR_UNDERLINE` (4), inverse → `ATR_INVERSE` (1); dim, italic, and blink return 0; an unset field still paints inverse. The diff does that and nothing else. `optfn_petattr` / `handler_petattr` are untouched.

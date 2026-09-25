@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2810 — `petattr_to_tty` paints italic as underline and blink as bold
+
+- **Status:** fixed (Must-fix from review 1758; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** A stored pet highlight of italic (wintype `ATR_ITALIC` 3) or blink (`ATR_BLINK` 5) painted nothing. On the ANSI default tty those enums are underline and bold.
+- **C locus:** `nethack-c/upstream/win/tty/termcap.c:1339–1376` `s_atr2str`, called from `term_start_attr` `:1434`. ANSI default (`termcap.c:157–160`) sets `nh_HI`, `nh_US`, and `MR`. `ZH`, `MB`, `MD`, and `MH` stay null (`:46–47`). Italic falls through the empty `ZH` test into underline (`:1343–1356`). Blink finds `MB` null and falls through to bold (`:1349–1364`). Dim stays `nulstr` (`:1370–1374`). The pet site is `wintty.c:3928` `term_start_attr(iflags.wc2_petattr)`.
+- **JS was:** `js/display.js` `petattr_to_tty` mapped none, bold, underline, and inverse, and returned 0 for dim, italic, and blink. The comment called that a terminal with no italic or blink bit. Empty `ZH` / `MB` is why `s_atr2str` falls through, not why it emits nothing.
+- **Fix:** Same switch order as `s_atr2str` for those capabilities. Italic and underline return terminal `ATR_UNDERLINE` (4). Blink falls through and returns terminal `ATR_BOLD` (2). Dim stays 0. None stays 0. Inverse stays terminal `ATR_INVERSE` (1). An unset field still stands in for `initoptions` `:7264` (wintype inverse).
+- **JS:** `js/display.js` `petattr_to_tty` `:308`. `mon_map_attr` `:332`. `glyph_tty_attr` `:345`.
+- **Callers:** C `termcap.c:18` is the prototype. C `termcap.c:1409` is a comment on `term_attr_fixup`. C `termcap.c:1434` `term_start_attr` is the only call. The pet arm `wintty.c:3928` is `mon_map_attr` at `js/display.js:622` and `:1354`, and `glyph_tty_attr` at `js/display.js:1915`, `:1978`, and `js/detect.js:1221`. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn optfn_petattr` → PASS syntax (1 changed js file: js/display.js) · PASS rule2 · note hidden (no corpus session blocked at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+- **Named omissions:** `s_atr2str` is not a general export. Other `term_start_attr` sites in review 1758 (`wintty.c:1186`, `:1318`, `:1807`, `:2338`, `:2350`, `:3935`, `:4959–4969`, `:5170`) are menu, status, or inverse, not `wc2_petattr`. `term_attr_fixup` (`termcap.c:1411–1428`) is a different function. `initoptions` `:7264` is still not a JS function.
+- **Next:** `getpos.c` `coord_desc` (next Open — coverage row).
+
 ## D-2809 — `Boots_on` fumble timeout saturates at TIMEOUT
 
 - **Status:** fixed (Must-fix from review 1762; `hidden-proxy verify` reports no corpus session blocked).
