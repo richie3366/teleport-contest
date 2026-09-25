@@ -100,10 +100,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `options.c` optfn_disclose — coverage MISSING (C 116 L `options.c:1442–1560` / JS no symbol; hops —, callers 0, RNG 0, msg 0; dead callees: handler_disclose). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn optfn_disclose` (reach regression must be 0). Measured `port-coverage.mjs --name optfn_disclose` 2026-09-23 @ e93d269e7. Queue row left unchecked (continue-unfinished did not pop).
+**Next cluster:** `coloratt.c` basic_menu_colors — coverage PARTIAL (C 47 L `coloratt.c:530–580` / JS 22 L in js/options.js; hops —, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn basic_menu_colors` (reach regression must be 0). Measured `port-coverage.mjs --name basic_menu_colors` 2026-09-23 @ e93d269e7.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2788 (index).**
+**Keep D-0845…D-2789 (index).**
 <!-- recent:begin -->
+**D-2789** `nethack-c/upstream/src/coloratt.c:530–580` `basic_menu_colors`. load_colors saves `iflags — restart of `basic_menu_colors` in C order with `:line` cites.
 **D-2788** `nethack-c/upstream/src/options.c:1442–1560` `optfn_disclose` (NHOPTC, optlist.h `:284`).  — `optfn_disclose` and `handler_disclose` in `js/options.js` in C order with `:line` cites.
 **D-2787** `cfgfiles.c:1960–1976` `rcfile_interface_options` — rc parser in `js/cfgfiles.js`. Caller `rcfile()` is `:966`.
 **D-2786** `nethack-c/upstream/src/options.c:1777–1812` `optfn_gender` (NHOPTC, optlist.h `:132`). Sa — the four optfns plus `parse_role_opt`, `saveoptstr`, `getoptstr`, `opt2roleopt`, `get_cnf_role_opt`, and `rolestring` in `js/options.js`, in C order with `:line` cites.
@@ -111,11 +112,10 @@ revisits the picker.
 **D-2784** `nethack-c/upstream/src/options.c:3958–4010` (staticfn; NHOPTC wires `&optfn_sortvanquishe — restart as `optfn_sortvanquished` in C order with `:line` cites.
 **D-2783** `nethack-c/upstream/src/options.c:1706–1774` (staticfn; NHOPTC wires `&optfn_fruit`, optli — restart as `optfn_fruit` in C order with `:line` cites.
 **D-2782** `nethack-c/upstream/src/options.c:2245–2249` (`op == empty_optstr` → `!strncmp(opts, "use_ — pass `stripped` (msg_window valueless site in the same function).
-**D-2781** `options.c:8664–8670` (doset_simple_menu hasHandler: optfn do_handler, optn_ok → mark — capture `reslt` from the four arms, mark `opt_set_in_config` on OPTN_OK; `handler_pickup_types` returns optn_ok.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2788; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2789; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

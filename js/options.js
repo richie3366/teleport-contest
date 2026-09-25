@@ -425,6 +425,14 @@ const msgtype_names = [
 ];
 
 /**
+ * C ref: sys/share/posixregex.c:52 `regex_id[] = "posixregex"`.
+ * Contest unix links that object (sys/unix/Makefile.src:229); the
+ * pmatchregex.o line is commented out. `basic_menu_colors` compares
+ * this id (`coloratt.c:548`).
+ */
+const REGEX_ID = 'posixregex';
+
+/**
  * C ref: sys/share/posixregex.c — POSIX ERE REG_EXTENDED|REG_NOSUB via
  * JS RegExp (substring match). `[:class:]` POSIX classes mapped;
  * full POSIX engine still named.
@@ -3395,30 +3403,51 @@ export function color_attr_parse_str(ca, str) {
 
 /**
  * C ref: coloratt.c basic_menu_colors `:530–580` — swap user colorings
- * for `blue`=blue… patterns while picking, then restore. Unix links
- * posixregex (sys/unix/Makefile.src:229) so regex_id != "pmatchregex"
- * and the pattern format is plain "%s" (`:546–548`).
+ * for name=color patterns while picking, then restore.
+ * `saveMenuColorState` / `saveColorings` / `colorColorings` /
+ * `menuColorings` are gs.save_menucolors, gs.save_colorings,
+ * gc.color_colorings, gm.menu_colorings (module lifetime, not saved).
+ * MENU_COLORNAMES is colornames[] up to the null-name sentinel
+ * (`:29`); the alias rows after it are never visited.
  */
 export function basic_menu_colors(load_colors) {
     if (!game.iflags) game.iflags = {};
     const iflags = game.iflags;
-    if (load_colors) {
-        saveMenuColorState = !!iflags.use_menu_color;
-        saveColorings = menuColorings;
-        iflags.use_menu_color = true;
-        if (colorColorings) {
-            menuColorings = colorColorings;
+    if (load_colors) { // C :535
+        /* replace normal menu colors with a set specifically for colors */ // C :536
+        saveMenuColorState = !!iflags.use_menu_color; // C :537 gs.save_menucolors
+        saveColorings = menuColorings; // C :538 gs.save_colorings = gm.menu_colorings
+        iflags.use_menu_color = true; // C :540
+        if (colorColorings) { // C :541 gc.color_colorings
+            /* use the alternate colorings which were set up previously */ // C :542
+            menuColorings = colorColorings; // C :543
         } else {
-            menuColorings = null;
-            for (const [nm, col] of MENU_COLORNAMES) {
-                if (col === CLR_BLACK || col === CLR_WHITE || col === NO_COLOR) continue;
-                add_menu_coloring_parsed(nm, col, MC_ATR_NONE);
+            /* create the alternate colorings once */ // C :545
+            // C :548 !strcmpi(regex_id, "pmatchregex") — ASCII fold, 0 means equal.
+            const pmatchregex = REGEX_ID.toLowerCase() === 'pmatchregex';
+            const patternfmt = pmatchregex ? '*%s' : '%s'; // C :549
+            /* menu_colorings pointer has been saved; clear it in order
+               to add the alternate entries as if from scratch */ // C :551-553
+            menuColorings = null; // C :553
+            /* last-in/first-out: "light <foo>" is prepended before "<foo>" */ // C :555-559
+            for (let i = 0; i < MENU_COLORNAMES.length; i++) { // C :560 SIZE(colornames)
+                const row = MENU_COLORNAMES[i];
+                if (!row || !row[0]) break; // C :561 first alias entry has no name
+                const c = row[1] | 0; // C :563
+                if (c === CLR_BLACK || c === CLR_WHITE || c === NO_COLOR) {
+                    continue; // C :564-565
+                }
+                // C :566 Sprintf(cnm, patternfmt, name) into QBUFSZ.
+                const cnm = patternfmt === '*%s' ? `*${row[0]}` : String(row[0]);
+                add_menu_coloring_parsed(cnm, c, MC_ATR_NONE); // C :567 ATR_NONE
             }
-            colorColorings = menuColorings;
+            /* remember that list for future pick-a-color instances */ // C :570-572
+            colorColorings = menuColorings; // C :573
         }
     } else {
-        iflags.use_menu_color = saveMenuColorState;
-        menuColorings = saveColorings;
+        /* restore normal user-specified menu colors */ // C :576
+        iflags.use_menu_color = saveMenuColorState; // C :577
+        menuColorings = saveColorings; // C :578
     }
 }
 

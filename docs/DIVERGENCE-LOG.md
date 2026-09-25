@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2789 — `coloratt.c` basic_menu_colors whole-body port
+
+- **Status:** fixed (Open — coverage row `basic_menu_colors` PARTIAL, measured `port-coverage.mjs --name basic_menu_colors` 2026-09-23 @ e93d269e7; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** coverage gap, not a corpus divergence. The pick-a-color swap saved and restored menu colorings, but it always compiled the bare color name. C chooses `*%s` when `regex_id` is `pmatchregex` and `%s` otherwise (`coloratt.c:548–549`).
+- **C locus:** `nethack-c/upstream/src/coloratt.c:530–580` `basic_menu_colors`. load_colors saves `iflags.use_menu_color` and `gm.menu_colorings`, forces menucolors on, and either reuses `gc.color_colorings` or builds it once: clear the list, walk `colornames[]` until the null name, skip black/white/`NO_COLOR`, `Sprintf` the pattern, `add_menu_coloring_parsed` with `ATR_NONE`, then keep that list. The restore arm writes the saved flag and list back.
+- **JS was:** `basic_menu_colors` in `js/options.js` walked `MENU_COLORNAMES` and passed the bare name. No `regex_id` compare, so the `*%s` arm was absent. Callers in `query_color` were already both sites.
+- **Fix:** restart of `basic_menu_colors` in C order with `:line` cites. `REGEX_ID` is `"posixregex"` (`posixregex.c:52`; unix `Makefile.src:229` links that object, pmatchregex is commented out). The compare is an ASCII case-fold of that constant against `"pmatchregex"` (`!strcmpi`). Live id takes the `%s` arm; the `*%s` arm is in the body. `add_menu_coloring_parsed` is the existing export. Module slots stay the gs/gc/gm stand-ins.
+- **JS:** `js/options.js` `REGEX_ID :433`, `basic_menu_colors :3413`.
+- **Callers:** C `coloratt.c:483` `basic_menu_colors(TRUE)` → `js/options.js:3463` (`query_color`). C `coloratt.c:503` `basic_menu_colors(FALSE)` → `js/options.js:3471`. No other C call site. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn basic_menu_colors` → PASS syntax (1 changed js file: js/options.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 · VERIFY: PASS.
+- **Named omissions:** none on this function. `MENU_COLORNAMES` is `colornames[]` through the null-name sentinel; aliases after it are not visited, matching the `break`.
+- **Next:** next Open — coverage row (`options.c` optfn_petattr).
+
 ## D-2788 — `options.c` optfn_disclose whole-body port
 
 - **Status:** fixed (Open — coverage row `optfn_disclose` MISSING, measured `port-coverage.mjs --name optfn_disclose` 2026-09-23 @ e93d269e7; `hidden-proxy verify` reports no corpus session blocked).

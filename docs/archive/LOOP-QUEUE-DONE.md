@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-25
 
-- [x] `options.c` optfn_disclose — coverage MISSING (C 116 L `options.c:1442–1560` / JS no symbol; hops —, callers 0, RNG 0, msg 0; dead callees: handler_disclose). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn optfn_disclose` (reach regression must be 0). Measured `port-coverage.mjs --name optfn_disclose` 2026-09-23 @ e93d269e7. **Addressed:** D-2788
+- [x] `coloratt.c` basic_menu_colors — coverage PARTIAL (C 47 L `coloratt.c:530–580` / JS 22 L in js/options.js; hops —, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn basic_menu_colors` (reach regression must be 0). Measured `port-coverage.mjs --name basic_menu_colors` 2026-09-23 @ e93d269e7. **Addressed:** D-2789
+
+
+- [x] `options.c` optfn_disclose — coverage MISSING (C 116 L `options.c:1442–1560` / JS no symbol; hops —, callers 0, RNG 0, msg 0; dead callees: handler_disclose). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn optfn_disclose` (reach regression must be 0). Measured `port-coverage.mjs --name optfn_disclose` 2026-09-23 @ e93d269e7. **Addressed:** D-2788 `086317c06`
 
 
 - [x] `cfgfiles.c` rcfile_interface_options — coverage MISSING (C 16 L `cfgfiles.c:1960–1976` / JS no symbol; hops —, callers 0, RNG 0, msg 0; dead callees: disregard_all_options, disregard_all_config_statements, heed_all_config_statements, heed_all_options). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn rcfile_interface_options` (reach regression must be 0). Measured `port-coverage.mjs --name rcfile_interface_options` 2026-09-23 @ e93d269e7. **Addressed:** D-2787 `9d6d893ca`
