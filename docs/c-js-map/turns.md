@@ -345,7 +345,7 @@ toss_up / litter still named) + **`doaltarobj`/`fire_damage`/hot potion** (D-099
 **`getobj_drop` via `yn_function` leaves TOPLINE_NON_EMPTY; 
 `clear_nhwindow_message` clears pending; leftover getobj text does not steal hero cursor** (D-0512; 
 shops/sinks named; corpse `better_not_try_to_drop_that` **D-1960** (C `do.c` `:946–962` guard wired at `drop` `:720`; `u_safe_from_fatal_corpse`/`st_all` exported from `pickup.js`, `obj_pmname_corpse` exported from `objnam.js`, no clone #2); **`#droptype`/`D` `doddrop` D-1635** (C `do.c` `:922–944` TRADITIONAL `ggetobj("drop", drop)` + `'m'` `menu_drop`; FULL `query_category` then autopick/`query_objlist`; COMBINATION ggetobj combo ALL_FINISHED; callees `menudrop_split` `:963–977` / `menu_drop` `:980–1107`; `worn.c` `bypass_objlist`/`nxt_unbypassed_obj`; `cmd.c` `reset_occupations`; `getline.js` `#droptype`; INCLUDE_VENOM display / `clear_bypasses` named (query_category ParanoidAutoAll verify_All + A-hints live D-2647; menu_loot corner-menu clone keeps its own); **drop getobj ALLOWCNT count prefix D-1530**; **drop/apply/rub prompt clones retire to live getobj D-2353** (C `do.c:35-36`/`apply.c:4226`/:1793, all NULL arms EXCLUDE; charCode-sort/raw-nhgetch/no-menu/no-in_doagain/no-botl/`...to apply.` silly fixed; wield/ready/dip/stash/charge/write/zap/rub_on_stone clones named); globby pudding_merge deferred); 
-**`'>'` → `dodown` whole body `do.c:1131–1294` (D-2793; levitation, hider, hole, Valley yn, hell, autodig) + `next_level`/`goto_level` ordinary stairs + 
+**`'>'` → `dodown` whole body `do.c:1131–1294` (D-2793; levitation, hider, hole, Valley yn, hell, autodig; ceiling-hider `Flying` and local `u_locomotion` call `mhitu.js` `Flying`, youprop.h H/E/steed-flyer && !B, D-2800) + `next_level`/`goto_level` ordinary stairs + 
 `flush_screen(-1)` descend `--More--` + clear `_objects_at`/`head_engr`** (D-0149/D-0160/D-0161); 
 **`goto_level` builds_up `dunlev_reached` min-track** (D-2341; C `do.c:1678–1684` else-arm; live `js/do.js`); 
 **`goto_level` descend Flying / encumber|Punished|Fumbling fall `rnd(3)` `losehp`** (D-0445; 
@@ -1769,7 +1769,7 @@ Punished `ballfall` is **D-1778** (C `ball.c:42–67`: `gets_hit` `rn2(5)` is dr
 `u.Punished` until **D-1786** gated on `u.uball` (C `youprop.h:77`); 
 W-tower `u_on_rndspot` bit 2 still named); 
 **`goto_level` climb `great_effort` = Punished&&!Levitation + Flying ladder "along" + 
-`u_locomotion`** (D-0928 #1159; poly `locomotion()` / steed-flyer Flying deferred); 
+`u_locomotion`** (D-0928 #1159; poly `locomotion()` still deferred; steed-flyer `Flying` is the `mhitu.js` export, D-2800); 
 **`goto_level` savelev/getlev persist `lastseentyp`** (D-0928 #1160); 
 **`goto_level` `save_timers(RANGE_LEVEL)`/`restore_timers`** (D-1037;
 peel local object/spot timers so off-level HATCH_EGG/rot/burn/melt do not fire;

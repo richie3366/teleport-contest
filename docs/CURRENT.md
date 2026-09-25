@@ -102,10 +102,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `js/do.js` `dodown` ceiling-hider and `u_locomotion` call the local `Flying()` (`do.js:449`) which drops the steed-flyer. `youprop.h` `Flying` is `(HFlying || EFlying || (u.usteed && is_flyer(u.usteed->data))) && !BFlying`. `mhitu.js` `Flying` already has that arm and `do.js` already imports `mhitu.js`. Source: reviews/loop-unattended/1752-f176b8c0a-dodown.md. Verify `node scripts/verify.mjs --fn dodown`.
+**Next cluster:** `js/mkobj.js` `start_timer` stores string `MELT_ICE_AWAY` as func_index 0 (`action | 0`), which is `ROT_ORGANIC`. C `timeout_funcs` index 8 is `melt_ice_away` (`timeout.c:1978–1990`). `run_timers` then calls `rot_organic` on a level timer (`mkobj.js:1545`) and the string compare never runs. Store index 8 and call `melt_ice_away` on the packed long. Source: reviews/loop-unattended/1753-2b10e06e1-start-timer.md. Verify `node scripts/verify.mjs --fn start_timer`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2799 (index).**
+**Keep D-0845…D-2800 (index).**
 <!-- recent:begin -->
+**D-2800** `nethack-c/upstream/include/youprop.h:253–255` `Flying`. `do.c:1206` ceiling hider. `do.c: — Import `Flying` from `mhitu.js` and delete the local clone.
 **D-2799** `nethack-c/upstream/include/wintype.h:128–134` (`ATR_NONE` 0, `ATR_BOLD` 1, `ATR_DIM` 2, ` — Map none → 0, bold → terminal `ATR_BOLD` (2), underline → `ATR_UNDERLINE` (4), inverse → `ATR_INVERSE` (1).
 **D-2798** `nethack-c/upstream/src/zap.c:5536–5578` `fracture_rock`. Callees: `get_obj_location`, `co — Restart of `fracture_rock` in C order, async because `You` and `breakobj` can reach `--More--`.
 **D-2797** `nethack-c/upstream/src/uhitm.c:3122–3165` `mhitm_ad_drst`. Callees: `mhitm_mgc_atk_negate — One exported `mhitm_ad_drst` in C order.
@@ -113,11 +114,10 @@ revisits the picker.
 **D-2795** `nethack-c/upstream/src/mkobj.c:2067–2118` `mkcorpstat`. Callees: `impossible` (does not r — Restart of `mkcorpstat` in C order.
 **D-2794** `nethack-c/upstream/src/timeout.c:2247–2292` `start_timer`. Callees: `kind_name` `:1994–20 — Restart of `start_timer` in C order.
 **D-2793** `nethack-c/upstream/src/do.c:1131–1294` `dodown`. Same commit: `u_stuck_cannot_go` `:1110– — Restart of `dodown` in C order.
-**D-2792** `nethack-c/upstream/src/options.c:3138–3194` `optfn_petattr` and `:6152–6164` `handler_pet — `optfn_petattr` and `handler_petattr` in C order.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2799; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2800; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

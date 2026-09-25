@@ -5,6 +5,8 @@
 - Queue row: Open coverage, 0 corpus blocks cited
 - Banned grep: 0 hits in the hunk. `imports.mjs --rulecheck`: "Rule #2 clean" (this audit).
 
+**Addressed:** D-2800
+
 ## Intent vs deliverable
 
 Subject promises a restart of `dodown` in C order, `DIR_DOWN` restored

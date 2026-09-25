@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-25 — D-2800 `dodown` Flying includes the flying steed
+
+**C locus:** `nethack-c/upstream/include/youprop.h:253–255` `Flying`. `do.c:1206` ceiling hider. `do.c:1258` `u_locomotion("jump")`, which reads `Flying` at `hack.c:1827`. Same macro at `do.c:276` and `:280` (pool splash) and `do.c:1763` (ladder " along").
+**JS:** `js/do.js` import `:154`. Local `u_locomotion :553` calls `Flying()` at `:555`. Ceiling hider `:3043`. Hole verb `:3100`. Pool `:829` and `:833`. Climb along `:1863`.
+**Change:** Import `Flying` from `mhitu.js` and delete the local clone. Ceiling-hider, local `u_locomotion`, the pool splash, and the climb " along" test now use `(HFlying || EFlying || (usteed && is_flyer(usteed.data))) && !BFlying`, with the existing sticky `u.Flying` early true. No new import edge (`imports.mjs --can` already).
+**Verify:** `node scripts/verify.mjs --fn dodown` → PASS syntax (1 changed js file: js/do.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 · VERIFY: PASS.
+**Named:** `do.c:1776` descend `else if (Flying)` is still sticky `u.Flying` at `js/do.js:1887`. `js/hack.js:2058` `u_locomotion` still reads sticky `u.Levitation` / `u.Flying` (capitalize and `locomotion()` poly fallback already named).
+**Next:** next Must-fix (`js/mkobj.js` `start_timer` stores `MELT_ICE_AWAY` as func_index 0, review 1753).
 ## 2026-09-25 — D-2799 `petattr_to_tty` maps wintype attrs onto the terminal bitfield
 
 **C locus:** `nethack-c/upstream/include/wintype.h:128–134` (`ATR_NONE` 0, `ATR_BOLD` 1, `ATR_DIM` 2, `ATR_ITALIC` 3, `ATR_ULINE` 4, `ATR_BLINK` 5, `ATR_INVERSE` 7). `options.c:3163` stores `match_str2attr`'s value in `iflags.wc2_petattr`. Paint is `wintty.c:3928` `term_start_attr(iflags.wc2_petattr)` → `termcap.c:1339–1376` `s_atr2str`. `initoptions` `:7264` stores `ATR_INVERSE` when the field is unset.

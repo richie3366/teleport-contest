@@ -151,7 +151,7 @@ import {
 import { dismount_steed, place_monster, stucksteed } from './steed.js';
 import { place_wsegs } from './worm.js';
 import { set_residency, costly_alteration } from './shk.js';
-import { set_ustuck, gulp_blnd_check, digests } from './mhitu.js';
+import { set_ustuck, gulp_blnd_check, digests, Flying } from './mhitu.js';
 import { onquest, ok_to_quest } from './quest.js';
 import { resurrect } from './wizard.js';
 import { create_mplayers } from './mplayer.js';
@@ -445,13 +445,6 @@ function Levitation() {
     return !!(((u.HLevitation | 0) || (u.ELevitation | 0))
         && !(u.BLevitation | 0));
 }
-/** C ref: youprop.h Flying — (H||E) && !B; steed-flyer arm deferred. */
-function Flying() {
-    const u = game.u || {};
-    if (u.Flying) return true;
-    return !!(((u.HFlying | 0) || (u.EFlying | 0))
-        && !(u.BFlying | 0));
-}
 /** C youprop.h Deaf — H/E Deaf or roleplay deaf. */
 function Deaf() {
     const u = game.u || {};
@@ -552,7 +545,9 @@ async function You_hear(line) {
     await pline(`You hear ${line}`);
 }
 /**
- * C ref: hack.c u_locomotion — Lev/Fly verbs; poly locomotion() deferred.
+ * C ref: hack.c u_locomotion `:1817–1829` — Levitation, then youprop.h
+ * Flying (mhitu.js export: H/E or a flying steed, unless BFlying).
+ * Poly `locomotion(youmonst.data, def)` and the capitalize path stay named.
  * @param {string} defWord
  */
 function u_locomotion(defWord) {

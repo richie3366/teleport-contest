@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2800 — `dodown` Flying includes the flying steed
+
+- **Status:** fixed (Must-fix from review 1752; `do.js` local `Flying` dropped the steed-flyer. `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** A ceiling hider on a flying steed, and `u_locomotion("jump")` on the way down a hole, used hero `HFlying`/`EFlying` only. `youprop.h` `Flying` is also true when `u.usteed` is a flyer and `BFlying` is clear. The lurker printed "drop" and the hole verb stayed "jump".
+- **C locus:** `nethack-c/upstream/include/youprop.h:253–255` `Flying`. `do.c:1206` ceiling hider. `do.c:1258` `u_locomotion("jump")`, which reads `Flying` at `hack.c:1827`. Same macro at `do.c:276` and `:280` (pool splash) and `do.c:1763` (ladder " along").
+- **JS was:** `js/do.js:449` `function Flying()` returned sticky `u.Flying` or `(HFlying || EFlying) && !BFlying`. `dodown` and the file-local `u_locomotion` called that clone. `js/mhitu.js` `Flying` already had the steed arm, and `do.js` already imported `mhitu.js`.
+- **Fix:** Import `Flying` from `mhitu.js` and delete the local clone. Ceiling-hider, local `u_locomotion`, the pool splash, and the climb " along" test now use `(HFlying || EFlying || (usteed && is_flyer(usteed.data))) && !BFlying`, with the existing sticky `u.Flying` early true. No new import edge (`imports.mjs --can` already).
+- **JS:** `js/do.js` import `:154`. Local `u_locomotion :553` calls `Flying()` at `:555`. Ceiling hider `:3043`. Hole verb `:3100`. Pool `:829` and `:833`. Climb along `:1863`.
+- **Callers:** C `do.c:1206` → `js/do.js:3043`. C `do.c:1258` → `js/do.js:3100` (local `u_locomotion`). C `do.c:276` → `js/do.js:829`. C `do.c:280` → `js/do.js:833`. C `do.c:1762–1763` → `js/do.js:1867` and `:1863`. C `hack.c:1827` is inside `u_locomotion`; the `do.js` local now uses the macro. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn dodown` → PASS syntax (1 changed js file: js/do.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 · VERIFY: PASS.
+- **Named omissions:** `do.c:1776` descend `else if (Flying)` is still sticky `u.Flying` at `js/do.js:1887`. `js/hack.js:2058` `u_locomotion` still reads sticky `u.Levitation` / `u.Flying` (capitalize and `locomotion()` poly fallback already named). `doup` still omits `set_move_cmd(DIR_UP)`, `u_rooted`, `stucksteed`, and `near_capacity() > SLT_ENCUMBER`. `u_rooted` still omits the air/water "in place" wording.
+- **Next:** next Must-fix (`js/mkobj.js` `start_timer` stores `MELT_ICE_AWAY` as func_index 0, review 1753).
+
 ## D-2799 — `petattr_to_tty` maps wintype attrs onto the terminal bitfield
 
 - **Status:** fixed (Must-fix from review 1751; `petattr_to_tty` passed wintype attribute numbers through the terminal bitfield. `hidden-proxy verify` reports no corpus session blocked).

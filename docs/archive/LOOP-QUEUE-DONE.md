@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-25
 
+- [x] `js/do.js` `dodown` ceiling-hider and `u_locomotion` call the local `Flying()` (`do.js:449`) which drops the steed-flyer. `youprop.h` `Flying` is `(HFlying || EFlying || (u.usteed && is_flyer(u.usteed->data))) && !BFlying`. `mhitu.js` `Flying` already has that arm and `do.js` already imports `mhitu.js`. Source: reviews/loop-unattended/1752-f176b8c0a-dodown.md. Verify `node scripts/verify.mjs --fn dodown` (reach regression must be 0). **Addressed:** D-2800
+
+
 - [x] `js/display.js` `petattr_to_tty` passes wintype attribute numbers through the terminal bitfield — `wintype.h` `ATR_BOLD` is 1 and terminal `ATR_INVERSE` is 1, so a stored bold paints inverse; `ATR_DIM` 2 paints terminal bold (`ATR_BOLD` 2); italic 3 and blink 5 alias inverse|bold and inverse|underline. Map none→0, bold→2, underline→4, inverse→1; dim/italic/blink must not pass through. C `options.c:3163` stores `match_str2attr`'s wintype value; paint is `js/display.js` `mon_map_attr` / `glyph_tty_attr`. Source: reviews/loop-unattended/1751-75144e146-optfn-petattr.md. Verify `node scripts/verify.mjs --fn optfn_petattr` (reach regression must be 0). **Addressed:** D-2799 `7a4911ae6`
 
 
