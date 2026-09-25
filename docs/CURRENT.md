@@ -100,10 +100,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `mkobj.c` mkcorpstat — coverage PARTIAL (C 46 L `mkobj.c:2067–2118` / JS 30 L in js/mkobj.js). Port the whole C body in C order. Verify `node scripts/verify.mjs --fn mkcorpstat`.
+**Next cluster:** `objnam.c` badman — coverage THIN (C 43 L `objnam.c:3194–3239` / JS 18 L in js/objnam.js). Port the whole C body in C order. Verify `node scripts/verify.mjs --fn badman`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2794 (index).**
+**Keep D-0845…D-2795 (index).**
 <!-- recent:begin -->
+**D-2795** `nethack-c/upstream/src/mkobj.c:2067–2118` `mkcorpstat`. Callees: `impossible` (does not r — Restart of `mkcorpstat` in C order.
 **D-2794** `nethack-c/upstream/src/timeout.c:2247–2292` `start_timer`. Callees: `kind_name` `:1994–20 — Restart of `start_timer` in C order.
 **D-2793** `nethack-c/upstream/src/do.c:1131–1294` `dodown`. Same commit: `u_stuck_cannot_go` `:1110– — Restart of `dodown` in C order.
 **D-2792** `nethack-c/upstream/src/options.c:3138–3194` `optfn_petattr` and `:6152–6164` `handler_pet — `optfn_petattr` and `handler_petattr` in C order.
@@ -111,11 +112,10 @@ revisits the picker.
 **D-2790** `nethack-c/upstream/src/options.c:6859–6871` `nmcpy`. `for (count = 1; count < maxlen; cou — Restart of `nmcpy` in C order: copy while `count < maxlen`, stop before a comma or NUL, return the bounded string (JS strings are immutable; callers assign).
 **D-2789** `nethack-c/upstream/src/coloratt.c:530–580` `basic_menu_colors`. load_colors saves `iflags — restart of `basic_menu_colors` in C order with `:line` cites.
 **D-2788** `nethack-c/upstream/src/options.c:1442–1560` `optfn_disclose` (NHOPTC, optlist.h `:284`).  — `optfn_disclose` and `handler_disclose` in `js/options.js` in C order with `:line` cites.
-**D-2787** `cfgfiles.c:1960–1976` `rcfile_interface_options` — rc parser in `js/cfgfiles.js`. Caller `rcfile()` is `:966`.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2794; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2795; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

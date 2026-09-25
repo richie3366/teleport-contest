@@ -293,6 +293,15 @@ omit full alt_spl/rank titles/plural edge cases
 
 JS: `js/mkobj.js` — partial
 
+**`mkcorpstat` (D-2795;** C `mkobj.c:2067–2118`). Bad type calls
+`impossible` and continues. `x==0 && y==0` is `mksobj` (named:
+`rloco` stays the D-2463 sync-chain omit). `spe` is
+`flags & CORPSTAT_SPE_VAL`. `norevive` is copied from
+`game.mkcorpstat_norevive`, then set for a cancelled non-rider.
+`monsndx(ptr)` replaces the random corpsenm and restarts the
+corpse timer when `zombify` or either type is `special_corpse`.
+`mklev.c:1932` and `mon.c:626`/`647` pass `mons(mndx)`.
+
 Creation/merge/weight subsets; `add_to_buried` (D-0014); 
 `start_corpse_timeout` + `mkcorpstat` `special_corpse` restart (D-0011); 
 **`run_timers`/`start_timer` queue + floor `rot_corpse`** (D-0405; `start_timer` whole body D-2794 — range panic, VERBOSE_TIMER duplicate `impossible`, return TRUE);

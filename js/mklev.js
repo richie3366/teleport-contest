@@ -31526,7 +31526,8 @@ function mktrap_victim(trap) {
     }
     if (victim_mnum === PM_HUMAN && rn2(25))
         victim_mnum = rn1(PM_WIZARD - PM_ARCHEOLOGIST, PM_ARCHEOLOGIST);
-    otmp = mkcorpstat(CORPSE, null, victim_mnum, x, y, 8);
+    // C mklev.c:1932 — `&mons[victim_mnum]`, CORPSTAT_INIT.
+    otmp = mkcorpstat(CORPSE, null, mons(victim_mnum), x, y, 8);
     if (otmp) otmp.age -= (TAINT_AGE + 1); // died too long ago to safely eat
 }
 

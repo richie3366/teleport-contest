@@ -1,4 +1,21 @@
 # Agent loop journal
+
+Append-only crumbs for `scripts/agent-port-loop.sh` iterations.
+Each agent process should add a short dated entry **at the top** (after
+this header) before exiting. Keep entries tight; detailed hypothesis
+lives in `NOTES.md` / `CURRENT.md`.
+The next agent reads **only this file** (latest ~10 entries), not the
+archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
+`node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-25 — D-2795 `mkobj.c` mkcorpstat whole-body port
+
+**C locus:** `nethack-c/upstream/src/mkobj.c:2067–2118` `mkcorpstat`. Callees: `impossible` (does not return), `mksobj` / `mksobj_at`, `rloco` (`:2082`, named), `save_mtraits`, `is_rider`, `monsndx`, `weight`, `special_corpse`, `obj_stop_timers`, `start_corpse_timeout`. `CORPSTAT_INIT` is `0x08`; `CORPSTAT_SPE_VAL` is `0x07`. The header comment says `<0,0>` but the test is `x == 0 && y == 0`.
+**JS:** `js/mkobj.js` `mkcorpstat :3705` (`monsndx` from `js/mondata.js`).
+**Change:** Restart of `mkcorpstat` in C order. A type other than `CORPSE` or `STATUE` calls `impossible` and continues. Both coordinates 0 use `mksobj` (the `rloco` call stays the D-2463 named omit).
+**Verify:** `node scripts/verify.mjs --fn mkcorpstat` → PASS syntax (3 changed js files: js/mhitm.js js/mklev.js js/mkobj.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 · VERIFY: PASS.
+**Named:** `rloco` at `mkobj.c:2082` (`x == 0 && y == 0`) stays uncalled. It is async (`js/teleport.js`) and `fixup_special` is sync (D-2463).
+**Next:** next Open — coverage row (`objnam.c` badman). Ten measured coverage rows remain under that head (band still full; no refill).
+
 ## 2026-09-25 — Audit 315a5ae66..309d58ccc (reviews 1741–1748: 6 ACCEPT, 2 QUALITY-RISK → 2 Must-fix) + cadence 44/44.
 
 Reviews audit D-2782..D-2789 against pinned C (csym bodies + callers,

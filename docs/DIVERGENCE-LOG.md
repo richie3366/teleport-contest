@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2795 — `mkobj.c` mkcorpstat whole-body port
+
+- **Status:** fixed (Open — coverage row `mkcorpstat` PARTIAL, measured `port-coverage.mjs --name mkcorpstat` 2026-09-25 @ 38d6c8a36; `hidden-proxy verify` reports no corpus session blocked). Re-measure after the port: covered.
+- **Symptom:** coverage gap, not a corpus divergence. The JS body skipped the bad-type `impossible`, placed on any truthy coordinate, wrote `norevive` only when the global was truthy, and took an mndx number instead of `monsndx(ptr)`. `mklev.c:1932` and `mon.c:626`/`647` passed that number.
+- **C locus:** `nethack-c/upstream/src/mkobj.c:2067–2118` `mkcorpstat`. Callees: `impossible` (does not return), `mksobj` / `mksobj_at`, `rloco` (`:2082`, named), `save_mtraits`, `is_rider`, `monsndx`, `weight`, `special_corpse`, `obj_stop_timers`, `start_corpse_timeout`. `CORPSTAT_INIT` is `0x08`; `CORPSTAT_SPE_VAL` is `0x07`. The header comment says `<0,0>` but the test is `x == 0 && y == 0`.
+- **JS was:** `js/mkobj.js` `mkcorpstat` (~30 lines) used `(x || y)` to choose `mksobj_at`, returned early on a null object, set `norevive` only if `game.mkcorpstat_norevive` was truthy, and accepted `typeof ptr === 'number'` or `ptr.mndx`. The corpse test was `otypName === 'CORPSE'`.
+- **Fix:** Restart of `mkcorpstat` in C order. A type other than `CORPSE` or `STATUE` calls `impossible` and continues. Both coordinates 0 use `mksobj` (the `rloco` call stays the D-2463 named omit). `spe` is `flags & CORPSTAT_SPE_VAL`. `norevive` is copied from the global, including 0, then set to 1 for a cancelled non-rider. `monsndx(ptr)` replaces the random corpsenm and restarts the corpse timer when `zombify` or either type is `special_corpse`. The two index callers now pass `mons(mndx)`.
+- **JS:** `js/mkobj.js` `mkcorpstat :3705` (`monsndx` from `js/mondata.js`).
+- **Callers:** C `mklev.c:786` → `js/mklev.js:31139` (flags `TRUE` / `1`). C `mklev.c:1004` → `js/mklev.js:31720`. C `mklev.c:1932` → `js/mklev.js:31530` (`mons(victim_mnum)`). C `mkmaze.c:675` → `js/mklev.js:2403`. C `mkobj.c:2263` → `js/end.js:1424`. C `mon.c:626` and `:647` → `js/mhitm.js:2947` (`mons(living)`; both arms share `undead_to_corpse`). C `mon.c:671` → `js/mhitm.js:3027`. C `mon.c:898` → `js/mhitm.js:2928`. C `mon.c:3344` → `js/mhitm.js:3292`. C `trap.c:401` → `js/trap.js:297`. C `mkobj.c:899`, `mkobj.c:1152`, `mon.c:623`, `extern.h:1684`, and `hack.h:1188` are not calls. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn mkcorpstat` → PASS syntax (3 changed js files: js/mhitm.js js/mklev.js js/mkobj.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 · VERIFY: PASS.
+- **Named omissions:** `rloco` at `mkobj.c:2082` (`x == 0 && y == 0`) stays uncalled. It is async (`js/teleport.js`) and `fixup_special` is sync (D-2463). No current caller passes `0,0`. `impossible` is not awaited (`mkcorpstat` stays sync).
+- **Next:** next Open — coverage row (`objnam.c` badman). Ten measured coverage rows remain under that head (band still full; no refill).
+
 ## D-2794 — `timeout.c` start_timer whole-body port
 
 - **Status:** fixed (Open — coverage row `start_timer` PARTIAL, measured `port-coverage.mjs --name start_timer` 2026-09-25 @ 38d6c8a36; `hidden-proxy verify` reports no corpus session blocked).

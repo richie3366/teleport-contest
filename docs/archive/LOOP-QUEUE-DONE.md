@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-25
 
-- [x] `timeout.c` start_timer — coverage PARTIAL (C 41 L `timeout.c:2247–2292` / JS 29 L in js/mkobj.js; hops 2, callers 15, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn start_timer` (reach regression must be 0). Measured `port-coverage.mjs --name start_timer` 2026-09-25 @ 38d6c8a36. **Addressed:** D-2794
+- [x] `mkobj.c` mkcorpstat — coverage PARTIAL (C 46 L `mkobj.c:2067–2118` / JS 30 L in js/mkobj.js; hops 2, callers 14, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mkcorpstat` (reach regression must be 0). Measured `port-coverage.mjs --name mkcorpstat` 2026-09-25 @ 38d6c8a36. **Addressed:** D-2795
+
+
+- [x] `timeout.c` start_timer — coverage PARTIAL (C 41 L `timeout.c:2247–2292` / JS 29 L in js/mkobj.js; hops 2, callers 15, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn start_timer` (reach regression must be 0). Measured `port-coverage.mjs --name start_timer` 2026-09-25 @ 38d6c8a36. **Addressed:** D-2794 `2b10e06e1`
 
 
 - [x] `do.c` dodown — coverage THIN (C 163 L `do.c:1131–1294` / JS 48 L in js/do.js; hops —, callers 0, RNG 3, msg 13; dead callees: artifact_has_invprop, goto_hell). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dodown` (reach regression must be 0). Measured `port-coverage.mjs --name dodown` 2026-09-25 @ 38d6c8a36. **Addressed:** D-2793 `f176b8c0a`

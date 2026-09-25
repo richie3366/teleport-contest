@@ -48,6 +48,7 @@ import {
     G_NOCORPSE, NON_PM as MON_NON_PM,
 } from './monsters.js';
 import { PM_CLERIC, PM_SAMURAI } from './generated/monsters_data.js';
+import { monsndx } from './mondata.js';
 import { update_inventory, Blind, near_capacity, encumber_msg, useupall } from './invent.js';
 import { distant_name, doname, cxname, The, vtense, corpse_xname, Yname2, otense, simpleonames, simple_typename } from './objnam.js';
 import {
@@ -65,6 +66,7 @@ import {
     G_GONE,
     LOST_NONE, LOST_EXPLODING, LOST_THROWN, LOW_PM, ismnum,
     CORPSTAT_NEUTER, CORPSTAT_FEMALE, CORPSTAT_MALE,
+    CORPSTAT_INIT, CORPSTAT_SPE_VAL,
     CXN_NO_PFX,
     COLNO, ROWNO,
     Is_rogue_level, isok, ICE, DRAWBRIDGE_UP, DB_UNDER, DB_ICE,
@@ -3692,31 +3694,58 @@ export function mkgold(amount, x, y) {
     return gold;
 }
 
-// C ref: mkobj.c mkcorpstat()
+/**
+ * C ref: mkobj.c mkcorpstat `:2067–2118`.
+ * A corpse or statue. `ptr` overrides the random corpsenm `mksobj`
+ * picked; `mtmp`, when set, saves traits even if the type differs
+ * (vampire → human corpse). Gender and historic live in `spe`
+ * (`CORPSTAT_SPE_VAL`). `CORPSTAT_INIT` is only the `mksobj` init
+ * flag. C never returns null.
+ */
 export function mkcorpstat(objtype, mtmp, ptr, x, y, corpstatflags) {
-    const init = !!(corpstatflags & 8); // CORPSTAT_INIT
-    const otmp = (x || y) ? mksobj_at(objtype, x, y, init, false) : mksobj(objtype, init, false);
-    if (!otmp) return otmp;
-    otmp.spe = (corpstatflags & 0x07); // CORPSTAT_SPE_VAL
-    // C: otmp->norevive = gm.mkcorpstat_norevive
-    if (game.mkcorpstat_norevive) otmp.norevive = 1;
+    // C :2076 — 0x08, not the low gender bits. TRUE (1) does not init.
+    const init = (corpstatflags & CORPSTAT_INIT) !== 0;
 
-    // C: when mtmp non-null — save_mtraits + ptr default + cancelled norevive
-    if (mtmp) {
-        save_mtraits(otmp, mtmp);
-        if (ptr == null) ptr = mtmp.data;
-        if (mtmp.mcan && ptr && !is_rider(ptr)) otmp.norevive = 1;
+    // C :2078–2079 — impossible does not return; creation continues.
+    // Not awaited: this function stays sync (same shape as start_timer).
+    if (objtype !== CORPSE && objtype !== STATUE) {
+        void impossible('making corpstat type %d', objtype);
     }
 
-    if (ptr != null) {
-        // Override random corpsenm — ptr may be mndx number or mons struct
-        const mndx = typeof ptr === 'number' ? ptr : (ptr.mndx ?? NON_PM);
-        const old_corpsenm = otmp.corpsenm;
-        otmp.corpsenm = mndx;
+    let otmp;
+    // C :2080–2085. The header comment says "<0,0>" but the test is
+    // both coordinates equal to 0. A negative coordinate is placed.
+    if (x == 0 && y == 0) {
+        otmp = mksobj(objtype, init, false);
+        // C :2082 `(void) rloco(otmp)` — named omit (D-2463).
+        // `rloco` is async (`teleport.c:2102`). Awaiting it would make
+        // every caller a Promise, including sync `fixup_special`.
+    } else {
+        otmp = mksobj_at(objtype, x, y, init, false);
+    }
+
+    // C :2087 — mask 0x07. CORPSTAT_INIT must not remain in spe.
+    otmp.spe = corpstatflags & CORPSTAT_SPE_VAL;
+    // C :2088 — copy the global, including 0.
+    otmp.norevive = game.mkcorpstat_norevive ? 1 : 0;
+
+    // C :2092–2100 — traits, then ptr from the monster, then a
+    // cancelled non-rider corpse does not get a revive timer.
+    if (mtmp) {
+        save_mtraits(otmp, mtmp);
+        if (!ptr) ptr = mtmp.data;
+        if (mtmp.mcan && !is_rider(ptr)) otmp.norevive = 1;
+    }
+
+    // C :2104–2115 — override mksobj's random monster type.
+    if (ptr) {
+        const old_corpsenm = otmp.corpsenm | 0;
+        otmp.corpsenm = monsndx(ptr);
         otmp.owt = weight(otmp);
-        // C: restart timer when zombify or either type is special_corpse
-        if (otypName(otmp.otyp) === 'CORPSE'
-            && (game.zombify || special_corpse(old_corpsenm) || special_corpse(mndx))) {
+        if ((otmp.otyp | 0) === CORPSE
+            && (game.zombify
+                || special_corpse(old_corpsenm)
+                || special_corpse(otmp.corpsenm))) {
             obj_stop_timers(otmp);
             start_corpse_timeout(otmp);
         }

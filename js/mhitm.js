@@ -2943,7 +2943,8 @@ export async function make_corpse(mtmp, corpseflags = CORPSTAT_NONE) {
     const living = undead_to_corpse(mndx);
     if (living !== mndx) {
         corpstatflags |= CORPSTAT_INIT;
-        obj = mkcorpstat(CORPSE, mtmp, living, x, y, corpstatflags);
+        // C mon.c:626 and :647 — `&mons[num]`, not the index.
+        obj = mkcorpstat(CORPSE, mtmp, mons(living), x, y, corpstatflags);
         if (obj) obj.age = (obj.age | 0) - (TAINT_AGE + 1);
     } else {
         switch (mndx) {
