@@ -5,6 +5,8 @@
 - Queue row: Open coverage, 0 corpus blocks cited
 - Banned grep: 0 hits in the hunk. `imports.mjs --rulecheck`: "Rule #2 clean" (this audit).
 
+**Addressed:** D-2799 `7a4911ae6`
+
 ## Intent vs deliverable
 
 Subject promises `optfn_petattr` and `handler_petattr` in C order, an
