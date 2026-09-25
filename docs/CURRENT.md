@@ -101,10 +101,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `steed.c` `mount_steed` — coverage PARTIAL (C 184 L `steed.c:197–383` / JS 137 L in js/steed.js). Verify `node scripts/verify.mjs --fn mount_steed`.
+**Next cluster:** `pickup.c` `allow_category` — coverage THIN (C 69 L `pickup.c:523–592` / JS 27 L in js/pickup.js). Verify `node scripts/verify.mjs --fn allow_category`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2813 (index).**
+**Keep D-0845…D-2814 (index).**
 <!-- recent:begin -->
+**D-2814** `nethack-c/upstream/src/pickup.c:523–592` `allow_category`. Empty filters return false unl — One `allow_category` in that C order.
 **D-2813** `nethack-c/upstream/src/steed.c:197–383` `mount_steed`. Already riding `:206–209`. Halluci — One `mount_steed` in that C order.
 **D-2812** `nethack-c/upstream/src/steal.c:213–290` `remove_worn_item`. `donning` then `cancel_don` ( — One `remove_worn_item` in that C order.
 **D-2811** `nethack-c/upstream/src/getpos.c:595–635` `coord_desc`. `dxdy_to_dist_descr` is `getpos.c: — Delete the pager clone and call the `display.js` export.
@@ -112,11 +113,10 @@ revisits the picker.
 **D-2809** `nethack-c/upstream/src/do_wear.c:231–234` `Boots_on` `FUMBLE_BOOTS` `incr_itimeout(&HFumb — Seed the slot from the merged flat (C `HFumbling` is one long), call `incr_itimeout(prop, rnd(20))`, then set `u.HFumbling` from `prop.intrinsic`.
 **D-2808** `nethack-c/upstream/src/mon.c:3438–3467` `unstuck`. Swallowed exit `:3448–3456`: clear `ms — After `ux`/`uy` and before `vision_full_recalc`, call `placebc` when `Punished()` and `uchain.where` is not `OBJ_FLOOR`.
 **D-2807** `nethack-c/upstream/src/zap.c:2119–2424` `bhito`. Self-hit `:2130`. Bypass `:2133–2170`. F — One `bhito` in that C order.
-**D-2806** `nethack-c/upstream/src/invent.c:1056–1148` `addinv_core0`. `OBJ_FREE` panic `:1063`. `LOS — One `addinv_core0` in that C order.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2813; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2814; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-25 — D-2814 `allow_category` keeps cleric BUC and filters every loot class
+
+**C locus:** `nethack-c/upstream/src/pickup.c:523–592` `allow_category`. Empty filters return false unless `ParanoidAutoAll` (`:526–529`). Coins with a class filter return before the priest force (`:535–536`). `Role_if(PM_CLERIC)` `set_bknown` (`:538–539`). Class (`:561–562`), unpaid or `count_unpaid(cobj)` (`:565–567`), BUC with `flags.goldX` on coins (`:569–587`), just-picked (`:588–589`), else true (`:591`). Callers: `do.c:1057` and the `:1074` function pointer, `invent.c:2139` `ckvalidcat` (askchain `:2448`), `pickup.c:611`, `:834`, `:843`, `menu_loot` `:3335` and `:3365`.
+**JS:** `js/pickup.js` `allow_category` `:403`. `menu_loot` `:2760`. `loot_menu_olist` `:2740`.
+**Change:** One `allow_category` in that C order. `ParanoidAutoAll` is `paranoia_bits & PARANOID_AUTOALL`. The priest test is `urole.mnum === monsterNames` `PM_CLERIC`, then `set_bknown(obj, 1)` after the coin early return.
+**Verify:** `node scripts/verify.mjs --fn allow_category` → PASS syntax (1 changed js file: js/pickup.js) · PASS rule2 · note hidden (no corpus session blocked at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (verifier: pickup.js is outside the auto shared set) · VERIFY: PASS. First cohort run failed seed0007 at screen 114 (`a - Scrolls` vs `a - All types`); the nobj snapshot fixed that walk, then the re-run passed.
+**Named:** A null object returns false (C is `NONNULLARG1`). `strchr` of class 0 matches the terminator; `includes(0)` does not.
+**Next:** `teleport.c` `safe_teleds` (next Open — coverage row).
 ## 2026-09-25 — D-2813 `mount_steed` rides in C order through `teleds`
 
 **C locus:** `nethack-c/upstream/src/steed.c:197–383` `mount_steed`. Already riding `:206–209`. Hallucination `:213–216`. Wounded legs and wizard `heal_legs(0)` `:228–238`. Poly form including `slithy` `:241–246`. Burden `:247–250`. Unseen / `M_AP_*` `:253–259`. Long-worm tail before `test_move` `:262–270`. Stuck / `Punished` / `test_move` `:271–280`. Saddle `:283–287`. `touch_petrifies` `:290–298`. Tame / minion `:299–302`. Trapped `:303–309`. Non-Knight `--mtame` and `m_unleash(FALSE)` `:312–319`. Underwater `:320–324`. `can_saddle` / `can_ride` `:325–328`. Levitation reach `:331–336`. Eroded metallic armor `:337–342`. Slip `rnd` then `x_monnam` / `losehp` `:343–360`. Success `:362–381`: `maybewakesteed`, float and flight lines, polearm `unweapon = FALSE`, `u.usteed`, stealth edge, `remove_monster`, `teleds(TELEDS_ALLOW_DRAG)`, `disp.botl`.

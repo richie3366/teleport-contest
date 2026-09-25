@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-25
 
-- [x] `steed.c` mount_steed — coverage PARTIAL (C 184 L `steed.c:197–383` / JS 137 L in js/steed.js; hops —, callers 1, RNG 2, msg 23). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mount_steed` (reach regression must be 0). Measured `port-coverage.mjs --name mount_steed` 2026-09-25 @ 7215d8d6a. **Addressed:** D-2813
+- [x] `pickup.c` allow_category — coverage THIN (C 69 L `pickup.c:523–592` / JS 27 L in js/pickup.js; hops 2, callers 6, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn allow_category` (reach regression must be 0). Measured `port-coverage.mjs --name allow_category` 2026-09-25 @ 7215d8d6a. **Addressed:** D-2814
+
+
+- [x] `steed.c` mount_steed — coverage PARTIAL (C 184 L `steed.c:197–383` / JS 137 L in js/steed.js; hops —, callers 1, RNG 2, msg 23). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mount_steed` (reach regression must be 0). Measured `port-coverage.mjs --name mount_steed` 2026-09-25 @ 7215d8d6a. **Addressed:** D-2813 `686ccd9e7`
 
 
 - [x] `steal.c` remove_worn_item — coverage PARTIAL (C 75 L `steal.c:213–290` / JS 47 L in js/do_wear.js; hops 2, callers 38, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn remove_worn_item` (reach regression must be 0). Measured `port-coverage.mjs --name remove_worn_item` 2026-09-25 @ 7215d8d6a. **Addressed:** D-2812 `9dcef1d65`
