@@ -1,4 +1,21 @@
 # Agent loop journal
+## 2026-09-25 — Audit 315a5ae66..309d58ccc (reviews 1741–1748: 6 ACCEPT, 2 QUALITY-RISK → 2 Must-fix) + cadence 44/44.
+
+Reviews audit D-2782..D-2789 against pinned C (csym bodies + callers,
+sym.mjs, per-SHA hidden-proxy --reach-all). 1742 QUALITY-RISK: D-2783's
+local `nmcpy` is `slice(0, n-1)` and keeps commas; C `options.c:6859–6871`
+stops before `','` or NUL (`optfn_fruit` and `optfn_role`). 1745
+QUALITY-RISK: D-2786's rc role/race/gender/align arms never set
+`duplicateOpt`, so `parse_role_opt:7987` does not reject a positive
+value after a same-phase `'!'` filter. 1741/1743/1744/1746/1747/1748
+ACCEPT. Every re-measure 0 blocked, smoke REACH-OK, 0 REGRESSED (one
+cached recording in the smoke spread). Cadence at `309d58ccc`: public
+44/44, Scr 11,405, RNG 792,838, speed `240+1.54/turn` (R² 0.79);
+held-out 12/44 (+0, last scored 2026-09-25T13:05Z, values identical).
+`hidden-proxy score` on this tree saw 12 cached recordings, 12/12 PASS;
+the committed 614/940 scoreboard is not on disk here, so it was left
+unchanged and no PASS→FAIL row was opened. Rule #2 clean. Next: Must-fix
+`nmcpy` comma stop.
 ## 2026-09-24 — Audit 47eba199b (review 1740: ACCEPT) + cadence 44/44.
 
 Review 1740 audits D-2781 against pinned C. The four

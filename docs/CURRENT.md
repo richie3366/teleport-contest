@@ -22,11 +22,11 @@ notable non-PASS; the **Held-out** row from `node scripts/leaderboard.mjs`;
 the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
-Score last measured: **2026-09-24** — full `sessions` on the working tree
-(audit **1740**, commit `47eba199b`).
+Score last measured: **2026-09-25** — full `sessions` on the working tree
+(audit **1748**, commit `309d58ccc`).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`76+0.46/turn` (R² 0.79).
+`240+1.54/turn` (R² 0.79).
 
 ## Score
 
@@ -36,20 +36,20 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `76+0.46/turn` (R² 0.79) |
+| Speed label | `240+1.54/turn` (R² 0.79) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 4/22, 2nd agentic; best agentic fork 35/44, RNG 98.5 %,
 screens 93.2 %. Held-out 12/44, +0 vs last audit (5,976 / 11,265 pts, RNG
-26.7 %, rngSteps 81.8 %, screens 53.0 %; last scored 2026-09-24T13:10Z,
-re-read at audit 1740 — new stamp since 2026-09-24T01:23Z but
+26.7 %, rngSteps 81.8 %, screens 53.0 %; last scored 2026-09-25T13:05Z,
+re-read at audit 1748 — new stamp since 2026-09-24T13:10Z but
 identical values, so still no movement):
 no movement — the corpus still does not predict the judge.
 **Corpus fortress** (audit 1740 re-score 2026-09-24 at `47eba199b`,
 per-session statuses identical to audit 1731–1739, 0 PASS→FAIL):
 **501 / 540 PASS (92.8 %)** excl. 13 env-only; RNG 99.37 %, screens 99.4 %. Grown 2026-09-25 by 400 `scen-*` sessions (20 new families; 113 / 400 PASS at `9d6d893ca`) → **614 / 940**.
-Reviews 1225–1740: 456 ACCEPT, 21 WITH-DEBT, 1 DEBT, 33 QUALITY-RISK (audit 1740: 1 ACCEPT, no new Must-fix).
+Reviews 1225–1748: 462 ACCEPT, 21 WITH-DEBT, 1 DEBT, 35 QUALITY-RISK (audit 1748: 6 ACCEPT, 2 QUALITY-RISK → 2 Must-fix).
 Live debts: 1730 `wizcustom_glyphids` empty `wizcustom_callback` site (glyphmap-blocked, map-named); 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending — review-debt, unqueued (detail in the review files).
 Audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s) + `leaderboard.mjs`.
 
@@ -100,7 +100,7 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `coloratt.c` basic_menu_colors — coverage PARTIAL (C 47 L `coloratt.c:530–580` / JS 22 L in js/options.js; hops —, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn basic_menu_colors` (reach regression must be 0). Measured `port-coverage.mjs --name basic_menu_colors` 2026-09-23 @ e93d269e7.
+**Next cluster:** `js/options.js` `nmcpy` — C `options.c:6859–6871` stops before comma or NUL; JS `slice` keeps commas. Source: reviews/loop-unattended/1742-40c2ca295-optfn-fruit.md. Verify `node scripts/verify.mjs --fn optfn_fruit` (reach regression must be 0).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2789 (index).**
 <!-- recent:begin -->

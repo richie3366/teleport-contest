@@ -1750,3 +1750,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1738-e93d269e7-wiz-seenv-migrate.md](./1738-e93d269e7-wiz-seenv-migrate.md) | `e93d269e7` | D-2779 wiz seenv + migrate | **ACCEPT** |
 | [1739-35cb25d77-purge-custom-entries.md](./1739-35cb25d77-purge-custom-entries.md) | `35cb25d77` | D-2780 purge custom entries | **ACCEPT** |
 | [1740-47eba199b-doset-simple-mark.md](./1740-47eba199b-doset-simple-mark.md) | `47eba199b` | D-2781 doset_simple hasHandler mark | **ACCEPT** |
+| [1741-315a5ae66-menu-objsyms-stripped.md](./1741-315a5ae66-menu-objsyms-stripped.md) | `315a5ae66` | D-2782 menu_objsyms stripped opts | **ACCEPT** |
+| [1742-40c2ca295-optfn-fruit.md](./1742-40c2ca295-optfn-fruit.md) | `40c2ca295` | D-2783 optfn_fruit | **QUALITY-RISK** |
+| [1743-310accbad-optfn-sortvanquished.md](./1743-310accbad-optfn-sortvanquished.md) | `310accbad` | D-2784 optfn_sortvanquished | **ACCEPT** |
+| [1744-51c8c5714-optfn-soundlib.md](./1744-51c8c5714-optfn-soundlib.md) | `51c8c5714` | D-2785 optfn_soundlib | **ACCEPT** |
+| [1745-6864eb3d8-optfn-gender-family.md](./1745-6864eb3d8-optfn-gender-family.md) | `6864eb3d8` | D-2786 optfn_gender family | **QUALITY-RISK** |
+| [1746-9d6d893ca-rcfile-interface.md](./1746-9d6d893ca-rcfile-interface.md) | `9d6d893ca` | D-2787 rcfile_interface_options | **ACCEPT** |
+| [1747-086317c06-optfn-disclose.md](./1747-086317c06-optfn-disclose.md) | `086317c06` | D-2788 optfn_disclose | **ACCEPT** |
+| [1748-309d58ccc-basic-menu-colors.md](./1748-309d58ccc-basic-menu-colors.md) | `309d58ccc` | D-2789 basic_menu_colors | **ACCEPT** |
