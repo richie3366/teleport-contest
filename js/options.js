@@ -2378,10 +2378,13 @@ export function parseNethackrc(rc) {
                     );
                 }
                 else if (lname === 'menu_objsyms' || lname === 'use_menu_glyphs') {
-                    // C optfn_menu_objsyms do_set, valueless (opt_initial);
-                    // opts starts with the name, so use_menu_glyphs → entries.
+                    // C optfn_menu_objsyms do_set, valueless (opt_initial).
+                    // opts is the case-preserved name (parseoptions never
+                    // lowercases); `:2249` strncmp(opts, "use_menu_glyphs", 15)
+                    // is case-sensitive, so only a lowercase prefix selects
+                    // entries (2). msg_window site-2 passes stripped.
                     optfn_menu_objsyms(
-                        allopt_idx('menu_objsyms'), REQ_DO_SET, negated, lname, EMPTY_OPTSTR, result.iflags,
+                        allopt_idx('menu_objsyms'), REQ_DO_SET, negated, stripped, EMPTY_OPTSTR, result.iflags,
                     );
                 }
                 else if (lname === 'whatis_coord') {

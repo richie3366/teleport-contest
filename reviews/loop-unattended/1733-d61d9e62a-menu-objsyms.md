@@ -5,6 +5,8 @@
 - Queue row: Open coverage (MISSING), 0 corpus blocks cited
 - Banned grep: 0 hits. `imports.mjs --rulecheck`: "Rule #2 clean" (re-run this audit).
 
+**Addressed:** D-2782
+
 ## Intent vs deliverable
 
 Subject promises the three functions plus the option going live. Diff

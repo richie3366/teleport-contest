@@ -97,8 +97,6 @@ archive row) from `git log -1 --format=%h` of the fix.
 
 Review iterations **prepend** new Keep’d C-wrongs here (not under Open).
 
-- [ ] `js/options.js` parseNethackrc valueless `menu_objsyms` arm passes lowercased `lname` as `opts` — C `options.c:2249` `strncmp(opts,"use_menu_glyphs",15)` is case-sensitive on the case-preserved string, so valueless `USE_MENU_GLYPHS` (any non-lowercase) sets headers(1) in C but entries(2) in JS. Pass `stripped` (msg_window site-2 precedent). Source: reviews/loop-unattended/1733-d61d9e62a-menu-objsyms.md. Verify `node scripts/verify.mjs --fn optfn_menu_objsyms` (reach regression must be 0).
-
 A **JS throw** in any corpus session (`hidden-proxy status` owner
 `js-throw …`, or a `ReferenceError` in `.cache/hidden/scores.json`
 `error`), and a corpus worker **hang** (`ETIMEDOUT` under `verify`), are

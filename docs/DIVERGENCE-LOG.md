@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2782 — parseNethackrc valueless menu_objsyms passes case-preserved opts (review-1733 Must-fix)
+
+- **Status:** fixed (Must-fix — review 1733 QUALITY-RISK on D-2774 (`reviews/loop-unattended/1733-d61d9e62a-menu-objsyms.md`): valueless `menu_objsyms` arm passed lowercased `lname`; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** C `optfn_menu_objsyms` do_set on an empty value uses case-sensitive `strncmp(opts, "use_menu_glyphs", 15)`. parseoptions never lowercases `opts`, so valueless `USE_MENU_GLYPHS` (any non-lowercase) fails the compare and stores headers (1). JS matched the name case-insensitively, then passed the lowercased copy, so `startsWith('use_menu_glyphs')` succeeded and stored entries (2).
+- **C locus:** `nethack-c/upstream/src/options.c:2245–2249` (`op == empty_optstr` → `!strncmp(opts, "use_menu_glyphs", 15) ? 2 : 1`); name match is case-insensitive (`match_optname` / `strncmpi`) and does not rewrite `opts`.
+- **JS was:** `parseNethackrc` valueless arm `js/options.js` passed `lname` (`stripped.toLowerCase()`). The valued arm already passed `stripped`. `optfn_menu_objsyms` itself was unchanged and already implements the case-sensitive prefix test.
+- **Fix:** pass `stripped` (msg_window valueless site in the same function). Matching stays on `lname`; the optfn sees the case-preserved string.
+- **JS:** `js/options.js` `parseNethackrc` valueless arm `:2380–2388` (call `:2386–2387`).
+- **Callers:** C reaches `optfn_menu_objsyms` through the allopt function pointer (`parseoptions` `:636`, doset `:8935`, do_init `:7426–7431`). JS rc sites: valued `js/options.js:2265–2268` (already `stripped`); valueless `js/options.js:2386` (this commit). No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn optfn_menu_objsyms` → PASS syntax (1 changed js file: js/options.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 · VERIFY: PASS. Throwaway node spot-check (not committed): `USE_MENU_GLYPHS`/`Use_Menu_Glyphs`/`menu_objsyms`/`MENU_OBJSYMS` → 1, `use_menu_glyphs` → 2, `use_menu_glyphs:none` → 0, `USE_MENU_GLYPHS:entries` → 2.
+- **Named omissions:** none on this call site. Pre-existing: `config_error_add` Illegal-parameter sink, menu glyph columns, `n > 1` fold (D-2774).
+- **Next:** next Open — coverage row.
+
 ## D-2781 — `options.c` doset_simple hasHandler arms mark `opt_set_in_config` on optn_ok (review-1737 Must-fix)
 
 - **Status:** fixed (Must-fix — review 1737 QUALITY-RISK on D-2778 (`reviews/loop-unattended/1737-1adad9065-number-pad.md`): `doset_compound_via_getlin` never marks `opt_set_in_config`; `hidden-proxy verify` reports no corpus session blocked).

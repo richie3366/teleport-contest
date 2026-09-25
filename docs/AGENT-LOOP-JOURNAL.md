@@ -159,6 +159,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-25 — D-2782 parseNethackrc valueless menu_objsyms passes case-preserved opts (review-1733 Must-fix)
+
+**C locus:** `nethack-c/upstream/src/options.c:2245–2249` (`op == empty_optstr` → `!strncmp(opts, "use_menu_glyphs", 15) ? 2 : 1`); name match is case-insensitive (`match_optname` / `strncmpi`) and does not rewrite `opts`.
+**JS:** `js/options.js` `parseNethackrc` valueless arm `:2380–2388` (call `:2386–2387`).
+**Change:** pass `stripped` (msg_window valueless site in the same function). Matching stays on `lname`; the optfn sees the case-preserved string.
+**Verify:** `node scripts/verify.mjs --fn optfn_menu_objsyms` → PASS syntax (1 changed js file: js/options.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 · VERIFY: PASS. Throwaway node spot-check (not committed): `USE_MENU_GLYPHS`/`Use_Menu_Glyphs`/`menu_objsyms`/`MENU_OBJSYMS` → 1, `use_menu_glyphs` → 2, `use_menu_glyphs:none` → 0, `USE_MENU_GLYPHS:entries` → 2.
+**Named:** none on this call site. Pre-existing: `config_error_add` Illegal-parameter sink, menu glyph columns, `n > 1` fold (D-2774).
+**Next:** next Open — coverage row.
 ## 2026-09-24 — D-2781 `options.c` doset_simple hasHandler arms mark `opt_set_in_config` (review-1737 Must-fix)
 
 **C locus:** `nethack-c/upstream/src/options.c:8664–8670` (doset_simple_menu: optfn do_handler, `optn_ok` → `opt_set_in_config[k]`); handler returns all `optn_ok` (`:6120` / `:6082` / `:6430`+`:6498` / `:5949`).

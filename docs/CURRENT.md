@@ -102,8 +102,9 @@ breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
 **Next cluster:** `js/options.js` parseNethackrc valueless `menu_objsyms` arm — pass case-preserved `stripped` as `opts` (Must-fix from review 1733; C `options.c:2249`), then next Open coverage row.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2781 (index).**
+**Keep D-0845…D-2782 (index).**
 <!-- recent:begin -->
+**D-2782** `nethack-c/upstream/src/options.c:2245–2249` (`op == empty_optstr` → `!strncmp(opts, "use_ — pass `stripped` (msg_window valueless site in the same function).
 **D-2781** `options.c:8664–8670` (doset_simple_menu hasHandler: optfn do_handler, optn_ok → mark — capture `reslt` from the four arms, mark `opt_set_in_config` on OPTN_OK; `handler_pickup_types` returns optn_ok.
 **D-2780** `nethack-c/upstream/src/glyphs.c:751–758` (purge_all_custom_entries: `i < NUM_GRAPHICS + 1 — whole C bodies in C order with `:line` cites.
 **D-2779** `nethack-c/upstream/src/wizcmds.c:576–617` (wiz_show_seenv: `:583` create, `:588–592` hero — whole C bodies in C order with `:line` cites.
@@ -111,11 +112,10 @@ revisits the picker.
 **D-2777** `nethack-c/upstream/src/coloratt.c:978–994` (color_distance) + `:996–1021` (closest_color) — `js/options.js` (+256/−0) — table + hexdd + four exports in C order with `:line` cites.
 **D-2776** `nethack-c/upstream/src/sounds.c:1556–1626` + `:2084–2152`; sff enum `include/sndprocs.h:2 — `js/sounds.js` (+261/−1) — both bodies in C order with `:line` cites.
 **D-2775** `options.c` handler_whatis_coord `:6205–6276`; optfn_whatis_coord `:4702–4745` (do_init `: — whole C bodies in C order with `:line` cites.
-**D-2774** `options.c` handler_menu_objsyms `:5794–5829`; optfn_menu_objsyms `:2224–2287` (do_init `: — whole C bodies in C order with `:line` cites: `objsymvals` table; `set_menuobjsyms_flags(n, iflagsBag)` (bit 1 → menu_head_objsym, bits 2|4 → use_menu_glyphs); `optfn_menu_objsyms` — do_init 4, do_set (`!` → 0, valueless
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2781; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2782; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
