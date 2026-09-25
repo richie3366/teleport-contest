@@ -715,6 +715,7 @@ shop D_BROKEN add_damage+pay destroy; muse.c mbhit named);
 already live; **`bhito` uchain unpunish D-1481**; 
 **`bhito` poly-arm `Is_box` `boxlock` `reset_pick` D-1483** (callee POLY `reset_pick` iff 
 `xlock.box==obj`; zap_updown default down POLY/cancel/tele bhitpile+zap_map D-1485)); 
+**`bhito` whole body D-2807** (`zap.c:2119–2424`: bypass clear, floor `impossible`, polypiles/`livelog`, cover `hideunder`, boulder `Soundeffect`, hallu statue `rndmonnam`, `newsym_force`, teleport `maybe_unhide_at`, `WAN_MAKE_INVISIBLE` res stays 1, undead-turn corpse messages + `revive(..., TRUE)` + `exercise(A_WIS)`, slow/speed/nothing/healing `res=0`, default `impossible` leaves `res` 1; `debugpline` pulsate named); 
 bhitm WAN_SPEED D-1422; **bhitm WAN_SLOW_MONSTER D-1424**; **bhitm WAN_LOCKING D-1425**; 
 **bhitm WAN_PROBING D-1426**; **bhitm SPE_DRAIN_LIFE D-1436**; 
 **bhitm SPE_HEALING/SPE_EXTRA_HEALING D-1469**; **zap_map engraving/cancel trap D-1476**; 

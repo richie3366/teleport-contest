@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-25 — D-2807 `bhito` follows the wand-on-object switch in C order
+
+**C locus:** `nethack-c/upstream/src/zap.c:2119–2424` `bhito`. Self-hit `:2130`. Bypass `:2133–2170`. Floor check `:2178–2179`. Ball and chain `:2181–2188`. Polymorph conduct and cover `:2191–2220`. Probing `:2222–2274`. Striking `:2275–2312`. Cancel `:2313–2317`. Drain `:2318–2320`. Teleport `:2321–2329`. Make-invisible `:2330–2331`. Undead turning `:2332–2392`. Opening and locking `:2393–2403`. No-effect objects `:2404–2410`. Stone to flesh `:2412–2414`. Default `:2415–2417`. `learnwand` `:2421–2422`.
+**JS:** `js/zap.js` `bhito` `:5393`. `upstart` from `hacklib.js`, `Soundeffect` from `sndprocs.js`, `se_crumbling_sound` from `generated/seffects_data.js` (`imports.mjs --can`: no cycle). `cxname_singular`, `corpse_revive_type`, `noname_monnam`, `type_is_pname`, `pline_The`, and `newsym_force` join imports that were already live.
+**Change:** One `bhito` in that C order. `res` starts at 1. Make-invisible breaks and leaves it.
+**Verify:** `node scripts/verify.mjs --fn bhito` → PASS syntax (1 changed js file: js/zap.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (verifier: zap.js is outside the auto shared set) · VERIFY: PASS. `port-coverage.mjs --name bhito` now reports covered.
+**Named:** `debugpline1` "pulsate" (`zap.c:2168`) has no JS function; the stray bypass bit is still cleared. `maybe_unhide_at` still omits the hero `uundetected` path (named on that callee).
+**Next:** `getpos.c` `coord_desc` (next Open — coverage row).
 ## 2026-09-25 — D-2806 `addinv_core0` inserts, merges, and fills the quiver in C order
 
 **C locus:** `nethack-c/upstream/src/invent.c:1056–1148` `addinv_core0`. `OBJ_FREE` panic `:1063`. `LOST_EXPLODING` null `:1065`. `no_charge` and `picked_container` `:1070–1074`. `how_lost` sampled then `LOST_NONE` `:1073–1074`. Quiver `merged` `:1101–1106`. Chain `merged` `:1108–1115`. Head insert plus `reorder_invent` only when `invlet_constant`, else append `:1117–1126`. Thrown empty-quiver `setuqwep` on the fresh path only `:1128–1140`. `added` `:1142–1147`.
