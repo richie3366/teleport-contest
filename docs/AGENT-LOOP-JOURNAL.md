@@ -159,6 +159,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-25 — D-2787 `cfgfiles.c` rcfile_interface_options whole-body port (rc parser)
+
+**C locus:** `nethack-c/upstream/src/cfgfiles.c:1960–1976` `rcfile_interface_options`. Same commit: `rcfile :1892–1957`, `read_config_file :1623–1647`, `parse_conf_file :1843–1860` (VFS text), `parse_conf_buf :1692–1807`, `parse_conf_str :1809–1837`, `cnf_parser_init/done`, `parse_config_line :1388–1438`, `config_error_init :1469–1490`, `config_error_nextline :1492–1512`, `config_erradd :1543–1589`, `config_error_done :1591–1621`, heed/disregard config lines `:1978–1995`, and `options.c` `allopt_array_init :7404–7433` plus heed/disregard options `:10182–10211`.
+**JS:** `js/cfgfiles.js` `config_error_init :217`, `config_error_done :291`, `parse_config_line :686`, `parse_conf_str :827`, `read_config_file :881`, `rcfile :899`, `rcfile_interface_options :956`. `js/options.js` `heed_all_options :6087`, `allopt_array_init :6113` (disregard/heed-this sit beside heed-all).
+**Change:** the sequence and the parser in `js/cfgfiles.js` in C order, UNIX `fopen_config_file` via `vfsReadFile`, `config_line_stmt` table with live handlers for OPTIONS/NAME/ROLE/pet names/MSGTYPE/MENUCOLOR/HILITE_STATUS/SYMBOLS/ROGUESYMBOLS/WIZKIT and the transcribed sysconf validators. Heed/disregard and `allopt_array_init` live in `js/options.js`. Not called from startup (`initoptions_init` / `initoptions_finish` are not JS functions).
+**Verify:** `node scripts/verify.mjs --fn rcfile_interface_options` → PASS syntax (2 changed js files: js/cfgfiles.js js/options.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 · VERIFY: PASS.
+**Named:** `initoptions_init` / `initoptions_finish` (startup does not call `rcfile`). `nhlua.c:669`.
+**Next:** next Open — coverage row (`options.c` optfn_disclose).
 ## 2026-09-25 — D-2786 `options.c` optfn_gender whole-body port (gender/race/role/alignment)
 
 **C locus:** `nethack-c/upstream/src/options.c:1777–1812` `optfn_gender` (NHOPTC, optlist.h `:132`). Same envelope: `optfn_alignment` `:885–919`, `optfn_race` `:3507–3542`, `optfn_role` `:3589–3624`. do_init → optn_ok. do_set → `parse_role_opt` (`:7904–8016`); `*op == '!'` keeps the filter; else `str2*` into `flags.init*`, unknown → `config_error_add` + optn_err. Gender also sets `flags.female`. Race stores `gp.pl_race = *op`. Role `nmcpy`s `pl_character`. Then `saveoptstr` of `rolestring` (`:72–73`). get_val is `rolestring`; get_cnf_val is `get_cnf_role_opt` (`:8019–8033`) or the literal `"none"`.

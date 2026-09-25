@@ -1097,7 +1097,7 @@ function allopt_name(optidx) {
  * Inverse of allopt_name — allopt idx for an option name, for in-file
  * optfn calls that C makes with the opt_##name enum constant.
  */
-function allopt_idx(name) {
+export function allopt_idx(name) {
     for (const row of allopt) if (row.name === name) return row.idx;
     return -1;
 }
@@ -3831,7 +3831,7 @@ export function optfn_soundlib(optidx, req, _negated, opts, _op, optInitial) {
 }
 
 /* C include/global.h option_phases `:592–601`. phase_not_set is 0. */
-const BUILTIN_OPT = 1, SYSCF_OPT = 2, RC_FILE_OPT = 3, ENVIRON_OPT = 4,
+export const BUILTIN_OPT = 1, SYSCF_OPT = 2, RC_FILE_OPT = 3, ENVIRON_OPT = 4,
     CMDLINE_OPT = 5, PLAY_OPT = 6, NUM_OPT_PHASES = 7;
 /* C options.c `:110` MAX_ROLEOPT — role, race, gender, alignment. */
 const MAX_ROLEOPT = 4;
@@ -6048,8 +6048,8 @@ function bad_negation(_optname, _withParameter) {
 /* C options.c `determine_ambiguities` `:6703–6737` (staticfn) — pairwise
  * common-prefix scan over the option names (sentinel excluded via SIZE-1 in
  * C; JS has no sentinel row so every row is covered), minimum 3, clamped to
- * the name length. C runs it from allopt_array_init (unported); JS computes
- * it once ahead of the first match loop, which is the only reader. */
+ * the name length. Called from allopt_array_init (`:7412`) and, if that
+ * has not run yet, once ahead of the first parseoptions match loop. */
 let ambiguitiesComputed = false;
 function determine_ambiguities() {
     if (ambiguitiesComputed) return;
@@ -6080,6 +6080,52 @@ function determine_ambiguities() {
  * Per-row `dupdetected` starts undefined (C starts 0 via static init). */
 export function reset_duplicate_opt_detection() {
     for (let k = 0; k < OPTCOUNT; ++k) allopt[k].dupdetected = 0; // C `:6777–6778`
+}
+
+/* C options.c `:10182–10211` heed/disregard. `disregarded` starts unset
+ * (C static FALSE). parseoptions already reads the field (`:619–620`). */
+export function heed_all_options() {
+    for (let i = 0; i < OPTCOUNT; i++) // C `:10187–10188`
+        allopt[i].disregarded = false;
+}
+
+export function disregard_all_options() {
+    for (let i = 0; i < OPTCOUNT; i++) // C `:10196–10197`
+        allopt[i].disregarded = true;
+}
+
+export function heed_this_option(optidx) {
+    if (optidx >= 0 && optidx < OPTCOUNT) // C `:10203–10204`
+        allopt[optidx].disregarded = false;
+}
+
+export function disregard_this_option(optidx) {
+    if (optidx >= 0 && optidx < OPTCOUNT) // C `:10209–10210`
+        allopt[optidx].disregarded = true;
+}
+
+/* C options.c allopt_array_init `:7404–7433`. One-shot: copy is the live
+ * table (no separate allopt_init image), then initval writes, ambiguity
+ * scan, heed, and every optfn(do_init). Caller options.c:7130 is
+ * initoptions_init — not a JS function (map-named); do not call from the
+ * partial optfn do_init list at `:2187`. */
+let optionsArrayInited = false;
+export function allopt_array_init() {
+    if (optionsArrayInited) return; // C `:7410`
+    determine_ambiguities(); // C `:7412` (memcpy of allopt_init is the live table)
+    for (let i = 0; allopt[i] && allopt[i].name; i++) { // C `:7413–7416`
+        const addr = allopt[i].addr;
+        if (!addr) continue;
+        if (!game[addr.obj] || typeof game[addr.obj] !== 'object')
+            game[addr.obj] = {};
+        game[addr.obj][addr.key] = allopt[i].initval;
+    }
+    heed_all_options(); // C `:7417`
+    for (let i = 0; i < OPTCOUNT; ++i) { // C `:7426–7430`
+        if (allopt[i].optfn)
+            allopt[i].optfn(i, REQ_DO_INIT, false, EMPTY_OPTSTR, EMPTY_OPTSTR);
+    }
+    optionsArrayInited = true; // C `:7431`
 }
 
 /* C options.c `duplicate_opt_detection` `:6782–6788` (staticfn) — only
@@ -6117,8 +6163,9 @@ function complain_about_duplicate(_optidx) {
  * duplicate detection state, opt_set_in_config marking (fires once an optfn
  * ships), and the S_ → parsesymbols/check_gold_symbol fallback (both live).
  * Named omissions (map): config_error_add sink (6 sites), switch_symbols
- * application, disregard/heed setters (rows read `disregarded`, never set
- * here). Sync like C (no prompts in-body).
+ * application. disregard/heed setters are live (`heed_all_options` and
+ * siblings); rows still start unset (C FALSE) until one of them runs.
+ * Sync like C (no prompts in-body).
  * Sole wired JS caller: itself (recursion `:519`); every other C caller is
  * named in the map with its JS counterpart.
  */
