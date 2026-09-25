@@ -455,6 +455,8 @@ Full usage: `loop-observer/README.md`.
 ```bash
 npm run observe-loop          # prints URL, opens a window
 node loop-observer/server.mjs --no-open
+npm run observe-loop-cli      # same stream in the terminal (SSH)
+node loop-observer/cli.mjs --once
 ```
 
 The header picker opens any of the last 10 iterations; **Go live**
@@ -468,8 +470,8 @@ Halt reason is still `last-halt-reason.txt`.
 1. `agent login` (once) so `--list-models` / runs work. For `--muse`: `muse login`. For `--claude`: `claude auth status` (claude.ai / Pro is enough; do not use `--bare`, which needs `ANTHROPIC_API_KEY`).
 2. Clean committed tree (or continue-unfinished leftover). Queue below 8 open items is refilled in-loop.
 3. `AGENT_FORCE=1 ./scripts/agent-port-loop.sh` — or add `--muse` / `--claude`.
-4. Watch the live tee, or `npm run observe-loop` (see **Loop observer**
-   above). Halt reason: `last-halt-reason.txt`.
+4. Watch the live tee, `npm run observe-loop`, or `npm run observe-loop-cli`
+   (see **Loop observer** above). Halt reason: `last-halt-reason.txt`.
 5. To stop after the active iteration: `echo 1 > STOP_AGENT_LOOP.md`.
 6. After a crash-before-commit the supervisor **retries in-process**
    (continue latch + cited `.log`/`.raw` + resume brief). A provider
