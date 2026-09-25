@@ -176,6 +176,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-25 — D-2792 `options.c` optfn_petattr whole-body port
+
+**C locus:** `nethack-c/upstream/src/options.c:3138–3194` `optfn_petattr` and `:6152–6164` `handler_petattr`. NHOPTC wires the function pointer (`optlist.h:568`). do_init returns `optn_ok`. do_set takes the value with `string_for_opt(opts, negated)`, rejects a negated value, matches a tty/curses attribute name (`match_str2attr`, complain FALSE) or stores `ATR_NONE` when negated and empty, then sets `hilite_pet` from `wc2_petattr != ATR_NONE` and requests a redraw outside init. get_val / get_cnf_val copy `attr2attrname` on tty/curses. do_handler is `query_attr`.
+**JS:** `js/options.js` `petattr_read :3961`, `optfn_petattr :3983`, `handler_petattr :4050`. `js/display.js` `petattr_to_tty :299`.
+**Change:** `optfn_petattr` and `handler_petattr` in C order. Stored values are wintype.h `ATR_*` (`MC_ATR_*`). An unset field reads as `ATR_INVERSE` so the doset column stays `inverse` (`initoptions:7264` is not a JS function).
+**Verify:** `node scripts/verify.mjs --fn optfn_petattr` → PASS syntax (2 changed js files: js/display.js js/options.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 · VERIFY: PASS.
+**Named:** `config_error_add` and `bad_negation` message text (existing no-op sinks). The non-tty `#else` store (`:3165`) is compiled out (`TTY_GRAPHICS`).
+**Next:** next Open — coverage row after this one (the live queue still holds the 2026-09-25 `newcham` head).
 ## 2026-09-25 — D-2791 rc role/race/gender/align set `duplicate` before the optfn
 
 **C locus:** `nethack-c/upstream/src/options.c:621` (`duplicate = duplicate_opt_detection(matchidx)` inside `parseoptions`, after `cnf_line_OPTIONS` calls `parseoptions(buf, TRUE, TRUE)` at `cfgfiles.c:608`). `parse_role_opt` `:7987–7990` rejects the positive. The saved filter comes from `rolefilterstring` (`role.c:1321–1354`), whose return is `&outbuf[1]` so the string starts with `'!'`. `read_config_file` `:1633` clears `dupdetected` before the file.

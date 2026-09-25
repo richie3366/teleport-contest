@@ -1880,6 +1880,9 @@ async function doset_optfn_do_handler(name) {
     if (name === 'disclose') {
         return handler_disclose(); // C `:1557`
     }
+    if (name === 'petattr') {
+        return handler_petattr(); // C `:3191`
+    }
     if (name === 'menu_objsyms') {
         return handler_menu_objsyms(); // C `:2284`
     }
@@ -2412,6 +2415,8 @@ export function parseNethackrc(rc) {
     result.flags.vanq_sortmode = game.flags.vanq_sortmode;
     // C allopt_array_init `:7428` optfn(do_init). soundlib's init is optn_ok.
     optfn_soundlib(allopt_idx('soundlib'), REQ_DO_INIT, false, '', EMPTY_OPTSTR);
+    // C allopt_array_init `:7428` optfn(do_init). petattr's init is optn_ok.
+    optfn_petattr(allopt_idx('petattr'), REQ_DO_INIT, false, '', EMPTY_OPTSTR);
     // C allopt_array_init `:7428` do_init. gender/race/role/alignment
     // inits are optn_ok (no flag write).
     optfn_gender(allopt_idx('gender'), REQ_DO_INIT, false, '', EMPTY_OPTSTR);
@@ -2592,6 +2597,14 @@ export function parseNethackrc(rc) {
                         allopt_idx('fruit'), REQ_DO_SET, negated, stripped, val, true,
                     );
                 }
+                else if (key === 'petattr') {
+                    // C optfn_petattr do_set (opt_initial). negateok-No:
+                    // parseoptions `:626` rejects before the optfn.
+                    if (negated) continue;
+                    optfn_petattr(
+                        allopt_idx('petattr'), REQ_DO_SET, false, stripped, val, true,
+                    );
+                }
                 else if (key === 'menuinvertmode') {
                     // C options.c optfn_menuinvertmode do_set: atoi(op),
                     // 0-2 else config error (prior value kept).
@@ -2761,6 +2774,14 @@ export function parseNethackrc(rc) {
                     // with no value resets pl_fruit to "slime mold".
                     optfn_fruit(
                         allopt_idx('fruit'), REQ_DO_SET, negated, stripped, EMPTY_OPTSTR, true,
+                    );
+                }
+                else if (lname === 'petattr') {
+                    // C optfn_petattr do_set, valueless (opt_initial).
+                    // negateok-No: parseoptions `:626` rejects first.
+                    if (negated) continue;
+                    optfn_petattr(
+                        allopt_idx('petattr'), REQ_DO_SET, false, lname, EMPTY_OPTSTR, true,
                     );
                 }
                 else if (lname === 'accessiblemsg') {
@@ -3933,6 +3954,113 @@ export function optfn_fruit(optidx, req, negated, opts, _op, optInitial) {
 }
 
 /**
+ * C initoptions `:7264` stores `ATR_INVERSE` before any get_val. That init
+ * is not a JS function; an unset field reads as wintype.h ATR_INVERSE (7),
+ * which `attr2attrname` spells "inverse" (the doset column).
+ */
+function petattr_read() {
+    const v = game.iflags?.wc2_petattr;
+    if (v == null) return MC_ATR_INVERSE;
+    return v | 0;
+}
+
+/**
+ * C options.c optfn_petattr `:3138–3194` (staticfn; NHOPTC wires
+ * `&optfn_petattr`, optlist.h `:568`, has_handler Yes). do_init is
+ * optn_ok. do_set parses a wintype attribute name (`match_str2attr`,
+ * complain FALSE). Negated-with-value is `bad_negation`; negated-empty
+ * stores ATR_NONE. A successful set copies `wc2_petattr != ATR_NONE`
+ * into `hilite_pet` (`wc_hilite_pet`) and requests a redraw outside
+ * init. get_val / get_cnf_val spell the attribute on tty/curses.
+ * do_handler is async (`query_attr`) and lives in `handler_petattr`.
+ * @param {number} optidx
+ * @param {number} req
+ * @param {boolean} negated
+ * @param {string|{buf:string}} opts
+ * @param {string} _op C reassigns op from string_for_opt
+ * @param {boolean} [optInitial] C go.opt_initial
+ */
+export function optfn_petattr(optidx, req, negated, opts, _op, optInitial) {
+    const optInit = optInitial ?? !!game.go?.opt_initial; // C go.opt_initial
+    let retval = OPTN_OK; // C `:3144`
+    if (!game.iflags) game.iflags = {};
+    const iflags = game.iflags;
+
+    if (req === REQ_DO_INIT) { // C `:3146–3148`
+        return OPTN_OK;
+    }
+    if (req === REQ_DO_SET) { // C `:3149`
+        /* WINCAP2 petattr:string */
+        const optstr = typeof opts === 'string' ? opts : String(opts ?? '');
+        const op = string_for_opt(optstr, negated); // C `:3151` val_optional = negated
+        // C string_for_opt `:6675–6676` when the value is required. The
+        // helper omits the sink; retval stays optn_ok like C (the error
+        // does not select the optn_err arms below).
+        if (!negated && op === EMPTY_OPTSTR)
+            config_error_add("Missing parameter for '%s'", optstr);
+        if (op !== EMPTY_OPTSTR && negated) { // C `:3152–3155`
+            bad_negation(allopt_name(optidx), true);
+            retval = OPTN_ERR;
+        } else if (op !== EMPTY_OPTSTR) { // C `:3156`
+            // C `:3157–3164` TTY_GRAPHICS || CURSES_GRAPHICS (this build).
+            // The `#else` ATR_INVERSE store (`:3165`) is compiled out.
+            const itmp = match_str2attr(op, false); // C `:3158` complain FALSE
+            if (itmp === -1) { // C `:3160–3162` opts, not the value tail
+                config_error_add("Unknown %s parameter '%s'",
+                    allopt_name(optidx), optstr);
+                retval = OPTN_ERR;
+            } else {
+                iflags.wc2_petattr = itmp; // C `:3163` wintype.h ATR_*
+            }
+        } else if (negated) { // C `:3167–3168`
+            iflags.wc2_petattr = MC_ATR_NONE; // C ATR_NONE
+        }
+        if (retval !== OPTN_ERR) { // C `:3170–3174`
+            // C iflags.hilite_pet ≡ wc_hilite_pet (flag.h).
+            iflags.wc_hilite_pet = petattr_read() !== MC_ATR_NONE; // C `:3171`
+            if (!optInit) // C `:3172`
+                mark_opt_need_redraw(); // C `:3173`
+        }
+        return retval; // C `:3175`
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C `:3177`
+        // C `:3178–3181` compiled in; WINDOWPORT(tty) is true here.
+        if (windowport_tty() || windowport_curses()) {
+            const name = attr2attrname(petattr_read()); // C `:3180`
+            set_optbuf(opts, name == null ? '' : name);
+        } else if ((iflags.wc2_petattr | 0) !== 0) { // C `:3183–3184`
+            const hex = (iflags.wc2_petattr | 0) >>> 0;
+            set_optbuf(opts, `0x${hex.toString(16).padStart(8, '0')}`);
+        } else if (req === REQ_GET_CNF_VAL) { // C `:3185–3186`
+            set_optbuf(opts, '');
+        } else {
+            set_optbuf(opts, 'default'); // C `:3188` defopt[]
+        }
+    }
+    // C `:3190–3191` do_handler → handler_petattr(), async in
+    // doset_optfn_do_handler (query_attr awaits).
+    return OPTN_OK; // C `:3193`
+}
+
+/**
+ * C options.c handler_petattr `:6152–6164` (staticfn). Sole C caller is
+ * optfn_petattr do_handler (`:3191`), reached from doset `:8935`.
+ * @returns {Promise<number>}
+ */
+export async function handler_petattr() {
+    if (!game.iflags) game.iflags = {};
+    const tmp = await query_attr( // C `:6154–6155`
+        'Select pet highlight attribute', petattr_read());
+    if (tmp !== -1) { // C `:6157`
+        game.iflags.wc2_petattr = tmp; // C `:6158`
+        game.iflags.wc_hilite_pet = (tmp | 0) !== MC_ATR_NONE; // C `:6159`
+        if (!game.go?.opt_initial) // C `:6160`
+            mark_opt_need_redraw(); // C `:6161`
+    }
+    return OPTN_OK; // C `:6163`
+}
+
+/**
  * C options.c optfn_sortvanquished `:3958–4010` (staticfn; NHOPTC wires
  * `&optfn_sortvanquished`, optlist.h `:690`, has_handler Yes).
  * do_init stores VANQ_MLVL_MNDX. do_set parses one character of the
@@ -4619,9 +4747,11 @@ function simple_bool_toggle(opt) {
     if (!game[opt.addr.obj]) game[opt.addr.obj] = {};
     const bag = game[opt.addr.obj];
     bag[opt.addr.key] = !simple_bool_value(opt);
-    // C options.c opt_hilite_pet: enabling with unset petattr → ATR_INVERSE
+    // C options.c opt_hilite_pet `:5307–5308`: enabling with unset
+    // petattr stores wintype.h ATR_INVERSE (7). display.js maps that
+    // to terminal ATR_INVERSE.
     if (opt.name === 'hilite_pet' && bag[opt.addr.key] && !bag.wc2_petattr) {
-        bag.wc2_petattr = ATR_INVERSE;
+        bag.wc2_petattr = MC_ATR_INVERSE;
     }
     // C optfn_boolean `:5376–5385` then doset_simple reset_needed_visuals.
     if (OPT_GLYPH_RESET.has(opt.name)) {
@@ -5523,7 +5653,7 @@ export async function doset() {
         // C optlist.h NHOPTC perminv_mode set_in_game before petattr.
         // doset_skip_unsupported when !WC_PERM_INVENT (contest tty).
         { name: 'perminv_mode', get_val: optfn_perminv_mode_get_val_display, handler: true },
-        { name: 'petattr', val: 'inverse' },
+        { name: 'petattr', get_val: () => doset_compopt_get_val(optfn_petattr, 'petattr'), handler: true },
         { name: 'pickup_burden', val: 'stressed' },
         { name: 'pickup_types', val: pickup_types_display(), handler: true },
         { name: 'pile_limit', val: '5' },
@@ -6006,7 +6136,7 @@ const allopt = [
     // optlist.h:565 NHOPTC(perminv_mode)
     { name: 'perminv_mode', opttyp: CompOpt, idx: 128, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: null },
     // optlist.h:568 NHOPTC(petattr)
-    { name: 'petattr', opttyp: CompOpt, idx: 129, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: null },
+    { name: 'petattr', opttyp: CompOpt, idx: 129, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_petattr },
     // optlist.h:571 NHOPTC(pettype)
     { name: 'pettype', opttyp: CompOpt, idx: 130, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: null },
     // optlist.h:573 NHOPTC(pickup_burden)

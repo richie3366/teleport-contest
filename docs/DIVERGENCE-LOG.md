@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2792 — `options.c` optfn_petattr whole-body port
+
+- **Status:** fixed (Open — coverage row `optfn_petattr` MISSING, measured `port-coverage.mjs --name optfn_petattr` 2026-09-23 @ e93d269e7; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** coverage gap, not a corpus divergence. No JS symbol for `optfn_petattr` or `handler_petattr`. The doset column was the literal `inverse`.
+- **C locus:** `nethack-c/upstream/src/options.c:3138–3194` `optfn_petattr` and `:6152–6164` `handler_petattr`. NHOPTC wires the function pointer (`optlist.h:568`). do_init returns `optn_ok`. do_set takes the value with `string_for_opt(opts, negated)`, rejects a negated value, matches a tty/curses attribute name (`match_str2attr`, complain FALSE) or stores `ATR_NONE` when negated and empty, then sets `hilite_pet` from `wc2_petattr != ATR_NONE` and requests a redraw outside init. get_val / get_cnf_val copy `attr2attrname` on tty/curses. do_handler is `query_attr`.
+- **JS was:** allopt idx 129 had `optfn: null`. The doset compound row hardcoded `inverse`. `handler_petattr` did not exist. `simple_bool_toggle` stored terminal.js `ATR_INVERSE` (1) for the hilite_pet enable arm.
+- **Fix:** `optfn_petattr` and `handler_petattr` in C order. Stored values are wintype.h `ATR_*` (`MC_ATR_*`). An unset field reads as `ATR_INVERSE` so the doset column stays `inverse` (`initoptions:7264` is not a JS function). `display.js` maps stored 7 to terminal `ATR_INVERSE`. The hilite_pet enable arm stores that same 7.
+- **JS:** `js/options.js` `petattr_read :3961`, `optfn_petattr :3983`, `handler_petattr :4050`. `js/display.js` `petattr_to_tty :299`.
+- **Callers:** No direct C call (NHOPTC function pointer, `optlist.h:568`) → allopt idx 129 `js/options.js:6139`. C `parseoptions :637` → `:6712` (`if (optfn)`). C `get_option_value :8496` → `:6779`. C `allopt_array_init :7428` do_init → `:6534`, and `parseNethackrc` `:2419`. C `doset :8935` do_handler → `doset_optfn_do_handler :1883` → `:1884`. C doset value column → `:5656`. parseNethackrc valued do_set `:2604`, valueless `:2783` (negated skipped, negateok-No, `parseoptions :626`). `handler_petattr` sole C caller `:3191` → `:1884`. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn optfn_petattr` → PASS syntax (2 changed js files: js/display.js js/options.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 · VERIFY: PASS.
+- **Named omissions:** `config_error_add` and `bad_negation` message text (existing no-op sinks). The non-tty `#else` store (`:3165`) is compiled out (`TTY_GRAPHICS`). `initoptions :7264` is not a JS function. wintype `ATR_BOLD` is 1, the same number as terminal `ATR_INVERSE`; `petattr_to_tty` passes 1 through, so a stored bold still paints inverse. dim / italic / blink have no terminal bit and pass through as their wintype numbers.
+- **Next:** next Open — coverage row after this one (the live queue still holds the 2026-09-25 `newcham` head).
+
 ## D-2791 — rc role/race/gender/align set `duplicate` before the optfn
 
 - **Status:** fixed (Must-fix from review 1745; `parseNethackrc` do_set arms never set `duplicateOpt`. `hidden-proxy verify` reports no corpus session blocked).
