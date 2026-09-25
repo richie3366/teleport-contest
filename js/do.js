@@ -1069,6 +1069,11 @@ function tutorial_enter_gamestate() {
         // otmp->owornmask = wornmask (restore flag, not currently worn)
         setnotworn(otmp);
         inv.shift();
+        // C freeinv sets where = OBJ_FREE before the object sits on
+        // gmst_invent. addinv_nomerge on the way out panics otherwise.
+        // freeinv_core / update_inventory stay the existing omit: setnotworn
+        // already cleared the worn slot, and the array was shifted by hand.
+        otmp.where = OBJ_FREE;
         otmp.owornmask = wornmask;
         stash.unshift(otmp); // C prepends gmst_invent
     }

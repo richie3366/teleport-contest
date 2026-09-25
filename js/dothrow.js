@@ -41,7 +41,7 @@ import {
     ismnum, isok, u_at, MM_IGNOREWATER, MM_IGNORELAVA, MM_NOMSG,
     HURTLING, FORCEBUNGLE, IRONBARS, Upolyd, FACE, HEAD, ARM, FOOT, STONING,
     TIMEOUT, I_SPECIAL, WT_TO_DMG, POTHIT_HERO_THROW, Has_contents, NON_PM, LOW_PM,
-    W_WEP, W_SWAPWEP, W_QUIVER, STR19, LOST_NONE, SLT_ENCUMBER, Is_airlevel,
+    W_WEP, W_SWAPWEP, W_QUIVER, STR19, SLT_ENCUMBER, Is_airlevel,
     BOLT_LIM, AKLYS_LIM, HAND, THROWN_WEAPON, THROWN_TETHERED_WEAPON,
     xdir, ydir, xytodir, N_DIRS, RIGHT_HANDED, IS_SINK, HI_WOOD, OBJ_MINVENT,
     DISP_FLASH, DISP_CHANGE, DISP_END, DISP_TETHER, BACKTRACK,
@@ -1851,22 +1851,14 @@ function Levitation_throw() {
  */
 async function addinv_before_throw(obj, other_obj) {
     if (!obj) return obj;
-    obj.how_lost = LOST_NONE;
+    // C return_throw_to_inv sets nomerge before addinv_before. Kept here
+    // so a missing oldslot still skips merge (core0 only inserts when a
+    // predecessor of other_obj exists). how_lost stays LOST_THROWN until
+    // addinv_core0 samples it for the empty-quiver fill.
     obj.nomerge = 1;
-    const { addinv } = await import('./u_init.js');
-    obj = await addinv(obj);
+    const { addinv_before } = await import('./u_init.js');
+    obj = await addinv_before(obj, other_obj);
     if (obj) obj.nomerge = 0;
-    if (other_obj && obj) {
-        const inv = game.invent || [];
-        const i = inv.indexOf(obj);
-        const j = inv.indexOf(other_obj);
-        if (i >= 0 && j >= 0 && i !== j) {
-            inv.splice(i, 1);
-            const j2 = inv.indexOf(other_obj);
-            if (j2 >= 0) inv.splice(j2, 0, obj);
-            else inv.push(obj);
-        }
-    }
     return obj;
 }
 

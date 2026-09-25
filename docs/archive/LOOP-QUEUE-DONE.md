@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-25
 
-- [x] `artifact.c` arti_invoke — coverage PARTIAL (C 101 L `artifact.c:2131–2232` / JS 62 L in js/artifact.js; hops 4, callers 4, RNG 2, msg 5). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn arti_invoke` (reach regression must be 0). Measured `port-coverage.mjs --name arti_invoke` 2026-09-25 @ 5df2d266b. **Addressed:** D-2805
+- [x] `invent.c` addinv_core0 — coverage MISSING (C 90 L `invent.c:1056–1148` / JS no symbol; hops 3, callers 5, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn addinv_core0` (reach regression must be 0). Measured `port-coverage.mjs --name addinv_core0` 2026-09-25 @ 5df2d266b. **Addressed:** D-2806
+
+
+- [x] `artifact.c` arti_invoke — coverage PARTIAL (C 101 L `artifact.c:2131–2232` / JS 62 L in js/artifact.js; hops 4, callers 4, RNG 2, msg 5). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn arti_invoke` (reach regression must be 0). Measured `port-coverage.mjs --name arti_invoke` 2026-09-25 @ 5df2d266b. **Addressed:** D-2805 `7215d8d6a`
 
 
 - [x] `dothrow.c` thitmonst — coverage PARTIAL (C 291 L `dothrow.c:2011–2304` / JS 210 L in js/dothrow.js; hops 4, callers 4, RNG 3, msg 8). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn thitmonst` (reach regression must be 0). Measured `port-coverage.mjs --name thitmonst` 2026-09-25 @ 5df2d266b. **Addressed:** D-2804 `b5e93433b`

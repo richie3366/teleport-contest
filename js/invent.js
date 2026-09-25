@@ -8257,12 +8257,11 @@ function flags_pickup_burden_hold() {
  * above pickup_burden, except cursed LOADSTONE): drop_fmt then
  * can_reach_floor(TRUE)||uswallow → dropx; else freeinv +
  * hitfloor(FALSE) (D-1272).
- * Named omissions: fatal wished corpse; artifact fail dropy /
- * wasUpolyd / crysknife restore; perm_invent WIN_INVEN body.
+ * Named omissions: perm_invent WIN_INVEN body.
  * Pickup highdrop hitfloor is D-1273.
  */
 export async function hold_another_object(obj, drop_fmt, drop_arg, hold_msg) {
-    const { addinv } = await import('./u_init.js');
+    const { addinv_core0 } = await import('./u_init.js');
     const {
         place_object, obj_extract_self, splitobj,
     } = await import('./mkobj.js');
@@ -8315,6 +8314,10 @@ export async function hold_another_object(obj, drop_fmt, drop_arg, hold_msg) {
 
     if (obj.oartifact) {
         const u = game.u || {};
+        // C `:1220–1222` — sampled before touch_artifact may poly or erode.
+        const crysknife = (obj.otyp | 0) === objectNames.indexOf('CRYSKNIFE');
+        const oerode = obj.oerodeproof;
+        const wasUpolyd = Upolyd(u);
         place_object(obj, u.ux, u.uy);
         if (!(await touch_artifact(obj, youmonst))) {
             obj_extract_self(obj);
@@ -8323,14 +8326,34 @@ export async function hold_another_object(obj, drop_fmt, drop_arg, hold_msg) {
             // every chain, starving later floor scans such as dog_goal).
             await dropy(obj);
             return obj;
+        } else if (wasUpolyd && !Upolyd(game.u)) {
+            // C `:1231–1237` — form change drops the artifact.
+            await hold_drop_msg();
+            obj_extract_self(obj);
+            await dropy(obj);
+            return obj;
         }
         obj_extract_self(obj);
+        // C `:1240–1243` — touch may have reverted a crysknife.
+        if (crysknife) {
+            obj.otyp = objectNames.indexOf('CRYSKNIFE');
+            obj.oerodeproof = oerode;
+        }
     }
 
     if (Fumbling()) {
         obj.nomerge = 1;
-        obj = await addinv(obj);
+        // C `:1249` — no perm-invent update; drop_it removes it again.
+        obj = await addinv_core0(obj, null, false);
         return await drop_it(obj);
+    } else if ((obj.otyp | 0) === OTYP_CORPSE && obj.wishedfor) {
+        // C `:1251–1256` — wished fatal corpse is taken then immediately dropped.
+        const { u_safe_from_fatal_corpse, st_all } = await import('./pickup.js');
+        if (!u_safe_from_fatal_corpse(obj, st_all)) {
+            obj.wishedfor = 0;
+            obj = await addinv_core0(obj, null, false);
+            return await drop_it(obj);
+        }
     }
 
     const oquan = obj.quan || 1;
@@ -8338,7 +8361,8 @@ export async function hold_another_object(obj, drop_fmt, drop_arg, hold_msg) {
     const pickup_burden = flags_pickup_burden_hold();
     if (prev_encumbr < pickup_burden) prev_encumbr = pickup_burden;
 
-    obj = await addinv(obj);
+    // C `:1273` — FALSE: this function calls update_inventory on the stay path.
+    obj = await addinv_core0(obj, null, false);
     let n_nongold = 0;
     for (const otmp of game.invent || []) {
         if (otmp.oclass === COIN_CLASS) continue;

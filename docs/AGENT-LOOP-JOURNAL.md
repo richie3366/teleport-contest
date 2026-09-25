@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-25 — D-2806 `addinv_core0` inserts, merges, and fills the quiver in C order
+
+**C locus:** `nethack-c/upstream/src/invent.c:1056–1148` `addinv_core0`. `OBJ_FREE` panic `:1063`. `LOST_EXPLODING` null `:1065`. `no_charge` and `picked_container` `:1070–1074`. `how_lost` sampled then `LOST_NONE` `:1073–1074`. Quiver `merged` `:1101–1106`. Chain `merged` `:1108–1115`. Head insert plus `reorder_invent` only when `invlet_constant`, else append `:1117–1126`. Thrown empty-quiver `setuqwep` on the fresh path only `:1128–1140`. `added` `:1142–1147`.
+**JS:** `js/u_init.js` `addinv_core0` `:1043`. `addinv` `:1153`. `addinv_before` `:1161`. `picked_container` from `shk.js` and `update_inventory` / `invlet_constant` from `invent.js` (`imports.mjs --can`: hoisted, cycle-safe).
+**Change:** One `addinv_core0` in that C order. `where` must be `OBJ_FREE` (unset counts as free) or the function throws. `how_lost` is cleared before `addinv_core1`, so `merged` sees `LOST_NONE`.
+**Verify:** `node scripts/verify.mjs --fn addinv_core0` → PASS syntax (4 changed js files: js/do.js js/dothrow.js js/invent.js js/u_init.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS. The first reach run regressed `seed8243-samurai-tutorial` with `addinv: obj not free` on tutorial exit; `tutorial_enter_gamestate` now sets `where` to `OBJ_FREE` before the re-run.
+**Named:** `addinv_core2` still omits `set_moreluck`. `merged` still rejects a worn incoming object (D-2324).
+**Next:** `hack.c` `domove_fight_web` (next Open — coverage row).
 ## 2026-09-25 — D-2805 `arti_invoke` keeps ECMD_OK when the power is unknown
 
 **C locus:** `nethack-c/upstream/src/artifact.c:2130–2232` `arti_invoke`. Null `:2136–2138`. No `inv_prop` `:2141–2147` (`use_crystal_ball(&obj)` or `pline1(nothing_happens)`). Specials `:2150–2174` (`res` starts `ECMD_OK`; default is `impossible` and does not change `res`). Property xor `:2178–2229`. Caller `untouchable` `:2597–2636` and walker `retouch_equipment` `:2639–2705`.

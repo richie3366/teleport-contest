@@ -102,10 +102,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `artifact.c` `arti_invoke` — coverage PARTIAL (C 101 L `artifact.c:2131–2232` / JS 62 L). `mhitm_ad_curs` parked Stale (split-complete). Verify `node scripts/verify.mjs --fn arti_invoke`.
+**Next cluster:** `hack.c` `domove_fight_web` — coverage PARTIAL (C 73 L `hack.c:2021–2094` / JS 50 L). `distant_name` parked Stale. Verify `node scripts/verify.mjs --fn domove_fight_web`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2805 (index).**
+**Keep D-0845…D-2806 (index).**
 <!-- recent:begin -->
+**D-2806** `nethack-c/upstream/src/invent.c:1056–1148` `addinv_core0`. `OBJ_FREE` panic `:1063`. `LOS — One `addinv_core0` in that C order.
 **D-2805** `nethack-c/upstream/src/artifact.c:2130–2232` `arti_invoke`. Null `:2136–2138`. No `inv_pr — One `arti_invoke` in that C order.
 **D-2804** `nethack-c/upstream/src/dothrow.c:2011–2304` `thitmonst`. After the weapon arm (`:2155–223 — Restart of the hit chain in C order.
 **D-2803** `nethack-c/upstream/src/do_wear.c:383–431` `Cloak_off`. `do_wear.c:186–259` `Boots_on`. `d — Both functions restarted in C order.
@@ -113,11 +114,10 @@ revisits the picker.
 **D-2801** `nethack-c/upstream/include/timeout.h:37–48` `MELT_ICE_AWAY` is the ninth `timeout_types`  — `MELT_ICE_AWAY` is `SHRINK_GLOB + 1` (8).
 **D-2800** `nethack-c/upstream/include/youprop.h:253–255` `Flying`. `do.c:1206` ceiling hider. `do.c: — Import `Flying` from `mhitu.js` and delete the local clone.
 **D-2799** `nethack-c/upstream/include/wintype.h:128–134` (`ATR_NONE` 0, `ATR_BOLD` 1, `ATR_DIM` 2, ` — Map none → 0, bold → terminal `ATR_BOLD` (2), underline → `ATR_UNDERLINE` (4), inverse → `ATR_INVERSE` (1).
-**D-2798** `nethack-c/upstream/src/zap.c:5536–5578` `fracture_rock`. Callees: `get_obj_location`, `co — Restart of `fracture_rock` in C order, async because `You` and `breakobj` can reach `--More--`.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2805; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2806; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
