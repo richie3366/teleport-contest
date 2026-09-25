@@ -136,6 +136,7 @@ import {
     GPCOORDS_COMFULL,
     GPCOORDS_SCREEN,
     VANQ_MLVL_MNDX,
+    WINTYPELEN,
 } from './const.js';
 import { set_vanq_order, vanqorders } from './insight.js';
 import { game } from './gstate.js';
@@ -2177,6 +2178,8 @@ export function parseNethackrc(rc) {
     // jsmain replaces game.flags, so the mode is also stored on the rc result.
     optfn_sortvanquished(allopt_idx('sortvanquished'), REQ_DO_INIT, false, '', EMPTY_OPTSTR);
     result.flags.vanq_sortmode = game.flags.vanq_sortmode;
+    // C allopt_array_init `:7428` optfn(do_init). soundlib's init is optn_ok.
+    optfn_soundlib(allopt_idx('soundlib'), REQ_DO_INIT, false, '', EMPTY_OPTSTR);
     result.iflags.getpos_coords = GPCOORDS_NONE; // C initoptions_init `:7190`
     if (!rc) return result;
 
@@ -2299,6 +2302,14 @@ export function parseNethackrc(rc) {
                         allopt_idx('sortvanquished'), REQ_DO_SET, negated, stripped, val, true,
                     );
                     result.flags.vanq_sortmode = game.flags.vanq_sortmode;
+                }
+                else if (key === 'soundlib') {
+                    // C optfn_soundlib do_set (opt_initial). negateok-No:
+                    // parseoptions `:626` rejects before the optfn.
+                    if (negated) continue;
+                    optfn_soundlib(
+                        allopt_idx('soundlib'), REQ_DO_SET, false, stripped, val, true,
+                    );
                 }
                 else if (key === 'fruit') {
                     // C optfn_fruit do_set (opt_initial): nmcpy pl_fruit only;
@@ -2434,6 +2445,14 @@ export function parseNethackrc(rc) {
                         allopt_idx('sortvanquished'), REQ_DO_SET, negated, stripped, EMPTY_OPTSTR, true,
                     );
                     result.flags.vanq_sortmode = game.flags.vanq_sortmode;
+                }
+                else if (lname === 'soundlib') {
+                    // C optfn_soundlib do_set, valueless (opt_initial):
+                    // empty value → optn_err. negateok-No skips `!soundlib`.
+                    if (negated) continue;
+                    optfn_soundlib(
+                        allopt_idx('soundlib'), REQ_DO_SET, false, stripped, EMPTY_OPTSTR, true,
+                    );
                 }
                 else if (lname === 'fruit') {
                     // C optfn_fruit do_set, valueless (opt_initial): !fruit
@@ -3637,6 +3656,123 @@ export function optfn_sortvanquished(optidx, req, negated, opts, _op, optInitial
 }
 
 /**
+ * Contest `sounds.c` soundlib table (`:1726–1776`). No `SND_LIB_*` glue is
+ * compiled, so the array is only `nosound_procs` (`SOUNDID(nosound)` →
+ * name `"nosound"`, id `soundlib_nosound` = 0). The `#ifdef` library
+ * slots and `#if 0` `choose_soundlib` (`:1807–1859`) are compiled out.
+ * Lives here, not `js/sounds.js`: that module already imports this file.
+ */
+const SOUNDLIB_NOSOUND = 0;
+const nosound_procs = {
+    soundname: 'nosound',
+    soundlib_id: SOUNDLIB_NOSOUND,
+};
+const soundlib_choices = [
+    { sndprocs: nosound_procs },
+];
+
+/** C hack.h `IndexOk` `:1498–1499`. */
+function soundlibIndexOk(idx) {
+    return idx >= 0 && idx < soundlib_choices.length;
+}
+
+/**
+ * C sounds.c assign_soundlib `:1797–1805`. `idx` is an index into
+ * `soundlib_choices`, not a raw id. Stores that row's `soundlib_id`
+ * in `gc.chosen_soundlib`. Bad index panics (NORETURN).
+ * @param {number} idx
+ */
+export function assign_soundlib(idx) {
+    const i = idx | 0; // C `:1798`
+    if (!soundlibIndexOk(i)) // C `:1800`
+        throw new Error(`assign_soundlib: invalid soundlib (${i})`); // C `:1801`
+    if (!game.gc) game.gc = {};
+    game.gc.chosen_soundlib = // C `:1803–1804` (uint32_t)
+        soundlib_choices[i].sndprocs.soundlib_id >>> 0;
+}
+
+/**
+ * C sounds.c get_soundlib_name `:1863–1880`. Copies `active_soundlib`'s
+ * soundname, at most `maxlen - 1` chars, stopping at comma or NUL.
+ * Returns the copy (JS strings); C writes `dest`.
+ * @param {number} maxlen
+ * @returns {string}
+ */
+export function get_soundlib_name(maxlen) {
+    const idx = (game.ga?.active_soundlib ?? SOUNDLIB_NOSOUND) | 0; // C `:1869` BSS 0
+    if (!soundlibIndexOk(idx)) // C `:1870`
+        throw new Error(`get_soundlib_name: invalid active_soundlib (${idx})`); // C `:1871`
+    const src = soundlib_choices[idx].sndprocs.soundname; // C `:1873`
+    const cap = maxlen | 0;
+    let out = '';
+    for (let count = 1, i = 0; count < cap; count++, i++) { // C `:1874`
+        const ch = src.charAt(i); // '' stands in for the C NUL
+        if (ch === ',' || ch === '') break; // C `:1875–1876`
+        out += ch; // C `:1877`
+    }
+    return out; // C `:1879` *dest = '\0'
+}
+
+/**
+ * C sounds.c soundlib_id_from_opt `:1882–1895`. Exact `strcmp` against
+ * each compiled soundname; unknown names return nosound's id.
+ * @param {string} op
+ * @returns {number}
+ */
+export function soundlib_id_from_opt(op) {
+    const defproc = nosound_procs; // C `:1886`
+    const name = op == null ? '' : String(op);
+    for (let idx = 0; idx < soundlib_choices.length; idx++) { // C `:1889` SIZE
+        const sp = soundlib_choices[idx].sndprocs; // C `:1890`
+        if (sp.soundname === name) // C `:1891` strcmp
+            return sp.soundlib_id; // C `:1892`
+    }
+    return defproc.soundlib_id; // C `:1894`
+}
+
+/**
+ * C options.c optfn_soundlib `:3824–3860` (staticfn; NHOPTC wires
+ * `&optfn_soundlib`, optlist.h `:693`, has_handler No, negateok No,
+ * set_gameview). do_init is optn_ok. do_set only from config
+ * (`string_for_env_opt`); the name lookup result is unused except for
+ * its panic, then `chosen_soundlib` is the id and `assign_soundlib`
+ * rewrites it from the table. get_val / get_cnf_val copy the active
+ * library name. No do_handler.
+ * @param {number} optidx
+ * @param {number} req
+ * @param {boolean} _negated C UNUSED
+ * @param {string|{buf:string}} opts
+ * @param {string} _op C reassigns op from string_for_env_opt
+ * @param {boolean} [optInitial] C go.opt_initial; default game.go.opt_initial
+ */
+export function optfn_soundlib(optidx, req, _negated, opts, _op, optInitial) {
+    const optInit = optInitial ?? !!game.go?.opt_initial;
+    if (req === REQ_DO_INIT) { // C `:3831`
+        return OPTN_OK; // C `:3832`
+    }
+    if (req === REQ_DO_SET) { // C `:3834`
+        const optstr = typeof opts === 'string' ? opts : String(opts ?? '');
+        const op = string_for_env_opt( // C `:3842`
+            allopt_name(optidx), optstr, false, optInit);
+        if (op !== EMPTY_OPTSTR) { // C `:3843`
+            get_soundlib_name(WINTYPELEN); // C `:3846` (buf unused)
+            const optionId = soundlib_id_from_opt(op); // C `:3847`
+            if (!game.gc) game.gc = {};
+            game.gc.chosen_soundlib = optionId >>> 0; // C `:3848`
+            assign_soundlib(game.gc.chosen_soundlib); // C `:3849`
+        } else {
+            return OPTN_ERR; // C `:3851`
+        }
+        return OPTN_OK; // C `:3852`
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C `:3854`
+        set_optbuf(opts, get_soundlib_name(WINTYPELEN)); // C `:3855–3856`
+        return OPTN_OK; // C `:3857`
+    }
+    return OPTN_OK; // C `:3859`
+}
+
+/**
  * C options.c optfn_sortvanquished do_handler `:3997–4008`.
  * Async split: set_vanq_order and pline. Callers are doset `:8935`
  * (doset_optfn_do_handler) and doset_simple_menu (doset_compound_via_getlin).
@@ -4648,10 +4784,15 @@ export async function doset() {
         ['horsename', '(none)'],
         ['msghistory', '20'],
         ['pettype', 'random'],
-        ['soundlib', 'nosound'],
+        ['soundlib', null],
     ]) {
         if (doset_skip_unsupported(name)) continue;
-        raw.push(doset_add_menu(name, val, 0));
+        // C doset_add_menu `:9038` get_val. soundlib is set_gameview
+        // (non-selectable); the column is the active library name.
+        const shown = name === 'soundlib'
+            ? doset_compopt_get_val(optfn_soundlib, 'soundlib')
+            : val;
+        raw.push(doset_add_menu(name, shown, 0));
     }
     const compounds = [
         { name: 'autounlock', val: 'apply-key' },
@@ -5231,7 +5372,7 @@ const allopt = [
     // optlist.h:690 NHOPTC(sortvanquished)
     { name: 'sortvanquished', opttyp: CompOpt, idx: 165, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_sortvanquished },
     // optlist.h:693 NHOPTC(soundlib)
-    { name: 'soundlib', opttyp: CompOpt, idx: 166, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: null },
+    { name: 'soundlib', opttyp: CompOpt, idx: 166, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: optfn_soundlib },
     // optlist.h:701 NHOPTB(sounds)
     { name: 'sounds', opttyp: BoolOpt, idx: 167, setwhere: SET_IN_GAME, initval: false, addr: { obj: 'flags', key: 'sounds' }, optfn: null },
     // optlist.h:705 NHOPTB(sparkle)

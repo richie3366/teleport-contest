@@ -159,3 +159,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-25 — D-2785 `options.c` optfn_soundlib whole-body port (soundlib option live)
+
+**C locus:** `nethack-c/upstream/src/options.c:3824–3860` (staticfn; NHOPTC wires `&optfn_soundlib`, optlist.h `:693`, has_handler No, negateok No, set_gameview). do_init → optn_ok. do_set: `string_for_env_opt` (config only); empty → optn_err; else `get_soundlib_name` (unused buf), `soundlib_id_from_opt`, store the id, `assign_soundlib` rewrites `gc.chosen_soundlib` from the table. get_val and get_cnf_val Sprintf the active library name. Any other req → optn_ok. Callees `sounds.c:1797–1805`, `:1863–1880`, `:1882–1895`. Contest `soundlib_choices` is nosound only (`:1726–1776`, no `SND_LIB_*`).
+**JS:** `js/options.js` `assign_soundlib :3685`, `get_soundlib_name :3701`, `soundlib_id_from_opt :3722`, `optfn_soundlib :3748`. allopt row `optfn: optfn_soundlib` `:5375`.
+**Change:** restart as `optfn_soundlib` in C order with `:line` cites. `string_for_env_opt` is the existing options.js local (not cloned). The three sounds.c callees and the nosound-only table live in `js/options.js` because `js/sounds.js` already imports this module.
+**Verify:** `node scripts/verify.mjs --fn optfn_soundlib` → PASS syntax (1 changed js file: js/options.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke 24/24, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 · VERIFY: PASS.
+**Named:** `activate_chosen_soundlib` (`sounds.c:1778–1795`; already named at `allmain.c:703` — chosen id is not switched into `active_soundlib`). unixmain `assign_soundlib` compiled out. `#if 0` `choose_soundlib`.
+**Next:** next Open — coverage row (`optfn_gender`).

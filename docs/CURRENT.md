@@ -100,10 +100,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `options.c` optfn_sortvanquished — coverage MISSING (C 50 L `options.c:3958–4010` / JS no symbol; hops —, callers 0, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn optfn_sortvanquished` (reach regression must be 0). Measured `port-coverage.mjs --name optfn_sortvanquished` 2026-09-23 @ 181b4b4ff.
+**Next cluster:** `options.c` optfn_soundlib — coverage MISSING (C 34 L `options.c:3824–3860` / JS no symbol; hops —, callers 0, RNG 0, msg 0; dead callees: get_soundlib_name, soundlib_id_from_opt, assign_soundlib). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn optfn_soundlib` (reach regression must be 0). Measured `port-coverage.mjs --name optfn_soundlib` 2026-09-23 @ 181b4b4ff.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2784 (index).**
+**Keep D-0845…D-2785 (index).**
 <!-- recent:begin -->
+**D-2785** `nethack-c/upstream/src/options.c:3824–3860` (staticfn; NHOPTC wires `&optfn_soundlib`, op — restart as `optfn_soundlib` in C order with `:line` cites.
 **D-2784** `nethack-c/upstream/src/options.c:3958–4010` (staticfn; NHOPTC wires `&optfn_sortvanquishe — restart as `optfn_sortvanquished` in C order with `:line` cites.
 **D-2783** `nethack-c/upstream/src/options.c:1706–1774` (staticfn; NHOPTC wires `&optfn_fruit`, optli — restart as `optfn_fruit` in C order with `:line` cites.
 **D-2782** `nethack-c/upstream/src/options.c:2245–2249` (`op == empty_optstr` → `!strncmp(opts, "use_ — pass `stripped` (msg_window valueless site in the same function).
@@ -111,11 +112,10 @@ revisits the picker.
 **D-2780** `nethack-c/upstream/src/glyphs.c:751–758` (purge_all_custom_entries: `i < NUM_GRAPHICS + 1 — whole C bodies in C order with `:line` cites.
 **D-2779** `nethack-c/upstream/src/wizcmds.c:576–617` (wiz_show_seenv: `:583` create, `:588–592` hero — whole C bodies in C order with `:line` cites.
 **D-2778** `options.c` handler_number_pad `:5893–5950` (npchoices `:5898–5903`, create/start/zeroany  — whole C bodies in C order with `:line` cites.
-**D-2777** `nethack-c/upstream/src/coloratt.c:978–994` (color_distance) + `:996–1021` (closest_color) — `js/options.js` (+256/−0) — table + hexdd + four exports in C order with `:line` cites.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2784; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2785; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-25
 
-- [x] `options.c` optfn_sortvanquished — coverage MISSING (C 50 L `options.c:3958–4010` / JS no symbol; hops —, callers 0, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn optfn_sortvanquished` (reach regression must be 0). Measured `port-coverage.mjs --name optfn_sortvanquished` 2026-09-23 @ 181b4b4ff. **Addressed:** D-2784
+- [x] `options.c` optfn_soundlib — coverage MISSING (C 34 L `options.c:3824–3860` / JS no symbol; hops —, callers 0, RNG 0, msg 0; dead callees: get_soundlib_name, soundlib_id_from_opt, assign_soundlib). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn optfn_soundlib` (reach regression must be 0). Measured `port-coverage.mjs --name optfn_soundlib` 2026-09-23 @ 181b4b4ff. **Addressed:** D-2785
+
+
+- [x] `options.c` optfn_sortvanquished — coverage MISSING (C 50 L `options.c:3958–4010` / JS no symbol; hops —, callers 0, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn optfn_sortvanquished` (reach regression must be 0). Measured `port-coverage.mjs --name optfn_sortvanquished` 2026-09-23 @ 181b4b4ff. **Addressed:** D-2784 `310accbad`
 
 
 - [x] `options.c` optfn_fruit — coverage MISSING (C 66 L `options.c:1706–1774` / JS no symbol; hops —, callers 0, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn optfn_fruit` (reach regression must be 0). Measured `port-coverage.mjs --name optfn_fruit` 2026-09-23 @ 181b4b4ff. **Addressed:** D-2783 `40c2ca295`
