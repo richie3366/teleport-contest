@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-25 — D-2804 `thitmonst` hits with the iron ball, boulder, and thrown potion
+
+**C locus:** `nethack-c/upstream/src/dothrow.c:2011–2304` `thitmonst`. After the weapon arm (`:2155–2232`): `HEAVY_IRON_BALL` `:2234–2246` (`exercise(A_STR)` always, `exercise(A_DEX)` then `hmon` on a hit, return 1 when a swallowed `uball` killed the engulfer), `BOULDER` `:2248–2255`, egg/pie/venom `:2257–2261`, `potionhit(..., POTHIT_HERO_THROW)` `:2263–2266`. Mulch is `:2221–2226` (`check_shop_obj` then `obfree`). Unknown bow gloves call `impossible` at `:2069`. The non-ammo penalty is `obj == gt.thrownobj` at `:2187`, not the thrown hmode.
+**JS:** `js/dothrow.js` `thitmonst` `:574`. Mulch `:732`. Iron ball `:746`. Boulder `:764`. Potion `:781`.
+**Change:** Restart of the hit chain in C order. Ball and boulder exercise strength before the roll and dexterity before `hmon`. The ball returns true only when `hmon` reports the monster dead, the hero was swallowed, `uswallow` is now clear, and `obj` is still `uball`.
+**Verify:** `node scripts/verify.mjs --fn thitmonst` → PASS syntax (1 changed js file: js/dothrow.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (verifier: dothrow.js is outside the auto shared set) · VERIFY: PASS.
+**Named:** `tmiss` still calls local `miss_missile` rather than `zap.c` `miss` (`is_plural` wording). `unstuck` (`js/mhitu.js:1636`) still omits `Punished && uchain->where != OBJ_FLOOR` `placebc` (`mon.c:3452`); the iron-ball return 1 assumes that call already placed `uball`.
+**Next:** `uhitm.c` `mhitm_ad_curs` (next Open — coverage row).
 ## 2026-09-25 — D-2803 `Cloak_off` and `Boots_on` follow the C otyp switches
 
 **C locus:** `nethack-c/upstream/src/do_wear.c:383–431` `Cloak_off`. `do_wear.c:186–259` `Boots_on`. `do_wear.c:2375` `gw.wasinwater = u.uinwater` in `accessory_or_armor_on`, read by the water-walking arm.

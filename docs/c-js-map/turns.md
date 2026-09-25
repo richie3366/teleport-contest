@@ -2871,8 +2871,8 @@ armor/non-special throw; `mshot_xname`→`xname`;
 APPLIED wakeup (D-1041)**; **`find_mac` minvent ARM_BONUS/guarding (D-1042)**; 
 **`should_mulch_missile` hero blessed `!rnl(4)` (D-1043)**; 
 **`special_obj_hits_leader` `is_quest_artifact` via `urole.questarti` not `u.questarti` (D-1044)**; 
-**`thitmonst` unicorn gem catch → `gem_accept` D-2517** (C `:2309–2382` in C order: buddy/gem gates, identified +5/`rn2(7)−3` / guessed +2/`rn2(3)−1` / unknown +1/`rn2(3)−1` luck arms, non-gem nogood→nopick vs glass-noluck accept, `check_shop_obj(TRUE)` + `mpickobj`, `!Blind` pline + `!tele_restrict`→`rloc(RLOC_MSG)`; `goto nopick` as flag; caller `:2097` wired); ball/boulder/`potionhit` body; **swallow vanish pline D-1324**; 
-`cutworm` + shop `obfree` + full `is_plural` otense deferred); 
+**`thitmonst` unicorn gem catch → `gem_accept` D-2517** (C `:2309–2382` in C order: buddy/gem gates, identified +5/`rn2(7)−3` / guessed +2/`rn2(3)−1` / unknown +1/`rn2(3)−1` luck arms, non-gem nogood→nopick vs glass-noluck accept, `check_shop_obj(TRUE)` + `mpickobj`, `!Blind` pline + `!tele_restrict`→`rloc(RLOC_MSG)`; `goto nopick` as flag; caller `:2097` wired); **`thitmonst` whole body D-2804** (C `:2011–2304`: weapon mulch `check_shop_obj(TRUE)` + `obfree`, `HEAVY_IRON_BALL` / `BOULDER` STR-then-DEX hit-vs-miss, `potionhit(POTHIT_HERO_THROW)`, unknown bow-gloves `impossible`); callers `apply.c:3521` / `:3848` → `js/apply.js:3852` / `:4019`, `dokick.c:748` → `js/dokick.js:1522`, `dothrow.c:1492` → `js/dothrow.js:2094`; **swallow vanish pline D-1324**; 
+`tmiss` still uses local `miss_missile` rather than `zap.c` `miss` (`is_plural` otense named); `unstuck` still omits Punished `placebc` (`mon.c:3452`) that the iron-ball return-1 comment relies on); 
 throw_obj full `weapon_skills` table / full `movecmd` bind table (crossbow gate + quest-artifact launcher live D-2615); 
 **`breakobj` whole body C-order D-2531** (C `:2480–2574`: crackable `erode_obj` ERODE_CRACK + 
 `ER_DESTROYED` return; MIRROR luck; potion `in_use` + lamplit-oil `explode_oil` (canonical home 

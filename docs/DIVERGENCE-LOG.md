@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2804 — `thitmonst` hits with the iron ball, boulder, and thrown potion
+
+- **Status:** fixed (coverage; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** coverage gap, not a corpus divergence. A thrown or kicked heavy iron ball or boulder always missed the monster-hit roll. A potion that cleared the dexterity check fell through to `tamedog` or `tmiss` instead of `potionhit`. A mulched missile had its quantity zeroed and was left `OBJ_FREE` instead of being billed and freed.
+- **C locus:** `nethack-c/upstream/src/dothrow.c:2011–2304` `thitmonst`. After the weapon arm (`:2155–2232`): `HEAVY_IRON_BALL` `:2234–2246` (`exercise(A_STR)` always, `exercise(A_DEX)` then `hmon` on a hit, return 1 when a swallowed `uball` killed the engulfer), `BOULDER` `:2248–2255`, egg/pie/venom `:2257–2261`, `potionhit(..., POTHIT_HERO_THROW)` `:2263–2266`. Mulch is `:2221–2226` (`check_shop_obj` then `obfree`). Unknown bow gloves call `impossible` at `:2069`. The non-ammo penalty is `obj == gt.thrownobj` at `:2187`, not the thrown hmode.
+- **JS was:** `js/dothrow.js` `thitmonst` returned after the weapon arm. The ball and boulder arms were a comment. The potion arm was a comment. Mulch set `quan = 0` and `where = OBJ_FREE`. The non-ammo penalty tested `hmode === HMON_THROWN`, so a wielded weapon that was also `thrownobj` skipped the −2. The glove default did not call `impossible`.
+- **Fix:** Restart of the hit chain in C order. Ball and boulder exercise strength before the roll and dexterity before `hmon`. The ball returns true only when `hmon` reports the monster dead, the hero was swallowed, `uswallow` is now clear, and `obj` is still `uball`. Egg/pie/venom and potions keep the `guaranteed_hit || ACURR(A_DEX) > rnd(25)` short-circuit. Mulch calls `check_shop_obj` at `bhitpos` with `broken` true, then `obfree(obj, null)`. The non-ammo penalty is `obj === game.thrownobj`. Unknown gloves call `impossible`.
+- **JS:** `js/dothrow.js` `thitmonst` `:574`. Mulch `:732`. Iron ball `:746`. Boulder `:764`. Potion `:781`.
+- **Callers:** C `apply.c:3521` `use_pole` → `js/apply.js:3852`. C `apply.c:3848` grapnel → `js/apply.js:4019`. C `dokick.c:748` → `js/dokick.js:1522`. C `dothrow.c:1492` `throwit_mon_hit` → `js/dothrow.js:2126`. C `extern.h:850` is a declaration. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn thitmonst` → PASS syntax (1 changed js file: js/dothrow.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (verifier: dothrow.js is outside the auto shared set) · VERIFY: PASS.
+- **Named omissions:** `tmiss` still calls local `miss_missile` rather than `zap.c` `miss` (`is_plural` wording). `unstuck` (`js/mhitu.js:1636`) still omits `Punished && uchain->where != OBJ_FLOOR` `placebc` (`mon.c:3452`); the iron-ball return 1 assumes that call already placed `uball`. `nhUse` after `addinv` is `lint.h` `(void)(arg)` and has no runtime effect.
+- **Next:** `uhitm.c` `mhitm_ad_curs` (next Open — coverage row).
+
 ## D-2803 — `Cloak_off` and `Boots_on` follow the C otyp switches
 
 - **Status:** fixed (coverage; `hidden-proxy verify` reports no corpus session blocked). `mbodypart`, `pet_ranged_attk`, `list_genocided`, and `dowhatdoes_core` were already the live C body and are parked Stale.

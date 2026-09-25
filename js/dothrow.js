@@ -8,7 +8,7 @@ import {
     flush_screen, pline, newsym, mark_topline_seen,
     canseemon, canspotmon, nh_delay_output, tmp_at, obj_glyph, verbalize,
     glyph_at, glyph_is_monster, glyph_is_invisible_id, map_invisible,
-    You, Your,
+    You, Your, impossible,
 } from './display.js';
 import { cansee, vision_recalc } from './vision.js';
 import { rn2, rnd, rn1, d } from './rng.js';
@@ -81,7 +81,7 @@ import {
     makeplural, otense, mshot_xname, corpse_xname,
 } from './objnam.js';
 import { m_at, wakeup, seemimic, wake_nearto, distmin, monnear, m_respond, setmangry } from './mon.js';
-import { mon_nam, Monnam, a_monnam, hliquid, Hallucination, Some_Monnam, x_monnam, pmname, rndmonnam } from './do_name.js';
+import { mon_nam, Monnam, a_monnam, hliquid, Hallucination, Some_Monnam, x_monnam, pmname, rndmonnam, s_suffix } from './do_name.js';
 import { noit_mhim, NEUTRAL } from './mondata.js';
 import { which_armor } from './worn.js';
 import {
@@ -115,7 +115,7 @@ import { canletgo } from './do.js';
 import { explode_oil, explode } from './explode.js';
 import {
     check_shop_obj, costly_spot, shop_keeper, stolen_value, inside_shop,
-    make_angry_shk,
+    make_angry_shk, obfree,
 } from './shk.js';
 
 const GLASS = 19;
@@ -566,14 +566,9 @@ export async function gem_accept(mon, obj) {
 }
 
 /**
- * C ref: dothrow.c thitmonst — mon-hit after bhit / use_pole / kick.
- * Ported: tmp (Luck/DEX/distmin/bow-gloves/omon_adj/elf-orc);
- * WEAPON/weptool/GEM hit-vs-miss (kicked/ammo/thrown/applied) → hmon /
- * tmiss; APPLIED miss wakeup; pie/egg/venom DEX; food tamedog;
- * leader catch / finish_quest (D-1312); swallow vanish pline
- * (D-1324; entrails/currents + cockatrice minstapetrify/delobj).
- * gem_accept luck/mpickobj (D-2517); deferred: iron ball / boulder hit;
- * potionhit; check_shop_obj on mulch; mshot_xname.
+ * C ref: dothrow.c thitmonst `:2011–2304` — mon-hit after bhit / use_pole / kick.
+ * Whole body in C order: to-hit, unicorn gem, leader catch, weapon/weptool/gem,
+ * heavy iron ball, boulder, egg/pie/venom, potionhit, tamedog, swallow vanish.
  * @returns {boolean} true if obj was consumed / taken care of
  */
 export async function thitmonst(mon, obj) {
@@ -612,6 +607,8 @@ export async function thitmonst(mon, obj) {
         case GAUNTLETS_OF_DEXTERITY:
             break;
         default:
+            // C dothrow.c:2069 — unknown glove otyp while firing a bow
+            await impossible('Unknown type of gloves (%d)', u.uarmg.otyp | 0);
             break;
         }
     }
@@ -654,7 +651,7 @@ export async function thitmonst(mon, obj) {
                 if (mon.mpeaceful && !Deaf_youprop()) {
                     fully_identify_obj(obj);
                     await verbalize(
-                        `${s_suffix_throw_gold(The(xname(obj)))} part in this is finished.`,
+                        `${s_suffix(The(xname(obj)))} part in this is finished.`,
                     );
                     const aOrig = u.ualignbase?.original ?? u.ualign?.type ?? 0;
                     await verbalize(
@@ -662,7 +659,7 @@ export async function thitmonst(mon, obj) {
                     );
                 }
                 if ((u.ushops && u.ushops[0]) || obj.unpaid) {
-                    const { check_shop_obj } = await import('./shk.js');
+                    // C dothrow.c:2131 — *u.ushops || unpaid, broken FALSE
                     await check_shop_obj(obj, mon.mx | 0, mon.my | 0, false);
                 }
                 mpickobj(mon, obj);
@@ -673,6 +670,7 @@ export async function thitmonst(mon, obj) {
                 if (!next2u) await sho_obj_return_to_u(obj);
                 const { addinv } = await import('./u_init.js');
                 obj = await addinv(obj);
+                // C lint.h nhUse(obj) is (void)(arg) after addinv may merge.
                 await encumber_msg();
             }
             return true;
@@ -706,9 +704,10 @@ export async function thitmonst(mon, obj) {
             }
         } else {
             // thrown non-ammo or applied polearm/grapnel
+            // C dothrow.c:2183–2191 — boomerang / throwing weapon / not meant to be thrown
             if (otyp === BOOMERANG) tmp += 4;
             else if (throwing_weapon(obj)) tmp += 2;
-            else if (hmode === HMON_THROWN) tmp -= 2;
+            else if (obj === game.thrownobj) tmp -= 2;
             tmp += weapon_hit_bonus(obj);
         }
 
@@ -725,11 +724,17 @@ export async function thitmonst(mon, obj) {
                     await cutworm(mon, bp.x | 0, bp.y | 0, chopper);
                 }
             }
+            // C dothrow.c:2210 — DEX after the hit, before mulch
             exercise(A_DEX, true);
+            // Engulfer died: obj was dropped out of its inventory. Do not mulch it.
             if (wasthrown && !game.thrownobj) return true;
+            // C dothrow.c:2221–2226 — shop bill then obfree; return 1
             if (should_mulch_missile(obj)) {
-                obj.quan = 0;
-                obj.where = OBJ_FREE;
+                const bp = game.bhitpos || {};
+                if ((u.ushops && u.ushops[0]) || obj.unpaid) {
+                    await check_shop_obj(obj, bp.x | 0, bp.y | 0, true);
+                }
+                obfree(obj, null);
                 return true;
             }
             await passive_obj(mon, obj, null);
@@ -737,31 +742,58 @@ export async function thitmonst(mon, obj) {
             await tmiss(obj, mon, true);
             if (hmode === HMON_APPLIED) await wakeup(mon, true);
         }
-        return false;
-    }
 
-    // iron ball / boulder hit-vs-miss deferred (not WEAPON/weptool)
+    } else if (otyp === HEAVY_IRON_BALL) {
+        // C dothrow.c:2234–2246 — STR always; DEX then hmon on a hit
+        exercise(A_STR, true);
+        if (tmp >= dieroll) {
+            const was_swallowed = guaranteed_hit;
+            exercise(A_DEX, true);
+            if (!(await hmon(mon, obj, hmode, dieroll))) {
+                // C dothrow.c:2240–2241 — engulfer died and unstuck's
+                // placebc (mon.c:3452) already put uball down. Caller
+                // must not place it again. JS unstuck still omits that
+                // placebc (mhitu.js).
+                const uNow = game.u || u;
+                if (was_swallowed && !uNow.uswallow && obj === uNow.uball) {
+                    return true;
+                }
+            }
+        } else {
+            await tmiss(obj, mon, true);
+        }
 
-    // C dothrow.c:2256 — pie/egg/venom hit vs DEX (or swallow)
-    if ((otyp === EGG || otyp === CREAM_PIE
+    } else if (otyp === BOULDER) {
+        // C dothrow.c:2248–2255 — same STR/DEX split; hmon result ignored
+        exercise(A_STR, true);
+        if (tmp >= dieroll) {
+            exercise(A_DEX, true);
+            await hmon(mon, obj, hmode, dieroll);
+        } else {
+            await tmiss(obj, mon, true);
+        }
+
+    } else if ((otyp === EGG || otyp === CREAM_PIE
             || otyp === BLINDING_VENOM || otyp === ACID_VENOM)
         && (guaranteed_hit || acurr(A_DEX) > rnd(25))) {
+        // C dothrow.c:2257–2261 — rnd(25) only when not already swallowed
         await hmon(mon, obj, hmode, dieroll);
-        return true; // C: hmon used it up
-    }
+        return true;
 
-    // potionhit arm deferred (same DEX rnd(25) gate when reached)
+    } else if (obj.oclass === POTION_CLASS
+        && (guaranteed_hit || acurr(A_DEX) > rnd(25))) {
+        // C dothrow.c:2263–2266 — potionhit consumes obj
+        await potionhit(mon, obj, POTHIT_HERO_THROW);
+        return true;
 
-    if (befriend_with_obj(mon.data, obj)
+    } else if (befriend_with_obj(mon.data, obj)
         || (mon.mtame && dogfood(mon, obj) <= ACCFOOD)) {
         if (await tamedog(mon, obj, true)) return true;
         await tmiss(obj, mon, false);
         mon.msleeping = 0;
         if (mon.mstrategy != null) mon.mstrategy &= ~STRAT_WAITMASK;
-        return false;
-    }
 
-    if (guaranteed_hit) {
+    } else if (guaranteed_hit) {
         // C dothrow.c:2276–2298 — swallow vanish; md is ustuck->data.
         const md = game.u?.ustuck?.data;
         await wakeup(mon, true);
@@ -778,12 +810,12 @@ export async function thitmonst(mon, obj) {
         const trail = digests(md) ? ' entrails'
             : is_whirly(md) ? ' currents' : '';
         let monname = mon_nam(mon);
-        if (trail) monname = s_suffix_throw_gold(monname);
+        if (trail) monname = s_suffix(monname);
         await pline(`${Tobjnam(obj, 'vanish')} into ${monname}${trail}.`);
-        return false;
+    } else {
+        await tmiss(obj, mon, true);
     }
 
-    await tmiss(obj, mon, true);
     return false;
 }
 
