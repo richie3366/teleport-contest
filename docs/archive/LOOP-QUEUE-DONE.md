@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-25
 
-- [x] `dothrow.c` thitmonst — coverage PARTIAL (C 291 L `dothrow.c:2011–2304` / JS 210 L in js/dothrow.js; hops 4, callers 4, RNG 3, msg 8). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn thitmonst` (reach regression must be 0). Measured `port-coverage.mjs --name thitmonst` 2026-09-25 @ 5df2d266b. **Addressed:** D-2804
+- [x] `artifact.c` arti_invoke — coverage PARTIAL (C 101 L `artifact.c:2131–2232` / JS 62 L in js/artifact.js; hops 4, callers 4, RNG 2, msg 5). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn arti_invoke` (reach regression must be 0). Measured `port-coverage.mjs --name arti_invoke` 2026-09-25 @ 5df2d266b. **Addressed:** D-2805
+
+
+- [x] `dothrow.c` thitmonst — coverage PARTIAL (C 291 L `dothrow.c:2011–2304` / JS 210 L in js/dothrow.js; hops 4, callers 4, RNG 3, msg 8). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn thitmonst` (reach regression must be 0). Measured `port-coverage.mjs --name thitmonst` 2026-09-25 @ 5df2d266b. **Addressed:** D-2804 `b5e93433b`
 
 
 - [x] `do_wear.c` Cloak_off — coverage PARTIAL (C 48 L `do_wear.c:383–431` / JS 23 L in js/do_wear.js; hops 3, callers 10, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn Cloak_off` (reach regression must be 0). Measured `port-coverage.mjs --name Cloak_off` 2026-09-25 @ 75144e146. **Addressed:** D-2803 `a48dbe85b`

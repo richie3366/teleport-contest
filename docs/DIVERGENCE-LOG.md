@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2805 — `arti_invoke` keeps ECMD_OK when the power is unknown
+
+- **Status:** fixed (coverage; `hidden-proxy verify` reports no corpus session blocked). `mhitm_ad_curs` was already the live three-arm split and is on the Stale index.
+- **Symptom:** coverage gap, not a corpus divergence. `arti_invoke` on a null object returned `ECMD_OK` without `impossible`. An unknown `inv_prop` above `LAST_PROP` printed "Nothing happens." and returned `ECMD_TIME`. The property-toggle arm lived in `arti_invoke_property`, and `artifact.c:2631` (`untouchable`) had no JS function, so a failed touch never reversed a still-carried invoke.
+- **C locus:** `nethack-c/upstream/src/artifact.c:2130–2232` `arti_invoke`. Null `:2136–2138`. No `inv_prop` `:2141–2147` (`use_crystal_ball(&obj)` or `pline1(nothing_happens)`). Specials `:2150–2174` (`res` starts `ECMD_OK`; default is `impossible` and does not change `res`). Property xor `:2178–2229`. Caller `untouchable` `:2597–2636` and walker `retouch_equipment` `:2639–2705`.
+- **JS was:** `js/artifact.js` `arti_invoke` skipped `impossible` on null. The default arm was `pline(nothing_happens)` and `ECMD_TIME`. The xor/CONFLICT/LEVITATION/INVIS arm was `arti_invoke_property`. There was no `untouchable` or `retouch_equipment`.
+- **Fix:** One `arti_invoke` in that C order. Null calls `impossible` and returns `ECMD_OK`. The special switch assigns `res` and the unknown-power arm calls `impossible` without changing `res`. The property arm is inlined (tired `d(3,10)` only when turning on, `rnz(100)` when turning off, then CONFLICT / LEVITATION / INVIS). `untouchable` and `retouch_equipment` follow the C walker: weapons first, saddle `DISMOUNT_THROWN`, then `nxt_unbypassed_obj(invent)`, ring-loss `uncurse`, gloveless `selftouch`. A still-carried object is the stand-in for C `*objp` staying non-null.
+- **JS:** `js/artifact.js` `arti_invoke` `:2213`. `untouchable` `:1579`. `retouch_equipment` `:1619`. `float_up` / `float_down` / `selftouch` join the existing `trap.js` import. `clear_bypasses`, `bypass_obj`, `nxt_unbypassed_obj`, `which_armor` from `worn.js` and `dismount_steed` from `steed.js` (`imports.mjs --can`: hoisted, cycle-safe).
+- **Callers:** C `artifact.c:884` `set_artifact_intrinsic` → `js/artifact.js:1067` `revoke_invoked_property`. C `artifact.c:1758` `doinvoke` → `js/artifact.js:2326`. C `artifact.c:2631` `untouchable` → `js/artifact.js:1605`. C `artifact.c:45` is the prototype. C `artifact.c:2249` is a comment. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn arti_invoke` → PASS syntax (1 changed js file: js/artifact.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (verifier: artifact.js is outside the auto shared set) · VERIFY: PASS.
+- **Named omissions:** `retouch_equipment` callers stay at the old comments: `attrib.c:1360` (`js/attrib.js:825`), `eat.c:1325` (`js/eat.js:2019`), `polyself.c:463` (`js/polyself.js:1070`), `polyself.c:1021` (`js/polyself.js:1739`), `polyself.c:1415` (`js/polyself.js:1126`), `uhitm.c:4285` (`js/mhitu.js:2853`). `use_crystal_ball` still takes the object, not `struct obj **`; explode/implode `*optr = 0` is inside that callee and `arti_invoke` does not read `obj` after the call. `bypass_obj` is skipped when `twoweap` is set and `uswapwep` is null.
+- **Next:** `objnam.c` `distant_name` (next Open — coverage row).
+
 ## D-2804 — `thitmonst` hits with the iron ball, boulder, and thrown potion
 
 - **Status:** fixed (coverage; `hidden-proxy verify` reports no corpus session blocked).

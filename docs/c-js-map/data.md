@@ -150,7 +150,7 @@ need no end-pointer) + `alloc`/`free` (GC) + `unlink` (no fs) + WIN32
 
 JS: extractor + `js/generated/artifacts_data.js` + `js/artifact.js` — partial
 
-**name/otyp/spfx/align/role/race** (D-0064); **`retouch_object` + touch gate** (D-0065; whole-body restart D-2473 — Bell rite arm, ag/bane `You_cant` + `rnd(10)` damage + `losehp`/`exercise(A_CON)` fatal drain, worn-removal invent rescan, `loseit` Levitation freeinv/hitfloor else altar-gated pline + dropx; callers doapply newly wired, doinvoke/dowear/doeat/dowield already wired, untouchable/retouch_equipment named); 
+**name/otyp/spfx/align/role/race** (D-0064); **`retouch_object` + touch gate** (D-0065; whole-body restart D-2473 — Bell rite arm, ag/bane `You_cant` + `rnd(10)` damage + `losehp`/`exercise(A_CON)` fatal drain, worn-removal invent rescan, `loseit` Levitation freeinv/hitfloor else altar-gated pline + dropx; callers doapply newly wired, doinvoke/dowear/doeat/dowield already wired; `untouchable` `:2597–2636` and `retouch_equipment` `:2639–2705` bodies live D-2805, external callers attrib/eat/polyself/uhitm still named); 
 **attk+mtype extract + `spec_abon`/`spec_applies`** (D-0611;
 PHYS early + DMONS/DCLAS/DFLAG1/DFLAG2/DALIGN + ATTK Magm/Stun `rn2` + per-adtyp
 Fire/Cold/Elec/Drst/Drli/Ston resists (D-1862; hero props + mon `resists_*`;
@@ -222,6 +222,7 @@ omit gen_spe/gift_value; `end.c` `artifact_score` is D-1730;
 switch `:2154–2172` + xor W_ARTI `:2178–2228`; 
 live HEALING/ENERGY_BOOST/UNTRAP/LEV_TELE/ENLIGHTENING/CREATE_AMMO/FLING_POISON/FIRESTORM/SNOWSTORM 
 + CONFLICT/LEVITATION/INVIS; cost then switch); 
+**`arti_invoke` whole body D-2805** (C `:2130–2232` in one function: null `impossible` + `ECMD_OK`, `pline1(nothing_happens)`, cost then special switch with `res` (`impossible` default stays `ECMD_OK`), property xor inlined; `untouchable` calls it when the object is still carried; `retouch_equipment` is the C walker — attrib `:1360`, eat `:1325`, polyself `:463`/`:1021`/`:1415`, uhitm `:4285` still named); 
 **`invoke_healing` first You_feel Blinded 0/1 D-1494** (C `youprop.h:92` / `artifact.c:1787`; 
 not the HBlinded word; BlindedTimeout gates unchanged); 
 **TAMING/CHARGE_OBJ/CREATE_PORTAL/BANISH D-1502; `invoke_create_portal` whole-body restart D-2664** (C `invoke_create_portal`

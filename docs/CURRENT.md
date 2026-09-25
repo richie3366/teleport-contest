@@ -102,10 +102,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `dothrow.c` `thitmonst` — coverage PARTIAL (C 291 L `dothrow.c:2011–2304` / JS 210 L). Verify `node scripts/verify.mjs --fn thitmonst`.
+**Next cluster:** `artifact.c` `arti_invoke` — coverage PARTIAL (C 101 L `artifact.c:2131–2232` / JS 62 L). `mhitm_ad_curs` parked Stale (split-complete). Verify `node scripts/verify.mjs --fn arti_invoke`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2804 (index).**
+**Keep D-0845…D-2805 (index).**
 <!-- recent:begin -->
+**D-2805** `nethack-c/upstream/src/artifact.c:2130–2232` `arti_invoke`. Null `:2136–2138`. No `inv_pr — One `arti_invoke` in that C order.
 **D-2804** `nethack-c/upstream/src/dothrow.c:2011–2304` `thitmonst`. After the weapon arm (`:2155–223 — Restart of the hit chain in C order.
 **D-2803** `nethack-c/upstream/src/do_wear.c:383–431` `Cloak_off`. `do_wear.c:186–259` `Boots_on`. `d — Both functions restarted in C order.
 **D-2802** `nethack-c/upstream/include/monst.h:277` `resists_poison(mon)` is `Resists_Elem(mon, POISO — `Resists_Elem` in `js/mondata.js` in that C order.
@@ -113,11 +114,10 @@ revisits the picker.
 **D-2800** `nethack-c/upstream/include/youprop.h:253–255` `Flying`. `do.c:1206` ceiling hider. `do.c: — Import `Flying` from `mhitu.js` and delete the local clone.
 **D-2799** `nethack-c/upstream/include/wintype.h:128–134` (`ATR_NONE` 0, `ATR_BOLD` 1, `ATR_DIM` 2, ` — Map none → 0, bold → terminal `ATR_BOLD` (2), underline → `ATR_UNDERLINE` (4), inverse → `ATR_INVERSE` (1).
 **D-2798** `nethack-c/upstream/src/zap.c:5536–5578` `fracture_rock`. Callees: `get_obj_location`, `co — Restart of `fracture_rock` in C order, async because `You` and `breakobj` can reach `--More--`.
-**D-2797** `nethack-c/upstream/src/uhitm.c:3122–3165` `mhitm_ad_drst`. Callees: `mhitm_mgc_atk_negate — One exported `mhitm_ad_drst` in C order.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2804; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2805; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
