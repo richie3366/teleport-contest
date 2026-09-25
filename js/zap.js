@@ -252,7 +252,7 @@ import {
 } from './hack.js';
 import {
     nonliving, is_demon, nohands, MR_FIRE, MR_COLD, MR_DISINT, MR_ELEC,
-    MR_POISON, MR_ACID, M1_SEE_INVIS, is_undead, is_were, is_vampshifter, monsterNames, mons,
+    MR_ACID, M1_SEE_INVIS, is_undead, is_were, is_vampshifter, monsterNames, mons,
     G_UNIQ, G_NOCORPSE, is_rider, is_swimmer, mindless, MZ_MEDIUM, is_whirly,
     hides_under, is_golem, is_mplayer, vegetarian, carnivorous, NUMMONS,
 } from './monsters.js';
@@ -352,7 +352,7 @@ import {
     def_warnsyms, S_flashbeam,
     W_RING, W_ARMG, W_ARMH, W_ARMOR, W_SADDLE, W_ART, W_ARTI,
     W_WEP, W_SWAPWEP, W_QUIVER, W_WEAPONS,
-    REFLECTING, ANTIMAGIC, SHOCK_RES, DRAIN_RES, TELEPORT_CONTROL, STUNNED, M_SEEN_MAGR, M_SEEN_REFL, LEVITATION, FLYING,
+    REFLECTING, ANTIMAGIC, SHOCK_RES, POISON_RES, DRAIN_RES, TELEPORT_CONTROL, STUNNED, M_SEEN_MAGR, M_SEEN_REFL, LEVITATION, FLYING,
     NO_MINVENT, MM_NOWAIT, MM_NOMSG, MM_NOCOUNTBIRTH, MM_MALE, MM_FEMALE,
     IS_POOL, CONTAINED_TOO, BURIED_TOO, ROOM, CORR, GRAVE,
     CORPSTAT_GENDER, CORPSTAT_MALE, CORPSTAT_FEMALE, MFAST,
@@ -370,7 +370,7 @@ import {
     has_mcorpsenm, ERODE_CORRODE,
     LL_WISH, LL_CONDUCT, LL_ARTIFACT, ONAME_WISH, ONAME_KNOW_ARTI,
 } from './const.js';
-import { monstseesu, monstunseesu, defended } from './mondata.js';
+import { monstseesu, monstunseesu, defended, Resists_Elem } from './mondata.js';
 
 const MZ_HUMAN = MZ_MEDIUM;
 const SPE_HEALING = objectNames.indexOf('SPE_HEALING');
@@ -1438,8 +1438,9 @@ function sleep_monst_zap(mon, amt) {
 }
 
 /**
- * C ref: monst.h Resists_Elem / mon_resistancebits — data.mresists |
- * mextrinsics | mintrinsics. Named omission: artifact/worn grants.
+ * C ref: monst.h mon_resistancebits — data.mresists | mextrinsics |
+ * mintrinsics. Fire/cold/elec/acid/disint still use this bit test
+ * (artifact/worn grants named). Poison is Resists_Elem.
  */
 function mon_resists_bit(mon, mrBit) {
     if (!mon) return false;
@@ -1451,7 +1452,8 @@ function mon_resists_bit(mon, mrBit) {
 export function resists_fire(mon) { return mon_resists_bit(mon, MR_FIRE); }
 export function resists_cold(mon) { return mon_resists_bit(mon, MR_COLD); }
 export function resists_elec(mon) { return mon_resists_bit(mon, MR_ELEC); }
-export function resists_poison(mon) { return mon_resists_bit(mon, MR_POISON); }
+/** C monst.h:277 resists_poison → Resists_Elem(mon, POISON_RES). */
+export function resists_poison(mon) { return Resists_Elem(mon, POISON_RES); }
 function resists_acid(mon) { return mon_resists_bit(mon, MR_ACID); }
 function resists_disint(mon) { return mon_resists_bit(mon, MR_DISINT); }
 /** C: resists_magm — Antimagic-style; deferred → false (no shield RNG). */
@@ -1955,7 +1957,10 @@ export async function zhitm(mon, type, nd, ootmp) {
         if (!rn2(3)) tmp += await destroy_items(mon, AD_ELEC, orig_dmg);
         break;
     case ZT_POISON_GAS:
-        if (resists_poison(mon) /* || defended(mon, AD_DRST) */) {
+        // C zap.c:4367 also ORs defended(mon, AD_DRST). That call stays
+        // named: Resists_Elem covers wielded/worn/carried poison, not
+        // the adult-dragon suit arm inside defended().
+        if (resists_poison(mon)) {
             sho_shieldeff = true;
             break;
         }

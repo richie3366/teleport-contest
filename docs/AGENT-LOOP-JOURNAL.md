@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-25 — D-2802 `resists_poison` follows `Resists_Elem`
+
+**C locus:** `nethack-c/upstream/include/monst.h:277` `resists_poison(mon)` is `Resists_Elem(mon, POISON_RES)`. `mondata.c:129–197` `Resists_Elem`: for property 1..8, hero `u.uprops` intrinsic||extrinsic, else `mon_resistancebits` (`monst.h:270–271`) `& (1 << (prop-1))`; then wielded artifact `defends(prop+1)`; then worn `oc_oprop`, worn alchemy smock for poison and acid, and `defends_when_carried`. `prop+1` is the damage type (`:152`): poison is `AD_DRST` (7). Stone is `AD_SPC1` (9), not `AD_STON`.
+**JS:** `js/mondata.js` `Resists_Elem :239`. `js/mhitm.js` `resists_poison_mm :1817` (callers `:1833`, `:1872`). `js/zap.js` `resists_poison :1456` (poison-gas `:1963`). `js/potion.js:3956`.
+**Change:** `Resists_Elem` in `js/mondata.js` in that C order. Hero resistance reads `u.uprops` and the flat `H*`/`E*` mirrors of the same storage. `resists_poison_mm` and the `resists_poison` export call it with `POISON_RES`.
+**Verify:** `node scripts/verify.mjs --fn mhitm_ad_drst` → PASS syntax (7 changed js files: explode, mhitm, mon, mondata, potion, region, zap) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (verifier: those files are outside the auto shared set). `node frozen/ps_test_runner.mjs sessions` → 44/44 passing. Probe: worn alchemy smock resists poison and acid; unworn smock does not; wielded Grimtooth resists poison; worn ring of poison resistance resists; unworn ring does not; species `MR_POISON` still resists.
+**Named:** `resists_fire`, `resists_cold`, `resists_elec`, `resists_disint`, `resists_acid`, `resists_sleep`, and `resists_ston` still use the bit test (zap.js helper and the clones in explode.js, mhitm.js, mon.js, trap.js, pray.js, monsters.js). `potion.js` `resists_elem_pot` still does for sleep and acid.
+**Next:** next Open coverage row (`polyself.c` `mbodypart`).
 ## 2026-09-25 — D-2801 `start_timer` stores `MELT_ICE_AWAY` as index 8
 
 **C locus:** `nethack-c/upstream/include/timeout.h:37–48` `MELT_ICE_AWAY` is the ninth `timeout_types` value (index 8). `timeout.c:1978–1990` `timeout_funcs[8]` is `melt_ice_away`. `timeout.c:2247–2292` `start_timer` stores that short. `timeout.c:2231–2237` `run_timers` calls `timeout_funcs[func_index].f` on `&arg`. `zap.c:5119–5131` `melt_ice_away` reads `arg->a_long`.

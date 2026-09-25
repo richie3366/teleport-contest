@@ -12,7 +12,7 @@ import { game } from './gstate.js';
 import { pline, pline_mon, newsym, canspotmon, canseemon, map_invisible, unmap_object, memory_glyph_is_invisible, You, Your, pline_The, You_feel, flush_screen, flush_topl_more, verbalize, sensemon, shieldeff, mon_visible } from './display.js';
 import { cansee } from './vision.js';
 import { dist2, isok } from './hacklib.js';
-import { resist_conflict, set_mon_data, on_fire, mhis, mhe, little_to_big, defended, monsndx } from './mondata.js';
+import { resist_conflict, set_mon_data, on_fire, mhis, mhe, little_to_big, defended, monsndx, Resists_Elem } from './mondata.js';
 import { MON_WEP, mon_wield_item, hitval, dmgval, possibly_unwield } from './weapon.js';
 import { arti_reflects, artifact_hit, permapoisoned, is_art, protects } from './artifact.js';
 import { find_mac, which_armor, bypass_obj, is_flimsy, extract_from_minvent } from './worn.js';
@@ -82,6 +82,7 @@ import {
     M_AP_MONSTER,
     W_ARM,
     W_ARMC,
+    POISON_RES,
     W_ARMH,
     W_ARMS,
     W_ARMF,
@@ -113,7 +114,7 @@ import {
     thick_skinned,
     unsolid, is_whirly, passes_walls, haseyes, flaming, slimeproof,
     is_male, is_female, is_shapeshifter, has_head, mon_hates_silver,
-    noncorporeal, MR_POISON, carnivorous, herbivorous, metallivorous,
+    noncorporeal, carnivorous, herbivorous, metallivorous,
     is_undead, is_were,
 } from './monsters.js';
 import { objectNames, WEAPON_CLASS } from './objects.js';
@@ -1809,16 +1810,12 @@ function mpoisons_subj_mm(mtmp, mattk) {
 }
 
 /**
- * C ref: monst.h resists_poison → Resists_Elem(POISON_RES) subset:
- * data.mresists | mextrinsics | mintrinsics. Artifact/worn grants named.
- * mhitm_really_poison is m-vs-m only (not youmonst).
+ * C ref: monst.h:277 resists_poison → Resists_Elem(mon, POISON_RES)
+ * (`mondata.c:129–197`). Callers: mhitm_really_poison and the you→mon
+ * arm of mhitm_ad_drst.
  */
 export function resists_poison_mm(mtmp) {
-    if (!mtmp) return false;
-    const bits = (mtmp.data?.mresists | 0)
-        | (mtmp.mextrinsics | 0)
-        | (mtmp.mintrinsics | 0);
-    return !!(bits & MR_POISON);
+    return Resists_Elem(mtmp, POISON_RES);
 }
 
 /**
@@ -1855,7 +1852,8 @@ async function mhitm_really_poison(magr, mattk, mdef, mhm) {
  * damage += rn1(10, 6). mhitu: adtyp → A_STR/A_DEX/A_CON, hitmsg,
  * then !rn2(8) poisoned(..., 30, FALSE). mhitm: !rn2(8) then
  * mhitm_really_poison (no second gate).
- * resists_poison_mm omits artifact/worn grants (zap.js resists_poison).
+ * resists_poison is Resists_Elem (bits, wielded defends, worn oc_oprop,
+ * alchemy smock, defends_when_carried).
  */
 export async function mhitm_ad_drst(magr, mattk, mdef, mhm) {
     // C uhitm.c:3127 — FALSE: no "avoids harm" pline. rn2(10) unless mcan.

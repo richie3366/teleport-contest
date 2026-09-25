@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-25
 
-- [x] `js/mkobj.js` `start_timer` stores string `MELT_ICE_AWAY` as func_index 0 (`action | 0`), which is `ROT_ORGANIC`. C `timeout_funcs` index 8 is `melt_ice_away` (`timeout.c:1978–1990`). `run_timers` then calls `rot_organic` on a level timer (`mkobj.js:1545`) and the string compare never runs. Store index 8 and call `melt_ice_away` on the packed long. Source: reviews/loop-unattended/1753-2b10e06e1-start-timer.md. Verify `node scripts/verify.mjs --fn start_timer` (reach regression must be 0). **Addressed:** D-2801
+- [x] `js/mhitm.js` `resists_poison_mm` is only `mresists|mextrinsics|mintrinsics`. `mhitm_ad_drst` (you→mon and `mhitm_really_poison`) calls it. C `resists_poison` is `Resists_Elem` (`mondata.c:127–197`): those bits, then wielded artifact `defends`, worn/carried `oc_oprop`, alchemy smock, and `defends_when_carried`. A smock or poison-defending artifact does not resist. Source: reviews/loop-unattended/1756-5df2d266b-mhitm-ad-drst.md. Verify `node scripts/verify.mjs --fn mhitm_ad_drst` (reach regression must be 0). **Addressed:** D-2802
+
+
+- [x] `js/mkobj.js` `start_timer` stores string `MELT_ICE_AWAY` as func_index 0 (`action | 0`), which is `ROT_ORGANIC`. C `timeout_funcs` index 8 is `melt_ice_away` (`timeout.c:1978–1990`). `run_timers` then calls `rot_organic` on a level timer (`mkobj.js:1545`) and the string compare never runs. Store index 8 and call `melt_ice_away` on the packed long. Source: reviews/loop-unattended/1753-2b10e06e1-start-timer.md. Verify `node scripts/verify.mjs --fn start_timer` (reach regression must be 0). **Addressed:** D-2801 `67ccc0b33`
 
 
 - [x] `js/do.js` `dodown` ceiling-hider and `u_locomotion` call the local `Flying()` (`do.js:449`) which drops the steed-flyer. `youprop.h` `Flying` is `(HFlying || EFlying || (u.usteed && is_flyer(u.usteed->data))) && !BFlying`. `mhitu.js` `Flying` already has that arm and `do.js` already imports `mhitu.js`. Source: reviews/loop-unattended/1752-f176b8c0a-dodown.md. Verify `node scripts/verify.mjs --fn dodown` (reach regression must be 0). **Addressed:** D-2800 `24d4c0ac1`

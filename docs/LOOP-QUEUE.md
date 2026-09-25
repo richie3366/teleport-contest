@@ -103,8 +103,6 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 always Must-fix rows: they forfeit every later screen of that session
 (Constitution §10.14).
 
-- [ ] `js/mhitm.js` `resists_poison_mm` is only `mresists|mextrinsics|mintrinsics`. `mhitm_ad_drst` (you→mon and `mhitm_really_poison`) calls it. C `resists_poison` is `Resists_Elem` (`mondata.c:127–197`): those bits, then wielded artifact `defends`, worn/carried `oc_oprop`, alchemy smock, and `defends_when_carried`. A smock or poison-defending artifact does not resist. Source: reviews/loop-unattended/1756-5df2d266b-mhitm-ad-drst.md. Verify `node scripts/verify.mjs --fn mhitm_ad_drst` (reach regression must be 0).
-
 ## Open — coverage (breadth phase — pop first after Must-fix)
 
 Rows below are `port-coverage.mjs --rows` output (score = reach × call

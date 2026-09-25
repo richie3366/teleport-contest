@@ -42,7 +42,7 @@ import {
     is_vampshifter, is_male, is_female, is_neuter, likes_gems,
     is_rider, is_displacer, nonliving, breathless, is_giant, is_minion, is_human,
     is_elf, is_dwarf, is_gnome, is_orc, is_undead, amphibious, can_teleport, MR_FIRE,
-    MR_POISON, mindless, G_UNIQ, is_watch,
+    mindless, G_UNIQ, is_watch,
     touch_petrifies, flesh_petrifies, slimeproof, resists_ston, poly_when_stoned, vegan,
     montoostrong, monmax_difficulty,
 } from './monsters.js';
@@ -50,6 +50,7 @@ import {
     little_to_big, big_to_little, big_little_match, hero_conflict,
     resist_conflict, m_canseeu, on_fire, monsndx,
 } from './mondata.js';
+import { resists_poison } from './zap.js';
 import {
     objects_at, sobj_at, kill_egg, place_object, stackobj, delobj, is_metallic,
     is_rustprone, mksobj_at, is_organic, is_mines_prize, is_soko_prize,
@@ -305,18 +306,6 @@ function Breathless() {
     }
     const data = game.youmonst?.data;
     return data ? breathless(data) : false;
-}
-
-/**
- * C ref: monst.h resists_poison → Resists_Elem(POISON_RES) subset:
- * data.mresists | mextrinsics | mintrinsics. Artifact/worn grants named.
- */
-function resists_poison(mtmp) {
-    if (!mtmp || mtmp === game.youmonst) return Poison_resistance();
-    const bits = (mtmp.data?.mresists | 0)
-        | (mtmp.mextrinsics | 0)
-        | (mtmp.mintrinsics | 0);
-    return !!(bits & MR_POISON);
 }
 
 /**

@@ -102,10 +102,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `js/mkobj.js` `start_timer` stores string `MELT_ICE_AWAY` as func_index 0 (`action | 0`), which is `ROT_ORGANIC`. C `timeout_funcs` index 8 is `melt_ice_away` (`timeout.c:1978–1990`). `run_timers` then calls `rot_organic` on a level timer (`mkobj.js:1545`) and the string compare never runs. Store index 8 and call `melt_ice_away` on the packed long. Source: reviews/loop-unattended/1753-2b10e06e1-start-timer.md. Verify `node scripts/verify.mjs --fn start_timer`.
+**Next cluster:** `polyself.c` `mbodypart` — coverage THIN (C 168 L `polyself.c:1972–2140` / JS 72 L in js/polyself.js). Verify `node scripts/verify.mjs --fn mbodypart`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2801 (index).**
+**Keep D-0845…D-2802 (index).**
 <!-- recent:begin -->
+**D-2802** `nethack-c/upstream/include/monst.h:277` `resists_poison(mon)` is `Resists_Elem(mon, POISO — `Resists_Elem` in `js/mondata.js` in that C order.
 **D-2801** `nethack-c/upstream/include/timeout.h:37–48` `MELT_ICE_AWAY` is the ninth `timeout_types`  — `MELT_ICE_AWAY` is `SHRINK_GLOB + 1` (8).
 **D-2800** `nethack-c/upstream/include/youprop.h:253–255` `Flying`. `do.c:1206` ceiling hider. `do.c: — Import `Flying` from `mhitu.js` and delete the local clone.
 **D-2799** `nethack-c/upstream/include/wintype.h:128–134` (`ATR_NONE` 0, `ATR_BOLD` 1, `ATR_DIM` 2, ` — Map none → 0, bold → terminal `ATR_BOLD` (2), underline → `ATR_UNDERLINE` (4), inverse → `ATR_INVERSE` (1).
@@ -113,11 +114,10 @@ revisits the picker.
 **D-2797** `nethack-c/upstream/src/uhitm.c:3122–3165` `mhitm_ad_drst`. Callees: `mhitm_mgc_atk_negate — One exported `mhitm_ad_drst` in C order.
 **D-2796** `nethack-c/upstream/src/mthrowu.c:75–155` `thitu`. Callees: `doname`, `mshot_xname`, `kill — Restart of `thitu` in C order.
 **D-2795** `nethack-c/upstream/src/mkobj.c:2067–2118` `mkcorpstat`. Callees: `impossible` (does not r — Restart of `mkcorpstat` in C order.
-**D-2794** `nethack-c/upstream/src/timeout.c:2247–2292` `start_timer`. Callees: `kind_name` `:1994–20 — Restart of `start_timer` in C order.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2801; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2802; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

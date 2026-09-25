@@ -550,6 +550,43 @@ not rewired): `resists_blnd_mm` (`js/mhitm.js:793`),
 `trap.js:4652` resists clones; `dmgtype_fromattack` clones in
 `js/mhitu.js:655` (kept file-local).
 
+### `src/mondata.c` `Resists_Elem`
+
+JS: `js/mondata.js:Resists_Elem` — complete for the C body (D-2802)
+
+**`Resists_Elem`** (C `mondata.c:129–197`) in C order. Property 1..8
+(`FIRE_RES`..`STONE_RES`): hero `u.uprops` intrinsic||extrinsic, also
+the flat `H*`/`E*` mirrors JS keeps for that same storage; monster
+`mon_resistancebits` (`monst.h:270–271`) masked with `1 << (prop-1)`.
+Then wielded artifact `defends(prop+1)` (`uwep` / `MON_WEP`), then the
+invent walk: worn `oc_oprop == prop` under `W_ARMOR|W_ACCESSORY` plus
+`W_WEP` (monsters always; hero only when `uwep` is a weapon or weptool)
+and `W_SWAPWEP` when `u.twoweap`, worn alchemy smock for poison and
+acid, and `defends_when_carried`. `prop+1` is C's damage type
+(`:152`): poison is `AD_DRST` (7). Stone is `AD_SPC1` (9), not
+`AD_STON` (18), so yellow dragon scales do not `defends()` stone
+through this function. `ANTIMAGIC` / `DRAIN_RES` / `BLND_RES` return
+live `resists_magm` / `resists_drli` / `resists_blnd`. Unexpected
+`propindx` calls `impossible` and returns false (the pline is not
+awaited, same as `resists_blnd`).
+Poison macro sites now call it: `resists_poison_mm`
+(`js/mhitm.js:1817`, used `:1833` and `:1872`), `resists_poison`
+(`js/zap.js:1456`; `mthrowu.js:956`, `artifact.js:2325`,
+`dogmove.js:197` and `:276`), monster `resists_poison` in
+`js/mon.js:2450` and `:2576` and the non-hero arm of `:336`,
+`js/explode.js:295`, `js/region.js:505`, and `potion.js:3956`
+(`POT_SICKNESS`).
+Named: `resists_fire` / `resists_cold` / `resists_elec` /
+`resists_disint` / `resists_acid` / `resists_sleep` / `resists_ston`
+still use the bit test (zap.js helper and the file-local clones in
+`explode.js`, `mhitm.js`, `mon.js`, `trap.js`, `pray.js`,
+`monsters.js`). `potion.js` `resists_elem_pot` still does for sleep
+and acid. `zap.c:4367` `|| defended(mon, AD_DRST)` is still not
+called (`js/zap.js:1963`). `uhitm.c:1532` `hmon_hitmon_poison` has no
+JS function (`js/uhitm.js:1152`, `:1482`). Hero gas and explosion
+arms keep `Poison_resistance` where C uses that macro
+(`mon.c:355` → `js/mon.js:336`; `explode.c:61` → `js/explode.js:265`).
+
 ### `src/mondata.c` `mstrength` / `mstrength_ranged_attk`
 
 JS: `js/mondata.js:mstrength` (exported) + file-local `mstrength_ranged_attk` — complete (D-2700)
