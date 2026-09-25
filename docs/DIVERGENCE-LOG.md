@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2790 — `options.c` nmcpy stops before a comma
+
+- **Status:** fixed (Must-fix from review 1742; `nmcpy` local clone diverged from `options.c:6859–6871`. `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** `fruit:apple,banana` stored `apple,banana`. C `nmcpy` copies at most `maxlen-1` characters and stops before `','` or `'\0'`, so the comma is not stored and the fruit is `apple`.
+- **C locus:** `nethack-c/upstream/src/options.c:6859–6871` `nmcpy`. `for (count = 1; count < maxlen; count++)` breaks when `*src` is `','` or `'\0'`, then writes the terminating NUL.
+- **JS was:** `nmcpy(src, n)` in `js/options.js` returned `String(src).slice(0, n - 1)`, which keeps commas. The comment called it a `hack.h` `strncpy`. Pinned C has no such macro. `fruitadd` used the same `slice(0, PL_FSIZ - 1)` at the two `nmcpy` sites.
+- **Fix:** Restart of `nmcpy` in C order: copy while `count < maxlen`, stop before a comma or NUL, return the bounded string (JS strings are immutable; callers assign). `fruitadd` now calls it for `makesingular` (`:8192`) and for the `candied ` tail (`:8239`, room `PL_FSIZ - 8`).
+- **JS:** `js/options.js` `nmcpy :3785`. Call sites `fruitadd :3673` and `:3715`, `optfn_fruit :3859` and `:3862`, `optfn_role :4363`.
+- **Callers:** C `options.c:1748` → `js/options.js:3859`. C `:1753` → `:3862`. C `:3609` `optfn_role` `pl_character` → `:4363`. C `:8192` `fruitadd` → `:3673`. C `:8239` `fruitadd` → `:3715`. C `:866` `petname_optfn` has no JS function. C `:2561` `optfn_name` has no JS function. C `:4972` `optfn_windowtype` has no JS function. C `:7134` and `:7283` sit in `initoptions_init`, which has no JS function. C `:4870` `optfn_windowchain` is inside `#ifdef WINCHAIN` (`config.h:618` leaves `WINCHAIN` undefined). Prototype `:342` is not a call. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn optfn_fruit` → PASS syntax (1 changed js file: js/options.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke 1/1, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 · VERIFY: PASS.
+- **Named omissions:** `petname_optfn` (`:866`), `optfn_name` (`:2561`), `optfn_windowtype` (`:4972`), and `initoptions_init` (`:7134`, `:7283`) are not JS functions. `optfn_windowchain` (`:4870`) is compiled out. A null `src` returns `""`.
+- **Next:** remaining Must-fix: `parseNethackrc` role/race/gender/align `duplicateOpt` (review 1745).
+
 ## D-2789 — `coloratt.c` basic_menu_colors whole-body port
 
 - **Status:** fixed (Open — coverage row `basic_menu_colors` PARTIAL, measured `port-coverage.mjs --name basic_menu_colors` 2026-09-23 @ e93d269e7; `hidden-proxy verify` reports no corpus session blocked).

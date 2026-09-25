@@ -102,8 +102,9 @@ breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
 **Next cluster:** `js/options.js` `nmcpy` — C `options.c:6859–6871` stops before comma or NUL; JS `slice` keeps commas. Source: reviews/loop-unattended/1742-40c2ca295-optfn-fruit.md. Verify `node scripts/verify.mjs --fn optfn_fruit` (reach regression must be 0).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2789 (index).**
+**Keep D-0845…D-2790 (index).**
 <!-- recent:begin -->
+**D-2790** `nethack-c/upstream/src/options.c:6859–6871` `nmcpy`. `for (count = 1; count < maxlen; cou — Restart of `nmcpy` in C order: copy while `count < maxlen`, stop before a comma or NUL, return the bounded string (JS strings are immutable; callers assign).
 **D-2789** `nethack-c/upstream/src/coloratt.c:530–580` `basic_menu_colors`. load_colors saves `iflags — restart of `basic_menu_colors` in C order with `:line` cites.
 **D-2788** `nethack-c/upstream/src/options.c:1442–1560` `optfn_disclose` (NHOPTC, optlist.h `:284`).  — `optfn_disclose` and `handler_disclose` in `js/options.js` in C order with `:line` cites.
 **D-2787** `cfgfiles.c:1960–1976` `rcfile_interface_options` — rc parser in `js/cfgfiles.js`. Caller `rcfile()` is `:966`.
@@ -111,11 +112,10 @@ revisits the picker.
 **D-2785** `nethack-c/upstream/src/options.c:3824–3860` (staticfn; NHOPTC wires `&optfn_soundlib`, op — restart as `optfn_soundlib` in C order with `:line` cites.
 **D-2784** `nethack-c/upstream/src/options.c:3958–4010` (staticfn; NHOPTC wires `&optfn_sortvanquishe — restart as `optfn_sortvanquished` in C order with `:line` cites.
 **D-2783** `nethack-c/upstream/src/options.c:1706–1774` (staticfn; NHOPTC wires `&optfn_fruit`, optli — restart as `optfn_fruit` in C order with `:line` cites.
-**D-2782** `nethack-c/upstream/src/options.c:2245–2249` (`op == empty_optstr` → `!strncmp(opts, "use_ — pass `stripped` (msg_window valueless site in the same function).
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2789; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2790; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

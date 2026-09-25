@@ -3668,8 +3668,9 @@ export async function handler_menu_colors() {
 export function fruitadd(str, replaceFruit) {
     let f;
 
-    let nam = makesingular(String(str || ''));
-    if (nam.length > PL_FSIZ - 1) nam = nam.slice(0, PL_FSIZ - 1);
+    // C `:8192` nmcpy(pl_fruit, makesingular(str), PL_FSIZ). makesingular
+    // returns a copy; the comma is an alternate end and is not stored.
+    let nam = nmcpy(makesingular(String(str || '')), PL_FSIZ);
     game.pl_fruit = nam;
 
     let globpfx = 0;
@@ -3709,7 +3710,9 @@ export function fruitadd(str, replaceFruit) {
         || ((str_end_is(nam, ' corpse') || str_end_is(nam, ' egg'))
             && ismnum(name_to_mon(nam)))) {
         const buf = nam;
-        game.pl_fruit = ('candied ' + buf).slice(0, PL_FSIZ - 1);
+        // C `:8238–8239` Strcpy "candied " (8 chars) then nmcpy into
+        // pl_fruit+8 with room PL_FSIZ-8 (comma stops the tail).
+        game.pl_fruit = 'candied ' + nmcpy(buf, PL_FSIZ - 8);
     }
     if (!game.flags) game.flags = {};
     game.flags.made_fruit = false;
@@ -3771,17 +3774,27 @@ export function init_fruit_chain() {
 }
 
 /**
- * C hack.h `nmcpy(dst, src, n)` — `strncpy` of `n - 1` bytes, then a
- * forced NUL at `[n - 1]`. JS strings are immutable, so this returns the
- * bounded copy (PL_FSIZ includes the NUL).
+ * C options.c `nmcpy` `:6859–6871`. Copy at most `maxlen - 1` characters
+ * and stop before `','` or `'\0'` (the comma is not stored). JS strings
+ * are immutable, so this returns the copy; C writes `dest` and the
+ * callers assign it. A null src is `""` (C would not be called on NULL).
  * @param {string} src
- * @param {number} n
+ * @param {number} maxlen
  * @returns {string}
  */
-function nmcpy(src, n) {
+function nmcpy(src, maxlen) {
     const s = src == null ? '' : String(src);
-    const max = (n | 0) - 1;
-    return max > 0 ? s.slice(0, max) : '';
+    const limit = maxlen | 0; // C int maxlen
+    let out = '';
+    // C `:6865` for (count = 1; count < maxlen; count++)
+    for (let count = 1; count < limit; count++) {
+        const ch = s.charCodeAt(count - 1);
+        // past-the-end is NaN, standing in for C's terminating NUL
+        if (Number.isNaN(ch) || ch === 0x2c /* ',' */ || ch === 0 /* '\0' */)
+            break; // C `:6866–6867`
+        out += s.charAt(count - 1); // C `:6868` *dest++ = *src++
+    }
+    return out; // C `:6870` *dest = '\0'
 }
 
 /**
@@ -3843,10 +3856,10 @@ export function optfn_fruit(optidx, req, negated, opts, _op, optInitial) {
             }
         }
         // goodfruit `:1748`
-        game.pl_fruit = nmcpy(op, PL_FSIZ); // C `:1749`
-        game.pl_fruit = sanitize_name(game.pl_fruit || ''); // C `:1750`
-        if (!game.pl_fruit) // C `:1753` !*svp.pl_fruit
-            game.pl_fruit = nmcpy('slime mold', PL_FSIZ); // C `:1754`
+        game.pl_fruit = nmcpy(op, PL_FSIZ); // C `:1748`
+        game.pl_fruit = sanitize_name(game.pl_fruit || ''); // C `:1749`
+        if (!game.pl_fruit) // C `:1752` !*svp.pl_fruit
+            game.pl_fruit = nmcpy('slime mold', PL_FSIZ); // C `:1753`
         if (!optInit) { // C `:1755`
             fruitadd(game.pl_fruit, forig); // C `:1759`
             // C `:1760` give_opt_msg static-init TRUE (options.c `:108`).
@@ -4347,7 +4360,7 @@ export function optfn_role(optidx, req, negated, opts, _op, optInitial) {
                 config_error_add("Unknown %s '%s'", allopt_name(optidx), opp.op); // C `:3607`
                 return OPTN_ERR; // C `:3608`
             }
-            game.pl_character = nmcpy(opp.op, PL_NSIZ); // C `:3610`
+            game.pl_character = nmcpy(opp.op, PL_NSIZ); // C `:3609`
             saveoptstr(optidx, rolestring(game.flags.initrole, roles, 'name.m'), // C `:3611`
                 roleOptPhase(optInit));
         }

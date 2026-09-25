@@ -176,3 +176,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-25 — D-2790 `options.c` nmcpy stops before a comma
+
+**C locus:** `nethack-c/upstream/src/options.c:6859–6871` `nmcpy`. `for (count = 1; count < maxlen; count++)` breaks when `*src` is `','` or `'\0'`, then writes the terminating NUL.
+**JS:** `js/options.js` `nmcpy :3785`. Call sites `fruitadd :3673` and `:3715`, `optfn_fruit :3859` and `:3862`, `optfn_role :4363`.
+**Change:** Restart of `nmcpy` in C order: copy while `count < maxlen`, stop before a comma or NUL, return the bounded string (JS strings are immutable; callers assign). `fruitadd` now calls it for `makesingular` (`:8192`) and for the `candied ` tail (`:8239`, room `PL_FSIZ - 8`).
+**Verify:** `node scripts/verify.mjs --fn optfn_fruit` → PASS syntax (1 changed js file: js/options.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke 1/1, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 · VERIFY: PASS.
+**Named:** `petname_optfn` (`:866`), `optfn_name` (`:2561`), `optfn_windowtype` (`:4972`), and `initoptions_init` (`:7134`, `:7283`) are not JS functions. `optfn_windowchain` (`:4870`) is compiled out.
+**Next:** remaining Must-fix: `parseNethackrc` role/race/gender/align `duplicateOpt` (review 1745).

@@ -5,6 +5,8 @@
 - Queue row: Open coverage (whole `optfn_fruit`), 0 corpus blocks cited
 - Banned grep: 0 hits in the hunk. `imports.mjs --rulecheck`: "Rule #2 clean" (this audit).
 
+**Addressed:** D-2790
+
 ## Intent vs deliverable
 
 Subject promises a restart of `optfn_fruit` (`options.c:1706–1774`)
