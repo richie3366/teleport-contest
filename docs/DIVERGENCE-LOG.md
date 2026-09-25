@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2808 — `unstuck` places the ball and chain on a swallowed exit
+
+- **Status:** fixed (review 1763 C-wrong; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** A swallowed iron ball that kills the engulfer returns from `thitmonst` as already placed. C `unstuck` has already run `placebc`. JS set `ux`/`uy` and `docrt` and left `uball` off the floor, so `throwit` did not place it either.
+- **C locus:** `nethack-c/upstream/src/mon.c:3438–3467` `unstuck`. Swallowed exit `:3448–3456`: clear `mswallower`, set `u.ux`/`u.uy` from the engulfer, `placebc` when `Punished && uchain->where != OBJ_FLOOR` (`:3451–3452`), then `vision_full_recalc` and `docrt`. Re-engulf `mspec_used = rnd(2)` `:3458–3465`.
+- **JS was:** `js/mhitu.js` `unstuck` already cleared the grab, moved the hero, and called `docrt`. The comment named Punished `placebc` as an omission. `placebc` and `Punished` were already imported; `gulpmu` already calls `unplacebc` before `uswallow` is set.
+- **Fix:** After `ux`/`uy` and before `vision_full_recalc`, call `placebc` when `Punished()` and `uchain.where` is not `OBJ_FLOOR`. That is the call `thitmonst`'s iron-ball `return 1` (`dothrow.c:2240–2241`) assumes has already put `uball` down.
+- **JS:** `js/mhitu.js` `unstuck` `:1637`. `OBJ_FLOOR` joins the existing `const.js` import. `placebc` (`ball.js:380`) and `Punished` (`pray.js:245`) were already live.
+- **Callers:** C `dog.c:1189` `tamedog` → `js/dog.js:606`. C `dogmove.c:1058` is inside `#if 0` (not a live caller). C `end.c:754` `savelife` → `js/end.js:1815`. C `mhitu.c:299` `expels` → `js/mhitu.js:1683`. C `mon.c:2703` `mon_leaving_level` → `js/mon.js:2101` (hero-kill stand-in `js/uhitm.js:861` because `mondead` does not call `mon_leaving_level`). C `mon.c:3276` `mongone` → `js/mon.js:3490`. C `mon.c:3857` `migrate_mon` → `js/mon.js:1877`. C `mon.c:5447` `newcham` → `js/makemon.js:1804` `newcham_ustuck`. C `monmove.c:368` `release_hero` → `js/monmove.js:2341`. C `monmove.c:937` `dochug` → `js/monmove.js:2586`. C `teleport.c:1696` `rloc_to` → `js/teleport.js:804`. C `teleport.c:2281` `u_teleport_mon` → `js/teleport.js:1827`. C `uhitm.c:5381` knockback → `js/mhitm.js:2813` `mhitm_knockback`. C `zap.c:602` `release_hold` → `js/zap.js:2669`. C `mhitu.c:1367` is a comment; the petrify `placebc` is `gulpmu` at `js/mhitu.js:1885`, not `unstuck`. No new call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn unstuck --reach-all` → PASS syntax (2 changed js files: js/dothrow.js js/mhitu.js) · PASS rule2 · note hidden (no corpus session blocked at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (verifier: no shared file changed) · VERIFY: PASS.
+- **Named omissions:** `mhitm.c:1255` `slept_monst` is still three local clones that clear `ustuck` (`js/mhitm.js:1381` `slept_slee_mm`, `js/music.js:328`, `js/potion.js:3730`). The C gate is `!u.uswallow`, so this swallow `placebc` would not run there; `mspec_used = rnd(2)` is skipped. `placebc` still omits `flooreffects` rust and `bcrestriction`.
+- **Next:** `js/do_wear.js` `Boots_on` `FUMBLE_BOOTS` timeout saturate (next Must-fix, review 1762).
+
 ## D-2807 — `bhito` follows the wand-on-object switch in C order
 
 - **Status:** fixed (coverage; `hidden-proxy verify` reports no corpus session blocked). `domove_fight_web`, `mhitm_ad_heal`, `mhitm_ad_drli`, `mhitm_ad_legs`, `mhitm_ad_plys`, `thrwmu`, and `mhitm_ad_ston` were already the live C bodies (this name or the you/mon split) and are on the Stale index.

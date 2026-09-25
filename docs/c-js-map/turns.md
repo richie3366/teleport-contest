@@ -2872,7 +2872,7 @@ APPLIED wakeup (D-1041)**; **`find_mac` minvent ARM_BONUS/guarding (D-1042)**;
 **`should_mulch_missile` hero blessed `!rnl(4)` (D-1043)**; 
 **`special_obj_hits_leader` `is_quest_artifact` via `urole.questarti` not `u.questarti` (D-1044)**; 
 **`thitmonst` unicorn gem catch → `gem_accept` D-2517** (C `:2309–2382` in C order: buddy/gem gates, identified +5/`rn2(7)−3` / guessed +2/`rn2(3)−1` / unknown +1/`rn2(3)−1` luck arms, non-gem nogood→nopick vs glass-noluck accept, `check_shop_obj(TRUE)` + `mpickobj`, `!Blind` pline + `!tele_restrict`→`rloc(RLOC_MSG)`; `goto nopick` as flag; caller `:2097` wired); **`thitmonst` whole body D-2804** (C `:2011–2304`: weapon mulch `check_shop_obj(TRUE)` + `obfree`, `HEAVY_IRON_BALL` / `BOULDER` STR-then-DEX hit-vs-miss, `potionhit(POTHIT_HERO_THROW)`, unknown bow-gloves `impossible`); callers `apply.c:3521` / `:3848` → `js/apply.js:3852` / `:4019`, `dokick.c:748` → `js/dokick.js:1522`, `dothrow.c:1492` → `js/dothrow.js:2094`; **swallow vanish pline D-1324**; 
-`tmiss` still uses local `miss_missile` rather than `zap.c` `miss` (`is_plural` otense named); `unstuck` still omits Punished `placebc` (`mon.c:3452`) that the iron-ball return-1 comment relies on); 
+`tmiss` still uses local `miss_missile` rather than `zap.c` `miss` (`is_plural` otense named); `unstuck` Punished `placebc` (`mon.c:3452`) is live in D-2808, so the iron-ball return 1 matches C); 
 throw_obj full `weapon_skills` table / full `movecmd` bind table (crossbow gate + quest-artifact launcher live D-2615); 
 **`breakobj` whole body C-order D-2531** (C `:2480–2574`: crackable `erode_obj` ERODE_CRACK + 
 `ER_DESTROYED` return; MIRROR luck; potion `in_use` + lamplit-oil `explode_oil` (canonical home 
@@ -3276,7 +3276,7 @@ Eyes `vision_clears` / full `can_blnd` ublindf·visor / uhitm·mhitm AD_BLND arm
 **`mattacku` AC_VALUE** live (`hack.h` neg→`-rnd(-AC)`); 
 **`getmattk` mspec_used→AT_TUCH/CLAW** + **`mhitm_ad_cold` hero + `destroy_items`** (D-0837; 
 SSEX named (SEDUCE=0 `c_sa_no`); D-1795 shipped DISE/DREN/WEAP/lich/home-elem; AD_FIRE hero D-2005); 
-**`unstuck`→`docrt` on swallow exit** (D-0838; Punished placebc deferred); **`expels` tail `um_dist` land-hard + `spoteffects(TRUE)`** (D-2193; `mhitu.c:299–305`; canonical `mon.js um_dist` export, dynamic `pickup.js spoteffects`; queue owner look_here moved 121→130); **`xkilled` death `mon_leaving_level` unstuck+mtrapped** (D-2093; `js/uhitm.js` hero-kill only; mhitm/trap `mondead` + full take-off-map still named); 
+**`unstuck`→`docrt` on swallow exit** (D-0838; Punished `placebc` before `vision_full_recalc` live, D-2808); **`expels` tail `um_dist` land-hard + `spoteffects(TRUE)`** (D-2193; `mhitu.c:299–305`; canonical `mon.js um_dist` export, dynamic `pickup.js spoteffects`; queue owner look_here moved 121→130); **`xkilled` death `mon_leaving_level` unstuck+mtrapped** (D-2093; `js/uhitm.js` hero-kill only; mhitm/trap `mondead` + full take-off-map still named); 
 **`initedog` `set_malign`** (D-0839; seed0383 RNG FULL); 
 **`mpickstuff` `distant_name` + `hitmsg` consecutive `" again"`** (D-0840; Scr 146→148); 
 **gulpmu `flush_topl_more`+Hallu `vision_off` together** (D-0852 #996 Scr196→201; 

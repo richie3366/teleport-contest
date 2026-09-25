@@ -20,6 +20,7 @@ import {
     M_AP_NOTHING, M_AP_OBJECT, WORN_HELMET, TELEDS_ALLOW_DRAG, DISMOUNT_ENGULFED,
     something, Something, u_at, ERODE_RUST, ERODE_CORRODE,
     SICK_ALL, SICK_NONVOMITABLE, SICK_RES, AD_CURS, ERODE_ROT, SLIMED, TT_WEB, OBJ_FREE,
+    OBJ_FLOOR,
 } from './const.js';
 import { thrwmu, spitmu, breamu } from './mthrowu.js';
 import { find_offensive, use_offensive } from './muse.js';
@@ -1630,8 +1631,8 @@ export function set_ustuck(mtmp) {
 
 /**
  * C ref: mon.c unstuck — release grabber; set mspec_used rnd(2) for re-engulf.
- * Swallowed exit: vision_full_recalc + docrt (Hallu display RNG; D-0838).
- * Named omissions: Punished placebc.
+ * Swallowed exit: placebc when the chain is off the floor, then
+ * vision_full_recalc + docrt (Hallu display RNG; D-0838).
  */
 export async function unstuck(mtmp) {
     const u = game.u || {};
@@ -1643,6 +1644,10 @@ export async function unstuck(mtmp) {
         game.mswallower = null;
         u.ux = mtmp.mx;
         u.uy = mtmp.my;
+        /* C mon.c:3451–3452 — gulpmu's unplacebc left the chain free.
+           thitmonst's iron-ball return 1 assumes this placebc already ran. */
+        if (Punished() && ((u.uchain?.where | 0) !== OBJ_FLOOR))
+            placebc();
         // C: gv.vision_full_recalc = 1; docrt();
         game.vision_full_recalc = 1;
         await docrt();

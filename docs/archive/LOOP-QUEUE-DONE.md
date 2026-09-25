@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-25
 
-- [x] `zap.c` bhito — coverage PARTIAL (C 305 L `zap.c:2119–2424` / JS 173 L in js/zap.js; hops 5, callers 3, RNG 0, msg 12). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn bhito` (reach regression must be 0). Measured `port-coverage.mjs --name bhito` 2026-09-25 @ 7215d8d6a. **Addressed:** D-2807
+- [x] `js/mhitu.js` `unstuck` skips `placebc` when a swallowed iron ball kills the engulfer. C `mon.c:3448–3453`: after `set_ustuck(0)`, if swallowed and `Punished && uchain->where != OBJ_FLOOR`, `placebc()` before `vision_full_recalc`. `thitmonst` (`dothrow.c:2240–2241`, `js/dothrow.js:758`) then returns 1 so the caller does not place `uball` again. JS sets `ux`/`uy` and `docrt` and leaves the ball unplaced. Source: reviews/loop-unattended/1763-b5e93433b-thitmonst.md. Verify `node scripts/verify.mjs --fn unstuck` (reach regression must be 0). **Addressed:** D-2808
+
+
+- [x] `zap.c` bhito — coverage PARTIAL (C 305 L `zap.c:2119–2424` / JS 173 L in js/zap.js; hops 5, callers 3, RNG 0, msg 12). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn bhito` (reach regression must be 0). Measured `port-coverage.mjs --name bhito` 2026-09-25 @ 7215d8d6a. **Addressed:** D-2807 `e1ef155a9`
 
 
 - [x] `invent.c` addinv_core0 — coverage MISSING (C 90 L `invent.c:1056–1148` / JS no symbol; hops 3, callers 5, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn addinv_core0` (reach regression must be 0). Measured `port-coverage.mjs --name addinv_core0` 2026-09-25 @ 5df2d266b. **Addressed:** D-2806 `7041ab3e4`

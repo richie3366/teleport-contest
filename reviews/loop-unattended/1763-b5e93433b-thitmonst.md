@@ -6,6 +6,8 @@
 - Banned grep: 0 hits in the hunk. `imports.mjs --rulecheck` on this SHA: "Rule #2 clean".
 - `imports.mjs --can dothrow.js shk.js obfree` → `ALREADY`. Same for `s_suffix` (`do_name.js`) and `impossible` (`display.js`).
 
+**Addressed:** D-2808
+
 ## Intent vs deliverable
 
 Subject promises the iron-ball, boulder, and potion arms, mulch via `check_shop_obj` then `obfree`, the non-ammo penalty as `obj === thrownobj`, and `impossible` for unknown bow gloves. The diff does that and reorders the tail into one `else if` chain (`dothrow.c:2155–2303`). It does not make the ball return's `placebc` assumption true.

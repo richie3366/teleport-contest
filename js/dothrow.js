@@ -752,8 +752,7 @@ export async function thitmonst(mon, obj) {
             if (!(await hmon(mon, obj, hmode, dieroll))) {
                 // C dothrow.c:2240–2241 — engulfer died and unstuck's
                 // placebc (mon.c:3452) already put uball down. Caller
-                // must not place it again. JS unstuck still omits that
-                // placebc (mhitu.js).
+                // must not place it again.
                 const uNow = game.u || u;
                 if (was_swallowed && !uNow.uswallow && obj === uNow.uball) {
                     return true;

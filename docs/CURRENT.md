@@ -101,10 +101,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `js/mhitu.js` `unstuck` — swallowed exit must `placebc` when `Punished && uchain->where != OBJ_FLOOR` (`mon.c:3452`) before `thitmonst` returns 1 for a killing iron ball. Review 1763. Verify `node scripts/verify.mjs --fn unstuck`.
+**Next cluster:** `js/do_wear.js` `Boots_on` `FUMBLE_BOOTS` — `incr_itimeout` saturates at `TIMEOUT` (`potion.c:55–85`); JS adds `rnd(20)` with `(sum & TIMEOUT)` and can wrap. Review 1762. Verify `node scripts/verify.mjs --fn Boots_on`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2807 (index).**
+**Keep D-0845…D-2808 (index).**
 <!-- recent:begin -->
+**D-2808** `nethack-c/upstream/src/mon.c:3438–3467` `unstuck`. Swallowed exit `:3448–3456`: clear `ms — After `ux`/`uy` and before `vision_full_recalc`, call `placebc` when `Punished()` and `uchain.where` is not `OBJ_FLOOR`.
 **D-2807** `nethack-c/upstream/src/zap.c:2119–2424` `bhito`. Self-hit `:2130`. Bypass `:2133–2170`. F — One `bhito` in that C order.
 **D-2806** `nethack-c/upstream/src/invent.c:1056–1148` `addinv_core0`. `OBJ_FREE` panic `:1063`. `LOS — One `addinv_core0` in that C order.
 **D-2805** `nethack-c/upstream/src/artifact.c:2130–2232` `arti_invoke`. Null `:2136–2138`. No `inv_pr — One `arti_invoke` in that C order.
@@ -112,11 +113,10 @@ revisits the picker.
 **D-2803** `nethack-c/upstream/src/do_wear.c:383–431` `Cloak_off`. `do_wear.c:186–259` `Boots_on`. `d — Both functions restarted in C order.
 **D-2802** `nethack-c/upstream/include/monst.h:277` `resists_poison(mon)` is `Resists_Elem(mon, POISO — `Resists_Elem` in `js/mondata.js` in that C order.
 **D-2801** `nethack-c/upstream/include/timeout.h:37–48` `MELT_ICE_AWAY` is the ninth `timeout_types`  — `MELT_ICE_AWAY` is `SHRINK_GLOB + 1` (8).
-**D-2800** `nethack-c/upstream/include/youprop.h:253–255` `Flying`. `do.c:1206` ceiling hider. `do.c: — Import `Flying` from `mhitu.js` and delete the local clone.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2807; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2808; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

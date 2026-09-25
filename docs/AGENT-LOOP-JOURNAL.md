@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-25 — D-2808 `unstuck` places the ball and chain on a swallowed exit
+
+**C locus:** `nethack-c/upstream/src/mon.c:3438–3467` `unstuck`. Swallowed exit `:3448–3456`: clear `mswallower`, set `u.ux`/`u.uy` from the engulfer, `placebc` when `Punished && uchain->where != OBJ_FLOOR` (`:3451–3452`), then `vision_full_recalc` and `docrt`. Re-engulf `mspec_used = rnd(2)` `:3458–3465`.
+**JS:** `js/mhitu.js` `unstuck` `:1637`. `OBJ_FLOOR` joins the existing `const.js` import. `placebc` (`ball.js:380`) and `Punished` (`pray.js:245`) were already live.
+**Change:** After `ux`/`uy` and before `vision_full_recalc`, call `placebc` when `Punished()` and `uchain.where` is not `OBJ_FLOOR`. That is the call `thitmonst`'s iron-ball `return 1` (`dothrow.c:2240–2241`) assumes has already put `uball` down.
+**Verify:** `node scripts/verify.mjs --fn unstuck --reach-all` → PASS syntax (2 changed js files: js/dothrow.js js/mhitu.js) · PASS rule2 · note hidden (no corpus session blocked at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (verifier: no shared file changed) · VERIFY: PASS.
+**Named:** `mhitm.c:1255` `slept_monst` is still three local clones that clear `ustuck` (`js/mhitm.js:1381` `slept_slee_mm`, `js/music.js:328`, `js/potion.js:3730`). The C gate is `!u.uswallow`, so this swallow `placebc` would not run there; `mspec_used = rnd(2)` is skipped.
+**Next:** `js/do_wear.js` `Boots_on` `FUMBLE_BOOTS` timeout saturate (next Must-fix, review 1762).
 ## 2026-09-26 — Audit e1ef155a9 (reviews 1758–1766) + cadence 44/44.
 
 Reviews audit D-2799..D-2807 against pinned C (csym bodies + callers,
