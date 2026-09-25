@@ -304,7 +304,7 @@ corpse timer when `zombify` or either type is `special_corpse`.
 
 Creation/merge/weight subsets; `add_to_buried` (D-0014); 
 `start_corpse_timeout` + `mkcorpstat` `special_corpse` restart (D-0011); 
-**`run_timers`/`start_timer` queue + floor `rot_corpse`** (D-0405; `start_timer` whole body D-2794 — range panic, VERBOSE_TIMER duplicate `impossible`, return TRUE);
+**`run_timers`/`start_timer` queue + floor `rot_corpse`** (D-0405; `start_timer` whole body D-2794 — range panic, VERBOSE_TIMER duplicate `impossible`, return TRUE; D-2801 stores `MELT_ICE_AWAY` as timeout_funcs index 8 and `run_timers` calls `melt_ice_away` on the packed long);
 **`spot_time_expires` + `spot_time_left` delegation** (D-1957;
 C `timeout.c` `spot_time_expires` `:2444–2456` / `spot_time_left` `:2458–2463`;
 absolute vs remaining; TIMER_LEVEL+func+packed-where triple match); 

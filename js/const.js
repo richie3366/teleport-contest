@@ -2252,9 +2252,14 @@ export const TIMER_FUNC = Object.freeze({
     REVIVE_MON: 'REVIVE_MON',
     ZOMBIFY_MON: 'ZOMBIFY_MON',
     ROT_CORPSE: 'ROT_CORPSE',
+    /* Name token only. The func_index export is the timeout.h enum below. */
     MELT_ICE_AWAY: 'MELT_ICE_AWAY',
 });
-export const MELT_ICE_AWAY = TIMER_FUNC.MELT_ICE_AWAY;
+/* timeout.h enum timeout_types: ninth timeout_funcs slot (index 8),
+   after SHRINK_GLOB. `timeout.c:1978–1990` TTAB melt_ice_away.
+   Not TIMER_FUNC.MELT_ICE_AWAY: that string `| 0` is ROT_ORGANIC
+   (review 1753). NUM_TIME_FUNCS is this value + 1 (9). */
+export const MELT_ICE_AWAY = (SHRINK_GLOB + 1);
 
 // Corpse taint/revival age window (src/mkobj.c)
 // Runtime fields: rot/revive scheduling bound for corpse timers.

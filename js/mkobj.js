@@ -54,7 +54,7 @@ import { distant_name, doname, cxname, The, vtense, corpse_xname, Yname2, otense
 import {
     ROT_AGE, TAINT_AGE, TROLL_REVIVE_CHANCE,
     ROT_ORGANIC, ROT_CORPSE, REVIVE_MON, ZOMBIFY_MON,
-    TIMER_NONE, NUM_TIMER_KINDS,
+    TIMER_NONE, NUM_TIMER_KINDS, NUM_TIME_FUNCS,
     TIMER_OBJECT, TIMER_LEVEL, TIMER_GLOBAL, TIMER_MONSTER,
     RANGE_LEVEL,
     MELT_ICE_AWAY, HATCH_EGG, FIG_TRANSFORM, BURN_OBJECT, SHRINK_GLOB,
@@ -1152,7 +1152,9 @@ export function stop_timer(action, obj) {
     let curr = g._timer_base;
     while (curr) {
         const next = curr.next;
-        if (curr.kind === TIMER_OBJECT && curr.action === action && curr.obj === obj) {
+        if (curr.kind === TIMER_OBJECT
+            && timeout_func_index(curr.action) === timeout_func_index(action)
+            && curr.obj === obj) {
             if (prev) prev.next = next;
             else g._timer_base = next;
             obj.timed = Math.max(0, (obj.timed | 0) - 1);
@@ -1180,7 +1182,8 @@ export function stop_timer(action, obj) {
 export function peek_timer(type, obj) {
     if (!obj) return 0;
     for (let curr = timer_base()._timer_base; curr; curr = curr.next) {
-        if (curr.action === type && curr.obj === obj) {
+        if (timeout_func_index(curr.action) === timeout_func_index(type)
+            && curr.obj === obj) {
             return curr.timeout | 0;
         }
     }
@@ -1213,16 +1216,31 @@ const TIMEOUT_FUNC_NAMES = [
 ];
 
 /**
+ * C timeout.h `enum timeout_types` / `timeout.c` `timeout_funcs` index
+ * (`:1978–1990`). A numeric short passes through. The legacy string
+ * `MELT_ICE_AWAY` (and nhl `melt-ice`) is index 8. `string | 0` is 0,
+ * which is `ROT_ORGANIC`, so that coercion is not the index.
+ * An unknown string is -1 (start_timer panics; it must not match rot).
+ */
+function timeout_func_index(action) {
+    if (action === 'MELT_ICE_AWAY' || action === 'melt_ice_away' || action === 'melt-ice')
+        return MELT_ICE_AWAY;
+    if (typeof action === 'string') {
+        const i = TIMEOUT_FUNC_NAMES.indexOf(action);
+        return i >= 0 ? i : -1;
+    }
+    return action | 0;
+}
+
+/**
  * C ref: timeout.c start_timer `:2247–2292`.
  * Queue a timer_element. timeout = moves + when. tid = svt.timer_id++
  * (decl.c init_svt.timer_id is 1UL; a fresh JS 0 is raised to 1 first).
  * TIMER_OBJECT arg is the object (anything.a_obj) and bumps obj.timed.
  * TIMER_LEVEL / TIMER_GLOBAL arg is a packed long or `{ a_long }`
  * (MELT_ICE_AWAY, D-0965). TIMER_MONSTER arg is the monster.
- * `action` is func_index. Numeric enums are stored as shorts. The
- * string MELT_ICE_AWAY token still stores as `| 0` (0); spot and
- * run_timers keep comparing the caller's string, so that level timer
- * stays unmatched (named; do not retarget it in this function).
+ * `action` is func_index. Stored as the timeout_funcs short, including
+ * MELT_ICE_AWAY at index 8 (not the string token).
  * Duplicate (kind + func_index + a_void): impossible, return false.
  * Invalid kind or func_index: panic (loud throw; no paniclog, Rule #2).
  * Returns true (C TRUE), not the delay.
@@ -1231,9 +1249,9 @@ const TIMEOUT_FUNC_NAMES = [
 export function start_timer(when, kind, action, arg) {
     /* C `:2254–2256` — kind and func_index must be in range. */
     const kindN = kind | 0;
-    const funcN = action | 0;
+    const funcN = timeout_func_index(action);
     if (kindN <= TIMER_NONE || kindN >= NUM_TIMER_KINDS
-        || funcN < 0 || funcN >= TIMEOUT_FUNC_NAMES.length) {
+        || funcN < 0 || funcN >= NUM_TIME_FUNCS) {
         /* panic() args: kind_name(kind) runs first (TIMER_NONE
            impossible), then the throw stands in for panic NORETURN. */
         const label = kind_name(kindN);
@@ -1253,7 +1271,7 @@ export function start_timer(when, kind, action, arg) {
     const g = timer_base();
     let dup = g._timer_base;
     for (; dup; dup = dup.next) {
-        if ((dup.kind | 0) !== kindN || dup.action !== action) continue;
+        if ((dup.kind | 0) !== kindN || timeout_func_index(dup.action) !== funcN) continue;
         /* a_void: object pointer, monster pointer, or packed long. */
         if (isObj && dup.obj === obj) break;
         if (isMon && dup.mon === mon) break;
@@ -1275,7 +1293,7 @@ export function start_timer(when, kind, action, arg) {
         tid: game.timer_id++,
         kind: kindN,
         needs_fixup: 0,
-        action: action | 0,
+        action: funcN,
         obj,
         mon,
         a_long,
@@ -1345,7 +1363,7 @@ export function spot_time_expires(x, y, action) {
     const where = (((x | 0) & 0xffff) << 16) | ((y | 0) & 0xffff);
     for (let curr = timer_base()._timer_base; curr; curr = curr.next) {
         if ((curr.kind | 0) === TIMER_LEVEL
-            && curr.action === action
+            && timeout_func_index(curr.action) === timeout_func_index(action)
             && (curr.a_long | 0) === where) {
             return curr.timeout | 0;
         }
@@ -1375,7 +1393,7 @@ export function spot_stop_timers(x, y, action) {
     while (curr) {
         const next = curr.next;
         if ((curr.kind | 0) === TIMER_LEVEL
-            && curr.action === action
+            && timeout_func_index(curr.action) === timeout_func_index(action)
             && (curr.a_long | 0) === where) {
             if (prev) prev.next = next;
             else g._timer_base = next;
@@ -1540,30 +1558,35 @@ export async function run_timers() {
         if (curr.kind === TIMER_OBJECT && curr.obj) {
             curr.obj.timed = Math.max(0, (curr.obj.timed | 0) - 1);
         }
-        if (curr.action === ROT_CORPSE) {
+        /* C `:2237` (*timeout_funcs[func_index].f)(&arg, timeout).
+           Index 8 is melt_ice_away on the packed long (a_long), not
+           rot_organic. A stored string token resolves to 8 here too,
+           so it cannot take the ROT_ORGANIC arm. */
+        const func = timeout_func_index(curr.action);
+        if (func === ROT_CORPSE) {
             await rot_corpse(curr.obj);
-        } else if (curr.action === ROT_ORGANIC) {
+        } else if (func === ROT_ORGANIC) {
             const { rot_organic } = await import('./dig.js');
             await rot_organic(curr.obj);
-        } else if (curr.action === MELT_ICE_AWAY
+        } else if (func === MELT_ICE_AWAY
             && (curr.kind | 0) === TIMER_LEVEL) {
             const { melt_ice_away } = await import('./zap.js');
             await melt_ice_away(curr.a_long | 0);
-        } else if (curr.action === BURN_OBJECT && curr.obj) {
+        } else if (func === BURN_OBJECT && curr.obj) {
             const { burn_object } = await import('./timeout.js');
             await burn_object(curr.obj, curr.timeout | 0);
-        } else if (curr.action === SHRINK_GLOB && curr.obj) {
+        } else if (func === SHRINK_GLOB && curr.obj) {
             await shrink_glob(curr.obj, curr.timeout | 0);
-        } else if (curr.action === FIG_TRANSFORM && curr.obj) {
+        } else if (func === FIG_TRANSFORM && curr.obj) {
             const { fig_transform } = await import('./apply.js');
             await fig_transform(curr.obj, curr.timeout | 0);
-        } else if (curr.action === HATCH_EGG && curr.obj) {
+        } else if (func === HATCH_EGG && curr.obj) {
             const { hatch_egg } = await import('./timeout.js');
             await hatch_egg(curr.obj, curr.timeout | 0);
-        } else if (curr.action === REVIVE_MON && curr.obj) {
+        } else if (func === REVIVE_MON && curr.obj) {
             const { revive_mon } = await import('./timeout.js');
             await revive_mon(curr.obj, curr.timeout | 0);
-        } else if (curr.action === ZOMBIFY_MON && curr.obj) {
+        } else if (func === ZOMBIFY_MON && curr.obj) {
             const { zombify_mon } = await import('./timeout.js');
             await zombify_mon(curr.obj, curr.timeout | 0);
         }

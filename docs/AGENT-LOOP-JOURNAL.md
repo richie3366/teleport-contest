@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-25 — D-2801 `start_timer` stores `MELT_ICE_AWAY` as index 8
+
+**C locus:** `nethack-c/upstream/include/timeout.h:37–48` `MELT_ICE_AWAY` is the ninth `timeout_types` value (index 8). `timeout.c:1978–1990` `timeout_funcs[8]` is `melt_ice_away`. `timeout.c:2247–2292` `start_timer` stores that short. `timeout.c:2231–2237` `run_timers` calls `timeout_funcs[func_index].f` on `&arg`. `zap.c:5119–5131` `melt_ice_away` reads `arg->a_long`.
+**JS:** `js/const.js` `MELT_ICE_AWAY` `:2262`, `NUM_TIME_FUNCS` `:3035`. `js/mkobj.js` `timeout_func_index` `:1225`, `start_timer` `:1249` (store `:1296`), `run_timers` `:1565` (`melt_ice_away` `:1574`).
+**Change:** `MELT_ICE_AWAY` is `SHRINK_GLOB + 1` (8). `NUM_TIME_FUNCS` is 9. `start_timer` maps the legacy string, `melt_ice_away`, and nhl `melt-ice` to that index before the range check and stores the short.
+**Verify:** `node scripts/verify.mjs --fn start_timer` → PASS syntax (2 changed js files: js/const.js js/mkobj.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (verifier: mkobj.js/const.js are outside the auto shared set) · VERIFY: PASS. `node frozen/ps_test_runner.mjs sessions` → 44/44 passing. Probe: string `MELT_ICE_AWAY` stores action 8, `spot_time_left` matches the number and the string, a second start returns false, `spot_stop_timers` with `melt-ice` clears the node.
+**Named:** `nhlobj.c:591` `l_obj_timer_start` is still not a JS call. `objnam.c:5223` wish-corpse `ZOMBIFY_MON` stays deferred (`readobjnam.js` has no `obj_to_any`).
+**Next:** next Must-fix (`js/mhitm.js` `resists_poison_mm` omits artifact and worn poison resistance, review 1756).
 ## 2026-09-25 — D-2800 `dodown` Flying includes the flying steed
 
 **C locus:** `nethack-c/upstream/include/youprop.h:253–255` `Flying`. `do.c:1206` ceiling hider. `do.c:1258` `u_locomotion("jump")`, which reads `Flying` at `hack.c:1827`. Same macro at `do.c:276` and `:280` (pool splash) and `do.c:1763` (ladder " along").
