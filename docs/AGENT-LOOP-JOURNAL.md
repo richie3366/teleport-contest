@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-25 — D-2798 `zap.c` fracture_rock whole-body port
+
+**C locus:** `nethack-c/upstream/src/zap.c:5536–5578` `fracture_rock`. Callees: `get_obj_location`, `costly_spot`, `in_rooms`, `billable`, `You`, `s_suffix`, `shkname`, `xname`, `breakobj`, `sokoban_guilt`, `rn1`, `weight`, `dealloc_oextra`, `obj_extract_self`, `place_object`, `does_block`, `unblock_point`, `vision_recalc`, `cansee`, `newsym`. The `#` comment says breakobj charges and does not destroy a fracturing boulder or statue.
+**JS:** `js/dig.js` `fracture_rock :1846`. Helpers: `js/monmove.js` `m_can_break_boulder :1804`, `m_break_boulder :1817`.
+**Change:** Restart of `fracture_rock` in C order, async because `You` and `breakobj` can reach `--More--`. Hero-caused breakage in a costly spot bills through `breakobj` before the type changes. `sokoban_guilt` still sees `BOULDER`.
+**Verify:** `node scripts/verify.mjs --fn fracture_rock` → PASS syntax (10 changed js files: js/dig.js js/dothrow.js js/explode.js js/mklev.js js/mon.js js/monmove.js js/shk.js js/trap.js js/vault.js js/zap.js) · PASS rule2 · note hidden (no corpus session blocked at baseline) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 · VERIFY: PASS.
+**Named:** `poly_obj` shop-anger bill (`zap.c:1965–1986`) stays named at `js/zap.js:5255`. `move_special` `m_move_aggress` (`priest.c:108–118`) stays named at `js/shk.js:4253`.
+**Next:** next Open — coverage row (`polyself.c` mbodypart). `find_ac` is parked Stale. Same-file `Cloak_off` and `Boots_on` remain later Open rows.
 ## 2026-09-25 — D-2797 `uhitm.c` mhitm_ad_drst whole-body port
 
 **C locus:** `nethack-c/upstream/src/uhitm.c:3122–3165` `mhitm_ad_drst`. Callees: `mhitm_mgc_atk_negated` (FALSE), `rn2`, `Your`, `mpoisons_subj`, `resists_poison`, `pline_The`, `mon_nam`, `rn1`, `hitmsg`, `s_suffix`, `Monnam`, `poisoned`, `pmname`, `Mgender`, `mhitm_really_poison` (`:3104–3118`). The only C call is `mhitm_adtyping` `:4809–4811` (`AD_DRST`/`AD_DRDX`/`AD_DRCO`). That switch is reached from `damageum` (`uhitm.c:4854`), `mdamagem` (`mhitm.c:1059`), and `hitmu` (`mhitu.c:1191`).

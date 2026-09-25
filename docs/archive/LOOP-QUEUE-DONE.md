@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-25
 
-- [x] `uhitm.c` mhitm_ad_drst — coverage MISSING (C 41 L `uhitm.c:3122–3165` / JS no symbol; hops 4, callers 1, RNG 5, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mhitm_ad_drst` (reach regression must be 0). Measured `port-coverage.mjs --name mhitm_ad_drst` 2026-09-25 @ 75144e146. **Addressed:** D-2797
+- [x] `zap.c` fracture_rock — coverage PARTIAL (C 41 L `zap.c:5537–5578` / JS 20 L in js/dig.js; hops 3, callers 9, RNG 1, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn fracture_rock` (reach regression must be 0). Measured `port-coverage.mjs --name fracture_rock` 2026-09-25 @ 75144e146. **Addressed:** D-2798
+
+
+- [x] `uhitm.c` mhitm_ad_drst — coverage MISSING (C 41 L `uhitm.c:3122–3165` / JS no symbol; hops 4, callers 1, RNG 5, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mhitm_ad_drst` (reach regression must be 0). Measured `port-coverage.mjs --name mhitm_ad_drst` 2026-09-25 @ 75144e146. **Addressed:** D-2797 `5df2d266b`
 
 
 - [x] `mthrowu.c` thitu — coverage PARTIAL (C 76 L `mthrowu.c:75–155` / JS 48 L in js/mthrowu.js; hops 3, callers 9, RNG 1, msg 8). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn thitu` (reach regression must be 0). Measured `port-coverage.mjs --name thitu` 2026-09-25 @ 75144e146. **Addressed:** D-2796 `84dbed10c`

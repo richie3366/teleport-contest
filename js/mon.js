@@ -5,7 +5,10 @@
 
 import { game } from './gstate.js';
 import { rn2, rnd, d } from './rng.js';
-import { dochugw, m_everyturn_effect, monflee, can_hide_under_obj, can_fog, mon_offmap, accessible, Displaced } from './monmove.js';
+import {
+    dochugw, m_everyturn_effect, monflee, can_hide_under_obj, can_fog,
+    mon_offmap, accessible, Displaced, m_can_break_boulder,
+} from './monmove.js';
 import {
     COLNO, ROWNO, IS_OBSTRUCTED, IS_DOOR, IS_TREE, D_CLOSED, D_LOCKED, D_BROKEN,
     ALLOW_ROCK, ALLOW_DIG, Is_rogue_level, NOTONL, ALLOW_ALL, ALLOW_BARS,
@@ -2236,10 +2239,11 @@ export function mon_allowflags(mtmp) {
     }
     if (mtmp.isshk) allowflags |= ALLOW_SSM;
     if (mtmp.ispriest) allowflags |= ALLOW_SSM | ALLOW_SANCT;
-    // C: passes_walls → ALLOW_ROCK|ALLOW_WALL; throws_rocks / m_can_break_boulder → ALLOW_ROCK
-    // m_can_break_boulder (wielded dig tool) deferred — named in C-JS-MAP
+    // C mon.c `:2092–2095` — wall-walkers, rock-throwers, and boulder-breakers.
     if (passes_walls(mtmp.data)) allowflags |= ALLOW_ROCK | ALLOW_WALL;
-    if (throws_rocks(mtmp.data)) allowflags |= ALLOW_ROCK;
+    if (throws_rocks(mtmp.data) || m_can_break_boulder(mtmp)) {
+        allowflags |= ALLOW_ROCK;
+    }
     if (can_tunnel) allowflags |= ALLOW_DIG;
     if (doorbuster) allowflags |= BUSTDOOR;
     if (can_open) allowflags |= OPENDOOR;

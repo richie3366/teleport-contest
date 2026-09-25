@@ -2590,7 +2590,7 @@ export async function launch_obj(otyp, x1, y1, x2, y2, style) {
                             place_object(singleobj, x, y);
                             singleobj.otrapped = 0;
                             const { fracture_rock } = await import('./dig.js');
-                            fracture_rock(singleobj);
+                            await fracture_rock(singleobj);
                             await scatter(
                                 x, y, 4,
                                 MAY_DESTROY | MAY_HIT | MAY_FRACTURE

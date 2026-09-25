@@ -288,7 +288,7 @@ import { spoteffects } from './pickup.js';
 import { burn_away_slime, get_obj_location } from './timeout.js';
 import { show_transient_light, transient_light_cleanup } from './light.js';
 import { create_gas_cloud } from './region.js';
-import { recalc_block_point } from './vision.js';
+import { block_point, does_block, recalc_block_point, unblock_point } from './vision.js';
 import { picking_at, reset_pick, boxlock, boxlock_invent, doorlock, getdir } from './lock.js';
 import { monflee, sticks, maybe_unhide_at } from './monmove.js';
 import { digests, set_ustuck, unstuck, expels, ureflects, u_slow_down } from './mhitu.js';
@@ -5186,7 +5186,14 @@ export async function poly_obj(obj, id) {
     otmp.owt = weight(otmp);
 
     /* C :1900–1913 — done adjusting except possibly wearing. */
-    get_obj_location(obj, BURIED_TOO | CONTAINED_TOO);
+    // C zap.c `:1900` — ox, oy stay 0 when the object is not located.
+    let ox = 0;
+    let oy = 0;
+    const polyLoc = get_obj_location(obj, BURIED_TOO | CONTAINED_TOO);
+    if (polyLoc) {
+        ox = polyLoc.x | 0;
+        oy = polyLoc.y | 0;
+    }
     const old_wornmask = (obj.owornmask | 0) & ~(W_ART | W_ARTI);
 
     if (obj_location === OBJ_FLOOR || obj_location === OBJ_INVENT) {
@@ -5232,8 +5239,20 @@ export async function poly_obj(obj, id) {
                     otmp = wearmask_to_obj(new_wornmask);
                 }
             }
+        } else if ((obj_location | 0) === OBJ_FLOOR) {
+            // C zap.c `:1952–1962` — boulder leaving or entering the cell.
+            // A new boulder in liquid is fractured before the block test.
+            const lev = game.level?.at?.(ox, oy);
+            if ((obj.otyp | 0) === BOULDER && (otmp.otyp | 0) !== BOULDER) {
+                if (!does_block(ox, oy, lev)) unblock_point(ox, oy);
+            } else if ((obj.otyp | 0) !== BOULDER && (otmp.otyp | 0) === BOULDER) {
+                if (is_pool(ox, oy) || is_lava(ox, oy)) await fracture_rock(otmp);
+                if (does_block(ox, oy, game.level?.at?.(ox, oy))) {
+                    block_point(ox, oy);
+                }
+            }
         }
-        // boulder block_point / shop bill named
+        // C zap.c `:1965–1986` shop-anger bill still named.
     } else {
         // minvent/contained — extract+free old; leave otmp free
         delobj(obj);
@@ -5467,7 +5486,7 @@ async function bhito(obj, otmp) {
             } else {
                 await You_hear('a crumbling sound.');
             }
-            fracture_rock(obj);
+            await fracture_rock(obj);
         } else if ((obj.otyp | 0) === STATUE) {
             if (await break_statue(obj)) {
                 if (cansee(obj.ox | 0, obj.oy | 0)) {

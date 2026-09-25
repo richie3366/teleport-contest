@@ -1396,8 +1396,7 @@ export async function release_camera_demon(obj, x, y) {
  * Callers: flooreffects hot-ground (do.c:352 → js/do.js); toss_up ×2
  * (dothrow.c:1273/1301, in-file); throwit land (dothrow.c:1789, in-file);
  * hero_breaks (dothrow.c:2435, in-file); breaks (dothrow.c:2453, in-file).
- * Named omission: fracture_rock billable arm (zap.c:5552 → js/dig.js:1801
- * stays sync; breakobj is async — cascade deferred to its own row).
+ * fracture_rock's shop arm calls this (zap.c:5552 → js/dig.js fracture_rock).
  * @returns {Promise<number>} 1 if destroyed (0 when erode_obj spares it)
  */
 export async function breakobj(obj, x, y, hero_caused, from_invent) {

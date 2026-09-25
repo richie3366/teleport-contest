@@ -19864,7 +19864,7 @@ async function mkinvpos(x, y, dist) {
     let otmp;
     while ((otmp = sobj_at(BOULDER, x, y)) != null) {
         if (make_rocks) {
-            fracture_rock(otmp);
+            await fracture_rock(otmp);
             make_rocks = false; /* don't bother with more rocks */
         } else {
             obj_extract_self(otmp);

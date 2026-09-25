@@ -911,7 +911,7 @@ export async function scatter(sx, sy, blastforce, scflags, obj = null) {
                     Soundeffect(se_stone_breaking, 100);
                     await You_hear('stone breaking.');
                 }
-                fracture_rock(otmp);
+                await fracture_rock(otmp);
                 place_object(otmp, sx, sy);
                 // C explode.c:776-790 — another boulder here, restack it
                 // to the top (sobj_at finds the pre-existing boulder under
