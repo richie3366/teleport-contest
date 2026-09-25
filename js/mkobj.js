@@ -53,6 +53,7 @@ import { distant_name, doname, cxname, The, vtense, corpse_xname, Yname2, otense
 import {
     ROT_AGE, TAINT_AGE, TROLL_REVIVE_CHANCE,
     ROT_ORGANIC, ROT_CORPSE, REVIVE_MON, ZOMBIFY_MON,
+    TIMER_NONE, NUM_TIMER_KINDS,
     TIMER_OBJECT, TIMER_LEVEL, TIMER_GLOBAL, TIMER_MONSTER,
     RANGE_LEVEL,
     MELT_ICE_AWAY, HATCH_EGG, FIG_TRANSFORM, BURN_OBJECT, SHRINK_GLOB,
@@ -80,7 +81,7 @@ import { set_tin_variety, eating_glob } from './eat.js';
 import { set_moreluck } from './attrib.js';
 import { recalc_block_point, cansee } from './vision.js';
 import { del_light_source, discard_flashes, obj_sheds_light, obj_adjust_light_radius } from './light.js';
-import { arti_light_radius, get_obj_location, obj_split_light_source, Is_candle, obj_merge_light_sources } from './timeout.js';
+import { arti_light_radius, get_obj_location, obj_split_light_source, Is_candle, obj_merge_light_sources, kind_name } from './timeout.js';
 import { obfree, splitbill, same_price, globby_bill_fixup, costly_spot, costly_adjacent, find_objowner, costly_alteration } from './shk.js';
 import { hands_obj, MON_WEP, setmnotwielded } from './weapon.js';
 /* C invent.c merged `:878–913` worn-slot fixup (imports.mjs --can SAFE,
@@ -1193,40 +1194,97 @@ export function obj_has_timer(obj, action) {
 }
 
 /**
- * C ref: timeout.c start_timer — queue timer; timeout = moves+when.
- * TIMER_OBJECT: arg is obj (duplicate same obj+action aborted).
- * TIMER_LEVEL: arg is packed a_long (or `{ a_long }`); used for
- * MELT_ICE_AWAY spot timers (D-0965). tid = svt.timer_id++ (D-1527
- * #timeout print_queue). JSON save/rest timer_id is D-1698.
+ * C timeout.c timeout_funcs[].name (`:1978–1990`). VERBOSE_TIMER is
+ * defined (`:1963`), so a duplicate timer names the function, not
+ * "kind (index)". Order is enum timeout_types.
+ */
+const TIMEOUT_FUNC_NAMES = [
+    'rot_organic',
+    'rot_corpse',
+    'revive_mon',
+    'zombify_mon',
+    'burn_object',
+    'hatch_egg',
+    'fig_transform',
+    'shrink_glob',
+    'melt_ice_away',
+];
+
+/**
+ * C ref: timeout.c start_timer `:2247–2292`.
+ * Queue a timer_element. timeout = moves + when. tid = svt.timer_id++
+ * (decl.c init_svt.timer_id is 1UL; a fresh JS 0 is raised to 1 first).
+ * TIMER_OBJECT arg is the object (anything.a_obj) and bumps obj.timed.
+ * TIMER_LEVEL / TIMER_GLOBAL arg is a packed long or `{ a_long }`
+ * (MELT_ICE_AWAY, D-0965). TIMER_MONSTER arg is the monster.
+ * `action` is func_index. Numeric enums are stored as shorts. The
+ * string MELT_ICE_AWAY token still stores as `| 0` (0); spot and
+ * run_timers keep comparing the caller's string, so that level timer
+ * stays unmatched (named; do not retarget it in this function).
+ * Duplicate (kind + func_index + a_void): impossible, return false.
+ * Invalid kind or func_index: panic (loud throw; no paniclog, Rule #2).
+ * Returns true (C TRUE), not the delay.
+ * @returns {boolean}
  */
 export function start_timer(when, kind, action, arg) {
-    const isObj = (kind | 0) === TIMER_OBJECT;
-    if (isObj && !arg) return 0;
+    /* C `:2254–2256` — kind and func_index must be in range. */
+    const kindN = kind | 0;
+    const funcN = action | 0;
+    if (kindN <= TIMER_NONE || kindN >= NUM_TIMER_KINDS
+        || funcN < 0 || funcN >= TIMEOUT_FUNC_NAMES.length) {
+        /* panic() args: kind_name(kind) runs first (TIMER_NONE
+           impossible), then the throw stands in for panic NORETURN. */
+        const label = kind_name(kindN);
+        throw new Error(`start_timer (${label}: ${funcN})`);
+    }
+
+    /* C `:2259–2274` — same kind, func_index, and arg.a_void. */
+    const isObj = kindN === TIMER_OBJECT;
+    const isMon = kindN === TIMER_MONSTER;
+    /* C NONNULLARG4. A null object would fault on arg->a_void. */
+    if ((isObj || isMon) && !arg) return false;
     const obj = isObj ? arg : null;
-    const a_long = isObj
+    const mon = isMon ? arg : null;
+    const a_long = (isObj || isMon)
         ? 0
         : (typeof arg === 'number' ? (arg | 0) : (arg?.a_long | 0));
     const g = timer_base();
-    for (let dup = g._timer_base; dup; dup = dup.next) {
-        if ((dup.kind | 0) !== (kind | 0) || dup.action !== action) continue;
-        if (isObj && dup.obj === obj) return 0;
-        if (!isObj && (dup.a_long | 0) === a_long) return 0;
+    let dup = g._timer_base;
+    for (; dup; dup = dup.next) {
+        if ((dup.kind | 0) !== kindN || dup.action !== action) continue;
+        /* a_void: object pointer, monster pointer, or packed long. */
+        if (isObj && dup.obj === obj) break;
+        if (isMon && dup.mon === mon) break;
+        if (!isObj && !isMon && (dup.a_long | 0) === a_long) break;
     }
+    if (dup) {
+        /* C `:2268–2273` VERBOSE_TIMER arm (the #else is not compiled). */
+        const idbuf = `${TIMEOUT_FUNC_NAMES[funcN] || 'unknown'} timer`;
+        void impossible('Attempted to start duplicate %s, aborted.', idbuf);
+        return false;
+    }
+
+    /* C `:2276–2285` alloc + memset 0 + field stores. */
     const moves = game.moves | 0;
-    /* C timeout.c start_timer: gnu->tid = svt.timer_id++; starts 1UL. */
     if ((game.timer_id | 0) < 1) game.timer_id = 1;
     const gnu = {
         next: null,
         timeout: moves + (when | 0),
         tid: game.timer_id++,
-        kind: kind | 0,
+        kind: kindN,
+        needs_fixup: 0,
         action: action | 0,
         obj,
+        mon,
         a_long,
     };
+    /* C `:2286` insert_timer — timeout.c:2466, same file, ordered insert. */
     insert_timer(gnu);
-    if (isObj) obj.timed = (obj.timed | 0) + 1;
-    return when;
+    /* C `:2288–2289` object timers count on the object. */
+    if (kindN === TIMER_OBJECT) obj.timed = (obj.timed | 0) + 1;
+    /* C `:2291` return TRUE. Callers that test the result (begin_burn)
+       must succeed even when when is 0. */
+    return true;
 }
 
 /**
