@@ -1758,3 +1758,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1746-9d6d893ca-rcfile-interface.md](./1746-9d6d893ca-rcfile-interface.md) | `9d6d893ca` | D-2787 rcfile_interface_options | **ACCEPT** |
 | [1747-086317c06-optfn-disclose.md](./1747-086317c06-optfn-disclose.md) | `086317c06` | D-2788 optfn_disclose | **ACCEPT** |
 | [1748-309d58ccc-basic-menu-colors.md](./1748-309d58ccc-basic-menu-colors.md) | `309d58ccc` | D-2789 basic_menu_colors | **ACCEPT** |
+| [1749-167912450-nmcpy-comma-stop.md](./1749-167912450-nmcpy-comma-stop.md) | `167912450` | D-2790 nmcpy comma stop | **ACCEPT** |
+| [1750-38d6c8a36-duplicate-before-optfn.md](./1750-38d6c8a36-duplicate-before-optfn.md) | `38d6c8a36` | D-2791 duplicate before optfn | **ACCEPT** |
+| [1751-75144e146-optfn-petattr.md](./1751-75144e146-optfn-petattr.md) | `75144e146` | D-2792 optfn_petattr | **QUALITY-RISK** |
+| [1752-f176b8c0a-dodown.md](./1752-f176b8c0a-dodown.md) | `f176b8c0a` | D-2793 dodown | **QUALITY-RISK** |
+| [1753-2b10e06e1-start-timer.md](./1753-2b10e06e1-start-timer.md) | `2b10e06e1` | D-2794 start_timer | **QUALITY-RISK** |
+| [1754-5f09ad2ca-mkcorpstat.md](./1754-5f09ad2ca-mkcorpstat.md) | `5f09ad2ca` | D-2795 mkcorpstat | **ACCEPT** |
+| [1755-84dbed10c-thitu.md](./1755-84dbed10c-thitu.md) | `84dbed10c` | D-2796 thitu | **ACCEPT** |
+| [1756-5df2d266b-mhitm-ad-drst.md](./1756-5df2d266b-mhitm-ad-drst.md) | `5df2d266b` | D-2797 mhitm_ad_drst | **QUALITY-RISK** |
+| [1757-0cf2f655d-fracture-rock.md](./1757-0cf2f655d-fracture-rock.md) | `0cf2f655d` | D-2798 fracture_rock | **ACCEPT** |

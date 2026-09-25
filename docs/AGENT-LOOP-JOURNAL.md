@@ -7,6 +7,22 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-25 — Audit 0cf2f655d (reviews 1749–1757) + cadence 44/44.
+
+Reviews audit D-2790..D-2798 against pinned C (csym bodies + callers,
+sym.mjs, per-SHA `hidden-proxy verify --reach-all`). 1749/1750/1754/1755/1757
+ACCEPT. 1751 QUALITY-RISK: `petattr_to_tty` paints wintype bold (1) as
+terminal inverse. 1752 QUALITY-RISK: `dodown` local `Flying` drops the
+steed. 1753 QUALITY-RISK: `start_timer` stores `MELT_ICE_AWAY` as
+`ROT_ORGANIC` (0). 1756 QUALITY-RISK: `resists_poison_mm` is the
+intrinsic bits only; C `resists_poison` is `Resists_Elem`. Every
+re-measure was 0 blocked on the 12-row board, smoke REACH-OK, 0
+REGRESSED. Cadence at `0cf2f655d`: public 44/44, Scr 11,405, RNG
+792,838, speed `238+1.57/turn` (R² 0.781); held-out 12/44 (+0, last
+scored 2026-09-25T19:01Z, values identical). `hidden-proxy score`
+saw 12 private recordings, 12/12 PASS; `.cache/hidden/sessions` is
+empty (941 recipes), so the 614/940 fortress was not re-run and no
+PASS→FAIL row was opened. Rule #2 clean. Next: Must-fix `petattr_to_tty`.
 ## 2026-09-25 — D-2798 `zap.c` fracture_rock whole-body port
 
 **C locus:** `nethack-c/upstream/src/zap.c:5536–5578` `fracture_rock`. Callees: `get_obj_location`, `costly_spot`, `in_rooms`, `billable`, `You`, `s_suffix`, `shkname`, `xname`, `breakobj`, `sokoban_guilt`, `rn1`, `weight`, `dealloc_oextra`, `obj_extract_self`, `place_object`, `does_block`, `unblock_point`, `vision_recalc`, `cansee`, `newsym`. The `#` comment says breakobj charges and does not destroy a fracturing boulder or statue.
