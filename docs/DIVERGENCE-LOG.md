@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2903 — `livelog_newform` records a sex change that is not a polymorph
+
+- **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked). `block_point` and `visctrl` were already the compiled C bodies (Stale).
+- **Symptom:** Becoming a new human without a level change, and putting on an amulet of change, never wrote the minor-achievement line. Both call sites named `livelog_newform` and did not call it.
+- **C locus:** `nethack-c/upstream/src/polyself.c:307–333` `livelog_newform`. Return when `Upolyd` (`u.umonnum != u.umonster`). Then only when `newgend != oldgend`: role name is `urole.name.f` when the gender int is nonzero and that string exists, else `name.m`. Ranks are `rank_of(u.ulevel, Role_switch, gend)` (`you.h:248` `urole.mnum`). `Sprintf` `"%.10s %.30s"` builds `genders[flags.female].adj` plus the new rank. The chronicle argument is `newrole` when it differs, else `newrank` when it differs, else that buffer, passed to `an()`. `livelog_printf(LL_MINORAC, "%s into %s", viapoly ? "polymorphed" : "transformed", ...)`. No RNG.
+- **JS was:** No `livelog_newform` symbol. `newman` discarded `oldgend` / `newgend` on the no-level-change arm (`polyself.c:452`). `Amulet_on` skipped `do_wear.c:1029`.
+- **Fix:** One exported `livelog_newform` in that C order. `newman` calls it with `viapoly` true when the level did not change. The amulet calls it with false after the sex messages and before the amulet disintegrates.
+- **JS:** `js/polyself.js` `livelog_newform` `:964`, `Upolyd` `:967`, gender gate `:968`, role names `:971–972`, `rank_of` `:976–977`, `%.10s %.30s` `:979–980`, `an` choice `:981–982`, `livelog_printf` `:983–985`. Caller `newman` `:1227`. `js/do_wear.js` `Amulet_on` `:2840`.
+- **Callers:** `polyself.c:452` `newman` → `js/polyself.js:1227`. `do_wear.c:1029` `Amulet_on` → `js/do_wear.js:2840`. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn livelog_newform` → PASS syntax (2 changed js files: js/do_wear.js js/polyself.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.2s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: PASS.
+- **Named omissions:** The comment above the C body ("other logging instead of newman()") is a TODO, not a call. The level-change `livelog_printf` stays in `newman`, where C writes it.
+- **Next:** `mkroom.c` `courtmon` (next Open — coverage row). `block_point` and `visctrl` parked Stale. Seven Open rows remained, below the floor of 8. `--rows 40` and `--rows 250` were the never-re-pop Stale head, not pasted. Five later gameplay rows from `--rows 800 --min-c-lines 20` (DONE/PARKED/live subjects, split?, save/files/options/sanity/wiz/hilite skipped): `eating_conducts`, `drop_uswapwep`, `mk_mplayer_armor`, `buried_ball_to_punishment`, `should_mulch_missile`. The queue-empty overlay did not match the live queue (ten coverage rows were open).
+
 ## D-2902 — `u_collide_m` reports a bad arrival and limbos whoever still blocks the hero
 
 - **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked). C is 33 lines; the whole body shipped.

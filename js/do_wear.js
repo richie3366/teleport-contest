@@ -69,7 +69,7 @@ import {
 } from './const.js';
 import { x_monnam, trycall, hcolor, hliquid, obj_pmname } from './do_name.js';
 import { PM_CLERIC } from './generated/monsters_data.js';
-import { change_sex, poly_gender, Unchanging, float_vs_flight, body_part } from './polyself.js';
+import { change_sex, poly_gender, Unchanging, float_vs_flight, body_part, livelog_newform } from './polyself.js';
 import {
     ARMOR_CLASS, RING_CLASS, AMULET_CLASS, WEAPON_CLASS, TOOL_CLASS,
     objectNames, objectNameStrs, objectDescrs, is_sword,
@@ -1544,7 +1544,7 @@ async function Shirt_on() {
  * Called from moveloop_preamble (!resuming) after ini_inv slots are set;
  * also poly_obj path when a worn item transforms (obj != null).
  * Named omissions: initial_don skips stealth/displacement msgs;
- * Amulet_on whole-body (D-2505; livelog_newform log-only). Punished set_bc is D-1769.
+ * Amulet_on whole-body (D-2505). Punished set_bc is D-1769.
  * @param {object|null} [obj=null] Null → all worn slots; else that object only.
  */
 export async function set_wear(obj = null) {
@@ -2770,7 +2770,8 @@ function takeoff_ok(obj) {
  * constrict; RESTFUL_SLEEP HSleepy nap; FLYING takeoff (float_vs_flight,
  * extrinsic masked out for the already-flying test); GUARDING makeknown +
  * find_ac; YENDOR no-op; trailing on_msg unless already done.
- * Named: `livelog_newform` (log-only, no live helper).
+ * CHANGE calls `livelog_newform(false, orig_sex, new_sex)` before the
+ * amulet disintegrates (`do_wear.c:1029`).
  */
 async function Amulet_on(amul) {
     // C `:968–969` — unwield/unquiver before wearing, then wear the amulet.
@@ -2835,7 +2836,8 @@ async function Amulet_on(amul) {
             /* C: checking dknown is redundant — amulets always have it set. */
             call_it = (amul.dknown | 0) !== 0;
         }
-        // C livelog_newform(FALSE, orig, new) — log-only, named omit.
+        // C `:1029` — log a non-poly sex change, then the amulet is gone.
+        livelog_newform(false, orig_sex, new_sex);
         await pline_The('amulet disintegrates!');
         if (call_it) await trycall(amul);
         useup(amul);

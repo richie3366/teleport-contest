@@ -1237,7 +1237,7 @@ Algorithm subset; `clear_path`/`m_cansee` exported for pet rays (D-0018);
 **`does_block` BOULDER (+ CLOUD/WATERWALL/LAVAWALL)** (D-0242; exported, was `_blocks`) + 
 **`is_lightblocker_mappear` mimic boulder/door/wall/tree** (D-0585) + 
 **`visible_region_at` gas cloud return 2** (D-0674) + 
-**D-1557 `block_point`/`fill_point`** (`vision.c:864–891` / `:1050–1128`; caller `set_mimic_sym`; leftover `i`; `vision_reset` `!!does_block`); 
+**D-1557 `block_point`/`fill_point`** (`vision.c:864–891` / `:1050–1128`; caller `set_mimic_sym`; leftover `i`; `vision_reset` `!!does_block`; `#ifdef DEBUG` seethru has no `#define`, so the coverage line-count row is Stale); 
 **D-1574 `unblock_point`/`dig_point`** (`:898–907` / `:967–1048`; `seemimic`
 `:4415–4424` after `M_AP_NOTHING`; `recalc_block_point` `:910–917`); 
 **D-1576 `region.c` `add_region` `:326–328` / `remove_region` `:375–376` /

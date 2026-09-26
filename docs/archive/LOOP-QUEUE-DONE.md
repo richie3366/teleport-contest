@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `do.c` u_collide_m — coverage PARTIAL (C 33 L `do.c:1412–1445` / JS 24 L in js/do.js; hops 3, callers 2, RNG 1, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn u_collide_m` (reach regression must be 0). Measured `port-coverage.mjs --name u_collide_m` 2026-09-26 @ e24078a71. **Addressed:** D-2902
+- [x] `polyself.c` livelog_newform — coverage MISSING (C 26 L `polyself.c:307–333` / JS no symbol; hops 4, callers 2, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn livelog_newform` (reach regression must be 0). Measured `port-coverage.mjs --name livelog_newform` 2026-09-26 @ e4e898f54. **Addressed:** D-2903.
+
+
+- [x] `do.c` u_collide_m — coverage PARTIAL (C 33 L `do.c:1412–1445` / JS 24 L in js/do.js; hops 3, callers 2, RNG 1, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn u_collide_m` (reach regression must be 0). Measured `port-coverage.mjs --name u_collide_m` 2026-09-26 @ e24078a71. **Addressed:** D-2902 `ba089151c`
 
 
 - [x] `shk.c` shop_keeper — coverage THIN (C 28 L `shk.c:1052–1080` / JS 9 L in js/shk.js; hops 3, callers 63, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn shop_keeper` (reach regression must be 0). Measured `port-coverage.mjs --name shop_keeper` 2026-09-26 @ e24078a71. **Addressed:** D-2901 `9a80efcd8`
