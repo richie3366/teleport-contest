@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2889 `flip_visuals` flips seen octants; `mapfrag_fromstr` counts stripped rows
+
+**C locus:** `nethack-c/upstream/src/sp_lev.c:458–495` `flip_visuals`. Callees: `swapbits` (`hacklib.c:830`, live `js/hacklib.js:28`), `back_to_glyph` (`display.c:2286`, live `js/display.js:3381`), `glyph_is_cmap` (`display.h:723`), `IS_WALL` (`rm.h:117`). No RNG. Same file: `mapfrag_fromstr` (`sp_lev.c:226–253`). Callees: `alloc` (object), `dupstr` (`hacklib.c`, live `js/dungeon.js:262`), `stripdigits` (`hacklib.c:521–530`), `str_lines_maxlen` (`hacklib.c:252–272`). `mapfrag_get` (`:265–271`) is the reader. No RNG.
+**JS:** `js/mklev.js` `flip_visuals` `:19150`, call `:19136`, `set_wall_state` `:19135`. `mapfrag_fromstr` `:28284`, `mapfrag_char` `:28312`, `mapfrag_get` `:28320`, `tut1_unlit_match` `:19755`. `js/hacklib.js` `str_lines_maxlen` `:41`, `stripdigits` `:68`. `js/dungeon.js` `dupstr` `:262` (now exported).
+**Change:** One `flip_visuals` in that C order. `seenv` is masked to 8 bits. A zero vector skips the cell, including the glyph rebuild.
+**Verify:** `node scripts/verify.mjs --fn flip_visuals` → PASS syntax (3 changed js files: js/dungeon.js js/hacklib.js js/mklev.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS. `mapfrag_fromstr` also draws no RNG; the same smoke spread and the full 44 cover it.
+**Named:** `#wizfliplevel` (`wizcmds.c:412–434`) and `nhl_flip_level` (`nhlua.c:1509–1517`) are what pass `extras` true; neither is wired, so this body runs only when a caller sets that flag. A missing `level.at` cell is skipped.
+**Next:** `role.c` `plsel_startmenu` (next Open — coverage row). Nine Open — coverage rows remain after archive, above the floor of 8, so nothing was refilled. `intrinsic_possible` was already the C switch at `js/eat.js:1582` (callers `:1786` and `js/shk.js:3444`); parked Stale, not re-ported.
 ## 2026-09-26 — audit 1839–1847 (D-2880–D-2888)
 
 Reviewed the nine `js/` commits since `539f2fe06`. Nine ACCEPT. No Must-fix. Public `sessions` on `941017b03`: 44/44, screens 11,405/11,405, RNG 792,838/792,838, speed `256+1.55/turn` (R² 0.762). Held-out still 12/44 (6,273/11,265 pts, RNG 29.7 %, screens 55.7 %). `.cache/hidden/sessions` absent, so 614/940 was not re-measured. No `js/` edits.

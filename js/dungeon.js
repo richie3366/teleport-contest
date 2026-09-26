@@ -259,7 +259,7 @@ function strcmp(a, b) {
  * @param {string} s
  * @returns {string}
  */
-function dupstr(s) {
+export function dupstr(s) {
     const i = String(s).indexOf('\0');
     return i >= 0 ? String(s).slice(0, i) : String(s);
 }

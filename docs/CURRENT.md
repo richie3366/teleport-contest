@@ -98,10 +98,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `eat.c` `intrinsic_possible` — coverage THIN (C 64 L `eat.c:890–954` / JS 18 L in js/eat.js). Verify `node scripts/verify.mjs --fn intrinsic_possible` (reach regression must be 0).
+**Next cluster:** `role.c` `plsel_startmenu` — coverage MISSING (C 39 L `role.c:2806–2845` / JS no symbol). Verify `node scripts/verify.mjs --fn plsel_startmenu` (reach regression must be 0).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2888 (index).**
+**Keep D-0845…D-2889 (index).**
 <!-- recent:begin -->
+**D-2889** `nethack-c/upstream/src/sp_lev.c:458–495` `flip_visuals`. Callees: `swapbits` (`hacklib.c: — One `flip_visuals` in that C order.
 **D-2888** `nethack-c/upstream/src/allmain.c:933–972` `do_positionbar`. Callees: `glyph_to_cmap` (`gl — One `do_positionbar` in that C order.
 **D-2887** `nethack-c/upstream/src/do_name.c:1321–1359` `obj_pmname`. Callees: `ismnum` (`monst.h:285 — One `obj_pmname` in that C order.
 **D-2886** `nethack-c/upstream/src/invent.c:4799–4839` `let_to_name`. Callees: `strchr` on `oth_symbo — One `let_to_name` in that C order.
@@ -109,11 +110,10 @@ revisits the picker.
 **D-2884** `nethack-c/upstream/src/dungeon.c:1750–1788` `surface`. Callees: `u_at` (`you.h:562`), `is — One `surface` in that C order.
 **D-2883** `nethack-c/upstream/src/vision.c:153–202` `does_block` and `vision.c:211–265` `vision_rese — One `does_block` in that C order: obstructed terrain, tree, closed door, then cloud / water-wall / lava-wall / (`uinwater` and `is_moat`), then the boulder chain, then `m_at` with `hero_see_invisible`, then gas returning
 **D-2882** `nethack-c/upstream/src/trap.c:2725–2764` `trapeffect_vibrating_square`. Callees: `feeltra — One `trapeffect_vibrating_square` in that C order.
-**D-2881** `nethack-c/upstream/src/sp_lev.c:3407–3437` `get_table_int_or_random`. Callees: `lua_getfi — One `get_table_int_or_random` in that C order.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2888; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2889; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

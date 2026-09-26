@@ -31,6 +31,50 @@ export function swapbits(val, bita, bitb) {
     return (val ^ ((tmp << bita) | (tmp << bitb))) | 0;
 }
 
+/**
+ * C ref: hacklib.c str_lines_maxlen `:252–272` — longest newline-separated
+ * row, not counting the newline. A missing newline takes the tail and ends
+ * the walk (`s1 = NULL`).
+ * @param {string} str
+ * @returns {number}
+ */
+export function str_lines_maxlen(str) {
+    const s = String(str ?? '');
+    let maxLen = 0;
+    let i = 0;
+    while (i < s.length) {
+        const nl = s.indexOf('\n', i);
+        let len;
+        if (nl >= 0) {
+            len = nl - i;
+            i = nl + 1;
+        } else {
+            len = s.length - i;
+            i = s.length;
+        }
+        if (len > maxLen) maxLen = len;
+        if (nl < 0) break;
+    }
+    return maxLen | 0;
+}
+
+/**
+ * C ref: hacklib.c stripdigits `:521–530` — drop `'0'..'9'` and return the
+ * buffer. JS strings are immutable, so the result is a new string; the
+ * sole C caller (`mapfrag_fromstr`) uses that return.
+ * @param {string} s
+ * @returns {string}
+ */
+export function stripdigits(s) {
+    const src = String(s ?? '');
+    let out = '';
+    for (let i = 0; i < src.length; i++) {
+        const c = src.charCodeAt(i);
+        if (c < 48 || c > 57) out += src[i];
+    }
+    return out;
+}
+
 /** C ref: hacklib.c online2 — orthogonal or diagonal line. */
 export function online2(x0, y0, x1, y1) {
     const dx = x0 - x1;
