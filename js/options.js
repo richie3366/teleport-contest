@@ -145,6 +145,7 @@ import {
     VI_NAME,
     VI_BRANCH,
     WARNCOUNT,
+    SYM_BOULDER,
     def_warnsyms,
     gp,
     GPCOORDS_NONE,
@@ -163,7 +164,7 @@ import { rnd } from './rng.js';
 import { str_end_is, str_start_is, highc, lowc, strstri, strsubst, strNsubst, strkitten } from './hacklib.js';
 import { name_to_mon } from './mondata.js';
 import { nhgetch } from './input.js';
-import { flush_screen, pline, docrt, check_gold_symbol, clear_committed_status, set_bot_disabled, tty_wait_synch, update_ov_primary_symset, update_ov_rogue_symset, impossible } from './display.js';
+import { flush_screen, pline, docrt, check_gold_symbol, clear_committed_status, set_bot_disabled, tty_wait_synch, update_ov_primary_symset, update_ov_rogue_symset, impossible, SYM_OFF_X } from './display.js';
 import { paint_corner_nhw_menu, dismiss_nhw_menu, collect_menu_gacc, process_menu_search, toggle_menu_curr, menu_digit_is_gacc, reassign, update_inventory, invlet_constant, perm_invent_toggled, select_menu_pick_none } from './invent.js';
 import {
     ATR_INVERSE,
@@ -178,7 +179,7 @@ import {
     FOOD_CLASS, POTION_CLASS, SCROLL_CLASS, SPBOOK_CLASS, WAND_CLASS,
     COIN_CLASS, GEM_CLASS, ROCK_CLASS, BALL_CLASS, CHAIN_CLASS,
     objectNames, objectNameStrs, objects,
-    MAXOCLASSES, def_oc_syms,
+    MAXOCLASSES, def_oc_syms, def_char_to_objclass, VENOM_CLASS,
 } from './objects.js';
 import { EXTCMDLIST, INTERNALCMD } from './generated/extcmdlist_data.js';
 import { LOADSYMS, SYM_CONTROL } from './generated/glyphsyms_data.js';
@@ -2613,6 +2614,12 @@ async function doset_optfn_do_handler(name) {
     if (name === 'sortvanquished') {
         return optfn_sortvanquished_do_handler(allopt_idx(name)); // C `:4001–4007`
     }
+    if (name === 'sortloot') {
+        return handler_sortloot(); // C `:3952`
+    }
+    if (name === 'runmode') {
+        return handler_runmode(); // C `:3663`
+    }
     if (name === 'versinfo') {
         const optname = allopt_name(allopt_idx('versinfo')); // C `:4476`
         if (!game.flags) game.flags = {};
@@ -3140,6 +3147,13 @@ export function parseNethackrc(rc) {
     optfn_race(allopt_idx('race'), REQ_DO_INIT, false, '', EMPTY_OPTSTR);
     optfn_role(allopt_idx('role'), REQ_DO_INIT, false, '', EMPTY_OPTSTR);
     optfn_alignment(allopt_idx('alignment'), REQ_DO_INIT, false, '', EMPTY_OPTSTR);
+    // C allopt_array_init `:7428` do_init. These five return optn_ok and
+    // do not write the initoptions defaults (those stay stand-ins on get_val).
+    optfn_boulder(allopt_idx('boulder'), REQ_DO_INIT, false, '', EMPTY_OPTSTR);
+    optfn_pickup_types(allopt_idx('pickup_types'), REQ_DO_INIT, false, '', EMPTY_OPTSTR, result.flags);
+    optfn_runmode(allopt_idx('runmode'), REQ_DO_INIT, false, '', EMPTY_OPTSTR, result.flags);
+    optfn_scores(allopt_idx('scores'), REQ_DO_INIT, false, '', EMPTY_OPTSTR, result.flags);
+    optfn_sortloot(allopt_idx('sortloot'), REQ_DO_INIT, false, '', EMPTY_OPTSTR, result.flags);
     result.iflags.getpos_coords = GPCOORDS_NONE; // C initoptions_init `:7190`
     if (!rc) return result;
 
@@ -3430,6 +3444,37 @@ export function parseNethackrc(rc) {
                         allopt_idx('windowborders'), REQ_DO_SET, negated, stripped, val, result.iflags,
                     );
                 }
+                else if (key === 'sortloot') {
+                    // C `:626` negateok-No. do_set is string_for_env_opt (initial).
+                    if (negated) continue;
+                    optfn_sortloot(
+                        allopt_idx('sortloot'), REQ_DO_SET, false, stripped, val, result.flags, true,
+                    );
+                }
+                else if (key === 'runmode') {
+                    // C optfn_runmode do_set. Negation stores RUN_TPORT (negateok Yes).
+                    optfn_runmode(
+                        allopt_idx('runmode'), REQ_DO_SET, negated, stripped, val, result.flags,
+                    );
+                }
+                else if (key === 'pickup_types') {
+                    if (negated) continue; // C `:626` negateok-No
+                    optfn_pickup_types(
+                        allopt_idx('pickup_types'), REQ_DO_SET, false, stripped, val, result.flags, true,
+                    );
+                }
+                else if (key === 'scores') {
+                    if (negated) continue; // C `:626` negateok-No
+                    optfn_scores(
+                        allopt_idx('scores'), REQ_DO_SET, false, stripped, val, result.flags,
+                    );
+                }
+                else if (key === 'boulder') {
+                    if (negated) continue; // C `:626` negateok-No
+                    optfn_boulder(
+                        allopt_idx('boulder'), REQ_DO_SET, false, stripped, val, true,
+                    );
+                }
                 else if (key === 'paranoid_confirmation' || key === 'prayconfirm') {
                     // C optfn_paranoid_confirmation do_set (opt_initial).
                     // Alias prayconfirm is strncmpi(opts, "prayconfirm", 4).
@@ -3533,6 +3578,35 @@ export function parseNethackrc(rc) {
                 else if (lname === 'windowborders') {
                     optfn_windowborders(
                         allopt_idx('windowborders'), REQ_DO_SET, negated, stripped, EMPTY_OPTSTR, result.iflags,
+                    );
+                }
+                else if (lname === 'sortloot') {
+                    if (negated) continue; // C `:626` negateok-No
+                    optfn_sortloot(
+                        allopt_idx('sortloot'), REQ_DO_SET, false, stripped, EMPTY_OPTSTR, result.flags, true,
+                    );
+                }
+                else if (lname === 'runmode') {
+                    optfn_runmode(
+                        allopt_idx('runmode'), REQ_DO_SET, negated, stripped, EMPTY_OPTSTR, result.flags,
+                    );
+                }
+                else if (lname === 'pickup_types') {
+                    if (negated) continue; // C `:626` negateok-No
+                    optfn_pickup_types(
+                        allopt_idx('pickup_types'), REQ_DO_SET, false, stripped, EMPTY_OPTSTR, result.flags, true,
+                    );
+                }
+                else if (lname === 'scores') {
+                    if (negated) continue; // C `:626` negateok-No
+                    optfn_scores(
+                        allopt_idx('scores'), REQ_DO_SET, false, stripped, EMPTY_OPTSTR, result.flags,
+                    );
+                }
+                else if (lname === 'boulder') {
+                    if (negated) continue; // C `:626` negateok-No
+                    optfn_boulder(
+                        allopt_idx('boulder'), REQ_DO_SET, false, stripped, EMPTY_OPTSTR, true,
                     );
                 }
                 else if (lname === 'sortvanquished') {
@@ -3693,6 +3767,7 @@ const OC_EXPLAIN = {
     '`': 'boulder or statue',
     '0': 'iron ball',
     _: 'iron chain',
+    '.': 'splash of venom',
 };
 
 /**
@@ -3718,8 +3793,7 @@ export async function dotogglepickup() {
  * Letter a–o and class-symbol group accelerators toggle; Enter confirms.
  * Returns symbol string (empty ⇒ all). Esc restores prior selection.
  */
-async function choose_classes_menu(prompt, priorSelect) {
-    const classList = DEFAULT_PICKUP_CLASS_SYMS;
+async function choose_classes_menu(prompt, priorSelect, classList = DEFAULT_PICKUP_CLASS_SYMS) {
     const items = [];
     let nextAcc = 'a'.charCodeAt(0);
     for (const sym of classList) {
@@ -3795,14 +3869,114 @@ async function choose_classes_menu(prompt, priorSelect) {
 }
 
 /**
- * C ref: options.c optfn_pickup_types do_handler → choose_classes_menu.
+ * C options.c optfn_pickup_types do_set tail `:3365–3389`.
+ * JS stores the oc_to_str symbol string (invent.js), not class-index bytes.
+ * After a full scan `op` is at NUL, so the error text is empty like C.
+ * @param {object} flags
+ * @param {number} optidx
+ * @param {boolean} negated
+ * @param {string} op value tail (already past string_for_opt)
+ * @returns {number} optn_*
+ */
+function pickup_types_apply(flags, optidx, negated, op) {
+    if (negated) { // C `:3365`
+        bad_negation(allopt_name(optidx), true); // C `:3366`
+        return OPTN_ERR; // C `:3367`
+    }
+    while (op[0] === ' ') op = op.slice(1); // C `:3369–3370`
+    if (op[0] !== 'a' && op[0] !== 'A') { // C `:3371`
+        let badopt = false; // C `:3316`
+        let out = '';
+        let rest = op;
+        while (rest.length) { // C `:3373`
+            const oc = def_char_to_objclass(rest[0]); // C `:3374`
+            const sym = (oc !== MAXOCLASSES) ? (def_oc_syms[oc]?.sym || '') : '';
+            // C stores the class index and rejects a repeat via strchr.
+            // The symbol string is the oc_to_str form of that index.
+            if (sym && !out.includes(sym)) out += sym; // C `:3376–3379`
+            else badopt = true; // C `:3381`
+            rest = rest.slice(1); // C `:3382`
+        }
+        flags.pickup_types = out;
+        if (badopt) { // C `:3384`
+            // C `:3385–3386` — op has walked to NUL.
+            config_error_add("Unknown %s parameter '%s'", allopt_name(optidx), rest);
+            return OPTN_ERR; // C `:3387`
+        }
+    }
+    return OPTN_OK; // C `:3390`
+}
+
+/**
+ * Class-symbol list for the pickup_types prompt. Unset inv_order is
+ * DEFAULT_PICKUP_CLASS_SYMS (C def_inv_order via oc_to_str).
+ */
+function pickup_class_syms() {
+    const raw = game.flags?.inv_order;
+    if (Array.isArray(raw) && raw.length) {
+        let s = '';
+        for (const oc of raw) {
+            const sym = def_oc_syms[oc]?.sym;
+            if (sym) s += sym;
+        }
+        if (s) return s;
+    }
+    if (typeof raw === 'string' && raw.length) {
+        let s = '';
+        for (let i = 0; i < raw.length; i++) {
+            const sym = def_oc_syms[raw.charCodeAt(i)]?.sym;
+            if (sym) s += sym;
+        }
+        if (s) return s;
+    }
+    return DEFAULT_PICKUP_CLASS_SYMS;
+}
+
+/**
+ * C options.c handler_pickup_types `:6113–6120` is parseoptions("pickup_types"),
+ * which prompts inside do_set `:3326–3363`. parseoptions stays synchronous,
+ * so the getlin / choose_classes_menu arms live here and then share
+ * pickup_types_apply. Default menu_style is MENU_FULL (`:7258`), so the
+ * getlin arm runs only when the field is traditional or combination.
  */
 async function handler_pickup_types() {
     if (!game.flags) game.flags = {};
-    const prior = String(game.flags.pickup_types || '');
-    const next = await choose_classes_menu('Autopickup what?', prior);
-    game.flags.pickup_types = next;
-    return optn_ok; // C handler_pickup_types `:6120`
+    const flags = game.flags;
+    const optidx = allopt_idx('pickup_types');
+    const prior = String(flags.pickup_types || ''); // C `:3324` tbuf
+    flags.pickup_types = ''; // C `:3325` all
+    let useMenu = true; // C `:3336`
+    let op = '';
+    const style = flags.menu_style;
+    if (style === MENU_TRADITIONAL || style === MENU_COMBINATION) { // C `:3337–3338`
+        useMenu = false; // C `:3340`
+        const ocl = pickup_class_syms(); // C `:3335` oc_to_str(inv_order)
+        const shown = prior || 'all'; // C `:3343`
+        const qbuf = `New pickup_types: [${ocl} am] (${shown})`; // C `:3342–3343`
+        const abuf = String((await getlin(qbuf)) ?? ''); // C `:3345`
+        const wasspace = abuf[0] === ' '; // C `:3346` before mungspaces
+        const munged = mungspaces(abuf); // C `:3347` in place; JS returns a copy
+        if (wasspace && !munged) { // C `:3348`
+            op = ''; // spaces remove the old value (already cleared)
+        } else if (!munged || abuf[0] === '\x1b' || munged[0] === '\x1b') { // C `:3350`
+            flags.pickup_types = prior; // C `:3351` op = tbuf, then re-parsed
+            return OPTN_OK; // C `:6120`
+        } else if (munged[0] === 'm') { // C `:3352`
+            useMenu = true;
+        } else {
+            op = munged;
+        }
+    }
+    if (useMenu) { // C `:3357`
+        let ocl = pickup_class_syms();
+        const venom = def_oc_syms[VENOM_CLASS]?.sym || '.'; // C VENOM_SYM
+        if (game.wizard && !ocl.includes(venom)) // C `:3358`
+            ocl = strkitten(ocl, venom); // C `:3359`
+        const next = await choose_classes_menu('Autopickup what?', prior, ocl); // C `:3360–3361`
+        flags.pickup_types = next;
+        return OPTN_OK; // C `:6120`
+    }
+    return pickup_types_apply(flags, optidx, false, op); // C `:3365` after the prompt
 }
 
 /**
@@ -4885,6 +5059,386 @@ export async function handler_petattr() {
     return OPTN_OK; // C `:6163`
 }
 
+/* C options.c `:217–222` and flag.h `:548–551`. */
+const RUN_TPORT = 0, RUN_LEAP = 1, RUN_STEP = 2, RUN_CRAWL = 3;
+const RUNMODES = ['teleport', 'run', 'walk', 'crawl'];
+const SORTLTYPE = ['none', 'loot', 'full'];
+/* C hack.h `:1081` SYM_OFF_O — display.js comment (not an export). */
+const SYM_OFF_O = 105;
+/* C drawing.c def_monsyms[].sym (mondata.js DEF_CHAR_TO_MLET, not exported). */
+const BOULDER_MON_GLYPHS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@ '&;:~]";
+
+function sortlootNow(flags) {
+    const c = flags?.sortloot;
+    if (c === 'n' || c === 'l' || c === 'f') return c;
+    return 'l'; // C initoptions_init `:7208` when the field is unset
+}
+
+function runmodeNow(flags) {
+    const r = flags?.runmode;
+    if (r === RUN_TPORT || r === RUN_LEAP || r === RUN_STEP || r === RUN_CRAWL) return r;
+    return RUN_LEAP; // C initoptions_init `:7176` when the field is unset
+}
+
+function scoresNow(flags) {
+    return {
+        top: (typeof flags?.end_top === 'number') ? flags.end_top : 3, // C `:7171`
+        around: (typeof flags?.end_around === 'number') ? flags.end_around : 2, // C `:7172`
+        own: (typeof flags?.end_own === 'boolean') ? flags.end_own : false, // C `:7170`
+    };
+}
+
+function scoresLetter(ch) {
+    // C hacklib.c letter `:62–72` — A-Z, a-z, and '@'.
+    return !!ch && ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || ch === '@');
+}
+
+/**
+ * C options.c optfn_boulder `:1171–1246` (BACKWARD_COMPAT is #define'd at
+ * options.c:19, so the `:1229` "no longer supported" arm is compiled out).
+ * do_init is optn_ok. do_set parses one symbol, rejects monster glyphs and
+ * warning digits without storing, rejects control characters with optn_ok,
+ * otherwise writes both override slots. get_val is the override or the
+ * boulder showsym. No do_handler (optlist.h boulder has_handler No).
+ * @param {number} optidx
+ * @param {number} req
+ * @param {boolean} _negated C UNUSED; negateok-No returns before the optfn
+ * @param {string|{buf:string}} opts
+ * @param {string} _op C UNUSED — do_set re-reads opts
+ * @param {boolean} [optInitial] C go.opt_initial
+ */
+export function optfn_boulder(optidx, req, _negated, opts, _op, optInitial) {
+    if (req === REQ_DO_INIT) return OPTN_OK; // C `:1179–1180`
+    if (req === REQ_DO_SET) { // C `:1182`
+        const optstr = typeof opts === 'string' ? opts : String(opts ?? '');
+        const op = string_for_opt(optstr, false); // C `:1190`
+        if (op === EMPTY_OPTSTR) return OPTN_ERR; // C `:1191` FALSE
+        const decoded = escapes(op); // C `:1192` in place
+        const ch = decoded.charAt(0);
+        const code = ch ? (ch.charCodeAt(0) & 0xff) : 0;
+        const signed = code >= 128 ? code - 256 : code; // C signed char
+        let clash = 0; // C `:1176`
+        if (ch && BOULDER_MON_GLYPHS.includes(ch)) // C `:1195` def_char_to_monclass
+            clash = 1;
+        else if (ch >= '1' && ch < String.fromCharCode(48 + WARNCOUNT)) // C `:1197`
+            clash = 2;
+        if (!ch || signed < 32) { // C `:1199` opts[0] < ' '
+            config_error_add('boulder symbol cannot be a control character'); // C `:1200`
+            return OPTN_OK; // C `:1201`
+        }
+        if (clash) { // C `:1202`
+            // visctrl(ch) is ch for these printable clash characters.
+            config_error_add( // C `:1205–1208`
+                "Badoption - boulder symbol '%s' would conflict with a %s symbol",
+                ch, clash === 1 ? 'monster' : 'warning');
+        } else { // C `:1209`
+            const slot = SYM_BOULDER + SYM_OFF_X; // C `:1213`
+            update_ov_primary_symset(slot, ch); // C `:1213`
+            update_ov_rogue_symset(slot, ch); // C `:1214`
+            const optInit = optInitial ?? !!game.go?.opt_initial;
+            if (!optInit) { // C `:1218`
+                // C `:1219–1224` get_othersym. Both override slots were just
+                // set to the same nhsym, so the rogue/primary choice is `ch`.
+                if (Array.isArray(game.gs?.showsyms) && ch) // C `:1223–1224`
+                    game.gs.showsyms[slot] = ch;
+                mark_opt_need_redraw(); // C `:1225`
+            }
+        }
+        return OPTN_OK; // C `:1228`
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C `:1235`
+        const slot = SYM_BOULDER + SYM_OFF_X;
+        const ov = game.go?.ov_primary_syms;
+        const over = Array.isArray(ov) ? ov[slot] : 0;
+        let shown = over ? String(over).charAt(0) : '';
+        if (!shown) {
+            // C `:1240–1241` showsyms[objects[BOULDER].oc_class + SYM_OFF_O].
+            const rockSlot = ROCK_CLASS + SYM_OFF_O;
+            const show = game.gs?.showsyms;
+            if (Array.isArray(show) && show[rockSlot])
+                shown = String(show[rockSlot]).charAt(0);
+        }
+        if (!shown) shown = def_oc_syms[ROCK_CLASS]?.sym || '`';
+        set_optbuf(opts, shown); // C `:1238` Sprintf "%c"
+        return OPTN_OK; // C `:1243`
+    }
+    return OPTN_OK; // C `:1245`
+}
+
+/**
+ * C options.c optfn_pickup_types `:3308–3401`. The prompt inside do_set
+ * (`:3337–3363`) is async and lives in handler_pickup_types; this sync
+ * arm covers do_init, a present value, the compat/init empty shortcut,
+ * and get_val. do_handler is that async sibling.
+ * @param {number} optidx
+ * @param {number} req
+ * @param {boolean} negated
+ * @param {string|{buf:string}} opts
+ * @param {string} _op C reassigns op from string_for_opt
+ * @param {object} [flagsBag] rc result.flags; in-game uses game.flags
+ * @param {boolean} [optInitial] C go.opt_initial
+ */
+export function optfn_pickup_types(optidx, req, negated, opts, _op, flagsBag, optInitial) {
+    const flags = flagsBag || game.flags || (game.flags = {});
+    if (req === REQ_DO_INIT) return OPTN_OK; // C `:3318–3319`
+    if (req === REQ_DO_SET) { // C `:3321`
+        const optstr = typeof opts === 'string' ? opts : String(opts ?? '');
+        const compat = optstr.length <= 6; // C `:3316` strlen(opts) <= 6
+        const optInit = optInitial ?? !!game.go?.opt_initial;
+        const priorTypes = String(flags.pickup_types || '');
+        flags.pickup_types = ''; // C `:3325` all (symbol string, not indices)
+        const op = string_for_opt(optstr, compat || !optInit); // C `:3326`
+        if (op === EMPTY_OPTSTR) { // C `:3327`
+            if (compat || negated || optInit) { // C `:3328`
+                flags.pickup = !negated; // C `:3332`
+                return OPTN_OK; // C `:3333`
+            }
+            // C `:3335–3363` getlin / choose_classes_menu. Sync parseoptions
+            // cannot await; handler_pickup_types owns that arm. Put the
+            // list back so a sync empty call does not wipe it.
+            flags.pickup_types = priorTypes;
+            return OPTN_ERR;
+        }
+        return pickup_types_apply(flags, optidx, negated, op); // C `:3365`
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C `:3392`
+        const ocl = String(flags.pickup_types || ''); // C `:3393` oc_to_str
+        set_optbuf(opts, ocl ? ocl : 'all'); // C `:3394`
+        return OPTN_OK; // C `:3395`
+    }
+    return OPTN_OK; // C `:3397–3400` do_handler is handler_pickup_types
+}
+
+/**
+ * C options.c optfn_runmode `:3627–3666`. do_set matches a prefix of
+ * teleport/run/walk/crawl (str_start_is literal, op, TRUE). Negation
+ * stores RUN_TPORT. get_val is runmodes[flags.runmode]. do_handler is
+ * handler_runmode.
+ * @param {number} optidx
+ * @param {number} req
+ * @param {boolean} negated
+ * @param {string|{buf:string}} opts
+ * @param {string} op value tail already extracted by the caller
+ * @param {object} [flagsBag]
+ */
+export function optfn_runmode(optidx, req, negated, opts, op, flagsBag) {
+    const flags = flagsBag || game.flags || (game.flags = {});
+    const name = allopt_name(optidx);
+    if (req === REQ_DO_INIT) return OPTN_OK; // C `:3631–3632`
+    if (req === REQ_DO_SET) { // C `:3634`
+        const val = op == null ? '' : String(op);
+        if (negated) { // C `:3635`
+            flags.runmode = RUN_TPORT; // C `:3636`
+        } else if (val !== EMPTY_OPTSTR) { // C `:3637`
+            if (str_start_is('teleport', val, true)) // C `:3638`
+                flags.runmode = RUN_TPORT;
+            else if (str_start_is('run', val, true)) // C `:3640`
+                flags.runmode = RUN_LEAP;
+            else if (str_start_is('walk', val, true)) // C `:3642`
+                flags.runmode = RUN_STEP;
+            else if (str_start_is('crawl', val, true)) // C `:3644`
+                flags.runmode = RUN_CRAWL;
+            else { // C `:3646`
+                config_error_add("Unknown %s parameter '%s'", name, val); // C `:3647`
+                return OPTN_ERR; // C `:3649`
+            }
+        } else { // C `:3651`
+            config_error_add('Value is mandatory for %s', name); // C `:3652`
+            return OPTN_ERR; // C `:3654`
+        }
+        return OPTN_OK; // C `:3656`
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C `:3658`
+        set_optbuf(opts, RUNMODES[runmodeNow(flags)]); // C `:3659`
+        return OPTN_OK; // C `:3660`
+    }
+    return OPTN_OK; // C `:3662–3665` do_handler is handler_runmode
+}
+
+/**
+ * C options.c handler_runmode `:6123–6149`. PICK_ONE, no preselect.
+ * Selector is the first letter of the mode name.
+ */
+export async function handler_runmode() {
+    if (!game.flags) game.flags = {};
+    const raw = [{ text: 'Select run/travel display mode:', selectable: false }]; // C `:6142`
+    for (let i = 0; i < RUNMODES.length; i++) { // C `:6136`
+        const modeName = RUNMODES[i];
+        raw.push({
+            text: modeName, // C `:6141` menu text is the mode name
+            selectable: true,
+            selector: modeName[0], // C `:6139` *mode_name
+            a_int: i + 1, // C `:6138`
+        });
+    }
+    const res = await select_menu_pick_one(raw); // C `:6143` PICK_ONE
+    if (res.kind === 'pick') { // C `:6143` > 0
+        game.flags.runmode = res.item.a_int - 1; // C `:6144`
+    }
+    return OPTN_OK; // C `:6148`
+}
+
+/**
+ * C options.c optfn_scores `:3669–3760`. No do_handler (has_handler No).
+ * do_set resets the three fields, then walks top/around/own tokens.
+ * A leading '!' or "no" on a token clears that part. '-' before a digit
+ * is optn_silenterr. get_val joins the set parts or "none".
+ * Unset fields read as the initoptions stand-in (3 top / 2 around).
+ * @param {number} optidx
+ * @param {number} req
+ * @param {boolean} negated
+ * @param {string|{buf:string}} opts
+ * @param {string} _op C reassigns op from string_for_opt
+ * @param {object} [flagsBag]
+ */
+export function optfn_scores(optidx, req, negated, opts, _op, flagsBag) {
+    const flags = flagsBag || game.flags || (game.flags = {});
+    const name = allopt_name(optidx);
+    if (req === REQ_DO_INIT) return OPTN_OK; // C `:3673–3674`
+    if (req === REQ_DO_SET) { // C `:3676`
+        const optstr = typeof opts === 'string' ? opts : String(opts ?? '');
+        let op = string_for_opt(optstr, false); // C `:3679`
+        if (op === EMPTY_OPTSTR) return OPTN_ERR; // C `:3680`
+        flags.end_top = 0; // C `:3686`
+        flags.end_around = 0;
+        flags.end_own = false;
+        if (negated) op = ''; // C `:3688–3689` op = eos(op)
+        while (op.length) { // C `:3691`
+            let inum = 1; // C `:3692`
+            const tokNeg = op[0] === '!' // C `:3694`
+                || (op.length >= 2 && lowc(op[0]) === 'n' && lowc(op[1]) === 'o');
+            if (tokNeg) { // C `:3695–3696`
+                if (op[0] === '!') op = op.slice(1);
+                else if (op[2] !== '-') op = op.slice(2);
+                else op = op.slice(3);
+            }
+            if (op[0] >= '0' && op[0] <= '9') { // C `:3698` digit
+                let n = 0;
+                while (op[0] >= '0' && op[0] <= '9') { // C `:3700–3701`
+                    n = n * 10 + (op.charCodeAt(0) - 48);
+                    op = op.slice(1);
+                }
+                inum = n; // C `:3699` atoi
+            }
+            while (op[0] === ' ') op = op.slice(1); // C `:3703–3704`
+            const c = op[0] ? lowc(op[0]) : ''; // C `:3706`
+            if (c === 't') flags.end_top = tokNeg ? 0 : inum; // C `:3707–3708`
+            else if (c === 'a') flags.end_around = tokNeg ? 0 : inum; // C `:3710–3711`
+            else if (c === 'o') flags.end_own = (tokNeg || !inum) ? false : true; // C `:3713–3714`
+            else if (c === 'n') { // C `:3716–3717`
+                flags.end_top = 0;
+                flags.end_around = 0;
+                flags.end_own = false;
+            } else if (c === '-') { // C `:3719`
+                if (op[1] >= '0' && op[1] <= '9') { // C `:3720`
+                    config_error_add( // C `:3721–3724`
+                        'Values for %s:top and %s:around must not be negative',
+                        name, name);
+                    return OPTN_SILENTERR; // C `:3725`
+                }
+                config_error_add("Unknown %s parameter '%s'", name, op); // C `:3730` fallthrough
+                return OPTN_SILENTERR; // C `:3732`
+            } else { // C `:3729`
+                config_error_add("Unknown %s parameter '%s'", name, op); // C `:3730`
+                return OPTN_SILENTERR; // C `:3732`
+            }
+            while (scoresLetter(op[0])) op = op.slice(1); // C `:3735–3736`
+            while (op[0] === ' ') op = op.slice(1); // C `:3738–3739`
+            if (op[0] === '/') op = op.slice(1); // C `:3740–3741`
+        }
+        return OPTN_OK; // C `:3743`
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C `:3745`
+        const sc = scoresNow(flags);
+        let text = '';
+        if (sc.top > 0) text = `${sc.top} top`; // C `:3747–3748`
+        if (sc.around > 0) { // C `:3749–3751`
+            text += `${sc.top > 0 ? '/' : ''}${sc.around} around`;
+        }
+        if (sc.own) { // C `:3752–3754`
+            text += `${(sc.top > 0 || sc.around > 0) ? '/' : ''}own`;
+        }
+        if (!text) text = 'none'; // C `:3755–3756`
+        set_optbuf(opts, text);
+        return OPTN_OK; // C `:3757`
+    }
+    return OPTN_OK; // C `:3759`
+}
+
+/**
+ * C options.c optfn_sortloot `:3914–3955`. do_set is config-only
+ * (string_for_env_opt). n/l/f store that letter. get_val copies the
+ * matching sortltype word. do_handler is handler_sortloot.
+ * Unset reads as 'l' (initoptions `:7208`) so the doset column stays "loot".
+ * @param {number} optidx
+ * @param {number} req
+ * @param {boolean} _negated C UNUSED; negateok-No
+ * @param {string|{buf:string}} opts
+ * @param {string} _op C reassigns op from string_for_env_opt
+ * @param {object} [flagsBag]
+ * @param {boolean} [optInitial]
+ */
+export function optfn_sortloot(optidx, req, _negated, opts, _op, flagsBag, optInitial) {
+    const flags = flagsBag || game.flags || (game.flags = {});
+    const name = allopt_name(optidx);
+    if (req === REQ_DO_INIT) return OPTN_OK; // C `:3920–3921`
+    if (req === REQ_DO_SET) { // C `:3923`
+        const optstr = typeof opts === 'string' ? opts : String(opts ?? '');
+        const optInit = optInitial ?? !!game.go?.opt_initial;
+        const op = string_for_env_opt(name, optstr, false, optInit); // C `:3924`
+        if (op !== EMPTY_OPTSTR) { // C `:3925`
+            const c = op[0] ? lowc(op[0]) : ''; // C `:3926`
+            if (c === 'n' || c === 'l' || c === 'f') { // C `:3929–3932`
+                flags.sortloot = c; // C `:3932`
+            } else { // C `:3934`
+                config_error_add("Unknown %s parameter '%s'", name, op); // C `:3935`
+                return OPTN_ERR; // C `:3937`
+            }
+        } else {
+            return OPTN_ERR; // C `:3940`
+        }
+        return OPTN_OK; // C `:3941`
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C `:3943`
+        const c = sortlootNow(flags);
+        for (let i = 0; i < SORTLTYPE.length; i++) { // C `:3944`
+            if (c === SORTLTYPE[i][0]) { // C `:3945`
+                set_optbuf(opts, SORTLTYPE[i]); // C `:3946`
+                break;
+            }
+        }
+        return OPTN_OK; // C `:3949`
+    }
+    return OPTN_OK; // C `:3951–3954` do_handler is handler_sortloot
+}
+
+/**
+ * C options.c handler_sortloot `:6166–6203`. PICK_ONE, preselect the
+ * current letter. n>1 when the first pick is the preselected row is
+ * folded inside select_menu_pick_one. perm_invent refreshes the window.
+ */
+export async function handler_sortloot() {
+    if (!game.flags) game.flags = {};
+    const cur = sortlootNow(game.flags);
+    const raw = [{ text: 'Select loot sorting type:', selectable: false }]; // C `:6188`
+    for (let i = 0; i < SORTLTYPE.length; i++) { // C `:6179`
+        const sortlName = SORTLTYPE[i];
+        raw.push({
+            text: sortlName,
+            selectable: true,
+            selector: sortlName[0], // C `:6182` *sortl_name
+            a_char: sortlName[0], // C `:6181`
+            selected: cur === sortlName[0], // C `:6184–6186`
+        });
+    }
+    const res = await select_menu_pick_one(raw); // C `:6189`
+    if (res.kind === 'pick') { // C `:6190` n > 0
+        game.flags.sortloot = res.item.a_char; // C `:6191–6195`
+        if (game.iflags?.perm_invent) update_inventory(); // C `:6197–6198`
+    }
+    return OPTN_OK; // C `:6202`
+}
+
 /**
  * C options.c optfn_sortvanquished `:3958–4010` (staticfn; NHOPTC wires
  * `&optfn_sortvanquished`, optlist.h `:690`, has_handler Yes).
@@ -5480,6 +6034,10 @@ async function doset_compound_via_getlin(opt) {
             reslt = await handler_windowborders(); // C `:4850`
         } else if (name === 'align_message' || name === 'align_status') {
             reslt = await handler_align_misc(allopt_idx(name)); // C `:967` / `:1016`
+        } else if (name === 'sortloot') {
+            reslt = await handler_sortloot(); // C `:3952`
+        } else if (name === 'runmode') {
+            reslt = await handler_runmode(); // C `:3663`
         }
         if (reslt === OPTN_OK) opt_set_in_config[allopt_idx(name)] = true;
         // Other hasHandler compounds deferred (symset/…).
@@ -5496,11 +6054,6 @@ async function doset_compound_via_getlin(opt) {
         optfn_fruit(allopt_idx('fruit'), REQ_DO_SET, false, `fruit:${abuf}`, abuf, false);
     }
     // Named omission: remaining Comp/Othr getlin → parseoptions arms
-}
-
-function pickup_types_display() {
-    const ocl = String(game.flags?.pickup_types || '');
-    return ocl || 'all';
 }
 
 /** C ref: options.c n_currently_set / count_apes — ape list deferred. */
@@ -5545,7 +6098,11 @@ function simple_opt_get_val(opt) {
         if (bits & AUTOUNLOCK_FORCE) parts.push('force');
         return parts.length ? parts.join(' + ') : 'apply-key';
     }
-    if (name === 'pickup_types') return pickup_types_display();
+    if (name === 'pickup_types') return doset_compopt_get_val(optfn_pickup_types, 'pickup_types');
+    if (name === 'boulder') return doset_compopt_get_val(optfn_boulder, 'boulder');
+    if (name === 'runmode') return doset_compopt_get_val(optfn_runmode, 'runmode');
+    if (name === 'scores') return doset_compopt_get_val(optfn_scores, 'scores');
+    if (name === 'sortloot') return doset_compopt_get_val(optfn_sortloot, 'sortloot');
     if (name === 'perminv_mode') return optfn_perminv_mode_get_val_display();
     if (name === 'autopickup exceptions') {
         return currently_set_val(game.flags?.ape_count ?? 0);
@@ -6479,7 +7036,7 @@ export async function doset() {
     }
     const compounds = [
         { name: 'autounlock', val: 'apply-key' },
-        { name: 'boulder', val: '`' },
+        { name: 'boulder', get_val: () => doset_compopt_get_val(optfn_boulder, 'boulder') },
         { name: 'crash_email', val: 'unknown' },
         { name: 'crash_name', val: 'unknown' },
         { name: 'crash_urlmax', val: '-1' },
@@ -6500,13 +7057,13 @@ export async function doset() {
         { name: 'perminv_mode', get_val: optfn_perminv_mode_get_val_display, handler: true },
         { name: 'petattr', get_val: () => doset_compopt_get_val(optfn_petattr, 'petattr'), handler: true },
         { name: 'pickup_burden', get_val: () => doset_compopt_get_val(optfn_pickup_burden, 'pickup_burden'), handler: true },
-        { name: 'pickup_types', val: pickup_types_display(), handler: true },
+        { name: 'pickup_types', get_val: () => doset_compopt_get_val(optfn_pickup_types, 'pickup_types'), handler: true },
         { name: 'pile_limit', val: '5' },
         { name: 'roguesymset', val: 'default' },
-        { name: 'runmode', val: 'run' },
-        { name: 'scores', val: '3 top/2 around' },
+        { name: 'runmode', get_val: () => doset_compopt_get_val(optfn_runmode, 'runmode'), handler: true },
+        { name: 'scores', get_val: () => doset_compopt_get_val(optfn_scores, 'scores') },
         { name: 'sortdiscoveries', get_val: () => doset_compopt_get_val(optfn_sortdiscoveries, 'sortdiscoveries'), handler: true },
-        { name: 'sortloot', val: 'loot' },
+        { name: 'sortloot', get_val: () => doset_compopt_get_val(optfn_sortloot, 'sortloot'), handler: true },
         { name: 'sortvanquished', get_val: () => doset_compopt_get_val(optfn_sortvanquished, 'sortvanquished'), handler: true },
         { name: 'statushilites', val: '0 (off: don\'t highlight status fields)' },
         { name: 'statuslines', val: '2' },
@@ -6571,7 +7128,8 @@ export async function doset() {
     }
     for (const name of handlerPicks) {
         if (name === 'pickup_types') {
-            await handler_pickup_types();
+            const reslt = await handler_pickup_types();
+            if (reslt === OPTN_OK) opt_set_in_config[allopt_idx(name)] = true;
         } else if (name === 'perminv_mode') {
             await handler_perminv_mode();
         } else {
@@ -6779,7 +7337,7 @@ const allopt = [
     // optlist.h:213 NHOPTB(bones)
     { name: 'bones', opttyp: BoolOpt, idx: 27, setwhere: SET_IN_CONFIG, initval: true, addr: { obj: 'flags', key: 'bones' }, optfn: null },
     // optlist.h:217 NHOPTC(boulder)
-    { name: 'boulder', opttyp: CompOpt, idx: 28, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: null },
+    { name: 'boulder', opttyp: CompOpt, idx: 28, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_boulder },
     // optlist.h:221 NHOPTC(catname)
     { name: 'catname', opttyp: CompOpt, idx: 29, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: null },
     // optlist.h:225 NHOPTB(checkpoint)
@@ -6991,7 +7549,7 @@ const allopt = [
     // optlist.h:579 NHOPTB(pickup_thrown)
     { name: 'pickup_thrown', opttyp: BoolOpt, idx: 133, setwhere: SET_IN_GAME, initval: true, addr: { obj: 'flags', key: 'pickup_thrown' }, optfn: null },
     // optlist.h:582 NHOPTC(pickup_types)
-    { name: 'pickup_types', opttyp: CompOpt, idx: 134, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: null },
+    { name: 'pickup_types', opttyp: CompOpt, idx: 134, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_pickup_types },
     // optlist.h:585 NHOPTC(pile_limit)
     { name: 'pile_limit', opttyp: CompOpt, idx: 135, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: null },
     // optlist.h:588 NHOPTC(player_selection)
@@ -7017,7 +7575,7 @@ const allopt = [
     // optlist.h:626 NHOPTC(roguesymset)
     { name: 'roguesymset', opttyp: CompOpt, idx: 146, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: null },
     // optlist.h:630 NHOPTC(runmode)
-    { name: 'runmode', opttyp: CompOpt, idx: 147, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: null },
+    { name: 'runmode', opttyp: CompOpt, idx: 147, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_runmode },
     // optlist.h:633 NHOPTB(safe_pet)
     { name: 'safe_pet', opttyp: BoolOpt, idx: 148, setwhere: SET_IN_GAME, initval: true, addr: { obj: 'flags', key: 'safe_dog' } /* C: &flags.safe_dog; gameplay reads safe_dog (doset twin safe_pet noted) */, optfn: null },
     // optlist.h:636 NHOPTB(safe_wait)
@@ -7025,7 +7583,7 @@ const allopt = [
     // optlist.h:639 NHOPTB(sanity_check)
     { name: 'sanity_check', opttyp: BoolOpt, idx: 150, setwhere: SET_WIZONLY, initval: false, addr: { obj: 'iflags', key: 'sanity_check' } /* C: &iflags.sanity_check */, optfn: null },
     // optlist.h:642 NHOPTC(scores)
-    { name: 'scores', opttyp: CompOpt, idx: 151, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: null },
+    { name: 'scores', opttyp: CompOpt, idx: 151, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_scores },
     // optlist.h:645 NHOPTC(scroll_amount)
     { name: 'scroll_amount', opttyp: CompOpt, idx: 152, setwhere: SET_GAMEVIEW, initval: false, addr: null, optfn: null },
     // optlist.h:648 NHOPTC(scroll_margin)
@@ -7049,7 +7607,7 @@ const allopt = [
     // optlist.h:681 NHOPTC(sortdiscoveries)
     { name: 'sortdiscoveries', opttyp: CompOpt, idx: 162, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_sortdiscoveries },
     // optlist.h:684 NHOPTC(sortloot)
-    { name: 'sortloot', opttyp: CompOpt, idx: 163, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: null },
+    { name: 'sortloot', opttyp: CompOpt, idx: 163, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_sortloot },
     // optlist.h:687 NHOPTB(sortpack)
     { name: 'sortpack', opttyp: BoolOpt, idx: 164, setwhere: SET_IN_GAME, initval: true, addr: { obj: 'flags', key: 'sortpack' }, optfn: null },
     // optlist.h:690 NHOPTC(sortvanquished)

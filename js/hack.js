@@ -1617,16 +1617,23 @@ export async function stop_occupation() {
 // src/hack.c:2995 runmode_delay_output()
 export async function runmode_delay_output() {
     // C: gate on (context.run || multi) && runmode != RUN_TPORT.
-    // game.flags.runmode is never populated by an option setter; the raw
-    // string ('run' default, js/options.js) is normalized here with C's
-    // prefix table (options.c optfn_runmode: op is a prefix of the name).
-    const raw = String(game.flags?.runmode ?? 'run').toLowerCase();
-    const runmode = !raw ? RUN_LEAP
-        : 'teleport'.startsWith(raw) ? RUN_TPORT
-        : 'run'.startsWith(raw) ? RUN_LEAP
-        : 'walk'.startsWith(raw) ? RUN_STEP
-        : 'crawl'.startsWith(raw) ? RUN_CRAWL
-        : RUN_LEAP;
+    // optfn_runmode stores the flag.h enum. A raw word still matches
+    // C's prefix table (str_start_is: op is a prefix of the mode name).
+    // Unset stays RUN_LEAP (initoptions `:7176`).
+    const stored = game.flags?.runmode;
+    let runmode;
+    if (stored === RUN_TPORT || stored === RUN_LEAP
+        || stored === RUN_STEP || stored === RUN_CRAWL) {
+        runmode = stored;
+    } else {
+        const raw = String(stored ?? 'run').toLowerCase();
+        runmode = !raw ? RUN_LEAP
+            : 'teleport'.startsWith(raw) ? RUN_TPORT
+            : 'run'.startsWith(raw) ? RUN_LEAP
+            : 'walk'.startsWith(raw) ? RUN_STEP
+            : 'crawl'.startsWith(raw) ? RUN_CRAWL
+            : RUN_LEAP;
+    }
     if (!(game.context?.run || (game.multi | 0)) || runmode === RUN_TPORT) return;
     // C: leap (RUN_LEAP) updates every 7th turn-counter step ("ought to be
     // to start of running" — port the turn-counter version verbatim);
