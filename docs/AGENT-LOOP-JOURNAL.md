@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2880 `proc_wizkit_line` records the buffer `readobjnam` left
+
+**C locus:** `nethack-c/upstream/src/files.c:2562–2581` `proc_wizkit_line`. `readobjnam(buf)` (`objnam.c:4909`) runs `mungspaces(bp)` at `:4919`, then writes through that same pointer (`Strcpy`, `*p = 0`, `strsubst`). `d->bp += n` only moves the cursor, so the prefix stays in `buf`. `wish_history_add(buf)` is `:2572`, before `wizkit_addinv`. `makewish` records `bufcpy` copied before `readobjnam` (`zap.c:6359`).
+**JS:** `js/readobjnam.js` `cbufAdvance` `:148`, `cbufReplace` `:153`, `publishWishbuf` `:173`, `ret` `:1393`, `_cbuf` `:1418`, `Strcpy` of `makesingular` `:1601`, `Strcat` `" mail"` `:1242`. `js/files.js` `proc_wizkit_line` `:144`, `wish_history_add` `:154`.
+**Change:** `readobjnam` keeps the caller's character buffer (`_cbuf` + cursor `_boff`). Pointer advances leave the prefix. `Strcpy`, a NUL cut, `strsubst`, and `Strcat` replace the tail at the cursor.
+**Verify:** `node scripts/verify.mjs --fn readobjnam --reach-all` → PASS syntax (2 changed js files: js/files.js js/readobjnam.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (those files are not in the shared-file set) · VERIFY: PASS.
+**Named:** `config_error_add` (`files.c:2577`) on a bad wizkit line. In-place arms still absent from the JS body, so they do not rewrite `_cbuf`: `named` / `called` / `labeled` NULs (`objnam.c:4253–4279`); `*(d->bp+2) = 'a'` on `"grey spell"` and the `armour` squeeze (`:4469–4476`); `pair of` / `pairs of` / `set of` pointer walks (`:4324–4334`).
+**Next:** `sp_lev.c` `get_table_int_or_random` (next Open — coverage row). Twelve Open — coverage rows remain, at the band ceiling, so nothing was refilled.
 ## 2026-09-26 — audit 1830–1838 (D-2871–D-2879)
 
 Reviewed the nine `js/` commits since `bde9dd8fa`. Eight ACCEPT. One QUALITY-RISK: `1832` `wish_history_add` records the wizkit line before `readobjnam` rewrites `buf` (`files.c:2568–2573`). That row is Must-fix and Next cluster. Public `sessions` on `539f2fe06`: 44/44, screens 11,405/11,405, RNG 792,838/792,838, speed `234+1.67/turn` (R² 0.788). Held-out still 12/44 (6,273/11,265 pts, RNG 29.7 %, screens 55.7 %). `.cache/hidden/sessions` absent, so 614/940 was not re-measured. No `js/` edits.

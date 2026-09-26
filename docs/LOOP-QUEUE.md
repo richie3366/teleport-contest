@@ -103,8 +103,6 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 always Must-fix rows: they forfeit every later screen of that session
 (Constitution §10.14).
 
-- [ ] `files.c` `proc_wizkit_line` — after `readobjnam(buf)`, a real non-`hands_obj` result records that same `buf` (`files.c:2568–2573`). `readobjnam` has already run `mungspaces` (`objnam.c:4919`) and rewritten `bp`. `js/files.js` `wish_history_add(line)` records the length-clipped input, so a later wizard wish prefix-matches different text. Pass the post-parse buffer. Source: reviews/loop-unattended/1832-f7125aef2-wish-history-add.md
-
 ## Open — coverage (breadth phase — pop first after Must-fix)
 
 Rows below are `port-coverage.mjs --rows` output (score = reach × call

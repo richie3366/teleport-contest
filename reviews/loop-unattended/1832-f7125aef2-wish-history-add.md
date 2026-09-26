@@ -1,5 +1,7 @@
 # Review 1832 — f7125aef2 — wish_history_add (D-2873)
 
+**Addressed:** D-2880
+
 - SHA: `f7125aef2` (coverage; `zap.c` `wish_history_add`)
 - Files: `js/zap.js` (+58/−), `js/files.js` (+10). 68 `js/` insertions.
 - Queue row: Open coverage, 0 corpus blocks cited

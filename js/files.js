@@ -144,11 +144,14 @@ async function wizkit_addinv(obj) {
 export async function proc_wizkit_line(buf) {
     let line = String(buf ?? '');
     if (line.length >= BUFSZ) line = line.slice(0, BUFSZ - 1);
-    const otmp = readobjnam(line, null);
+    // C files.c:2568–2573 — readobjnam mutates buf (mungspaces at
+    // objnam.c:4919, then Strcpy / NUL through that same pointer).
+    // wish_history_add records that buffer, not the text before the parse.
+    const parsed = {};
+    const otmp = readobjnam(line, null, parsed);
     if (!otmp || otmp === NOTHING_OBJ || otmp._nothing_obj) return false;
     if (!is_hands_obj(otmp)) {
-        // C files.c:2572 — record before the object enters inventory.
-        wish_history_add(line);
+        wish_history_add(parsed.wishbuf != null ? parsed.wishbuf : line);
         await wizkit_addinv(otmp);
     }
     return true;

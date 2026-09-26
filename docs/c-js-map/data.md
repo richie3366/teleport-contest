@@ -68,6 +68,8 @@ Fortune path exercised
 
 JS: `js/files.js` + `js/generated/tribute_data.js` + `js/spell.js` study_book — partial
 
+**proc_wizkit_line D-2880** (`files.c:2562–2581`). After `readobjnam(buf)`, a real object that is not `&hands_obj` records that same `buf` (`:2572`) then `wizkit_addinv`. `readobjnam` has already run `mungspaces` (`objnam.c:4919`) and any in-place write through the caller's pointer (`Strcpy` / `*p = 0` / `strsubst`); pointer advances (`d->bp += n`) leave the prefix in the buffer. Live `js/files.js` `proc_wizkit_line` passes `missOut.wishbuf` (the shadowed caller string) to `wish_history_add`. Caller `files.c:2594` `parse_conf_file` → `js/files.js` `read_wizkit`. Named: `config_error_add` on a bad line (`files.c:2577`); `named`/`called`/`labeled` NULs (`objnam.c:4253–4279`); `*(bp+2)='a'` on `grey spell` and the `armour` squeeze (`:4469–4476`); `pair of` / `globbuf` retarget (`:4324–4364`, retarget does not rewrite the caller buffer).
+
 **tribute D-1633** (`files.c` `:3429–3653`; Rule #2 embed `dat/tribute` via
 `extract-tribute.py`, not dlb disk; `choose_passage` MAXPASSAGES=30 reservoir
 when passagecnt>30; tribpassage 0; NHW_MENU + `putmsghistory` lastline

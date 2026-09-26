@@ -5,8 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `zap.c` do_osshock — coverage PARTIAL (C 37 L `zap.c:1637–1674` / JS 24 L in js/zap.js; hops 6, callers 2, RNG 3, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn do_osshock` (reach regression must be 0). Measured `port-coverage.mjs --name do_osshock` 2026-09-26 @ 8ddebb670. **Addressed:** D-2879
-- [x] `zap.c` bhitpile — coverage PARTIAL (C 74 L `zap.c:2428–2506` / JS 55 L in js/zap.js; hops 4, callers 7, RNG 0, msg 0; dead callees: recreate_pile_at). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn bhitpile` (reach regression must be 0). Measured `port-coverage.mjs --name bhitpile` 2026-09-26 @ 59a5900cf. **Addressed:** D-2879
+- [x] `files.c` `proc_wizkit_line` — after `readobjnam(buf)`, a real non-`hands_obj` result records that same `buf` (`files.c:2568–2573`). `readobjnam` has already run `mungspaces` (`objnam.c:4919`) and rewritten `bp`. `js/files.js` `wish_history_add(line)` records the length-clipped input, so a later wizard wish prefix-matches different text. Pass the post-parse buffer. Source: reviews/loop-unattended/1832-f7125aef2-wish-history-add.md **Addressed:** D-2880
+
+
+- [x] `zap.c` do_osshock — coverage PARTIAL (C 37 L `zap.c:1637–1674` / JS 24 L in js/zap.js; hops 6, callers 2, RNG 3, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn do_osshock` (reach regression must be 0). Measured `port-coverage.mjs --name do_osshock` 2026-09-26 @ 8ddebb670. **Addressed:** D-2879 `539f2fe06`
+- [x] `zap.c` bhitpile — coverage PARTIAL (C 74 L `zap.c:2428–2506` / JS 55 L in js/zap.js; hops 4, callers 7, RNG 0, msg 0; dead callees: recreate_pile_at). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn bhitpile` (reach regression must be 0). Measured `port-coverage.mjs --name bhitpile` 2026-09-26 @ 59a5900cf. **Addressed:** D-2879 `539f2fe06`
 
 
 - [x] `exper.c` more_experienced — coverage PARTIAL (C 34 L `exper.c:169–203` / JS 23 L in js/exper.js; hops 3, callers 19, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn more_experienced` (reach regression must be 0). Measured `port-coverage.mjs --name more_experienced` 2026-09-26 @ 3ff465fee. **Addressed:** D-2878 `d921aef05`
