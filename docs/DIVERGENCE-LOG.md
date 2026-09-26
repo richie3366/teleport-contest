@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2850 — `get_unused_cs` clears the idle could-see buffer
+
+- **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** `vision_recalc` chose the back buffer with `active_buf` and cleared each row's bounds to `COLNO` and `0`. C picks the buffer `viz_array` is not, and the empty sentinel is `COLNO - 1` and `1`, which `set_min` / `set_max` treat as already at the edge.
+- **C locus:** `nethack-c/upstream/src/vision.c:274–299` `get_unused_cs`. No C callees (`memset` of `ROWNO * COLNO * sizeof (seenV)`). The only call is `vision_recalc` `vision.c:542`. `vision.c:96` is the static declaration. `vision.c:268` and `vision.c:546` are comments.
+- **JS was:** No symbol. `vision_recalc` inlined the swap: `active_buf === 0` selected `cs_buf1`, then `fill(0)`, `rmin = COLNO`, `rmax = 0`.
+- **Fix:** One `get_unused_cs` in that C order. `viz_array === cs_buf0` (`cs_rows0`) selects `cs_buf1` / `cs_rmin1` / `cs_rmax1`; any other pointer selects buffer 0. Every cell is zeroed, then each row's min is `COLNO - 1` and max is `1`. `vision_recalc` calls it once, after the `in_mklev` return and before the swallow, blind, and rogue arms. `active_buf` is then `0` or `1` according to which buffer was installed, so the next pointer test and the flag agree.
+- **JS:** `js/vision.js` `get_unused_cs` `:953`. `vision_recalc` call `:987`. Blind install `:1004`. Main install `:1094`.
+- **Callers:** `vision.c:542` → `js/vision.js:987`. `vision.c:96` is the declaration. `vision.c:268` and `vision.c:546` are comments. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn get_unused_cs --reach-all` → PASS syntax (1 changed js file: js/vision.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+- **Named omissions:** The header comment's "light routine" is not a call in this tree; `do_light_sources` receives the buffer `vision_recalc` already obtained. `vision_off_newsym_gbuf` still zeros the back buffer itself (the JS split of the `control == 2` newsym loop) and does not use this sentinel. `vision_reset` still nulls `_viz_rmin` instead of pointing it at `cs_rmin0`. The module-level arrays still start at `COLNO` / `0` until this function overwrites the unused side; C static storage starts at 0.
+- **Next:** `timeout.c` `attach_fig_transform_timeout` (next Open — coverage row). Five measured rows refilled (`maybereleaseobuf`, `unplacebc_core`, `status_initialize`, `fall_asleep`, `peffect_oil`). Twelve Open — coverage rows after archive.
+
 ## D-2849 — `confused_book` tears the spellbook or rereads one line
 
 - **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked).

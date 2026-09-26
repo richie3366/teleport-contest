@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2850 `get_unused_cs` clears the idle could-see buffer
+
+**C locus:** `nethack-c/upstream/src/vision.c:274–299` `get_unused_cs`. No C callees (`memset` of `ROWNO * COLNO * sizeof (seenV)`). The only call is `vision_recalc` `vision.c:542`. `vision.c:96` is the static declaration. `vision.c:268` and `vision.c:546` are comments.
+**JS:** `js/vision.js` `get_unused_cs` `:953`. `vision_recalc` call `:987`. Blind install `:1004`. Main install `:1094`.
+**Change:** One `get_unused_cs` in that C order. `viz_array === cs_buf0` (`cs_rows0`) selects `cs_buf1` / `cs_rmin1` / `cs_rmax1`; any other pointer selects buffer 0. Every cell is zeroed, then each row's min is `COLNO - 1` and max is `1`.
+**Verify:** `node scripts/verify.mjs --fn get_unused_cs --reach-all` → PASS syntax (1 changed js file: js/vision.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+**Named:** The header comment's "light routine" is not a call in this tree; `do_light_sources` receives the buffer `vision_recalc` already obtained. `vision_off_newsym_gbuf` still zeros the back buffer itself (the JS split of the `control == 2` newsym loop) and does not use this sentinel.
+**Next:** `timeout.c` `attach_fig_transform_timeout` (next Open — coverage row). Five measured rows refilled (`maybereleaseobuf`, `unplacebc_core`, `status_initialize`, `fall_asleep`, `peffect_oil`). Twelve Open — coverage rows after archive.
 ## 2026-09-26 — D-2849 `confused_book` tears the spellbook or rereads one line
 
 **C locus:** `nethack-c/upstream/src/spell.c:189–207` `confused_book`. Callees `rn2` (`rnd.c`, live `js/rng.js:89`), `pline` (`pline.c:103`, live `js/display.js:7927`), `display_nhwindow(WIN_MESSAGE, FALSE)` (`wintty.c:1855` NHW_MESSAGE more, live `flush_topl_more` `js/display.js:7478`), `You` (`pline.c:355`, live `js/display.js:7671`), `trycall` (`do_name.c`, live `js/do_name.js:1694`), `useup` (`invent.c:1320`, live `js/invent.js:4690`). Calls: `learn` `spell.c:369` and `study_book` `spell.c:621`. `spell.c:34` is the static declaration.
