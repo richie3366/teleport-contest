@@ -145,7 +145,7 @@ import { m_unleash } from './apply.js';
 import { update_inventory } from './invent.js';
 import { bury_an_obj } from './dig.js';
 import { is_pole, is_weptool } from './wield.js';
-import { mswings_verb, Conflict, unstuck, set_ustuck, digests, hitmsg } from './mhitu.js';
+import { mswings_verb, Conflict, unstuck, set_ustuck, digests, hitmsg, diseasemu } from './mhitu.js';
 import { sticks } from './engrave.js';
 import { mon_offmap, set_apparxy, mb_trapped, itsstuck } from './monmove.js';
 import { hurtle, mhurtle, will_hurtle } from './dothrow.js';
@@ -233,6 +233,7 @@ const PM_WRAITH = monsterNames.indexOf('PM_WRAITH');
 const PM_NURSE = monsterNames.indexOf('PM_NURSE');
 const PM_FAMINE = monsterNames.indexOf('PM_FAMINE');
 const PM_PESTILENCE = monsterNames.indexOf('PM_PESTILENCE');
+const PM_GHOUL = monsterNames.indexOf('PM_GHOUL');
 const PM_PAPER_GOLEM = monsterNames.indexOf('PM_PAPER_GOLEM');
 const PM_STRAW_GOLEM = monsterNames.indexOf('PM_STRAW_GOLEM');
 const AMULET_OF_LIFE_SAVING = objectNames.indexOf('AMULET_OF_LIFE_SAVING');
@@ -4351,6 +4352,47 @@ async function mhitm_ad_drli(magr, mattk, mdef, mhm) {
 }
 
 /**
+ * C ref: uhitm.c mhitm_ad_dise `:4592–4619`.
+ * uhitm (magr == &gy.youmonst) gotos the mhitm arm — no hero form has
+ * AD_DISE, and the message would differ only if one did. mhitu: hitmsg,
+ * then diseasemu; resistance zeroes the leftover and sickness keeps it.
+ * mhitm: a fungus, a ghoul, or defended(AD_DISE) zeroes the leftover;
+ * anything else keeps it.
+ */
+export async function mhitm_ad_dise(magr, mattk, mdef, mhm) {
+    const pd = mdef?.data;
+    /* C `:4599` magr == &gy.youmonst → goto mhitm_dise. */
+    if (!is_youmonst(magr) && is_youmonst(mdef)) {
+        await hitmsg(magr, mattk);
+        if (!(await diseasemu(magr?.data))) mhm.damage = 0;
+        return;
+    }
+    const mndx = pd?.mndx ?? pd?.mnum;
+    if (pd?.mlet === 'S_FUNGUS' || mndx === PM_GHOUL
+        || defended(mdef, AD_DISE)) {
+        mhm.damage = 0;
+    }
+}
+
+/**
+ * C ref: uhitm.c mhitm_ad_pest `:3807–3834`.
+ * uhitm gotos the mhitm arm (no hero form has AD_PEST). mhitu: no
+ * hitmsg; pline_mon reach-out, then diseasemu; the leftover d() stays
+ * ("plus the normal damage"). mhitm: copy mattk, set adtyp to AD_DISE,
+ * and call mhitm_ad_dise.
+ */
+export async function mhitm_ad_pest(magr, mattk, mdef, mhm) {
+    /* C `:3814` magr == &gy.youmonst → goto mhitm_pest. */
+    if (!is_youmonst(magr) && is_youmonst(mdef)) {
+        await pline_mon(magr, `${Monnam(magr)} reaches out, and you feel fever and chills.`);
+        await diseasemu(magr?.data);
+        return;
+    }
+    const alt_attk = { ...mattk, adtyp: AD_DISE };
+    await mhitm_ad_dise(magr, alt_attk, mdef, mhm);
+}
+
+/**
  * C ref: uhitm.c mhitm_ad_deth `:3836–3894`.
  * uhitm (magr == &gy.youmonst) gotos the mhitm arm — no hero form has
  * AD_DETH, and the message would differ only if one did. mhitu: reach-out
@@ -5203,6 +5245,43 @@ async function mdamagem(magr, mdef, mattk, mwep, dieroll) {
             done: false,
         };
         await mhitm_ad_slim(magr, mattk, mdef, mhm);
+        // C mhitm.c:1061-1065 — knockback preempts damage on HIT/DEF_DIED/offmap
+        if (await mhitm_knockback(magr, mdef, mattk, mhm, !!mwep)
+            && (((mhm.hitflags & (M_ATTK_DEF_DIED | M_ATTK_HIT)) !== 0) || mon_offmap(mdef))) {
+            return mhm.hitflags;
+        }
+        if (mhm.done) return mhm.hitflags;
+        damage = mhm.damage | 0;
+        hitflags = mhm.hitflags | 0;
+        if (!damage) return hitflags;
+        mdef.mhp -= damage;
+        if (mdef.mhp < 1) {
+            mdef.mhp = 0;
+            await mdamagem_monkilled(magr, mdef, mattk, mwep);
+            if ((mdef.mhp | 0) > 0) return hitflags; /* lifesaved */
+            if (hitflags === M_ATTK_AGR_DIED) {
+                return M_ATTK_DEF_DIED | M_ATTK_AGR_DIED;
+            }
+            const grew = await grow_up(magr, mdef);
+            return M_ATTK_DEF_DIED | (grew ? 0 : M_ATTK_AGR_DIED);
+        }
+        return (hitflags === M_ATTK_AGR_DIED) ? M_ATTK_AGR_DIED : M_ATTK_HIT;
+    }
+
+    // C: mhitm_adtyping → mhitm_ad_dise / mhitm_ad_pest (uhitm.c:4822
+    // and :4825). Disease zeroes leftover for fungus, ghoul, or
+    // defended(AD_DISE). Pest's mhitm arm is that same disease check
+    // (the mhitu arm is the fever line and does not zero leftover).
+    if ((mattk.adtyp | 0) === AD_DISE || (mattk.adtyp | 0) === AD_PEST) {
+        const mhm = {
+            damage,
+            hitflags: M_ATTK_MISS,
+            done: false,
+        };
+        if ((mattk.adtyp | 0) === AD_PEST)
+            await mhitm_ad_pest(magr, mattk, mdef, mhm);
+        else
+            await mhitm_ad_dise(magr, mattk, mdef, mhm);
         // C mhitm.c:1061-1065 — knockback preempts damage on HIT/DEF_DIED/offmap
         if (await mhitm_knockback(magr, mdef, mattk, mhm, !!mwep)
             && (((mhm.hitflags & (M_ATTK_DEF_DIED | M_ATTK_HIT)) !== 0) || mon_offmap(mdef))) {

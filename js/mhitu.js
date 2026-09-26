@@ -90,7 +90,7 @@ import {
 } from './invent.js';
 import { burn_away_slime } from './timeout.js';
 import {
-    get_mattk, mhitm_knockback, mhitm_mgc_atk_negated, mhitm_ad_drst, mhitm_ad_dren, mhitm_ad_deth, mhitm_ad_stck, mattackm, rustm,
+    get_mattk, mhitm_knockback, mhitm_mgc_atk_negated, mhitm_ad_drst, mhitm_ad_dren, mhitm_ad_deth, mhitm_ad_dise, mhitm_ad_pest, mhitm_ad_stck, mattackm, rustm,
     could_seduce, failed_grab, SYSOPT_SEDUCE, mon_poly, mondead, erode_armor,
     golemeffects_mm,
     AT_NONE, AT_CLAW, AT_KICK, AT_BITE, AT_STNG, AT_TUCH, AT_BUTT, AT_WEAP,
@@ -2672,7 +2672,7 @@ async function mhitm_ad_samu_u(mtmp, mattk, mhm) {
  * mdat->pmnames[NEUTRAL], TRUE, SICK_NONVOMITABLE), TRUE. Cause falls back
  * to 'a Rider' (eat.js Rider-corpse idiom) when the mndx lookup misses.
  */
-async function diseasemu(mdat) {
+export async function diseasemu(mdat) {
     const u = game.u || {};
     const e = u.uprops?.[SICK_RES];
     const Sick_resistance = !!((u.HSick_resistance | 0) || (u.ESick_resistance | 0)
@@ -2687,36 +2687,6 @@ async function diseasemu(mdat) {
     const cause = (mndx != null && pmnames[mndx]?.[NEUTRAL]) || 'a Rider';
     await make_sick(xtime, cause, true, SICK_NONVOMITABLE);
     return true;
-}
-
-/**
- * C ref: uhitm.c mhitm_ad_dise `:4593–4619` — mhitu (monster→you) arm only
- * (`:4604–4608`). hitmsg always (unconditional, like the SAMU/WERE arms);
- * then `if (!diseasemu(pa)) mhm->damage = 0` — sickness keeps the leftover
- * hitmu d() ("plus the normal damage"), resistance zeroes it. The uhitm
- * arm cannot happen (hero never polymorphs into a DISE attacker — C
- * `:4599–4603` comment); the mhitm arm (S_FUNGUS/GHOUL/defended gate,
- * `:4610–4618`) lives in mhitm.js.
- */
-async function mhitm_ad_dise_u(mtmp, mattk, mhm) {
-    await hitmsg(mtmp, mattk);
-    if (!(await diseasemu(mtmp?.data))) mhm.damage = 0;
-}
-
-/**
- * C ref: uhitm.c mhitm_ad_pest `:3808–3834` — mhitu (monster→you) arm only.
- * No hitmsg (C goes straight to pline_mon, like the FAMN arm, unlike the
- * STON/SLEE arms); pline_mon reach-out, then diseasemu(pa). Leftover
- * hitmu d() is kept ("plus the normal damage", unlike the default zero).
- * The uhitm arm cannot happen (hero never polymorphs into a PEST
- * attacker — C `:3815–3819` comment); the mhitm arm is AD_DISE damage
- * in mhitm.js.
- */
-async function mhitm_ad_pest_u(mtmp, mattk, mhm) {
-    void mattk;
-    void mhm; /* leftover d() stays */
-    await pline_mon(mtmp, `${Monnam(mtmp)} reaches out, and you feel fever and chills.`);
-    await diseasemu(mtmp?.data);
 }
 
 /**
@@ -3113,13 +3083,15 @@ async function mhitm_adtyping_u(mtmp, mattk, mhm) {
         await mhitm_ad_ench_u(mtmp, mattk, mhm);
         break;
     case AD_PEST:
-        await mhitm_ad_pest_u(mtmp, mattk, mhm);
+        /* C mhitm_adtyping `:4825` — mhitu arm is inside mhitm_ad_pest. */
+        await mhitm_ad_pest(mtmp, mattk, game.youmonst, mhm);
         break;
     case AD_STUN:
         await mhitm_ad_stun_u(mtmp, mattk, mhm);
         break;
     case AD_DISE:
-        await mhitm_ad_dise_u(mtmp, mattk, mhm);
+        /* C mhitm_adtyping `:4822` — mhitu arm is inside mhitm_ad_dise. */
+        await mhitm_ad_dise(mtmp, mattk, game.youmonst, mhm);
         break;
     case AD_SGLD:
         await mhitm_ad_sgld_u(mtmp, mattk, mhm);

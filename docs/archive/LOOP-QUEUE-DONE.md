@@ -5,7 +5,12 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `cmd.c` `extcmd_via_menu` — after a prefix, a menu cancel (`n != 1` && `matchlevel`) sets `ret = 0` and `matchlevel = 0` and leaves `cbuf` (`cmd.c:884–887`). The next header is still `Extended Command:` plus that prefix (`:870`). JS `extcmd_via_menu` (`js/getline.js:1375–1378`) also sets `cbuf = ''`. Stop clearing `cbuf` on that arm. Source: reviews/loop-unattended/1822-4913f8580-keylist-putcmds.md **Addressed:** D-2871
+- [x] `uhitm.c` hmon_hitmon_msg_hit — coverage MISSING (C 20 L `uhitm.c:1637–1660` / JS no symbol; hops 5, callers 1, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn hmon_hitmon_msg_hit` (reach regression must be 0). Measured `port-coverage.mjs --name hmon_hitmon_msg_hit` 2026-09-26 @ 9d403156e. **Addressed:** D-2872
+- [x] `uhitm.c` mhitm_ad_pest — coverage MISSING (C 24 L `uhitm.c:3808–3834` / JS no symbol; hops 4, callers 1, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mhitm_ad_pest` (reach regression must be 0). Measured `port-coverage.mjs --name mhitm_ad_pest` 2026-09-26 @ 9d403156e. **Addressed:** D-2872
+- [x] `uhitm.c` hmon_hitmon_splitmon — coverage MISSING (C 27 L `uhitm.c:1604–1634` / JS no symbol; hops 5, callers 1, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn hmon_hitmon_splitmon` (reach regression must be 0). Measured `port-coverage.mjs --name hmon_hitmon_splitmon` 2026-09-26 @ 9d403156e. **Addressed:** D-2872
+
+
+- [x] `cmd.c` `extcmd_via_menu` — after a prefix, a menu cancel (`n != 1` && `matchlevel`) sets `ret = 0` and `matchlevel = 0` and leaves `cbuf` (`cmd.c:884–887`). The next header is still `Extended Command:` plus that prefix (`:870`). JS `extcmd_via_menu` (`js/getline.js:1375–1378`) also sets `cbuf = ''`. Stop clearing `cbuf` on that arm. Source: reviews/loop-unattended/1822-4913f8580-keylist-putcmds.md **Addressed:** D-2871 `1ad43f20e`
 
 
 - [x] `mkmaze.c` set_levltyp_lit — coverage MISSING (C 20 L `mkmaze.c:125–145` / JS no symbol; hops —, callers 8, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn set_levltyp_lit` (reach regression must be 0). Measured `port-coverage.mjs --name set_levltyp_lit` 2026-09-26 @ 9d403156e. **Addressed:** D-2870 `bde9dd8fa`
