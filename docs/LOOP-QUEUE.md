@@ -103,6 +103,8 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 always Must-fix rows: they forfeit every later screen of that session
 (Constitution §10.14).
 
+- [ ] `cmd.c` `extcmd_via_menu` — after a prefix, a menu cancel (`n != 1` && `matchlevel`) sets `ret = 0` and `matchlevel = 0` and leaves `cbuf` (`cmd.c:884–887`). The next header is still `Extended Command:` plus that prefix (`:870`). JS `extcmd_via_menu` (`js/getline.js:1375–1378`) also sets `cbuf = ''`. Stop clearing `cbuf` on that arm. Source: reviews/loop-unattended/1822-4913f8580-keylist-putcmds.md
+
 ## Open — coverage (breadth phase — pop first after Must-fix)
 
 Rows below are `port-coverage.mjs --rows` output (score = reach × call

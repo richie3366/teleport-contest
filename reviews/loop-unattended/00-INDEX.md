@@ -1830,3 +1830,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1818-41bf49099-fall-asleep.md](./1818-41bf49099-fall-asleep.md) | `41bf49099` | D-2859 fall_asleep | **ACCEPT** |
 | [1819-905870b38-peffect-oil.md](./1819-905870b38-peffect-oil.md) | `905870b38` | D-2860 peffect_oil | **ACCEPT** |
 | [1820-4373171cb-reset-commands.md](./1820-4373171cb-reset-commands.md) | `4373171cb` | D-2861 reset_commands | **ACCEPT** |
+| [1821-4b46eed9c-get-coord.md](./1821-4b46eed9c-get-coord.md) | `4b46eed9c` | D-2862 get_coord | **ACCEPT** |
+| [1822-4913f8580-keylist-putcmds.md](./1822-4913f8580-keylist-putcmds.md) | `4913f8580` | D-2863 keylist_putcmds | **QUALITY-RISK** |
+| [1823-8dccc7d47-init-dungeon-levels.md](./1823-8dccc7d47-init-dungeon-levels.md) | `8dccc7d47` | D-2864 init_dungeon_levels | **ACCEPT** |
+| [1824-9d403156e-mhitm-ad-deth.md](./1824-9d403156e-mhitm-ad-deth.md) | `9d403156e` | D-2865 mhitm_ad_deth | **ACCEPT** |
+| [1825-8fbf942b1-themerooms-post.md](./1825-8fbf942b1-themerooms-post.md) | `8fbf942b1` | D-2866 themerooms_post_level_generate | **ACCEPT** |
+| [1826-d039fda06-special-stock.md](./1826-d039fda06-special-stock.md) | `d039fda06` | D-2867 special_stock, shkcatch | **ACCEPT** |
+| [1827-3ff465fee-engulfer-digests.md](./1827-3ff465fee-engulfer-digests.md) | `3ff465fee` | D-2868 engulfer_digests_food | **ACCEPT** |
+| [1828-3f8d66fcb-maybe-absorb.md](./1828-3f8d66fcb-maybe-absorb.md) | `3f8d66fcb` | D-2869 maybe_absorb_item | **ACCEPT** |
+| [1829-bde9dd8fa-set-levltyp-lit.md](./1829-bde9dd8fa-set-levltyp-lit.md) | `bde9dd8fa` | D-2870 set_levltyp_lit | **ACCEPT** |

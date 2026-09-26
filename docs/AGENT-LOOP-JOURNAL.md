@@ -7,7 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
-## 2026-09-26 — D-2870 `set_levltyp_lit` sets terrain, then light, unless the caller asked to leave it
+## 2026-09-26 — audit 1821–1829 (reviews only, no port)
+
+Reviewed `4b46eed9c` through `bde9dd8fa` (D-2862…D-2870). Eight ACCEPT. One QUALITY-RISK: `extcmd_via_menu` clears `cbuf` on cancel-after-prefix (`cmd.c:884–887`; `js/getline.js:1375–1378`). That is the Must-fix head. Cadence `sessions`: 44/44, screens 11,405/11,405, RNG 792,838/792,838, speed `255+1.53/turn` (R² 0.77). Held-out unchanged (12/44, 6,111 pts, last scored 2026-09-26T07:02Z).
+**Next:** `cmd.c` `extcmd_via_menu` (Must-fix). Open — coverage stays behind it.
+
 
 **C locus:** `nethack-c/upstream/src/mkmaze.c:125–145` `set_levltyp_lit`. Callees `set_levltyp` (`mkmaze.c:77`, live `js/trap.js:865`), `isok` (`js/const.js:2302`), `impossible` (`js/display.js:8116`, `EXTRA_SANITY_CHECKS` in `config.h:637`), `IS_LAVA`, `rn2` (`js/rng.js:89`). Calls: `sp_lev.c:380` `lvlfill_solid`; `:402`, `:412`, `:415`, `:418` `lvlfill_swamp`; `:4614` `sel_set_ter`; `:5128` and `:5133` `lspo_replace_terrain`. `mkmaze.c:133` is the `impossible` format inside the function.
 **JS:** `js/trap.js` `set_levltyp_lit` `:909`, `set_levltyp` `:910`, sanity `impossible` `:914`, lava `:920`, `rn2(2)` `:921`, assign `:923`.

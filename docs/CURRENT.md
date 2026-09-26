@@ -23,10 +23,10 @@ the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-26** — full `sessions` on the working tree
-(audit **1812–1820**, commit `4373171cb`).
+(audit **1821–1829**, commit `bde9dd8fa`).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`247+1.60/turn` (R² 0.76).
+`255+1.53/turn` (R² 0.77).
 
 ## Score
 
@@ -36,20 +36,18 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `247+1.60/turn` (R² 0.76) |
+| Speed label | `255+1.53/turn` (R² 0.77) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 4, 2nd agentic; best agentic fork 35/44, RNG 98.5 %,
 screens 93.2 %. Held-out still 12/44 (6,111 / 11,265 pts, RNG 29.6 %,
-rngSteps 82.7 %, screens 54.2 %; last scored 2026-09-26T07:02Z). Versus
-the previous audit row (6,059 pts, RNG 29.2 %, screens 53.8 %): same
-12/44, points and match rates are higher.
-**Corpus fortress:** `hidden-proxy.mjs score --jobs 8` this audit is the
-private-recording board, **12/12 PASS** (RNG 75,151/75,151, screens
-653/653). `.cache/hidden/sessions` is still absent, so the **614 / 940**
-figure was not re-measured and no PASS→FAIL row was opened.
-Reviews 1225–1820: 521 ACCEPT, 21 WITH-DEBT, 1 DEBT, 48 QUALITY-RISK (audit 1812–1820: 9 ACCEPT).
+rngSteps 82.7 %, screens 54.2 %; board 2026-09-26T07:26Z, last scored
+2026-09-26T07:02Z). Same row as the previous audit.
+**Corpus fortress:** `.cache/hidden/sessions` is still absent, so the
+**614 / 940** figure was not re-measured. Each `verify --reach-all` smoke
+on this tree was 12 PASS, 0 regressed, and no PASS→FAIL row was opened.
+Reviews 1225–1829: 529 ACCEPT, 21 WITH-DEBT, 1 DEBT, 49 QUALITY-RISK (audit 1821–1829: 8 ACCEPT, 1 QUALITY-RISK).
 Live debts: 1730 `wizcustom_glyphids` empty `wizcustom_callback` site (glyphmap-blocked, map-named); 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending — review-debt, unqueued (detail in the review files).
 Audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s) + `leaderboard.mjs`.
 
@@ -100,7 +98,7 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `mkmaze.c` `set_levltyp_lit` — coverage MISSING (C 20 L `mkmaze.c:125–145` / JS no symbol; callers 8). Verify `node scripts/verify.mjs --fn set_levltyp_lit` (reach regression must be 0).
+**Next cluster:** `cmd.c` `extcmd_via_menu` — cancel-after-prefix must leave `cbuf` (`cmd.c:884–887`; JS clears it at `js/getline.js:1375–1378`). Source: reviews/loop-unattended/1822-4913f8580-keylist-putcmds.md. Verify `node scripts/verify.mjs --fn extcmd_via_menu` (reach regression must be 0).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2870 (index).**
 <!-- recent:begin -->
