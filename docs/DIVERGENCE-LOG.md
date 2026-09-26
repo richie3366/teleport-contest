@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2868 — `engulfer_digests_food` eats a swallowed drop; `dropz` gives the rest to the engulfer
+
+- **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** Dropping while swallowed left the object free. A digesting engulfer never ate a corpse, glob, or meat item, never printed "instantly digested", and never polymorphed, petrified, grew, or healed from that meal.
+- **C locus:** `nethack-c/upstream/src/do.c:849–888` `engulfer_digests_food`. Callees `digests` (`mondata.h:71`, live `js/mhitu.js:1093`), `touch_petrifies` (`mondata.h:200`, live `js/monsters.js:453`), `polyfood` (`obj.h:321`, live `js/eat.js:415`), `pline`, `Tobjnam` (`objnam.c`, live `js/objnam.js:1816`), `newcham` (`mon.c:5276`, live `js/makemon.js:1981`), `minstapetrify` (`trap.c:3857`, live `js/trap.js:3536`), `grow_up` (`makemon.c:2049`, live `js/mhitm.js:3915`), `healmon` (`mon.c:4593`, live `js/mon.js:2315`), `mcureblindness` (`muse.c:2871`, live `js/muse.js:1800`), `delobj` (`invent.c:1429`, live `js/mkobj.js:3714`). Call: `do.c:823` inside `dropz`. `do.c:14` is the static declaration.
+- **JS was:** No `engulfer_digests_food`. `dropz` (`js/do.js`) returned on `u.uswallow` and left the object free, skipping `stolen_value`, `mpickobj`, and `encumber_msg`. A file-local `Tobjnam` duplicated `objnam.js`.
+- **Fix:** One `engulfer_digests_food` in that C order. `digests(u.ustuck->data)` and a corpse, `globby` object, meatball, enormous meatball, meat ring, or meat stick enter. A corpse sets petrify (`touch_petrifies`), poly (`polyfood`), wraith growth, and nurse healing. A green-slime glob sets slime. The digested line is printed, then one effect: `newcham` to green slime with `NC_SHOW_MSG`, or `newcham(..., 0, NO_NC_FLAGS)` for polyfood; else `minstapetrify(..., TRUE)`; else `grow_up(..., NULL)`; else `healmon` of `mhpmax` and `mcureblindness(..., FALSE)`. `delobj` always runs and the function returns true. Anything else returns false. `dropz` on swallow skips the ball, charges an unpaid object, and either digests or `mpickobj`s, then `encumber_msg`. The local `Tobjnam` clone is gone; callers use the export.
+- **JS:** `js/do.js` `engulfer_digests_food` `:2444`, food test `:2447`, corpse flags `:2459`, slime `:2464`, digested line `:2468`, `newcham` `:2472`, `minstapetrify` `:2478`, `grow_up` `:2480`, `healmon` `:2482`, `mcureblindness` `:2484`, `delobj` `:2486`. Caller `dropz` `:2399`, `stolen_value` `:2404`, digest call `:2406`, `mpickobj` `:2407`, `encumber_msg` `:2410`.
+- **Callers:** `do.c:823` → `js/do.js:2406` (`dropz`, after `is_unpaid` / `stolen_value`, before `mpickobj`). `do.c:14` is the static declaration. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn engulfer_digests_food` → PASS syntax (1 changed js file: js/do.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+- **Named omissions:** None inside `engulfer_digests_food`. `dropz` still skips `Blind && Levitation` `map_object` (`do.c:838–839`).
+- **Next:** `light.c` `arti_light_radius` (next Open — coverage row). Nine Open — coverage rows remain after archive, above the floor of 8, so nothing was refilled.
+
 ## D-2867 — `special_stock` keeps Izchak's candelabrum and counts candles; `shkcatch` takes a thrown pick
 
 - **Status:** fixed (coverage THIN + same-file MISSING; `hidden-proxy verify` reports no corpus session blocked).

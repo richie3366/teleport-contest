@@ -5,8 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `shk.c` special_stock — coverage THIN (C 38 L `shk.c:3103–3144` / JS 12 L in js/shk.js; hops 5, callers 1, RNG 0, msg 5). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn special_stock` (reach regression must be 0). Measured `port-coverage.mjs --name special_stock` 2026-09-26 @ 4b46eed9c. **Addressed:** D-2867
-- [x] `shk.c` shkcatch — coverage MISSING (C 32 L `shk.c:4362–4396` / JS no symbol; hops 4, callers 1, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn shkcatch` (reach regression must be 0). Measured `port-coverage.mjs --name shkcatch` 2026-09-26 @ 9d403156e. **Addressed:** D-2867
+- [x] `do.c` engulfer_digests_food — coverage MISSING (C 39 L `do.c:849–888` / JS no symbol; hops 4, callers 1, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn engulfer_digests_food` (reach regression must be 0). Measured `port-coverage.mjs --name engulfer_digests_food` 2026-09-26 @ 4b46eed9c. **Addressed:** D-2868
+
+
+- [x] `shk.c` special_stock — coverage THIN (C 38 L `shk.c:3103–3144` / JS 12 L in js/shk.js; hops 5, callers 1, RNG 0, msg 5). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn special_stock` (reach regression must be 0). Measured `port-coverage.mjs --name special_stock` 2026-09-26 @ 4b46eed9c. **Addressed:** D-2867 `d039fda06`
+- [x] `shk.c` shkcatch — coverage MISSING (C 32 L `shk.c:4362–4396` / JS no symbol; hops 4, callers 1, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn shkcatch` (reach regression must be 0). Measured `port-coverage.mjs --name shkcatch` 2026-09-26 @ 9d403156e. **Addressed:** D-2867 `d039fda06`
 
 
 - [x] `mklev.c` themerooms_post_level_generate — coverage MISSING (C 20 L `mklev.c:1174–1194` / JS no symbol; hops 1, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn themerooms_post_level_generate` (reach regression must be 0). Measured `port-coverage.mjs --name themerooms_post_level_generate` 2026-09-26 @ 4b46eed9c. **Addressed:** D-2866 `8fbf942b1`
