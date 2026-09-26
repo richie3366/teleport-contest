@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2827 — `inv_weight` skips a boulder when the hero throws rocks
+
+- **Status:** fixed (Must-fix review 1778; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** The non-coin arm always added `owt`. A rock-thrower carrying a boulder counted that weight. `hurtle_step` (`dothrow.c:826`) and the crevice check (`trap.c:5463`) sum `inv_weight() + weight_cap()`, which cancels `wc`, so the extra boulder weight made `too_much` true when C would not wedge.
+- **C locus:** `nethack-c/upstream/src/hack.c:4351–4365` `inv_weight`. Coins add `(int)((quan + 50) / 100)`. Otherwise add `owt` only when `otyp != BOULDER || !throws_rocks(youmonst.data)` (`:4359–4360`). Then `wc = weight_cap()` and return `wt - wc`.
+- **JS was:** `js/invent.js:1117` added `owt` for every non-coin. `u_init_carry_attr_boost` (`u_init.c:932`) was a stub that did not call `inv_weight`.
+- **Fix:** Restart `inv_weight` in that C order, including the boulder short-circuit, and call it from `u_init_carry_attr_boost` (`while (inv_weight() > 0)` silent `adjattrib` STR then CON).
+- **JS:** `js/invent.js:1126` `inv_weight`. `throws_rocks` is the existing `js/monsters.js:583` export. `OTYP_BOULDER` is the existing `js/invent.js:5099` const. `gw.wc` is `game._weight_cap`.
+- **Callers:** `dokick.c:225` → `js/dokick.js:990`. `dokick.c:1432` → `js/dokick.js:1761`. `dothrow.c:826` → `js/dothrow.js:3054`. `hack.c:140` macro, used at `hack.c:162` → `js/hack.js:280` (`could_move_onto_boulder` `js/hack.js:301`). `hack.c:968` → `js/mon.js:223`. `hack.c:4374` `calc_capacity` → `js/invent.js:1145`. `hack.c:4393` `max_capacity` → `js/invent.js:1162`. `insight.c:1235` → `js/invent.js:5270`. `insight.c:1245` → `js/invent.js:5276`. `timeout.c:914` → `js/timeout.js:1042`. `trap.c:5463` → `js/trap.js:7163`. `u_init.c:932` → `js/u_init.js:1797`, called from `js/u_init.js:2028`. `do.c:1325`, `hack.c:4349`, `decl.h:1043`, and `weight.h:20`/`24` are comments, not calls. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn inv_weight` → PASS syntax (2 changed js files: js/invent.js js/u_init.js) · PASS rule2 · note hidden (no corpus session blocked at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) · VERIFY: PASS.
+- **Named omissions:** A null `youmonst.data` makes `throws_rocks` false, so a boulder is counted (C would dereference). `do.c:1324` `near_capacity()` climb gate stays omitted in `doup` (`js/do.js:3157`); the `:1325` line is a comment, not an `inv_weight` call.
+- **Next:** `mcastu.c` `mcast_insects` (first Open — coverage row). Coverage queue stays at 9, inside the 8–12 band, so no refill.
+
 ## D-2826 — `domove_fight_empty` uses the `youprop.h` `Hallucination`
 
 - **Status:** fixed (Must-fix review 1784; `hidden-proxy verify` reports no corpus session blocked).

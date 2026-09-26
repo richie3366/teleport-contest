@@ -86,8 +86,6 @@ archived or parked rows. Do not enqueue parked D-0006 or `dog_invent`.
 
 ## Must-fix (from reviews) — pop first
 
-- [ ] `hack.c` `inv_weight` — missing arm: C `hack.c:4359–4360` `otyp != BOULDER || !throws_rocks(youmonst.data)` absent from `js/invent.js:1117` (non-coin arm always adds `owt`). `hurtle_step` (`dothrow.c:826`, D-2819) sums `inv_weight()+weight_cap()`, so a rock-thrower counts boulder weight C skips. Verify `node scripts/verify.mjs --fn inv_weight`. Source: reviews/loop-unattended/1778-678f36702-weight-cap.md
-
 Written reviews are not theater. Each item is a Keep’d **C-wrong** (JS
 contradicts C, not a named omit). After shipping: stamp the cited review
 `**Addressed:** D-NNNN` (D-id only), mark the queue line `- [x]`, then

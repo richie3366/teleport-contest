@@ -336,7 +336,7 @@ import { sticks } from './engrave.js';
 import { surface } from './sit.js';
 import { visible_region_at, reg_damg } from './region.js';
 import { PM_SAMURAI, PM_MONK, PM_CLERIC, PM_ARCHEOLOGIST, monsterNames } from './generated/monsters_data.js';
-import { humanoid, strongmonst, is_flyer, mons, touch_petrifies, poly_when_stoned, hides_under, haseyes, dmgtype, hates_silver, is_male, is_female, is_neuter, vampshifted, nonliving, weirdnonliving } from './monsters.js';
+import { humanoid, strongmonst, is_flyer, mons, touch_petrifies, poly_when_stoned, hides_under, throws_rocks, haseyes, dmgtype, hates_silver, is_male, is_female, is_neuter, vampshifted, nonliving, weirdnonliving } from './monsters.js';
 import { hideunder } from './mon.js';
 import { set_artifact_intrinsic, undiscovered_artifact, discover_artifact, confers_luck, disp_artifact_discoveries } from './artifact.js';
 import { is_quest_artifact } from './quest.js';
@@ -1113,18 +1113,31 @@ export function weight_cap() {
     return Math.max(carrcap, 1); /* C: (int) max(carrcap, 1L) */
 }
 
-// C ref: hack.c inv_weight() — negative ⇒ under capacity
+/**
+ * C ref: hack.c inv_weight `:4351–4365`.
+ * Walk gi.invent (JS array is that list). Coins weigh (quan+50)/100.
+ * Any other object adds owt unless it is a boulder and the hero
+ * throws rocks (`otyp != BOULDER || !throws_rocks(youmonst.data)`).
+ * Then gw.wc = weight_cap() (stored as game._weight_cap) and return
+ * wt - wc. Negative means under capacity.
+ * A null youmonst.data makes throws_rocks false, so a boulder is counted
+ * (C would dereference).
+ */
 export function inv_weight() {
     let wt = 0;
     for (const otmp of game.invent || []) {
         if (otmp.oclass === COIN_CLASS) {
-            wt += Math.trunc(((otmp.quan || 0) + 50) / 100);
-        } else {
-            wt += otmp.owt || 0;
+            /* C: (int) (((long) quan + 50L) / 100L) — trunc toward 0. */
+            wt += Math.trunc(((otmp.quan || 0) + 50) / 100) | 0;
+        } else if ((otmp.otyp | 0) !== OTYP_BOULDER
+            || !throws_rocks(game.youmonst?.data)) {
+            wt += otmp.owt | 0;
         }
+        wt = wt | 0;
     }
-    game._weight_cap = weight_cap();
-    return wt - game._weight_cap;
+    const wc = weight_cap();
+    game._weight_cap = wc;
+    return (wt - wc) | 0;
 }
 
 // C ref: hack.c calc_capacity() / near_capacity()

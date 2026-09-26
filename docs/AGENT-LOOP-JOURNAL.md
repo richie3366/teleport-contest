@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2827 `inv_weight` skips a boulder when the hero throws rocks
+
+**C locus:** `nethack-c/upstream/src/hack.c:4351–4365` `inv_weight`. Coins add `(int)((quan + 50) / 100)`. Otherwise add `owt` only when `otyp != BOULDER || !throws_rocks(youmonst.data)` (`:4359–4360`). Then `wc = weight_cap()` and return `wt - wc`.
+**JS:** `js/invent.js:1126` `inv_weight`. `throws_rocks` is the existing `js/monsters.js:583` export. `OTYP_BOULDER` is the existing `js/invent.js:5099` const. `gw.wc` is `game._weight_cap`.
+**Change:** Restart `inv_weight` in that C order, including the boulder short-circuit, and call it from `u_init_carry_attr_boost` (`while (inv_weight() > 0)` silent `adjattrib` STR then CON).
+**Verify:** `node scripts/verify.mjs --fn inv_weight` → PASS syntax (2 changed js files: js/invent.js js/u_init.js) · PASS rule2 · note hidden (no corpus session blocked at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) · VERIFY: PASS.
+**Named:** A null `youmonst.data` makes `throws_rocks` false, so a boulder is counted (C would dereference). `do.c:1324` `near_capacity()` climb gate stays omitted in `doup` (`js/do.js:3157`); the `:1325` line is a comment, not an `inv_weight` call.
+**Next:** `mcastu.c` `mcast_insects` (first Open — coverage row). Coverage queue stays at 9, inside the 8–12 band, so no refill.
 ## 2026-09-26 — D-2826 `domove_fight_empty` uses the `youprop.h` `Hallucination`
 
 **C locus:** `nethack-c/upstream/include/youprop.h:116–120` `Hallucination` is `HHallucination && !Halluc_resistance` (`HHallucination` is `u.uprops[HALLUC].intrinsic`; resistance is `uprops[HALLUC_RES]` intrinsic or extrinsic). `hack.c:2263–2264` `domove_fight_empty` uses that macro: `glyph_is_statue(glyph) || (Hallucination && glyph_is_monster(glyph))` then `sobj_at(STATUE)`. The same macro is `hack.c:1940` `domove_bump_mon` (`mpeaceful && !Hallucination`).
