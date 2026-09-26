@@ -1848,3 +1848,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1836-59a5900cf-strstri.md](./1836-59a5900cf-strstri.md) | `59a5900cf` | D-2877 strstri | **ACCEPT** |
 | [1837-d921aef05-more-experienced.md](./1837-d921aef05-more-experienced.md) | `d921aef05` | D-2878 more_experienced | **ACCEPT** |
 | [1838-539f2fe06-do-osshock.md](./1838-539f2fe06-do-osshock.md) | `539f2fe06` | D-2879 do_osshock | **ACCEPT** |
+| [1839-a0c180a68-proc-wizkit-line.md](./1839-a0c180a68-proc-wizkit-line.md) | `a0c180a68` | D-2880 proc_wizkit_line | **ACCEPT** |
+| [1840-c9abe5dc0-get-table-int-or-random.md](./1840-c9abe5dc0-get-table-int-or-random.md) | `c9abe5dc0` | D-2881 get_table_int_or_random | **ACCEPT** |
+| [1841-b41dbfcd5-vibrating-square.md](./1841-b41dbfcd5-vibrating-square.md) | `b41dbfcd5` | D-2882 trapeffect_vibrating_square | **ACCEPT** |
+| [1842-64f8ebc04-does-block.md](./1842-64f8ebc04-does-block.md) | `64f8ebc04` | D-2883 does_block | **ACCEPT** |
+| [1843-457f75d7b-surface.md](./1843-457f75d7b-surface.md) | `457f75d7b` | D-2884 surface | **ACCEPT** |
+| [1844-703e0821e-curse.md](./1844-703e0821e-curse.md) | `703e0821e` | D-2885 curse | **ACCEPT** |
+| [1845-f2ba5333b-let-to-name.md](./1845-f2ba5333b-let-to-name.md) | `f2ba5333b` | D-2886 let_to_name | **ACCEPT** |
+| [1846-3afe3adc0-obj-pmname.md](./1846-3afe3adc0-obj-pmname.md) | `3afe3adc0` | D-2887 obj_pmname | **ACCEPT** |
+| [1847-941017b03-do-positionbar.md](./1847-941017b03-do-positionbar.md) | `941017b03` | D-2888 do_positionbar | **ACCEPT** |

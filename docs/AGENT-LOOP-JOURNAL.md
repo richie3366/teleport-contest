@@ -7,6 +7,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — audit 1839–1847 (D-2880–D-2888)
+
+Reviewed the nine `js/` commits since `539f2fe06`. Nine ACCEPT. No Must-fix. Public `sessions` on `941017b03`: 44/44, screens 11,405/11,405, RNG 792,838/792,838, speed `256+1.55/turn` (R² 0.762). Held-out still 12/44 (6,273/11,265 pts, RNG 29.7 %, screens 55.7 %). `.cache/hidden/sessions` absent, so 614/940 was not re-measured. No `js/` edits.
 ## 2026-09-26 — D-2888 `do_positionbar` writes stair and hero pairs into the static bar
 
 **C locus:** `nethack-c/upstream/src/allmain.c:933–972` `do_positionbar`. Callees: `glyph_to_cmap` (`glyphs.c:199`, live `js/display.js`), `is_cmap_stairs` (`sym.h:107`), `update_positionbar` (`winprocs.h:145` → `tty_update_positionbar` `wintty.c:4159–4167`). `getpos()` appears only in the TODO comment and is not called. No RNG. The whole function and the call at `allmain.c:187` are `#ifdef POSITIONBAR`, defined only in `pcconf.h:284`.

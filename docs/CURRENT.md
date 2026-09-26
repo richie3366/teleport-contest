@@ -23,10 +23,10 @@ the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-26** — full `sessions` on the working tree
-(audit **1830–1838**, commit `539f2fe06`).
+(audit **1839–1847**, commit `941017b03`).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`234+1.67/turn` (R² 0.788).
+`256+1.55/turn` (R² 0.762).
 
 ## Score
 
@@ -36,19 +36,18 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `234+1.67/turn` (R² 0.788) |
+| Speed label | `256+1.55/turn` (R² 0.762) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 4, 2nd agentic; best agentic fork 35/44, RNG 98.5 %,
 screens 93.2 %. Held-out still 12/44 (6,273 / 11,265 pts, RNG 29.7 %,
 rngSteps 83.8 %, screens 55.7 %; board 2026-09-26T13:32Z, last scored
-2026-09-26T13:05Z). Points and screen match rose versus the previous
-audit's 6,111 / 54.2 %. Pass count stays 12/44.
+2026-09-26T13:05Z). Held-out is unchanged from the previous audit.
 **Corpus fortress:** `.cache/hidden/sessions` is still absent, so the
 **614 / 940** figure was not re-measured. Each `verify --reach-all` smoke
 on this tree was 12 PASS, 0 regressed, and no PASS→FAIL row was opened.
-Reviews 1225–1838: 537 ACCEPT, 21 WITH-DEBT, 1 DEBT, 50 QUALITY-RISK (audit 1830–1838: 8 ACCEPT, 1 QUALITY-RISK).
+Reviews 1225–1847: 546 ACCEPT, 21 WITH-DEBT, 1 DEBT, 50 QUALITY-RISK (audit 1839–1847: 9 ACCEPT).
 Live debts: 1730 `wizcustom_glyphids` empty `wizcustom_callback` site (glyphmap-blocked, map-named); 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending — review-debt, unqueued (detail in the review files).
 Audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s) + `leaderboard.mjs`.
 
