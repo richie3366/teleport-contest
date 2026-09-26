@@ -445,8 +445,11 @@ much/brighter/less-brightly pline; read.c dragon-scale remail was_lit/
 old_light + restore wired; bless-family async (state changes precede first
 await); zap local `unbless` clone retired to the export; polyself
 uskin merge arms deferred (skinback itself live js/polyself.js:1366 — queue row retired STALE 2026-09-16); potion dip
-flag-sets bypass bless/curse (own row); COIN_CLASS/luck/bag-weight (bless,
-curse, unbless)/bimanual/uswapwep/SPBOOK arms still deferred)
+flag-sets bypass bless/curse (own row); **`curse` whole body** (D-2885;
+C `mkobj.c:1783–1819` — COIN_CLASS return, bimanual `reset_remarm`,
+`uswapwep`+`twoweap` `drop_uswapwep`, bag `weight`, carried/mcarried
+figurine timer, `book_cursed` when not already cursed; luck arm was
+D-2287); bless/unbless still omit COIN_CLASS and BAG_OF_HOLDING weight)
 
 ### `src/mon.c` `undead_to_corpse`/`can_be_hatched`/`mondead`/`corpse_chance`
 

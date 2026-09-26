@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2885 `curse` skips coins, resets a welded removal, and slams a studied book
+
+**C locus:** `nethack-c/upstream/src/mkobj.c:1783–1819` `curse`. Callees: `arti_light_radius` (`timeout.js`), `bimanual` (`obj.h:257`, `js/wield.js`), `reset_remarm` (`do_wear.c:3013`), `drop_uswapwep` (`wield.c`), `carried` / `mcarried` (`obj.h:332–333`), `confers_luck`, `set_moreluck`, `weight`, `dead_species`, `attach_fig_transform_timeout`, `book_cursed` (`spell.c:342–351`), `maybe_adjust_light`. `book_cursed` callees: `pline`, `Tobjnam`, `set_bknown`, `stop_occupation`. No RNG in `curse`. `attach_fig_transform_timeout` still rolls `rnd(9000)+200`.
+**JS:** `js/mkobj.js` `curse` `:598`, coin `:601`, flags `:606–609`, `reset_remarm` `:612`, `drop_uswapwep` `:614`, bag `:618`, figurine `:620–624`, book `:626–631`, light `:634`. `js/spell.js` `book_cursed` `:910`, slam `:919`, `set_bknown` `:920`, `stop_occupation` `:921`.
+**Change:** One `curse` in that C order. Coins return before any write. `old_light` is taken only when `lamplit`.
+**Verify:** `node scripts/verify.mjs --fn curse` → PASS syntax (2 changed js files: js/mkobj.js js/spell.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.4s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) · VERIFY: PASS.
+**Named:** `bless` and `unbless` still omit the `COIN_CLASS` return and the bag-of-holding `weight` write (`js/mkobj.js` `bless` `:641`, `unbless` `:662`). A null `otmp` returns; C is `NONNULLARG1`.
+**Next:** `invent.c` `let_to_name` (next Open — coverage row). Nine Open — coverage rows remain after archive, above the floor of 8, so nothing was refilled.
 ## 2026-09-26 — D-2884 `surface` names a swallowed animal's maw or husk
 
 **C locus:** `nethack-c/upstream/src/dungeon.c:1750–1788` `surface`. Callees: `u_at` (`you.h:562`), `is_animal` / `digests` / `enfolds` (`mondata.h:67–74`), `SURFACE_AT` (`rm.h:146`), `IS_AIR`, `Is_waterlevel`, `is_pool`, `Underwater` (`youprop.h:279`), `hliquid`, `is_ice`, `is_lava`, `On_stairs`, `IS_WALL`, `IS_DOOR`, `IS_ROOM`, `Is_earthlevel`. No RNG.

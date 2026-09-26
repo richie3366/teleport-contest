@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `mkobj.c` `curse` — coverage PARTIAL (C 36 L `mkobj.c:1783–1819` / JS 19 L in js/mkobj.js). COIN_CLASS, bimanual `reset_remarm`, `drop_uswapwep`, bag weight, and `book_cursed` are still named omissions. Verify `node scripts/verify.mjs --fn curse` (reach regression must be 0).
+**Next cluster:** `invent.c` `let_to_name` — coverage PARTIAL (C 39 L `invent.c:4800–4839` / JS 21 L in js/invent.js). Verify `node scripts/verify.mjs --fn let_to_name` (reach regression must be 0).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2884 (index).**
+**Keep D-0845…D-2885 (index).**
 <!-- recent:begin -->
+**D-2885** `nethack-c/upstream/src/mkobj.c:1783–1819` `curse`. Callees: `arti_light_radius` (`timeout — One `curse` in that C order.
 **D-2884** `nethack-c/upstream/src/dungeon.c:1750–1788` `surface`. Callees: `u_at` (`you.h:562`), `is — One `surface` in that C order.
 **D-2883** `nethack-c/upstream/src/vision.c:153–202` `does_block` and `vision.c:211–265` `vision_rese — One `does_block` in that C order: obstructed terrain, tree, closed door, then cloud / water-wall / lava-wall / (`uinwater` and `is_moat`), then the boulder chain, then `m_at` with `hero_see_invisible`, then gas returning
 **D-2882** `nethack-c/upstream/src/trap.c:2725–2764` `trapeffect_vibrating_square`. Callees: `feeltra — One `trapeffect_vibrating_square` in that C order.
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2880** `nethack-c/upstream/src/files.c:2562–2581` `proc_wizkit_line`. `readobjnam(buf)` (`objnam. — `readobjnam` keeps the caller's character buffer (`_cbuf` + cursor `_boff`).
 **D-2879** `nethack-c/upstream/src/zap.c:1637–1674` `do_osshock`. Callees: `rn2`, `rnd`, `splitobj` ( — One `do_osshock` in that C order.
 **D-2878** `nethack-c/upstream/src/exper.c:169–203` `more_experienced`. Callee: `exp_percent_changing — One `more_experienced` in that C order.
-**D-2877** `nethack-c/upstream/src/hacklib.c:739–779` `strstri`. `STRSTRI` is not defined, so this bo — One `strstri` in that C order.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2884; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2885; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

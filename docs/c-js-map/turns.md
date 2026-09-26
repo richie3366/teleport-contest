@@ -3159,7 +3159,10 @@ JS: `js/spell.js` — partial
 SPE_HEALING self-zap** (D-0135; amulet drain + energy yet/anymore D-2078); **`study_book` blank + known-refresh yn + delay/too_hard +
 begin-memorize** (D-0136); **`study_book` dull-book sleep `rnd(25)`/resume `rnd(oc_level)` + `fall_asleep`** (D-2053); **`cursed_book` `rn2(oc_level)` + `aggravate` +
 too_hard nomul/`!rn2(3)` crumble** (D-0681);
-**`set_occupation(learn)` + `learn` finish `makeknown` credit_hero** (D-0907); 
+**`set_occupation(learn)` + `learn` finish `makeknown` credit_hero** (D-0907);
+**`book_cursed`** (D-2885; C `spell.c:342–351`; slam + `set_bknown` +
+`stop_occupation` only when `occupation == learn` and `spbook.book` is
+this book; sole caller `mkobj.c` `curse`); 
 **`cursed_book` default → `rndcurse`** (D-0969; 
 lenses-speed / novel / `In_W_tower` / check_unpaid /
 shieldeff still deferred); **`confused_book` `rn2(3)` tear / Book of the Dead skip / reread line** (D-2849; C `:189–207`; callers `learn` `:369` and `study_book` `:621`; `display_nhwindow(WIN_MESSAGE,FALSE)` is `flush_topl_more`; destruction is invent.c `useup`); **`deadbook` + `deadbook_pacify_undead`** (D-2557;
