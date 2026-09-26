@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2887 — `obj_pmname` uses the corpse gender and avoids "aligned cleric"
+
+- **Status:** fixed (coverage THIN; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** The same-named `obj_pmname` treated gender bit 1 as male and bit 2 as female, skipped the aligned-cleric remap, and returned "thing" with no `impossible`. A second copy in `objnam.js` had the remap but inlined `pmnames` and still returned "thing".
+- **C locus:** `nethack-c/upstream/src/do_name.c:1321–1359` `obj_pmname`. Callees: `ismnum` (`monst.h:285`), `pmname` (`do_name.c:1302`), `impossible` (`pline.c`). The `#if 0` `has_omonst` / `OMONST` / `Mgender` arm (`:1323–1334`) is compiled out. No RNG.
+- **JS was:** `js/trap.js` `obj_pmname` masked `spe` with `0x03` and mapped 1→`MALE`, 2→`FEMALE`. `js/objnam.js` `obj_pmname_corpse` had the C gender test and the `PM_ALIGNED_CLERIC` remap, then read `pmnames` itself and returned "thing". `selftouch` and the stethoscope statue arm called the trap copy. Drop, glove removal, statue/figurine `xname`, and `corpse_xname` called the clone.
+- **Fix:** One `obj_pmname` in that C order. `CORPSE` / `STATUE` / `FIGURINE` and `LOW_PM <= corpsenm < NUMMONS`. `spe & CORPSTAT_GENDER` selects `MALE`, `FEMALE`, or `NEUTRAL`. `PM_ALIGNED_CLERIC` with `CORPSTAT_RANDOM` becomes `PM_CLERIC`. The name is `pmname(mndx, mgend)`. Otherwise `impossible("obj_pmname otyp:%d,corpsenm:%d")` and `"two-legged glorkum-seeker"`. A missing `corpsenm` is `NON_PM`, not monster 0. `objnam.js` keeps a one-line late bind (`set_obj_pmname`) because a static import of `do_name.js` reorders the cycle onto `shk.js` and TDZ-faults `_shk_owns_prefix` (D-2491). `impossible` is not awaited: the string callers are synchronous. The formatter takes `%d`; C's `%i` is the same integer.
+- **JS:** `js/do_name.js` `obj_pmname` `:658`, gender `:666`, cleric `:673`, `impossible` `:678`, `set_obj_pmname` `:682`. `js/objnam.js` setter `:1203`, forwarder `:1208`, statue `:679`, figurine `:903`, `corpse_xname` `:1249`. `js/apply.js` `:443`. `js/do.js` `:2537`. `js/do_wear.js` `:2003`. `js/trap.js` `selftouch` `:3529` and `:3537`.
+- **Callers:** `apply.c:291` → `js/apply.js:443`. `do.c:958` → `js/do.js:2537`. `do_wear.c:3006` → `js/do_wear.js:2003`. `objnam.c:711` → `js/objnam.js:903`. `objnam.c:803` → `js/objnam.js:679`. `objnam.c:1853` → `js/objnam.js:1249`. `trap.c:3890` → `js/trap.js:3529`. `trap.c:3902` → `js/trap.js:3537`. `extern.h:736` is the declaration. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn obj_pmname` → PASS syntax (6 changed js files: js/apply.js js/do.js js/do_name.js js/do_wear.js js/objnam.js js/trap.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.4s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+- **Named omissions:** The `#if 0` saved-montraits arm stays compiled out. `impossible` is not awaited, and the format verb is `%d`. `const.js` `ismnum` still omits `< NUMMONS`; this site uses the macro. A missing `corpsenm` is `NON_PM`. `mselftouch` (`trap.c:3913`) calls `corpse_xname`, and `js/trap.js:1196` still inlines `pmname` with `NEUTRAL`.
+- **Next:** `allmain.c` `do_positionbar` (next Open — coverage row). Eight Open — coverage rows remain after archive, at the floor of 8, so nothing was refilled.
+
 ## D-2886 — `let_to_name` keeps the class heading in `gi.invbuf`
 
 - **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked).

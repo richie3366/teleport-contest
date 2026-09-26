@@ -60,7 +60,6 @@ import {
 } from './const.js';
 import { currency } from './invent.js';
 
-const PM_ALIGNED_CLERIC = monsterNames.indexOf('PM_ALIGNED_CLERIC');
 const BOULDER = objectNames.indexOf('BOULDER');
 const POT_OIL = objectNames.indexOf('POT_OIL');
 const POT_WATER = objectNames.indexOf('POT_WATER');
@@ -1196,30 +1195,18 @@ function mungspaces_objnam(s) {
 }
 
 /**
- * C ref: do_name.c obj_pmname — CORPSE/STATUE/FIGURINE pmnames + gender.
- * Aligned-cleric + CORPSTAT_RANDOM remaps to PM_CLERIC (avoid "aligned").
- * Named omit: omonst traits (#if 0 in C).
+ * Late-bound `do_name.js` `obj_pmname`. This file cannot import do_name.js:
+ * do_name already imports `xname`, and a static back-edge TDZ-faults
+ * `let _shk_owns_prefix` (D-2491). The body lives only in do_name.js.
  */
+let _obj_pmname = null;
+export function set_obj_pmname(fn) {
+    _obj_pmname = fn;
+}
+
+/** @param {object} obj @returns {string} */
 export function obj_pmname_corpse(obj) {
-    const otypName = objectNames[obj?.otyp];
-    const omndx = obj?.corpsenm;
-    if ((otypName === 'CORPSE' || otypName === 'STATUE' || otypName === 'FIGURINE')
-        && ismnum(omndx)) {
-        const cgend = (obj.spe | 0) & CORPSTAT_GENDER;
-        const mgend = cgend === CORPSTAT_MALE ? MALE
-            : cgend === CORPSTAT_FEMALE ? FEMALE
-                : NEUTRAL;
-        let mndx = omndx;
-        if (mndx === PM_ALIGNED_CLERIC && cgend === CORPSTAT_RANDOM) {
-            mndx = PM_CLERIC;
-        }
-        const names = pmnames[mndx];
-        if (!names) return 'thing';
-        let g = mgend;
-        if (g < MALE || g >= 3 || !names[g]) g = NEUTRAL;
-        return names[g] || names[NEUTRAL] || names[MALE] || names[FEMALE] || 'thing';
-    }
-    return 'thing';
+    return _obj_pmname(obj);
 }
 
 /**
@@ -1257,9 +1244,8 @@ export function corpse_xname(obj, adjective, cxn_flags) {
         // null/negative guard is JS null-safety for unset corpsenm.
         mnam = 'thing';
     } else {
-        // C :1847: mnam = obj_pmname(otmp) — do_name.c valid arm
-        // (gender-aware pmname + aligned-cleric remap); the impossible/
-        // glorkum-seeker fallback is map-named (unreachable for CORPSE).
+        // C :1847: mnam = obj_pmname(otmp) — do_name.js obj_pmname
+        // (late-bound; the impossible / glorkum-seeker arm is in that body).
         mnam = obj_pmname_corpse(obj);
         const ptr = mons(omndx);
         // C :1848: unique or pname → s_suffix possessive

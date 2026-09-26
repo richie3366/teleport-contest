@@ -39,7 +39,7 @@ import { doname, an, the, The, xname, yname, cxname, makeplural, vtense, otense,
 import {
     Amonnam, Monnam, mon_nam, x_monnam, y_monnam, noit_Monnam, pmname,
     christen_monst, rndmonnam, hliquid, rndcolor, mon_pmname, YMonnam,
-    s_suffix,
+    s_suffix, obj_pmname,
 } from './do_name.js';
 import { dist2, distmin, m_at, wakeup, seemimic, m_carrying, bad_rock, setmangry } from './mon.js';
 import { cansee, couldsee, m_cansee, recalc_block_point, unblock_point, vision_recalc } from './vision.js';
@@ -53,7 +53,7 @@ import {
     is_animal, mindless, haseyes,
     bigmonst, is_golem,
     nohands, nolimbs, extra_nasty, strongmonst, acidic, poly_when_stoned, touch_petrifies,
-    resists_ston, MALE, FEMALE, NEUTRAL, nonliving, is_vampshifter,
+    resists_ston, NEUTRAL, nonliving, is_vampshifter,
     hides_under, metallivorous, is_neuter,
 } from './monsters.js';
 import {
@@ -3482,25 +3482,6 @@ export async function instapetrify(str) {
     game.killer.format = KILLED_BY;
     game.killer.name = str != null ? String(str) : '';
     await done(STONING);
-}
-
-/**
- * C ref: do_name.c obj_pmname — CORPSE/STATUE/FIGURINE pmnames subset.
- * Named omission: aligned-cleric → cleric remap; omonst traits.
- */
-export function obj_pmname(obj) {
-    const CORPSE = objectNames.indexOf('CORPSE');
-    const STATUE = objectNames.indexOf('STATUE');
-    const FIGURINE = objectNames.indexOf('FIGURINE');
-    const otyp = obj?.otyp | 0;
-    const cnm = obj?.corpsenm;
-    if ((otyp === CORPSE || otyp === STATUE || otyp === FIGURINE)
-        && cnm != null && cnm >= 0) {
-        const cgend = (obj.spe | 0) & 0x03; // CORPSTAT_GENDER
-        const mgend = cgend === 1 ? MALE : cgend === 2 ? FEMALE : NEUTRAL;
-        return pmname(cnm, mgend);
-    }
-    return 'thing';
 }
 
 /**

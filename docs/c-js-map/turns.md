@@ -1189,7 +1189,7 @@ quan!=1 makeplural** (objnam.c:2432; doquiver_core/dowield plural nouns; D-2044)
 **BALL `very ` when `owt>oc_weight` + doname `(chained|attached to you)`** (D-0928 #1141) + 
 **`simpleonames`/`ansimpleoname` bare BALL never `very `** (≡C `minimal_xname` zeroobj owt; 
 D-0928 #1149) + **`doname` FOOD `oeaten`→`partly eaten ` + `greased ` prefix** (D-0928 #1150) + 
-**doname CORPSE `corpse_xname` CXN_ARTICLE|CXN_NOCORPSE + glob size/xname (D-1255)** + **`corpse_xname` whole body C-order (D-2491)**: live `an`/`the_unique_pm`; `s_suffix`/`type_is_pname`/`mungspaces` via identical file-local copies (static do_name/getline edge TDZ-faults `let _shk_owns_prefix` via shk.js:832 — reverted); nextobuf/PREFIX/eos/Sprintf/releaseobuf by-design strings; digit ASCII; `obj_pmname` impossible/glorkum fallback named; `food_xname` wired (eat.js); dothrow-bare-hand/eatcorpse-tainted/wield-cant_wield/zap-revive-unturn/trap-selftouch arms named + 
+**doname CORPSE `corpse_xname` CXN_ARTICLE|CXN_NOCORPSE + glob size/xname (D-1255)** + **`corpse_xname` whole body C-order (D-2491)**: live `an`/`the_unique_pm`; `s_suffix`/`type_is_pname`/`mungspaces` via identical file-local copies (static do_name/getline edge TDZ-faults `let _shk_owns_prefix` via shk.js:832 — reverted); nextobuf/PREFIX/eos/Sprintf/releaseobuf by-design strings; digit ASCII; `obj_pmname` is the D-2887 `do_name.js` body (late-bound here); `food_xname` wired (eat.js); dothrow-bare-hand/eatcorpse-tainted/wield-cant_wield/zap-revive-unturn/trap-selftouch arms named + 
 **doname EGG** `ismnum`+`(known||MV_KNOWS_EGG)` `pmnames[NEUTRAL]` + 
 `spe==1` `(laid by you)` (D-1276) + **doname MEAT_RING** FOOD `goto ring` worn/+spe (D-1295); 
 **wizterrainwish** furniture/liquid/ice/tree/bars/cloud/floor then `switch_terrain` (D-1279); 
@@ -1514,6 +1514,20 @@ with `0x` hex + symbolic table ends; grid is `game._level_monsters`;
 wired `m_detach` already-detached FALSE + `place_monster` bounds TRUE +
 overlap FALSE/TRUE with C's flags, `place_mon_nam` clone deleted;
 named: wiz `migr` list caller, `mongone` FALSE-caller body D-1149).
+**`obj_pmname` D-2887** (C `do_name.c` `:1321–1359` in C order: CORPSE/STATUE/FIGURINE
+and `ismnum` as `LOW_PM <= corpsenm < NUMMONS`, then `spe & CORPSTAT_GENDER`
+→ MALE/FEMALE/else NEUTRAL, aligned-cleric + `CORPSTAT_RANDOM` → `PM_CLERIC`,
+`pmname`, else `impossible` + `"two-legged glorkum-seeker"`; `#if 0`
+`has_omonst` arm compiled out). Live `js/do_name.js`. Callers:
+`apply.c:291` → `js/apply.js:443`; `do.c:958` → `js/do.js:2537`;
+`do_wear.c:3006` → `js/do_wear.js:2003`; `objnam.c:711` → `js/objnam.js:903`;
+`objnam.c:803` → `js/objnam.js:679`; `objnam.c:1853` → `js/objnam.js:1249`
+(those three via late-bound `obj_pmname_corpse` — a static `objnam`→`do_name`
+edge TDZ-faults `shk`, D-2491); `trap.c:3890` → `js/trap.js:3529`;
+`trap.c:3902` → `js/trap.js:3537`. The trap.js gender-swapped subset and the
+objnam inline clone are gone. `impossible` is not awaited (`%d` not `%i`).
+`mselftouch` still inlines neutral `pmname` (C calls `corpse_xname`, not
+`obj_pmname`).
 
 ### `src/dokick.c`
 
