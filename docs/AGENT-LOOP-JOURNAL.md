@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2890 `plsel_startmenu` names the role without the prolog slash
+
+**C locus:** `nethack-c/upstream/src/role.c:2806–2845` `plsel_startmenu`. Callees: `rigid_role_checks` (`role.c:1235`, live `js/player_selection.js:649`), `maybe_skip_seps` (`role.c:2773`, live `:1234`), `add_menu_str` (`windows.c:1831`). `create_nhwindow` / `start_menu` / `panic` are the window prologue. No RNG.
+**JS:** `js/player_selection.js` `plsel_startmenu` `:924`, header `:951`, full-name arm `:960`, blank `:969`. `chargen_aspect_menu` `:1265`. Confirm `:1669`.
+**Change:** One `plsel_startmenu` in that C order. `rigid_role_checks` runs first. The role name is `<role>` when `ROLE < 0`, the female name when `GEND == 1` and `name.f` is set, otherwise `name.m`.
+**Verify:** `node scripts/verify.mjs --fn plsel_startmenu` → PASS syntax (1 changed js file: js/player_selection.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: PASS.
+**Named:** `create_nhwindow(NHW_MENU)`, the `WIN_ERR` panic, and `start_menu(MENU_BEHAVE_STANDARD)` have no winid in the corner menu; the returned lines are that window. `add_menu_str` (`windows.c:1831–1838`) is those two text lines here.
+**Next:** `cmd.c` `there_cmd_menu_self` (next Open — coverage row). Eight Open — coverage rows remain after archive, at the floor of 8, so nothing was refilled.
 ## 2026-09-26 — D-2889 `flip_visuals` flips seen octants; `mapfrag_fromstr` counts stripped rows
 
 **C locus:** `nethack-c/upstream/src/sp_lev.c:458–495` `flip_visuals`. Callees: `swapbits` (`hacklib.c:830`, live `js/hacklib.js:28`), `back_to_glyph` (`display.c:2286`, live `js/display.js:3381`), `glyph_is_cmap` (`display.h:723`), `IS_WALL` (`rm.h:117`). No RNG. Same file: `mapfrag_fromstr` (`sp_lev.c:226–253`). Callees: `alloc` (object), `dupstr` (`hacklib.c`, live `js/dungeon.js:262`), `stripdigits` (`hacklib.c:521–530`), `str_lines_maxlen` (`hacklib.c:252–272`). `mapfrag_get` (`:265–271`) is the reader. No RNG.

@@ -5,8 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `sp_lev.c` flip_visuals — coverage MISSING (C 37 L `sp_lev.c:458–495` / JS no symbol; hops 5, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn flip_visuals` (reach regression must be 0). Measured `port-coverage.mjs --name flip_visuals` 2026-09-26 @ 64f8ebc04. **Addressed:** D-2889
-- [x] `sp_lev.c` mapfrag_fromstr — coverage THIN (C 26 L `sp_lev.c:227–253` / JS 8 L in js/mklev.js; hops —, callers 3, RNG 0, msg 0; dead callees: stripdigits, str_lines_maxlen). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mapfrag_fromstr` (reach regression must be 0). Measured `port-coverage.mjs --name mapfrag_fromstr` 2026-09-26 @ 64f8ebc04. **Addressed:** D-2889
+- [x] `role.c` plsel_startmenu — coverage MISSING (C 39 L `role.c:2806–2845` / JS no symbol; hops —, callers 6, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn plsel_startmenu` (reach regression must be 0). Measured `port-coverage.mjs --name plsel_startmenu` 2026-09-26 @ 64f8ebc04. **Addressed:** D-2890
+
+
+- [x] `sp_lev.c` flip_visuals — coverage MISSING (C 37 L `sp_lev.c:458–495` / JS no symbol; hops 5, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn flip_visuals` (reach regression must be 0). Measured `port-coverage.mjs --name flip_visuals` 2026-09-26 @ 64f8ebc04. **Addressed:** D-2889 `ef40ca579`
+- [x] `sp_lev.c` mapfrag_fromstr — coverage THIN (C 26 L `sp_lev.c:227–253` / JS 8 L in js/mklev.js; hops —, callers 3, RNG 0, msg 0; dead callees: stripdigits, str_lines_maxlen). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mapfrag_fromstr` (reach regression must be 0). Measured `port-coverage.mjs --name mapfrag_fromstr` 2026-09-26 @ 64f8ebc04. **Addressed:** D-2889 `ef40ca579`
 
 
 - [x] `allmain.c` do_positionbar — coverage MISSING (C 39 L `allmain.c:933–972` / JS no symbol; hops 2, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn do_positionbar` (reach regression must be 0). Measured `port-coverage.mjs --name do_positionbar` 2026-09-26 @ 64f8ebc04. **Addressed:** D-2888 `941017b03`

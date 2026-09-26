@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2890 — `plsel_startmenu` names the role without the prolog slash
+
+- **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** No `plsel_startmenu` symbol. The chargen header used the prolog slash form (`Caveman/Cavewoman`) whenever gender was unset, and it did not cap fields at 20 bytes.
+- **C locus:** `nethack-c/upstream/src/role.c:2806–2845` `plsel_startmenu`. Callees: `rigid_role_checks` (`role.c:1235`, live `js/player_selection.js:649`), `maybe_skip_seps` (`role.c:2773`, live `:1234`), `add_menu_str` (`windows.c:1831`). `create_nhwindow` / `start_menu` / `panic` are the window prologue. No RNG.
+- **JS was:** `aspect_header` called `role_display_name`, which appended `/` plus the female name when `GEND < 0`. `chargen_aspect_menu` and the confirm loop each inlined `rigid_role_checks` plus that header.
+- **Fix:** One `plsel_startmenu` in that C order. `rigid_role_checks` runs first. The role name is `<role>` when `ROLE < 0`, the female name when `GEND == 1` and `name.f` is set, otherwise `name.m`. An empty `plname` (first byte NUL) or any unset facet uses `"<role> <race> <gender> <alignment>"`; otherwise `"<name> the <alignment> <gender> <race> <role>"`. Each field is sliced to 20 characters (`%.20s`). The blank line is omitted only when `maybe_skip_seps` returns 2. `chargen_aspect_menu` and the confirm menu take those lines and do not call `rigid_role_checks` again. The role arm still counts excess before the call.
+- **JS:** `js/player_selection.js` `plsel_startmenu` `:924`, header `:951`, full-name arm `:960`, blank `:969`. `chargen_aspect_menu` `:1265`. Confirm `:1669`.
+- **Callers:** `role.c:2191` is the declaration. `role.c:2310` → `js/player_selection.js:1388` (`chargen_aspect_menu` → `:1265`). `role.c:2404` → `:1457`. `role.c:2492` → `:1534`. `role.c:2580` → `:1612`. `role.c:2655` → `:1669`. `role.c:2787` is a comment in `maybe_skip_seps`, not a call. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn plsel_startmenu` → PASS syntax (1 changed js file: js/player_selection.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: PASS.
+- **Named omissions:** `create_nhwindow(NHW_MENU)`, the `WIN_ERR` panic, and `start_menu(MENU_BEHAVE_STANDARD)` have no winid in the corner menu; the returned lines are that window. `add_menu_str` (`windows.c:1831–1838`) is those two text lines here. Its other C callers (options, cmd, invent, pickup, and the rest) still build their own lines. The `#else` `genl_player_setup` stub (`role.c:3016`) is compiled out.
+- **Next:** `cmd.c` `there_cmd_menu_self` (next Open — coverage row). Eight Open — coverage rows remain after archive, at the floor of 8, so nothing was refilled.
+
 ## D-2889 — `flip_visuals` flips seen octants; `mapfrag_fromstr` counts stripped rows
 
 - **Status:** fixed (coverage MISSING + same-file THIN; `hidden-proxy verify` reports no corpus session blocked).
