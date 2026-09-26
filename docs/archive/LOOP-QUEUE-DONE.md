@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `calendar.c` time_from_yyyymmddhhmmss — coverage THIN (C 55 L `calendar.c:120–175` / JS 6 L in js/calendar.js; hops —, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn time_from_yyyymmddhhmmss` (reach regression must be 0). Measured `port-coverage.mjs --name time_from_yyyymmddhhmmss` 2026-09-26 @ 64f8ebc04. **Addressed:** D-2893
+- [x] `uhitm.c` mhitm_ad_conf — coverage THIN (C 34 L `uhitm.c:3690–3726` / JS 11 L in js/mhitm.js; hops 4, callers 1, RNG 2, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mhitm_ad_conf` (reach regression must be 0). Measured `port-coverage.mjs --name mhitm_ad_conf` 2026-09-26 @ 3afe3adc0. **Addressed:** D-2894
+
+
+- [x] `calendar.c` time_from_yyyymmddhhmmss — coverage THIN (C 55 L `calendar.c:120–175` / JS 6 L in js/calendar.js; hops —, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn time_from_yyyymmddhhmmss` (reach regression must be 0). Measured `port-coverage.mjs --name time_from_yyyymmddhhmmss` 2026-09-26 @ 64f8ebc04. **Addressed:** D-2893 `008e05138`
 
 
 - [x] `hacklib.c` unicodeval_to_utf8str — coverage MISSING (C 37 L `hacklib.c:882–919` / JS no symbol; hops —, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn unicodeval_to_utf8str` (reach regression must be 0). Measured `port-coverage.mjs --name unicodeval_to_utf8str` 2026-09-26 @ 64f8ebc04. **Addressed:** D-2892 `e24078a71`

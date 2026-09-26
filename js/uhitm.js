@@ -55,7 +55,7 @@ import { near_capacity, useup, useupall, hold_another_object, Blind, observe_obj
 import { PM_BARBARIAN, PM_MONK, PM_KNIGHT, PM_SAMURAI, PM_ARCHEOLOGIST, PM_WIZARD, PM_HUMAN, PM_HEALER, PM_ROGUE, PM_ELF } from './generated/monsters_data.js';
 import {
     find_mac, get_mattk, make_corpse, monstone, mhitm_knockback, monkilled, mondead,
-    troll_baned, mhitm_ad_poly, mhitm_ad_slee, mhitm_ad_heal, mhitm_ad_blnd, mhitm_ad_ston, mhitm_ad_elec, mhitm_ad_sedu, mhitm_ad_tlpt, mhitm_ad_rust, mhitm_ad_fire, mhitm_ad_dren, could_seduce, failed_grab, shade_miss,
+    troll_baned, mhitm_ad_poly, mhitm_ad_slee, mhitm_ad_heal, mhitm_ad_blnd, mhitm_ad_ston, mhitm_ad_elec, mhitm_ad_sedu, mhitm_ad_tlpt, mhitm_ad_rust, mhitm_ad_fire, mhitm_ad_dren, mhitm_ad_conf, could_seduce, failed_grab, shade_miss,
     shade_aware, paralyze_monst,
     mhitm_mgc_atk_negated, mhitm_ad_drst, mhitm_ad_deth, mhitm_ad_dise, mhitm_ad_pest, mhitm_ad_stck, erode_armor, golemeffects_mm,
     attk_protection,
@@ -63,6 +63,7 @@ import {
     AT_TUCH, AT_BITE, AT_BUTT, AT_STNG, AT_MAGC, AT_TENT,
     AT_EXPL, AT_ENGL, AT_BREA, AT_GAZE, AD_PHYS, AD_POLY, AD_DRIN, AD_SLEE,
     AD_DRST, AD_DRDX, AD_DRCO, AD_SAMU, AD_DRLI, AD_SITM, AD_SEDU, AD_SSEX,
+    AD_CONF,
 } from './mhitm.js';
 import { resists_drli, resists_cold, resists_poison, destroy_items, resist } from './zap.js';
 import {
@@ -2906,6 +2907,12 @@ async function damageum_adtyping(mattk, mdef, mhm) {
            when adjacent and the defender form does not already stick.
            Barbed devil adds Your barbs line. Leftover d() stands. */
         await mhitm_ad_stck(game.youmonst, mattk, mdef, mhm);
+    } else if (adtyp === AD_CONF) {
+        /* C ref: uhitm.c mhitm_adtyping `:4820` → mhitm_ad_conf `:3696–3702`
+           uhitm (hero as attacker) arm: !mconf → canseemon "%s looks
+           confused." and mconf=1. Leftover d() stays. mhitu arm is
+           mhitm_ad_conf_u. */
+        await mhitm_ad_conf(game.youmonst, mattk, mdef, mhm);
     }
 }
 

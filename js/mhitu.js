@@ -90,7 +90,7 @@ import {
 } from './invent.js';
 import { burn_away_slime } from './timeout.js';
 import {
-    get_mattk, mhitm_knockback, mhitm_mgc_atk_negated, mhitm_ad_drst, mhitm_ad_dren, mhitm_ad_deth, mhitm_ad_dise, mhitm_ad_pest, mhitm_ad_stck, mattackm, rustm,
+    get_mattk, mhitm_knockback, mhitm_mgc_atk_negated, mhitm_ad_drst, mhitm_ad_dren, mhitm_ad_deth, mhitm_ad_dise, mhitm_ad_pest, mhitm_ad_stck, mhitm_ad_conf, mattackm, rustm,
     could_seduce, failed_grab, SYSOPT_SEDUCE, mon_poly, mondead, erode_armor,
     golemeffects_mm,
     AT_NONE, AT_CLAW, AT_KICK, AT_BITE, AT_STNG, AT_TUCH, AT_BUTT, AT_WEAP,
@@ -2856,23 +2856,11 @@ async function mhitm_ad_acid_u(mtmp, mattk, mhm) {
 
 
 /**
- * C ref: uhitm.c mhitm_ad_conf `:3690–3726` — mhitu (monster→you) arm.
- * hitmsg always; `!mcan && !rn2(4) && !mspec_used` → mspec_used +=
- * leftover damage + rn2(6), Confusion (youprop.h:84 ≡ HConfusion)
- * picks the pline, make_confused(HConfusion + leftover, FALSE);
- * damage always zero after. The uhitm/mhitm arms stay named.
+ * C ref: uhitm.c mhitm_adtyping `:4820` → mhitm_ad_conf mhitu arm
+ * (`:3703–3712`). The body lives in `mhitm_ad_conf` (mdef = youmonst).
  */
 async function mhitm_ad_conf_u(mtmp, mattk, mhm) {
-    await hitmsg(mtmp, mattk);
-    if (!(mtmp.mcan | 0) && !rn2(4) && !(mtmp.mspec_used | 0)) {
-        const dmg = mhm.damage | 0;
-        mtmp.mspec_used = (mtmp.mspec_used | 0) + (dmg + rn2(6));
-        const u = game.u || {};
-        if ((u.HConfusion | 0)) await pline('You are getting even more confused.');
-        else await pline('You are getting confused.');
-        await make_confused((u.HConfusion | 0) + dmg, false);
-    }
-    mhm.damage = 0;
+    await mhitm_ad_conf(mtmp, mattk, game.youmonst, mhm);
 }
 
 /**

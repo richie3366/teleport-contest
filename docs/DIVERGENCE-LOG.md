@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2894 — `mhitm_ad_conf` confuses in all three attacker roles
+
+- **Status:** fixed (coverage THIN; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** The same-named function only ran the monster-vs-monster arm. A hero form with AD_CONF never printed "looks confused" or set `mconf`. The monster-vs-you arm was a second body in `mhitm_ad_conf_u`, and `damageum_adtyping` had no AD_CONF row, so the leftover `d()` still landed as hit points with no confusion.
+- **C locus:** `nethack-c/upstream/src/uhitm.c:3690–3726` `mhitm_ad_conf`. uhitm (`:3696–3702`): `!mconf` then `canseemon` `pline` and `mconf = 1`; leftover damage stays. mhitu (`:3703–3712`): `hitmsg`; `!mcan && !rn2(4) && !mspec_used` adds `damage + rn2(6)` to `mspec_used`, `Confusion` (`HConfusion`) picks the `You` line, `make_confused(HConfusion + damage, FALSE)`; damage is 0 either way. mhitm (`:3713–3724`): `!mcan && !mconf && !mspec_used`, `vis && canseemon` `pline_mon`, `mconf = 1`, clear `STRAT_WAITFORU`; `mspec_used` is checked and not set; leftover damage stays. No other RNG.
+- **JS was:** A local mhitm-only function (`js/mhitm.js`). The mhitu arm was a clone (`mhitm_ad_conf_u`). `damageum_adtyping` did not call it.
+- **Fix:** One `mhitm_ad_conf` in that C order. The hero-attacker arm is first, then the hero-defender arm (same `hitmsg` / `rn2(4)` / `rn2(6)` / `make_confused` sequence the clone had), then the monster arm. `mhitm_ad_conf_u` calls that body with `mdef` = `youmonst`. `damageum_adtyping` calls it with `magr` = `youmonst`.
+- **JS:** `js/mhitm.js` `mhitm_ad_conf` `:1040`, uhitm arm `:1041`, mhitu arm `:1051`, `rn2(4)` gate `:1054`, `rn2(6)` `:1056`, `make_confused` `:1060`, damage 0 `:1062`, mhitm arm `:1066`.
+- **Callers:** `uhitm.c:4820` `mhitm_adtyping` case AD_CONF. Hero attacker: `damageum` → `js/uhitm.js:2915`. Hero defender: `js/mhitu.js:3062` `mhitm_ad_conf_u` → `:2863`. Monster vs monster: `js/mhitm.js:4875`. `extern.h:3421` is the declaration. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn mhitm_ad_conf` → PASS syntax (3 changed js files: js/mhitm.js js/mhitu.js js/uhitm.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.4s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: PASS.
+- **Named omissions:** `gazemu`'s AD_CONF case (`js/mhitu.js:3694`) is the hero-gaze attack, not a caller of `mhitm_ad_conf`.
+- **Next:** `monmove.c` `disturb` (next Open — coverage row). Ten Open — coverage rows remain after archive (`update_inventory` parked Stale: body already live at `js/invent.js:4745`, ratio 0.36). Above the floor of 8, so nothing was refilled. The queue-empty overlay did not match the live queue.
+
 ## D-2893 — `time_from_yyyymmddhhmmss` turns a civil stamp into the recorder's EDT epoch
 
 - **Status:** fixed (coverage THIN; `hidden-proxy verify` reports no corpus session blocked).

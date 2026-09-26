@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2894 `mhitm_ad_conf` confuses in all three attacker roles
+
+**C locus:** `nethack-c/upstream/src/uhitm.c:3690–3726` `mhitm_ad_conf`. uhitm (`:3696–3702`): `!mconf` then `canseemon` `pline` and `mconf = 1`; leftover damage stays. mhitu (`:3703–3712`): `hitmsg`; `!mcan && !rn2(4) && !mspec_used` adds `damage + rn2(6)` to `mspec_used`, `Confusion` (`HConfusion`) picks the `You` line, `make_confused(HConfusion + damage, FALSE)`; damage is 0 either way. mhitm (`:3713–3724`): `!mcan && !mconf && !mspec_used`, `vis && canseemon` `pline_mon`, `mconf = 1`, clear `STRAT_WAITFORU`; `mspec_used` is checked and not set; leftover damage stays. No other RNG.
+**JS:** `js/mhitm.js` `mhitm_ad_conf` `:1040`, uhitm arm `:1041`, mhitu arm `:1051`, `rn2(4)` gate `:1054`, `rn2(6)` `:1056`, `make_confused` `:1060`, damage 0 `:1062`, mhitm arm `:1066`.
+**Change:** One `mhitm_ad_conf` in that C order. The hero-attacker arm is first, then the hero-defender arm (same `hitmsg` / `rn2(4)` / `rn2(6)` / `make_confused` sequence the clone had), then the monster arm. `mhitm_ad_conf_u` calls that body with `mdef` = `youmonst`.
+**Verify:** `node scripts/verify.mjs --fn mhitm_ad_conf` → PASS syntax (3 changed js files: js/mhitm.js js/mhitu.js js/uhitm.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.4s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: PASS.
+**Named:** `gazemu`'s AD_CONF case (`js/mhitu.js:3694`) is the hero-gaze attack, not a caller of `mhitm_ad_conf`.
+**Next:** `monmove.c` `disturb` (next Open — coverage row). Ten Open — coverage rows remain after archive (`update_inventory` parked Stale: body already live at `js/invent.js:4745`, ratio 0.36). Above the floor of 8, so nothing was refilled. The queue-empty overlay did not match the live queue.
 ## 2026-09-26 — D-2893 `time_from_yyyymmddhhmmss` turns a civil stamp into the recorder's EDT epoch
 
 **C locus:** `nethack-c/upstream/src/calendar.c:120–175` `time_from_yyyymmddhhmmss`, plus contest patch 001 which replaces `getlt()` with `time()` + `localtime()` so `getnow` does not recurse. Fields are copied 4/2/2/2/2/2 and parsed with `atoi`. `mktime` sees the copied `tm_isdst`. A result of `(time_t) -1` falls through to 0 (`#if 0` `debugpline1`). No RNG.

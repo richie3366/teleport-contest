@@ -149,7 +149,7 @@ import { mswings_verb, Conflict, unstuck, set_ustuck, digests, hitmsg, diseasemu
 import { sticks } from './engrave.js';
 import { mon_offmap, set_apparxy, mb_trapped, itsstuck } from './monmove.js';
 import { hurtle, mhurtle, will_hurtle } from './dothrow.js';
-import { make_stunned } from './potion.js';
+import { make_confused, make_stunned } from './potion.js';
 // imports.mjs --can mhitm.js mcastu.js touch_of_death Antimagic: SAFE
 // (hoisted functions; same 98-module SCC). Aliased because this file's
 // local Antimagic is the flat H||E clone; mcastu's also reads uprops
@@ -1027,18 +1027,42 @@ async function mhitm_ad_halu(magr, mattk, mdef, mhm) {
 }
 
 /**
- * C ref: uhitm.c mhitm_ad_conf mhitm arm :3713–3724.
- * Confusing another monster has no real duration, so C checks
- * mspec_used but does not set it. Leftover mdamagem d() is kept
- * (unlike HALU/BLND, which zero dice).
- * Named omit: uhitm you-as-agr; mhitu you-as-def (hitmsg + rn2(4)
- * + make_confused).
- * mhitm_ad_phys shade_miss is D-1394. mhitm_ad_stun leftover is D-1396.
- * mhitm_ad_fire leftover is D-1405.
+ * C ref: uhitm.c mhitm_ad_conf :3690–3726 — three arms in C order.
+ * uhitm (hero as attacker, :3696–3702): !mconf → canseemon
+ * "%s looks confused." then mconf=1. Leftover d() stays (no mcan gate).
+ * mhitu (monster→you, :3703–3712): hitmsg always; !mcan && !rn2(4) &&
+ * !mspec_used → mspec_used += damage + rn2(6), HConfusion (youprop.h
+ * Confusion) picks the pline, make_confused(HConfusion + damage, FALSE);
+ * damage = 0 either way. mhitm (:3713–3724): confusing another monster
+ * has no duration, so mspec_used is checked and not set; vis+canseemon
+ * pline_mon, mconf=1, clear WAITFORU. Leftover d() stays.
  */
-async function mhitm_ad_conf(magr, mattk, mdef, mhm) {
-    void mattk;
-    void mhm; /* leftover d() stays */
+export async function mhitm_ad_conf(magr, mattk, mdef, mhm) {
+    if (is_youmonst(magr)) {
+        /* C :3696–3702 uhitm */
+        if (!(mdef.mconf | 0)) {
+            if (canseemon(mdef)) {
+                await pline(`${Monnam(mdef)} looks confused.`);
+            }
+            mdef.mconf = 1;
+        }
+        return;
+    }
+    if (is_youmonst(mdef)) {
+        /* C :3703–3712 mhitu */
+        await hitmsg(magr, mattk);
+        if (!(magr.mcan | 0) && !rn2(4) && !(magr.mspec_used | 0)) {
+            const dmg = mhm.damage | 0;
+            magr.mspec_used = (magr.mspec_used | 0) + (dmg + rn2(6));
+            const u = game.u || {};
+            if (u.HConfusion | 0) await pline('You are getting even more confused.');
+            else await pline('You are getting confused.');
+            await make_confused((u.HConfusion | 0) + dmg, false);
+        }
+        mhm.damage = 0;
+        return;
+    }
+    /* C :3713–3724 mhitm. Leftover d() stays. */
     if (!(magr.mcan | 0) && !(mdef.mconf | 0) && !(magr.mspec_used | 0)) {
         if (_mm_vis && canseemon(mdef)) {
             await pline_mon(mdef, `${Monnam(mdef)} looks confused.`);
