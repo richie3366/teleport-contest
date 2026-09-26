@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2835 — `mcast_insects` deaf, detect, and displacement predicates match the macros
+
+- **Status:** fixed (Must-fix, review 1787; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** A sticky-only deaf hero took the visual appear line. A sticky-only detect hero took `pline_mon` instead of the unseen hear arm. A worn displacement cloak or mummy wrapping selected the displaced-image or invis-spot line when the extrinsic or blocked bit was still 0.
+- **C locus:** `nethack-c/upstream/src/mcastu.c:645–726` `mcast_insects`. Unseen success `!Deaf` (`:694–698`) is `youprop.h:123–125` (`HDeaf || EDeaf || u.uroleplay.deaf`). `seecaster` `Detect_monsters` (`:677`) is `youprop.h:188–190` (`H || E`). `Displaced` is `youprop.h:202–204`. `BInvis` is `youprop.h:197`. `You_hear` is `pline.c:435–452`.
+- **JS was:** `insects_Deaf` and `You_hear` ORed sticky `u.Deaf`. The file `Detect_monsters` ORed sticky `u.Detect_monsters`. `insects_Displaced` was also true for a worn cloak of displacement. `insects_BInvis` was also true for a worn mummy wrapping.
+- **Fix:** Those predicates are the macros. `insects_Deaf` and `You_hear` are H/E (`uprops[DEAF]` is that store) or `u.uroleplay.deaf`. This file's `Detect_monsters` is H/E via flats and `uprops`. `insects_BInvis` is the blocked bit. `insects_Displaced` is H/E via flats and `uprops`. `confer_oc_oprop` and `apply_w_blocks` already write the worn bits.
+- **JS:** `js/mcastu.js` `Detect_monsters` `:140`, `insects_Deaf` `:633`, `insects_BInvis` `:646`, `insects_Displaced` `:665`, `mcast_insects` `:678`. `js/hack.js` `You_hear` `:175`.
+- **Callers:** `mcastu.c:53` is the declaration. `mcastu.c:872` `mcast_spell` → `js/mcastu.js:858`. The unseen `You_hear` calls are `js/mcastu.js:722` and `:733`. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn mcast_insects` → PASS syntax (2 changed js files: js/hack.js js/mcastu.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (shared file) · VERIFY: PASS.
+- **Named omissions:** File-level `Deaf()` (`js/mcastu.js:146`) still ORs sticky `u.Deaf` for the other spells. `hack.js` `Deaf_mr` (`:229`) still ORs it for moverock. `You_hear`'s underwater "You barely hear" is still absent. A null `mtmp.data` makes `perceives` false. A missing `game.u` is a local object, so the position tests compare against 0.
+- **Next:** `mkmaze.c` `place_lregion` tele Promise (remaining Must-fix). Nine Open — coverage rows remain, inside the band, so nothing was refilled.
+
 ## D-2834 — `youhiding` describes the hiding place, including the enlightenment line
 
 - **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked). `help_monster_out` was already complete and is parked Stale.

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2835 `mcast_insects` deaf, detect, and displacement predicates match the macros
+
+**C locus:** `nethack-c/upstream/src/mcastu.c:645–726` `mcast_insects`. Unseen success `!Deaf` (`:694–698`) is `youprop.h:123–125` (`HDeaf || EDeaf || u.uroleplay.deaf`). `seecaster` `Detect_monsters` (`:677`) is `youprop.h:188–190` (`H || E`). `Displaced` is `youprop.h:202–204`. `BInvis` is `youprop.h:197`. `You_hear` is `pline.c:435–452`.
+**JS:** `js/mcastu.js` `Detect_monsters` `:140`, `insects_Deaf` `:633`, `insects_BInvis` `:646`, `insects_Displaced` `:665`, `mcast_insects` `:678`. `js/hack.js` `You_hear` `:175`.
+**Change:** Those predicates are the macros. `insects_Deaf` and `You_hear` are H/E (`uprops[DEAF]` is that store) or `u.uroleplay.deaf`. This file's `Detect_monsters` is H/E via flats and `uprops`.
+**Verify:** `node scripts/verify.mjs --fn mcast_insects` → PASS syntax (2 changed js files: js/hack.js js/mcastu.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (shared file) · VERIFY: PASS.
+**Named:** File-level `Deaf()` (`js/mcastu.js:146`) still ORs sticky `u.Deaf` for the other spells. `hack.js` `Deaf_mr` (`:229`) still ORs it for moverock.
+**Next:** `mkmaze.c` `place_lregion` tele Promise (remaining Must-fix). Nine Open — coverage rows remain, inside the band, so nothing was refilled.
 ## 2026-09-26 — review 1785–1793 (audit, no port)
 
 Reviewed `38097d48c` through `236be808b` (D-2826–D-2834), one file per SHA. 7 ACCEPT (`1785`, `1786`, `1788`, `1789`, `1791`–`1793`). 2 QUALITY-RISK: `1787` `mcast_insects` sticky `u.Deaf`, sticky `u.Detect_monsters`, and worn-bit `Displaced`/`BInvis`; `1790` `place_lregion` tele Promise not finished before the sync callers return. Four Must-fix rows. Next cluster is the deaf arm.

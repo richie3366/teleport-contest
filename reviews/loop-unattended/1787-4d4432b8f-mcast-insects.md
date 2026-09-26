@@ -5,6 +5,8 @@
 - Queue row: Open coverage, 0 corpus blocks cited
 - Banned grep: 0 hits in the hunk. `imports.mjs --rulecheck`: "Rule #2 clean".
 
+**Addressed:** D-2835
+
 ## Intent vs deliverable
 
 Subject promises one `mcast_insects` in C order: class letter from the first `mkclass`, `i <= quan`, `!enexto` returns with no message, `Hallucination` from `display.js`, `Unaware` as the `youprop.h` macro, seen results through `pline_mon`, and a plural copy before `makesingular`. The diff is that body. The deaf, detect, and displaced predicates are local clones that add tests C does not have.

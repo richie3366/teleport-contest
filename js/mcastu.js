@@ -50,7 +50,6 @@ import { mkclass, makemon, set_malign } from './makemon.js';
 import { monster_census } from './minion.js';
 import { enexto, unconscious } from './teleport.js';
 import { is_fainted } from './eat.js';
-import { CLOAK_OF_DISPLACEMENT, objectNames } from './objects.js';
 import { setuhpmax } from './exper.js';
 import { done, finish_losehp_done } from './end.js';
 import { burn_away_slime } from './timeout.js';
@@ -58,10 +57,6 @@ import { burn_away_slime } from './timeout.js';
 import { mdamageu } from './mhitu.js';
 import { Soundeffect } from './sndprocs.js';
 import { se_air_crackles, se_bolt_of_lightning, se_someone_summoning } from './generated/seffects_data.js';
-
-/* C worn.c setworn w_blocks is still omitted; a worn mummy wrapping
-   stands in for uprops[INVIS].blocked (mhitu.js BInvis idiom). */
-const MUMMY_WRAPPING = objectNames.indexOf('MUMMY_WRAPPING');
 
 /** C ref: mondata.h perceives — M1_SEE_INVIS. */
 function perceives(ptr) {
@@ -141,11 +136,12 @@ function See_invisible() {
     return !!((u.HSee_invisible | 0) || (u.ESee_invisible | 0) || u.See_invisible
         || (p?.intrinsic | 0) || (p?.extrinsic | 0));
 }
+/** C youprop.h:188–190 Detect_monsters — H || E. Sticky u.Detect_monsters is not the macro. */
 function Detect_monsters() {
     const u = game.u || {};
     const p = u.uprops?.[DETECT_MONSTERS];
     return !!((u.HDetect_monsters | 0) || (u.EDetect_monsters | 0)
-        || u.Detect_monsters || (p?.intrinsic | 0) || (p?.extrinsic | 0));
+        || (p?.intrinsic | 0) || (p?.extrinsic | 0));
 }
 function Deaf() {
     const u = game.u || {};
@@ -630,33 +626,29 @@ function insects_Unaware() {
 }
 
 /**
- * C youprop.h:123–125 Deaf — HDeaf || EDeaf || u.uroleplay.deaf,
- * with uprops[DEAF] as the H/E store. Sticky u.Deaf is not in the
- * macro; it is included so this arm matches You_hear's gate
- * (js/hack.js) and the pline fallback still runs instead of a
- * swallowed hear line.
+ * C youprop.h:123–125 Deaf — HDeaf || EDeaf || u.uroleplay.deaf.
+ * uprops[DEAF] is that H/E store. Sticky u.Deaf is not the macro
+ * (You_hear uses the same three terms).
  */
 function insects_Deaf() {
     const u = game.u || {};
     const p = u.uprops?.[DEAF];
     return !!((u.HDeaf | 0) || (u.EDeaf | 0)
         || (p?.intrinsic | 0) || (p?.extrinsic | 0)
-        || u.uroleplay?.deaf || u.Deaf);
+        || u.uroleplay?.deaf);
 }
 
 /**
- * C youprop.h:198 Invis — (HInvis || EInvis) && !BInvis.
- * Flats plus uprops[INVIS]. The u.Invis flat is not this macro
- * (mhitu.js). BInvis is uprops.blocked; worn mummy wrapping stands
- * in for the omitted w_blocks write.
+ * C youprop.h:197 BInvis — uprops[INVIS].blocked.
+ * setworn's apply_w_blocks already sets that bit from w_blocks
+ * (mummy wrapping). A worn-wrapping read is not the macro.
  */
 function insects_BInvis() {
     const u = game.u || {};
     const p = u.uprops?.[INVIS];
-    if ((u.BInvis | 0) || (p?.blocked | 0)) return true;
-    const cloak = u.uarmc;
-    return !!(cloak && (cloak.otyp | 0) === MUMMY_WRAPPING);
+    return !!((u.BInvis | 0) || (p?.blocked | 0));
 }
+/** C youprop.h:198 Invis — (HInvis || EInvis) && !BInvis. */
 function insects_Invis() {
     const u = game.u || {};
     const p = u.uprops?.[INVIS];
@@ -667,17 +659,15 @@ function insects_Invis() {
 
 /**
  * C youprop.h:202–204 Displaced — HDisplaced || EDisplaced.
- * uprops[DISPLACED] is the H/E store (confer writes the cloak there).
- * A worn cloak of displacement counts when that extrinsic was not
- * copied onto the flat. Sticky u.Displaced is not the macro.
+ * uprops[DISPLACED] is that H/E store (confer_oc_oprop writes the
+ * cloak there). A worn-cloak read is not the macro. Sticky
+ * u.Displaced is not either.
  */
 function insects_Displaced() {
     const u = game.u || {};
     const p = u.uprops?.[DISPLACED];
-    if ((u.HDisplaced | 0) || (u.EDisplaced | 0)
-        || (p?.intrinsic | 0) || (p?.extrinsic | 0)) return true;
-    const cloak = u.uarmc;
-    return !!(cloak && (cloak.otyp | 0) === CLOAK_OF_DISPLACEMENT);
+    return !!((u.HDisplaced | 0) || (u.EDisplaced | 0)
+        || (p?.intrinsic | 0) || (p?.extrinsic | 0));
 }
 
 /**

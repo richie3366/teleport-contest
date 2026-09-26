@@ -5,7 +5,12 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `insight.c` youhiding — coverage PARTIAL (C 54 L `insight.c:2022–2077` / JS 40 L in js/polyself.js; hops 2, callers 4, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn youhiding` (reach regression must be 0). Measured `port-coverage.mjs --name youhiding` 2026-09-26 @ fb4f1bf7d. **Addressed:** D-2834
+- [x] `mcastu.c` `mcast_insects` — unseen-success `!Deaf` (`mcastu.c:694–698`) must be `youprop.h:123–125` (`HDeaf || EDeaf || u.uroleplay.deaf`). `insects_Deaf` (`mcastu.js:639`) and `You_hear` (`hack.js:179`) both OR sticky `u.Deaf`, so a sticky-only deaf hero takes the visual `pline` instead of `You hear`. Verify `node scripts/verify.mjs --fn mcast_insects`. Source: reviews/loop-unattended/1787-4d4432b8f-mcast-insects.md **Addressed:** D-2835
+- [x] `mcastu.c` `mcast_insects` — `seecaster` (`mcastu.c:677`) must use `youprop.h:190` `Detect_monsters` (`H || E` only). The file clone `mcastu.js:144` ORs sticky `u.Detect_monsters`, so that hero takes `pline_mon` instead of the unseen `You_hear` arm. Verify `node scripts/verify.mjs --fn mcast_insects`. Source: reviews/loop-unattended/1787-4d4432b8f-mcast-insects.md **Addressed:** D-2835
+- [x] `mcastu.c` `mcast_insects` — `insects_Displaced` (`mcastu.js:676`) and `insects_BInvis` (`:655`) must be the macros (`youprop.h:204` and `:198`). Drop the worn-cloak and worn-wrapping disjuncts. `confer_oc_oprop` and `w_blocks` already write those bits. Verify `node scripts/verify.mjs --fn mcast_insects`. Source: reviews/loop-unattended/1787-4d4432b8f-mcast-insects.md **Addressed:** D-2835
+
+
+- [x] `insight.c` youhiding — coverage PARTIAL (C 54 L `insight.c:2022–2077` / JS 40 L in js/polyself.js; hops 2, callers 4, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn youhiding` (reach regression must be 0). Measured `port-coverage.mjs --name youhiding` 2026-09-26 @ fb4f1bf7d. **Addressed:** D-2834 `236be808b`
 
 
 - [x] `role.c` genl_player_setup — coverage THIN (C 519 L `role.c:2206–2725` / JS 175 L in js/player_selection.js; hops —, callers 1, RNG 0, msg 4; dead callees: randgend). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn genl_player_setup` (reach regression must be 0). Measured `port-coverage.mjs --name genl_player_setup` 2026-09-26 @ fb4f1bf7d. **Addressed:** D-2833 `92e997504`
