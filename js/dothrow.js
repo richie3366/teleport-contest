@@ -52,6 +52,7 @@ import {
     DEAF, SHOPBASE, Is_waterlevel,
     GETOBJ_EXCLUDE, GETOBJ_DOWNPLAY, GETOBJ_SUGGEST, GETOBJ_PROMPT,
     GETOBJ_ALLOWCNT,
+    WT_TOOMUCH_DIAGONAL,
 } from './const.js';
 import { obj_resists, dogfood } from './dogmove.js';
 import {
@@ -61,6 +62,7 @@ import {
 import { acurr, acurrstr, A_CON, A_DEX, A_STR, change_luck, exercise, Fumbling } from './attrib.js';
 import {
     calc_capacity, fully_identify_obj, encumber_msg, getobj, prinv, cmdq_add_key,
+    inv_weight, weight_cap,
 } from './invent.js';
 import { add_to_minv, mpickobj, makemon, set_malign } from './makemon.js';
 import { finish_quest, is_quest_artifact } from './quest.js';
@@ -80,7 +82,7 @@ import {
     xname, killer_xname, singular, an, An, the, The, vtense, doname, thesimpleoname,
     makeplural, otense, mshot_xname, corpse_xname,
 } from './objnam.js';
-import { m_at, wakeup, seemimic, wake_nearto, distmin, monnear, m_respond, setmangry } from './mon.js';
+import { m_at, wakeup, seemimic, wake_nearto, distmin, monnear, m_respond, setmangry, bad_rock } from './mon.js';
 import { mon_nam, Monnam, a_monnam, hliquid, Hallucination, Some_Monnam, x_monnam, pmname, rndmonnam, s_suffix } from './do_name.js';
 import { noit_mhim, NEUTRAL } from './mondata.js';
 import { which_armor } from './worn.js';
@@ -89,6 +91,7 @@ import {
     is_unicorn, is_orc, is_elf, your_race, is_animal, is_whirly,
     touch_petrifies, poly_when_stoned, hates_silver, mon_hates_blessings,
     haseyes, breathless, eyecount, passes_walls, unsolid, mons, throws_rocks,
+    bigmonst,
 } from './monsters.js';
 import { tamedog } from './dog.js';
 import { hmon, passive_obj } from './uhitm.js';
@@ -3003,8 +3006,9 @@ function closed_door_hurtle(x, y) {
  * C :916–917). Monster-bump arm in C order (C :855–905): glyph read,
  * x_monnam ARTICLE_A + AUGMENT_IT, find-by-bumping branch, wakeup,
  * canspotmon→map_invisible, setmangry, both petrify checks, wake_nearto.
- * Named omit: Passes_walls/may_passwall; bad_rock
- * squeeze; Sokoban diagonal halt; drag_ball; check_special_room;
+ * Diagonal bad_rock squeeze is C `:822–832` (weight_cap).
+ * Named omit: Passes_walls/may_passwall outer skip and the
+ * !may_pass universe-edge arm (may_pass stays true); Sokoban diagonal halt; drag_ball; check_special_room;
  * drown/waterwall; jumping I_SPECIAL; trap
  * pass-over dotrap; nh_delay_output.
  */
@@ -3041,6 +3045,19 @@ export async function hurtle_step(rangeArg, x, y) {
         if (obj) {
             why = 'bumping into a boulder';
             await pline(`You bump into a ${xname(obj)}.  Ouch!`);
+        } else if (diagonal
+            && bad_rock(game.youmonst?.data, u.ux | 0, y)
+            && bad_rock(game.youmonst?.data, x, u.uy | 0)) {
+            /* C dothrow.c:822–832 — may_pass stayed true (universe-edge
+             * arm omitted). inv_weight() already calls weight_cap. */
+            const too_much = !!((game.invent && game.invent.length)
+                && (inv_weight() + weight_cap() > WT_TOOMUCH_DIAGONAL));
+            if (bigmonst(game.youmonst?.data) || too_much) {
+                why = 'wedging into a narrow crevice';
+                await You(
+                    `${too_much ? 'and all your belongings ' : ''}get forcefully wedged into a crevice.`,
+                );
+            }
         }
     }
     if (why) {

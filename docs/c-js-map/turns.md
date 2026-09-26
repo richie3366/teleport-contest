@@ -1537,6 +1537,8 @@ test_move`/`moverock` / `timeout.c` `fall_asleep` / `pickup.c`
 
 JS: `js/hack.js`, `js/pickup.js`, `js/cmd.js`, `js/mon.js`, `js/monmove.js` — partial
 
+**`weight_cap` whole body** (D-2819; C `hack.c:4295–4346` → `js/invent.js` `weight_cap`: save E/B, `Boots_on` strips `W_ARMF` then `float_vs_flight`, `BLevitation &= ~I_SPECIAL`, STR+CON base, Upolyd nymph / `!cwt` msize / cwt scale, `Levitation`|air|strong-steed `MAX_CARR_CAP`, wounded-leg reduct when `!Flying`, restore E/B and `float_vs_flight` if either moved; callers `ball.c:968` `js/ball.js:159`, `dokick.c:226` `js/dokick.js:991`, `dokick.c:1432` `js/dokick.js:1761`, `dothrow.c:826` `js/dothrow.js` `hurtle_step`, `hack.c:968` `js/mon.js:223`, `hack.c:4363` `js/invent.js` `inv_weight`, `trap.c:5463` `js/trap.js:7163`; named: null `youmonst.data`, `Passes_walls` / `!may_pass` still omitted around that diagonal arm);
+
 **`moverock_core` whole-body port** (D-2739; C `hack.c:348–638` per-arm cites; local `rock_disappear_msg` `:315–324` + `Deaf_mr` youprop idiom; `dopush` costly + `:220–243` bill arms; trap.js `blow_up_landmine`/`launch_obj` exported live, no new module edge; caller C `:342`→js/hack.js `moverock` + `moverock_done`, unchanged; named: unmap_object trap/engr arms); **`domove` `u_rooted` when `youmonst.data.mmove==0`** (brown mold etc.; 
 spend turn, no step) (D-0928 #1106; Is_airlevel/Is_waterlevel "in place" deferred — Levitation 
 alone); **`domove_core` ParanoidTrap → `avoid_trap_andor_region`** (D-1187; 

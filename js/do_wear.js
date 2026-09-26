@@ -1433,7 +1433,7 @@ async function Gloves_on() {
  * (C dereferences uarmf).
  * @returns {Promise<number>} 0
  */
-async function Boots_on() {
+export async function Boots_on() {
     const u = game.u || (game.u = {});
     const o = u.uarmf;
     if (!o) return 0;

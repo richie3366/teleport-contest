@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2819 `weight_cap` defers levitation boots and counts a strong steed
+
+**C locus:** `nethack-c/upstream/src/hack.c:4295–4346` `weight_cap`. Save `ELevitation` and `BLevitation`. If `ga.afternmv == Boots_on` and `(ELevitation & W_ARMF)`, clear `W_ARMF` and `float_vs_flight` (`:4301–4306`). `BLevitation &= ~I_SPECIAL` (`:4309`). Base is `WT_WEIGHTCAP_STRCON * (ACURRSTR + ACURR(A_CON)) + WT_WEIGHTCAP_SPARE` (`:4312`). `Upolyd`: nymph `MAX_CARR_CAP`, else `!cwt` scales by `msize / MZ_HUMAN`, else `!strongmonst` or `cwt > WT_HUMAN` scales by `cwt / WT_HUMAN` (`:4314–4327`). `Levitation || Is_airlevel || (usteed && strongmonst)` sets `MAX_CARR_CAP`; otherwise clamp and, when `!Flying`, subtract `WT_WOUNDEDLEG_REDUCT` per wounded side (`:4329–4340`). If E or B changed, restore both and `float_vs_flight` (`:4342–4345`). Return `(int) max(carrcap, 1L)`.
+**JS:** `js/invent.js` `weight_cap` `:1024`. `float_vs_flight` `js/polyself.js:660`. `Boots_on` `js/do_wear.js:1436`.
+**Change:** One `weight_cap` in that C order. E and B are the flat long OR `uprops[LEVITATION]`; each store is restored to its own saved value. `Levitation` and `Flying` are the youprop.h macros (steed flyer included).
+**Verify:** `node scripts/verify.mjs --fn weight_cap` → PASS syntax (3 changed js files: js/do_wear.js js/dothrow.js js/invent.js) · PASS rule2 · note hidden (no corpus session blocked at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (verifier: those files are outside the auto shared set) · VERIFY: PASS.
+**Named:** A null `youmonst.data` while `Upolyd` skips the scale (C would dereference). `hurtle_step` still enters the obstacle block when `Passes_walls` would skip it, and still skips the `!may_pass` universe-edge arm (`dothrow.c:818–821`), so the diagonal `weight_cap` arm runs with `may_pass` left true.
+**Next:** `vision.c` `view_from` (next Open — coverage row).
 ## 2026-09-26 — D-2818 `set_corpsenm` rescales a partly eaten corpse
 
 **C locus:** `nethack-c/upstream/src/mkobj.c:1318–1367` `set_corpsenm`. Save `old_id`. If `timed`, `EGG` takes `stop_timer(HATCH_EGG, obj_to_any(obj))`; otherwise `obj_stop_timers`. If `CORPSE` and `oeaten != 0` and `cnutrit` differs, `oeaten = (unsigned)((long)oeaten * mons[id].cnutrit / mons[old_id].cnutrit)` (`:1333–1345`). Then assign `corpsenm` and switch: `CORPSE` starts the timeout and `weight`; `FIGURINE` attaches when not `NON_PM`, not `dead_species(..., TRUE)`, and `carried || mcarried` (`where == OBJ_INVENT || OBJ_MINVENT`); `EGG` reattaches the saved hatch remainder; default sets `weight`.
