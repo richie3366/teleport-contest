@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — audit 1812–1820 (D-2853…D-2861)
+
+Reviewed `d15d25c20` through `4373171cb` (nine JS commits). Nine ACCEPT. No QUALITY-RISK. No REJECT. No Must-fix. No `js/` edits. Nine Open — coverage rows remain, above the floor of 8, so nothing was refilled. Next cluster stays `sp_lev.c` `get_coord`.
+
+**Cadence:** `frozen/ps_test_runner.mjs sessions` on `4373171cb` — 44/44, screens 11,405/11,405, RNG 792,838/792,838, speed `247+1.60/turn` (R² 0.76). `leaderboard.mjs`: held-out still 12/44, 6,111/11,265 pts, RNG 29.6 %, screens 54.2 % (last scored 2026-09-26T07:02Z). `hidden-proxy.mjs score --jobs 8`: private board 12/12, RNG 75,151/75,151, screens 653/653. The 614/940 cache is still absent, so that board was not re-measured.
 ## 2026-09-26 — D-2861 `reset_commands` rebinds movement for number_pad, swap_yz, phone, and pcHack
 
 **C locus:** `nethack-c/upstream/src/cmd.c:3344–3476` `reset_commands`. Callees `cmdbind_add` (`cmd.c:2125`, live `js/cmd.js:1264`), `cmdbind_swapkeys` (`cmd.c:2194`, `js/cmd.js:1521`), `cmdbind_remove` (`cmd.c:2161`, `js/cmd.js:1315`), `ext_func_tab_from_func` (`cmd.c:3015`, `js/cmd.js:1553`), `bind_key_fn` (`cmd.c:2731`, `js/cmd.js:1569`), `commands_init` (`cmd.c:2749`, `js/cmd.js:1584`), `bind_key` (`cmd.c:2661`, live `js/cmd.js:1345`), `update_rest_on_space` (`cmd.c:3483`, `js/cmd.js:1643`), `cmd_from_func` (`cmd.c:3035`, live `js/dokeylist.js`). `spkeys_binds` is `cmd.c:3161–3191`. `move_funcs` is `cmd.c:2070–2083` (`N_DIRS` 8, `N_MOVEMODES` 3). Calls: `options.c:2618` `optfn_number_pad` do_set; `options.c:5944` `handler_number_pad` after a menu pick; `options.c:7158` `initoptions_init` `reset_commands(TRUE)`. `cmd.c:2006` and `:3478` are comments. `number_pad()` at `:2619` and `:5945` is the `winprocs.h:161` tty no-op. `update_rest_on_space` is also called from `options.c:5426` (`optfn_boolean` `rest_on_space`) and `options.c:7364` (`initoptions_finish`).

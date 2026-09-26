@@ -1821,3 +1821,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1809-e6d1ac649-get-unused-cs.md](./1809-e6d1ac649-get-unused-cs.md) | `e6d1ac649` | D-2850 get_unused_cs | **ACCEPT** |
 | [1810-cc7992cc4-rnd-otyp-by-wpnskill.md](./1810-cc7992cc4-rnd-otyp-by-wpnskill.md) | `cc7992cc4` | D-2851 rnd_otyp_by_wpnskill | **ACCEPT** |
 | [1811-81fd2232b-start-glob-timeout.md](./1811-81fd2232b-start-glob-timeout.md) | `81fd2232b` | D-2852 start_glob_timeout | **ACCEPT** |
+| [1812-d15d25c20-nemesis-speech-texts.md](./1812-d15d25c20-nemesis-speech-texts.md) | `d15d25c20` | D-2853 nemesis speech texts | **ACCEPT** |
+| [1813-ddddc6312-block-entry.md](./1813-ddddc6312-block-entry.md) | `ddddc6312` | D-2854 block_entry | **ACCEPT** |
+| [1814-72aae4086-mhitm-ad-stck.md](./1814-72aae4086-mhitm-ad-stck.md) | `72aae4086` | D-2855 mhitm_ad_stck | **ACCEPT** |
+| [1815-2c0c6d7ee-pre-mm-attack.md](./1815-2c0c6d7ee-pre-mm-attack.md) | `2c0c6d7ee` | D-2856 pre_mm_attack | **ACCEPT** |
+| [1816-8800eafbb-unplacebc-core.md](./1816-8800eafbb-unplacebc-core.md) | `8800eafbb` | D-2857 unplacebc_core | **ACCEPT** |
+| [1817-d2761e4d9-status-initialize.md](./1817-d2761e4d9-status-initialize.md) | `d2761e4d9` | D-2858 status_initialize | **ACCEPT** |
+| [1818-41bf49099-fall-asleep.md](./1818-41bf49099-fall-asleep.md) | `41bf49099` | D-2859 fall_asleep | **ACCEPT** |
+| [1819-905870b38-peffect-oil.md](./1819-905870b38-peffect-oil.md) | `905870b38` | D-2860 peffect_oil | **ACCEPT** |
+| [1820-4373171cb-reset-commands.md](./1820-4373171cb-reset-commands.md) | `4373171cb` | D-2861 reset_commands | **ACCEPT** |

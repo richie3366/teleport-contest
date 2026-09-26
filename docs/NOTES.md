@@ -18,7 +18,7 @@ here again. Live hypotheses only:
   revisits. Phase-2 rows (`[measure]`, parks, `hidden-proxy queue`) stay
   closed meanwhile; the corpus is guarded by REACH in `verify.mjs`.
   Everything below this bullet is phase-2 context — do not act on it now.
-- Audit 1803–1811 (D-2844…D-2861, `a2fe5c1c5`…`81fd2232b`): 8 ACCEPT, do not re-open. 1805 `nemesis_speaks` texts are embedded (D-2853); do not re-port the if-chain or re-extract those five keys. Prior audit 1794–1802 stays ACCEPT. `peffect_restore_ability` is the D-1420 body (parked Stale).
+- Audit 1812–1820 (D-2853…D-2861, `d15d25c20`…`4373171cb`): 9 ACCEPT, do not re-open. 1805 `nemesis_speaks` texts are embedded (D-2853); do not re-port the if-chain or re-extract those five keys. Prior audit 1803–1811 stays ACCEPT. `peffect_restore_ability` is the D-1420 body (parked Stale).
 
 - **obj_resists writers (D-2407/2413-15, MEASURED):** `steal.c` relobj `flooreffects` + Knight/Arch/Healer arms (detail in D-logs). Falsified — do not re-check: fire-trap burn, fmon-order, polyuse, monstone, bury, steal.
 

@@ -23,10 +23,10 @@ the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-26** — full `sessions` on the working tree
-(audit **1803–1811**, commit `81fd2232b`).
+(audit **1812–1820**, commit `4373171cb`).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`240+1.54/turn` (R² 0.791).
+`247+1.60/turn` (R² 0.76).
 
 ## Score
 
@@ -36,7 +36,7 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `240+1.54/turn` (R² 0.791) |
+| Speed label | `247+1.60/turn` (R² 0.76) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
@@ -49,7 +49,7 @@ the previous audit row (6,059 pts, RNG 29.2 %, screens 53.8 %): same
 private-recording board, **12/12 PASS** (RNG 75,151/75,151, screens
 653/653). `.cache/hidden/sessions` is still absent, so the **614 / 940**
 figure was not re-measured and no PASS→FAIL row was opened.
-Reviews 1225–1811: 512 ACCEPT, 21 WITH-DEBT, 1 DEBT, 48 QUALITY-RISK (audit 1803–1811: 8 ACCEPT, 1 QUALITY-RISK).
+Reviews 1225–1820: 521 ACCEPT, 21 WITH-DEBT, 1 DEBT, 48 QUALITY-RISK (audit 1812–1820: 9 ACCEPT).
 Live debts: 1730 `wizcustom_glyphids` empty `wizcustom_callback` site (glyphmap-blocked, map-named); 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending — review-debt, unqueued (detail in the review files).
 Audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s) + `leaderboard.mjs`.
 
