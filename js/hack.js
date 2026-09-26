@@ -193,6 +193,18 @@ export function monst_to_any(mtmp) {
 }
 
 /**
+ * C ref: hack.c obj_to_any `:96–102` — `&gt.tmp_anything` with
+ * `a_obj = obj` after zeroing the union. C `start_timer` /
+ * `stop_timer` copy that union and match the object pointer.
+ * JS timers key `TIMER_OBJECT` entries by the object itself
+ * (same identity), so the collapsed handle is `obj`, as
+ * `monst_to_any` collapses `a_monst`. Caller: `start_glob_timeout`.
+ */
+export function obj_to_any(obj) {
+    return obj;
+}
+
+/**
  * C ref: do_name.c a_monnam — ARTICLE_A subtype name (uhitm local twin).
  * Hallu / invisible / named-pet arms deferred.
  */

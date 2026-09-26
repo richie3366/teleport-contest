@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2852 `start_glob_timeout` arms a glob to shrink
+
+**C locus:** `nethack-c/upstream/src/mkobj.c:1473–1491` `start_glob_timeout`. Callees `impossible` (`pline.c`, live `js/display.js:8116`), `simpleonames` (`objnam.c:2428`, live `js/objnam.js:2836`), `stop_timer` (`timeout.c`, live `js/mkobj.js:1147`), `obj_to_any` (`hack.c:96–102`, was missing), `rn2` (`rnd.c`, live `js/rng.js:89`), `start_timer` (`timeout.c:2247`, live `js/mkobj.js:1249`). Calls: `mksobj_init` `mkobj.c:968`, `shrink_glob` `mkobj.c:1551`, `:1571`, and `:1663`, `obj_absorb` `mkobj.c:3742`, `removed_from_icebox` `pickup.c:2796`. `extern.h:1698` is the declaration.
+**JS:** `js/mkobj.js` `start_glob_timeout` `:1608`, `impossible` `:1611`, `obj_to_any` calls `:1617` and `:1623`. `js/hack.js` `obj_to_any` `:203`.
+**Change:** One `start_glob_timeout` in that C order. A non-glob calls `impossible` with `otyp` and `simpleonames`, then returns without a timer. `obj->timed` stops `SHRINK_GLOB` through `obj_to_any`.
+**Verify:** `node scripts/verify.mjs --fn start_glob_timeout` → PASS syntax (2 changed js files: js/hack.js js/mkobj.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+**Named:** The non-glob `impossible` is not awaited, so that error return does not block on `--More--` before the caller continues. A glob never takes the arm.
+**Next:** `shk.c` `block_entry` (next Open — coverage row). Eight Open — coverage rows remain after archive, at the band floor. `--rows 500 --min-c-lines 40` head is the never-re-pop Stale set; the first names absent from DONE, PARKED, and the D-index are sanity, wizard, and allocator functions, so nothing was appended.
 ## 2026-09-26 — D-2851 `rnd_otyp_by_wpnskill` picks a polearm or hammer wish
 
 **C locus:** `nethack-c/upstream/src/objnam.c:3432–3452` `rnd_otyp_by_wpnskill`. Callee `rn2` (`rnd.c`, live `js/rng.js:89`). Calls are both inside `readobjnam`: `objnam.c:4984` (`P_POLEARMS`) and `:4987` (`P_HAMMER`), after `wiztrap` and before the `!oclass` null return. `objnam.c:49` is the static declaration. Companion `maybereleaseobuf` `objnam.c:167–198` calls `releaseobuf` `objnam.c:150–160`. Its calls are `invent.c:492`, `:498`, `:2765`, and `:3330`.

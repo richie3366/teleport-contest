@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2852 — `start_glob_timeout` arms a glob to shrink
+
+- **Status:** fixed (coverage THIN; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** A non-glob passed to `start_glob_timeout` returned without `impossible`. The timer argument was the object itself, with no `obj_to_any`.
+- **C locus:** `nethack-c/upstream/src/mkobj.c:1473–1491` `start_glob_timeout`. Callees `impossible` (`pline.c`, live `js/display.js:8116`), `simpleonames` (`objnam.c:2428`, live `js/objnam.js:2836`), `stop_timer` (`timeout.c`, live `js/mkobj.js:1147`), `obj_to_any` (`hack.c:96–102`, was missing), `rn2` (`rnd.c`, live `js/rng.js:89`), `start_timer` (`timeout.c:2247`, live `js/mkobj.js:1249`). Calls: `mksobj_init` `mkobj.c:968`, `shrink_glob` `mkobj.c:1551`, `:1571`, and `:1663`, `obj_absorb` `mkobj.c:3742`, `removed_from_icebox` `pickup.c:2796`. `extern.h:1698` is the declaration.
+- **JS was:** A 7-line body returned on `!obj?.globby` with no message, passed `obj` straight to `stop_timer` / `start_timer`, and rolled `25+rn2(5)-2` when `when < 1`. The six C call sites already invoked it.
+- **Fix:** One `start_glob_timeout` in that C order. A non-glob calls `impossible` with `otyp` and `simpleonames`, then returns without a timer. `obj->timed` stops `SHRINK_GLOB` through `obj_to_any`. `when < 1` is still `25+rn2(5)-2` (23..27). `start_timer` gets that delay, `TIMER_OBJECT`, `SHRINK_GLOB`, and `obj_to_any`. `obj_to_any` is the `monst_to_any` collapse: timers key the object, so the handle is the object. The function stays sync, so the roll stays in the caller turn. `impossible` runs only on the error return and is not awaited, the same fire-and-forget `weight` uses.
+- **JS:** `js/mkobj.js` `start_glob_timeout` `:1608`, `impossible` `:1611`, `obj_to_any` calls `:1617` and `:1623`. `js/hack.js` `obj_to_any` `:203`.
+- **Callers:** `mkobj.c:968` → `js/mkobj.js:2216` (`mksobj_init`). `mkobj.c:1551` → `js/mkobj.js:1894` (`shrink_glob` catch-up). `mkobj.c:1571` → `js/mkobj.js:1914` (ice / eating skip). `mkobj.c:1663` → `js/mkobj.js:2001` (next shrink). `mkobj.c:3742` → `js/mkobj.js:3062` (`obj_absorb`). `pickup.c:2796` → `js/muse.js:2915` (`removed_from_icebox`). `extern.h:1698` is the declaration. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn start_glob_timeout` → PASS syntax (2 changed js files: js/hack.js js/mkobj.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+- **Named omissions:** The non-glob `impossible` is not awaited, so that error return does not block on `--More--` before the caller continues. A glob never takes the arm. `obj_to_any` does not keep `gt.tmp_anything`; `set_corpsenm` and `obj_absorb`'s `stop_timer` still pass the object, which is the same key.
+- **Next:** `shk.c` `block_entry` (next Open — coverage row). Eight Open — coverage rows remain after archive, at the band floor. `--rows 500 --min-c-lines 40` head is the never-re-pop Stale set; the first names absent from DONE, PARKED, and the D-index are sanity, wizard, and allocator functions, so nothing was appended.
+
 ## D-2851 — `rnd_otyp_by_wpnskill` picks a polearm or hammer wish
 
 - **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked). Same commit: `maybereleaseobuf` (coverage MISSING, same C file). `attach_fig_transform_timeout` parked Stale.

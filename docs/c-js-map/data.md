@@ -304,6 +304,17 @@ omit full alt_spl/rank titles/plural edge cases
 
 JS: `js/mkobj.js` — partial
 
+**`start_glob_timeout` whole body** (D-2852; C `mkobj.c:1473–1491` →
+`js/mkobj.js:1608`). Non-glob calls `impossible` with `simpleonames`
+and returns without a timer. `obj->timed` stops `SHRINK_GLOB` through
+`obj_to_any` (`hack.c:96–102` → `js/hack.js:203`, collapsed to the
+object like `monst_to_any`). `when < 1` is `25+rn2(5)-2` (23..27).
+The function stays sync so that roll stays in the caller turn;
+`impossible` is fire-and-forget on the error return. Callers:
+`mkobj.c:968` → `mksobj_init` `:2216`, `:1551` → `shrink_glob` `:1894`,
+`:1571` → `:1914`, `:1663` → `:2001`, `:3742` → `obj_absorb` `:3062`,
+`pickup.c:2796` → `removed_from_icebox` `js/muse.js:2915`.
+
 **`mkcorpstat` (D-2795;** C `mkobj.c:2067–2118`). Bad type calls
 `impossible` and continues. `x==0 && y==0` is `mksobj` (named:
 `rloco` stays the D-2463 sync-chain omit). `spe` is
@@ -317,8 +328,8 @@ corpse timer when `zombify` or either type is `special_corpse`.
 timers (`EGG` keeps the `HATCH_EGG` remainder; other timed objects clear
 all), rescales `oeaten` by `mons[id].cnutrit / mons[old_id].cnutrit`
 when a partly eaten corpse changes species, then `CORPSE` /
-`FIGURINE` / `EGG` / default `weight`. `obj_to_any` is the object
-itself. A null object returns. A missing `mons` row or a zero old
+`FIGURINE` / `EGG` / default `weight`. `obj_to_any` is the live
+`js/hack.js` collapse (the object itself). A null object returns. A missing `mons` row or a zero old
 `cnutrit` skips the rescale (C's comment excludes both). `FIGURINE`
 uses `where == OBJ_INVENT || OBJ_MINVENT`. `topten.c` `tt_oname` is
 unported (`get_rnd_toptenentry` / RECORD); `mk_tt_object` takes the
@@ -390,7 +401,7 @@ costly_spot/costly_adjacent/find_objowner; `:2363–2366` fobj chain + timed;
 `!otmp` guard kept (C NONNULLARG1); `_objects_at` Map stands in for
 svl.level.objects); **`clear_dknown` in `mksobj` (dknowns[] + shield-range)** (D-0292); 
 **`Is_pudding`/`globby` mksobj init + `obj_nexto_xy`/`obj_absorb`/`obj_meld`/`pudding_merge_message`
- + full `shrink_glob`** (D-0993 thin retired by D-2376: exported `shrink_glob(obj, expire_time)` in C order — off-level catch-up delta/moddelta, ice-thirds/buried/eating skips, halve-threshold invent + container-in-invent messages, floor cansee "fades away", `partly_eaten_hack` Yname2 with the reader in the `pretty_base` globby arm; file-local `item_on_ice`/`check_glob`/`shrinking_glob_gone`, `eating_glob` in `eat.js`; D-2374 ships full `globby_bill_fixup` + globby `get_pricing_units` weight arm; named: `start_glob_timeout` non-glob impossible; `insane_object` + `where_name` LIVE D-2520 (`js/mkobj.js:1534`/`1565`, `check_glob` wired `:1598`); `check_contained` LIVE D-2654 (`js/mkobj.js:1640`, C `:3374–3416` in order — Has_contents joins the const.js import, panics→throws, nestedmesg 112-char newline-stop inline; callers objlist_sanity `:3051` / mon_obj_sanity `:3226` unported wire-up-on-ship); D-2622 restarts `obj_meld` whole-body async in C order — holder-level `p1 && p2` guard (`:3774`) + null/same-pointee NULL fallthrough (`:3777`, old body returned the survivor), floor+free veto + heavier/`rn2(2)` tiebreak (`:3789–3792`), `ox` tail with the `cansee` gate + awaited `maybe_unhide_at` (`:3803–3809`, old floating lazy import retired), `else impossible(...)` (`:3811–3813`); callers `do.c:312`→`js/do.js:861` + `mon.c:727`→`js/mhitm.js:2943` both awaited; `:3779–3788` FIXME shore/pool as-is per C); 
+ + full `shrink_glob`** (D-0993 thin retired by D-2376: exported `shrink_glob(obj, expire_time)` in C order — off-level catch-up delta/moddelta, ice-thirds/buried/eating skips, halve-threshold invent + container-in-invent messages, floor cansee "fades away", `partly_eaten_hack` Yname2 with the reader in the `pretty_base` globby arm; file-local `item_on_ice`/`check_glob`/`shrinking_glob_gone`, `eating_glob` in `eat.js`; D-2374 ships full `globby_bill_fixup` + globby `get_pricing_units` weight arm; `start_glob_timeout` LIVE D-2852 (non-glob `impossible` + `obj_to_any`); `insane_object` + `where_name` LIVE D-2520 (`js/mkobj.js:1534`/`1565`, `check_glob` wired `:1598`); `check_contained` LIVE D-2654 (`js/mkobj.js:1640`, C `:3374–3416` in order — Has_contents joins the const.js import, panics→throws, nestedmesg 112-char newline-stop inline; callers objlist_sanity `:3051` / mon_obj_sanity `:3226` unported wire-up-on-ship); D-2622 restarts `obj_meld` whole-body async in C order — holder-level `p1 && p2` guard (`:3774`) + null/same-pointee NULL fallthrough (`:3777`, old body returned the survivor), floor+free veto + heavier/`rn2(2)` tiebreak (`:3789–3792`), `ox` tail with the `cansee` gate + awaited `maybe_unhide_at` (`:3803–3809`, old floating lazy import retired), `else impossible(...)` (`:3811–3813`); callers `do.c:312`→`js/do.js:861` + `mon.c:727`→`js/mhitm.js:2943` both awaited; `:3779–3788` FIXME shore/pool as-is per C); 
 **`mksobj` `unknow_object` `known` from `oc_uses_known`** (D-1674;
 was WAND/class-name stand-in D-0316); steal.c / muse.c callers named;
 **RING_CLASS `mksobj_init` `oc_charged`** (D-1690; was RIN_* name-list);

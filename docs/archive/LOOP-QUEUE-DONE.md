@@ -5,8 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `objnam.c` rnd_otyp_by_wpnskill — coverage MISSING (C 20 L `objnam.c:3432–3452` / JS no symbol; hops 4, callers 2, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn rnd_otyp_by_wpnskill` (reach regression must be 0). Measured `port-coverage.mjs --name rnd_otyp_by_wpnskill` 2026-09-26 @ 686390b2d. **Addressed:** D-2851
-- [x] `objnam.c` maybereleaseobuf — coverage MISSING (C 31 L `objnam.c:167–198` / JS no symbol; hops 3, callers 4, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn maybereleaseobuf` (reach regression must be 0). Measured `port-coverage.mjs --name maybereleaseobuf` 2026-09-26 @ ae37117bd. **Addressed:** D-2851
+- [x] `mkobj.c` start_glob_timeout — coverage THIN (C 16 L `mkobj.c:1473–1491` / JS 7 L in js/mkobj.js; hops 4, callers 6, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn start_glob_timeout` (reach regression must be 0). Measured `port-coverage.mjs --name start_glob_timeout` 2026-09-26 @ adbd6bd68. **Addressed:** D-2852
+
+
+- [x] `objnam.c` rnd_otyp_by_wpnskill — coverage MISSING (C 20 L `objnam.c:3432–3452` / JS no symbol; hops 4, callers 2, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn rnd_otyp_by_wpnskill` (reach regression must be 0). Measured `port-coverage.mjs --name rnd_otyp_by_wpnskill` 2026-09-26 @ 686390b2d. **Addressed:** D-2851 `cc7992cc4`
+- [x] `objnam.c` maybereleaseobuf — coverage MISSING (C 31 L `objnam.c:167–198` / JS no symbol; hops 3, callers 4, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn maybereleaseobuf` (reach regression must be 0). Measured `port-coverage.mjs --name maybereleaseobuf` 2026-09-26 @ ae37117bd. **Addressed:** D-2851 `cc7992cc4`
 
 
 - [x] `vision.c` get_unused_cs — coverage MISSING (C 25 L `vision.c:274–299` / JS no symbol; hops 1, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn get_unused_cs` (reach regression must be 0). Measured `port-coverage.mjs --name get_unused_cs` 2026-09-26 @ 686390b2d. **Addressed:** D-2850 `e6d1ac649`
