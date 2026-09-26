@@ -1836,6 +1836,18 @@ out); 6 clones retired (fountain depth-only + makemon/mklev/mkobj
 delegators); 29 C call sites wired (do Tourist gate fixed from depth;
 `nhlua.c:961` Lua push named — no JS lua runtime); full 44 + cohort 7/7.
 
+**`ceiling` `:1714–1747`** (D-2906; vault/temple/shop via `in_rooms`, then
+water level, air, fire, quest, `Underwater` (`u.uinwater`), room unless
+earth, wall/door/SDOOR, else rock cavern). One export `js/trap.js`.
+Clones `ceiling_at` / `ceiling_updown` / `ceiling_apply` are gone.
+Callers that had hardcoded “ceiling” or “floor” now call it:
+`apply.js` camera, mirror, bullwhip; `dothrow.js` `toss_up`, `throwit`,
+`throw_gold`; `zap.js` `zap_updown`; `engrave.js` `cant_reach_floor`;
+`dig.js` `use_pick_axe2`. Already wired: `zap_dig`, piercer/spoteffects,
+`youhiding`, `mattacku`, muse earth-scroll and gain-level, loot,
+levitation, read scroll, hole-close, falling objects. `check_special_room`
+is the comment at `:1720`, not a call. Named: none.
+
 **`insert_branch` `:462–508`** (D-2630; C order: extract identity scan
 `:469–472`, missing → throw with the C message `:474–475` per botl.js
 panic precedent, unlink `:476–479` ⇔ splice; `next = null` `:481`;

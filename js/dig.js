@@ -2577,7 +2577,7 @@ export async function use_pick_axe2(obj) {
         if (u.ustuck) await do_attack(u.ustuck);
     } else if (u.dz < 0) {
         if (Levitation()) await pline("You don't have enough leverage.");
-        else await pline("You can't reach the ceiling.");
+        else await pline(`You can't reach the ${ceiling(u.ux | 0, u.uy | 0)}.`);
     } else if (!u.dx && !u.dy && !u.dz) {
         let dam = rnd(2) + dbon() + (obj.spe | 0);
         if (dam <= 0) dam = 1;

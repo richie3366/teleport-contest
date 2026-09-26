@@ -284,7 +284,7 @@ import {
     NO_TRAP_FLAGS, ignite_items, openholdingtrap, closeholdingtrap,
     openfallingtrap, self_invis_message, trapname, animate_statue,
     activate_statue_trap,
-    acid_damage,
+    acid_damage, ceiling,
 } from './trap.js';
 import { potionbreathe, make_stunned, speed_up } from './potion.js';
 import { carried, fix_petrification, cant_finish_meal } from './eat.js';
@@ -2601,29 +2601,6 @@ function s_suffix_zap(s) {
         return `${s}'`;
     }
     return `${s}'s`;
-}
-
-/**
- * C dungeon.c ceiling :1714–1747 — vault/temple/shop in_rooms then
- * water/air/fire/quest/Underwater/room. Caller: zap_updown WAN_PROBING up.
- */
-function ceiling_updown(x, y) {
-    const loc = game.level?.at?.(x, y);
-    const typ = loc?.typ ?? 0;
-    const uz = game.u?.uz;
-    if (in_rooms(x, y, VAULT)) return "vault's ceiling";
-    if (in_rooms(x, y, TEMPLE)) return "temple's ceiling";
-    if (in_rooms(x, y, SHOPBASE)) return "shop's ceiling";
-    if (Is_waterlevel(uz)) return 'water above';
-    if (IS_AIR(typ)) return 'sky';
-    if (Is_firelevel(uz)) return 'flames above';
-    if (In_quest(uz)) return 'expanse above';
-    if (game.u?.Underwater) return "water's surface";
-    if ((IS_ROOM(typ) && !Is_earthlevel(uz))
-        || IS_WALL(typ) || IS_DOOR(typ) || typ === SDOOR) {
-        return 'ceiling';
-    }
-    return 'rock cavern';
 }
 
 /**
@@ -6552,7 +6529,7 @@ async function zap_updown(obj) {
         let ptmp = 0;
         if (dz < 0) {
             // C zap.c:3241 You("probe towards the %s.", ceiling(x, y)).
-            await You('probe towards the %s.', ceiling_updown(x, y));
+            await You('probe towards the %s.', ceiling(x, y));
         } else {
             const rememberedltyp = update_mapseen_for(x, y);
             ptmp += await bhitpile(obj, bhito, x, y, dz);
@@ -6634,7 +6611,7 @@ async function zap_updown(obj) {
             && !Is_qstart_updown(game.u?.uz)) {
             /* C :3310–3320 — disclose stays false. */
             await pline(
-                `A rock is dislodged from the ${ceiling_updown(x, y)} and falls on your ${body_part(HEAD)}.`,
+                `A rock is dislodged from the ${ceiling(x, y)} and falls on your ${body_part(HEAD)}.`,
             );
             const dmg = rnd(hard_helmet(game.u?.uarmh) ? 2 : 6);
             losehp(maybe_half_phys(dmg), 'falling rock', KILLED_BY_AN);

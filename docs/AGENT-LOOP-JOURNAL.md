@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2906 `ceiling` is one export; the clones are gone
+
+**C locus:** `nethack-c/upstream/src/dungeon.c:1714–1747` `ceiling`. `*in_rooms` for `VAULT`, then `TEMPLE`, then `SHOPBASE`. Then `Is_waterlevel` → "water above", `IS_AIR` → "sky", `Is_firelevel` → "flames above", `In_quest` → "expanse above", `Underwater` (`u.uinwater`) → "water's surface", else room (not earth) or wall or door or `SDOOR` → "ceiling", else "rock cavern".
+**JS:** `js/trap.js` `ceiling` `:3647`.
+**Change:** Deleted the three clones. Those callers import `ceiling`. Downward camera and mirror still call `surface`, as C does.
+**Verify:** `node scripts/verify.mjs --fn ceiling --reach-all` → PASS syntax (5 changed js files: js/apply.js js/dig.js js/dothrow.js js/engrave.js js/zap.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.2s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: PASS.
+**Named:** No arm of `ceiling` is omitted. `check_special_room` (`dungeon.c:1718–1720`) is a comment, not a call.
+**Next:** `glyphs.c` `glyph_to_cmap` (next Open — coverage row). `deepest_lev_reached` parked Stale. Ten Open rows remain after archive, above the floor of 8, so nothing was refilled. The queue-empty overlay did not match the live queue (twelve coverage rows were open; `ceiling` was the head).
 ## 2026-09-27 — audit 1857–1864 (D-2898–D-2905)
 
 Reviewed the eight `js/` commits since `37fb9f7ea`. Eight ACCEPT. No Must-fix. Next cluster is `dungeon.c` `ceiling`. Public `sessions` on `d475b25e1`: 44/44, screens 11,405/11,405, RNG 792,838/792,838, speed `255+1.54/turn` (R² 0.761). Held-out still 12/44 (6,273/11,265 pts, RNG 29.7 %, screens 55.7 %; board 2026-09-26T19:28Z, last scored 2026-09-26T19:01Z). `hidden-proxy score` 12/12 on the private sessions present (RNG 75,151/75,151, screens 653/653); `.cache/hidden/sessions` absent, so 614/940 was not re-measured. No `js/` edits.

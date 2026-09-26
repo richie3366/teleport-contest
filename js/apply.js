@@ -113,7 +113,7 @@ import { fill_pit, buried_ball_to_freedom } from './dig.js';
 import {
     mintrap, Trap_Killed_Mon, reset_utrap, instapetrify, t_at,
     activate_statue_trap, maketrap, feeltrap, dotrap, trapname,
-    deltrap, set_wounded_legs, legs_in_no_shape,
+    deltrap, set_wounded_legs, legs_in_no_shape, ceiling,
 } from './trap.js';
 import { stucksteed } from './steed.js';
 import { known_spell, spe_Fresh, SPE_JUMPING, spelleffects } from './spell.js';
@@ -821,7 +821,9 @@ async function use_mirror(obj) {
     }
     if (dz) {
         if (useeit) {
-            await pline(`You reflect the ${dz > 0 ? 'floor' : 'ceiling'}.`);
+            await pline(`You reflect the ${
+                dz > 0 ? surface(u.ux | 0, u.uy | 0) : ceiling(u.ux | 0, u.uy | 0)
+            }.`);
         }
         return ECMD_TIME;
     }
@@ -1018,7 +1020,11 @@ async function use_camera(obj) {
         await pline(`You take a picture of ${mon_nam(u.ustuck)}'s stomach.`);
     } else if (u.dz) {
         await pline(
-            `You take a picture of the ${u.dz > 0 ? 'floor' : 'ceiling'}.`,
+            `You take a picture of the ${
+                (u.dz | 0) > 0
+                    ? surface(u.ux | 0, u.uy | 0)
+                    : ceiling(u.ux | 0, u.uy | 0)
+            }.`,
         );
     } else if (!(u.dx | 0) && !(u.dy | 0)) {
         const { zapyourself } = await import('./zap.js');
@@ -3268,10 +3274,6 @@ function is_pool_or_lava_apply(x, y) {
     return is_pool(x, y) || is_lava(x, y);
 }
 
-function ceiling_apply(_x, _y) {
-    return 'ceiling';
-}
-
 function accessible_apply(x, y) {
     const loc = game.level?.at?.(x, y);
     if (!loc) return false;
@@ -3353,7 +3355,7 @@ export async function use_whip(obj) {
     } else if (Underwater_hero()) {
         await pline('There is too much resistance to flick your bullwhip.');
     } else if ((u.dz | 0) < 0) {
-        await pline(`You flick a bug off of the ${ceiling_apply(u.ux, u.uy)}.`);
+        await pline(`You flick a bug off of the ${ceiling(u.ux | 0, u.uy | 0)}.`);
     } else if (!(u.dz | 0) && (IS_WATERWALL(game.level?.at?.(rx, ry)?.typ)
             || (game.level?.at?.(rx, ry)?.typ | 0) === LAVAWALL)) {
         await pline('You cause a small splash.');
