@@ -113,6 +113,7 @@ import {
     A_LAWFUL, XKILL_NOMSG, SHOP_HOLE_COST,
     COST_BURN, COST_RUST, COST_ROT, COST_CORRODE, COST_CRACK, COST_DECHNT,
     TEST_MOVE,
+    SET_LIT_RANDOM, SET_LIT_NOCHANGE,
 } from './const.js';
 import {
     is_pool, is_lava, waterbody_name, crawl_destination, SURFACE_AT,
@@ -894,6 +895,35 @@ export function set_levltyp(x, y, newtyp) {
         }
     }
     return true;
+}
+
+/**
+ * C ref: mkmaze.c set_levltyp_lit :125–145 — set_levltyp, then when that
+ * returned and the cell isok, apply lit unless SET_LIT_NOCHANGE.
+ * Lava forces 1 (:137–138). SET_LIT_RANDOM draws rn2(2) (:139–140).
+ * EXTRA_SANITY_CHECKS (config.h:637) calls impossible when lit is
+ * outside [SET_LIT_NOCHANGE, 1] (:132–134), then still assigns.
+ * impossible is not awaited (sync level-gen; the predicate is an
+ * out-of-range lit).
+ */
+export function set_levltyp_lit(x, y, typ, lit) {
+    const ret = set_levltyp(x, y, typ); // C :127
+    if (ret && isok(x, y)) { // C :129
+        if (lit !== SET_LIT_NOCHANGE) { // C :130
+            if (lit < SET_LIT_NOCHANGE || lit > 1) { // C :132
+                void impossible(
+                    'set_levltyp_lit(%d,%d,%d,%d)',
+                    x | 0, y | 0, typ | 0, lit | 0,
+                );
+            }
+            let l = lit;
+            if (IS_LAVA(typ)) l = 1; // C :137-138
+            else if (lit === SET_LIT_RANDOM) l = rn2(2); // C :139-140
+            const lev = game.level?.at?.(x, y);
+            if (lev) lev.lit = l; // C :141
+        }
+    }
+    return ret; // C :144
 }
 
 /**

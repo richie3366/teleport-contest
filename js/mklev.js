@@ -100,7 +100,7 @@ import {
 } from './objects.js';
 import { shtypes, stock_room } from './shknam.js';
 import { setgemprobs } from './o_init.js';
-import { maketrap, t_at, undestroyable_trap, deltrap, reset_utrap, mintrap, set_levltyp } from './trap.js';
+import { maketrap, t_at, undestroyable_trap, deltrap, reset_utrap, mintrap, set_levltyp, set_levltyp_lit } from './trap.js';
 import {
     mkobj, mksobj, mksobj_at, mksobj_migr_to_species, mkobj_at, mkgold,
     mkcorpstat, next_ident,
@@ -1732,24 +1732,6 @@ function mapfrag_error(mf) {
 }
 
 /**
- * C ref: mkmaze.c set_levltyp_lit `:125–145` lit tail — the set_levltyp
- * half (typ/flags/roomno/edge) rides sel_set_ter, which already covers
- * NOCHANGE-keep and truthy-set; this tail ports what it does not:
- * explicit 0 clears (JS sel_set_ter leaves legacy false alone — the
- * lspo_map inline idiom), SET_LIT_RANDOM draws rn2(2) (C `:139–140`),
- * lava forces lit (C `:137–138`). Assigned when the cell isok like C
- * `:129` (sel bounds are isok-gated; the guard mirrors C's ret).
- */
-function set_levltyp_lit_tail(x, y, typ, lit) {
-    if (lit === SET_LIT_NOCHANGE) return; // C :131
-    let l = lit;
-    if (IS_LAVA(typ)) l = 1; // C :137-138
-    else if (lit === SET_LIT_RANDOM) l = rn2(2); // C :139-140
-    const loc = game.level.at(x, y);
-    if (loc && isok(x, y)) loc.lit = !!l; // C :142
-}
-
-/**
  * C ref: sp_lev.c lspo_replace_terrain `:5051–5143` — des.replace_terrain
  * entry in C order. Table form only (C `:5064` lcheck_param_table ≡
  * table-or-empty + object check). toterrain is required (C nhlua.c:241
@@ -1842,17 +1824,13 @@ export function lspo_replace_terrain(opts) {
         for (let y = rect.ly; y <= rect.hy; y++) // C :5124 (no lower clamp, like C)
             if (selection_getpoint(x, y, sel)) { // C :5125
                 if (mf) { // C :5126
-                    if (mapfrag_match(mf, x, y) && rn2(100) < chance) { // C :5127-5128
-                        sel_set_ter(x, y, totyp, tolit === SET_LIT_RANDOM ? SET_LIT_NOCHANGE : tolit); // C :5129 set_levltyp half
-                        set_levltyp_lit_tail(x, y, totyp, tolit); // C :5129 lit half
-                    }
+                    if (mapfrag_match(mf, x, y) && rn2(100) < chance) // C :5127-5128
+                        set_levltyp_lit(x, y, totyp, tolit); // C :5128
                 } else { // C :5130
                     const t = game.level.at(x, y)?.typ; // C levl[x][y].typ
                     if (((fromtyp === MATCH_WALL && IS_STWALL(t)) || t === fromtyp) // C :5131-5132
-                        && rn2(100) < chance) { // C :5133
-                        sel_set_ter(x, y, totyp, tolit === SET_LIT_RANDOM ? SET_LIT_NOCHANGE : tolit); // C :5134 set_levltyp half
-                        set_levltyp_lit_tail(x, y, totyp, tolit); // C :5134 lit half
-                    }
+                        && rn2(100) < chance) // C :5133
+                        set_levltyp_lit(x, y, totyp, tolit); // C :5133
                 }
             }
     if (freesel) selection_free(sel, true); // C :5138-5139
@@ -19741,23 +19719,17 @@ function nhlib_shuffle_align() {
     game.splev_align = align;
 }
 
-/** C ref: sp_lev.c lvlfill_solid → set_levltyp_lit */
+/** C ref: sp_lev.c lvlfill_solid :373–388 — set_levltyp_lit, then clear flags. */
 function lvlfill_solid(filling, lit) {
-    const map = game.level;
     for (let x = 2; x <= X_MAZE_MAX; x++) {
         for (let y = 0; y <= Y_MAZE_MAX; y++) {
-            const loc = map.at(x, y);
+            if (!set_levltyp_lit(x, y, filling, lit)) continue; // C :380-381
+            const loc = game.level.at(x, y);
             if (!loc) continue;
-            loc.typ = filling;
-            loc.flags = 0;
-            loc.horizontal = false;
-            loc.roomno = 0;
-            loc.edge = false;
-            // C set_levltyp_lit: always assign when lit != SET_LIT_NOCHANGE
-            let l = lit;
-            if (IS_LAVA(filling)) l = 1;
-            else if (l === SET_LIT_RANDOM) l = rn2(2);
-            loc.lit = !!l;
+            loc.flags = 0; // C :383
+            loc.horizontal = false; // C :384
+            loc.roomno = 0; // C :385
+            loc.edge = false; // C :386
         }
     }
 }
@@ -19925,42 +19897,23 @@ function lvlfill_swamp(fg, bg, lit) {
         for (let y = 0; y <= ymax; y += 2) {
             let c = 0;
             const map = game.level;
-            {
-                const loc = map.at(x, y);
-                if (loc) {
-                    loc.typ = fg;
-                    loc.flags = 0;
-                    loc.horizontal = false;
-                    loc.roomno = 0;
-                    loc.edge = false;
-                    let l = lit;
-                    if (IS_LAVA(fg)) l = 1;
-                    else if (l === SET_LIT_RANDOM) l = rn2(2);
-                    loc.lit = !!l;
-                }
-            }
-            if (map.at(x + 1, y)?.typ === bg) ++c;
-            if (map.at(x, y + 1)?.typ === bg) ++c;
-            if (map.at(x + 1, y + 1)?.typ === bg) ++c;
+            set_levltyp_lit(x, y, fg, lit); // C :402
+            if (map.at(x + 1, y)?.typ === bg) ++c; // C :403-404
+            if (map.at(x, y + 1)?.typ === bg) ++c; // C :405-406
+            if (map.at(x + 1, y + 1)?.typ === bg) ++c; // C :407-408
             if (c === 3) {
-                let ox = x, oy = y;
-                switch (rn2(3)) {
-                case 0: ox = x + 1; oy = y; break;
-                case 1: ox = x; oy = y + 1; break;
-                case 2: ox = x + 1; oy = y + 1; break;
-                default: break;
-                }
-                const loc = map.at(ox, oy);
-                if (loc) {
-                    loc.typ = fg;
-                    loc.flags = 0;
-                    loc.horizontal = false;
-                    loc.roomno = 0;
-                    loc.edge = false;
-                    let l = lit;
-                    if (IS_LAVA(fg)) l = 1;
-                    else if (l === SET_LIT_RANDOM) l = rn2(2);
-                    loc.lit = !!l;
+                switch (rn2(3)) { // C :410
+                case 0:
+                    set_levltyp_lit(x + 1, y, fg, lit); // C :412
+                    break;
+                case 1:
+                    set_levltyp_lit(x, y + 1, fg, lit); // C :415
+                    break;
+                case 2:
+                    set_levltyp_lit(x + 1, y + 1, fg, lit); // C :418
+                    break;
+                default:
+                    break;
                 }
             }
         }
@@ -26288,7 +26241,7 @@ function hellfill_replace_terrain_all(fromtyp, totyp, chance = 100) {
             const match = (fromtyp === MATCH_WALL && IS_STWALL(loc.typ))
                 || loc.typ === fromtyp;
             if (match && rn2(100) < ch)
-                sel_set_ter(x, y, totyp, SET_LIT_NOCHANGE);
+                set_levltyp_lit(x, y, totyp, SET_LIT_NOCHANGE); // C :5133
         }
     }
 }
@@ -28262,32 +28215,23 @@ function light_region(x1, y1, x2, y2, lit) {
 }
 
 /**
- * C ref: sp_lev.c sel_set_ter + mkmaze.c set_levltyp / set_levltyp_lit.
- * C set_levltyp: IS_LAVA(newtyp) → lit=1 always (even before lit arg).
- * set_levltyp_lit: lit!=NOCHANGE then IS_LAVA forces lit=1 again.
- * tlit truthy → lit; SET_LIT_NOCHANGE → leave (except lava); falsey
- * still nochange for legacy map callers (tut-1 wall display relies on
- * solidfill BOOL_RANDOM until vision wall-hack matches C; D-0928 #1173
- * clears lit explicitly in load_sanctum / Pri-loca / fire after map).
+ * C ref: sp_lev.c sel_set_ter :4608–4630 — set_levltyp_lit, then door /
+ * wall / ice / cloud. Boolean false is the hand-rolled map idiom for
+ * "leave lit" (C's unset lit is SET_LIT_NOCHANGE; numeric 0 is unlit
+ * and is passed through to set_levltyp_lit). The flag/roomno/edge clear
+ * is not in C sel_set_ter; lspo_map (:6288–6291) and lvlfill_solid do
+ * it. Kept here so the hand-rolled paints that call this helper still
+ * reset those fields.
  */
 function sel_set_ter(x, y, ter, tlit) {
+    const lit = tlit === false ? SET_LIT_NOCHANGE : tlit;
+    if (!set_levltyp_lit(x, y, ter, lit)) return; // C :4614-4615
     const loc = game.level.at(x, y);
-    if (!loc || !isok(x, y)) return;
-    loc.typ = ter;
+    if (!loc) return;
     loc.flags = 0;
     loc.horizontal = false;
     loc.roomno = NO_ROOM;
     loc.edge = false;
-    // C mkmaze.c set_levltyp: IS_LAVA(newtyp) → lit=1 (hell_tweaks /
-    // des.terrain with SET_LIT_NOCHANGE still leave lava lit).
-    if (IS_LAVA(ter)) {
-        loc.lit = true;
-    } else if (tlit === SET_LIT_NOCHANGE) {
-        /* keep loc.lit */
-    } else if (tlit) {
-        loc.lit = true;
-    }
-    // else: legacy false → nochange (not C lit=FALSE; see load_fire)
     if (ter === SDOOR || IS_DOOR(ter)) {
         if (ter === SDOOR) loc.doormask = D_CLOSED;
         const left = game.level.at(x - 1, y);
@@ -30455,10 +30399,8 @@ function lspo_replace_terrain_region(rx1, ry1, rx2, ry2, fromtyp, totyp, chance)
             if (!loc) continue;
             const match = (fromtyp === MATCH_WALL && IS_STWALL(loc.typ))
                 || loc.typ === fromtyp;
-            if (match && rn2(100) < ch) {
-                // C replace_terrain default lit=SET_LIT_NOCHANGE
-                sel_set_ter(x, y, totyp, SET_LIT_NOCHANGE);
-            }
+            if (match && rn2(100) < ch)
+                set_levltyp_lit(x, y, totyp, SET_LIT_NOCHANGE); // C :5133 default lit
         }
     }
 }
@@ -30479,7 +30421,7 @@ function lspo_replace_terrain_sel(sel, fromtyp, totyp, chance) {
             const match = (fromtyp === MATCH_WALL && IS_STWALL(loc.typ))
                 || loc.typ === fromtyp;
             if (match && rn2(100) < ch)
-                sel_set_ter(x, y, totyp, SET_LIT_NOCHANGE);
+                set_levltyp_lit(x, y, totyp, SET_LIT_NOCHANGE); // C :5133
         }
     }
 }

@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2870 — `set_levltyp_lit` sets terrain, then light, unless the caller asked to leave it
+
+- **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** There was no `set_levltyp_lit`. Solid fill and swamp fill wrote the terrain byte and a truthy light value themselves, so `SET_LIT_NOCHANGE` (`-2`) became lit and stairs, ice, and fountain counts never went through `set_levltyp`. `des.replace_terrain` went through `sel_set_ter`, which also cleared flags and painted door masks.
+- **C locus:** `nethack-c/upstream/src/mkmaze.c:125–145` `set_levltyp_lit`. Callees `set_levltyp` (`mkmaze.c:77`, live `js/trap.js:865`), `isok` (`js/const.js:2302`), `impossible` (`js/display.js:8116`, `EXTRA_SANITY_CHECKS` in `config.h:637`), `IS_LAVA`, `rn2` (`js/rng.js:89`). Calls: `sp_lev.c:380` `lvlfill_solid`; `:402`, `:412`, `:415`, `:418` `lvlfill_swamp`; `:4614` `sel_set_ter`; `:5128` and `:5133` `lspo_replace_terrain`. `mkmaze.c:133` is the `impossible` format inside the function.
+- **JS was:** No symbol. `lvlfill_solid` and `lvlfill_swamp` (`js/mklev.js`) assigned `typ` and `!!lit`. `lspo_replace_terrain` called `sel_set_ter` plus a lit-only `set_levltyp_lit_tail`. `sel_set_ter` treated numeric 0 and boolean `false` as "leave lit", except lava and a truthy light.
+- **Fix:** One `set_levltyp_lit` in that C order. `set_levltyp` runs first. When it returns and the cell is in bounds, a light other than `SET_LIT_NOCHANGE` is checked, lava is forced to 1, `SET_LIT_RANDOM` draws `rn2(2)`, and `.lit` is assigned. `lvlfill_solid` calls it and then clears flags, horizontal, roomno, and edge. `lvlfill_swamp` calls it at the four C sites and does not clear those fields. `sel_set_ter` calls it, then the door, wall, ice, and cloud arms. `lspo_replace_terrain` calls it at both sites. The lit tail is gone.
+- **JS:** `js/trap.js` `set_levltyp_lit` `:909`, `set_levltyp` `:910`, sanity `impossible` `:914`, lava `:920`, `rn2(2)` `:921`, assign `:923`.
+- **Callers:** `sp_lev.c:380` → `js/mklev.js:19726` (`lvlfill_solid`). `sp_lev.c:402` → `:19900`, `:412` → `:19907`, `:415` → `:19910`, `:418` → `:19913` (`lvlfill_swamp`). `sp_lev.c:4614` → `js/mklev.js:28228` (`sel_set_ter`). `sp_lev.c:5128` → `:1828` and `:5133` → `:1833` (`lspo_replace_terrain`). The same per-cell write in the hand-rolled splits: `hellfill_replace_terrain_all` `:26244`, `lspo_replace_terrain_region` `:30403`, `lspo_replace_terrain_sel` `:30424`. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn set_levltyp_lit` → PASS syntax (2 changed js files: js/mklev.js js/trap.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+- **Named omissions:** Boolean `false` passed to `sel_set_ter` is still `SET_LIT_NOCHANGE`. Hand-rolled map paints use that for "leave lit"; C's integer 0 is unlit and is passed through. `sel_set_ter` still clears flags, horizontal, roomno, and edge; C does that in `lspo_map` and `lvlfill_solid`, not in `sel_set_ter`. `set_levltyp` still omits the SDOOR→AIR arboreal return and the full `count_level_features` rescan. The sanity `impossible` is not awaited.
+- **Next:** `uhitm.c` `hmon_hitmon_msg_hit` (next Open — coverage row). Eleven Open — coverage rows remain after archive, above the floor of 8, so nothing was refilled.
+
 ## D-2869 — `maybe_absorb_item` lets a poked mimic take the hero's tool
 
 - **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked).

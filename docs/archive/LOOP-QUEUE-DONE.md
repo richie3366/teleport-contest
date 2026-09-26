@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `steal.c` maybe_absorb_item — coverage MISSING (C 35 L `steal.c:772–810` / JS no symbol; hops 5, callers 1, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn maybe_absorb_item` (reach regression must be 0). Measured `port-coverage.mjs --name maybe_absorb_item` 2026-09-26 @ 9d403156e. **Addressed:** D-2869
+- [x] `mkmaze.c` set_levltyp_lit — coverage MISSING (C 20 L `mkmaze.c:125–145` / JS no symbol; hops —, callers 8, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn set_levltyp_lit` (reach regression must be 0). Measured `port-coverage.mjs --name set_levltyp_lit` 2026-09-26 @ 9d403156e. **Addressed:** D-2870
+
+
+- [x] `steal.c` maybe_absorb_item — coverage MISSING (C 35 L `steal.c:772–810` / JS no symbol; hops 5, callers 1, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn maybe_absorb_item` (reach regression must be 0). Measured `port-coverage.mjs --name maybe_absorb_item` 2026-09-26 @ 9d403156e. **Addressed:** D-2869 `3f8d66fcb`
 
 
 - [x] `do.c` engulfer_digests_food — coverage MISSING (C 39 L `do.c:849–888` / JS no symbol; hops 4, callers 1, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn engulfer_digests_food` (reach regression must be 0). Measured `port-coverage.mjs --name engulfer_digests_food` 2026-09-26 @ 4b46eed9c. **Addressed:** D-2868 `3ff465fee`
