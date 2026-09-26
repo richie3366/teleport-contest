@@ -7,6 +7,10 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — review 1776–1784 (audit, no port)
+
+Reviewed `b05a6b770` through `b60cf8e62` (D-2817–D-2825), one file per SHA. 7 ACCEPT (`1776`, `1777`, `1779`–`1783`). 2 QUALITY-RISK: `1778` `inv_weight` drops the boulder/`throws_rocks` skip; `1784` `domove_fight_empty` calls `Hallucination` from `do_name.js:255` instead of `display.js:1091`. Both are Must-fix. Next cluster is the fight-empty re-point.
+Public `sessions` on `b60cf8e62`: 44/44, screens 11,405/11,405, RNG 792,838/792,838, speed `265+1.67/turn` (R² 0.736). Held-out 12/44, 6,059/11,265, RNG 29.2 %, screens 53.8 % (scored 2026-09-26T01:28Z). Private recordings 12/12. No `js/` edits.
 ## 2026-09-26 — D-2825 `domove_fight_empty` spends the turn on an empty force-fight
 
 **C locus:** `nethack-c/upstream/src/hack.c:2229–2338` `domove_fight_empty`. Off-edge rewrites local `x,y` to `(0,1)` and uses `GLYPH_UNEXPLORED`. The guard is `forcefight || (glyph_is_invisible(glyph) && !m_at && !nopick)`. `solid` is `off_edge || !accessible || IS_FURNITURE`. `!Underwater`: `sobj_at(BOULDER)`, then a statue glyph or `Hallucination && glyph_is_monster` replaces it with `sobj_at(STATUE)`; `forcefight && uwep && dig_typ && !glyph_is_invisible && !glyph_is_monster` calls `use_pick_axe2` and returns. Otherwise `unmap_object`, `map_object(boulder, TRUE)`, `newsym`, `glyph_at` (`nhUse`). The name is `ansimpleoname`, or underwater `!is_pool` ("an air bubble" on water-level `AIR`, else "nothing"), or solid seen / `IS_STWALL` / `SDOOR` / `SCORR` via `the(defsyms[glyph_to_cmap(back_to_glyph)].explanation)`, else "an unknown obstacle", else "thin air". `You` adverb, `nomul(0)`, then `AT_EXPL` `wake_nearto(ux, uy, 49)`, `explum(NULL, attk)`, `mh = -1`, `rehumanize`.

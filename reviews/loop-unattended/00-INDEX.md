@@ -1785,3 +1785,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1773-30a1b86dc-allow-category.md](./1773-30a1b86dc-allow-category.md) | `30a1b86dc` | D-2814 allow_category | **ACCEPT** |
 | [1774-75a5d7683-safe-teleds.md](./1774-75a5d7683-safe-teleds.md) | `75a5d7683` | D-2815 safe_teleds | **ACCEPT** |
 | [1775-5dd7c4a90-retouch-callers.md](./1775-5dd7c4a90-retouch-callers.md) | `5dd7c4a90` | D-2816 retouch_equipment callers | **ACCEPT** |
+| [1776-b05a6b770-mount-steed-hallu.md](./1776-b05a6b770-mount-steed-hallu.md) | `b05a6b770` | D-2817 mount_steed Hallucination | **ACCEPT** |
+| [1777-fc6ad8bdf-set-corpsenm.md](./1777-fc6ad8bdf-set-corpsenm.md) | `fc6ad8bdf` | D-2818 set_corpsenm | **ACCEPT** |
+| [1778-678f36702-weight-cap.md](./1778-678f36702-weight-cap.md) | `678f36702` | D-2819 weight_cap | **QUALITY-RISK** |
+| [1779-3c5dbb972-view-from.md](./1779-3c5dbb972-view-from.md) | `3c5dbb972` | D-2820 view_from | **ACCEPT** |
+| [1780-6fb805b57-paranoid-confirm.md](./1780-6fb805b57-paranoid-confirm.md) | `6fb805b57` | D-2821 optfn_paranoid_confirmation | **ACCEPT** |
+| [1781-7a0f166d7-windowborders.md](./1781-7a0f166d7-windowborders.md) | `7a0f166d7` | D-2822 windowborders family | **ACCEPT** |
+| [1782-8a86cd50e-rndmonst-adj.md](./1782-8a86cd50e-rndmonst-adj.md) | `8a86cd50e` | D-2823 rndmonst_adj | **ACCEPT** |
+| [1783-40264ce0a-dmonsfree.md](./1783-40264ce0a-dmonsfree.md) | `40264ce0a` | D-2824 dmonsfree | **ACCEPT** |
+| [1784-b60cf8e62-fight-empty.md](./1784-b60cf8e62-fight-empty.md) | `b60cf8e62` | D-2825 domove_fight_empty | **QUALITY-RISK** |
