@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2838 `handler_autopickup_exception` stores always/never pickup patterns
+
+**C locus:** `nethack-c/upstream/src/options.c:6331–6404` `handler_autopickup_exception`. Callees `count_apes` `:9190–9202`, `add_autopickup_exception` `:9299–9346`, `remove_autopickup_exception` `:9348–9369`, `handle_add_list_remove` `:9207–9251` (already live). Caller `options.c:8318` is `optfn_o_autopickup_exceptions` `:8302–8321` `do_handler`. `cfgfiles.c:614` also calls `add_autopickup_exception`. `dotogglepickup` `:9264–9268` calls `count_apes`.
+**JS:** `js/options.js` `count_apes` `:4709`, `add_autopickup_exception` `:4721`, `remove_autopickup_exception` `:4770`, `handler_autopickup_exception` `:4801`, `optfn_o_autopickup_exceptions` `:4862`, allopt idx 20 `:7562`, doset simple `:6251`, doset full `:7388`, `dotogglepickup` `:3808`. `js/cfgfiles.js` `cnf_line_AUTOPICKUP_EXCEPTION` `:465`. `js/invent.js` `select_menu_pick_none` ESC `:3152`, return `:3191`. `imports.mjs` not required: `cfgfiles.js` already imported `options.js`.
+**Change:** One `handler_autopickup_exception` in that C order. Add wraps the getlin text in quotes and parses `"<"`, `">"`, then the plain quoted form, including the `>`-comment fallthrough that lets the plain sscanf own `n`. A compiled node is prepended; the head is null when the list is empty.
+**Verify:** `node scripts/verify.mjs --fn handler_autopickup_exception` → PASS syntax (4 changed js files: js/cfgfiles.js js/invent.js js/options.js js/pickup.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (shared file) · VERIFY: PASS.
+**Named:** `regex_error_desc` (the regex-error `config_error_add` uses a fixed phrase; the sink itself is still a no-op). Heading color and menu glyph columns.
+**Next:** `uhitm.c` `mhitm_ad_legs` (next Open — coverage row; already on the Stale index, so the brief decides). Six measured rows were refilled (`fixup_special`, `handler_msgtype`, `iter_mons_safe`, `peffect_restore_ability`, `hmon_hitmon_barehands`, `dumpit`). `get_level` parked Stale (body already live). Twelve Open — coverage rows after archive.
 ## 2026-09-26 — D-2837 `setopt_cmd` names the options command from the live key binds
 
 **C locus:** `nethack-c/upstream/src/pager.c:2908–2957` `setopt_cmd`. Caller `pager.c:2882` fills the `dispfile_optmenu` help item. Callees `cmd.c:3035–3066` `cmd_from_func` and `cmd.c:3105–3155` `cmdname_from_func`. `hacklib.c:286–297` `copynchars`. `visctrl` was already live. `eos` (`hacklib.c:193`) appends.

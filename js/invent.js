@@ -3121,6 +3121,7 @@ export async function select_menu_pick_none(entries) {
     // C ref: wintty.c tty_display_nhwindow(NHW_MENU) NEED_MORE flush
     // C windows.c select_menu `:1858–1863` gb.bot_disabled wrap.
     const _botPrev = set_bot_disabled(true);
+    let cancelled = false;
     try {
     await flush_topl_more();
     const rows = display()?.rows || 24;
@@ -3147,7 +3148,12 @@ export async function select_menu_pick_none(entries) {
         });
         await flush_screen(1);
         const key = await nhgetch();
-        if (key === 27 || key === 13 || key === 10) break;
+        // C tty_select_menu `:2796–2797` — ESC is pick_cnt -1; Enter/space is 0.
+        if (key === 27) {
+            cancelled = true;
+            break;
+        }
+        if (key === 13 || key === 10) break;
         if (key === 32) {
             if (curr_page < npages - 1) {
                 curr_page++;
@@ -3179,9 +3185,10 @@ export async function select_menu_pick_none(entries) {
         tty_nhbell();
         // other keys: re-prompt same page (C xwaitforspace)
     }
-    clear_overlay();
+        clear_overlay();
     await docrt();
     await flush_screen(1);
+    return cancelled ? -1 : 0;
     } finally {
         set_bot_disabled(_botPrev);
     }

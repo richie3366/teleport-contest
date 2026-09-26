@@ -3802,7 +3802,14 @@ export async function dotogglepickup() {
     let buf;
     if (game.flags.pickup) {
         const ocl = String(game.flags.pickup_types || '');
-        buf = `ON, for ${ocl || 'all'} objects`;
+        // C `:9264–9268` — null head prints nothing; one vs some.
+        let extra = '';
+        if (game.apelist) {
+            extra = count_apes() === 1
+                ? ', with one exception'
+                : ', with some exceptions';
+        }
+        buf = `ON, for ${ocl || 'all'} objects${extra}`;
     } else {
         buf = 'OFF';
     }
@@ -4666,6 +4673,207 @@ async function handle_add_list_remove(optname, numtotal) {
     const res = await select_menu_pick_one(raw);
     if (res.kind !== 'pick') return 3;
     return (res.item.a_int | 0) - 1;
+}
+
+/**
+ * C sscanf `"<prefix>%253[^"]" %c` for add_autopickup_exception.
+ * prefix is `<`, `>`, or empty. n is 0 (no match), 1 (quoted text only),
+ * or 2 (one char after the closing quote; the format's space skips
+ * whitespace). The scanset needs at least one character and stops at 253.
+ * @param {string} mapping
+ * @param {string} prefix
+ * @returns {{ n: number, text: string, end: string }}
+ */
+function ape_sscanf_quoted(mapping, prefix) {
+    const s = String(mapping ?? '');
+    const head = `"${prefix}`;
+    if (!s.startsWith(head)) return { n: 0, text: '', end: '' };
+    let i = head.length;
+    let text = '';
+    while (i < s.length && s[i] !== '"' && text.length < 253) {
+        text += s[i];
+        i++;
+    }
+    if (!text.length || i >= s.length || s[i] !== '"') return { n: 0, text: '', end: '' };
+    i++; // closing quote
+    while (i < s.length && ' \t\n\r\v\f'.includes(s[i])) i++;
+    if (i >= s.length) return { n: 1, text, end: '' };
+    return { n: 2, text, end: s[i] };
+}
+
+/**
+ * C ref: options.c count_apes `:9190–9202`. game.apelist is the chain as
+ * an array (newest first, C prepend). Null when empty so `apelist != null`
+ * stays the C NULL test.
+ */
+function count_apes() {
+    const list = game.apelist;
+    return Array.isArray(list) ? list.length : 0;
+}
+
+/**
+ * C ref: options.c add_autopickup_exception `:9299–9346`.
+ * The `>` arm's `n == 2` does not return: `||` runs the plain sscanf
+ * and that result owns `n` / `text` / `end`.
+ * @param {string} mapping
+ * @returns {number} 1 stored, 0 syntax or regex failure
+ */
+export function add_autopickup_exception(mapping) {
+    const APE_regex_error = 'regex error in AUTOPICKUP_EXCEPTION';
+    const APE_syntax_error = 'syntax error in AUTOPICKUP_EXCEPTION';
+    let grab = false;
+    let text = '';
+    // C `:9318–9328`
+    let r = ape_sscanf_quoted(mapping, '<');
+    if (r.n === 1 || (r.n === 2 && r.end === '#')) {
+        grab = true;
+        text = r.text;
+    } else {
+        r = ape_sscanf_quoted(mapping, '>');
+        if (r.n === 1) {
+            grab = false;
+            text = r.text;
+        } else {
+            const r2 = ape_sscanf_quoted(mapping, '');
+            if (r2.n === 1 || (r2.n === 2 && r2.end === '#')) {
+                grab = false;
+                text = r2.text;
+            } else {
+                config_error_add('%s', APE_syntax_error); // C `:9330`
+                return 0;
+            }
+        }
+    }
+    const ape = {
+        regex: regex_init(), // C `:9334`
+        pattern: '',
+        grab,
+    };
+    if (!regex_compile(text, ape.regex)) { // C `:9335`
+        regex_free(ape.regex); // C `:9340`
+        // regex_error_desc (posixregex.c) has no JS body.
+        config_error_add('%s: %s', APE_regex_error, 'invalid regular expression'); // C `:9342`
+        return 0;
+    }
+    ape.pattern = text; // C `:9344` dupstr
+    ape.grab = grab;
+    if (!Array.isArray(game.apelist)) game.apelist = [];
+    game.apelist.unshift(ape); // C `:9345–9346` prepend
+    return 1;
+}
+
+/**
+ * C ref: options.c remove_autopickup_exception `:9348–9369`.
+ * Identity unlink; the head becomes null when the last node goes.
+ * @param {object|null} whichape
+ */
+function remove_autopickup_exception(whichape) {
+    const list = game.apelist;
+    if (!Array.isArray(list) || !whichape) return;
+    for (let i = 0; i < list.length;) { // C `:9353`
+        if (list[i] === whichape) { // C `:9354`
+            regex_free(list[i].regex); // C `:9362`
+            list.splice(i, 1); // C `:9356–9364` unlink + free
+        } else {
+            i++; // C `:9366–9367`
+        }
+    }
+    if (!list.length) game.apelist = null; // C head NULL
+}
+
+/**
+ * C windows.c add_menu_heading `:1818–1821` attr. Color stays NO_COLOR
+ * on this painter (the corner menu has no per-row color).
+ */
+function ape_heading_attr() {
+    if (game.program_state?.gameover) return ATR_NONE; // C `:1820–1821`
+    const h = game.iflags?.menu_headings;
+    if (h && typeof h === 'object' && typeof h.attr === 'number') return h.attr;
+    return ATR_INVERSE;
+}
+
+/**
+ * C ref: options.c handler_autopickup_exception `:6331–6404`.
+ * do_handler of optfn_o_autopickup_exceptions (`:8318`). Async because
+ * getlin / the menus await. TRUE and optn_ok are both 1.
+ * @returns {Promise<number>}
+ */
+export async function handler_autopickup_exception() {
+    for (;;) { // C `:6341` ape_again
+        const numapes = count_apes(); // C `:6342`
+        const opt_idx = await handle_add_list_remove('autopickup exception', numapes); // C `:6343`
+        if (opt_idx === 3) { // C `:6344` done
+            return OPTN_OK; // C `:6345` TRUE
+        } else if (opt_idx === 0) { // C `:6346` add new
+            // getlin writes &apebuf[1]; mungspaces then the ESC test.
+            let user = mungspaces(String(
+                (await getlin('What new autopickup exception pattern?')) ?? '',
+            )); // C `:6350–6351`
+            if (user.charCodeAt(0) === 0x1b) return OPTN_OK; // C `:6352–6353`
+            if (user.length) { // C `:6354`
+                // apebuf[sizeof - 2] = NUL keeps the closing quote inside BUFSZ.
+                const body = user.slice(0, BUFSZ - 1); // C `:6359`
+                add_autopickup_exception(`"${body}"`); // C `:6357–6361`
+            }
+            continue; // C `:6362` goto ape_again
+        } else { // C `:6363` list (1) or remove (2)
+            const list = Array.isArray(game.apelist) ? game.apelist : [];
+            const raw = [{
+                text: `${opt_idx === 1 ? 'List of' : 'Remove which'} autopickup exceptions`, // C `:6386–6388`
+                selectable: false,
+            }];
+            if (numapes) { // C `:6369`
+                raw.push({
+                    text: "Always pickup '<'; never pickup '>'", // C `:6373–6374`
+                    selectable: false,
+                    attr: ape_heading_attr(),
+                });
+                for (let i = 0; i < numapes && i < list.length; i++) { // C `:6375`
+                    const ape = list[i];
+                    raw.push({
+                        text: `"${ape.grab ? '<' : '>'}${ape.pattern}"`, // C `:6379–6381`
+                        selectable: true,
+                        // C `:6377` a_void is 0 on list, the node on remove.
+                        ape: opt_idx === 1 ? null : ape,
+                    });
+                }
+            }
+            if (opt_idx === 1) { // C `:6390–6391` PICK_NONE
+                const pickCnt = await select_menu_pick_none(raw);
+                if ((pickCnt | 0) >= 0) continue; // C `:6398–6399`
+                return OPTN_OK; // C `:6402`
+            }
+            const picks = await select_menu_pick_any(raw, { cancelValue: null }); // C `:6390–6392` PICK_ANY
+            if (picks === null) return OPTN_OK; // C `:6398` pick_cnt < 0 → `:6402`
+            for (let k = 0; k < picks.length; k++) { // C `:6393–6396`
+                remove_autopickup_exception(picks[k].ape);
+            }
+            continue; // C `:6398–6399` pick_cnt >= 0
+        }
+    }
+}
+
+/**
+ * C ref: options.c optfn_o_autopickup_exceptions `:8302–8321`.
+ * do_set is empty and falls through into get_val (Sprintf into opts).
+ * do_handler is handler_autopickup_exception; this sync arm cannot await,
+ * so doset calls that function directly.
+ */
+function optfn_o_autopickup_exceptions(_optidx, req, _negated, opts, _op) {
+    if (req === REQ_DO_INIT) { // C `:8306`
+        return OPTN_OK;
+    }
+    if (req === REQ_DO_SET) { // C `:8309–8310` empty
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C `:8311`
+        if (opts == null) return OPTN_ERR; // C `:8312–8313`
+        set_optbuf(opts, currently_set_val(count_apes())); // C `:8314`
+        return OPTN_OK;
+    }
+    if (req === REQ_DO_HANDLER) { // C `:8317–8318`
+        return OPTN_OK;
+    }
+    return OPTN_OK; // C `:8320`
 }
 
 /**
@@ -6039,6 +6247,8 @@ async function doset_compound_via_getlin(opt) {
             reslt = await handler_perminv_mode();
         } else if (name === 'menu colors') {
             reslt = await handler_menu_colors();
+        } else if (name === 'autopickup exceptions') {
+            reslt = await handler_autopickup_exception(); // C `:8318`
         } else if (name === 'number_pad') {
             reslt = await handler_number_pad(); // C optfn_number_pad do_handler `:2642`
         } else if (name === 'sortvanquished') {
@@ -6127,7 +6337,10 @@ function simple_opt_get_val(opt) {
     if (name === 'sortloot') return doset_compopt_get_val(optfn_sortloot, 'sortloot');
     if (name === 'perminv_mode') return optfn_perminv_mode_get_val_display();
     if (name === 'autopickup exceptions') {
-        return currently_set_val(game.flags?.ape_count ?? 0);
+        const holder = { buf: '' };
+        optfn_o_autopickup_exceptions(
+            allopt_idx(name), REQ_GET_VAL, false, holder, EMPTY_OPTSTR);
+        return holder.buf;
     }
     if (name === 'symset') {
         // C: gs.symset[PRIMARYSET].name + ", active" + ", handler=DEC"
@@ -7108,7 +7321,7 @@ export async function doset() {
     });
     for (const t of [
         { name: 'autocompletions', val: '(0 currently set)' },
-        { name: 'autopickup exceptions', val: '(0 currently set)' },
+        { name: 'autopickup exceptions', val: currently_set_val(count_apes()) },
         // C options.c:8336 optfn_o_bind_keys get_val (n_currently_set).
         { name: 'bind keys', val: currently_set_val(count_bind_keys()) },
         { name: 'menu colors', val: currently_set_val(count_menucolors()) },
@@ -7171,6 +7384,9 @@ export async function doset() {
         // C options.c:8340 optfn_o_bind_keys do_handler.
         if (name === 'bind keys') {
             await handler_rebind_keys();
+        } else if (name === 'autopickup exceptions') {
+            const reslt = await handler_autopickup_exception(); // C `:8318`
+            if (reslt === OPTN_OK) opt_set_in_config[allopt_idx(name)] = true;
         } else if (name === 'menu colors') {
             await handler_menu_colors();
         } else if (name === 'status condition fields') {
@@ -7343,7 +7559,7 @@ const allopt = [
     // optlist.h:184 NHOPTB(autopickup)
     { name: 'autopickup', opttyp: BoolOpt, idx: 19, setwhere: SET_IN_GAME, initval: false, addr: { obj: 'flags', key: 'pickup' }, optfn: null },
     // optlist.h:187 NHOPTO("autopickup exceptions")
-    { name: 'autopickup exceptions', opttyp: OthrOpt, idx: 20, setwhere: SET_IN_GAME, initval: true, addr: null, optfn: null },
+    { name: 'autopickup exceptions', opttyp: OthrOpt, idx: 20, setwhere: SET_IN_GAME, initval: true, addr: null, optfn: optfn_o_autopickup_exceptions },
     // optlist.h:190 NHOPTB(autoquiver)
     { name: 'autoquiver', opttyp: BoolOpt, idx: 21, setwhere: SET_IN_GAME, initval: false, addr: { obj: 'flags', key: 'autoquiver' }, optfn: null },
     // optlist.h:193 NHOPTC(autounlock)
@@ -8260,9 +8476,9 @@ export function all_options_menucolors(sbuf) {
 
 /**
  * C ref: options.c all_options_apes `:9643–9654` — one autopickup_exception=
- * line per ga.apelist node. Live shape game.apelist (pickup.js); no producer
- * yet (AUTOPICKUP_EXCEPTION parse unported) so the list is always empty and
- * this emits nothing. The ape-parse row must store pattern (C prints it).
+ * line per ga.apelist node. Live shape game.apelist (array, newest first;
+ * null when empty). add_autopickup_exception stores pattern without the
+ * angle bracket; this prints `"<pattern"` / `">pattern"`.
  */
 export function all_options_apes(sbuf) {
     for (const ape of game.apelist ?? []) {
