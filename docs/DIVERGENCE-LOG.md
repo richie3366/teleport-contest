@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2881 — `get_table_int_or_random` treats "random" as the default
+
+- **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** A `des.object` `spe` of `"random"` stayed a string. `create_object` then applied `"random" | 0`, which is 0, so the enchantment was forced to +0. C returns the rndval `-127`, and `create_object` leaves `mksobj`'s roll alone when `spe == -127`. Any other non-number `quantity` became `-1` with no error. C `nhl_error`s unless the text is `"random"` (case-insensitive), which is the same default and not an RNG call.
+- **C locus:** `nethack-c/upstream/src/sp_lev.c:3407–3437` `get_table_int_or_random`. Callees: `lua_getfield`, `lua_type`, `lua_pop`, `lua_isnumber`, `lua_tostring`, `strcmpi` (`strncmpi` with `n = -1`, `global.h:113`), `Sprintf`, `eos` (`hacklib.c:194`), `Strcat`, `nhl_error` (`nhlua.c:198`), `luaL_optinteger`. No RNG.
+- **JS was:** No `get_table_int_or_random` symbol. `lspo_object_normalize_table` set `spe` to `-127` only when null, and set `quan` to `-1` whenever `typeof !== 'number'`.
+- **Fix:** One `get_table_int_or_random` in that C order. Nil returns `rndval`. A non-number whose `lua_tostring` is `"random"` (`lspo_strcmpi`) returns `rndval` and does not roll. Any other non-number throws the C error text through `nhl_error` (the `return 0` after it is not reached). A number is `luaL_checkinteger_unpacked` (`Math.trunc`, including a numeric string). `lspo_object_normalize_table` calls it for `spe` (`-127`) and `quantity` (`-1`).
+- **JS:** `js/mklev.js` `lua_isnumber_unpacked` `:21865`, `lua_tostring_unpacked` `:21880`, `get_table_int_or_random` `:21902`, nil `:21907`, `"random"` `:21912`, error `:21917`, integer `:21921`. Callers: `spe` `:21931`, `quantity` `:21941`.
+- **Callers:** `sp_lev.c:3634` → `js/mklev.js:21931`. `sp_lev.c:3638` → `js/mklev.js:21941`. `sp_lev.c:118` is the declaration. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn get_table_int_or_random` → PASS syntax (1 changed js file: js/mklev.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+- **Named omissions:** `lua_pop` has no stack in the unpacked loader. `Sprintf`, `eos`, and `Strcat` are one JS string (not capped at `BUFSZ`). `nhl_error` still omits the `lua_Debug` suffix. A non-finite number is rejected by this file's `checkinteger` stand-in rather than Lua's "number has no integer representation" text. Hand-rolled tables store the lua key `quantity` as `quan`; that value is copied onto `quantity` when the C key is nil (`js/mklev.js:21940`).
+- **Next:** `trap.c` `trapeffect_vibrating_square` (next Open — coverage row). Eleven Open — coverage rows remain after archive, above the floor of 8, so nothing was refilled.
+
 ## D-2880 — `proc_wizkit_line` records the buffer `readobjnam` left
 
 - **Status:** fixed (Must-fix, review 1832; `hidden-proxy verify` reports no corpus session blocked).

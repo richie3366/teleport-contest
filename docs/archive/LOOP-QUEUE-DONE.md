@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `files.c` `proc_wizkit_line` — after `readobjnam(buf)`, a real non-`hands_obj` result records that same `buf` (`files.c:2568–2573`). `readobjnam` has already run `mungspaces` (`objnam.c:4919`) and rewritten `bp`. `js/files.js` `wish_history_add(line)` records the length-clipped input, so a later wizard wish prefix-matches different text. Pass the post-parse buffer. Source: reviews/loop-unattended/1832-f7125aef2-wish-history-add.md **Addressed:** D-2880
+- [x] `sp_lev.c` get_table_int_or_random — coverage MISSING (C 30 L `sp_lev.c:3407–3437` / JS no symbol; hops —, callers 2, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn get_table_int_or_random` (reach regression must be 0). Measured `port-coverage.mjs --name get_table_int_or_random` 2026-09-26 @ 8ddebb670. **Addressed:** D-2881
+
+
+- [x] `files.c` `proc_wizkit_line` — after `readobjnam(buf)`, a real non-`hands_obj` result records that same `buf` (`files.c:2568–2573`). `readobjnam` has already run `mungspaces` (`objnam.c:4919`) and rewritten `bp`. `js/files.js` `wish_history_add(line)` records the length-clipped input, so a later wizard wish prefix-matches different text. Pass the post-parse buffer. Source: reviews/loop-unattended/1832-f7125aef2-wish-history-add.md **Addressed:** D-2880 `a0c180a68`
 
 
 - [x] `zap.c` do_osshock — coverage PARTIAL (C 37 L `zap.c:1637–1674` / JS 24 L in js/zap.js; hops 6, callers 2, RNG 3, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn do_osshock` (reach regression must be 0). Measured `port-coverage.mjs --name do_osshock` 2026-09-26 @ 8ddebb670. **Addressed:** D-2879 `539f2fe06`
