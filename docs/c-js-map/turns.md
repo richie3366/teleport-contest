@@ -2900,12 +2900,23 @@ JS: `js/mon.js`, `js/monmove.js` — partial
 leave the JS `fmon` array (C walks `nmon`), `nmon` is cleared, `dealloc_monst`
 panics on a leftover `nmon` (throw), frees `mextra`, then `*mon = zeromonst`.
 `count` must match `iflags.purge_monsters` or `impossible`, then the counter
-is cleared. Callers wired: `movemon` `mon.js:3701`, `savebones` `end.js:1621`,
+is cleared. Callers wired: `movemon` `mon.js:3783`, `savebones` `end.js:1621`,
 `makemaz` `mklev.js:2796`, `makemap_prepost` `wizcmds.js:599`, `savelev`
 preamble `do.js:1631` and `save.js:481`. `dealloc_monst` also from `replmon`
 `mon.js:3662`, `montraits` `zap.js:2894`, `discard_migrations` `dog.js:1498`.
 Named: `freedynamicdata` `save.c:1106`, `savemonchn` release arm `save.c:909`,
 `makemap_remove_mons` `wizcmds.c:145`, `wiz_kill` `wizcmds.c:344`.
+
+**`iter_mons_safe` / `alloc_itermonarr` whole bodies** (D-2843;
+`mon.c:4500–4522`, `:4471–4490`). Count fmon (the JS array; C walks `nmon`),
+size the file-static snapshot (`count == 0` or outside `[siz-40, siz]`
+frees, then `count+20` slots), copy pointers, call `bfunc` until true.
+`program_state.gameover` breaks before the next monster: C `done` does not
+return (`mon.c:4494–4498`). Caller `mon.c:1330` → `movemon` `js/mon.js:3787`.
+Named: `save.c:1108` `alloc_itermonarr(0)` inside unported `freedynamicdata`
+(`FREE_ALL_MEMORY`); `decl.h` `instance_globals_i.itermonarr` is unused by
+these functions (the live buffer is the `mon.c` static). `movemon` still
+omits `any_light_source`, `clear_bypasses`, and `clear_splitobjs`.
 
 **`adj_erinys` mon.c:5922–5966 live** (D-2692; `js/monsters.js:265` 9 threshold
 arms + mlevel/difficulty in C order; callers `attrib.c:1309` → `js/attrib.js:752`

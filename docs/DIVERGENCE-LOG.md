@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2843 — `iter_mons_safe` snapshots the monster list before movement
+
+- **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** `movemon` copied `fmon` with `Array.slice` and never called a snapshot iterator. There was no `iter_mons_safe` and no `alloc_itermonarr`, so the buffer was not freed on an empty level, not grown, and not shrunk when the count fell by more than 40.
+- **C locus:** `nethack-c/upstream/src/mon.c:4500–4522` `iter_mons_safe`. Callee `alloc_itermonarr` `:4471–4490` (statics `itermonarr` / `itermonsiz` `:4465–4466`). Caller `movemon` `:1330`. `save.c:1108` calls `alloc_itermonarr(0U)` inside `freedynamicdata` under `FREE_ALL_MEMORY`.
+- **JS was:** `movemon` (`js/mon.js`) walked `list.slice()` and stopped on `program_state.gameover` or a true `movemon_singlemon`. No symbol for either function.
+- **Fix:** One `iter_mons_safe` in that C order. Count every `fmon` slot (the JS array is the `nmon` chain, including dead and off-map monsters), `alloc_itermonarr`, copy the object references, then call `bfunc` until it returns true. `program_state.gameover` breaks before the next monster because C `done` does not return (`:4494–4498`). `movemon` calls `iter_mons_safe(movemon_singlemon)`. `alloc_itermonarr` frees when `count` is 0, larger than the buffer, or more than 40 below it, then allocates `count + 20`.
+- **JS:** `js/mon.js` `alloc_itermonarr` `:3722`, `iter_mons_safe` `:3749`, `movemon` call `:3787`.
+- **Callers:** `mon.c:1330` → `js/mon.js:3787`. `mon.c:4509` → `js/mon.js:3763` (the `alloc_itermonarr(nmons)` inside `iter_mons_safe`). `save.c:1108` is the named omission below. `extern.h:1818–1819` are declarations. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn iter_mons_safe --full --reach-all` → PASS syntax (1 changed js file: js/mon.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 · VERIFY: PASS.
+- **Named omissions:** `save.c:1108` `alloc_itermonarr(0)` stays inside unported `freedynamicdata` (`FREE_ALL_MEMORY`). `decl.h` `instance_globals_i.itermonarr` is not the live buffer; the C functions use the `mon.c` static. `movemon` still omits `any_light_source`, `clear_bypasses`, and `clear_splitobjs`. The early `gameover` return in `movemon` (before the iterator) stays; `allmain` also returns after `movemon` when the game has ended.
+- **Next:** `potion.c` `peffect_restore_ability` (next Open — coverage row). Five measured rows refilled (`generate_stairs_find_room`, `confused_book`, `get_unused_cs`, `attach_fig_transform_timeout`, `rnd_otyp_by_wpnskill`). Twelve Open — coverage rows after archive.
+
 ## D-2842 — `handler_msgtype` adds, lists, and removes message patterns
 
 - **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked).

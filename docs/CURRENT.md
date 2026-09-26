@@ -100,10 +100,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `mon.c` iter_mons_safe — coverage MISSING (C 22 L `mon.c:4500–4522` / JS no symbol). `handler_msgtype` shipped D-2842. Verify `node scripts/verify.mjs --fn iter_mons_safe`.
+**Next cluster:** `potion.c` peffect_restore_ability — coverage PARTIAL (C 47 L `potion.c:646–693` / JS 35 L in js/potion.js). `iter_mons_safe` shipped D-2843. Verify `node scripts/verify.mjs --fn peffect_restore_ability`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2842 (index).**
+**Keep D-0845…D-2843 (index).**
 <!-- recent:begin -->
+**D-2843** `nethack-c/upstream/src/mon.c:4500–4522` `iter_mons_safe`. Callee `alloc_itermonarr` `:447 — One `iter_mons_safe` in that C order.
 **D-2842** `nethack-c/upstream/src/options.c:6502–6570` `handler_msgtype`. Callees `msgtype_count` (` — One `handler_msgtype` in that C order.
 **D-2841** `nethack-c/upstream/src/mkmaze.c:570–704` `fixup_special`. Callees `setup_waterlevel` (`mk — One `fixup_special` in that C order.
 **D-2840** `nethack-c/upstream/src/ball.c:120–144` `placebc_core`. Callees `flooreffects` (`do.c:162` — One `placebc_core` in that C order.
@@ -111,11 +112,10 @@ revisits the picker.
 **D-2838** `nethack-c/upstream/src/options.c:6331–6404` `handler_autopickup_exception`. Callees `coun — One `handler_autopickup_exception` in that C order.
 **D-2837** `nethack-c/upstream/src/pager.c:2908–2957` `setopt_cmd`. Caller `pager.c:2882` fills the ` — One `setopt_cmd` in that C order.
 **D-2836** `nethack-c/upstream/src/mkmaze.c:444–455` `put_lregion_here` (called from `place_lregion`  — Tele still returns a Promise, and it settles only after `rloc`, `m_into_limbo`, and `u_on_newpos`.
-**D-2835** `nethack-c/upstream/src/mcastu.c:645–726` `mcast_insects`. Unseen success `!Deaf` (`:694–6 — Those predicates are the macros.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2842; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2843; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

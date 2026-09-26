@@ -3708,17 +3708,83 @@ export async function restore_cham(mon) {
     }
 }
 
+/* C mon.c:4465–4466 — file statics. The comment says this buffer does not
+   need to live in instance_globals; decl.h still has an unused
+   `instance_globals_i.itermonarr` that these functions do not read. */
+let itermonarr = null;
+let itermonsiz = 0;
+
+/**
+ * C ref: mon.c alloc_itermonarr `:4471–4490`.
+ * `count` is C `unsigned`. JS has no `free`; dropping the array is the
+ * release. `alloc` of `itermonsiz` pointers is `new Array(itermonsiz)`.
+ */
+export function alloc_itermonarr(count) {
+    count = count >>> 0;
+    /* if count is 0 or bigger than itermonsiz or much smaller than
+       itermonsiz, release itermonarr (and reset itermonsiz to 0) */
+    if (!count || count > itermonsiz || count + 40 < itermonsiz) {
+        if (itermonarr)
+            itermonarr = null;
+        itermonsiz = 0;
+    }
+    /* when count is more than itermonsiz (including when that just
+       got reset to 0), allocate a new instance of itermonarr;
+       implies that count is greater than 0 */
+    if (count > itermonsiz) {
+        /* overallocate to reduce free/alloc-again thrashing when the
+           number of monsters varies from turn to turn */
+        itermonsiz = count + 20;
+        itermonarr = new Array(itermonsiz);
+    }
+}
+
+/**
+ * C ref: mon.c iter_mons_safe `:4500–4522`.
+ * fmon is the JS array (C walks `nmon`; see dmonsfree). A missing list
+ * is the null chain. `bfunc` is async because `movemon_singlemon` awaits.
+ * Game end: C `done` does not return (`:4494–4498`). JS sets
+ * `program_state.gameover` and the walk breaks before the next monster.
+ */
+export async function iter_mons_safe(bfunc) {
+    const list = game.fmon || [];
+    let mtmp;
+    let i;
+    let nmons;
+
+    /* C walks `mtmp = fmon; mtmp; mtmp = mtmp->nmon`. The JS chain is the
+       array itself, including dead and off-map monsters (dmonsfree). */
+    for (nmons = 0, i = 0; i < list.length; i++) {
+        mtmp = list[i];
+        nmons++;
+    }
+
+    /* make sure itermonarr[] is big enough to hold nmons entries */
+    alloc_itermonarr(nmons);
+
+    if (nmons) {
+        for (i = 0; i < nmons; i++) {
+            mtmp = list[i];
+            itermonarr[i] = mtmp;
+        }
+
+        for (i = 0; i < nmons; i++) {
+            mtmp = itermonarr[i];
+            /* C stops because done() does not return; JS observes gameover. */
+            if (game.program_state?.gameover)
+                break;
+            if (await bfunc(mtmp))
+                break;
+        }
+    }
+}
+
 // C ref: mon.c movemon()
 export async function movemon() {
     game._somebody_can_move = false;
     if (game.program_state?.gameover) return false;
-    const list = game.fmon || [];
-    // Snapshot — C iter_mons_safe; dochug may mutate list later
-    for (const mtmp of list.slice()) {
-        if (game.program_state?.gameover) break;
-        // C: movemon_singlemon true → break (utotype)
-        if (await movemon_singlemon(mtmp)) break;
-    }
+    // C mon.c:1330 — iter_mons_safe(movemon_singlemon)
+    await iter_mons_safe(movemon_singlemon);
     // C mon.c:1340 — dmonsfree after the last mon, before utotype.
     await dmonsfree();
     // C: after last mon — if (u.utotype) deferred_goto(); somebody_can_move=FALSE
