@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2825 `domove_fight_empty` spends the turn on an empty force-fight
+
+**C locus:** `nethack-c/upstream/src/hack.c:2229–2338` `domove_fight_empty`. Off-edge rewrites local `x,y` to `(0,1)` and uses `GLYPH_UNEXPLORED`. The guard is `forcefight || (glyph_is_invisible(glyph) && !m_at && !nopick)`. `solid` is `off_edge || !accessible || IS_FURNITURE`. `!Underwater`: `sobj_at(BOULDER)`, then a statue glyph or `Hallucination && glyph_is_monster` replaces it with `sobj_at(STATUE)`; `forcefight && uwep && dig_typ && !glyph_is_invisible && !glyph_is_monster` calls `use_pick_axe2` and returns. Otherwise `unmap_object`, `map_object(boulder, TRUE)`, `newsym`, `glyph_at` (`nhUse`). The name is `ansimpleoname`, or underwater `!is_pool` ("an air bubble" on water-level `AIR`, else "nothing"), or solid seen / `IS_STWALL` / `SDOOR` / `SCORR` via `the(defsyms[glyph_to_cmap(back_to_glyph)].explanation)`, else "an unknown obstacle", else "thin air". `You` adverb, `nomul(0)`, then `AT_EXPL` `wake_nearto(ux, uy, 49)`, `explum(NULL, attk)`, `mh = -1`, `rehumanize`.
+**JS:** `js/cmd.js` `domove_fight_empty` `:2361`. `domove` call `:4681`. `js/hack.js` `move_out_of_bounds` `:2633`.
+**Change:** One `domove_fight_empty` in that C order. `dig_typ` and `use_pick_axe2` are the `dig.js` exports (`imports.mjs --can`: hoisted, cycle-safe). `accessible`, `sobj_at`, `ansimpleoname`, `the`, `back_to_glyph`, `glyph_to_cmap`, `defsym_explanation`, `glyph_is_statue`, and `glyph_is_monster` are the existing exports.
+**Verify:** `node scripts/verify.mjs --fn domove_fight_empty` → PASS syntax (2 changed js files: js/cmd.js js/hack.js) · PASS rule2 · note hidden (no corpus session blocked at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+**Named:** A null `youmonst.data` makes `attacktype_fordmg` return null (C would dereference), so the explode arm stays off. A missing `game.u` is a local object, so `mh = -1` does not reach the hero.
+**Next:** `mcastu.c` `mcast_insects` (next Open — coverage row).
 ## 2026-09-26 — D-2824 `dmonsfree` frees dead monsters and clears `purge_monsters`
 
 **C locus:** `nethack-c/upstream/src/mon.c:2487–2511` `dmonsfree`. `DEADMONSTER` is `mhp < 1` (`monst.h:214`); `isgd` stays on the list. Unlink, `nmon = NULL`, `dealloc_monst`, then `count` must equal `iflags.purge_monsters` or `impossible` with `describe_level(buf, 2)`, then `purge_monsters = 0`. `dealloc_mextra` (`:2648–2673`) and `dealloc_monst` (`:2675–2691`, `*mon = cg.zeromonst`). `m_detach` (`:2796`) is the only `purge_monsters++`.

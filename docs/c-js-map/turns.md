@@ -1571,11 +1571,7 @@ case-3 wake + fallthrough to cannot-escape (`Conflict()`/`mconf`/`!mtame`
 **`domove_core` `carrying_too_much` before attack** (OVERLOADED collapse / low-HP>SLT stamina; 
 air-level exempt) (D-0928 #1117); **`domove` `u_maybe_impaired`/`impaired_movement`/`confdir`** 
 (D-0437; Confusion `!rn2(5)` + Stunned; tunnels/`passes_walls` in bad_rock deferred); 
-**`domove_fight_empty` always `unmap_object` + optional boulder/statue `map_object` + 
-`newsym`** (D-0928 #1166; was I-glyph-only; **fight_empty explum(null) D-1265**; 
-**fight_empty `glyph_at` + `unmap_invisible` after empty D-1774**; 
-**statue arm via live gbuf D-2106** (`sobj_at(BOULDER)` then `glyph_to_obj_at==STATUE` → full-pile `sobj_at(STATUE)` overwrite + `a statue` target; was remembered-`` ` ``-ch + top-only); 
-dig-with-pick/Underwater/Hallu-monster-as-statue/full-ansimpleoname deferred); 
+**`domove_fight_empty` whole body** (D-2825; C `hack.c:2229–2338` → `js/cmd.js` `domove_fight_empty`: off-edge local `(0,1)` and "an unknown obstacle"; guard `forcefight || (glyph_is_invisible && !m_at && !nopick)`; `solid` is `accessible` plus `IS_FURNITURE`; `!Underwater` `sobj_at(BOULDER)` then statue glyph or Hallu monster glyph `sobj_at(STATUE)`; pick `dig_typ` → `use_pick_axe2`; `unmap_object` / `map_object` / `newsym`; `ansimpleoname`; underwater non-pool "an air bubble" or "nothing"; seen / `IS_STWALL` / `SDOOR` / `SCORR` `the(defsym_explanation(glyph_to_cmap(back_to_glyph)))`; else thin air; `You` adverb; `nomul`; `AT_EXPL` `wake_nearto` / `explum(null)` / `mh=-1` / `rehumanize`; callers `hack.c:2590` `js/hack.js:2633`, `hack.c:2810` `js/cmd.js:4681` after bars and web when `!displaceu`; named: null `youmonst.data`, null `game.u`, discarded `nhUse`, displaceu middle-skip); 
 **`domove` run-into-visible non-safemon stop** (`context.run` + 
 `mon_visible`/`sensemon`/`M_AP_*` → `nomul`+`move=0` before attack) (D-0440; 
 displacer/mundetected Wait!/Blind_telepat/Protection_from_shape amulet deferred); 

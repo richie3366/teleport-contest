@@ -2628,9 +2628,9 @@ export async function avoid_running_into_trap_or_liquid(x, y) {
 export async function move_out_of_bounds(x, y) {
     if (isok(x, y)) return false;
     if (game.context?.forcefight) {
+        // C hack.c:2590 — return the fight result (off-edge + F is TRUE).
         const { domove_fight_empty } = await import('./cmd.js');
-        await domove_fight_empty(x, y);
-        return true;
+        return await domove_fight_empty(x, y);
     }
     if (game.flags?.mention_walls) {
         const u = game.u || {};

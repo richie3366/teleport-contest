@@ -101,10 +101,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `hack.c` `domove_fight_empty`. Verify `node scripts/verify.mjs --fn domove_fight_empty`.
+**Next cluster:** `mcastu.c` `mcast_insects`. Verify `node scripts/verify.mjs --fn mcast_insects`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2824 (index).**
+**Keep D-0845…D-2825 (index).**
 <!-- recent:begin -->
+**D-2825** `nethack-c/upstream/src/hack.c:2229–2338` `domove_fight_empty`. Off-edge rewrites local `x — One `domove_fight_empty` in that C order.
 **D-2824** `nethack-c/upstream/src/mon.c:2487–2511` `dmonsfree`. `DEADMONSTER` is `mhp < 1` (`monst.h — One `dmonsfree` in that C order, plus `dealloc_mextra` and `dealloc_monst`.
 **D-2823** `nethack-c/upstream/src/makemon.c:1659–1732` `rndmonst_adj`. Quest gate `u.uz.dnum == ques — One `rndmonst_adj` in that C order.
 **D-2822** `nethack-c/upstream/src/options.c` `optfn_windowborders` `:4797–4853` and `handler_windowb — One function each, in C order.
@@ -112,11 +113,10 @@ revisits the picker.
 **D-2820** `nethack-c/upstream/src/vision.c:2002–2091` `view_from`. Save the quadrant globals. Clear  — One `view_from` in that C order.
 **D-2819** `nethack-c/upstream/src/hack.c:4295–4346` `weight_cap`. Save `ELevitation` and `BLevitatio — One `weight_cap` in that C order.
 **D-2818** `nethack-c/upstream/src/mkobj.c:1318–1367` `set_corpsenm`. Save `old_id`. If `timed`, `EGG — One `set_corpsenm` in that C order.
-**D-2817** `nethack-c/upstream/include/youprop.h:116–120` `Hallucination` is `HHallucination && !Hall — Import `Hallucination` from `display.js` (already a static import; call-time only).
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2824; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2825; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
