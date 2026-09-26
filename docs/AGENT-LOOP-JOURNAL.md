@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2898 `flip_visuals` rebuilds a remembered wall cmap
+
+**C locus:** `nethack-c/upstream/src/sp_lev.c:458–495` `flip_visuals`, wall arm `:489–493`. Skip `seenv == 0`, including the glyph rebuild. Unless `seenv == SVALL`, bit 1 swaps `2↔4`, `1↔5`, `0↔6` and bit 2 swaps `2↔0`, `3↔7`, `4↔6`, then stores `lev->seenv`. If `IS_WALL(lev->typ) || lev->typ == SDOOR` and `glyph_is_cmap(lev->glyph)`, assign `lev->glyph = back_to_glyph(x, y)`. `lev->glyph` is `rm.h:160` ("what the hero thinks is there"). No RNG.
+**JS:** `js/mklev.js` `flip_visuals` `:19152`, unseen skip `:19160`, `swapbits` `:19167–19175`, memory id `:19184`, store `:19189`. `js/display.js` `remember_shown_glyph` `:3527`.
+**Change:** Test `glyph_is_cmap` on `remembered_glyph.glyph`. Store `terrain_glyph` plus `back_to_glyph` through `remember_shown_glyph`, the writer `map_background` uses, so the painted `ch` and the memory id both follow the rebuilt cmap.
+**Verify:** `node scripts/verify.mjs --fn flip_visuals` → PASS syntax (2 changed js files: js/display.js js/mklev.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS. Local arm check, not a session: a remembered vertical wall `|` became `-` after the cell became a horizontal wall; an `SDOOR` cmap id was replaced with `back_to_glyph`; `seenv == 0`, a non-cmap memory id, and a room were left alone.
+**Named:** No arm of `flip_visuals` is omitted. `#wizfliplevel` (`wizcmds.c:412–434`) and `nhl_flip_level` (`nhlua.c:1509–1517`) still do not call `flip_level`.
+**Next:** `cmd.c` `can_do_extcmd` (next Open — coverage row). Eleven Open — coverage rows remain after archive, above the floor of 8, so nothing was refilled. The queue-empty overlay did not match the live queue (one Must-fix and eleven coverage rows were open).
 ## 2026-09-26 — audit 1848–1856 (D-2889–D-2897)
 
 Reviewed the nine `js/` commits since `91892bcc6`. Eight ACCEPT, one QUALITY-RISK (`ef40ca579` `flip_visuals` wall/`SDOOR` writes `lev.glyph`). Must-fix is that row; next cluster stays there. Public `sessions` on `37fb9f7ea`: 44/44, screens 11,405/11,405, RNG 792,838/792,838, speed `251+1.53/turn` (R² 0.767). Held-out still 12/44 (6,273/11,265 pts, RNG 29.7 %, screens 55.7 %; board 2026-09-26T19:28Z, last scored 2026-09-26T19:01Z). `hidden-proxy score` 12/12 on the private sessions present; `.cache/hidden/sessions` absent, so 614/940 was not re-measured. No `js/` edits.

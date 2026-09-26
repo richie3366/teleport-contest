@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2898 — `flip_visuals` rebuilds a remembered wall cmap
+
+- **Status:** fixed (Must-fix, review 1848 QUALITY-RISK; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** The wall / `SDOOR` arm tested and wrote `lev.glyph`. `makeLocation()` has no `glyph` field, so `glyph_is_cmap(undefined)` was false and `back_to_glyph` never ran. `show_memory_glyph` paints `remembered_glyph.ch`, so an integer stored on `lev.glyph` would not change the painted cell.
+- **C locus:** `nethack-c/upstream/src/sp_lev.c:458–495` `flip_visuals`, wall arm `:489–493`. Skip `seenv == 0`, including the glyph rebuild. Unless `seenv == SVALL`, bit 1 swaps `2↔4`, `1↔5`, `0↔6` and bit 2 swaps `2↔0`, `3↔7`, `4↔6`, then stores `lev->seenv`. If `IS_WALL(lev->typ) || lev->typ == SDOOR` and `glyph_is_cmap(lev->glyph)`, assign `lev->glyph = back_to_glyph(x, y)`. `lev->glyph` is `rm.h:160` ("what the hero thinks is there"). No RNG.
+- **JS was:** The seen-vector half matched (`js/mklev.js`, D-2889). The wall arm read and wrote `lev.glyph`, which is not `remembered_glyph.glyph`.
+- **Fix:** Test `glyph_is_cmap` on `remembered_glyph.glyph`. Store `terrain_glyph` plus `back_to_glyph` through `remember_shown_glyph`, the writer `map_background` uses, so the painted `ch` and the memory id both follow the rebuilt cmap.
+- **JS:** `js/mklev.js` `flip_visuals` `:19152`, unseen skip `:19160`, `swapbits` `:19167–19175`, memory id `:19184`, store `:19189`. `js/display.js` `remember_shown_glyph` `:3527`.
+- **Callers:** `sp_lev.c:919` `flip_level` when `extras && flp`, after `set_wall_state` → `js/mklev.js:19136`. The declaration at `sp_lev.c:26` is not a call. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn flip_visuals` → PASS syntax (2 changed js files: js/display.js js/mklev.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS. Local arm check, not a session: a remembered vertical wall `|` became `-` after the cell became a horizontal wall; an `SDOOR` cmap id was replaced with `back_to_glyph`; `seenv == 0`, a non-cmap memory id, and a room were left alone.
+- **Named omissions:** No arm of `flip_visuals` is omitted. `#wizfliplevel` (`wizcmds.c:412–434`) and `nhl_flip_level` (`nhlua.c:1509–1517`) still do not call `flip_level`. The extras prefix that flips the hero, `placebc`, travel, and the dig spot (`sp_lev.c:898–913`) is still absent from `flip_level`. Level creation passes `extras` false, so this function stays off that path.
+- **Next:** `cmd.c` `can_do_extcmd` (next Open — coverage row). Eleven Open — coverage rows remain after archive, above the floor of 8, so nothing was refilled. The queue-empty overlay did not match the live queue (one Must-fix and eleven coverage rows were open).
+
 ## D-2897 — `toggle_displacement` notices blind telepathy and a finished corpse timer
 
 - **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked).

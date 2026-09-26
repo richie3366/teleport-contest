@@ -153,7 +153,7 @@ import {
 import {
     Norep, newsym, impossible, pline, You, flush_screen, nh_delay_output, monsym,
     describe_level, cliparound, map_location, see_nearby_objects, Hallucination,
-    glyph_is_cmap, back_to_glyph,
+    glyph_is_cmap, back_to_glyph, terrain_glyph, remember_shown_glyph,
 } from './display.js';
 import { buried_ball_to_punishment, fracture_rock } from './dig.js';
 import { obfree } from './shk.js';
@@ -19144,8 +19144,10 @@ function flip_level(flp, extras) {
  * rectangle. Unseen (`seenv == 0`) cells are skipped, including the glyph
  * rebuild. `SVALL` keeps its octants. Otherwise bit 1 swaps top/bottom
  * (`2↔4`, `1↔5`, `0↔6`) and bit 2 swaps left/right (`2↔0`, `3↔7`, `4↔6`).
- * A wall or secret door whose remembered glyph is a cmap is redrawn from
- * the cell after `fix_wall_spines`.
+ * A wall or secret door whose memory id (`remembered_glyph.glyph`, C
+ * `lev->glyph`) is a cmap is stored again via `remember_shown_glyph`,
+ * the same writer `map_background` uses, so the painted `ch` matches
+ * the rebuilt cmap. `show_memory_glyph` paints that `ch`.
  */
 function flip_visuals(flp, minx, miny, maxx, maxy) {
     flp |= 0;
@@ -19174,11 +19176,19 @@ function flip_visuals(flp, minx, miny, maxx, maxy) {
                 }
                 lev.seenv = seenv & 0xff;
             }
-            /* if <x,y> is displayed as a wall, reset its display glyph so
-               that remembered, out of view T's and corners get flipped */
+            /* C sp_lev.c:489–493 — wall or SDOOR whose lev->glyph is a
+               cmap is replaced with back_to_glyph. lev->glyph is
+               remembered_glyph.glyph (rm.h:160). show_memory_glyph paints
+               remembered_glyph.ch, so the rebuilt cmap is stored the way
+               map_background does (remember_shown_glyph). */
+            const memGlyph = lev.remembered_glyph
+                ? lev.remembered_glyph.glyph
+                : undefined;
             if ((IS_WALL(lev.typ) || lev.typ === SDOOR)
-                && glyph_is_cmap(lev.glyph)) {
-                lev.glyph = back_to_glyph(x, y);
+                && glyph_is_cmap(memGlyph)) {
+                remember_shown_glyph(
+                    lev, terrain_glyph(lev, x, y), back_to_glyph(x, y),
+                );
             }
         }
     }

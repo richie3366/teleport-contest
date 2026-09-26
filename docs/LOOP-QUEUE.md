@@ -103,8 +103,6 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 always Must-fix rows: they forfeit every later screen of that session
 (Constitution §10.14).
 
-- [ ] `sp_lev.c` `flip_visuals` — the wall / `SDOOR` arm reads and writes `lev.glyph` (`js/mklev.js`). `makeLocation()` has no `glyph` field; `levl[x][y].glyph` is `remembered_glyph.glyph`, and `show_memory_glyph` paints `remembered_glyph.ch`. `glyph_is_cmap(undefined)` is false, so `back_to_glyph` never runs (`sp_lev.c:489–493`). Test the memory id and store the rebuilt cmap the way `map_background` does (`remember_shown_glyph`). Source: reviews/loop-unattended/1848-ef40ca579-flip-visuals.md
-
 ## Open — coverage (breadth phase — pop first after Must-fix)
 
 Rows below are `port-coverage.mjs --rows` output (score = reach × call

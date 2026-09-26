@@ -3523,7 +3523,8 @@ export function back_to_glyph(x, y) {
     return bypass_glyph !== NO_GLYPH ? bypass_glyph : cmap_to_glyph(idx);
 }
 
-function remember_shown_glyph(loc, tty, glyph) {
+/** Tty cell plus integer id that `map_background` stores as `lev->glyph`. */
+export function remember_shown_glyph(loc, tty, glyph) {
     loc.remembered_glyph = {
         ch: tty.ch,
         color: tty.color,

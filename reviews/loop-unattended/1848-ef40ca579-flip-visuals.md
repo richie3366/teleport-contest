@@ -5,6 +5,8 @@
 - Queue row: Open coverage, 0 corpus blocks cited
 - Banned grep: no `FORCE`, `DIAG`, `getRngLog`, `fastforward`, or seed names in the `js/` hunk. `imports.mjs --rulecheck`: "Rule #2 clean".
 
+**Addressed:** D-2898
+
 ## Intent vs deliverable
 
 Subject promises one `flip_visuals` (8-bit `seenv`, skip 0, keep `SVALL`, bit 1 then bit 2 via `swapbits`, then `back_to_glyph` on a cmap wall or `SDOOR`) and the `flip_level` call after `set_wall_state` when `extras && flp`. It also promises `mapfrag_fromstr` as `dupstr`, `stripdigits`, `str_lines_maxlen`, then a row walk that returns null once the count already exceeds `MAP_Y_LIM`. The diff adds those functions and rewrites `mapfrag_get` onto `y * (wid + 1) + x`. `sym.mjs`:
