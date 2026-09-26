@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2833 — `genl_player_setup` picks role, race, gender, and alignment in C order
+
+- **Status:** fixed (coverage THIN; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** The JS body delegated each facet to `pick_*_menu`. An incompatible random pick used `rn2(roles.length)`, `k = 0`, or `k = 1` and never said "Incompatible …". `randgend` did not exist. A menu redirect left the facet that C assigns from `k` (including `ROLE_NONE`) and overwrote `nextpick` on the `n <= 1` auto-assign. Rename called `tty_askname` instead of `plnamesuffix`.
+- **C locus:** `nethack-c/upstream/src/role.c:2206–2725` `genl_player_setup`. Callee `randgend` `:852–877`. `plsel_startmenu` `:2805–2843` calls `rigid_role_checks` then the header. The `#else` stub at `:3016` returns 0 (TTY_GRAPHICS is on).
+- **JS was:** `js/player_selection.js` `genl_player_setup` (175 lines) plus `pick_role_menu` / `pick_race_menu` / `pick_gend_menu` / `pick_align_menu`. Confirm and the shall-I-pick loop were separate. `flags.female` was set on success.
+- **Fix:** One `genl_player_setup` in that C order. `y`/`a`/`ROLE_RANDOM` failures `pline` then `randrole(false)`, `randrace`, `randgend`, or `randalign`. Manual race/gender/alignment count `ok_*` then `valid*` and open a menu only when `n > 1`. Every non-quit choice ends in `facet = k`, so a redirect stores `ROLE_NONE` and leaves the `nextpick` set at the top of that facet. Confirm is the `[ynaq]` switch; rename clears the name, calls `plnamesuffix`, and restores the four facets. `chargen_aspect_menu` is `plsel_startmenu` plus `setup_*menu`, `role_menu_extra`, and `select_menu` on the corner menu.
+- **JS:** `js/player_selection.js` `genl_player_setup` `:1296`, `chargen_aspect_menu` `:1234`, `player_selection` `:1719`. `js/roles.js` `randgend` `:1073`. `imports.mjs --can`: `player_selection.js` already imports `roles.js` and `display.js`; `pline` and `plnamesuffix` are hoisted.
+- **Callers:** `wintty.c:636` `tty_player_selection` → `js/player_selection.js:1723` (`nhDisplay.rows`, same default the old menus used). `jsmain.js:261` calls `player_selection`. `role.c:2179` `genl_player_selection` → `genl_player_setup(0)` has no JS function. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn genl_player_setup` → PASS syntax (2 changed js files: js/player_selection.js js/roles.js) · PASS rule2 · note hidden (no corpus session blocked at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (player_selection.js is not in verify's shared-file set) · VERIFY: PASS.
+- **Named omissions:** `role.c:2179` passes screen height 0; the JS caller is the tty one. `yn_function` is `shall_i_pick_prompt` so the copyright splash stays on the topline. Corner menus have no `winid`; `menu_pick` returns the key's value (C `n > 1` with a preselected Random uses `selected[1]`, which is that key). An out-of-range role or race in `randgend` / `randrace_checked` / `randalign_checked` takes the empty-set `rn2` fallback (C would dereference). `valid*_checked` is false for a negative role (C `validrace` assumes a valid role). Success still sets `flags.female` from `initgend` because `role_init` reads it before `u_init.c:949`.
+- **Next:** `trap.c` `help_monster_out` (next Open — coverage row). Eleven measured rows remain; the queue was not below the band, so nothing was refilled.
+
 ## D-2832 — `set_uasmon` sets cham and every FROMFORM intrinsic in C order
 
 - **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked).

@@ -100,10 +100,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `role.c` `genl_player_setup` — coverage THIN. Verify `node scripts/verify.mjs --fn genl_player_setup`.
+**Next cluster:** `trap.c` `help_monster_out` — coverage PARTIAL. Verify `node scripts/verify.mjs --fn help_monster_out`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2832 (index).**
+**Keep D-0845…D-2833 (index).**
 <!-- recent:begin -->
+**D-2833** `nethack-c/upstream/src/role.c:2206–2725` `genl_player_setup`. Callee `randgend` `:852–877 — One `genl_player_setup` in that C order.
 **D-2832** `nethack-c/upstream/src/polyself.c:38–127` `set_uasmon`. Callees `valid_vampshiftform` `mo — One `set_uasmon` in that C order.
 **D-2831** `nethack-c/upstream/src/mkmaze.c:356–410` `place_lregion`. Callee `put_lregion_here` `:412 — One `place_lregion` in that C order, including the failure `impossible`.
 **D-2830** `nethack-c/upstream/src/options.c` `optfn_sortloot` `:3914–3955` and `handler_sortloot` `: — The five optfns in C order.
@@ -111,11 +112,10 @@ revisits the picker.
 **D-2828** `nethack-c/upstream/src/mcastu.c:645–726` `mcast_insects`. The class letter is `mkclass(S_ — One `mcast_insects` in that C order.
 **D-2827** `nethack-c/upstream/src/hack.c:4351–4365` `inv_weight`. Coins add `(int)((quan + 50) / 100 — Restart `inv_weight` in that C order, including the boulder short-circuit, and call it from `u_init_carry_attr_boost` (`while (inv_weight() > 0)` silent `adjattrib` STR then CON).
 **D-2826** `nethack-c/upstream/include/youprop.h:116–120` `Hallucination` is `HHallucination && !Hall — Re-point the `js/cmd.js` import to `js/display.js` `Hallucination`.
-**D-2825** `nethack-c/upstream/src/hack.c:2229–2338` `domove_fight_empty`. Off-edge rewrites local `x — One `domove_fight_empty` in that C order.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2832; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2833; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

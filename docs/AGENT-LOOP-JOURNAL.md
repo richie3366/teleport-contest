@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2833 `genl_player_setup` picks role, race, gender, and alignment in C order
+
+**C locus:** `nethack-c/upstream/src/role.c:2206–2725` `genl_player_setup`. Callee `randgend` `:852–877`. `plsel_startmenu` `:2805–2843` calls `rigid_role_checks` then the header. The `#else` stub at `:3016` returns 0 (TTY_GRAPHICS is on).
+**JS:** `js/player_selection.js` `genl_player_setup` `:1296`, `chargen_aspect_menu` `:1234`, `player_selection` `:1719`. `js/roles.js` `randgend` `:1073`. `imports.mjs --can`: `player_selection.js` already imports `roles.js` and `display.js`; `pline` and `plnamesuffix` are hoisted.
+**Change:** One `genl_player_setup` in that C order. `y`/`a`/`ROLE_RANDOM` failures `pline` then `randrole(false)`, `randrace`, `randgend`, or `randalign`. Manual race/gender/alignment count `ok_*` then `valid*` and open a menu only when `n > 1`.
+**Verify:** `node scripts/verify.mjs --fn genl_player_setup` → PASS syntax (2 changed js files: js/player_selection.js js/roles.js) · PASS rule2 · note hidden (no corpus session blocked at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (player_selection.js is not in verify's shared-file set) · VERIFY: PASS.
+**Named:** `role.c:2179` passes screen height 0; the JS caller is the tty one. `yn_function` is `shall_i_pick_prompt` so the copyright splash stays on the topline.
+**Next:** `trap.c` `help_monster_out` (next Open — coverage row). Eleven measured rows remain; the queue was not below the band, so nothing was refilled.
 ## 2026-09-26 — D-2832 `set_uasmon` sets cham and every FROMFORM intrinsic in C order
 
 **C locus:** `nethack-c/upstream/src/polyself.c:38–127` `set_uasmon`. Callees `valid_vampshiftform` `mon.c:5014–5023` and `polysense` `polyself.c:2235–2261`. `status_initialize` `botl.c:1682–1720` is behind `VIA_WINDOWPORT()` (`botl.h:213`).

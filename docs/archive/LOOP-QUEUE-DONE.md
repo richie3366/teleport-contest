@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `polyself.c` set_uasmon — coverage PARTIAL (C 89 L `polyself.c:38–127` / JS 51 L in js/polyself.js; hops 2, callers 11, RNG 0, msg 0; dead callees: valid_vampshiftform). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn set_uasmon` (reach regression must be 0). Measured `port-coverage.mjs --name set_uasmon` 2026-09-26 @ fb4f1bf7d. **Addressed:** D-2832
+- [x] `role.c` genl_player_setup — coverage THIN (C 519 L `role.c:2206–2725` / JS 175 L in js/player_selection.js; hops —, callers 1, RNG 0, msg 4; dead callees: randgend). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn genl_player_setup` (reach regression must be 0). Measured `port-coverage.mjs --name genl_player_setup` 2026-09-26 @ fb4f1bf7d. **Addressed:** D-2833
+
+
+- [x] `polyself.c` set_uasmon — coverage PARTIAL (C 89 L `polyself.c:38–127` / JS 51 L in js/polyself.js; hops 2, callers 11, RNG 0, msg 0; dead callees: valid_vampshiftform). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn set_uasmon` (reach regression must be 0). Measured `port-coverage.mjs --name set_uasmon` 2026-09-26 @ fb4f1bf7d. **Addressed:** D-2832 `53a5e85c8`
 
 
 - [x] `mkmaze.c` place_lregion — coverage PARTIAL (C 50 L `mkmaze.c:356–410` / JS 31 L in js/mklev.js; hops 3, callers 6, RNG 2, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn place_lregion` (reach regression must be 0). Measured `port-coverage.mjs --name place_lregion` 2026-09-26 @ fb4f1bf7d. **Addressed:** D-2831 `8eb83b375`
