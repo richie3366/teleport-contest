@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2844 — `dumpit` lists dungeons when DEBUGFILES names dungeon.c
+
+- **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked). `peffect_restore_ability` and `place_level` were already the compiled bodies and are parked Stale.
+- **Symptom:** `init_dungeons` never called `dumpit`. `DEBUG` is defined, so C does call it after `fixup_level_locations`. There was no `debugcore` and no `nh_basename`.
+- **C locus:** `nethack-c/upstream/src/dungeon.c:91–144` `dumpit`. Callees `explicitdebug` → `debugcore` (`files.c:3126–3166`, `wildcards` FALSE) and `nh_basename` (`files.c:199–229`). Caller `dungeon.c:1317` inside `#ifdef DEBUG` (`patchlevel.h:36` defines `DEBUG`). `dungeon.c:88` is the declaration.
+- **JS was:** The call was a comment. No `dumpit`, `debugcore`, or `nh_basename`.
+- **Fix:** One `dumpit` in that C order. It returns unless `debugcore('dungeon.c', false)`. Otherwise it formats every dungeon, every special level, and every branch, with the same type names and flag words as `fprintf`. `init_dungeons` calls it after `fixup_level_locations`. `debugcore` is wizard-only and returns false when `sysopt.debugfiles` is empty, which is the usual case.
+- **JS:** `js/dungeon.js` `dumpit` `:1113`, call `:1257`. `js/files.js` `nh_basename` `:1267`, `debugcore` `:1294`. `pmatch` is the live `js/cmd.js` export.
+- **Callers:** `dungeon.c:88` is the declaration. `dungeon.c:1317` → `js/dungeon.js:1257`. `files.c:3144` → `js/files.js:1299` (`nh_basename` inside `debugcore`). `extern.h:1062` and `extern.h:1122` are declarations. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn dumpit` → PASS syntax (3 changed js files: js/cmd.js js/dungeon.js js/files.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script shared-file regex). `node frozen/ps_test_runner.mjs sessions` → 44/44 PASS. VERIFY: PASS.
+- **Named omissions:** `(void) getchar()` does not block: scored ESM has no stdin in Chrome. The formatted lines stay in a module array, not a host stderr stream. `options.c:443` `ask_do_tutorial` still prints the contest `.nethackrc` footer. `version.c:102` `status_version` still uses `split('/').pop()` because there is no `gh.hname`. Other `showdebug` / `explicitdebug` sites stay no-ops. WIN32 backslash and VMS arms of `nh_basename` are compiled out on this host. `place_level`'s `#ifdef DDEBUG` fprintf is not compiled.
+- **Next:** `cmd.c` `enter_explore_mode` (next Open — coverage row). `peffect_restore_ability` and `place_level` parked Stale. Nine Open — coverage rows remain after archive, inside the band, so nothing was refilled.
+
 ## D-2843 — `iter_mons_safe` snapshots the monster list before movement
 
 - **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked).

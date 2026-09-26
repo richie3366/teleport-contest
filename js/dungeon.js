@@ -6,6 +6,7 @@
 // dungeon tables. Here: nhlib shuffle stub + generated dungeonProto + C placement.
 
 import { game } from './gstate.js';
+import { debugcore } from './files.js';
 import { rn2, rn1 } from './rng.js';
 import { dungeonProto } from './generated/dungeon_data.js';
 import {
@@ -1084,6 +1085,83 @@ export function nhl_nhlib_align_shuffle() {
 }
 
 /**
+ * C `fprintf(stderr)` for `dumpit`. Not the message window. Not
+ * `console` (banned in scored js/). Only reached when `debugcore` is
+ * true, which contest sessions are not (`sysopt.debugfiles` empty).
+ */
+const dumpitStderr = [];
+
+function dumpit_fprintf(text) {
+    dumpitStderr.push(text);
+}
+
+/**
+ * C `(void) getchar()` — libc stdin, not `nhgetch`. Scored ESM has no
+ * stdin in Chrome (Rule #2), so the debug pause does not block.
+ */
+function dumpit_getchar() {}
+
+/**
+ * C ref: dungeon.c dumpit `:91–144`.
+ * `explicitdebug(__FILE__)` is `debugcore(file, FALSE)` (`lint.h:27`).
+ * `__FILE__` is passed as `dungeon.c`; `debugcore` still runs
+ * `nh_basename`. `#ifdef DEBUG` is on (`patchlevel.h:36`), so
+ * `init_dungeons` calls this. `sp_levchn` and `branches` are arrays
+ * (`add_level` / `insert_branch`); `.next` stays null, and array order
+ * is the chain order.
+ */
+function dumpit() {
+    if (!debugcore('dungeon.c', false)) return; // `:98–99`
+
+    const n = game.n_dgns | 0; // `:101` svn.n_dgns
+    for (let i = 0; i < n; i++) {
+        const dd = game.dungeons[i]; // `#define DD svd.dungeons[i]`
+        dumpit_fprintf(`\n#${i} "${dd.dname}" (${dd.proto}):\n`); // `:102`
+        dumpit_fprintf(
+            `    num_dunlevs ${dd.num_dunlevs | 0}, dunlev_ureached ${dd.dunlev_ureached | 0}\n`,
+        ); // `:103–104`
+        dumpit_fprintf(
+            `    depth_start ${dd.depth_start | 0}, ledger_start ${dd.ledger_start | 0}\n`,
+        ); // `:105–106`
+        dumpit_fprintf(
+            `    flags:${dd.flags.rogue_like ? ' rogue_like' : ''}`
+            + `${dd.flags.maze_like ? ' maze_like' : ''}`
+            + `${dd.flags.hellish ? ' hellish' : ''}\n`,
+        ); // `:107–110`
+        dumpit_getchar(); // `:111`
+    }
+    dumpit_fprintf('\nSpecial levels:\n'); // `:113`
+    for (const x of game.sp_levchn || []) { // `:114` x = sp_levchn; x; x = x->next
+        dumpit_fprintf(`${x.proto} (${x.rndlevs | 0}): `); // `:115`
+        dumpit_fprintf(`on ${x.dlevel.dnum | 0}, ${x.dlevel.dlevel | 0}; `); // `:116`
+        dumpit_fprintf(
+            `flags:${x.flags.rogue_like ? ' rogue_like' : ''}`
+            + `${x.flags.maze_like ? ' maze_like' : ''}`
+            + `${x.flags.hellish ? ' hellish' : ''}`
+            + `${x.flags.town ? ' town' : ''}\n`,
+        ); // `:117–121`
+        dumpit_getchar(); // `:122`
+    }
+    dumpit_fprintf('\nBranches:\n'); // `:124`
+    for (const br of game.branches || []) { // `:125` br = branches; br; br = br->next
+        let kind; // `:127–136` nested type names
+        if (br.type === BR_STAIR) kind = 'stair';
+        else if (br.type === BR_NO_END1) kind = 'no end1';
+        else if (br.type === BR_NO_END2) kind = 'no end2';
+        else if (br.type === BR_PORTAL) kind = 'portal';
+        else kind = 'unknown';
+        dumpit_fprintf(
+            `${br.id | 0}: ${kind}, end1 ${br.end1.dnum | 0} ${br.end1.dlevel | 0}, `
+            + `end2 ${br.end2.dnum | 0} ${br.end2.dlevel | 0}, `
+            + `${br.end1_up ? 'end1 up' : 'end1 down'}\n`,
+        ); // `:126–138`
+    }
+    dumpit_getchar(); // `:140`
+    dumpit_fprintf('\nDone\n'); // `:141`
+    dumpit_getchar(); // `:142`
+}
+
+/**
  * C ref: dungeon.c init_dungeons() `:1205–1319`
  * Call after init_objects / role setup; before u_init_misc / l_nhcore_init
  * (allmain.c:789). The Lua scaffolding below has no JS counterpart:
@@ -1175,7 +1253,8 @@ export function init_dungeons() {
     init_castle_tune();
     fixup_level_locations();
     // C: `free_proto_dungeon(&pd)` (`:1313–1315`) frees malloc'd names — GC in
-    // JS, omitted. C: `#ifdef DEBUG dumpit()` (`:1316–1318`) — debug-only.
+    // JS, omitted. C: `#ifdef DEBUG dumpit()` (`:1316–1318`); DEBUG is on.
+    dumpit();
 }
 
 /**

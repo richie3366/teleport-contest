@@ -465,7 +465,7 @@ function pmatch_internal(patrn, strng, ci) {
  * C strutil.c pmatch `:144–148` — case-sensitive wildcard match.
  * Live C callers: pager.c checkfile `:1024–1025` data-base keys
  * (against `lcase(dbase_str)`, `:866`), files.c debugcore `:3154`
- * (`#ifdef DEBUG`, no JS counterpart — see map).
+ * (`#ifdef DEBUG`; live `js/files.js` `debugcore`, wildcards arm).
  */
 export function pmatch(patrn, strng) {
     return pmatch_internal(patrn, strng, false);

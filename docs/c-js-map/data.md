@@ -145,6 +145,16 @@ need no end-pointer) + `alloc`/`free` (GC) + `unlink` (no fs) + WIN32
 `#else SFCTOOL` externs + `free_convert_filenames` sibling (caller
 `save.c:1168` free_everything is FREE_ALL_MEMORY infra, guarded) +
 `delete_savefile :1258` converted arm (unported wrapper row).
+**`nh_basename` / `debugcore` D-2844** (`files.c` `:199–229` and `:3126–3166`;
+`#ifdef DEBUG` is on via `patchlevel.h:36`. `nh_basename` strips `/` and,
+when `keep_suffix` is false, a trailing suffix that fits in 80 bytes.
+`debugcore` returns false unless wizard and `sysopt.debugfiles` names the
+file; `explicitdebug` passes `wildcards` false so `pmatch` is skipped.
+Live `js/files.js`. Caller wired: `dungeon.c` `dumpit` → `debugcore`.
+Named: `options.c:443` `ask_do_tutorial` still uses the contest
+`.nethackrc` footer; `version.c:102` `status_version` still uses
+`split('/').pop()` because there is no `gh.hname`; other
+`showdebug`/`explicitdebug` sites stay no-ops).
 
 ### `include/artilist.h`
 
@@ -1823,6 +1833,16 @@ throws and does not place). `switch_terrain` in the function is a
 comment, not a call. `moveloop_preamble` copies `uz0.dlevel = uz.dlevel`
 (`allmain.c:97`) so the same-level arm runs after the opening
 placement; `u_init` leaves `uz0.dlevel` at 0.
+
+**`dumpit` `:91–144`** (D-2844; whole body in C order. `explicitdebug`
+returns immediately unless `debugfiles` names `dungeon.c`. Then each
+dungeon, each special level, and the branch list are formatted like
+`fprintf(stderr)`. `sp_levchn` and `branches` are arrays; `.next` stays
+null and array order is the chain. Caller `dungeon.c:1317` →
+`js/dungeon.js` `init_dungeons` (`#ifdef DEBUG` is on). Named:
+`(void) getchar()` does not block (no stdin in Chrome); the lines stay
+in a module array rather than a host stderr stream. `place_level`'s
+`#ifdef DDEBUG` fprintf is not compiled (`DDEBUG` is never defined).)
 
 ### `src/options.c` saveoptions writer
 

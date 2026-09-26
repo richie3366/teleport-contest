@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2844 `dumpit` lists dungeons when DEBUGFILES names dungeon.c
+
+**C locus:** `nethack-c/upstream/src/dungeon.c:91–144` `dumpit`. Callees `explicitdebug` → `debugcore` (`files.c:3126–3166`, `wildcards` FALSE) and `nh_basename` (`files.c:199–229`). Caller `dungeon.c:1317` inside `#ifdef DEBUG` (`patchlevel.h:36` defines `DEBUG`). `dungeon.c:88` is the declaration.
+**JS:** `js/dungeon.js` `dumpit` `:1113`, call `:1257`. `js/files.js` `nh_basename` `:1267`, `debugcore` `:1294`. `pmatch` is the live `js/cmd.js` export.
+**Change:** One `dumpit` in that C order. It returns unless `debugcore('dungeon.c', false)`. Otherwise it formats every dungeon, every special level, and every branch, with the same type names and flag words as `fprintf`.
+**Verify:** `node scripts/verify.mjs --fn dumpit` → PASS syntax (3 changed js files: js/cmd.js js/dungeon.js js/files.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script shared-file regex). `node frozen/ps_test_runner.mjs sessions` → 44/44 PASS. VERIFY: PASS.
+**Named:** `(void) getchar()` does not block: scored ESM has no stdin in Chrome. The formatted lines stay in a module array, not a host stderr stream.
+**Next:** `cmd.c` `enter_explore_mode` (next Open — coverage row). `peffect_restore_ability` and `place_level` parked Stale. Nine Open — coverage rows remain after archive, inside the band, so nothing was refilled.
 ## 2026-09-26 — Audit 1794–1802 (D-2835…D-2843)
 
 Nine JS SHAs after review 1793 (`236be808b`). All **ACCEPT**: insects predicates, `place_lregion` tele chain, `setopt_cmd`, autopickup exceptions, poison/joust/`AD_DREN`, `placebc_core`, `fixup_special`, `handler_msgtype`, `iter_mons_safe`. No Must-fix. Public `sessions` 44/44, Scr 11,405/11,405, RNG 792,838/792,838, speed `273+1.83/turn` (R² 0.785). Held-out still 12/44 (6,059/11,265, RNG 29.2 %, screens 53.8 %). Next: `potion.c` `peffect_restore_ability`.
