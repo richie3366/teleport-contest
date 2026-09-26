@@ -282,6 +282,8 @@ import {
     NEW_MOON,
     FULL_MOON,
     Upolyd,
+    M_AP_TYPE,
+    M_AP_NOTHING,
     BASICENLIGHTENMENT,
     MAGICENLIGHTENMENT,
     ENL_GAMEINPROGRESS,
@@ -348,7 +350,7 @@ import {
 import { is_ammo, is_pole } from './wield.js';
 import { is_wet_towel, can_advance } from './weapon.js';
 import { shield_simple_name, Boots_on } from './do_wear.js';
-import { float_vs_flight } from './polyself.js';
+import { float_vs_flight, youhiding } from './polyself.js';
 import { learn_egg_type } from './timeout.js';
 
 // C monflag.h MZ_HUMAN ≡ MZ_MEDIUM
@@ -5685,7 +5687,7 @@ export function trap_predicament(final, wizxtra) {
  * @param {number} final
  * @param {{ overlay?: boolean, magic?: boolean }} opts
  */
-function status_core_lines(final = 0, opts = {}) {
+async function status_core_lines(final = 0, opts = {}) {
     const overlay = !!opts.overlay;
     const magic = !!opts.magic;
     const u = game.u || {};
@@ -5722,6 +5724,15 @@ function status_core_lines(final = 0, opts = {}) {
             tbuf += ` and ${final ? 'felt' : 'feel'} ${inside} inside`;
         }
         out.push(wrap(tbuf));
+    }
+    // C insight.c:1002–1003 — poly'd and hiding. Riding / Levitation /
+    // Flying / Underwater / walking_on_water of status_enlightenment are
+    // still absent; this call sits immediately before Stoned, the next
+    // live arm. youhiding owns you_are; overlay adds the ^X space.
+    if (Upolyd(u) && (u.uundetected
+        || M_AP_TYPE(game.youmonst) !== M_AP_NOTHING)) {
+        const line = await youhiding(true, final);
+        out.push(overlay ? ` ${line}` : line);
     }
     // C insight.c:1006-1011 — Stoned before Slimed, prayer order.
     const stoned = enl_bits(STONED, 'Stoned');
@@ -6354,7 +6365,7 @@ export async function enlightenment(mode, final = 0) {
     lines.push('');
     lines.push(final ? 'Final Status:' : 'Status:');
     // C ref: insight.c status_enlightenment Deaf/Sleepy/hunger/encumbrance
-    lines.push(...status_core_lines(final, {
+    lines.push(...await status_core_lines(final, {
         overlay: false,
         magic: !!(mode & MAGICENLIGHTENMENT),
     }));
@@ -7177,7 +7188,7 @@ export async function doattributes(enl_mode = null) {
     lines.push(' Status:');
     // C ref: insight.c status_enlightenment — Deaf/Sleepy before hunger;
     // Sleepy needs magic || cause_known; wizard hunger/weight suffixes.
-    lines.push(...status_core_lines(0, { overlay: true, magic }));
+    lines.push(...await status_core_lines(0, { overlay: true, magic }));
     // C ref: insight.c weapon_insight `:1270–1465` via status_enlightenment
     // `:1249` — overlay (^X) is ENL_GAMEINPROGRESS, present tense.
     lines.push(...weapon_insight(0, { overlay: true }));

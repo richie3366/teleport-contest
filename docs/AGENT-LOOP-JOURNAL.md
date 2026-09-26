@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2834 `youhiding` describes the hiding place, including the enlightenment line
+
+**C locus:** `nethack-c/upstream/src/insight.c:2022–2077` `youhiding`. `you_are(buf, "")` is `enl_msg(You_, are, were, buf, "")` (`insight.c:107`), which is `enlght_line` (`:127–156`). Caller `insight.c:1003` is `youhiding(TRUE, final)` when `Upolyd && (u.uundetected || U_AP_TYPE != M_AP_NOTHING)`. `polyself.c:1861` and `:1872` pass `FALSE`.
+**JS:** `js/polyself.js` `youhiding` `:2506`. `js/invent.js` `status_core_lines` `:5690` (call `:5732`). `imports.mjs --can`: `invent.js` already imports `polyself.js`; `youhiding` is a hoisted function and is read only inside `status_core_lines`. `M_AP_TYPE` / `M_AP_NOTHING` join the existing `const.js` import.
+**Change:** One `youhiding` in that C order. The menu arm returns ` You are/were <buf>.`, the `you_are` expansion (`final` non-zero selects "were"). The topline is `You("are %s %s.", already|now, buf)`.
+**Verify:** `node scripts/verify.mjs --fn youhiding` → PASS syntax (2 changed js files: js/invent.js js/polyself.js) · PASS rule2 · note hidden (no corpus session blocked at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) · VERIFY: PASS.
+**Named:** Riding, Levitation, Flying, Underwater, and `walking_on_water` in `status_enlightenment` are still absent; the hiding line sits immediately before Stoned, the next live arm. A null `youmonst.data` makes the eel, `hides_under`, and clinger tests false (C would dereference).
+**Next:** `pager.c` `setopt_cmd` (next Open — coverage row). `help_monster_out` parked Stale (body already live). Nine measured rows remain; the queue stays inside the 8–12 band, so nothing was refilled.
 ## 2026-09-26 — D-2833 `genl_player_setup` picks role, race, gender, and alignment in C order
 
 **C locus:** `nethack-c/upstream/src/role.c:2206–2725` `genl_player_setup`. Callee `randgend` `:852–877`. `plsel_startmenu` `:2805–2843` calls `rigid_role_checks` then the header. The `#else` stub at `:3016` returns 0 (TTY_GRAPHICS is on).

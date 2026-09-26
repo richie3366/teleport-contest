@@ -2496,10 +2496,12 @@ function plur(n) {
  * C ref: insight.c youhiding :2022–2077 — describe the hero's hiding place.
  * Envelope: mimic shape detail (U_AP_TYPE) vs uundetected eel-in-pool /
  * hides_under pile / ceiling-clinger-or-flyer / pit-floor trapper /
- * surface; via_enlghtmt menu line vs topline message.
- * Named omission: the via_enlghtmt arm (insight.c:2074–2077 `you_are`) —
- * JS enlightenment (invent.js) never calls youhiding and the menu-line
- * channel has no polyself-side endpoint.
+ * surface; via_enlghtmt `you_are` menu line vs topline `You`.
+ * `you_are(buf, "")` is `enlght_line("You ", final ? "were " : "are ", buf, "")`
+ * (insight.c:107). The menu window is the caller's line list.
+ * @param {boolean} via_enlghtmt enlightenment line vs #monster topline
+ * @param {number} msgflag `final` for the menu tense, or already/now
+ * @returns {Promise<string|undefined>} the menu line when via_enlghtmt
  */
 export async function youhiding(via_enlghtmt, msgflag) {
     const u = game.u || {};
@@ -2537,9 +2539,13 @@ export async function youhiding(via_enlghtmt, msgflag) {
         }
     }
     /* else: shouldn't happen; falls through to generic "you are hiding" */
-    if (via_enlghtmt) return; /* named omission above */
+    if (via_enlghtmt) {
+        /* C insight.c:2074–2076 — you_are(buf, ""); final is msgflag. */
+        const tense = (msgflag | 0) ? 'were' : 'are';
+        return ` You ${tense} ${buf}.`;
+    }
     /* C: You("are %s %s.", msgflag ? "already" : "now", buf) */
-    await pline(`You are ${msgflag ? 'already' : 'now'} ${buf}.`);
+    await You('are %s %s.', msgflag ? 'already' : 'now', buf);
 }
 
 /**

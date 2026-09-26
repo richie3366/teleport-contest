@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `role.c` genl_player_setup — coverage THIN (C 519 L `role.c:2206–2725` / JS 175 L in js/player_selection.js; hops —, callers 1, RNG 0, msg 4; dead callees: randgend). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn genl_player_setup` (reach regression must be 0). Measured `port-coverage.mjs --name genl_player_setup` 2026-09-26 @ fb4f1bf7d. **Addressed:** D-2833
+- [x] `insight.c` youhiding — coverage PARTIAL (C 54 L `insight.c:2022–2077` / JS 40 L in js/polyself.js; hops 2, callers 4, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn youhiding` (reach regression must be 0). Measured `port-coverage.mjs --name youhiding` 2026-09-26 @ fb4f1bf7d. **Addressed:** D-2834
+
+
+- [x] `role.c` genl_player_setup — coverage THIN (C 519 L `role.c:2206–2725` / JS 175 L in js/player_selection.js; hops —, callers 1, RNG 0, msg 4; dead callees: randgend). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn genl_player_setup` (reach regression must be 0). Measured `port-coverage.mjs --name genl_player_setup` 2026-09-26 @ fb4f1bf7d. **Addressed:** D-2833 `92e997504`
 
 
 - [x] `polyself.c` set_uasmon — coverage PARTIAL (C 89 L `polyself.c:38–127` / JS 51 L in js/polyself.js; hops 2, callers 11, RNG 0, msg 0; dead callees: valid_vampshiftform). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn set_uasmon` (reach regression must be 0). Measured `port-coverage.mjs --name set_uasmon` 2026-09-26 @ fb4f1bf7d. **Addressed:** D-2832 `53a5e85c8`
