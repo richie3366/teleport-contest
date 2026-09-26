@@ -90,7 +90,10 @@ import { wiz_wish, wiz_genesis, wiz_level_tele, wiz_map } from './wizcmds.js';
 import { dotelecmd, goodpos } from './teleport.js';
 import { dowield, dowieldquiver, doswapweapon } from './wield.js';
 import { dowhatis, doquickwhatis, dohelp, dowhatdoes, doversion, show_text_pages } from './pager.js';
-import { visctrl, key2txt, cmdbind_get, cmd_from_dir, cmd_from_func } from './dokeylist.js';
+import {
+    visctrl, key2txt, cmdbind_get, cmd_from_dir, cmd_from_func,
+    bind_param_get, bind_param_set, bind_param_clear, bind_param_swap,
+} from './dokeylist.js';
 import {
     NHKF_ESC, NHKF_GETDIR_SELF, NHKF_GETDIR_SELF2, NHKF_GETDIR_HELP,
     NHKF_GETDIR_MOUSE, NHKF_COUNT, NHKF_GETPOS_SELF, NHKF_GETPOS_PICK,
@@ -1274,9 +1277,11 @@ function cmdbind_add(key, extcmd, user) {
         }
         if (!extcmd) {
             slots[k] = NULL_BIND; // C `:2147–2152` node with cmd NULL
+            bind_param_clear(k); // C `:2150` param NULL
             return;
         }
         /* binding exists, set it to this command */ // C `:2137–2144`
+        bind_param_clear(k); // C `:2141–2143` free param on update
         slots[k] = extcmd;
         const overlay = game.Cmd.binds;
         if (user) {
@@ -1296,8 +1301,7 @@ function cmdbind_add(key, extcmd, user) {
     if (!extcmd) return; // no slot array yet — null node has no overlay key
     if (!(game.Cmd.binds instanceof Map)) game.Cmd.binds = new Map();
     /* binding exists, set it to this command */ // C `:2137`
-    // C `:2139–2144` param free has no target (named omission in bind_key).
-    // C `:2147–2153` (new node) is the same overlay set.
+    bind_param_clear(k); // C `:2141–2143` free, or `:2150` NULL on a new node
     void user;
     game.Cmd.binds.set(k, extcmd.txt.toLowerCase());
 }
@@ -1315,7 +1319,8 @@ function cmdbind_add(key, extcmd, user) {
 function cmdbind_remove(key) {
     const k = key & 0xff; // C uchar key
     const slots = game.Cmd?._layoutSlots;
-    if (slots) slots[k] = null; // C `:2164–2173` unlink (free param: no JS target)
+    if (slots) slots[k] = null; // C `:2164–2173` unlink
+    bind_param_clear(k); // C `:2169–2170` free param
     const overlay = game.Cmd?.binds;
     if (!(overlay instanceof Map)) return; // C: no list — nothing to unlink
     // Null marker keeps rhack skipping if/else keys (D-1657) and, once
@@ -1376,13 +1381,11 @@ export function bind_key(key, command, user) {
                 const maxlen = Math.min(30, p.length) + 1; // C `:2701`
                 if (maxlen <= 1) { // C `:2703`
                     config_error_add('Required parameter cannot be empty'); // C `:2704`
+                } else {
+                    // C `:2705–2707` strncpy of min(30, strlen)+1, then NUL
+                    // at maxlen-1. Key 0 never reaches here (`:2130`).
+                    bind_param_set(k, p.slice(0, maxlen - 1));
                 }
-                // C `:2705–2707` bind->param store (min(30) chars): named
-                // omission — the JS overlay stores the bare name only
-                // (parsebindings strips (param) too); CMD_PARAM display is
-                // named in the dokeylist.js header. (C `:2700` dereferences
-                // cmdbind_get(key) unconditionally — key 0 + param is a C
-                // NULL-deref crash path; JS stays total here.)
             }
         } else if (p !== null && p.length > 0) { // C `:2711`
             config_error_add("'%s' does not take a parameter", buf); // C `:2712`
@@ -1533,6 +1536,7 @@ function cmdbind_swapkeys(key1, key2) {
     const v2 = has2 ? overlay.get(k2) : undefined;
     slots[k1] = b.cmd || NULL_BIND; // C bind1->key = key2 (cmd stays on the node)
     slots[k2] = a.cmd || NULL_BIND;
+    bind_param_swap(k1, k2); // param stays on the node, so it follows the key
     if (has1 || has2) {
         if (!(overlay instanceof Map)) return;
         if (has2) overlay.set(k1, v2);
@@ -1970,7 +1974,11 @@ function rhack_user_overlay_key(key) {
 async function rhack_dispatch_bound(key, prefix_seen, was_m_prefix) {
     const tlist = cmdbind_get(key);
     if (!game.gc) game.gc = {};
-    game.gc.cmd_bind = tlist || null; // C `:3679` — live binding for dotoggleoption's param arm
+    // C `:3679` gc.cmd_bind = cmdbind_get (the node, including param).
+    // JS cmdbind_get returns the cmd; param is the side slot.
+    game.gc.cmd_bind = tlist
+        ? Object.assign({}, tlist, { param: bind_param_get(key) })
+        : null;
     if (!tlist) return {};
     const run = extcmd_run_by_txt(tlist.txt);
     if (!run) return {};
@@ -2267,10 +2275,10 @@ export async function domouseaction() {
  * C ref: cmd.c dotoggleoption `:1376–1384` (`#toggle` extcmd `:1907`,
  * BIND=`'`:toggle(price_quotes) / `@`:toggle(autopickup)) — toggle the
  * boolean option named by the current key binding's param, else direct
- * the player to #optionsfull. The param arm reads game.gc.cmd_bind,
- * stamped at the C `:3679` site in rhack_dispatch_bound; bind rows carry
- * no param until CMD_PARAM binds land (named — dokeylist "no bound
- * params in default binds"), so typed #toggle takes the pline arm.
+ * the player to #optionsfull. The param arm reads game.gc.cmd_bind.param,
+ * stamped at the C `:3679` site in rhack_dispatch_bound from
+ * `bind_param_get`. rc parsebindings still strips `(param)`, so a
+ * BIND= line does not fill the slot; `bind_key` does.
  * C caller cmd.c:1907 extcmd row → JS EXT_CMDS 'toggle' (getline.js).
  * @returns {Promise<number>} ECMD_*
  */
