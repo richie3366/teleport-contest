@@ -9,7 +9,7 @@
 // trapeffect_magic_trap /
 // trapeffect_fire_trap / trapeffect_slp_gas_trap / trapeffect_rust_trap /
 // trapeffect_web / trapeffect_landmine / blow_up_landmine /
-// trapeffect_anti_magic /
+// trapeffect_anti_magic / trapeffect_vibrating_square /
 // mu_maybe_destroy_web, b_trapped, sokoban_guilt (D-1239),
 // uteetering_at_seen_pit / uescaped_shaft (D-1073 sit OBJ_AT gate +
 // do.c flooreffects; D-1083 can_reach_floor(check_pit)),
@@ -33,7 +33,7 @@ import {
     newsym, pline, pline_mon, pline_xy, urgent_pline, mon_visible, see_with_infrared,
     You_feel, unmap_object, glyph_is_invisible, tmp_at, nh_delay_output,
     obj_glyph, flush_topl_more, feel_newsym, canspotmon, map_invisible, under_water,
-    set_msg_xy, shieldeff, Hallucination, Norep, impossible, You,
+    set_msg_xy, shieldeff, Hallucination, Norep, impossible, You, You_see,
 } from './display.js';
 import { doname, an, the, The, xname, yname, cxname, makeplural, vtense, otense, simpleonames, ansimpleoname, safe_qbuf, gloves_simple_name, aobjnam, Yname2, Yobjnam2 } from './objnam.js';
 import {
@@ -52,7 +52,7 @@ import {
     likes_gems, mons, webmaker, throws_rocks,
     is_animal, mindless, haseyes,
     bigmonst, is_golem,
-    nohands, extra_nasty, strongmonst, acidic, poly_when_stoned, touch_petrifies,
+    nohands, nolimbs, extra_nasty, strongmonst, acidic, poly_when_stoned, touch_petrifies,
     resists_ston, MALE, FEMALE, NEUTRAL, nonliving, is_vampshifter,
     hides_under, metallivorous, is_neuter,
 } from './monsters.js';
@@ -138,7 +138,7 @@ import {
 import { tamedog, wary_dog, abuse_dog } from './dog.js';
 import { welded, uwepgone, uswapwepgone } from './wield.js';
 import { count_wsegs, worm_known } from './worm.js';
-import { level_difficulty, depth, ordin } from './hacklib.js';
+import { level_difficulty, depth, ordin, strsubst } from './hacklib.js';
 import { make_stunned, make_hallucinated } from './potion.js';
 import { monstseesu, monstunseesu, defended, resists_magm } from './mondata.js';
 import { get_obj_location, burn_away_slime } from './timeout.js';
@@ -1135,12 +1135,13 @@ function canseemon(mtmp) {
     return loc_seen && mon_visible(mtmp);
 }
 
-// C ref: mon.c m_in_air — flyer/floater; cling+ceiling mundetected deferred
+// C ref: mon.c:2130–2135 m_in_air — flyer, floater, or a clinger that is
+// mundetected under a ceiling (dungeon.c has_ceiling via has_ceiling_trap).
 function m_in_air(mtmp) {
     const ptr = mtmp?.data;
     if (!ptr) return false;
     if (is_flyer(ptr) || is_floater(ptr)) return true;
-    return !!(is_clinger(ptr) && mtmp.mundetected);
+    return !!(is_clinger(ptr) && has_ceiling_trap(game.u?.uz) && mtmp.mundetected);
 }
 
 // C ref: trap.c trapnote — "an F note" / "a C note" (+ noprefix bare name)
@@ -5805,7 +5806,63 @@ async function trapeffect_landmine(mtmp, trap, trflags) {
         : (mtmp.mtrapped ? Trap_Caught_Mon : Trap_Effect_Finished);
 }
 
-// C ref: trap.c trapeffect_selector — dart/arrow/rock/pit/sqky/hole/magic/anti-magic/fire/slp/telep/bear/rust/web/landmine/poly
+/**
+ * C ref: trap.c:2725–2764 trapeffect_vibrating_square.
+ * Hero: feeltrap only — the symbol marks the square; messages are
+ * elsewhere. Monster: in_sight (canseemon or the steed) is computed
+ * before see_it. see_it && !Blind reveals with seetrap, then either
+ * the in-sight "beneath" line or the heard ground line. nolimbs or
+ * m_in_air (mon.c:2130) uses the monster's name; otherwise
+ * s_suffix, a space, and the plural foot with "rear " stripped from
+ * the foot text only (hacklib.c eos is the end of that prefix).
+ * mdistu <= 2*2 is squared distance (hack.h). trflags is unused.
+ * Returns Trap_Effect_Finished.
+ */
+async function trapeffect_vibrating_square(mtmp, trap, _trflags) {
+    if (is_youmonst(mtmp)) {
+        feeltrap(trap);
+        /* messages handled elsewhere; the trap symbol marks the square */
+    } else {
+        const in_sight = canseemon(mtmp) || (mtmp === game.u?.usteed);
+        const see_it = cansee(mtmp.mx, mtmp.my);
+
+        if (see_it && !Blind()) {
+            seetrap(trap); /* before messages */
+            if (in_sight) {
+                const monnm = mon_nam(mtmp);
+                let buf;
+                if (nolimbs(mtmp.data) || m_in_air(mtmp)) {
+                    /* just "beneath <mon>" */
+                    buf = monnm;
+                } else {
+                    /* Strcpy(s_suffix); eos(strcat " "); Strcpy plural feet;
+                       strsubst starts at the feet, not the name. */
+                    const feet = strsubst(
+                        makeplural(mbodypart(mtmp, FOOT)),
+                        'rear ',
+                        '',
+                    );
+                    buf = `${s_suffix(monnm)} ${feet}`;
+                }
+                await You_see('a strange vibration beneath %s.', buf);
+            } else {
+                /* notice something (hearing uses a larger threshold
+                   for 'nearby') */
+                const nearby = dist2(
+                    mtmp.mx | 0, mtmp.my | 0,
+                    game.u?.ux | 0, game.u?.uy | 0,
+                ) <= 2 * 2;
+                await You_see(
+                    'the ground vibrate %s.',
+                    nearby ? 'nearby' : 'in the distance',
+                );
+            }
+        }
+    }
+    return Trap_Effect_Finished;
+}
+
+// C ref: trap.c trapeffect_selector — dart/arrow/rock/pit/sqky/hole/magic/anti-magic/fire/slp/telep/bear/rust/web/landmine/poly/vibrating square
 async function trapeffect_selector(mtmp, trap, trflags) {
     switch (trap.ttyp) {
     case DART_TRAP:
@@ -5850,6 +5907,8 @@ async function trapeffect_selector(mtmp, trap, trflags) {
         return trapeffect_web(mtmp, trap, trflags);
     case STATUE_TRAP:
         return trapeffect_statue_trap(mtmp, trap, trflags);
+    case VIBRATING_SQUARE:
+        return trapeffect_vibrating_square(mtmp, trap, trflags);
     default:
         return Trap_Effect_Finished;
     }

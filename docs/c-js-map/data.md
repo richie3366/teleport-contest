@@ -1287,6 +1287,8 @@ called `new_angle` in C (direct assignment, unchanged)
 
 JS: `js/trap.js` — partial
 
+**`trapeffect_vibrating_square`** (D-2882; C `trap.c:2725–2764` — hero `feeltrap` only; monster computes `canseemon`/`usteed` then `cansee && !Blind`, `seetrap`, in-sight `mon_nam` when `nolimbs` or `m_in_air` else `s_suffix` plus plural `mbodypart` `FOOT` with `strsubst` of `"rear "` on the foot text only, else `mdistu <= 4` nearby/distance; `You_see`; returns `Trap_Effect_Finished`. Wired at `trapeffect_selector` `VIBRATING_SQUARE` (`js/trap.js:5911`). File-local `m_in_air` now includes `has_ceiling` (`mon.c:2134`) for this call and the squeaky-board, bear-trap, landmine, and rolling-boulder sites. Named: `You_see` Unaware/Blind prefixes stay the `display.js` omit; `eos` is concatenation; `m_in_air` clones in `mon.js` / `do.js` / `teleport.js` still drop `has_ceiling`).
+
 **`trapname` Hallu (D-1759;** C `:7098–7155` display rng + 62
 `halu_trapnames` + role/rank `" trap"`; `trap_to_glyph` is not Hallu;
 detect clone retired; **pager `trap_description` D-1779** — C

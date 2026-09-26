@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2882 `trapeffect_vibrating_square` marks the square and names the vibration
+
+**C locus:** `nethack-c/upstream/src/trap.c:2725–2764` `trapeffect_vibrating_square`. Callees: `feeltrap` (`trap.c`, live `js/trap.js`), `canseemon` (file-local), `cansee` (`vision.js`), `Blind` (file-local), `seetrap`, `mon_nam`, `nolimbs` (`monsters.js`), `m_in_air` (`mon.c:2130–2135`), `s_suffix`, `eos` (`hacklib.c:194`), `makeplural`, `mbodypart` (`FOOT`), `strsubst`, `You_see`, `mdistu` (`dist2` ≤ `2 * 2`). No RNG.
+**JS:** `js/trap.js` `m_in_air` `:1140`, `trapeffect_vibrating_square` `:5821`, hero `feeltrap` `:5823`, in-sight `:5826`, `seetrap` `:5830`, feet `:5840`, `You_see` `:5847` and `:5855`. Selector case `:5911`.
+**Change:** One `trapeffect_vibrating_square` in that C order. The hero only `feeltrap`s. A monster computes in-sight before `cansee`; `see_it && !Blind` calls `seetrap`, then either `You_see` "beneath" the name (nolimbs or `m_in_air`) or the possessive plural foot with `"rear "` removed from the foot text only, or the nearby/distance ground line.
+**Verify:** `node scripts/verify.mjs --fn trapeffect_vibrating_square` → PASS syntax (1 changed js file: js/trap.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) · VERIFY: PASS.
+**Named:** `You_see` still omits the Unaware "You dream that you see" prefix and the Blind "You sense" prefix (`js/display.js` `You_see`; this caller already requires `!Blind`, so the sense prefix cannot run). `eos` / `Strcpy` / `strcat` are one JS string, not a `BUFSZ` buffer.
+**Next:** `vision.c` `does_block` (next Open — coverage row). Ten Open — coverage rows remain after archive, above the floor of 8, so nothing was refilled.
 ## 2026-09-26 — D-2881 `get_table_int_or_random` treats "random" as the default
 
 **C locus:** `nethack-c/upstream/src/sp_lev.c:3407–3437` `get_table_int_or_random`. Callees: `lua_getfield`, `lua_type`, `lua_pop`, `lua_isnumber`, `lua_tostring`, `strcmpi` (`strncmpi` with `n = -1`, `global.h:113`), `Sprintf`, `eos` (`hacklib.c:194`), `Strcat`, `nhl_error` (`nhlua.c:198`), `luaL_optinteger`. No RNG.

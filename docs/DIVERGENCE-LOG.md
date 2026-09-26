@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2882 — `trapeffect_vibrating_square` marks the square and names the vibration
+
+- **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** A vibrating square never ran an effect. The selector's default returned finished, so the hero did not `feeltrap` it and a monster in view did not `seetrap` or say the ground was vibrating.
+- **C locus:** `nethack-c/upstream/src/trap.c:2725–2764` `trapeffect_vibrating_square`. Callees: `feeltrap` (`trap.c`, live `js/trap.js`), `canseemon` (file-local), `cansee` (`vision.js`), `Blind` (file-local), `seetrap`, `mon_nam`, `nolimbs` (`monsters.js`), `m_in_air` (`mon.c:2130–2135`), `s_suffix`, `eos` (`hacklib.c:194`), `makeplural`, `mbodypart` (`FOOT`), `strsubst`, `You_see`, `mdistu` (`dist2` ≤ `2 * 2`). No RNG.
+- **JS was:** No `trapeffect_vibrating_square` symbol. `trapeffect_selector` fell through to `Trap_Effect_Finished`. File-local `m_in_air` treated a mundetected clinger as airborne with no ceiling test.
+- **Fix:** One `trapeffect_vibrating_square` in that C order. The hero only `feeltrap`s. A monster computes in-sight before `cansee`; `see_it && !Blind` calls `seetrap`, then either `You_see` "beneath" the name (nolimbs or `m_in_air`) or the possessive plural foot with `"rear "` removed from the foot text only, or the nearby/distance ground line. File-local `m_in_air` now requires `has_ceiling_trap` for the clinger term, which also covers the squeaky-board, bear-trap, landmine, and rolling-boulder calls in this file.
+- **JS:** `js/trap.js` `m_in_air` `:1140`, `trapeffect_vibrating_square` `:5821`, hero `feeltrap` `:5823`, in-sight `:5826`, `seetrap` `:5830`, feet `:5840`, `You_see` `:5847` and `:5855`. Selector case `:5911`.
+- **Callers:** `trap.c:2986` → `js/trap.js:5911` (`trapeffect_selector`, already called from `dotrap` `js/trap.js:1936` and `mintrap` `js/trap.js:6031`). `trap.c:40` is the declaration. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn trapeffect_vibrating_square` → PASS syntax (1 changed js file: js/trap.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) · VERIFY: PASS.
+- **Named omissions:** `You_see` still omits the Unaware "You dream that you see" prefix and the Blind "You sense" prefix (`js/display.js` `You_see`; this caller already requires `!Blind`, so the sense prefix cannot run). `eos` / `Strcpy` / `strcat` are one JS string, not a `BUFSZ` buffer. `m_in_air` clones in `js/mon.js`, `js/do.js`, and `js/teleport.js` still omit `has_ceiling`.
+- **Next:** `vision.c` `does_block` (next Open — coverage row). Ten Open — coverage rows remain after archive, above the floor of 8, so nothing was refilled.
+
 ## D-2881 — `get_table_int_or_random` treats "random" as the default
 
 - **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked).
