@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2816 — `retouch_equipment` callers retest worn gear
+
+- **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** A change of alignment, a new lycanthropy, polymorph, rehumanize, or a were bite left worn artifacts and silver in place. C calls `retouch_equipment` at those points; JS kept the calls as comments.
+- **C locus:** `nethack-c/upstream/src/artifact.c:2639–2705` `retouch_equipment`. Nesting `clear_bypasses` (`:2664` / `:2704`). `dropflag > 0` then `uswapwep` and `uwep` (`:2667–2678`). Saddle `untouchable(..., FALSE)` and `dismount_steed` (`:2681–2686`). `dropflag == 1` then `nxt_unbypassed_obj(gi.invent)` (`:2694–2696`). Ring-loss `uncurse` and glove-loss `selftouch` (`:2698–2701`). Callers pass 0 from `attrib.c:1360` and 2 from `eat.c:1325`, `polyself.c:463` `newman`, `:1021` `polymon`, `:1415` `rehumanize`, `uhitm.c:4285`.
+- **JS was:** The body was already `js/artifact.js` `retouch_equipment` in that order. The six gameplay callers were comments (`attrib.js` `uchangealign`, `eat.js` `cpostfx`, `polyself.js` `newman` / `polymon` / `rehumanize`, `mhitu.js` `mhitm_ad_were_u`).
+- **Fix:** Await the existing export at those six sites, after the C state change and before the following `selftouch` where C has one. `dropflag` 0 from `uchangealign`, 2 from the others. `imports.mjs --can`: `polyself.js` → `artifact.js` `retouch_equipment` is a hoisted function in the existing cycle; `attrib.js`, `eat.js`, and `mhitu.js` already imported `artifact.js`.
+- **JS:** `js/artifact.js` `retouch_equipment` `:1619`. `untouchable` `:1579`.
+- **Callers:** `attrib.c:1360` → `js/attrib.js:827`. `eat.c:1325` → `js/eat.js:2021`. `polyself.c:463` → `js/polyself.js:1072`. `polyself.c:1021` → `js/polyself.js:1741`. `polyself.c:1415` → `js/polyself.js:1128`. `uhitm.c:4285` → `js/mhitu.js:2858`. `apply.c:4115` and `zap.c:2149` are comments, not calls. `extern.h:188` is the declaration. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn retouch_equipment` → PASS syntax (5 changed js files: js/artifact.js js/attrib.js js/eat.js js/mhitu.js js/polyself.js) · PASS rule2 · note hidden (no corpus session blocked at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (verifier: those files are outside the auto shared set) · VERIFY: PASS.
+- **Named omissions:** `bypass_obj` still skips a null `uswapwep` (C would dereference). `untouchable` on a null object returns false. `apply.c:4115` and `zap.c:2149` stay comments.
+- **Next:** `detect.c` `level_distance` (next Open — coverage row).
+
 ## D-2815 — `safe_teleds` reads Passes_walls and t_at
 
 - **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked).

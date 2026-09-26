@@ -1613,7 +1613,7 @@ async function untouchable(obj, dropUntouchable) {
 /**
  * C ref: artifact.c retouch_equipment `:2639–2705`.
  * dropflag 0 keeps untouchable items, 1 drops all, 2 drops weapons.
- * External callers (attrib/eat/polyself/uhitm) stay named until wired.
+ * Callers: uchangealign(0), cpostfx/newman/polymon/rehumanize/were(2).
  * @param {number} dropflag
  */
 export async function retouch_equipment(dropflag) {

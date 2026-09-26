@@ -3,9 +3,13 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-09-26
+
+- [x] `artifact.c` retouch_equipment — coverage PARTIAL (C 64 L `artifact.c:2640–2705` / JS 35 L in js/artifact.js; hops 2, callers 8, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn retouch_equipment` (reach regression must be 0). Measured `port-coverage.mjs --name retouch_equipment` 2026-09-26 @ 9dcef1d65. **Addressed:** D-2816
+
 ## 2026-09-25
 
-- [x] `teleport.c` safe_teleds — coverage PARTIAL (C 53 L `teleport.c:717–770` / JS 38 L in js/teleport.js; hops 3, callers 11, RNG 2, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn safe_teleds` (reach regression must be 0). Measured `port-coverage.mjs --name safe_teleds` 2026-09-26 @ 7041ab3e4. **Addressed:** D-2815
+- [x] `teleport.c` safe_teleds — coverage PARTIAL (C 53 L `teleport.c:717–770` / JS 38 L in js/teleport.js; hops 3, callers 11, RNG 2, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn safe_teleds` (reach regression must be 0). Measured `port-coverage.mjs --name safe_teleds` 2026-09-26 @ 7041ab3e4. **Addressed:** D-2815 `75a5d7683`
 
 
 - [x] `pickup.c` allow_category — coverage THIN (C 69 L `pickup.c:523–592` / JS 27 L in js/pickup.js; hops 2, callers 6, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn allow_category` (reach regression must be 0). Measured `port-coverage.mjs --name allow_category` 2026-09-25 @ 7215d8d6a. **Addressed:** D-2814 `30a1b86dc`

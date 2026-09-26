@@ -150,7 +150,7 @@ need no end-pointer) + `alloc`/`free` (GC) + `unlink` (no fs) + WIN32
 
 JS: extractor + `js/generated/artifacts_data.js` + `js/artifact.js` — partial
 
-**name/otyp/spfx/align/role/race** (D-0064); **`retouch_object` + touch gate** (D-0065; whole-body restart D-2473 — Bell rite arm, ag/bane `You_cant` + `rnd(10)` damage + `losehp`/`exercise(A_CON)` fatal drain, worn-removal invent rescan, `loseit` Levitation freeinv/hitfloor else altar-gated pline + dropx; callers doapply newly wired, doinvoke/dowear/doeat/dowield already wired; `untouchable` `:2597–2636` and `retouch_equipment` `:2639–2705` bodies live D-2805, external callers attrib/eat/polyself/uhitm still named); 
+**name/otyp/spfx/align/role/race** (D-0064); **`retouch_object` + touch gate** (D-0065; whole-body restart D-2473 — Bell rite arm, ag/bane `You_cant` + `rnd(10)` damage + `losehp`/`exercise(A_CON)` fatal drain, worn-removal invent rescan, `loseit` Levitation freeinv/hitfloor else altar-gated pline + dropx; callers doapply newly wired, doinvoke/dowear/doeat/dowield already wired; `untouchable` `:2597–2636` and `retouch_equipment` `:2639–2705` bodies live D-2805, external callers wired D-2816 (`uchangealign` 0, `cpostfx`/`newman`/`polymon`/`rehumanize`/`mhitm_ad_were_u` 2)); 
 **attk+mtype extract + `spec_abon`/`spec_applies`** (D-0611;
 PHYS early + DMONS/DCLAS/DFLAG1/DFLAG2/DALIGN + ATTK Magm/Stun `rn2` + per-adtyp
 Fire/Cold/Elec/Drst/Drli/Ston resists (D-1862; hero props + mon `resists_*`;

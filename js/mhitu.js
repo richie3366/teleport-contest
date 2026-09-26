@@ -40,7 +40,7 @@ import {
     noit_mon_nam, noit_Monnam, s_suffix, Ugender, m_monnam, Some_Monnam, Mgender,
 } from './do_name.js';
 import { MON_WEP, mon_wield_item, dmgval, hitval, drain_weapon_skill } from './weapon.js';
-import { arti_reflects, artifact_hit, permapoisoned, is_art, defends } from './artifact.js';
+import { arti_reflects, artifact_hit, permapoisoned, is_art, defends, retouch_equipment } from './artifact.js';
 import { is_pole, welded, is_weptool } from './wield.js';
 import { xname, doname, an, yname, the, simpleonames, safe_qbuf, mimic_obj_name, makeplural, Yobjnam2, vtense } from './objnam.js';
 import { objectNames, ARMOR_CLASS, COIN_CLASS, SILVER, WEAPON_CLASS } from './objects.js';
@@ -2841,8 +2841,7 @@ async function mhitm_ad_slow_u(mtmp, mattk, mhm) {
  * && !defends(AD_WERE,uwep) && !mgc-negated(TRUE)` → feverish +
  * exercise(A_CON,FALSE) + set_ulycn(monsndx(pa)) (leftover d() kept —
  * the were arm never zeroes damage, like FAMN/SLOW).
- * Named omit: retouch_equipment(2) (same as eat.js cpostfx D-0945 —
- * untouchable/retouch_object/bypass chain, unported).
+ * After set_ulycn, retouch_equipment(2) retests weapons (C :4285).
  */
 async function mhitm_ad_were_u(mtmp, mattk, mhm) {
     void mhm; /* leftover d() stays */
@@ -2855,7 +2854,8 @@ async function mhitm_ad_were_u(mtmp, mattk, mhm) {
         await urgent_pline('You feel feverish.');
         exercise(A_CON, false);
         set_ulycn(mtmp?.data?.mndx ?? mtmp?.mnum);
-        /* retouch_equipment(2) deferred (eat.js cpostfx D-0945 same) */
+        /* C uhitm.c:4285 — new lycanthrope form, drop weapons only. */
+        await retouch_equipment(2);
     }
 }
 
