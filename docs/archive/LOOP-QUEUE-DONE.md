@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `potion.c` peffect_oil — coverage THIN (C 34 L `potion.c:1260–1294` / JS 13 L in js/potion.js; hops 4, callers 1, RNG 1, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn peffect_oil` (reach regression must be 0). Measured `port-coverage.mjs --name peffect_oil` 2026-09-26 @ ae37117bd. **Addressed:** D-2860
+- [x] `cmd.c` reset_commands — coverage MISSING (C 132 L `cmd.c:3344–3476` / JS no symbol; hops —, callers 3, RNG 0, msg 0; dead callees: cmdbind_swapkeys). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn reset_commands` (reach regression must be 0). Measured `port-coverage.mjs --name reset_commands` 2026-09-26 @ d15d25c20. **Addressed:** D-2861
+
+
+- [x] `potion.c` peffect_oil — coverage THIN (C 34 L `potion.c:1260–1294` / JS 13 L in js/potion.js; hops 4, callers 1, RNG 1, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn peffect_oil` (reach regression must be 0). Measured `port-coverage.mjs --name peffect_oil` 2026-09-26 @ ae37117bd. **Addressed:** D-2860 `905870b38`
 
 
 - [x] `timeout.c` fall_asleep — coverage THIN (C 23 L `timeout.c:951–974` / JS 9 L in js/hack.js; hops 1, callers 10, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn fall_asleep` (reach regression must be 0). Measured `port-coverage.mjs --name fall_asleep` 2026-09-26 @ ae37117bd. **Addressed:** D-2859 `41bf49099`

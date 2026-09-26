@@ -5,9 +5,11 @@
 // Builds NHW_TEXT lines from extracted extcmdlist[] + default !num_pad
 // bindings (commands_init + reset_commands). rhack cmdbind_get of those
 // defaults (M('?') → "?" / doextlist) is D-1643. Overlay BIND= on if/else
-// keys is D-1657 (`rhack_user_overlay_key` + EXT_CMDS runners). Named
-// omissions: number_pad layouts, swap_yz, rest_on_space wait binding,
-// CMD_PARAM bound-key param display, overlay on walk keys.
+// keys is D-1657 (`rhack_user_overlay_key` + EXT_CMDS runners). After
+// `reset_commands` (D-2861), `cmdbinds_live` uses `_layoutSlots` for
+// number_pad, phone, swap_yz, pcHack, and the rest_on_space clone.
+// Named omissions: CMD_PARAM bound-key param display; rhack movement
+// still walks letter keys rather than the slot table.
 
 import {
     EXTCMDLIST,
@@ -260,13 +262,21 @@ function build_default_cmdbinds() {
 /**
  * Default cmdbinds plus BIND=/BINDINGS= overlays from parsebindings.
  * C ref: cmd.c commands_init + reset_commands(!num_pad) + bind_key.
- * null overlay value is bind_key "nothing" (unbind). Named omissions:
- * number_pad/phone/swap_yz/pcHack dir layouts; rest_on_space;
- * initoptions_finish rebinding dirchars after RC (C overwrites hjkl
- * BIND=; this overlay can stick on walk keys).
+ * null overlay value is bind_key "nothing" (unbind). When
+ * `game.Cmd._layoutSlots` is set (`reset_commands`), that array is the
+ * base instead of the !num_pad default: a null slot is unbound, and a
+ * `_nullBind` sentinel is C's null-cmd node (lookup still unbound).
+ * Named omissions: until `reset_commands` runs, number_pad/phone/swap_yz/
+ * pcHack layouts and the rest_on_space clone are not in this default;
+ * a BIND= parsed before `number_pad` is installed onto the overlay
+ * after `reset_commands` returns (jsmain), so it can mask a restored key.
  */
 function cmdbinds_live() {
-    const binds = build_default_cmdbinds();
+    const slots = game.Cmd?._layoutSlots;
+    /** @type {(typeof EXTCMDLIST[number] | null)[]} */
+    const binds = slots
+        ? slots.map((s) => (s && !s._nullBind ? s : null))
+        : build_default_cmdbinds();
     const overlay = game.Cmd?.binds;
     if (overlay instanceof Map) {
         const byTxt = new Map(EXTCMDLIST.map((e) => [e.txt.toLowerCase(), e]));

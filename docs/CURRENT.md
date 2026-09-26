@@ -100,10 +100,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `cmd.c` `reset_commands` — coverage MISSING (next Open — coverage row after `peffect_oil`). Verify `node scripts/verify.mjs --fn reset_commands` (reach regression must be 0).
+**Next cluster:** `sp_lev.c` `get_coord` — coverage MISSING (next Open — coverage row after `reset_commands`). Verify `node scripts/verify.mjs --fn get_coord` (reach regression must be 0).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2860 (index).**
+**Keep D-0845…D-2861 (index).**
 <!-- recent:begin -->
+**D-2861** `nethack-c/upstream/src/cmd.c:3344–3476` `reset_commands`. Callees `cmdbind_add` (`cmd.c:2 — One `reset_commands` in that C order.
 **D-2860** `nethack-c/upstream/src/potion.c:1260–1294` `peffect_oil`. Callees `pline` (`pline.c`, liv — One `peffect_oil` in that C order.
 **D-2859** `nethack-c/upstream/src/timeout.c:951–974` `fall_asleep`. Callees `stop_occupation` (`allm — One `fall_asleep` in that C order.
 **D-2858** `nethack-c/upstream/src/botl.c:1683–1720` `status_initialize`. Callees `impossible` (`plin — One `status_initialize` in that C order.
@@ -111,11 +112,10 @@ revisits the picker.
 **D-2856** `nethack-c/upstream/src/mhitm.c:41–72` `pre_mm_attack`. Callees `seemimic` (`mon.c`, live  — One `pre_mm_attack` in that C order.
 **D-2855** `nethack-c/upstream/src/uhitm.c:3306–3334` `mhitm_ad_stck`. Callees `mhitm_mgc_atk_negated — One `mhitm_ad_stck` in that C order.
 **D-2854** `nethack-c/upstream/src/shk.c:5826–5858` `block_entry`. Callees `in_rooms` (`hack.c:3497`, — One `block_entry` in that C order.
-**D-2853** `nethack-c/upstream/dat/quest.lua` role tables (Archeologist `discourage` `:232–242`, `nem — `scripts/extract-quest-nemesis.py` embeds those five keys from `quest.lua` into `js/generated/quest_nemesis_speech.js` (13 roles; Arc `discourage` is 10 strings, byte-checked against the lua).
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2860; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2861; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
