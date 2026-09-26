@@ -1857,3 +1857,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1845-f2ba5333b-let-to-name.md](./1845-f2ba5333b-let-to-name.md) | `f2ba5333b` | D-2886 let_to_name | **ACCEPT** |
 | [1846-3afe3adc0-obj-pmname.md](./1846-3afe3adc0-obj-pmname.md) | `3afe3adc0` | D-2887 obj_pmname | **ACCEPT** |
 | [1847-941017b03-do-positionbar.md](./1847-941017b03-do-positionbar.md) | `941017b03` | D-2888 do_positionbar | **ACCEPT** |
+| [1848-ef40ca579-flip-visuals.md](./1848-ef40ca579-flip-visuals.md) | `ef40ca579` | D-2889 flip_visuals | **QUALITY-RISK** |
+| [1849-149143cd5-plsel-startmenu.md](./1849-149143cd5-plsel-startmenu.md) | `149143cd5` | D-2890 plsel_startmenu | **ACCEPT** |
+| [1850-a628445d8-there-cmd-menu-self.md](./1850-a628445d8-there-cmd-menu-self.md) | `a628445d8` | D-2891 there_cmd_menu_self | **ACCEPT** |
+| [1851-e24078a71-unicodeval.md](./1851-e24078a71-unicodeval.md) | `e24078a71` | D-2892 unicodeval_to_utf8str | **ACCEPT** |
+| [1852-008e05138-time-from.md](./1852-008e05138-time-from.md) | `008e05138` | D-2893 time_from_yyyymmddhhmmss | **ACCEPT** |
+| [1853-e4c6400a6-mhitm-ad-conf.md](./1853-e4c6400a6-mhitm-ad-conf.md) | `e4c6400a6` | D-2894 mhitm_ad_conf | **ACCEPT** |
+| [1854-e4e898f54-ugolemeffects.md](./1854-e4e898f54-ugolemeffects.md) | `e4e898f54` | D-2895 ugolemeffects | **ACCEPT** |
+| [1855-d2c713008-eatmupdate.md](./1855-d2c713008-eatmupdate.md) | `d2c713008` | D-2896 eatmupdate | **ACCEPT** |
+| [1856-37fb9f7ea-toggle-displacement.md](./1856-37fb9f7ea-toggle-displacement.md) | `37fb9f7ea` | D-2897 toggle_displacement | **ACCEPT** |
