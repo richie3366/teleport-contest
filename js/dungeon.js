@@ -152,21 +152,18 @@ import { db_under_typ } from './hack.js';
 import { m_at } from './mon.js';
 import { canseemon } from './display.js';
 
-const FLAG_MAP = {
-    town: TOWN,
-    hellish: HELLISH,
-    mazelike: MAZELIKE,
-    roguelike: ROGUELIKE,
-    unconnected: UNCONNECTED,
-};
+// C dungeon.c:747–752 flagstrs / flagstrs2i. Index is luaL_checkoption's.
+const DGN_FLAG_STRS = ['town', 'hellish', 'mazelike', 'roguelike', 'unconnected'];
+const DGN_FLAG_BITS = [TOWN, HELLISH, MAZELIKE, ROGUELIKE, UNCONNECTED];
 
-const ALIGN_MAP = {
-    unaligned: D_ALIGN_NONE,
-    noalign: D_ALIGN_NONE,
-    lawful: D_ALIGN_LAWFUL,
-    neutral: D_ALIGN_NEUTRAL,
-    chaotic: D_ALIGN_CHAOTIC,
-};
+// C dungeon.c:783–789 dgnaligns / dgnaligns2i.
+const DGN_ALIGN_STRS = ['unaligned', 'noalign', 'lawful', 'neutral', 'chaotic'];
+const DGN_ALIGN_BITS = [
+    D_ALIGN_NONE, D_ALIGN_NONE, D_ALIGN_LAWFUL, D_ALIGN_NEUTRAL, D_ALIGN_CHAOTIC,
+];
+
+// C decl.h emptystr[] — the bonetag default. A non-null pointer to "".
+const emptystr = '';
 
 const BRTYPE_MAP = {
     stair: TBR_STAIR,
@@ -205,20 +202,278 @@ const LEVEL_MAP = [
     ['x-goal', 'nemesis_level'],
 ];
 
-function get_dgn_flags(entry) {
-    const f = entry?.flags;
-    if (f == null) return 0;
-    if (typeof f === 'string') return FLAG_MAP[f] || 0;
-    if (Array.isArray(f)) {
-        let bits = 0;
-        for (const s of f) bits |= FLAG_MAP[s] || 0;
-        return bits;
-    }
+/**
+ * Lua type tag for an unpacked dungeon.lua value. null and undefined are
+ * LUA_TNIL (`typeof null` is "object" in JS). A plain object or array is
+ * LUA_TTABLE. There is no lua_State in this loader (generated table,
+ * D-0477); stack push/pop around these reads is not a value.
+ * @param {*} v
+ * @returns {'nil'|'string'|'number'|'boolean'|'function'|'table'|'other'}
+ */
+function lua_type(v) {
+    if (v == null) return 'nil';
+    if (typeof v === 'string') return 'string';
+    if (typeof v === 'number') return 'number';
+    if (typeof v === 'boolean') return 'boolean';
+    if (typeof v === 'function') return 'function';
+    if (typeof v === 'object') return 'table';
+    return 'other';
+}
+
+/**
+ * C lua_len / `#` on a sequence. A JS array's length is that border.
+ * A hash-only table (plain object) has sequence length 0.
+ * @param {*} v
+ * @returns {number}
+ */
+function lua_len(v) {
+    if (Array.isArray(v)) return v.length | 0;
     return 0;
 }
 
+/**
+ * C lua_getfield(L, -1, name) on the table the caller already selected.
+ * A missing key is nil. No stack slot is left behind.
+ * @param {object} tbl
+ * @param {string} name
+ */
+function lua_field(tbl, name) {
+    if (tbl == null || typeof tbl !== 'object') return undefined;
+    return tbl[name];
+}
+
+/**
+ * C string.h strcmp. 0 when the strings are equal. Callers pass dupstr
+ * results, so this is code-unit equality (the dungeon names are ASCII).
+ * @param {string} a
+ * @param {string} b
+ * @returns {number}
+ */
+function strcmp(a, b) {
+    return a === b ? 0 : 1;
+}
+
+/**
+ * C dupstr — copy up to the first NUL. JS strings are immutable, so the
+ * copy is the slice; free() of that copy is GC.
+ * @param {string} s
+ * @returns {string}
+ */
+function dupstr(s) {
+    const i = String(s).indexOf('\0');
+    return i >= 0 ? String(s).slice(0, i) : String(s);
+}
+
+/**
+ * C lauxlib luaL_checkinteger, then the `(int)` cast in get_table_int.
+ * Same stand-in as the file-local helper in mklev.js (not exported;
+ * mklev.js already imports this module). A finite number truncates
+ * toward 0; a numeric string converts the way lua_isnumber does.
+ * @param {*} v
+ * @returns {number}
+ */
+function luaL_checkinteger_dgn(v) {
+    let n;
+    if (typeof v === 'number' && Number.isFinite(v)) n = Math.trunc(v);
+    else if (typeof v === 'string' && v.trim() !== '' && Number.isFinite(Number(v))) {
+        n = Math.trunc(Number(v));
+    } else {
+        const got = (v == null) ? 'nil'
+            : (typeof v === 'object' ? 'table' : typeof v);
+        throw new Error(`bad argument (number expected, got ${got})`);
+    }
+    return n | 0;
+}
+
+/**
+ * C lauxlib luaL_checkoption. Nil uses defval when defval is non-null.
+ * A number becomes its decimal string (luaL_checkstring). No match is
+ * an argerror. Returns the index into opts, not the string.
+ * @param {*} value
+ * @param {string|null} defval
+ * @param {readonly string[]} opts
+ * @returns {number}
+ */
+function luaL_checkoption(value, defval, opts) {
+    const t = lua_type(value);
+    let name;
+    if (t === 'nil') {
+        if (defval == null) throw new Error('bad argument (string expected, got nil)');
+        name = defval;
+    } else if (t === 'string') {
+        name = value;
+    } else if (t === 'number' && Number.isFinite(value)) {
+        name = String(value);
+    } else {
+        throw new Error(`bad argument (string expected, got ${t})`);
+    }
+    name = dupstr(name);
+    for (let i = 0; i < opts.length; i++) {
+        if (opts[i] === name) return i;
+    }
+    throw new Error(`invalid option '${name}'`);
+}
+
+/**
+ * C nhlua.c get_table_int `:1016–1025`. Mandatory integer field.
+ * @param {object} tbl
+ * @param {string} name
+ * @returns {number}
+ */
+function get_table_int(tbl, name) {
+    return luaL_checkinteger_dgn(lua_field(tbl, name));
+}
+
+/**
+ * C nhlua.c get_table_int_opt `:1027–1039`. Nil keeps defval; any other
+ * value is checkinteger. The lua_pop of the field is not a value.
+ * @param {object} tbl
+ * @param {string} name
+ * @param {number} defval
+ * @returns {number}
+ */
+function get_table_int_opt(tbl, name, defval) {
+    const v = lua_field(tbl, name);
+    if (lua_type(v) === 'nil') return defval | 0;
+    return luaL_checkinteger_dgn(v);
+}
+
+/**
+ * C nhlua.c get_table_str `:1041–1050`. Mandatory string; dupstr of
+ * luaL_checkstring (a number converts, nil and other types error).
+ * @param {object} tbl
+ * @param {string} name
+ * @returns {string}
+ */
+function get_table_str(tbl, name) {
+    const v = lua_field(tbl, name);
+    const t = lua_type(v);
+    if (t === 'string') return dupstr(v);
+    if (t === 'number' && Number.isFinite(v)) return dupstr(String(v));
+    const got = t === 'nil' ? 'nil' : t;
+    throw new Error(`bad argument (string expected, got ${got})`);
+}
+
+/**
+ * C nhlua.c get_table_str_opt `:1052–1076`. String or nil uses
+ * luaL_optstring (nil → defval, which may be NULL). A function is
+ * pcalled and the result must be a string or nil. Anything else is
+ * nhl_error("get_table_str_opt: no string"). Return is dupstr or NULL.
+ * `if (ret)` in C is a pointer test: "" is kept, only NULL is dropped.
+ * @param {object} tbl
+ * @param {string} name
+ * @param {string|null} defval
+ * @returns {string|null}
+ */
+function get_table_str_opt(tbl, name, defval) {
+    const v = lua_field(tbl, name);
+    const ltyp = lua_type(v);
+    let ret;
+    if (ltyp === 'string' || ltyp === 'nil') {
+        ret = ltyp === 'nil' ? defval : v;
+    } else if (ltyp === 'function') {
+        // C :1064–1066 nhl_pcall_handle(..., NHLpa_panic) then optstring.
+        // No Lua VM: call the JS function with zero args. A throw here
+        // is that panic handler (it does not return).
+        const produced = v();
+        const pt = lua_type(produced);
+        if (pt === 'nil') ret = defval;
+        else if (pt === 'string') ret = produced;
+        else throw new Error('get_table_str_opt: no string');
+    } else {
+        throw new Error('get_table_str_opt: no string');
+    }
+    if (ret != null) return dupstr(ret);
+    return null;
+}
+
+/**
+ * C nhlua.c get_table_option `:1121–1133`.
+ * @param {object} tbl
+ * @param {string} name
+ * @param {string|null} defval
+ * @param {readonly string[]} opts
+ * @returns {number}
+ */
+function get_table_option(tbl, name, defval, opts) {
+    return luaL_checkoption(lua_field(tbl, name), defval, opts);
+}
+
+/**
+ * C pline.c impossible — prints and returns. The three plines await
+ * input, and init_dungeons does not. The loader continues, which is
+ * what impossible does (it is not panic).
+ * @param {string} msg
+ */
+function dgn_impossible(msg) {
+    void msg;
+}
+
+/**
+ * C include/lint.h ifdebug(pline) — DEBUG is on (patchlevel.h:36).
+ * showdebug("dungeon.c") is debugcore(file, TRUE). The false arm does
+ * not call pline and does not touch iflags.last_msg. The true arm's
+ * pline is async, so the formatted line is not drawn (named).
+ * @param {string} fmt
+ * @param {...*} args
+ */
+function debugpline_dungeon(fmt, ...args) {
+    if (!debugcore('dungeon.c', true)) return;
+    let i = 0;
+    void fmt.replace(/%[%sdil]/g, (m) => {
+        if (m === '%%') return '%';
+        i += 1;
+        void args[i - 1];
+        return '';
+    });
+}
+
+/**
+ * C ref: dungeon.c get_dgn_flags `:743–778`.
+ * A flags table is a 1-based sequence of strings (JS array, 0-based).
+ * A single string is one token. Nil is 0. Any other type is impossible
+ * and still returns the bits gathered so far (0 on that arm). An
+ * unknown token is luaL_checkoption's argerror, not a skipped bit.
+ * @param {object} entry
+ * @returns {number}
+ */
+function get_dgn_flags(entry) {
+    let dgn_flags = 0; // C :746
+    const field = lua_field(entry, 'flags'); // C :754 lua_getfield "flags"
+    const t = lua_type(field);
+    if (t === 'table') { // C :755
+        const nflags = lua_len(field); // C :758–760
+        for (let f = 0; f < nflags; f++) { // C :761
+            const item = field[f]; // C :762–763 index f+1
+            if (lua_type(item) === 'string') { // C :764
+                dgn_flags |= DGN_FLAG_BITS[luaL_checkoption(item, null, DGN_FLAG_STRS)];
+                // C :767 lua_pop of the element
+            } else {
+                // C :769. The element is not popped in C; we have no stack.
+                dgn_impossible(`flags[${f}] is not a string`);
+            }
+        }
+    } else if (t === 'string') { // C :771
+        dgn_flags |= DGN_FLAG_BITS[luaL_checkoption(field, null, DGN_FLAG_STRS)];
+    } else if (t !== 'nil') { // C :773
+        dgn_impossible('flags is not an array or string');
+    }
+    // C :775 lua_pop of the flags field.
+    return dgn_flags | 0;
+}
+
+/**
+ * C ref: dungeon.c get_dgn_align `:780–794`.
+ * Missing alignment is the default "unaligned" (index 0), not a
+ * silent D_ALIGN_NONE for an unknown word.
+ * @param {object} entry
+ * @returns {number}
+ */
 function get_dgn_align(entry) {
-    return ALIGN_MAP[entry?.alignment || 'unaligned'] ?? D_ALIGN_NONE;
+    const a = DGN_ALIGN_BITS[get_table_option(
+        entry, 'alignment', 'unaligned', DGN_ALIGN_STRS,
+    )]; // C :791–793
+    return a;
 }
 
 function correct_branch_type(tbr) {
@@ -455,36 +710,82 @@ function place_level(proto_index, pd) {
     return false;
 }
 
+/**
+ * C ref: dungeon.c init_dungeon_levels `:797–864`.
+ * `levels` is the table C has on the stack after lua_getfield "levels"
+ * (the caller checked LUA_TTABLE). JS arrays are 0-based; C indexes
+ * f+1. Names stay on the proto (C does not free them). The bonetag
+ * string is freed after its first byte is copied into boneschar.
+ * @param {object} levels
+ * @param {object} pd
+ * @param {number} dngidx
+ */
 function init_dungeon_levels(levels, pd, dngidx) {
-    const nlevels = levels?.length || 0;
+    // C :808–811 lua_len, (int) lua_tointeger, store, lua_pop of the length.
+    const nlevels = lua_len(levels);
     pd.tmpdungeon[dngidx].levels = nlevels;
-    for (let f = 0; f < nlevels; f++) {
-        const L = levels[f];
-        const tmpl = {
-            name: L.name,
-            chainlvl: L.chainlevel || null,
-            lev: { base: L.base, rand: L.range ?? 0 },
-            chance: L.chance ?? 100,
-            rndlevs: L.nlevels ?? 0,
-            flags: get_dgn_flags(L) | get_dgn_align(L),
-            boneschar: (L.bonetag && L.bonetag[0]) || 0,
-            chain: -1,
-        };
-        if (tmpl.chainlvl) {
-            for (let bi = 0; bi < pd.n_levs + f; bi++) {
-                if (pd.tmplevel[bi].name === tmpl.chainlvl) {
-                    tmpl.chain = bi;
-                    break;
+    for (let f = 0; f < nlevels; f++) { // C :812
+        // C :813–814 lua_pushinteger(f + 1); lua_gettable.
+        const row = levels[f];
+        if (lua_type(row) === 'table') { // C :815
+            const lvl_name = get_table_str(row, 'name'); // C :816
+            const lvl_bonetag = get_table_str_opt(row, 'bonetag', emptystr); // C :817
+            const lvl_chain = get_table_str_opt(row, 'chainlevel', null); // C :818
+            const lvl_base = get_table_int(row, 'base'); // C :819
+            const lvl_range = get_table_int_opt(row, 'range', 0); // C :820
+            const lvl_nlevels = get_table_int_opt(row, 'nlevels', 0); // C :821
+            const lvl_chance = get_table_int_opt(row, 'chance', 100); // C :822
+            const lvl_align = get_dgn_align(row); // C :823
+            const lvl_flags = get_dgn_flags(row); // C :824
+            // C :825–828 offset by levels already defined for earlier dungeons.
+            const tmpl = {
+                name: null,
+                chainlvl: null,
+                lev: { base: 0, rand: 0 },
+                chance: 0,
+                rndlevs: 0,
+                flags: 0,
+                boneschar: 0,
+                chain: 0,
+            };
+            pd.tmplevel[pd.n_levs + f] = tmpl;
+
+            debugpline_dungeon('LEVEL[%i]:%s,(%i,%i)', f, lvl_name, lvl_base, lvl_range); // C :830–831
+            tmpl.name = lvl_name; // C :832
+            tmpl.chainlvl = lvl_chain; // C :833
+            tmpl.lev.base = lvl_base; // C :834
+            tmpl.lev.rand = lvl_range; // C :835
+            tmpl.chance = lvl_chance; // C :836
+            tmpl.rndlevs = lvl_nlevels; // C :837
+            tmpl.flags = (lvl_flags | lvl_align) | 0; // C :838
+            // C :839 *lvl_bonetag ? *lvl_bonetag : 0. charCodeAt of "" is NaN.
+            const bonec = lvl_bonetag.charCodeAt(0);
+            tmpl.boneschar = bonec ? (bonec | 0) : 0;
+            // C :840 free(lvl_bonetag) — the byte is copied; the string is GC.
+            tmpl.chain = -1; // C :841
+            if (lvl_chain != null) { // C :842 pointer, so "" still chains
+                debugpline_dungeon('CHAINLEVEL: %s', lvl_chain); // C :843
+                for (let bi = 0; bi < pd.n_levs + f; bi++) { // C :844
+                    debugpline_dungeon('checking(%i):%s', bi, pd.tmplevel[bi].name); // C :845–846
+                    if (strcmp(pd.tmplevel[bi].name, lvl_chain) === 0) { // C :847
+                        tmpl.chain = bi; // C :848
+                        break; // C :849
+                    }
                 }
+                if (tmpl.chain === -1) { // C :852
+                    throw new Error(`Could not chain level ${lvl_name} to ${lvl_chain}`); // C :853–854
+                }
+                // C :855 free(lvl_chain) is commented out — kept in tmpl.chainlvl.
             }
-            if (tmpl.chain === -1) {
-                throw new Error(`Could not chain level ${tmpl.name} to ${tmpl.chainlvl}`);
-            }
+        } else {
+            throw new Error(`dungeon[${dngidx}].levels[${f}] is not a hash`); // C :858
         }
-        pd.tmplevel[pd.n_levs + f] = tmpl;
+        // C :859 lua_pop of this level row.
     }
-    pd.n_levs += nlevels;
-    if (pd.n_levs > LEV_LIMIT) throw new Error('init_dungeon: too many special levels');
+    pd.n_levs += nlevels; // C :861
+    if (pd.n_levs > LEV_LIMIT) { // C :862
+        throw new Error('init_dungeon: too many special levels'); // C :863
+    }
 }
 
 function init_dungeon_branches(branches, pd, dngidx) {
@@ -581,8 +882,16 @@ function init_dungeon_dungeons(entry, pd, dngidx) {
         return false;
     }
 
-    if (entry.levels) init_dungeon_levels(entry.levels, pd, dngidx);
-    else pd.tmpdungeon[dngidx].levels = 0;
+    // C dungeon.c:1034–1038. A table is init_dungeon_levels. Nil leaves
+    // the zeroed count. Any other type panics and does not call.
+    const lvlfield = entry.levels;
+    if (lvlfield != null && typeof lvlfield === 'object') {
+        init_dungeon_levels(lvlfield, pd, dngidx); // C :1036
+    } else if (lvlfield != null) {
+        throw new Error(`dungeon[${dngidx}].levels is not an array of hashes`); // C :1038
+    } else {
+        pd.tmpdungeon[dngidx].levels = 0;
+    }
 
     if (entry.branches) init_dungeon_branches(entry.branches, pd, dngidx);
     else pd.tmpdungeon[dngidx].branches = 0;

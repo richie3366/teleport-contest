@@ -1862,6 +1862,27 @@ null and array order is the chain. Caller `dungeon.c:1317` →
 in a module array rather than a host stderr stream. `place_level`'s
 `#ifdef DDEBUG` fprintf is not compiled (`DDEBUG` is never defined).)
 
+**`init_dungeon_levels` `:797–864`** (D-2864; whole body in C order in
+`js/dungeon.js`. The levels value is the generated table, not a
+`lua_State`: `lua_len` is the array length, index `f+1` is `levels[f]`,
+and `lua_pop` is not a value. File-local `get_table_str` /
+`get_table_str_opt` / `get_table_int` / `get_table_int_opt` /
+`get_table_option` are `nhlua.c:1016–1133` on that object. `get_dgn_align`
+`:780–794` and `get_dgn_flags` `:743–778` are the same file's callees,
+restarted so an unknown token is `luaL_checkoption` and a non-string
+flag is `impossible` then continue. `boneschar` is the first byte
+(`char`), `""` chainlevel still searches, a non-table row panics with
+the C text. Caller `dungeon.c:1036` → `init_dungeon_dungeons`
+(`:1034–1038` table / nil / other). `dungeon.c:56` and `extern.h:2139`
+are the prototype and a comment. Named: `debugpline1/2/4` true arm
+(`lint.h` `ifdebug(pline)` — `pline` awaits, `init_dungeons` does not;
+the false arm is `debugcore`); `dgn_impossible` does not await the
+three plines; `free` of the bonetag is GC; `nhl_pcall_handle` on a
+Lua function has no VM (a JS function is called with 0 args);
+`luaL_checkinteger` truncates a finite number the way the mklev
+stand-in does, and that helper stays file-local because `mklev.js`
+already imports this module.)
+
 ### `src/options.c` saveoptions writer
 
 JS: `js/options.js` — partial ([campaign 5/7])
