@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2842 `handler_msgtype` adds, lists, and removes message patterns
+
+**C locus:** `nethack-c/upstream/src/options.c:6502–6570` `handler_msgtype`. Callees `msgtype_count` (`:7830`), `handle_add_list_remove` (`:9208`), `getlin`, `test_regex_pattern` (`:7871`), `query_msgtype` (`:7700`), `msgtype_add` (`:7730`), `pline`, `wait_synch`, `msgtype2name` (`:7689`), `select_menu`, `free_one_msgtype` (`:7771`). Caller `optfn_o_message_types` `:8408` (declaration `:414`).
+**JS:** `js/options.js` `query_msgtype` `:518`, `free_one_msgtype` `:574`, `msgtype_count` `:624`, `msgtype_menu_text` `:5031`, `handler_msgtype` `:5051`, `optfn_o_message_types` `:5119`, doset value `:7502`, doset call `:7567`, allopt `:7923`.
+**Change:** One `handler_msgtype` in that C order. Done and ESC return `optn_ok`. Add runs only when the pattern is non-empty, the regex compiles, and `query_msgtype` is not -1; the error pline runs only when `msgtype_add` fails.
+**Verify:** `node scripts/verify.mjs --fn handler_msgtype` → PASS syntax (1 changed js file: js/options.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (shared file) · VERIFY: PASS.
+**Named:** `config_error_add` and `regex_error_desc` inside `msgtype_add` stay the existing sink. Menu glyph columns (`nul_glyphinfo`) are absent.
+**Next:** `mon.c` `iter_mons_safe` (next Open — coverage row). Eight Open — coverage rows remain after archive, inside the band, so nothing was refilled.
 ## 2026-09-26 — D-2841 `fixup_special` sets up water, graveyards, and the town flag
 
 **C locus:** `nethack-c/upstream/src/mkmaze.c:570–704` `fixup_special`. Callees `setup_waterlevel` (`mkmaze.c:1812`), `find_level`, `place_lregion` (`:356`), `goodpos`, `mk_tt_object`, `poly_when_stoned`, `pm_resistance`, `set_corpsenm` (`mkobj.c:1318`), `rndmonnum`, `mkcorpstat`, `baalz_fixup`, `stolen_booty`, `Is_special`. `Is_baal_level` is `on_level(&u.uz, &baalzebub_level)`. Callers `sp_lev.c:6050` (`lspo_finalize_level`) and `sp_lev.c:6491` (`load_special`). `mklev.c:1558` is a comment.

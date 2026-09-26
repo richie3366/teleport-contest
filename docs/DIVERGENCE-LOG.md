@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2842 — `handler_msgtype` adds, lists, and removes message patterns
+
+- **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** The in-game "message types" row never opened a menu. The value column stayed `(0 currently set)`. `MSGTYPE=` could still prepend a pattern, but nothing counted the chain, asked which type to use, or unlinked one node.
+- **C locus:** `nethack-c/upstream/src/options.c:6502–6570` `handler_msgtype`. Callees `msgtype_count` (`:7830`), `handle_add_list_remove` (`:9208`), `getlin`, `test_regex_pattern` (`:7871`), `query_msgtype` (`:7700`), `msgtype_add` (`:7730`), `pline`, `wait_synch`, `msgtype2name` (`:7689`), `select_menu`, `free_one_msgtype` (`:7771`). Caller `optfn_o_message_types` `:8408` (declaration `:414`).
+- **JS was:** No symbol for `handler_msgtype`, `query_msgtype`, `free_one_msgtype`, or `msgtype_count`. allopt idx 111 `optfn` was null. doset painted a fixed zero count and dropped the pick.
+- **Fix:** One `handler_msgtype` in that C order. Done and ESC return `optn_ok`. Add runs only when the pattern is non-empty, the regex compiles, and `query_msgtype` is not -1; the error pline runs only when `msgtype_add` fails. List is PICK_NONE and remove is PICK_ANY. A negative pick count returns; otherwise the loop repeats. Each removal passes `a_int - 1 - pick_idx`. `optfn_o_message_types` keeps the empty `do_set` fall-through into `get_val`.
+- **JS:** `js/options.js` `query_msgtype` `:518`, `free_one_msgtype` `:574`, `msgtype_count` `:624`, `msgtype_menu_text` `:5031`, `handler_msgtype` `:5051`, `optfn_o_message_types` `:5119`, doset value `:7502`, doset call `:7567`, allopt `:7923`.
+- **Callers:** `options.c:414` is the declaration. `options.c:8408` → `js/options.js:7567` (doset Othr pick awaits `handler_msgtype`; `opt_set_in_config` on `optn_ok`). The sync optfn `REQ_DO_HANDLER` arm (`:5130`) returns `OPTN_OK` without awaiting, the same split as `handler_autopickup_exception`. `parseoptions` `:8532` calls `do_set`. `allopt_array_init` `:8354` calls `do_init`. `get_option_value` still skips OthrOpt, matching `options.c:8478`. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn handler_msgtype` → PASS syntax (1 changed js file: js/options.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (shared file) · VERIFY: PASS.
+- **Named omissions:** `config_error_add` and `regex_error_desc` inside `msgtype_add` stay the existing sink. Menu glyph columns (`nul_glyphinfo`) are absent. The `end_menu` prompt is the header row. `select_menu` is `select_menu_pick_one`, `select_menu_pick_none`, and `select_menu_pick_any`. `query_msgtype` `pick_cnt > 1` is folded into the pick-one helper. A null `msgtype2name` prints an empty name field (C `%s` of NULL is undefined).
+- **Next:** `mon.c` `iter_mons_safe` (next Open — coverage row). Eight Open — coverage rows remain after archive, inside the band, so nothing was refilled.
+
 ## D-2841 — `fixup_special` sets up water, graveyards, and the town flag
 
 - **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked).

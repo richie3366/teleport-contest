@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `mkmaze.c` fixup_special — coverage PARTIAL (C 134 L `mkmaze.c:570–704` / JS 71 L in js/mklev.js; hops 2, callers 3, RNG 2, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn fixup_special` (reach regression must be 0). Measured `port-coverage.mjs --name fixup_special` 2026-09-26 @ 8e53e2c60. **Addressed:** D-2841
+- [x] `options.c` handler_msgtype — coverage MISSING (C 68 L `options.c:6502–6570` / JS no symbol; hops —, callers 1, RNG 0, msg 3; dead callees: msgtype_count, query_msgtype, free_one_msgtype). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn handler_msgtype` (reach regression must be 0). Measured `port-coverage.mjs --name handler_msgtype` 2026-09-26 @ 8e53e2c60. **Addressed:** D-2842
+
+
+- [x] `mkmaze.c` fixup_special — coverage PARTIAL (C 134 L `mkmaze.c:570–704` / JS 71 L in js/mklev.js; hops 2, callers 3, RNG 2, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn fixup_special` (reach regression must be 0). Measured `port-coverage.mjs --name fixup_special` 2026-09-26 @ 8e53e2c60. **Addressed:** D-2841 `fab716a35`
 
 
 - [x] `ball.c` placebc_core — coverage MISSING (C 24 L `ball.c:120–144` / JS no symbol; hops 3, callers 4, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn placebc_core` (reach regression must be 0). Measured `port-coverage.mjs --name placebc_core` 2026-09-26 @ 8eb83b375. **Addressed:** D-2840 `dcaae0c59`

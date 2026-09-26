@@ -508,6 +508,31 @@ export function regex_free(re) {
 }
 
 /**
+ * C ref: options.c query_msgtype `:7700–7728`.
+ * Only rows with a descr are offered. a_int is msgtyp+1 so the
+ * return is the msgtyp. PICK_ONE cancel and empty finish both
+ * return -1 (C pick_cnt <= 0). pick_cnt > 1 is folded into
+ * select_menu_pick_one. Menu glyph columns (nul_glyphinfo) absent.
+ * @returns {Promise<number>}
+ */
+async function query_msgtype() {
+    // C `:7719` end_menu prompt, painted as the header row.
+    const raw = [{ text: 'How to show the message', selectable: false }];
+    for (let i = 0; i < msgtype_names.length; i++) { // C `:7712`
+        if (msgtype_names[i].descr) { // C `:7713`
+            raw.push({
+                text: msgtype_names[i].descr, // C `:7717`
+                selectable: true,
+                a_int: (msgtype_names[i].msgtyp | 0) + 1, // C `:7714`
+            });
+        }
+    }
+    const res = await select_menu_pick_one(raw); // C `:7720` PICK_ONE
+    if (res.kind !== 'pick') return -1; // C `:7728`
+    return (res.item.a_int | 0) - 1; // C `:7723–7725`
+}
+
+/**
  * C ref: options.c msgtype_add `:7730–7754` — prepend onto
  * gp.plinemsg_types. Compile fail → FALSE (config_error_add named).
  */
@@ -541,6 +566,30 @@ export function msgtype_free() {
 }
 
 /**
+ * C ref: options.c free_one_msgtype `:7771–7794`.
+ * idx is 0-based along gp.plinemsg_types. A miss walks off the end
+ * and does nothing. pattern free is GC (the field is a JS string).
+ * @param {number} idx
+ */
+function free_one_msgtype(idx) {
+    let tmp = gp.plinemsg_types; // C `:7774`
+    let prev = null; // C `:7775`
+    let i = idx | 0;
+    while (tmp) { // C `:7777`
+        if (i === 0) { // C `:7778`
+            const next = tmp.next; // C `:7779`
+            regex_free(tmp.regex); // C `:7781`
+            if (prev) prev.next = next; // C `:7784–7785`
+            else gp.plinemsg_types = next; // C `:7786–7787`
+            return; // C `:7788`
+        }
+        i--; // C `:7790`
+        prev = tmp; // C `:7791`
+        tmp = tmp.next; // C `:7792`
+    }
+}
+
+/**
  * C ref: options.c msgtype_type `:7796–7810` — first regex_match wins;
  * negative msgtype still returned (hide_unhide). Default NOREP iff
  * `norepeat` (Norep / PLINE_NOREPEAT).
@@ -566,6 +615,16 @@ export function hide_unhide_msgtypes(hide, hide_mask) {
         if (!hide) mt = -mt;
         if (mt > 0 && ((1 << mt) & mask)) tmp.msgtype = -tmp.msgtype;
     }
+}
+
+/**
+ * C ref: options.c msgtype_count `:7830–7841`.
+ * @returns {number}
+ */
+function msgtype_count() {
+    let c = 0; // C `:7833`
+    for (let tmp = gp.plinemsg_types; tmp; tmp = tmp.next) c++; // C `:7836–7838`
+    return c; // C `:7840`
 }
 
 /**
@@ -4959,6 +5018,121 @@ export async function handler_menu_colors() {
     }
 }
 
+/**
+ * C options.c handler_msgtype `:6545–6551`.
+ * `%-5s "` then the pattern. A pattern that does not fit in BUFSZ
+ * keeps `ln - 3` characters and ends with `..."`. sizeof "\"" is 2.
+ * A null `msgtype2name` result is an empty field (C `%s` of NULL is
+ * undefined).
+ * @param {string|null} mtype
+ * @param {string} pattern
+ * @returns {string}
+ */
+function msgtype_menu_text(mtype, pattern) {
+    const name = mtype == null ? '' : String(mtype);
+    let mtbuf = `${name.padEnd(5, ' ')} "`; // C `:6545`
+    const ln = BUFSZ - mtbuf.length - 2; // C `:6546`
+    const pat = String(pattern ?? '');
+    if (pat.length > ln) { // C `:6547`
+        const n = ln - 3; // C `:6548` strncat count
+        mtbuf += `${n > 0 ? pat.slice(0, n) : ''}..."`;
+    } else {
+        mtbuf += `${pat}"`; // C `:6550`
+    }
+    return mtbuf;
+}
+
+/**
+ * C ref: options.c handler_msgtype `:6502–6570`.
+ * do_handler of optfn_o_message_types (`:8408`). Async because getlin,
+ * query_msgtype, and the list menus await. TRUE and optn_ok are both 1.
+ * @returns {Promise<number>}
+ */
+export async function handler_msgtype() {
+    for (;;) { // C `:6509` msgtypes_again
+        const nmt = msgtype_count(); // C `:6510`
+        const opt_idx = await handle_add_list_remove('message type', nmt); // C `:6511`
+        if (opt_idx === 3) { // C `:6512` done
+            return optn_ok; // C `:6513` TRUE
+        } else if (opt_idx === 0) { // C `:6514` add new
+            const mtbuf = await getlin('What new message pattern?'); // C `:6515–6516`
+            if (mtbuf.charCodeAt(0) === 0x1b) return optn_ok; // C `:6517–6518`
+            let mttyp = -1;
+            if (
+                mtbuf.length > 0 // C `:6519` *mtbuf
+                && test_regex_pattern(mtbuf, 'MSGTYPE regex') // C `:6520`
+                && (mttyp = await query_msgtype()) !== -1 // C `:6521`
+                && !msgtype_add(mttyp, mtbuf) // C `:6522`
+            ) {
+                await pline('Error adding the message type.'); // C `:6523`
+                await tty_wait_synch(); // C `:6524` wait_synch
+            }
+            continue; // C `:6526` goto msgtypes_again
+        } else { // C `:6527` list (1) or remove (2)
+            // C `:6553–6555` end_menu prompt, painted as the header row.
+            const raw = [{
+                text: `${opt_idx === 1 ? 'List of' : 'Remove which'} message types`,
+                selectable: false,
+            }];
+            let mt_idx = 0; // C `:6539`
+            for (let tmp = gp.plinemsg_types; tmp; tmp = tmp.next) { // C `:6541`
+                mt_idx++; // C `:6544` any.a_int = ++mt_idx
+                raw.push({
+                    text: msgtype_menu_text(msgtype2name(tmp.msgtype), tmp.pattern), // C `:6543–6551`
+                    selectable: true,
+                    a_int: mt_idx,
+                });
+            }
+            let pickCnt;
+            if (opt_idx === 1) { // C `:6557–6558` PICK_NONE
+                pickCnt = await select_menu_pick_none(raw);
+            } else {
+                // C `:6557–6558` PICK_ANY. cancelValue keeps pick_cnt -1
+                // distinct from finish-empty (0).
+                const picks = await select_menu_pick_any(raw, { cancelValue: null });
+                if (picks === null) {
+                    pickCnt = -1;
+                } else {
+                    pickCnt = picks.length;
+                    if (pickCnt > 0) { // C `:6559`
+                        for (let pick_idx = 0; pick_idx < pickCnt; pick_idx++) { // C `:6560`
+                            // -pick_idx: earlier removals shift later indices.
+                            free_one_msgtype((picks[pick_idx].a_int | 0) - 1 - pick_idx); // C `:6561–6562`
+                        }
+                        // C `:6563` free(pick_list) — GC
+                    }
+                }
+            }
+            // destroy_nhwindow is inside the select helpers. C `:6565`
+            if ((pickCnt | 0) >= 0) continue; // C `:6566–6567`
+            return optn_ok; // C `:6569`
+        }
+    }
+}
+
+/**
+ * C ref: options.c optfn_o_message_types `:8388–8411`.
+ * do_set is empty and falls through into get_val (Sprintf into opts).
+ * do_handler is handler_msgtype; this sync arm cannot await, so doset
+ * calls that function directly (`:8408`).
+ */
+function optfn_o_message_types(_optidx, req, _negated, opts, _op) {
+    if (req === REQ_DO_INIT) { // C `:8396`
+        return OPTN_OK;
+    }
+    if (req === REQ_DO_SET) { // C `:8399–8400` empty
+    }
+    if (req === REQ_GET_VAL || req === REQ_GET_CNF_VAL) { // C `:8401`
+        if (opts == null) return OPTN_ERR; // C `:8402–8403`
+        set_optbuf(opts, currently_set_val(msgtype_count())); // C `:8404`
+        return OPTN_OK;
+    }
+    if (req === REQ_DO_HANDLER) { // C `:8407–8408`
+        return OPTN_OK;
+    }
+    return OPTN_OK; // C `:8410`
+}
+
 // sanitize_name: bones.c — imported from bones.js (read lazily in bodies).
 
 /**
@@ -7325,7 +7499,7 @@ export async function doset() {
         // C options.c:8336 optfn_o_bind_keys get_val (n_currently_set).
         { name: 'bind keys', val: currently_set_val(count_bind_keys()) },
         { name: 'menu colors', val: currently_set_val(count_menucolors()) },
-        { name: 'message types', val: '(0 currently set)' },
+        { name: 'message types', val: currently_set_val(msgtype_count()) },
         { name: 'status condition fields', val: '(16 currently set)' },
         { name: 'status highlight rules', val: '(0 currently set)' },
     ]) {
@@ -7375,7 +7549,8 @@ export async function doset() {
         }
     }
     // C options.c doset Othr rows → optfn do_handler; bind keys
-    // (handler_rebind_keys, C `:8340`), menu colors
+    // (handler_rebind_keys, C `:8340`), message types
+    // (handler_msgtype, C `:8408`), menu colors
     // (handler_menu_colors, C `:8383`), status condition fields
     // (cond_menu, C optfn_o_status_cond `:8436–8439`), and status
     // highlight rules (status_hilite_menu, C optfn_o_status_hilites
@@ -7386,6 +7561,10 @@ export async function doset() {
             await handler_rebind_keys();
         } else if (name === 'autopickup exceptions') {
             const reslt = await handler_autopickup_exception(); // C `:8318`
+            if (reslt === OPTN_OK) opt_set_in_config[allopt_idx(name)] = true;
+        } else if (name === 'message types') {
+            // C doset `:8935` has_handler → optfn do_handler → `:8408`.
+            const reslt = await handler_msgtype();
             if (reslt === OPTN_OK) opt_set_in_config[allopt_idx(name)] = true;
         } else if (name === 'menu colors') {
             await handler_menu_colors();
@@ -7740,8 +7919,8 @@ const allopt = [
     { name: 'menuinvertmode', opttyp: CompOpt, idx: 109, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: null },
     // optlist.h:487 NHOPTC(menustyle)
     { name: 'menustyle', opttyp: CompOpt, idx: 110, setwhere: SET_IN_GAME, initval: false, addr: null, optfn: optfn_menustyle },
-    // optlist.h:490 NHOPTO("message types")
-    { name: 'message types', opttyp: OthrOpt, idx: 111, setwhere: SET_IN_GAME, initval: true, addr: null, optfn: null },
+    // optlist.h:490 NHOPTO("message types") — has_handler On
+    { name: 'message types', opttyp: OthrOpt, idx: 111, setwhere: SET_IN_GAME, initval: true, addr: null, optfn: optfn_o_message_types },
     // optlist.h:493 NHOPTB(mon_movement)
     { name: 'mon_movement', opttyp: BoolOpt, idx: 112, setwhere: SET_IN_GAME, initval: false, addr: { obj: 'a11y', key: 'mon_movement' }, optfn: null },
     // optlist.h:496 NHOPTB(monpolycontrol)
