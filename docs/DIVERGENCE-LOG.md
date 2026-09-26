@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2847 — `exp_percent_changing` refreshes status when the Xp highlight rule changes
+
+- **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** Gaining experience never asked whether the Xp percentage had selected a different highlight. `more_experienced` set the status dirty bit only when `showexp` was on.
+- **C locus:** `nethack-c/upstream/src/botl.c:2090–2125` `exp_percent_changing`. Callees `exp_percentage` (`botl.c:2052`, live `js/botl.js:364`) and `get_hilite` (`botl.c:2346`, local `js/botl.js`). `STATUS_HILITES` is on (`config.h:616`), so the `thresholds` gate and the rule compare are compiled. The only call is `exper.c:190`. `botl.c:1521` is a comment inside `eval_notify_windowport_field`, not a call.
+- **JS was:** No symbol. `more_experienced` (`js/exper.js`) wrote `game.flags.botl` for `showexp` and left a deferral comment where C calls `exp_percent_changing`.
+- **Fix:** One `exp_percent_changing` in that C order. When `flags.botl` is already set it returns false. Otherwise it reads `BL_XP` on the current `blstats` row. `percent_matters` and a live `thresholds` chain must both hold, and `exp_percentage()` must differ from `percent_value`, before `get_hilite` runs with `u.ulevel`, change 0, and that percentage. A rule other than `hilite_rule` returns true. `more_experienced` then sets `flags.botl`, the bit `bot()` reads for `disp.botl`.
+- **JS:** `js/botl.js` `exp_percent_changing` `:389`, `get_hilite` call `:402`. `js/exper.js` `more_experienced` call `:316`.
+- **Callers:** `exper.c:190` → `js/exper.js:316`. `botl.c:1521` is the comment in `eval_notify_windowport_field` (the percent arm is already live in that function). No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn exp_percent_changing --reach-all` → PASS syntax (2 changed js files: js/botl.js js/exper.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script shared-file regex) · VERIFY: PASS.
+- **Named omissions:** A missing `blstats` slot uses the `INIT_BLSTATP` `percent_matters` for `BL_XP` (TRUE) and null `thresholds`, so the predicate is false until a rule is stored. C's `gb.blstats` is static storage; `init_blstats` is still not called from startup. `SCORE_ON_BOTL` inside `more_experienced` stays out. `hilite_reset_needed` and `status_update` stay the existing named forwards.
+- **Next:** `trap.c` `maybe_finish_sokoban` (next Open — coverage row). Eleven Open — coverage rows remain after archive, inside the band, so nothing was refilled.
+
 ## D-2846 — `nemesis_speaks` delivers the quest text or a battle curse
 
 - **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked).

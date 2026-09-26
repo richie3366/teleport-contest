@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `quest.c` nemesis_speaks — coverage MISSING (C 19 L `quest.c:403–422` / JS no symbol; hops 2, callers 1, RNG 2, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn nemesis_speaks` (reach regression must be 0). Measured `port-coverage.mjs --name nemesis_speaks` 2026-09-26 @ 2c9559331. **Addressed:** D-2846
+- [x] `botl.c` exp_percent_changing — coverage MISSING (C 35 L `botl.c:2090–2125` / JS no symbol; hops 4, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn exp_percent_changing` (reach regression must be 0). Measured `port-coverage.mjs --name exp_percent_changing` 2026-09-26 @ 2c9559331. **Addressed:** D-2847
+
+
+- [x] `quest.c` nemesis_speaks — coverage MISSING (C 19 L `quest.c:403–422` / JS no symbol; hops 2, callers 1, RNG 2, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn nemesis_speaks` (reach regression must be 0). Measured `port-coverage.mjs --name nemesis_speaks` 2026-09-26 @ 2c9559331. **Addressed:** D-2846 `8b1fae943`
 
 
 - [x] `cmd.c` enter_explore_mode — coverage MISSING (C 31 L `cmd.c:952–983` / JS no symbol; hops 2, callers 1, RNG 0, msg 6). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn enter_explore_mode` (reach regression must be 0). Measured `port-coverage.mjs --name enter_explore_mode` 2026-09-26 @ 2c9559331. **Addressed:** D-2845 `adbd6bd68`

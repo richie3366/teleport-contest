@@ -381,6 +381,32 @@ export function exp_percentage() {
     return res;
 }
 
+// C botl.c:2090-2125 — exp_percent_changing(). STATUS_HILITES is on
+// (config.h:616), so the thresholds gate and the get_hilite compare are
+// the compiled body. disp.botl is game.flags.botl, the bit bot() reads.
+// A BL_XP slot the hilite parser created before init_blstats() has no
+// percent_matters; the INIT_BLSTATP row is TRUE (botl.c:717).
+export function exp_percent_changing() {
+    if (!game.flags?.botl) { // C :2099
+        const curr = game.gb?.blstats?.[now_or_before_idx]?.[BL_XP] ?? null; // C :2106
+        const percentMatters = curr
+            ? (curr.percent_matters ?? initblstats[BL_XP].pct)
+            : initblstats[BL_XP].pct;
+        const thresholds = curr ? curr.thresholds : null; // C :2112
+        if (percentMatters && thresholds) { // C :2110-2113
+            const pc = exp_percentage(); // C :2113
+            if (pc !== (curr.percent_value ?? 0)) {
+                const a = zeroAnything(); // C :2114 cg.zeroany
+                a.a_int = (game.u?.ulevel | 0); // C :2115
+                const colorBox = { v: NO_COLOR }; // C :2095 color_dummy
+                const rule = get_hilite(now_or_before_idx, BL_XP, a, 0, pc, colorBox); // C :2117-2118
+                if (rule !== (curr.hilite_rule ?? null)) return true; // C :2119-2120
+            }
+        }
+    }
+    return false; // C :2124
+}
+
 // Named omissions — live C under STATUS_HILITES / the windowport registry,
 // unwired in JS. Loud forwarders (never silent divergence); replace with the
 // real ports when their campaigns land.
@@ -409,7 +435,7 @@ function noneoftheabove(hl_text) {
 // percentage pc of max (BL_TH_VAL_PERCENTAGE). Returns the rule or null;
 // the windowport color rides out through colorBox (`{ v }` holder mirroring
 // C `int *colorptr`). Callers: eval_notify_windowport_field (C :1597) and
-// exp_percent_changing (C :2117, not yet ported — named omit).
+// exp_percent_changing (C :2117).
 // Rule nodes (`struct hilite_s`) use C field names: behavior/rel/value
 // (a_int/a_long)/textmatch/coloridx/next.
 function get_hilite(idx, fldidx, vp, chg, pc, colorBox) {

@@ -100,10 +100,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `quest.c` nemesis_speaks — coverage MISSING (C 19 L `quest.c:403–422` / JS no symbol; hops 2, callers 1, RNG 2, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn nemesis_speaks` (reach regression must be 0). Measured `port-coverage.mjs --name nemesis_speaks` 2026-09-26 @ 2c9559331.
+**Next cluster:** `botl.c` exp_percent_changing — coverage MISSING (C 35 L `botl.c:2090–2125` / JS no symbol; hops 4, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn exp_percent_changing` (reach regression must be 0). Measured `port-coverage.mjs --name exp_percent_changing` 2026-09-26 @ 2c9559331.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2846 (index).**
+**Keep D-0845…D-2847 (index).**
 <!-- recent:begin -->
+**D-2847** `nethack-c/upstream/src/botl.c:2090–2125` `exp_percent_changing`. Callees `exp_percentage` — One `exp_percent_changing` in that C order.
 **D-2846** `nethack-c/upstream/src/quest.c:403–422` `nemesis_speaks`. Callees `qt_pager` (`questpgr.c — One `nemesis_speaks` in that C order.
 **D-2845** `nethack-c/upstream/src/cmd.c:952–983` `enter_explore_mode`. Callees `authorize_explore_mo — One `enter_explore_mode` in that C order.
 **D-2844** `nethack-c/upstream/src/dungeon.c:91–144` `dumpit`. Callees `explicitdebug` → `debugcore`  — One `dumpit` in that C order.
@@ -111,11 +112,10 @@ revisits the picker.
 **D-2842** `nethack-c/upstream/src/options.c:6502–6570` `handler_msgtype`. Callees `msgtype_count` (` — One `handler_msgtype` in that C order.
 **D-2841** `nethack-c/upstream/src/mkmaze.c:570–704` `fixup_special`. Callees `setup_waterlevel` (`mk — One `fixup_special` in that C order.
 **D-2840** `nethack-c/upstream/src/ball.c:120–144` `placebc_core`. Callees `flooreffects` (`do.c:162` — One `placebc_core` in that C order.
-**D-2839** `nethack-c/upstream/src/uhitm.c:1510–1538` `hmon_hitmon_poison`. Same file: `joust` `:2098 — One `hmon_hitmon_poison` in that C order, called after damage recalc when melee set `ispoisoned`.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2846; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2847; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

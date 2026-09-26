@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2847 `exp_percent_changing` refreshes status when the Xp highlight rule changes
+
+**C locus:** `nethack-c/upstream/src/botl.c:2090–2125` `exp_percent_changing`. Callees `exp_percentage` (`botl.c:2052`, live `js/botl.js:364`) and `get_hilite` (`botl.c:2346`, local `js/botl.js`). `STATUS_HILITES` is on (`config.h:616`), so the `thresholds` gate and the rule compare are compiled. The only call is `exper.c:190`. `botl.c:1521` is a comment inside `eval_notify_windowport_field`, not a call.
+**JS:** `js/botl.js` `exp_percent_changing` `:389`, `get_hilite` call `:402`. `js/exper.js` `more_experienced` call `:316`.
+**Change:** One `exp_percent_changing` in that C order. When `flags.botl` is already set it returns false. Otherwise it reads `BL_XP` on the current `blstats` row.
+**Verify:** `node scripts/verify.mjs --fn exp_percent_changing --reach-all` → PASS syntax (2 changed js files: js/botl.js js/exper.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script shared-file regex) · VERIFY: PASS.
+**Named:** A missing `blstats` slot uses the `INIT_BLSTATP` `percent_matters` for `BL_XP` (TRUE) and null `thresholds`, so the predicate is false until a rule is stored. C's `gb.blstats` is static storage; `init_blstats` is still not called from startup.
+**Next:** `trap.c` `maybe_finish_sokoban` (next Open — coverage row). Eleven Open — coverage rows remain after archive, inside the band, so nothing was refilled.
 ## 2026-09-26 — D-2846 `nemesis_speaks` delivers the quest text or a battle curse
 
 **C locus:** `nethack-c/upstream/src/quest.c:403–422` `nemesis_speaks`. Callees `qt_pager` (`questpgr.c`, live `js/questpgr.js:1139`) and `rn2(5)`. `Qstat` is `svq.quest_status` (`quest.c:12`); `made_goal` is a 3-bit field and `met_nemesis` / `in_battle` are 1-bit (`quest.h:20–23`). The only call is `quest.c:503` inside `quest_talk`. `quest_stat_check` (`:513–518`) writes `in_battle` and `dochug` calls it first (`monmove.c:715`). `helpless` is `monst.h:251`.

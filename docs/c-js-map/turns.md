@@ -4178,6 +4178,7 @@ JS: `js/botl.js` — partial (D-2757)
 **`status_hilites_viewall`** (D-2757; C `:4455–4474` → `:2889`; `show_text_pages`, precision `BUFSZ - sizeof prefix - 1`);
 **`reset_status_hilites`** (D-2757; C `:2320–2331` → `:2774`; `flags.botlx` is the store `bot()` reads);
 **`status_hilite_menu`** (D-2757; C `:4498–4578` → `:2916`; caller `options.c:8465` → `js/options.js:3261`).
+**`exp_percent_changing`** (D-2847; C `:2090–2125` → `js/botl.js:389`; `STATUS_HILITES` on, so `thresholds` and `get_hilite` run; caller `exper.c:190` → `js/exper.js:316` `more_experienced`).
 Named: `status_hilite_menu_add` (`:3889–4302`, both chooser call sites plus the add arms); `preference_update("hilite_status")` (`options.c:8469`); `optfn_statushilites` `do_set` (`options.c:4035`); `count_status_hilites` (`:3477`).
 `status_hilite_linestr_gather_conditions` (`:3488–3567`) was already the C body at `:2476`.
 
