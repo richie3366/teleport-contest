@@ -7,6 +7,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — audit 1857–1864 (D-2898–D-2905)
+
+Reviewed the eight `js/` commits since `37fb9f7ea`. Eight ACCEPT. No Must-fix. Next cluster is `dungeon.c` `ceiling`. Public `sessions` on `d475b25e1`: 44/44, screens 11,405/11,405, RNG 792,838/792,838, speed `255+1.54/turn` (R² 0.761). Held-out still 12/44 (6,273/11,265 pts, RNG 29.7 %, screens 55.7 %; board 2026-09-26T19:28Z, last scored 2026-09-26T19:01Z). `hidden-proxy score` 12/12 on the private sessions present (RNG 75,151/75,151, screens 653/653); `.cache/hidden/sessions` absent, so 614/940 was not re-measured. No `js/` edits.
 ## 2026-09-26 — D-2905 `omon_adj` is one export, including the iron-ball jerk
 
 **C locus:** `nethack-c/upstream/src/dothrow.c:1913–1947` `omon_adj`. Add `msize - MZ_MEDIUM`, +2 if sleeping, +4 if `!mcanmove || !mmove`, and when `mon_notices && mmove && !rn2(10)` set `mcanmove = 1` and `mfrozen = 0`. Then `HEAVY_IRON_BALL` +2 unless the object is `uball`, `BOULDER` +6, else weapon / weptool / gem `hitval`.

@@ -1866,3 +1866,11 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1854-e4e898f54-ugolemeffects.md](./1854-e4e898f54-ugolemeffects.md) | `e4e898f54` | D-2895 ugolemeffects | **ACCEPT** |
 | [1855-d2c713008-eatmupdate.md](./1855-d2c713008-eatmupdate.md) | `d2c713008` | D-2896 eatmupdate | **ACCEPT** |
 | [1856-37fb9f7ea-toggle-displacement.md](./1856-37fb9f7ea-toggle-displacement.md) | `37fb9f7ea` | D-2897 toggle_displacement | **ACCEPT** |
+| [1857-93cce8666-flip-visuals-wall.md](./1857-93cce8666-flip-visuals-wall.md) | `93cce8666` | D-2898 flip_visuals wall cmap | **ACCEPT** |
+| [1858-9cb813fe5-can-do-extcmd.md](./1858-9cb813fe5-can-do-extcmd.md) | `9cb813fe5` | D-2899 can_do_extcmd | **ACCEPT** |
+| [1859-795c5410f-m-move-aggress.md](./1859-795c5410f-m-move-aggress.md) | `795c5410f` | D-2900 m_move_aggress | **ACCEPT** |
+| [1860-9a80efcd8-shop-keeper.md](./1860-9a80efcd8-shop-keeper.md) | `9a80efcd8` | D-2901 shop_keeper | **ACCEPT** |
+| [1861-ba089151c-u-collide-m.md](./1861-ba089151c-u-collide-m.md) | `ba089151c` | D-2902 u_collide_m | **ACCEPT** |
+| [1862-2f8cea8dd-livelog-newform.md](./1862-2f8cea8dd-livelog-newform.md) | `2f8cea8dd` | D-2903 livelog_newform | **ACCEPT** |
+| [1863-6aacaa7b4-learnwand.md](./1863-6aacaa7b4-learnwand.md) | `6aacaa7b4` | D-2904 learnwand | **ACCEPT** |
+| [1864-d475b25e1-omon-adj.md](./1864-d475b25e1-omon-adj.md) | `d475b25e1` | D-2905 omon_adj | **ACCEPT** |
