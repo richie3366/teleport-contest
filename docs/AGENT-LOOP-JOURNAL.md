@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2849 `confused_book` tears the spellbook or rereads one line
+
+**C locus:** `nethack-c/upstream/src/spell.c:189–207` `confused_book`. Callees `rn2` (`rnd.c`, live `js/rng.js:89`), `pline` (`pline.c:103`, live `js/display.js:7927`), `display_nhwindow(WIN_MESSAGE, FALSE)` (`wintty.c:1855` NHW_MESSAGE more, live `flush_topl_more` `js/display.js:7478`), `You` (`pline.c:355`, live `js/display.js:7671`), `trycall` (`do_name.c`, live `js/do_name.js:1694`), `useup` (`invent.c:1320`, live `js/invent.js:4690`). Calls: `learn` `spell.c:369` and `study_book` `spell.c:621`. `spell.c:34` is the static declaration.
+**JS:** `js/spell.js` `confused_book` `:878`, `rn2` `:881`, `flush_topl_more` `:886`, `useup_inv` `:889`. `learn` call `:920`. `study_book` call `:1183`.
+**Change:** One `confused_book` in that C order. `rn2(3)` always runs. A zero roll tears the book unless it is the Book of the Dead: `in_use` is set, the control line is shown, `flush_topl_more` forces the message `--More--`, then the tear line, `trycall`, and invent.c `useup`.
+**Verify:** `node scripts/verify.mjs --fn confused_book` → PASS syntax (1 changed js file: js/spell.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) · VERIFY: PASS.
+**Named:** A null `spbook.book` in `learn` skips the call; C would dereference it. `display_nhwindow` has no JS symbol; the tty message-window FALSE arm is `flush_topl_more`.
+**Next:** `vision.c` `get_unused_cs` (next Open — coverage row). `generate_stairs_find_room` parked Stale (body already at `js/mklev.js:31497`, ratio 0.58). Eight Open — coverage rows remain after archive, inside the band, so nothing was refilled.
 ## 2026-09-26 — D-2848 `maybe_finish_sokoban` clears Sokoban rules when the last pit or hole is gone
 
 **C locus:** `nethack-c/upstream/src/trap.c:7059–7095` `maybe_finish_sokoban`. Callees `livelog_printf` (`pline.c:514`, live `js/pline.js:23`) and `ordin` (`hacklib.c`, live `js/hacklib.js:481`). `Sokoban` is `svl.level.flags.sokoban_rules` (`rm.h:538`). Calls: `maketrap` `trap.c:585` on `oldplace`, and `deltrap` `trap.c:6547` after unlink when the removed trap is `PIT` or `HOLE`. `trap.c:75` is the static declaration.

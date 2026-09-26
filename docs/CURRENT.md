@@ -100,10 +100,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `trap.c` maybe_finish_sokoban — coverage MISSING (C 36 L `trap.c:7059–7095` / JS no symbol; hops 3, callers 2, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn maybe_finish_sokoban` (reach regression must be 0). Measured `port-coverage.mjs --name maybe_finish_sokoban` 2026-09-26 @ 2c9559331.
+**Next cluster:** `spell.c` confused_book — coverage MISSING (C 18 L `spell.c:189–207` / JS no symbol; hops —, callers 2, RNG 1, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn confused_book` (reach regression must be 0). Measured `port-coverage.mjs --name confused_book` 2026-09-26 @ 686390b2d. `generate_stairs_find_room` parked Stale (body already live).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2848 (index).**
+**Keep D-0845…D-2849 (index).**
 <!-- recent:begin -->
+**D-2849** `nethack-c/upstream/src/spell.c:189–207` `confused_book`. Callees `rn2` (`rnd.c`, live `js — One `confused_book` in that C order.
 **D-2848** `nethack-c/upstream/src/trap.c:7059–7095` `maybe_finish_sokoban`. Callees `livelog_printf` — One `maybe_finish_sokoban` in that C order.
 **D-2847** `nethack-c/upstream/src/botl.c:2090–2125` `exp_percent_changing`. Callees `exp_percentage` — One `exp_percent_changing` in that C order.
 **D-2846** `nethack-c/upstream/src/quest.c:403–422` `nemesis_speaks`. Callees `qt_pager` (`questpgr.c — One `nemesis_speaks` in that C order.
@@ -111,11 +112,10 @@ revisits the picker.
 **D-2844** `nethack-c/upstream/src/dungeon.c:91–144` `dumpit`. Callees `explicitdebug` → `debugcore`  — One `dumpit` in that C order.
 **D-2843** `nethack-c/upstream/src/mon.c:4500–4522` `iter_mons_safe`. Callee `alloc_itermonarr` `:447 — One `iter_mons_safe` in that C order.
 **D-2842** `nethack-c/upstream/src/options.c:6502–6570` `handler_msgtype`. Callees `msgtype_count` (` — One `handler_msgtype` in that C order.
-**D-2841** `nethack-c/upstream/src/mkmaze.c:570–704` `fixup_special`. Callees `setup_waterlevel` (`mk — One `fixup_special` in that C order.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2848; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2849; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
