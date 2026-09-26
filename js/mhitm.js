@@ -2686,8 +2686,8 @@ function is_blunt_weapon_mm(o) {
  * C's boolean. RNG order kept: rn2(3) distance, rn2(chance) gate, message
  * rn2(2)+rn2(2), effect rn2(4) stun. Called from mhitu hitmu, mhitm mdamagem,
  * and uhitm hmon (maybe_knockback).
- * Named omissions: test_move block_door/block_entry shopkeeper arms
- * (stub-false/false); rogue-level arm of doorless_door is inlined here
+ * Named omissions: test_move block_door shopkeeper arm (stub-false);
+ * block_entry is live via test_move. rogue-level arm of doorless_door is inlined here
  * (steed.js clone omits it).
  */
 export async function mhitm_knockback(magr, mdef, mattk, mhm, weapon_used) {

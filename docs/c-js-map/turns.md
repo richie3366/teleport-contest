@@ -4156,6 +4156,8 @@ awaits after wallet (D-1731); live `js/shk.js`; named: dokick
 `money_cnt` vs cache; 
 `mapseen_temple`/`Is_sanctum`/`forget_temple_entry`/`priest_talk`; **`ghod_hitsu` D-2474** (`priest.c:795–874` as `export async ghod_hitsu` in `js/priest.js:191`: roomno-char + has_shrine gates, shrine/door/`rn2(4)` bolt-origin arms in C order, `rn2(3)` anger plines, wand/buzzer-null `buzz(BZ_M_SPELL(BZ_OFS_AD(AD_ELEC)))` + `exercise(A_WIS)`; callers `wakeup` mon.js:1329 + `hmon` wrapper uhitm.js:1387 wired; named: `hmon` anger_guards tail, pray.js `a_gname_at` NULL-vs-`''`; debt (review 1433): `gb.buzzer` save/null/restore writes dead `game.buzzer` — live channel is `game._buzzer`; inert today (symmetric restore, hero paths never set it), fix on next priest/zap touch)
 
+**`block_entry`** (D-2854; C `shk.c:5826–5858` → `js/shk.js:802`): broken door at the hero (`doormask == D_BROKEN`), `*in_rooms(x,y,SHOPBASE)`, `IS_SHOP(roomno)` on `rooms[roomno]` (no `ROOMOFFSET` subtract), `shop_keeper` / `inhishop`, `shd` equals `u.ux,u.uy`, keeper on `shk` and not `helpless`, destination on `sx±1` or `sy±1`, then `Invis` / carried pick or mattock / `u.usteed`. Callers of `hack.c:1209`: `test_move` `js/hack.js:564`, `domove` `js/cmd.js:4930`, `travel_test_move` `js/cmd.js:2419`. Named: `block_door` stub-false; `test_move_ok` (`js/steed.js:147`) does not call it.
+
 ### `src/mon.c` `mnexto`
 
 JS: `js/mon.js` — partial

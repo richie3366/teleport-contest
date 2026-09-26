@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2854 `block_entry` stops a diagonal step off a broken shop door
+
+**C locus:** `nethack-c/upstream/src/shk.c:5826–5858` `block_entry`. Callees `in_rooms` (`hack.c:3497`, live `js/hack.js:1842`), `shop_keeper` (`shk.c:1051`, live `js/shk.js:257`), `inhishop` (`shk.c:749`, live `js/shk.js:750`), `helpless` (`monst.h:251`, file-local `js/shk.js:209`), `carrying` (`invent.c`, file-local `js/shk.js:4193`), `Invis` (`youprop.h:198`, live `js/timeout.js:1485`), `Shknam` (`shknam.c:502`, live `js/shknam.js:502`), `pline` (`pline.c`, live `js/display.js:7927`). The only C call is `hack.c:1209` inside `test_move`. `IS_SHOP(roomno)` is `rooms[roomno]` with the raw `*in_rooms` char; it does not subtract `ROOMOFFSET`.
+**JS:** `js/shk.js` `block_entry` `:802`, `pline` `:842`. `Invis` import `:127`.
+**Change:** One `block_entry` in that C order. The hero must be on a door whose mask is exactly `D_BROKEN`. `*in_rooms(x, y, SHOPBASE)` is the first byte (empty is 0; a byte above 127 is a negative signed char).
+**Verify:** `node scripts/verify.mjs --fn block_entry` → PASS syntax (7 changed js files: js/cmd.js js/getpos.js js/hack.js js/mhitm.js js/shk.js js/steed.js js/trap.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+**Named:** `block_door` (`shk.c:5791`) stays the stub-false in `test_move` and `domove`. `test_move_ok` (`js/steed.js:147`) is still the sync ride subset and does not call `block_entry`.
+**Next:** `uhitm.c` `mhitm_ad_stck` (first Open — coverage row). Five coverage rows appended (`reset_commands`, `get_coord`, `keylist_putcmds`, `extcmd_via_menu`, `init_dungeon_levels`) so the band stays at 12 after archive. `--rows 500` head is the never-re-pop Stale set.
 ## 2026-09-26 — D-2853 nemesis speech texts hit on the first quest lookup
 
 **C locus:** `nethack-c/upstream/dat/quest.lua` role tables (Archeologist `discourage` `:232–242`, `nemesis_first` `:354`; the same five keys on all 13 filecodes). `questpgr.c:629–634` `qt_pager` calls `com_pager_core(urole.filecode, msgid, FALSE)` first. A hit returns, so the `"common"` retry does not run. `discourage` has no `text` field, so `com_pager_core` `:552–568` draws `rn2(nelems)`. The four `nemesis_*` entries are `{text, synopsis?, output?}`. Callers of these msgids: `nemesis_speaks` `quest.c:407–421` and `chat_with_nemesis` `quest.c:397` (`discourage` only).

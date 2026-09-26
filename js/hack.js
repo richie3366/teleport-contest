@@ -69,7 +69,7 @@ import {
 import { ART_STING } from './generated/artifacts_data.js';
 import { hliquid, Hallucination, y_monnam, x_monnam, type_is_pname, YMonnam } from './do_name.js';
 import { get_level } from './dungeon.js';
-import { costly_spot, shop_keeper, addtobill, subfrombill, onshopbill, find_objowner, stolen_value } from './shk.js';
+import { costly_spot, shop_keeper, addtobill, subfrombill, onshopbill, find_objowner, stolen_value, block_entry } from './shk.js';
 import { se_monster_behind_boulder, se_kerplunk_boulder_gone } from './generated/seffects_data.js';
 import { near_capacity, inv_weight, freeinv, weapon_descr, useupf } from './invent.js';
 import { record_achievement } from './insight.js';
@@ -361,13 +361,13 @@ function test_move_known_lwalking() {
 /**
  * C ref: hack.c test_move :991–1255 — whole-function port in C order.
  * mode is DO_MOVE / TEST_MOVE / TEST_TRAV / TEST_TRAP (const.js). TEST_*
- * modes are message-free in C (every pline gated on DO_MOVE); the entry
+ * modes skip this function's own plines (each gated on DO_MOVE).
+ * `block_entry` still plines when it returns true, on every mode. The entry
  * `door_opened = FALSE` clear runs on all modes and is kept.
  * You_cant / Your / There / pline_The have no JS export (lock.js:602
  * precedent) — rendered as net-identical pline text, never new clones.
  * Named omissions (c-js-map turns): block_door (shk.c:5791 — stub-false
- * js/cmd.js:1176, no shop ESHK wire-up) / block_entry (shk.c:5826 — no JS
- * impl) / ECMD_OK + canned-kick fake (JS doopen_indir returns bool, not
+ * js/cmd.js, no shop ESHK wire-up) / ECMD_OK + canned-kick fake (JS doopen_indir returns bool, not
  * ECMD codes; cmdq_peek is cmd.js-local) / defsyms[].explanation prose
  * (tree/wall/solid-stone heuristic, cmd.js:1201 stand-in) / autodig flag
  * (no JS option; arm live on game.flags.autodig).
@@ -561,7 +561,7 @@ export async function test_move(ux, uy, dx, dy, mode) {
 
     // C :1229–1231 diagonal out of a doorway that still has a door.
     if (dx && dy && !Passes_walls_prop() && ust && IS_DOOR(ust.typ | 0)
-        && (!doorless_door(ux, uy) || false)) { // block_entry named omit (shk.c:5826)
+        && (!doorless_door(ux, uy) || await block_entry(x, y))) { // C :1209 block_entry
         if (mode === DO_MOVE && game.flags?.mention_walls) // C :1233–1234
             await pline("You can't move diagonally out of an intact doorway."); // C You_cant
         return false; // C :1235

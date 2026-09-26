@@ -124,7 +124,7 @@ import { Soundeffect, se_alarm, SetVoice } from './sndprocs.js';
 import { livelog_printf } from './pline.js';
 import { enexto, rloc_to_flag, migrate_to_level } from './teleport.js';
 import { ledger_no } from './dungeon.js';
-import { Is_candle, get_obj_location as shk_full_get_obj_location } from './timeout.js';
+import { Is_candle, Invis, get_obj_location as shk_full_get_obj_location } from './timeout.js';
 import { addinv } from './u_init.js';
 import { SchroedingersBox } from './pickup.js';
 import { arti_cost } from './artifact.js';
@@ -789,6 +789,61 @@ const HUNGRY = 2; // C you.h SATIATED=0 … HUNGRY=2
 /** C: IS_SHOP(x) — rooms[x].rtype >= SHOPBASE. */
 function IS_SHOP(roomIdx) {
     return ((game.level?.rooms?.[roomIdx]?.rtype | 0) >= SHOPBASE);
+}
+
+/**
+ * C ref: shk.c block_entry `:5826–5858` — diagonal entry off a broken
+ * shop door. `IS_SHOP(roomno)` indexes `rooms[roomno]` with the raw
+ * `*in_rooms` char (the C macro does not subtract `ROOMOFFSET`);
+ * `shop_keeper` then does. `pline` may `--More--`, so this is async.
+ * Callers: hack.c test_move `:1209` (js/hack.js, js/cmd.js domove and
+ * travel_test_move).
+ */
+export async function block_entry(x, y) {
+    x |= 0;
+    y |= 0;
+    const u = game.u;
+    if (!u) return false;
+    const here = game.level?.at(u.ux | 0, u.uy | 0);
+    // C :5832–5834 — hero stands on a door whose mask is exactly D_BROKEN.
+    if (!(here && IS_DOOR(here.typ | 0) && (here.doormask | 0) === D_BROKEN))
+        return false;
+
+    // C :5836 *in_rooms. An empty buffer is NUL (0). Signed char so a
+    // byte >= 128 is negative and takes the roomno < 0 return.
+    const roomStr = in_rooms(x, y, SHOPBASE);
+    let roomno = 0;
+    if (roomStr) {
+        roomno = roomStr.charCodeAt(0);
+        if (roomno > 127) roomno -= 256;
+    }
+    // C :5837
+    if (roomno < 0 || !IS_SHOP(roomno))
+        return false;
+
+    const shkp = shop_keeper(roomno); // C :5839 (char) roomno
+    if (!shkp || !inhishop(shkp)) // C :5840
+        return false;
+
+    const eshk = ESHK(shkp);
+    // C :5843 — the keeper's shop door is the square the hero is on.
+    if ((eshk?.shd?.x | 0) !== (u.ux | 0) || (eshk?.shd?.y | 0) !== (u.uy | 0))
+        return false;
+
+    const sx = eshk?.shk?.x | 0; // C :5846
+    const sy = eshk?.shk?.y | 0; // C :5847
+
+    // C :5849–5852 — left-to-right short-circuit, including the two carrying calls.
+    if ((shkp.mx | 0) === sx && (shkp.my | 0) === sy && !helpless(shkp)
+        && (x === sx - 1 || x === sx + 1 || y === sy - 1 || y === sy + 1)
+        && (Invis() || carrying(PICK_AXE) || carrying(DWARVISH_MATTOCK)
+            || u.usteed)) {
+        // C :5853–5854 — "%s%s blocks your way!"
+        await pline(
+            `${Shknam(shkp)}${Invis() ? ' senses your motion and' : ''} blocks your way!`);
+        return true;
+    }
+    return false; // C :5857
 }
 
 /**

@@ -99,7 +99,7 @@ import { objects_at, sobj_at } from './mkobj.js';
 import { stairway_at, On_stairs_up, On_stairs_dn, u_on_newpos, maybe_adjust_hero_bubble, selection_new, selection_getpoint, selection_setpoint } from './mklev.js';
 import { In_tutorial } from './dungeon.js';
 import { ATR_INVERSE } from './terminal.js';
-import { dopay } from './shk.js';
+import { dopay, block_entry } from './shk.js';
 import { dotalk } from './sounds.js';
 import { getpos, getpos_menu, gather_locs_interesting, auto_describe_text } from './getpos.js';
 import {
@@ -2360,13 +2360,12 @@ function travel_blocks_tight_diag(ux, uy, nx, ny) {
  * leaves (two-in-a-row gate on expansion, :1238); diagonal intact doorways
  * are banned both into (:1139–1147) and out of (:1205–1213) the door cell.
  * Named omissions: Passes_walls+may_passwall rock (:1014); Underwater rock
- * (outcome identical — blocked); worm_cross (:1172); block_entry (matches
- * the domove :3217 deferral); WAN_DIGGING-unknown arm of the two-in-row
+ * (outcome identical — blocked); worm_cross (:1172); WAN_DIGGING-unknown arm of the two-in-row
  * gate (no JS objects[].oc_name_known — treated as not carrying);
  * Known_wwalking/Known_lwalking/WATERWALL/LAVAWALL (ride inside
  * travel_avoids_cell).
  */
-function travel_test_move(ux, uy, dx, dy) {
+async function travel_test_move(ux, uy, dx, dy) {
     const x = (ux | 0) + (dx | 0);
     const y = (uy | 0) + (dy | 0);
     if (!isok(x, y)) return false;
@@ -2417,7 +2416,7 @@ function travel_test_move(ux, uy, dx, dy) {
     if ((dx | 0) && (dy | 0) && !passWalls) {
         const from = game.level?.at(ux, uy);
         if (from && IS_DOOR(from.typ | 0)
-            && (!doorless_door(ux, uy) || false /* block_entry deferred */)) {
+            && (!doorless_door(ux, uy) || await block_entry(x, y))) {
             return false;
         }
     }
@@ -3096,13 +3095,13 @@ export async function continue_run() {
     // C ref: hack.c domove_core — travel recomputes step each turn
     if (game.context?.travel) {
         // C: if (!findtravelpath(TRAVP_TRAVEL)) findtravelpath(TRAVP_GUESS)
-        let travelStep = findtravelpath_travel();
+        let travelStep = await findtravelpath_travel();
         if (travelStep === TRAVEL_STEP_UNSURE) {
             await You('stop, unsure which way to go.');
             travelStep = TRAVEL_STEP;
         }
         if (!travelStep) {
-            travelStep = findtravelpath_guess();
+            travelStep = await findtravelpath_guess();
             if (travelStep === TRAVEL_STEP_UNSURE) {
                 await You('stop, unsure which way to go.');
                 travelStep = TRAVEL_STEP;
@@ -3168,7 +3167,7 @@ function travelmap_ensure() {
  *   TRAVP_VALID (mark + step only, C :1400–1418)
  * @returns {number} TRAVEL_NOPATH / TRAVEL_STEP / TRAVEL_STEP_UNSURE
  */
-function findtravelpath_bfs(fromX, fromY, toX, toY, guessMode, couldseeOnly = false, mode = TRAVP_TRAVEL) {
+async function findtravelpath_bfs(fromX, fromY, toX, toY, guessMode, couldseeOnly = false, mode = TRAVP_TRAVEL) {
     const u = game.u;
     // C :1268–1269 — the travel-session visited set is allocated on entry.
     const tmap = travelmap_ensure();
@@ -3210,7 +3209,7 @@ function findtravelpath_bfs(fromX, fromY, toX, toY, guessMode, couldseeOnly = fa
                 // C test_move TEST_TRAV edge (:1400): closed doors pass,
                 // single boulders are enterable leaves, diagonal intact
                 // doorways banned both ways (travel_test_move).
-                if (!travel_test_move(x, y, nx - x, ny - y)) continue;
+                if (!await travel_test_move(x, y, nx - x, ny - y)) continue;
 
                 if (nx === toX && ny === toY) {
                     // C :1400–1418 — TRAVP_TRAVEL/VALID success. visited is
@@ -3270,7 +3269,7 @@ function findtravelpath_bfs(fromX, fromY, toX, toY, guessMode, couldseeOnly = fa
  * is C :1400–1418.
  * @returns {number} TRAVEL_NOPATH / TRAVEL_STEP / TRAVEL_STEP_UNSURE
  */
-function findtravelpath_travel(couldseeOnly = false) {
+async function findtravelpath_travel(couldseeOnly = false) {
     const u = game.u;
     const destX = u.tx | 0;
     const destY = u.ty | 0;
@@ -3296,7 +3295,7 @@ function findtravelpath_travel(couldseeOnly = false) {
 
     if (destX === u.ux && destY === u.uy) return TRAVEL_NOPATH;
 
-    return findtravelpath_bfs(destX, destY, u.ux, u.uy, false, couldseeOnly);
+    return await findtravelpath_bfs(destX, destY, u.ux, u.uy, false, couldseeOnly);
 }
 
 /**
@@ -3304,10 +3303,10 @@ function findtravelpath_travel(couldseeOnly = false) {
  * couldsee cells, pick matrix cell closest to u.tx/u.ty, then
  * TRAVP_TRAVEL from that pick back to hero.
  * Named omissions: travel_test_move arms (may_passwall, worm_cross,
- * block_entry, wand-unknown, Known_*walking); TEST_MOVE in the no-guess arm.
+ * wand-unknown, Known_*walking); TEST_MOVE in the no-guess arm.
  * @returns {number} TRAVEL_NOPATH / TRAVEL_STEP / TRAVEL_STEP_UNSURE
  */
-function findtravelpath_guess() {
+async function findtravelpath_guess() {
     const u = game.u;
     const destX = u.tx | 0;
     const destY = u.ty | 0;
@@ -3346,7 +3345,7 @@ function findtravelpath_guess() {
                     }
                 }
                 // C test_move TEST_TRAV edge, same as the TRAVEL loop.
-                if (!travel_test_move(x, y, nx - x, ny - y)) continue;
+                if (!await travel_test_move(x, y, nx - x, ny - y)) continue;
                 // C: reaching dest under GUESS does not return / enqueue
                 if (nx === destX && ny === destY) continue;
                 const key = `${nx},${ny}`;
@@ -3412,7 +3411,7 @@ function findtravelpath_guess() {
     }
 
     // C: mode = TRAVP_TRAVEL; goto noguess from (px,py) toward hero
-    return findtravelpath_bfs(px, py, u.ux, u.uy, false);
+    return await findtravelpath_bfs(px, py, u.ux, u.uy, false);
 }
 
 /**
@@ -3424,7 +3423,7 @@ function findtravelpath_guess() {
  * C :1400–1418 gates those on TRAVP_TRAVEL). Named: glyph_is_cmap S_stone
  * via typ≈STONE|SCORR blank showsyms.
  */
-export function is_valid_travelpt(x, y) {
+export async function is_valid_travelpt(x, y) {
     const u = game.u;
     if ((u.ux | 0) === (x | 0) && (u.uy | 0) === (y | 0)) return true;
     if (!isok(x, y)) return false;
@@ -3445,7 +3444,7 @@ export function is_valid_travelpt(x, y) {
     try {
         // C findtravelpath(TRAVP_VALID): start at hero, seek dest
         // (not dest→hero — that falsely succeeds from impassable stone).
-        ret = findtravelpath_bfs(u.ux, u.uy, u.tx, u.ty, false, false, TRAVP_VALID);
+        ret = await findtravelpath_bfs(u.ux, u.uy, u.tx, u.ty, false, false, TRAVP_VALID);
     } finally {
         u.tx = savedTx;
         u.ty = savedTy;
@@ -3500,13 +3499,13 @@ async function dotravel_target() {
     // Do NOT prefer couldsee-only first: that skipped seenv CLOUD cells on
     // Quest and stepped SE while C walked S (D-0784 / seed0360 @104904).
     let stepped = false;
-    let travelStep = findtravelpath_travel(false);
+    let travelStep = await findtravelpath_travel(false);
     if (travelStep === TRAVEL_STEP_UNSURE) {
         await You('stop, unsure which way to go.');
         travelStep = TRAVEL_STEP;
     }
     if (!travelStep) {
-        travelStep = findtravelpath_guess();
+        travelStep = await findtravelpath_guess();
         if (travelStep === TRAVEL_STEP_UNSURE) {
             await You('stop, unsure which way to go.');
             travelStep = TRAVEL_STEP;
@@ -4927,7 +4926,8 @@ async function domove(dx, dy) {
         // C: diagonal out of a doorway that still has a door
         const here = game.level?.at(u.ux, u.uy);
         if (here && IS_DOOR(here.typ)
-            && (!doorless_door(u.ux, u.uy) || false /* block_entry deferred */)) {
+            && (!doorless_door(u.ux, u.uy)
+                || (!Passes_walls_prop() && await block_entry(newx, newy)))) {
             if (game.flags?.mention_walls) {
                 await pline("You can't move diagonally out of an intact doorway.");
             }

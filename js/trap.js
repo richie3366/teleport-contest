@@ -7176,8 +7176,9 @@ export async function cnv_trap_obj(otyp, cnt, ttmp, bury_it) {
  * `move_bc(0,bc,...)` when punished, `tseen=0` check_here hack,
  * `failing_untrap++`, `spoteffects(TRUE)`, `failing_untrap--`, re-`tseen=1`,
  * `exercise(WIS)`; else `Fortunately, you don't move into/onto it.`
- * Named omissions: `test_move` block_door/block_entry shopkeeper arms
- * (C hack.c `:1141`/`:1209` — stub-false/false, no shop ESHK wire-up);
+ * Named omissions: `test_move` `block_door` shopkeeper arm
+ * (C hack.c `:1141` — stub-false, no shop ESHK wire-up);
+ * `block_entry` is live (`shk.c:5826`);
  * drag jerk hmon/miss damage (ball.js burns the rnd(20) roll).
  */
 async function move_into_trap(ttmp) {

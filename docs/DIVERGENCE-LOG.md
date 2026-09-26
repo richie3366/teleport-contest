@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2854 — `block_entry` stops a diagonal step off a broken shop door
+
+- **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** A diagonal step off a broken shop door never asked the shopkeeper to block it. `test_move`, `domove`, and travel all treated that arm as false, so invisibility, a carried pick or mattock, and a steed never produced the keeper's "blocks your way" line.
+- **C locus:** `nethack-c/upstream/src/shk.c:5826–5858` `block_entry`. Callees `in_rooms` (`hack.c:3497`, live `js/hack.js:1842`), `shop_keeper` (`shk.c:1051`, live `js/shk.js:257`), `inhishop` (`shk.c:749`, live `js/shk.js:750`), `helpless` (`monst.h:251`, file-local `js/shk.js:209`), `carrying` (`invent.c`, file-local `js/shk.js:4193`), `Invis` (`youprop.h:198`, live `js/timeout.js:1485`), `Shknam` (`shknam.c:502`, live `js/shknam.js:502`), `pline` (`pline.c`, live `js/display.js:7927`). The only C call is `hack.c:1209` inside `test_move`. `IS_SHOP(roomno)` is `rooms[roomno]` with the raw `*in_rooms` char; it does not subtract `ROOMOFFSET`.
+- **JS was:** No `block_entry`. `test_move` (`js/hack.js`) and `domove` / `travel_test_move` (`js/cmd.js`) used `|| false` on the doorless-door arm.
+- **Fix:** One `block_entry` in that C order. The hero must be on a door whose mask is exactly `D_BROKEN`. `*in_rooms(x, y, SHOPBASE)` is the first byte (empty is 0; a byte above 127 is a negative signed char). `IS_SHOP(roomno)` then `shop_keeper` / `inhishop`. The keeper's `shd` must be the hero's square. The keeper must be on `shk` and not `helpless`. The destination is on `sx±1` or `sy±1` (C's or, not a one-cell ring). Then `Invis`, carried `PICK_AXE`, carried `DWARVISH_MATTOCK`, or `u.usteed`, in that short-circuit order. The line is `Shknam` plus the Invis clause, then ` blocks your way!`.
+- **JS:** `js/shk.js` `block_entry` `:802`, `pline` `:842`. `Invis` import `:127`.
+- **Callers:** `hack.c:1209` → `js/hack.js:564` (`test_move`). The same `test_move` condition in the DO_MOVE split → `js/cmd.js:4930` (`domove`; `Passes_walls` still skips the call, as C does). The TEST_TRAV split → `js/cmd.js:2419` (`travel_test_move`). That made `findtravelpath_bfs` (`:3170`), `is_valid_travelpt` (`:3426`), and `auto_describe_suffix` (`js/getpos.js:616`, awaited at `:622` and `:1341`) async so the `pline` stays on the input boundary. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn block_entry` → PASS syntax (7 changed js files: js/cmd.js js/getpos.js js/hack.js js/mhitm.js js/shk.js js/steed.js js/trap.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+- **Named omissions:** `block_door` (`shk.c:5791`) stays the stub-false in `test_move` and `domove`. `test_move_ok` (`js/steed.js:147`) is still the sync ride subset and does not call `block_entry`. The intact-door ban in `domove` still runs when `Passes_walls` is set; only the `block_entry` call is gated.
+- **Next:** `uhitm.c` `mhitm_ad_stck` (first Open — coverage row). Five coverage rows appended (`reset_commands`, `get_coord`, `keylist_putcmds`, `extcmd_via_menu`, `init_dungeon_levels`) so the band stays at 12 after archive. `--rows 500` head is the never-re-pop Stale set.
+
 ## D-2853 — nemesis speech texts hit on the first quest lookup
 
 - **Status:** fixed (Must-fix, review 1805; `hidden-proxy verify` reports no corpus session blocked).

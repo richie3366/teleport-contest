@@ -5,7 +5,7 @@
 - Queue row: Open coverage, 0 corpus blocks cited
 - Banned grep: no `FORCE`, `DIAG`, `getRngLog`, seed name, or `fastforward` in the hunk. `imports.mjs --rulecheck`: "Rule #2 clean".
 
-**Addressed:** D-2853
+**Addressed:** D-2853 `d15d25c20`
 
 ## Intent vs deliverable
 
