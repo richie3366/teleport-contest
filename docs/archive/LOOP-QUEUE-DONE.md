@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `mkobj.c` curse — coverage PARTIAL (C 36 L `mkobj.c:1783–1819` / JS 19 L in js/mkobj.js; hops 2, callers 45, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn curse` (reach regression must be 0). Measured `port-coverage.mjs --name curse` 2026-09-26 @ d921aef05. **Addressed:** D-2885
+- [x] `invent.c` let_to_name — coverage PARTIAL (C 39 L `invent.c:4800–4839` / JS 21 L in js/invent.js; hops 3, callers 11, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn let_to_name` (reach regression must be 0). Measured `port-coverage.mjs --name let_to_name` 2026-09-26 @ d921aef05. **Addressed:** D-2886
+
+
+- [x] `mkobj.c` curse — coverage PARTIAL (C 36 L `mkobj.c:1783–1819` / JS 19 L in js/mkobj.js; hops 2, callers 45, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn curse` (reach regression must be 0). Measured `port-coverage.mjs --name curse` 2026-09-26 @ d921aef05. **Addressed:** D-2885 `703e0821e`
 
 
 - [x] `dungeon.c` surface — coverage PARTIAL (C 38 L `dungeon.c:1750–1788` / JS 26 L in js/dokick.js; hops 2, callers 97, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn surface` (reach regression must be 0). Measured `port-coverage.mjs --name surface` 2026-09-26 @ d921aef05. **Addressed:** D-2884 `457f75d7b`

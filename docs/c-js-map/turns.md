@@ -2780,6 +2780,8 @@ side never relativizes; live export kept for time logic).
 
 JS: `js/invent.js`, `js/iactions.js`, `js/do.js` — partial
 
+**`let_to_name` / `free_invbuf` D-2886** (`invent.c:4799–4850`): `names[]` / `oth_symbols` (`CONTAINED_SYM`), `gi.invbuf` resize, unpaid `"Unpaid "` prefix, showsym pad + `def_oc_syms` glyph. Callers: `display_pickinv` (`want_reply && menu_head_objsym`), `display_used_invlets`, `dounpaid`, `dodiscovered`, `oclass_to_name`, `doclassdisco`, `rename_disco`, `query_objlist` / floor pickup, `query_category`. Named: `save.c` `freedynamicdata` does not call `free_invbuf`; a NUL `let` does not read one past `oth_names`.
+
 Corner NHW_MENU invent (D-0024); **`invent_lines`/`display_pickinv_reply` prop Blind observe** 
 (D-0928 #1186; sticky `u.Blind` missed FROMFORM molds → false dknown); 
 **`ddoinv`→`dispinv_with_action`→`itemactions` `Do what with` menu + 

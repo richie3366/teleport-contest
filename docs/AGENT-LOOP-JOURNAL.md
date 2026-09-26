@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2886 `let_to_name` keeps the class heading in `gi.invbuf`
+
+**C locus:** `nethack-c/upstream/src/invent.c:4799–4839` `let_to_name`. Callees: `strchr` on `oth_symbols`, `Strlen` / `Strcpy` / `Strcat` / `Sprintf`, `eos`, `alloc` / `free` for `gi.invbuf`. `def_oc_syms[oclass].sym` is the showsym glyph. `free_invbuf` is `invent.c:4844–4850`. No RNG.
+**JS:** `js/invent.js` `let_to_name` `:2612`, class `:2618`, `oth_symbols` `:2621`, length `:2637`, resize `:2640`, unpaid `:2645`, showsym `:2650`, return `:2663`. `free_invbuf` `:2667`. `display_pickinv_reply` `withsym` `:3941`, heading `:3969`. `js/pickup.js` `query_objlist_pickup` `:1687`.
+**Change:** One `let_to_name` in that C order. Signed `char` selects `names[]` when it is in `1..MAXOCLASSES-1`; otherwise unsigned `strchr` on `oth_symbols` (`CONTAINED_SYM` → "Bagged/Boxed items"), else "Illegal objects". The length uses `sizeof "unpaid_"` / `sizeof ""` plus `Strlen` of `"  ('%c')"` and the pad of 8 whenever `oclass` is set.
+**Verify:** `node scripts/verify.mjs --fn let_to_name` → PASS syntax (2 changed js files: js/invent.js js/pickup.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) · VERIFY: PASS.
+**Named:** `save.c` `freedynamicdata` (`:1085`) does not call `free_invbuf` (save-freeing teardown is unported). A NUL `let` matches `strchr`'s terminator, one past `oth_names`; that slot is not read.
+**Next:** `do_name.c` `obj_pmname` (next Open — coverage row). Nine Open — coverage rows remain after archive, above the floor of 8, so nothing was refilled.
 ## 2026-09-26 — D-2885 `curse` skips coins, resets a welded removal, and slams a studied book
 
 **C locus:** `nethack-c/upstream/src/mkobj.c:1783–1819` `curse`. Callees: `arti_light_radius` (`timeout.js`), `bimanual` (`obj.h:257`, `js/wield.js`), `reset_remarm` (`do_wear.c:3013`), `drop_uswapwep` (`wield.c`), `carried` / `mcarried` (`obj.h:332–333`), `confers_luck`, `set_moreluck`, `weight`, `dead_species`, `attach_fig_transform_timeout`, `book_cursed` (`spell.c:342–351`), `maybe_adjust_light`. `book_cursed` callees: `pline`, `Tobjnam`, `set_bknown`, `stop_occupation`. No RNG in `curse`. `attach_fig_transform_timeout` still rolls `rnd(9000)+200`.
