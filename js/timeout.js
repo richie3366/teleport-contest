@@ -62,6 +62,7 @@ import {
 import { little_to_big, big_to_little, mhe, cantvomit, name_to_mon } from './mondata.js';
 import { dist2, ing_suffix, strsubst, strstri, upstart, highc } from './hacklib.js';
 import { Popeye, morehungry, vomit, Unaware, eating_dangerous_corpse } from './eat.js';
+import { toggle_displacement } from './do_wear.js';
 import { phase_of_the_moon, friday_13th } from './calendar.js';
 import { zombie_form, NODIAG } from './mon.js';
 import { cry_sound } from './sounds.js';
@@ -122,6 +123,10 @@ const TIMEOUT_FLAT = {
        (scen-wish-Rogue-91119 step 108, D-2229). */
     [ACID_RES]: 'HAcid_resistance',
     [STONE_RES]: 'HStone_resistance',
+    /* C youprop.h:202 — HDisplaced ≡ uprops[DISPLACED].intrinsic.
+       eat.c givit stores the corpse timer on the flat; without this
+       mirror the DISPLACED expiry arm never sees TIMEOUT hit 0. */
+    [DISPLACED]: 'HDisplaced',
 };
 
 /** C ref: weight.h WT_NOISY_INV — inv_weight() threshold for noisy fumbling. */
@@ -953,6 +958,8 @@ function nh_timeout_luck(u) {
  * `:639–640`, `:267–274`; HSleepy mirror in TIMEOUT_FLAT).
  * ACID_RES/STONE_RES TIMEOUT → meal-extension (`eating_dangerous_corpse`,
  * eat.c `:472–493`) else expiry message unless resistant/Unaware (D-2229).
+ * DISPLACED TIMEOUT → `toggle_displacement(NULL, 0, FALSE)` when
+ * `!Displaced` (timeout.c:858–861).
  * Named omissions: region_dialogue;
  * STUNNED/SEE_INVIS/HALLUC/…
  * expiry messages; SLEEPY expiry is the `fall_asleep` arm below;
@@ -1330,6 +1337,16 @@ export async function nh_timeout() {
                     );
                 }
             }
+        }
+        if (!(next & TIMEOUT) && p === DISPLACED) {
+            /* C timeout.c:858–861 — timed displacement just hit 0.
+               Message only when the cloak (or any leftover intrinsic
+               bit) is not still displacing. oldprop is 0: the caller
+               does not strip a worn mask here. */
+            const dprop = u.uprops?.[DISPLACED];
+            const still = !!((u.HDisplaced | 0) || (u.EDisplaced | 0)
+                || (dprop?.intrinsic | 0) || (dprop?.extrinsic | 0));
+            if (!still) await toggle_displacement(null, 0, false);
         }
         if (!(next & TIMEOUT) && p === SLEEPY) {
             /* C timeout.c:784–792 — sleepy timeout runs out. Still

@@ -1080,7 +1080,7 @@ function hero_HTelepat() {
 export function hero_Blind_telepat() {
     return !!(hero_HTelepat() || hero_ETelepat());
 }
-function hero_Unblind_telepat() {
+export function hero_Unblind_telepat() {
     return !!hero_ETelepat();
 }
 
@@ -1132,7 +1132,7 @@ function Protection_from_shape_changers() {
  * Flat H/E mirrors are potion/timeout copies; sticky `u.Detect_monsters`
  * is a JS fallback (same as `sensemon` / restore).
  */
-function Detect_monsters() {
+export function Detect_monsters() {
     const u = game.u || {};
     const p = u.uprops?.[DETECT_MONSTERS];
     return !!((u.HDetect_monsters | 0)

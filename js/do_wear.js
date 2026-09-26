@@ -9,6 +9,7 @@ import { game } from './gstate.js';
 import {
     flush_topl_more, pline, You, Your, You_feel, mark_topline_prompt,
     newsym, see_monsters, urgent_pline, impossible, Hallucination, pline_The,
+    hero_Invisible, hero_Blind_telepat, hero_Unblind_telepat, Detect_monsters,
 } from './display.js';
 import { yn_function, paranoid_ynq } from './getline.js';
 import { an, doname, the, xname, xprname, vtense, makeplural, makesingular, otense, gloves_simple_name, simpleonames, body_part_latebound, Tobjnam, Yname2, corpse_xname, killer_xname, arti_light_description, set_doffing_predicates, safe_typename } from './objnam.js';
@@ -1262,38 +1263,46 @@ export async function toggle_stealth(obj, oldprop, on) {
 }
 
 /**
- * C ref: do_wear.c toggle_displacement — discover + You_feel when state
- * changes and hero can see/sense self. Timed-displacement (obj null) and
- * Blind_telepat-only sensing deferred when not needed for extrinsic cloak.
+ * C ref: do_wear.c:148–178 toggle_displacement.
+ * Skip while initially donning (`on`) or while a takeoff was cancelled.
+ * Then, only when no other extrinsic remains (`oldprop`, worn mask already
+ * stripped by the caller), no timed intrinsic, and the property is not
+ * blocked: discover `obj` and `You_feel` if the hero can see self, or can
+ * sense self (unblind telepathy, blind telepathy while blind, or monster
+ * detection). `obj` is null for the corpse timeout (eat.c / timeout.c).
+ * No RNG.
+ * @param {object|null} obj
+ * @param {number} oldprop
+ * @param {boolean} on
  */
-/** C ref: do_wear.c toggle_displacement — cloak / corpse Displaced msg. */
 export async function toggle_displacement(obj, oldprop, on) {
-    if (on ? game._initial_don : game.context?.takeoff?.cancelled_don) return;
+    /* C do_wear.c:154–156. gi.initial_don is game._initial_don (set_wear). */
+    if (on ? game._initial_don : game.context?.takeoff?.cancelled_don) {
+        return;
+    }
     const u = game.u || {};
     const prop = u.uprops?.[DISPLACED];
+    /* C :158–160. HDisplaced is uprops[DISPLACED].intrinsic (youprop.h:202).
+       The corpse timer also lives on the flat until nh_timeout mirrors it. */
     const intrinsic = (prop?.intrinsic | 0) || (u.HDisplaced | 0);
     const blocked = prop?.blocked | 0;
-    const can_notice = (!Blind() && !u.uswallow && !hero_Invisible())
-        || !!(u.ETelepat || u.Unblind_telepat
-            || u.Detect_monsters || (u.HDetect_monsters | 0)
-            || (u.EDetect_monsters | 0));
-    if (!oldprop && !intrinsic && !blocked && can_notice) {
+    /* C :161–174. Blind / Invisible / Unblind_telepat / Blind_telepat /
+       Detect_monsters are the youprop.h macros (display.js). Blind is
+       evaluated again inside (Blind_telepat && Blind), as the macro is. */
+    if (!oldprop
+        && !intrinsic
+        && !blocked
+        && ((!Blind() && !u.uswallow && !hero_Invisible())
+            || (hero_Unblind_telepat()
+                || (hero_Blind_telepat() && Blind())
+                || Detect_monsters()))) {
+        /* C :172–173. */
         if (obj) makeknown(obj.otyp);
+        /* C :175–176. %s is "" or " no longer". */
         await You_feel(
             `that monsters${on ? '' : ' no longer'} have difficulty pinpointing your location.`,
         );
     }
-}
-
-/** C youprop.h Invisible — Invis && !See_invisible. */
-function hero_Invisible() {
-    const u = game.u || {};
-    const invis = !!(u.Invis
-        || (((u.HInvis | 0) || (u.EInvis | 0) || (u.uprops?.[INVIS]?.extrinsic | 0)
-            || (u.uprops?.[INVIS]?.intrinsic | 0)) && !(u.BInvis | 0)));
-    const seeInv = !!(u.See_invisible
-        || (u.HSee_invisible | 0) || (u.ESee_invisible | 0));
-    return invis && !seeInv;
 }
 
 /**

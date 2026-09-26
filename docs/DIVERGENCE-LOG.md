@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2897 — `toggle_displacement` notices blind telepathy and a finished corpse timer
+
+- **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** Putting on or taking off a cloak of displacement, eating a displacer corpse, or the timed intrinsic running out could skip the "monsters have difficulty pinpointing your location" message. The notice test treated any telepathy as enough and never required blindness for intrinsic telepathy. The corpse timer lived only on `HDisplaced`, so `nh_timeout` never reached the C expiry call.
+- **C locus:** `nethack-c/upstream/src/do_wear.c:148–178` `toggle_displacement`. Return when `on` and `gi.initial_don`, or when `!on` and `takeoff.cancelled_don`. Then require `!oldprop`, `!uprops[DISPLACED].intrinsic`, and `!blocked`. Notice when `!Blind && !uswallow && !Invisible`, or `Unblind_telepat` (`ETelepat`), or `(Blind_telepat && Blind)` (`(HTelepat || ETelepat) && Blind`), or `Detect_monsters` (`HDetect_monsters || EDetect_monsters`). If `obj` is set, `makeknown(otyp)`. Then `You_feel` with `%s` `""` or `" no longer"`. No RNG.
+- **JS was:** A 17-line body (`js/do_wear.js`) whose sense arm was `ETelepat` or any detect-monsters bit, with `Blind_telepat && Blind` named deferred. `Cloak_on`, `Cloak_off`, and the displacer-corpse eat arm already called it. `timeout.c:860` did not. `HDisplaced` was not in the timeout flat mirror, so the timer never counted down.
+- **Fix:** One exported `toggle_displacement` in that C order, including `(Blind_telepat && Blind)`. `HDisplaced` is the same C field as `uprops[DISPLACED].intrinsic`, so a nonzero flat still counts as the timed intrinsic. The DISPLACED expiry arm calls it with a null object and `oldprop` 0 only when `Displaced` is already false.
+- **JS:** `js/do_wear.js` `toggle_displacement` `:1278`, don/cancel return `:1280`, intrinsic `:1287`, notice `:1292`, `makeknown` `:1300`, `You_feel` `:1302`. `js/timeout.js` flat mirror `:129`, expiry call `:1349`.
+- **Callers:** `do_wear.c:345` `Cloak_on` → `js/do_wear.js:1338`. `do_wear.c:405` `Cloak_off` → `js/do_wear.js:896`. `eat.c:1267` (only when `!Displaced`, before `incr_itimeout`) → `js/eat.js:2021`. `timeout.c:860` (only when `!Displaced`) → `js/timeout.js:1349`. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn toggle_displacement` → PASS syntax (3 changed js files: js/display.js js/do_wear.js js/timeout.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+- **Named omissions:** No arm of this function is omitted. `Detect_monsters` is the live `js/display.js` export, which still ORs the sticky `u.Detect_monsters` fallback that export already had. Other `nh_timeout` expiry cases stay deferred; they do not call this function.
+- **Next:** `cmd.c` `can_do_extcmd` (next Open — coverage row). Eleven Open — coverage rows remain after archive, above the floor of 8, so nothing was refilled. The queue-empty overlay did not match the live queue (twelve rows were open before this port).
+
 ## D-2896 — `eatmupdate` rewrites the mimic message when hallucination ends
 
 - **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked).

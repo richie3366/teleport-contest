@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2897 `toggle_displacement` notices blind telepathy and a finished corpse timer
+
+**C locus:** `nethack-c/upstream/src/do_wear.c:148–178` `toggle_displacement`. Return when `on` and `gi.initial_don`, or when `!on` and `takeoff.cancelled_don`. Then require `!oldprop`, `!uprops[DISPLACED].intrinsic`, and `!blocked`. Notice when `!Blind && !uswallow && !Invisible`, or `Unblind_telepat` (`ETelepat`), or `(Blind_telepat && Blind)` (`(HTelepat || ETelepat) && Blind`), or `Detect_monsters` (`HDetect_monsters || EDetect_monsters`). If `obj` is set, `makeknown(otyp)`. Then `You_feel` with `%s` `""` or `" no longer"`. No RNG.
+**JS:** `js/do_wear.js` `toggle_displacement` `:1278`, don/cancel return `:1280`, intrinsic `:1287`, notice `:1292`, `makeknown` `:1300`, `You_feel` `:1302`. `js/timeout.js` flat mirror `:129`, expiry call `:1349`.
+**Change:** One exported `toggle_displacement` in that C order, including `(Blind_telepat && Blind)`. `HDisplaced` is the same C field as `uprops[DISPLACED].intrinsic`, so a nonzero flat still counts as the timed intrinsic. The DISPLACED expiry arm calls it with a null object and `oldprop` 0 only when `Displaced` is already false.
+**Verify:** `node scripts/verify.mjs --fn toggle_displacement` → PASS syntax (3 changed js files: js/display.js js/do_wear.js js/timeout.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+**Named:** No arm of this function is omitted. `Detect_monsters` is the live `js/display.js` export, which still ORs the sticky `u.Detect_monsters` fallback that export already had.
+**Next:** `cmd.c` `can_do_extcmd` (next Open — coverage row). Eleven Open — coverage rows remain after archive, above the floor of 8, so nothing was refilled. The queue-empty overlay did not match the live queue (twelve rows were open before this port).
 ## 2026-09-26 — D-2896 `eatmupdate` rewrites the mimic message when hallucination ends
 
 **C locus:** `nethack-c/upstream/src/eat.c:181–213` `eatmupdate`. Return unless `eatmbuf` is set and `nomovemsg` is that same pointer. Orange and `!Hallucination` sets the message to "You now prefer mimicking yourself." and `mappearance` to `GOLD_PIECE`. Gold and `Hallucination` sets "Your rind escaped intact." and `ORANGE`. A longer `Strlen` frees and `alloc`s; either way `strcpy` writes the text and `nomovemsg` becomes that buffer. Then `newsym(u.ux, u.uy)`. No RNG. `is_obj_mappear` is the `monst.h:243` macro.
