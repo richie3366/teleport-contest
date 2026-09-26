@@ -1518,7 +1518,8 @@ export async function overexert_hp() {
     } else {
         await pline('You pass out from exertion!');
         exercise(A_CON, false);
-        fall_asleep(-10, false);
+        /* C hack.c:3045 — fall_asleep(-10, FALSE). */
+        await fall_asleep(-10, false);
     }
 }
 
@@ -1667,17 +1668,22 @@ export async function runmode_delay_output() {
 }
 
 /**
- * C ref: timeout.c fall_asleep — nomul(how_long) with sleeping reason.
- * Deafness / Hear_again afternmv (#if 0 in C) deferred.
+ * C ref: timeout.c fall_asleep `:951–974`.
+ * `stop_occupation` (meal finish or "You stop", else `nomul(0)` when
+ * `multi >= 0`, then `cmdq_clear`), then `nomul(how_long)`,
+ * `multi_reason = "sleeping"`, `u.usleep = moves`,
+ * `nomovemsg` "You wake up." or `You_can_move_again` (`decl.c:47`).
+ * The `#if 0` `Hear_again` / `incr_itimeout(&HDeaf)` block is not
+ * compiled in this tree.
  * @param {number} how_long negative multi turns
- * @param {boolean} wakeup_msg if true, nomovemsg is "You wake up."
+ * @param {boolean} wakeup_msg
  */
-export function fall_asleep(how_long, wakeup_msg) {
-    // stop_occupation — clear multi-turn occupation without message
-    if (typeof game.occupation === 'function') game.occupation = null;
+export async function fall_asleep(how_long, wakeup_msg) {
+    await stop_occupation();
     nomul(how_long);
     game.multi_reason = 'sleeping';
     if (!game.u) game.u = {};
+    /* C: u.usleep = svm.moves — early combat wakeup waits until the next turn. */
     game.u.usleep = game.moves | 0;
     game.nomovemsg = wakeup_msg ? 'You wake up.' : 'You can move again.';
 }

@@ -107,7 +107,7 @@ import {
     ECMD_OK, ECMD_TIME, MON_DETACH,
     Is_container, Waterproof_container, Is_box,
     xytodir, DIR_180, DIR_ERR,
-    OBJ_FLOOR, OBJ_FREE, VAULT, TEMPLE, SHOPBASE, ESHK, M_SEEN_ELEC, M_SEEN_FIRE, CONTAINED_TOO, BURIED_TOO,
+    OBJ_FLOOR, OBJ_FREE, VAULT, TEMPLE, SHOPBASE, ESHK, M_SEEN_ELEC, M_SEEN_FIRE, M_SEEN_SLEEP, CONTAINED_TOO, BURIED_TOO,
     GETOBJ_PROMPT, GETOBJ_SUGGEST, GETOBJ_EXCLUDE, GETOBJ_DOWNPLAY,
     P_RIDING, P_BASIC, M_AP_FURNITURE, M_AP_OBJECT,
     A_LAWFUL, XKILL_NOMSG, SHOP_HOLE_COST,
@@ -117,7 +117,7 @@ import {
 import {
     is_pool, is_lava, waterbody_name, crawl_destination, SURFACE_AT,
     maybe_half_phys, nomul, unmul, losehp, finish_maybe_wail, stop_occupation,
-    in_rooms, set_uinwater, test_move,
+    in_rooms, set_uinwater, test_move, fall_asleep,
 } from './hack.js';
 import { goodpos, mlevel_tele_trap, mtele_trap, tele_trap, level_tele_trap, domagicportal, rloco, random_teleport_level, teleds, safe_teleds, noteleport_level, dotele, unconscious } from './teleport.js';
 import { get_level, on_level, at_dgn_entrance, update_lastseentyp } from './dungeon.js';
@@ -2005,8 +2005,7 @@ async function finish_hero_losehp() {
  * only writes mx/my. Wired at every C call site: dart/arrow `!rn2(2)`
  * (`:1211/:1276`), pit (`:1921`), magic (`:2313`), poly (`:2491`),
  * landmine under the recursive_mine guard (`:2578`). The slp-gas hero
- * arm (incl. its steedintrap call `:1578`) stays deferred with the
- * Sleep_resistance/fall_asleep body.
+ * arm calls this after `fall_asleep` (`trapeffect_slp_gas_trap`).
  */
 async function steedintrap(trap, otmp) {
     const u = game.u || {};
@@ -5123,14 +5122,26 @@ async function trapeffect_magic_trap(mtmp, trap, trflags) {
 }
 
 /**
- * C ref: trap.c trapeffect_slp_gas_trap
- * Envelope: monsters — !resists_sleep && !breathless && !helpless →
- * sleep_monst(rnd(25), -1); pline+seetrap when in sight. Hero —
- * Sleep_resistance/fall_asleep/steedintrap deferred.
+ * C ref: trap.c trapeffect_slp_gas_trap `:1562–1591`.
+ * Hero: seetrap, then Sleep_resistance || breathless(youmonst.data)
+ * → You enveloped + monstseesu(M_SEEN_SLEEP), else the gas pline,
+ * fall_asleep(-rnd(25), TRUE), monstunseesu. Then steedintrap.
+ * Monsters: !resists_sleep && !breathless && !helpless →
+ * sleep_monst(rnd(25), -1); pline+seetrap when in sight.
  */
 async function trapeffect_slp_gas_trap(mtmp, trap, _trflags) {
     if (is_youmonst(mtmp)) {
-        // Hero cloud / fall_asleep deferred
+        seetrap(trap);
+        if (Sleep_resistance() || breathless(game.youmonst?.data)) {
+            await You('are enveloped in a cloud of gas!');
+            monstseesu(M_SEEN_SLEEP);
+        } else {
+            await pline('A cloud of gas puts you to sleep!');
+            /* C trap.c:1575 — argument rnd happens before the call. */
+            await fall_asleep(-rnd(25), true);
+            monstunseesu(M_SEEN_SLEEP);
+        }
+        await steedintrap(trap, null);
         return Trap_Effect_Finished;
     }
     const in_sight = canseemon(mtmp) || (mtmp === game.u?.usteed);

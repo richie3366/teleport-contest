@@ -1874,7 +1874,8 @@ async function peffect_sleeping(otmp) {
     } else {
         await pline('You suddenly fall asleep!');
         monstunseesu(M_SEEN_SLEEP);
-        fall_asleep(-rn1(10, 25 - 12 * bcsign(otmp)), true);
+        /* C potion.c:909 — fall_asleep(-rn1(10, 25 - 12 * bcsign), TRUE). */
+        await fall_asleep(-rn1(10, 25 - 12 * bcsign(otmp)), true);
     }
 }
 

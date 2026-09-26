@@ -2071,7 +2071,8 @@ async function zhitu(type, nd, fltxt, sx, sy) {
         if (Sleep_resistance()) {
             await pline("You don't feel sleepy.");
         } else {
-            fall_asleep(-d(nd, 25), true);
+            /* C zap.c:4461 — fall_asleep(-d(nd, 25), TRUE). */
+            await fall_asleep(-d(nd, 25), true);
         }
         break;
     case ZT_DEATH:
@@ -4466,7 +4467,8 @@ export async function zapyourself(obj, ordinary) {
             if (ordinary) await pline('The sleep ray hits you!');
             else await pline('You fall asleep!');
             // monstunseesu deferred
-            fall_asleep(-rnd(50), true);
+            /* C zap.c:2864 — fall_asleep(-rnd(50), TRUE). */
+            await fall_asleep(-rnd(50), true);
         }
         break;
 

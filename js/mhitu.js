@@ -2541,7 +2541,8 @@ async function mhitm_ad_slee_u(mtmp, mattk, mhm) {
             return;
         }
         monstunseesu(M_SEEN_SLEEP);
-        fall_asleep(-rnd(10), true);
+        /* C uhitm.c:3502 — fall_asleep(-rnd(10), TRUE) before the You line. */
+        await fall_asleep(-rnd(10), true);
         if (Blind()) {
             await pline('You are put to sleep!');
         } else {

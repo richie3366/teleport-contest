@@ -1046,7 +1046,8 @@ export async function study_book(spellbook) {
                 if (eyecount(game.youmonst?.data) > 1) eyes = makeplural(eyes);
                 await pline(`This book is so dull that you can't keep your ${eyes} open.`);
                 dullbook += rnd(2 * ocLevel);
-                fall_asleep(-dullbook, true);
+                /* C spell.c:491 — fall_asleep(-dullbook, TRUE). */
+                await fall_asleep(-dullbook, true);
                 return 1;
             }
         }

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `botl.c` status_initialize — coverage MISSING (C 36 L `botl.c:1683–1720` / JS no symbol; hops 3, callers 4, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn status_initialize` (reach regression must be 0). Measured `port-coverage.mjs --name status_initialize` 2026-09-26 @ ae37117bd. **Addressed:** D-2858
+- [x] `timeout.c` fall_asleep — coverage THIN (C 23 L `timeout.c:951–974` / JS 9 L in js/hack.js; hops 1, callers 10, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn fall_asleep` (reach regression must be 0). Measured `port-coverage.mjs --name fall_asleep` 2026-09-26 @ ae37117bd. **Addressed:** D-2859
+
+
+- [x] `botl.c` status_initialize — coverage MISSING (C 36 L `botl.c:1683–1720` / JS no symbol; hops 3, callers 4, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn status_initialize` (reach regression must be 0). Measured `port-coverage.mjs --name status_initialize` 2026-09-26 @ ae37117bd. **Addressed:** D-2858 `d2761e4d9`
 
 
 - [x] `ball.c` unplacebc_core — coverage MISSING (C 30 L `ball.c:147–177` / JS no symbol; hops 4, callers 4, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn unplacebc_core` (reach regression must be 0). Measured `port-coverage.mjs --name unplacebc_core` 2026-09-26 @ ae37117bd. **Addressed:** D-2857 `8800eafbb`

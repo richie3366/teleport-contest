@@ -46,7 +46,7 @@ talk D-1817**; C `timeout.c:752` / `wizcmds.c:1029`); **FAST TIMEOUT → Very_fa
 dedicated arms skipped)** (D-0928 #1168; expiry switch HALLUC/… still silent, STONED → stoning death live D-2029, SLIMED → `slimed_to_death` live D-2023, STRANGLED → `done_timeout(DIED, …)` + amulet-vanishes live D-2035, SICK → food-poisoning recovery `rn2(100)<ACURR(CON)` else illness death + `done_timeout(POISONING, SICK)` live D-2160, ACID_RES/STONE_RES → `eating_dangerous_corpse` meal-extension (eat.c `:472–493`, live `js/eat.js` export) else expiry message unless resistant/Unaware live D-2229; STONE_RES `wielding_corpse` pair stays named); 
 **`u.uinvulnerable` early-return freezes all TIMEOUT** (D-0928 #1171); 
 **`#wizintrinsic` BLINDED → `make_blinded(newtimeout)` + HBlinded↔uprops sync** (D-0928 #1171); 
-**STUNNED expiry → `make_stunned(0,TRUE)` + stop_occupation** (D-2203; C `timeout.c:737–742` generic-loop arm, HALLUC-arm shape); HALLUC/… expiry msgs / `region_dialogue` / SLEEPY-expiry fall_asleep+incr (JS generic arm silently clears; D-2070 named)
+**STUNNED expiry → `make_stunned(0,TRUE)` + stop_occupation** (D-2203; C `timeout.c:737–742` generic-loop arm, HALLUC-arm shape); HALLUC/… expiry msgs / `region_dialogue` (still named); **SLEEPY expiry → `unconscious()`||`Sleep_resistance` `incr_itimeout(&HSleepy, rnd(100))` else `Sleepy` `You("fall asleep.")` + `rnd(20)` + `fall_asleep(-sleeptime, TRUE)` + `incr_itimeout(sleeptime+rnd(100))`** (D-2859; C `timeout.c:784–792` → `js/timeout.js` `nh_timeout`)
 (SLIMED `slimed_to_death` live D-2023; STONED stoning death live D-2029) / Glib / run_regions inside_f D-1146 / hero_inside bit D-1169 / expire 
 dissipation D-1155 / surface() Underwater bottom named; 
 ice hurtle/mount dismount / REVIVE/ZOMBIFY/burn deferred); 
@@ -1129,7 +1129,7 @@ amulet/eyewear put-on; GUARDING `makeknown`+`find_ac`** (D-0067/D-0810) + **`Amu
 **`setworn(null,W_RINGL|R)` clears uleft/uright** (D-0699) + 
 **ring put-on Glib/cursed-gloves/welded gates** (D-0699) + 
 **`Amulet_on` RESTFUL_SLEEP `rnd(98)`→`HSleepy` TIMEOUT** (D-0494; 
-`Amulet_off` clear + `nh_timeout` SLEEPY/fall_asleep deferred) + 
+`Amulet_off` clear; `nh_timeout` SLEEPY expiry `fall_asleep` live D-2859) + 
 **`choose_ring_hand` → `yn_function(…, rightleftchars, '\0')` `[rl]`** (D-0421) + 
 **`accessory_or_armor_on` ring `nolimbs`→cannot-stick ECMD_OK** (D-0928 #1104; 
 poly/`body_part` wording; **query_menu `rightleftchars` D-1728**) + 
@@ -1620,7 +1620,7 @@ square stale and pets kept avoiding it past the kick turn);
 **`nomul`/`unmul` + afternmv** (D-0066) + **`nomul`/`unmul` `usleep=0` + nomul `uinvulnerable=FALSE`** (D-1797;
 C `hack.c:4166–4167` / `:4197`; `fall_asleep` restamps after `nomul`; named: Upolyd `"You survived that "` form `:4192–4194`) + **`nomul` clears `_cmdq_canned`** (D-0710; 
 ≡C `cmdq_clear`) + **`unmul` treats `nomovemsg==""` as no pline (not default)** (D-0695; 
-fumbling `timeout.c`); **`slip_or_trip` whole body C-order live D-2457** (`timeout.c:1222–1341` → `js/timeout.js:176–307`: pronoun/highc-bite/corpse-petrify/steed-vtense/unseat/`rn2(10+DEX)`-hurtle/mounted-`rn2(4)`+dismount, no omits; NODIAG exported from `js/mon.js`); **`fall_asleep`/`usleep`/`nomovemsg`** (D-0156); 
+fumbling `timeout.c`); **`slip_or_trip` whole body C-order live D-2457** (`timeout.c:1222–1341` → `js/timeout.js:176–307`: pronoun/highc-bite/corpse-petrify/steed-vtense/unseat/`rn2(10+DEX)`-hurtle/mounted-`rn2(4)`+dismount, no omits; NODIAG exported from `js/mon.js`); **`fall_asleep` whole body** (D-2859; C `timeout.c:951–974` → `js/hack.js` `fall_asleep`: `await stop_occupation()`, `nomul(how_long)`, `multi_reason` "sleeping", `u.usleep = moves`, `nomovemsg` "You wake up." / "You can move again."; `#if 0` Hear_again is not in this build; callers `eat.c:2595` `js/eat.js`, `hack.c:3045` `js/hack.js` `overexert_hp`, `potion.c:909` `js/potion.js` `peffect_sleeping`, `spell.c:491` `js/spell.js` `study_book`, `timeout.c:790` `js/timeout.js` `nh_timeout`, `trap.c:1575` `js/trap.js` `trapeffect_slp_gas_trap`, `uhitm.c:3502` `js/mhitu.js` `mhitm_ad_slee_u`, `zap.c:2864` `js/zap.js` `zapyourself`, `zap.c:4461` `js/zap.js` sleep-ray; `mhitu.c:1862` is `#ifdef PM_BEHOLDER`, not defined); **`fall_asleep`/`usleep`/`nomovemsg`** (D-0156); 
 **`overexertion`→`gethungry`+`overexert_hp`** (D-0107/D-1003); 
 **`monster_nearby`/`noattacks`** (D-0228; **`canspotmon` not `cansee`** D-0928 #1097; 
 onscary live via the mon.js export (D-2637); **`M_AP_TYPE` masks `M_AP_TYPMASK`** D-2066 — `monst.h:73`, raw `m_ap_type=10` (OBJECT|F_DKNOWN) skips like OBJECT; inline `& M_AP_TYPMASK` readers (hack/display/do_name/pager/uhitm) now consistent; raw readers objnam:3350/sounds:1445/music:230,305/mhitu:3506,3525/eat:1628 + `M_AP_FLAG`/`U_AP_*` still inline, named); **`domove`→`spoteffects`→`pickup`/`check_here` when `!flags.pickup`** (D-0095); 
