@@ -5,8 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `mkmaze.c` place_lregion — coverage PARTIAL (C 50 L `mkmaze.c:356–410` / JS 31 L in js/mklev.js; hops 3, callers 6, RNG 2, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn place_lregion` (reach regression must be 0). Measured `port-coverage.mjs --name place_lregion` 2026-09-26 @ fb4f1bf7d. **Addressed:** D-2831
-- [x] `mkmaze.c` setup_waterlevel — coverage PARTIAL (C 45 L `mkmaze.c:1812–1857` / JS 22 L in js/mklev.js; hops 3, callers 1, RNG 5, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn setup_waterlevel` (reach regression must be 0). Measured `port-coverage.mjs --name setup_waterlevel` 2026-09-26 @ fb4f1bf7d. **Addressed:** D-2831
+- [x] `polyself.c` set_uasmon — coverage PARTIAL (C 89 L `polyself.c:38–127` / JS 51 L in js/polyself.js; hops 2, callers 11, RNG 0, msg 0; dead callees: valid_vampshiftform). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn set_uasmon` (reach regression must be 0). Measured `port-coverage.mjs --name set_uasmon` 2026-09-26 @ fb4f1bf7d. **Addressed:** D-2832
+
+
+- [x] `mkmaze.c` place_lregion — coverage PARTIAL (C 50 L `mkmaze.c:356–410` / JS 31 L in js/mklev.js; hops 3, callers 6, RNG 2, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn place_lregion` (reach regression must be 0). Measured `port-coverage.mjs --name place_lregion` 2026-09-26 @ fb4f1bf7d. **Addressed:** D-2831 `8eb83b375`
+- [x] `mkmaze.c` setup_waterlevel — coverage PARTIAL (C 45 L `mkmaze.c:1812–1857` / JS 22 L in js/mklev.js; hops 3, callers 1, RNG 5, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn setup_waterlevel` (reach regression must be 0). Measured `port-coverage.mjs --name setup_waterlevel` 2026-09-26 @ fb4f1bf7d. **Addressed:** D-2831 `8eb83b375`
 
 
 - [x] `options.c` optfn_sortloot — coverage MISSING (C 39 L `options.c:3914–3955` / JS no symbol; hops —, callers 0, RNG 0, msg 0; dead callees: handler_sortloot). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn optfn_sortloot` (reach regression must be 0). Measured `port-coverage.mjs --name optfn_sortloot` 2026-09-26 @ 4d4432b8f. **Addressed:** D-2830 `db4f455db`

@@ -62,6 +62,7 @@ import {
 export { serObj, serMon, serLevel, deserLevel, serTraps, deserTraps } from './lev_json.js';
 import { relink_light_sources } from './light.js';
 import { adj_erinys, reset_erinys } from './monsters.js';
+import { set_uasmon } from './polyself.js';
 
 const SAVE_VFS_PREFIX = 'save/';
 // C ref: fnamesiz.h UNIX arm — SAVEX `save/99999.e` (sizeof 12),
@@ -966,6 +967,15 @@ export async function try_restore_save() {
     // stash — zero restore_cham until goto_level.
     if (!game.program_state) game.program_state = {};
     game.program_state.restoring = REST_CURRENT_LEVEL;
+    // C restore.c:604 youmonst.cham = u.mcham, then :627 set_uasmon()
+    // while program_state.restoring is already nonzero (dorecover sets
+    // REST_GSTATE before restgamestate), so float_vs_flight is skipped.
+    // A reused JS youmonst.data would prorate umovement; C's fresh
+    // youmonst.data is null, so old_speed is 0.
+    if (!game.youmonst) game.youmonst = {};
+    game.youmonst.data = null;
+    game.youmonst.cham = (u.mcham ?? 0) | 0;
+    set_uasmon();
     const { getlev_place_monsters, getlev_catchup_monsters } =
         await import('./do.js');
     getlev_place_monsters();

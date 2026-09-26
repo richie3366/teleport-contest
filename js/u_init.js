@@ -77,6 +77,7 @@ import {
     NON_PM,
 } from './generated/monsters_data.js';
 import { mons } from './monsters.js';
+import { set_uasmon } from './polyself.js';
 import { skill_init, P_SKILL } from './weapon.js';
 import { set_artifact_intrinsic } from './artifact.js';
 import { record_achievement } from './insight.js';
@@ -1946,17 +1947,13 @@ export async function u_init_misc() {
     g.u.uz0 = { dnum: 0, dlevel: 0 };
     g.u.utolev = { dnum: 0, dlevel: 1 };
 
-    // C: u.umonnum = u.umonster = gu.urole.mnum; set_uasmon();
-    // Basic youmonst.data only — full FROMFORM prop set deferred (D-0409).
+    // C u_init.c:991–993 — umonnum, ulycn, then set_uasmon().
     const roleMnum = g.urole?.mnum;
     if (roleMnum != null) {
         g.u.umonnum = roleMnum;
         g.u.umonster = roleMnum;
-        if (g.u.ulycn == null) g.u.ulycn = NON_PM;
-        g.youmonst = g.youmonst || {};
-        g.youmonst.data = mons(roleMnum);
-        g.youmonst.mnum = roleMnum;
-        g.youmonst.m_id = 1;
+        g.u.ulycn = NON_PM;
+        set_uasmon();
     }
 
     // C: u.ulevel = 0; newhp()/newpw(); adjabil(0,1); u.ulevel = u.ulevelmax = 1;

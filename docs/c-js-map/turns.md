@@ -2647,11 +2647,10 @@ was sticky title[0]); **botl `_statusLine2` `enc_stat` when `near_capacity()>UNE
 **Blind/Deaf/Stun/Conf/Hallu/Lev/Fly before Ride** (D-0458; 
 Stone/Slime/Strngl/Sick before hunger + Halluc_resistance deferred); 
 **Upolyd botl mh/HD/pmname + `hero_glyph` umonnum + `weight_cap` cwt** (D-0722); 
-**`set_uasmon` PROPSET(FLYING) FROMFORM** (D-0724) + 
+**`set_uasmon` whole body** (D-2832; `polyself.c:38–127` cham, every `PROPSET`, `polysense`, `were_changes=0`; `valid_vampshiftform` `mon.c:5014`; `status_initialize` named — contest tty `wincap2` 0) + 
 **PROPSET(BLINDED, !haseyes)** (D-0928 #1109) + **`float_vs_flight`→`disp.botl`** (D-0928 #1177) + 
 **`polymon` `vision_full_recalc=1` before `see_monsters`** (D-0928 #1178; 
-eyeless FROMFORM Blind clears stale IN_SIGHT; 
-was_blind restore / other PROPSET / BLND_RES / polysense deferred); 
+eyeless FROMFORM Blind clears stale IN_SIGHT); 
 **`dropz`→`encumber_msg`** (D-0928 #1177; mid-`break_armor` load More before gloves); 
 **`polymon` verbose `#monster` breath tip + `dobreathe` energy** (D-0725); 
 **`verbalize`** whole-body (D-2464; C `pline.c:476–490` — `PLINE_VERBALIZE` set/clear around `pline()`, quote-format before expand, `%s/%d/%ld/%%`; `You_buf` growth unneeded in JS; vpline is `pline()`); **`You_feel`** (D-0116); **`You_hear` Unaware «dream that you hear» + `(Deaf && !Unaware)` gate** (D-2065; C `pline.c:436–452` + `youprop.h:399` via `teleport.js` `unconscious` / `eat.js` `is_fainted` imports, no new edges; `sounds.js` local clone deleted, imports the `hack.js` export; still named: Underwater «barely hear», `You_feel`/`You_see` dream arms, file-local `You_hear` clones in dbridge/do/dokick/dothrow/fountain/lock/mhitm/mhitu/mthrowu/music/trap/zap (+apply/meat/yell variants)); **`gamelog_add`/`livelog_printf` chronicle list** (D-0124); 

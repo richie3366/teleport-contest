@@ -44,7 +44,7 @@ import {
     is_elf, is_dwarf, is_gnome, is_orc, is_undead, amphibious, can_teleport, MR_FIRE,
     mindless, G_UNIQ, is_watch,
     touch_petrifies, flesh_petrifies, slimeproof, resists_ston, poly_when_stoned, vegan,
-    montoostrong, monmax_difficulty,
+    montoostrong, monmax_difficulty, is_vampire,
 } from './monsters.js';
 import {
     little_to_big, big_to_little, big_little_match, hero_conflict,
@@ -132,6 +132,9 @@ const PM_WATER_ELEMENTAL = monsterNames.indexOf('PM_WATER_ELEMENTAL');
 const PM_HEZROU = monsterNames.indexOf('PM_HEZROU');
 const PM_VROCK = monsterNames.indexOf('PM_VROCK');
 const PM_STALKER = monsterNames.indexOf('PM_STALKER');
+const PM_VAMPIRE = monsterNames.indexOf('PM_VAMPIRE');
+const PM_VAMPIRE_BAT = monsterNames.indexOf('PM_VAMPIRE_BAT');
+const PM_WOLF = monsterNames.indexOf('PM_WOLF');
 const PM_RUST_MONSTER = monsterNames.indexOf('PM_RUST_MONSTER');
 const AMULET_OF_STRANGULATION = objectNames.indexOf('AMULET_OF_STRANGULATION');
 const RIN_SLOW_DIGESTION = objectNames.indexOf('RIN_SLOW_DIGESTION');
@@ -150,6 +153,25 @@ const GLOB_OF_GREEN_SLIME = objectNames.indexOf('GLOB_OF_GREEN_SLIME');
 const AMULET_OF_YENDOR = objectNames.indexOf('AMULET_OF_YENDOR');
 const SADDLE = objectNames.indexOf('SADDLE');
 const NC_SHOW_MSG = 1;
+
+/**
+ * C ref: mon.c valid_vampshiftform :5014–5023 — a vampire base may be
+ * a vampire bat, a fog cloud, or a wolf (wolf only when the base is
+ * not the plain vampire). Sole caller: polyself.c set_uasmon.
+ * @param {number} base
+ * @param {number} form
+ */
+export function valid_vampshiftform(base, form) {
+    const b = base | 0;
+    const f = form | 0;
+    if (b >= LOW_PM && is_vampire(mons(b))) {
+        if (f === PM_VAMPIRE_BAT || f === PM_FOG_CLOUD
+            || (f === PM_WOLF && b !== PM_VAMPIRE)) {
+            return true;
+        }
+    }
+    return false;
+}
 
 /** C ref: monmove.c closed_door — IS_DOOR && (CLOSED|LOCKED). */
 function closed_door(x, y) {
