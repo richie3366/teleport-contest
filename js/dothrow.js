@@ -1907,7 +1907,10 @@ async function return_throw_to_inv(obj, wep_mask, twoweap, oldslot) {
         }
         // C `:1899–1904` — re-wield what was worn before the throw.
         const u = game.u || {};
-        if ((wep_mask & W_WEP) && !u.uwep) setuwep(obj);
+        if ((wep_mask & W_WEP) && !u.uwep) {
+            const shine = setuwep(obj);
+            if (shine) await shine;
+        }
         else if ((wep_mask & W_SWAPWEP) && !u.uswapwep) setuswapwep(obj);
         else if ((wep_mask & W_QUIVER) && !u.uquiver) setuqwep(obj);
         // C `:1906–1909` — reinstate dual-wield after a successful catch
@@ -2004,7 +2007,10 @@ async function throwit_returning_missile(
         const { encumber_msg } = await import('./invent.js');
         await encumber_msg();
         if ((obj.owornmask || 0) & W_QUIVER) setuqwep(null);
-        setuwep(obj);
+        {
+            const shine = setuwep(obj);
+            if (shine) await shine;
+        }
         set_twoweap(!!twoweap);
         if (cansee(x, y)) newsym(x, y);
         throwit_return(true);

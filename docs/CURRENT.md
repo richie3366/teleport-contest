@@ -98,10 +98,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `wield.c` `setuwep` — coverage PARTIAL (C 35 L `wield.c:100–135` / JS 21 L in js/wield.js). Verify `node scripts/verify.mjs --fn setuwep` (reach regression must be 0).
+**Next cluster:** `hacklib.c` `strstri` — coverage THIN (C 39 L `hacklib.c:740–779` / JS 8 L in js/attrib.js). Verify `node scripts/verify.mjs --fn strstri` (reach regression must be 0).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2875 (index).**
+**Keep D-0845…D-2876 (index).**
 <!-- recent:begin -->
+**D-2876** `nethack-c/upstream/src/wield.c:100–135` `setuwep`. Callees: `setworn` (`worn.c:72`), `art — One `setuwep` in that C order.
 **D-2875** `nethack-c/upstream/src/mon.c:3377–3418` `monkilled`. Callees: `worm_known` (`worm.c:877`) — One `monkilled` in that C order.
 **D-2874** `nethack-c/upstream/src/dungeon.c:2761–2801` `overview_stats`. No C callees beyond `Sprint — One `overview_stats` in that C order.
 **D-2873** `nethack-c/upstream/src/zap.c:6227–6255` `wish_history_add`. `DEBUG` is defined (`patchlev — One `wish_history_add` in that C order.
@@ -109,11 +110,10 @@ revisits the picker.
 **D-2871** `nethack-c/upstream/src/cmd.c:752–882` `extcmd_via_menu`. The cancel arm is `:874–876` (`n — That arm no longer assigns `cbuf`.
 **D-2870** `nethack-c/upstream/src/mkmaze.c:125–145` `set_levltyp_lit`. Callees `set_levltyp` (`mkmaz — One `set_levltyp_lit` in that C order.
 **D-2869** `nethack-c/upstream/src/steal.c:772–810` `maybe_absorb_item`. Callees `obj_resists` (`zap. — One `maybe_absorb_item` in that C order.
-**D-2868** `nethack-c/upstream/src/do.c:849–888` `engulfer_digests_food`. Callees `digests` (`mondata — One `engulfer_digests_food` in that C order.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2875; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2876; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

@@ -5233,7 +5233,8 @@ export async function poly_obj(obj, id) {
                 const u = game.u || {};
                 if ((new_wornmask & W_WEP) !== 0) {
                     if (was_twohanded || !bimanual(otmp) || !u.uarms) {
-                        setuwep(otmp);
+                        const shine = setuwep(otmp);
+                        if (shine) await shine;
                     }
                     if (was_twoweap && u.uwep && !bimanual(u.uwep)) {
                         set_twoweap(true);

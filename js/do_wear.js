@@ -2188,7 +2188,10 @@ async function do_takeoff() {
     doff.mask = (doff.mask | 0) | I_SPECIAL;
     if (doff.what === W_WEP) {
         if (!(await cursed_blocks(u.uwep))) {
-            setuwep(null);
+            {
+                const shine = setuwep(null);
+                if (shine) await shine;
+            }
             if (was_twoweap) {
                 await pline('You are no longer wielding either weapon.');
             } else {
@@ -3403,7 +3406,10 @@ export async function Ring_on(obj) {
     const oprop = game.objects?.[obj.otyp]?.oc_oprop | 0;
     let oldprop = u.uprops?.[oprop]?.extrinsic | 0;
     // make sure ring isn't wielded
-    if (obj === u.uwep) setuwep(null);
+    if (obj === u.uwep) {
+        const shine = setuwep(null);
+        if (shine) await shine;
+    }
     else if (obj === u.uswapwep) setuswapwep(null);
     else if (obj === u.uquiver) setuqwep(null);
 
@@ -3683,7 +3689,10 @@ export async function glibr() {
             + `${otense(otmp, 'slip')} from your ${which}${hand}.`,
         );
         otmp.quan = savequan;
-        setuwep(null);
+        {
+            const shine = setuwep(null);
+            if (shine) await shine;
+        }
         cmdq_clear();
         if (await canletgo(otmp, '')) await dropx(otmp);
     }

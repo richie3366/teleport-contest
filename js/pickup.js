@@ -3176,7 +3176,10 @@ async function in_container(obj) {
             await weldmsg(obj);
             return 0;
         }
-        setuwep(null);
+        {
+            const shine = setuwep(null);
+            if (shine) await shine;
+        }
         /* C: this uwep check is obsolete (3.0 Firebrand) — unwielded, died,
            rewielded by life-saving. */
         if (game.u?.uwep) return 0;

@@ -1058,11 +1058,13 @@ function useupall_gamestate(obj) {
  */
 function setworn_restore(otmp, wornmask) {
     if (!otmp || !wornmask) return;
-    if (wornmask & W_WEP) setuwep(otmp);
+    let shine;
+    if (wornmask & W_WEP) shine = setuwep(otmp);
     if (wornmask & W_SWAPWEP) setuswapwep(otmp);
     if (wornmask & W_QUIVER) setuqwep(otmp);
     const rest = wornmask & ~(W_WEP | W_SWAPWEP | W_QUIVER);
     if (rest) setworn(otmp, rest);
+    return shine;
 }
 
 /**
@@ -1126,7 +1128,10 @@ async function tutorial_leave_gamestate() {
         const wornmask = otmp.owornmask || 0;
         otmp.owornmask = 0;
         await addinv_nomerge(otmp);
-        if (wornmask) setworn_restore(otmp, wornmask);
+        if (wornmask) {
+            const shine = setworn_restore(otmp, wornmask);
+            if (shine) await shine;
+        }
     }
     restore_you(game.u, game.gmst_ubak);
     restore_disco(game.gmst_disco);
@@ -2392,7 +2397,10 @@ function freeinv_drop(obj) {
 export async function dropz(obj, with_impact) {
     if (!obj) return;
     const u = game.u || {};
-    if (obj === u.uwep) setuwep(null);
+    if (obj === u.uwep) {
+        const shine = setuwep(null);
+        if (shine) await shine;
+    }
     if (obj === u.uquiver) setuqwep(null);
     if (obj === u.uswapwep) setuswapwep(null);
 
@@ -2776,7 +2784,8 @@ export async function drop(obj) {
     const u = game.u || {};
     if (obj === u.uwep) {
         // canletgo already rejected welded uwep
-        setuwep(null);
+        const shine = setuwep(null);
+        if (shine) await shine;
     }
     if (obj === u.uquiver) setuqwep(null);
     if (obj === u.uswapwep) setuswapwep(null);
