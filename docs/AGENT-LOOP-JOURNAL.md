@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2878 `more_experienced` caps a wrapped experience total at LONG_MAX
+
+**C locus:** `nethack-c/upstream/src/exper.c:169–203` `more_experienced`. Callee: `exp_percent_changing` (`botl.c:2090`, live `js/botl.js:593`). `SCORE_ON_BOTL` has no `#define` in the pinned tree, so the `flags.showscore` arm is not compiled. `Role_if(PM_WIZARD)` is `gu.urole.mnum == PM_WIZARD` (`you.h:247`). `disp.botl` is the bit `bot()` reads (`game.flags.botl`).
+**JS:** `js/exper.js` `EXP_LONG_MAX` `:303`, `more_experienced` `:315`, int `rexpincr` `:323`, caps `:326–333`, `uexp` / `showexp` / `exp_percent_changing` `:334–337`, `urexp` `:338–340`, beginner `:341–343`.
+**Change:** One `more_experienced` in that C order. `exper` and `rexp` are C `int`. `rexpincr = 4 * exper + rexp` is `int` arithmetic (`Math.imul`, then an int32 add) before it widens to `long`.
+**Verify:** `node scripts/verify.mjs --fn more_experienced` → PASS syntax (1 changed js file: js/exper.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.2s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) · VERIFY: PASS.
+**Named:** `SCORE_ON_BOTL` / `flags.showscore` (`exper.c:194–197`) is not compiled. The cap threshold is `Number.MAX_SAFE_INTEGER`, not a 64-bit `LONG_MAX`; totals between 2^53 and 2^63−1 are not exact JS integers.
+**Next:** `light.c` `candle_light_range` (next Open — coverage row). `Sting_effects` parked Stale. Six gameplay rows refilled (`does_block`, `give_spell`, `tshirt_text`, `logdeadmon`, `bhitpile`, `vision_reset`); 12 Open — coverage rows remain after archive.
 ## 2026-09-26 — D-2877 `strstri` counts signed nibbles, then matches with `lowc`
 
 **C locus:** `nethack-c/upstream/src/hacklib.c:739–779` `strstri`. `STRSTRI` is not defined, so this body is compiled. Callee: `lowc` (`hacklib.c:83`, live `ascii_lowc_ch` in `js/hacklib.js`). The `#if 0` asserts are not compiled. Counters are `char` (signed wrap).
