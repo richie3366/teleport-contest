@@ -645,7 +645,7 @@ damagetypes + cold `destroy_items`/`resist`/`Reflecting` shield)** (D-0450/D-068
 **`burnarmor` worn erode + `maybe_destroy_item` pline/`potionbreathe` + 
 fatal mid-destroy `finish_losehp_done`** (D-0741; 
 **ignite_items/`burn_away_slime`/`begin_burn`** (D-0978); 
-death-breath disintegrate / poison·acid / ugolemeffects / inventory_resistance deferred; 
+death-breath disintegrate / poison·acid / inventory_resistance deferred; ugolemeffects is D-2895 (`js/mhitu.js`, zhitu + zapyourself resist arms); 
 **`maybe_destroy_item` AD_ELEC D-1368 / Shock uprops D-1371**); 
 **`destroy_items` whole C body `:5965–6097` (D-2454; limit rn2 + bypass_objlist/nxt_unbypassed_obj reservoir traversal + worn-levitation/flying + lycanthropy-water defer second pass + o_id/where identity + bypass clear; all 36 C callers on the same export, signature unchanged)**; 
 **fatal `zhitu`→`losehp` awaits `finish_losehp_done` + `weffects` skips `learnwand` (D-0737; 
@@ -3814,7 +3814,8 @@ this D via the existing display.js edge; `explode()` awaits both call sites);
 `explosionmask` monster-MAGM via canonical `resists_magm` (`js/mondata.js:183`,
 wielded/worn ANTIMAGIC scan — species-only `explode.js` clone retired);
 named: You_hear Underwater/Unaware (no live Unaware export),
-`ugolemeffects`/`golemeffects` (no JS port), Upolyd `rehumanize` fatal path;
+monster `golemeffects` (`explode.c:525`) still unported, hero
+`ugolemeffects` wired (D-2895, `explode.c:619`), Upolyd `rehumanize` fatal path;
 explosion_to_glyph is D-1738); 
 **`xkilled` treasure `mkobj(RANDOM_CLASS)` + food/size filters** (D-0229); 
 **`xkilled` final `newsym` after treasure/corpse** (D-0304); 

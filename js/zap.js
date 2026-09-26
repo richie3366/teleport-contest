@@ -295,7 +295,7 @@ import { create_gas_cloud } from './region.js';
 import { block_point, does_block, recalc_block_point, unblock_point } from './vision.js';
 import { picking_at, reset_pick, boxlock, boxlock_invent, doorlock, getdir } from './lock.js';
 import { monflee, sticks, maybe_unhide_at } from './monmove.js';
-import { digests, set_ustuck, unstuck, expels, ureflects, u_slow_down } from './mhitu.js';
+import { digests, set_ustuck, unstuck, expels, ureflects, u_slow_down, ugolemeffects } from './mhitu.js';
 import { newcham, makemon, create_critters, monhp_per_lvl, neweshk, add_to_minv, set_mimic_sym, newmcorpsenm } from './makemon.js';
 import { tele, u_teleport_mon, rloco, enexto } from './teleport.js';
 import { find_ac, addinv_core1, addinv_core2 } from './u_init.js';
@@ -2005,7 +2005,8 @@ export async function zhitm(mon, type, nd, ootmp) {
  * ugrave_arise = NON_PM, monstunseesu(M_SEEN_MAGR), done(DIED)
  * (C zap.c:4502–4509).
  * Named omissions: shieldeff (FIRE/COLD resist arms), monstseesu/
- * monstunseesu (FIRE/COLD arms), ugolemeffects; MM-Antimagic shieldeff +
+ * monstunseesu (FIRE/COLD arms). ugolemeffects is live on the resist
+ * arms (FIRE/COLD/LIGHTNING). MM-Antimagic shieldeff +
  * monstseesu and MM-hit monstunseesu live (C zap.c:4410–4419).
  * ZT_DEATH disintegration-breath arm (C zap.c:4465–4490); poison;
  * killer buzzer verb polish.
@@ -2036,7 +2037,8 @@ async function zhitu(type, nd, fltxt, sx, sy) {
         orig_dam = d(nd, 6);
         if (Fire_resistance()) {
             await pline("You don't feel hot!");
-            // ugolemeffects deferred
+            // C zap.c:4427 — after the resist message, before burn_away_slime.
+            await ugolemeffects(AD_FIRE, orig_dam);
         } else {
             dam = orig_dam;
         }
@@ -2056,6 +2058,8 @@ async function zhitu(type, nd, fltxt, sx, sy) {
         orig_dam = d(nd, 6);
         if (Cold_resistance()) {
             await pline("You don't feel cold.");
+            // C zap.c:4446
+            await ugolemeffects(AD_COLD, orig_dam);
         } else {
             dam = orig_dam;
         }
@@ -2103,6 +2107,8 @@ async function zhitu(type, nd, fltxt, sx, sy) {
         orig_dam = d(nd, 6);
         if (Shock_resistance()) {
             await pline("You aren't affected.");
+            // C zap.c:4516
+            await ugolemeffects(AD_ELEC, orig_dam);
         } else {
             dam = orig_dam;
             exercise(A_CON, false);
@@ -4643,8 +4649,10 @@ export async function zapyourself(obj, ordinary) {
         learn_it = true;
         const orig_dmg = d(12, 6);
         if (Fire_resistance()) {
-            // shieldeff / monstseesu / ugolemeffects deferred
+            // shieldeff / monstseesu still deferred (C zap.c:2757–2759).
             await You_feel('rather warm.');
+            // C zap.c:2760
+            await ugolemeffects(AD_FIRE, orig_dmg);
         } else {
             await pline("You've set yourself afire!");
             damage = orig_dmg;
@@ -4663,6 +4671,8 @@ export async function zapyourself(obj, ordinary) {
         const orig_dmg = d(12, 6);
         if (Cold_resistance()) {
             await You_feel('a little chill.');
+            // C zap.c:2781
+            await ugolemeffects(AD_COLD, orig_dmg);
         } else {
             await pline('You imitate a popsicle!');
             damage = orig_dmg;
@@ -4683,8 +4693,10 @@ export async function zapyourself(obj, ordinary) {
             exercise(A_CON, false);
             // monstunseesu deferred
         } else {
-            // shieldeff / monstseesu / ugolemeffects deferred
+            // shieldeff / monstseesu still deferred (C zap.c:2739–2741).
             await You('zap yourself, but seem unharmed.');
+            // C zap.c:2742
+            await ugolemeffects(AD_ELEC, orig_dmg);
         }
         await destroy_items(
             game.youmonst || { _youmonst: true },

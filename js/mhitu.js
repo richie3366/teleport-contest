@@ -676,22 +676,34 @@ function resists_blnd_you() {
 }
 
 /**
- * C ref: polyself.c ugolemeffects :2160–2187 — flesh golem elec /
- * iron golem fire heal when not_affected.
+ * C ref: polyself.c ugolemeffects :2160–2188.
+ * Only a flesh golem (electricity) or an iron golem (fire) heals.
+ * C skips slow/haste: the hero has no monster-specific velocity to restore.
+ * disp.botl is both stores; bot() reads flags.botl (botl.js:590).
  */
-async function ugolemeffects(damtype, dam) {
-    const u = game.u || {};
+export async function ugolemeffects(damtype, dam) {
+    const u = game.u;
+    if (!u) return;
     const umon = u.umonnum | 0;
+    /* C polyself.c:2169 */
     if (umon !== PM_FLESH_GOLEM && umon !== PM_IRON_GOLEM) return;
     let heal = 0;
-    if ((damtype | 0) === AD_ELEC && umon === PM_FLESH_GOLEM) {
-        heal = Math.trunc(((dam | 0) + 5) / 6);
-    } else if ((damtype | 0) === AD_FIRE && umon === PM_IRON_GOLEM) {
-        heal = dam | 0;
+    switch (damtype | 0) {
+    case AD_ELEC: /* C :2173–2175 — approx 1 per die */
+        if (umon === PM_FLESH_GOLEM)
+            heal = Math.trunc(((dam | 0) + 5) / 6);
+        break;
+    case AD_FIRE: /* C :2176–2178 */
+        if (umon === PM_IRON_GOLEM)
+            heal = dam | 0;
+        break;
+    default:
+        break;
     }
-    if (heal && (u.mh | 0) < (u.mhmax | 0)) {
+    /* C :2180–2187 — heal, clamp mh to mhmax, botl, pline, exercise STR. */
+    if (heal && ((u.mh | 0) < (u.mhmax | 0))) {
         u.mh = (u.mh | 0) + heal;
-        if (u.mh > u.mhmax) u.mh = u.mhmax;
+        if (u.mh > (u.mhmax | 0)) u.mh = u.mhmax | 0;
         if (game.disp) game.disp.botl = true;
         if (game.flags) game.flags.botl = true;
         await pline('Strangely, you feel better than before.');

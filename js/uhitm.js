@@ -113,7 +113,7 @@ import { Unaware } from './eat.js';
 import { hard_helmet } from './do_wear.js';
 import { findgold, inv_cnt } from './steal.js';
 import { mselftouch, instapetrify, minstapetrify, t_at } from './trap.js';
-import { set_ustuck } from './mhitu.js';
+import { set_ustuck, ugolemeffects } from './mhitu.js';
 import { Protection_from_shape_changers } from './were.js';
 import { merge_choice_invent } from './pickup.js';
 import { addinv } from './u_init.js';
@@ -3105,8 +3105,10 @@ async function passive_obj(mon, obj, mattk) {
  * C ref: uhitm.c passive — defender AT_NONE after hero melee.
  * Finds first AT_NONE (incl. NO_ATTK fillers), rolls damage dice, applies
  * even-if-dead effects, then live gate `malive && !mcan && rn2(3)`.
- * Named omissions: full AD_PLYS gaze/cube / ugolemeffects /
- * erode_armor; dokick callers. D-2770: AD_STON touch-petrify live
+ * Named omissions: full AD_PLYS gaze/cube shieldeff/monstseesu,
+ * erode_armor; dokick callers. ugolemeffects is live on the
+ * COLD/FIRE/ELEC resist arms (uhitm.c:6072/:6095/:6108).
+ * D-2770: AD_STON touch-petrify live
  * (attk_protection + Stone_resistance / poly_when_stoned→polymon gates +
  * done_in_by STONING, uhitm.c:5930–5956).
  * D-1095: AD_COLD healmon + split_mon (potion.c via sit.js).
@@ -3300,6 +3302,8 @@ export async function passive(mon, weapon, mhitb, maliveb, aatyp, wep_was_destro
             if (monnear(mon, u.ux, u.uy)) {
                 if (Cold_resistance) {
                     await pline('You feel a mild chill.');
+                    // C uhitm.c:6072 — resist arm returns before mdamageu.
+                    await ugolemeffects(AD_COLD, tmp);
                     break;
                 }
                 await pline('You are suddenly very cold!');
@@ -3324,6 +3328,8 @@ export async function passive(mon, weapon, mhitb, maliveb, aatyp, wep_was_destro
             if (monnear(mon, u.ux, u.uy)) {
                 if (Fire_resistance) {
                     await pline('You feel mildly warm.');
+                    // C uhitm.c:6095
+                    await ugolemeffects(AD_FIRE, tmp);
                     break;
                 }
                 await pline('You are suddenly very hot!');
@@ -3334,6 +3340,8 @@ export async function passive(mon, weapon, mhitb, maliveb, aatyp, wep_was_destro
         case AD_ELEC:
             if (Shock_resistance) {
                 await pline('You feel a mild tingle.');
+                // C uhitm.c:6108
+                await ugolemeffects(AD_ELEC, tmp);
                 break;
             }
             await pline('You are jolted with electricity!');
