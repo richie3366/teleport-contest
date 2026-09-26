@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2888 `do_positionbar` writes stair and hero pairs into the static bar
+
+**C locus:** `nethack-c/upstream/src/allmain.c:933–972` `do_positionbar`. Callees: `glyph_to_cmap` (`glyphs.c:199`, live `js/display.js`), `is_cmap_stairs` (`sym.h:107`), `update_positionbar` (`winprocs.h:145` → `tty_update_positionbar` `wintty.c:4159–4167`). `getpos()` appears only in the TODO comment and is not called. No RNG. The whole function and the call at `allmain.c:187` are `#ifdef POSITIONBAR`, defined only in `pcconf.h:284`.
+**JS:** `js/allmain.js` `is_cmap_stairs` `:1018`, `update_positionbar` `:1029`, `positionbar_char` `:1039`, `do_positionbar` `:1054`, stairs `:1063`, hero `:1078`, fence `:1084`, call `:1104`.
+**Change:** One `do_positionbar` in that C order. A module-level `COLNO` buffer is reused. Each stair with a remembered `levl` glyph in `S_upstair..S_brdnladder` appends `'<'` or `'>'` and `(char) x` (signed 8-bit).
+**Verify:** `node scripts/verify.mjs --fn do_positionbar` → PASS syntax (1 changed js file: js/allmain.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+**Named:** `video_update_positionbar` (`sys/msdos/video.c:703`) and `vga_update_positionbar` / `vesa_update_positionbar` are MS-DOS and are not this window port. The `getpos()` TODO is not implemented in C.
+**Next:** `eat.c` `intrinsic_possible` (next Open — coverage row). Refill below the band of 8: five tool rows, twelve Open — coverage rows after archive.
 ## 2026-09-26 — D-2887 `obj_pmname` uses the corpse gender and avoids "aligned cleric"
 
 **C locus:** `nethack-c/upstream/src/do_name.c:1321–1359` `obj_pmname`. Callees: `ismnum` (`monst.h:285`), `pmname` (`do_name.c:1302`), `impossible` (`pline.c`). The `#if 0` `has_omonst` / `OMONST` / `Mgender` arm (`:1323–1334`) is compiled out. No RNG.

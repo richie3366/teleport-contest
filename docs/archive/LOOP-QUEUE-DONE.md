@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `do_name.c` obj_pmname — coverage THIN (C 38 L `do_name.c:1321–1359` / JS 14 L in js/trap.js; hops 3, callers 8, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn obj_pmname` (reach regression must be 0). Measured `port-coverage.mjs --name obj_pmname` 2026-09-26 @ d921aef05. **Addressed:** D-2887
+- [x] `allmain.c` do_positionbar — coverage MISSING (C 39 L `allmain.c:933–972` / JS no symbol; hops 2, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn do_positionbar` (reach regression must be 0). Measured `port-coverage.mjs --name do_positionbar` 2026-09-26 @ 64f8ebc04. **Addressed:** D-2888
+
+
+- [x] `do_name.c` obj_pmname — coverage THIN (C 38 L `do_name.c:1321–1359` / JS 14 L in js/trap.js; hops 3, callers 8, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn obj_pmname` (reach regression must be 0). Measured `port-coverage.mjs --name obj_pmname` 2026-09-26 @ d921aef05. **Addressed:** D-2887 `3afe3adc0`
 
 
 - [x] `invent.c` let_to_name — coverage PARTIAL (C 39 L `invent.c:4800–4839` / JS 21 L in js/invent.js; hops 3, callers 11, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn let_to_name` (reach regression must be 0). Measured `port-coverage.mjs --name let_to_name` 2026-09-26 @ d921aef05. **Addressed:** D-2886 `f2ba5333b`
