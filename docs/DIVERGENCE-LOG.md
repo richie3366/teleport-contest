@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2836 — `place_lregion` tele finishes before the caller continues
+
+- **Status:** fixed (Must-fix, review 1790; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** Tele `put_lregion_here` returned a Promise. `u_on_rndspot` awaited it. `fixup_special` and the special-level `place_lregion` calls did not, so a teleport region could keep generating the level inside `rloc_to_with_msg`.
+- **C locus:** `nethack-c/upstream/src/mkmaze.c:444–455` `put_lregion_here` (called from `place_lregion` `:356–410`). Oneshot monster: `rloc(mtmp, RLOC_NOMSG)`, then `m_into_limbo` when that is false, then `u_on_newpos`. No monster: `u_on_newpos`. Both return TRUE only after that. Stair, portal, and branch stay synchronous.
+- **JS was:** The tele arm returned an async IIFE (or `u_on_newpos`'s Promise). `place_lregion` treated that Promise as success and returned it. Only `u_on_rndspot` awaited. `fixup_special` (`mklev.js` region loop, C `mkmaze.c:606`) and the other `place_lregion` calls did not.
+- **Fix:** Tele still returns a Promise, and it settles only after `rloc`, `m_into_limbo`, and `u_on_newpos`. `afterPending` / `walkRegions` run the next region, the branch fallback, medusa, and `premap_detect` after that Promise. A boolean stair, portal, or branch result does not yield. `load_special_proto_body` awaits a loader Promise only when one is returned. Failure `impossible` is still not the placement result.
+- **JS:** `js/mklev.js` `isThenable` `:571`, `afterPending` `:581`, `walkRegions` `:591`, `put_lregion_here` `:638`, `place_lregion` `:761`, `fixup_special` `:2406`, `finish_fixup_special` `:2478`.
+- **Callers:** `dungeon.c:1620` → `js/mklev.js:728` (`await`). `dungeon.c:1624` → `:733`. `dungeon.c:1630` → `:739`. `mkmaze.c:606` → `:2445` (`walkRegions` / `afterPending`). `mkmaze.c:645` → `:2472`. `extern.h:1634` is the declaration. `lspo_finalize_level` waits at `:2191` before `premap_detect`. Each inlined special-level `place_lregion` returns into `walkRegions` (same chain). No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn place_lregion` → PASS syntax (1 changed js file: js/mklev.js) · PASS rule2 · note hidden (no corpus session blocked at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (shared file) · VERIFY: PASS.
+- **Named omissions:** Total-failure `impossible` is still not awaited. `mkportal`'s `impossible('portal on top of portal?')` is still not awaited. A missing level cell makes `bad_location` true. A null `lev` passes dnum 0 and dlevel 0. `On_W_tower_level` in `u_on_rndspot` stays the exclusion-rect stand-in.
+- **Next:** `pager.c` `setopt_cmd` (next Open — coverage row). Nine measured rows remain; the queue stays inside the 8–12 band, so nothing was refilled.
+
 ## D-2835 — `mcast_insects` deaf, detect, and displacement predicates match the macros
 
 - **Status:** fixed (Must-fix, review 1787; `hidden-proxy verify` reports no corpus session blocked).

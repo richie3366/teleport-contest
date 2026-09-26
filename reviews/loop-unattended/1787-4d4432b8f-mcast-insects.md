@@ -5,7 +5,7 @@
 - Queue row: Open coverage, 0 corpus blocks cited
 - Banned grep: 0 hits in the hunk. `imports.mjs --rulecheck`: "Rule #2 clean".
 
-**Addressed:** D-2835
+**Addressed:** D-2835 `57e3529ab`
 
 ## Intent vs deliverable
 

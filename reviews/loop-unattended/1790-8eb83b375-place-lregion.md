@@ -5,6 +5,8 @@
 - Queue row: Open coverage, 0 corpus blocks cited
 - Banned grep: 0 hits in the hunk. `imports.mjs --rulecheck`: "Rule #2 clean".
 
+**Addressed:** D-2836
+
 ## Intent vs deliverable
 
 Subject promises one `place_lregion` in C order, including the failure `impossible`, a `deltrap` recheck, and a tele oneshot that awaits `rloc` then `m_into_limbo` then `u_on_newpos`. The diff is that body. Stair, portal, and branch stay synchronous. The tele arms return a Promise, and only `u_on_rndspot` awaits it.

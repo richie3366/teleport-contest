@@ -103,8 +103,6 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 always Must-fix rows: they forfeit every later screen of that session
 (Constitution §10.14).
 
-- [ ] `mkmaze.c` `place_lregion` — tele `put_lregion_here` (`mkmaze.c:444–455`) must finish `rloc(mtmp, RLOC_NOMSG)`, `m_into_limbo`, and `u_on_newpos` before return. JS returns a Promise. `u_on_rndspot` awaits it; `mklev.js:2398` (`mkmaze.c:606`) and the other sync `place_lregion` calls do not. Verify `node scripts/verify.mjs --fn place_lregion`. Source: reviews/loop-unattended/1790-8eb83b375-place-lregion.md
-
 ## Open — coverage (breadth phase — pop first after Must-fix)
 
 Rows below are `port-coverage.mjs --rows` output (score = reach × call

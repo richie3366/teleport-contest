@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2836 `place_lregion` tele finishes before the caller continues
+
+**C locus:** `nethack-c/upstream/src/mkmaze.c:444–455` `put_lregion_here` (called from `place_lregion` `:356–410`). Oneshot monster: `rloc(mtmp, RLOC_NOMSG)`, then `m_into_limbo` when that is false, then `u_on_newpos`. No monster: `u_on_newpos`. Both return TRUE only after that. Stair, portal, and branch stay synchronous.
+**JS:** `js/mklev.js` `isThenable` `:571`, `afterPending` `:581`, `walkRegions` `:591`, `put_lregion_here` `:638`, `place_lregion` `:761`, `fixup_special` `:2406`, `finish_fixup_special` `:2478`.
+**Change:** Tele still returns a Promise, and it settles only after `rloc`, `m_into_limbo`, and `u_on_newpos`. `afterPending` / `walkRegions` run the next region, the branch fallback, medusa, and `premap_detect` after that Promise. A boolean stair, portal, or branch result does not yield.
+**Verify:** `node scripts/verify.mjs --fn place_lregion` → PASS syntax (1 changed js file: js/mklev.js) · PASS rule2 · note hidden (no corpus session blocked at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (shared file) · VERIFY: PASS.
+**Named:** Total-failure `impossible` is still not awaited. `mkportal`'s `impossible('portal on top of portal?')` is still not awaited.
+**Next:** `pager.c` `setopt_cmd` (next Open — coverage row). Nine measured rows remain; the queue stays inside the 8–12 band, so nothing was refilled.
 ## 2026-09-26 — D-2835 `mcast_insects` deaf, detect, and displacement predicates match the macros
 
 **C locus:** `nethack-c/upstream/src/mcastu.c:645–726` `mcast_insects`. Unseen success `!Deaf` (`:694–698`) is `youprop.h:123–125` (`HDeaf || EDeaf || u.uroleplay.deaf`). `seecaster` `Detect_monsters` (`:677`) is `youprop.h:188–190` (`H || E`). `Displaced` is `youprop.h:202–204`. `BInvis` is `youprop.h:197`. `You_hear` is `pline.c:435–452`.

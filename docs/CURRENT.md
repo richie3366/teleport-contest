@@ -102,8 +102,9 @@ breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
 **Next cluster:** `mkmaze.c` `place_lregion` — tele `put_lregion_here` must finish `rloc`, `m_into_limbo`, and `u_on_newpos` before return. JS returns a Promise that sync callers do not await. Verify `node scripts/verify.mjs --fn place_lregion`. Source: reviews/loop-unattended/1790-8eb83b375-place-lregion.md.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2835 (index).**
+**Keep D-0845…D-2836 (index).**
 <!-- recent:begin -->
+**D-2836** `nethack-c/upstream/src/mkmaze.c:444–455` `put_lregion_here` (called from `place_lregion`  — Tele still returns a Promise, and it settles only after `rloc`, `m_into_limbo`, and `u_on_newpos`.
 **D-2835** `nethack-c/upstream/src/mcastu.c:645–726` `mcast_insects`. Unseen success `!Deaf` (`:694–6 — Those predicates are the macros.
 **D-2834** `nethack-c/upstream/src/insight.c:2022–2077` `youhiding`. `you_are(buf, "")` is `enl_msg(Y — One `youhiding` in that C order.
 **D-2833** `nethack-c/upstream/src/role.c:2206–2725` `genl_player_setup`. Callee `randgend` `:852–877 — One `genl_player_setup` in that C order.
@@ -111,11 +112,10 @@ revisits the picker.
 **D-2831** `nethack-c/upstream/src/mkmaze.c:356–410` `place_lregion`. Callee `put_lregion_here` `:412 — One `place_lregion` in that C order, including the failure `impossible`.
 **D-2830** `nethack-c/upstream/src/options.c` `optfn_sortloot` `:3914–3955` and `handler_sortloot` `: — The five optfns in C order.
 **D-2829** `nethack-c/upstream/src/trap.c:5014–5055` `rescued_from_terrain`. `DROWNING` plus `is_pool — One `rescued_from_terrain` in that C order.
-**D-2828** `nethack-c/upstream/src/mcastu.c:645–726` `mcast_insects`. The class letter is `mkclass(S_ — One `mcast_insects` in that C order.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2835; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2836; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

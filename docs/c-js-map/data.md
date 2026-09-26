@@ -1020,7 +1020,7 @@ temperate → hot; valley still overrides temperate);
 flip `fix_wall_spines`** (**D-1820 `soko2-2`**; `soko4-1` D-0756); 
 **D-0521 `load_special` must not call `fill_special_room` (makelevel fills once)**; 
 **D-0522 `put_lregion_here` TELE `m_at` reject when `!oneshot` + 
-`is_exclusion_zone`** (**D-2831** wires `undestroyable_trap`+`deltrap`+`mtrapped`, `rloc(RLOC_NOMSG)` then `m_into_limbo`, failure `impossible`, and `mkportal`; **D-1109 `lspo_exclusion`**; 
+`is_exclusion_zone`** (**D-2831** wires `undestroyable_trap`+`deltrap`+`mtrapped`, `rloc(RLOC_NOMSG)` then `m_into_limbo`, failure `impossible`, and `mkportal`; **D-2836** the tele Promise settles — `rloc`, `m_into_limbo`, `u_on_newpos` — before the next statement (`afterPending` / `walkRegions` / `await` at every `place_lregion` caller); **D-1109 `lspo_exclusion`**; 
 other soko*-*; **D-0526 Bar-strt through Pelias/chieftains/trap/eels/ogre floodfill/flip/branch**; 
 **D-0588 `Arc-strt` load_special + `splev_discard_default_minvent` (`mdrop_special_objs` 
 obj_resists)**; Pelias/`Lord Carnarvon`/`Arch Priest` `m_dowear` live (D-2335) + King Arthur/Grand Master `m_dowear` live (D-2342); 
