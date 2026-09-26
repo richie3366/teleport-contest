@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `cmd.c` `can_do_extcmd` — coverage PARTIAL (C 26 L `cmd.c:463–489` / JS 17 L in js/cmd.js).
+**Next cluster:** `monmove.c` `m_move_aggress` — coverage PARTIAL (C 29 L `monmove.c:2088–2117` / JS 16 L in js/monmove.js).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2898 (index).**
+**Keep D-0845…D-2899 (index).**
 <!-- recent:begin -->
+**D-2899** `nethack-c/upstream/src/cmd.c:463–489` `can_do_extcmd`. When `gl.luacore` and `nhcb_counts — One `can_do_extcmd` in that C order.
 **D-2898** `nethack-c/upstream/src/sp_lev.c:458–495` `flip_visuals`, wall arm `:489–493`. Skip `seenv — Test `glyph_is_cmap` on `remembered_glyph.glyph`.
 **D-2897** `nethack-c/upstream/src/do_wear.c:148–178` `toggle_displacement`. Return when `on` and `gi — One exported `toggle_displacement` in that C order, including `(Blind_telepat && Blind)`.
 **D-2896** `nethack-c/upstream/src/eat.c:181–213` `eatmupdate`. Return unless `eatmbuf` is set and `n — One exported `eatmupdate` in that C order.
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2894** `nethack-c/upstream/src/uhitm.c:3690–3726` `mhitm_ad_conf`. uhitm (`:3696–3702`): `!mconf` — One `mhitm_ad_conf` in that C order.
 **D-2893** `nethack-c/upstream/src/calendar.c:120–175` `time_from_yyyymmddhhmmss`, plus contest patch — One `time_from_yyyymmddhhmmss` in that C order.
 **D-2892** `nethack-c/upstream/src/hacklib.c:882–919` `unicodeval_to_utf8str`. No callees. `bufsz` is — One `unicodeval_to_utf8str` in that C order.
-**D-2891** `nethack-c/upstream/src/cmd.c:4435–4520` `there_cmd_menu_self`. Callees: `stairway_at` (`s — One `there_cmd_menu_self` in that C order, plus `mcmd_addmenu`.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2898; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2899; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

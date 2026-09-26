@@ -2,6 +2,7 @@
 // C ref: wizcmds.c
 
 import { game } from './gstate.js';
+import { cmd_from_func } from './dokeylist.js';
 import { pline, You, docrt, impossible, flush_topl_more, Warn_of_mon, glyph_at, glyph_is_monster, glyph_is_invisible_id, map_invisible, unmap_invisible } from './display.js';
 import { getlin, yn_function } from './getline.js';
 import { pluslvl, losexp } from './exper.js';
@@ -543,9 +544,8 @@ export async function wiz_identify() {
         return ECMD_OK;
     }
     if (!game.iflags) game.iflags = {};
-    // C: cmd_from_func(wiz_identify) → C('I'); NUL remapping → C('I')
-    const CTRL_I = 9;
-    game.iflags.override_ID = CTRL_I;
+    // C wizcmds.c:53–60 — cmd_from_func, else C('I') when the key is NUL.
+    game.iflags.override_ID = (cmd_from_func('wizidentify') & 0xff) || (0x1f & 73);
     const { display_inventory } = await import('./invent.js');
     await display_inventory();
     game.iflags.override_ID = 0;

@@ -2,6 +2,7 @@
 // C ref: hack.c — losehp, nomul, unmul, overexertion, moverock/dopush (and related).
 
 import { game } from './gstate.js';
+import { cmd_from_func, visctrl } from './dokeylist.js';
 import {
     Upolyd, KILLED_BY, M_AP_FURNITURE, M_AP_OBJECT, M_AP_NOTHING,
     M_AP_TYPMASK, M_AP_TYPE, isok, u_at, TIP_ENHANCE, TIP_UNTRAP_MON, TIP_GETPOS,
@@ -2121,8 +2122,8 @@ export async function handle_tip(tip) {
         return true;
     }
     if (tip === TIP_SWIM) {
-        // C: visctrl(cmd_from_func(do_reqmenu)) → 'm' under default binds
-        await pline("(Tip: use 'm' prefix to step in if you really want to.)");
+        // C hack.c:1865–1866 visctrl(cmd_from_func(do_reqmenu))
+        await pline(`(Tip: use '${visctrl(cmd_from_func('reqmenu'))}' prefix to step in if you really want to.)`);
         return true;
     }
     if (tip === TIP_UNTRAP_MON) {

@@ -9,7 +9,7 @@ import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import { rn2, rn1, rnd } from './rng.js';
 import {
-    newsym, flush_screen, pline, You, pline_dir, pline_xy, pline_The, set_msg_xy,
+    newsym, flush_screen, pline, You, You_cant, impossible, pline_dir, pline_xy, pline_The, set_msg_xy,
     clear_nhwindow_message,
     mon_visible, sensemon, canspotmon, glyph_at, hero_glyph, glyph_is_invisible_id,
     glyph_is_statue, glyph_is_monster, glyph_to_cmap, back_to_glyph,
@@ -107,6 +107,7 @@ import {
     NHKF_GETPOS_INTERESTING_NEXT, NHKF_GETPOS_INTERESTING_PREV,
     NHKF_GETPOS_HELP, NHKF_GETPOS_LIMITVIEW, NHKF_GETPOS_MOVESKIP,
     NHKF_GETPOS_MENU,
+    NHCB_CMD_BEFORE, NUM_NHCB,
 } from './const.js';
 import { config_error_add } from './botl.js';
 import { an, doname, makeplural, ansimpleoname, the } from './objnam.js';
@@ -546,28 +547,122 @@ export function ext_func_tab_from_txt(txt) {
     return null;
 }
 
+/** C cmd.c:157 `unavailcmd[]`. */
+const UNAVAILCMD = "Unavailable command '%s'.";
+
+/** C decl.c:8–13 `nhcb_name[]`, same order as `NHCB_*`. */
+const NHCB_NAME = ['cmd_before', 'level_enter', 'level_leave', 'end_turn'];
+
 /**
- * C ref: cmd.c can_do_extcmd `:462–488`. Lua NHCB_CMD_BEFORE named omit.
- * altdip is INTERNALCMD with no IFBURIED — buried hero is refused.
+ * C dat/nhlib.lua tutorial_cmd_before — `#save` is refused, everything
+ * else is allowed. No pline (the C comment that would print is disabled).
+ * @param {string} cmd
+ * @returns {boolean}
+ */
+export function tutorial_cmd_before(cmd) {
+    return cmd !== 'save';
+}
+
+/** JS stand-ins for the Lua globals `nh_callback_run` calls via `_G[k]`. */
+const NHCB_HANDLERS = {
+    tutorial_cmd_before,
+};
+
+function ensure_nhcb() {
+    if (!game.nhcb_counts || game.nhcb_counts.length !== NUM_NHCB) {
+        game.nhcb_counts = new Array(NUM_NHCB).fill(0);
+    }
+    if (!game.nh_lua_variables || typeof game.nh_lua_variables !== 'object') {
+        game.nh_lua_variables = {};
+    }
+    return game.nhcb_counts;
+}
+
+/**
+ * C ref: nhlua.c nhl_callback `:1663–1705` and dat/nhcore.lua
+ * `nh_callback_set` / `nh_callback_rm`. Named: `lua_getglobal` and
+ * `nhl_pcall_handle` (no Lua VM). The count and `_CB_<name>` table are
+ * the state those calls mutate. A negative count still calls `impossible`
+ * and stays negative, so a later `nhcb_counts[i]` test is still true.
+ * @param {string} cb
+ * @param {string} fn
+ * @param {boolean} [rm]
+ */
+export async function nhl_callback(cb, fn, rm = false) {
+    const counts = ensure_nhcb();
+    let i = 0;
+    for (; i < NUM_NHCB; i++) {
+        if (NHCB_NAME[i] === cb) break;
+    }
+    if (i >= NUM_NHCB) return; // C `:1689–1690`
+    if (rm) {
+        counts[i] = (counts[i] | 0) - 1; // C `:1693`
+        if (counts[i] < 0) await impossible('nh.callback counts are wrong'); // C `:1694–1695`
+    } else {
+        counts[i] = (counts[i] | 0) + 1; // C `:1697`
+    }
+    const key = `_CB_${cb}`;
+    const cur = game.nh_lua_variables[key];
+    if (!cur || typeof cur !== 'object') game.nh_lua_variables[key] = {};
+    if (rm) delete game.nh_lua_variables[key][fn]; // C nh_callback_rm `:35`
+    else game.nh_lua_variables[key][fn] = true; // C nh_callback_set `:24`
+}
+
+/**
+ * C ref: dat/nhcore.lua nh_callback_run `:39–54`. An empty table returns
+ * true. The first handler that returns false stops the walk. Named:
+ * Lua `pairs` order when more than one name is registered (JS keeps
+ * insertion order). Unknown globals are skipped — there is no `_G`.
+ * @param {string} cb
+ * @param {...*} args
+ * @returns {Promise<boolean>}
+ */
+export async function nh_callback_run(cb, ...args) {
+    ensure_nhcb();
+    const key = `_CB_${cb}`;
+    let table = game.nh_lua_variables[key];
+    if (!table || typeof table !== 'object') {
+        game.nh_lua_variables[key] = {}; // C `:45–46`
+        return true;
+    }
+    for (const name of Object.keys(table)) {
+        if (!table[name]) continue;
+        const handler = NHCB_HANDLERS[name];
+        if (!handler) continue;
+        if (!(await handler(...args))) return false; // C `:49–50`
+    }
+    return true; // C `:53`
+}
+
+/**
+ * C ref: cmd.c can_do_extcmd `:462–489`.
+ * A missing row is refused before the C body (C always has a struct).
+ * altdip is INTERNALCMD with no IFBURIED — a buried hero is refused.
+ * `wizard` is `flags.debug` (`flag.h:30`); `wizardOn` also honors the
+ * JS `flags.wizard` / `game.wizard` aliases this file already uses.
  * @param {typeof EXTCMDLIST[number] | null | undefined} extcmd
  * @returns {Promise<boolean>}
  */
 export async function can_do_extcmd(extcmd) {
     if (!extcmd) return false;
-    const ecflags = extcmd.flags | 0;
-    const wizard = !!(game.flags?.debug || game.flags?.wizard || game.wizard);
-    if (!wizard && (ecflags & WIZMODECMD)) {
-        await pline(`Unavailable command '${extcmd.txt}'.`);
+    const ecflags = extcmd.flags | 0; // C `:465`
+
+    // C `:467–476` — NHCB_CMD_BEFORE. False from Lua returns with no pline.
+    if (game.luacore && game.nhcb_counts && (game.nhcb_counts[NHCB_CMD_BEFORE] | 0)) {
+        const ok = await nh_callback_run(NHCB_NAME[NHCB_CMD_BEFORE], extcmd.txt);
+        if (!ok) return false;
+    }
+
+    if (!wizardOn() && (ecflags & WIZMODECMD)) { // C `:478–481`
+        await pline(UNAVAILCMD, extcmd.txt);
+        return false;
+    } else if (game.u?.uburied && !(ecflags & IFBURIED)) { // C `:481–483`
+        await You_cant('do that while you are buried!');
+        return false;
+    } else if (game.iflags?.debug_fuzzer && (ecflags & NOFUZZERCMD)) { // C `:484–485`
         return false;
     }
-    if (game.u?.uburied && !(ecflags & IFBURIED)) {
-        await pline("You can't do that while you are buried!");
-        return false;
-    }
-    if (game.iflags?.debug_fuzzer && (ecflags & NOFUZZERCMD)) {
-        return false;
-    }
-    return true;
+    return true; // C `:487`
 }
 
 /**
@@ -1267,6 +1362,42 @@ const NULL_BIND = Object.freeze({
     key: 0, txt: '', desc: '', flags: 0, _nullBind: true,
 });
 
+/**
+ * C `gc.Cmd.cmdbinds` is a singly linked list. `cmdbind_add` prepends a
+ * new key and leaves an existing node where it is (`cmd.c:2137–2153`).
+ * Index 0 is the head (newest). The array starts with `_layoutSlots`
+ * in `reset_commands`, so `commands_init` is the first writer.
+ * @param {number} k
+ */
+function cmdbind_order_prepend(k) {
+    if (!k || !game.Cmd?._layoutSlots) return;
+    if (!game.Cmd._cmdbindOrder) game.Cmd._cmdbindOrder = [];
+    const order = game.Cmd._cmdbindOrder;
+    if (order.indexOf(k) >= 0) return;
+    order.unshift(k);
+}
+
+/** C cmdbind_remove unlinks the node (`cmd.c:2164–2168`). */
+function cmdbind_order_unlink(k) {
+    const order = game.Cmd?._cmdbindOrder;
+    if (!order) return;
+    const i = order.indexOf(k);
+    if (i >= 0) order.splice(i, 1);
+}
+
+/**
+ * C cmdbind_swapkeys exchanges the key fields and leaves the nodes
+ * in place (`cmd.c:2200–2202`).
+ */
+function cmdbind_order_swap_keys(k1, k2) {
+    const order = game.Cmd?._cmdbindOrder;
+    if (!order || k1 === k2) return;
+    const i1 = order.indexOf(k1);
+    const i2 = order.indexOf(k2);
+    if (i1 >= 0) order[i1] = k2;
+    if (i2 >= 0) order[i2] = k1;
+}
+
 function cmdbind_add(key, extcmd, user) {
     const k = key & 0xff; // C uchar key
     if (!game.Cmd) game.Cmd = {};
@@ -1281,11 +1412,14 @@ function cmdbind_add(key, extcmd, user) {
         if (!extcmd) {
             slots[k] = NULL_BIND; // C `:2147–2152` node with cmd NULL
             bind_param_clear(k); // C `:2150` param NULL
+            cmdbind_order_prepend(k); // C `:2152–2153` new node at the head
             return;
         }
         /* binding exists, set it to this command */ // C `:2137–2144`
+        const isNew = !node; // C `:2146` else — no node yet, prepend
         bind_param_clear(k); // C `:2141–2143` free param on update
         slots[k] = extcmd;
+        if (isNew) cmdbind_order_prepend(k); // C `:2152–2153`
         const overlay = game.Cmd.binds;
         if (user) {
             if (!(overlay instanceof Map)) game.Cmd.binds = new Map();
@@ -1323,6 +1457,7 @@ function cmdbind_remove(key) {
     const k = key & 0xff; // C uchar key
     const slots = game.Cmd?._layoutSlots;
     if (slots) slots[k] = null; // C `:2164–2173` unlink
+    cmdbind_order_unlink(k); // C `:2165–2168` prev->next / head
     bind_param_clear(k); // C `:2169–2170` free param
     const overlay = game.Cmd?.binds;
     if (!(overlay instanceof Map)) return; // C: no list — nothing to unlink
@@ -1547,6 +1682,7 @@ function cmdbind_swapkeys(key1, key2) {
         if (has1) overlay.set(k2, v1);
         else overlay.delete(k2);
     }
+    cmdbind_order_swap_keys(k1, k2); // C `:2201–2202` key fields, nodes stay
 }
 
 /**
@@ -1689,7 +1825,11 @@ export function reset_commands(initial) {
         for (let i = 0; i < SPKEYS_BINDS.length; i++) { // C `:3365–3366`
             cmd.spkeys[SPKEYS_BINDS[i][0]] = SPKEYS_BINDS[i][1];
         }
-        if (!cmd._layoutSlots) cmd._layoutSlots = new Array(256).fill(null);
+        if (!cmd._layoutSlots) {
+            cmd._layoutSlots = new Array(256).fill(null);
+            // C gc.Cmd.cmdbinds starts NULL; commands_init prepends onto it.
+            cmd._cmdbindOrder = [];
+        }
         commands_init(); // C `:3367`
     } else {
         const back = dirBackup();
@@ -1993,9 +2133,13 @@ async function rhack_dispatch_bound(key, prefix_seen, was_m_prefix) {
 
     if (prefix_seen && !(tlist.flags & PREFIXCMD)
         && !(tlist.flags & (was_m_prefix ? CMD_M_PREFIX : CMD_gGF_PREFIX))) {
-        const which = prefix_seen.txt === 'reqmenu'
-            ? visctrl('m'.charCodeAt(0))
-            : (prefix_seen.txt || '?');
+        // C `:3696–3700` — visctrl(cmd_from_func); unbound reqmenu is the long name.
+        const pfxKey = cmd_from_func(prefix_seen.txt) & 0xff;
+        const which = pfxKey
+            ? visctrl(pfxKey)
+            : (prefix_seen.txt === 'reqmenu'
+                ? 'move-no-pickup or request-menu'
+                : (prefix_seen.txt || '?'));
         if (was_m_prefix) {
             await pline(
                 `The ${tlist.txt} command does not accept '${which}' prefix.`,

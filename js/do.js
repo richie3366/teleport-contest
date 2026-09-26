@@ -175,7 +175,8 @@ import { delete_levelfile, open_levelfile } from './files.js';
 import { strange_feeling } from './detect.js';
 import { surface } from './sit.js';
 import { use_pick_axe2 } from './dig.js';
-import { set_move_cmd, u_rooted } from './cmd.js';
+import { set_move_cmd, u_rooted, nhl_callback } from './cmd.js';
+import { cmd_from_func, visctrl } from './dokeylist.js';
 import { newcham, mpickobj } from './makemon.js';
 import { grow_up } from './mhitm.js';
 import { mcureblindness } from './muse.js';
@@ -1154,18 +1155,21 @@ export async function nhl_gamestate(reststate = false) {
 
 /**
  * C ref: dat/nhlib.lua tutorial_enter via nhcore.lua enter_tutorial.
- * Named omit: nh.callback("cmd_before", "tutorial_cmd_before") and
- * nh.callback("end_turn", "tutorial_turn") (Lua NHCB; no VM).
+ * Registers `tutorial_cmd_before` before `nh.gamestate` (`:200` then `:204`).
+ * Named omit: `nh.callback("end_turn", "tutorial_turn")` (`:201`).
  */
 async function tutorial_enter() {
+    await nhl_callback('cmd_before', 'tutorial_cmd_before', false);
     await nhl_gamestate(false);
 }
 
 /**
  * C ref: dat/nhlib.lua tutorial_leave via nhcore.lua leave_tutorial.
- * Named omit: nh.callback(..., true) rm of cmd_before / end_turn.
+ * Removes `tutorial_cmd_before` before `nh.gamestate(true)` (`:211` then `:215`).
+ * Named omit: `nh.callback("end_turn", "tutorial_turn", true)` (`:212`).
  */
 async function tutorial_leave() {
+    await nhl_callback('cmd_before', 'tutorial_cmd_before', true);
     await nhl_gamestate(true);
 }
 
@@ -1247,7 +1251,7 @@ function danger_uprops() {
 /**
  * C ref: do.c cmd_safety_prevention — block wait/search beside hostiles.
  * safe_wait default On; menu_requested (`m` prefix) and multi skip the gate.
- * Named omissions: visctrl/cmd_from_func beyond 'm'.
+ * The assist names `visctrl(cmd_from_func(do_reqmenu))` (`do.c:2333–2334`).
  *
  * @param {string} ucverb
  * @param {string} cmddesc
@@ -1270,12 +1274,13 @@ export async function cmd_safety_prevention(ucverb, cmddesc, act, flagKey) {
         const cmdassist = iflags.cmdassist !== undefined
             ? !!iflags.cmdassist
             : true;
+        const mprefix = visctrl(cmd_from_func('reqmenu')); // C `:2334` do_reqmenu
         if (cmdassist) {
-            assist = `  Use 'm' prefix to force ${cmddesc}.`;
+            assist = `  Use '${mprefix}' prefix to force ${cmddesc}.`;
         } else {
             const prev = game._safety_flags[flagKey] | 0;
             game._safety_flags[flagKey] = prev + 1;
-            if (!prev) assist = `  Use 'm' prefix to force ${cmddesc}.`;
+            if (!prev) assist = `  Use '${mprefix}' prefix to force ${cmddesc}.`;
         }
 
         if (monster_nearby()) {
