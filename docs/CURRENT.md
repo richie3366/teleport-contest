@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `pray.c` `give_spell` — coverage PARTIAL (C 69 L `pray.c:999–1068` / JS 44 L in js/pray.js). Verify `node scripts/verify.mjs --fn give_spell` (reach regression must be 0).
+**Next cluster:** `mkobj.c` `curse` — coverage PARTIAL (C 36 L `mkobj.c:1783–1819` / JS 19 L in js/mkobj.js). COIN_CLASS, bimanual `reset_remarm`, `drop_uswapwep`, bag weight, and `book_cursed` are still named omissions. Verify `node scripts/verify.mjs --fn curse` (reach regression must be 0).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2883 (index).**
+**Keep D-0845…D-2884 (index).**
 <!-- recent:begin -->
+**D-2884** `nethack-c/upstream/src/dungeon.c:1750–1788` `surface`. Callees: `u_at` (`you.h:562`), `is — One `surface` in that C order.
 **D-2883** `nethack-c/upstream/src/vision.c:153–202` `does_block` and `vision.c:211–265` `vision_rese — One `does_block` in that C order: obstructed terrain, tree, closed door, then cloud / water-wall / lava-wall / (`uinwater` and `is_moat`), then the boulder chain, then `m_at` with `hero_see_invisible`, then gas returning
 **D-2882** `nethack-c/upstream/src/trap.c:2725–2764` `trapeffect_vibrating_square`. Callees: `feeltra — One `trapeffect_vibrating_square` in that C order.
 **D-2881** `nethack-c/upstream/src/sp_lev.c:3407–3437` `get_table_int_or_random`. Callees: `lua_getfi — One `get_table_int_or_random` in that C order.
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2879** `nethack-c/upstream/src/zap.c:1637–1674` `do_osshock`. Callees: `rn2`, `rnd`, `splitobj` ( — One `do_osshock` in that C order.
 **D-2878** `nethack-c/upstream/src/exper.c:169–203` `more_experienced`. Callee: `exp_percent_changing — One `more_experienced` in that C order.
 **D-2877** `nethack-c/upstream/src/hacklib.c:739–779` `strstri`. `STRSTRI` is not defined, so this bo — One `strstri` in that C order.
-**D-2876** `nethack-c/upstream/src/wield.c:100–135` `setuwep`. Callees: `setworn` (`worn.c:72`), `art — One `setuwep` in that C order.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2883; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2884; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

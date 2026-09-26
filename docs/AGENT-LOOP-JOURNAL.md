@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2884 `surface` names a swallowed animal's maw or husk
+
+**C locus:** `nethack-c/upstream/src/dungeon.c:1750–1788` `surface`. Callees: `u_at` (`you.h:562`), `is_animal` / `digests` / `enfolds` (`mondata.h:67–74`), `SURFACE_AT` (`rm.h:146`), `IS_AIR`, `Is_waterlevel`, `is_pool`, `Underwater` (`youprop.h:279`), `hliquid`, `is_ice`, `is_lava`, `On_stairs`, `IS_WALL`, `IS_DOOR`, `IS_ROOM`, `Is_earthlevel`. No RNG.
+**JS:** `js/sit.js` `surface` `:475`, swallow `:482–488`, air `:489`. `js/dokick.js` slide `:1479`. `js/engrave.js` `cant_reach_floor` `:427`, `read_engr_at` `:500`, `eloc` `:1388`. `js/dothrow.js` gold `:985`, `hitfloor` `:1595`, `hurtle` `:3130`. `js/trap.js` `float_up` `:3133`.
+**Change:** One `surface` in that C order. The swallow test is first: same cell as the hero, `uswallow`, and `is_animal(ustuck.data)`, then `digests` / `enfolds`. `digests` and `enfolds` are the `mhitu.js` exports (`imports.mjs --can sit.js mhitu.js` — hoisted, cycle-safe).
+**Verify:** `node scripts/verify.mjs --fn surface` → PASS syntax (5 changed js files: js/dokick.js js/dothrow.js js/engrave.js js/sit.js js/trap.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.2s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) · VERIFY: PASS.
+**Named:** `trapeffect_fire_trap` still assigns `'floor'` (`js/trap.js:4683`; `trap.c` fire wording). `look_here`'s blind feel-floor string stays `'floor'` (`js/invent.js:8217`).
+**Next:** `mkobj.c` `curse` (next Open — coverage row). Four Stale parks. Refill below the band of 8: eight tool rows, eleven Open — coverage rows after archive.
 ## 2026-09-26 — D-2883 `does_block` counts an underwater moat; `vision_reset` selects cs0
 
 **C locus:** `nethack-c/upstream/src/vision.c:153–202` `does_block` and `vision.c:211–265` `vision_reset`. Callees: `is_moat` (`dbridge.c:100`), `m_at` (`rm.h:516` `level.monsters`), `objects` nexthere, `is_lightblocker_mappear`, `visible_region_at`, `See_invisible` (`youprop.h:152`), `IS_OBSTRUCTED`. No RNG. `#ifdef DEBUG` `seethru` is not compiled.

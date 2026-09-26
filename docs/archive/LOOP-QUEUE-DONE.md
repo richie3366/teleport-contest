@@ -5,8 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `vision.c` does_block — coverage PARTIAL (C 49 L `vision.c:153–202` / JS 28 L in js/vision.js; hops 3, callers 16, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn does_block` (reach regression must be 0). Measured `port-coverage.mjs --name does_block` 2026-09-26 @ 59a5900cf. **Addressed:** D-2883
-- [x] `vision.c` vision_reset — coverage PARTIAL (C 54 L `vision.c:211–265` / JS 40 L in js/vision.js; hops 3, callers 6, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn vision_reset` (reach regression must be 0). Measured `port-coverage.mjs --name vision_reset` 2026-09-26 @ 59a5900cf. **Addressed:** D-2883
+- [x] `dungeon.c` surface — coverage PARTIAL (C 38 L `dungeon.c:1750–1788` / JS 26 L in js/dokick.js; hops 2, callers 97, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn surface` (reach regression must be 0). Measured `port-coverage.mjs --name surface` 2026-09-26 @ d921aef05. **Addressed:** D-2884
+
+
+- [x] `vision.c` does_block — coverage PARTIAL (C 49 L `vision.c:153–202` / JS 28 L in js/vision.js; hops 3, callers 16, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn does_block` (reach regression must be 0). Measured `port-coverage.mjs --name does_block` 2026-09-26 @ 59a5900cf. **Addressed:** D-2883 `64f8ebc04`
+- [x] `vision.c` vision_reset — coverage PARTIAL (C 54 L `vision.c:211–265` / JS 40 L in js/vision.js; hops 3, callers 6, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn vision_reset` (reach regression must be 0). Measured `port-coverage.mjs --name vision_reset` 2026-09-26 @ 59a5900cf. **Addressed:** D-2883 `64f8ebc04`
 
 
 - [x] `trap.c` trapeffect_vibrating_square — coverage MISSING (C 36 L `trap.c:2725–2764` / JS no symbol; hops 4, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn trapeffect_vibrating_square` (reach regression must be 0). Measured `port-coverage.mjs --name trapeffect_vibrating_square` 2026-09-26 @ 8ddebb670. **Addressed:** D-2882 `b41dbfcd5`

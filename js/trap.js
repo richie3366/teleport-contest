@@ -2966,9 +2966,9 @@ export function ice_descr(x, y) {
 
 /**
  * C ref: trap.c back_on_ground `:4976–5008` — full surface wording matrix.
- * surface() is the shared sit.js port (D-2008, C dungeon.c:1750); the
- * uswallow maw/husk arm stays its named omission (fires only while
- * swallowed by an animal). C compares with strcmpi; both surface() sides
+ * surface() is the shared sit.js port (D-2008 / D-2884, C dungeon.c:1750),
+ * including the uswallow maw/husk/nonesuch arm. C compares with strcmpi;
+ * both surface() sides
  * return lowercase literals so === is exact (the lone `air` arm is
  * strcmp in C).
  */
@@ -3076,8 +3076,8 @@ function Flying_fu() {
  * lose-control; float_vs_flight; encumber_msg.
  * D-0956 residuals retired here: buried_ball exact coord (exported from
  * dig.js, C dig.c:1884–1932); Lev_at_will steed float (youprop.h:242–245);
- * surface() wording via dungeon.c maw/husk inline (shared sit.js surface
- * still names that arm). WEB arm kept dead per C: `:3963` compares
+ * surface() wording via dungeon.c (sit.js, including maw/husk). WEB arm
+ * kept dead per C: `:3963` compares
  * utraptype against trap-type WEB=18 (trap.h:77), not TT_WEB=3
  * (you.h:349), so a TT_WEB hero falls through to the bear-trap arm.
  * Flying via canonical mhitu.js export (C youprop.h:253–255 incl. steed
@@ -3129,13 +3129,8 @@ export async function float_up() {
     } else if (u.uswallow) {
         const stuck = u.ustuck;
         if (stuck && is_animal(stuck.data)) {
-            // C trap.c:3974-3975 via dungeon.c surface():1749-1759 — u_at
-            // && uswallow && is_animal always holds here, so surface is
-            // maw/husk/nonesuch, never the terrain word.
-            const { digests, enfolds } = await import('./mhitu.js');
-            const surf = digests(stuck.data) ? 'maw'
-                : enfolds(stuck.data) ? 'husk' : 'nonesuch';
-            await pline(`You float away from the ${surf}.`);
+            // C trap.c:3980 — surface(u.ux, u.uy) while swallowed by an animal.
+            await pline(`You float away from the ${surface(u.ux, u.uy)}.`);
         } else if (stuck) {
             await pline(`You spiral up into ${mon_nam(stuck)}.`);
         }

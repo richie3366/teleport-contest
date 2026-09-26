@@ -1912,6 +1912,19 @@ until `obj_chain` / `mon_chain` / `contained_stats` / `mon_invent_chain`
 exist so the command can be the whole C function. `extern.h:930` is
 the declaration. No call from a site C never calls from.
 
+**`surface` `:1750–1788`** (D-2884; whole body in C order in
+`js/sit.js`. Swallow arm first: `u_at` && `uswallow` && `is_animal`
+→ `digests` "maw" / `enfolds` "husk" / "nonesuch", then air / pool /
+ice / lava / drawbridge / altar / grave / fountain / stairs / wall /
+door / room floor / ground. `SURFACE_AT` is `DRAWBRIDGE_UP` →
+`db_under_typ`. `digests` / `enfolds` are the `mhitu.js` exports).
+The dokick, engrave, and dothrow clones now call this function.
+Named: `trapeffect_fire_trap` still uses `'floor'`; `look_here`'s
+blind feel-floor string; `timeout.c:373`; `hack.c:1658` and `:3859`;
+`do_wear.c` `:2129` `:2753` `:3229`; `fountain.c:29`; `iactions.c:443`;
+`insight.c` `:247` `:999` `:2063`; `teleport.c:1265`; `zap.c` `:426`
+`:3255`; `pager.c:254`; `muse.c` `:938` `:946` `:959` `:965`.
+
 ### `src/options.c` saveoptions writer
 
 JS: `js/options.js` — partial ([campaign 5/7])
