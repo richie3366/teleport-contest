@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2846 — `nemesis_speaks` delivers the quest text or a battle curse
+
+- **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** An approaching nemesis never spoke. `quest_talk` had no `MS_NEMESIS` arm, and `quest_stat_check` discarded its monster, so `in_battle` stayed unset.
+- **C locus:** `nethack-c/upstream/src/quest.c:403–422` `nemesis_speaks`. Callees `qt_pager` (`questpgr.c`, live `js/questpgr.js:1139`) and `rn2(5)`. `Qstat` is `svq.quest_status` (`quest.c:12`); `made_goal` is a 3-bit field and `met_nemesis` / `in_battle` are 1-bit (`quest.h:20–23`). The only call is `quest.c:503` inside `quest_talk`. `quest_stat_check` (`:513–518`) writes `in_battle` and `dochug` calls it first (`monmove.c:715`). `helpless` is `monst.h:251`.
+- **JS was:** No `nemesis_speaks`. `quest_talk` switched only `MS_DJINNI`. `quest_stat_check` was an empty body. `dochug` already called both sites.
+- **Fix:** One `nemesis_speaks` in that C order. While `in_battle` is clear: `nemesis_wantsit` when the hero has the quest artifact, else `nemesis_first` when `made_goal` is 1 or the nemesis is unmet, else `nemesis_next` while `made_goal` is under 4, else `nemesis_other` while it is under 7, else `discourage` when `rn2(5)` is 0. Then `made_goal` increments while it is still under 7, and `met_nemesis` becomes 1. While `in_battle` is set, `discourage` runs only when `rn2(5)` is 0 and the scorecard stays as it was. `quest_stat_check` sets `in_battle` for `MS_NEMESIS` when the monster is not helpless and `monnear` the hero, and clears it otherwise. `dochug` already calls that before `quest_talk`, so a nemesis that starts the turn adjacent takes the battle arm.
+- **JS:** `js/quest.js` `nemesis_speaks` `:534`, `quest_talk` call `:569`, `quest_stat_check` `:587`. `rn2` is the live `js/rng.js` export. `monnear` is the live `js/mon.js` export.
+- **Callers:** `quest.c:503` → `js/quest.js:569`. `monmove.c:722` → `js/monmove.js:2396` and `monmove.c:981` → `js/monmove.js:2629` (both already `await quest_talk`). `monmove.c:715` → `js/monmove.js:2388` (`quest_stat_check`). `quest.c:484` `quest_chat` calls `chat_with_nemesis`, which is the named omission below. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn nemesis_speaks` → PASS syntax (1 changed js file: js/quest.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script shared-file regex) · VERIFY: PASS.
+- **Named omissions:** `chat_with_nemesis` (`quest.c:393–400`) and `chat_with_guardian` (`:441–448`) stay out of `quest_chat`. `helpless` is inlined from `monst.h:251`; the six file-local clones stay. A missing quest text still returns through the existing `qt_pager` miss path. A null monster skips the `msound` test.
+- **Next:** `botl.c` `exp_percent_changing` (next Open — coverage row). Five measured rows refilled (`start_glob_timeout`, `block_entry`, `mhitm_ad_stck`, `pre_mm_attack`, `nohandglow`). Twelve Open — coverage rows after archive.
+
 ## D-2845 — `enter_explore_mode` confirms before leaving the scored game
 
 - **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked).

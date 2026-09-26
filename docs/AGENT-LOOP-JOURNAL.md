@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2846 `nemesis_speaks` delivers the quest text or a battle curse
+
+**C locus:** `nethack-c/upstream/src/quest.c:403–422` `nemesis_speaks`. Callees `qt_pager` (`questpgr.c`, live `js/questpgr.js:1139`) and `rn2(5)`. `Qstat` is `svq.quest_status` (`quest.c:12`); `made_goal` is a 3-bit field and `met_nemesis` / `in_battle` are 1-bit (`quest.h:20–23`). The only call is `quest.c:503` inside `quest_talk`. `quest_stat_check` (`:513–518`) writes `in_battle` and `dochug` calls it first (`monmove.c:715`). `helpless` is `monst.h:251`.
+**JS:** `js/quest.js` `nemesis_speaks` `:534`, `quest_talk` call `:569`, `quest_stat_check` `:587`. `rn2` is the live `js/rng.js` export. `monnear` is the live `js/mon.js` export.
+**Change:** One `nemesis_speaks` in that C order. While `in_battle` is clear: `nemesis_wantsit` when the hero has the quest artifact, else `nemesis_first` when `made_goal` is 1 or the nemesis is unmet, else `nemesis_next` while `made_goal` is under 4, else `nemesis_other` while it is under 7, else `discourage` when `rn2(5)` is 0. Then `made_goal` increments while it is still under 7, and `met_nemesis` becomes 1.
+**Verify:** `node scripts/verify.mjs --fn nemesis_speaks` → PASS syntax (1 changed js file: js/quest.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script shared-file regex) · VERIFY: PASS.
+**Named:** `chat_with_nemesis` (`quest.c:393–400`) and `chat_with_guardian` (`:441–448`) stay out of `quest_chat`. `helpless` is inlined from `monst.h:251`; the six file-local clones stay.
+**Next:** `botl.c` `exp_percent_changing` (next Open — coverage row). Five measured rows refilled (`start_glob_timeout`, `block_entry`, `mhitm_ad_stck`, `pre_mm_attack`, `nohandglow`). Twelve Open — coverage rows after archive.
 ## 2026-09-26 — D-2845 `enter_explore_mode` confirms before leaving the scored game
 
 **C locus:** `nethack-c/upstream/src/cmd.c:952–983` `enter_explore_mode`. Callees `authorize_explore_mode` (`unixmain.c:640–651`, SYSCF on so the `#else` return TRUE is not compiled) and `check_user_string` (`unixmain.c:695–729`). `You`, `pline`, `paranoid_query(ParanoidQuit)`, `clear_nhwindow(WIN_MESSAGE)`. Callers `allmain.c:54` (`resuming && iflags.deferred_X`) and the extcmdlist row `cmd.c:1721` (`M('X')` `"exploremode"`, not AUTOCOMPLETE). `cmd.c:24` is the declaration.

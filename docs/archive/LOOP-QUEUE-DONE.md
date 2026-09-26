@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `cmd.c` enter_explore_mode — coverage MISSING (C 31 L `cmd.c:952–983` / JS no symbol; hops 2, callers 1, RNG 0, msg 6). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn enter_explore_mode` (reach regression must be 0). Measured `port-coverage.mjs --name enter_explore_mode` 2026-09-26 @ 2c9559331. **Addressed:** D-2845
+- [x] `quest.c` nemesis_speaks — coverage MISSING (C 19 L `quest.c:403–422` / JS no symbol; hops 2, callers 1, RNG 2, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn nemesis_speaks` (reach regression must be 0). Measured `port-coverage.mjs --name nemesis_speaks` 2026-09-26 @ 2c9559331. **Addressed:** D-2846
+
+
+- [x] `cmd.c` enter_explore_mode — coverage MISSING (C 31 L `cmd.c:952–983` / JS no symbol; hops 2, callers 1, RNG 0, msg 6). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn enter_explore_mode` (reach regression must be 0). Measured `port-coverage.mjs --name enter_explore_mode` 2026-09-26 @ 2c9559331. **Addressed:** D-2845 `adbd6bd68`
 
 
 - [x] `dungeon.c` dumpit — coverage MISSING (C 53 L `dungeon.c:91–144` / JS no symbol; hops 2, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dumpit` (reach regression must be 0). Measured `port-coverage.mjs --name dumpit` 2026-09-26 @ 8e53e2c60. **Addressed:** D-2844 `a2fe5c1c5`

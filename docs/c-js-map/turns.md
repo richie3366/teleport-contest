@@ -2549,7 +2549,7 @@ other-role locate burn shuffle only); **`quest_chat`/`quest_talk`/`leader_speaks
 `is_pure` wizard≡`flags.debug` adjust** (D-0590/D-0627/D-0640; `#chat`→`domonnoise` MS_LEADER; 
 **`mon_msound` S_NYMPH→MS_SEDUCE + cajoles/comes-on/`Hello sailor` ECMD_TIME** (D-0687; 
 **`doseduce` AMOROUS_DEMON SYSOPT non-nymph D-1750**; other MS_* deferred); **finish_quest throw/kick D-1312**; 
-**chat_with_leader whole-body D-2623** (cheater/got_thanks/questart/encourage/banished-gate/livelogs live; posthanks/banished texts still deferred); nemesis talk deferred); **prisoner_speaks + quest_talk MS_DJINNI arm** (D-2114; MS_NEMESIS nemesis_speaks still deferred); 
+**chat_with_leader whole-body D-2623** (cheater/got_thanks/questart/encourage/banished-gate/livelogs live; posthanks/banished texts still deferred); nemesis talk deferred); **prisoner_speaks + quest_talk MS_DJINNI arm** (D-2114); **nemesis_speaks + quest_stat_check** (D-2846; `quest.c:403–422` whole body in C order, `quest_talk` MS_NEMESIS `:503`; `in_battle` writer `:513–518` so the battle arm is the adjacent-at-turn-start case; `chat_with_nemesis` / `chat_with_guardian` still deferred); 
 **`ok_to_quest` + `goto_level` Home in-branch gate** (D-0798; 
 Gehennom amulet mysteryforce deferred); **`convert_arg` `%r`/`%R`→`rank_of` + `%ra`/`%rA`/`%rC` + 
 `%s`/`%S`/`%g` + `%Xp`/`%XP`/`%Xs`/`%XS`** (D-0627/D-0640) + 
@@ -2950,7 +2950,7 @@ hero `hack.c` `test_move` `passes_bars` D-1270; Underwater / rock Passes_walls n
 **`dochug` mconf/mstun recover + mflee `rn2(40)` teleport (`can_teleport`/`await rloc(RLOC_MSG)` 
 D-0886) + **`m_respond` D-1314** + courage `rn2(25)`** (D-0442; gazemu D-1328; 
 **leppie_stash D-1798** — named: `mdrop_obj` flooreffects/saddle); **`dochug` STRAT_CLOSE + `monnear` → `quest_talk`** (D-0590; 
-**PHASE FOUR nearby `quest_talk` D-1798**; nemesis msound still deferred); 
+**PHASE FOUR nearby `quest_talk` D-1798**; nemesis msound → `nemesis_speaks` D-2846); 
 `distfleeck` scared/onscary/flees_light/`monflee` still stub (D-0854: LCP 555 Monnam×7 is **not** 
 fleeck→monflee — no core `rnd` between fleecks); 
 **`dochug` covetous `tactics` before fleeck** (D-0928 #1120; STRAT_NONE harass rn2/mnexto; 
