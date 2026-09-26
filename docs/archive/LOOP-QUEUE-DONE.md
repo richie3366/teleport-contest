@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `hack.c` `inv_weight` — missing arm: C `hack.c:4359–4360` `otyp != BOULDER || !throws_rocks(youmonst.data)` absent from `js/invent.js:1117` (non-coin arm always adds `owt`). `hurtle_step` (`dothrow.c:826`, D-2819) sums `inv_weight()+weight_cap()`, so a rock-thrower counts boulder weight C skips. Verify `node scripts/verify.mjs --fn inv_weight`. Source: reviews/loop-unattended/1778-678f36702-weight-cap.md **Addressed:** D-2827
+- [x] `mcastu.c` mcast_insects — coverage PARTIAL (C 81 L `mcastu.c:645–726` / JS 58 L in js/mcastu.js; hops 3, callers 1, RNG 1, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mcast_insects` (reach regression must be 0). Measured `port-coverage.mjs --name mcast_insects` 2026-09-26 @ 678f36702. **Addressed:** D-2828
+
+
+- [x] `hack.c` `inv_weight` — missing arm: C `hack.c:4359–4360` `otyp != BOULDER || !throws_rocks(youmonst.data)` absent from `js/invent.js:1117` (non-coin arm always adds `owt`). `hurtle_step` (`dothrow.c:826`, D-2819) sums `inv_weight()+weight_cap()`, so a rock-thrower counts boulder weight C skips. Verify `node scripts/verify.mjs --fn inv_weight`. Source: reviews/loop-unattended/1778-678f36702-weight-cap.md **Addressed:** D-2827 `f5cea8a9c`
 
 
 - [x] `hack.c` `domove_fight_empty` — hallucinated-statue arm (`hack.c:2258–2261`) calls `Hallucination` from `js/do_name.js:255`, which returns on sticky `u.Hallucination` before resistance and ignores `uprops[HALLUC]`. C `youprop.h:120` is `HHallucination && !Halluc_resistance`. Re-point the `js/cmd.js` import to `js/display.js:1091` (D-2817). Verify `node scripts/verify.mjs --fn domove_fight_empty`. Source: reviews/loop-unattended/1784-b60cf8e62-fight-empty.md **Addressed:** D-2826 `38097d48c`

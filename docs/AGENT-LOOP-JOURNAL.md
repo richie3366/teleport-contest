@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2828 `mcast_insects` summons in C order and reports through `pline_mon`
+
+**C locus:** `nethack-c/upstream/src/mcastu.c:645–726` `mcast_insects`. The class letter is `mkclass(S_ANT)` else `S_SNAKE` (`:650–652`). `quan` is `m_lev < 2 ? 1 : rnd(m_lev / 2)`, then at least 3 (`:659–661`). The loop is `i <= quan`; `!enexto` returns with no message (`:662–664`). Each success clears `msleeping` / `mpeaceful` / `mtame` and calls `set_malign` (`:670–672`). `seecaster` is `canseemon || tp_sensemon || Detect_monsters` (`:677`). Hallucination replaces `what` with `makeplural(bogusmon(whatbuf, NULL))` (`:680–681`). Unseen: short `You_hear` when nothing new is spotted or `Unaware`; otherwise `strcpy` into `whatbuf`, then singular `an(makesingular)` or the plural buffer, `Soundeffect(se_someone_summoning, 100)` and `You_hear` when `!Deaf`, else `pline` + `upstart` (`:684–704`). Seen: sticks / snakes / invisible spot / displaced image / plain summons, then `pline_mon` (`:706–724`).
+**JS:** `js/mcastu.js:689` `mcast_insects` (through `:767`). `insects_Unaware` `:628`, `insects_Deaf` `:639`, `insects_Invis` `:660`, `insects_Displaced` `:674`. `hero_Hallucination` import `:23`. `unconscious` `:51`, `is_fainted` `:52`. `Soundeffect(se_someone_summoning, 100)` `:743`.
+**Change:** One `mcast_insects` in that C order. `Hallucination` is the `display.js` export. `Unaware` is `multi < 0 && (unconscious() || is_fainted())`.
+**Verify:** `node scripts/verify.mjs --fn mcast_insects` → PASS syntax (1 changed js file: js/mcastu.js) · PASS rule2 · note hidden (no corpus session blocked at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) · VERIFY: PASS.
+**Named:** A null `mtmp.data` makes `perceives` false (C would dereference). A missing `game.u` is a local object, so the position tests compare against 0.
+**Next:** `trap.c` `rescued_from_terrain` (next Open — coverage row). Coverage queue stays at 8, inside the 8–12 band, so no refill.
 ## 2026-09-26 — D-2827 `inv_weight` skips a boulder when the hero throws rocks
 
 **C locus:** `nethack-c/upstream/src/hack.c:4351–4365` `inv_weight`. Coins add `(int)((quan + 50) / 100)`. Otherwise add `owt` only when `otyp != BOULDER || !throws_rocks(youmonst.data)` (`:4359–4360`). Then `wc = weight_cap()` and return `wt - wc`.
