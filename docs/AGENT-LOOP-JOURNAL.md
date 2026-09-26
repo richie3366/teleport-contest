@@ -7,6 +7,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — audit 1830–1838 (D-2871–D-2879)
+
+Reviewed the nine `js/` commits since `bde9dd8fa`. Eight ACCEPT. One QUALITY-RISK: `1832` `wish_history_add` records the wizkit line before `readobjnam` rewrites `buf` (`files.c:2568–2573`). That row is Must-fix and Next cluster. Public `sessions` on `539f2fe06`: 44/44, screens 11,405/11,405, RNG 792,838/792,838, speed `234+1.67/turn` (R² 0.788). Held-out still 12/44 (6,273/11,265 pts, RNG 29.7 %, screens 55.7 %). `.cache/hidden/sessions` absent, so 614/940 was not re-measured. No `js/` edits.
 ## 2026-09-26 — D-2879 `do_osshock` bills the destroyed piece; `bhitpile` restacks boulders
 
 **C locus:** `nethack-c/upstream/src/zap.c:1637–1674` `do_osshock`. Callees: `rn2`, `rnd`, `splitobj` (`mkobj.c:457`, live `js/mkobj.js:418`, including `splitbill` when unpaid), `costly_spot` (`shk.c:889`), `addtobill` (`shk.c:4168`), `stolen_value` (`shk.c:3131`), `delobj` (`invent.c:1429`). `MAIL_STRUCTURES` is defined (`global.h:430`). `Luck` is `u.uluck + u.moreluck` (`you.h:464`). `LARGEST_INT` is 32767 (`global.h:135`). Same file: `bhitpile` (`zap.c:2428–2506`) callee `recreate_pile_at` (`mkobj.c:2371–2388`).

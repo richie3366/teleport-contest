@@ -1839,3 +1839,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1827-3ff465fee-engulfer-digests.md](./1827-3ff465fee-engulfer-digests.md) | `3ff465fee` | D-2868 engulfer_digests_food | **ACCEPT** |
 | [1828-3f8d66fcb-maybe-absorb.md](./1828-3f8d66fcb-maybe-absorb.md) | `3f8d66fcb` | D-2869 maybe_absorb_item | **ACCEPT** |
 | [1829-bde9dd8fa-set-levltyp-lit.md](./1829-bde9dd8fa-set-levltyp-lit.md) | `bde9dd8fa` | D-2870 set_levltyp_lit | **ACCEPT** |
+| [1830-1ad43f20e-extcmd-cancel.md](./1830-1ad43f20e-extcmd-cancel.md) | `1ad43f20e` | D-2871 extcmd_via_menu cancel | **ACCEPT** |
+| [1831-8ddebb670-hmon-hitmon-msg-hit.md](./1831-8ddebb670-hmon-hitmon-msg-hit.md) | `8ddebb670` | D-2872 hmon_hitmon_msg_hit | **ACCEPT** |
+| [1832-f7125aef2-wish-history-add.md](./1832-f7125aef2-wish-history-add.md) | `f7125aef2` | D-2873 wish_history_add | **QUALITY-RISK** |
+| [1833-048c1316e-overview-stats.md](./1833-048c1316e-overview-stats.md) | `048c1316e` | D-2874 overview_stats | **ACCEPT** |
+| [1834-40e1ad634-monkilled.md](./1834-40e1ad634-monkilled.md) | `40e1ad634` | D-2875 monkilled | **ACCEPT** |
+| [1835-eb441a29a-setuwep.md](./1835-eb441a29a-setuwep.md) | `eb441a29a` | D-2876 setuwep | **ACCEPT** |
+| [1836-59a5900cf-strstri.md](./1836-59a5900cf-strstri.md) | `59a5900cf` | D-2877 strstri | **ACCEPT** |
+| [1837-d921aef05-more-experienced.md](./1837-d921aef05-more-experienced.md) | `d921aef05` | D-2878 more_experienced | **ACCEPT** |
+| [1838-539f2fe06-do-osshock.md](./1838-539f2fe06-do-osshock.md) | `539f2fe06` | D-2879 do_osshock | **ACCEPT** |
