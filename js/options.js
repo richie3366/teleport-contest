@@ -100,6 +100,8 @@ import {
     WC2_SOFTKEYBOARD,
     WC2_WRAPTEXT,
     WC2_HILITE_STATUS,
+    WC2_FLUSH_STATUS,
+    REASSESS_ONLY,
     WC2_DARKGRAY,
     WC2_HITPOINTBAR,
     WC2_MENU_SHIFT,
@@ -191,8 +193,9 @@ import {
     opt_next_cond, cond_menu, status_hilite_menu,
     status_hilite_linestr_done, status_hilite_linestr_gather,
     match_str2clr, match_str2attr, status_version,
-    config_error_add,
+    config_error_add, status_initialize,
 } from './botl.js';
+import { classify_terrain } from './hack.js';
 import { get_changed_key_binds, handler_rebind_keys, count_bind_keys } from './cmd.js';
 import { cmd_from_func, cmdname_from_func, visctrl } from './dokeylist.js';
 import {
@@ -1044,6 +1047,11 @@ export const wc2_options = [
     { wc_name: 'windowborders', wc_bit: WC2_WINDOWBORDERS },
     { wc_name: 'wraptext', wc_bit: WC2_WRAPTEXT },
 ];
+
+/** C botl.h:213 VIA_WINDOWPORT(). Unset wincap2 → contest tty, false. */
+function via_windowport() {
+    return (windowprocs_wincap2() & (WC2_HILITE_STATUS | WC2_FLUSH_STATUS)) !== 0;
+}
 
 /** C `windowprocs.wincap2`; unset bag → contest tty (no wincap2 bits). */
 function windowprocs_wincap2() {
@@ -7133,7 +7141,7 @@ const DOSET_BOOL_ADDR = {
     herecmd_menu: { obj: 'flags', key: 'herecmd_menu' },
     hilite_pet: { obj: 'iflags', key: 'hilite_pet' },
     hilite_pile: { obj: 'iflags', key: 'hilite_pile' },
-    hitpointbar: { obj: 'iflags', key: 'hitpointbar' },
+    hitpointbar: { obj: 'iflags', key: 'wc2_hitpointbar' }, // C: &iflags.wc2_hitpointbar
     idlecheckpoint: { obj: 'iflags', key: 'idlecheckpoint' },
     ignintr: { obj: 'flags', key: 'ignintr' },
     implicit_uncursed: { obj: 'flags', key: 'implicit_uncursed' },
@@ -7287,10 +7295,31 @@ export function optfn_boolean_do_set(name, negated, initial = false) {
     if (!game[addr.obj]) game[addr.obj] = {};
     game[addr.obj][addr.key] = !negated;
     if (initial) return;
+    // C options.c:5330–5351. terrainstatus falls through weapon/armor
+    // (wc2_supported gate) into showscore/showvers/showexp/time:
+    // VIA_WINDOWPORT() status_initialize(REASSESS_ONLY), then disp.botl.
+    // JS bot() reads flags.botl.
+    if (name === 'terrainstatus') {
+        classify_terrain(); // C :5332
+    }
+    if (name === 'terrainstatus' || name === 'weaponstatus' || name === 'armorstatus') {
+        if (!wc2_supported(name)) {
+            config_error_add("'%s' is not supported.", name); // C :5338–5341
+        } else {
+            if (via_windowport()) status_initialize(REASSESS_ONLY); // C :5350
+            if (!game.flags) game.flags = {};
+            game.flags.botl = true; // C :5351 disp.botl
+        }
+    }
     if (name === 'showexp' || name === 'time' || name === 'showscore'
         || name === 'showvers') {
+        if (via_windowport()) status_initialize(REASSESS_ONLY); // C :5350
         if (!game.flags) game.flags = {};
-        game.flags.botl = true;
+        game.flags.botl = true; // C :5351 disp.botl
+    }
+    if (name === 'hitpointbar' && via_windowport()) {
+        status_initialize(REASSESS_ONLY); // C :5389
+        mark_opt_need_redraw(); // C :5390 go.opt_need_redraw
     }
     if (name === 'accessiblemsg') {
         // C options.c:5428–5430 case opt_accessiblemsg (!opt_initial)
