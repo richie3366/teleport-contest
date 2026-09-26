@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `zap.c` wish_history_add — coverage MISSING (C 28 L `zap.c:6227–6255` / JS no symbol; hops 3, callers 3, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn wish_history_add` (reach regression must be 0). Measured `port-coverage.mjs --name wish_history_add` 2026-09-26 @ 9d403156e. **Addressed:** D-2873
+- [x] `dungeon.c` overview_stats — coverage MISSING (C 37 L `dungeon.c:2761–2801` / JS no symbol; hops —, callers 1, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn overview_stats` (reach regression must be 0). Measured `port-coverage.mjs --name overview_stats` 2026-09-26 @ 9d403156e. **Addressed:** D-2874
+
+
+- [x] `zap.c` wish_history_add — coverage MISSING (C 28 L `zap.c:6227–6255` / JS no symbol; hops 3, callers 3, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn wish_history_add` (reach regression must be 0). Measured `port-coverage.mjs --name wish_history_add` 2026-09-26 @ 9d403156e. **Addressed:** D-2873 `f7125aef2`
 
 
 - [x] `uhitm.c` hmon_hitmon_msg_hit — coverage MISSING (C 20 L `uhitm.c:1637–1660` / JS no symbol; hops 5, callers 1, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn hmon_hitmon_msg_hit` (reach regression must be 0). Measured `port-coverage.mjs --name hmon_hitmon_msg_hit` 2026-09-26 @ 9d403156e. **Addressed:** D-2872 `8ddebb670`

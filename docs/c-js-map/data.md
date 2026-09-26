@@ -1887,6 +1887,20 @@ Lua function has no VM (a JS function is called with 0 args);
 stand-in does, and that helper stays file-local because `mklev.js`
 already imports this module.)
 
+**`overview_stats` `:2761–2801`** (D-2874; whole body in C order in
+`js/dungeon.js`. Six counters, then `game.mapseenchn` — array order is
+the chain, `.next` stays null; a non-array head walks `->next`. Each
+node adds `sizeof (mapseen)` 384; each `final_resting_place` cemetery
+adds 184; `custom_lth` adds that length plus the NUL. General row is
+unconditional; cemetery and annotations rows only when their counts
+are nonzero; both totals are added into the caller's `{ count, size }`.
+The row text is wizcmds.c `template[]` `"%-27s  %4ld  %6ld"`). Caller
+`wizcmds.c:1668` `wiz_show_stats` has no JS body (`#stats` is
+autocomplete-only in `EXT_CMD_AC`, not an `EXT_CMDS` runner) — named
+until `obj_chain` / `mon_chain` / `contained_stats` / `mon_invent_chain`
+exist so the command can be the whole C function. `extern.h:930` is
+the declaration. No call from a site C never calls from.
+
 ### `src/options.c` saveoptions writer
 
 JS: `js/options.js` — partial ([campaign 5/7])

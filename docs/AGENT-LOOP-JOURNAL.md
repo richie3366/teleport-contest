@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2874 `overview_stats` counts mapseen nodes, cemeteries, and annotations
+
+**C locus:** `nethack-c/upstream/src/dungeon.c:2761–2801` `overview_stats`. No C callees beyond `Sprintf` and `putstr` (the `template[]` row and the text window). Call: `wizcmds.c:1668` inside `wiz_show_stats`. `extern.h:930` is the declaration.
+**JS:** `js/dungeon.js` `overview_stats` `:1969`, counters `:1971–1976`, chain `:1978–1998`, node size `:1981–1982`, cemetery `:1984–1987`, annotation `:1989–1992`, general row `:2000–2001`, cemetery row `:2003–2006`, annotations row `:2008–2010`, totals `:2012–2013`.
+**Change:** One `overview_stats` in that C order. Six counters start at 0. An array chain is walked in order (`.next` stays null); a non-array head walks `->next`.
+**Verify:** `node scripts/verify.mjs --fn overview_stats` → PASS syntax (1 changed js file: js/dungeon.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (dungeon.js is not in the shared-file set) · VERIFY: PASS.
+**Named:** `wiz_show_stats` (`wizcmds.c:1616–1697`) and its object/monster chain helpers. `Sprintf` / `putstr` are the line array and `overview_stats_row`.
+**Next:** `mon.c` `monkilled` (next Open — coverage row). Eleven Open — coverage rows remain after archive, above the floor of 8, so nothing was refilled.
 ## 2026-09-26 — D-2873 `wish_history_add` keeps a wizard's wish text unless a stored line is already its prefix
 
 **C locus:** `nethack-c/upstream/src/zap.c:6227–6255` `wish_history_add`. `DEBUG` is defined (`patchlevel.h:36`), so the body is compiled. Callees: `wizard` (`flag.h` `flags.debug`), `strncmpi` (`hacklib.c:716`, live as `str_start_is` in `js/hacklib.js:132`), `strlen` / `alloc` / `strcpy` / `free` (the JS string in the slot). Calls: `zap.c:6375` and `:6379` `makewish`; `files.c:2572` `proc_wizkit_line`.
