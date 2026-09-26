@@ -103,8 +103,6 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 always Must-fix rows: they forfeit every later screen of that session
 (Constitution §10.14).
 
-- [ ] `quest.lua` nemesis speech texts — `nemesis_speaks` calls `qt_pager` with `nemesis_wantsit` / `nemesis_first` / `nemesis_next` / `nemesis_other` / `discourage`, but `QUEST_ROLE_TEXT` (`js/questpgr.js:571–584`) has none of those keys. C's first `com_pager_core(urole.filecode, …)` (`questpgr.c:629–634`) hits the per-role tables (`dat/quest.lua`, Archeologist `discourage` array `:232–242`, `nemesis_first` `:354`). JS misses, retries `"common"`, and so runs `nhl_nhlib_align_shuffle` twice (`rn2(3)`+`rn2(2)` each) and never draws the `discourage` array `rn2(nelems)`. Embed those role tables so the first lookup hits. Source: reviews/loop-unattended/1805-8b1fae943-nemesis-speaks.md
-
 ## Open — coverage (breadth phase — pop first after Must-fix)
 
 Rows below are `port-coverage.mjs --rows` output (score = reach × call

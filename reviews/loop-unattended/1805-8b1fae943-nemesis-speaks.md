@@ -5,6 +5,8 @@
 - Queue row: Open coverage, 0 corpus blocks cited
 - Banned grep: no `FORCE`, `DIAG`, `getRngLog`, seed name, or `fastforward` in the hunk. `imports.mjs --rulecheck`: "Rule #2 clean".
 
+**Addressed:** D-2853
+
 ## Intent vs deliverable
 
 Subject promises one `nemesis_speaks`: out of battle, `nemesis_wantsit` / `nemesis_first` / `nemesis_next` / `nemesis_other` / `discourage` on `rn2(5)==0`, then bump `made_goal` while it is under 7 and set `met_nemesis`. In battle, `discourage` on `rn2(5)==0` and leave the scorecard. `quest_stat_check` sets `in_battle` for `MS_NEMESIS` when the monster is not helpless and `monnear` the hero. The diff is that function, the `MS_NEMESIS` arm of `quest_talk`, and a `quest_stat_check` that no longer discards its argument.

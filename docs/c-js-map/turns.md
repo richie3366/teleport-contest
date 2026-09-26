@@ -2549,7 +2549,7 @@ other-role locate burn shuffle only); **`quest_chat`/`quest_talk`/`leader_speaks
 `is_pure` wizard≡`flags.debug` adjust** (D-0590/D-0627/D-0640; `#chat`→`domonnoise` MS_LEADER; 
 **`mon_msound` S_NYMPH→MS_SEDUCE + cajoles/comes-on/`Hello sailor` ECMD_TIME** (D-0687; 
 **`doseduce` AMOROUS_DEMON SYSOPT non-nymph D-1750**; other MS_* deferred); **finish_quest throw/kick D-1312**; 
-**chat_with_leader whole-body D-2623** (cheater/got_thanks/questart/encourage/banished-gate/livelogs live; posthanks/banished texts still deferred); nemesis talk deferred); **prisoner_speaks + quest_talk MS_DJINNI arm** (D-2114); **nemesis_speaks + quest_stat_check** (D-2846; `quest.c:403–422` whole body in C order, `quest_talk` MS_NEMESIS `:503`; `in_battle` writer `:513–518` so the battle arm is the adjacent-at-turn-start case; `chat_with_nemesis` / `chat_with_guardian` still deferred); 
+**chat_with_leader whole-body D-2623** (cheater/got_thanks/questart/encourage/banished-gate/livelogs live; posthanks/banished texts still deferred); nemesis texts D-2853); **prisoner_speaks + quest_talk MS_DJINNI arm** (D-2114); **nemesis_speaks + quest_stat_check** (D-2846; `quest.c:403–422` whole body in C order, `quest_talk` MS_NEMESIS `:503`; `in_battle` writer `:513–518` so the battle arm is the adjacent-at-turn-start case; `chat_with_nemesis` / `chat_with_guardian` still deferred); 
 **`ok_to_quest` + `goto_level` Home in-branch gate** (D-0798; 
 Gehennom amulet mysteryforce deferred); **`convert_arg` `%r`/`%R`→`rank_of` + `%ra`/`%rA`/`%rC` + 
 `%s`/`%S`/`%g` + `%Xp`/`%XP`/`%Xs`/`%XS`** (D-0627/D-0640) + 
@@ -2575,7 +2575,7 @@ other-role goal bodies; invent/migrating chains deferred) +
 Arc/Bar templates only — other-role questarti still omitted on `roles[]`); 
 **`goto_level` `at_dgn_entrance("The Quest")` → `com_pager(quest_portal*)`** (D-0650) + 
 **`quest_portal` explicit `output=pline` → `deliver_by_pline`** (D-0670; 
-Is_knox/bigroom ACH deferred; Rogue primitive pline D-0805); **`qt_pager` common retry** (D-1662; role miss → `"common"` + second nhl_init); pauper_legacy; TEST_PATTERN; other-role bodies; **`stinky_nemesis` gas arm + all-13-role `killed_nemesis` text/meta** (D-2270; `js/questpgr.js` export via `com_pager_core` rawtext, hero filecode, no common retry; wired in `js/mhitm.js` `m_detach` MS_NEMESIS arm → live `nemesis_stinks`; only Arc/Cav/Pri texts match)
+Is_knox/bigroom ACH deferred; Rogue primitive pline D-0805); **`qt_pager` common retry** (D-1662; role miss → `"common"` + second nhl_init); pauper_legacy; TEST_PATTERN; other-role bodies; **`stinky_nemesis` gas arm + all-13-role `killed_nemesis` text/meta** (D-2270; `js/questpgr.js` export via `com_pager_core` rawtext, hero filecode, no common retry; wired in `js/mhitm.js` `m_detach` MS_NEMESIS arm → live `nemesis_stinks`; only Arc/Cav/Pri texts match); **nemesis speech keys ×13** (D-2853; `js/generated/quest_nemesis_speech.js` from `dat/quest.lua`: `discourage` string array plus `nemesis_wantsit` / `nemesis_first` / `nemesis_next` / `nemesis_other` for every filecode, so `qt_pager`'s first `com_pager_core(filecode)` hits — one align shuffle, and `discourage` draws `rn2(nelems)`)
 
 ### `src/invent.c` `look_here` / `dfeature_at` / `src/stairs.c`
 

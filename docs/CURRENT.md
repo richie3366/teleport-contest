@@ -100,10 +100,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `quest.lua` nemesis speech texts — embed per-role `nemesis_wantsit` / `nemesis_first` / `nemesis_next` / `nemesis_other` / `discourage` so `qt_pager`'s first `com_pager_core` hits (Must-fix, Source: reviews/loop-unattended/1805-8b1fae943-nemesis-speaks.md). Verify `node scripts/verify.mjs --fn nemesis_speaks` (reach regression must be 0).
+**Next cluster:** `shk.c` `block_entry` — coverage MISSING (first Open — coverage row). Verify `node scripts/verify.mjs --fn block_entry` (reach regression must be 0).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2852 (index).**
+**Keep D-0845…D-2853 (index).**
 <!-- recent:begin -->
+**D-2853** `nethack-c/upstream/dat/quest.lua` role tables (Archeologist `discourage` `:232–242`, `nem — `scripts/extract-quest-nemesis.py` embeds those five keys from `quest.lua` into `js/generated/quest_nemesis_speech.js` (13 roles; Arc `discourage` is 10 strings, byte-checked against the lua).
 **D-2852** `nethack-c/upstream/src/mkobj.c:1473–1491` `start_glob_timeout`. Callees `impossible` (`pl — One `start_glob_timeout` in that C order.
 **D-2851** `nethack-c/upstream/src/objnam.c:3432–3452` `rnd_otyp_by_wpnskill`. Callee `rn2` (`rnd.c`, — One `rnd_otyp_by_wpnskill` in that C order.
 **D-2850** `nethack-c/upstream/src/vision.c:274–299` `get_unused_cs`. No C callees (`memset` of `ROWN — One `get_unused_cs` in that C order.
@@ -111,11 +112,10 @@ revisits the picker.
 **D-2848** `nethack-c/upstream/src/trap.c:7059–7095` `maybe_finish_sokoban`. Callees `livelog_printf` — One `maybe_finish_sokoban` in that C order.
 **D-2847** `nethack-c/upstream/src/botl.c:2090–2125` `exp_percent_changing`. Callees `exp_percentage` — One `exp_percent_changing` in that C order.
 **D-2846** `nethack-c/upstream/src/quest.c:403–422` `nemesis_speaks`. Callees `qt_pager` (`questpgr.c — One `nemesis_speaks` in that C order.
-**D-2845** `nethack-c/upstream/src/cmd.c:952–983` `enter_explore_mode`. Callees `authorize_explore_mo — One `enter_explore_mode` in that C order.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2852; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2853; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `mkobj.c` start_glob_timeout — coverage THIN (C 16 L `mkobj.c:1473–1491` / JS 7 L in js/mkobj.js; hops 4, callers 6, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn start_glob_timeout` (reach regression must be 0). Measured `port-coverage.mjs --name start_glob_timeout` 2026-09-26 @ adbd6bd68. **Addressed:** D-2852
+- [x] `quest.lua` nemesis speech texts — `nemesis_speaks` calls `qt_pager` with `nemesis_wantsit` / `nemesis_first` / `nemesis_next` / `nemesis_other` / `discourage`, but `QUEST_ROLE_TEXT` (`js/questpgr.js:571–584`) has none of those keys. C's first `com_pager_core(urole.filecode, …)` (`questpgr.c:629–634`) hits the per-role tables (`dat/quest.lua`, Archeologist `discourage` array `:232–242`, `nemesis_first` `:354`). JS misses, retries `"common"`, and so runs `nhl_nhlib_align_shuffle` twice (`rn2(3)`+`rn2(2)` each) and never draws the `discourage` array `rn2(nelems)`. Embed those role tables so the first lookup hits. Source: reviews/loop-unattended/1805-8b1fae943-nemesis-speaks.md **Addressed:** D-2853
+
+
+- [x] `mkobj.c` start_glob_timeout — coverage THIN (C 16 L `mkobj.c:1473–1491` / JS 7 L in js/mkobj.js; hops 4, callers 6, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn start_glob_timeout` (reach regression must be 0). Measured `port-coverage.mjs --name start_glob_timeout` 2026-09-26 @ adbd6bd68. **Addressed:** D-2852 `81fd2232b`
 
 
 - [x] `objnam.c` rnd_otyp_by_wpnskill — coverage MISSING (C 20 L `objnam.c:3432–3452` / JS no symbol; hops 4, callers 2, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn rnd_otyp_by_wpnskill` (reach regression must be 0). Measured `port-coverage.mjs --name rnd_otyp_by_wpnskill` 2026-09-26 @ 686390b2d. **Addressed:** D-2851 `cc7992cc4`
