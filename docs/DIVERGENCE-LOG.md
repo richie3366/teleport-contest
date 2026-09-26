@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2910 — `align_gname` uses the role's gods and reports an unknown alignment
+
+- **Status:** fixed (coverage THIN; `hidden-proxy verify` reports no corpus session blocked). C is 25 lines; the whole body shipped. `obj_nexto_xy` was already that body (Stale).
+- **Symptom:** An empty pantheon field became Blind Io, Offler, or The Lady. Chaotic was tested before neutral. An unknown alignment returned "someone" and never called `impossible`.
+- **C locus:** `nethack-c/upstream/src/pray.c:2530–2555` `align_gname`. `A_NONE` is the file-scope `Moloch` (`pray.c:58`). `A_LAWFUL` / `A_NEUTRAL` / `A_CHAOTIC` read `gu.urole.lgod` / `ngod` / `cgod`. The default calls `impossible("unknown alignment.")` and uses `"someone"`. A leading `_` is skipped.
+- **JS was:** `js/roles.js` `align_gname(urole, a)` used those three stand-in names, tested chaotic before neutral, and had no `impossible`.
+- **Fix:** One exported `align_gname` in that C order. Callers still pass `game.urole` as the first argument (C reads `gu.urole`). The default arm is fire-and-forget `impossible` so the function stays sync. A leading `_` is stripped only when the name is a string.
+- **JS:** `js/roles.js` `align_gname` `:848`. `A_NONE` `:852`. Lawful `:855`. Neutral `:858`. Chaotic `:861`. Default `:864–867`. Underscore `:871–873`.
+- **Callers:** `dothrow.c:2128` → `js/dothrow.js:664`. `dungeon.c:3618` → `js/dungeon.js:2591`. `insight.c:558` / `:561` / `:565` `background_enlightenment` → `js/invent.js:6314` / `:6317` / `:6321` and the `doattributes` repeat `:7097` / `:7100` / `:7104`. `minion.c:244` and `:247` share `js/minion.js:247` (no RNG). `pray.c:646` → `js/pray.js:1139`. `pray.c:699` → `:1086`. `pray.c:728` → `:1255`. `pray.c:1077` → `:1398`. `pray.c:1424` → `:989`. `pray.c:1517` → `:1208`. `pray.c:1824` → `:2431`. `pray.c:2140` → `:929`. `pray.c:2309` → `:1945`. `pray.c:2519` `a_gname_at` → `:2069`. `pray.c:2526` `u_gname` → `js/roles.js:889`. `pray.c:2583` `halu_gname` → `js/pray.js:2779`. `pray.c:2664` `altar_wrath` → `js/pray.js:1013`. `questpgr.c:297` / `:300` → `js/questpgr.js:712` / `:715`. `extern.h:2571` only declares it. `questpgr.js:39` is the legacy quest page for the same `%d` deity.
+- **Verify:** `node scripts/verify.mjs --fn align_gname --reach-all` → PASS syntax (1 changed js file: js/roles.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.2s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: PASS.
+- **Named omissions:** No arm of `align_gname` is omitted. A null god name skips the `_` test and is returned; C would fault on `*gnam`. `priestname` (`js/do_name.js:926`) calls `align_gname` where C `priest.c:364` calls `halu_gname`.
+- **Next:** `mkobj.c` `mkobj_erosions` (next Open — coverage row). `obj_nexto_xy` parked Stale. Six tool rows refilled so the queue is back at 12. The queue-empty overlay did not match the live queue (eight coverage rows were open; `obj_nexto_xy` was the head and already the C body).
+
 ## D-2909 — `some_armor` reads the victim's worn armor, not only the hero's
 
 - **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked). C is 23 lines; the whole body shipped. `mk_mplayer_armor` and `buried_ball_to_punishment` were already those bodies (Stale).

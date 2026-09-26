@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `do_wear.c` `some_armor` — coverage PARTIAL (`do_wear.c:2630–2653`). `mk_mplayer_armor` and `buried_ball_to_punishment` already match C (Stale). No Must-fix.
+**Next cluster:** `pray.c` `align_gname` — coverage THIN (`pray.c:2530–2555`). `obj_nexto_xy` already matches C (Stale). No Must-fix.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2909 (index).**
+**Keep D-0845…D-2910 (index).**
 <!-- recent:begin -->
+**D-2910** `nethack-c/upstream/src/pray.c:2530–2555` `align_gname`. `A_NONE` is the file-scope `Moloc — One exported `align_gname` in that C order.
 **D-2909** `nethack-c/upstream/src/do_wear.c:2629–2653` `some_armor`. `victim == &gy.youmonst` reads  — One exported `some_armor` in that C order.
 **D-2908** `nethack-c/upstream/src/wield.c:809–831` `drop_uswapwep`. `Sprintf(left_hand, "left %s", b — One async `drop_uswapwep` in that C order.
 **D-2907** `nethack-c/upstream/src/eat.c:576–599` `eating_conducts`. `!u.uconduct.food++` then `livel — One async `eating_conducts` in that C order, including both post-increment tests and all three `livelog_printf` calls.
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2905** `nethack-c/upstream/src/dothrow.c:1913–1947` `omon_adj`. Add `msize - MZ_MEDIUM`, +2 if sl — One exported `omon_adj` in that C order.
 **D-2904** `nethack-c/upstream/src/zap.c:123–151` `learnwand`. Skip when `oclass == SPBOOK_CLASS`. If — One exported `learnwand` in that C order: `observe_object` on the known arm, `Blind()` then `observe_object` then `makeknown` on the unknown arm, then `update_inventory`.
 **D-2903** `nethack-c/upstream/src/polyself.c:307–333` `livelog_newform`. Return when `Upolyd` (`u.um — One exported `livelog_newform` in that C order.
-**D-2902** `nethack-c/upstream/src/do.c:1412–1445` `u_collide_m`. Guard `impossible` with "no monster — One `u_collide_m` in that C order, including the three `impossible` reasons, `youmonst.data` only, `distu <= 2`, the `flags.debug` pline, and the `rloc` short-circuit before limbo.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2909; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2910; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2910 `align_gname` uses the role's gods and reports an unknown alignment
+
+**C locus:** `nethack-c/upstream/src/pray.c:2530–2555` `align_gname`. `A_NONE` is the file-scope `Moloch` (`pray.c:58`). `A_LAWFUL` / `A_NEUTRAL` / `A_CHAOTIC` read `gu.urole.lgod` / `ngod` / `cgod`. The default calls `impossible("unknown alignment.")` and uses `"someone"`. A leading `_` is skipped.
+**JS:** `js/roles.js` `align_gname` `:848`. `A_NONE` `:852`. Lawful `:855`. Neutral `:858`. Chaotic `:861`. Default `:864–867`. Underscore `:871–873`.
+**Change:** One exported `align_gname` in that C order. Callers still pass `game.urole` as the first argument (C reads `gu.urole`). The default arm is fire-and-forget `impossible` so the function stays sync.
+**Verify:** `node scripts/verify.mjs --fn align_gname --reach-all` → PASS syntax (1 changed js file: js/roles.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.2s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: PASS.
+**Named:** No arm of `align_gname` is omitted. A null god name skips the `_` test and is returned; C would fault on `*gnam`.
+**Next:** `mkobj.c` `mkobj_erosions` (next Open — coverage row). `obj_nexto_xy` parked Stale. Six tool rows refilled so the queue is back at 12. The queue-empty overlay did not match the live queue (eight coverage rows were open; `obj_nexto_xy` was the head and already the C body).
 ## 2026-09-26 — D-2909 `some_armor` reads the victim's worn armor, not only the hero's
 
 **C locus:** `nethack-c/upstream/src/do_wear.c:2629–2653` `some_armor`. `victim == &gy.youmonst` reads `uarmc`, then `uarm`, then `uarmu`. Otherwise `which_armor` for `W_ARMC`, `W_ARM`, `W_ARMU`. Helm, gloves, boots, and shield replace that piece when it is missing or `!rn2(4)`.
