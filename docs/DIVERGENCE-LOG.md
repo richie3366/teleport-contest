@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2817 — `mount_steed` uses the resistance-aware Hallucination
+
+- **Status:** fixed (Must-fix from review 1772; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** `#ride` treated a sticky `u.Hallucination` as hallucinating before `Halluc_resistance`, and a timeout that lived only on `uprops[HALLUC].intrinsic` did not block the mount.
+- **C locus:** `nethack-c/upstream/include/youprop.h:116–120` `Hallucination` is `HHallucination && !Halluc_resistance`, and `HHallucination` is `u.uprops[HALLUC].intrinsic`. `steed.c:212–215` `mount_steed` returns false when that macro is set and `!force`. `steed.c:647` `dismount_steed` uses the same macro for the nameless-steed rain line.
+- **JS was:** `js/steed.js` imported `Hallucination` from `do_name.js:255`, which returns true on `u.Hallucination` before resistance and never reads `uprops[HALLUC].intrinsic`. `display.js:1091` is the youprop test.
+- **Fix:** Import `Hallucination` from `display.js` (already a static import; call-time only). Both steed sites call that export. `do_name.js` is unchanged.
+- **JS:** `js/steed.js` `mount_steed` `:652`. `dismount_steed` `:957`. `js/display.js` `Hallucination` `:1091`.
+- **Callers:** `steed.c:187` `doride` → `js/steed.js:1178` (the gate is inside `mount_steed`). `steed.c:647` → `js/steed.js:957`. `extern.h:3146` is the declaration. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn mount_steed` → PASS syntax (1 changed js file: js/steed.js) · PASS rule2 · note hidden (no corpus session blocked at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (verifier: steed.js is outside the auto shared set) · VERIFY: PASS.
+- **Named omissions:** `do_name.js` `Hallucination` still returns on sticky `u.Hallucination` before resistance and does not read the intrinsic slot; its other importers are unchanged. D-2813 stands: a `mtrapped` monster with no `t_at` says "a trap"; `which_armor_saddle` remains for `use_saddle` / `dismount_steed`; `landing_spot` still walks `game.ftrap`; `steed_vs_stealth` writes flat `BStealth`.
+- **Next:** `detect.c` `level_distance` (next Open — coverage row).
+
 ## D-2816 — `retouch_equipment` callers retest worn gear
 
 - **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked).

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2817 `mount_steed` uses the resistance-aware Hallucination
+
+**C locus:** `nethack-c/upstream/include/youprop.h:116–120` `Hallucination` is `HHallucination && !Halluc_resistance`, and `HHallucination` is `u.uprops[HALLUC].intrinsic`. `steed.c:212–215` `mount_steed` returns false when that macro is set and `!force`. `steed.c:647` `dismount_steed` uses the same macro for the nameless-steed rain line.
+**JS:** `js/steed.js` `mount_steed` `:652`. `dismount_steed` `:957`. `js/display.js` `Hallucination` `:1091`.
+**Change:** Import `Hallucination` from `display.js` (already a static import; call-time only). Both steed sites call that export. `do_name.js` is unchanged.
+**Verify:** `node scripts/verify.mjs --fn mount_steed` → PASS syntax (1 changed js file: js/steed.js) · PASS rule2 · note hidden (no corpus session blocked at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (verifier: steed.js is outside the auto shared set) · VERIFY: PASS.
+**Named:** `do_name.js` `Hallucination` still returns on sticky `u.Hallucination` before resistance and does not read the intrinsic slot; its other importers are unchanged. D-2813 stands: a `mtrapped` monster with no `t_at` says "a trap"; `which_armor_saddle` remains for `use_saddle` / `dismount_steed`; `landing_spot` still walks `game.ftrap`; `steed_vs_stealth` writes flat `BStealth`.
+**Next:** `detect.c` `level_distance` (next Open — coverage row).
 ## 2026-09-26 — review 1767–1775 (audit, no port)
 
 **Reviewed:** `79c71b903` unstuck ACCEPT; `27a017b11` Boots_on ACCEPT; `302f02151` petattr ACCEPT; `4bf3b26b6` coord_desc ACCEPT; `9dcef1d65` remove_worn_item ACCEPT; `686ccd9e7` mount_steed QUALITY-RISK (`do_name.js` `Hallucination` returns on sticky `u.Hallucination` before `Halluc_resistance` and skips `uprops[HALLUC].intrinsic`); `30a1b86dc` allow_category ACCEPT; `75a5d7683` safe_teleds ACCEPT; `5dd7c4a90` retouch callers ACCEPT.

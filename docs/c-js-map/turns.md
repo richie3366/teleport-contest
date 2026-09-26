@@ -3607,6 +3607,11 @@ monster with no `t_at` record says "a trap" (C would dereference);
 `which_armor_saddle` remains for `use_saddle` / `dismount_steed`;
 `landing_spot` still walks `game.ftrap` rather than `trap.c` `t_at`;
 `steed_vs_stealth` writes flat `BStealth` (not `uprops[STEALTH].blocked`);
+**`Hallucination` gate D-2817** (`youprop.h:116–120`; `steed.c:212` and
+`:647` import `display.js` `Hallucination` (`:1091`), which reads
+`uprops[HALLUC].intrinsic` then `!Halluc_resistance`. `do_name.js`
+still returns on sticky `u.Hallucination` before resistance — other
+importers unchanged);
 **`poly_steed` D-2243**
 (`:851–873`; `!can_saddle || !can_ride` → `dismount_steed(DISMOUNT_FELL)`,
 else `x_monnam(ARTICLE_YOUR, SUPPRESS_SADDLE)` + shape-change `"your " →

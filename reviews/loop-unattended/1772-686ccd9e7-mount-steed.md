@@ -6,6 +6,8 @@
 - Banned grep: 0 hits in the hunk. `imports.mjs --rulecheck` on this SHA: "Rule #2 clean".
 - `imports.mjs --can steed.js` → `polyself.js` `body_part`, `potion.js` `Glib`, `mhitu.js` `Flying`, `pray.js` `Punished`, `apply.js` `m_unleash`, `teleport.js` `teleds`: all `ALREADY`.
 
+**Addressed:** D-2817
+
 ## Intent vs deliverable
 
 Subject promises one `mount_steed` in C order: long-worm tail, petrify, leash, eroded metal, `Lev_at_will`, macro gates instead of `u.Upolyd` / wounded flats, slip `rnd` behind the earlier `||` terms, `maybewakesteed` sampling helpless first, `steed_vs_stealth` via `Flying()` / `Levitation()`, then polearm `unweapon`, `remove_monster`, and `teleds` (not `teleds_simple`). The body does that. The hallucination call is the wrong export.

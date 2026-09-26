@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `artifact.c` retouch_equipment — coverage PARTIAL (C 64 L `artifact.c:2640–2705` / JS 35 L in js/artifact.js; hops 2, callers 8, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn retouch_equipment` (reach regression must be 0). Measured `port-coverage.mjs --name retouch_equipment` 2026-09-26 @ 9dcef1d65. **Addressed:** D-2816
+- [x] `steed.c` `mount_steed` hallucination gate calls `do_name.js` `Hallucination` (`:255`), which returns true on `u.Hallucination` before `Halluc_resistance` and does not read `uprops[HALLUC].intrinsic`. C `youprop.h:120` is `HHallucination && !Halluc_resistance` (`HHallucination` is `uprops[HALLUC].intrinsic`, `:116`). `display.js:1091` is that test. Source: reviews/loop-unattended/1772-686ccd9e7-mount-steed.md. Verify `node scripts/verify.mjs --fn mount_steed` (reach regression must be 0). **Addressed:** D-2817
+
+
+- [x] `artifact.c` retouch_equipment — coverage PARTIAL (C 64 L `artifact.c:2640–2705` / JS 35 L in js/artifact.js; hops 2, callers 8, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn retouch_equipment` (reach regression must be 0). Measured `port-coverage.mjs --name retouch_equipment` 2026-09-26 @ 9dcef1d65. **Addressed:** D-2816 `5dd7c4a90`
 
 ## 2026-09-25
 

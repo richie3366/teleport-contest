@@ -44,6 +44,7 @@ import { rnd, rn2, rn1 } from './rng.js';
 import {
     pline, newsym, canspotmon, describe_level, impossible,
     You, You_cant, Your,
+    Hallucination,
 } from './display.js';
 import { getdir } from './lock.js';
 import { y_n } from './getline.js';
@@ -51,7 +52,7 @@ import { m_at, cant_drown } from './mon.js';
 import { isok, strsubst } from './hacklib.js';
 import {
     Monnam, mon_nam, a_monnam, monverbself, pmname, Mgender, y_monnam,
-    Hallucination, hliquid, x_monnam, minimal_monnam, YMonnam,
+    hliquid, x_monnam, minimal_monnam, YMonnam,
 } from './do_name.js';
 import { losehp, maybe_half_phys, finish_maybe_wail, is_pool, is_lava, test_move } from './hack.js';
 import {
@@ -645,7 +646,9 @@ export async function mount_steed(mtmp, force) {
         return false;
     }
 
-    /* Is the player in the right form? */
+    /* Is the player in the right form?
+     * C youprop.h:116–120 — HHallucination is uprops[HALLUC].intrinsic;
+     * Hallucination is that timeout && !Halluc_resistance. */
     if (Hallucination() && !force) {
         await pline('Maybe you should find a designated driver.');
         return false;
@@ -950,7 +953,7 @@ export async function dismount_steed(reason) {
             await pline(
                 `You've been through the dungeon on ${an(mon_plain(mtmp))} with no name.`,
             );
-            // C `:648`: BYCHOICE nameless Hallu rain line.
+            // C steed.c:647 — same youprop.h Hallucination macro.
             if (Hallucination()) {
                 await pline('It felt good to get out of the rain.');
             }
