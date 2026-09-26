@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `vision.c` view_from — coverage PARTIAL (C 83 L `vision.c:2002–2091` / JS 48 L in js/vision.js; hops 1, callers 3, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn view_from` (reach regression must be 0). Measured `port-coverage.mjs --name view_from` 2026-09-26 @ 9dcef1d65. **Addressed:** D-2820
+- [x] `options.c` optfn_paranoid_confirmation — coverage MISSING **Addressed:** D-2821. (C 223 L `options.c:2818–3043` / JS no symbol; hops —, callers 0, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn optfn_paranoid_confirmation` (reach regression must be 0). Measured `port-coverage.mjs --name optfn_paranoid_confirmation` 2026-09-26 @ 75a5d7683.
+
+
+- [x] `vision.c` view_from — coverage PARTIAL (C 83 L `vision.c:2002–2091` / JS 48 L in js/vision.js; hops 1, callers 3, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn view_from` (reach regression must be 0). Measured `port-coverage.mjs --name view_from` 2026-09-26 @ 9dcef1d65. **Addressed:** D-2820 `3c5dbb972`
 
 
 - [x] `hack.c` weight_cap — coverage PARTIAL (C 51 L `hack.c:4295–4346` / JS 30 L in js/invent.js; hops 2, callers 8, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn weight_cap` (reach regression must be 0). Measured `port-coverage.mjs --name weight_cap` 2026-09-26 @ 9dcef1d65. **Addressed:** D-2819 `678f36702`
