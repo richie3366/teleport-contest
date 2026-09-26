@@ -1144,7 +1144,7 @@ amulet/eyewear put-on; GUARDING `makeknown`+`find_ac`** (D-0067/D-0810) + **`Amu
 poly/`body_part` wording; **query_menu `rightleftchars` D-1728**) + 
 **`armoroff` `oc_delay`/`nomul`/`afternmv`/`suit_simple_name` mail** (D-0259) + **delay-arm `what` per-category simple names — shield silver/smooth, helm hard→helm/hat, gloves gauntlets, boots shoes, cloak robe/wrapping/smock, suit dragon mail/scales** (D-2077; default unknown-armcat 'armor' pre-existing) + 
 **delay-0 no `find_ac` (≡C; stale botl until allmain — D-0883)**; 
-**`destroy_arm`/`some_armor`/`obj_erode_type`** (D-0491; D-2721 C-order `rn2(4)+1` hits draw before the `!idx` return — naked hero still draws); 
+**`destroy_arm`/`some_armor`/`obj_erode_type`** (D-0491; D-2721 C-order `rn2(4)+1` hits draw before the `!idx` return — naked hero still draws); **`some_armor` whole body** (D-2909; `do_wear.c:2629–2653`: youmonst reads `uarmc` then `uarm` then `uarmu`, then helm/gloves/boots/shield on `!rn2(4)`; other victims are `which_armor`; callers `seffect_enchant_armor` `read.js`, `seffect_destroy_armor` passes `game.youmonst`, `mhitm_ad_ench` `mhitu.js`); 
 **`find_ac` in `u_init.js` — ARM_BONUS erosion + 
 RIN_PROTECTION/AMULET_OF_GUARDING/HProtection/uspellprot** (D-0502; 
 monster `find_mac` minvent worn ARM_BONUS/amulet of guarding + AC_MAX (D-1042, `worn.js`) + 

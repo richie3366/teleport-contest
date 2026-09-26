@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `wield.c` drop_uswapwep — coverage PARTIAL (C 22 L `wield.c:809–831` / JS 15 L in js/wield.js; hops 3, callers 3, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn drop_uswapwep` (reach regression must be 0). Measured `port-coverage.mjs --name drop_uswapwep` 2026-09-27 @ ba089151c. **Addressed:** D-2908
+- [x] `do_wear.c` some_armor — coverage PARTIAL (C 23 L `do_wear.c:2630–2653` / JS 13 L in js/do_wear.js; hops 5, callers 3, RNG 4, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn some_armor` (reach regression must be 0). Measured `port-coverage.mjs --name some_armor` 2026-09-27 @ 6aacaa7b4. **Addressed:** D-2909
+
+
+- [x] `wield.c` drop_uswapwep — coverage PARTIAL (C 22 L `wield.c:809–831` / JS 15 L in js/wield.js; hops 3, callers 3, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn drop_uswapwep` (reach regression must be 0). Measured `port-coverage.mjs --name drop_uswapwep` 2026-09-27 @ ba089151c. **Addressed:** D-2908 `1490a6d6b`
 
 
 - [x] `eat.c` eating_conducts — coverage THIN (C 23 L `eat.c:576–599` / JS 10 L in js/eat.js; hops 5, callers 3, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn eating_conducts` (reach regression must be 0). Measured `port-coverage.mjs --name eating_conducts` 2026-09-27 @ ba089151c. **Addressed:** D-2907 `d912391e3`

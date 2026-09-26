@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2909 `some_armor` reads the victim's worn armor, not only the hero's
+
+**C locus:** `nethack-c/upstream/src/do_wear.c:2629–2653` `some_armor`. `victim == &gy.youmonst` reads `uarmc`, then `uarm`, then `uarmu`. Otherwise `which_armor` for `W_ARMC`, `W_ARM`, `W_ARMU`. Helm, gloves, boots, and shield replace that piece when it is missing or `!rn2(4)`.
+**JS:** `js/do_wear.js` `some_armor` `:3303`. Hero test `:3306`. Cloak/suit/shirt `:3308–3314`. Helm `:3315–3316`. Gloves `:3317–3318`. Boots `:3319–3320`. Shield `:3321–3322`.
+**Change:** One exported `some_armor` in that C order. Youmonst (and the `_youmonst` stand-in `which_armor` already accepts) reads the hero slots. Every other victim calls `which_armor`.
+**Verify:** `node scripts/verify.mjs --fn some_armor` → PASS syntax (2 changed js files: js/do_wear.js js/read.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.2s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: PASS.
+**Named:** No arm of `some_armor` is omitted. `mhitm_ad_ench` when the hero is the aggressor, and when both fighters are monsters, does not call `some_armor` (C comments: no `msomearmor`).
+**Next:** `mkobj.c` `obj_nexto_xy` (next Open — coverage row). `mk_mplayer_armor` and `buried_ball_to_punishment` parked Stale. Eight Open rows remain after archive, at the floor of 8, so nothing was refilled. The queue-empty overlay did not match the live queue (eleven coverage rows were open; `mk_mplayer_armor` was the head and already shipped).
 ## 2026-09-26 — D-2908 `drop_uswapwep` names the left hand and drops the secondary weapon
 
 **C locus:** `nethack-c/upstream/src/wield.c:809–831` `drop_uswapwep`. `Sprintf(left_hand, "left %s", body_part(HAND))`. If `!obj->cursed`, `pline` `Yobjnam2(obj, "slip")`. Else if `!u.twoweap`, `pline` `Yobjnam2(obj, "evade")` plus `otense(obj, "drop")`. Else `Your` with `yobjnam(obj, NULL)`. Then `dropx(obj)`.

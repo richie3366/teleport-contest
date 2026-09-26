@@ -30,7 +30,7 @@ import {
     makeknown, observe_object, ggetobj, is_worn, silly_thing, update_inventory,
     weapon_descr, getobj, useup,
 } from './invent.js';
-import { w_blocks, cantweararm, racial_exception, WrappingAllowed, is_flimsy, has_horns, num_horns } from './worn.js';
+import { w_blocks, cantweararm, racial_exception, WrappingAllowed, is_flimsy, has_horns, num_horns, which_armor } from './worn.js';
 import { monstunseesu_prop } from './mondata.js';
 import {
     add_valid_menu_class, menu_class_present, query_category, query_objlist,
@@ -3294,20 +3294,31 @@ export async function doputon() {
 }
 
 /**
- * C ref: do_wear.c some_armor — pick a worn armor piece (cloak/suit/shirt
- * preferred; helm/gloves/boots/shield may steal via rn2(4)).
- * Hero-only envelope (which_armor monster path deferred).
+ * C ref: do_wear.c some_armor `:2629–2653`.
+ * Cloak, then suit, then shirt. Helm, gloves, boots, and shield
+ * replace that piece when nothing is worn yet, or on `!rn2(4)`.
+ * `&gy.youmonst` reads the hero slots; any other victim is
+ * `which_armor` (minvent `owornmask`).
  */
-export function some_armor(_victim) {
+export function some_armor(victim) {
+    // C `:2634` — victim == &gy.youmonst. `_youmonst` is the stand-in
+    // `which_armor` already treats as the hero (worn.c `:1008`).
+    const hero = victim === game.youmonst || !!(victim && victim._youmonst);
     const u = game.u || {};
-    let otmph = u.uarmc || u.uarm || u.uarmu || null;
-    let otmp = u.uarmh;
+    let otmph = hero ? (u.uarmc || null) : which_armor(victim, W_ARMC);
+    if (!otmph) {
+        otmph = hero ? (u.uarm || null) : which_armor(victim, W_ARM);
+    }
+    if (!otmph) {
+        otmph = hero ? (u.uarmu || null) : which_armor(victim, W_ARMU);
+    }
+    let otmp = hero ? (u.uarmh || null) : which_armor(victim, W_ARMH);
     if (otmp && (!otmph || !rn2(4))) otmph = otmp;
-    otmp = u.uarmg;
+    otmp = hero ? (u.uarmg || null) : which_armor(victim, W_ARMG);
     if (otmp && (!otmph || !rn2(4))) otmph = otmp;
-    otmp = u.uarmf;
+    otmp = hero ? (u.uarmf || null) : which_armor(victim, W_ARMF);
     if (otmp && (!otmph || !rn2(4))) otmph = otmp;
-    otmp = u.uarms;
+    otmp = hero ? (u.uarms || null) : which_armor(victim, W_ARMS);
     if (otmp && (!otmph || !rn2(4))) otmph = otmp;
     return otmph;
 }

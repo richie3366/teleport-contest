@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2909 — `some_armor` reads the victim's worn armor, not only the hero's
+
+- **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked). C is 23 lines; the whole body shipped. `mk_mplayer_armor` and `buried_ball_to_punishment` were already those bodies (Stale).
+- **Symptom:** `some_armor` ignored its victim and always read `u.uarmc`, `u.uarm`, and `u.uarmu`. A monster's worn cloak, suit, shirt, helm, gloves, boots, or shield never entered the pick. Scroll of destroy armor passed `null` into that hero-only function.
+- **C locus:** `nethack-c/upstream/src/do_wear.c:2629–2653` `some_armor`. `victim == &gy.youmonst` reads `uarmc`, then `uarm`, then `uarmu`. Otherwise `which_armor` for `W_ARMC`, `W_ARM`, `W_ARMU`. Helm, gloves, boots, and shield replace that piece when it is missing or `!rn2(4)`.
+- **JS was:** `js/do_wear.js` `some_armor` took `_victim` and never used it. The three body slots were one `||` chain. The four `rn2(4)` arms already matched. `js/read.js` `seffect_destroy_armor` called `some_armor(null)`.
+- **Fix:** One exported `some_armor` in that C order. Youmonst (and the `_youmonst` stand-in `which_armor` already accepts) reads the hero slots. Every other victim calls `which_armor`. `seffect_destroy_armor` passes `game.youmonst`, as C passes `&gy.youmonst`.
+- **JS:** `js/do_wear.js` `some_armor` `:3303`. Hero test `:3306`. Cloak/suit/shirt `:3308–3314`. Helm `:3315–3316`. Gloves `:3317–3318`. Boots `:3319–3320`. Shield `:3321–3322`.
+- **Callers:** `read.c:1121` `seffect_enchant_armor` → `js/read.js:1543`. `read.c:1327` `seffect_destroy_armor` → `js/read.js:1247`. `uhitm.c:3619` `mhitm_ad_ench` → `js/mhitu.js:1002` (`mhitm_ad_ench_u`, `mdef == &gy.youmonst`). `extern.h:776` only declares it. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn some_armor` → PASS syntax (2 changed js files: js/do_wear.js js/read.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.2s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: PASS.
+- **Named omissions:** No arm of `some_armor` is omitted. `mhitm_ad_ench` when the hero is the aggressor, and when both fighters are monsters, does not call `some_armor` (C comments: no `msomearmor`). `_youmonst` is the stand-in already in `which_armor` (`worn.c:1008`).
+- **Next:** `mkobj.c` `obj_nexto_xy` (next Open — coverage row). `mk_mplayer_armor` and `buried_ball_to_punishment` parked Stale. Eight Open rows remain after archive, at the floor of 8, so nothing was refilled. The queue-empty overlay did not match the live queue (eleven coverage rows were open; `mk_mplayer_armor` was the head and already shipped).
+
 ## D-2908 — `drop_uswapwep` names the left hand and drops the secondary weapon
 
 - **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked). C is 22 lines; the whole body shipped.
