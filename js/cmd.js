@@ -36,7 +36,7 @@ import { COLNO, ROWNO, STONE, DOOR, CORR, ROOM, IRONBARS, TREE, SDOOR, ICE,
          MV_WALK, MV_RUN, MV_RUSH, commandInp, otherInp, getposInp,
          GFILTER_VIEW, GLOC_INTERESTING,
          M_AP_TYPE, M_AP_FURNITURE, M_AP_OBJECT, S_hcdoor, S_vcdoor, VIBRATING_SQUARE,
-         PARANOID_TRAP, GP_ALLOW_U, NO_TRAP_FLAGS, FOOT, Something,
+         PARANOID_TRAP, PARANOID_QUIT, GP_ALLOW_U, NO_TRAP_FLAGS, FOOT, Something,
          LARGEST_INT, GC_NOFLAGS, GC_SAVEHIST, GC_CONDHIST, GC_ECHOFIRST,
          SUPPRESS_HISTORY,
          In_sokoban, Is_waterlevel,
@@ -82,7 +82,7 @@ import { dig_typ, use_pick_axe2 } from './dig.js';
 import { rehumanize, body_part } from './polyself.js';
 import { Levitation, Flying } from './mhitu.js';
 import { doopen, doopen_indir, doclose } from './lock.js';
-import { doextcmd, getlin, mungspaces, extcmd_run_by_txt } from './getline.js';
+import { doextcmd, getlin, mungspaces, extcmd_run_by_txt, paranoid_query } from './getline.js';
 import { strstri, strsubst, upstart } from './hacklib.js';
 import { dosearch, doterrain } from './detect.js';
 import { dotakeoff, doddoremarm, dowear, doputon, doremring } from './do_wear.js';
@@ -123,6 +123,141 @@ import { drag_ball, move_bc } from './ball.js';
 import { in_out_region } from './region.js';
 import { m_postmove_effect, can_ooze, accessible } from './monmove.js';
 import { exercise_steed, stucksteed, helpless_steed } from './steed.js';
+
+/** C flag.h:30,33 — `wizard` is `flags.debug`, `discover` is `flags.explore`. */
+function wizardOn() {
+    return !!(game.flags?.debug || game.flags?.wizard || game.wizard);
+}
+
+function discoverOn() {
+    return !!(game.flags?.explore || game.flags?.discover);
+}
+
+/**
+ * C isspace in the C locale: space, tab, newline, vertical tab, form
+ * feed, carriage return. Used by check_user_string's word scan.
+ * @param {string} ch
+ * @returns {boolean}
+ */
+function cIsspace(ch) {
+    return ch === ' ' || ch === '\t' || ch === '\n'
+        || ch === '\v' || ch === '\f' || ch === '\r';
+}
+
+/**
+ * C ref: unixmain.c get_unix_pw `:731–760` (static). getuid / getlogin /
+ * getenv("USER") / getpwnam / getpwuid. Scored ESM has no passwd
+ * database in Node or Chrome (Contest Rule #2), so the lookup fails
+ * the way C does when getpwuid returns null.
+ * @returns {null}
+ */
+function get_unix_pw() {
+    return null;
+}
+
+/**
+ * C ref: unixmain.c check_user_string `:695–729`. A leading '*' allows
+ * any user. Otherwise the name is `plname` when `sysopt.check_plname`,
+ * else the unix passwd name. A word matches when the next character is
+ * NUL or space (strncmp of exactly pwlen).
+ * @param {string} optstr
+ * @returns {boolean}
+ */
+export function check_user_string(optstr) {
+    const s = String(optstr ?? '');
+    if (s.charCodeAt(0) === 42) return true; // C `:703–704` '*'
+    let pwname = '';
+    if (game.sysopt?.check_plname) {
+        pwname = String(game.plname ?? ''); // C `:705–706`
+    } else {
+        const pw = get_unix_pw(); // C `:707–708`
+        if (pw && pw.pw_name) pwname = String(pw.pw_name);
+    }
+    if (!pwname) return false; // C `:709–710`
+    const pwlen = pwname.length; // C `:711`
+    // C `:712–727` eop = eos(optstr); while (w + pwlen <= eop).
+    let w = 0;
+    while (w + pwlen <= s.length) {
+        const ch = s[w];
+        if (!ch) break; // C `:715–716`
+        if (cIsspace(ch)) { // C `:717–720`
+            w++;
+            continue;
+        }
+        if (s.slice(w, w + pwlen) === pwname) { // C `:721` strncmp
+            const next = s[w + pwlen]; // undefined at the NUL
+            if (next == null || next === '' || cIsspace(next)) return true; // C `:722–723`
+        }
+        while (w < s.length && s[w] && !cIsspace(s[w])) w++; // C `:725–726`
+    }
+    return false; // C `:728`
+}
+
+/**
+ * C ref: unixmain.c authorize_explore_mode `:638–651`. SYSCF is on
+ * (config.h:233), so an empty or missing EXPLORERS list refuses and
+ * sets `iflags.explore_error_flag`. The `#else` return TRUE is not
+ * compiled.
+ * @returns {boolean}
+ */
+export function authorize_explore_mode() {
+    const explorers = game.sysopt?.explorers;
+    if (explorers && explorers[0]) { // C `:643`
+        if (check_user_string(explorers)) return true; // C `:644–645`
+    }
+    if (!game.iflags) game.iflags = {};
+    game.iflags.explore_error_flag = true; // C `:647`
+    return false; // C `:648`
+}
+
+/**
+ * C ref: cmd.c enter_explore_mode `:952–983`. Already in explore mode
+ * is one You. Otherwise authorize, then the wizard note or the
+ * non-wizard refusal. The Beware line always names the mode being
+ * left. Yes sets discover and clears wizard, then clears the message
+ * window before the confirmation You. No clears, then Continuing.
+ * Async because You, pline, and paranoid_query await input.
+ * @returns {Promise<number>} ECMD_OK
+ */
+export async function enter_explore_mode() {
+    if (!game.flags) game.flags = {};
+    if (discoverOn()) { // C `:954`
+        await You('are already in explore mode.'); // C `:955`
+    } else {
+        const oldmode = !wizardOn() ? 'normal game' : 'debug mode'; // C `:957`
+        if (!authorize_explore_mode()) { // C `:959`
+            if (!wizardOn()) { // C `:960`
+                await You('cannot access explore mode.'); // C `:961`
+                return ECMD_OK; // C `:962`
+            }
+            await pline( // C `:964–965`
+                "Note: normally you wouldn't be allowed into explore mode.",
+            );
+            /* keep going */ // C `:966`
+        }
+        await pline( // C `:968–969`
+            'Beware!  From explore mode there will be no return to %s,',
+            oldmode,
+        );
+        const paranoidQuit = ((game.flags.paranoia_bits | 0) & PARANOID_QUIT) !== 0;
+        if (await paranoid_query( // C `:970–971`
+            paranoidQuit,
+            'Do you want to enter explore mode?',
+        )) {
+            game.flags.explore = true; // C `:972` discover = TRUE
+            game.flags.discover = true;
+            game.flags.debug = false; // C `:973` wizard = FALSE
+            game.flags.wizard = false;
+            game.wizard = false;
+            clear_nhwindow_message(); // C `:974` clear_nhwindow(WIN_MESSAGE)
+            await You('are now in non-scoring explore mode.'); // C `:975`
+        } else {
+            clear_nhwindow_message(); // C `:977`
+            await pline('Continuing with %s.', oldmode); // C `:978`
+        }
+    }
+    return ECMD_OK; // C `:981`
+}
 
 /** C cmd.c command_queue[CQ_*] — JS arrays on game. */
 function cmdq_qname(q) {

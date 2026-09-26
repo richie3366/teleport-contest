@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2845 `enter_explore_mode` confirms before leaving the scored game
+
+**C locus:** `nethack-c/upstream/src/cmd.c:952–983` `enter_explore_mode`. Callees `authorize_explore_mode` (`unixmain.c:640–651`, SYSCF on so the `#else` return TRUE is not compiled) and `check_user_string` (`unixmain.c:695–729`). `You`, `pline`, `paranoid_query(ParanoidQuit)`, `clear_nhwindow(WIN_MESSAGE)`. Callers `allmain.c:54` (`resuming && iflags.deferred_X`) and the extcmdlist row `cmd.c:1721` (`M('X')` `"exploremode"`, not AUTOCOMPLETE). `cmd.c:24` is the declaration.
+**JS:** `js/cmd.js` `get_unix_pw` `:154`, `check_user_string` `:166`, `authorize_explore_mode` `:203`, `enter_explore_mode` `:222`. `js/allmain.js` call `:260`. `js/getline.js` `EXT_CMDS` `exploremode` `:533`.
+**Change:** One `enter_explore_mode` in that C order. Already in explore mode is one `You`. Otherwise `authorize_explore_mode`, then the non-wizard refusal or the wizard note, then the Beware line, then `paranoid_query`.
+**Verify:** `node scripts/verify.mjs --fn enter_explore_mode` → PASS syntax (3 changed js files: js/allmain.js js/cmd.js js/getline.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+**Named:** `get_unix_pw` (`unixmain.c:731–760`) returns null: scored ESM has no passwd database. A non-`*` EXPLORERS list therefore refuses unless `sysopt.check_plname` is set and `plname` is on the list.
+**Next:** `quest.c` `nemesis_speaks` (next Open — coverage row). Eight Open — coverage rows remain after archive, inside the band, so nothing was refilled.
 ## 2026-09-26 — D-2844 `dumpit` lists dungeons when DEBUGFILES names dungeon.c
 
 **C locus:** `nethack-c/upstream/src/dungeon.c:91–144` `dumpit`. Callees `explicitdebug` → `debugcore` (`files.c:3126–3166`, `wildcards` FALSE) and `nh_basename` (`files.c:199–229`). Caller `dungeon.c:1317` inside `#ifdef DEBUG` (`patchlevel.h:36` defines `DEBUG`). `dungeon.c:88` is the declaration.

@@ -530,6 +530,17 @@ const EXT_CMDS = [
         },
     },
     {
+        // C: cmd.c:1718–1721 M('X') "exploremode" → enter_explore_mode.
+        // Not AUTOCOMPLETE: #e must stay enhance (C comment at :1718).
+        name: 'exploremode',
+        wiz: false,
+        autocomplete: false,
+        run: async () => {
+            const { enter_explore_mode } = await import('./cmd.js');
+            return enter_explore_mode();
+        },
+    },
+    {
         name: 'twoweapon',
         wiz: false,
         autocomplete: true,

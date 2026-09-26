@@ -5,7 +5,7 @@ import { game } from './gstate.js';
 import { rnd, rn2, rn1 } from './rng.js';
 import { mklev, l_nhcore_init, u_on_upstairs, fumaroles, movebubbles } from './mklev.js';
 import { dobjsfree, clear_splitobjs } from './mkobj.js';
-import { rhack, continue_run, run_active, continue_search, search_repeat_active, dolookaround, end_of_input } from './cmd.js';
+import { rhack, continue_run, run_active, continue_search, search_repeat_active, dolookaround, end_of_input, enter_explore_mode } from './cmd.js';
 import {
     docrt, cls, bot, timebot, curs_on_u, flush_screen, pline, Norep,
     flush_topl_more, see_monsters, You,
@@ -254,6 +254,12 @@ export function init_sound_disp_gamewindows() {
 export async function moveloop_preamble(resuming) {
     if (!game.context) game.context = {};
     game.flags = game.flags || {};
+
+    // C allmain.c:53–54 — a normal save restored under an explore request
+    // is a normal restore, then the 'X' command (uses the save, confirms).
+    if (resuming && game.iflags?.deferred_X) {
+        await enter_explore_mode();
+    }
 
     // C: flags.moonphase = phase_of_the_moon();
     game.flags.moonphase = phase_of_the_moon();

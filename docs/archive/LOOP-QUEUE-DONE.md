@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `dungeon.c` dumpit — coverage MISSING (C 53 L `dungeon.c:91–144` / JS no symbol; hops 2, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dumpit` (reach regression must be 0). Measured `port-coverage.mjs --name dumpit` 2026-09-26 @ 8e53e2c60. **Addressed:** D-2844
+- [x] `cmd.c` enter_explore_mode — coverage MISSING (C 31 L `cmd.c:952–983` / JS no symbol; hops 2, callers 1, RNG 0, msg 6). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn enter_explore_mode` (reach regression must be 0). Measured `port-coverage.mjs --name enter_explore_mode` 2026-09-26 @ 2c9559331. **Addressed:** D-2845
+
+
+- [x] `dungeon.c` dumpit — coverage MISSING (C 53 L `dungeon.c:91–144` / JS no symbol; hops 2, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dumpit` (reach regression must be 0). Measured `port-coverage.mjs --name dumpit` 2026-09-26 @ 8e53e2c60. **Addressed:** D-2844 `a2fe5c1c5`
 
 
 - [x] `mon.c` iter_mons_safe — coverage MISSING (C 22 L `mon.c:4500–4522` / JS no symbol; hops 1, callers 1, RNG 0, msg 0; dead callees: alloc_itermonarr). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn iter_mons_safe` (reach regression must be 0). Measured `port-coverage.mjs --name iter_mons_safe` 2026-09-26 @ 8e53e2c60. **Addressed:** D-2843 `9e67c4a79`
