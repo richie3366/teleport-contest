@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2904 `learnwand` observes the wand and refreshes inventory
+
+**C locus:** `nethack-c/upstream/src/zap.c:123–151` `learnwand`. Skip when `oclass == SPBOOK_CLASS`. If `objects[otyp].oc_name_known`, `observe_object` even while `Blind` (`youprop.h:103`). Else `observe_object` only when `!Blind`, then `makeknown` when `dknown`. Then `update_inventory` (`invent.c:2782`). `observe_object` is `o_init.c:441–451` (`dknown` plus `discover_object` unless `otyp < FIRST_OBJECT` or `Hallucination`).
+**JS:** `js/zap.js` `learnwand` `:2576`, spellbook gate `:2578`, known `observe_object` `:2581–2582`, `Blind` `:2584`, unknown `observe_object` `:2585`, `makeknown` `:2586–2587`, `update_inventory` `:2589`.
+**Change:** One exported `learnwand` in that C order: `observe_object` on the known arm, `Blind()` then `observe_object` then `makeknown` on the unknown arm, then `update_inventory`. Spellbooks still skip the whole block.
+**Verify:** `node scripts/verify.mjs --fn learnwand --reach-all` → PASS syntax (1 changed js file: js/zap.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.1s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: PASS.
+**Named:** `do_wear.c:1207` `#if 0` stays compiled out. `do_wear.c:1191` and `invent.c:2769` are comments, not calls.
+**Next:** `display.c` `mon_overrides_region` (next Open — coverage row). `courtmon` parked Stale. Ten Open rows remain after archive, above the floor of 8, so nothing was refilled. The queue-empty overlay did not match the live queue (eleven coverage rows were open; `courtmon` was the head and already shipped).
 ## 2026-09-26 — D-2903 `livelog_newform` records a sex change that is not a polymorph
 
 **C locus:** `nethack-c/upstream/src/polyself.c:307–333` `livelog_newform`. Return when `Upolyd` (`u.umonnum != u.umonster`). Then only when `newgend != oldgend`: role name is `urole.name.f` when the gender int is nonzero and that string exists, else `name.m`. Ranks are `rank_of(u.ulevel, Role_switch, gend)` (`you.h:248` `urole.mnum`). `Sprintf` `"%.10s %.30s"` builds `genders[flags.female].adj` plus the new rank. The chronicle argument is `newrole` when it differs, else `newrank` when it differs, else that buffer, passed to `an()`. `livelog_printf(LL_MINORAC, "%s into %s", viapoly ? "polymorphed" : "transformed", ...)`. No RNG.

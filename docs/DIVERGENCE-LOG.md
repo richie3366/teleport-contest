@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2904 — `learnwand` observes the wand and refreshes inventory
+
+- **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked). C is 28 lines; the whole body shipped. `courtmon` was already the C body (Stale).
+- **Symptom:** A zap that should discover a wand set `dknown` directly, including while hallucinating and while `HBlinded`/`EBlinded` with `u.Blind` unset, and never called `update_inventory`. An already-known type never ran `discover_object` (encountered bit). A missing `objects[]` slot returned before that refresh.
+- **C locus:** `nethack-c/upstream/src/zap.c:123–151` `learnwand`. Skip when `oclass == SPBOOK_CLASS`. If `objects[otyp].oc_name_known`, `observe_object` even while `Blind` (`youprop.h:103`). Else `observe_object` only when `!Blind`, then `makeknown` when `dknown`. Then `update_inventory` (`invent.c:2782`). `observe_object` is `o_init.c:441–451` (`dknown` plus `discover_object` unless `otyp < FIRST_OBJECT` or `Hallucination`).
+- **JS was:** `js/zap.js` `learnwand` returned on a missing objects slot, assigned `dknown = true` instead of `observe_object`, tested `game.u.Blind` instead of `Blind()`, and left `update_inventory` commented out.
+- **Fix:** One exported `learnwand` in that C order: `observe_object` on the known arm, `Blind()` then `observe_object` then `makeknown` on the unknown arm, then `update_inventory`. Spellbooks still skip the whole block.
+- **JS:** `js/zap.js` `learnwand` `:2576`, spellbook gate `:2578`, known `observe_object` `:2581–2582`, `Blind` `:2584`, unknown `observe_object` `:2585`, `makeknown` `:2586–2587`, `update_inventory` `:2589`.
+- **Callers:** `zap.c:570` `bhitm` → `js/zap.js:4309`. `zap.c:2422` `bhito` → `:5713`. `zap.c:2457` `bhitpile` → `:5843` (parameter `wand` is C `obj`). `zap.c:2600` `zapnodir` → `:2821`. `zap.c:3011` `zapyourself` → `:4880`. `zap.c:3101` and `:3111` `zap_steed` → `:6787` and `:6802`. `zap.c:3471` `weffects` → `:6971`. `zap.c:3799` `zap_map` → `:6500`. `zap.c:4066` `bhit` → `:6227`. `engrave.c:1055` `doengrave` → `js/engrave.js:1285`. `worn.c:562` `mon_adjust_speed` → `js/muse.js:2896`. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn learnwand --reach-all` → PASS syntax (1 changed js file: js/zap.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.1s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: PASS.
+- **Named omissions:** `do_wear.c:1207` `#if 0` stays compiled out. `do_wear.c:1191` and `invent.c:2769` are comments, not calls. `extern.h:3957` only declares `learnwand`. `if (!obj) return` is `NONNULLARG1` (`worn.c` already tests `obj != 0`). A missing `objects[]` slot is treated as not name-known so the lookup cannot throw.
+- **Next:** `display.c` `mon_overrides_region` (next Open — coverage row). `courtmon` parked Stale. Ten Open rows remain after archive, above the floor of 8, so nothing was refilled. The queue-empty overlay did not match the live queue (eleven coverage rows were open; `courtmon` was the head and already shipped).
+
 ## D-2903 — `livelog_newform` records a sex change that is not a polymorph
 
 - **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked). `block_point` and `visctrl` were already the compiled C bodies (Stale).

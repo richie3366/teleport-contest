@@ -630,7 +630,7 @@ pair_of→them deferred); **`make_stunned` poly stagger verb** (D-2132; C `potio
 
 JS: `js/zap.js` — partial
 
-**`dozap`/`zappable`/`backfire`/`weffects`/`zapnodir`/`learnwand`** NODIR 
+**`learnwand` (D-2904)** `zap.c:123–151`: non-`SPBOOK_CLASS` → `observe_object` when `oc_name_known` (even if `Blind`), else `observe_object` only when `!Blind` then `makeknown` when `dknown`, then `update_inventory`. Callers `bhitm`/`bhito`/`bhitpile`/`zapnodir`/`zapyourself`/`zap_steed`/`weffects`/`zap_map`/`bhit`/`doengrave`/`mon_adjust_speed`. **`dozap`/`zappable`/`backfire`/`weffects`/`zapnodir`/`learnwand`** NODIR 
 `WAN_SECRET_DOOR_DETECTION` → `findit` (D-0074); 
 **directional getdir `.`=self + `confdir` + getdir_zap yn_function D-1721 /
 CQ_REPEAT D-1729**

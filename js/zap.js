@@ -2565,21 +2565,29 @@ export function zappable(wand) {
 }
 
 /**
- * C ref: zap.c learnwand — discover type when effect observed + dknown.
- * makeknown → discover_object(..., credit_hero=TRUE) → exercise(A_WIS).
+ * C ref: zap.c learnwand `:123–151`.
+ * Spellbooks are the fake object used while casting; skip them so a
+ * cast does not rediscover a forgotten book. A type already discovered
+ * is observed even while Blind (skips a redundant makeknown). Otherwise
+ * observe only when the hero can see the item, then makeknown when it
+ * is dknown. update_inventory runs for every non-spellbook.
+ * NONNULLARG1; worn.c tests obj != 0 before the call.
  */
 export function learnwand(obj) {
-    if (!obj || obj.oclass === SPBOOK_CLASS) return;
-    const oc = game.objects?.[obj.otyp];
-    if (!oc) return;
-    if (oc.oc_name_known) {
-        // observe_object — dknown even if Blind when already known
-        obj.dknown = true;
-    } else {
-        if (!game.u?.Blind) obj.dknown = true;
-        if (obj.dknown) makeknown(obj.otyp);
+    if (!obj) return;
+    if (obj.oclass !== SPBOOK_CLASS) {
+        /* objects[] is always populated for a real otyp; a missing slot
+           is not name-known (C would index the table). */
+        if (game.objects[obj.otyp]?.oc_name_known) {
+            observe_object(obj);
+        } else {
+            if (!Blind())
+                observe_object(obj);
+            if (obj.dknown)
+                makeknown(obj.otyp);
+        }
+        update_inventory();
     }
-    // update_inventory deferred
 }
 
 /**
