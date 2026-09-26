@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `wield.c` `drop_uswapwep` — coverage PARTIAL (`wield.c:809–831`). `eating_conducts` shipped D-2907. No Must-fix.
+**Next cluster:** `mplayer.c` `mk_mplayer_armor` — coverage PARTIAL (`mplayer.c:95–115`). `drop_uswapwep` shipped D-2908. No Must-fix.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2907 (index).**
+**Keep D-0845…D-2908 (index).**
 <!-- recent:begin -->
+**D-2908** `nethack-c/upstream/src/wield.c:809–831` `drop_uswapwep`. `Sprintf(left_hand, "left %s", b — One async `drop_uswapwep` in that C order.
 **D-2907** `nethack-c/upstream/src/eat.c:576–599` `eating_conducts`. `!u.uconduct.food++` then `livel — One async `eating_conducts` in that C order, including both post-increment tests and all three `livelog_printf` calls.
 **D-2906** `nethack-c/upstream/src/dungeon.c:1714–1747` `ceiling`. `*in_rooms` for `VAULT`, then `TEM — Deleted the three clones.
 **D-2905** `nethack-c/upstream/src/dothrow.c:1913–1947` `omon_adj`. Add `msize - MZ_MEDIUM`, +2 if sl — One exported `omon_adj` in that C order.
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2903** `nethack-c/upstream/src/polyself.c:307–333` `livelog_newform`. Return when `Upolyd` (`u.um — One exported `livelog_newform` in that C order.
 **D-2902** `nethack-c/upstream/src/do.c:1412–1445` `u_collide_m`. Guard `impossible` with "no monster — One `u_collide_m` in that C order, including the three `impossible` reasons, `youmonst.data` only, `distu <= 2`, the `flags.debug` pline, and the `rloc` short-circuit before limbo.
 **D-2901** `nethack-c/upstream/src/shk.c:1052–1080` `shop_keeper`. Signed `char rmno`; `rooms[rmno -  — One `shop_keeper` in that C order, including signed-char `rmno`, `rile_shk`, and fire-and-forget `impossible` (the function stays sync; same pattern as `unpaid_cost`).
-**D-2900** `nethack-c/upstream/src/monmove.c:2088–2117` `m_move_aggress`. `m_at(x, y)` when set write — One exported `m_move_aggress` in that C order, including both `bhitpos` / `notonhead` stores.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2907; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2908; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

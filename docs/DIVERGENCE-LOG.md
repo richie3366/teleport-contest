@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2908 — `drop_uswapwep` names the left hand and drops the secondary weapon
+
+- **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked). C is 22 lines; the whole body shipped.
+- **Symptom:** A slippery or cursed off-hand weapon said "a dagger slips" from a hardcoded "left hand", and the already-twoweaponing line used `xname` instead of `yobjnam`. Glib, a cursed attempt, and a curse while already two-weaponing all three need the `objnam.c` subject.
+- **C locus:** `nethack-c/upstream/src/wield.c:809–831` `drop_uswapwep`. `Sprintf(left_hand, "left %s", body_part(HAND))`. If `!obj->cursed`, `pline` `Yobjnam2(obj, "slip")`. Else if `!u.twoweap`, `pline` `Yobjnam2(obj, "evade")` plus `otense(obj, "drop")`. Else `Your` with `yobjnam(obj, NULL)`. Then `dropx(obj)`.
+- **JS was:** `js/wield.js` `drop_uswapwep` returned when `uswapwep` was missing, set `left_hand` to `'left hand'`, and built all three lines with `xname`. The third line was a `pline` of `Your ${left_hand}…` rather than `Your()`.
+- **Fix:** One async `drop_uswapwep` in that C order. `body_part(HAND)` is `body_part_latebound`. The two `pline` arms use the `objnam.js` `Yobjnam2` export. The already-twoweap arm is `Your` plus `yobjnam(obj, null)`. `dropx` stays a dynamic import because `do.js` already imports `wield.js`.
+- **JS:** `js/wield.js` `drop_uswapwep` `:1143`, `left_hand` `:1147`, Glib `pline` `:1150`, cursed-attempt `pline` `:1153–1154`, `Your` `:1157`, `dropx` `:1160–1161`.
+- **Callers:** `wield.c:800` `can_twoweapon` → `js/wield.js:1211`. `mkobj.c:1801` `curse` → `js/mkobj.js:614`. `uhitm.c:5842–5843` `hmonas` passivedone → `js/uhitm.js:4265`. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn drop_uswapwep --reach-all` → PASS syntax (1 changed js file: js/wield.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: PASS.
+- **Named omissions:** No arm of `drop_uswapwep` is omitted. `makeplural(body_part(HAND))` is the comment above the `Sprintf`, not a call. The file-local `Yobjnam2` at `js/wield.js:1240` stays for `weldmsg` and `chwepon`. `body_part` is the late-bound seam (`polyself.js` must not be imported from `wield.js`).
+- **Next:** `mplayer.c` `mk_mplayer_armor` (next Open — coverage row). Eleven Open rows remain after archive, above the floor of 8, so nothing was refilled. The queue-empty overlay did not match the live queue (twelve coverage rows were open; `drop_uswapwep` was the head).
+
 ## D-2907 — `eating_conducts` logs the first meal, the first animal product, and the first meat
 
 - **Status:** fixed (coverage THIN; `hidden-proxy verify` reports no corpus session blocked). C is 23 lines; the whole body shipped. `glyph_to_cmap` was already that body (Stale).

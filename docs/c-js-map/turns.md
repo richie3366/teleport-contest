@@ -1097,6 +1097,7 @@ cantwield ridiculous / full setworn / `#swap` deferred);
 **`empty_handed` gloves/humanoid** (D-0194); 
 **`#twoweapon`/`dotwoweapon`/`can_twoweapon`/`set_twoweap`/`untwoweapon`** (D-0344; 
 `can_twoweapon` TWOWEAPOK/bimanual arms use live `Yname2`+`is_plural`; artifact-resist xname/`cant_wield_corpse`/body_part polish deferred); 
+**`drop_uswapwep` whole body (D-2908)** — `body_part(HAND)` via `body_part_latebound`, Glib arm `Yobjnam2(obj,"slip")`, cursed-attempt arm `Yobjnam2(obj,"evade")` + `otense(obj,"drop")`, already-twoweap arm `Your` + `yobjnam(obj, NULL)`, then `dropx` (`wield.c:809–831`). Callers: `can_twoweapon` (`wield.c:800` → `js/wield.js` same file), `curse` (`mkobj.c:1801` → `js/mkobj.js`), `hmonas` passivedone (`uhitm.c:5843` → `js/uhitm.js`). The file-local `Yobjnam2` clone stays for `weldmsg` / `chwepon` (named there); this function uses the `objnam.js` export. `makeplural` is only in the C comment, not a call; 
 **`chwepon` glow/spe + strange_feeling + worm-tooth/crysknife** (D-0435) +
 **artifact `restrict_name` faint-glow + Magicbane clue + unpaid `alter_cost` +
 `costly_alteration` COST_DEGRD/DECHNT + weld `update_inventory`** (D-1692;
