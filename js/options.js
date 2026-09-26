@@ -194,6 +194,7 @@ import {
     config_error_add,
 } from './botl.js';
 import { get_changed_key_binds, handler_rebind_keys, count_bind_keys } from './cmd.js';
+import { cmd_from_func, cmdname_from_func, visctrl } from './dokeylist.js';
 import {
     ROLE_NONE, ROLE_RANDOM, PL_NSIZ,
     RS_ROLE, RS_RACE, RS_GENDER, RS_ALGNMNT, RS_filter,
@@ -1579,10 +1580,31 @@ export async function handler_paranoid_confirmation() {
         /* the 'swim' choice mentions the 'm' movement prefix in its
            explanation; if that's been bound to something else or been
            unbound altogether, substitute the replacement in the text */
-        const explain = paranoia[i].explain; // C `:5972`
-        /* Named (map): the `:5973–5984` 'm'-substitution (cmd_from_func +
-           cmdname_from_func over cmdbinds/extcmdlist, unported). The default
-           path — 'm' still bound to do_reqmenu, explain unchanged — is exact. */
+        let explain = paranoia[i].explain; // C `:5972`
+        /* C `:5969–5984` — swim text names the 'm' prefix. Substitute when
+           do_reqmenu (ef_txt "reqmenu") is not bound to 'm'. */
+        if (typeof explain === 'string' && strstri(explain, "'m'")) {
+            const mkey = cmd_from_func('reqmenu');
+            if (mkey !== 0x6d) { // C `!= 'm'`
+                let mbuf;
+                if (mkey) {
+                    const shown = visctrl(mkey);
+                    const lim = shown.length < 9 ? shown.length : 9; // C `%.9s`
+                    let nine = '';
+                    for (let c = 0; c < lim; c++) nine += shown[c];
+                    mbuf = `'${nine}'`;
+                } else {
+                    let cmdnm = cmdname_from_func('reqmenu', true);
+                    if (!cmdnm) cmdnm = 'reqmenu';
+                    const lead = cmdnm.charCodeAt(0) !== 0x23 ? '#' : '';
+                    const lim = cmdnm.length < 31 ? cmdnm.length : 31; // C `%.31s`
+                    let body = '';
+                    for (let c = 0; c < lim; c++) body += cmdnm[c];
+                    mbuf = `'${lead}${body}'`;
+                }
+                explain = strsubst(explain, "'m'", mbuf); // C strcpy then strsubst
+            }
+        }
         raw.push({ // C `:5985–5990` a_int + letter *argname, gacc 0; selected carries MENU_ITEMFLAGS_SELECTED
             text: explain,
             selectable: true,

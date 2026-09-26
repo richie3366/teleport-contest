@@ -90,7 +90,7 @@ import { wiz_wish, wiz_genesis, wiz_level_tele, wiz_map } from './wizcmds.js';
 import { dotelecmd, goodpos } from './teleport.js';
 import { dowield, dowieldquiver, doswapweapon } from './wield.js';
 import { dowhatis, doquickwhatis, dohelp, dowhatdoes, doversion, show_text_pages } from './pager.js';
-import { visctrl, key2txt, cmdbind_get, cmd_from_dir } from './dokeylist.js';
+import { visctrl, key2txt, cmdbind_get, cmd_from_dir, cmd_from_func } from './dokeylist.js';
 import { config_error_add } from './botl.js';
 import { an, doname, makeplural, ansimpleoname, the } from './objnam.js';
 import { m_monnam, mon_nam, a_monnam, YMonnam, docallcmd } from './do_name.js';
@@ -364,12 +364,12 @@ export async function do_fight() {
 
 /**
  * C ref: cmd.c do_reqmenu `:1574–1586` — 'm' PREFIXCMD.
- * cmd_from_func(do_reqmenu) named (m-prefix key is 'm').
+ * C `visctrl(cmd_from_func(do_reqmenu))` — ef_txt "reqmenu".
  * @returns {Promise<number>}
  */
 export async function do_reqmenu() {
     if (game.iflags?.menu_requested) {
-        await Norep(`Double ${visctrl('m')} prefix, canceled.`);
+        await Norep(`Double ${visctrl(cmd_from_func('reqmenu'))} prefix, canceled.`);
         game.iflags.menu_requested = false;
         return ECMD_CANCEL;
     }
@@ -488,7 +488,8 @@ function accept_menu_prefix_tab(efp) {
 /**
  * C ref: cmd.c doc_extcmd_flagstr `:523–557`.
  * efp null → footnote strings; else "" / "[m]" / "[A]" / "[mA]".
- * cmd_from_func(do_reqmenu) visctrl named (m-prefix key is 'm').
+ * The `[m]` tag stays literal (`cmd.c:530`). The quoted key is
+ * `visctrl(cmd_from_func(do_reqmenu))` (`:537`), ef_txt "reqmenu".
  * @param {{ flags?: number } | null} efp
  * @returns {{ footnote: string[] } | { flagstr: string }}
  */
@@ -497,7 +498,7 @@ function doc_extcmd_flagstr(efp) {
         return {
             footnote: [
                 '[A] Command autocompletes',
-                `[m] Command accepts '${visctrl('m')}' prefix`,
+                `[m] Command accepts '${visctrl(cmd_from_func('reqmenu'))}' prefix`,
             ],
         };
     }

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `mkmaze.c` `place_lregion` — tele `put_lregion_here` (`mkmaze.c:444–455`) must finish `rloc(mtmp, RLOC_NOMSG)`, `m_into_limbo`, and `u_on_newpos` before return. JS returns a Promise. `u_on_rndspot` awaits it; `mklev.js:2398` (`mkmaze.c:606`) and the other sync `place_lregion` calls do not. Verify `node scripts/verify.mjs --fn place_lregion`. Source: reviews/loop-unattended/1790-8eb83b375-place-lregion.md D-2836 **Addressed:** D-2836
+- [x] `pager.c` setopt_cmd — coverage MISSING (C 49 L `pager.c:2908–2957` / JS no symbol; hops —, callers 1, RNG 0, msg 6). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn setopt_cmd` (reach regression must be 0). Measured `port-coverage.mjs --name setopt_cmd` 2026-09-26 @ fb4f1bf7d. **Addressed:** D-2837
+
+
+- [x] `mkmaze.c` `place_lregion` — tele `put_lregion_here` (`mkmaze.c:444–455`) must finish `rloc(mtmp, RLOC_NOMSG)`, `m_into_limbo`, and `u_on_newpos` before return. JS returns a Promise. `u_on_rndspot` awaits it; `mklev.js:2398` (`mkmaze.c:606`) and the other sync `place_lregion` calls do not. Verify `node scripts/verify.mjs --fn place_lregion`. Source: reviews/loop-unattended/1790-8eb83b375-place-lregion.md D-2836 **Addressed:** D-2836 `e41959f29`
 
 
 - [x] `mcastu.c` `mcast_insects` — unseen-success `!Deaf` (`mcastu.c:694–698`) must be `youprop.h:123–125` (`HDeaf || EDeaf || u.uroleplay.deaf`). `insects_Deaf` (`mcastu.js:639`) and `You_hear` (`hack.js:179`) both OR sticky `u.Deaf`, so a sticky-only deaf hero takes the visual `pline` instead of `You hear`. Verify `node scripts/verify.mjs --fn mcast_insects`. Source: reviews/loop-unattended/1787-4d4432b8f-mcast-insects.md **Addressed:** D-2835 `57e3529ab`
