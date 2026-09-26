@@ -19543,8 +19543,11 @@ function load_tut1() {
     // mklev.c mineralize(-1,-1,-1,-1,FALSE) in level_finalize_topology
     // after makelevel (map 'P'→POOL / 'W'→WATER; D-1059).
 
-    // C load_special: noflip → skip flip; fixup_special copies TELE dests.
-    // wallify / map_cleanup / count_level_features deferred (not this cluster).
+    // C load_special `:6479–6480` — wallification when !corrmaze, before
+    // flip (noflip) and fixup_special. map_cleanup / count_level_features
+    // stay deferred.
+    if (!game.level.flags.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
     return fixup_special();
 }
 
@@ -19626,7 +19629,10 @@ function load_tut2() {
         }
     }
 
-    // C load_special: noflip → skip flip; fixup_special copies TELE dests.
+    // C load_special `:6479–6480` — wallification when !corrmaze, before
+    // flip (noflip) and fixup_special.
+    if (!game.level?.flags?.corrmaze)
+        wallification(1, 0, COLNO - 1, ROWNO - 1);
     return fixup_special();
 }
 
@@ -26927,14 +26933,15 @@ async function makelevel() {
         await makemaz('');
     } else {
         await makelevel_ordinary();
-        return; // ordinary already runs fill_special + themerms_post + wallify
+        return; // ordinary already runs fill_special + themerooms_post
     }
 
-    // C ref: mklev.c:1416-1420 — common tail after makemaz
+    // C ref: mklev.c:1416-1420 — common tail after makemaz.
+    // wallification lives inside themerooms_post_level_generate, and
+    // only when this branch's themes are loaded.
     for (let i = 0; i < (g.level?.nroom | 0); i++)
         await fill_special_room(g.level.rooms[i]);
-    run_themerms_post_level_generate();
-    wallification(1, 0, COLNO - 1, ROWNO - 1);
+    themerooms_post_level_generate();
 }
 
 // C ref: mklev.c makelevel() regular-room branch
@@ -27083,10 +27090,9 @@ async function makelevel_ordinary() {
     for (let i = 0; i < g.level.nroom; i++)
         await fill_special_room(g.level.rooms[i]);
 
-    // C ref: mklev.c themerooms_post_level_generate() — after fill, Lua
-    // post_level_generate then full-map wallification.
-    run_themerms_post_level_generate();
-    wallification(1, 0, COLNO - 1, ROWNO - 1);
+    // C ref: mklev.c:1420 — themerooms_post_level_generate (wallification
+    // is inside, after the themes-null return).
+    themerooms_post_level_generate();
 }
 
 /**
@@ -30210,17 +30216,41 @@ function make_dig_engraving_postprocess(data) {
     make_engr_at(pos.x, pos.y, `Dig${dig}`, null, 0, BURN);
 }
 
-// C ref: themerms.lua post_level_generate + mklev.c themerooms_post_level_generate
-function run_themerms_post_level_generate() {
-    // C mklev.c themerooms_post_level_generate — reset before lua
-    // post_level_generate, then wallification in the caller.
+/**
+ * C ref: mklev.c themerooms_post_level_generate `:1174–1194`.
+ * `gl.luathemes[u.uz.dnum]` is `game._luathemes_loaded[dnum]` (true once
+ * makerooms / makelevel_ordinary has loaded this branch). A missing
+ * branch returns before reset, the post hook, and wallification.
+ * `post_level_generate` is the compiled themerms.lua handler list:
+ * there is no Lua state, so `lua_getglobal` / `nhl_pcall_handle` /
+ * `lua_gc` do not run. `iflags.in_lua` is an error-prefix flag with
+ * no reader here.
+ */
+function themerooms_post_level_generate() {
+    const dnum = game.u?.uz?.dnum | 0;
+    const themes = game._luathemes_loaded?.[dnum];
+    // C :1178–1179 — themes should already be loaded by makerooms().
+    if (!themes) return;
+
     reset_xystart_size();
+    // C :1182 — iflags.in_lua = gi.in_mk_themerooms = TRUE.
+    game.in_mk_themerooms = true;
+    game.themeroom_failed = false;
+    // C :1183–1184 — lua_getglobal(themes, "post_level_generate")
+    // then nhl_pcall_handle(..., NHLpa_panic).
     for (const v of themerms_postprocess) {
         if (v.handler === 'make_a_trap') make_a_trap_postprocess(v.data);
         else if (v.handler === 'make_garden_walls') make_garden_walls_postprocess(v.data);
         else if (v.handler === 'make_dig_engraving') make_dig_engraving_postprocess(v.data);
     }
     themerms_postprocess.length = 0;
+    // C :1186 — iflags.in_lua = gi.in_mk_themerooms = FALSE.
+    game.in_mk_themerooms = false;
+
+    wallification(1, 0, COLNO - 1, ROWNO - 1);
+    // C :1191 — if (gc.coder) free(gc.coder), gc.coder = NULL.
+    if (game.gc?.coder) game.gc.coder = null;
+    // C :1192 — lua_gc(themes, LUA_GCCOLLECT): no Lua heap.
 }
 
 const THEMEROOM_FILL_BODIES = {
