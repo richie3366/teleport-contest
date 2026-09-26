@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2892 — `unicodeval_to_utf8str` encodes a scalar as UTF-8
+
+- **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** No `unicodeval_to_utf8str` symbol. A Unicode scalar had no C UTF-8 encoder: short buffers, surrogates, and values past U+10FFFF were not rejected, and the 1- through 4-byte forms were absent.
+- **C locus:** `nethack-c/upstream/src/hacklib.c:882–919` `unicodeval_to_utf8str`. No callees. `bufsz` is `size_t`. The surrogate test is unsigned (`uval - 0xd800u < 0x800`). Division is C `int` toward zero; `uval / 64 % 64` is `(uval / 64) % 64`. A store into `uint8` keeps the low 8 bits. No RNG.
+- **JS was:** No symbol. The customization writer that would call it is still unported.
+- **Fix:** One `unicodeval_to_utf8str` in that C order. `bufsz < 5` returns 0 and does not write. Otherwise byte 0 is cleared, then one byte when `uval < 0x80` (a negative `int` stores `uval & 0xff`), two bytes when `uval < 0x800`, 0 after the leading NUL when the unsigned surrogate difference is `< 0x800`, three bytes when `uval < 0x10000`, four bytes when `uval < 0x110000`, or 0 after the leading NUL. Success writes the trailing NUL and returns 1.
+- **JS:** `js/hacklib.js` `unicodeval_to_utf8str` `:582`, size gate `:585`, leading NUL `:587`, one byte `:589`, two bytes `:591`, surrogate `:593`, three bytes `:596`, four bytes `:600`, past U+10FFFF `:604`, trailing NUL `:607`.
+- **Callers:** `hacklib.h:80` is the declaration. `glyphs.c:70` is inside unported `to_custom_symset_entry_callback` (`glyphs.c:52–104`); there is no JS function to put the call in. `glyphs.c:1292` is `to_unicode_callback` under `#ifdef TEST_GLYPHNAMES`, and that macro is not defined, so the call is compiled out. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn unicodeval_to_utf8str` → PASS syntax (1 changed js file: js/hacklib.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.4s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: PASS.
+- **Named omissions:** `to_custom_symset_entry_callback` (`glyphs.c:52–104`, call at `:70`) plus `unicode_val` (`utf8map.c:18–34`) and `add_custom_urep_entry` (`utf8map.c:148–207`) stay the unported customization writer (`ENHANCED_SYMBOLS` is on). `glyphs.c:1292` stays compiled out with `TEST_GLYPHNAMES`.
+- **Next:** `calendar.c` `time_from_yyyymmddhhmmss` (next Open — coverage row). Ten Open — coverage rows remain after archive, above the floor of 8, so nothing was refilled.
+
 ## D-2891 — `there_cmd_menu_self` fills the hero-cell command menu
 
 - **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked).

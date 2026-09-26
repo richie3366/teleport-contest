@@ -565,3 +565,45 @@ export function ordin(n) {
     return (dd === 0 || dd > 3 || Math.trunc((nn % 100) / 10) === 1)
         ? 'th' : (dd === 1) ? 'st' : (dd === 2) ? 'nd' : 'rd';
 }
+
+/**
+ * C ref: hacklib.c unicodeval_to_utf8str `:882–919`.
+ * Encode signed `int uval` as UTF-8 into `buffer` (a `uint8` array) and
+ * return 1, or 0 when `bufsz < 5`, when `uval` is a surrogate, or when
+ * `uval` is past U+10FFFF. `bufsz` is `size_t`. Division matches C `int`
+ * (toward zero). The surrogate test is unsigned (`uval - 0xd800u < 0x800`).
+ * A reject after the size check still stores a leading NUL; a short buffer
+ * is left untouched. Each stored byte is truncated to 8 bits.
+ * @param {number} uval
+ * @param {Uint8Array|number[]|null} buffer
+ * @param {number} bufsz
+ * @returns {number}
+ */
+export function unicodeval_to_utf8str(uval, buffer, bufsz) {
+    uval = uval | 0; // C `int`
+    const n = bufsz >>> 0; // C `size_t`
+    if (n < 5) return 0; // C `:887–888`
+    let i = 0;
+    buffer[i] = 0; // C `:897` *b = '\0' before the range chain
+    if (uval < 0x80) { // C `:898–899`
+        buffer[i++] = uval & 0xff;
+    } else if (uval < 0x800) { // C `:900–902`
+        buffer[i++] = (192 + ((uval / 64) | 0)) & 0xff;
+        buffer[i++] = (128 + (uval % 64)) & 0xff;
+    } else if ((((uval >>> 0) - 0xd800) >>> 0) < 0x800) { // C `:903–904`
+        return 0;
+    } else if (uval < 0x10000) { // C `:905–908`
+        buffer[i++] = (224 + ((uval / 4096) | 0)) & 0xff;
+        buffer[i++] = (128 + (((uval / 64) | 0) % 64)) & 0xff;
+        buffer[i++] = (128 + (uval % 64)) & 0xff;
+    } else if (uval < 0x110000) { // C `:909–913`
+        buffer[i++] = (240 + ((uval / 262144) | 0)) & 0xff;
+        buffer[i++] = (128 + (((uval / 4096) | 0) % 64)) & 0xff;
+        buffer[i++] = (128 + (((uval / 64) | 0) % 64)) & 0xff;
+        buffer[i++] = (128 + (uval % 64)) & 0xff;
+    } else { // C `:914–915`
+        return 0;
+    }
+    buffer[i] = 0; // C `:917` NUL terminate
+    return 1; // C `:918`
+}

@@ -1815,6 +1815,12 @@ JS: `js/hacklib.js` `strstri` — ported
 
 **`strstri`** (D-2877; `hacklib.c:739–779`; `STRSTRI` undefined so this body is compiled; signed `char` nibble tables `TABSIZ` 0x20 then `lowc` window; empty `sub` returns `str`; success is the tail). Callers wired this commit: `attrib.c:330`/`:405`/`:971`/`:974` (`poisoned`, `from_what`), `write.c:139`, `objnam.c:1995`/`:5542`, `dungeon.c:2117`/`:2149`, `uhitm.c:1681`, `invent.c:5407–5408`, `mondata.c:933`/`:1162`. Clones in `attrib.js`, `write.js`, and `strstri_objnam` are gone. Named: `apply.c:1412` (` to\033` strip), `boots_simple_name` (`objnam.c:5561`, still `includes`), `files.c` save-name strip, `read.c:3169–3191` scroll adjectives, and the other sites listed in D-2877.
 
+### `src/hacklib.c` `unicodeval_to_utf8str`
+
+JS: `js/hacklib.js` `unicodeval_to_utf8str` — ported
+
+**`unicodeval_to_utf8str`** (D-2892; `hacklib.c:882–919`). Signed `int` in, `uint8` buffer out, return 1 or 0. `bufsz < 5` returns 0 and does not write. Otherwise byte 0 is cleared, then one of: one byte (`uval < 0x80`, low 8 bits, so a negative `int` stores `uval & 0xff`), two bytes (`< 0x800`), reject (`(uint32)uval - 0xD800 < 0x800`, the surrogate range, leaving the leading NUL), three bytes (`< 0x10000`), four bytes (`< 0x110000`), or reject. C `/` and `%` are toward zero; `uval / 64 % 64` is `(uval / 64) % 64`. A success writes the trailing NUL after the last byte. No RNG. Callers: `glyphs.c:70` is inside unported `to_custom_symset_entry_callback` (`glyphs.c:52–104`, `#ifdef ENHANCED_SYMBOLS`, which this build defines) — that callback, `unicode_val`, and `add_custom_urep_entry` are still the customization writer named on the `parse_id` row. `glyphs.c:1292` is `to_unicode_callback` under `#ifdef TEST_GLYPHNAMES`; nothing defines that macro, so the call is compiled out.
+
 ### `src/dungeon.c` `level_difficulty` / `deepest_lev_reached`
 
 JS: `js/hacklib.js` — ported
