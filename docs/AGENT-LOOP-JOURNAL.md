@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2893 `time_from_yyyymmddhhmmss` turns a civil stamp into the recorder's EDT epoch
+
+**C locus:** `nethack-c/upstream/src/calendar.c:120–175` `time_from_yyyymmddhhmmss`, plus contest patch 001 which replaces `getlt()` with `time()` + `localtime()` so `getnow` does not recurse. Fields are copied 4/2/2/2/2/2 and parsed with `atoi`. `mktime` sees the copied `tm_isdst`. A result of `(time_t) -1` falls through to 0 (`#if 0` `debugpline1`). No RNG.
+**JS:** `js/calendar.js` `atoi` `:14`, `mktime` `:54`, `contestRecorderLocaltime` `:88`, `time_from_yyyymmddhhmmss` `:108`, field copy `:115`, civil overwrite `:157`, `mktime` call `:163`, -1 arm `:165`, return 0 `:171`. `getnow` `:181`.
+**Change:** One `time_from_yyyymmddhhmmss` in that C order. `strlen` stops at NUL. `atoi` keeps `"00"` as 0.
+**Verify:** `node scripts/verify.mjs --fn time_from_yyyymmddhhmmss` → PASS syntax (2 changed js files: js/calendar.js js/save.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.4s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: PASS. `ps_test_runner` `seed0013-friday13-save-then-fullmoon-restore` PASS RNG 4804/4804, Screen 99/99.
+**Named:** The `#if 0` `debugpline1` (`calendar.c:166–170`) stays compiled out. `sfexpasc.c:810` stays out of scored `js/`.
+**Next:** `invent.c` `update_inventory` (next Open — coverage row). Nine Open — coverage rows remain after archive, above the floor of 8. The queue-empty overlay still asked for a refill, so three later tool rows were appended (stale head, sanity, wizard, and version rows skipped): `shop_keeper`, `cmd_from_func`, `u_collide_m`. Twelve Open — coverage rows after that.
 ## 2026-09-26 — D-2892 `unicodeval_to_utf8str` encodes a scalar as UTF-8
 
 **C locus:** `nethack-c/upstream/src/hacklib.c:882–919` `unicodeval_to_utf8str`. No callees. `bufsz` is `size_t`. The surrogate test is unsigned (`uval - 0xd800u < 0x800`). Division is C `int` toward zero; `uval / 64 % 64` is `(uval / 64) % 64`. A store into `uint8` keeps the low 8 bits. No RNG.

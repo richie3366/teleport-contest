@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2893 — `time_from_yyyymmddhhmmss` turns a civil stamp into the recorder's EDT epoch
+
+- **Status:** fixed (coverage THIN; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** The body was six lines. `parseInt(...) || 1970` treated a zero year, month, or day as missing, and every 14-digit stamp became `Date.UTC + 4h` with no `atoi`, no copied `struct tm`, and no `mktime` result of -1.
+- **C locus:** `nethack-c/upstream/src/calendar.c:120–175` `time_from_yyyymmddhhmmss`, plus contest patch 001 which replaces `getlt()` with `time()` + `localtime()` so `getnow` does not recurse. Fields are copied 4/2/2/2/2/2 and parsed with `atoi`. `mktime` sees the copied `tm_isdst`. A result of `(time_t) -1` falls through to 0 (`#if 0` `debugpline1`). No RNG.
+- **JS was:** `parseFixedDatetime` plus a fixed UTC−4 add (`js/calendar.js`). Restore stored numeric epochs and never called this function. `ubirthday` was not in the save payload.
+- **Fix:** One `time_from_yyyymmddhhmmss` in that C order. `strlen` stops at NUL. `atoi` keeps `"00"` as 0. The copied `struct tm` is the contest recorder's EDT `localtime` (`tm_isdst` 1, D-1989), not `getlt()` and not the host clock. `mktime` uses EDT when `tm_isdst > 0`, EST when it is 0, and `nyOffsetSecs` when it is negative. -1 returns 0. Save writes `yyyymmddhhmmss(ubirthday)` and the start-timing stamp; restore parses both, then sets `start_timing` from `getnow()` as C does at `restore.c:625`.
+- **JS:** `js/calendar.js` `atoi` `:14`, `mktime` `:54`, `contestRecorderLocaltime` `:88`, `time_from_yyyymmddhhmmss` `:108`, field copy `:115`, civil overwrite `:157`, `mktime` call `:163`, -1 arm `:165`, return 0 `:171`. `getnow` `:181`.
+- **Callers:** Patch 001 `getnow` → `js/calendar.js:181`. `restore.c:617` → `js/save.js:825` (`payload.ubirthday`). `restore.c:622` → `js/save.js:830`, then `getnow()` at `js/save.js:834` (`restore.c:625`). `calendar.c:168` `debugpline1` stays compiled out. `util/sfexpasc.c:810` is the save-export tool, not scored `js/`. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn time_from_yyyymmddhhmmss` → PASS syntax (2 changed js files: js/calendar.js js/save.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.4s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: PASS. `ps_test_runner` `seed0013-friday13-save-then-fullmoon-restore` PASS RNG 4804/4804, Screen 99/99.
+- **Named omissions:** The `#if 0` `debugpline1` (`calendar.c:166–170`) stays compiled out. `sfexpasc.c:810` stays out of scored `js/`. The host's current DST is not the copied `tm_isdst`; public sessions were recorded in EDT, and reading `Date.now()` would move every winter stamp on a winter run.
+- **Next:** `invent.c` `update_inventory` (next Open — coverage row). Nine Open — coverage rows remain after archive, above the floor of 8. The queue-empty overlay still asked for a refill, so three later tool rows were appended (stale head, sanity, wizard, and version rows skipped): `shop_keeper`, `cmd_from_func`, `u_collide_m`. Twelve Open — coverage rows after that.
+
 ## D-2892 — `unicodeval_to_utf8str` encodes a scalar as UTF-8
 
 - **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked).

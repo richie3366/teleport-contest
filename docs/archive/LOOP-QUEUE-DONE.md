@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `hacklib.c` unicodeval_to_utf8str — coverage MISSING (C 37 L `hacklib.c:882–919` / JS no symbol; hops —, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn unicodeval_to_utf8str` (reach regression must be 0). Measured `port-coverage.mjs --name unicodeval_to_utf8str` 2026-09-26 @ 64f8ebc04. **Addressed:** D-2892
+- [x] `calendar.c` time_from_yyyymmddhhmmss — coverage THIN (C 55 L `calendar.c:120–175` / JS 6 L in js/calendar.js; hops —, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn time_from_yyyymmddhhmmss` (reach regression must be 0). Measured `port-coverage.mjs --name time_from_yyyymmddhhmmss` 2026-09-26 @ 64f8ebc04. **Addressed:** D-2893
+
+
+- [x] `hacklib.c` unicodeval_to_utf8str — coverage MISSING (C 37 L `hacklib.c:882–919` / JS no symbol; hops —, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn unicodeval_to_utf8str` (reach regression must be 0). Measured `port-coverage.mjs --name unicodeval_to_utf8str` 2026-09-26 @ 64f8ebc04. **Addressed:** D-2892 `e24078a71`
 
 
 - [x] `cmd.c` there_cmd_menu_self — coverage MISSING (C 85 L `cmd.c:4435–4520` / JS no symbol; hops —, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn there_cmd_menu_self` (reach regression must be 0). Measured `port-coverage.mjs --name there_cmd_menu_self` 2026-09-26 @ 64f8ebc04. **Addressed:** D-2891 `a628445d8`
