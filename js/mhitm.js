@@ -150,6 +150,11 @@ import { sticks } from './engrave.js';
 import { mon_offmap, set_apparxy, mb_trapped, itsstuck } from './monmove.js';
 import { hurtle, mhurtle, will_hurtle } from './dothrow.js';
 import { make_stunned } from './potion.js';
+// imports.mjs --can mhitm.js mcastu.js touch_of_death Antimagic: SAFE
+// (hoisted functions; same 98-module SCC). Aliased because this file's
+// local Antimagic is the flat H||E clone; mcastu's also reads uprops
+// (D-1089), which the mhitu arm of mhitm_ad_deth already used.
+import { touch_of_death, Antimagic as hero_Antimagic } from './mcastu.js';
 import { m_is_steadfast, can_blnd, steal_it, xdrainenergym } from './uhitm.js';
 import { mintrap, acid_damage, minstapetrify, mselftouch, drain_en } from './trap.js';
 import { breamm, spitmm, thrwmm } from './mthrowu.js';
@@ -4346,13 +4351,57 @@ async function mhitm_ad_drli(magr, mattk, mdef, mhm) {
 }
 
 /**
- * C ref: uhitm.c mhitm_ad_deth `:3836–3894` — mhitm arm (the uhitm arm
- * `goto`s here; no hero form has AD_DETH). Undead target with leftover
- * > 1 → rnd(leftover/2); then mhitm_ad_drli with is_death. mhitu arm is
- * mhitm_ad_deth_u (mhitu.js).
+ * C ref: uhitm.c mhitm_ad_deth `:3836–3894`.
+ * uhitm (magr == &gy.youmonst) gotos the mhitm arm — no hero form has
+ * AD_DETH, and the message would differ only if one did. mhitu: reach-out
+ * (no hitmsg); undead hero form halves leftover rounding up and asks
+ * «Was that the touch of death?»; else one rn2(20): 17–19 without
+ * Antimagic → touch_of_death and zero damage, with Antimagic fall
+ * through; 5–16 «life force draining» and permdmg = 1 (hitmu rolls the
+ * max-HP cut); 0–4 shieldeff when Antimagic, «Lucky for you», zero
+ * damage. mhitm: undead target with leftover > 1 → rnd(leftover/2),
+ * then mhitm_ad_drli (is_death keeps the leftover as the drain).
  */
-async function mhitm_ad_deth(magr, mattk, mdef, mhm) {
+export async function mhitm_ad_deth(magr, mattk, mdef, mhm) {
     const pd = mdef.data;
+    /* C `:3844` magr == &gy.youmonst → goto mhitm_deth. */
+    if (!is_youmonst(magr) && is_youmonst(mdef)) {
+        await pline_mon(magr, `${Monnam(magr)} reaches out with its deadly touch.`);
+        if (is_undead(pd)) {
+            /* still does some damage */
+            mhm.damage = Math.trunc(((mhm.damage | 0) + 1) / 2);
+            await pline('Was that the touch of death?');
+            return;
+        }
+        switch (rn2(20)) {
+        case 19:
+        case 18:
+        case 17:
+            if (!hero_Antimagic()) {
+                await touch_of_death(magr);
+                mhm.damage = 0;
+                return;
+            }
+            /* FALLTHROUGH */
+        default: /* case 16: ... case 5: */
+            await You_feel('your life force draining away...');
+            mhm.permdmg = 1; /* actual damage done by caller */
+            return;
+        case 4:
+        case 3:
+        case 2:
+        case 1:
+        case 0:
+            if (hero_Antimagic()) {
+                const u = game.u || {};
+                await shieldeff(u.ux, u.uy);
+            }
+            await pline("Lucky for you, it didn't work!");
+            mhm.damage = 0;
+            return;
+        }
+    }
+    /* mhitm_deth: Death hitting another monster (uhitm lands here too). */
     if (is_undead(pd) && (mhm.damage | 0) > 1)
         mhm.damage = rnd(Math.trunc((mhm.damage | 0) / 2));
     /* simulate Death's touch with drain life attack */

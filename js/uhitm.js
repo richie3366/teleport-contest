@@ -12,7 +12,7 @@ import {
     STRAT_WAITFORU, AD_SPEL,
     XKILL_GIVEMSG, XKILL_NOMSG, XKILL_NOCORPSE, XKILL_NOCONDUCT,
     LL_CONDUCT, LL_KILLEDPET, Upolyd, P_BARE_HANDED_COMBAT, P_TWO_WEAPON_COMBAT, P_BASIC, P_WHIP,
-    A_CHAOTIC, A_NONE, INTRINSIC, CORPSTAT_BURIED, CORPSTAT_NONE, OBJ_BURIED, ONAME_NO_FLAGS,
+    A_CHAOTIC, A_NONE, INTRINSIC, CORPSTAT_BURIED, CORPSTAT_NONE, OBJ_BURIED, ONAME, ONAME_NO_FLAGS,
     P_DAGGER, P_KNIFE, P_AXE, P_SABER, P_LANCE, P_NONE, P_SKILLED, P_ISRESTRICTED, P_UNSKILLED, NEED_WEAPON,
     STUNNED,
     M_ATTK_MISS, M_ATTK_HIT, M_ATTK_DEF_DIED, NATTK, MSLOW,
@@ -34,11 +34,11 @@ import {
 import {
     WEAPON_CLASS, ARMOR_CLASS, TOOL_CLASS, FOOD_CLASS, COIN_CLASS, RANDOM_CLASS, POTION_CLASS,
     GEM_CLASS, SPBOOK_CLASS,
-    objectNameStrs, objectNames, is_poisonable,
+    objectNames, is_poisonable,
 } from './objects.js';
 import { exercise, A_STR, A_DEX, A_WIS, A_CON, acurr, adjalign, change_luck, ALIGNLIM, Fumbling } from './attrib.js';
 import { overexertion, nomul, losehp, is_pool, maybe_half_phys, noattacks } from './hack.js';
-import { ing_suffix, upstart } from './hacklib.js';
+import { ing_suffix, upstart, highc } from './hacklib.js';
 import { pline, pline_mon, newsym, canseemon, canspotmon, sensemon, tp_sensemon, map_invisible, unmap_object, unmap_invisible, memory_glyph_is_invisible, glyph_at, glyph_is_warning, glyph_is_invisible_id, flush_topl_more, You_feel, tmp_at, map_location, nh_delay_output, mon_glyph, shieldeff, impossible, see_monsters, hero_Blind_telepat, You, Your, pline_The } from './display.js';
 import { cansee } from './vision.js';
 import {
@@ -57,7 +57,7 @@ import {
     find_mac, get_mattk, make_corpse, monstone, mhitm_knockback, monkilled, mondead,
     troll_baned, mhitm_ad_poly, mhitm_ad_slee, mhitm_ad_heal, mhitm_ad_blnd, mhitm_ad_ston, mhitm_ad_elec, mhitm_ad_sedu, mhitm_ad_tlpt, mhitm_ad_rust, mhitm_ad_fire, mhitm_ad_dren, could_seduce, failed_grab, shade_miss,
     shade_aware, paralyze_monst,
-    mhitm_mgc_atk_negated, mhitm_ad_drst, mhitm_ad_stck, erode_armor, golemeffects_mm,
+    mhitm_mgc_atk_negated, mhitm_ad_drst, mhitm_ad_deth, mhitm_ad_stck, erode_armor, golemeffects_mm,
     attk_protection,
     AT_NONE, AT_WEAP, AT_KICK, AT_CLAW, AT_SPIT, AT_HUGS,
     AT_TUCH, AT_BITE, AT_BUTT, AT_STNG, AT_MAGC, AT_TENT,
@@ -72,7 +72,7 @@ import {
     is_demon, NON_PM, NUMMONS, has_head, mindless, unsolid, breathless, mons,
     flaming, touch_petrifies, is_neuter, is_vampshifter, is_animal, amphibious,
     is_swimmer, slithy,
-    amorphous, noncorporeal, is_whirly, passes_walls, hates_silver, mon_hates_silver, humanoid,
+    amorphous, noncorporeal, is_whirly, passes_walls, hates_silver, mon_hates_silver, mon_hates_light, humanoid,
     is_human, is_orc, is_elf, always_hostile, is_unicorn, slimeproof,
     MR_FIRE, MR_COLD, MR_ELEC, MR_ACID,
     resists_ston, resists_acid, mon_hates_blessings, poly_when_stoned,
@@ -93,8 +93,10 @@ import { experience, more_experienced, newexplevel } from './exper.js';
 import { explode, mon_explodes, adtyp_to_expltype } from './explode.js';
 import { rehumanize, body_part, mbodypart, uunstick } from './polyself.js';
 import { mon_nam, l_monnam, Monnam, x_monnam, x_monnam_tame, Hallucination, type_is_pname, pmname, Mgender, a_monnam, safe_oname, s_suffix, hcolor } from './do_name.js';
-import { artifact_hit, youmonst, is_art, artifact_exists, shade_glare, find_artifact, u_wield_art, permapoisoned } from './artifact.js';
-import { xname, vtense, The, the, An, an, singular, makeplural, cxname, simpleonames, otense, mshot_xname, Yobjnam2, Yname2, doname, corpse_xname, ysimple_name } from './objnam.js';
+import { artifact_hit, youmonst, is_art, artifact_exists, shade_glare, find_artifact, u_wield_art, permapoisoned, bare_artifactname } from './artifact.js';
+// imports.mjs --can uhitm.js timeout.js artifact_light: SAFE (hoisted).
+import { artifact_light } from './timeout.js';
+import { xname, vtense, The, the, An, an, singular, makeplural, cxname, simpleonames, obj_is_pname, otense, mshot_xname, Yobjnam2, Yname2, doname, corpse_xname, ysimple_name } from './objnam.js';
 import { abuse_dog, tamedog } from './dog.js';
 import { makemon, makemon_appear_msg, newcham, adj_lev, clone_mon, mpickobj } from './makemon.js';
 import { ndemon } from './minion.js';
@@ -180,6 +182,7 @@ const AD_CORR = 42;
 const AD_TLPT = 23; /* teleports victim (quantum mechanic) — monattk.h */
 const AD_SGLD = 20; /* steals gold (leprechaun) — monattk.h */
 const AD_DCAY = 34; /* decays organics (brown pudding) — monattk.h */
+const AD_DETH = 37; /* for Death only — monattk.h */
 const AD_SLIM = 40; /* turns victim into green slime — monattk.h */
 const AD_HEAL = 27; /* heals opponent's wounds (nurse) — monattk.h */
 const AD_LEGS = 17; /* damages legs (xan) — monattk.h:59 */
@@ -721,13 +724,24 @@ async function corpse_chance(mon, magr = null, was_swallowed = false) {
 // mon.c mondead lives in mhitm.js — imported above (D-2147; no second clone).
 
 /**
- * C ref: uhitm.c first_weapon_hit — livelog before kill so order is hit then kill.
- * Artifact / cursed-bknown / ONAME paths deferred (simpleonames only).
+ * C ref: uhitm.c first_weapon_hit `:1963–1989`.
+ * Livelog before the kill so the conduct line precedes "killed for the
+ * first time". Skip xname (that includes a player-supplied "named <foo>").
+ * cursed+bknown prefix; a fully identified artifact uses ONAME; otherwise
+ * simpleonames, and a discovered artifact appends " named <bare name>".
+ * Callers: hmon_hitmon_jousting (C `:1551`) and hmon_hitmon (C `:1844`).
  */
 function first_weapon_hit(weapon) {
     let buf = '';
+    /* include "cursed" if known but don't bother with blessed */
     if (weapon.cursed && weapon.bknown) buf += 'cursed ';
-    buf += objectNameStrs[weapon.otyp] || 'weapon';
+    if (obj_is_pname(weapon)) {
+        buf += ONAME(weapon); /* fully IDed artifact */
+    } else {
+        buf += simpleonames(weapon);
+        if (weapon.oartifact && weapon.dknown)
+            buf += ` named ${bare_artifactname(weapon)}`;
+    }
     livelog_printf(
         LL_CONDUCT,
         'hit with a wielded weapon (%s) for the first time',
@@ -1152,9 +1166,10 @@ async function hmon_hitmon_dmg_recalc(dmg, obj, thrown, twohits, use_weapon_skil
  * flag arms. ctx carries the hmd fields this helper owns (dmg,
  * use/train_weapon_skill, hittxt, doreturn, retval, dieroll, hand_to_hand,
  * thrown, jousting, ispoisoned).
- * Named omissions: silvermsg/silverobj + lightobj message flags (hmon has
- * no msg_lightobj plumbing; weapon silvermsg stays the pre-existing omit —
- * barehand rings print via hmon_hitmon_msg_silver).
+ * Named omissions: silvermsg/silverobj (weapon silver stays the
+ * pre-existing omit — barehand rings print via hmon_hitmon_msg_silver).
+ * lightobj is set here (C `:1038–1040`) and printed by
+ * hmon_hitmon_msg_lightobj.
  */
 async function hmon_hitmon_weapon_melee(mon, obj, ctx) {
     const u = game.u || {};
@@ -1234,6 +1249,10 @@ async function hmon_hitmon_weapon_melee(mon, obj, ctx) {
     } else if (obj.oartifact) {
         ctx.dmg = ctx.dmgBox.dmg | 0;
     }
+    /* C :1035–1036 silvermsg/silverobj stays named (no weapon plumbing). */
+    /* C :1038–1040 — lit light-hating artifact (Sunsword / worn gold DSM). */
+    if (artifact_light(obj) && obj.lamplit && mon_hates_light(mon))
+        ctx.lightobj = true;
     // C :1041–1047 — mounted lance. joust() burns rn2(5) (and maybe rnl).
     ctx.jousting = 0;
     ctx.ispoisoned = false;
@@ -1682,6 +1701,34 @@ async function hmon_hitmon_msg_silver(hmd, mon) {
 }
 
 /**
+ * C ref: uhitm.c hmon_hitmon_msg_lightobj `:1702–1730`.
+ * `obj` is unused (C UNUSED). Seen + saved name: "<name>'s radiance
+ * penetrates deep into <whom>!"; seen without a name: "The light sears
+ * <whom>!"; unseen: highc the pronoun then "<Whom> is seared!".
+ * Corporeal, non-amorphous targets append " flesh" via s_suffix.
+ * When lightobj is set, do_hit stored bare_artifactname (lit) rather
+ * than cxname. Caller: hmon_hitmon (C `:1880–1881`).
+ */
+async function hmon_hitmon_msg_lightobj(hmd, mon, obj) {
+    void obj;
+    let whom = mon_nam(mon);
+    const seen = canspotmon(mon);
+    const saved = hmd.saved_oname ? String(hmd.saved_oname) : '';
+    if (!seen)
+        whom = highc(whom) + whom.slice(1);
+    const mdat = hmd.mdat || mon.data;
+    if (!noncorporeal(mdat) && !amorphous(mdat))
+        whom = `${s_suffix(whom)} flesh`;
+    if (seen && saved) {
+        await pline(`${s_suffix(saved)} radiance penetrates deep into ${whom}!`);
+    } else if (seen) {
+        await pline(`The light sears ${whom}!`);
+    } else {
+        await pline(`${whom} is seared!`);
+    }
+}
+
+/**
  * C ref: uhitm.c hmon_hitmon — inner damage routine (D-0693/D-1232/D-1384).
  * Thrown cream pie / blinding venom misc_obj arm (D-0693); melee weapon path.
  * troll_baned around killed (D-1232): set TRUE only, always reset after.
@@ -1752,6 +1799,7 @@ async function hmon_hitmon(mon, obj, thrown, _dieroll) {
     let poiskilled = false;
     let already_killed = false;
     let barehand_silver_rings = 0;
+    let lightobj = false;
     let offmap = false;
     let mdat = mon.data;
     /* C hmon_hitmon :1780 — melee, or an applied polearm (implies uwep). */
@@ -1844,6 +1892,7 @@ async function hmon_hitmon(mon, obj, thrown, _dieroll) {
             hittxt = ctx.hittxt;
             ispoisoned = !!ctx.ispoisoned;
             jousting = ctx.jousting | 0;
+            lightobj = !!ctx.lightobj;
             get_dmg_bonus = ctx.get_dmg_bonus; // C: melee keeps the :1778 TRUE
             // C hmon_hitmon :1797 — artifact doreturn (killed → FALSE,
             // dmg-zeroed → TRUE) skips recalc/pet/msg entirely.
@@ -2040,6 +2089,16 @@ async function hmon_hitmon(mon, obj, thrown, _dieroll) {
             saved_oname: '',
             mdat,
         }, mon);
+    }
+
+    // C :1880–1881 — lit artifact vs a light-hater. do_hit stores
+    // bare_artifactname when artifact_light && lamplit (the only case
+    // that sets lightobj).
+    if (lightobj && obj) {
+        await hmon_hitmon_msg_lightobj({
+            saved_oname: bare_artifactname(obj),
+            mdat,
+        }, mon, obj);
     }
 
     // C :1897–1921 — poison messages after the hit line. poiskilled
@@ -2742,6 +2801,10 @@ async function damageum_adtyping(mattk, mdef, mhm) {
         await damageum_ad_curs(mdef, mhm);
     } else if (adtyp === AD_DCAY) {
         await damageum_ad_dcay(mdef, mhm);
+    } else if (adtyp === AD_DETH) {
+        /* C ref: uhitm.c mhitm_adtyping `:4824` → mhitm_ad_deth.
+           uhitm arm gotos the mhitm arm (no hero form has AD_DETH). */
+        await mhitm_ad_deth(game.youmonst, mattk, mdef, mhm);
     } else if (adtyp === AD_SLIM) {
         await damageum_ad_slim(mdef, mhm);
     } else if (adtyp === AD_HEAL) {
