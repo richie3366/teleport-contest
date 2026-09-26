@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2879 `do_osshock` bills the destroyed piece; `bhitpile` restacks boulders
+
+**C locus:** `nethack-c/upstream/src/zap.c:1637–1674` `do_osshock`. Callees: `rn2`, `rnd`, `splitobj` (`mkobj.c:457`, live `js/mkobj.js:418`, including `splitbill` when unpaid), `costly_spot` (`shk.c:889`), `addtobill` (`shk.c:4168`), `stolen_value` (`shk.c:3131`), `delobj` (`invent.c:1429`). `MAIL_STRUCTURES` is defined (`global.h:430`). `Luck` is `u.uluck + u.moreluck` (`you.h:464`). `LARGEST_INT` is 32767 (`global.h:135`). Same file: `bhitpile` (`zap.c:2428–2506`) callee `recreate_pile_at` (`mkobj.c:2371–2388`).
+**JS:** `js/zap.js` `do_osshock` `:4911`, mail `:4914`, Luck roll `:4920–4926`, split `:4932–4941`, bill Promise `:4945–4953`, `delobj` `:4955`. Caller `bhito` `:5496`. `js/mkobj.js` `recreate_pile_at` `:2686`. `js/zap.js` `bhitpile` restack `:5856–5864`.
+**Change:** One `do_osshock` in that C order. `SCR_MAIL` returns first. The material roll uses `Luck()`.
+**Verify:** `node scripts/verify.mjs --fn do_osshock` → PASS syntax (2 changed js files: js/mkobj.js js/zap.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.2s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (those files are not in the shared-file set) · VERIFY: PASS.
+**Named:** `fill_pit` (`trap.c:4010–4019`, call `zap.c:2499`). Live `js/dig.js:922` extracts the boulder, `deltrap`s, and `delobj`s.
+**Next:** `sp_lev.c` `get_table_int_or_random` (next Open — coverage row). Three Stale parks. Refill below the band of 8.
 ## 2026-09-26 — D-2878 `more_experienced` caps a wrapped experience total at LONG_MAX
 
 **C locus:** `nethack-c/upstream/src/exper.c:169–203` `more_experienced`. Callee: `exp_percent_changing` (`botl.c:2090`, live `js/botl.js:593`). `SCORE_ON_BOTL` has no `#define` in the pinned tree, so the `flags.showscore` arm is not compiled. `Role_if(PM_WIZARD)` is `gu.urole.mnum == PM_WIZARD` (`you.h:247`). `disp.botl` is the bit `bot()` reads (`game.flags.botl`).

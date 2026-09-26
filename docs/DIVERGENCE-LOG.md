@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2879 — `do_osshock` bills the destroyed piece; `bhitpile` restacks boulders
+
+- **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked). `candle_light_range`, `singplur_compound`, and `level_finalize_topology` parked Stale (bodies already live).
+- **Symptom:** A shuddering stack used only `u.uluck`, never the `LARGEST_INT` split, and never billed a shop square before `delobj`. A pile with a non-boulder above a boulder stayed inverted. Mail scrolls were not returned before `obj_zapped`.
+- **C locus:** `nethack-c/upstream/src/zap.c:1637–1674` `do_osshock`. Callees: `rn2`, `rnd`, `splitobj` (`mkobj.c:457`, live `js/mkobj.js:418`, including `splitbill` when unpaid), `costly_spot` (`shk.c:889`), `addtobill` (`shk.c:4168`), `stolen_value` (`shk.c:3131`), `delobj` (`invent.c:1429`). `MAIL_STRUCTURES` is defined (`global.h:430`). `Luck` is `u.uluck + u.moreluck` (`you.h:464`). `LARGEST_INT` is 32767 (`global.h:135`). Same file: `bhitpile` (`zap.c:2428–2506`) callee `recreate_pile_at` (`mkobj.c:2371–2388`).
+- **JS was:** `js/zap.js` `do_osshock` set `_obj_zapped`, rolled `rn2(uluck+45)`, split with `rnd(quan-1) || obj`, and `delobj`'d. The shop arm was a comment. `bhitpile` stopped after `create_polymon` and `maybe_unhide_at`. `recreate_pile_at` had no JS symbol.
+- **Fix:** One `do_osshock` in that C order. `SCR_MAIL` returns first. The material roll uses `Luck()`. A stack above `LARGEST_INT` splits `rnd(30000)`; a failed `splitobj` throws the C panic text. A costly spot awaits `addtobill` when `u.ushops` is non-empty, otherwise `stolen_value`, and that Promise includes `delobj`. Any other call stays synchronous so `bhito`'s `hideunder` is not reordered. `recreate_pile_at` removes the pile into a reversed `nobj` list and `place_object`s it back. `bhitpile` calls it when a boulder sits under a non-boulder, then `maybe_unhide_at`.
+- **JS:** `js/zap.js` `do_osshock` `:4911`, mail `:4914`, Luck roll `:4920–4926`, split `:4932–4941`, bill Promise `:4945–4953`, `delobj` `:4955`. Caller `bhito` `:5496`. `js/mkobj.js` `recreate_pile_at` `:2686`. `js/zap.js` `bhitpile` restack `:5856–5864`.
+- **Callers:** `do_osshock` — `zap.c:2213` → `js/zap.js:5496`. `zap.c:3423` and `extern.h:3978` are a comment and the declaration. `bhitpile` — `apply.c:4100` → `js/apply.js:1375`; `apply.c:4118` → `js/apply.js:1380`; `zap.c:3244` → `js/zap.js:6538`; `zap.c:3384` → `js/zap.js:6711`; `zap.c:4046` → `js/zap.js:6178`. `invent.c:5500` and `extern.h:3980` are not calls. `recreate_pile_at` — `zap.c:2494` → `js/zap.js:5861`. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn do_osshock` → PASS syntax (2 changed js files: js/mkobj.js js/zap.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.2s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (those files are not in the shared-file set) · VERIFY: PASS.
+- **Named omissions:** `fill_pit` (`trap.c:4010–4019`, call `zap.c:2499`). Live `js/dig.js:922` extracts the boulder, `deltrap`s, and `delobj`s. C calls `flooreffects(otmp, x, y, "settle")`. `bhitpile` does not call that body.
+- **Next:** `sp_lev.c` `get_table_int_or_random` (next Open — coverage row). Three Stale parks. Refill below the band of 8.
+
 ## D-2878 — `more_experienced` caps a wrapped experience total at LONG_MAX
 
 - **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked).

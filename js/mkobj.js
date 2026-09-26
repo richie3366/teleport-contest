@@ -2678,6 +2678,32 @@ export function place_object(otmp, x, y) {
 }
 
 /**
+ * C ref: mkobj.c recreate_pile_at `:2371–2388` — tear the floor pile
+ * down into a reversed list, then `place_object` it back so boulders
+ * land on top. `remove_object` leaves `where == OBJ_FREE`.
+ * Caller: `bhitpile` (`zap.c:2494`).
+ */
+export function recreate_pile_at(x, y) {
+    x |= 0;
+    y |= 0;
+    let reversed = null;
+    for (let otmp = objects_at(x, y); otmp; ) {
+        const next_obj = otmp.nexthere; /* C :2377 */
+        remove_object(otmp); /* C :2378 — extract floor + fobj */
+        otmp.nobj = reversed; /* C :2379 */
+        reversed = otmp;
+        otmp = next_obj;
+    }
+    /* C :2384–2388 — re-reverse; place_object forces boulders on top. */
+    for (let otmp = reversed; otmp; ) {
+        const next_obj = otmp.nobj;
+        otmp.nobj = null;
+        place_object(otmp, x, y);
+        otmp = next_obj;
+    }
+}
+
+/**
  * C ref: steal.c relobj(mtmp, show, FALSE) via mon.c m_detach(due_to_death)
  * → mdrop_obj per minvent head. Vault-guard gold omitted (grddead issues
  * the isgd arm inline); caller issues newsym.

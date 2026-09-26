@@ -774,7 +774,7 @@ mklev.js `create_object_delete_contents`, objnam empty/verysmall statue);
 (`polyuse` bypasses→uball/uchain→`obj_resists(0,0)`→SCR_MAIL→`rn2(minwt+1)`→bill/stolen→`delobj`;
 `mon_spell_hits_spot` MAGM/ACID wipe + `ZT_SPELL` `zap_over_floor` + `impossible` else;
 `wish_history_menu` `#ifdef DEBUG` production no-op;
-named: mcastu call sites, `makewish` history gate; `create_polymon` body shipped D-2571 (file-local `js/zap.js`, wired in `bhitpile`; `recreate_pile`/`fill_pit` still deferred).
+named: mcastu call sites, `makewish` history gate; `create_polymon` body shipped D-2571 (file-local `js/zap.js`, wired in `bhitpile`). **`do_osshock` whole body D-2879** (`zap.c:1637–1674`: SCR_MAIL return before `obj_zapped`, `rn2(Luck+45)` material, `LARGEST_INT`/`rnd(30000)` split, `costly_spot` then `addtobill` or `stolen_value`, `delobj`; caller `bhito` `zap.c:2213` → `js/zap.js` `if (shocked) await shocked`). **`bhitpile` boulder restack D-2879** (`mkobj.c` `recreate_pile_at` `:2371–2388` live `js/mkobj.js`, called from the `:2487–2494` loop). Named: `fill_pit` (`trap.c:4018` `flooreffects`; `js/dig.js` `fill_pit` still `deltrap`+`delobj`).
 
 ### `src/read.c` `doread`/`seffects`
 
