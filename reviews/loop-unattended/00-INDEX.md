@@ -1794,3 +1794,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1782-8a86cd50e-rndmonst-adj.md](./1782-8a86cd50e-rndmonst-adj.md) | `8a86cd50e` | D-2823 rndmonst_adj | **ACCEPT** |
 | [1783-40264ce0a-dmonsfree.md](./1783-40264ce0a-dmonsfree.md) | `40264ce0a` | D-2824 dmonsfree | **ACCEPT** |
 | [1784-b60cf8e62-fight-empty.md](./1784-b60cf8e62-fight-empty.md) | `b60cf8e62` | D-2825 domove_fight_empty | **QUALITY-RISK** |
+| [1785-38097d48c-hallucination-import.md](./1785-38097d48c-hallucination-import.md) | `38097d48c` | D-2826 Hallucination import | **ACCEPT** |
+| [1786-f5cea8a9c-inv-weight.md](./1786-f5cea8a9c-inv-weight.md) | `f5cea8a9c` | D-2827 inv_weight | **ACCEPT** |
+| [1787-4d4432b8f-mcast-insects.md](./1787-4d4432b8f-mcast-insects.md) | `4d4432b8f` | D-2828 mcast_insects | **QUALITY-RISK** |
+| [1788-fb4f1bf7d-rescued-from-terrain.md](./1788-fb4f1bf7d-rescued-from-terrain.md) | `fb4f1bf7d` | D-2829 rescued_from_terrain | **ACCEPT** |
+| [1789-db4f455db-optfns.md](./1789-db4f455db-optfns.md) | `db4f455db` | D-2830 optfns | **ACCEPT** |
+| [1790-8eb83b375-place-lregion.md](./1790-8eb83b375-place-lregion.md) | `8eb83b375` | D-2831 place_lregion | **QUALITY-RISK** |
+| [1791-53a5e85c8-set-uasmon.md](./1791-53a5e85c8-set-uasmon.md) | `53a5e85c8` | D-2832 set_uasmon | **ACCEPT** |
+| [1792-92e997504-genl-player-setup.md](./1792-92e997504-genl-player-setup.md) | `92e997504` | D-2833 genl_player_setup | **ACCEPT** |
+| [1793-236be808b-youhiding.md](./1793-236be808b-youhiding.md) | `236be808b` | D-2834 youhiding | **ACCEPT** |

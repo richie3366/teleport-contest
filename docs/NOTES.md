@@ -18,6 +18,7 @@ here again. Live hypotheses only:
   revisits. Phase-2 rows (`[measure]`, parks, `hidden-proxy queue`) stay
   closed meanwhile; the corpus is guarded by REACH in `verify.mjs`.
   Everything below this bullet is phase-2 context — do not act on it now.
+- Audit 1785–1793: first C-wrong is `mcast_insects` sticky `u.Deaf` (`youprop.h:123–125`), then sticky `Detect_monsters`, then worn `Displaced`/`BInvis`, then `place_lregion` tele Promise. Falsifier: the four Must-fix lines. Do not re-open the seven ACCEPT SHAs.
 
 - **obj_resists writers (D-2407/2413-15, MEASURED):** `steal.c` relobj `flooreffects` + Knight/Arch/Healer arms (detail in D-logs). Falsified — do not re-check: fire-trap burn, fmon-order, polyuse, monstone, bury, steal.
 

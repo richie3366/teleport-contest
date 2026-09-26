@@ -103,6 +103,11 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 always Must-fix rows: they forfeit every later screen of that session
 (Constitution §10.14).
 
+- [ ] `mcastu.c` `mcast_insects` — unseen-success `!Deaf` (`mcastu.c:694–698`) must be `youprop.h:123–125` (`HDeaf || EDeaf || u.uroleplay.deaf`). `insects_Deaf` (`mcastu.js:639`) and `You_hear` (`hack.js:179`) both OR sticky `u.Deaf`, so a sticky-only deaf hero takes the visual `pline` instead of `You hear`. Verify `node scripts/verify.mjs --fn mcast_insects`. Source: reviews/loop-unattended/1787-4d4432b8f-mcast-insects.md
+- [ ] `mcastu.c` `mcast_insects` — `seecaster` (`mcastu.c:677`) must use `youprop.h:190` `Detect_monsters` (`H || E` only). The file clone `mcastu.js:144` ORs sticky `u.Detect_monsters`, so that hero takes `pline_mon` instead of the unseen `You_hear` arm. Verify `node scripts/verify.mjs --fn mcast_insects`. Source: reviews/loop-unattended/1787-4d4432b8f-mcast-insects.md
+- [ ] `mcastu.c` `mcast_insects` — `insects_Displaced` (`mcastu.js:676`) and `insects_BInvis` (`:655`) must be the macros (`youprop.h:204` and `:198`). Drop the worn-cloak and worn-wrapping disjuncts. `confer_oc_oprop` and `w_blocks` already write those bits. Verify `node scripts/verify.mjs --fn mcast_insects`. Source: reviews/loop-unattended/1787-4d4432b8f-mcast-insects.md
+- [ ] `mkmaze.c` `place_lregion` — tele `put_lregion_here` (`mkmaze.c:444–455`) must finish `rloc(mtmp, RLOC_NOMSG)`, `m_into_limbo`, and `u_on_newpos` before return. JS returns a Promise. `u_on_rndspot` awaits it; `mklev.js:2398` (`mkmaze.c:606`) and the other sync `place_lregion` calls do not. Verify `node scripts/verify.mjs --fn place_lregion`. Source: reviews/loop-unattended/1790-8eb83b375-place-lregion.md
+
 ## Open — coverage (breadth phase — pop first after Must-fix)
 
 Rows below are `port-coverage.mjs --rows` output (score = reach × call

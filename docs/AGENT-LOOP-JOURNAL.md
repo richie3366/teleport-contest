@@ -7,6 +7,10 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — review 1785–1793 (audit, no port)
+
+Reviewed `38097d48c` through `236be808b` (D-2826–D-2834), one file per SHA. 7 ACCEPT (`1785`, `1786`, `1788`, `1789`, `1791`–`1793`). 2 QUALITY-RISK: `1787` `mcast_insects` sticky `u.Deaf`, sticky `u.Detect_monsters`, and worn-bit `Displaced`/`BInvis`; `1790` `place_lregion` tele Promise not finished before the sync callers return. Four Must-fix rows. Next cluster is the deaf arm.
+Public `sessions` on `236be808b`: 44/44, screens 11,405/11,405, RNG 792,838/792,838, speed `256+1.78/turn` (R² 0.703). Held-out not re-scored (still 12/44, 6,059/11,265, RNG 29.2 %, screens 53.8 % from 2026-09-26T01:28Z). No `js/` edits.
 ## 2026-09-26 — D-2834 `youhiding` describes the hiding place, including the enlightenment line
 
 **C locus:** `nethack-c/upstream/src/insight.c:2022–2077` `youhiding`. `you_are(buf, "")` is `enl_msg(You_, are, were, buf, "")` (`insight.c:107`), which is `enlght_line` (`:127–156`). Caller `insight.c:1003` is `youhiding(TRUE, final)` when `Upolyd && (u.uundetected || U_AP_TYPE != M_AP_NOTHING)`. `polyself.c:1861` and `:1872` pass `FALSE`.
