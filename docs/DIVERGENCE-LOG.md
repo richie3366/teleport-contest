@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2856 — `pre_mm_attack` unhides both monsters before the blow
+
+- **Status:** fixed (coverage THIN; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** A monster-vs-monster hit or miss returned before any reveal when the hero could not see the fight, so a mimic stayed disguised and an undetected monster stayed hidden. A visible reveal never redrew a monster that had just come out of hiding.
+- **C locus:** `nethack-c/upstream/src/mhitm.c:41–72` `pre_mm_attack`. Callees `seemimic` (`mon.c`, live `js/mon.js:1178`), `M_AP_TYPE` (`monst.h:73`, live `js/const.js:3218`), `canspotmon` (`display.c`, live `js/display.js:1366`), `map_invisible` (`display.c`, live `js/display.js:1374`), `newsym` (`display.c`, live `js/display.js:5104`). `gv.vis` is the file-local `_mm_vis` set in `mattackm`. Calls: `missmm` `mhitm.c:81`, `hitmm` `mhitm.c:657`. `mhitm.c:13` is the static declaration. `mhitm.c:745` is a comment inside `gazemm`, not a call.
+- **JS was:** `pre_mm_attack` (`js/mhitm.js`) returned immediately when `!_mm_vis`, then `map_invisible` on both monsters. The map named the `seemimic` / `mundetected` / `showit` `newsym` arms as omitted.
+- **Fix:** One `pre_mm_attack` in that C order. Defender then attacker: `seemimic` when `M_AP_TYPE` is set, otherwise clear `mundetected`. `showit` becomes true only when a reveal happens while `_mm_vis` is set. A visible fight then `map_invisible`s an unspottable monster, or `newsym`s a revealed spottable one. A fight the hero cannot see still unhides both monsters and skips the map block.
+- **JS:** `js/mhitm.js` `pre_mm_attack` `:4022`, `seemimic` `:4029` and `:4036`, `mundetected = 0` `:4032` and `:4039`, `map_invisible` `:4045` and `:4049`, `newsym` `:4047` and `:4051`.
+- **Callers:** `mhitm.c:81` → `js/mhitm.js:4060` (`missmm`). `mhitm.c:657` → `js/mhitm.js:5463` (`hitmm`). `mhitm.c:13` is the static declaration. `mhitm.c:745` stays a comment; `gazemm` keeps its own `seemimic` at `js/mhitm.js:5768`. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn pre_mm_attack` → PASS syntax (1 changed js file: js/mhitm.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) · VERIFY: PASS.
+- **Named omissions:** None inside `pre_mm_attack`. `gazemm` (`mhitm.c:746–748`) still does its own mimic `seemimic` and unconditional `mundetected = 0`. `mattackm` still clears the defender's `mundetected` before `gv.vis`, and that notice still omits Unaware and `last_hider`.
+- **Next:** `ball.c` `unplacebc_core` (next Open — coverage row). Nine Open — coverage rows remain after archive, above the floor of 8, so nothing was refilled.
+
 ## D-2855 — `mhitm_ad_stck` holds on, and glowing hands wear off
 
 - **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked). Same commit: `nohandglow` (coverage MISSING, same C file).

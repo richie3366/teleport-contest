@@ -3793,13 +3793,13 @@ trapped-chest cmap on `M_AP_OBJECT` / Eyes `is_plural` named); **`mondied` undea
 **`hmon` weapon `maybe_knockback`→`mhitm_knockback` `rn2(3)`+`rn2(6)`** (D-0227; **full `mhitm_knockback` body D-1932** — Ogresmasher chance, AD_PHYS/aatyp, grabber/sticks, sgn dir, test_move_ok/isok+doorless_door, saddle redirect, alive/size/flimsy/blunt/unsolid/hit/steadfast gates, will_hurtle + shared pline/You_feel, unstuck, hurtle/dismount/mhurtle/stun effects; `mhm` hitflags idiom; `mhitm.c:1061` preempt + `uhitm.c:1928/5833` + `mhitu.c:1193` call sites threaded); 
 **`mattackm` `gv.vis` + `hitmm`/`missmm`/`mondied` cansee gates** (D-0241); 
 **`noises`/`You_hear` out-of-sight m-vs-m** (D-0294; `far_noise`/`noisetime`); 
-**`pre_mm_attack` `map_invisible` when `!canspotmon`** (D-0296); 
+**`pre_mm_attack` whole body** (D-0296 `map_invisible`; D-2856 `seemimic` / `mundetected=0` / `showit` `newsym`, including when `!gv.vis`; callers `missmm` and `hitmm` only); 
 **hit/miss plines use shared `mon_nam` (shk)** (D-0308); 
 **`hmon_hitmon_msg_hit` `canseemon?exclam(dmg)` + bash/lash/smite/hit verb** (D-0322); 
 **`hmon_hitmon_splitmon` + `passive_obj` AD_CORR erode D-2184** (`uhitm.c:1603–1634` iron/metal hand-to-hand pudding split → live `clone_mon`+`mintrap` (dynamic trap.js import, file convention), hittxt suppresses msg_hit; `passive_obj` now async (all 5 call sites awaited incl. dothrow `thitmonst`) with AD_CORR `erode_obj(ERODE_CORRODE, EF_GREASE)` live (D-2184) + AD_FIRE `erode_obj(weapon, NULL, ERODE_BURN, EF_NONE)` live (D-2211: scen-wish-Archeologist-92004 step 145 «Your bullwhip smoulders!»; queue owner `use_misc(muse.c:2552)` is a literal tie-break — the printer is `passive→passive_obj→erode_obj`, C dice `rn2(6)=0 @ passive_obj:6158` + `rn2(3)=1 @ passive:6019`, hot falls behind the More per tty accumulation, C step 146); AD_ACID/RUST/ENCH erode arms stay deferred); 
 **`xkilled` `nonliving` → `"destroy"`** (D-0327; 
 `is_golem`/`weirdnonliving`/`nonliving` in `monsters.js`); 
-omit `seemimic`/`mundetected` unhide+showit; 
+`pre_mm_attack` unhide is D-2856 (no longer omitted); 
 omit stun pline/`mhurtle_to_doom`, `special_dmgval` gloves/silver, Cleaver `hitum_cleave`, full AD_PLYS/`erode_obj`/
 `dokick` passive callers (D-2770 wires AD_STON touch-petrify + `done_in_by` STONING, `uhitm.c:5930–5956`); **D-1095** `passive` AD_COLD `healmon`+`split_mon`; 
 mhitu/mhitm AD_COLD still named; thrown multishot hit-when-destroyed; `hit()` thrown path; 

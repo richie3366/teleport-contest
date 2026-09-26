@@ -5,8 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `uhitm.c` mhitm_ad_stck — coverage MISSING (C 26 L `uhitm.c:3306–3334` / JS no symbol; hops 4, callers 1, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mhitm_ad_stck` (reach regression must be 0). Measured `port-coverage.mjs --name mhitm_ad_stck` 2026-09-26 @ adbd6bd68. **Addressed:** D-2855
-- [x] `uhitm.c` nohandglow — coverage MISSING (C 22 L `uhitm.c:6315–6337` / JS no symbol; hops 5, callers 1, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn nohandglow` (reach regression must be 0). Measured `port-coverage.mjs --name nohandglow` 2026-09-26 @ adbd6bd68. **Addressed:** D-2855
+- [x] `mhitm.c` pre_mm_attack — coverage THIN (C 31 L `mhitm.c:41–72` / JS 5 L in js/mhitm.js; hops 4, callers 3, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn pre_mm_attack` (reach regression must be 0). Measured `port-coverage.mjs --name pre_mm_attack` 2026-09-26 @ adbd6bd68. **Addressed:** D-2856
+
+
+- [x] `uhitm.c` mhitm_ad_stck — coverage MISSING (C 26 L `uhitm.c:3306–3334` / JS no symbol; hops 4, callers 1, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mhitm_ad_stck` (reach regression must be 0). Measured `port-coverage.mjs --name mhitm_ad_stck` 2026-09-26 @ adbd6bd68. **Addressed:** D-2855 `72aae4086`
+- [x] `uhitm.c` nohandglow — coverage MISSING (C 22 L `uhitm.c:6315–6337` / JS no symbol; hops 5, callers 1, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn nohandglow` (reach regression must be 0). Measured `port-coverage.mjs --name nohandglow` 2026-09-26 @ adbd6bd68. **Addressed:** D-2855 `72aae4086`
 
 
 - [x] `shk.c` block_entry — coverage MISSING (C 32 L `shk.c:5826–5858` / JS no symbol; hops 3, callers 1, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn block_entry` (reach regression must be 0). Measured `port-coverage.mjs --name block_entry` 2026-09-26 @ adbd6bd68. **Addressed:** D-2854 `ddddc6312`

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2856 `pre_mm_attack` unhides both monsters before the blow
+
+**C locus:** `nethack-c/upstream/src/mhitm.c:41–72` `pre_mm_attack`. Callees `seemimic` (`mon.c`, live `js/mon.js:1178`), `M_AP_TYPE` (`monst.h:73`, live `js/const.js:3218`), `canspotmon` (`display.c`, live `js/display.js:1366`), `map_invisible` (`display.c`, live `js/display.js:1374`), `newsym` (`display.c`, live `js/display.js:5104`). `gv.vis` is the file-local `_mm_vis` set in `mattackm`. Calls: `missmm` `mhitm.c:81`, `hitmm` `mhitm.c:657`. `mhitm.c:13` is the static declaration. `mhitm.c:745` is a comment inside `gazemm`, not a call.
+**JS:** `js/mhitm.js` `pre_mm_attack` `:4022`, `seemimic` `:4029` and `:4036`, `mundetected = 0` `:4032` and `:4039`, `map_invisible` `:4045` and `:4049`, `newsym` `:4047` and `:4051`.
+**Change:** One `pre_mm_attack` in that C order. Defender then attacker: `seemimic` when `M_AP_TYPE` is set, otherwise clear `mundetected`. `showit` becomes true only when a reveal happens while `_mm_vis` is set.
+**Verify:** `node scripts/verify.mjs --fn pre_mm_attack` → PASS syntax (1 changed js file: js/mhitm.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) · VERIFY: PASS.
+**Named:** None inside `pre_mm_attack`. `gazemm` (`mhitm.c:746–748`) still does its own mimic `seemimic` and unconditional `mundetected = 0`.
+**Next:** `ball.c` `unplacebc_core` (next Open — coverage row). Nine Open — coverage rows remain after archive, above the floor of 8, so nothing was refilled.
 ## 2026-09-26 — D-2855 `mhitm_ad_stck` holds on, and glowing hands wear off
 
 **C locus:** `nethack-c/upstream/src/uhitm.c:3306–3334` `mhitm_ad_stck`. Callees `mhitm_mgc_atk_negated` (`uhitm.c:75`, live `js/mhitm.js:2696`), `sticks` (`mondata.c:653`, live `js/engrave.js:377`), `m_next2u` (`you.h:560` `distu` ≤ 2, file-local `m_next2u_mm` `js/mhitm.js:5375`), `set_ustuck` (`mon.c`, live `js/mhitu.js:1621`), `Your` (`pline.c`, live `js/display.js:7675`), `y_monnam` (`do_name.c:1238` area, live `js/do_name.js:1238`), `hitmsg` (`mhitu.c`, live `js/mhitu.js:417`), `pline` (`pline.c`, live `js/display.js:7927`). The only C call is `mhitm_adtyping` `uhitm.c:4813`. `extern.h:3407` is the declaration. Companion `nohandglow` `uhitm.c:6315–6337` calls `makeplural` (`objnam.c`, live `js/objnam.js:2208`), `body_part(HAND)`, `Your`, `hcolor` (`do_name.c`, live `js/do_name.js:330`), `pline_The` (`js/display.js:7683`). Its only call is `hmon_hitmon` `uhitm.c:1912`. `uhitm.c:66` is the static declaration.

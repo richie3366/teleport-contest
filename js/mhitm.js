@@ -4010,12 +4010,46 @@ export async function grow_up(mtmp, victim) {
     return ptr;
 }
 
-// C ref: mhitm.c pre_mm_attack — reveal + map_invisible when gv.vis
-// Named omission: seemimic / mundetected clear + showit newsym arms
+/**
+ * C ref: mhitm.c:41–72 pre_mm_attack.
+ * Unhide or unmimic the defender, then the attacker, even when the
+ * hero cannot see the fight. `seemimic` already `newsym`s. When
+ * `gv.vis` (`_mm_vis`) is set, an unspottable monster is mapped
+ * invisible; a monster that just came out of hiding and can be
+ * spotted is `newsym`'d again. `showit |= gv.vis` only on a reveal
+ * arm, so a visible fight with nothing concealed does not redraw.
+ */
 function pre_mm_attack(magr, mdef) {
-    if (!_mm_vis) return;
-    if (!canspotmon(magr)) map_invisible(magr.mx, magr.my);
-    if (!canspotmon(mdef)) map_invisible(mdef.mx, mdef.my);
+    // C: boolean showit = FALSE
+    let showit = false;
+
+    /* unhiding or unmimicking happens even if hero can't see it
+       because the formerly concealed monster is now in action */
+    if (M_AP_TYPE(mdef)) {
+        seemimic(mdef);
+        showit = showit || !!_mm_vis;
+    } else if (mdef.mundetected) {
+        mdef.mundetected = 0;
+        showit = showit || !!_mm_vis;
+    }
+    if (M_AP_TYPE(magr)) {
+        seemimic(magr);
+        showit = showit || !!_mm_vis;
+    } else if (magr.mundetected) {
+        magr.mundetected = 0;
+        showit = showit || !!_mm_vis;
+    }
+
+    if (_mm_vis) {
+        if (!canspotmon(magr))
+            map_invisible(magr.mx, magr.my);
+        else if (showit)
+            newsym(magr.mx, magr.my);
+        if (!canspotmon(mdef))
+            map_invisible(mdef.mx, mdef.my);
+        else if (showit)
+            newsym(mdef.mx, mdef.my);
+    }
 }
 
 /**
