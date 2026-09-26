@@ -1998,11 +1998,11 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     // peel invent/migrating here (D-1037).
     await run_timers();
 
-    // C: u_collide_m if still co-located — rn2(2)+enexto path
-    let mtmp = m_at(u.ux, u.uy);
-    if (mtmp && mtmp !== u.usteed) {
-        await u_collide_m(mtmp);
-    }
+    // C do.c:1825–1828 — any monster on the arrival square, including a
+    // steed that was left on the map. The steed / null / not-colocated
+    // cases are impossible() inside u_collide_m, not a caller skip.
+    const mtmp = m_at(u.ux, u.uy);
+    if (mtmp) await u_collide_m(mtmp);
 
     // C: do.c goto_level — movebubbles / fumaroles before vision_recalc
     // (allmain moveloop EOT twin D-1168).
@@ -2283,29 +2283,48 @@ export async function deferred_goto() {
 }
 
 /**
- * C ref: do.c u_collide_m — move hero or monster when sharing a spot.
- * Callers: goto_level; cmd.c makemap_prepost post (D-1288).
+ * C ref: do.c u_collide_m `:1412–1445` — hero and a monster share the
+ * arrival square. Move the hero to an adjacent enexto spot, or the
+ * monster via mnexto; if one remains, rloc it, else limbo.
+ * Callers: goto_level (`do.c:1828`); makemap_prepost (`cmd.c:1053`).
+ * `next2u` is `you.h:558` `distu <= 2` via this file's `distu`.
+ * `wizard` is `flag.h:30` `flags.debug`.
  */
 export async function u_collide_m(mtmp) {
     const u = game.u;
-    if (!mtmp || mtmp === u.usteed || m_at(u.ux, u.uy) !== mtmp) return;
-
     const cc = { x: 0, y: 0 };
-    if (!rn2(2) && enexto(cc, u.ux, u.uy, game.youmonst?.data || mtmp.data)
-        && Math.max(Math.abs(cc.x - u.ux), Math.abs(cc.y - u.uy)) <= 1) {
-        await u_on_newpos(cc.x, cc.y); // C do.c:1431
-    } else {
-        // C: mnexto(mtmp, RLOC_NOMSG) on level-entry collide
-        await mnexto(mtmp, RLOC_NOMSG);
+
+    // C do.c:1416–1421. Short-circuit: null, then steed, then not m_at.
+    if (!mtmp || mtmp === u.usteed || mtmp !== m_at(u.ux, u.uy)) {
+        const why = !mtmp
+            ? 'no monster'
+            : (mtmp === u.usteed)
+                ? 'steed is on map'
+                : 'monster not co-located';
+        await impossible('level arrival collision: %s?', why);
+        return;
     }
-    /* C do.c:1436–1445 — survivor on the hero square: wizard-only
-     * "(monster in hero's way)", then rloc, else limbo to return later. */
+
+    /* C do.c:1424–1433. rn2(2) short-circuits enexto and next2u.
+       youmonst.data only — not the co-located monster's data.
+       Prior to 3.3.0 the monster was always the one moved. */
+    if (!rn2(2)
+        && enexto(cc, u.ux, u.uy, game.youmonst?.data)
+        && distu(cc.x, cc.y) <= 2) {
+        await u_on_newpos(cc.x, cc.y); // C :1431; no message
+    } else {
+        await mnexto(mtmp, RLOC_NOMSG); // C :1433
+    }
+
+    /* C do.c:1435–1444. Re-read the hero square. A failed rloc does not
+       reassign mtmp (|| short-circuit); a success that still leaves a
+       monster limbos that monster, which may not be the one we moved. */
     mtmp = m_at(u.ux, u.uy);
     if (mtmp) {
-        if (game.flags?.debug || game.flags?.wizard || game.wizard) {
+        if (game.flags?.debug) {
             await pline("(monster in hero's way)");
         }
-        if (!(await rloc(mtmp, RLOC_NOMSG)) || m_at(u.ux, u.uy)) {
+        if (!(await rloc(mtmp, RLOC_NOMSG)) || (mtmp = m_at(u.ux, u.uy))) {
             await m_into_limbo(mtmp);
         }
     }

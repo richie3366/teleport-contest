@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2902 — `u_collide_m` reports a bad arrival and limbos whoever still blocks the hero
+
+- **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked). C is 33 lines; the whole body shipped.
+- **Symptom:** A bad arrival (no monster, the steed left on the map, or a monster that is not on the hero's square) returned silently. `enexto` used the co-located monster's data when the hero had none. The adjacent-spot test was chebyshev distance. The debug pline also fired for `flags.wizard` and `game.wizard`. After `rloc` succeeded, limbo still took the monster from before the move. `goto_level` never called the function when `m_at` was the steed.
+- **C locus:** `nethack-c/upstream/src/do.c:1412–1445` `u_collide_m`. Guard `impossible` with "no monster" / "steed is on map" / "monster not co-located". Then `!rn2(2) && enexto(&cc, u.ux, u.uy, youmonst.data) && next2u` (`you.h:558` `distu <= 2`) calls `u_on_newpos`, else `mnexto(mtmp, RLOC_NOMSG)`. If `m_at` is still set, `wizard` (`flag.h:30` `flags.debug`) plines "(monster in hero's way)". `!rloc` short-circuits so limbo keeps that monster; a true `rloc` that still leaves someone limbos the re-read `m_at`.
+- **JS was:** `js/do.js` `u_collide_m` returned on the guard with no `impossible`. `enexto` passed `youmonst.data || mtmp.data`. Adjacency was `max(abs) <= 1`. The pline tested `flags.debug || flags.wizard || game.wizard`. The limbo call kept the pre-`rloc` monster. `goto_level` skipped `mtmp === u.usteed`.
+- **Fix:** One `u_collide_m` in that C order, including the three `impossible` reasons, `youmonst.data` only, `distu <= 2`, the `flags.debug` pline, and the `rloc` short-circuit before limbo. `goto_level` calls it whenever `m_at` is set.
+- **JS:** `js/do.js` `u_collide_m` `:2293`, guard `:2298`, `impossible` `:2304`, `rn2`/`enexto`/`distu` `:2311–2313`, `u_on_newpos` `:2314`, `mnexto` `:2316`, re-read `:2322`, pline `:2325`, `rloc`/`m_into_limbo` `:2327–2328`. Caller `goto_level` `:2005`.
+- **Callers:** `do.c:1828` `goto_level` → `js/do.js:2005`. `cmd.c:1053` `makemap_prepost` → `js/wizcmds.js:623`. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn u_collide_m` → PASS syntax (1 changed js file: js/do.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+- **Named omissions:** No arm of `u_collide_m` is omitted. `mon_arrive` is named in the C comment and is not a call. `next2u` is the existing `distu` in `js/do.js`, not a new clone.
+- **Next:** `vision.c` `block_point` (next Open — coverage row). Ten Open — coverage rows remain after archive, above the floor of 8, so nothing was refilled. The queue-empty overlay did not match the live queue (eleven coverage rows were open).
+
 ## D-2901 — `shop_keeper` riles an angry keeper and rejects a resident with no eshk
 
 - **Status:** fixed (coverage THIN; `hidden-proxy verify` reports no corpus session blocked). Same-file `money2u` shipped with it. `e_missed` was already the C body (Stale).

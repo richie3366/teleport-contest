@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2902 `u_collide_m` reports a bad arrival and limbos whoever still blocks the hero
+
+**C locus:** `nethack-c/upstream/src/do.c:1412–1445` `u_collide_m`. Guard `impossible` with "no monster" / "steed is on map" / "monster not co-located". Then `!rn2(2) && enexto(&cc, u.ux, u.uy, youmonst.data) && next2u` (`you.h:558` `distu <= 2`) calls `u_on_newpos`, else `mnexto(mtmp, RLOC_NOMSG)`. If `m_at` is still set, `wizard` (`flag.h:30` `flags.debug`) plines "(monster in hero's way)". `!rloc` short-circuits so limbo keeps that monster; a true `rloc` that still leaves someone limbos the re-read `m_at`.
+**JS:** `js/do.js` `u_collide_m` `:2293`, guard `:2298`, `impossible` `:2304`, `rn2`/`enexto`/`distu` `:2311–2313`, `u_on_newpos` `:2314`, `mnexto` `:2316`, re-read `:2322`, pline `:2325`, `rloc`/`m_into_limbo` `:2327–2328`. Caller `goto_level` `:2005`.
+**Change:** One `u_collide_m` in that C order, including the three `impossible` reasons, `youmonst.data` only, `distu <= 2`, the `flags.debug` pline, and the `rloc` short-circuit before limbo. `goto_level` calls it whenever `m_at` is set.
+**Verify:** `node scripts/verify.mjs --fn u_collide_m` → PASS syntax (1 changed js file: js/do.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+**Named:** No arm of `u_collide_m` is omitted. `mon_arrive` is named in the C comment and is not a call.
+**Next:** `vision.c` `block_point` (next Open — coverage row). Ten Open — coverage rows remain after archive, above the floor of 8, so nothing was refilled. The queue-empty overlay did not match the live queue (eleven coverage rows were open).
 ## 2026-09-26 — D-2901 `shop_keeper` riles an angry keeper and rejects a resident with no eshk
 
 **C locus:** `nethack-c/upstream/src/shk.c:1052–1080` `shop_keeper`. Signed `char rmno`; `rooms[rmno - ROOMOFFSET].resident` when `rmno >= ROOMOFFSET`. `has_eshk`: if `ANGRY` (`!mpeaceful`) and `!ESHK->surcharge`, `rile_shk` (`shk.c:1362–1377`). Else `impossible` with career-change vs not-a-shopkeeper, `rtype`, `mnum`, `MGIVENNAME` or `"anonymous"`, and return NULL. `money2u` is `shk.c:186–212`. `block_door` is `shk.c:5791–5821`.

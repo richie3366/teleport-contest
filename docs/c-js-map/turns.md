@@ -1791,7 +1791,8 @@ Blind glyph/`maybe_unhide_at`/waterlevel swallow still deferred);
 **`goto_level` `(void) in_out_region(u.ux,u.uy)` after check_special_room before pickup** (D-1166; 
 C `do.c:1981`; void — do not abort the level change; `obj_delivery` D-1177; 
 `fix_shop_damage` D-1178; `do_fall_dmg` D-1179; `kill_genocided_monsters` D-1190 after losedogs; 
-`run_timers` D-1191 after kill_genocided before u_collide_m; 
+`run_timers` D-1191 after kill_genocided before u_collide_m;
+**whole `u_collide_m` `do.c:1412–1445`** (D-2902 — `impossible` on null / steed-on-map / not `m_at`; `!rn2(2)` then `enexto` of `youmonst.data` and `next2u` (`distu <= 2`) else `mnexto(RLOC_NOMSG)`; wizard `flags.debug` pline; failed `rloc` limbos the same monster, a success that still leaves someone limbos the re-read `m_at`; callers `do.c:1828` `js/do.js` `goto_level` and `cmd.c:1053` `js/wizcmds.js`); 
 `notice_mon_off`/`notice_mon_on`/`notice_all_mons(TRUE)` D-1194 after uz0 reset before 
 print_level_annotation; `reset_glyphmap` / vision_recalc `notice_all_mons` still named; 
 newgame wrap D-1200); **`goto_level` `obj_delivery`** (D-1177; 
