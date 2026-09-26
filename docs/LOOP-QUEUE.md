@@ -103,6 +103,8 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 always Must-fix rows: they forfeit every later screen of that session
 (Constitution §10.14).
 
+- [ ] `steed.c` `mount_steed` hallucination gate calls `do_name.js` `Hallucination` (`:255`), which returns true on `u.Hallucination` before `Halluc_resistance` and does not read `uprops[HALLUC].intrinsic`. C `youprop.h:120` is `HHallucination && !Halluc_resistance` (`HHallucination` is `uprops[HALLUC].intrinsic`, `:116`). `display.js:1091` is that test. Source: reviews/loop-unattended/1772-686ccd9e7-mount-steed.md. Verify `node scripts/verify.mjs --fn mount_steed` (reach regression must be 0).
+
 ## Open — coverage (breadth phase — pop first after Must-fix)
 
 Rows below are `port-coverage.mjs --rows` output (score = reach × call

@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — review 1767–1775 (audit, no port)
+
+**Reviewed:** `79c71b903` unstuck ACCEPT; `27a017b11` Boots_on ACCEPT; `302f02151` petattr ACCEPT; `4bf3b26b6` coord_desc ACCEPT; `9dcef1d65` remove_worn_item ACCEPT; `686ccd9e7` mount_steed QUALITY-RISK (`do_name.js` `Hallucination` returns on sticky `u.Hallucination` before `Halluc_resistance` and skips `uprops[HALLUC].intrinsic`); `30a1b86dc` allow_category ACCEPT; `75a5d7683` safe_teleds ACCEPT; `5dd7c4a90` retouch callers ACCEPT.
+**Score:** `sessions` 44/44, screens 11,405/11,405, RNG 792,838/792,838, speed `241+1.61/turn` (R² 0.698) at `5dd7c4a90`. Held-out 12/44 unchanged (2026-09-25T19:27Z). `hidden-proxy score` 12/12 PASS on the private recordings (RNG 75,151/75,151, screens 653/653, 0 owners). No PASS→FAIL.
+**Next:** Must-fix `mount_steed` hallucination gate (review 1772) before `level_distance`.
 ## 2026-09-26 — D-2816 `retouch_equipment` callers retest worn gear
 
 **C locus:** `nethack-c/upstream/src/artifact.c:2639–2705` `retouch_equipment`. Nesting `clear_bypasses` (`:2664` / `:2704`). `dropflag > 0` then `uswapwep` and `uwep` (`:2667–2678`). Saddle `untouchable(..., FALSE)` and `dismount_steed` (`:2681–2686`). `dropflag == 1` then `nxt_unbypassed_obj(gi.invent)` (`:2694–2696`). Ring-loss `uncurse` and glove-loss `selftouch` (`:2698–2701`). Callers pass 0 from `attrib.c:1360` and 2 from `eat.c:1325`, `polyself.c:463` `newman`, `:1021` `polymon`, `:1415` `rehumanize`, `uhitm.c:4285`.

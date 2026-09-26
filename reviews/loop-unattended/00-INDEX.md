@@ -1776,3 +1776,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1764-7215d8d6a-arti-invoke.md](./1764-7215d8d6a-arti-invoke.md) | `7215d8d6a` | D-2805 arti_invoke | **ACCEPT** |
 | [1765-7041ab3e4-addinv-core0.md](./1765-7041ab3e4-addinv-core0.md) | `7041ab3e4` | D-2806 addinv_core0 | **ACCEPT** |
 | [1766-e1ef155a9-bhito.md](./1766-e1ef155a9-bhito.md) | `e1ef155a9` | D-2807 bhito | **ACCEPT** |
+| [1767-79c71b903-unstuck-placebc.md](./1767-79c71b903-unstuck-placebc.md) | `79c71b903` | D-2808 unstuck placebc | **ACCEPT** |
+| [1768-27a017b11-boots-fumble-timeout.md](./1768-27a017b11-boots-fumble-timeout.md) | `27a017b11` | D-2809 Boots_on fumble TIMEOUT | **ACCEPT** |
+| [1769-302f02151-petattr-italic-blink.md](./1769-302f02151-petattr-italic-blink.md) | `302f02151` | D-2810 petattr italic/blink | **ACCEPT** |
+| [1770-4bf3b26b6-coord-desc.md](./1770-4bf3b26b6-coord-desc.md) | `4bf3b26b6` | D-2811 coord_desc | **ACCEPT** |
+| [1771-9dcef1d65-remove-worn-item.md](./1771-9dcef1d65-remove-worn-item.md) | `9dcef1d65` | D-2812 remove_worn_item | **ACCEPT** |
+| [1772-686ccd9e7-mount-steed.md](./1772-686ccd9e7-mount-steed.md) | `686ccd9e7` | D-2813 mount_steed | **QUALITY-RISK** |
+| [1773-30a1b86dc-allow-category.md](./1773-30a1b86dc-allow-category.md) | `30a1b86dc` | D-2814 allow_category | **ACCEPT** |
+| [1774-75a5d7683-safe-teleds.md](./1774-75a5d7683-safe-teleds.md) | `75a5d7683` | D-2815 safe_teleds | **ACCEPT** |
+| [1775-5dd7c4a90-retouch-callers.md](./1775-5dd7c4a90-retouch-callers.md) | `5dd7c4a90` | D-2816 retouch_equipment callers | **ACCEPT** |
