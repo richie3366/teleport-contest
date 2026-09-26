@@ -7,6 +7,11 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — audit 1803–1811 (D-2844…D-2852)
+
+Reviewed `a2fe5c1c5` through `81fd2232b` (nine JS commits). Eight ACCEPT. 1805 `nemesis_speaks` is QUALITY-RISK: `QUEST_ROLE_TEXT` has no `nemesis_wantsit` / `nemesis_first` / `nemesis_next` / `nemesis_other` / `discourage`, so `qt_pager`'s first lookup misses, `nhl_nhlib_align_shuffle` runs twice, and the `discourage` array `rn2` never happens. Must-fix prepended. Next cluster is that row. No REJECT. No `js/` edits.
+
+**Cadence:** `frozen/ps_test_runner.mjs sessions` on `81fd2232b` — 44/44, screens 11,405/11,405, RNG 792,838/792,838, speed `240+1.54/turn` (R² 0.791). `leaderboard.mjs`: held-out still 12/44, 6,111/11,265 pts, RNG 29.6 %, screens 54.2 % (last scored 2026-09-26T07:02Z). `hidden-proxy.mjs score --jobs 8`: private board 12/12, RNG 75,151/75,151, screens 653/653. The 614/940 cache is still absent, so that board was not re-measured.
 ## 2026-09-26 — D-2852 `start_glob_timeout` arms a glob to shrink
 
 **C locus:** `nethack-c/upstream/src/mkobj.c:1473–1491` `start_glob_timeout`. Callees `impossible` (`pline.c`, live `js/display.js:8116`), `simpleonames` (`objnam.c:2428`, live `js/objnam.js:2836`), `stop_timer` (`timeout.c`, live `js/mkobj.js:1147`), `obj_to_any` (`hack.c:96–102`, was missing), `rn2` (`rnd.c`, live `js/rng.js:89`), `start_timer` (`timeout.c:2247`, live `js/mkobj.js:1249`). Calls: `mksobj_init` `mkobj.c:968`, `shrink_glob` `mkobj.c:1551`, `:1571`, and `:1663`, `obj_absorb` `mkobj.c:3742`, `removed_from_icebox` `pickup.c:2796`. `extern.h:1698` is the declaration.

@@ -23,33 +23,33 @@ the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-26** — full `sessions` on the working tree
-(audit **1794–1802**, commit `9e67c4a79`).
+(audit **1803–1811**, commit `81fd2232b`).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`273+1.83/turn` (R² 0.785).
+`240+1.54/turn` (R² 0.791).
 
 ## Score
 
 | Metric | Value |
 |--------|------:|
-| **Held-out (judge, 2026-09-26)** | **12 / 44**, 6,059 / 11,265 pts, RNG **29.2 %**, rngSteps 82.5 %, screens **53.8 %** |
+| **Held-out (judge, 2026-09-26)** | **12 / 44**, 6,111 / 11,265 pts, RNG **29.6 %**, rngSteps 82.7 %, screens **54.2 %** |
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `273+1.83/turn` (R² 0.785) |
+| Speed label | `240+1.54/turn` (R² 0.791) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 4, 2nd agentic; best agentic fork 35/44, RNG 98.5 %,
-screens 93.2 %. Held-out still 12/44 (6,059 / 11,265 pts, RNG 29.2 %,
-rngSteps 82.5 %, screens 53.8 %; last scored 2026-09-26T01:28Z). Versus
-audit 1767–1775 (5,976 pts, RNG 26.7 %, screens 53.0 %): same 12/44,
-points and match rates are higher.
+screens 93.2 %. Held-out still 12/44 (6,111 / 11,265 pts, RNG 29.6 %,
+rngSteps 82.7 %, screens 54.2 %; last scored 2026-09-26T07:02Z). Versus
+the previous audit row (6,059 pts, RNG 29.2 %, screens 53.8 %): same
+12/44, points and match rates are higher.
 **Corpus fortress:** `hidden-proxy.mjs score --jobs 8` this audit is the
 private-recording board, **12/12 PASS** (RNG 75,151/75,151, screens
 653/653). `.cache/hidden/sessions` is still absent, so the **614 / 940**
 figure was not re-measured and no PASS→FAIL row was opened.
-Reviews 1225–1802: 504 ACCEPT, 21 WITH-DEBT, 1 DEBT, 47 QUALITY-RISK (audit 1794–1802: 9 ACCEPT, 0 QUALITY-RISK).
+Reviews 1225–1811: 512 ACCEPT, 21 WITH-DEBT, 1 DEBT, 48 QUALITY-RISK (audit 1803–1811: 8 ACCEPT, 1 QUALITY-RISK).
 Live debts: 1730 `wizcustom_glyphids` empty `wizcustom_callback` site (glyphmap-blocked, map-named); 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending — review-debt, unqueued (detail in the review files).
 Audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s) + `leaderboard.mjs`.
 
@@ -100,7 +100,7 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `shk.c` block_entry — coverage MISSING (C 32 L `shk.c:5826–5858` / JS no symbol; hops 3, callers 1, RNG 0, msg 1). Verify `node scripts/verify.mjs --fn block_entry` (reach regression must be 0).
+**Next cluster:** `quest.lua` nemesis speech texts — embed per-role `nemesis_wantsit` / `nemesis_first` / `nemesis_next` / `nemesis_other` / `discourage` so `qt_pager`'s first `com_pager_core` hits (Must-fix, Source: reviews/loop-unattended/1805-8b1fae943-nemesis-speaks.md). Verify `node scripts/verify.mjs --fn nemesis_speaks` (reach regression must be 0).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2852 (index).**
 <!-- recent:begin -->

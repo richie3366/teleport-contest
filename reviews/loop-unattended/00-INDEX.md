@@ -1812,3 +1812,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1800-fab716a35-fixup-special.md](./1800-fab716a35-fixup-special.md) | `fab716a35` | D-2841 fixup_special | **ACCEPT** |
 | [1801-686390b2d-handler-msgtype.md](./1801-686390b2d-handler-msgtype.md) | `686390b2d` | D-2842 handler_msgtype | **ACCEPT** |
 | [1802-9e67c4a79-iter-mons-safe.md](./1802-9e67c4a79-iter-mons-safe.md) | `9e67c4a79` | D-2843 iter_mons_safe | **ACCEPT** |
+| [1803-a2fe5c1c5-dumpit.md](./1803-a2fe5c1c5-dumpit.md) | `a2fe5c1c5` | D-2844 dumpit | **ACCEPT** |
+| [1804-adbd6bd68-enter-explore-mode.md](./1804-adbd6bd68-enter-explore-mode.md) | `adbd6bd68` | D-2845 enter_explore_mode | **ACCEPT** |
+| [1805-8b1fae943-nemesis-speaks.md](./1805-8b1fae943-nemesis-speaks.md) | `8b1fae943` | D-2846 nemesis_speaks | **QUALITY-RISK** |
+| [1806-c9492411c-exp-percent-changing.md](./1806-c9492411c-exp-percent-changing.md) | `c9492411c` | D-2847 exp_percent_changing | **ACCEPT** |
+| [1807-53c5b4ebc-maybe-finish-sokoban.md](./1807-53c5b4ebc-maybe-finish-sokoban.md) | `53c5b4ebc` | D-2848 maybe_finish_sokoban | **ACCEPT** |
+| [1808-ae37117bd-confused-book.md](./1808-ae37117bd-confused-book.md) | `ae37117bd` | D-2849 confused_book | **ACCEPT** |
+| [1809-e6d1ac649-get-unused-cs.md](./1809-e6d1ac649-get-unused-cs.md) | `e6d1ac649` | D-2850 get_unused_cs | **ACCEPT** |
+| [1810-cc7992cc4-rnd-otyp-by-wpnskill.md](./1810-cc7992cc4-rnd-otyp-by-wpnskill.md) | `cc7992cc4` | D-2851 rnd_otyp_by_wpnskill | **ACCEPT** |
+| [1811-81fd2232b-start-glob-timeout.md](./1811-81fd2232b-start-glob-timeout.md) | `81fd2232b` | D-2852 start_glob_timeout | **ACCEPT** |
