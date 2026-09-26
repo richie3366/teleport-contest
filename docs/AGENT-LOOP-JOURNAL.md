@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2820 `view_from` panics on a bad range and stores the start row
+
+**C locus:** `nethack-c/upstream/src/vision.c:2002–2091` `view_from`. Save the quadrant globals. Clear cell: `left_ptrs` / `right_ptrs`. Stone: adjacent columns, or the neighbor's pointer on a stone/clear edge (`:2029–2044`). Nonzero `range`: panic when `range > MAX_RADIUS || range < 1`, then `limits = circle_ptr(range) + 1` and clamp left/right (`:2046–2055`); else `limits` is null. `func` calls each cell; otherwise `set_cs` and `cs_left[srow] = left`, `cs_right[srow] = right` (`:2057–2068`). Down (`step = 1`) then up (`step = -1`), `right_side` when `scol < COLNO - 1`, `left_side` when `scol` (`:2076–2090`).
+**JS:** `js/vision.js` `view_from` `:689`.
+**Change:** One `view_from` in that C order. `MAX_RADIUS` is the existing `const.js` export. `limitsIdx` is `circle_start[range] + 1`, or -1 when C passes a null pointer.
+**Verify:** `node scripts/verify.mjs --fn view_from` → PASS syntax (1 changed js file: js/vision.js) · PASS rule2 · note hidden (no corpus session blocked at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+**Named:** `right_side` `left == lim_max` (`vision.c:1769–1775`, `js/vision.js:577`) still calls `mark_visible_range` (set_min and set_max) where C is `set_cs` + `set_max` only. `left_side` `right == lim_min` (`vision.c:1929–1935`, `js/vision.js:643`) still sets both where C is `set_min` only.
+**Next:** `options.c` `optfn_paranoid_confirmation` (next Open — coverage row).
 ## 2026-09-26 — D-2819 `weight_cap` defers levitation boots and counts a strong steed
 
 **C locus:** `nethack-c/upstream/src/hack.c:4295–4346` `weight_cap`. Save `ELevitation` and `BLevitation`. If `ga.afternmv == Boots_on` and `(ELevitation & W_ARMF)`, clear `W_ARMF` and `float_vs_flight` (`:4301–4306`). `BLevitation &= ~I_SPECIAL` (`:4309`). Base is `WT_WEIGHTCAP_STRCON * (ACURRSTR + ACURR(A_CON)) + WT_WEIGHTCAP_SPARE` (`:4312`). `Upolyd`: nymph `MAX_CARR_CAP`, else `!cwt` scales by `msize / MZ_HUMAN`, else `!strongmonst` or `cwt > WT_HUMAN` scales by `cwt / WT_HUMAN` (`:4314–4327`). `Levitation || Is_airlevel || (usteed && strongmonst)` sets `MAX_CARR_CAP`; otherwise clamp and, when `!Flying`, subtract `WT_WOUNDEDLEG_REDUCT` per wounded side (`:4329–4340`). If E or B changed, restore both and `float_vs_flight` (`:4342–4345`). Return `(int) max(carrcap, 1L)`.

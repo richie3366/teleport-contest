@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `hack.c` weight_cap — coverage PARTIAL (C 51 L `hack.c:4295–4346` / JS 30 L in js/invent.js; hops 2, callers 8, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn weight_cap` (reach regression must be 0). Measured `port-coverage.mjs --name weight_cap` 2026-09-26 @ 9dcef1d65. **Addressed:** D-2819
+- [x] `vision.c` view_from — coverage PARTIAL (C 83 L `vision.c:2002–2091` / JS 48 L in js/vision.js; hops 1, callers 3, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn view_from` (reach regression must be 0). Measured `port-coverage.mjs --name view_from` 2026-09-26 @ 9dcef1d65. **Addressed:** D-2820
+
+
+- [x] `hack.c` weight_cap — coverage PARTIAL (C 51 L `hack.c:4295–4346` / JS 30 L in js/invent.js; hops 2, callers 8, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn weight_cap` (reach regression must be 0). Measured `port-coverage.mjs --name weight_cap` 2026-09-26 @ 9dcef1d65. **Addressed:** D-2819 `678f36702`
 
 
 - [x] `detect.c` level_distance — STALE 2026-09-26: body already live at js/detect.js:2486 (every ll/indun/rn2 arm); caller detect.c:1356 → js/detect.js:2692; ratio 0.40. Measured `port-coverage.mjs --name level_distance` 2026-09-26 @ 9dcef1d65.

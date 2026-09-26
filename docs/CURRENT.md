@@ -101,10 +101,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `vision.c` `view_from` — coverage PARTIAL (C 83 L `vision.c:2002–2091` / JS 48 L in js/vision.js). Verify `node scripts/verify.mjs --fn view_from`.
+**Next cluster:** `options.c` `optfn_paranoid_confirmation` — coverage MISSING (C 223 L `options.c:2818–3043`). Verify `node scripts/verify.mjs --fn optfn_paranoid_confirmation`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2819 (index).**
+**Keep D-0845…D-2820 (index).**
 <!-- recent:begin -->
+**D-2820** `nethack-c/upstream/src/vision.c:2002–2091` `view_from`. Save the quadrant globals. Clear  — One `view_from` in that C order.
 **D-2819** `nethack-c/upstream/src/hack.c:4295–4346` `weight_cap`. Save `ELevitation` and `BLevitatio — One `weight_cap` in that C order.
 **D-2818** `nethack-c/upstream/src/mkobj.c:1318–1367` `set_corpsenm`. Save `old_id`. If `timed`, `EGG — One `set_corpsenm` in that C order.
 **D-2817** `nethack-c/upstream/include/youprop.h:116–120` `Hallucination` is `HHallucination && !Hall — Import `Hallucination` from `display.js` (already a static import; call-time only).
@@ -112,11 +113,10 @@ revisits the picker.
 **D-2815** `nethack-c/upstream/src/teleport.c:717–770` `safe_teleds`. Forty `rnd(COLNO-1)` / `rn2(ROW — One `safe_teleds` in that C order.
 **D-2814** `nethack-c/upstream/src/pickup.c:523–592` `allow_category`. Empty filters return false unl — One `allow_category` in that C order.
 **D-2813** `nethack-c/upstream/src/steed.c:197–383` `mount_steed`. Already riding `:206–209`. Halluci — One `mount_steed` in that C order.
-**D-2812** `nethack-c/upstream/src/steal.c:213–290` `remove_worn_item`. `donning` then `cancel_don` ( — One `remove_worn_item` in that C order.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2819; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2820; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

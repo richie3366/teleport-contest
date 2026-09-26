@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2820 — `view_from` panics on a bad range and stores the start row
+
+- **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** Algorithm C's start row widened whatever could-see span was already stored, and a nonzero range outside 1..15 walked `circle_start` instead of panicking. `vis_func` was cleared on return.
+- **C locus:** `nethack-c/upstream/src/vision.c:2002–2091` `view_from`. Save the quadrant globals. Clear cell: `left_ptrs` / `right_ptrs`. Stone: adjacent columns, or the neighbor's pointer on a stone/clear edge (`:2029–2044`). Nonzero `range`: panic when `range > MAX_RADIUS || range < 1`, then `limits = circle_ptr(range) + 1` and clamp left/right (`:2046–2055`); else `limits` is null. `func` calls each cell; otherwise `set_cs` and `cs_left[srow] = left`, `cs_right[srow] = right` (`:2057–2068`). Down (`step = 1`) then up (`step = -1`), `right_side` when `scol < COLNO - 1`, `left_side` when `scol` (`:2076–2090`).
+- **JS was:** `js/vision.js` `view_from` clamped a nonzero range with no panic, marked the start row through `mark_visible_range` (`set_min` / `set_max`, and a `left > right` return before any store), and nulled `vis_func` / `vis_arg` on the way out.
+- **Fix:** One `view_from` in that C order. `MAX_RADIUS` is the existing `const.js` export. `limitsIdx` is `circle_start[range] + 1`, or -1 when C passes a null pointer. The start row assigns `left_most[srow]` and `right_most[srow]`. C leaves `vis_func` set; the next `view_from` overwrites it.
+- **JS:** `js/vision.js` `view_from` `:689`.
+- **Callers:** `vision.c:558` Blind `vision_recalc` → `js/vision.js:972`. `vision.c:624` open `vision_recalc` → `js/vision.js:1020`. `vision.c:2115` off-hero `do_clear_area` → `js/vision.js:787`. `vision.c:93` is the prototype and `:2102` is a comment. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn view_from` → PASS syntax (1 changed js file: js/vision.js) · PASS rule2 · note hidden (no corpus session blocked at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+- **Named omissions:** `right_side` `left == lim_max` (`vision.c:1769–1775`, `js/vision.js:577`) still calls `mark_visible_range` (set_min and set_max) where C is `set_cs` + `set_max` only. `left_side` `right == lim_min` (`vision.c:1929–1935`, `js/vision.js:643`) still sets both where C is `set_min` only. A null could-see row with a null `func` throws (C would dereference).
+- **Next:** `options.c` `optfn_paranoid_confirmation` (next Open — coverage row).
+
 ## D-2819 — `weight_cap` defers levitation boots and counts a strong steed
 
 - **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked).
