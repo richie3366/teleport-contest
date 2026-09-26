@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `dbridge.c` `e_missed` — coverage THIN (C 29 L `dbridge.c:496–525` / JS 11 L in js/dbridge.js).
+**Next cluster:** `shk.c` `shop_keeper` — coverage THIN (C 28 L `shk.c:1052–1080` / JS 9 L). `e_missed` parked Stale (body already live). Same file: `money2u`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2900 (index).**
+**Keep D-0845…D-2901 (index).**
 <!-- recent:begin -->
+**D-2901** `nethack-c/upstream/src/shk.c:1052–1080` `shop_keeper`. Signed `char rmno`; `rooms[rmno -  — One `shop_keeper` in that C order, including signed-char `rmno`, `rile_shk`, and fire-and-forget `impossible` (the function stays sync; same pattern as `unpaid_cost`).
 **D-2900** `nethack-c/upstream/src/monmove.c:2088–2117` `m_move_aggress`. `m_at(x, y)` when set write — One exported `m_move_aggress` in that C order, including both `bhitpos` / `notonhead` stores.
 **D-2899** `nethack-c/upstream/src/cmd.c:463–489` `can_do_extcmd`. When `gl.luacore` and `nhcb_counts — One `can_do_extcmd` in that C order.
 **D-2898** `nethack-c/upstream/src/sp_lev.c:458–495` `flip_visuals`, wall arm `:489–493`. Skip `seenv — Test `glyph_is_cmap` on `remembered_glyph.glyph`.
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2896** `nethack-c/upstream/src/eat.c:181–213` `eatmupdate`. Return unless `eatmbuf` is set and `n — One exported `eatmupdate` in that C order.
 **D-2895** `nethack-c/upstream/src/polyself.c:2160–2188` `ugolemeffects`. Return unless `umonnum` is  — One exported `ugolemeffects` with the C `switch`.
 **D-2894** `nethack-c/upstream/src/uhitm.c:3690–3726` `mhitm_ad_conf`. uhitm (`:3696–3702`): `!mconf` — One `mhitm_ad_conf` in that C order.
-**D-2893** `nethack-c/upstream/src/calendar.c:120–175` `time_from_yyyymmddhhmmss`, plus contest patch — One `time_from_yyyymmddhhmmss` in that C order.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2900; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2901; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

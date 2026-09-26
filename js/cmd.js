@@ -117,7 +117,7 @@ import { objects_at, sobj_at } from './mkobj.js';
 import { stairway_at, On_stairs_up, On_stairs_dn, u_on_newpos, maybe_adjust_hero_bubble, selection_new, selection_getpoint, selection_setpoint } from './mklev.js';
 import { In_tutorial } from './dungeon.js';
 import { ATR_INVERSE } from './terminal.js';
-import { dopay, block_entry } from './shk.js';
+import { dopay, block_entry, block_door } from './shk.js';
 import { dotalk } from './sounds.js';
 import { getpos, getpos_menu, gather_locs_interesting, auto_describe_text } from './getpos.js';
 import {
@@ -3006,11 +3006,11 @@ async function travel_test_move(ux, uy, dx, dy) {
             if (passWalls || can_ooze(ym)) { /* pass */ } else if ((game.u?.uinwater | 0)) {
                 return false;
             } else if (ydat && tunnels(ydat) && !needspick(ydat)) { /* pass */ } else if ((dx | 0) && (dy | 0)
-                && (!doorless_door(x, y) || block_door(x, y))) {
+                && (!doorless_door(x, y) || await block_door(x, y))) {
                 return false;
             }
         } else if ((dx | 0) && (dy | 0) && !passWalls
-            && (!doorless_door(x, y) || block_door(x, y))) {
+            && (!doorless_door(x, y) || await block_door(x, y))) {
             return false;
         }
     }
@@ -3050,12 +3050,6 @@ function doorless_door(x, y) {
     if (!loc || !IS_DOOR(loc.typ)) return false;
     // Rogue-level override deferred (all rogue doors treated as present)
     return !((loc.doormask || 0) & ~(D_NODOOR | D_BROKEN));
-}
-
-// C ref: shk.c block_door — shopkeeper blocks diagonal shop exit.
-// Stub false until shop ushops / ESHK wired for this path.
-function block_door(_x, _y) {
-    return false;
 }
 
 /**
@@ -5522,7 +5516,7 @@ async function domove(dx, dy) {
     if (u.dx && u.dy) {
         const dest = game.level?.at(newx, newy);
         if (dest && IS_DOOR(dest.typ)
-            && (!doorless_door(newx, newy) || block_door(newx, newy))) {
+            && (!doorless_door(newx, newy) || await block_door(newx, newy))) {
             // C test_move testdiag: Underwater || flags.mention_walls
             if ((u.uinwater | 0) || game.flags?.mention_walls) {
                 await pline("You can't move diagonally into an intact doorway.");

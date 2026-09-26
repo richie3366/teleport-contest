@@ -106,7 +106,7 @@ import {
 import { ATR_INVERSE } from './terminal.js';
 import {
     addtobill, costly_spot, check_unpaid_usage, doname_with_price,
-    remote_burglary, shop_keeper, stolen_value, obfree, sellobj, sellobj_state,
+    remote_burglary, shop_keeper, subfrombill, stolen_value, obfree, sellobj, sellobj_state,
     money_cnt, pick_pick,
 } from './shk.js';
 import {
@@ -4740,7 +4740,7 @@ const TIPCHECK_EMPTY = 4;
  * timeout.js edge. bagotricks stays a dynamic apply.js import (static edge
  * would join the apply cycle). The quantum-cat message inlines Shk_Your's
  * carried rule (no second Shk_Your function).
- * Named omit: subfrombill after floor shop bag/horn (`:4029-4030`).
+ * Floor shop bag/horn: subfrombill(shop_keeper(*in_rooms(ox,oy,SHOPBASE))).
  * @param {object} box container the player wants to tip
  * @param {object|null} targetbox destination (horn of plenty)
  * @param {boolean} allowempty TIPCHECK_OK instead of TIPCHECK_EMPTY when empty
@@ -4795,11 +4795,15 @@ async function tipcontainer_checks(box, targetbox, allowempty) {
             && (res = await tipcontainer_checks(targetbox, null, true)) !== TIPCHECK_OK) {
             return res;
         }
-        // C `:4005-4006` — a held box moves with the hero; floor is redundant.
+        // C `:3999` ox,oy start at the hero; get_obj_location overwrites.
+        let ox = game.u?.ux | 0;
+        let oy = game.u?.uy | 0;
         const bloc = get_obj_location_quantum(box);
         if (bloc) {
-            box.ox = bloc.x | 0;
-            box.oy = bloc.y | 0;
+            ox = bloc.x | 0;
+            oy = bloc.y | 0;
+            box.ox = ox;
+            box.oy = oy;
         }
         if (maybeshopgoods && !box.no_charge) {
             await addtobill(box, false, false, true);
@@ -4824,6 +4828,13 @@ async function tipcontainer_checks(box, targetbox, allowempty) {
             await check_unpaid_usage(box, true);
             box.spe = 0; // empty
             box.cknown = 1;
+        }
+        // C `:4029–4031` — take the bag/horn back off the shop bill
+        if (maybeshopgoods && !box.no_charge) {
+            subfrombill(
+                box,
+                shop_keeper((in_rooms(ox, oy, SHOPBASE) || '').charCodeAt(0) || 0),
+            );
         }
         return TIPCHECK_CANNOT; // C: actually means 'already done'
     }
