@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2823 — `rndmonst_adj` skips gone species and reports a bad weight
+
+- **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** A genocided or extinct species stayed in the random-monster reservoir and still drew `rn2`. A generation weight outside 0..127 was zeroed with no `impossible`. `align_shift` walked `sp_levchn` itself, and the rogue uppercase test was an `mlet` switch.
+- **C locus:** `nethack-c/upstream/src/makemon.c:1659–1732` `rndmonst_adj`. Quest gate `u.uz.dnum == quest_dnum && rn2(7) && qt_montype()` (`:1666`). `monmin_difficulty` / `monmax_difficulty` (`monst.h:259–260`). Rogue `isupper(monsym(ptr))` and elemental `wrong_elem_type` (`:1684–1686`). `uncommon` (`:1592–1603`): `G_NOGEN|G_UNIQ`, then `mvitals[mndx].mvflags & G_GONE`, then `Inhell` rejects `maligntyp > A_NEUTRAL` else `G_HELL`. Hell also skips `G_NOHELL` (`:1690`). Weight is `(int)(geno & G_FREQ) + align_shift + temperature_shift`; outside 0..127 calls `impossible` and stores 0 (`:1706–1710`); `weight > 0` does the reservoir `rn2` (`:1714–1718`). A still-uncommon or `NON_PM` result returns null; `debugpline1` is the empty macro unless `DEBUG` (`lint.h:66–68`). `align_shift` (`:1610–1637`) caches `Is_special(&u.uz)` until `moves` changes.
+- **JS was:** `js/makemon.js` `rndmonst_adj` already had the quest gate, difficulty window, rogue/elemental/hell filters, and the reservoir. `uncommon` stopped after `G_NOGEN|G_UNIQ` (comment: G_GONE not tracked). Bad weight stored 0 and did not call `impossible`. `align_shift` searched `sp_levchn` inline. `monsym_isupper` switched on `mlet` names.
+- **Fix:** One `rndmonst_adj` in that C order. `uncommon` returns on `G_GONE` before the hell test. Weight outside 0..127 calls `impossible` then stores 0. `align_shift` calls the `dungeon.js` `Is_special` inside the existing `moves` cache (`imports.mjs --can`: hoisted, cycle-safe). `monsym_isupper` is ASCII `isupper` of the `display.js` `monsym` export. `debugpline1` stays uncalled because `DEBUG` is unset.
+- **JS:** `js/makemon.js` `rndmonst_adj` `:602`. `uncommon` `:468`. `align_shift` `:492`. `monsym_isupper` `:1250`. `Is_special` `js/dungeon.js:2167`. `monsym` `js/display.js:520`. `impossible` `js/display.js:8114`.
+- **Callers:** `dog.c:130` `pick_familiar_pm` → `js/dog.js:213`. `makemon.c:1654` `rndmonst` → `js/makemon.js:659`. `mkobj.c:402` `rndmonnum_adj` → `js/makemon.js:664`. `extern.h:1484` is the declaration. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn rndmonst_adj` → PASS syntax (1 changed js file: js/makemon.js) · PASS rule2 · note hidden (no corpus session blocked at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+- **Named omissions:** A null `mons[mndx]` in `uncommon` returns true (C would dereference). `monmax_difficulty` still receives `game.u?.ulevel ?? 1` when `ulevel` is missing. `impossible` is not awaited; the only species whose alignment shift can leave 0..127 are the Wizard and Nalzok, and `uncommon` rejects both (`G_UNIQ`) before that arm. `rndmonnum_adj` Plan B still treats `Inhell` as `uz.dnum === 1` (`js/makemon.js:668`); that function was not this port. `is_home_elemental` cycle clones in `mon.js` / `teleport.js` remain.
+- **Next:** `mon.c` `dmonsfree` (next Open — coverage row).
+
 ## D-2822 — windowborders and the same-file option parsers
 
 - **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked).

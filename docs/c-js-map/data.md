@@ -714,7 +714,7 @@ in-body await still deferred); **D-0530 `m_initweap` S_TROLL polearm kit**;
 `_level_monsters`)**; **D-0545 `makemon` MON_AT + 
 `worm_mon_at` (reject worm-seg cells before rndmonst)**; 
 **D-0532 `rndmonst_adj` quest `rn2(7)`→`qt_montype` + roles[] `enemy1/2`**; 
-**D-1566 `rndmonst_adj` rogue/elem filters** (`:1673–1686` `upper=Is_rogue_level` `isupper(monsym)` + `elemlevel=In_endgame&&!Is_astralevel` `wrong_elem_type`; live `is_home_elemental` C home; mon.js/teleport.js cycle clones; newmonhp ×3 / grow_up named — grow_up closed by D-1920); 
+**D-1566 `rndmonst_adj` rogue/elem filters** (`:1673–1686` `upper=Is_rogue_level` `isupper(monsym)` + `elemlevel=In_endgame&&!Is_astralevel` `wrong_elem_type`; live `is_home_elemental` C home; mon.js/teleport.js cycle clones; newmonhp ×3 / grow_up named — grow_up closed by D-1920); **D-2823 `rndmonst_adj` whole body** (`makemon.c:1659–1732` in `js/makemon.js`: quest `rn2(7)`→`qt_montype`, difficulty window, rogue `isupper(monsym)`, elemental `wrong_elem_type`, `uncommon` including `mvitals` `G_GONE`, hell `G_NOHELL`, reservoir `rn2(totalweight)`, bad-weight `impossible`; `align_shift` calls `Is_special`; `debugpline1` is the empty non-DEBUG macro); 
 **D-1920 `grow_up` full C-order port** (`:2049–2178` in `js/mhitm.js`: `little_to_big` form change, golem/home-elemental thresholds, `lev_limit` base/raise/mplayer-30/min-5/max-49(50), unconditional `++m_lev`, GENOD + gender-hack plines via canonical `mhe`/`YMonnam`, `mleashed→update_inventory`, sanity undo + 400 cap; `monsndx` idiom retained, no new omits); 
 **D-0535 `rnd_offensive_item` case0 FALLTHROUGH→`WAN_STRIKING`**; 
 **D-0536 `makemon` MON_AT + `MM_ADJACENTOK`→`enexto_core`**; 
@@ -749,7 +749,7 @@ live `js/mkobj.js`, re-export `makemon.js`); **S_GNOME `begin_burn` D-1506**;
 `new_light_core` range 0; `discard_flashes`; worm tails / FLASHED_LIGHT `tmp_at`
 DISP_BEAM / `save_light_sources` discard named);
 **D-1574 `unblock_point`/`dig_point`**; **D-0747 `uncommon`/`rndmonst_adj` Inhell via dungeon `hellish` + 
-`G_NOHELL` skip**; **D-0748 `mkclass_aligned` `gehennom=Inhell` via hellish** (`pick_nasty` / other 
+`G_NOHELL` skip** (D-2823 adds `G_GONE` on `mvitals.mvflags`); **D-0748 `mkclass_aligned` `gehennom=Inhell` via hellish** (`pick_nasty` / other 
 `GEHENNOM` dnum sites still wrong); **D-0749 `rnd_misc_item` life-saving `!nonliving && 
 !is_vampshifter`** (See_invisible peaceful-invis arm shipped D-2086 js/makemon.js:2665 — queue row retired STALE 2026-09-16); 
 **D-0751 `temperature_shift` + hell `clear_level_structures` temp**; 
