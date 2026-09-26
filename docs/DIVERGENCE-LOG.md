@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2873 — `wish_history_add` keeps a wizard's wish text unless a stored line is already its prefix
+
+- **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked). `rndtrap` parked Stale: the body is `splev_rndtrap`.
+- **Symptom:** Wizard wishes and wizkit lines were not stored. There was no ring of previous wish text, so a later wish that only extended an earlier one was not recognized as the same line.
+- **C locus:** `nethack-c/upstream/src/zap.c:6227–6255` `wish_history_add`. `DEBUG` is defined (`patchlevel.h:36`), so the body is compiled. Callees: `wizard` (`flag.h` `flags.debug`), `strncmpi` (`hacklib.c:716`, live as `str_start_is` in `js/hacklib.js:132`), `strlen` / `alloc` / `strcpy` / `free` (the JS string in the slot). Calls: `zap.c:6375` and `:6379` `makewish`; `files.c:2572` `proc_wizkit_line`.
+- **JS was:** No `wish_history_add`. `makewish` returned on `HANDS_OBJ` and continued on a real object without recording `bufcpy`. `proc_wizkit_line` called `wizkit_addinv` only. `wish_history_menu` was a no-op whose comment said `DEBUG` was off.
+- **Fix:** One `wish_history_add` in that C order. Non-wizard (`!flags.debug`) returns before the ring is touched. Otherwise the 20 slots are scanned from `wish_history_idx`. A null slot is skipped. A stored line that is a case-blind prefix of the new text breaks the scan (`str_start_is(buf, hist, true)`). If nothing matched, that ring slot is replaced and the index advances. `makewish` copies the line before `readobjnam` and records it on the terrain arm and on the object arm. `proc_wizkit_line` records the line before `wizkit_addinv`.
+- **JS:** `js/zap.js` `wish_history_add` `:7132`, wizard return `:7134`, scan `:7144`, prefix `:7147`, replace `:7150–7153`. `bufcpy` `:7210`. Terrain call `:7228`. Object call `:7235`. `js/files.js` `proc_wizkit_line` `:151`.
+- **Callers:** `zap.c:6375` → `js/zap.js:7228` (`makewish`, `HANDS_OBJ`). `zap.c:6379` → `js/zap.js:7235` (`makewish`, after the nothing-arm return). `files.c:2572` → `js/files.js:151` (`proc_wizkit_line`, before `wizkit_addinv`). No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn wish_history_add` → PASS syntax (2 changed js files: js/files.js js/zap.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.2s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (those files are not in the shared-file set) · VERIFY: PASS.
+- **Named omissions:** `wish_history_menu` (`zap.c:6275–6309`) stays a no-op, and `makewish` does not call it (`zap.c:6334–6335`, `menu_requested`). `wish_history_flush` (`zap.c:6259–6269`) is not ported, so `freedynamicdata` does not clear the ring. `strncmpi` is `str_start_is`; the three local clones stay. `config_error_add` on a bad wizkit line is still omitted.
+- **Next:** `dungeon.c` `overview_stats` (next Open — coverage row). Six rows remained after the archive, below 8, so six tool rows were appended (12 open).
+
 ## D-2872 — `hmon_hitmon_msg_hit` still reports a killing multishot; pudding split and Pestilence are named functions
 
 - **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked). Same-file Open rows `hmon_hitmon_splitmon` and `mhitm_ad_pest` shipped here. `mhitm_ad_dise` is the pest callee (no symbol before this).

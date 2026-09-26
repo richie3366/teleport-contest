@@ -241,7 +241,7 @@ import { mstatusline, ustatusline } from './insight.js';
 import { setnotworn, boulder_hits_pool } from './do.js';
 import { doname, xname, yname, distant_name, cxname_singular, vtense, The, the, an, An, aobjnam, killer_xname, ansimpleoname, makeplural } from './objnam.js';
 import { uhim, uhis } from './roles.js';
-import { upstart } from './hacklib.js';
+import { str_start_is, upstart } from './hacklib.js';
 import { Soundeffect } from './sndprocs.js';
 import { se_crumbling_sound } from './generated/seffects_data.js';
 import { fix_wall_spines } from './mklev.js';
@@ -7118,11 +7118,46 @@ export async function wishcmdassist(triesleft) {
     await show_text_pages(lines);
 }
 
+/** C zap.c:6221 — ring length for wizard wish text. */
+const MAX_WISH_HISTORY = 20;
+
 /**
- * C ref: zap.c wish_history_menu :6275-6309 (staticfn; caller makewish :6335).
- * Entire body is #ifdef DEBUG (menu of wish_history[] into buf); in the
- * production build it is a no-op and buf is never modified. JS keeps the
- * no-op so the symbol exists; the DEBUG menu is deferred.
+ * C ref: zap.c wish_history_add :6227–6255.
+ * `DEBUG` is defined in `patchlevel.h`, so this body is compiled.
+ * A stored line that is a case-blind prefix of `buf` is a duplicate
+ * (`strncmpi(hist, buf, strlen(hist)) == 0`), which is
+ * `str_start_is(buf, hist, true)`. `alloc`/`strcpy`/`free` are the
+ * string in that ring slot.
+ */
+export function wish_history_add(buf) {
+    // C :6232–6233 — wizard is flags.debug; non-wizard leaves the ring alone.
+    if (!game.flags?.debug) return;
+    if (!Array.isArray(game.wish_history) || game.wish_history.length !== MAX_WISH_HISTORY) {
+        game.wish_history = new Array(MAX_WISH_HISTORY).fill(null);
+        game.wish_history_idx = 0;
+    }
+    const hist = game.wish_history;
+    const text = String(buf ?? '');
+    let wish_history_idx = game.wish_history_idx | 0;
+    let i = 0;
+    // C :6235–6243 — skip empty slots; break on a prefix match.
+    for (; i < MAX_WISH_HISTORY; i++) {
+        const idx = (wish_history_idx + i) % MAX_WISH_HISTORY;
+        if (hist[idx] == null) continue;
+        if (str_start_is(text, hist[idx], true)) break;
+    }
+    // C :6245–6253 — no match: replace the ring slot and advance.
+    if (i === MAX_WISH_HISTORY) {
+        const idx = (wish_history_idx + i) % MAX_WISH_HISTORY;
+        hist[idx] = text;
+        game.wish_history_idx = (wish_history_idx + 1) % MAX_WISH_HISTORY;
+    }
+}
+
+/**
+ * C ref: zap.c wish_history_menu :6275–6309 (staticfn; caller makewish :6335).
+ * `DEBUG` is defined, so the menu is in the C build. This remains a no-op:
+ * `buf` is not modified. The menu body is named in the map.
  */
 export function wish_history_menu(_buf) {
 }
@@ -7131,8 +7166,8 @@ export function wish_history_menu(_buf) {
  * C ref: zap.c makewish — prompt + readobjnam + hold_another_object.
  * Terrain wish via readobjnam_wish → wizterrainwish traps (D-1289) +
  * door/wall (D-1290) + secret corridor (D-1304) + switch_terrain
- * (D-1279). wishcmdassist help arm live; history still named;
- * wish livelog arms live (D-1892).
+ * (D-1279). wishcmdassist help arm live; wish_history_add live (D-2873);
+ * wish_history_menu still the no-op; wish livelog arms live (D-1892).
  */
 export async function makewish() {
     // C zap.c:6323 — makewish clears resume_wish at entry (zap.c:6341 sets
@@ -7171,6 +7206,8 @@ export async function makewish() {
         break;
     }
 
+    // C zap.c:6359 — history and the livelog quote the line before readobjnam.
+    const bufcpy = buf;
     let otmp = await readobjnam_wish(buf, nothing);
     if (!otmp) {
         await pline('Nothing fitting that description exists in the game.');
@@ -7187,14 +7224,15 @@ export async function makewish() {
         return;
     }
     if (otmp === HANDS_OBJ) {
-        // C zap.c makewish: wizard-mode terrain wish — wish_history_add,
-        // then return with no livelog event. History still deferred (header).
+        // C zap.c:6375–6377 — terrain wish is recorded, then no livelog.
+        wish_history_add(bufcpy);
         return;
     }
 
     if (!game.u) game.u = {};
     if (!game.u.uconduct) game.u.uconduct = {};
-    // C zap.c makewish: wish_history_add(bufcpy) deferred (see header).
+    // C zap.c:6379 — record the wish text before artifact bookkeeping.
+    wish_history_add(bufcpy);
     if (otmp.oartifact) {
         // C: update artifact bookkeeping; doesn't produce a livelog event.
         artifact_origin(otmp, ONAME_WISH | ONAME_KNOW_ARTI);

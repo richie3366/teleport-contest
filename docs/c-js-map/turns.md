@@ -680,7 +680,7 @@ zapyourself WAN_LIGHT/CAMERA D-1366**; **`zapnodir` WAN_CREATE_MONSTER `create_c
 `declined to make a wish` nothing-arm, hands_obj terrain no-log,
 `artifact_origin(ONAME_WISH|ONAME_KNOW_ARTI)` bookkeeping,
 `"%s", got "%s"` + post-increment first/first-artifact/`wished for` trio;
-`wish_history_add/menu`/MAXWISHTRY retry still deferred; `wishcmdassist` live D-2484);
+`wish_history_add` live D-2873 (`zap.c:6227–6255` in `js/zap.js`: `!flags.debug` return, ring scan, `str_start_is` prefix, slot replace + idx advance; callers `makewish` `:6375`/`:6379` and `proc_wizkit_line` `files.c:2572`); `wish_history_menu`/`wish_history_flush` and MAXWISHTRY retry still deferred (`DEBUG` is on); `wishcmdassist` live D-2484);
 **`makewish` wish-delivery `hold_another_object` tail** (D-2156; C
 `zap.c:6401–6420`: fatal-corpse `wishedfor=1` via `u_safe_from_fatal_corpse`/
 `st_all`, verb `slip`/`materialize`/`drop` + oops reach/away/floor/`Careful`
