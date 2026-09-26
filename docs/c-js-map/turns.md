@@ -1166,7 +1166,7 @@ named)** + **`Armor_gone` takeoff.mask clear + `setnotworn` + cancelled_don rese
 
 JS: `js/readobjnam.js`, `js/objnam.js` — partial
 
-**wish subset:** prefixes + `name_to_monplus` dragon mail + `rnd_otyp_by_namedesc`/`wishymatch` + 
+**wish subset:** prefixes + `name_to_monplus` dragon mail + `rnd_otyp_by_namedesc`/`wishymatch` + **`rnd_otyp_by_wpnskill` (D-2851)** (`objnam.c:3432–3452`, file-local in `js/readobjnam.js`; `bases[WEAPON_CLASS]` walk, `rn2(n)`, `STRANGE_OBJECT` if none; wired in `readobjnam` for direct callers, and in `readobjnam_wish` after `wizterrainwish` returns 0 so wizard terrain still wins) + **`maybereleaseobuf` (D-2851)** (`objnam.c:167–198` → `releaseobuf` `:150–160`; JS strings have no `obufs[]`, so the rewind test is false; callers `sortloot_cmp` `:492`/`:498`, `learn_unseen_invent` `:2765`, `display_pickinv` `:3330` in the inuse, perm, reply, and wizid format loops) + 
 artifact_name + BUC/spe + oname (D-0064); **empty/null → `any:` wrpsym+`mkobj`** (D-0559; 
 qualifier-only empty deferred); **`makesingular`+as_is + gold mksobj(FALSE) early-return + 
 wizard oc_merge quan** (D-0862); **`simpleonames`/`ansimpleoname` statue/figurine bare type** 

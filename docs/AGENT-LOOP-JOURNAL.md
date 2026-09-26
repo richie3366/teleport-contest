@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2851 `rnd_otyp_by_wpnskill` picks a polearm or hammer wish
+
+**C locus:** `nethack-c/upstream/src/objnam.c:3432–3452` `rnd_otyp_by_wpnskill`. Callee `rn2` (`rnd.c`, live `js/rng.js:89`). Calls are both inside `readobjnam`: `objnam.c:4984` (`P_POLEARMS`) and `:4987` (`P_HAMMER`), after `wiztrap` and before the `!oclass` null return. `objnam.c:49` is the static declaration. Companion `maybereleaseobuf` `objnam.c:167–198` calls `releaseobuf` `objnam.c:150–160`. Its calls are `invent.c:492`, `:498`, `:2765`, and `:3330`.
+**JS:** `js/readobjnam.js` `rnd_otyp_by_wpnskill` `:1277`, prefix `:1311`, direct call `:1598`, wish call `:719`, `readobjnam_finish` `:1619`. `js/objnam.js` `releaseobuf` `:3931`, `maybereleaseobuf` `:3941`. `sortloot_cmp` `:2440` and `:2446`. `learn_unseen_invent` `:3299`. `display_pickinv` format loops `:3673`, `:3693`, `:3736`, `:3919`, `:4185`.
+**Change:** One `rnd_otyp_by_wpnskill` in that C order. The walk starts at `bases[WEAPON_CLASS]` and stops when `oc_class` leaves `WEAPON_CLASS`. Matching `oc_skill` values are counted, then `rn2(n)` and `--n < 0` return that otyp.
+**Verify:** `node scripts/verify.mjs --fn rnd_otyp_by_wpnskill` → PASS syntax (3 changed js files: js/invent.js js/objnam.js js/readobjnam.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script shared-file regex) · VERIFY: PASS.
+**Named:** An empty skill class `mkobj`s `RANDOM_CLASS`; with `init_objects` bases filled, `P_POLEARMS` has 12 weapons and `P_HAMMER` has `WAR_HAMMER` only, so that arm does not run. Other `releaseobuf` sites inside `xname` / `doname` stay the string path (`nextobuf` has no pool).
+**Next:** `mkobj.c` `start_glob_timeout` (next Open — coverage row). `attach_fig_transform_timeout` parked Stale (body already at `js/mkobj.js:1438`, ratio 6/14). Nine Open — coverage rows remain after archive, inside the band, so nothing was refilled.
 ## 2026-09-26 — D-2850 `get_unused_cs` clears the idle could-see buffer
 
 **C locus:** `nethack-c/upstream/src/vision.c:274–299` `get_unused_cs`. No C callees (`memset` of `ROWNO * COLNO * sizeof (seenV)`). The only call is `vision_recalc` `vision.c:542`. `vision.c:96` is the static declaration. `vision.c:268` and `vision.c:546` are comments.

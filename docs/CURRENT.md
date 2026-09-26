@@ -100,10 +100,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `vision.c` get_unused_cs — coverage MISSING (C 25 L `vision.c:274–299` / JS no symbol; hops 1, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn get_unused_cs` (reach regression must be 0). Measured `port-coverage.mjs --name get_unused_cs` 2026-09-26 @ 686390b2d.
+**Next cluster:** `objnam.c` rnd_otyp_by_wpnskill — coverage MISSING (C 20 L `objnam.c:3432–3452` / JS no symbol; hops 4, callers 2, RNG 1, msg 0). Same file: `maybereleaseobuf`. `attach_fig_transform_timeout` parked Stale (body already at `js/mkobj.js:1438`). Verify `node scripts/verify.mjs --fn rnd_otyp_by_wpnskill` (reach regression must be 0).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2850 (index).**
+**Keep D-0845…D-2851 (index).**
 <!-- recent:begin -->
+**D-2851** `nethack-c/upstream/src/objnam.c:3432–3452` `rnd_otyp_by_wpnskill`. Callee `rn2` (`rnd.c`, — One `rnd_otyp_by_wpnskill` in that C order.
 **D-2850** `nethack-c/upstream/src/vision.c:274–299` `get_unused_cs`. No C callees (`memset` of `ROWN — One `get_unused_cs` in that C order.
 **D-2849** `nethack-c/upstream/src/spell.c:189–207` `confused_book`. Callees `rn2` (`rnd.c`, live `js — One `confused_book` in that C order.
 **D-2848** `nethack-c/upstream/src/trap.c:7059–7095` `maybe_finish_sokoban`. Callees `livelog_printf` — One `maybe_finish_sokoban` in that C order.
@@ -111,11 +112,10 @@ revisits the picker.
 **D-2846** `nethack-c/upstream/src/quest.c:403–422` `nemesis_speaks`. Callees `qt_pager` (`questpgr.c — One `nemesis_speaks` in that C order.
 **D-2845** `nethack-c/upstream/src/cmd.c:952–983` `enter_explore_mode`. Callees `authorize_explore_mo — One `enter_explore_mode` in that C order.
 **D-2844** `nethack-c/upstream/src/dungeon.c:91–144` `dumpit`. Callees `explicitdebug` → `debugcore`  — One `dumpit` in that C order.
-**D-2843** `nethack-c/upstream/src/mon.c:4500–4522` `iter_mons_safe`. Callee `alloc_itermonarr` `:447 — One `iter_mons_safe` in that C order.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2850; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2851; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
