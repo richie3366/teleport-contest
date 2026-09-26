@@ -1794,6 +1794,8 @@ SHOPTYPE env omit above, only doorct==1 fires);
 `gd_move`/`pri_move` bodies; `after_shk_move` bill_p; unpaid leave verbalize/rob_shop; 
 `addupbill` body; `clear_unpaid`/`mongone` full; `paygd`;
 **`getprice` FOOD_CLASS `corpsenm_price_adj`** (D-2679; tin/egg/corpse intrinsic-conveyance table + unique +50, level/nutrition base, wired first in the arm in C order; `intrinsic_possible` exported from `js/eat.js`, `unique_corpstat`/`ismnum` live imports; review-680 named debt retired); **`cost_per_charge` whole body live `js/shk.js:3387` (caller `check_unpaid_usage` :3432 wired)**
+**`special_stock`** (D-2867; `shk.c:3103–3144`; candle shop + Candelabrum only; Izchak && `!u.uevent.invoked` horrified/concerned or the keep-it line plus `7 - spe` candles; else "won't stock" or `noit_mhis` + `mbodypart(HEAD)`; `SetVoice` is the live empty macro; caller `sellobj` `shk.c:3994`). The `:3124–3125` candle-attachment remark is a comment.
+**`shkcatch`** (D-2867; `shk.c:4362–4396`; `shop_keeper(inside_shop)` + `inhishop`; helpless / `*u.ushops != shoproom || !inside_shop(u.ux,u.uy)` / `dist2 < 3` / not already there; `mnearto(..., TRUE, RLOC_NOMSG) == 2` then "Out of my way, scum!"; `cansee` nimbly/reaches-over, `map_invisible` when `!canspotmon`, `nh_delay_output`; `subfrombill` + `mpickobj`; caller `zap.c:3886` `bhit` before terrain, `goto bhit_done`). Named: `mark_synch` (`:4389`) is `tty_mark_synch` fflush.
 
 ### `src/dungeon.c` `level_difficulty` / `deepest_lev_reached`
 
