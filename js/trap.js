@@ -27,8 +27,8 @@ import {
     objects_at, sobj_at, splitobj, nxtobj, add_to_migration,
     obj_ice_effects, spot_stop_timers, stop_timer, spot_time_left,
 } from './mkobj.js';
-import { find_mac, make_corpse, mon_to_stone, vamp_stone, monstone, mondead, AT_MAGC, AT_BREA } from './mhitm.js';
-import { mon_explodes, scatter } from './explode.js';
+import { find_mac, make_corpse, mon_to_stone, vamp_stone, monstone, monkilled, AT_MAGC, AT_BREA } from './mhitm.js';
+import { scatter } from './explode.js';
 import {
     newsym, pline, pline_mon, pline_xy, urgent_pline, mon_visible, see_with_infrared,
     You_feel, unmap_object, glyph_is_invisible, tmp_at, nh_delay_output,
@@ -41,17 +41,17 @@ import {
     christen_monst, rndmonnam, hliquid, rndcolor, mon_pmname, YMonnam,
     s_suffix,
 } from './do_name.js';
-import { dist2, distmin, m_at, wakeup, seemimic, m_carrying, LEVEL_SPECIFIC_NOCORPSE, bad_rock, setmangry } from './mon.js';
+import { dist2, distmin, m_at, wakeup, seemimic, m_carrying, bad_rock, setmangry } from './mon.js';
 import { cansee, couldsee, m_cansee, recalc_block_point, unblock_point, vision_recalc } from './vision.js';
 import { del_engr_at, can_reach_floor } from './engrave.js';
 import {
-    G_FREQ, G_UNIQ, verysmall, grounded, passes_walls,
+    G_UNIQ, grounded, passes_walls,
     is_flyer, is_floater, is_clinger,
     mon_knows_traps, mon_learns_traps,
     amorphous, unsolid, is_whirly, breathless, can_teleport, MZ_SMALL, MZ_HUGE,
     likes_gems, mons, webmaker, throws_rocks,
     is_animal, mindless, haseyes,
-    bigmonst, is_golem, is_mplayer, is_rider,
+    bigmonst, is_golem,
     nohands, extra_nasty, strongmonst, acidic, poly_when_stoned, touch_petrifies,
     resists_ston, MALE, FEMALE, NEUTRAL, nonliving, is_vampshifter,
     hides_under, metallivorous, is_neuter,
@@ -184,7 +184,6 @@ const PM_BLACK_LIGHT = monsterNames.indexOf('PM_BLACK_LIGHT');
 const PM_OWLBEAR = monsterNames.indexOf('PM_OWLBEAR');
 const PM_BUGBEAR = monsterNames.indexOf('PM_BUGBEAR');
 const PM_GREMLIN = monsterNames.indexOf('PM_GREMLIN');
-const PM_LIZARD = monsterNames.indexOf('PM_LIZARD');
 const PM_GELATINOUS_CUBE = monsterNames.indexOf('PM_GELATINOUS_CUBE');
 const PM_FIRE_VORTEX = monsterNames.indexOf('PM_FIRE_VORTEX');
 const PM_FLAMING_SPHERE = monsterNames.indexOf('PM_FLAMING_SPHERE');
@@ -1179,58 +1178,8 @@ function wake_nearto(x, y, distance) {
     }
 }
 
-// C ref: mon.c corpse_chance — AT_BOOM then always-TRUE arms then !rn2(tmp).
-// Named omissions: Vlad/lich dust; swallowed boom.
-async function corpse_chance(mon) {
-    const mdat = mon.data;
-    if (!mdat) return false;
-    const slots = mdat.mattk;
-    if (slots) {
-        for (let i = 0; i < 6; i++) {
-            const at = slots[i];
-            if (!at || (at.aatyp | 0) !== 14 /* AT_BOOM */) continue;
-            if (at.damn) d(at.damn | 0, at.damd | 0);
-            else if (at.damd) d((mdat.mlevel | 0) + 1, at.damd | 0);
-            await mon_explodes(mon, at);
-            return false;
-        }
-    }
-    if (LEVEL_SPECIFIC_NOCORPSE(mdat)) return false;
-    if ((((bigmonst(mdat) || (mdat.mndx ?? -1) === PM_LIZARD) && !mon.mcloned)
-        || is_golem(mdat) || is_mplayer(mdat) || is_rider(mdat) || mon.isshk)) {
-        return true;
-    }
-    const tmp = 2 + (((mdat.geno ?? 0) & G_FREQ) < 2 ? 1 : 0)
-        + (verysmall(mdat) ? 1 : 0);
-    return !rn2(tmp);
-}
-
-// mon.c mondead lives in mhitm.js — imported above (D-2147; no third clone).
-
-// C ref: mon.c mondied → mondead + maybe make_corpse
-async function mondied(mdef) {
-    await mondead(mdef);
-    if ((mdef.mhp | 0) > 0) return; /* lifesaved */
-    if (await corpse_chance(mdef)) await make_corpse(mdef);
-}
-
-// C ref: mon.c monkilled :3384–3385 — trap fltxt path (D-1550).
-// Sight is wormno ? worm_known : cansee(head), not infrared (same as
-// mhitm.js). Named omit: nonliving "destroyed"; pet roast; pline_mon;
-// disintegested mondead.
-async function monkilled(mdef, fltxt, _how) {
-    const mptr = mdef.data;
-    const txt = fltxt || '';
-    if (mdef.wormno ? worm_known(mdef) : cansee(mdef.mx, mdef.my)) {
-        const verb = 'killed'; /* nonliving → destroyed deferred */
-        void mptr;
-        await pline(`${Monnam(mdef)} is ${verb}${txt ? ' by the ' : ''}${txt}!`);
-    } else if (mdef.mtame) {
-        game.iflags = game.iflags || {};
-        game.iflags.sad_feeling = true;
-    }
-    await mondied(mdef);
-}
+// mon.c monkilled / mondied / corpse_chance live in mhitm.js.
+// Trap callers use that export (thitm, rust, fire, anti-magic).
 
 // C ref: trap.c mselftouch — MON_WEP CORPSE + touch_petrifies → minstapetrify
 export async function mselftouch(mon, arg, byplayer) {

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2875 `monkilled` speaks with `pline_mon`, then a pet golem's epitaph
+
+**C locus:** `nethack-c/upstream/src/mon.c:3377–3418` `monkilled`. Callees: `worm_known` (`worm.c:877`), `cansee`, `pline_mon`, `Monnam`, `nonliving`, `completelyburns` / `completelyrusts` / `completelyrots` (`mondata.h:223–227`), `mondead`, `mondied`, `pline`, `noit_mon_nam` (`do_name.c:1051`). `DEADMONSTER` is `mhp < 1`.
+**JS:** `js/mhitm.js` `completelyburns_mm` `:2906`, `completelyrusts_mm` `:2912`, `completelyrots_mm` `:2918`, `monkilled` `:3902`, kill line `:3907–3915`, sad feeling `:3916–3920`, disintegested `:3925–3930`, life-save return `:3933`, epitaph `:3937–3942`. Trap import `:30`.
+**Change:** One `monkilled` in that C order. A non-null `fltxt` that is seen (`wormno ? worm_known : cansee`) is `pline_mon` "%s is %s%s%s!" (destroyed when `nonliving`, " by the " only when `fltxt` is non-empty). Otherwise `sad_feeling` is set true or false from `mtame`.
+**Verify:** `node scripts/verify.mjs --fn monkilled` → PASS syntax (4 changed js files: js/mhitm.js js/trap.js js/uhitm.js js/zap.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.2s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (those files are not in the shared-file set) · VERIFY: PASS.
+**Named:** `wiz_kill` (`wizcmds.c:242–337`, call at `:326` with a null `fltxt` and `AD_PHYS`). `#wizkill` is only an extended-command name.
+**Next:** `wield.c` `setuwep` (next Open — coverage row). Ten Open — coverage rows remain after archive, above the floor of 8, so nothing was refilled.
 ## 2026-09-26 — D-2874 `overview_stats` counts mapseen nodes, cemeteries, and annotations
 
 **C locus:** `nethack-c/upstream/src/dungeon.c:2761–2801` `overview_stats`. No C callees beyond `Sprintf` and `putstr` (the `template[]` row and the text window). Call: `wizcmds.c:1668` inside `wiz_show_stats`. `extern.h:930` is the declaration.

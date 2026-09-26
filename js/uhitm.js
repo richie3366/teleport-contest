@@ -4458,7 +4458,7 @@ export async function light_hits_gremlin(mon, dmg) {
     await wake_nearto(mx, my, 30);
     if ((mon.mhp | 0) < 1) {
         if (game.context?.mon_moving) {
-            await monkilled(mon, null, 10 /* AD_BLND */);
+            await monkilled(mon, null, AD_BLND);
         } else {
             await killed(mon);
         }

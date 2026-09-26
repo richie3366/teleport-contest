@@ -2320,7 +2320,7 @@ export async function dobuzz(
                             // verbosity).
                             if ((type | 0) < 0) {
                                 await monkilled(
-                                    mon, flash_str(fltyp), AD_RBRE,
+                                    mon, flash_str(fltyp, false), AD_RBRE,
                                 );
                             } else {
                                 let xkflags = XKILL_GIVEMSG;
