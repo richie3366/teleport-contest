@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2848 — `maybe_finish_sokoban` clears Sokoban rules when the last pit or hole is gone
+
+- **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** Filling or replacing the last Sokoban pit or hole left `sokoban_rules` set, so luck penalties and diagonal bans continued, and the chronicle never recorded the level.
+- **C locus:** `nethack-c/upstream/src/trap.c:7059–7095` `maybe_finish_sokoban`. Callees `livelog_printf` (`pline.c:514`, live `js/pline.js:23`) and `ordin` (`hacklib.c`, live `js/hacklib.js:481`). `Sokoban` is `svl.level.flags.sokoban_rules` (`rm.h:538`). Calls: `maketrap` `trap.c:585` on `oldplace`, and `deltrap` `trap.c:6547` after unlink when the removed trap is `PIT` or `HOLE`. `trap.c:75` is the static declaration.
+- **JS was:** No symbol. `maketrap` named Sokoban finish as an omission and returned after inserting a new trap. `deltrap` unlinked and stopped. The trap.c map section named the omit on the D-2310 `deltrap` wire.
+- **Fix:** One `maybe_finish_sokoban` in that C order. While Sokoban rules are on and `in_mklev` is clear, `level.traps` is scanned. A `madeby_u` trap is skipped. The first `PIT` or `HOLE` stops the scan. If none remains, `sokoban_rules` is cleared, and the JS aliases `flags.sokoban` and `game.Sokoban` that readers OR with that bit are cleared too. `livelog_printf(LL_MINORAC|LL_DUMP)` records `completed %d%s Sokoban level` with `entry_lev - dlevel + 1` and `ordin`. `maketrap` calls it on the overwrite arm after the new `ttyp` is stored. `deltrap` calls it after the trap is spliced out, only for `PIT` or `HOLE`.
+- **JS:** `js/trap.js` `maybe_finish_sokoban` `:1567`, `livelog_printf` `:1612`. `maketrap` call `:1063`. `deltrap` call `:1344`.
+- **Callers:** `trap.c:585` → `js/trap.js:1063`. `trap.c:6547` → `js/trap.js:1344`. `trap.c:75` is the declaration. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn maybe_finish_sokoban` → PASS syntax (1 changed js file: js/trap.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script shared-file regex) · VERIFY: PASS.
+- **Named omissions:** `dealloc_trap` (`trap.c:6548`) still has no body; `deltrap` returns after the finish call. `readobjnam.js` `deltrap_local` (`:201`, wish site `:643`) still splices without `clear_conjoined_pits` or this call. The congratulations message is a C comment, not a call. `livelog_add`'s file write stays the existing `pline.js` deferral; the chronicle list is what this call writes.
+- **Next:** `mklev.c` `generate_stairs_find_room` (next Open — coverage row). Ten Open — coverage rows remain after archive, inside the band, so nothing was refilled.
+
 ## D-2847 — `exp_percent_changing` refreshes status when the Xp highlight rule changes
 
 - **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked).

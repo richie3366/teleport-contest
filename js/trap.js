@@ -17,6 +17,7 @@
 // openholdingtrap (D-0981) / closeholdingtrap (D-1425).
 
 import { game } from './gstate.js';
+import { livelog_printf } from './pline.js';
 import { rn2, rnd, rn1, d, rnl, rn2_on_display_rng } from './rng.js';
 import { rank_of } from './roles.js';
 import {
@@ -82,6 +83,7 @@ import {
     Can_fall_thru, NO_MM_FLAGS, FROMOUTSIDE, TIMEOUT, Upolyd,
     UTOTYPE_NONE, UTOTYPE_FALLING, Is_stronghold,
     KILLED_BY, KILLED_BY_AN, NO_KILLER_PREFIX, NO_PART, STONING,
+    LL_MINORAC, LL_DUMP,
     ARTICLE_NONE, ARTICLE_THE, SUPPRESS_SADDLE, has_mgivenname,
     DISMOUNT_POLY, DISMOUNT_FELL, DISMOUNT_GENERIC,
     WATER, BURNING, DROWNING, DISSOLVED, PLNMSG_BACK_ON_GROUND,
@@ -135,7 +137,7 @@ import {
 import { tamedog, wary_dog, abuse_dog } from './dog.js';
 import { welded, uwepgone, uswapwepgone } from './wield.js';
 import { count_wsegs, worm_known } from './worm.js';
-import { level_difficulty, depth } from './hacklib.js';
+import { level_difficulty, depth, ordin } from './hacklib.js';
 import { make_stunned, make_hallucinated } from './potion.js';
 import { monstseesu, monstunseesu, defended, resists_magm } from './mondata.js';
 import { get_obj_location, burn_away_slime } from './timeout.js';
@@ -928,8 +930,8 @@ export function fixed_tele_trap(ttmp) {
 // ROLLING_BOULDER_TRAP mkroll_launch / STATUE_TRAP mk_trap_statue +
 // PIT/HOLE set_levltyp (D-1280) + DRAWBRIDGE_UP ice→floor (D-1296) +
 // shop add_damage (D-1300).
-// Named omissions: overwrite reset_utrap / Knox LEVEL_TELEP /
-// Sokoban finish; mongone full body.
+// Named omissions: overwrite reset_utrap / Knox LEVEL_TELEP;
+// mongone full body. Sokoban finish is maybe_finish_sokoban below.
 // TELEP teledest may be set by caller after create (themerms make_a_trap).
 export function maketrap(x, y, typ) {
     // C ref: trap.c maketrap — reject door/chest map traps; terrain gates.
@@ -1055,6 +1057,10 @@ export function maketrap(x, y, typ) {
         if (!game.level) return ttmp;
         if (!game.level.traps) game.level.traps = [];
         game.level.traps.push(ttmp);
+    } else if (Sokoban_rules()) {
+        // C trap.c:581–585 — overwrite of an existing trap; the new
+        // ttyp is already stored, so the scan sees the replacement.
+        maybe_finish_sokoban();
     }
     return ttmp;
 }
@@ -1323,13 +1329,20 @@ function clear_conjoined_pits(trap) {
     }
 }
 
-// C ref: trap.c deltrap — remove from ftrap list (shop/region cleanup deferred)
+// C ref: trap.c deltrap — unlink from ftrap, then Sokoban finish.
+// Named: dealloc_trap (trap.c:6548) still has no JS body.
 export function deltrap(trap) {
     const traps = game.level?.traps;
     if (!traps || !trap) return;
     clear_conjoined_pits(trap);
     const i = traps.indexOf(trap);
-    if (i >= 0) traps.splice(i, 1);
+    if (i < 0) return;
+    traps.splice(i, 1);
+    // C trap.c:6546–6547 — after the trap is off gf.ftrap, before dealloc.
+    if (Sokoban_rules()
+        && ((trap.ttyp | 0) === PIT || (trap.ttyp | 0) === HOLE)) {
+        maybe_finish_sokoban();
+    }
 }
 
 /**
@@ -1537,9 +1550,79 @@ const HALU_TRAPNAMES = [
 ];
 
 /**
+ * C rm.h:538 — `#define Sokoban svl.level.flags.sokoban_rules`.
+ * Level gen stores the same bit on `flags.sokoban` and `game.Sokoban`
+ * (mklev.js clear_level_structures / lspo flag 'sokoban').
+ */
+function Sokoban_rules() {
+    const lf = game.level ? game.level.flags : null;
+    return !!((lf && (lf.sokoban_rules || lf.sokoban)) || game.Sokoban);
+}
+
+/**
+ * C ref: trap.c maybe_finish_sokoban (staticfn :7059–7095).
+ * After the last non-hero pit or hole leaves the level, Sokoban rules
+ * end. livelog_printf and ordin are the live exports.
+ */
+function maybe_finish_sokoban() {
+    // C :7063 — Sokoban && !gi.in_mklev. Level build deletes pits too.
+    if (Sokoban_rules() && !game.in_mklev) {
+        /* scan all remaining traps, ignoring any created by the hero;
+           if this level has no more pits or holes, the current sokoban
+           puzzle has been solved */
+        // C `for (t = ftrap; t; t = t->ntrap)` leaves t null when the
+        // walk ends without break, including after a final madeby_u.
+        // JS ftrap is level.traps (t_at / count_traps / deltrap).
+        let t = null;
+        const traps = (game.level && game.level.traps) || [];
+        for (let i = 0; i < traps.length; i++) {
+            const tr = traps[i];
+            if (tr.madeby_u)
+                continue;
+            if ((tr.ttyp | 0) === PIT || (tr.ttyp | 0) === HOLE) {
+                t = tr;
+                break;
+            }
+        }
+        if (!t) {
+            /* for livelog to report the sokoban depth in the way that
+               players tend to think about it: 1 for entry level, 4 for top */
+            const uz = game.u.uz;
+            const dun = game.dungeons[uz.dnum | 0];
+            const sokonum = ((dun.entry_lev | 0) - (uz.dlevel | 0) + 1) | 0;
+
+            /* we've passed the last trap without finding a pit or hole;
+               clear the sokoban_rules flag so that luck penalties for
+               things like breaking boulders or jumping will no longer
+               be given, and restrictions on diagonal moves are lifted */
+            // C :7084 Sokoban = 0. Clear the JS aliases of that one bit.
+            const lf = game.level ? game.level.flags : null;
+            if (lf) {
+                lf.sokoban_rules = 0;
+                lf.sokoban = 0;
+            }
+            game.Sokoban = 0;
+            /*
+             * TODO: give some feedback about solving the sokoban puzzle
+             * (perhaps say "congratulations" in Japanese?).
+             */
+
+            /* log the completion event regardless of whether or not
+               any normal in-game feedback has just been given */
+            livelog_printf(
+                LL_MINORAC | LL_DUMP,
+                'completed %d%s Sokoban level',
+                sokonum,
+                ordin(sokonum),
+            );
+        }
+    }
+}
+
+/**
  * C ref: trap.c sokoban_guilt — Sokoban ≡ level.flags.sokoban_rules.
- * Conduct + luck only; C TODO feedback still unnamed. maybe_finish_sokoban
- * and other callers (zap/read/steed/dig) still named. nopick m-dir D-1262.
+ * Conduct + luck only. Puzzle completion is maybe_finish_sokoban
+ * (no player pline; C leaves that as a comment). nopick m-dir D-1262.
  */
 export function sokoban_guilt() {
     const Sokoban = !!(game.Sokoban || game.level?.flags?.sokoban_rules);

@@ -1411,8 +1411,15 @@ pline at `js/trap.js:3598`, a different C function). **`clear_conjoined_pits`
 + `deltrap` wire + `delfloortrap` clone retired** (D-2310; C `trap.c:6579–6601`
 + `:6535` — file-local port in C order, `deltrap` calls it first; `fountain.js`
 local clone replaced by the canonical export, hero `reset_utrap` arm
-unreachable via the `gush` `u_at` guard; named: Sokoban `maybe_finish_sokoban`
-+ `dealloc_trap` tail); **`openholdingtrap`/`openfallingtrap` monster-arm
+unreachable via the `gush` `u_at` guard; named: `dealloc_trap` tail).
+**`maybe_finish_sokoban` whole body** (D-2848; C `trap.c:7059–7095` —
+file-local `js/trap.js` in C order: `Sokoban && !in_mklev`, scan
+`level.traps` skipping `madeby_u`, stop on `PIT` or `HOLE`, else
+`Sokoban = 0` (the bit plus the `flags.sokoban` / `game.Sokoban` aliases)
+and `livelog_printf(LL_MINORAC|LL_DUMP)` with `ordin`. Callers wired:
+`maketrap` oldplace and `deltrap` after unlink. Named: `dealloc_trap`
+still absent; `readobjnam.js` `deltrap_local` still splices without this
+call); **`openholdingtrap`/`openfallingtrap` monster-arm
 `canspotmon`** (D-2317; C `trap.c:6185` + `:6279` — telepathy-sensed counts;
 JS narrowed both to file-local `canseemon`, dropping the `|| sensemon` arm;
 `canspotmon` already imported from `display.js`, no new edge; `closeholdingtrap`
