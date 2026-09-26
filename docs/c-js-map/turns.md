@@ -2891,6 +2891,18 @@ VENOM_CLASS force-break); callers do.c:352/toss_up ×2/throwit/hero_breaks/break
 
 JS: `js/mon.js`, `js/monmove.js` — partial
 
+**`dmonsfree` / `dealloc_monst` / `dealloc_mextra` whole bodies** (D-2824;
+`mon.c:2487–2511`, `:2675–2691`, `:2648–2673`). Dead `mhp < 1` except `isgd`
+leave the JS `fmon` array (C walks `nmon`), `nmon` is cleared, `dealloc_monst`
+panics on a leftover `nmon` (throw), frees `mextra`, then `*mon = zeromonst`.
+`count` must match `iflags.purge_monsters` or `impossible`, then the counter
+is cleared. Callers wired: `movemon` `mon.js:3701`, `savebones` `end.js:1621`,
+`makemaz` `mklev.js:2796`, `makemap_prepost` `wizcmds.js:599`, `savelev`
+preamble `do.js:1631` and `save.js:481`. `dealloc_monst` also from `replmon`
+`mon.js:3662`, `montraits` `zap.js:2894`, `discard_migrations` `dog.js:1498`.
+Named: `freedynamicdata` `save.c:1106`, `savemonchn` release arm `save.c:909`,
+`makemap_remove_mons` `wizcmds.c:145`, `wiz_kill` `wizcmds.c:344`.
+
 **`adj_erinys` mon.c:5922–5966 live** (D-2692; `js/monsters.js:265` 9 threshold
 arms + mlevel/difficulty in C order; callers `attrib.c:1309` → `js/attrib.js:752`
 adjalign, `restore.c:727` → `js/save.js` restore flow after relink_light_sources);
@@ -2991,7 +3003,7 @@ post-select `chi` + `itsstuck` + `ALLOW_U`→mux +
 `should_displace` prefer / `m_can_break_boulder` / region can_enter / `mfndpos` MON_AT `mm_aggression`/`mm_displacement` (D-2409)); **`mfndpos` door amorphous-engulfing arm + fixed-tele-track `ALLOW_TRAPS` (D-1868;
 door `can_fog` wired D-2428, corrupt-ttyp impossible still named)**; **D-0794/D-0796 fixed:** seed0360 leftover apprentice was missing `HASTE_SELF` 
 MFAST (EOT `+=24`); prefix **112243→112279**; **`movemon_singlemon` early exits** (D-0795; 
-full `gd_move` / `dmonsfree` deferred); **`m_move` Invis `should_see&&rn2(11)` + 
+full `gd_move` deferred; `dmonsfree` live D-2824); **`m_move` Invis `should_see&&rn2(11)` + 
 stalker/bat/light rn2(3) + leppie_avoidance** (D-0268; shortsighted after track still deferred); 
 **`m_search_items`/`mon_would_take_item` getitems loot gg** (D-0182); 
 **postmov `mpickstuff` MOVED|DONE** (D-0185) + **`distant_name(otmp,doname)`** (D-0840; 

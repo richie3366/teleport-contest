@@ -63,7 +63,7 @@ import {
 import { PM_GRID_BUG, PM_TOURIST } from './generated/monsters_data.js';
 import { enexto, rloc_to, rloc, tele_restrict, noteleport_level, rloc_to_flag, migrate_to_level, rloco, control_mon_tele, goodpos, is_lminion, Inhell } from './teleport.js';
 import { may_dig, fill_pit } from './dig.js';
-import { newsym, pline, pline_mon, pline_The, verbalize, You_feel, sensemon, canseemon, canspotmon, impossible } from './display.js';
+import { newsym, pline, pline_mon, pline_The, verbalize, You_feel, sensemon, canseemon, canspotmon, impossible, describe_level } from './display.js';
 import { online2, level_difficulty } from './hacklib.js';
 import { worm_cross, level_mon_at, remove_worm, place_wsegs, count_wsegs } from './worm.js';
 import { On_W_tower_level, In_W_tower } from './dungeon.js';
@@ -3381,19 +3381,122 @@ async function movemon_singlemon(mtmp) {
 }
 
 /**
- * C ref: mon.c dmonsfree — remove DEADMONSTER from fmon after movemon.
- * Vault guards (isgd) at <0,0> are retained until corridor teardown.
+ * C ref: decl.c `cg.zeromonst` — zero-filled `struct monst` assigned by
+ * `dealloc_monst` (`*mon = cg.zeromonst`) so a stale holder does not
+ * keep the old identity. Pointer fields become null; `mtrack` coords
+ * stay an array of zeros (they are inline in the C struct).
  */
-export function dmonsfree() {
-    const list = game.fmon;
-    if (!list || !list.length) return;
-    let w = 0;
-    for (let r = 0; r < list.length; r++) {
-        const m = list[r];
-        if ((m.mhp | 0) <= 0 && !m.isgd) continue;
-        list[w++] = m;
+function applyZeromonst(mon) {
+    if (!mon) return;
+    for (const k of Object.keys(mon)) {
+        const v = mon[k];
+        if (typeof v === 'number') mon[k] = 0;
+        else if (typeof v === 'boolean') mon[k] = false;
+        else if (typeof v === 'string') mon[k] = '';
+        else if (Array.isArray(v)) {
+            for (let i = 0; i < v.length; i++) {
+                const el = v[i];
+                if (el && typeof el === 'object') {
+                    for (const ek of Object.keys(el)) {
+                        el[ek] = typeof el[ek] === 'number' ? 0 : null;
+                    }
+                } else if (typeof el === 'number') {
+                    v[i] = 0;
+                }
+            }
+        } else {
+            mon[k] = null;
+        }
     }
-    list.length = w;
+    mon.nmon = null;
+    mon.mextra = null;
+    mon.data = null;
+    mon.minvent = null;
+}
+
+/**
+ * C ref: mon.c dealloc_mextra `:2648–2673` — release every mextra bag
+ * then the bag itself. `mcorpsenm` is an inline int (NON_PM, no free).
+ * JS also clears the flat mirrors `newedog` / `MGIVENNAME` keep beside
+ * `mextra`, because those macros read `mextra->…` in C.
+ */
+export function dealloc_mextra(m) {
+    if (!m) return;
+    const x = m.mextra;
+    if (!x) return;
+    if (x.mgivenname) x.mgivenname = 0;
+    if (x.egd) x.egd = 0;
+    if (x.epri) x.epri = 0;
+    if (x.eshk) x.eshk = 0;
+    if (x.emin) x.emin = 0;
+    if (x.edog) x.edog = 0;
+    if (x.ebones) x.ebones = 0;
+    x.mcorpsenm = NON_PM;
+    m.mextra = null;
+    if (m.mgivenname) m.mgivenname = 0;
+    m.edog = null;
+    m.eshk = null;
+    m.epri = null;
+    m.egd = null;
+    m.emin = null;
+    m.ebones = null;
+}
+
+/**
+ * C ref: mon.c dealloc_monst `:2675–2691` — nmon must already be null
+ * (panic otherwise), then dealloc_mextra, then `*mon = cg.zeromonst`.
+ * `panic` is NORETURN; a throw is the JS stand-in (no paniclog file).
+ * Callers: dmonsfree, replmon, zap.c montraits, dog.c discard_migrations.
+ * Named: save.c savemonchn `release_data` (no JS heap walk).
+ */
+export function dealloc_monst(mon) {
+    if (!mon) return;
+    if (mon.nmon) {
+        const buf = describe_level(2);
+        throw new Error(`dealloc_monst with nmon on ${buf}`);
+    }
+    if (mon.mextra) dealloc_mextra(mon);
+    applyZeromonst(mon);
+}
+
+/**
+ * C ref: mon.c dmonsfree `:2487–2511` — unlink DEADMONSTER (`mhp < 1`,
+ * monst.h:214) from fmon except vault guards (`isgd`), dealloc each,
+ * then `count` must equal `iflags.purge_monsters` or `impossible`.
+ * Always clears `purge_monsters`, including when fmon is empty.
+ * fmon is a JS array (C walks `nmon`); unlinking is compact-in-place.
+ * `impossible` is async; the match arm does not await.
+ */
+export async function dmonsfree() {
+    const list = game.fmon;
+    let count = 0;
+    if (list && list.length) {
+        let w = 0;
+        for (let r = 0; r < list.length; r++) {
+            const freetmp = list[r];
+            // C: DEADMONSTER(freetmp) && !freetmp->isgd
+            if (freetmp && (freetmp.mhp | 0) < 1 && !freetmp.isgd) {
+                freetmp.nmon = null;
+                dealloc_monst(freetmp);
+                count++;
+            } else {
+                list[w++] = freetmp;
+            }
+        }
+        list.length = w;
+    }
+
+    const pending = game.iflags ? (game.iflags.purge_monsters | 0) : 0;
+    if (count !== pending) {
+        const buf = describe_level(2);
+        await impossible(
+            "dmonsfree: %d removed doesn't match %d pending on %s",
+            count,
+            pending,
+            buf,
+        );
+    }
+    if (game.iflags) game.iflags.purge_monsters = 0;
 }
 
 /**
@@ -3554,6 +3657,9 @@ export function replmon(mtmp, mtmp2) {
 
     mtmp.mx = 0;
     mtmp.my = 0;
+    // C mon.c:2554–2555 — relmon(..., NULL) orphans nmon, then dealloc.
+    mtmp.nmon = null;
+    dealloc_monst(mtmp);
 }
 
 /**
@@ -3591,8 +3697,8 @@ export async function movemon() {
         // C: movemon_singlemon true → break (utotype)
         if (await movemon_singlemon(mtmp)) break;
     }
-    // C: dmonsfree after last mon, before utotype deferred_goto
-    dmonsfree();
+    // C mon.c:1340 — dmonsfree after the last mon, before utotype.
+    await dmonsfree();
     // C: after last mon — if (u.utotype) deferred_goto(); somebody_can_move=FALSE
     // Lazy import avoids mon.js ↔ do.js cycle (do.js imports m_at/mnexto).
     // Named omissions: any_light_source vision_full_recalc; clear_bypasses;

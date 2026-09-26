@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2824 `dmonsfree` frees dead monsters and clears `purge_monsters`
+
+**C locus:** `nethack-c/upstream/src/mon.c:2487–2511` `dmonsfree`. `DEADMONSTER` is `mhp < 1` (`monst.h:214`); `isgd` stays on the list. Unlink, `nmon = NULL`, `dealloc_monst`, then `count` must equal `iflags.purge_monsters` or `impossible` with `describe_level(buf, 2)`, then `purge_monsters = 0`. `dealloc_mextra` (`:2648–2673`) and `dealloc_monst` (`:2675–2691`, `*mon = cg.zeromonst`). `m_detach` (`:2796`) is the only `purge_monsters++`.
+**JS:** `js/mon.js` `dealloc_mextra` `:3423`, `dealloc_monst` `:3452`, `dmonsfree` `:3470`. `describe_level` `js/display.js:5912`. `impossible` `js/display.js:8114`.
+**Change:** One `dmonsfree` in that C order, plus `dealloc_mextra` and `dealloc_monst`. The JS `fmon` array is compacted in place (C walks `nmon`). A leftover `nmon` throws (C `panic`, no paniclog).
+**Verify:** `node scripts/verify.mjs --fn dmonsfree` → PASS syntax (8 changed js files: do, dog, end, mklev, mon, save, wizcmds, zap) · PASS rule2 · note hidden (no corpus session blocked at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+**Named:** `save.c:1106` `freedynamicdata` (`FREE_ALL_MEMORY` is on in `config.h:632`; the function is still the save-freeing guard, not ported). `save.c:909` `savemonchn` `release_data` `dealloc_monst` (JSON level stash does not walk-and-free the chain).
+**Next:** `hack.c` `domove_fight_empty` (next Open — coverage row).
 ## 2026-09-26 — D-2823 `rndmonst_adj` skips gone species and reports a bad weight
 
 **C locus:** `nethack-c/upstream/src/makemon.c:1659–1732` `rndmonst_adj`. Quest gate `u.uz.dnum == quest_dnum && rn2(7) && qt_montype()` (`:1666`). `monmin_difficulty` / `monmax_difficulty` (`monst.h:259–260`). Rogue `isupper(monsym(ptr))` and elemental `wrong_elem_type` (`:1684–1686`). `uncommon` (`:1592–1603`): `G_NOGEN|G_UNIQ`, then `mvitals[mndx].mvflags & G_GONE`, then `Inhell` rejects `maligntyp > A_NEUTRAL` else `G_HELL`. Hell also skips `G_NOHELL` (`:1690`). Weight is `(int)(geno & G_FREQ) + align_shift + temperature_shift`; outside 0..127 calls `impossible` and stores 0 (`:1706–1710`); `weight > 0` does the reservoir `rn2` (`:1714–1718`). A still-uncommon or `NON_PM` result returns null; `debugpline1` is the empty macro unless `DEBUG` (`lint.h:66–68`). `align_shift` (`:1610–1637`) caches `Is_special(&u.uz)` until `moves` changes.

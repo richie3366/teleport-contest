@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2824 — `dmonsfree` frees dead monsters and clears `purge_monsters`
+
+- **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** Dead monsters were compacted off `fmon` and left otherwise intact. `dealloc_monst` did not exist, so `mextra` and the zeroed `struct monst` never happened, and `iflags.purge_monsters` climbed without the C end-of-sweep check or reset. `makemap_prepost`, `savelev`, and `dosave0` never called the sweep; `replmon`, `montraits`, and `discard_migrations` never freed the monster C frees.
+- **C locus:** `nethack-c/upstream/src/mon.c:2487–2511` `dmonsfree`. `DEADMONSTER` is `mhp < 1` (`monst.h:214`); `isgd` stays on the list. Unlink, `nmon = NULL`, `dealloc_monst`, then `count` must equal `iflags.purge_monsters` or `impossible` with `describe_level(buf, 2)`, then `purge_monsters = 0`. `dealloc_mextra` (`:2648–2673`) and `dealloc_monst` (`:2675–2691`, `*mon = cg.zeromonst`). `m_detach` (`:2796`) is the only `purge_monsters++`.
+- **JS was:** `js/mon.js` `dmonsfree` compacted `mhp <= 0 && !isgd` and returned. No dealloc, no pending-count check, no reset. Empty `fmon` returned before the reset. `replmon` stopped after clearing `mx`/`my`.
+- **Fix:** One `dmonsfree` in that C order, plus `dealloc_mextra` and `dealloc_monst`. The JS `fmon` array is compacted in place (C walks `nmon`). A leftover `nmon` throws (C `panic`, no paniclog). `impossible` is awaited only on a mismatch. `purge_monsters` is cleared whenever `iflags` exists.
+- **JS:** `js/mon.js` `dealloc_mextra` `:3423`, `dealloc_monst` `:3452`, `dmonsfree` `:3470`. `describe_level` `js/display.js:5912`. `impossible` `js/display.js:8114`.
+- **Callers:** `bones.c:447` `savebones` → `js/end.js:1621`. `cmd.c:1032` `makemap_prepost` → `js/wizcmds.js:599` (then `dobjsfree` at `:600`). `mkmaze.c:1191` `makemaz` → `js/mklev.js:2796`. `mon.c:1340` `movemon` → `js/mon.js:3701`. `save.c:488` `savelev` (mode != FREEING, only when `purge_monsters`) → `js/do.js:1631` and `js/save.js:481`. `dealloc_monst`: `mon.c:2555` `replmon` → `js/mon.js:3662`; `zap.c:740` `montraits` → `js/zap.js:2894`; `dog.c:959` `discard_migrations` → `js/dog.js:1498`. Comments, not calls: `dog.c:956`, `mon.c:1232`, `mon.c:3174`, `vault.c:148`, `vault.c:187`, `wizcmds.c:96`, `wizcmds.c:119`, `monst.h:213`. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn dmonsfree` → PASS syntax (8 changed js files: do, dog, end, mklev, mon, save, wizcmds, zap) · PASS rule2 · note hidden (no corpus session blocked at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+- **Named omissions:** `save.c:1106` `freedynamicdata` (`FREE_ALL_MEMORY` is on in `config.h:632`; the function is still the save-freeing guard, not ported). `save.c:909` `savemonchn` `release_data` `dealloc_monst` (JSON level stash does not walk-and-free the chain). `wizcmds.c:145` `makemap_remove_mons` and `wizcmds.c:344` `wiz_kill` are unported, so their `dmonsfree` calls are not reached. A missing `game.iflags` skips the store. `mongone` still splices off `fmon` itself (D-1149) and does not go through `m_detach`. `replmon`'s light-source swap stays named. `util/sfctool.c` `dealloc_monst` is the external tool, not the game.
+- **Next:** `hack.c` `domove_fight_empty` (next Open — coverage row).
+
 ## D-2823 — `rndmonst_adj` skips gone species and reports a bad weight
 
 - **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked).

@@ -35,6 +35,7 @@ import { rest_track } from './track.js';
 import { open_levelfile } from './files.js';
 import { rest_regions } from './region.js';
 import { restore_timers, restore_light_sources, run_timers, dobjsfree } from './mkobj.js';
+import { dmonsfree } from './mon.js';
 import { vision_reset } from './vision.js';
 import { setworn } from './do_wear.js';
 import { setuwep, setuswapwep, setuqwep } from './wield.js';
@@ -475,7 +476,9 @@ export async function dosave0() {
     if (game.flags?.moonphase === FULL_MOON) change_luck(-1);
     if (game.flags?.friday13) change_luck(1);
 
-    // C save.c:490–491 — dobjsfree before persisting when objs_deleted.
+    // C save.c:487–491 — savelev preamble (mode != FREEING): dmonsfree
+    // when dead monsters are still pending, then dobjsfree.
+    if (game.iflags?.purge_monsters) await dmonsfree();
     dobjsfree();
 
     // C files.c analogue — SAVEF preset (regularized, TRUE) before the save write.

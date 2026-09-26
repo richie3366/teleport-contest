@@ -2793,7 +2793,7 @@ async function makemaz(s) {
         g.in_mk_themerooms = false;
         // C :1188-1192 — if (load_special(protofile)): dmonsfree(); return
         if (await load_special_proto(protofile)) {
-            dmonsfree();
+            await dmonsfree();
             return; // no mazification right now
         }
         // C :1194 — impossible WITH the extension, then fall to mazify
