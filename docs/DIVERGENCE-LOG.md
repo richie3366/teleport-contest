@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2871 — `extcmd_via_menu` leaves the abandoned prefix in `cbuf` after a menu cancel
+
+- **Status:** fixed (Must-fix from review 1822; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** After a prefix, cancelling the extended-command menu cleared the typed prefix. The next header came back as `Extended Command:` with nothing after it. C keeps that prefix on the header and shows every command, because `matchlevel` is 0.
+- **C locus:** `nethack-c/upstream/src/cmd.c:752–882` `extcmd_via_menu`. The cancel arm is `:874–876` (`n != 1` and `matchlevel`: `ret = 0`, `matchlevel = 0`, `cbuf` unchanged). The next header is `:856` `Extended Command: %s`. Both `impossible` arms are compiled out (`patchlevel.h:33` `NH_STATUS_RELEASED`). Caller `win/tty/getline.c:301` `tty_get_ext_cmd`. `getline.c:24` is the extern. `cmd.c:864` is the compiled-out format string inside the function.
+- **JS was:** `extcmd_via_menu` (`js/getline.js`) set `ret = 0` and `matchlevel = 0` and also `cbuf = ''` on that arm (review 1822, cited as `:1375–1378`).
+- **Fix:** That arm no longer assigns `cbuf`. `ret` stays 0 so the loop builds the next menu with `matchlevel` 0 (every autocomplete command) and the header still contains the abandoned prefix. The next pick writes at index 0, which is `cbuf[matchlevel++]` in C.
+- **JS:** `js/getline.js` `extcmd_via_menu` `:1276`, header `:1364`, cancel `:1377–1379`. Caller `get_ext_cmd` `:1397`.
+- **Callers:** `win/tty/getline.c:301` → `js/getline.js:1397` (`get_ext_cmd`, when `iflags.extmenu`). `getline.c:24` is the extern. `cmd.c:864` is not a call. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn extcmd_via_menu` → PASS syntax (1 changed js file: js/getline.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (getline.js is not in the shared-file set) · VERIFY: PASS.
+- **Named omissions:** None on the cancel arm. `select_menu` remains the live `select_menu_pick_one`. doset still writes `flags.extmenu`, not `iflags.extmenu`.
+- **Next:** `uhitm.c` `hmon_hitmon_msg_hit` (next Open — coverage row). Eleven Open — coverage rows remain after archive, above the floor of 8, so nothing was refilled.
+
 ## D-2870 — `set_levltyp_lit` sets terrain, then light, unless the caller asked to leave it
 
 - **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked).

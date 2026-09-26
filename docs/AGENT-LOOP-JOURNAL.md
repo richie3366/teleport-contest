@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2871 `extcmd_via_menu` leaves the abandoned prefix in `cbuf` after a menu cancel
+
+**C locus:** `nethack-c/upstream/src/cmd.c:752–882` `extcmd_via_menu`. The cancel arm is `:874–876` (`n != 1` and `matchlevel`: `ret = 0`, `matchlevel = 0`, `cbuf` unchanged). The next header is `:856` `Extended Command: %s`. Both `impossible` arms are compiled out (`patchlevel.h:33` `NH_STATUS_RELEASED`). Caller `win/tty/getline.c:301` `tty_get_ext_cmd`. `getline.c:24` is the extern. `cmd.c:864` is the compiled-out format string inside the function.
+**JS:** `js/getline.js` `extcmd_via_menu` `:1276`, header `:1364`, cancel `:1377–1379`. Caller `get_ext_cmd` `:1397`.
+**Change:** That arm no longer assigns `cbuf`. `ret` stays 0 so the loop builds the next menu with `matchlevel` 0 (every autocomplete command) and the header still contains the abandoned prefix. The next pick writes at index 0, which is `cbuf[matchlevel++]` in C.
+**Verify:** `node scripts/verify.mjs --fn extcmd_via_menu` → PASS syntax (1 changed js file: js/getline.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (getline.js is not in the shared-file set) · VERIFY: PASS.
+**Named:** None on the cancel arm. `select_menu` remains the live `select_menu_pick_one`. doset still writes `flags.extmenu`, not `iflags.extmenu`.
+**Next:** `uhitm.c` `hmon_hitmon_msg_hit` (next Open — coverage row). Eleven Open — coverage rows remain after archive, above the floor of 8, so nothing was refilled.
 ## 2026-09-26 — audit 1821–1829 (reviews only, no port)
 
 Reviewed `4b46eed9c` through `bde9dd8fa` (D-2862…D-2870). Eight ACCEPT. One QUALITY-RISK: `extcmd_via_menu` clears `cbuf` on cancel-after-prefix (`cmd.c:884–887`; `js/getline.js:1375–1378`). That is the Must-fix head. Cadence `sessions`: 44/44, screens 11,405/11,405, RNG 792,838/792,838, speed `255+1.53/turn` (R² 0.77). Held-out unchanged (12/44, 6,111 pts, last scored 2026-09-26T07:02Z).

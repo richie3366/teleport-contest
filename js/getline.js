@@ -1265,8 +1265,10 @@ function strncmpPrefix(a, b, n) {
  * `impossible` arms are compiled out. Overflow still clears `extmenu`
  * and returns -1. Each menu row's selector is the command's character
  * at `matchlevel` (`add_menu` `a_char`), kept by `select_menu_pick_one`.
- * The `end_menu` prompt is the header row. Return is an `EXTCMDLIST`
- * index (`choices[0] - extcmdlist`), or -1.
+ * The `end_menu` prompt is the header row. A cancel while `matchlevel`
+ * is set zeroes it and leaves `cbuf` (`cmd.c:874–876`), so the next
+ * header is still `Extended Command:` plus that prefix. Return is an
+ * `EXTCMDLIST` index (`choices[0] - extcmdlist`), or -1.
  * Caller: `getline.c:301` `tty_get_ext_cmd` when `iflags.extmenu`,
  * wired in `get_ext_cmd`. `win/tty/getline.c:24` is the extern.
  * @returns {Promise<number>}
@@ -1359,7 +1361,7 @@ export async function extcmd_via_menu() {
         if (acount) flush(prevAccel); // C `:862–868`
 
         raw.unshift({
-            text: `Extended Command: ${cbuf}`, // C `:870` end_menu prompt
+            text: `Extended Command: ${cbuf}`, // C cmd.c:856 end_menu prompt
             selectable: false,
         });
         const res = await select_menu_pick_one(raw); // C `:871` PICK_ONE + destroy
@@ -1372,12 +1374,11 @@ export async function extcmd_via_menu() {
                 cbuf = cbuf.slice(0, matchlevel) + String.fromCharCode(ch);
                 matchlevel++; // C `:881–882`
             }
-        } else if (matchlevel) { // C `:885–887`
+        } else if (matchlevel) { // C cmd.c:874–876 — leave cbuf; next header keeps the prefix
             ret = 0;
             matchlevel = 0;
-            cbuf = '';
         } else {
-            ret = -1; // C `:889`
+            ret = -1; // C cmd.c:878
         }
     }
     return ret; // C `:892`

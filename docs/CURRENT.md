@@ -98,10 +98,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `cmd.c` `extcmd_via_menu` — cancel-after-prefix must leave `cbuf` (`cmd.c:884–887`; JS clears it at `js/getline.js:1375–1378`). Source: reviews/loop-unattended/1822-4913f8580-keylist-putcmds.md. Verify `node scripts/verify.mjs --fn extcmd_via_menu` (reach regression must be 0).
+**Next cluster:** `uhitm.c` `hmon_hitmon_msg_hit` — coverage MISSING (C 20 L `uhitm.c:1637–1660` / JS no symbol). Verify `node scripts/verify.mjs --fn hmon_hitmon_msg_hit` (reach regression must be 0).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2870 (index).**
+**Keep D-0845…D-2871 (index).**
 <!-- recent:begin -->
+**D-2871** `nethack-c/upstream/src/cmd.c:752–882` `extcmd_via_menu`. The cancel arm is `:874–876` (`n — That arm no longer assigns `cbuf`.
 **D-2870** `nethack-c/upstream/src/mkmaze.c:125–145` `set_levltyp_lit`. Callees `set_levltyp` (`mkmaz — One `set_levltyp_lit` in that C order.
 **D-2869** `nethack-c/upstream/src/steal.c:772–810` `maybe_absorb_item`. Callees `obj_resists` (`zap. — One `maybe_absorb_item` in that C order.
 **D-2868** `nethack-c/upstream/src/do.c:849–888` `engulfer_digests_food`. Callees `digests` (`mondata — One `engulfer_digests_food` in that C order.
@@ -109,11 +110,10 @@ revisits the picker.
 **D-2866** `nethack-c/upstream/src/mklev.c:1174–1194` `themerooms_post_level_generate`. Callees `rese — One `themerooms_post_level_generate` in that C order.
 **D-2865** `nethack-c/upstream/src/uhitm.c:3836–3894` `mhitm_ad_deth`. Callees `pline_mon`, `Monnam`, — One `mhitm_ad_deth` in that C order.
 **D-2864** `nethack-c/upstream/src/dungeon.c:797–864` `init_dungeon_levels`. Callees `get_table_str`  — One `init_dungeon_levels` in that C order.
-**D-2863** `nethack-c/upstream/src/cmd.c:2802–2863` `keylist_putcmds` and `:2784–2799` `keylist_func_ — One `keylist_putcmds` and one `keylist_func_has_key` in that C order.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2870; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2871; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

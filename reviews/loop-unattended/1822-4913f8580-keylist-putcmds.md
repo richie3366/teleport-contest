@@ -5,6 +5,8 @@
 - Queue row: Open coverage, 0 corpus blocks cited
 - Banned grep: no `FORCE`, `DIAG`, `getRngLog`, seed name, or `fastforward` in the hunk. `imports.mjs --rulecheck`: "Rule #2 clean".
 
+**Addressed:** D-2871
+
 ## Intent vs deliverable
 
 Subject promises one `keylist_putcmds` and one `keylist_func_has_key` in C order (space skipped only when `!flags.rest_on_space`, binds from `cmdbind_get`, `CMD_PARAM` quotes the stored param), plus `bind_key` storing at most 30 characters, clear/swap of that slot, an `rhack` `{cmd, param}` stamp, and `extcmd_via_menu` (autocomplete filter, one-choice short-circuit, letter-grouped menu) called from `get_ext_cmd` when `iflags.extmenu`. The diff does those. Nothing was deleted. `sym.mjs`:
