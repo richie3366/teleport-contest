@@ -18,7 +18,7 @@ here again. Live hypotheses only:
   revisits. Phase-2 rows (`[measure]`, parks, `hidden-proxy queue`) stay
   closed meanwhile; the corpus is guarded by REACH in `verify.mjs`.
   Everything below this bullet is phase-2 context — do not act on it now.
-- Audit 1785–1793: the three `mcast_insects` predicate C-wrongs shipped as D-2835. `place_lregion` tele Promise chain shipped as D-2836. Do not re-open the seven ACCEPT SHAs.
+- Audit 1794–1802: D-2835…D-2843 (`57e3529ab` through `9e67c4a79`) are ACCEPT. Do not re-open those nine SHAs. Next port is `peffect_restore_ability`.
 
 - **obj_resists writers (D-2407/2413-15, MEASURED):** `steal.c` relobj `flooreffects` + Knight/Arch/Healer arms (detail in D-logs). Falsified — do not re-check: fire-trap burn, fmon-order, polyuse, monstone, bury, steal.
 

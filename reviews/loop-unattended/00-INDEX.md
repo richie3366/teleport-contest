@@ -1803,3 +1803,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1791-53a5e85c8-set-uasmon.md](./1791-53a5e85c8-set-uasmon.md) | `53a5e85c8` | D-2832 set_uasmon | **ACCEPT** |
 | [1792-92e997504-genl-player-setup.md](./1792-92e997504-genl-player-setup.md) | `92e997504` | D-2833 genl_player_setup | **ACCEPT** |
 | [1793-236be808b-youhiding.md](./1793-236be808b-youhiding.md) | `236be808b` | D-2834 youhiding | **ACCEPT** |
+| [1794-57e3529ab-mcast-insects-preds.md](./1794-57e3529ab-mcast-insects-preds.md) | `57e3529ab` | D-2835 mcast_insects predicates | **ACCEPT** |
+| [1795-e41959f29-place-lregion-tele.md](./1795-e41959f29-place-lregion-tele.md) | `e41959f29` | D-2836 place_lregion tele chain | **ACCEPT** |
+| [1796-8e53e2c60-setopt-cmd.md](./1796-8e53e2c60-setopt-cmd.md) | `8e53e2c60` | D-2837 setopt_cmd | **ACCEPT** |
+| [1797-2c9559331-autopickup-exception.md](./1797-2c9559331-autopickup-exception.md) | `2c9559331` | D-2838 handler_autopickup_exception | **ACCEPT** |
+| [1798-b2801e780-poison-joust-dren.md](./1798-b2801e780-poison-joust-dren.md) | `b2801e780` | D-2839 poison joust AD_DREN | **ACCEPT** |
+| [1799-dcaae0c59-placebc-core.md](./1799-dcaae0c59-placebc-core.md) | `dcaae0c59` | D-2840 placebc_core | **ACCEPT** |
+| [1800-fab716a35-fixup-special.md](./1800-fab716a35-fixup-special.md) | `fab716a35` | D-2841 fixup_special | **ACCEPT** |
+| [1801-686390b2d-handler-msgtype.md](./1801-686390b2d-handler-msgtype.md) | `686390b2d` | D-2842 handler_msgtype | **ACCEPT** |
+| [1802-9e67c4a79-iter-mons-safe.md](./1802-9e67c4a79-iter-mons-safe.md) | `9e67c4a79` | D-2843 iter_mons_safe | **ACCEPT** |

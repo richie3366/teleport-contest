@@ -7,6 +7,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — Audit 1794–1802 (D-2835…D-2843)
+
+Nine JS SHAs after review 1793 (`236be808b`). All **ACCEPT**: insects predicates, `place_lregion` tele chain, `setopt_cmd`, autopickup exceptions, poison/joust/`AD_DREN`, `placebc_core`, `fixup_special`, `handler_msgtype`, `iter_mons_safe`. No Must-fix. Public `sessions` 44/44, Scr 11,405/11,405, RNG 792,838/792,838, speed `273+1.83/turn` (R² 0.785). Held-out still 12/44 (6,059/11,265, RNG 29.2 %, screens 53.8 %). Next: `potion.c` `peffect_restore_ability`.
 ## 2026-09-26 — D-2843 `iter_mons_safe` snapshots the monster list before movement
 
 **C locus:** `nethack-c/upstream/src/mon.c:4500–4522` `iter_mons_safe`. Callee `alloc_itermonarr` `:4471–4490` (statics `itermonarr` / `itermonsiz` `:4465–4466`). Caller `movemon` `:1330`. `save.c:1108` calls `alloc_itermonarr(0U)` inside `freedynamicdata` under `FREE_ALL_MEMORY`.
