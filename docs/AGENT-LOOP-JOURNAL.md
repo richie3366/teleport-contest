@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2877 `strstri` counts signed nibbles, then matches with `lowc`
+
+**C locus:** `nethack-c/upstream/src/hacklib.c:739–779` `strstri`. `STRSTRI` is not defined, so this body is compiled. Callee: `lowc` (`hacklib.c:83`, live `ascii_lowc_ch` in `js/hacklib.js`). The `#if 0` asserts are not compiled. Counters are `char` (signed wrap).
+**JS:** `js/hacklib.js` `strstri` `:343`, empty `:354`, counts `:360–366`, reject `:368–371`, window `:373–378`. `js/attrib.js` `poisoned` `:403` and `:482`, `from_what` `:1197` and `:1205`. `js/write.js` `:302`. `js/objnam.js` `:1364` and `:1441`. `js/dungeon.js` `:1129` and `:1156`. `js/uhitm.js` `:1682`. `js/invent.js` `cinv_doname` `:4493`. `js/mondata.js` `:752` and `:946`.
+**Change:** One `strstri` in that C order. An empty substring (`!*sub`, including a leading NUL) returns `str`. Nibble tables of size `0x20` count `*s & 31` in signed 8-bit counters while measuring `strlen(str) - strlen(sub)`.
+**Verify:** `node scripts/verify.mjs --fn strstri` → PASS syntax (8 changed js files: js/attrib.js js/dungeon.js js/hacklib.js js/invent.js js/mondata.js js/objnam.js js/uhitm.js js/write.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (those files are not in the shared-file set) · VERIFY: PASS.
+**Named:** `apply.c:1412` (the attach prompt at `js/apply.js:4813` is built without the ` to\033` strip). `botl.c:136` and `:4283`.
+**Next:** `artifact.c` `Sting_effects` (next Open — coverage row). Eight Open — coverage rows remain after archive, at the floor of 8, so nothing was refilled.
 ## 2026-09-26 — D-2876 `setuwep` dirties the status line for Ogresmasher and snuffs a lit light-artifact
 
 **C locus:** `nethack-c/upstream/src/wield.c:100–135` `setuwep`. Callees: `setworn` (`worn.c:72`), `artifact_light` (`artifact.c:2263`), `end_burn` (`timeout.c:1803`), `pline`, `Tobjnam` (`objnam.c`), `u_wield_art` (`obj.h:441` `is_art(uwep, art)`), `is_art` (`artifact.c:2808`), `is_launcher` / `is_ammo` / `is_missile` / `is_pole` / `is_weptool` / `is_wet_towel`, `Blind` (`youprop.h:103`).

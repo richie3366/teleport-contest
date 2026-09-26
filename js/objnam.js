@@ -30,7 +30,7 @@ import {
     pmnames, MALE, FEMALE, NEUTRAL, NON_PM, NUMMONS, LOW_PM, NUM_MGENDERS,
 } from './monsters.js';
 import { BOGUSMON_BUF } from './generated/bogusmon_data.js';
-import { upstart, highc, ordin } from './hacklib.js';
+import { upstart, highc, ordin, strstri } from './hacklib.js';
 import { genders } from './roles.js';
 import {
     PM_SAMURAI, PM_CLERIC, PM_ARCHEOLOGIST, PM_LICHEN, PM_ACID_BLOB, PM_LONG_WORM_TAIL,
@@ -1348,11 +1348,6 @@ export function cxname_singular(obj) {
     return xname_flags(obj, CXN_SINGULAR);
 }
 
-/** C ref: hacklib.c strstri — case-insensitive substring. */
-function strstri_objnam(hay, needle) {
-    return String(hay ?? '').toLowerCase().includes(String(needle).toLowerCase());
-}
-
 /**
  * C ref: objnam.c gloves_simple_name `:5531–5547` — "gauntlets" iff
  * dknown and (oc_name_known ? OBJ_NAME : OBJ_DESCR) contains
@@ -1366,7 +1361,7 @@ export function gloves_simple_name(gloves) {
         const actualn = objectNameStrs[otyp] || '';
         const descrpn = objectDescrs[otyp] || '';
         const s = ocl?.oc_name_known ? actualn : descrpn;
-        if (strstri_objnam(s, 'gauntlets')) return 'gauntlets';
+        if (strstri(s, 'gauntlets')) return 'gauntlets';
     }
     return 'gloves';
 }
@@ -1443,8 +1438,8 @@ export function killer_xname(obj) {
         }
         // C: article iff quan==1 and not already possessive; KILLED_BY caller
         if ((obj.quan | 0) === 1
-            && !strstri_objnam(buf, "'s ")
-            && !strstri_objnam(buf, "s' ")) {
+            && !strstri(buf, "'s ")
+            && !strstri(buf, "s' ")) {
             buf = (obj_is_pname(obj) || the_unique_obj(obj)) ? the(buf) : an(buf);
         }
     } finally {

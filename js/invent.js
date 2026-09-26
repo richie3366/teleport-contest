@@ -240,6 +240,7 @@ import {
     NON_PM,
     FEMALE,
     MALE,
+    QBUFSZ,
 } from './const.js';
 import { ATR_INVERSE, NO_COLOR } from './terminal.js';
 import {
@@ -247,7 +248,7 @@ import {
     from_what, stone_luck, set_moreluck,
     A_STR, A_INT, A_WIS, A_DEX, A_CON, A_CHA,
 } from './attrib.js';
-import { depth, ing_suffix, strstri, ordin, highc, lcase } from './hacklib.js';
+import { depth, ing_suffix, strstri, strsubst, ordin, highc, lcase } from './hacklib.js';
 import { visctrl } from './dokeylist.js';
 import { select_menu_pick_any, select_menu_pick_one, hide_unhide_msgtypes } from './options.js';
 import { rn2 } from './rng.js';
@@ -4484,18 +4485,21 @@ export async function display_binventory(x, y, as_if_seen) {
     return n + n2;
 }
 
-/** C invent.c cinv_doname :5391–5418 — insert "trapped" before lock word. */
+/** C invent.c cinv_doname :5391–5418 — insert "trapped" before the earlier lock word. */
 function cinv_doname(obj) {
     let result = doname(obj);
-    if (!obj?.otrapped) return result;
-    const p = result.indexOf(' locked');
-    const q = result.indexOf(' unlocked');
+    // C: strlen(result) + sizeof "trapped " <= QBUFSZ (sizeof includes NUL).
+    if (!obj?.otrapped || result.length + 9 > QBUFSZ) return result;
+    const pTail = strstri(result, ' locked');
+    const qTail = strstri(result, ' unlocked');
+    const p = pTail == null ? -1 : result.length - pTail.length;
+    const q = qTail == null ? -1 : result.length - qTail.length;
     if (p >= 0 && (q < 0 || p < q)) {
-        result = result.replace(' locked ', ' trapped locked ');
+        result = result.slice(0, p) + strsubst(pTail, ' locked ', ' trapped locked ');
     } else if (q >= 0) {
-        result = result.replace(' unlocked ', ' trapped unlocked ');
+        result = result.slice(0, q) + strsubst(qTail, ' unlocked ', ' trapped unlocked ');
     }
-    return result.replace('an trapped ', 'a trapped ');
+    return strsubst(result, 'an trapped ', 'a trapped ');
 }
 
 /**

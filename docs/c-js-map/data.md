@@ -1800,6 +1800,12 @@ SHOPTYPE env omit above, only doorct==1 fires);
 **`special_stock`** (D-2867; `shk.c:3103–3144`; candle shop + Candelabrum only; Izchak && `!u.uevent.invoked` horrified/concerned or the keep-it line plus `7 - spe` candles; else "won't stock" or `noit_mhis` + `mbodypart(HEAD)`; `SetVoice` is the live empty macro; caller `sellobj` `shk.c:3994`). The `:3124–3125` candle-attachment remark is a comment.
 **`shkcatch`** (D-2867; `shk.c:4362–4396`; `shop_keeper(inside_shop)` + `inhishop`; helpless / `*u.ushops != shoproom || !inside_shop(u.ux,u.uy)` / `dist2 < 3` / not already there; `mnearto(..., TRUE, RLOC_NOMSG) == 2` then "Out of my way, scum!"; `cansee` nimbly/reaches-over, `map_invisible` when `!canspotmon`, `nh_delay_output`; `subfrombill` + `mpickobj`; caller `zap.c:3886` `bhit` before terrain, `goto bhit_done`). Named: `mark_synch` (`:4389`) is `tty_mark_synch` fflush.
 
+### `src/hacklib.c` `strstri`
+
+JS: `js/hacklib.js` `strstri` — ported
+
+**`strstri`** (D-2877; `hacklib.c:739–779`; `STRSTRI` undefined so this body is compiled; signed `char` nibble tables `TABSIZ` 0x20 then `lowc` window; empty `sub` returns `str`; success is the tail). Callers wired this commit: `attrib.c:330`/`:405`/`:971`/`:974` (`poisoned`, `from_what`), `write.c:139`, `objnam.c:1995`/`:5542`, `dungeon.c:2117`/`:2149`, `uhitm.c:1681`, `invent.c:5407–5408`, `mondata.c:933`/`:1162`. Clones in `attrib.js`, `write.js`, and `strstri_objnam` are gone. Named: `apply.c:1412` (` to\033` strip), `boots_simple_name` (`objnam.c:5561`, still `includes`), `files.c` save-name strip, `read.c:3169–3191` scroll adjectives, and the other sites listed in D-2877.
+
 ### `src/dungeon.c` `level_difficulty` / `deepest_lev_reached`
 
 JS: `js/hacklib.js` — ported

@@ -144,7 +144,7 @@ import {
     VISITED,
     In_V_tower,
 } from './const.js';
-import { builds_up, strsubst, trimspaces } from './hacklib.js';
+import { builds_up, strsubst, trimspaces, strstri } from './hacklib.js';
 import { align_gname } from './roles.js';
 import { altarmask_at } from './pray.js';
 import { is_drawbridge_wall } from './dbridge.js';
@@ -1125,9 +1125,10 @@ export function lev_by_name(nam0) {
     } else {
         /* allow strings like "the oracle level" to find "oracle" */
         if (nam.slice(0, 4).toLowerCase() === 'the ') nam = nam.slice(4);
-        // C: strstri(nam, " level") only when it sits at eos - 6
-        if (nam.length >= 6 && nam.slice(-6).toLowerCase() === ' level') {
-            nam = nam.slice(0, -6);
+        // C dungeon.c:2117 — strstri(" level") and p == eos(nam) - 6.
+        const levelTail = strstri(nam, ' level');
+        if (levelTail != null && levelTail.length === 6) {
+            nam = nam.slice(0, nam.length - 6);
         }
         const low = nam.toLowerCase();
         if (low === 'gehennom' || low === 'hell') {
@@ -1150,9 +1151,10 @@ export function lev_by_name(nam0) {
     } else { /* not a specific level; try branch names */
         let idx = find_branch(nam, null);
         /* "<branch> to Xyzzy" */
+        // C dungeon.c:2149 — strstri(nam, " to ") then find_branch(p + 4).
         if (idx < 0) {
-            const at = nam.toLowerCase().indexOf(' to ');
-            if (at >= 0) idx = find_branch(nam.slice(at + 4), null);
+            const toTail = strstri(nam, ' to ');
+            if (toTail != null) idx = find_branch(toTail.slice(4), null);
         }
         if (idx >= 0) {
             const idxtoo = (idx >> 8) & 0x00FF;
