@@ -1987,39 +1987,70 @@ export async function shrink_glob(obj, expire_time = (game.moves | 0)) {
     }
 }
 
-// C ref: mkobj.c set_corpsenm — stop timers, set id, restart CORPSE/EGG timeouts
-export function set_corpsenm(obj, id) {
-    if (!obj) return;
-    let when = 0;
-    if (obj.timed) {
-        // C: EGG preserves remaining hatch via stop_timer(HATCH_EGG); else clear all
-        if (otypName(obj.otyp) === 'EGG') {
-            when = stop_timer(HATCH_EGG, obj);
-        } else {
-            obj_stop_timers(obj);
-        }
-    }
-    obj.corpsenm = id;
-    const name = otypName(obj.otyp);
-    if (name === 'CORPSE') {
-        start_corpse_timeout(obj);
-        obj.owt = weight(obj);
-    } else if (name === 'FIGURINE') {
-        // C mkobj.c set_corpsenm FIGURINE — attach when typed + carried
-        if (id !== NON_PM && !dead_species(id, true)
-            && figurine_is_carried(obj)) {
-            attach_fig_transform_timeout(obj);
-        }
-        obj.owt = weight(obj);
-    } else if (name === 'EGG') {
-        // C: attach_egg_hatch_timeout when typed + !dead_species; no owt here
-        if (id !== NON_PM && !dead_species(id, true)) {
-            attach_egg_hatch_timeout(obj, when);
-        }
-    } else if (name === 'STATUE' || name === 'TIN') {
-        obj.owt = weight(obj);
-    }
-}
+  /**
+   * C ref: mkobj.c set_corpsenm :1318–1367.
+   * Capture old corpsenm, stop timers (EGG keeps the hatch remainder;
+   * corpse/figurine clear every timer), rescale oeaten when a partly
+   * eaten corpse changes species and cnutrit differs, then set the id
+   * and restart the type's timer / weight.
+   * obj_to_any is the JS object: stop_timer keys object identity.
+   */
+  export function set_corpsenm(obj, id) {
+      // C is NONNULLARG1. A null object returns (C would dereference).
+      if (!obj) return;
+      const old_id = obj.corpsenm | 0;
+      let when = 0;
+      if (obj.timed) {
+          if ((obj.otyp | 0) === EGG) {
+              when = stop_timer(HATCH_EGG, obj);
+          } else {
+              when = 0;
+              obj_stop_timers(obj); /* corpse or figurine */
+          }
+      }
+      /* mkobj.c:1333–1345 — oeaten and cnutrit are unsigned; the product
+         is forced through long so a 16-bit unsigned cannot wrap. A zero
+         old cnutrit is the comment's excluded case (divisor can't be 0
+         when oeaten is set); skip rather than divide by zero. A corpsenm
+         outside the mons table is the same excluded NON_PM case. */
+      if ((obj.otyp | 0) === CORPSE && (obj.oeaten >>> 0) !== 0) {
+          const oldMons = mons(old_id);
+          const newMons = mons(id);
+          const oldNut = oldMons ? (oldMons.cnutrit | 0) : 0;
+          const newNut = newMons ? (newMons.cnutrit | 0) : 0;
+          if (oldMons && newMons && oldNut !== newNut && oldNut !== 0) {
+              obj.oeaten = (Math.trunc(
+                  ((obj.oeaten >>> 0) * newNut) / oldNut,
+              )) >>> 0;
+          }
+      }
+      obj.corpsenm = id;
+      switch (obj.otyp | 0) {
+      case CORPSE:
+          start_corpse_timeout(obj);
+          obj.owt = weight(obj);
+          break;
+      case FIGURINE:
+          /* carried() is where == OBJ_INVENT; mcarried() is OBJ_MINVENT. */
+          if ((obj.corpsenm | 0) !== NON_PM
+              && !dead_species(obj.corpsenm | 0, true)
+              && ((obj.where | 0) === OBJ_INVENT
+                  || (obj.where | 0) === OBJ_MINVENT)) {
+              attach_fig_transform_timeout(obj);
+          }
+          obj.owt = weight(obj);
+          break;
+      case EGG:
+          if ((obj.corpsenm | 0) !== NON_PM
+              && !dead_species(obj.corpsenm | 0, true)) {
+              attach_egg_hatch_timeout(obj, when);
+          }
+          break;
+      default: /* tin, statue, and any other corpsenm carrier */
+          obj.owt = weight(obj);
+          break;
+      }
+  }
 
 // C ref: mkobj.c rider_revival_time
 export function rider_revival_time(body, retry) {

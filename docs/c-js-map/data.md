@@ -303,6 +303,17 @@ JS: `js/mkobj.js` — partial
 corpse timer when `zombify` or either type is `special_corpse`.
 `mklev.c:1932` and `mon.c:626`/`647` pass `mons(mndx)`.
 
+**`set_corpsenm` (D-2818;** C `mkobj.c:1318–1367`). Saves `old_id`, stops
+timers (`EGG` keeps the `HATCH_EGG` remainder; other timed objects clear
+all), rescales `oeaten` by `mons[id].cnutrit / mons[old_id].cnutrit`
+when a partly eaten corpse changes species, then `CORPSE` /
+`FIGURINE` / `EGG` / default `weight`. `obj_to_any` is the object
+itself. A null object returns. A missing `mons` row or a zero old
+`cnutrit` skips the rescale (C's comment excludes both). `FIGURINE`
+uses `where == OBJ_INVENT || OBJ_MINVENT`. `topten.c` `tt_oname` is
+unported (`get_rnd_toptenentry` / RECORD); `mk_tt_object` takes the
+null branch. Medusa `fixup_special` stone-resist retries call it.
+
 Creation/merge/weight subsets; `add_to_buried` (D-0014); 
 `start_corpse_timeout` + `mkcorpstat` `special_corpse` restart (D-0011); 
 **`run_timers`/`start_timer` queue + floor `rot_corpse`** (D-0405; `start_timer` whole body D-2794 — range panic, VERBOSE_TIMER duplicate `impossible`, return TRUE; D-2801 stores `MELT_ICE_AWAY` as timeout_funcs index 8 and `run_timers` calls `melt_ice_away` on the packed long);

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2818 `set_corpsenm` rescales a partly eaten corpse
+
+**C locus:** `nethack-c/upstream/src/mkobj.c:1318–1367` `set_corpsenm`. Save `old_id`. If `timed`, `EGG` takes `stop_timer(HATCH_EGG, obj_to_any(obj))`; otherwise `obj_stop_timers`. If `CORPSE` and `oeaten != 0` and `cnutrit` differs, `oeaten = (unsigned)((long)oeaten * mons[id].cnutrit / mons[old_id].cnutrit)` (`:1333–1345`). Then assign `corpsenm` and switch: `CORPSE` starts the timeout and `weight`; `FIGURINE` attaches when not `NON_PM`, not `dead_species(..., TRUE)`, and `carried || mcarried` (`where == OBJ_INVENT || OBJ_MINVENT`); `EGG` reattaches the saved hatch remainder; default sets `weight`.
+**JS:** `js/mkobj.js` `set_corpsenm` `:1998`. `stop_timer` `:1147`. `obj_stop_timers` `:1123`. `start_corpse_timeout` `:2066` (shifted with this edit; the function is the existing export). `weight` `:295`. Medusa retries `js/mklev.js:2398` and `:2414`.
+**Change:** One `set_corpsenm` in that C order. The rescale uses unsigned `cnutrit` through `Math.trunc` (C's long multiply/divide of positive values). `obj_to_any` stays the object: `stop_timer` keys object identity.
+**Verify:** `node scripts/verify.mjs --fn set_corpsenm` → PASS syntax (2 changed js files: js/mklev.js js/mkobj.js) · PASS rule2 · note hidden (no corpus session blocked at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+**Named:** A null object returns (C is `NONNULLARG1`). A corpsenm outside `mons` or a zero old `cnutrit` skips the rescale (the C comment says `old_id` cannot be `NON_PM` and the divisor cannot be zero when `oeaten` is set).
+**Next:** `hack.c` `weight_cap` (next Open — coverage row).
 ## 2026-09-26 — D-2817 `mount_steed` uses the resistance-aware Hallucination
 
 **C locus:** `nethack-c/upstream/include/youprop.h:116–120` `Hallucination` is `HHallucination && !Halluc_resistance`, and `HHallucination` is `u.uprops[HALLUC].intrinsic`. `steed.c:212–215` `mount_steed` returns false when that macro is set and `!force`. `steed.c:647` `dismount_steed` uses the same macro for the nameless-steed rain line.

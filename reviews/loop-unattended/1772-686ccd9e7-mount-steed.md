@@ -6,7 +6,7 @@
 - Banned grep: 0 hits in the hunk. `imports.mjs --rulecheck` on this SHA: "Rule #2 clean".
 - `imports.mjs --can steed.js` → `polyself.js` `body_part`, `potion.js` `Glib`, `mhitu.js` `Flying`, `pray.js` `Punished`, `apply.js` `m_unleash`, `teleport.js` `teleds`: all `ALREADY`.
 
-**Addressed:** D-2817
+**Addressed:** D-2817 `b05a6b770`
 
 ## Intent vs deliverable
 
