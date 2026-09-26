@@ -90,7 +90,7 @@ import {
 } from './invent.js';
 import { burn_away_slime } from './timeout.js';
 import {
-    get_mattk, mhitm_knockback, mhitm_mgc_atk_negated, mhitm_ad_drst, mhitm_ad_dren, mattackm, rustm,
+    get_mattk, mhitm_knockback, mhitm_mgc_atk_negated, mhitm_ad_drst, mhitm_ad_dren, mhitm_ad_stck, mattackm, rustm,
     could_seduce, failed_grab, SYSOPT_SEDUCE, mon_poly, mondead, erode_armor,
     golemeffects_mm,
     AT_NONE, AT_CLAW, AT_KICK, AT_BITE, AT_STNG, AT_TUCH, AT_BUTT, AT_WEAP,
@@ -166,7 +166,6 @@ const IRON = 11;
 const METAL = 12;
 const PM_BLACK_PUDDING = monsterNames.indexOf('PM_BLACK_PUDDING');
 const PM_BROWN_PUDDING = monsterNames.indexOf('PM_BROWN_PUDDING');
-const PM_BARBED_DEVIL = monsterNames.indexOf('PM_BARBED_DEVIL');
 const PM_PAPER_GOLEM = monsterNames.indexOf('PM_PAPER_GOLEM');
 const PM_STRAW_GOLEM = monsterNames.indexOf('PM_STRAW_GOLEM');
 
@@ -2605,26 +2604,6 @@ async function mhitm_ad_corr_u(mtmp, mattk, mhm) {
 }
 
 /**
- * C ref: uhitm.c mhitm_ad_stck `:3321–3328` — mhitu (monster→you) arm.
- * The mhitm_mgc_atk_negated(FALSE) gate burns first (function top, all
- * three C branches); hitmsg, then stick (set_ustuck) when !negated,
- * hero not already stuck, and hero form lacks sticks(); barbed devils
- * add the barbs line. Damage untouched.
- */
-async function mhitm_ad_stck_u(mtmp, mattk, mhm) {
-    void mhm;
-    const negated = await mhitm_mgc_atk_negated(mtmp, null, false);
-    const pd = game.youmonst?.data;
-    const barbs = (((mtmp.data?.mndx ?? mtmp.mnum) | 0) === PM_BARBED_DEVIL);
-    await hitmsg(mtmp, mattk);
-    const u = game.u || {};
-    if (!negated && !u.ustuck && !sticks(pd)) {
-        set_ustuck(mtmp);
-        if (barbs) await pline('The barbs stick to you!');
-    }
-}
-
-/**
  * C ref: uhitm.c mhitm_ad_plys `:3443–3462` — mhitu (monster→you) arm.
  * hitmsg, then multi >= 0 && !rn2(3) && !mgc_negated(TRUE) (rn2 before
  * the gate per C short-circuit); Free_action stiffens, else freeze with
@@ -3151,7 +3130,9 @@ async function mhitm_adtyping_u(mtmp, mattk, mhm) {
         await mhitm_ad_corr_u(mtmp, mattk, mhm);
         break;
     case AD_STCK:
-        await mhitm_ad_stck_u(mtmp, mattk, mhm);
+        /* C ref: uhitm.c mhitm_adtyping `:4813` → mhitm_ad_stck
+           mhitu arm (mdef is youmonst). */
+        await mhitm_ad_stck(mtmp, mattk, game.youmonst, mhm);
         break;
     case AD_PLYS:
         await mhitm_ad_plys_u(mtmp, mattk, mhm);

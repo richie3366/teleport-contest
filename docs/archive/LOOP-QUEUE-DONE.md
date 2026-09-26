@@ -5,7 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `shk.c` block_entry — coverage MISSING (C 32 L `shk.c:5826–5858` / JS no symbol; hops 3, callers 1, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn block_entry` (reach regression must be 0). Measured `port-coverage.mjs --name block_entry` 2026-09-26 @ adbd6bd68. **Addressed:** D-2854
+- [x] `uhitm.c` mhitm_ad_stck — coverage MISSING (C 26 L `uhitm.c:3306–3334` / JS no symbol; hops 4, callers 1, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mhitm_ad_stck` (reach regression must be 0). Measured `port-coverage.mjs --name mhitm_ad_stck` 2026-09-26 @ adbd6bd68. **Addressed:** D-2855
+- [x] `uhitm.c` nohandglow — coverage MISSING (C 22 L `uhitm.c:6315–6337` / JS no symbol; hops 5, callers 1, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn nohandglow` (reach regression must be 0). Measured `port-coverage.mjs --name nohandglow` 2026-09-26 @ adbd6bd68. **Addressed:** D-2855
+
+
+- [x] `shk.c` block_entry — coverage MISSING (C 32 L `shk.c:5826–5858` / JS no symbol; hops 3, callers 1, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn block_entry` (reach regression must be 0). Measured `port-coverage.mjs --name block_entry` 2026-09-26 @ adbd6bd68. **Addressed:** D-2854 `ddddc6312`
 
 
 - [x] `quest.lua` nemesis speech texts — `nemesis_speaks` calls `qt_pager` with `nemesis_wantsit` / `nemesis_first` / `nemesis_next` / `nemesis_other` / `discourage`, but `QUEST_ROLE_TEXT` (`js/questpgr.js:571–584`) has none of those keys. C's first `com_pager_core(urole.filecode, …)` (`questpgr.c:629–634`) hits the per-role tables (`dat/quest.lua`, Archeologist `discourage` array `:232–242`, `nemesis_first` `:354`). JS misses, retries `"common"`, and so runs `nhl_nhlib_align_shuffle` twice (`rn2(3)`+`rn2(2)` each) and never draws the `discourage` array `rn2(nelems)`. Embed those role tables so the first lookup hits. Source: reviews/loop-unattended/1805-8b1fae943-nemesis-speaks.md **Addressed:** D-2853 `d15d25c20`

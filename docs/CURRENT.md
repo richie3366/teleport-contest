@@ -100,10 +100,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `uhitm.c` `mhitm_ad_stck` — coverage MISSING (first Open — coverage row). Verify `node scripts/verify.mjs --fn mhitm_ad_stck` (reach regression must be 0).
+**Next cluster:** `mhitm.c` `pre_mm_attack` — coverage THIN (next Open — coverage row after `mhitm_ad_stck` / `nohandglow`). Verify `node scripts/verify.mjs --fn pre_mm_attack` (reach regression must be 0).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2854 (index).**
+**Keep D-0845…D-2855 (index).**
 <!-- recent:begin -->
+**D-2855** `nethack-c/upstream/src/uhitm.c:3306–3334` `mhitm_ad_stck`. Callees `mhitm_mgc_atk_negated — One `mhitm_ad_stck` in that C order.
 **D-2854** `nethack-c/upstream/src/shk.c:5826–5858` `block_entry`. Callees `in_rooms` (`hack.c:3497`, — One `block_entry` in that C order.
 **D-2853** `nethack-c/upstream/dat/quest.lua` role tables (Archeologist `discourage` `:232–242`, `nem — `scripts/extract-quest-nemesis.py` embeds those five keys from `quest.lua` into `js/generated/quest_nemesis_speech.js` (13 roles; Arc `discourage` is 10 strings, byte-checked against the lua).
 **D-2852** `nethack-c/upstream/src/mkobj.c:1473–1491` `start_glob_timeout`. Callees `impossible` (`pl — One `start_glob_timeout` in that C order.
@@ -111,11 +112,10 @@ revisits the picker.
 **D-2850** `nethack-c/upstream/src/vision.c:274–299` `get_unused_cs`. No C callees (`memset` of `ROWN — One `get_unused_cs` in that C order.
 **D-2849** `nethack-c/upstream/src/spell.c:189–207` `confused_book`. Callees `rn2` (`rnd.c`, live `js — One `confused_book` in that C order.
 **D-2848** `nethack-c/upstream/src/trap.c:7059–7095` `maybe_finish_sokoban`. Callees `livelog_printf` — One `maybe_finish_sokoban` in that C order.
-**D-2847** `nethack-c/upstream/src/botl.c:2090–2125` `exp_percent_changing`. Callees `exp_percentage` — One `exp_percent_changing` in that C order.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2854; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2855; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

@@ -146,6 +146,7 @@ import { update_inventory } from './invent.js';
 import { bury_an_obj } from './dig.js';
 import { is_pole, is_weptool } from './wield.js';
 import { mswings_verb, Conflict, unstuck, set_ustuck, digests, hitmsg } from './mhitu.js';
+import { sticks } from './engrave.js';
 import { mon_offmap, set_apparxy, mb_trapped, itsstuck } from './monmove.js';
 import { hurtle, mhurtle, will_hurtle } from './dothrow.js';
 import { make_stunned } from './potion.js';
@@ -245,6 +246,7 @@ const PM_SILVER_DRAGON = monsterNames.indexOf('PM_SILVER_DRAGON');
 const PM_CHROMATIC_DRAGON = monsterNames.indexOf('PM_CHROMATIC_DRAGON');
 const PM_MEDUSA = monsterNames.indexOf('PM_MEDUSA');
 const PM_ARCHON = monsterNames.indexOf('PM_ARCHON');
+const PM_BARBED_DEVIL = monsterNames.indexOf('PM_BARBED_DEVIL');
 const SHIELD_OF_REFLECTION = objectNames.indexOf('SHIELD_OF_REFLECTION');
 const AMULET_OF_REFLECTION = objectNames.indexOf('AMULET_OF_REFLECTION');
 const SILVER_DRAGON_SCALES = objectNames.indexOf('SILVER_DRAGON_SCALES');
@@ -1898,6 +1900,45 @@ export async function mhitm_ad_drst(magr, mattk, mdef, mhm) {
     } else if (!negated && !rn2(8)) {
         /* mhitm — C :3161–3164 */
         await mhitm_really_poison(magr, mattk, mdef, mhm);
+    }
+}
+
+/**
+ * C ref: uhitm.c mhitm_ad_stck `:3306–3334` — all three arms, in C order.
+ * Gate is mhitm_mgc_atk_negated(FALSE): rn2(10) unless the attacker is
+ * cancelled, and a youmonst defender is passed as null (hero MC).
+ * uhitm sticks the defender when adjacent and the form does not already
+ * stick. mhitu prints hitmsg then sticks the attacker unless the hero
+ * is already held or the hero form sticks. mhitm only zeroes leftover
+ * dice when the attack is negated. Barbed devil adds the barbs line.
+ * sticks is mondata.c:653 (engrave.js export; AT_HUGS=7 / AT_ENGL=11).
+ */
+export async function mhitm_ad_stck(magr, mattk, mdef, mhm) {
+    /* C :3309 — FALSE: no "avoids harm" pline. */
+    const negated = await mhitm_mgc_atk_negated(
+        magr, is_youmonst(mdef) ? null : mdef, false,
+    );
+    const pd = is_youmonst(mdef) ? game.youmonst?.data : mdef?.data;
+    /* C :3311 — magr->data == &mons[PM_BARBED_DEVIL]. */
+    const barbs = ((magr?.data?.mndx ?? magr?.mnum) | 0) === PM_BARBED_DEVIL;
+
+    if (is_youmonst(magr)) {
+        /* uhitm — C :3313–3318. Leftover d() stays. */
+        if (!negated && !sticks(pd) && m_next2u_mm(mdef)) {
+            set_ustuck(mdef);
+            if (barbs) await Your('barbs stick to %s!', y_monnam(mdef));
+        }
+    } else if (is_youmonst(mdef)) {
+        /* mhitu — C :3320–3328. Leftover d() stays for mdamageu. */
+        await hitmsg(magr, mattk);
+        const u = game.u || {};
+        if (!negated && !u.ustuck && !sticks(pd)) {
+            set_ustuck(magr);
+            if (barbs) await pline('The barbs stick to you!');
+        }
+    } else if (negated) {
+        /* mhitm — C :3330–3332. Un-negated dice stand. */
+        mhm.damage = 0;
     }
 }
 
@@ -4368,8 +4409,19 @@ async function mdamagem(magr, mdef, mattk, mwep, dieroll) {
         }
     }
 
-    if (mattk.adtyp === AD_STCK) {
-        damage = 0;
+    /* C: mhitm_adtyping `:4813` → mhitm_ad_stck. The mhitm arm zeroes
+       leftover only when negated; otherwise the opening d() stands.
+       Knockback + HP stay the shared tail (adtyp ≠ PHYS, so knockback
+       returns after its two rolls). */
+    if ((mattk.adtyp | 0) === AD_STCK) {
+        const mhm = {
+            damage,
+            hitflags: M_ATTK_MISS,
+            done: false,
+        };
+        await mhitm_ad_stck(magr, mattk, mdef, mhm);
+        damage = mhm.damage | 0;
+        hitflags = mhm.hitflags | 0;
     }
 
     // C: mhitm_adtyping → mhitm_ad_poly for AD_POLY (D-1006)
