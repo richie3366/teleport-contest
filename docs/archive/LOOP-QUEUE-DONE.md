@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `timeout.c` fall_asleep — coverage THIN (C 23 L `timeout.c:951–974` / JS 9 L in js/hack.js; hops 1, callers 10, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn fall_asleep` (reach regression must be 0). Measured `port-coverage.mjs --name fall_asleep` 2026-09-26 @ ae37117bd. **Addressed:** D-2859
+- [x] `potion.c` peffect_oil — coverage THIN (C 34 L `potion.c:1260–1294` / JS 13 L in js/potion.js; hops 4, callers 1, RNG 1, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn peffect_oil` (reach regression must be 0). Measured `port-coverage.mjs --name peffect_oil` 2026-09-26 @ ae37117bd. **Addressed:** D-2860
+
+
+- [x] `timeout.c` fall_asleep — coverage THIN (C 23 L `timeout.c:951–974` / JS 9 L in js/hack.js; hops 1, callers 10, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn fall_asleep` (reach regression must be 0). Measured `port-coverage.mjs --name fall_asleep` 2026-09-26 @ ae37117bd. **Addressed:** D-2859 `41bf49099`
 
 
 - [x] `botl.c` status_initialize — coverage MISSING (C 36 L `botl.c:1683–1720` / JS no symbol; hops 3, callers 4, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn status_initialize` (reach regression must be 0). Measured `port-coverage.mjs --name status_initialize` 2026-09-26 @ ae37117bd. **Addressed:** D-2858 `d2761e4d9`

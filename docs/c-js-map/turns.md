@@ -488,7 +488,7 @@ throne/beehive/morgue/barracks/court You_hear plines still named); \
 
 JS: `js/potion.js` — partial
 
-**`dodrink`/`dopotion`/`peffect_oil`** uncursed/cursed unlit (D-0073); 
+**`peffect_oil`** whole body (D-2860; C `potion.c:1260–1294`; lit `likes_fire` refreshing / else `You` burn `body_part(FACE)` then `d(!Fire_resistance || Cold_resistance ? 4 : 2, 4)` `losehp` KILLED_BY then `burn_away_slime`; unlit cursed castor oil / else smooth; `exercise(A_WIS, good_for_you)`; flats OR `uprops[FIRE_RES|COLD_RES]` because `confer_oc_oprop` does not mirror `EFire_resistance`; caller `peffects` `potion.c:1412`; unlit messages D-0073); 
 **`dodrink` fountain yn→`drinkfountain`** (D-0237); **`dodrink` sink yn→`drinksink`** (D-0434);
 **`dodrink` Strangled gate + underwater yn + worn split + milky/smoky occupant + `ghost_from_bottle`** (D-2031; `objdescr_is` imported from apply.js, `remove_worn_item` from steal.js); 
 **`rhack` `q` gates move on `ECMD_TIME` only** (D-0280; `ECMD_CANCEL` must not spend a turn); 
@@ -606,7 +606,7 @@ C-commented GAIN_LEVEL/ENERGY/LEV/FRUIT/DETECT/OIL named);
 drink_ok_extra "else " deferred); omit other `peffect_*` (gain ability/hallucination), Strangled, 
 drink underwater, **`djinni_from_bottle`** BUC chance + `mongrantswish`/tame/peace/vanish/hostile + 
 MAGIC_LAMP `#rub` wire (D-1144; dodrink smoky occupant chance still named); 
-milky/smoky bottles, lit-oil burn, worn-stack split, **`potion_dip` potion-potion `mixtype`** 
+milky/smoky bottles, worn-stack split, **`potion_dip` potion-potion `mixtype`** 
 (D-1457; Klein/hands/H2O/poly gate) + **`potion_dip` unicorn/amethyst mixtype dip** (D-1486) + 
 **`potion_dip` poison-coat / healing unpoison** (D-1497; `is_poisonable` missile window or 
 Grimtooth) + **`potion_dip` oil/lamp** (D-1498; lit `fire_damage` / cursed `make_glib` /
