@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2900 — `m_move_aggress` stamps the struck square before each blow
+
+- **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked). C is 29 lines; the whole body shipped.
+- **Symptom:** A monster stepping onto another monster, or onto the hero's displaced image, attacked without recording the square. A long-worm tail was treated as the head. A priest or shopkeeper who chose an occupied square skipped the attack and tried to walk through it.
+- **C locus:** `nethack-c/upstream/src/monmove.c:2088–2117` `m_move_aggress`. `m_at(x, y)` when set writes `gb.bhitpos` to that square and `gn.notonhead` when it is not the defender's `(mx, my)`, then `mattackm`. `M_ATTK_AGR_DIED` or `DEADMONSTER` (`mhp < 1`, `monst.h:214`) returns `MMOVE_DIED`. A hit that did not kill the defender, `rn2(4)`, and `movement > rn2(NORMAL_SPEED)` spends `NORMAL_SPEED` or zeroes movement, sets `bhitpos` to the mover and `notonhead` to false, and the defender strikes back. That defender's death returns `MMOVE_DIED`. Otherwise `MMOVE_DONE`. An empty square never draws RNG.
+- **JS was:** A 16-line local (`js/monmove.js`) called `mattackm` with the previous `bhitpos` / `notonhead` and guarded the counterattack with an extra `mtmp2 &&`. `move_special` (`js/shk.js`) named the `ALLOW_M` arm and fell through to the occupied-square return.
+- **Fix:** One exported `m_move_aggress` in that C order, including both `bhitpos` / `notonhead` stores. `move_special` translates `MMOVE_DIED` (2) to -2 and `MMOVE_DONE` (3) to 1, matching `priest.c:112–117`, then falls through only for any other return.
+- **JS:** `js/monmove.js` `m_move_aggress` `:1788`, `m_at` `:1790`, struck-square `bhitpos` `:1794`, `notonhead` `:1797`, `mattackm` `:1799`, aggressor death `:1803`, `rn2(4)` / `rn2(NORMAL_SPEED)` `:1809–1810`, movement spend `:1811–1814`, return-attack `bhitpos` `:1817`, `notonhead` false `:1819`, return `mattackm` `:1820`, defender death `:1822`, `MMOVE_DONE` `:1824`. `js/shk.js` `move_special` ALLOW_M `:4382`, switch `:4386`.
+- **Callers:** `monmove.c:2023` `m_move` → `js/monmove.js:2163`. `priest.c:112` `move_special` → `js/shk.js:4386` (callers `shk.c:4987` `shk_move` → `js/shk.js:4527`, `priest.c:215` `pri_move` → `js/shk.js:4608`). `extern.h:1947` declares it and does not call it. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn m_move_aggress` → PASS syntax (2 changed js files: js/monmove.js js/shk.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+- **Named omissions:** No arm of `m_move_aggress` is omitted. `mattackm` still continues a later blow when `m_at(mdef.mx, mdef.my) !== mdef` (`js/mhitm.js:6138`) rather than `m_at(gb.bhitpos.x, gb.bhitpos.y)` (`mhitm.c:379`). `notonhead` is read by the tentacle and `failed_grab` arms. `move_special`'s non-attack step still assigns `mx`/`my` without `remove_monster` / `place_monster` (`priest.c:122–126`); the `#if 0` pickup (`:127–135`) stays compiled out.
+- **Next:** `dbridge.c` `e_missed` (next Open — coverage row). Eight Open — coverage rows remain after archive, at the floor of 8, so nothing was refilled. The queue-empty overlay did not match the live queue (nine coverage rows were open).
+
 ## D-2899 — `can_do_extcmd` honors a cmd_before callback and the bind list
 
 - **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked). Same-file `cmd_from_func` shipped with it.

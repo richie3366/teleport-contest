@@ -2923,7 +2923,7 @@ throw_obj full `weapon_skills` table / full `movecmd` bind table (crossbow gate 
 boulder/statue fracture; hero shop billing with eshk `break_seq`/`seq_peaceful` + `stolen_value` + 
 `inside_shop` angry gate); throwit `:1780–1792` land arm wired (flash/breakmsg/breakobj + 
 VENOM_CLASS force-break); callers do.c:352/toss_up ×2/throwit/hero_breaks/breaks wired; 
-**`fracture_rock` whole body C-order** (zap.c `:5536–5578` in `js/dig.js`: shop `billable`/`You`/`breakobj`, `sokoban_guilt` while still a boulder, `dealloc_oextra`, floor restack + `unblock_point`/`vision_recalc` only when `!does_block`); callers dig/explode/mklev/trap/bhito/break_statue/`poly_obj` pool arm/`m_break_boulder`/`move_special` wired; shop-anger bill after `poly_obj` (`zap.c:1965–1986`) and `move_special` `m_move_aggress` still named;
+**`fracture_rock` whole body C-order** (zap.c `:5536–5578` in `js/dig.js`: shop `billable`/`You`/`breakobj`, `sokoban_guilt` while still a boulder, `dealloc_oextra`, floor restack + `unblock_point`/`vision_recalc` only when `!does_block`); callers dig/explode/mklev/trap/bhito/break_statue/`poly_obj` pool arm/`m_break_boulder`/`move_special` wired; shop-anger bill after `poly_obj` (`zap.c:1965–1986`); `move_special` ALLOW_M calls `m_move_aggress` (D-2900);
 **`return_throw_to_inv` whole body C-order D-2656** (C `:1852–1909`: objsplit parent/child unsplit arm via live `unsplitobj` + where-gate relink, nomerge `addinv_before_throw`, autoquiver clear, W_WEP/SWAPWEP/QUIVER re-wield, twoweap reinstate, encumber_msg; callers throwit `:1587`/`:1608` wired js/dothrow.js:2348/:2374);
 **`walk_path` whole Bresenham body live js/dothrow.js:2793** (D-2656 stale park: both dx<dy arms, early-exit dest rewrite; check_jump ×2 + spell_aim_step wired; hurtle/mhurtle async-manual-drive per D-1038, hurtle_jump always-true stub named in `jump` doc)
 
@@ -3049,7 +3049,7 @@ dochug geometry); **S_LEPRECHAUN findgold arm D-1798** in want_move OR;
 **`m_balks_at_approaching`** launcher/pole/aklys/`ranged_attk_available` + `appr==-2` (D-0253; 
 `m_seenres` in ranged_attk wired D-2685); shortsighted / wired `m_avoid_kicked_loc` / **`m_move` 
 post-select `chi` + `itsstuck` + `ALLOW_U`→mux + 
-`nix==mux`→`m_move_aggress` (empty image → DONE)** (D-0790; 
+`nix==mux`→`m_move_aggress` (empty image → DONE; `bhitpos`/`notonhead` before each `mattackm`, D-2900; `mattackm` gone-target continue still uses the defender head at `js/mhitm.js:6138` rather than `gb.bhitpos` `mhitm.c:379`)** (D-0790; 
 **`mdisplacem` swap + `update_monster_region` both after defender tail (D-1174)** / 
 `should_displace` prefer / `m_can_break_boulder` / region can_enter / `mfndpos` MON_AT `mm_aggression`/`mm_displacement` (D-2409)); **`mfndpos` door amorphous-engulfing arm + fixed-tele-track `ALLOW_TRAPS` (D-1868;
 door `can_fog` wired D-2428, corrupt-ttyp impossible still named)**; **D-0794/D-0796 fixed:** seed0360 leftover apprentice was missing `HASTE_SELF` 
@@ -4130,7 +4130,7 @@ Conflict chase** (D-0604); **`intemple`/`findpriest`/`temple_occupied`/`has_shri
 MS_PRIEST `priest_talk` deferred); **`fix_shop_damage` catchup + `repair_damage`** (D-1178; 
 `goto_level` `!new`; allmain/bones callers still named); **`shk_fixes_damage` + `find_damage`** (D-2591; 
 `shk_move` `:4892–4893` inhishop gate wired; unconditional unlink); omit holetime dig follow 
-(file-local mirror); **D-2560:** `shk_move` following customer/followmsg verbalize + `rile_shk` + Displaced `Your` + `resist_conflict`/`m_canseeu`/`Fast`+`sobj_at` arms live, `after_shk_move` wired (its `check_special_room` stays named); `m_break_boulder`/`m_move_aggress`; 
+(file-local mirror); **D-2560:** `shk_move` following customer/followmsg verbalize + `rile_shk` + Displaced `Your` + `resist_conflict`/`m_canseeu`/`Fast`+`sobj_at` arms live, `after_shk_move` wired (its `check_special_room` stays named); `m_break_boulder` live; `move_special` ALLOW_M calls `m_move_aggress` (D-2900); 
 `after_shk_move` bill_p; **D-0447:** `costly_spot`/`getprice`/`get_cost`/`billable`/`add_one_tobill`
 /`addtobill`/`append_honorific` + `pick_obj` robshop; 
 **D-0448:** `dopay`/`menu_pick_pay_items`/`dopayobj`/`pay`→`money2mon`/`splitobj` `next_ident` + 

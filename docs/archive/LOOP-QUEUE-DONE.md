@@ -5,8 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `cmd.c` can_do_extcmd — coverage PARTIAL (C 26 L `cmd.c:463–489` / JS 17 L in js/cmd.js; hops 1, callers 3, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn can_do_extcmd` (reach regression must be 0). Measured `port-coverage.mjs --name can_do_extcmd` 2026-09-26 @ 149143cd5. **Addressed:** D-2899
-- [x] `cmd.c` cmd_from_func — coverage PARTIAL (C 30 L `cmd.c:3036–3066` / JS 19 L in js/dokeylist.js; hops 1, callers 43, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn cmd_from_func` (reach regression must be 0). Measured `port-coverage.mjs --name cmd_from_func` 2026-09-26 @ e24078a71. **Addressed:** D-2899
+- [x] `monmove.c` m_move_aggress — coverage PARTIAL (C 29 L `monmove.c:2088–2117` / JS 16 L in js/monmove.js; hops 2, callers 2, RNG 2, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn m_move_aggress` (reach regression must be 0). Measured `port-coverage.mjs --name m_move_aggress` 2026-09-26 @ 149143cd5. **Addressed:** D-2900
+
+
+- [x] `cmd.c` can_do_extcmd — coverage PARTIAL (C 26 L `cmd.c:463–489` / JS 17 L in js/cmd.js; hops 1, callers 3, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn can_do_extcmd` (reach regression must be 0). Measured `port-coverage.mjs --name can_do_extcmd` 2026-09-26 @ 149143cd5. **Addressed:** D-2899 `9cb813fe5`
+- [x] `cmd.c` cmd_from_func — coverage PARTIAL (C 30 L `cmd.c:3036–3066` / JS 19 L in js/dokeylist.js; hops 1, callers 43, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn cmd_from_func` (reach regression must be 0). Measured `port-coverage.mjs --name cmd_from_func` 2026-09-26 @ e24078a71. **Addressed:** D-2899 `9cb813fe5`
 
 
 - [x] `sp_lev.c` `flip_visuals` — the wall / `SDOOR` arm reads and writes `lev.glyph` (`js/mklev.js`). `makeLocation()` has no `glyph` field; `levl[x][y].glyph` is `remembered_glyph.glyph`, and `show_memory_glyph` paints `remembered_glyph.ch`. `glyph_is_cmap(undefined)` is false, so `back_to_glyph` never runs (`sp_lev.c:489–493`). Test the memory id and store the rebuilt cmap the way `map_background` does (`remember_shown_glyph`). Source: reviews/loop-unattended/1848-ef40ca579-flip-visuals.md **Addressed:** D-2898 `93cce8666`

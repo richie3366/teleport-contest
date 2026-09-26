@@ -25,7 +25,7 @@
 //        shopper_financial_report / shop_debt (D-1740).
 // Named omissions: allmain/bones fix_shop_damage callers;
 // holetime dig follow;
-// m_move_aggress; inhistemple callers; mapseen_temple;
+// inhistemple callers; mapseen_temple;
 // ACH_SHOP mapseen;
 // remaining SetVoice pick_pick / kops / pay-bill;
 // mongone full;
@@ -4307,7 +4307,7 @@ function onlineu(xx, yy) {
 
 /**
  * C ref: priest.c move_special — shared shk/priest step picker.
- * Returns 1 moved, 0 didn't, -2 died. (m_move_aggress still named.)
+ * Returns 1 moved, 0 didn't, -2 died.
  * Lazy-imports mon.js helpers to avoid mon→monmove→shk→mon cycle.
  */
 export async function move_special(mtmp, in_his_shop, appr, uondoor, avoid,
@@ -4379,8 +4379,17 @@ export async function move_special(mtmp, in_his_shop, appr, uondoor, avoid,
             const { m_break_boulder } = await import('./monmove.js');
             await m_break_boulder(mtmp, nix, niy);
             return 1;
+        } else if (ninfo & ALLOW_M) {
+            /* C priest.c:108–118 — m_move_aggress returns MMOVE_DIED (2)
+             * or MMOVE_DONE (3), which are not this function's 1/0/-2. */
+            const { m_move_aggress } = await import('./monmove.js');
+            switch (await m_move_aggress(mtmp, nix, niy)) {
+            case 2:
+                return -2; /* died making the attack */
+            case 3:
+                return 1; /* attacked and spent this move */
+            }
         }
-        // C `:108–118` m_move_aggress still named.
         if (m_at(nix, niy) || u_at(nix, niy)) return 0;
         if (!isok(nix, niy)) return 0;
         mtmp.mx = nix;
