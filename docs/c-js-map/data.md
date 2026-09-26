@@ -1387,7 +1387,7 @@ double-fail `HFire_resistance`/`HWwalking` TIMEOUT 5 →burn_stuff,
 `rescued_from_terrain` + `spoteffects(FALSE)` TRUE; `Fire+!Wwalking+!trapped`
 sink (`rn1` short-circuit, `set_utrap`, `monstseesu`, `losehp`); burn_stuff
 `destroy_items(AD_FIRE)` + `ignite_items`. Named: none new (`sink_into_lava`
-not called by C here). **`Wwalking` live re-read** (D-1918): post-boots
+not called by C here). **`rescued_from_terrain` whole body** (D-2829; C `trap.c:5014–5055` — DROWNING pool says "in the midst" on `Is_waterlevel` or `IS_WATERWALL`, else "on top", else `IS_AIR` is "an air bubble" or "mid air"; BURNING and DISSOLVED share the pool "in"/"on" arm then lava; otherwise `back_on_ground(TRUE)`; then `last_msg`, `update_lastseentyp`, and `prev_decor`. `js/trap.js:2951`. Callers: `drown` `js/trap.js:6436`, `lava_effects` `js/trap.js:6666`, `fix_worst_trouble` `js/pray.js:673`. Named: a missing level cell uses typ 0). **`Wwalking` live re-read** (D-1918): post-boots
 `if (Wwalking)` / sink `else if (!Wwalking…)` / countermeasure `if (!Wwalking)`
 re-read the macro via `liveWwalking()` (boots burst clears the slot through
 `Boots_off`); entry snapshot kept for entry `usurvive` + the flag loop.

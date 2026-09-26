@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `mcastu.c` mcast_insects — coverage PARTIAL (C 81 L `mcastu.c:645–726` / JS 58 L in js/mcastu.js; hops 3, callers 1, RNG 1, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mcast_insects` (reach regression must be 0). Measured `port-coverage.mjs --name mcast_insects` 2026-09-26 @ 678f36702. **Addressed:** D-2828
+- [x] `trap.c` rescued_from_terrain — coverage PARTIAL (C 41 L `trap.c:5014–5055` / JS 25 L in js/trap.js; hops 3, callers 3, RNG 0, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn rescued_from_terrain` (reach regression must be 0). Measured `port-coverage.mjs --name rescued_from_terrain` 2026-09-26 @ 678f36702. **Addressed:** D-2829
+
+
+- [x] `mcastu.c` mcast_insects — coverage PARTIAL (C 81 L `mcastu.c:645–726` / JS 58 L in js/mcastu.js; hops 3, callers 1, RNG 1, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mcast_insects` (reach regression must be 0). Measured `port-coverage.mjs --name mcast_insects` 2026-09-26 @ 678f36702. **Addressed:** D-2828 `4d4432b8f`
 
 
 - [x] `hack.c` `inv_weight` — missing arm: C `hack.c:4359–4360` `otyp != BOULDER || !throws_rocks(youmonst.data)` absent from `js/invent.js:1117` (non-coin arm always adds `owt`). `hurtle_step` (`dothrow.c:826`, D-2819) sums `inv_weight()+weight_cap()`, so a rock-thrower counts boulder weight C skips. Verify `node scripts/verify.mjs --fn inv_weight`. Source: reviews/loop-unattended/1778-678f36702-weight-cap.md **Addressed:** D-2827 `f5cea8a9c`

@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2829 — `rescued_from_terrain` names the landing spot in C order
+
+- **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** A drowning rescue always said "on top of water", including on the Plane of Water and on a water wall. An air or cloud landing used `back_on_ground` instead of "an air bubble" or "mid air". When a terrain line was given, `last_msg` stayed unset, so `describe_decor` could add a second back-on-ground line, and `prev_decor` was never stored from `lastseentyp`.
+- **C locus:** `nethack-c/upstream/src/trap.c:5014–5055` `rescued_from_terrain`. `DROWNING` plus `is_pool` says "in the midst" when `Is_waterlevel(&u.uz) || IS_WATERWALL(lev->typ)`, else "on top", of `hliquid("water")` (`:5022–5027`). Else `IS_AIR` says "an air bubble" on the water level, else "mid air" (`:5028–5032`). `BURNING` falls through to `DISSOLVED`: a pool is "in" when `u.uinwater`, else "on"; else lava is "on top of" `hliquid("molten lava")` (`:5035–5043`). Any other `how`, or a spot that matches none of those, calls `back_on_ground(TRUE)` (`:5049–5050`). Then `iflags.last_msg = PLNMSG_BACK_ON_GROUND`, `update_lastseentyp(u.ux, u.uy)`, and `iflags.prev_decor = svl.lastseentyp[u.ux][u.uy]` (`:5052–5055`).
+- **JS was:** `js/trap.js` `rescued_from_terrain` `pline`d "on top of water" for every drowning pool, had no air arm, and returned after `back_on_ground` without setting `last_msg` on the message arms or calling `update_lastseentyp`.
+- **Fix:** One `rescued_from_terrain` in that C order. The messages go through `You`. `IS_WATERWALL` and `update_lastseentyp` join the imports this file already has (`imports.mjs --can`: ALREADY, no new edge).
+- **JS:** `js/trap.js:2951` `rescued_from_terrain` (through `:2998`). `IS_WATERWALL` import `:70`. `update_lastseentyp` import `:121`. `You` is the existing `js/display.js:7669` export. `hliquid` is `js/do_name.js:373`. `back_on_ground` is `js/trap.js:2913`.
+- **Callers:** `pray.c:401` `fix_worst_trouble` `TROUBLE_LAVA` → `js/pray.js:673` (`DISSOLVED`). `trap.c:5197` `drown` → `js/trap.js:6436` (`DROWNING`). `trap.c:6957` `lava_effects` → `js/trap.js:6666` (`BURNING`). Those are the only three C references. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn rescued_from_terrain` → PASS syntax (1 changed js file: js/trap.js) · PASS rule2 · note hidden (no corpus session blocked at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) · VERIFY: PASS.
+- **Named omissions:** A missing level cell uses typ 0 (C would dereference `levl[u.ux][u.uy]`). A missing `game.u` is a local object, so the position is `(0, 0)`. A missing `game.iflags` is created before `last_msg` and `prev_decor` are stored.
+- **Next:** `teleport.c` `random_teleport_level` (next Open — coverage row). `--rows 5` was the never-re-pop Stale head, not pasted. Five later measured MISSING `options.c` parsers (`optfn_sortloot`, `optfn_runmode`, `optfn_pickup_types`, `optfn_scores`, `optfn_boulder`) are appended. Coverage queue is 12.
+
 ## D-2828 — `mcast_insects` summons in C order and reports through `pline_mon`
 
 - **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked).
