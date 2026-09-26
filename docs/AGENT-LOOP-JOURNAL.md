@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2857 `unplacebc_core` lifts the ball and chain before the map update
+
+**C locus:** `nethack-c/upstream/src/ball.c:147–177` `unplacebc_core`. Callees `Is_waterlevel` (`dungeon.h`, live `js/const.js`), `carried` (`obj.h:332` `where == OBJ_INVENT`), `obj_extract_self` (`mkobj.c:2556`, live `js/mkobj.js:3476`), `Blind` (`youprop.h:103`, file-local `Blind_bc`), `maybe_unhide_at` (`mon.c:4698`, live `js/monmove.js:1347`), `newsym` (`display.c`, live `js/display.js:5104`). Calls: `unplacebc` `ball.c:218`, `unplacebc_and_covet_placebc` `ball.c:230`. `ball.c:14` is the static declaration. `ball.c:302` and `:321` are the `BREADCRUMBS` wrappers; `config.h:644` leaves that macro undefined.
+**JS:** `js/ball.js` `unplacebc_core` `:449`, `maybe_unhide_at` `:471` and `:477`, `newsym` `:472` and `:478`, `unplacebc` `:486`, core call `:491`, covet core call `:521`. Import `js/ball.js:51`.
+**Change:** One `unplacebc_core` in that C order. Swallowed: the water level still extracts a ball that is not `OBJ_INVENT` and always extracts the chain, then returns before vision. Otherwise the same `where` test extracts the ball, a felt `BC_BALL` restores `u.bglyph` through `set_levl_glyph`, then `maybe_unhide_at` and `newsym`.
+**Verify:** `node scripts/verify.mjs --fn unplacebc_core` → PASS syntax (7 changed js files: js/ball.js js/do.js js/mhitu.js js/shk.js js/teleport.js js/trap.js js/wizcmds.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+**Named:** A null ball or chain returns; C would dereference it. `maybe_unhide_at` still skips the hero `u_at` / `u.uundetected` arm (`mon.c:4706–4709`).
+**Next:** `botl.c` `status_initialize` (next Open — coverage row). Eight Open — coverage rows remain after archive, at the floor of 8, so nothing was refilled.
 ## 2026-09-26 — D-2856 `pre_mm_attack` unhides both monsters before the blow
 
 **C locus:** `nethack-c/upstream/src/mhitm.c:41–72` `pre_mm_attack`. Callees `seemimic` (`mon.c`, live `js/mon.js:1178`), `M_AP_TYPE` (`monst.h:73`, live `js/const.js:3218`), `canspotmon` (`display.c`, live `js/display.js:1366`), `map_invisible` (`display.c`, live `js/display.js:1374`), `newsym` (`display.c`, live `js/display.js:5104`). `gv.vis` is the file-local `_mm_vis` set in `mattackm`. Calls: `missmm` `mhitm.c:81`, `hitmm` `mhitm.c:657`. `mhitm.c:13` is the static declaration. `mhitm.c:745` is a comment inside `gazemm`, not a call.

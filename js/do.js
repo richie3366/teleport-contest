@@ -1573,7 +1573,7 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     // C: do.c goto_level — Punished unplacebc before savelev so ball&chain
     // are not left on the departing floor (D-0915).
     // C: Punished ≡ (uball != 0)
-    if (u.uball || u.Punished) unplacebc();
+    if (u.uball || u.Punished) await unplacebc();
     // C: reset_utrap / fill_pit / set_ustuck / u.uundetected still named.
     // set_uinwater(0) (D-1267; C do.c:1621). Same-value is a no-op.
     await set_uinwater(0);

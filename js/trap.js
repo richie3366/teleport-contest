@@ -2296,7 +2296,7 @@ async function trapeffect_pit(mtmp, trap, trflags) {
             // && !carried(uball): unplacebc, ballfall, placebc
             // (D-1778 / D-1786). Never sticky u.Punished.
             if (game.u?.uball && !carried(game.u?.uball)) {
-                unplacebc();
+                await unplacebc();
                 await ballfall();
                 await placebc();
             }
@@ -6420,7 +6420,7 @@ export async function drown() {
             }
         }
         if (u.uball) {
-            unplacebc();
+            await unplacebc();
             await placebc();
         }
         vision_recalc(2); /* unsee old position */

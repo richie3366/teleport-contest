@@ -558,8 +558,17 @@ D-1777** — C `move_bc` `:436–556` / `unplacebc_core` `:146–177`;
 `levl_glyph_at` snapshots and `set_levl_glyph` writes back
 (`levl[x][y].glyph = u.bglyph`); `movobj` exported from `js/hack.js`
 (C `hack.c:824`) instead of a second inline extract+place;
-`Is_waterlevel` swallow arm live; named: `maybe_unhide_at`
-(sync callers); unplacebc's restriction `impossible` stays out);
+`Is_waterlevel` swallow arm live);
+**`unplacebc_core` D-2857** (C `ball.c:147–177` → `js/ball.js`
+`unplacebc_core`: swallow returns after the water-level extract;
+`!carried` is `where == OBJ_INVENT`; Blind `bc_felt` restores
+`bglyph`/`cglyph` via `set_levl_glyph`; `maybe_unhide_at` then
+`newsym`; `bc_felt = 0`. Callers: `unplacebc` `ball.c:218` checks
+`bcrestriction` then the core; `unplacebc_and_covet_placebc`
+`ball.c:230` awaits the core after `rnd(400)`. `BREADCRUMBS`
+`Unplacebc` `:302` and `Unplacebc_and_covet_placebc` `:321` stay
+compiled out. Named: null ball/chain returns; `maybe_unhide_at`'s
+hero `u_at` arm stays that callee's omit);
 **`placebc_core` D-2840** (C `ball.c:120–144`: `flooreffects` on the
 chain, then on a ball whose `where` is not `OBJ_INVENT`, place ball
 `BCPOS_CHAIN` or leave `BCPOS_DIFFER`, place chain, both under-glyphs

@@ -1841,7 +1841,7 @@ async function gulpmu(mtmp, mattk) {
         if (await failed_grab(mtmp, game.youmonst, mattk)) return M_ATTK_MISS;
 
         if (Punished())
-            unplacebc(); /* ball&chain go away */
+            await unplacebc(); /* ball&chain go away */
         remove_monster(omx, omy);
         mtmp.mtrapped = 0; /* no longer on old trap */
         place_monster(mtmp, u.ux | 0, u.uy | 0);

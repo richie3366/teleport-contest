@@ -1465,7 +1465,7 @@ async function litter_scatter(litter, x, y, shkp) {
             await verbalize('Get your junk out of my wall!');
         }
         const { unplacebc, placebc } = await import('./ball.js');
-        unplacebc();
+        await unplacebc();
         await placebc();
     }
     let otmp;
