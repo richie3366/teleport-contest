@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2891 `there_cmd_menu_self` fills the hero-cell command menu
+
+**C locus:** `nethack-c/upstream/src/cmd.c:4435–4520` `there_cmd_menu_self`. Callees: `stairway_at` (`stairs.c`, live `js/mklev.js:405`), `u_at` (`js/const.js:3195`), `can_reach_floor` (`js/engrave.js:385`), `defsyms[].explanation` via `defsym_explanation` (`js/uhitm.js:4329`), `mcmd_addmenu` (`cmd.c:4420–4431`), `x_monnam` (`js/do_name.js:944`), `objects_at` as `svl.level.objects[x][y]` (`js/mkobj.js:3335`), `Is_container`, `doname`, `num_spells` (`js/spell.js:1393`), `t_at` (`js/trap.js:1098`). The `#if 0` `Upolyd` arm calls `s_suffix` and `pmname` and is compiled out. No RNG in this function. `x_monnam` can roll when the hero is hallucinating.
+**JS:** `js/cmd.js` `mcmd_addmenu` `:2537`, `there_cmd_menu_self` `:2556`, drink `:2563`, dismount `:2585`, invent `:2608`, `t_at` `:2620`, return `:2625`. Caller `:2665`.
+**Change:** One `there_cmd_menu_self` in that C order, plus `mcmd_addmenu`. `u_at` returns 0. Fountain and sink text is `defsym_explanation(S_fountain|S_sink)`.
+**Verify:** `node scripts/verify.mjs --fn there_cmd_menu_self` → PASS syntax (1 changed js file: js/cmd.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: PASS.
+**Named:** The `#if 0` Upolyd / `MCMD_MONABILITY` arm (`cmd.c:4475–4481`) stays compiled out. `add_menu`'s glyph, color, attribute, and accelerator have no winid; the items list is that menu (D-2706).
+**Next:** `hacklib.c` `unicodeval_to_utf8str` (next Open — coverage row). Seven Open — coverage rows remain after archive, below the floor of 8. `--rows 160 --min-c-lines 20` head is the never-re-pop Stale set, not pasted. Four later tool rows with no live, DONE, or PARKED subject, skipping `files.c`: `toggle_displacement`, `can_do_extcmd`, `m_move_aggress`, `e_missed`.
 ## 2026-09-26 — D-2890 `plsel_startmenu` names the role without the prolog slash
 
 **C locus:** `nethack-c/upstream/src/role.c:2806–2845` `plsel_startmenu`. Callees: `rigid_role_checks` (`role.c:1235`, live `js/player_selection.js:649`), `maybe_skip_seps` (`role.c:2773`, live `:1234`), `add_menu_str` (`windows.c:1831`). `create_nhwindow` / `start_menu` / `panic` are the window prologue. No RNG.

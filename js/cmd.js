@@ -35,7 +35,9 @@ import { COLNO, ROWNO, STONE, DOOR, CORR, ROOM, IRONBARS, TREE, SDOOR, ICE,
          DIR_NW, DIR_NE, DIR_SE, DIR_SW,
          MV_WALK, MV_RUN, MV_RUSH, commandInp, otherInp, getposInp,
          GFILTER_VIEW, GLOC_INTERESTING,
-         M_AP_TYPE, M_AP_FURNITURE, M_AP_OBJECT, S_hcdoor, S_vcdoor, VIBRATING_SQUARE,
+         M_AP_TYPE, M_AP_FURNITURE, M_AP_OBJECT, S_hcdoor, S_vcdoor,
+         S_fountain, S_sink, VIBRATING_SQUARE,
+         u_at, ARTICLE_THE, SUPPRESS_SADDLE,
          PARANOID_TRAP, PARANOID_QUIT, GP_ALLOW_U, NO_TRAP_FLAGS, FOOT, Something,
          LARGEST_INT, GC_NOFLAGS, GC_SAVEHIST, GC_CONDHIST, GC_ECHOFIRST,
          SUPPRESS_HISTORY,
@@ -108,7 +110,7 @@ import {
 } from './const.js';
 import { config_error_add } from './botl.js';
 import { an, doname, makeplural, ansimpleoname, the } from './objnam.js';
-import { m_monnam, mon_nam, a_monnam, YMonnam, docallcmd } from './do_name.js';
+import { m_monnam, mon_nam, a_monnam, YMonnam, docallcmd, x_monnam } from './do_name.js';
 import { spoteffects, dopickup, doloot, dotip } from './pickup.js';
 import { objects_at, sobj_at } from './mkobj.js';
 import { stairway_at, On_stairs_up, On_stairs_dn, u_on_newpos, maybe_adjust_hero_bubble, selection_new, selection_getpoint, selection_setpoint } from './mklev.js';
@@ -133,6 +135,7 @@ import {
     air_turbulence, slippery_ice_fumbling,
     test_move,
 } from './hack.js';
+import { t_at } from './trap.js';
 import { acurr, exercise, A_DEX, Fumbling } from './attrib.js';
 import { drag_ball, move_bc } from './ball.js';
 import { in_out_region } from './region.js';
@@ -2521,81 +2524,105 @@ function act_on_act(act, dx, dy) {
 }
 
 /**
- * C ref: cmd.c there_cmd_menu_self — entries when targeting hero cell.
- * @returns {{act:number, text:string}[]}
+ * C ref: cmd.c mcmd_addmenu `:4420–4431`.
+ * `any = cg.zeroany; any.a_int = act;` then `add_menu` with a blank
+ * accelerator, `ATR_NONE`, `NO_COLOR`, and `MENU_ITEMFLAGS_NONE`.
+ * This path has no winid (D-2706): `win` is the item list
+ * `there_cmd_menu` later gives to `select_menu_pick_one`. The glyph,
+ * color, and attribute arguments are not read by that picker.
+ * @param {Array<{act:number, text:string}>} win
+ * @param {number} act MCMD_* 
+ * @param {string} txt
  */
-function there_cmd_menu_self_items(x, y) {
-    const items = [];
-    const u = game.u;
-    if (!u || (u.ux | 0) !== (x | 0) || (u.uy | 0) !== (y | 0)) return items;
+function mcmd_addmenu(win, act, txt) {
+    win.push({ act, text: txt });
+}
 
-    const loc = game.level?.at(x, y);
-    const typ = loc?.typ | 0;
+/**
+ * C ref: cmd.c there_cmd_menu_self `:4435–4520` (staticfn).
+ * Appends the hero-cell [t]herecmdmenu rows and returns how many (C `K`).
+ * The fourth argument `int *act` is UNUSED. `#if 0` at `:4477–4484`
+ * (Upolyd / MCMD_MONABILITY) is compiled out.
+ * `levl[x][y].typ` is `game.level.at`. `svl.level.objects[x][y]` is
+ * `objects_at` (pile head, `nexthere` chain). `gi.invent` (`decl.h:469`)
+ * is `game.invent`: an empty array is the NULL chain; a linked-list head
+ * stays truthy. `defsyms[].explanation` is `defsym_explanation`.
+ * `can_reach_floor(FALSE)` is called once per C guard, not cached.
+ * @param {Array<{act:number, text:string}>} win
+ * @param {number} x
+ * @param {number} y
+ * @returns {number}
+ */
+function there_cmd_menu_self(win, x, y) {
+    let K = 0;
+    const typ = game.level?.at(x, y)?.typ | 0; // `:4439`
+    const stway = stairway_at(x, y); // `:4440`
 
-    if ((IS_FOUNTAIN(typ) || IS_SINK(typ)) && can_reach_floor(false)) {
-        const feat = IS_FOUNTAIN(typ) ? 'fountain' : 'sink';
-        items.push({ act: MCMD_QUAFF, text: `Drink from the ${feat}` });
+    if (!u_at(x, y)) return K; // `:4443–4444`
+
+    if ((IS_FOUNTAIN(typ) || IS_SINK(typ)) && can_reach_floor(false)) { // `:4446`
+        const buf = `Drink from the ${defsym_explanation(
+            IS_FOUNTAIN(typ) ? S_fountain : S_sink,
+        )}`; // `:4447–4448`
+        mcmd_addmenu(win, MCMD_QUAFF, buf), ++K; // `:4449`
     }
-    if (IS_FOUNTAIN(typ) && can_reach_floor(false)) {
-        items.push({ act: MCMD_DIP, text: 'Dip something into the fountain' });
+    if (IS_FOUNTAIN(typ) && can_reach_floor(false)) // `:4451`
+        mcmd_addmenu(win, MCMD_DIP, 'Dip something into the fountain'), ++K;
+    if (IS_THRONE(typ)) // `:4453`
+        mcmd_addmenu(win, MCMD_SIT, 'Sit on the throne'), ++K;
+    if (IS_ALTAR(typ)) // `:4455`
+        mcmd_addmenu(win, MCMD_OFFER, 'Sacrifice something on the altar'), ++K;
+
+    if (stway && stway.up) { // `:4458`
+        const buf = `Go up the ${stway.isladder ? 'ladder' : 'stairs'}`;
+        mcmd_addmenu(win, MCMD_UP, buf), ++K; // `:4461`
     }
-    if (IS_THRONE(typ)) {
-        items.push({ act: MCMD_SIT, text: 'Sit on the throne' });
+    if (stway && !stway.up) { // `:4463`
+        const buf = `Go down the ${stway.isladder ? 'ladder' : 'stairs'}`;
+        mcmd_addmenu(win, MCMD_DOWN, buf), ++K; // `:4466`
     }
-    if (IS_ALTAR(typ)) {
-        items.push({ act: MCMD_OFFER, text: 'Sacrifice something on the altar' });
+    if (game.u.usteed) { // `:4468`
+        const buf = `Dismount ${x_monnam(
+            game.u.usteed, ARTICLE_THE, null, SUPPRESS_SADDLE, false,
+        )}`; // `:4469–4471`
+        mcmd_addmenu(win, MCMD_DISMOUNT, buf), ++K; // `:4472`
     }
 
-    const stway = stairway_at(x, y);
-    if (stway?.up) {
-        items.push({
-            act: MCMD_UP,
-            text: `Go up the ${stway.isladder ? 'ladder' : 'stairs'}`,
-        });
-    }
-    if (stway && !stway.up) {
-        items.push({
-            act: MCMD_DOWN,
-            text: `Go down the ${stway.isladder ? 'ladder' : 'stairs'}`,
-        });
-    }
-    // C: u.usteed dismount — named omission: x_monnam SUPPRESS_SADDLE polish
-    if (u.usteed) {
-        items.push({ act: MCMD_DISMOUNT, text: 'Dismount your steed' });
-    }
+    /* `#if 0` Upolyd / MCMD_MONABILITY `:4475–4481` — compiled out. */
 
-    const otmp = objects_at(x, y);
+    const otmp = objects_at(x, y); // `:4483–4484` OBJ_AT → level.objects[x][y]
     if (otmp) {
-        items.push({
-            act: MCMD_PICKUP,
-            text: `Pick up ${otmp.nexthere ? 'items' : doname(otmp)}`,
-        });
-        if (Is_container(otmp)) {
-            items.push({ act: MCMD_LOOT, text: `Loot ${doname(otmp)}` });
-            items.push({ act: MCMD_TIP, text: `Tip ${doname(otmp)}` });
+        const buf = `Pick up ${otmp.nexthere ? 'items' : doname(otmp)}`;
+        mcmd_addmenu(win, MCMD_PICKUP, buf), ++K; // `:4487`
+
+        if (Is_container(otmp)) { // `:4489`
+            mcmd_addmenu(win, MCMD_LOOT, `Loot ${doname(otmp)}`), ++K; // `:4491`
+            mcmd_addmenu(win, MCMD_TIP, `Tip ${doname(otmp)}`), ++K; // `:4494`
         }
-        if ((otmp.oclass | 0) === FOOD_CLASS) {
-            items.push({ act: MCMD_EAT, text: `Eat ${doname(otmp)}` });
+        if ((otmp.oclass | 0) === FOOD_CLASS) { // `:4496`
+            mcmd_addmenu(win, MCMD_EAT, `Eat ${doname(otmp)}`), ++K; // `:4498`
         }
     }
 
-    if (game.invent) {
-        items.push({ act: MCMD_INVENTORY, text: 'Inventory' });
-        items.push({ act: MCMD_DROP, text: 'Drop items' });
+    /* `:4503` gi.invent — empty JS array is the NULL chain. */
+    const inv = game.invent;
+    if (Array.isArray(inv) ? inv.some(Boolean) : !!inv) {
+        mcmd_addmenu(win, MCMD_INVENTORY, 'Inventory'), ++K; // `:4504`
+        mcmd_addmenu(win, MCMD_DROP, 'Drop items'), ++K; // `:4505`
     }
-    items.push({ act: MCMD_REST, text: 'Rest one turn' });
-    items.push({ act: MCMD_SEARCH, text: 'Search around you' });
-    items.push({ act: MCMD_LOOK_HERE, text: 'Look at what is here' });
+    mcmd_addmenu(win, MCMD_REST, 'Rest one turn'), ++K; // `:4507`
+    mcmd_addmenu(win, MCMD_SEARCH, 'Search around you'), ++K; // `:4508`
+    mcmd_addmenu(win, MCMD_LOOK_HERE, 'Look at what is here'), ++K; // `:4509`
 
-    if (num_spells() > 0) {
-        items.push({ act: MCMD_CAST_SPELL, text: 'Cast a spell' });
-    }
+    if (num_spells() > 0) // `:4511`
+        mcmd_addmenu(win, MCMD_CAST_SPELL, 'Cast a spell'), ++K;
 
-    const ttmp = travel_t_at(x, y);
-    if (ttmp && ttmp.tseen && (ttmp.ttyp | 0) !== VIBRATING_SQUARE) {
-        items.push({ act: MCMD_UNTRAP_HERE, text: 'Attempt to disarm trap' });
+    const ttmp = t_at(x, y); // `:4514`
+    if (ttmp && ttmp.tseen) {
+        if ((ttmp.ttyp | 0) !== VIBRATING_SQUARE) // `:4515`
+            mcmd_addmenu(win, MCMD_UNTRAP_HERE, 'Attempt to disarm trap'), ++K;
     }
-    return items;
+    return K; // `:4519`
 }
 
 /**
@@ -2624,22 +2651,27 @@ export function there_cmd_menu_common(x, y, mod) {
 }
 
 /**
- * C ref: cmd.c there_cmd_menu — NHW_MENU "What do you want to do?"
- * Ported: u_at self path + common. Named omissions: next2u / far /
- * K==0 travel/move fallback; K==1 auto-act without menu.
+ * C ref: cmd.c there_cmd_menu `:4841–4896` — NHW_MENU "What do you want to do?"
+ * Self rows are `there_cmd_menu_self` (`:4857`). Named omissions of this
+ * function: `there_cmd_menu_next2u` / `there_cmd_menu_far`, the `K==0`
+ * travel/move fallback, and the `K==1` `act_on_act` fast path. Self picks
+ * still go through `act_on_act_here` (D-2620).
  * @returns {Promise<string>} '\0' after act / ESC cancel (C ch)
  */
 async function there_cmd_menu(x, y, mod) {
-    let items = [];
-    const u = game.u;
-    const atSelf = u && (u.ux | 0) === (x | 0) && (u.uy | 0) === (y | 0);
-    if (atSelf) {
-        items = items.concat(there_cmd_menu_self_items(x, y));
+    const items = [];
+    let K = 0;
+    if (u_at(x, y)) { // `:4856–4857`
+        K += there_cmd_menu_self(items, x, y);
     }
-    // next2u / far deferred
-    items = items.concat(there_cmd_menu_common(x, y, mod));
+    // `:4858–4861` next2u / far — builders not ported
+    const common = there_cmd_menu_common(x, y, mod); // `:4862`
+    if (common.length) {
+        items.push(...common);
+        K += common.length;
+    }
 
-    if (!items.length) return '\0';
+    if (!K) return '\0'; // C `:4864` — travel/move fallback named on this function
 
     const raw = [
         { text: 'What do you want to do?', attr: ATR_INVERSE, selectable: false },

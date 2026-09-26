@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2891 — `there_cmd_menu_self` fills the hero-cell command menu
+
+- **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** No `there_cmd_menu_self` symbol. The split builder hardcoded "fountain"/"sink" and "Dismount your steed", treated an empty `game.invent` array as occupied, and looked up traps with a local `t_at` clone.
+- **C locus:** `nethack-c/upstream/src/cmd.c:4435–4520` `there_cmd_menu_self`. Callees: `stairway_at` (`stairs.c`, live `js/mklev.js:405`), `u_at` (`js/const.js:3195`), `can_reach_floor` (`js/engrave.js:385`), `defsyms[].explanation` via `defsym_explanation` (`js/uhitm.js:4329`), `mcmd_addmenu` (`cmd.c:4420–4431`), `x_monnam` (`js/do_name.js:944`), `objects_at` as `svl.level.objects[x][y]` (`js/mkobj.js:3335`), `Is_container`, `doname`, `num_spells` (`js/spell.js:1393`), `t_at` (`js/trap.js:1098`). The `#if 0` `Upolyd` arm calls `s_suffix` and `pmname` and is compiled out. No RNG in this function. `x_monnam` can roll when the hero is hallucinating.
+- **JS was:** `there_cmd_menu_self_items` returned an items array. Drink text used the literals. Dismount ignored `x_monnam`. `if (game.invent)` was true for `[]`. Traps used `travel_t_at`.
+- **Fix:** One `there_cmd_menu_self` in that C order, plus `mcmd_addmenu`. `u_at` returns 0. Fountain and sink text is `defsym_explanation(S_fountain|S_sink)`. `can_reach_floor(false)` runs once per guard. Stairs use `isladder`. Dismount is `x_monnam(usteed, ARTICLE_THE, null, SUPPRESS_SADDLE, false)`. The pile head is `objects_at`; pickup, loot, tip, and eat follow `nexthere`, `Is_container`, and `FOOD_CLASS`. An empty invent array does not add Inventory or Drop. Rest, search, and look always append. `num_spells() > 0` adds Cast. A seen trap other than `VIBRATING_SQUARE` adds disarm. The function returns `K`. `there_cmd_menu` adds that `K`.
+- **JS:** `js/cmd.js` `mcmd_addmenu` `:2537`, `there_cmd_menu_self` `:2556`, drink `:2563`, dismount `:2585`, invent `:2608`, `t_at` `:2620`, return `:2625`. Caller `:2665`.
+- **Callers:** `cmd.c:129` is the declaration. `cmd.c:4857` → `js/cmd.js:2665` (`there_cmd_menu`). No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn there_cmd_menu_self` → PASS syntax (1 changed js file: js/cmd.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: PASS.
+- **Named omissions:** The `#if 0` Upolyd / `MCMD_MONABILITY` arm (`cmd.c:4475–4481`) stays compiled out. `add_menu`'s glyph, color, attribute, and accelerator have no winid; the items list is that menu (D-2706). `there_cmd_menu` still omits `there_cmd_menu_next2u`, `there_cmd_menu_far`, the `K==0` travel fallback, and the `K==1` `act_on_act` path; self picks stay on `act_on_act_here` (D-2620). Other `mcmd_addmenu` sites (`cmd.c:4544` next2u, `:4631` far, `:4651` common) are not this function. Common still pushes its one row.
+- **Next:** `hacklib.c` `unicodeval_to_utf8str` (next Open — coverage row). Seven Open — coverage rows remain after archive, below the floor of 8. `--rows 160 --min-c-lines 20` head is the never-re-pop Stale set, not pasted. Four later tool rows with no live, DONE, or PARKED subject, skipping `files.c`: `toggle_displacement`, `can_do_extcmd`, `m_move_aggress`, `e_missed`.
+
 ## D-2890 — `plsel_startmenu` names the role without the prolog slash
 
 - **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked).

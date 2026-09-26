@@ -98,10 +98,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `cmd.c` `there_cmd_menu_self` — coverage MISSING (C 85 L `cmd.c:4435–4520` / JS no symbol). Verify `node scripts/verify.mjs --fn there_cmd_menu_self` (reach regression must be 0).
+**Next cluster:** `hacklib.c` `unicodeval_to_utf8str` — coverage MISSING (C 37 L `hacklib.c:882–919` / JS no symbol). Verify `node scripts/verify.mjs --fn unicodeval_to_utf8str` (reach regression must be 0).
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2890 (index).**
+**Keep D-0845…D-2891 (index).**
 <!-- recent:begin -->
+**D-2891** `nethack-c/upstream/src/cmd.c:4435–4520` `there_cmd_menu_self`. Callees: `stairway_at` (`s — One `there_cmd_menu_self` in that C order, plus `mcmd_addmenu`.
 **D-2890** `nethack-c/upstream/src/role.c:2806–2845` `plsel_startmenu`. Callees: `rigid_role_checks`  — One `plsel_startmenu` in that C order.
 **D-2889** `nethack-c/upstream/src/sp_lev.c:458–495` `flip_visuals`. Callees: `swapbits` (`hacklib.c: — One `flip_visuals` in that C order.
 **D-2888** `nethack-c/upstream/src/allmain.c:933–972` `do_positionbar`. Callees: `glyph_to_cmap` (`gl — One `do_positionbar` in that C order.
@@ -109,11 +110,10 @@ revisits the picker.
 **D-2886** `nethack-c/upstream/src/invent.c:4799–4839` `let_to_name`. Callees: `strchr` on `oth_symbo — One `let_to_name` in that C order.
 **D-2885** `nethack-c/upstream/src/mkobj.c:1783–1819` `curse`. Callees: `arti_light_radius` (`timeout — One `curse` in that C order.
 **D-2884** `nethack-c/upstream/src/dungeon.c:1750–1788` `surface`. Callees: `u_at` (`you.h:562`), `is — One `surface` in that C order.
-**D-2883** `nethack-c/upstream/src/vision.c:153–202` `does_block` and `vision.c:211–265` `vision_rese — One `does_block` in that C order: obstructed terrain, tree, closed door, then cloud / water-wall / lava-wall / (`uinwater` and `is_moat`), then the boulder chain, then `m_at` with `hero_see_invisible`, then gas returning
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2890; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2891; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
