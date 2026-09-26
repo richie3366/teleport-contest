@@ -5,7 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `trap.c` trapeffect_vibrating_square — coverage MISSING (C 36 L `trap.c:2725–2764` / JS no symbol; hops 4, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn trapeffect_vibrating_square` (reach regression must be 0). Measured `port-coverage.mjs --name trapeffect_vibrating_square` 2026-09-26 @ 8ddebb670. **Addressed:** D-2882
+- [x] `vision.c` does_block — coverage PARTIAL (C 49 L `vision.c:153–202` / JS 28 L in js/vision.js; hops 3, callers 16, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn does_block` (reach regression must be 0). Measured `port-coverage.mjs --name does_block` 2026-09-26 @ 59a5900cf. **Addressed:** D-2883
+- [x] `vision.c` vision_reset — coverage PARTIAL (C 54 L `vision.c:211–265` / JS 40 L in js/vision.js; hops 3, callers 6, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn vision_reset` (reach regression must be 0). Measured `port-coverage.mjs --name vision_reset` 2026-09-26 @ 59a5900cf. **Addressed:** D-2883
+
+
+- [x] `trap.c` trapeffect_vibrating_square — coverage MISSING (C 36 L `trap.c:2725–2764` / JS no symbol; hops 4, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn trapeffect_vibrating_square` (reach regression must be 0). Measured `port-coverage.mjs --name trapeffect_vibrating_square` 2026-09-26 @ 8ddebb670. **Addressed:** D-2882 `b41dbfcd5`
 
 
 - [x] `sp_lev.c` get_table_int_or_random — coverage MISSING (C 30 L `sp_lev.c:3407–3437` / JS no symbol; hops —, callers 2, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn get_table_int_or_random` (reach regression must be 0). Measured `port-coverage.mjs --name get_table_int_or_random` 2026-09-26 @ 8ddebb670. **Addressed:** D-2881 `c9abe5dc0`

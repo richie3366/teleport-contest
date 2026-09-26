@@ -155,7 +155,7 @@ import {
 } from './display.js';
 import { buried_ball_to_punishment, fracture_rock } from './dig.js';
 import { obfree } from './shk.js';
-import { block_point, unblock_point, does_block, recalc_block_point, vision_recalc } from './vision.js';
+import { block_point, unblock_point, does_block, recalc_block_point, vision_recalc, vision_reset } from './vision.js';
 import { emits_light, new_light_source, del_light_source } from './light.js';
 import { monst_to_any, is_pool, is_lava, in_rooms } from './hack.js';
 import { begin_burn, end_burn } from './timeout.js';
@@ -19129,6 +19129,8 @@ function flip_level(flp, _extras) {
     // match the new orientation (TLCORNER moved to the right must become
     // TRCORNER). flip_visuals only when extras (wizfliplevel) — deferred.
     fix_wall_spines(1, 0, COLNO - 1, ROWNO - 1);
+    /* C sp_lev.c:921 — block map matches the flipped terrain. */
+    vision_reset();
 }
 
 /**

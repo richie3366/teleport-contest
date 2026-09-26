@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2883 `does_block` counts an underwater moat; `vision_reset` selects cs0
+
+**C locus:** `nethack-c/upstream/src/vision.c:153–202` `does_block` and `vision.c:211–265` `vision_reset`. Callees: `is_moat` (`dbridge.c:100`), `m_at` (`rm.h:516` `level.monsters`), `objects` nexthere, `is_lightblocker_mappear`, `visible_region_at`, `See_invisible` (`youprop.h:152`), `IS_OBSTRUCTED`. No RNG. `#ifdef DEBUG` `seethru` is not compiled.
+**JS:** `js/vision.js` `hero_see_invisible` `:131`, `does_block` `:171`, moat `:187`, boulder `:193`, `m_at` `:199`, gas `:206`, `vision_reset` `:217`, cs0 `:218`, zero planes `:222`, dig `:238`, flags `:269`. `js/mklev.js` `flip_level` `:19133`. `js/dig.js` unblock `:2412`.
+**Change:** One `does_block` in that C order: obstructed terrain, tree, closed door, then cloud / water-wall / lava-wall / (`uinwater` and `is_moat`), then the boulder chain, then `m_at` with `hero_see_invisible`, then gas returning 2. One `vision_reset`: `viz_array` is `cs_buf0`, both planes are zeroed, row bounds point at `cs_rmin0` / `cs_rmax0`, the dig uses `!!(IS_OBSTRUCTED || does_block)`, then `vision_inited` and `vision_full_recalc = 1`. `flip_level` calls it after `fix_wall_spines`.
+**Verify:** `node scripts/verify.mjs --fn does_block` → PASS syntax (3 changed js files: js/dig.js js/mklev.js js/vision.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+**Named:** `#ifdef DEBUG` `seethru` in `does_block` and the `block_point` call at `vision.c:873` are compiled out. `wizcmds.c` `levl_sanity_check` (`:1453`, `does_block` vs `get_viz_clear`) is not in JS.
+**Next:** `pray.c` `give_spell` (next Open — coverage row). Eight Open — coverage rows remain after archive, at the floor of 8, so nothing was refilled.
 ## 2026-09-26 — D-2882 `trapeffect_vibrating_square` marks the square and names the vibration
 
 **C locus:** `nethack-c/upstream/src/trap.c:2725–2764` `trapeffect_vibrating_square`. Callees: `feeltrap` (`trap.c`, live `js/trap.js`), `canseemon` (file-local), `cansee` (`vision.js`), `Blind` (file-local), `seetrap`, `mon_nam`, `nolimbs` (`monsters.js`), `m_in_air` (`mon.c:2130–2135`), `s_suffix`, `eos` (`hacklib.c:194`), `makeplural`, `mbodypart` (`FOOT`), `strsubst`, `You_see`, `mdistu` (`dist2` ≤ `2 * 2`). No RNG.
