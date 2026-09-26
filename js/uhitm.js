@@ -3852,7 +3852,7 @@ export async function gulpum(mdef, mattk) {
             && (!he_prop('Slow_digestion', 'HSlow_digestion', 'ESlow_digestion', SLOW_DIGESTION)
                 || fatal_gulp)) {
             const { eating_conducts } = await import('./eat.js');
-            eating_conducts(pd);
+            await eating_conducts(pd);
         }
 
         if (fatal_gulp && !is_rider(pd)) {

@@ -24,7 +24,7 @@
 // losestr setuhpmax / terminal-frailty full death path;
 // timeout.c vomiting_dialog cantvomit/Hallu texts;
 // Fixed_abil Popeye Olive/Bluto;
-// livelog conduct; cprefx polymon stone-golem failure polish.
+// doeat/eatcorpse/doeat_nonfood livelog conduct; cprefx polymon stone-golem failure polish.
 // D-0953: floorfood pool/lava reach + vault_gd_watching(GD_EATGOLD).
 // D-0956: Ring_gone / float_up / rescham / choke(strangle) /
 // set_mimic_blocking / perceives in eataccessory.
@@ -1022,17 +1022,19 @@ function food_xname(food, the_pfx) {
     return result;
 }
 
-/** C ref: eat.c violated_vegetarian — Monk feels guilty + adjalign(-1). */
-function violated_vegetarian() {
+/**
+ * C ref: eat.c violated_vegetarian `:1375–1384`.
+ * Increment unvegetarian, then Role_if(PM_MONK): You_feel("guilty.") then
+ * adjalign(-1). Async only because You_feel can reach nhgetch.
+ */
+async function violated_vegetarian() {
     if (!game.u.uconduct) game.u.uconduct = {};
     game.u.uconduct.unvegetarian = (game.u.uconduct.unvegetarian | 0) + 1;
+    // C you.h:247 Role_if — gu.urole.mnum == PM_MONK.
     if ((game.urole?.mnum ?? -1) === PM_MONK) {
-        // pline deferred to call site when async; sync bump for align
-        if (!game.u.ualign) game.u.ualign = { type: 0, record: 0 };
-        game.u.ualign.record = (game.u.ualign.record | 0) - 1;
-        return true;
+        await You_feel('guilty.');
+        adjalign(-1);
     }
-    return false;
 }
 
 /** C ref: eat.c consume_oeaten `:3808–3872` — whole body in C order. */
@@ -2464,9 +2466,8 @@ export async function eatcorpse(otmp) {
         game.u.uconduct.unvegan = (game.u.uconduct.unvegan | 0) + 1;
     }
     if (!vegetarian(ptr)) {
-        if (violated_vegetarian()) {
-            await pline('You feel guilty.');
-        }
+        // C eat.c:1877–1882 — guilt message is inside violated_vegetarian.
+        await violated_vegetarian();
     }
 
     if (!nonrotting_corpse(mnum)) {
@@ -3253,7 +3254,7 @@ async function doeat_nonfood(otmp) {
     if (material === MAT_LEATHER || material === MAT_BONE
         || material === MAT_DRAGON_HIDE || material === MAT_WAX) {
         game.u.uconduct.unvegan = (game.u.uconduct.unvegan | 0) + 1;
-        if (material !== MAT_WAX) violated_vegetarian();
+        if (material !== MAT_WAX) await violated_vegetarian();
     }
 
     if (otmp.cursed) {
@@ -3285,17 +3286,43 @@ async function doeat_nonfood(otmp) {
 }
 
 /**
- * C ref: eat.c eating_conducts — food/unvegan/unvegetarian counters.
- * gulpum AD_DGST (D-1264). Livelog first-time messages deferred.
+ * C ref: eat.c eating_conducts `:576–599`.
+ * Post-increment food, then unvegan only when !vegan, then the meat
+ * livelog (no increment of its own) and violated_vegetarian when
+ * !vegetarian. ll_conduct suppresses a second livelog in the same call.
+ * pmnames[NEUTRAL] is the noun (JS table, not a field on the permonst).
  */
-export function eating_conducts(pd) {
+export async function eating_conducts(pd) {
+    let ll_conduct = 0;
     if (!game.u.uconduct) game.u.uconduct = {};
-    game.u.uconduct.food = (game.u.uconduct.food | 0) + 1;
+    const uc = game.u.uconduct;
+    // C `:582` pd->pmnames[NEUTRAL]. mndx is mons(); mnum is a saved copy.
+    const mndx = pd?.mndx ?? pd?.mnum;
+    const nm = (mndx != null && pmnames[mndx]) ? (pmnames[mndx][NEUTRAL] || '') : '';
+    // C `:580` `!u.uconduct.food++` — test the old value, always increment.
+    const food0 = uc.food | 0;
+    uc.food = food0 + 1;
+    if (!food0) {
+        livelog_printf(LL_CONDUCT, 'ate for the first time - %s', nm);
+        ll_conduct++;
+    }
     if (!vegan(pd)) {
-        game.u.uconduct.unvegan = (game.u.uconduct.unvegan | 0) + 1;
+        // C `:586` `!u.uconduct.unvegan++ && !ll_conduct` — increment is not
+        // short-circuited; the livelog is.
+        const unvegan0 = uc.unvegan | 0;
+        uc.unvegan = unvegan0 + 1;
+        if (!unvegan0 && !ll_conduct) {
+            livelog_printf(LL_CONDUCT,
+                'consumed animal products (%s) for the first time', nm);
+            ll_conduct++;
+        }
     }
     if (!vegetarian(pd)) {
-        violated_vegetarian();
+        // C `:592–595` — unvegetarian is not incremented here.
+        if (!(uc.unvegetarian | 0) && !ll_conduct) {
+            livelog_printf(LL_CONDUCT, 'tasted meat (%s) for the first time', nm);
+        }
+        await violated_vegetarian();
     }
 }
 
@@ -3392,7 +3419,7 @@ export async function eat_brains(magr, mdef, visflag, dmg_p) {
 
     let give_nutrit = false;
     if (magr === youmonst) {
-        eating_conducts(pd);
+        await eating_conducts(pd);
         if (mindless(pd)) {
             await pline(`${Monnam(mdef)} doesn't notice.`);
             return M_ATTK_MISS;
@@ -3705,7 +3732,7 @@ async function consume_tin(mesg) {
         const ptr = mons(mnum);
         const meat = pmnames[mnum]?.[2] || 'creature';
         await pline(`You consume ${tintxts[r].txt} ${meat}.`);
-        eating_conducts(ptr);
+        await eating_conducts(ptr);
         observe_object(tin);
         tin.known = 1;
         tin = game.context.tin.tin = await costly_tin(COST_OPEN);
@@ -4361,9 +4388,7 @@ export async function doeat() {
         const material = game.objects?.[otmp.otyp]?.oc_material | 0;
         if (material === MAT_FLESH) {
             game.u.uconduct.unvegan = (game.u.uconduct.unvegan | 0) + 1;
-            if (otmp.otyp !== EGG && violated_vegetarian()) {
-                await pline('You feel guilty.');
-            }
+            if (otmp.otyp !== EGG) await violated_vegetarian();
         } else if (
             otmp.otyp === PANCAKE
             || otmp.otyp === FORTUNE_COOKIE

@@ -1964,6 +1964,8 @@ crush/entity + iron-chain scatter; impact shop `stolen_value`; **`buried_ball` l
 
 JS: `js/eat.js` — partial
 
+**`eating_conducts`** (D-2907; C `eat.c:576–599`): post-increment `food`, first-time livelog; `!vegan` post-increment `unvegan` and the animal-products livelog only when `ll_conduct` is still 0; `!vegetarian` meat livelog (does not increment `unvegetarian`) then `violated_vegetarian`. Callers `eat.c:663` → `js/eat.js` `eat_brains`, `eat.c:1603` → `consume_tin`, `uhitm.c:5017` → `js/uhitm.js` `gulpum`. **`violated_vegetarian`** (C `eat.c:1375–1384`) is the one in-file function: `unvegetarian++`, then `Role_if(PM_MONK)` `You_feel("guilty.")` then `adjalign(-1)`. `doeat` / `eatcorpse` / `doeat_nonfood` still own their own conduct livelog lines (not this function).
+
 **`eatmupdate`** (D-2896; C `eat.c:181–213`): while `nomovemsg` is the `eatmbuf` pointer, orange and `!Hallucination` rewrites the end message to "You now prefer mimicking yourself." and `mappearance` to `GOLD_PIECE`; gold and `Hallucination` rewrites "Your rind escaped intact." and `ORANGE`; a longer `Strlen` is the realloc arm (JS reseats the string; `strcpy` returns that buffer). `newsym`. Caller `potion.c:418` → `make_hallucinated` when `!Hallucination`. 
 Cookie + **reqtime-1 food** (`touchfood`/`splitobj`/`fprefx`/`lesshungry`) (D-0155); 
 **`doeat` `check_capacity` / EXT_ENCUMBER before `is_edible`** (D-0928 #1185;

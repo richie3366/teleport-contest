@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2907 `eating_conducts` logs the first meal, the first animal product, and the first meat
+
+**C locus:** `nethack-c/upstream/src/eat.c:576–599` `eating_conducts`. `!u.uconduct.food++` then `livelog_printf` "ate for the first time - %s" (`pd->pmnames[NEUTRAL]`). If `!vegan`, `!u.uconduct.unvegan++ && !ll_conduct` then the animal-products livelog. If `!vegetarian`, `!u.uconduct.unvegetarian && !ll_conduct` then the meat livelog, then `violated_vegetarian` (`eat.c:1375–1384`: `unvegetarian++`, and `Role_if(PM_MONK)` does `You_feel("guilty.")` then `adjalign(-1)`).
+**JS:** `js/eat.js` `eating_conducts` `:3295`. `violated_vegetarian` `:1030`.
+**Change:** One async `eating_conducts` in that C order, including both post-increment tests and all three `livelog_printf` calls. `violated_vegetarian` is the one in-file function: `You_feel("guilty.")` then `adjalign(-1)`. Callers await it so the message finishes before the next pline.
+**Verify:** `node scripts/verify.mjs --fn eating_conducts --reach-all` → PASS syntax (2 changed js files: js/eat.js js/uhitm.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.1s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: PASS.
+**Named:** No arm of `eating_conducts` is omitted. `doeat` (`eat.c:2998–3024`), `eatcorpse` (`:1870–1882`), and `doeat_nonfood` (`:2768–2785`) still own their own first-time livelog lines.
+**Next:** `wield.c` `drop_uswapwep` (next Open — coverage row). `glyph_to_cmap` parked Stale. Four tool rows refilled so the queue is back at 12. The queue-empty overlay did not match the live queue (ten coverage rows were open; `glyph_to_cmap` was the head and already shipped).
 ## 2026-09-26 — D-2906 `ceiling` is one export; the clones are gone
 
 **C locus:** `nethack-c/upstream/src/dungeon.c:1714–1747` `ceiling`. `*in_rooms` for `VAULT`, then `TEMPLE`, then `SHOPBASE`. Then `Is_waterlevel` → "water above", `IS_AIR` → "sky", `Is_firelevel` → "flames above", `In_quest` → "expanse above", `Underwater` (`u.uinwater`) → "water's surface", else room (not earth) or wall or door or `SDOOR` → "ceiling", else "rock cavern".

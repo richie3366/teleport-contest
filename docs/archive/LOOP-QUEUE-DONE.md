@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `dungeon.c` ceiling — coverage PARTIAL (C 33 L `dungeon.c:1714–1747` / JS 19 L in js/trap.js; hops 2, callers 27, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn ceiling` (reach regression must be 0). Measured `port-coverage.mjs --name ceiling` 2026-09-27 @ 795c5410f. **Addressed:** D-2906
+- [x] `eat.c` eating_conducts — coverage THIN (C 23 L `eat.c:576–599` / JS 10 L in js/eat.js; hops 5, callers 3, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn eating_conducts` (reach regression must be 0). Measured `port-coverage.mjs --name eating_conducts` 2026-09-27 @ ba089151c. **Addressed:** D-2907
+
+
+- [x] `dungeon.c` ceiling — coverage PARTIAL (C 33 L `dungeon.c:1714–1747` / JS 19 L in js/trap.js; hops 2, callers 27, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn ceiling` (reach regression must be 0). Measured `port-coverage.mjs --name ceiling` 2026-09-27 @ 795c5410f. **Addressed:** D-2906 `cb7ff4a26`
 
 
 - [x] `dothrow.c` omon_adj — coverage PARTIAL (C 34 L `dothrow.c:1913–1947` / JS 21 L in js/dothrow.js; hops 3, callers 3, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn omon_adj` (reach regression must be 0). Measured `port-coverage.mjs --name omon_adj` 2026-09-27 @ 795c5410f. **Addressed:** D-2905 `d475b25e1`

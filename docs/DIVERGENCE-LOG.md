@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2907 — `eating_conducts` logs the first meal, the first animal product, and the first meat
+
+- **Status:** fixed (coverage THIN; `hidden-proxy verify` reports no corpus session blocked). C is 23 lines; the whole body shipped. `glyph_to_cmap` was already that body (Stale).
+- **Symptom:** The first bite, the first non-vegan bite, and the first meat never reached the livelog. `eating_conducts` only incremented counters, and a monk who ate a brain, a tin, or a digested monster never heard "You feel guilty." `violated_vegetarian` subtracted the alignment record and returned a flag; `doeat_nonfood` ignored it.
+- **C locus:** `nethack-c/upstream/src/eat.c:576–599` `eating_conducts`. `!u.uconduct.food++` then `livelog_printf` "ate for the first time - %s" (`pd->pmnames[NEUTRAL]`). If `!vegan`, `!u.uconduct.unvegan++ && !ll_conduct` then the animal-products livelog. If `!vegetarian`, `!u.uconduct.unvegetarian && !ll_conduct` then the meat livelog, then `violated_vegetarian` (`eat.c:1375–1384`: `unvegetarian++`, and `Role_if(PM_MONK)` does `You_feel("guilty.")` then `adjalign(-1)`).
+- **JS was:** `js/eat.js` `eating_conducts` incremented `food`, `unvegan`, and called `violated_vegetarian` with no livelog and no guilt message. The helper did `record--` and returned true so only callers that checked the flag printed the message.
+- **Fix:** One async `eating_conducts` in that C order, including both post-increment tests and all three `livelog_printf` calls. `violated_vegetarian` is the one in-file function: `You_feel("guilty.")` then `adjalign(-1)`. Callers await it so the message finishes before the next pline.
+- **JS:** `js/eat.js` `eating_conducts` `:3295`. `violated_vegetarian` `:1030`.
+- **Callers:** `eat.c:663` `eat_brains` → `js/eat.js:3422`. `eat.c:1603` `consume_tin` → `js/eat.js:3735`. `uhitm.c:5017` `gulpum` → `js/uhitm.js:3855`. `extern.h:968` only declares it. `violated_vegetarian` sites: `eat.c:597` → `:3325`, `eat.c:1882` `eatcorpse` → `:2470`, `eat.c:2785` `doeat_nonfood` → `:3257`, `eat.c:3012` `doeat` → `:4391`. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn eating_conducts --reach-all` → PASS syntax (2 changed js files: js/eat.js js/uhitm.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.1s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: PASS.
+- **Named omissions:** No arm of `eating_conducts` is omitted. `doeat` (`eat.c:2998–3024`), `eatcorpse` (`:1870–1882`), and `doeat_nonfood` (`:2768–2785`) still own their own first-time livelog lines. `pmnames[NEUTRAL]` is the generated table (`pd` has `mndx`, not a `pmnames` field).
+- **Next:** `wield.c` `drop_uswapwep` (next Open — coverage row). `glyph_to_cmap` parked Stale. Four tool rows refilled so the queue is back at 12. The queue-empty overlay did not match the live queue (ten coverage rows were open; `glyph_to_cmap` was the head and already shipped).
+
 ## D-2906 — `ceiling` is one export; the clones are gone
 
 - **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked). C is 33 lines; the body in `js/trap.js` already matched. Same-file `deepest_lev_reached` was already that body (Stale).
