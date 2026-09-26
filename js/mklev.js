@@ -1251,9 +1251,12 @@ export function lspo_gold(a, b, c) {
         y = c | 0;
     } else if (argc === 2 && b !== null && typeof b === 'object') { // C :4493-4496
         amount = a | 0;
-        const cc = get_coord_unpacked(b); // C get_coord(L, 2, ...)
-        x = cc.x;
-        y = cc.y;
+        // C :4486 gldx/gldy are unset until get_coord writes them. A nil
+        // leaves the -1 seed (this arm only runs for a table).
+        const gld = { x: -1, y: -1 };
+        get_coord(b, gld); // C :4496 get_coord(L, 2, &gldx, &gldy)
+        x = gld.x;
+        y = gld.y;
     } else if (argc === 0 || (argc === 1 && a !== null && typeof a === 'object')) { // C :4497-4501
         create_des_coder();
         const o = a ?? {}; // C lcheck_param_table
@@ -1378,7 +1381,8 @@ export function lspo_trap(a, b, c) {
     } else if (argc === 2 && typeof a === 'string' // C :4414-4420
         && b !== null && typeof b === 'object') {
         tmp.type = lspo_traptype_byname(a);
-        const cc = get_coord_unpacked(b); // C :4419 get_coord
+        const cc = { x, y }; // C :4400 x,y; this arm starts from the -1 seed
+        get_coord(b, cc); // C :4419 get_coord(L, 2, &x, &y)
         x = cc.x;
         y = cc.y;
     } else if (argc === 3) { // C :4421-4427 (C checks argc only)
@@ -1397,16 +1401,18 @@ export function lspo_trap(a, b, c) {
         tmp.seen = !!splev_opt_boolean(o.seen, 0); // C :4434
         tmp.novictim = !splev_opt_boolean(o.victim, 1); // C :4435
         if (o.launchfrom != null && typeof o.launchfrom === 'object') { // C :4437-4446
-            const lc = get_coord_unpacked(o.launchfrom);
+            const lc = { x: -1, y: -1 }; // C :4438
+            get_coord(o.launchfrom, lc); // C :4439 get_coord(L, -1, &lx, &ly)
             const lp = game.launchplace ?? (game.launchplace = { x: 0, y: 0 });
-            lp.x = lc.x;
-            lp.y = lc.y;
+            lp.x = lc.x; // C :4442
+            lp.y = lc.y; // C :4443
         }
         if (o.teledest != null && typeof o.teledest === 'object') { // C :4448-4460
-            const lc = get_coord_unpacked(o.teledest);
+            const lc = { x: -1, y: -1 }; // C :4449
+            get_coord(o.teledest, lc); // C :4450 get_coord(L, -1, &lx, &ly)
             const lp = game.launchplace ?? (game.launchplace = { x: 0, y: 0 });
-            lp.x = lc.x;
-            lp.y = lc.y;
+            lp.x = lc.x; // C :4453
+            lp.y = lc.y; // C :4454
         }
     }
     if (tmp.type === NO_TRAP) throw new Error('lspo_trap: Unknown trap type'); // C :4463-4464
@@ -1501,9 +1507,10 @@ export function lspo_feature(a, b, c) {
     } else if (argc === 2 && typeof a === 'string' // C :4861-4867
         && b !== null && typeof b === 'object') {
         typ = LSPO_FEATURES2I[splev_opt_index(a, null, LSPO_FEATURES)];
-        const cc = get_coord_unpacked(b); // C get_coord(L, 2, ...)
-        x = cc.x;
-        y = cc.y;
+        const fx = { x: -1, y: -1 }; // C :4864 fx, fy
+        get_coord(b, fx); // C :4866 get_coord(L, 2, &fx, &fy)
+        x = fx.x;
+        y = fx.y;
     } else if (argc === 3) { // C :4868-4872
         typ = LSPO_FEATURES2I[splev_opt_index(a, null, LSPO_FEATURES)];
         x = b | 0;
@@ -1604,9 +1611,10 @@ export function lspo_engraving(a, b, c) {
         wipeout = (o.degrade == null ? 1 : splev_feature_boolopt(o.degrade, 'degrade')) !== 0;
         guardobjs = (o.guardobjects == null ? 0 : splev_feature_boolopt(o.guardobjects, 'guardobjects')) !== 0;
     } else if (argc === 3) { // C :3911-3917
-        const cc = get_coord_unpacked(a); // C :3913 (void) get_coord
-        x = cc.x;
-        y = cc.y;
+        const ex = { x, y }; // C :3912 ex, ey; nil leaves the -1 seed
+        get_coord(a, ex); // C :3913 (void) get_coord(L, 1, &ex, &ey)
+        x = ex.x;
+        y = ex.y;
         etyp = LSPO_ENGRTYPES2I[splev_opt_index(b, 'engrave', LSPO_ENGRTYPES)]; // C :3916
         if (typeof c !== 'string') // C :3917 dupstr(luaL_checkstring)
             throw new Error('bad argument #3 (string expected)');
@@ -21692,32 +21700,107 @@ function lspo_strcmpi(a, b) {
 }
 
 /**
- * C ref: sp_lev.c get_coord (unpacked table / 2-array). Non-table → -1,-1.
+ * C ref: nhlua.c nhl_error :198–218.
+ * Unpacked stand-in: there is no lua_State, so lua_getstack / lua_getinfo
+ * (the "line N short_src" suffix) is omitted. lua_error does not return.
+ * The #if 0 panictrace_setsignals block is not in this build.
  */
-function get_coord_unpacked(coord) {
-    if (coord == null || typeof coord !== 'object') return { x: -1, y: -1 };
-    if (Array.isArray(coord)) {
-        if (coord.length !== 2) return { x: -1, y: -1 };
-        return { x: coord[0] | 0, y: coord[1] | 0 };
-    }
-    if (coord.x != null && coord.y != null) {
-        return { x: coord.x | 0, y: coord.y | 0 };
-    }
-    return { x: -1, y: -1 };
+function nhl_error(msg) {
+    throw new Error(String(msg));
 }
 
 /**
- * C ref: sp_lev.c get_table_xy_or_coord — x/y else coord.
+ * C ref: lauxlib luaL_checkinteger, as get_coord calls it on the "x"/"y"
+ * fields (:5331, :5339). A finite number truncates toward 0 like the
+ * file's other checkinteger stand-in; a numeric string converts the same
+ * way lua_isnumber does. Anything else is nhl_error (C typeerror).
+ */
+function luaL_checkinteger_unpacked(v) {
+    if (typeof v === 'number' && Number.isFinite(v)) return Math.trunc(v);
+    if (typeof v === 'string' && v.trim() !== '' && Number.isFinite(Number(v)))
+        return Math.trunc(Number(v));
+    const got = (v == null) ? 'nil'
+        : (typeof v === 'object' ? 'table' : typeof v);
+    nhl_error(`bad argument (number expected, got ${got})`);
+}
+
+/**
+ * C ref: sp_lev.c get_coord :5319–5366.
+ * Unpacked stand-in for (lua_State, stack index, *x, *y): a JS object or
+ * array is LUA_TTABLE, null/undefined is LUA_TNIL, anything else is a
+ * non-nil non-table. Writes xy.x and xy.y only on a success arm (C
+ * out-params). Nil returns false and leaves xy untouched — that is the
+ * "non-existent coord is ok" case. A bad table or a non-nil non-table
+ * throws via nhl_error; the C returns after those calls are NOTREACHED.
+ * Field "x" is tested before the array length (:5326–5354), so a table
+ * with x set never falls through to the {x,y} pair form.
+ */
+export function get_coord(coord, xy) {
+    let ret = false; // C :5322
+    // C :5323 lua_type. null is typeof "object" in JS; it is LUA_TNIL.
+    let ltyp;
+    if (coord == null) ltyp = 'nil';
+    else if (typeof coord === 'object') ltyp = 'table';
+    else ltyp = 'other';
+
+    if (ltyp === 'table') { // C :5325 LUA_TTABLE
+        let gotx = false; // C :5327
+
+        // C :5329–5334 lua_getfield(L, i, "x"); nil skips; else checkinteger.
+        // lua_pop of that field has no unpacked equivalent.
+        if (coord.x != null) {
+            xy.x = luaL_checkinteger_unpacked(coord.x); // C :5331
+            gotx = true; // C :5332
+        }
+
+        if (gotx) { // C :5336
+            // C :5337–5341 lua_getfield "y". Both fields set → TRUE.
+            if (coord.y != null) {
+                xy.y = luaL_checkinteger_unpacked(coord.y); // C :5339
+                ret = true; // C :5341
+            } else {
+                nhl_error('Not a coordinate'); // C :5343
+                return false; // C :5345 NOTREACHED
+            }
+        } else {
+            // C :5347–5350 lua_len + lua_tointeger. A JS array's length is
+            // the sequence length; a {x=,y=} object has no array part (0).
+            // The callee's negative-index shift (:5263–5264) is a stack
+            // adjustment and does not apply to a value we already hold.
+            const arrlen = Array.isArray(coord) ? (coord.length | 0) : 0;
+            if (arrlen !== 2) { // C :5351
+                nhl_error('Not a coordinate'); // C :5352
+                return false; // C :5354 NOTREACHED
+            }
+
+            // C :5358–5359 get_table_intarray_entry(L, i, 1) then entry 2.
+            xy.x = get_table_intarray_entry_unpacked(coord, 1);
+            xy.y = get_table_intarray_entry_unpacked(coord, 2);
+            return true; // C :5361
+        }
+    } else if (ltyp !== 'nil') { // C :5363
+        /* non-existent coord is ok */ // C :5362
+        nhl_error('non-table coord specified'); // C :5364
+    }
+    return ret; // C :5366
+}
+
+/**
+ * C ref: sp_lev.c get_table_xy_or_coord :3188–3203 — x/y else coord.
+ * get_table_int_opt default -1 is the `!= null` seed. When both are -1,
+ * lua_getfield "coord" then get_coord; a missing field is nil and the
+ * -1,-1 seed stays (FALSE does not write the outs).
  */
 function get_table_xy_or_coord(o) {
-    let mx = o.x != null ? (o.x | 0) : -1;
-    let my = o.y != null ? (o.y | 0) : -1;
-    if (mx === -1 && my === -1) {
-        const xy = get_coord_unpacked(o.coord);
-        mx = xy.x;
-        my = xy.y;
+    let mx = o.x != null ? (o.x | 0) : -1; // C :3193 get_table_int_opt "x", -1
+    let my = o.y != null ? (o.y | 0) : -1; // C :3194
+    if (mx === -1 && my === -1) { // C :3196
+        const out = { x: mx, y: my };
+        get_coord(o.coord, out); // C :3198 get_coord(L, -1, &mx, &my)
+        mx = out.x;
+        my = out.y;
     }
-    return { x: mx, y: my };
+    return { x: mx, y: my }; // C :3202–3203
 }
 
 /**
@@ -21791,7 +21874,8 @@ function lspo_object_from_string(paramstr, arg2, arg3) {
         if (arg2.lx != null && arg2.ly != null && arg2.hx != null) {
             croom = arg2;
         } else {
-            const xy = get_coord_unpacked(arg2);
+            const xy = { x: ox, y: oy }; // C :3578 ox, oy start at -1
+            get_coord(arg2, xy); // C :3608 get_coord(L, 2, &ox, &oy)
             ox = xy.x;
             oy = xy.y;
             if (arg3 != null && typeof arg3 === 'object' && arg3.lx != null) {
@@ -21934,7 +22018,7 @@ function get_table_intarray_entry_unpacked(arr, entrynum) {
     if (typeof v === 'string' && v.trim() !== '' && !Number.isNaN(Number(v)))
         return Math.trunc(Number(v)); // C lua_isnumber coerces numeric strings
     const typename = v == null ? 'nil' : (Array.isArray(v) ? 'table' : typeof v);
-    throw new Error(`Array entry #1 is ${typename}, expected number`); // :5272–5276
+    nhl_error(`Array entry #1 is ${typename}, expected number`); // C :5273–5276
 }
 
 /**
@@ -21999,7 +22083,8 @@ function lspo_monster_from_string(paramstr, arg2, arg3) {
         if (arg2.lx != null && arg2.ly != null && arg2.hx != null) {
             croom = arg2;
         } else {
-            const xy = get_coord_unpacked(arg2);
+            const xy = { x: rx, y: ry }; // C :3218 mx, my start at -1
+            get_coord(arg2, xy); // C :3262 get_coord(L, 2, &mx, &my)
             rx = xy.x;
             ry = xy.y;
             if (arg3 != null && typeof arg3 === 'object' && arg3.lx != null) {

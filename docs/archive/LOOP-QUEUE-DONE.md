@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `cmd.c` reset_commands — coverage MISSING (C 132 L `cmd.c:3344–3476` / JS no symbol; hops —, callers 3, RNG 0, msg 0; dead callees: cmdbind_swapkeys). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn reset_commands` (reach regression must be 0). Measured `port-coverage.mjs --name reset_commands` 2026-09-26 @ d15d25c20. **Addressed:** D-2861
+- [x] `sp_lev.c` get_coord — coverage MISSING (C 47 L `sp_lev.c:5319–5366` / JS no symbol; hops —, callers 10, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn get_coord` (reach regression must be 0). Measured `port-coverage.mjs --name get_coord` 2026-09-26 @ d15d25c20. **Addressed:** D-2862
+
+
+- [x] `cmd.c` reset_commands — coverage MISSING (C 132 L `cmd.c:3344–3476` / JS no symbol; hops —, callers 3, RNG 0, msg 0; dead callees: cmdbind_swapkeys). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn reset_commands` (reach regression must be 0). Measured `port-coverage.mjs --name reset_commands` 2026-09-26 @ d15d25c20. **Addressed:** D-2861 `4373171cb`
 
 
 - [x] `potion.c` peffect_oil — coverage THIN (C 34 L `potion.c:1260–1294` / JS 13 L in js/potion.js; hops 4, callers 1, RNG 1, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn peffect_oil` (reach regression must be 0). Measured `port-coverage.mjs --name peffect_oil` 2026-09-26 @ ae37117bd. **Addressed:** D-2860 `905870b38`

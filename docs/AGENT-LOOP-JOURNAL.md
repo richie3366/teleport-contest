@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2862 `get_coord` reads an x/y table or a length-2 array
+
+**C locus:** `nethack-c/upstream/src/sp_lev.c:5319–5366` `get_coord`. Callees `nhl_error` (`nhlua.c:198`, now `js/mklev.js:21708`), `get_table_intarray_entry` (`sp_lev.c:5260`, `js/mklev.js:22015` `get_table_intarray_entry_unpacked`). `luaL_checkinteger` on the `x`/`y` fields is `js/mklev.js:21718`. Calls: `nhlua.c:518` `nhl_get_xy_params`; `sp_lev.c:3198` `get_table_xy_or_coord`; `:3262` `lspo_monster`; `:3608` `lspo_object`; `:3913` `lspo_engraving`; `:4419` `lspo_trap`; `:4439` launchfrom; `:4450` teledest; `:4496` `lspo_gold`; `:4866` `lspo_feature`; `:5007` `lspo_terrain`. `extern.h:3066` is the declaration.
+**JS:** `js/mklev.js` `nhl_error` `:21708`, `luaL_checkinteger_unpacked` `:21718`, `get_coord` `:21738`, `x` field `:21751`, `y` field `:21758`, array arm `:21771`, `get_table_intarray_entry_unpacked` `:21777`. `get_table_xy_or_coord` `:21794`.
+**Change:** One `get_coord` in that C order. A JS object or array is `LUA_TTABLE`; null and undefined are `LUA_TNIL` (`typeof null` is `"object"`). Nil returns false and does not write `xy`.
+**Verify:** `node scripts/verify.mjs --fn get_coord` → PASS syntax (1 changed js file: js/mklev.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+**Named:** `nhl_get_xy_params` (`nhlua.c:506–522`) and its caller `nhl_getmap` (`nhlua.c:530`) have no JS function, so the `get_coord` at `nhlua.c:518` is unwired. `lspo_terrain` (`sp_lev.c:4978–5037`) has no JS function, so the `get_coord` at `:5007` is unwired; `lspo_terrain_sel` only walks `sel_set_ter`.
+**Next:** `cmd.c` `keylist_putcmds` (next Open — coverage row). Eight Open — coverage rows remain after archive, at the floor of 8, so nothing was refilled.
 ## 2026-09-26 — audit 1812–1820 (D-2853…D-2861)
 
 Reviewed `d15d25c20` through `4373171cb` (nine JS commits). Nine ACCEPT. No QUALITY-RISK. No REJECT. No Must-fix. No `js/` edits. Nine Open — coverage rows remain, above the floor of 8, so nothing was refilled. Next cluster stays `sp_lev.c` `get_coord`.
