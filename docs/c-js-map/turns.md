@@ -3635,6 +3635,8 @@ tutorial/disclosure done D-0215/16
 
 JS: `js/uhitm.js`, `js/mhitm.js`, `js/explode.js` — partial
 
+**`hmon_hitmon_poison` / `joust` / `hmon_hitmon_jousting` / `mhurtle_to_doom` / `hmon_hitmon_barehands` / `mhitm_ad_dren` (D-2839)** (`uhitm.c:1510–1538`, `:2098–2129`, `:1541–1567`, `:1942–1958`, `:838–882`, `:2418–2442`). Poison runs after recalc when melee set `ispoisoned` (thrown launcher ammo `opoisoned`, or permapoisoned with `dieroll <= 5`); samurai/lawful messages, wear-off `rn2`, resist or `rnd(6)` or deadly `xkilled(NOMSG)`. Joust is the mounted-lance `rn2(5)` in `hmon_hitmon_weapon_melee`, then the helper's `d()`, shatter, and `mhurtle`. Bare hands call `special_dmgval` for gloves or one silver ring and print the ring sear. `mhitm_ad_dren` is one function: uhitm `xdrainenergym(TRUE)` from `damageum_adtyping`, mhitu `hitmsg`+`drain_en` from `hitmu`, mhitm `xdrainenergym(vis && canspotmon && aatyp != AT_ENGL)` from `mdamagem`. Named: stagger's canspotmon pline still does not call `mhurtle_to_doom`; weapon/misc `silvermsg` still has no `saved_oname`; non-shade `get_dmg_bonus` bump-to-1 and `umconf` hand-glow stay out; gulpmu `AD_DREN` stays its own `xdrainenergym` (C `gulpum`, not `mhitm_ad_dren`).
+
 **`find_mac` minvent worn ARM_BONUS/guarding + AC_MAX (D-1042; re-export from `worn.js`)**; 
 **`do_attack` `gu.unweapon` begin-bashing pline** (D-0892; 
 twoweapon/untwoweapon before it deferred; egg-useup re-arm still thin); 
