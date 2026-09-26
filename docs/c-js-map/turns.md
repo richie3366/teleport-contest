@@ -811,7 +811,7 @@ D-2150: `do_class_genocide` cmdassist default-On prompt + declined/first-genocid
 vampshifted POLY_REVERT still named (polyself voids it); do_genocide livelog / Hallu names / cham `newcham` / `update_inventory` still named; 
 `create_particular` class-letter still named) + 
 **`domove` Punished `drag_ball`/`move_bc`/`cause_delay`→`nomul(-2)`** (D-0909; 
-Blind move_bc felt/glyph is **D-1777**, `ballfall` is **D-1778**; jerked-back hmon/miss, 
+Blind move_bc felt/glyph is **D-1777**, `ballfall` is **D-1778**; jerked-back `omon_adj`/`hmon`/`miss` is **D-2905**, 
 **drop_ball D-2329**; litter/unpunish deferred; **`set_bc` is D-1769**); 
 **`create_particular` named `name_to_mon` + gendered-name `MM_MALE`/`MM_FEMALE`** (D-2001; explicit female/male terms + name-gender merge, conflict explicit-wins; D-2003: bare `strstri` search, no leading pad — `shemale …` hits MALE — + `memset`-width in-place blanking) + `makemon(..., MM_NOEXCLAM)` + 
 `makemon_appear_msg` for `#wizgenesis`/`^G`** (D-0510/D-0928 #1164;
@@ -2855,6 +2855,7 @@ menu_requested named; wizid unid_cnt>0 is D-1590; `display_used_invlets` is D-15
 
 JS: `js/dothrow.js` — partial
 
+**`omon_adj` whole-body D-2905** (C `dothrow.c:1913–1947`; one export `js/dothrow.js`; size/sleep/immobile `!rn2(10)` unfreeze, iron ball vs `uball`, boulder +6, weapon/weptool/gem `hitval`; callers `dothrow.c:2074` → thitmonst, `mthrowu.c:340` → `ohitmon`, `ball.c:803` → `drag_ball`);
 Dart split/flight/landing; `throw_ok` SUGGEST coins+weapons + getobj loop (D-0025); 
 **`ok_to_throw` `notake`/`nohands` before getobj/`dofire`** (D-0928 #1112; 
 `check_capacity` deferred); **throwit ACURRSTR urange D-1316** (crossbow 18 / owt / uball / ammo 
@@ -3482,7 +3483,7 @@ kill → `mondied`/`xkilled(NOMSG)` (D-0698) + `!mon_moving`→`setmangry` (D-09
 passes_rocks-macro harmless, acid-immune 0, splat sfx, egg/corpsenm msg, 
 poison/silver/acid-burn/egg-petrify (`munstone` new `js/muse.js` export + 
 `minstapetrify`), vampshifter destroy verb, `can_blnd` venom/pie; `#if 0` 
-orc/elf arm compiled out in C; named: mon_notices unfreeze in same-file `omon_adj`; **MUSE_CAMERA** find+use `lightdamage` D-1376 (C `:1566–1574`/`:1938–1955` `!rn2(6)` + 
+orc/elf arm compiled out in C; `omon_adj` unfreeze is the dothrow export (D-2905); **MUSE_CAMERA** find+use `lightdamage` D-1376 (C `:1566–1574`/`:1938–1955` `!rn2(6)` + 
 flash/`make_blinded`/`spe--`/return 1; callee D-1366); ray-wand/horn/SCR_EARTH D-1810; 
 mon-target `potionhit` crash/saddle/POT_WATER D-1297 (other otyps named); 
 **`hitval` blessed/spear/trident/pick D-1929** (artifact `spec_abon` D-0611; no silver arm in C hitval);

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `zap.c` learnwand — coverage PARTIAL (C 28 L `zap.c:123–151` / JS 13 L in js/zap.js; hops 3, callers 14, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn learnwand` (reach regression must be 0). Measured `port-coverage.mjs --name learnwand` 2026-09-27 @ 795c5410f. **Addressed:** D-2904
+- [x] `dothrow.c` omon_adj — coverage PARTIAL (C 34 L `dothrow.c:1913–1947` / JS 21 L in js/dothrow.js; hops 3, callers 3, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn omon_adj` (reach regression must be 0). Measured `port-coverage.mjs --name omon_adj` 2026-09-27 @ 795c5410f. **Addressed:** D-2905
+
+
+- [x] `zap.c` learnwand — coverage PARTIAL (C 28 L `zap.c:123–151` / JS 13 L in js/zap.js; hops 3, callers 14, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn learnwand` (reach regression must be 0). Measured `port-coverage.mjs --name learnwand` 2026-09-27 @ 795c5410f. **Addressed:** D-2904 `6aacaa7b4`
 
 
 - [x] `polyself.c` livelog_newform — coverage MISSING (C 26 L `polyself.c:307–333` / JS no symbol; hops 4, callers 2, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn livelog_newform` (reach regression must be 0). Measured `port-coverage.mjs --name livelog_newform` 2026-09-26 @ e4e898f54. **Addressed:** D-2903 `2f8cea8dd`.

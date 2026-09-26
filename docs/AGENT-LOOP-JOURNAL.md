@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2905 `omon_adj` is one export, including the iron-ball jerk
+
+**C locus:** `nethack-c/upstream/src/dothrow.c:1913–1947` `omon_adj`. Add `msize - MZ_MEDIUM`, +2 if sleeping, +4 if `!mcanmove || !mmove`, and when `mon_notices && mmove && !rn2(10)` set `mcanmove = 1` and `mfrozen = 0`. Then `HEAVY_IRON_BALL` +2 unless the object is `uball`, `BOULDER` +6, else weapon / weptool / gem `hitval`.
+**JS:** `js/dothrow.js` `omon_adj` `:423`. `js/mthrowu.js` `ohitmon` `:868`. `js/ball.js` `drag_ball` `:879–890`.
+**Change:** One exported `omon_adj` in that C order. `ohitmon` imports it and passes false. The jerk computes `rnd(20)`, then `-2 + Luck + find_mac`, then `omon_adj(..., true)`, then `hmon` (`HMON_DRAGGED`) or `miss`.
+**Verify:** `node scripts/verify.mjs --fn omon_adj --reach-all --full` → PASS syntax (3 changed js files: js/ball.js js/dothrow.js js/mthrowu.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.2s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 · VERIFY: PASS.
+**Named:** No arm of `omon_adj` is omitted. `drag_ball` still does not call `spoteffects(TRUE)` after the jerk (`ball.c:823`); that abort-path call was already deferred on `js/ball.js`.
+**Next:** `dungeon.c` `ceiling` (next Open — coverage row). Three Stale parks. Six tool rows refilled so the queue is back above 8.
 ## 2026-09-26 — D-2904 `learnwand` observes the wand and refreshes inventory
 
 **C locus:** `nethack-c/upstream/src/zap.c:123–151` `learnwand`. Skip when `oclass == SPBOOK_CLASS`. If `objects[otyp].oc_name_known`, `observe_object` even while `Blind` (`youprop.h:103`). Else `observe_object` only when `!Blind`, then `makeknown` when `dknown`. Then `update_inventory` (`invent.c:2782`). `observe_object` is `o_init.c:441–451` (`dknown` plus `discover_object` unless `otyp < FIRST_OBJECT` or `Hallucination`).

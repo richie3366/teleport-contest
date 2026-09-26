@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2905 — `omon_adj` is one export, including the iron-ball jerk
+
+- **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked). C is 34 lines; the whole body shipped. `mon_overrides_region`, `undesirable_disp`, and same-file `should_mulch_missile` were already the C bodies (Stale).
+- **Symptom:** Missile to-hit lived in two clones. The monster-throw clone dropped the immobilized `!rn2(10)` unfreeze. Dragging the iron ball onto a monster burned `rnd(20)` and never called `omon_adj`, `hmon`, or `miss`.
+- **C locus:** `nethack-c/upstream/src/dothrow.c:1913–1947` `omon_adj`. Add `msize - MZ_MEDIUM`, +2 if sleeping, +4 if `!mcanmove || !mmove`, and when `mon_notices && mmove && !rn2(10)` set `mcanmove = 1` and `mfrozen = 0`. Then `HEAVY_IRON_BALL` +2 unless the object is `uball`, `BOULDER` +6, else weapon / weptool / gem `hitval`.
+- **JS was:** `js/dothrow.js` had the full body. `js/mthrowu.js` cloned it and discarded `mon_notices`. `js/ball.js` `drag_ball` voided `rnd(20)` on the jerk.
+- **Fix:** One exported `omon_adj` in that C order. `ohitmon` imports it and passes false. The jerk computes `rnd(20)`, then `-2 + Luck + find_mac`, then `omon_adj(..., true)`, then `hmon` (`HMON_DRAGGED`) or `miss`.
+- **JS:** `js/dothrow.js` `omon_adj` `:423`. `js/mthrowu.js` `ohitmon` `:868`. `js/ball.js` `drag_ball` `:879–890`.
+- **Callers:** `dothrow.c:2074` `thitmonst` → `js/dothrow.js:622` (`mon_notices` true). `mthrowu.c:340` `ohitmon` → `js/mthrowu.js:868` (false). `ball.c:803` `drag_ball` → `js/ball.js:885` (true). `extern.h:848` only declares it. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn omon_adj --reach-all --full` → PASS syntax (3 changed js files: js/ball.js js/dothrow.js js/mthrowu.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.2s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 · VERIFY: PASS.
+- **Named omissions:** No arm of `omon_adj` is omitted. `drag_ball` still does not call `spoteffects(TRUE)` after the jerk (`ball.c:823`); that abort-path call was already deferred on `js/ball.js`.
+- **Next:** `dungeon.c` `ceiling` (next Open — coverage row). Three Stale parks. Six tool rows refilled so the queue is back above 8.
+
 ## D-2904 — `learnwand` observes the wand and refreshes inventory
 
 - **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked). C is 28 lines; the whole body shipped. `courtmon` was already the C body (Stale).

@@ -415,10 +415,12 @@ export function throwing_weapon(obj) {
 }
 
 /**
- * C ref: dothrow.c omon_adj — size/sleep/immobile/otyp to-hit; mon_notices
- * `!rn2(10)` unfreeze when mmove (thitmonst passes TRUE).
+ * C ref: dothrow.c omon_adj `:1913–1947` — size, sleep, immobile
+ * (`mcanmove` / `mmove`), then otyp. `mon_notices && mmove && !rn2(10)`
+ * clears freeze. Callers: thitmonst (`dothrow.c:2074`, TRUE), ohitmon
+ * (`mthrowu.c:340`, FALSE), drag_ball jerk (`ball.c:803`, TRUE).
  */
-function omon_adj(mon, obj, mon_notices) {
+export function omon_adj(mon, obj, mon_notices) {
     let tmp = 0;
     tmp += ((mon.data?.msize ?? MZ_MEDIUM) - MZ_MEDIUM);
     if (mon.msleeping) tmp += 2;
