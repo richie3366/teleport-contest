@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2831 `place_lregion` places the region in C order
+
+**C locus:** `nethack-c/upstream/src/mkmaze.c:356–410` `place_lregion`. Callee `put_lregion_here` `:412–469` (`undestroyable_trap`, `mtrapped = 0`, `deltrap`, tele `rloc(mtmp, RLOC_NOMSG)` then `m_into_limbo`, `u_on_newpos`, `mkportal`, `mkstairs(x, y, (char) rtype, NULL, FALSE)`, `place_branch(Is_branchlev(&u.uz), x, y)`). `mkportal` `:1464–1478`. Same file `setup_waterlevel` `:1812–1857` (panic when not water or air).
+**JS:** `js/mklev.js` `put_lregion_here` `:601`, `place_lregion` `:722`, `mkportal` `:31260`, `setup_waterlevel` `:17468`. `m_into_limbo` import `:119` (`imports.mjs --can`: ALREADY). `rloc` and `RLOC_NOMSG` were already in scope. `deltrap` / `undestroyable_trap` are the `trap.js` exports.
+**Change:** One `place_lregion` in that C order, including the failure `impossible`. `put_lregion_here` deletes a destroyable trap via `deltrap` after clearing `mtrapped`, then rechecks. A tele oneshot returns a Promise that awaits `rloc(mtmp, RLOC_NOMSG)`, then `m_into_limbo` when that is false, then `u_on_newpos`.
+**Verify:** `node scripts/verify.mjs --fn place_lregion` → PASS syntax (2 changed js files: js/mklev.js js/mon.js) · PASS rule2 · note hidden (no corpus session blocked at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (shared file) · VERIFY: PASS.
+**Named:** A missing level cell makes `bad_location` true (C would dereference `levl`). A null portal `lev` passes dnum 0 and dlevel 0 (C would dereference `lev`).
+**Next:** `polyself.c` `set_uasmon` (next Open — coverage row). `--rows 40` was the never-re-pop Stale head, not pasted. One later THIN row, `mhitm_ad_legs`, is appended. Eight measured rows remain.
 ## 2026-09-26 — D-2830 options.c sortloot, runmode, pickup_types, scores, boulder optfns
 
 **C locus:** `nethack-c/upstream/src/options.c` `optfn_sortloot` `:3914–3955` and `handler_sortloot` `:6166–6203`; `optfn_runmode` `:3627–3666` and `handler_runmode` `:6123–6149`; `optfn_pickup_types` `:3308–3401` and `handler_pickup_types` `:6113–6120`; `optfn_scores` `:3669–3760`; `optfn_boulder` `:1171–1246` (`BACKWARD_COMPAT` is defined at `options.c:19`, so the `:1229` arm is compiled out). No direct C calls: each is an `NHOPTC` function pointer.

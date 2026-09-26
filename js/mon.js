@@ -1909,9 +1909,9 @@ export async function mpickgold(mtmp) {
  * C ref: mon.c m_into_limbo `:3834–3840` — MON_LIMBO then migrate to current
  * ledger with MIGR_APPROX_XY. Callers: deal_with_overcrowding (same file),
  * do.c u_collide_m, teleport.c u_teleport_mon, vault.c clear_fcorr.
- * Sync sites stay deferred: mkmaze.c put_lregion_here (sync level-gen),
- * vault.c wallify/gd_mv_monaway (wallify stub), dog.c losedogs/mon_arrive
- * (failed_arrivals/relmon infra).
+ * put_lregion_here awaits this on the tele oneshot (D-2831).
+ * Sync sites still deferred: vault.c wallify/gd_mv_monaway (wallify stub),
+ * dog.c losedogs/mon_arrive (failed_arrivals/relmon infra).
  */
 export async function m_into_limbo(mtmp) {
     const target_lev = ledger_no(game.u?.uz);

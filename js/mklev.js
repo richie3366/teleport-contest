@@ -116,7 +116,7 @@ import {
 import { mk_mplayer } from './mplayer.js';
 import { can_saddle, put_saddle_on_mon, remove_monster } from './steed.js';
 import { unplacebc_and_covet_placebc, lift_covet_and_placebc } from './ball.js';
-import { m_at, mnearto, mnexto, elemental_clog, seemimic, minliquid, dmonsfree, discard_minvent, mdrop_special_objs } from './mon.js';
+import { m_at, mnearto, mnexto, elemental_clog, seemimic, minliquid, dmonsfree, discard_minvent, mdrop_special_objs, m_into_limbo } from './mon.js';
 import { enexto, rloc, goodpos, migrate_to_level, single_level_branch, Inhell } from './teleport.js';
 import { clear_wormdata, flip_worm_segs_horizontal, flip_worm_segs_vertical, remove_worm } from './worm.js';
 import { obj_resists } from './dogmove.js';
@@ -593,15 +593,28 @@ function is_exclusion_zone(type, x, y) {
     return false;
 }
 
-// C ref: mkmaze.c put_lregion_here — place stair/branch/tele at (x,y)
+// C ref: mkmaze.c put_lregion_here — mkmaze.c:412–469.
+// Stair / portal / branch stay synchronous. A tele oneshot with a
+// monster returns a Promise: rloc(RLOC_NOMSG), then m_into_limbo when
+// that fails, then u_on_newpos. u_on_rndspot awaits it. A bare tele
+// returns u_on_newpos's promise the same way.
 function put_lregion_here(x, y, nlx, nly, nhx, nhy, rtype, oneshot, lev) {
     if (bad_location(x, y, nlx, nly, nhx, nhy)
         || is_exclusion_zone(rtype, x, y)) {
-        if (!oneshot) return false;
-        // C: deltrap undestroyable-safe then retry bad_location + exclusion
+        if (!oneshot) {
+            return false; /* caller should try again */
+        }
+        /* Must make do with the only location possible;
+           avoid failure due to a misplaced trap.
+           It might still fail if there's a dungeon feature here. */
         const t = t_at(x, y);
-        if (t) {
-            // Named omission: undestroyable_trap gate + mtrapped clear
+        if (t && !undestroyable_trap(t.ttyp)) {
+            const mtmp = m_at(x, y);
+            if (mtmp && mtmp.mtrapped)
+                mtmp.mtrapped = 0;
+            deltrap(t);
+            /* maketrap records level.traps (what t_at / deltrap use).
+               A parallel ftrap chain still exists for older readers. */
             let prev = null;
             for (let cur = game.ftrap; cur; prev = cur, cur = cur.ntrap) {
                 if (cur === t) {
@@ -619,33 +632,36 @@ function put_lregion_here(x, y, nlx, nly, nhx, nhy, rtype, oneshot, lev) {
     case LR_TELE:
     case LR_UPTELE:
     case LR_DOWNTELE: {
-        // C: monster here → oneshot rloc/limbo, else retry
+        /* "something" means the player in this case */
         const mtmp = m_at(x, y);
         if (mtmp) {
+            /* move the monster if no choice, or just try again */
             if (oneshot) {
-                if (!rloc(mtmp, 0)) {
-                    // m_into_limbo deferred
-                }
-            } else {
-                return false;
+                return (async () => {
+                    if (!(await rloc(mtmp, RLOC_NOMSG)))
+                        await m_into_limbo(mtmp);
+                    await u_on_newpos(x, y);
+                    return true;
+                })();
             }
+            return false;
         }
-        // C mkmaze.c:455. Promise so u_on_rndspot can finish cliparound /
-        // map_location / earth_sense before switch_terrain. Non-tele
-        // arms stay synchronous (level loaders do not await).
+        // C mkmaze.c:455. Promise so u_on_rndspot finishes cliparound /
+        // map_location / earth_sense before switch_terrain.
         return u_on_newpos(x, y);
     }
-    case LR_PORTAL: {
-        // C ref: mkmaze.c mkportal — MAGIC_PORTAL + dst dnum/dlevel
-        const ttmp = maketrap(x, y, MAGIC_PORTAL);
-        if (ttmp && lev) {
-            ttmp.dst = { dnum: lev.dnum | 0, dlevel: lev.dlevel | 0 };
-        }
+    case LR_PORTAL:
+        /* C mkmaze.c:458 mkportal(x, y, lev->dnum, lev->dlevel). */
+        mkportal(
+            x, y,
+            lev ? (lev.dnum | 0) : 0,
+            lev ? (lev.dlevel | 0) : 0,
+        );
         break;
-    }
     case LR_DOWNSTAIR:
     case LR_UPSTAIR:
-        mkstairs(x, y, rtype === LR_UPSTAIR ? 1 : 0, null);
+        /* C (char) rtype: LR_DOWNSTAIR is 0, LR_UPSTAIR is 1. */
+        mkstairs(x, y, rtype, null, false);
         break;
     case LR_BRANCH:
         place_branch(is_branchlev(), x, y);
@@ -693,36 +709,65 @@ export async function u_on_rndspot(upflag) {
     await switch_terrain();
 }
 
+/**
+ * C ref: mkmaze.c place_lregion — mkmaze.c:356–410.
+ * Pick a cell in (lx,ly)–(hx,hy) outside the exclusion rectangle and
+ * place rtype. !lx is the whole map; a branch on a level that already
+ * has rooms goes through place_branch. 200 rn1 samples, then a
+ * row-major scan with oneshot TRUE. Tele placement may return a
+ * Promise (u_on_newpos, or rloc then m_into_limbo); u_on_rndspot
+ * awaits it. Stair, portal, and branch arms return true synchronously.
+ * Total failure returns impossible()'s promise.
+ */
 export function place_lregion(lx, ly, hx, hy, nlx, nly, nhx, nhy, rtype, lev) {
-    if (!lx) {
-        // When rooms exist, let place_branch pick (avoid corridor branches)
+    if (!lx) { /* default to whole level */
+        /*
+         * if there are rooms and this a branch, let place_branch choose
+         * the branch location (to avoid putting branches in corridors).
+         */
         if (rtype === LR_BRANCH && (game.level?.nroom | 0)) {
             place_branch(is_branchlev(), 0, 0);
             return;
         }
-        lx = 1;
+        lx = 1; /* column 0 is not used */
         hx = COLNO - 1;
-        ly = 0;
+        ly = 0; /* 3.6.0 and earlier erroneously had 1 here */
         hy = ROWNO - 1;
     }
-    if (lx < 1) lx = 1;
-    if (hx > COLNO - 1) hx = COLNO - 1;
-    if (ly < 0) ly = 0;
-    if (hy > ROWNO - 1) hy = ROWNO - 1;
 
+    /* clamp the area to the map */
+    if (lx < 1)
+        lx = 1;
+    if (hx > COLNO - 1)
+        hx = COLNO - 1;
+    if (ly < 0)
+        ly = 0;
+    if (hy > ROWNO - 1)
+        hy = ROWNO - 1;
+
+    /* first a probabilistic approach */
     const oneshot = (lx === hx && ly === hy);
     for (let trycnt = 0; trycnt < 200; trycnt++) {
         const x = rn1((hx - lx) + 1, lx);
         const y = rn1((hy - ly) + 1, ly);
-        const placed = put_lregion_here(x, y, nlx, nly, nhx, nhy, rtype, oneshot, lev);
-        if (placed) return placed;
+        const placed = put_lregion_here(
+            x, y, nlx, nly, nhx, nhy, rtype, oneshot, lev,
+        );
+        if (placed)
+            return placed;
     }
-    for (let x = lx; x <= hx; x++) {
+
+    /* then a deterministic one */
+    for (let x = lx; x <= hx; x++)
         for (let y = ly; y <= hy; y++) {
-            const placed = put_lregion_here(x, y, nlx, nly, nhx, nhy, rtype, true, lev);
-            if (placed) return placed;
+            const placed = put_lregion_here(
+                x, y, nlx, nly, nhx, nhy, rtype, true, lev,
+            );
+            if (placed)
+                return placed;
         }
-    }
+
+    return impossible("Couldn't place lregion type %d!", rtype);
 }
 
 /** C ref: decl.c gb.bughack — preserve baalz insect legs during wallify. */
@@ -17423,7 +17468,15 @@ function load_minetn_7() {
 function setup_waterlevel() {
     const g = game;
     const uz = g.u?.uz;
-    if (!Is_waterlevel(uz) && !Is_airlevel(uz)) return;
+    /* C mkmaze.c:1817–1819 panic() is NORETURN. No JS panic (Rule #2). */
+    if (!Is_waterlevel(uz) && !Is_airlevel(uz)) {
+        impossible(
+            "setup_waterlevel(): [%d:%d] neither 'Water' nor 'Air'",
+            uz?.dnum | 0,
+            uz?.dlevel | 0,
+        );
+        return;
+    }
     if (!g.level.flags) g.level.flags = {};
     g.level.flags.hero_memory = false;
 
@@ -31205,8 +31258,15 @@ function find_branch_room(mp) {
  * C ref: mkmaze.c mkportal — MAGIC_PORTAL trap with destination dungeon/level.
  */
 function mkportal(x, y, todnum, todlevel) {
+    /* a portal "trap" must be matched by a
+       portal in the destination dungeon/dlevel */
     const ttmp = maketrap(x, y, MAGIC_PORTAL);
-    if (!ttmp) return;
+    if (!ttmp) {
+        /* C mkmaze.c:1470–1472. place_branch is synchronous, so this
+           promise is not awaited there; the urgent pline still runs. */
+        impossible('portal on top of portal?');
+        return;
+    }
     ttmp.dst = { dnum: todnum | 0, dlevel: todlevel | 0 };
 }
 
