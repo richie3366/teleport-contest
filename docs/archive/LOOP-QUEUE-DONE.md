@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `ball.c` placebc_core — coverage MISSING (C 24 L `ball.c:120–144` / JS no symbol; hops 3, callers 4, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn placebc_core` (reach regression must be 0). Measured `port-coverage.mjs --name placebc_core` 2026-09-26 @ 8eb83b375. **Addressed:** D-2840
+- [x] `mkmaze.c` fixup_special — coverage PARTIAL (C 134 L `mkmaze.c:570–704` / JS 71 L in js/mklev.js; hops 2, callers 3, RNG 2, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn fixup_special` (reach regression must be 0). Measured `port-coverage.mjs --name fixup_special` 2026-09-26 @ 8e53e2c60. **Addressed:** D-2841
+
+
+- [x] `ball.c` placebc_core — coverage MISSING (C 24 L `ball.c:120–144` / JS no symbol; hops 3, callers 4, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn placebc_core` (reach regression must be 0). Measured `port-coverage.mjs --name placebc_core` 2026-09-26 @ 8eb83b375. **Addressed:** D-2840 `dcaae0c59`
 
 
 - [x] `uhitm.c` mhitm_ad_legs — coverage THIN (C 62 L `uhitm.c:4425–4489` / JS 8 L in js/mhitm.js; hops 4, callers 1, RNG 4, msg 6). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mhitm_ad_legs` (reach regression must be 0). Measured `port-coverage.mjs --name mhitm_ad_legs` 2026-09-26 @ db4f455db. **Stale:** existing park 2026-09-25 (split live).

@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2841 — `fixup_special` sets up water, graveyards, and the town flag
+
+- **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** Plane of Water and Air called `setup_waterlevel` in the loader, walked lregions, then called `fixup_special` on an empty list. Cleric quest and the stronghold never set `graveyard`. Baalzebub and orctown booty were separate `if`s, not the C else-if. Town detection walked `sp_levchn` by hand instead of `Is_special`.
+- **C locus:** `nethack-c/upstream/src/mkmaze.c:570–704` `fixup_special`. Callees `setup_waterlevel` (`mkmaze.c:1812`), `find_level`, `place_lregion` (`:356`), `goodpos`, `mk_tt_object`, `poly_when_stoned`, `pm_resistance`, `set_corpsenm` (`mkobj.c:1318`), `rndmonnum`, `mkcorpstat`, `baalz_fixup`, `stolen_booty`, `Is_special`. `Is_baal_level` is `on_level(&u.uz, &baalzebub_level)`. Callers `sp_lev.c:6050` (`lspo_finalize_level`) and `sp_lev.c:6491` (`load_special`). `mklev.c:1558` is a comment.
+- **JS was:** `fixup_special` cleared `lregions` first and had no water/air prologue. `finish_fixup_special` placed Medusa statues, then independent `Is_baal_level` and mines `stolen_booty` checks, and a hand-rolled town scan. No cleric or stronghold graveyard. `load_air` and `load_water` called `setup_waterlevel` and walked regions before `fixup_special`.
+- **Fix:** One `fixup_special` in that C order. Water or air sets `hero_memory` to 0 and calls `setup_waterlevel` before the region walk. Branch sets `added_branch` and places; a portal uses atoi or `find_level`; stairs place; tele copies `updest` and `dndest`. The region name is cleared, then the branch fallback, then the else-if tail (Medusa statues, cleric-quest graveyard, stronghold graveyard, `baalz_fixup`, `stolen_booty`), then `Is_special` town, then the region list is dropped. Air and water return `fixup_special()` after flip so bubbles and portals run once, setup first.
+- **JS:** `js/mklev.js` `fixup_special` `:2415`, `fixup_special_tail` `:2534`, `load_air` `:15523`, `load_water` `:15594`, `lspo_finalize_level` `:2192`.
+- **Callers:** `mklev.c:1558` is a comment. `sp_lev.c:6050` → `js/mklev.js:2192`. `sp_lev.c:6491` is the one `load_special` call; each `load_*` returns `fixup_special()` (air `:15523`, water `:15594`, sokoban epilogue `:3938` before `premap_detect`). No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn fixup_special` → PASS syntax (1 changed js file: js/mklev.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (shared file) · VERIFY: PASS.
+- **Named omissions:** The branch fallback still requires `!game.made_branch`. `place_branch` returns immediately when that latch is set, but `place_lregion` on a roomless level burns 200 `rn1` before that return. Loaders that walk and clear `lregions` before calling `fixup_special` still own that walk; this function's walk runs when the list is still populated. A missing `rooms[0]` skips the Medusa statues. A null `find_level` leaves the portal destination null. A missing `game.level` skips the flag writes.
+- **Next:** `options.c` `handler_msgtype` (next Open — coverage row). Nine Open — coverage rows remain, inside the band, so nothing was refilled.
+
 ## D-2840 — `placebc_core` rusts the chain and records the under-glyph
 
 - **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked). `set_wall_state` was already the compiled loop and is parked Stale.

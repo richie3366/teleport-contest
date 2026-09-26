@@ -63,6 +63,7 @@ import {
     Is_knox_level,
     Is_botlevel,
     Is_medusa_level,
+    Is_stronghold,
     Is_baal_level,
     RLOC_ERR,
     DUST, MARK as ENGRAVE_MARK, M_AP_OBJECT, M_AP_FURNITURE, M_AP_MONSTER, M_AP_NOTHING, ENGRAVE, ENGR_BLOOD,
@@ -2402,57 +2403,95 @@ export function stolen_booty() {
     game.ransacked = 0;
 }
 
-// C ref: mkmaze.c fixup_special — post-special-level branch/lregion placement
+/**
+ * C ref: mkmaze.c fixup_special `:570–704`.
+ * Water/air setup, then every lregion, then the branch fallback, then
+ * the medusa / quest / stronghold / baalz / orctown tail. gl.lregions
+ * stays live until the end (C frees it last). Stair, portal, and branch
+ * place_lregion results are booleans; a tele Promise still settles
+ * before the next region and before this tail (D-2836).
+ * Loaders that already walked and cleared lregions call this for the tail.
+ */
 function fixup_special() {
-    // C: leftover gl.lregions. Other load_* still consume inline after
-    // flip then call this (array empty). tut-1 leaves TELE for dest copy.
-    // Fallback still uses made_branch: inline BRANCH would double-place
-    // if this used C's added_branch-only gate.
+    const uz = game.u?.uz;
+    /* C `:579–584` — hero_memory = 0, then setup_waterlevel, before
+       place_lregion. setup_waterlevel assigns it again. */
+    if (Is_waterlevel(uz) || Is_airlevel(uz)) {
+        if (game.level) {
+            if (!game.level.flags) game.level.flags = {};
+            game.level.flags.hero_memory = 0;
+        }
+        setup_waterlevel();
+    }
+
     let added_branch = false;
     const lregions = game.lregions || [];
-    game.lregions = [];
-    // mkmaze.c:606 — BRANCH/PORTAL/STAIR. Tele (not these rtypes) still
-    // settles before the branch fallback and the medusa tail.
+
+    /* C place_it label `:606–611`. lev is only read for LR_PORTAL
+       (mkportal). Branch and stairs pass null: C's `lev` is uninitialized
+       on those arms and put_lregion_here does not read it. */
+    function place_it(r, lev) {
+        return place_lregion(
+            r.inarea.x1, r.inarea.y1, r.inarea.x2, r.inarea.y2,
+            r.delarea.x1, r.delarea.y1, r.delarea.x2, r.delarea.y2,
+            r.rtype, lev,
+        );
+    }
+
+    /* C `:640–641` — free(rname.str), rname.str = 0. */
+    function release_rname(r) {
+        if (!r || !r.rname) return;
+        if (typeof r.rname === 'object') {
+            if (r.rname.str) r.rname.str = 0;
+        } else {
+            r.rname = 0;
+        }
+    }
+
     return afterPending(walkRegions(lregions, (r) => {
+        let pending;
         switch (r.rtype) {
-        case LR_BRANCH:
+        case LR_BRANCH: /* C `:592–594` added_branch = TRUE; goto place_it */
             added_branch = true;
-            // fall through
-        case LR_PORTAL:
-        case LR_UPSTAIR:
-        case LR_DOWNSTAIR: {
+            pending = place_it(r, null);
+            break;
+        case LR_PORTAL: { /* C `:596–604` chutes-and-ladders or find_level */
             let lev = null;
-            if (r.rtype === LR_PORTAL) {
-                const name = (r.rname && typeof r.rname === 'object')
-                    ? r.rname.str : r.rname;
-                if (name) {
-                    if (name[0] >= '0' && name[0] <= '9') {
+            const name = (r.rname && typeof r.rname === 'object')
+                ? r.rname.str : r.rname;
+            if (name) {
+                const ch = name[0];
+                if (ch >= '0' && ch <= '9') {
+                    /* lev = u.uz; lev.dlevel = atoi(rname) — do not
+                       mutate game.u.uz. */
+                    lev = {
+                        dnum: uz?.dnum | 0,
+                        dlevel: parseInt(name, 10) | 0,
+                    };
+                } else {
+                    const sp = find_level(name);
+                    /* C assigns sp->dlevel. A null find_level leaves lev
+                       null (C would dereference). */
+                    if (sp?.dlevel) {
                         lev = {
-                            dnum: game.u?.uz?.dnum | 0,
-                            dlevel: parseInt(name, 10) | 0,
+                            dnum: sp.dlevel.dnum | 0,
+                            dlevel: sp.dlevel.dlevel | 0,
                         };
-                    } else {
-                        const sp = find_level(name);
-                        if (sp?.dlevel) {
-                            lev = {
-                                dnum: sp.dlevel.dnum | 0,
-                                dlevel: sp.dlevel.dlevel | 0,
-                            };
-                        }
                     }
                 }
             }
-            return place_lregion(
-                r.inarea.x1, r.inarea.y1, r.inarea.x2, r.inarea.y2,
-                r.delarea.x1, r.delarea.y1, r.delarea.x2, r.delarea.y2,
-                r.rtype, lev,
-            );
+            pending = place_it(r, lev);
+            break;
         }
+        case LR_UPSTAIR:
+        case LR_DOWNSTAIR:
+            pending = place_it(r, null);
+            break;
         case LR_TELE:
         case LR_UPTELE:
         case LR_DOWNTELE: {
-            // C: copy dests only — place_lregion runs from goto_level
-            // u_on_rndspot, not here.
+            /* C `:613–636` — outlines for goto_level. place_lregion
+               runs from u_on_rndspot, not here. */
             const tele = {
                 lx: r.inarea.x1, ly: r.inarea.y1,
                 hx: r.inarea.x2, hy: r.inarea.y2,
@@ -2463,21 +2502,39 @@ function fixup_special() {
                 game.updest = { ...tele };
             if (r.rtype === LR_TELE || r.rtype === LR_DOWNTELE)
                 game.dndest = { ...tele };
-            return;
+            break;
         }
+        default:
+            break;
         }
+        release_rname(r);
+        return pending;
     }), () => {
-        // mkmaze.c:645 — branch if none was placed above.
+        /* C `:644–646`. made_branch is place_branch's own early-out
+           (mklev.c): a loader that already placed the branch must not
+           re-enter place_lregion, which burns 200 rn1 when nroom is 0
+           before that early-out. */
         const p = (!added_branch && !game.made_branch && is_branchlev())
             ? place_lregion(0, 0, 0, 0, 0, 0, 0, 0, LR_BRANCH, null)
             : undefined;
-        return afterPending(p, () => finish_fixup_special());
+        return afterPending(p, () => {
+            fixup_special_tail(uz);
+            /* C `:701–703` free(gl.lregions); num_lregions = 0. */
+            game.lregions = [];
+            game.num_lregions = 0;
+        });
     });
 }
 
-function finish_fixup_special() {
-    // C ref: mkmaze.c fixup_special Is_medusa_level — statues in rooms[0]
-    if (Is_medusa_level(game.u?.uz)) {
+/**
+ * C ref: mkmaze.c fixup_special `:652–699` — one else-if chain.
+ * Medusa statues, cleric-quest graveyard, stronghold graveyard,
+ * baalz_fixup, orctown stolen_booty, then Mine Town has_town.
+ */
+function fixup_special_tail(uz) {
+    if (Is_medusa_level(uz)) {
+        /* C `:654` rooms[0], the first room defined on the level.
+           A missing slot skips the statues (C would dereference). */
         const croom = game.level?.rooms?.[0];
         if (croom) {
             for (let tryct = rnd(4); tryct; tryct--) {
@@ -2486,7 +2543,7 @@ function finish_fixup_special() {
                 if (goodpos(x, y, null, 0)) {
                     let tryct2 = 0;
                     const otmp = mk_tt_object(STATUE, x, y);
-                    /* C mkmaze.c:661–667 — poly_when_stoned, then MR_STONE.
+                    /* C `:661–667` — poly_when_stoned, then MR_STONE.
                        set_corpsenm updates weight. */
                     while (++tryct2 < 100 && otmp
                         && (poly_when_stoned(mons(otmp.corpsenm), game.mvitals)
@@ -2498,38 +2555,47 @@ function finish_fixup_special() {
             let otmp;
             if (rn2(2))
                 otmp = mk_tt_object(STATUE, somex(croom), somey(croom));
-            else
-                otmp = mkcorpstat(STATUE, null, null, somex(croom), somey(croom),
-                    CORPSTAT_NONE);
-            /* C mkmaze.c:677–684 — MR_STONE first, then poly_when_stoned. */
+            else /* Medusa statues don't contain books */
+                otmp = mkcorpstat(STATUE, null, null,
+                    somex(croom), somey(croom), CORPSTAT_NONE);
+            /* C `:677–684` — MR_STONE first, then poly_when_stoned. */
             if (otmp) {
-                let tryctStone = 0;
-                while (++tryctStone < 100
+                let tryct = 0;
+                while (++tryct < 100
                     && (pm_resistance(mons(otmp.corpsenm), MR_STONE)
                         || poly_when_stoned(mons(otmp.corpsenm), game.mvitals))) {
                     set_corpsenm(otmp, rndmonnum());
                 }
             }
         }
+    } else if ((game.urole?.mnum | 0) === monsterNames.indexOf('PM_CLERIC')
+        && In_quest(uz)) {
+        /* C `:686–688` Role_if(PM_CLERIC) && In_quest → graveyard. */
+        if (game.level) {
+            if (!game.level.flags) game.level.flags = {};
+            game.level.flags.graveyard = 1;
+        }
+    } else if (Is_stronghold(uz)) {
+        /* C `:689–690`. */
+        if (game.level) {
+            if (!game.level.flags) game.level.flags = {};
+            game.level.flags.graveyard = 1;
+        }
+    } else if (Is_baal_level(uz)) {
+        /* C `:691–693` on_level(&u.uz, &baalzebub_level). Is_baal_level
+           is that test and is false when baalzebub_level is unset. */
+        baalz_fixup();
+    } else if ((uz?.dnum | 0) === (game.mines_dnum | 0) && game.ransacked) {
+        /* C `:694–695` — gr.ransacked is game.ransacked. */
+        stolen_booty();
     }
 
-    // C ref: mkmaze.c fixup_special on_level(baalzebub_level) → baalz_fixup
-    if (Is_baal_level(game.u?.uz))
-        baalz_fixup();
-
-    // C mkmaze.c:694–695 — mines + ransacked → stolen_booty (orctown)
-    if ((game.u?.uz?.dnum | 0) === (game.mines_dnum | 0) && game.ransacked)
-        stolen_booty();
-
-    // C ref: mkmaze.c fixup_special — Is_special && sp->flags.town → has_town
-    {
-        const uz = game.u?.uz;
-        const sp = (game.sp_levchn || []).find(s0 =>
-            (s0.dlevel?.dnum | 0) === (uz?.dnum | 0)
-            && (s0.dlevel?.dlevel | 0) === (uz?.dlevel | 0));
-        if (sp && sp.flags?.town) {
+    /* C `:697–698` — (sp = Is_special(&u.uz)) && sp->flags.town. */
+    const sp = Is_special(uz);
+    if (sp && sp.flags && sp.flags.town) {
+        if (game.level) {
             if (!game.level.flags) game.level.flags = {};
-            game.level.flags.has_town = true;
+            game.level.flags.has_town = 1;
         }
     }
 }
@@ -15452,49 +15518,14 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
     if (!g.level.flags.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);
     flip_level_rnd(3, false);
-    // C: fixup_special — setup_waterlevel before applying tele/portal lregions
-    setup_waterlevel();
-    {
-        const lregions = g.lregions || [];
-        g.lregions = [];
-        const _pendingLregion = walkRegions(lregions, (r) => {
-            if (r.rtype === LR_TELE || r.rtype === LR_UPTELE || r.rtype === LR_DOWNTELE) {
-                const tele = {
-                    lx: r.inarea.x1, ly: r.inarea.y1,
-                    hx: r.inarea.x2, hy: r.inarea.y2,
-                    nlx: r.delarea.x1, nly: r.delarea.y1,
-                    nhx: r.delarea.x2, nhy: r.delarea.y2,
-                };
-                if (r.rtype === LR_TELE || r.rtype === LR_UPTELE)
-                    g.updest = { ...tele };
-                if (r.rtype === LR_TELE || r.rtype === LR_DOWNTELE)
-                    g.dndest = { ...tele };
-            } else if (r.rtype === LR_PORTAL) {
-                let lev = null;
-                if (r.rname) {
-                    const sp = find_level(r.rname);
-                    if (sp?.dlevel)
-                        lev = { dnum: sp.dlevel.dnum | 0, dlevel: sp.dlevel.dlevel | 0 };
-                }
-                return place_lregion(
-                    r.inarea.x1, r.inarea.y1, r.inarea.x2, r.inarea.y2,
-                    r.delarea.x1, r.delarea.y1, r.delarea.x2, r.delarea.y2,
-                    LR_PORTAL, lev,
-                );
-            }
-        });
-        if (isThenable(_pendingLregion)) return _pendingLregion.then(() => load_air_after_lregions());
-        return load_air_after_lregions();
-    }
-
-    function load_air_after_lregions() {
-        return fixup_special();
-    }
+    /* C load_special epilogue: fixup_special does setup_waterlevel
+       then the lregion walk (mkmaze.c:579–641). */
+    return fixup_special();
 }
 
 /**
  * C ref: dat/water.lua via load_special — Plane of Water (endgame 4 of 5).
- * Bubbles: mkmaze.c setup_waterlevel after flip, before lregions.
+ * Bubbles: fixup_special calls setup_waterlevel after flip, before lregions.
  * Named omissions: water obj/mon/trap cons pickup+deposit;
  * humidity-aware get_location; ensure_way_out / solidify; astral.
  */
@@ -15558,46 +15589,9 @@ function load_water() {
     if (!g.level.flags.corrmaze)
         wallification(1, 0, COLNO - 1, ROWNO - 1);
     flip_level_rnd(3, false);
-    // C: fixup_special — setup_waterlevel before applying tele/portal lregions
-    setup_waterlevel();
-    {
-        const lregions = g.lregions || [];
-        g.lregions = [];
-        const _pendingLregion = walkRegions(lregions, (r) => {
-            if (r.rtype === LR_TELE || r.rtype === LR_UPTELE || r.rtype === LR_DOWNTELE) {
-                const tele = {
-                    lx: r.inarea.x1, ly: r.inarea.y1,
-                    hx: r.inarea.x2, hy: r.inarea.y2,
-                    nlx: r.delarea.x1, nly: r.delarea.y1,
-                    nhx: r.delarea.x2, nhy: r.delarea.y2,
-                };
-                if (r.rtype === LR_TELE || r.rtype === LR_UPTELE)
-                    g.updest = { ...tele };
-                if (r.rtype === LR_TELE || r.rtype === LR_DOWNTELE)
-                    g.dndest = { ...tele };
-            } else if (r.rtype === LR_PORTAL) {
-                let lev = null;
-                const name = (r.rname && typeof r.rname === 'object')
-                    ? r.rname.str : r.rname;
-                if (name) {
-                    const sp = find_level(name);
-                    if (sp?.dlevel)
-                        lev = { dnum: sp.dlevel.dnum | 0, dlevel: sp.dlevel.dlevel | 0 };
-                }
-                return place_lregion(
-                    r.inarea.x1, r.inarea.y1, r.inarea.x2, r.inarea.y2,
-                    r.delarea.x1, r.delarea.y1, r.delarea.x2, r.delarea.y2,
-                    LR_PORTAL, lev,
-                );
-            }
-        });
-        if (isThenable(_pendingLregion)) return _pendingLregion.then(() => load_water_after_lregions());
-        return load_water_after_lregions();
-    }
-
-    function load_water_after_lregions() {
-        return fixup_special();
-    }
+    /* C load_special epilogue: fixup_special does setup_waterlevel
+       then the lregion walk (mkmaze.c:579–641). */
+    return fixup_special();
 }
 
 /**

@@ -1073,7 +1073,7 @@ nests + chance shops + sink `pos=0` door + temple `align[1]` + watch) +
 **D-1513 town-floor `des.monster("gnome")` ×3** (lua `:155–165`; not four;
 review **465**); 
 **stolen_booty D-1363** live when proto is minetn-1 (**D-2586** full `:799–889` cites; `upstart_maz` clone retired → live hacklib `upstart`; C-staticfn helpers file-local); 
-cleric/stronghold graveyard else-if named); other-role quest fills; **D-0533 egg hatch timeout**; 
+**D-2841** cleric-quest and stronghold graveyard else-if live in `fixup_special` (`mkmaze.c:570–704`, `js/mklev.js:2534`); water/air `setup_waterlevel` runs there once; named: `made_branch` still gates the branch fallback); other-role quest fills; **D-0533 egg hatch timeout**; 
 **D-0534 `mktrap` WEB→`makemon(PM_GIANT_SPIDER)` before victim gate** 
 (`splev_create_trap`/`mktrap_room`/`mktrap_seen_victim`; tut-1 `nospider`); 
 **D-0536 `splev_create_monster` MON_AT→`enexto`**; 

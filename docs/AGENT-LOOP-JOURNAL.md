@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2841 `fixup_special` sets up water, graveyards, and the town flag
+
+**C locus:** `nethack-c/upstream/src/mkmaze.c:570–704` `fixup_special`. Callees `setup_waterlevel` (`mkmaze.c:1812`), `find_level`, `place_lregion` (`:356`), `goodpos`, `mk_tt_object`, `poly_when_stoned`, `pm_resistance`, `set_corpsenm` (`mkobj.c:1318`), `rndmonnum`, `mkcorpstat`, `baalz_fixup`, `stolen_booty`, `Is_special`. `Is_baal_level` is `on_level(&u.uz, &baalzebub_level)`. Callers `sp_lev.c:6050` (`lspo_finalize_level`) and `sp_lev.c:6491` (`load_special`). `mklev.c:1558` is a comment.
+**JS:** `js/mklev.js` `fixup_special` `:2415`, `fixup_special_tail` `:2534`, `load_air` `:15523`, `load_water` `:15594`, `lspo_finalize_level` `:2192`.
+**Change:** One `fixup_special` in that C order. Water or air sets `hero_memory` to 0 and calls `setup_waterlevel` before the region walk. Branch sets `added_branch` and places; a portal uses atoi or `find_level`; stairs place; tele copies `updest` and `dndest`.
+**Verify:** `node scripts/verify.mjs --fn fixup_special` → PASS syntax (1 changed js file: js/mklev.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (shared file) · VERIFY: PASS.
+**Named:** The branch fallback still requires `!game.made_branch`. `place_branch` returns immediately when that latch is set, but `place_lregion` on a roomless level burns 200 `rn1` before that return.
+**Next:** `options.c` `handler_msgtype` (next Open — coverage row). Nine Open — coverage rows remain, inside the band, so nothing was refilled.
 ## 2026-09-26 — D-2840 `placebc_core` rusts the chain and records the under-glyph
 
 **C locus:** `nethack-c/upstream/src/ball.c:120–144` `placebc_core`. Callees `flooreffects` (`do.c:162`), `place_object` (`mkobj.c:2305`), `newsym`, and the `carried` macro (`obj.h:332`, `where == OBJ_INVENT`). Callers `placebc` `:208` and `lift_covet_and_placebc` `:253` (`BREADCRUMBS` is undefined, so `Placebc` `:283` and `Lift_covet_and_placebc` `:345` are not compiled). `NH_DEVEL_STATUS` is `NH_STATUS_RELEASED`, so the `paniclog` arms in those callers are compiled out.
