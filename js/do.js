@@ -1964,7 +1964,7 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
     // C: do.c goto_level — Punished placebc after hero arrival, before
     // losedogs (D-0915). Without this, uchain.where stays non-FREE and
     // placebc is a no-op → ball stranded → false drag_ball cause_delay.
-    if (u.uball || u.Punished) placebc();
+    if (u.uball || u.Punished) await placebc();
     // C do.c:1815 — obj_delivery(FALSE) after placebc, before losedogs.
     // XOR delivers MIGR_WITH_HERO (trap-door objs landing at the hero).
     await obj_delivery(false);

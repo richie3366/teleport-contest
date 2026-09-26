@@ -2215,7 +2215,7 @@ async function trapeffect_pit(mtmp, trap, trflags) {
             if (game.u?.uball && !carried(game.u?.uball)) {
                 unplacebc();
                 await ballfall();
-                placebc();
+                await placebc();
             }
             if (!conj_pit) await selftouch('Falling, you');
             game.vision_full_recalc = 1;
@@ -6338,7 +6338,7 @@ export async function drown() {
         }
         if (u.uball) {
             unplacebc();
-            placebc();
+            await placebc();
         }
         vision_recalc(2); /* unsee old position */
         await set_uinwater(1); /* u.uinwater = 1 */

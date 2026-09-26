@@ -557,7 +557,14 @@ D-1777** — C `move_bc` `:436–556` / `unplacebc_core` `:146–177`;
 (`levl[x][y].glyph = u.bglyph`); `movobj` exported from `js/hack.js`
 (C `hack.c:824`) instead of a second inline extract+place;
 `Is_waterlevel` swallow arm live; named: `maybe_unhide_at`
-(sync callers), `bcrestriction`);
+(sync callers); unplacebc's restriction `impossible` stays out);
+**`placebc_core` D-2840** (C `ball.c:120–144`: `flooreffects` on the
+chain, then on a ball whose `where` is not `OBJ_INVENT`, place ball
+`BCPOS_CHAIN` or leave `BCPOS_DIFFER`, place chain, both under-glyphs
+via `levl_glyph_at`, `newsym`, `bcrestriction = 0`; callers `placebc`
+`ball.c:208` → `js/ball.js` `placebc` and `lift_covet_and_placebc`
+`ball.c:253`; `BREADCRUMBS` `Placebc`/`Lift_covet` and the release-build
+`paniclog` are compiled out);
 potionhit/potionbreathe named); 
 **`peffect_sleeping` POT_SLEEPING** (D-1437; 
 Sleep_resistance||Free_action `monstseesu(M_SEEN_SLEEP)` + 

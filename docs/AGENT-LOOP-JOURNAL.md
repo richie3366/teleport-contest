@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2840 `placebc_core` rusts the chain and records the under-glyph
+
+**C locus:** `nethack-c/upstream/src/ball.c:120–144` `placebc_core`. Callees `flooreffects` (`do.c:162`), `place_object` (`mkobj.c:2305`), `newsym`, and the `carried` macro (`obj.h:332`, `where == OBJ_INVENT`). Callers `placebc` `:208` and `lift_covet_and_placebc` `:253` (`BREADCRUMBS` is undefined, so `Placebc` `:283` and `Lift_covet_and_placebc` `:345` are not compiled). `NH_DEVEL_STATUS` is `NH_STATUS_RELEASED`, so the `paniclog` arms in those callers are compiled out.
+**JS:** `js/ball.js` `placebc_core` `:388`, `placebc` `:425`, `lift_covet_and_placebc` `:524`. Awaited `placebc`: `js/mhitu.js:1650` and `:1890`, `js/trap.js:2218` and `:6341`, `js/wizcmds.js:627`, `js/do.js:1967`, `js/teleport.js:1540`, `js/shk.js:1414`, `js/read.js:1982`. `flooreffects` import is the live `js/do.js` export (`imports.mjs --can` SAFE, hoisted).
+**Change:** One `placebc_core` in that C order. The chain is offered to the floor, then the ball when it is not in inventory, then the chain is placed on top. Both under-glyphs are `levl_glyph_at` snapshots (this port stores remembered cells).
+**Verify:** `node scripts/verify.mjs --fn placebc_core` → PASS syntax (8 changed js files: js/ball.js js/do.js js/mhitu.js js/read.js js/shk.js js/teleport.js js/trap.js js/wizcmds.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (shared file) · VERIFY: PASS.
+**Named:** `Placebc` / `Lift_covet_and_placebc` (`ball.c:259–346`) stay out because `BREADCRUMBS` is not defined. The caller `paniclog` arms are compiled out (`NH_STATUS_RELEASED`).
+**Next:** `mkmaze.c` `fixup_special` (next Open — coverage row). `set_wall_state` parked Stale. Ten Open — coverage rows remain, inside the band.
 ## 2026-09-26 — D-2839 poisoned hits, jousting, bare hands, and energy drain
 
 **C locus:** `nethack-c/upstream/src/uhitm.c:1510–1538` `hmon_hitmon_poison`. Same file: `joust` `:2098–2129`, `hmon_hitmon_jousting` `:1541–1567`, `mhurtle_to_doom` `:1942–1958`, `hmon_hitmon_barehands` `:838–882`, `mhitm_ad_dren` `:2418–2442`. The poison and joust flags are set in `hmon_hitmon_weapon_melee` `:1041–1066`.

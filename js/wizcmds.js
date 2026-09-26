@@ -624,7 +624,7 @@ export async function makemap_prepost(pre, wiztower) {
     initrack();
     if (u.uball) {
         unplacebc();
-        placebc();
+        await placebc();
     }
     await docrt();
     await flush_screen(1);

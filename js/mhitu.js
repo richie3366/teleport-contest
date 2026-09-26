@@ -1647,7 +1647,7 @@ export async function unstuck(mtmp) {
         /* C mon.c:3451–3452 — gulpmu's unplacebc left the chain free.
            thitmonst's iron-ball return 1 assumes this placebc already ran. */
         if (Punished() && ((u.uchain?.where | 0) !== OBJ_FLOOR))
-            placebc();
+            await placebc();
         // C: gv.vision_full_recalc = 1; docrt();
         game.vision_full_recalc = 1;
         await docrt();
@@ -1887,7 +1887,7 @@ async function gulpmu(mtmp, mattk) {
             /* normally unstuck() would do this, but we're not
                fully swallowed yet so that won't work here */
             if (Punished())
-                placebc();
+                await placebc();
             set_ustuck(null);
             return ((mtmp.mhp | 0) < 1) ? M_ATTK_AGR_DIED : M_ATTK_MISS;
         }

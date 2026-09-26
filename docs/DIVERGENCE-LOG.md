@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2840 — `placebc_core` rusts the chain and records the under-glyph
+
+- **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked). `set_wall_state` was already the compiled loop and is parked Stale.
+- **Symptom:** Putting the ball and chain under the hero skipped `flooreffects`, so iron never rusted in water, and it did not save the glyph under both objects. `lift_covet_and_placebc` called `placebc`, which cannot run while a covet pin is set, and cleared `bcrestriction` itself.
+- **C locus:** `nethack-c/upstream/src/ball.c:120–144` `placebc_core`. Callees `flooreffects` (`do.c:162`), `place_object` (`mkobj.c:2305`), `newsym`, and the `carried` macro (`obj.h:332`, `where == OBJ_INVENT`). Callers `placebc` `:208` and `lift_covet_and_placebc` `:253` (`BREADCRUMBS` is undefined, so `Placebc` `:283` and `Lift_covet_and_placebc` `:345` are not compiled). `NH_DEVEL_STATUS` is `NH_STATUS_RELEASED`, so the `paniclog` arms in those callers are compiled out.
+- **JS was:** `placebc` in `js/ball.js` inlined the place and `bc_order` arms and returned without a message when the chain was already down. No `flooreffects`, no under-glyph, no `bcrestriction = 0`. `lift_covet_and_placebc` called that `placebc` and then cleared the pin.
+- **Fix:** One `placebc_core` in that C order. The chain is offered to the floor, then the ball when it is not in inventory, then the chain is placed on top. Both under-glyphs are `levl_glyph_at` snapshots (this port stores remembered cells). `bcrestriction` clears at the end. `placebc` and `lift_covet_and_placebc` call it after their own guards. `placebc` is async because `flooreffects` can `pline`, and every existing caller awaits it.
+- **JS:** `js/ball.js` `placebc_core` `:388`, `placebc` `:425`, `lift_covet_and_placebc` `:524`. Awaited `placebc`: `js/mhitu.js:1650` and `:1890`, `js/trap.js:2218` and `:6341`, `js/wizcmds.js:627`, `js/do.js:1967`, `js/teleport.js:1540`, `js/shk.js:1414`, `js/read.js:1982`. `flooreffects` import is the live `js/do.js` export (`imports.mjs --can` SAFE, hoisted).
+- **Callers:** `ball.c:13` is the declaration. `ball.c:208` → `js/ball.js:432`. `ball.c:253` → `js/ball.js:532`. `ball.c:283` and `ball.c:345` are the `BREADCRUMBS` variants, not compiled. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn placebc_core` → PASS syntax (8 changed js files: js/ball.js js/do.js js/mhitu.js js/read.js js/shk.js js/teleport.js js/trap.js js/wizcmds.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (shared file) · VERIFY: PASS.
+- **Named omissions:** `Placebc` / `Lift_covet_and_placebc` (`ball.c:259–346`) stay out because `BREADCRUMBS` is not defined. The caller `paniclog` arms are compiled out (`NH_STATUS_RELEASED`). `unplacebc` still does not `impossible` when `bcrestriction` is set. `maybe_unhide_at` stays deferred. A missing level cell makes `levl_glyph_at` return null (C would dereference `levl`). `set_wall_state`'s `sp_lev.c:917` call stays with `flip_level` (extras path still deferred).
+- **Next:** `mkmaze.c` `fixup_special` (next Open — coverage row). `set_wall_state` parked Stale. Ten Open — coverage rows remain, inside the band.
+
 ## D-2839 — poisoned hits, jousting, bare hands, and energy drain
 
 - **Status:** fixed (coverage MISSING/THIN; `hidden-proxy verify` reports no corpus session blocked). `mhitm_ad_legs` was already complete under the split names and stays the existing Stale park.

@@ -100,10 +100,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `uhitm.c` hmon_hitmon_poison — coverage MISSING (C 25 L `uhitm.c:1510–1538` / JS no symbol; hops 5, callers 1, RNG 3, msg 2). Same-file Open rows: `hmon_hitmon_jousting`, `hmon_hitmon_barehands`, `mhitm_ad_dren`. (`mhitm_ad_legs` already Stale: split live.) Verify `node scripts/verify.mjs --fn hmon_hitmon_poison`.
+**Next cluster:** `mkmaze.c` fixup_special — coverage PARTIAL (C 134 L `mkmaze.c:570–704` / JS 71 L in js/mklev.js). `placebc_core` shipped D-2840. `set_wall_state` parked Stale. Verify `node scripts/verify.mjs --fn fixup_special`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2839 (index).**
+**Keep D-0845…D-2840 (index).**
 <!-- recent:begin -->
+**D-2840** `nethack-c/upstream/src/ball.c:120–144` `placebc_core`. Callees `flooreffects` (`do.c:162` — One `placebc_core` in that C order.
 **D-2839** `nethack-c/upstream/src/uhitm.c:1510–1538` `hmon_hitmon_poison`. Same file: `joust` `:2098 — One `hmon_hitmon_poison` in that C order, called after damage recalc when melee set `ispoisoned`.
 **D-2838** `nethack-c/upstream/src/options.c:6331–6404` `handler_autopickup_exception`. Callees `coun — One `handler_autopickup_exception` in that C order.
 **D-2837** `nethack-c/upstream/src/pager.c:2908–2957` `setopt_cmd`. Caller `pager.c:2882` fills the ` — One `setopt_cmd` in that C order.
@@ -111,11 +112,10 @@ revisits the picker.
 **D-2835** `nethack-c/upstream/src/mcastu.c:645–726` `mcast_insects`. Unseen success `!Deaf` (`:694–6 — Those predicates are the macros.
 **D-2834** `nethack-c/upstream/src/insight.c:2022–2077` `youhiding`. `you_are(buf, "")` is `enl_msg(Y — One `youhiding` in that C order.
 **D-2833** `nethack-c/upstream/src/role.c:2206–2725` `genl_player_setup`. Callee `randgend` `:852–877 — One `genl_player_setup` in that C order.
-**D-2832** `nethack-c/upstream/src/polyself.c:38–127` `set_uasmon`. Callees `valid_vampshiftform` `mo — One `set_uasmon` in that C order.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2839; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2840; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
