@@ -91,7 +91,7 @@ import {
 import { burn_away_slime } from './timeout.js';
 import {
     get_mattk, mhitm_knockback, mhitm_mgc_atk_negated, mhitm_ad_drst, mhitm_ad_dren, mhitm_ad_deth, mhitm_ad_dise, mhitm_ad_pest, mhitm_ad_stck, mhitm_ad_conf, mattackm, rustm,
-    could_seduce, failed_grab, SYSOPT_SEDUCE, mon_poly, mondead, erode_armor,
+    could_seduce, failed_grab, engulf_target, SYSOPT_SEDUCE, mon_poly, mondead, erode_armor,
     golemeffects_mm,
     AT_NONE, AT_CLAW, AT_KICK, AT_BITE, AT_STNG, AT_TUCH, AT_BUTT, AT_WEAP,
     AT_ENGL, AT_GAZE, AT_SPIT, AT_BREA, AT_EXPL, AT_BOOM, AT_TENT, AT_MAGC,
@@ -1132,22 +1132,6 @@ function flaming(ptr) {
 }
 
 /**
- * C ref: mhitm.c engulf_target — size + whirly + trap gates (hero as mdef).
- * Named omissions: rock/door/tree/ironbars Passes_walls placement checks.
- */
-function engulf_target(magr, mdefIsHero) {
-    const u = game.u || {};
-    const magrDat = magr?.data;
-    const mdefDat = mdefIsHero ? (game.youmonst?.data) : null;
-    const mdefSize = mdefDat?.msize | 0;
-    if (mdefSize >= MZ_HUGE) return false;
-    if ((magrDat?.msize | 0) < mdefSize && !is_whirly(magrDat)) return false;
-    if (magr?.mtrapped) return false;
-    if (mdefIsHero && (u.utrap | 0)) return false;
-    return true;
-}
-
-/**
  * C ref: mondata.c sticks — AD_STCK, non-engulf AD_WRAP, or AT_HUGS.
  * Local clone (C AT_HUGS=7 / AT_ENGL=11). Do not import monmove.js sticks.
  */
@@ -1847,7 +1831,7 @@ async function gulpmu(mtmp, mattk) {
     if (!(u.uswallow | 0)) { /* swallows you */
         const omx = mtmp.mx | 0, omy = mtmp.my | 0;
 
-        if (!engulf_target(mtmp, true)) return M_ATTK_MISS;
+        if (!engulf_target(mtmp, game.youmonst)) return M_ATTK_MISS;
         if (t && is_pit(t.ttyp) && sobj_at(BOULDER, u.ux | 0, u.uy | 0))
             return M_ATTK_MISS;
         if (await failed_grab(mtmp, game.youmonst, mattk)) return M_ATTK_MISS;

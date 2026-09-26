@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-26 — D-2911 `engulf_target` is one function for hero and monster swallows
+
+**C locus:** `nethack-c/upstream/src/mhitm.c:807–845` `engulf_target`. Too-big or a smaller non-whirly engulfer returns false. Either `mtrapped` returns false. Defender cell, then attacker cell: `IS_OBSTRUCTED`, `closed_door`, `IS_TREE`, or `IRONBARS` unless the other is whirly. The hero uses `u.ux`/`u.uy` and `Passes_walls`; a monster uses `mx`/`my` and `passes_walls`.
+**JS:** `js/mhitm.js` `engulf_target` `:5748`. Size `:5754–5758`. `mtrapped` `:5760`. Defender cell `:5762–5767`. Attacker cell `:5768–5773`. `engulf_cell_blocks` `:5778`.
+**Change:** One exported `engulf_target` in that C order. `youmonst` is `game.youmonst`. `Passes_walls` is `Passes_walls_prop`.
+**Verify:** `node scripts/verify.mjs --fn engulf_target` → PASS syntax (3 changed js files: js/mhitm.js js/mhitu.js js/uhitm.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: PASS.
+**Named:** No arm of `engulf_target` is omitted. A missing `data` returns false; C `NONNULLARG12` would fault.
+**Next:** `objnam.c` `readobjnam_init` (next Open — coverage row). `mkobj_erosions` and `buried_ball_to_freedom` parked Stale. Nine Open rows remain after archive, above the floor of 8, so nothing was refilled. The queue-empty overlay did not match the live queue (twelve coverage rows were open; `mkobj_erosions` was the head and already the C body).
 ## 2026-09-26 — D-2910 `align_gname` uses the role's gods and reports an unknown alignment
 
 **C locus:** `nethack-c/upstream/src/pray.c:2530–2555` `align_gname`. `A_NONE` is the file-scope `Moloch` (`pray.c:58`). `A_LAWFUL` / `A_NEUTRAL` / `A_CHAOTIC` read `gu.urole.lgod` / `ngod` / `cgod`. The default calls `impossible("unknown alignment.")` and uses `"someone"`. A leading `_` is skipped.

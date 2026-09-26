@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2911 — `engulf_target` is one function for hero and monster swallows
+
+- **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked). C is 38 lines; the whole body shipped. `mkobj_erosions` and `buried_ball_to_freedom` were already those bodies (Stale).
+- **Symptom:** Swallow checks were three clones. Monster-vs-monster ignored the hero. The hero-as-defender clone treated `u.utrap` as trapped and skipped rock, door, tree, and iron bars. The hero-as-attacker clone was a second copy of the same test.
+- **C locus:** `nethack-c/upstream/src/mhitm.c:807–845` `engulf_target`. Too-big or a smaller non-whirly engulfer returns false. Either `mtrapped` returns false. Defender cell, then attacker cell: `IS_OBSTRUCTED`, `closed_door`, `IS_TREE`, or `IRONBARS` unless the other is whirly. The hero uses `u.ux`/`u.uy` and `Passes_walls`; a monster uses `mx`/`my` and `passes_walls`.
+- **JS was:** `js/mhitm.js` `engulf_target` always read `mx`/`my` and `passes_walls`. `js/mhitu.js` took a hero flag, returned false on `u.utrap`, and named the terrain arms as omitted. `js/uhitm.js` `engulf_target_you` repeated the hero-attacker half.
+- **Fix:** One exported `engulf_target` in that C order. `youmonst` is `game.youmonst`. `Passes_walls` is `Passes_walls_prop`. The repeated cell test is `engulf_cell_blocks`, using the live `closed_door` export. The two clones are gone.
+- **JS:** `js/mhitm.js` `engulf_target` `:5748`. Size `:5754–5758`. `mtrapped` `:5760`. Defender cell `:5762–5767`. Attacker cell `:5768–5773`. `engulf_cell_blocks` `:5778`.
+- **Callers:** `mhitm.c:858` `gulpmm` → `js/mhitm.js:5850`. `mhitu.c:1301` `gulpmu` → `js/mhitu.js:1834` (`game.youmonst`). `uhitm.c:4980` `gulpum` → `js/uhitm.js:3800` (`game.youmonst`, `mdef`). `polyself.c:918` is a comment, not a call; the expel subset stays `js/polyself.js:1787`. `extern.h:1528` only declares it. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn engulf_target` → PASS syntax (3 changed js files: js/mhitm.js js/mhitu.js js/uhitm.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: PASS.
+- **Named omissions:** No arm of `engulf_target` is omitted. A missing `data` returns false; C `NONNULLARG12` would fault. A missing level cell is treated as blocked. `passes_bars` is the comment in the bars arm, not a call. `u.utrap` is not `youmonst.mtrapped` (C never assigns that field).
+- **Next:** `objnam.c` `readobjnam_init` (next Open — coverage row). `mkobj_erosions` and `buried_ball_to_freedom` parked Stale. Nine Open rows remain after archive, above the floor of 8, so nothing was refilled. The queue-empty overlay did not match the live queue (twelve coverage rows were open; `mkobj_erosions` was the head and already the C body).
+
 ## D-2910 — `align_gname` uses the role's gods and reports an unknown alignment
 
 - **Status:** fixed (coverage THIN; `hidden-proxy verify` reports no corpus session blocked). C is 25 lines; the whole body shipped. `obj_nexto_xy` was already that body (Stale).

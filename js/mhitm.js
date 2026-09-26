@@ -52,8 +52,6 @@ import {
     IS_TREE,
     IS_DOOR,
     IRONBARS,
-    D_CLOSED,
-    D_LOCKED,
     ismnum,
     has_mgivenname,
     MGIVENNAME,
@@ -184,7 +182,7 @@ import { livelog_printf } from './pline.js';
 import { shtypes } from './shknam.js';
 import { obfree, setpaid, discard_damage_owned_by } from './shk.js';
 import { search_special } from './sounds.js';
-import { closed_door, test_move, u_locomotion } from './hack.js';
+import { closed_door, Passes_walls_prop, test_move, u_locomotion } from './hack.js';
 import { surface } from './sit.js';
 import { emits_light, del_light_source } from './light.js';
 import { on_level } from './dungeon.js';
@@ -5728,13 +5726,6 @@ function s_suffix_mm(s) {
     return `${buf}'s`;
 }
 
-/** C ref: monmove.c closed_door — IS_DOOR && (CLOSED|LOCKED). */
-function closed_door_mm(x, y) {
-    const loc = game.level?.at?.(x, y);
-    if (!loc || !IS_DOOR(loc.typ)) return false;
-    return !!((loc.doormask || 0) & (D_CLOSED | D_LOCKED));
-}
-
 /** C ref: mondata.h enfolds — AT_ENGL + AD_WRAP. */
 function enfolds(ptr) {
     const slots = ptr?.mattk;
@@ -5746,38 +5737,50 @@ function enfolds(ptr) {
 }
 
 /**
- * C ref: mhitm.c engulf_target — size + whirly + trap + rock/door/tree/bars.
- * gulpmm is mon-vs-mon; youmonst Passes_walls arms live in mhitu gulpmu.
+ * C ref: mhitm.c engulf_target `:807–845`.
+ * Too big, or smaller engulfer that is not whirly, cannot swallow.
+ * Either fighter's `mtrapped` refuses (youmonst.mtrapped, not `u.utrap`).
+ * Defender cell, then attacker cell: obstructed, closed door, tree, or
+ * iron bars unless the other monster is whirly. The hero uses `u.ux`/`u.uy`
+ * and `Passes_walls`; a monster uses `mx`/`my` and `passes_walls`.
+ * Not `passes_bars` — the engulfer is not squeezing through.
  */
-function engulf_target(magr, mdef) {
+export function engulf_target(magr, mdef) {
     if (!magr?.data || !mdef?.data) return false;
+    const uatk = magr === game.youmonst;
+    const udef = mdef === game.youmonst;
+    const u = game.u || {};
+    /* can't swallow something that's too big */
     if ((mdef.data.msize | 0) >= MZ_HUGE
         || ((magr.data.msize | 0) < (mdef.data.msize | 0)
             && !is_whirly(magr.data))) {
         return false;
     }
+    /* can't (move to) swallow if trapped */
     if (mdef.mtrapped || magr.mtrapped) return false;
 
-    const dx = mdef.mx | 0;
-    const dy = mdef.my | 0;
-    if (!passes_walls(mdef.data) && engulf_blocked(dx, dy, magr.data)) {
+    const dx = udef ? (u.ux | 0) : (mdef.mx | 0);
+    const dy = udef ? (u.uy | 0) : (mdef.my | 0);
+    if (!(udef ? Passes_walls_prop() : passes_walls(mdef.data))
+        && engulf_cell_blocks(dx, dy, magr.data)) {
         return false;
     }
-    const ax = magr.mx | 0;
-    const ay = magr.my | 0;
-    if (!passes_walls(magr.data) && engulf_blocked(ax, ay, mdef.data)) {
+    const ax = uatk ? (u.ux | 0) : (magr.mx | 0);
+    const ay = uatk ? (u.uy | 0) : (magr.my | 0);
+    if (!(uatk ? Passes_walls_prop() : passes_walls(magr.data))
+        && engulf_cell_blocks(ax, ay, mdef.data)) {
         return false;
     }
     return true;
 }
 
 /** C mhitm.c engulf_target — IS_OBSTRUCTED / closed_door / IS_TREE / bars. */
-function engulf_blocked(x, y, whirlyPtr) {
+function engulf_cell_blocks(x, y, otherData) {
     const lev = game.level?.at?.(x, y);
     if (!lev) return true;
     const typ = lev.typ | 0;
-    return !!(IS_OBSTRUCTED(typ) || closed_door_mm(x, y) || IS_TREE(typ)
-        || (typ === IRONBARS && !is_whirly(whirlyPtr)));
+    return !!(IS_OBSTRUCTED(typ) || closed_door(x, y) || IS_TREE(typ)
+        || (typ === IRONBARS && !is_whirly(otherData)));
 }
 
 /**

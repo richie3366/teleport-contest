@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `pray.c` align_gname — coverage THIN (C 25 L `pray.c:2530–2555` / JS 11 L in js/roles.js; hops 4, callers 22, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn align_gname` (reach regression must be 0). Measured `port-coverage.mjs --name align_gname` 2026-09-27 @ 6aacaa7b4. **Addressed:** D-2910
+- [x] `mhitm.c` engulf_target — coverage PARTIAL (C 38 L `mhitm.c:807–845` / JS 21 L in js/mhitm.js; hops 3, callers 4, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn engulf_target` (reach regression must be 0). Measured `port-coverage.mjs --name engulf_target` 2026-09-27 @ cb7ff4a26. **Addressed:** D-2911
+
+
+- [x] `pray.c` align_gname — coverage THIN (C 25 L `pray.c:2530–2555` / JS 11 L in js/roles.js; hops 4, callers 22, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn align_gname` (reach regression must be 0). Measured `port-coverage.mjs --name align_gname` 2026-09-27 @ 6aacaa7b4. **Addressed:** D-2910 `884da82f5`
 
 
 - [x] `do_wear.c` some_armor — coverage PARTIAL (C 23 L `do_wear.c:2630–2653` / JS 13 L in js/do_wear.js; hops 5, callers 3, RNG 4, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn some_armor` (reach regression must be 0). Measured `port-coverage.mjs --name some_armor` 2026-09-27 @ 6aacaa7b4. **Addressed:** D-2909 `4039cf023`

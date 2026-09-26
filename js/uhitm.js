@@ -7,7 +7,7 @@
 import { game } from './gstate.js';
 import { rn2, rnd, d, rn1, rnl } from './rng.js';
 import {
-    IS_OBSTRUCTED, IS_TREE, IS_DOOR, IRONBARS, D_CLOSED, D_LOCKED,
+    IS_OBSTRUCTED,
     HMON_MELEE, HMON_THROWN, HMON_KICKED, HMON_APPLIED, STRAT_WAITMASK,
     STRAT_WAITFORU, AD_SPEL,
     XKILL_GIVEMSG, XKILL_NOMSG, XKILL_NOCORPSE, XKILL_NOCONDUCT,
@@ -24,7 +24,7 @@ import {
     HAND, LEG, A_LAWFUL, Is_airlevel, Is_waterlevel, PARANOID_HIT, LOW_PM,
     W_ARM, W_ARMC, W_ARMH, W_ARMU, W_ARMG, W_RINGL, W_RINGR, W_ARMF, W_AMUL, W_WEP,
     MON_EXPLODE, NO_MM_FLAGS, NO_TRAP_FLAGS, DISP_ALWAYS, DISP_END, STOMACH, DIED, NO_KILLER_PREFIX, ERODE_CORRODE, ERODE_BURN, EF_GREASE, EF_NONE, STONING,
-    KILLED_BY_AN, PASSES_WALLS, SLOW_DIGESTION, MALE, FEMALE, MMOVE_DIED, CXN_ARTICLE,
+    KILLED_BY_AN, SLOW_DIGESTION, MALE, FEMALE, MMOVE_DIED, CXN_ARTICLE,
     ERODE_ROT, NO_NC_FLAGS, AD_CURS, EDOG, is_pit, FACE, NEUTRAL, CXN_PFX_THE,
     EXPL_FIERY, ismnum, EXT_ENCUMBER, NOTELL,
     isok, xytodir, xdir, ydir,
@@ -57,7 +57,7 @@ import {
     find_mac, get_mattk, make_corpse, monstone, mhitm_knockback, monkilled, mondead,
     troll_baned, mhitm_ad_poly, mhitm_ad_slee, mhitm_ad_heal, mhitm_ad_blnd, mhitm_ad_ston, mhitm_ad_elec, mhitm_ad_sedu, mhitm_ad_tlpt, mhitm_ad_rust, mhitm_ad_fire, mhitm_ad_dren, mhitm_ad_conf, could_seduce, failed_grab, shade_miss,
     shade_aware, paralyze_monst,
-    mhitm_mgc_atk_negated, mhitm_ad_drst, mhitm_ad_deth, mhitm_ad_dise, mhitm_ad_pest, mhitm_ad_stck, erode_armor, golemeffects_mm,
+    mhitm_mgc_atk_negated, mhitm_ad_drst, mhitm_ad_deth, mhitm_ad_dise, mhitm_ad_pest, mhitm_ad_stck, erode_armor, engulf_target, golemeffects_mm,
     attk_protection,
     AT_NONE, AT_WEAP, AT_KICK, AT_CLAW, AT_SPIT, AT_HUGS,
     AT_TUCH, AT_BITE, AT_BUTT, AT_STNG, AT_MAGC, AT_TENT,
@@ -3757,30 +3757,6 @@ export async function xdrainenergym(mon, givemsg) {
         if (givemsg) await pline_mon(mon, `${Monnam(mon)} seems lethargic.`);
     }
 }
-/** C mhitm.c engulf_target — youmonst magr (uatk / !udef). */
-function engulf_blocked_you(x, y, whirlyPtr) {
-    const lev = game.level?.at?.(x, y);
-    if (!lev) return true;
-    const typ = lev.typ | 0;
-    const door = !!(IS_DOOR(typ) && ((lev.doormask || 0) & (D_CLOSED | D_LOCKED)));
-    return !!(IS_OBSTRUCTED(typ) || door || IS_TREE(typ)
-        || (typ === IRONBARS && !is_whirly(whirlyPtr)));
-}
-function engulf_target_you(mdef) {
-    const magr = game.youmonst;
-    const u = game.u || {};
-    if (!magr?.data || !mdef?.data) return false;
-    if ((mdef.data.msize | 0) >= MZ_HUGE
-        || ((magr.data.msize | 0) < (mdef.data.msize | 0)
-            && !is_whirly(magr.data))) return false;
-    if (mdef.mtrapped || magr.mtrapped) return false;
-    if (!passes_walls(mdef.data)
-        && engulf_blocked_you(mdef.mx | 0, mdef.my | 0, magr.data)) return false;
-    if (!he_prop('Passes_walls', 'HPasses_walls', 'EPasses_walls', PASSES_WALLS)
-        && engulf_blocked_you(u.ux | 0, u.uy | 0, mdef.data)) return false;
-    return true;
-}
-
 /** C uhitm.c start_engulf :4931 / end_engulf :4949. */
 async function start_engulf(mdef) {
     const u = game.u || {};
@@ -3821,7 +3797,7 @@ export async function gulpum(mdef, mattk) {
     const expel_verb = u_digest ? 'regurgitate' : u_enfold ? 'release' : 'expel';
     const engl_verb = u_digest ? 'swallow' : u_enfold ? 'enclose' : 'engulf';
 
-    if (!engulf_target_you(mdef)) return M_ATTK_MISS;
+    if (!engulf_target(game.youmonst, mdef)) return M_ATTK_MISS;
 
     if (!(u_digest && (u.uhunger | 0) >= 1500) && !u.uswallow) {
         if (!flaming(ym.data)) {
