@@ -1959,6 +1959,7 @@ crush/entity + iron-chain scatter; impact shop `stolen_value`; **`buried_ball` l
 
 JS: `js/eat.js` — partial
 
+**`eatmupdate`** (D-2896; C `eat.c:181–213`): while `nomovemsg` is the `eatmbuf` pointer, orange and `!Hallucination` rewrites the end message to "You now prefer mimicking yourself." and `mappearance` to `GOLD_PIECE`; gold and `Hallucination` rewrites "Your rind escaped intact." and `ORANGE`; a longer `Strlen` is the realloc arm (JS reseats the string; `strcpy` returns that buffer). `newsym`. Caller `potion.c:418` → `make_hallucinated` when `!Hallucination`. 
 Cookie + **reqtime-1 food** (`touchfood`/`splitobj`/`fprefx`/`lesshungry`) (D-0155); 
 **`doeat` `check_capacity` / EXT_ENCUMBER before `is_edible`** (D-0928 #1185;
 Strangled / uedibility + `edibility_prompts` / retouch-blast / metallic rust-monster rustproof shipped D-2361; `edibility_prompts` iced-corpse age (live mkobj export, clone deleted) + `defended(AD_DISE)` Sick arm D-2690;
@@ -2206,7 +2207,7 @@ Floor `vobj_at` + class symbols + CORPSE `mon_color` (D-0022);
 `goto_level` leave restores C `vision_recalc(2)` warn burns; Scr 194→196; non-Hallu gated; 
 full ctrl=2 loop falsified; **#993 gulpmu vision_off alone falsified Scr174**; 
 **#994 warn-only×8 alone Scr174**; **#996 flush_topl_more + 
-Hallu vision_off together Scr196→201 — gulp dims match C through ~core16749**); **D-2200:** `docrt` entry `await flush_topl_more()` (C display.c cls flushes WIN_MESSAGE before clear; JS pline defers concat --More--) so the wait captures make_hallucinated see_* paint, not mid-redraw floor; `timeout.c` generic-loop HALLUC expiry arm (flat re-arm 1 + `make_hallucinated(0,TRUE,0)` + stop_occupation, CONFUSION-arm shape); `update_inventory`/`disp.botl`/mask-sync/clear-msgs live (D-2458); `eatmupdate` gate live, call still named; artifact.c:794 SPFX_HALRES sync-inline named); 
+Hallu vision_off together Scr196→201 — gulp dims match C through ~core16749**); **D-2200:** `docrt` entry `await flush_topl_more()` (C display.c cls flushes WIN_MESSAGE before clear; JS pline defers concat --More--) so the wait captures make_hallucinated see_* paint, not mid-redraw floor; `timeout.c` generic-loop HALLUC expiry arm (flat re-arm 1 + `make_hallucinated(0,TRUE,0)` + stop_occupation, CONFUSION-arm shape); `update_inventory`/`disp.botl`/mask-sync/clear-msgs live (D-2458); `eatmupdate` call wired (D-2896); artifact.c:794 SPFX_HALRES sync-inline named); 
 **`tp_sensemon`/`Unblind_telepat` + `recalc_telepat_range`** (D-0669; 
 **MATCH_WARN_OF_MON overlay D-1514**); **`altar_color` via `altarmask`/`altar_to_glyph`** (D-0666; 
 no USE_GENERAL_ALTAR_COLORS); **`see_monsters` + `teleds` call** (D-0667; 

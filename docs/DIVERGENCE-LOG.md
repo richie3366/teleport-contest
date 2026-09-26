@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2896 — `eatmupdate` rewrites the mimic message when hallucination ends
+
+- **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** No `eatmupdate` symbol. Ending hallucination while the hero was mimicking an orange left the end-of-mimic message and the orange appearance in place.
+- **C locus:** `nethack-c/upstream/src/eat.c:181–213` `eatmupdate`. Return unless `eatmbuf` is set and `nomovemsg` is that same pointer. Orange and `!Hallucination` sets the message to "You now prefer mimicking yourself." and `mappearance` to `GOLD_PIECE`. Gold and `Hallucination` sets "Your rind escaped intact." and `ORANGE`. A longer `Strlen` frees and `alloc`s; either way `strcpy` writes the text and `nomovemsg` becomes that buffer. Then `newsym(u.ux, u.uy)`. No RNG. `is_obj_mappear` is the `monst.h:243` macro.
+- **JS was:** No symbol. `make_hallucinated` had the `!Hallucination` gate and an empty body (`js/potion.js`). `cpostfx` already stored `eatmbuf` and pointed `nomovemsg` at it.
+- **Fix:** One exported `eatmupdate` in that C order. `Hallucination()` is the `youprop.h` macro (`js/display.js`). Both the realloc arm and the `strcpy` arm store the new string, because a JS string cannot be overwritten in place, and `nomovemsg` is set to that same string (`strcpy` returns the buffer).
+- **JS:** `js/eat.js` `eatmStrlen` `:1817`, `eatmupdate` `:1832`, identity gate `:1837`, orange arm `:1840`, gold arm `:1846`, longer-message arm `:1857`, `strcpy` arm `:1862`, `nomovemsg` `:1864`, `mappearance` `:1865`, `newsym` `:1867`. Caller `js/potion.js:1146`.
+- **Callers:** `potion.c:418` `make_hallucinated` when `!Hallucination` → `js/potion.js:1146` (`hero_Hallucination`, the display.js macro). `extern.h` declares it and does not call it. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn eatmupdate` → PASS syntax (2 changed js files: js/eat.js js/potion.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.4s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: PASS.
+- **Named omissions:** `alloc` and `free` are the string reseat; there is no C heap in `js/`. `set_mimic_blocking`, `curs_on_u`, and the first-polyself `livelog_printf` stay named on `cpostfx`, which is not this function. The gold arm is in the body; this caller does not enter it, because C calls only when `!Hallucination`.
+- **Next:** `do_wear.c` `toggle_displacement` (next Open — coverage row). Seven Open — coverage rows remain after archive, below the floor of 8. `--rows 24` and `--rows 160 --min-c-lines 28` were the never-re-pop Stale head, not pasted. Five later gameplay rows from `--rows 400 --min-c-lines 20` (sanity, `reset_glyphmap`, botl hilite, wizard, and version skipped): `block_point`, `visctrl`, `money2u`, `livelog_newform`, `courtmon`. Twelve Open — coverage rows after that. The queue-empty overlay did not match the live queue (eight rows were open).
+
 ## D-2895 — `ugolemeffects` heals a polymorphed golem
 
 - **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked).

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `polyself.c` ugolemeffects — coverage PARTIAL (C 28 L `polyself.c:2160–2188` / JS 19 L in js/mhitu.js; hops 3, callers 15, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn ugolemeffects` (reach regression must be 0). Measured `port-coverage.mjs --name ugolemeffects` 2026-09-26 @ 3afe3adc0. **Addressed:** D-2895
+- [x] `eat.c` eatmupdate — coverage MISSING (C 32 L `eat.c:181–213` / JS no symbol; hops 2, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn eatmupdate` (reach regression must be 0). Measured `port-coverage.mjs --name eatmupdate` 2026-09-26 @ 3afe3adc0. **Addressed:** D-2896
+
+
+- [x] `polyself.c` ugolemeffects — coverage PARTIAL (C 28 L `polyself.c:2160–2188` / JS 19 L in js/mhitu.js; hops 3, callers 15, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn ugolemeffects` (reach regression must be 0). Measured `port-coverage.mjs --name ugolemeffects` 2026-09-26 @ 3afe3adc0. **Addressed:** D-2895 `e4e898f54`
 
 
 - [x] `uhitm.c` mhitm_ad_conf — coverage THIN (C 34 L `uhitm.c:3690–3726` / JS 11 L in js/mhitm.js; hops 4, callers 1, RNG 2, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mhitm_ad_conf` (reach regression must be 0). Measured `port-coverage.mjs --name mhitm_ad_conf` 2026-09-26 @ 3afe3adc0. **Addressed:** D-2894 `e4c6400a6`

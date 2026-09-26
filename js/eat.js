@@ -16,8 +16,8 @@
 // Named omissions: hallu AD_STUN covered
 // D-0943; corpse_intrinsic/givit covered D-0944;
 // were*/mimic/attrcurse covered D-0945 (set_mimic_blocking /
-// retouch_equipment / display_nhwindow WIN_MAP polish / livelog /
-// eatmupdate hallu toggle);
+// retouch_equipment / display_nhwindow WIN_MAP polish / livelog);
+// eatmupdate hallu toggle is D-2896;
 // tainted Sick; make_blinded body / Hear_again afternmv;
 // sellobj_state on invent-full dropy; costly_alteration COST_BITE;
 // ?/* menu; gethungry ring/amulet accessorytime polish;
@@ -93,7 +93,7 @@ import {
     FIRE_RES, COLD_RES, SLEEP_RES, DISINT_RES, SHOCK_RES, POISON_RES,
     ACID_RES, STONE_RES, TELEPAT, TELEPORT, TELEPORT_CONTROL, LAST_PROP,
     SEE_INVIS, INVIS, PROT_FROM_SHAPE_CHANGERS, LEVITATION, SLEEPY,
-    M_AP_NOTHING, M_AP_OBJECT, DISMOUNT_FELL,
+    M_AP_NOTHING, M_AP_OBJECT, M_AP_TYPE, DISMOUNT_FELL,
     WWALKING, MAGICAL_BREATHING, FLYING, GD_EATGOLD, Is_waterlevel,
     Is_astralevel, EXPL_FIERY,
     CHOKING, STARVING, STARVED, A_LAWFUL, STRANGLED, PARANOID_EATING,
@@ -1811,12 +1811,70 @@ function eatmdone() {
 }
 
 /**
+ * C strlen: stop at the first NUL. These buffers are ASCII, so the
+ * count matches `Strlen` (`global.h:288` → `Strlen_`).
+ */
+function eatmStrlen(s) {
+    const str = String(s ?? '');
+    const z = str.indexOf('\0');
+    return z < 0 ? str.length : z;
+}
+
+/**
+ * C ref: eat.c eatmupdate `:181–213` — hallucination toggle while the
+ * hero is still mimicking (nomovemsg is the eatmbuf pointer).
+ * `is_obj_mappear` is the `monst.h:243` macro: `M_AP_TYPE == M_AP_OBJECT`
+ * and `mappearance == otyp`. No RNG. `alloc`/`free` are the buffer
+ * reseat: JS strings cannot be overwritten in place, so both the
+ * longer-message arm and the `strcpy` arm store `altmsg` and point
+ * `nomovemsg` at that same string (`strcpy` returns the buffer).
+ */
+export function eatmupdate() {
+    let altmsg = null;
+    let altapp = 0; /* C: lint suppression */
+
+    /* C :186 — not mimicking, or something else owns nomovemsg. */
+    if (!game.eatmbuf || game.nomovemsg !== game.eatmbuf) return;
+
+    const ym = game.youmonst;
+    if (M_AP_TYPE(ym) === M_AP_OBJECT
+        && (ym?.mappearance | 0) === ORANGE_OTYP
+        && !Hallucination()) {
+        /* revert from hallucinatory to "normal" mimicking */
+        altmsg = 'You now prefer mimicking yourself.';
+        altapp = GOLD_PIECE;
+    } else if (M_AP_TYPE(ym) === M_AP_OBJECT
+        && (ym?.mappearance | 0) === GOLD_PIECE
+        && Hallucination()) {
+        /* C: won't happen from make_hallucinated (that caller only
+           enters when !Hallucination). Kept in C order. */
+        altmsg = 'Your rind escaped intact.';
+        altapp = ORANGE_OTYP;
+    }
+
+    if (altmsg) {
+        const amlen = eatmStrlen(altmsg);
+        if (amlen > eatmStrlen(game.eatmbuf)) {
+            /* free(eatmbuf); eatmbuf = alloc(amlen + 1) */
+            game.eatmbuf = altmsg;
+        } else {
+            /* strcpy(eatmbuf, altmsg) into the existing buffer */
+            game.eatmbuf = altmsg;
+        }
+        game.nomovemsg = game.eatmbuf;
+        ym.mappearance = altapp;
+        const u = game.u || {};
+        newsym(u.ux | 0, u.uy | 0);
+    }
+}
+
+/**
  * C ref: eat.c cpostfx — post-corpse effects.
  * Branch envelope (D-0943/D-0944/D-0945): named specials + check_intrinsics
  * hallu/newt + corpse_intrinsic → givit / gainstr; were* set_ulycn;
  * mimic gold eatmdone/afternmv; disenchanter attrcurse.
  * Named omissions: set_mimic_blocking;
- * curs_on_u; livelog first polyself conduct; eatmupdate hallu toggle.
+ * curs_on_u; livelog first polyself conduct.
  */
 async function cpostfx(pm) {
     let tmp = 0;
