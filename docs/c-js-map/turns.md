@@ -1571,7 +1571,7 @@ case-3 wake + fallthrough to cannot-escape (`Conflict()`/`mconf`/`!mtame`
 **`domove_core` `carrying_too_much` before attack** (OVERLOADED collapse / low-HP>SLT stamina; 
 air-level exempt) (D-0928 #1117); **`domove` `u_maybe_impaired`/`impaired_movement`/`confdir`** 
 (D-0437; Confusion `!rn2(5)` + Stunned; tunnels/`passes_walls` in bad_rock deferred); 
-**`domove_fight_empty` whole body** (D-2825; C `hack.c:2229–2338` → `js/cmd.js` `domove_fight_empty`: off-edge local `(0,1)` and "an unknown obstacle"; guard `forcefight || (glyph_is_invisible && !m_at && !nopick)`; `solid` is `accessible` plus `IS_FURNITURE`; `!Underwater` `sobj_at(BOULDER)` then statue glyph or Hallu monster glyph `sobj_at(STATUE)`; pick `dig_typ` → `use_pick_axe2`; `unmap_object` / `map_object` / `newsym`; `ansimpleoname`; underwater non-pool "an air bubble" or "nothing"; seen / `IS_STWALL` / `SDOOR` / `SCORR` `the(defsym_explanation(glyph_to_cmap(back_to_glyph)))`; else thin air; `You` adverb; `nomul`; `AT_EXPL` `wake_nearto` / `explum(null)` / `mh=-1` / `rehumanize`; callers `hack.c:2590` `js/hack.js:2633`, `hack.c:2810` `js/cmd.js:4681` after bars and web when `!displaceu`; named: null `youmonst.data`, null `game.u`, discarded `nhUse`, displaceu middle-skip); 
+**`domove_fight_empty` whole body** (D-2825; C `hack.c:2229–2338` → `js/cmd.js` `domove_fight_empty`: off-edge local `(0,1)` and "an unknown obstacle"; guard `forcefight || (glyph_is_invisible && !m_at && !nopick)`; `solid` is `accessible` plus `IS_FURNITURE`; `!Underwater` `sobj_at(BOULDER)` then statue glyph or `Hallucination && glyph_is_monster` `sobj_at(STATUE)` (`Hallucination` is `js/display.js:1091`, `youprop.h:120`, D-2826); pick `dig_typ` → `use_pick_axe2`; `unmap_object` / `map_object` / `newsym`; `ansimpleoname`; underwater non-pool "an air bubble" or "nothing"; seen / `IS_STWALL` / `SDOOR` / `SCORR` `the(defsym_explanation(glyph_to_cmap(back_to_glyph)))`; else thin air; `You` adverb; `nomul`; `AT_EXPL` `wake_nearto` / `explum(null)` / `mh=-1` / `rehumanize`; callers `hack.c:2590` `js/hack.js:2633`, `hack.c:2810` `js/cmd.js:4683` after bars and web when `!displaceu`; named: null `youmonst.data`, null `game.u`, discarded `nhUse`, displaceu middle-skip; `do_name.js` `Hallucination` still returns on sticky `u.Hallucination` before resistance — other importers unchanged); 
 **`domove` run-into-visible non-safemon stop** (`context.run` + 
 `mon_visible`/`sensemon`/`M_AP_*` → `nomul`+`move=0` before attack) (D-0440; 
 displacer/mundetected Wait!/Blind_telepat/Protection_from_shape amulet deferred); 
@@ -1580,8 +1580,8 @@ displacer/mundetected Wait!/Blind_telepat/Protection_from_shape amulet deferred)
 branch order/short-circuit: nopick&&!travel gate, `canspotmon`/`glyph_at`+ 
 `glyph_is_invisible_id`/`glyph_is_warning`, `M_AP_TYPE`+inline H/E/base 
 Protection+`sensemon` → `stumble_onto_mimic`, peaceful&&!`Hallucination()` → 
-`Pardon me, m_monnam`, else `You move right into mon_nam`; `m_monnam`/`mon_nam`/ 
-`Hallucination` join the new `do_name.js` edge, `stumble_onto_mimic` the existing 
+`Pardon me, m_monnam`, else `You move right into mon_nam`; `m_monnam`/`mon_nam` 
+stay the `do_name.js` edge, `Hallucination` is `js/display.js:1091` (D-2826), `stumble_onto_mimic` the existing 
 `uhitm.js` edge, `canspotmon`/`glyph_at`/`glyph_is_warning` the existing 
 `display.js` edge — all `imports.mjs --can` SAFE hoisted, no TDZ); 
 **`domove` `u.utrap`→`trapmove` before test_move** (D-0401; BEARTRAP Norep+`rn2(5)`/diagonal; 

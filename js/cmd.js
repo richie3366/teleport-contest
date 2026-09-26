@@ -17,6 +17,7 @@ import {
     glyph_is_warning, unmap_object, map_object,
     look_shown_at, Norep, tty_doprev_message, putmsghistory,
     unmap_invisible, map_invisible, custompline,
+    Hallucination,
 } from './display.js';
 import { COLNO, ROWNO, STONE, DOOR, CORR, ROOM, IRONBARS, TREE, SDOOR, ICE,
          D_CLOSED, D_LOCKED, D_NODOOR, D_BROKEN, SCORR, LAVAWALL,
@@ -92,7 +93,7 @@ import { dowhatis, doquickwhatis, dohelp, dowhatdoes, doversion, show_text_pages
 import { visctrl, key2txt, cmdbind_get, cmd_from_dir } from './dokeylist.js';
 import { config_error_add } from './botl.js';
 import { an, doname, makeplural, ansimpleoname, the } from './objnam.js';
-import { m_monnam, mon_nam, a_monnam, YMonnam, Hallucination, docallcmd } from './do_name.js';
+import { m_monnam, mon_nam, a_monnam, YMonnam, docallcmd } from './do_name.js';
 import { spoteffects, dopickup, doloot, dotip } from './pickup.js';
 import { objects_at, sobj_at } from './mkobj.js';
 import { stairway_at, On_stairs_up, On_stairs_dn, u_on_newpos, maybe_adjust_hero_bubble, selection_new, selection_getpoint, selection_setpoint } from './mklev.js';
@@ -2393,7 +2394,8 @@ export async function domove_fight_empty(x, y) {
         } else {
             if (!(u.uinwater | 0)) {
                 boulder = sobj_at(BOULDER_OTYP, x, y);
-                /* displayed statue, or a hallucinated monster glyph */
+                /* displayed statue, or a hallucinated monster glyph.
+                   youprop.h:120 — display.js, not the do_name sticky clone. */
                 if (glyph_is_statue(glyph)
                     || (Hallucination() && glyph_is_monster(glyph))) {
                     boulder = sobj_at(STATUE_OTYP, x, y);
@@ -4456,7 +4458,7 @@ export async function domove_bump_mon(mtmp, glyph) {
     if (M_AP_TYPE(mtmp) && !prot && !sensemon(mtmp)) {
         await stumble_onto_mimic(mtmp);
     } else if (mtmp.mpeaceful && !Hallucination()) {
-        // C: m_monnam(): "dog" or "Fido", no "invisible dog" or "it"
+        // C youprop.h:120 Hallucination; m_monnam(): "dog" or "Fido"
         await pline(`Pardon me, ${m_monnam(mtmp)}.`);
     } else {
         await pline(`You move right into ${mon_nam(mtmp)}.`);

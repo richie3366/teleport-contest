@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-26
 
-- [x] `hack.c` domove_fight_empty — coverage PARTIAL (C 109 L `hack.c:2229–2338` / JS 61 L in js/cmd.js; hops 2, callers 2, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn domove_fight_empty` (reach regression must be 0). Measured `port-coverage.mjs --name domove_fight_empty` 2026-09-26 @ 678f36702. **Addressed:** D-2825
+- [x] `hack.c` `domove_fight_empty` — hallucinated-statue arm (`hack.c:2258–2261`) calls `Hallucination` from `js/do_name.js:255`, which returns on sticky `u.Hallucination` before resistance and ignores `uprops[HALLUC]`. C `youprop.h:120` is `HHallucination && !Halluc_resistance`. Re-point the `js/cmd.js` import to `js/display.js:1091` (D-2817). Verify `node scripts/verify.mjs --fn domove_fight_empty`. Source: reviews/loop-unattended/1784-b60cf8e62-fight-empty.md **Addressed:** D-2826
+
+
+- [x] `hack.c` domove_fight_empty — coverage PARTIAL (C 109 L `hack.c:2229–2338` / JS 61 L in js/cmd.js; hops 2, callers 2, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn domove_fight_empty` (reach regression must be 0). Measured `port-coverage.mjs --name domove_fight_empty` 2026-09-26 @ 678f36702. **Addressed:** D-2825 `b60cf8e62`
 
 
 - [x] `mon.c` dmonsfree — coverage PARTIAL (C 24 L `mon.c:2487–2511` / JS 11 L in js/mon.js; hops 1, callers 15, RNG 0, msg 0; dead callees: dealloc_monst). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dmonsfree` (reach regression must be 0). Measured `port-coverage.mjs --name dmonsfree` 2026-09-26 @ 678f36702. **Addressed:** D-2824 `40264ce0a`.

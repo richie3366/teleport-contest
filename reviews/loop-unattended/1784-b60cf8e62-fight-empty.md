@@ -5,6 +5,8 @@
 - Queue row: Open coverage, 0 corpus blocks cited
 - Banned grep: 0 hits in the hunk. `imports.mjs --rulecheck` on the working tree: "Rule #2 clean".
 
+**Addressed:** D-2826
+
 ## Intent vs deliverable
 
 Subject promises one `domove_fight_empty` in C order, called after the attack when `!displaceu`, and `move_out_of_bounds` returning that boolean. The diff does that. The hallucinated-statue test calls `Hallucination` from `do_name.js`, not the `youprop.h` export.

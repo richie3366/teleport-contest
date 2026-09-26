@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2826 — `domove_fight_empty` uses the `youprop.h` `Hallucination`
+
+- **Status:** fixed (Must-fix review 1784; `hidden-proxy verify` reports no corpus session blocked).
+- **Symptom:** The hallucinated-statue test called `Hallucination` from `js/do_name.js`, which returns true on sticky `u.Hallucination` before any resistance test and never reads `uprops[HALLUC]`. A sticky-only hero, or a timed hallucination whose resistance lives only on `uprops`, took the statue-replacement arm here and does not in C.
+- **C locus:** `nethack-c/upstream/include/youprop.h:116–120` `Hallucination` is `HHallucination && !Halluc_resistance` (`HHallucination` is `u.uprops[HALLUC].intrinsic`; resistance is `uprops[HALLUC_RES]` intrinsic or extrinsic). `hack.c:2263–2264` `domove_fight_empty` uses that macro: `glyph_is_statue(glyph) || (Hallucination && glyph_is_monster(glyph))` then `sobj_at(STATUE)`. The same macro is `hack.c:1940` `domove_bump_mon` (`mpeaceful && !Hallucination`).
+- **JS was:** `js/cmd.js` imported `Hallucination` from `js/do_name.js:255`. That export returns on sticky `u.Hallucination` first and ignores `uprops[HALLUC]` / `uprops[HALLUC_RES]`. `js/display.js:1091` is the `youprop.h` test (D-2817).
+- **Fix:** Re-point the `js/cmd.js` import to `js/display.js` `Hallucination`. The module edge already existed; the call stays after the glyph tests, so there is no init-time read. `m_monnam` / `mon_nam` stay on `do_name.js`.
+- **JS:** `js/cmd.js:20` import. Statue arm `js/cmd.js:2400`. Peaceful bump `js/cmd.js:4460`. `Hallucination` body `js/display.js:1091`.
+- **Callers:** `hack.c:34` is the `staticfn` declaration, not a call. `hack.c:2590` `move_out_of_bounds` → `js/hack.js:2633`. `hack.c:2810` `domove_core` → `js/cmd.js:4683`, after bars (`:4681`) and web (`:4682`), only when `!displaceu`. `hack.c:2263` `Hallucination` → `js/cmd.js:2400`. `hack.c:1940` `domove_bump_mon` → `js/cmd.js:4460` (same import). No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn domove_fight_empty` → PASS syntax (1 changed js file: js/cmd.js) · PASS rule2 · note hidden (no corpus session blocked at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; smoke 12/12, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) · VERIFY: PASS.
+- **Named omissions:** `js/do_name.js:255` `Hallucination` still returns on sticky `u.Hallucination` before resistance and ignores `uprops[HALLUC]`. Other importers of that export (`hack.js`, `zap.js`, and the local clones in `do.js` / `mon.js`) are unchanged. A null `youmonst.data`, a missing `game.u`, the discarded `nhUse`, and the `displaceu` middle-skip stay as named on D-2825.
+- **Next:** `hack.c` `inv_weight` (next Must-fix: boulder weight when `throws_rocks`).
+
 ## D-2825 — `domove_fight_empty` spends the turn on an empty force-fight
 
 - **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked).
