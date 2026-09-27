@@ -1910,3 +1910,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1898-e7f613e86-helm-simple-name.md](./1898-e7f613e86-helm-simple-name.md) | `e7f613e86` | D-2939 helm_simple_name | **ACCEPT** |
 | [1899-8946c6456-noteleport-level.md](./1899-8946c6456-noteleport-level.md) | `8946c6456` | D-2940 noteleport_level | **ACCEPT** |
 | [1900-e2b2ded6d-you-hear.md](./1900-e2b2ded6d-you-hear.md) | `e2b2ded6d` | D-2941 You_hear | **ACCEPT** |
+| [1901-96146725a-can-fog.md](./1901-96146725a-can-fog.md) | `96146725a` | D-2942 can_fog | **ACCEPT** |
+| [1902-9ce3f2138-hliquid.md](./1902-9ce3f2138-hliquid.md) | `9ce3f2138` | D-2943 hliquid | **QUALITY-RISK** |
+| [1903-836e0baaf-putmesg.md](./1903-836e0baaf-putmesg.md) | `836e0baaf` | D-2944 putmesg | **QUALITY-RISK** |
+| [1904-84f6850bd-reset-justpicked.md](./1904-84f6850bd-reset-justpicked.md) | `84f6850bd` | D-2945 reset_justpicked | **ACCEPT** |
+| [1905-3f2358d79-deliver-by-window.md](./1905-3f2358d79-deliver-by-window.md) | `3f2358d79` | D-2946 deliver_by_window | **ACCEPT** |
+| [1906-e96457f1e-dungeon-branch.md](./1906-e96457f1e-dungeon-branch.md) | `e96457f1e` | D-2947 dungeon_branch | **ACCEPT** |
+| [1907-dc6fd838d-shirt-on.md](./1907-dc6fd838d-shirt-on.md) | `dc6fd838d` | D-2948 Shirt_on | **ACCEPT** |
+| [1908-515ca9981-maybe-reset-pick.md](./1908-515ca9981-maybe-reset-pick.md) | `515ca9981` | D-2949 maybe_reset_pick | **ACCEPT** |
+| [1909-1a25073d1-mkfount.md](./1909-1a25073d1-mkfount.md) | `1a25073d1` | D-2950 mkfount | **ACCEPT** |

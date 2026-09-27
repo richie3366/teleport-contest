@@ -18,7 +18,7 @@ here again. Live hypotheses only:
   revisits. Phase-2 rows (`[measure]`, parks, `hidden-proxy queue`) stay
   closed meanwhile; the corpus is guarded by REACH in `verify.mjs`.
   Everything below this bullet is phase-2 context — do not act on it now.
-- Audit 1892–1900 (`21446265f`…`e2b2ded6d`): 8 ACCEPT, 1 QUALITY-RISK. Review 1892 `can_fog` ward is D-2942 (`were.js` `Protection_from_shape_changers`). Do not re-open the ACCEPT set. Prior audit 1883–1891 stays 9 ACCEPT. 1805 `nemesis_speaks` texts stay embedded (D-2853). `piousness` and `corpse_intrinsic` stay parked Stale.
+- Audit 1901–1909 (`96146725a`…`1a25073d1`): 7 ACCEPT, 2 QUALITY-RISK. Must-fix: `hliquid` uses sticky `do_name.js:260` `Hallucination` (call `display.js:1095`); `putstr` must clear `WIN_NOSTOP` and `wincap2` must advertise `WC2_URGENT_MESG|WC2_SUPPRESS_HIST`. Do not re-open the ACCEPT set. Prior audit 1892–1900 stays 8 ACCEPT, 1 QUALITY-RISK (D-2942 shipped). `piousness` and `corpse_intrinsic` stay parked Stale.
 
 - **obj_resists writers (D-2407/2413-15, MEASURED):** `steal.c` relobj `flooreffects` + Knight/Arch/Healer arms (detail in D-logs). Falsified — do not re-check: fire-trap burn, fmon-order, polyuse, monstone, bury, steal.
 

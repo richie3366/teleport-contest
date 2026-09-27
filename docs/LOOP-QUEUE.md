@@ -103,6 +103,9 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 always Must-fix rows: they forfeit every later screen of that session
 (Constitution §10.14).
 
+- [ ] `do_name.c` `hliquid` — the gate calls `do_name.js:260` `Hallucination`, which returns true on sticky `u.Hallucination` before resistance and never reads `uprops[HALLUC]`. C `youprop.h:116–120` is `u.uprops[HALLUC].intrinsic && !Halluc_resistance` (timeout only). `display.js:1095` is that reader, and `do_name.js` already imports `display.js` (`imports.mjs --can` → ALREADY). Use it from `hliquid` (`do_name.c:1496`). Source: reviews/loop-unattended/1902-9ce3f2138-hliquid.md
+- [ ] `wintty.c` `tty_putstr` — the message arm clears `WIN_NOSTOP` on every call (`:2300`). `js/display.js` `putstr` clears it only when this call set `ATR_URGENT`. `wintty.c:119` sets `WC2_URGENT_MESG | WC2_SUPPRESS_HIST` on tty `wincap2`; the scored port leaves `windowprocs.wincap2` unset, so `putmesg` never sets that attribute and `urgent_pline` keeps `WIN_NOSTOP` through the vpline trailer. Set those two bits and clear `_win_nostop` at the end of every message `putstr`. Source: reviews/loop-unattended/1903-836e0baaf-putmesg.md
+
 ## Open — coverage (breadth phase — pop first after Must-fix)
 
 Rows below are `port-coverage.mjs --rows` output (score = reach × call

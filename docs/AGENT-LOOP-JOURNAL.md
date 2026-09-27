@@ -7,6 +7,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — Audit 1901–1909 (D-2942…D-2950)
+
+Nine JS SHAs after review 1900 (`e2b2ded6d`). Seven **ACCEPT**: `can_fog`, `reset_justpicked`, `deliver_by_window`, `dungeon_branch`, `Shirt_on`, `maybe_reset_pick`, `mkfount`. Two **QUALITY-RISK**: `hliquid` (sticky `Hallucination` at `do_name.js:260`, not `youprop.h:116–120`) and `putmesg` (`putstr` clears `WIN_NOSTOP` only when `ATR_URGENT` is set; tty `wincap2` at `wintty.c:119` is unset). Must-fix prepended; next is `hliquid`. Public `sessions` 44/44, Scr 11,405/11,405, RNG 792,838/792,838, speed `257+1.53/turn` (R² 0.762). Held-out still 12/44 (6,442/11,265, RNG 31.5 %, screens 57.2 %). Private corpus 12/12.
 ## 2026-09-27 — D-2950 `mkfount` places the fountain through set_levltyp before the blessed draw
 
 **C locus:** `nethack-c/upstream/src/mklev.c:2285–2300` `mkfount`. `find_okay_roompos` (`mklev.c:2302–2314`) failing returns before any terrain write. `set_levltyp(m.x, m.y, FOUNTAIN)` (`mkmaze.c:76–121`) failing returns before `rn2(7)` and before `nfountains++`. `!rn2(7)` sets `blessedftn`, which is the `horizontal` bit (`rm.h:404`). Then `svl.level.flags.nfountains++`.
