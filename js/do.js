@@ -1540,10 +1540,23 @@ export function save_currentstate() {
     // C `:1379`
     ps.in_checkpoint = (ps.in_checkpoint | 0) + 1;
     if (game.flags?.checkpoint) {
-        // C `:1380–1390` — currentlevel_rewrite, bufon, mode = WRITING,
-        // savelev(ledger_no(&u.uz)), close_nhfile. Named: do.c:1347
-        // currentlevel_rewrite, sfstruct.c bufon, save.c savelev,
-        // files.c:517 close_nhfile. No early return.
+        // C `:1381` currentlevel_rewrite. mark_synch is tty fflush.
+        // create_levelfile is not called: it sets LFILE_EXISTS and
+        // rewrites game.lock, and goto_level treats that flag as a stash.
+        // VFS creat cannot fail (D-2555), so the handle is non-null.
+        const lev = ledger_no(game.u?.uz);
+        const nhfp = {
+            structlevel: true,
+            fieldlevel: false,
+            mode: 0,
+            fd: lev,
+        };
+        // C `:1383–1384` — null handle returns with in_checkpoint still raised.
+        if (!nhfp) return;
+        // C `:1385` bufon(nhfp->fd) when structlevel — sfstruct.c by-design.
+        // C `:1386`
+        nhfp.mode = WRITING;
+        // C `:1387–1388` savelev(nhfp, lev) and close_nhfile(nhfp) stay named.
     }
     // C `:1393` savestateinlock — file body named (save.c:369–421).
     ps.saving = (ps.saving | 0) + 1;

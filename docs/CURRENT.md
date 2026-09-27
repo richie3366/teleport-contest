@@ -115,7 +115,7 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `do.c` save_currentstate — coverage MISSING (C 13 code L `do.c:1375–1395` / JS no symbol; hops 3, callers 3, RNG 0, msg 0) @68cdee2bb
+**Next cluster:** `version.c` getversionstring — coverage THIN (C 32 code L `version.c:35–79` / JS 13 code L in js/version.js; hops 3, callers 5, RNG 0, msg 0) @de27c57ac
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2987 (index).**
 <!-- recent:begin -->
