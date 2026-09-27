@@ -7,6 +7,10 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+
+## 2026-09-27 — Audit 1910–1918 accepts D-2951…D-2959
+
+Nine JS commits since `1a25073d1`, oldest first. All **ACCEPT**: `hliquid` timeout gate, `tty_putstr` `WIN_NOSTOP` clear plus the two message bits, `add_mon_to_reg`, `redist_attr`, `is_flammable`, `mon_animal_list`, `tmiss`, `yname`, `In_W_tower`. No Must-fix. Public `sessions` on `1021345f2`: 44/44, screens 11,405/11,405, RNG 792,838/792,838, speed `251+1.55/turn` (R² 0.765). Held-out still 12/44. Private corpus 12/12 (the 614/940 set is still absent). Next remains `Shirt_off`.
 ## 2026-09-27 — D-2959 `In_W_tower` reports a missing tower boundary
 
 **C locus:** `nethack-c/upstream/src/dungeon.c:1923–1938` `In_W_tower`. `On_W_tower_level` (`:1914–1919`) is first. `!svd.dndest.nlx` calls `impossible("No boundary for Wizard's Tower?")` and returns false. Otherwise `dungeon.h:144` `within_bounded_area` on `dndest.nlx/nly/nhx/nhy`. The updest/dndest assert is a comment.

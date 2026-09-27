@@ -1919,3 +1919,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1907-dc6fd838d-shirt-on.md](./1907-dc6fd838d-shirt-on.md) | `dc6fd838d` | D-2948 Shirt_on | **ACCEPT** |
 | [1908-515ca9981-maybe-reset-pick.md](./1908-515ca9981-maybe-reset-pick.md) | `515ca9981` | D-2949 maybe_reset_pick | **ACCEPT** |
 | [1909-1a25073d1-mkfount.md](./1909-1a25073d1-mkfount.md) | `1a25073d1` | D-2950 mkfount | **ACCEPT** |
+| [1910-49ff0d6f5-hliquid.md](./1910-49ff0d6f5-hliquid.md) | `49ff0d6f5` | D-2951 hliquid | **ACCEPT** |
+| [1911-7661793ac-tty-putstr.md](./1911-7661793ac-tty-putstr.md) | `7661793ac` | D-2952 tty_putstr | **ACCEPT** |
+| [1912-8d00a95a8-add-mon-to-reg.md](./1912-8d00a95a8-add-mon-to-reg.md) | `8d00a95a8` | D-2953 add_mon_to_reg | **ACCEPT** |
+| [1913-98553289c-redist-attr.md](./1913-98553289c-redist-attr.md) | `98553289c` | D-2954 redist_attr | **ACCEPT** |
+| [1914-a193f8063-is-flammable.md](./1914-a193f8063-is-flammable.md) | `a193f8063` | D-2955 is_flammable | **ACCEPT** |
+| [1915-fb0bc9e00-mon-animal-list.md](./1915-fb0bc9e00-mon-animal-list.md) | `fb0bc9e00` | D-2956 mon_animal_list | **ACCEPT** |
+| [1916-936dc8938-tmiss.md](./1916-936dc8938-tmiss.md) | `936dc8938` | D-2957 tmiss | **ACCEPT** |
+| [1917-d8cf4ec1c-yname.md](./1917-d8cf4ec1c-yname.md) | `d8cf4ec1c` | D-2958 yname | **ACCEPT** |
+| [1918-1021345f2-in-w-tower.md](./1918-1021345f2-in-w-tower.md) | `1021345f2` | D-2959 In_W_tower | **ACCEPT** |
