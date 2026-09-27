@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-2992 — `options.c` handler_autounlock + optfn_autounlock whole-pair port
+
+- **Status:** fixed (coverage row `options.c` handler_autounlock MISSING; hidden-proxy verify reports no corpus session blocked on either function).
+- **Symptom:** no JS symbol for `handler_autounlock` (`options.c:5624–5672`) and none for its callee `optfn_autounlock` (`options.c:1066–1168`); the allopt autounlock row carried `optfn: null`, the doset compound list showed a hardcoded `'apply-key'`, and picking the row ran no handler.
+- **C locus:** `nethack-c/upstream/src/options.c:5624–5672` `handler_autounlock` + same-file callee `optfn_autounlock :1066–1168` (tight pair; the handler's sole C caller is the optfn do_handler arm `:1165`).
+- **JS was:** no `handler_autounlock`/`optfn_autounlock` in `js/`; `UNLOCKTYPES` absent (`unlocktypes :207–212` had no JS home); autounlock display was an inline approximation in `simple_opt_get_val`.
+- **Fix:** Ported the pair in C order in `js/options.js`, with the doset/allopt wiring. `UNLOCKTYPES` table (`:207–212`); exported `optfn_autounlock` (`js/options.js:2489`: do_init default `:1073–1075`, do_set string parse `:1077–1143` incl. `string_for_opt` valueless default `:1087–1089`, `+`/space sep detect `:1092`, per-token trim/split `:1095–1098`, `none` arm `:1101–1102`, `str_start_is`/`fuzzymatch(" -_")` match `:1103–1108`, first-char switch `:1110–1124` with no `lowc` like C, both `config_error_add` silenterr arms `:1129–1140`, get_val `none`/`" + "` join `:1145–1162`); exported async `handler_autounlock(optidx)` (`js/options.js:2573`: oldflags `:5629`, optname `:5630`, tab-sep `:5631`, `%-10.10s`/`%.40s` rows with `a_int=i+1`, first-char selector, `(1<<i)` preselect `:5639–5646`, header from the end_menu prompt `:5648–5649`, PICK_ANY via `select_menu_pick_any(cancelValue:null)` `:5650`, n>0 rebuild `:5651–5656`, finish-empty zeroes `:5658–5663`, cancel keeps, chngd/verbose/`give_opt_msg` pline via live get_val `:5665–5669`). Wired: `doset_optfn_do_handler` autounlock arm (`:1165`), compound row live get_val + handler, `simple_opt_get_val` delegates (number_pad precedent), allopt row `optfn: optfn_autounlock` (enables C-faithful rcfile parse + `#saveoptions` get_val). New `scripts/optfn-autounlock.test.mjs`: 5/5 (defaults, bits/joins, fuzzy, silenterrs, unset-default display).
+- **JS:** `js/options.js` (+~170: `UNLOCKTYPES`, `optfn_autounlock`, `handler_autounlock`); `scripts/optfn-autounlock.test.mjs` (+5 tests).
+- **Callers:** C `handler_autounlock` call sites — `options.c:1165` do_handler arm → JS `doset_optfn_do_handler` autounlock arm (`js/options.js:2859`); C declaration `:392` (no JS site needed). C `optfn_autounlock` reached via allopt row optfn (`js/options.js:8247`) from `parseoptions :8895–8901`, `allopt_array_init :8718–8719`, `get_option_value :8958–8968`, and the doset compound menu. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn handler_autounlock` → VERIFY: PASS (tail: syntax 1 file; rule2; hidden note no session blocked; reach smoke 12/12 REACH-OK; green 2/2; strict ×2; cohort 7/7; full 44/44 auto on shared change). Same for `--fn optfn_autounlock`. Focused `node --test scripts/optfn-autounlock.test.mjs` 5/5.
+- **Named omissions:** None. Every arm is ported and both callees are live (`optfn_autounlock` in-commit, `pline` at `js/display.js:7993`); the sole C caller is wired. (`select_menu` is by-design with no scored analogue; the menu runs through the live `select_menu_pick_any` helper.)
+- **Ledger:** handler_autounlock ported; optfn_autounlock ported
+- **Next:** breadth picker continues at the regenerated coverage head.
+
 ## D-2991 — `alloc.c` nhalloc family port: new `js/alloc.js`
 
 - **Status:** fixed (coverage row `alloc.c` nhalloc MISSING; hidden-proxy verify reports no corpus session blocked on it).

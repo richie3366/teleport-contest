@@ -112,7 +112,6 @@ body in C order — every arm, every callee live or named, every C caller
 wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 
 <!-- coverage:begin -->
-- [ ] `options.c` handler_autounlock — coverage MISSING (C 38 code L `options.c:5624–5672` / JS no symbol; hops —, callers 1, RNG 0, msg 1; dead callees: optfn_autounlock) @c3bae97ba
 - [ ] `uhitm.c` stumble_onto_mimic — coverage THIN (C 8 code L `uhitm.c:6282–6297` / JS 2 code L in js/uhitm.js; hops 3, callers 6, RNG 0, msg 0) @bf782b509
 - [ ] `cmd.c` cmdq_shift — coverage THIN (C 10 code L `cmd.c:355–370` / JS 3 code L in js/cmd.js; hops 1, callers 1, RNG 0, msg 0) @05a11d7e9
 - [ ] `engrave.c` u_can_engrave — coverage THIN (C 27 code L `engrave.c:503–541` / JS 8 code L in js/engrave.js; hops —, callers 1, RNG 0, msg 6) @080c16023
@@ -124,6 +123,7 @@ wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 - [ ] `dungeon.c` free_proto_dungeon — coverage MISSING (C 10 code L `dungeon.c:1185–1201` / JS no symbol; hops 2, callers 1, RNG 0, msg 0) @0daa1a65f
 - [ ] `glyphs.c` apply_customizations — coverage MISSING (C 27 code L `glyphs.c:531–574` / JS no symbol; hops —, callers 6, RNG 0, msg 0; dead callees: set_map_u) @0daa1a65f
 - [ ] `glyphs.c` glyphrep_to_custom_map_entries — coverage MISSING (C 46 code L `glyphs.c:112–181` / JS no symbol; hops —, callers 4, RNG 0, msg 0; dead callees: rgbstr_to_int32) @ebc63743c
+- [ ] `options.c` option_help — coverage MISSING (C 52 code L `options.c:9462–9549` / JS no symbol; hops —, callers 0, RNG 0, msg 8; dead callees: is_wc2_option) @1b2296131
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

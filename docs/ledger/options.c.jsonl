@@ -13,7 +13,7 @@
 {"fn":"optfn_align_message","c":"923-970","status":"partial","js":["js/options.js:optfn_align_message"],"omit":"`config_error_add` still discards the message text.","d":["D-2822"],"at":"seed@a30a7de84"}
 {"fn":"optfn_align_status","c":"973-1019","status":"partial","js":["js/options.js:optfn_align_status"],"omit":"`config_error_add` still discards the message text.","d":["D-2822"],"at":"seed@a30a7de84"}
 {"fn":"optfn_altkeyhandling","c":"1022-1063","status":"unknown"}
-{"fn":"optfn_autounlock","c":"1066-1168","status":"unknown"}
+{"fn":"optfn_autounlock","c":"1066-1168","status":"ported","js":["js/options.js:optfn_autounlock"],"d":["D-2992"],"at":"2026-09-27@1b2296131"}
 {"fn":"optfn_boulder","c":"1171-1246","status":"ported","js":["js/options.js:optfn_boulder"],"d":["D-2830"],"at":"seed@a30a7de84"}
 {"fn":"optfn_catname","c":"1249-1255","status":"unknown"}
 {"fn":"optfn_crash_email","c":"1259-1282","status":"unknown"}
@@ -123,7 +123,7 @@
 {"fn":"check_perm_invent_again","c":"5532-5540","status":"unknown"}
 {"fn":"handler_menustyle","c":"5544-5583","status":"unknown"}
 {"fn":"handler_align_misc","c":"5586-5621","status":"unknown"}
-{"fn":"handler_autounlock","c":"5624-5672","status":"unknown"}
+{"fn":"handler_autounlock","c":"5624-5672","status":"ported","js":["js/options.js:handler_autounlock"],"d":["D-2992"],"at":"2026-09-27@1b2296131"}
 {"fn":"handler_disclose","c":"5675-5777","status":"unknown"}
 {"fn":"handler_menu_headings","c":"5780-5792","status":"unknown"}
 {"fn":"handler_menu_objsyms","c":"5795-5829","status":"partial","js":["js/options.js:handler_menu_objsyms"],"omit":"`config_error_add(\"Illegal %s parameter\")` sink (file precedent); `nul_glyphinfo`/NO_COLOR menu glyph columns (helper paints text only); `n > 1` two-pick disambiguation `:5822–5823` folded — the helper returns the single new pick, which is the non-preselected entry C chooses; readers of `use_menu_g…","d":["D-2774"],"at":"seed@a30a7de84"}
