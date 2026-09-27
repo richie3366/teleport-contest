@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2954 — `redist_attr` clamps polymorphed strength to the current form
+
+- **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked). C is 20 lines; the whole body shipped. No other Open row in `attrib.c`.
+- **Symptom:** While the hero was still polymorphed, a strength peak above the race maximum was cut back to that race ceiling. `ATTRMAX(A_STR)` in that state is the current form's maximum. Intelligence and Wisdom were already left alone, and the other four attributes already shook by `rn2(5) - 2`.
+- **C locus:** `nethack-c/upstream/src/attrib.c:740–760` `redist_attr`. The loop skips `A_INT` and `A_WIS`. Each other attribute saves `AMAX`, adds `rn2(5) - 2`, then clamps to `ATTRMAX` and `ATTRMIN`. `ABASE` becomes `ABASE * AMAX / tmp` (C integer division toward 0) and is raised to `ATTRMIN` when it falls short. `ATTRMAX` is `attrib.h:43–44`: `A_STR && Upolyd` calls `uasmon_maxStr()`, otherwise `urace.attrmax`. The comment at `:760` leaves `encumber_msg` to the caller.
+- **JS was:** `js/attrib.js` `redist_attr` already skipped Int/Wis, drew `rn2(5) - 2`, scaled the base, and floored at `attrMin`. The ceiling was `attrMax`, which returns `urace.attrmax` for every attribute, including strength while polymorphed. A zero old peak kept the old base.
+- **Fix:** One exported `redist_attr` keeps that C order. Strength while `Upolyd` clamps through `polyself.js` `uasmon_maxStr` (`imports.mjs --can attrib.js polyself.js uasmon_maxStr` SAFE, hoisted). Every other attribute still uses the race ceiling and the race floor. The base scale stays truncating division by the saved peak.
+- **JS:** `js/attrib.js` import `:83`. `redist_attr` `:614`. Form ceiling `:622` (`uasmon_maxStr` `js/polyself.js:646`). Race ceiling `attrMax` `:220`. Floor and store `:623–631`.
+- **Callers:** `polyself.c:370` `newman` → `js/polyself.js:1169`. `polyself.c:432` is the caller's `encumber_msg` after lifesave (`/* used to be done by redist_attr() */`) → `js/polyself.js:1144` `newman_dead_end`. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn redist_attr` → PASS syntax (1 changed js file: js/attrib.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.2s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed; pass --full to force) · VERIFY: PASS.
+- **Named omissions:** No arm of `redist_attr` is omitted. A saved peak of 0 keeps the old base; C would divide by that peak. `attrMax` (`adjattrib` at `attrib.c:142`, `init_attr_role_redist` at `attrib.c:708`) still returns the race ceiling. `exerchk` already inlines the polymorphed-strength arm. Stored attributes stay JS numbers.
+- **Next:** `mkobj.c` `is_flammable` (next Open — coverage row). Seven coverage rows remain after this archive, below the floor of 8. `--rows 5` was the never-re-pop Stale head, not pasted. Five later gameplay rows from `--rows 800 --min-c-lines 15` are appended.
+
 ## D-2953 — `add_mon_to_reg` keeps one id and grows the monster list by five
 
 - **Status:** fixed (coverage THIN; `hidden-proxy verify` reports no corpus session blocked). C is 25 lines; the whole body shipped. No other Open row in `region.c`.

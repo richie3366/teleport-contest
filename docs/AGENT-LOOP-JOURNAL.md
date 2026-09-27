@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2954 `redist_attr` clamps polymorphed strength to the current form
+
+**C locus:** `nethack-c/upstream/src/attrib.c:740–760` `redist_attr`. The loop skips `A_INT` and `A_WIS`. Each other attribute saves `AMAX`, adds `rn2(5) - 2`, then clamps to `ATTRMAX` and `ATTRMIN`. `ABASE` becomes `ABASE * AMAX / tmp` (C integer division toward 0) and is raised to `ATTRMIN` when it falls short. `ATTRMAX` is `attrib.h:43–44`: `A_STR && Upolyd` calls `uasmon_maxStr()`, otherwise `urace.attrmax`. The comment at `:760` leaves `encumber_msg` to the caller.
+**JS:** `js/attrib.js` import `:83`. `redist_attr` `:614`. Form ceiling `:622` (`uasmon_maxStr` `js/polyself.js:646`). Race ceiling `attrMax` `:220`. Floor and store `:623–631`.
+**Change:** One exported `redist_attr` keeps that C order. Strength while `Upolyd` clamps through `polyself.js` `uasmon_maxStr` (`imports.mjs --can attrib.js polyself.js uasmon_maxStr` SAFE, hoisted). Every other attribute still uses the race ceiling and the race floor.
+**Verify:** `node scripts/verify.mjs --fn redist_attr` → PASS syntax (1 changed js file: js/attrib.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.2s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed; pass --full to force) · VERIFY: PASS.
+**Named:** No arm of `redist_attr` is omitted. A saved peak of 0 keeps the old base; C would divide by that peak.
+**Next:** `mkobj.c` `is_flammable` (next Open — coverage row). Seven coverage rows remain after this archive, below the floor of 8. `--rows 5` was the never-re-pop Stale head, not pasted. Five later gameplay rows from `--rows 800 --min-c-lines 15` are appended.
 ## 2026-09-27 — D-2953 `add_mon_to_reg` keeps one id and grows the monster list by five
 
 **C locus:** `nethack-c/upstream/src/region.c:161–186` `add_mon_to_reg`. `mon_in_region` (`:209–218`) scans `i < n_monst`. A hit on anything other than `&mons[PM_LONG_WORM]` calls `impossible` with `m_monnam` and `m_id`, then returns; a long worm returns quietly so each segment is listed once (`:167–174`). When `max_monst <= n_monst`, `alloc` grows the buffer by `MONST_INC` (`region.h:55`, 5), the old ids are copied, the old buffer is `free`d, and `max_monst` increases (`:175–183`). The id is stored at `monsters[n_monst++]` (`:185`).

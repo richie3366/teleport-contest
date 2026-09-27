@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-27
 
-- [x] `region.c` add_mon_to_reg — coverage THIN (C 25 L `region.c:161–186` / JS 6 L in js/region.js; hops 3, callers 4, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn add_mon_to_reg` (reach regression must be 0). Measured `port-coverage.mjs --name add_mon_to_reg` 2026-09-27 @ 96146725a. **Addressed:** D-2953
+- [x] `attrib.c` redist_attr — coverage PARTIAL (C 20 L `attrib.c:740–760` / JS 14 L in js/attrib.js; hops 4, callers 2, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn redist_attr` (reach regression must be 0). Measured `port-coverage.mjs --name redist_attr` 2026-09-27 @ 96146725a. **Addressed:** D-2954
+
+
+- [x] `region.c` add_mon_to_reg — coverage THIN (C 25 L `region.c:161–186` / JS 6 L in js/region.js; hops 3, callers 4, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn add_mon_to_reg` (reach regression must be 0). Measured `port-coverage.mjs --name add_mon_to_reg` 2026-09-27 @ 96146725a. **Addressed:** D-2953 `8d00a95a8`
 
 
 - [x] `wintty.c` `tty_putstr` — the message arm clears `WIN_NOSTOP` on every call (`:2300`). `js/display.js` `putstr` clears it only when this call set `ATR_URGENT`. `wintty.c:119` sets `WC2_URGENT_MESG | WC2_SUPPRESS_HIST` on tty `wincap2`; the scored port leaves `windowprocs.wincap2` unset, so `putmesg` never sets that attribute and `urgent_pline` keeps `WIN_NOSTOP` through the vpline trailer. Set those two bits and clear `_win_nostop` at the end of every message `putstr`. Source: reviews/loop-unattended/1903-836e0baaf-putmesg.md **Addressed:** D-2952 `7661793ac`
