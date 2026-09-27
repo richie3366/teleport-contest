@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-2966 — `auto_describe` prints the looked cell, then parks the cursor
+
+- **Status:** fixed (coverage MISSING; hidden-proxy verify reports no corpus session blocked). C is 18 code lines; the whole body shipped. No other Open row in `getpos.c`.
+- **Symptom:** There was no `auto_describe`. While autodescribe was on, `getpos` preferred the whatis `describeAt` callback, else a firstmatch-only helper, wrote `_pending_message` (clearing it on a miss), and flushed with the cursor forced onto the cell. `doclicklook` imported an export that did not exist.
+- **C locus:** `nethack-c/upstream/src/getpos.c:640–662` `auto_describe`. `firstmatch` starts as `"unknown"`. `do_screen_description(cc, TRUE, sym, tmpbuf, &firstmatch, NULL)` with `sym` 0. On a hit, `coord_desc` overwrites `tmpbuf`, then `custompline(SUPPRESS_HISTORY|OVERRIDE_MSGTYPE|NO_CURS_ON_U, "%s%s%s%s%s", …)` prints firstmatch, a space only when the coord text is non-empty, that text, `" (invalid target)"` when `iflags.autodescribe && getpos_getvalid && !(*getpos_getvalid)(cx, cy)`, and `" (no travel path)"` when `iflags.getloc_travelmode && !is_valid_travelpt(cx, cy)`. Then `curs(WIN_MAP, cx, cy)` and `flush_screen(0)`. A miss does not print and does not move the cursor. The two `&&` chains do not call the predicate when the flag is off.
+- **JS was:** `js/getpos.js` had `auto_describe_text` and `auto_describe_suffix`. The `getpos` loop (`:1327` before this port) assembled those, or `describeAt`, into `_pending_message` and called `flush_screen(1)`. `js/cmd.js` `doclicklook` did `import('./getpos.js')` for `auto_describe`.
+- **Fix:** One exported `auto_describe` keeps that C order. `firstmatch` starts as `"unknown"`. The five `%s` arguments go through `custompline`, so a percent in the description is not a format verb. The invalid and travel predicates stay behind their flags. `getpos`'s autodescribe arm calls it and no longer prefers `describeAt`. `doclicklook` calls the same export. JS `flush_screen` parks on the hero, so the WIN_MAP cursor is applied after `flush_screen(0)` and the cell is where C leaves it.
+- **JS:** `js/getpos.js` `curs_win_map` `:613`. `auto_describe` `:638`. Miss return `:646`. `coord_desc` `:652`. Invalid suffix `:656`. Travel suffix `:662`. `custompline` `:666`. `flush_screen(0)` `:676`. Cursor `:677`. `getpos` call `:1381`. `js/cmd.js` `doclicklook` call `:2361`.
+- **Callers:** `getpos.c:866` → `js/getpos.js:1381`. `cmd.c:5387` `doclicklook` → `js/cmd.js:2361`. `cmd.c:4822` queues `doclicklook` → `js/cmd.js:2695`. `cmd.c:2060` is the `clicklook` command row (`js/generated/extcmdlist_data.js:164`). `getpos.c:640` is the definition. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn auto_describe` → PASS syntax (2 changed js files: js/cmd.js js/getpos.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.2s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script shared-file list does not include these two) · VERIFY: PASS. `node frozen/ps_test_runner.mjs sessions` → 44/44 passing.
+- **Named omissions:** No arm of `auto_describe` is omitted. `curs(WIN_MAP)` is `curs_win_map` for the contest 80×24 tty (offx 0, offy 1, clipping off). Full `tty_curs` (other windows, the clipping subtract, `cmov`/`nocmov`) is not this function. `auto_describe_text` stays the firstmatch-only helper for `show_glyph` and `dolookaround`; those C sites do not call `auto_describe`.
+- **Ledger:** auto_describe ported
+- **Next:** `hacklib.c` `mungspaces` (next Open — coverage row).
+
 ## D-2965 — `mksobj` finishes oil, novels, and the unique tail
 
 - **Status:** fixed (coverage PARTIAL; hidden-proxy verify reports no corpus session blocked). C `mksobj` is 59 code lines; the whole body shipped. No other Open row in `mkobj.c`.
