@@ -84,6 +84,66 @@ export function version_string() {
 // (D-1881 — const.js:21 reads COMMIT_NUMBER at load).
 const VERSION_BUFSZ = 256;
 
+/* C ref: hack.h `:1504–1506` FEATURE_NOTICE_VER(major, minor, patch) —
+ * (major << 24) | (minor << 16) | (patch << 8). `>>> 0` keeps the C
+ * unsigned-long value (cf cfgfiles.js FEATURE_NOTICE_VER_3_7_0). */
+function feature_notice_ver(major, minor, patch) {
+    return (((major << 24) | (minor << 16) | (patch << 8)) >>> 0);
+}
+
+/* C atoi as version.c uses it on the notice segments: leading blanks,
+ * optional sign, digit run; nothing parsable is 0. */
+function notice_atoi(s) {
+    const m = /^\s*[+-]?\d+/.exec(String(s ?? ''));
+    return m ? parseInt(m[0], 10) : 0;
+}
+
+/**
+ * C ref: version.c get_feature_notice_ver `:431–460` — parse
+ * "maj.min.patch" (digits and two dots only; the walk breaks right after
+ * the second dot, so the patch tail is unchecked like C) into the
+ * FEATURE_NOTICE_VER packing, else 0L. The input copy (`strcpy(buf)`)
+ * is the owned segments below (GC, no caller mutation).
+ * Sole C caller is options.c feature_alert_opts (`:7562`).
+ * @param {string} str version text (C char *, NULL → 0)
+ * @returns {number} packed version, 0 when unparseable
+ */
+export function get_feature_notice_ver(str) {
+    if (str == null) return 0; // C `:437–438`
+    const buf = String(str); // C `:439 strcpy(buf, str)`
+    const istr = [];
+    let j = 0, k = 0;
+    istr[j] = 0; // C `:440 istr[j] = str`
+    while (k < buf.length) { // C `:441 while (*str)`
+        const ch = buf[k];
+        if (ch === '.') { // C `:442–443`
+            // C `:444 *str++ = '\0'` — segment ends at k.
+            istr[j] = buf.slice(istr[j], k);
+            j++;
+            k++;
+            istr[j] = k; // C `:445 istr[j] = str`
+            if (j === 2) break; // C `:446–447`
+        } else if (ch >= '0' && ch <= '9') { // C `:448 strchr("0123456789")`
+            k++; // C `:449 str++`
+        } else {
+            return 0; // C `:450–451`
+        }
+    }
+    if (j !== 2) return 0; // C `:453–454`
+    istr[2] = buf.slice(istr[2]); // patch tail after the second dot
+    return feature_notice_ver( // C `:459`
+        notice_atoi(istr[0]), notice_atoi(istr[1]), notice_atoi(istr[2]));
+}
+
+/**
+ * C ref: version.c get_current_feature_ver `:464–467` —
+ * FEATURE_NOTICE_VER(VERSION_MAJOR, VERSION_MINOR, PATCHLEVEL).
+ * @returns {number} packed current version
+ */
+export function get_current_feature_ver() {
+    return feature_notice_ver(VERSION_MAJOR, VERSION_MINOR, PATCHLEVEL); // C `:466`
+}
+
 /**
  * C ref: version.c getversionstring `:35–79`.
  * Copies `nomakedefs.version_id` into the caller buffer, then appends

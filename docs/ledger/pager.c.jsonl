@@ -24,7 +24,7 @@
 {"fn":"doquickwhatis","c":"2329-2332","status":"unknown"}
 {"fn":"doidtrap","c":"2336-2389","status":"unknown","d":["D-2298"],"at":"seed@a30a7de84"}
 {"fn":"whatdoes_help","c":"2421-2445","status":"ported","js":["js/pager.js:whatdoes_help"],"d":["D-2929"],"at":"seed@a30a7de84"}
-{"fn":"whatdoes_cond","c":"2458-2573","status":"unknown"}
+{"fn":"whatdoes_cond","c":"2458-2573","status":"by-design","d":["D-2989"],"at":"2026-09-27@080c16023","note":"compiled out: body+prototype+sole caller inside C #if 0 pager.c:2447-2574; no-JS is C-faithful (review 1592)"}
 {"fn":"dowhatdoes_core","c":"2577-2655","status":"ported","js":["js/pager.js:dowhatdoes_core"],"at":"seed@a30a7de84","note":"stale 2026-09-25"}
 {"fn":"dowhatdoes","c":"2659-2715","status":"unknown","d":["D-1855"],"at":"seed@a30a7de84"}
 {"fn":"docontact","c":"2718-2745","status":"unknown"}

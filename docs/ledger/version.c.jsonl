@@ -7,8 +7,8 @@
 {"fn":"insert_rtoption","c":"339-353","status":"unknown"}
 {"fn":"comp_times","c":"357-362","status":"unknown"}
 {"fn":"check_version","c":"374-423","status":"ported","js":["js/files.js:check_version"],"d":["D-2539"],"at":"seed@a30a7de84"}
-{"fn":"get_feature_notice_ver","c":"431-461","status":"unknown"}
-{"fn":"get_current_feature_ver","c":"464-467","status":"unknown"}
+{"fn":"get_feature_notice_ver","c":"431-461","status":"ported","js":["js/version.js:get_feature_notice_ver"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
+{"fn":"get_current_feature_ver","c":"464-467","status":"ported","js":["js/version.js:get_current_feature_ver"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
 {"fn":"copyright_banner_line","c":"471-490","status":"unknown"}
 {"fn":"dump_version_info","c":"494-510","status":"unknown"}
 {"fn":"store_version","c":"512-537","status":"ported","js":["js/files.js:store_version"],"d":["D-2973"],"at":"2026-09-27@b170be897"}

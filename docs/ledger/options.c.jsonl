@@ -25,16 +25,16 @@
 {"fn":"optfn_dogname","c":"1563-1569","status":"unknown"}
 {"fn":"optfn_dungeon","c":"1572-1591","status":"unknown"}
 {"fn":"optfn_effects","c":"1594-1613","status":"unknown"}
-{"fn":"optfn_font_map","c":"1616-1622","status":"unknown"}
-{"fn":"optfn_font_menu","c":"1625-1631","status":"unknown"}
-{"fn":"optfn_font_message","c":"1634-1640","status":"unknown"}
-{"fn":"optfn_font_size_map","c":"1643-1649","status":"unknown"}
-{"fn":"optfn_font_size_menu","c":"1652-1658","status":"unknown"}
-{"fn":"optfn_font_size_message","c":"1661-1667","status":"unknown"}
-{"fn":"optfn_font_size_status","c":"1670-1676","status":"unknown"}
-{"fn":"optfn_font_size_text","c":"1679-1685","status":"unknown"}
-{"fn":"optfn_font_status","c":"1688-1694","status":"unknown"}
-{"fn":"optfn_font_text","c":"1697-1703","status":"unknown"}
+{"fn":"optfn_font_map","c":"1616-1622","status":"ported","js":["js/options.js:optfn_font_map"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
+{"fn":"optfn_font_menu","c":"1625-1631","status":"ported","js":["js/options.js:optfn_font_menu"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
+{"fn":"optfn_font_message","c":"1634-1640","status":"ported","js":["js/options.js:optfn_font_message"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
+{"fn":"optfn_font_size_map","c":"1643-1649","status":"ported","js":["js/options.js:optfn_font_size_map"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
+{"fn":"optfn_font_size_menu","c":"1652-1658","status":"ported","js":["js/options.js:optfn_font_size_menu"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
+{"fn":"optfn_font_size_message","c":"1661-1667","status":"ported","js":["js/options.js:optfn_font_size_message"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
+{"fn":"optfn_font_size_status","c":"1670-1676","status":"ported","js":["js/options.js:optfn_font_size_status"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
+{"fn":"optfn_font_size_text","c":"1679-1685","status":"ported","js":["js/options.js:optfn_font_size_text"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
+{"fn":"optfn_font_status","c":"1688-1694","status":"ported","js":["js/options.js:optfn_font_status"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
+{"fn":"optfn_font_text","c":"1697-1703","status":"ported","js":["js/options.js:optfn_font_text"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
 {"fn":"optfn_fruit","c":"1706-1774","status":"partial","js":["js/options.js:optfn_fruit"],"omit":"`config_error_add` message text (existing no-op sink).","d":["D-2783"],"at":"seed@a30a7de84"}
 {"fn":"optfn_gender","c":"1777-1812","status":"partial","js":["js/options.js:optfn_gender"],"omit":"`config_error_add` message text (existing no-op sink).","d":["D-2786"],"at":"seed@a30a7de84"}
 {"fn":"optfn_glyph","c":"1815-1849","status":"unknown"}
@@ -92,7 +92,7 @@
 {"fn":"optfn_statushilites","c":"4013-4064","status":"unknown"}
 {"fn":"optfn_statuslines","c":"4067-4107","status":"unknown"}
 {"fn":"optfn_subkeyvalue","c":"4111-4131","status":"unknown"}
-{"fn":"optfn_suppress_alert","c":"4135-4161","status":"unknown"}
+{"fn":"optfn_suppress_alert","c":"4135-4161","status":"ported","js":["js/options.js:optfn_suppress_alert"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
 {"fn":"optfn_symset","c":"4167-4236","status":"unknown"}
 {"fn":"optfn_term_cols","c":"4239-4277","status":"unknown"}
 {"fn":"optfn_term_rows","c":"4280-4318","status":"unknown"}
@@ -115,7 +115,7 @@
 {"fn":"optfn_windowcolors","c":"4894-4940","status":"unknown"}
 {"fn":"optfn_windowtype","c":"4943-4987","status":"unknown"}
 {"fn":"pfxfn_cond_","c":"4994-5036","status":"unknown"}
-{"fn":"pfxfn_font","c":"5039-5165","status":"unknown"}
+{"fn":"pfxfn_font","c":"5039-5165","status":"ported","js":["js/options.js:pfxfn_font"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
 {"fn":"pfxfn_IBM_","c":"5169-5183","status":"unknown"}
 {"fn":"optfn_boolean","c":"5192-5449","status":"unknown"}
 {"fn":"spcfn_misc_menu_cmd","c":"5452-5475","status":"unknown"}
@@ -166,7 +166,7 @@
 {"fn":"change_inv_order","c":"7466-7510","status":"unknown"}
 {"fn":"warning_opts","c":"7521-7538","status":"unknown"}
 {"fn":"assign_warnings","c":"7541-7548","status":"unknown"}
-{"fn":"feature_alert_opts","c":"7558-7585","status":"unknown"}
+{"fn":"feature_alert_opts","c":"7558-7585","status":"ported","js":["js/options.js:feature_alert_opts"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
 {"fn":"parsebindings","c":"7596-7674","status":"unknown"}
 {"fn":"msgtype2name","c":"7690-7698","status":"unknown"}
 {"fn":"query_msgtype","c":"7701-7728","status":"unknown"}
@@ -218,7 +218,7 @@
 {"fn":"all_options_apes","c":"9643-9654","status":"unknown"}
 {"fn":"all_options_palette","c":"9658-9673","status":"unknown"}
 {"fn":"all_options_strbuf","c":"9678-9748","status":"partial","js":["js/options.js:all_options_strbuf"],"omit":"`get_option_value` + allopt table [2/7]; `all_options_conds` (+opt_next_cond) [3/7]; `get_changed_key_binds` (unconditional call — throws if body invoked before [4/7]) [4/7]; `parsesymbols` producer (savedSymbols stays empty) [5/7]; `all_options_statushilites` (unconditional call, STATUS_HILITES on…","d":["D-2544"],"at":"seed@a30a7de84"}
-{"fn":"next_opt","c":"9755-9785","status":"unknown"}
+{"fn":"next_opt","c":"9755-9785","status":"split","js":["js/options.js:next_opt_lines"],"d":["D-2989"],"at":"2026-09-27@080c16023","note":"split: boolean-list body lives in next_opt_lines (D-0091); sole caller option_help reads it via option_help_lines"}
 {"fn":"set_option_mod_status","c":"9855-9869","status":"unknown"}
 {"fn":"set_wc_option_mod_status","c":"9881-9896","status":"unknown"}
 {"fn":"is_wc_option","c":"9899-9909","status":"unknown"}
@@ -226,7 +226,7 @@
 {"fn":"set_wc2_option_mod_status","c":"9935-9950","status":"unknown"}
 {"fn":"is_wc2_option","c":"9953-9963","status":"unknown"}
 {"fn":"wc2_supported","c":"9966-9976","status":"unknown"}
-{"fn":"wc_set_font_name","c":"9979-10010","status":"unknown"}
+{"fn":"wc_set_font_name","c":"9979-10010","status":"ported","js":["js/options.js:wc_set_font_name"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
 {"fn":"wc_set_window_colors","c":"10023-10113","status":"unknown"}
 {"fn":"options_free_window_colors","c":"10116-10127","status":"unknown"}
 {"fn":"set_playmode","c":"10134-10152","status":"unknown"}

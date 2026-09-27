@@ -44,7 +44,7 @@
 {"fn":"unbless","c":"1767-1780","status":"unknown"}
 {"fn":"curse","c":"1783-1819","status":"partial","js":["js/mkobj.js:curse"],"omit":"`bless` and `unbless` still omit the `COIN_CLASS` return and the bag-of-holding `weight` write (`js/mkobj.js` `bless` `:641`, `unbless` `:662`).","d":["D-2885"],"at":"seed@a30a7de84"}
 {"fn":"uncurse","c":"1822-1838","status":"unknown"}
-{"fn":"blessorcurse","c":"1841-1854","status":"unknown"}
+{"fn":"blessorcurse","c":"1841-1854","status":"ported","js":["js/mkobj.js:blessorcurse"],"d":["D-2989"],"at":"2026-09-27@080c16023","note":"stale: js/mkobj.js:716 — exact C body incl. RNG order, callees live"}
 {"fn":"bcsign","c":"1857-1860","status":"unknown"}
 {"fn":"set_bknown","c":"1864-1873","status":"unknown"}
 {"fn":"weight","c":"1888-1976","status":"ported","js":["js/mkobj.js:weight"],"d":["D-2578"],"at":"seed@a30a7de84"}

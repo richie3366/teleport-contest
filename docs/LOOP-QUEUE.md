@@ -112,11 +112,6 @@ body in C order — every arm, every callee live or named, every C caller
 wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 
 <!-- coverage:begin -->
-- [ ] `pager.c` whatdoes_cond — coverage MISSING (C 88 code L `pager.c:2458–2573` / JS no symbol; hops 3, callers 1, RNG 0, msg 0) @de27c57ac
-- [ ] `mkobj.c` blessorcurse — coverage PARTIAL (C 8 code L `mkobj.c:1841–1854` / JS 4 code L in js/mkobj.js; hops 4, callers 3, RNG 2, msg 0) @7040c7cd0
-- [ ] `options.c` next_opt — coverage MISSING (C 22 code L `options.c:9755–9785` / JS no symbol; hops —, callers 1, RNG 0, msg 4) @529e9bfc5
-- [ ] `options.c` pfxfn_font — coverage MISSING (C 110 code L `options.c:5039–5165` / JS no symbol; hops —, callers 10, RNG 0, msg 0; dead callees: wc_set_font_name) @8b946a308
-- [ ] `options.c` feature_alert_opts — coverage MISSING (C 20 code L `options.c:7558–7585` / JS no symbol; hops —, callers 1, RNG 0, msg 2; dead callees: get_feature_notice_ver) @406969f14
 - [ ] `role.c` root_plselection_prompt — coverage PARTIAL (C 97 code L `role.c:1431–1580` / JS 71 code L in js/player_selection.js; hops —, callers 1, RNG 0, msg 19) @406969f14
 - [ ] `sp_lev.c` get_room_loc — coverage MISSING (C 14 code L `sp_lev.c:1360–1378` / JS no symbol; hops —, callers 1, RNG 2, msg 0) @9b244f090
 - [ ] `alloc.c` nhalloc — coverage MISSING (C 9 code L `alloc.c:152–166` / JS no symbol; hops 3, callers 2, RNG 0, msg 0; dead callees: heapmon_init) @9b244f090
@@ -124,6 +119,11 @@ wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 - [ ] `options.c` handler_autounlock — coverage MISSING (C 38 code L `options.c:5624–5672` / JS no symbol; hops —, callers 1, RNG 0, msg 1; dead callees: optfn_autounlock) @c3bae97ba
 - [ ] `uhitm.c` stumble_onto_mimic — coverage THIN (C 8 code L `uhitm.c:6282–6297` / JS 2 code L in js/uhitm.js; hops 3, callers 6, RNG 0, msg 0) @bf782b509
 - [ ] `cmd.c` cmdq_shift — coverage THIN (C 10 code L `cmd.c:355–370` / JS 3 code L in js/cmd.js; hops 1, callers 1, RNG 0, msg 0) @05a11d7e9
+- [ ] `engrave.c` u_can_engrave — coverage THIN (C 27 code L `engrave.c:503–541` / JS 8 code L in js/engrave.js; hops —, callers 1, RNG 0, msg 6) @080c16023
+- [ ] `shk.c` call_kops — coverage PARTIAL (C 35 code L `shk.c:510–564` / JS 26 code L in js/shk.js; hops 4, callers 2, RNG 0, msg 2) @080c16023
+- [ ] `muse.c` m_next2m — coverage MISSING (C 11 code L `muse.c:420–436` / JS no symbol; hops 2, callers 1, RNG 0, msg 0) @080c16023
+- [ ] `zap.c` get_mon_location — coverage MISSING (C 11 code L `zap.c:692–709` / JS no symbol; hops 2, callers 1, RNG 0, msg 0) @080c16023
+- [ ] `sp_lev.c` create_altar — coverage MISSING (C 28 code L `sp_lev.c:2446–2486` / JS no symbol; hops —, callers 1, RNG 1, msg 0) @080c16023
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
