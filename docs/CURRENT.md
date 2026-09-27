@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `wintty.c` `tty_putstr` — the message arm clears `WIN_NOSTOP` on every call (`wintty.c:2300`). `js/display.js` `putstr` clears it only when this call set `ATR_URGENT`. `wintty.c:119` sets `WC2_URGENT_MESG | WC2_SUPPRESS_HIST` on tty `wincap2`; the scored port leaves `windowprocs.wincap2` unset. Set those two bits and clear `_win_nostop` at the end of every message `putstr`. Source: reviews/loop-unattended/1903-836e0baaf-putmesg.md. Verify `node scripts/verify.mjs --fn tty_putstr`.
+**Next cluster:** `region.c` `add_mon_to_reg` — coverage THIN (C 25 L `region.c:161–186` / JS 6 L in js/region.js). Verify `node scripts/verify.mjs --fn add_mon_to_reg`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2951 (index).**
+**Keep D-0845…D-2952 (index).**
 <!-- recent:begin -->
+**D-2952** `nethack-c/upstream/win/tty/wintty.c:2226–2301` `tty_putstr` `NHW_MESSAGE`. Urgent and `WI — `install_tty_wincap2` stores only those two bits.
 **D-2951** `nethack-c/upstream/src/do_name.c:1493–1510` `hliquid`. `hallucinate` is `Hallucination && — One exported `hliquid` keeps that C order and calls `display.js` `Hallucination`.
 **D-2950** `nethack-c/upstream/src/mklev.c:2285–2300` `mkfount`. `find_okay_roompos` (`mklev.c:2302–2 — One file-local `mkfount` in that C order.
 **D-2949** `nethack-c/upstream/src/lock.c:269–285` `maybe_reset_pick`. A non-null `container` resets  — One exported `maybe_reset_pick` in `js/lock.js` in that C order.
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2947** `nethack-c/upstream/src/dungeon.c:1870–1886` `dungeon_branch`. `dname_to_dnum` is `dungeon — One exported `dungeon_branch` in that C order.
 **D-2946** `nethack-c/upstream/src/questpgr.c:438–456` `deliver_by_window`. `eos` is `hacklib.c:193–1 — One file-local `deliver_by_window` in that C order.
 **D-2945** `nethack-c/upstream/src/pickup.c:616–632` `reset_justpicked`. `extern.h:2437–2439` says `g — One exported `reset_justpicked` in that C order.
-**D-2944** `nethack-c/upstream/src/pline.c:65–80` `putmesg`. `iflags.debug_prevent_pline` returns bef — One file-local `putmesg` in that C order.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2951; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2952; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

@@ -103,8 +103,6 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 always Must-fix rows: they forfeit every later screen of that session
 (Constitution §10.14).
 
-- [ ] `wintty.c` `tty_putstr` — the message arm clears `WIN_NOSTOP` on every call (`:2300`). `js/display.js` `putstr` clears it only when this call set `ATR_URGENT`. `wintty.c:119` sets `WC2_URGENT_MESG | WC2_SUPPRESS_HIST` on tty `wincap2`; the scored port leaves `windowprocs.wincap2` unset, so `putmesg` never sets that attribute and `urgent_pline` keeps `WIN_NOSTOP` through the vpline trailer. Set those two bits and clear `_win_nostop` at the end of every message `putstr`. Source: reviews/loop-unattended/1903-836e0baaf-putmesg.md
-
 ## Open — coverage (breadth phase — pop first after Must-fix)
 
 Rows below are `port-coverage.mjs --rows` output (score = reach × call

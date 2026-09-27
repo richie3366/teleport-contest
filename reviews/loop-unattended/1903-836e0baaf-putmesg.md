@@ -18,6 +18,8 @@ show_topl        NOT EXPORTED — but 1 LOCAL CLONE(S) in 1 file(s):
 SoundSpeak       js/sndprocs.js:67   sync
 ```
 
+**Addressed:** D-2952
+
 ## Intent vs deliverable
 
 Subject promises one file-local `putmesg` in C order: return on `debug_prevent_pline`, OR `ATR_URGENT` / `ATR_NOHISTORY` when `wincap2` has the bits, `putstr(WIN_MESSAGE)`, then `SoundSpeak`. The diff is that function, a message-window `putstr`, `show_topl`, and the `update_topl` split. `wincap2` stays 0, so both ORs stay clear.

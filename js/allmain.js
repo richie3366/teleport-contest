@@ -8,7 +8,7 @@ import { dobjsfree, clear_splitobjs } from './mkobj.js';
 import { rhack, continue_run, run_active, continue_search, search_repeat_active, dolookaround, end_of_input, enter_explore_mode } from './cmd.js';
 import {
     docrt, cls, bot, timebot, curs_on_u, flush_screen, pline, Norep,
-    flush_topl_more, see_monsters, You,
+    flush_topl_more, see_monsters, You, install_tty_wincap2,
     see_objects, see_traps, swallowed, Hallucination, Warn_of_mon,
     clear_glyph_buffer, glyph_to_cmap,
 } from './display.js';
@@ -201,9 +201,10 @@ export function init_sound_disp_gamewindows() {
     game.WIN_MESSAGE = 10;
     // C `:720–724` if (VIA_WINDOWPORT()) status_initialize(FALSE) else
     // WIN_STATUS = create_nhwindow(NHW_STATUS). tty_procs sets
-    // WC2_HILITE_STATUS|WC2_FLUSH_STATUS (wintty.c:116), so C tty takes
-    // status_initialize. The scored port leaves wincap2 unset, so this
-    // stays on the else arm until that capability is installed.
+    // WC2_HILITE_STATUS|WC2_FLUSH_STATUS (wintty.c:116) and the message
+    // bits WC2_URGENT_MESG|WC2_SUPPRESS_HIST (`:119`). Only the message
+    // bits are installed, so this stays on the else arm.
+    install_tty_wincap2();
     const wincap2 = game.windowprocs?.wincap2 | 0;
     const viaWindowport = (wincap2 & (WC2_HILITE_STATUS | WC2_FLUSH_STATUS)) !== 0;
     if (viaWindowport) {

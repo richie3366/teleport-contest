@@ -7795,10 +7795,9 @@ export async function Norep(fmt, ...args) {
 /**
  * C ref: pline.c custompline — vpline with caller flags.
  * SUPPRESS_HISTORY skips dumplogmsg (C `:235–239`). putmesg still
- * runs: ATR_NOHISTORY (and thus show_topl) only when windowprocs.wincap2
- * has WC2_SUPPRESS_HIST. The scored port leaves wincap2 unset, so the
- * tty update_topl path and gp.prevmsg still run and a later Norep
- * compares against this line.
+ * runs: ATR_NOHISTORY (and thus show_topl) when windowprocs.wincap2
+ * has WC2_SUPPRESS_HIST. gp.prevmsg is still the new line, so a later
+ * Norep compares against it.
  */
 export async function custompline(flags, fmt, ...args) {
     gp.pline_flags = flags | 0;
@@ -8146,12 +8145,10 @@ function putstr(window, attr, str) {
         _win_nostop = true;
     }
     const done = () => {
-        // C `:2300` clears WIN_NOSTOP before putstr returns. Only this
-        // call's urgent arm sets the bit: scored `wincap2` lacks
-        // WC2_URGENT_MESG, and `urgent_pline` still holds NOSTOP across
-        // the vpline trailer as that stand-in. Clearing it here on every
-        // message would drop the stand-in before MSGTYP_STOP more().
-        if (urgentMessage) _win_nostop = false;
+        // C wintty.c:2300 — WIN_NOSTOP is a one-shot. Clear it on every
+        // message-window return, including a call that did not set
+        // ATR_URGENT, so the vpline MSGTYP_STOP trailer does not see it.
+        _win_nostop = false;
     };
     let waited;
     if (!suppressHistory) waited = update_topl(str);
@@ -8164,20 +8161,36 @@ function putstr(window, attr, str) {
 }
 
 /**
+ * C wintty.c tty_procs.wincap2 `:119` — the two message bits.
+ * `:111–125` also sets hilite/flush/reset status, darkgray,
+ * statuslines, utf8, petattr, extracolors, and extrastatus. Those
+ * stay off so VIA_WINDOWPORT() stays false (status_initialize).
+ * @returns {number}
+ */
+export function install_tty_wincap2() {
+    if (!game.windowprocs || typeof game.windowprocs !== 'object') {
+        game.windowprocs = { name: 'tty' };
+    }
+    if (!Object.hasOwn(game.windowprocs, 'wincap2')) {
+        game.windowprocs.wincap2 = WC2_URGENT_MESG | WC2_SUPPRESS_HIST;
+    }
+    return game.windowprocs.wincap2 | 0;
+}
+
+/**
  * C ref: pline.c putmesg `:65–80` (staticfn). One caller: vpline `:276`.
- * Contest tty_procs advertises WC2_URGENT_MESG | WC2_SUPPRESS_HIST
- * (wintty.c `:119`). The scored port leaves `windowprocs.wincap2`
- * unset (allmain.js / options.js), so both attr ORs stay clear and
- * putstr takes update_topl. SoundSpeak is the !SND_LIB empty macro.
- * Returns a Promise only when putstr waits in more(). SoundSpeak
- * runs after that wait, still before vpline's trailer, matching C.
+ * tty_procs advertises WC2_URGENT_MESG | WC2_SUPPRESS_HIST
+ * (wintty.c `:119`), installed on `windowprocs.wincap2`. SoundSpeak
+ * is the !SND_LIB empty macro. Returns a Promise only when putstr
+ * waits in more(). SoundSpeak runs after that wait, still before
+ * vpline's trailer, matching C.
  * @param {string} line
  * @returns {Promise<void>|undefined}
  */
 function putmesg(line) {
     let attr = ATR_NONE;
     if (game.iflags?.debug_prevent_pline) return;
-    const wincap2 = game.windowprocs?.wincap2 | 0;
+    const wincap2 = install_tty_wincap2();
     if ((gp.pline_flags & URGENT_MESSAGE) !== 0
         && (wincap2 & WC2_URGENT_MESG) !== 0) {
         attr |= ATR_URGENT;
@@ -8225,8 +8238,11 @@ async function pline_after_consume(msg, alreadyDumplogged = false) {
 }
 
 /**
- * C ref: pline.c urgent_pline — URGENT_MESSAGE / WIN_NOSTOP so ESC'd
- * --More-- (WIN_STOP) cannot suppress this line; clears STOP first.
+ * C ref: pline.c urgent_pline — URGENT_MESSAGE so putmesg ORs
+ * ATR_URGENT. tty_putstr sets WIN_NOSTOP for this line's more() and
+ * clears it before return (`:2300`), so the MSGTYP_STOP trailer does
+ * not see the bit. The pre-clear of WIN_STOP matches that urgent arm
+ * when the stop bit is already set.
  */
 export async function urgent_pline(fmt, ...args) {
     if (fmt == null || fmt === '') return;

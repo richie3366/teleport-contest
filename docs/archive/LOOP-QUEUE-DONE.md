@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-27
 
-- [x] `do_name.c` `hliquid` — the gate calls `do_name.js:260` `Hallucination`, which returns true on sticky `u.Hallucination` before resistance and never reads `uprops[HALLUC]`. C `youprop.h:116–120` is `u.uprops[HALLUC].intrinsic && !Halluc_resistance` (timeout only). `display.js:1095` is that reader, and `do_name.js` already imports `display.js` (`imports.mjs --can` → ALREADY). Use it from `hliquid` (`do_name.c:1496`). Source: reviews/loop-unattended/1902-9ce3f2138-hliquid.md **Addressed:** D-2951
+- [x] `wintty.c` `tty_putstr` — the message arm clears `WIN_NOSTOP` on every call (`:2300`). `js/display.js` `putstr` clears it only when this call set `ATR_URGENT`. `wintty.c:119` sets `WC2_URGENT_MESG | WC2_SUPPRESS_HIST` on tty `wincap2`; the scored port leaves `windowprocs.wincap2` unset, so `putmesg` never sets that attribute and `urgent_pline` keeps `WIN_NOSTOP` through the vpline trailer. Set those two bits and clear `_win_nostop` at the end of every message `putstr`. Source: reviews/loop-unattended/1903-836e0baaf-putmesg.md **Addressed:** D-2952
+
+
+- [x] `do_name.c` `hliquid` — the gate calls `do_name.js:260` `Hallucination`, which returns true on sticky `u.Hallucination` before resistance and never reads `uprops[HALLUC]`. C `youprop.h:116–120` is `u.uprops[HALLUC].intrinsic && !Halluc_resistance` (timeout only). `display.js:1095` is that reader, and `do_name.js` already imports `display.js` (`imports.mjs --can` → ALREADY). Use it from `hliquid` (`do_name.c:1496`). Source: reviews/loop-unattended/1902-9ce3f2138-hliquid.md **Addressed:** D-2951 `49ff0d6f5`
 
 
 - [x] `mklev.c` mkfount — coverage PARTIAL (C 15 L `mklev.c:2285–2300` / JS 10 L in js/mklev.js; hops 2, callers 1, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mkfount` (reach regression must be 0). Measured `port-coverage.mjs --name mkfount` 2026-09-27 @ 96146725a. **Addressed:** D-2950 `1a25073d1`

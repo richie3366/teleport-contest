@@ -4353,8 +4353,8 @@ export async function get_count(
                 backspaced = false;
             }
             // C cmd.c get_count: custompline(SUPPRESS_HISTORY, "%s", qbuf)
-            // then mark_synch — full vpline (update_topl + prevmsg) minus
-            // dumplog, so a later Norep compares against the echo.
+            // then mark_synch. wincap2 has WC2_SUPPRESS_HIST, so putmesg
+            // ORs ATR_NOHISTORY (show_topl). prevmsg is still the echo.
             await custompline(SUPPRESS_HISTORY, qbuf);
             await flush_screen(1);
             game.nhDisplay?.setCursor?.(qbuf.length, 0);
