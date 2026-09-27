@@ -1,4 +1,4 @@
-{"fn":"quest_info","c":"31-46","status":"unknown"}
+{"fn":"quest_info","c":"31-46","status":"ported","js":["js/questpgr.js:quest_info"],"d":["D-2963"],"at":"2026-09-27@a6c00e025"}
 {"fn":"ldrname","c":"50-57","status":"unknown"}
 {"fn":"intermed","c":"61-64","status":"unknown"}
 {"fn":"is_quest_artifact","c":"67-70","status":"unknown"}

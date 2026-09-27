@@ -17,6 +17,7 @@
 // openholdingtrap (D-0981) / closeholdingtrap (D-1425).
 
 import { game } from './gstate.js';
+import { quest_info } from './questpgr.js';
 import { livelog_printf } from './pline.js';
 import { rn2, rnd, rn1, d, rnl, rn2_on_display_rng } from './rng.js';
 import { rank_of } from './roles.js';
@@ -207,6 +208,7 @@ const SPE_REMOVE_CURSE = objectNames.indexOf('SPE_REMOVE_CURSE');
 const AD_RUST = 24; /* monattk.h */
 const PM_FLESH_GOLEM = monsterNames.indexOf('PM_FLESH_GOLEM');
 const PM_DOPPELGANGER = monsterNames.indexOf('PM_DOPPELGANGER');
+const MS_GUARDIAN = 38; /* monflag.h — quest_info(MS_GUARDIAN) */
 const PM_ARCHEOLOGIST = monsterNames.indexOf('PM_ARCHEOLOGIST');
 const PM_RANGER = monsterNames.indexOf('PM_RANGER');
 const PM_PIT_VIPER = monsterNames.indexOf('PM_PIT_VIPER');
@@ -315,8 +317,8 @@ function mk_trap_statue(x, y) {
  * C ref: trap.c animate_statue — statue → live monster.
  * Sequencing: create mon; message; shop stolen_value (non-NORMAL);
  * transfer contents; m_dowear; delobj statue.
- * Named omit: set_msg_xy; full shk ownership prefixes; quest MS_GUARDIAN
- * other-role guard remap; remove_worn_item polish beyond owornmask clear.
+ * Named omit: set_msg_xy; full shk ownership prefixes;
+ * remove_worn_item polish beyond owornmask clear.
  * @param {object} statue
  * @param {number} x
  * @param {number} y
@@ -361,8 +363,12 @@ export async function animate_statue(statue, x, y, cause, fail_reason = null) {
         let mmflags = NO_MINVENT | MM_NOMSG
             | ((sgend === CORPSTAT_MALE) ? MM_MALE : 0)
             | ((sgend === CORPSTAT_FEMALE) ? MM_FEMALE : 0);
-        if ((mnum === PM_DOPPELGANGER && mptr !== mons(PM_DOPPELGANGER))) {
-            // quest MS_GUARDIAN other-role guard remap deferred
+        /* C trap.c:776–779. mons() is a fresh object, so
+           `mptr != &mons[PM_DOPPELGANGER]` is the index. A quest guard
+           from another role is the same doppelganger remap. */
+        if ((mnum === PM_DOPPELGANGER && (mptr?.mndx | 0) !== PM_DOPPELGANGER)
+            || ((mptr?.msound | 0) === MS_GUARDIAN
+                && quest_info(MS_GUARDIAN) !== mnum)) {
             mmflags |= MM_NOCOUNTBIRTH | MM_ADJACENTOK;
             mon = makemon(mons(PM_DOPPELGANGER), x, y, mmflags);
             if (mon && ismnum(mon.cham)) {

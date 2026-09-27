@@ -112,7 +112,6 @@ body in C order — every arm, every callee live or named, every C caller
 wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 
 <!-- coverage:begin -->
-- [ ] `questpgr.c` quest_info — coverage PARTIAL (C 15 L `questpgr.c:31–46` / JS 8 L in js/read.js; hops 3, callers 10, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn quest_info` (reach regression must be 0). Measured `port-coverage.mjs --name quest_info` 2026-09-27 @ 78432069f.
 - [ ] `dbridge.c` e_jumps — coverage PARTIAL (C 20 L `dbridge.c:531–551` / JS 11 L in js/dbridge.js; hops 5, callers 2, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn e_jumps` (reach regression must be 0). Measured `port-coverage.mjs --name e_jumps` 2026-09-27 @ 78432069f.
 - [ ] `botl.c` bot — coverage PARTIAL (C 12 code L `botl.c:253–271` / JS 7 code L in js/display.js; hops 0, callers 22, RNG 0, msg 1) @5184b40bf
 - [ ] `mkobj.c` mksobj — coverage PARTIAL (C 59 code L `mkobj.c:1179–1259` / JS 42 code L in js/mkobj.js; hops 2, callers 53, RNG 1, msg 0) @5184b40bf
@@ -124,6 +123,7 @@ wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 - [ ] `trap.c` trapeffect_dart_trap — coverage PARTIAL (C 54 code L `trap.c:1251–1321` / JS 39 code L in js/trap.js; hops 4, callers 1, RNG 5, msg 3) @988c639a6
 - [ ] `hacklib.c` strncmpi — coverage THIN (C 11 code L `hacklib.c:717–734` / JS 2 code L in js/vault.js; hops 2, callers 77, RNG 0, msg 0) @988c639a6
 - [ ] `cmd.c` show_direction_keys — coverage PARTIAL (C 35 code L `cmd.c:4122–4165` / JS 25 code L in js/dokeylist.js; hops 2, callers 2, RNG 0, msg 10) @988c639a6
+- [ ] `insight.c` background_enlightenment — coverage MISSING (C 142 code L `insight.c:468–722` / JS no symbol; hops 5, callers 1, RNG 0, msg 3) @a6c00e025
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

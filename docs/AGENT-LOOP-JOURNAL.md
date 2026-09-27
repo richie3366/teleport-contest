@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2963 `quest_info` reports a bad typ, then returns 0
+
+**C locus:** `nethack-c/upstream/src/questpgr.c:31–46` `quest_info`. `switch (typ)`: 0 returns `gu.urole.questarti`; `MS_LEADER` / `MS_NEMESIS` / `MS_GUARDIAN` return `ldrnum` / `neminum` / `guardnum` (`short`, `you.h:193–202`). `default` calls `impossible("quest_info(%d)", typ)`, then `return 0`.
+**JS:** `js/questpgr.js` `quest_info` `:42`. Case 0 `:45–46`. Leader `:47–48`. Nemesis `:49–50`. Guardian `:51–52`. Default `:53–54`. Return 0 `:56`.
+**Change:** One exported `quest_info` keeps that C order. A missing field reads as 0. `impossible` is started and not awaited.
+**Verify:** `node scripts/verify.mjs --fn quest_info` → PASS syntax (5 changed js file(s): js/makemon.js js/mon.js js/questpgr.js js/read.js js/trap.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (shared file changed) · VERIFY: PASS.
+**Named:** No arm of the switch is omitted. `impossible` is not awaited, so its `--More--` does not block the caller.
+**Next:** `dbridge.c` `e_jumps` (next Open — coverage row).
 ## 2026-09-27 — D-2962 `get_rnd_text` keeps the line after the pad loop
 
 **C locus:** `nethack-c/upstream/src/rumors.c:499–526` `get_rnd_text`. `dlb_fopen` then `buf[0] = '\0'`. On success, one `dlb_fgets` skips the "don't edit" comment, `dlb_fseek`/`dlb_ftell` set `starttxt`, `get_rnd_line` (`:419–494`) draws with `endpos` 0, then `dlb_fclose`. On failure, `couldnt_open_file`. `get_rnd_line` seeks with `rng((int) filechunksize)` up to ten times, accepts a rest whose `strlen` is at most `padlength + 1` (newline counted), and after the loop always `fgets` the next line, wrapping to `startpos` when `ftell >= endpos` or that `fgets` fails. Newline strip, `xcrypt`, then `unpadline` only when `padlength` is non-zero.

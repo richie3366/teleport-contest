@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-2963 — `quest_info` reports a bad typ, then returns 0
+
+- **Status:** fixed (coverage PARTIAL; hidden-proxy verify reports no corpus session blocked). C is 15 lines; the whole body shipped. No other Open row in `questpgr.c`.
+- **Symptom:** A typ other than 0 or the three quest sounds returned 0 and never called `impossible`. Leader, nemesis, and guardian indices used `?? NON_PM`. `makemon`, `peacefuls_respond`, `qst_guardians_respond`, and `setmangry` read the `urole` fields, with extra `NON_PM` gates on birth. Animating another role's quest guard created that guard. A doppelganger statue always took the doppelganger arm because `mons()` returns a fresh object.
+- **C locus:** `nethack-c/upstream/src/questpgr.c:31–46` `quest_info`. `switch (typ)`: 0 returns `gu.urole.questarti`; `MS_LEADER` / `MS_NEMESIS` / `MS_GUARDIAN` return `ldrnum` / `neminum` / `guardnum` (`short`, `you.h:193–202`). `default` calls `impossible("quest_info(%d)", typ)`, then `return 0`.
+- **JS was:** File-local `quest_info` in `js/read.js` (not exported). The default arm returned 0. The three monster arms used `?? NON_PM`. `makemon` required `ldr !== NON_PM` before the index compare. `animate_statue` named the other-role guard remap as omitted.
+- **Fix:** One exported `quest_info` keeps that C order. A missing field reads as 0. `impossible` is started and not awaited. Birth, genocide, the two anger walks, and `animate_statue` call the export. The statue test uses the monster index for `mptr != &mons[PM_DOPPELGANGER]`, and remaps `MS_GUARDIAN` when that index is not `quest_info(MS_GUARDIAN)`. `imports.mjs --can` was ALREADY (same 98-module SCC); the export is a hoisted function.
+- **JS:** `js/questpgr.js` `quest_info` `:42`. Case 0 `:45–46`. Leader `:47–48`. Nemesis `:49–50`. Guardian `:51–52`. Default `:53–54`. Return 0 `:56`.
+- **Callers:** `makemon.c:1253` → `js/makemon.js:3328`. `:1270` → `:3344`. `:1272` → `:3346`. `mon.c:4138` `qst_guardians_respond` → `js/mon.js:1392`. `mon.c:4206` `peacefuls_respond` → `js/mon.js:1312` (`gu.urole.guardnum` at `:1313` and `:1318` stays a field read). `mon.c:4312` `setmangry` → `js/mon.js:1467`. `questpgr.c:43` → `js/questpgr.js:54`. `read.c:2788` → `js/read.js:2528`. `:2790` → `:2529`. `:2792` → `:2530`. `trap.c:779` `animate_statue` → `js/trap.js:371`. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn quest_info` → PASS syntax (5 changed js file(s): js/makemon.js js/mon.js js/questpgr.js js/read.js js/trap.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (shared file changed) · VERIFY: PASS.
+- **Named omissions:** No arm of the switch is omitted. `impossible` is not awaited, so its `--More--` does not block the caller. A missing `urole` reads as 0; C would dereference `gu.urole`. `mon.c:4215` (`js/mon.js:1318`) and `anger_quest_guardians` (`js/mon.js:2987`) keep `gu.urole.guardnum`; C does not call `quest_info` there.
+- **Ledger:** quest_info ported
+- **Next:** `dbridge.c` `e_jumps` (next Open — coverage row).
+
 ## D-2962 — `get_rnd_text` keeps the line after the pad loop
 
 - **Status:** fixed (coverage THIN; hidden-proxy verify reports no corpus session blocked). C is 23 lines; the whole body shipped, and callee `get_rnd_line` with it. `set_corn`, `engr_can_be_felt`, and `familiar_level_msg` were already those bodies (Stale). Same-file `outrumor` was already that body (`js/rumors.js:233`, Stale).

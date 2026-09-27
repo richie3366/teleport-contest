@@ -91,6 +91,7 @@
 // from angrygods.
 
 import { game } from './gstate.js';
+import { quest_info } from './questpgr.js';
 import { pline, You, Your, urgent_pline, newsym, You_feel, verbalize, canspotmon, tmp_at, cmap_to_glyph, map_invisible, shieldeff, monsym } from './display.js';
 import { xname, makeplural, an, vtense, otense, otyp_is_charged, Yname2, Yobjnam2, Tobjnam, doname, actualoname } from './objnam.js';
 import {
@@ -2351,16 +2352,6 @@ function Unchanging() {
 
 function Role_if(pm) {
     return (game.urole?.mnum | 0) === (pm | 0);
-}
-
-/** C ref: questpgr.c quest_info — urole ldr/nemi/guard/questarti. */
-function quest_info(typ) {
-    const urole = game.urole || {};
-    if (typ === 0) return urole.questarti | 0;
-    if (typ === MS_LEADER) return urole.ldrnum ?? NON_PM;
-    if (typ === MS_NEMESIS) return urole.neminum ?? NON_PM;
-    if (typ === MS_GUARDIAN) return urole.guardnum ?? NON_PM;
-    return 0;
 }
 
 function type_is_pname_ptr(ptr) {

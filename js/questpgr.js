@@ -6,7 +6,7 @@ import { game } from './gstate.js';
 import { nhgetch } from './input.js';
 import {
     docrt, flush_screen, flush_topl_more, pline, putmsghistory,
-    status_line_2,
+    status_line_2, impossible,
 } from './display.js';
 import { NO_COLOR } from './terminal.js';
 import { align_gname, align_gtitle, align_str, rank_of, genders } from './roles.js';
@@ -25,6 +25,36 @@ import { mons, M2_PNAME } from './monsters.js';
 import { NON_PM, pmnames } from './generated/monsters_data.js';
 import { QUEST_NEMESIS_SPEECH } from './generated/quest_nemesis_speech.js';
 import { an, An, the, makeplural, makesingular } from './objnam.js';
+
+/** C ref: monflag.h enum ms_sounds — quest_info switch cases. */
+const MS_LEADER = 36;
+const MS_NEMESIS = 37;
+const MS_GUARDIAN = 38;
+
+/**
+ * C ref: questpgr.c quest_info `:31–46`.
+ * 0 is `urole.questarti`. MS_LEADER / MS_NEMESIS / MS_GUARDIAN are the
+ * role's monster indices (all `short`). Any other typ is `impossible`,
+ * then 0. `impossible` is started and not awaited: the lookup stays
+ * synchronous so makemon, genocide, and setmangry do not yield on a
+ * known typ (same shape as `dungeon.js` `In_W_tower`).
+ */
+export function quest_info(typ) {
+    const urole = game.urole;
+    switch (typ | 0) {
+    case 0:
+        return urole?.questarti | 0;
+    case MS_LEADER:
+        return urole?.ldrnum | 0;
+    case MS_NEMESIS:
+        return urole?.neminum | 0;
+    case MS_GUARDIAN:
+        return urole?.guardnum | 0;
+    default:
+        void impossible('quest_info(%d)', typ | 0);
+    }
+    return 0;
+}
 
 /**
  * C ref: quest.lua common.legacy + convert_arg %d/%G/%r.

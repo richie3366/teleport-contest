@@ -4,6 +4,7 @@
 //   (ordinary armed-mlet envelope).
 
 import { game } from './gstate.js';
+import { quest_info } from './questpgr.js';
 import { rn2, rnd, rn1, d } from './rng.js';
 import { depth as depth_of_level, level_difficulty, upstart } from './hacklib.js';
 import { Is_special } from './dungeon.js';
@@ -3322,11 +3323,9 @@ export function makemon(mdat, x, y, mmflags = 0) {
     if (mtmp.mextra?.epri) mtmp.mextra.epri.parentmid = mtmp.m_id;
     if (mtmp.mextra?.edog) mtmp.mextra.edog.parentmid = mtmp.m_id;
 
-    // C: ptr->msound == MS_LEADER && quest_info(MS_LEADER) == mndx
-    const ldr = game.urole?.ldrnum ?? NON_PM;
-    const nem = game.urole?.neminum ?? NON_PM;
-    if ((ptr.msound | 0) === MS_LEADER
-        && ldr !== NON_PM && ldr != null && (ptr.mndx | 0) === (ldr | 0)) {
+    // C makemon.c:1253 — mndx is monsndx(ptr); && skips quest_info otherwise.
+    const mndx = ptr.mndx | 0;
+    if ((ptr.msound | 0) === MS_LEADER && quest_info(MS_LEADER) === mndx) {
         if (!game.quest_status) game.quest_status = {};
         game.quest_status.leader_m_id = mtmp.m_id;
     }
@@ -3340,12 +3339,11 @@ export function makemon(mdat, x, y, mmflags = 0) {
         mtmp.female = 1;
     else if (is_male(ptr) || ((mmflags & MM_MALE) !== 0 && maleok))
         mtmp.female = 0;
-    // C: ptr->msound == MS_LEADER/NEMESIS && quest_info(...) == mndx
-    else if ((ptr.msound | 0) === MS_LEADER
-        && ldr !== NON_PM && ldr != null && (ptr.mndx | 0) === (ldr | 0))
+    // C makemon.c:1270–1272 — else-if, so nemesis does not call quest_info
+    // when the leader arm already matched.
+    else if ((ptr.msound | 0) === MS_LEADER && quest_info(MS_LEADER) === mndx)
         mtmp.female = game.quest_status?.ldrgend | 0;
-    else if ((ptr.msound | 0) === MS_NEMESIS
-        && nem !== NON_PM && nem != null && (ptr.mndx | 0) === (nem | 0))
+    else if ((ptr.msound | 0) === MS_NEMESIS && quest_info(MS_NEMESIS) === mndx)
         mtmp.female = game.quest_status?.nemgend | 0;
     else mtmp.female = femaleok ? rn2(2) : 0;
 
