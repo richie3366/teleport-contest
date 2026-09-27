@@ -5,8 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-27
 
-- [x] `do_name.c` hliquid — coverage PARTIAL (C 16 L `do_name.c:1493–1510` / JS 11 L in js/do_name.js; hops 2, callers 86, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn hliquid` (reach regression must be 0). Measured `port-coverage.mjs --name hliquid` 2026-09-27 @ 75f0544f8. **Addressed:** D-2943
-- [x] `do_name.c` rndorcname — coverage PARTIAL (C 16 L `do_name.c:1538–1554` / JS 11 L in js/do_name.js; hops 4, callers 3, RNG 3, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn rndorcname` (reach regression must be 0). Measured `port-coverage.mjs --name rndorcname` 2026-09-27 @ 75f0544f8. **Addressed:** D-2943
+- [x] `pline.c` putmesg — coverage MISSING (C 15 L `pline.c:65–80` / JS no symbol; hops 3, callers 1, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn putmesg` (reach regression must be 0). Measured `port-coverage.mjs --name putmesg` 2026-09-27 @ 75f0544f8. **Addressed:** D-2944
+
+
+- [x] `do_name.c` hliquid — coverage PARTIAL (C 16 L `do_name.c:1493–1510` / JS 11 L in js/do_name.js; hops 2, callers 86, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn hliquid` (reach regression must be 0). Measured `port-coverage.mjs --name hliquid` 2026-09-27 @ 75f0544f8. **Addressed:** D-2943 `9ce3f2138`
+- [x] `do_name.c` rndorcname — coverage PARTIAL (C 16 L `do_name.c:1538–1554` / JS 11 L in js/do_name.js; hops 4, callers 3, RNG 3, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn rndorcname` (reach regression must be 0). Measured `port-coverage.mjs --name rndorcname` 2026-09-27 @ 75f0544f8. **Addressed:** D-2943 `9ce3f2138`
 
 
 - [x] `monmove.c` `can_fog` — `Protection_from_shape_changers` in `js/monmove.js` reads only the `H` / `E` flats. C `youprop.h:355–360` is `uprops[PROT_FROM_SHAPE_CHANGERS].intrinsic || .extrinsic`. `were.js:58` already ORs the flats with `uprops`, and `imports.mjs --can js/monmove.js js/were.js Protection_from_shape_changers` is SAFE (hoisted). Call that export from `can_fog` (`monmove.c:2366–2369`). Source: reviews/loop-unattended/1892-21446265f-stuff-prevents-passage.md **Addressed:** D-2942 `96146725a`

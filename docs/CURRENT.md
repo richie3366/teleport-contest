@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `pline.c` `putmesg` — coverage MISSING (C 15 L `pline.c:65–80` / JS no symbol). Port the whole C body. Verify `node scripts/verify.mjs --fn putmesg`.
+**Next cluster:** `pickup.c` `reset_justpicked` — coverage THIN (C 16 L `pickup.c:616–632` / JS 6 L in js/pickup.js). Port the whole C body. Verify `node scripts/verify.mjs --fn reset_justpicked`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2943 (index).**
+**Keep D-0845…D-2944 (index).**
 <!-- recent:begin -->
+**D-2944** `nethack-c/upstream/src/pline.c:65–80` `putmesg`. `iflags.debug_prevent_pline` returns bef — One file-local `putmesg` in that C order.
 **D-2943** `nethack-c/upstream/src/do_name.c:1493–1510` `hliquid`. `Hallucination && !program_state.g — One exported `hliquid` in that C order.
 **D-2942** `nethack-c/upstream/src/monmove.c:2364–2371` `can_fog`. True only when fog clouds are not  — One exported `can_fog` keeps that C order and calls `were.js` `Protection_from_shape_changers`.
 **D-2941** `nethack-c/upstream/src/pline.c:436–452` `You_hear`. `(Deaf && !Unaware) || !flags.acousti — One exported `You_hear` in that C order.
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2939** `nethack-c/upstream/src/objnam.c:5513–5528` `helm_simple_name`. `return !hard_helmet(helme — One exported `helm_simple_name` in that C order.
 **D-2938** `nethack-c/upstream/src/shk.c:3602–3620` `append_honorific`. `honored[]` is five strings.  — One file-local `append_honorific` in that C order.
 **D-2937** `nethack-c/upstream/src/mklev.c:2332–2350` `mkaltar`. If `croom->rtype != OROOM`, return.  — One file-local `mkaltar` in that C order.
-**D-2936** `nethack-c/upstream/src/end.c:1738–1757` `dealloc_killer`. `prev` starts at `&svk.killer`. — One exported `dealloc_killer` in that C order.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2943; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2944; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
