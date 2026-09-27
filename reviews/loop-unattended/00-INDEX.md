@@ -1892,3 +1892,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1880-54bbae9a5-deltrap.md](./1880-54bbae9a5-deltrap.md) | `54bbae9a5` | D-2921 deltrap | **ACCEPT** |
 | [1881-b88b8599f-cant-wield-corpse.md](./1881-b88b8599f-cant-wield-corpse.md) | `b88b8599f` | D-2922 cant_wield_corpse | **ACCEPT** |
 | [1882-c558457f9-maybe-unhide-at.md](./1882-c558457f9-maybe-unhide-at.md) | `c558457f9` | D-2923 maybe_unhide_at | **ACCEPT** |
+| [1883-2d07e01a7-extract-from-minvent.md](./1883-2d07e01a7-extract-from-minvent.md) | `2d07e01a7` | D-2924 extract_from_minvent | **ACCEPT** |
+| [1884-b1c8b3093-shield-on.md](./1884-b1c8b3093-shield-on.md) | `b1c8b3093` | D-2925 Shield_on | **ACCEPT** |
+| [1885-5be96e3ee-rejectcasting.md](./1885-5be96e3ee-rejectcasting.md) | `5be96e3ee` | D-2926 rejectcasting | **ACCEPT** |
+| [1886-84b9c5dc9-end-of-input.md](./1886-84b9c5dc9-end-of-input.md) | `84b9c5dc9` | D-2927 end_of_input | **ACCEPT** |
+| [1887-167e8ab44-worn-item-removal.md](./1887-167e8ab44-worn-item-removal.md) | `167e8ab44` | D-2928 worn_item_removal | **ACCEPT** |
+| [1888-4df3fffc0-whatdoes-help.md](./1888-4df3fffc0-whatdoes-help.md) | `4df3fffc0` | D-2929 whatdoes_help | **ACCEPT** |
+| [1889-5b794196c-shield-off.md](./1889-5b794196c-shield-off.md) | `5b794196c` | D-2930 Shield_off | **ACCEPT** |
+| [1890-f36a7b952-chk-okdoor.md](./1890-f36a7b952-chk-okdoor.md) | `f36a7b952` | D-2931 chk_okdoor | **ACCEPT** |
+| [1891-3fc42e995-erosion-matters.md](./1891-3fc42e995-erosion-matters.md) | `3fc42e995` | D-2932 erosion_matters | **ACCEPT** |

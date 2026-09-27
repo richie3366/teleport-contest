@@ -7,6 +7,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — Audit 1883–1891 (D-2924…D-2932)
+
+Nine JS SHAs after review 1882 (`c558457f9`). All **ACCEPT**: `extract_from_minvent`, `Shield_on`, `rejectcasting`, `end_of_input`, `worn_item_removal`, `whatdoes_help`, `Shield_off`, `chk_okdoor`, `erosion_matters`. No Must-fix. Public `sessions` 44/44, Scr 11,405/11,405, RNG 792,838/792,838, speed `257+1.76/turn` (R² 0.782). Held-out still 12/44 (6,275/11,265, RNG 29.7 %, screens 55.7 %). Private corpus 12/12. Next: `monmove.c` `stuff_prevents_passage`.
 ## 2026-09-27 — D-2932 `erosion_matters` uses the object class, and wishes set erosion
 
 **C locus:** `nethack-c/upstream/src/objnam.c:1195–1215` `erosion_matters`. Switch on `obj->oclass`. `TOOL_CLASS` returns `is_weptool(obj)` (`obj.h:249`: `TOOL_CLASS` and `objects[otyp].oc_skill != P_NONE`). `WEAPON_CLASS`, `ARMOR_CLASS`, `BALL_CLASS`, and `CHAIN_CLASS` return TRUE. Any other class returns FALSE. `ansimpleoname` is `objnam.c:2446–2470`: copy `otyp`; `FAKE_AMULET_OF_YENDOR` becomes `AMULET_OF_YENDOR`; if that type is `oc_unique` and `simpleonames` equals `OBJ_NAME`, return `the()`; else if `quan == 1` return `an()`; else return the plural. Wish erosion is `objnam.c:5270–5288`, inside `erosion_matters`: zero both erosion fields, then `oeroded` from `eroded` when flammable, rustprone, or crackable, `oeroded2` from `eroded2` when corrodeable or rottable, and `oerodeproof` when `erodeproof` and (`is_damageable` or `CRYSKNIFE`) and (`Luck >= 0` or wizard). Headless eyewear is `do_wear.c:2324–2327` in `accessory_or_armor_on`.
