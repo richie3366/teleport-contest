@@ -53,7 +53,7 @@ import { make_grave, sticks } from './engrave.js';
 import { makemon, adj_lev, mongets } from './makemon.js';
 import {
     write_bonesfile, bones_file_exists, delete_bonesfile,
-    goodfruit, savebones_negate_fruit_ids,
+    goodfruit, savebones_negate_fruit_ids, set_ghostly_objlist,
 } from './bones.js';
 import { genders, aligns } from './roles.js';
 import { topten, nh_terminate_capture, raw_print_blanks } from './topten.js';
@@ -1590,7 +1590,8 @@ async function remove_mon_from_bones(mtmp) {
  * (this file); the statue arm is D-2060.
  * Named omissions: file compress; unleash_all/unpunish/dismount;
  * forget_engravings;
- * set_ghostly_objlist / resetobjs known-strip; map memory clear
+ * resetobjs(FALSE) known-strip on minvent/fobj/buriedobjlist (the save
+ * arm is live in bones.js; savebones does not call it); map memory clear
  * (ux/uy zero); ebones; obj_attach_mid;
  * binary savelev (overview lists who/how, not when[]).
  */
@@ -1631,6 +1632,8 @@ async function savebones(how, when, corpse) {
 
     // C savebones `:450–453` — negate all fids before drop_upon_death
     savebones_negate_fruit_ids();
+    // C bones.c:455 — mark carried objects before they leave invent.
+    set_ghostly_objlist(game.invent);
 
     const arise = u.ugrave_arise;
     if (ismnum(arise)) {
@@ -1688,6 +1691,14 @@ async function savebones(how, when, corpse) {
         mtmp.msleeping = 1;
         void corpse;
     }
+
+    // C bones.c:541–558 — ghostly bit on monster inventories, the floor,
+    // and buried objects. resetobjs(FALSE) on those chains stays named.
+    for (const mtmp of game.fmon || []) {
+        if (mtmp) set_ghostly_objlist(mtmp.minvent);
+    }
+    set_ghostly_objlist(game.fobj);
+    set_ghostly_objlist(game.level?.buriedobjlist);
 
     // C: bones.c savebones — attach cemetery before create_bonesfile
     // who = plname-ROL-RAC-GEN-ALI (playmode:debug → plname "wizard")

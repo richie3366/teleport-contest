@@ -1777,6 +1777,8 @@ juiblex MOAT is pool not moat; `mfndpos` uses shared `is_pool`;
 JS: `js/end.js`, `js/bones.js`, `js/rip.js`, `js/topten.js`, `js/getline.js`, `js/do.js`, 
 `js/invent.js`, `js/insight.js`, `js/dungeon.js` — partial
 
+**`sanitize_name` whole body** (C `bones.c:198–220`; controls and DEL → `.`; a code unit that differs from its low 7 bits becomes `_` only when tty and `!wc_eight_bit_input`, otherwise it stays; NUL ends the walk; live `js/bones.js`. Callers: `resetobjs` oname `js/bones.js`, `getbones` MGIVENNAME `js/bones.js`, `sanitize_engravings` `js/engrave.js`, `optfn_fruit` `js/options.js`, `init_fruit_chain` `js/options.js` (startup copy), `fruitadd` else `js/bones.js` `fruitadd_bones` and `js/mklev.js` `fruitadd_orc`, `petname_optfn` via `optfn_catname` / `optfn_dogname` / `optfn_horsename` `js/options.js`); **`fix_ghostly_obj`** (C `bones.c:796–815`; bow / elven bow / orcish bow / yumi / boomerang `You` handedness, then `ghostly = 0`; live `js/bones.js`; caller `pickup.c:1885` `js/pickup.js` `pickup_object`); **`set_ghostly_objlist`** (C `bones.c:783–790` nobj only; `savebones` invent before the drop, then minvent / `fobj` / `buriedobjlist` `js/end.js`; `resetobjs(FALSE)` on those chains stays named);
+
 **`done_in_by`→`done`→`really_done` + `can_make_bones` depth rn2** (D-0190) + 
 **wizard≡`flags.debug||flags.wizard`** (D-0576); 
 **`flush_topl_more` + possessions `disclose` yn** (D-0216); 

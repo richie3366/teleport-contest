@@ -5,7 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-27
 
-- [x] `mail.c` ckmailstatus — coverage MISSING (C 18 L `mail.c:461–479` / JS no symbol; hops 2, callers 1, RNG 2, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn ckmailstatus` (reach regression must be 0). Measured `port-coverage.mjs --name ckmailstatus` 2026-09-27 @ af40498ad. **Addressed:** D-2917
+- [x] `bones.c` fix_ghostly_obj — coverage MISSING (C 19 L `bones.c:796–815` / JS no symbol; hops 3, callers 1, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn fix_ghostly_obj` (reach regression must be 0). Measured `port-coverage.mjs --name fix_ghostly_obj` 2026-09-27 @ af40498ad. **Addressed:** D-2918
+- [x] `bones.c` sanitize_name — coverage THIN (C 22 L `bones.c:198–220` / JS 9 L in js/bones.js; hops 2, callers 6, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn sanitize_name` (reach regression must be 0). Measured `port-coverage.mjs --name sanitize_name` 2026-09-27 @ af40498ad. **Addressed:** D-2918
+
+
+- [x] `mail.c` ckmailstatus — coverage MISSING (C 18 L `mail.c:461–479` / JS no symbol; hops 2, callers 1, RNG 2, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn ckmailstatus` (reach regression must be 0). Measured `port-coverage.mjs --name ckmailstatus` 2026-09-27 @ af40498ad. **Addressed:** D-2917 `ce04557f4`
 
 
 - [x] `do_name.c` christen_monst — coverage PARTIAL (C 19 L `do_name.c:133–152` / JS 10 L in js/do_name.js; hops 2, callers 17, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn christen_monst` (reach regression must be 0). Measured `port-coverage.mjs --name christen_monst` 2026-09-27 @ 4039cf023. **Addressed:** D-2916 `d179e940b`

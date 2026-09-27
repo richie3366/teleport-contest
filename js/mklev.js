@@ -11,7 +11,7 @@ import { rn2, rnd, rn1, rnz } from './rng.js';
 import { CLR_CYAN, CLR_GRAY, CLR_BRIGHT_BLUE } from './terminal.js';
 import { init_rect, rnd_rect, get_rect, split_rects } from './rect.js';
 import { depth as depth_of_level, dist2, distmin, level_difficulty, strstri, upstart, swapbits, stripdigits, str_lines_maxlen } from './hacklib.js';
-import { getbones } from './bones.js';
+import { getbones, sanitize_name } from './bones.js';
 import {
     COLNO, ROWNO, STONE, ROOM, CORR, DOOR, STAIRS,
     HWALL, VWALL, TLCORNER, TRCORNER, BLCORNER, BRCORNER,
@@ -2217,13 +2217,10 @@ function ledger_no_maz(lev) {
  * Walker is live objnam fruit_from_name(FALSE) like C `:8264`.
  */
 function fruitadd_orc(str) {
-    let altname = '';
     const raw = String(str || '');
+    // C copynchars(altname, str, PL_FSIZ-1) then sanitize_name (options.c:8259–8260).
     const n = raw.length > 31 ? raw.slice(0, 31) : raw;
-    for (let i = 0; i < n.length; i++) {
-        const c = n.charCodeAt(i) & 0x7f;
-        altname += (c < 0x20 || c === 0x7f) ? '.' : String.fromCharCode(c);
-    }
+    const altname = sanitize_name(n);
     if (!game.flags) game.flags = {};
     game.flags.made_fruit = true;
     const look = altname || str;

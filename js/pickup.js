@@ -126,6 +126,7 @@ import { inv_cnt, remove_worn_item } from './steal.js';
 import { trycall, Monnam, christen_monst, oname, rndmonnam, Amonnam, a_monnam, x_monnam, mon_nam, s_suffix, hliquid } from './do_name.js';
 import { makemon, set_malign } from './makemon.js';
 import { courtmon } from './mklev.js';
+import { fix_ghostly_obj } from './bones.js';
 import { more_experienced, newexplevel } from './exper.js';
 import { hard_helmet } from './do_wear.js';
 import { tiphat } from './sounds.js';
@@ -1513,8 +1514,7 @@ async function lift_object(obj, container, cntRef, telekinesis) {
  * C ref: pickup.c pickup_object — lift one floor/minvent object into invent.
  * Branch envelope: observe_object; telekinesis through corpse/scare/
  * lift_object (D-1050); gold disp.botl; splitobj; pick_obj + prinv.
- * Named omissions: LOADSTONE no-split already honored; ghostly
- * fix_ghostly_obj; LOADSTONE/giant-boulder weight override (live in
+ * Named omissions: LOADSTONE/giant-boulder weight override (live in
  * lift_object); carry_count + delta_cwt whole body live (D-2617);
  * Death/Pestilence revive suffixes.
  */
@@ -1582,6 +1582,8 @@ export async function pickup_object(obj, count, telekinesis) {
     obj = await pick_obj(obj);
     if (game.u?.uwep && game.u.uwep === obj) game.mrg_to_wielded = true;
     await pickup_prinv(obj, count, 'lifting');
+    // C pickup.c:1884–1885 — only when the bones bit is set.
+    if (obj.ghostly) await fix_ghostly_obj(obj);
     game.mrg_to_wielded = false;
     return 1;
 }
