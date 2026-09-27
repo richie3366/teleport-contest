@@ -2973,6 +2973,14 @@ VENOM_CLASS force-break); callers do.c:352/toss_up ×2/throwit/hero_breaks/break
 
 JS: `js/mon.js`, `js/monmove.js` — partial
 
+**`mon_animal_list` whole body** (D-2956; `mon.c:4829–4852` in `js/makemon.js`:
+construct keeps `LOW_PM..SPECIAL_PM-1` where `is_animal`, stores the index
+array and `animal_list_count`; release nulls the list and zeroes the count.
+`pick_animal` (`:4854–4869`) calls it when the list is null and retries once
+on the rogue level when `monsym` is not uppercase. Named: `freedynamicdata`
+`free_animals` `save.c:1123` (`FREE_ALL_MEMORY`); the commented `impossible`
+and `NON_PM` fallback stay comments);
+
 **`dmonsfree` / `dealloc_monst` / `dealloc_mextra` whole bodies** (D-2824;
 `mon.c:2487–2511`, `:2675–2691`, `:2648–2673`). Dead `mhp < 1` except `isgd`
 leave the JS `fmon` array (C walks `nmon`), `nmon` is cleared, `dealloc_monst`

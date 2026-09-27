@@ -1171,24 +1171,43 @@ function tt_doppel(mon) {
     return ret;
 }
 
-/** Lazy animal_list for pick_animal — C mon.c mon_animal_list. */
-let animal_list = null;
-
-function ensure_animal_list() {
-    if (animal_list) return;
-    const tmp = [];
-    for (let i = LOW_PM; i < SPECIAL_PM; i++) {
-        if (is_animal(mons(i))) tmp.push(i);
+/**
+ * C ref: mon.c mon_animal_list `:4829–4852`.
+ * construct: `LOW_PM .. SPECIAL_PM-1` where `is_animal(&mons[i])`
+ * (`mondata.h:66`), then `alloc` + `memcpy` into `ga.animal_list` and
+ * store `ga.animal_list_count`. release: `free` the list and zero the
+ * count (`free_animals` in `freedynamicdata`). The `impossible` re-entry
+ * check and the `n == 0` `NON_PM` fallback are comments in C.
+ * `alloc` / `memcpy` / `free` are the JS array (GC).
+ * @param {boolean} construct
+ */
+export function mon_animal_list(construct) {
+    if (construct) {
+        const animal_temp = [];
+        let n = 0;
+        for (let i = LOW_PM; i < SPECIAL_PM; i++) {
+            if (is_animal(mons(i))) animal_temp[n++] = i;
+        }
+        game.animal_list = animal_temp;
+        game.animal_list_count = n;
+    } else { /* release */
+        if (game.animal_list) game.animal_list = null;
+        game.animal_list_count = 0;
     }
-    animal_list = tmp;
 }
 
 /**
- * C ref: mon.c pick_animal — animal_list[rn2(count)]; rogue retry deferred.
+ * C ref: mon.c pick_animal `:4854–4869`.
+ * Build the list on first use, then `animal_list[rn2(count)]`.
+ * Rogue level retries once when `monsym` is not uppercase.
  */
 function pick_animal() {
-    ensure_animal_list();
-    return animal_list[rn2(animal_list.length)] ?? NON_PM;
+    if (!game.animal_list) mon_animal_list(true);
+    let res = game.animal_list[rn2(game.animal_list_count)];
+    if (Is_rogue_level(game.u?.uz) && !monsym_isupper(mons(res))) {
+        res = game.animal_list[rn2(game.animal_list_count)];
+    }
+    return res;
 }
 
 /**

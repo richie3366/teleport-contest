@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2956 `mon_animal_list` fills the animal index and frees it
+
+**C locus:** `nethack-c/upstream/src/mon.c:4829–4852` `mon_animal_list`. `construct` walks `LOW_PM .. SPECIAL_PM-1`, keeps `is_animal(&mons[i])` (`mondata.h:66`), `alloc`s `n` shorts, `memcpy`s them to `ga.animal_list`, and stores `ga.animal_list_count`. The `impossible` re-entry check and the `n == 0` `NON_PM` fallback are comments. The release arm `free`s a non-null list, stores a null pointer, and zeroes the count. Caller `pick_animal` (`mon.c:4854–4869`) builds the list when it is null, indexes `rn2(animal_list_count)`, and retries once on `Is_rogue_level(&u.uz)` when `!isupper(monsym(&mons[res]))`.
+**JS:** `js/makemon.js` `mon_animal_list` `:1184`. Construct loop `:1188–1190`. Store `:1191–1192`. Release `:1193–1196`. `pick_animal` `:1204`. Build call `:1205`. Index `:1206`. Rogue retry `:1207–1209`. `is_animal` `js/monsters.js:648`. `monsym` `js/display.js:524`. `monsym_isupper` `js/makemon.js:1245`. Chameleon caller `select_newcham_form` `:1418`.
+**Change:** One exported `mon_animal_list` keeps that C order. The list and the count live on `game` (`ga.animal_list` / `ga.animal_list_count`). `alloc` / `memcpy` / `free` are the JS array.
+**Verify:** `node scripts/verify.mjs --fn mon_animal_list` → PASS syntax (1 changed js file: js/makemon.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.2s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+**Named:** No arm of `mon_animal_list` is omitted. `save.c:1123` `free_animals()` stays unwired with the rest of `freedynamicdata`.
+**Next:** `dothrow.c` `tmiss` (next Open — coverage row). Nine coverage rows remain after this archive and the `dead_species` park, above the floor of 8, so nothing was refilled.
 ## 2026-09-27 — D-2955 `is_flammable` rejects candles, fire resistance, and wands of fire
 
 **C locus:** `nethack-c/upstream/src/mkobj.c:2270–2286` `is_flammable`. `otyp` and `objects[otyp].oc_material` are read first. `Is_candle` (`obj.h:382–383`) returns false. `oc_oprop == FIRE_RES` or `otyp == WAN_FIRE` returns false. Otherwise `(omat <= WOOD && omat != LIQUID) || omat == PLASTIC`.

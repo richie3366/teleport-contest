@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2956 — `mon_animal_list` fills the animal index and frees it
+
+- **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked). C is 23 lines; the whole body shipped. Same-file `dead_species` was already the C body (`js/mon.js:852`); parked Stale, not re-ported.
+- **Symptom:** A chameleon's animal form came from a module cache that never cleared. On the rogue level a lowercase animal symbol was kept after one roll. C builds `ga.animal_list` on first use and, on the rogue level, draws a second index when `monsym` is not uppercase.
+- **C locus:** `nethack-c/upstream/src/mon.c:4829–4852` `mon_animal_list`. `construct` walks `LOW_PM .. SPECIAL_PM-1`, keeps `is_animal(&mons[i])` (`mondata.h:66`), `alloc`s `n` shorts, `memcpy`s them to `ga.animal_list`, and stores `ga.animal_list_count`. The `impossible` re-entry check and the `n == 0` `NON_PM` fallback are comments. The release arm `free`s a non-null list, stores a null pointer, and zeroes the count. Caller `pick_animal` (`mon.c:4854–4869`) builds the list when it is null, indexes `rn2(animal_list_count)`, and retries once on `Is_rogue_level(&u.uz)` when `!isupper(monsym(&mons[res]))`.
+- **JS was:** `js/makemon.js` `ensure_animal_list` filled a module-level array and never released it. `pick_animal` indexed `.length`, substituted `NON_PM` for a hole, and skipped the rogue retry.
+- **Fix:** One exported `mon_animal_list` keeps that C order. The list and the count live on `game` (`ga.animal_list` / `ga.animal_list_count`). `alloc` / `memcpy` / `free` are the JS array. `pick_animal` calls `mon_animal_list(true)` when the list is null, indexes `animal_list_count`, and takes the one rogue retry through the existing `monsym_isupper`.
+- **JS:** `js/makemon.js` `mon_animal_list` `:1184`. Construct loop `:1188–1190`. Store `:1191–1192`. Release `:1193–1196`. `pick_animal` `:1204`. Build call `:1205`. Index `:1206`. Rogue retry `:1207–1209`. `is_animal` `js/monsters.js:648`. `monsym` `js/display.js:524`. `monsym_isupper` `js/makemon.js:1245`. Chameleon caller `select_newcham_form` `:1418`.
+- **Callers:** `mon.c:4860` `pick_animal` → `js/makemon.js:1205` (reached from `mon.c:5190` `select_newcham_form` → `:1418`). `save.c:1102` `#define free_animals()` invoked at `save.c:1123` inside `freedynamicdata` (`FREE_ALL_MEMORY`, `config.h:632`) is not wired: `freedynamicdata` is save-freeing and not ported. `extern.h:1832` is the declaration. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn mon_animal_list` → PASS syntax (1 changed js file: js/makemon.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.2s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+- **Named omissions:** No arm of `mon_animal_list` is omitted. `save.c:1123` `free_animals()` stays unwired with the rest of `freedynamicdata`. The commented `impossible` and `NON_PM` arms stay comments. A null monster row is not an animal (`is_animal` reads `mflags1` through optional access). `animal_list` is not written into the save payload; C rebuilds it and does not save it.
+- **Next:** `dothrow.c` `tmiss` (next Open — coverage row). Nine coverage rows remain after this archive and the `dead_species` park, above the floor of 8, so nothing was refilled.
+
 ## D-2955 — `is_flammable` rejects candles, fire resistance, and wands of fire
 
 - **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked). C is 16 lines; the whole body shipped. No other Open row in `mkobj.c`.
