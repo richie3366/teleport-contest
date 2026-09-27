@@ -19,7 +19,7 @@ here again. Live hypotheses only:
   revisits. Phase-2 rows (`[measure]`, parks, `hidden-proxy queue`) stay
   closed meanwhile; the corpus is guarded by REACH in `verify.mjs`.
   Everything below this bullet is phase-2 context — do not act on it now.
-- Audit 1910–1918 (`49ff0d6f5`…`1021345f2`): 9 ACCEPT. D-2951…D-2968 stand. Do not re-open that set. Prior audit 1901–1909 stays 7 ACCEPT, 2 QUALITY-RISK (D-2951 and D-2952 shipped). `piousness` and `corpse_intrinsic` stay parked Stale.
+- Audit 1919–1927 (`78432069f`…`a974add93`): 9 ACCEPT. D-2960…D-2968 stand. Do not re-open that set. Prior audit 1910–1918 stays 9 ACCEPT. `piousness` and `corpse_intrinsic` stay parked Stale.
 
 - **obj_resists writers (D-2407/2413-15, MEASURED):** `steal.c` relobj `flooreffects` + Knight/Arch/Healer arms (detail in D-logs). Falsified — do not re-check: fire-trap burn, fmon-order, polyuse, monstone, bury, steal.
 

@@ -1928,3 +1928,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1916-936dc8938-tmiss.md](./1916-936dc8938-tmiss.md) | `936dc8938` | D-2957 tmiss | **ACCEPT** |
 | [1917-d8cf4ec1c-yname.md](./1917-d8cf4ec1c-yname.md) | `d8cf4ec1c` | D-2958 yname | **ACCEPT** |
 | [1918-1021345f2-in-w-tower.md](./1918-1021345f2-in-w-tower.md) | `1021345f2` | D-2959 In_W_tower | **ACCEPT** |
+| [1919-78432069f-shirt-off.md](./1919-78432069f-shirt-off.md) | `78432069f` | D-2960 Shirt_off | **ACCEPT** |
+| [1920-a30a7de84-remove-timer.md](./1920-a30a7de84-remove-timer.md) | `a30a7de84` | D-2961 remove_timer | **ACCEPT** |
+| [1921-a6c00e025-get-rnd-text.md](./1921-a6c00e025-get-rnd-text.md) | `a6c00e025` | D-2962 get_rnd_text | **ACCEPT** |
+| [1922-fa5382192-quest-info.md](./1922-fa5382192-quest-info.md) | `fa5382192` | D-2963 quest_info | **ACCEPT** |
+| [1923-8b4ddcb7c-bot.md](./1923-8b4ddcb7c-bot.md) | `8b4ddcb7c` | D-2964 bot | **ACCEPT** |
+| [1924-c12d7df2f-mksobj.md](./1924-c12d7df2f-mksobj.md) | `c12d7df2f` | D-2965 mksobj | **ACCEPT** |
+| [1925-b43d2c68f-auto-describe.md](./1925-b43d2c68f-auto-describe.md) | `b43d2c68f` | D-2966 auto_describe | **ACCEPT** |
+| [1926-06237de26-mungspaces.md](./1926-06237de26-mungspaces.md) | `06237de26` | D-2967 mungspaces | **ACCEPT** |
+| [1927-a974add93-you-feel.md](./1927-a974add93-you-feel.md) | `a974add93` | D-2968 You_feel | **ACCEPT** |

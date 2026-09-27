@@ -7,6 +7,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — audit 1919–1927 (D-2960–D-2968)
+
+Reviewed the nine `js/` commits since `1021345f2`. Nine ACCEPT. No Must-fix. Next cluster is `objnam.c` `aobjnam`. Public `sessions` on `a974add93`: 44/44, screens 11,405/11,405, RNG 792,838/792,838, speed `264+1.59/turn` (R² 0.761). Held-out still 12/44 (6,442/11,265 pts, RNG 31.5 %, rngSteps 85.3 %, screens 57.2 %; board 2026-09-27T07:27Z, last scored 2026-09-27T07:04Z). `hidden-proxy score` 12/12 on the private sessions present (RNG 75,151/75,151, screens 653/653); `.cache/hidden/sessions` absent, so 614/940 was not re-measured. Five seeded `ported` briefs (`mon_wield_item`, `lesshungry`, `newuhs`, `vtense`, `query_category`) each have a live JS body. No `js/` edits.
 ## 2026-09-27 — D-2968 `You_feel` uses the Unaware dream prefix
 
 **C locus:** `nethack-c/upstream/src/pline.c:387–400` `You_feel`. `Unaware` is `youprop.h:399` (`multi < 0 && (unconscious() || is_fainted())`). The true arm is `YouPrefix` of `"You dream that you feel "`; the false arm is `"You feel "`. `strcat` appends the format and `vpline` prints it. `You_buf` (`pline.c:338–348`) only grows the scratch buffer. `pline.c:514–526` `livelog_printf` `vsnprintf`s into `BUFSZ*2`, `gamelog_add`s that text at `svm.moves`, `strNsubst`s tabs to `_`, then `livelog_add`. `files.c:3666–3706` `livelog_add` returns when `!(ll_type & sysopt.livelog)` (`sys.c:63` sets `LL_NONE`); otherwise it appends `LIVELOGFILE`.
