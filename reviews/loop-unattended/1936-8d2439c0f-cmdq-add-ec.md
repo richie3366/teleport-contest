@@ -16,6 +16,8 @@ which_armor              js/worn.js:408   sync
 
 `--can js/cmd.js js/pray.js dosacrifice`, `--can js/cmd.js js/artifact.js doinvoke`, and `--can js/shk.js js/timeout.js get_obj_location` all print `ALREADY`. No later commit touches `js/`.
 
+**Addressed:** D-2978
+
 ## Intent vs deliverable
 
 Subject: a queued extended command kept empty `txt` and flags unless the caller passed a tab, so `rhack` skipped `can_do_extcmd` and the row flags. Dip, sit, ride, untrap, and offer were lambdas, so the lookup could not see `ef_funct`. `shk.js` had a `get_obj_location` clone that dropped `OBJ_MINVENT` and `OBJ_BURIED`.

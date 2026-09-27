@@ -83,7 +83,7 @@
 {"fn":"keylist_func_has_key","c":"2785-2799","status":"unknown"}
 {"fn":"keylist_putcmds","c":"2802-2863","status":"partial","js":["js/dokeylist.js:keylist_putcmds"],"omit":"`parsebindings` still strips `(param)`, so an rc BIND= does not fill `_bindParam`.","d":["D-2863"],"at":"seed@a30a7de84"}
 {"fn":"dokeylist","c":"2867-3013","status":"unknown"}
-{"fn":"ext_func_tab_from_func","c":"3016-3025","status":"partial","js":["js/cmd.js:ext_func_tab_from_func"],"omit":"`cmd.c:4727` `doidtrap` is still a dynamic import; `pager.js` does not export it, so it is not in `FUNCT_TXT`.","d":["D-2977"],"at":"2026-09-27@25beec7af"}
+{"fn":"ext_func_tab_from_func","c":"3016-3025","status":"ported","js":["js/cmd.js:ext_func_tab_from_func"],"d":["D-2978","D-2977"],"at":"2026-09-27@516c184a8"}
 {"fn":"cmd_from_dir","c":"3029-3032","status":"unknown"}
 {"fn":"cmd_from_func","c":"3036-3066","status":"partial","js":["js/dokeylist.js:cmd_from_func"],"omit":"`lua_getglobal`, `lua_pushstring`, `lua_toboolean`, `lua_settop`, and `nhl_pcall_handle` are the Lua stack.","d":["D-2899"],"at":"seed@a30a7de84"}
 {"fn":"cmd_from_ecname","c":"3071-3089","status":"unknown"}

@@ -1698,6 +1698,7 @@ const FUNCT_TXT = new Map([
     [dosearch, 'search'],
     [dosave, 'save'],
     [dothrow, 'throw'],
+    [dotip, 'tip'], // C cmd.c:1905 AUTOCOMPLETE|CMD_M_PREFIX
     [dotakeoff, 'takeoff'],
     [doversion, 'versionshort'],
     [dowield, 'wield'],
@@ -1712,6 +1713,7 @@ const FUNCT_TXT = new Map([
     [dotravel, 'travel'],
     [dotravel_target, 'retravel'],
     [dolook, 'look'],
+    [doloot, 'loot'], // C cmd.c:1762 AUTOCOMPLETE|CMD_M_PREFIX
     [doclicklook, 'clicklook'],
     [dowhatis, 'whatis'],
     [doquickwhatis, 'glance'],

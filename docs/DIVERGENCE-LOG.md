@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-2978 — `ext_func_tab_from_func` maps `doloot` and `dotip`
+
+- **Status:** fixed (Must-fix missing arm; hidden-proxy verify reports no corpus session blocked). C `ext_func_tab_from_func` is 9 lines. The walk was already live; `FUNCT_TXT` had no key for the two ported commands the here-menu and item-action queues pass.
+- **Symptom:** `#loot` and `#tip` queued by function pointer stored empty `txt` and flags 0. C `cmd.c:1762` `"loot"` and `cmd.c:1905` `"tip"` are `AUTOCOMPLETE|CMD_M_PREFIX` (0x0002|0x0080 = 130). `rhack` then skipped `can_do_extcmd` and the row flags, so an m-prefix on tip did not apply.
+- **C locus:** `nethack-c/upstream/src/cmd.c:3015–3025` `ext_func_tab_from_func`. Walk `extcmdlist` while `ef_txt` is set and return the first row whose `ef_funct` is `fn`, including `INTERNALCMD`, or NULL. `"loot"` is `doloot` (`:1762`). `"tip"` is `dotip` (`:1905`).
+- **JS was:** `js/cmd.js` `ext_func_tab_from_func` resolved `FUNCT_TXT` to an `EXTCMDLIST` row. `doloot` and `dotip` were imported and queued, and the generated rows already had flags 130, but neither function was a map key, so the lookup returned null and `cmdq_add_ec` kept empty `txt` and flags 0.
+- **Fix:** `FUNCT_TXT` maps `doloot` to `"loot"` and `dotip` to `"tip"`. The existing walk returns those `EXTCMDLIST` rows, so `txt` and flags 130 come from the table. No new import (`pickup.js` was already on `cmd.js`).
+- **JS:** `js/cmd.js` `FUNCT_TXT` `doloot` `:1716`, `dotip` `:1701`. `ext_func_tab_from_func` `:1850`. `cmdq_add_ec` stores the row `:432`. Here-menu `MCMD_LOOT` / `MCMD_TIP` `:2417–2418`. Container click `:2498`. Saddle `#loot` `:2680`. `act_on_act` loot `:2732`, tip `:2735`. `js/iactions.js` `IA_TIP_CONTAINER` `:204`.
+- **Callers:** `cmd.c:260` `cmdq_add_ec` → `js/cmd.js:432`. `cmd.c:3412` `dotypeinv` → `js/cmd.js:2026`. `hack.c:1105` stays the `test_move` omission at `js/hack.js:481–486`. `extern.h:419` is the prototype. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn ext_func_tab_from_func --reach-all` → PASS syntax (1 changed js file(s): js/cmd.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script shared-file list does not include js/cmd.js) · VERIFY: PASS.
+- **Named omissions:** No arm of `ext_func_tab_from_func` is omitted. `hack.c:1105` stays the `test_move` omission (`doopen_indir` returns a boolean, and `cmdq_peek` is local to `cmd.js`). `cmd.c:4727` `doidtrap` is still a dynamic import, so that lambda is not the C function pointer. Extcmds whose JS function is not ported have no function object to key the map; a miss returns NULL.
+- **Ledger:** ext_func_tab_from_func ported
+- **Next:** `iactions.c` `itemactions_pushkeys` (next Must-fix).
+
 ## D-2977 — `cmdq_add_ec` stores the extcmdlist row for the queued function
 
 - **Status:** fixed (coverage PARTIAL; hidden-proxy verify reports no corpus session blocked). C `cmdq_add_ec` is 11 code lines. `which_armor` and `get_obj_location` were already the C bodies (stale). `ext_func_tab_from_func` is the lookup this call makes.

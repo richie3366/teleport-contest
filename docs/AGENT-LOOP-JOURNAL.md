@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2978 `ext_func_tab_from_func` maps `doloot` and `dotip`
+
+**C locus:** `nethack-c/upstream/src/cmd.c:3015–3025` `ext_func_tab_from_func`. Walk `extcmdlist` while `ef_txt` is set and return the first row whose `ef_funct` is `fn`, including `INTERNALCMD`, or NULL. `"loot"` is `doloot` (`:1762`). `"tip"` is `dotip` (`:1905`).
+**JS:** `js/cmd.js` `FUNCT_TXT` `doloot` `:1716`, `dotip` `:1701`. `ext_func_tab_from_func` `:1850`. `cmdq_add_ec` stores the row `:432`. Here-menu `MCMD_LOOT` / `MCMD_TIP` `:2417–2418`. Container click `:2498`. Saddle `#loot` `:2680`. `act_on_act` loot `:2732`, tip `:2735`. `js/iactions.js` `IA_TIP_CONTAINER` `:204`.
+**Change:** `FUNCT_TXT` maps `doloot` to `"loot"` and `dotip` to `"tip"`. The existing walk returns those `EXTCMDLIST` rows, so `txt` and flags 130 come from the table. No new import (`pickup.js` was already on `cmd.js`).
+**Verify:** `node scripts/verify.mjs --fn ext_func_tab_from_func --reach-all` → PASS syntax (1 changed js file(s): js/cmd.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script shared-file list does not include js/cmd.js) · VERIFY: PASS.
+**Named:** No arm of `ext_func_tab_from_func` is omitted. `hack.c:1105` stays the `test_move` omission (`doopen_indir` returns a boolean, and `cmdq_peek` is local to `cmd.js`).
+**Next:** `iactions.c` `itemactions_pushkeys` (next Must-fix).
 ## 2026-09-27 — audit 1928–1936 (D-2969–D-2977)
 
 Reviewed the nine `js/` commits since `a974add93`. Seven ACCEPT (1928–1934). Two QUALITY-RISK: 1935 `IA_QUAFF_OBJ` skips `do_reqmenu` before `dodrink` (`iactions.c:207–212`); 1936 `FUNCT_TXT` omits `doloot` and `dotip` (`cmd.c:1762`, `:1905`). Must-fix those two. Next cluster is `ext_func_tab_from_func`. Public `sessions` on `8d2439c0f`: 44/44, screens 11,405/11,405, RNG 792,838/792,838, speed `260+1.59/turn` (R² 0.766). Held-out still 12/44 (6,442/11,265 pts, RNG 31.5 %, rngSteps 85.3 %, screens 57.2 %; board 2026-09-27T13:26Z, last scored 2026-09-27T13:02Z). `hidden-proxy score` 12/12 on the private sessions present (RNG 75,151/75,151, screens 653/653); `.cache/hidden/sessions` absent, so 614/940 was not re-measured. Five seeded `ported` briefs (`hliquid`, `interest_mapseen`, `noteleport_level`, `mstatusline`, `mhitm_ad_acid`) each have a live JS body. No `js/` edits.
