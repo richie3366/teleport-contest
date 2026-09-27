@@ -959,8 +959,42 @@ export async function Cloak_off() {
     }
     return 0;
 }
-export function Shield_off() {
-    clear_worn(W_ARMS);
+/**
+ * C ref: do_wear.c Shield_off `:733–756`.
+ * Clear the in-progress takeoff bit, name the nine shields (anything
+ * else is impossible), then setworn(NULL, W_ARMS). No special
+ * handling for any current shield. A null uarms returns 0 after the
+ * mask clear; C would dereference uarms->otyp.
+ * @returns {Promise<number>} 0
+ */
+export async function Shield_off() {
+    /* C `:735` — svc.context.takeoff.mask &= ~W_ARMS. The C field is
+       a struct member; skip when this port has no takeoff record. */
+    if (game.context?.takeoff) {
+        game.context.takeoff.mask =
+            (game.context.takeoff.mask | 0) & ~W_ARMS;
+    }
+    const uarms = game.u?.uarms;
+    if (!uarms) return 0;
+    /* C `:739–752` — nine shields break. Default is
+       impossible("Unknown type of %s (%d)", "shield", otyp). */
+    switch (uarms.otyp | 0) {
+    case SMALL_SHIELD:
+    case SHIELD_OF_DRAIN_RESISTANCE:
+    case SHIELD_OF_SHOCK_RESISTANCE:
+    case ELVEN_SHIELD:
+    case URUK_HAI_SHIELD:
+    case ORCISH_SHIELD:
+    case DWARVISH_ROUNDSHIELD:
+    case LARGE_SHIELD:
+    case SHIELD_OF_REFLECTION:
+        break;
+    default:
+        await impossible('Unknown type of %s (%d)', 'shield', uarms.otyp | 0);
+        break;
+    }
+    /* C `:754` setworn((struct obj *) 0, W_ARMS). */
+    setworn(null, W_ARMS);
     return 0;
 }
 /**
@@ -1798,7 +1832,7 @@ async function armoroff(otmp) {
     if (otmp === u.uarm) await Armor_off();
     else if (otmp === u.uarmc) await Cloak_off();
     else if (otmp === u.uarmh) await Helmet_off();
-    else if (otmp === u.uarms) Shield_off();
+    else if (otmp === u.uarms) await Shield_off();
     else if (otmp === u.uarmg) await Gloves_off();
     else if (otmp === u.uarmf) await Boots_off();
     else if (otmp === u.uarmu) Shirt_off();
@@ -2274,7 +2308,7 @@ async function do_takeoff() {
         if (!(await cursed(otmp))) await Helmet_off();
     } else if (doff.what === WORN_SHIELD) {
         otmp = u.uarms;
-        if (!(await cursed(otmp))) Shield_off();
+        if (!(await cursed(otmp))) await Shield_off();
     } else if (doff.what === WORN_SHIRT) {
         otmp = u.uarmu;
         if (!(await cursed(otmp))) Shirt_off();
@@ -3419,20 +3453,25 @@ function Flying_dw() {
 }
 
 /**
- * C ref: do_wear.c learnring — discover type / known enchantment when seen.
- * Named omit: update_inventory (perm invent redraw).
+ * C ref: do_wear.c learnring `:1193–1220`.
+ * Observed: name-known rings are seen (observe_object); a seen ring
+ * of an unknown type is makeknown. The learnwand #if 0 else is not
+ * compiled. Then a seen, name-known ring marks a charged one known
+ * and update_inventory. A null ring returns; C would dereference.
  */
 function learnring(ring, observed) {
     if (!ring) return;
     const ringtype = ring.otyp | 0;
     const oc = game.objects?.[ringtype];
+    /* C `:1198–1210`. */
     if (observed) {
         if (oc?.oc_name_known) observe_object(ring);
         else if (ring.dknown) makeknown(ringtype);
     }
+    /* C `:1215–1219` — charged known=1, then the perm window. */
     if (ring.dknown && oc?.oc_name_known) {
-        if (oc?.oc_charged) ring.known = 1;
-        // update_inventory deferred
+        if (oc.oc_charged) ring.known = 1;
+        update_inventory();
     }
 }
 
@@ -3926,7 +3965,7 @@ async function wornarm_destroyed(wornarm) {
     else if (wornarm === u.uarmh) await Helmet_off();
     else if (wornarm === u.uarmg) await Gloves_off();
     else if (wornarm === u.uarmf) await Boots_off();
-    else if (wornarm === u.uarms) Shield_off();
+    else if (wornarm === u.uarms) await Shield_off();
 
     for (const invobj of game.invent || []) {
         if (invobj === wornarm && invobj.o_id === wornoid) {

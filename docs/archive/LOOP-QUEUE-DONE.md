@@ -5,7 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-27
 
-- [x] `pager.c` whatdoes_help — coverage PARTIAL (C 24 L `pager.c:2421–2445` / JS 17 L in js/pager.js; hops 4, callers 1, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn whatdoes_help` (reach regression must be 0). Measured `port-coverage.mjs --name whatdoes_help` 2026-09-27 @ 2d07e01a7. **Addressed:** D-2929
+- [x] `do_wear.c` Shield_off — coverage THIN (C 23 L `do_wear.c:733–756` / JS 4 L in js/do_wear.js; hops 3, callers 5, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn Shield_off` (reach regression must be 0). Measured `port-coverage.mjs --name Shield_off` 2026-09-27 @ 2d07e01a7. **Addressed:** D-2930
+- [x] `do_wear.c` learnring — coverage PARTIAL (C 27 L `do_wear.c:1193–1220` / JS 13 L in js/do_wear.js; hops 4, callers 11, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn learnring` (reach regression must be 0). Measured `port-coverage.mjs --name learnring` 2026-09-27 @ b1c8b3093. **Addressed:** D-2930
+
+
+- [x] `pager.c` whatdoes_help — coverage PARTIAL (C 24 L `pager.c:2421–2445` / JS 17 L in js/pager.js; hops 4, callers 1, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn whatdoes_help` (reach regression must be 0). Measured `port-coverage.mjs --name whatdoes_help` 2026-09-27 @ 2d07e01a7. **Addressed:** D-2929 `4df3fffc0`
 
 
 - [x] `steal.c` worn_item_removal — coverage PARTIAL (C 38 L `steal.c:294–334` / JS 26 L in js/steal.js; hops 4, callers 10, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn worn_item_removal` (reach regression must be 0). Measured `port-coverage.mjs --name worn_item_removal` 2026-09-27 @ 54bbae9a5. **Addressed:** D-2928 `167e8ab44`

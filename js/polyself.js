@@ -1476,7 +1476,7 @@ async function break_armor() {
         const shield = u.uarms;
         if (shield) {
             await pline('You can no longer hold your shield!');
-            Shield_off();
+            await Shield_off();
             await dropx(shield);
         }
         const helm = u.uarmh;
