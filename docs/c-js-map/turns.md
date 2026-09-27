@@ -1186,6 +1186,8 @@ named)** + **`Armor_gone` takeoff.mask clear + `setnotworn` + cancelled_don rese
 
 JS: `js/readobjnam.js`, `js/objnam.js` — partial
 
+**`readobjnam_init` (D-2912)** (`objnam.c:3933–3961`, file-local `js/readobjnam.js`): C order — `otmp` null, the zero chain through `fake`, `tvariety = RANDOM_TIN`, `mgend = -1`, `mntmp = NON_PM`, `contents = TIN_UNDEFINED`, `oclass = 0`, `actualn`/`dn`/`un` null, `wetness`/`gsize` 0, `zombify` FALSE, `bp`/`origbp` alias the caller, `p`/`name` null, `ftype = context.current_fruit`, `globbuf` and `fruitbuf` memset to empty. Caller `objnam.c:4914` is `readobjnam`, wired before the null-bp `any` path. `Strcpy(fruitbuf)` stays the caller at `:4926`, after nothing/nil/none. `tmp`/`tinv` stay unset (C does not initialize them). The postparse1 glob `Sprintf` into `globbuf` (`:4363–4364`) stays the named omission.
+
 **wish subset:** prefixes + `name_to_monplus` dragon mail + `rnd_otyp_by_namedesc`/`wishymatch` + **`rnd_otyp_by_wpnskill` (D-2851)** (`objnam.c:3432–3452`, file-local in `js/readobjnam.js`; `bases[WEAPON_CLASS]` walk, `rn2(n)`, `STRANGE_OBJECT` if none; wired in `readobjnam` for direct callers, and in `readobjnam_wish` after `wizterrainwish` returns 0 so wizard terrain still wins) + **`maybereleaseobuf` (D-2851)** (`objnam.c:167–198` → `releaseobuf` `:150–160`; JS strings have no `obufs[]`, so the rewind test is false; callers `sortloot_cmp` `:492`/`:498`, `learn_unseen_invent` `:2765`, `display_pickinv` `:3330` in the inuse, perm, reply, and wizid format loops) + 
 artifact_name + BUC/spe + oname (D-0064); **empty/null → `any:` wrpsym+`mkobj`** (D-0559; 
 qualifier-only empty deferred); **`makesingular`+as_is + gold mksobj(FALSE) early-return + 

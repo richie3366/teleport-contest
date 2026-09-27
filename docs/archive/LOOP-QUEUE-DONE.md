@@ -3,9 +3,13 @@
 Append-only archive of checked `LOOP-QUEUE.md` items. Newest date
 first. Do not pop work from here. Live queue is unchecked-only.
 
+## 2026-09-27
+
+- [x] `objnam.c` readobjnam_init — coverage MISSING (C 28 L `objnam.c:3933–3961` / JS no symbol; hops 4, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn readobjnam_init` (reach regression must be 0). Measured `port-coverage.mjs --name readobjnam_init` 2026-09-27 @ cb7ff4a26. **Addressed:** D-2912
+
 ## 2026-09-26
 
-- [x] `mhitm.c` engulf_target — coverage PARTIAL (C 38 L `mhitm.c:807–845` / JS 21 L in js/mhitm.js; hops 3, callers 4, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn engulf_target` (reach regression must be 0). Measured `port-coverage.mjs --name engulf_target` 2026-09-27 @ cb7ff4a26. **Addressed:** D-2911
+- [x] `mhitm.c` engulf_target — coverage PARTIAL (C 38 L `mhitm.c:807–845` / JS 21 L in js/mhitm.js; hops 3, callers 4, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn engulf_target` (reach regression must be 0). Measured `port-coverage.mjs --name engulf_target` 2026-09-27 @ cb7ff4a26. **Addressed:** D-2911 `af40498ad`
 
 
 - [x] `pray.c` align_gname — coverage THIN (C 25 L `pray.c:2530–2555` / JS 11 L in js/roles.js; hops 4, callers 22, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn align_gname` (reach regression must be 0). Measured `port-coverage.mjs --name align_gname` 2026-09-27 @ 6aacaa7b4. **Addressed:** D-2910 `884da82f5`

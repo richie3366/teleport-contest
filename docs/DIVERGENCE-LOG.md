@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2912 — `readobjnam_init` zeros the wish record before parsing
+
+- **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked). C is 28 lines; the whole body shipped. `otense` was already that body (Stale).
+- **Symptom:** No function named `readobjnam_init`. `readobjnam` built the wish record after the null, nothing, and empty returns, with `fruitbuf` already holding the wish text. `p` and `globbuf` were absent.
+- **C locus:** `nethack-c/upstream/src/objnam.c:3933–3961` `readobjnam_init`. `otmp` is null. The zero chain runs through `fake`. Then `tvariety = RANDOM_TIN`, `mgend = -1`, `mntmp = NON_PM`, `contents = TIN_UNDEFINED`, `oclass = 0`, null `actualn`/`dn`/`un`, `wetness` and `gsize` 0, `zombify` FALSE, `bp`/`origbp` alias the caller, `p` and `name` null, `ftype = context.current_fruit`, and both buffers are memset to 0. `tmp` and `tinv` are not touched.
+- **JS was:** The fields lived in an object literal inside `js/readobjnam.js` `readobjnam`, created only after those early returns. `fruitbuf` was set to the munged wish there, which is the later `Strcpy`, not the memset.
+- **Fix:** One file-local `readobjnam_init` in that C order. `readobjnam` calls it before the null-bp `any` path. After `mungspaces`, `bp`/`origbp` and the JS buffer cursor name the munged text (C edits that buffer in place). `fruitbuf` is copied after the nothing/nil/none return.
+- **JS:** `js/readobjnam.js` `readobjnam_init` `:1396`. `otmp` `:1398`. Zero chain `:1400–1429`. Tin and monster defaults `:1431–1435`. Names and `zombify` `:1437–1442`. `bp`/`origbp`/`p`/`name`/`ftype` `:1444–1448`. Buffers `:1450–1451`. Caller `:1463`. `fruitbuf` copy `:1482`.
+- **Callers:** `objnam.c:4914` `readobjnam` → `js/readobjnam.js:1463`. `objnam.c:54` only declares it. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn readobjnam_init` → PASS syntax (1 changed js file: js/readobjnam.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: PASS.
+- **Named omissions:** No arm of `readobjnam_init` is omitted. The buffers are empty strings; C's `BUFSZ` slab is not a second buffer. `tmp` and `tinv` stay unset. The postparse1 glob `Sprintf` into `globbuf` (`objnam.c:4363–4364`) is not this function.
+- **Next:** `sp_lev.c` `flip_vault_guard` (next Open — coverage row). `otense` parked Stale. Five tool rows refilled so the queue is back at 12 after archive. The queue-empty overlay did not match the live queue (nine coverage rows were open; `readobjnam_init` was the head and had no JS symbol).
+
 ## D-2911 — `engulf_target` is one function for hero and monster swallows
 
 - **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked). C is 38 lines; the whole body shipped. `mkobj_erosions` and `buried_ball_to_freedom` were already those bodies (Stale).

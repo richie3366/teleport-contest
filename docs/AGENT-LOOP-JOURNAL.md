@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2912 `readobjnam_init` zeros the wish record before parsing
+
+**C locus:** `nethack-c/upstream/src/objnam.c:3933–3961` `readobjnam_init`. `otmp` is null. The zero chain runs through `fake`. Then `tvariety = RANDOM_TIN`, `mgend = -1`, `mntmp = NON_PM`, `contents = TIN_UNDEFINED`, `oclass = 0`, null `actualn`/`dn`/`un`, `wetness` and `gsize` 0, `zombify` FALSE, `bp`/`origbp` alias the caller, `p` and `name` null, `ftype = context.current_fruit`, and both buffers are memset to 0. `tmp` and `tinv` are not touched.
+**JS:** `js/readobjnam.js` `readobjnam_init` `:1396`. `otmp` `:1398`. Zero chain `:1400–1429`. Tin and monster defaults `:1431–1435`. Names and `zombify` `:1437–1442`. `bp`/`origbp`/`p`/`name`/`ftype` `:1444–1448`. Buffers `:1450–1451`. Caller `:1463`. `fruitbuf` copy `:1482`.
+**Change:** One file-local `readobjnam_init` in that C order. `readobjnam` calls it before the null-bp `any` path. After `mungspaces`, `bp`/`origbp` and the JS buffer cursor name the munged text (C edits that buffer in place).
+**Verify:** `node scripts/verify.mjs --fn readobjnam_init` → PASS syntax (1 changed js file: js/readobjnam.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: PASS.
+**Named:** No arm of `readobjnam_init` is omitted. The buffers are empty strings; C's `BUFSZ` slab is not a second buffer.
+**Next:** `sp_lev.c` `flip_vault_guard` (next Open — coverage row). `otense` parked Stale. Five tool rows refilled so the queue is back at 12 after archive. The queue-empty overlay did not match the live queue (nine coverage rows were open; `readobjnam_init` was the head and had no JS symbol).
 ## 2026-09-26 — D-2911 `engulf_target` is one function for hero and monster swallows
 
 **C locus:** `nethack-c/upstream/src/mhitm.c:807–845` `engulf_target`. Too-big or a smaller non-whirly engulfer returns false. Either `mtrapped` returns false. Defender cell, then attacker cell: `IS_OBSTRUCTED`, `closed_door`, `IS_TREE`, or `IRONBARS` unless the other is whirly. The hero uses `u.ux`/`u.uy` and `Passes_walls`; a monster uses `mx`/`my` and `passes_walls`.
