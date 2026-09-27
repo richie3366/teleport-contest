@@ -221,13 +221,15 @@ function armcat(obj) {
     return game.objects?.[obj?.otyp]?.oc_skill ?? -1;
 }
 
-function is_shirt(obj) {
+/** C obj.h is_shirt `:294–296` — ARMOR_CLASS with oc_armcat ARM_SHIRT. */
+export function is_shirt(obj) {
     return obj?.oclass === ARMOR_CLASS && armcat(obj) === ARM_SHIRT;
 }
 function is_suit(obj) {
     return obj?.oclass === ARMOR_CLASS && armcat(obj) === ARM_SUIT;
 }
-function is_cloak(obj) {
+/** C obj.h is_cloak `:291–293` — ARMOR_CLASS with oc_armcat ARM_CLOAK. */
+export function is_cloak(obj) {
     return obj?.oclass === ARMOR_CLASS && armcat(obj) === ARM_CLOAK;
 }
 function is_shield(obj) {

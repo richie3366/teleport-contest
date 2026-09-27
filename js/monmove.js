@@ -47,14 +47,14 @@ import {
     STAIRS, LADDER, IRONBARS, WEB, W_NONDIGGABLE, ARM, HEAD,
     M_ATTK_HIT, M_ATTK_DEF_DIED, M_ATTK_AGR_DIED,
     MON_FLOOR, NORMAL_SPEED, G_GENOD, RLOC_MSG, TRAPPED_DOOR,
-    EDOG, has_edog, ACCFOOD, MANFOOD,
+    EDOG, has_edog, ACCFOOD, MANFOOD, Is_container,
 } from './const.js';
 import { is_pool, is_lava, in_town, stop_occupation, noattacks, disturb_buried_zombies, losehp, finish_maybe_wail, dissolve_bars, SURFACE_AT, in_rooms } from './hack.js';
 import {
     CLOAK_OF_DISPLACEMENT, COIN_CLASS, WEAPON_CLASS, ARMOR_CLASS,
     GEM_CLASS, FOOD_CLASS, AMULET_CLASS, POTION_CLASS, SCROLL_CLASS,
     WAND_CLASS, RING_CLASS, SPBOOK_CLASS, ROCK_CLASS, BALL_CLASS,
-    objectNames, is_axe, SILVER,
+    VENOM_CLASS, objectNames, is_axe, SILVER,
 } from './objects.js';
 import {
     Monnam, y_monnam, Adjmonnam, mon_nam, Amonnam, Hallucination,
@@ -86,7 +86,8 @@ import {
     shk_move, gd_move, pri_move, costly_spot, inhishop, bill_dummy_object,
 } from './shk.js';
 import { cuss, tactics } from './wizard.js';
-import { Invis, artifact_light } from './timeout.js';
+import { Invis, artifact_light, Is_candle } from './timeout.js';
+import { is_cloak, is_gloves, is_shirt } from './do_wear.js';
 import { Unaware } from './eat.js';
 import { SetVoice } from './sndprocs.js';
 import { rn1, rn2, rnd, d } from './rng.js';
@@ -117,6 +118,30 @@ const CREDIT_CARD = objectNames.indexOf('CREDIT_CARD');
 const SKELETON_KEY = objectNames.indexOf('SKELETON_KEY');
 const LOCK_PICK = objectNames.indexOf('LOCK_PICK');
 const GOLD_PIECE = objectNames.indexOf('GOLD_PIECE');
+/** C monmove.c stuff_prevents_passage — otyp ranges and single types. */
+const ARROW = objectNames.indexOf('ARROW');
+const BOOMERANG = objectNames.indexOf('BOOMERANG');
+const DAGGER = objectNames.indexOf('DAGGER');
+const CRYSKNIFE = objectNames.indexOf('CRYSKNIFE');
+const SLING = objectNames.indexOf('SLING');
+const FEDORA = objectNames.indexOf('FEDORA');
+const LEATHER_JACKET = objectNames.indexOf('LEATHER_JACKET');
+const FORTUNE_COOKIE = objectNames.indexOf('FORTUNE_COOKIE');
+const CANDY_BAR = objectNames.indexOf('CANDY_BAR');
+const PANCAKE = objectNames.indexOf('PANCAKE');
+const LEMBAS_WAFER = objectNames.indexOf('LEMBAS_WAFER');
+const SACK = objectNames.indexOf('SACK');
+const BAG_OF_HOLDING = objectNames.indexOf('BAG_OF_HOLDING');
+const BAG_OF_TRICKS = objectNames.indexOf('BAG_OF_TRICKS');
+const OILSKIN_SACK = objectNames.indexOf('OILSKIN_SACK');
+const LEASH = objectNames.indexOf('LEASH');
+const STETHOSCOPE = objectNames.indexOf('STETHOSCOPE');
+const BLINDFOLD = objectNames.indexOf('BLINDFOLD');
+const TOWEL = objectNames.indexOf('TOWEL');
+const TIN_WHISTLE = objectNames.indexOf('TIN_WHISTLE');
+const MAGIC_WHISTLE = objectNames.indexOf('MAGIC_WHISTLE');
+const MAGIC_MARKER = objectNames.indexOf('MAGIC_MARKER');
+const TIN_OPENER = objectNames.indexOf('TIN_OPENER');
 const STRANGE_OBJECT = objectNames.indexOf('STRANGE_OBJECT');
 const ROCK = objectNames.indexOf('ROCK');
 const BOULDER = objectNames.indexOf('BOULDER');
@@ -743,11 +768,63 @@ export function accessible(x, y) {
 }
 
 /**
- * C ref: monmove.c can_ooze — amorphous && !stuff_prevents_passage.
- * stuff_prevents_passage body deferred → treat as empty invent (ok).
+ * One object on the invent / minvent chain blocks oozing or fogging.
+ * C monmove.c stuff_prevents_passage `:2328–2350`, loop body.
+ * `typ == COIN_CLASS` is the class number (GENERIC_COIN), not GOLD_PIECE.
+ */
+function obj_blocks_passage(obj) {
+    const typ = obj.otyp | 0;
+    if (typ === COIN_CLASS && (obj.quan ?? 0) > 100)
+        return true;
+    if (obj.oclass !== GEM_CLASS && !(typ >= ARROW && typ <= BOOMERANG)
+        && !(typ >= DAGGER && typ <= CRYSKNIFE) && typ !== SLING
+        && !is_cloak(obj) && typ !== FEDORA && !is_gloves(obj)
+        && typ !== LEATHER_JACKET && typ !== CREDIT_CARD && !is_shirt(obj)
+        && !(typ === CORPSE && verysmall(mons(obj.corpsenm | 0)))
+        && typ !== FORTUNE_COOKIE && typ !== CANDY_BAR && typ !== PANCAKE
+        && typ !== LEMBAS_WAFER && typ !== LUMP_OF_ROYAL_JELLY
+        && obj.oclass !== AMULET_CLASS && obj.oclass !== RING_CLASS
+        && obj.oclass !== VENOM_CLASS && typ !== SACK
+        && typ !== BAG_OF_HOLDING && typ !== BAG_OF_TRICKS
+        && !Is_candle(obj) && typ !== OILSKIN_SACK && typ !== LEASH
+        && typ !== STETHOSCOPE && typ !== BLINDFOLD && typ !== TOWEL
+        && typ !== TIN_WHISTLE && typ !== MAGIC_WHISTLE
+        && typ !== MAGIC_MARKER && typ !== TIN_OPENER && typ !== SKELETON_KEY
+        && typ !== LOCK_PICK)
+        return true;
+    if (Is_container(obj) && obj.cobj)
+        return true;
+    return false;
+}
+
+/**
+ * C ref: monmove.c stuff_prevents_passage `:2319–2353`.
+ * Hero inventory is gi.invent; every other monster uses minvent.
+ * JS hero invent is an array (D-1691); minvent stays an nobj chain.
+ */
+function stuff_prevents_passage(mtmp) {
+    const chain = (mtmp === game.youmonst) ? game.invent : mtmp?.minvent;
+    if (Array.isArray(chain)) {
+        for (let i = 0; i < chain.length; i++) {
+            const obj = chain[i];
+            if (obj && obj_blocks_passage(obj)) return true;
+        }
+        return false;
+    }
+    for (let obj = chain; obj; obj = obj.nobj) {
+        if (obj_blocks_passage(obj)) return true;
+    }
+    return false;
+}
+
+/**
+ * C ref: monmove.c can_ooze `:2355–2361`.
+ * Amorphous, and nothing carried blocks the squeeze.
  */
 export function can_ooze(mtmp) {
-    return !!((mtmp?.data?.mflags1 ?? 0) & M1_AMORPHOUS);
+    if (!amorphous(mtmp?.data) || stuff_prevents_passage(mtmp))
+        return false;
+    return true;
 }
 
 /** C ref: youprop.h Protection_from_shape_changers */
@@ -759,17 +836,17 @@ function Protection_from_shape_changers() {
 }
 
 /**
- * C ref: monmove.c can_fog — vampshifter may become fog under a door.
- * Named omission: stuff_prevents_passage invent scan (empty invent ⇒ ok,
- * same deferral as can_ooze).
+ * C ref: monmove.c can_fog `:2363–2371`.
+ * A vampshifter may become fog under a door when fog clouds are not
+ * genocided, shape-changers are not warded, and nothing carried blocks.
  */
 export function can_fog(mtmp) {
-    const fogGone = !!((game.mvitals?.[PM_FOG_CLOUD]?.mvflags ?? 0) & G_GENOD);
-    if (fogGone || !is_vampshifter(mtmp) || Protection_from_shape_changers()) {
-        return false;
-    }
-    // stuff_prevents_passage deferred — treat as no blocking invent
-    return true;
+    if (!((game.mvitals?.[PM_FOG_CLOUD]?.mvflags ?? 0) & G_GENOD)
+        && is_vampshifter(mtmp)
+        && !Protection_from_shape_changers()
+        && !stuff_prevents_passage(mtmp))
+        return true;
+    return false;
 }
 
 /**
