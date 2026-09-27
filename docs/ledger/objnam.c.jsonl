@@ -30,7 +30,7 @@
 {"fn":"cxname_singular","c":"1933-1938","status":"unknown"}
 {"fn":"killer_xname","c":"1942-2005","status":"unknown"}
 {"fn":"short_oname","c":"2009-2085","status":"unknown"}
-{"fn":"singular","c":"2091-2105","status":"unknown"}
+{"fn":"singular","c":"2091-2105","status":"ported","js":["js/objnam.js:singular"],"d":["D-2980"],"at":"2026-09-27@68cdee2bb"}
 {"fn":"just_an","c":"2109-2142","status":"unknown"}
 {"fn":"an","c":"2145-2155","status":"unknown"}
 {"fn":"An","c":"2158-2164","status":"unknown"}

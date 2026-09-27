@@ -14,7 +14,7 @@ cmdq_add_ec_entry  NOT FOUND in js/** (no export, no local function/const).
 
 `apply.js`, `dig.js`, and `iactions.js` no longer define `cmdq_add_key`. `apply.js`, `dig.js`, `dothrow.js`, and `iactions.js` no longer define a local `cmdq_add_ec`. `--can` from each of those importers to `js/cmd.js` `cmdq_add_ec`, and from `spell.js` / `getpos.js` to `js/invent.js` `cmdq_add_key`, prints `ALREADY`. At this SHA, `cmdq_add_ec` still does not call `ext_func_tab_from_func` (the following commit does). Callers that need an internal name pass `{ txt, flags }`.
 
-**Addressed:** D-2979
+**Addressed:** D-2979 `68cdee2bb`
 
 ## Intent vs deliverable
 

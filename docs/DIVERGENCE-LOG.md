@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-2980 — `singular` names one corpse with its monster type
+
+- **Status:** fixed (coverage PARTIAL; hidden-proxy verify reports no corpus session blocked). C `singular` is 9 code lines. The quantity save and restore were already live.
+- **Symptom:** Naming one of a stack with `xname` left a corpse as "corpse". C rewrites that pair to `cxname` first, so the monster type is kept and the name stays singular. Reading a can of grease said it was a silly thing to read.
+- **C locus:** `nethack-c/upstream/src/objnam.c:2091–2105` `singular`. If `otyp == CORPSE` and `func == xname`, `func` becomes `cxname`. Save `quan`, set it to `1L`, call `func`, restore `quan`, return that name.
+- **JS was:** `js/objnam.js` `singular` saved `quan`, set it to 1, called `func`, and restored it. There was no corpse rewrite. `js/read.js` `doread` had no can-of-grease arm, so that object fell through to "That is a silly thing to read."
+- **Fix:** A corpse passed with `xname` is named by `cxname` before the quantity is forced to 1 and restored. `doread` prints "This %s has no label." for a can of grease and returns ok. `singular` was already exported from `objnam.js` (`imports.mjs --can` ALREADY).
+- **JS:** `js/objnam.js` `singular` `:1818`. Corpse rewrite `:1821`. Quantity save `:1822`, force `:1823`, call `:1824`, restore `:1825`. `js/read.js` `doread` grease arm `:2201`.
+- **Callers:** `apply.c:3051` whip → `js/apply.js:3379`. `apply.c:4532` `flip_coin` → `js/apply.js:2190`. `dokick.c:613` → `js/dokick.js:1371`. `dothrow.c:247` → `js/dothrow.js:1143`. `eat.c:230` `food_xname` → `js/eat.js:1018`. `eat.c:2175` → `js/eat.js:1465`. `eat.c:2205` → `js/eat.js:1495`. `eat.c:2809` → `js/eat.js:3281`. `lock.c:1292` `chest_shatter_msg` → `js/lock.js:1777`. `mthrowu.c:285` `monshoot` → `js/mthrowu.js:1473`. `muse.c:248` `mreadmsg` → `js/muse.js:1330`. `muse.c:297` `mquaffmsg` → `js/muse.js:1300`. `muse.c:2018` → `js/muse.js:1082`. `pager.c:812` `ia_checkfile` → `js/pager.js:997`. `pager.c:1834` → `js/pager.js:2712`. `read.c:492` `doread` → `js/read.js:2202`. `uhitm.c:1284` `hmon_hitmon_misc_obj` → `js/uhitm.js:1427`; cream pies return from the same arm at `js/uhitm.js:1822` before that call. `eat.c:215` and `pager.c:811` are comments. `extern.h:2233` is the prototype. `js/iactions.js:358` `simpleonames` also calls `singular`; C `simpleonames` calls `minimal_xname`, not `singular`.
+- **Verify:** `node scripts/verify.mjs --fn singular --reach-all` → PASS syntax (2 changed js file(s): js/objnam.js js/read.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.4s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) · VERIFY: PASS.
+- **Named omissions:** No arm of `singular` is omitted.
+- **Ledger:** singular ported
+- **Next:** `pline.c` `You_see` (next Open — coverage row).
+
 ## D-2979 — `itemactions_pushkeys` queues the m-prefix before `#quaff`
 
 - **Status:** fixed (Must-fix missing arm; hidden-proxy verify reports no corpus session blocked). C `itemactions_pushkeys` is the switch at `iactions.c:140–274`. Every other arm was already live.

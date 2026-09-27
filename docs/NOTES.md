@@ -36,7 +36,7 @@ here again. Live hypotheses only:
 - **do_statusline2 residuals (D-2425 MEASURED):** W1 Healer-92107 `mhitm_ad_cold_u` extra destroy return; W2 Satiated pair = eat-progress `uhs`/botl timing — both are corpus-residual Open rows (detail in D-2425). Monk-92194 Pw = D-2161 gulpmu residual, no new row.
 ## Don't re-check (≤15)
 
-- D-1790…D-2979 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-2980 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus recordings: `.cache/hidden/sessions` is empty (941 recipes). `hidden-proxy score` sees 12 `private-sessions` only. Do not read 12/12 as the 614/940 fortress (last full board `086317c06`, replaced at `38d6c8a36`).
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
@@ -44,13 +44,14 @@ here again. Live hypotheses only:
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2979.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2979.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2980.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2980.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2980: A corpse passed with `xname` is named by `cxname` before the quantity is forced to 1 and restored. Named: No arm of `singular` is omitted.
 - D-2979: `IA_QUAFF_OBJ` queues `do_reqmenu`, then `dodrink`, then the invlet. Named: No arm of `itemactions_pushkeys` is omitted.
 - D-2978: `FUNCT_TXT` maps `doloot` to `"loot"` and `dotip` to `"tip"`. Named: No arm of `ext_func_tab_from_func` is omitted.
 - D-2977: `cmdq_add_ec` calls `ext_func_tab_from_func` first and stores that row's `txt`, `flags`, and `ec_entry`. Named: `cmd.c:4727` `doidtrap` is still a dynamic import; `pager.js` does not export it, so it is
@@ -65,5 +66,4 @@ here again. Live hypotheses only:
 - D-2968: One exported `You_feel` keeps that C order and calls `eat.js` `Unaware` (`imports.mjs --can` SAFE, hoisted). Named: `livelog_add` returns after the `sysopt.livelog` mask and does not write LIVELOGFILE (`fil
 - D-2967: One exported `mungspaces` keeps that C order: tab becomes space, newline ends the walk, CR stays, and one trailing space drops. Named: The `strncmpi` compare loop is complete, but call sites in `artifact.c`, `attrib.c`, `botl
 - D-2966: One exported `auto_describe` keeps that C order. Named: No arm of `auto_describe` is omitted.
-- D-2965: One exported `mksobj` keeps that C order. Named: No arm of the switch is omitted.
 <!-- landmarks:end -->
