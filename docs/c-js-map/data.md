@@ -995,6 +995,7 @@ rnd_hell_prefab/`makemaz("")` deferred; **D-1841 `fakewiz1`/`fakewiz2`**); empty
 **minefill `fixup_special`/`place_lregion(LR_BRANCH)` + Mines mineralize gold×2/gem×3** (D-0177); 
 **`mkstairs` no-op on dunlev ends** (up on dlevel 1 / down on `Is_botlevel`; 
 D-0928 #1152 — minefill `des.stair("up")` no longer plants dlevel-0 upstairs); 
+**D-2931 `chk_okdoor`** (`mklev.c:1198–1219` → `js/mklev.js` `chk_okdoor`: horizontal door reads `y±1`, vertical reads `x±1`; `isok` before the neighbor `typ`; both `> TREE` / `<= TREE` mismatches return false; non-door returns true). Caller is `mklev_sanity_check` (`mklev.c:1222–1247`, same file), invoked from `makelevel_ordinary` after `make_niches` and before the vault (`mklev.c:1313`); the walk runs only when `iflags.sanity_check` or `debug_fuzzer`. **D-2931 `mkstairs`** (`mklev.c:2159–2197`): bogus coord `impossible` then return; `force` sets ROOM; non-ROOM/CORR/ICE `impossible` via `back_to_glyph` / `glyph_to_cmap` / `defsym_explanation` does not return; dungeon-end return; `stairway_add`; `set_levltyp(STAIRS)` then `ladder`. `level.upstair` / `dnstair` stay as the JS mirror (`stairway_add` does not write them); 
 omit lev_region[] compiler/`mkportal`; **D-1109 `lspo_exclusion`** (hellfill prefab / 
 save/rest still named; **D-1820 `soko2-2`** uses it); seed0060 @ 2997 was **not** corridor typ (D-0032); 
 seed0017 @3132 was **not** missing (30,4) terrain (D-0099); 

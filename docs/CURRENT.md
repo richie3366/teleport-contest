@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `mklev.c` chk_okdoor — coverage MISSING (C 21 L `mklev.c:1198–1219` / JS no symbol; hops 2, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn chk_okdoor` (reach regression must be 0). Measured `port-coverage.mjs --name chk_okdoor` 2026-09-27 @ 2d07e01a7. No Must-fix.
+**Next cluster:** `calendar.c` yyyymmdd — coverage THIN (C 21 L `calendar.c:56–77` / JS 5 L in js/calendar.js; hops 3, callers 5, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn yyyymmdd` (reach regression must be 0). Measured `port-coverage.mjs --name yyyymmdd` 2026-09-27 @ 2d07e01a7. No Must-fix. D-2931 shipped `chk_okdoor` and same-file `mkstairs`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2930 (index).**
+**Keep D-0845…D-2931 (index).**
 <!-- recent:begin -->
+**D-2931** `nethack-c/upstream/src/mklev.c:1198–1219` `chk_okdoor`. If `IS_DOOR`, a horizontal door r — One file-local `chk_okdoor` in that C order.
 **D-2930** `nethack-c/upstream/src/do_wear.c:733–756` `Shield_off`. `svc.context.takeoff.mask &= ~W_A — One exported async `Shield_off` in that C order.
 **D-2929** `nethack-c/upstream/src/pager.c:2421–2445` `whatdoes_help`. `dlb_fopen(KEYHELP, "r")`. On  — One file-local async `whatdoes_help` in that C order.
 **D-2928** `nethack-c/upstream/src/steal.c:294–334` `worn_item_removal`. `Strcpy(objbuf, doname(obj)) — One file-local async `worn_item_removal` in that C order.
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2926** `nethack-c/upstream/src/spell.c:687–708` `rejectcasting`. If `Stunned` (`HStun`), `You("ar — One file-local async `rejectcasting` in that C order.
 **D-2925** `nethack-c/upstream/src/do_wear.c:705–730` `Shield_on`. Switch on `uarms->otyp`: `SMALL_SH — One file-local async `Shield_on` in that C order.
 **D-2924** `nethack-c/upstream/src/worn.c:1376–1417` `extract_from_minvent`. Read `owornmask`. If `wh — One exported `extract_from_minvent` in that C order.
-**D-2923** `nethack-c/upstream/src/mon.c:4698–4720` `maybe_unhide_at`. If `m_at`, read `mundetected`  — One async `maybe_unhide_at` in that C order.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2930; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2931; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

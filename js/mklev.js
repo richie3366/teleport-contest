@@ -154,7 +154,7 @@ import {
 import {
     Norep, newsym, impossible, pline, You, flush_screen, nh_delay_output, monsym,
     describe_level, cliparound, map_location, see_nearby_objects, Hallucination,
-    glyph_is_cmap, back_to_glyph, terrain_glyph, remember_shown_glyph,
+    glyph_is_cmap, glyph_to_cmap, back_to_glyph, terrain_glyph, remember_shown_glyph,
 } from './display.js';
 import { buried_ball_to_punishment, fracture_rock } from './dig.js';
 import { obfree } from './shk.js';
@@ -179,6 +179,9 @@ import { makemap_prepost } from './wizcmds.js';
 // imports.mjs --can: Blind and earth_sense are hoisted — cycle-safe.
 import { Blind } from './invent.js';
 import { earth_sense } from './cmd.js';
+// imports.mjs --can mklev.js uhitm.js defsym_explanation: hoisted, cycle-safe.
+// C mkstairs impossible uses defsyms[glyph_to_cmap(glyph)].explanation.
+import { defsym_explanation } from './uhitm.js';
 
 const GOLD_PIECE = objectNames.indexOf('GOLD_PIECE');
 const ROCK = objectNames.indexOf('ROCK');
@@ -26991,6 +26994,68 @@ function load_pri_filb() {
 }
 
 
+/**
+ * C ref: mklev.c chk_okdoor `:1198–1219` — a door is not ok when the two
+ * cells it faces disagree about solid ground (`typ <= TREE` vs `typ > TREE`).
+ * A non-door is ok. `isok` is evaluated before the neighbor typ read.
+ * @param {number} x
+ * @param {number} y
+ * @returns {boolean}
+ */
+function chk_okdoor(x, y) {
+    const map = game.level;
+    const door = map?.at(x, y);
+    if (door && IS_DOOR(door.typ)) { // C :1200
+        if (door.horizontal) { // C :1201
+            if ((isok(x, y - 1) && map.at(x, y - 1).typ > TREE)
+                && (isok(x, y + 1) && map.at(x, y + 1).typ <= TREE))
+                return false; // C :1202–1204
+            if ((isok(x, y - 1) && map.at(x, y - 1).typ <= TREE)
+                && (isok(x, y + 1) && map.at(x, y + 1).typ > TREE))
+                return false; // C :1205–1207
+        } else { // C :1208
+            if ((isok(x - 1, y) && map.at(x - 1, y).typ > TREE)
+                && (isok(x + 1, y) && map.at(x + 1, y).typ <= TREE))
+                return false; // C :1209–1211
+            if ((isok(x - 1, y) && map.at(x - 1, y).typ <= TREE)
+                && (isok(x + 1, y) && map.at(x + 1, y).typ > TREE))
+                return false; // C :1212–1214
+        }
+        return true; // C :1216
+    }
+    return true; // C :1218
+}
+
+/**
+ * C ref: mklev.c mklev_sanity_check `:1222–1247`.
+ * Returns before any walk unless `iflags.sanity_check` or `debug_fuzzer`.
+ * `impossible` is not awaited (sync level-gen; those flags are off in play).
+ * `%d` stands in for C `%i` — this `impossible` substitutes `%d` and `%s`.
+ */
+function mklev_sanity_check() {
+    const g = game;
+    if (!(g.iflags?.sanity_check || g.iflags?.debug_fuzzer)) // C :1229
+        return;
+
+    for (let y = 0; y < ROWNO; y++) { // C :1232
+        for (let x = 1; x < COLNO; x++) { // C :1233
+            if (!chk_okdoor(x, y)) // C :1234
+                void impossible('levl[%d][%d] door not ok', x | 0, y | 0); // C :1235
+        }
+    }
+
+    let rmno = -1; // C :1227
+    const nroom = g.level?.nroom | 0;
+    for (let i = 0; i < nroom; i++) { // C :1239
+        if (!g.level.rooms[i]?.needjoining) // C :1240–1241
+            continue;
+        if (rmno === -1) // C :1242
+            rmno = g.smeq?.[i];
+        if (rmno !== -1 && g.smeq?.[i] !== rmno) // C :1244
+            void impossible('room %d not connected?', i | 0); // C :1245
+    }
+}
+
 // C ref: mklev.c makelevel()
 async function makelevel() {
     const g = game;
@@ -27090,6 +27155,10 @@ async function makelevel_ordinary() {
     if (!isRogue) {
         makecorridors();
         await make_niches();
+
+        // C mklev.c:1313 — after niches, before the vault. Rogue skipped
+        // this via goto skip0; that branch is the `if (!isRogue)` above.
+        mklev_sanity_check();
 
         // C ref: mklev.c do_vault() — secret treasure vault
         // Outer rnd_rect() is only a null-check; create_vault() calls rnd_rect
@@ -31756,31 +31825,52 @@ function generate_stairs_find_room() {
 }
 
 /**
- * C ref: mklev.c mkstairs — place ordinary up/down stairs within the branch.
- * Cannot place stairs off an end of the dungeon (up on dunlev 1, down on
- * botlevel); des.stair / minefill still call this and rely on the no-op.
- * Packed des.stair passes force=TRUE so the cell becomes ROOM before that
- * return (D-1061). Branch stairs go through place_branch → stairway_add.
+ * C ref: mklev.c mkstairs `:2159–2197`.
+ * `croom` is UNUSED in C. `dunlev` is `u.uz.dlevel`; the down end is
+ * `dunlev == dunlevs_in_dungeon`, which is `Is_botlevel`. Packed des.stair
+ * passes force so the cell becomes ROOM before the dungeon-end return
+ * (D-1061). `impossible` is not awaited (sync level-gen).
+ * `level.upstair` / `dnstair` stay: `stairway_add` does not write them,
+ * and dogmove, flip_level, and lev_json read the mirror.
+ * @param {number} x
+ * @param {number} y
+ * @param {number|boolean} up
+ * @param {object|null|undefined} croom
+ * @param {boolean} [force]
  */
 function mkstairs(x, y, up, croom, force = false) {
     const g = game;
-    if (!x || !isok(x, y)) return;
+    void croom; // C :2163 UNUSED
+    if (!x || !isok(x, y)) { // C :2168
+        void impossible('mkstairs:  bogus stair attempt at <%d,%d>', x | 0, y | 0);
+        return; // C :2170
+    }
     const loc = g.level.at(x, y);
-    // C: if (force) levl[x][y].typ = ROOM; then dungeon-end return
-    if (force && loc) loc.typ = ROOM;
-    // C: if (dunlev(&u.uz) == (up ? 1 : dunlevs_in_dungeon(&u.uz))) return;
-    const dlev = g.u?.uz?.dlevel ?? 1;
-    if (up ? dlev === 1 : Is_botlevel(g.u?.uz)) return;
+    if (force && loc) loc.typ = ROOM; // C :2172
+    const ltyp = loc ? (loc.typ | 0) : 0; // C :2173
+    if (ltyp !== ROOM && ltyp !== CORR && ltyp !== ICE) { // C :2174
+        const glyph = back_to_glyph(x, y); // C :2175
+        const sidx = glyph_to_cmap(glyph); // C :2176
+        void impossible(
+            'mkstairs:  placing stairs %s on %s at <%d,%d>',
+            up ? 'up' : 'down',
+            defsym_explanation(sidx),
+            x | 0,
+            y | 0,
+        ); // C :2178–2179 — does not return
+    }
 
-    const dest = {
+    // C :2188 — dunlev(&u.uz) == (up ? 1 : dunlevs_in_dungeon(&u.uz))
+    const dlev = g.u?.uz?.dlevel ?? 1;
+    if (up ? dlev === 1 : Is_botlevel(g.u?.uz)) return; // C :2189
+
+    const dest = { // C :2191–2192
         dnum: g.u?.uz?.dnum ?? 0,
         dlevel: dlev + (up ? -1 : 1),
     };
-    stairway_add(x, y, !!up, false, dest);
-    if (loc) {
-        loc.typ = STAIRS;
-        loc.ladder = up ? LA_UP : LA_DOWN;
-    }
+    stairway_add(x, y, up ? true : false, false, dest); // C :2193
+    set_levltyp(x, y, STAIRS); // C :2195
+    if (loc) loc.ladder = up ? LA_UP : LA_DOWN; // C :2196
     if (up) g.level.upstair = { x, y };
     else g.level.dnstair = { x, y };
 }

@@ -18,7 +18,7 @@ here again. Live hypotheses only:
   revisits. Phase-2 rows (`[measure]`, parks, `hidden-proxy queue`) stay
   closed meanwhile; the corpus is guarded by REACH in `verify.mjs`.
   Everything below this bullet is phase-2 context — do not act on it now.
-- Audit 1874–1882 (D-2915…D-2930, `a4cc08e9a`…`c558457f9`): 9 ACCEPT. No Must-fix. Do not re-open the ACCEPT set. Prior audit 1865–1873 stays 9 ACCEPT. 1805 `nemesis_speaks` texts stay embedded (D-2853). `piousness` and `corpse_intrinsic` stay parked Stale.
+- Audit 1874–1882 (D-2915…D-2931, `a4cc08e9a`…`c558457f9`): 9 ACCEPT. No Must-fix. Do not re-open the ACCEPT set. Prior audit 1865–1873 stays 9 ACCEPT. 1805 `nemesis_speaks` texts stay embedded (D-2853). `piousness` and `corpse_intrinsic` stay parked Stale.
 
 - **obj_resists writers (D-2407/2413-15, MEASURED):** `steal.c` relobj `flooreffects` + Knight/Arch/Healer arms (detail in D-logs). Falsified — do not re-check: fire-trap burn, fmon-order, polyuse, monstone, bury, steal.
 
@@ -35,7 +35,7 @@ here again. Live hypotheses only:
 - **do_statusline2 residuals (D-2425 MEASURED):** W1 Healer-92107 `mhitm_ad_cold_u` extra destroy return; W2 Satiated pair = eat-progress `uhs`/botl timing — both are corpus-residual Open rows (detail in D-2425). Monk-92194 Pw = D-2161 gulpmu residual, no new row.
 ## Don't re-check (≤15)
 
-- D-1790…D-2930 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
+- D-1790…D-2931 stand. Scars: m_seenres boolean, never !== 0; no 2nd genus/accessible/confdir/locomotion/unconscious/free_mgivenname/is_axe/carrying/end_running.
 - Corpus recordings: `.cache/hidden/sessions` is empty (941 recipes). `hidden-proxy score` sees 12 `private-sessions` only. Do not read 12/12 as the 614/940 fortress (last full board `086317c06`, replaced at `38d6c8a36`).
 - D-1795/D-1816 stand. Scars: sleep rn2(10); no 2nd m_monnam/simple_typename; seed4500 [2]: keep flush_screen(1).
 - No stay rebuild / u.Punished / ordinary-pit-farlook rn2(20).
@@ -43,13 +43,14 @@ here again. Live hypotheses only:
   ParanoidTrap/domagicportal/undestroyable_trap/mktrap dst/goto_level uz0 D-1187/1188; no rhack raw-ETX (D-1189); never FORCE TRC (76,14)/(77,14) (D-1849).
 - `Val/Sam` D-1852/D-1858 — check loaders before refilling.
 - No D-0480 tty_map_color re-apply (D-0483); no skipped spaces/space runs >4 (D-0931); no FORCE shk satdoor/onlineu (D-0376), linedup/FlipX (#1092), _pending_message restore (D-0929), HEAVY_IRON_BALL owt!=0 (#1194). Judge keeps RC (D-0933); §1.2 frozen; no public-LB chase.
-- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2930.
-- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2930.
+- No memcpy gi worn/ball (D-1035) / setnotworn←owornmask (D-1020) / delobj tut loot / off-level timers (D-1037) / dropped msounds[] (D-1053) / tut-1 keys (D-1065) / skipped tutorial() (D-1066). No skip D-1067…D-2931.
+- No monmove→sit sticks import / confer_oc_oprop rewrite / emin delete / make_happy_shk stub (D-1540) / bones→options fruitadd (D-1541); no reset_glyphmap/notice_all_mons/savelev-freeing/lspo_reset_level; no wield/pickup→polyself body_part, static end←dog, makemon→hack/artifact/minion. No re-port D-1682…D-2931.
 - D-2409/2410/2418/2419/2421/2422/2423/2424/2427/2428 stand (shipped writers: rloc, mail-daemon, glyph, BoH, mk_bubble, can_fog, m_move; falsified: mtrack, occupants — detail in D-logs).
 
 ## Landmarks (≤15)
 
 <!-- landmarks:begin -->
+- D-2931: One file-local `chk_okdoor` in that C order. Named: No arm of `chk_okdoor` is omitted.
 - D-2930: One exported async `Shield_off` in that C order. Named: No arm of `Shield_off` is omitted.
 - D-2929: One file-local async `whatdoes_help` in that C order. Named: No arm of `whatdoes_help` is omitted.
 - D-2928: One file-local async `worn_item_removal` in that C order. Named: No arm of `worn_item_removal` is omitted.
@@ -64,5 +65,4 @@ here again. Live hypotheses only:
 - D-2919: One exported `find_mid` in that C order. Named: No arm of `find_mid` is omitted.
 - D-2918: One async `fix_ghostly_obj` in that C order (`You` is the display export). Named: No arm of `fix_ghostly_obj` or `sanitize_name` is omitted.
 - D-2917: One async `ckmailstatus` in that C order. Named: The `!UNIX` body `mail.c:461–479` (including the AMIGA/MSDOS/TOS `rn2`) and the VMS body `
-- D-2916: One exported `christen_monst` in that C order. Named: No arm of `christen_monst` is omitted.
 <!-- landmarks:end -->
