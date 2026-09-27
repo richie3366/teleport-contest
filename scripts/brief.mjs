@@ -2,13 +2,14 @@
 /**
  * brief.mjs — the whole orientation for one port iteration in ONE call.
  *
- *   node scripts/brief.mjs <C function> [--file eat.c] [--no-body]
+ *   node scripts/brief.mjs <C function> [--file eat.c] [--no-body] [--map]
  *   node scripts/brief.mjs --next            # first unchecked LOOP-QUEUE row
  *
  * Prints, in order: the queue row · the pinned-C body + every C call site
  * (csym) · which of its C callees exist in js/ (sym, clone counts) · the
- * same-named JS function with its file:line and body · the c-js-map
- * section for that C file · DIVERGENCE-INDEX rows naming it · the
+ * same-named JS function with its file:line and body · the ledger rows
+ * (declared status) of it and its callees (`--map` adds the frozen c-js-map
+ * lines) · DIVERGENCE-INDEX rows naming it · the
  * hidden-proxy sessions currently blocked on it, with C vs JS toplines
  * and the replay command · reviews naming it. After this call the only
  * reads left are the JS neighbours you decide to edit.
@@ -49,8 +50,8 @@ h(`PINNED C: ${fn}${cfn ? ` — ${cfn.file}:${cfn.start}–${cfn.end} (${cfn.lin
 if (!flag('no-body')) console.log(run(process.execPath, ['scripts/csym.mjs', fn]));
 console.log(run(process.execPath, ['scripts/csym.mjs', '--callers', fn]));
 
+const callees = new Set();
 if (cfn) {
-    const callees = new Set();
     for (const m of cfn.body.matchAll(/([A-Za-z_]\w*)\s*\(/g)) {
         if (m[1] !== fn && idx.fns.has(m[1]) && idx.fns.get(m[1]).lines >= 4) callees.add(m[1]);
     }
@@ -75,7 +76,14 @@ if (first) {
 } else console.log('(no same-named JS function — check the map section below for where its arms live)');
 
 if (cfn) {
-    h(`C-JS MAP section for ${cfn.file}`);
+    h(`LEDGER: declared status of ${fn} and its C callees (docs/ledger, measured code lines)`);
+    const spec = val('file') ? `${val('file')}:${fn}` : fn;
+    console.log(run(process.execPath, ['scripts/ledger.mjs', 'show', spec, ...callees]).trimEnd());
+    console.log(`handoff: D-entry \`- **Ledger:** ${fn} ported\` (or partial/split js=…); stale: node scripts/ledger.mjs set ${fn} ported --note "stale: …"`);
+}
+
+if (cfn && flag('map')) {
+    h(`C-JS MAP section for ${cfn.file} (frozen history)`);
     const ix = run(process.execPath, ['scripts/map.mjs', cfn.file, '--index']);
     console.log(ix.trim());
     const m = /(\w+\.md):(\d+)-(\d+)/.exec(ix);
@@ -83,7 +91,7 @@ if (cfn) {
         const mp = path.join(ROOT, 'docs/c-js-map', m[1]);
         const ml = readFileSync(mp, 'utf8').split('\n').slice(+m[2] - 1, +m[3]);
         const hits = ml.filter((l) => l.includes(fn));
-        console.log(hits.length ? `lines naming ${fn}:\n${hits.join('\n')}` : `(section does not name ${fn} — add it there when you ship)`);
+        console.log(hits.length ? `lines naming ${fn}:\n${hits.join('\n')}` : `(section does not name ${fn})`);
     }
 }
 

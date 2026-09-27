@@ -154,7 +154,7 @@ const today = () => new Date().toISOString().slice(0, 10);
  * Apply declarations. entries: [{spec, status, js?:[], omit?, d?:[], note?}].
  * Returns {ok:[key…], errors:[msg…]}; writes nothing when any entry errors.
  */
-export async function applySets(entries, { at } = {}) {
+export async function applySets(entries, { at, dryRun = false } = {}) {
   const L = await load();
   const keys = new Set(L.byKey.keys());
   const jsSet = new Set(L.jsDefs.map((d) => `${d.file}:${d.name}`));
@@ -188,11 +188,35 @@ export async function applySets(entries, { at } = {}) {
     staged.push([r.key, row]);
   }
   if (errors.length) return { ok: [], errors };
+  if (dryRun) return { ok: staged.map(([k]) => k), rows: staged.map(([, r]) => r), errors: [] };
   const files = new Set();
   for (const [k, row] of staged) { L.ledger.set(k, row); files.add(row.file); }
   writeLedgerFiles(L.ledger, files);
   invalidate();
-  return { ok: staged.map(([k]) => k), errors: [] };
+  return { ok: staged.map(([k]) => k), rows: staged.map(([, r]) => r), errors: [] };
+}
+
+/**
+ * Parse a D-entry `- **Ledger:**` bullet:
+ *   "set_corn ported; foo.c:bar partial js=mklev.js:bar+mklev.js:bar_core"
+ * → [{spec, status, js}] or {error}.
+ */
+export function parseLedgerBullet(text) {
+  const out = [];
+  for (const part of String(text || '').replace(/`/g, '').split(';').map((s) => s.trim()).filter(Boolean)) {
+    const toks = part.split(/\s+/);
+    const [spec, status, ...more] = toks;
+    if (!spec || !status) return { error: `Ledger bullet item "${part}" needs "<fn> <status>"` };
+    let js = null;
+    for (const t of more) {
+      const m = /^js=(.+)$/.exec(t);
+      if (!m) return { error: `Ledger bullet item "${part}": unexpected "${t}" (only js=file.js:sym+…)` };
+      js = m[1].split('+').map((s) => (s.startsWith('js/') ? s : `js/${s}`));
+    }
+    out.push({ spec, status: status.replace(/[.,]$/, ''), js });
+  }
+  if (!out.length) return { error: 'empty Ledger bullet' };
+  return out;
 }
 
 /* ---------------- queue block ---------------- */
@@ -201,6 +225,7 @@ function queueKnowledge(text) {
   const live = new Set();
   const parked = new Set();
   const block = [];
+  const blockLines = new Map();
   let sec = '';
   let inBlock = false;
   for (const line of text.split('\n')) {
@@ -208,13 +233,16 @@ function queueKnowledge(text) {
     if (line.includes(BLOCK_END)) { inBlock = false; continue; }
     if (/^## /.test(line)) { sec = /^## (Must-fix|Open)/.test(line) ? 'live' : /^## Parked/.test(line) ? 'parked' : ''; continue; }
     if (inBlock) {
-      if (/^- \[ \]/.test(line)) { const m = /`([\w.-]+\.c)`\s+`?([A-Za-z_]\w*)`?/.exec(line); if (m) block.push(`${m[1]}:${m[2]}`); }
+      if (/^- \[ \]/.test(line)) {
+        const m = /`([\w.-]+\.c)`\s+`?([A-Za-z_]\w*)`?/.exec(line);
+        if (m) { block.push(`${m[1]}:${m[2]}`); blockLines.set(`${m[1]}:${m[2]}`, line); }
+      }
       continue;
     }
     if (sec === 'live' && /^- \[ \]/.test(line)) for (const m of line.matchAll(pairRx)) live.add(m[2]);
     if (sec === 'parked' && /^- /.test(line)) for (const m of line.matchAll(pairRx)) parked.add(m[2]);
   }
-  return { live, parked, block };
+  return { live, parked, block, blockLines };
 }
 
 function rowLine(r, led, sha) {
@@ -238,7 +266,7 @@ function rowLine(r, led, sha) {
 export async function eligibleRows({ n = QUEUE_TARGET, minC = DEFAULT_MIN_C, partial = false, all = false, queueText = null, stable = false } = {}) {
   const L = await load();
   const text = queueText ?? (existsSync(QUEUE_PATH) ? readFileSync(QUEUE_PATH, 'utf8') : '');
-  const { live, parked, block } = queueKnowledge(text);
+  const { live, parked, block, blockLines } = queueKnowledge(text);
   const led = (r) => L.ledger.get(r.key) || { status: 'unknown' };
   const base = (r) => {
     if (r.cover === 'ok' || live.has(r.fn) || parked.has(r.fn)) return false;
@@ -264,7 +292,8 @@ export async function eligibleRows({ n = QUEUE_TARGET, minC = DEFAULT_MIN_C, par
   const ranked = L.rows.slice().sort((a, b) => b.score - a.score);
   if (!partial) for (const r of ranked) if (primary(r)) push(r);
   for (const r of ranked) if (partialOk(r)) push(r);
-  return out.map((r) => ({ r, line: rowLine(r, L.ledger.get(r.key), head()) }));
+  /* A kept row keeps its enqueue-time line (measured @sha) verbatim: no churn. */
+  return out.map((r) => ({ r, line: (stable && blockLines.get(r.key)) || rowLine(r, L.ledger.get(r.key), head()) }));
 }
 
 /** Regenerate the LOOP-QUEUE coverage block in place. Returns {changed, count} or {error}. */
@@ -299,20 +328,24 @@ export async function runCheck({ verbose = false } = {}) {
       if (serialize(rows) !== text) fails.push(`${name}: not canonical (node scripts/ledger.mjs fmt)`);
     }
   }
-  let lowRatio = [];
+  const lowRatio = [];
+  const noJs = [];
   for (const [k, l] of L.ledger) {
     const m = L.byKey.get(k);
     if (!m) { fails.push(`${k}: no such pinned-C definition`); continue; }
     if (!STATUSES.includes(l.status)) fails.push(`${k}: invalid status ${l.status}`);
     const seeded = String(l.at || '').startsWith('seed@');
     for (const j of l.js || []) if (!jsSet.has(j)) fails.push(`${k}: js ${j} does not exist`);
-    if (LIVE_STATUSES.has(l.status) && !(l.js || []).length) (seeded ? warns : fails).push(`${k}: ${l.status} without js location`);
+    if (LIVE_STATUSES.has(l.status) && !(l.js || []).length) {
+      if (seeded) noJs.push(k); else fails.push(`${k}: ${l.status} without js location`);
+    }
     for (const d of l.d || []) if (!dIds.has(d)) fails.push(`${k}: ${d} not in DIVERGENCE-INDEX.md`);
     if (l.c && l.c !== `${m.start}-${m.end}`) fails.push(`${k}: c ${l.c} ≠ pinned ${m.start}-${m.end} (node scripts/ledger.mjs sync)`);
     if ((l.status === 'ported' || l.status === 'parity') && m.cCode >= 8 && m.ratio < 0.3) lowRatio.push(`${k} ${m.jsCode}/${m.cCode}`);
   }
   const missing = [...L.byKey.keys()].filter((k) => !L.ledger.has(k));
   if (missing.length) fails.push(`${missing.length} C definition(s) without a ledger row, e.g. ${missing.slice(0, 3).join(', ')} (node scripts/ledger.mjs sync)`);
+  if (noJs.length) warns.push(`${noJs.length} seeded live row(s) without js location${verbose ? `: ${noJs.join(', ')}` : ` — e.g. ${noJs.slice(0, 3).join(', ')}`}`);
   if (lowRatio.length) warns.push(`${lowRatio.length} ported row(s) with code ratio < 0.3 (audit reading list)${verbose ? `: ${lowRatio.join('; ')}` : ` — e.g. ${lowRatio.slice(0, 5).join('; ')}`}`);
   return { fails, warns };
 }

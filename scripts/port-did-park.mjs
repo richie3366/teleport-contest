@@ -10,11 +10,16 @@
  * `--measure`: true when a `[measure]` Open row left the live list (its
  * deliverable is a C-side measurement + a writer row, no js/ — 2026-09-16
  * process take). Same exit convention.
+ *
+ * A stale retirement recorded as `ledger.mjs set <fn> ported --note "stale: …"`
+ * (queue row gone, docs/ledger row changed with a `stale` note) is a park,
+ * and a stale-only park when no non-STALE Parked line was added.
  */
 import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { parseLedgerText, readLedger } from './lib/ledger-io.mjs';
 
 export const QUEUE_REL = 'docs/LOOP-QUEUE.md';
 
@@ -83,6 +88,31 @@ export function didPark(beforeText, afterText) {
   });
 }
 
+/**
+ * Ledger-recorded stale retirements (2026-09-27): a live row left the queue
+ * and its docs/ledger row changed to a note starting `stale`. `ledgerBefore`
+ * / `ledgerAfter`: Map `${file}:${fn}` -> row. Returns the retired keys.
+ */
+export function ledgerStaleKeys(beforeText, afterText, ledgerBefore, ledgerAfter) {
+  const afterOpen = new Set(liveOpenLines(afterText));
+  const out = [];
+  for (const row of liveOpenLines(beforeText)) {
+    if (afterOpen.has(row)) continue;
+    const k = openRowKey(row);
+    if (!k) continue;
+    const key = `${k.file}:${k.fn}`;
+    const a = ledgerAfter.get(key);
+    const b = ledgerBefore.get(key);
+    if (a && /^stale\b/i.test(a.note || '') && JSON.stringify(a) !== JSON.stringify(b)) out.push(key);
+  }
+  return out;
+}
+
+/** New Parked lines are all STALE (or there are none). */
+function parksAllStale(beforeText, afterText) {
+  return newParkedLines(beforeText, afterText).every((l) => /\bSTALE\b/i.test(l));
+}
+
 /** A `[measure]` row was popped (left the live list) — docs-only by design. */
 export function didMeasure(beforeText, afterText) {
   const afterOpen = new Set(liveOpenLines(afterText));
@@ -101,6 +131,20 @@ function gitShowQueue(rev) {
   }
 }
 
+/** Ledger rows at `rev` for the C files named by the live rows of `queueText`. */
+function gitShowLedger(rev, queueText) {
+  const out = new Map();
+  const files = new Set(liveOpenLines(queueText).map(openRowKey).filter(Boolean).map((k) => k.file));
+  for (const f of files) {
+    let text = '';
+    try {
+      text = execFileSync('git', ['-C', root, 'show', `${rev}:docs/ledger/${f}.jsonl`], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
+    } catch { continue; }
+    for (const row of parseLedgerText(text, f)) out.set(`${f}:${row.fn}`, { ...row, file: f });
+  }
+  return out;
+}
+
 function main(argv) {
   const args = argv.slice(2);
   const measure = args.includes('--measure');
@@ -115,9 +159,10 @@ function main(argv) {
   const before = gitShowQueue(beforeRev);
   if (before == null || !existsSync(queuePath)) process.exit(1);
   const after = readFileSync(queuePath, 'utf8');
+  const stale = measure ? [] : ledgerStaleKeys(before, after, gitShowLedger(beforeRev, before), readLedger());
   const hit = measure ? didMeasure(before, after)
-    : staleOnly ? didStaleOnlyPark(before, after)
-      : didPark(before, after);
+    : staleOnly ? (stale.length ? parksAllStale(before, after) : didStaleOnlyPark(before, after))
+      : didPark(before, after) || stale.length > 0;
   process.exit(hit ? 0 : 1);
 }
 

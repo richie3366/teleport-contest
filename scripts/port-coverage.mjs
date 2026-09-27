@@ -1,298 +1,46 @@
 #!/usr/bin/env node
 /**
- * Port-coverage ranker: which pinned-C functions are missing or thin in
- * `js/`, ranked by how likely a hidden session is to reach them and how
- * loudly they show up (screen output and RNG draws).
+ * Compatibility shim over scripts/ledger.mjs (2026-09-27 process take).
+ * The measurement lives in scripts/lib/coverage.mjs; declared status in
+ * docs/ledger/. Old instructions keep working:
  *
- *   node scripts/port-coverage.mjs                # top 40 table
+ *   node scripts/port-coverage.mjs                # top table (ledger summary --top)
  *   node scripts/port-coverage.mjs --limit 30 --md
- *   node scripts/port-coverage.mjs --name eatfood # explain one function
- *   node scripts/port-coverage.mjs --rows 12      # LOOP-QUEUE Open rows (breadth phase)
- *       [--min-c-lines 40] [--exclude a,b]        # skips live queue rows, by-design
- *                                                 # names, one-liners; flags split ports
+ *   node scripts/port-coverage.mjs --name eatfood # measured + declared, JSON
+ *   node scripts/port-coverage.mjs --rows 12      # coverage rows (ledger rows)
  *
- * Method (all static, deterministic, read-only):
- *  1. index every function defined in nethack-c/upstream/src/*.c
- *     (csym.mjs's rule: col-0 `name(` whose next non-blank line is `{`);
- *  2. index js/** exports and locals (sym.mjs's regexes) and measure each
- *     JS body by brace balance;
- *  3. build the C call graph from identifier occurrences inside bodies and
- *     BFS from the turn loop (moveloop/rhack/domove/movemon/docrt/mklev/…)
- *     so every function gets a hop distance = "how close to every turn";
- *  4. score = reach x call-site breadth x (screen + RNG loudness), then
- *     subtract what `js/` already covers (missing = 1.0, thin = partial).
+ * The LOOP-QUEUE **Open — coverage** block is generated: do not paste rows,
+ * run `node scripts/ledger.mjs rows --write` (finish-iteration does it).
  */
-import { readdirSync, readFileSync, existsSync } from 'node:fs';
-import { join, dirname, relative, basename } from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { execSync } from 'node:child_process';
-
-const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const cSrc = join(root, 'nethack-c/upstream/src');
-const jsDir = join(root, 'js');
-
-/* Files whose C has no scored JS analogue by design: windowport, save
-   file plumbing, lua bindings, build/util. Constitution Rule #2 keeps the
-   port off the filesystem, and frozen/ owns the terminal. */
-const SKIP_FILES = new Set([
-  'nhlua.c', 'nhlobj.c', 'nhlsel.c', 'lua_bind.c', 'dlb.c', 'sfstruct.c',
-  'windows.c', 'sounds_lib.c', 'symbols.c', 'drawing.c',
-]);
-/* Functions that exist only for the C runtime or wizard/debug paths. */
-const SKIP_FN = new Set([
-  'main', 'panic', 'impossible', 'nhassert_failed', 'nh_terminate',
-  'error', 'nh_abort', 'l_get_nhsym', 'dump_screen',
-]);
+import { load, eligibleRows } from './ledger.mjs';
 
 const argv = process.argv.slice(2);
-const arg = (k, d) => {
-  const i = argv.indexOf(k);
-  return i >= 0 && argv[i + 1] ? argv[i + 1] : d;
-};
-const LIMIT = parseInt(arg('--limit', '40'), 10);
-const AS_MD = argv.includes('--md');
-const ONE = arg('--name', null);
-const ROWS = argv.includes('--rows') ? parseInt(arg('--rows', '12'), 10) : 0;
-const MIN_C_LINES = parseInt(arg('--min-c-lines', '40'), 10);
-const EXCLUDE_CLI = new Set((arg('--exclude', '') || '').split(',').filter(Boolean));
+const arg = (k, d) => { const i = argv.indexOf(k); return i >= 0 && argv[i + 1] ? argv[i + 1] : d; };
 
-/* Not ported by design (Constitution §1.5 Rule #2 / §1.6, retired features,
-   frozen RNG wrappers, tty-only menus, fuzzer/debug builds). `--rows` never
-   emits these; the table still shows them so the exclusion stays visible. */
-const BY_DESIGN = new Set([
-  'getlev', 'savelev', 'dosave0', 'dorecover', 'restlevelfile', 'savestateinlock',
-  'savegamestate', 'restgamestate', 'getlev_core', 'save_dungeon', 'restore_dungeon',
-  'dump_everything', 'dump_plines', 'dump_redirect', 'dump_start_screendump',
-  'fuzzer_savelife', 'do_fuzzer_savelife',
-  'rn2', 'rnd', 'rn1', 'rne', 'rnz', 'rnl', 'rn2_on_display_rng',
-  'status_hilite_menu_add', 'status_hilite_menu_choose_behavior',
-  'status_hilite_menu_fld', 'status_hilites_viewall', 'parse_status_hl1',
-  'makelevel', /* split into makelevel + makelevel_ordinary (TOP30 note) */
-  'vision_recalc', /* full C-order port; line ratio lies (LOOP-QUEUE Stale) */
-]);
-
-/* ---------- 1. pinned C function index ---------- */
-const cFiles = readdirSync(cSrc).filter((f) => f.endsWith('.c'))
-  .filter((f) => !SKIP_FILES.has(f)).sort();
-const cFns = new Map(); // name -> {file, start, end, body, lines}
-const cText = new Map(); // file -> text
-for (const f of cFiles) {
-  const text = readFileSync(join(cSrc, f), 'utf8');
-  cText.set(f, text);
-  const lines = text.split('\n');
-  for (let i = 0; i < lines.length; i++) {
-    const m = /^([A-Za-z_][\w]*)\s*\(/.exec(lines[i]);
-    if (!m) continue;
-    let j = i;
-    while (j < lines.length && !lines[j].includes('{') && j - i < 8) j++;
-    if (j >= lines.length || !lines[j].trim().startsWith('{')) continue;
-    let end = j;
-    for (let k = j + 1; k < lines.length; k++) {
-      if (/^\}/.test(lines[k])) { end = k; break; }
-    }
-    const name = m[1];
-    if (SKIP_FN.has(name) || cFns.has(name)) continue;
-    cFns.set(name, {
-      name, file: f, start: i + 1, end: end + 1,
-      body: lines.slice(j, end + 1).join('\n'),
-      lines: end - j + 1,
-    });
-  }
-}
-
-/* ---------- 2. js/** symbol index + body size ---------- */
-const RX = [
-  /^export\s+(?:async\s+)?function\s+([A-Za-z_$][\w$]*)\s*\(/gm,
-  /^export\s+const\s+([A-Za-z_$][\w$]*)\s*=\s*(?:async\s+)?(?:function|\()/gm,
-  /^(?:async\s+)?function\s+([A-Za-z_$][\w$]*)\s*\(/gm,
-  /^(?:const|let)\s+([A-Za-z_$][\w$]*)\s*=\s*(?:async\s+)?(?:function|\()/gm,
-];
-function listJs(dir, acc = []) {
-  for (const e of readdirSync(dir, { withFileTypes: true })) {
-    const p = join(dir, e.name);
-    if (e.isDirectory()) listJs(p, acc);
-    else if (e.name.endsWith('.js')) acc.push(p);
-  }
-  return acc;
-}
-function bodyLines(text, idx) {
-  const open = text.indexOf('{', idx);
-  if (open < 0) return 0;
-  let depth = 0;
-  for (let i = open; i < text.length; i++) {
-    const c = text[i];
-    if (c === '{') depth++;
-    else if (c === '}') { depth--; if (!depth) return text.slice(open, i).split('\n').length; }
-  }
-  return 0;
-}
-const jsFns = new Map(); // name -> {files:Set, lines, exported}
-const jsAllText = [];
-for (const abs of listJs(jsDir)) {
-  if (abs.includes('/generated/')) continue;
-  const rel = relative(root, abs);
-  const text = readFileSync(abs, 'utf8');
-  jsAllText.push(text);
-  RX.forEach((rx, k) => {
-    rx.lastIndex = 0;
-    for (const m of text.matchAll(rx)) {
-      const name = m[1];
-      const len = bodyLines(text, m.index);
-      const cur = jsFns.get(name) || { files: new Set(), lines: 0, exported: false };
-      cur.files.add(rel);
-      cur.lines = Math.max(cur.lines, len);
-      if (k < 2) cur.exported = true;
-      jsFns.set(name, cur);
-    }
-  });
-}
-
-/* ---------- 3. C call graph + hop distance from the turn loop ---------- */
-const names = [...cFns.keys()];
-const callees = new Map();
-const callerCount = new Map();
-const callerFiles = new Map();
-for (const fn of cFns.values()) {
-  const set = new Set();
-  for (const m of fn.body.matchAll(/([A-Za-z_][\w]*)\s*\(/g)) {
-    const n = m[1];
-    if (n === fn.name || !cFns.has(n)) continue;
-    set.add(n);
-    callerCount.set(n, (callerCount.get(n) || 0) + 1);
-    if (!callerFiles.has(n)) callerFiles.set(n, new Set());
-    callerFiles.get(n).add(fn.file);
-  }
-  callees.set(fn.name, set);
-}
-const ROOTS = ['moveloop', 'rhack', 'domove', 'movemon', 'dochug', 'docrt',
-  'newsym', 'bot', 'mklev', 'nh_timeout', 'vision_recalc', 'do_look',
-  'dopickup', 'dofight', 'domonability', 'makelevel', 'dosearch', 'domoveloop'];
-const dist = new Map();
-let frontier = ROOTS.filter((r) => cFns.has(r));
-frontier.forEach((r) => dist.set(r, 0));
-for (let d = 1; d <= 6 && frontier.length; d++) {
-  const next = [];
-  for (const n of frontier) {
-    for (const c of callees.get(n) || []) {
-      if (!dist.has(c)) { dist.set(c, d); next.push(c); }
-    }
-  }
-  frontier = next;
-}
-
-/* ---------- 4. loudness + coverage + score ---------- */
-const RNG_RX = /\b(rn2|rnd|rn1|rne|rnz|rnl|d)\s*\(/g;
-const OUT_RX = /\b(pline|pline_mon|urgent_pline|You|You_hear|Your|You_feel|You_cant|Norep|verbalize|putstr|custompline|livelog_printf|The|Strcat)\s*\(/g;
-const MAP_RX = /\b(newsym|map_location|show_glyph|docrt|feel_location|tmp_at|display_nhwindow|update_inventory|disp\.|flush_screen)\b/g;
-
-const jsAll = jsAllText.join('\n');
-const rows = [];
-for (const fn of cFns.values()) {
-  const js = jsFns.get(fn.name);
-  const jsLines = js ? js.lines : 0;
-  const ratio = js ? jsLines / Math.max(fn.lines, 1) : 0;
-  let cover;
-  if (!js) cover = 'MISSING';
-  else if (ratio < 0.45) cover = 'THIN';
-  else if (ratio < 0.75) cover = 'PARTIAL';
-  else cover = 'ok';
-  if (cover === 'ok') continue;
-  if (fn.lines < 6) continue; // one-liners are not worth a queue row
-  const rng = (fn.body.match(RNG_RX) || []).length;
-  const out = (fn.body.match(OUT_RX) || []).length;
-  const map = (fn.body.match(MAP_RX) || []).length;
-  const calls = callerCount.get(fn.name) || 0;
-  const files = (callerFiles.get(fn.name) || new Set()).size;
-  const d = dist.has(fn.name) ? dist.get(fn.name) : 9;
-  const reach = 1 / (1 + d); // 1.0 in the turn loop, 0.11 unreachable
-  const breadth = Math.log2(1 + calls) + Math.log2(1 + files);
-  const loud = Math.log2(1 + rng * 2) + Math.log2(1 + out) + Math.log2(1 + map);
-  const mentions = jsAll.split(fn.name).length - 1;
-  /* Behaviour this function cannot perform at all: C callees that have no
-     symbol anywhere in js/ and are never even named in a js/ comment. */
-  const dead = [...(callees.get(fn.name) || [])].filter((c) => {
-    if (jsFns.has(c)) return false;
-    if (jsAll.includes(c)) return false;
-    const cf = cFns.get(c);
-    return cf && cf.lines >= 5;
-  });
-  let gap = cover === 'MISSING' ? 1 : cover === 'THIN' ? 0.7 : 0.4;
-  /* a split port (helpers under other names) shows up THIN but has no dead
-     callees — damp it; a function whose callees are absent is a real hole */
-  gap *= 1 + Math.min(dead.length, 8) / 4;
-  if (cover === 'MISSING' && mentions > 20) gap *= 0.55; // ported piecewise
-  const score = reach * (1 + breadth) * (1 + loud) * gap * Math.log2(4 + fn.lines);
-  rows.push({ ...fn, cover, jsLines, ratio, rng, out, map, calls, files, d, score,
-              mentions, dead,
-              jsFiles: js ? [...js.files].join(' ') : '' });
-}
-rows.sort((a, b) => b.score - a.score);
-
-if (ONE) {
-  const r = rows.find((x) => x.name === ONE) || null;
-  console.log(r ? JSON.stringify(r, null, 2) : `${ONE}: covered or not a src/*.c function`);
+const L = await load();
+const one = arg('--name', null);
+if (one) {
+  const keys = [...L.byKey.keys()].filter((k) => k.endsWith(`:${one}`));
+  if (!keys.length) { console.log(`${one}: not a pinned-C function`); process.exit(0); }
+  for (const k of keys) console.log(JSON.stringify({ ...L.byKey.get(k), declared: L.ledger.get(k) || null }, null, 2));
   process.exit(0);
 }
-
-/* ---------- --rows: LOOP-QUEUE Open rows for the breadth phase ----------
-   Evidence class `coverage` (LOOP-QUEUE.md header): the gap is measured
-   here, on the JS tree as it is now, not copied from a map/debt line.
-   Excluded: names already in a live `- [ ]` row (Must-fix/Open), BY_DESIGN,
-   `--exclude`, C bodies under --min-c-lines. A MISSING name cited > 20× in
-   js/ is flagged `split?` — the pop-time brief decides (3-call stale rule). */
-if (ROWS) {
-  const queuePath = join(root, 'docs/LOOP-QUEUE.md');
-  const live = new Set();
-  if (existsSync(queuePath)) {
-    let sec = '';
-    for (const line of readFileSync(queuePath, 'utf8').split('\n')) {
-      if (/^## (Must-fix|Open)/.test(line)) { sec = 'live'; continue; }
-      if (/^## /.test(line)) { sec = ''; continue; }
-      if (sec !== 'live' || !/^- \[ \]/.test(line)) continue;
-      for (const m of line.matchAll(/\b([a-z_][a-z0-9_]*)\b/g)) if (cFns.has(m[1])) live.add(m[1]);
-    }
-  }
-  const head = (() => {
-    try { return execSync('git rev-parse --short HEAD', { cwd: root, encoding: 'utf8' }).trim(); } catch { return 'HEAD'; }
-  })();
-  const now = new Date();
-  const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
-  const picked = [];
-  for (const r of rows) {
-    if (picked.length >= ROWS) break;
-    if (BY_DESIGN.has(r.name) || EXCLUDE_CLI.has(r.name) || live.has(r.name)) continue;
-    if (r.lines < MIN_C_LINES && !r.dead.length) continue;
-    picked.push(r);
-  }
-  for (const r of picked) {
-    const js = r.jsLines ? `${r.jsLines} L in ${r.jsFiles.split(' ')[0]}` : 'no symbol';
-    const dead = r.dead.length ? `; dead callees: ${r.dead.slice(0, 6).join(', ')}${r.dead.length > 6 ? ', …' : ''}` : '';
-    const split = r.cover === 'MISSING' && r.mentions > 20 ? `; split? cited ${r.mentions}× in js/ — brief first` : '';
-    console.log(
-      `- [ ] \`${r.file}\` ${r.name} — coverage ${r.cover} (C ${r.lines} L \`${r.file}:${r.start}–${r.end}\` / JS ${js}; `
-      + `hops ${r.d === 9 ? '—' : r.d}, callers ${r.calls}, RNG ${r.rng}, msg ${r.out}${dead}${split}). `
-      + `Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. `
-      + `Verify \`node scripts/verify.mjs --fn ${r.name}\` (reach regression must be 0). `
-      + `Measured \`port-coverage.mjs --name ${r.name}\` ${today} @ ${head}.`,
-    );
-  }
-  console.error(`${picked.length} row(s); ${live.size} live queue name(s) skipped; ${BY_DESIGN.size} by-design names; min C lines ${MIN_C_LINES}.`);
+if (argv.includes('--rows')) {
+  const n = parseInt(arg('--rows', '12'), 10) || 12;
+  const rows = await eligibleRows({ n, minC: parseInt(arg('--min-c-lines', '12'), 10) });
+  for (const x of rows) console.log(x.line);
+  console.error(`${rows.length} row(s). The Open — coverage block is generated: run \`node scripts/ledger.mjs rows --write\` instead of pasting.`);
   process.exit(0);
 }
-const top = rows.slice(0, LIMIT);
-if (AS_MD) {
-  console.log('| # | C function | C file:line | C ln | JS | hops | callers | RNG | msg | score |');
+const limit = parseInt(arg('--limit', '40'), 10);
+const rows = await eligibleRows({ n: limit, minC: 0 });
+if (argv.includes('--md')) {
+  console.log('| # | C function | C file:line | C code | JS | hops | callers | RNG | msg | score |');
   console.log('|--:|---|---|--:|---|--:|--:|--:|--:|--:|');
-  top.forEach((r, i) => console.log(
-    `| ${i + 1} | \`${r.name}\` | \`${r.file}:${r.start}\` | ${r.lines} | ${r.cover}${r.jsLines ? ` ${r.jsLines}L` : ''} | ${r.d === 9 ? '—' : r.d} | ${r.calls} | ${r.rng} | ${r.out} | ${r.score.toFixed(1)} |`));
+  rows.forEach(({ r }, i) => console.log(`| ${i + 1} | \`${r.fn}\` | \`${r.file}:${r.start}\` | ${r.cCode} | ${r.cover}${r.jsCode ? ` ${r.jsCode}L` : ''} | ${r.hops === 9 ? '—' : r.hops} | ${r.calls} | ${r.rng} | ${r.out} | ${r.score.toFixed(1)} |`));
 } else {
-  top.forEach((r, i) => console.log(
-    `${String(i + 1).padStart(3)}. ${r.name.padEnd(24)} ${r.cover.padEnd(8)}`
-    + ` c=${String(r.lines).padStart(4)} js=${String(r.jsLines).padStart(4)}`
-    + ` hop=${r.d === 9 ? '-' : r.d} calls=${String(r.calls).padStart(3)}`
-    + ` rng=${String(r.rng).padStart(3)} msg=${String(r.out).padStart(3)}`
-    + ` cite=${String(r.mentions).padStart(3)} dead=${String(r.dead.length).padStart(2)}`
-    + ` ${r.file}:${r.start}  ${r.score.toFixed(1)}`
-    + (r.dead.length ? `\n      missing callees: ${r.dead.slice(0, 8).join(', ')}` : '')));
+  rows.forEach(({ r }, i) => console.log(`${String(i + 1).padStart(3)}. ${r.fn.padEnd(24)} ${r.cover.padEnd(8)} c=${String(r.cCode).padStart(4)} js=${String(r.jsCode).padStart(4)}`
+    + ` hop=${r.hops === 9 ? '-' : r.hops} calls=${String(r.calls).padStart(3)} rng=${String(r.rng).padStart(3)} msg=${String(r.out).padStart(3)}`
+    + ` ${r.file}:${r.start}  ${r.score.toFixed(1)}${r.dead.length ? `\n      missing callees: ${r.dead.slice(0, 8).join(', ')}` : ''}`));
 }
-console.log(`\n${rows.length} missing/thin functions considered; ${cFns.size} C functions indexed.`);
+console.log(`\n${rows.length} open row(s) shown; ${L.rows.length} C functions ledgered (node scripts/ledger.mjs summary).`);

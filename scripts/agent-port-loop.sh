@@ -1003,7 +1003,9 @@ arm_empty_port_prompt() {
         echo "\`js/\` port work."
         ;;
       queue-empty)
-        echo "The queue is still empty after port. Refill Open rows that carry"
+        echo "The queue is still empty after port. Run \`node scripts/ledger.mjs"
+        echo "rows --write\` first (the coverage block is generated). Only if it"
+        echo "stays short, add Open rows that carry"
         echo "evidence (LOOP-QUEUE.md header: corpus owner not yet parked, a"
         echo "park's named writer, a [campaign] step, a [measure] row for the top"
         echo "parked corpus owner) before or alongside the next port cluster."
@@ -1740,9 +1742,10 @@ while true; do
     prompt_body+=$'If you archive this iter’s item, count the remainder **after** archive.\n'
     prompt_body+=$'Append **Open** rows that carry **evidence** (LOOP-QUEUE.md header) up to\n'
     prompt_body+="about ${LOOP_QUEUE_TARGET}"
-    prompt_body+=$': breadth phase — (1) `node scripts/port-coverage.mjs --rows N` and paste\n'
-    prompt_body+=$'its rows verbatim under **Open — coverage** (it measures the JS tree now and\n'
-    prompt_body+=$'skips live rows / by-design names); then, only if it prints none: (2)\n'
+    prompt_body+=$': breadth phase — (1) `node scripts/ledger.mjs rows --write` regenerates the\n'
+    prompt_body+=$'generated **Open — coverage** block from docs/ledger (never paste rows by\n'
+    prompt_body+=$'hand; a stale row is `ledger.mjs set <fn> ported --note "stale: …"`); then,\n'
+    prompt_body+=$'only if the block is still short: (2)\n'
     prompt_body+=$'`node scripts/hidden-proxy.mjs queue --limit 30` owners not tagged\n'
     prompt_body+=$'open/parked/archived; (3) the **writer** a Parked line names, with its\n'
     prompt_body+=$'session; (4) a C arm you verified absent from the JS body in a `brief.mjs`\n'
@@ -2093,7 +2096,7 @@ while true; do
     if (( agent_pushed )); then
       warn_regression "queue still empty after port (map refill failed) AND already pushed"
     else
-      warn_regression "queue still empty after port — refill Open with \`port-coverage.mjs --rows\` (min ${LOOP_QUEUE_MIN})"
+      warn_regression "queue still empty after port — regenerate Open with \`ledger.mjs rows --write\` (min ${LOOP_QUEUE_MIN})"
     fi
     arm_empty_port_prompt "$iter" "queue-empty"
   fi

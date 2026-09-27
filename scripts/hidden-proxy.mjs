@@ -36,7 +36,7 @@
  *   node scripts/hidden-proxy.mjs status
  *
  * 2026-09-18 breadth phase (Constitution §10.17): the picker is
- * `port-coverage.mjs --rows`; this corpus is a regression fortress guarded
+ * `ledger.mjs rows` (generated coverage block); this corpus is a regression fortress guarded
  * by the REACH check in `verify`. `queue`/`scenario-gen` are phase 2.
  */
 import { spawn, spawnSync } from 'node:child_process';
@@ -46,6 +46,7 @@ import {
 } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { readLedger } from './lib/ledger-io.mjs';
 
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(SCRIPT_DIR, '..');
@@ -329,7 +330,8 @@ function printStatus(rows) {
 function cmdStatus() { printStatus(loadScores().rows); }
 
 /* Where LOOP-QUEUE already knows an owner: live Open/Must-fix row, Parked
-   index line (with its class word), or an archived DONE row. Refill must
+   index line (with its class word), an archived DONE row, or a ledger row
+   declared ported/split/parity/by-design. Refill must
    not re-enqueue any of these — a parked owner's *writer* row is the only
    legal follow-up (LOOP-QUEUE.md header, 2026-09-16). */
 function queueKnowledge() {
@@ -363,6 +365,13 @@ function queueKnowledge() {
             const d = (/\*\*Addressed:\*\*\s*(D-\d+)/.exec(line) || [])[1];
             for (const fn of fnsOf(line)) if (!known.has(fn)) known.set(fn, `archived${d ? ' ' + d : ''}`);
         }
+    }
+    /* docs/ledger (2026-09-27): shipped / stale-retired / by-design functions
+       no longer leave DONE rows or Parked Stale lines. */
+    for (const row of readLedger().values()) {
+        if (known.has(row.fn)) continue;
+        if (['ported', 'parity', 'split'].includes(row.status)) known.set(row.fn, `ledger: ${row.status}${row.d && row.d.length ? ' ' + row.d[0] : ''}`);
+        else if (row.status === 'by-design' || row.status === 'frozen') known.set(row.fn, `ledger: ${row.status}`);
     }
     return known;
 }

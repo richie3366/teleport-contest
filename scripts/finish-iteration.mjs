@@ -11,6 +11,10 @@
  *
  * Generates / updates (never invents a D-id; refuses if the top entry's id
  * is already in the index AND nothing else changed):
+ *   docs/ledger/*.jsonl        rows named by the `- **Ledger:**` bullet
+ *                              (required when js/ changed; fail-closed)
+ *   docs/LOOP-QUEUE.md         the generated Open — coverage block
+ *   docs/CURRENT.md            the `ledger` summary line between markers
  *   docs/DIVERGENCE-INDEX.md   one row for D-NNNN (if missing)
  *   docs/AGENT-LOOP-JOURNAL.md one crumb at the top (if missing)
  *   docs/CURRENT.md            the `recent` block between markers,
@@ -31,6 +35,8 @@ import { spawnSync } from 'node:child_process';
 import { existsSync, readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { applySets, parseLedgerBullet, writeQueueBlock, summaryLine, runCheck } from './ledger.mjs';
+import { firstSentence, namesNoOmission } from './lib/ledger-seed.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
@@ -93,10 +99,33 @@ const bullet = (name) => {
   return x ? x[1].replace(/\s*\n\s*/g, ' ').trim() : '';
 };
 const S = { status: bullet('Status'), symptom: bullet('Symptom'), c: bullet('C locus'), fix: bullet('Fix'),
-  js: bullet('JS'), verify: bullet('Verify'), named: bullet('Named omissions'), next: bullet('Next') };
+  js: bullet('JS'), verify: bullet('Verify'), named: bullet('Named omissions'), ledger: bullet('Ledger'), next: bullet('Next') };
 const first = (t, n = 1) => t.split(/(?<=[.!?])\s+(?=[A-Z`*])/).slice(0, n).join(' ');
 const statusWord = /parked|deferred/i.test(S.status) ? 'parked' : /open|todo/i.test(S.status) ? 'open' : 'fixed';
 console.log(`finish ${id} — ${title}`);
+
+/* ---------- 1b. ledger rows from the `Ledger:` bullet (fail-closed, before any stamp) ---------- */
+{
+  const jsChanged = statusPaths().some((p) => p.startsWith('js/'));
+  const cfn = (/`[^`]*?([\w.-]+\.c):\d+[–-]\d+`\s+`([A-Za-z_]\w*)`/.exec(S.c) || [])[2]
+    || (/`([A-Za-z_]\w*)`/.exec(S.c) || [])[1] || '<fn>';
+  if (!S.ledger) {
+    if (jsChanged) {
+      console.error(`js/ changed but the ${id} entry has no ledger bullet. Add, before **Next:**:\n`
+        + `- **Ledger:** ${cfn} ported\n(partial when Named omissions names missing C; split with js=file.js:a+file.js:b; several: "a ported; b partial")`);
+      process.exit(1);
+    }
+    console.log('  no Ledger bullet (docs-only entry)');
+  } else {
+    const parsed = parseLedgerBullet(S.ledger);
+    if (parsed.error) { console.error(`${id}: ${parsed.error}`); process.exit(1); }
+    const omit = namesNoOmission(S.named) ? '' : firstSentence(S.named);
+    const entries = parsed.map((e) => ({ ...e, d: [id], omit: e.status === 'partial' ? omit : '' }));
+    const res = await applySets(entries, { dryRun: DRY });
+    if (res.errors.length) { for (const e of res.errors) console.error(`ledger: ${e}`); process.exit(1); }
+    console.log(`  ledger: ${res.rows.map((r) => `${r.file}:${r.fn} ${r.status}`).join(', ')}${DRY ? ' (dry-run)' : ''}`);
+  }
+}
 
 /* ---------- 2. DIVERGENCE-INDEX row ---------- */
 {
@@ -210,6 +239,28 @@ console.log(`finish ${id} — ${title}`);
   }
   if (touched) { write(qp, rows.join('\n')); console.log('  queue row checked off'); }
   else console.log('  no unchecked queue row names this D-id (mark it `- [x]` yourself if one should)');
+}
+
+/* ---------- 6b. generated coverage block, CURRENT ledger line, ledger check ---------- */
+{
+  const q = await writeQueueBlock({ dryRun: DRY });
+  console.log(q.error ? `  coverage block: ${q.error}` : `  coverage block: ${q.count} row(s)${q.changed ? ' (rewritten)' : ''}`);
+  const cp = 'docs/CURRENT.md';
+  const s = read(cp);
+  const B = '<!-- ledger:begin -->', E = '<!-- ledger:end -->';
+  if (s.includes(B) && s.includes(E)) {
+    const next = `${s.slice(0, s.indexOf(B) + B.length)}\n${await summaryLine()}\n${s.slice(s.indexOf(E))}`;
+    if (next !== s) write(cp, next);
+    console.log('  CURRENT ledger line updated');
+  }
+  const chk = await runCheck();
+  for (const w of chk.warns) console.log(`  ledger warn: ${w.slice(0, 200)}`);
+  if (chk.fails.length) {
+    for (const f of chk.fails.slice(0, 20)) console.error(`  ledger FAIL: ${f}`);
+    console.error('ledger check failed — fix the rows (node scripts/ledger.mjs check) and re-run');
+    process.exit(1);
+  }
+  console.log('  ledger check ok');
 }
 
 /* ---------- 7. backfill missing short hashes ---------- */
