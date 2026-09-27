@@ -209,7 +209,7 @@ function deserMon(raw) {
     return mtmp;
 }
 
-function jsonClone(v, fallback) {
+export function jsonClone(v, fallback) {
     if (v == null) return fallback;
     try {
         return JSON.parse(JSON.stringify(v, (_k, val) =>

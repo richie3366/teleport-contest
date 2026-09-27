@@ -70,6 +70,7 @@ import {
 import { yn_function, paranoid_ynq, y_n } from './getline.js';
 import { vision_recalc, vision_reset, recalc_block_point, cansee, couldsee } from './vision.js';
 import { clear_regions, in_out_region, rest_regions } from './region.js';
+import { jsonClone } from './lev_json.js';
 import {
     stairway_at,
     stairway_find_from,
@@ -1727,8 +1728,10 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
                 stairs: game.stairs,
                 head_engr: game.head_engr,
                 track: trackSnap,
-                // C savelev → save_regions; rest_regions on getlev
-                regions: game.regions || [],
+                // C savelev → save_regions; rest_regions on getlev.
+                // Snapshot like C's Sfo writes: the release_data arm
+                // (:792-794) frees the live objects right after.
+                regions: jsonClone(game.regions || [], []),
                 updest: snapDest(game.updest),
                 dndest: snapDest(game.dndest),
                 lastseentyp: snapLastseen(game.lastseentyp),

@@ -6,10 +6,10 @@
 {"fn":"remove_mon_from_reg","c":"192-202","status":"unknown"}
 {"fn":"mon_in_region","c":"210-218","status":"unknown"}
 {"fn":"clone_region","c":"227-254","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
-{"fn":"free_region","c":"263-276","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"free_region","c":"263-276","status":"ported","js":["js/region.js:free_region"],"d":["D-2998"],"at":"2026-09-27@2bf11e0a4","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"add_region","c":"284-338","status":"unknown","d":["D-1576"],"at":"seed@a30a7de84"}
 {"fn":"remove_region","c":"344-386","status":"unknown"}
-{"fn":"clear_regions","c":"394-405","status":"unknown"}
+{"fn":"clear_regions","c":"394-405","status":"ported","js":["js/region.js:clear_regions"],"d":["D-2998"],"at":"2026-09-27@2bf11e0a4"}
 {"fn":"run_regions","c":"414-474","status":"unknown","d":["D-1169"],"at":"seed@a30a7de84"}
 {"fn":"in_out_region","c":"480-527","status":"unknown","d":["D-1143"],"at":"seed@a30a7de84"}
 {"fn":"m_in_out_region","c":"533-576","status":"unknown"}
