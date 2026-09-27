@@ -23,10 +23,10 @@ the corpus fortress from `hidden-proxy.mjs score` (PASS→FAIL = Must-fix
 row naming the SHA). Do not invent suite totals from one focused session.
 
 Score last measured: **2026-09-27** — full `sessions` on the working tree
-(audit **1919–1927**, commit `a974add93`, measured 2026-09-27T13:02Z).
+(audit **1928–1936**, commit `8d2439c0f`, measured 2026-09-27T15:40Z).
 Fortress **44/44** (no throws).
 Scr **11,405**/11,405, RNG **792,838**/792,838, speed
-`264+1.59/turn` (R² 0.761).
+`260+1.59/turn` (R² 0.766).
 
 ## Score
 
@@ -36,19 +36,19 @@ Scr **11,405**/11,405, RNG **792,838**/792,838, speed
 | Sessions passing (public) | **44 / 44** |
 | Screens matched | **11,405 / 11,405** |
 | Positional RNG calls matched | **792,838 / 792,838** |
-| Speed label | `264+1.59/turn` (R² 0.761) |
+| Speed label | `260+1.59/turn` (R² 0.766) |
 | Role-init throws | **0 / 44** |
 
 **Held-out is the objective** (`node scripts/leaderboard.mjs`; refresh on
 every audit). Rank 4, 2nd agentic; best agentic fork 35/44, RNG 98.5 %,
 screens 93.2 %. Held-out still 12/44 (6,442 / 11,265 pts, RNG 31.5 %,
-rngSteps 85.3 %, screens 57.2 %; board 2026-09-27T07:27:21Z, last scored
-2026-09-27T07:04:33Z).
+rngSteps 85.3 %, screens 57.2 %; board 2026-09-27T13:26:37Z, last scored
+2026-09-27T13:02:34Z).
 **Corpus fortress:** `.cache/hidden/sessions` is still absent, so the
 **614 / 940** figure was not re-measured. `hidden-proxy score --jobs 8`
-on the 12 private sessions that are present (2026-09-27, `a974add93`): 12/12 PASS, RNG 75,151/75,151,
+on the 12 private sessions that are present (2026-09-27, `8d2439c0f`): 12/12 PASS, RNG 75,151/75,151,
 screens 653/653, 0 blocking owners. No PASS→FAIL row.
-Reviews 1225–1927 (index; no row 1618): 621 ACCEPT, 22 WITH-DEBT, 59 QUALITY-RISK (audit 1919–1927: 9 ACCEPT).
+Reviews 1225–1936 (index; no row 1618): 628 ACCEPT, 22 WITH-DEBT, 61 QUALITY-RISK (audit 1928–1936: 7 ACCEPT, 2 QUALITY-RISK).
 Live debts: 1730 `wizcustom_glyphids` empty `wizcustom_callback` site (glyphmap-blocked, map-named); 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending — review-debt, unqueued (detail in the review files).
 Audit iters: `hidden-proxy.mjs score --jobs 8` (≈200 s) + `leaderboard.mjs`.
 
@@ -115,7 +115,7 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `cmd.c` `cmdq_add_ec` — coverage PARTIAL (C 11 code L `cmd.c:254–270` / JS 7 code L in js/cmd.js; hops 1, callers 16, RNG 0, msg 0). `which_armor` and `get_obj_location` bodies already match C (stale). Verify `node scripts/verify.mjs --fn cmdq_add_ec`.
+**Next cluster:** `cmd.c` `ext_func_tab_from_func` — missing arm: add `doloot` → `"loot"` and `dotip` → `"tip"` to `FUNCT_TXT` (`cmd.c:1762`, `:1905`; `js/cmd.js:2415–2416`, `js/iactions.js:204`). Source: reviews/loop-unattended/1936-8d2439c0f-cmdq-add-ec.md.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
 **Keep D-0845…D-2977 (index).**
 <!-- recent:begin -->

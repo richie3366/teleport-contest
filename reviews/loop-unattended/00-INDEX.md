@@ -1937,3 +1937,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1925-b43d2c68f-auto-describe.md](./1925-b43d2c68f-auto-describe.md) | `b43d2c68f` | D-2966 auto_describe | **ACCEPT** |
 | [1926-06237de26-mungspaces.md](./1926-06237de26-mungspaces.md) | `06237de26` | D-2967 mungspaces | **ACCEPT** |
 | [1927-a974add93-you-feel.md](./1927-a974add93-you-feel.md) | `a974add93` | D-2968 You_feel | **ACCEPT** |
+| [1928-a5772c318-trapeffect-dart-trap.md](./1928-a5772c318-trapeffect-dart-trap.md) | `a5772c318` | D-2969 trapeffect_dart_trap | **ACCEPT** |
+| [1929-5398b19c2-show-direction-keys.md](./1929-5398b19c2-show-direction-keys.md) | `5398b19c2` | D-2970 show_direction_keys | **ACCEPT** |
+| [1930-45ea89017-background-enlightenment.md](./1930-45ea89017-background-enlightenment.md) | `45ea89017` | D-2971 background_enlightenment | **ACCEPT** |
+| [1931-1c7c62258-parse.md](./1931-1c7c62258-parse.md) | `1c7c62258` | D-2972 parse | **ACCEPT** |
+| [1932-b170be897-store-version.md](./1932-b170be897-store-version.md) | `b170be897` | D-2973 store_version | **ACCEPT** |
+| [1933-3b405b65a-look-at-object.md](./1933-3b405b65a-look-at-object.md) | `3b405b65a` | D-2974 look_at_object | **ACCEPT** |
+| [1934-b3da2ae0e-wiz-show-stats.md](./1934-b3da2ae0e-wiz-show-stats.md) | `b3da2ae0e` | D-2975 wiz_show_stats | **ACCEPT** |
+| [1935-25beec7af-cmdq-add-key.md](./1935-25beec7af-cmdq-add-key.md) | `25beec7af` | D-2976 cmdq_add_key | **QUALITY-RISK** |
+| [1936-8d2439c0f-cmdq-add-ec.md](./1936-8d2439c0f-cmdq-add-ec.md) | `8d2439c0f` | D-2977 cmdq_add_ec | **QUALITY-RISK** |
