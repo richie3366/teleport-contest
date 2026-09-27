@@ -10,7 +10,7 @@
 {"fn":"rank","c":"361-364","status":"unknown"}
 {"fn":"title_to_mon","c":"367-399","status":"unknown"}
 {"fn":"max_rank_sz","c":"402-415","status":"unknown"}
-{"fn":"botl_score","c":"419-436","status":"unknown"}
+{"fn":"botl_score","c":"419-436","status":"ported","js":["js/botl.js:botl_score"],"d":["D-2984"],"at":"2026-09-27@8b946a308"}
 {"fn":"describe_level","c":"441-476","status":"unknown"}
 {"fn":"weapon_status","c":"481-555","status":"unknown"}
 {"fn":"armor_status","c":"559-615","status":"unknown"}

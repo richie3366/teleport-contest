@@ -8,7 +8,7 @@
 // shieldeff (D-1087; sparkle opt_out default On; sit rndcurse caller).
 
 import { game } from './gstate.js';
-import { bot_via_windowport } from './botl.js';
+import { bot_via_windowport, SCORE_ON_BOTL, botl_score } from './botl.js';
 import { rank_of } from './roles.js';
 import { cansee, couldsee, vision_recalc, vision_off_newsym_gbuf } from './vision.js';
 import { objects_at, sobj_at } from './mkobj.js';
@@ -5870,11 +5870,16 @@ export function do_statusline1() {
         : 'St:? Dx:? Co:? In:? Wi:? Ch:?';
     const align = u.ualign?.type === 0 ? 'Neutral'
         : u.ualign?.type > 0 ? 'Lawful' : 'Chaotic';
+    // C botl.c:93–96. SCORE_ON_BOTL is off (config.h:627), so this build
+    // does not append " S:%ld". The on-arm is botl_score().
+    let scoreSuffix = '';
+    if (SCORE_ON_BOTL && game.flags?.showscore)
+        scoreSuffix = ` S:${botl_score()}`;
     // C bot_via_windowport BL_TITLE "%-30s" + " St:%s" → St: at col 31.
     // Contest capture compresses the pad to CSI CUF when gap > 4.
     const gap = Math.max(1, 31 - title.length);
-    if (gap > 4) return `${title}\x1b[${gap}C${stats} ${align}`;
-    return `${title}${' '.repeat(gap)}${stats} ${align}`;
+    if (gap > 4) return `${title}\x1b[${gap}C${stats} ${align}${scoreSuffix}`;
+    return `${title}${' '.repeat(gap)}${stats} ${align}${scoreSuffix}`;
 }
 
 function _statusLine1() {

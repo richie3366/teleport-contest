@@ -114,8 +114,8 @@ const PM_VLAD = monsterNames.indexOf('PM_VLAD_THE_IMPALER');
 const MS_LEADER = 36;
 const MS_NEMESIS = 37;
 
-/** C ref: integer.h nowrap_add — saturate at LONG_MAX (JS Number analogue). */
-function nowrap_add(a, b) {
+/** C ref: integer.h:129 nowrap_add — saturate at LONG_MAX (JS Number analogue). */
+export function nowrap_add(a, b) {
     const LONG_MAX = Number.MAX_SAFE_INTEGER;
     const aa = Number(a) || 0;
     const bb = Number(b) || 0;

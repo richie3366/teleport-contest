@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2984 `botl_score` estimates score from gold, depth, and `u.urexp`
+
+**C locus:** `nethack-c/upstream/src/botl.c:419–436` `botl_score`. `deepest_lev_reached(FALSE)` is cast to `long`. Carried coin is `money_cnt(gi.invent)` (first `COIN_CLASS` stack) plus `hidden_gold(FALSE)` (known containers only). Starting gold is subtracted and a deficit becomes `0`. The depth bonus is `50 * (deepest - 1)`, plus `10000` above 30 or `1000 * (deepest - 20)` above 20. `nowrap_add` (`integer.h:129`) adds that to `u.urexp` and saturates at `LONG_MAX`. This is not the death adjustment in `end.c` (that one uses `hidden_gold(TRUE)` and a tithe).
+**JS:** `js/botl.js` `botl_score` `:2376`. Depth `:2379`. Gold `:2381–2384`. Depth bonus `:2386–2389`. `nowrap_add` `:2392`. `SCORE_ON_BOTL` `:2365`. `nowrap_add` export `js/end.js:118`.
+**Change:** One exported `botl_score` keeps that C order. `deepest_lev_reached` is `hacklib.js`, `money_cnt` is `shk.js` (not the vault sum clone), `hidden_gold` is `vault.js` (`imports.mjs --can` SAFE, hoisted), and `nowrap_add` is the existing `end.js` helper, now exported. `gi.invent` is `game.invent`.
+**Verify:** `node scripts/verify.mjs --fn botl_score` → PASS syntax (4 changed js file(s): js/botl.js js/display.js js/end.js js/insight.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+**Named:** No arm of `botl_score` is omitted. `nowrap_add` saturates at `Number.MAX_SAFE_INTEGER` (the same analogue as `end.js`); a total between 2^53 and 2^63−1 is not an exact 64-bit `LONG_MAX`.
+**Next:** `options.c` `show_menu_controls` (next Open — coverage row).
 ## 2026-09-27 — D-2983 `rnd_offensive_item` calls `which_armor` and `hard_helmet`
 
 **C locus:** `nethack-c/upstream/src/muse.c:2035–2081` `rnd_offensive_item`. Animals, `AT_EXPL`, mindless, `S_GHOST`, and `S_KOP` return 0 with no RNG. Difficulty is `mons[monsndx(pm)].difficulty` (`monsndx` is `pm->pmidx`). Above 7, `!rn2(35)` returns `WAN_DEATH`. The switch is `rn2(9 - (difficulty < 4) + 4 * (difficulty > 6))`. Case 0 returns `SCR_EARTH` for `hard_helmet(which_armor(mtmp, W_ARMH))` or amorphous / wall-walker / noncorporeal / unsolid, else `FALLTHROUGH` to `WAN_STRIKING`. Cases 2–12 are the potion and wand returns. The trailing `return 0` is `/*NOTREACHED*/`.

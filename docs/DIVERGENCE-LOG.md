@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-2984 — `botl_score` estimates score from gold, depth, and `u.urexp`
+
+- **Status:** fixed (coverage MISSING; hidden-proxy verify reports no corpus session blocked). C `botl_score` is 10 code lines, inside `#ifdef SCORE_ON_BOTL`.
+- **Symptom:** There was no `botl_score`. The status score field stayed `0`, the tty status line never appended ` S:%ld`, and enlightenment never disclosed an approximate score. That matches this build: `config.h:627` leaves `#define SCORE_ON_BOTL` commented out, and `linux.500` does not pass `-DSCORE_ON_BOTL`.
+- **C locus:** `nethack-c/upstream/src/botl.c:419–436` `botl_score`. `deepest_lev_reached(FALSE)` is cast to `long`. Carried coin is `money_cnt(gi.invent)` (first `COIN_CLASS` stack) plus `hidden_gold(FALSE)` (known containers only). Starting gold is subtracted and a deficit becomes `0`. The depth bonus is `50 * (deepest - 1)`, plus `10000` above 30 or `1000 * (deepest - 20)` above 20. `nowrap_add` (`integer.h:129`) adds that to `u.urexp` and saturates at `LONG_MAX`. This is not the death adjustment in `end.c` (that one uses `hidden_gold(TRUE)` and a tithe).
+- **JS was:** No symbol. `bot_via_windowport` stored `0` in `BL_SCORE`. `do_statusline1` stopped after alignment. `background_enlightenment` named the showscore block as compiled out and did not call it.
+- **Fix:** One exported `botl_score` keeps that C order. `deepest_lev_reached` is `hacklib.js`, `money_cnt` is `shk.js` (not the vault sum clone), `hidden_gold` is `vault.js` (`imports.mjs --can` SAFE, hoisted), and `nowrap_add` is the existing `end.js` helper, now exported. `gi.invent` is `game.invent`. `u.urexp` is the score total, not `u.uexp`. `SCORE_ON_BOTL` is `false`, so the three call sites keep the off arm and do not invoke the function in this build.
+- **JS:** `js/botl.js` `botl_score` `:2376`. Depth `:2379`. Gold `:2381–2384`. Depth bonus `:2386–2389`. `nowrap_add` `:2392`. `SCORE_ON_BOTL` `:2365`. `nowrap_add` export `js/end.js:118`.
+- **Callers:** `botl.c:95` `do_statusline1` → `js/display.js:5876` (` S:%ld` only when `SCORE_ON_BOTL && showscore`). `botl.c:1032` `bot_via_windowport` → `js/botl.js:2457` (else `0`, the compiled off arm). `insight.c:717` `background_enlightenment` → `js/insight.js:474`. `extern.h:275` is the prototype under the same `#ifdef`. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn botl_score` → PASS syntax (4 changed js file(s): js/botl.js js/display.js js/end.js js/insight.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+- **Named omissions:** No arm of `botl_score` is omitted. `nowrap_add` saturates at `Number.MAX_SAFE_INTEGER` (the same analogue as `end.js`); a total between 2^53 and 2^63−1 is not an exact 64-bit `LONG_MAX`. The three call sites stay on the `#ifdef SCORE_ON_BOTL` off arm (`config.h:627` commented out).
+- **Ledger:** botl_score ported
+- **Next:** `options.c` `show_menu_controls` (next Open — coverage row).
+
 ## D-2983 — `rnd_offensive_item` calls `which_armor` and `hard_helmet`
 
 - **Status:** fixed (coverage PARTIAL; hidden-proxy verify reports no corpus session blocked). C `rnd_offensive_item` is 38 code lines. Both callers were already the C calls.

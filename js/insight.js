@@ -95,6 +95,7 @@ import { upstart, ordin, strncmpi, depth, lowc } from './hacklib.js';
 import { align_str, align_gname, u_gname, rank_of, rank_to_xlev, genders } from './roles.js';
 import { x_monnam, a_monnam, pmname } from './do_name.js';
 import { newuexp } from './exper.js';
+import { SCORE_ON_BOTL, botl_score } from './botl.js';
 import { find_mac } from './mhitm.js';
 import { digests, enfolds } from './mhitu.js';
 import { sticks } from './engrave.js';
@@ -468,8 +469,12 @@ export function background_enlightenment(unused_mode, final) {
         }
         youHave(xp);
     }
-    // SCORE_ON_BOTL is commented out in config.h, so the showscore block
-    // (`:711–719`, botl_score) is not in this build.
+    // C `:713–720`. SCORE_ON_BOTL is off (config.h:627), so this build
+    // does not disclose the approximate score. The on-arm is botl_score().
+    if (SCORE_ON_BOTL && game.flags?.showscore) {
+        const buf = `${botl_score()}${!final ? '' : ' before end-of-game adjustments'}`;
+        out(enl_msg(final, 'Your score ', 'is ', 'was ', buf, ''));
+    }
 
     return lines;
 }
