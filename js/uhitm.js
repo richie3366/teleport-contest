@@ -3298,7 +3298,7 @@ export async function passive(mon, weapon, mhitb, maliveb, aatyp, wep_was_destro
         case AD_COLD:
             if (monnear(mon, u.ux, u.uy)) {
                 if (Cold_resistance) {
-                    await pline('You feel a mild chill.');
+                    await You_feel('a mild chill.');
                     // C uhitm.c:6072 — resist arm returns before mdamageu.
                     await ugolemeffects(AD_COLD, tmp);
                     break;
@@ -3324,7 +3324,7 @@ export async function passive(mon, weapon, mhitb, maliveb, aatyp, wep_was_destro
         case AD_FIRE:
             if (monnear(mon, u.ux, u.uy)) {
                 if (Fire_resistance) {
-                    await pline('You feel mildly warm.');
+                    await You_feel('mildly warm.');
                     // C uhitm.c:6095
                     await ugolemeffects(AD_FIRE, tmp);
                     break;
@@ -3336,7 +3336,7 @@ export async function passive(mon, weapon, mhitb, maliveb, aatyp, wep_was_destro
             break;
         case AD_ELEC:
             if (Shock_resistance) {
-                await pline('You feel a mild tingle.');
+                await You_feel('a mild tingle.');
                 // C uhitm.c:6108
                 await ugolemeffects(AD_ELEC, tmp);
                 break;

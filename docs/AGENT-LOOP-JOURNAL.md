@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2968 `You_feel` uses the Unaware dream prefix
+
+**C locus:** `nethack-c/upstream/src/pline.c:387–400` `You_feel`. `Unaware` is `youprop.h:399` (`multi < 0 && (unconscious() || is_fainted())`). The true arm is `YouPrefix` of `"You dream that you feel "`; the false arm is `"You feel "`. `strcat` appends the format and `vpline` prints it. `You_buf` (`pline.c:338–348`) only grows the scratch buffer. `pline.c:514–526` `livelog_printf` `vsnprintf`s into `BUFSZ*2`, `gamelog_add`s that text at `svm.moves`, `strNsubst`s tabs to `_`, then `livelog_add`. `files.c:3666–3706` `livelog_add` returns when `!(ll_type & sysopt.livelog)` (`sys.c:63` sets `LL_NONE`); otherwise it appends `LIVELOGFILE`.
+**JS:** `js/display.js` `You_feel` `:7735`. Dream prefix `:7737`. Awake prefix `:7738`. `vpline` `:7739`. `js/pline.js` `livelog_add` `:30`. Mask return `:32`. `livelog_printf` `:44`. Cap `:55`. `gamelog_add` `:57`. `strNsubst` `:58`. `livelog_add` call `:59`.
+**Change:** One exported `You_feel` keeps that C order and calls `eat.js` `Unaware` (`imports.mjs --can` SAFE, hoisted). The baked `pline` sites call `You_feel` with C's format. Level loss calls `You_feel("%s!")` or `You_feel("less %s!")`.
+**Verify:** `node scripts/verify.mjs --fn You_feel --reach-all` → PASS syntax (14 changed js file(s): js/apply.js js/attrib.js js/display.js js/dothrow.js js/eat.js js/exper.js js/music.js js/pline.js js/polyself.js js/pray.js js/read.js js/shk.js js/trap.js js/uhitm.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (shared file changed) · VERIFY: PASS.
+**Named:** `livelog_add` returns after the `sysopt.livelog` mask and does not write LIVELOGFILE (`files.c:3676–3704`, Rule #2). No arm of `You_feel` is omitted.
+**Next:** `objnam.c` `aobjnam` (next Open — coverage row).
 ## 2026-09-27 — D-2967 `mungspaces` stops at newline and `strncmpi` returns the C order
 
 **C locus:** `nethack-c/upstream/src/hacklib.c:142–160` `mungspaces`. `was_space` starts TRUE, so a leading run is dropped. Tab becomes space. Any other byte is kept. Newline breaks like end of string. One trailing space is then removed. The buffer is written in place and `bp` is returned. `hacklib.c:717–734` `strncmpi` compares at most `n` characters with `lowc` (`:83–86`). `n == -1` is the `strcmpi` macro (`global.h:113`) and walks until NUL. `!*s2` returns `(*s1 != 0)`; `!*s1` returns -1; otherwise 1, -1, or 0.

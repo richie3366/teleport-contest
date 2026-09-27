@@ -988,11 +988,15 @@ export async function adjabil(oldlevel, newlevel) {
             else u[prop] = prev | mask;
             // C: if (!(*(abil->ability) & INTRINSIC & ~mask)) You_feel(gainstr)
             if (!((u[prop] || 0) & INTRINSIC & ~mask) && entry.gainstr) {
-                await pline(`You feel ${entry.gainstr}!`);
+                await You_feel('%s!', entry.gainstr);
             }
         } else if (oldlevel >= entry.ulevel && newlevel < entry.ulevel) {
             u[prop] = prev & ~mask;
-            // losestr pline deferred
+            // C attrib.c:1056–1060 — losestr, else "less %s!"
+            if (!((u[prop] || 0) & INTRINSIC)) {
+                if (entry.losestr) await You_feel('%s!', entry.losestr);
+                else if (entry.gainstr) await You_feel('less %s!', entry.gainstr);
+            }
         }
         // postadjabil deferred
     }

@@ -2263,7 +2263,7 @@ export async function shopdig(fall) {
     if (!shkp) return;
     if (!inhishop(shkp)) {
         if (Role_if(PM_KNIGHT)) {
-            await pline('You feel like a common thief.');
+            await You_feel('like a common thief.');
             const atyp = u.ualign?.type | 0;
             adjalign(-(atyp > 0 ? 1 : atyp < 0 ? -1 : 0));
         }
@@ -2300,7 +2300,7 @@ export async function shopdig(fall) {
             }
         }
         if (Role_if(PM_KNIGHT)) {
-            await pline('You feel like a common thief.');
+            await You_feel('like a common thief.');
             const atyp = u.ualign?.type | 0;
             adjalign(-(atyp > 0 ? 1 : atyp < 0 ? -1 : 0));
         }

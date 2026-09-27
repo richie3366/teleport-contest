@@ -1391,10 +1391,10 @@ async function seffect_charging(sobj) {
         || !!game.objects?.[otyp]?.oc_name_known;
     if (confused) {
         if (scursed) {
-            await pline('You feel discharged.');
+            await You_feel('discharged.');
             u.uen = 0;
         } else {
-            await pline('You feel charged up!');
+            await You_feel('charged up!');
             u.uen = (u.uen | 0) + d(sblessed ? 6 : 4, 4);
             if ((u.uen | 0) > (u.uenmax | 0)) u.uenmax = u.uen;
             else u.uen = u.uenmax;
@@ -1447,7 +1447,7 @@ async function seffect_confuse_monster(sobj) {
     // C: gy.youmonst.data->mlet != S_HUMAN (JS mlet is 'S_HUMAN' string)
     const isHuman = !youmonst_data || youmonst_data.mlet === 'S_HUMAN';
     if (!isHuman || scursed) {
-        if (!(u.HConfusion | 0)) await pline('You feel confused.');
+        if (!(u.HConfusion | 0)) await You_feel('confused.');
         await make_confused((u.HConfusion | 0) + rnd(100), false);
     } else if (confused) {
         if (!sblessed) {

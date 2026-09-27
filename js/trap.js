@@ -8030,9 +8030,7 @@ export async function chest_trap(obj, bodypart, disarm) {
             exercise(A_CON, false);
             break;
         case 16: case 15: case 14: case 13:
-            await pline(
-                `You feel a needle prick your ${body_part(bodypart)}.`,
-            );
+            await You_feel('a needle prick your %s.', body_part(bodypart));
             await poisoned('needle', A_CON, 'poisoned needle', 10, false);
             exercise(A_CON, false);
             break;

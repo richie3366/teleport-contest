@@ -9,7 +9,7 @@ import {
     flush_screen, pline, newsym, mark_topline_seen,
     canseemon, canspotmon, nh_delay_output, tmp_at, obj_glyph, verbalize,
     glyph_at, glyph_is_monster, glyph_is_invisible_id, map_invisible,
-    You, Your, impossible,
+    You, Your, You_feel, impossible,
 } from './display.js';
 import { cansee, vision_recalc } from './vision.js';
 import { rn2, rnd, rn1, d } from './rng.js';
@@ -2983,7 +2983,7 @@ function closed_door_hurtle(x, y) {
 export async function hurtle_step(rangeArg, x, y) {
     const u = game.u || {};
     if (!isok(x, y)) {
-        await pline('You feel the spirits holding you back.');
+        await You_feel('the spirits holding you back.');
         return false;
     } else if (!(await in_out_region(x, y))) {
         return false;
@@ -3094,7 +3094,7 @@ export async function hurtle_step(rangeArg, x, y) {
 export async function hurtle(dx, dy, range, verbose) {
     const u = game.u || {};
     if (u.Punished && u.uball && u.uball.where !== OBJ_INVENT) {
-        await pline('You feel a tug from the iron ball.');
+        await You_feel('a tug from the iron ball.');
         nomul(0);
         return;
     }

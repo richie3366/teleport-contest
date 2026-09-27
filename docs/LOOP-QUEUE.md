@@ -112,7 +112,6 @@ body in C order — every arm, every callee live or named, every C caller
 wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 
 <!-- coverage:begin -->
-- [ ] `pline.c` You_feel — coverage THIN (C 9 code L `pline.c:388–400` / JS 2 code L in js/display.js; hops 1, callers 144, RNG 0, msg 0) @988c639a6
 - [ ] `objnam.c` aobjnam — coverage THIN (C 9 code L `objnam.c:2244–2258` / JS 4 code L in js/artifact.js; hops 3, callers 10, RNG 0, msg 2) @988c639a6
 - [ ] `trap.c` trapeffect_dart_trap — coverage PARTIAL (C 54 code L `trap.c:1251–1321` / JS 39 code L in js/trap.js; hops 4, callers 1, RNG 5, msg 3) @988c639a6
 - [ ] `cmd.c` show_direction_keys — coverage PARTIAL (C 35 code L `cmd.c:4122–4165` / JS 25 code L in js/dokeylist.js; hops 2, callers 2, RNG 0, msg 10) @988c639a6
@@ -120,10 +119,11 @@ wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 - [ ] `read.c` seffect_enchant_armor — coverage PARTIAL (C 133 code L `read.c:1115–1290` / JS 97 code L in js/read.js; hops 5, callers 1, RNG 4, msg 7) @fa5382192
 - [ ] `cmd.c` parse — coverage MISSING (C 31 code L `cmd.c:5096–5151` / JS no symbol; hops 1, callers 2, RNG 0, msg 0; split? cited 64× in js/ — brief first) @fa5382192
 - [ ] `version.c` store_version — coverage MISSING (C 15 code L `version.c:512–537` / JS no symbol; hops 3, callers 4, RNG 0, msg 0; dead callees: bwrite, bufoff, store_critical_bytes) @fa5382192
-- [ ] `pline.c` livelog_printf — coverage THIN (C 8 code L `pline.c:514–526` / JS 3 code L in js/pline.js; hops 2, callers 52, RNG 0, msg 0) @8b4ddcb7c
 - [ ] `hack.c` in_rooms — coverage PARTIAL (C 52 code L `hack.c:3498–3560` / JS 34 code L in js/hack.js; hops 2, callers 88, RNG 0, msg 0) @c12d7df2f
 - [ ] `pager.c` look_at_object — coverage PARTIAL (C 28 code L `pager.c:380–419` / JS 18 code L in js/pager.js; hops 2, callers 2, RNG 0, msg 6) @b43d2c68f
 - [ ] `wizcmds.c` wiz_show_stats — coverage MISSING (C 67 code L `wizcmds.c:1616–1697` / JS no symbol; hops —, callers 0, RNG 0, msg 20; dead callees: obj_chain, mon_invent_chain, contained_stats, mon_chain) @b43d2c68f
+- [ ] `cmd.c` cmdq_add_key — coverage THIN (C 11 code L `cmd.c:274–290` / JS 4 code L in js/invent.js; hops 2, callers 15, RNG 0, msg 0) @06237de26
+- [ ] `worn.c` which_armor — coverage PARTIAL (C 25 code L `worn.c:1006–1036` / JS 17 code L in js/worn.js; hops 2, callers 54, RNG 0, msg 0) @06237de26
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

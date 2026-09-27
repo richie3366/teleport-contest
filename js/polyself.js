@@ -5,7 +5,7 @@ import { game } from './gstate.js';
 import { rn2, rn1, d, rnd } from './rng.js';
 import { dist2, strstri, strsubst, mungspaces } from './hacklib.js';
 import {
-    pline, You, Your, urgent_pline, newsym, see_monsters, impossible, Hallucination,
+    pline, You, Your, You_feel, urgent_pline, newsym, see_monsters, impossible, Hallucination,
     canseemon,
 } from './display.js';
 import { getlin, yn_function, y_n } from './getline.js';
@@ -1601,7 +1601,7 @@ export async function polymon(mntmp) {
     const mv = game.mvitals?.[mntmp];
     if (mv && ((mv.mvflags | 0) & G_GENOD)) {
         const nm = pmname(mntmp, flags.female ? FEMALE : MALE);
-        await pline(`You feel rather ${nm}-ish.`);
+        await You_feel('rather %s-ish.', nm);
         exercise(A_WIS, true);
         return 0;
     }

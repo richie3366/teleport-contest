@@ -157,6 +157,7 @@ import { SoundSpeak } from './sndprocs.js';
 import { msgtype_type } from './options.js';
 import { mapxy_valid } from './getpos.js';
 import { mungspaces } from './getline.js';
+import { Unaware } from './eat.js';
 
 const CORPSE_OTYP = objectNames.indexOf('CORPSE');
 const STATUE_OTYP = objectNames.indexOf('STATUE');
@@ -7700,12 +7701,10 @@ function vpline_consume_msg_loc(msg) {
     return msg;
 }
 
-// C ref: pline.c You `:355–363` / Your `:365–373` / You_feel `:375–388` /
-// You_cant `:390–398` / pline_The `:400–408` / There `:410–418` —
-// YouMessage prefix on the FORMAT then vpline with the same args
-// (You_buf growth unneeded in JS). You_feel's Unaware dream arm and
-// You_hear/You_see (hack.js / below) keep their prop gates; the plain
-// prefixes here wire the C callers that have none.
+// C ref: pline.c You `:366–374` / Your `:376–385` / You_cant `:402–411` /
+// pline_The `:413–422` / There `:424–433` — YouMessage (`:362–363`)
+// prefixes the format, then vpline. You_buf (`:338–348`) is unneeded
+// in JS. You_feel (`:387–400`) and You_see are below; You_hear is hack.js.
 export async function You(fmt, ...args) {
     if (fmt == null || fmt === '') return;
     await vpline(`You ${fmt}`, ...args);
@@ -7726,10 +7725,18 @@ export async function There(fmt, ...args) {
     if (fmt == null || fmt === '') return;
     await vpline(`There ${fmt}`, ...args);
 }
-// C ref: pline.c You_feel — prefix "You feel " (Unaware dream path deferred)
-export async function You_feel(fmt, ...args) {
-    if (fmt == null || fmt === '') return;
-    await vpline(`You feel ${fmt}`, ...args);
+/**
+ * C ref: pline.c You_feel `:387–400`.
+ * Unaware (youprop.h:399; eat.js) selects the prefix. YouPrefix
+ * (`:359–360`) copies it; strcat appends `line`; vpline (`:398`)
+ * prints that format with the same args. You_buf growth is unneeded
+ * in JS. `imports.mjs --can display.js eat.js Unaware` — hoisted, SAFE.
+ */
+export async function You_feel(line, ...the_args) {
+    const prefix = Unaware()
+        ? 'You dream that you feel '
+        : 'You feel ';
+    await vpline(`${prefix}${line}`, ...the_args);
 }
 export async function You_see(fmt, ...args) {
     // Named: C Unaware «dream that you see» + Blind «sense» arms (D-2065

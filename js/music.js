@@ -762,11 +762,11 @@ async function do_improvisation(instr) {
         break;
     case PLAY_STUNNED:
         if (!Deaf()) await pline('You radiate an obnoxious droning sound.');
-        else await pline('You feel a monotonous vibration.');
+        else await You_feel('a monotonous vibration.');
         break;
     case PLAY_CONFUSED:
         if (!Deaf()) await pline('You generate a raucous noise.');
-        else await pline('You feel a jarring vibration.');
+        else await You_feel('a jarring vibration.');
         break;
     case PLAY_HALLU:
         await pline('You disseminate a kaleidoscopic display of floating butterflies.');

@@ -68,4 +68,4 @@
 {"fn":"choose_passage","c":"3431-3470","status":"unknown"}
 {"fn":"read_tribute","c":"3474-3645","status":"unknown"}
 {"fn":"Death_quote","c":"3648-3653","status":"unknown"}
-{"fn":"livelog_add","c":"3667-3706","status":"ported","at":"seed@a30a7de84","note":"alt 3713-3716; stale 2026-09-19; seed: js location unresolved"}
+{"fn":"livelog_add","c":"3667-3706","status":"partial","js":["js/pline.js:livelog_add"],"omit":"`livelog_add` returns after the `sysopt.livelog` mask and does not write LIVELOGFILE (`files.c:3676–3704`, Rule #2).","d":["D-2968"],"at":"2026-09-27@06237de26","note":"alt 3713-3716; stale 2026-09-19; seed: js location unresolved"}
