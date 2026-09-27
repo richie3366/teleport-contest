@@ -605,8 +605,10 @@ async function recordSegment({
         // For death sessions the game can terminate before all keys are
         // consumed (the death itself fires nh_terminate); record whatever
         // steps we got and let the caller compare against the canonical
-        // session, which captures the same truncated trace.
-        resolveDone(code ?? 0);
+        // session, which captures the same truncated trace. The marker
+        // queue can still hold the final frame (save / death exit): drain
+        // it first or that step is dropped, depending on timing.
+        chain.then(() => resolveDone(code ?? 0));
     });
 
     await done;

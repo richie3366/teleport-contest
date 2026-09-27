@@ -44,19 +44,21 @@ every audit). Rank 4, 2nd agentic; best agentic fork 35/44, RNG 98.5 %,
 screens 93.2 %. Held-out still 12/44 (6,442 / 11,265 pts, RNG 31.5 %,
 rngSteps 85.3 %, screens 57.2 %; board 2026-09-27T19:26:02Z, last scored
 2026-09-27T19:00:18Z).
-**Corpus fortress:** `.cache/hidden/sessions` is still absent, so the
-**614 / 940** figure was not re-measured. `hidden-proxy score --jobs 8`
-on the 12 private sessions that are present (2026-09-27, `b2a5f3fb7`): 12/12 PASS, RNG 75,151/75,151,
-screens 653/653, 0 blocking owners. No PASS→FAIL row.
+**Corpus fortress (full rescore 2026-09-28, 953/953 entries, 0 unrecorded):**
+**627 / 953** PASS (65.8 %; 627/940 = 66.7 % excluding 13 env-only
+config-path rows), RNG 96.00 %, screens 88.8 %, 111 blocking owners. vs
+the last full board (2026-09-25, `309d58ccc`): 614 → 627, 16 FAIL→PASS,
+3 PASS→FAIL → Must-fix (`use_saddle` ×2, `mcalcmove` ×1). Recorder rebuilt
+on Linux with macOS parity (clang, sysconf, `PORT_ID`, apple, DEV_RANDOM,
+ncompress) + `record-session.mjs` final-frame fix: 43/44 public sessions
+re-record identical (seed2200 = env config path).
 Reviews 1225–1955 (index; no row 1618): 646 ACCEPT, 23 WITH-DEBT, 61 QUALITY-RISK (audit 1946–1955: 9 ACCEPT, 1 WITH-DEBT).
 Live debts: 1730 `wizcustom_glyphids` empty `wizcustom_callback` site (glyphmap-blocked, map-named); 1241 SCR_MAIL, 1268 light carrier-mx, 1412 displaceu middle-skip, 1433 buzzer-field (all map-named); 1446 piletop-hole glyph, 1448 safe_typename guard, 1462 `m_useup` clone, 1510 parsesymbols G_/u+ bare arms (map-named customization subsystem), 1560 update_mon_extrinsics sync-float tail (extract_from_minvent inverts dismount→newsym), 1563 can_blnd cream/toss subset clones now replaceable, 1576 carry_count empty-invent zero-lift predicate (message-only, `(game.invent?.length \|\| umoney)`), 1682 dokick `!oldmem` restore-skip map line pending, 1951 nhdupstr len+1 u32-wrap message (unreachable in JS) — review-debt, unqueued (detail in the review files).
 Audit iters (mandatory, 2026-09-28): full scoreboard update —
 `hidden-proxy.mjs record --jobs 8` then unfiltered `hidden-proxy.mjs score
---jobs 8` (≈200 s once recorded), committed with `full: true` — +
-`leaderboard.mjs`. The board is **12 rows** today: the 941 corpus recipes
-are unrecorded because the C recorder is not built on this machine
-(`bash nethack-c/build-recorder.sh`; needs clang, bison, flex), so REACH
-has been checking the 12 private sessions only.
+--jobs 8` (≈270 s), committed with `full: true` — + `leaderboard.mjs`.
+`record` needs the C recorder (`bash nethack-c/build-recorder.sh`; Linux:
+clang, bison, flex, ncompress); `.cache` recordings take ≈45 s to rebuild.
 
 **PASS (44):** seed0002-healer-reflection-drummer, seed0004-feeding-pony,
 seed0006-wizard-water-demon, seed0007-rogue-snake-swamp, seed0009-swimmer-mforce,

@@ -113,6 +113,23 @@ case "$OS" in
     Linux)
         # Upstream ships linux-minimal; just point its PREFIX at our install dir.
         sed -i.bak "s|^\(PREFIX=\).*|\1$INSTALL_PREFIX|" sys/unix/hints/linux-minimal
+        # The canonical recorder (and the judge's sessions) is the macOS
+        # build. Emulate its game-visible MACOS differences: PORT_ID in the
+        # version/welcome text, the eat.c apple message, and the DEV_RANDOM
+        # name in the #version feature list. MACOS itself cannot be defined
+        # here (CommonCrypto, pbcopy). Save/bones also need the macOS
+        # /usr/bin/compress (Debian: ncompress), else a failed-compress
+        # message adds a --More-- at every save and death.
+        sed -i.bak 's|^\(CFLAGS=.*\)$|\1 -DPORT_ID=\\"MacOS\\" -DTELEPORT_MACOS_PARITY|' \
+            sys/unix/hints/linux-minimal
+        sed -i.bak 's@^#if defined(MACOS9) || defined(MACOS)$@& || defined(TELEPORT_MACOS_PARITY)@' \
+            src/eat.c
+        sed -i.bak 's@^\(# define DEV_RANDOM\) "/dev/urandom"$@\1 "/dev/random"@' \
+            include/unixconf.h
+        if [ ! -x /usr/bin/compress ]; then
+            echo "[FAIL] /usr/bin/compress missing (apt install ncompress): save/bones would diverge from the macOS recorder" >&2
+            exit 1
+        fi
         ;;
 esac
 sh sys/unix/setup.sh "$HINTS_FILE"
@@ -137,8 +154,19 @@ cd "$RECORDER_DIR"
 # UTC = NetHack 5.0.0 release. Override with TELEPORT_BUILD_EPOCH if
 # you need a different pin.
 export SOURCE_DATE_EPOCH="${TELEPORT_BUILD_EPOCH:-1777723200}"
-make -j"$NPROC" SYSCFLAGS="$LUA_SYSCFLAGS" >/dev/null
-make install >/dev/null
+# CC on the command line: neither minimal hints file sets it, and on Linux
+# the default `cc` is gcc (right-to-left argument evaluation).
+make -j"$NPROC" CC=clang SYSCFLAGS="$LUA_SYSCFLAGS" >/dev/null
+make install CC=clang >/dev/null
+# config.h defines SYSCF with a HACKDIR-relative "sysconf" that the minimal
+# hints never install; without it the game exits at startup and every
+# recording is vacuous.
+SYSCONF="$INSTALL_PREFIX/games/lib/nethackdir/sysconf"
+sed -e 's/^#*[[:space:]]*WIZARDS=.*/WIZARDS=*/' \
+    -e 's|^#*[[:space:]]*GREPPATH=.*|GREPPATH=/usr/bin/grep|' \
+    -e '/^#*[[:space:]]*GDBPATH=/d' \
+    sys/unix/sysconf >"$SYSCONF"
+chmod 0644 "$SYSCONF"
 echo
 echo "[ok] recorder built: $RECORDER_DIR/src/nethack"
 echo "[ok] installed to:    $INSTALL_PREFIX/games/lib/nethackdir/"

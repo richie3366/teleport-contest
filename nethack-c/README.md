@@ -37,7 +37,13 @@ git submodule update --init nethack-c/upstream
 bash nethack-c/build-recorder.sh
 ```
 
-Requires: `clang` (not gcc — see below), `make`, `bison`, `flex`.
+Requires: `clang` (not gcc — see below), `make`, `bison`, `flex`; on Linux
+also `ncompress` (`/usr/bin/compress`, which the macOS recorder has and
+save/bones use). The Linux build emulates the macOS recorder's
+game-visible differences (`PORT_ID` "MacOS", the apple message,
+`DEV_RANDOM`) and installs a `sysconf`; with them 43/44 public sessions
+re-record identical (2026-09-28; seed2200 shows the recording machine's
+config path).
 
 ## Recorder provenance gate
 
