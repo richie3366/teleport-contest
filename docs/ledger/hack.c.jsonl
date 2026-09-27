@@ -65,7 +65,7 @@
 {"fn":"spoteffects","c":"3312-3462","status":"unknown","d":["D-2111","D-1799","D-1268"],"at":"seed@a30a7de84"}
 {"fn":"monstinroom","c":"3466-3478","status":"unknown"}
 {"fn":"furniture_present","c":"3482-3495","status":"unknown"}
-{"fn":"in_rooms","c":"3498-3560","status":"unknown"}
+{"fn":"in_rooms","c":"3498-3560","status":"ported","js":["js/hack.js:in_rooms"],"d":["D-2974"],"at":"2026-09-27@8a0963412","note":"stale: js/hack.js:1859"}
 {"fn":"in_town","c":"3564-3585","status":"unknown"}
 {"fn":"move_update","c":"3588-3622","status":"unknown"}
 {"fn":"check_special_room","c":"3626-3780","status":"unknown"}

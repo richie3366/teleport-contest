@@ -3930,6 +3930,27 @@ export function is_soko_prize(o) {
     return (o.o_id | 0) === ((game.context?.achieveo?.soko_prize_oid) | 0);
 }
 
+/** C ref: mkobj.c treefruits `:1978–1980`. */
+const TREEFRUITS = [
+    objectNames.indexOf('APPLE'),
+    objectNames.indexOf('ORANGE'),
+    objectNames.indexOf('PEAR'),
+    objectNames.indexOf('BANANA'),
+    objectNames.indexOf('EUCALYPTUS_LEAF'),
+];
+
+/**
+ * C ref: mkobj.c is_treefruit `:1991–1999`.
+ * Caller: pager.c look_at_object (dangling vs stuck).
+ */
+export function is_treefruit(otmp) {
+    const otyp = otmp.otyp | 0;
+    for (let fruitidx = 0; fruitidx < TREEFRUITS.length; ++fruitidx) {
+        if (TREEFRUITS[fruitidx] === otyp) return true;
+    }
+    return false;
+}
+
 // C ref: mkobj.c mkgold()
 export function mkgold(amount, x, y) {
     if (amount <= 0) {

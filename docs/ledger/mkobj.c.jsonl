@@ -49,7 +49,7 @@
 {"fn":"set_bknown","c":"1864-1873","status":"unknown"}
 {"fn":"weight","c":"1888-1976","status":"ported","js":["js/mkobj.js:weight"],"d":["D-2578"],"at":"seed@a30a7de84"}
 {"fn":"rnd_treefruit_at","c":"1984-1987","status":"unknown"}
-{"fn":"is_treefruit","c":"1991-1999","status":"unknown"}
+{"fn":"is_treefruit","c":"1991-1999","status":"ported","js":["js/mkobj.js:is_treefruit"],"d":["D-2974"],"at":"2026-09-27@8a0963412"}
 {"fn":"mkgold","c":"2003-2020","status":"unknown"}
 {"fn":"fixup_oil","c":"2025-2048","status":"unknown"}
 {"fn":"mkcorpstat","c":"2067-2118","status":"partial","js":["js/mkobj.js:mkcorpstat"],"omit":"`rloco` at `mkobj.c:2082` (`x == 0 && y == 0`) stays uncalled.","d":["D-2795"],"at":"seed@a30a7de84"}

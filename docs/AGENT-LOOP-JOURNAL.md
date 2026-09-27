@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2974 `look_at_object` names the object, frees a fake, then adds the terrain suffix
+
+**C locus:** `nethack-c/upstream/src/pager.c:380–419` `look_at_object`. `object_from_map` fills `otmp`. A real object is `distant_name` of `doname_with_price` when `dknown`, else `doname_vague_quan`; `STRANGE_OBJECT` is `obj_descr[].oc_name`. A fake sets `where` to `OBJ_FREE` and `dealloc_obj`s, then `otmp` is NULL. No object copies `something`. The suffix is `(buried)` when `otmp` is still buried; otherwise `IS_TREE` (before stone, because arboreal stone is a tree) appends "dangling" when `otmp && is_treefruit(otmp)` and "stuck" otherwise, then stone/`SCORR`, wall/`SDOOR`, `closed_door`, `is_pool`, `is_lava`. `is_treefruit` (`mkobj.c:1991–1999`) walks `treefruits[]` (apple, orange, pear, banana, eucalyptus leaf).
+**JS:** `js/pager.js` `look_buf_cat` `:1801`. `look_at_object` `:1814`. Name `:1820`. Fake `dealloc_obj` `:1826`. `something` `:1831`. Buried `:1835`. Tree `:1837`. `is_treefruit` call `:1839`. Stone `:1841`. Wall `:1843`. Door `:1845`. Water `:1847`. Lava `:1849`. `lookat` call `:2062`. `look_all` call `:2233`. `js/mkobj.js` `TREEFRUITS` `:3934`. `is_treefruit` `:3946`.
+**Change:** One exported `look_at_object` keeps that C order. The fake is `dealloc_obj`'d before the suffix chain, so terrain still applies and a fake in a tree is "stuck". Appends stop at `BUFSZ - 1`, which is the tree `Snprintf` bound and the callers' `lookbuf`.
+**Verify:** `node scripts/verify.mjs --fn look_at_object` → PASS syntax (2 changed js file(s): js/mkobj.js js/pager.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script shared-file list does not include js/pager.js or js/mkobj.js) · VERIFY: PASS.
+**Named:** No arm of `look_at_object` or `is_treefruit` is omitted. A missing map cell uses typ 0 (C would read `levl` out of range).
+**Next:** `wizcmds.c` `wiz_show_stats` (next Open — coverage row).
 ## 2026-09-27 — D-2973 `store_version` writes the save header in C order
 
 **C locus:** `nethack-c/upstream/src/version.c:512–537` `store_version`. Zero `version_info`, then `nomakedefs.version_number`, `version_features`, and `version_sanity1`. If `structlevel`, `bufoff` so the header `bwrite` is unbuffered. `store_critical_bytes` (`version.c:676–694`) writes only when `mode & WRITING`: indicate `'h'` / `'a'` / `'?'`, `(char) SIZE(critical_sizes)`, then one `Sfo_uchar` per row. `Sfo_version_info` always follows. `structlevel` then `bufon`.

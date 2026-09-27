@@ -5,7 +5,7 @@
 {"fn":"trap_description","c":"167-181","status":"unknown","d":["D-1779"],"at":"seed@a30a7de84"}
 {"fn":"mhidden_description","c":"186-280","status":"unknown","d":["D-1554"],"at":"seed@a30a7de84"}
 {"fn":"object_from_map","c":"284-377","status":"unknown"}
-{"fn":"look_at_object","c":"380-419","status":"unknown"}
+{"fn":"look_at_object","c":"380-419","status":"ported","js":["js/pager.js:look_at_object"],"d":["D-2974"],"at":"2026-09-27@8a0963412"}
 {"fn":"look_at_monster","c":"422-555","status":"ported","js":["js/pager.js:look_at_monster"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}
 {"fn":"waterbody_name","c":"561-611","status":"ported","js":["js/hack.js:waterbody_name"],"d":["D-2761"],"at":"seed@a30a7de84"}
 {"fn":"ice_descr","c":"614-650","status":"unknown"}
