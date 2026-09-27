@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-2993 — `uhitm.c` stumble_onto_mimic whole-body port (AD_STCK stick + blind map arms)
+
+- **Status:** fixed (coverage row `uhitm.c` stumble_onto_mimic THIN; hidden-proxy verify reports no corpus session blocked on it).
+- **Symptom:** JS held 2 code lines against C's 8 (`uhitm.c:6282–6297`): only `MIM_REVEAL` + `wakeup(FALSE)`; the AD_STCK `set_ustuck` arm (`:6287–6291`) and the blind-hero `map_invisible` tail (`:6294–6297`) were doc-deferred, so sticky mimics never grabbed the hero and blind stumbles left no `I` on the square.
+- **C locus:** `nethack-c/upstream/src/uhitm.c:6282–6297` `stumble_onto_mimic` + the `you.h:560` `m_next2u` macro it gates on (`distu ≤ 2`).
+- **JS was:** thin `stumble_onto_mimic` (`js/uhitm.js:4551`, reveal + wakeup only); `m_next2u` local-only at `js/mon.js:3826` with 5 more file-local copies elsewhere (`sym.mjs`: no export — clone #7 banned).
+- **Fix:** Full C-order body at `js/uhitm.js:4555`: reveal, AD_STCK stick arm, wakeup, blind map tail. C order: `that_is_a_mimic(MIM_REVEAL)` `:6285`, the short-circuited `!u.ustuck && !mflee && dmgtype(AD_STCK) && m_next2u` → `set_ustuck` arm `:6287–6291` (polearm-range comment kept), `wakeup(FALSE)` `:6293`, then the `:6294–6297` tail with `glyph_is_invisible(levl[mx][my].glyph)` rendered as the hero-memory-id idiom `memory_glyph_is_invisible(game.level?.at(...))` (D-1774). `m_next2u` canonicalized by exporting the exactly-named `js/mon.js:3830` copy (no new edge: `imports.mjs` ALREADY) instead of a 7th clone. New `scripts/stumble-onto-mimic.test.mjs`: 8/8.
+- **JS:** `js/uhitm.js` (+14 body, +1 import name); `js/mon.js` (+5/−1: `m_next2u` export + doc); `scripts/stumble-onto-mimic.test.mjs` (+8 tests).
+- **Callers:** all 6 C sites pre-wired, guards match C — `uhitm.c:264` attack_checks `:254–265` → `js/uhitm.js:4641`; `hack.c:1939` domove_bump_mon → `js/cmd.js:5374`; `apply.c:3250` bullwhip → `js/apply.js:3515`; `lock.c:573` pick_lock door arm → `js/lock.js:1323`; `lock.c:765` stumble_on_door_mimic → `js/lock.js:791`; `trap.c:5962` untrap → `js/trap.js:7784`. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn stumble_onto_mimic` → VERIFY: PASS (syntax 2 files; rule2; hidden note no session blocked; reach smoke 12/12 → REACH-OK; green 2/2; strict ×2; cohort 7/7; full skipped: no shared file changed). Focused `node --test scripts/stumble-onto-mimic.test.mjs` 8/8; falsification probe (thin body restored): exactly the 2 positive arm tests fail, 6/6 others pass.
+- **Named omissions:** none — every arm ported, every callee live, all 6 callers wired. Live: `that_is_a_mimic` uhitm.js:4332, `dmgtype` monsters.js:531, `m_next2u` mon.js:3830 (canonicalized in-commit), `set_ustuck` mhitu.js:1610, `wakeup` mon.js:1631, `canspotmon` display.js:1374, `memory_glyph_is_invisible` display.js:1411, `map_invisible` display.js:1382. Pre-existing drift left untouched: the other file-local `m_next2u` copies (apply/mhitu/muse/shk/wizard + `m_next2u_angry` in mon.js) — not this row.
+- **Ledger:** stumble_onto_mimic ported
+- **Next:** breadth picker continues at the regenerated coverage head.
+
 ## D-2992 — `options.c` handler_autounlock + optfn_autounlock whole-pair port
 
 - **Status:** fixed (coverage row `options.c` handler_autounlock MISSING; hidden-proxy verify reports no corpus session blocked on either function).

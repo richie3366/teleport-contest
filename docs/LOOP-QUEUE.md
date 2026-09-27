@@ -112,7 +112,6 @@ body in C order — every arm, every callee live or named, every C caller
 wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 
 <!-- coverage:begin -->
-- [ ] `uhitm.c` stumble_onto_mimic — coverage THIN (C 8 code L `uhitm.c:6282–6297` / JS 2 code L in js/uhitm.js; hops 3, callers 6, RNG 0, msg 0) @bf782b509
 - [ ] `cmd.c` cmdq_shift — coverage THIN (C 10 code L `cmd.c:355–370` / JS 3 code L in js/cmd.js; hops 1, callers 1, RNG 0, msg 0) @05a11d7e9
 - [ ] `engrave.c` u_can_engrave — coverage THIN (C 27 code L `engrave.c:503–541` / JS 8 code L in js/engrave.js; hops —, callers 1, RNG 0, msg 6) @080c16023
 - [ ] `shk.c` call_kops — coverage PARTIAL (C 35 code L `shk.c:510–564` / JS 26 code L in js/shk.js; hops 4, callers 2, RNG 0, msg 2) @080c16023
@@ -124,6 +123,7 @@ wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 - [ ] `glyphs.c` apply_customizations — coverage MISSING (C 27 code L `glyphs.c:531–574` / JS no symbol; hops —, callers 6, RNG 0, msg 0; dead callees: set_map_u) @0daa1a65f
 - [ ] `glyphs.c` glyphrep_to_custom_map_entries — coverage MISSING (C 46 code L `glyphs.c:112–181` / JS no symbol; hops —, callers 4, RNG 0, msg 0; dead callees: rgbstr_to_int32) @ebc63743c
 - [ ] `options.c` option_help — coverage MISSING (C 52 code L `options.c:9462–9549` / JS no symbol; hops —, callers 0, RNG 0, msg 8; dead callees: is_wc2_option) @1b2296131
+- [ ] `mklev.c` free_luathemes — coverage MISSING (C 8 code L `mklev.c:345–364` / JS no symbol; hops 3, callers 2, RNG 0, msg 0) @e74c75d1f
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

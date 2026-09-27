@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2993 `uhitm.c` stumble_onto_mimic whole-body port (AD_STCK stick + blind map arms)
+
+**C locus:** `nethack-c/upstream/src/uhitm.c:6282–6297` `stumble_onto_mimic` + the `you.h:560` `m_next2u` macro it gates on (`distu ≤ 2`).
+**JS:** `js/uhitm.js` (+14 body, +1 import name); `js/mon.js` (+5/−1: `m_next2u` export + doc); `scripts/stumble-onto-mimic.test.mjs` (+8 tests).
+**Change:** Full C-order body at `js/uhitm.js:4555` — `that_is_a_mimic(MIM_REVEAL)` `:6285`, the short-circuited `!u.ustuck && !mflee && dmgtype(AD_STCK) && m_next2u` → `set_ustuck` arm `:6287–6291` (polearm-range comment kept), `wakeup(FALSE)` `:6293`, then the `:6294–6297` tail with `glyph_is_invisible(levl[mx][my].glyph)` rendered as the hero-memory-id idiom `memory_glyph_is_invisible(game.level?.at(...))` (D-1774). `m_next2u` canonicalized by exporting the exactly-named `js/mon.js:3830` copy (`uhitm.js` already imports `mon.js` — `imports.mjs` ALREADY, no new edge) instead of a 7th clone. New `scripts/stumble-onto-mimic.test.mjs`: 8/8 (m_next2u adjacency/polearm-range, stick positive + fleeing/range/held negatives, blind-map positive + sensed-mimic negative).
+**Verify:** `node scripts/verify.mjs --fn stumble_onto_mimic` → VERIFY: PASS (syntax 2 files; rule2; hidden note no session blocked; reach smoke 12/12 → REACH-OK; green 2/2; strict ×2; cohort 7/7; full skipped: no shared file changed). Focused `node --test scripts/stumble-onto-mimic.test.mjs` 8/8; falsification probe (thin body restored): exactly the 2 positive arm tests fail, 6/6 others pass.
+**Named:** none for `stumble_onto_mimic` — every arm ported, every callee live (`that_is_a_mimic` uhitm.js:4332, `dmgtype` monsters.js:531, `m_next2u` mon.js:3830 canonicalized in-commit, `set_ustuck` mhitu.js:1610, `wakeup` mon.js:1631, `canspotmon` display.js:1374, `memory_glyph_is_invisible` display.js:1411, `map_invisible` display.js:1382), all 6 C callers wired. Pre-existing drift left untouched: the other file-local `m_next2u` copies (apply/mhitu/muse/shk/wizard + `m_next2u_angry` in mon.js) — not this row.
+**Next:** breadth picker continues at the regenerated coverage head.
 ## 2026-09-27 — D-2992 `options.c` handler_autounlock + optfn_autounlock whole-pair port
 
 **C locus:** `nethack-c/upstream/src/options.c:5624–5672` `handler_autounlock` + same-file callee `optfn_autounlock :1066–1168` (tight pair; the handler's sole C caller is the optfn do_handler arm `:1165`).

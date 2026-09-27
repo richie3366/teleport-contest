@@ -3822,8 +3822,12 @@ export async function movemon() {
     return game._somebody_can_move;
 }
 
-/** C ref: you.h m_next2u — squared distu ≤ 2. */
-function m_next2u(mtmp) {
+/**
+ * C ref: you.h:560 m_next2u — squared distu ≤ 2 (macro, on top of or next
+ * to the hero). Canonical export: uhitm stumble_onto_mimic imports this
+ * one (no 7th clone); the other file-local copies predate it.
+ */
+export function m_next2u(mtmp) {
     const u = game.u || {};
     const dx = (mtmp.mx | 0) - (u.ux | 0);
     const dy = (mtmp.my | 0) - (u.uy | 0);
