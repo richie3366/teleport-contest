@@ -6,8 +6,8 @@ is one call unless it says otherwise.
 **Breadth phase (Constitution §10.17):** held-out is 11/44 while the local
 corpus reads 91.7 % — the corpus no longer picks work. You port **one whole
 C function** per iteration (every arm, every callee live or named, every C
-caller wired; 200–800 lines), chosen from **Open — coverage** rows that
-`port-coverage.mjs --rows` measured on the JS tree. Public 44/44 and the
+caller wired; 200–800 lines), chosen from the **Open — coverage** block
+generated from `docs/ledger/` and the measured JS gap. Public 44/44 and the
 corpus PASS set are the regression fortress (`verify` must end REACH-OK).
 
 ## Read first (≤12k tokens of docs)
@@ -16,7 +16,7 @@ corpus PASS set are the regression fortress (`verify` must end REACH-OK).
 2. `CONSTITUTION.md` §1–2 (esp. **§1.5 Rule #2**), §5, §10.17 (skim rest).
 3. **`docs/CURRENT.md`** — score, green gate, **primary** objective.
 4. **`docs/LOOP-QUEUE.md`** Breadth-phase block + first **Must-fix** `- [ ]`
-   if any, else first **Open — coverage** row. Skip Parked and Phase 2.
+   if any, else the first generated coverage row. Skip Parked and Phase 2.
 5. `docs/NOTES.md` — live hypothesis / don’t-recheck only.
 6. `docs/HIDDEN-PROXY.md` §3 — verify + REACH semantics (one table).
 
@@ -43,7 +43,7 @@ cluster**. Then:
     node scripts/brief.mjs <C function>        # or: --next
 
 It prints the queue row, the pinned-C body + every C call site, which C
-callees exist in `js/`, the same-named JS body, the map lines, D-index rows,
+callees exist in `js/`, the same-named JS body, their ledger rows, D-index rows,
 the corpus sessions blocked on it and reviews naming it. Read the **whole**
 C body **in that output**; `sym.mjs` / `csym.mjs` / `map.mjs` are one call
 each — no `grep`/`cat` of whole modules. `imports.mjs --can A.js B.js Name`
@@ -53,9 +53,9 @@ review's Actionable/Disposition first.
 
 **Stale check (≤3 calls, never the iteration).** Brief shows the C body
 already complete in JS — under this name or split names (`split?` rows:
-check the callers' JS sites) — → one line (≤ 300 chars) under
-`LOOP-QUEUE.md` Parked **Stale**, **pop the next row and ship it in this
-iteration**. No proof essay; an iteration that only parks stale rows is
+check the callers' JS sites) — → `node scripts/ledger.mjs set <fn> ported
+--note "stale: <js file:line>"` (split names: `split --js a.js:x,b.js:y`),
+**pop the next row and ship it in this iteration**. No proof essay; an iteration that only parks stale rows is
 flagged by the supervisor and the next one is told to ship the head.
 
 A row naming a **corpus session** (`scen-*` = held-out genre) is a real
@@ -69,7 +69,7 @@ owners (`mineralize`, `do_statusline1/2`…), `[measure]` rows and parks are
 
 Port the C body in the brief **entirely**, in C order: every `case`, every
 guarded arm, every callee (import the live export — `sym.mjs` — or port it
-in this commit, or name it in the map with its C line), every C caller
+in this commit, or name it in Named omissions with its C line), every C caller
 wired (brief callers table → JS `file:line` each). Preserve short-circuit,
 RNG, list, ownership, mutation and integer semantics (runbook §7). Cite C
 in JS. Prefer **restart** of a thin JS body over patching it; keep the
@@ -113,33 +113,31 @@ N blocks: re-run with `--base <sha the row was queued at>` (D-1831).
 
 Write **one** `## D-NNNN — title` entry atop `docs/DIVERGENCE-LOG.md`
 (Status · Symptom · C locus · JS was · Fix · JS · Callers · Verify · Named
-omissions · Next). Edit the **one** `c-js-map/*.md` section (edit tool, no
-heredocs). Mark the queue row `- [x] … **Addressed:** D-NNNN`. Then:
+omissions · **Ledger** · Next). `- **Ledger:** <fn> ported` — `partial` when
+Named omissions names missing C; `split js=a.js:x+b.js:y`; several:
+`a ported; b partial`. A coverage row leaves the block by itself; mark a
+Must-fix/corpus row `- [x] … **Addressed:** D-NNNN`. Then:
 
     node scripts/finish-iteration.mjs --commit
 
-It generates index row, journal crumb, `CURRENT.md` recent block, `NOTES.md`
+It writes the ledger rows and the coverage block, then index row, journal crumb, `CURRENT.md` recent block, `NOTES.md`
 landmark, review stamp, hash backfill, queue archive, cap check, commit and
 push (do not hand-edit those blocks). Update `CURRENT.md` **primary
 objective** / `NOTES.md` **Active** only when they changed.
 
-**Refill** (REFILL or supervisor ask): `node scripts/port-coverage.mjs
---rows N` and paste its rows verbatim under **Open — coverage** (it
-measures the JS tree now and skips live rows / by-design names). Only if
-it prints nothing: a corpus block from `hidden-proxy queue`, or a C arm
-you verified absent from the JS body in a brief. A map/debt/TOP30 line
-copied by hand is not evidence. `js-throw` / worker hang = Must-fix.
+**Refill:** none by hand — finish and `check-hot-docs.mjs --fix` regenerate
+the coverage block (`ledger.mjs rows --write`). Hand-written rows are
+Must-fix/corpus only, with evidence. `js-throw` / worker hang = Must-fix.
 
 **Every 10th iteration** (`n % 10 == 0`) is the audit iter: review +
 `node frozen/ps_test_runner.mjs sessions` + `hidden-proxy score` +
-`leaderboard.mjs`, not a port iter.
+`leaderboard.mjs` + `ledger.mjs summary --snapshot`, not a port iter.
 
 ## Stale park (no `js/`, never the whole iteration)
 
 The only park in this phase: the popped coverage row's C body is already
-complete in JS (this name or split names). One line under Parked
-**Stale** (name — where the body lives — `port-coverage --name` ratio),
-then pop the next row and ship it. `[measure]` rows and diagnostic parks
+complete in JS (this name or split names). One `ledger.mjs set <fn>
+ported --note "stale: …"`, then pop the next row and ship it. `[measure]` rows and diagnostic parks
 are phase 2 — closed.
 
 ## Absolute prohibitions

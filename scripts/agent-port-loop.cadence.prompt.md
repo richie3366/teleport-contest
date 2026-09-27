@@ -33,10 +33,10 @@ are phase 2** — closed during the breadth phase; do not run them. Any
 If any public session failed: journal the failure, **do not** invent a
 peel, **do not** “align” tests. Do not pop a new queue item. You **may**
 archive leftover `- [x]` (`node scripts/archive-loop-queue-done.mjs`)
-and fill missing Addressed hashes. If `check-hot-docs` says REFILL,
-append `node scripts/port-coverage.mjs --rows N` output verbatim under
-**Open — coverage** (to ~12); never a hand-written map/debt/TOP30 copy,
-never a seed-shaped row. The supervisor logs a full-suite FAIL and
+and fill missing Addressed hashes. `check-hot-docs --fix` regenerates
+the ledger-generated **Open — coverage** block; never paste rows, never a
+hand-written map/debt copy, never a seed-shaped row. Append
+`node scripts/ledger.mjs summary --snapshot` (coverage trend). The supervisor logs a full-suite FAIL and
 continues; the next port pops Must-fix if an audit review prepended one.
 
 ## Git

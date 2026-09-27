@@ -50,8 +50,8 @@ callers + guarding `if`) before patching — the brief has both.
    11/44, RNG 26.6 %, screens 50 % while the local corpus read 91.7 % —
    the corpus stopped predicting the judge, so **measured coverage** picks
    work: `LOOP-QUEUE.md` Must-fix, then the first **Open — coverage** row
-   (`port-coverage.mjs --rows`: pinned-C functions MISSING/THIN in `js/`,
-   ranked by reach × loudness, gap measured on the JS tree at enqueue).
+   (generated from `docs/ledger/`: MISSING/THIN in `js/`, not declared
+   ported/split/by-design, ranked by reach × loudness).
 2. **Parked** items and `[measure]` rows are **phase 2** (corpus
    debugging) — closed until a human reopens it in `CURRENT.md`. Do not
    pop, requeue, or instrument C for them now.
@@ -71,10 +71,10 @@ not a work picker. Held-out (`node scripts/leaderboard.mjs`) is the score.
 | Port the **entire C function** in C order: every arm, every callee live or named in the map, every C caller wired (brief callers table) | Leave a `// TODO` stub inside a live arm, or a local clone of an existing export (`sym.mjs` first) |
 | Prefer **restart**: delete the thin JS body, re-port from C, keep the export name/signature | Stack a third shim on a thin function |
 | Ship the same-C-file Must-fix/Open row in the same iteration | Open a second unrelated C file |
-| **Stale row** (brief: body complete under this or split names) → one Parked **Stale** line, next row, **same iteration** | Spend an iteration proving a shipped function shipped |
+| **Stale row** (brief: body complete under this or split names) → `ledger.mjs set <fn> ported --note "stale: …"`, next row, **same iteration** | Spend an iteration proving a shipped function shipped |
 | `verify.mjs --fn <fn>` must end **REACH-OK** (+ green, strict, cohort, full when shared) | Ship a corpus PASS→FAIL as a "named omission"; touch a session or a seed to make it pass |
 | A JS **throw** / worker **hang** anywhere is Must-fix (forfeits every later screen) | Leave a `ReferenceError` / `ETIMEDOUT` behind |
-| Refill: `port-coverage.mjs --rows N`, paste verbatim | Hand-write a row from a map/debt/TOP30 line |
+| Coverage block is generated (`finish` / `check-hot-docs --fix`) | Paste or hand-write a coverage row |
 
 The held-out 44 are scripted wizard-mode scenarios (wishes, `^G`,
 named-level `^V`, polyself, deaths); anything they reach that `js/`
@@ -117,7 +117,7 @@ and pushes the rest into the next step's row. No step is "docs only".
 | Fix shared data semantics | `mkgold` merges into existing gold (D-0002) |
 | Remove invented fallback | `apport` from real `ACURR(A_CHA)` clamp, not `\|\| 10` (D-0004) |
 | Input-boundary fix | `--More--` owns keys before combat RNG (D-0001) |
-| Name omissions | `c-js-map/*.md`: `partial` + deferred branches |
+| Name omissions | D-entry Named omissions + `Ledger: <fn> partial` |
 
 ### Bad (delete on sight)
 
@@ -127,7 +127,7 @@ and pushes the rest into the next step's row. No step is "docs only".
 | `if (gg.gx === 47 && gg.gy === 18)` in production | Recorded coordinate, not a rule |
 | `appr = 0` to match one `rn2(1)` | Symptom alignment without C proof |
 | Seed-shaped inventory / role fakes | Not `u_init.c` |
-| `// not needed for seed8000` as design | Omission must live in C-JS-MAP section |
+| `// not needed for seed8000` as design | Omission must live in the D-entry / ledger `omit` |
 | New `fastforward.js` burns | Constitution §5 — delete-only |
 | PASS without `strict-output-check` | Trailing RNG/screens can hide bugs |
 | `import` from `fs` / `path` / `url` / `node:*` | Contest Rule #2 — Chrome + judge both must load `js/` |
@@ -247,7 +247,7 @@ prerequisite, or park with the exact probe command in `NOTES.md`.
 | Unresolved hypothesis / dead end | `NOTES.md` (target 100 lines; `check-hot-docs.mjs`) |
 | Parked row: one index line / full proof | `LOOP-QUEUE.md` Parked (≤ 300 chars) / `docs/archive/LOOP-QUEUE-PARKED.md` |
 | Proved cause / rejected theory | `DIVERGENCE-LOG.md` + index row |
-| Module status / omissions | one `c-js-map/*.md` |
+| Function status / omissions | D-entry `- **Ledger:**` bullet → `docs/ledger/` (never hand-edit) |
 | Iteration audit | prepend `AGENT-LOOP-JOURNAL.md` (`rotate-journal.mjs` / `--fix`) |
 
 Loop agents may **not** edit Constitution, runbook, **this playbook**, strategy,
@@ -302,11 +302,11 @@ real commit (never a stamp-only SHA).
 ## 11. Quick commands
 
 ```bash
-node scripts/brief.mjs <cfn>              # orient (C + JS + map + D-rows + corpus)
+node scripts/brief.mjs <cfn>              # orient (C + JS + ledger + D-rows + corpus)
 node scripts/verify.mjs --fn <cfn>        # corpus verify + REACH + green/strict + cohort (+full)
 node scripts/finish-iteration.mjs --commit   # stamps from the D-log entry, commit, push
-node scripts/port-coverage.mjs --rows 12  # refill Open — coverage (paste verbatim)
-node scripts/port-coverage.mjs --name <cfn>   # the measured gap behind one row
+node scripts/ledger.mjs show <cfn>…       # declared status + measured gap
+node scripts/ledger.mjs set <cfn> ported --note "stale: …"  # stale row
 node scripts/leaderboard.mjs              # held-out score — the objective (audit iters)
 node scripts/hidden-proxy.mjs status      # corpus fortress (audit iters)
 node frozen/ps_test_runner.mjs sessions   # public fortress (audit iters)

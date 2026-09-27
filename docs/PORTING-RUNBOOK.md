@@ -33,7 +33,8 @@ which unobserved branches, object types, roles, or map states are valid.
 | **`CURRENT.md`** | Score, green gate, primary objective (target ~150 lines; `check-hot-docs.mjs`) | Completed D-chains / history |
 | `PROGRESS.md` | Stub pointing at `CURRENT.md` + archive | A second hot pack |
 | `NOTES.md` | Tiny unresolved hypothesis (target ~100 lines; `check-hot-docs.mjs`) | Chronological history |
-| `C-JS-MAP.md` + `c-js-map/*.md` | Structural coverage / omissions by subsystem | A score dashboard |
+| `docs/ledger/*.c.jsonl` (`LEDGER.md`) | Per-function port status, js location, named omission, evidence D-ids — via `ledger.mjs` / the D-entry `Ledger:` bullet only | Hand-read or hand-edited |
+| `C-JS-MAP.md` + `c-js-map/*.md` | Frozen history (2026-09-27): subsystem prose read with `map.mjs` / `brief --map` | A live status record |
 | `DIVERGENCE-INDEX.md` | Compact ID → status table | Full entry bodies |
 | `DIVERGENCE-LOG.md` | Evidence-backed entry bodies (open one by ID) | Required full read |
 | `PORTING-STRATEGY.md` | Rationale and long-range options | Live operational truth |
@@ -134,14 +135,18 @@ For every touched function:
 
 - port the complete practical branch envelope supported by current data types;
 - preserve C short-circuit and mutation order;
-- list genuinely deferred branches in the relevant `c-js-map/*.md` section;
+- name genuinely deferred branches in the D-entry **Named omissions** (the
+  `Ledger:` bullet then declares the function `partial`, and finish copies
+  the first sentence into the ledger `omit`);
 - do not label the function `ported` while production code says
   "not needed for seedXXXX."
 
 ## 4. Status vocabulary
 
-Use these exact statuses in `c-js-map/*.md` section files:
+Use these exact statuses in the port ledger (`docs/ledger/`, one row per
+pinned-C function; `docs/LEDGER.md`):
 
+- **unknown** — no declaration yet (measured only; seeded default).
 - **absent** — no implementation.
 - **scaffold** — placeholder, throw, fake value, or RNG-only shell.
 - **partial** — C-aligned behavior exists, with named omissions.
@@ -149,7 +154,16 @@ Use these exact statuses in `c-js-map/*.md` section files:
   implemented; no known test-derived behavior.
 - **parity** — `ported` plus differential evidence from at least two distinct
   scenarios when the subsystem permits it.
+- **split** — the whole body is ported under other JS names (listed in `js`).
+- **by-design** — no scored analogue (Rule #2 filesystem/network, debug
+  builds, retired features, CURRENT.md "Do not" set).
 - **frozen** — judge-owned contract, not contestant code.
+
+Declared status is not the measured class: `ledger.mjs` also reports the
+comment-stripped C/JS code-line ratio (MISSING/THIN/PARTIAL/ok). A
+`ported` row with a low ratio is an audit reading item, not a demotion; an
+`ok` ratio never promotes an `unknown` row. `partial` rows whose `omit`
+starts with `blocked:` never re-enter the queue.
 
 A passing seed is evidence. It does not automatically change every function it
 touched to `ported` or `parity`.
@@ -162,7 +176,7 @@ touched to `ported` or `parity`.
    - `CONSTITUTION.md`
    - the active objective and green gate in `CURRENT.md`
    - `NOTES.md`
-   - relevant rows in one `c-js-map/*.md` section
+   - the ledger rows for the target (`brief.mjs <fn>` prints them)
    - this runbook section if the procedure is not fresh
 2. Run `git status --short` and inspect the existing diff scope.
    The worktree can intentionally be dirty. Never reset, checkout, delete, or
@@ -341,13 +355,17 @@ Update only the owners of changed facts, and write each fact **once**:
 
 - fixed divergence with evidence → one `## D-NNNN — title` entry at the top
   of `DIVERGENCE-LOG.md` (Status · Symptom · C locus · JS was · Fix · JS ·
-  Verify · Named omissions · Next). Claims about C state in Symptom / Named
-  omissions carry their evidence grade (*measured* vs *inferred*). This entry is the single source:
-  `node scripts/finish-iteration.mjs` derives the index row, the journal
+  Callers · Verify · Named omissions · **Ledger** · Next). Claims about C
+  state in Symptom / Named omissions carry their evidence grade (*measured*
+  vs *inferred*). `- **Ledger:** <fn> ported|partial|split [js=a.js:x+b.js:y]`
+  (several: `a ported; b partial`) is required whenever `js/` changed. This
+  entry is the single source: `node scripts/finish-iteration.mjs` writes
+  the ledger rows, regenerates the coverage block, derives the index row, the journal
   crumb, the `CURRENT.md` recent block and D-ranges, the `NOTES.md`
   landmark, the review stamp and the queue archive from it, and
   `--commit` builds the commit message from it. Do not hand-write those.
-- structural status/omissions → one `c-js-map/*.md` section;
+- structural status/omissions → the `Ledger:` bullet (stale retirement,
+  no D-entry: `ledger.mjs set <fn> ported --note "stale: …"`);
 - unresolved current theory/dead end → `NOTES.md` Active;
 - score, green gate, objective → `CURRENT.md` (never re-paste D-chains).
 
@@ -454,8 +472,8 @@ For a generated file:
 6. behavior helpers still live in readable JS rather than being hidden in a
    whole-program generated engine.
 
-Missing fields are semantic omissions. Record them in the relevant
-`c-js-map/*.md` section; do not
+Missing fields are semantic omissions. Name them in the D-entry
+(ledger `partial` + `omit`); do not
 silently substitute defaults that happen to pass one session.
 
 ## 9. Async and segment boundaries

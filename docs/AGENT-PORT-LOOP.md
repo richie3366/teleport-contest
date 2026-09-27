@@ -135,7 +135,7 @@ MODEL=cursor-grok-4.6-high ./scripts/agent-port-loop.sh
 │       continue latch: force port (or audit) and skip n%10 for       │
 │             that one global #; leftover dirty tree is the cluster   │
 │       port: Must-fix beats Open; if open count < 8, agent refills  │
-│             evidence rows only (port-coverage --rows first, then   │
+│             evidence rows only (ledger rows --write first, then    │
 │             queue owners / park-named writers; target 12) then     │
 │             ships one whole C function (200–800 js/ lines)         │
 │       snapshot js/; remember HEAD; run agent (commit + push)       │
@@ -350,8 +350,8 @@ Work comes from
 `docs/LOOP-QUEUE.md` (Must-fix before Open; live file unchecked-only,
 done rows in `docs/archive/LOOP-QUEUE-DONE.md`). `STOP_AGENT_LOOP.md` is
 **gitignored**; only the supervisor writes `0`, at launch. Fixed causes belong in
-`DIVERGENCE-LOG.md` (+ index); structural omissions belong in one
-`docs/c-js-map/*.md` section; each iteration prepends a short journal
+`DIVERGENCE-LOG.md` (+ index); per-function status/omissions belong in
+the port ledger (`docs/LEDGER.md`, D-entry `Ledger:` bullet); each iteration prepends a short journal
 entry. Do not copy old crumbs by hand: `node scripts/check-hot-docs.mjs --fix`
 in the iter, and the supervisor runs `scripts/rotate-journal.mjs` if
 the live file is still over cap.
@@ -514,7 +514,7 @@ Halt reason is still `last-halt-reason.txt`.
 | Park share climbs (≥ 3 `Park …` commits in 10 port iters) | Refill leaked non-evidence rows. `check-hot-docs` FAILs live rows without evidence; `hidden-proxy queue` tags open/parked/archived owners. 2026-09-09..15: 126/362 iterations were parks, 109/161 parked rows stale copies of shipped work |
 | Dirty tree at start | Loop refuses to launch, unless a continue latch is armed (`--continue-unfinished`, crash leftover, or dirty tree + `NEXT_AGENT_PROMPT.md`) |
 | QUALITY-RISK with no Must-fix | Review-debt overlay for the next iteration (any mode); continue |
-| Queue empty after port | Agent failed to refill (breadth phase: `node scripts/port-coverage.mjs --rows N` pasted verbatim; phase 2: `hidden-proxy queue` untagged owners, park-named writers, `[campaign]`/`[measure]` rows) — warn + next-iter overlay |
+| Queue empty after port | Agent failed to refill (breadth phase: `node scripts/ledger.mjs rows --write` regenerates the coverage block; phase 2: `hidden-proxy queue` untagged owners, park-named writers, `[campaign]`/`[measure]` rows) — warn + next-iter overlay |
 
 The shell parses `__RESULTS_JSON__` (the frozen runner exits 0 on FAIL),
 enforces density, one-loop locking, protected-path hashes, finite

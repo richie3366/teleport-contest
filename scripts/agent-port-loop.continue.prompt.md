@@ -52,15 +52,15 @@ JSON by offsets is the failure mode this prompt exists to stop
    redraw — do not snapshot/restore grid rows (D-1831
    `_snapshotStatusGrid` broke 12 corpus sessions).
 5. Open `docs/GROK-PLAYBOOK.md` §3/§5/§6 only if a rule is unclear.
-   `docs/CURRENT.md`, `docs/NOTES.md` and the **one** `docs/c-js-map/*.md`
-   section the work cites are the only other docs to read.
+   `docs/CURRENT.md` and `docs/NOTES.md` are the only other docs to read;
+   ledger rows come from `node scripts/ledger.mjs show <fn>`.
 6. The corpus claim must match the queue row. If the row said "N corpus
    blocks" and verify prints `note hidden … no corpus session is
    blocked`, the baseline was consumed: run
    `node scripts/verify.mjs --fn <fn> --base <sha the row was queued at>`
    and paste **that** tail. Never write "PASS hidden" for a vacuous check.
-7. Update CURRENT / NOTES / divergence + index / one map section /
-   journal tail. Archive the queue line only if **this leftover** was
+7. Write the D-entry with its `- **Ledger:**` bullet; `finish-iteration.mjs`
+   stamps ledger, coverage block, index, journal, CURRENT, NOTES. Archive the queue line only if **this leftover** was
    already the popped item (`- [x]` + `archive-loop-queue-done.mjs`).
 8. **Commit and `git push origin HEAD`.** No force-push, no amend of
    pushed commits. Density cap still applies (`js/` +1500 / 15 files vs

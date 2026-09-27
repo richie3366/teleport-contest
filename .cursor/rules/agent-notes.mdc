@@ -8,8 +8,8 @@ alwaysApply: true
 `docs/NOTES.md` is the live unresolved scratchpad (caps in
 `scripts/check-hot-docs.mjs` — do not count lines by hand).
 Measured objectives/scores live in **`docs/CURRENT.md`**, fixed causes in
-`DIVERGENCE-LOG.md` (+ `DIVERGENCE-INDEX.md`), structural omissions in one
-`docs/c-js-map/*.md` section, and loop chronology in the journal **tail**
+`DIVERGENCE-LOG.md` (+ `DIVERGENCE-INDEX.md`), per-function status and omissions in
+the port ledger (`docs/LEDGER.md`, via the D-entry `Ledger:` bullet), and loop chronology in the journal **tail**
 (archive older entries under `docs/archive/`).
 
 ## What belongs in NOTES.md
@@ -24,7 +24,7 @@ Measured objectives/scores live in **`docs/CURRENT.md`**, fixed causes in
 
 Constitution, strategy essays, resolved peel chronology, baseline scores,
 completed D-chains, and module status — those have other owners (`CURRENT.md`,
-archive, divergence, c-js-map).
+archive, divergence, ledger).
 
 ## When to write
 

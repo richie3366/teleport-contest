@@ -1,6 +1,11 @@
 # C → JS coverage map
 
-Structural ledger for the port. Status meanings are defined in
+**Frozen history since 2026-09-27.** Per-function status and omissions now
+live in the port ledger (`docs/LEDGER.md`, `node scripts/ledger.mjs show
+<fn>`); do not edit these sections. They stay readable for evidence
+(`node scripts/map.mjs <file.c>`, `brief.mjs <fn> --map`).
+
+Structural ledger for the port until 2026-09-27. Status meanings are defined in
 `PORTING-RUNBOOK.md`; a passing session alone does not imply `ported`.
 
 **Read rule:** open **only** the subsystem file you will edit. Do not load

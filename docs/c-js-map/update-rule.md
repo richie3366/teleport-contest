@@ -1,5 +1,8 @@
 # C→JS map — Update rule
 
+**Retired 2026-09-27:** the map is frozen history. Status and omissions are
+written through the D-entry `- **Ledger:**` bullet (`docs/LEDGER.md`).
+
 Parent index: `docs/C-JS-MAP.md`. Do not load other map sections
 unless this subsystem is in scope.
 

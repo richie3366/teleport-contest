@@ -128,10 +128,13 @@ Must-fix prepend is a failed review — the supervisor will halt.
 After every listed SHA already has its file on disk: journal crumb.
 Cadence score (full `sessions`) if this is the audit overlay.
 `node scripts/check-hot-docs.mjs --fix --review NN …` (this iter’s
-review ids; do not count). `ok` = no cap edit. If REFILL, append
-`node scripts/port-coverage.mjs --rows N` output verbatim under **Open —
-coverage** (to ~12; breadth phase, Constitution §10.17) — never a
-map/debt copy, never a `[measure]` row (phase 2). **Then** one grouped
+review ids; do not count). `ok` = no cap edit. If REFILL, `--fix`
+already regenerated the ledger-generated **Open — coverage** block (breadth
+phase, Constitution §10.17) — never paste rows, never a `[measure]` row
+(phase 2). Audit iters also run `node scripts/ledger.mjs summary
+--snapshot` and sample 5 seeded `ported` rows (`ledger.mjs sql "select fn
+from fn where seeded=1 and status='ported' order by random() limit 5"`,
+one `brief` each); a wrong row is fixed with `ledger.mjs set`. **Then** one grouped
 commit **and** `git push origin HEAD`.
 
 ## STOP

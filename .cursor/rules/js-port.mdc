@@ -36,8 +36,8 @@ alwaysApply: false
 - Session-wide RNG replay lists belong only in shrinking `fastforward.js`, never new seeds.
 - Public seed names, recorded coordinates/values/screens, and raw RNG-index
   conditions do not belong in production logic.
-- If a function remains partial, put semantic omissions in
-  the relevant `docs/c-js-map/*.md` section; do not use "not needed for seedXXXX" as design.
+- If a function remains partial, name semantic omissions in
+  the D-entry and declare it `partial` in its `Ledger:` bullet; do not use "not needed for seedXXXX" as design.
 
 ## Handoff
 
