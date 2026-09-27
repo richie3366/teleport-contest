@@ -6,7 +6,7 @@
 {"fn":"m_use_healing","c":"337-357","status":"unknown"}
 {"fn":"m_sees_sleepy_soldier","c":"361-381","status":"unknown"}
 {"fn":"m_tele","c":"384-413","status":"unknown"}
-{"fn":"m_next2m","c":"420-436","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"m_next2m","c":"420-436","status":"ported","js":["js/muse.js:m_next2m"],"d":["D-2995"],"at":"2026-09-27@a5d26e462","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"find_defensive","c":"441-750","status":"unknown","d":["D-1988"],"at":"seed@a30a7de84"}
 {"fn":"reveal_trap","c":"757-767","status":"unknown"}
 {"fn":"mon_escape","c":"780-789","status":"unknown"}

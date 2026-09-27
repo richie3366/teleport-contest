@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-2995 — `muse.c` m_next2m whole-body port + Knox tryescape guard wiring (R-778 debt retired)
+
+- **Status:** fixed (coverage row `muse.c` m_next2m MISSING; hidden-proxy verify reports no corpus session blocked on it). Queue-head `shk.c` call_kops proved stale in the same iteration (C `:509–564` complete at `js/shk.js:390` — alarm, nokops, angry_guards, choose_stairs, both makekops swarms — with both C callers wired at `:352`/`:531`; ledger set ported with stale note) and this next row shipped per the stale rule.
+- **Symptom:** no JS symbol for `m_next2m`; `find_defensive` carried `// C tryescape && Is_knox && !m_next2u && m_next2m — m_next2m named omit`, so on Knox a tryescape monster with adjacent company always fell through to defense selection instead of C's `return FALSE` (review 778 ACCEPT-WITH-DEBT named omit).
+- **C locus:** `nethack-c/upstream/src/muse.c:419–436` `m_next2m` (staticfn; sole C caller find_defensive `:459`).
+- **JS was:** no `m_next2m` in `js/`; the `:457–460` guard arm absent from `find_defensive`.
+- **Fix:** File-local `m_next2m` in C order at `js/muse.js:268` (mirrors same-file `m_next2u`, C staticfn): `DEADMONSTER || mon_offmap` short-circuit as `(mhp|0)<1 || mon_offmap` `:426–427` (file idiom), 3×3 loop over `mx±1/my±1` with `isok` continue `:431–432` and `m_at` + `m2 !== mtmp` early-TRUE `:433` (own square counts only for a different monster). Wired the sole caller's guard at `js/muse.js:1900` (`tryescape && Is_knox(game.u?.uz) && !m_next2u(mtmp) && m_next2m(mtmp) → return false`, C `:457–460`); +2 import names on ALREADY edges (`mon_offmap` monmove.js, `Is_knox` const.js); doc comment drops the named omit. New `scripts/m-next2m.test.mjs`: 8/8 through exported `find_defensive` (guard fires / no-neighbor / own-square / off-Knox / !tryescape / next-to-hero / dead / offmap).
+- **JS:** `js/muse.js` (+2 import names, +17 body, +4/−1 caller, +1/−1 doc); `scripts/m-next2m.test.mjs` (+8 tests).
+- **Callers:** sole C site `muse.c:459` → `js/muse.js:1900` guard arm (short-circuit order matches C). No other C caller; no call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn m_next2m` → VERIFY: PASS (syntax 1 file js/muse.js; rule2; hidden note no corpus session blocked; reach no RNG tags → smoke 12/12 → REACH-OK; green 2/2; strict ×2; cohort 7/7; full skipped: no shared file changed). Focused `node --test scripts/m-next2m.test.mjs` 8/8; falsification probe (js/muse.js stashed): exactly the guard-fires test fails, 7 pass / 1 fail.
+- **Named omissions:** none for `m_next2m` — every arm ported, every callee live, the sole caller wired. Live: `isok` const.js:2302, `m_at` mon.js:1732, `mon_offmap` monmove.js:196, `Is_knox` const.js:3264, `m_next2u` same-file (you.h macro). Retires the R-778 `m_next2m` named debt (no Must-fix stamp: review verdict already ACCEPT-WITH-DEBT).
+- **Ledger:** m_next2m ported
+- **Next:** breadth picker continues at the regenerated coverage head.
+
 ## D-2994 — `engrave.c` u_can_engrave whole-body port (swallow/lava/pool/air/cantwield/capacity + messages)
 
 - **Status:** fixed (coverage row `engrave.c` u_can_engrave THIN; hidden-proxy verify reports no corpus session blocked on it). Queue-head `cmdq_shift` proved stale in the same iteration (C `:354–370` complete at `js/cmd.js:400` as `unshift(pop())` with both ext_tlist dispatch wirings at `:2333`/`:5316`; ledger set ported with stale note) and this next row shipped per the stale rule.

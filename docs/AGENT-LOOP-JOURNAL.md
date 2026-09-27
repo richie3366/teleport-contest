@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2995 `muse.c` m_next2m whole-body port + Knox tryescape guard wiring (R-778 debt retired)
+
+**C locus:** `nethack-c/upstream/src/muse.c:419–436` `m_next2m` (staticfn; sole C caller find_defensive `:459`).
+**JS:** `js/muse.js` (+2 import names, +17 body, +4/−1 caller, +1/−1 doc); `scripts/m-next2m.test.mjs` (+8 tests).
+**Change:** File-local `m_next2m` in C order at `js/muse.js:268` (mirrors same-file `m_next2u`, C staticfn): `DEADMONSTER || mon_offmap` short-circuit as `(mhp|0)<1 || mon_offmap` `:426–427` (file idiom), 3×3 loop over `mx±1/my±1` with `isok` continue `:431–432` and `m_at` + `m2 !== mtmp` early-TRUE `:433` (own square counts only for a different monster). Wired the sole caller's guard at `js/muse.js:1900` (`tryescape && Is_knox(game.u?.uz) && !m_next2u(mtmp) && m_next2m(mtmp) → return false`, C `:457–460`); +2 import names on ALREADY edges (`mon_offmap` monmove.js, `Is_knox` const.js); doc comment drops the named omit. New `scripts/m-next2m.test.mjs`: 8/8 through exported `find_defensive` (guard fires / no-neighbor / own-square / off-Knox / !tryescape / next-to-hero / dead / offmap).
+**Verify:** `node scripts/verify.mjs --fn m_next2m` → VERIFY: PASS (syntax 1 file js/muse.js; rule2; hidden note no corpus session blocked; reach no RNG tags → smoke 12/12 → REACH-OK; green 2/2; strict ×2; cohort 7/7; full skipped: no shared file changed). Focused `node --test scripts/m-next2m.test.mjs` 8/8; falsification probe (js/muse.js stashed): exactly the guard-fires test fails, 7 pass / 1 fail.
+**Named:** none for `m_next2m` — every arm ported, every callee live, the sole caller wired. Live: `isok` const.js:2302, `m_at` mon.js:1732, `mon_offmap` monmove.js:196, `Is_knox` const.js:3264, `m_next2u` same-file (you.h macro).
+**Next:** breadth picker continues at the regenerated coverage head.
 ## 2026-09-27 — D-2994 `engrave.c` u_can_engrave whole-body port (swallow/lava/pool/air/cantwield/capacity + messages)
 
 **C locus:** `nethack-c/upstream/src/engrave.c:502–541` `u_can_engrave` (staticfn; sole C caller doengrave `:964`).

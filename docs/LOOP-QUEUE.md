@@ -112,8 +112,6 @@ body in C order — every arm, every callee live or named, every C caller
 wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 
 <!-- coverage:begin -->
-- [ ] `shk.c` call_kops — coverage PARTIAL (C 35 code L `shk.c:510–564` / JS 26 code L in js/shk.js; hops 4, callers 2, RNG 0, msg 2) @080c16023
-- [ ] `muse.c` m_next2m — coverage MISSING (C 11 code L `muse.c:420–436` / JS no symbol; hops 2, callers 1, RNG 0, msg 0) @080c16023
 - [ ] `zap.c` get_mon_location — coverage MISSING (C 11 code L `zap.c:692–709` / JS no symbol; hops 2, callers 1, RNG 0, msg 0) @080c16023
 - [ ] `sp_lev.c` find_montype — coverage MISSING (C 14 code L `sp_lev.c:3143–3164` / JS no symbol; hops —, callers 2, RNG 1, msg 0) @0daa1a65f
 - [ ] `region.c` clear_regions — coverage THIN (C 8 code L `region.c:394–405` / JS 1 code L in js/region.js; hops 2, callers 3, RNG 0, msg 0) @0daa1a65f
@@ -124,6 +122,8 @@ wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 - [ ] `mklev.c` free_luathemes — coverage MISSING (C 8 code L `mklev.c:345–364` / JS no symbol; hops 3, callers 2, RNG 0, msg 0) @e74c75d1f
 - [ ] `engrave.c` rest_engravings — coverage MISSING (C 27 code L `engrave.c:1584–1619` / JS no symbol; hops 3, callers 1, RNG 0, msg 0) @e61bdd324
 - [ ] `detect.c` trapped_door_at — coverage PARTIAL (C 12 code L `detect.c:182–197` / JS 8 code L in js/detect.js; hops 3, callers 2, RNG 1, msg 0) @e61bdd324
+- [ ] `cmd.c` lock_mouse_buttons — coverage MISSING (C 9 code L `cmd.c:3326–3340` / JS no symbol; hops 2, callers 1, RNG 0, msg 0) @a5d26e462
+- [ ] `options.c` optfn_boolean — coverage MISSING (C 178 code L `options.c:5192–5449` / JS no symbol; hops —, callers 0, RNG 0, msg 2) @a5d26e462
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

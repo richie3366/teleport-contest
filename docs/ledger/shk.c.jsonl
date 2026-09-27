@@ -12,7 +12,7 @@
 {"fn":"clear_no_charge_pets","c":"389-396","status":"unknown"}
 {"fn":"setpaid","c":"400-434","status":"unknown"}
 {"fn":"addupbill","c":"496-507","status":"unknown"}
-{"fn":"call_kops","c":"510-564","status":"unknown"}
+{"fn":"call_kops","c":"510-564","status":"ported","js":["js/shk.js:call_kops"],"at":"2026-09-27@a5d26e462","note":"stale: complete at js/shk.js:390, both C callers wired (:352,:531)"}
 {"fn":"inside_shop","c":"568-576","status":"unknown"}
 {"fn":"u_left_shop","c":"579-625","status":"unknown"}
 {"fn":"credit_report","c":"628-661","status":"unknown","d":["D-2282"],"at":"seed@a30a7de84"}
