@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2961 `remove_timer` unlinks the first matching timer
+
+**C locus:** `nethack-c/upstream/src/timeout.c:2483–2502` `remove_timer`. The walk starts at `*base` with `prev` null. A hit is `func_index` then `arg.a_void` (`&&` does not read `a_void` on a miss). `prev->next = curr->next`, or `*base = curr->next` when the hit is the head. The node is returned with `next` still set. A miss returns null. No free, memset, or cleanup. Sole caller `stop_timer` (`:2305`) passes `&gt.timer_base`.
+**JS:** `js/mkobj.js` `remove_timer` `:1235`. Match `:1240–1242`. Unlink `:1244–1246`. Return `:1249`. `timer_element_a_void` `:1210`. `timer_arg_a_void` `:1222`. `stop_timer` call `:1264`. Head write `:1265`.
+**Change:** One file-local `remove_timer` keeps that C order. `a_void` is the object, the monster, or the packed long (`obj_to_any` is the object). `stop_timer` passes `{ head }` and writes the head back.
+**Verify:** `node scripts/verify.mjs --fn remove_timer` → PASS syntax (1 changed js file: js/mkobj.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed; pass --full to force) · VERIFY: PASS.
+**Named:** No arm of the match or the unlink is omitted. `stop_timer` returns 0 for a falsy arg, so a packed long of 0 never reaches `remove_timer`.
+**Next:** `display.c` `set_corn` (next Open — coverage row). Six coverage rows remain after the two Stale parks and this archive, below the floor of 8. `--rows 500` head is the never-re-pop Stale set (not pasted). Save/restore/files, sanity, and `hops —` were not pasted. Three later gameplay rows are appended (`quest_info`, `unmakemon`, `e_jumps`). Queue is 9.
 
 ## 2026-09-27 — D-2960 `Shirt_off` clears the takeoff bit, then the shirt
 

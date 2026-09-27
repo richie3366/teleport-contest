@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `getpos.c` `getpos_toggle_hilite_state` — coverage PARTIAL (C 19 L `getpos.c:72–91` / JS 13 L in js/getpos.js). Verify `node scripts/verify.mjs --fn getpos_toggle_hilite_state`.
+**Next cluster:** `display.c` `set_corn` — coverage THIN (C 24 L `display.c:3208–3236` / JS 9 L in js/mklev.js). `getpos_toggle_hilite_state` and `acurrstr` parked Stale. `remove_timer` is D-2961. Verify `node scripts/verify.mjs --fn set_corn`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2960 (index).**
+**Keep D-0845…D-2961 (index).**
 <!-- recent:begin -->
+**D-2961** `nethack-c/upstream/src/timeout.c:2483–2502` `remove_timer`. The walk starts at `*base` wi — One file-local `remove_timer` keeps that C order.
 **D-2960** `nethack-c/upstream/src/do_wear.c:778–794` `Shirt_off`. Mask clear, then the shirt switch, then `setworn`. — One exported `Shirt_off` keeps that C order.
 **D-2959** `nethack-c/upstream/src/dungeon.c:1923–1938` `In_W_tower`. `On_W_tower_level` (`:1914–1919 — One exported `In_W_tower` keeps that C order.
 **D-2958** `nethack-c/upstream/src/objnam.c:2359–2374` `yname`. `cxname` runs first. The prefix arm i — One exported `yname` keeps that C order and caps the append at `BUFSZ-1`.
@@ -110,12 +111,10 @@ revisits the picker.
 **D-2956** `nethack-c/upstream/src/mon.c:4829–4852` `mon_animal_list`. `construct` walks `LOW_PM .. S — One exported `mon_animal_list` keeps that C order.
 **D-2955** `nethack-c/upstream/src/mkobj.c:2270–2286` `is_flammable`. `otyp` and `objects[otyp].oc_ma — One exported `is_flammable` keeps that C order and calls `timeout.js` `Is_candle`.
 **D-2954** `nethack-c/upstream/src/attrib.c:740–760` `redist_attr`. The loop skips `A_INT` and `A_WIS — One exported `redist_attr` keeps that C order.
-**D-2953** `nethack-c/upstream/src/region.c:161–186` `add_mon_to_reg`. `mon_in_region` (`:209–218`) s — One file-local `add_mon_to_reg` in that C order.
-**D-2952** `nethack-c/upstream/win/tty/wintty.c:2226–2301` `tty_putstr` `NHW_MESSAGE`. Urgent and `WI — `install_tty_wincap2` stores only those two bits.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2960; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2961; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

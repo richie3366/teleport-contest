@@ -998,7 +998,8 @@ function special_corpse(num) {
 /**
  * C ref: timeout.c timer queue (gt.timer_base) — object + level timers.
  * start_timer inserts by absolute timeout (moves+when); run_timers fires
- * when timeout <= moves. Envelope: ROT_CORPSE → rot_corpse floor extract
+ * when timeout <= moves. remove_timer unlinks one (func_index, a_void)
+ * node for stop_timer. Envelope: ROT_CORPSE → rot_corpse floor extract
  * + invent/minvent worn (D-1213); HATCH_EGG queued via
  * attach_egg_hatch_timeout (D-0533); hatch_egg
  * dispatched (D-1036/D-1037); TIMER_LEVEL MELT_ICE_AWAY → melt_ice_away
@@ -1202,35 +1203,79 @@ export function obj_stop_timers(obj) {
 }
 
 /**
- * C ref: timeout.c stop_timer — remove one (action,obj) timer; return
- * remaining turns (timeout − moves), or 0 if none. BURN_OBJECT runs
- * cleanup_burn (restore age, del LS_OBJECT, clear lamplit).
+ * a_void of a queued timer_element. C's anything union is one word:
+ * object pointer, monster pointer, or packed long. start_timer stores
+ * exactly one of those (the others stay null / 0).
+ */
+function timer_element_a_void(curr) {
+    if (curr.obj != null) return curr.obj;
+    if (curr.mon != null) return curr.mon;
+    return curr.a_long | 0;
+}
+
+/**
+ * a_void of the anything* stop_timer was given. Object and monster
+ * callers pass the pointer (obj_to_any / monst_to_any collapse to it).
+ * A level or global timer passes the packed long.
+ */
+function timer_arg_a_void(arg) {
+    if (typeof arg === 'number') return arg | 0;
+    return arg;
+}
+
+/**
+ * C ref: timeout.c remove_timer `:2483–2502`.
+ * Unlink the first element of `*base` whose func_index and arg.a_void
+ * match. `base` is `{ head }` so a head hit writes `*base` the way C
+ * does. func_index is tested first (`&&` does not read a_void on a
+ * miss). The node is not freed, zeroed, or cleaned up, and its `next`
+ * still names the old successor. Returns that node, or null.
+ * Sole C caller is stop_timer (`timeout.c:2305`), passing `&gt.timer_base`.
+ */
+function remove_timer(base, func_index, arg) {
+    let prev = null;
+    let curr = base.head;
+    const funcN = timeout_func_index(func_index);
+    for (; curr; prev = curr, curr = curr.next) {
+        if (timeout_func_index(curr.action) === funcN
+            && timer_element_a_void(curr) === timer_arg_a_void(arg)) {
+            break;
+        }
+    }
+    if (curr) {
+        if (prev) prev.next = curr.next;
+        else base.head = curr.next;
+    }
+    return curr;
+}
+
+/**
+ * C ref: timeout.c stop_timer `:2299–2318` — remove_timer, then the
+ * object timed count, cleanup, and remaining turns (timeout − moves),
+ * or 0 if none. BURN_OBJECT runs cleanup_burn (restore age, del
+ * LS_OBJECT, clear lamplit). memset/free of the node is GC.
  */
 export function stop_timer(action, obj) {
+    /* A null anything* faults in C once the list is walked. Callers
+       pass an object; a missing one has nothing to unlink. */
     if (!obj) return 0;
     const g = timer_base();
-    const moves = game.moves | 0;
-    let prev = null;
-    let curr = g._timer_base;
-    while (curr) {
-        const next = curr.next;
-        if (curr.kind === TIMER_OBJECT
-            && timeout_func_index(curr.action) === timeout_func_index(action)
-            && curr.obj === obj) {
-            if (prev) prev.next = next;
-            else g._timer_base = next;
+    const base = { head: g._timer_base };
+    const doomed = remove_timer(base, action, obj);
+    g._timer_base = base.head;
+    if (doomed) {
+        const moves = game.moves | 0;
+        const expire = doomed.timeout | 0;
+        if ((doomed.kind | 0) === TIMER_OBJECT) {
             obj.timed = Math.max(0, (obj.timed | 0) - 1);
-            const expire = curr.timeout | 0;
             // C: timeout_funcs[BURN_OBJECT].cleanup = cleanup_burn
             if (action === BURN_OBJECT && obj.lamplit) {
                 del_light_source(LS_OBJECT, obj);
                 obj.age = (obj.age | 0) + (expire - moves);
                 obj.lamplit = 0;
             }
-            return expire - moves;
         }
-        prev = curr;
-        curr = next;
+        return expire - moves;
     }
     return 0;
 }

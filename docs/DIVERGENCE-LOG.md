@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2961 — `remove_timer` unlinks the first matching timer
+
+- **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked). C is 16 lines; the whole body shipped. `getpos.c` `getpos_toggle_hilite_state` and `attrib.c` `acurrstr` were already those bodies; parked Stale, not re-ported. No other Open row in `timeout.c`.
+- **Symptom:** Stopping a timer required `TIMER_OBJECT` inside `stop_timer`. C unlinks the first element of any kind whose `func_index` and `a_void` match, and returns that node for the caller to clean up.
+- **C locus:** `nethack-c/upstream/src/timeout.c:2483–2502` `remove_timer`. The walk starts at `*base` with `prev` null. A hit is `func_index` then `arg.a_void` (`&&` does not read `a_void` on a miss). `prev->next = curr->next`, or `*base = curr->next` when the hit is the head. The node is returned with `next` still set. A miss returns null. No free, memset, or cleanup. Sole caller `stop_timer` (`:2305`) passes `&gt.timer_base`.
+- **JS was:** No `remove_timer`. `js/mkobj.js` `stop_timer` walked `game._timer_base` and unlinked only `kind === TIMER_OBJECT` with the same object.
+- **Fix:** One file-local `remove_timer` keeps that C order. `a_void` is the object, the monster, or the packed long (`obj_to_any` is the object). `stop_timer` passes `{ head }` and writes the head back. `timed` and the burn cleanup run only when the removed node is `TIMER_OBJECT`.
+- **JS:** `js/mkobj.js` `remove_timer` `:1235`. Match `:1240–1242`. Unlink `:1244–1246`. Return `:1249`. `timer_element_a_void` `:1210`. `timer_arg_a_void` `:1222`. `stop_timer` call `:1264`. Head write `:1265`.
+- **Callers:** `timeout.c:1956` is the prototype. `timeout.c:2305` `stop_timer` → `js/mkobj.js:1264`. `obj_stop_timers` (`timeout.c:2382`) keeps its own walk; C does not call `remove_timer` there. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn remove_timer` → PASS syntax (1 changed js file: js/mkobj.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed; pass --full to force) · VERIFY: PASS.
+- **Named omissions:** No arm of the match or the unlink is omitted. `stop_timer` returns 0 for a falsy arg, so a packed long of 0 never reaches `remove_timer`. `timed` still clamps at 0. `cleanup_burn`'s `!lamplit` `impossible` and `OBJ_INVENT` `update_inventory` stay out of the inline burn cleanup. `memset` and `free` are GC.
+- **Next:** `display.c` `set_corn` (next Open — coverage row). Six coverage rows remain after the two Stale parks and this archive, below the floor of 8. `--rows 500` head is the never-re-pop Stale set (not pasted). Save/restore/files, sanity, and `hops —` were not pasted. Three later gameplay rows are appended (`quest_info`, `unmakemon`, `e_jumps`). Queue is 9.
+
 ## D-2960 — `Shirt_off` clears the takeoff bit, then the shirt
 
 - **Status:** fixed (coverage THIN; `hidden-proxy verify` reports no corpus session blocked). C is 16 lines; the whole body shipped. No other Open row in `do_wear.c`.

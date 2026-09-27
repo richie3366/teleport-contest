@@ -366,7 +366,7 @@ the same named omit as `topten()`. `tt_doppel` calls the exports.
 
 Creation/merge/weight subsets; `add_to_buried` (D-0014); 
 `start_corpse_timeout` + `mkcorpstat` `special_corpse` restart (D-0011); 
-**`run_timers`/`start_timer` queue + floor `rot_corpse`** (D-0405; `start_timer` whole body D-2794 — range panic, VERBOSE_TIMER duplicate `impossible`, return TRUE; D-2801 stores `MELT_ICE_AWAY` as timeout_funcs index 8 and `run_timers` calls `melt_ice_away` on the packed long);
+**`run_timers`/`start_timer` queue + floor `rot_corpse`** (D-0405; `start_timer` whole body D-2794 — range panic, VERBOSE_TIMER duplicate `impossible`, return TRUE; D-2801 stores `MELT_ICE_AWAY` as timeout_funcs index 8 and `run_timers` calls `melt_ice_away` on the packed long); **`remove_timer` whole body** (D-2961; C `timeout.c:2483–2502` → file-local `js/mkobj.js` `remove_timer`: first `func_index` + `a_void` hit unlinks through `prev` or `*base` and returns the node with `next` still set; sole caller `stop_timer` `timeout.c:2305` → `js/mkobj.js`);
 **`spot_time_expires` + `spot_time_left` delegation** (D-1957;
 C `timeout.c` `spot_time_expires` `:2444–2456` / `spot_time_left` `:2458–2463`;
 absolute vs remaining; TIMER_LEVEL+func+packed-where triple match); 
