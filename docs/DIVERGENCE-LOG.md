@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-2991 — `alloc.c` nhalloc family port: new `js/alloc.js`
+
+- **Status:** fixed (coverage row `alloc.c` nhalloc MISSING; hidden-proxy verify reports no corpus session blocked on it).
+- **Symptom:** no JS symbol for `nhalloc` (`alloc.c:152–166`); its callees `alloc` (ledger by-design, no symbol) and `heapmon_init` (no symbol) were likewise absent, leaving the whole `alloc.c` wrapper family without a JS home.
+- **C locus:** `nethack-c/upstream/src/alloc.c:152–166` `nhalloc` + same-file family shipped in this commit: `alloc :68–81`, `re_alloc :85–99`, `heapmon_init :142–149` (`staticfn`), `nhrealloc :170–202`, `nhfree :205–214`, `nhdupstr :219–229`, `FITSint_ :266–273`, `FITSuint_ :276–283`. Build note: the `nh*` half lives under `#ifdef MONITOR_HEAP` (`:137–232`), a leak-debug flag NOT enabled in the scored build (no `-DMONITOR_HEAP` in build config) — ported anyway in C order per breadth-phase density (D-2989 `set_font_name` precedent).
+- **JS was:** no `js/alloc.js`; `alloc` ledger by-design ("C runtime (GC)") with no symbol; `fmt_ptr` live at `js/mkobj.js:1795`; `dupstr` live at `js/dungeon.js:264`.
+- **Fix:** new `js/alloc.js` (216 lines, zero imports — leaf module, no cycle possible) in C order: `forceAlignedLength` helper for the `:48–52` macro (`sizeof (long)` = 8 LP64); `alloc`/`re_alloc` render the C `long *` buffer as a zero-filled `Uint8Array` of the aligned size (`alloc(0)` → 8 like C), content carried over `min(old,new)` on resize, `re_alloc(null,n)` ≡ fresh; `throw new Error(...)` ≡ C `panic()` (house idiom) with C-identical messages, aligned length in the message (the macro mutates `lth` before the C panic); the C null-return arms fold into the `new Uint8Array` catch and are kept for shape with cites; `nhdupstr` keeps the `FITSuint_` + `len+1` overflow arms and NUL-truncated `strlen`, the `strcpy(nhalloc(...))` byte step folding into the immutable-string slice (dungeon.js `dupstr` idiom); `FITSint_`/`FITSuint_` use `|0`/`>>>0` (truncate + mod 2^32, matching the C casts) with the `!==` overflow guard. Scratch probe `/tmp/alloc-probe.mjs`: 26/26 (alignment sizes, grow/shrink content, NUL truncation, all four overflow-throw arms, silent `nhfree`).
+- **JS:** `js/alloc.js` (+216: `alloc`, `re_alloc`, `heapmon_init` module-local like C `staticfn`, `nhalloc`, `nhrealloc`, `nhfree`, `nhdupstr`, `FITSint_`, `FITSuint_`).
+- **Callers:** C `nhalloc` call sites — `nhdupstr :228` (folded: no JS call site, the byte-buffer step folds into the string slice — named below) and the `global.h:336` `alloc(a)` MONITOR_HEAP macro routing (no JS call sites; allocation is GC/implicit). No call from a site C never calls from; no JS module imports `alloc.js` yet (leaf).
+- **Verify:** `node scripts/verify.mjs --fn nhalloc` → VERIFY: PASS — syntax (1 changed); rule2; hidden note (no corpus session blocked); reach smoke 12/12 → REACH-OK; green 2/2; strict ×2; cohort 7/7 (full skipped: no shared file changed).
+- **Named omissions:** heaplog `fprintf` arms (`nhalloc :158–160`, `nhrealloc :180–193` incl. the `:184` `'<'`/`'>'` op select, `nhfree :209–211`) + `heapmon_init :144–147` `getenv`/`fopen` — file/env I/O banned under Contest Rule #2 (`heaplog` always null, latch still runs); `fmt_ptr` stays live at `js/mkobj.js:1795` (heaplog-only use, no clone); `dupstr_n` stays unported (`#if 0`-suppressed in C `:249–262`); C caller `nhdupstr`→`nhalloc :228` folded (see Callers).
+- **Ledger:** nhalloc ported; alloc ported; re_alloc ported; heapmon_init ported; nhrealloc ported; nhfree ported; nhdupstr ported; FITSint_ ported; FITSuint_ ported
+- **Next:** breadth picker continues at the regenerated coverage head.
+
 ## D-2990 — `sp_lev.c` get_room_loc whole-body port + three stale rows
 
 - **Status:** fixed (coverage row `sp_lev.c` get_room_loc MISSING; hidden-proxy verify reports no corpus session blocked on it).
