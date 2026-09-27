@@ -23,7 +23,7 @@
 {"fn":"mbhit","c":"1734-1812","status":"unknown","d":["D-1484"],"at":"seed@a30a7de84"}
 {"fn":"buzz_force_miss","c":"1815-1818","status":"unknown"}
 {"fn":"use_offensive","c":"1824-2032","status":"ported","js":["js/muse.js:use_offensive"],"d":["D-1810"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}
-{"fn":"rnd_offensive_item","c":"2035-2081","status":"unknown"}
+{"fn":"rnd_offensive_item","c":"2035-2081","status":"ported","js":["js/makemon.js:rnd_offensive_item"],"d":["D-2983"],"at":"2026-09-27@529e9bfc5"}
 {"fn":"find_misc","c":"2095-2245","status":"unknown"}
 {"fn":"muse_newcham_mon","c":"2250-2261","status":"unknown"}
 {"fn":"mloot_container","c":"2264-2378","status":"ported","js":["js/muse.js:mloot_container"],"at":"seed@a30a7de84","note":"stale 2026-09-21"}

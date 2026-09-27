@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-2983 — `rnd_offensive_item` calls `which_armor` and `hard_helmet`
+
+- **Status:** fixed (coverage PARTIAL; hidden-proxy verify reports no corpus session blocked). C `rnd_offensive_item` is 38 code lines. Both callers were already the C calls.
+- **Symptom:** Case 0 did not call the C helpers. `which_armor_local` only walked `minvent` and skipped the hero slot table. `hard_helmet_local` indexed the `objects()` function, then treated `oc_armcat` as a helm when `oc_skill` was missing, instead of `is_helmet` then `is_metallic || is_crackable`.
+- **C locus:** `nethack-c/upstream/src/muse.c:2035–2081` `rnd_offensive_item`. Animals, `AT_EXPL`, mindless, `S_GHOST`, and `S_KOP` return 0 with no RNG. Difficulty is `mons[monsndx(pm)].difficulty` (`monsndx` is `pm->pmidx`). Above 7, `!rn2(35)` returns `WAN_DEATH`. The switch is `rn2(9 - (difficulty < 4) + 4 * (difficulty > 6))`. Case 0 returns `SCR_EARTH` for `hard_helmet(which_armor(mtmp, W_ARMH))` or amorphous / wall-walker / noncorporeal / unsolid, else `FALLTHROUGH` to `WAN_STRIKING`. Cases 2–12 are the potion and wand returns. The trailing `return 0` is `/*NOTREACHED*/`.
+- **JS was:** `js/makemon.js` `rnd_offensive_item` had every switch arm, but case 0 called those two locals. `which_armor` was already imported from `worn.js` and unused here. Difficulty went through `mon_difficulty`, which reads the same table `mons()` uses.
+- **Fix:** One exported `rnd_offensive_item` keeps that C order and calls `worn.js` `which_armor` and `do_wear.js` `hard_helmet` (`imports.mjs --can` SAFE, hoisted). The two locals are gone. `mon_difficulty(pm.mndx)` is `mons[pmidx].difficulty`, including the erinys update of that table. Ghost and Kop letters stay the JS `mlet` names `'S_GHOST'` and `'S_KOP'`.
+- **JS:** `js/makemon.js` `rnd_offensive_item` `:2238`. Early return `:2245`. `WAN_DEATH` `:2249`. Switch `:2251`. Helmet / earth `:2253–2257`. Fallthrough `:2260`. `WAN_STRIKING` `:2262`. Potions `:2263–2273`. Wands `:2274–2283`. `/*NOTREACHED*/` `:2286`.
+- **Callers:** `makemon.c:571` `m_initweap` → `js/makemon.js:2734` (`m_lev > rn2(75)`, then `mongets`). `mplayer.c:307` `mk_mplayer` → `js/mplayer.js:316` (`quan = rnd(3)` loop). `extern.h:2063` is the prototype. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn rnd_offensive_item` → PASS syntax (1 changed js file(s): js/makemon.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.4s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+- **Named omissions:** No arm of `rnd_offensive_item` is omitted. File-local `attacktype` is `mondata.c` `attacktype` (`attacktype_fordmg` with `AD_ANY`); there is no exported `attacktype`.
+- **Ledger:** rnd_offensive_item ported
+- **Next:** `botl.c` `botl_score` (next Open — coverage row).
+
 ## D-2982 — `check_wornmask_slots` checks worn bits and two-weapon state
 
 - **Status:** fixed (coverage MISSING; hidden-proxy verify reports no corpus session blocked). C `check_wornmask_slots` is 84 code lines. `config.h` defines `EXTRA_SANITY_CHECKS`, so the embedded-scales block and the two-weapon block are both live.
