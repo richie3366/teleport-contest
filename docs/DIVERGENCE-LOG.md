@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2960 — `Shirt_off` clears the takeoff bit, then the shirt
+
+- **Status:** fixed (coverage THIN; `hidden-proxy verify` reports no corpus session blocked). C is 16 lines; the whole body shipped. No other Open row in `do_wear.c`.
+- **Symptom:** Taking off a shirt only cleared the worn slot. The in-progress takeoff bit stayed set, and a non-shirt in that slot never called `impossible`.
+- **C locus:** `nethack-c/upstream/src/do_wear.c:778–794` `Shirt_off`. `svc.context.takeoff.mask &= ~W_ARMU` is first. The switch names `HAWAIIAN_SHIRT` and `T_SHIRT`; the default is `impossible("Unknown type of %s (%d)", "shirt", otyp)`. Then `setworn(NULL, W_ARMU)`. No current shirt has a take-off side effect.
+- **JS was:** `js/do_wear.js` `Shirt_off` called `clear_worn(W_ARMU)` and returned. The four C callers invoked it without waiting.
+- **Fix:** One exported `Shirt_off` keeps that C order and calls `setworn(null, W_ARMU)`. `armoroff`, `do_takeoff`, `wornarm_destroyed`, and `steal.js` `remove_worn_item` await it. `unmul` already awaits the `afternmv` assignment.
+- **JS:** `js/do_wear.js` `Shirt_off` `:1158`. Mask `:1161–1163`. Null return `:1166`. Switch `:1169–1176`. `setworn` `:1178`.
+- **Callers:** `do_wear.c:1960` `armoroff` delay → `js/do_wear.js:1876` (`unmul` awaits). `do_wear.c:1995` `armoroff` immediate → `:1893`. `do_wear.c:2874` `do_takeoff` → `:2369`. `do_wear.c:3160` `wornarm_destroyed` → `:4027`. `steal.c:260` `remove_worn_item` → `js/steal.js:323`. `doffing` still matches `afternmv === Shirt_off` at `:3911`. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn Shirt_off` → PASS syntax (2 changed js file(s): js/do_wear.js js/steal.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.2s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed; pass --full to force) · VERIFY: PASS.
+- **Named omissions:** No arm of the switch is omitted. A null `uarmu` returns 0 after the mask clear and skips `setworn`; C would dereference `uarmu->otyp`. A missing `context.takeoff` record skips the mask update.
+- **Next:** `getpos.c` `getpos_toggle_hilite_state` (next Open — coverage row). Nine coverage rows remain after this archive, above the floor of 8, so nothing was refilled.
+
 ## D-2959 — `In_W_tower` reports a missing tower boundary
 
 - **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked). C is 15 lines; the whole body shipped. `ball.c` `placebc` was already that released body (`js/ball.js:435`); parked Stale, not re-ported. No other Open row in `dungeon.c`.

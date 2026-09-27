@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-27
 
+- [x] `do_wear.c` Shirt_off — coverage THIN (C 16 L `do_wear.c:778–794` / JS 4 L in js/do_wear.js; hops 3, callers 4, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn Shirt_off` (reach regression must be 0). Measured `port-coverage.mjs --name Shirt_off` 2026-09-27 @ 8d00a95a8.
+
+
 - [x] `dungeon.c` In_W_tower — coverage PARTIAL (C 15 L `dungeon.c:1923–1938` / JS 7 L in js/dungeon.js; hops 2, callers 19, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn In_W_tower` (reach regression must be 0). Measured `port-coverage.mjs --name In_W_tower` 2026-09-27 @ 3f2358d79. **Addressed:** D-2959
 
 

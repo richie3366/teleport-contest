@@ -8,6 +8,14 @@ The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
 
+## 2026-09-27 — D-2960 `Shirt_off` clears the takeoff bit, then the shirt
+
+**C locus:** `nethack-c/upstream/src/do_wear.c:778–794` `Shirt_off`. `takeoff.mask &= ~W_ARMU` is first. Hawaiian shirt and T-shirt break. The default calls `impossible("Unknown type of %s (%d)", "shirt", otyp)`. Then `setworn(NULL, W_ARMU)`.
+**JS:** `js/do_wear.js` `Shirt_off` `:1158`. Mask `:1161`. Switch `:1169`. `setworn` `:1178`. Awaited from `armoroff` `:1893`, `do_takeoff` `:2369`, `wornarm_destroyed` `:4027`, and `js/steal.js:323`. Delay arm assigns `afternmv` at `:1876`.
+**Change:** One exported `Shirt_off` keeps that C order. The previous body only called `clear_worn`.
+**Verify:** `node scripts/verify.mjs --fn Shirt_off` → PASS syntax (2 changed js file(s): js/do_wear.js js/steal.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.2s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed; pass --full to force) · VERIFY: PASS.
+**Named:** No arm of the switch is omitted. A null `uarmu` returns 0 after the mask clear and skips `setworn`; C would dereference.
+**Next:** `getpos.c` `getpos_toggle_hilite_state` (next Open — coverage row). Nine coverage rows remain after this archive, above the floor of 8, so nothing was refilled.
 ## 2026-09-27 — Audit 1910–1918 accepts D-2951…D-2959
 
 Nine JS commits since `1a25073d1`, oldest first. All **ACCEPT**: `hliquid` timeout gate, `tty_putstr` `WIN_NOSTOP` clear plus the two message bits, `add_mon_to_reg`, `redist_attr`, `is_flammable`, `mon_animal_list`, `tmiss`, `yname`, `In_W_tower`. No Must-fix. Public `sessions` on `1021345f2`: 44/44, screens 11,405/11,405, RNG 792,838/792,838, speed `251+1.55/turn` (R² 0.765). Held-out still 12/44. Private corpus 12/12 (the 614/940 set is still absent). Next remains `Shirt_off`.
