@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2955 `is_flammable` rejects candles, fire resistance, and wands of fire
+
+**C locus:** `nethack-c/upstream/src/mkobj.c:2270–2286` `is_flammable`. `otyp` and `objects[otyp].oc_material` are read first. `Is_candle` (`obj.h:382–383`) returns false. `oc_oprop == FIRE_RES` or `otyp == WAN_FIRE` returns false. Otherwise `(omat <= WOOD && omat != LIQUID) || omat == PLASTIC`.
+**JS:** `js/mkobj.js` `is_flammable` `:799`. Candle return `:808`. Property and wand return `:811`. Material return `:814`. `WAN_FIRE` `:128`. `Is_candle` `js/timeout.js:1519`. `FIRE_RES` `js/const.js:2567`. `is_flammable_obj` `js/objnam.js:218`. Lava predicate `js/dothrow.js:2551` (import `:18`).
+**Change:** One exported `is_flammable` keeps that C order and calls `timeout.js` `Is_candle`. `oc_oprop` is compared to `FIRE_RES`. The wand test is the `WAN_FIRE` index.
+**Verify:** `node scripts/verify.mjs --fn is_flammable` → PASS syntax (3 changed js files: js/dothrow.js js/mkobj.js js/objnam.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.2s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed; pass --full to force) · VERIFY: PASS. An earlier run with the `objnam.js` static import failed every session on `ReferenceError: Cannot access '_body_part' before initialization`; that import was removed before this run.
+**Named:** No arm of `is_flammable` is omitted. `is_flammable_obj` reads a missing objects row as material 0 and property 0.
+**Next:** `mon.c` `mon_animal_list` (next Open — coverage row). Eleven coverage rows remain after this archive, above the floor of 8, so nothing was refilled.
 ## 2026-09-27 — D-2954 `redist_attr` clamps polymorphed strength to the current form
 
 **C locus:** `nethack-c/upstream/src/attrib.c:740–760` `redist_attr`. The loop skips `A_INT` and `A_WIS`. Each other attribute saves `AMAX`, adds `rn2(5) - 2`, then clamps to `ATTRMAX` and `ATTRMIN`. `ABASE` becomes `ABASE * AMAX / tmp` (C integer division toward 0) and is raised to `ATTRMIN` when it falls short. `ATTRMAX` is `attrib.h:43–44`: `A_STR && Upolyd` calls `uasmon_maxStr()`, otherwise `urace.attrmax`. The comment at `:760` leaves `encumber_msg` to the caller.

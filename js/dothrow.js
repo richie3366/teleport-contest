@@ -15,7 +15,7 @@ import { cansee, vision_recalc } from './vision.js';
 import { rn2, rnd, rn1, d } from './rng.js';
 import {
     place_object, splitobj, stackobj, delobj, is_crackable, sobj_at,
-    weight, unsplitobj,
+    weight, unsplitobj, is_flammable,
 } from './mkobj.js';
 import {
     losehp, maybe_half_phys, nomul, impact_disturbs_zombies, finish_maybe_wail,
@@ -2548,7 +2548,7 @@ export async function throwit(obj, wep_mask = 0, twoweap = false, oldslot = null
         const { WT_SPLASH_THRESHOLD } = await import('./const.js');
         if (!Deaf() && !game.u?.Underwater
             && (is_pool(x, y)
-                || (is_lava(x, y) /* && !is_flammable deferred */))) {
+                || (is_lava(x, y) && !is_flammable(obj)))) {
             await pline(
                 (weight(obj) > WT_SPLASH_THRESHOLD) ? 'Splash!' : 'Plop!',
             );

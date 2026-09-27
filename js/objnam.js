@@ -58,6 +58,7 @@ import {
     MAX_ERODE,
     GLIB,
     FM_FMON,
+    FIRE_RES,
 } from './const.js';
 import { currency } from './invent.js';
 
@@ -182,6 +183,7 @@ const MAT_IRON = 11;
 const MAT_COPPER = 13;
 const MAT_PLASTIC = 18;
 const MAT_GLASS = 19;
+const WAN_FIRE = objectNames.indexOf('WAN_FIRE');
 
 /** C ref: objclass.h is_rustprone — iron material. */
 function is_rustprone_obj(obj) {
@@ -208,12 +210,27 @@ function peek_burn_object(obj) {
     return 0;
 }
 
-/** C ref: mkobj.c is_flammable — local copy (objnam↔mkobj cycle). */
+/**
+ * C ref: mkobj.c is_flammable `:2270–2286` — same body as `js/mkobj.js`.
+ * A static import of that export TDZ'd `objnam.js` `_body_part` (polyself
+ * eval order). This copy is the `objnam.c` caller.
+ */
 function is_flammable_obj(obj) {
-    const n = objectNames[obj.otyp];
-    if (n === 'TALLOW_CANDLE' || n === 'WAX_CANDLE' || n === 'WAN_FIRE') return false;
-    const mat = game.objects?.[obj.otyp]?.oc_material ?? 0;
-    return (mat <= MAT_WOOD && mat !== MAT_LIQUID) || mat === MAT_PLASTIC;
+    const otyp = obj.otyp | 0;
+    const oc = game.objects?.[otyp];
+    const omat = oc?.oc_material | 0;
+
+    /* Candles can be burned, but they're not flammable in the sense that
+     * they can't get fire damage and it makes no sense for them to be
+     * fireproofed.
+     */
+    if (Is_candle_obj(obj))
+        return false;
+
+    if ((oc?.oc_oprop | 0) === FIRE_RES || otyp === WAN_FIRE)
+        return false;
+
+    return !!((omat <= MAT_WOOD && omat !== MAT_LIQUID) || omat === MAT_PLASTIC);
 }
 
 /** C ref: mkobj.c is_rottable — local copy. */

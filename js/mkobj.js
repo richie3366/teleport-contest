@@ -81,6 +81,7 @@ import {
     BURIED_TOO,
     NOBJ_STATES, ARTICLE_A, EXACT_NAME,
     COST_DEGRD,
+    FIRE_RES,
 } from './const.js';
 import { set_tin_variety, eating_glob } from './eat.js';
 import { set_moreluck } from './attrib.js';
@@ -125,6 +126,7 @@ const LUMP_OF_ROYAL_JELLY = objectNames.indexOf('LUMP_OF_ROYAL_JELLY');
 const CANDELABRUM_OF_INVOCATION =
     objectNames.indexOf('CANDELABRUM_OF_INVOCATION');
 const TALLOW_CANDLE = objectNames.indexOf('TALLOW_CANDLE');
+const WAN_FIRE = objectNames.indexOf('WAN_FIRE');
 const BOULDER = objectNames.indexOf('BOULDER');
 const CRYSKNIFE = objectNames.indexOf('CRYSKNIFE');
 const WORM_TOOTH = objectNames.indexOf('WORM_TOOTH');
@@ -785,14 +787,31 @@ const O = {
 export function is_rustprone(otmp) {
     return objs()[otmp.otyp]?.oc_material === IRON;
 }
-// C ref: mkobj.c is_flammable()
+/**
+ * C ref: mkobj.c is_flammable `:2270–2286`.
+ * Candles can be burned, but they are not flammable: they take no fire
+ * damage and are not fireproofed. A type whose `oc_oprop` is `FIRE_RES`,
+ * or a wand of fire, is not flammable. Otherwise the material is wood or
+ * softer, excluding liquid, or plastic.
+ * @param {object} otmp
+ * @returns {boolean}
+ */
 export function is_flammable(otmp) {
-    const n = otypName(otmp.otyp);
-    if (n === 'TALLOW_CANDLE' || n === 'WAX_CANDLE') return false;
-    // FIRE_RES / WAN_FIRE rare on mklev loot; skip full prop table for now
-    if (n === 'WAN_FIRE') return false;
-    const mat = objs()[otmp.otyp]?.oc_material;
-    return (mat <= WOOD && mat !== LIQUID) || mat === PLASTIC;
+    const otyp = otmp.otyp | 0;
+    const oc = objs()[otyp];
+    const omat = oc.oc_material | 0;
+
+    /* Candles can be burned, but they're not flammable in the sense that
+     * they can't get fire damage and it makes no sense for them to be
+     * fireproofed.
+     */
+    if (Is_candle(otmp))
+        return false;
+
+    if ((oc.oc_oprop | 0) === FIRE_RES || otyp === WAN_FIRE)
+        return false;
+
+    return !!((omat <= WOOD && omat !== LIQUID) || omat === PLASTIC);
 }
 // C ref: mkobj.c is_rottable()
 export function is_rottable(otmp) {

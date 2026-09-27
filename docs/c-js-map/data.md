@@ -306,6 +306,21 @@ omit full alt_spl/rank titles/plural edge cases
 
 JS: `js/mkobj.js` — partial
 
+**`is_flammable` whole body** (D-2955; C `mkobj.c:2270–2286` →
+`js/mkobj.js:799`). `Is_candle` (`obj.h:382–383` → `js/timeout.js:1519`)
+returns false. `objects[otyp].oc_oprop == FIRE_RES` or `otyp == WAN_FIRE`
+returns false. Otherwise wood or softer, excluding liquid, or plastic.
+`objnam.c:1187` uses `is_flammable_obj` (`js/objnam.js:218`), the same
+body: a static import of the export initialized `_body_part` before
+`objnam.js`. `trap.c:4487` stays inside the C comment in `fire_damage`
+(`js/do.js:599` does not evaluate it). Callers: `do_wear.c:3262` →
+`js/do_wear.js:3435`, `dothrow.c:1798` → `js/dothrow.js:2551`,
+`eat.c:101` → `js/eat.js:1092`, `mkobj.c:205` → `js/mkobj.js:875`,
+`mthrowu.c:954` → `js/mthrowu.js:1135`, `objnam.c:5274` →
+`js/readobjnam.js:1930`, `trap.c:207` → `js/trap.js:4399`,
+`trap.c:2908` → `js/trap.js:1786`, `zap.c:1790` → `js/zap.js:5147`,
+`objclass.h:210` → `js/mkobj.js:857`.
+
 **`start_glob_timeout` whole body** (D-2852; C `mkobj.c:1473–1491` →
 `js/mkobj.js:1608`). Non-glob calls `impossible` with `simpleonames`
 and returns without a timer. `obj->timed` stops `SHRINK_GLOB` through

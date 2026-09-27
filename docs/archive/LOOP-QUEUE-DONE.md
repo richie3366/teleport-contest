@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-27
 
-- [x] `attrib.c` redist_attr — coverage PARTIAL (C 20 L `attrib.c:740–760` / JS 14 L in js/attrib.js; hops 4, callers 2, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn redist_attr` (reach regression must be 0). Measured `port-coverage.mjs --name redist_attr` 2026-09-27 @ 96146725a. **Addressed:** D-2954
+- [x] `mkobj.c` is_flammable — coverage PARTIAL (C 16 L `mkobj.c:2270–2286` / JS 8 L in js/mkobj.js; hops 3, callers 11, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn is_flammable` (reach regression must be 0). Measured `port-coverage.mjs --name is_flammable` 2026-09-27 @ 96146725a. **Addressed:** D-2955
+
+
+- [x] `attrib.c` redist_attr — coverage PARTIAL (C 20 L `attrib.c:740–760` / JS 14 L in js/attrib.js; hops 4, callers 2, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn redist_attr` (reach regression must be 0). Measured `port-coverage.mjs --name redist_attr` 2026-09-27 @ 96146725a. **Addressed:** D-2954 `98553289c`
 
 
 - [x] `region.c` add_mon_to_reg — coverage THIN (C 25 L `region.c:161–186` / JS 6 L in js/region.js; hops 3, callers 4, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn add_mon_to_reg` (reach regression must be 0). Measured `port-coverage.mjs --name add_mon_to_reg` 2026-09-27 @ 96146725a. **Addressed:** D-2953 `8d00a95a8`
