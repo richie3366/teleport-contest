@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-2994 — `engrave.c` u_can_engrave whole-body port (swallow/lava/pool/air/cantwield/capacity + messages)
+
+- **Status:** fixed (coverage row `engrave.c` u_can_engrave THIN; hidden-proxy verify reports no corpus session blocked on it). Queue-head `cmdq_shift` proved stale in the same iteration (C `:354–370` complete at `js/cmd.js:400` as `unshift(pop())` with both ext_tlist dispatch wirings at `:2333`/`:5316`; ledger set ported with stale note) and this next row shipped per the stale rule.
+- **Symptom:** JS held an 8-line sync floor/reach subset with no messages: `uswallow` returned false silently (C prints Jonah / cant_reach_floor, or allows amorphous attempts), lava/pool/fountain/air/non-accessible returned false silently (C prints 4 distinct `You_cant` lines), and the `cantwield` + `check_capacity` gates were doc-deferred — so `#engrave` on lava or while over-burdened fell into the caller's invented `You can't write here.` instead of C's specific lines.
+- **C locus:** `nethack-c/upstream/src/engrave.c:502–541` `u_can_engrave` (staticfn; sole C caller doengrave `:964`).
+- **JS was:** thin sync `u_can_engrave` (`js/engrave.js:982`, typ-subset, silent false); caller `js/engrave.js:1238` printed an invented `You can't write here.` fallback C never prints.
+- **Fix:** Full C-order async body at `js/engrave.js:989`. C order: `SURFACE_AT` levtyp `:505`; uswallow arm (`is_animal` → Jonah pline with C's double space `:508–510`, `is_whirly` → `cant_reach_floor(ux,uy,F,F,F)` `:511–514`, amorphous falls through per `:514–516`); else-if chain `is_lava` / `is_pool || IS_FOUNTAIN` / `IS_AIR` (CLOUD → "cloud vapor" else "thin air") / `!ACCESSIBLE` with C's exact `You_cant` lines `:517–531`; `cantwield` as the `mondata.h:123` macro (`nohands || verysmall` on `game.youmonst?.data`) `:533–536`; `check_capacity(NULL)` inlined per the trap.js `help_monster_out` precedent (`near_capacity() >= EXT_ENCUMBER` → `You_cant('do that while carrying so much stuff.')`, pickup.js sync clone stays for sync callers) `:539–540`; `return true` `:541`. Caller now `await`s and drops the invented pline (`:1280–1283`); `return 0` kept — doengrave's uniform JS convention (ECMD_* mapping is doengrave's own row).
+- **JS:** `js/engrave.js` (+5 import names on 5 ALREADY edges: `You_cant`, `near_capacity`, `CLOUD` + `EXT_ENCUMBER`, `is_lava`/`is_pool`/`SURFACE_AT`, `is_animal`/`is_whirly`/`nohands`/`verysmall`; body +46/−12; caller +3/−4; header envelope +1).
+- **Callers:** sole C site `engrave.c:964` doengrave gate → `js/engrave.js:1281` (awaited; no second pline, matching C). No other JS caller; no call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn u_can_engrave` → VERIFY: PASS (syntax 1 file js/engrave.js; rule2; hidden note no corpus session blocked; reach no RNG tags → smoke 12/12 → REACH-OK; green 2/2; strict ×2; cohort 7/7; full skipped: no shared file changed).
+- **Named omissions:** none for `u_can_engrave` — every arm ported, every callee live, the sole caller wired. Live: `SURFACE_AT`/`is_lava`/`is_pool` hack.js:2045/1994/1977, `is_animal`/`is_whirly`/`nohands`/`verysmall` monsters.js:648/502/357/320, `surface` sit.js:475, `pline`/`You_cant` display.js:7993/7722, `cant_reach_floor` engrave.js:418 (same-file), `near_capacity` invent.js:1147 (`check_capacity(NULL)` folded at the call site with cite, trap.js precedent). Pre-existing, untouched: doengrave's `jello` arm (`jello: false`, engrave.js:669) and its `return 0` ECMD mapping — doengrave's row, not this one.
+- **Ledger:** u_can_engrave ported
+- **Next:** breadth picker continues at the regenerated coverage head.
+
 ## D-2993 — `uhitm.c` stumble_onto_mimic whole-body port (AD_STCK stick + blind map arms)
 
 - **Status:** fixed (coverage row `uhitm.c` stumble_onto_mimic THIN; hidden-proxy verify reports no corpus session blocked on it).

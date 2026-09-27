@@ -12,7 +12,7 @@
 {"fn":"del_engr_at","c":"461-467","status":"unknown"}
 {"fn":"freehand","c":"473-477","status":"unknown"}
 {"fn":"stylus_ok","c":"481-499","status":"unknown"}
-{"fn":"u_can_engrave","c":"503-541","status":"unknown"}
+{"fn":"u_can_engrave","c":"503-541","status":"ported","js":["js/engrave.js:u_can_engrave"],"d":["D-2994"],"at":"2026-09-27@e61bdd324"}
 {"fn":"doengrave_ctx_init","c":"545-579","status":"unknown"}
 {"fn":"doengrave_sfx_item_WAN","c":"583-738","status":"ported","js":["js/engrave.js:doengrave_sfx_item_WAN"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
 {"fn":"doengrave_sfx_item","c":"742-892","status":"unknown"}

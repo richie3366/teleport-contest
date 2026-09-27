@@ -112,8 +112,6 @@ body in C order — every arm, every callee live or named, every C caller
 wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 
 <!-- coverage:begin -->
-- [ ] `cmd.c` cmdq_shift — coverage THIN (C 10 code L `cmd.c:355–370` / JS 3 code L in js/cmd.js; hops 1, callers 1, RNG 0, msg 0) @05a11d7e9
-- [ ] `engrave.c` u_can_engrave — coverage THIN (C 27 code L `engrave.c:503–541` / JS 8 code L in js/engrave.js; hops —, callers 1, RNG 0, msg 6) @080c16023
 - [ ] `shk.c` call_kops — coverage PARTIAL (C 35 code L `shk.c:510–564` / JS 26 code L in js/shk.js; hops 4, callers 2, RNG 0, msg 2) @080c16023
 - [ ] `muse.c` m_next2m — coverage MISSING (C 11 code L `muse.c:420–436` / JS no symbol; hops 2, callers 1, RNG 0, msg 0) @080c16023
 - [ ] `zap.c` get_mon_location — coverage MISSING (C 11 code L `zap.c:692–709` / JS no symbol; hops 2, callers 1, RNG 0, msg 0) @080c16023
@@ -124,6 +122,8 @@ wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 - [ ] `glyphs.c` glyphrep_to_custom_map_entries — coverage MISSING (C 46 code L `glyphs.c:112–181` / JS no symbol; hops —, callers 4, RNG 0, msg 0; dead callees: rgbstr_to_int32) @ebc63743c
 - [ ] `options.c` option_help — coverage MISSING (C 52 code L `options.c:9462–9549` / JS no symbol; hops —, callers 0, RNG 0, msg 8; dead callees: is_wc2_option) @1b2296131
 - [ ] `mklev.c` free_luathemes — coverage MISSING (C 8 code L `mklev.c:345–364` / JS no symbol; hops 3, callers 2, RNG 0, msg 0) @e74c75d1f
+- [ ] `engrave.c` rest_engravings — coverage MISSING (C 27 code L `engrave.c:1584–1619` / JS no symbol; hops 3, callers 1, RNG 0, msg 0) @e61bdd324
+- [ ] `detect.c` trapped_door_at — coverage PARTIAL (C 12 code L `detect.c:182–197` / JS 8 code L in js/detect.js; hops 3, callers 2, RNG 1, msg 0) @e61bdd324
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

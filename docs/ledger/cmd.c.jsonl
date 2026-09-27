@@ -8,7 +8,7 @@
 {"fn":"cmdq_add_dir","c":"294-312","status":"unknown"}
 {"fn":"cmdq_add_userinput","c":"316-331","status":"unknown"}
 {"fn":"cmdq_add_int","c":"335-351","status":"unknown"}
-{"fn":"cmdq_shift","c":"355-370","status":"unknown"}
+{"fn":"cmdq_shift","c":"355-370","status":"ported","js":["js/cmd.js:cmdq_shift"],"at":"2026-09-27@e61bdd324","note":"stale: js/cmd.js:400"}
 {"fn":"cmdq_reverse","c":"373-384","status":"unknown"}
 {"fn":"cmdq_copy","c":"387-404","status":"unknown"}
 {"fn":"cmdq_pop","c":"410-420","status":"unknown"}
