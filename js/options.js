@@ -169,7 +169,7 @@ import { rnd } from './rng.js';
 import { str_end_is, str_start_is, highc, lowc, strstri, strsubst, strNsubst, strkitten } from './hacklib.js';
 import { name_to_mon } from './mondata.js';
 import { nhgetch } from './input.js';
-import { flush_screen, pline, docrt, check_gold_symbol, clear_committed_status, set_bot_disabled, tty_wait_synch, update_ov_primary_symset, update_ov_rogue_symset, impossible, SYM_OFF_X } from './display.js';
+import { flush_screen, pline, docrt, bot, check_gold_symbol, clear_committed_status, set_bot_disabled, tty_wait_synch, update_ov_primary_symset, update_ov_rogue_symset, impossible, SYM_OFF_X } from './display.js';
 import { paint_corner_nhw_menu, dismiss_nhw_menu, collect_menu_gacc, process_menu_search, toggle_menu_curr, menu_digit_is_gacc, reassign, update_inventory, invlet_constant, perm_invent_toggled, select_menu_pick_none } from './invent.js';
 import {
     ATR_INVERSE,
@@ -7424,6 +7424,11 @@ async function reset_needed_visuals() {
     if (needRedraw) {
         check_gold_symbol();
         await docrt();
+    }
+    // C options.c:9006–9008 — after docrt may have set disp.botlx.
+    if (game.flags?.botl || game.flags?.botlx
+        || game.disp?.botl || game.disp?.botlx) {
+        await bot();
     }
     go.opt_need_redraw = false;
     go.opt_need_glyph_reset = false;

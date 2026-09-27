@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2964 `bot` paints only when status may update
+
+**C locus:** `nethack-c/upstream/src/botl.c:253–271` `bot`. `gb.bot_disabled` returns first. The paint requires `u.uhp != -1`, `gy.youmonst.data`, `iflags.status_updates`, and `!suppress_map_output()`. `VIA_WINDOWPORT()` (`botl.h:213`) calls `bot_via_windowport`; otherwise `curs` / `putstr(do_statusline1)` / `curs` / `putmixed(do_statusline2)`. Then `disp.botl`, `botlx`, and `time_botl` clear. `botl.c:2278–2316` `status_eval_next_unhilite` stores `svm.moves`, stamps a changed field's expiry (`bl_hilite_moves + hilite_delta` when `Is_Temp_Hilite`, else 0), and sets `disp.botl` when a temporary highlight is already due. `botl.c:2257–2274` `hilite_reset_needed` is false when `gm.multi` is set, the rule is not `BL_TH_UPDOWN`, or `time` is 0 or not yet due.
+**JS:** `js/display.js` `bot` `:7283`. Disabled return `:7285`. Gate `:7291–7294`. Windowport `:7297–7299`. Tty cache `:7300–7306`. Flag clear `:7308–7316`. `swallowed` call `:5349`. `flush_screen` `:7173`. `docorner` `:7121`. `timebot` tty call `:7334`. `js/botl.js` `Is_Temp_Hilite` `:613`. `hilite_reset_needed` `:621`. `status_eval_next_unhilite` `:636`. Windowport caller `:968`. `js/allmain.js` moveloop call `:1295`.
+**Change:** One exported `bot` keeps that C order. The tty arm commits `do_statusline1` and `_statusLine2` (the `do_statusline2` body) because `putstr` ignores `WIN_STATUS`. The windowport arm calls `bot_via_windowport` (`imports.mjs --can` SAFE, hoisted, already in the display/botl SCC).
+**Verify:** `node scripts/verify.mjs --fn bot` → PASS syntax (5 changed js file(s): js/allmain.js js/botl.js js/display.js js/options.js js/trap.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.4s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (shared file changed) · VERIFY: PASS.
+**Named:** No arm of `bot`, `status_eval_next_unhilite`, or `hilite_reset_needed` is omitted. `putstr` / `putmixed` / `curs` on `WIN_STATUS` are the status cache (`_commitStatusLines`); `do_statusline2` is `_statusLine2` (`status_line_2`).
+**Next:** `mkobj.c` `mksobj` (next Open — coverage row).
 ## 2026-09-27 — D-2963 `quest_info` reports a bad typ, then returns 0
 
 **C locus:** `nethack-c/upstream/src/questpgr.c:31–46` `quest_info`. `switch (typ)`: 0 returns `gu.urole.questarti`; `MS_LEADER` / `MS_NEMESIS` / `MS_GUARDIAN` return `ldrnum` / `neminum` / `guardnum` (`short`, `you.h:193–202`). `default` calls `impossible("quest_info(%d)", typ)`, then `return 0`.

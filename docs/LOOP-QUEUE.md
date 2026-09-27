@@ -112,18 +112,18 @@ body in C order — every arm, every callee live or named, every C caller
 wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 
 <!-- coverage:begin -->
-- [ ] `dbridge.c` e_jumps — coverage PARTIAL (C 20 L `dbridge.c:531–551` / JS 11 L in js/dbridge.js; hops 5, callers 2, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn e_jumps` (reach regression must be 0). Measured `port-coverage.mjs --name e_jumps` 2026-09-27 @ 78432069f.
-- [ ] `botl.c` bot — coverage PARTIAL (C 12 code L `botl.c:253–271` / JS 7 code L in js/display.js; hops 0, callers 22, RNG 0, msg 1) @5184b40bf
 - [ ] `mkobj.c` mksobj — coverage PARTIAL (C 59 code L `mkobj.c:1179–1259` / JS 42 code L in js/mkobj.js; hops 2, callers 53, RNG 1, msg 0) @5184b40bf
 - [ ] `getpos.c` auto_describe — coverage MISSING (C 18 code L `getpos.c:640–662` / JS no symbol; hops 2, callers 2, RNG 0, msg 1) @5184b40bf
 - [ ] `hacklib.c` mungspaces — coverage THIN (C 14 code L `hacklib.c:142–160` / JS 1 code L in js/engrave.js; hops 1, callers 42, RNG 0, msg 0) @5184b40bf
-- [ ] `botl.c` status_eval_next_unhilite — coverage MISSING (C 25 code L `botl.c:2279–2317` / JS no symbol; hops 2, callers 1, RNG 0, msg 0) @5184b40bf
 - [ ] `pline.c` You_feel — coverage THIN (C 9 code L `pline.c:388–400` / JS 2 code L in js/display.js; hops 1, callers 144, RNG 0, msg 0) @988c639a6
 - [ ] `objnam.c` aobjnam — coverage THIN (C 9 code L `objnam.c:2244–2258` / JS 4 code L in js/artifact.js; hops 3, callers 10, RNG 0, msg 2) @988c639a6
 - [ ] `trap.c` trapeffect_dart_trap — coverage PARTIAL (C 54 code L `trap.c:1251–1321` / JS 39 code L in js/trap.js; hops 4, callers 1, RNG 5, msg 3) @988c639a6
 - [ ] `hacklib.c` strncmpi — coverage THIN (C 11 code L `hacklib.c:717–734` / JS 2 code L in js/vault.js; hops 2, callers 77, RNG 0, msg 0) @988c639a6
 - [ ] `cmd.c` show_direction_keys — coverage PARTIAL (C 35 code L `cmd.c:4122–4165` / JS 25 code L in js/dokeylist.js; hops 2, callers 2, RNG 0, msg 10) @988c639a6
 - [ ] `insight.c` background_enlightenment — coverage MISSING (C 142 code L `insight.c:468–722` / JS no symbol; hops 5, callers 1, RNG 0, msg 3) @a6c00e025
+- [ ] `read.c` seffect_enchant_armor — coverage PARTIAL (C 133 code L `read.c:1115–1290` / JS 97 code L in js/read.js; hops 5, callers 1, RNG 4, msg 7) @fa5382192
+- [ ] `cmd.c` parse — coverage MISSING (C 31 code L `cmd.c:5096–5151` / JS no symbol; hops 1, callers 2, RNG 0, msg 0; split? cited 64× in js/ — brief first) @fa5382192
+- [ ] `version.c` store_version — coverage MISSING (C 15 code L `version.c:512–537` / JS no symbol; hops 3, callers 4, RNG 0, msg 0; dead callees: bwrite, bufoff, store_critical_bytes) @fa5382192
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

@@ -32,6 +32,7 @@ import { find_mac, make_corpse, mon_to_stone, vamp_stone, monstone, monkilled, A
 import { scatter } from './explode.js';
 import {
     newsym, pline, pline_mon, pline_xy, urgent_pline, mon_visible, see_with_infrared,
+    bot,
     You_feel, unmap_object, glyph_is_invisible, tmp_at, nh_delay_output,
     obj_glyph, flush_topl_more, feel_newsym, canspotmon, map_invisible, under_water,
     set_msg_xy, shieldeff, Hallucination, Norep, impossible, You, You_see,
@@ -7917,7 +7918,7 @@ const BLINDGAS = [
 /**
  * C ref: trap.c chest_trap — hero triggers box trap (kick/open/force).
  * Returns true if chest destroyed.
- * Named omit: Soundeffect; bot() redraw polish; Halluc_resistance
+ * Named omit: Soundeffect; Halluc_resistance
  * stagger suffix polish; shieldeff. Gas adjective is D-1147
  * (Blind ? ROLL_FROM(blindgas) : rndcolor()).
  */
@@ -8108,7 +8109,8 @@ export async function chest_trap(obj, bodypart, disarm) {
         default:
             break;
         }
-        if (game.flags) game.flags.botl = true;
+        // C trap.c:6494 — paint status before the caller continues.
+        await bot();
     }
 
     obj.tknown = 1;

@@ -48,7 +48,7 @@ import { near_capacity, paint_corner_nhw_menu, encumber_msg, update_inventory, p
 import { sanity_check } from './wizcmds.js';
 import { com_pager_legacy } from './questpgr.js';
 import { snapshot_status_lines } from './display.js';
-import { status_initialize } from './botl.js';
+import { status_initialize, status_eval_next_unhilite } from './botl.js';
 import { Hello, align_str, role_init } from './roles.js';
 import { livelog_printf } from './pline.js';
 import { phase_of_the_moon, friday_13th, night, getnow, FULL_MOON, NEW_MOON } from './calendar.js';
@@ -1289,6 +1289,10 @@ export async function moveloop_core() {
         // nh_timeout(), so the player gets immediate feedback if their own
         // action encumbered them.
         await encumber_msg();
+
+        // C allmain.c:405–407 — STATUS_HILITES is on (config.h:616).
+        // hilite_delta 0 skips the walk. status_eval only sets botl.
+        if (game.iflags?.hilite_delta) status_eval_next_unhilite();
 
         // C: once-per-hero-took-time — seer_turn after umovement loop
         // (not inside once-per-turn EOT). Always rolls rn1 even without

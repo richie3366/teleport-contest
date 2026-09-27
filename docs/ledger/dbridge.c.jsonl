@@ -20,7 +20,7 @@
 {"fn":"e_died","c":"402-480","status":"ported","js":["js/dbridge.js:e_died"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
 {"fn":"automiss","c":"486-490","status":"unknown"}
 {"fn":"e_missed","c":"496-525","status":"ported","js":["js/dbridge.js:e_missed"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
-{"fn":"e_jumps","c":"531-551","status":"unknown"}
+{"fn":"e_jumps","c":"531-551","status":"ported","js":["js/dbridge.js:e_jumps"],"at":"2026-09-27@fa5382192","note":"stale: js/dbridge.js:535"}
 {"fn":"do_entity","c":"554-759","status":"unknown","d":["D-1967"],"at":"seed@a30a7de84"}
 {"fn":"nokiller","c":"763-769","status":"unknown"}
 {"fn":"close_drawbridge","c":"775-834","status":"unknown"}

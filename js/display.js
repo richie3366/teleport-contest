@@ -8,6 +8,7 @@
 // shieldeff (D-1087; sparkle opt_out default On; sit rndcurse caller).
 
 import { game } from './gstate.js';
+import { bot_via_windowport } from './botl.js';
 import { rank_of } from './roles.js';
 import { cansee, couldsee, vision_recalc, vision_off_newsym_gbuf } from './vision.js';
 import { objects_at, sobj_at } from './mkobj.js';
@@ -123,6 +124,8 @@ import {
     ATR_NOHISTORY,
     WC2_URGENT_MESG,
     WC2_SUPPRESS_HIST,
+    WC2_HILITE_STATUS,
+    WC2_FLUSH_STATUS,
     PLNMSG_UNKNOWN,
     BUFSZ,
     gp,
@@ -5340,7 +5343,10 @@ export function swallowed(first = 0) {
     const swallower = u.ustuck.mnum ?? u.ustuck.data?.mndx ?? 0;
 
     if (first) {
-        // C: cls(); bot(); — caller docrt already cls; bot deferred
+        // C display.c:1338–1339 cls(); bot(). docrt_flags already cls()'d
+        // on the uswallow arm. bot() has no await, so the status cache
+        // updates before this function returns.
+        void bot();
         for (let y = 0; y < ROWNO; y++) {
             for (let x = 1; x < COLNO; x++) {
                 const loc = game.level?.at(x, y);
@@ -5678,8 +5684,9 @@ export async function docrt_flags(refresh_flags) {
             // no vision_recalc/cls), then post_map.
             await redraw_map(0);
         } else if (game.u.uswallow) {
-            // C `:1726–1728` — swallowed(1) does cls()+bot() in C; JS
-            // swallowed skips both (cls here, bot via botlx at post_map).
+            // C `:1726–1728` — swallowed(1) does cls()+bot(). cls is here
+            // (swallowed's own cls is the same clear); bot() runs inside
+            // swallowed(first).
             await cls();
             swallowed(1);
         } else if ((game.u.uinwater | 0) && !Is_waterlevel(game.u.uz)) {
@@ -6083,11 +6090,6 @@ function _statusLine2() {
         s = mungspaces(s);
     }
     return s;
-}
-
-/** C ref: botl.c bot — no-op when u.uhp == -1 (dosave / exact overkill). */
-function _botSuppressed() {
-    return (game.u?.uhp | 0) === -1;
 }
 
 /**
@@ -7272,17 +7274,48 @@ export async function cls() {
 }
 
 // ── bot ──
-// C ref: botl.c bot — no-op body when u.uhp == -1; always clear botl flags
-// after the disabled check (disabled returns without clearing).
+// C ref: botl.c bot `:253–271`. bot_disabled returns before the paint and
+// before the flag clear. The paint requires u.uhp != -1, youmonst.data,
+// status_updates, and !suppress_map_output. VIA_WINDOWPORT takes
+// bot_via_windowport; the tty arm commits do_statusline1 and
+// do_statusline2 (_statusLine2). Flags clear on every return past the
+// disabled check, including a skipped paint.
 export async function bot() {
-    // C botl.c `:255–256` — gb.bot_disabled returns before uhp / putstr.
+    // C botl.c:255–256
     if (_bot_disabled) return;
-    _statusSuppressed = false;
-    if (!_botSuppressed()) _commitStatusLines();
+    const u = game.u;
+    // C iflags.status_updates defaults TRUE. Undefined (options not
+    // applied yet) stays enabled; explicit false or 0 skips the paint.
+    const statusUpdates = game.iflags?.status_updates;
+    // C :259–260
+    if ((u?.uhp ?? 0) !== -1
+        && game.youmonst?.data
+        && statusUpdates !== false && statusUpdates !== 0
+        && !suppress_map_output()) {
+        // C botl.h:213 VIA_WINDOWPORT()
+        const wincap2 = game.windowprocs?.wincap2 | 0;
+        if ((wincap2 & (WC2_HILITE_STATUS | WC2_FLUSH_STATUS)) !== 0) {
+            // C :262. bot_via_windowport panics when !gb.blinit.
+            bot_via_windowport();
+        } else {
+            // C :264–267 curs(WIN_STATUS, 1, 0); putstr(do_statusline1());
+            // curs(WIN_STATUS, 1, 1); putmixed(do_statusline2()).
+            // putstr returns unless the window is WIN_MESSAGE, so the
+            // status window is this cache. do_statusline2 is _statusLine2.
+            _statusSuppressed = false;
+            _commitStatusLines();
+        }
+    }
+    // C :270
     if (game.flags) {
         game.flags.botl = false;
         game.flags.botlx = false;
         game.flags.time_botl = false;
+    }
+    if (game.disp) {
+        game.disp.botl = false;
+        game.disp.botlx = false;
+        game.disp.time_botl = false;
     }
 }
 
