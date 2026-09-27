@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-27
 
-- [x] `light.c` find_mid — coverage THIN (C 19 L `light.c:376–395` / JS 8 L in js/mon.js; hops 3, callers 9, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn find_mid` (reach regression must be 0). Measured `port-coverage.mjs --name find_mid` 2026-09-27 @ af40498ad. **Addressed:** D-2919
+- [x] `do_wear.c` cursed — coverage MISSING (C 24 L `do_wear.c:1893–1917` / JS no symbol; hops 6, callers 16, RNG 0, msg 2; split? cited 906× in js/ — brief first). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn cursed` (reach regression must be 0). Measured `port-coverage.mjs --name cursed` 2026-09-27 @ 4c8d21966. **Addressed:** D-2920
+
+
+- [x] `light.c` find_mid — coverage THIN (C 19 L `light.c:376–395` / JS 8 L in js/mon.js; hops 3, callers 9, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn find_mid` (reach regression must be 0). Measured `port-coverage.mjs --name find_mid` 2026-09-27 @ af40498ad. **Addressed:** D-2919 `0a6f86d9b`
 
 
 - [x] `bones.c` fix_ghostly_obj — coverage MISSING (C 19 L `bones.c:796–815` / JS no symbol; hops 3, callers 1, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn fix_ghostly_obj` (reach regression must be 0). Measured `port-coverage.mjs --name fix_ghostly_obj` 2026-09-27 @ af40498ad. **Addressed:** D-2918 `270a11ee8`

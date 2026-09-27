@@ -83,7 +83,7 @@ import { erode_obj, selftouch, instapetrify, drown, float_down, float_up } from 
 import { has_ceiling } from './dungeon.js';
 import { artifact_light, begin_burn, end_burn } from './timeout.js';
 import { strsubst } from './hacklib.js';
-import { make_hallucinated, make_slimed, incr_itimeout } from './potion.js';
+import { make_hallucinated, make_slimed, incr_itimeout, Glib } from './potion.js';
 import { rn2, rnd } from './rng.js';
 import { set_mimic_blocking } from './vision.js';
 import { restartcham, rescham, cant_drown } from './mon.js';
@@ -300,23 +300,42 @@ async function already_wearing(cc) {
 }
 
 /**
- * C ref: do_wear.c cursed — message + bknown when stuck.
- * Plural when boots/gloves/lenses or quan>1 (not quan alone).
- * uwep uses welded(); Glib fingers_or_gloves retry pline named.
+ * C ref: do_wear.c cursed `:1893–1917` — stuck worn item stays on.
+ * `uwep` is welded(); anything else is `otmp->cursed`. Plural for
+ * boots, gloves, lenses, or quan>1. A known item while Glib says the
+ * slippery-fingers line; otherwise `You("can't.  %s cursed.")`.
+ * `set_bknown` runs after the message. Returns 1 when it stays on.
+ * @param {object|null} otmp
+ * @returns {Promise<number>} 1 stuck, 0 removable (or null)
  */
-export function cursed_check(otmp) {
-    if (!otmp) return false;
-    const stuck = (otmp === game.u?.uwep) ? welded(otmp) : !!otmp.cursed;
-    if (stuck) {
-        const use_plural = is_boots(otmp) || is_gloves(otmp)
-            || otmp.otyp === LENSES || (otmp.quan || 1) > 1;
-        game._cursed_takeoff_msg = use_plural
-            ? "You can't.  They are cursed."
-            : "You can't.  It is cursed.";
-        otmp.bknown = 1;
-        return true;
+export async function cursed(otmp) {
+    if (!otmp) {
+        await impossible('cursed without otmp');
+        return 0;
     }
-    return false;
+    /* Curses, like chickens, come home to roost. */
+    const u = game.u || {};
+    // C `:1900` — welded() only when this is uwep (C welded calls set_bknown).
+    const stuck = (otmp === u.uwep) ? (welded(otmp) ? 1 : 0) : (otmp.cursed ? 1 : 0);
+    if (stuck) {
+        const usePlural = is_boots(otmp) || is_gloves(otmp)
+            || (otmp.otyp | 0) === LENSES || (otmp.quan | 0) > 1;
+        // C `:1905–1910` — bknown is read after welded() may have set it.
+        if (Glib() && otmp.bknown
+            && (u.uarmg
+                ? (otmp === u.uwep)
+                : (((otmp.owornmask | 0) & (W_WEP | W_RING)) !== 0))) {
+            await pline(
+                "Despite your slippery %s, you can't.",
+                fingers_or_gloves(true),
+            );
+        } else {
+            await You("can't.  %s cursed.", usePlural ? 'They are' : 'It is');
+        }
+        set_bknown(otmp, 1);
+        return 1;
+    }
+    return 0;
 }
 
 /**
@@ -1713,10 +1732,8 @@ function armor_doff_simple_name(otmp) {
  * Returns 1 on success (ECMD_TIME caller), 0 if cursed/blocked.
  */
 async function armoroff(otmp) {
-    if (cursed_check(otmp)) {
-        await pline(game._cursed_takeoff_msg || "You can't.  It is cursed.");
-        return 0;
-    }
+    // C do_wear.c:1926
+    if (await cursed(otmp)) return 0;
     const delay = -(game.objects?.[otmp.otyp]?.oc_delay ?? 0);
     const cat = armcat(otmp);
     if (delay) {
@@ -1871,11 +1888,12 @@ async function armor_or_accessory_off(obj) {
         return armoroff(obj);
     }
 
-    // Accessory path (rings/amulet/eyewear) — cursed gate + clear slot
-    if (cursed_check(obj)) {
-        await pline(game._cursed_takeoff_msg || "You can't.  It is cursed.");
-        return 0;
-    }
+    // C do_wear.c:1800–1805 — select_off calls cursed (`:2784`). Ring_,
+    // Amulet_off, and Blindf_off do not read takeoff.mask, so clear it.
+    reset_remarm();
+    await select_off(obj);
+    if (!(takeoff_info().mask | 0)) return 0;
+    reset_remarm();
     if (obj === u.uleft || obj === u.uright) {
         // C do_wear.c:1809–1817 — off_msg before removal, then Ring_off
         // (setworn + adjust_attrib/accuracy/damage/prop side effects).
@@ -2114,8 +2132,8 @@ async function select_off(otmp) {
     }
     if (otmp === u.uquiver || (otmp === u.uswapwep && !u.twoweap)) {
         /* removable even when cursed */
-    } else if (cursed_check(otmp)) {
-        await pline(game._cursed_takeoff_msg || "You can't.  It is cursed.");
+    } else if (await cursed(otmp)) {
+        // C do_wear.c:2784 — cursed() already printed.
         return 0;
     }
 
@@ -2136,24 +2154,6 @@ async function select_off(otmp) {
     else await impossible(`select_off: ${doname(otmp)}???`);
 
     return 0;
-}
-
-/**
- * C do_wear.c cursed — message + bknown when stuck (do_takeoff).
- * Body is cursed_check; Glib fingers_or_gloves retry pline named.
- * @param {object|null} otmp
- * @returns {Promise<boolean>} true when the item stays on
- */
-async function cursed_blocks(otmp) {
-    if (!otmp) {
-        await impossible('cursed without otmp');
-        return false;
-    }
-    if (cursed_check(otmp)) {
-        await pline(game._cursed_takeoff_msg || "You can't.  It is cursed.");
-        return true;
-    }
-    return false;
 }
 
 function oc_delay_of(obj) {
@@ -2196,7 +2196,7 @@ async function do_takeoff() {
 
     doff.mask = (doff.mask | 0) | I_SPECIAL;
     if (doff.what === W_WEP) {
-        if (!(await cursed_blocks(u.uwep))) {
+        if (!(await cursed(u.uwep))) {
             {
                 const shine = setuwep(null);
                 if (shine) await shine;
@@ -2221,36 +2221,36 @@ async function do_takeoff() {
         await pline('You no longer have ammunition readied.');
     } else if (doff.what === WORN_ARMOR) {
         otmp = u.uarm;
-        if (!(await cursed_blocks(otmp))) await Armor_off();
+        if (!(await cursed(otmp))) await Armor_off();
     } else if (doff.what === WORN_CLOAK) {
         otmp = u.uarmc;
-        if (!(await cursed_blocks(otmp))) await Cloak_off();
+        if (!(await cursed(otmp))) await Cloak_off();
     } else if (doff.what === WORN_BOOTS) {
         otmp = u.uarmf;
-        if (!(await cursed_blocks(otmp))) await Boots_off();
+        if (!(await cursed(otmp))) await Boots_off();
     } else if (doff.what === WORN_GLOVES) {
         otmp = u.uarmg;
-        if (!(await cursed_blocks(otmp))) await Gloves_off();
+        if (!(await cursed(otmp))) await Gloves_off();
     } else if (doff.what === WORN_HELMET) {
         otmp = u.uarmh;
-        if (!(await cursed_blocks(otmp))) await Helmet_off();
+        if (!(await cursed(otmp))) await Helmet_off();
     } else if (doff.what === WORN_SHIELD) {
         otmp = u.uarms;
-        if (!(await cursed_blocks(otmp))) Shield_off();
+        if (!(await cursed(otmp))) Shield_off();
     } else if (doff.what === WORN_SHIRT) {
         otmp = u.uarmu;
-        if (!(await cursed_blocks(otmp))) Shirt_off();
+        if (!(await cursed(otmp))) Shirt_off();
     } else if (doff.what === WORN_AMUL) {
         otmp = u.uamul;
-        if (!(await cursed_blocks(otmp))) await Amulet_off();
+        if (!(await cursed(otmp))) await Amulet_off();
     } else if (doff.what === LEFT_RING) {
         otmp = u.uleft;
-        if (!(await cursed_blocks(otmp))) await Ring_off(u.uleft);
+        if (!(await cursed(otmp))) await Ring_off(u.uleft);
     } else if (doff.what === RIGHT_RING) {
         otmp = u.uright;
-        if (!(await cursed_blocks(otmp))) await Ring_off(u.uright);
+        if (!(await cursed(otmp))) await Ring_off(u.uright);
     } else if (doff.what === WORN_BLINDF) {
-        if (!(await cursed_blocks(u.ublindf))) await Blindf_off(u.ublindf);
+        if (!(await cursed(u.ublindf))) await Blindf_off(u.ublindf);
     } else {
         await impossible(`do_takeoff: taking off ${doff.what}`);
     }

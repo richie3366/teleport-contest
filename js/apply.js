@@ -130,7 +130,7 @@ import {
     make_glib, Glib, make_sick, make_confused, make_stunned, make_vomiting,
     make_hallucinated, make_deaf, djinni_from_bottle,
 } from './potion.js';
-import { Blindf_on, Blindf_off, cursed_check, fingers_or_gloves, is_gloves } from './do_wear.js';
+import { Blindf_on, Blindf_off, cursed, fingers_or_gloves, is_gloves } from './do_wear.js';
 import {
     dropx, setnotworn, fire_damage, make_blinded, revive_corpse,
     obj_no_longer_held,
@@ -2670,13 +2670,8 @@ export async function doapply() {
         || (LENSES >= 0 && obj.otyp === LENSES)) {
         const u = game.u || (game.u = {});
         if (obj === u.ublindf) {
-            if (!cursed_check(obj)) {
-                await Blindf_off(obj);
-            } else {
-                await pline(
-                    game._cursed_takeoff_msg || "You can't.  It is cursed.",
-                );
-            }
+            // C apply.c:4247 — cursed() prints; res stays ECMD_TIME.
+            if (!(await cursed(obj))) await Blindf_off(obj);
         } else if (!u.ublindf) {
             await Blindf_on(obj);
         } else {

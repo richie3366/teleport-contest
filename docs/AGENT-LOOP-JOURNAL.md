@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2920 `cursed` refuses a stuck worn item and says so
+
+**C locus:** `nethack-c/upstream/src/do_wear.c:1893–1917` `cursed`. Null calls `impossible("cursed without otmp")` and returns 0. `uwep` tests `welded`; anything else tests `otmp->cursed`. Plural when boots, gloves, lenses, or `quan > 1`. If `Glib` and `bknown` and (`uarmg` ? this is `uwep` : worn as weapon or ring), `pline` the slippery `fingers_or_gloves(TRUE)` line; else `You("can't.  %s cursed.", They are|It is)`. Then `set_bknown(otmp, 1)` and return 1. Otherwise return 0.
+**JS:** `js/do_wear.js` `cursed` `:311`. Null `:312`. Stuck test `:319`. Plural `:321`. Glib line `:324–331`. `You` `:333`. `set_bknown` `:335`.
+**Change:** One exported async `cursed` in that C order. `You` and `pline` are the display exports. `Glib` is the existing potion export.
+**Verify:** `node scripts/verify.mjs --fn cursed` → PASS syntax (3 changed js files: js/apply.js js/do_wear.js js/sounds.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.2s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: PASS.
+**Named:** No arm of `cursed` is omitted. The armor arm of `armor_or_accessory_off` still does not call `select_off`, so a 'T' of armor skips the bear-trap, covering-cloak, and bimanual-weld gates and reaches `cursed` only through `armoroff`.
+**Next:** `trap.c` `deltrap` (next Open — coverage row). Nine Open rows remain after archive, above the floor of 8, so nothing was refilled. The queue-empty overlay did not match the live queue (ten coverage rows were open; `cursed` was the head and its Glib arm was absent from the split helpers).
 ## 2026-09-27 — D-2919 `find_mid` searches the monster chains the flags name
 
 **C locus:** `nethack-c/upstream/src/light.c:376–395` `find_mid`. `FM_YOU` and `nid == 1` returns `&gy.youmonst`. `FM_FMON` walks `fmon` and skips `DEADMONSTER` (`mhp < 1`). `FM_MIGRATE` walks `migrating_mons`. `FM_MYDOGS` walks `mydogs`. Else null. `light_sources_sanity_check` is `light.c:606–630`: missing id panics; `LS_OBJECT` must be `find_oid`; `LS_MONSTER` must be `find_mid(m_id, FM_EVERYWHERE)`; any other type panics.
