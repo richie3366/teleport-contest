@@ -2560,7 +2560,7 @@ each name two glyphs (normal + piletop banks, no `piletop_` prefix in the
 generic range), cache keeps first-inserted like C); named: `find_struct`
 callback/color/unicode consumers (`glyphrep_to_custom_map_entries`,
 `glyphrep`, `match_glyph`, `to_custom_symset_entry_callback`,
-`shuffle_customizations`, `apply_customizations`
+`apply_customizations`
 — options/symbols customization subsystem, own rows), C callers of
 fill/dump (`options.c:4227/7155`, `symbols.c:1073`, `wizcmds.c:1949`,
 `earlyarg.c:808` stdout) unwired (callers unported), `parse_sym_line`
@@ -2588,6 +2588,19 @@ unlink, cells reset to the BSS end state); named: C callers
 `freedynamicdata` (save.c:1090, save-freeing infra) + `clear_symsetentry`
 (symbols.c:347, own row), both unported; add_custom_symbols/ureps writers
 (arms guarded until they land).
+
+**`shuffle_customizations` + `maybe_shuffle_customizations` live** (D-2934; C
+`glyphs.c:644–732` compiled body, not the `#if 0` predecessor `:591–642`;
+wrapper `:580–587`). Both object banks (`GLYPH_OBJ_OFF`,
+`GLYPH_OBJ_PILETOP_OFF`). `ENHANCED_SYMBOLS` is on, so a repeated
+`oc_descr_idx` copies `customcolor` / `color256idx` and `alloc`s a new
+`unicode_representation` with `dupstr` of `utf8str`. `glyphmap[]` is
+`game.glyphmap`, created on the first shuffle (display.c:1672: `[0].sym.color
+= NO_COLOR`, other slots zero). `moveloop_core` calls the wrapper when
+`iflags.pending_customizations` (`allmain.c:189`). Named:
+`apply_customizations` (the writer of that flag and of `customcolor` /
+`u`), `set_map_u` / `set_map_customcolor`, `reset_glyphmap` fill of `sym`
+/ `tileidx`.
 
 ### `src/questpgr.c` / tty menu
 
