@@ -104,7 +104,7 @@ import { shtypes, stock_room } from './shknam.js';
 import { setgemprobs } from './o_init.js';
 import { maketrap, t_at, undestroyable_trap, deltrap, reset_utrap, mintrap, set_levltyp, set_levltyp_lit } from './trap.js';
 import {
-    mkobj, mksobj, mksobj_at, mksobj_migr_to_species, mkobj_at, mkgold,
+    mkobj, mksobj, mksobj_at, mk_tt_object, mksobj_migr_to_species, mkobj_at, mkgold,
     mkcorpstat, next_ident,
     curse, bless, uncurse, blessorcurse, place_object, add_to_buried, weight, OBJ,
     set_corpsenm, obj_stop_timers, start_timer, spot_stop_timers,
@@ -27811,19 +27811,6 @@ export function morguemon() {
     if (i < 20) return PM_GHOST >= 0 ? mons(PM_GHOST) : null;
     if (i < 40) return PM_WRAITH >= 0 ? mons(PM_WRAITH) : null;
     return mkclass('S_ZOMBIE', 0);
-}
-
-/**
- * C ref: mkobj.c mk_tt_object — CORPSE/STATUE with topten name or role pm.
- * Empty RECORD: get_rnd_toptenentry burns rnd(10) then null → rn1 role.
- */
-function mk_tt_object(objtype, x, y) {
-    const initialize_it = objtype !== STATUE;
-    const otmp = mksobj_at(objtype, x, y, initialize_it, false);
-    if (!otmp) return null;
-    rnd(10); // C get_rnd_toptenentry after successful open
-    set_corpsenm(otmp, rn1(PM_WIZARD - PM_ARCHEOLOGIST + 1, PM_ARCHEOLOGIST));
-    return otmp;
 }
 
 /**

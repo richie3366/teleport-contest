@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `mkobj.c` `mk_tt_object` — next Open coverage row. `region_dialogue` and same-file `end_burn` shipped as D-2914. `piousness` parked Stale. No Must-fix.
+**Next cluster:** `mkobj.c` mk_tt_object — coverage THIN (C 19 L `mkobj.c:2227–2248` / JS 8 L in js/dig.js; hops 3, callers 5, RNG 1, msg 0). Port the whole C body. No Must-fix.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2914 (index).**
+**Keep D-0845…D-2915 (index).**
 <!-- recent:begin -->
+**D-2915** `nethack-c/upstream/src/mkobj.c:2227–2248` `mk_tt_object`. `initialize_it` is false for `S — One exported `mk_tt_object` in that C order.
 **D-2914** `nethack-c/upstream/src/timeout.c:553–569` `region_dialogue`. Save `(HMagical_breathing &  — One `region_dialogue` in that C order, called from `nh_timeout` on the slot (else the flat).
 **D-2913** `nethack-c/upstream/src/sp_lev.c:926–958` `flip_vault_guard`. `EGD(grd)`. If `inFlipArea(g — One file-local `flip_vault_guard` in that C order.
 **D-2912** `nethack-c/upstream/src/objnam.c:3933–3961` `readobjnam_init`. `otmp` is null. The zero ch — One file-local `readobjnam_init` in that C order.
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2910** `nethack-c/upstream/src/pray.c:2530–2555` `align_gname`. `A_NONE` is the file-scope `Moloc — One exported `align_gname` in that C order.
 **D-2909** `nethack-c/upstream/src/do_wear.c:2629–2653` `some_armor`. `victim == &gy.youmonst` reads  — One exported `some_armor` in that C order.
 **D-2908** `nethack-c/upstream/src/wield.c:809–831` `drop_uswapwep`. `Sprintf(left_hand, "left %s", b — One async `drop_uswapwep` in that C order.
-**D-2907** `nethack-c/upstream/src/eat.c:576–599` `eating_conducts`. `!u.uconduct.food++` then `livel — One async `eating_conducts` in that C order, including both post-increment tests and all three `livelog_printf` calls.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2914; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2915; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

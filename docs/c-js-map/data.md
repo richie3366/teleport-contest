@@ -333,9 +333,21 @@ when a partly eaten corpse changes species, then `CORPSE` /
 `FIGURINE` / `EGG` / default `weight`. `obj_to_any` is the live
 `js/hack.js` collapse (the object itself). A null object returns. A missing `mons` row or a zero old
 `cnutrit` skips the rescale (C's comment excludes both). `FIGURINE`
-uses `where == OBJ_INVENT || OBJ_MINVENT`. `topten.c` `tt_oname` is
-unported (`get_rnd_toptenentry` / RECORD); `mk_tt_object` takes the
-null branch. Medusa `fixup_special` stone-resist retries call it.
+uses `where == OBJ_INVENT || OBJ_MINVENT`. Medusa `fixup_special`
+stone-resist retries call it.
+
+**`mk_tt_object` (D-2915;** C `mkobj.c:2227–2248` → `js/mkobj.js`).
+`initialize_it` is false for `STATUE` (no books). `tt_oname` null forces
+`rn1(PM_WIZARD - PM_ARCHEOLOGIST + 1, PM_ARCHEOLOGIST)` through
+`set_corpsenm`. The two local clones in `dig.js` and `mklev.js` are
+gone. Callers: `dig.c:1063` `dig_up_grave` → `js/dig.js`; `mkmaze.c:660`
+and `:672` `fixup_special` → `js/mklev.js`; `mkroom.c:385` MORGUE and
+`:404` COCKNEST → `js/mklev.js` `fill_zoo`. **`tt_oname`**
+(`topten.c:1421–1441`), **`get_rnd_toptenentry`** (`:1380–1414`), and
+**`classmon`** (`:1355–1375`) live in `js/topten.js`. A null or empty
+VFS record is the harness empty `record` (fopen succeeds, `rnd` of
+`tt_oname_maxrank`, default 10): the `!rfile` `impossible` arm stays
+the same named omit as `topten()`. `tt_doppel` calls the exports.
 
 Creation/merge/weight subsets; `add_to_buried` (D-0014); 
 `start_corpse_timeout` + `mkcorpstat` `special_corpse` restart (D-0011); 
@@ -721,7 +733,7 @@ was blind `mundetected=1`); **D-0630 inline hideunder non-pit `t_at` blocks** (P
 `extract-monsters.py` `-DMAIL_STRUCTURES` → `PM_MAIL_DAEMON` (SPECIAL_PM=330)** + 
 **D-0928 #1111 random `while` = C (`!validspecmon` only continues under rogue uppercase `monsym` 
 gate; else one `rn1` + outer `newcham`/`accept`)**; 
-**D-2235 `select_newcham_form` ordinary dragon-armor arm + `tt_doppel` RECORD body + `classmon`** (`mon.c:5198–5207` `which_armor` W_ARM scales/mail → dragon; `topten.c:1444–1464` plgend/`classmon`/`christen`; live `which_armor`/`christen_monst`/`canseemon`, new `roles.js` edge); wizard mon_polycontrol retired by **D-2245** (live `wiz_force_cham_form` + `validvamp` + `mkclass_poly`, gate in C position, promise-split keeps scored runs sync) / RECORD `get_rnd_toptenentry` (no RECORD VFS, Rule #2); 
+**D-2235 `select_newcham_form` ordinary dragon-armor arm + `tt_doppel` RECORD body + `classmon`** (`mon.c:5198–5207` `which_armor` W_ARM scales/mail → dragon; `topten.c:1444–1464` plgend/`classmon`/`christen`; live `which_armor`/`christen_monst`/`canseemon`, new `roles.js` edge); wizard mon_polycontrol retired by **D-2245** (live `wiz_force_cham_form` + `validvamp` + `mkclass_poly`, gate in C position, promise-split keeps scored runs sync) / RECORD `get_rnd_toptenentry` (live `js/topten.js`, D-2915; empty VFS is the harness empty record); 
 **D-1573 `newcham` Protection cancel** + outer rogue `tryct>15` + `set_mon_data` / wormgone /
 light / `pm_invisible` / hideunder / long-worm init / vampire cham / `check_gear_next_turn`;
 NC_SHOW_MSG `pline_mon` D-1586; **newcham mleashed `m_unleash` TRUE / `update_inventory` + Elbereth `monflee` D-1645**; **await remaining async NO_NC_FLAGS `newcham` D-1648** (mon_poly/stone/gulp/statue/revive/bhitm; sync makemon/`load_tower1` named);
