@@ -31,6 +31,8 @@ import {
     flush_screen, flush_topl_more, docrt, canspotmon, pline,
     glyph_to_obj_at, glyph_is_swallow_at, see_with_infrared, sensemon,
     verbalize, impossible,
+    /* youprop.h:116–120. The same-file export is the sticky reader. */
+    Hallucination as youprop_Hallucination,
 } from './display.js';
 import {
     paint_corner_nhw_menu, discover_object,
@@ -256,7 +258,10 @@ async function do_oname(obj) {
     oname(obj, buf, ONAME_VIA_NAMING | ONAME_KNOW_ARTI);
 }
 
-/** C ref: youprop.h Hallucination — HHallucination && !Halluc_resistance. */
+/**
+ * Sticky `u.Hallucination`, then the H/E flats. Not `youprop.h:116–120`
+ * (that reader is `display.js` `Hallucination`). `hliquid` does not call this.
+ */
 export function Hallucination() {
     const u = game.u || {};
     if (u.Hallucination) return true;
@@ -374,16 +379,17 @@ const HLIQUIDS = [
 /**
  * C ref: do_name.c:1491–1510 hliquid.
  * Use liquidpref as-is when not hallucinating, unless it is null or empty.
- * Hallucination is youprop.h:120 (`HHallucination && !Halluc_resistance`).
- * `program_state.gameover` skips that arm; an empty pref still rolls.
- * A non-empty pref is one extra choice past SIZE(hliquids). IndexOk
- * (hack.h:1498) rejects that index and returns liquidpref.
- * `rn2_on_display_rng` is the display stream (rnd.c).
+ * Hallucination is display.js (youprop.h:116–120): timeout
+ * `u.uprops[HALLUC].intrinsic && !Halluc_resistance`, not the sticky
+ * same-file reader. `program_state.gameover` skips that arm; an empty
+ * pref still rolls. A non-empty pref is one extra choice past
+ * SIZE(hliquids). IndexOk (hack.h:1498) rejects that index and returns
+ * liquidpref. `rn2_on_display_rng` is the display stream (rnd.c).
  * @param {string|null|undefined} liquidpref
  * @returns {string|null|undefined}
  */
 export function hliquid(liquidpref) {
-    const hallucinate = Hallucination() && !game.program_state?.gameover;
+    const hallucinate = youprop_Hallucination() && !game.program_state?.gameover;
 
     if (hallucinate || liquidpref == null || liquidpref === '') {
         let count = HLIQUIDS.length;

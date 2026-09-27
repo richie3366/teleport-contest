@@ -1465,7 +1465,7 @@ FIRST_OBJECT skip named); **`christen_monst` whole body** (D-2916; C `do_name.c`
 Wizard keeps `"the "` via !pname); **exported `pmname`/`Ugender` for hero self_lookat** (D-0664); 
 **`Hallucination`/`rndmonnam`/`bogusmon` display RNG** (D-0838; 
 invent/floor getobj/getpos bodies, invis adj/priest/`called`/`is_mplayer`/`AUGMENT_IT`, 
-literate/shop deferred); **`hliquid` whole body D-2943** (C `do_name.c:1493–1510`: Hallucination && !gameover, empty pref still rolls, non-empty pref is SIZE+1, IndexOk rejects that index, display-rng; `do.js` molten lava, `hack.js` trapmove lava edge, `pickup.js` able_to_loot, `uhitm.js` AD_ACID now call it); **`rndorcname` D-2943** (C `:1538–1554`: rn1+rn2 before the null return, vowel/snd flip, hyphen only when `i>0 && !rn2(30)`; callers `mklev.js` stolen_booty and `christen_orc`); 
+literate/shop deferred); **`hliquid` whole body D-2943 / gate D-2951** (C `do_name.c:1493–1510`: the gate is `display.js` `Hallucination`, `youprop.h:116–120` timeout intrinsic `&& !gameover`, not the sticky `do_name.js` reader; empty pref still rolls, non-empty pref is SIZE+1, IndexOk rejects that index, display-rng; callers stay the D-2943 sites); **`rndorcname` D-2943** (C `:1538–1554`: rn1+rn2 before the null return, vowel/snd flip, hyphen only when `i>0 && !rn2(30)`; callers `mklev.js` stolen_booty and `christen_orc`); 
 **`hcolor` hcolors[] + display-rng** (D-1135; 
 Hallu or NULL pref → `rn2_on_display_rng(SIZE)` only, pref not last choice, gameover does not skip; 
 drinksink case 4 Blind short-circuit); **`rndcolor`** (D-1147; 

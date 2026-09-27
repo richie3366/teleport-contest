@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-27
 
-- [x] `mklev.c` mkfount — coverage PARTIAL (C 15 L `mklev.c:2285–2300` / JS 10 L in js/mklev.js; hops 2, callers 1, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mkfount` (reach regression must be 0). Measured `port-coverage.mjs --name mkfount` 2026-09-27 @ 96146725a. **Addressed:** D-2950
+- [x] `do_name.c` `hliquid` — the gate calls `do_name.js:260` `Hallucination`, which returns true on sticky `u.Hallucination` before resistance and never reads `uprops[HALLUC]`. C `youprop.h:116–120` is `u.uprops[HALLUC].intrinsic && !Halluc_resistance` (timeout only). `display.js:1095` is that reader, and `do_name.js` already imports `display.js` (`imports.mjs --can` → ALREADY). Use it from `hliquid` (`do_name.c:1496`). Source: reviews/loop-unattended/1902-9ce3f2138-hliquid.md **Addressed:** D-2951
+
+
+- [x] `mklev.c` mkfount — coverage PARTIAL (C 15 L `mklev.c:2285–2300` / JS 10 L in js/mklev.js; hops 2, callers 1, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mkfount` (reach regression must be 0). Measured `port-coverage.mjs --name mkfount` 2026-09-27 @ 96146725a. **Addressed:** D-2950 `1a25073d1`
 
 
 - [x] `lock.c` maybe_reset_pick — coverage THIN (C 16 L `lock.c:269–285` / JS 7 L in js/shk.js; hops 3, callers 5, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn maybe_reset_pick` (reach regression must be 0). Measured `port-coverage.mjs --name maybe_reset_pick` 2026-09-27 @ fa30d863c. **Addressed:** D-2949 `515ca9981`
