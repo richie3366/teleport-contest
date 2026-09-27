@@ -182,7 +182,7 @@ import { livelog_printf } from './pline.js';
 import { shtypes } from './shknam.js';
 import { obfree, setpaid, discard_damage_owned_by } from './shk.js';
 import { search_special } from './sounds.js';
-import { closed_door, Passes_walls_prop, test_move, u_locomotion } from './hack.js';
+import { closed_door, Passes_walls_prop, test_move, u_locomotion, You_hear } from './hack.js';
 import { surface } from './sit.js';
 import { emits_light, del_light_source } from './light.js';
 import { on_level } from './dungeon.js';
@@ -378,16 +378,6 @@ function mdistu(mtmp) {
     const u = game.u;
     if (!u || mtmp?.mx == null) return 0;
     return dist2(mtmp.mx, mtmp.my, u.ux, u.uy);
-}
-
-/**
- * C ref: pline.c You_hear — acoustics/Deaf gate; Unaware/Underwater deferred.
- * Local copy for mhitm; trap.js has its own until shared export.
- */
-async function You_hear(line) {
-    const u = game.u || {};
-    if (u.Deaf || game.flags?.acoustics === false) return;
-    await pline(`You hear ${line}`);
 }
 
 /**

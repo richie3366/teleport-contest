@@ -19,7 +19,7 @@ import {
 } from './mkobj.js';
 import {
     losehp, maybe_half_phys, nomul, impact_disturbs_zombies, finish_maybe_wail,
-    switch_terrain, in_rooms, stop_occupation,
+    switch_terrain, in_rooms, stop_occupation, You_hear,
 } from './hack.js';
 import {
     WEAPON_CLASS, TOOL_CLASS, COIN_CLASS, GEM_CLASS, FOOD_CLASS, ARMOR_CLASS,
@@ -1193,14 +1193,10 @@ export async function throw_obj(obj, shotlimit) {
     game.m_shot.s = false;
     return unsplit_stack(); // C `:293` return res via unsplit_stack
 }
-/** C ref: pline.c You_hear — acoustics; Unaware/Underwater deferred. */
+/** C youprop.h Deaf subset used by dothrow sight gates — not You_hear. */
 function Deaf() {
     const u = game.u || {};
     return !!(u.HDeaf || u.Deaf);
-}
-async function You_hear(line) {
-    if (Deaf()) return;
-    await pline(`You hear ${line}`);
 }
 function Blind() {
     return !!(game.u?.Blind || game.u?.ublind);

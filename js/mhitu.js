@@ -25,7 +25,7 @@ import {
 import { thrwmu, spitmu, breamu } from './mthrowu.js';
 import { find_offensive, use_offensive } from './muse.js';
 import { destroy_items, resists_drli, Drain_resistance, drain_item } from './zap.js';
-import { nomul, stop_occupation, maybe_half_phys, is_pool, losehp, unmul, fall_asleep } from './hack.js';
+import { nomul, stop_occupation, maybe_half_phys, is_pool, losehp, unmul, fall_asleep, You_hear } from './hack.js';
 import { upstart } from './hacklib.js';
 import { rnd, d, rn2, rn1 } from './rng.js';
 import {
@@ -2217,14 +2217,6 @@ async function mhitm_ad_ssex(mtmp, mattk, mhm) {
         return;
     }
     await mhitm_ad_sedu_u(mtmp, mattk, mhm);
-}
-
-/**
- * C ref: pline.c You_hear — acoustics/Deaf gate (local for mhitu).
- */
-async function You_hear(line) {
-    if (hero_Deaf() || game.flags?.acoustics === false) return;
-    await pline(`You hear ${line}`);
 }
 
 /**

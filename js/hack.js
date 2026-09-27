@@ -40,7 +40,7 @@ import {
     DO_MOVE, TEST_MOVE, TEST_TRAV, TEST_TRAP, S_stone, ESHK,
 } from './const.js';
 import {
-    pline, You, There, Norep, newsym, canspotmon, canseemon, map_invisible, You_feel,
+    pline, vpline, You, There, Norep, newsym, canspotmon, canseemon, map_invisible, You_feel,
     set_msg_xy, feel_location, map_object, unmap_object, verbalize, curs_on_u,
     nh_delay_output, back_to_glyph, glyph_to_cmap, glyph_is_cmap, pline_dir,
     impossible,
@@ -163,23 +163,31 @@ function t_at_local(x, y) {
 }
 
 /**
- * C ref: pline.c You_hear `:436–452` — (Deaf && !Unaware) gate, where C
- * Deaf is youprop.h:123–125 (HDeaf || EDeaf || uroleplay.deaf). Sticky
- * u.Deaf is not that macro. Unaware
- * (youprop.h:399: multi < 0 && (unconscious() [trap.c:6776] ||
- * is_fainted() [eat.c:3347])) → "You dream that you hear ". The longer
- * dream prefix is what pushes a sleep-turn dosounds fountain past the
- * CO-8 append gate, so C mores the pending line first instead of
- * appending (scen-wish-Rogue-92210 step 110: dobuzz sleep ray + fountain).
- * Underwater "barely hear" stays deferred (pre-existing map omit).
+ * C ref: pline.c You_hear `:436–452`.
+ * `(Deaf && !Unaware) || !flags.acoustics` returns (`:441`).
+ * Deaf is youprop.h:123–125 (`HDeaf || EDeaf || uroleplay.deaf`).
+ * Sticky `u.Deaf` is not that macro. Unaware is youprop.h:399
+ * (`multi < 0 && (unconscious() || is_fainted())`). Underwater is
+ * youprop.h:279 (`u.uinwater`). YouPrefix (`pline.c:359–360`) copies
+ * the prefix; strcat appends the format; vpline prints it (`:450`).
+ * You_buf growth (`:338–348`) is unneeded in JS. An unset
+ * `flags.acoustics` is the optlist On default, so only an explicit
+ * false matches `!flags.acoustics`.
  */
-export async function You_hear(line) {
-    const u = game.u || {};
-    const unaware = (game.multi | 0) < 0 && (unconscious() || is_fainted());
-    const deaf = !!((u.HDeaf | 0) || (u.EDeaf | 0) || u.uroleplay?.deaf);
-    if ((deaf && !unaware) || game.flags?.acoustics === false) return;
-    if (unaware) await pline(`You dream that you hear ${line}`);
-    else await pline(`You hear ${line}`);
+export async function You_hear(line, ...the_args) {
+    const u = game.u;
+    const Deaf = !!((u?.HDeaf | 0) || (u?.EDeaf | 0) || u?.uroleplay?.deaf);
+    const Unaware = (game.multi | 0) < 0 && (unconscious() || is_fainted());
+    if ((Deaf && !Unaware) || game.flags?.acoustics === false)
+        return;
+    let prefix;
+    if ((u?.uinwater | 0) !== 0)
+        prefix = 'You barely hear ';
+    else if (Unaware)
+        prefix = 'You dream that you hear ';
+    else
+        prefix = 'You hear '; /* Deaf-aware */
+    await vpline(`${prefix}${line}`, ...the_args);
 }
 
 /**

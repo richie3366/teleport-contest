@@ -81,7 +81,7 @@ import {
 } from './makemon.js';
 import { in_your_sanctuary, p_coaligned, ghod_hitsu, inhistemple } from './priest.js';
 import { inhishop } from './shk.js';
-import { in_rooms, is_pool, is_lava, disturb_buried_zombies, stop_occupation } from './hack.js';
+import { in_rooms, is_pool, is_lava, disturb_buried_zombies, stop_occupation, You_hear } from './hack.js';
 import { inv_weight, weight_cap } from './invent.js';
 import { maybe_m_dowear_special, extract_from_minvent, update_mon_extrinsics, mon_set_minvis, which_armor, res_to_mr } from './worn.js';
 import { adjalign } from './attrib.js';
@@ -2445,16 +2445,6 @@ export async function m_consume_obj(mtmp, otmp) {
     }
 }
 
-/** C ref: pline.c You_hear — acoustics/Deaf; Unaware/Underwater deferred. */
-async function You_hear_meat(line) {
-    const u = game.u || {};
-    if (u.Deaf || (u.HDeaf | 0) || (u.EDeaf | 0)
-        || u.uroleplay?.deaf || game.flags?.acoustics === false) {
-        return;
-    }
-    await pline(`You hear ${line}`);
-}
-
 /**
  * C ref: mon.c meatmetal — non-pet eats the topmost metallic floor object
  * that is not indigestible. 0 nothing, 1 ate, 2 died. Caller:
@@ -2509,7 +2499,7 @@ export async function meatmetal(mtmp) {
                     }
                 } else if (verbose) {
                     // C Soundeffect(se_crunching_sound) empty without SND_LIB
-                    await You_hear_meat('a crunching sound.');
+                    await You_hear('a crunching sound.');
                 }
                 mtmp.meating = ((otmp.owt | 0) / 2 | 0) + 1;
                 await m_consume_obj(mtmp, otmp);
@@ -2628,7 +2618,7 @@ export async function meatobj(mtmp) {
             } else {
                 // C Soundeffect(se_slurping_sound) empty without SND_LIB
                 if (verbose) {
-                    await You_hear_meat('a slurping sound.');
+                    await You_hear('a slurping sound.');
                 }
             }
             await m_consume_obj(mtmp, otmp);
@@ -2646,11 +2636,9 @@ export async function meatobj(mtmp) {
         if (cansee(mtmp.mx, mtmp.my) && verbose && buf) {
             await pline(buf);
         } else if (verbose) {
-            await You_hear_meat(
-                `${ecount === 1 ? 'a' : 'several'} slurping sound${
-                    ecount === 1 ? '' : 's'
-                }.`,
-            );
+            await You_hear('%s slurping sound%s.',
+                ecount === 1 ? 'a' : 'several',
+                ecount === 1 ? '' : 's');
         }
     }
     return (count > 0 || ecount > 0) ? 1 : 0;
@@ -2700,7 +2688,7 @@ export async function meatcorpse(mtmp) {
             }
         } else if (verbose) {
             // C Soundeffect(se_masticating_sound) empty without SND_LIB
-            await You_hear_meat('a masticating sound.');
+            await You_hear('a masticating sound.');
         }
 
         await m_consume_obj(mtmp, otmp);

@@ -7,7 +7,7 @@ import { nhgetch } from './input.js';
 import { pline, You, You_cant, There, pline_The, newsym, feel_newsym, canseemon, canspotmon, map_invisible, clear_nhwindow_message, verbalize, feel_location, impossible, flush_screen, docrt_flags, docrtRefresh } from './display.js';
 import { yn_function } from './getline.js';
 import { vision_recalc, recalc_block_point, cansee } from './vision.js';
-import { stop_occupation, in_rooms, closed_door, confdir, is_lava, is_pool } from './hack.js';
+import { stop_occupation, in_rooms, closed_door, confdir, is_lava, is_pool, You_hear } from './hack.js';
 import {
     COLNO, ROWNO, IS_DOOR, ECMD_OK, ECMD_TIME, OBJ_FLOOR, OBJ_FREE,
     DOOR, SDOOR, Is_rogue_level, SHOPBASE,
@@ -982,14 +982,6 @@ function dist2_lock(x0, y0, x1, y1) {
     const dx = (x0 | 0) - (x1 | 0);
     const dy = (y0 | 0) - (y1 | 0);
     return dx * dx + dy * dy;
-}
-
-/**
- * C ref: pline.c You_hear — acoustics/Deaf; Unaware/Underwater deferred.
- */
-async function You_hear(line) {
-    if (Deaf() || game.flags?.acoustics === false) return;
-    await pline(`You hear ${line}`);
 }
 
 /**

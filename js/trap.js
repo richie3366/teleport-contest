@@ -118,7 +118,7 @@ import {
 import {
     is_pool, is_lava, waterbody_name, crawl_destination, SURFACE_AT,
     maybe_half_phys, nomul, unmul, losehp, finish_maybe_wail, stop_occupation,
-    in_rooms, set_uinwater, test_move, fall_asleep,
+    in_rooms, set_uinwater, test_move, fall_asleep, You_hear,
 } from './hack.js';
 import { goodpos, mlevel_tele_trap, mtele_trap, tele_trap, level_tele_trap, domagicportal, rloco, random_teleport_level, teleds, safe_teleds, noteleport_level, dotele, unconscious } from './teleport.js';
 import { get_level, on_level, at_dgn_entrance, update_lastseentyp } from './dungeon.js';
@@ -1153,16 +1153,6 @@ const TN_NAMES = [
 function trapnote(trap, noprefix) {
     const tn = TN_NAMES[trap?.tnote | 0] || 'C note';
     return noprefix ? tn : an(tn);
-}
-
-// C ref: pline.c You_hear — acoustics/Deaf gate; Unaware/Underwater deferred
-async function You_hear(line) {
-    const u = game.u || {};
-    const Unaware = (u.multi | 0) < 0 && !!u.usleep;
-    if ((u.Deaf && !Unaware) || game.flags?.acoustics === false) return;
-    if (u.Underwater) await pline(`You barely hear ${line}`);
-    else if (Unaware) await pline(`You dream that you hear ${line}`);
-    else await pline(`You hear ${line}`);
 }
 
 // C ref: mon.c wake_nearto — clear sleep/wait within dist2; zombies deferred
@@ -2409,7 +2399,7 @@ async function trapeffect_dart_trap(mtmp, trap) {
     if (is_youmonst(mtmp)) {
         const u = game.u;
         if (trap.once && trap.tseen && !rn2(15)) {
-            await pline('You hear a soft click.');
+            await You_hear('a soft click.');
             deltrap(trap);
             newsym(u.ux, u.uy);
             return Trap_Is_Gone;
@@ -2477,7 +2467,7 @@ async function trapeffect_arrow_trap(mtmp, trap) {
     if (is_youmonst(mtmp)) {
         const u = game.u;
         if (trap.once && trap.tseen && !rn2(15)) {
-            await pline('You hear a loud click!');
+            await You_hear('a loud click!');
             deltrap(trap);
             newsym(u.ux, u.uy);
             return Trap_Is_Gone;

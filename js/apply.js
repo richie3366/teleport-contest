@@ -874,7 +874,7 @@ async function use_mirror(obj) {
         if (vis) {
             await pline(`${Monnam(mtmp)} is frozen by its reflection.`);
         } else {
-            await pline('You hear something stop moving.');
+            await You_hear('%s stop moving.', 'something');
         }
         mtmp.mfrozen = (mtmp.mfrozen | 0) + tmp;
         mtmp.mcanmove = 0;
@@ -2109,15 +2109,6 @@ const SPELLBOOK_FADENESS = [
 const NH_RED = 'red';
 
 /**
- * C ref: pline.c You_hear — skip if Deaf; Unaware/Underwater barely /
- * flags.acoustics deferred.
- */
-async function You_hear_apply(line) {
-    if (Deaf_hero()) return;
-    await pline(`You hear ${line}`);
-}
-
-/**
  * C ref: pline.c You_see — Blind → "You sense"; Unaware dream deferred.
  */
 async function You_see_apply(line) {
@@ -2153,9 +2144,7 @@ export async function flip_through_book(obj) {
         if (!Deaf_hero()) {
             // C: Soundeffect(se_rustling_paper, 50) when !Hallucination — omit
             const sound = Hallucination() ? 'chuckling' : 'rustling';
-            await You_hear_apply(
-                `the pages make an unpleasant ${sound} sound.`,
-            );
+            await You_hear('the pages make an unpleasant %s sound.', sound);
         } else if (!Blind()) {
             await You_see_apply(
                 `the pages glow faintly ${hcolor_apply(NH_RED)}.`,

@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `teleport.c` noteleport_level — coverage PARTIAL (C 17 L `teleport.c:30–47` / JS 12 L in js/teleport.js; hops 1, callers 25, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn noteleport_level` (reach regression must be 0). Measured `port-coverage.mjs --name noteleport_level` 2026-09-27 @ 75f0544f8.
+**Next cluster:** `pline.c` You_hear — coverage PARTIAL (C 16 L `pline.c:436–452` / JS 8 L in js/dbridge.js; hops 2, callers 139, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn You_hear` (reach regression must be 0). Measured `port-coverage.mjs --name You_hear` 2026-09-27 @ 75f0544f8.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2940 (index).**
+**Keep D-0845…D-2941 (index).**
 <!-- recent:begin -->
+**D-2941** `nethack-c/upstream/src/pline.c:436–452` `You_hear`. `(Deaf && !Unaware) || !flags.acousti — One exported `You_hear` in that C order.
 **D-2940** `nethack-c/upstream/src/teleport.c:30–47` `noteleport_level`. `In_hell(&u.uz)` and `!(is_d — One exported `noteleport_level` in that C order.
 **D-2939** `nethack-c/upstream/src/objnam.c:5513–5528` `helm_simple_name`. `return !hard_helmet(helme — One exported `helm_simple_name` in that C order.
 **D-2938** `nethack-c/upstream/src/shk.c:3602–3620` `append_honorific`. `honored[]` is five strings.  — One file-local `append_honorific` in that C order.
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2936** `nethack-c/upstream/src/end.c:1738–1757` `dealloc_killer`. `prev` starts at `&svk.killer`. — One exported `dealloc_killer` in that C order.
 **D-2935** `nethack-c/upstream/src/lock.c:925–953` `obstructed`. `m_at`. If the monster is not a furn — One file-local async `obstructed` in that C order.
 **D-2934** `nethack-c/upstream/src/glyphs.c:644–732` `shuffle_customizations` (staticfn). Offsets are — One file-local `shuffle_customizations` in that C order, and one exported `maybe_shuffle_customizations`.
-**D-2933** `nethack-c/upstream/src/monmove.c:2319–2353` `stuff_prevents_passage`. Hero (`mtmp == &gy. — One file-local `stuff_prevents_passage` in that C order.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2940; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2941; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

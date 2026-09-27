@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-27
 
-- [x] `teleport.c` noteleport_level — coverage PARTIAL (C 17 L `teleport.c:30–47` / JS 12 L in js/teleport.js; hops 1, callers 25, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn noteleport_level` (reach regression must be 0). Measured `port-coverage.mjs --name noteleport_level` 2026-09-27 @ 75f0544f8. **Addressed:** D-2940
+- [x] `pline.c` You_hear — coverage PARTIAL (C 16 L `pline.c:436–452` / JS 8 L in js/dbridge.js; hops 2, callers 139, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn You_hear` (reach regression must be 0). Measured `port-coverage.mjs --name You_hear` 2026-09-27 @ 75f0544f8. **Addressed:** D-2941
+
+
+- [x] `teleport.c` noteleport_level — coverage PARTIAL (C 17 L `teleport.c:30–47` / JS 12 L in js/teleport.js; hops 1, callers 25, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn noteleport_level` (reach regression must be 0). Measured `port-coverage.mjs --name noteleport_level` 2026-09-27 @ 75f0544f8. **Addressed:** D-2940 `8946c6456`
 
 
 - [x] `objnam.c` helm_simple_name — coverage THIN (C 15 L `objnam.c:5513–5528` / JS 3 L in js/do_wear.js; hops 2, callers 25, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn helm_simple_name` (reach regression must be 0). Measured `port-coverage.mjs --name helm_simple_name` 2026-09-27 @ 75f0544f8. **Addressed:** D-2939 `e7f613e86`
