@@ -1,5 +1,5 @@
 {"fn":"newegd","c":"23-32","status":"unknown"}
-{"fn":"free_egd","c":"35-42","status":"unknown"}
+{"fn":"free_egd","c":"35-42","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"clear_fcorr","c":"48-116","status":"unknown"}
 {"fn":"blackout","c":"123-141","status":"unknown"}
 {"fn":"restfakecorr","c":"144-151","status":"unknown"}

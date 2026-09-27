@@ -12,10 +12,10 @@
 {"fn":"finish_quest","c":"226-279","status":"unknown"}
 {"fn":"chat_with_leader","c":"282-368","status":"partial","js":["js/quest.js:chat_with_leader"],"omit":"posthanks/banished pager texts (questpgr extractor's job — calls are live and still burn the C nhl_init shuffle on a miss, so RNG matches C either way); nemesis/guardian chat + setmangry tail (pre-existing map lines, untouched).","d":["D-2623"],"at":"seed@a30a7de84"}
 {"fn":"leader_speaks","c":"371-391","status":"unknown"}
-{"fn":"chat_with_nemesis","c":"394-400","status":"unknown"}
+{"fn":"chat_with_nemesis","c":"394-400","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"nemesis_speaks","c":"403-422","status":"partial","js":["js/quest.js:nemesis_speaks"],"omit":"`chat_with_nemesis` (`quest.c:393–400`) and `chat_with_guardian` (`:441–448`) stay out of `quest_chat`.","d":["D-2846"],"at":"seed@a30a7de84"}
 {"fn":"nemesis_stinks","c":"426-438","status":"unknown"}
-{"fn":"chat_with_guardian","c":"441-448","status":"unknown"}
+{"fn":"chat_with_guardian","c":"441-448","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"prisoner_speaks","c":"451-470","status":"unknown","d":["D-2114"],"at":"seed@a30a7de84"}
 {"fn":"quest_chat","c":"473-492","status":"unknown"}
 {"fn":"quest_talk","c":"495-511","status":"unknown"}

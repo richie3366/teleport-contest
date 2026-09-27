@@ -12,11 +12,11 @@
 {"fn":"restore_light_sources","c":"479-493","status":"unknown"}
 {"fn":"light_stats","c":"501-511","status":"unknown"}
 {"fn":"relink_light_sources","c":"517-563","status":"partial","js":["js/light.js:relink_light_sources"],"omit":"C ``lookup_id_mapping`` as its own row (restore.c:1484; bucket/list state = bones id map; ghostly obj-id recording unported — the arm resolves through ``lookup_bones_id`` like region.js reset_region_mids); ``find_mid`` FM_MIGRATE/FM_MYDOGS arms (pre-existing named omit in mon.js — flag passed for f…","d":["D-2644"],"at":"seed@a30a7de84"}
-{"fn":"maybe_write_ls","c":"571-603","status":"unknown"}
+{"fn":"maybe_write_ls","c":"571-603","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"light_sources_sanity_check","c":"606-630","status":"unknown"}
 {"fn":"write_ls","c":"634-702","status":"unknown","d":["D-2666"],"at":"seed@a30a7de84"}
-{"fn":"obj_move_light_source","c":"706-715","status":"unknown"}
-{"fn":"any_light_source","c":"719-722","status":"unknown"}
+{"fn":"obj_move_light_source","c":"706-715","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"any_light_source","c":"719-722","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"snuff_light_source","c":"729-759","status":"unknown"}
 {"fn":"obj_sheds_light","c":"763-767","status":"unknown"}
 {"fn":"obj_is_burning","c":"771-775","status":"unknown"}
@@ -26,4 +26,4 @@
 {"fn":"candle_light_range","c":"843-877","status":"ported","js":["js/timeout.js:candle_light_range"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
 {"fn":"arti_light_radius","c":"881-911","status":"ported","js":["js/timeout.js:arti_light_radius"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
 {"fn":"arti_light_description","c":"916-931","status":"unknown","d":["D-2125"],"at":"seed@a30a7de84"}
-{"fn":"wiz_light_sources","c":"935-975","status":"unknown"}
+{"fn":"wiz_light_sources","c":"935-975","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}

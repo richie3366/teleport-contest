@@ -1,5 +1,5 @@
-{"fn":"uint_to_any","c":"73-78","status":"unknown"}
-{"fn":"long_to_any","c":"81-86","status":"unknown"}
+{"fn":"uint_to_any","c":"73-78","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"long_to_any","c":"81-86","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"monst_to_any","c":"89-94","status":"unknown"}
 {"fn":"obj_to_any","c":"97-102","status":"unknown"}
 {"fn":"revive_nasty","c":"105-137","status":"unknown"}
@@ -52,7 +52,7 @@
 {"fn":"carrying_too_much","c":"2616-2634","status":"unknown"}
 {"fn":"escape_from_sticky_mon","c":"2639-2692","status":"unknown","d":["D-2158"],"at":"seed@a30a7de84"}
 {"fn":"domove","c":"2695-2709","status":"unknown","d":["D-1150"],"at":"seed@a30a7de84"}
-{"fn":"domove_core","c":"2712-2991","status":"partial","omit":"displaceu middle-skip (C skips ironbars/test_move/swim when displaceu; JS runs the middle then swaps — converges next turn); travel block (handled upstream in `continue_run`, `findtravelpath_travel/guess` + travel1=0, same order vs the carrying check); final CLIPPING (wintty cliparound singleton, D…","d":["D-2453"],"at":"seed@a30a7de84","note":"seed: js location unresolved"}
+{"fn":"domove_core","c":"2712-2991","status":"partial","js":["js/cmd.js:domove"],"omit":"displaceu middle-skip (C skips ironbars/test_move/swim when displaceu; JS runs the middle then swaps — converges next turn); travel block (handled upstream in `continue_run`, `findtravelpath_travel/guess` + travel1=0, same order vs the carrying check); final CLIPPING (wintty cliparound singleton, D…","d":["D-2453"],"at":"2026-09-27@d2d72caa6","note":"refresh: body lives in domove (cmd.js:5469); omit unchanged (D-2453)"}
 {"fn":"runmode_delay_output","c":"2996-3017","status":"unknown"}
 {"fn":"maybe_smudge_engr","c":"3020-3031","status":"unknown"}
 {"fn":"overexert_hp","c":"3035-3047","status":"unknown"}
@@ -79,7 +79,7 @@
 {"fn":"nomul","c":"4161-4173","status":"unknown"}
 {"fn":"unmul","c":"4177-4208","status":"unknown"}
 {"fn":"maybe_wail","c":"4211-4243","status":"unknown"}
-{"fn":"showdamage","c":"4247-4253","status":"unknown"}
+{"fn":"showdamage","c":"4247-4253","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"losehp","c":"4256-4292","status":"unknown","d":["D-2051"],"at":"seed@a30a7de84"}
 {"fn":"weight_cap","c":"4295-4346","status":"ported","js":["js/invent.js:weight_cap"],"d":["D-2819"],"at":"seed@a30a7de84"}
 {"fn":"inv_weight","c":"4351-4365","status":"ported","js":["js/invent.js:inv_weight"],"d":["D-2827"],"at":"seed@a30a7de84"}
@@ -87,9 +87,9 @@
 {"fn":"near_capacity","c":"4385-4388","status":"unknown"}
 {"fn":"max_capacity","c":"4391-4396","status":"unknown"}
 {"fn":"check_capacity","c":"4399-4409","status":"unknown"}
-{"fn":"dump_weights","c":"4421-4483","status":"unknown"}
-{"fn":"cmp_weights","c":"4486-4493","status":"unknown"}
+{"fn":"dump_weights","c":"4421-4483","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cmp_weights","c":"4486-4493","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"inv_cnt","c":"4496-4507","status":"unknown"}
 {"fn":"money_cnt","c":"4514-4522","status":"unknown"}
-{"fn":"spot_checks","c":"4525-4547","status":"unknown"}
+{"fn":"spot_checks","c":"4525-4547","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"rounddiv","c":"4551-4572","status":"unknown"}

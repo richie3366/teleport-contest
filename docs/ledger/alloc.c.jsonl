@@ -7,6 +7,6 @@
 {"fn":"nhfree","c":"205-214","status":"ported","js":["js/alloc.js:nhfree"],"d":["D-2991"],"at":"2026-09-27@ebc63743c"}
 {"fn":"nhdupstr","c":"219-229","status":"ported","js":["js/alloc.js:nhdupstr"],"d":["D-2991"],"at":"2026-09-27@ebc63743c"}
 {"fn":"dupstr","c":"238-247","status":"unknown"}
-{"fn":"dupstr_n","c":"253-261","status":"unknown"}
+{"fn":"dupstr_n","c":"253-261","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"FITSint_","c":"266-273","status":"ported","js":["js/alloc.js:FITSint_"],"d":["D-2991"],"at":"2026-09-27@ebc63743c"}
 {"fn":"FITSuint_","c":"276-283","status":"ported","js":["js/alloc.js:FITSuint_"],"d":["D-2991"],"at":"2026-09-27@ebc63743c"}

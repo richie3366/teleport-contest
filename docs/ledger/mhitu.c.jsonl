@@ -6,7 +6,7 @@
 {"fn":"u_slow_down","c":"163-171","status":"unknown"}
 {"fn":"wildmiss","c":"176-261","status":"unknown","d":["D-2067","D-1291"],"at":"seed@a30a7de84"}
 {"fn":"expels","c":"264-306","status":"unknown"}
-{"fn":"getmattk","c":"310-444","status":"ported","at":"seed@a30a7de84","note":"stale 2026-09-18; seed: js location unresolved"}
+{"fn":"getmattk","c":"310-444","status":"partial","js":["js/mhitm.js:get_mattk"],"omit":"SEDUCE=0 SSEX substitution (c_sa_no[] / lone SSEX→DRLI; c_sa_no not in js/)","at":"2026-09-27@d2d72caa6","note":"refresh: lives as get_mattk (mhitm.js:448), all other arms verified; SEDUCE arm named (was wrongly seeded ported)"}
 {"fn":"calc_mattacku_vars","c":"448-463","status":"unknown"}
 {"fn":"mtrapped_in_pit","c":"467-479","status":"unknown"}
 {"fn":"mattacku","c":"491-952","status":"unknown","d":["D-2130","D-1795"],"at":"seed@a30a7de84"}
@@ -24,8 +24,8 @@
 {"fn":"doseduce","c":"1985-2305","status":"unknown","d":["D-1758","D-1750"],"at":"seed@a30a7de84"}
 {"fn":"mayberem","c":"2309-2352","status":"ported","js":["js/mhitu.js:mayberem"],"at":"seed@a30a7de84","note":"stale 2026-09-21"}
 {"fn":"assess_dmg","c":"2355-2365","status":"unknown"}
-{"fn":"ranged_attk_assessed","c":"2374-2387","status":"unknown"}
-{"fn":"mon_avoiding_this_attack","c":"2393-2405","status":"unknown"}
+{"fn":"ranged_attk_assessed","c":"2374-2387","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"mon_avoiding_this_attack","c":"2393-2405","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"ranged_attk_available","c":"2413-2425","status":"unknown"}
 {"fn":"passiveum","c":"2435-2613","status":"unknown"}
 {"fn":"cloneu","c":"2616-2638","status":"unknown"}

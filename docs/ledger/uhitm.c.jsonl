@@ -15,15 +15,15 @@
 {"fn":"hmon_hitmon_weapon_ranged","c":"885-917","status":"unknown","d":["D-2040"],"at":"seed@a30a7de84"}
 {"fn":"backstabbable","c":"921-931","status":"unknown","d":["D-1937"],"at":"seed@a30a7de84"}
 {"fn":"hmon_hitmon_weapon_melee","c":"934-1067","status":"unknown","d":["D-2152"],"at":"seed@a30a7de84"}
-{"fn":"hmon_hitmon_weapon","c":"1070-1092","status":"unknown"}
-{"fn":"hmon_hitmon_potion","c":"1095-1116","status":"unknown"}
+{"fn":"hmon_hitmon_weapon","c":"1070-1092","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"hmon_hitmon_potion","c":"1095-1116","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"hmon_hitmon_misc_obj","c":"1119-1383","status":"partial","js":["js/uhitm.js:hmon_hitmon_misc_obj"],"omit":"`munstone` (`muse.c:2884`, treat FALSE — mhitm.js `do_stone_mon` idiom); `hmon_hitmon_msg_silver` (`:1876`, flags set, no plumbing — same as ranged arm); `get_dmg_bonus` consumers (recalc gate `:1447`, shade bump `:1817` — pre-existing named); pie/venom D-0693 fast path keeps precedence at `hmon_hi…","d":["D-2486"],"at":"seed@a30a7de84"}
-{"fn":"hmon_hitmon_do_hit","c":"1387-1433","status":"unknown"}
+{"fn":"hmon_hitmon_do_hit","c":"1387-1433","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"hmon_hitmon_dmg_recalc","c":"1436-1507","status":"unknown"}
 {"fn":"hmon_hitmon_poison","c":"1510-1538","status":"partial","js":["js/uhitm.js:hmon_hitmon_poison"],"omit":"`hmon_hitmon_stagger` (`uhitm.c:1578–1582`) still returns `hittxt` without the canspotmon pline or `mhurtle_to_doom`.","d":["D-2839"],"at":"seed@a30a7de84"}
 {"fn":"hmon_hitmon_jousting","c":"1541-1567","status":"partial","js":["js/uhitm.js:hmon_hitmon_jousting"],"omit":"`hmon_hitmon_stagger` (`uhitm.c:1578–1582`) still returns `hittxt` without the canspotmon pline or `mhurtle_to_doom`.","d":["D-2839"],"at":"seed@a30a7de84"}
 {"fn":"hmon_hitmon_stagger","c":"1570-1585","status":"unknown"}
-{"fn":"hmon_hitmon_pet","c":"1588-1601","status":"unknown"}
+{"fn":"hmon_hitmon_pet","c":"1588-1601","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"hmon_hitmon_splitmon","c":"1604-1634","status":"partial","js":["js/uhitm.js:hmon_hitmon_splitmon"],"omit":"`hit` (`zap.c:3556–3564`) still does not treat `&gy.youmonst` as always verbose and does not count `engulfing_u` as seen.","d":["D-2872"],"at":"seed@a30a7de84"}
 {"fn":"hmon_hitmon_msg_hit","c":"1637-1660","status":"partial","js":["js/uhitm.js:hmon_hitmon_msg_hit"],"omit":"`hit` (`zap.c:3556–3564`) still does not treat `&gy.youmonst` as always verbose and does not count `engulfing_u` as seen.","d":["D-2872"],"at":"seed@a30a7de84"}
 {"fn":"hmon_hitmon_msg_silver","c":"1663-1699","status":"unknown"}
@@ -39,7 +39,7 @@
 {"fn":"theft_petrifies","c":"2148-2165","status":"unknown"}
 {"fn":"steal_it","c":"2174-2278","status":"unknown","d":["D-2209"],"at":"seed@a30a7de84"}
 {"fn":"mhitm_ad_rust","c":"2281-2335","status":"ported","js":["js/mhitm.js:mhitm_ad_rust"],"d":["D-2589"],"at":"seed@a30a7de84"}
-{"fn":"mhitm_ad_corr","c":"2338-2360","status":"unknown"}
+{"fn":"mhitm_ad_corr","c":"2338-2360","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"mhitm_ad_dcay","c":"2363-2415","status":"ported","js":["js/mhitm.js:mhitm_ad_dcay"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
 {"fn":"mhitm_ad_dren","c":"2418-2442","status":"partial","js":["js/mhitm.js:mhitm_ad_dren"],"omit":"`hmon_hitmon_stagger` (`uhitm.c:1578–1582`) still returns `hittxt` without the canspotmon pline or `mhurtle_to_doom`.","d":["D-2839"],"at":"seed@a30a7de84"}
 {"fn":"mhitm_ad_drli","c":"2445-2518","status":"partial","js":["js/mhitm.js:mhitm_ad_drli"],"omit":"split-arm homes stay split by architecture (damageum_adtyping / mhitm_adtyping_u / mdamagem-table); polyself `resists_drli_you` keeps its C-cited uwep-suppressed local form (never calls `resists_drli`, unaffected); sibling `defended(AD_COLD)`-style omits untouched.","d":["D-2518"],"at":"seed@a30a7de84"}
@@ -56,10 +56,10 @@
 {"fn":"mhitm_ad_drin","c":"3168-3303","status":"ported","js":["js/uhitm.js:mhitm_ad_drin"],"d":["D-1307"],"at":"seed@a30a7de84","note":"stale 2026-09-21"}
 {"fn":"mhitm_ad_stck","c":"3306-3334","status":"partial","js":["js/mhitm.js:mhitm_ad_stck"],"omit":"The cream-pie arm of `hmon_hitmon` still returns before `nohandglow`.","d":["D-2855"],"at":"seed@a30a7de84"}
 {"fn":"mhitm_ad_wrap","c":"3337-3428","status":"ported","js":["js/uhitm.js:mhitm_ad_wrap"],"at":"seed@a30a7de84","note":"stale 2026-09-19"}
-{"fn":"mhitm_ad_plys","c":"3431-3476","status":"ported","js":["js/mhitm.js:mhitm_ad_plys"],"d":["D-2128"],"at":"seed@a30a7de84","note":"stale 2026-09-25"}
+{"fn":"mhitm_ad_plys","c":"3431-3476","status":"split","js":["js/mhitm.js:mhitm_ad_plys","js/mhitu.js:mhitm_ad_plys_u","js/uhitm.js:damageum_ad_plys"],"d":["D-2128"],"at":"2026-09-27@d2d72caa6","note":"refresh: 3 arms verified (uhitm damageum_ad_plys, mhitu plys_u, mhitm base; D-2128)"}
 {"fn":"mhitm_ad_slee","c":"3479-3522","status":"unknown","d":["D-1857"],"at":"seed@a30a7de84"}
 {"fn":"mhitm_ad_slim","c":"3526-3600","status":"ported","js":["js/mhitm.js:mhitm_ad_slim"],"d":["D-2539"],"at":"seed@a30a7de84"}
-{"fn":"mhitm_ad_ench","c":"3603-3649","status":"ported","at":"seed@a30a7de84","note":"stale 2026-09-19; seed: js location unresolved"}
+{"fn":"mhitm_ad_ench","c":"3603-3649","status":"split","js":["js/mhitu.js:mhitm_ad_ench_u"],"at":"2026-09-27@d2d72caa6","note":"refresh: mhitu arm in mhitm_ad_ench_u (uhitm/mhitm are C no-ops)"}
 {"fn":"mhitm_ad_slow","c":"3652-3687","status":"unknown","d":["D-2392"],"at":"seed@a30a7de84"}
 {"fn":"mhitm_ad_conf","c":"3690-3726","status":"partial","js":["js/mhitm.js:mhitm_ad_conf"],"omit":"`gazemu`'s AD_CONF case (`js/mhitu.js:3694`) is the hero-gaze attack, not a caller of `mhitm_ad_conf`.","d":["D-2894"],"at":"seed@a30a7de84"}
 {"fn":"mhitm_ad_poly","c":"3729-3774","status":"ported","js":["js/mhitm.js:mhitm_ad_poly"],"d":["D-2657"],"at":"seed@a30a7de84"}
@@ -69,10 +69,10 @@
 {"fn":"mhitm_ad_halu","c":"3897-3921","status":"unknown"}
 {"fn":"do_stone_u","c":"3924-3942","status":"unknown"}
 {"fn":"do_stone_mon","c":"3945-3978","status":"unknown"}
-{"fn":"mhitm_ad_phys","c":"3981-4200","status":"ported","js":["js/mhitm.js:mhitm_ad_phys"],"d":["D-1864","D-1447","D-1442","D-1415","D-1403","D-1402"],"at":"seed@a30a7de84","note":"stale 2026-09-18"}
-{"fn":"mhitm_ad_ston","c":"4203-4262","status":"ported","js":["js/mhitm.js:mhitm_ad_ston"],"at":"seed@a30a7de84","note":"stale 2026-09-25"}
+{"fn":"mhitm_ad_phys","c":"3981-4200","status":"split","js":["js/uhitm.js:damageum_ad_phys","js/mhitu.js:mhitm_ad_phys_u","js/mhitm.js:mhitm_ad_phys"],"d":["D-1864","D-1447","D-1442","D-1415","D-1403","D-1402"],"at":"2026-09-27@d2d72caa6","note":"refresh: 3 arms verified (uhitm damageum_ad_phys, mhitu phys_u, mhitm phys; D-1402..D-1864)"}
+{"fn":"mhitm_ad_ston","c":"4203-4262","status":"partial","js":["js/mhitm.js:mhitm_ad_ston","js/mhitu.js:mhitm_ad_ston_u"],"omit":"Hallu-arm Soundeffect(se_cockatrice_hiss, 50); the constant is not in js/","at":"2026-09-27@d2d72caa6","note":"refresh: all other arms verified in base + ston_u; was wrongly seeded ported"}
 {"fn":"mhitm_ad_were","c":"4265-4293","status":"unknown","d":["D-2049"],"at":"seed@a30a7de84"}
-{"fn":"mhitm_ad_heal","c":"4296-4385","status":"ported","js":["js/mhitm.js:mhitm_ad_heal"],"d":["D-2511"],"at":"seed@a30a7de84"}
+{"fn":"mhitm_ad_heal","c":"4296-4385","status":"split","js":["js/mhitm.js:mhitm_ad_heal","js/mhitu.js:mhitm_ad_heal_u"],"d":["D-2511"],"at":"2026-09-27@d2d72caa6","note":"refresh: nurse arm verified in mhitm_ad_heal_u (D-2511); uhitm/mhitm delegate to phys"}
 {"fn":"mhitm_ad_stun","c":"4388-4422","status":"unknown","d":["D-2075"],"at":"seed@a30a7de84"}
 {"fn":"mhitm_ad_legs","c":"4425-4489","status":"partial","js":["js/mhitm.js:mhitm_ad_legs"],"omit":"poly `body_part` (pre-existing D-0928 #1131 name, map keeps it); `damageum_ad_phys` shade `impossible(\"bad shade attack function flow?\")` (pre-existing gap in that live callee, not this arm).","d":["D-2767","D-2490"],"at":"seed@a30a7de84"}
 {"fn":"mhitm_ad_dgst","c":"4492-4567","status":"unknown"}

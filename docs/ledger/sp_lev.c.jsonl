@@ -1,9 +1,9 @@
 {"fn":"reset_xystart_size","c":"206-212","status":"unknown"}
 {"fn":"match_maptyps","c":"217-224","status":"unknown"}
 {"fn":"mapfrag_fromstr","c":"227-253","status":"partial","js":["js/mklev.js:mapfrag_fromstr"],"omit":"`#wizfliplevel` (`wizcmds.c:412–434`) and `nhl_flip_level` (`nhlua.c:1509–1517`) are what pass `extras` true; neither is wired, so this body runs only when a caller sets that flag.","d":["D-2889"],"at":"seed@a30a7de84"}
-{"fn":"mapfrag_free","c":"256-263","status":"unknown"}
+{"fn":"mapfrag_free","c":"256-263","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"mapfrag_get","c":"266-272","status":"unknown"}
-{"fn":"mapfrag_canmatch","c":"275-278","status":"unknown"}
+{"fn":"mapfrag_canmatch","c":"275-278","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"mapfrag_error","c":"281-295","status":"unknown"}
 {"fn":"mapfrag_match","c":"298-312","status":"unknown"}
 {"fn":"solidify_map","c":"315-323","status":"unknown"}
@@ -11,8 +11,8 @@
 {"fn":"lvlfill_maze_grid","c":"359-371","status":"unknown"}
 {"fn":"lvlfill_solid","c":"374-388","status":"unknown"}
 {"fn":"lvlfill_swamp","c":"391-425","status":"unknown"}
-{"fn":"flip_dbridge_horizontal","c":"428-439","status":"unknown"}
-{"fn":"flip_dbridge_vertical","c":"442-453","status":"unknown"}
+{"fn":"flip_dbridge_horizontal","c":"428-439","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"flip_dbridge_vertical","c":"442-453","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"flip_visuals","c":"458-495","status":"ported","js":["js/mklev.js:flip_visuals"],"d":["D-2898","D-2889"],"at":"seed@a30a7de84"}
 {"fn":"flip_encoded_dir_bits","c":"499-514","status":"unknown"}
 {"fn":"flip_level","c":"533-922","status":"unknown","d":["D-2336"],"at":"seed@a30a7de84"}
@@ -28,10 +28,10 @@
 {"fn":"rnddoor","c":"1148-1153","status":"unknown"}
 {"fn":"rndtrap","c":"1159-1188","status":"ported","js":["js/mklev.js:create_maze"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
 {"fn":"get_location","c":"1202-1269","status":"unknown"}
-{"fn":"set_ok_location_func","c":"1274-1277","status":"unknown"}
+{"fn":"set_ok_location_func","c":"1274-1277","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"is_ok_location","c":"1280-1308","status":"unknown","d":["D-2368"],"at":"seed@a30a7de84"}
-{"fn":"pm_good_location","c":"1311-1314","status":"unknown"}
-{"fn":"get_unpacked_coord","c":"1317-1334","status":"unknown"}
+{"fn":"pm_good_location","c":"1311-1314","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"get_unpacked_coord","c":"1317-1334","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"get_location_coord","c":"1337-1353","status":"unknown"}
 {"fn":"get_room_loc","c":"1360-1378","status":"ported","js":["js/mklev.js:get_room_loc"],"d":["D-2990"],"at":"2026-09-27@0daa1a65f"}
 {"fn":"get_free_room_loc","c":"1385-1404","status":"unknown"}
@@ -57,45 +57,45 @@
 {"fn":"maze1xy","c":"2900-2916","status":"unknown"}
 {"fn":"fill_empty_maze","c":"2926-2979","status":"unknown"}
 {"fn":"splev_initlev","c":"2982-3018","status":"unknown","d":["D-2256"],"at":"seed@a30a7de84"}
-{"fn":"sp_code_jmpaddr","c":"3022-3025","status":"unknown"}
+{"fn":"sp_code_jmpaddr","c":"3022-3025","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"spo_end_moninvent","c":"3031-3036","status":"unknown","d":["D-2342"],"at":"seed@a30a7de84"}
 {"fn":"spo_pop_container","c":"3040-3046","status":"unknown"}
-{"fn":"l_push_wid_hei_table","c":"3050-3055","status":"unknown"}
-{"fn":"l_push_mkroom_table","c":"3059-3070","status":"unknown"}
-{"fn":"lspo_message","c":"3076-3109","status":"unknown"}
-{"fn":"get_table_align","c":"3114-3128","status":"unknown"}
-{"fn":"get_table_monclass","c":"3131-3140","status":"unknown"}
-{"fn":"find_montype","c":"3143-3164","status":"unknown"}
-{"fn":"get_table_montype","c":"3167-3179","status":"unknown"}
+{"fn":"l_push_wid_hei_table","c":"3050-3055","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"l_push_mkroom_table","c":"3059-3070","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"lspo_message","c":"3076-3109","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"get_table_align","c":"3114-3128","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"get_table_monclass","c":"3131-3140","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"find_montype","c":"3143-3164","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"get_table_montype","c":"3167-3179","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"get_table_xy_or_coord","c":"3188-3204","status":"unknown"}
 {"fn":"lspo_monster","c":"3214-3400","status":"split","js":["js/mklev.js:l_create_monster"],"d":["D-2990"],"at":"2026-09-27@0daa1a65f","note":"stale: D-2645 shipped as l_create_monster + helpers mklev.js:22134-22353, review 1604 ACCEPT"}
 {"fn":"get_table_int_or_random","c":"3407-3437","status":"partial","js":["js/mklev.js:get_table_int_or_random"],"omit":"`lua_pop` has no stack in the unpacked loader.","d":["D-2881"],"at":"seed@a30a7de84"}
 {"fn":"get_table_buc","c":"3442-3452","status":"unknown"}
-{"fn":"get_table_objclass","c":"3455-3464","status":"unknown"}
+{"fn":"get_table_objclass","c":"3455-3464","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"find_objtype","c":"3468-3536","status":"ported","js":["js/mklev.js:find_objtype"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
-{"fn":"get_table_objtype","c":"3539-3547","status":"unknown"}
-{"fn":"lspo_object","c":"3557-3755","status":"ported","d":["D-1723"],"at":"seed@a30a7de84","note":"stale 2026-09-21; seed: js location unresolved"}
+{"fn":"get_table_objtype","c":"3539-3547","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"lspo_object","c":"3557-3755","status":"split","js":["js/mklev.js:create_object","js/mklev.js:lspo_object_from_string","js/mklev.js:lspo_object_normalize_table","js/mklev.js:lspo_object_montype_mndx","js/mklev.js:lspo_object_apply_montype"],"d":["D-1723"],"at":"2026-09-27@d2d72caa6","note":"refresh: split across create_object + from_string/normalize_table/montype helpers (D-1723; cf. lspo_monster precedent)"}
 {"fn":"lspo_level_flags","c":"3759-3831","status":"unknown"}
 {"fn":"lspo_level_init","c":"3837-3875","status":"unknown"}
 {"fn":"lspo_engraving","c":"3881-3936","status":"unknown"}
-{"fn":"lspo_mineralize","c":"3939-3955","status":"unknown"}
-{"fn":"get_mkroom_name","c":"3991-4001","status":"unknown"}
-{"fn":"get_table_roomtype_opt","c":"4004-4020","status":"unknown"}
+{"fn":"lspo_mineralize","c":"3939-3955","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"get_mkroom_name","c":"3991-4001","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"get_table_roomtype_opt","c":"4004-4020","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_room","c":"4028-4116","status":"unknown"}
 {"fn":"spo_endroom","c":"4119-4134","status":"unknown"}
 {"fn":"good_stair_loc","c":"4139-4144","status":"unknown"}
 {"fn":"l_create_stairway","c":"4147-4213","status":"unknown"}
-{"fn":"lspo_stair","c":"4223-4226","status":"unknown"}
-{"fn":"lspo_ladder","c":"4232-4235","status":"unknown"}
-{"fn":"lspo_grave","c":"4243-4278","status":"unknown"}
-{"fn":"lspo_altar","c":"4283-4318","status":"unknown"}
-{"fn":"get_table_traptype_opt","c":"4350-4364","status":"unknown"}
-{"fn":"get_trapname_bytype","c":"4367-4376","status":"unknown"}
-{"fn":"get_traptype_byname","c":"4379-4388","status":"unknown"}
+{"fn":"lspo_stair","c":"4223-4226","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"lspo_ladder","c":"4232-4235","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"lspo_grave","c":"4243-4278","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"lspo_altar","c":"4283-4318","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"get_table_traptype_opt","c":"4350-4364","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"get_trapname_bytype","c":"4367-4376","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"get_traptype_byname","c":"4379-4388","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_trap","c":"4397-4470","status":"unknown"}
 {"fn":"lspo_gold","c":"4480-4522","status":"unknown"}
-{"fn":"lspo_corridor","c":"4529-4554","status":"unknown"}
-{"fn":"lspo_random_corridors","c":"4558-4574","status":"unknown"}
+{"fn":"lspo_corridor","c":"4529-4554","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"lspo_random_corridors","c":"4558-4574","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"random_wdir","c":"4578-4582","status":"unknown"}
 {"fn":"floodfillchk_match_under","c":"4587-4590","status":"unknown"}
 {"fn":"set_floodfillchk_match_under","c":"4593-4597","status":"unknown"}
@@ -103,42 +103,42 @@
 {"fn":"sel_set_ter","c":"4609-4630","status":"unknown"}
 {"fn":"sel_set_feature","c":"4633-4644","status":"unknown"}
 {"fn":"sel_set_door","c":"4647-4662","status":"unknown"}
-{"fn":"lspo_door","c":"4671-4734","status":"unknown"}
+{"fn":"lspo_door","c":"4671-4734","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"l_table_getset_feature_flag","c":"4739-4755","status":"unknown"}
-{"fn":"cvt_to_abscoord","c":"4772-4788","status":"unknown"}
-{"fn":"cvt_to_relcoord","c":"4793-4802","status":"unknown"}
-{"fn":"nhl_abs_coord","c":"4811-4836","status":"unknown"}
+{"fn":"cvt_to_abscoord","c":"4772-4788","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cvt_to_relcoord","c":"4793-4802","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"nhl_abs_coord","c":"4811-4836","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_feature","c":"4844-4923","status":"unknown","d":["D-2712"],"at":"seed@a30a7de84"}
 {"fn":"lspo_gas_cloud","c":"4929-4965","status":"unknown"}
-{"fn":"lspo_terrain","c":"4978-5038","status":"unknown"}
+{"fn":"lspo_terrain","c":"4978-5038","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_replace_terrain","c":"5051-5143","status":"unknown","d":["D-1856"],"at":"seed@a30a7de84"}
 {"fn":"generate_way_out_method","c":"5146-5214","status":"unknown"}
 {"fn":"ensure_way_out","c":"5217-5255","status":"unknown","d":["D-2101"],"at":"seed@a30a7de84"}
-{"fn":"get_table_intarray_entry","c":"5260-5279","status":"unknown"}
+{"fn":"get_table_intarray_entry","c":"5260-5279","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"get_table_region","c":"5282-5316","status":"unknown","d":["D-2668"],"at":"seed@a30a7de84"}
 {"fn":"get_coord","c":"5319-5366","status":"partial","js":["js/mklev.js:get_coord"],"omit":"`nhl_get_xy_params` (`nhlua.c:506–522`) and its caller `nhl_getmap` (`nhlua.c:530`) have no JS function, so the `get_coord` at `nhlua.c:518` is unwired.","d":["D-2862"],"at":"seed@a30a7de84"}
 {"fn":"levregion_add","c":"5371-5402","status":"unknown"}
-{"fn":"l_get_lregion","c":"5410-5436","status":"unknown"}
-{"fn":"lspo_teleport_region","c":"5443-5460","status":"unknown"}
-{"fn":"lspo_levregion","c":"5472-5494","status":"unknown"}
+{"fn":"l_get_lregion","c":"5410-5436","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"lspo_teleport_region","c":"5443-5460","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"lspo_levregion","c":"5472-5494","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_exclusion","c":"5498-5532","status":"unknown","d":["D-1109"],"at":"seed@a30a7de84"}
 {"fn":"sel_set_lit","c":"5535-5540","status":"unknown"}
 {"fn":"add_doors_to_room","c":"5544-5555","status":"unknown"}
-{"fn":"get_table_coords_or_region","c":"5561-5577","status":"unknown"}
+{"fn":"get_table_coords_or_region","c":"5561-5577","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_region","c":"5584-5715","status":"unknown"}
 {"fn":"lspo_drawbridge","c":"5720-5763","status":"unknown"}
-{"fn":"lspo_mazewalk","c":"5769-5869","status":"unknown"}
+{"fn":"lspo_mazewalk","c":"5769-5869","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_wall_property","c":"5876-5908","status":"unknown"}
 {"fn":"set_wallprop_in_selection","c":"5911-5932","status":"unknown"}
 {"fn":"lspo_non_diggable","c":"5937-5941","status":"unknown"}
 {"fn":"lspo_non_passwall","c":"5946-5950","status":"unknown"}
-{"fn":"sel_set_wallify","c":"5955-5958","status":"unknown"}
-{"fn":"lspo_wallify","c":"5965-5989","status":"unknown"}
+{"fn":"sel_set_wallify","c":"5955-5958","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"lspo_wallify","c":"5965-5989","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"lspo_reset_level","c":"5993-6010","status":"by-design","at":"seed@a30a7de84","note":"seed: CURRENT.md Do not (lua reset)"}
 {"fn":"lspo_finalize_level","c":"6014-6064","status":"unknown"}
 {"fn":"lspo_map","c":"6075-6319","status":"unknown"}
 {"fn":"update_croom","c":"6324-6333","status":"unknown"}
 {"fn":"sp_level_coder_init","c":"6336-6376","status":"ported","js":["js/mklev.js:sp_level_coder_init"],"d":["D-2643"],"at":"seed@a30a7de84"}
-{"fn":"l_register_des","c":"6435-6441","status":"unknown"}
+{"fn":"l_register_des","c":"6435-6441","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"create_des_coder","c":"6444-6448","status":"unknown"}
 {"fn":"load_special","c":"6454-6502","status":"unknown"}

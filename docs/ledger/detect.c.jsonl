@@ -11,7 +11,7 @@
 {"fn":"check_map_spot","c":"262-309","status":"unknown"}
 {"fn":"clear_stale_map","c":"318-331","status":"unknown"}
 {"fn":"gold_detect","c":"335-475","status":"unknown","d":["D-1773"],"at":"seed@a30a7de84"}
-{"fn":"food_detect","c":"479-594","status":"ported","js":["js/detect.js:food_detect"],"d":["D-1781"],"at":"seed@a30a7de84","note":"stale 2026-09-19"}
+{"fn":"food_detect","c":"479-594","status":"ported","js":["js/detect.js:food_detect"],"d":["D-1781"],"at":"2026-09-27@d2d72caa6","note":"refresh: audited — full C-order body js/detect.js:1691 (JS=0 is a coverage-indexer artifact)"}
 {"fn":"object_detect","c":"603-789","status":"unknown","d":["D-1782"],"at":"seed@a30a7de84"}
 {"fn":"monster_detect","c":"798-862","status":"unknown","d":["D-2081"],"at":"seed@a30a7de84"}
 {"fn":"sense_trap","c":"865-897","status":"unknown","d":["D-1753"],"at":"seed@a30a7de84"}
@@ -39,5 +39,5 @@
 {"fn":"skip_premap_detect","c":"2124-2130","status":"unknown"}
 {"fn":"premap_detect","c":"2134-2159","status":"unknown"}
 {"fn":"reveal_terrain_getglyph","c":"2167-2288","status":"unknown"}
-{"fn":"dump_map","c":"2294-2349","status":"ported","at":"seed@a30a7de84","note":"stale 2026-09-19; seed: js location unresolved"}
+{"fn":"dump_map","c":"2294-2349","status":"by-design","at":"2026-09-27@d2d72caa6","note":"refresh: dumplog-only output (putstr winid 0), DUMPLOG retired D-1776"}
 {"fn":"reveal_terrain","c":"2356-2414","status":"ported","js":["js/detect.js:reveal_terrain"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}

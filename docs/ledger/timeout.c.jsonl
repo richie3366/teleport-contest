@@ -1,4 +1,4 @@
-{"fn":"property_by_index","c":"117-125","status":"unknown"}
+{"fn":"property_by_index","c":"117-125","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"stoned_dialogue","c":"137-185","status":"unknown"}
 {"fn":"vomiting_dialogue","c":"197-265","status":"ported","js":["js/timeout.js:vomiting_dialogue"],"at":"seed@a30a7de84","note":"stale (grouped)"}
 {"fn":"sleep_dialogue","c":"268-274","status":"unknown"}
@@ -19,12 +19,12 @@
 {"fn":"learn_egg_type","c":"1193-1200","status":"unknown","d":["D-2241"],"at":"seed@a30a7de84"}
 {"fn":"attach_fig_transform_timeout","c":"1204-1218","status":"ported","js":["js/mkobj.js:attach_fig_transform_timeout"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
 {"fn":"slip_or_trip","c":"1222-1341","status":"unknown"}
-{"fn":"see_lamp_flicker","c":"1345-1356","status":"unknown"}
-{"fn":"lantern_message","c":"1360-1376","status":"unknown"}
+{"fn":"see_lamp_flicker","c":"1345-1356","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"lantern_message","c":"1360-1376","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"burn_object","c":"1383-1680","status":"unknown"}
 {"fn":"begin_burn","c":"1712-1797","status":"unknown"}
 {"fn":"end_burn","c":"1804-1822","status":"ported","js":["js/timeout.js:end_burn"],"d":["D-2914"],"at":"seed@a30a7de84"}
-{"fn":"cleanup_burn","c":"1828-1844","status":"unknown"}
+{"fn":"cleanup_burn","c":"1828-1844","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"do_storms","c":"1847-1892","status":"unknown"}
 {"fn":"kind_name","c":"1995-2011","status":"unknown"}
 {"fn":"print_queue","c":"2014-2037","status":"unknown"}
@@ -43,11 +43,11 @@
 {"fn":"spot_time_left","c":"2459-2463","status":"unknown"}
 {"fn":"insert_timer","c":"2467-2480","status":"unknown"}
 {"fn":"remove_timer","c":"2483-2502","status":"ported","js":["js/mkobj.js:remove_timer"],"d":["D-2961"],"at":"seed@a30a7de84"}
-{"fn":"write_timer","c":"2505-2551","status":"unknown"}
+{"fn":"write_timer","c":"2505-2551","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"obj_is_local","c":"2560-2577","status":"unknown"}
 {"fn":"mon_is_local","c":"2584-2596","status":"unknown"}
 {"fn":"timer_is_local","c":"2603-2618","status":"unknown"}
-{"fn":"maybe_write_timer","c":"2627-2651","status":"unknown"}
+{"fn":"maybe_write_timer","c":"2627-2651","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"save_timers","c":"2668-2699","status":"unknown"}
 {"fn":"restore_timers","c":"2707-2728","status":"unknown"}
 {"fn":"timer_stats","c":"2735-2745","status":"unknown"}

@@ -1,7 +1,7 @@
 {"fn":"dumpit","c":"91-144","status":"partial","js":["js/dungeon.js:dumpit"],"omit":"`(void) getchar()` does not block: scored ESM has no stdin in Chrome.","d":["D-2844"],"at":"seed@a30a7de84"}
 {"fn":"save_dungeon","c":"149-206","status":"by-design","d":["D-2341"],"at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}
 {"fn":"restore_dungeon","c":"211-263","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}
-{"fn":"Fread","c":"268-278","status":"unknown"}
+{"fn":"Fread","c":"268-278","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"dname_to_dnum","c":"284-295","status":"unknown"}
 {"fn":"find_level","c":"300-307","status":"unknown"}
 {"fn":"find_branch","c":"311-337","status":"unknown"}
@@ -15,7 +15,7 @@
 {"fn":"init_level","c":"566-595","status":"unknown"}
 {"fn":"possible_places","c":"598-626","status":"unknown"}
 {"fn":"pick_level","c":"632-643","status":"unknown"}
-{"fn":"indent","c":"651-655","status":"unknown"}
+{"fn":"indent","c":"651-655","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"place_level","c":"666-705","status":"ported","js":["js/dungeon.js:place_level"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
 {"fn":"get_dgn_flags","c":"744-778","status":"unknown"}
 {"fn":"get_dgn_align","c":"781-794","status":"unknown"}
@@ -26,7 +26,7 @@
 {"fn":"init_dungeon_dungeons","c":"997-1107","status":"unknown"}
 {"fn":"init_castle_tune","c":"1111-1118","status":"unknown"}
 {"fn":"fixup_level_locations","c":"1122-1182","status":"unknown","d":["D-2683"],"at":"seed@a30a7de84"}
-{"fn":"free_proto_dungeon","c":"1185-1201","status":"unknown"}
+{"fn":"free_proto_dungeon","c":"1185-1201","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"init_dungeons","c":"1205-1319","status":"ported","js":["js/dungeon.js:init_dungeons"],"d":["D-2437"],"at":"seed@a30a7de84"}
 {"fn":"dunlev","c":"1325-1328","status":"unknown"}
 {"fn":"dunlevs_in_dungeon","c":"1332-1335","status":"unknown"}
@@ -66,7 +66,7 @@
 {"fn":"goto_hell","c":"1957-1963","status":"unknown"}
 {"fn":"single_level_branch","c":"1967-1974","status":"unknown"}
 {"fn":"assign_level","c":"1978-1982","status":"unknown"}
-{"fn":"assign_rnd_level","c":"1986-1995","status":"unknown"}
+{"fn":"assign_rnd_level","c":"1986-1995","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"induced_align","c":"1999-2014","status":"unknown","d":["D-1861"],"at":"seed@a30a7de84"}
 {"fn":"Invocation_lev","c":"2017-2021","status":"unknown"}
 {"fn":"level_difficulty","c":"2027-2084","status":"partial","js":["js/hacklib.js:level_difficulty"],"omit":"`nhlua.c:961` Lua push (no JS lua runtime — no `js/*lua*` module exists); none other — every arm, every callee live or ported in this commit.","d":["D-2572"],"at":"seed@a30a7de84"}
@@ -84,11 +84,11 @@
 {"fn":"query_annotation","c":"2500-2567","status":"unknown","d":["D-2705"],"at":"seed@a30a7de84"}
 {"fn":"donamelevel","c":"2571-2577","status":"unknown"}
 {"fn":"free_exclusions","c":"2582-2593","status":"unknown"}
-{"fn":"save_exclusions","c":"2596-2614","status":"unknown"}
-{"fn":"load_exclusions","c":"2617-2634","status":"unknown"}
+{"fn":"save_exclusions","c":"2596-2614","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"load_exclusions","c":"2617-2634","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"find_mapseen","c":"2640-2649","status":"unknown"}
 {"fn":"find_mapseen_by_str","c":"2652-2661","status":"unknown"}
-{"fn":"rm_mapseen","c":"2665-2692","status":"unknown"}
+{"fn":"rm_mapseen","c":"2665-2692","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"save_mapseen","c":"2695-2717","status":"unknown","d":["D-1685"],"at":"seed@a30a7de84"}
 {"fn":"load_mapseen","c":"2721-2754","status":"unknown"}
 {"fn":"overview_stats","c":"2761-2801","status":"ported","js":["js/dungeon.js:overview_stats"],"d":["D-2975","D-2874"],"at":"2026-09-27@3b405b65a"}
@@ -99,7 +99,7 @@
 {"fn":"update_mapseen_for","c":"2943-2947","status":"unknown"}
 {"fn":"count_feat_lastseentyp","c":"2951-3071","status":"ported","js":["js/dungeon.js:count_feat_lastseentyp"],"at":"seed@a30a7de84","note":"stale 2026-09-21"}
 {"fn":"recalc_mapseen","c":"3075-3261","status":"unknown","d":["D-1724","D-1707"],"at":"seed@a30a7de84"}
-{"fn":"mapseen_temple","c":"3267-3278","status":"unknown"}
+{"fn":"mapseen_temple","c":"3267-3278","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"room_discovered","c":"3282-3290","status":"unknown"}
 {"fn":"dooverview","c":"3294-3301","status":"unknown","d":["D-1650"],"at":"seed@a30a7de84"}
 {"fn":"show_overview","c":"3305-3340","status":"unknown"}

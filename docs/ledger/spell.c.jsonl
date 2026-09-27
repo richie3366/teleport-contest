@@ -7,11 +7,11 @@
 {"fn":"learn","c":"356-463","status":"unknown"}
 {"fn":"study_book","c":"468-641","status":"unknown","d":["D-2053"],"at":"seed@a30a7de84"}
 {"fn":"book_disappears","c":"646-652","status":"unknown"}
-{"fn":"book_substitution","c":"658-665","status":"unknown"}
+{"fn":"book_substitution","c":"658-665","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"age_spells","c":"669-682","status":"unknown"}
 {"fn":"rejectcasting","c":"687-708","status":"ported","js":["js/spell.js:rejectcasting"],"d":["D-2926"],"at":"seed@a30a7de84"}
 {"fn":"getspell","c":"715-783","status":"ported","js":["js/spell.js:getspell"],"d":["D-2758"],"at":"seed@a30a7de84"}
-{"fn":"dowizcast","c":"787-815","status":"unknown"}
+{"fn":"dowizcast","c":"787-815","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"docast","c":"820-829","status":"unknown"}
 {"fn":"spelltypemnemonic","c":"832-853","status":"unknown"}
 {"fn":"spell_skilltype","c":"856-859","status":"unknown"}
@@ -32,7 +32,7 @@
 {"fn":"sortspells","c":"1927-1972","status":"ported","js":["js/spell.js:sortspells"],"at":"seed@a30a7de84","note":"stale 2026-09-21"}
 {"fn":"spellsortmenu","c":"1976-2017","status":"unknown"}
 {"fn":"dovspell","c":"2021-2053","status":"unknown","d":["D-2369"],"at":"seed@a30a7de84"}
-{"fn":"show_spells","c":"2059-2069","status":"unknown"}
+{"fn":"show_spells","c":"2059-2069","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"dospellmenu","c":"2075-2168","status":"unknown"}
 {"fn":"percent_success","c":"2173-2292","status":"unknown","d":["D-2693"],"at":"seed@a30a7de84"}
 {"fn":"spellretention","c":"2295-2336","status":"ported","js":["js/spell.js:spellretention"],"at":"seed@a30a7de84","note":"stale 2026-09-21"}

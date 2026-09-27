@@ -1,8 +1,8 @@
 {"fn":"formatkiller","c":"90-162","status":"ported","js":["js/end.js:formatkiller"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}
-{"fn":"topten_print","c":"165-171","status":"unknown"}
-{"fn":"topten_print_bold","c":"174-180","status":"unknown"}
+{"fn":"topten_print","c":"165-171","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"topten_print_bold","c":"174-180","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"observable_depth","c":"183-204","status":"unknown"}
-{"fn":"discardexcess","c":"208-215","status":"unknown"}
+{"fn":"discardexcess","c":"208-215","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"readentry","c":"220-298","status":"ported","js":["js/topten.js:readentry"],"d":["D-2648"],"at":"seed@a30a7de84"}
 {"fn":"writeentry","c":"301-332","status":"by-design","at":"seed@a30a7de84","note":"seed: record file infra"}
 {"fn":"writexlentry","c":"340-391","status":"ported","js":["js/topten.js:writexlentry"],"d":["D-2650"],"at":"seed@a30a7de84"}
@@ -12,7 +12,7 @@
 {"fn":"add_achieveX","c":"480-488","status":"unknown"}
 {"fn":"encode_extended_achievements","c":"491-581","status":"ported","js":["js/topten.js:encode_extended_achievements"],"d":["D-2650"],"at":"seed@a30a7de84"}
 {"fn":"encode_extended_conducts","c":"584-610","status":"unknown"}
-{"fn":"free_ttlist","c":"615-625","status":"unknown"}
+{"fn":"free_ttlist","c":"615-625","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"topten","c":"628-926","status":"ported","js":["js/topten.js:topten"],"d":["D-2585"],"at":"seed@a30a7de84"}
 {"fn":"outheader","c":"929-940","status":"unknown"}
 {"fn":"outentry","c":"946-1107","status":"unknown","d":["D-2394"],"at":"seed@a30a7de84"}
@@ -21,5 +21,5 @@
 {"fn":"classmon","c":"1356-1375","status":"unknown"}
 {"fn":"get_rnd_toptenentry","c":"1381-1414","status":"unknown"}
 {"fn":"tt_oname","c":"1422-1441","status":"unknown"}
-{"fn":"nsb_mung_line","c":"1471-1476","status":"unknown"}
-{"fn":"nsb_unmung_line","c":"1479-1484","status":"unknown"}
+{"fn":"nsb_mung_line","c":"1471-1476","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"nsb_unmung_line","c":"1479-1484","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}

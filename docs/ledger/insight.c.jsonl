@@ -1,26 +1,26 @@
-{"fn":"enlght_out","c":"118-124","status":"unknown"}
+{"fn":"enlght_out","c":"118-124","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"enlght_line","c":"127-156","status":"unknown"}
-{"fn":"enlght_halfdmg","c":"201-220","status":"unknown"}
-{"fn":"walking_on_water","c":"224-229","status":"unknown"}
+{"fn":"enlght_halfdmg","c":"201-220","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"walking_on_water","c":"224-229","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"trap_predicament","c":"233-261","status":"unknown"}
-{"fn":"cause_known","c":"267-283","status":"unknown"}
+{"fn":"cause_known","c":"267-283","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"attrval","c":"287-299","status":"unknown"}
 {"fn":"fmt_elapsed_time","c":"314-358","status":"ported","js":["js/insight.js:fmt_elapsed_time"],"d":["D-2602"],"at":"seed@a30a7de84"}
 {"fn":"N_times","c":"362-380","status":"unknown"}
 {"fn":"enlightenment","c":"383-463","status":"unknown","d":["D-2269","D-2208","D-2104","D-1997"],"at":"seed@a30a7de84"}
 {"fn":"background_enlightenment","c":"468-722","status":"ported","js":["js/insight.js:background_enlightenment"],"d":["D-2971"],"at":"2026-09-27@5398b19c2"}
-{"fn":"basics_enlightenment","c":"728-823","status":"partial","omit":"`money_cnt` first-match vs local sum (equivalent under the gold-merge invariant; `doprgold` keeps its own first-match loop); `game.apelist` null-check arm is live but has no producer yet (options.js notes the same); `plur`/`abs` via ternary/`Math.abs`.","d":["D-2579"],"at":"seed@a30a7de84","note":"seed: js location unresolved"}
-{"fn":"characteristics_enlightenment","c":"827-842","status":"unknown"}
+{"fn":"basics_enlightenment","c":"728-823","status":"partial","js":["js/invent.js:doattributes","js/invent.js:basics_autopickup_buf","js/invent.js:basics_ac_buf","js/invent.js:basics_hitdice_buf","js/invent.js:money_cnt_local"],"omit":"`money_cnt` first-match vs local sum (equivalent under the gold-merge invariant; `doprgold` keeps its own first-match loop); `game.apelist` null-check arm is live but has no producer yet (options.js notes the same); `plur`/`abs` via ternary/`Math.abs`.","d":["D-2579"],"at":"2026-09-27@d2d72caa6","note":"refresh: split across doattributes + basics_*_buf + money_cnt_local; omit unchanged (D-2579)"}
+{"fn":"characteristics_enlightenment","c":"827-842","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"one_characteristic","c":"846-936","status":"unknown","d":["D-2109"],"at":"seed@a30a7de84"}
 {"fn":"status_enlightenment","c":"940-1266","status":"unknown","d":["D-2406"],"at":"seed@a30a7de84"}
-{"fn":"weapon_insight","c":"1270-1465","status":"ported","js":["js/invent.js:weapon_insight"],"d":["D-2610","D-2609"],"at":"seed@a30a7de84"}
-{"fn":"item_resistance_message","c":"1468-1483","status":"unknown"}
+{"fn":"weapon_insight","c":"1270-1465","status":"ported","js":["js/invent.js:weapon_insight"],"d":["D-2610","D-2609"],"at":"2026-09-27@d2d72caa6","note":"refresh: audited — full body js/invent.js:5977-6141 (JS=0 is a coverage-indexer artifact, cf. food_detect)"}
+{"fn":"item_resistance_message","c":"1468-1483","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"attributes_enlightenment","c":"1487-2005","status":"unknown","d":["D-2276","D-2120","D-1839"],"at":"seed@a30a7de84"}
 {"fn":"doattributes","c":"2009-2019","status":"unknown"}
 {"fn":"youhiding","c":"2022-2077","status":"partial","js":["js/polyself.js:youhiding"],"omit":"Riding, Levitation, Flying, Underwater, and `walking_on_water` in `status_enlightenment` are still absent; the hiding line sits immediately before Stoned, the next live arm.","d":["D-2834"],"at":"seed@a30a7de84"}
 {"fn":"doconduct","c":"2081-2085","status":"unknown"}
 {"fn":"show_conduct","c":"2089-2236","status":"ported","js":["js/insight.js:show_conduct"],"d":["D-2183"],"at":"seed@a30a7de84","note":"stale 2026-09-05"}
-{"fn":"show_achievements","c":"2243-2403","status":"ported","at":"seed@a30a7de84","note":"stale 2026-09-19; seed: js location unresolved"}
+{"fn":"show_achievements","c":"2243-2403","status":"split","js":["js/insight.js:show_achievements_lines"],"at":"2026-09-27@d2d72caa6","note":"refresh: whole body under show_achievements_lines (window adapted to lines for conduct menu)"}
 {"fn":"record_achievement","c":"2407-2472","status":"partial","js":["js/insight.js:record_achievement"],"omit":"C `spell.c:292` ACH_INVK (deadbook invocation-ritual success path — no `arti1_primed` ritual in `js/`; owns a future coverage row, not this one); SoundAchievement runtime dispatch (compile-time no-op in this build, proof in Fix); `really_done` ascension-split logging (pre-existing, D-2435 row owns …","d":["D-2509"],"at":"seed@a30a7de84"}
 {"fn":"remove_achievement","c":"2476-2490","status":"unknown"}
 {"fn":"count_achievements","c":"2494-2501","status":"unknown"}
@@ -37,7 +37,7 @@
 {"fn":"num_gone","c":"2985-3002","status":"unknown"}
 {"fn":"list_genocided","c":"3007-3131","status":"ported","js":["js/insight.js:list_genocided"],"d":["D-2412"],"at":"seed@a30a7de84","note":"stale 2026-09-25"}
 {"fn":"dogenocided","c":"3135-3139","status":"unknown"}
-{"fn":"doborn","c":"3145-3176","status":"unknown"}
+{"fn":"doborn","c":"3145-3176","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"align_str","c":"3187-3200","status":"ported","js":["js/roles.js:align_str"],"d":["D-2985"],"at":"2026-09-27@406969f14"}
 {"fn":"size_str","c":"3203-3231","status":"unknown"}
 {"fn":"piousness","c":"3235-3271","status":"ported","js":["js/insight.js:piousness"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}

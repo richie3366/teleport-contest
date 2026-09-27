@@ -13,4 +13,4 @@
 {"fn":"set_ghostly_objlist","c":"784-790","status":"unknown"}
 {"fn":"fix_ghostly_obj","c":"796-815","status":"ported","js":["js/bones.js:fix_ghostly_obj"],"d":["D-2918"],"at":"seed@a30a7de84"}
 {"fn":"newebones","c":"818-829","status":"unknown"}
-{"fn":"free_ebones","c":"833-839","status":"unknown"}
+{"fn":"free_ebones","c":"833-839","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}

@@ -1,5 +1,5 @@
-{"fn":"strprepend","c":"123-135","status":"unknown"}
-{"fn":"nextobuf","c":"142-146","status":"unknown"}
+{"fn":"strprepend","c":"123-135","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"nextobuf","c":"142-146","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"releaseobuf","c":"150-160","status":"unknown"}
 {"fn":"maybereleaseobuf","c":"167-198","status":"partial","js":["js/objnam.js:maybereleaseobuf"],"omit":"An empty skill class `mkobj`s `RANDOM_CLASS`; with `init_objects` bases filled, `P_POLEARMS` has 12 weapons and `P_HAMMER` has `WAR_HAMMER` only, so that arm does not run.","d":["D-2851"],"at":"seed@a30a7de84"}
 {"fn":"obj_typename","c":"201-293","status":"unknown"}
@@ -53,7 +53,7 @@
 {"fn":"bare_artifactname","c":"2502-2515","status":"unknown"}
 {"fn":"otense","c":"2531-2546","status":"ported","js":["js/objnam.js:otense"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"vtense","c":"2563-2653","status":"ported","js":["js/objnam.js:vtense"],"d":["D-2525"],"at":"seed@a30a7de84"}
-{"fn":"singplur_lookup","c":"2708-2779","status":"partial","omit":"``makesingular`` pronoun they/them/their→it block (``:3053–3068``, pre-existing); ia→ium balactherium arm (``:3149–3153``, own row); one_off same-form keep check (analyzed outcome-equivalent: JS fall-through conserves every real case); full ``Strcasecpy`` case polish (pre-existing).","d":["D-2646"],"at":"seed@a30a7de84","note":"seed: js location unresolved"}
+{"fn":"singplur_lookup","c":"2708-2779","status":"partial","js":["js/objnam.js:makesingular","js/objnam.js:singplur_lookup_plural"],"omit":"``makesingular`` pronoun they/them/their→it block (``:3053–3068``, pre-existing); ia→ium balactherium arm (``:3149–3153``, own row); one_off same-form keep check (analyzed outcome-equivalent: JS fall-through conserves every real case); full ``Strcasecpy`` case polish (pre-existing).","d":["D-2646"],"at":"2026-09-27@d2d72caa6","note":"refresh: singular arm inline in makesingular, plural in singplur_lookup_plural; omit unchanged (D-2646)"}
 {"fn":"singplur_compound","c":"2783-2814","status":"ported","js":["js/objnam.js:singplur_compound"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
 {"fn":"makeplural","c":"2836-3022","status":"ported","js":["js/objnam.js:makeplural"],"d":["D-1923"],"at":"seed@a30a7de84","note":"stale 2026-09-15"}
 {"fn":"makesingular","c":"3037-3164","status":"unknown"}
@@ -65,7 +65,7 @@
 {"fn":"shiny_obj","c":"3532-3535","status":"unknown"}
 {"fn":"set_wallprop_from_str","c":"3539-3550","status":"unknown"}
 {"fn":"wizterrainwish","c":"3554-3916","status":"unknown","d":["D-1304","D-1290","D-1289"],"at":"seed@a30a7de84"}
-{"fn":"dbterrainmesg","c":"3920-3926","status":"unknown"}
+{"fn":"dbterrainmesg","c":"3920-3926","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"readobjnam_init","c":"3933-3961","status":"ported","js":["js/readobjnam.js:readobjnam_init"],"d":["D-2912"],"at":"seed@a30a7de84"}
 {"fn":"readobjnam_preparse","c":"3966-4175","status":"partial","js":["js/readobjnam.js:readobjnam_preparse"],"omit":"readobjnam-body applications of the newly parsed fields (future readobjnam/postparse rows, same pattern as the tin-D-2084 split): `erodeproof`/`eroded`/`eroded2` (today zeroed at the oeroded tail), `isgreased`, `unlabeled`, `isdiluted`, `very`, `gsize` (glob weight override), `islit` (pre-existing …","d":["D-2545"],"at":"seed@a30a7de84"}
 {"fn":"readobjnam_parse_charges","c":"4178-4237","status":"unknown"}
@@ -82,6 +82,6 @@
 {"fn":"gloves_simple_name","c":"5532-5547","status":"unknown"}
 {"fn":"boots_simple_name","c":"5551-5566","status":"unknown"}
 {"fn":"shield_simple_name","c":"5570-5596","status":"unknown"}
-{"fn":"shirt_simple_name","c":"5600-5603","status":"unknown"}
+{"fn":"shirt_simple_name","c":"5600-5603","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"mimic_obj_name","c":"5606-5615","status":"unknown"}
 {"fn":"safe_qbuf","c":"5624-5698","status":"ported","js":["js/objnam.js:safe_qbuf"],"d":["D-2743"],"at":"seed@a30a7de84"}

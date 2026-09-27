@@ -31,9 +31,9 @@
 {"fn":"unearth_objs","c":"2086-2112","status":"unknown"}
 {"fn":"rot_organic","c":"2125-2140","status":"unknown"}
 {"fn":"rot_corpse","c":"2146-2189","status":"unknown","d":["D-1213"],"at":"seed@a30a7de84"}
-{"fn":"bury_monst","c":"2193-2209","status":"unknown"}
-{"fn":"bury_you","c":"2212-2227","status":"unknown"}
-{"fn":"unearth_you","c":"2230-2238","status":"unknown"}
-{"fn":"escape_tomb","c":"2241-2270","status":"unknown"}
-{"fn":"bury_obj","c":"2273-2282","status":"unknown"}
-{"fn":"wiz_debug_cmd_bury","c":"2288-2320","status":"unknown"}
+{"fn":"bury_monst","c":"2193-2209","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"bury_you","c":"2212-2227","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"unearth_you","c":"2230-2238","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"escape_tomb","c":"2241-2270","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"bury_obj","c":"2273-2282","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"wiz_debug_cmd_bury","c":"2288-2320","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}

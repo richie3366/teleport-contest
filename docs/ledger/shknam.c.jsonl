@@ -1,11 +1,11 @@
-{"fn":"init_shop_selection","c":"360-374","status":"unknown"}
+{"fn":"init_shop_selection","c":"360-374","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"veggy_item","c":"380-405","status":"unknown"}
 {"fn":"shkveg","c":"408-439","status":"unknown"}
 {"fn":"mkveggy_at","c":"443-450","status":"unknown"}
 {"fn":"mkshobj_at","c":"454-483","status":"unknown"}
 {"fn":"nameshk","c":"487-554","status":"unknown"}
 {"fn":"neweshk","c":"557-566","status":"unknown"}
-{"fn":"free_eshk","c":"569-576","status":"unknown"}
+{"fn":"free_eshk","c":"569-576","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"good_shopdoor","c":"582-624","status":"unknown"}
 {"fn":"shkinit","c":"628-692","status":"unknown","d":["D-2570","D-2418"],"at":"seed@a30a7de84"}
 {"fn":"stock_room_goodpos","c":"695-714","status":"unknown"}

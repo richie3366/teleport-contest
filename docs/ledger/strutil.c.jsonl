@@ -2,8 +2,8 @@
 {"fn":"strbuf_append","c":"17-24","status":"unknown"}
 {"fn":"strbuf_reserve","c":"28-45","status":"unknown"}
 {"fn":"strbuf_empty","c":"49-54","status":"unknown"}
-{"fn":"strbuf_nl_to_crlf","c":"58-77","status":"unknown"}
-{"fn":"Strlen_","c":"82-98","status":"unknown"}
+{"fn":"strbuf_nl_to_crlf","c":"58-77","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"Strlen_","c":"82-98","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"pmatch_internal","c":"105-141","status":"unknown"}
 {"fn":"pmatch","c":"145-148","status":"unknown","d":["D-1954"],"at":"seed@a30a7de84"}
 {"fn":"pmatchi","c":"152-155","status":"unknown"}

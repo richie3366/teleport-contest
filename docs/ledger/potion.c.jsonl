@@ -53,7 +53,7 @@
 {"fn":"potionbreathe","c":"1932-2118","status":"unknown","d":["D-1477"],"at":"seed@a30a7de84"}
 {"fn":"mixtype","c":"2122-2209","status":"unknown"}
 {"fn":"dip_ok","c":"2214-2227","status":"unknown"}
-{"fn":"dip_hands_ok","c":"2231-2237","status":"unknown"}
+{"fn":"dip_hands_ok","c":"2231-2237","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"hold_potion","c":"2243-2262","status":"unknown"}
 {"fn":"dodip","c":"2267-2372","status":"unknown"}
 {"fn":"dip_into","c":"2379-2405","status":"unknown","d":["D-1500"],"at":"seed@a30a7de84"}

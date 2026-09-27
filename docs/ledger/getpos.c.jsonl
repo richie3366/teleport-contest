@@ -1,7 +1,7 @@
 {"fn":"getpos_sethilite","c":"41-64","status":"unknown"}
 {"fn":"getpos_toggle_hilite_state","c":"72-91","status":"ported","js":["js/getpos.js:getpos_toggle_hilite_state"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"mapxy_valid","c":"94-99","status":"unknown"}
-{"fn":"getpos_getvalids_selection","c":"102-115","status":"unknown"}
+{"fn":"getpos_getvalids_selection","c":"102-115","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"getpos_help_keyxhelp","c":"137-161","status":"unknown"}
 {"fn":"getpos_help","c":"167-307","status":"unknown","d":["D-1880"],"at":"seed@a30a7de84"}
 {"fn":"cmp_coord_distu","c":"312-329","status":"unknown"}

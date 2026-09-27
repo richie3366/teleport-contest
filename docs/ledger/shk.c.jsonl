@@ -3,8 +3,8 @@
 {"fn":"next_shkp","c":"215-231","status":"unknown"}
 {"fn":"shkgone","c":"235-269","status":"unknown","d":["D-2272"],"at":"seed@a30a7de84"}
 {"fn":"set_residency","c":"272-277","status":"unknown"}
-{"fn":"replshk","c":"280-286","status":"unknown"}
-{"fn":"restshk","c":"290-305","status":"unknown"}
+{"fn":"replshk","c":"280-286","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"restshk","c":"290-305","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"clear_unpaid_obj","c":"309-315","status":"unknown"}
 {"fn":"clear_unpaid","c":"319-325","status":"unknown"}
 {"fn":"clear_no_charge_obj","c":"329-373","status":"unknown"}
@@ -108,7 +108,7 @@
 {"fn":"fix_shop_damage","c":"4850-4874","status":"unknown"}
 {"fn":"shk_move","c":"4880-4993","status":"partial","js":["js/shk.js:shk_move"],"omit":"`shk_fixes_damage` (`shk.c:4556`, damage-list subsystem — map turns.md shk_move section + file header); `after_shk_move` `check_special_room(FALSE)` occupancy arm (map-named, file header).","d":["D-2560"],"at":"seed@a30a7de84"}
 {"fn":"after_shk_move","c":"4997-5008","status":"unknown"}
-{"fn":"is_fshk","c":"5012-5015","status":"unknown"}
+{"fn":"is_fshk","c":"5012-5015","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"shopdig","c":"5019-5110","status":"unknown","d":["D-2308"],"at":"seed@a30a7de84"}
 {"fn":"makekops","c":"5113-5135","status":"unknown"}
 {"fn":"getcad","c":"5138-5171","status":"unknown"}
@@ -128,9 +128,9 @@
 {"fn":"block_entry","c":"5826-5858","status":"partial","js":["js/shk.js:block_entry"],"omit":"`block_door` (`shk.c:5791`) stays the stub-false in `test_move` and `domove`.","d":["D-2854"],"at":"seed@a30a7de84"}
 {"fn":"shk_your","c":"5862-5874","status":"unknown"}
 {"fn":"Shk_Your","c":"5877-5882","status":"unknown"}
-{"fn":"shk_owns","c":"5885-5897","status":"unknown"}
-{"fn":"mon_owns","c":"5900-5905","status":"unknown"}
+{"fn":"shk_owns","c":"5885-5897","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"mon_owns","c":"5900-5905","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cad","c":"5908-5941","status":"unknown"}
-{"fn":"sasc_bug","c":"5945-5948","status":"unknown"}
+{"fn":"sasc_bug","c":"5945-5948","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"globby_bill_fixup","c":"5976-6097","status":"unknown","d":["D-2374"],"at":"seed@a30a7de84"}
 {"fn":"use_unpaid_trapobj","c":"6101-6114","status":"unknown"}

@@ -10,11 +10,11 @@
 {"fn":"adj_victual_nutrition","c":"338-356","status":"unknown"}
 {"fn":"touchfood","c":"360-388","status":"unknown"}
 {"fn":"food_disappears","c":"396-403","status":"unknown"}
-{"fn":"food_substitution","c":"409-419","status":"unknown"}
+{"fn":"food_substitution","c":"409-419","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"do_reset_eat","c":"422-447","status":"unknown"}
-{"fn":"temp_resist","c":"453-469","status":"unknown"}
+{"fn":"temp_resist","c":"453-469","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"eating_dangerous_corpse","c":"475-493","status":"unknown"}
-{"fn":"maybe_extend_timed_resist","c":"500-514","status":"unknown"}
+{"fn":"maybe_extend_timed_resist","c":"500-514","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"eatfood","c":"519-541","status":"unknown","d":["D-2720"],"at":"seed@a30a7de84"}
 {"fn":"done_eating","c":"544-573","status":"unknown"}
 {"fn":"eating_conducts","c":"576-599","status":"ported","js":["js/eat.js:eating_conducts"],"d":["D-2907"],"at":"seed@a30a7de84"}
@@ -22,7 +22,7 @@
 {"fn":"maybe_cannibal","c":"758-788","status":"unknown"}
 {"fn":"cprefx","c":"791-864","status":"ported","js":["js/eat.js:cprefx"],"d":["D-1081"],"at":"seed@a30a7de84","note":"stale 2026-09-15"}
 {"fn":"fix_petrification","c":"867-877","status":"unknown"}
-{"fn":"intrinsic_possible","c":"890-954","status":"ported","js":["js/eat.js:intrinsic_possible"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
+{"fn":"intrinsic_possible","c":"890-954","status":"ported","js":["js/eat.js:intrinsic_possible"],"at":"2026-09-27@d2d72caa6","note":"refresh: audited — all 11 cases + default live; DEBUG ifdebugresist correctly compiled out"}
 {"fn":"should_givit","c":"961-989","status":"unknown"}
 {"fn":"temp_givit","c":"992-997","status":"unknown"}
 {"fn":"givit","c":"1003-1100","status":"unknown","d":["D-2214"],"at":"seed@a30a7de84"}
@@ -52,7 +52,7 @@
 {"fn":"eatspecial","c":"2414-2486","status":"unknown","d":["D-1204"],"at":"seed@a30a7de84"}
 {"fn":"foodword","c":"2498-2506","status":"unknown"}
 {"fn":"fpostfx","c":"2510-2600","status":"unknown"}
-{"fn":"leather_cover","c":"2609-2618","status":"unknown"}
+{"fn":"leather_cover","c":"2609-2618","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"edibility_prompts","c":"2627-2731","status":"unknown","d":["D-2690"],"at":"seed@a30a7de84"}
 {"fn":"doeat_nonfood","c":"2734-2813","status":"ported","js":["js/eat.js:doeat_nonfood"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}
 {"fn":"doeat","c":"2817-3084","status":"unknown","d":["D-2361"],"at":"seed@a30a7de84"}
@@ -69,7 +69,7 @@
 {"fn":"eat_ok","c":"3517-3534","status":"unknown"}
 {"fn":"offer_ok","c":"3539-3557","status":"unknown"}
 {"fn":"tin_ok","c":"3561-3573","status":"unknown"}
-{"fn":"floorfood","c":"3579-3731","status":"ported","js":["js/eat.js:floorfood"],"d":["D-2605"],"at":"seed@a30a7de84"}
+{"fn":"floorfood","c":"3579-3731","status":"ported","js":["js/eat.js:floorfood"],"d":["D-2605"],"at":"2026-09-27@d2d72caa6","note":"refresh: audited — dispatcher; all C arms verified in floorfood_eat/sacrifice/tin (bear trap, bars, gold, floor loop, skipfloor)"}
 {"fn":"vomit","c":"3736-3785","status":"unknown","d":["D-1127"],"at":"seed@a30a7de84"}
 {"fn":"eaten_stat","c":"3788-3804","status":"unknown"}
 {"fn":"consume_oeaten","c":"3808-3872","status":"ported","js":["js/eat.js:consume_oeaten"],"d":["D-2631"],"at":"seed@a30a7de84"}

@@ -22,9 +22,9 @@
 {"fn":"search_special","c":"765-780","status":"unknown"}
 {"fn":"courtmon","c":"783-805","status":"ported","js":["js/mklev.js:courtmon"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
 {"fn":"squadmon","c":"817-837","status":"unknown"}
-{"fn":"save_room","c":"844-857","status":"unknown"}
-{"fn":"save_rooms","c":"863-871","status":"unknown"}
-{"fn":"rest_room","c":"875-886","status":"unknown"}
-{"fn":"rest_rooms","c":"893-906","status":"unknown"}
+{"fn":"save_room","c":"844-857","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"save_rooms","c":"863-871","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"rest_room","c":"875-886","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"rest_rooms","c":"893-906","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cmap_to_type","c":"912-1030","status":"unknown"}
 {"fn":"invalid_shop_shape","c":"1050-1096","status":"unknown"}

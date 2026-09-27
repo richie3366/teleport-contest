@@ -1,5 +1,5 @@
 {"fn":"dumplogmsg","c":"22-46","status":"by-design","at":"seed@a30a7de84","note":"seed: DUMPLOG retired (D-1776)"}
-{"fn":"dumplogfreemessages","c":"52-60","status":"unknown"}
+{"fn":"dumplogfreemessages","c":"52-60","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"putmesg","c":"65-80","status":"ported","js":["js/display.js:putmesg"],"d":["D-2944"],"at":"seed@a30a7de84"}
 {"fn":"set_msg_dir","c":"84-89","status":"unknown","d":["D-1216"],"at":"seed@a30a7de84"}
 {"fn":"set_msg_xy","c":"93-97","status":"unknown"}
@@ -7,12 +7,12 @@
 {"fn":"pline_dir","c":"114-123","status":"unknown"}
 {"fn":"pline_xy","c":"126-135","status":"unknown","d":["D-1215"],"at":"seed@a30a7de84"}
 {"fn":"pline_mon","c":"138-150","status":"ported","js":["js/display.js:pline_mon"],"d":["D-2981"],"at":"2026-09-27@de27c57ac","note":"stale: js/display.js:7655"}
-{"fn":"vpline","c":"153-291","status":"ported","js":["js/display.js:vpline"],"d":["D-2471","D-1807","D-1207"],"at":"seed@a30a7de84"}
+{"fn":"vpline","c":"153-291","status":"ported","js":["js/display.js:vpline"],"d":["D-2471","D-1807","D-1207"],"at":"2026-09-27@d2d72caa6","note":"refresh: audited — orchestrator + vpline_consume/expand/truncate + pline_after_consume (D-1207/D-1807/D-2471)"}
 {"fn":"custompline","c":"299-308","status":"unknown"}
 {"fn":"urgent_pline","c":"315-324","status":"unknown"}
 {"fn":"Norep","c":"327-336","status":"unknown"}
-{"fn":"You_buf","c":"339-348","status":"unknown"}
-{"fn":"free_youbuf","c":"351-356","status":"unknown"}
+{"fn":"You_buf","c":"339-348","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"free_youbuf","c":"351-356","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"You","c":"366-374","status":"unknown"}
 {"fn":"Your","c":"377-385","status":"unknown"}
 {"fn":"You_feel","c":"388-400","status":"ported","js":["js/display.js:You_feel"],"d":["D-2968"],"at":"2026-09-27@06237de26"}
@@ -26,6 +26,6 @@
 {"fn":"livelog_printf","c":"514-526","status":"ported","js":["js/pline.js:livelog_printf"],"d":["D-2968"],"at":"2026-09-27@06237de26","note":"alt 538-542"}
 {"fn":"raw_printf","c":"549-558","status":"partial","js":["js/display.js:raw_printf"],"omit":"the caller remainder above + `raw_print` sink + `vpline_expand` width/precision strip (hits only unported `%*s` debug tables) + `ge.early_raw_messages` consumers (unported pauses).","d":["D-2573"],"at":"seed@a30a7de84"}
 {"fn":"vraw_printf","c":"563-581","status":"unknown"}
-{"fn":"impossible","c":"584-634","status":"by-design","at":"seed@a30a7de84","note":"seed: C runtime/debug path (former SKIP_FN)"}
-{"fn":"execplinehandler","c":"641-686","status":"ported","js":["js/display.js:execplinehandler"],"at":"seed@a30a7de84","note":"stale 2026-09-23"}
+{"fn":"impossible","c":"584-634","status":"partial","js":["js/display.js:impossible"],"omit":"paniclog file (Rule #2); recursive-in_impossible panic; debug_fuzzer panic; sysopt.support line; CRASHREPORT web report (network)","at":"2026-09-27@d2d72caa6","note":"refresh: reclassed by-design→partial — on-screen behavior is scored (703 call sites); omits per js/display.js:8327"}
+{"fn":"execplinehandler","c":"641-686","status":"ported","js":["js/display.js:execplinehandler"],"at":"2026-09-27@d2d72caa6","note":"refresh: audited — early-return + latch FALSE exact for scored config (no msghandler; fork/spawn unreachable under Rule #2)"}
 {"fn":"nhassert_failed","c":"690-717","status":"by-design","at":"seed@a30a7de84","note":"seed: C runtime/debug path (former SKIP_FN)"}

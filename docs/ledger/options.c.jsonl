@@ -4,27 +4,27 @@
 {"fn":"opt2roleopt","c":"715-730","status":"unknown"}
 {"fn":"getoptstr","c":"734-754","status":"unknown"}
 {"fn":"saveoptstr","c":"758-772","status":"unknown"}
-{"fn":"unsaveoptstr","c":"776-783","status":"unknown"}
-{"fn":"freeroleoptvals","c":"787-794","status":"unknown"}
-{"fn":"saveoptvals","c":"801-819","status":"unknown"}
-{"fn":"restoptvals","c":"823-842","status":"unknown"}
+{"fn":"unsaveoptstr","c":"776-783","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"freeroleoptvals","c":"787-794","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"saveoptvals","c":"801-819","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"restoptvals","c":"823-842","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"petname_optfn","c":"848-874","status":"unknown"}
 {"fn":"optfn_alignment","c":"885-919","status":"partial","js":["js/options.js:optfn_alignment"],"omit":"`config_error_add` message text (existing no-op sink).","d":["D-2786"],"at":"seed@a30a7de84"}
 {"fn":"optfn_align_message","c":"923-970","status":"partial","js":["js/options.js:optfn_align_message"],"omit":"`config_error_add` still discards the message text.","d":["D-2822"],"at":"seed@a30a7de84"}
 {"fn":"optfn_align_status","c":"973-1019","status":"partial","js":["js/options.js:optfn_align_status"],"omit":"`config_error_add` still discards the message text.","d":["D-2822"],"at":"seed@a30a7de84"}
-{"fn":"optfn_altkeyhandling","c":"1022-1063","status":"unknown"}
+{"fn":"optfn_altkeyhandling","c":"1022-1063","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_autounlock","c":"1066-1168","status":"ported","js":["js/options.js:optfn_autounlock"],"d":["D-2992"],"at":"2026-09-27@1b2296131"}
 {"fn":"optfn_boulder","c":"1171-1246","status":"ported","js":["js/options.js:optfn_boulder"],"d":["D-2830"],"at":"seed@a30a7de84"}
 {"fn":"optfn_catname","c":"1249-1255","status":"unknown"}
-{"fn":"optfn_crash_email","c":"1259-1282","status":"unknown"}
-{"fn":"optfn_crash_name","c":"1285-1308","status":"unknown"}
-{"fn":"optfn_crash_urlmax","c":"1311-1339","status":"unknown"}
-{"fn":"optfn_cursesgraphics","c":"1345-1390","status":"unknown"}
-{"fn":"optfn_DECgraphics","c":"1394-1439","status":"unknown"}
+{"fn":"optfn_crash_email","c":"1259-1282","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_crash_name","c":"1285-1308","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_crash_urlmax","c":"1311-1339","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_cursesgraphics","c":"1345-1390","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_DECgraphics","c":"1394-1439","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_disclose","c":"1442-1560","status":"partial","js":["js/options.js:optfn_disclose"],"omit":"`config_error_add` and `bad_negation` sinks (no-op).","d":["D-2788"],"at":"seed@a30a7de84"}
 {"fn":"optfn_dogname","c":"1563-1569","status":"unknown"}
-{"fn":"optfn_dungeon","c":"1572-1591","status":"unknown"}
-{"fn":"optfn_effects","c":"1594-1613","status":"unknown"}
+{"fn":"optfn_dungeon","c":"1572-1591","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_effects","c":"1594-1613","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_font_map","c":"1616-1622","status":"ported","js":["js/options.js:optfn_font_map"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
 {"fn":"optfn_font_menu","c":"1625-1631","status":"ported","js":["js/options.js:optfn_font_menu"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
 {"fn":"optfn_font_message","c":"1634-1640","status":"ported","js":["js/options.js:optfn_font_message"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
@@ -37,11 +37,11 @@
 {"fn":"optfn_font_text","c":"1697-1703","status":"ported","js":["js/options.js:optfn_font_text"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
 {"fn":"optfn_fruit","c":"1706-1774","status":"partial","js":["js/options.js:optfn_fruit"],"omit":"`config_error_add` message text (existing no-op sink).","d":["D-2783"],"at":"seed@a30a7de84"}
 {"fn":"optfn_gender","c":"1777-1812","status":"partial","js":["js/options.js:optfn_gender"],"omit":"`config_error_add` message text (existing no-op sink).","d":["D-2786"],"at":"seed@a30a7de84"}
-{"fn":"optfn_glyph","c":"1815-1849","status":"unknown"}
-{"fn":"optfn_hilite_status","c":"1852-1894","status":"unknown"}
+{"fn":"optfn_glyph","c":"1815-1849","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_hilite_status","c":"1852-1894","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_horsename","c":"1897-1903","status":"unknown"}
-{"fn":"optfn_IBMgraphics","c":"1906-1960","status":"unknown"}
-{"fn":"optfn_map_mode","c":"1963-2047","status":"unknown"}
+{"fn":"optfn_IBMgraphics","c":"1906-1960","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_map_mode","c":"1963-2047","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"shared_menu_optfn","c":"2052-2074","status":"partial","js":["js/options.js:shared_menu_optfn"],"omit":"``config_error_add`` sink (+4 sites: both ``illegal_menu_cmd_key`` arms, ``bad_negation`` inside ``spcfn``, ``string_for_opt`` missing-parameter — map's existing sink line); C ``parsebindings :7658–7662`` menu-command arm (travels with the future BINDINGS row); ``menu_headings``/``menu_objsyms`` op…","d":["D-2651"],"at":"seed@a30a7de84"}
 {"fn":"optfn_menu_deselect_all","c":"2077-2082","status":"unknown"}
 {"fn":"optfn_menu_deselect_page","c":"2085-2090","status":"unknown"}
@@ -56,76 +56,76 @@
 {"fn":"optfn_menu_select_page","c":"2157-2162","status":"unknown"}
 {"fn":"optfn_menu_shift_left","c":"2165-2170","status":"unknown"}
 {"fn":"optfn_menu_shift_right","c":"2173-2178","status":"unknown"}
-{"fn":"optfn_menu_headings","c":"2183-2222","status":"unknown"}
+{"fn":"optfn_menu_headings","c":"2183-2222","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_menu_objsyms","c":"2225-2287","status":"unknown"}
-{"fn":"optfn_menuinvertmode","c":"2290-2317","status":"unknown"}
+{"fn":"optfn_menuinvertmode","c":"2290-2317","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_menustyle","c":"2320-2375","status":"partial","js":["js/options.js:optfn_menustyle"],"omit":"`config_error_add` still discards the message text.","d":["D-2822"],"at":"seed@a30a7de84"}
-{"fn":"optfn_monsters","c":"2378-2393","status":"unknown"}
-{"fn":"optfn_mouse_support","c":"2396-2453","status":"unknown"}
+{"fn":"optfn_monsters","c":"2378-2393","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_mouse_support","c":"2396-2453","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_msg_window","c":"2456-2520","status":"unknown"}
-{"fn":"optfn_msghistory","c":"2523-2546","status":"unknown"}
-{"fn":"optfn_name","c":"2549-2571","status":"unknown"}
+{"fn":"optfn_msghistory","c":"2523-2546","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_name","c":"2549-2571","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_number_pad","c":"2574-2645","status":"unknown"}
-{"fn":"optfn_objects","c":"2648-2667","status":"unknown"}
-{"fn":"optfn_packorder","c":"2670-2692","status":"unknown"}
-{"fn":"optfn_palette","c":"2699-2730","status":"unknown","note":"alt 2735-2809"}
+{"fn":"optfn_objects","c":"2648-2667","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_packorder","c":"2670-2692","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_palette","c":"2699-2730","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_paranoid_confirmation","c":"2818-3043","status":"partial","js":["js/options.js:optfn_paranoid_confirmation"],"omit":"`config_error_add` still discards the message text.","d":["D-2821"],"at":"seed@a30a7de84"}
 {"fn":"optfn_perminv_mode","c":"3046-3135","status":"unknown","d":["D-1661"],"at":"seed@a30a7de84"}
 {"fn":"optfn_petattr","c":"3138-3194","status":"partial","js":["js/options.js:optfn_petattr"],"omit":"`config_error_add` and `bad_negation` message text (existing no-op sinks).","d":["D-2792"],"at":"seed@a30a7de84"}
-{"fn":"optfn_pettype","c":"3197-3253","status":"unknown"}
+{"fn":"optfn_pettype","c":"3197-3253","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_pickup_burden","c":"3256-3305","status":"partial","js":["js/options.js:optfn_pickup_burden"],"omit":"`config_error_add` still discards the message text.","d":["D-2822"],"at":"seed@a30a7de84"}
 {"fn":"optfn_pickup_types","c":"3308-3401","status":"ported","js":["js/options.js:optfn_pickup_types"],"d":["D-2830"],"at":"seed@a30a7de84"}
-{"fn":"optfn_pile_limit","c":"3404-3435","status":"unknown"}
-{"fn":"optfn_player_selection","c":"3438-3468","status":"unknown"}
-{"fn":"optfn_playmode","c":"3471-3504","status":"unknown"}
+{"fn":"optfn_pile_limit","c":"3404-3435","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_player_selection","c":"3438-3468","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_playmode","c":"3471-3504","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_race","c":"3507-3542","status":"partial","js":["js/options.js:optfn_race"],"omit":"`config_error_add` message text (existing no-op sink).","d":["D-2786"],"at":"seed@a30a7de84"}
-{"fn":"optfn_roguesymset","c":"3545-3586","status":"unknown"}
+{"fn":"optfn_roguesymset","c":"3545-3586","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_role","c":"3589-3624","status":"partial","js":["js/options.js:optfn_role"],"omit":"`config_error_add` message text (existing no-op sink).","d":["D-2786"],"at":"seed@a30a7de84"}
 {"fn":"optfn_runmode","c":"3627-3666","status":"ported","js":["js/options.js:optfn_runmode"],"d":["D-2830"],"at":"seed@a30a7de84"}
 {"fn":"optfn_scores","c":"3669-3760","status":"ported","js":["js/options.js:optfn_scores"],"d":["D-2830"],"at":"seed@a30a7de84"}
-{"fn":"optfn_scroll_amount","c":"3763-3791","status":"unknown"}
-{"fn":"optfn_scroll_margin","c":"3794-3821","status":"unknown"}
+{"fn":"optfn_scroll_amount","c":"3763-3791","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_scroll_margin","c":"3794-3821","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_soundlib","c":"3824-3860","status":"ported","js":["js/options.js:optfn_soundlib"],"d":["D-2785"],"at":"seed@a30a7de84"}
 {"fn":"optfn_sortdiscoveries","c":"3863-3911","status":"partial","js":["js/options.js:optfn_sortdiscoveries"],"omit":"`config_error_add` still discards the message text.","d":["D-2822"],"at":"seed@a30a7de84"}
 {"fn":"optfn_sortloot","c":"3914-3955","status":"ported","js":["js/options.js:optfn_sortloot"],"d":["D-2830"],"at":"seed@a30a7de84"}
 {"fn":"optfn_sortvanquished","c":"3958-4010","status":"partial","js":["js/options.js:optfn_sortvanquished"],"omit":"`config_error_add` message text (existing no-op sink).","d":["D-2784"],"at":"seed@a30a7de84"}
-{"fn":"optfn_statushilites","c":"4013-4064","status":"unknown"}
-{"fn":"optfn_statuslines","c":"4067-4107","status":"unknown"}
-{"fn":"optfn_subkeyvalue","c":"4111-4131","status":"unknown"}
+{"fn":"optfn_statushilites","c":"4013-4064","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_statuslines","c":"4067-4107","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_subkeyvalue","c":"4111-4131","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_suppress_alert","c":"4135-4161","status":"ported","js":["js/options.js:optfn_suppress_alert"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
 {"fn":"optfn_symset","c":"4167-4236","status":"unknown"}
-{"fn":"optfn_term_cols","c":"4239-4277","status":"unknown"}
-{"fn":"optfn_term_rows","c":"4280-4318","status":"unknown"}
-{"fn":"optfn_tile_file","c":"4321-4351","status":"unknown"}
-{"fn":"optfn_tile_height","c":"4354-4383","status":"unknown"}
-{"fn":"optfn_tile_width","c":"4386-4415","status":"unknown"}
-{"fn":"optfn_traps","c":"4418-4437","status":"unknown"}
-{"fn":"optfn_vary_msgcount","c":"4440-4469","status":"unknown"}
+{"fn":"optfn_term_cols","c":"4239-4277","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_term_rows","c":"4280-4318","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_tile_file","c":"4321-4351","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_tile_height","c":"4354-4383","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_tile_width","c":"4386-4415","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_traps","c":"4418-4437","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_vary_msgcount","c":"4440-4469","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_versinfo","c":"4472-4534","status":"unknown"}
-{"fn":"optfn_videocolors","c":"4538-4570","status":"unknown"}
-{"fn":"optfn_videoshades","c":"4573-4599","status":"unknown"}
-{"fn":"optfn_video_width","c":"4604-4622","status":"unknown"}
-{"fn":"optfn_video_height","c":"4625-4643","status":"unknown"}
-{"fn":"optfn_video","c":"4647-4676","status":"unknown"}
+{"fn":"optfn_videocolors","c":"4538-4570","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_videoshades","c":"4573-4599","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_video_width","c":"4604-4622","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_video_height","c":"4625-4643","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_video","c":"4647-4676","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_warnings","c":"4682-4700","status":"unknown"}
 {"fn":"optfn_whatis_coord","c":"4703-4745","status":"unknown"}
 {"fn":"optfn_whatis_filter","c":"4748-4794","status":"partial","js":["js/options.js:optfn_whatis_filter"],"omit":"`config_error_add` still discards the message text.","d":["D-2822"],"at":"seed@a30a7de84"}
 {"fn":"optfn_windowborders","c":"4797-4853","status":"partial","js":["js/options.js:optfn_windowborders"],"omit":"`config_error_add` still discards the message text.","d":["D-2822"],"at":"seed@a30a7de84"}
-{"fn":"optfn_windowchain","c":"4857-4881","status":"unknown"}
-{"fn":"optfn_windowcolors","c":"4894-4940","status":"unknown"}
-{"fn":"optfn_windowtype","c":"4943-4987","status":"unknown"}
-{"fn":"pfxfn_cond_","c":"4994-5036","status":"unknown"}
+{"fn":"optfn_windowchain","c":"4857-4881","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_windowcolors","c":"4894-4940","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_windowtype","c":"4943-4987","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"pfxfn_cond_","c":"4994-5036","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"pfxfn_font","c":"5039-5165","status":"ported","js":["js/options.js:pfxfn_font"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
-{"fn":"pfxfn_IBM_","c":"5169-5183","status":"unknown"}
-{"fn":"optfn_boolean","c":"5192-5449","status":"unknown"}
+{"fn":"pfxfn_IBM_","c":"5169-5183","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_boolean","c":"5192-5449","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"spcfn_misc_menu_cmd","c":"5452-5475","status":"unknown"}
 {"fn":"can_set_perm_invent","c":"5488-5527","status":"unknown"}
-{"fn":"check_perm_invent_again","c":"5532-5540","status":"unknown"}
+{"fn":"check_perm_invent_again","c":"5532-5540","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"handler_menustyle","c":"5544-5583","status":"unknown"}
 {"fn":"handler_align_misc","c":"5586-5621","status":"unknown"}
 {"fn":"handler_autounlock","c":"5624-5672","status":"ported","js":["js/options.js:handler_autounlock"],"d":["D-2992"],"at":"2026-09-27@1b2296131"}
 {"fn":"handler_disclose","c":"5675-5777","status":"unknown"}
-{"fn":"handler_menu_headings","c":"5780-5792","status":"unknown"}
+{"fn":"handler_menu_headings","c":"5780-5792","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"handler_menu_objsyms","c":"5795-5829","status":"partial","js":["js/options.js:handler_menu_objsyms"],"omit":"`config_error_add(\"Illegal %s parameter\")` sink (file precedent); `nul_glyphinfo`/NO_COLOR menu glyph columns (helper paints text only); `n > 1` two-pick disambiguation `:5822–5823` folded — the helper returns the single new pick, which is the non-preselected entry C chooses; readers of `use_menu_g…","d":["D-2774"],"at":"seed@a30a7de84"}
 {"fn":"handler_msg_window","c":"5832-5890","status":"unknown"}
 {"fn":"handler_number_pad","c":"5893-5950","status":"ported","js":["js/options.js:handler_number_pad"],"d":["D-2778"],"at":"seed@a30a7de84"}
@@ -138,7 +138,7 @@
 {"fn":"handler_sortloot","c":"6167-6203","status":"unknown"}
 {"fn":"handler_whatis_coord","c":"6206-6276","status":"partial","js":["js/options.js:handler_whatis_coord"],"omit":"`config_error_add(\"Unknown %s parameter\")` sink (file precedent); `nul_glyphinfo`/NO_COLOR menu glyph columns (helper paints text only); `pick_cnt > 1` disambiguation `:6270–6271` folded — the pick-one helper returns the single new pick, which is the entry C chooses.","d":["D-2775"],"at":"seed@a30a7de84"}
 {"fn":"handler_whatis_filter","c":"6279-6318","status":"unknown"}
-{"fn":"handler_symset","c":"6321-6328","status":"unknown"}
+{"fn":"handler_symset","c":"6321-6328","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"handler_autopickup_exception","c":"6331-6404","status":"partial","js":["js/options.js:handler_autopickup_exception"],"omit":"`regex_error_desc` (the regex-error `config_error_add` uses a fixed phrase; the sink itself is still a no-op).","d":["D-2838"],"at":"seed@a30a7de84"}
 {"fn":"handler_menu_colors","c":"6407-6499","status":"partial","js":["js/options.js:handler_menu_colors"],"omit":"`config_error_add` + `regex_error_desc` (msgtype_add precedent); native `create_nhwindow`/`start_menu`/`add_menu`/`end_menu`/`select_menu`/`destroy_nhwindow` served by C-matched `select_menu_pick_one/any/none` clones (helper-mapping deltas: C pick_cnt==2 preselected+explicit arms collapse to the ex…","d":["D-2506"],"at":"seed@a30a7de84"}
 {"fn":"handler_msgtype","c":"6502-6570","status":"partial","js":["js/options.js:handler_msgtype"],"omit":"`config_error_add` and `regex_error_desc` inside `msgtype_add` stay the existing sink.","d":["D-2842"],"at":"seed@a30a7de84"}
@@ -158,12 +158,12 @@
 {"fn":"nmcpy","c":"6861-6871","status":"partial","js":["js/options.js:nmcpy"],"omit":"`petname_optfn` (`:866`), `optfn_name` (`:2561`), `optfn_windowtype` (`:4972`), and `initoptions_init` (`:7134`, `:7283`) are not JS functions.","d":["D-2790"],"at":"seed@a30a7de84"}
 {"fn":"escapes","c":"6896-6966","status":"unknown"}
 {"fn":"txt2key","c":"6971-7067","status":"unknown"}
-{"fn":"initoptions","c":"7079-7115","status":"unknown"}
-{"fn":"initoptions_init","c":"7119-7305","status":"unknown"}
-{"fn":"initoptions_finish","c":"7324-7384","status":"unknown"}
+{"fn":"initoptions","c":"7079-7115","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"initoptions_init","c":"7119-7305","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"initoptions_finish","c":"7324-7384","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"allopt_array_init","c":"7405-7433","status":"unknown"}
 {"fn":"set_menuobjsyms_flags","c":"7446-7451","status":"unknown"}
-{"fn":"change_inv_order","c":"7466-7510","status":"unknown"}
+{"fn":"change_inv_order","c":"7466-7510","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"warning_opts","c":"7521-7538","status":"unknown"}
 {"fn":"assign_warnings","c":"7541-7548","status":"unknown"}
 {"fn":"feature_alert_opts","c":"7558-7585","status":"ported","js":["js/options.js:feature_alert_opts"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
@@ -181,56 +181,56 @@
 {"fn":"parse_role_opt","c":"7905-8016","status":"unknown"}
 {"fn":"get_cnf_role_opt","c":"8021-8033","status":"unknown"}
 {"fn":"illegal_menu_cmd_key","c":"8037-8054","status":"unknown"}
-{"fn":"oc_to_str","c":"8062-8073","status":"unknown"}
+{"fn":"oc_to_str","c":"8062-8073","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"add_menu_cmd_alias","c":"8080-8091","status":"unknown"}
 {"fn":"get_menu_cmd_key","c":"8094-8104","status":"unknown"}
-{"fn":"map_menu_cmd","c":"8111-8121","status":"unknown"}
+{"fn":"map_menu_cmd","c":"8111-8121","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"fruitadd","c":"8170-8287","status":"unknown","d":["D-1520"],"at":"seed@a30a7de84"}
 {"fn":"optfn_o_autopickup_exceptions","c":"8302-8321","status":"unknown"}
-{"fn":"optfn_o_bind_keys","c":"8324-8343","status":"unknown"}
-{"fn":"optfn_o_autocomplete","c":"8346-8365","status":"unknown"}
-{"fn":"optfn_o_menu_colors","c":"8368-8386","status":"unknown"}
+{"fn":"optfn_o_bind_keys","c":"8324-8343","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_o_autocomplete","c":"8346-8365","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_o_menu_colors","c":"8368-8386","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"optfn_o_message_types","c":"8389-8411","status":"unknown"}
-{"fn":"optfn_o_status_cond","c":"8414-8442","status":"unknown"}
-{"fn":"optfn_o_status_hilites","c":"8446-8474","status":"unknown"}
+{"fn":"optfn_o_status_cond","c":"8414-8442","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"optfn_o_status_hilites","c":"8446-8474","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"get_option_value","c":"8481-8505","status":"unknown"}
-{"fn":"longest_option_name","c":"8508-8532","status":"unknown"}
+{"fn":"longest_option_name","c":"8508-8532","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"doset_simple_menu","c":"8536-8702","status":"unknown"}
 {"fn":"doset_simple","c":"8707-8735","status":"unknown"}
-{"fn":"term_for_boolean","c":"8738-8752","status":"unknown"}
+{"fn":"term_for_boolean","c":"8738-8752","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"doset","c":"8758-8975","status":"unknown","d":["D-2773"],"at":"seed@a30a7de84"}
 {"fn":"reset_needed_visuals","c":"8980-9014","status":"unknown"}
 {"fn":"doset_add_menu","c":"9018-9065","status":"unknown"}
 {"fn":"show_menu_controls","c":"9070-9174","status":"ported","js":["js/dokeylist.js:show_menu_controls"],"at":"2026-09-27@406969f14","note":"stale: js/dokeylist.js:128"}
-{"fn":"count_cond","c":"9179-9188","status":"unknown"}
+{"fn":"count_cond","c":"9179-9188","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"count_apes","c":"9191-9202","status":"unknown"}
 {"fn":"handle_add_list_remove","c":"9208-9251","status":"unknown"}
 {"fn":"dotogglepickup","c":"9256-9274","status":"unknown"}
 {"fn":"toggle_bool_option","c":"9278-9297","status":"unknown"}
 {"fn":"add_autopickup_exception","c":"9300-9346","status":"unknown"}
 {"fn":"remove_autopickup_exception","c":"9349-9369","status":"unknown"}
-{"fn":"free_autopickup_exceptions","c":"9372-9382","status":"unknown"}
+{"fn":"free_autopickup_exceptions","c":"9372-9382","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"sym_val","c":"9385-9426","status":"unknown"}
-{"fn":"option_help","c":"9462-9549","status":"unknown"}
+{"fn":"option_help","c":"9462-9549","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"all_options_conds","c":"9556-9591","status":"unknown","d":["D-2549"],"at":"seed@a30a7de84"}
 {"fn":"all_options_menucolors","c":"9595-9625","status":"unknown"}
 {"fn":"all_options_msgtypes","c":"9628-9640","status":"unknown"}
 {"fn":"all_options_apes","c":"9643-9654","status":"unknown"}
-{"fn":"all_options_palette","c":"9658-9673","status":"unknown"}
+{"fn":"all_options_palette","c":"9658-9673","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"all_options_strbuf","c":"9678-9748","status":"partial","js":["js/options.js:all_options_strbuf"],"omit":"`get_option_value` + allopt table [2/7]; `all_options_conds` (+opt_next_cond) [3/7]; `get_changed_key_binds` (unconditional call — throws if body invoked before [4/7]) [4/7]; `parsesymbols` producer (savedSymbols stays empty) [5/7]; `all_options_statushilites` (unconditional call, STATUS_HILITES on…","d":["D-2544"],"at":"seed@a30a7de84"}
 {"fn":"next_opt","c":"9755-9785","status":"split","js":["js/options.js:next_opt_lines"],"d":["D-2989"],"at":"2026-09-27@080c16023","note":"split: boolean-list body lives in next_opt_lines (D-0091); sole caller option_help reads it via option_help_lines"}
-{"fn":"set_option_mod_status","c":"9855-9869","status":"unknown"}
-{"fn":"set_wc_option_mod_status","c":"9881-9896","status":"unknown"}
+{"fn":"set_option_mod_status","c":"9855-9869","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"set_wc_option_mod_status","c":"9881-9896","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"is_wc_option","c":"9899-9909","status":"unknown"}
 {"fn":"wc_supported","c":"9912-9921","status":"unknown"}
-{"fn":"set_wc2_option_mod_status","c":"9935-9950","status":"unknown"}
-{"fn":"is_wc2_option","c":"9953-9963","status":"unknown"}
+{"fn":"set_wc2_option_mod_status","c":"9935-9950","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"is_wc2_option","c":"9953-9963","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wc2_supported","c":"9966-9976","status":"unknown"}
 {"fn":"wc_set_font_name","c":"9979-10010","status":"ported","js":["js/options.js:wc_set_font_name"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
-{"fn":"wc_set_window_colors","c":"10023-10113","status":"unknown"}
-{"fn":"options_free_window_colors","c":"10116-10127","status":"unknown"}
+{"fn":"wc_set_window_colors","c":"10023-10113","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"options_free_window_colors","c":"10116-10127","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"set_playmode","c":"10134-10152","status":"unknown"}
-{"fn":"enhance_menu_text","c":"10155-10180","status":"unknown"}
+{"fn":"enhance_menu_text","c":"10155-10180","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"heed_all_options","c":"10183-10189","status":"unknown"}
 {"fn":"disregard_all_options","c":"10192-10198","status":"unknown"}
 {"fn":"heed_this_option","c":"10201-10205","status":"unknown"}

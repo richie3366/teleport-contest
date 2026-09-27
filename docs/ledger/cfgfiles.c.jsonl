@@ -1,10 +1,10 @@
 {"fn":"get_configfile","c":"143-146","status":"unknown"}
-{"fn":"get_default_configfile","c":"149-152","status":"unknown"}
+{"fn":"get_default_configfile","c":"149-152","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"do_write_config_file","c":"169-210","status":"unknown","d":["D-2553"],"at":"seed@a30a7de84"}
 {"fn":"set_configfile_name","c":"216-220","status":"unknown"}
 {"fn":"fopen_config_file","c":"223-372","status":"unknown"}
-{"fn":"get_uchars","c":"381-437","status":"unknown"}
-{"fn":"adjust_prefix","c":"441-459","status":"unknown"}
+{"fn":"get_uchars","c":"381-437","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"adjust_prefix","c":"441-459","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"choose_random_part","c":"464-504","status":"unknown"}
 {"fn":"free_config_sections","c":"507-517","status":"unknown"}
 {"fn":"is_config_section","c":"523-549","status":"unknown"}
@@ -12,38 +12,38 @@
 {"fn":"find_optparam","c":"588-598","status":"unknown"}
 {"fn":"cnf_line_OPTIONS","c":"603-609","status":"unknown"}
 {"fn":"cnf_line_AUTOPICKUP_EXCEPTION","c":"612-616","status":"unknown"}
-{"fn":"cnf_line_BINDINGS","c":"619-622","status":"unknown"}
-{"fn":"cnf_line_AUTOCOMPLETE","c":"625-629","status":"unknown"}
+{"fn":"cnf_line_BINDINGS","c":"619-622","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_AUTOCOMPLETE","c":"625-629","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_MSGTYPE","c":"632-635","status":"unknown"}
-{"fn":"cnf_line_HACKDIR","c":"638-650","status":"unknown"}
-{"fn":"cnf_line_LEVELDIR","c":"653-670","status":"unknown"}
-{"fn":"cnf_line_SAVEDIR","c":"673-692","status":"unknown"}
-{"fn":"cnf_line_BONESDIR","c":"695-703","status":"unknown"}
-{"fn":"cnf_line_DATADIR","c":"706-714","status":"unknown"}
-{"fn":"cnf_line_SCOREDIR","c":"717-725","status":"unknown"}
-{"fn":"cnf_line_LOCKDIR","c":"728-736","status":"unknown"}
-{"fn":"cnf_line_CONFIGDIR","c":"739-747","status":"unknown"}
-{"fn":"cnf_line_TROUBLEDIR","c":"750-758","status":"unknown"}
+{"fn":"cnf_line_HACKDIR","c":"638-650","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_LEVELDIR","c":"653-670","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_SAVEDIR","c":"673-692","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_BONESDIR","c":"695-703","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_DATADIR","c":"706-714","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_SCOREDIR","c":"717-725","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_LOCKDIR","c":"728-736","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_CONFIGDIR","c":"739-747","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_TROUBLEDIR","c":"750-758","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_NAME","c":"761-765","status":"unknown"}
 {"fn":"cnf_line_ROLE","c":"768-775","status":"unknown"}
 {"fn":"cnf_line_dogname","c":"778-782","status":"unknown"}
 {"fn":"cnf_line_catname","c":"785-789","status":"unknown"}
-{"fn":"cnf_line_WIZARDS","c":"795-809","status":"unknown"}
-{"fn":"cnf_line_SHELLERS","c":"812-818","status":"unknown"}
-{"fn":"cnf_line_MSGHANDLER","c":"821-827","status":"unknown"}
-{"fn":"cnf_line_EXPLORERS","c":"830-836","status":"unknown"}
-{"fn":"cnf_line_DEBUGFILES","c":"839-849","status":"unknown"}
-{"fn":"cnf_line_DUMPLOGFILE","c":"852-862","status":"unknown"}
-{"fn":"cnf_line_GENERICUSERS","c":"865-871","status":"unknown"}
-{"fn":"cnf_line_BONES_POOLS","c":"874-885","status":"unknown"}
-{"fn":"cnf_line_SUPPORT","c":"888-894","status":"unknown"}
-{"fn":"cnf_line_RECOVER","c":"897-903","status":"unknown"}
-{"fn":"cnf_line_CHECK_SAVE_UID","c":"906-912","status":"unknown"}
-{"fn":"cnf_line_CHECK_PLNAME","c":"915-921","status":"unknown"}
-{"fn":"cnf_line_SEDUCE","c":"924-943","status":"unknown"}
-{"fn":"cnf_line_HIDEUSAGE","c":"946-952","status":"unknown"}
-{"fn":"cnf_line_MAXPLAYERS","c":"955-966","status":"unknown"}
-{"fn":"cnf_line_PERSMAX","c":"969-979","status":"unknown"}
+{"fn":"cnf_line_WIZARDS","c":"795-809","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_SHELLERS","c":"812-818","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_MSGHANDLER","c":"821-827","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_EXPLORERS","c":"830-836","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_DEBUGFILES","c":"839-849","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_DUMPLOGFILE","c":"852-862","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_GENERICUSERS","c":"865-871","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_BONES_POOLS","c":"874-885","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_SUPPORT","c":"888-894","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_RECOVER","c":"897-903","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_CHECK_SAVE_UID","c":"906-912","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_CHECK_PLNAME","c":"915-921","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_SEDUCE","c":"924-943","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_HIDEUSAGE","c":"946-952","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_MAXPLAYERS","c":"955-966","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_PERSMAX","c":"969-979","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_PERS_IS_UID","c":"982-992","status":"unknown"}
 {"fn":"cnf_line_ENTRYMAX","c":"995-1005","status":"unknown"}
 {"fn":"cnf_line_POINTSMIN","c":"1008-1018","status":"unknown"}
@@ -51,29 +51,29 @@
 {"fn":"cnf_line_LIVELOG","c":"1035-1049","status":"unknown"}
 {"fn":"cnf_line_PANICTRACE_LIBC","c":"1052-1064","status":"unknown"}
 {"fn":"cnf_line_PANICTRACE_GDB","c":"1067-1079","status":"unknown"}
-{"fn":"cnf_line_GDBPATH","c":"1082-1094","status":"unknown"}
-{"fn":"cnf_line_GREPPATH","c":"1097-1109","status":"unknown"}
-{"fn":"cnf_line_CRASHREPORTURL","c":"1112-1118","status":"unknown"}
+{"fn":"cnf_line_GDBPATH","c":"1082-1094","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_GREPPATH","c":"1097-1109","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_CRASHREPORTURL","c":"1112-1118","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_ACCESSIBILITY","c":"1121-1131","status":"unknown"}
 {"fn":"cnf_line_PORTABLE_DEVICE_PATHS","c":"1134-1150","status":"unknown"}
-{"fn":"cnf_line_BOULDER","c":"1156-1161","status":"unknown"}
+{"fn":"cnf_line_BOULDER","c":"1156-1161","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_MENUCOLOR","c":"1164-1167","status":"unknown"}
 {"fn":"cnf_line_HILITE_STATUS","c":"1170-1178","status":"unknown"}
-{"fn":"cnf_line_WARNINGS","c":"1181-1188","status":"unknown"}
+{"fn":"cnf_line_WARNINGS","c":"1181-1188","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cnf_line_ROGUESYMBOLS","c":"1191-1199","status":"unknown"}
 {"fn":"cnf_line_SYMBOLS","c":"1202-1211","status":"unknown"}
 {"fn":"cnf_line_WIZKIT","c":"1214-1218","status":"unknown"}
-{"fn":"cnf_line_SOUNDDIR","c":"1222-1228","status":"unknown"}
-{"fn":"cnf_line_SOUND","c":"1231-1235","status":"unknown"}
-{"fn":"cnf_line_QT_TILEWIDTH","c":"1239-1250","status":"unknown"}
-{"fn":"cnf_line_QT_TILEHEIGHT","c":"1253-1264","status":"unknown"}
-{"fn":"cnf_line_QT_FONTSIZE","c":"1267-1278","status":"unknown"}
-{"fn":"cnf_line_QT_COMPACT","c":"1281-1291","status":"unknown"}
+{"fn":"cnf_line_SOUNDDIR","c":"1222-1228","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_SOUND","c":"1231-1235","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_QT_TILEWIDTH","c":"1239-1250","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_QT_TILEHEIGHT","c":"1253-1264","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_QT_FONTSIZE","c":"1267-1278","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"cnf_line_QT_COMPACT","c":"1281-1291","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"parse_config_line","c":"1389-1439","status":"unknown"}
 {"fn":"can_read_file","c":"1443-1446","status":"unknown"}
 {"fn":"config_error_init","c":"1470-1490","status":"unknown"}
 {"fn":"config_error_nextline","c":"1493-1512","status":"unknown"}
-{"fn":"l_get_config_errors","c":"1516-1539","status":"unknown"}
+{"fn":"l_get_config_errors","c":"1516-1539","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"config_erradd","c":"1544-1589","status":"unknown"}
 {"fn":"config_error_done","c":"1592-1621","status":"unknown"}
 {"fn":"read_config_file","c":"1624-1647","status":"unknown"}
@@ -81,16 +81,16 @@
 {"fn":"cnf_parser_done","c":"1677-1684","status":"unknown"}
 {"fn":"parse_conf_buf","c":"1693-1807","status":"unknown"}
 {"fn":"parse_conf_str","c":"1810-1837","status":"partial","js":["js/cfgfiles.js:parse_conf_str"],"omit":"`initoptions_init` / `initoptions_finish` (startup does not call `rcfile`).","d":["D-2787"],"at":"seed@a30a7de84"}
-{"fn":"parse_conf_file","c":"1844-1860","status":"unknown"}
+{"fn":"parse_conf_file","c":"1844-1860","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"config_error_add","c":"1865-1872","status":"unknown"}
-{"fn":"vconfig_error_add","c":"1875-1890","status":"unknown"}
+{"fn":"vconfig_error_add","c":"1875-1890","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"rcfile","c":"1894-1957","status":"unknown"}
 {"fn":"rcfile_interface_options","c":"1960-1976","status":"partial","js":["js/cfgfiles.js:rcfile_interface_options"],"omit":"`initoptions_init` / `initoptions_finish` (startup does not call `rcfile`).","d":["D-2787"],"at":"seed@a30a7de84"}
 {"fn":"heed_all_config_statements","c":"1979-1986","status":"unknown"}
 {"fn":"disregard_all_config_statements","c":"1988-1995","status":"unknown"}
-{"fn":"heed_this_config_statement","c":"1997-2001","status":"unknown"}
-{"fn":"disregard_this_config_statement","c":"2003-2007","status":"unknown"}
+{"fn":"heed_this_config_statement","c":"1997-2001","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"disregard_this_config_statement","c":"2003-2007","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"clear_ignore_errors_on_unmatched","c":"2010-2013","status":"unknown"}
 {"fn":"set_ignore_errors_on_unmatched","c":"2015-2018","status":"unknown"}
 {"fn":"config_unmatched_ignored","c":"2020-2025","status":"unknown"}
-{"fn":"assure_syscf_file","c":"2031-2068","status":"unknown"}
+{"fn":"assure_syscf_file","c":"2031-2068","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}

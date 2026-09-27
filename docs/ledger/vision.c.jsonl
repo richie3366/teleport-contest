@@ -1,5 +1,5 @@
-{"fn":"get_viz_clear","c":"105-110","status":"unknown"}
-{"fn":"vision_init","c":"121-142","status":"unknown"}
+{"fn":"get_viz_clear","c":"105-110","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"vision_init","c":"121-142","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"does_block","c":"153-202","status":"ported","js":["js/vision.js:does_block"],"d":["D-2883"],"at":"seed@a30a7de84"}
 {"fn":"vision_reset","c":"211-265","status":"ported","js":["js/vision.js:vision_reset"],"d":["D-2883"],"at":"seed@a30a7de84"}
 {"fn":"get_unused_cs","c":"274-299","status":"partial","js":["js/vision.js:get_unused_cs"],"omit":"The header comment's \"light routine\" is not a call in this tree; `do_light_sources` receives the buffer `vision_recalc` already obtained.","d":["D-2850"],"at":"seed@a30a7de84"}
@@ -11,12 +11,12 @@
 {"fn":"recalc_block_point","c":"911-917","status":"unknown"}
 {"fn":"dig_point","c":"967-1048","status":"unknown"}
 {"fn":"fill_point","c":"1051-1128","status":"unknown"}
-{"fn":"_q1_path","c":"1419-1460","status":"unknown"}
-{"fn":"_q4_path","c":"1466-1507","status":"unknown"}
-{"fn":"_q2_path","c":"1513-1554","status":"unknown"}
-{"fn":"_q3_path","c":"1560-1601","status":"unknown"}
+{"fn":"_q1_path","c":"1419-1460","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"_q4_path","c":"1466-1507","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"_q2_path","c":"1513-1554","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"_q3_path","c":"1560-1601","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"clear_path","c":"1613-1636","status":"ported","js":["js/vision.js:clear_path"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
-{"fn":"view_init","c":"1651-1653","status":"unknown"}
+{"fn":"view_init","c":"1651-1653","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"right_side","c":"1666-1851","status":"ported","js":["js/vision.js:right_side"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
 {"fn":"left_side","c":"1858-1985","status":"ported","js":["js/vision.js:left_side"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
 {"fn":"view_from","c":"2002-2091","status":"partial","js":["js/vision.js:view_from"],"omit":"`right_side` `left == lim_max` (`vision.c:1769–1775`, `js/vision.js:577`) still calls `mark_visible_range` (set_min and set_max) where C is `set_cs` + `set_max` only.","d":["D-2820"],"at":"seed@a30a7de84"}

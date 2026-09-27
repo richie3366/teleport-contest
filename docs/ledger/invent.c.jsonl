@@ -4,7 +4,7 @@
 {"fn":"invletter_value","c":"391-399","status":"unknown"}
 {"fn":"sortloot_cmp","c":"403-547","status":"unknown","d":["D-2626"],"at":"seed@a30a7de84"}
 {"fn":"sortloot","c":"593-643","status":"unknown","d":["D-1589"],"at":"seed@a30a7de84","note":"alt 655-690"}
-{"fn":"unsortloot","c":"647-651","status":"unknown"}
+{"fn":"unsortloot","c":"647-651","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"assigninvlet","c":"694-732","status":"unknown"}
 {"fn":"reorder_invent","c":"739-767","status":"unknown"}
 {"fn":"merge_choice","c":"775-810","status":"unknown"}
@@ -35,21 +35,21 @@
 {"fn":"o_on","c":"1587-1599","status":"unknown"}
 {"fn":"obj_here","c":"1602-1610","status":"unknown"}
 {"fn":"g_at","c":"1613-1623","status":"unknown"}
-{"fn":"compactify","c":"1627-1660","status":"unknown"}
+{"fn":"compactify","c":"1627-1660","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"splittable","c":"1664-1668","status":"unknown"}
 {"fn":"taking_off","c":"1672-1675","status":"unknown"}
 {"fn":"mime_action","c":"1678-1706","status":"unknown","d":["D-1579"],"at":"seed@a30a7de84"}
-{"fn":"any_obj_ok","c":"1710-1715","status":"unknown"}
+{"fn":"any_obj_ok","c":"1710-1715","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"getobj_hands_txt","c":"1719-1736","status":"unknown"}
-{"fn":"getobj","c":"1752-2089","status":"ported","js":["js/invent.js:getobj"],"d":["D-2353","D-2123","D-1927","D-1834","D-1804","D-1568"],"at":"seed@a30a7de84","note":"stale 2026-09-18"}
+{"fn":"getobj","c":"1752-2089","status":"ported","js":["js/invent.js:getobj"],"d":["D-2353","D-2123","D-1927","D-1834","D-1804","D-1568"],"at":"2026-09-27@d2d72caa6","note":"refresh: audited — orchestrator; arms in getobj_from_cmdq/filter_prompt/take_count/display_pickinv/finish_pick helpers (D-1568..D-2353)"}
 {"fn":"silly_thing","c":"2094-2131","status":"ported","js":["js/invent.js:silly_thing"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
 {"fn":"ckvalidcat","c":"2136-2140","status":"unknown"}
 {"fn":"ckunpaid","c":"2143-2146","status":"unknown"}
 {"fn":"wearing_armor","c":"2149-2153","status":"unknown"}
 {"fn":"is_worn","c":"2156-2161","status":"unknown"}
 {"fn":"is_inuse","c":"2167-2170","status":"unknown"}
-{"fn":"safeq_xprname","c":"2180-2184","status":"unknown"}
-{"fn":"safeq_shortxprname","c":"2188-2192","status":"unknown"}
+{"fn":"safeq_xprname","c":"2180-2184","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"safeq_shortxprname","c":"2188-2192","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"ggetobj","c":"2202-2369","status":"unknown","d":["D-1635"],"at":"seed@a30a7de84"}
 {"fn":"askchain","c":"2377-2541","status":"unknown"}
 {"fn":"reroll_menu","c":"2552-2616","status":"unknown"}
@@ -69,9 +69,9 @@
 {"fn":"ddoinv","c":"3006-3009","status":"unknown"}
 {"fn":"find_unpaid","c":"3021-3041","status":"unknown"}
 {"fn":"free_pickinv_cache","c":"3044-3050","status":"unknown"}
-{"fn":"display_pickinv","c":"3057-3418","status":"ported","d":["D-1559"],"at":"seed@a30a7de84","note":"stale 2026-09-18; seed: js location unresolved"}
+{"fn":"display_pickinv","c":"3057-3418","status":"split","js":["js/invent.js:display_pickinv_reply","js/invent.js:display_pickinv_wizid","js/invent.js:invent_lines","js/invent.js:pickinv_build_inuse","js/invent.js:pickinv_build_perm","js/invent.js:build_wizid_pickinv_items","js/invent.js:pickinv_item_gacc"],"d":["D-1559"],"at":"2026-09-27@d2d72caa6","note":"refresh: split across reply/wizid/lines/builders (D-1559/D-1589/D-1590)"}
 {"fn":"display_inventory","c":"3428-3453","status":"unknown"}
-{"fn":"repopulate_perminvent","c":"3456-3460","status":"unknown"}
+{"fn":"repopulate_perminvent","c":"3456-3460","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"display_used_invlets","c":"3467-3519","status":"unknown","d":["D-1591"],"at":"seed@a30a7de84"}
 {"fn":"count_unpaid","c":"3526-3538","status":"unknown"}
 {"fn":"count_buc","c":"3548-3575","status":"unknown"}
@@ -105,13 +105,13 @@
 {"fn":"doorganize","c":"4981-5004","status":"unknown"}
 {"fn":"adjust_split","c":"5008-5065","status":"unknown","d":["D-1621"],"at":"seed@a30a7de84"}
 {"fn":"doorganize_core","c":"5068-5286","status":"ported","js":["js/invent.js:doorganize_core"],"d":["D-2618"],"at":"seed@a30a7de84"}
-{"fn":"invdisp_nothing","c":"5290-5305","status":"unknown"}
-{"fn":"worn_wield_only","c":"5309-5325","status":"unknown"}
+{"fn":"invdisp_nothing","c":"5290-5305","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"worn_wield_only","c":"5309-5325","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"display_minventory","c":"5341-5386","status":"unknown"}
 {"fn":"cinv_doname","c":"5391-5419","status":"unknown"}
-{"fn":"cinv_ansimpleoname","c":"5423-5441","status":"unknown"}
+{"fn":"cinv_ansimpleoname","c":"5423-5441","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"display_cinventory","c":"5446-5473","status":"unknown"}
-{"fn":"only_here","c":"5477-5480","status":"unknown"}
+{"fn":"only_here","c":"5477-5480","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"display_binventory","c":"5489-5546","status":"unknown"}
 {"fn":"prepare_perminvent","c":"5549-5562","status":"unknown"}
 {"fn":"sync_perminvent","c":"5565-5658","status":"unknown"}

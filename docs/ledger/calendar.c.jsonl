@@ -1,7 +1,7 @@
 {"fn":"getnow","c":"32-38","status":"unknown"}
 {"fn":"getlt","c":"41-46","status":"unknown","d":["D-1989"],"at":"seed@a30a7de84"}
 {"fn":"getyear","c":"49-52","status":"unknown","d":["D-1742"],"at":"seed@a30a7de84"}
-{"fn":"yyyymmdd","c":"56-77","status":"ported","js":["js/calendar.js:yyyymmdd"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
+{"fn":"yyyymmdd","c":"56-77","status":"ported","js":["js/calendar.js:yyyymmdd"],"at":"2026-09-27@d2d72caa6","note":"refresh: audited — THIN is factored (C arms live in lt_for_date/yyyy_from_tm)"}
 {"fn":"hhmmss","c":"80-92","status":"unknown","d":["D-1725"],"at":"seed@a30a7de84"}
 {"fn":"yyyymmddhhmmss","c":"95-117","status":"unknown"}
 {"fn":"time_from_yyyymmddhhmmss","c":"120-175","status":"ported","js":["js/calendar.js:time_from_yyyymmddhhmmss"],"d":["D-2893"],"at":"seed@a30a7de84"}

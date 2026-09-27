@@ -9,7 +9,7 @@
 {"fn":"fall_through","c":"602-696","status":"unknown"}
 {"fn":"animate_statue","c":"726-900","status":"unknown"}
 {"fn":"activate_statue_trap","c":"908-936","status":"unknown"}
-{"fn":"keep_saddle_with_steedcorpse","c":"939-967","status":"unknown"}
+{"fn":"keep_saddle_with_steedcorpse","c":"939-967","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"mu_maybe_destroy_web","c":"972-1014","status":"unknown"}
 {"fn":"t_missile","c":"1018-1027","status":"unknown"}
 {"fn":"set_utrap","c":"1030-1042","status":"unknown"}
@@ -108,7 +108,7 @@
 {"fn":"conjoined_pits","c":"6552-6577","status":"unknown"}
 {"fn":"clear_conjoined_pits","c":"6580-6601","status":"unknown"}
 {"fn":"adj_nonconjoined_pit","c":"6604-6614","status":"unknown"}
-{"fn":"join_adjacent_pits","c":"6622-6641","status":"unknown"}
+{"fn":"join_adjacent_pits","c":"6622-6641","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"uteetering_at_seen_pit","c":"6648-6653","status":"unknown"}
 {"fn":"uescaped_shaft","c":"6660-6664","status":"unknown"}
 {"fn":"delfloortrap","c":"6668-6690","status":"unknown"}

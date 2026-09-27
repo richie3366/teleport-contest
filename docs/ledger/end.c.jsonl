@@ -1,7 +1,7 @@
-{"fn":"done1","c":"68-86","status":"unknown"}
+{"fn":"done1","c":"68-86","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"done2","c":"90-148","status":"unknown"}
-{"fn":"done_intr","c":"154-164","status":"unknown"}
-{"fn":"done_hangup","c":"169-177","status":"unknown"}
+{"fn":"done_intr","c":"154-164","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"done_hangup","c":"169-177","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"done_in_by","c":"185-344","status":"ported","js":["js/end.js:done_in_by"],"d":["D-2770","D-2351","D-2348","D-2102"],"at":"seed@a30a7de84"}
 {"fn":"fixup_death","c":"366-384","status":"unknown"}
 {"fn":"should_query_disclose_option","c":"476-515","status":"unknown"}
@@ -11,19 +11,19 @@
 {"fn":"savelife","c":"704-756","status":"unknown","d":["D-2181","D-2172"],"at":"seed@a30a7de84"}
 {"fn":"get_valuables","c":"763-791","status":"unknown","d":["D-1741"],"at":"seed@a30a7de84"}
 {"fn":"sort_valuables","c":"798-818","status":"unknown"}
-{"fn":"odds_and_ends","c":"830-846","status":"unknown"}
+{"fn":"odds_and_ends","c":"830-846","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"done_object_cleanup","c":"851-903","status":"unknown","d":["D-2724"],"at":"seed@a30a7de84"}
 {"fn":"artifact_score","c":"907-940","status":"unknown","d":["D-1730"],"at":"seed@a30a7de84"}
 {"fn":"fuzzer_savelife","c":"945-1016","status":"by-design","at":"seed@a30a7de84","note":"seed: former BY_DESIGN/SKIP_FN"}
 {"fn":"done","c":"1020-1126","status":"unknown"}
 {"fn":"really_done","c":"1130-1590","status":"ported","js":["js/end.js:really_done"],"d":["D-2435","D-2283","D-2122","D-2061","D-1812"],"at":"seed@a30a7de84"}
 {"fn":"container_contents","c":"1594-1670","status":"unknown"}
-{"fn":"nh_terminate","c":"1674-1703","status":"by-design","at":"seed@a30a7de84","note":"seed: C runtime/debug path (former SKIP_FN)"}
+{"fn":"nh_terminate","c":"1674-1703","status":"by-design","at":"2026-09-27@d2d72caa6","note":"refresh: audited — exit-path only (Lua/MACOS9/VMS/dlb arms have no scored analogue); js/end.js:994 sets gameover flags"}
 {"fn":"delayed_killer","c":"1707-1723","status":"unknown"}
 {"fn":"find_delayed_killer","c":"1726-1735","status":"unknown"}
 {"fn":"dealloc_killer","c":"1738-1757","status":"ported","js":["js/end.js:dealloc_killer"],"d":["D-2936"],"at":"seed@a30a7de84"}
-{"fn":"save_killers","c":"1760-1776","status":"unknown"}
-{"fn":"restore_killers","c":"1780-1790","status":"unknown"}
+{"fn":"save_killers","c":"1760-1776","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"restore_killers","c":"1780-1790","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wordcount","c":"1793-1806","status":"unknown"}
 {"fn":"bel_copy1","c":"1809-1820","status":"unknown"}
 {"fn":"build_english_list","c":"1823-1859","status":"ported","js":["js/end.js:build_english_list"],"d":["D-2629"],"at":"seed@a30a7de84"}

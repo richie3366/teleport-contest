@@ -6,7 +6,7 @@
 {"fn":"sengr_at","c":"251-261","status":"unknown"}
 {"fn":"u_wipe_engr","c":"264-268","status":"unknown"}
 {"fn":"wipe_engr_at","c":"271-290","status":"unknown"}
-{"fn":"engr_can_be_felt","c":"297-315","status":"ported","js":["js/display.js:engr_can_be_felt"],"at":"2026-09-27@988c639a6","note":"stale: js/display.js:4836"}
+{"fn":"engr_can_be_felt","c":"297-315","status":"ported","js":["js/display.js:engr_can_be_felt"],"at":"2026-09-27@d2d72caa6","note":"refresh: audited — switch exact (ENGRAVE/HEADSTONE/BURN); null guard is C-UB-only"}
 {"fn":"read_engr_at","c":"318-405","status":"unknown"}
 {"fn":"make_engr_at","c":"408-457","status":"partial","js":["js/engrave.js:make_engr_at"],"omit":"newengr/engr_text_space arena (by design — JS strings need no arena; sizes kept on the record); `return ep` JS extension noted above.","d":["D-2567"],"at":"seed@a30a7de84"}
 {"fn":"del_engr_at","c":"461-467","status":"unknown"}
@@ -20,15 +20,15 @@
 {"fn":"doengrave","c":"956-1263","status":"unknown","d":["D-2176","D-2073","D-1689"],"at":"seed@a30a7de84"}
 {"fn":"engrave","c":"1267-1493","status":"unknown","d":["D-2014"],"at":"seed@a30a7de84"}
 {"fn":"sanitize_engravings","c":"1498-1505","status":"unknown"}
-{"fn":"forget_engravings","c":"1509-1521","status":"unknown"}
+{"fn":"forget_engravings","c":"1509-1521","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"engraving_sanity_check","c":"1524-1548","status":"by-design","at":"seed@a30a7de84","note":"seed: wizard sanity check (debug build path)"}
-{"fn":"save_engravings","c":"1551-1580","status":"unknown"}
-{"fn":"rest_engravings","c":"1584-1619","status":"unknown"}
+{"fn":"save_engravings","c":"1551-1580","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"rest_engravings","c":"1584-1619","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"engr_stats","c":"1626-1640","status":"unknown"}
 {"fn":"del_engr","c":"1645-1663","status":"unknown"}
 {"fn":"rloc_engr","c":"1667-1681","status":"unknown"}
 {"fn":"make_grave","c":"1687-1703","status":"unknown"}
 {"fn":"disturb_grave","c":"1707-1721","status":"unknown"}
-{"fn":"see_engraving","c":"1724-1727","status":"unknown"}
-{"fn":"feel_engraving","c":"1732-1741","status":"unknown"}
+{"fn":"see_engraving","c":"1724-1727","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"feel_engraving","c":"1732-1741","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"blengr","c":"1765-1768","status":"unknown"}

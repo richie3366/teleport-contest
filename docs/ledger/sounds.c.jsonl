@@ -20,25 +20,25 @@
 {"fn":"responsive_mon_at","c":"1413-1423","status":"unknown"}
 {"fn":"tiphat","c":"1427-1537","status":"ported","js":["js/sounds.js:tiphat"],"d":["D-2522"],"at":"seed@a30a7de84"}
 {"fn":"add_sound_mapping","c":"1556-1626","status":"ported","js":["js/sounds.js:add_sound_mapping"],"d":["D-2776"],"at":"seed@a30a7de84"}
-{"fn":"sound_matches_message","c":"1629-1639","status":"unknown"}
-{"fn":"play_sound_for_message","c":"1642-1656","status":"unknown"}
+{"fn":"sound_matches_message","c":"1629-1639","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"play_sound_for_message","c":"1642-1656","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"maybe_play_sound","c":"1659-1673","status":"unknown"}
-{"fn":"release_sound_mappings","c":"1676-1690","status":"unknown"}
-{"fn":"activate_chosen_soundlib","c":"1779-1795","status":"unknown"}
+{"fn":"release_sound_mappings","c":"1676-1690","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"activate_chosen_soundlib","c":"1779-1795","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"assign_soundlib","c":"1798-1805","status":"unknown"}
-{"fn":"choose_soundlib","c":"1809-1858","status":"unknown"}
+{"fn":"choose_soundlib","c":"1809-1858","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"get_soundlib_name","c":"1864-1880","status":"unknown"}
 {"fn":"soundlib_id_from_opt","c":"1883-1895","status":"unknown"}
-{"fn":"nosound_init_nhsound","c":"1917-1919","status":"unknown"}
-{"fn":"nosound_exit_nhsound","c":"1922-1924","status":"unknown"}
-{"fn":"nosound_achievement","c":"1927-1929","status":"unknown"}
-{"fn":"nosound_soundeffect","c":"1932-1934","status":"unknown"}
-{"fn":"nosound_hero_playnotes","c":"1937-1939","status":"unknown"}
-{"fn":"nosound_play_usersound","c":"1942-1944","status":"unknown"}
-{"fn":"nosound_ambience","c":"1947-1950","status":"unknown"}
-{"fn":"nosound_verbal","c":"1953-1956","status":"unknown"}
-{"fn":"initialize_semap_basenames","c":"1981-1992","status":"unknown"}
-{"fn":"get_sound_effect_filename","c":"1995-2080","status":"unknown"}
+{"fn":"nosound_init_nhsound","c":"1917-1919","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"nosound_exit_nhsound","c":"1922-1924","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"nosound_achievement","c":"1927-1929","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"nosound_soundeffect","c":"1932-1934","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"nosound_hero_playnotes","c":"1937-1939","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"nosound_play_usersound","c":"1942-1944","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"nosound_ambience","c":"1947-1950","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"nosound_verbal","c":"1953-1956","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"initialize_semap_basenames","c":"1981-1992","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"get_sound_effect_filename","c":"1995-2080","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"base_soundname_to_filename","c":"2084-2152","status":"ported","js":["js/sounds.js:base_soundname_to_filename"],"d":["D-2776"],"at":"seed@a30a7de84"}
 {"fn":"set_voice","c":"2161-2182","status":"unknown","d":["D-1752"],"at":"seed@a30a7de84"}
 {"fn":"sound_speak","c":"2185-2220","status":"unknown","d":["D-1761"],"at":"seed@a30a7de84"}

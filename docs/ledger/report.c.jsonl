@@ -1,10 +1,10 @@
-{"fn":"crashreport_init","c":"113-174","status":"unknown"}
-{"fn":"crashreport_bidshow","c":"189-200","status":"unknown"}
-{"fn":"swr_add_uricoded","c":"237-281","status":"unknown"}
+{"fn":"crashreport_init","c":"113-174","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"crashreport_bidshow","c":"189-200","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"swr_add_uricoded","c":"237-281","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"submit_web_report","c":"290-458","status":"by-design","at":"seed@a30a7de84","note":"seed: network crash report (Rule #2)"}
-{"fn":"dobugreport","c":"461-471","status":"unknown"}
-{"fn":"NH_panictrace_libc","c":"485-512","status":"unknown"}
-{"fn":"NH_panictrace_gdb","c":"529-560","status":"unknown"}
-{"fn":"get_saved_pline","c":"571-592","status":"unknown"}
-{"fn":"panictrace_handler","c":"600-622","status":"unknown"}
-{"fn":"panictrace_setsignals","c":"625-657","status":"unknown"}
+{"fn":"dobugreport","c":"461-471","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"NH_panictrace_libc","c":"485-512","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"NH_panictrace_gdb","c":"529-560","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"get_saved_pline","c":"571-592","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"panictrace_handler","c":"600-622","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"panictrace_setsignals","c":"625-657","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}

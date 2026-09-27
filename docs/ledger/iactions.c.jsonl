@@ -1,5 +1,5 @@
 {"fn":"item_naming_classification","c":"46-82","status":"unknown"}
 {"fn":"item_reading_classification","c":"86-124","status":"unknown"}
-{"fn":"ia_addmenu","c":"127-136","status":"unknown"}
+{"fn":"ia_addmenu","c":"127-136","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"itemactions_pushkeys","c":"140-274","status":"ported","js":["js/iactions.js:itemactions_pushkeys"],"d":["D-2979"],"at":"2026-09-27@4ce18a4e0"}
 {"fn":"itemactions","c":"278-714","status":"unknown","d":["D-1884","D-1833"],"at":"seed@a30a7de84"}

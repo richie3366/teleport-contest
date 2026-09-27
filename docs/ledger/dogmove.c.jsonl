@@ -14,7 +14,7 @@
 {"fn":"dog_move","c":"977-1358","status":"partial","js":["js/dogmove.js:dog_move"],"omit":"remove/place_monster keep direct mx/my set (pre-existing shape — `m_at` scans fmon, grid tolerates mx/my-only moves); `dog_goal`/`dog_invent` local clones stay (own rows; D-2149 dog_goal open); `mhis` stays inline her/his; `stuff_prevents_passage` inside displace path stays deferred (can_fog map no…","d":["D-2455","D-2119"],"at":"seed@a30a7de84"}
 {"fn":"could_reach_item","c":"1362-1369","status":"unknown"}
 {"fn":"can_reach_location","c":"1379-1414","status":"unknown"}
-{"fn":"wantdoor","c":"1418-1427","status":"unknown"}
+{"fn":"wantdoor","c":"1418-1427","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"finish_meating","c":"1448-1457","status":"unknown"}
 {"fn":"mnum_leashable","c":"1462-1469","status":"unknown","d":["D-1959"],"at":"seed@a30a7de84"}
 {"fn":"quickmimic","c":"1472-1541","status":"partial","js":["js/dogmove.js:quickmimic"],"omit":"`m_consume_obj` tail stays stub (meatbox, uball/uchain unpunish, poly/slime newcham, grow_up, stoning, heal/eyes, pyrolisk egg, mon_givit).","d":["D-2488"],"at":"seed@a30a7de84"}

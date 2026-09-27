@@ -101,7 +101,7 @@
 {"fn":"pick_animal","c":"4855-4869","status":"unknown"}
 {"fn":"decide_to_shapeshift","c":"4872-4938","status":"unknown","d":["D-2254"],"at":"seed@a30a7de84"}
 {"fn":"pickvampshape","c":"4941-4979","status":"unknown"}
-{"fn":"isspecmon","c":"4983-4987","status":"unknown"}
+{"fn":"isspecmon","c":"4983-4987","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"validspecmon","c":"4993-5011","status":"unknown"}
 {"fn":"valid_vampshiftform","c":"5015-5023","status":"unknown"}
 {"fn":"validvamp","c":"5028-5075","status":"unknown"}
@@ -117,7 +117,7 @@
 {"fn":"kill_genocided_monsters","c":"5639-5677","status":"unknown"}
 {"fn":"golemeffects","c":"5680-5707","status":"unknown","d":["D-2735"],"at":"seed@a30a7de84"}
 {"fn":"angry_guards","c":"5711-5760","status":"unknown"}
-{"fn":"pacify_guard","c":"5763-5767","status":"unknown"}
+{"fn":"pacify_guard","c":"5763-5767","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"pacify_guards","c":"5770-5773","status":"unknown"}
 {"fn":"mimic_hit_msg","c":"5776-5793","status":"unknown"}
 {"fn":"usmellmon","c":"5796-5909","status":"unknown"}

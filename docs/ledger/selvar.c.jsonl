@@ -1,4 +1,4 @@
-{"fn":"selection_new","c":"15-30","status":"ported","js":["js/mklev.js:selection_new"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
+{"fn":"selection_new","c":"15-30","status":"ported","js":["js/mklev.js:selection_new"],"at":"2026-09-27@d2d72caa6","note":"refresh: audited — Set-backed empty state == C memset(map,1) (C stores c+1, so 1==unselected); bounds shape exact"}
 {"fn":"selection_free","c":"33-44","status":"unknown"}
 {"fn":"selection_clear","c":"48-62","status":"unknown"}
 {"fn":"selection_clone","c":"65-73","status":"unknown"}
@@ -20,7 +20,7 @@
 {"fn":"selection_do_line","c":"626-680","status":"unknown"}
 {"fn":"selection_do_randline","c":"683-723","status":"unknown"}
 {"fn":"selection_iterate","c":"726-743","status":"unknown"}
-{"fn":"selection_is_irregular","c":"747-760","status":"unknown"}
-{"fn":"selection_size_description","c":"764-778","status":"unknown"}
+{"fn":"selection_is_irregular","c":"747-760","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"selection_size_description","c":"764-778","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"selection_from_mkroom","c":"781-799","status":"unknown"}
-{"fn":"selection_force_newsyms","c":"802-810","status":"unknown"}
+{"fn":"selection_force_newsyms","c":"802-810","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}

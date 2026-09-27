@@ -1,3 +1,3 @@
-{"fn":"program_state_init","c":"1074-1077","status":"unknown"}
-{"fn":"decl_globals_init","c":"1080-1187","status":"unknown"}
-{"fn":"sa_victual","c":"1199-1203","status":"unknown"}
+{"fn":"program_state_init","c":"1074-1077","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"decl_globals_init","c":"1080-1187","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"sa_victual","c":"1199-1203","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}

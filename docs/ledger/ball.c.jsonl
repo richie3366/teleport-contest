@@ -7,10 +7,10 @@
 {"fn":"unplacebc","c":"212-219","status":"unknown","d":["D-1777"],"at":"seed@a30a7de84"}
 {"fn":"unplacebc_and_covet_placebc","c":"222-233","status":"unknown"}
 {"fn":"lift_covet_and_placebc","c":"236-254","status":"unknown"}
-{"fn":"Placebc","c":"259-284","status":"unknown"}
-{"fn":"Unplacebc","c":"287-303","status":"unknown"}
-{"fn":"Unplacebc_and_covet_placebc","c":"306-324","status":"unknown"}
-{"fn":"Lift_covet_and_placebc","c":"327-346","status":"unknown"}
+{"fn":"Placebc","c":"259-284","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"Unplacebc","c":"287-303","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"Unplacebc_and_covet_placebc","c":"306-324","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"Lift_covet_and_placebc","c":"327-346","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"bc_order","c":"354-371","status":"unknown"}
 {"fn":"set_bc","c":"380-424","status":"unknown"}
 {"fn":"move_bc","c":"437-556","status":"unknown","d":["D-1777"],"at":"seed@a30a7de84"}

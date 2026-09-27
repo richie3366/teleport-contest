@@ -1,89 +1,89 @@
-{"fn":"SF_X","c":"246-262","status":"unknown"}
+{"fn":"SF_X","c":"246-262","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"sfo_char","c":"249-262","status":"ported","js":["js/files.js:sfo_char"],"d":["D-2973"],"at":"2026-09-27@1c7c62258"}
-{"fn":"sfi_char","c":"265-287","status":"unknown"}
-{"fn":"sfo_genericptr","c":"290-304","status":"unknown"}
-{"fn":"sfi_genericptr","c":"306-327","status":"unknown"}
+{"fn":"sfi_char","c":"265-287","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"sfo_genericptr","c":"290-304","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"sfi_genericptr","c":"306-327","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"sfo_version_info","c":"330-346","status":"ported","js":["js/files.js:sfo_version_info"],"d":["D-2973"],"at":"2026-09-27@1c7c62258"}
-{"fn":"sfi_version_info","c":"348-372","status":"unknown"}
-{"fn":"sf_log","c":"377-404","status":"unknown"}
-{"fn":"sfvalue_any","c":"449-457","status":"unknown"}
-{"fn":"sfvalue_genericptr","c":"460-467","status":"unknown"}
-{"fn":"sfvalue_bitfield","c":"608-614","status":"unknown"}
-{"fn":"bitfield_dump","c":"617-623","status":"unknown"}
-{"fn":"complex_dump","c":"625-639","status":"unknown"}
-{"fn":"sf_init","c":"647-655","status":"unknown"}
-{"fn":"sf_setprocs","c":"658-662","status":"unknown"}
-{"fn":"sf_setflprocs","c":"664-669","status":"unknown"}
-{"fn":"norm_ptrs_any","c":"748-750","status":"unknown"}
-{"fn":"norm_ptrs_align","c":"752-754","status":"unknown"}
-{"fn":"norm_ptrs_arti_info","c":"757-759","status":"unknown"}
-{"fn":"norm_ptrs_attribs","c":"762-764","status":"unknown"}
-{"fn":"norm_ptrs_bill_x","c":"767-769","status":"unknown"}
-{"fn":"norm_ptrs_branch","c":"772-774","status":"unknown"}
-{"fn":"norm_ptrs_bubble","c":"777-779","status":"unknown"}
-{"fn":"norm_ptrs_cemetery","c":"782-784","status":"unknown"}
-{"fn":"norm_ptrs_context_info","c":"787-789","status":"unknown"}
-{"fn":"norm_ptrs_achievement_tracking","c":"792-794","status":"unknown"}
-{"fn":"norm_ptrs_book_info","c":"797-799","status":"unknown"}
-{"fn":"norm_ptrs_dig_info","c":"802-804","status":"unknown"}
-{"fn":"norm_ptrs_engrave_info","c":"807-809","status":"unknown"}
-{"fn":"norm_ptrs_obj_split","c":"812-814","status":"unknown"}
-{"fn":"norm_ptrs_polearm_info","c":"817-819","status":"unknown"}
-{"fn":"norm_ptrs_takeoff_info","c":"822-824","status":"unknown"}
-{"fn":"norm_ptrs_tin_info","c":"827-829","status":"unknown"}
-{"fn":"norm_ptrs_tribute_info","c":"832-834","status":"unknown"}
-{"fn":"norm_ptrs_victual_info","c":"837-839","status":"unknown"}
-{"fn":"norm_ptrs_warntype_info","c":"842-844","status":"unknown"}
-{"fn":"norm_ptrs_d_flags","c":"847-849","status":"unknown"}
-{"fn":"norm_ptrs_d_level","c":"852-854","status":"unknown"}
-{"fn":"norm_ptrs_damage","c":"857-859","status":"unknown"}
-{"fn":"norm_ptrs_dest_area","c":"862-864","status":"unknown"}
-{"fn":"norm_ptrs_dgn_topology","c":"867-869","status":"unknown"}
-{"fn":"norm_ptrs_dungeon","c":"872-874","status":"unknown"}
-{"fn":"norm_ptrs_ebones","c":"877-879","status":"unknown"}
-{"fn":"norm_ptrs_edog","c":"882-884","status":"unknown"}
-{"fn":"norm_ptrs_egd","c":"887-889","status":"unknown"}
-{"fn":"norm_ptrs_emin","c":"892-894","status":"unknown"}
-{"fn":"norm_ptrs_engr","c":"897-899","status":"unknown"}
-{"fn":"norm_ptrs_epri","c":"902-904","status":"unknown"}
-{"fn":"norm_ptrs_eshk","c":"907-909","status":"unknown"}
-{"fn":"norm_ptrs_fakecorridor","c":"912-914","status":"unknown"}
-{"fn":"norm_ptrs_fe","c":"917-919","status":"unknown"}
-{"fn":"norm_ptrs_flag","c":"922-924","status":"unknown"}
-{"fn":"norm_ptrs_fruit","c":"927-929","status":"unknown"}
-{"fn":"norm_ptrs_gamelog_line","c":"932-934","status":"unknown"}
-{"fn":"norm_ptrs_kinfo","c":"937-939","status":"unknown"}
-{"fn":"norm_ptrs_levelflags","c":"942-944","status":"unknown"}
-{"fn":"norm_ptrs_linfo","c":"947-949","status":"unknown"}
-{"fn":"norm_ptrs_ls_t","c":"952-954","status":"unknown"}
-{"fn":"norm_ptrs_mapseen_feat","c":"957-959","status":"unknown"}
-{"fn":"norm_ptrs_mapseen_flags","c":"962-964","status":"unknown"}
-{"fn":"norm_ptrs_mapseen_rooms","c":"967-969","status":"unknown"}
-{"fn":"norm_ptrs_mapseen","c":"972-974","status":"unknown"}
-{"fn":"norm_ptrs_mextra","c":"977-979","status":"unknown"}
-{"fn":"norm_ptrs_mkroom","c":"982-984","status":"unknown"}
-{"fn":"norm_ptrs_monst","c":"987-989","status":"unknown"}
-{"fn":"norm_ptrs_mvitals","c":"992-994","status":"unknown"}
-{"fn":"norm_ptrs_nhcoord","c":"997-999","status":"unknown"}
-{"fn":"norm_ptrs_nhrect","c":"1002-1004","status":"unknown"}
-{"fn":"norm_ptrs_novel_tracking","c":"1007-1009","status":"unknown"}
-{"fn":"norm_ptrs_obj","c":"1012-1014","status":"unknown"}
-{"fn":"norm_ptrs_objclass","c":"1017-1019","status":"unknown"}
-{"fn":"norm_ptrs_oextra","c":"1022-1024","status":"unknown"}
-{"fn":"norm_ptrs_prop","c":"1027-1029","status":"unknown"}
-{"fn":"norm_ptrs_q_score","c":"1032-1034","status":"unknown"}
-{"fn":"norm_ptrs_rm","c":"1037-1039","status":"unknown"}
-{"fn":"norm_ptrs_s_level","c":"1042-1044","status":"unknown"}
-{"fn":"norm_ptrs_skills","c":"1047-1049","status":"unknown"}
-{"fn":"norm_ptrs_spell","c":"1052-1054","status":"unknown"}
-{"fn":"norm_ptrs_stairway","c":"1057-1059","status":"unknown"}
-{"fn":"norm_ptrs_trap","c":"1062-1064","status":"unknown"}
-{"fn":"norm_ptrs_u_conduct","c":"1067-1069","status":"unknown"}
-{"fn":"norm_ptrs_u_event","c":"1072-1074","status":"unknown"}
-{"fn":"norm_ptrs_u_have","c":"1077-1079","status":"unknown"}
-{"fn":"norm_ptrs_u_realtime","c":"1082-1084","status":"unknown"}
-{"fn":"norm_ptrs_u_roleplay","c":"1087-1089","status":"unknown"}
-{"fn":"norm_ptrs_version_info","c":"1092-1094","status":"unknown"}
-{"fn":"norm_ptrs_vlaunchinfo","c":"1097-1099","status":"unknown"}
-{"fn":"norm_ptrs_vptrs","c":"1102-1104","status":"unknown"}
-{"fn":"norm_ptrs_you","c":"1107-1109","status":"unknown"}
+{"fn":"sfi_version_info","c":"348-372","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"sf_log","c":"377-404","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"sfvalue_any","c":"449-457","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"sfvalue_genericptr","c":"460-467","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"sfvalue_bitfield","c":"608-614","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"bitfield_dump","c":"617-623","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"complex_dump","c":"625-639","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"sf_init","c":"647-655","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"sf_setprocs","c":"658-662","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"sf_setflprocs","c":"664-669","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_any","c":"748-750","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_align","c":"752-754","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_arti_info","c":"757-759","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_attribs","c":"762-764","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_bill_x","c":"767-769","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_branch","c":"772-774","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_bubble","c":"777-779","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_cemetery","c":"782-784","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_context_info","c":"787-789","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_achievement_tracking","c":"792-794","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_book_info","c":"797-799","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_dig_info","c":"802-804","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_engrave_info","c":"807-809","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_obj_split","c":"812-814","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_polearm_info","c":"817-819","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_takeoff_info","c":"822-824","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_tin_info","c":"827-829","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_tribute_info","c":"832-834","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_victual_info","c":"837-839","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_warntype_info","c":"842-844","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_d_flags","c":"847-849","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_d_level","c":"852-854","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_damage","c":"857-859","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_dest_area","c":"862-864","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_dgn_topology","c":"867-869","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_dungeon","c":"872-874","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_ebones","c":"877-879","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_edog","c":"882-884","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_egd","c":"887-889","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_emin","c":"892-894","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_engr","c":"897-899","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_epri","c":"902-904","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_eshk","c":"907-909","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_fakecorridor","c":"912-914","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_fe","c":"917-919","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_flag","c":"922-924","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_fruit","c":"927-929","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_gamelog_line","c":"932-934","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_kinfo","c":"937-939","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_levelflags","c":"942-944","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_linfo","c":"947-949","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_ls_t","c":"952-954","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_mapseen_feat","c":"957-959","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_mapseen_flags","c":"962-964","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_mapseen_rooms","c":"967-969","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_mapseen","c":"972-974","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_mextra","c":"977-979","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_mkroom","c":"982-984","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_monst","c":"987-989","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_mvitals","c":"992-994","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_nhcoord","c":"997-999","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_nhrect","c":"1002-1004","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_novel_tracking","c":"1007-1009","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_obj","c":"1012-1014","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_objclass","c":"1017-1019","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_oextra","c":"1022-1024","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_prop","c":"1027-1029","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_q_score","c":"1032-1034","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_rm","c":"1037-1039","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_s_level","c":"1042-1044","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_skills","c":"1047-1049","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_spell","c":"1052-1054","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_stairway","c":"1057-1059","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_trap","c":"1062-1064","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_u_conduct","c":"1067-1069","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_u_event","c":"1072-1074","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_u_have","c":"1077-1079","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_u_realtime","c":"1082-1084","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_u_roleplay","c":"1087-1089","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_version_info","c":"1092-1094","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_vlaunchinfo","c":"1097-1099","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_vptrs","c":"1102-1104","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"norm_ptrs_you","c":"1107-1109","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}

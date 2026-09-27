@@ -9,11 +9,11 @@
 {"fn":"propagate","c":"958-982","status":"unknown"}
 {"fn":"monhp_per_lvl","c":"986-1007","status":"unknown","d":["D-2719"],"at":"seed@a30a7de84"}
 {"fn":"newmonhp","c":"1012-1054","status":"unknown","d":["D-2163","D-2017"],"at":"seed@a30a7de84"}
-{"fn":"init_mextra","c":"1059-1063","status":"unknown"}
+{"fn":"init_mextra","c":"1059-1063","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"newmextra","c":"1066-1073","status":"unknown"}
 {"fn":"makemon_rnd_goodpos","c":"1076-1137","status":"unknown","d":["D-2264"],"at":"seed@a30a7de84"}
 {"fn":"makemon","c":"1147-1510","status":"unknown","d":["D-2421","D-2299","D-2139","D-2001"],"at":"seed@a30a7de84"}
-{"fn":"unmakemon","c":"1514-1539","status":"unknown"}
+{"fn":"unmakemon","c":"1514-1539","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"mbirth_limit","c":"1542-1551","status":"unknown"}
 {"fn":"create_critters","c":"1556-1590","status":"unknown"}
 {"fn":"uncommon","c":"1593-1603","status":"unknown"}
@@ -22,10 +22,10 @@
 {"fn":"rndmonst","c":"1652-1655","status":"unknown"}
 {"fn":"rndmonst_adj","c":"1659-1732","status":"ported","js":["js/makemon.js:rndmonst_adj"],"d":["D-2823","D-1566"],"at":"seed@a30a7de84"}
 {"fn":"mk_gen_ok","c":"1736-1752","status":"unknown"}
-{"fn":"cmp_init_mongen_order","c":"1760-1777","status":"unknown"}
-{"fn":"check_mongen_order","c":"1783-1802","status":"unknown"}
+{"fn":"cmp_init_mongen_order","c":"1760-1777","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"check_mongen_order","c":"1783-1802","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"init_mongen_order","c":"1807-1828","status":"unknown"}
-{"fn":"dump_mongen","c":"1835-1866","status":"unknown"}
+{"fn":"dump_mongen","c":"1835-1866","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"mkclass","c":"1873-1876","status":"unknown"}
 {"fn":"mkclass_aligned","c":"1880-1974","status":"unknown"}
 {"fn":"mkclass_poly","c":"1983-2012","status":"unknown"}
@@ -39,4 +39,4 @@
 {"fn":"freemcorpsenm","c":"2379-2383","status":"unknown"}
 {"fn":"set_mimic_sym","c":"2393-2550","status":"unknown","d":["D-1564","D-1557","D-1556","D-1543","D-1536","D-1525"],"at":"seed@a30a7de84"}
 {"fn":"bagotricks","c":"2554-2601","status":"unknown","d":["D-2354"],"at":"seed@a30a7de84"}
-{"fn":"summon_furies","c":"2605-2612","status":"unknown"}
+{"fn":"summon_furies","c":"2605-2612","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}

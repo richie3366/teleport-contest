@@ -10,7 +10,7 @@
 {"fn":"resists_blnd","c":"248-272","status":"unknown"}
 {"fn":"resists_blnd_by_arti","c":"278-298","status":"unknown"}
 {"fn":"can_blnd","c":"305-398","status":"ported","js":["js/uhitm.js:can_blnd"],"d":["D-2604"],"at":"seed@a30a7de84"}
-{"fn":"ranged_attk","c":"402-410","status":"unknown"}
+{"fn":"ranged_attk","c":"402-410","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"mstrength","c":"428-497","status":"unknown"}
 {"fn":"mstrength_ranged_attk","c":"501-512","status":"unknown"}
 {"fn":"mon_hates_silver","c":"517-520","status":"unknown"}

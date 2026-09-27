@@ -1,6 +1,6 @@
 {"fn":"hack_artifacts","c":"87-107","status":"unknown"}
 {"fn":"init_artifacts","c":"111-116","status":"unknown","d":["D-1201"],"at":"seed@a30a7de84"}
-{"fn":"save_artifacts","c":"119-128","status":"unknown"}
+{"fn":"save_artifacts","c":"119-128","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"restore_artifacts","c":"133-146","status":"unknown"}
 {"fn":"artiname","c":"151-156","status":"unknown"}
 {"fn":"mk_artifact","c":"172-309","status":"unknown","d":["D-2337"],"at":"seed@a30a7de84"}
@@ -23,7 +23,7 @@
 {"fn":"protects","c":"698-709","status":"unknown"}
 {"fn":"set_artifact_intrinsic","c":"716-893","status":"unknown","d":["D-2378"],"at":"seed@a30a7de84"}
 {"fn":"touch_artifact","c":"908-974","status":"unknown","d":["D-2172","D-2134","D-2010"],"at":"seed@a30a7de84"}
-{"fn":"arti_immune","c":"979-990","status":"unknown"}
+{"fn":"arti_immune","c":"979-990","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"bane_applies","c":"993-1005","status":"unknown"}
 {"fn":"spec_applies","c":"1009-1060","status":"unknown"}
 {"fn":"spec_m2","c":"1065-1072","status":"unknown"}
@@ -52,12 +52,12 @@
 {"fn":"arti_invoke_cost_pw","c":"2091-2102","status":"unknown"}
 {"fn":"arti_invoke_cost","c":"2106-2128","status":"unknown"}
 {"fn":"arti_invoke","c":"2131-2232","status":"partial","js":["js/artifact.js:arti_invoke"],"omit":"`retouch_equipment` callers stay at the old comments: `attrib.c:1360` (`js/attrib.js:825`), `eat.c:1325` (`js/eat.js:2019`), `polyself.c:463` (`js/polyself.js:1070`), `polyself.c:1021` (`js/polyself.js:1739`), `polyself.c:1415` (`js/polyself.js:1126`), `uhitm.c:4285` (`js/mhitu.js:2853`).","d":["D-2805","D-2371"],"at":"seed@a30a7de84"}
-{"fn":"finesse_ahriman","c":"2236-2260","status":"unknown"}
+{"fn":"finesse_ahriman","c":"2236-2260","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"artifact_light","c":"2264-2275","status":"unknown"}
-{"fn":"arti_speak","c":"2279-2296","status":"unknown"}
+{"fn":"arti_speak","c":"2279-2296","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"artifact_has_invprop","c":"2299-2305","status":"unknown"}
 {"fn":"arti_cost","c":"2309-2317","status":"ported","js":["js/artifact.js:arti_cost"],"at":"seed@a30a7de84","note":"stale 2026-09-14"}
-{"fn":"abil_to_adtyp","c":"2320-2341","status":"unknown"}
+{"fn":"abil_to_adtyp","c":"2320-2341","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"abil_to_spfx","c":"2344-2370","status":"unknown"}
 {"fn":"what_gives","c":"2376-2424","status":"unknown"}
 {"fn":"glow_color","c":"2427-2433","status":"unknown"}

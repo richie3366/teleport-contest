@@ -14,7 +14,7 @@
 {"fn":"all_but_uchain","c":"509-512","status":"unknown"}
 {"fn":"allow_all","c":"517-520","status":"unknown"}
 {"fn":"allow_category","c":"523-592","status":"ported","js":["js/pickup.js:allow_category"],"d":["D-2814"],"at":"seed@a30a7de84"}
-{"fn":"allow_cat_no_uchain","c":"597-604","status":"unknown"}
+{"fn":"allow_cat_no_uchain","c":"597-604","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"is_worn_by_type","c":"609-612","status":"unknown"}
 {"fn":"reset_justpicked","c":"616-632","status":"ported","js":["js/pickup.js:reset_justpicked"],"d":["D-2945"],"at":"seed@a30a7de84"}
 {"fn":"count_justpicked","c":"635-645","status":"unknown"}
@@ -51,7 +51,7 @@
 {"fn":"removed_from_icebox","c":"2781-2799","status":"unknown"}
 {"fn":"mbag_item_gone","c":"2803-2822","status":"unknown"}
 {"fn":"observe_quantum_cat","c":"2826-2897","status":"unknown","d":["D-1535"],"at":"seed@a30a7de84"}
-{"fn":"container_gone","c":"2903-2908","status":"unknown"}
+{"fn":"container_gone","c":"2903-2908","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"explain_container_prompt","c":"2911-2940","status":"unknown"}
 {"fn":"u_handsy","c":"2943-2953","status":"unknown"}
 {"fn":"stash_ok","c":"2957-2969","status":"unknown"}
@@ -63,6 +63,6 @@
 {"fn":"choose_tip_container_menu","c":"3505-3558","status":"unknown","d":["D-1679"],"at":"seed@a30a7de84"}
 {"fn":"dotip","c":"3562-3677","status":"unknown"}
 {"fn":"tipcontainer","c":"3688-3841","status":"ported","js":["js/pickup.js:tipcontainer"],"d":["D-2612"],"at":"seed@a30a7de84"}
-{"fn":"count_target_containers","c":"3849-3864","status":"unknown"}
+{"fn":"count_target_containers","c":"3849-3864","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"tipcontainer_gettarget","c":"3871-3948","status":"unknown","d":["D-2082","D-2018"],"at":"seed@a30a7de84"}
 {"fn":"tipcontainer_checks","c":"3954-4055","status":"unknown"}

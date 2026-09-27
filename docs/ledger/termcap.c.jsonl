@@ -28,7 +28,7 @@
 {"fn":"init_hilite","c":"938-1035","status":"unknown","note":"alt 1160-1240 1266-1307"}
 {"fn":"kill_hilite","c":"1038-1092","status":"unknown","note":"alt 1243-1258 1310-1334"}
 {"fn":"analyze_seq","c":"1099-1150","status":"unknown"}
-{"fn":"s_atr2str","c":"1340-1376","status":"partial","omit":"`s_atr2str` is not a general export.","d":["D-2810"],"at":"seed@a30a7de84","note":"seed: js location unresolved"}
+{"fn":"s_atr2str","c":"1340-1376","status":"partial","js":["js/display.js:petattr_to_tty"],"omit":"`s_atr2str` is not a general export.","d":["D-2810"],"at":"2026-09-27@d2d72caa6","note":"refresh: ANSI-default arms inline in petattr_to_tty (display.js:316); omit unchanged (D-2810)"}
 {"fn":"e_atr2str","c":"1379-1406","status":"unknown"}
 {"fn":"term_attr_fixup","c":"1411-1428","status":"unknown"}
 {"fn":"term_start_attr","c":"1431-1439","status":"unknown"}

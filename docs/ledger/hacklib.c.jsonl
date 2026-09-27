@@ -5,19 +5,19 @@
 {"fn":"lcase","c":"90-98","status":"unknown"}
 {"fn":"ucase","c":"102-110","status":"unknown"}
 {"fn":"upstart","c":"114-119","status":"unknown"}
-{"fn":"upwords","c":"123-138","status":"unknown"}
+{"fn":"upwords","c":"123-138","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"mungspaces","c":"142-160","status":"ported","js":["js/hacklib.js:mungspaces"],"d":["D-2967"],"at":"2026-09-27@b43d2c68f"}
 {"fn":"trimspaces","c":"164-176","status":"unknown"}
 {"fn":"strip_newline","c":"180-190","status":"unknown"}
 {"fn":"eos","c":"194-199","status":"unknown"}
-{"fn":"c_eos","c":"203-208","status":"unknown"}
+{"fn":"c_eos","c":"203-208","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"str_start_is","c":"213-237","status":"unknown"}
 {"fn":"str_end_is","c":"241-248","status":"unknown"}
 {"fn":"str_lines_maxlen","c":"252-272","status":"unknown"}
 {"fn":"strkitten","c":"276-283","status":"unknown"}
 {"fn":"copynchars","c":"287-297","status":"unknown"}
 {"fn":"chrcasecpy","c":"301-317","status":"unknown"}
-{"fn":"strcasecpy","c":"323-341","status":"unknown"}
+{"fn":"strcasecpy","c":"323-341","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"s_suffix","c":"345-359","status":"unknown","d":["D-2268"],"at":"seed@a30a7de84"}
 {"fn":"ing_suffix","c":"363-396","status":"unknown"}
 {"fn":"xcrypt","c":"400-415","status":"unknown"}
@@ -30,7 +30,7 @@
 {"fn":"strNsubst","c":"557-597","status":"unknown"}
 {"fn":"findword","c":"601-621","status":"unknown"}
 {"fn":"ordin","c":"625-631","status":"unknown"}
-{"fn":"sitoa","c":"638-644","status":"unknown"}
+{"fn":"sitoa","c":"638-644","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"sgn","c":"650-653","status":"unknown"}
 {"fn":"distmin","c":"657-669","status":"unknown"}
 {"fn":"dist2","c":"673-678","status":"unknown"}
@@ -40,9 +40,9 @@
 {"fn":"strstri","c":"740-779","status":"partial","js":["js/hacklib.js:strstri"],"omit":"`apply.c:1412` (the attach prompt at `js/apply.js:4813` is built without the ` to\\033` strip).","d":["D-2877"],"at":"seed@a30a7de84"}
 {"fn":"fuzzymatch","c":"785-808","status":"unknown"}
 {"fn":"swapbits","c":"832-837","status":"unknown"}
-{"fn":"nh_snprintf","c":"854-875","status":"unknown"}
+{"fn":"nh_snprintf","c":"854-875","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"unicodeval_to_utf8str","c":"882-919","status":"partial","js":["js/hacklib.js:unicodeval_to_utf8str"],"omit":"`to_custom_symset_entry_callback` (`glyphs.c:52–104`, call at `:70`) plus `unicode_val` (`utf8map.c:18–34`) and `add_custom_urep_entry` (`utf8map.c:148–207`) stay the unported customization writer (`ENHANCED_SYMBOLS` is on).","d":["D-2892"],"at":"seed@a30a7de84"}
 {"fn":"case_insensitive_comp","c":"922-937","status":"unknown"}
-{"fn":"copy_bytes","c":"946-961","status":"unknown"}
+{"fn":"copy_bytes","c":"946-961","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"datamodel","c":"982-997","status":"unknown"}
 {"fn":"what_datamodel_is_this","c":"1000-1013","status":"unknown"}

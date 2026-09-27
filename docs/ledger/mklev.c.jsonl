@@ -1,4 +1,4 @@
-{"fn":"mkroom_cmp","c":"60-69","status":"unknown"}
+{"fn":"mkroom_cmp","c":"60-69","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"good_rm_wall_doorpos","c":"73-102","status":"unknown"}
 {"fn":"finddpos_shift","c":"106-141","status":"unknown"}
 {"fn":"finddpos","c":"147-205","status":"ported","js":["js/mklev.js:finddpos"],"at":"seed@a30a7de84","note":"stale 2026-09-19"}
@@ -6,7 +6,7 @@
 {"fn":"do_room_or_subroom","c":"231-301","status":"unknown"}
 {"fn":"add_room","c":"304-319","status":"unknown"}
 {"fn":"add_subroom","c":"322-342","status":"unknown"}
-{"fn":"free_luathemes","c":"345-364","status":"unknown"}
+{"fn":"free_luathemes","c":"345-364","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"makerooms","c":"367-436","status":"partial","js":["js/mklev.js:makerooms"],"omit":"lua runtime (`nhl_init`/`nhl_loadlua`/`nhl_done`/`nhl_pcall_handle`/`lua_getglobal` — rooms compiled in, no lua by architecture); `create_des_coder` (its SpLev_Map memset already runs in `reset_xystart_size`); `iflags.in_lua` (error-message flag, no JS counterpart); THEMERM/THEMERMFILL debug room/f…","d":["D-2519"],"at":"seed@a30a7de84"}
 {"fn":"join","c":"439-518","status":"ported","js":["js/mklev.js:join"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
 {"fn":"makecorridors","c":"522-552","status":"unknown"}
@@ -17,7 +17,7 @@
 {"fn":"place_niche","c":"701-725","status":"unknown"}
 {"fn":"makeniche","c":"740-799","status":"unknown"}
 {"fn":"make_niches","c":"802-818","status":"unknown"}
-{"fn":"makevtele","c":"821-824","status":"unknown"}
+{"fn":"makevtele","c":"821-824","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"count_level_features","c":"828-842","status":"unknown"}
 {"fn":"clear_level_structures","c":"850-927","status":"unknown"}
 {"fn":"fill_ordinary_room","c":"939-1171","status":"partial","js":["js/mklev.js:fill_ordinary_room"],"omit":"`set_levltyp` full `count_level_features` recount (`mkmaze.c:106–108`) — C recounts then `nsinks++`/`nfountains++` (net actual+1); `js/` keeps incremental counts per the named recount omit on trap.js `set_levltyp` (wizard-#terrain exact counts only; `sounds.c:220` audibility gate unaffected); pre-e…","d":["D-2469"],"at":"seed@a30a7de84"}
@@ -31,7 +31,7 @@
 {"fn":"mklev","c":"1577-1593","status":"unknown"}
 {"fn":"topologize","c":"1597-1656","status":"ported","js":["js/mklev.js:topologize"],"d":["D-2597"],"at":"seed@a30a7de84","note":"alt 1599-1656"}
 {"fn":"find_branch_room","c":"1660-1673","status":"unknown"}
-{"fn":"pos_to_room","c":"1677-1687","status":"unknown"}
+{"fn":"pos_to_room","c":"1677-1687","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"place_branch","c":"1691-1747","status":"unknown"}
 {"fn":"bydoor","c":"1750-1775","status":"unknown"}
 {"fn":"okdoor","c":"1779-1789","status":"unknown"}

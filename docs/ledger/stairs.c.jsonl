@@ -1,7 +1,7 @@
 {"fn":"stairway_add","c":"8-24","status":"unknown"}
 {"fn":"stairway_free_all","c":"27-37","status":"unknown"}
 {"fn":"stairway_at","c":"40-47","status":"unknown"}
-{"fn":"stairway_find","c":"50-61","status":"unknown"}
+{"fn":"stairway_find","c":"50-61","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"stairway_find_from","c":"64-76","status":"unknown"}
 {"fn":"stairway_find_dir","c":"79-86","status":"unknown"}
 {"fn":"stairway_find_type_dir","c":"89-96","status":"unknown"}

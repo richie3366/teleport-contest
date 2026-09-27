@@ -1,6 +1,6 @@
-{"fn":"unicode_val","c":"18-34","status":"unknown"}
-{"fn":"set_map_u","c":"37-56","status":"unknown"}
-{"fn":"free_all_glyphmap_u","c":"59-80","status":"unknown"}
-{"fn":"mixed_to_utf8","c":"86-145","status":"unknown"}
-{"fn":"add_custom_urep_entry","c":"148-207","status":"unknown"}
-{"fn":"reset_customsymbols","c":"211-217","status":"unknown"}
+{"fn":"unicode_val","c":"18-34","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"set_map_u","c":"37-56","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"free_all_glyphmap_u","c":"59-80","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"mixed_to_utf8","c":"86-145","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"add_custom_urep_entry","c":"148-207","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"reset_customsymbols","c":"211-217","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}

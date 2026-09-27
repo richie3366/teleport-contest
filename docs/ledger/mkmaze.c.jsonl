@@ -1,5 +1,5 @@
-{"fn":"iswall","c":"45-55","status":"unknown"}
-{"fn":"iswall_or_stone","c":"59-66","status":"unknown"}
+{"fn":"iswall","c":"45-55","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"iswall_or_stone","c":"59-66","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"is_solid","c":"70-73","status":"unknown"}
 {"fn":"set_levltyp","c":"77-121","status":"unknown"}
 {"fn":"set_levltyp_lit","c":"125-145","status":"partial","js":["js/trap.js:set_levltyp_lit"],"omit":"Boolean `false` passed to `sel_set_ter` is still `SET_LIT_NOCHANGE`.","d":["D-2870"],"at":"seed@a30a7de84"}
@@ -7,7 +7,7 @@
 {"fn":"wall_cleanup","c":"198-225","status":"unknown"}
 {"fn":"fix_wall_spines","c":"229-287","status":"unknown"}
 {"fn":"wallification","c":"290-294","status":"unknown"}
-{"fn":"okay","c":"297-305","status":"unknown"}
+{"fn":"okay","c":"297-305","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"maze0xy","c":"309-314","status":"unknown"}
 {"fn":"is_exclusion_zone","c":"317-332","status":"unknown"}
 {"fn":"bad_location","c":"341-351","status":"unknown"}
@@ -15,7 +15,7 @@
 {"fn":"put_lregion_here","c":"413-469","status":"unknown","d":["D-2836"],"at":"seed@a30a7de84"}
 {"fn":"baalz_fixup","c":"475-566","status":"unknown"}
 {"fn":"fixup_special","c":"570-704","status":"partial","js":["js/mklev.js:fixup_special"],"omit":"The branch fallback still requires `!game.made_branch`.","d":["D-2841"],"at":"seed@a30a7de84"}
-{"fn":"check_ransacked","c":"707-711","status":"unknown"}
+{"fn":"check_ransacked","c":"707-711","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"migrate_orc","c":"717-745","status":"unknown","d":["D-2419"],"at":"seed@a30a7de84"}
 {"fn":"shiny_orc_stuff","c":"748-777","status":"unknown"}
 {"fn":"migr_booty_item","c":"780-796","status":"unknown"}

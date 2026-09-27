@@ -7,7 +7,7 @@
 {"fn":"change_luck","c":"411-418","status":"unknown"}
 {"fn":"stone_luck","c":"423-437","status":"unknown"}
 {"fn":"set_moreluck","c":"441-451","status":"unknown"}
-{"fn":"restore_attrib","c":"455-484","status":"unknown"}
+{"fn":"restore_attrib","c":"455-484","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"exercise","c":"489-518","status":"unknown","d":["D-2169","D-2023","D-1994","D-1993"],"at":"seed@a30a7de84"}
 {"fn":"exerper","c":"521-584","status":"unknown"}
 {"fn":"exerchk","c":"598-677","status":"unknown"}
@@ -16,7 +16,7 @@
 {"fn":"init_attr","c":"723-737","status":"unknown"}
 {"fn":"redist_attr","c":"740-760","status":"ported","js":["js/attrib.js:redist_attr"],"d":["D-2954"],"at":"seed@a30a7de84"}
 {"fn":"vary_init_attr","c":"764-776","status":"unknown"}
-{"fn":"postadjabil","c":"780-786","status":"unknown"}
+{"fn":"postadjabil","c":"780-786","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"role_abil","c":"789-815","status":"unknown"}
 {"fn":"check_innate_abil","c":"818-851","status":"unknown"}
 {"fn":"innately","c":"864-877","status":"unknown"}

@@ -2,20 +2,20 @@
 {"fn":"timed_occupation","c":"172-178","status":"unknown"}
 {"fn":"reset_occupations","c":"195-200","status":"unknown"}
 {"fn":"set_occupation","c":"206-216","status":"unknown"}
-{"fn":"cmdq_print","c":"220-249","status":"unknown"}
+{"fn":"cmdq_print","c":"220-249","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cmdq_add_ec","c":"254-270","status":"ported","js":["js/cmd.js:cmdq_add_ec"],"d":["D-2977","D-2976"],"at":"2026-09-27@25beec7af"}
 {"fn":"cmdq_add_key","c":"274-290","status":"ported","js":["js/invent.js:cmdq_add_key"],"d":["D-2976"],"at":"2026-09-27@b3da2ae0e"}
 {"fn":"cmdq_add_dir","c":"294-312","status":"unknown"}
 {"fn":"cmdq_add_userinput","c":"316-331","status":"unknown"}
 {"fn":"cmdq_add_int","c":"335-351","status":"unknown"}
 {"fn":"cmdq_shift","c":"355-370","status":"ported","js":["js/cmd.js:cmdq_shift"],"at":"2026-09-27@e61bdd324","note":"stale: js/cmd.js:400"}
-{"fn":"cmdq_reverse","c":"373-384","status":"unknown"}
+{"fn":"cmdq_reverse","c":"373-384","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cmdq_copy","c":"387-404","status":"unknown"}
 {"fn":"cmdq_pop","c":"410-420","status":"unknown"}
 {"fn":"cmdq_peek","c":"424-427","status":"unknown"}
 {"fn":"cmdq_clear","c":"431-442","status":"unknown"}
 {"fn":"pgetchar","c":"445-453","status":"unknown"}
-{"fn":"extcmd_initiator","c":"457-460","status":"unknown"}
+{"fn":"extcmd_initiator","c":"457-460","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"can_do_extcmd","c":"463-489","status":"partial","js":["js/cmd.js:can_do_extcmd"],"omit":"`lua_getglobal`, `lua_pushstring`, `lua_toboolean`, `lua_settop`, and `nhl_pcall_handle` are the Lua stack.","d":["D-2899"],"at":"seed@a30a7de84"}
 {"fn":"doextcmd","c":"493-520","status":"unknown"}
 {"fn":"doc_extcmd_flagstr","c":"524-557","status":"unknown"}
@@ -24,7 +24,7 @@
 {"fn":"domonability","c":"890-949","status":"unknown"}
 {"fn":"enter_explore_mode","c":"952-983","status":"partial","js":["js/cmd.js:enter_explore_mode"],"omit":"`get_unix_pw` (`unixmain.c:731–760`) returns null: scored ESM has no passwd database.","d":["D-2845"],"at":"seed@a30a7de84"}
 {"fn":"makemap_prepost","c":"986-1067","status":"unknown","d":["D-2295"],"at":"seed@a30a7de84"}
-{"fn":"levltyp_to_name","c":"1089-1094","status":"unknown"}
+{"fn":"levltyp_to_name","c":"1089-1094","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"doterrain","c":"1098-1191","status":"unknown"}
 {"fn":"u_have_seen_whole_selection","c":"1195-1209","status":"unknown"}
 {"fn":"u_have_seen_bounds_selection","c":"1213-1242","status":"unknown"}
@@ -42,41 +42,41 @@
 {"fn":"do_move_southeast","c":"1439-1443","status":"unknown"}
 {"fn":"do_move_south","c":"1446-1450","status":"unknown"}
 {"fn":"do_move_southwest","c":"1453-1457","status":"unknown"}
-{"fn":"do_rush_west","c":"1461-1465","status":"unknown"}
-{"fn":"do_rush_northwest","c":"1468-1472","status":"unknown"}
-{"fn":"do_rush_north","c":"1475-1479","status":"unknown"}
-{"fn":"do_rush_northeast","c":"1482-1486","status":"unknown"}
-{"fn":"do_rush_east","c":"1489-1493","status":"unknown"}
-{"fn":"do_rush_southeast","c":"1496-1500","status":"unknown"}
-{"fn":"do_rush_south","c":"1503-1507","status":"unknown"}
-{"fn":"do_rush_southwest","c":"1510-1514","status":"unknown"}
-{"fn":"do_run_west","c":"1518-1522","status":"unknown"}
-{"fn":"do_run_northwest","c":"1525-1529","status":"unknown"}
-{"fn":"do_run_north","c":"1532-1536","status":"unknown"}
-{"fn":"do_run_northeast","c":"1539-1543","status":"unknown"}
-{"fn":"do_run_east","c":"1546-1550","status":"unknown"}
-{"fn":"do_run_southeast","c":"1553-1557","status":"unknown"}
-{"fn":"do_run_south","c":"1560-1564","status":"unknown"}
-{"fn":"do_run_southwest","c":"1567-1571","status":"unknown"}
+{"fn":"do_rush_west","c":"1461-1465","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"do_rush_northwest","c":"1468-1472","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"do_rush_north","c":"1475-1479","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"do_rush_northeast","c":"1482-1486","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"do_rush_east","c":"1489-1493","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"do_rush_southeast","c":"1496-1500","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"do_rush_south","c":"1503-1507","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"do_rush_southwest","c":"1510-1514","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"do_run_west","c":"1518-1522","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"do_run_northwest","c":"1525-1529","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"do_run_north","c":"1532-1536","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"do_run_northeast","c":"1539-1543","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"do_run_east","c":"1546-1550","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"do_run_southeast","c":"1553-1557","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"do_run_south","c":"1560-1564","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"do_run_southwest","c":"1567-1571","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"do_reqmenu","c":"1575-1586","status":"unknown"}
 {"fn":"do_rush","c":"1590-1602","status":"unknown"}
 {"fn":"do_run","c":"1606-1618","status":"unknown"}
 {"fn":"do_fight","c":"1622-1634","status":"unknown"}
 {"fn":"do_repeat","c":"1638-1660","status":"unknown"}
-{"fn":"extcmds_getentry","c":"2101-2106","status":"unknown"}
+{"fn":"extcmds_getentry","c":"2101-2106","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cmdbind_get","c":"2110-2123","status":"ported","js":["js/dokeylist.js:cmdbind_get"],"at":"2026-09-27@45ea89017","note":"stale: js/dokeylist.js:306"}
 {"fn":"cmdbind_add","c":"2126-2155","status":"unknown"}
 {"fn":"cmdbind_remove","c":"2158-2177","status":"unknown"}
-{"fn":"cmdbind_freeall","c":"2180-2191","status":"unknown"}
+{"fn":"cmdbind_freeall","c":"2180-2191","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cmdbind_swapkeys","c":"2195-2204","status":"unknown"}
 {"fn":"count_bind_keys","c":"2208-2231","status":"unknown"}
 {"fn":"get_changed_key_binds","c":"2235-2287","status":"unknown","d":["D-2550"],"at":"seed@a30a7de84"}
 {"fn":"handler_rebind_keys_add","c":"2291-2405","status":"unknown"}
 {"fn":"handler_rebind_keys","c":"2408-2446","status":"partial","js":["js/cmd.js:handler_rebind_keys"],"omit":"`bind->param` store (overlay is name-only; CMD_PARAM display already named in `dokeylist.js` header); C key-0+param NULL-deref crash path (JS stays total); `commands_init`/`reset_commands` `cmdbind_add`/`_remove` callers (pre-existing equivalents); C `Strcat`-onto-uninit wart read as assignment.","d":["D-2762"],"at":"seed@a30a7de84"}
-{"fn":"handler_change_autocompletions","c":"2449-2515","status":"unknown"}
+{"fn":"handler_change_autocompletions","c":"2449-2515","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"extcmds_match","c":"2523-2558","status":"unknown"}
 {"fn":"key2extcmddesc","c":"2561-2621","status":"unknown","d":["D-2702"],"at":"seed@a30a7de84"}
-{"fn":"bind_mousebtn","c":"2624-2659","status":"unknown"}
+{"fn":"bind_mousebtn","c":"2624-2659","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"bind_key","c":"2662-2728","status":"unknown"}
 {"fn":"bind_key_fn","c":"2732-2746","status":"unknown"}
 {"fn":"commands_init","c":"2750-2782","status":"unknown"}
@@ -87,21 +87,21 @@
 {"fn":"cmd_from_dir","c":"3029-3032","status":"unknown"}
 {"fn":"cmd_from_func","c":"3036-3066","status":"partial","js":["js/dokeylist.js:cmd_from_func"],"omit":"`lua_getglobal`, `lua_pushstring`, `lua_toboolean`, `lua_settop`, and `nhl_pcall_handle` are the Lua stack.","d":["D-2899"],"at":"seed@a30a7de84"}
 {"fn":"cmd_from_ecname","c":"3071-3089","status":"unknown"}
-{"fn":"ecname_from_fn","c":"3092-3102","status":"unknown"}
+{"fn":"ecname_from_fn","c":"3092-3102","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"cmdname_from_func","c":"3106-3155","status":"unknown"}
-{"fn":"bind_specialkey","c":"3194-3205","status":"unknown"}
-{"fn":"spkey_name","c":"3208-3220","status":"unknown"}
+{"fn":"bind_specialkey","c":"3194-3205","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"spkey_name","c":"3208-3220","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"key2txt","c":"3225-3240","status":"unknown"}
-{"fn":"parseautocomplete","c":"3244-3292","status":"unknown"}
+{"fn":"parseautocomplete","c":"3244-3292","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"all_options_autocomplete","c":"3296-3308","status":"unknown"}
-{"fn":"count_autocompletions","c":"3312-3322","status":"unknown"}
-{"fn":"lock_mouse_buttons","c":"3326-3340","status":"unknown"}
+{"fn":"count_autocompletions","c":"3312-3322","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"lock_mouse_buttons","c":"3326-3340","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"reset_commands","c":"3344-3476","status":"partial","js":["js/cmd.js:reset_commands"],"omit":"`bind_mousebtn` (`cmd.c:2624`, called from `commands_init` `:2752–2753`); `click_to_cmd` still reads `game.Cmd.mousebtn` and stays inert.","d":["D-2861"],"at":"seed@a30a7de84"}
 {"fn":"update_rest_on_space","c":"3483-3503","status":"unknown"}
 {"fn":"accept_menu_prefix","c":"3509-3512","status":"unknown"}
 {"fn":"randomkey","c":"3517-3578","status":"partial","js":["js/cmd.js:randomkey"],"omit":"`readchar_core` fuzzer arm (`cmd.c:5218`); `wintty.c:4068` tty fuzzer arm.","d":["D-2480"],"at":"seed@a30a7de84"}
 {"fn":"random_response","c":"3581-3598","status":"unknown"}
-{"fn":"rnd_extcmd_idx","c":"3601-3604","status":"unknown"}
+{"fn":"rnd_extcmd_idx","c":"3601-3604","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"reset_cmd_vars","c":"3607-3624","status":"unknown"}
 {"fn":"rhack","c":"3627-3843","status":"unknown","d":["D-2306"],"at":"seed@a30a7de84"}
 {"fn":"xytodir","c":"3847-3855","status":"unknown"}
@@ -117,11 +117,11 @@
 {"fn":"directionname","c":"4313-4323","status":"unknown"}
 {"fn":"isok","c":"4326-4330","status":"unknown"}
 {"fn":"doherecmdmenu","c":"4334-4339","status":"unknown"}
-{"fn":"dotherecmdmenu","c":"4343-4375","status":"unknown"}
+{"fn":"dotherecmdmenu","c":"4343-4375","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"mcmd_addmenu","c":"4421-4431","status":"unknown"}
 {"fn":"there_cmd_menu_self","c":"4435-4520","status":"ported","js":["js/cmd.js:there_cmd_menu_self"],"d":["D-2891"],"at":"seed@a30a7de84"}
 {"fn":"there_cmd_menu_next2u","c":"4524-4621","status":"unknown","d":["D-2266"],"at":"seed@a30a7de84"}
-{"fn":"there_cmd_menu_far","c":"4624-4636","status":"unknown"}
+{"fn":"there_cmd_menu_far","c":"4624-4636","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"there_cmd_menu_common","c":"4639-4654","status":"unknown","d":["D-2706"],"at":"seed@a30a7de84"}
 {"fn":"act_on_act","c":"4658-4838","status":"partial","js":["js/cmd.js:act_on_act"],"omit":"``doidtrap`` (``pager.c:2336`` — MCMD_LOOK_TRAP arm queues a lazy import from its 1:1 home, resolves when it lands); ``auto_describe`` (``getpos.c:640`` — same treatment inside doclicklook); C ``:4880``/``:4892`` caller paths (next2u/far builders, own rows); ``there_cmd_menu_far`` is a sibling, not…","d":["D-2620"],"at":"seed@a30a7de84"}
 {"fn":"there_cmd_menu","c":"4843-4896","status":"unknown"}
@@ -144,6 +144,6 @@
 {"fn":"yn_function","c":"5471-5583","status":"ported","js":["js/getline.js:yn_function"],"d":["D-2165","D-1805"],"at":"seed@a30a7de84","note":"stale 2026-09-18"}
 {"fn":"paranoid_ynq","c":"5588-5650","status":"unknown"}
 {"fn":"paranoid_query","c":"5655-5658","status":"unknown"}
-{"fn":"dosuspend_core","c":"5662-5678","status":"unknown"}
-{"fn":"dosh_core","c":"5682-5696","status":"unknown"}
-{"fn":"dummyfunction","c":"5699-5702","status":"unknown"}
+{"fn":"dosuspend_core","c":"5662-5678","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"dosh_core","c":"5682-5696","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"dummyfunction","c":"5699-5702","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}

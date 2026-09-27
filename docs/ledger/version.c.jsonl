@@ -5,14 +5,14 @@
 {"fn":"doextversion","c":"169-277","status":"partial","js":["js/pager.js:doextversion"],"omit":"`dlb_fopen`/`dlb_fgets`/`dlb_fclose` + OPTIONS_USED file arms (dead under OPTIONS_AT_RUNTIME — no JS dlb reader exists); `release_runtime_info` (no JS shutdown path); `make_version`/`populate_nomakedefs`/`free_nomakedefs` (D-2535 standing); `bannerc_string`/`status_version`/`early_version_info` (st…","d":["D-2558"],"at":"seed@a30a7de84"}
 {"fn":"early_version_info","c":"280-312","status":"ported","js":["js/earlyarg.js:early_version_info"],"d":["D-2986"],"at":"2026-09-27@9b244f090"}
 {"fn":"insert_rtoption","c":"339-353","status":"unknown"}
-{"fn":"comp_times","c":"357-362","status":"unknown"}
+{"fn":"comp_times","c":"357-362","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"check_version","c":"374-423","status":"ported","js":["js/files.js:check_version"],"d":["D-2539"],"at":"seed@a30a7de84"}
 {"fn":"get_feature_notice_ver","c":"431-461","status":"ported","js":["js/version.js:get_feature_notice_ver"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
 {"fn":"get_current_feature_ver","c":"464-467","status":"ported","js":["js/version.js:get_current_feature_ver"],"d":["D-2989"],"at":"2026-09-27@080c16023"}
-{"fn":"copyright_banner_line","c":"471-490","status":"unknown"}
-{"fn":"dump_version_info","c":"494-510","status":"unknown"}
+{"fn":"copyright_banner_line","c":"471-490","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"dump_version_info","c":"494-510","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"store_version","c":"512-537","status":"ported","js":["js/files.js:store_version"],"d":["D-2973"],"at":"2026-09-27@b170be897"}
-{"fn":"get_critical_size_count","c":"669-672","status":"unknown"}
+{"fn":"get_critical_size_count","c":"669-672","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"store_critical_bytes","c":"676-694","status":"ported","js":["js/files.js:store_critical_bytes"],"d":["D-2973"],"at":"2026-09-27@1c7c62258"}
 {"fn":"uptodate","c":"713-746","status":"ported","js":["js/files.js:uptodate"],"d":["D-2539"],"at":"seed@a30a7de84"}
 {"fn":"compare_critical_bytes","c":"763-823","status":"unknown"}

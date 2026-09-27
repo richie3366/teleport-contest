@@ -1,4 +1,4 @@
-{"fn":"init_oextra","c":"80-83","status":"unknown"}
+{"fn":"init_oextra","c":"80-83","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"newoextra","c":"86-93","status":"unknown"}
 {"fn":"dealloc_oextra","c":"96-111","status":"unknown"}
 {"fn":"newomonst","c":"114-125","status":"unknown"}
@@ -19,7 +19,7 @@
 {"fn":"copy_oextra","c":"417-448","status":"unknown","d":["D-2275"],"at":"seed@a30a7de84"}
 {"fn":"splitobj","c":"457-503","status":"unknown"}
 {"fn":"next_ident","c":"509-531","status":"unknown","d":["D-2228","D-2202","D-2111","D-2022"],"at":"seed@a30a7de84"}
-{"fn":"nextoid","c":"536-551","status":"unknown"}
+{"fn":"nextoid","c":"536-551","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"unsplitobj","c":"556-622","status":"unknown"}
 {"fn":"clear_splitobjs","c":"626-629","status":"unknown"}
 {"fn":"replace_object","c":"641-679","status":"unknown"}
@@ -85,7 +85,7 @@
 {"fn":"shop_obj_sanity","c":"3134-3200","status":"by-design","at":"seed@a30a7de84","note":"seed: wizard sanity check (debug build path)"}
 {"fn":"mon_obj_sanity","c":"3204-3246","status":"by-design","at":"seed@a30a7de84","note":"seed: wizard sanity check (debug build path)"}
 {"fn":"insane_obj_bits","c":"3249-3274","status":"by-design","at":"seed@a30a7de84","note":"seed: wizard sanity check (debug build path)"}
-{"fn":"nomerge_exception","c":"3278-3286","status":"unknown"}
+{"fn":"nomerge_exception","c":"3278-3286","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"where_name","c":"3296-3309","status":"unknown"}
 {"fn":"insane_object","c":"3314-3339","status":"partial","js":["js/mkobj.js:insane_object"],"omit":"the 7 unported C caller functions (`obj_sanity_check`, `objlist_sanity`, `shop_obj_sanity`, `mon_obj_sanity`, `insane_obj_bits`, `check_contained`, `sanity_check_worn` — none exists in `js/`; their insane_object call sites wire up when each ships); `fmt_ptr` exported home (`alloc.c` has no `js/allo…","d":["D-2520"],"at":"seed@a30a7de84"}
 {"fn":"init_dummyobj","c":"3347-3370","status":"unknown"}

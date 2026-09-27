@@ -1,5 +1,5 @@
 {"fn":"unpadline","c":"67-80","status":"unknown"}
-{"fn":"init_rumors","c":"85-107","status":"unknown"}
+{"fn":"init_rumors","c":"85-107","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"getrumor","c":"117-191","status":"partial","js":["js/rumors.js:getrumor"],"omit":"`dlb_fopen`/`dlb_fclose` handles (Rule #2 embed D-0477 — buffers always present); `init_rumors` header parse (ran at build time in `extract-rumors.py`; starts/ends subsumed by the TRUE/FALSE split); `couldnt_open_file` something_worth_saving suppression (unreachable under embed; the `impossible` + …","d":["D-2513"],"at":"seed@a30a7de84"}
 {"fn":"rumor_check","c":"196-302","status":"partial","js":["js/rumors.js:rumor_check"],"omit":"`init_rumors` header parse (ran at build time in extract-rumors.py; sizes set from section buffers — byte-identical to C's pad+xcrypt sections); absolute file START offsets (embed has no \"don't edit\" + header bytes; section-relative with true_end == false_start); `dlb_fopen` first-failure + init-fa…","d":["D-2556"],"at":"seed@a30a7de84"}
 {"fn":"get_rnd_text","c":"499-526","status":"ported","js":["js/rumors.js:get_rnd_text"],"d":["D-2962"],"at":"2026-09-27@988c639a6"}

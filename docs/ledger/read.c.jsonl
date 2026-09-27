@@ -2,9 +2,9 @@
 {"fn":"learnscroll","c":"70-76","status":"unknown"}
 {"fn":"cap_spe","c":"80-86","status":"unknown"}
 {"fn":"erode_obj_text","c":"89-97","status":"unknown"}
-{"fn":"tshirt_text","c":"100-187","status":"ported","js":["js/objnam.js:tshirt_text"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
+{"fn":"tshirt_text","c":"100-187","status":"ported","js":["js/objnam.js:tshirt_text"],"at":"2026-09-27@d2d72caa6","note":"refresh: audited — THIN is the string table (shirt_msgs objnam.js:426 verified); o_id % SIZE + erode_obj_text exact"}
 {"fn":"hawaiian_motif","c":"190-221","status":"unknown"}
-{"fn":"hawaiian_design","c":"224-251","status":"unknown"}
+{"fn":"hawaiian_design","c":"224-251","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"apron_text","c":"254-281","status":"unknown"}
 {"fn":"candy_wrapper_text","c":"296-300","status":"unknown"}
 {"fn":"assign_candy_wrapper","c":"304-311","status":"unknown"}

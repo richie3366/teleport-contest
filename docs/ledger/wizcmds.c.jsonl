@@ -1,25 +1,25 @@
 {"fn":"wiz_wish","c":"32-44","status":"unknown"}
 {"fn":"wiz_identify","c":"50-66","status":"unknown"}
-{"fn":"makemap_unmakemon","c":"73-105","status":"unknown"}
-{"fn":"makemap_remove_mons","c":"110-150","status":"unknown"}
+{"fn":"makemap_unmakemon","c":"73-105","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"makemap_remove_mons","c":"110-150","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_makemap","c":"156-171","status":"unknown"}
 {"fn":"wiz_map","c":"176-199","status":"unknown"}
 {"fn":"wiz_genesis","c":"203-214","status":"unknown"}
 {"fn":"wiz_where","c":"218-225","status":"unknown"}
-{"fn":"wiz_detect","c":"229-236","status":"unknown"}
-{"fn":"wiz_kill","c":"243-347","status":"unknown"}
-{"fn":"wiz_load_lua","c":"353-372","status":"unknown"}
-{"fn":"wiz_load_splua","c":"376-395","status":"unknown"}
+{"fn":"wiz_detect","c":"229-236","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"wiz_kill","c":"243-347","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"wiz_load_lua","c":"353-372","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"wiz_load_splua","c":"376-395","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_level_tele","c":"399-406","status":"unknown"}
-{"fn":"wiz_flip_level","c":"412-442","status":"unknown"}
+{"fn":"wiz_flip_level","c":"412-442","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_level_change","c":"446-488","status":"unknown"}
-{"fn":"wiz_telekinesis","c":"494-528","status":"unknown"}
-{"fn":"wiz_panic","c":"534-545","status":"unknown"}
-{"fn":"wiz_fuzzer","c":"549-564","status":"unknown"}
+{"fn":"wiz_telekinesis","c":"494-528","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"wiz_panic","c":"534-545","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"wiz_fuzzer","c":"549-564","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_polyself","c":"568-572","status":"unknown"}
 {"fn":"wiz_show_seenv","c":"576-617","status":"partial","js":["js/wizcmds.js:wiz_show_seenv"],"omit":"`:1603` display_nhwindow(win, FALSE) → blocking pager stands in for tty print-and-continue (Terminal has no scrollback vehicle; house NHW_TEXT idiom); generated `extcmdlist_data.js` \"migratemons\" desc keeps the #else string while DEBUG-live C registers \"show migrating monsters and migrate N random …","d":["D-2779"],"at":"seed@a30a7de84"}
-{"fn":"wiz_show_vision","c":"621-653","status":"unknown"}
-{"fn":"wiz_show_wmodes","c":"657-689","status":"unknown"}
+{"fn":"wiz_show_vision","c":"621-653","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"wiz_show_wmodes","c":"657-689","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_map_levltyp","c":"693-835","status":"partial","js":["js/wizcmds.js:wiz_map_levltyp"],"omit":"`eos`/`Sprintf`/`Strcat` (no JS export exists — inline appends); `strncmpi` (inline `/^the /i` strip; write.js:82/insight.js:743/vault.js:128 stay the only copies); `Sokoban()` import (module-local in dungeon.js — inlined mirror); `create_nhwindow`/`putstr`/`display_nhwindow`/`destroy_nhwindow` mac…","d":["D-2516"],"at":"seed@a30a7de84"}
 {"fn":"wiz_levltyp_legend","c":"841-877","status":"unknown","d":["D-2516"],"at":"seed@a30a7de84"}
 {"fn":"wiz_smell","c":"885-939","status":"ported","js":["js/wizcmds.js:wiz_smell"],"d":["D-2766"],"at":"seed@a30a7de84"}
@@ -39,10 +39,10 @@
 {"fn":"migrsort_cmp","c":"1485-1501","status":"unknown"}
 {"fn":"list_migrating_mons","c":"1506-1610","status":"unknown"}
 {"fn":"wiz_show_stats","c":"1616-1697","status":"ported","js":["js/wizcmds.js:wiz_show_stats"],"d":["D-2975"],"at":"2026-09-27@3b405b65a"}
-{"fn":"wiz_display_macros","c":"1705-1778","status":"unknown"}
-{"fn":"wiz_show_nhuuid","c":"1782-1786","status":"unknown"}
-{"fn":"wiz_mon_diff","c":"1790-1828","status":"unknown"}
-{"fn":"wiz_objprobs","c":"1832-1868","status":"unknown"}
+{"fn":"wiz_display_macros","c":"1705-1778","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"wiz_show_nhuuid","c":"1782-1786","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"wiz_mon_diff","c":"1790-1828","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"wiz_objprobs","c":"1832-1868","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"wiz_migrate_mons","c":"1873-1930","status":"partial","js":["js/wizcmds.js:wiz_migrate_mons"],"omit":"`:1603` display_nhwindow(win, FALSE) → blocking pager stands in for tty print-and-continue (Terminal has no scrollback vehicle; house NHW_TEXT idiom); generated `extcmdlist_data.js` \"migratemons\" desc keeps the #else string while DEBUG-live C registers \"show migrating monsters and migrate N random …","d":["D-2779"],"at":"seed@a30a7de84"}
-{"fn":"wiz_custom","c":"1934-1984","status":"unknown"}
-{"fn":"wizcustom_callback","c":"1987-2027","status":"unknown"}
+{"fn":"wiz_custom","c":"1934-1984","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
+{"fn":"wizcustom_callback","c":"1987-2027","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}

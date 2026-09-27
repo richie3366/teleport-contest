@@ -30,7 +30,7 @@
 {"fn":"unrestrict_weapon_skill","c":"1414-1421","status":"unknown"}
 {"fn":"use_skill","c":"1424-1434","status":"unknown","d":["D-2385"],"at":"seed@a30a7de84"}
 {"fn":"add_weapon_skill","c":"1437-1450","status":"unknown"}
-{"fn":"lose_weapon_skill","c":"1453-1473","status":"unknown"}
+{"fn":"lose_weapon_skill","c":"1453-1473","status":"absent","at":"2026-09-27@d2d72caa6","note":"refresh: no JS symbol (measured MISSING)"}
 {"fn":"drain_weapon_skill","c":"1476-1514","status":"unknown"}
 {"fn":"weapon_type","c":"1517-1529","status":"unknown"}
 {"fn":"uwep_skill_type","c":"1532-1537","status":"unknown"}
