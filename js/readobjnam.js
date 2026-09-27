@@ -30,6 +30,7 @@ import {
     is_poisonable,
 } from './objects.js';
 import { mksobj, mkobj, weight, curse, oc_merge_of, spot_stop_timers, set_corpsenm, rnd_class } from './mkobj.js';
+import { deltrap, t_at } from './trap.js';
 import { artifact_name, nartifact_exist, permapoisoned } from './artifact.js';
 import { is_quest_artifact } from './quest.js';
 import { oname, lookup_novel } from './do_name.js';
@@ -226,22 +227,6 @@ function upstart(str) {
     const s = String(str || '');
     if (!s) return s;
     return s.charAt(0).toUpperCase() + s.slice(1);
-}
-
-function t_at_local(x, y) {
-    const traps = game.level?.traps;
-    if (!traps) return null;
-    for (const t of traps) {
-        if (t && (t.tx | 0) === (x | 0) && (t.ty | 0) === (y | 0)) return t;
-    }
-    return null;
-}
-
-function deltrap_local(trap) {
-    const traps = game.level?.traps;
-    if (!traps || !trap) return;
-    const i = traps.indexOf(trap);
-    if (i >= 0) traps.splice(i, 1);
 }
 
 function CAN_OVERWRITE_TERRAIN(ttyp) {
@@ -687,8 +672,8 @@ async function wizterrainwish(d) {
             || is_pool(x, y) || is_lava(x, y)) {
             lev.typ = ROOM;
             await pline('Room floor.');
-            const t = t_at_local(x, y);
-            if (t && (t.ttyp | 0) !== MAGIC_PORTAL) deltrap_local(t);
+            const t = t_at(x, y);
+            if (t && (t.ttyp | 0) !== MAGIC_PORTAL) deltrap(t);
             madeterrain = true;
         } else {
             await pline('Room|floor|ground not allowed here.');

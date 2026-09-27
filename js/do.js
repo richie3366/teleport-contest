@@ -52,7 +52,7 @@ import {
     NO_NC_FLAGS, NC_SHOW_MSG,
 } from './const.js';
 import {
-    seetrap, t_at, delfloortrap, reset_utrap, water_damage, erode_obj,
+    seetrap, t_at, delfloortrap, deltrap, reset_utrap, water_damage, erode_obj,
     selftouch, uteetering_at_seen_pit, uescaped_shaft, maketrap, climb_pit,
     dotrap, float_down, clamp_hole_destination, minstapetrify,
 } from './trap.js';
@@ -2249,7 +2249,7 @@ export function schedule_goto(tolev, utotype_flags, pre_msg, post_msg) {
 
 /**
  * C ref: do.c deferred_goto — pline pre_msg, goto_level, optional post_msg.
- * Portal-remove and full typmask arms beyond ATSTAIRS/FALLING/PORTAL deferred.
+ * UTOTYPE_RMPORTAL deletes the arrival-square trap (do.c:2088–2094).
  */
 export async function deferred_goto() {
     const u = game.u;
@@ -2270,7 +2270,14 @@ export async function deferred_goto() {
             !!(typmask & UTOTYPE_FALLING),
             !!(typmask & UTOTYPE_PORTAL),
         );
-        // UTOTYPE_RMPORTAL deltrap deferred
+        // C do.c:2088–2094 — portal ejection removes the trap on arrival.
+        if (typmask & UTOTYPE_RMPORTAL) {
+            const t = t_at(u.ux, u.uy);
+            if (t) {
+                deltrap(t);
+                newsym(u.ux, u.uy);
+            }
+        }
         // C: dfr_post_msg delivered inside goto_level (maybe_lvltport_feedback)
         // before onquest; only leftover non-materialize msgs land here.
         if (game.dfr_post_msg && !on_level(u.uz, oldlev)) {

@@ -654,16 +654,6 @@ function put_lregion_here(x, y, nlx, nly, nhx, nhy, rtype, oneshot, lev) {
             if (mtmp && mtmp.mtrapped)
                 mtmp.mtrapped = 0;
             deltrap(t);
-            /* maketrap records level.traps (what t_at / deltrap use).
-               A parallel ftrap chain still exists for older readers. */
-            let prev = null;
-            for (let cur = game.ftrap; cur; prev = cur, cur = cur.ntrap) {
-                if (cur === t) {
-                    if (prev) prev.ntrap = cur.ntrap;
-                    else game.ftrap = cur.ntrap;
-                    break;
-                }
-            }
         }
         if (bad_location(x, y, nlx, nly, nhx, nhy)
             || is_exclusion_zone(rtype, x, y))
@@ -19949,9 +19939,7 @@ export function mkmap_flood_fill_rm(sx, sy, rmno, lit, anyroom, bounds) {
  * C ref: sp_lev.c map_cleanup (`:328–356`) — after lua/special content,
  * before wallification/flip: strip boulders, destroyable traps and
  * engravings from lava/pool cells, in C arm order.
- * Named omissions: the shared `deltrap` Sokoban PIT/HOLE
- * `maybe_finish_sokoban` sub-arm (trap.c; callee not live in js/ —
- * own row when the corpus reaches it).
+ * `deltrap` runs the Sokoban pit/hole finish (trap.c:6546).
  */
 function map_cleanup() {
     const g = game;
@@ -22506,9 +22494,7 @@ export function splev_create_altar(a, croom = null) {
  * SpLev_Map[x][y]=1, mkstairs(..., force=TRUE). Random: good_stair_loc then
  * mkstairs force=FALSE. Ladder skips mkstairs (no dungeon-end no-op).
  * Named omit: Lua argc table/string parse (loaders pass unpacked dir/coord);
- * splev_create_stair / splev_room_stair still hand-rolled (no SpLev_Map /
- * level.traps deltrap); other des.stair loaders still raw mkstairs without
- * force; deltrap conjoined pits / Sokoban.
+ * other des.stair loaders still raw mkstairs without force.
  */
 export function l_create_stairway(up, rx, ry, croom, using_ladder) {
     const random = rx === -1 && ry === -1;
@@ -22531,23 +22517,7 @@ export function l_create_stairway(up, rx, ry, croom, using_ladder) {
         }
     }
     const trap = t_at(x, y);
-    if (trap) {
-        // C deltrap unlinks gf.ftrap; JS maketrap also keeps level.traps
-        let prev = null;
-        for (let t = game.ftrap; t; t = t.ntrap) {
-            if (t === trap) {
-                if (prev) prev.ntrap = t.ntrap;
-                else game.ftrap = t.ntrap;
-                break;
-            }
-            prev = t;
-        }
-        const traps = game.level?.traps;
-        if (Array.isArray(traps)) {
-            const i = traps.indexOf(trap);
-            if (i >= 0) traps.splice(i, 1);
-        }
-    }
+    if (trap) deltrap(trap);
     if (!game.SpLev_Map) game.SpLev_Map = new Set();
     game.SpLev_Map.add(`${x},${y}`);
 
@@ -22571,17 +22541,8 @@ export function l_create_stairway(up, rx, ry, croom, using_ladder) {
 function splev_create_stair(up) {
     const pos = get_location_random(good_stair_loc);
     const trap = t_at(pos.x, pos.y);
-    if (trap) {
-        let prev = null;
-        for (let t = game.ftrap; t; t = t.ntrap) {
-            if (t === trap) {
-                if (prev) prev.ntrap = t.ntrap;
-                else game.ftrap = t.ntrap;
-                break;
-            }
-            prev = t;
-        }
-    }
+    // C l_create_stairway: deltrap(badtrap) before the stair.
+    if (trap) deltrap(trap);
     mkstairs(pos.x, pos.y, up ? 1 : 0, null);
 }
 
@@ -22761,17 +22722,8 @@ function splev_room_stair(croom, up) {
     const pos = get_location_coord_in_room(croom, DRY, good_stair_loc);
     if (pos.x < 0) return;
     const trap = t_at(pos.x, pos.y);
-    if (trap) {
-        let prev = null;
-        for (let t = game.ftrap; t; t = t.ntrap) {
-            if (t === trap) {
-                if (prev) prev.ntrap = t.ntrap;
-                else game.ftrap = t.ntrap;
-                break;
-            }
-            prev = t;
-        }
-    }
+    // C l_create_stairway: deltrap(badtrap) before the stair.
+    if (trap) deltrap(trap);
     mkstairs(pos.x, pos.y, up ? 1 : 0, croom);
 }
 

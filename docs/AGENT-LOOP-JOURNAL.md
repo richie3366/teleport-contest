@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2921 `deltrap` unlinks the trap chain, then frees it
+
+**C locus:** `nethack-c/upstream/src/trap.c:6531–6549` `deltrap`. `clear_conjoined_pits` first. If `trap == gf.ftrap`, advance the head; else walk `ntrap` for the predecessor and `panic("deltrap: no preceding trap!")` when there is none. Then `ttmp->ntrap = trap->ntrap`. If `Sokoban` (`rm.h:538` `level.flags.sokoban_rules`) and the type is `PIT` or `HOLE`, `maybe_finish_sokoban`. Then `dealloc_trap` (`trap.h:42` `free`).
+**JS:** `js/trap.js` `dealloc_trap` `:1319`. `unlink_trap_node` `:1328`. `deltrap` `:1351`. Conjoined `:1352`. Array head `:1358`. Predecessor `:1363–1374`. `game.ftrap` `:1378–1391`. Panic `:1396`. Sokoban `:1401–1404`. Free `:1406`.
+**Change:** One exported `deltrap` in that C order. `level.traps` is the chain `maketrap` actually builds (`ntrap` stays null); a separate `game.ftrap` node chain is unlinked too. Missing from both throws, matching `panic`.
+**Verify:** `node scripts/verify.mjs --fn deltrap --reach-all` → PASS syntax (5 changed js files: js/do.js js/mklev.js js/quest.js js/readobjnam.js js/trap.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+**Named:** No arm of `deltrap` is omitted. `nhl_deltrap` (`nhlua.c:470–492`) has no JS binding.
+**Next:** `wield.c` `cant_wield_corpse` (next Open — coverage row). Eight Open rows remain after archive, at the floor of 8, so nothing was refilled. The queue-empty overlay did not match the live queue (nine coverage rows were open; `deltrap` was the head and its panic / `dealloc_trap` arms were absent). This shell has no `rg`, which is what `queue_has_open` runs.
 ## 2026-09-27 — D-2920 `cursed` refuses a stuck worn item and says so
 
 **C locus:** `nethack-c/upstream/src/do_wear.c:1893–1917` `cursed`. Null calls `impossible("cursed without otmp")` and returns 0. `uwep` tests `welded`; anything else tests `otmp->cursed`. Plural when boots, gloves, lenses, or `quan > 1`. If `Glib` and `bknown` and (`uarmg` ? this is `uwep` : worn as weapon or ring), `pline` the slippery `fingers_or_gloves(TRUE)` line; else `You("can't.  %s cursed.", They are|It is)`. Then `set_bknown(otmp, 1)` and return 1. Otherwise return 0.

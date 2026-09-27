@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-27
 
-- [x] `do_wear.c` cursed — coverage MISSING (C 24 L `do_wear.c:1893–1917` / JS no symbol; hops 6, callers 16, RNG 0, msg 2; split? cited 906× in js/ — brief first). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn cursed` (reach regression must be 0). Measured `port-coverage.mjs --name cursed` 2026-09-27 @ 4c8d21966. **Addressed:** D-2920
+- [x] `trap.c` deltrap — coverage PARTIAL (C 18 L `trap.c:6531–6549` / JS 13 L in js/trap.js; hops 2, callers 56, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn deltrap` (reach regression must be 0). Measured `port-coverage.mjs --name deltrap` 2026-09-27 @ 4c8d21966. **Addressed:** D-2921
+
+
+- [x] `do_wear.c` cursed — coverage MISSING (C 24 L `do_wear.c:1893–1917` / JS no symbol; hops 6, callers 16, RNG 0, msg 2; split? cited 906× in js/ — brief first). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn cursed` (reach regression must be 0). Measured `port-coverage.mjs --name cursed` 2026-09-27 @ 4c8d21966. **Addressed:** D-2920 `34f7d154e`
 
 
 - [x] `light.c` find_mid — coverage THIN (C 19 L `light.c:376–395` / JS 8 L in js/mon.js; hops 3, callers 9, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn find_mid` (reach regression must be 0). Measured `port-coverage.mjs --name find_mid` 2026-09-27 @ af40498ad. **Addressed:** D-2919 `0a6f86d9b`

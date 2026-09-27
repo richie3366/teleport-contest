@@ -1448,15 +1448,14 @@ pline at `js/trap.js:3598`, a different C function). **`clear_conjoined_pits`
 + `deltrap` wire + `delfloortrap` clone retired** (D-2310; C `trap.c:6579–6601`
 + `:6535` — file-local port in C order, `deltrap` calls it first; `fountain.js`
 local clone replaced by the canonical export, hero `reset_utrap` arm
-unreachable via the `gush` `u_at` guard; named: `dealloc_trap` tail).
+unreachable via the `gush` `u_at` guard). **`deltrap` whole body** (D-2921; C `trap.c:6531–6549` — `js/trap.js` `deltrap`: `clear_conjoined_pits`, unlink `level.traps` as the `ftrap` chain (head `shift`, else predecessor splice) and a real `game.ftrap` node chain, `panic` throw when neither holds the trap, `Sokoban_rules()` pit/hole `maybe_finish_sokoban`, then `dealloc_trap` (`trap.h:42` `free`, clears `ntrap`). Callers that had spliced by hand now call it: `deferred_goto`, `expulsion` seal, `wizterrainwish` (clone retired), `l_create_stairway` / `splev_create_stair` / `splev_room_stair`, `put_lregion_here`. Named: `nhl_deltrap`, `getlev` portal sweep, `savetrapchn` / `resttrapchn` frees).
 **`maybe_finish_sokoban` whole body** (D-2848; C `trap.c:7059–7095` —
 file-local `js/trap.js` in C order: `Sokoban && !in_mklev`, scan
 `level.traps` skipping `madeby_u`, stop on `PIT` or `HOLE`, else
 `Sokoban = 0` (the bit plus the `flags.sokoban` / `game.Sokoban` aliases)
 and `livelog_printf(LL_MINORAC|LL_DUMP)` with `ordin`. Callers wired:
-`maketrap` oldplace and `deltrap` after unlink. Named: `dealloc_trap`
-still absent; `readobjnam.js` `deltrap_local` still splices without this
-call); **`openholdingtrap`/`openfallingtrap` monster-arm
+`maketrap` oldplace and `deltrap` after unlink. `dealloc_trap` and the
+`readobjnam.js` wish splice are the D-2921 `deltrap` body); **`openholdingtrap`/`openfallingtrap` monster-arm
 `canspotmon`** (D-2317; C `trap.c:6185` + `:6279` — telepathy-sensed counts;
 JS narrowed both to file-local `canseemon`, dropping the `|| sensemon` arm;
 `canspotmon` already imported from `display.js`, no new edge; `closeholdingtrap`

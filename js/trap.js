@@ -1309,20 +1309,101 @@ function clear_conjoined_pits(trap) {
     }
 }
 
-// C ref: trap.c deltrap — unlink from ftrap, then Sokoban finish.
-// Named: dealloc_trap (trap.c:6548) still has no JS body.
+/**
+ * C ref: trap.h:42 — `#define dealloc_trap(trap) free((genericptr_t)(trap))`.
+ * JS has no heap free. After the trap is off the chain, drop `ntrap` so a
+ * retained reference is not a live successor. Callers: `deltrap` only in
+ * gameplay; `savetrapchn` / `resttrapchn` (`save.c:937`, `restore.c:1164`)
+ * are the save-file frees and are not this function.
+ */
+function dealloc_trap(trap) {
+    if (trap) trap.ntrap = null;
+}
+
+/**
+ * C `gf.ftrap` walk: predecessor whose `ntrap` is `trap`, or the head.
+ * An array head is not a trap node (`bones` / `save` alias `level.traps`).
+ * @returns {{ head: object|null, found: boolean }}
+ */
+function unlink_trap_node(head, trap) {
+    if (!head || !trap || Array.isArray(head)) return { head, found: false };
+    if (head === trap) return { head: head.ntrap || null, found: true };
+    let ttmp = head;
+    for (; ttmp; ttmp = ttmp.ntrap) {
+        if (ttmp.ntrap === trap) break;
+    }
+    if (!ttmp) return { head, found: false };
+    ttmp.ntrap = trap.ntrap || null;
+    return { head, found: true };
+}
+
+/**
+ * C ref: trap.c deltrap `:6531–6549`.
+ * `clear_conjoined_pits`, then unlink. Head case advances `gf.ftrap`;
+ * otherwise the predecessor’s `ntrap` becomes `trap->ntrap`, or
+ * `panic("deltrap: no preceding trap!")`. Then Sokoban pit/hole finish,
+ * then `dealloc_trap`.
+ *
+ * JS keeps that chain two ways: `level.traps` in insertion order (what
+ * `maketrap` / `t_at` use; `ntrap` stays null) and `game.ftrap` when a
+ * real node chain exists. Both are the one C list.
+ */
 export function deltrap(trap) {
-    const traps = game.level?.traps;
-    if (!traps || !trap) return;
     clear_conjoined_pits(trap);
-    const i = traps.indexOf(trap);
-    if (i < 0) return;
-    traps.splice(i, 1);
-    // C trap.c:6546–6547 — after the trap is off gf.ftrap, before dealloc.
+
+    const traps = game.level && game.level.traps;
+    let found = false;
+
+    if (Array.isArray(traps)) {
+        if (traps.length && traps[0] === trap) {
+            traps.shift();
+            found = true;
+        } else {
+            let ttmp = null;
+            for (let i = 0; i < traps.length - 1; i++) {
+                if (traps[i + 1] === trap) {
+                    ttmp = traps[i];
+                    break;
+                }
+            }
+            if (ttmp) {
+                const i = traps.indexOf(trap);
+                traps.splice(i, 1);
+                if (ttmp.ntrap === trap) ttmp.ntrap = trap.ntrap || null;
+                found = true;
+            }
+        }
+    }
+
+    if (game.ftrap && game.ftrap !== traps) {
+        if (Array.isArray(game.ftrap)) {
+            const i = game.ftrap.indexOf(trap);
+            if (i >= 0) {
+                game.ftrap.splice(i, 1);
+                found = true;
+            }
+        } else {
+            const un = unlink_trap_node(game.ftrap, trap);
+            if (un.found) {
+                game.ftrap = un.head;
+                found = true;
+            }
+        }
+    }
+
+    if (!found) {
+        // C trap.c:6543 — panic is NORETURN. Throw matches insert_branch.
+        throw new Error('deltrap: no preceding trap!');
+    }
+
+    // C rm.h:538 `#define Sokoban svl.level.flags.sokoban_rules`, plus the
+    // aliases this file keeps in step with that bit.
     if (Sokoban_rules()
+        && trap
         && ((trap.ttyp | 0) === PIT || (trap.ttyp | 0) === HOLE)) {
         maybe_finish_sokoban();
     }
+    dealloc_trap(trap);
 }
 
 /**
