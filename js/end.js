@@ -47,6 +47,8 @@ import { can_carry, mon_offmap } from './monmove.js';
 import { enexto, rloc_to, single_level_branch } from './teleport.js';
 import { oname, christen_monst, free_oname, mon_nam, Monnam, m_monnam, pmname, Ugender, Mgender, type_is_pname } from './do_name.js';
 import { mkcorpstat, curse, place_object, stackobj, mksobj, add_to_minv, add_to_container, weight } from './mkobj.js';
+import { artifact_light, end_burn } from './timeout.js';
+import { obj_is_burning } from './light.js';
 import { make_grave, sticks } from './engrave.js';
 import { makemon, adj_lev, mongets } from './makemon.js';
 import {
@@ -1484,7 +1486,8 @@ function give_u_to_m_resistances(mtmp) {
  * cont / nearby-gate placement; cont owt refresh.
  * C bones.c:279–280 `if (!mtmp || is_undead(mtmp->data))`
  * obj_no_longer_held(otmp) is live via the do.js export (D-2060 residual
- * retired here); lamp artifact_light/end_burn arm stays named.
+ * retired here). Lit lamps and artifact lights are snuffed before
+ * owornmask clears (artifact_light reads W_ARM).
  */
 async function drop_upon_death(mtmp, cont, x, y) {
     const u = game.u || {};
@@ -1493,12 +1496,18 @@ async function drop_upon_death(mtmp, cont, x, y) {
     const { obj_no_longer_held } = await import('./do.js');
     while (game.invent.length) {
         const otmp = game.invent.shift();
-        otmp.owornmask = 0;
         otmp.where = OBJ_FREE;
         otmp.nobj = null;
 
         // C bones.c:279–280 — slime keeps gear held; other arises do not
         if (!mtmp || is_undead(mtmp.data)) await obj_no_longer_held(otmp);
+
+        // C `:283–285` — smother a burning light inside a statue, or an
+        // artifact light, while owornmask is still set.
+        if ((cont || artifact_light(otmp)) && obj_is_burning(otmp)) {
+            end_burn(otmp, true);
+        }
+        otmp.owornmask = 0;
 
         // C `:287–288` after owornmask=0, before rn2(5) curse
         if ((otmp.otyp | 0) === SLIME_MOLD) goodfruit(otmp.spe);

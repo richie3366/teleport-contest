@@ -37,7 +37,7 @@ import {
 } from './const.js';
 import { heal_legs, float_down, instapetrify } from './trap.js';
 import { unconscious } from './teleport.js';
-import { stop_occupation, nomul, is_pool, is_lava, carrying, You_hear, monst_to_any, confdir, fall_asleep } from './hack.js';
+import { stop_occupation, nomul, is_pool, is_lava, carrying, You_hear, monst_to_any, obj_to_any, confdir, fall_asleep } from './hack.js';
 import { run_timers, start_timer, stop_timer, weight,
     obj_extract_self, delobj, objects_at, attach_egg_hatch_timeout,
     obj_has_timer, rider_revival_time, rot_corpse, set_corpsenm,
@@ -76,7 +76,7 @@ import { is_art } from './artifact.js';
 import { ART_SUNSWORD } from './generated/artifacts_data.js';
 import { Monnam, x_monnam, hcolor, rndmonnam, hliquid, type_is_pname, pmname } from './do_name.js';
 import { find_ac } from './u_init.js';
-import { any_visible_region, visible_region_summary } from './region.js';
+import { any_visible_region, visible_region_summary, region_danger } from './region.js';
 import { done, find_delayed_killer, dealloc_killer } from './end.js';
 
 /**
@@ -112,6 +112,11 @@ const TIMEOUT_FLAT = {
     [SICK]: 'Sick',
     [STRANGLED]: 'Strangled',
     [PASSES_WALLS]: 'HPasses_walls',
+    /* C youprop.h:270 — HMagical_breathing ≡
+       uprops[MAGICAL_BREATHING].intrinsic. region_safety dual-writes
+       the prayer gas timeout; without this mirror only the slot
+       counts down and the flat keeps Breathless true. */
+    [MAGICAL_BREATHING]: 'HMagical_breathing',
     /* C youprop.h:141 — HSleepy ≡ uprops[SLEEPY].intrinsic (single
        storage); the mirror keeps flat readers and the generic -- in sync
        for the wizintrinsic default arm (scen-intrinsic-Samurai-92017). */
@@ -790,6 +795,42 @@ async function phaze_dialogue() {
     }
 }
 
+/* C timeout.c region_texts[] — temporary magical-breathing prayer timeout. */
+const REGION_TEXTS = [
+    'You seem to have some trouble breathing.',
+    'The air here seems foul.',
+];
+
+/**
+ * C ref: timeout.c region_dialogue `:553–569`.
+ * Save (HMagical_breathing & TIMEOUT), clear those bits so Breathless
+ * and region_danger do not treat the prayer timer as magical breathing,
+ * then restore. An odd remaining count prints region_texts[SIZE - i].
+ * Caller: nh_timeout when that TIMEOUT field is set (`:637–638`), before
+ * the generic --.
+ */
+async function region_dialogue() {
+    const u = game.u || (game.u = {});
+    const slot = u.uprops?.[MAGICAL_BREATHING];
+    const prevFlat = u.HMagical_breathing | 0;
+    const prevSlot = slot ? (slot.intrinsic | 0) : 0;
+    // C has one field. The slot is that field; the flat is the mirror.
+    const bits = slot ? prevSlot : prevFlat;
+    const r = bits & TIMEOUT;
+    const i = (r / 2) | 0;
+    u.HMagical_breathing = prevFlat & ~TIMEOUT;
+    if (slot) slot.intrinsic = prevSlot & ~TIMEOUT;
+    const no_need_to_breathe = hero_magical_breath();
+    const in_poison_gas_cloud = region_danger();
+    // C: HMagical_breathing |= r — put the saved countdown back.
+    u.HMagical_breathing = (u.HMagical_breathing | 0) | (prevFlat & TIMEOUT);
+    if (slot) slot.intrinsic = (slot.intrinsic | 0) | (prevSlot & TIMEOUT);
+    if (no_need_to_breathe || !in_poison_gas_cloud) return;
+    if ((r % 2) && i > 0 && i <= REGION_TEXTS.length) {
+        await pline(REGION_TEXTS[REGION_TEXTS.length - i]);
+    }
+}
+
 /**
  * C ref: timeout.c sleep_dialogue `:267–274` — i = HSleepy & TIMEOUT;
  * i == 4 → You("yawn."). Called under `if (HSleepy & TIMEOUT)` (:639-640),
@@ -960,7 +1001,6 @@ function nh_timeout_luck(u) {
  * eat.c `:472–493`) else expiry message unless resistant/Unaware (D-2229).
  * DISPLACED TIMEOUT → `toggle_displacement(NULL, 0, FALSE)` when
  * `!Displaced` (timeout.c:858–861).
- * Named omissions: region_dialogue;
  * STUNNED/SEE_INVIS/HALLUC/…
  * expiry messages; SLEEPY expiry is the `fall_asleep` arm below;
  * STONE_RES `wielding_corpse` pair (do_wear.c:606);
@@ -989,8 +1029,14 @@ export async function nh_timeout() {
     if (intr_bits(u, PASSES_WALLS, 'HPasses_walls') & TIMEOUT) {
         await phaze_dialogue();
     }
-    // C timeout.c :637-640 — region_dialogue stays deferred (named map omit);
-    // sleep_dialogue runs under `if (HSleepy & TIMEOUT)` before the -- loop.
+    // C timeout.c :637-638 — HMagical_breathing is uprops[MAGICAL_BREATHING]
+    // .intrinsic. Read the slot when it exists; the flat is the mirror.
+    {
+        const mbSlot = u.uprops?.[MAGICAL_BREATHING];
+        const mb = mbSlot ? (mbSlot.intrinsic | 0) : (u.HMagical_breathing | 0);
+        if (mb & TIMEOUT) await region_dialogue();
+    }
+    // C timeout.c :639-640 — sleep_dialogue before the -- loop.
     if (intr_bits(u, SLEEPY, 'HSleepy') & TIMEOUT) {
         await sleep_dialogue();
     }
@@ -1715,20 +1761,30 @@ export function begin_burn(obj, already_lit) {
 }
 
 /**
- * C ref: timeout.c end_burn — snuff or timer-less light off.
- * timer_attached TRUE → stop_timer (+ cleanup_burn via mkobj).
+ * C ref: timeout.c end_burn `:1804–1822` — snuff a lit object.
+ * !lamplit → impossible. MAGIC_LAMP and artifact_light force
+ * timer_attached false (no burn timer to stop). That arm deletes the
+ * light source, clears lamplit, and redraws inventory when carried.
+ * Otherwise stop_timer; a 0 return (not found, or due this turn) is
+ * the "not timed" impossible. impossible stays fire-and-forget so the
+ * function stays sync, matching del_light_source.
  */
 export function end_burn(obj, timer_attached) {
-    if (!obj?.lamplit) return;
+    if (!obj?.lamplit) {
+        void impossible('end_burn: obj %s not lit', obj ? xname(obj) : '(null)');
+        return;
+    }
     if ((obj.otyp | 0) === MAGIC_LAMP || artifact_light(obj)) {
         timer_attached = false;
     }
     if (!timer_attached) {
-        del_light_source(LS_OBJECT, obj);
+        /* [DS] Cleanup explicitly, since timer cleanup won't happen */
+        del_light_source(LS_OBJECT, obj_to_any(obj));
         obj.lamplit = 0;
-        return;
+        if ((obj.where | 0) === OBJ_INVENT) update_inventory();
+    } else if (!stop_timer(BURN_OBJECT, obj_to_any(obj))) {
+        void impossible('end_burn: obj %s not timed!', xname(obj));
     }
-    stop_timer(BURN_OBJECT, obj);
 }
 
 /**

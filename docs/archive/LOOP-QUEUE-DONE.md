@@ -5,7 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-27
 
-- [x] `sp_lev.c` flip_vault_guard — coverage MISSING (C 28 L `sp_lev.c:926–958` / JS no symbol; hops 5, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn flip_vault_guard` (reach regression must be 0). Measured `port-coverage.mjs --name flip_vault_guard` 2026-09-27 @ cb7ff4a26. **Addressed:** D-2913
+- [x] `timeout.c` region_dialogue — coverage MISSING (C 15 L `timeout.c:554–569` / JS no symbol; hops 1, callers 1, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn region_dialogue` (reach regression must be 0). Measured `port-coverage.mjs --name region_dialogue` 2026-09-27 @ 4039cf023. **Addressed:** D-2914
+- [x] `timeout.c` end_burn — coverage PARTIAL (C 18 L `timeout.c:1804–1822` / JS 12 L in js/timeout.js; hops 3, callers 27, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn end_burn` (reach regression must be 0). Measured `port-coverage.mjs --name end_burn` 2026-09-27 @ 4039cf023. **Addressed:** D-2914
+
+
+- [x] `sp_lev.c` flip_vault_guard — coverage MISSING (C 28 L `sp_lev.c:926–958` / JS no symbol; hops 5, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn flip_vault_guard` (reach regression must be 0). Measured `port-coverage.mjs --name flip_vault_guard` 2026-09-27 @ cb7ff4a26. **Addressed:** D-2913 `4c8d21966`
 
 
 - [x] `objnam.c` readobjnam_init — coverage MISSING (C 28 L `objnam.c:3933–3961` / JS no symbol; hops 4, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn readobjnam_init` (reach regression must be 0). Measured `port-coverage.mjs --name readobjnam_init` 2026-09-27 @ cb7ff4a26. **Addressed:** D-2912 `a5d5677e6`

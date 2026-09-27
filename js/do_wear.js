@@ -3901,7 +3901,7 @@ async function wornarm_destroyed(wornarm) {
 /**
  * C ref: do_wear.c disintegrate_arm — destroy one worn armor piece
  * (god_zaps_you / dragon breath / destroy-armor scroll).
- * Named omissions: end_burn lamplit DSM; cancel_don;
+ * Named omissions: cancel_don;
  * cloak/suit name polish beyond armor_doff_simple_name.
  * @param {object|null} atmp specific piece or null for any
  * @returns {Promise<number>} 1 if destroyed, else 0
@@ -3921,7 +3921,9 @@ export async function disintegrate_arm(atmp) {
     } else if (!resistedc.v
         && (otmp = maybe_destroy_armor(u.uarm, atmp, resistedsuit))) {
         const suit = armor_doff_simple_name(otmp);
-        // end_burn deferred
+        // C do_wear.c:3224–3225 — snuff before the dust message so
+        // Armor_gone does not report "stop shining" after destruction.
+        if (otmp.lamplit) end_burn(otmp, false);
         await urgent_pline(
             `Your ${suit} ${vtense(suit, 'turn')} to dust and `
             + `${vtense(suit, 'fall')} to the ground!`,
