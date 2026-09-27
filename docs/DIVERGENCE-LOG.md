@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2950 — `mkfount` places the fountain through set_levltyp before the blessed draw
+
+- **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked). C is 15 lines; the whole body shipped. No other Open row in `mklev.c`.
+- **Symptom:** An ordinary-room fountain was a direct `typ = FOUNTAIN` write. `rn2(7)` and `nfountains++` ran whenever the cell object existed, including a cell `set_levltyp` would refuse. Ice under that cell did not run `obj_ice_effects` or `spot_stop_timers`. The blessed bit was stored only on `blessedftn`.
+- **C locus:** `nethack-c/upstream/src/mklev.c:2285–2300` `mkfount`. `find_okay_roompos` (`mklev.c:2302–2314`) failing returns before any terrain write. `set_levltyp(m.x, m.y, FOUNTAIN)` (`mkmaze.c:76–121`) failing returns before `rn2(7)` and before `nfountains++`. `!rn2(7)` sets `blessedftn`, which is the `horizontal` bit (`rm.h:404`). Then `svl.level.flags.nfountains++`.
+- **JS was:** `js/mklev.js` `mkfount` called `find_okay_roompos`, then assigned `typ` when `level.at` returned a cell, drew `rn2(7)`, and incremented `nfountains`. No `set_levltyp`. `horizontal` stayed clear.
+- **Fix:** One file-local `mkfount` in that C order. `set_levltyp` is the existing `trap.js` export (already imported). A false return skips the draw and the increment. The blessed arm writes `blessedftn` and `horizontal`. The `nfountains++` stays after that call.
+- **JS:** `js/mklev.js` `mkfount` `:32456`. Position `:32457`. `find_okay_roompos` `:32459` (body `:32282`). `set_levltyp` `:32463` (`js/trap.js:864`). `rn2(7)` `:32466`. Blessed writes `:32467–32469`. `nfountains++` `:32472`.
+- **Callers:** Prototype `mklev.c:15` (declaration only). `mklev.c:991` `fill_ordinary_room` under `!rn2(10)` after the rogue skip → `js/mklev.js:32592`. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn mkfount` → PASS syntax (1 changed js file: js/mklev.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (8 baseline-PASS sessions reach it, 8 run, 2.9s: 8 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+- **Named omissions:** No arm of `mkfount` is omitted. `set_levltyp` still adjusts `nfountains`/`nsinks` by ±1 instead of `count_level_features` (`mklev.c:828–841`) and still omits SDOOR→AIR. `mklev` (`js/mklev.js:2672`) still calls `recount_level_features` after `makelevel`; C `mklev` does not. `find_okay_roompos` matches C.
+- **Next:** `region.c` `add_mon_to_reg` (next Open — coverage row). Nine coverage rows remain after this archive, above the floor of 8, so nothing was refilled.
+
 ## D-2949 — `maybe_reset_pick` clears lock context for a deleted or left-behind box
 
 - **Status:** fixed (coverage THIN; `hidden-proxy verify` reports no corpus session blocked). C is 16 lines; the whole body shipped. No other Open row in `lock.c`.
