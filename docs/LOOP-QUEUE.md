@@ -112,7 +112,6 @@ body in C order — every arm, every callee live or named, every C caller
 wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 
 <!-- coverage:begin -->
-- [ ] `version.c` store_version — coverage MISSING (C 15 code L `version.c:512–537` / JS no symbol; hops 3, callers 4, RNG 0, msg 0; dead callees: bwrite, bufoff, store_critical_bytes) @fa5382192
 - [ ] `hack.c` in_rooms — coverage PARTIAL (C 52 code L `hack.c:3498–3560` / JS 34 code L in js/hack.js; hops 2, callers 88, RNG 0, msg 0) @c12d7df2f
 - [ ] `pager.c` look_at_object — coverage PARTIAL (C 28 code L `pager.c:380–419` / JS 18 code L in js/pager.js; hops 2, callers 2, RNG 0, msg 6) @b43d2c68f
 - [ ] `wizcmds.c` wiz_show_stats — coverage MISSING (C 67 code L `wizcmds.c:1616–1697` / JS no symbol; hops —, callers 0, RNG 0, msg 20; dead callees: obj_chain, mon_invent_chain, contained_stats, mon_chain) @b43d2c68f
@@ -124,6 +123,7 @@ wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 - [ ] `pline.c` You_see — coverage THIN (C 11 code L `pline.c:455–469` / JS 4 code L in js/dbridge.js; hops 3, callers 24, RNG 0, msg 0) @45ea89017
 - [ ] `worn.c` check_wornmask_slots — coverage MISSING (C 84 code L `worn.c:355–471` / JS no symbol; hops 3, callers 1, RNG 0, msg 0; dead callees: sanity_check_worn) @45ea89017
 - [ ] `muse.c` rnd_offensive_item — coverage PARTIAL (C 38 code L `muse.c:2035–2081` / JS 26 code L in js/makemon.js; hops 4, callers 2, RNG 2, msg 0) @45ea89017
+- [ ] `pline.c` pline_mon — coverage PARTIAL (C 8 code L `pline.c:138–150` / JS 5 code L in js/display.js; hops 2, callers 132, RNG 0, msg 0) @b170be897
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

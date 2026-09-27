@@ -2,7 +2,7 @@
 
 ## D-2973 — `store_version` writes the save header in C order
 
-- **Status:** fixed (coverage MISSING; hidden-proxy verify reports no corpus session blocked). C `store_version` is 15 code lines and `store_critical_bytes` is 12; both bodies shipped with the `sfo_char` / `sfo_uchar` / `sfo_version_info` writers they call. `bufoff` and `bufon` stay the by-design fd-buffer omit, so `store_version` is partial.
+- **Status:** fixed (coverage MISSING; hidden-proxy verify reports no corpus session blocked). C `store_version` is 15 code lines and `store_critical_bytes` is 12; both bodies shipped with the `sfo_char` / `sfo_uchar` / `sfo_version_info` writers they call. `bufoff` and `bufon` stay the by-design fd-buffer omit.
 - **Symptom:** There was no `store_version`. `dosave0` and `savebones` wrote a JSON save with schema `version: 1` and never recorded incarnation, feature set, entity count, or the critical-size header C writes before the level.
 - **C locus:** `nethack-c/upstream/src/version.c:512–537` `store_version`. Zero `version_info`, then `nomakedefs.version_number`, `version_features`, and `version_sanity1`. If `structlevel`, `bufoff` so the header `bwrite` is unbuffered. `store_critical_bytes` (`version.c:676–694`) writes only when `mode & WRITING`: indicate `'h'` / `'a'` / `'?'`, `(char) SIZE(critical_sizes)`, then one `Sfo_uchar` per row. `Sfo_version_info` always follows. `structlevel` then `bufon`.
 - **JS was:** No `store_version`, `store_critical_bytes`, `sfo_char`, `sfo_uchar`, or `sfo_version_info`. `js/save.js` `dosave0` and `js/end.js` `savebones` persisted without that header.
@@ -11,7 +11,7 @@
 - **Callers:** `save.c:157` `dosave0` → `js/save.js:526`. `bones.c:613` `savebones` → `js/end.js:1769` (header stored at `js/bones.js:469`). `save.c:411` `savestateinlock` has no JS (ledger by-design). `files.c:2991` `recover_savefile` has no JS. `extern.h:3574` is the prototype. No call from a site C never calls from.
 - **Verify:** `node scripts/verify.mjs --fn store_version` → PASS syntax (4 changed js file(s): js/bones.js js/end.js js/files.js js/save.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script shared-file list does not include these files) · VERIFY: PASS. `seed0013-friday13-save-then-fullmoon-restore` PASS (RNG 4804/4804, screens 99/99).
 - **Named omissions:** `bufoff` (`sfstruct.c:435`) and `bufon` (`sfstruct.c:414`) stay the by-design fd-buffer omit. `bwrite`'s POSIX `write` / `getidx` panic stays that file omit; the historical bytes are `nhfp.sf`. `sf_log` is the stdio omit inside `if (fplog)`. `sfoflprocs[exportascii]` is `zerosfoflprocs` (`sfbase.c:653`); `sf_setflprocs` has no caller, and `exportascii_sfo_version_info` is an empty `SFO_BODY`. `savestateinlock` and `recover_savefile` are unwired because those functions are not in `js/`. `create_savefile` / `create_bonesfile` `creat` stays unwired; the handle fields `store_version` reads are set at the two live callers.
-- **Ledger:** store_version partial; store_critical_bytes ported; sfo_char ported; sfo_version_info ported
+- **Ledger:** store_version ported; store_critical_bytes ported; sfo_char ported; sfo_version_info ported
 - **Next:** `hack.c` `in_rooms` (next Open — coverage row).
 
 ## D-2972 — `parse` collects the command count and key in C order
