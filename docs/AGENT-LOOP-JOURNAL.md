@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2943 `hliquid` rolls when the name is empty, and callers use it
+
+**C locus:** `nethack-c/upstream/src/do_name.c:1493–1510` `hliquid`. `Hallucination && !program_state.gameover` (`youprop.h:120`, `HHallucination && !Halluc_resistance`). Then `!liquidpref || !*liquidpref` still rolls. `count` is `SIZE(hliquids)` (40). A non-empty pref increments `count`. `rn2_on_display_rng` (`rnd.c`). `IndexOk` (`hack.h:1498`, `idx >= 0 && idx < SIZE`) returns `hliquids[indx]`; the extra index returns `liquidpref`. `rndorcname` is `do_name.c:1538–1554`: `rn1(2,3)` and `rn2(2)` run before `if (s)`. A null buffer returns null. Each syllable flips `vstart`, draws `rn2(30)` only when `i > 0`, and `ROLL_FROM` (`hack.h:1493`) is `array[rn2(SIZE)]` on `v` (4) or `snd` (11).
+**JS:** `js/do_name.js` `hliquid` `:385`. Hallu gate `:386`. Empty arm `:388`. Extra choice `:392–394`. Display roll `:395`. `IndexOk` `:397–399`. Return pref `:401`. `rndorcname` `:1510`. `rn1`/`rn2` `:1511–1512`. Null return `:1514` and `:1526`. Flip `:1517`. Hyphen `:1518`. `ROLL_FROM` `:1519–1521`.
+**Change:** One exported `hliquid` in that C order. Null and "" are the empty-pointer arm. The extra choice is `count + 1`.
+**Verify:** `node scripts/verify.mjs --fn hliquid` → PASS syntax (5 changed js files: js/do.js js/do_name.js js/hack.js js/pickup.js js/uhitm.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.2s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+**Named:** No arm of `hliquid` or `rndorcname` is omitted. `trapmove` beartrap, web, and pit messages still use the hero sentence; `y_monnam` still runs when `u.usteed` is set (`hack.c:1556`, `js/hack.js:2330`).
+**Next:** `pline.c` `putmesg` (next Open — coverage row). Seven coverage rows remain after this archive, below the floor of 8. Refilled five tool rows (`mkfount`, `add_mon_to_reg`, `redist_attr`, `is_flammable`, `mon_animal_list`) from `port-coverage.mjs --rows 800 --min-c-lines 15` after skipping the never-re-pop Stale head, DONE/PARKED/D-index, `hops —`, and save/files/restore/color.
 ## 2026-09-27 — D-2942 `can_fog` wards with the shape-changer property
 
 **C locus:** `nethack-c/upstream/src/monmove.c:2364–2371` `can_fog`. True only when fog clouds are not genocided (`mvitals[PM_FOG_CLOUD].mvflags & G_GENOD` is clear), `is_vampshifter(mtmp)`, `!Protection_from_shape_changers`, and `!stuff_prevents_passage(mtmp)`. The macro is `youprop.h:355–360`: `uprops[PROT_FROM_SHAPE_CHANGERS].intrinsic || .extrinsic`.

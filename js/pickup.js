@@ -4594,8 +4594,8 @@ function check_capacity(str) {
 
 /**
  * C ref: pickup.c able_to_loot — tip/loot reachability gates.
- * Named omissions: usteed rider_cant_reach; Underwater tip carve-out;
- * hliquid wording.
+ * Named omissions: usteed rider_cant_reach; Underwater tip carve-out
+ * (`looting || !Underwater`). The pool/lava noun is hliquid.
  * @param {number} x
  * @param {number} y
  * @param {boolean} looting true=loot, false=tip
@@ -4610,7 +4610,7 @@ async function able_to_loot(x, y, looting) {
     if ((is_pool(x, y) && looting) || is_lava(x, y)) {
         await pline(
             `You cannot ${verb} things that are deep in the ${
-                is_lava(x, y) ? 'lava' : 'water'
+                hliquid(is_lava(x, y) ? 'lava' : 'water')
             }.`,
         );
         return false;

@@ -93,7 +93,7 @@ import { livelog_printf } from './pline.js';
 import { experience, more_experienced, newexplevel } from './exper.js';
 import { explode, mon_explodes, adtyp_to_expltype } from './explode.js';
 import { rehumanize, body_part, mbodypart, uunstick } from './polyself.js';
-import { mon_nam, l_monnam, Monnam, x_monnam, x_monnam_tame, Hallucination, type_is_pname, pmname, Mgender, a_monnam, safe_oname, s_suffix, hcolor } from './do_name.js';
+import { mon_nam, l_monnam, Monnam, x_monnam, x_monnam_tame, Hallucination, type_is_pname, pmname, Mgender, a_monnam, safe_oname, s_suffix, hcolor, hliquid } from './do_name.js';
 import { artifact_hit, youmonst, is_art, artifact_exists, shade_glare, find_artifact, u_wield_art, permapoisoned, bare_artifactname } from './artifact.js';
 // imports.mjs --can uhitm.js timeout.js artifact_light: SAFE (hoisted).
 import { artifact_light } from './timeout.js';
@@ -3170,7 +3170,7 @@ export async function passive(mon, weapon, mhitb, maliveb, aatyp, wep_was_destro
             if (game.u?.Blind || !game.flags?.verbose) {
                 await pline('You are splashed!');
             } else {
-                await pline(`You are splashed by ${mon_nam(mon)}'s acid!`);
+                await pline(`You are splashed by ${s_suffix(mon_nam(mon))} ${hliquid('acid')}!`);
             }
             if (!Acid_resistance) {
                 await mdamageu(mon, tmp);

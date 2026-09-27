@@ -995,7 +995,7 @@ export async function boulder_hits_pool(otmp, rx, ry, pushing) {
             // next2u approx: Chebyshev ≤1 → dist2 ≤ 2
             const Fire_resistance = !!(u.Fire_resistance
                 || u.HFire_resistance || u.EFire_resistance);
-            await pline(`You are hit by molten lava${Fire_resistance ? '.' : '!'}`);
+            await pline(`You are hit by molten ${hliquid('lava')}${Fire_resistance ? '.' : '!'}`);
             let dmg = 0;
             const ndice = Fire_resistance ? 1 : 3;
             for (let i = 0; i < ndice; i++) dmg += 1 + rn2(6);
