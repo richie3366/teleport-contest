@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2928 `worn_item_removal` says "the" for the chain and "from" for a hand
+
+**C locus:** `nethack-c/upstream/src/steal.c:294–334` `worn_item_removal`. `Strcpy(objbuf, doname(obj))`. `strncmp` prefix 4/3/2 for "the "/"an "/"a " ("an " before "a "). If that length is set, `copynchars` into `article[20]` and `strsubst` of that article to "the " when `obj == uchain`, else "your ". `strsubst` drops " (being worn)" and " (alternate weapon; not wielded)". If `strstri` finds " (on " and `strncmp` of `p+5` is "left " (5) or "right " (6), `strsubst(p+2, "on", "from")`. Verb is "disarms" when `owornmask & W_WEAPONS`, else "removes" when `W_ACCESSORY`, else "takes off". `pline` of `Some_Monnam`, the verb, and `objbuf`. `iflags.last_msg = PLNMSG_MON_TAKES_OFF_ITEM`. `remove_worn_item(obj, TRUE)`.
+**JS:** `js/steal.js` `worn_item_removal` `:246`. `doname` `:248`. Article `:250–261`. Suffixes `:263–264`. Hand `:268–276`. Verb `:278–281`. `pline` `:282`. `last_msg` `:285`. `remove_worn_item` `:287`.
+**Change:** One file-local async `worn_item_removal` in that C order. `doname`, `copynchars`, `strsubst`, and `strstri` are the `hacklib.js` / `objnam.js` exports (`steal.js` already imported `hacklib.js`). `uchain` is `game.u.uchain`.
+**Verify:** `node scripts/verify.mjs --fn worn_item_removal` → PASS syntax (1 changed js file: js/steal.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.4s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: PASS.
+**Named:** No arm of `worn_item_removal` is omitted. `strncmp` has no JS export; the prefix tests are `startsWith` and a slice compare of "left " / "right ".
+**Next:** `pager.c` `whatdoes_help` (next Open — coverage row). Ten coverage rows remain after archive, above the floor of 8, so nothing was refilled.
 ## 2026-09-27 — D-2927 `end_of_input` saves on hangup, then clears locks and stops
 
 **C locus:** `nethack-c/upstream/src/cmd.c:5182–5209` `end_of_input`. `NOSAVEONHANGUP` is not defined, so the `INSURANCE` `preserve_locks` arm is not compiled. `In_tutorial` zeros `something_worth_saving`. `SAFERHANGUP` (`unixconf.h:301`) compiles out `if (!program_state.done_hup++)`. If still worth saving, `dosave0()`. If `soundprocs.sound_exit_nhsound`, call it with `"end_of_input"`. If `iflags.window_inited`, `exit_nhwindows(NULL)`. `clearlocks()`. `nh_terminate(EXIT_SUCCESS)`.

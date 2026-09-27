@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2928 — `worn_item_removal` says "the" for the chain and "from" for a hand
+
+- **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked). C is 38 lines; the whole body shipped.
+- **Symptom:** Taking a worn object always said "your", including the attached chain, which C names "the iron chain". The hand phrase was a case-sensitive search, and the two letters at that spot were overwritten even when they were not the lowercase "on" `strsubst` looks for.
+- **C locus:** `nethack-c/upstream/src/steal.c:294–334` `worn_item_removal`. `Strcpy(objbuf, doname(obj))`. `strncmp` prefix 4/3/2 for "the "/"an "/"a " ("an " before "a "). If that length is set, `copynchars` into `article[20]` and `strsubst` of that article to "the " when `obj == uchain`, else "your ". `strsubst` drops " (being worn)" and " (alternate weapon; not wielded)". If `strstri` finds " (on " and `strncmp` of `p+5` is "left " (5) or "right " (6), `strsubst(p+2, "on", "from")`. Verb is "disarms" when `owornmask & W_WEAPONS`, else "removes" when `W_ACCESSORY`, else "takes off". `pline` of `Some_Monnam`, the verb, and `objbuf`. `iflags.last_msg = PLNMSG_MON_TAKES_OFF_ITEM`. `remove_worn_item(obj, TRUE)`.
+- **JS was:** `js/steal.js` returned on a null object, chose the verb before `doname`, sliced "the "/"an "/"a " into "your " with no uchain arm, and used `replace` plus `indexOf(" (on ")` to overwrite two characters.
+- **Fix:** One file-local async `worn_item_removal` in that C order. `doname`, `copynchars`, `strsubst`, and `strstri` are the `hacklib.js` / `objnam.js` exports (`steal.js` already imported `hacklib.js`). `uchain` is `game.u.uchain`. The " (on " tail is the `strstri` return, and `strsubst` runs on `p+2` only. `pline` and `remove_worn_item` are awaited. The ball arm passes `u.uchain` with no ball fallback.
+- **JS:** `js/steal.js` `worn_item_removal` `:246`. `doname` `:248`. Article `:250–261`. Suffixes `:263–264`. Hand `:268–276`. Verb `:278–281`. `pline` `:282`. `last_msg` `:285`. `remove_worn_item` `:287`.
+- **Callers:** `steal.c:10` is the prototype. `:382` nothing-to-steal uchain → `js/steal.js:462`. `:511` accessory/food → `:616`. `:523` armor → `:629`. `:575` weapon or chain → `:675` (`u.uchain` at `:674`). `stealamulet` `:740` cloak → `:867`. `:742` suit → `:870`. `:747` `uswapwep` → `:876`. `:748` `uwep` → `:878`. `:752` gloves → `:882`. `:756` target → `:887`. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn worn_item_removal` → PASS syntax (1 changed js file: js/steal.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.4s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: PASS.
+- **Named omissions:** No arm of `worn_item_removal` is omitted. `strncmp` has no JS export; the prefix tests are `startsWith` and a slice compare of "left " / "right ". A missing `game.iflags` is created so `last_msg` has a global. A null object is not returned early (`owornmask` would throw; C would dereference). Lev/Fly text stays in the `*_off` bodies `remove_worn_item` already calls.
+- **Next:** `pager.c` `whatdoes_help` (next Open — coverage row). Ten coverage rows remain after archive, above the floor of 8, so nothing was refilled.
+
 ## D-2927 — `end_of_input` saves on hangup, then clears locks and stops
 
 - **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked). C is 26 lines; the whole body shipped, including `tty_exit_nhwindows` and `nh_terminate`.
