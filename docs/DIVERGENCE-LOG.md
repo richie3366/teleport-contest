@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2947 — `dungeon_branch` returns the child branch and callers use it
+
+- **Status:** fixed (coverage THIN; `hidden-proxy verify` reports no corpus session blocked). C is 16 lines; the whole body shipped.
+- **Symptom:** A missing `end2` counted as dungeon 0. `expulsion` took the first branch that touched the quest on either end and returned when none did. `mk_knox_portal` swallowed the panic and skipped the portal.
+- **C locus:** `nethack-c/upstream/src/dungeon.c:1870–1886` `dungeon_branch`. `dname_to_dnum` is `dungeon.c:283–295` (`strcmp` on `dungeons[i].dname`, then panic). The scan is `for (br = svb.branches; br; br = br->next) if (br->end2.dnum == dnum) break`, then `panic("dgn_entrance: can't find entrance to %s", s)`. Assumptions at `:1861–1867`: not "Dungeons of Doom", one branch per dungeon, `end2` is the child.
+- **JS was:** `js/dungeon.js` `dungeon_branch` used `Array.find` and `(end2?.dnum | 0)`. `dname_to_dnum` omitted the period in the panic text. `js/quest.js` `expulsion` scanned either end and returned on a miss. `js/mklev.js` `mk_knox_portal` caught the throw and returned.
+- **Fix:** One exported `dungeon_branch` in that C order. `dname_to_dnum` stays the file-local callee and panics with the C sentence. The walk is `game.branches` in link order (`.next` stays null). A match on `end2.dnum` returns that branch; otherwise the C panic text is thrown. `expulsion` calls `dungeon_branch("The Quest")` and picks the other end from `u.uz.dnum`. `mk_knox_portal` calls `dungeon_branch("Fort Ludios")` and does not catch the panic.
+- **JS:** `js/dungeon.js` `dname_to_dnum` `:1246`. Panic text `:1251`. `dungeon_branch` `:1261`. `dnum` `:1262`. Scan `:1266–1271`. Panic `:1273–1276`. Caller `at_dgn_entrance` `:1284`. Caller `mk_knox_portal` `js/mklev.js:28056`. Caller `expulsion` `js/quest.js:260`. Dest pick `:261–263`.
+- **Callers:** Prototype `extern.h:899` (declaration only). Comment `mklev.c:2631` is not a call. `dungeon.c:1901` `at_dgn_entrance` → `js/dungeon.js:1284`. `mklev.c:2630` `mk_knox_portal` → `js/mklev.js:28056`. `quest.c:193` `expulsion` → `js/quest.js:260`. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn dungeon_branch` → PASS syntax (3 changed js files: js/dungeon.js js/mklev.js js/quest.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+- **Named omissions:** No arm of `dungeon_branch` is omitted. `svb.branches` is the link-order array, not a `br->next` chain (D-2630). The `return (xint16) 0` after `dname_to_dnum`'s panic is not reached. `at_dgn_entrance` still returns false when `u.uz` is missing. `dname_to_dnum` clones in dig/do/potion stay. `expulsion`'s portal deletion still accepts either the trap array or the `ftrap` chain.
+- **Next:** `do_wear.c` `Shirt_on` (next Open — coverage row). Seven coverage rows remain after this archive, below the floor of 8. Refilled five tool rows (`tmiss`, `dead_species`, `yname`, `placebc`, `In_W_tower`) from `port-coverage.mjs --rows 800 --min-c-lines 15` after skipping the never-re-pop Stale head, DONE/PARKED/live, `split?`, `hops —`, hacklib, botl/files/save/restore, sanity, `reset_glyphmap`, and alloc/lua free.
+
 ## D-2946 — `deliver_by_window` walks with copynchars and honors the window type
 
 - **Status:** fixed (coverage THIN; `hidden-proxy verify` reports no corpus session blocked). C is 17 lines; the whole body shipped.

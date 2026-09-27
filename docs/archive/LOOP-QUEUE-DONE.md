@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-27
 
-- [x] `questpgr.c` deliver_by_window — coverage THIN (C 17 L `questpgr.c:439–456` / JS 6 L in js/questpgr.js; hops 4, callers 1, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn deliver_by_window` (reach regression must be 0). Measured `port-coverage.mjs --name deliver_by_window` 2026-09-27 @ fa30d863c. **Addressed:** D-2946
+- [x] `dungeon.c` dungeon_branch — coverage THIN (C 16 L `dungeon.c:1870–1886` / JS 6 L in js/dungeon.js; hops 2, callers 4, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dungeon_branch` (reach regression must be 0). Measured `port-coverage.mjs --name dungeon_branch` 2026-09-27 @ fa30d863c. **Addressed:** D-2947
+
+
+- [x] `questpgr.c` deliver_by_window — coverage THIN (C 17 L `questpgr.c:439–456` / JS 6 L in js/questpgr.js; hops 4, callers 1, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn deliver_by_window` (reach regression must be 0). Measured `port-coverage.mjs --name deliver_by_window` 2026-09-27 @ fa30d863c. **Addressed:** D-2946 `3f2358d79`
 
 
 - [x] `pickup.c` reset_justpicked — coverage THIN (C 16 L `pickup.c:616–632` / JS 6 L in js/pickup.js; hops 2, callers 5, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn reset_justpicked` (reach regression must be 0). Measured `port-coverage.mjs --name reset_justpicked` 2026-09-27 @ fa30d863c. **Addressed:** D-2945 `84f6850bd`

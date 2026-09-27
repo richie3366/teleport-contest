@@ -1238,21 +1238,42 @@ export function avoid_ceiling(lev) {
     return false;
 }
 
+/**
+ * C ref: dungeon.c dname_to_dnum `:283–295` (staticfn).
+ * `strcmp` on `svd.dungeons[i].dname`. `panic` is NORETURN; the C
+ * `return (xint16) 0` after it is not reached.
+ */
 function dname_to_dnum(s) {
-    for (let i = 0; i < game.n_dgns; i++) {
+    const n = game.n_dgns | 0;
+    for (let i = 0; i < n; i++) {
         if (game.dungeons[i].dname === s) return i;
     }
-    throw new Error(`Couldn't resolve dungeon number for name "${s}"`);
+    throw new Error(`Couldn't resolve dungeon number for name "${s}".`);
 }
 
 /**
- * C ref: dungeon.c dungeon_branch — branch whose end2 (child) is named dungeon.
- * Assumes end1 is always the parent.
+ * C ref: dungeon.c dungeon_branch `:1870–1886`.
+ * Assumes (C `:1861–1867`): not "Dungeons of Doom"; one branch to the
+ * dungeon; `end2` is the child. `svb.branches` is `game.branches` in
+ * link order — `insert_branch` leaves `.next` null and splices the
+ * array (D-2630), so the walk is the array, not `br->next`.
  */
 export function dungeon_branch(s) {
     const dnum = dname_to_dnum(s);
-    const br = (game.branches || []).find(b => (b.end2?.dnum | 0) === dnum);
-    if (!br) throw new Error(`dgn_entrance: can't find entrance to ${s}`);
+    let br = null;
+    const chain = game.branches;
+    const n = chain ? chain.length : 0;
+    for (let i = 0; i < n; i++) {
+        const cand = chain[i];
+        if ((cand.end2.dnum | 0) === (dnum | 0)) {
+            br = cand;
+            break;
+        }
+    }
+    if (!br) {
+        /* C panic() is NORETURN. throw ≡ C panic (insert_branch). */
+        throw new Error(`dgn_entrance: can't find entrance to ${s}`);
+    }
     return br;
 }
 

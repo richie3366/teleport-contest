@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2947 `dungeon_branch` returns the child branch and callers use it
+
+**C locus:** `nethack-c/upstream/src/dungeon.c:1870–1886` `dungeon_branch`. `dname_to_dnum` is `dungeon.c:283–295` (`strcmp` on `dungeons[i].dname`, then panic). The scan is `for (br = svb.branches; br; br = br->next) if (br->end2.dnum == dnum) break`, then `panic("dgn_entrance: can't find entrance to %s", s)`. Assumptions at `:1861–1867`: not "Dungeons of Doom", one branch per dungeon, `end2` is the child.
+**JS:** `js/dungeon.js` `dname_to_dnum` `:1246`. Panic text `:1251`. `dungeon_branch` `:1261`. `dnum` `:1262`. Scan `:1266–1271`. Panic `:1273–1276`. Caller `at_dgn_entrance` `:1284`. Caller `mk_knox_portal` `js/mklev.js:28056`. Caller `expulsion` `js/quest.js:260`. Dest pick `:261–263`.
+**Change:** One exported `dungeon_branch` in that C order. `dname_to_dnum` stays the file-local callee and panics with the C sentence. The walk is `game.branches` in link order (`.next` stays null).
+**Verify:** `node scripts/verify.mjs --fn dungeon_branch` → PASS syntax (3 changed js files: js/dungeon.js js/mklev.js js/quest.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+**Named:** No arm of `dungeon_branch` is omitted. `svb.branches` is the link-order array, not a `br->next` chain (D-2630).
+**Next:** `do_wear.c` `Shirt_on` (next Open — coverage row). Seven coverage rows remain after this archive, below the floor of 8. Refilled five tool rows (`tmiss`, `dead_species`, `yname`, `placebc`, `In_W_tower`) from `port-coverage.mjs --rows 800 --min-c-lines 15` after skipping the never-re-pop Stale head, DONE/PARKED/live, `split?`, `hops —`, hacklib, botl/files/save/restore, sanity, `reset_glyphmap`, and alloc/lua free.
 ## 2026-09-27 — D-2946 `deliver_by_window` walks with copynchars and honors the window type
 
 **C locus:** `nethack-c/upstream/src/questpgr.c:438–456` `deliver_by_window`. `eos` is `hacklib.c:193–199`. `copynchars` stops at NUL or newline and copies at most `sizeof in_line - 1` (`hacklib.c:286–297`). The walk adds `strlen(in_line)+1`. `convert_line` is `questpgr.c:327`. `display_nhwindow` flushes `TOPLINE_NEED_MORE` then `process_text_window` (`wintty.c:1898–1943`). `output == 3` is `NHW_MENU`; otherwise `NHW_TEXT` (`questpgr.c:595`).

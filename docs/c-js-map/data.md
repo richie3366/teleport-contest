@@ -1872,6 +1872,16 @@ splice; `.next` stays null — no JS reader, save.js JSON-copies);
 callers wired: `:534` add_branch `js/dungeon.js:355`, `:1156` fixup Knox
 `js/dungeon.js:994`, `mklev.c:2655` mk_knox_portal `js/mklev.js:25247`; named: none.
 
+**`dungeon_branch` `:1870–1886`** (D-2947; C order: file-local
+`dname_to_dnum` `:283–295`, then the `end2.dnum` scan, panic throw if
+none). `game.branches` is the link-order array (`.next` stays null,
+D-2630). Callers: `dungeon.c:1901` `at_dgn_entrance`
+`js/dungeon.js:1284`, `mklev.c:2630` `mk_knox_portal`
+`js/mklev.js:28056` (panic no longer swallowed), `quest.c:193`
+`expulsion` `js/quest.js:260`. `extern.h:899` is the prototype.
+Named: `at_dgn_entrance` still returns false when `u.uz` is missing;
+`dname_to_dnum` clones in dig/do/potion stay.
+
 **`fixup_level_locations` `:1122–1182`** (D-2683; C order with per-arm
 cites: `:1132` sentinel loop, `:1133–1135` find/assign, `:1136–1141` x-
 filecode stamp, `:1142–1158` Knox float via live `on_level` +

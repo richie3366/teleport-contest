@@ -28052,12 +28052,8 @@ function fill_zoo(sroom) {
  */
 function mk_knox_portal(x, y) {
     const g = game;
-    let br;
-    try {
-        br = dungeon_branch('Fort Ludios');
-    } catch {
-        return; // C panics; soft-skip if data missing
-    }
+    /* C mklev.c:2630–2632: dungeon_branch panics (never returns) if null. */
+    const br = dungeon_branch('Fort Ludios');
     const knox = g.knox_level;
     // C: wizard ≡ flags.debug (flag.h)
     const wizard = !!(g.flags?.debug || g.flags?.wizard);
