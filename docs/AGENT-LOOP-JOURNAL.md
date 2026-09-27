@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2917 `ckmailstatus` delivers spool mail on the UNIX mailbox check
+
+**C locus:** `nethack-c/upstream/src/mail.c:549–584` `ckmailstatus` (UNIX). `ck_server_admin_msg()` (empty: `SERVER_ADMIN_MSG` is undefined). Return when `!mailbox || u.uswallow || !flags.biff || moves < laststattime + MAILCKFREQ` (`MAILCKFREQ` 50). Then `laststattime = moves`. Failed `stat` (not `PERMANENT_MAILBOX`) sets `nmstat.st_mtime = 0`. A newer mtime with `st_size` calls `newmail` of `MSG_MAIL` / `"I have some mail for you"` (`NO_MAILREADER` undefined), then `getmailstatus()`. `getmailstatus` is `:97–141`: keep an existing mailbox, else `nh_getenv("MAIL")` and `dupstr`. `free_maildata` is `:90–94`.
+**JS:** `js/mail.js` `ckmailstatus` `:584`. Guard `:590–592`. `laststattime` `:594`. Failed stat `:596–598`. Newer mtime and `newmail` `:599–607`. `getmailstatus` `:608`. `getmailstatus` `:539`. `free_maildata` `:526`. `ck_server_admin_msg` `:575`. Caller `js/allmain.js:1408`. Startup `js/jsmain.js:237`. `readmail` `:294`.
+**Change:** One async `ckmailstatus` in that C order. `stat` reads the storage VFS (a missing key fails; a present file has its length as `st_size` and a stable `st_mtime` of 1). `flags.biff` is `flags.mail`, default On.
+**Verify:** `node scripts/verify.mjs --fn ckmailstatus` → PASS syntax (3 changed js files: js/allmain.js js/jsmain.js js/mail.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+**Named:** The `!UNIX` body `mail.c:461–479` (including the AMIGA/MSDOS/TOS `rn2`) and the VMS body `:743–760` are compiled out (`config.h` defines `UNIX`). `getpwuid` + `MAILPATH` (`mail.c:116–123`) stays omitted (no passwd database).
+**Next:** `bones.c` `fix_ghostly_obj` (next Open — coverage row). Nine Open rows remain after archive, above the floor of 8, so nothing was refilled. The queue-empty overlay did not match the live queue (ten coverage rows were open; `ckmailstatus` was the head and had no JS symbol).
 ## 2026-09-27 — D-2916 `christen_monst` stores a capped given name and refreshes a leash
 
 **C locus:** `nethack-c/upstream/src/do_name.c:133–152` `christen_monst`. `lth` is `(name && *name) ? strlen(name)+1 : 0`. If `lth > PL_PSIZ`, `lth = PL_PSIZ` and `strncpy` copies `PL_PSIZ-1` bytes with a NUL at `[PL_PSIZ-1]`. `new_mgivenname(mtmp, lth)`, then `Strcpy` when `lth`. If `mtmp->mleashed`, `update_inventory()`. Returns `mtmp`.

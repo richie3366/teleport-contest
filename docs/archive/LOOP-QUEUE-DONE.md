@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-27
 
-- [x] `do_name.c` christen_monst — coverage PARTIAL (C 19 L `do_name.c:133–152` / JS 10 L in js/do_name.js; hops 2, callers 17, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn christen_monst` (reach regression must be 0). Measured `port-coverage.mjs --name christen_monst` 2026-09-27 @ 4039cf023. **Addressed:** D-2916
+- [x] `mail.c` ckmailstatus — coverage MISSING (C 18 L `mail.c:461–479` / JS no symbol; hops 2, callers 1, RNG 2, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn ckmailstatus` (reach regression must be 0). Measured `port-coverage.mjs --name ckmailstatus` 2026-09-27 @ af40498ad. **Addressed:** D-2917
+
+
+- [x] `do_name.c` christen_monst — coverage PARTIAL (C 19 L `do_name.c:133–152` / JS 10 L in js/do_name.js; hops 2, callers 17, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn christen_monst` (reach regression must be 0). Measured `port-coverage.mjs --name christen_monst` 2026-09-27 @ 4039cf023. **Addressed:** D-2916 `d179e940b`
 
 
 - [x] `mkobj.c` mk_tt_object — coverage THIN (C 19 L `mkobj.c:2227–2248` / JS 8 L in js/dig.js; hops 3, callers 5, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mk_tt_object` (reach regression must be 0). Measured `port-coverage.mjs --name mk_tt_object` 2026-09-27 @ 4039cf023. **Addressed:** D-2915 `a4cc08e9a`
