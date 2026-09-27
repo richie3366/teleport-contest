@@ -7,6 +7,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — audit 1937–1945 (D-2978–D-2986)
+
+Reviewed the nine `js/` commits since `8d2439c0f`. Nine ACCEPT (1937–1945). No Must-fix. Next cluster is `shk.c` `price_quote`. Public `sessions` on `dceb8a7b3`: 44/44, screens 11,405/11,405, RNG 792,838/792,838, speed `266+1.67/turn` (R² 0.772). Held-out still 12/44 (6,442/11,265 pts, RNG 31.5 %, rngSteps 85.3 %, screens 57.2 %; board 2026-09-27T13:26Z, last scored 2026-09-27T13:02Z). `hidden-proxy score` 12/12 on the private sessions present (RNG 75,151/75,151, screens 653/653); `.cache/hidden/sessions` absent, so 614/940 was not re-measured. Five seeded `ported` briefs (`mcast_spell`, `do_supplemental_info`, `show_glyph`, `can_fog`, `distant_name`): four have a live JS body. `show_glyph` was `ported` with `sym` NOT FOUND; set to `unknown`. No `js/` edits.
 ## 2026-09-27 — D-2986 `argcheck` scans early options and parses `--debug` fields
 
 **C locus:** `nethack-c/upstream/src/earlyarg.c:450–560` `argcheck`. The table is `earlyopts` (`:36–52`) for this build: `NODUMPENUMS` is commented out, `WIN32` is off, `CRASHREPORT` is on. A leading `--` sets `dashdash` and a later single-dash match does not clear it. The value cut for `debug_fields` is the first `:` if any, else `=`. `debug_fields` (`:575–621`) applies comma-separated names right to left. `early_version_info` is `version.c:280–312`.

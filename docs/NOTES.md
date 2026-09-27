@@ -19,7 +19,7 @@ here again. Live hypotheses only:
   revisits. Phase-2 rows (`[measure]`, parks, `hidden-proxy queue`) stay
   closed meanwhile; the corpus is guarded by REACH in `verify.mjs`.
   Everything below this bullet is phase-2 context — do not act on it now.
-- Audit 1928–1936 (`a5772c318`…`8d2439c0f`): 7 ACCEPT, 2 QUALITY-RISK. Must-fix: `IA_QUAFF_OBJ` `do_reqmenu` (1935); `FUNCT_TXT` `doloot`/`dotip` (1936). Do not re-open the ACCEPT set. Prior audit 1919–1927 stays 9 ACCEPT. `piousness` and `corpse_intrinsic` stay parked Stale.
+- Audit 1937–1945 (`4ce18a4e0`…`dceb8a7b3`): 9 ACCEPT. No new Must-fix. Do not re-open the ACCEPT set. Prior audit 1928–1936 stays 7 ACCEPT, 2 QUALITY-RISK (both shipped: D-2979 `68cdee2bb`, D-2978 `4ce18a4e0`). `piousness` and `corpse_intrinsic` stay parked Stale. Seeded `show_glyph` was `ported` with no JS symbol; set back to `unknown`.
 
 - **obj_resists writers (D-2407/2413-15, MEASURED):** `steal.c` relobj `flooreffects` + Knight/Arch/Healer arms (detail in D-logs). Falsified — do not re-check: fire-trap burn, fmon-order, polyuse, monstone, bury, steal.
 

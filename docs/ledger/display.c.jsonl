@@ -44,7 +44,7 @@
 {"fn":"redraw_map","c":"1778-1812","status":"unknown","d":["D-1974"],"at":"seed@a30a7de84"}
 {"fn":"reglyph_darkroom","c":"1818-1854","status":"unknown","d":["D-1975"],"at":"seed@a30a7de84"}
 {"fn":"newsym_force","c":"1863-1871","status":"unknown"}
-{"fn":"show_glyph","c":"1877-2072","status":"ported","d":["D-1767","D-1221"],"at":"seed@a30a7de84","note":"stale 2026-09-18; seed: js location unresolved"}
+{"fn":"show_glyph","c":"1877-2072","status":"unknown","d":["D-1767","D-1221"],"at":"2026-09-27@dceb8a7b3","note":"audit 1937-1945: sym NOT FOUND; seed marked ported with js location unresolved. D-1767 and D-1221 live in show_glyph_cell, not show_glyph."}
 {"fn":"clear_glyph_buffer","c":"2107-2142","status":"unknown","d":["D-1986"],"at":"seed@a30a7de84"}
 {"fn":"row_refresh","c":"2147-2186","status":"unknown","d":["D-1964"],"at":"seed@a30a7de84"}
 {"fn":"cls","c":"2189-2202","status":"unknown"}

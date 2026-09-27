@@ -1946,3 +1946,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1934-b3da2ae0e-wiz-show-stats.md](./1934-b3da2ae0e-wiz-show-stats.md) | `b3da2ae0e` | D-2975 wiz_show_stats | **ACCEPT** |
 | [1935-25beec7af-cmdq-add-key.md](./1935-25beec7af-cmdq-add-key.md) | `25beec7af` | D-2976 cmdq_add_key | **QUALITY-RISK** |
 | [1936-8d2439c0f-cmdq-add-ec.md](./1936-8d2439c0f-cmdq-add-ec.md) | `8d2439c0f` | D-2977 cmdq_add_ec | **QUALITY-RISK** |
+| [1937-4ce18a4e0-ext-func-tab.md](./1937-4ce18a4e0-ext-func-tab.md) | `4ce18a4e0` | D-2978 ext_func_tab_from_func | **ACCEPT** |
+| [1938-68cdee2bb-itemactions-pushkeys.md](./1938-68cdee2bb-itemactions-pushkeys.md) | `68cdee2bb` | D-2979 itemactions_pushkeys | **ACCEPT** |
+| [1939-de27c57ac-singular.md](./1939-de27c57ac-singular.md) | `de27c57ac` | D-2980 singular | **ACCEPT** |
+| [1940-7040c7cd0-you-see.md](./1940-7040c7cd0-you-see.md) | `7040c7cd0` | D-2981 You_see | **ACCEPT** |
+| [1941-529e9bfc5-check-wornmask-slots.md](./1941-529e9bfc5-check-wornmask-slots.md) | `529e9bfc5` | D-2982 check_wornmask_slots | **ACCEPT** |
+| [1942-8b946a308-rnd-offensive-item.md](./1942-8b946a308-rnd-offensive-item.md) | `8b946a308` | D-2983 rnd_offensive_item | **ACCEPT** |
+| [1943-406969f14-botl-score.md](./1943-406969f14-botl-score.md) | `406969f14` | D-2984 botl_score | **ACCEPT** |
+| [1944-9b244f090-align-str.md](./1944-9b244f090-align-str.md) | `9b244f090` | D-2985 align_str | **ACCEPT** |
+| [1945-dceb8a7b3-argcheck.md](./1945-dceb8a7b3-argcheck.md) | `dceb8a7b3` | D-2986 argcheck | **ACCEPT** |
