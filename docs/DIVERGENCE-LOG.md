@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2913 — `flip_vault_guard` transposes a vault guard's corridor with the level
+
+- **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked). C is 28 lines; the whole body shipped. `flip_level_rnd` was already that body (Stale).
+- **Symptom:** No function named `flip_vault_guard`. `flip_level` moved an on-map monster's `mx`/`my` and skipped a guard whose `mx` was 0 only because that cell is outside the flip rectangle. A guard's `gdx`/`gdy`, `ogx`/`ogy`, and `fakecorr` cells stayed put, including a guard who had already left on `migrating_mons`.
+- **C locus:** `nethack-c/upstream/src/sp_lev.c:926–958` `flip_vault_guard`. `EGD(grd)`. If `inFlipArea(gdx, gdy)`, bit 1 writes `FlipY(gdy)` and bit 2 writes `FlipX(gdx)`. The same pair of tests for `ogx`/`ogy`. Then `fakecorr[fcbeg, fcend)`: save `fx`/`fy`, and when that cell is inside the rectangle, write `fy` then `fx` from those saved values. `FlipX`/`FlipY`/`inFlipArea` are the macros at `:516–519`.
+- **JS was:** `js/mklev.js` `flip_level` named vault-guard extras as omitted. The `fmon` walk tested `inFlipArea` before any `isgd` arm. There was no `migrating_mons` walk.
+- **Fix:** One file-local `flip_vault_guard` in that C order. `flip_level` calls it for an on-level `isgd` monster when `extras`, then skips `mx`/`my` when `mx == 0`. The `extras` walk of `migrating_mons` calls it when `isgd` and `on_level(u.uz, egd.gdlevel)`.
+- **JS:** `js/mklev.js` `flip_vault_guard` `:18880`. `EGD` `:18886`. Guard door `:18889–18894`. Original spot `:18895–18900`. Fake corridor `:18903–18914`. On-map caller `:19021–19024`. Migrating caller `:19047–19052`.
+- **Callers:** `sp_lev.c:642` `flip_level` `fmon` → `js/mklev.js:19023`. `sp_lev.c:677` `flip_level` `migrating_mons` → `js/mklev.js:19052`. `sp_lev.c:28` only declares it. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn flip_vault_guard` → PASS syntax (1 changed js file: js/mklev.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+- **Named omissions:** No arm of `flip_vault_guard` is omitted. A missing `egd` returns; C would fault on `EGD(grd)`. A missing `fakecorr` slot is skipped. Migrating priest `shrpos` and shopkeeper `shk`/`shd` (`sp_lev.c:678–685`) stay omitted on `flip_level`. `#wizfliplevel` and `nhl_flip_level` still do not call `flip_level`, so `extras` stays false on every live path.
+- **Next:** `insight.c` `piousness` (next Open — coverage row). `flip_level_rnd` parked Stale. Ten Open rows remain after archive, above the floor of 8, so nothing was refilled. The queue-empty overlay did not match the live queue (twelve coverage rows were open; `flip_vault_guard` was the head and had no JS symbol).
+
 ## D-2912 — `readobjnam_init` zeros the wish record before parsing
 
 - **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked). C is 28 lines; the whole body shipped. `otense` was already that body (Stale).

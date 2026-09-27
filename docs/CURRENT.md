@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `objnam.c` `readobjnam_init` — coverage MISSING (C 28 L `objnam.c:3933–3961` / JS no symbol). Same-file `otense` is the live `js/objnam.js` body (Stale). No Must-fix.
+**Next cluster:** `insight.c` `piousness` — coverage PARTIAL (C 36 L `insight.c:3235–3271` / JS 22 L in js/insight.js). No Must-fix. `flip_vault_guard` shipped as D-2913; same-file `flip_level_rnd` parked Stale.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2912 (index).**
+**Keep D-0845…D-2913 (index).**
 <!-- recent:begin -->
+**D-2913** `nethack-c/upstream/src/sp_lev.c:926–958` `flip_vault_guard`. `EGD(grd)`. If `inFlipArea(g — One file-local `flip_vault_guard` in that C order.
 **D-2912** `nethack-c/upstream/src/objnam.c:3933–3961` `readobjnam_init`. `otmp` is null. The zero ch — One file-local `readobjnam_init` in that C order.
 **D-2911** `nethack-c/upstream/src/mhitm.c:807–845` `engulf_target`. Too-big or a smaller non-whirly  — One exported `engulf_target` in that C order.
 **D-2910** `nethack-c/upstream/src/pray.c:2530–2555` `align_gname`. `A_NONE` is the file-scope `Moloc — One exported `align_gname` in that C order.
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2908** `nethack-c/upstream/src/wield.c:809–831` `drop_uswapwep`. `Sprintf(left_hand, "left %s", b — One async `drop_uswapwep` in that C order.
 **D-2907** `nethack-c/upstream/src/eat.c:576–599` `eating_conducts`. `!u.uconduct.food++` then `livel — One async `eating_conducts` in that C order, including both post-increment tests and all three `livelog_printf` calls.
 **D-2906** `nethack-c/upstream/src/dungeon.c:1714–1747` `ceiling`. `*in_rooms` for `VAULT`, then `TEM — Deleted the three clones.
-**D-2905** `nethack-c/upstream/src/dothrow.c:1913–1947` `omon_adj`. Add `msize - MZ_MEDIUM`, +2 if sl — One exported `omon_adj` in that C order.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2912; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2913; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

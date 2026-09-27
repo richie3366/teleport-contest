@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2913 `flip_vault_guard` transposes a vault guard's corridor with the level
+
+**C locus:** `nethack-c/upstream/src/sp_lev.c:926–958` `flip_vault_guard`. `EGD(grd)`. If `inFlipArea(gdx, gdy)`, bit 1 writes `FlipY(gdy)` and bit 2 writes `FlipX(gdx)`. The same pair of tests for `ogx`/`ogy`. Then `fakecorr[fcbeg, fcend)`: save `fx`/`fy`, and when that cell is inside the rectangle, write `fy` then `fx` from those saved values. `FlipX`/`FlipY`/`inFlipArea` are the macros at `:516–519`.
+**JS:** `js/mklev.js` `flip_vault_guard` `:18880`. `EGD` `:18886`. Guard door `:18889–18894`. Original spot `:18895–18900`. Fake corridor `:18903–18914`. On-map caller `:19021–19024`. Migrating caller `:19047–19052`.
+**Change:** One file-local `flip_vault_guard` in that C order. `flip_level` calls it for an on-level `isgd` monster when `extras`, then skips `mx`/`my` when `mx == 0`. The `extras` walk of `migrating_mons` calls it when `isgd` and `on_level(u.uz, egd.gdlevel)`.
+**Verify:** `node scripts/verify.mjs --fn flip_vault_guard` → PASS syntax (1 changed js file: js/mklev.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+**Named:** No arm of `flip_vault_guard` is omitted. A missing `egd` returns; C would fault on `EGD(grd)`.
+**Next:** `insight.c` `piousness` (next Open — coverage row). `flip_level_rnd` parked Stale. Ten Open rows remain after archive, above the floor of 8, so nothing was refilled. The queue-empty overlay did not match the live queue (twelve coverage rows were open; `flip_vault_guard` was the head and had no JS symbol).
 ## 2026-09-27 — D-2912 `readobjnam_init` zeros the wish record before parsing
 
 **C locus:** `nethack-c/upstream/src/objnam.c:3933–3961` `readobjnam_init`. `otmp` is null. The zero chain runs through `fake`. Then `tvariety = RANDOM_TIN`, `mgend = -1`, `mntmp = NON_PM`, `contents = TIN_UNDEFINED`, `oclass = 0`, null `actualn`/`dn`/`un`, `wetness` and `gsize` 0, `zombify` FALSE, `bp`/`origbp` alias the caller, `p` and `name` null, `ftype = context.current_fruit`, and both buffers are memset to 0. `tmp` and `tinv` are not touched.

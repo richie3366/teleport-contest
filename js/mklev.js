@@ -90,6 +90,7 @@ import {
     CORPSTAT_HISTORIC, CORPSTAT_MALE, CORPSTAT_FEMALE, CORPSTAT_NONE,
     NUM_NHCORE_CALLS,
     TT_BURIEDBALL, IN_SIGHT, COULD_SEE, NO_TRAP_FLAGS,
+    EGD,
 } from './const.js';
 import {
     RANDOM_CLASS, WEAPON_CLASS, ARMOR_CLASS, RING_CLASS,
@@ -18867,6 +18868,52 @@ function flip_level_rnd(flp, extras) {
     if (c) flip_level(c, extras);
 }
 
+/**
+ * C ref: sp_lev.c:926–958 flip_vault_guard — transpose one vault guard's
+ * egd. FlipX / FlipY / inFlipArea are the macros at `:516–519`; they bind
+ * this function's min/max (the same names flip_level uses). gdx/gdy, then
+ * ogx/ogy, then fakecorr[fcbeg, fcend). Each pair is tested before either
+ * axis is written. Bit 1 is vertical, bit 2 is horizontal. The corridor
+ * cell is flipped from the saved fx/fy, not from a field already updated.
+ * staticfn; the two call sites are both inside flip_level.
+ */
+function flip_vault_guard(flp, grd, minx, miny, maxx, maxy) {
+    const FlipX = (val) => ((maxx - (val | 0)) + minx) | 0; /* C :516 */
+    const FlipY = (val) => ((maxy - (val | 0)) + miny) | 0; /* C :517 */
+    const inFlipArea = (x, y) =>
+        (x | 0) >= minx && (x | 0) <= maxx
+        && (y | 0) >= miny && (y | 0) <= maxy; /* C :518–519 */
+    const egd = EGD(grd); /* C :933 */
+    if (!egd) return;
+
+    if (inFlipArea(egd.gdx, egd.gdy)) { /* C :935 */
+        if (flp & 1)
+            egd.gdy = FlipY(egd.gdy); /* C :937 */
+        if (flp & 2)
+            egd.gdx = FlipX(egd.gdx); /* C :939 */
+    }
+    if (inFlipArea(egd.ogx, egd.ogy)) { /* C :941 */
+        if (flp & 1)
+            egd.ogy = FlipY(egd.ogy); /* C :943 */
+        if (flp & 2)
+            egd.ogx = FlipX(egd.ogx); /* C :945 */
+    }
+    const fcbeg = egd.fcbeg | 0;
+    const fcend = egd.fcend | 0;
+    for (let i = fcbeg; i < fcend; ++i) { /* C :947 */
+        const fc = egd.fakecorr ? egd.fakecorr[i] : undefined;
+        if (!fc) continue;
+        const fx = fc.fx | 0;
+        const fy = fc.fy | 0; /* C :948 */
+        if (inFlipArea(fx, fy)) { /* C :950 */
+            if (flp & 1)
+                fc.fy = FlipY(fy); /* C :952 */
+            if (flp & 2)
+                fc.fx = FlipX(fx); /* C :954 */
+        }
+    }
+}
+
 /** C ref: mkmaze.c get_level_extends — see bottom of file. */
 
 /**
@@ -18875,9 +18922,12 @@ function flip_level_rnd(flp, extras) {
  * Ported: ox/oy + buried coords; swap `_objects_at` with terrain cells
  * (D-0804; preserves nexthere — never rebuild from fobj); mgoal / priest
  * shrpos / shk shk|shd via Flip_coord (inFlipArea+x gate); ungated stairs;
- * `_level_monsters` swap (C level.monsters[][]). Named omissions:
- * SpLev_Map flip (C leaves unflipped); drawbridge helpers; vault-guard
- * extras; ball/chain. `flip_visuals` runs when `extras` (`sp_lev.c:916–919`).
+ * `_level_monsters` swap (C level.monsters[][]). Vault-guard egd flips
+ * through flip_vault_guard when extras (`sp_lev.c:640–645`, `:674–677`).
+ * Named omissions:
+ * SpLev_Map flip (C leaves unflipped); drawbridge helpers; ball/chain.
+ * Migrating priest shrpos and shopkeeper shk/shd (`sp_lev.c:678–685`)
+ * stay omitted. `flip_visuals` runs when `extras` (`sp_lev.c:916–919`).
  * Exclusion rectangles flip with the level (D-1109).
  */
 function flip_level(flp, extras) {
@@ -18966,7 +19016,14 @@ function flip_level(flp, extras) {
     // wormno tail segs via flip_worm_segs_vertical/horizontal, D-2222)
     if (game.fmon) {
         for (const mtmp of game.fmon) {
-            if (!mtmp || !inFlipArea(mtmp.mx, mtmp.my)) continue;
+            if (!mtmp) continue;
+            /* C sp_lev.c:640–645 — extras flips egd; mx==0 stays off the map. */
+            if (mtmp.isgd) {
+                if (extras)
+                    flip_vault_guard(flp, mtmp, minx, miny, maxx, maxy);
+                if ((mtmp.mx | 0) === 0) continue;
+            }
+            if (!inFlipArea(mtmp.mx, mtmp.my)) continue;
             if (flp & 1) mtmp.my = FlipY(mtmp.my);
             if (flp & 2) mtmp.mx = FlipX(mtmp.mx);
             Flip_coord(mtmp.mgoal);
@@ -18982,6 +19039,17 @@ function flip_level(flp, extras) {
                 if (flp & 1) flip_worm_segs_vertical(mtmp, miny, maxy);
                 if (flp & 2) flip_worm_segs_horizontal(mtmp, minx, maxx);
             }
+        }
+    }
+    /* C sp_lev.c:674–677 — guards who left this level still have egd here.
+       Priest shrpos and shk shk/shd on the same walk (`:678–685`) stay
+       the named omit on flip_level. */
+    if (extras) {
+        for (const mtmp of game.migrating_mons || []) {
+            if (!mtmp?.isgd) continue;
+            const egd = EGD(mtmp);
+            if (egd && on_level(game.u?.uz, egd.gdlevel))
+                flip_vault_guard(flp, mtmp, minx, miny, maxx, maxy);
         }
     }
 
