@@ -37,8 +37,7 @@
 // ggetobj; discover_artifact / learn_egg_type in fully_identify_obj;
 // SCR_DESTROY_ARMOR live (D-2640: confused erodeproof / cursed vibrate+stun /
 // blessed getobj choice / disintegrate_cursed_armor); Rogue unblock_point
-// vs vision_recalc on blessed SDOOR; can_chant poly silent/
-// headless/buzz/burble;
+// vs vision_recalc on blessed SDOOR; can_chant is mondata.c (D-2926);
 // SPE_REMOVE_CURSE seffects
 // arm (throne fake book D-1033; #cast still deferred);
 // Teleport_control getpos;
@@ -71,8 +70,7 @@
 // menu_identify traditional ggetobj; discover_artifact / learn_egg_type;
 // SCR_DESTROY_ARMOR live (D-2640: confused erodeproof / cursed vibrate+stun /
 // blessed getobj choice / disintegrate_cursed_armor); Rogue unblock_point
-// vs vision_recalc on blessed SDOOR; can_chant poly silent/
-// headless/buzz/burble;
+// vs vision_recalc on blessed SDOOR; can_chant is mondata.c (D-2926);
 // SPE_REMOVE_CURSE seffects
 // arm (throne fake book D-1033; #cast still deferred);
 // Teleport_control getpos;

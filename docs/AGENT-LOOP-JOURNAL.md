@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2926 `rejectcasting` stops a stunned, silent, or welded caster
+
+**C locus:** `nethack-c/upstream/src/spell.c:687–708` `rejectcasting`. If `Stunned` (`HStun`), `You("are too impaired to cast a spell.")` and return TRUE. Else if `!can_chant(&gy.youmonst)`, `You("are unable to chant the incantation.")` and return TRUE. Else if `!freehand()` and the wielded weapon is not a quarterstaff, `Your("arms are not free to cast!")` and return TRUE. Else return FALSE. `can_chant` is `mondata.c:579–587`: hero `Strangled`, else `is_silent`, `!has_head`, `MS_BUZZ`, or `MS_BURBLE`.
+**JS:** `js/spell.js` `rejectcasting` `:1427`. Stun `:1429`. Chant `:1432`. Hands `:1435`. `can_chant` `:1398`. `getspell` `:1852`. `spelleffects_check` `:1957`.
+**Change:** One file-local async `rejectcasting` in that C order. `You` and `Your` are the display exports. `freehand` is the `engrave.c:472–477` export.
+**Verify:** `node scripts/verify.mjs --fn rejectcasting` → PASS syntax (3 changed js files: js/pray.js js/read.js js/spell.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.7s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: PASS.
+**Named:** No arm of `rejectcasting` or `can_chant` is omitted. `makeplural(body_part(ARM))` is the C comment, not a call.
+**Next:** `cmd.c` `end_of_input` (next Open — coverage row). Seven coverage rows remain after archive, below the floor of 8. Refilled five tool rows (`stuff_prevents_passage`, `learnring`, `shuffle_customizations`, `endgamelevelname`, `ansimpleoname`) from `port-coverage.mjs --rows 800 --min-c-lines 20` after skipping DONE/PARKED/Stale, `split?`, unreachable hops, save/files/bones/botl/restore, sanity, and `reset_glyphmap`.
 ## 2026-09-27 — D-2925 `Shield_on` names every shield, then marks it known
 
 **C locus:** `nethack-c/upstream/src/do_wear.c:705–730` `Shield_on`. Switch on `uarms->otyp`: `SMALL_SHIELD`, `SHIELD_OF_DRAIN_RESISTANCE`, `SHIELD_OF_SHOCK_RESISTANCE`, `ELVEN_SHIELD`, `URUK_HAI_SHIELD`, `ORCISH_SHIELD`, `DWARVISH_ROUNDSHIELD`, `LARGE_SHIELD`, `SHIELD_OF_REFLECTION` break. Default `impossible("Unknown type of %s (%d)", "shield", uarms->otyp)`. If `!uarms->known`, set `known = 1` and `update_inventory()`. Return 0. The comment names `setworn` as the caller of the extrinsic, not a callee.

@@ -836,7 +836,7 @@ enchant-armor `adj_abon` live (`js/do_wear.js` export D-2581) + `maybe_adjust_li
 **`mail.c` `newmail` + `md_start`/`md_stop`/`md_rush`** (D-2478; `js/mail.js` in C order — `md_start` Blind/stairwell/farthest-edge arms, `md_stop` 3×3 + `enexto` fallback, `md_rush` off-map greedy descent + displacement + crowded-refusal, exported async `newmail` with SCR_MAIL handoff + MSG_OTHER `Hark!` fallback; `place_worm_seg` newly exported from `js/worm.js`, all other callees live; `ckmailstatus` live D-2917 (UNIX `:549–584` in `js/mail.js`, caller `allmain.c:534` → `js/allmain.js`; !UNIX mustgetmail and VMS broadcast compiled out; `getpwuid`/`MAILPATH` and OS `st_mtime` named); `newphone` stays named); **`mail.c` `read_simplemail` `:589–680`** (D-2599; exported async `read_simplemail(mbox, adminmsg)` in `js/mail.js` in C order — VFS spool read for fopen, fgets(128) chunking, There nother-gate, first-colon split, msglen<3 bail, sender split + newline kill, endpunct, admin urgent_pline vs from/reads/quoted plines, flush_topl_more vs vfsDeleteFile tail; There/urgent_pline join the display.js import, new storage.js edge SAFE; fcntl flock lock/unlock arms + getmailstatus mailbox-global + both compiled-out callers (`:696` SERVER_ADMIN_MSG / `:710` SIMPLE_MAIL, both undefined per unixconf.h) stay named); 
 omit other `seffect_*` (punishment done D-0908; create is D-1401; 
 mapping is D-1407; fire is D-2032 (confused/underwater/blessed-getpos + tower/burn_away_slime + explode; doread allowlist + nodisappear); blank-paper live D-2169 (`seffect_blank_paper` read.c:2005-2012 Blind/pline + known, seffects case + doread time-taking)), fortune/shirt/credit/marker/coin/orb/candy-read, their Braille arms, Rogue 
-`unblock_point` on blessed SDOOR, `can_chant` poly silent/headless/buzz/burble; 
+`unblock_point` on blessed SDOOR (`can_chant` silent/headless/buzz/burble is D-2926); 
 **`doread` Blind formula/book gate (`:561–576`) + mail illiterate-conduct/confused envelope (`:579–597`) + `pickup_prev` (`:359`) + SCR_TAMING allowlist** (D-2080; taming dispatch + `maybe_tame` were D-1502; mail `readmail` D-1958); 
 **`doread` `check_capacity` EXT_ENCUMBER→ECMD_OK** (D-0928 #1104) +
 **`recharge` `:729–1008`** (D-2500; wand/ring/tool arms in C order with `:line` cites — `lim==1` → `p_glow3`, ring explode/spin via live `Yobjnam2`/`otense`/`Yname2` + static `Ring_gone`/`Ring_off`/`Ring_on` + live `useup`, crystal-ball awaited `curse`/`bless`/`uncurse`, lamp live `Tobjnam` + static `end_burn`, default/else live `You`; callees `stripspe`/`p_glow1–3`/`cap_spe` local C-order; callers `artifact.js:1881` / `read.js:1332` / `zap.js:1557` wired; local `useup` clone stays named, `Yname2_read` removed for live `Yname2` (D-2581)) + **`wand_explode` `read.c:2414–2457`** (D-2581; C-order restart — `dmg` rolled pre-pline, live `Yname2`/`useup_live`, `exercise STR`; C callers `engrave.c:795`/`read.c:763`/`:785` → `js/engrave.js:853` + `js/read.js:828`/`:840` wired) + **FORTUNE_COOKIE consume via live `useup`** (D-2741; `read.c:377` — `js/read.js:2204` calls `useup_live` (`js/invent.js:4596`), not the `:260` local clone; gates D-2729)
@@ -3281,8 +3281,14 @@ orderindx display, preselect-decline, CURRENT/RETAIN arms; tty
 de-select self-swap + sort preselect marker + `SPELLMENU_DUMP` named)**;
 **`getspell` C-order restart (D-2758; C `:714–783`; cmdq KEY replay +
 traditional yn prompt with retry cap + `spell_let_to_idx :114–126`;
-sole caller `docast :824` wired; rejectcasting-message placement +
-CQ_REPEAT still named)**;
+sole caller `docast :824` wired; CQ_REPEAT still named)**;
+**`rejectcasting` whole body (D-2926; C `spell.c:687–708`; Stunned, then
+`can_chant(&youmonst)`, then `!freehand()` and not a quarterstaff; each
+arm prints and returns; callers `getspell` `:726` → `js/spell.js` `getspell`
+and `spelleffects_check` `:1236`; `UNKNOWN_SPELL` short-circuits the call)**;
+**`can_chant` whole body (D-2926; `mondata.c:579–587`; hero `Strangled`,
+`is_silent`, `!has_head`, `MS_BUZZ`, `MS_BURBLE`; callers `rejectcasting`,
+`read.js` `doread`, `pray.js` `doturn`)**;
 omit other `spelleffects` otyps (remaining peffects 
 mix/potionhit/potionbreathe; remaining scroll-duplicate REMOVE_CURSE /
 CONFUSE_MONSTER / CAUSE_FEAR / IDENTIFY / CHARM_MONSTER — DETECT_FOOD is D-1788;

@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-27
 
-- [x] `do_wear.c` Shield_on — coverage THIN (C 25 L `do_wear.c:705–730` / JS 6 L in js/do_wear.js; hops 3, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn Shield_on` (reach regression must be 0). Measured `port-coverage.mjs --name Shield_on` 2026-09-27 @ 54bbae9a5. **Addressed:** D-2925
+- [x] `spell.c` rejectcasting — coverage THIN (C 21 L `spell.c:687–708` / JS 8 L in js/spell.js; hops 6, callers 2, RNG 0, msg 3). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn rejectcasting` (reach regression must be 0). Measured `port-coverage.mjs --name rejectcasting` 2026-09-27 @ 54bbae9a5. **Addressed:** D-2926.
+
+
+- [x] `do_wear.c` Shield_on — coverage THIN (C 25 L `do_wear.c:705–730` / JS 6 L in js/do_wear.js; hops 3, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn Shield_on` (reach regression must be 0). Measured `port-coverage.mjs --name Shield_on` 2026-09-27 @ 54bbae9a5. **Addressed:** D-2925 `b1c8b3093`
 
 
 - [x] `worn.c` extract_from_minvent — coverage PARTIAL (C 35 L `worn.c:1377–1417` / JS 22 L in js/worn.js; hops 2, callers 15, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn extract_from_minvent` (reach regression must be 0). Measured `port-coverage.mjs --name extract_from_minvent` 2026-09-27 @ ce04557f4. **Addressed:** D-2924 `2d07e01a7`

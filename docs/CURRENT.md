@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `do_wear.c` Shield_on — coverage THIN (C 25 L `do_wear.c:705–730` / JS 6 L in js/do_wear.js; hops 3, callers 1, RNG 0, msg 0). No Must-fix. `rndmonnam`, `attach_egg_hatch_timeout`, `clear_path`, `add_valid_menu_class` parked Stale.
+**Next cluster:** `spell.c` rejectcasting — coverage THIN (C 21 L `spell.c:687–708` / JS 8 L in js/spell.js; hops 6, callers 2, RNG 0, msg 3). No Must-fix. `randrace`, `rndmonnam`, `attach_egg_hatch_timeout`, `clear_path`, `add_valid_menu_class` parked Stale.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2925 (index).**
+**Keep D-0845…D-2926 (index).**
 <!-- recent:begin -->
+**D-2926** `nethack-c/upstream/src/spell.c:687–708` `rejectcasting`. If `Stunned` (`HStun`), `You("ar — One file-local async `rejectcasting` in that C order.
 **D-2925** `nethack-c/upstream/src/do_wear.c:705–730` `Shield_on`. Switch on `uarms->otyp`: `SMALL_SH — One file-local async `Shield_on` in that C order.
 **D-2924** `nethack-c/upstream/src/worn.c:1376–1417` `extract_from_minvent`. Read `owornmask`. If `wh — One exported `extract_from_minvent` in that C order.
 **D-2923** `nethack-c/upstream/src/mon.c:4698–4720` `maybe_unhide_at`. If `m_at`, read `mundetected`  — One async `maybe_unhide_at` in that C order.
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2921** `nethack-c/upstream/src/trap.c:6531–6549` `deltrap`. `clear_conjoined_pits` first. If `tra — One exported `deltrap` in that C order.
 **D-2920** `nethack-c/upstream/src/do_wear.c:1893–1917` `cursed`. Null calls `impossible("cursed with — One exported async `cursed` in that C order.
 **D-2919** `nethack-c/upstream/src/light.c:376–395` `find_mid`. `FM_YOU` and `nid == 1` returns `&gy. — One exported `find_mid` in that C order.
-**D-2918** `nethack-c/upstream/src/bones.c:796–815` `fix_ghostly_obj`. Return when `!obj->ghostly`. ` — One async `fix_ghostly_obj` in that C order (`You` is the display export).
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2925; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2926; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize
