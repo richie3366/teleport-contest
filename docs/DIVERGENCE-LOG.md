@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2922 — `cant_wield_corpse` petrifies a bare-handed cockatrice wield
+
+- **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked). The same-named symbol was absent. C is 15 lines; the whole body shipped.
+- **Symptom:** `ready_weapon` skipped the corpse arm, so a cockatrice corpse could be wielded in bare hands. `can_twoweapon` jumped from the artifact-resist arm to Glib, so the life-save corpse arm never ran.
+- **C locus:** `nethack-c/upstream/src/wield.c:138–153` `cant_wield_corpse`. Return false when `uarmg`, `otyp != CORPSE`, `!touch_petrifies(&mons[corpsenm])`, or `Stone_resistance` (`youprop.h` `HStone_resistance || EStone_resistance`). Else `You("wield %s in your bare %s.", corpse_xname(obj, NULL, CXN_PFX_THE), makeplural(body_part(HAND)))`, then `instapetrify` of `wielding <killer_xname> bare-handed`, and return true.
+- **JS was:** No `cant_wield_corpse` symbol. `js/wield.js` `ready_weapon` went from the empty-hands arm to the bimanual shield arm. `can_twoweapon` went from `oartifact` to `Glib || cursed`.
+- **Fix:** One file-local async `cant_wield_corpse` in that C order. `You`, `corpse_xname`, `killer_xname`, `makeplural`, and `touch_petrifies` are the live exports. `body_part(HAND)` is `body_part_latebound` (polyself imports wield). `instapetrify` is the live `trap.js` export via dynamic import: `trap.js` already imports `wield.js`, and a static edge would run trap's body before this module's consts. Stone resistance is the C `H||E` bits plus the port flats and `uprops[STONE_RES]`.
+- **JS:** `js/wield.js` `cant_wield_corpse` `:515`. Guard `:524–528`. `You` `:530`. `instapetrify` `:537`. `ready_weapon` caller `:568`. `can_twoweapon` caller `:1247`.
+- **Callers:** `wield.c:55` is the prototype only. `wield.c:183` `ready_weapon` → `js/wield.js:568` (`ECMD_TIME`, then the same `flags.botl` tail the wield arm uses). `wield.c:794` `can_twoweapon` → `js/wield.js:1247` (empty arm, then false). No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn cant_wield_corpse` → PASS syntax (1 changed js file: js/wield.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.5s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: PASS.
+- **Named omissions:** No arm of `cant_wield_corpse` is omitted. `ready_weapon`'s post-if `disp.botl` gate is `condtests[bl_bareh].enabled` in C; this arm uses the existing `game.flags.botl` tail. `arti_speak` in `ready_weapon` stays named. `can_twoweapon`'s empty-hands arm still uses the literal `hand`, and its artifact-resist arm still uses `xname`.
+- **Next:** `eat.c` `corpse_intrinsic` (next Open — coverage row). Seven Open rows remain after archive, below the floor of 8. Refilled five tool rows (`Shield_on`, `randrace`, `rejectcasting`, `end_of_input`, `worn_item_removal`) from `port-coverage.mjs --rows 600 --min-c-lines 15` after skipping DONE/PARKED/Stale subjects and save/files/sanity. The queue-empty overlay did not match the live queue (`rg` is not on PATH, which is what `queue_has_open` runs).
+
 ## D-2921 — `deltrap` unlinks the trap chain, then frees it
 
 - **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked). C is 18 lines; the whole body shipped, including `dealloc_trap`.

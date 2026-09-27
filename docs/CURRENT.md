@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `trap.c` deltrap — coverage PARTIAL (C 18 L `trap.c:6531–6549` / JS 13 L in js/trap.js; hops 2, callers 56, RNG 0, msg 0). No Must-fix.
+**Next cluster:** `wield.c` cant_wield_corpse — coverage MISSING (C 15 L `wield.c:138–153` / JS no symbol; hops 4, callers 2, RNG 0, msg 1). No Must-fix.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2921 (index).**
+**Keep D-0845…D-2922 (index).**
 <!-- recent:begin -->
+**D-2922** `nethack-c/upstream/src/wield.c:138–153` `cant_wield_corpse`. Return false when `uarmg`, ` — One file-local async `cant_wield_corpse` in that C order.
 **D-2921** `nethack-c/upstream/src/trap.c:6531–6549` `deltrap`. `clear_conjoined_pits` first. If `tra — One exported `deltrap` in that C order.
 **D-2920** `nethack-c/upstream/src/do_wear.c:1893–1917` `cursed`. Null calls `impossible("cursed with — One exported async `cursed` in that C order.
 **D-2919** `nethack-c/upstream/src/light.c:376–395` `find_mid`. `FM_YOU` and `nid == 1` returns `&gy. — One exported `find_mid` in that C order.
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2917** `nethack-c/upstream/src/mail.c:549–584` `ckmailstatus` (UNIX). `ck_server_admin_msg()` (em — One async `ckmailstatus` in that C order.
 **D-2916** `nethack-c/upstream/src/do_name.c:133–152` `christen_monst`. `lth` is `(name && *name) ? s — One exported `christen_monst` in that C order.
 **D-2915** `nethack-c/upstream/src/mkobj.c:2227–2248` `mk_tt_object`. `initialize_it` is false for `S — One exported `mk_tt_object` in that C order.
-**D-2914** `nethack-c/upstream/src/timeout.c:553–569` `region_dialogue`. Save `(HMagical_breathing &  — One `region_dialogue` in that C order, called from `nh_timeout` on the slot (else the flat).
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2921; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2922; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

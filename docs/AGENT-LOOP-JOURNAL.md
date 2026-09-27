@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2922 `cant_wield_corpse` petrifies a bare-handed cockatrice wield
+
+**C locus:** `nethack-c/upstream/src/wield.c:138–153` `cant_wield_corpse`. Return false when `uarmg`, `otyp != CORPSE`, `!touch_petrifies(&mons[corpsenm])`, or `Stone_resistance` (`youprop.h` `HStone_resistance || EStone_resistance`). Else `You("wield %s in your bare %s.", corpse_xname(obj, NULL, CXN_PFX_THE), makeplural(body_part(HAND)))`, then `instapetrify` of `wielding <killer_xname> bare-handed`, and return true.
+**JS:** `js/wield.js` `cant_wield_corpse` `:515`. Guard `:524–528`. `You` `:530`. `instapetrify` `:537`. `ready_weapon` caller `:568`. `can_twoweapon` caller `:1247`.
+**Change:** One file-local async `cant_wield_corpse` in that C order. `You`, `corpse_xname`, `killer_xname`, `makeplural`, and `touch_petrifies` are the live exports. `body_part(HAND)` is `body_part_latebound` (polyself imports wield).
+**Verify:** `node scripts/verify.mjs --fn cant_wield_corpse` → PASS syntax (1 changed js file: js/wield.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.5s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: PASS.
+**Named:** No arm of `cant_wield_corpse` is omitted. `ready_weapon`'s post-if `disp.botl` gate is `condtests[bl_bareh].enabled` in C; this arm uses the existing `game.flags.botl` tail.
+**Next:** `eat.c` `corpse_intrinsic` (next Open — coverage row). Seven Open rows remain after archive, below the floor of 8. Refilled five tool rows (`Shield_on`, `randrace`, `rejectcasting`, `end_of_input`, `worn_item_removal`) from `port-coverage.mjs --rows 600 --min-c-lines 15` after skipping DONE/PARKED/Stale subjects and save/files/sanity. The queue-empty overlay did not match the live queue (`rg` is not on PATH, which is what `queue_has_open` runs).
 ## 2026-09-27 — D-2921 `deltrap` unlinks the trap chain, then frees it
 
 **C locus:** `nethack-c/upstream/src/trap.c:6531–6549` `deltrap`. `clear_conjoined_pits` first. If `trap == gf.ftrap`, advance the head; else walk `ntrap` for the predecessor and `panic("deltrap: no preceding trap!")` when there is none. Then `ttmp->ntrap = trap->ntrap`. If `Sokoban` (`rm.h:538` `level.flags.sokoban_rules`) and the type is `PIT` or `HOLE`, `maybe_finish_sokoban`. Then `dealloc_trap` (`trap.h:42` `free`).
