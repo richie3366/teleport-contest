@@ -5,8 +5,11 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-27
 
-- [x] `bones.c` fix_ghostly_obj — coverage MISSING (C 19 L `bones.c:796–815` / JS no symbol; hops 3, callers 1, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn fix_ghostly_obj` (reach regression must be 0). Measured `port-coverage.mjs --name fix_ghostly_obj` 2026-09-27 @ af40498ad. **Addressed:** D-2918
-- [x] `bones.c` sanitize_name — coverage THIN (C 22 L `bones.c:198–220` / JS 9 L in js/bones.js; hops 2, callers 6, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn sanitize_name` (reach regression must be 0). Measured `port-coverage.mjs --name sanitize_name` 2026-09-27 @ af40498ad. **Addressed:** D-2918
+- [x] `light.c` find_mid — coverage THIN (C 19 L `light.c:376–395` / JS 8 L in js/mon.js; hops 3, callers 9, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn find_mid` (reach regression must be 0). Measured `port-coverage.mjs --name find_mid` 2026-09-27 @ af40498ad. **Addressed:** D-2919
+
+
+- [x] `bones.c` fix_ghostly_obj — coverage MISSING (C 19 L `bones.c:796–815` / JS no symbol; hops 3, callers 1, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn fix_ghostly_obj` (reach regression must be 0). Measured `port-coverage.mjs --name fix_ghostly_obj` 2026-09-27 @ af40498ad. **Addressed:** D-2918 `270a11ee8`
+- [x] `bones.c` sanitize_name — coverage THIN (C 22 L `bones.c:198–220` / JS 9 L in js/bones.js; hops 2, callers 6, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn sanitize_name` (reach regression must be 0). Measured `port-coverage.mjs --name sanitize_name` 2026-09-27 @ af40498ad. **Addressed:** D-2918 `270a11ee8`
 
 
 - [x] `mail.c` ckmailstatus — coverage MISSING (C 18 L `mail.c:461–479` / JS no symbol; hops 2, callers 1, RNG 2, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn ckmailstatus` (reach regression must be 0). Measured `port-coverage.mjs --name ckmailstatus` 2026-09-27 @ af40498ad. **Addressed:** D-2917 `ce04557f4`

@@ -374,6 +374,7 @@ import {
     GETOBJ_EXCLUDE, GETOBJ_SUGGEST, GETOBJ_NOFLAGS,
     has_mcorpsenm, ERODE_CORRODE,
     LL_WISH, LL_CONDUCT, LL_ARTIFACT, ONAME_WISH, ONAME_KNOW_ARTI,
+    FM_FMON,
 } from './const.js';
 import { monstseesu, monstunseesu, defended, Resists_Elem } from './mondata.js';
 
@@ -3227,7 +3228,7 @@ export async function revive(corpse, by_hero) {
     // C: recorporealization of an active ghost via OMID
     if (has_omid(used)) {
         const mid = OMID(used);
-        const ghost = find_mid(mid, 0);
+        const ghost = find_mid(mid, FM_FMON); // C zap.c:1071
         if (ghost && (ghost.data?.mndx | 0) === PM_GHOST) {
             if (canseemon(ghost)) {
                 await pline(

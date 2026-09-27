@@ -43,6 +43,7 @@ import {
     EXACT_NAME, DISP_BEAM, DISP_END, HI_ZAP,
     MONSEEN_NORMAL, MONSEEN_SEEINVIS, MONSEEN_INFRAVIS,
     GETOBJ_PROMPT, GETOBJ_NOFLAGS, GETOBJ_EXCLUDE as GETOBJ_EXCLUDE_C,
+    FM_FMON,
 } from './const.js';
 import { pick_lock, getdir } from './lock.js';
 import { ustatusline, mstatusline } from './insight.js';
@@ -1600,7 +1601,7 @@ export async function check_leash(x, y) {
     const u = game.u || {};
     for (const otmp of game.invent || []) {
         if ((otmp.otyp | 0) !== LEASH || (otmp.leashmon | 0) === 0) continue;
-        const mtmp = find_mid(otmp.leashmon | 0, 0);
+        const mtmp = find_mid(otmp.leashmon | 0, FM_FMON); // C apply.c:939
         if (!mtmp) {
             otmp.leashmon = 0;
             continue;
