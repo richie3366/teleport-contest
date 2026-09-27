@@ -4124,7 +4124,17 @@ extract-then-read; `rn1`/`rn2` draws before `try_limit` break;
 awaited `addtobill`/`stolen_value` (`in_rooms` `'\0'` mirrors C `char`);
 callers awaited: dokick scatter, zap bhito, trap launch_obj, mon
 migrate-`mdrop_special_objs`; named: `mkcorpstat` x==0&&y==0 sync-chain
-row, hack hurtle-TELEP no live counterpart, `do.c:181` comment-not-call)**
+row, hack hurtle-TELEP no live counterpart, `do.c:181` comment-not-call)**;
+**`noteleport_level` whole body (D-2940; C `teleport.c:30–47`)**: `Inhell` is
+`In_hell(&u.uz)`; a non-lord, non-prince in Gehennom returns true when
+`get_iter_mons(m_blocks_teleporting)` finds a demon lord or prince;
+`level.flags.noteleport` then blocks anyone who is not `is_covetous`;
+`stasis_until >= moves` blocks even a covetous monster. `m_blocks_teleporting`
+is `teleport.c:20–26`. `get_iter_mons` is `mon.c:4542–4556` exported from
+`js/monmove.js` (`mhp < 1`, `mon_offmap`, successor saved before the
+callback). A missing stasis long is 0. Callers were already the same-named
+JS sites. The dig, dokick, fountain, and sounds copies of `get_iter_mons`
+stay for printing callbacks.
 
 ### `src/vault.c`
 

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2940 `noteleport_level` counts on-map demon lords
+
+**C locus:** `nethack-c/upstream/src/teleport.c:30–47` `noteleport_level`. `In_hell(&u.uz)` and `!(is_dlord(mon->data) || is_dprince(mon->data))`, then `get_iter_mons(m_blocks_teleporting)` returns TRUE. `svl.level.flags.noteleport && !is_covetous(mon->data)` returns TRUE. `svl.level.flags.stasis_until >= svm.moves` returns TRUE even for a covetous monster. Else FALSE. `m_blocks_teleporting` is `teleport.c:20–26`. `get_iter_mons` (`mon.c:4542–4556`) walks `fmon`, skips `DEADMONSTER` (`mhp < 1`) and `mon_offmap` (`mstate != MON_FLOOR`), and saves `nmon` before the callback. `Inhell` is `In_hell(&u.uz)` (`dungeon.h:140`).
+**JS:** `js/teleport.js` `m_blocks_teleporting` `:834`. `noteleport_level` `:848`. Hell court `:850–851`. `is_covetous` gate `:855`. Stasis `:859`. `Inhell` `:2244`. `get_iter_mons` `js/monmove.js:212`. Skip and callback `:220`. `mon_offmap` `:194`. `is_covetous` `js/monsters.js:310`. `is_dlord` `:868`. `is_dprince` `:871`. `append_honorific` `js/shk.js:4241`.
+**Change:** One exported `noteleport_level` in that C order. `Inhell` is the `teleport.js` `In_hell(&u.uz)`. `is_dlord`, `is_dprince`, and `is_covetous` are the `monsters.js` exports.
+**Verify:** `node scripts/verify.mjs --fn noteleport_level` → PASS syntax (3 changed js files: js/monmove.js js/shk.js js/teleport.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+**Named:** No arm of `noteleport_level` is omitted. A null `mon` throws on `mon.data` (C `NONNULLARG1`).
+**Next:** `pline.c` `You_hear` (next Open — coverage row). Ten coverage rows remain after this archive, above the floor of 8, so nothing was refilled.
 ## 2026-09-27 — D-2939 `helm_simple_name` says hat or helm
 
 **C locus:** `nethack-c/upstream/src/objnam.c:5513–5528` `helm_simple_name`. `return !hard_helmet(helmet) ? "hat" : "helm"`. `hard_helmet` (`do_wear.c:567–573`) is false for a null object or a non-helm, and true when the helm is metallic or crackable. The comment's examples follow that predicate: elven leather helm and leather hat are hats; dwarvish iron helm and hard hat are helms; fedora, cornuthaum, and dunce cap are hats.

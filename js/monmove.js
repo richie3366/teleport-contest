@@ -195,6 +195,42 @@ export function mon_offmap(mon) {
     return ((mon?.mstate | 0) !== MON_FLOOR);
 }
 
+/**
+ * C ref: mon.c get_iter_mons — mon.c:4542–4556.
+ * First fmon monster for which bfunc returns true. DEADMONSTER is
+ * mhp < 1 (monst.h:214). mon_offmap is mstate != MON_FLOOR.
+ * C saves nmon before the callback so unlinking the current monster
+ * does not skip its successor. JS fmon is an array; the next element
+ * is saved the same way. A null slot is not a C list node.
+ * Sync: bfunc must not return a Promise. The dig/dokick/fountain/sounds
+ * copies stay for callers whose callback prints.
+ * Lives here, next to mon_offmap, so teleport.js can import a hoisted
+ * function. mon.js runs set_find_mid while it is still initializing.
+ * @param {(mtmp: object) => boolean} bfunc
+ * @returns {object|null}
+ */
+export function get_iter_mons(bfunc) {
+    const fmon = game.fmon;
+    if (!fmon) return null;
+    let i = 0;
+    while (i < fmon.length) {
+        const mtmp = fmon[i];
+        const next = i + 1 < fmon.length ? fmon[i + 1] : null;
+        /* DEADMONSTER || mon_offmap → continue. Null is not a C node. */
+        if (mtmp && (mtmp.mhp | 0) >= 1 && !mon_offmap(mtmp) && bfunc(mtmp)) {
+            return mtmp;
+        }
+        if (next == null) return null;
+        let j = fmon.indexOf(next);
+        if (j < 0) return null;
+        /* Unlink of mtmp leaves next at i. An earlier copy of next, or
+         * the same object twice, must still step forward. */
+        if (j < i || (j === i && fmon[i] === mtmp)) j = i + 1;
+        i = j;
+    }
+    return null;
+}
+
 /** C ref: monst.h is_obj_mappear */
 function is_obj_mappear(mon, otyp) {
     return M_AP_TYPE(mon) === M_AP_OBJECT && mon?.mappearance === otyp;

@@ -4235,8 +4235,10 @@ function append_honorific(bufRef) {
         'good', 'honored', 'most gracious', 'esteemed',
         'most renowned and sacred',
     ];
-    /* SIZE(honored) - 1 == 4; udemigod is the 1-bit field, 0 or 1. */
-    bufRef.s += honored[rn2(honored.length - 1) + (game.u.uevent.udemigod ? 1 : 0)];
+    /* SIZE(honored) - 1 == 4; udemigod is the 1-bit field, 0 or 1.
+     * C's uevent struct is always present. A missing JS object is
+     * that zero-initialized bit (a shop quote can run first). */
+    bufRef.s += honored[rn2(honored.length - 1) + (game.u.uevent?.udemigod ? 1 : 0)];
     const ptr = game.youmonst.data;
     const female = game.flags.female;
     if (is_vampire(ptr)) {
