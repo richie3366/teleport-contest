@@ -120,6 +120,14 @@ const LEATHER_CLOAK = objectNames.indexOf('LEATHER_CLOAK');
 const ROBE = objectNames.indexOf('ROBE');
 const MUMMY_WRAPPING = objectNames.indexOf('MUMMY_WRAPPING');
 const ALCHEMY_SMOCK = objectNames.indexOf('ALCHEMY_SMOCK');
+const SMALL_SHIELD = objectNames.indexOf('SMALL_SHIELD');
+const SHIELD_OF_DRAIN_RESISTANCE = objectNames.indexOf('SHIELD_OF_DRAIN_RESISTANCE');
+const SHIELD_OF_SHOCK_RESISTANCE = objectNames.indexOf('SHIELD_OF_SHOCK_RESISTANCE');
+const ELVEN_SHIELD = objectNames.indexOf('ELVEN_SHIELD');
+const URUK_HAI_SHIELD = objectNames.indexOf('URUK_HAI_SHIELD');
+const ORCISH_SHIELD = objectNames.indexOf('ORCISH_SHIELD');
+const DWARVISH_ROUNDSHIELD = objectNames.indexOf('DWARVISH_ROUNDSHIELD');
+const LARGE_SHIELD = objectNames.indexOf('LARGE_SHIELD');
 const SHIELD_OF_REFLECTION = objectNames.indexOf('SHIELD_OF_REFLECTION');
 const AKLYS = objectNames.indexOf('AKLYS');
 /** C hack.h c_sword — class name when is_sword. */
@@ -1395,10 +1403,40 @@ async function Cloak_on() {
     }
     return 0;
 }
+
+/**
+ * C ref: do_wear.c Shield_on `:705–730`.
+ * setworn (armor_or_accessory_on, before this) already set the
+ * shield's extrinsic. Known shield otyps break. Anything else is
+ * impossible("Unknown type of %s (%d)", "shield", otyp). Then, if
+ * the shield was not known, known=1 and update_inventory — the
+ * status line shows the +/- . No find_ac (D-0810 / D-0883: AC stays
+ * stale until allmain). A null uarms returns 0; C would dereference.
+ */
 async function Shield_on() {
-    const o = game.u?.uarms;
-    if (o && !o.known) o.known = 1;
-    find_ac();
+    const uarms = game.u?.uarms;
+    if (!uarms) return 0;
+    /* C `:712–724` — nine shields, then default impossible. */
+    switch (uarms.otyp | 0) {
+    case SMALL_SHIELD:
+    case SHIELD_OF_DRAIN_RESISTANCE:
+    case SHIELD_OF_SHOCK_RESISTANCE:
+    case ELVEN_SHIELD:
+    case URUK_HAI_SHIELD:
+    case ORCISH_SHIELD:
+    case DWARVISH_ROUNDSHIELD:
+    case LARGE_SHIELD:
+    case SHIELD_OF_REFLECTION:
+        break;
+    default:
+        await impossible('Unknown type of %s (%d)', 'shield', uarms.otyp | 0);
+        break;
+    }
+    /* C `:725–728`. */
+    if (!uarms.known) {
+        uarms.known = 1;
+        update_inventory();
+    }
     return 0;
 }
 /**

@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2925 — `Shield_on` names every shield, then marks it known
+
+- **Status:** fixed (coverage THIN; `hidden-proxy verify` reports no corpus session blocked). C is 25 lines; the whole body shipped. `rndmonnam`, `attach_egg_hatch_timeout`, `clear_path`, and `add_valid_menu_class` parked Stale (bodies already live, 0 blocked).
+- **Symptom:** Putting on a shield set `known` and called `find_ac`. An otyp outside the nine shields never reached `impossible`. An unknown shield did not call `update_inventory`. Delay-0 donning painted the new AC inside `Shield_on` instead of leaving it stale until `allmain`.
+- **C locus:** `nethack-c/upstream/src/do_wear.c:705–730` `Shield_on`. Switch on `uarms->otyp`: `SMALL_SHIELD`, `SHIELD_OF_DRAIN_RESISTANCE`, `SHIELD_OF_SHOCK_RESISTANCE`, `ELVEN_SHIELD`, `URUK_HAI_SHIELD`, `ORCISH_SHIELD`, `DWARVISH_ROUNDSHIELD`, `LARGE_SHIELD`, `SHIELD_OF_REFLECTION` break. Default `impossible("Unknown type of %s (%d)", "shield", uarms->otyp)`. If `!uarms->known`, set `known = 1` and `update_inventory()`. Return 0. The comment names `setworn` as the caller of the extrinsic, not a callee.
+- **JS was:** `js/do_wear.js` set `known` when `uarms` was present and called `find_ac`. No switch, no `impossible`, no `update_inventory`.
+- **Fix:** One file-local async `Shield_on` in that C order. `impossible` is awaited. `update_inventory` is the sync invent export. No `find_ac` (D-0810 / D-0883). A null `uarms` returns 0.
+- **JS:** `js/do_wear.js` `Shield_on` `:1416`. Switch `:1420–1432`. Known tail `:1435–1438`.
+- **Callers:** `do_wear.c:30` is the prototype. `:710` is a comment. `:1566` `set_wear` → `js/do_wear.js:1632`. `:2387` `ga.afternmv = Shield_on` → `:3254` (`unmul` runs it). `:1594` `donning` → `:3839`. `:1678` `cancel_don` → `:3790`. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn Shield_on` → PASS syntax (1 changed js file: js/do_wear.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: PASS.
+- **Named omissions:** No arm of `Shield_on` is omitted. A null `uarms` returns 0 (C would dereference). Shield extrinsics stay in `setworn`, which runs before this. `Shield_off` is a different function and still the old body.
+- **Next:** `role.c` `randrace` (next Open — coverage row). Four coverage rows remain after archive, below the floor of 8. Refilled five tool rows (`whatdoes_help`, `Shield_off`, `chk_okdoor`, `yyyymmdd`, `erosion_matters`) from `port-coverage.mjs --rows 800 --min-c-lines 20` after skipping DONE/PARKED/Stale subjects, save/files/bones/botl, and sanity.
+
 ## D-2924 — `extract_from_minvent` snuffs lit armor, reverts a crysknife, and unwields
 
 - **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked). C is 35 lines; the whole body shipped.

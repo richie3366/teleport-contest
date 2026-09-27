@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2925 `Shield_on` names every shield, then marks it known
+
+**C locus:** `nethack-c/upstream/src/do_wear.c:705–730` `Shield_on`. Switch on `uarms->otyp`: `SMALL_SHIELD`, `SHIELD_OF_DRAIN_RESISTANCE`, `SHIELD_OF_SHOCK_RESISTANCE`, `ELVEN_SHIELD`, `URUK_HAI_SHIELD`, `ORCISH_SHIELD`, `DWARVISH_ROUNDSHIELD`, `LARGE_SHIELD`, `SHIELD_OF_REFLECTION` break. Default `impossible("Unknown type of %s (%d)", "shield", uarms->otyp)`. If `!uarms->known`, set `known = 1` and `update_inventory()`. Return 0. The comment names `setworn` as the caller of the extrinsic, not a callee.
+**JS:** `js/do_wear.js` `Shield_on` `:1416`. Switch `:1420–1432`. Known tail `:1435–1438`.
+**Change:** One file-local async `Shield_on` in that C order. `impossible` is awaited. `update_inventory` is the sync invent export.
+**Verify:** `node scripts/verify.mjs --fn Shield_on` → PASS syntax (1 changed js file: js/do_wear.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: PASS.
+**Named:** No arm of `Shield_on` is omitted. A null `uarms` returns 0 (C would dereference).
+**Next:** `role.c` `randrace` (next Open — coverage row). Four coverage rows remain after archive, below the floor of 8. Refilled five tool rows (`whatdoes_help`, `Shield_off`, `chk_okdoor`, `yyyymmdd`, `erosion_matters`) from `port-coverage.mjs --rows 800 --min-c-lines 20` after skipping DONE/PARKED/Stale subjects, save/files/bones/botl, and sanity.
 ## 2026-09-27 — D-2924 `extract_from_minvent` snuffs lit armor, reverts a crysknife, and unwields
 
 **C locus:** `nethack-c/upstream/src/worn.c:1376–1417` `extract_from_minvent`. Read `owornmask`. If `where != OBJ_MINVENT`, `impossible` and return. If `W_ARM` and `lamplit` and `artifact_light`, `end_burn(obj, FALSE)` before the mask is cleared. `obj_extract_self`, then `owornmask = 0`. If the mask was set: `!DEADMONSTER` (`mhp < 1`) and `do_extrinsics` call `update_mon_extrinsics(mon, obj, FALSE, silently)`; clear that bit of `misc_worn_check`; `check_gear_next_turn`. Then `obj_no_longer_held`. If `W_WEP`, `mwepgone`.
