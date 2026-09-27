@@ -103,6 +103,8 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 always Must-fix rows: they forfeit every later screen of that session
 (Constitution §10.14).
 
+- [ ] `monmove.c` `can_fog` — `Protection_from_shape_changers` in `js/monmove.js` reads only the `H` / `E` flats. C `youprop.h:355–360` is `uprops[PROT_FROM_SHAPE_CHANGERS].intrinsic || .extrinsic`. `were.js:58` already ORs the flats with `uprops`, and `imports.mjs --can js/monmove.js js/were.js Protection_from_shape_changers` is SAFE (hoisted). Call that export from `can_fog` (`monmove.c:2366–2369`). Source: reviews/loop-unattended/1892-21446265f-stuff-prevents-passage.md
+
 ## Open — coverage (breadth phase — pop first after Must-fix)
 
 Rows below are `port-coverage.mjs --rows` output (score = reach × call

@@ -7,6 +7,9 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — Audit 1892–1900 (D-2933…D-2941)
+
+Nine JS SHAs after review 1891 (`3fc42e995`). Eight **ACCEPT**: `shuffle_customizations`, `obstructed`, `dealloc_killer`, `mkaltar`, `append_honorific`, `helm_simple_name`, `noteleport_level`, `You_hear`. One **QUALITY-RISK**: `stuff_prevents_passage` — `can_fog` reads only the `H`/`E` flats for `Protection_from_shape_changers`. Must-fix prepended. Public `sessions` 44/44, Scr 11,405/11,405, RNG 792,838/792,838, speed `254+1.52/turn` (R² 0.752). Held-out still 12/44 (6,275/11,265, RNG 29.7 %, screens 55.7 %). Private corpus 12/12. Next: `monmove.c` `can_fog`.
 ## 2026-09-27 — D-2941 `You_hear` barely hears underwater and dreams when unaware
 
 **C locus:** `nethack-c/upstream/src/pline.c:436–452` `You_hear`. `(Deaf && !Unaware) || !flags.acoustics` returns. `Deaf` is `youprop.h:123–125` (`HDeaf || EDeaf || u.uroleplay.deaf`). `Unaware` is `youprop.h:399` (`multi < 0 && (unconscious() || is_fainted())`). Then `Underwater` (`youprop.h:279`, `u.uinwater`) prefixes "You barely hear ", else `Unaware` prefixes "You dream that you hear ", else "You hear ". `YouPrefix` (`pline.c:359–360`) copies that prefix, `strcat` appends the format, and `vpline` prints the arguments (`:450`). `You_hear1` (`hack.h:1030`) is `You_hear("%s", cstr)`.

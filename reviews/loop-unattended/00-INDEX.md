@@ -1901,3 +1901,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1889-5b794196c-shield-off.md](./1889-5b794196c-shield-off.md) | `5b794196c` | D-2930 Shield_off | **ACCEPT** |
 | [1890-f36a7b952-chk-okdoor.md](./1890-f36a7b952-chk-okdoor.md) | `f36a7b952` | D-2931 chk_okdoor | **ACCEPT** |
 | [1891-3fc42e995-erosion-matters.md](./1891-3fc42e995-erosion-matters.md) | `3fc42e995` | D-2932 erosion_matters | **ACCEPT** |
+| [1892-21446265f-stuff-prevents-passage.md](./1892-21446265f-stuff-prevents-passage.md) | `21446265f` | D-2933 stuff_prevents_passage | **QUALITY-RISK** |
+| [1893-75f0544f8-shuffle-customizations.md](./1893-75f0544f8-shuffle-customizations.md) | `75f0544f8` | D-2934 shuffle_customizations | **ACCEPT** |
+| [1894-ffc2c8e96-obstructed.md](./1894-ffc2c8e96-obstructed.md) | `ffc2c8e96` | D-2935 obstructed | **ACCEPT** |
+| [1895-4dd4bd973-dealloc-killer.md](./1895-4dd4bd973-dealloc-killer.md) | `4dd4bd973` | D-2936 dealloc_killer | **ACCEPT** |
+| [1896-fa30d863c-mkaltar.md](./1896-fa30d863c-mkaltar.md) | `fa30d863c` | D-2937 mkaltar | **ACCEPT** |
+| [1897-17ee8fa4f-append-honorific.md](./1897-17ee8fa4f-append-honorific.md) | `17ee8fa4f` | D-2938 append_honorific | **ACCEPT** |
+| [1898-e7f613e86-helm-simple-name.md](./1898-e7f613e86-helm-simple-name.md) | `e7f613e86` | D-2939 helm_simple_name | **ACCEPT** |
+| [1899-8946c6456-noteleport-level.md](./1899-8946c6456-noteleport-level.md) | `8946c6456` | D-2940 noteleport_level | **ACCEPT** |
+| [1900-e2b2ded6d-you-hear.md](./1900-e2b2ded6d-you-hear.md) | `e2b2ded6d` | D-2941 You_hear | **ACCEPT** |
