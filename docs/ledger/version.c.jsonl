@@ -1,5 +1,5 @@
 {"fn":"version_string","c":"22-31","status":"unknown"}
-{"fn":"getversionstring","c":"35-79","status":"unknown"}
+{"fn":"getversionstring","c":"35-79","status":"ported","js":["js/version.js:getversionstring"],"d":["D-2988"],"at":"2026-09-27@05a11d7e9"}
 {"fn":"status_version","c":"89-152","status":"unknown"}
 {"fn":"doversion","c":"156-165","status":"unknown"}
 {"fn":"doextversion","c":"169-277","status":"partial","js":["js/pager.js:doextversion"],"omit":"`dlb_fopen`/`dlb_fgets`/`dlb_fclose` + OPTIONS_USED file arms (dead under OPTIONS_AT_RUNTIME — no JS dlb reader exists); `release_runtime_info` (no JS shutdown path); `make_version`/`populate_nomakedefs`/`free_nomakedefs` (D-2535 standing); `bannerc_string`/`status_version`/`early_version_info` (st…","d":["D-2558"],"at":"seed@a30a7de84"}

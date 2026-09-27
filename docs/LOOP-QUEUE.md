@@ -112,7 +112,6 @@ body in C order — every arm, every callee live or named, every C caller
 wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 
 <!-- coverage:begin -->
-- [ ] `version.c` getversionstring — coverage THIN (C 32 code L `version.c:35–79` / JS 13 code L in js/version.js; hops 3, callers 5, RNG 0, msg 0) @de27c57ac
 - [ ] `pager.c` whatdoes_cond — coverage MISSING (C 88 code L `pager.c:2458–2573` / JS no symbol; hops 3, callers 1, RNG 0, msg 0) @de27c57ac
 - [ ] `mkobj.c` blessorcurse — coverage PARTIAL (C 8 code L `mkobj.c:1841–1854` / JS 4 code L in js/mkobj.js; hops 4, callers 3, RNG 2, msg 0) @7040c7cd0
 - [ ] `options.c` next_opt — coverage MISSING (C 22 code L `options.c:9755–9785` / JS no symbol; hops —, callers 1, RNG 0, msg 4) @529e9bfc5
@@ -124,6 +123,7 @@ wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 - [ ] `sp_lev.c` lspo_monster — coverage MISSING (C 141 code L `sp_lev.c:3214–3400` / JS no symbol; hops —, callers 0, RNG 3, msg 0; dead callees: get_table_montype, get_table_monclass) @9b244f090
 - [ ] `options.c` handler_autounlock — coverage MISSING (C 38 code L `options.c:5624–5672` / JS no symbol; hops —, callers 1, RNG 0, msg 1; dead callees: optfn_autounlock) @c3bae97ba
 - [ ] `uhitm.c` stumble_onto_mimic — coverage THIN (C 8 code L `uhitm.c:6282–6297` / JS 2 code L in js/uhitm.js; hops 3, callers 6, RNG 0, msg 0) @bf782b509
+- [ ] `cmd.c` cmdq_shift — coverage THIN (C 10 code L `cmd.c:355–370` / JS 3 code L in js/cmd.js; hops 1, callers 1, RNG 0, msg 0) @05a11d7e9
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

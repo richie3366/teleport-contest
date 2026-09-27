@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-2988 — `getversionstring` builds the long version line in C order
+
+- **Status:** fixed (coverage THIN; hidden-proxy verify reports no corpus session blocked). C `getversionstring` is 32 code lines. The contest build leaves `NETHACK_GIT_*` unset and `NH_DEVEL_STATUS` at `NH_STATUS_RELEASED`, so the string sessions see is still `version_id`.
+- **Symptom:** The JS body copied `version_id`, stripped a trailing dot with `endsWith`, and concatenated. It never took `buf` / `bufsz`, never stopped at an embedded NUL, and treated a git pointer as JS-falsy, so a non-NULL empty string was skipped. `Snprintf(eos(buf), (bufsz - strlen(buf)) - 1, …)` was absent, including the `c++` separator that increments even when the write does not fit.
+- **C locus:** `nethack-c/upstream/src/version.c:35–79` `getversionstring`. `Strcpy` of `nomakedefs.version_id` is unbounded. `dotoff` lifts a trailing `.` before `Strcpy(p, " (")`. `RUNTIME_PORT_ID` and the `git_branch` append are compile-time guards (`patchlevel.h:33` is `NH_STATUS_RELEASED`; `RUNTIME_PORT_ID` is not defined). A non-zero `c` writes `)`; otherwise `*p = '\\0'` drops the `" ("`. `dotoff` then writes the dot back through the same `Snprintf` size.
+- **JS was:** `js/version.js` `getversionstring` took no arguments and returned `NOMAKEDEFS_VERSION_ID` after a string concat (13 code lines). Callers passed nothing.
+- **Fix:** One exported `getversionstring` keeps that C order. The return value is the text C leaves in the buffer. `eos` and the `nh_snprintf` size math are inlined: `version.js` stays import-free (D-1881; `imports.mjs --can version.js hacklib.js eos` is SAFE for the hoisted function, but the cycle still runs `const.js` before this module's `export const`s). `size_t` wrap when `strlen >= bufsz` still appends a short piece; size 0 or 1 writes no character. Git fields use `!= null`. With the pinned id and `BUFSZ` 256 the result is `version_id_string` unchanged, including the restored dot.
+- **JS:** `js/version.js` `getversionstring` `:114`. `eos` `:116`. `Snprintf` size `:126`. `Strcpy` id `:142`. `dotoff` `:154`. `" ("` `:156`. `RUNTIME_PORT_ID` `:158`. `git_sha` `:166`. `git_branch` `:171`. `git_prefix` `:177`. `)` or `*p = 0` `:183–186`. Restore dot `:188`.
+- **Callers:** `version.c:163` `doversion` → `js/pager.js:2983` (`pline("%s", …)` with `BUFSZ`). `version.c:191` `doextversion` → `js/pager.js:2918`. `version.c:287` `early_version_info` → `js/earlyarg.js:173` (after the `:285` `"test"` fill). `end.c:559` `dump_everything` is the dumplog family named on `really_done` (DUMPLOG retired D-1776); no JS symbol. `report.c:320` `submit_web_report` has no JS symbol. `extern.h:3564` is the prototype. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn getversionstring` → PASS syntax (3 changed js file(s): js/earlyarg.js js/pager.js js/version.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.7s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) · VERIFY: PASS.
+- **Named omissions:** No compiled arm of `getversionstring` is omitted. `get_port_id` (`sys/windows/windsys.c:501`) is inside `#if defined(RUNTIME_PORT_ID)`, which this build does not define.
+- **Ledger:** getversionstring ported
+- **Next:** `pager.c` `whatdoes_cond` (next Open — coverage row).
+
 ## D-2987 — `save_currentstate` brackets the insurance checkpoint
 
 - **Status:** fixed (coverage MISSING; hidden-proxy verify reports no corpus session blocked). C `save_currentstate` is 13 code lines, inside `#ifdef INSURANCE` (`config.h:435`). The previous coverage head `price_quote` was already the C body at `js/shk.js:1014` (D-2524, review 1483) and was marked stale before this port.

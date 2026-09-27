@@ -169,7 +169,8 @@ export function debug_fields(opts) {
  * @param {boolean} pastebuf
  */
 export function early_version_info(pastebuf) {
-    let buf = getversionstring(); // C `:287` (replaces the `"test"` fill)
+    let buf = 'test'; // C `:285` Snprintf(buf1, "test")
+    buf = getversionstring(buf, BUFSZ); // C `:287` overwrites that fill
     const tmp = strstri(buf, ' ('); // C `:288`
     if (tmp) {
         const prefix = buf.slice(0, buf.length - tmp.length);

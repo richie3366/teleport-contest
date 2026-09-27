@@ -2915,7 +2915,7 @@ export async function doextversion() {
     const lines = [];
     const putstr = (s) => lines.push(s); // C `:175` win + putstr `:200–203`
 
-    let ver = getversionstring(); // C `:191`
+    let ver = getversionstring('', BUFSZ); // C `:174` buf[BUFSZ], `:191`
     let extra = null;
     // C `:192–199`: extra git text onto its own line unless it wraps on (x86).
     if (ver.length >= COLNO) { // C `:194`
@@ -2980,7 +2980,7 @@ export async function doextversion() {
  */
 export async function doversion() {
     if (game.iflags?.menu_requested) return doextversion();
-    await pline(getversionstring());
+    await pline('%s', getversionstring('', BUFSZ)); // C `:158` buf[BUFSZ], `:163`
     return 0;
 }
 
