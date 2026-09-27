@@ -1,0 +1,25 @@
+{"fn":"newegd","c":"23-32","status":"unknown"}
+{"fn":"free_egd","c":"35-42","status":"unknown"}
+{"fn":"clear_fcorr","c":"48-116","status":"unknown"}
+{"fn":"blackout","c":"123-141","status":"unknown"}
+{"fn":"restfakecorr","c":"144-151","status":"unknown"}
+{"fn":"parkguard","c":"155-171","status":"unknown"}
+{"fn":"grddead","c":"175-189","status":"unknown"}
+{"fn":"in_fcorridor","c":"192-201","status":"unknown"}
+{"fn":"findgd","c":"204-234","status":"unknown"}
+{"fn":"vault_summon_gd","c":"237-241","status":"unknown"}
+{"fn":"vault_occupied","c":"244-252","status":"unknown"}
+{"fn":"uleftvault","c":"256-278","status":"unknown"}
+{"fn":"find_guard_dest","c":"281-314","status":"unknown"}
+{"fn":"invault","c":"317-629","status":"unknown"}
+{"fn":"move_gold","c":"632-643","status":"unknown","d":["D-1946"],"at":"seed@a30a7de84"}
+{"fn":"wallify_vault","c":"646-731","status":"unknown","d":["D-2390"],"at":"seed@a30a7de84"}
+{"fn":"gd_mv_monaway","c":"734-747","status":"unknown"}
+{"fn":"gd_pick_corridor_gold","c":"752-831","status":"unknown"}
+{"fn":"gd_move_cleanup","c":"836-866","status":"unknown"}
+{"fn":"gd_letknow","c":"869-882","status":"unknown"}
+{"fn":"gd_move","c":"888-1201","status":"partial","js":["js/vault.js:gd_move"],"omit":"debugpline1 wizard log; defensive `!isok`/`!crm` early-0 in the dig loop (C in-bounds by construction); clear_fcorr Punished/uball arm (pre-existing).","d":["D-2448"],"at":"seed@a30a7de84"}
+{"fn":"paygd","c":"1205-1247","status":"unknown"}
+{"fn":"hidden_gold","c":"1257-1268","status":"unknown"}
+{"fn":"gd_sound","c":"1272-1275","status":"ported","js":["js/sounds.js:gd_sound"],"at":"seed@a30a7de84","note":"stale 2026-09-15"}
+{"fn":"vault_gd_watching","c":"1278-1286","status":"unknown"}

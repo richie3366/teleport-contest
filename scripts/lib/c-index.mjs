@@ -4,6 +4,7 @@
  *
  *   const idx = loadCIndex();
  *   idx.fns.get('newuhs')            → { name, file, start, end, body, lines }
+ *   idx.defs                         → every definition (same shape), file order
  *   idx.ownerOfLine('eat.c', 3400)   → 'newuhs'
  *   idx.matchMessage('You are beginning to feel hungry.') → [{fn,file,line,text}]
  */
@@ -19,6 +20,7 @@ let cached = null;
 export function loadCIndex() {
   if (cached) return cached;
   const fns = new Map();
+  const defs = []; // every definition, incl. #ifdef alternatives and cross-file duplicates
   const byFile = new Map(); // file -> [{name,start,end}]
   const literals = [];
   const files = C_DIRS.flatMap((d) => readdirSync(d).filter((x) => x.endsWith('.c')).sort().map((x) => [x, join(d, x)]));
@@ -41,6 +43,7 @@ export function loadCIndex() {
         body: lines.slice(j, end + 1).join('\n'), lines: end - j + 1,
       };
       if (!fns.has(name)) fns.set(name, rec);
+      defs.push(rec);
       spans.push({ name, start: i + 1, end: end + 1 });
       for (let k = j; k <= end; k++) {
         for (const lm of lines[k].matchAll(/"((?:[^"\\]|\\.){4,})"/g)) {
@@ -64,6 +67,7 @@ export function loadCIndex() {
   });
   cached = {
     fns,
+    defs,
     literals,
     ownerOfLine(file, line) {
       const spans = byFile.get(file) || [];

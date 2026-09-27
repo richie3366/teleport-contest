@@ -1,0 +1,6 @@
+{"fn":"roguejoin","c":"21-42","status":"unknown"}
+{"fn":"roguecorr","c":"45-135","status":"unknown"}
+{"fn":"miniwalk","c":"139-190","status":"unknown"}
+{"fn":"makeroguerooms","c":"193-275","status":"ported","js":["js/extralev.js:makeroguerooms"],"at":"seed@a30a7de84","note":"stale 2026-09-19"}
+{"fn":"corr","c":"278-285","status":"unknown"}
+{"fn":"makerogueghost","c":"288-353","status":"unknown"}

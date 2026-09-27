@@ -1,0 +1,15 @@
+{"fn":"unpadline","c":"67-80","status":"unknown"}
+{"fn":"init_rumors","c":"85-107","status":"unknown"}
+{"fn":"getrumor","c":"117-191","status":"partial","js":["js/rumors.js:getrumor"],"omit":"`dlb_fopen`/`dlb_fclose` handles (Rule #2 embed D-0477 — buffers always present); `init_rumors` header parse (ran at build time in `extract-rumors.py`; starts/ends subsumed by the TRUE/FALSE split); `couldnt_open_file` something_worth_saving suppression (unreachable under embed; the `impossible` + …","d":["D-2513"],"at":"seed@a30a7de84"}
+{"fn":"rumor_check","c":"196-302","status":"partial","js":["js/rumors.js:rumor_check"],"omit":"`init_rumors` header parse (ran at build time in extract-rumors.py; sizes set from section buffers — byte-identical to C's pad+xcrypt sections); absolute file START offsets (embed has no \"don't edit\" + header bytes; section-relative with true_end == false_start); `dlb_fopen` first-failure + init-fa…","d":["D-2556"],"at":"seed@a30a7de84"}
+{"fn":"get_rnd_text","c":"499-526","status":"unknown"}
+{"fn":"outrumor","c":"529-574","status":"unknown"}
+{"fn":"init_oracles","c":"577-595","status":"unknown"}
+{"fn":"save_oracles","c":"598-619","status":"unknown"}
+{"fn":"restore_oracles","c":"623-636","status":"unknown"}
+{"fn":"outoracle","c":"640-693","status":"ported","js":["js/rumors.js:outoracle"],"d":["D-2603"],"at":"seed@a30a7de84"}
+{"fn":"doconsult","c":"696-767","status":"unknown"}
+{"fn":"couldnt_open_file","c":"770-782","status":"unknown"}
+{"fn":"CapitalMon","c":"791-822","status":"unknown"}
+{"fn":"init_CapMons","c":"829-935","status":"ported","js":["js/objnam.js:init_CapMons"],"d":["D-2543"],"at":"seed@a30a7de84"}
+{"fn":"free_CapMons","c":"939-953","status":"unknown"}

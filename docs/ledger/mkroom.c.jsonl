@@ -1,0 +1,30 @@
+{"fn":"isbig","c":"42-48","status":"unknown"}
+{"fn":"do_mkroom","c":"52-92","status":"unknown"}
+{"fn":"mkshop","c":"95-216","status":"partial","js":["js/mklev.js:mkshop"],"omit":"SHOPTYPE single-char dispatch (`:104–153` — env endpoint absent per the omit above; every dispatch callee — `mkzoo` all 8 types, `mktemple`, `mkswamp` — is live in `js/mklev.js`).","d":["D-2569"],"at":"seed@a30a7de84"}
+{"fn":"pick_room","c":"220-241","status":"unknown"}
+{"fn":"mkzoo","c":"244-254","status":"unknown"}
+{"fn":"mk_zoo_thronemon","c":"257-273","status":"unknown"}
+{"fn":"fill_zoo","c":"276-452","status":"unknown","d":["D-1860"],"at":"seed@a30a7de84"}
+{"fn":"mkundead","c":"456-475","status":"unknown"}
+{"fn":"morguemon","c":"478-499","status":"unknown"}
+{"fn":"antholemon","c":"502-527","status":"unknown"}
+{"fn":"mkswamp","c":"530-574","status":"unknown","d":["D-1869"],"at":"seed@a30a7de84"}
+{"fn":"shrine_pos","c":"577-595","status":"ported","js":["js/mklev.js:shrine_pos"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
+{"fn":"mktemple","c":"598-620","status":"unknown"}
+{"fn":"nexttodoor","c":"623-637","status":"unknown"}
+{"fn":"has_dnstairs","c":"640-650","status":"unknown"}
+{"fn":"has_upstairs","c":"653-663","status":"unknown"}
+{"fn":"somex","c":"666-669","status":"unknown","d":["D-2006"],"at":"seed@a30a7de84"}
+{"fn":"somey","c":"672-675","status":"unknown"}
+{"fn":"inside_room","c":"678-687","status":"unknown"}
+{"fn":"somexy","c":"694-740","status":"unknown"}
+{"fn":"somexyspace","c":"744-756","status":"unknown"}
+{"fn":"search_special","c":"765-780","status":"unknown"}
+{"fn":"courtmon","c":"783-805","status":"ported","js":["js/mklev.js:courtmon"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
+{"fn":"squadmon","c":"817-837","status":"unknown"}
+{"fn":"save_room","c":"844-857","status":"unknown"}
+{"fn":"save_rooms","c":"863-871","status":"unknown"}
+{"fn":"rest_room","c":"875-886","status":"unknown"}
+{"fn":"rest_rooms","c":"893-906","status":"unknown"}
+{"fn":"cmap_to_type","c":"912-1030","status":"unknown"}
+{"fn":"invalid_shop_shape","c":"1050-1096","status":"unknown"}

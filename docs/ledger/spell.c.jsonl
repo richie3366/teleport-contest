@@ -1,0 +1,43 @@
+{"fn":"spell_let_to_idx","c":"115-126","status":"unknown"}
+{"fn":"cursed_book","c":"130-185","status":"unknown"}
+{"fn":"confused_book","c":"189-207","status":"ported","js":["js/spell.js:confused_book"],"d":["D-2849"],"at":"seed@a30a7de84"}
+{"fn":"deadbook_pacify_undead","c":"211-226","status":"unknown"}
+{"fn":"deadbook","c":"231-339","status":"ported","js":["js/spell.js:deadbook"],"d":["D-2557"],"at":"seed@a30a7de84"}
+{"fn":"book_cursed","c":"343-351","status":"unknown"}
+{"fn":"learn","c":"356-463","status":"unknown"}
+{"fn":"study_book","c":"468-641","status":"unknown","d":["D-2053"],"at":"seed@a30a7de84"}
+{"fn":"book_disappears","c":"646-652","status":"unknown"}
+{"fn":"book_substitution","c":"658-665","status":"unknown"}
+{"fn":"age_spells","c":"669-682","status":"unknown"}
+{"fn":"rejectcasting","c":"687-708","status":"ported","js":["js/spell.js:rejectcasting"],"d":["D-2926"],"at":"seed@a30a7de84"}
+{"fn":"getspell","c":"715-783","status":"ported","js":["js/spell.js:getspell"],"d":["D-2758"],"at":"seed@a30a7de84"}
+{"fn":"dowizcast","c":"787-815","status":"unknown"}
+{"fn":"docast","c":"820-829","status":"unknown"}
+{"fn":"spelltypemnemonic","c":"832-853","status":"unknown"}
+{"fn":"spell_skilltype","c":"856-859","status":"unknown"}
+{"fn":"skill_based_spellbook_id","c":"864-906","status":"unknown"}
+{"fn":"propagate_chain_lightning","c":"952-1000","status":"unknown"}
+{"fn":"cast_chain_lightning","c":"1003-1100","status":"unknown"}
+{"fn":"cast_protection","c":"1104-1177","status":"unknown","d":["D-1390"],"at":"seed@a30a7de84"}
+{"fn":"spell_backfire","c":"1181-1217","status":"unknown","d":["D-1409"],"at":"seed@a30a7de84"}
+{"fn":"spelleffects_check","c":"1220-1380","status":"unknown","d":["D-2078"],"at":"seed@a30a7de84"}
+{"fn":"spelleffects","c":"1385-1603","status":"unknown","d":["D-2369","D-1469","D-1468","D-1421","D-1420","D-1419"],"at":"seed@a30a7de84"}
+{"fn":"spell_aim_step","c":"1607-1615","status":"unknown"}
+{"fn":"can_center_spell_location","c":"1619-1624","status":"unknown"}
+{"fn":"display_spell_target_positions","c":"1627-1651","status":"unknown"}
+{"fn":"throwspell","c":"1655-1702","status":"unknown"}
+{"fn":"tport_spell","c":"1707-1757","status":"unknown"}
+{"fn":"losespells","c":"1763-1827","status":"ported","js":["js/spell.js:losespells"],"at":"seed@a30a7de84","note":"stale 2026-09-19"}
+{"fn":"spell_cmp","c":"1870-1921","status":"unknown"}
+{"fn":"sortspells","c":"1927-1972","status":"ported","js":["js/spell.js:sortspells"],"at":"seed@a30a7de84","note":"stale 2026-09-21"}
+{"fn":"spellsortmenu","c":"1976-2017","status":"unknown"}
+{"fn":"dovspell","c":"2021-2053","status":"unknown","d":["D-2369"],"at":"seed@a30a7de84"}
+{"fn":"show_spells","c":"2059-2069","status":"unknown"}
+{"fn":"dospellmenu","c":"2075-2168","status":"unknown"}
+{"fn":"percent_success","c":"2173-2292","status":"unknown","d":["D-2693"],"at":"seed@a30a7de84"}
+{"fn":"spellretention","c":"2295-2336","status":"ported","js":["js/spell.js:spellretention"],"at":"seed@a30a7de84","note":"stale 2026-09-21"}
+{"fn":"initialspell","c":"2340-2359","status":"unknown"}
+{"fn":"known_spell","c":"2363-2375","status":"unknown"}
+{"fn":"spell_idx","c":"2379-2387","status":"unknown"}
+{"fn":"force_learn_spell","c":"2391-2413","status":"unknown"}
+{"fn":"num_spells","c":"2417-2425","status":"unknown"}

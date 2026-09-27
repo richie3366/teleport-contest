@@ -1,0 +1,76 @@
+{"fn":"do_blinding_ray","c":"61-76","status":"unknown"}
+{"fn":"use_camera","c":"79-109","status":"unknown"}
+{"fn":"use_towel","c":"112-194","status":"unknown"}
+{"fn":"its_dead","c":"198-309","status":"unknown"}
+{"fn":"use_stethoscope","c":"318-470","status":"partial","js":["js/apply.js:use_stethoscope"],"omit":"M_AP_FURNITURE `defsyms[mappearance].explanation` (no JS defsyms table anywhere — keeps C default `'thing'`).","d":["D-2594"],"at":"seed@a30a7de84"}
+{"fn":"use_whistle","c":"476-492","status":"unknown"}
+{"fn":"use_magic_whistle","c":"495-514","status":"unknown"}
+{"fn":"magic_whistled","c":"518-687","status":"unknown"}
+{"fn":"um_dist","c":"692-695","status":"unknown"}
+{"fn":"number_leashed","c":"698-707","status":"unknown"}
+{"fn":"o_unleash","c":"711-722","status":"unknown"}
+{"fn":"m_unleash","c":"726-742","status":"unknown"}
+{"fn":"unleash_all","c":"746-756","status":"unknown"}
+{"fn":"leashable","c":"761-766","status":"unknown"}
+{"fn":"use_leash","c":"769-818","status":"unknown"}
+{"fn":"use_leash_core","c":"821-876","status":"unknown"}
+{"fn":"get_mleash","c":"880-888","status":"unknown"}
+{"fn":"mleashed_next2u","c":"891-914","status":"unknown"}
+{"fn":"next_to_u","c":"919-928","status":"unknown"}
+{"fn":"check_leash","c":"931-992","status":"unknown"}
+{"fn":"beautiful","c":"997-1013","status":"unknown"}
+{"fn":"use_mirror","c":"1018-1199","status":"unknown"}
+{"fn":"use_bell","c":"1202-1316","status":"ported","js":["js/apply.js:use_bell"],"at":"seed@a30a7de84","note":"stale 2026-09-15"}
+{"fn":"use_candelabrum","c":"1319-1384","status":"ported","js":["js/apply.js:use_candelabrum"],"at":"seed@a30a7de84","note":"stale (grouped)"}
+{"fn":"use_candle","c":"1387-1468","status":"ported","js":["js/apply.js:use_candle"],"at":"seed@a30a7de84","note":"stale (grouped)"}
+{"fn":"snuff_candle","c":"1472-1491","status":"unknown"}
+{"fn":"snuff_lit","c":"1497-1514","status":"unknown"}
+{"fn":"splash_lit","c":"1518-1572","status":"unknown","d":["D-2289","D-1337"],"at":"seed@a30a7de84"}
+{"fn":"catch_lit","c":"1577-1624","status":"unknown"}
+{"fn":"use_lamp","c":"1628-1700","status":"unknown","d":["D-2355","D-2157"],"at":"seed@a30a7de84"}
+{"fn":"light_cocktail","c":"1703-1765","status":"unknown"}
+{"fn":"rub_ok","c":"1770-1781","status":"unknown"}
+{"fn":"dorub","c":"1785-1843","status":"unknown","d":["D-2333"],"at":"seed@a30a7de84"}
+{"fn":"dojump","c":"1847-1851","status":"unknown"}
+{"fn":"check_jump","c":"1862-1890","status":"unknown"}
+{"fn":"is_valid_jump_pos","c":"1893-1956","status":"unknown"}
+{"fn":"get_valid_jump_position","c":"1959-1964","status":"unknown"}
+{"fn":"display_jump_positions","c":"1967-1985","status":"unknown"}
+{"fn":"jump","c":"1988-2164","status":"ported","js":["js/apply.js:jump"],"d":["D-2740"],"at":"seed@a30a7de84"}
+{"fn":"tinnable","c":"2167-2174","status":"unknown"}
+{"fn":"use_tinning_kit","c":"2177-2256","status":"ported","js":["js/apply.js:use_tinning_kit"],"at":"seed@a30a7de84","note":"stale 2026-09-15"}
+{"fn":"use_unicorn_horn","c":"2259-2392","status":"unknown"}
+{"fn":"fig_transform","c":"2398-2508","status":"ported","js":["js/apply.js:fig_transform"],"at":"seed@a30a7de84","note":"stale (grouped)"}
+{"fn":"figurine_location_checks","c":"2511-2541","status":"unknown"}
+{"fn":"use_figurine","c":"2544-2581","status":"ported","js":["js/apply.js:use_figurine"],"at":"seed@a30a7de84","note":"stale 2026-09-15"}
+{"fn":"grease_ok","c":"2585-2601","status":"unknown"}
+{"fn":"use_grease","c":"2604-2654","status":"unknown","d":["D-2349","D-1656"],"at":"seed@a30a7de84"}
+{"fn":"touchstone_ok","c":"2658-2675","status":"unknown"}
+{"fn":"use_stone","c":"2680-2810","status":"ported","js":["js/apply.js:use_stone"],"at":"seed@a30a7de84","note":"stale 2026-09-15"}
+{"fn":"reset_trapset","c":"2813-2817","status":"unknown"}
+{"fn":"use_trap","c":"2821-2912","status":"ported","js":["js/apply.js:use_trap"],"at":"seed@a30a7de84","note":"stale 2026-09-15"}
+{"fn":"set_trap","c":"2916-2952","status":"unknown"}
+{"fn":"use_whip","c":"2955-3271","status":"ported","js":["js/apply.js:use_whip"],"at":"seed@a30a7de84","note":"stale 2026-09-23"}
+{"fn":"find_poleable_mon","c":"3284-3318","status":"unknown"}
+{"fn":"get_valid_polearm_position","c":"3321-3331","status":"unknown"}
+{"fn":"display_polearm_positions","c":"3334-3353","status":"unknown"}
+{"fn":"calc_pole_range","c":"3371-3386","status":"unknown"}
+{"fn":"could_pole_mon","c":"3391-3412","status":"unknown"}
+{"fn":"snickersnee_used_dist_attk","c":"3416-3422","status":"unknown"}
+{"fn":"use_pole","c":"3426-3563","status":"ported","js":["js/apply.js:use_pole"],"d":["D-2059"],"at":"seed@a30a7de84","note":"stale (grouped)"}
+{"fn":"use_cream_pie","c":"3568-3603","status":"unknown"}
+{"fn":"jelly_ok","c":"3607-3613","status":"unknown"}
+{"fn":"use_royal_jelly","c":"3616-3683","status":"unknown","d":["D-2331"],"at":"seed@a30a7de84"}
+{"fn":"grapple_range","c":"3686-3698","status":"unknown"}
+{"fn":"can_grapple_location","c":"3701-3704","status":"unknown"}
+{"fn":"display_grapple_positions","c":"3707-3726","status":"unknown"}
+{"fn":"use_grapple","c":"3729-3873","status":"unknown","d":["D-2213"],"at":"seed@a30a7de84"}
+{"fn":"discard_broken_wand","c":"3876-3885","status":"unknown"}
+{"fn":"broken_wand_explode","c":"3888-3893","status":"unknown"}
+{"fn":"maybe_dunk_boulders","c":"3897-3905","status":"unknown"}
+{"fn":"do_break_wand","c":"3909-4146","status":"unknown","d":["D-2346"],"at":"seed@a30a7de84"}
+{"fn":"apply_ok","c":"4151-4210","status":"unknown"}
+{"fn":"doapply","c":"4214-4425","status":"unknown"}
+{"fn":"unfixable_trouble_count","c":"4431-4470","status":"unknown"}
+{"fn":"flip_through_book","c":"4473-4524","status":"ported","js":["js/apply.js:flip_through_book"],"at":"seed@a30a7de84","note":"stale (grouped)"}
+{"fn":"flip_coin","c":"4527-4556","status":"ported","js":["js/apply.js:flip_coin"],"at":"seed@a30a7de84","note":"stale (grouped)"}

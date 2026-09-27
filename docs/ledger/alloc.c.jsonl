@@ -1,0 +1,12 @@
+{"fn":"alloc","c":"68-81","status":"by-design","at":"seed@a30a7de84","note":"seed: C runtime (GC)"}
+{"fn":"re_alloc","c":"85-99","status":"unknown"}
+{"fn":"fmt_ptr","c":"125-135","status":"unknown"}
+{"fn":"heapmon_init","c":"142-149","status":"unknown"}
+{"fn":"nhalloc","c":"152-166","status":"unknown"}
+{"fn":"nhrealloc","c":"170-202","status":"unknown"}
+{"fn":"nhfree","c":"205-214","status":"unknown"}
+{"fn":"nhdupstr","c":"219-229","status":"unknown"}
+{"fn":"dupstr","c":"238-247","status":"unknown"}
+{"fn":"dupstr_n","c":"253-261","status":"unknown"}
+{"fn":"FITSint_","c":"266-273","status":"unknown"}
+{"fn":"FITSuint_","c":"276-283","status":"unknown"}

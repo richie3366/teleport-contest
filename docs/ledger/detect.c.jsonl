@@ -1,0 +1,43 @@
+{"fn":"unconstrain_map","c":"70-81","status":"unknown"}
+{"fn":"reconstrain_map","c":"85-91","status":"unknown"}
+{"fn":"map_redisplay","c":"94-102","status":"unknown"}
+{"fn":"browse_map","c":"106-118","status":"unknown"}
+{"fn":"map_monst","c":"122-134","status":"unknown","d":["D-1549"],"at":"seed@a30a7de84"}
+{"fn":"trapped_chest_at","c":"139-177","status":"unknown","d":["D-2298"],"at":"seed@a30a7de84"}
+{"fn":"trapped_door_at","c":"182-197","status":"unknown"}
+{"fn":"o_in","c":"201-223","status":"unknown"}
+{"fn":"o_material","c":"229-246","status":"unknown"}
+{"fn":"observe_recursively","c":"249-258","status":"unknown"}
+{"fn":"check_map_spot","c":"262-309","status":"unknown"}
+{"fn":"clear_stale_map","c":"318-331","status":"unknown"}
+{"fn":"gold_detect","c":"335-475","status":"unknown","d":["D-1773"],"at":"seed@a30a7de84"}
+{"fn":"food_detect","c":"479-594","status":"ported","js":["js/detect.js:food_detect"],"d":["D-1781"],"at":"seed@a30a7de84","note":"stale 2026-09-19"}
+{"fn":"object_detect","c":"603-789","status":"unknown","d":["D-1782"],"at":"seed@a30a7de84"}
+{"fn":"monster_detect","c":"798-862","status":"unknown","d":["D-2081"],"at":"seed@a30a7de84"}
+{"fn":"sense_trap","c":"865-897","status":"unknown","d":["D-1753"],"at":"seed@a30a7de84"}
+{"fn":"detect_obj_traps","c":"907-953","status":"unknown"}
+{"fn":"display_trap_map","c":"956-1003","status":"unknown"}
+{"fn":"trap_detect","c":"1011-1088","status":"unknown"}
+{"fn":"furniture_detect","c":"1091-1134","status":"unknown"}
+{"fn":"level_distance","c":"1142-1185","status":"ported","js":["js/detect.js:level_distance"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
+{"fn":"use_crystal_ball","c":"1206-1368","status":"unknown"}
+{"fn":"show_map_spot","c":"1372-1419","status":"unknown"}
+{"fn":"do_mapping","c":"1422-1444","status":"ported","js":["js/detect.js:do_mapping"],"at":"seed@a30a7de84","note":"stale 2026-09-08"}
+{"fn":"do_vicinity_map","c":"1448-1585","status":"ported","js":["js/detect.js:do_vicinity_map"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
+{"fn":"cvt_sdoor_to_door","c":"1589-1604","status":"unknown"}
+{"fn":"foundone","c":"1610-1634","status":"unknown"}
+{"fn":"findone","c":"1639-1726","status":"unknown","d":["D-1775"],"at":"seed@a30a7de84"}
+{"fn":"openone","c":"1729-1788","status":"unknown"}
+{"fn":"findit","c":"1792-1898","status":"ported","js":["js/detect.js:findit"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
+{"fn":"openit","c":"1902-1925","status":"unknown"}
+{"fn":"detecting","c":"1929-1932","status":"unknown"}
+{"fn":"find_trap","c":"1935-1962","status":"unknown","d":["D-2179","D-2100"],"at":"seed@a30a7de84"}
+{"fn":"mfind0","c":"1965-2013","status":"unknown"}
+{"fn":"dosearch0","c":"2016-2093","status":"unknown","d":["D-2212","D-2019"],"at":"seed@a30a7de84"}
+{"fn":"dosearch","c":"2097-2104","status":"unknown","d":["D-2215","D-2035"],"at":"seed@a30a7de84"}
+{"fn":"warnreveal","c":"2107-2120","status":"unknown"}
+{"fn":"skip_premap_detect","c":"2124-2130","status":"unknown"}
+{"fn":"premap_detect","c":"2134-2159","status":"unknown"}
+{"fn":"reveal_terrain_getglyph","c":"2167-2288","status":"unknown"}
+{"fn":"dump_map","c":"2294-2349","status":"ported","at":"seed@a30a7de84","note":"stale 2026-09-19; seed: js location unresolved"}
+{"fn":"reveal_terrain","c":"2356-2414","status":"ported","js":["js/detect.js:reveal_terrain"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}

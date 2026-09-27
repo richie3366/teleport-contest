@@ -1,0 +1,15 @@
+{"fn":"SF_C","c":"100-110","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"historical_sfo_char","c":"106-110","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"historical_sfi_char","c":"113-119","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"historical_sfo_genericptr_t","c":"130-134","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"historical_sfi_genericptr_t","c":"136-145","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"getidx","c":"384-400","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"close_check","c":"404-412","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"bufon","c":"415-433","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"bufoff","c":"436-444","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"bclose","c":"447-475","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"bflush","c":"478-491","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"bwrite","c":"494-544","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"mread","c":"549-594","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"sfstruct_read_error","c":"597-600","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"logging_finish","c":"604-623","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}

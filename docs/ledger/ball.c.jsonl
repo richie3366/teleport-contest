@@ -1,0 +1,21 @@
+{"fn":"ballrelease","c":"23-39","status":"unknown"}
+{"fn":"ballfall","c":"43-67","status":"unknown","d":["D-1778"],"at":"seed@a30a7de84"}
+{"fn":"placebc_core","c":"120-144","status":"partial","js":["js/ball.js:placebc_core"],"omit":"`Placebc` / `Lift_covet_and_placebc` (`ball.c:259–346`) stay out because `BREADCRUMBS` is not defined.","d":["D-2840"],"at":"seed@a30a7de84"}
+{"fn":"unplacebc_core","c":"147-177","status":"ported","js":["js/ball.js:unplacebc_core"],"d":["D-2857"],"at":"seed@a30a7de84"}
+{"fn":"check_restriction","c":"180-189","status":"unknown"}
+{"fn":"placebc","c":"193-209","status":"ported","js":["js/ball.js:placebc"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
+{"fn":"unplacebc","c":"212-219","status":"unknown","d":["D-1777"],"at":"seed@a30a7de84"}
+{"fn":"unplacebc_and_covet_placebc","c":"222-233","status":"unknown"}
+{"fn":"lift_covet_and_placebc","c":"236-254","status":"unknown"}
+{"fn":"Placebc","c":"259-284","status":"unknown"}
+{"fn":"Unplacebc","c":"287-303","status":"unknown"}
+{"fn":"Unplacebc_and_covet_placebc","c":"306-324","status":"unknown"}
+{"fn":"Lift_covet_and_placebc","c":"327-346","status":"unknown"}
+{"fn":"bc_order","c":"354-371","status":"unknown"}
+{"fn":"set_bc","c":"380-424","status":"unknown"}
+{"fn":"move_bc","c":"437-556","status":"unknown","d":["D-1777"],"at":"seed@a30a7de84"}
+{"fn":"drag_ball","c":"560-870","status":"unknown"}
+{"fn":"drop_ball","c":"882-961","status":"unknown","d":["D-2329"],"at":"seed@a30a7de84"}
+{"fn":"litter","c":"965-983","status":"unknown"}
+{"fn":"drag_down","c":"986-1031","status":"unknown"}
+{"fn":"bc_sanity_check","c":"1034-1102","status":"partial","js":["js/ball.js:bc_sanity_check"],"omit":"`sanity_check` siblings obj/timer/mon/light/trap/engraving/`levl_sanity_check` (unported writers, own rows); `check_wornmask_slots`; `dobjsfree`/`clear_bypasses`/`resume_wish` (all pre-existing D-1664 names, map keeps them).","d":["D-2489"],"at":"seed@a30a7de84"}

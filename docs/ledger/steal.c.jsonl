@@ -1,0 +1,16 @@
+{"fn":"somegold","c":"14-34","status":"unknown"}
+{"fn":"findgold","c":"45-52","status":"unknown"}
+{"fn":"stealgold","c":"58-116","status":"unknown"}
+{"fn":"thiefdead","c":"120-128","status":"unknown","d":["D-2271"],"at":"seed@a30a7de84"}
+{"fn":"unresponsive","c":"133-142","status":"unknown"}
+{"fn":"unstolenarm","c":"147-161","status":"unknown"}
+{"fn":"stealarm","c":"165-208","status":"unknown"}
+{"fn":"remove_worn_item","c":"213-290","status":"partial","js":["js/steal.js:remove_worn_item"],"omit":"`shk.c:173` `money2mon` stays synchronous at `js/shk.js:4533`, so quivered gold still skips `remove_worn_item`.","d":["D-2812","D-1086"],"at":"seed@a30a7de84"}
+{"fn":"worn_item_removal","c":"294-334","status":"ported","js":["js/steal.js:worn_item_removal"],"d":["D-2928"],"at":"seed@a30a7de84"}
+{"fn":"steal","c":"343-614","status":"partial","js":["js/steal.js:steal"],"omit":"C `assert(uball)` debug no-op; o_id-null guard on the stealoid compare (JS-artifact safety; real o_ids start at 1 via next_ident).","d":["D-2748"],"at":"seed@a30a7de84"}
+{"fn":"mpickobj","c":"618-685","status":"ported","js":["js/makemon.js:mpickobj"],"d":["D-2496"],"at":"seed@a30a7de84"}
+{"fn":"stealamulet","c":"689-767","status":"unknown","d":["D-1945"],"at":"seed@a30a7de84"}
+{"fn":"maybe_absorb_item","c":"772-810","status":"ported","js":["js/steal.js:maybe_absorb_item"],"d":["D-2869"],"at":"seed@a30a7de84"}
+{"fn":"mdrop_obj","c":"814-846","status":"unknown"}
+{"fn":"mdrop_special_objs","c":"852-871","status":"unknown"}
+{"fn":"relobj","c":"875-898","status":"unknown","d":["D-2407"],"at":"seed@a30a7de84"}

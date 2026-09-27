@@ -1,0 +1,20 @@
+{"fn":"picking_lock","c":"17-27","status":"unknown"}
+{"fn":"picking_at","c":"30-34","status":"unknown"}
+{"fn":"lock_action","c":"38-64","status":"unknown"}
+{"fn":"picklock","c":"68-159","status":"unknown"}
+{"fn":"breakchestlock","c":"162-212","status":"unknown"}
+{"fn":"forcelock","c":"216-256","status":"unknown"}
+{"fn":"reset_pick","c":"259-265","status":"unknown"}
+{"fn":"maybe_reset_pick","c":"269-285","status":"ported","js":["js/lock.js:maybe_reset_pick"],"d":["D-2949"],"at":"seed@a30a7de84"}
+{"fn":"autokey","c":"289-344","status":"ported","js":["js/lock.js:autokey"],"d":["D-2715"],"at":"seed@a30a7de84"}
+{"fn":"pick_lock","c":"358-656","status":"partial","js":["js/lock.js:pick_lock"],"omit":"(1) `maybe_absorb_item` (`steal.c:772`, no JS port — D-2002-carried); (2) `!IS_DOOR` DID_NOTHING half (`:579–586`, own Open row this commit — historically always-LEARNED, fortress-green).","d":["D-2755","D-2744","D-2286","D-2167","D-2002"],"at":"seed@a30a7de84"}
+{"fn":"u_have_forceable_weapon","c":"660-670","status":"unknown"}
+{"fn":"doforce","c":"676-756","status":"unknown"}
+{"fn":"stumble_on_door_mimic","c":"759-769","status":"unknown"}
+{"fn":"doopen","c":"773-776","status":"unknown"}
+{"fn":"doopen_indir","c":"780-923","status":"unknown"}
+{"fn":"obstructed","c":"926-953","status":"ported","js":["js/lock.js:obstructed"],"d":["D-2935"],"at":"seed@a30a7de84"}
+{"fn":"doclose","c":"957-1051","status":"unknown"}
+{"fn":"boxlock","c":"1056-1098","status":"unknown"}
+{"fn":"doorlock","c":"1103-1273","status":"unknown"}
+{"fn":"chest_shatter_msg","c":"1276-1318","status":"unknown","d":["D-2676"],"at":"seed@a30a7de84"}

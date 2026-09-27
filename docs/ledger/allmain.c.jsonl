@@ -1,0 +1,17 @@
+{"fn":"early_init","c":"33-45","status":"unknown"}
+{"fn":"moveloop_preamble","c":"48-111","status":"unknown"}
+{"fn":"u_calc_moveamt","c":"114-158","status":"unknown"}
+{"fn":"maybe_generate_rnd_mon","c":"162-168","status":"unknown","d":["D-1867"],"at":"seed@a30a7de84"}
+{"fn":"moveloop_core","c":"177-564","status":"unknown","d":["D-2400","D-2246","D-2138","D-1801"],"at":"seed@a30a7de84"}
+{"fn":"maybe_do_tutorial","c":"567-584","status":"unknown"}
+{"fn":"moveloop","c":"587-597","status":"unknown","d":["D-2009","D-1168"],"at":"seed@a30a7de84"}
+{"fn":"regen_pw","c":"600-619","status":"unknown"}
+{"fn":"regen_hp","c":"625-679","status":"unknown","d":["D-2012"],"at":"seed@a30a7de84"}
+{"fn":"stop_occupation","c":"684-696","status":"unknown"}
+{"fn":"init_sound_disp_gamewindows","c":"699-763","status":"unknown","d":["D-1965"],"at":"seed@a30a7de84"}
+{"fn":"newgame","c":"766-850","status":"unknown","d":["D-1200","D-1192"],"at":"seed@a30a7de84"}
+{"fn":"welcome","c":"854-929","status":"unknown","d":["D-2725"],"at":"seed@a30a7de84"}
+{"fn":"do_positionbar","c":"933-972","status":"partial","js":["js/allmain.js:do_positionbar"],"omit":"`video_update_positionbar` (`sys/msdos/video.c:703`) and `vga_update_positionbar` / `vesa_update_positionbar` are MS-DOS and are not this window port.","d":["D-2888"],"at":"seed@a30a7de84"}
+{"fn":"interrupt_multi","c":"976-983","status":"unknown"}
+{"fn":"timet_to_seconds","c":"987-992","status":"unknown"}
+{"fn":"timet_delta","c":"996-1001","status":"unknown"}

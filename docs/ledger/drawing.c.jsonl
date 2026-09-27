@@ -1,0 +1,3 @@
+{"fn":"def_char_to_objclass","c":"91-99","status":"unknown"}
+{"fn":"def_char_to_monclass","c":"108-116","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"def_char_is_furniture","c":"120-142","status":"unknown","d":["D-2058"],"at":"seed@a30a7de84"}

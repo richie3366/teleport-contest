@@ -1,0 +1,36 @@
+{"fn":"m_blocks_teleporting","c":"21-26","status":"unknown"}
+{"fn":"noteleport_level","c":"30-47","status":"ported","js":["js/teleport.js:noteleport_level"],"d":["D-2940"],"at":"seed@a30a7de84"}
+{"fn":"goodpos_onscary","c":"53-76","status":"unknown","d":["D-1102"],"at":"seed@a30a7de84"}
+{"fn":"goodpos","c":"86-185","status":"unknown","d":["D-2171","D-2096","D-1110","D-1101","D-1100","D-1099"],"at":"seed@a30a7de84"}
+{"fn":"enexto","c":"196-203","status":"unknown"}
+{"fn":"enexto_gpflags","c":"206-214","status":"unknown"}
+{"fn":"enexto_core","c":"219-276","status":"unknown","note":"alt 281-376"}
+{"fn":"tele_jump_ok","c":"386-417","status":"unknown"}
+{"fn":"teleok","c":"420-445","status":"unknown","d":["D-1119","D-1111"],"at":"seed@a30a7de84"}
+{"fn":"teleds","c":"448-573","status":"unknown","d":["D-1142","D-1141","D-1140","D-1139","D-1132","D-1131"],"at":"seed@a30a7de84"}
+{"fn":"safe_teleds","c":"717-770","status":"partial","js":["js/teleport.js:safe_teleds"],"omit":"`do.c:1566` stays inside the deferred Gehennom amulet mysteryforce arm (`js/do.js:1544`), so same-level `safe_teleds` + `next_to_u` is not reached.","d":["D-2815"],"at":"seed@a30a7de84"}
+{"fn":"vault_tele","c":"773-783","status":"unknown","d":["D-1153"],"at":"seed@a30a7de84"}
+{"fn":"teleport_pet","c":"786-810","status":"unknown"}
+{"fn":"tele_to_rnd_pet","c":"814-838","status":"unknown"}
+{"fn":"tele","c":"842-845","status":"unknown","d":["D-1133"],"at":"seed@a30a7de84"}
+{"fn":"scrolltele","c":"849-915","status":"unknown","d":["D-1206","D-1205","D-1197","D-1184"],"at":"seed@a30a7de84"}
+{"fn":"dotelecmd","c":"919-1031","status":"unknown","d":["D-1209"],"at":"seed@a30a7de84"}
+{"fn":"dotele","c":"1034-1162","status":"unknown","d":["D-1208"],"at":"seed@a30a7de84"}
+{"fn":"level_tele","c":"1165-1441","status":"unknown","d":["D-2136","D-2054","D-1846"],"at":"seed@a30a7de84"}
+{"fn":"domagicportal","c":"1444-1489","status":"unknown"}
+{"fn":"tele_trap","c":"1492-1535","status":"unknown","d":["D-1120"],"at":"seed@a30a7de84"}
+{"fn":"level_tele_trap","c":"1538-1571","status":"unknown"}
+{"fn":"rloc_pos_ok","c":"1575-1633","status":"unknown","d":["D-1182","D-1171"],"at":"seed@a30a7de84"}
+{"fn":"rloc_to_core","c":"1645-1768","status":"partial","js":["js/teleport.js:rloc_to_core"],"omit":"`u_on_newpos` inlined (ux/uy/uundetected/steed; `see_nearby_objects` correctly skipped — uswallow true fails C's gate; `earth_sense` map-named, turns.md:1632); `place_monster` mx/my inline (grid occupancy/mstate have no JS counterpart; D-1160); `remove_monster`≡mx/my zeroing (`m_at` scans fmon); `m…","d":["D-2504","D-1196","D-1195","D-1183","D-1180"],"at":"seed@a30a7de84"}
+{"fn":"rloc_to","c":"1771-1774","status":"unknown","d":["D-1170","D-1164","D-1163","D-1162","D-1161","D-1160"],"at":"seed@a30a7de84"}
+{"fn":"rloc_to_flag","c":"1777-1783","status":"unknown"}
+{"fn":"stairway_find_forwiz","c":"1786-1794","status":"unknown"}
+{"fn":"rloc","c":"1799-1895","status":"unknown","d":["D-1181","D-1172","D-1122"],"at":"seed@a30a7de84"}
+{"fn":"control_mon_tele","c":"1899-1934","status":"unknown"}
+{"fn":"mvault_tele","c":"1937-1947","status":"unknown"}
+{"fn":"tele_restrict","c":"1950-1959","status":"unknown"}
+{"fn":"mtele_trap","c":"1962-2002","status":"ported","js":["js/teleport.js:mtele_trap"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
+{"fn":"mlevel_tele_trap","c":"2006-2098","status":"unknown","d":["D-1112"],"at":"seed@a30a7de84"}
+{"fn":"rloco","c":"2102-2187","status":"partial","js":["js/teleport.js:rloco"],"omit":"`mkobj.c:2081` `mkcorpstat` x==0&&y==0 `rloco` — JS `mkcorpstat` is sync with 5+ transitive sync callers (end.js `mk_named_object`, mhitm `make_corpse`); async cascade is its own row.","d":["D-2463"],"at":"seed@a30a7de84"}
+{"fn":"random_teleport_level","c":"2191-2258","status":"ported","js":["js/teleport.js:random_teleport_level"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
+{"fn":"u_teleport_mon","c":"2263-2292","status":"unknown"}

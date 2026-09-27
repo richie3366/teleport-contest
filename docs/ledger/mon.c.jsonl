@@ -1,0 +1,129 @@
+{"fn":"pet_sanity_check","c":"57-70","status":"unknown"}
+{"fn":"sanity_check_single_mon","c":"73-255","status":"partial","js":["js/mon.js:sanity_check_single_mon"],"omit":"`panic` (own unported row; throw used); `levltyp_to_name` + all three `#if 0` arms (dead-mon fmon/guard `:107–112`, mimic inaccessible-location `:222–236`, leash `distu>90` `:306–313`) — omitted exactly like C; C callers `mon_sanity_check` fmon/migr sites (unported owner, wire later).","d":["D-2479"],"at":"seed@a30a7de84"}
+{"fn":"mon_sanity_check","c":"258-324","status":"by-design","at":"seed@a30a7de84","note":"seed: wizard sanity check (debug build path)"}
+{"fn":"m_poisongas_ok","c":"330-358","status":"unknown","d":["D-1159"],"at":"seed@a30a7de84"}
+{"fn":"zombie_maker","c":"362-380","status":"unknown","d":["D-1210"],"at":"seed@a30a7de84"}
+{"fn":"zombie_form","c":"386-413","status":"unknown"}
+{"fn":"undead_to_corpse","c":"417-461","status":"ported","js":["js/mon.js:undead_to_corpse"],"at":"seed@a30a7de84","note":"stale 2026-09-15"}
+{"fn":"genus","c":"470-531","status":"unknown"}
+{"fn":"pm_to_cham","c":"535-546","status":"unknown"}
+{"fn":"make_corpse","c":"564-941","status":"ported","js":["js/mhitm.js:make_corpse"],"d":["D-1794"],"at":"seed@a30a7de84","note":"stale 2026-09-15"}
+{"fn":"minliquid","c":"947-957","status":"unknown"}
+{"fn":"minliquid_core","c":"961-1122","status":"unknown"}
+{"fn":"mcalcmove","c":"1126-1168","status":"unknown"}
+{"fn":"mcalcdistress","c":"1174-1177","status":"unknown"}
+{"fn":"m_calcdistress","c":"1180-1209","status":"unknown"}
+{"fn":"movemon_singlemon","c":"1214-1322","status":"unknown"}
+{"fn":"movemon","c":"1326-1350","status":"unknown"}
+{"fn":"meatbox","c":"1354-1382","status":"unknown"}
+{"fn":"m_consume_obj","c":"1392-1453","status":"ported","js":["js/mon.js:m_consume_obj"],"d":["D-2499"],"at":"seed@a30a7de84"}
+{"fn":"meatmetal","c":"1463-1529","status":"unknown"}
+{"fn":"meatobj","c":"1533-1649","status":"unknown","d":["D-1284"],"at":"seed@a30a7de84"}
+{"fn":"meatcorpse","c":"1656-1722","status":"unknown","d":["D-1285"],"at":"seed@a30a7de84"}
+{"fn":"mon_give_prop","c":"1726-1774","status":"ported","js":["js/mon.js:mon_give_prop"],"d":["D-2660"],"at":"seed@a30a7de84"}
+{"fn":"mon_givit","c":"1778-1824","status":"ported","js":["js/mon.js:mon_givit"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
+{"fn":"mpickgold","c":"1827-1843","status":"unknown"}
+{"fn":"mpickstuff","c":"1847-1910","status":"unknown","d":["D-2085"],"at":"seed@a30a7de84"}
+{"fn":"curr_mon_load","c":"1913-1924","status":"unknown"}
+{"fn":"max_mon_load","c":"1927-1954","status":"unknown"}
+{"fn":"can_touch_safely","c":"1958-1974","status":"unknown"}
+{"fn":"can_carry","c":"1990-2053","status":"unknown"}
+{"fn":"monlineu","c":"2057-2060","status":"unknown"}
+{"fn":"mon_allowflags","c":"2064-2126","status":"unknown"}
+{"fn":"m_in_air","c":"2130-2136","status":"unknown"}
+{"fn":"mfndpos","c":"2140-2382","status":"unknown"}
+{"fn":"mm_2way_aggression","c":"2388-2420","status":"unknown"}
+{"fn":"mm_aggression","c":"2428-2447","status":"unknown"}
+{"fn":"mm_displacement","c":"2451-2472","status":"unknown"}
+{"fn":"monnear","c":"2476-2483","status":"unknown"}
+{"fn":"dmonsfree","c":"2487-2511","status":"partial","js":["js/mon.js:dmonsfree"],"omit":"`save.c:1106` `freedynamicdata` (`FREE_ALL_MEMORY` is on in `config.h:632`; the function is still the save-freeing guard, not ported).","d":["D-2824"],"at":"seed@a30a7de84"}
+{"fn":"replmon","c":"2515-2556","status":"unknown"}
+{"fn":"relmon","c":"2561-2594","status":"unknown"}
+{"fn":"copy_mextra","c":"2597-2646","status":"unknown"}
+{"fn":"dealloc_mextra","c":"2649-2673","status":"unknown"}
+{"fn":"dealloc_monst","c":"2676-2691","status":"unknown"}
+{"fn":"mon_leaving_level","c":"2696-2730","status":"unknown"}
+{"fn":"m_detach","c":"2734-2803","status":"ported","js":["js/mhitm.js:m_detach"],"at":"seed@a30a7de84","note":"stale 2026-09-21"}
+{"fn":"set_mon_min_mhpmax","c":"2808-2823","status":"unknown"}
+{"fn":"mlifesaver","c":"2827-2836","status":"unknown"}
+{"fn":"lifesaved_monster","c":"2839-2884","status":"unknown"}
+{"fn":"vamprises","c":"2890-2987","status":"unknown","d":["D-2273"],"at":"seed@a30a7de84"}
+{"fn":"logdeadmon","c":"2997-3068","status":"ported","js":["js/mhitm.js:logdeadmon"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
+{"fn":"anger_quest_guardians","c":"3072-3076","status":"unknown"}
+{"fn":"mondead","c":"3081-3177","status":"unknown","d":["D-2231","D-2147"],"at":"seed@a30a7de84"}
+{"fn":"corpse_chance","c":"3181-3249","status":"unknown"}
+{"fn":"mondied","c":"3253-3263","status":"unknown"}
+{"fn":"mongone","c":"3267-3283","status":"unknown","d":["D-2339","D-1149"],"at":"seed@a30a7de84"}
+{"fn":"monstone","c":"3287-3373","status":"ported","js":["js/mhitm.js:monstone"],"d":["D-2753","D-2742"],"at":"seed@a30a7de84"}
+{"fn":"monkilled","c":"3377-3418","status":"partial","js":["js/mhitm.js:monkilled"],"omit":"`wiz_kill` (`wizcmds.c:242–337`, call at `:326` with a null `fltxt` and `AD_PHYS`).","d":["D-2875","D-1550"],"at":"seed@a30a7de84"}
+{"fn":"set_ustuck","c":"3421-3435","status":"unknown"}
+{"fn":"unstuck","c":"3438-3467","status":"partial","js":["js/mhitu.js:unstuck"],"omit":"`mhitm.c:1255` `slept_monst` is still three local clones that clear `ustuck` (`js/mhitm.js:1381` `slept_slee_mm`, `js/music.js:328`, `js/potion.js:3730`).","d":["D-2808","D-2191","D-2093"],"at":"seed@a30a7de84"}
+{"fn":"killed","c":"3470-3473","status":"unknown"}
+{"fn":"xkilled","c":"3477-3740","status":"partial","js":["js/uhitm.js:xkilled"],"omit":"`mhitm_ad_rust` (C:2294) + `mhitm_ad_fire` (C:2547) uhitm arms — enclosing C functions unported (no `rust`/`smell burning` in `js/`); `wiz_kill` (`wizcmds.c:315`, no JS counterpart) — own coverage rows.","d":["D-2444","D-1796"],"at":"seed@a30a7de84"}
+{"fn":"mon_to_stone","c":"3748-3763","status":"unknown"}
+{"fn":"vamp_stone","c":"3766-3830","status":"ported","js":["js/mhitm.js:vamp_stone"],"d":["D-2611"],"at":"seed@a30a7de84"}
+{"fn":"m_into_limbo","c":"3834-3840","status":"unknown","d":["D-2236"],"at":"seed@a30a7de84"}
+{"fn":"migrate_mon","c":"3843-3861","status":"unknown"}
+{"fn":"ok_to_obliterate","c":"3864-3875","status":"unknown"}
+{"fn":"elemental_clog","c":"3878-3950","status":"unknown"}
+{"fn":"mnexto","c":"3955-3983","status":"unknown","d":["D-1173"],"at":"seed@a30a7de84"}
+{"fn":"deal_with_overcrowding","c":"3986-3995","status":"unknown"}
+{"fn":"maybe_mnexto","c":"3999-4017","status":"unknown"}
+{"fn":"mnearto","c":"4031-4085","status":"unknown"}
+{"fn":"m_respond_shrieker","c":"4089-4105","status":"unknown"}
+{"fn":"m_respond_medusa","c":"4109-4118","status":"unknown"}
+{"fn":"m_respond","c":"4122-4131","status":"unknown","d":["D-1314"],"at":"seed@a30a7de84"}
+{"fn":"qst_guardians_respond","c":"4135-4159","status":"unknown"}
+{"fn":"peacefuls_respond","c":"4163-4257","status":"unknown","d":["D-1772"],"at":"seed@a30a7de84"}
+{"fn":"setmangry","c":"4265-4318","status":"partial","js":["js/mon.js:setmangry"],"omit":"`quest.c:479` `quest_chat` pissed_off → `setmangry` (pre-existing deferral, `js/quest.js:432` comment); vault greeting Croesus-alive `waves goodbye` / `Sorry to have disturbed you` dialogue (`vault.c:514–523`, JS leaves via `mongone_guard`); `sengr_at` has no live ESM export (teleport.js:175 module…","d":["D-2494"],"at":"seed@a30a7de84"}
+{"fn":"wake_msg","c":"4322-4329","status":"unknown"}
+{"fn":"wakeup","c":"4333-4363","status":"unknown"}
+{"fn":"wake_nearby","c":"4367-4370","status":"unknown"}
+{"fn":"wake_nearto_core","c":"4374-4399","status":"unknown"}
+{"fn":"wake_nearto","c":"4402-4405","status":"unknown"}
+{"fn":"seemimic","c":"4409-4427","status":"unknown"}
+{"fn":"normal_shape","c":"4431-4462","status":"unknown","d":["D-1594"],"at":"seed@a30a7de84"}
+{"fn":"alloc_itermonarr","c":"4471-4490","status":"unknown"}
+{"fn":"iter_mons_safe","c":"4500-4522","status":"partial","js":["js/mon.js:iter_mons_safe"],"omit":"`save.c:1108` `alloc_itermonarr(0)` stays inside unported `freedynamicdata` (`FREE_ALL_MEMORY`).","d":["D-2843"],"at":"seed@a30a7de84"}
+{"fn":"iter_mons","c":"4527-4538","status":"unknown"}
+{"fn":"get_iter_mons","c":"4544-4556","status":"unknown"}
+{"fn":"get_iter_mons_xy","c":"4562-4576","status":"unknown"}
+{"fn":"healmon","c":"4596-4614","status":"unknown"}
+{"fn":"rescham","c":"4621-4624","status":"unknown"}
+{"fn":"m_restartcham","c":"4627-4635","status":"unknown"}
+{"fn":"restartcham","c":"4640-4643","status":"unknown"}
+{"fn":"restore_cham","c":"4649-4658","status":"unknown","d":["D-1637"],"at":"seed@a30a7de84"}
+{"fn":"restrap","c":"4662-4693","status":"unknown"}
+{"fn":"maybe_unhide_at","c":"4698-4720","status":"ported","js":["js/monmove.js:maybe_unhide_at"],"d":["D-2923"],"at":"seed@a30a7de84"}
+{"fn":"hideunder","c":"4726-4802","status":"unknown"}
+{"fn":"hide_monst","c":"4806-4826","status":"unknown"}
+{"fn":"mon_animal_list","c":"4829-4852","status":"ported","js":["js/makemon.js:mon_animal_list"],"d":["D-2956"],"at":"seed@a30a7de84"}
+{"fn":"pick_animal","c":"4855-4869","status":"unknown"}
+{"fn":"decide_to_shapeshift","c":"4872-4938","status":"unknown","d":["D-2254"],"at":"seed@a30a7de84"}
+{"fn":"pickvampshape","c":"4941-4979","status":"unknown"}
+{"fn":"isspecmon","c":"4983-4987","status":"unknown"}
+{"fn":"validspecmon","c":"4993-5011","status":"unknown"}
+{"fn":"valid_vampshiftform","c":"5015-5023","status":"unknown"}
+{"fn":"validvamp","c":"5028-5075","status":"unknown"}
+{"fn":"wiz_force_cham_form","c":"5078-5154","status":"unknown","d":["D-2245"],"at":"seed@a30a7de84"}
+{"fn":"select_newcham_form","c":"5157-5225","status":"unknown"}
+{"fn":"accept_newcham_form","c":"5229-5252","status":"unknown"}
+{"fn":"mgender_from_permonst","c":"5256-5272","status":"unknown"}
+{"fn":"newcham","c":"5278-5535","status":"ported","js":["js/makemon.js:newcham"],"d":["D-2433","D-2235","D-1914","D-1645","D-1586","D-1573"],"at":"seed@a30a7de84"}
+{"fn":"can_be_hatched","c":"5546-5565","status":"unknown"}
+{"fn":"egg_type_from_parent","c":"5569-5580","status":"unknown","d":["D-2239"],"at":"seed@a30a7de84"}
+{"fn":"dead_species","c":"5587-5605","status":"ported","js":["js/mon.js:dead_species"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
+{"fn":"kill_eggs","c":"5609-5635","status":"unknown","d":["D-1097"],"at":"seed@a30a7de84"}
+{"fn":"kill_genocided_monsters","c":"5639-5677","status":"unknown"}
+{"fn":"golemeffects","c":"5680-5707","status":"unknown","d":["D-2735"],"at":"seed@a30a7de84"}
+{"fn":"angry_guards","c":"5711-5760","status":"unknown"}
+{"fn":"pacify_guard","c":"5763-5767","status":"unknown"}
+{"fn":"pacify_guards","c":"5770-5773","status":"unknown"}
+{"fn":"mimic_hit_msg","c":"5776-5793","status":"unknown"}
+{"fn":"usmellmon","c":"5796-5909","status":"unknown"}
+{"fn":"check_gear_next_turn","c":"5915-5918","status":"unknown"}
+{"fn":"adj_erinys","c":"5922-5966","status":"unknown","d":["D-2692"],"at":"seed@a30a7de84"}
+{"fn":"see_monster_closeup","c":"5971-6021","status":"unknown"}
+{"fn":"see_nearby_monsters","c":"6025-6053","status":"unknown"}
+{"fn":"shieldeff_mon","c":"6058-6064","status":"unknown"}
+{"fn":"flash_mon","c":"6067-6079","status":"unknown"}

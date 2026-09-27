@@ -1,0 +1,29 @@
+{"fn":"new_light_source","c":"62-65","status":"unknown"}
+{"fn":"new_light_core","c":"69-94","status":"unknown"}
+{"fn":"del_light_source","c":"99-138","status":"partial","js":["js/light.js:del_light_source"],"omit":"LSF_NEEDS_FIXUP producers (save/restore path relinks at load instead); replmon light swap + made_change bookkeeping (pre-existing map names above).","d":["D-2583","D-2574"],"at":"seed@a30a7de84"}
+{"fn":"delete_ls","c":"142-165","status":"unknown"}
+{"fn":"do_light_sources","c":"169-250","status":"unknown","d":["D-2302"],"at":"seed@a30a7de84"}
+{"fn":"show_transient_light","c":"257-324","status":"unknown"}
+{"fn":"transient_light_cleanup","c":"330-357","status":"ported","js":["js/light.js:transient_light_cleanup"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
+{"fn":"discard_flashes","c":"361-370","status":"unknown"}
+{"fn":"find_mid","c":"376-395","status":"ported","js":["js/mon.js:find_mid"],"d":["D-2919"],"at":"seed@a30a7de84"}
+{"fn":"whereis_mon","c":"398-417","status":"unknown"}
+{"fn":"save_light_sources","c":"421-471","status":"unknown","d":["D-1708"],"at":"seed@a30a7de84"}
+{"fn":"restore_light_sources","c":"479-493","status":"unknown"}
+{"fn":"light_stats","c":"501-511","status":"unknown"}
+{"fn":"relink_light_sources","c":"517-563","status":"partial","js":["js/light.js:relink_light_sources"],"omit":"C ``lookup_id_mapping`` as its own row (restore.c:1484; bucket/list state = bones id map; ghostly obj-id recording unported — the arm resolves through ``lookup_bones_id`` like region.js reset_region_mids); ``find_mid`` FM_MIGRATE/FM_MYDOGS arms (pre-existing named omit in mon.js — flag passed for f…","d":["D-2644"],"at":"seed@a30a7de84"}
+{"fn":"maybe_write_ls","c":"571-603","status":"unknown"}
+{"fn":"light_sources_sanity_check","c":"606-630","status":"unknown"}
+{"fn":"write_ls","c":"634-702","status":"unknown","d":["D-2666"],"at":"seed@a30a7de84"}
+{"fn":"obj_move_light_source","c":"706-715","status":"unknown"}
+{"fn":"any_light_source","c":"719-722","status":"unknown"}
+{"fn":"snuff_light_source","c":"729-759","status":"unknown"}
+{"fn":"obj_sheds_light","c":"763-767","status":"unknown"}
+{"fn":"obj_is_burning","c":"771-775","status":"unknown"}
+{"fn":"obj_split_light_source","c":"779-803","status":"unknown","d":["D-2279"],"at":"seed@a30a7de84"}
+{"fn":"obj_merge_light_sources","c":"808-822","status":"unknown"}
+{"fn":"obj_adjust_light_radius","c":"826-838","status":"unknown","d":["D-1956"],"at":"seed@a30a7de84"}
+{"fn":"candle_light_range","c":"843-877","status":"ported","js":["js/timeout.js:candle_light_range"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
+{"fn":"arti_light_radius","c":"881-911","status":"ported","js":["js/timeout.js:arti_light_radius"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
+{"fn":"arti_light_description","c":"916-931","status":"unknown","d":["D-2125"],"at":"seed@a30a7de84"}
+{"fn":"wiz_light_sources","c":"935-975","status":"unknown"}

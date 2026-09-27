@@ -1,0 +1,101 @@
+{"fn":"mhitm_mgc_atk_negated","c":"75-99","status":"unknown","d":["D-2175","D-2155","D-2043","D-2005","D-1870"],"at":"seed@a30a7de84"}
+{"fn":"dynamic_multi_reason","c":"104-123","status":"unknown"}
+{"fn":"erode_armor","c":"126-185","status":"unknown","d":["D-2071","D-1883"],"at":"seed@a30a7de84"}
+{"fn":"attack_checks","c":"189-327","status":"ported","js":["js/uhitm.js:attack_checks"],"d":["D-2752","D-2747"],"at":"seed@a30a7de84"}
+{"fn":"check_caitiff","c":"331-347","status":"unknown"}
+{"fn":"mon_maybe_unparalyze","c":"351-359","status":"unknown"}
+{"fn":"find_roll_to_hit","c":"365-427","status":"unknown","d":["D-2673"],"at":"seed@a30a7de84"}
+{"fn":"force_attack","c":"432-443","status":"unknown"}
+{"fn":"do_attack","c":"448-583","status":"unknown","d":["D-2036","D-1381"],"at":"seed@a30a7de84"}
+{"fn":"hitum_cleave","c":"651-731","status":"ported","js":["js/uhitm.js:hitum_cleave"],"d":["D-2589"],"at":"seed@a30a7de84"}
+{"fn":"double_punch","c":"736-754","status":"ported","js":["js/uhitm.js:double_punch"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
+{"fn":"hitum","c":"758-815","status":"unknown","d":["D-1862"],"at":"seed@a30a7de84"}
+{"fn":"hmon","c":"819-834","status":"unknown","d":["D-1384"],"at":"seed@a30a7de84"}
+{"fn":"hmon_hitmon_barehands","c":"838-882","status":"partial","js":["js/uhitm.js:hmon_hitmon_barehands"],"omit":"`hmon_hitmon_stagger` (`uhitm.c:1578–1582`) still returns `hittxt` without the canspotmon pline or `mhurtle_to_doom`.","d":["D-2839"],"at":"seed@a30a7de84"}
+{"fn":"hmon_hitmon_weapon_ranged","c":"885-917","status":"unknown","d":["D-2040"],"at":"seed@a30a7de84"}
+{"fn":"backstabbable","c":"921-931","status":"unknown","d":["D-1937"],"at":"seed@a30a7de84"}
+{"fn":"hmon_hitmon_weapon_melee","c":"934-1067","status":"unknown","d":["D-2152"],"at":"seed@a30a7de84"}
+{"fn":"hmon_hitmon_weapon","c":"1070-1092","status":"unknown"}
+{"fn":"hmon_hitmon_potion","c":"1095-1116","status":"unknown"}
+{"fn":"hmon_hitmon_misc_obj","c":"1119-1383","status":"partial","js":["js/uhitm.js:hmon_hitmon_misc_obj"],"omit":"`munstone` (`muse.c:2884`, treat FALSE — mhitm.js `do_stone_mon` idiom); `hmon_hitmon_msg_silver` (`:1876`, flags set, no plumbing — same as ranged arm); `get_dmg_bonus` consumers (recalc gate `:1447`, shade bump `:1817` — pre-existing named); pie/venom D-0693 fast path keeps precedence at `hmon_hi…","d":["D-2486"],"at":"seed@a30a7de84"}
+{"fn":"hmon_hitmon_do_hit","c":"1387-1433","status":"unknown"}
+{"fn":"hmon_hitmon_dmg_recalc","c":"1436-1507","status":"unknown"}
+{"fn":"hmon_hitmon_poison","c":"1510-1538","status":"partial","js":["js/uhitm.js:hmon_hitmon_poison"],"omit":"`hmon_hitmon_stagger` (`uhitm.c:1578–1582`) still returns `hittxt` without the canspotmon pline or `mhurtle_to_doom`.","d":["D-2839"],"at":"seed@a30a7de84"}
+{"fn":"hmon_hitmon_jousting","c":"1541-1567","status":"partial","js":["js/uhitm.js:hmon_hitmon_jousting"],"omit":"`hmon_hitmon_stagger` (`uhitm.c:1578–1582`) still returns `hittxt` without the canspotmon pline or `mhurtle_to_doom`.","d":["D-2839"],"at":"seed@a30a7de84"}
+{"fn":"hmon_hitmon_stagger","c":"1570-1585","status":"unknown"}
+{"fn":"hmon_hitmon_pet","c":"1588-1601","status":"unknown"}
+{"fn":"hmon_hitmon_splitmon","c":"1604-1634","status":"partial","js":["js/uhitm.js:hmon_hitmon_splitmon"],"omit":"`hit` (`zap.c:3556–3564`) still does not treat `&gy.youmonst` as always verbose and does not count `engulfing_u` as seen.","d":["D-2872"],"at":"seed@a30a7de84"}
+{"fn":"hmon_hitmon_msg_hit","c":"1637-1660","status":"partial","js":["js/uhitm.js:hmon_hitmon_msg_hit"],"omit":"`hit` (`zap.c:3556–3564`) still does not treat `&gy.youmonst` as always verbose and does not count `engulfing_u` as seen.","d":["D-2872"],"at":"seed@a30a7de84"}
+{"fn":"hmon_hitmon_msg_silver","c":"1663-1699","status":"unknown"}
+{"fn":"hmon_hitmon_msg_lightobj","c":"1702-1730","status":"partial","js":["js/uhitm.js:hmon_hitmon_msg_lightobj"],"omit":"`hmon_hitmon_do_hit`'s `saved_oname` fill (`uhitm.c:1410–1413`, `cxname` when the object is not a lit light-artifact) is still absent; weapon `silvermsg`/`silverobj` (`uhitm.c:1035–1036`) stays unnamed.","d":["D-2865"],"at":"seed@a30a7de84"}
+{"fn":"hmon_hitmon","c":"1754-1935","status":"unknown","d":["D-1907","D-1232"],"at":"seed@a30a7de84"}
+{"fn":"mhurtle_to_doom","c":"1942-1958","status":"unknown"}
+{"fn":"first_weapon_hit","c":"1963-1989","status":"partial","js":["js/uhitm.js:first_weapon_hit"],"omit":"`hmon_hitmon_do_hit`'s `saved_oname` fill (`uhitm.c:1410–1413`, `cxname` when the object is not a lit light-artifact) is still absent; weapon `silvermsg`/`silverobj` (`uhitm.c:1035–1036`) stays unnamed.","d":["D-2865"],"at":"seed@a30a7de84"}
+{"fn":"shade_aware","c":"1992-2011","status":"unknown"}
+{"fn":"shade_miss","c":"2016-2051","status":"unknown"}
+{"fn":"m_slips_free","c":"2056-2093","status":"unknown","d":["D-1348"],"at":"seed@a30a7de84"}
+{"fn":"joust","c":"2098-2129","status":"unknown"}
+{"fn":"demonpet","c":"2133-2145","status":"unknown"}
+{"fn":"theft_petrifies","c":"2148-2165","status":"unknown"}
+{"fn":"steal_it","c":"2174-2278","status":"unknown","d":["D-2209"],"at":"seed@a30a7de84"}
+{"fn":"mhitm_ad_rust","c":"2281-2335","status":"ported","js":["js/mhitm.js:mhitm_ad_rust"],"d":["D-2589"],"at":"seed@a30a7de84"}
+{"fn":"mhitm_ad_corr","c":"2338-2360","status":"unknown"}
+{"fn":"mhitm_ad_dcay","c":"2363-2415","status":"ported","js":["js/mhitm.js:mhitm_ad_dcay"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
+{"fn":"mhitm_ad_dren","c":"2418-2442","status":"partial","js":["js/mhitm.js:mhitm_ad_dren"],"omit":"`hmon_hitmon_stagger` (`uhitm.c:1578–1582`) still returns `hittxt` without the canspotmon pline or `mhurtle_to_doom`.","d":["D-2839"],"at":"seed@a30a7de84"}
+{"fn":"mhitm_ad_drli","c":"2445-2518","status":"partial","js":["js/mhitm.js:mhitm_ad_drli"],"omit":"split-arm homes stay split by architecture (damageum_adtyping / mhitm_adtyping_u / mdamagem-table); polyself `resists_drli_you` keeps its C-cited uwep-suppressed local form (never calls `resists_drli`, unaffected); sibling `defended(AD_COLD)`-style omits untouched.","d":["D-2518"],"at":"seed@a30a7de84"}
+{"fn":"mhitm_ad_fire","c":"2521-2623","status":"partial","js":["js/mhitm.js:mhitm_ad_fire"],"omit":"`golemeffects` (C `mon.c:5680–5707`, clone `golemeffects_mm` `js/mhitm.js:2145` — iron FIRE heal live, flesh FIRE slow named per review 365); none new — whole C body live, every callee live or named above.","d":["D-2730","D-1405"],"at":"seed@a30a7de84"}
+{"fn":"mhitm_ad_cold","c":"2626-2681","status":"unknown","d":["D-2718"],"at":"seed@a30a7de84"}
+{"fn":"mhitm_ad_elec","c":"2684-2739","status":"ported","js":["js/mhitm.js:mhitm_ad_elec"],"d":["D-2542"],"at":"seed@a30a7de84"}
+{"fn":"mhitm_ad_acid","c":"2742-2786","status":"ported","js":["js/mhitm.js:mhitm_ad_acid"],"d":["D-2511"],"at":"seed@a30a7de84"}
+{"fn":"mhitm_ad_sgld","c":"2790-2855","status":"ported","js":["js/mhitm.js:mhitm_ad_sgld"],"at":"seed@a30a7de84","note":"stale 2026-09-19"}
+{"fn":"mhitm_ad_tlpt","c":"2859-2955","status":"ported","js":["js/mhitm.js:mhitm_ad_tlpt"],"d":["D-2587"],"at":"seed@a30a7de84"}
+{"fn":"mhitm_ad_blnd","c":"2958-3012","status":"partial","js":["js/mhitm.js:mhitm_ad_blnd"],"omit":"mhitu `:2982–2983` `Your1(vision_clears)` (Eyes of the Overworld; no Your1/vision_clears symbol in js/ — same standing omit as D-0926); live `can_blnd` gaps reused by the uhitm arm (AT_CLAW uswallow/visor `:373–378` + `:389–394`, AT_TUCH/STNG mcan `:380–384`, POT_BLINDNESS `:353`, Blindfolded/ublin…","d":["D-2540"],"at":"seed@a30a7de84"}
+{"fn":"mhitm_ad_curs","c":"3015-3096","status":"ported","js":["js/mhitm.js:mhitm_ad_curs"],"d":["D-2260","D-2259"],"at":"seed@a30a7de84","note":"stale 2026-09-25"}
+{"fn":"mhitm_really_poison","c":"3104-3119","status":"unknown"}
+{"fn":"mhitm_ad_drst","c":"3122-3165","status":"partial","js":["js/mhitm.js:mhitm_ad_drst"],"omit":"`resists_poison_mm` still omits artifact and worn poison resistance (same gap as `js/zap.js` `resists_poison`).","d":["D-2797"],"at":"seed@a30a7de84"}
+{"fn":"mhitm_ad_drin","c":"3168-3303","status":"ported","js":["js/uhitm.js:mhitm_ad_drin"],"d":["D-1307"],"at":"seed@a30a7de84","note":"stale 2026-09-21"}
+{"fn":"mhitm_ad_stck","c":"3306-3334","status":"partial","js":["js/mhitm.js:mhitm_ad_stck"],"omit":"The cream-pie arm of `hmon_hitmon` still returns before `nohandglow`.","d":["D-2855"],"at":"seed@a30a7de84"}
+{"fn":"mhitm_ad_wrap","c":"3337-3428","status":"ported","js":["js/uhitm.js:mhitm_ad_wrap"],"at":"seed@a30a7de84","note":"stale 2026-09-19"}
+{"fn":"mhitm_ad_plys","c":"3431-3476","status":"ported","js":["js/mhitm.js:mhitm_ad_plys"],"d":["D-2128"],"at":"seed@a30a7de84","note":"stale 2026-09-25"}
+{"fn":"mhitm_ad_slee","c":"3479-3522","status":"unknown","d":["D-1857"],"at":"seed@a30a7de84"}
+{"fn":"mhitm_ad_slim","c":"3526-3600","status":"ported","js":["js/mhitm.js:mhitm_ad_slim"],"d":["D-2539"],"at":"seed@a30a7de84"}
+{"fn":"mhitm_ad_ench","c":"3603-3649","status":"ported","at":"seed@a30a7de84","note":"stale 2026-09-19; seed: js location unresolved"}
+{"fn":"mhitm_ad_slow","c":"3652-3687","status":"unknown","d":["D-2392"],"at":"seed@a30a7de84"}
+{"fn":"mhitm_ad_conf","c":"3690-3726","status":"partial","js":["js/mhitm.js:mhitm_ad_conf"],"omit":"`gazemu`'s AD_CONF case (`js/mhitu.js:3694`) is the hero-gaze attack, not a caller of `mhitm_ad_conf`.","d":["D-2894"],"at":"seed@a30a7de84"}
+{"fn":"mhitm_ad_poly","c":"3729-3774","status":"ported","js":["js/mhitm.js:mhitm_ad_poly"],"d":["D-2657"],"at":"seed@a30a7de84"}
+{"fn":"mhitm_ad_famn","c":"3777-3805","status":"ported","js":["js/mhitm.js:mhitm_ad_famn"],"d":["D-2033"],"at":"seed@a30a7de84","note":"stale 2026-09-08"}
+{"fn":"mhitm_ad_pest","c":"3808-3834","status":"partial","js":["js/mhitm.js:mhitm_ad_pest"],"omit":"`hit` (`zap.c:3556–3564`) still does not treat `&gy.youmonst` as always verbose and does not count `engulfing_u` as seen.","d":["D-2872"],"at":"seed@a30a7de84"}
+{"fn":"mhitm_ad_deth","c":"3837-3894","status":"partial","js":["js/mhitm.js:mhitm_ad_deth"],"omit":"`hmon_hitmon_do_hit`'s `saved_oname` fill (`uhitm.c:1410–1413`, `cxname` when the object is not a lit light-artifact) is still absent; weapon `silvermsg`/`silverobj` (`uhitm.c:1035–1036`) stays unnamed.","d":["D-2865"],"at":"seed@a30a7de84"}
+{"fn":"mhitm_ad_halu","c":"3897-3921","status":"unknown"}
+{"fn":"do_stone_u","c":"3924-3942","status":"unknown"}
+{"fn":"do_stone_mon","c":"3945-3978","status":"unknown"}
+{"fn":"mhitm_ad_phys","c":"3981-4200","status":"ported","js":["js/mhitm.js:mhitm_ad_phys"],"d":["D-1864","D-1447","D-1442","D-1415","D-1403","D-1402"],"at":"seed@a30a7de84","note":"stale 2026-09-18"}
+{"fn":"mhitm_ad_ston","c":"4203-4262","status":"ported","js":["js/mhitm.js:mhitm_ad_ston"],"at":"seed@a30a7de84","note":"stale 2026-09-25"}
+{"fn":"mhitm_ad_were","c":"4265-4293","status":"unknown","d":["D-2049"],"at":"seed@a30a7de84"}
+{"fn":"mhitm_ad_heal","c":"4296-4385","status":"ported","js":["js/mhitm.js:mhitm_ad_heal"],"d":["D-2511"],"at":"seed@a30a7de84"}
+{"fn":"mhitm_ad_stun","c":"4388-4422","status":"unknown","d":["D-2075"],"at":"seed@a30a7de84"}
+{"fn":"mhitm_ad_legs","c":"4425-4489","status":"partial","js":["js/mhitm.js:mhitm_ad_legs"],"omit":"poly `body_part` (pre-existing D-0928 #1131 name, map keeps it); `damageum_ad_phys` shade `impossible(\"bad shade attack function flow?\")` (pre-existing gap in that live callee, not this arm).","d":["D-2767","D-2490"],"at":"seed@a30a7de84"}
+{"fn":"mhitm_ad_dgst","c":"4492-4567","status":"unknown"}
+{"fn":"mhitm_ad_samu","c":"4570-4589","status":"unknown","d":["D-2074"],"at":"seed@a30a7de84"}
+{"fn":"mhitm_ad_dise","c":"4593-4619","status":"unknown"}
+{"fn":"mhitm_ad_sedu","c":"4623-4748","status":"partial","js":["js/mhitm.js:mhitm_ad_sedu"],"omit":"`mhitm_ad_ssex` remainder (SYSOPT_SEDUCE/could_seduce/doseduce mhitu body + its dispatch home — own future coverage row; its uhitm/mhitm arms route through sedu exactly as C does).","d":["D-2575"],"at":"seed@a30a7de84"}
+{"fn":"mhitm_ad_ssex","c":"4751-4779","status":"unknown"}
+{"fn":"mhitm_adtyping","c":"4782-4832","status":"unknown","d":["D-2251"],"at":"seed@a30a7de84"}
+{"fn":"damageum","c":"4835-4884","status":"unknown"}
+{"fn":"explum","c":"4891-4928","status":"unknown"}
+{"fn":"start_engulf","c":"4931-4946","status":"unknown"}
+{"fn":"end_engulf","c":"4949-4955","status":"unknown"}
+{"fn":"gulpum","c":"4958-5195","status":"unknown"}
+{"fn":"missum","c":"5198-5214","status":"unknown","d":["D-2124"],"at":"seed@a30a7de84"}
+{"fn":"m_is_steadfast","c":"5218-5243","status":"unknown"}
+{"fn":"mhitm_knockback","c":"5247-5420","status":"unknown","d":["D-2750","D-2347","D-2091","D-2035","D-1932","D-1921"],"at":"seed@a30a7de84"}
+{"fn":"hmonas","c":"5424-5860","status":"unknown","d":["D-1916","D-1233"],"at":"seed@a30a7de84"}
+{"fn":"passive","c":"5865-6120","status":"unknown","d":["D-2142","D-2052"],"at":"seed@a30a7de84"}
+{"fn":"passive_obj","c":"6127-6195","status":"unknown"}
+{"fn":"that_is_a_mimic","c":"6201-6276","status":"unknown"}
+{"fn":"stumble_onto_mimic","c":"6282-6297","status":"unknown"}
+{"fn":"disguised_as_non_mon","c":"6300-6305","status":"unknown"}
+{"fn":"disguised_as_mon","c":"6308-6312","status":"unknown"}
+{"fn":"nohandglow","c":"6315-6337","status":"partial","js":["js/uhitm.js:nohandglow"],"omit":"The cream-pie arm of `hmon_hitmon` still returns before `nohandglow`.","d":["D-2855"],"at":"seed@a30a7de84"}
+{"fn":"flash_hits_mon","c":"6341-6422","status":"unknown"}
+{"fn":"light_hits_gremlin","c":"6425-6445","status":"unknown"}

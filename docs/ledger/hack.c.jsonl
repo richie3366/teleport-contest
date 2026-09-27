@@ -1,0 +1,95 @@
+{"fn":"uint_to_any","c":"73-78","status":"unknown"}
+{"fn":"long_to_any","c":"81-86","status":"unknown"}
+{"fn":"monst_to_any","c":"89-94","status":"unknown"}
+{"fn":"obj_to_any","c":"97-102","status":"unknown"}
+{"fn":"revive_nasty","c":"105-137","status":"unknown"}
+{"fn":"could_move_onto_boulder","c":"145-163","status":"unknown"}
+{"fn":"dopush","c":"166-244","status":"unknown"}
+{"fn":"cannot_push_msg","c":"247-259","status":"unknown"}
+{"fn":"cannot_push","c":"262-312","status":"unknown","d":["D-1239"],"at":"seed@a30a7de84"}
+{"fn":"rock_disappear_msg","c":"315-324","status":"unknown"}
+{"fn":"moverock_done","c":"327-333","status":"unknown"}
+{"fn":"moverock","c":"336-345","status":"unknown","d":["D-1294"],"at":"seed@a30a7de84"}
+{"fn":"moverock_core","c":"348-638","status":"partial","js":["js/hack.js:moverock_core"],"omit":"unmap_object trap/engr arms in dopush (remembered-glyph clear stands in); squeezeablylightinvent pack-weight arm lives in could_move_onto_boulder, not here; u.Levitation field + Is_airlevel topology flag (pre-existing renderings, untouched); launch_obj's own omissions stay with D-2318.","d":["D-2739","D-1859"],"at":"seed@a30a7de84"}
+{"fn":"still_chewing","c":"647-822","status":"unknown"}
+{"fn":"movobj","c":"825-833","status":"unknown"}
+{"fn":"dosinkfall","c":"836-919","status":"unknown"}
+{"fn":"may_dig","c":"923-929","status":"unknown"}
+{"fn":"may_passwall","c":"932-936","status":"unknown"}
+{"fn":"bad_rock","c":"939-946","status":"unknown"}
+{"fn":"cant_squeeze_thru","c":"953-979","status":"unknown"}
+{"fn":"invocation_pos","c":"982-986","status":"unknown"}
+{"fn":"test_move","c":"991-1255","status":"partial","js":["js/hack.js:test_move"],"omit":"block_door (shk.c:5791 — stub-false js/cmd.js:1176, no shop ESHK wire-up); block_entry (shk.c:5826 — no JS impl); ECMD_OK + canned-kick fake (JS doopen_indir returns bool; cmdq_peek cmd.js-local); defsyms[].explanation prose (tree/wall/solid-stone heuristic); autodig flag (no JS option).","d":["D-2439","D-1800"],"at":"seed@a30a7de84"}
+{"fn":"findtravelpath","c":"1266-1523","status":"unknown","d":["D-2382","D-1971","D-1897"],"at":"seed@a30a7de84"}
+{"fn":"is_valid_travelpt","c":"1526-1544","status":"unknown"}
+{"fn":"trapmove","c":"1550-1691","status":"ported","js":["js/hack.js:trapmove"],"d":["D-2029"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}
+{"fn":"u_rooted","c":"1694-1705","status":"unknown"}
+{"fn":"notice_mon","c":"1708-1732","status":"unknown"}
+{"fn":"notice_mons_cmp","c":"1735-1741","status":"unknown"}
+{"fn":"notice_all_mons","c":"1744-1783","status":"partial","js":["js/hack.js:notice_all_mons"],"omit":"blocked: CURRENT.md Do not (fortress guard; newgame arm live D-1200)","at":"seed@a30a7de84"}
+{"fn":"impact_disturbs_zombies","c":"1787-1794","status":"unknown","d":["D-1229"],"at":"seed@a30a7de84"}
+{"fn":"disturb_buried_zombies","c":"1798-1813","status":"unknown","d":["D-1214"],"at":"seed@a30a7de84"}
+{"fn":"u_locomotion","c":"1817-1829","status":"unknown"}
+{"fn":"u_simple_floortyp","c":"1833-1848","status":"unknown"}
+{"fn":"handle_tip","c":"1852-1881","status":"unknown","d":["D-2386"],"at":"seed@a30a7de84"}
+{"fn":"swim_move_danger","c":"1885-1921","status":"unknown"}
+{"fn":"domove_bump_mon","c":"1925-1948","status":"unknown","d":["D-2170"],"at":"seed@a30a7de84"}
+{"fn":"domove_attackmon_at","c":"1955-1992","status":"unknown"}
+{"fn":"domove_fight_ironbars","c":"1996-2017","status":"unknown"}
+{"fn":"domove_fight_web","c":"2021-2094","status":"ported","js":["js/hack.js:domove_fight_web"],"at":"seed@a30a7de84","note":"stale 2026-09-25"}
+{"fn":"domove_swap_with_pet","c":"2098-2225","status":"partial","js":["js/hack.js:domove_swap_with_pet"],"omit":"C `:2147` `assert(trap != NULL)` — implied by `mtrapped` (cleared `:2116–2118` when `!trap`); no JS assert export, comment only.","d":["D-2510"],"at":"seed@a30a7de84"}
+{"fn":"domove_fight_empty","c":"2229-2338","status":"ported","js":["js/cmd.js:domove_fight_empty"],"d":["D-2826","D-2825"],"at":"seed@a30a7de84"}
+{"fn":"air_turbulence","c":"2342-2361","status":"unknown"}
+{"fn":"water_turbulence","c":"2365-2393","status":"unknown"}
+{"fn":"slippery_ice_fumbling","c":"2396-2415","status":"unknown"}
+{"fn":"u_maybe_impaired","c":"2418-2421","status":"unknown"}
+{"fn":"impaired_movement","c":"2425-2441","status":"unknown"}
+{"fn":"avoid_moving_on_trap","c":"2444-2460","status":"unknown"}
+{"fn":"avoid_moving_on_liquid","c":"2463-2490","status":"unknown"}
+{"fn":"avoid_running_into_trap_or_liquid","c":"2495-2509","status":"unknown"}
+{"fn":"avoid_trap_andor_region","c":"2515-2582","status":"partial","js":["js/hack.js:avoid_trap_andor_region"],"omit":"``u_locomotion`` capitalize path + ``locomotion(youmonst.data, def)`` poly fallback (C ``:1817–1829``); ``do.js:549`` / ``teleport.js:1962`` u_locomotion clones kept (other files, own future rows — no clone #4 added here).","d":["D-2638"],"at":"seed@a30a7de84"}
+{"fn":"move_out_of_bounds","c":"2586-2612","status":"unknown"}
+{"fn":"carrying_too_much","c":"2616-2634","status":"unknown"}
+{"fn":"escape_from_sticky_mon","c":"2639-2692","status":"unknown","d":["D-2158"],"at":"seed@a30a7de84"}
+{"fn":"domove","c":"2695-2709","status":"unknown","d":["D-1150"],"at":"seed@a30a7de84"}
+{"fn":"domove_core","c":"2712-2991","status":"partial","omit":"displaceu middle-skip (C skips ironbars/test_move/swim when displaceu; JS runs the middle then swaps — converges next turn); travel block (handled upstream in `continue_run`, `findtravelpath_travel/guess` + travel1=0, same order vs the carrying check); final CLIPPING (wintty cliparound singleton, D…","d":["D-2453"],"at":"seed@a30a7de84","note":"seed: js location unresolved"}
+{"fn":"runmode_delay_output","c":"2996-3017","status":"unknown"}
+{"fn":"maybe_smudge_engr","c":"3020-3031","status":"unknown"}
+{"fn":"overexert_hp","c":"3035-3047","status":"unknown"}
+{"fn":"overexertion","c":"3051-3061","status":"unknown"}
+{"fn":"invocation_message","c":"3064-3085","status":"unknown"}
+{"fn":"classify_terrain","c":"3090-3172","status":"ported","js":["js/hack.js:classify_terrain"],"d":["D-1151"],"at":"seed@a30a7de84","note":"stale 2026-09-21"}
+{"fn":"switch_terrain","c":"3178-3217","status":"unknown","d":["D-1259"],"at":"seed@a30a7de84"}
+{"fn":"set_uinwater","c":"3221-3227","status":"unknown","d":["D-1267"],"at":"seed@a30a7de84"}
+{"fn":"pooleffects","c":"3233-3309","status":"unknown","d":["D-2240"],"at":"seed@a30a7de84"}
+{"fn":"spoteffects","c":"3312-3462","status":"unknown","d":["D-2111","D-1799","D-1268"],"at":"seed@a30a7de84"}
+{"fn":"monstinroom","c":"3466-3478","status":"unknown"}
+{"fn":"furniture_present","c":"3482-3495","status":"unknown"}
+{"fn":"in_rooms","c":"3498-3560","status":"unknown"}
+{"fn":"in_town","c":"3564-3585","status":"unknown"}
+{"fn":"move_update","c":"3588-3622","status":"unknown"}
+{"fn":"check_special_room","c":"3626-3780","status":"unknown"}
+{"fn":"pickup_checks","c":"3788-3872","status":"unknown","d":["D-1838"],"at":"seed@a30a7de84"}
+{"fn":"dopickup","c":"3876-3892","status":"unknown"}
+{"fn":"lookaround","c":"3898-4059","status":"ported","js":["js/cmd.js:lookaround"],"d":["D-2759"],"at":"seed@a30a7de84"}
+{"fn":"doorless_door","c":"4063-4074","status":"unknown"}
+{"fn":"crawl_destination","c":"4079-4101","status":"unknown"}
+{"fn":"monster_nearby","c":"4106-4127","status":"unknown"}
+{"fn":"end_running","c":"4130-4158","status":"unknown"}
+{"fn":"nomul","c":"4161-4173","status":"unknown"}
+{"fn":"unmul","c":"4177-4208","status":"unknown"}
+{"fn":"maybe_wail","c":"4211-4243","status":"unknown"}
+{"fn":"showdamage","c":"4247-4253","status":"unknown"}
+{"fn":"losehp","c":"4256-4292","status":"unknown","d":["D-2051"],"at":"seed@a30a7de84"}
+{"fn":"weight_cap","c":"4295-4346","status":"ported","js":["js/invent.js:weight_cap"],"d":["D-2819"],"at":"seed@a30a7de84"}
+{"fn":"inv_weight","c":"4351-4365","status":"ported","js":["js/invent.js:inv_weight"],"d":["D-2827"],"at":"seed@a30a7de84"}
+{"fn":"calc_capacity","c":"4372-4382","status":"unknown"}
+{"fn":"near_capacity","c":"4385-4388","status":"unknown"}
+{"fn":"max_capacity","c":"4391-4396","status":"unknown"}
+{"fn":"check_capacity","c":"4399-4409","status":"unknown"}
+{"fn":"dump_weights","c":"4421-4483","status":"unknown"}
+{"fn":"cmp_weights","c":"4486-4493","status":"unknown"}
+{"fn":"inv_cnt","c":"4496-4507","status":"unknown"}
+{"fn":"money_cnt","c":"4514-4522","status":"unknown"}
+{"fn":"spot_checks","c":"4525-4547","status":"unknown"}
+{"fn":"rounddiv","c":"4551-4572","status":"unknown"}

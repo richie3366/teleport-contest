@@ -1,0 +1,98 @@
+{"fn":"l_nhcore_init","c":"140-156","status":"unknown"}
+{"fn":"l_nhcore_done","c":"159-166","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"l_nhcore_call","c":"169-194","status":"unknown"}
+{"fn":"nhl_error","c":"199-218","status":"unknown"}
+{"fn":"lcheck_param_table","c":"225-236","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"get_table_mapchr","c":"241-253","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"get_table_mapchr_opt","c":"256-271","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_get_timertype","c":"274-288","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_add_table_entry_int","c":"293-298","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_add_table_entry_char","c":"301-308","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_add_table_entry_str","c":"311-316","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_add_table_entry_bool","c":"318-323","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_add_table_entry_region","c":"326-336","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"splev_chr2typ","c":"382-390","status":"unknown"}
+{"fn":"check_mapchr","c":"393-398","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"splev_typ2chr","c":"401-409","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_gettrap","c":"416-467","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_deltrap","c":"471-492","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_get_xy_params","c":"506-523","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_getmap","c":"530-616","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_impossible","c":"620-629","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_pline","c":"634-646","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_verbalize","c":"650-660","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_parse_config","c":"664-674","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_get_config","c":"678-689","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_getlin","c":"695-711","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_menu","c":"721-806","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_text","c":"810-851","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_makeplural","c":"855-865","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_makesingular","c":"869-879","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_s_suffix","c":"883-893","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_ing_suffix","c":"897-907","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_an","c":"911-921","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_rn2","c":"925-935","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_random","c":"940-953","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_level_difficulty","c":"957-966","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_is_genocided","c":"970-986","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_get_debug_themerm_name","c":"993-1011","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"get_table_int","c":"1017-1025","status":"unknown"}
+{"fn":"get_table_int_opt","c":"1029-1039","status":"unknown"}
+{"fn":"get_table_str","c":"1042-1050","status":"unknown"}
+{"fn":"get_table_str_opt","c":"1055-1076","status":"unknown"}
+{"fn":"get_table_boolean","c":"1079-1104","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"get_table_boolean_opt","c":"1107-1118","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"get_table_option","c":"1122-1133","status":"unknown"}
+{"fn":"nhl_dump_fmtstr","c":"1138-1148","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_dnum_name","c":"1153-1167","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_int_to_pm_name","c":"1173-1187","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_int_to_obj_name","c":"1192-1212","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_variable","c":"1221-1293","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"get_nh_lua_variables","c":"1297-1316","status":"unknown"}
+{"fn":"save_luadata","c":"1328-1341","status":"unknown"}
+{"fn":"restore_luadata","c":"1345-1363","status":"unknown","d":["D-1636"],"at":"seed@a30a7de84"}
+{"fn":"nhl_stairways","c":"1369-1394","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_test","c":"1400-1419","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_pushkey","c":"1424-1438","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_doturn","c":"1443-1456","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_debug_flags","c":"1463-1504","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_flip_level","c":"1509-1520","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_timer_has_at","c":"1528-1553","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_timer_peek_at","c":"1559-1581","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_timer_stop_at","c":"1587-1607","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_timer_start_at","c":"1612-1638","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_get_cmd_key","c":"1644-1657","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_callback","c":"1664-1706","status":"unknown"}
+{"fn":"nhl_gamestate","c":"1722-1802","status":"unknown"}
+{"fn":"free_tutorial","c":"1809-1833","status":"unknown"}
+{"fn":"tutorial","c":"1837-1846","status":"unknown"}
+{"fn":"init_nhc_data","c":"1924-1937","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_push_anything","c":"1940-1959","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_meta_u_index","c":"1964-2028","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_meta_u_newindex","c":"2031-2036","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_u_clear_inventory","c":"2041-2046","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_u_giveobj","c":"2051-2054","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"init_u_data","c":"2063-2074","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_set_package_path","c":"2078-2088","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"traceback_handler","c":"2092-2097","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_getmeminuse","c":"2100-2103","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_pcall","c":"2109-2152","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_pcall_handle","c":"2155-2178","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_loadlua","c":"2184-2290","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_init","c":"2295-2363","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_done","c":"2368-2389","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"load_lua","c":"2392-2411","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"get_lua_version","c":"2416-2464","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_clearfromtable","c":"2608-2619","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"start_luapat","c":"2659-2676","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"end_luapat","c":"2680-2686","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"opencheckpat","c":"2690-2720","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_pushhooked_open_table","c":"2733-2742","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"hooked_open","c":"2746-2811","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"hook_open","c":"2814-2839","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhlL_openlibs","c":"2846-2963","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_alloc","c":"2969-2987","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_panic","c":"2992-3001","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_warn","c":"3008-3025","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhl_hookfn","c":"3029-3040","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}
+{"fn":"nhlL_newstate","c":"3044-3095","status":"by-design","at":"seed@a30a7de84","note":"seed: no scored analogue (file)"}

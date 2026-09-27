@@ -1,0 +1,14 @@
+{"fn":"init_map","c":"24-34","status":"unknown"}
+{"fn":"init_fill","c":"37-52","status":"unknown"}
+{"fn":"get_map","c":"55-60","status":"unknown"}
+{"fn":"pass_one","c":"68-96","status":"unknown"}
+{"fn":"pass_two","c":"101-121","status":"unknown"}
+{"fn":"pass_three","c":"124-144","status":"unknown"}
+{"fn":"flood_fill_rm","c":"153-242","status":"unknown"}
+{"fn":"join_map_cleanup","c":"246-255","status":"unknown"}
+{"fn":"join_map","c":"258-328","status":"unknown","d":["D-1910"],"at":"seed@a30a7de84"}
+{"fn":"finish_map","c":"331-363","status":"unknown","d":["D-1911"],"at":"seed@a30a7de84"}
+{"fn":"remove_rooms","c":"379-401","status":"unknown"}
+{"fn":"remove_room","c":"412-436","status":"unknown"}
+{"fn":"litstate_rnd","c":"443-448","status":"unknown"}
+{"fn":"mkmap","c":"451-486","status":"unknown","d":["D-1908"],"at":"seed@a30a7de84"}

@@ -1,0 +1,14 @@
+{"fn":"newemin","c":"17-26","status":"unknown"}
+{"fn":"free_emin","c":"29-36","status":"unknown"}
+{"fn":"monster_census","c":"40-55","status":"unknown"}
+{"fn":"msummon","c":"59-195","status":"unknown"}
+{"fn":"summon_minion","c":"198-257","status":"unknown"}
+{"fn":"demon_talk","c":"263-358","status":"unknown"}
+{"fn":"bribe","c":"361-388","status":"unknown"}
+{"fn":"dprince","c":"391-402","status":"unknown"}
+{"fn":"dlord","c":"405-416","status":"unknown"}
+{"fn":"llord","c":"420-426","status":"unknown"}
+{"fn":"lminion","c":"429-441","status":"unknown"}
+{"fn":"ndemon","c":"444-464","status":"ported","js":["js/minion.js:ndemon"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
+{"fn":"lose_guardian_angel","c":"468-494","status":"unknown"}
+{"fn":"gain_guardian_angel","c":"498-565","status":"unknown","d":["D-1608"],"at":"seed@a30a7de84"}

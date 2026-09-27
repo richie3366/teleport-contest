@@ -1,0 +1,23 @@
+{"fn":"newepri","c":"16-25","status":"unknown"}
+{"fn":"free_epri","c":"28-35","status":"unknown"}
+{"fn":"move_special","c":"42-139","status":"unknown"}
+{"fn":"temple_occupied","c":"142-150","status":"unknown"}
+{"fn":"histemple_at","c":"153-158","status":"unknown"}
+{"fn":"inhistemple","c":"161-171","status":"unknown"}
+{"fn":"pri_move","c":"177-216","status":"unknown"}
+{"fn":"priestini","c":"220-276","status":"unknown"}
+{"fn":"mon_aligntyp","c":"280-289","status":"unknown"}
+{"fn":"priestname","c":"302-367","status":"unknown"}
+{"fn":"p_coaligned","c":"370-373","status":"unknown"}
+{"fn":"has_shrine","c":"376-389","status":"unknown"}
+{"fn":"findpriest","c":"392-404","status":"unknown"}
+{"fn":"intemple","c":"410-538","status":"unknown"}
+{"fn":"forget_temple_entry","c":"545-555","status":"unknown"}
+{"fn":"priest_talk","c":"558-721","status":"unknown"}
+{"fn":"mk_roamer","c":"724-752","status":"unknown"}
+{"fn":"reset_hostility","c":"755-768","status":"unknown"}
+{"fn":"in_your_sanctuary","c":"771-792","status":"unknown"}
+{"fn":"ghod_hitsu","c":"796-874","status":"partial","js":["js/priest.js:ghod_hitsu"],"omit":"C `hmon` anger_guards tail (`uhitm.c:826–827` + `:831–833`; mon.js angry_guards live, unwired on this path — pre-existing, map-named); pray.js `a_gname_at` NULL-vs-`''` no-altar return (unreachable past the has_shrine gate); popped `mhitu.c` getmattk row proved STALE same iteration (body live split…","d":["D-2474"],"at":"seed@a30a7de84"}
+{"fn":"angry_priest","c":"877-911","status":"unknown"}
+{"fn":"clearpriests","c":"919-929","status":"unknown"}
+{"fn":"restpriest","c":"933-939","status":"unknown"}

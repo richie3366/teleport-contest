@@ -1,0 +1,34 @@
+{"fn":"adjattrib","c":"117-199","status":"partial","js":["js/attrib.js:adjattrib"],"omit":"u_init.c:933/:935 (`u_init_carry_attr_boost` STR/CON loop) — JS `js/u_init.js:1689` stub stands pending an `inv_weight` port (loop condition unported, so the calls are unreachable, not dropped); Your() renders as `pline('Your …')` (text-identical, no new file-local Your clone).","d":["D-2438"],"at":"seed@a30a7de84"}
+{"fn":"gainstr","c":"203-217","status":"unknown"}
+{"fn":"losestr","c":"221-270","status":"unknown"}
+{"fn":"poison_strdmg","c":"274-278","status":"unknown"}
+{"fn":"poisontell","c":"294-313","status":"unknown"}
+{"fn":"poisoned","c":"317-408","status":"unknown"}
+{"fn":"change_luck","c":"411-418","status":"unknown"}
+{"fn":"stone_luck","c":"423-437","status":"unknown"}
+{"fn":"set_moreluck","c":"441-451","status":"unknown"}
+{"fn":"restore_attrib","c":"455-484","status":"unknown"}
+{"fn":"exercise","c":"489-518","status":"unknown","d":["D-2169","D-2023","D-1994","D-1993"],"at":"seed@a30a7de84"}
+{"fn":"exerper","c":"521-584","status":"unknown"}
+{"fn":"exerchk","c":"598-677","status":"unknown"}
+{"fn":"rnd_attr","c":"682-692","status":"unknown"}
+{"fn":"init_attr_role_redist","c":"699-719","status":"unknown"}
+{"fn":"init_attr","c":"723-737","status":"unknown"}
+{"fn":"redist_attr","c":"740-760","status":"ported","js":["js/attrib.js:redist_attr"],"d":["D-2954"],"at":"seed@a30a7de84"}
+{"fn":"vary_init_attr","c":"764-776","status":"unknown"}
+{"fn":"postadjabil","c":"780-786","status":"unknown"}
+{"fn":"role_abil","c":"789-815","status":"unknown"}
+{"fn":"check_innate_abil","c":"818-851","status":"unknown"}
+{"fn":"innately","c":"864-877","status":"unknown"}
+{"fn":"is_innate","c":"880-900","status":"unknown"}
+{"fn":"from_what","c":"905-1001","status":"ported","js":["js/attrib.js:from_what"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}
+{"fn":"adjabil","c":"1006-1074","status":"unknown"}
+{"fn":"newhp","c":"1080-1142","status":"ported","js":["js/attrib.js:newhp"],"at":"seed@a30a7de84","note":"stale 2026-09-19"}
+{"fn":"minuhpmax","c":"1147-1152","status":"unknown"}
+{"fn":"setuhpmax","c":"1157-1176","status":"unknown"}
+{"fn":"adjuhploss","c":"1182-1194","status":"unknown"}
+{"fn":"acurr","c":"1200-1241","status":"unknown"}
+{"fn":"acurrstr","c":"1245-1262","status":"ported","js":["js/attrib.js:acurrstr"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
+{"fn":"extremeattr","c":"1268-1293","status":"unknown"}
+{"fn":"adjalign","c":"1298-1316","status":"unknown"}
+{"fn":"uchangealign","c":"1320-1362","status":"unknown"}

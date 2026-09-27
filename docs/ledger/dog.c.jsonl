@@ -1,0 +1,21 @@
+{"fn":"newedog","c":"23-32","status":"unknown"}
+{"fn":"free_edog","c":"35-42","status":"unknown","d":["D-1629"],"at":"seed@a30a7de84"}
+{"fn":"initedog","c":"45-88","status":"unknown","d":["D-1610"],"at":"seed@a30a7de84"}
+{"fn":"pet_type","c":"91-101","status":"unknown"}
+{"fn":"pick_familiar_pm","c":"104-135","status":"unknown"}
+{"fn":"make_familiar","c":"138-215","status":"unknown"}
+{"fn":"makedog","c":"219-284","status":"unknown","d":["D-2108"],"at":"seed@a30a7de84"}
+{"fn":"set_mon_lastmove","c":"287-290","status":"unknown"}
+{"fn":"update_mlstmv","c":"295-298","status":"unknown","d":["D-1709"],"at":"seed@a30a7de84"}
+{"fn":"losedogs","c":"304-416","status":"unknown","d":["D-2722"],"at":"seed@a30a7de84"}
+{"fn":"mon_arrive","c":"420-623","status":"partial","js":["js/dog.js:mon_arrive"],"omit":"losedogs kops-dismiss scan (dismissKops/make_happy_shoppers `:310–356`); full mnearto yank (move_other=FALSE always); resurrect SetVoice + Deaf acoustics (pre-existing).","d":["D-2459","D-1505","D-1199"],"at":"seed@a30a7de84"}
+{"fn":"mon_catchup_elapsed_time","c":"627-724","status":"ported","js":["js/dog.js:mon_catchup_elapsed_time"],"d":["D-2562"],"at":"seed@a30a7de84"}
+{"fn":"mon_leave","c":"729-763","status":"unknown"}
+{"fn":"keep_mon_accessible","c":"768-785","status":"unknown"}
+{"fn":"keepdogs","c":"789-884","status":"unknown","d":["D-1789","D-1783"],"at":"seed@a30a7de84"}
+{"fn":"migrate_to_level","c":"887-932","status":"unknown","d":["D-1198"],"at":"seed@a30a7de84"}
+{"fn":"discard_migrations","c":"938-990","status":"unknown"}
+{"fn":"dogfood","c":"995-1134","status":"ported","js":["js/dogmove.js:dogfood"],"d":["D-2760"],"at":"seed@a30a7de84"}
+{"fn":"tamedog","c":"1143-1282","status":"unknown","d":["D-1595","D-1593","D-1546","D-1532"],"at":"seed@a30a7de84"}
+{"fn":"wary_dog","c":"1292-1359","status":"unknown"}
+{"fn":"abuse_dog","c":"1362-1393","status":"unknown"}

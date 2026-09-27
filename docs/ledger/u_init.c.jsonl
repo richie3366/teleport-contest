@@ -1,0 +1,17 @@
+{"fn":"knows_object","c":"575-581","status":"unknown"}
+{"fn":"knows_class","c":"586-629","status":"unknown"}
+{"fn":"u_init_role","c":"637-788","status":"unknown"}
+{"fn":"u_init_race","c":"792-864","status":"unknown"}
+{"fn":"pauper_reinit","c":"870-925","status":"unknown","d":["D-2699"],"at":"seed@a30a7de84"}
+{"fn":"u_init_carry_attr_boost","c":"929-940","status":"unknown"}
+{"fn":"u_init_misc","c":"944-1036","status":"unknown"}
+{"fn":"skills_for_role","c":"1040-1090","status":"unknown","d":["D-2707"],"at":"seed@a30a7de84"}
+{"fn":"restricted_spell_discipline","c":"1094-1105","status":"unknown"}
+{"fn":"trquan","c":"1109-1114","status":"unknown"}
+{"fn":"ini_inv_mkobj_filter","c":"1118-1177","status":"unknown"}
+{"fn":"ini_inv_obj_substitution","c":"1182-1203","status":"unknown"}
+{"fn":"ini_inv_adjust_obj","c":"1208-1250","status":"unknown"}
+{"fn":"ini_inv_use_obj","c":"1254-1298","status":"unknown"}
+{"fn":"ini_inv","c":"1301-1366","status":"unknown","d":["D-2694"],"at":"seed@a30a7de84"}
+{"fn":"u_init_inventory_attrs","c":"1373-1393","status":"unknown"}
+{"fn":"u_init_skills_discoveries","c":"1398-1414","status":"unknown"}

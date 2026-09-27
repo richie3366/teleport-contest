@@ -1,0 +1,9 @@
+{"fn":"newuexp","c":"14-23","status":"unknown"}
+{"fn":"enermod","c":"26-41","status":"unknown"}
+{"fn":"newpw","c":"45-81","status":"unknown"}
+{"fn":"experience","c":"85-166","status":"ported","js":["js/exper.js:experience"],"d":["D-2641"],"at":"seed@a30a7de84"}
+{"fn":"more_experienced","c":"169-203","status":"partial","js":["js/exper.js:more_experienced"],"omit":"`SCORE_ON_BOTL` / `flags.showscore` (`exper.c:194–197`) is not compiled.","d":["D-2878"],"at":"seed@a30a7de84"}
+{"fn":"losexp","c":"207-291","status":"ported","js":["js/exper.js:losexp"],"d":["D-2526"],"at":"seed@a30a7de84"}
+{"fn":"newexplevel","c":"300-304","status":"unknown"}
+{"fn":"pluslvl","c":"307-372","status":"unknown"}
+{"fn":"rndexp","c":"378-400","status":"unknown"}

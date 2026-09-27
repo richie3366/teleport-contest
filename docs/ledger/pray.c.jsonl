@@ -1,0 +1,45 @@
+{"fn":"critically_low_hp","c":"116-156","status":"unknown"}
+{"fn":"stuck_in_wall","c":"161-181","status":"unknown"}
+{"fn":"in_trouble","c":"198-284","status":"unknown"}
+{"fn":"worst_cursed_item","c":"288-346","status":"unknown"}
+{"fn":"fix_curse_trouble","c":"349-370","status":"unknown"}
+{"fn":"fix_worst_trouble","c":"373-600","status":"unknown"}
+{"fn":"god_zaps_you","c":"610-691","status":"unknown"}
+{"fn":"fry_by_god","c":"694-701","status":"unknown"}
+{"fn":"angrygods","c":"704-784","status":"unknown","d":["D-2332"],"at":"seed@a30a7de84"}
+{"fn":"at_your_feet","c":"788-802","status":"unknown"}
+{"fn":"gcrownu","c":"805-996","status":"ported","js":["js/pray.js:gcrownu"],"d":["D-1940"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}
+{"fn":"give_spell","c":"999-1068","status":"ported","js":["js/pray.js:give_spell"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
+{"fn":"pleased","c":"1071-1381","status":"unknown","d":["D-2362","D-2219"],"at":"seed@a30a7de84"}
+{"fn":"water_prayer","c":"1387-1412","status":"unknown"}
+{"fn":"godvoice","c":"1415-1426","status":"unknown"}
+{"fn":"gods_angry","c":"1429-1432","status":"unknown"}
+{"fn":"gods_upset","c":"1436-1443","status":"unknown"}
+{"fn":"consume_offering","c":"1446-1475","status":"unknown"}
+{"fn":"offer_too_soon","c":"1480-1498","status":"ported","js":["js/pray.js:offer_too_soon"],"at":"seed@a30a7de84","note":"stale 2026-09-15"}
+{"fn":"desecrate_altar","c":"1501-1523","status":"unknown","d":["D-2309"],"at":"seed@a30a7de84"}
+{"fn":"offer_real_amulet","c":"1529-1589","status":"unknown","d":["D-2345"],"at":"seed@a30a7de84"}
+{"fn":"offer_negative_valued","c":"1592-1599","status":"unknown"}
+{"fn":"offer_fake_amulet","c":"1602-1627","status":"unknown"}
+{"fn":"offer_different_alignment_altar","c":"1631-1695","status":"unknown","d":["D-2343"],"at":"seed@a30a7de84"}
+{"fn":"sacrifice_your_race","c":"1698-1778","status":"unknown"}
+{"fn":"bestow_artifact","c":"1781-1836","status":"unknown","d":["D-2367","D-2337"],"at":"seed@a30a7de84"}
+{"fn":"sacrifice_value","c":"1839-1850","status":"unknown"}
+{"fn":"dosacrifice","c":"1854-1896","status":"unknown"}
+{"fn":"eval_offering","c":"1899-1956","status":"unknown"}
+{"fn":"offer_corpse","c":"1959-2120","status":"unknown","d":["D-1678"],"at":"seed@a30a7de84"}
+{"fn":"can_pray","c":"2124-2173","status":"unknown"}
+{"fn":"pray_revive","c":"2177-2195","status":"unknown","d":["D-2238"],"at":"seed@a30a7de84"}
+{"fn":"dopray","c":"2199-2273","status":"unknown"}
+{"fn":"prayer_done","c":"2276-2343","status":"unknown","d":["D-2129"],"at":"seed@a30a7de84"}
+{"fn":"maybe_turn_mon_iter","c":"2347-2410","status":"unknown"}
+{"fn":"doturn","c":"2414-2487","status":"ported","js":["js/pray.js:doturn"],"at":"seed@a30a7de84","note":"stale 2026-09-09"}
+{"fn":"altarmask_at","c":"2490-2504","status":"unknown"}
+{"fn":"a_gname","c":"2507-2510","status":"unknown"}
+{"fn":"a_gname_at","c":"2514-2520","status":"unknown"}
+{"fn":"u_gname","c":"2524-2527","status":"unknown"}
+{"fn":"align_gname","c":"2530-2555","status":"ported","js":["js/roles.js:align_gname"],"d":["D-2910"],"at":"seed@a30a7de84"}
+{"fn":"halu_gname","c":"2577-2624","status":"unknown"}
+{"fn":"align_gtitle","c":"2628-2649","status":"unknown"}
+{"fn":"altar_wrath","c":"2652-2673","status":"unknown"}
+{"fn":"blocked_boulder","c":"2677-2719","status":"unknown","d":["D-2686"],"at":"seed@a30a7de84"}

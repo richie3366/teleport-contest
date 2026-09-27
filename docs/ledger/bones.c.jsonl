@@ -1,0 +1,16 @@
+{"fn":"no_bones_level","c":"18-34","status":"unknown"}
+{"fn":"goodfruit","c":"42-48","status":"unknown","d":["D-1523"],"at":"seed@a30a7de84"}
+{"fn":"resetobjs","c":"51-193","status":"ported","js":["js/bones.js:resetobjs"],"d":["D-2606"],"at":"seed@a30a7de84"}
+{"fn":"sanitize_name","c":"198-220","status":"ported","js":["js/bones.js:sanitize_name"],"d":["D-2918"],"at":"seed@a30a7de84"}
+{"fn":"give_to_nearby_mon","c":"226-255","status":"unknown","d":["D-2034"],"at":"seed@a30a7de84"}
+{"fn":"drop_upon_death","c":"259-303","status":"unknown","d":["D-2060"],"at":"seed@a30a7de84"}
+{"fn":"fixuporacle","c":"308-352","status":"unknown"}
+{"fn":"can_make_bones","c":"356-385","status":"unknown"}
+{"fn":"remove_mon_from_bones","c":"390-399","status":"unknown"}
+{"fn":"savebones","c":"403-625","status":"unknown","d":["D-2068"],"at":"seed@a30a7de84"}
+{"fn":"getbones","c":"630-756","status":"unknown","d":["D-2255"],"at":"seed@a30a7de84"}
+{"fn":"bones_include_name","c":"762-780","status":"unknown"}
+{"fn":"set_ghostly_objlist","c":"784-790","status":"unknown"}
+{"fn":"fix_ghostly_obj","c":"796-815","status":"ported","js":["js/bones.js:fix_ghostly_obj"],"d":["D-2918"],"at":"seed@a30a7de84"}
+{"fn":"newebones","c":"818-829","status":"unknown"}
+{"fn":"free_ebones","c":"833-839","status":"unknown"}

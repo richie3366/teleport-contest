@@ -1,0 +1,13 @@
+{"fn":"awaken_scare","c":"45-60","status":"unknown"}
+{"fn":"awaken_monsters","c":"67-78","status":"unknown"}
+{"fn":"put_monsters_to_sleep","c":"85-98","status":"unknown"}
+{"fn":"charm_snakes","c":"105-132","status":"unknown","d":["D-2357"],"at":"seed@a30a7de84"}
+{"fn":"calm_nymphs","c":"139-158","status":"unknown"}
+{"fn":"awaken_soldiers","c":"162-192","status":"unknown"}
+{"fn":"charm_monsters","c":"196-217","status":"unknown"}
+{"fn":"do_pit","c":"221-338","status":"unknown"}
+{"fn":"do_earthquake","c":"344-475","status":"unknown","d":["D-2315"],"at":"seed@a30a7de84"}
+{"fn":"generic_lvl_desc","c":"478-492","status":"unknown"}
+{"fn":"do_improvisation","c":"503-730","status":"unknown"}
+{"fn":"improvised_notes","c":"733-753","status":"unknown"}
+{"fn":"do_play_instrument","c":"759-899","status":"unknown","d":["D-2046"],"at":"seed@a30a7de84"}

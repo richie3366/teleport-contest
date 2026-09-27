@@ -1,0 +1,11 @@
+{"fn":"getnow","c":"32-38","status":"unknown"}
+{"fn":"getlt","c":"41-46","status":"unknown","d":["D-1989"],"at":"seed@a30a7de84"}
+{"fn":"getyear","c":"49-52","status":"unknown","d":["D-1742"],"at":"seed@a30a7de84"}
+{"fn":"yyyymmdd","c":"56-77","status":"ported","js":["js/calendar.js:yyyymmdd"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
+{"fn":"hhmmss","c":"80-92","status":"unknown","d":["D-1725"],"at":"seed@a30a7de84"}
+{"fn":"yyyymmddhhmmss","c":"95-117","status":"unknown"}
+{"fn":"time_from_yyyymmddhhmmss","c":"120-175","status":"ported","js":["js/calendar.js:time_from_yyyymmddhhmmss"],"d":["D-2893"],"at":"seed@a30a7de84"}
+{"fn":"phase_of_the_moon","c":"191-203","status":"unknown"}
+{"fn":"friday_13th","c":"206-212","status":"unknown"}
+{"fn":"night","c":"215-220","status":"unknown"}
+{"fn":"midnight","c":"223-226","status":"unknown"}

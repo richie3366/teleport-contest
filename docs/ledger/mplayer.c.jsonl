@@ -1,0 +1,6 @@
+{"fn":"dev_name","c":"44-69","status":"unknown"}
+{"fn":"get_mplname","c":"72-92","status":"unknown"}
+{"fn":"mk_mplayer_armor","c":"95-115","status":"ported","js":["js/mplayer.js:mk_mplayer_armor"],"at":"seed@a30a7de84","note":"stale 2026-09-27"}
+{"fn":"mk_mplayer","c":"118-317","status":"unknown"}
+{"fn":"create_mplayers","c":"327-353","status":"unknown","d":["D-1596"],"at":"seed@a30a7de84"}
+{"fn":"mplayer_talk","c":"356-377","status":"unknown","d":["D-1606"],"at":"seed@a30a7de84"}

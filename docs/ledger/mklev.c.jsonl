@@ -1,0 +1,56 @@
+{"fn":"mkroom_cmp","c":"60-69","status":"unknown"}
+{"fn":"good_rm_wall_doorpos","c":"73-102","status":"unknown"}
+{"fn":"finddpos_shift","c":"106-141","status":"unknown"}
+{"fn":"finddpos","c":"147-205","status":"ported","js":["js/mklev.js:finddpos"],"at":"seed@a30a7de84","note":"stale 2026-09-19"}
+{"fn":"sort_rooms","c":"210-228","status":"unknown"}
+{"fn":"do_room_or_subroom","c":"231-301","status":"unknown"}
+{"fn":"add_room","c":"304-319","status":"unknown"}
+{"fn":"add_subroom","c":"322-342","status":"unknown"}
+{"fn":"free_luathemes","c":"345-364","status":"unknown"}
+{"fn":"makerooms","c":"367-436","status":"partial","js":["js/mklev.js:makerooms"],"omit":"lua runtime (`nhl_init`/`nhl_loadlua`/`nhl_done`/`nhl_pcall_handle`/`lua_getglobal` — rooms compiled in, no lua by architecture); `create_des_coder` (its SpLev_Map memset already runs in `reset_xystart_size`); `iflags.in_lua` (error-message flag, no JS counterpart); THEMERM/THEMERMFILL debug room/f…","d":["D-2519"],"at":"seed@a30a7de84"}
+{"fn":"join","c":"439-518","status":"ported","js":["js/mklev.js:join"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
+{"fn":"makecorridors","c":"522-552","status":"unknown"}
+{"fn":"alloc_doors","c":"556-571","status":"unknown"}
+{"fn":"add_door","c":"574-612","status":"unknown"}
+{"fn":"dosdoor","c":"615-676","status":"ported","js":["js/mklev.js:dosdoor"],"d":["D-2559"],"at":"seed@a30a7de84"}
+{"fn":"cardinal_nextto_room","c":"681-698","status":"unknown"}
+{"fn":"place_niche","c":"701-725","status":"unknown"}
+{"fn":"makeniche","c":"740-799","status":"unknown"}
+{"fn":"make_niches","c":"802-818","status":"unknown"}
+{"fn":"makevtele","c":"821-824","status":"unknown"}
+{"fn":"count_level_features","c":"828-842","status":"unknown"}
+{"fn":"clear_level_structures","c":"850-927","status":"unknown"}
+{"fn":"fill_ordinary_room","c":"939-1171","status":"partial","js":["js/mklev.js:fill_ordinary_room"],"omit":"`set_levltyp` full `count_level_features` recount (`mkmaze.c:106–108`) — C recounts then `nsinks++`/`nfountains++` (net actual+1); `js/` keeps incremental counts per the named recount omit on trap.js `set_levltyp` (wizard-#terrain exact counts only; `sounds.c:220` audibility gate unaffected); pre-e…","d":["D-2469"],"at":"seed@a30a7de84"}
+{"fn":"themerooms_post_level_generate","c":"1174-1194","status":"partial","js":["js/mklev.js:themerooms_post_level_generate"],"omit":"`iflags.in_lua` (no reader).","d":["D-2866"],"at":"seed@a30a7de84"}
+{"fn":"chk_okdoor","c":"1198-1219","status":"ported","js":["js/mklev.js:chk_okdoor"],"d":["D-2931"],"at":"seed@a30a7de84"}
+{"fn":"mklev_sanity_check","c":"1223-1247","status":"unknown"}
+{"fn":"makelevel","c":"1251-1428","status":"split","js":["js/mklev.js:makelevel","js/mklev.js:makelevel_ordinary"],"at":"seed@a30a7de84","note":"seed: makelevel + makelevel_ordinary (former BY_DESIGN)"}
+{"fn":"water_has_kelp","c":"1432-1440","status":"unknown"}
+{"fn":"mineralize","c":"1449-1541","status":"unknown","d":["D-1849"],"at":"seed@a30a7de84"}
+{"fn":"level_finalize_topology","c":"1544-1574","status":"ported","js":["js/mklev.js:level_finalize_topology"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
+{"fn":"mklev","c":"1577-1593","status":"unknown"}
+{"fn":"topologize","c":"1597-1656","status":"ported","js":["js/mklev.js:topologize"],"d":["D-2597"],"at":"seed@a30a7de84","note":"alt 1599-1656"}
+{"fn":"find_branch_room","c":"1660-1673","status":"unknown"}
+{"fn":"pos_to_room","c":"1677-1687","status":"unknown"}
+{"fn":"place_branch","c":"1691-1747","status":"unknown"}
+{"fn":"bydoor","c":"1750-1775","status":"unknown"}
+{"fn":"okdoor","c":"1779-1789","status":"unknown"}
+{"fn":"maybe_sdoor","c":"1793-1796","status":"unknown"}
+{"fn":"dodoor","c":"1800-1803","status":"unknown"}
+{"fn":"occupied","c":"1806-1811","status":"unknown"}
+{"fn":"mktrap_victim","c":"1815-1934","status":"unknown","d":["D-1519"],"at":"seed@a30a7de84"}
+{"fn":"traptype_rnd","c":"1938-1998","status":"ported","js":["js/mklev.js:traptype_rnd"],"d":["D-2716"],"at":"seed@a30a7de84"}
+{"fn":"traptype_roguelvl","c":"2002-2030","status":"unknown"}
+{"fn":"mkstairs","c":"2159-2197","status":"ported","js":["js/mklev.js:mkstairs"],"d":["D-2931"],"at":"seed@a30a7de84"}
+{"fn":"generate_stairs_room_good","c":"2201-2215","status":"unknown"}
+{"fn":"generate_stairs_find_room","c":"2219-2245","status":"ported","js":["js/mklev.js:generate_stairs_find_room"],"at":"seed@a30a7de84","note":"stale 2026-09-26"}
+{"fn":"generate_stairs","c":"2250-2282","status":"unknown"}
+{"fn":"mkfount","c":"2285-2300","status":"ported","js":["js/mklev.js:mkfount"],"d":["D-2950"],"at":"seed@a30a7de84"}
+{"fn":"find_okay_roompos","c":"2303-2314","status":"unknown"}
+{"fn":"mksink","c":"2317-2329","status":"unknown"}
+{"fn":"mkaltar","c":"2332-2350","status":"ported","js":["js/mklev.js:mkaltar"],"d":["D-2937"],"at":"seed@a30a7de84"}
+{"fn":"mkgrave","c":"2353-2397","status":"ported","js":["js/mklev.js:mkgrave"],"at":"seed@a30a7de84","note":"stale 2026-09-19"}
+{"fn":"mkinvokearea","c":"2410-2497","status":"partial","js":["js/mklev.js:mkinvokearea"],"omit":"`display_nhwindow(WIN_MESSAGE, TRUE)` (no JS export; pline flushes); C `deadbook` caller (deferred, not live — no wire possible this commit).","d":["D-2467"],"at":"seed@a30a7de84"}
+{"fn":"mkinvpos","c":"2503-2598","status":"unknown"}
+{"fn":"mkinvk_check_wall","c":"2603-2613","status":"unknown"}
+{"fn":"mk_knox_portal","c":"2624-2659","status":"unknown"}
