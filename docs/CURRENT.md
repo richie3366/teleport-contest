@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `ball.c` `placebc` — coverage PARTIAL (C 16 L `ball.c:193–209` / JS 9 L in js/ball.js). Verify `node scripts/verify.mjs --fn placebc`.
+**Next cluster:** `do_wear.c` `Shirt_off` — coverage THIN (C 16 L `do_wear.c:778–794` / JS 4 L in js/do_wear.js). Verify `node scripts/verify.mjs --fn Shirt_off`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2958 (index).**
+**Keep D-0845…D-2959 (index).**
 <!-- recent:begin -->
+**D-2959** `nethack-c/upstream/src/dungeon.c:1923–1938` `In_W_tower`. `On_W_tower_level` (`:1914–1919 — One exported `In_W_tower` keeps that C order.
 **D-2958** `nethack-c/upstream/src/objnam.c:2359–2374` `yname`. `cxname` runs first. The prefix arm i — One exported `yname` keeps that C order and caps the append at `BUFSZ-1`.
 **D-2957** `nethack-c/upstream/src/dothrow.c:1951–1967` `tmiss`. `mshot_xname` names the missile. `!c — One file-local `tmiss` keeps that C order and calls `mthrowu.js` `miss`.
 **D-2956** `nethack-c/upstream/src/mon.c:4829–4852` `mon_animal_list`. `construct` walks `LOW_PM .. S — One exported `mon_animal_list` keeps that C order.
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2954** `nethack-c/upstream/src/attrib.c:740–760` `redist_attr`. The loop skips `A_INT` and `A_WIS — One exported `redist_attr` keeps that C order.
 **D-2953** `nethack-c/upstream/src/region.c:161–186` `add_mon_to_reg`. `mon_in_region` (`:209–218`) s — One file-local `add_mon_to_reg` in that C order.
 **D-2952** `nethack-c/upstream/win/tty/wintty.c:2226–2301` `tty_putstr` `NHW_MESSAGE`. Urgent and `WI — `install_tty_wincap2` stores only those two bits.
-**D-2951** `nethack-c/upstream/src/do_name.c:1493–1510` `hliquid`. `hallucinate` is `Hallucination && — One exported `hliquid` keeps that C order and calls `display.js` `Hallucination`.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2958; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2959; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

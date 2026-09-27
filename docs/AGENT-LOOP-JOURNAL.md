@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2959 `In_W_tower` reports a missing tower boundary
+
+**C locus:** `nethack-c/upstream/src/dungeon.c:1923–1938` `In_W_tower`. `On_W_tower_level` (`:1914–1919`) is first. `!svd.dndest.nlx` calls `impossible("No boundary for Wizard's Tower?")` and returns false. Otherwise `dungeon.h:144` `within_bounded_area` on `dndest.nlx/nly/nhx/nhy`. The updest/dndest assert is a comment.
+**JS:** `js/dungeon.js` `In_W_tower` `:1220`. Level gate `:1221`. Disorder `:1223–1225`. Bounds `:1227–1228`. `within_bounded_area` `js/rect.js:69`. `On_W_tower_level` `:1205`. Import `:201` in `js/potion.js`. `Can_rise_up` call `:1777`.
+**Change:** One exported `In_W_tower` keeps that C order. A zero `nlx` starts `impossible` and returns false. The rectangle test is `rect.js` `within_bounded_area`.
+**Verify:** `node scripts/verify.mjs --fn In_W_tower` → PASS syntax (2 changed js file(s): js/dungeon.js js/potion.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.2s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed; pass --full to force) · VERIFY: PASS.
+**Named:** No arm of the boolean test is omitted. `impossible` is not awaited, so its `--More--` does not block the caller.
+**Next:** `do_wear.c` `Shirt_off` (next Open — coverage row). Ten coverage rows remain after this archive and the `placebc` park, above the floor of 8, so nothing was refilled.
 ## 2026-09-27 — D-2958 `yname` prefixes through `shk_your` and caps at `BUFSZ-1`
 
 **C locus:** `nethack-c/upstream/src/objnam.c:2359–2374` `yname`. `cxname` runs first. The prefix arm is `!carried || !obj_is_pname || oartifact >= ART_ORB_OF_DETECTION`: `shk_your(nextobuf(), obj)`, then `strncat` of the `cxname` limited to `BUFSZ - 1 - strlen(prefix)`. A carried proper-name artifact below that id returns `cxname` alone.

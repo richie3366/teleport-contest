@@ -151,7 +151,8 @@ import { is_drawbridge_wall } from './dbridge.js';
 import { db_under_typ } from './hack.js';
 import { shop_keeper, inhishop } from './shk.js';
 import { m_at } from './mon.js';
-import { canseemon } from './display.js';
+import { canseemon, impossible } from './display.js';
+import { within_bounded_area } from './rect.js';
 
 // C dungeon.c:747–752 flagstrs / flagstrs2i. Index is luaL_checkoption's.
 const DGN_FLAG_STRS = ['town', 'hellish', 'mazelike', 'roguelike', 'unconnected'];
@@ -1208,16 +1209,23 @@ export function On_W_tower_level(lev) {
 }
 
 /**
- * C ref: dungeon.c In_W_tower — inside the Wizard's Tower rectangle.
- * Both exclusion regions (updest/dndest) define the tower; C asserts they
- * match and tests svd.dndest. Named omit: impossible() when nlx==0.
+ * C ref: dungeon.c In_W_tower `:1923–1938`.
+ * On_W_tower_level first. A zero `svd.dndest.nlx` is program disorder:
+ * `impossible`, then false. Otherwise `dungeon.h:144` `within_bounded_area`
+ * on that arrival rectangle. The updest/dndest assert is a C comment.
+ * `impossible` is started and not awaited: this predicate stays synchronous
+ * so boolean callers do not yield on the happy path (same shape as
+ * `mkobj.js` `void impossible`).
  */
 export function In_W_tower(x, y, lev) {
     if (!On_W_tower_level(lev)) return false;
     const d = game.dndest;
-    if (!d || !(d.nlx | 0)) return false;
-    return (x | 0) >= (d.nlx | 0) && (x | 0) <= (d.nhx | 0)
-        && (y | 0) >= (d.nly | 0) && (y | 0) <= (d.nhy | 0);
+    if (!(d?.nlx | 0)) {
+        void impossible("No boundary for Wizard's Tower?");
+        return false;
+    }
+    return within_bounded_area(
+        x | 0, y | 0, d.nlx | 0, d.nly | 0, d.nhx | 0, d.nhy | 0);
 }
 
 /**

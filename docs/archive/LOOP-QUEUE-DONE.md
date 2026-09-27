@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-27
 
-- [x] `objnam.c` yname — coverage PARTIAL (C 15 L `objnam.c:2359–2374` / JS 8 L in js/music.js; hops 3, callers 65, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn yname` (reach regression must be 0). Measured `port-coverage.mjs --name yname` 2026-09-27 @ 3f2358d79. **Addressed:** D-2958
+- [x] `dungeon.c` In_W_tower — coverage PARTIAL (C 15 L `dungeon.c:1923–1938` / JS 7 L in js/dungeon.js; hops 2, callers 19, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn In_W_tower` (reach regression must be 0). Measured `port-coverage.mjs --name In_W_tower` 2026-09-27 @ 3f2358d79. **Addressed:** D-2959
+
+
+- [x] `objnam.c` yname — coverage PARTIAL (C 15 L `objnam.c:2359–2374` / JS 8 L in js/music.js; hops 3, callers 65, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn yname` (reach regression must be 0). Measured `port-coverage.mjs --name yname` 2026-09-27 @ 3f2358d79. **Addressed:** D-2958 `d8cf4ec1c`
 
 
 - [x] `dothrow.c` tmiss — coverage PARTIAL (C 16 L `dothrow.c:1951–1967` / JS 10 L in js/dothrow.js; hops 5, callers 6, RNG 1, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn tmiss` (reach regression must be 0). Measured `port-coverage.mjs --name tmiss` 2026-09-27 @ 3f2358d79. **Addressed:** D-2957 `936dc8938`

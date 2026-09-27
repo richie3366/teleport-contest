@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2959 — `In_W_tower` reports a missing tower boundary
+
+- **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked). C is 15 lines; the whole body shipped. `ball.c` `placebc` was already that released body (`js/ball.js:435`); parked Stale, not re-ported. No other Open row in `dungeon.c`.
+- **Symptom:** On a Wizard's Tower level whose arrival rectangle has `nlx == 0`, C calls `impossible` and returns false. JS returned false and printed nothing. `Can_rise_up` in `potion.js` used a second copy of the same test.
+- **C locus:** `nethack-c/upstream/src/dungeon.c:1923–1938` `In_W_tower`. `On_W_tower_level` (`:1914–1919`) is first. `!svd.dndest.nlx` calls `impossible("No boundary for Wizard's Tower?")` and returns false. Otherwise `dungeon.h:144` `within_bounded_area` on `dndest.nlx/nly/nhx/nhy`. The updest/dndest assert is a comment.
+- **JS was:** `js/dungeon.js` `In_W_tower` returned false when `nlx` was 0 and inlined the rectangle test. `js/potion.js` kept the same body and named the `impossible` arm as omitted.
+- **Fix:** One exported `In_W_tower` keeps that C order. A zero `nlx` starts `impossible` and returns false. The rectangle test is `rect.js` `within_bounded_area`. `potion.js` `Can_rise_up` imports the export. `imports.mjs --can` was SAFE for `within_bounded_area` (no cycle) and for `In_W_tower` (hoisted, already in the potion/dungeon SCC). The predicate stays synchronous: `impossible` is not awaited, so a normal tower test does not yield.
+- **JS:** `js/dungeon.js` `In_W_tower` `:1220`. Level gate `:1221`. Disorder `:1223–1225`. Bounds `:1227–1228`. `within_bounded_area` `js/rect.js:69`. `On_W_tower_level` `:1205`. Import `:201` in `js/potion.js`. `Can_rise_up` call `:1777`.
+- **Callers:** `dog.c:914` `migrate_to_level` → `js/teleport.js:2898`. `dungeon.c:1681` `Can_rise_up` → `js/potion.js:1777`. `mon.c:2394–2398` `mm_2way_aggression` → `js/mon.js:2997`. `sp_lev.c:6016` `lspo_finalize_level` → `js/mklev.js:2152`. `teleport.c:1816` `rloc` → `js/teleport.js:1265`. `wizard.c:387` `tactics` → `js/wizard.js:530`. `wizard.c:477` / `:479` / `:485` `has_aggravatables` → `js/wizard.js:192` / `:194` / `:198`. `wizard.c:497` / `:502` `aggravate` → `js/wizard.js:214` / `:218`. `wizcmds.c:159` `wiz_makemap` → `js/wizcmds.js:653`. `extern.h:904` is the prototype. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn In_W_tower` → PASS syntax (2 changed js file(s): js/dungeon.js js/potion.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.2s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed; pass --full to force) · VERIFY: PASS.
+- **Named omissions:** No arm of the boolean test is omitted. `impossible` is not awaited, so its `--More--` does not block the caller. `do.c:1492` `goto_level` still does not call it (`js/do.js:1557` mystery-force omit, `js/do.js:1963` `u_on_rndspot` bit 2, D-1179). `dungeon.c:2066` stays inside `#if 0`. `sp_lev.c:5995` `lspo_reset_level` stays unported (`js/mklev.js:6388`). `js/muse.js:2155` `Can_rise_up` still skips the tower test.
+- **Next:** `do_wear.c` `Shirt_off` (next Open — coverage row). Ten coverage rows remain after this archive and the `placebc` park, above the floor of 8, so nothing was refilled.
+
 ## D-2958 — `yname` prefixes through `shk_your` and caps at `BUFSZ-1`
 
 - **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked). C is 15 lines; the whole body shipped. No other Open row in `objnam.c`.

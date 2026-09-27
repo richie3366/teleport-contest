@@ -1897,6 +1897,22 @@ D-2630). Callers: `dungeon.c:1901` `at_dgn_entrance`
 Named: `at_dgn_entrance` still returns false when `u.uz` is missing;
 `dname_to_dnum` clones in dig/do/potion stay.
 
+**`In_W_tower` `:1923–1938`** (D-2959; C order: `On_W_tower_level`, then
+`impossible` when `dndest.nlx` is 0, else `dungeon.h:144`
+`within_bounded_area` on `dndest`). One export `js/dungeon.js`. The
+`potion.js` clone is gone; `Can_rise_up` imports the export. Callers
+wired: `dog.c:914` `migrate_to_level` `js/teleport.js:2898`;
+`dungeon.c:1681` `Can_rise_up` `js/potion.js:1777`; `mon.c:2394–2398`
+`mm_2way_aggression` `js/mon.js:2997`; `sp_lev.c:6016`
+`lspo_finalize_level` `js/mklev.js:2152`; `teleport.c:1816` `rloc`
+`js/teleport.js:1265`; `wizard.c:387` `tactics` `js/wizard.js:530`;
+`wizard.c:477–485` `has_aggravatables` `js/wizard.js:192`;
+`wizard.c:497–502` `aggravate` `js/wizard.js:214`; `wizcmds.c:159`
+`wiz_makemap` `js/wizcmds.js:653`. Named: `impossible` is not awaited
+(the predicate stays synchronous); `do.c:1492` stays with the
+`goto_level` omits; `dungeon.c:2066` is `#if 0`; `lspo_reset_level`
+is unported; `muse.js` `Can_rise_up` still skips the tower test.
+
 **`fixup_level_locations` `:1122–1182`** (D-2683; C order with per-arm
 cites: `:1132` sentinel loop, `:1133–1135` find/assign, `:1136–1141` x-
 filecode stamp, `:1142–1158` Knox float via live `on_level` +
