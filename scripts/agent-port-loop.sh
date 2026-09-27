@@ -14,7 +14,9 @@
 # reviews without a Must-fix row warn and arm a next-iter overlay instead
 # of halting. Overlays are mode-tagged; port-only ones skip audits.
 # Banned-pattern hits do not write STOP: revert if unpushed, else arm
-# a next-iter heal prompt.
+# a next-iter heal prompt. Audit/cadence end: the committed
+# hidden-corpus/scoreboard.json must be a full rescore from that
+# iteration; otherwise the supervisor records + rescores and commits it.
 # Stop: write "1" into STOP_AGENT_LOOP.md.
 # Design + usage: docs/AGENT-PORT-LOOP.md
 #
@@ -489,6 +491,11 @@ SHORT_STREAK_LIMIT="${SHORT_STREAK_LIMIT:-3}"
 LOOP_CADENCE_EVERY="${LOOP_CADENCE_EVERY:-10}"
 LOOP_MAX_JS_INSERTIONS="${LOOP_MAX_JS_INSERTIONS:-1500}"
 LOOP_MAX_JS_FILES="${LOOP_MAX_JS_FILES:-15}"
+# Audit/cadence: the committed hidden-corpus/scoreboard.json must end on a
+# full rescore made during that iteration; otherwise the supervisor records
+# the missing corpus sessions and rescores it itself (2026-09-28).
+LOOP_RESCORE_JOBS="${LOOP_RESCORE_JOBS:-8}"
+LOOP_RESCORE_TIMEOUT_SEC="${LOOP_RESCORE_TIMEOUT_SEC:-5400}"
 LOOP_PUSH="${LOOP_PUSH:-1}"
 LOOP_FAIL_CLOSED="${LOOP_FAIL_CLOSED:-1}"
 LOOP_QUEUE_MIN="${LOOP_QUEUE_MIN:-8}"
@@ -796,6 +803,100 @@ run_full_suite_gate() {
   return 0
 }
 
+# Appended to every audit prompt (normal and continue-unfinished).
+audit_score_prompt() {
+  cat <<'EOF'
+
+
+## ALSO this iteration: cadence score (audit = review + score, no port)
+
+Mandatory, after every review file is on disk, in this order (still no
+`js/` edits):
+
+1. `node frozen/ps_test_runner.mjs sessions` — rewrite `docs/CURRENT.md`
+   Score from `__RESULTS_JSON__`.
+2. **Full scoreboard update.** `node scripts/hidden-proxy.mjs record
+   --jobs 8` (records every corpus session missing from `.cache`; exit 3
+   = no C recorder — say so in CURRENT, keep going), then
+   `node scripts/hidden-proxy.mjs score --jobs 8` with **no** `--ids` /
+   `--owner`. It must be the **last** hidden-proxy command of the
+   iteration: any later `verify` rewrites rows and clears the board's
+   `full` mark. Commit `hidden-corpus/scoreboard.json`. The supervisor
+   checks `full: true` and a `fullAt` inside this iteration, and redoes
+   the rescore itself (logged as audit debt) when it is missing.
+3. Rewrite the CURRENT **Corpus fortress** line from that score (PASS /
+   scored / `entries`, `unrecorded`, RNG %, screens %) and diff the new
+   scoreboard against the committed one: every row that was PASS and is
+   not anymore is a **Must-fix** row naming owner, session and the port
+   SHAs since the last audit.
+4. `node scripts/leaderboard.mjs` — CURRENT **Held-out** row.
+
+Then journal crumb, `check-hot-docs --fix`, one grouped commit, push.
+EOF
+}
+
+# The committed scoreboard ends on a full rescore made at/after epoch $1.
+scoreboard_full_since() {
+  git show HEAD:hidden-corpus/scoreboard.json 2>/dev/null | node -e '
+    let s = ""; process.stdin.on("data", (d) => { s += d; }).on("end", () => {
+      let j; try { j = JSON.parse(s); } catch { process.exit(1); }
+      const at = Date.parse(j.fullAt || "") / 1000;
+      process.exit(j.full === true && at >= Number(process.argv[1]) ? 0 : 1);
+    });' "$1"
+}
+
+scoreboard_coverage() {
+  node -e '
+    const j = JSON.parse(require("fs").readFileSync("hidden-corpus/scoreboard.json", "utf8"));
+    const rows = Object.values(j.sessions || {});
+    console.log(`${rows.filter((r) => r.passed).length}/${rows.length} PASS, ${j.entries ?? "?"} entries, ${j.unrecorded ?? "?"} unrecorded`);
+  ' 2>/dev/null || echo "unreadable"
+}
+
+# Audit/cadence end: the agent must have committed a full rescore. If not,
+# record + rescore here, commit it, and flag the audit as incomplete.
+ensure_full_scoreboard() {
+  local iter="$1" since="$2" cov rc
+  if scoreboard_full_since "$since"; then
+    cov="$(scoreboard_coverage)"
+    echo "$(date -Iseconds) scoreboard: full rescore committed by the audit (${cov})" \
+      | tee -a "$MASTER_LOG"
+  else
+    warn_regression "audit #${iter} did not commit a full scoreboard rescore — supervisor rescoring"
+    set +e
+    run_with_timeout_secs "$LOOP_RESCORE_TIMEOUT_SEC" \
+      node scripts/hidden-proxy.mjs record --jobs "$LOOP_RESCORE_JOBS" 2>&1 | tee -a "$MASTER_LOG"
+    rc="${PIPESTATUS[0]}"
+    run_with_timeout_secs "$LOOP_RESCORE_TIMEOUT_SEC" \
+      node scripts/hidden-proxy.mjs score --jobs "$LOOP_RESCORE_JOBS" 2>&1 | tail -n 40 | tee -a "$MASTER_LOG"
+    set -e
+    if (( rc != 0 )); then
+      warn_regression "hidden-proxy record exit ${rc} (no C recorder? \`bash nethack-c/build-recorder.sh\`) — scoreboard covers recorded sessions only"
+    fi
+    git add hidden-corpus/scoreboard.json
+    if ! git diff --cached --quiet; then
+      if ! git commit -m "Audit #${iter}: full corpus rescore (supervisor; the audit skipped it)."; then
+        warn_regression "failed to commit the supervisor rescore (local tree kept)"
+      fi
+    fi
+    cov="$(scoreboard_coverage)"
+    if [[ ! -f "$NEXT_ITER_PROMPT" && ! -f "$CONTINUE_LATCH" ]]; then
+      {
+        echo "<!-- overlay-for: any -->"
+        echo "Audit **#${iter}** skipped the mandatory full scoreboard rescore; the"
+        echo "supervisor ran it (${cov}). Before your normal work, rewrite the"
+        echo "\`docs/CURRENT.md\` **Corpus fortress** line from"
+        echo "\`hidden-corpus/scoreboard.json\` and prepend a **Must-fix** row for every"
+        echo "session that was PASS at the previous committed scoreboard and is not now."
+      } >"$NEXT_ITER_PROMPT"
+    fi
+  fi
+  if [[ "$cov" == *" 0 unrecorded" ]]; then
+    return 0
+  fi
+  warn_regression "scoreboard is not the whole corpus (${cov}) — record the missing sessions (\`hidden-proxy record\`; needs the C recorder)"
+}
+
 run_with_timeout_secs() {
   local timeout="$1"
   shift
@@ -1079,8 +1180,8 @@ arm_density_heal_prompt() {
     echo "Iteration **#${iter}** shipped +${ins} js/ insertions across ${files}"
     echo "files (caps ${LOOP_MAX_JS_INSERTIONS} / ${LOOP_MAX_JS_FILES}); the supervisor undid it"
     echo "(forward revert when pushed). The queue row is live again: split the"
-    echo "cluster — ship the verified core (one C function / tight cluster,"
-    echo "200–800 lines) and queue the remainder as its own Open row."
+    echo "cluster at a C function boundary — ship the verified core (fewer"
+    echo "functions of the cluster, 200–800 lines); the rest stay Open rows."
   } >"$NEXT_ITER_PROMPT"
   echo "$(date -Iseconds) note: density-heal overlay armed for next iteration" \
     | tee -a "$MASTER_LOG"
@@ -1667,10 +1768,8 @@ while true; do
     if [[ "$mode" == "audit" ]]; then
       prompt_body+=$'\n\n## Unfinished work is an audit (no js/ edits)\n'
       prompt_body+="$(cat "$REVIEW_PROMPT_FILE")"
-      prompt_body+=$'\n\n## ALSO this iteration: cadence score (audit = review + score, no port)\n'
-      prompt_body+=$'Run `node frozen/ps_test_runner.mjs sessions`, rewrite CURRENT Score\n'
-      prompt_body+=$'from __RESULTS_JSON__, journal. Still no js/ edits.\n'
-      echo "$(date -Iseconds) === continue-unfinished audit (review + full suite, no port) ===" \
+      prompt_body+="$(audit_score_prompt)"
+      echo "$(date -Iseconds) === continue-unfinished audit (review + full suite + full rescore, no port) ===" \
         | tee -a "$MASTER_LOG"
     else
       echo "$(date -Iseconds) === continue-unfinished port (finish dirty tree; do not pop queue) ===" \
@@ -1689,18 +1788,18 @@ while true; do
         ;;
       audit)
         prompt_body="$(cat "$REVIEW_PROMPT_FILE")"
-        prompt_body+=$'\n\n## ALSO this iteration: cadence score (audit = review + score, no port)\n'
-        prompt_body+=$'Run `node frozen/ps_test_runner.mjs sessions`, rewrite CURRENT Score\n'
-        prompt_body+=$'from __RESULTS_JSON__, journal. Still no js/ edits.\n'
-        echo "$(date -Iseconds) === audit iteration (review + full suite, no port) ===" \
+        prompt_body+="$(audit_score_prompt)"
+        echo "$(date -Iseconds) === audit iteration (review + full suite + full rescore, no port) ===" \
           | tee -a "$MASTER_LOG"
         ;;
       *)
         prompt_body="$(cat "$PROMPT_FILE")"
         prompt_body+=$'\n\n## This iteration cluster\n'
-        prompt_body+=$'Pop the first unchecked **Must-fix** item in `docs/LOOP-QUEUE.md` if any,\n'
-        prompt_body+=$'else the first Open item. That item is the only cluster. Copy it into\n'
-        prompt_body+=$'`docs/CURRENT.md` Next cluster before coding. If it cites a review, read\n'
+        prompt_body+=$'Pop the first unchecked **Must-fix** item in `docs/LOOP-QUEUE.md` if any\n'
+        prompt_body+=$'(it ships alone), else the first Open item as the **cluster head**; grow\n'
+        prompt_body+=$'the cluster from Open rows of the same C file / callee closure (up to 10\n'
+        prompt_body+=$'functions, 200–800 js/ lines — prompt "One bounded unit"). Copy the\n'
+        prompt_body+=$'cluster into `docs/CURRENT.md` Next cluster before coding. If it cites a review, read\n'
         prompt_body+=$'that review and stamp `**Addressed:** D-NNNN` (D-id only) when you ship.\n'
         prompt_body+=$'Mark the queue line `- [x]` and run `node scripts/archive-loop-queue-done.mjs`\n'
         prompt_body+=$'in this same commit (live queue stays unchecked-only). Do not predict this\n'
@@ -2071,6 +2170,11 @@ while true; do
         arm_review_debt_prompt "$iter" "no-mustfix"
       fi
     fi
+  fi
+
+  if [[ "$mode" == "audit" || "$mode" == "cadence" ]]; then
+    echo "$(date -Iseconds) === post-iteration scoreboard check ===" | tee -a "$MASTER_LOG"
+    ensure_full_scoreboard "$iter" "$iter_start"
   fi
 
   echo "$(date -Iseconds) === post-iteration green gate ===" | tee -a "$MASTER_LOG"

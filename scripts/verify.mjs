@@ -2,7 +2,10 @@
 /**
  * verify.mjs — every verification a port iteration owes, in ONE call.
  *
- *   node scripts/verify.mjs [--fn <C function>] [--base <git-rev>] [--full] [--no-cohort]
+ *   node scripts/verify.mjs [--fn <C function>[,<C function>…]] [--base <git-rev>] [--full] [--no-cohort]
+ *
+ * A comma list (one cluster iteration) runs hidden + reach once per
+ * function and every other gate once.
  *
  * Runs, in order, and prints one line each:
  *   1. syntax    node --check on every js/ file changed in the tree
@@ -32,7 +35,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
 const flag = (k) => args.includes(`--${k}`);
 const val = (k, d) => { const i = args.indexOf(`--${k}`); return i >= 0 ? args[i + 1] : d; };
-const fn = val('fn', null);
+const fns = (val('fn', '') || '').split(',').filter(Boolean);
 
 function sh(cmd, a, opts = {}) {
     const r = spawnSync(cmd, a, { cwd: ROOT, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024, ...opts });
@@ -62,11 +65,11 @@ line('rule2', bad.length === 0, bad.length ? `${bad.length} banned line(s)` : 'n
 /* 3. hidden-proxy verify — baseline is the committed scoreboard (HEAD, or
       --base <rev>), so a second verify in one iteration re-runs the same
       sessions. A vacuous verify (nothing blocked) prints `note`, never PASS. */
-if (fn) {
-    const base = val('base', null);
-    const extra = [];
-    for (const k of ['reach-max']) if (val(k, null)) extra.push(`--${k}`, val(k, null));
-    for (const k of ['reach-all', 'no-reach']) if (flag(k)) extra.push(`--${k}`);
+const base = val('base', null);
+const extra = [];
+for (const k of ['reach-max']) if (val(k, null)) extra.push(`--${k}`, val(k, null));
+for (const k of ['reach-all', 'no-reach']) if (flag(k)) extra.push(`--${k}`);
+for (const fn of fns) {
     const r = sh(process.execPath, ['scripts/hidden-proxy.mjs', 'verify', fn, ...(base ? ['--base', base] : []), ...extra]);
     const lines = r.out.trim().split('\n');
     const blockedLine = lines.find((l) => new RegExp(`^verify ${fn}: \\d+ PASS, `).test(l)) || '';
@@ -83,10 +86,11 @@ if (fn) {
        (or a fixed smoke spread) must all still PASS after the port. */
     if (reachLine) {
         const okR = /REACH-OK/.test(reachLine);
-        line('reach', okR, reachLine.replace(/^(reach|smoke) \S+: /, ''), lines.filter((l) => /REGRESSED/.test(l)).join('\n'));
+        line('reach', okR, reachLine.replace(/^(reach|smoke) (\S+): /, '$2: '), lines.filter((l) => /REGRESSED/.test(l)).join('\n'));
         if (!okR) console.log('      → a corpus session that matched C before this change no longer does: read its row, fix the port (never the session), re-run verify.');
     }
-} else {
+}
+if (!fns.length) {
     console.log('skip  hidden   (no --fn; pass the C function you ported to check the corpus sessions blocked on it + the reach regression)');
 }
 

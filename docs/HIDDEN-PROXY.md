@@ -64,10 +64,10 @@ cell plus the mineralize-eligible diff (D-1849).
 |---|---|---|
 | orient | `node scripts/brief.mjs <cfn>` | 8–15 grep/sed/csym/sym/map calls; the corpus rows for that function come with C vs JS draw and replay |
 | diagnose | `node scripts/geom-probe.mjs <id> [--step N]` | JS DIAG dumps and coordinate FORCEs that cannot see C `levl[]` (#2262: 54 min, 362 calls, no C measurement) |
-| verify | `node scripts/verify.mjs --fn <cfn>` (runs `hidden-proxy verify <cfn>`) | hand probes with expectations the agent derived by *reading* C — the expectation is now recorded from C |
+| verify | `node scripts/verify.mjs --fn <cfn>[,<cfn>…]` (runs `hidden-proxy verify` once per function of the cluster) | hand probes with expectations the agent derived by *reading* C — the expectation is now recorded from C |
 | **reach** (breadth phase) | same call: `hidden-proxy verify <cfn>` re-runs every baseline-PASS session whose recorded C RNG log tags `@ <cfn>(` (spread ≤ 80; `--reach-all`; `--no-reach`), or a fixed 24-session smoke spread when none does. Any PASS→FAIL is `REACH-REGRESSION` (exit 1) | shipping a whole-function port on the public 44 alone and discovering the corpus break at the next audit |
 | handoff | `node scripts/finish-iteration.mjs --commit` | index row, journal crumb, CURRENT recent block and ranges, NOTES landmark, review stamp, hash backfill, archive, caps, commit message, push — all from the one hand-written D-log entry |
-| audit | `node scripts/hidden-proxy.mjs score` | nothing existed; CURRENT now carries the proxy pass rate next to the public score |
+| audit (mandatory) | `node scripts/hidden-proxy.mjs record` then `score` with no `--ids`/`--owner`, committed — writes `full: true`, `fullAt`, `entries`, `unrecorded`; the supervisor redoes it when an audit skips it (2026-09-28) | a scoreboard only ever rewritten row by row by port-time `verify`, so REACH baselines drifted; the committed board had shrunk to 12 private rows unnoticed |
 | refill | `node scripts/hidden-proxy.mjs queue` (owners already open/parked/archived are tagged — a parked owner's **writer** or a `[measure]` row is the legal follow-up; identical-topline screen rows print the differing screen row) → `[campaign]` steps → TOP30 rows with a **verified** missing arm → map omits only at ≥ 90 % corpus PASS | map-walk order; 109 stale parks from map/debt copies (2026-09-09..15) |
 | grow | `node scripts/scenario-gen.mjs --n 120 --seed N` when every family is ≥ 85 % PASS (audit iters) | a saturated proxy that picked display singletons |
 

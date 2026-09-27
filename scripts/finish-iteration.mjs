@@ -119,8 +119,16 @@ console.log(`finish ${id} — ${title}`);
   } else {
     const parsed = parseLedgerBullet(S.ledger);
     if (parsed.error) { console.error(`${id}: ${parsed.error}`); process.exit(1); }
-    const omit = namesNoOmission(S.named) ? '' : firstSentence(S.named);
-    const entries = parsed.map((e) => ({ ...e, d: [id], omit: e.status === 'partial' ? omit : '' }));
+    /* Cluster entries name omissions per function as `- \`fn\`: …` sub-bullets
+       (collapsed to " - `fn`: …" by bullet()); a partial row takes its own. */
+    const namedFor = (spec) => {
+      const fn = spec.split(':').pop();
+      const subs = S.named.split(/(?:^|\s)-\s+(?=`)/).filter(Boolean);
+      const own = subs.length > 1 && subs.find((s) => s.startsWith(`\`${fn}\``));
+      return own ? own.replace(/^`[^`]+`:?\s*/, '') : S.named;
+    };
+    const omitFor = (spec) => { const t = namedFor(spec); return namesNoOmission(t) ? '' : firstSentence(t); };
+    const entries = parsed.map((e) => ({ ...e, d: [id], omit: e.status === 'partial' ? omitFor(e.spec) : '' }));
     const res = await applySets(entries, { dryRun: DRY });
     if (res.errors.length) { for (const e of res.errors) console.error(`ledger: ${e}`); process.exit(1); }
     console.log(`  ledger: ${res.rows.map((r) => `${r.file}:${r.fn} ${r.status}`).join(', ')}${DRY ? ' (dry-run)' : ''}`);

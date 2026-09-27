@@ -68,9 +68,10 @@ not a work picker. Held-out (`node scripts/leaderboard.mjs`) is the score.
 | Do | Do not |
 |----|--------|
 | Pop the first coverage row; `brief.mjs <fn>` in one call; read the **whole** C body + every caller | Port the arm a session happens to hit and call the function done |
-| Port the **entire C function** in C order: every arm, every callee live or named in the map, every C caller wired (brief callers table) | Leave a `// TODO` stub inside a live arm, or a local clone of an existing export (`sym.mjs` first) |
+| Port **each C function of the cluster** entirely, in C order: every arm, every callee live or named in the map, every C caller wired (brief callers table) | Leave a `// TODO` stub inside a live arm, or a local clone of an existing export (`sym.mjs` first) |
+| Grow the cluster from the head: its Open callees, then Open rows of the **same C file** (≤ 10 functions, ≤ 800 lines) | Pad the cluster with an unrelated file, or keep a function you could only port one arm of |
 | Prefer **restart**: delete the thin JS body, re-port from C, keep the export name/signature | Stack a third shim on a thin function |
-| Ship the same-C-file Must-fix/Open row in the same iteration | Open a second unrelated C file |
+| Ship same-C-file Open rows in the same cluster (a Must-fix ships alone) | Open a second unrelated C file |
 | **Stale row** (brief: body complete under this or split names) → `ledger.mjs set <fn> ported --note "stale: …"`, next row, **same iteration** | Spend an iteration proving a shipped function shipped |
 | `verify.mjs --fn <fn>` must end **REACH-OK** (+ green, strict, cohort, full when shared) | Ship a corpus PASS→FAIL as a "named omission"; touch a session or a seed to make it pass |
 | A JS **throw** / worker **hang** anywhere is Must-fix (forfeits every later screen) | Leave a `ReferenceError` / `ETIMEDOUT` behind |
@@ -87,17 +88,21 @@ journal). Prefer **fewer, denser** iterations.
 
 | Too small (waste) | Right size | Too big (quality risk) |
 |-------------------|------------|------------------------|
-| One deferred `if` or one `switch` arm | **One whole C function** (or a tight caller/callee pair, e.g. `dogaze` + its `polyself.c` siblings) | Half of `mon.c`; two unrelated subsystems |
+| One deferred `if` or one `switch` arm; one 20-line leaf when its file has more Open rows | **One cluster**: up to 10 whole C functions of one C file or one caller/callee closure (e.g. `dogaze` + its `polyself.c` siblings, the `alloc.c` nhalloc family) | Half of `mon.c`; two unrelated subsystems; >10 functions |
 | Docs-only then code next iter | Code + map + verify in one handoff | Multiple independent hypotheses |
 
-**Rule:** one C function family, usually one JS module (or two that
-already call each other). Target **200–800 lines** of C-faithful JS or
-one small-file restart; supervisor caps **1500 insertions / 15 files**
-(over → the iteration is undone: split at a C function boundary). Below
-~40 insertions on a non-Must-fix port is a failed density handoff unless
-C is that small. Consecutive coverage rows of the **same** C file may ship
-together iff every C callee is live, a C-matched clone, or a named omit in
-this commit (no stub in a live arm). Must-fix stays one item, alone.
+**Rule (2026-09-28):** one cluster per iteration — the head row plus its
+Open callees, then Open rows of the **same C file**, each function whole
+(every C callee live, a C-matched clone, or a named omit in this commit;
+no stub in a live arm). Target **200–800 lines** of C-faithful JS for the
+cluster; supervisor caps **1500 insertions / 15 files** (over → the
+iteration is undone: split at a C function boundary). Below ~80
+insertions on a non-Must-fix port is a failed density handoff unless the
+head's file and callee closure hold nothing more that is Open. Ten
+functions is a ceiling, not a target. Per function: one `verify.mjs --fn`
+REACH line (`--fn a,b,c` runs them in one call), one `Ledger:` entry, one
+sub-bullet in C locus / Callers / Verify / Named omissions. Must-fix stays
+one item, alone.
 
 **Campaigns.** A C function too big for one iteration (`really_done`,
 `getobj`) is a `[campaign k/n]` row series: each step ships `js/`, keeps
@@ -202,8 +207,8 @@ unwired) were both caller misses on otherwise exact bodies.
 
 ## 6. Iteration must end as exactly one of
 
-1. **Verified faithful change** — whole C function, C cited, gates + REACH
-   pass, DIAG removed, docs updated.
+1. **Verified faithful change** — a cluster of whole C functions, C cited,
+   gates + REACH pass for each, DIAG removed, docs updated.
 2. **Falsified hypothesis** — revert experiment if needed; dead end in `NOTES.md`.
 3. **Campaign step** — a C function too big for one iteration shipped its
    verified core and left `[campaign k/n]` rows naming the rest.

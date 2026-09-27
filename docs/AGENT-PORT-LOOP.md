@@ -131,13 +131,15 @@ MODEL=cursor-grok-4.6-high ./scripts/agent-port-loop.sh
 │  2. preflight green (RESULTS_JSON must all pass + strict;           │
 │     continue-unfinished warns and starts if leftover broke green)   │
 │  3. loop until STOP, token budget, or halt:                         │
-│       mode = audit when n%10==0 (review + full suite) / else port   │
+│       mode = audit when n%10==0 (review + full suite + full        │
+│             scoreboard rescore) / else port                         │
 │       continue latch: force port (or audit) and skip n%10 for       │
 │             that one global #; leftover dirty tree is the cluster   │
 │       port: Must-fix beats Open; if open count < 8, agent refills  │
 │             evidence rows only (ledger rows --write first, then    │
 │             queue owners / park-named writers; target 12) then     │
-│             ships one whole C function (200–800 js/ lines)         │
+│             ships one cluster: ≤10 whole C functions of one C      │
+│             file / callee closure (200–800 js/ lines)              │
 │       snapshot js/; remember HEAD; run agent (commit + push)       │
 │       FAIL-CLOSED (revert HEAD + STOP=1 if not yet on origin):     │
 │         3× short runs, tool denials, protected edit,               │
@@ -158,8 +160,8 @@ MODEL=cursor-grok-4.6-high ./scripts/agent-port-loop.sh
 
 | Global `#` | Mode | Agent may edit `js/` | Supervisor extra gate |
 |------------|------|----------------------|------------------------|
-| `n % 10 == 0` | **audit** | no | must add `reviews/loop-unattended/`; full `sessions` scored (FAIL is logged, loop continues); REJECT → STOP |
-| else | **port** | yes, one `LOOP-QUEUE` item | density cap; empty committed **and** working-tree `js/` → halt+revert; uncommitted `js/` after crash → halt, keep tree; still-empty queue after port → halt |
+| `n % 10 == 0` | **audit** | no | must add `reviews/loop-unattended/`; full `sessions` scored (FAIL is logged, loop continues); committed `hidden-corpus/scoreboard.json` must be a full rescore (`full: true`, `fullAt` in this iteration) — else the supervisor runs `hidden-proxy record` + `score`, commits it and arms an overlay; REJECT → STOP |
+| else | **port** | yes, one cluster (a Must-fix alone, or ≤10 Open functions of one C file / callee closure) | density cap; empty committed **and** working-tree `js/` → halt+revert; uncommitted `js/` after crash → halt, keep tree; still-empty queue after port → halt |
 
 Review prepends Keep’d C-wrongs onto `LOOP-QUEUE.md` **Must-fix** so
 the next port **must** fix them. A QUALITY-RISK or REJECT review that
@@ -169,7 +171,23 @@ separate cadences): 9 port/js iters, then one audit at
 `n % 10 == 0`. Must-fix does not skip that audit. After finishing a SHA, the
 audit agent **writes that SHA’s review file immediately**, then
 starts the next SHA. Git is still **one grouped commit** at the
-end of the iteration (not one commit per SHA).
+end of the iteration (not one commit per SHA). A cluster SHA is reviewed
+**per function** (one inventory + fidelity block each, `hidden-proxy
+verify a,b,c --base HASH~1 --reach-all` in one call); the SHA verdict is
+the worst function's.
+
+**Full scoreboard rescore (mandatory, 2026-09-28).** Every audit ends with
+`hidden-proxy record` (missing corpus sessions; exit 3 = no C recorder)
+and an unfiltered `hidden-proxy score`, committed. Port-time `verify`
+rewrites the scoreboard row by row, so without it the REACH baseline
+drifts. `score` without `--ids`/`--owner` writes `full: true`, `fullAt`,
+`entries` and `unrecorded`; any later partial write clears `full`. After
+the agent returns, `ensure_full_scoreboard` checks the committed board;
+if it is not a full rescore from this iteration the supervisor runs both
+commands itself, commits `Audit #N: full corpus rescore (supervisor…)`,
+and arms an overlay telling the next iteration to rewrite the Corpus
+fortress line and queue any PASS→FAIL row. `unrecorded > 0` is warned on
+every audit until the recorder is built and the corpus recorded.
 
 ### Continue unfinished (ignore `n % 10`)
 
@@ -345,7 +363,8 @@ porting guide). The prompt emphasizes:
 
 `docs/NOTES.md` is deliberately tiny and unresolved-only. Score/objective live
 in `docs/CURRENT.md`. **Every 10 global loop iterations** (`n % 10 == 0`) is
-an **audit**: C-fidelity review **and** full `sessions` score (no port).
+an **audit**: C-fidelity review **and** full `sessions` score **and** a
+full scoreboard rescore (`hidden-proxy record` + unfiltered `score`; no port).
 Work comes from
 `docs/LOOP-QUEUE.md` (Must-fix before Open; live file unchecked-only,
 done rows in `docs/archive/LOOP-QUEUE-DONE.md`). `STOP_AGENT_LOOP.md` is
@@ -426,6 +445,8 @@ Under `.agent-port-loop-logs/` (gitignored):
 | `LOOP_NEXT_PROMPT` | unset | Path copied like `--next-prompt` |
 | `LOOP_NEXT_MODE` | unset | Same as `--next-mode` |
 | `LOOP_CADENCE_EVERY` | `10` | Review + full-suite score when `n % this == 0` |
+| `LOOP_RESCORE_JOBS` | `8` | Workers for the supervisor's fallback `hidden-proxy record` / `score` after an audit that skipped the full rescore |
+| `LOOP_RESCORE_TIMEOUT_SEC` | `5400` | Timeout for each of those two commands |
 | `LOOP_MAX_JS_INSERTIONS` | `1500` | Undo the iteration if a port iter exceeds this `js/` insertion count (600 before the 2026-09-18 breadth phase: whole-function ports target 200–800 lines) |
 | `LOOP_MAX_JS_FILES` | `15` | Undo the iteration if a port iter touches more `js/` files (10 before 2026-09-18) |
 | `LOOP_QUEUE_MIN` | `8` | Agent must refill Open when live `- [ ]` count is below this |
@@ -498,6 +519,7 @@ Halt reason is still `last-halt-reason.txt`.
 | Token budget reached | Expected clean exit after an iteration when `--token-budget-m` is set |
 | `3× consecutive missing usage` | stream-json / Claude stream-json / Muse JSONL had no usage — halt. Muse needs the on-disk `session.jsonl` (do not set `MUSE_NO_SESSION_LOG=1` with a budget). Claude usage is on stdout `.raw` (`result.usage`). |
 | Green / full suite fail | Warn and continue; next iteration recovers. Preflight green at **launch** still refuses to start (except continue-unfinished, which warns and starts) |
+| Audit did not commit a full scoreboard rescore | **Warn + continue**: the supervisor runs `hidden-proxy record` + `score`, commits the board, arms an overlay for the Corpus-fortress line and PASS→FAIL Must-fix rows. `record` exit 3 (no C recorder) and `unrecorded > 0` are warned every audit, never halt |
 | Review/audit iteration touched `js/` | **Warn + continue** (2026-09-16 #3120: a port-only overlay had leaked into the audit). The code passes the same green/full-suite gates; the next audit reviews the SHA. Overlays now carry `<!-- overlay-for: port|any -->` and port-only ones are deferred past non-port iterations |
 | Loop ignores STOP | Content not exactly `1` after trim, or flip during an agent run (waits until iter ends) |
 | Agent repeats dead ends | Notes/queue handoff failed — fix durable memory |

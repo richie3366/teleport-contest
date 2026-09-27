@@ -32,6 +32,10 @@ Do **not** `git commit` after each SHA.
 ## Method (mandatory, each JS-touching commit)
 
 This is an audit against **pinned C**, not against the commit message.
+A **cluster** commit (several C functions, Constitution §10.17) gets the
+whole Method **per function**: one Inventory block and one C ↔ JS
+fidelity block per function, each with its own verdict line in the
+Density section; the SHA verdict is the worst of them. Do not sample.
 
 1. `git show --stat HASH` and the `js/` hunks. Quote what the subject
    **promises**. List what the diff **actually** adds (functions, helpers).
@@ -64,19 +68,23 @@ This is an audit against **pinned C**, not against the commit message.
    read is.
 5. Hallucination check: does the D-log / CURRENT / subject say “Match C”
    for a **dispatch** while the **callee** is a stub? Say so explicitly.
-6. Density §2b — **breadth phase (Constitution §10.17):** a coverage row
-   asked for the **whole** C function. Compare the C body's arms/cases
-   with the JS: an arm-only port sold as the function, an unwired C
-   caller, or a callee left as a silent stub is QUALITY-RISK with a
-   Must-fix row naming the missing arms. Verification: the D-log Verify
+6. Density §2b — **breadth phase (Constitution §10.17):** every function
+   of the cluster is a **whole** C function. Compare each C body's
+   arms/cases with the JS: an arm-only port sold as the function, an
+   unwired C caller, or a callee left as a silent stub is QUALITY-RISK
+   with a Must-fix row naming the function and its missing arms. A
+   cluster that is not one C file / callee closure, has more than 10
+   functions, or bundles a Must-fix item is QUALITY-RISK too. Each
+   function needs its own `Ledger:` entry and its own Verify lines. Verification: the D-log Verify
    bullet must show `hidden-proxy verify <fn>` → PROGRESS/PASS (or the
    vacuous note) **and** `REACH-OK`; then green + **relevant** cohort.
    NO MOVEMENT presented as a named omission is QUALITY-RISK.
    **Re-measure the corpus claim yourself:** run
-   `node scripts/hidden-proxy.mjs verify <fn> --base HASH~1 --reach-all`
-   (the sessions blocked at the parent commit plus every baseline-PASS
-   session that executes `<fn>`, re-run on this SHA's code) and cite both
-   summary lines. Any `REGRESSED` session is a C-wrong the port
+   `node scripts/hidden-proxy.mjs verify <fn>[,<fn>…] --base HASH~1 --reach-all`
+   (every function the SHA ports, in one call: the sessions blocked at the
+   parent commit plus every baseline-PASS session that executes each
+   function, re-run on this SHA's code) and cite both summary lines per
+   function. Any `REGRESSED` session is a C-wrong the port
    introduced → QUALITY-RISK + Must-fix row naming session and owner. A bullet that says "PASS hidden" or "no corpus
    session is blocked" while the queue row cited N blocks is a vacuous
    check (a verify earlier in that iteration rewrote the baseline); if
@@ -90,7 +98,7 @@ This is an audit against **pinned C**, not against the commit message.
 
 Write in **English**. Length is `check-hot-docs.mjs --review NN`
 (JS-touching 80–350; FAIL is below ~53, not a padding target.
->250 `js/` insertions raise the **ceiling** to 450 only — do not
+>250 `js/` insertions raise the **ceiling** to 450, >600 to 600 — do not
 write a longer review just because the diff is large. docs-only
 40–80; +33% is still `ok`). No full-diff paste. Do **not** pad.
 Short C/JS citations (≤30 lines).
@@ -126,7 +134,10 @@ Must-fix prepend is a failed review — the supervisor will halt.
 ## Required output (end of iteration)
 
 After every listed SHA already has its file on disk: journal crumb.
-Cadence score (full `sessions`) if this is the audit overlay.
+If this is the audit overlay: full `sessions` **and the full scoreboard
+update** (`hidden-proxy record`, then `hidden-proxy score` with no
+`--ids`/`--owner`, after the last re-measure verify; commit
+`hidden-corpus/scoreboard.json`) — mandatory, see the ALSO section.
 `node scripts/check-hot-docs.mjs --fix --review NN …` (this iter’s
 review ids; do not count). `ok` = no cap edit. If REFILL, `--fix`
 already regenerated the ledger-generated **Open — coverage** block (breadth
@@ -144,7 +155,8 @@ production / unrevertible mess). QUALITY-RISK continues via Must-fix.
 
 ## Git
 
-Stage **all** new review files + queue + CURRENT + NOTES + journal together.
+Stage **all** new review files + queue + CURRENT + NOTES + journal
+(+ `hidden-corpus/scoreboard.json` on an audit) together.
 **One commit** for the whole audit (not one commit per SHA). Commit with why.
 **`git push origin HEAD`** (no force-push, no amend of pushed commits,
 no `git reset --hard`). Do not `git add` `STOP_AGENT_LOOP.md` (gitignored).

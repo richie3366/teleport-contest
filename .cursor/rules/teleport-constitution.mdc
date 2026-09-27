@@ -60,10 +60,14 @@ neither picks work. Held-out (leaderboard) is the objective: 11/44, RNG
 the corpus stopped predicting the judge. Work comes from **measured
 coverage**: `LOOP-QUEUE.md` Must-fix first, then the **generated** Open — coverage
 block (`ledger.mjs rows --write` from `docs/ledger/` + the measured JS gap;
-never pasted by hand). One iteration = **one whole C
-function** — every arm, every callee live or named in Named omissions, every C
-caller wired — 200–800 lines of C-faithful JS; one arm of it is a failed
-handoff. Stale row (brief shows the body already complete) = one
+never pasted by hand). One iteration = **one cluster**: up to 10 whole C
+functions of one C file or one caller/callee closure, 200–800 lines of
+C-faithful JS in total. Each function is whole — every arm, every callee live
+or named in Named omissions, every C caller wired; one arm of it is a failed
+handoff (drop the function, its row stays Open). Per function: its own
+`verify.mjs --fn` REACH line (`--fn a,b,c`), `Ledger:` entry and audit
+fidelity block. Must-fix ships alone. Audits end on a **full** scoreboard
+rescore (`hidden-proxy record` + unfiltered `score`, committed). Stale row (brief shows the body already complete) = one
 `ledger.mjs set <fn> ported --note "stale: …"`, next row, same iteration. `verify.mjs --fn` must end REACH-OK: a
 corpus session that matched C before the port must still match; fix the
 port, never the session. Corpus-driven debugging (`[measure]`, parks,
@@ -71,7 +75,8 @@ writers, `hidden-proxy queue`) is **phase 2** — a human reopens it in
 `CURRENT.md`. No `c-js-map`/`debt.md`/TOP30 lines copied by hand (109 of
 161 parks were such copies; §10.15). Do not shop the fork dashboard for a
 peel. This rule's constitution/playbook/runbook/prompt edits were one-shot
-process takes (2026-09-06, 2026-09-16, 2026-09-18, 2026-09-27 ledger); ordinary loop iters
+process takes (2026-09-06, 2026-09-16, 2026-09-18, 2026-09-27 ledger,
+2026-09-28 clusters + full audit rescore); ordinary loop iters
 follow that text and must not rewrite it.
 
 ## When fixing divergence

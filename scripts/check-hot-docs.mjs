@@ -36,7 +36,7 @@ const TOL = 0.33;
 const approxTok = (bytes) => Math.ceil(bytes / 4);
 
 const LINE_CAPS = {
-  'docs/CURRENT.md': { target: 150, maxBytes: 8_000 },
+  'docs/CURRENT.md': { target: 170, maxBytes: 9_000 },
   'docs/NOTES.md': { target: 100, maxBytes: 7_000 },
 };
 
@@ -44,7 +44,8 @@ const LINE_CAPS = {
    hold the stale-check / refill-evidence / campaign / callers rules
    (~750 tokens per iteration, against ~35 % of iterations lost to
    stale-row parks). NOTES.md shrank by the same order (park lists now
-   live in the LOOP-QUEUE Parked index). */
+   live in the LOOP-QUEUE Parked index). 2026-09-28: CURRENT 150 → 170 L /
+   8 → 9 kB, hot sum 46 → 48 kB for the cluster + full-rescore rules. */
 const BYTE_CAPS = {
   'docs/GROK-PLAYBOOK.md': 18_000,
   'scripts/agent-port-loop.prompt.md': 9_000,
@@ -59,18 +60,21 @@ const OWN_CAPS = {
   'docs/LOOP-QUEUE.md': 40_000,
   'docs/LEDGER.md': 3_500,
 };
-const HOT_SUM_MAX = 46_000;
+const HOT_SUM_MAX = 48_000;
 const QUEUE_MIN = 8;
 const QUEUE_TARGET = 12;
 const NOTES_SECTION_TARGET = 15;
 /** Default JS review 80–350. Required headings + a real C walk fit
  *  in ~80 lines; FAIL is below floorTol(80) ≈ 53, not a padding
- *  target. >250 js/ insertions raise the *ceiling* to 450 only —
- *  a larger diff does not demand a longer write-up. */
+ *  target. >250 js/ insertions raise the *ceiling* to 450, >600 (a
+ *  multi-function cluster commit, one fidelity block per function) to
+ *  600 — a larger diff does not demand a longer write-up. */
 const REVIEW_JS = { lo: 80, hi: 350 };
 const REVIEW_JS_LARGE = { lo: 80, hi: 450 };
+const REVIEW_JS_CLUSTER = { lo: 80, hi: 600 };
 const REVIEW_DOCS = { lo: 40, hi: 80 };
 const REVIEW_LARGE_INS = 250;
+const REVIEW_CLUSTER_INS = 600;
 const MAP_DIR = 'docs/c-js-map';
 
 function lineCount(text) {
@@ -327,7 +331,8 @@ function reviewBandFor(hit, docsOnly) {
   if (docsOnly) return REVIEW_DOCS;
   const ins = jsInsertions(hit.sha);
   if (ins <= REVIEW_LARGE_INS) return REVIEW_JS;
-  return REVIEW_JS_LARGE;
+  if (ins <= REVIEW_CLUSTER_INS) return REVIEW_JS_LARGE;
+  return REVIEW_JS_CLUSTER;
 }
 
 async function main() {
@@ -339,7 +344,7 @@ Run this yourself and read the statuses. Do not wc/count.
 
   --fix         rotate journal if over cap, then report
   --docs-only   review band 40–80 (default 80–350; >250 js/ ins →
-                ceiling 450, same floor)
+                ceiling 450, >600 → 600, same floor)
   IDs           187 | 183-187 | 183,184 | path | SHA
 
 ok = in target or within +33% — no edit required.

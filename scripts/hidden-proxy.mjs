@@ -19,9 +19,13 @@
  *   node scripts/hidden-proxy.mjs score [--jobs 6] [--ids a,b] [--owner fn]
  *       replay in JS (one process per session), attribute first diffs,
  *       write hidden-corpus/scoreboard.json (+ .cache/hidden/scores.json).
+ *       Without --ids/--owner every recorded session is re-run and the
+ *       board is marked `full: true` (the audit's mandatory rescore; any
+ *       later partial write — verify, --ids, --owner — clears the mark).
+ *       `entries` / `unrecorded` say how much of the corpus it covers.
  *   node scripts/hidden-proxy.mjs queue [--limit 12]
  *       LOOP-QUEUE rows: C-function owners ranked by sessions blocked.
- *   node scripts/hidden-proxy.mjs verify <fn> [--base <git-rev>|working]
+ *   node scripts/hidden-proxy.mjs verify <fn>[,<fn>…] [--base <git-rev>|working]
  *       rescore the sessions blocked on <fn> in the COMMITTED scoreboard at
  *       --base (default HEAD; the rows the queue row was built from), plus
  *       any blocked in the working scoreboard; report which PASS, which
@@ -32,6 +36,9 @@
  *       <fn> are re-run (spread of --reach-max 80; --reach-all; --no-reach);
  *       any PASS→FAIL is REACH-REGRESSION (exit 1). No reach set → a fixed
  *       24-session smoke spread. A whole-function port must keep both 0.
+ *       A comma list verifies each function in turn (one cluster
+ *       iteration, or one review re-measure of a multi-function SHA);
+ *       exit 1 if any of them regressed.
  *   node scripts/hidden-proxy.mjs show <sessionId>
  *   node scripts/hidden-proxy.mjs status
  *
@@ -214,6 +221,10 @@ async function cmdRecord() {
     const jobs = Number(val('jobs', 6));
     const todo = corpusEntries().filter((e) => e.src === 'corpus' && !existsSync(e.session));
     if (!todo.length) { console.log('all corpus sessions present'); return; }
+    if (!existsSync(DEFAULT_INSTALL)) {
+        console.error(`record: ${todo.length} corpus session(s) unrecorded and no C recorder at ${path.relative(ROOT, DEFAULT_INSTALL)} — build it with \`bash nethack-c/build-recorder.sh\` (needs clang, bison, flex, make)`);
+        process.exit(3);
+    }
     mkdirSync(SESSIONS, { recursive: true });
     const installs = prepareInstalls(jobs);
     try {
@@ -262,15 +273,18 @@ async function cmdScore() {
     if (!entries.length) { console.log('nothing to score'); return; }
     const t0 = Date.now();
     const res = await pool(entries, jobs, async (e) => ({ ...(await runWorker(e.session)), id: e.id, src: e.src }));
-    const rows = ids || owner ? prev.rows : {};
+    const full = !ids && !owner;
+    const rows = full ? {} : prev.rows;
     for (const r of res) rows[r.id] = r;
     writeJson(SCORES, { commit: gitHead(), at: new Date().toISOString(), rows });
-    writeScoreboard(rows);
-    console.log(`scored ${res.length} in ${((Date.now() - t0) / 1000).toFixed(1)}s`);
+    writeScoreboard(rows, full);
+    const all = corpusEntries();
+    const unrecorded = all.filter((e) => !existsSync(e.session)).length;
+    console.log(`scored ${res.length} in ${((Date.now() - t0) / 1000).toFixed(1)}s${full ? ` — full rescore: ${res.length}/${all.length} corpus entries${unrecorded ? ` (${unrecorded} unrecorded: \`hidden-proxy record\`)` : ''}` : ''}`);
     printStatus(rows);
 }
 
-function writeScoreboard(rows) {
+function writeScoreboard(rows, full = false) {
     const board = {};
     for (const [id, r] of Object.entries(rows)) {
         board[id] = {
@@ -281,7 +295,18 @@ function writeScoreboard(rows) {
             error: r.error ? String(r.error).slice(0, 160) : null,
         };
     }
-    writeJson(SCOREBOARD, { commit: gitHead(), at: new Date().toISOString(), sessions: board });
+    const prior = existsSync(SCOREBOARD) ? readJson(SCOREBOARD) : {};
+    const all = corpusEntries();
+    const commit = gitHead();
+    const at = new Date().toISOString();
+    writeJson(SCOREBOARD, {
+        commit, at, full,
+        fullCommit: full ? commit : prior.fullCommit ?? null,
+        fullAt: full ? at : prior.fullAt ?? null,
+        entries: all.length,
+        unrecorded: all.filter((e) => !existsSync(e.session)).length,
+        sessions: board,
+    });
 }
 
 /* ---------------- aggregation ---------------- */
@@ -530,7 +555,7 @@ async function cmdVerify(fn) {
 
     writeJson(SCORES, { commit: gitHead(), at: new Date().toISOString(), rows: prev.rows });
     writeScoreboard(prev.rows);
-    if (exitCode) process.exit(exitCode);
+    return exitCode;
 }
 
 function cmdShow(id) {
@@ -552,7 +577,14 @@ function cmdShow(id) {
     case 'record': await cmdRecord(); break;
     case 'score': await cmdScore(); break;
     case 'queue': cmdQueue(); break;
-    case 'verify': await cmdVerify(rest[0]); break;
+    case 'verify': {
+        const fns = rest[0] && !rest[0].startsWith('--') ? rest[0].split(',').filter(Boolean) : [];
+        if (!fns.length) await cmdVerify(null);
+        let code = 0;
+        for (const f of fns) code = Math.max(code, await cmdVerify(f));
+        if (code) process.exit(code);
+        break;
+    }
     case 'show': cmdShow(rest[0]); break;
     case 'status': cmdStatus(); break;
     default:

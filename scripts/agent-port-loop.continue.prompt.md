@@ -19,7 +19,8 @@ iteration number is divisible by 10.
 2. `git diff HEAD -- js/` — the leftover **is** the work packet. Its C
    citations name the loci. Re-read C **only** at those loci, and only
    for what the brief's verify tail does not already explain.
-3. `node scripts/verify.mjs --fn <C function named in the brief>` —
+3. `node scripts/verify.mjs --fn <C function(s) named in the brief>`
+   (a cluster leftover: every function, comma-separated) —
    the previous agent usually died at or just after this step, and its
    tail in the brief may already be your failure list. Run it anyway
    (15 s): on a FAIL it prints every failing session's first divergence
@@ -44,8 +45,9 @@ JSON by offsets is the failure mode this prompt exists to stop
    file.
 3. **Ship the verified core if the rest does not fit.** When the
    leftover's core is green but an extension (a second C arm, another
-   menu path) keeps regressing the fortress, revert the extension, name
-   it in the map, queue it as its own Open row, ship the core, and say
+   menu path, another function of the cluster) keeps regressing the
+   fortress, revert the extension, name it in the map (a dropped cluster
+   function simply stays an Open row), ship the core, and say
    so in the D-log. Two commits beat a 43-minute continuation.
 4. Port C control flow, never a screen side effect: if a tty leftover
    is "kept" in C because the C loop does not redraw, remove the JS

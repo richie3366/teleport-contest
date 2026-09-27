@@ -3,13 +3,22 @@ port loop. Do **not** port new C. Do **not** edit `js/` except if you
 must fix a typo in a comment you are not here to write — default is
 **zero `js/` edits**.
 
-## Mandatory (3 calls)
+## Mandatory (4 calls)
 
 ```bash
 node frozen/ps_test_runner.mjs sessions
-node scripts/hidden-proxy.mjs score --jobs 8
+node scripts/hidden-proxy.mjs record --jobs 8   # missing corpus sessions; exit 3 = no C recorder
+node scripts/hidden-proxy.mjs score --jobs 8    # FULL: no --ids / --owner
 node scripts/leaderboard.mjs
 ```
+
+The scoreboard update is **entire**: every recorded corpus session is
+re-run and `hidden-corpus/scoreboard.json` is committed with `full: true`.
+No `hidden-proxy verify` after it (a verify clears `full`). The supervisor
+redoes the rescore and logs audit debt when the committed board is not a
+full rescore from this iteration. Report `entries` / `unrecorded` in the
+Corpus fortress line; a nonzero `unrecorded` with exit 3 is recorded, not
+worked around.
 
 Parse `__RESULTS_JSON__`. Rewrite `docs/CURRENT.md` Score: pass count,
 screen/RNG aggregates, speed label, PASS list, notable non-PASS; the

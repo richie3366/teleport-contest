@@ -295,9 +295,16 @@ clearly marked temporary and scheduled for deletion.
     enqueue (evidence class `coverage`, §10.15). Rows are never pasted by
     hand. Each audit appends `ledger.mjs summary --snapshot` to
     `docs/ledger/SNAPSHOTS.tsv` — the coverage half of the phase falsifier.
-    An iteration ports **one whole C function** — every arm, every callee
-    live or named, every C caller wired — 200–800 lines of C-faithful JS,
-    never one arm of it. §10.13's deferral of map singletons is suspended
+    An iteration ports **one cluster**: up to 10 whole C functions of one
+    C file or one caller/callee closure (human decision 2026-09-28: the
+    one-function rule had shrunk iterations to a median of ~50 lines
+    against the 200–800 target). Each function of the cluster is whole —
+    every arm, every callee live or named, every C caller wired — never
+    one arm of it; a function that cannot be ported whole drops out of
+    the cluster and stays Open. The cluster totals 200–800 lines of
+    C-faithful JS; each function gets its own `verify.mjs --fn` REACH
+    line, `Ledger:` entry and audit fidelity block. Must-fix ships
+    alone. §10.13's deferral of map singletons is suspended
     for the phase; §10.14 (throws are Must-fix) and §10.15–16 stand. The
     public 44 **and** the corpus PASS set are the regression fortress:
     `verify.mjs --fn` re-runs the corpus sessions that execute the function
@@ -305,7 +312,12 @@ clearly marked temporary and scheduled for deletion.
     session. Corpus-driven debugging (`[measure]` rows, parks, writers) is
     **phase 2**, reopened by a human; audits still re-score the corpus and
     record the leaderboard held-out line (`scripts/leaderboard.mjs`), which
-    is the only number that measures the phase.
+    is the only number that measures the phase. The audit re-score is
+    **entire and mandatory** (2026-09-28): record every missing corpus
+    session, re-run every recorded one (`hidden-proxy score`, no filter),
+    commit `hidden-corpus/scoreboard.json` marked `full`; the supervisor
+    redoes it when an audit skips it. Port-time `verify` rewrites rows
+    piecemeal, so only this rescore keeps the REACH baseline honest.
 
 ---
 
