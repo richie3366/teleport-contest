@@ -98,7 +98,7 @@ import { is_db_wall } from './dbridge.js';
 import { doopen_indir } from './lock.js';
 import { use_pick_axe2, buried_ball, buried_ball_to_punishment, bury_objs, fill_pit } from './dig.js';
 import { is_ice, resists_cold, Cold_resistance } from './zap.js';
-import { can_ooze, curr_mon_load } from './monmove.js';
+import { can_ooze, curr_mon_load, maybe_unhide_at } from './monmove.js';
 import { abuse_dog } from './dog.js';
 import { livelog_printf } from './pline.js';
 import { experience, more_experienced, newexplevel } from './exper.js';
@@ -661,8 +661,10 @@ export async function cannot_push(otmp, sx, sy) {
 
 /**
  * C ref: hack.c movobj `:824–833` — extract floor obj and place at
- * (ox,oy). maybe_unhide_at deferred. Boulder → recalc_block_point both
- * cells. Exported for ball.c move_bc's Blind arms (C has one movobj).
+ * (ox,oy). maybe_unhide_at(obj->ox, obj->oy) after remove_object, before
+ * newsym. Boulder → recalc_block_point both cells (remove_object already
+ * does the old cell; this repeats it). Exported for ball.c move_bc's
+ * Blind arms (C has one movobj). Unhide mutates before its first await.
  */
 export function movobj(obj, ox, oy) {
     if (!obj) return;
@@ -670,6 +672,7 @@ export function movobj(obj, ox, oy) {
     const oy0 = obj.oy | 0;
     const wasBoulder = (obj.otyp | 0) === BOULDER;
     obj_extract_self(obj);
+    maybe_unhide_at(obj.ox | 0, obj.oy | 0); /* C `:829` */
     newsym(ox0, oy0);
     if (wasBoulder) recalc_block_point(ox0, oy0);
     place_object(obj, ox, oy);

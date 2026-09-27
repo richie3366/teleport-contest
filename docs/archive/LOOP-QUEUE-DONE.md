@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-27
 
-- [x] `wield.c` cant_wield_corpse — coverage MISSING (C 15 L `wield.c:138–153` / JS no symbol; hops 4, callers 2, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn cant_wield_corpse` (reach regression must be 0). Measured `port-coverage.mjs --name cant_wield_corpse` 2026-09-27 @ 4c8d21966. **Addressed:** D-2922
+- [x] `mon.c` maybe_unhide_at — coverage PARTIAL (C 22 L `mon.c:4698–4720` / JS 12 L in js/monmove.js; hops 2, callers 21, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn maybe_unhide_at` (reach regression must be 0). Measured `port-coverage.mjs --name maybe_unhide_at` 2026-09-27 @ 4c8d21966. **Addressed:** D-2923
+
+
+- [x] `wield.c` cant_wield_corpse — coverage MISSING (C 15 L `wield.c:138–153` / JS no symbol; hops 4, callers 2, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn cant_wield_corpse` (reach regression must be 0). Measured `port-coverage.mjs --name cant_wield_corpse` 2026-09-27 @ 4c8d21966. **Addressed:** D-2922 `b88b8599f`
 
 
 - [x] `trap.c` deltrap — coverage PARTIAL (C 18 L `trap.c:6531–6549` / JS 13 L in js/trap.js; hops 2, callers 56, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn deltrap` (reach regression must be 0). Measured `port-coverage.mjs --name deltrap` 2026-09-27 @ 4c8d21966. **Addressed:** D-2921 `54bbae9a5`

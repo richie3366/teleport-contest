@@ -110,6 +110,7 @@ import {
     meatcorpse,
     m_respond,
     onscary,
+    hideunder as hideunderHero,
 } from './mon.js';
 
 const CREDIT_CARD = objectNames.indexOf('CREDIT_CARD');
@@ -1339,21 +1340,42 @@ async function hideunder(mtmp) {
 }
 
 /**
- * C ref: mon.c maybe_unhide_at — reveal hider when floor obj gone / eel
- * left water. Callers: m_move after place (monmove.c:2060);
- * rloc_to_core after ustuck, before newsym (teleport.c:1700, D-1152).
- * Named omission: hero (youmonst / uundetected) path.
+ * C ref: mon.c maybe_unhide_at `:4698–4720` — reveal a hider at (x,y)
+ * when the floor object is gone, the hider is trapped, the object
+ * cannot conceal, or an eel has left the water.
+ * Monster arm uses mundetected/mtrapped. No monster and the hero is
+ * here: youmonst, u.uundetected, u.utrap (mon.js hideunder writes
+ * u.uundetected). Otherwise return. objects_at is level.objects[x][y].
+ * The local hideunder keeps the monster You_see; the hero uses the
+ * mon.js export (youmonst / Stone_resistance).
  */
 export async function maybe_unhide_at(x, y) {
-    const mtmp = m_at(x, y);
-    if (!mtmp) return;
-    if (!mtmp.mundetected) return;
-    const trapped = !!mtmp.mtrapped;
+    let mtmp = m_at(x, y);
+    let undetected = false;
+    let trapped = false;
+
+    if (mtmp) {
+        undetected = !!mtmp.mundetected;
+        trapped = !!mtmp.mtrapped;
+    } else if (u_at(x, y)) {
+        mtmp = game.youmonst;
+        if (!mtmp) return;
+        const u = game.u || {};
+        undetected = !!u.uundetected;
+        trapped = !!(u.utrap | 0);
+    } else {
+        return;
+    }
+
+    /* C: !OBJ_AT || trapped || !can_hide_under_obj(level.objects[x][y]),
+       short-circuit so a missing pile does not ask can_hide_under_obj. */
     const floorObj = objects_at(x, y);
-    if ((hides_under(mtmp.data)
-            && (!floorObj || trapped || !can_hide_under_obj(floorObj)))
-        || (mtmp.data?.mlet === 'S_EEL' && !is_pool(x, y))) {
-        await hideunder(mtmp);
+    if (undetected
+        && ((hides_under(mtmp.data)
+             && (!floorObj || trapped || !can_hide_under_obj(floorObj)))
+            || (mtmp.data?.mlet === 'S_EEL' && !is_pool(x, y)))) {
+        if (mtmp === game.youmonst) hideunderHero(mtmp);
+        else await hideunder(mtmp);
     }
 }
 

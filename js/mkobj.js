@@ -3752,7 +3752,7 @@ export function dobjsfree() {
  * C ref: invent.c delobj_core `:1436–1462`. force==TRUE skips
  * obj_resists (zap.c revive floor Rider corpses). Floor extract then
  * maybe_unhide_at + newsym, then obfree (contents too).
- * Named: maybe_unhide_at youmonst; trap.js delete_contents_chest /
+ * youmonst is inside maybe_unhide_at (D-2923). Named: trap.js delete_contents_chest /
  * mklev.js create_object_delete_contents.
  */
 export function delobj_core(obj, force) {

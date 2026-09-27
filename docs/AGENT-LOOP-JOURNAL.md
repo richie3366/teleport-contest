@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2923 `maybe_unhide_at` reveals a hero hiding under a moved object
+
+**C locus:** `nethack-c/upstream/src/mon.c:4698–4720` `maybe_unhide_at`. If `m_at`, read `mundetected` and `mtrapped`. Else if `u_at`, use `&gy.youmonst`, `u.uundetected`, and `u.utrap`. Else return. If undetected and (`hides_under` and (`!OBJ_AT` or trapped or `!can_hide_under_obj(level.objects[x][y])`) or `S_EEL` and `!is_pool`), call `hideunder`.
+**JS:** `js/monmove.js` `maybe_unhide_at` `:1352`. Hero arm `:1360–1365`. `hideunder` split `:1377–1378`. `movobj` `js/hack.js:675`. Sighted `move_bc` `js/ball.js:651` and `:655`. `launch_obj` `js/trap.js:2609`. Away burn `js/timeout.js:1864`. Age-0 candle `js/timeout.js:2047`.
+**Change:** One async `maybe_unhide_at` in that C order. `objects_at` is `level.objects[x][y]`. A monster still awaits the local `hideunder` (the You_see clone).
+**Verify:** `node scripts/verify.mjs --fn maybe_unhide_at` → PASS syntax (6 changed js files: js/ball.js js/hack.js js/mkobj.js js/monmove.js js/timeout.js js/trap.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.5s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+**Named:** No arm of `maybe_unhide_at` is omitted. Monster `hideunder` stays the `monmove.js` local (You_see).
+**Next:** `worn.c` `extract_from_minvent` (next Open — coverage row). `corpse_intrinsic` parked Stale. Ten coverage rows remain after archive, above the floor of 8, so nothing was refilled. The queue-empty overlay was `queue_has_open` calling `rg`, which was not installed; ripgrep now sees the open rows.
 ## 2026-09-27 — D-2922 `cant_wield_corpse` petrifies a bare-handed cockatrice wield
 
 **C locus:** `nethack-c/upstream/src/wield.c:138–153` `cant_wield_corpse`. Return false when `uarmg`, `otyp != CORPSE`, `!touch_petrifies(&mons[corpsenm])`, or `Stone_resistance` (`youprop.h` `HStone_resistance || EStone_resistance`). Else `You("wield %s in your bare %s.", corpse_xname(obj, NULL, CXN_PFX_THE), makeplural(body_part(HAND)))`, then `instapetrify` of `wielding <killer_xname> bare-handed`, and return true.

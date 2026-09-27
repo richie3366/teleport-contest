@@ -2606,6 +2606,7 @@ export async function launch_obj(otyp, x1, y1, x2, y2, style) {
     let singleobj;
     if ((otmp.quan | 0) === 1) {
         obj_extract_self(otmp);
+        await maybe_unhide_at(otmp.ox | 0, otmp.oy | 0); /* C `:3295` */
         singleobj = otmp;
         otmp = null;
     } else {

@@ -3133,7 +3133,7 @@ growl pline** D-0928 #1161; **unconditional `finish_meating` D-2417**
 `big_little_match`+growl `PLNMSG_GROWL`; `setmangry` `!mon_moving`); **victim growl else-arm ported D-2124**; **`setmangry` whole body + `qst_guardians_respond` ported D-2494** (Elbereth hypocrite arm with inline strict `sengr_at`; quest-leader mndx/`ldrnum` gate; `vault.c:526` dead-Croesus caller wired in `js/vault.js` `invault`; `quest.c:479` pissed_off stays named); omit `hot_pursuit`/`freemcorpsenm`/light-block + Croesus-alive dialogue);
 **`postmov` hides_under/`S_EEL` `rn2(5)`→`hideunder` + `can_hide_under_obj`** (D-0496; 
 **You_see hide pline** D-0928 #1139; pet cursed / cockatrice skip deferred) + 
-**`m_move` `maybe_unhide_at` after place before track/postmov** (D-0769; youmonst path deferred); 
+**`maybe_unhide_at` whole body** (D-2923; `mon.c:4698–4720`: monster `mundetected`/`mtrapped`, else `u_at` → `youmonst`/`u.uundetected`/`u.utrap`, else return; `hides_under` plus missing pile / trapped / `!can_hide_under_obj`, or eel `!is_pool`, then `hideunder`. Hero calls `mon.js` `hideunder`; monsters keep the local You_see clone. Callers: `movobj` `hack.js`, sighted `move_bc` `ball.js`, `launch_obj` quan 1 `trap.js`, `burn_object` away + age 0 `timeout.js`. `m_move` still calls it after place, D-0769); 
 **`postmov` `maybe_spin_web` + `webmaker`/`count_traps`/`holds_up_web`** (D-0595; 
 **pline_mon + upstart(y_monnam)/something D-1227**; shop `add_damage` deferred); 
 **`m_move` hides_under + OBJ_AT + `can_hide_under_obj` + 
