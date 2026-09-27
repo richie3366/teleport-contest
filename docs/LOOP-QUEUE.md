@@ -112,18 +112,18 @@ body in C order — every arm, every callee live or named, every C caller
 wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 
 <!-- coverage:begin -->
-- [ ] `display.c` set_corn — coverage THIN (C 24 L `display.c:3208–3236` / JS 9 L in js/mklev.js; hops 4, callers 4, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn set_corn` (reach regression must be 0). Measured `port-coverage.mjs --name set_corn` 2026-09-27 @ 8d00a95a8.
-- [ ] `engrave.c` engr_can_be_felt — coverage THIN (C 18 L `engrave.c:297–315` / JS 5 L in js/display.js; hops 2, callers 2, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn engr_can_be_felt` (reach regression must be 0). Measured `port-coverage.mjs --name engr_can_be_felt` 2026-09-27 @ 936dc8938.
-- [ ] `do.c` familiar_level_msg — coverage PARTIAL (C 28 L `do.c:1448–1476` / JS 20 L in js/do.js; hops 3, callers 1, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn familiar_level_msg` (reach regression must be 0). Measured `port-coverage.mjs --name familiar_level_msg` 2026-09-27 @ 936dc8938.
-- [ ] `rumors.c` get_rnd_text — coverage THIN (C 23 L `rumors.c:499–526` / JS 4 L in js/rumors.js; hops 3, callers 3, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn get_rnd_text` (reach regression must be 0). Measured `port-coverage.mjs --name get_rnd_text` 2026-09-27 @ 936dc8938.
 - [ ] `questpgr.c` quest_info — coverage PARTIAL (C 15 L `questpgr.c:31–46` / JS 8 L in js/read.js; hops 3, callers 10, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn quest_info` (reach regression must be 0). Measured `port-coverage.mjs --name quest_info` 2026-09-27 @ 78432069f.
 - [ ] `dbridge.c` e_jumps — coverage PARTIAL (C 20 L `dbridge.c:531–551` / JS 11 L in js/dbridge.js; hops 5, callers 2, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn e_jumps` (reach regression must be 0). Measured `port-coverage.mjs --name e_jumps` 2026-09-27 @ 78432069f.
 - [ ] `botl.c` bot — coverage PARTIAL (C 12 code L `botl.c:253–271` / JS 7 code L in js/display.js; hops 0, callers 22, RNG 0, msg 1) @5184b40bf
 - [ ] `mkobj.c` mksobj — coverage PARTIAL (C 59 code L `mkobj.c:1179–1259` / JS 42 code L in js/mkobj.js; hops 2, callers 53, RNG 1, msg 0) @5184b40bf
 - [ ] `getpos.c` auto_describe — coverage MISSING (C 18 code L `getpos.c:640–662` / JS no symbol; hops 2, callers 2, RNG 0, msg 1) @5184b40bf
 - [ ] `hacklib.c` mungspaces — coverage THIN (C 14 code L `hacklib.c:142–160` / JS 1 code L in js/engrave.js; hops 1, callers 42, RNG 0, msg 0) @5184b40bf
-- [ ] `rumors.c` outrumor — coverage PARTIAL (C 32 code L `rumors.c:529–574` / JS 23 code L in js/rumors.js; hops 4, callers 5, RNG 3, msg 5) @5184b40bf
 - [ ] `botl.c` status_eval_next_unhilite — coverage MISSING (C 25 code L `botl.c:2279–2317` / JS no symbol; hops 2, callers 1, RNG 0, msg 0) @5184b40bf
+- [ ] `pline.c` You_feel — coverage THIN (C 9 code L `pline.c:388–400` / JS 2 code L in js/display.js; hops 1, callers 144, RNG 0, msg 0) @988c639a6
+- [ ] `objnam.c` aobjnam — coverage THIN (C 9 code L `objnam.c:2244–2258` / JS 4 code L in js/artifact.js; hops 3, callers 10, RNG 0, msg 2) @988c639a6
+- [ ] `trap.c` trapeffect_dart_trap — coverage PARTIAL (C 54 code L `trap.c:1251–1321` / JS 39 code L in js/trap.js; hops 4, callers 1, RNG 5, msg 3) @988c639a6
+- [ ] `hacklib.c` strncmpi — coverage THIN (C 11 code L `hacklib.c:717–734` / JS 2 code L in js/vault.js; hops 2, callers 77, RNG 0, msg 0) @988c639a6
+- [ ] `cmd.c` show_direction_keys — coverage PARTIAL (C 35 code L `cmd.c:4122–4165` / JS 25 code L in js/dokeylist.js; hops 2, callers 2, RNG 0, msg 10) @988c639a6
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

@@ -6,7 +6,7 @@
 {"fn":"sengr_at","c":"251-261","status":"unknown"}
 {"fn":"u_wipe_engr","c":"264-268","status":"unknown"}
 {"fn":"wipe_engr_at","c":"271-290","status":"unknown"}
-{"fn":"engr_can_be_felt","c":"297-315","status":"unknown"}
+{"fn":"engr_can_be_felt","c":"297-315","status":"ported","js":["js/display.js:engr_can_be_felt"],"at":"2026-09-27@988c639a6","note":"stale: js/display.js:4836"}
 {"fn":"read_engr_at","c":"318-405","status":"unknown"}
 {"fn":"make_engr_at","c":"408-457","status":"partial","js":["js/engrave.js:make_engr_at"],"omit":"newengr/engr_text_space arena (by design — JS strings need no arena; sizes kept on the record); `return ep` JS extension noted above.","d":["D-2567"],"at":"seed@a30a7de84"}
 {"fn":"del_engr_at","c":"461-467","status":"unknown"}

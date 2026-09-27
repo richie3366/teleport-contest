@@ -43,7 +43,7 @@ import {
     ONAME_VIA_NAMING, ONAME_KNOW_ARTI, ONAME_SKIP_INVUPD,
     LL_CONDUCT, LL_ARTIFACT, W_WEP,
     MGIVENNAME, has_mgivenname,
-    W_SADDLE, engulfing_u, Upolyd, MD_PAD_BOGONS,
+    W_SADDLE, engulfing_u, Upolyd, MD_PAD_BOGONS, BOGUSMONFILE,
     ARTICLE_NONE, ARTICLE_THE, ARTICLE_A, ARTICLE_YOUR,
     SUPPRESS_IT, SUPPRESS_INVISIBLE, SUPPRESS_HALLUCINATION,
     SUPPRESS_SADDLE, SUPPRESS_MAPPEARANCE, SUPPRESS_NAME, EXACT_NAME,
@@ -83,7 +83,6 @@ import {
     objectNames, objectNameStrs, objectDescrs,
 } from './objects.js';
 import { get_rnd_text } from './rumors.js';
-import { BOGUSMON_BUF } from './generated/bogusmon_data.js';
 import { m_at } from './mon.js';
 import { cansee } from './vision.js';
 import { fuzzymatch, strstri, highc, lcase, distmin } from './hacklib.js';
@@ -279,7 +278,7 @@ export function Hallucination() {
  */
 export function bogusmon(codeOut = null) {
     if (codeOut) codeOut.c = '';
-    let mnam = get_rnd_text(BOGUSMON_BUF, rn2_on_display_rng, MD_PAD_BOGONS) || '';
+    let mnam = get_rnd_text(BOGUSMONFILE, rn2_on_display_rng, MD_PAD_BOGONS) || '';
     if (!mnam) mnam = 'bogon';
     else if (BOGON_CODES.includes(mnam[0])) {
         if (codeOut) codeOut.c = mnam[0];

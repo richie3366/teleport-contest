@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2962 `get_rnd_text` keeps the line after the pad loop
+
+**C locus:** `nethack-c/upstream/src/rumors.c:499–526` `get_rnd_text`. `dlb_fopen` then `buf[0] = '\0'`. On success, one `dlb_fgets` skips the "don't edit" comment, `dlb_fseek`/`dlb_ftell` set `starttxt`, `get_rnd_line` (`:419–494`) draws with `endpos` 0, then `dlb_fclose`. On failure, `couldnt_open_file`. `get_rnd_line` seeks with `rng((int) filechunksize)` up to ten times, accepts a rest whose `strlen` is at most `padlength + 1` (newline counted), and after the loop always `fgets` the next line, wrapping to `startpos` when `ftell >= endpos` or that `fgets` fails. Newline strip, `xcrypt`, then `unpadline` only when `padlength` is non-zero.
+**JS:** `js/rumors.js` `unpadline` `:51`. `embed_fgets` `:66`. `get_rnd_line` `:87`. Seek loop `:95–103`. Post-loop read `:105–112`. `rnd_text_embed` `:128`. `get_rnd_text` `:137`. Success `:140–145`. Failure `:147–148`. `couldnt_open_file` `:276`. `getrumor` call `:200`.
+**Change:** One exported `get_rnd_text` keeps that C order on the Rule #2 embeds. `rnd_text_embed` is `dlb_fopen`. The extractor already consumed the comment, so `starttxt` is 0 and `endpos` 0 is EOF.
+**Verify:** `node scripts/verify.mjs --fn get_rnd_text` → PASS syntax (3 changed js file(s): js/do_name.js js/engrave.js js/rumors.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed; pass --full to force) · VERIFY: PASS.
+**Named:** No arm of the seek loop or the failed-file report is omitted. `dlb_fopen`, `dlb_fgets`, `dlb_fseek`, `dlb_ftell`, and `dlb_fclose` are the embeds (ledger by-design).
+**Next:** `questpgr.c` `quest_info` (next Open — coverage row).
 ## 2026-09-27 — process take (human-authorised): port ledger
 
 **Change:** per-function status moves to `docs/ledger/<file>.c.jsonl` (`docs/LEDGER.md`), seeded from DONE rows, full-range index citations, Stale lines and the Do-not set (415 ported, 223 partial, 305 by-design, 4385 unknown). The LOOP-QUEUE coverage block is generated (`ledger.mjs rows --write`); 159 Refill paragraphs and 231 Stale lines archived (232 kB → 26 kB). Handoff = D-entry `- **Ledger:**` bullet (finish applies it, fail-closed when `js/` changed); stale = `ledger.mjs set <fn> ported --note "stale: …"`. `c-js-map/*.md` frozen. Constitution §10.8/§10.15/§10.17, runbook §2/§4/§5, playbook, prompts, rules updated.
