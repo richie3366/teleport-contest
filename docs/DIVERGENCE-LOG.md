@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2929 — `whatdoes_help` keeps the fgets newline so putstr collapses spaces
+
+- **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked). C is 24 lines; the whole body shipped.
+- **Symptom:** The keyhelp page left two spaces after a sentence period. `fgets` stores the newline in the buffer, and `putstr` on an `NHW_TEXT` window runs `compress_str` on any string that contains a newline, which turns that newline into a space and collapses the run.
+- **C locus:** `nethack-c/upstream/src/pager.c:2421–2445` `whatdoes_help`. `dlb_fopen(KEYHELP, "r")`. On failure, `pline("Cannot open \"%s\" data file!", KEYHELP)` and `display_nhwindow(WIN_MESSAGE, TRUE)`. Else `create_nhwindow(NHW_TEXT)`. `while (dlb_fgets(buf, sizeof buf, fp))`: if `*buf == '#'` continue; skip leading `' '` and `'\t'`; `putstr(tmpwin, 0, p)`. `dlb_fclose`. `display_nhwindow(tmpwin, TRUE)`. `destroy_nhwindow(tmpwin)`.
+- **JS was:** `js/pager.js` `readDat('keyhelp')`, split on newline so `compress_str` never saw `\n` on a short line, skipped a chunk that started with `#`, stripped leading space and tab, popped every trailing empty line, then `show_text_pages`. The miss path called `more()` after `pline`.
+- **Fix:** One file-local async `whatdoes_help` in that C order. `readDat(KEYHELP)` is the embedded `DAT_TEXT` stand-in for `dlb_fopen` (Rule #2). The walk stores at most `BUFSZ-1` bytes and keeps a newline that fits in that window. `'#'` at byte 0 skips the chunk. Leading space and tab are stripped. The remainder, newline included, is one `putstr` line for `show_text_pages`, so `compress_str` runs. A missing text calls `pline` then `flush_topl_more`. `dowhatdoes` already calls it for `'&'` and `'?'`.
+- **JS:** `js/pager.js` `whatdoes_help` `:3060`. `readDat` `:3061`. Miss `pline` `:3063`. `flush_topl_more` `:3064`. fgets window `:3068–3076`. `'#'` `:3077`. Strip `:3078–3079`. `putstr` `:3080`. `show_text_pages` `:3082`.
+- **Callers:** `pager.c:34` is the prototype. `:2696` `dowhatdoes` → `js/pager.js:3116` when `q` is `'&'` (38) or `'?'` (63). No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn whatdoes_help` → PASS syntax (1 changed js file: js/pager.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.4s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: PASS.
+- **Named omissions:** No arm of `whatdoes_help` is omitted. `dlb_fopen`, `dlb_fgets`, and `dlb_fclose` have no filesystem; the bytes are `DAT_TEXT[KEYHELP]` and the loop is `fgets`. `create_nhwindow`, `display_nhwindow` of the text window, and `destroy_nhwindow` have no `wins[]` object; `show_text_pages` is that page. `display_nhwindow(WIN_MESSAGE, TRUE)` is `flush_topl_more`.
+- **Next:** `do_wear.c` `Shield_off` (next Open — coverage row). Nine coverage rows remain after archive, above the floor of 8, so nothing was refilled.
+
 ## D-2928 — `worn_item_removal` says "the" for the chain and "from" for a hand
 
 - **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked). C is 38 lines; the whole body shipped.

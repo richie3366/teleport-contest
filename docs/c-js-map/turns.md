@@ -915,7 +915,15 @@ expansion before 23-line paging; D-1905 remainder starts AFTER the break space (
 **NHW_MENU putstr `show_nhw_menu_text` `dmore` quitchars** (D-0240; space/CR/ESC only); 
 **`dowhatdoes` tip+`What command?`+`key2extcmddesc`** (D-0090);
 **cmd.c `&` → `dowhatdoes` dispatch + export** (D-1855; IFBURIED|GENERALCMD,
-ECMD_OK no turn; ALTMETA ESC-double + introff/intron named); 
+ECMD_OK no turn; ALTMETA ESC-double + introff/intron named);
+**`whatdoes_help` whole body D-2929** (`pager.c:2421–2445` → `js/pager.js`
+`whatdoes_help`: `readDat(KEYHELP)` is `dlb_fopen`/`dlb_fgets`/`dlb_fclose`
+on embedded `DAT_TEXT` (Rule #2); fgets keeps a newline that fits in
+`BUFSZ-1`; `#` at byte 0 skips the chunk; leading space/tab stripped;
+`putstr` via `show_text_pages` so `compress_str` sees the newline;
+miss path `pline` + `flush_topl_more`; caller `pager.c:2696` wired in
+`dowhatdoes` for `&` and `?`; named: no tty `wins[]` object, so
+`create_nhwindow` / `destroy_nhwindow` are that page); 
 **help `g` → `option_help`** (D-0091); **`dokeylist`/`domenucontrols`/`docontact` + 
 default !num_pad binds** (D-0131); **`setopt_cmd` whole body D-2837** (`pager.c:2908–2957` → `js/pager.js` `setopt_cmd`: unbound `#optionsfull` (`doset`) else `'m O'` via `do_reqmenu` + `doset_simple`; caller `pager.c:2882` wired in `dohelp`; callees `cmd_from_func` / `cmdname_from_func` live in `js/dokeylist.js`, `copynchars` in `js/hacklib.js`; also wired `cmd.c:1579` `do_reqmenu`, `:537` `doc_extcmd_flagstr`, `:508` `doextcmd`, `options.c:5974` `handler_paranoid_confirmation`; named: cmdbinds index order vs link order, `debugcore`/`debugpline2`, remaining `cmd_from_func` call sites); **`display_file` keeps intentional trailing blank** (D-0131); 
 **`;` → `doquickwhatis`/`do_look(1)` + `look_at_monster` distant_monnam/asleep + 
