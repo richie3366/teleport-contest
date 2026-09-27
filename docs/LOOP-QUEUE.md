@@ -112,9 +112,6 @@ body in C order — every arm, every callee live or named, every C caller
 wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 
 <!-- coverage:begin -->
-- [ ] `worn.c` which_armor — coverage PARTIAL (C 25 code L `worn.c:1006–1036` / JS 17 code L in js/worn.js; hops 2, callers 54, RNG 0, msg 0) @06237de26
-- [ ] `zap.c` get_obj_location — coverage PARTIAL (C 27 code L `zap.c:654–689` / JS 19 code L in js/timeout.js; hops 2, callers 40, RNG 0, msg 0) @f02368fbc
-- [ ] `cmd.c` cmdq_add_ec — coverage PARTIAL (C 11 code L `cmd.c:254–270` / JS 7 code L in js/cmd.js; hops 1, callers 16, RNG 0, msg 0) @a5772c318
 - [ ] `objnam.c` singular — coverage PARTIAL (C 9 code L `objnam.c:2091–2105` / JS 6 code L in js/objnam.js; hops 1, callers 16, RNG 0, msg 0) @5398b19c2
 - [ ] `pline.c` You_see — coverage THIN (C 11 code L `pline.c:455–469` / JS 4 code L in js/dbridge.js; hops 3, callers 24, RNG 0, msg 0) @45ea89017
 - [ ] `worn.c` check_wornmask_slots — coverage MISSING (C 84 code L `worn.c:355–471` / JS no symbol; hops 3, callers 1, RNG 0, msg 0; dead callees: sanity_check_worn) @45ea89017
@@ -124,6 +121,9 @@ wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 - [ ] `options.c` show_menu_controls — coverage PARTIAL (C 87 code L `options.c:9070–9174` / JS 50 code L in js/dokeylist.js; hops —, callers 2, RNG 0, msg 19) @8a0963412
 - [ ] `insight.c` align_str — coverage THIN (C 10 code L `insight.c:3187–3200` / JS 3 code L in js/quest.js; hops 3, callers 13, RNG 0, msg 0) @3b405b65a
 - [ ] `dothrow.c` release_camera_demon — coverage PARTIAL (C 10 code L `dothrow.c:2457–2470` / JS 7 code L in js/dothrow.js; hops 4, callers 2, RNG 2, msg 1) @b3da2ae0e
+- [ ] `read.c` wand_explode — coverage PARTIAL (C 35 code L `read.c:2414–2457` / JS 17 code L in js/read.js; hops 5, callers 2, RNG 1, msg 1) @25beec7af
+- [ ] `earlyarg.c` argcheck — coverage MISSING (C 77 code L `earlyarg.c:450–560` / JS no symbol; hops —, callers 1, RNG 0, msg 0; dead callees: debug_fields, dump_version_info, early_version_info, dump_enums, dump_mongen, dump_weights, …) @25beec7af
+- [ ] `shk.c` price_quote — coverage PARTIAL (C 46 code L `shk.c:5406–5465` / JS 34 code L in js/shk.js; hops 5, callers 1, RNG 0, msg 5) @25beec7af
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

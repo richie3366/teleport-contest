@@ -4,7 +4,7 @@
 {"fn":"release_hold","c":"578-609","status":"unknown"}
 {"fn":"probe_objchain","c":"612-623","status":"unknown"}
 {"fn":"probe_monster","c":"626-640","status":"unknown"}
-{"fn":"get_obj_location","c":"654-689","status":"unknown"}
+{"fn":"get_obj_location","c":"654-689","status":"ported","js":["js/timeout.js:get_obj_location"],"d":["D-2977"],"at":"2026-09-27@25beec7af","note":"stale: js/timeout.js:1637"}
 {"fn":"get_mon_location","c":"692-709","status":"unknown"}
 {"fn":"montraits","c":"713-827","status":"unknown"}
 {"fn":"get_container_location","c":"841-859","status":"unknown"}

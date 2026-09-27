@@ -13,7 +13,7 @@
 {"fn":"find_mac","c":"717-736","status":"unknown"}
 {"fn":"m_dowear","c":"757-796","status":"unknown"}
 {"fn":"m_dowear_type","c":"799-1002","status":"unknown","d":["D-2227","D-2215"],"at":"seed@a30a7de84"}
-{"fn":"which_armor","c":"1006-1036","status":"unknown"}
+{"fn":"which_armor","c":"1006-1036","status":"ported","js":["js/worn.js:which_armor"],"d":["D-2977"],"at":"2026-09-27@25beec7af","note":"stale: js/worn.js:408"}
 {"fn":"m_lose_armor","c":"1040-1051","status":"unknown"}
 {"fn":"clear_bypass","c":"1055-1064","status":"unknown"}
 {"fn":"clear_bypasses","c":"1070-1116","status":"ported","js":["js/worn.js:clear_bypasses"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}

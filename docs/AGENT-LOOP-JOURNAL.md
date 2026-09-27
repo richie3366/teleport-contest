@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2977 `cmdq_add_ec` stores the extcmdlist row for the queued function
+
+**C locus:** `nethack-c/upstream/src/cmd.c:253–270` `cmdq_add_ec`. Allocate a node, set `typ = CMDQ_EXTCMD`, `ec_entry = ext_func_tab_from_func(fn)`, `next = NULL`, walk `command_queue[q]` to the tail, and link the node or install it as the head. `ext_func_tab_from_func` (`cmd.c:3015–3025`) returns the first `extcmdlist` row whose `ef_funct` is `fn`, including `INTERNALCMD`, or NULL.
+**JS:** `js/cmd.js` `cmdq_add_ec` `:428`. Lookup `:432`. `ec_entry` `:439`. `FUNCT_TXT` `:1669`. `ext_func_tab_from_func` `:1848`. `act_on_act_here` `:2405`. `domouseaction` `:2463`. `act_on_act` `:2594`. `rhack` `CQ_REPEAT` `:4874`. `js/shk.js` `shk_full_get_obj_location` `:1068`, `:2407`, `:3408`.
+**Change:** `cmdq_add_ec` calls `ext_func_tab_from_func` first and stores that row's `txt`, `flags`, and `ec_entry`. A caller tab is used only when the lookup misses. `FUNCT_TXT` is the `ef_funct` identity (the generated table has `ef_txt`, not pointers), including alternate rows (`altdip`, `altunwield`, `alttakeoff`, `altadjust`) and `do_move_*` / `dotravel_target` / `doclicklook`.
+**Verify:** `node scripts/verify.mjs --fn cmdq_add_ec --reach-all` → PASS syntax (2 changed js file(s): js/cmd.js js/shk.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.4s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script shared-file list does not include js/cmd.js or js/shk.js) · VERIFY: PASS. Extra: seed0101, seed0106, seed0116 PASS.
+**Named:** `cmd.c:4727` `doidtrap` is still a dynamic import; `pager.js` does not export it, so it is not in `FUNCT_TXT`. `cmd.c:4912` mouse-button `ef_funct` stays unwired (`bind_mousebtn` unset).
+**Next:** `objnam.c` `singular` (next Open — coverage row).
 ## 2026-09-27 — D-2976 `cmdq_add_key` appends a key on the named command queue
 
 **C locus:** `nethack-c/upstream/src/cmd.c:274–290` `cmdq_add_key`. Allocate a node (`alloc`, GC here), set `typ = CMDQ_KEY`, `key`, `next = NULL`, walk `command_queue[q]` to the tail, and link the node or install it as the head. `cmdq_add_ec` (`cmd.c:253–270`) is the same append with `typ = CMDQ_EXTCMD` and `ec_entry = ext_func_tab_from_func(fn)`.

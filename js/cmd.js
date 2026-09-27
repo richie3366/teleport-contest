@@ -62,16 +62,17 @@ import { vision_recalc, couldsee, cansee } from './vision.js';
 import {
     ddoinv, dodiscovered, doattributes, dolook, doprgold, doprwep, doprarm,
     doprring, dopramulet, doprtool, doprinuse, doperminv, dotypeinv,
+    doorganize, adjust_split,
     cmdq_add_key, Blind, free_pickinv_cache,
 } from './invent.js';
 import { dovspell, docast, num_spells } from './spell.js';
 import { doeat, sgn } from './eat.js';
-import { dodrink } from './potion.js';
+import { dodrink, dodip, dip_into } from './potion.js';
 import { dozap } from './zap.js';
 import { doread } from './read.js';
 import { doengrave, maybe_smudge_engr, set_occupation, can_reach_floor, engr_at } from './engrave.js';
 import { dothrow, dofire } from './dothrow.js';
-import { doapply, check_leash } from './apply.js';
+import { doapply, dorub, check_leash } from './apply.js';
 import { dokick } from './dokick.js';
 import { dosit } from './sit.js';
 import { donull, dodown, doup, dodrop, doddrop, reset_occupations } from './do.js';
@@ -84,16 +85,18 @@ import {
     defsym_explanation, stumble_onto_mimic,
 } from './uhitm.js';
 import { dig_typ, use_pick_axe2 } from './dig.js';
-import { rehumanize, body_part } from './polyself.js';
+import { rehumanize, body_part, domonability } from './polyself.js';
 import { Levitation, Flying } from './mhitu.js';
-import { doopen, doopen_indir, doclose } from './lock.js';
+import { doopen, doopen_indir, doclose, doforce } from './lock.js';
 import { doextcmd, getlin, mungspaces, extcmd_run_by_txt, paranoid_query } from './getline.js';
 import { strstri, strsubst, upstart } from './hacklib.js';
 import { dosearch, doterrain } from './detect.js';
-import { dotakeoff, doddoremarm, dowear, doputon, doremring } from './do_wear.js';
+import { dotakeoff, doddoremarm, dowear, doputon, doremring, remarm_swapwep, ia_dotakeoff } from './do_wear.js';
 import { wiz_wish, wiz_genesis, wiz_level_tele, wiz_map } from './wizcmds.js';
+import { dosacrifice } from './pray.js';
+import { doinvoke } from './artifact.js';
 import { dotelecmd, goodpos } from './teleport.js';
-import { dowield, dowieldquiver, doswapweapon } from './wield.js';
+import { dowield, dowieldquiver, doswapweapon, dotwoweapon } from './wield.js';
 import { dowhatis, doquickwhatis, dohelp, dowhatdoes, doversion, show_text_pages } from './pager.js';
 import {
     visctrl, key2txt, cmdbind_get, cmd_from_dir, cmd_from_func,
@@ -139,12 +142,12 @@ import {
     air_turbulence, slippery_ice_fumbling,
     test_move,
 } from './hack.js';
-import { t_at } from './trap.js';
+import { t_at, dountrap } from './trap.js';
 import { acurr, exercise, A_DEX, Fumbling } from './attrib.js';
 import { drag_ball, move_bc } from './ball.js';
 import { in_out_region } from './region.js';
 import { m_postmove_effect, can_ooze, accessible } from './monmove.js';
-import { exercise_steed, stucksteed, helpless_steed } from './steed.js';
+import { exercise_steed, stucksteed, helpless_steed, doride } from './steed.js';
 
 /** C flag.h:30,33 — `wizard` is `flags.debug`, `discover` is `flags.explore`. */
 function wizardOn() {
@@ -414,21 +417,26 @@ function rhack_cmd_insane(flags) {
 
 /**
  * C ref: cmd.c cmdq_add_ec `:253–270` — typ CMDQ_EXTCMD, tail-append.
- * C sets ec_entry via ext_func_tab_from_func(fn). JS stores the
- * caller-supplied tab (txt/flags) and does not look the row up when
- * tab is omitted, so rhack calls fn directly (empty txt).
- * @param {number} q
- * @param {Function} fn
- * @param {{ txt?: string, flags?: number } | null} [tab]
+ * `:260` ec_entry = ext_func_tab_from_func(fn). JS push is that tail
+ * walk (`while (cq->next)` then link, or install the head). A caller
+ * tab is used only when the lookup misses (anonymous wrapper, or an
+ * ef_funct that is not in FUNCT_TXT).
+ * @param {number} q CQ_CANNED or CQ_REPEAT
+ * @param {Function} fn C `int (*fn)(void)`
+ * @param {{ txt?: string, flags?: number, run?: Function } | null} [tab]
  */
 export function cmdq_add_ec(q, fn, tab = null) {
     const name = cmdq_qname(q);
     if (!game[name]) game[name] = [];
+    /* C `:259–260`. Lookup wins over a caller-supplied row. */
+    const looked = ext_func_tab_from_func(fn);
+    const ec = looked || tab;
     game[name].push({
         typ: CMDQ_EXTCMD,
         run: fn,
-        txt: tab?.txt || '',
-        flags: tab?.flags | 0,
+        txt: ec?.txt || '',
+        flags: ec?.flags | 0,
+        ec_entry: looked || null,
     });
 }
 
@@ -1652,10 +1660,103 @@ const SPKEYS_BINDS = [
     [NHKF_GETPOS_MENU, 33],
 ];
 
-/** ef_funct identity is the extcmd txt (no function pointers in the table). */
+/**
+ * C extcmdlist ef_funct identity. The generated table stores ef_txt,
+ * not function pointers, so this map is the pointer compare in
+ * ext_func_tab_from_func (cmd.c:3015–3025). Alternate commands use
+ * their INTERNALCMD row (altdip, not dip).
+ */
 const FUNCT_TXT = new Map([
-    [dotypeinv, 'inventtype'],
     [doextcmd, '#'],
+    [dohelp, 'help'],
+    [dotypeinv, 'inventtype'],
+    [do_repeat, 'repeat'],
+    [dokick, 'kick'],
+    [wiz_map, 'wizmap'],
+    [wiz_genesis, 'wizgenesis'],
+    [doprev_message, 'prevmsg'],
+    [dotelecmd, 'teleport'],
+    [wiz_level_tele, 'wizlevelport'],
+    [wiz_wish, 'wizwish'],
+    [doattributes, 'attributes'],
+    [doapply, 'apply'],
+    [doddoremarm, 'takeoffall'],
+    [doclose, 'close'],
+    [dodrop, 'drop'],
+    [doddrop, 'droptype'],
+    [doeat, 'eat'],
+    [doengrave, 'engrave'],
+    [dofire, 'fire'],
+    [ddoinv, 'inventory'],
+    [doopen, 'open'],
+    [dopay, 'pay'],
+    [doputon, 'puton'],
+    [dodrink, 'quaff'],
+    [dowieldquiver, 'quiver'],
+    [doread, 'read'],
+    [doremring, 'remove'],
+    [dosearch, 'search'],
+    [dosave, 'save'],
+    [dothrow, 'throw'],
+    [dotakeoff, 'takeoff'],
+    [doversion, 'versionshort'],
+    [dowield, 'wield'],
+    [dowear, 'wear'],
+    [doswapweapon, 'swap'],
+    [dozap, 'zap'],
+    [docast, 'cast'],
+    [dopickup, 'pickup'],
+    [donull, 'wait'],
+    [dodown, 'down'],
+    [doup, 'up'],
+    [dotravel, 'travel'],
+    [dotravel_target, 'retravel'],
+    [dolook, 'look'],
+    [doclicklook, 'clicklook'],
+    [dowhatis, 'whatis'],
+    [doquickwhatis, 'glance'],
+    [dovspell, 'showspells'],
+    [dodiscovered, 'known'],
+    [dotogglepickup, 'autopickup'],
+    [doset_simple, 'options'],
+    [doprgold, 'showgold'],
+    [doprwep, 'seeweapon'],
+    [doprarm, 'seearmor'],
+    [doprring, 'seerings'],
+    [dopramulet, 'seeamulet'],
+    [doprtool, 'seetools'],
+    [doprinuse, 'seeall'],
+    [doperminv, 'perminv'],
+    [doterrain, 'terrain'],
+    [do_rush, 'rush'],
+    [do_run, 'run'],
+    [do_fight, 'fight'],
+    [do_reqmenu, 'reqmenu'],
+    [do_move_west, 'movewest'],
+    [do_move_northwest, 'movenorthwest'],
+    [do_move_north, 'movenorth'],
+    [do_move_northeast, 'movenortheast'],
+    [do_move_east, 'moveeast'],
+    [do_move_southeast, 'movesoutheast'],
+    [do_move_south, 'movesouth'],
+    [do_move_southwest, 'movesouthwest'],
+    [dotalk, 'chat'],
+    [docallcmd, 'call'],
+    [dodip, 'dip'],
+    [dip_into, 'altdip'],
+    [dosit, 'sit'],
+    [doride, 'ride'],
+    [domonability, 'monster'],
+    [dountrap, 'untrap'],
+    [dosacrifice, 'offer'],
+    [dorub, 'rub'],
+    [doforce, 'force'],
+    [doorganize, 'adjust'],
+    [adjust_split, 'altadjust'],
+    [remarm_swapwep, 'altunwield'],
+    [ia_dotakeoff, 'alttakeoff'],
+    [dotwoweapon, 'twoweapon'],
+    [doinvoke, 'invoke'],
 ]);
 
 function Ccode(c) {
@@ -1740,8 +1841,7 @@ function cmdbind_swapkeys(key1, key2) {
 /**
  * C ref: cmd.c ext_func_tab_from_func `:3015–3025`.
  * First extcmdlist row whose ef_funct matches, including INTERNALCMD.
- * JS matches the txt registered for that function (`inventtype` /
- * `#`). A string is that txt.
+ * JS matches FUNCT_TXT (ef_txt for that function). A string is that txt.
  * @param {Function|string|null|undefined} fn
  * @returns {typeof EXTCMDLIST[number]|null}
  */
@@ -2305,24 +2405,12 @@ const SADDLE_OTYP = objectNames.indexOf('SADDLE');
 function act_on_act_here(act) {
     switch (act) {
     case MCMD_QUAFF: cmdq_add_ec(CQ_CANNED, dodrink); break;
-    case MCMD_DIP: cmdq_add_ec(CQ_CANNED, async () => {
-        const { dodip } = await import('./potion.js');
-        return dodip();
-    }); break;
-    case MCMD_SIT: cmdq_add_ec(CQ_CANNED, async () => {
-        const { dosit } = await import('./sit.js');
-        return dosit();
-    }); break;
+    case MCMD_DIP: cmdq_add_ec(CQ_CANNED, dodip); break;
+    case MCMD_SIT: cmdq_add_ec(CQ_CANNED, dosit); break;
     case MCMD_UP: cmdq_add_ec(CQ_CANNED, doup); break;
     case MCMD_DOWN: cmdq_add_ec(CQ_CANNED, dodown); break;
-    case MCMD_DISMOUNT: cmdq_add_ec(CQ_CANNED, async () => {
-        const { doride } = await import('./steed.js');
-        return doride();
-    }); break;
-    case MCMD_MONABILITY: cmdq_add_ec(CQ_CANNED, async () => {
-        const { domonability } = await import('./polyself.js');
-        return domonability();
-    }); break;
+    case MCMD_DISMOUNT: cmdq_add_ec(CQ_CANNED, doride); break;
+    case MCMD_MONABILITY: cmdq_add_ec(CQ_CANNED, domonability); break;
     case MCMD_PICKUP: cmdq_add_ec(CQ_CANNED, dopickup); break;
     case MCMD_LOOT: cmdq_add_ec(CQ_CANNED, doloot); break;
     case MCMD_TIP: cmdq_add_ec(CQ_CANNED, dotip); break;
@@ -2332,14 +2420,8 @@ function act_on_act_here(act) {
     case MCMD_REST: cmdq_add_ec(CQ_CANNED, donull); break;
     case MCMD_SEARCH: cmdq_add_ec(CQ_CANNED, dosearch); break;
     case MCMD_LOOK_HERE: cmdq_add_ec(CQ_CANNED, dolook); break;
-    case MCMD_UNTRAP_HERE: cmdq_add_ec(CQ_CANNED, async () => {
-        const { dountrap } = await import('./trap.js');
-        return dountrap();
-    }); break;
-    case MCMD_OFFER: cmdq_add_ec(CQ_CANNED, async () => {
-        const { dosacrifice } = await import('./pray.js');
-        return dosacrifice();
-    }); break;
+    case MCMD_UNTRAP_HERE: cmdq_add_ec(CQ_CANNED, dountrap); break;
+    case MCMD_OFFER: cmdq_add_ec(CQ_CANNED, dosacrifice); break;
     case MCMD_CAST_SPELL: cmdq_add_ec(CQ_CANNED, docast); break;
     case MCMD_LOOK_AT:
         // C: doclicklook via clicklook_cc — deferred with therecmdmenu
@@ -2499,10 +2581,8 @@ const move_funcs_walk = [
  * CQ_CANNED input for a [t]herecmdmenu action at adjacent (dx,dy).
  * C order kept arm by arm; sgn clamp `:4666–4677` (live eat.js sgn ≡
  * hacklib.c:650); MCMD_* ids are the cmd.c:4379 enum.
- * Named: doidtrap (pager.c:2336) not yet ported — lazy import from its 1:1
- * home, resolves when the callee lands. dountrap/dodip/dosit/doride/
- * domonability/dosacrifice use the file's dynamic-import idiom (same as
- * act_on_act_here) to avoid static cycles.
+ * Named: doidtrap (pager.c:2336) is not exported — the look-trap arm
+ * still dynamic-imports pager.js and is not an ef_funct lookup.
  * C callers cmd.c:4880 (there_cmd_menu K==1 fast path) + :4892 (menu pick):
  * JS there_cmd_menu below is self+common only (next2u/far builders not yet
  * ported), so no wired caller yet — self picks keep act_on_act_here with
@@ -2559,10 +2639,7 @@ function act_on_act(act, dx, dy) {
         }
         break;
     case MCMD_UNTRAP_DOOR: // `:4711–4714`
-        cmdq_add_ec(CQ_CANNED, async () => {
-            const { dountrap } = await import('./trap.js');
-            return dountrap();
-        });
+        cmdq_add_ec(CQ_CANNED, dountrap);
         cmdq_add_dir(CQ_CANNED, dx, dy, 0);
         break;
     case MCMD_KICK_DOOR: // `:4715–4718`
@@ -2584,10 +2661,7 @@ function act_on_act(act, dx, dy) {
         cmdq_add_dir(CQ_CANNED, dx, dy, 0);
         break;
     case MCMD_UNTRAP_TRAP: // `:4730–4733`
-        cmdq_add_ec(CQ_CANNED, async () => {
-            const { dountrap } = await import('./trap.js');
-            return dountrap();
-        });
+        cmdq_add_ec(CQ_CANNED, dountrap);
         cmdq_add_dir(CQ_CANNED, dx, dy, 0);
         break;
     case MCMD_MOVE_DIR: // `:4734–4737`
@@ -2595,10 +2669,7 @@ function act_on_act(act, dx, dy) {
         cmdq_add_ec(CQ_CANNED, move_funcs_walk[dir]);
         break;
     case MCMD_RIDE: // `:4738–4741`
-        cmdq_add_ec(CQ_CANNED, async () => {
-            const { doride } = await import('./steed.js');
-            return doride();
-        });
+        cmdq_add_ec(CQ_CANNED, doride);
         cmdq_add_dir(CQ_CANNED, dx, dy, 0);
         break;
     case MCMD_REMOVE_SADDLE: // `:4742–4748`
@@ -2633,18 +2704,12 @@ function act_on_act(act, dx, dy) {
         cmdq_add_key(CQ_CANNED, 'y'); /* "Drink from the fountain?" */
         break;
     case MCMD_DIP: // `:4773–4777`
-        cmdq_add_ec(CQ_CANNED, async () => {
-            const { dodip } = await import('./potion.js');
-            return dodip();
-        });
+        cmdq_add_ec(CQ_CANNED, dodip);
         cmdq_add_userinput(CQ_CANNED);
         cmdq_add_key(CQ_CANNED, 'y'); /* "Dip foo into the fountain?" */
         break;
     case MCMD_SIT: // `:4778–4780`
-        cmdq_add_ec(CQ_CANNED, async () => {
-            const { dosit } = await import('./sit.js');
-            return dosit();
-        });
+        cmdq_add_ec(CQ_CANNED, dosit);
         break;
     case MCMD_UP: // `:4781–4783`
         cmdq_add_ec(CQ_CANNED, doup);
@@ -2653,16 +2718,10 @@ function act_on_act(act, dx, dy) {
         cmdq_add_ec(CQ_CANNED, dodown);
         break;
     case MCMD_DISMOUNT: // `:4787–4789`
-        cmdq_add_ec(CQ_CANNED, async () => {
-            const { doride } = await import('./steed.js');
-            return doride();
-        });
+        cmdq_add_ec(CQ_CANNED, doride);
         break;
     case MCMD_MONABILITY: // `:4790–4792`
-        cmdq_add_ec(CQ_CANNED, async () => {
-            const { domonability } = await import('./polyself.js');
-            return domonability();
-        });
+        cmdq_add_ec(CQ_CANNED, domonability);
         break;
     case MCMD_PICKUP: // `:4793–4795`
         cmdq_add_ec(CQ_CANNED, dopickup);
@@ -2696,17 +2755,11 @@ function act_on_act(act, dx, dy) {
         cmdq_add_ec(CQ_CANNED, doclicklook);
         break;
     case MCMD_UNTRAP_HERE: // `:4824–4827`
-        cmdq_add_ec(CQ_CANNED, async () => {
-            const { dountrap } = await import('./trap.js');
-            return dountrap();
-        });
+        cmdq_add_ec(CQ_CANNED, dountrap);
         cmdq_add_dir(CQ_CANNED, 0, 0, 1);
         break;
     case MCMD_OFFER: // `:4828–4831`
-        cmdq_add_ec(CQ_CANNED, async () => {
-            const { dosacrifice } = await import('./pray.js');
-            return dosacrifice();
-        });
+        cmdq_add_ec(CQ_CANNED, dosacrifice);
         cmdq_add_userinput(CQ_CANNED);
         break;
     case MCMD_CAST_SPELL: // `:4832–4834`
