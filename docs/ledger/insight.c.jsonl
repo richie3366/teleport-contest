@@ -8,7 +8,7 @@
 {"fn":"fmt_elapsed_time","c":"314-358","status":"ported","js":["js/insight.js:fmt_elapsed_time"],"d":["D-2602"],"at":"seed@a30a7de84"}
 {"fn":"N_times","c":"362-380","status":"unknown"}
 {"fn":"enlightenment","c":"383-463","status":"unknown","d":["D-2269","D-2208","D-2104","D-1997"],"at":"seed@a30a7de84"}
-{"fn":"background_enlightenment","c":"468-722","status":"unknown"}
+{"fn":"background_enlightenment","c":"468-722","status":"ported","js":["js/insight.js:background_enlightenment"],"d":["D-2971"],"at":"2026-09-27@5398b19c2"}
 {"fn":"basics_enlightenment","c":"728-823","status":"partial","omit":"`money_cnt` first-match vs local sum (equivalent under the gold-merge invariant; `doprgold` keeps its own first-match loop); `game.apelist` null-check arm is live but has no producer yet (options.js notes the same); `plur`/`abs` via ternary/`Math.abs`.","d":["D-2579"],"at":"seed@a30a7de84","note":"seed: js location unresolved"}
 {"fn":"characteristics_enlightenment","c":"827-842","status":"unknown"}
 {"fn":"one_characteristic","c":"846-936","status":"unknown","d":["D-2109"],"at":"seed@a30a7de84"}
