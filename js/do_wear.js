@@ -12,7 +12,7 @@ import {
     hero_Invisible, hero_Blind_telepat, hero_Unblind_telepat, Detect_monsters,
 } from './display.js';
 import { yn_function, paranoid_ynq } from './getline.js';
-import { an, doname, the, xname, xprname, vtense, makeplural, makesingular, otense, gloves_simple_name, simpleonames, body_part_latebound, Tobjnam, Yname2, corpse_xname, killer_xname, arti_light_description, set_doffing_predicates, safe_typename } from './objnam.js';
+import { an, doname, the, xname, xprname, ansimpleoname, vtense, makeplural, makesingular, otense, gloves_simple_name, simpleonames, body_part_latebound, Tobjnam, Yname2, corpse_xname, killer_xname, arti_light_description, set_doffing_predicates, safe_typename } from './objnam.js';
 import { find_ac } from './u_init.js';
 import {
     A_STR, A_INT, A_WIS, A_CON, A_CHA, A_DEX, acurr, extremeattr, change_luck, Fast, Very_fast,
@@ -74,7 +74,7 @@ import {
     ARMOR_CLASS, RING_CLASS, AMULET_CLASS, WEAPON_CLASS, TOOL_CLASS,
     objectNames, objectNameStrs, objectDescrs, is_sword,
 } from './objects.js';
-import { PM_ARCHEOLOGIST, PM_WIZARD, PM_MONK, nolimbs, nohands, verysmall, slithy, MZ_SMALL, touch_petrifies, mons, is_flyer, is_clinger } from './monsters.js';
+import { PM_ARCHEOLOGIST, PM_WIZARD, PM_MONK, nolimbs, nohands, has_head, verysmall, slithy, MZ_SMALL, touch_petrifies, mons, is_flyer, is_clinger } from './monsters.js';
 import {
     is_flammable, is_rustprone, is_rottable, is_corrodeable, is_crackable,
     erosion_matters, is_damageable, is_metallic, curse, set_bknown,
@@ -3256,6 +3256,11 @@ async function accessory_or_armor_on(obj) {
             return 0;
         }
     } else if (eyewear) {
+        /* C do_wear.c:2324–2327 — no head, so the lenses never go on. */
+        if (!has_head(game.youmonst?.data)) {
+            await You(`have no head to wear ${ansimpleoname(obj)} on.`);
+            return 0;
+        }
         if (u.ublindf) {
             await already_wearing(
                 u.ublindf.otyp === LENSES ? 'some lenses' : 'a blindfold',
