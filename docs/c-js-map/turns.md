@@ -2093,6 +2093,8 @@ offset parse / typ=TIN / downstream spe-corpsenm+`set_tin_variety`
 
 JS: `js/apply.js`, `js/lock.js`, `js/insight.js`, `js/music.js`, `js/write.js` — partial
 
+**`maybe_reset_pick` whole body** (D-2949; `lock.c:269–285` in `js/lock.js:367`: a specific container clears `xlock` only when it is `xlock.box`; a null container clears when that box is absent or `carried` is false; callee `reset_pick` `:344`; `carried` is `eat.js:2617`. Callers: `shk.c:1202` `obfree` → `js/shk.js:4086`; `mkobj.c:2710` `add_to_migration` → `js/mkobj.js:3360` (`Is_container` gate); `do.c:1605` `goto_level` → `js/do.js:1567`; `cmd.c:1015` `makemap_prepost` → `js/wizcmds.js:589`. `do.c:1604` is the comment above that call.)
+
 `doapply` + `pick_lock` (D-0021); **`doapply` `nohands` + 
 EXT_ENCUMBER `check_capacity` before getobj** (D-0928 #1186; 
 retouch/wand-break/flip_book/coin still deferred); 

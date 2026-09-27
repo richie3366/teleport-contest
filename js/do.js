@@ -138,7 +138,7 @@ import {
 } from './do_wear.js';
 import { bypass_objlist, nxt_unbypassed_obj, w_blocks } from './worn.js';
 import { monstunseesu_prop } from './mondata.js';
-import { reset_pick } from './lock.js';
+import { reset_pick, maybe_reset_pick } from './lock.js';
 import { Unaware, carried, polyfood } from './eat.js';
 import { addinv_nomerge } from './u_init.js';
 import {
@@ -1562,7 +1562,9 @@ export async function goto_level(newlevel, at_stairs, falling, portal) {
 
     if (on_level(newlevel, u.uz)) return;
 
-    // C: maybe_reset_pick(NULL); reset_trapset() before leaving
+    // C do.c:1605 — maybe_reset_pick(NULL) before the departing level is
+    // saved and freed, so carried() still sees gx.xlock.box.
+    maybe_reset_pick(null);
     try {
         const { reset_trapset } = await import('./apply.js');
         reset_trapset();

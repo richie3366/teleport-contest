@@ -88,6 +88,9 @@ import { recalc_block_point, cansee } from './vision.js';
 import { del_light_source, discard_flashes, obj_sheds_light, obj_adjust_light_radius } from './light.js';
 import { arti_light_radius, get_obj_location, obj_split_light_source, Is_candle, obj_merge_light_sources, kind_name } from './timeout.js';
 import { obfree, splitbill, same_price, globby_bill_fixup, costly_spot, costly_adjacent, find_objowner, costly_alteration } from './shk.js';
+/* C lock.c maybe_reset_pick — hoisted fn, called only from
+   add_to_migration (`imports.mjs --can mkobj.js lock.js` SAFE). */
+import { maybe_reset_pick } from './lock.js';
 import { hands_obj, MON_WEP, setmnotwielded } from './weapon.js';
 /* C invent.c merged `:878–913` worn-slot fixup (imports.mjs --can SAFE,
    hoisted cycle-safe, same 96-module SCC). */
@@ -3345,8 +3348,7 @@ export function peek_at_iced_corpse_age(otmp) {
 
 /**
  * C ref: mkobj.c add_to_migration — OBJ_FREE → migrating_objs chain.
- * Named omit: maybe_reset_pick (lock context); unpaid panic (caller
- * should clear unpaid before migrate).
+ * Named omit: unpaid panic (caller should clear unpaid before migrate).
  */
 export function add_to_migration(obj) {
     if (!obj) return;
@@ -3354,7 +3356,8 @@ export function add_to_migration(obj) {
         obj.where = OBJ_FREE;
     }
     obj.no_charge = 0;
-    // maybe_reset_pick deferred
+    /* C mkobj.c:2709–2710 — lock context goes stale for this container. */
+    if (Is_container(obj)) maybe_reset_pick(obj);
     obj.where = OBJ_MIGRATING;
     obj.nobj = game.migrating_objs || null;
     const uz = game.u?.uz;

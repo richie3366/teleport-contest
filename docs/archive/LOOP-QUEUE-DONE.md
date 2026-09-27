@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-27
 
-- [x] `do_wear.c` Shirt_on — coverage THIN (C 16 L `do_wear.c:759–775` / JS 6 L in js/do_wear.js; hops 3, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn Shirt_on` (reach regression must be 0). Measured `port-coverage.mjs --name Shirt_on` 2026-09-27 @ fa30d863c. **Addressed:** D-2948
+- [x] `lock.c` maybe_reset_pick — coverage THIN (C 16 L `lock.c:269–285` / JS 7 L in js/shk.js; hops 3, callers 5, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn maybe_reset_pick` (reach regression must be 0). Measured `port-coverage.mjs --name maybe_reset_pick` 2026-09-27 @ fa30d863c. **Addressed:** D-2949
+
+
+- [x] `do_wear.c` Shirt_on — coverage THIN (C 16 L `do_wear.c:759–775` / JS 6 L in js/do_wear.js; hops 3, callers 1, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn Shirt_on` (reach regression must be 0). Measured `port-coverage.mjs --name Shirt_on` 2026-09-27 @ fa30d863c. **Addressed:** D-2948 `dc6fd838d`
 
 
 - [x] `dungeon.c` dungeon_branch — coverage THIN (C 16 L `dungeon.c:1870–1886` / JS 6 L in js/dungeon.js; hops 2, callers 4, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dungeon_branch` (reach regression must be 0). Measured `port-coverage.mjs --name dungeon_branch` 2026-09-27 @ fa30d863c. **Addressed:** D-2947 `e96457f1e`

@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2949 `maybe_reset_pick` clears lock context for a deleted or left-behind box
+
+**C locus:** `nethack-c/upstream/src/lock.c:269–285` `maybe_reset_pick`. A non-null `container` resets only when `container == gx.xlock.box`. A null `container` resets when `!gx.xlock.box || !carried(gx.xlock.box)`. `carried` is `obj.h:332` (`where == OBJ_INVENT`). The only callee is `reset_pick`.
+**JS:** `js/lock.js` `maybe_reset_pick` `:367`. Box read `:379`. Ternary `:380–381`. `carried` `:381` (`js/eat.js:2617`). `reset_pick` `:382` (body `:347`).
+**Change:** One exported `maybe_reset_pick` in `js/lock.js` in that C order. The null arm calls `eat.js` `carried` (hoisted; `imports.mjs --can lock.js eat.js carried` SAFE). `reset_pick` is the same-file export.
+**Verify:** `node scripts/verify.mjs --fn maybe_reset_pick` → PASS syntax (5 changed js files: js/do.js js/lock.js js/mkobj.js js/shk.js js/wizcmds.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.2s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+**Named:** No arm of `maybe_reset_pick` is omitted. A missing `game.xlock` is a null box; C's `gx.xlock` is a struct.
+**Next:** `mklev.c` `mkfount` (next Open — coverage row). Ten coverage rows remain after this archive, above the floor of 8, so nothing was refilled.
 ## 2026-09-27 — D-2948 `Shirt_on` switches on the shirt and marks it known
 
 **C locus:** `nethack-c/upstream/src/do_wear.c:759–775` `Shirt_on`. `unknown_type` is `"Unknown type of %s (%d)"` (`do_wear.c:9`). `c_shirt` is `"shirt"` (`do_wear.c:11`). `HAWAIIAN_SHIRT` and `T_SHIRT` break. The default calls `impossible(unknown_type, c_shirt, uarmu->otyp)`. Then `!uarmu->known` sets `known = 1` and calls `update_inventory` (the status line shows the +/-). Return 0. The comment at `:761–762` keeps the switch because no shirt has a put-on side effect. No `find_ac`.

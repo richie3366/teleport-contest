@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2949 — `maybe_reset_pick` clears lock context for a deleted or left-behind box
+
+- **Status:** fixed (coverage THIN; `hidden-proxy verify` reports no corpus session blocked). C is 16 lines; the whole body shipped. No other Open row in `lock.c`.
+- **Symptom:** Lock-picking context survived a level change, a wizard map rebuild, and migration of the box being picked. Destroying some other container could also clear context, because "carried" was invent-array membership and ignored `where == OBJ_INVENT`.
+- **C locus:** `nethack-c/upstream/src/lock.c:269–285` `maybe_reset_pick`. A non-null `container` resets only when `container == gx.xlock.box`. A null `container` resets when `!gx.xlock.box || !carried(gx.xlock.box)`. `carried` is `obj.h:332` (`where == OBJ_INVENT`). The only callee is `reset_pick`.
+- **JS was:** A file-local `maybe_reset_pick` in `js/shk.js` compared the container to `game.xlock.box` and used `invent.includes` instead of `carried`. `obfree` called it for containers. `goto_level`, `add_to_migration`, and `makemap_prepost` did not.
+- **Fix:** One exported `maybe_reset_pick` in `js/lock.js` in that C order. The null arm calls `eat.js` `carried` (hoisted; `imports.mjs --can lock.js eat.js carried` SAFE). `reset_pick` is the same-file export. The `shk.js` clone is gone. Callers that needed a new edge (`mkobj.js`, `wizcmds.js`) import the hoisted function (`--can` SAFE) and call it only inside the C function.
+- **JS:** `js/lock.js` `maybe_reset_pick` `:367`. Box read `:379`. Ternary `:380–381`. `carried` `:381` (`js/eat.js:2617`). `reset_pick` `:382` (body `:347`).
+- **Callers:** `shk.c:1202` `obfree` after `Has_contents` → `js/shk.js:4086`. `mkobj.c:2710` `add_to_migration` under `Is_container` → `js/mkobj.js:3360`. `do.c:1605` `goto_level` before the departing level is saved → `js/do.js:1567`. `cmd.c:1015` `makemap_prepost` after `unplacebc` → `js/wizcmds.js:589`. `do.c:1604` is the comment above the `goto_level` call. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn maybe_reset_pick` → PASS syntax (5 changed js files: js/do.js js/lock.js js/mkobj.js js/shk.js js/wizcmds.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.2s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+- **Named omissions:** No arm of `maybe_reset_pick` is omitted. A missing `game.xlock` is a null box; C's `gx.xlock` is a struct. `carried` also returns true when the object is in the invent array (`eat.js`, because `addinv` often omits `where`). `add_to_migration` still does not panic when `where != OBJ_FREE` or when the object is unpaid. `makemap_prepost` still omits the digging memset and `polearm.hitmon`.
+- **Next:** `mklev.c` `mkfount` (next Open — coverage row). Ten coverage rows remain after this archive, above the floor of 8, so nothing was refilled.
+
 ## D-2948 — `Shirt_on` switches on the shirt and marks it known
 
 - **Status:** fixed (coverage THIN; `hidden-proxy verify` reports no corpus session blocked). C is 16 lines; the whole body shipped.
