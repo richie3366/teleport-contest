@@ -45,7 +45,7 @@ import { newpw, rndexp, setuhpmax } from './exper.js';
 import { find_ac } from './u_init.js';
 import {
     setworn, Helmet_off, Gloves_off, Boots_off, Shield_off,
-    Armor_gone, Cloak_off, Blindf_off, cloak_simple_name,
+    Armor_gone, Cloak_off, Blindf_off, cloak_simple_name, helm_simple_name,
 } from './do_wear.js';
 import { dropx, canletgo, make_blinded } from './do.js';
 import { uswapwepgone, uwepgone, could_twoweap, untwoweapon } from './wield.js';
@@ -53,7 +53,7 @@ import { races, genders, rank_of } from './roles.js';
 import { encumber_msg, useup, weapon_descr, update_inventory, observe_object, Blind } from './invent.js';
 import { end_burn, learn_egg_type, artifact_light, arti_light_radius, Invis } from './timeout.js';
 import { racial_exception, has_horns, num_horns, WrappingAllowed, is_flimsy } from './worn.js';
-import { helm_simple_name, digests, set_ustuck } from './mhitu.js';
+import { digests, set_ustuck } from './mhitu.js';
 import {
     losehp, nomul, is_pool, waterbody_name, On_stairs, in_rooms,
     monst_to_any,

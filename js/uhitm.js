@@ -110,7 +110,7 @@ import { cutworm } from './worm.js';
 import { m_unleash, objdescr_is } from './apply.js';
 import { mhe, mhis, defended, resists_blnd } from './mondata.js';
 import { Unaware } from './eat.js';
-import { hard_helmet } from './do_wear.js';
+import { helm_simple_name } from './do_wear.js';
 import { findgold, inv_cnt } from './steal.js';
 import { mselftouch, instapetrify, minstapetrify, t_at } from './trap.js';
 import { set_ustuck, ugolemeffects } from './mhitu.js';
@@ -2260,11 +2260,6 @@ function damageum_ad_phys(mdef, mattk, mhm) {
             if (mhm.damage < 1) mhm.damage = 1;
         }
     }
-}
-
-/** C ref: objnam.c helm_simple_name `:5513–5528` — hat vs helm. */
-function helm_simple_name(helmet) {
-    return !hard_helmet(helmet) ? 'hat' : 'helm';
 }
 
 /**

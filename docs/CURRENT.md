@@ -99,10 +99,11 @@ human reopens it here; the corpus is only re-scored on audits.
 **Falsifier for the phase:** held-out on `leaderboard.mjs` after ~30
 breadth iterations; if it does not move while coverage does, the human
 revisits the picker.
-**Next cluster:** `shk.c` append_honorific — coverage PARTIAL (C 18 L `shk.c:3602–3620` / JS 13 L in js/shk.js). `shrine_pos` parked Stale (body already live at `js/mklev.js:27372`, caller `mktemple`). Verify `node scripts/verify.mjs --fn append_honorific`.
+**Next cluster:** `objnam.c` helm_simple_name — coverage THIN (C 15 L `objnam.c:5513–5528` / JS 3 L in js/do_wear.js). Verify `node scripts/verify.mjs --fn helm_simple_name`.
 **DUMPLOG retired (D-1776)** — do not re-enqueue.
-**Keep D-0845…D-2938 (index).**
+**Keep D-0845…D-2939 (index).**
 <!-- recent:begin -->
+**D-2939** `nethack-c/upstream/src/objnam.c:5513–5528` `helm_simple_name`. `return !hard_helmet(helme — One exported `helm_simple_name` in that C order.
 **D-2938** `nethack-c/upstream/src/shk.c:3602–3620` `append_honorific`. `honored[]` is five strings.  — One file-local `append_honorific` in that C order.
 **D-2937** `nethack-c/upstream/src/mklev.c:2332–2350` `mkaltar`. If `croom->rtype != OROOM`, return.  — One file-local `mkaltar` in that C order.
 **D-2936** `nethack-c/upstream/src/end.c:1738–1757` `dealloc_killer`. `prev` starts at `&svk.killer`. — One exported `dealloc_killer` in that C order.
@@ -110,11 +111,10 @@ revisits the picker.
 **D-2934** `nethack-c/upstream/src/glyphs.c:644–732` `shuffle_customizations` (staticfn). Offsets are — One file-local `shuffle_customizations` in that C order, and one exported `maybe_shuffle_customizations`.
 **D-2933** `nethack-c/upstream/src/monmove.c:2319–2353` `stuff_prevents_passage`. Hero (`mtmp == &gy. — One file-local `stuff_prevents_passage` in that C order.
 **D-2932** `nethack-c/upstream/src/objnam.c:1195–1215` `erosion_matters`. Switch on `obj->oclass`. `T — One exported `erosion_matters` in that C order.
-**D-2931** `nethack-c/upstream/src/mklev.c:1198–1219` `chk_okdoor`. If `IS_DOOR`, a horizontal door r — One file-local `chk_okdoor` in that C order.
 <!-- recent:end -->
 **Do not:** FORCE/RNG; FORCE tiles to "prove" a level-gen cause (RNG counts
 are location-blind — D-1849); snapshot/restore grid rows to keep a tty leftover
-(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2938; wrap `wildmiss` /
+(D-1831 `_snapshotStatusGrid`); skip D-1229…D-2939; wrap `wildmiss` /
 `msg_mon_movement` as `pline_mon`; rewrite `confer_oc_oprop`;
 trailing `confdir` in shared `getdir`; hide `[2]` in the menu
 painter; reopen D-1816 `mattacku` gameover abort; D-0480 glyph serialize

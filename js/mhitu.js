@@ -49,7 +49,7 @@ import { steal, stealamulet, stealgold, unresponsive, remove_worn_item } from '.
 import { cloneu, split_mon, attrcurse } from './sit.js';
 import {
     stop_donning, setworn, Ring_on, Ring_gone, suit_simple_name, hard_helmet,
-    some_armor,
+    some_armor, helm_simple_name,
 } from './do_wear.js';
 import { mpickobj } from './makemon.js';
 import { money2mon } from './shk.js';
@@ -1160,12 +1160,6 @@ function cloak_simple_name(cloak) {
         }
     }
     return 'cloak';
-}
-
-/**
-/** C ref: objnam.c helm_simple_name `:5513–5528` — hat vs helm. */
-export function helm_simple_name(helmet) {
-    return !hard_helmet(helmet) ? 'hat' : 'helm';
 }
 
 /**

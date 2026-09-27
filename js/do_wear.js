@@ -1710,13 +1710,14 @@ export function cloak_simple_name(cloak) {
 }
 
 /**
- * C ref: objnam.c helm_simple_name `:5512–5528` — hard headgear is a
- * "helm", the rest a "hat" (consistency with the bonk-protection
- * messages). Single canonical home for the armor-noun family;
- * trap.js burn/water/rock paths import this (D-2186).
+ * C ref: objnam.c helm_simple_name `:5513–5528`.
+ * Headgear that `hard_helmet` protects is a "helm"; the rest is a "hat"
+ * (elven leather helm / leather hat → hat; dwarvish iron helm / hard hat
+ * → helm; fedora, cornuthaum, dunce cap → hat; every other helmet → helm).
+ * One export. Callers import this; the dothrow/mhitu/uhitm clones are gone.
  */
 export function helm_simple_name(helmet) {
-    return hard_helmet(helmet) ? 'helm' : 'hat';
+    return !hard_helmet(helmet) ? 'hat' : 'helm';
 }
 
 /**
@@ -2592,12 +2593,15 @@ export async function canwearobj(otmp, maskOut, noisy) {
 
     if (is_helmet(otmp)) {
         if (u.uarmh) {
-            if (noisy) await pline('You are already wearing a helmet.');
+            /* C do_wear.c:2073 — already_wearing(an(helm_simple_name(uarmh))). */
+            if (noisy) await already_wearing(an(helm_simple_name(u.uarmh)));
             err++;
         } else if (Upolyd(u) && has_horns(data) && !is_flimsy(otmp)) {
+            /* C do_wear.c:2078 — pline_The("%s won't fit over your horn%s."). */
             if (noisy) {
                 const n = num_horns(data) | 0;
-                await pline(`The helmet won't fit over your horn${n === 1 ? '' : 's'}.`);
+                const noun = helm_simple_name(otmp);
+                await pline(`The ${noun} won't fit over your horn${n === 1 ? '' : 's'}.`);
             }
             err++;
         } else mask = W_ARMH;

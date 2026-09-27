@@ -114,7 +114,7 @@ import { set_apparxy } from './monmove.js';
 import { is_waterwall } from './dbridge.js';
 import { u_wipe_engr } from './engrave.js';
 import { getdir } from './lock.js';
-import { hard_helmet, armor_simple_name } from './do_wear.js';
+import { hard_helmet, armor_simple_name, helm_simple_name } from './do_wear.js';
 import { canletgo } from './do.js';
 import { explode_oil, explode } from './explode.js';
 import {
@@ -1242,11 +1242,6 @@ function Stone_resistance_hero() {
     return !!(u.Stone_resistance || u.HStone_resistance || u.EStone_resistance);
 }
 
-
-/** C objnam.c helm_simple_name — "hat" polish deferred. */
-function helm_simple_name(_obj) {
-    return 'helmet';
-}
 
 /** C mondata.h passes_rocks. */
 function passes_rocks(ptr) {

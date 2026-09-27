@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-27
 
-- [x] `shk.c` append_honorific — coverage PARTIAL (C 18 L `shk.c:3602–3620` / JS 13 L in js/shk.js; hops 5, callers 1, RNG 1, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn append_honorific` (reach regression must be 0). Measured `port-coverage.mjs --name append_honorific` 2026-09-27 @ f36a7b952. **Addressed:** D-2938
+- [x] `objnam.c` helm_simple_name — coverage THIN (C 15 L `objnam.c:5513–5528` / JS 3 L in js/do_wear.js; hops 2, callers 25, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn helm_simple_name` (reach regression must be 0). Measured `port-coverage.mjs --name helm_simple_name` 2026-09-27 @ 75f0544f8. **Addressed:** D-2939
+
+
+- [x] `shk.c` append_honorific — coverage PARTIAL (C 18 L `shk.c:3602–3620` / JS 13 L in js/shk.js; hops 5, callers 1, RNG 1, msg 4). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn append_honorific` (reach regression must be 0). Measured `port-coverage.mjs --name append_honorific` 2026-09-27 @ f36a7b952. **Addressed:** D-2938 `17ee8fa4f`
 
 
 - [x] `mklev.c` mkaltar — coverage PARTIAL (C 18 L `mklev.c:2332–2350` / JS 10 L in js/mklev.js; hops 2, callers 1, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mkaltar` (reach regression must be 0). Measured `port-coverage.mjs --name mkaltar` 2026-09-27 @ f36a7b952. **Addressed:** D-2937 `fa30d863c`

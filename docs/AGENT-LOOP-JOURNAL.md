@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2939 `helm_simple_name` says hat or helm
+
+**C locus:** `nethack-c/upstream/src/objnam.c:5513–5528` `helm_simple_name`. `return !hard_helmet(helmet) ? "hat" : "helm"`. `hard_helmet` (`do_wear.c:567–573`) is false for a null object or a non-helm, and true when the helm is metallic or crackable. The comment's examples follow that predicate: elven leather helm and leather hat are hats; dwarvish iron helm and hard hat are helms; fedora, cornuthaum, and dunce cap are hats.
+**JS:** `js/do_wear.js` `helm_simple_name` `:1719`. `hard_helmet` `:249`. `armor_simple_name` `:1769`. `armor_doff_simple_name` helm arm `:1796`. `armoroff` delay noun `:1826`. `canwearobj` `:2597` and `:2603`. `disintegrate_arm` helm sentence `:4026`.
+**Change:** One exported `helm_simple_name` in that C order. `hard_helmet` is the same-file export. The dothrow stub and the mhitu and uhitm clones are gone; those modules import this export.
+**Verify:** `node scripts/verify.mjs --fn helm_simple_name` → PASS syntax (7 changed js files: js/do_wear.js js/dothrow.js js/invent.js js/mhitu.js js/pickup.js js/polyself.js js/uhitm.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.1s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: PASS.
+**Named:** No arm of `helm_simple_name` is omitted. A null or non-helmet argument is "hat" because `hard_helmet` returns false.
+**Next:** `teleport.c` `noteleport_level` (next Open — coverage row). Eleven coverage rows remain after this archive, above the floor of 8, so nothing was refilled.
 ## 2026-09-27 — D-2938 `append_honorific` names a vampire and an elf
 
 **C locus:** `nethack-c/upstream/src/shk.c:3602–3620` `append_honorific`. `honored[]` is five strings. `Strcat` of `honored[rn2(SIZE(honored) - 1) + u.uevent.udemigod]` (`rn2(4)` plus 0, or plus 1 after the Wizard dies or the invocation, so the index is `[0]..[3]` or `[1]..[4]`). Then `is_vampire(gy.youmonst.data)` appends " dark lady" or " dark lord". Else `maybe_polyd(is_elf(gy.youmonst.data), Race_if(PM_ELF))` (`youprop.h:22` `Upolyd ? if_so : if_not`; `you.h:297` `urace.mnum == PM_ELF`) appends " hiril" or " hir". Else `!is_human` appends " creature", else " lady" or " sir". `flags.female` chooses the gendered word.
