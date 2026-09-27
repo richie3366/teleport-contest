@@ -40,6 +40,10 @@ import { strsubst, depth, mungspaces, strncmpi } from './hacklib.js';
 import { getpos } from './getpos.js';
 import { usmellmon, makemon, rndmonst } from './makemon.js';
 import { check_invent_gold } from './invent.js';
+/* C worn.c check_wornmask_slots — hoisted async fn, called only from
+   you_sanity_check (imports.mjs --can wizcmds.js worn.js cycle-safe
+   once the export is a function declaration). */
+import { check_wornmask_slots } from './worn.js';
 import { rn2 } from './rng.js';
 import { float_vs_flight, body_part } from './polyself.js';
 import { pooleffects } from './pickup.js';
@@ -664,8 +668,8 @@ export async function wiz_makemap() {
 
 /**
  * C wizcmds.c you_sanity_check `:1401–1441` — swallow/overlay/HP-Pw
- * clamps then invent gold/invlet. Caller sanity_check.
- * Named omit: worn.c check_wornmask_slots `:1439`.
+ * clamps, then worn-slot sanity, then invent gold/invlet.
+ * Caller sanity_check.
  */
 async function you_sanity_check() {
     const u = game.u || (game.u = {});
@@ -707,7 +711,8 @@ async function you_sanity_check() {
         u.uen = u.uenmax | 0;
     }
 
-    // C `:1439` check_wornmask_slots — named omit (worn.c).
+    // C `:1439` check_wornmask_slots, then check_invent_gold("invent").
+    await check_wornmask_slots();
     await check_invent_gold('invent');
 }
 
@@ -718,8 +723,9 @@ async function you_sanity_check() {
  * ("invent") then `bc_sanity_check` (`ball.c:1034–1102`, `:1476` —
  * after light_sources, before trap). Caller allmain.c moveloop_core
  * when iflags.sanity_check || debug_fuzzer (opt_in Off).
+ * check_wornmask_slots runs inside you_sanity_check.
  * Named omit: obj/timer/mon/trap/engraving/levl sanity;
- * check_wornmask_slots; dobjsfree / clear_bypasses / resume_wish.
+ * dobjsfree / clear_bypasses / resume_wish.
  */
 export async function sanity_check() {
     if (!game.iflags) game.iflags = {};

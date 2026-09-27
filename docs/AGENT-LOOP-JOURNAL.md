@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2982 `check_wornmask_slots` checks worn bits and two-weapon state
+
+**C locus:** `nethack-c/upstream/src/worn.c:355–471` `check_wornmask_slots`. `worn[]` is `worn.c:18–34`. `IGNORE_SLOTS` is `W_ART | W_ARTI | W_SADDLE | W_BALL | W_CHAIN`. A filled slot must be that invent object with this mask bit and no other bit outside `IGNORE_SLOTS`. Any other invent object with the bit is reported, except `uskin` when the bit is `W_ARM` and `I_SPECIAL` is set. Then, under `EXTRA_SANITY_CHECKS`, `uskin` must be in the pack with `W_ARM|I_SPECIAL`, be dragon scales, and match `mons[u.umonnum]`. `u.twoweap` requires `uwep` and `uswapwep`, no shield, two one-handed melee weapons or weapon-tools, and `could_twoweap(youmonst.data)`.
+**JS:** `js/worn.js` `check_wornmask_slots` `:1264`. Slot table `:1270`. Ball/chain skip `:1295`. In-pack and bit checks `:1298–1316`. Other claimant `:1321`. Embedded scales `:1333`. Two-weapon `:1362`. `Dragon_scales_to_pm` index `:1237`.
+**Change:** One exported `check_wornmask_slots` keeps that C order. Ball and chain slots are skipped. Slot pointers are `u.uarm` through `u.uchain`.
+**Verify:** `node scripts/verify.mjs --fn check_wornmask_slots` → PASS syntax (2 changed js file(s): js/wizcmds.js js/worn.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.2s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed) · VERIFY: PASS.
+**Named:** No arm of `check_wornmask_slots` is omitted. `sanity_check_worn` is named only in the comment at `worn.c:398` and is not called.
+**Next:** `muse.c` `rnd_offensive_item` (next Open — coverage row).
 ## 2026-09-27 — D-2981 `You_see` dreams, senses, or sees
 
 **C locus:** `nethack-c/upstream/src/pline.c:455–469` `You_see`. `va_start`, then Unaware → `YouPrefix` "You dream that you see ", else Blind → "You sense ", else "You see ". `strcat` appends `line`. `vpline` prints that format with the same args. `YouPrefix` is `pline.c:359–360`. Unaware is `youprop.h:399`. Blind is `youprop.h:104`.

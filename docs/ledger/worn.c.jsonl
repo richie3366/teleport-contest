@@ -6,7 +6,7 @@
 {"fn":"wornmask_to_armcat","c":"218-246","status":"unknown"}
 {"fn":"armcat_to_wornmask","c":"250-278","status":"unknown"}
 {"fn":"wearslot","c":"282-351","status":"ported","js":["js/worn.js:wearslot"],"at":"seed@a30a7de84","note":"stale 2026-09-21"}
-{"fn":"check_wornmask_slots","c":"355-471","status":"unknown"}
+{"fn":"check_wornmask_slots","c":"355-471","status":"ported","js":["js/worn.js:check_wornmask_slots"],"d":["D-2982"],"at":"2026-09-27@7040c7cd0"}
 {"fn":"mon_set_minvis","c":"474-485","status":"unknown","d":["D-2224"],"at":"seed@a30a7de84"}
 {"fn":"mon_adjust_speed","c":"488-564","status":"unknown"}
 {"fn":"update_mon_extrinsics","c":"579-712","status":"ported","js":["js/worn.js:update_mon_extrinsics"],"d":["D-2601"],"at":"seed@a30a7de84"}

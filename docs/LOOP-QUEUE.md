@@ -112,7 +112,6 @@ body in C order — every arm, every callee live or named, every C caller
 wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 
 <!-- coverage:begin -->
-- [ ] `worn.c` check_wornmask_slots — coverage MISSING (C 84 code L `worn.c:355–471` / JS no symbol; hops 3, callers 1, RNG 0, msg 0; dead callees: sanity_check_worn) @45ea89017
 - [ ] `muse.c` rnd_offensive_item — coverage PARTIAL (C 38 code L `muse.c:2035–2081` / JS 26 code L in js/makemon.js; hops 4, callers 2, RNG 2, msg 0) @45ea89017
 - [ ] `botl.c` botl_score — coverage MISSING (C 10 code L `botl.c:419–436` / JS no symbol; hops 2, callers 3, RNG 0, msg 0) @8a0963412
 - [ ] `options.c` show_menu_controls — coverage PARTIAL (C 87 code L `options.c:9070–9174` / JS 50 code L in js/dokeylist.js; hops —, callers 2, RNG 0, msg 19) @8a0963412
@@ -124,6 +123,7 @@ wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 - [ ] `do.c` save_currentstate — coverage MISSING (C 13 code L `do.c:1375–1395` / JS no symbol; hops 3, callers 3, RNG 0, msg 0) @68cdee2bb
 - [ ] `version.c` getversionstring — coverage THIN (C 32 code L `version.c:35–79` / JS 13 code L in js/version.js; hops 3, callers 5, RNG 0, msg 0) @de27c57ac
 - [ ] `pager.c` whatdoes_cond — coverage MISSING (C 88 code L `pager.c:2458–2573` / JS no symbol; hops 3, callers 1, RNG 0, msg 0) @de27c57ac
+- [ ] `mkobj.c` blessorcurse — coverage PARTIAL (C 8 code L `mkobj.c:1841–1854` / JS 4 code L in js/mkobj.js; hops 4, callers 3, RNG 2, msg 0) @7040c7cd0
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
