@@ -30,7 +30,7 @@ import {
     pmnames, MALE, FEMALE, NEUTRAL, NON_PM, NUMMONS, LOW_PM, NUM_MGENDERS,
 } from './monsters.js';
 import { BOGUSMON_BUF } from './generated/bogusmon_data.js';
-import { upstart, highc, ordin, strstri } from './hacklib.js';
+import { upstart, highc, ordin, strstri, mungspaces } from './hacklib.js';
 import { genders } from './roles.js';
 import {
     PM_SAMURAI, PM_CLERIC, PM_ARCHEOLOGIST, PM_LICHEN, PM_ACID_BLOB, PM_LONG_WORM_TAIL,
@@ -1206,13 +1206,6 @@ function get_obj_loc_for_distant(obj) {
 }
 
 /**
- * C ref: hacklib.c mungspaces — collapse runs of whitespace; drop trailing.
- */
-function mungspaces_objnam(s) {
-    return String(s ?? '').replace(/\s+/g, ' ').trim();
-}
-
-/**
  * Late-bound `do_name.js` `obj_pmname`. This file cannot import do_name.js:
  * do_name already imports `xname`, and a static back-edge TDZ-faults
  * `let _shk_owns_prefix` (D-2491). The body lives only in do_name.js.
@@ -1231,12 +1224,10 @@ export function obj_pmname_corpse(obj) {
  * C ref: objnam.c corpse_xname `:1824–1920` — corpse/glob name with
  * CXN_SINGULAR / NO_PFX / PFX_THE / ARTICLE / NOCORPSE (D-1234, D-1255).
  * Buffer arms by design: C nextobuf/PREFIX + eos/Sprintf + releaseobuf
- * are plain JS strings (D-2483 idiom). `s_suffix`/`type_is_pname`/
- * `mungspaces` use the file-local copies (`s_suffix_objnam`,
- * `type_is_pname_objnam`, `mungspaces_objnam` — bodies identical to the
- * live do_name.js/getline.js exports; local to avoid a do_name/getline
- * cycle: a static edge reorders cycle eval past shk.js:832 and TDZ-faults
- * `let _shk_owns_prefix` at cohort startup — reverted, this iteration).
+ * are plain JS strings (D-2483 idiom). `mungspaces` is the hacklib.js
+ * export. `s_suffix`/`type_is_pname` stay file-local (`s_suffix_objnam`,
+ * `type_is_pname_objnam`) to avoid a do_name cycle: a static edge reorders
+ * cycle eval past shk.js:832 and TDZ-faults `let _shk_owns_prefix`.
  */
 export function corpse_xname(obj, adjective, cxn_flags) {
     // C :1830–1841: omndx + CXN flag decode (comments verbatim in C).
@@ -1299,7 +1290,7 @@ export function corpse_xname(obj, adjective, cxn_flags) {
         // C :1879: "Medusa's cursed partly eaten corpse"
         nambuf += `${mnam} ${adjective}`;
         // C :1884: squeeze a trailing-space adjective
-        nambuf = mungspaces_objnam(nambuf);
+        nambuf = mungspaces(nambuf);
         // C :1887: doname() count in the adjective → no article;
         // C digit() is ASCII '0'–'9' (hacklib.c:62–65).
         const c0 = String(adjective).charCodeAt(0);
@@ -1307,7 +1298,7 @@ export function corpse_xname(obj, adjective, cxn_flags) {
     } else {
         // C :1881: "cursed partly eaten troll corpse"
         nambuf += `${adjective} ${mnam}`;
-        nambuf = mungspaces_objnam(nambuf);
+        nambuf = mungspaces(nambuf);
         const c0 = String(adjective).charCodeAt(0);
         if (c0 >= 48 && c0 <= 57) any_prefix = false;
     }

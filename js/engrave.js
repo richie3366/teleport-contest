@@ -87,6 +87,7 @@ import { is_art } from './artifact.js';
 import { welded, bimanual } from './wield.js';
 import { dry_a_towel, is_wet_towel, hands_obj } from './weapon.js';
 import { wand_explode } from './read.js';
+import { mungspaces } from './hacklib.js';
 
 const PM_GHOUL = monsterNames.indexOf('PM_GHOUL');
 
@@ -96,10 +97,6 @@ const ATHAME = objectNames.indexOf('ATHAME');
 
 /** C: decl.h Something */
 const Something = 'Something';
-
-function mungspaces(s) {
-    return String(s || '').trim().replace(/\s+/g, ' ');
-}
 
 /** C youprop.h Confusion ≡ HConfusion (sticky u.Confusion kept per repo convention). */
 function Confusion() {

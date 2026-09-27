@@ -39,7 +39,7 @@ import {
     mindless, G_UNIQ, is_flyer, is_clinger, humanoid, is_hider, nolimbs,
     M1_SLITHY, is_mercenary, MR_SLEEP,
 } from './monsters.js';
-import { dist2 } from './hacklib.js';
+import { dist2, mungspaces } from './hacklib.js';
 import { Monnam, mon_nam, x_monnam } from './do_name.js';
 import { cansee, recalc_block_point, unblock_point } from './vision.js';
 import { m_at, wakeup, seemimic, onscary } from './mon.js';
@@ -153,11 +153,6 @@ function incr_itimeout_HDeaf(incr) {
     const cur = u.HDeaf | 0;
     const next = ((cur & TIMEOUT) + (incr | 0)) & TIMEOUT;
     u.HDeaf = (cur & ~TIMEOUT) | next;
-}
-
-/** C ref: hacklib.c mungspaces — trim ends, compress internal spaces. */
-function mungspaces(s) {
-    return String(s || '').trim().replace(/\s+/g, ' ');
 }
 
 /** C ref: do_name.c Amonnam — highc(a_monnam). */

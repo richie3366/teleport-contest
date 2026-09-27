@@ -36,7 +36,7 @@ import { dobjsfree } from './mkobj.js';
    makemap_prepost (`imports.mjs --can wizcmds.js lock.js` SAFE). */
 import { maybe_reset_pick } from './lock.js';
 import { minimal_monnam } from './do_name.js';
-import { strsubst, depth } from './hacklib.js';
+import { strsubst, depth, mungspaces } from './hacklib.js';
 import { getpos } from './getpos.js';
 import { usmellmon, makemon, rndmonst } from './makemon.js';
 import { check_invent_gold } from './invent.js';
@@ -360,13 +360,12 @@ export async function wiz_intrinsic() {
  */
 export async function wiz_level_change() {
     const u = game.u || (game.u = {});
-    const buf = await getlin('To what experience level do you want to be set?');
-    // C: mungspaces then sscanf("%d%c"); ESC/empty → ret=0 → Never_mind.
-    const trimmed = (buf || '').trim();
+    const buf = mungspaces(await getlin('To what experience level do you want to be set?'));
+    // C `:454–458` mungspaces then sscanf("%d%c"); ESC/empty → ret=0 → Never_mind.
     let newlevel = 0;
     let ret = 0;
-    if (buf && buf !== '\x1b' && trimmed && /^-?\d+$/.test(trimmed)) {
-        newlevel = parseInt(trimmed, 10);
+    if (buf && buf !== '\x1b' && /^-?\d+$/.test(buf)) {
+        newlevel = parseInt(buf, 10);
         if (Number.isFinite(newlevel)) ret = 1;
     }
     if (ret !== 1) {

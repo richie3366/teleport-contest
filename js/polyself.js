@@ -3,7 +3,7 @@
 
 import { game } from './gstate.js';
 import { rn2, rn1, d, rnd } from './rng.js';
-import { dist2, strstri, strsubst } from './hacklib.js';
+import { dist2, strstri, strsubst, mungspaces } from './hacklib.js';
 import {
     pline, You, Your, urgent_pline, newsym, see_monsters, impossible, Hallucination,
     canseemon,
@@ -362,10 +362,6 @@ const MS_SHRIEK = 18;
 function mdistu(mtmp) {
     const u = game.u || {};
     return dist2(u.ux | 0, u.uy | 0, mtmp?.mx | 0, mtmp?.my | 0);
-}
-
-function mungspaces(s) {
-    return String(s || '').trim().replace(/\s+/g, ' ');
 }
 
 /**

@@ -136,7 +136,7 @@ import { vision_recalc, do_clear_area, cansee } from './vision.js';
 import { valid_cloud_pos, create_gas_cloud } from './region.js';
 import { getpos, getpos_sethilite } from './getpos.js';
 import { bcsign, BY_COOKIE, outrumor } from './rumors.js';
-import { dist2 } from './hacklib.js';
+import { dist2, mungspaces } from './hacklib.js';
 import { You_hear, closed_door, maybe_half_phys } from './hack.js';
 import { Soundeffect } from './sndprocs.js';
 import { se_maniacal_laughter, se_sad_wailing } from './generated/seffects_data.js';
@@ -2713,10 +2713,6 @@ export async function do_genocide(how) {
             await pline(nothing_happens);
         }
     }
-}
-
-function mungspaces(s) {
-    return String(s || '').trim().replace(/\s+/g, ' ');
 }
 
 /**

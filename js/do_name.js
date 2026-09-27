@@ -85,7 +85,7 @@ import {
 import { get_rnd_text } from './rumors.js';
 import { m_at } from './mon.js';
 import { cansee } from './vision.js';
-import { fuzzymatch, strstri, highc, lcase, distmin } from './hacklib.js';
+import { fuzzymatch, strstri, highc, lcase, distmin, mungspaces } from './hacklib.js';
 import { pronoun_gender, PRONOUN_HALLU } from './mondata.js';
 import { beautiful } from './apply.js';
 import { mhe, mhis } from './fountain.js';
@@ -201,7 +201,7 @@ async function name_from_player(prompt, defres) {
     void defres;
     const outbuf = await getlin(prompt);
     if (!outbuf || outbuf === '\x1b') return null;
-    let s = outbuf.trim().replace(/\s+/g, ' ');
+    let s = mungspaces(outbuf); // C `:124`
     if (s.length >= PL_PSIZ) s = s.slice(0, PL_PSIZ - 1);
     return s;
 }
@@ -1815,13 +1815,14 @@ export async function docall(obj) {
     const ocl = game.objects?.[obj.otyp];
     if (!ocl) return;
     /* pointer to old name */
-    const buf = await name_from_player(qbuf, ocl.oc_uname);
+    let buf = await name_from_player(qbuf, ocl.oc_uname);
     if (buf == null) return;
 
     const hadName = !!ocl.oc_uname;
     ocl.oc_uname = null; /* clear oc_uname */
 
-    /* name_from_player already mungspaces; empty uncalls */
+    /* C `:666` strip again; empty uncalls */
+    buf = mungspaces(buf);
     if (!buf) {
         if (hadName) /* possibly remove from disco[]; old *uname_p is gone */
             undiscover_object(obj.otyp);
