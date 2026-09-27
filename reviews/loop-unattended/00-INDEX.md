@@ -1955,3 +1955,13 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1943-406969f14-botl-score.md](./1943-406969f14-botl-score.md) | `406969f14` | D-2984 botl_score | **ACCEPT** |
 | [1944-9b244f090-align-str.md](./1944-9b244f090-align-str.md) | `9b244f090` | D-2985 align_str | **ACCEPT** |
 | [1945-dceb8a7b3-argcheck.md](./1945-dceb8a7b3-argcheck.md) | `dceb8a7b3` | D-2986 argcheck | **ACCEPT** |
+| [1946-bf782b509-save-currentstate.md](./1946-bf782b509-save-currentstate.md) | `bf782b509` | D-2987 save_currentstate | **ACCEPT** |
+| [1947-05a11d7e9-checkpoint-handle.md](./1947-05a11d7e9-checkpoint-handle.md) | `05a11d7e9` | D-2987 checkpoint handle | **ACCEPT** |
+| [1948-080c16023-getversionstring.md](./1948-080c16023-getversionstring.md) | `080c16023` | D-2988 getversionstring | **ACCEPT** |
+| [1949-0daa1a65f-font-suppress-alert.md](./1949-0daa1a65f-font-suppress-alert.md) | `0daa1a65f` | D-2989 font/suppress_alert | **ACCEPT** |
+| [1950-ebc63743c-get-room-loc.md](./1950-ebc63743c-get-room-loc.md) | `ebc63743c` | D-2990 get_room_loc | **ACCEPT** |
+| [1951-1b2296131-alloc-nhalloc.md](./1951-1b2296131-alloc-nhalloc.md) | `1b2296131` | D-2991 nhalloc family | **ACCEPT-WITH-DEBT** |
+| [1952-e74c75d1f-handler-autounlock.md](./1952-e74c75d1f-handler-autounlock.md) | `e74c75d1f` | D-2992 handler_autounlock | **ACCEPT** |
+| [1953-e61bdd324-stumble-onto-mimic.md](./1953-e61bdd324-stumble-onto-mimic.md) | `e61bdd324` | D-2993 stumble_onto_mimic | **ACCEPT** |
+| [1954-d2d72caa6-u-can-engrave.md](./1954-d2d72caa6-u-can-engrave.md) | `d2d72caa6` | D-2994 u_can_engrave | **ACCEPT** |
+| [1955-b2a5f3fb7-m-next2m.md](./1955-b2a5f3fb7-m-next2m.md) | `b2a5f3fb7` | D-2995 m_next2m | **ACCEPT** |
