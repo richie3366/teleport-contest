@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2927 `end_of_input` saves on hangup, then clears locks and stops
+
+**C locus:** `nethack-c/upstream/src/cmd.c:5182–5209` `end_of_input`. `NOSAVEONHANGUP` is not defined, so the `INSURANCE` `preserve_locks` arm is not compiled. `In_tutorial` zeros `something_worth_saving`. `SAFERHANGUP` (`unixconf.h:301`) compiles out `if (!program_state.done_hup++)`. If still worth saving, `dosave0()`. If `soundprocs.sound_exit_nhsound`, call it with `"end_of_input"`. If `iflags.window_inited`, `exit_nhwindows(NULL)`. `clearlocks()`. `nh_terminate(EXIT_SUCCESS)`.
+**JS:** `js/cmd.js` `end_of_input` `:343`. Tutorial `:347`. `dosave0` `:352`. Sound `:355`. Windows `:361`. `clearlocks` `:363`. `nh_terminate` call `:364`. `tty_exit_nhwindows` `:300`. `exit_nhwindows` `:325`. `nh_terminate` `js/end.js:993`.
+**Change:** One async `end_of_input` in that C order. `dosave0` is awaited. The sound pointer is called only when it is a function.
+**Verify:** `node scripts/verify.mjs --fn end_of_input` → PASS syntax (3 changed js files: js/allmain.js js/cmd.js js/end.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.5s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+**Named:** No compiled arm of `end_of_input` is omitted. `settty`, `tty_raw_print("")`, `term_shutdown`, `wins[]`, `BASE_WINDOW`, and `ttyDisplay` have no tty objects and do not paint a second frame.
+**Next:** `steal.c` `worn_item_removal` (next Open — coverage row). Eleven coverage rows remain after archive, above the floor of 8, so nothing was refilled.
 ## 2026-09-27 — D-2926 `rejectcasting` stops a stunned, silent, or welded caster
 
 **C locus:** `nethack-c/upstream/src/spell.c:687–708` `rejectcasting`. If `Stunned` (`HStun`), `You("are too impaired to cast a spell.")` and return TRUE. Else if `!can_chant(&gy.youmonst)`, `You("are unable to chant the incantation.")` and return TRUE. Else if `!freehand()` and the wielded weapon is not a quarterstaff, `Your("arms are not free to cast!")` and return TRUE. Else return FALSE. `can_chant` is `mondata.c:579–587`: hero `Strangled`, else `is_silent`, `!has_head`, `MS_BUZZ`, or `MS_BURBLE`.

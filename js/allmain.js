@@ -1095,7 +1095,7 @@ export async function moveloop_core() {
     // C allmain.c:181–184 — SAFERHANGUP (unixconf.h) done_hup →
     // end_of_input before get_nh_event / dobjsfree.
     if (g.program_state?.done_hup) {
-        end_of_input();
+        await end_of_input();
         return;
     }
 

@@ -985,6 +985,28 @@ async function show_death_rip_and_summary(how, umoney, endtime = 0) {
 }
 
 /**
+ * C ref: end.c nh_terminate `:1673–1703`.
+ * Unix `nethack_exit` is `exit` (extern.h:2387). Scored ESM cannot exit
+ * the process; `program_state.gameover` stops `moveloop` / `runSegment`.
+ * @param {number} status EXIT_SUCCESS (0) or EXIT_FAILURE
+ */
+export function nh_terminate(status) {
+    if (!game.program_state) game.program_state = {};
+    const ps = game.program_state;
+    ps.in_moveloop = 0; // C `:1676` — won't be returning to normal play
+    // C `:1678` l_nhcore_call(NHCORE_GAME_EXIT) — no Lua core in scored JS.
+    // MACOS9 getreturn (`:1679–1681`) is not this build.
+    if (!ps.panicking) {
+        // C `:1684–1687` — freedynamicdata (save-freeing, not ported),
+        // dlb_cleanup (data library file, Rule #2), l_nhcore_done (no Lua).
+    }
+    // VMS (`:1690–1700`) returns when already exiting. Not this build.
+    ps.exiting = 1; // C `:1701`
+    ps.exit_status = status | 0;
+    ps.gameover = true; // C `:1702` nethack_exit(status)
+}
+
+/**
  * C ref: end.c really_done `:1130–1590` — gameover; cleanup; urealtime;
  * achievements; first-move pline; bones_ok/launch; arise; QUIT; fixup;
  * paybill; disclose; keepdogs; finish_paybill; grave; score (+ascension);
