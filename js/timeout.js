@@ -1043,11 +1043,25 @@ export async function nh_timeout() {
     }
     // C: for (upp = u.uprops; …) if ((intrinsic & TIMEOUT) && !(--intrinsic & TIMEOUT))
 
-    const hw = u.HWounded_legs | 0;
+    // C HWounded_legs ≡ uprops[WOUNDED_LEGS].intrinsic (youprop.h:136,
+    // single storage). OR-read + dual-write like the DEAF/FUMBLING/FAST
+    // arms: -- only the flat left #wizintrinsic/beartrap TIMEOUT stuck in
+    // the slot, so flat|slot readers (mount_steed's steed.c:228 wounded
+    // gate, dokick, pray…) believed the legs wounded forever — C printed
+    // "I see nobody there." while JS refused the mount (cf. D-1817 DEAF).
+    const hw = (u.HWounded_legs | 0)
+        | (u.uprops?.[WOUNDED_LEGS]?.intrinsic | 0);
     if (hw & TIMEOUT) {
         // C: --upp->intrinsic then test TIMEOUT bits cleared
         const next = hw - 1;
         u.HWounded_legs = next;
+        if (!u.uprops) u.uprops = {};
+        if (!u.uprops[WOUNDED_LEGS]) {
+            u.uprops[WOUNDED_LEGS] = { intrinsic: 0, extrinsic: 0, blocked: 0 };
+        }
+        u.uprops[WOUNDED_LEGS].intrinsic =
+            ((u.uprops[WOUNDED_LEGS].intrinsic | 0) & ~TIMEOUT)
+            | (next & TIMEOUT);
         if (!(next & TIMEOUT)) {
             // C case WOUNDED_LEGS: heal_legs(0); stop_occupation();
             await heal_legs(0);

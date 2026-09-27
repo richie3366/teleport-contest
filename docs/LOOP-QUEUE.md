@@ -103,7 +103,6 @@ A **JS throw** in any corpus session (`hidden-proxy status` owner
 always Must-fix rows: they forfeit every later screen of that session
 (Constitution §10.14).
 
-- [ ] `steed.c` `use_saddle` — blocks 2/953 corpus sessions, PASS→FAIL since the 2026-09-25 full board (`309d58ccc`): `scen-intrinsic-Ranger-92193` @61 and `scen-normal-Rogue-92209` @33, C «I see nobody there.» vs JS «Your leg is in no shape for riding.» (owner locus `steed.c:56`; JS checks wounded legs before C's target check). Suspect ports since then: `686ccd9e7` (D-2813 `mount_steed`), `b05a6b770` (D-2817). Probe: `node scripts/hidden-proxy.mjs verify use_saddle`. Source: 2026-09-28 full corpus rescore (recorder rebuilt; 43/44 public sessions re-record byte-identical).
 - [ ] `mon.c` `mcalcmove` — blocks 1/953 corpus sessions, PASS→FAIL since `309d58ccc`: `tour-Ranger-70021-d5-8-15-17-22` @44, both sides «The shocking sphere explodes at a spot in thin air! Boom!» but JS adds `--More--` (owner locus `mon.c:1164`, last matched draw in `mon_explodes`). Probe: `node scripts/hidden-proxy.mjs verify mcalcmove`. Source: 2026-09-28 full corpus rescore.
 
 ## Open — coverage (breadth phase — pop first after Must-fix)

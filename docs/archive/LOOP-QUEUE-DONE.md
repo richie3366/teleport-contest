@@ -5,6 +5,9 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-27
 
+- [x] `steed.c` `use_saddle` — blocks 2/953 corpus sessions, PASS→FAIL since the 2026-09-25 full board (`309d58ccc`): `scen-intrinsic-Ranger-92193` @61 and `scen-normal-Rogue-92209` @33, C «I see nobody there.» vs JS «Your leg is in no shape for riding.» (owner locus `steed.c:56`; JS checks wounded legs before C's target check). Suspect ports since then: `686ccd9e7` (D-2813 `mount_steed`), `b05a6b770` (D-2817). Probe: `node scripts/hidden-proxy.mjs verify use_saddle`. Source: 2026-09-28 full corpus rescore (recorder rebuilt; 43/44 public sessions re-record byte-identical). **Addressed:** D-2999
+
+
 - [x] `alloc.c` nhalloc — coverage MISSING (C 9 code L `alloc.c:152–166` / JS no symbol; hops 3, callers 2, RNG 0, msg 0; dead callees: heapmon_init) @9b244f090
 
 

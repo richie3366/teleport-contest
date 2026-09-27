@@ -1,6 +1,6 @@
 {"fn":"rider_cant_reach","c":"17-20","status":"unknown"}
 {"fn":"can_saddle","c":"26-33","status":"unknown"}
-{"fn":"use_saddle","c":"36-139","status":"unknown","d":["D-2328"],"at":"seed@a30a7de84"}
+{"fn":"use_saddle","c":"36-139","status":"ported","js":["js/steed.js:use_saddle"],"d":["D-2999","D-2328"],"at":"2026-09-27@6231a7084"}
 {"fn":"put_saddle_on_mon","c":"142-163","status":"unknown"}
 {"fn":"can_ride","c":"169-174","status":"unknown"}
 {"fn":"doride","c":"178-193","status":"unknown","d":["D-2000"],"at":"seed@a30a7de84"}
