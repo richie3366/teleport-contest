@@ -1874,3 +1874,12 @@ Catch-up of `reviews/loop-2026-08-15/` (unpaid C-wrongs) lives in
 | [1862-2f8cea8dd-livelog-newform.md](./1862-2f8cea8dd-livelog-newform.md) | `2f8cea8dd` | D-2903 livelog_newform | **ACCEPT** |
 | [1863-6aacaa7b4-learnwand.md](./1863-6aacaa7b4-learnwand.md) | `6aacaa7b4` | D-2904 learnwand | **ACCEPT** |
 | [1864-d475b25e1-omon-adj.md](./1864-d475b25e1-omon-adj.md) | `d475b25e1` | D-2905 omon_adj | **ACCEPT** |
+| [1865-cb7ff4a26-ceiling.md](./1865-cb7ff4a26-ceiling.md) | `cb7ff4a26` | D-2906 ceiling | **ACCEPT** |
+| [1866-d912391e3-eating-conducts.md](./1866-d912391e3-eating-conducts.md) | `d912391e3` | D-2907 eating_conducts | **ACCEPT** |
+| [1867-1490a6d6b-drop-uswapwep.md](./1867-1490a6d6b-drop-uswapwep.md) | `1490a6d6b` | D-2908 drop_uswapwep | **ACCEPT** |
+| [1868-4039cf023-some-armor.md](./1868-4039cf023-some-armor.md) | `4039cf023` | D-2909 some_armor | **ACCEPT** |
+| [1869-884da82f5-align-gname.md](./1869-884da82f5-align-gname.md) | `884da82f5` | D-2910 align_gname | **ACCEPT** |
+| [1870-af40498ad-engulf-target.md](./1870-af40498ad-engulf-target.md) | `af40498ad` | D-2911 engulf_target | **ACCEPT** |
+| [1871-a5d5677e6-readobjnam-init.md](./1871-a5d5677e6-readobjnam-init.md) | `a5d5677e6` | D-2912 readobjnam_init | **ACCEPT** |
+| [1872-4c8d21966-flip-vault-guard.md](./1872-4c8d21966-flip-vault-guard.md) | `4c8d21966` | D-2913 flip_vault_guard | **ACCEPT** |
+| [1873-e379902e8-region-dialogue.md](./1873-e379902e8-region-dialogue.md) | `e379902e8` | D-2914 region_dialogue | **ACCEPT** |

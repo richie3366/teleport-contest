@@ -7,6 +7,10 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — Audit 1865–1873 (D-2906…D-2914)
+
+Nine JS SHAs after review 1864 (`d475b25e1`). All **ACCEPT**: `ceiling`, `eating_conducts`, `drop_uswapwep`, `some_armor`, `align_gname`, `engulf_target`, `readobjnam_init`, `flip_vault_guard`, `region_dialogue`/`end_burn`. No Must-fix. Public `sessions` 44/44, Scr 11,405/11,405, RNG 792,838/792,838, speed `266+1.58/turn` (R² 0.745). Held-out still 12/44 (6,273/11,265, RNG 29.7 %, screens 55.7 %). Private corpus 12/12. Next: `mkobj.c` `mk_tt_object`.
+
 ## 2026-09-27 — D-2914 `region_dialogue` warns in a poison cloud; `end_burn` snuffs a light
 
 **C locus:** `nethack-c/upstream/src/timeout.c:553–569` `region_dialogue`. Save `(HMagical_breathing & TIMEOUT)`, clear those bits, read `Breathless` and `region_danger()`, restore, and on an odd remainder with `0 < i <= SIZE(region_texts)` print `region_texts[SIZE - i]`. Caller `nh_timeout` `:637–638`, before the generic `--`. `end_burn` is `timeout.c:1804–1822`: `impossible` when `!lamplit`; `MAGIC_LAMP` or `artifact_light` forces `timer_attached` false; that arm `del_light_source` + `lamplit = 0` + `OBJ_INVENT` `update_inventory`; else `!stop_timer` `impossible`.
