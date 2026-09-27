@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-27
 
-- [x] `mkobj.c` mk_tt_object — coverage THIN (C 19 L `mkobj.c:2227–2248` / JS 8 L in js/dig.js; hops 3, callers 5, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mk_tt_object` (reach regression must be 0). Measured `port-coverage.mjs --name mk_tt_object` 2026-09-27 @ 4039cf023. **Addressed:** D-2915
+- [x] `do_name.c` christen_monst — coverage PARTIAL (C 19 L `do_name.c:133–152` / JS 10 L in js/do_name.js; hops 2, callers 17, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn christen_monst` (reach regression must be 0). Measured `port-coverage.mjs --name christen_monst` 2026-09-27 @ 4039cf023. **Addressed:** D-2916
+
+
+- [x] `mkobj.c` mk_tt_object — coverage THIN (C 19 L `mkobj.c:2227–2248` / JS 8 L in js/dig.js; hops 3, callers 5, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mk_tt_object` (reach regression must be 0). Measured `port-coverage.mjs --name mk_tt_object` 2026-09-27 @ 4039cf023. **Addressed:** D-2915 `a4cc08e9a`
 
 
 - [x] `timeout.c` region_dialogue — coverage MISSING (C 15 L `timeout.c:554–569` / JS no symbol; hops 1, callers 1, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn region_dialogue` (reach regression must be 0). Measured `port-coverage.mjs --name region_dialogue` 2026-09-27 @ 4039cf023. **Addressed:** D-2914 `e379902e8`

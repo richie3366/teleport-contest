@@ -1440,7 +1440,7 @@ disco shift; `shk.c` `:3196–3231` unpaid gem `get_cost`; callees
 `invent.c` `o_on` `:1586–1599` + `shk.c` `find_oid` `:2776–2804` /
 `bp_to_obj` billobjs; `discover_object` moveloop GEM reprice +
 `update_inventory`; `docall` empty-uname); `observe_object`
-FIRST_OBJECT skip named); **`christen_monst` + tame `x_monnam` subset** (D-0079); 
+FIRST_OBJECT skip named); **`christen_monst` whole body** (D-2916; C `do_name.c` `:133–152` — lth is strlen+1, cap at PL_PSIZ by the strncpy window, `new_mgivenname` then Strcpy, `mleashed` → `update_inventory`; null mtmp returns where C faults); **tame `x_monnam` subset** (D-0079); 
 **`Monnam`/`noit_Monnam` MGIVENNAME→bare** (D-0095); 
 **`x_monnam` do_it `!canspotmon`→`it`** (D-0295; saddle adj kept); 
 **`mon_nam` isshk → `shkname`** (D-0307); **`uhitm` imports shared `mon_nam`** (D-0308); 

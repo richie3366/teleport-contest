@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2916 `christen_monst` stores a capped given name and refreshes a leash
+
+**C locus:** `nethack-c/upstream/src/do_name.c:133–152` `christen_monst`. `lth` is `(name && *name) ? strlen(name)+1 : 0`. If `lth > PL_PSIZ`, `lth = PL_PSIZ` and `strncpy` copies `PL_PSIZ-1` bytes with a NUL at `[PL_PSIZ-1]`. `new_mgivenname(mtmp, lth)`, then `Strcpy` when `lth`. If `mtmp->mleashed`, `update_inventory()`. Returns `mtmp`.
+**JS:** `js/do_name.js` `christen_monst` `:428`. NUL and `lth` `:432–435`. Cap `:437–440`. `new_mgivenname` `:442`. Strcpy `:444`. Leash `:446`. Return `:447`. Import `:91`.
+**Change:** One exported `christen_monst` in that C order. `new_mgivenname` is the `restore.js` export (`imports.mjs --can` SAFE, hoisted). `update_inventory` is the existing sync export.
+**Verify:** `node scripts/verify.mjs --fn christen_monst` → PASS syntax (2 changed js files: js/do_name.js js/end.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script: no shared file changed) · VERIFY: PASS.
+**Named:** No arm of `christen_monst` is omitted. A null `mtmp` returns; C `NONNULLARG1` would fault.
+**Next:** `mail.c` `ckmailstatus` (next Open — coverage row). Ten Open rows remain after archive, above the floor of 8, so nothing was refilled. The queue-empty overlay did not match the live queue (eleven coverage rows were open; `christen_monst` was the head and its body was a 10-line partial).
 ## 2026-09-27 — D-2915 `mk_tt_object` names a top-ten corpse or statue, else a player role
 
 **C locus:** `nethack-c/upstream/src/mkobj.c:2227–2248` `mk_tt_object`. `initialize_it` is false for `STATUE`. `mksobj_at(objtype, x, y, initialize_it, FALSE)`. If `tt_oname` returns null, `rn1(PM_WIZARD - PM_ARCHEOLOGIST + 1, PM_ARCHEOLOGIST)` and `set_corpsenm`. Returns `otmp` (the comment says it never returns null). `tt_oname` is `topten.c:1421–1441`: null object returns before RNG; `get_rnd_toptenentry`; null entry returns; else `set_corpsenm(classmon(plrole))`, `spe` from `plgend[0]` `F`/`M`, then `oname(..., ONAME_NO_FLAGS)`. `get_rnd_toptenentry` is `:1380–1414`. `classmon` is `:1355–1375`.

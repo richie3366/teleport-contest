@@ -1648,7 +1648,7 @@ async function savebones(how, when, corpse) {
             return;
         }
         give_u_to_m_resistances(mtmp);
-        mtmp = christen_monst(mtmp, game.plname || 'Player');
+        mtmp = christen_monst(mtmp, game.plname || '');
         newsym(u.ux | 0, u.uy | 0);
         await drop_upon_death(mtmp, null, u.ux | 0, u.uy | 0);
         /* 'mtmp' now has hero's inventory; if 'mtmp' is a mummy, give it
@@ -1681,7 +1681,7 @@ async function savebones(how, when, corpse) {
         let mtmp = makemon(mons(PM_GHOST), u.ux | 0, u.uy | 0, MM_NONAME);
         game.in_mklev = prev;
         if (!mtmp) return;
-        mtmp = christen_monst(mtmp, game.plname || 'ghost');
+        mtmp = christen_monst(mtmp, game.plname || '');
         mtmp.m_lev = (u.ulevel | 0) || 1;
         mtmp.mhp = mtmp.mhpmax = u.uhpmax | 0;
         mtmp.female = game.flags?.female ? 1 : 0;
