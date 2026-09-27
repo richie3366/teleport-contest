@@ -259,11 +259,32 @@ function get_obj_location_quantum(obj) {
     return null;
 }
 
-/** C ref: pickup.c reset_justpicked — clear pickup_prev on invent chain. */
+/**
+ * C ref: pickup.c reset_justpicked `:616–632`.
+ * extern.h: gi.invent may be null; a null list clears nothing.
+ * The same-spot enhancement in the C comment is not implemented:
+ * C always clears. The hero pack is an array (nobj not rebuilt);
+ * a chain head still walks nobj.
+ */
 export function reset_justpicked(olist) {
-    const list = olist || game.invent || [];
-    for (const otmp of list) {
-        if (otmp) otmp.pickup_prev = 0;
+    /*
+     * C `:619–628` — possible enhancement, not this function: do not
+     * reset when the hero is still on the spot of the most recent
+     * pickup. That would be right for autopickup immediately followed
+     * by manual pickup, and probably for a newly arrived missile
+     * after some time. Other activity is murkier. Taking anything
+     * out of a container ought to count as having moved.
+     */
+    /* C `:631–632` — for (otmp = olist; otmp; otmp = otmp->nobj) */
+    if (Array.isArray(olist)) {
+        for (let i = 0; i < olist.length; i++) {
+            const otmp = olist[i];
+            if (otmp) otmp.pickup_prev = 0;
+        }
+        return;
+    }
+    for (let otmp = olist; otmp; otmp = otmp.nobj) {
+        otmp.pickup_prev = 0;
     }
 }
 

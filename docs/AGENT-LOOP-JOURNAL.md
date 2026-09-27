@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2945 `reset_justpicked` clears the chain and ignores a null list
+
+**C locus:** `nethack-c/upstream/src/pickup.c:616–632` `reset_justpicked`. `extern.h:2437–2439` says `gi.invent` may be null. The comment at `:619–628` is an unimplemented enhancement (do not clear when the hero is still on the pickup spot). The compiled body is `:631–632`: `for (otmp = olist; otmp; otmp = otmp->nobj) otmp->pickup_prev = 0`. `pickup_prev` is a 1-bit field (`obj.h:145`).
+**JS:** `js/pickup.js` `reset_justpicked` `:269`. Comment `:270–277`. Array walk `:279–284`. `nobj` walk `:286–288`.
+**Change:** One exported `reset_justpicked` in that C order. A null list returns without touching the pack. An array pack (nobj chain not rebuilt) clears every element.
+**Verify:** `node scripts/verify.mjs --fn reset_justpicked` → PASS syntax (1 changed js file: js/pickup.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.2s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (pickup.js is not on the shared-file list) · VERIFY: PASS.
+**Named:** No arm of `reset_justpicked` is omitted. The same-spot skip is a C comment, not compiled code.
+**Next:** `selvar.c` `selection_new` (next Open — coverage row). Ten coverage rows remain after this archive, above the floor of 8, so nothing was refilled.
 ## 2026-09-27 — D-2944 `putmesg` sets urgent and no-history attributes, then paints
 
 **C locus:** `nethack-c/upstream/src/pline.c:65–80` `putmesg`. `iflags.debug_prevent_pline` returns before `putstr` and `SoundSpeak`. `URGENT_MESSAGE` with `windowprocs.wincap2 & WC2_URGENT_MESG` ORs `ATR_URGENT`. `SUPPRESS_HISTORY` with `WC2_SUPPRESS_HIST` ORs `ATR_NOHISTORY`. Then `putstr(WIN_MESSAGE, attr, line)` and `SoundSpeak(line)`. Contest tty_procs sets both capability bits (`wintty.c:119`). `SoundSpeak` is the empty macro when `!SND_LIB` (`sndprocs.h:275`). `putstr` is `(*windowprocs.win_putstr)` (`winprocs.h:125`), tty `NHW_MESSAGE` (`wintty.c:2260–2301`): urgent clears `WIN_STOP` and sets one-shot `WIN_NOSTOP`, then `update_topl` or `remember_topl`+`show_topl`, then clears `WIN_NOSTOP`.

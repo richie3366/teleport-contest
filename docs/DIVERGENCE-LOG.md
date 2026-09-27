@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2945 — `reset_justpicked` clears the chain and ignores a null list
+
+- **Status:** fixed (coverage THIN; `hidden-proxy verify` reports no corpus session blocked). C is 16 lines; the whole body shipped.
+- **Symptom:** A null list still cleared `game.invent`. A chain head was not walked through `nobj`.
+- **C locus:** `nethack-c/upstream/src/pickup.c:616–632` `reset_justpicked`. `extern.h:2437–2439` says `gi.invent` may be null. The comment at `:619–628` is an unimplemented enhancement (do not clear when the hero is still on the pickup spot). The compiled body is `:631–632`: `for (otmp = olist; otmp; otmp = otmp->nobj) otmp->pickup_prev = 0`. `pickup_prev` is a 1-bit field (`obj.h:145`).
+- **JS was:** `js/pickup.js:263` used `olist || game.invent || []` and `for…of`. A null argument cleared the pack. A non-array head is not iterable.
+- **Fix:** One exported `reset_justpicked` in that C order. A null list returns without touching the pack. An array pack (nobj chain not rebuilt) clears every element. Any other head walks `nobj`. The same-spot enhancement stays a comment.
+- **JS:** `js/pickup.js` `reset_justpicked` `:269`. Comment `:270–277`. Array walk `:279–284`. `nobj` walk `:286–288`.
+- **Callers:** Prototype `extern.h:2439` (declaration only). `allmain.c:74` → `js/allmain.js:294`. `invent.c:1079` `addinv_core0` → `js/u_init.js:1062`. `pickup.c:781` `menu_pickup` → `js/pickup.js:1993` (autopick), `:2026` (count-N), `:2040` (PICK_ANY), `:3635` (traditional `via_menu` goto). `pickup.c:814` → `js/pickup.js:3617`. `pickup.c:883` → `js/pickup.js:3692`. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn reset_justpicked` → PASS syntax (1 changed js file: js/pickup.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.2s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (pickup.js is not on the shared-file list) · VERIFY: PASS.
+- **Named omissions:** No arm of `reset_justpicked` is omitted. The same-spot skip is a C comment, not compiled code. `allmain` still does not call `pickup(1)` after this reset (`allmain.c:75`).
+- **Next:** `selvar.c` `selection_new` (next Open — coverage row). Ten coverage rows remain after this archive, above the floor of 8, so nothing was refilled.
+
 ## D-2944 — `putmesg` sets urgent and no-history attributes, then paints
 
 - **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked). C is 15 lines; the whole body shipped.

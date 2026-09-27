@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-27
 
-- [x] `pline.c` putmesg — coverage MISSING (C 15 L `pline.c:65–80` / JS no symbol; hops 3, callers 1, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn putmesg` (reach regression must be 0). Measured `port-coverage.mjs --name putmesg` 2026-09-27 @ 75f0544f8. **Addressed:** D-2944
+- [x] `pickup.c` reset_justpicked — coverage THIN (C 16 L `pickup.c:616–632` / JS 6 L in js/pickup.js; hops 2, callers 5, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn reset_justpicked` (reach regression must be 0). Measured `port-coverage.mjs --name reset_justpicked` 2026-09-27 @ fa30d863c. **Addressed:** D-2945
+
+
+- [x] `pline.c` putmesg — coverage MISSING (C 15 L `pline.c:65–80` / JS no symbol; hops 3, callers 1, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn putmesg` (reach regression must be 0). Measured `port-coverage.mjs --name putmesg` 2026-09-27 @ 75f0544f8. **Addressed:** D-2944 `836e0baaf`
 
 
 - [x] `do_name.c` hliquid — coverage PARTIAL (C 16 L `do_name.c:1493–1510` / JS 11 L in js/do_name.js; hops 2, callers 86, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn hliquid` (reach regression must be 0). Measured `port-coverage.mjs --name hliquid` 2026-09-27 @ 75f0544f8. **Addressed:** D-2943 `9ce3f2138`
