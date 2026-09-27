@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-2997 — `sp_lev.c` find_montype whole-body port under find_montype_gender
+
+- **Status:** fixed (coverage row `sp_lev.c` find_montype MISSING; hidden-proxy verify reports no corpus session blocked on it).
+- **Symptom:** no JS symbol for `find_montype`; same-file `find_montype_gender` inlined its core with a lower-bound-only guard (`i < 0 || i === NON_PM`) — an index ≥ NUMMONS fell through to `mons(i)` → null → `is_male` throw — and without C's int-return + nullable `mgender` out-param shape.
+- **C locus:** `nethack-c/upstream/src/sp_lev.c:3142–3164` `find_montype` (staticfn; C callers `get_table_montype :3173`, `lspo_monster :3254/:3269/:3285` string arms + `:3343` table arm via get_table_montype).
+- **JS was:** `find_montype_gender` (`js/mklev.js:28889`) inline clone, no NUMMONS upper bound, no out-param arms.
+- **Fix:** File-local `find_montype(s, mgender)` in C order at `js/mklev.js:28899` (C staticfn, like same-file `get_room_loc`): NEUTRAL seed `:3148`, name_to_monplus with NULL remainder `:3150`, LOW_PM/NUMMONS range `:3151`, fixed-sex short-circuit override `:3152–3153`, else name gender or rn2(2) `:3154–3156`, nullable `{ mgender }` holder out-param `:3157–3158`, failure NEUTRAL + NON_PM `:3161–3163` (`L UNUSED` dropped — no JS analog). `find_montype_gender` (`:28917`) now delegates (same `{mndx, female}` contract; failure `female: 0` kept — every caller guards `mndx < 0 || mndx === NON_PM`, unobservable). +1 import name NUMMONS on the ALREADY mklev→monsters edge (re-exported `js/monsters.js:46`); no new cross-module edge, no imports.mjs check needed.
+- **JS:** `js/mklev.js` (+1 import name, +19 body+doc, helper +5/−9).
+- **Callers:** C `lspo_monster` string arms `:3254/:3269/:3285` → JS split `l_create_monster` string arm (`js/mklev.js:22353`) → `splev_create_monster` (`:21140` `find_montype_gender` call) → `find_montype_gender` (`:28917`) → `find_montype` (`:28899`); C table arm `:3343` → JS `lspo_monster_normalize_table` range check + `Unknown monster id` throw (`:22301–22307`, the get_table_montype analog — deliberate replay design: gender burn replays inside `splev_create_monster` from `tmp.idName`, now through the faithful port). No call from a site C never calls from. `lspo_monster` stays ledger-split per D-2990 (`l_create_monster`).
+- **Verify:** `node scripts/verify.mjs --fn find_montype` → VERIFY: PASS (syntax 1 file js/mklev.js; rule2; hidden note no corpus session blocked; reach 7 baseline-PASS sessions reach it, 7/7 → REACH-OK; green 2/2; strict ×2; cohort 7/7; full 44/44 auto: shared file changed). No new `scripts/*.test.mjs`: file-local C staticfn with no exported seam (D-2990 precedent) — behavior identical on all reachable inputs, REACH + full suite is the evidence.
+- **Named omissions:** none for `find_montype` — every arm ported, every callee live, both C callers' JS counterparts execute it. Live: `name_to_monplus` mondata.js:737 (ledger-PARTIAL D-2577, used as-is — its gaps tracked under its own row), `rn2` rng.js:89, `mons`/`is_male`/`is_female` monsters.js:203/748/751, LOW_PM/NUMMONS/NON_PM/MALE/FEMALE/NEUTRAL. Not extracted: same-named `get_table_montype` unit (its `:3172–3178` check+throw lives inline at `:22301–22307` by the D-2645 replay design).
+- **Ledger:** find_montype ported
+- **Next:** breadth picker continues at the regenerated coverage head. Same-file `load_special` left queued: its core arm is `load_lua` (Lua-VM des execution, no JS analog) — cannot ship without a stub in a live arm.
+
 ## D-2996 — `zap.c` get_mon_location whole-body port + do_light_sources caller wiring
 
 - **Status:** fixed (coverage row `zap.c` get_mon_location MISSING; hidden-proxy verify reports no corpus session blocked on it).

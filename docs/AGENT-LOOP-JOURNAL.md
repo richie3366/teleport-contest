@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2997 `sp_lev.c` find_montype whole-body port under find_montype_gender
+
+**C locus:** `nethack-c/upstream/src/sp_lev.c:3142–3164` `find_montype` (staticfn; C callers `get_table_montype :3173`, `lspo_monster :3254/:3269/:3285` string arms + `:3343` table arm via get_table_montype).
+**JS:** `js/mklev.js` (+1 import name, +19 body+doc, helper +5/−9).
+**Change:** File-local `find_montype(s, mgender)` in C order at `js/mklev.js:28899` (C staticfn, like same-file `get_room_loc`): NEUTRAL seed `:3148`, name_to_monplus with NULL remainder `:3150`, LOW_PM/NUMMONS range `:3151`, fixed-sex short-circuit override `:3152–3153`, else name gender or rn2(2) `:3154–3156`, nullable `{ mgender }` holder out-param `:3157–3158`, failure NEUTRAL + NON_PM `:3161–3163` (`L UNUSED` dropped — no JS analog). `find_montype_gender` (`:28917`) now delegates (same `{mndx, female}` contract; failure `female: 0` kept — every caller guards `mndx < 0 || mndx === NON_PM`, unobservable). +1 import name NUMMONS on the ALREADY mklev→monsters edge (re-exported `js/monsters.js:46`); no new cross-module edge, no imports.mjs check needed.
+**Verify:** `node scripts/verify.mjs --fn find_montype` → VERIFY: PASS (syntax 1 file js/mklev.js; rule2; hidden note no corpus session blocked; reach 7 baseline-PASS sessions reach it, 7/7 → REACH-OK; green 2/2; strict ×2; cohort 7/7; full 44/44 auto: shared file changed). No new `scripts/*.test.mjs`: file-local C staticfn with no exported seam (D-2990 precedent) — behavior identical on all reachable inputs, REACH + full suite is the evidence.
+**Named:** none for `find_montype` — every arm ported, every callee live, both C callers' JS counterparts execute it. Live: `name_to_monplus` mondata.js:737 (ledger-PARTIAL D-2577, used as-is — its gaps tracked under its own row), `rn2` rng.js:89, `mons`/`is_male`/`is_female` monsters.js:203/748/751, LOW_PM/NUMMONS/NON_PM/MALE/FEMALE/NEUTRAL.
+**Next:** breadth picker continues at the regenerated coverage head. Same-file `load_special` left queued: its core arm is `load_lua` (Lua-VM des execution, no JS analog) — cannot ship without a stub in a live arm.
 ## 2026-09-27 — D-2996 `zap.c` get_mon_location whole-body port + do_light_sources caller wiring
 
 **C locus:** `nethack-c/upstream/src/zap.c:692–709` `get_mon_location` (sole C caller `light.c` do_light_sources `:192`).

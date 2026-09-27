@@ -128,7 +128,7 @@ import {
     PM_ARCHEOLOGIST, PM_WIZARD, PM_GIANT_SPIDER, PM_MONK, PM_LICHEN,
     is_male, is_female, is_orc, M2_ORC, mons, G_NOGEN, G_UNIQ, G_IGNORE,
     monsterNames,
-    LOW_PM, pmnames,
+    LOW_PM, NUMMONS, pmnames,
     MALE, FEMALE, NEUTRAL,
     is_flyer, is_floater, is_swimmer, amphibious,
     passes_walls, noncorporeal, likes_fire,
@@ -28885,24 +28885,43 @@ function create_object_themed(opts, x, y) {
     return otmp;
 }
 
+/**
+ * C ref: sp_lev.c find_montype `:3142–3164` (staticfn) — resolve a
+ * des.monster name to a monster index plus gender. File-local like
+ * same-file `get_room_loc` (C staticfn). The C `lua_State *L UNUSED`
+ * has no JS analog; `mgender` is the C `int *mgender` out-param as a
+ * nullable `{ mgender }` holder. C order: NEUTRAL seed `:3148`,
+ * name_to_monplus with NULL remainder `:3150`, LOW_PM/NUMMONS range
+ * `:3151`, fixed-sex override `:3152–3153`, else name gender or
+ * rn2(2) `:3154–3156`, out-param `:3157–3158`, failure NEUTRAL +
+ * NON_PM `:3161–3163`.
+ */
+function find_montype(s, mgender = null) {
+    const genderVar = { gender: NEUTRAL }; // C `:3148` mgend = NEUTRAL
+    const i = name_to_monplus(s, null, genderVar); // C `:3150`
+    if (i >= LOW_PM && i < NUMMONS) { // C `:3151`
+        const ptr = mons(i); // C `&mons[i]`
+        let mgend = genderVar.gender;
+        if (is_male(ptr) || is_female(ptr)) // C `:3152` short-circuit
+            mgend = is_female(ptr) ? FEMALE : MALE; // C `:3153`
+        else // C `:3154–3156`
+            mgend = mgend === FEMALE ? FEMALE : mgend === MALE ? MALE : rn2(2);
+        if (mgender) mgender.mgender = mgend; // C `:3157–3158`
+        return i; // C `:3159`
+    }
+    if (mgender) mgender.mgender = NEUTRAL; // C `:3161–3162`
+    return NON_PM; // C `:3163`
+}
+
 // C ref: sp_lev.c find_montype — gender from name_to_monplus / fixed-sex / rn2(2)
 function find_montype_gender(name) {
-    // C: int mgend = NEUTRAL; then name_to_monplus(..., &mgend)
-    const genderVar = { gender: NEUTRAL };
-    const i = name_to_monplus(name, null, genderVar);
+    // C find_montype `:3150–3163`: range-checked index + gender burn.
+    const box = { mgender: NEUTRAL };
+    const i = find_montype(name, box);
+    // Callers guard `mndx < 0 || mndx === NON_PM`, so the failure
+    // female is unobservable; keep the historical 0 shape.
     if (i < 0 || i === NON_PM) return { mndx: NON_PM, female: 0 };
-    const ptr = mons(i);
-    let female = 0;
-    if (is_male(ptr) || is_female(ptr)) {
-        female = is_female(ptr) ? FEMALE : MALE;
-    } else {
-        const mgend = genderVar.gender;
-        // C: (mgend == FEMALE) ? FEMALE : (mgend == MALE) ? MALE : rn2(2)
-        female = mgend === FEMALE ? FEMALE
-            : mgend === MALE ? MALE
-            : rn2(2);
-    }
-    return { mndx: i, female };
+    return { mndx: i, female: box.mgender };
 }
 
 // C ref: selvar.c selection_filter_percent — rn2(100) < pct per set cell

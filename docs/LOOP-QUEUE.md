@@ -112,7 +112,6 @@ body in C order — every arm, every callee live or named, every C caller
 wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 
 <!-- coverage:begin -->
-- [ ] `sp_lev.c` find_montype — coverage MISSING (C 14 code L `sp_lev.c:3143–3164` / JS no symbol; hops —, callers 2, RNG 1, msg 0) @0daa1a65f
 - [ ] `region.c` clear_regions — coverage THIN (C 8 code L `region.c:394–405` / JS 1 code L in js/region.js; hops 2, callers 3, RNG 0, msg 0) @0daa1a65f
 - [ ] `dungeon.c` free_proto_dungeon — coverage MISSING (C 10 code L `dungeon.c:1185–1201` / JS no symbol; hops 2, callers 1, RNG 0, msg 0) @0daa1a65f
 - [ ] `glyphs.c` apply_customizations — coverage MISSING (C 27 code L `glyphs.c:531–574` / JS no symbol; hops —, callers 6, RNG 0, msg 0; dead callees: set_map_u) @0daa1a65f
@@ -124,6 +123,7 @@ wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 - [ ] `cmd.c` lock_mouse_buttons — coverage MISSING (C 9 code L `cmd.c:3326–3340` / JS no symbol; hops 2, callers 1, RNG 0, msg 0) @a5d26e462
 - [ ] `options.c` optfn_boolean — coverage MISSING (C 178 code L `options.c:5192–5449` / JS no symbol; hops —, callers 0, RNG 0, msg 2) @a5d26e462
 - [ ] `sp_lev.c` load_special — coverage MISSING (C 24 code L `sp_lev.c:6454–6502` / JS no symbol; hops 2, callers 2, RNG 0, msg 0; split? cited 218× in js/ — brief first) @806473d71
+- [ ] `mkobj.c` bless — coverage PARTIAL (C 16 code L `mkobj.c:1745–1764` / JS 9 code L in js/mkobj.js; hops 3, callers 14, RNG 0, msg 0) @9ee8217df
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
