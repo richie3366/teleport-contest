@@ -3,8 +3,8 @@
 {"fn":"reset_occupations","c":"195-200","status":"unknown"}
 {"fn":"set_occupation","c":"206-216","status":"unknown"}
 {"fn":"cmdq_print","c":"220-249","status":"unknown"}
-{"fn":"cmdq_add_ec","c":"254-270","status":"unknown"}
-{"fn":"cmdq_add_key","c":"274-290","status":"unknown"}
+{"fn":"cmdq_add_ec","c":"254-270","status":"partial","js":["js/cmd.js:cmdq_add_ec"],"d":["D-2976"],"at":"2026-09-27@b3da2ae0e"}
+{"fn":"cmdq_add_key","c":"274-290","status":"ported","js":["js/invent.js:cmdq_add_key"],"d":["D-2976"],"at":"2026-09-27@b3da2ae0e"}
 {"fn":"cmdq_add_dir","c":"294-312","status":"unknown"}
 {"fn":"cmdq_add_userinput","c":"316-331","status":"unknown"}
 {"fn":"cmdq_add_int","c":"335-351","status":"unknown"}

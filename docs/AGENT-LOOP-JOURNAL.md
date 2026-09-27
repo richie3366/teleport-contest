@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2976 `cmdq_add_key` appends a key on the named command queue
+
+**C locus:** `nethack-c/upstream/src/cmd.c:274–290` `cmdq_add_key`. Allocate a node (`alloc`, GC here), set `typ = CMDQ_KEY`, `key`, `next = NULL`, walk `command_queue[q]` to the tail, and link the node or install it as the head. `cmdq_add_ec` (`cmd.c:253–270`) is the same append with `typ = CMDQ_EXTCMD` and `ec_entry = ext_func_tab_from_func(fn)`.
+**JS:** `js/invent.js` `cmdq_add_key` `:8574`. Node `:8577`. Append `:8583`. `js/cmd.js` `cmdq_add_ec` `:424`. `js/spell.js` `docast` `:2851`. `js/getpos.js` `:1395`. `js/apply.js` `use_whip` `:3303`, `use_pole` `:3771`, `use_grapple` `:3921`, `dorub` `:5246`. `js/dig.js` `use_pick_axe` `:2480`. `js/dothrow.js` `:2727` and `:2780`. `js/iactions.js` `itemactions_pushkeys` `:58`.
+**Change:** One `cmdq_add_key` keeps the C order on the array queues (`push` is the tail walk; `cmdq_pop` shifts the head). Callers pass `CQ_CANNED` or `CQ_REPEAT`. Keys are one-character strings.
+**Verify:** `node scripts/verify.mjs --fn cmdq_add_key` → PASS syntax (8 changed js file(s): js/apply.js js/cmd.js js/dig.js js/dothrow.js js/getpos.js js/iactions.js js/invent.js js/spell.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.4s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script shared-file list does not include these files) · VERIFY: PASS.
+**Named:** No arm of `cmdq_add_key` is omitted. `allmain.c:494` is `#if defined(MICRO) || defined(WIN32CON)`; neither macro is defined in this tree.
+**Next:** `worn.c` `which_armor` (next Open — coverage row).
 ## 2026-09-27 — D-2975 `wiz_show_stats` totals objects, monsters, overview, and misc memory
 
 **C locus:** `nethack-c/upstream/src/wizcmds.c:1616–1697` `wiz_show_stats`. Title, then objects (`obj_chain` of invent and fobj forced, buried / migrating / billobjs only when nonzero, `mon_invent_chain` of fmon and migrating monsters, `contained_stats`), monsters (`mon_chain` of fmon forced, migrating, and mydogs when the pointer is set; worm segments only for the `"fmon"` label), overview (`overview_stats`), miscellaneous (`misc_stats`), and the grand total. `size_obj` (`:1117–1132`) and `size_monst` (`:1228–1254`) add the LP64 struct sizes plus name, mail command, attached monster, and mextra extensions. `count_obj` (`:1135–1151`) counts the chain and, when asked, recurses into `cobj`.

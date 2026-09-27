@@ -112,7 +112,6 @@ body in C order — every arm, every callee live or named, every C caller
 wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 
 <!-- coverage:begin -->
-- [ ] `cmd.c` cmdq_add_key — coverage THIN (C 11 code L `cmd.c:274–290` / JS 4 code L in js/invent.js; hops 2, callers 15, RNG 0, msg 0) @06237de26
 - [ ] `worn.c` which_armor — coverage PARTIAL (C 25 code L `worn.c:1006–1036` / JS 17 code L in js/worn.js; hops 2, callers 54, RNG 0, msg 0) @06237de26
 - [ ] `zap.c` get_obj_location — coverage PARTIAL (C 27 code L `zap.c:654–689` / JS 19 code L in js/timeout.js; hops 2, callers 40, RNG 0, msg 0) @f02368fbc
 - [ ] `cmd.c` cmdq_add_ec — coverage PARTIAL (C 11 code L `cmd.c:254–270` / JS 7 code L in js/cmd.js; hops 1, callers 16, RNG 0, msg 0) @a5772c318
@@ -124,6 +123,7 @@ wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 - [ ] `botl.c` botl_score — coverage MISSING (C 10 code L `botl.c:419–436` / JS no symbol; hops 2, callers 3, RNG 0, msg 0) @8a0963412
 - [ ] `options.c` show_menu_controls — coverage PARTIAL (C 87 code L `options.c:9070–9174` / JS 50 code L in js/dokeylist.js; hops —, callers 2, RNG 0, msg 19) @8a0963412
 - [ ] `insight.c` align_str — coverage THIN (C 10 code L `insight.c:3187–3200` / JS 3 code L in js/quest.js; hops 3, callers 13, RNG 0, msg 0) @3b405b65a
+- [ ] `dothrow.c` release_camera_demon — coverage PARTIAL (C 10 code L `dothrow.c:2457–2470` / JS 7 code L in js/dothrow.js; hops 4, callers 2, RNG 2, msg 1) @b3da2ae0e
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)

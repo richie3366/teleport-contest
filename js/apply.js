@@ -43,7 +43,7 @@ import {
     EXACT_NAME, DISP_BEAM, DISP_END, HI_ZAP,
     MONSEEN_NORMAL, MONSEEN_SEEINVIS, MONSEEN_INFRAVIS,
     GETOBJ_PROMPT, GETOBJ_NOFLAGS, GETOBJ_EXCLUDE as GETOBJ_EXCLUDE_C,
-    FM_FMON,
+    FM_FMON, CQ_CANNED,
 } from './const.js';
 import { pick_lock, getdir } from './lock.js';
 import { ustatusline, mstatusline } from './insight.js';
@@ -55,7 +55,7 @@ import {
     compactify_invlets, makeknown, near_capacity, observe_object, prinv,
     hold_another_object, consume_obj_charge, freeinv, update_inventory, getobj,
     getobj_from_cmdq, getobj_record_repeat, getobj_display_pickinv, useupall,
-    useup, useupf,
+    useup, useupf, cmdq_add_key,
 } from './invent.js';
 import { rn2, rn1, rnd, d, rnl, shuffle_int_array } from './rng.js';
 import {
@@ -95,6 +95,8 @@ import {
     carried, vomit,
 } from './eat.js';
 import { yn_function, paranoid_query } from './getline.js';
+// imports.mjs --can js/apply.js js/cmd.js cmdq_add_ec: hoisted, cycle-safe.
+import { cmdq_add_ec } from './cmd.js';
 import {
     costly_alteration, costly_spot, add_damage, bill_dummy_object, shop_keeper,
     check_unpaid_usage, check_unpaid, obfree,
@@ -3298,8 +3300,8 @@ export async function use_whip(obj) {
 
     if (obj !== u.uwep) {
         if (await wield_tool(obj, 'lash')) {
-            cmdq_add_ec(doapply);
-            cmdq_add_key(obj.invlet);
+            cmdq_add_ec(CQ_CANNED, doapply);
+            cmdq_add_key(CQ_CANNED, obj.invlet);
             return ECMD_TIME;
         }
         return ECMD_OK;
@@ -3766,8 +3768,8 @@ export async function use_pole(obj, autohit) {
     }
     if (obj !== u.uwep) {
         if (await wield_tool(obj, 'swing')) {
-            cmdq_add_ec(doapply);
-            cmdq_add_key(obj.invlet);
+            cmdq_add_ec(CQ_CANNED, doapply);
+            cmdq_add_key(CQ_CANNED, obj.invlet);
             return ECMD_TIME;
         }
         return ECMD_OK;
@@ -3916,8 +3918,8 @@ async function use_grapple(obj) {
     }
     if (obj !== u.uwep) {
         if (await wield_tool(obj, 'cast')) {
-            cmdq_add_ec(doapply);
-            cmdq_add_key(obj.invlet);
+            cmdq_add_ec(CQ_CANNED, doapply);
+            cmdq_add_key(CQ_CANNED, obj.invlet);
             return ECMD_TIME;
         }
         return ECMD_OK;
@@ -5210,17 +5212,6 @@ function rub_ok(obj) {
  * `?`/`*` into a re-prompt with no display_pickinv, returned silent null
  * on ESC, and missed in_doagain/force_invmenu/botl entirely. */
 
-/** C ref: cmd.c cmdq_add_ec / cmdq_add_key for dorub re-queue after wield. */
-function cmdq_add_ec(fn) {
-    if (!game._cmdq_canned) game._cmdq_canned = [];
-    game._cmdq_canned.push(fn);
-}
-function cmdq_add_key(ch) {
-    if (!game._cmdq_canned) game._cmdq_canned = [];
-    const key = typeof ch === 'string' ? ch.charCodeAt(0) : ch;
-    game._cmdq_canned.push({ typ: 'key', key });
-}
-
 /**
  * C ref: apply.c dorub — #rub lamp/stone/jelly.
  * MAGIC_LAMP spe>0 !rn2(3) → transform then djinni_from_bottle (D-1144).
@@ -5252,8 +5243,8 @@ export async function dorub() {
     const u = game.u || {};
     if (obj !== u.uwep) {
         if (await wield_tool(obj, 'rub')) {
-            cmdq_add_ec(dorub);
-            cmdq_add_key(obj.invlet);
+            cmdq_add_ec(CQ_CANNED, dorub); // C apply.c:1808
+            cmdq_add_key(CQ_CANNED, obj.invlet); // C apply.c:1809
             return ECMD_TIME;
         }
         return ECMD_OK;

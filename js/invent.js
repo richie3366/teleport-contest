@@ -8563,16 +8563,24 @@ export function cmdq_add_int(q, val) {
 }
 
 /**
- * C cmd.c cmdq_add_key. Apply/dig/iactions keep canned clones (do not
- * write a fourth canned-only clone).
+ * C ref: cmd.c cmdq_add_key `:274–290`.
+ * Allocates a CMDQ_KEY node (`alloc` is GC) and tail-appends it on
+ * `command_queue[q]`. JS keeps each queue as an array: `cmdq_pop`
+ * shifts the head, so `push` is the `while (cq && cq->next)` walk.
+ * `key` is C `char`, stored as a one-character string.
  * @param {number} q CQ_CANNED or CQ_REPEAT
  * @param {string|number} key invlet or char code
  */
 export function cmdq_add_key(q, key) {
-    const name = cmdq_qname(q);
+    const name = cmdq_qname(q); // C :277 gc.command_queue[q]
     if (!game[name]) game[name] = [];
-    const k = typeof key === 'string' ? key : String.fromCharCode(key | 0);
-    game[name].push({ typ: CMDQ_KEY, key: k });
+    const tmp = {
+        typ: CMDQ_KEY, // C :279
+        key: typeof key === 'string' ? key : String.fromCharCode(key | 0), // C :280
+    };
+    // C :283–288 — walk to the tail and link, or install tmp as the head.
+    // Array push is that append for both arms.
+    game[name].push(tmp);
 }
 
 /**

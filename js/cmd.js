@@ -413,9 +413,10 @@ function rhack_cmd_insane(flags) {
 }
 
 /**
- * C ref: cmd.c cmdq_add_ec(q, fn) `:253–270` — typ CMDQ_EXTCMD,
- * ec_entry from ext_func_tab_from_func. herecmdmenu still queues
- * run-only nodes (txt empty; not a sixth clone of apply/dig/iactions).
+ * C ref: cmd.c cmdq_add_ec `:253–270` — typ CMDQ_EXTCMD, tail-append.
+ * C sets ec_entry via ext_func_tab_from_func(fn). JS stores the
+ * caller-supplied tab (txt/flags) and does not look the row up when
+ * tab is omitted, so rhack calls fn directly (empty txt).
  * @param {number} q
  * @param {Function} fn
  * @param {{ txt?: string, flags?: number } | null} [tab]
@@ -4639,8 +4640,8 @@ export async function rhack(key) {
                 if (!game.context) game.context = {};
                 // C: CMDQ_EXTCMD uses ext_func_tab (altdip INTERNALCMD).
                 // PREFIXCMD / MOVEMENTCMD go through rhack after func()
-                // (got_prefix_input / DOMOVE_WALK|RUSH). Bare-function clones
-                // from apply/dig/dothrow/iactions stay (do not add clone #6).
+                // (got_prefix_input / DOMOVE_WALK|RUSH). apply/dig/dothrow/
+                // iactions call this file's cmdq_add_ec (txt empty → run()).
                 let res;
                 let flags = 0;
                 if (typeof canned === 'function') {
