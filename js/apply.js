@@ -7,7 +7,7 @@ import {
     flush_screen, flush_topl_more, pline, pline_mon, canseemon, canspotmon, newsym,
     map_invisible, unmap_invisible, glyph_is_invisible, You_feel, sensemon,
     verbalize, mon_visible, tp_sensemon, see_with_infrared, tmp_at,
-    set_msg_xy, bot, impossible, You, You_cant, There, pline_The,
+    set_msg_xy, bot, impossible, You, You_cant, There, pline_The, You_see,
     map_object, obj_glyph, glyph_at, feel_newsym,
 } from './display.js';
 import { cansee, couldsee, howmonseen, unblock_point, recalc_block_point } from './vision.js';
@@ -2111,14 +2111,6 @@ const SPELLBOOK_FADENESS = [
 const NH_RED = 'red';
 
 /**
- * C ref: pline.c You_see — Blind → "You sense"; Unaware dream deferred.
- */
-async function You_see_apply(line) {
-    if (Blind()) await pline(`You sense ${line}`);
-    else await pline(`You see ${line}`);
-}
-
-/**
  * C ref: do_name.c hcolor — identity when not hallucinating.
  * Hallucination display-rng hcolors[] synonyms deferred.
  */
@@ -2129,8 +2121,7 @@ function hcolor_apply(colorpref) {
 /**
  * C ref: apply.c flip_through_book — apply a spellbook (including blank /
  * novel / Book of the Dead). Underwater is ECMD_OK (no time); else TIME.
- * Named omit: Soundeffect rustling; Unaware You_hear/You_see prefixes;
- * Hallucination hcolor display-rng.
+ * Named omit: Soundeffect rustling; Hallucination hcolor display-rng.
  * @returns {Promise<number>} ECMD_OK or ECMD_TIME
  */
 export async function flip_through_book(obj) {
@@ -2148,9 +2139,7 @@ export async function flip_through_book(obj) {
             const sound = Hallucination() ? 'chuckling' : 'rustling';
             await You_hear('the pages make an unpleasant %s sound.', sound);
         } else if (!Blind()) {
-            await You_see_apply(
-                `the pages glow faintly ${hcolor_apply(NH_RED)}.`,
-            );
+            await You_see('the pages glow faintly %s.', hcolor_apply(NH_RED));
         } else {
             await You_feel('the pages tremble.');
         }
@@ -3066,7 +3055,7 @@ async function use_stone(tstone) {
             + `${streak_color ? ' ' : ''}scratch marks on the ${stones}.`,
         );
     } else if (streak_color) {
-        await pline(`You see ${streak_color} streaks on the ${stones}.`);
+        await You_see('%s streaks on the %s.', streak_color, stones);
     } else {
         await pline(scritch);
     }
@@ -4406,8 +4395,8 @@ export async function fig_transform(figurine, timeout) {
             if (Blind() || suppress_see) {
                 await You_feel(`something ${loco} from your pack!`);
             } else {
-                await You_see_apply(
-                    `${monnambuf} ${loco} out of your pack${and_vanish}!`,
+                await You_see(
+                    '%s %s out of your pack%s!', monnambuf, loco, and_vanish,
                 );
             }
             break;
@@ -4418,8 +4407,8 @@ export async function fig_transform(figurine, timeout) {
                 if (suppress_see) {
                     await pline(`${an(xname(figurine))} suddenly vanishes!`);
                 } else {
-                    await You_see_apply(
-                        `a figurine transform into ${monnambuf}${and_vanish}!`,
+                    await You_see(
+                        'a figurine transform into %s%s!', monnambuf, and_vanish,
                     );
                 }
                 redraw = true;
@@ -4437,8 +4426,12 @@ export async function fig_transform(figurine, timeout) {
                 } else {
                     carriedby = 'thin air';
                 }
-                await You_see_apply(
-                    `${monnambuf} ${locomotion_fig(mtmp.data, 'drop')} out of ${carriedby}${and_vanish}!`,
+                await You_see(
+                    '%s %s out of %s%s!',
+                    monnambuf,
+                    locomotion_fig(mtmp.data, 'drop'),
+                    carriedby,
+                    and_vanish,
                 );
             }
             break;

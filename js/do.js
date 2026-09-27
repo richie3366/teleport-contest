@@ -677,7 +677,7 @@ async function lava_damage(obj, x, y) {
             if (thrown || kicked) {
                 await pline(`${is_plural(obj) ? 'They' : 'It'} ${otense(obj, 'burn')} up!`);
             } else {
-                await pline(`You see ${doname(obj)} hit lava and burn up!`);
+                await You_see('%s hit lava and burn up!', doname(obj));
             }
         }
         /* C trap.c:4607–4611 — carried is not expected; still unwear. */

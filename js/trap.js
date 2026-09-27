@@ -2244,8 +2244,10 @@ async function trapeffect_pit(mtmp, trap, trflags) {
         if (!Sokoban && is_clinger(game.youmonst?.data) && !plunged) {
             const spiked = ttype === SPIKED_PIT ? 'spiked ' : '';
             if (already_known) {
-                await pline(
-                    `You see ${a_your[trap.madeby_u ? 1 : 0]} ${spiked}pit below you.`,
+                await You_see(
+                    '%s %spit below you.',
+                    a_your[trap.madeby_u ? 1 : 0],
+                    spiked,
                 );
             } else {
                 const full = ttype === SPIKED_PIT ? 'full of spikes ' : '';
@@ -2606,8 +2608,9 @@ export function force_launch_placement() {
  * flooreffects + dist=-1 (D-1256). ROLL gate-drop via down_gate +
  * ship_object `:3424–3430`, post-switch flooreffects `:3509`, and
  * boulder-on-boulder chain `:3514–3529` (D-2318) and the
- * closed_door crash-through `:3533–3541` (this D-log). Named omissions:
- * LAUNCH_UNSEEN bowling msgs; dig context clear; STWALL `Thump!`;
+ * closed_door crash-through `:3533–3541` (this D-log). Seen
+ * LAUNCH_UNSEEN boulders call You_see. Named omissions:
+ * unseen You_hear bowling/rumbling; dig context clear; STWALL `Thump!`;
  * scatter MAY_FRACTURE/MAY_DESTROY/VIS_EFFECTS (explode.js); curs_on_u.
  * @returns {Promise<number>} 0 none, 1 placed, 2 used up
  */
@@ -2637,14 +2640,17 @@ export async function launch_obj(otyp, x1, y1, x2, y2, style) {
     }
     newsym(x1, y1);
 
-    // C: ROLL|LAUNCH_KNOWN → otrapped; ROLL|LAUNCH_UNSEEN rumble deferred
+    // C trap.c launch_obj `:3318–3332` — seen boulder You_see; unseen
+    // You_hear bowling/rumbling stays omitted (no Soundeffect here).
     let delaycnt = 1;
     if ((style & (ROLL | LAUNCH_KNOWN)) === (ROLL | LAUNCH_KNOWN)) {
         singleobj.otrapped = 1;
         style &= ~LAUNCH_KNOWN;
     }
     if ((style & LAUNCH_UNSEEN) !== 0) {
-        // rumble / bowling msgs deferred
+        if (otyp === BOULDER && cansee(x1, y1)) {
+            await You_see('%s start to roll.', an(xname(singleobj)));
+        }
         style &= ~LAUNCH_UNSEEN;
     }
     if ((style & ROLL) !== 0) delaycnt = 2;
@@ -4773,7 +4779,8 @@ export async function trapeffect_fire_trap(mtmp, trap, _trflags) {
             `A ${TOWER_OF_FLAME} erupts from the ${surf} under ${mon_nam(mtmp)}!`,
         );
     } else if (see_it) {
-        await pline(`You see a ${TOWER_OF_FLAME} erupt from the ${surf}!`);
+        set_msg_xy(mtmp.mx, mtmp.my);
+        await You_see('a %s erupt from the %s!', TOWER_OF_FLAME, surf);
     }
 
     if (resists_fire(mtmp)) {
@@ -5041,7 +5048,7 @@ async function domagictrap() {
             await make_blinded(rn1(5, 10), false);
             if (!Blind()) await pline(`Your ${VISION_CLEARS}`);
         } else if (!Blind()) {
-            await pline('You see a flash of light!');
+            await You_see('a flash of light!');
         }
         if (!Deaf()) {
             await You_hear('a deafening roar!');

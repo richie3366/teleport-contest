@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2981 `You_see` dreams, senses, or sees
+
+**C locus:** `nethack-c/upstream/src/pline.c:455–469` `You_see`. `va_start`, then Unaware → `YouPrefix` "You dream that you see ", else Blind → "You sense ", else "You see ". `strcat` appends `line`. `vpline` prints that format with the same args. `YouPrefix` is `pline.c:359–360`. Unaware is `youprop.h:399`. Blind is `youprop.h:104`.
+**JS:** `js/display.js` `You_see` `:7751`. Unaware `:7753`. Blind `:7755`. else `:7757`. `vpline` `:7759`. `pline_mon` `:7655`.
+**Change:** One exported `You_see` keeps that C order and calls `eat.js` `Unaware` and `invent.js` `Blind` (`imports.mjs --can` ALREADY). The four clones are gone. Callers that had hardcoded the sight line now call this export, with the name in a `%s` when C does.
+**Verify:** `node scripts/verify.mjs --fn You_see --reach-all` → PASS syntax (13 changed js file(s): js/apply.js js/dbridge.js js/detect.js js/display.js js/do.js js/engrave.js js/fountain.js js/mhitm.js js/mkobj.js js/monmove.js js/region.js js/timeout.js js/trap.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+**Named:** No arm of `You_see` is omitted. `You_buf` stays unneeded (JS strings).
+**Next:** `worn.c` `check_wornmask_slots` (next Open — coverage row).
 ## 2026-09-27 — D-2980 `singular` names one corpse with its monster type
 
 **C locus:** `nethack-c/upstream/src/objnam.c:2091–2105` `singular`. If `otyp == CORPSE` and `func == xname`, `func` becomes `cxname`. Save `quan`, set it to `1L`, call `func`, restore `quan`, return that name.

@@ -3307,7 +3307,7 @@ export async function obj_meld(p1, p2) {
  */
 export async function pudding_merge_message(otmp, otmp2) {
     if (!otmp || !otmp2) return;
-    const { pline } = await import('./display.js');
+    const { pline, You_see } = await import('./display.js');
     const { cansee } = await import('./vision.js');
     const { obj_typename, makeplural } = await import('./objnam.js');
     const Blind = () => {
@@ -3328,7 +3328,7 @@ export async function pudding_merge_message(otmp, otmp2) {
     const inpack = carried(otmp) || carried(otmp2);
     if ((!Blind() && visible) || inpack) {
         if (Hallucination()) {
-            if (onfloor) await pline('You see parts of the floor melting!');
+            if (onfloor) await You_see('parts of the floor melting!');
             else if (inpack) {
                 await pline('Your pack reaches out and grabs something!');
             }
