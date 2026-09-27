@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2937 — `mkaltar` places an ordinary-room altar through `set_levltyp`
+
+- **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked). C is 18 lines; the whole body shipped. `double_punch` was already the compiled body (Stale index). No other Open row in `mklev.c`.
+- **Symptom:** An ordinary-room altar was created by assigning `typ = ALTAR` and `flags`. `set_levltyp` never ran, so an ice cell skipped melt timers and a refused cell still drew `rn2`. Readers that use `altarmask | 0` (priest, teleport, farlook) saw an unaligned altar. `icedpool` stayed set on an ice cell because that bit lives in C's `flags` word.
+- **C locus:** `nethack-c/upstream/src/mklev.c:2332–2350` `mkaltar`. If `croom->rtype != OROOM`, return. `find_okay_roompos`. `set_levltyp(m.x, m.y, ALTAR)` false returns before the draw. `al = rn2((int) A_LAWFUL + 2) - 1` (`A_LAWFUL` is 1, so `rn2(3) - 1` is chaotic, neutral, or lawful). `levl[m.x][m.y].altarmask = Align2amask(al)`. `altarmask` is `#define flags` (`rm.h:214`), so that store replaces the flags word.
+- **JS was:** `js/mklev.js` `mkaltar` returned on `!croom` or a non-ordinary room, then on a missing cell. It assigned `typ = ALTAR`, drew `rn2`, and wrote `flags` only. No `set_levltyp`. No `altarmask`. `icedpool` left in place.
+- **Fix:** One file-local `mkaltar` in that C order. `set_levltyp` is the `trap.js` export. The alignment is stored on `altarmask` and on `flags`. `icedpool` is cleared because C's assignment replaces that word. A null `croom` throws.
+- **JS:** `js/mklev.js` `mkaltar` `:32470`. OROOM gate `:32471`. `find_okay_roompos` `:32475` (body `:32286`). `set_levltyp` `:32479` (`js/trap.js:864`). `rn2` `:32483`. `Align2amask` `:32485` (`js/const.js:301`). `altarmask` / `flags` `:32486–32487`. `icedpool` `:32488`.
+- **Callers:** Prototype `mklev.c:18` (declaration only). `mklev.c:995` `fill_ordinary_room` → `js/mklev.js:32581`. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn mkaltar` → PASS syntax (1 changed js file: js/mklev.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (1 baseline-PASS session(s) reach it (1 run, 1.7s): 1 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+- **Named omissions:** No arm of `mkaltar` is omitted. `set_levltyp`'s secret-door-to-air arm and full `count_level_features` rescan stay named on that function; `somexyspace` only yields ROOM, CORR, or ICE, so the fountain and sink recount does not run here. `CAN_OVERWRITE_TERRAIN` still omits `debug_overwrite_stairs`. `doormask`, `wall_info`, `looted`, `ladder`, and `drawbridgemask` are separate JS fields and are not cleared; those overlays are already 0 on a `somexyspace` cell. `set_levltyp` treats ice as `typ === ICE`, not `is_ice` (drawbridge ice).
+- **Next:** `mkroom.c` `shrine_pos` (next Open — coverage row). Eight coverage rows remain after the Stale park and this archive, at the floor of 8, so nothing was refilled.
+
 ## D-2936 — `dealloc_killer` reports a node that is not on the list
 
 - **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked). C is 19 lines; the whole body shipped. `cnv_trap_obj` was already the compiled body (Stale index). No other Open row in `end.c`.

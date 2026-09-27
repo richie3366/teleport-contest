@@ -32459,15 +32459,33 @@ function mkfount(croom) {
     }
 }
 
+/**
+ * C ref: mklev.c mkaltar :2332–2350.
+ * Ordinary rooms only. set_levltyp(ALTAR) runs before the alignment draw;
+ * a refused cell returns and does not call rn2. C altarmask is rm.flags
+ * (rm.h:214), so the assignment replaces that word. JS stores the mask
+ * on altarmask (readers that do not fall back to flags) and on flags.
+ * icedpool is the same word in C; a somexyspace ICE cell must not keep it.
+ */
 function mkaltar(croom) {
-    if (!croom || croom.rtype !== OROOM) return;
-    const pos = { x: 0, y: 0 };
-    if (!find_okay_roompos(croom, pos)) return;
-    const loc = game.level?.at(pos.x, pos.y);
-    if (!loc) return;
-    loc.typ = ALTAR;
+    if (croom.rtype !== OROOM)
+        return;
+
+    const m = { x: 0, y: 0 };
+    if (!find_okay_roompos(croom, m))
+        return;
+
+    /* Put an altar at m.x, m.y */
+    if (!set_levltyp(m.x, m.y, ALTAR))
+        return;
+
+    /* -1 - A_CHAOTIC, 0 - A_NEUTRAL, 1 - A_LAWFUL */
     const al = rn2(A_LAWFUL + 2) - 1;
-    loc.flags = Align2amask(al);
+    const loc = game.level.at(m.x, m.y);
+    const amask = Align2amask(al);
+    loc.altarmask = amask;
+    loc.flags = amask;
+    loc.icedpool = 0;
 }
 
 // C ref: mklev.c mksink :2316-2329 — find_okay_roompos, set_levltyp(SINK),

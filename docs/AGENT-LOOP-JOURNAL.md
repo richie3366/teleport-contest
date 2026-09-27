@@ -7,6 +7,14 @@ lives in `NOTES.md` / `CURRENT.md`.
 The next agent reads **only this file** (latest ~10 entries), not the
 archive under `docs/archive/`. Do not copy crumbs by hand. Overflow is
 `node scripts/rotate-journal.mjs` (or `check-hot-docs.mjs --fix`).
+## 2026-09-27 — D-2937 `mkaltar` places an ordinary-room altar through `set_levltyp`
+
+**C locus:** `nethack-c/upstream/src/mklev.c:2332–2350` `mkaltar`. If `croom->rtype != OROOM`, return. `find_okay_roompos`. `set_levltyp(m.x, m.y, ALTAR)` false returns before the draw. `al = rn2((int) A_LAWFUL + 2) - 1` (`A_LAWFUL` is 1, so `rn2(3) - 1` is chaotic, neutral, or lawful). `levl[m.x][m.y].altarmask = Align2amask(al)`. `altarmask` is `#define flags` (`rm.h:214`), so that store replaces the flags word.
+**JS:** `js/mklev.js` `mkaltar` `:32470`. OROOM gate `:32471`. `find_okay_roompos` `:32475` (body `:32286`). `set_levltyp` `:32479` (`js/trap.js:864`). `rn2` `:32483`. `Align2amask` `:32485` (`js/const.js:301`). `altarmask` / `flags` `:32486–32487`. `icedpool` `:32488`.
+**Change:** One file-local `mkaltar` in that C order. `set_levltyp` is the `trap.js` export. The alignment is stored on `altarmask` and on `flags`.
+**Verify:** `node scripts/verify.mjs --fn mkaltar` → PASS syntax (1 changed js file: js/mklev.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (1 baseline-PASS session(s) reach it (1 run, 1.7s): 1 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · PASS full 44/44 (auto: shared file changed) · VERIFY: PASS.
+**Named:** No arm of `mkaltar` is omitted. `set_levltyp`'s secret-door-to-air arm and full `count_level_features` rescan stay named on that function; `somexyspace` only yields ROOM, CORR, or ICE, so the fountain and sink recount does not run here.
+**Next:** `mkroom.c` `shrine_pos` (next Open — coverage row). Eight coverage rows remain after the Stale park and this archive, at the floor of 8, so nothing was refilled.
 ## 2026-09-27 — D-2936 `dealloc_killer` reports a node that is not on the list
 
 **C locus:** `nethack-c/upstream/src/end.c:1738–1757` `dealloc_killer`. `prev` starts at `&svk.killer`. A null `kptr` returns. The walk is `svk.killer.next` until null, breaking when `k == kptr`. If the walk ends on null, `impossible("dealloc_killer (#%d) not on list", kptr->id)`. Otherwise `prev->next = k->next`, `free(k)`, and `debugpline1("freed delayed killer #%d", kptr->id)`. `debugpline1` is `lint.h:61` `ifdebug(pline)` because `DEBUG` is on (`patchlevel.h:36`). `showdebug("end.c")` is `debugcore(file, TRUE)`. The false arm does not pline. The true arm saves `iflags.last_msg`, plines, and restores it.

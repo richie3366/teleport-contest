@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-27
 
-- [x] `end.c` dealloc_killer — coverage PARTIAL (C 19 L `end.c:1738–1757` / JS 11 L in js/end.js; hops 1, callers 8, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dealloc_killer` (reach regression must be 0). Measured `port-coverage.mjs --name dealloc_killer` 2026-09-27 @ f36a7b952. **Addressed:** D-2936
+- [x] `mklev.c` mkaltar — coverage PARTIAL (C 18 L `mklev.c:2332–2350` / JS 10 L in js/mklev.js; hops 2, callers 1, RNG 1, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn mkaltar` (reach regression must be 0). Measured `port-coverage.mjs --name mkaltar` 2026-09-27 @ f36a7b952. **Addressed:** D-2937
+
+
+- [x] `end.c` dealloc_killer — coverage PARTIAL (C 19 L `end.c:1738–1757` / JS 11 L in js/end.js; hops 1, callers 8, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn dealloc_killer` (reach regression must be 0). Measured `port-coverage.mjs --name dealloc_killer` 2026-09-27 @ f36a7b952. **Addressed:** D-2936 `4dd4bd973`
 
 
 - [x] `lock.c` obstructed — coverage PARTIAL (C 27 L `lock.c:926–953` / JS 16 L in js/lock.js; hops 4, callers 3, RNG 0, msg 2). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn obstructed` (reach regression must be 0). Measured `port-coverage.mjs --name obstructed` 2026-09-27 @ 4df3fffc0. **Addressed:** D-2935 `ffc2c8e96`
