@@ -29,7 +29,7 @@
 {"fn":"clear_dknown","c":"835-848","status":"unknown"}
 {"fn":"unknow_object","c":"854-865","status":"unknown"}
 {"fn":"mksobj_init","c":"869-1175","status":"unknown","d":["D-2265"],"at":"seed@a30a7de84"}
-{"fn":"mksobj","c":"1179-1259","status":"unknown"}
+{"fn":"mksobj","c":"1179-1259","status":"ported","js":["js/mkobj.js:mksobj"],"d":["D-2965"],"at":"2026-09-27@8b4ddcb7c"}
 {"fn":"stone_object_type","c":"1264-1271","status":"unknown"}
 {"fn":"stone_furniture_type","c":"1276-1295","status":"unknown"}
 {"fn":"set_corpsenm","c":"1318-1367","status":"ported","d":["D-2818"],"at":"seed@a30a7de84","note":"seed: js location unresolved"}
