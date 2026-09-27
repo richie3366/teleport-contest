@@ -4296,7 +4296,8 @@ export async function loot_mon(mtmp, passed_info, prev_loot) {
                     );
                     return 1;
                 }
-                extract_from_minvent(mtmp, otmp, true, false);
+                const ex = extract_from_minvent(mtmp, otmp, true, false);
+                if (ex && typeof ex.then === 'function') await ex;
                 if (game.flags?.verbose !== false) {
                     await pline(
                         `You take ${thesimpleoname(otmp)} off of ${mon_nam(mtmp)}.`,

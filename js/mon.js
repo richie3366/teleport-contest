@@ -1835,7 +1835,8 @@ async function mdrop_obj(mon, obj, verbosely) {
     const obj_name = distant_name(obj, doname);
     // C: extract_from_minvent(mon, obj, FALSE, TRUE); the unlink fallback
     // keeps C's post-state when the obj lacks a MINVENT where-tag.
-    extract_from_minvent(mon, obj, false, true);
+    const ex = extract_from_minvent(mon, obj, false, true);
+    if (ex && typeof ex.then === 'function') await ex;
     unlink_minvent(mon, obj);
     // C steal.c:830–837 — don't charge for an owned saddle on a tame steed
     // dropped in its shop (costly_spot guarantees roomno is not 0).
@@ -1879,7 +1880,8 @@ export async function mdrop_special_objs(mon) {
                 await mdrop_obj(mon, obj, false);
             } else {
                 // C steal.c:865–868 — migrating mon off map: extract + rloco.
-                extract_from_minvent(mon, obj, true, true);
+                const ex = extract_from_minvent(mon, obj, true, true);
+                if (ex && typeof ex.then === 'function') await ex;
                 unlink_minvent(mon, obj);
                 obj.nobj = null;
                 obj.nexthere = null;
@@ -3612,15 +3614,19 @@ export function find_mid(nid, fmflags = 0) {
 set_find_mid(find_mid);
 
 /**
- * C ref: mkobj.c discard_minvent — remaining invent leaves the game.
- * mongone passes FALSE. Named omit: extract_from_minvent worn extrinsics;
- * artifact_exists when uncreate_artifacts.
+ * C ref: mkobj.c discard_minvent `:2524–2536` — remaining invent leaves
+ * the game. `extract_from_minvent(TRUE, TRUE)` first (worn extrinsics,
+ * held-core, mwepgone). Untagged minvent (where not OBJ_MINVENT) makes
+ * extract impossible-and-return; unlink so the loop still terminates.
+ * mongone passes FALSE. Named omit: artifact_exists + obfree.
  */
 export function discard_minvent(mtmp, _uncreate_artifacts) {
     if (!mtmp) return;
     while (mtmp.minvent) {
         const otmp = mtmp.minvent;
-        unlink_minvent(mtmp, otmp);
+        /* C `:2531` — sync; a light/impossible promise floats. */
+        extract_from_minvent(mtmp, otmp, true, true);
+        if (mtmp.minvent === otmp) unlink_minvent(mtmp, otmp);
         otmp.nobj = null;
         otmp.nexthere = null;
     }
@@ -3630,7 +3636,8 @@ export function discard_minvent(mtmp, _uncreate_artifacts) {
  * C ref: mon.c mongone — unstuck, mdrop_special_objs, discard_minvent,
  * then m_detach subset (D-1149). Clog victim must not vanish specials.
  * Named omit: isgd && !grddead; m_detach wizdead/shkgone/wormgone/
- * MON_DETACH/dismount_steed; extract_from_minvent worn.
+ * MON_DETACH/dismount_steed. discard_minvent calls extract_from_minvent;
+ * artifact_exists and obfree stay omitted there.
  */
 export async function mongone(mtmp) {
     if (!mtmp) return;

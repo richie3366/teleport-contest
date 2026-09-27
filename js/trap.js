@@ -4494,7 +4494,8 @@ export async function erode_obj(otmp, ostr, type, ef_flags) {
                 await remove_worn_item(otmp, true);
             } else if ((otmp.where | 0) === OBJ_MINVENT) {
                 /* C: results in otmp->where==OBJ_FREE; delobj doesn't care */
-                extract_from_minvent(otmp.ocarry, otmp, true, false);
+                const ex = extract_from_minvent(otmp.ocarry, otmp, true, false);
+                if (ex && typeof ex.then === 'function') await ex;
             } else {
                 /* C: worn but not in hero invent or monster minvent? */
                 await impossible(`erode_obj(${type | 0}): destroying strangely worn item [${otmp.where | 0}, 0x${(otmp.owornmask >>> 0).toString(16).padStart(8, '0')}: ${simpleonames(otmp)}]`);
@@ -5701,7 +5702,8 @@ async function trapeffect_poly_trap(mtmp, trap, trflags) {
     if (wearing_iron_shoes(mtmp)) {
         /* remove and readd the shoes to forcibly unwear them */
         let shoes = which_armor(mtmp, W_ARMF);
-        extract_from_minvent(mtmp, shoes, true, true);
+        const shoeEx = extract_from_minvent(mtmp, shoes, true, true);
+        if (shoeEx && typeof shoeEx.then === 'function') await shoeEx;
         if (mpickobj(mtmp, shoes)) {
             await impossible('re-equipping iron shoes destroyed them?');
             return Trap_Effect_Finished;

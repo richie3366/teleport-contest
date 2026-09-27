@@ -5,7 +5,10 @@ first. Do not pop work from here. Live queue is unchecked-only.
 
 ## 2026-09-27
 
-- [x] `mon.c` maybe_unhide_at — coverage PARTIAL (C 22 L `mon.c:4698–4720` / JS 12 L in js/monmove.js; hops 2, callers 21, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn maybe_unhide_at` (reach regression must be 0). Measured `port-coverage.mjs --name maybe_unhide_at` 2026-09-27 @ 4c8d21966. **Addressed:** D-2923
+- [x] `worn.c` extract_from_minvent — coverage PARTIAL (C 35 L `worn.c:1377–1417` / JS 22 L in js/worn.js; hops 2, callers 15, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn extract_from_minvent` (reach regression must be 0). Measured `port-coverage.mjs --name extract_from_minvent` 2026-09-27 @ ce04557f4. **Addressed:** D-2924
+
+
+- [x] `mon.c` maybe_unhide_at — coverage PARTIAL (C 22 L `mon.c:4698–4720` / JS 12 L in js/monmove.js; hops 2, callers 21, RNG 0, msg 0). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn maybe_unhide_at` (reach regression must be 0). Measured `port-coverage.mjs --name maybe_unhide_at` 2026-09-27 @ 4c8d21966. **Addressed:** D-2923 `c558457f9`
 
 
 - [x] `wield.c` cant_wield_corpse — coverage MISSING (C 15 L `wield.c:138–153` / JS no symbol; hops 4, callers 2, RNG 0, msg 1). Port the whole C body in C order — every arm, every callee live or named in the map, every C caller wired. Verify `node scripts/verify.mjs --fn cant_wield_corpse` (reach regression must be 0). Measured `port-coverage.mjs --name cant_wield_corpse` 2026-09-27 @ 4c8d21966. **Addressed:** D-2922 `b88b8599f`

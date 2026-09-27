@@ -2209,7 +2209,8 @@ async function disintegrate_mon(mon, type, fltxt) {
     for (let otmp = mon?.minvent; otmp;) {
         const otmp2 = otmp.nobj;
         if (!oresists_disintegration(otmp, m_amulet)) {
-            extract_from_minvent(mon, otmp, true, true);
+            const ex = extract_from_minvent(mon, otmp, true, true);
+            if (ex && typeof ex.then === 'function') await ex;
             obfree(otmp, null);
         }
         otmp = otmp2;

@@ -2289,7 +2289,8 @@ export async function gelcube_digests(mtmp) {
     if (!otmp) return -1;
 
     mtmp.meating = eaten_stat(mtmp.meating | 0, otmp);
-    extract_from_minvent(mtmp, otmp, true, true);
+    const ex = extract_from_minvent(mtmp, otmp, true, true);
+    if (ex && typeof ex.then === 'function') await ex;
     await m_consume_obj(mtmp, otmp);
     return 0;
 }
@@ -2411,7 +2412,8 @@ async function leppie_stash(mtmp) {
     if (!gold) return;
     // C mdrop_obj(mtmp, gold, FALSE): distant_name before extract
     distant_name(gold, doname);
-    extract_from_minvent(mtmp, gold, false, true);
+    const ex = extract_from_minvent(mtmp, gold, false, true);
+    if (ex && typeof ex.then === 'function') await ex;
     place_object(gold, mtmp.mx, mtmp.my);
     stackobj(gold);
     const floorGold = g_at(mtmp.mx, mtmp.my);

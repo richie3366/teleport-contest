@@ -2630,7 +2630,7 @@ export function mkobj_at(oclass, x, y, artif) {
 // position, before the revert, floated (void — invent.js:652 precedent;
 // its sync prefix returns before the first await unless obj is unpaid
 // shop goods, shk.js:2288); then otyp=WORM_TOOTH + oerodeproof=0.
-function place_object_no_longer_held(obj) {
+export function place_object_no_longer_held(obj) {
     if (!obj) return; // C `:895–896`
     if (Has_contents(obj)) { // C `:897–902` — else-if ≡ sequential if after return
         for (let contents = obj.cobj; contents; contents = contents.nobj)

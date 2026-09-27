@@ -1208,7 +1208,8 @@ async function hmon_hitmon_weapon_melee(mon, obj, ctx) {
             await pline(`${s_suffix(Monnam(mon))} weapon${(monwep.quan | 0) === 1 ? '' : 's'} ${otense(monwep, 'shatter')}${from_your_blow}`);
         }
         // C m_useupall: extract + free; JS has no manual free (GC).
-        extract_from_minvent(mon, monwep, true, false);
+        const ex = extract_from_minvent(mon, monwep, true, false);
+        if (ex && typeof ex.then === 'function') await ex;
         if (rn2(4)) {
             await monflee(mon, d(2, 3), true, true);
         }
@@ -2640,7 +2641,8 @@ export async function steal_it(mdef, mattk) {
             find_artifact(otmp);
         }
         /* take the object away from the monster */
-        extract_from_minvent(mdef, otmp, true, false);
+        const ex = extract_from_minvent(mdef, otmp, true, false);
+        if (ex && typeof ex.then === 'function') await ex;
         /* special message for final item; no need to check owornmask because
          * ustealo is only set on objects with (owornmask & W_ARM) */
         if (otmp === ustealo) {
