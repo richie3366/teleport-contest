@@ -1,5 +1,18 @@
 # Divergence log
 
+## D-2957 — `tmiss` sends a seen miss through `miss`
+
+- **Status:** fixed (coverage PARTIAL; `hidden-proxy verify` reports no corpus session blocked). C is 16 lines; the whole body shipped. No other Open row in `dothrow.c`.
+- **Symptom:** A missile the hero can see missed through a local copy of the miss message. An unseen monster, or one disguised as something other than a monster, already printed `The` plus `otense`.
+- **C locus:** `nethack-c/upstream/src/dothrow.c:1951–1967` `tmiss`. `mshot_xname` names the missile. `!canseemon(mon)` or `M_AP_TYPE` other than `M_AP_MONSTER` prints `The(missile)` and `otense(obj, "miss")`. Otherwise `miss` (`zap.c:3571–3576`). Then `maybe_wakeup && !rn2(3)` calls `wakeup(mon, TRUE)`. The `rn2` is not drawn when `maybe_wakeup` is false.
+- **JS was:** `js/dothrow.js` `tmiss` already followed that order, but the seen arm called file-local `miss_missile`, a copy of `zap.c` `miss`. The six `thitmonst` sites already passed the C `TRUE`/`FALSE` values.
+- **Fix:** One file-local `tmiss` keeps that C order and calls `mthrowu.js` `miss`. `imports.mjs --can js/dothrow.js js/mthrowu.js miss` was SAFE (hoisted). `miss_missile` is gone. The unseen arm still uses `objnam.js` `The` and `otense`. `rn2(3)` still runs only when `maybe_wakeup` is true.
+- **JS:** `js/dothrow.js` import `:125`. `tmiss` `:353`. Name `:355`. Unseen arm `:357–359`. Seen arm `:361` (`miss` `js/mthrowu.js:806`). Wake `:364`.
+- **Callers:** Prototype `dothrow.c:22` (declaration only). `dothrow.c:2090` helpless unicorn → `js/dothrow.js:631` (`FALSE`). `dothrow.c:2228` weapon/weptool/gem miss → `:745` (`TRUE`, then `HMON_APPLIED` `wakeup`). `dothrow.c:2244` iron ball → `:765` (`TRUE`). `dothrow.c:2253` boulder → `:775` (`TRUE`). `dothrow.c:2272` refused food → `:794` (`FALSE`). `dothrow.c:2300` other miss → `:818` (`TRUE`). No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn tmiss` → PASS syntax (1 changed js file: js/dothrow.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.2s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (no shared file changed; pass --full to force) · VERIFY: PASS.
+- **Named omissions:** No arm of `tmiss` is omitted. `miss` still reads a missing `bhitpos` as the monster's coordinates. `mthrowu.js` `The` is the same `the()` capitalizer as `objnam.js` `The`.
+- **Next:** `objnam.c` `yname` (next Open — coverage row). Eight coverage rows remain after this archive, at the floor of 8, so nothing was refilled.
+
 ## D-2956 — `mon_animal_list` fills the animal index and frees it
 
 - **Status:** fixed (coverage MISSING; `hidden-proxy verify` reports no corpus session blocked). C is 23 lines; the whole body shipped. Same-file `dead_species` was already the C body (`js/mon.js:852`); parked Stale, not re-ported.

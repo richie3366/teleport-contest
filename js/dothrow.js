@@ -121,6 +121,8 @@ import {
     check_shop_obj, costly_spot, shop_keeper, stolen_value, inside_shop,
     make_angry_shk, obfree,
 } from './shk.js';
+// imports.mjs --can js/dothrow.js js/mthrowu.js miss: hoisted, cycle-safe.
+import { miss } from './mthrowu.js';
 
 const GLASS = 19;
 const POT_WATER = objectNames.indexOf('POT_WATER');
@@ -340,30 +342,25 @@ function befriend_with_obj(ptr, obj) {
 }
 
 /**
- * C ref: zap.c miss — "The <missile> misses <mon>."
- * Local copy for tmiss (mthrowu miss is not exported).
- */
-async function miss_missile(str, mtmp) {
-    const bx = game.bhitpos?.x ?? mtmp.mx;
-    const by = game.bhitpos?.y ?? mtmp.my;
-    const whom = ((cansee(bx, by) || canspotmon(mtmp))
-        && game.flags?.verbose !== false)
-        ? mon_nam(mtmp) : 'it';
-    await pline(`${The(str)} ${vtense(str, 'miss')} ${whom}.`);
-}
-
-/**
- * C ref: dothrow.c tmiss :1951-1969 — miss message + maybe_wakeup
- * `!rn2(3)` → wakeup; missile via mshot_xname (objnam.c:1090-1102).
+ * C ref: dothrow.c tmiss `:1951–1967`.
+ * Unseen or non-monster disguise: "The <missile> misses." via otense.
+ * Otherwise zap.c miss (The + vtense "miss" + mon_nam or "it").
+ * maybe_wakeup draws rn2(3) and wakes on 0.
+ * @param {object} obj
+ * @param {object} mon
+ * @param {boolean} maybe_wakeup
  */
 async function tmiss(obj, mon, maybe_wakeup) {
-    const missile = mshot_xname(obj); // C dothrow.c:1953
+    // C dothrow.c:1953
+    const missile = mshot_xname(obj);
+    // C :1959–1963 — disguise that is not M_AP_MONSTER, or !canseemon
     if (!canseemon(mon)
         || (M_AP_TYPE(mon) && M_AP_TYPE(mon) !== M_AP_MONSTER)) {
         await pline(`${The(missile)} ${otense(obj, 'miss')}.`);
     } else {
-        await miss_missile(missile, mon);
+        await miss(missile, mon); // zap.c:3571
     }
+    // C :1964–1965 — short-circuit: rn2 only when maybe_wakeup
     if (maybe_wakeup && !rn2(3)) await wakeup(mon, true);
 }
 
