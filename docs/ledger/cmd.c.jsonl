@@ -111,7 +111,7 @@
 {"fn":"redraw_cmd","c":"3911-3918","status":"unknown"}
 {"fn":"get_adjacent_loc","c":"3931-3953","status":"unknown"}
 {"fn":"getdir","c":"3958-4119","status":"partial","js":["js/lock.js:getdir"],"omit":"`readchar`/`readchar_queue`/`readchar_core` (altmeta pushback empty in sessions; nhgetch covers it); `docrt_flags` (live `flush_screen(1)` is the redraw_map path); `sgn` (inline, no 16th clone); `You_cant` (net-identical pline); swap_yz/phone_layout/pcHack num_pad variants + `M(digit)` run/rush + `…","d":["D-2434","D-2117","D-1806","D-1729","D-1721"],"at":"seed@a30a7de84"}
-{"fn":"show_direction_keys","c":"4122-4165","status":"unknown"}
+{"fn":"show_direction_keys","c":"4122-4165","status":"ported","js":["js/dokeylist.js:show_direction_keys"],"d":["D-2970"],"at":"2026-09-27@a5772c318"}
 {"fn":"help_dir","c":"4171-4296","status":"ported","js":["js/lock.js:help_dir"],"d":["D-2495"],"at":"seed@a30a7de84"}
 {"fn":"confdir","c":"4300-4310","status":"unknown"}
 {"fn":"directionname","c":"4313-4323","status":"unknown"}

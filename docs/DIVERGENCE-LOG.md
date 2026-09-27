@@ -1,5 +1,19 @@
 # Divergence log
 
+## D-2970 — `show_direction_keys` draws both grids from live move binds
+
+- **Status:** fixed (coverage PARTIAL; hidden-proxy verify reports no corpus session blocked). C is 35 code lines; the whole body shipped. No other `cmd.c` Open row is an arm of this function.
+- **Symptom:** The key-list grid always used the default `!num_pad` letters, a hardcoded `.`, and `?` when a direction was unbound. It never drew the cardinal-only cross. Direction help had a second copy of the same C function.
+- **C locus:** `nethack-c/upstream/src/cmd.c:4122–4165` `show_direction_keys`. A falsy `centerchar` becomes `' '`. `nodiag` prints north, a bar, `west- center -east`, a bar, and south. Otherwise the eight-way grid is northwest/north/northeast, `\ | /`, `west- center -east`, `/ | \`, southwest/south/southeast. Every label is `visctrl(cmd_from_func(do_move_*))` and every line is `putstr(win, 0, buf)`.
+- **JS was:** `js/dokeylist.js` `show_direction_keys(lines)` scanned `build_default_cmdbinds()` and preferred `ykuhljbn`. `js/lock.js` had a second local function that took `centerchar` and `nodiag` and called `cmd_from_dir`.
+- **Fix:** One exported `show_direction_keys` keeps that C order and calls `cmd_from_func` on each `do_move_*` extcmd name. `dokeylist` passes `'.'` and false. `help_dir` passes `'.'` or `' '` and `NODIAG(u.umonnum)` (`PM_GRID_BUG`). The lock.js copy is gone. `lines.push` is `putstr` for the text window both callers already display.
+- **JS:** `js/dokeylist.js` `show_direction_keys` `:692`. Falsy center `:694`. Cardinal grid `:700–706`. Eight-way grid `:708–714`. `dokeylist_lines` call `:754`. `js/lock.js` `help_dir` call `:263`.
+- **Callers:** `cmd.c:2919` `dokeylist` → `js/dokeylist.js:754`. `cmd.c:4268` `help_dir` → `js/lock.js:263`. `cmd.c:139` is the prototype. No call from a site C never calls from.
+- **Verify:** `node scripts/verify.mjs --fn show_direction_keys` → PASS syntax (2 changed js files: js/dokeylist.js js/lock.js) · PASS rule2 · note hidden (no corpus session blocked on it at baseline; the queue row cited 0 blocks) · PASS reach (no RNG-tagged reach; fixed smoke spread 12 run, 3.3s: 12 PASS, 0 regressed → REACH-OK) · PASS green 2/2 · PASS strict ×2 · PASS cohort 7/7 · skip full (script shared-file list does not include js/dokeylist.js or js/lock.js) · VERIFY: PASS.
+- **Named omissions:** No arm of `show_direction_keys` is omitted. `cmd_from_func` and `visctrl` are the live exports. The NHW_TEXT window is the caller's line array.
+- **Ledger:** show_direction_keys ported
+- **Next:** `insight.c` `background_enlightenment` (next Open — coverage row). `cmd.c` `parse`, `cmdq_add_key`, and `cmdbind_get` stay in the coverage block.
+
 ## D-2969 — `trapeffect_dart_trap` poisons the hero dart and gates the monster click
 
 - **Status:** fixed (coverage PARTIAL; hidden-proxy verify reports no corpus session blocked). C is 54 code lines; the whole body shipped. `aobjnam` was already complete at `js/objnam.js:2816` and was marked stale before this port. No other Open row in `trap.c`.

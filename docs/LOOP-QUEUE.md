@@ -112,7 +112,6 @@ body in C order — every arm, every callee live or named, every C caller
 wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 
 <!-- coverage:begin -->
-- [ ] `cmd.c` show_direction_keys — coverage PARTIAL (C 35 code L `cmd.c:4122–4165` / JS 25 code L in js/dokeylist.js; hops 2, callers 2, RNG 0, msg 10) @988c639a6
 - [ ] `insight.c` background_enlightenment — coverage MISSING (C 142 code L `insight.c:468–722` / JS no symbol; hops 5, callers 1, RNG 0, msg 3) @a6c00e025
 - [ ] `read.c` seffect_enchant_armor — coverage PARTIAL (C 133 code L `read.c:1115–1290` / JS 97 code L in js/read.js; hops 5, callers 1, RNG 4, msg 7) @fa5382192
 - [ ] `cmd.c` parse — coverage MISSING (C 31 code L `cmd.c:5096–5151` / JS no symbol; hops 1, callers 2, RNG 0, msg 0; split? cited 64× in js/ — brief first) @fa5382192
@@ -124,6 +123,7 @@ wired — 200–800 lines, `node scripts/verify.mjs --fn <fn>` REACH-OK.
 - [ ] `worn.c` which_armor — coverage PARTIAL (C 25 code L `worn.c:1006–1036` / JS 17 code L in js/worn.js; hops 2, callers 54, RNG 0, msg 0) @06237de26
 - [ ] `cmd.c` cmdbind_get — coverage THIN (C 8 code L `cmd.c:2110–2123` / JS 3 code L in js/dokeylist.js; hops 1, callers 14, RNG 0, msg 0) @f02368fbc
 - [ ] `zap.c` get_obj_location — coverage PARTIAL (C 27 code L `zap.c:654–689` / JS 19 code L in js/timeout.js; hops 2, callers 40, RNG 0, msg 0) @f02368fbc
+- [ ] `cmd.c` cmdq_add_ec — coverage PARTIAL (C 11 code L `cmd.c:254–270` / JS 7 code L in js/cmd.js; hops 1, callers 16, RNG 0, msg 0) @a5772c318
 <!-- coverage:end -->
 
 ## Open — corpus residuals (breadth phase: ship only with a same-C-file coverage row)
