@@ -91,7 +91,7 @@
 {"fn":"rm_mapseen","c":"2665-2692","status":"unknown"}
 {"fn":"save_mapseen","c":"2695-2717","status":"unknown","d":["D-1685"],"at":"seed@a30a7de84"}
 {"fn":"load_mapseen","c":"2721-2754","status":"unknown"}
-{"fn":"overview_stats","c":"2761-2801","status":"partial","js":["js/dungeon.js:overview_stats"],"omit":"`wiz_show_stats` (`wizcmds.c:1616–1697`) and its object/monster chain helpers.","d":["D-2874"],"at":"seed@a30a7de84"}
+{"fn":"overview_stats","c":"2761-2801","status":"ported","js":["js/dungeon.js:overview_stats"],"d":["D-2975","D-2874"],"at":"2026-09-27@3b405b65a"}
 {"fn":"remdun_mapseen","c":"2811-2832","status":"unknown"}
 {"fn":"init_mapseen","c":"2835-2871","status":"unknown"}
 {"fn":"interest_mapseen","c":"2880-2923","status":"ported","js":["js/dungeon.js:interest_mapseen"],"at":"seed@a30a7de84","note":"stale 2026-09-20"}
